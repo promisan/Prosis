@@ -1,0 +1,309 @@
+
+<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>"> 
+
+<cfset jrn = replace(form.journal," ", "","All")> 
+
+<cfparam name="FORM.BankId" default="">
+<cfparam name="FORM.JournalBatchNo" default="">
+
+<cfif URL.mode eq "Insert"> 
+	
+	<cfquery name="Verify" 
+	datasource="AppsLedger" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	SELECT *
+	FROM   Journal
+	WHERE  Journal  = '#jrn#' 
+	</cfquery>
+
+	<cfif Verify.recordCount is 1>
+   
+	   <script language="JavaScript">
+	   
+	     alert("A journal with this acronym has been registered already!")
+	     
+	   </script>  
+  
+    <cfelse>
+	
+	    <cftransaction>
+
+		<cfquery name="Insert" 
+		datasource="AppsLedger" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		INSERT INTO Journal
+		         (Journal,
+					 Description,
+					 TransactionCategory,
+					 Mission,
+					 SystemJournal,
+					 JournalType,
+					 Currency,
+					 GLCategory,
+				     Speedtype,
+					 EntityClass,
+					 AccountType,		
+					 EnableScheduler,	
+					 BankId, 
+					 JournalBatchNo,
+					 OfficerUserId,
+					 OfficerLastName,
+					 OfficerFirstName)
+		  VALUES ('#jrn#', 
+		          '#Form.Description#',
+				  '#Form.TransactionCategory#',
+				  '#form.Mission#',
+				  <cfif Form.SystemJournal neq "">
+				  '#Form.SystemJournal#',
+				  <cfelse>
+				  NULL,
+				  </cfif>
+				  '#Form.JournalType#',
+				  '#Form.Currency#',
+				  '#Form.GLCategory#',
+				  <cfif Form.Speedtype neq "">				  
+				  '#Form.Speedtype#',
+				  <cfelse>
+				  NULL,
+				  </cfif>
+				  '#Form.EntityClass#',
+				  '#Form.DebitCredit#',
+				  '#Form.EnableScheduler#',
+				  <cfif form.bankid neq "">
+				  '#Form.BankId#',
+				  <cfelse>
+				  NULL,
+				  </cfif>
+				  '#Form.JournalBatchNo#',
+				  '#SESSION.acc#',
+		    	  '#SESSION.last#',		  
+			  	  '#SESSION.first#')
+		</cfquery>
+		
+		<cfif Form.JournalBatchNo neq "0" and Form.JournalBatchNo neq "">
+		
+			<cfquery name="Insert" 
+			datasource="AppsLedger" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			INSERT INTO JournalBatch
+				(Journal,
+				 JournalBatchNo,
+				 BatchCategory,
+				 Description,
+				 TransactionDate,
+				 OfficerUserId,
+				 OfficerLastName,
+				 OfficerFirstName)
+			VALUES
+				('#jrn#',
+				 '#Form.JournalBatchNo#',
+				 '#Form.BatchCategory#',
+				 '#Form.BatchDescription#',
+				 getDate(),
+				 '#SESSION.acc#',
+				 '#SESSION.last#',
+				 '#SESSION.first#')	
+			 </cfquery>
+			
+		</cfif>
+			  
+		<cfif FORM.GLAccount neq "">
+		
+		    <cfquery name="Update" 
+		     datasource="AppsLedger" 
+		     username="#SESSION.login#" 
+		     password="#SESSION.dbpw#">
+		     UPDATE Journal
+		     SET    <!--- GLAccount      = '#FORM.GLAccount#', --->
+		            JournalType    = '#FORM.JournalType#'    
+		     WHERE  Journal        = '#jrn#'
+		    </cfquery>
+			
+			<!--- populate the contra-account table --->
+			
+			 <cfquery name="InsertContraAccount" 
+		     datasource="AppsLedger" 
+		     username="#SESSION.login#" 
+		     password="#SESSION.dbpw#">
+		     INSERT INTO JournalAccount
+				(Journal,
+				 GLAccount,
+				 ListDefault,
+				 ListOrder,
+				 Mode,
+				 OfficerUserId,
+				 OfficerLastName,
+				 OfficerFirstName)
+			 VALUES
+			    ('#jrn#',
+				 '#FORM.GLAccount#',
+				 '1',
+				 '1',
+				 'Contra',
+				 '#SESSION.acc#',
+				 '#SESSION.last#',
+				 '#SESSION.first#')			 	 
+		     
+		    </cfquery>
+			
+		</cfif>		
+		
+		</cftransaction>  
+   
+	</cfif>
+</cfif>
+
+<cfif URL.mode eq "update"> 
+	
+	<cfquery name="Update" 
+	datasource="AppsLedger" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	UPDATE Journal
+	SET    Description           = '#Form.Description#',
+	       <cfif Form.SystemJournal neq "">
+		     SystemJournal       = '#Form.SystemJournal#',
+		   <cfelse>
+			 SystemJournal       = NULL,
+		   </cfif>
+		   <cfif Form.GLAccount neq "">		  
+		   AccountType           = '#FORM.DebitCredit#',
+		   </cfif>
+		   OrgUnitOwner          = '#Form.OrgUnitOwner#',
+		   EntityClass           = '#Form.EntityClass#',
+		   JournalType           = '#Form.JournalType#',    
+		   TransactionCategory   = '#Form.TransactionCategory#', 
+		   Currency              = '#Form.Currency#',
+		   <cfif form.bankId neq "">
+		   BankId                = '#Form.BankId#',
+		   <cfelse>
+		   BankId                = NULL,
+		   </cfif>
+		   EnableScheduler       = '#FORM.EnableScheduler#',	
+		   JournalBatchNo        = '#Form.JournalBatchNo#',
+		   JournalSerialNo       = '#Form.JournalSerialNo-1#',		
+		   <cfif trim(Form.Speedtype) neq "">	
+		   Speedtype             = '#Form.Speedtype#',
+		   <cfelse>
+		   Speedtype			 =	NULL,
+		   </cfif>
+		   Operational           = '#Form.Operational#'
+		 
+	WHERE  Journal               = '#jrn#'
+	</cfquery>
+	
+	<!--- check if account exists : if not we add, otherwise we set it as default --->
+	
+	<cfquery name="check" 
+		datasource="AppsLedger" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		     SELECT * 
+			 FROM   JournalAccount
+			 WHERE  Journal = '#jrn#'
+			 AND    GLAccount = '#FORM.GLAccount#'		     
+     </cfquery>
+	 
+	 <cfquery name="set" 
+		datasource="AppsLedger" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		     UPDATE JournalAccount
+			 SET    ListDefault = 0
+			 WHERE  Journal = '#jrn#'			 	     
+     </cfquery>
+	
+	 <cfif check.recordcount eq "0" and FORM.GLAccount neq "">	 
+	 
+			 <cfquery name="InsertContraAccount" 
+		     datasource="AppsLedger" 
+		     username="#SESSION.login#" 
+		     password="#SESSION.dbpw#">
+		     INSERT INTO JournalAccount
+				(Journal,
+				 GLAccount,
+				 ListDefault,
+				 ListOrder,
+				 OfficerUserId,
+				 OfficerLastName,
+				 OfficerFirstName)
+			 VALUES
+			    ('#jrn#',
+				 '#FORM.GLAccount#',
+				 '1',
+				 '1',
+				 '#SESSION.acc#',
+				 '#SESSION.last#',
+				 '#SESSION.first#')				 
+		     
+		    </cfquery>
+			
+	<cfelse>		
+	 
+		 <cfquery name="set" 
+			datasource="AppsLedger" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			     UPDATE JournalAccount
+				 SET    ListDefault = 1
+				 WHERE  Journal = '#jrn#'
+				 AND    GLAccount = '#FORM.GLAccount#'		     
+	     </cfquery>
+	 	 
+	 </cfif>
+	 
+</cfif>	
+
+<cfif URL.mode eq "delete"> 
+	
+	<cfquery name="CountRec" 
+      datasource="AppsLedger" 
+      username="#SESSION.login#" 
+      password="#SESSION.dbpw#">
+      SELECT *
+      FROM TransactionHeader
+      WHERE Journal  = '#jrn#' 
+	</cfquery>
+
+    <cfif CountRec.recordCount gt 0>
+		 
+     <script language="JavaScript">
+    
+	   alert("Journal is in use. Operation aborted.")
+     
+     </script>  
+	 
+ 
+	 
+    <cfelse>
+	
+	<cfquery name="Delete" 
+datasource="AppsLedger" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	DELETE FROM JournalBatch
+	WHERE Journal        = '#jrn#'
+    </cfquery>
+			
+	<cfquery name="Delete" 
+datasource="AppsLedger" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	DELETE FROM Journal
+	WHERE Journal        = '#jrn#'
+    </cfquery>
+	
+	</cfif>
+</cfif>	
+
+
+<script language="JavaScript">
+   
+     window.close()
+	 opener.location.reload()
+        
+</script>  
+

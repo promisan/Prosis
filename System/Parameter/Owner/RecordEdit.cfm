@@ -1,0 +1,74 @@
+<cfparam name="url.idmenu" default="">
+  
+<cfquery name="Get" 
+datasource="AppsOrganization" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+SELECT *
+FROM Ref_AuthorizationRoleOwner
+WHERE Code = '#URL.ID1#'
+</cfquery>
+
+<script language="JavaScript">
+
+function ask() {
+	if (confirm("Do you want to remove this owner ?")) {	
+	return true 	
+	}	
+	return false	
+}	
+
+</script>
+
+<cf_screentop height="100%" 
+			  label="Owner" 
+			  html="Yes" 
+			  line="No"			 
+			  layout="webapp" 
+			  banner="gray">
+
+<cfform action="RecordSubmit.cfm" method="POST" name="dialog">
+	
+	<table width="93%" cellspacing="0" cellpadding="0" align="center" class="formpadding formspacing">
+	
+		 <tr><td height="5"></td></tr>
+		 
+	    <cfoutput>
+	    <TR>
+	    <TD class="labelmedium">Code:</TD>
+	    <TD class="labelmedium">#get.Code#
+	  	   <input type="hidden" name="Code" id="Code" value="#get.Code#" size="10" maxlength="10"class="regularxl">
+		 </TD>
+		</TR>
+		
+		<tr><td height="3"></td></tr>
+		
+		<TR>
+	    <TD class="labelmedium">Description:</TD>
+	    <TD class="labelmedium">
+	  	   <cfinput type="Text" name="Description" value="#get.description#" message="Please enter a description" required="Yes" size="30" maxlength="40"class="regularxl">
+	    </TD>
+		</TR>
+		
+		<tr><td height="3"></td></tr>
+		
+		<TR>
+	    <TD class="labelmedium">eMail : </TD>
+	    <TD class="regular">
+	  	   <cfinput type="Text" name="emailaddress" value="#get.emailaddress#" message="Please enter a valid email address"  required="Yes" size="30" maxlength="40" class="regularxl">
+	    </TD>
+		</TR>
+			
+		</cfoutput>
+		
+		<cf_dialogBottom option="edit">
+			
+	</TABLE>
+
+</CFFORM>
+
+<cf_screenbottom layout="webapp">
+
+
+	
+

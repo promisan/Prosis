@@ -1,0 +1,6 @@
+Invalid quoted string 'function()' encountered while parsing (tag "CFSET" with attributes). 
+Invalid quoted string ''' encountered while parsing (tag "CFSET" with attributes vDuration=replace(vDuration,). 
+Invalid number "0" encountered while parsing (tag "CFIF" with attributes isNumeric(vDuration)= AND= ISNUMERIC(VCREDIT)= VDURATION=). 
+Invalid number "0" encountered while parsing (tag "CFIF" with attributes isNumeric(vDuration)= AND= ISNUMERIC(VCREDIT)= VDURATION=). 
+Invalid number "0" encountered while parsing (tag "CFIF" with attributes isNumeric(vDuration)= AND= ISNUMERIC(VCREDIT)= VDURATION=). 
+Invalid number "0" encountered while parsing (tag "CFIF" with attributes isNumeric(vDuration)= AND= ISNUMERIC(VCREDIT)= VDURATION=). 

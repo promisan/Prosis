@@ -1,0 +1,157 @@
+<cfswitch expression="#URL.op#">
+	
+	<cfcase value="update">
+	
+		<cfparam name="FORM.GroupReference" default="">
+		
+	    <cfif FORM.GroupReference neq "">
+		
+			<!--- get all selected --->	
+			
+			<cfquery name="getMission"
+				datasource="AppsOrganization" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					SELECT  *
+					FROM    Ref_Mission
+					WHERE   Mission   = '#url.mission#'											
+			</cfquery>
+						
+			<cfquery name="getSelection"
+				datasource="AppsEmployee" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					SELECT  PositionNo,Mission,PostGrade 
+					FROM    Position
+					WHERE   Positionno IN (#preservesinglequotes(FORM.GroupReference)#)		
+					AND     Postgrade = '#url.grade#'
+					AND     Mission   = '#url.mission#'						
+					ORDER BY Mission, PostGrade
+			</cfquery>
+			
+			<cfoutput query="getSelection" group="Mission">
+			
+				<cfoutput group="PostGrade">
+				
+					<!--- assign No --->		
+					
+					<cflock timeout= "2">
+					
+						<cfquery name="qLast"
+						datasource="AppsSelection" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+							SELECT  * 
+							FROM    Ref_SubmissionEdition 
+							WHERE   SubmissionEdition = '#URL.ID#'				
+						</cfquery>
+					
+						<cfset value = qLast.ReferenceNo + 1>
+												
+						<cfquery name="qNewONe"
+						datasource="AppsSelection" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+							UPDATE  Ref_SubmissionEdition 
+							SET     ReferenceNo = '#value#'
+							WHERE   SubmissionEdition = '#URL.ID#'				
+						</cfquery>				
+					
+					</cflock>	
+					
+					<cfif value lt "10">
+							<cfset value = "0#value#">
+					</cfif>
+					
+					<cfoutput>	
+			
+						<cfquery name="qUpdate"
+							datasource="AppsSelection" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+								UPDATE Ref_SubmissionEditionPosition 
+								SET    Reference         = '#getmission.Missionprefix#/#qlast.editionshort#/#postgrade#/#value#'
+								WHERE  SubmissionEdition = '#url.id#'
+								AND    PositionNo        = '#positionno#'
+						</cfquery>
+						
+						<script>
+						   ColdFusion.navigate('#session.root#/Roster/Maintenance/RosterEdition/Position/getReference.cfm?id=#url.id#&positionno=#positionno#','reference_#positionno#')		   	
+						</script>
+										
+					</cfoutput>
+					
+					<cfquery name="getSelection"
+						datasource="AppsEmployee" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+							SELECT  PositionNo 
+							FROM    Position
+							WHERE   Positionno IN (#preservesinglequotes(FORM.GroupReference)#)		
+							AND     Postgrade = '#url.grade#'
+							AND     Mission   = '#url.mission#'													
+					</cfquery>
+					
+					
+					<cfquery name="check"
+							datasource="AppsSelection" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+								SELECT * 
+								FROM   Ref_SubmissionEditionPosition 
+								WHERE  SubmissionEdition = '#url.id#'
+								AND    PositionNo  IN (SELECT PositionNo 
+								                       FROM   Employee.dbo.Position 
+													   WHERE  Mission   = '#url.mission#'
+													   AND    PostGrade = '#url.grade#')
+								AND    (Reference is NULL or reference = '')
+						</cfquery>
+						
+					<cfif check.recordcount eq "0">
+					
+					   <script>
+						    document.getElementById('apply#PostGrade#').className = "hide"
+					   </script>
+					   
+					</cfif>						
+								
+				</cfoutput>
+						
+			</cfoutput>
+		
+		</cfif>	
+		
+	</cfcase>
+	
+	<cfcase value="remove">
+	
+		<cfquery name="qNewONe"
+			datasource="AppsSelection" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				UPDATE  Ref_SubmissionEdition 
+				SET     ReferenceNo = '0'
+				WHERE   SubmissionEdition = '#URL.ID#'				
+		</cfquery>			
+	
+		<cfquery name="qDelete"
+		datasource="AppsSelection" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+				UPDATE Ref_SubmissionEditionPosition 
+				SET    Reference = ''
+				WHERE  SubmissionEdition = '#URL.ID#'
+		</cfquery>	
+		
+		<cfoutput>
+				
+		<script>
+		   // efresh our contentbox which is set to [contentbox3]		  
+		   ColdFusion.navigate('#session.root#/Roster/Maintenance/RosterEdition/Position/PositionListing.cfm?submissionedition=#url.id#','contentbox3')		   
+		</script>
+		
+		</cfoutput>
+		
+	</cfcase>
+
+</cfswitch>

@@ -1,0 +1,347 @@
+table:focus {
+    outline: none;
+}
+
+
+
+.focused {
+ background: transparent;
+}
+
+.fwrapper {
+	background-color:blue;
+}
+
+
+.rowhover {
+ background: transparent;
+}
+
+
+  
+  /*Edit*/
+ #i_edit  { 
+    height               : 11px; 
+    width                : 11px; 
+	display              : block; 
+    background-position  : -11px -0px; 
+ } 
+ 
+ #i_edit:hover { 
+    height               : 11px; 
+    width                : 11px; 
+    background-position  : -0px -0px; 
+	cursor: pointer;	
+ } 
+ 
+
+ #i_edit:active {
+    background-position  : -11px -0px; 
+}
+  
+
+ #i_edit_large  { 
+    height: 20px; 
+    width: 20px; 
+	display: block; 
+    background:url(../Portal/iedit.png);
+	opacity:0.8;
+ } 
+ 
+ #i_edit_large:hover {
+	 opacity:1;
+ } 
+ 
+
+ #i_edit_large:active {
+}
+
+ /*Delete*/
+ 
+
+ #i_delete { 
+    height               : 11px; 
+    width                : 11px; 
+	display              : block; 	
+    background-position  : -22px -0px; 
+ } 
+ 
+ #i_delete:hover { 
+    height               : 11px; 
+    width                : 11px; 
+    background-position  : -0px -0px; 
+	cursor: pointer;
+ } 
+ 
+#i_delete:active {
+    background-position  : -22px -0px; 
+}
+
+ 
+ #i_delete_large { 
+    height: 20px; 
+    width: 20px; 
+	display: block; 
+    background:url(../Portal/idelete.png);
+	opacity:0.8;
+ }
+ #i_delete_large:hover { 
+	opacity:1;
+ } 
+ 
+#i_delete_large:active {
+}
+
+
+ /*Add*/
+ 
+ #i_add { 
+    height               : 11px; 
+    width                : 11px; 
+	display              : block; 	
+    background-position  : -33px -0px; 
+ } 
+ 
+ #i_add:hover { 
+    height               : 11px; 
+    width                : 11px; 
+    background-position  : -0px -0px; 
+	cursor: pointer;
+ } 
+ 
+ #i_add:active {
+    background-position  : -33px -0px; 
+}
+
+ 
+
+  
+  
+   /*twistie*/
+ #i_expand { 
+    height               : 11px; 
+    width                : 11px; 
+	display              : block; 	
+    background-position  : -77px -0px; 
+	cursor: pointer;
+ } 
+ 
+ #i_expand:hover { 
+	cursor: pointer;
+ } 
+ 
+#i_expand:active, a.selected  {
+    background-position  : -66px -0px; 
+}
+
+
+ /*bullet*/
+ #i_bullet { 
+    height               : 11px; 
+    width                : 11px; 
+	display              : block; 	
+    background-position  : -99px -0px; 
+ } 
+ 
+ #i_bullet:hover { 
+    height               : 11px; 
+    width                : 11px; 
+    background-position  : -110px -0px; 
+	cursor: pointer;
+ } 
+ 
+ #i_bullet:active {
+    background-position  : -99px -0px; 
+}
+
+
+ /*select*/
+  #i_select { 
+    height               : 11px; 
+    width                : 11px; 
+	display              : block; 	
+    background-position  : -121px -0px; 
+ } 
+ 
+ #i_select:hover { 
+    height               : 11px; 
+    width                : 11px; 
+    background-position  : -0px -0px;
+	cursor: pointer;
+ } 
+ 
+ #i_select:active {
+    background-position  : -121px -0px; 
+}
+
+
+ /*print*/
+  #i_print { 
+    height               : 11px; 
+    width                : 11px; 
+	display              : block; 	
+    background-position  : -132px -0px; 
+ } 
+ 
+ #i_print:hover { 
+    height               : 11px; 
+    width                : 11px; 
+    background-position  : -0px -0px;
+	cursor: pointer;
+ } 
+ 
+ #i_print:active {
+    background-position  : -132px -0px; 
+}
+
+
+ /*copy*/
+  #i_copy { 
+    height               : 11px; 
+    width                : 11px; 
+	display              : block; 	
+    background-position  : -143px -0px; 
+ } 
+ 
+ #i_copy:hover { 
+    height               : 11px; 
+    width                : 11px; 
+    background-position  : -0px -0px;
+	cursor: pointer;
+ } 
+ 
+ #i_copy:active {
+    background-position  : -143px -0px; 
+}
+
+
+   /*twistie-inverted*/
+ #i_expand_open { 
+    height               : 11px; 
+    width                : 11px; 
+	display              : block;
+    background-position  : -66px -0px;	 	
+	cursor: pointer;
+ } 
+ 
+ #i_expand_open:hover { 
+	cursor: pointer;
+ } 
+ 
+#i_expand_open:active, a.selected  {
+    background-position  : -77px -0px; 
+}
+
+/*calendar*/
+#i_calendar { 
+    height               : 11px; 
+    width                : 11px; 
+	display              : block; 	
+    background-position  : -154px -0px; 
+ } 
+ 
+ #i_calendar:hover { 
+    height               : 11px; 
+    width                : 11px; 
+    background-position  : -0px -0px;
+	cursor: pointer;
+ } 
+ 
+ #i_calendar:active {
+    background-position  : -154px -0px; 
+}
+
+/*log*/
+#i_log { 
+    height               : 11px; 
+    width                : 11px; 
+	display              : block; 	
+    background-position  : -166px -0px; 
+ } 
+ 
+ #i_log:hover { 
+    height               : 11px; 
+    width                : 11px; 
+    background-position  : -0px -0px;
+	cursor: pointer;
+ } 
+ 
+ #i_log:active {
+    background-position  : -166px -0px; 
+}
+
+/*mail*/
+#i_mail { 
+    height               : 11px; 
+    width                : 11px; 
+	display              : block; 	
+    background-position  : -178px -0px; 
+ } 
+ 
+ #i_mail:hover { 
+    height               : 11px; 
+    width                : 11px; 
+    background-position  : -0px -0px;
+	cursor: pointer;
+ } 
+ 
+ #i_mail:active {
+    background-position  : -178px -0px; 
+}
+
+
+
+/* Switch IT */
+
+@font-face {
+	font-family: 'mfn-icons';
+	src: url('/Portal/fonts/mfn-icons.eot?36995802');
+	src: url('Portal/fonts/mfn-icons.eot?36995802#iefix') format('embedded-opentype'),
+		url('Portal/fonts/mfn-icons.woff?36995802') format('woff'),
+		url('Portal/fonts/mfn-icons.ttf?36995802') format('truetype'),
+		url('Portal/fonts/mfn-icons.svg?36995802#mfn-icons') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.sprites {
+	font-family: "mfn-icons";
+	font-style: normal;
+	font-weight: normal;
+	speak: none;
+ 
+	display: inline-block;
+	text-decoration: none !important;
+	width: 1em;
+	margin-right: .2em;
+	text-align: center;
+	/* opacity: .8; */
+ 
+	/* For safety - reset parent styles, that can break glyph codes*/
+	font-variant: normal;
+	text-transform: none;
+     
+	/* fix buttons height, for twitter bootstrap */
+	line-height: 1em;
+ 
+	/* Animation center compensation - margins should be symmetric */
+	/* remove if not needed */
+	margin-left: .2em;
+ 
+	/* you can be more comfortable with increased icons size */
+	/* font-size: 120%; */
+ 
+	/* Uncomment for 3D effect */
+	/* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+ 
+  /*Open*/
+ 
+ #i_open:before { content: '\e86b'; }
+ 
+ #i_open:hover { 
+ } 
+ 
+ #i_open:active {
+}
+

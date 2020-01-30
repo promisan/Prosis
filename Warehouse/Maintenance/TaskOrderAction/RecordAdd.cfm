@@ -1,0 +1,78 @@
+
+<cfparam name="url.idmenu" default="">
+
+<cf_screentop height="100%" 
+			  label="Task Order Action" 
+			  option="Add Task Order Action" 
+			  scroll="Yes" 
+			  layout="webapp" 
+			  banner="blue" 
+			  menuAccess="Yes" 
+			  systemfunctionid="#url.idmenu#">
+
+<!--- Entry form --->
+
+<cfform action="RecordSubmit.cfm?idmenu=#url.idmenu#" method="POST" enablecab="Yes" name="dialog">
+
+<table width="92%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+
+	<tr><td height="6"></td></tr>
+    <TR>
+    <TD class="labelit" width="30%" >Code:</TD>
+    <TD>
+  	   <cfinput type="Text" name="Code" value="" message="Please enter a code" required="Yes" size="10" maxlength="10" class="regularxl">
+    </TD>
+	</TR>
+	
+	 <TR>
+    <TD class="labelit">Description:</TD>
+    <TD>
+  	   <cfinput type="Text" name="Description" value="" message="Please enter a description" required="Yes" size="30" maxlength="50" class="regularxl">
+    </TD>
+	</TR>
+	
+	<tr>
+		<td class="labelit">Mode of shipment:</td>
+		<td>
+			<cfquery name="lookup" 
+			datasource="AppsMaterials" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				SELECT 	*
+				FROM   	Ref_ShipToMode
+				ORDER BY ListingOrder
+			</cfquery>
+			
+			<select name="ShipToMode" id="ShipToMode" class="regularxl">
+				<cfoutput query="lookup">
+					<option value="#Code#">#Description#
+				</cfoutput>
+			</select>
+			
+		</td>
+	</tr>
+	
+	<TR>
+    <TD class="labelit">Order:</TD>
+    <TD>
+  	   <cfinput type="Text" name="listingOrder" value="" message="Please enter a numeric listing order" required="Yes" size="1" validate="integer" maxlength="3" class="regularxl" style="text-align:center;">
+    </TD>
+	</TR>		
+	
+	<tr><td></td></tr>
+	
+	<tr><td colspan="2" class="line"></td></tr>
+	
+	<tr>
+		
+	<td align="center" colspan="2" height="30">
+    <input class="button10g" style="width:120px" type="submit" name="Insert" id="Insert" value="Save">
+	</td>	
+	
+	</tr>
+	
+</table>
+
+</cfform>
+
+<cf_screenbottom layout="innerbox">

@@ -1,0 +1,29 @@
+End of file encountered while parsing (tag "CFSET" with attributes vDateEffective=#dateFormat(MetricTarget.DateEffecti,'>). 
+Invalid quoted string '#client.root#/#vTemplate#' encountered while parsing (tag "CFIF" with attributes). 
+Invalid quoted string '#client.root#/#vTemplate#' encountered while parsing (tag "CFIF" with attributes). 
+Invalid quoted string '#client.root#/#vTemplate#' encountered while parsing (tag "CFIF" with attributes). 
+Invalid quoted string '#client.root#/#vTemplate#' encountered while parsing (tag "CFIF" with attributes). 
+Invalid quoted string '#client.root#/#vTemplate#' encountered while parsing (tag "CFIF" with attributes). 
+Invalid quoted string '#client.root#/#vTemplate#' encountered while parsing (tag "CFIF" with attributes). 
+Invalid quoted string '#client.root#/#vTemplate#' encountered while parsing (tag "CFIF" with attributes). 
+Invalid quoted string '#client.root#/#vTemplate#' encountered while parsing (tag "CFIF" with attributes). 
+Invalid quoted string '' encountered while parsing (tag "CFIF" with attributes url.itemno=). 
+Invalid quoted string '' encountered while parsing (tag "CFIF" with attributes url.itemno=). 
+Invalid quoted string '' encountered while parsing (tag "CFIF" with attributes url.supply=). 
+Invalid quoted string '' encountered while parsing (tag "CFIF" with attributes url.supply=). 
+Invalid number "0" encountered while parsing (tag "CFIF" with attributes Check.recordCount=). 
+Invalid number "0" encountered while parsing (tag "CFIF" with attributes Check.recordCount=). 
+Invalid quoted string 'AssetItem' encountered while parsing (tag "CFIF" with attributes url.type=). 
+Invalid quoted string 'AssetItem' encountered while parsing (tag "CFIF" with attributes url.type=). 
+Invalid quoted string '' encountered while parsing (tag "CFIF" with attributes url.supply=). 
+Invalid quoted string '' encountered while parsing (tag "CFIF" with attributes url.supply=). 
+Invalid quoted string '' encountered while parsing (tag "CFIF" with attributes url.supply=). 
+Invalid quoted string '' encountered while parsing (tag "CFIF" with attributes url.supply=). 
+Invalid quoted string '' encountered while parsing (tag "CFIF" with attributes url.supply=). 
+Invalid quoted string '' encountered while parsing (tag "CFIF" with attributes url.supply=). 
+Invalid quoted string '' encountered while parsing (tag "CFIF" with attributes url.supply=). 
+Invalid quoted string '' encountered while parsing (tag "CFIF" with attributes url.supply=). 
+Invalid quoted string 'yes' encountered while parsing (tag "CFIF" with attributes lcase(multiselect)=). 
+Invalid quoted string 'yes' encountered while parsing (tag "CFIF" with attributes lcase(multiselect)=). 
+Invalid quoted string 'yes' encountered while parsing (tag "CFIF" with attributes lcase(multiselect)=). 
+Invalid quoted string 'yes' encountered while parsing (tag "CFIF" with attributes lcase(multiselect)=). 

@@ -1,0 +1,142 @@
+
+<cf_screentop height="100%" html="no" jquery="Yes">
+
+<cfoutput>
+<script language="JavaScript">
+
+function criteria(id) {
+
+    window.open("CriteriaEdit.cfm?Status=#URL.Status#&ID=#URL.ID#&ID1="+id,"box"+id, "left=20, top=20, width=900, height=900, menubar=no, status=yes, toolbar=no, scrollbars=no, resizable=no");
+	// window.location = "Criteria.cfm?id=#URL.ID#&status=#url.status#"
+	
+}
+
+function purge(rl) {
+
+	if (confirm("Do you want to remove parameter: [" + rl + "] from this report ?")) {
+        window.location = "CriteriaPurge.cfm?time=#now()#&Status=#URL.Status#&ID=#URL.ID#&ID1="+rl	
+	}
+  
+}
+	
+</script>
+
+</cfoutput>
+
+<cfset cnt = "22">
+
+<cfquery name="Clear" 
+datasource="AppsSystem" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+    DELETE FROM Ref_ReportControlCriteria
+	WHERE  ControlId = '#URL.ID#'
+	AND    RecordStatus = 0	
+</cfquery>
+
+<cfquery name="Criteria" 
+datasource="AppsSystem" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+    SELECT R.SystemModule, C.*
+    FROM   Ref_ReportControl R, 
+	       Ref_ReportControlCriteria C
+	WHERE  R.ControlId = '#URL.ID#'
+	AND    C.ControlId = R.ControlId
+	ORDER BY CriteriaClass, CriteriaOrder, CriteriaCluster 
+</cfquery>
+
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+	    
+	  <tr>
+	    <td width="100%">
+	    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="navigation_table">
+		
+		<cf_distributer>
+		
+		<cfif master eq "1" and status eq "0">
+		
+		    <cfset cnt = cnt+34>
+			<tr class="line">
+			   <td colspan="9" class="labelmedium" style="padding-left:10px;font-size:17px;padding:7px;font-weight:200">
+				<a href="javascript:criteria('')"><cf_tl id="Add Report Criteria"></a>
+			   </td>
+			</tr>			
+			
+		</cfif>		
+				
+		<cfif criteria.recordcount gt "0">
+		
+		    <TR class="labelmedium line">
+			   <td></td>
+			   <td>Parent</td>
+			   <td>Name</td>
+			   <td>Cluster</td>
+			   <td>Description</td>
+			   <td>Type</td>
+			   <td>O.</td>
+			   <td>Scope</td>
+			   <td></td>
+		    </TR>	
+			
+		</cfif>
+						
+		<cfoutput query="Criteria" group="CriteriaClass">
+		
+		<tr class="labelmedium line"><td colspan="9">#CriteriaClass# <cf_tl id="input criteria">:</td></tr>
+		
+		<cfset cnt = cnt + 36>
+		<cfoutput>
+						
+		<TR class="navigation_row line labelmedium" style="height:22px">
+			  
+		   <td align="center" style="padding-left:4px;padding-top:5px">		     
+			 <cf_img icon="select" navigation="Yes" onclick="javascript:criteria('#CriteriaName#')">		     		   
+		   </td>
+		   <td>#CriteriaNameParent#</td>
+		   <td>#CriteriaName#</td>
+		   <td>#CriteriaCluster#</td>
+		   <td>#CriteriaDescription#</td>
+		   <td>#CriteriaType#<cfif LookupTable neq "">:#LookupTable#</cfif></td>
+		   <td>#CriteriaOrder#</td>	
+		   
+		   <cfquery name="Default" 
+			datasource="AppsSystem" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			    SELECT R.*
+			    FROM Ref_ReportControl R, Ref_ReportControlCriteria C
+				WHERE R.SystemModule = '#SystemModule#'
+				AND   R.FunctionClass = 'System'
+				AND   C.ControlId = R.ControlId
+				AND   C.CriteriaName = '#CriteriaName#'
+			</cfquery>
+		   <cfif Default.recordcount eq "1">
+		   <td>Global</td>	
+		   <cfelse>
+		   <td>Local</td>	
+		   </cfif>   
+		   <td style="padding-top:2px">
+		    <cfif status eq "0">
+			 <cf_img icon="delete" onclick="purge('#CriteriaName#')">		   
+			</cfif>
+		  </td>
+		</tr> 
+				
+		</cfoutput>
+		</cfoutput>
+								
+	</table>	
+		
+	<cfoutput>
+	<script language="JavaScript">
+	
+		{	
+		frm  = parent.document.getElementById("icrit");
+		he = #cnt#+9+#criteria.recordcount*22#;
+		frm.height = he
+		
+		}
+	
+	</script>
+	</cfoutput>

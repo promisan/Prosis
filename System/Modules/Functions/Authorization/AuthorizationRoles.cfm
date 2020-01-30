@@ -1,0 +1,183 @@
+<cfparam name="URL.mode" default="active">
+<cfparam name="URL.Mission" default="">
+
+
+<cfquery name="Lines" 
+datasource="AppsSystem" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+    SELECT *
+    FROM Ref_ModuleControlAuthorization L
+	WHERE SystemFunctionId = '#URL.ID#'
+	<cfif URL.mode eq "expired">
+		<!--- nada --->
+	<cfelse>
+		AND DateEffective  <= getdate()
+		AND DateExpiration >= getdate()
+	</cfif>
+	ORDER BY DateEffective,DateExpiration
+</cfquery>
+
+<cfoutput>
+
+<CFFORM action="AuthorizationRolesSubmit.cfm" method="post" name="editauthorizationform" onsubmit="return false">
+
+<br>
+<table style="border:1px dotted silver" height="95%" width="96%" align="center"><tr>
+<td height="100%" valign="top" style="padding:4px">
+
+<table width="100%"  border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+
+	<cfif URL.mode neq "new">
+	
+		<tr>
+			
+			<td colspan="8" class="labelmedium" style="padding-left:4px;height:25"><i>
+				<cfif URL.mode eq "active">
+		   		<a href="##" onclick="javascript:showAndHide('#URL.ID#','expired')" title="Click to add a new section">
+					<font color="0080FF">
+						[Show all]
+					</font>
+				</a>			
+				<cfelse>
+			   		<a href="##" onclick="javascript:showAndHide('#URL.ID#','active')" title="Click to add a new section">
+						<font color="0080FF">
+							[Show only active]
+						</font>
+					</a>								
+				</cfif>				
+				&nbsp;&nbsp;
+		   		<a href="##" onclick="javascript:addAuthorizationCode('#URL.ID#')" title="Click to add a new section">
+					<font color="0080FF">
+						[Add new]
+					</font>
+				</a>
+
+			</td>
+			
+		</tr>
+		
+		<tr><td colspan="9" class="linedotted"></td></tr>
+		
+	<cfelse>
+	
+		<tr height="20">
+			<td colspan="9"></td>
+		</tr>	
+		
+	</cfif>
+	<tr class="labelit">
+		<td style="height:20" width="1%"></td>		
+		<td width="10%" class="labelit">Mission</td>		
+		<td width="5%"></td>		
+		<td width="10%" class="labelit">Account</td>	
+		<td width="25%" class="labelit">Date Effective</td>				
+		<td style="padding-left:7px" width="25%" class="labelit">Date Expiration</td>			
+		<td width="10%" class="labelit">Level</td>
+		<td width="15%" colspan="2" class="labelit">Authorization Code</td>
+		
+	</tr>	
+	
+	<tr><td colspan="9" class="linedotted"></td></tr>
+	
+<cfloop query="Lines">
+	<tr class="navigation_row">
+		<td></td>		
+		<td class="labelmedium">#Mission#</td>	
+		<td></td>
+		<td class="labelmedium"><cfif Account eq "">Any<cfelse>#Account#</cfif></td>				
+		<td class="labelmedium">#dateformat(DateEffective,CLIENT.DateFormatShow)# #TimeFormat(DateEffective,"HH:MM")#</td>				
+		<td class="labelmedium" style="padding-left:7px">#dateformat(DateExpiration,CLIENT.DateFormatShow)# #TimeFormat(DateExpiration,"HH:MM")#</td>			
+		<td class="labelmedium" style="padding-left:5px">#AuthorizationLevel#</td>
+		<td class="labelmedium"><b><font color="0080C0">#AuthorizationCode#</b></td>
+		<td></td>
+	</tr>
+</cfloop>
+
+<cfif URL.mode eq "new">
+	<tr>
+		<td></td>	
+		
+		<td align="center">
+				<cfquery name="qMission" 
+				datasource="AppsSystem" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">		
+						SELECT DISTINCT R.Mission
+						FROM   Ref_ModuleControl M INNER JOIN
+				               Organization.dbo.Ref_MissionModule R ON M.SystemModule = R.SystemModule
+						WHERE  (M.SystemFunctionId = '#URL.ID#')
+				</cfquery>		
+
+			    <select class="regularxl"  name="AuthorizationMission" id="AuthorizationMission" class="enterastab">
+					<cfloop query="qMission">
+					    <option value="#Mission#" >#Mission#</option>
+					</cfloop>					
+				</select>						
+			
+		</td>
+		
+		<td align="right">
+			   <cfset link = "#SESSION.root#/system/modules/functions/Authorization/AccountSubmit.cfm?id=#url.id#">		
+			   <cf_selectlookup
+				    box          = "iAccount"
+					title        = "+"
+					link         = "#link#"
+					button       = "No"
+					iconheight   = "25"
+					close        = "Yes"
+					class        = "user"
+					des1         = "acc">			
+				
+		</td>
+		<td>
+			<div id="iAccount">	
+		</td>	
+		
+		<td>
+			 <cf_setCalendarDate
+		      name     = "DateEffective"        		      
+			  class    = "regularxl"
+		      mode     = "datetime"
+			  future   = "Yes"> 
+		</td>
+		<td style="padding-left:4px">
+			 <cf_setCalendarDate
+		      name     = "DateExpiration"        
+		      class    = "regularxl"
+		      mode     = "datetime"
+			  future   = "Yes"> 
+
+		</td>
+		<td  style="padding-left:4px">
+			    <select name="AuthorizationLevel" id="AuthorizationLevel" class="enterastab regularxl">
+					<cfloop index = "i" from = "1" to = "5">
+					    <option value="#i#" >#i#</option>
+					</cfloop>					
+				</select>						
+		</td>
+		<td style="padding-left:5px">
+			<input type="text" name="AuthorizationCode" id="AuthorizationCode" class="regularxl" value="" size="5">
+		</td>
+		<td>
+		</td>
+	</tr>
+	<tr height="40">
+		<td></td>
+		<td colspan="7" class="labelit" align="center">
+		   		<a href="##" onclick="javascript:submitAuthorizationCode('#URL.ID#')" title="Click to add a new section">
+					<font color="0080FF">
+						[Save]
+					</font>
+				</a>
+		</td>
+		<td></td>
+	</tr>
+</cfif>
+
+</table>
+</td></tr></table>
+</cfform>
+</cfoutput>
+
+<cfset ajaxonload("doHighlight")>

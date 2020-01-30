@@ -1,0 +1,589 @@
+
+<CF_DropTable dbName="AppsQuery" tblName="tmp#CLIENT.acc#DSA">
+
+<!--- check cities for authorised itinerary and check if stopover = 1 --->
+
+<cfquery name="Parameter" 
+	datasource="appsTravelClaim" 
+	username="#CLIENT.login#" 
+	password="#CLIENT.dbpw#">
+	SELECT *
+    FROM   Parameter 
+</cfquery>
+
+<cfquery name="DeleteIndicator" 
+	datasource="appsTravelClaim">
+	DELETE FROM ClaimEventIndicator
+	WHERE IndicatorCode = 'TRM'
+	AND   ClaimEventId IN (SELECT ClaimEventId 
+                           FROM ClaimEvent 
+			  			   WHERE ClaimId = '#URL.ClaimId#')	
+	
+</cfquery>
+
+<cfquery name="EventList" 
+	datasource="appsTravelClaim">
+	SELECT *
+	FROM   ClaimEvent C
+	WHERE  C.ClaimId = '#URL.ClaimId#'
+</cfquery>		
+	
+<cfset evid = "#EventList.ClaimEventId#">
+
+<!--- 
+ALERT : determine if TRM should be calculated if not obligated at all
+Pending feedback francois and flor 29/04/2006 
+--->
+
+<cfquery name="InsertIndicator" 
+	datasource="appsTravelClaim">
+	INSERT INTO ClaimEventIndicator 
+		(ClaimEventId, 
+		 IndicatorCode, 
+		 IndicatorValue,
+		 OfficerUserId, 
+		 OfficerLastName, 
+		 OfficerFirstName)
+	SELECT DISTINCT 
+	       '#evid#',
+	       'TRM',
+		   '1',
+		   '#CLIENT.acc#',
+		   '#CLIENT.last#',
+		   '#CLIENT.first#'
+	FROM   ClaimRequestLine C,
+	       Ref_ClaimCategory R
+	WHERE  C.ClaimCategory = R.Code
+        <!---  
+	AND    R.ClaimAmount = 1 
+        --->
+	AND    C.ClaimRequestId = '#Claim.ClaimRequestId#' 
+	<!--- disabled 28/04
+	AND    R.DefaultIndicatorCode IS NOT NULL   
+	--->
+</cfquery>
+
+<!--- special provision to check TRM for regular TVRQ legs --->
+
+<cfquery name="Review" 
+datasource="appsTravelClaim">
+	SELECT   T.ClaimEventId, 
+	         T.ClaimTripId,
+	         T.CountryCityId, 
+			 T.ClaimTripDate,
+			 T.ClaimTripStop,
+			 CP.ClaimantType, 
+			 T.ClaimTripDate,			
+			 CP.PersonNo,
+			 T.LocationDate,
+			 T.ClaimTripMode, 
+			 T.LocationCity
+	FROM     ClaimEventTrip T,
+	         ClaimEventPerson CP
+	WHERE    T.ClaimEventId = CP.ClaimEventId
+	<!--- check now all trips now for exclusion 
+	AND      T.ClaimTripStop = 0
+	--->
+	AND 	 T.ClaimEventId IN (SELECT ClaimEventId 
+	                              FROM ClaimEvent 
+							     WHERE ClaimId = '#URL.ClaimId#')	
+	AND      T.EventCode IN (SELECT Code 
+	                           FROM Ref_ClaimEvent 
+							  WHERE pointerTerminal = 1)						  			  
+	ORDER BY PersonNo, LocationDate, CountryCityId	 	 					  
+</cfquery>
+
+<!--- FDT 7/08/08: Building a temporary structure from ClaimLineDSA with each day of the overall travel 
+We suppose that there is always 1 and 1 only 1 "DSA" record in the table for each day of the travel 
+until the last departure. 
+Note that there is no record for the last day of travel if after last departure ! 
+We could also have build the intermediate table from "scratch" 
+(it is simply a table with 1 record by date for all days of the travel) 
+--->
+
+<!--- FDT 7/08/08: The AllDays Structure is created as a SQL table
+--->
+<cfset table1 = "AllDays" & RandRange(1,100000000)>
+
+<cfquery name="AllDays" 
+datasource="appsTravelClaim">
+SELECT	ClaimId, CalendarDate, PersonNo, ClaimCategory, CountryCityId, LocationCode, Grouping, 0 AS ALIndicator
+INTO 	userquery.dbo.#table1#
+FROM 	ClaimLineDSA
+WHERE   (ClaimId = '#URL.ClaimId#') 
+ AND 	(ClaimCategory = 'DSA')
+</cfquery>
+
+<!--- FDT 7/08/08: We update the ALIndicator field of the "AllDays" structure 
+using the ClaimLineDateIndicator table where the "interface" adds a record with "P01" 
+if the day is entered as an annual leave / personal day
+--->
+<cfquery name="UpdateAllDays" 
+datasource="appsTravelClaim">
+UPDATE 	userquery.dbo.#table1#  
+SET 	ALIndicator = 1
+FROM 	ClaimLineDateIndicator
+WHERE 	userquery.dbo.#table1#.ClaimId = ClaimLineDateIndicator.ClaimId
+ AND 	userquery.dbo.#table1#.PersonNo = ClaimLineDateIndicator.PersonNo
+ AND 	userquery.dbo.#table1#.CalendarDate = ClaimLineDateIndicator.CalendarDate
+ AND 	IndicatorCode = 'P01'
+</cfquery>
+
+<!--- FDT 7/08/08: NEW CODE TO DETERMINE IF TERMINAL SHOULD BE PAID 
+FOR EACH DEPARTURE AND EACH ARRIVAL OF THE ITINERARY 
+INPUT: 
+- The "Review" Structure (as in the Hanno's code)
+- The "AllDays" Structure (SQL table: userquery.dbo.#table1#) used only to know which day are Annual Leave 
+OUTPUT:
+- A "list" called EXC of the ClaimTripId where no TRM should be paid.
+(as in the Hanno's code)
+RULES: 
+There are 2 cases where Terminal (both on Arrival and Departure) should be EXCLUDED: 
+a)	Intermediate Stop of less than 6 hours 
+	(including Overnight Stay - as per Accounts clarification).
+b)	Staff on Annual Leave for the whole duration of the Intermediate Stop 
+LOGIC: We keep the loop on Review by:
+a) Person [previous code was not really consistent on this]
+b) LocationDate
+c) CountryCityId [I still don't understand this last one - FDT]
+
+HANNO : This was added very recently as part of the TRM changes. Essentially it does not harm as the location date
+is unique is in combination with the city id. However adding the . is to prevent that if a stopover trip has the same city the system would be tempted to pay for the same city stopover
+--->
+
+<!--- Initialization of variables --->
+
+<!--- List of ClaimTripId Excluded from Terminal payment --->
+<cfset exc = "">
+<!--- Arrival date/time in the Stop/City --->
+<cfset ArrDate = "">    
+<!--- Arrival date/time in the Stop/City (only the date not the time) --->
+<cfset ArrDay = "">  
+<!--- Last Day in the Stop/City (in most cases day before departure day) --->
+<cfset LastStopDay = "">  
+<!--- Id of the “Trip” representing the arrival in the city --->
+<cfset  TripIdArr = "">  
+<!--- 1 if the current stop is an intermediate stop --->
+<cfset  TripStop = 0>  
+
+<!--- LOOP on all the "trips" (1 trip is a departure or an an Arrival)
+	by Person (traveller), Location Date/time (sorted from oldest) and City Id (no clue why) --->
+<cfoutput query="Review" group="PersonNo">
+<cfoutput group="LocationDate">
+<cfoutput group="CountryCityId">  
+					
+	<!---  If the Trip is an Arrival --->
+	<Cfif #Review.ClaimTripMode# eq "Arrival">
+		<!---  We initialize the variables for the stop based on Review (ClaimEventTrip) --->
+		<cfset 	ArrDate 	= #Review.LocationDate#>   
+		<cfset 	ArrDay	 	= #Review.ClaimTripDate#>    
+		<cfset  TripIdArr 	= #Review.ClaimTripId#>  
+		<cfset  TripStop 	= #Review.ClaimTripStop#>  
+
+	<!---  If the Trip is a Departure --->
+	<cfelse>	
+		<!---  If the Trip is not the First Departure --->
+		<Cfif #ArrDate# neq "">  
+
+			<!--- WE APPLY THE 6 HOURS RULE --->
+			<!---  If it is an intermediate stop, we test the Duration of the Stop and if less than 6 hours  
+				 We compare Review.LocationDate with the "locationDate" of the arrival storred in ArrDate 
+				 Since for historical reasons, 30s were added to the arrival dates, we substract them before comparing.
+			--->
+			
+			<Cfif  #TripStop# gte 1 
+			       and datediff("h", DateAdd("s", "-30", #ArrDate#), #Review.LocationDate#) lt #Parameter.StopoverHours#>
+			
+				<!---  we exclude the stop (both arrival and departure) from Terminal payments --->
+				<cfif exc eq "">
+				     <cfset exc = "'#Review.claimtripid#'">
+				<cfelse>
+				     <cfset exc = "#exc#,'#Review.claimtripid#'">
+				</cfif>
+				<cfif exc eq "">
+				     <cfset exc = "'#TripIdArr#'">
+				<cfelse>
+				     <cfset exc = "#exc#,'#TripIdArr#'">
+				</cfif>
+			</cfif>
+
+			<!--- THE ANNUAL LEAVE RULE --->
+			<!--- We test if all days in the Stop are Annual Leave days--->
+			
+			<!--- There were discussion on limiting this policy to "intermediate stops" but it is difficult to detect all of them: 
+			- #TripStop# (ClaimEventTrip.ClaimTripStop) = 1 detects "intermediate stops" added by "ADD connection/stopover#"
+			- But there could be also cases where the "arrival" and "departure" cities defaulted from the Request are modified to "leave" stops
+			In these cases, it may be the city entered as Stopover which is the Official Authorized Step !!
+			So we apply the rule for all stops
+			<Cfif  #TripStop# gte 1 >
+			--->
+
+				<!--- FDT 08/08/2007: We Test AL days Only if Traveller stays at least 1 day in the stop --->
+				<Cfif  datediff("d", #ArrDay#, #Review.ClaimTripDate#) gte 1 > 
+				
+				<!--- We Initialize LastStopDay - Last Day in the Stop to consider for Annual Leave Purpose 
+				We consider that the last day in the stop to consider is the day before 
+				the departure date (in line with the DSA policies and TCP day grouping in subsistence screen).
+				--->
+					<cfset 	LastStopDay 	= #Review.ClaimTripDate# - 1 >    
+													
+					<!--- We look in ALLDAYS (SQL table: userquery.dbo.#table1#) to test 
+                      if all days from ArrDate and LastStopDay included are Annual Leave days --->
+				
+					<cfquery name="CheckALDays" 
+					datasource="appsTravelClaim">
+					SELECT 	* 
+					FROM 	userquery.dbo.#table1#
+					WHERE  	userquery.dbo.#table1#.ClaimId = '#URL.ClaimId#'
+ 					AND 	userquery.dbo.#table1#.PersonNo = '#Review.PersonNo#'
+ 					AND 	userquery.dbo.#table1#.CalendarDate >= '#dateformat(ArrDay,client.dateSQL)#'
+ 					AND 	userquery.dbo.#table1#.CalendarDate <= '#dateformat(LastStopDay,client.dateSQL)#'
+					AND		userquery.dbo.#table1#.ALIndicator = 0
+					</cfquery>
+													
+					<!---  if all days in the Stop are Annual Leave days--->
+					<cfif #CheckALDays.Recordcount# eq 0 > 
+						<!---  we exclude the stop (both arrival and departure) from Terminal payments --->
+						<cfif exc eq "">
+				    		 <cfset exc = "'#Review.claimtripid#'">
+						<cfelse>
+				    		 <cfset exc = "#exc#,'#Review.claimtripid#'">
+						</cfif>
+						<cfif exc eq "">
+				    		 <cfset exc = "'#TripIdArr#'">
+						<cfelse>
+				 		 <cfset exc = "#exc#,'#TripIdArr#'">
+						</cfif>
+					</cfif>
+					<!--- end of if #CheckALDays.Recordcount# eq 0 --->
+				</cfif>								
+				<!--- end of if #LastStopDate# gte #ArrDate#  --->
+			
+			<!---	
+			</cfif>  end of if #TripStop# gte 1 commented since we now test all stops
+			--->
+			
+		  </cfif>
+		  <!--- end of if #ArrDate# neq ""  --->
+	  </cfif>
+	  <!--- end of if #Review.ClaimTripMode# eq "Arrival"  --->
+	  
+</cfoutput>		
+</cfoutput>	
+</cfoutput>
+
+<!--- Dropping Alldays Temporary Table --->
+
+<CF_DropTable dbName="AppsQuery" tblName="#table1#">
+
+<!---  FDT 7/08/08: END OF THE CODE ADDED ---> 
+
+<!---  FDT 7/08/08: START OF THE CODE REPLACED 
+
+<cfset cit = "0">
+<cfset exc = "">
+
+<!--- do not calculate if TRM < 6 hours if NOT included in the TVRQ
+however if at midnight there is a stopover < 6 hours and
+person selected DSA code of that city, you will get DSA 
+--->
+
+<cfset p = review.claimtripid>
+
+<cfoutput query="Review" group="PersonNo">
+
+	<cfset lvetrip = 0>
+	
+	<cfoutput group="LocationDate">
+			
+		<cfoutput group="CountryCityId">
+				
+			<!--- exclude as well of the TRM is on a day for which the person has indicated
+			annual leave --->	
+					
+			
+			<cfquery name="Leave" 
+				datasource="appsTravelClaim">	
+					SELECT   TOP 1 *
+					FROM     ClaimLineDateIndicator
+					WHERE    IndicatorCode = 'P01' 
+					AND      ClaimId = '#URL.ClaimId#' 
+					AND      CalendarDate = '#dateformat(LocationDate,client.dateSQL)#'
+			</cfquery>	
+			
+			<cfquery name="LeavePrior" 
+				datasource="appsTravelClaim">	
+					SELECT   TOP 1 *
+					FROM     ClaimLineDateIndicator
+					WHERE    IndicatorCode = 'P01' 
+					AND      ClaimId = '#URL.ClaimId#' 
+					AND      CalendarDate = '#dateformat(LocationDate-1,client.dateSQL)#'
+			</cfquery>	
+					   
+			<cfif (Leave.Recordcount eq "1" and claimTripMode eq "Arrival")
+			      or
+				  (LeavePrior.Recordcount eq "1" and claimTripMode eq "Departure")
+				  or
+				  (lvetrip eq "1" and claimTripMode eq "Departure")>
+				  
+				  <!--- traveller is leaving from his leave stop, reset the pointer this was
+				  as leave stopover --->
+				  
+				  <cfif claimtripstop gte "1">
+				     <cfset lvetrip = "0">
+				  </cfif>
+		
+				<!--- user arrives on a location for a date where he/she stated to be on leave 
+				departures will be paid, this need a correct still for the departure from 
+				a leave location, most likely, pending terry assessment --->
+			
+				<cfif exc eq "">
+				     <cfset exc = "'#claimtripid#'">
+				<cfelse>
+				     <cfset exc = "#exc#,'#claimtripid#'">
+				</cfif>
+				  
+			<cfelseif cit eq CountryCityId>
+					
+			   <cfset d = DateDiff("h", tme, LocationDate)> 	
+			   
+			   <!--- adjusted in to include travel as listed in TVRQ 08/06/2008 
+			   <cfif d lt Parameter.StopoverHours and claimtripstop gte "1">
+			   --->
+			   
+			    <cfif d lt Parameter.StopoverHours>
+			   	      
+				  <!--- only exempted if stopover is before 24:00 --->
+				 		   
+		  		  <cfif DatePart("w", locationdate) eq DatePart("w", tme)>
+				  
+				  	  <!--- same day no TRM granted --->
+			   
+				      <cfif exc eq "">
+					      <cfset exc = "'#p#','#claimtripid#'">
+					  <cfelse>
+					      <cfset exc = "#exc#,'#p#','#claimtripid#'">
+					  </cfif>
+					  
+				  <cfelse>
+				  
+				  		<!--- different day TRM granted if DSA for city --->
+				  		  
+						<cfquery name="CheckDSA" 
+							datasource="appsTravelClaim">
+							SELECT TOP 1 *
+							FROM   ClaimLineDSA
+							WHERE  ClaimId = '#URL.ClaimId#' 
+							AND    PersonNo = '#PersonNo#'
+							AND    CalendarDate = '#dateFormat(tme,client.dateSQL)#'					
+							AND    LocationCode IN (SELECT LocationCode 
+							                        FROM   Ref_CountryCityLocation 
+													WHERE  CountryCityId = '#cit#') 					
+						</cfquery>
+						
+						<cfif checkDSA.recordcount eq "0">
+										
+							<cfif exc eq "">
+							      <cfset exc = "'#p#','#claimtripid#'">
+							<cfelse>
+							      <cfset exc = "#exc#,'#p#','#claimtripid#'">
+						    </cfif>
+					  
+					  	</cfif>		  
+				    		  
+				  </cfif>
+			   	  
+			   </cfif>
+			   
+			   <cfset cit = CountryCityId>
+			  	   
+			<cfelse>	
+			
+			   <cfset cit = CountryCityId> 
+			   <cfset tme = LocationDate> 	
+			   
+			</cfif>
+			
+			<cfset p = claimtripid>
+			
+		</cfoutput>		
+		
+	</cfoutput>	
+		
+</cfoutput>
+
+FDT 7/08/08: END OF THE CODE REPLACED --->
+
+
+<!--- determine TRM --->
+
+<cfquery name="SelectCities" 
+datasource="appsTravelClaim">
+	SELECT   T.ClaimEventId, 
+	         T.ClaimTripId,
+	         T.CountryCityId, 
+			 T.ClaimTripDate,
+			 CP.ClaimantType, 
+			 T.ClaimTripDate,
+			 R.LocationCity,
+			 CP.PersonNo
+	FROM     ClaimEventTrip T,
+	         ClaimEventPerson CP,
+			 Ref_CountryCity R
+	WHERE    T.ClaimEventId = CP.ClaimEventId
+	AND      T.CountryCityId = R.CountryCityId 
+	AND 	 T.ClaimEventId IN (SELECT ClaimEventId 
+	                          FROM ClaimEvent 
+							  WHERE ClaimId = '#URL.ClaimId#')	
+	AND      T.EventCode IN (SELECT Code 
+	                         FROM Ref_ClaimEvent 
+							 WHERE pointerTerminal = 1)	
+	<cfif exc neq "">						 	
+	AND T.ClaimTripId NOT IN (#preservesingleQuotes(exc)#)					 				  			  
+	</cfif>
+	
+	ORDER BY PersonNo, LocationDate		 					  
+</cfquery>
+
+<cfoutput query="SelectCities" group="PersonNo">
+
+    <cfset amt = 0>
+	
+    <cfoutput>
+	
+	<!--- check if indicator was used --->
+	<cfquery name="Check" 
+	datasource="appsTravelClaim">
+	SELECT *
+	FROM ClaimEventTripIndicator
+	WHERE ClaimTripId = '#ClaimTripid#'
+	AND IndicatorCode IN (SELECT IndicatorCode 
+	                      FROM Ref_ClaimRates 
+						  WHERE ClaimCategory = 'TRM') 			  
+						  
+	</cfquery>
+	
+	<cfif check.recordcount gte "1">
+	     <cfset ind = Check.IndicatorCode>
+	<cfelse>
+	     <cfset ind = ""> 
+	</cfif>			
+	
+	<cfquery name="CityLocation" 
+		datasource="appsTravelClaim" 
+		username="#CLIENT.login#" 
+		password="#CLIENT.dbpw#">
+		SELECT *
+		FROM   Ref_CountryCityLocation L
+		WHERE  L.CountryCityId = '#CountryCityId#' 
+		ORDER BY LocationDefault DESC												
+	</cfquery> 
+					
+	<cfset loc = "#CityLocation.LocationCode#">
+	
+	<!--- find the correct rate --->
+		
+	<cfquery name="Rate" 
+	datasource="appsTravelClaim">
+		SELECT  *
+		FROM    Ref_ClaimRates
+		WHERE   ClaimCategory     = 'TRM' 
+		AND     DateEffective     < '#DateFormat(claimTripDate,CLIENT.DateSQL)#'
+		AND     ServiceLocation   = '#CityLocation.LocationCode#' 
+		AND     (ClaimantType     = '#ClaimantType#' OR ClaimantType is NULL) 
+		<cfif ind neq "">
+		        AND IndicatorCode = '#Ind#'
+		<cfelse>
+		        AND IndicatorCode is NULL 
+		</cfif>
+		ORDER BY DateEffective DESC, ClaimantType DESC
+	</cfquery>
+	
+	<cfif Rate.recordcount eq "0">
+	
+		<cfquery name="Rate" 
+		datasource="appsTravelClaim">
+		SELECT    *
+		FROM      Ref_ClaimRates
+		WHERE     ClaimCategory   = 'TRM' 
+		AND       DateEffective < '#DateFormat(claimTripDate,CLIENT.DateSQL)#'
+		AND       ServiceLocation = 'ALL' 
+		AND (ClaimantType    = '#ClaimantType#' OR ClaimantType is NULL) 
+		<cfif ind neq "">
+		        AND IndicatorCode = '#Ind#'
+		<cfelse>
+		        AND IndicatorCode is NULL 
+		</cfif>
+		ORDER BY DateEffective DESC, ClaimantType DESC
+		</cfquery>
+		
+	</cfif>		
+	
+	<!--- 16/8 do not add TRM cost if the day is a personal day, disabled based on topic 399
+	
+	<cfquery name="CheckPersonal" 
+	 	  datasource="appsTravelClaim" 
+		  username="#CLIENT.login#" 
+		  password="#CLIENT.dbpw#">
+		  SELECT     Date.CalendarDate, 'Personal' AS Expr1
+			FROM     Ref_Indicator R INNER JOIN
+                     ClaimLineDateIndicator Date ON R.Code = Date.IndicatorCode
+			WHERE    R.LinePercentage  = '100' <!--- personal --->
+			AND      Date.PersonNo     = '#PersonNo#' 
+			AND      Date.CalendarDate = '#DateFormat(claimTripDate,CLIENT.DateSQL)#'
+	</cfquery>		
+		
+	<cfif Rate.recordcount neq "0" and CheckPersonal.recordcount eq "0">
+	
+	--->
+	
+	<cfif Rate.recordcount neq "0">
+	
+		<cfif ind neq "">
+		
+				<!--- check if indicator was used --->
+			<cfquery name="Check" 
+			datasource="appsTravelClaim">
+			SELECT *
+			FROM Ref_Indicator
+			WHERE Code = '#ind#'
+			</cfquery>
+			
+			<cfset ref = check.description>
+			
+		<cfelse>
+		
+		    <cfset ref  = "">
+					
+		</cfif>
+	
+	    <cfquery name="InsertCost" 
+			 	  datasource="appsTravelClaim" 
+				  username="#CLIENT.login#" 
+				  password="#CLIENT.dbpw#">
+				  INSERT INTO  ClaimEventIndicatorCost
+						      (ClaimEventId, 
+							   IndicatorCode,
+							   CostLineNo,
+							   PersonNo,
+							   InvoiceDate,
+							   InvoiceCurrency,
+							   InvoiceAmount,
+							   Description,
+							   Reference,ReferenceId)
+				  VALUES ('#evid#',
+				          'TRM',
+						  #currentrow#+200,
+						  '#PersonNo#',
+						  '#ClaimTripDate#', 
+						  '#Rate.Currency#',
+						  '#Rate.Amount#',
+						  '#LocationCity#',
+						  '#ref#','#ClaimTripId#')
+		 </cfquery>	
+	    
+	</cfif>
+		
+	</cfoutput>
+
+</cfoutput>

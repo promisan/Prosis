@@ -1,0 +1,48 @@
+
+<cf_screentop height="100%" title="Application Code Inquiry" scroll="no" html="No" jQuery="Yes">
+<cf_layoutscript>
+
+<cfset attrib = {type="Border",name="mybox",fitToWindow="Yes"}>	
+
+<cf_layout attributeCollection="#attrib#">	
+
+	<cf_layoutarea 
+          position="top"
+          name="controltop"
+          minsize="50"
+          maxsize="50"  
+		  size="50"        
+		  overflow="hidden"
+          splitter="true">	
+		  
+		 <cfinclude template="PostFileMenu.cfm">
+		  
+	</cf_layoutarea>		  
+
+	<cf_layoutarea 
+	    position="left" name="tree" maxsize="400" size="260" collapsible="true" splitter="true">
+	
+		<table width="100%" height="100%" cellspacing="0" cellpadding="0" class="tree formpadding">
+		<tr><td valign="top">
+		<cfform>
+	
+				<cftree name="idfolder" font="tahoma"  fontsize="11" bold="No" format="html" required="No">
+				
+				     <cftreeitem bind="cfc:service.Tree.FolderTree.getNodes({cftreeitempath},{cftreeitemvalue},'#SESSION.rootpath#')">  		 
+					 
+			    </cftree>	
+	
+		</cfform>
+		</td></tr>
+		</table>
+		
+	</cf_layoutarea>	
+	
+	<cf_layoutarea 
+	    position="center" name="boxfiles">				
+	
+	   <iframe name="right" id="right" width="100%" height="100%" scrolling="no" frameborder="0" border="0"></iframe>
+		   
+	</cf_layoutarea>	
+
+</cf_layout>	   

@@ -1,0 +1,115 @@
+
+body {
+ margin:0px;
+ padding:0px;
+ background-color:white;
+}
+
+.hiddenIcon {
+ -moz-opacity:0.3;
+ filter:alpha(opacity=40);
+}
+
+.newFolder {
+ border:1px solid white;
+ background-color:#d1d1d1;
+ font-family:arial;
+ font-size:11px;
+ padding-left:4px;
+}
+
+.renameObjectBox {
+ border:1px solid black;
+ font-family:arial;
+ font-size:11px;
+ padding-left:4px;
+}
+
+.filePanelCol {
+ text-align:left;
+ border-right:1px solid #848284;
+ border-bottom:1px solid #848284;
+ border-left:1px solid #ffffff;
+ border-top:1px solid #ffffff;
+ background-color:buttonface;
+ padding-left:5px;
+ font-family:arial;
+ font-size:11px;
+ cursor:pointer;
+ cursor:hand;
+ padding-top:2px;
+ padding-bottom:2px;
+ font-weight:bold;
+}
+
+.filePanelObjCell {
+ padding-left:4px;
+ font-family:arial;
+ font-size:11px;
+ cursor:pointer;
+ cursor:hand;
+ -moz-user-select:	none;
+}
+
+.skin0{
+position:absolute;
+width:155px;
+background-color:buttonface;
+border-left:2px outset white;
+border-top:2px outset white;
+border-right:2px outset #848284;
+border-bottom:2px outset #848284;
+font-family:Verdana;
+line-height:15px;
+cursor:default;
+font-size:11px;
+z-index:100;
+visibility:hidden;
+padding-bottom:10px;
+}
+
+.sort-arrow {
+	width:					11px;
+	height:					11px;
+	background-position:	center center;
+	background-repeat:		no-repeat;
+	margin:					0 2px;
+}
+
+.sort-arrow.descending {
+	background-image:		url("downsimple.png");
+	
+}
+
+.sort-arrow.ascending {
+	background-image:		url("upsimple.png");
+}
+
+.selected {
+	background:	Highlight;
+	color:		HighlightText;
+}
+
+.menuitems{
+padding-left:0px;
+padding-top:6px;
+padding-right:10px;
+cursor:pointer;
+cursor:hand;
+}
+
+.disabled{
+padding-left:0px;
+padding-top:6px;
+padding-right:10px;
+color:#848284;
+}
+
+.disabled img{
+filter:grey();
+}
+
+#fObjTable tr td{
+	white-space : nowrap;
+	height:20px;
+}

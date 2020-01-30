@@ -1,0 +1,687 @@
+<!-- saved from url=(0052)http://www.ajaxtoolbox.com/request/documentation.php -->
+<HTML><HEAD><TITLE>AjaxRequest / Ajax Request Documentation</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=windows-1252"><LINK 
+href="Request Documentation_files/style.css" type=text/css rel=stylesheet>
+<STYLE type=text/css>.TableHeadingColor {
+	BACKGROUND: #0c88d0
+}
+.TableSubHeadingColor {
+	BACKGROUND: #eeeeff
+}
+.TableRowColor {
+	BACKGROUND: #ffffff
+}
+</STYLE>
+
+<META content="MSHTML 6.00.2900.2963" name=GENERATOR></HEAD>
+<BODY class=jsdoc>
+<DIV style="WIDTH: 100%; BACKGROUND-COLOR: #0c88d0"><IMG height=90 
+src="Request Documentation_files/logo.jpg" width=497></DIV>
+<DIV class=body>
+<TABLE class=columns>
+  <TBODY>
+  <TR>
+    <TD class=left>
+      <DIV class=navBar>
+      <DIV class=section><A class=navBar title=Home 
+      href="http://www.ajaxtoolbox.com/">Home</A></DIV>
+      <DIV class=sectionSelected><A class=navBar 
+      title="The AjaxRequest Javascript Library" 
+      href="http://www.ajaxtoolbox.com/request/">AjaxRequest</A></DIV>
+      <DIV class=subSection><A class=navBar 
+      title="Examples of using the AjaxRequest library" 
+      href="http://www.ajaxtoolbox.com/request/examples.php">Examples</A></DIV>
+      <DIV class=subSectionSelected><A class=navBar 
+      title="Class Documentation for the AjaxRequest library" 
+      href="http://www.ajaxtoolbox.com/request/documentation.php">Documentation</A></DIV>
+      <DIV class=subSection><A class=navBar 
+      title="Source code for the AjaxRequest library" 
+      href="http://www.ajaxtoolbox.com/request/source.php">Source</A></DIV>
+      <DIV class=section><A class=navBar 
+      title="Support and discussion forum. Post here!" 
+      href="http://www.ajaxtoolbox.com/forum/">Forum / Support</A></DIV>
+      <DIV class=section><A class=navBar title="About this site and its author" 
+      href="http://www.ajaxtoolbox.com/about/">About</A></DIV></DIV></TD>
+    <TD class=middle><!-- ======== START OF CLASS DATA ======== -->
+      <H2>Class AjaxRequest</H2><PRE>Object
+   |
+   +--<B>AjaxRequest</B>
+</PRE>
+      <HR>
+<!-- ======== NESTED CLASS SUMMARY ======== --><!-- ======== END NESTED CLASS SUMMARY ======== --><!-- =========== FIELD SUMMARY =========== --><A 
+      name=field_summary><!-- --></A>
+      <TABLE cellSpacing=0 cellPadding=3 width="100%" border=1>
+        <TBODY>
+        <TR class=TableHeadingColor bgColor=#ccccff>
+          <TD colSpan=2><FONT color=white size=+2><B>Field 
+          Summary</B></FONT></TD></TR><!-- This is one instance field summary -->
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&nbsp;boolean</CODE></FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#aborted">aborted</A></B></CODE> 
+            <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An 
+            internal flag to indicate whether the request has been aborted</TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&nbsp;boolean</CODE></FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#async">async</A></B></CODE> 
+            <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Whether 
+            or not the request will be asynchronous.</TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&nbsp;boolean</CODE></FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#generateUniqueUrl">generateUniqueUrl</A></B></CODE> 
+            <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Since 
+            some browsers cache GET requests via XMLHttpRequest, an additional 
+            parameter called AjaxRequestUniqueId will be added to the request 
+            URI with a unique numeric value appended so that the requested URL 
+            will not be cached.</TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&nbsp;string</CODE></FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#groupName">groupName</A></B></CODE> 
+            <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The 
+            name of the group that this request belongs to, for activity 
+            monitoring purposes</TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&nbsp;string</CODE></FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#method">method</A></B></CODE> 
+            <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The 
+            method of the request, either GET (default), POST, or HEAD</TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&nbsp;functionReference</CODE></FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#onComplete">onComplete</A></B></CODE> 
+            <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A 
+            function reference assigned will be called when readyState=4</TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&nbsp;functionReference</CODE></FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#onError">onError</A></B></CODE> 
+            <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A 
+            function reference assigned will be called after onComplete, if the 
+            statusCode != 200</TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&nbsp;functionReference</CODE></FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#onGroupBegin">onGroupBegin</A></B></CODE> 
+            <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If 
+            this request has a group name, this function reference will be 
+            called and passed the group name if this is the first request in the 
+            group to become active</TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&nbsp;functionReference</CODE></FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#onGroupEnd">onGroupEnd</A></B></CODE> 
+            <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If 
+            this request has a group name, and this request is the last request 
+            in the group to complete, this function reference will be 
+        called</TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&nbsp;functionReference</CODE></FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#onInteractive">onInteractive</A></B></CODE> 
+            <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A 
+            function reference assigned will be called when readyState=3</TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&nbsp;functionReference</CODE></FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#onLoaded">onLoaded</A></B></CODE> 
+            <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A 
+            function reference assigned will be called when readyState=2</TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&nbsp;functionReference</CODE></FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#onLoading">onLoading</A></B></CODE> 
+            <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A 
+            function reference assigned will be called when readyState=1</TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&nbsp;functionReference</CODE></FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#onSuccess">onSuccess</A></B></CODE> 
+            <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A 
+            function reference assigned will be called after onComplete, if the 
+            statusCode=200</TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&nbsp;functionReference</CODE></FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#onTimeout">onTimeout</A></B></CODE> 
+            <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If a 
+            timeout period is set, and it is reached before a response is 
+            received, a function reference assigned to onTimeout will be 
+          called</TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&nbsp;Object</CODE></FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#parameters">parameters</A></B></CODE> 
+            <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The 
+            parameters is an object holding name/value pairs which will be added 
+            to the url for a GET request or the request content for a POST 
+            request</TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&nbsp;string</CODE></FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#password">password</A></B></CODE> 
+            <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The 
+            password used to access the URL</TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&nbsp;string</CODE></FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#queryString">queryString</A></B></CODE> 
+            <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The 
+            query string to be added to the end of a GET request, in proper 
+            URIEncoded format</TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&lt;private&gt;&nbsp;&nbsp;int</CODE></FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#requestIndex">requestIndex</A></B></CODE> 
+            <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The 
+            sequential index number of this request, updated internally</TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&lt;private&gt;&nbsp;&nbsp;boolean</CODE></FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#responseReceived">responseReceived</A></B></CODE> 
+            <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Indicates 
+            whether a response has been received yet from the server</TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&nbsp;string</CODE></FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#responseText">responseText</A></B></CODE> 
+            <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;After 
+            a response has been received, this will hold the text contents of 
+            the response - even in case of error</TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&nbsp;xmlNode</CODE></FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#responseXML">responseXML</A></B></CODE> 
+            <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;After 
+            a response has been received, this will hold the XML content</TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&nbsp;int</CODE></FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#status">status</A></B></CODE> 
+            <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;After 
+            a response has been received, this will hold the status code of the 
+            response as returned by the server.</TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&nbsp;string</CODE></FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#statusText">statusText</A></B></CODE> 
+            <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;After 
+            a response has been received, this will hold the text description of 
+            the response code</TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&nbsp;int</CODE></FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#timeout">timeout</A></B></CODE> 
+            <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Timeout 
+            period (in ms) until an async request will be aborted, and the 
+            onTimeout function will be called</TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&nbsp;string</CODE></FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#url">url</A></B></CODE> 
+            <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The 
+            url that the request will be made to, which defaults to the current 
+            url of the window</TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&nbsp;string</CODE></FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#username">username</A></B></CODE> 
+            <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The 
+            username used to access the URL</TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&lt;private&gt;&nbsp;&nbsp;XMLHttpRequest</CODE></FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#xmlHttpRequest">xmlHttpRequest</A></B></CODE> 
+            <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The 
+            XMLHttpRequest object used internally</TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&lt;static&gt; &nbsp;Object</CODE></FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#numActiveAjaxGroupRequests">numActiveAjaxGroupRequests</A></B></CODE> 
+            <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An 
+            object holding the number of active requests for each group</TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&lt;static&gt; &nbsp;int</CODE></FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#numActiveAjaxRequests">numActiveAjaxRequests</A></B></CODE> 
+            <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The 
+            number of total AjaxRequest objects currently active and 
+        running</TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&lt;static&gt; &nbsp;int</CODE></FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#numAjaxRequests">numAjaxRequests</A></B></CODE> 
+            <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The 
+            total number of AjaxRequest objects 
+      instantiated</TD></TR></TBODY></TABLE>&nbsp; <!-- =========== END FIELD SUMMARY =========== --><!-- ======== CONSTRUCTOR SUMMARY ======== --><A 
+      name=constructor_summary><!-- --></A>
+      <TABLE cellSpacing=0 cellPadding=3 width="100%" border=1>
+        <TBODY>
+        <TR class=TableHeadingColor bgColor=#ccccff>
+          <TD colSpan=2><FONT color=white size=+2><B>Constructor 
+            Summary</B></FONT></TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/AjaxRequest.html#AjaxRequest()">AjaxRequest</A> 
+            </B>() 
+            </CODE><BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            The AjaxRequest class is a wrapper for the XMLHttpRequest objects 
+            which are available in most modern browsers. </TD></TR></TBODY></TABLE><!-- ======== END CONSTRUCTOR SUMMARY ======== -->&nbsp; 
+<!-- ========== METHOD SUMMARY =========== --><A name=method_summary><!-- --></A>
+      <TABLE cellSpacing=0 cellPadding=3 width="100%" border=1>
+        <TBODY>
+        <TR class=TableHeadingColor bgColor=#ccccff>
+          <TD colSpan=2><FONT color=white size=+2><B>Method 
+          Summary</B></FONT></TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&nbsp;Object</CODE> </FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#getAllResponseHeaders">getAllResponseHeaders</A></B>() 
+            </CODE><BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            Returns the results of XMLHttpRequest.getAllResponseHeaders(). 
+</TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&nbsp;string</CODE> </FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#getResponseHeader">getResponseHeader</A></B>(&lt;string&gt; 
+            headerName) 
+            </CODE><BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            Returns the the value of a response header as returned by 
+            XMLHttpRequest,getResponseHeader(). </TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&nbsp;&lt;private&gt; &nbsp;void</CODE> </FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#handleArguments">handleArguments</A></B>(&lt;Object&gt; 
+            args) 
+            </CODE><BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            An internal function to handle an Object argument, which may contain 
+            either AjaxRequest field values or parameter name/values </TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&nbsp;void</CODE> </FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#process">process</A></B>() 
+            </CODE><BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            The process method is called to actually make the request. </TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&lt;static&gt;&nbsp;&lt;private&gt; &nbsp;void</CODE> 
+            </FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#doRequest">doRequest</A></B>(method,args) 
+            </CODE><BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            The internal method used by the .get() and .post() methods </TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&lt;static&gt;&nbsp;void</CODE> </FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#get">get</A></B>(&lt;Object&gt; 
+            args) 
+            </CODE><BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            Make a GET request. </TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&lt;static&gt;&nbsp;Object</CODE> </FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#getXmlHttpRequest">getXmlHttpRequest</A></B>() 
+            </CODE><BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            Returns an XMLHttpRequest object, either as a core object or an 
+            ActiveX implementation. </TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&lt;static&gt;&nbsp;boolean</CODE> </FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#isActive">isActive</A></B>() 
+            </CODE><BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            See if any request is active in the background </TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&lt;static&gt;&nbsp;void</CODE> </FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#post">post</A></B>(&lt;Object&gt; 
+            args) 
+            </CODE><BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            Make a POST request. </TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&lt;static&gt;&nbsp;string</CODE> </FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#serializeForm">serializeForm</A></B>(&lt;FormReference&gt; 
+            theform) 
+            </CODE><BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            Serialize a form into a format which can be sent as a GET string or 
+            a POST content.It correctly ignores disabled fields, maintains order 
+            of the fields as in the elements[] array. </TD></TR>
+        <TR class=TableRowColor bgColor=white>
+          <TD vAlign=top align=right width="1%"><FONT 
+            size=-1><CODE>&lt;static&gt;&nbsp;boolean</CODE> </FONT></TD>
+          <TD><CODE><B><A 
+            href="http://www.ajaxtoolbox.com/request/documentation.php#submit">submit</A></B>(&lt;FormReference&gt; 
+            theform, &lt;Object&gt; args) 
+            </CODE><BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            Submit a form. </TD></TR></TBODY></TABLE>
+      <P><!-- ========== END METHOD SUMMARY =========== --><!-- ============ FIELD DETAIL START =========== --><A 
+      name=field_detail><!-- --></A>
+      <TABLE cellSpacing=0 cellPadding=3 width="100%" border=1>
+        <TBODY>
+        <TR class=TableHeadingColor bgColor=#ccccff>
+          <TD><FONT color=white size=+2><B>Field 
+        Detail</B></FONT></TD></TR></TBODY></TABLE><A name=aborted><!-- --></A>
+      <H3>aborted</H3><PRE>boolean&nbsp;<B>aborted</B></PRE>
+      <UL>An internal flag to indicate whether the request has been aborted 
+</UL>
+      <HR>
+      <A name=async><!-- --></A>
+      <H3>async</H3><PRE>boolean&nbsp;<B>async</B></PRE>
+      <UL>Whether or not the request will be asynchronous. In general, 
+        synchronous requests should not be used so this should rarely be changed 
+        from true </UL>
+      <HR>
+      <A name=generateUniqueUrl><!-- --></A>
+      <H3>generateUniqueUrl</H3><PRE>boolean&nbsp;<B>generateUniqueUrl</B></PRE>
+      <UL>Since some browsers cache GET requests via XMLHttpRequest, an 
+        additional parameter called AjaxRequestUniqueId will be added to the 
+        request URI with a unique numeric value appended so that the requested 
+        URL will not be cached. </UL>
+      <HR>
+      <A name=groupName><!-- --></A>
+      <H3>groupName</H3><PRE>string&nbsp;<B>groupName</B></PRE>
+      <UL>The name of the group that this request belongs to, for activity 
+        monitoring purposes </UL>
+      <HR>
+      <A name=method><!-- --></A>
+      <H3>method</H3><PRE>string&nbsp;<B>method</B></PRE>
+      <UL>The method of the request, either GET (default), POST, or HEAD </UL>
+      <HR>
+      <A name=onComplete><!-- --></A>
+      <H3>onComplete</H3><PRE>functionReference&nbsp;<B>onComplete</B></PRE>
+      <UL>A function reference assigned will be called when readyState=4 </UL>
+      <HR>
+      <A name=onError><!-- --></A>
+      <H3>onError</H3><PRE>functionReference&nbsp;<B>onError</B></PRE>
+      <UL>A function reference assigned will be called after onComplete, if 
+        the statusCode != 200 </UL>
+      <HR>
+      <A name=onGroupBegin><!-- --></A>
+      <H3>onGroupBegin</H3><PRE>functionReference&nbsp;<B>onGroupBegin</B></PRE>
+      <UL>If this request has a group name, this function reference will be 
+        called and passed the group name if this is the first request in the 
+        group to become active </UL>
+      <HR>
+      <A name=onGroupEnd><!-- --></A>
+      <H3>onGroupEnd</H3><PRE>functionReference&nbsp;<B>onGroupEnd</B></PRE>
+      <UL>If this request has a group name, and this request is the last 
+        request in the group to complete, this function reference will be called 
+      </UL>
+      <HR>
+      <A name=onInteractive><!-- --></A>
+      <H3>onInteractive</H3><PRE>functionReference&nbsp;<B>onInteractive</B></PRE>
+      <UL>A function reference assigned will be called when readyState=3 </UL>
+      <HR>
+      <A name=onLoaded><!-- --></A>
+      <H3>onLoaded</H3><PRE>functionReference&nbsp;<B>onLoaded</B></PRE>
+      <UL>A function reference assigned will be called when readyState=2 </UL>
+      <HR>
+      <A name=onLoading><!-- --></A>
+      <H3>onLoading</H3><PRE>functionReference&nbsp;<B>onLoading</B></PRE>
+      <UL>A function reference assigned will be called when readyState=1 </UL>
+      <HR>
+      <A name=onSuccess><!-- --></A>
+      <H3>onSuccess</H3><PRE>functionReference&nbsp;<B>onSuccess</B></PRE>
+      <UL>A function reference assigned will be called after onComplete, if 
+        the statusCode=200 </UL>
+      <HR>
+      <A name=onTimeout><!-- --></A>
+      <H3>onTimeout</H3><PRE>functionReference&nbsp;<B>onTimeout</B></PRE>
+      <UL>If a timeout period is set, and it is reached before a response is 
+        received, a function reference assigned to onTimeout will be called </UL>
+      <HR>
+      <A name=parameters><!-- --></A>
+      <H3>parameters</H3><PRE>Object&nbsp;<B>parameters</B></PRE>
+      <UL>The parameters is an object holding name/value pairs which will be 
+        added to the url for a GET request or the request content for a POST 
+        request </UL>
+      <HR>
+      <A name=password><!-- --></A>
+      <H3>password</H3><PRE>string&nbsp;<B>password</B></PRE>
+      <UL>The password used to access the URL </UL>
+      <HR>
+      <A name=queryString><!-- --></A>
+      <H3>queryString</H3><PRE>string&nbsp;<B>queryString</B></PRE>
+      <UL>The query string to be added to the end of a GET request, in proper 
+        URIEncoded format </UL>
+      <HR>
+      <A name=requestIndex><!-- --></A>
+      <H3>requestIndex</H3><PRE>&lt;private&gt;&nbsp;int&nbsp;<B>requestIndex</B></PRE>
+      <UL>The sequential index number of this request, updated internally </UL>
+      <HR>
+      <A name=responseReceived><!-- --></A>
+      <H3>responseReceived</H3><PRE>&lt;private&gt;&nbsp;boolean&nbsp;<B>responseReceived</B></PRE>
+      <UL>Indicates whether a response has been received yet from the server 
+      </UL>
+      <HR>
+      <A name=responseText><!-- --></A>
+      <H3>responseText</H3><PRE>string&nbsp;<B>responseText</B></PRE>
+      <UL>After a response has been received, this will hold the text contents 
+        of the response - even in case of error </UL>
+      <HR>
+      <A name=responseXML><!-- --></A>
+      <H3>responseXML</H3><PRE>xmlNode&nbsp;<B>responseXML</B></PRE>
+      <UL>After a response has been received, this will hold the XML content 
+      </UL>
+      <HR>
+      <A name=status><!-- --></A>
+      <H3>status</H3><PRE>int&nbsp;<B>status</B></PRE>
+      <UL>After a response has been received, this will hold the status code 
+        of the response as returned by the server. </UL>
+      <HR>
+      <A name=statusText><!-- --></A>
+      <H3>statusText</H3><PRE>string&nbsp;<B>statusText</B></PRE>
+      <UL>After a response has been received, this will hold the text 
+        description of the response code </UL>
+      <HR>
+      <A name=timeout><!-- --></A>
+      <H3>timeout</H3><PRE>int&nbsp;<B>timeout</B></PRE>
+      <UL>Timeout period (in ms) until an async request will be aborted, and 
+        the onTimeout function will be called </UL>
+      <HR>
+      <A name=url><!-- --></A>
+      <H3>url</H3><PRE>string&nbsp;<B>url</B></PRE>
+      <UL>The url that the request will be made to, which defaults to the 
+        current url of the window </UL>
+      <HR>
+      <A name=username><!-- --></A>
+      <H3>username</H3><PRE>string&nbsp;<B>username</B></PRE>
+      <UL>The username used to access the URL </UL>
+      <HR>
+      <A name=xmlHttpRequest><!-- --></A>
+      <H3>xmlHttpRequest</H3><PRE>&lt;private&gt;&nbsp;XMLHttpRequest&nbsp;<B>xmlHttpRequest</B></PRE>
+      <UL>The XMLHttpRequest object used internally </UL>
+      <HR>
+      <A name=numActiveAjaxGroupRequests><!-- --></A>
+      <H3>numActiveAjaxGroupRequests</H3><PRE>&lt;static&gt;&nbsp;Object&nbsp;<B>numActiveAjaxGroupRequests</B></PRE>
+      <UL>An object holding the number of active requests for each group </UL>
+      <HR>
+      <A name=numActiveAjaxRequests><!-- --></A>
+      <H3>numActiveAjaxRequests</H3><PRE>&lt;static&gt;&nbsp;int&nbsp;<B>numActiveAjaxRequests</B></PRE>
+      <UL>The number of total AjaxRequest objects currently active and running 
+      </UL>
+      <HR>
+      <A name=numAjaxRequests><!-- --></A>
+      <H3>numAjaxRequests</H3><PRE>&lt;static&gt;&nbsp;int&nbsp;<B>numAjaxRequests</B></PRE>
+      <UL>The total number of AjaxRequest objects instantiated </UL>
+      <HR>
+<!-- ============ FIELD DETAIL END =========== --><!-- ========= CONSTRUCTOR DETAIL START ======== --><A 
+      name=constructor_detail><!-- --></A>
+      <TABLE cellSpacing=0 cellPadding=3 width="100%" border=1>
+        <TBODY>
+        <TR class=TableHeadingColor bgColor=#ccccff>
+          <TD><FONT color=white size=+2><B>Constructor Detail</B></FONT> 
+        </TD></TR></TBODY></TABLE><A name=AjaxRequest()><!-- --></A>
+      <H3>AjaxRequest</H3><PRE><B>AjaxRequest</B>()</PRE>
+      <UL>The AjaxRequest class is a wrapper for the XMLHttpRequest objects 
+        which are available in most modern browsers. It simplifies the 
+        interfaces for making Ajax requests, adds commonly-used convenience 
+        methods, and makes the process of handling state changes more intuitive. 
+        An object may be instantiated and used, or the Class methods may be used 
+        which internally create an AjaxRequest object. </UL>
+      <UL></UL><!-- Constructor return value(s) --><!-- End constructor return value(s) --><!-- ADDITIONAL ATTRIBUTES -->
+      <HR>
+<!-- END ADDITIONAL ATTRIBUTES  --><!-- ========= CONSTRUCTOR DETAIL END ======== --><!-- ============ METHOD DETAIL START ========== --><A 
+      name=method_detail><!-- --></A>
+      <TABLE cellSpacing=0 cellPadding=3 width="100%" border=1>
+        <TBODY>
+        <TR class=TableHeadingColor bgColor=#ccccff>
+          <TD><FONT color=white size=+2><B>Method Detail</B></FONT> 
+        </TD></TR></TBODY></TABLE><!-- One single method detail entry --><A 
+      name=getAllResponseHeaders><!-- --></A>
+      <H3>getAllResponseHeaders</H3><PRE>Object <B>getAllResponseHeaders</B>()</PRE>
+      <UL>Returns the results of XMLHttpRequest.getAllResponseHeaders(). Only 
+        available after a response has been returned</UL><!-- METHOD PARAMETERS START --><!-- METHOD PARAMETERS END --><!-- ADDITIONAL ATTRIBUTES START --><!-- ADDITIONAL ATTRIBUTES  END -->
+      <HR>
+      <A name=getResponseHeader><!-- --></A>
+      <H3>getResponseHeader</H3><PRE>string <B>getResponseHeader</B>(&lt;string&gt; headerName)</PRE>
+      <UL>Returns the the value of a response header as returned by 
+        XMLHttpRequest,getResponseHeader(). Only available after a response has 
+        been returned</UL><!-- METHOD PARAMETERS START -->
+      <UL><B>Parameters:</B> 
+        <UL><CODE>headerName</CODE> - The name of the header whose value you 
+          want to retrieve </UL></UL><!-- METHOD PARAMETERS END -->
+      <UL><B>Returns:</B> 
+        <UL>Header value </UL></UL><!-- ADDITIONAL ATTRIBUTES START --><!-- ADDITIONAL ATTRIBUTES  END -->
+      <HR>
+      <A name=handleArguments><!-- --></A>
+      <H3>handleArguments</H3><PRE>&nbsp;&lt;private&gt; void <B>handleArguments</B>(&lt;Object&gt; args)</PRE>
+      <UL>An internal function to handle an Object argument, which may contain 
+        either AjaxRequest field values or parameter name/values</UL><!-- METHOD PARAMETERS START -->
+      <UL><B>Parameters:</B> 
+        <UL><CODE>args</CODE> - The Object to handle </UL></UL><!-- METHOD PARAMETERS END --><!-- ADDITIONAL ATTRIBUTES START --><!-- ADDITIONAL ATTRIBUTES  END -->
+      <HR>
+      <A name=process><!-- --></A>
+      <H3>process</H3><PRE>void <B>process</B>()</PRE>
+      <UL>The process method is called to actually make the request. It builds 
+        the querystring for GET requests (the content for POST requests), sets 
+        the appropriate headers if necessary, and calls the 
+        XMLHttpRequest.send() method</UL><!-- METHOD PARAMETERS START --><!-- METHOD PARAMETERS END --><!-- ADDITIONAL ATTRIBUTES START --><!-- ADDITIONAL ATTRIBUTES  END -->
+      <HR>
+      <A name=doRequest><!-- --></A>
+      <H3>doRequest</H3><PRE>&lt;static&gt; &nbsp;&lt;private&gt; void <B>doRequest</B>(method,args)</PRE>
+      <UL>The internal method used by the .get() and .post() methods</UL><!-- METHOD PARAMETERS START --><!-- METHOD PARAMETERS END --><!-- ADDITIONAL ATTRIBUTES START --><!-- ADDITIONAL ATTRIBUTES  END -->
+      <HR>
+      <A name=get><!-- --></A>
+      <H3>get</H3><PRE>&lt;static&gt; void <B>get</B>(&lt;Object&gt; args)</PRE>
+      <UL>Make a GET request. Pass an object containing parameters and 
+        arguments as the second argument. These areguments may be either 
+        AjaxRequest properties to set on the request object or name/values to 
+        set in the request querystring.</UL><!-- METHOD PARAMETERS START -->
+      <UL><B>Parameters:</B> 
+        <UL><CODE>args</CODE> - Arguments </UL></UL><!-- METHOD PARAMETERS END --><!-- ADDITIONAL ATTRIBUTES START --><!-- ADDITIONAL ATTRIBUTES  END -->
+      <HR>
+      <A name=getXmlHttpRequest><!-- --></A>
+      <H3>getXmlHttpRequest</H3><PRE>&lt;static&gt; Object <B>getXmlHttpRequest</B>()</PRE>
+      <UL>Returns an XMLHttpRequest object, either as a core object or an 
+        ActiveX implementation. If an object cannot be instantiated, it will 
+        return null;</UL><!-- METHOD PARAMETERS START --><!-- METHOD PARAMETERS END -->
+      <UL><B>Returns:</B> 
+        <UL>An XMLHttpRequest object </UL></UL><!-- ADDITIONAL ATTRIBUTES START --><!-- ADDITIONAL ATTRIBUTES  END -->
+      <HR>
+      <A name=isActive><!-- --></A>
+      <H3>isActive</H3><PRE>&lt;static&gt; boolean <B>isActive</B>()</PRE>
+      <UL>See if any request is active in the background</UL><!-- METHOD PARAMETERS START --><!-- METHOD PARAMETERS END -->
+      <UL><B>Returns:</B> 
+        <UL>true if there is at least one request currently active, else false 
+        </UL></UL><!-- ADDITIONAL ATTRIBUTES START --><!-- ADDITIONAL ATTRIBUTES  END -->
+      <HR>
+      <A name=post><!-- --></A>
+      <H3>post</H3><PRE>&lt;static&gt; void <B>post</B>(&lt;Object&gt; args)</PRE>
+      <UL>Make a POST request. Pass an object containing parameters and 
+        arguments as the second argument. These areguments may be either 
+        AjaxRequest properties to set on the request object or name/values to 
+        set in the request querystring.</UL><!-- METHOD PARAMETERS START -->
+      <UL><B>Parameters:</B> 
+        <UL><CODE>args</CODE> - Arguments </UL></UL><!-- METHOD PARAMETERS END --><!-- ADDITIONAL ATTRIBUTES START --><!-- ADDITIONAL ATTRIBUTES  END -->
+      <HR>
+      <A name=serializeForm><!-- --></A>
+      <H3>serializeForm</H3><PRE>&lt;static&gt; string <B>serializeForm</B>(&lt;FormReference&gt; theform)</PRE>
+      <UL>Serialize a form into a format which can be sent as a GET string or 
+        a POST content.It correctly ignores disabled fields, maintains order of 
+        the fields as in the elements[] array. The 'file' input type is not 
+        supported, as its content is not available to javascript. This method is 
+        used internally by the submit class method.</UL><!-- METHOD PARAMETERS START -->
+      <UL><B>Parameters:</B> 
+        <UL><CODE>theform</CODE> - A reference to the form on the page to 
+          serialize, ex: document.forms[0] </UL></UL><!-- METHOD PARAMETERS END -->
+      <UL><B>Returns:</B> 
+        <UL>A sequence of URIEncoded name/value pairs </UL></UL><!-- ADDITIONAL ATTRIBUTES START --><!-- ADDITIONAL ATTRIBUTES  END -->
+      <HR>
+      <A name=submit><!-- --></A>
+      <H3>submit</H3><PRE>&lt;static&gt; boolean <B>submit</B>(&lt;FormReference&gt; theform, &lt;Object&gt; args)</PRE>
+      <UL>Submit a form. The requested URL will be the form's ACTION, and the 
+        request method will be the form's METHOD. Returns true if the submittal 
+        was handled successfully, else false so it can easily be used with an 
+        onSubmit event for a form, and fallback to submitting the form 
+      normally.</UL><!-- METHOD PARAMETERS START -->
+      <UL><B>Parameters:</B> 
+        <UL><CODE>theform</CODE> - A reference to the form on the page to 
+          submit, ex: document.forms[0] </UL>
+        <UL><CODE>args</CODE> - Arguments </UL></UL><!-- METHOD PARAMETERS END -->
+      <UL><B>Returns:</B> 
+        <UL>True if the submit succeeded, else false </UL></UL><!-- ADDITIONAL ATTRIBUTES START --><!-- ADDITIONAL ATTRIBUTES  END -->
+      <HR>
+<!-- ============ METHOD DETAIL END ========== --><!-- ========= END OF CLASS DATA ========= --><FONT 
+      size=-1></FONT>
+      <DIV class=jsdoc_ctime>Documentation generated by <A 
+      href="http://jsdoc.sourceforge.net/" target=_parent>JSDoc</A></DIV></TD>
+    <TD class=right id=googleAds>
+      <SCRIPT type=text/javascript>
+google_ad_client = "pub-9155030588311591";
+google_ad_width = 120;
+google_ad_height = 600;
+google_ad_format = "120x600_as";
+google_color_border = "000000";
+google_color_bg = "FFFFFF";
+google_color_link = "000000";
+google_color_url = "000000";
+google_color_text = "000000";
+</SCRIPT>
+
+      <SCRIPT src="Request Documentation_files/show_ads.js" 
+      type=text/javascript></SCRIPT>
+    </TD></TR></TBODY></TABLE></DIV>
+<DIV class=footer>Copyright �2005 Matt Kruse</DIV></BODY></HTML>

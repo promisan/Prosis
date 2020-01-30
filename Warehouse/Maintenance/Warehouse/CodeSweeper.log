@@ -1,0 +1,4 @@
+Invalid equal sign (=) encountered while parsing (tag "OPTION" with attributes). 
+Invalid character (&) encountered while parsing (tag "CFSET" with attributes vLocation= - ). 
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes cnt=cnt). 
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes cnt=cnt). 

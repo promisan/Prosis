@@ -1,0 +1,14 @@
+<cfoutput>
+<iframe 
+	marginheight="0" 
+	marginwidth="0" 
+	frameborder="0" 
+	height="100%" 
+	width="100%" 
+	allowTransparency="true"
+	id="PortalView" 
+	name="Portalview" 
+	scrolling="No" 
+	src="#client.root#/Warehouse/Application/Requisition/Portal.cfm">
+</iframe>
+</cfoutput>

@@ -1,0 +1,217 @@
+
+<!--- action field --->
+
+<cfset actionclass = "Delivery">
+
+<!--- listing --->
+
+<cfoutput>
+
+	<cfsavecontent variable="myquery">
+	
+		SELECT     S.Description,
+		           C.CustomerName, 
+		           C.PostalCode, 
+				   C.City, 
+				   A.DateTimePlanning, 			   
+				   WL.WorkOrderLineId, 
+				   O.OrgUnitName, 
+				   W.ActionStatus,
+				   O.OrgUnitName AS Organization, 
+				   PL.Driver, 
+				   PL.Schedule
+				  			  
+		FROM       WorkOrder AS W INNER JOIN
+	               WorkOrderLine AS WL ON W.WorkOrderId = WL.WorkOrderId INNER JOIN
+				   ServiceItem AS S ON W.ServiceItem = S.Code INNER JOIN
+	               Customer AS C ON W.CustomerId = C.CustomerId INNER JOIN
+	               WorkOrderLineAction AS A ON WL.WorkOrderId = A.WorkOrderId AND WL.WorkOrderLine = A.WorkOrderLine INNER JOIN
+				   
+				   <!--- planned for today --->
+			 				 
+				 	(
+				 
+				    SELECT  W.WorkPlanId, 
+					        D.PlanOrder, 
+							D.PlanOrderCode, 
+							R.Description as Schedule,							
+							P.LastName as Driver,
+							D.DateTimePlanning as PlanDate,	 														
+							D.WorkActionId
+							
+				    FROM    WorkPlan AS W INNER JOIN
+                            WorkPlanDetail AS D ON W.WorkPlanId = D.WorkPlanId INNER JOIN
+                            Employee.dbo.Person AS P ON W.PersonNo = P.PersonNo INNER JOIN
+							Ref_PlanOrder AS R ON R.Code = D.PlanOrderCode
+					WHERE   W.Mission = '#url.mission#' 																
+					AND     D.WorkActionId IS NOT NULL 
+					
+					) PL ON A.WorkActionId = PL.WorkActionId  AND A.DateTimePlanning	= PL.PlanDate						   
+				   	 
+				   INNER JOIN  Organization.dbo.Organization AS O ON W.OrgUnitOwner = O.OrgUnit 				  
+	
+		WHERE      W.Mission         = '#url.mission#'		
+		AND        A.ActionClass     = '#actionclass#' 	
+		AND        S.Selfservice     = '1'
+		AND        A.DateTimePlanning >= getDate()-300  <!--- all transactions of yesterday and future --->	
+						
+		<cfif getAdministrator("*") eq "0">
+		AND        O.OrgUnit IN (SELECT OrgUnit FROM System.dbo.UserMission WHERE Account = '#SESSION.acc#')
+		</cfif>
+				
+	</cfsavecontent>
+	
+	<!---
+	
+	<cfsavecontent variable="myquery">
+	
+		SELECT     S.Description,
+		           C.CustomerName, 
+		           C.PostalCode, 
+				   C.City, 
+				   A.DateTimePlanning, 			   
+				   WL.WorkOrderLineId, 
+				   O.OrgUnitName AS Organization, 
+				   Person.LastName AS Driver, 
+				   
+				   (SELECT T.TopicValue
+				    FROM   WorkOrderLineTopic T 
+					WHERE  WL.WorkOrderId = T.WorkOrderId 
+					AND    WL.WorkOrderLine = T.WorkOrderLine 
+					AND    T.Topic = 'f002p' 
+					AND    T.Operational = 1 ) AS Schedule 
+				  
+		FROM       WorkOrder AS W INNER JOIN
+	               WorkOrderLine AS WL ON W.WorkOrderId = WL.WorkOrderId INNER JOIN
+				   ServiceItem AS S ON W.ServiceItem = S.Code INNER JOIN
+	               Customer AS C ON W.CustomerId = C.CustomerId INNER JOIN
+	               WorkOrderLineAction AS A ON WL.WorkOrderId = A.WorkOrderId AND WL.WorkOrderLine = A.WorkOrderLine 			 
+				   INNER JOIN  Organization.dbo.Organization AS O ON W.OrgUnitOwner = O.OrgUnit 
+				   LEFT OUTER JOIN  Employee.dbo.Person AS Person ON WL.PersonNo = Person.PersonNo  
+	
+		WHERE      W.Mission = '#url.mission#'		
+		AND        A.ActionClass = '#actionclass#' 	
+		AND        S.Selfservice     = '1'
+		AND        A.DateTimePlanning >= getDate()-300
+					
+		<cfif getAdministrator("*") eq "0">
+		AND        O.OrgUnit IN (SELECT OrgUnit FROM System.dbo.UserMission WHERE Account = '#SESSION.acc#')
+		</cfif>
+				
+	</cfsavecontent>
+	
+	--->
+
+</cfoutput>
+
+<cf_tl id="Service"  var="service">
+<cf_tl id="Delivery" var="delivery">
+<cf_tl id="Branch"   var="branch">
+<cf_tl id="Name"     var="Name">
+<cf_tl id="City"     var="City">
+<cf_tl id="ZIP"      var="ZIP">
+<cf_tl id="Date"     var="Date">
+<cf_tl id="Schedule" var="Schedule">
+<cf_tl id="Driver"   var="Driver">
+
+<cfset fields=ArrayNew(1)>
+				
+<cfset itm = 0>
+			
+<cfset itm = itm+1>
+<cfset fields[itm] = {label      = "#delivery#", 
+					width      = "0", 
+					field      = "DateTimePlanning",	
+					search     = "date",
+					filtermode = "2",
+					formatted  = "dateformat(DateTimePlanning,CLIENT.DateFormatShow)",				
+					alias      = ""}>				
+			
+<cfset itm = itm+1>				
+<cfset fields[itm] = {label      = "#branch#",    
+					width      = "0", 
+					field      = "Organization",
+					search     = "text",
+					filtermode = "2",
+					searchfield = "OrgUnitName",
+					alias      = ""}>		
+					
+<cfset itm = itm+1>				
+<cfset fields[itm] = {label      = "#service#",    
+					width      = "0", 
+					field      = "Description",
+					search     = "text",
+					filtermode = "2",
+					searchfield = "Description",
+					alias      = ""}>				
+							
+<cfset itm = itm+1>					
+<cfset fields[itm] = {label      = "#name#", 
+                    width      = "0", 					
+					field      = "CustomerName",
+					alias      = "",
+					search     = "text"}>
+								
+<cfset itm = itm+1>
+<cfset fields[itm] = {label      = "#city#",    
+					width      = "0", 
+					field      = "City",
+					alias      = ""}>									
+
+<cfset itm = itm+1>					
+<cfset fields[itm] = {label      = "#zip#", 
+                    width      = "0", 
+					field      = "PostalCode", 	
+					search     = "text",				
+					alias      = ""}>		
+							
+<cfset itm = itm+1>				
+<cfset fields[itm] = {label      = "#Schedule#",    
+					width      = "0", 
+					field      = "Schedule",
+					alias      = ""}>		
+					
+<!--- second line fields --->
+
+					
+<!--- hidden fields --->					
+						
+<cfset itm = itm+1>
+<cfset fields[itm] = {label      = "Address", 
+                    width      = "1%", 					
+					display    = "No",
+					alias      = "",
+					field      = "Address"}>									
+	
+<cfset itm = itm+1>
+<cfset fields[itm] = {label      = "Id", 
+                    width      = "1%", 					
+					display    = "No",
+					alias      = "",
+					field      = "WorkOrderLineId"}>	
+	
+<cfset menu=ArrayNew(1)>
+					
+<cf_listing header          = "listing1"
+		    box             = "orderdetail"
+			link            = "#SESSION.root#/Workorder/Portal/Organization/ServiceArchive/ServiceListingContent.cfm?mission=#url.mission#"
+		    html            = "No"		
+			datasource      = "AppsWorkOrder"
+			listquery       = "#myquery#"
+			listgroup       = "DateTimePlanning"
+			listgroupdir    = "DESC"
+			listorder       = "Organization"		
+			listorderdir    = "ASC"
+			headercolor     = "transparent"		
+			height          = "100%"
+			menu            = "#menu#"
+			filtershow      = "Yes"
+			excelshow       = "No"
+			listlayout      = "#fields#"			
+			show            = "30"
+			drillmode       = "window"	
+		    drillargument   = "900;1000;true;true"				
+			drilltemplate   = "WorkOrder/Application/WorkOrder/Create/WorkOrderEdit.cfm?drillid="
+			drillkey        = "WorkOrderLineId"
+			drillstring     = "context=portal"
+			drillbox        = "addworkorder">

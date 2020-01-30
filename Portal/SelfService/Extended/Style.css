@@ -1,0 +1,292 @@
+
+table {
+			border-collapse:separate;
+ 	}
+
+td.content {		
+		padding:10px;
+		line-height:18px;
+		text-align:justify; 
+		font-family:verdana; 
+		font-size:12px; 
+		color:gray;
+	}
+	
+td.title {		
+		padding-top:10px;
+		padding-left:10px;
+		padding-right:10px;
+		color:#187cb7;
+		text-align:justify; 
+		font-family:calibri; 
+		font-size:16px;
+	}
+		
+/*--------------------------------------------------------*/
+/*---------------Main Menu--------------------------------*/
+/*--------------------------------------------------------*/
+
+	td.menuregular {		
+		font: normal normal 12px Calibri;
+		line-height:12px;
+		color:navy;
+		text-align: center;
+		cursor:pointer;
+		height:30px;
+		padding-top:2px;
+		width:90px;
+	}
+		
+	td.menuselected {
+		font: normal normal 12px Calibri;
+		line-height:12px;
+		color:white;
+		text-align: center;
+		cursor:pointer;
+		background-image:url('Images/Menu/button_bg.png');
+		background-repeat:no-repeat;
+		background-position:bottom center;
+		height:30px;
+		width:90px;
+	}
+
+/*--------------------------------------------------------*/
+/*---------------Sub Menu---------------------------------*/
+/*--------------------------------------------------------*/
+	td.submenuregular { 
+		background-repeat:no-repeat; 
+		background-Position:left;
+		line-height:12px;
+		font-family: Calibri;
+		font-size: 12px;
+		font-weight:bold;
+		color:gray;
+		width:81px;
+		height:32px;
+		cursor:pointer;
+		padding-top:5px;
+	}
+		
+	td.submenuselected {
+		background-image:url('images/menu/button_bg.png'); 
+		background-Repeat:no-repeat; 
+		background-Position:left;
+		color:white;
+		cursor:pointer;
+		line-height:13px;
+		font-family: Calibri;
+		font-size: 13px;
+		width:81px;
+		height:32px;
+		cursor:pointer;
+		padding-top:3px;
+	}
+
+	
+/*--------------------------------------------------------*/
+/*---------------Item Menu--------------------------------*/
+/*--------------------------------------------------------*/
+	tr.itemregular {
+		cursor:pointer;
+	}
+		
+	tr.itemselected {
+		cursor:pointer;
+		background-color:silver;
+	}
+	
+	tr.itemhighlight {
+		cursor:pointer;
+		background-color:#ededed;
+	}
+	
+	
+/*--------------------------------------------------------*/
+/*---------------FAQ'S Menu--------------------------------*/
+/*--------------------------------------------------------*/
+	td.faqtitle {
+		padding-top:10px;
+		padding-left:5px;
+		padding-bottom:2px;
+		line-height:12px;
+		font-family:Verdana, Arial, Helvetica, sans-serif; 
+		font-size:11px;
+		color:#1e1e1e;
+		font-weight:bold;
+	}
+	
+	td.faqdescription {
+		padding-top:3px;
+		padding-left:5px;
+		padding-right:5px;
+		padding-bottom:3px;
+		line-height:13px;
+		font-family:Verdana, Arial, Helvetica, sans-serif; 
+		font-size:11px;
+		text-align:justify;
+		background-image:url('images/transparent.png'); 
+		background-Repeat:repeat; 
+		color:gray;
+	}
+	
+	td.cnt {
+		width:15px;
+		padding-top:3px;
+		padding-right:3px;
+		padding-bottom:3px;
+		line-height:12px;
+		font-family:Verdana, Arial, Helvetica, sans-serif; 
+		font-size:11px;
+		text-align:right;
+		color:silver;
+	}
+	
+	td.faqregular {
+		width:98%;
+		padding-top:3px;
+		padding-bottom:3px;
+		padding-left:2px;
+		line-height:10px;
+		cursor:pointer;
+		font-family:Verdana, Arial, Helvetica, sans-serif; 
+		font-size:10px; 
+		color:#187cb7;
+	}
+		
+	td.faqselected {
+	width:98%;
+		padding-top:3px;
+		padding-bottom:3px;
+		padding-left:2px;
+		line-height:10px;
+		cursor:pointer;
+		font-family:Verdana, Arial, Helvetica, sans-serif; 
+		font-size:10px; 
+		color:#187cb7;
+		background-color:#b1d0ff;
+
+	}
+	
+	td.faqhighlight {
+	width:98%;
+		padding-top:3px;
+		padding-bottom:3px;
+		padding-left:2px;
+		line-height:10px;
+		cursor:pointer;
+		font-family:Verdana, Arial, Helvetica, sans-serif; 
+		font-size:10px; 
+		color:#187cb7;
+		background-color:#ededed;
+		background-image:url('Images/transparent.png');
+	}
+	
+	td.catregular {
+		padding-top:3px;
+		padding-left:3px;
+		padding-bottom:3px;
+		line-height:12px;
+		font-family:Verdana, Arial, Helvetica, sans-serif; 
+		font-size:11px;
+		background-image:url('images/gray_shaded.jpg'); 
+		background-Repeat:repeat-x; 
+		background-Position:top;
+		border-bottom:1px solid silver;
+		border-right:1px solid silver;
+		color:gray;
+		cursor:pointer;
+	}
+		
+	td.catselected {
+		padding-top:3px;
+		padding-left:3px;
+		padding-bottom:3px;
+		line-height:11px;
+		font-family:Verdana, Arial, Helvetica, sans-serif; 
+		font-size:10px;
+		font-weight:bold;
+		background-image:url('../../../images/gradient_yellow.jpg'); 
+		background-Repeat:repeat-x; 
+		background-Position:top;
+		color:gray;
+		cursor:pointer;
+	}
+	
+		td.divider {
+		height:5px;
+		background-color:transparent;
+	}
+	
+	table.widgetregular {
+		background-image:url('Images/widget/toggle_up.png'); 
+		background-repeat:no-repeat; 
+		background-position:left;
+		cursor:pointer;
+		color:#103557;
+		font: normal normal 13px verdana;
+	}
+	
+	table.widgetselected {
+		background-image:url('Images/widget/toggle_down.png'); 
+		background-repeat:no-repeat; 
+		background-position:left;
+		cursor:pointer;
+		color:red;
+		font: normal normal 13px verdana;
+	}
+	
+	td.widgetnormal {
+		cursor:pointer;
+		color:#103557;
+		font: normal normal 13px calibri;
+	}
+	
+	td.widgethighlight {
+		cursor:pointer;
+		color:#4186c9;
+		font: normal bold 14px calibri;
+	}
+	
+	select {    		
+		width:90px; 
+		height:20px;
+		padding:1px;
+		border:1px solid silver;
+		font-family:calibri;
+		
+	}
+	option {  
+  		background-color: #f3f3f3;
+	}
+	
+	A.ssmItems:link		{color:black;text-decoration:none;}
+	A.ssmItems:hover	{color:black;text-decoration:none;}
+	A.ssmItems:active	{color:black;text-decoration:none;}
+	A.ssmItems:visited	{color:black;text-decoration:none;}
+	
+	html,
+	body {
+		background-color: transparent;
+	}
+
+
+	td.headerwid {
+		font-family:calibri;
+		font-size:14px;
+		color:#23487f;
+		height:20px;
+		text-align:center;
+		}
+		
+	span.namewid {
+		font-family:verdana;
+		font-size:10px;
+		font-weight:bold;
+		color:#23487f;
+		}
+	
+	span.titlewid {
+		font-family:verdana;
+		font-size:10px;
+		font-weight:normal;
+		color:#23487f;}

@@ -1,0 +1,137 @@
+<cfoutput>
+<cfquery name="CountRec" 
+      datasource="AppsMaterials" 
+      username="#SESSION.login#" 
+      password="#SESSION.dbpw#"> 
+	  SELECT 	Area
+      FROM  	ItemGLedger
+      <cfif ParameterExists(Form.Update)>WHERE Area = '#Form.CodeOld#'<cfelse>WHERE 1=0</cfif>
+	  UNION
+      SELECT 	Area
+      FROM  	Ref_TransactionType
+      <cfif ParameterExists(Form.Update)>WHERE Area = '#Form.CodeOld#'<cfelse>WHERE 1=0</cfif>
+    </cfquery>
+
+<cf_tl id="A record with this code has been registered already!" class="Message" var = "vAlready">	
+
+	
+<cfif ParameterExists(Form.Insert)> 
+
+	<cfquery name="Verify" 
+		datasource="AppsMaterials" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		SELECT 	*
+		FROM 	Ref_AreaGLedger
+		WHERE 	Area  = '#Form.Code#' 
+	</cfquery>
+
+   <cfif Verify.recordCount gt 0>
+   
+	   <script language="JavaScript">
+	   
+	     alert("#vAlready#")
+		 history.back()
+	     
+	   </script>  
+  
+   <cfelse>
+   
+		<cfquery name="Insert" 
+		datasource="AppsMaterials" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			INSERT INTO Ref_AreaGLedger
+		         (Area,
+				 Description,
+				 ListingOrder)
+		  	VALUES ('#Form.Code#',
+		  		  '#Form.Description#',
+				  #Form.listingOrder#)
+		</cfquery>
+		
+		<cf_ModuleControlLog systemfunctionid="#url.idmenu#" 
+	                         action="Insert" 
+						     content="#Form#">
+		  
+    </cfif>		  
+           
+</cfif>
+
+<cfif ParameterExists(Form.Update)>
+
+	<cfquery name="Verify" 
+		datasource="AppsMaterials" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT 	*
+			FROM 	Ref_AreaGLedger
+			WHERE 	Area  = '#Form.Code#' 
+	</cfquery>
+
+   <cfif Verify.recordCount gt 0 and Form.Code neq Form.CodeOld>
+   
+	   <script language="JavaScript">
+	   
+	     alert("#vAlready#")
+		 history.back()
+	     
+	   </script>  
+  
+   <cfelse>
+   
+		<cfquery name="Update" 
+			datasource="AppsMaterials" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				UPDATE Ref_AreaGLedger
+				SET    <cfif #CountRec.recordCount# eq 0>Area = '#Form.Code#',</cfif>
+					   Description    = '#Form.Description#',
+					   ListingOrder   = #Form.listingOrder#
+				WHERE  Area        = '#Form.CodeOld#'
+		</cfquery>
+		
+		<cf_ModuleControlLog systemfunctionid="#url.idmenu#" 
+	                     	 action="Update" 
+						 	 content="#Form#">
+	
+	</cfif>
+
+</cfif>	
+
+<cfif ParameterExists(Form.Delete)> 	
+
+    <cfif #CountRec.recordCount# gt 0>
+		 
+	     <script language="JavaScript">
+	    
+		   alert("#vAlready#")
+	     
+	     </script>  
+	 
+    <cfelse>
+			
+		<cfquery name="Delete" 
+		datasource="AppsMaterials" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			DELETE FROM Ref_AreaGLedger
+			WHERE Area = '#FORM.CodeOld#'
+		</cfquery>
+	
+		<cf_ModuleControlLog systemfunctionid="#url.idmenu#" 
+	                     action="Delete" 
+						 content="#Form#">
+	
+	</cfif>
+	
+	
+</cfif>	
+
+<script language="JavaScript">
+   
+     parent.window.close()
+	 opener.location.reload()
+        
+</script>  
+</cfoutput>

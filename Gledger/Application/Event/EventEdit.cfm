@@ -1,0 +1,49 @@
+
+<!--- eventview --->
+
+<cfparam name="url.ajaxid" default="">
+<cfparam name="url.id" default="#url.ajaxid#">
+
+<cfquery name="Get" 
+	datasource="AppsLedger" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+    	SELECT *
+	    FROM   Event E, Organization.dbo.Organization O
+		WHERE  E.OrgUnit = O.OrgUnit
+		AND   EventId = '#URL.id#'
+</cfquery>
+
+<cfoutput>
+
+<table width="97%" align="center" class="formpadding">
+<tr><td colspan="4" class="linedotted"></td></tr>
+<tr >
+	<td class="labelmedium"><cf_tl id="Entity">:</td>
+	<td class="labellarge"><b>#get.Mission#</td>
+	<td class="labelmedium"><cf_tl id="Period">:</td>
+	<td class="labellarge"><b>#get.AccountPeriod#</td>
+</tr>	
+<tr>
+	<td class="labelmedium"><cf_tl id="Unit">:</td>
+	<td class="labellarge"><b>#get.OrgUnitName#</td>
+	<td class="labelmedium"><cf_tl id="Status">:</td>
+	<td class="labellarge" id="status"><b>#get.ActionStatus#</td>
+	
+</tr>	
+<tr class="linedotted">
+	<td class="labelmedium"><cf_tl id="Action">:</td>
+	<td class="labellarge"><b>#get.ActionCode#</td>
+	<td class="labelmedium"><cf_tl id="Date">:</td>
+	<td class="labellarge"><b>#dateformat(get.EventDate,client.dateformatshow)#</td>
+	
+</tr>	
+<tr><td></td></tr>
+<tr>
+	<td class="labelmedium"><cf_tl id="Officer">:</td>
+	<td class="labellarge">#get.OfficerLastName#</td>
+	<td class="labelmedium"><cf_tl id="Created">:</td>
+	<td class="labellarge">#dateformat(get.Created,client.dateformatshow)#</td>
+</tr>	
+</table>
+</cfoutput>

@@ -1,0 +1,91 @@
+
+<cfquery name="qProductUoM" 
+	datasource="appsMaterials" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT DISTINCT 
+				IWL.UoM, IWL.ItemNo,
+				(SELECT UoMDescription 
+				 FROM   ItemUoM 
+				 WHERE  ItemNo = IWL.ItemNo 
+				 AND    UoM = IWL.UoM) as UoMDescription
+		FROM 	ItemWarehouseLocation IWL
+		WHERE	IWL.Warehouse   = '#url.warehouse#'
+		AND		IWL.Location    = '#url.location#'
+		AND		IWL.ItemNo      = '#url.itemNo#'
+		AND     IWL.Operational = 1		
+		ORDER BY IWL.ItemNo
+</cfquery>
+
+<cfif qProductUoM.recordcount eq "0">
+	
+	<cfquery name="get" 
+		datasource="appsMaterials" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+	    SELECT * 
+		FROM   WarehouseLocation
+		WHERE  Warehouse  = '#url.warehouse#'
+		AND    Location   = '#url.location#'
+	</cfquery>	
+	
+	<cfquery name="qProductUoM" 
+		datasource="appsMaterials" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT DISTINCT 
+					IWL.UoM, IWL.ItemNo,
+					(SELECT UoMDescription 
+					 FROM   ItemUoM 
+					 WHERE  ItemNo = IWL.ItemNo 
+					 AND    UoM = IWL.UoM) as UoMDescription
+			FROM 	ItemWarehouseLocation IWL
+			WHERE	IWL.Warehouse   = '#url.warehouse#'
+			AND		IWL.Location    IN (SELECT Location 
+			                            FROM   WarehouseLocation 
+										WHERE  Warehouse = IWL.Warehouse 
+										AND    <cfif get.LocationId eq "">LocationId is NULL<cfelse>LocationId = '#get.Locationid#'</cfif>)
+			AND		IWL.ItemNo      = '#url.itemNo#'
+			AND     IWL.Operational = 1		
+			ORDER BY IWL.ItemNo
+	</cfquery>
+
+</cfif>
+
+
+<table cellspacing="0" cellpadding="0">
+
+<tr><td>
+
+	<input name="quantity" 
+		type="Text" 
+		required="Yes" 
+		message="Please, enter a valid numeric greater than 0 numeric quantity." 
+		validate="numeric" 
+		size="8" 	
+		class="regularxl enterastab"
+		maxlength="10" 
+		range="0,"
+		style="text-align:right; padding-right:1px;">
+	
+</td><td style="padding-left:2px">
+	
+	<select name="UoM" 
+			query="qProductUoM" 
+			value="UoM" 
+			class="regularxl enterastab"
+			display="UoMDescription"
+			required="Yes" 
+			message="Please, select a valid product UoM.">
+			<cfoutput query="qProductUoM">
+			<option value="#uom#">#uomdescription#</option>
+			</cfoutput>
+	</select>		
+	
+
+</td>
+</tr>		
+
+</table>
+
+

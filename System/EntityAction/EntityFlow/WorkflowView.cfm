@@ -1,0 +1,101 @@
+<cf_tl id="Workflow Manager" var="1">
+
+
+<cf_screenTop height="100%" html="No" band="No" title="#SESSION.welcome# #lt_text#" banner="red" bannerforce="Yes" bannerheight="55" border="0" jquery="Yes" scroll="no" menuaccess="Yes" validateSession="Yes">
+
+<cf_layoutscript>
+<cf_presentationScript>
+
+<script language="JavaScript">
+
+function refreshTree() {
+	  ColdFusion.navigate('WorkflowTree.cfm','wftree')
+}
+	
+function stepedit(ent,cls,id,pub) {
+	if (id != "") {
+	     window.open("ClassAction/ActionStepEdit.cfm?EntityCode="+ent+"&EntityClass="+cls+"&ActionCode="+id+"&PublishNo="+pub, "EditAction", "left=10, top=10, width=960, height=870, toolbar=no, status=yes, scrollbars=yes, resizable=no");				  
+		}
+}	
+
+function toggleParam(code,val,entCode,entClass,actCode,pubNo,isTextBox) {
+
+	ColdFusion.Ajax.submitForm('formInspector', 'WorkflowInspectToggleField.cfm?Toggle='+code+'&ToggleValue='+val+'&EntityCode='+entCode+'&EntityClass='+entClass+'&ActionCode='+actCode+'&PublishNo='+pubNo+'&isTextBox='+isTextBox)
+	
+	if (isTextBox == "No") {
+	 
+	 se = document.getElementById(code+"Green")
+	 s1 = document.getElementById(code+"Red")
+	 
+	 if (se.className == "regular") {
+	 	se.className = "hide"
+		s1.className = "regular"
+	 } else {
+	    se.className = "regular"
+		s1.className = "hide"
+	 } 
+		 
+	} else
+	 	alert ('Changes done!');		 
+		 
+}
+	 
+	 
+</script>	
+
+<cfajaximport tags="cfform,cfwindow">
+	 
+<cfset attrib = {type="Border",name="wfcontainer",fitToWindow="Yes"}>
+
+<cf_layout attributeCollection="#attrib#">
+
+	<cf_layoutarea 
+          position="header"
+          name="controltop">	
+		  
+		 <cfinclude template="WorkflowMenu.cfm">
+		  
+	</cf_layoutarea>		  
+		
+	<cf_layoutarea 
+          position="left"
+          name="wftree"
+          source="WorkflowTree.cfm"         
+		  size="287"
+          maxsize="287"		
+		  overflow="auto"  
+          collapsible="true"
+          splitter="true"/>
+	
+	<cf_layoutarea  
+	    position="center" 
+		overflow="hidden"		
+		name="wfbody" 
+		style="height:100%">
+		
+			<iframe src="WorkflowInit.cfm"
+	        name="right"
+	        id="right"
+	        width="100%"
+	        height="100%"	        
+	        frameborder="0"></iframe>			
+			
+	</cf_layoutarea>		
+	
+	<cfset Client.LayoutHide     = "false">
+	<cfset Client.LayoutCollapse = "false">
+	
+	<cf_layoutarea 
+          position="right"
+          name="inspect"
+          source="WorkflowInspect.cfm"          
+		  size="230"
+          minsize="230"
+          collapsible="true"
+          initcollapsed="true"         
+          splitter="false"
+          maxsize="230"/>	
+		  
+	<cfset Client.InspectHide = "false">
+		  
+</cf_layout>

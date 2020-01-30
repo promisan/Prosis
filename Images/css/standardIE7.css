@@ -1,0 +1,283 @@
+table:focus {
+    outline: none;
+}
+
+
+
+.focused {
+ background: transparent;
+}
+
+.fwrapper {
+	background-color:blue;
+}
+
+
+.rowhover {
+ background: transparent;
+}
+
+
+.sprites { 
+    background-image     : url(standard7.png); 
+    background-color     : transparent; 
+    background-repeat    : no-repeat; 
+ } 
+  
+  /*Edit*/
+ #i_edit  { 
+    height               : 11px; 
+    width                : 11px; 
+	display              : block; 
+    background-position  : -11px -0px; 
+ } 
+ 
+ #i_edit:hover { 
+    height               : 11px; 
+    width                : 11px; 
+    background-position  : -0px -0px; 
+	cursor: pointer;	
+ } 
+ 
+
+ #i_edit:active {
+    background-position  : -11px -0px; 
+}
+
+ /*Delete*/
+ 
+ #i_delete { 
+    height               : 11px; 
+    width                : 11px; 
+	display              : block; 	
+    background-position  : -22px -0px; 
+ } 
+ 
+ #i_delete:hover { 
+    height               : 11px; 
+    width                : 11px; 
+    background-position  : -0px -0px; 
+	cursor: pointer;
+ } 
+ 
+#i_delete:active {
+    background-position  : -22px -0px; 
+}
+
+
+
+
+ /*Add*/
+ 
+ #i_add { 
+    height               : 11px; 
+    width                : 11px; 
+	display              : block; 	
+    background-position  : -33px -0px; 
+ } 
+ 
+ #i_add:hover { 
+    height               : 11px; 
+    width                : 11px; 
+    background-position  : -0px -0px; 
+	cursor: pointer;
+ } 
+ 
+ #i_add:active {
+    background-position  : -33px -0px; 
+}
+
+ 
+  /*Open*/
+ 
+ #i_open { 
+    height               : 11px; 
+    width                : 11px; 
+	display              : block; 	
+    background-position  : -88px -0px; 
+ } 
+ 
+ #i_open:hover { 
+    height               : 11px; 
+    width                : 11px; 
+    background-position  : -0px -0px; 
+	cursor: pointer;
+ } 
+ 
+ #i_open:active {
+    background-position  : -88px -0px; 
+}
+
+  
+  
+   /*twistie*/
+ #i_expand { 
+    height               : 11px; 
+    width                : 11px; 
+	display              : block; 	
+    background-position  : -77px -0px; 
+	cursor: pointer;
+ } 
+ 
+ #i_expand:hover { 
+	cursor: pointer;
+ } 
+ 
+#i_expand:active, a.selected  {
+    background-position  : -66px -0px; 
+}
+
+
+ /*bullet*/
+ #i_bullet { 
+    height               : 11px; 
+    width                : 11px; 
+	display              : block; 	
+    background-position  : -99px -0px; 
+ } 
+ 
+ #i_bullet:hover { 
+    height               : 11px; 
+    width                : 11px; 
+    background-position  : -110px -0px; 
+	cursor: pointer;
+ } 
+ 
+ #i_bullet:active {
+    background-position  : -99px -0px; 
+}
+
+
+ /*select*/
+  #i_select { 
+    height               : 11px; 
+    width                : 11px; 
+	display              : block; 	
+    background-position  : -121px -0px; 
+ } 
+ 
+ #i_select:hover { 
+    height               : 11px; 
+    width                : 11px; 
+    background-position  : -0px -0px;
+	cursor: pointer;
+ } 
+ 
+ #i_select:active {
+    background-position  : -121px -0px; 
+}
+
+
+ /*print*/
+  #i_print { 
+    height               : 11px; 
+    width                : 11px; 
+	display              : block; 	
+    background-position  : -132px -0px; 
+ } 
+ 
+ #i_print:hover { 
+    height               : 11px; 
+    width                : 11px; 
+    background-position  : -0px -0px;
+	cursor: pointer;
+ } 
+ 
+ #i_print:active {
+    background-position  : -132px -0px; 
+}
+
+
+ /*copy*/
+  #i_copy { 
+    height               : 11px; 
+    width                : 11px; 
+	display              : block; 	
+    background-position  : -143px -0px; 
+ } 
+ 
+ #i_copy:hover { 
+    height               : 11px; 
+    width                : 11px; 
+    background-position  : -0px -0px;
+	cursor: pointer;
+ } 
+ 
+ #i_copy:active {
+    background-position  : -143px -0px; 
+}
+
+
+   /*twistie-inverted*/
+ #i_expand_open { 
+    height               : 11px; 
+    width                : 11px; 
+	display              : block;
+    background-position  : -66px -0px;	 	
+	cursor: pointer;
+ } 
+ 
+ #i_expand_open:hover { 
+	cursor: pointer;
+ } 
+ 
+#i_expand_open:active, a.selected  {
+    background-position  : -77px -0px; 
+}
+
+/*calendar*/
+#i_calendar { 
+    height               : 11px; 
+    width                : 11px; 
+	display              : block; 	
+    background-position  : -154px -0px; 
+ } 
+ 
+ #i_calendar:hover { 
+    height               : 11px; 
+    width                : 11px; 
+    background-position  : -0px -0px;
+	cursor: pointer;
+ } 
+ 
+ #i_calendar:active {
+    background-position  : -154px -0px; 
+}
+
+/*log*/
+#i_log { 
+    height               : 11px; 
+    width                : 11px; 
+	display              : block; 	
+    background-position  : -166px -0px; 
+ } 
+ 
+ #i_log:hover { 
+    height               : 11px; 
+    width                : 11px; 
+    background-position  : -0px -0px;
+	cursor: pointer;
+ } 
+ 
+ #i_log:active {
+    background-position  : -166px -0px; 
+}
+
+/*mail*/
+#i_mail { 
+    height               : 11px; 
+    width                : 11px; 
+	display              : block; 	
+    background-position  : -178px -0px; 
+ } 
+ 
+ #i_mail:hover { 
+    height               : 11px; 
+    width                : 11px; 
+    background-position  : -0px -0px;
+	cursor: pointer;
+ } 
+ 
+ #i_mail:active {
+    background-position  : -178px -0px; 
+}

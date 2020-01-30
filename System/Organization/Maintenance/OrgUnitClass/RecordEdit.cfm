@@ -1,0 +1,83 @@
+<cfparam name="url.idmenu" default="">
+
+<cf_screentop height="100%" 
+			  label="Edit" 
+			  scroll="Yes" 
+			  layout="webapp" 
+			  menuAccess="Yes" 
+			  systemfunctionid="#url.idmenu#">
+
+<cfquery name="Get" 
+datasource="appsOrganization" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+SELECT *
+FROM Ref_OrgUnitClass
+WHERE OrgUnitClass = '#URL.ID1#'
+</cfquery>
+
+<script language="JavaScript">
+
+function ask()
+
+{
+	if (confirm("Do you want to remove this class?")) {
+	
+	return true 
+	
+	}
+	
+	return false
+	
+}	
+
+</script>
+
+<cfform action="RecordSubmit.cfm" method="POST" enablecab="Yes" name="dialog">
+
+<!--- edit form --->
+
+<table width="90%" class="formpadding formspacing" cellspacing="0" cellpadding="0" align="center">
+
+    <cfoutput>
+	<tr><td></td></tr>
+    <TR>
+    <TD class="labelmedium">Code:</TD>
+    <TD class="labelmedium">
+  	   <input type="text" name="Code" id="Code" value="#get.OrgUnitClass#" size="20" maxlength="20" class="regularxl">
+	   <input type="hidden" name="Codeold" id="Codeold" value="#get.OrgUnitClass#" size="20" maxlength="20"class="regular">
+    </TD>
+	</TR>
+	
+	<TR>
+    <TD class="labelmedium">Description:</TD>
+    <TD class="labelmedium">
+  	   <cfinput type="text" name="Description" value="#get.Description#" message="please enter a description" required="yes" size="30" 
+	   maxlenght="30" class= "regularxl">
+    </TD>
+	</TR>
+	
+	<TR>
+    <TD class="labelmedium">Icon:</TD>
+    <TD class="labelmedium">
+  	   <cfinput type="text" name="ListingIcon" value="#get.ListingIcon#" tooltip="Please enter the name of a graphic icon" required="No" size="30" maxlength="30" class="regularxl">
+    </TD>
+	</TR>
+		
+	</cfoutput>
+		
+	<tr><td colspan="2" height="1" class="linedotted"></td></tr>
+	
+	<tr><td align="center" colspan="2" height="10">
+	<input class="button10g" style="width:80" type="button" name="Cancel" id="Cancel" value=" Cancel " onClick="window.close()">
+    <input class="button10g" style="width:80" type="submit" name="Delete" id="Delete" value=" Delete " onclick="return ask()">
+    <input class="button10g" style="width:80" type="submit" name="Update" id="Update" value=" Update ">
+	</td>	
+	
+	</tr>
+	
+</TABLE>
+	
+</CFFORM>
+
+</BODY></HTML>

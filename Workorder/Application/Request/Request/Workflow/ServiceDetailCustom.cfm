@@ -1,0 +1,213 @@
+
+<!--- define custom topics --->
+
+<cfparam name="URL.requestid"   default="#Object.ObjectKeyValue4#">
+
+<cfquery name="GetTopics" 
+  datasource="AppsWorkOrder" 
+  username="#SESSION.login#" 
+  password="#SESSION.dbpw#">
+  SELECT *
+  FROM   Ref_Topic
+  WHERE  Code IN (SELECT Code 
+                  FROM   Ref_TopicServiceItem
+				  WHERE  ServiceItem = '#url.ServiceItem#'
+				 )
+  AND    (Mission = '#url.Mission#' or Mission is NULL)				 
+  AND    Operational = 1 
+  AND    TopicClass = 'Request'
+  ORDER BY ListingOrder
+</cfquery>
+
+<cfoutput query="GetTopics">
+
+<tr>    
+	   <td height="20" class="labelmedium">#Description# :<cf_space spaces="30"></td>
+	   <td width="85%">
+	    			   
+	   <cfif URL.Mode neq "edit">
+	   
+	       <cfif ValueClass eq "List">
+	   
+			    <cfquery name="GetList" 
+				  datasource="AppsWorkOrder" 
+				  username="#SESSION.login#" 
+				  password="#SESSION.dbpw#">
+				  SELECT T.*, 
+				         P.ListCode as Selected
+				  FROM   Ref_TopicList T, 
+				         RequestTopic P
+				  WHERE  T.Code        = '#GetTopics.Code#'
+				  AND    P.Topic         = T.Code
+				  AND    P.ListCode      = T.ListCode
+				  AND    P.Requestid     = '#URL.requestid#'		  				 				 
+				  ORDER BY T.ListOrder
+				</cfquery>
+				
+				<cfif GetList.ListValue neq "">
+			   
+				   #GetList.ListValue#
+				   
+				<cfelse>
+				
+				   N/A
+				   
+				</cfif>  
+			
+			<cfelse>
+						
+				 <cfquery name="GetList" 
+				  datasource="AppsWorkOrder" 
+				  username="#SESSION.login#" 
+				  password="#SESSION.dbpw#">
+				  SELECT *
+				  FROM   RequestTopic P
+				  WHERE  P.Topic = '#GetTopics.Code#'						 
+				  AND    P.Requestid     = '#URL.requestid#'				    
+				</cfquery>
+				
+				<cfif GetList.TopicValue neq "">
+				
+				   <cfif ValueClass eq "Boolean">
+				   
+					   <cfif GetList.TopicValue eq "1">Yes<cfelse>No</cfif>
+					   
+				   <cfelseif ValueClass eq "Date">
+				   
+				        <cftry>
+				   		#dateformat(GetList.TopicValue,CLIENT.DateFormatShow)#			
+						<cfcatch></cfcatch>	   	   
+						</cftry>
+				   
+				   <cfelse>
+				   
+				   		#GetList.TopicValue#
+						
+				   </cfif>
+			   						   
+				<cfelse>
+				
+				   N/A
+				   
+				</cfif>  					
+			
+			</cfif>			    
+		
+	   <cfelse>
+	   
+	       <!--- retrieve the last value --->
+	   	   <cfquery name="GetValue" 
+			 datasource="AppsWorkOrder" 
+			 username="#SESSION.login#" 
+			 password="#SESSION.dbpw#">
+				SELECT *
+				FROM   RequestTopic
+				WHERE  Topic = '#Code#'		
+				AND    RequestId     = '#URL.requestid#'		  										 		  
+    	   </cfquery>			
+		 	   
+	   	   <cfif ValueClass eq "List">
+	   
+			   <cfquery name="GetList" 
+				  datasource="AppsWorkOrder" 
+				  username="#SESSION.login#" 
+				  password="#SESSION.dbpw#">
+					  SELECT T.*, P.ListCode as Selected
+					  FROM   Ref_TopicList T LEFT OUTER JOIN RequestTopic P ON P.Topic = T.Code  
+					               AND    P.RequestId     = '#URL.requestid#'		  
+								   
+					  WHERE  T.Code = '#Code#'		
+					  AND    T.Operational = 1		
+					  ORDER BY T.ListOrder
+				</cfquery>
+				
+				 <cfquery name="Def" 
+				  datasource="AppsWorkOrder" 
+				  username="#SESSION.login#" 
+				  password="#SESSION.dbpw#">
+					  SELECT *
+					  FROM   Ref_TopicList
+					  WHERE  Code = '#GetTopics.Code#'		
+					  AND    ListDefault = 1		
+				</cfquery>		
+								
+				<cfif getValue.ListCode neq "">
+					<cfset def = getValue.ListCode>
+				<cfelse>				    
+					<cfset def = getValue.ListCode>				
+				</cfif>				
+														   					   
+			    <select name="Topic_#GetTopics.Code#" id="Topic_#GetTopics.Code#" class="regularxl">
+				
+					<cfif ValueObligatory eq "0">
+						<option value=""></option>
+					</cfif>		
+					
+					<cfloop query="GetList">					  
+						<option value="#GetList.ListCode#" <cfif GetList.ListCode eq def>selected</cfif>>#GetList.ListValue#</option>
+					</cfloop>
+					
+				</select>				
+				
+			<cfelseif ValueClass eq "Lookup">
+					
+			   <cfquery name="GetList" 
+				  datasource="#ListDataSource#" 
+				  username="#SESSION.login#" 
+				  password="#SESSION.dbpw#">
+				 	  SELECT   DISTINCT 
+					           #ListPK# as PK, 
+					           #ListDisplay# as Display,
+							   0 as DEF
+					  FROM     #ListTable#
+					  ORDER BY #ListDisplay#
+				</cfquery>
+			   					   
+			    <select name="Topic_#GetTopics.Code#" id="Topic_#GetTopics.Code#" class="regularxl">
+					<cfif ValueObligatory eq "0">
+					<option value=""></option>
+					</cfif>
+					<cfloop query="GetList">
+						<option value="#PK#" <cfif GetList.Display eq GetValue.TopicValue>selected</cfif>>#Display#</option>
+					</cfloop>
+				</select>						
+				
+			<cfelseif ValueClass eq "Text">
+						
+				<input type="Text"
+			       name="Topic_#GetTopics.Code#"
+                   id="Topic_#GetTopics.Code#"
+			       required="#ValueObligatory#"					     
+			       size="#valueLength#"
+				   class="regularxl"
+				   message="Please Enter a #GetTopics.Description#"
+				   value="#GetValue.TopicValue#"
+			       maxlength="#ValueLength#">
+				   
+			<cfelseif ValueClass eq "Date">			
+			
+				<cf_intelliCalendarDate9
+					FieldName="Topic_#GetTopics.Code#" 
+					Default="#dateformat(GetValue.TopicValue,CLIENT.DateFormatShow)#"
+					AllowBlank="#ValueObligatory#"
+					class="regularxl">	
+								
+			<cfelseif ValueClass eq "Boolean">
+					
+				<input type="Checkbox" class="radiol"
+			       name="Topic_#GetTopics.Code#" 
+                   id="Topic_#GetTopics.Code#"
+				   <cfif GetValue.TopicValue eq "1">checked</cfif>
+			       value="1">
+			
+			</cfif>
+		
+	   </cfif>	
+	   
+	   </td>
+	   
+  	</tr>	
+		    
+  </cfoutput>	
+  
+ 

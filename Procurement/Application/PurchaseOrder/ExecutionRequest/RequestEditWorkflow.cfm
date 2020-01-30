@@ -1,0 +1,52 @@
+
+<!--- establish the workflow object --->
+
+<cfquery name="Get" 
+	datasource="AppsPurchase" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    SELECT  *
+		FROM    PurchaseExecutionRequest
+		WHERE   RequestId = '#URL.Ajaxid#'
+</cfquery>
+
+<cfquery name="Object" 
+	datasource="AppsOrganization" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    SELECT  *
+		FROM    OrganizationObject
+		WHERE   ObjectkeyValue4 = '#URL.AjaxId#'
+</cfquery>
+
+<!--- 1. test EntityGroup and EntityClass at runtime from the table itself 
+2. do I need to submit both ?
+3. what happens if group changes
+
+--->
+
+<cfset link = "Procurement/Application/PurchaseOrder/ExecutionRequest/RequestEdit.cfm?id=#URL.AjaxId#">
+
+<cfif Get.ActionStatus eq "9">
+  <cfset hidecurrent = "Yes">
+<cfelse>
+  <cfset hidecurrent = "No">
+</cfif>
+
+<cf_ActionListing 
+	EntityCode       = "ProcExecution"	
+	EntityGroup      = "" 
+	EntityClass      = "#Object.EntityClass#"
+	EntityStatus     = "#Get.ActionStatus#"			
+	HideCurrent      = "#hidecurrent#"
+	OrgUnit          = "#Get.OrgUnit#"	
+	ObjectReference  = "Execution Request under No #Get.Reference#"	
+	ObjectReference2 = "#get.OfficerFirstName# #get.OfficerLastName#"
+	ObjectKey4       = "#URL.AjaxId#"
+	ObjectURL        = "#link#"
+	Show             = "Yes"
+	AjaxId           = "#URL.AjaxId#"
+	Toolbar          = "Yes"
+	Framecolor       = "ECF5FF"
+	CompleteFirst    = "No">
+	 

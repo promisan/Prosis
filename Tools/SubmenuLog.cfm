@@ -1,0 +1,116 @@
+
+<cf_compression>
+
+<cfparam name="attributes.systemfunctionid" default="">
+<cfparam name="attributes.mission"          default="">
+<cfparam name="url.systemfunctionid"        default="#attributes.systemfunctionid#">
+<cfparam name="url.mission"                 default="#attributes.mission#">
+<cfparam name="attributes.ActionObject"          default = "">
+<cfparam name="attributes.ActionObjectKeyValue1" default = "">
+<cfparam name="attributes.ActionObjectKeyValue2" default = "">
+<cfparam name="attributes.ActionObjectKeyValue3" default = "">
+<cfparam name="attributes.ActionObjectKeyValue4" default = "">
+
+<cfif url.systemfunctionid neq "">
+
+	<cf_getHost host="#cgi.http_host#">
+			
+	<cftry>
+	
+		<cfquery name="user" 
+			datasource="AppsSystem">
+				SELECT * 
+				FROM   UserNames
+				WHERE  Account = '#session.acc#'				
+		</cfquery>
+	
+		<cfquery name="get" 
+			datasource="AppsSystem">
+				SELECT * 
+				FROM   Ref_ModuleControl
+				WHERE  SystemFunctionId = '#url.systemfunctionid#'				
+		</cfquery>
+		
+		<cfif user.recordcount eq "1">
+		
+			<cfquery name="LogMenuAction" 
+				datasource="AppsSystem">
+					INSERT INTO UserActionModule 
+						(Account, 
+						 AccountMission,
+						 HostName, 
+						 NodeIP,
+						 SystemFunctionId,
+						 FunctionName,
+						 Mission,
+						 ActionDescription,
+						 ActionObject,
+						 ActionObjectKeyValue1,
+						 ActionObjectKeyValue2,
+						 ActionObjectKeyValue3,
+						 ActionObjectKeyValue4)
+					VALUES 
+						('#SESSION.acc#',
+						 '#User.AccountMission#',
+						 '#host#',
+						 '#CGI.Remote_Addr#',
+						 '#url.systemFunctionId#',
+						 '#get.FunctionName#',
+						 '#url.mission#',
+						 'Open Function',
+						 '#attributes.ActionObject#',
+						 '#attributes.ActionObjectKeyValue1#',
+						 '#attributes.ActionObjectKeyValue2#',
+						 '#attributes.ActionObjectKeyValue3#',
+						 <cfif attributes.ActionObjectKeyValue4 neq "">
+						 	'#attributes.ActionObjectKeyValue4#'
+						 <cfelse>
+						 	NULL
+						 </cfif>) 			
+			</cfquery>
+						
+			<cfif url.mission eq "">
+			
+				<cfquery name="LogStatus" 
+					datasource="AppsSystem">
+						UPDATE UserStatus
+						SET    SystemFunctionId = '#url.systemFunctionId#'
+						WHERE  Account          = '#session.acc#'
+						AND    HostName         = '#host#'	 
+						AND    HostSessionId    = '#SESSION.Sessionid#'				
+				</cfquery>		
+			
+			<cfelse>
+							
+				<cfquery name="LogStatus" 
+					datasource="AppsSystem">
+						UPDATE UserStatus
+						SET    SystemFunctionId = '#url.systemFunctionId#',
+						       Mission          = '#url.mission#'
+						WHERE  Account          = '#session.acc#'
+						AND    HostName         = '#host#'	 
+						AND    HostSessionId    = '#SESSION.Sessionid#'				
+				</cfquery>		
+			
+			</cfif>
+			
+		</cfif>	
+	
+		<cfcatch></cfcatch>
+	
+	</cftry>
+	
+<cfelse>
+
+	<cf_getHost host="#cgi.http_host#">
+
+	<cfquery name="LogStatus" 
+		datasource="AppsSystem">
+				UPDATE UserStatus
+				SET    Mission          = '#url.mission#'
+				WHERE  Account          = '#session.acc#'
+				AND    HostName         = '#host#'	 
+				AND    HostSessionId    = '#SESSION.Sessionid#'				
+	</cfquery>				
+
+</cfif>

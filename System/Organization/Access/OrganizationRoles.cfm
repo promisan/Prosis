@@ -1,0 +1,68 @@
+
+<cfoutput>
+
+	<script language="JavaScript1.2">
+	
+	function showtreerole(role) {
+	
+	mis = document.getElementById("mission")
+	w = #CLIENT.width# - 100;
+	h = #CLIENT.height# - 150;
+	window.open("#SESSION.root#/System/Organization/Access/OrganizationRolesView.cfm?Mission="+mission.value+"&Class=" + role, "_blank", "left=40, top=40, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=yes, resizable=yes")
+	
+	}
+	
+	function showtext(r) {
+	se = document.getElementById(r)
+	
+	if (se.className == "regular")
+		{ se.className = "hide" 
+	  } else { 
+	     se.className = "regular" }
+	  }
+	
+	</script>
+	
+</cfoutput>
+
+<table width="100%" border="0" frame="hsides" bordercolor="silver" cellspacing="0" cellpadding="0" align="center">
+
+<cfquery name="Mission" 
+datasource="AppsOrganization" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+SELECT  *
+FROM    Ref_Mission
+WHERE  Mission IN (SELECT Mission FROM Ref_MissionModule WHERE SystemModule IN (SELECT SystemModule FROM Ref_AuthorizationRole))  
+AND Operational = 1
+<cfif SESSION.isAdministrator eq "No">
+AND     Mission IN (SELECT Mission 
+                    FROM   OrganizationAuthorization
+					WHERE  Role = 'OrgUnitManager'
+					AND    UserAccount = '#SESSION.acc#')
+					</cfif>
+</cfquery>
+
+<cfparam name="URL.Mission" default="#Mission.Mission#">
+<tr><td>
+
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" align="left" class="formpadding">	
+	<tr><td height="5"></td></tr>	
+	<tr>
+	  <td width="20%" height="20">&nbsp;&nbsp;Select tree:&nbsp;
+	  <select name="mission" id="mission" onChange="reloadform(this.value)">
+	   <cfoutput query="Mission">
+	   <option value="#Mission#" <cfif #Mission# eq "#URL.Mission#">selected</cfif>>#Mission#</option>
+	   </cfoutput>
+	  </select>
+	  </td>
+	</tr>	
+	<tr><td height="5"></td></tr>
+	<tr><td id="treedet">
+		<cfinclude template="OrganizationRolesDetail.cfm">
+	</td></tr>
+	</table>
+	
+</td></tr>
+	
+</table>	

@@ -1,0 +1,40 @@
+
+<!--- ----------------------------------------------------------------------- --->
+<!--- this template is to PROCESS internal taskorder into stock transactions- --->
+<!--- ----------------------------------------------------------------------- --->
+<!--- ---------------NO NEED to have an Taskorder header reference----------- --->
+
+<cfparam name="url.actormode" default="Provider">
+
+		 		
+  <table width="98%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center">		
+ 
+ 		<cfoutput> 
+        <tr>
+			<td height="20">
+				<table>
+					<tr>
+					<td width="200" height="30" class="labelit" style="padding-left:3px">Find Pending Request/Taskorder:</td>
+					<td width="40" style="padding-left:8px"><input onkeyup="if (window.event.keyCode == '13') { document.getElementById('find').click() }"  type="text" id="search" name="search" class="regularxl" style="width:90"></td>
+					<td width="40" style="padding-left:3px"><input type="button" id="find" value="Find" class="button10s" style="height:25px;width:49"
+					     onclick="ColdFusion.navigate('#SESSION.root#/Warehouse/Application/StockOrder/Task/Process/TaskViewSearch.cfm?systemfunctionid=#url.systemfunctionid#&warehouse='+document.getElementById('warehouseshow').value+'&mission=#url.mission#&search='+document.getElementById('search').value,'searchme')">							 
+					 </td>			
+					<td></td>							
+					</tr>						
+				</table>
+			</td>
+		</tr>
+		<tr><td height="1" id="searchme"></td></tr>
+		</cfoutput>
+		
+		<tr><td colspan="1" class="linedotted"></td></tr>
+  
+        <tr><td valign="top" id="mainbox">		
+				
+		<cfinclude template="TaskViewContent.cfm">
+		
+		</td></tr>  
+  	   
+</table>	
+		
+	

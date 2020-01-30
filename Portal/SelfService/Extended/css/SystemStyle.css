@@ -1,0 +1,241 @@
+
+/*CSS RESET*/
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,article,aside,details,figcaption,figure,footer,header,hgroup,mark,menu,meter,nav,output,progress,section,summary,time{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align: baseline;background:transparent;}article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, output, section, summary{display:block;}meter,progress,mark, time{display:inline;}ol, ul {list-style: none;}blockquote,q{quotes: none;}html,body{height:100%;}img {border:0;vertical-align:top;text-align:left;}object{vertical-align:top;outline:none;}ul,ol{list-style:none;}table,table td{padding:0;border:none;border-collapse:collapse;}input,select,textarea{font-family:Arial, Helvetica, sans-serif;font-size:1em;vertical-align:middle;font-weight:normal;margin:0;padding:0;}textarea{overflow:auto;}
+	
+html {
+	overflow-y:hidden;
+	overflow-x:hidden;
+	height:100%;
+	width:100%;
+	}
+	
+  
+SELECT.regularxl {    
+    font-size : 11pt; 		
+	padding:1px;	
+	padding-left:3px;
+	border:1px solid silver;
+	font-family:calibri;
+	height:19pt;	
+   }	  
+   
+INPUT.regularxl {
+	font-size:11pt;
+	height:25px;	
+	padding:2px;
+	padding-left:4px;
+	border:1px solid silver;
+	font-family:calibri;	
+} 	
+
+
+TD.labelit {
+	font-family: calibri, Trebuchet MS;
+	font-size: 10pt;	
+	font-style: italic;
+	padding-left: 0px;
+}	   	
+
+body {
+	width:100%;
+	height:100%;
+	overflow-x:auto;
+	background-color:silver;
+	}
+	
+div {
+	filter:inherit;
+	}
+	
+div, td, input {
+	font-family:calibri, Trebuchet MS;
+	font-size:13px;
+}
+	
+a {
+	text-decoration:none;
+}
+	
+#dcontent {
+		width:100%;
+		height:100%;
+		padding:0px;
+		margin:0px;	
+		min-width:900px;
+		position:relative;
+	}
+	
+#panelleft {
+		position:absolute;
+		left:0px;
+		top:0px;
+		width:5%;
+		height:100%;
+		background-image:url('../../Extended/Images/left_outer_bg.jpg'); 
+		background-position:top right; 
+		background-repeat:no-repeat
+}
+	
+#panelcenter {
+		position:absolute;
+		min-height:100%;
+		height:100%;
+		left:5%;
+		right:5%;			
+}
+
+#header {
+		width:100%;
+		height:125px;
+}
+			
+#logo {
+		position:absolute; 
+		left: 50%; 
+		z-index:2;
+		display:none;
+}
+
+#togglelogo {
+		display:none; 
+		position:absolute; 
+		left: 50%; 
+		height:25px; 
+		margin-left:-15px; 
+		z-index:2
+}
+
+#itemx {
+		position:absolute; 
+		left: 75%; 
+		height:53px; 
+		margin-left:-64px; 
+		margin-top:55px; 
+		z-index:1
+}
+			
+#maincontentwrapper {
+		width:100%;
+		position:absolute;
+		top:125px;
+		bottom:0px;
+		}
+		
+#MainContent {
+		height:100%;
+		width:100%;
+}
+		
+#detailcontent {
+		width:100%;
+		height:100%;
+		display:none;
+		position:absolute;
+}
+
+#menu {
+		height:35px;
+		width:auto;
+		padding-left:50px; 
+		background-image:url('../../Extended/Images/menu/bar_bg.png'); 
+		background-position:bottom; 
+		background-repeat:repeat-x;
+}
+
+#menuline {
+		height:6px;
+		border-top:1px solid silver;
+		background-color:#f0f0f0;
+		width:100%;
+}
+
+#dbanner {
+		height:110px; 
+		width:auto; 
+		position:relative; 
+		margin-left:20px; 
+		margin-right:20px; 
+		margin-top:5px; 
+		margin-bottom:10px;
+}
+
+#innercontent {
+		position:absolute; 
+		top:165px;
+		bottom:5px;
+		left:0px;
+		right:0px; 
+}
+
+#innercontentleft {
+		position:absolute;
+		left:20px;
+		right:370px;
+		top:0px;
+		bottom:0px;
+		min-width:400px;
+}
+
+#innercontentright {
+		position:absolute;
+		width:370px;
+		right:0px;
+		top:0px;
+		bottom:0px;
+}
+		
+#footer {
+		position:absolute;
+		bottom:0px;
+		height:30px;
+		width:100%;
+		overflow:hidden;
+	}
+	
+#panelright {
+		position:absolute;
+		right:0px;
+		top:0px;
+		width:5%;
+		height:100%;
+		background-image:url('../../Extended/Images/right_outer_bg.jpg'); 
+		background-position:top left; 
+		background-repeat:no-repeat
+	}
+	
+	
+/*--------------------------------------------------------*/
+/*---------------Sub Menu---------------------------------*/
+/*--------------------------------------------------------*/
+	
+	
+td.submenuregular { 
+	background-repeat:no-repeat; 
+	background-Position:left;
+	line-height:12px;
+	font-family: Calibri;
+	font-size: 12px;
+	font-weight:bold;
+	vertical-align:middle;
+	color:gray;
+	width:81px;
+	height:32px;
+	cursor:pointer;
+	padding-top:5px;
+	}
+	
+td.submenuselected {
+	background-image:url('../../Extended/images/menu/button_bg.png'); 
+	background-Repeat:no-repeat; 
+	background-Position:left;
+	color:white;
+	cursor:pointer;
+	vertical-align:middle;
+	line-height:13px;
+	font-family: Calibri;
+	font-size: 13px;
+	width:81px;
+	height:32px;
+	cursor:pointer;
+	padding-top:3px;
+	}

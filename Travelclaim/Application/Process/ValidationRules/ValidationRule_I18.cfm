@@ -1,0 +1,79 @@
+<!--- 
+Validation Rule :  R15
+Name			:  Checking obviously incorrect itinerary/DSA data 
+Creation Date	:  26 June 2009
+Created         :  JG
+This validation is created because in very cases claims with inconsistent data were submitted:
+- Detailed Claim without time in the intinerary 
+- Detailed Claim with DSA lines but no rate (and therefore incorrectly 0 amount)
+---->
+
+
+<cfquery name="IncompleteITN" 
+ datasource="appsTravelClaim" 
+ username="#SESSION.login#" 
+ password="#SESSION.dbpw#">
+	Select *
+	from claim C
+ 	inner join claimevent CE on C.claimid = CE.Claimid
+ 	inner join claimeventtrip CET on CE.claimeventid = CET.claimeventid
+	where 
+ 	C.claimid = '#URL.claimid#'
+ 	AND C.claimasis = 0
+ 	AND CET.actionstatus = 0
+</cfquery>	
+
+<cfquery name="IncompleteDSALine" 
+ datasource="appsTravelClaim" 
+ username="#SESSION.login#" 
+ password="#SESSION.dbpw#">
+	Select *
+	from claimlinedsa CD
+	 inner join CLAIM C on C.claimid = CD.Claimid
+	where 
+ 	 		C.claimid = '#URL.claimid#'
+	 AND 	C.claimasis = 0
+ 	 AND 	Rate IS NULL AND LocationCode IS NOT NULL
+</cfquery> 
+<!--- JG  the only valid case where there is no rate for a detailed claim is a trip of less than 10 hours 
+In these cases, in the current programs, the Location Code is NULL too in these cases so we use the condition
+"LocationCode IS NOT NULL" to exclude these short trips. 
+Ideally there would indicators in the Claim table to recognize 1) same day trip 2) trip of less than 10 hours.  --->
+
+<cfif #IncompleteITN.recordcount# gt 0 OR #IncompleteDSALine.recordcount# gt 0>
+<cfset submission = "0">
+
+					 <tr><td valign="top" bgcolor="C0C0C0"></td></tr>
+			 <tr>
+			  <td valign="top" bgcolor="FDDFDB">
+			  <table width="94%" cellspacing="2" cellpadding="2" align="center">
+			  <tr><td valign="top" height="30">
+			      <font color="FF0000"><b>Additional Required Action:</b></font>
+			      <br>
+				    <cfoutput>#MessagePerson#</cfoutput>
+				  <br>						  
+				  </td></tr>
+			  </table>
+			  </td>	  
+		     </tr>   
+
+
+		 <cfquery name="Insert" 
+		datasource="appsTravelClaim" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		INSERT INTO ClaimValidation
+		       (ClaimId,
+			    CalculationId,
+				ValidationCode, 
+				ValidationMemo) 
+		VALUES ('#Claim.ClaimId#',
+		        '#rowguid#',
+		        '#Code#',
+				'#Description#')
+		</cfquery>
+
+</cfif>	
+
+
+		

@@ -1,0 +1,170 @@
+<!--- Prosis template framework --->
+<cfsilent>
+	<proUsr>jmazariegos</proUsr>
+	<proOwn>Jorge Mazariegos</proOwn>
+	<proDes>Translated</proDes>
+	<proCom></proCom>
+</cfsilent>
+<!--- End Prosis template framework --->
+
+<cf_screentop height="100%" line="no" bannerheight="4" html="No" title="Find Employee">
+
+<script language="JavaScript">
+	window.name = "lookupEmployee"
+</script>
+
+<cfif not IsNumeric(URL.OrgUnit)>
+	<cfset URL.OrgUnit = "0">
+</cfif>	
+
+<cfquery name="Unit" 
+datasource="AppsOrganization" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+    SELECT *
+    FROM  Organization
+	WHERE OrgUnit = '#URL.OrgUnit#' 
+</cfquery>
+
+<cfquery name="Nation" 
+datasource="AppsSystem" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+    SELECT CODE, NAME 
+    FROM Ref_Nation
+	WHERE NAME > 'A'
+	ORDER BY NAME
+</cfquery>
+
+<form action="LookupSearchResult.cfm" method="post">
+
+<cfoutput>
+    <INPUT type="hidden" name="Link"           id="Link"           value="#CGI.QUERY_STRING#">
+	<INPUT type="hidden" name="FormName"       id="FormName"       value="#URL.FormName#">
+	<INPUT type="hidden" name="fldPersonNo"    id="fldPersonNo"    value="#URL.fldPersonNo#">
+	<INPUT type="hidden" name="fldIndexNo"     id="fldIndexNo"     value="#URL.fldIndexNo#">
+	<INPUT type="hidden" name="fldLastName"    id="fldLastName"    value="#URL.fldLastName#">
+	<INPUT type="hidden" name="fldFirstName"   id="fldFirstName"   value="#URL.fldFirstName#">
+	<INPUT type="hidden" name="fldFull"        id="fldFull"        value="#URL.fldFull#">
+	<INPUT type="hidden" name="fldDob"         id="fldDob"         value="#URL.fldDob#">
+	<INPUT type="hidden" name="fldNationality" id="fldNationality" value="#URL.fldNationality#">
+	<INPUT type="hidden" name="fnselected" 	   id="fnselected"     value="#URL.fnselected#">
+	<INPUT type="hidden" name="showadd"        id="showadd"        value="#URL.showadd#">
+	
+</cfoutput>
+
+<table width="100%" border="0" align="center" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+
+<tr><td>
+  
+<table width="94%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+    	
+	<TR>
+	<td width="100" height="20" align="left" class="labelmedium"><cf_tl id="Entity">:</td>
+	<TD>
+	   <cfif Unit.Mission eq "">
+		   <cfif url.mission neq "" and url.mission neq "undefined">
+		       <INPUT type="text" name="Mission" id="Mission" value="<cfoutput>#url.Mission#</cfoutput>" size="30" class="regularxl">	
+		   <cfelse>
+			   <INPUT type="text" name="Mission" id="Mission" size="30" class="regularxl">	
+		   </cfif>
+	   <cfelse>
+	   <input type="text" name="Mission" id="Mission" size="30" value="<cfoutput>#Unit.Mission#</cfoutput>" readonly class="regularxl">	
+	   </cfif>
+	</TD>
+	</TR>
+	 
+	<TR>
+	<td width="100" height="20" align="left" class="labelmedium"><cf_tl id="Unit class">:</td>
+	<TD>
+	   <cfif Unit.Mission eq "">
+	   	<INPUT type="text" name="OrgUnitClass" id="OrgUnitClass" size="30" class="regularxl">	
+	   <cfelse>
+	    <input type="text" name="OrgUnitClass" id="OrgUnitClass" value="<cfoutput>#Unit.OrgUnitClass#</cfoutput>" size="30" readonly class="regularxl">	
+	   </cfif>
+	  
+	</TD>
+	</TR>
+	    
+	<!--- Field: Staff.LastName=CHAR;40;FALSE --->
+	<INPUT type="hidden" name="Crit2_FieldName" id="Crit2_FieldName" value="FullName">
+	<INPUT type="hidden" name="Crit2_FieldType" id="Crit2_FieldType" value="CHAR">
+	<TR>
+	<td width="100" class="labelmedium" align="left"><cf_tl id="Full Name">:<input type="hidden" name="Crit2_Operator" id="Crit2_Operator" value="CONTAINS"></td>
+	<TD>
+		
+	<INPUT type="text" name="Crit2_Value" id="Crit2_Value" size="30" class="regularxl">
+   	
+	</TD>
+	</TR>
+	
+	<INPUT type="hidden" name="Crit1_FieldName" id="Crit1_FieldName" value="IndexNo">
+	<INPUT type="hidden" name="Crit1_FieldType" id="Crit1_FieldType" value="CHAR">
+	<TR>
+	<TD align="left"  class="labelmedium"><cfoutput>#client.IndexNoName#</cfoutput>:<input type="hidden" name="Crit1_Operator" id="Crit1_Operator" value="CONTAINS"></TD>
+	<TD>					
+	<INPUT type="text" name="Crit1_Value" id="Crit1_Value" class="regularxl" size="30">    	
+	</TD>
+	</TR>	
+	
+	<tr>	
+		<TD align="left"  class="labelmedium"><cf_tl id="Assignment">: </TD>
+		<td>
+		<select name="OnBoard" id="OnBoard" class="regularxl">
+		<option value="1"><cf_tl id="On board"></option>
+		<option value="0"><cf_tl id="History"></option>
+		<option value="" selected><cf_tl id="All"></option>
+		</select>		
+		</TD>
+	</TR>
+		
+    <!--- Field: Staff.Gender=CHAR;40;FALSE --->
+	<INPUT type="hidden" name="Crit4_FieldName" id="Crit4_FieldName" value="Gender">
+	<INPUT type="hidden" name="Crit4_FieldType" id="Crit4_FieldType" value="CHAR">
+	<INPUT type="hidden" name="Crit4_Operator" id="Crit4_Operator" value="CONTAINS">
+	
+	<TR>
+		
+	<TD align="left"  class="labelmedium"><cf_tl id="Gender">: </TD>
+	
+	<TD>
+	
+		<select name="Crit4_Value" id="Crit4_Value"  class="regularxl">
+			<option value="M"><cf_tl id="Male"></option>
+			<option value="F"><cf_tl id="Female"></option>
+			<option value="" selected><cf_tl id="All"></option>
+		</select>	
+		   	
+	</TD>
+	</TR>
+	   
+	<TR>
+	<TD align="left"  class="labelmedium"><cf_tl id="Nationality">:</TD>
+	
+	<TD>
+    	<select name="Nationality"  id="Nationality" size="1" class="regularxl">
+			<option value="" selected>[<cf_tl id="All">]</option>
+		    <cfoutput query="Nation">
+				<option value="'#Code#'">#Name#</option>
+			</cfoutput>
+	    </select>
+		</TD>
+	</TR>		
+
+</TABLE>
+
+</td>
+</tr>
+
+<tr><td height="1" class="linedotted"></td></tr>
+
+<tr><td colspan="2" align="center">
+		<cf_tl id="Search" var="1">
+		<input type="submit" value="<cfoutput>#lt_text#</cfoutput>" style="width:200;height:25" class="button10g">
+	</td></tr>
+
+</table>
+	
+</FORM>
+
+<cf_screenbottom>

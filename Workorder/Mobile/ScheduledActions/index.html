@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+
+<html>
+	
+	<head>
+		<title></title>
+		<!-- Sets the viewport zoom to 100% and disables the resizing -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+		
+		<!-- CSS -->
+		<link rel="stylesheet" href="../../../System/Mobile/CSS/Prosis/Styles.css" id="styleNormal">
+		<link rel="stylesheet" href="../../../System/Mobile/CSS/Prosis/LowPrint.css" id="styleLowPrint" disabled>
+		<link rel="stylesheet" href="../../../System/Mobile/CSS/Prosis/StyleWideMenu.css" type="text/css" id="styleWideMenu" />
+		<link rel="stylesheet" href="../../../System/Mobile/CSS/Prosis/StyleTallMenu.css" type="text/css" id="styleTallMenu" disabled />
+		<link rel="stylesheet" href="../../../System/Mobile/CSS/ThirdParty/MobiScroll/mobiscroll.datetime-2.3.1.min.css" type="text/css" />
+		
+		<!-- Scripts -->
+		<script type="text/javascript" charset="utf-8" src="../../../System/Mobile/Scripts/ThirdParty/jquery.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../../../System/Mobile/Scripts/ThirdParty/jqueryeffects.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../../../System/Mobile/Scripts/ThirdParty/mobiscroll.datetime-2.3.1.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../../../System/Mobile/Scripts/ThirdParty/cordova-2.4.0.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../../../System/Mobile/Scripts/Prosis/Pictures.js"></script>
+		
+	</head>
+	
+
+	<body>
+		
+		<!-- Main Page container -->
+		<div id="mainPage" class="clsPage">
+			
+			<!-- Header -->
+			<div id="pageHeader" class="clsPageHeader">
+				<div id="topMenuLeft" class="clsTopMenuLeft">
+					<div class="clsDivLogo">
+						<img id="imgLogo">
+					</div>
+					
+					<div align="center" id="btnMenuFindContainer" class="clsTopMenuElement" style="display: none;">
+						<img src="Images/Default/find.png" id="btnMenuFind" class="clsMenuIcon">
+					</div>
+				</div>
+				
+				<div id="topMenuRight" class="clsTopMenuRight">
+				
+					<div align="center" class="clsTopMenuElement">
+						<img src="Images/Default/place.png" id="btnBuilding" class="clsMenuIcon">
+						<div class="clsIconText clsMainMenuText" id="lblMenuBuilding"></div>
+					</div>
+					
+					<div align="center" class="clsTopMenuElement">
+						<img src="Images/Default/calendar.png" id="btnDate" class="clsMenuIcon">
+						<div class="clsIconText clsMainMenuText" id="lblMenuDate"></div>
+					</div>
+					
+					<div align="center" class="clsTopMenuElement">
+						<img src="Images/Default/refresh.png" id="btnReload" class="clsMenuIcon">
+						<div class="clsIconText clsMainMenuText" id="lblMenuRefresh"></div>
+					</div>
+					
+					<div align="center" class="clsTopMenuElement">
+						<img src="Images/Default/info.png" id="btnAbout" class="clsMenuIcon">
+						<div class="clsIconText clsMainMenuText" id="lblMenuAbout"></div>
+					</div>
+					
+					<div align="center" class="clsTopMenuElement">
+						<div class="clsCheckboxMenu" id="cbDataFilter_All">
+							<input type="Hidden" id="dataFilter_All" value="true">
+							<img src="Images/Default/check.png" class="clsMenuIcon">
+							<div class="clsIconText clsMainMenuText" id="lblFilterAll"></div>
+						</div>
+					</div>
+					
+				</div>
+				
+			</div>
+			
+			<!-- Content -->			
+			<div id="pageContent" class="clsPageContent">
+				
+				<!-- Toggler -->
+				<div align="center" id="verticalToggler" class="clsVerticalToggler">
+					<div style="height:60px;">
+						<img id="menuFilterIcon" src="Images/Default/find.png" class="clsMenuIconSmall">
+					</div>
+				</div>
+			
+				<!-- Main menu container -->			
+				<div id="menuContainer" class="clsMenuContainer">
+				
+					<!-- Menu level 1 -->
+					<div id="verticalMenu" class="clsVerticalMenu">
+						<div align="center" class="clsIconContainer clsMenuFilter1">
+							<img id="imgFilter1" class="clsIcon">
+							<br>
+							<span class="clsIconText" id="lblFilter1"></span>
+						</div>
+						<!-- Menu level 1 Listing -->
+						<div class="clsDivFilterListingContainer" id="listingMenuLevel1">
+						</div>
+					</div>
+					
+					<!-- Menu level 2 -->
+					<div id="verticalSubMenu1" class="clsVerticalMenu">
+						<div align="center" class="clsIconContainer clsMenuFilter2">
+							<img id="imgFilter2" class="clsIcon">
+							<br>
+							<span class="clsIconText" id="lblFilter2"></span>
+						</div>
+						<!-- Menu level 2 Listing -->
+						<div class="clsDivFilterListingContainer" id="listingMenuLevel2">
+						</div>
+					</div>
+					
+					<!-- Menu level 3 -->
+					<div id="verticalSubMenu2" class="clsVerticalMenu">
+						<div align="center" class="clsIconContainer clsMenuFilter3">
+							<img id="imgFilter3" class="clsIcon">
+							<br>
+							<span class="clsIconText" id="lblFilter3"></span>
+						</div>
+						<!-- Menu level 3 Listing -->
+						<div class="clsDivFilterListingContainer" id="listingMenuLevel3">
+						</div>
+					</div>
+					
+					<!-- Menu level 4 -->
+					<div id="verticalSubMenu3" class="clsVerticalMenu">
+						<div align="center" class="clsIconContainer clsMenuFilter4">
+							<img id="imgFilter4" class="clsIcon">
+							<br>
+							<span class="clsIconText" id="lblFilter4"></span>
+						</div>
+						<!-- Menu level 4 Listing -->
+						<div class="clsDivFilterListingContainer" id="listingMenuLevel4">
+						
+							<div class="clsDivFilterListing">
+								<div class="clsCheckbox" id="cbDataFilterLevel4_Completed">
+									<input type="Hidden" id="dataFilterLevel4_Completed" value="true">
+									<table>
+										<tr>
+											<td>
+											<img class="clsCheckboxLevel4" src="Images/Default/check.png">
+											</td>
+											<td>
+											<span class="clsFilterText" id="lblFilter4Completed"></span>
+											</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+							
+							<div class="clsDivFilterListing">
+								<div class="clsCheckbox" id="cbDataFilterLevel4_NotCompleted">
+									<input type="Hidden" id="dataFilterLevel4_NotCompleted" value="true">
+									<table>
+										<tr>
+											<td>
+											<img class="clsCheckboxLevel4" src="Images/Default/check.png">
+											</td>
+											<td>
+											<span class="clsFilterText" id="lblFilter4NotCompleted"></span>
+											</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+							
+							<div class="clsDivFilterListing">
+								<div class="clsCheckbox" id="cbDataFilterLevel4_WithPictures">
+									<input type="Hidden" id="dataFilterLevel4_WithPictures" value="true">
+									<table>
+										<tr>
+											<td>
+											<img class="clsCheckboxLevel4" src="Images/Default/check.png">
+											</td>
+											<td>
+											<span class="clsFilterText" id="lblFilter4WithPictures"></span>
+											</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+							
+							<div class="clsDivFilterListing">
+								<div class="clsCheckbox" id="cbDataFilterLevel4_WithoutPictures">
+									<input type="Hidden" id="dataFilterLevel4_WithoutPictures" value="true">
+									<table>
+										<tr>
+											<td>
+											<img class="clsCheckboxLevel4" src="Images/Default/check.png">
+											</td>
+											<td>
+											<span class="clsFilterText" id="lblFilter4WithoutPictures"></span>
+											</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+					
+				</div>
+				
+				<!-- Main content container -->
+				<div id="mainContent" class="clsMainContent">
+					
+					<!--- Selected criteria --->
+					<div id="criteriaDisplayContainer" class="clsCriteriaDisplayContainer">
+						<div class="clsCriteriaDisplay">
+							<div class="clsTxtPlaceDisplay"></div>
+							<div class="clsTxtDateDisplay"></div>
+							<div class="clsTxtUserDisplay"></div>
+							<!-- Text search -->
+							<div class="clsSearchDiv">
+								<input type="Text" class="clsSearchTextbox" id="txtSearch" value="">
+								<!-- <img src="Images/Default/delete.png" id="btnCleanSearch" class="clsMenuIconSmall" align="absmiddle"> -->
+							</div>
+						</div>
+					</div>
+					
+					<!-- Main Listing -->
+					<div id="mainListing" class="clsMainListing"></div>
+	
+				</div>
+				
+			</div>
+				
+		</div>
+		
+		<!-- Wait modal window -->
+		<div class="modalBoxWrap" id="modalWait">
+		    <div class="modalBoxOverlay">
+		        &nbsp;
+		    </div>
+		    <div class="vertical-offset">
+		        <div class="modalWait" align="center">
+					<div>
+						<img src="Images/loader.gif">
+					</div>
+		            <div id="lblModalWait" style="font-size:12px;"></div>
+		        </div>
+		    </div>
+		</div>
+		
+		<!-- Building menu modal window -->
+		<div class="modalBoxWrap" id="modalBuilding">
+		    <div class="modalBoxOverlay">
+		        &nbsp;
+		    </div>
+		    <div class="vertical-offset">
+		        <div class="modalBox" id="modalBoxBuilding">
+					<a class="closeModal"><img src="Images/Default/delete.png" class="imgCloseModal"/></a>
+		            <div id="customerContainer"></div>
+					<br>
+					<div align="center" id="divSelectWorkOrder">
+						<a href="javascript:" id="btnSelectWorkOrder" class="clsButton gray"></a>
+					</div>
+		        </div>
+		    </div>
+		</div>
+		
+		<!-- Date menu modal window -->
+		<div class="modalBoxWrap" id="modalDate">
+		    <div class="modalBoxOverlay">
+		        &nbsp;
+		    </div>
+		    <div class="vertical-offset">
+		        <div class="modalBox">
+					<a class="closeModal"><img src="Images/Default/delete.png" class="imgCloseModal"/></a>
+					<div align="center">
+						<br>
+						<input id="txtDatePicker" name="txtDatePicker" class="i-txt clsDatePicker">
+						<br><br>
+						<a href="javascript:" id="btnSelectDate" class="clsButton gray"></a>
+					</div>
+		        </div>
+		    </div>
+		</div>
+		
+		<!-- About menu modal window -->
+		<div class="modalBoxWrap" id="modalAbout">
+		    <div class="modalBoxOverlay">
+		        &nbsp;
+		    </div>
+		    <div class="vertical-offset">
+		        <div class="modalBox">
+					<a class="closeModal"><img src="Images/Default/delete.png" class="imgCloseModal"/></a>
+		            <div id="lblPromisan">
+						<table>
+							<tr>
+								<td>
+									<img src="Images/promisan.png"/>
+								</td>
+								<td>
+									<div>Promisan b.v.</div>
+									<div id="lblPromisanYear">2005 - <span id="lblAboutYear"></span></div>
+									<!-- <div id="lblPromisanLink"><a href="#" onclick="window.open('http://www.promisan.com','_system');">http://www.promisan.com</a></div> -->
+									<div id="lblPromisanAppVersion"></div>
+								</td>
+							</tr>
+						</table>
+					</div>
+					
+					<br>
+					<div>
+						<span id="lblAboutLanguage"></span>:
+							<select id="selectLanguage" class="clsSelect">
+								<option value="en"></option>
+								<option value="es"></option>
+							</select>
+					</div>
+					<br>
+					<div>
+						<span id="lblEnableAnimations"></span>:
+							<select id="selectEnableAnimations" class="clsSelect">
+								<option value="0"></option>
+								<option value="1"></option>
+							</select>
+					</div>
+					<br>
+					<br>
+					<div align="right">
+						<a href="javascript:" id="btnLogout" class="clsButton gray"></a>
+					</div>
+		        </div>
+		    </div>
+		</div>
+		
+		<!-- Picture view window -->
+		<div class="modalBoxWrap" id="modalPictureView">
+		    <div class="modalBoxOverlay">
+		        &nbsp;
+		    </div>
+		    <div class="vertical-offset">
+		        <div class="modalBox">
+					<a class="closeModal"><img src="Images/Default/delete.png" class="imgCloseModal"/></a>
+					<div align="center" class="clsPictureViewBox">
+						<img>
+					</div>
+					<div id="detailsPictureViewBox" class="clsDetailsPictureViewBox" align="center"></div>
+					<div id="memoPictureViewBoxContainer" class="clsMemoPictureViewBoxContainer" align="center">
+						<textarea maxlength="400" rows="2" id="memoPictureViewBox" class="clsMemoPictureViewBox"></textarea>
+					</div>
+					<div align="center">
+						<a href="javascript:" id="btnMemoPictureViewBox" class="clsButton gray"></a>
+					</div>
+		        </div>
+		    </div>
+		</div>
+		
+		<!-- Edit action memo window -->
+		<div class="modalBoxWrap" id="modalEditActionMemo">
+		    <div class="modalBoxOverlay">
+		        &nbsp;
+		    </div>
+		    <div class="vertical-offset">
+		        <div class="modalBox">
+					<a class="closeModal"><img src="Images/Default/delete.png" class="imgCloseModal"/></a>
+					<div id="txtActionMemoBoxContainer" class="clsTxtActionMemoBoxContainer" align="center">
+						<textarea type="Text" rows="10" id="txtActionMemoBox" class="clsTxtActionMemoBox"></textarea>
+					</div>
+					<div align="center">
+						<a href="javascript:" id="btnTxtActionMemoBox" class="clsButton gray"></a>
+					</div>
+		        </div>
+		    </div>
+		</div>
+		
+		<!-- Show customer employees window -->
+		<div class="modalBoxWrap" id="modalShowCustomerEmployees">
+		    <div class="modalBoxOverlay">
+		        &nbsp;
+		    </div>
+		    <div class="vertical-offset">
+		        <div class="modalBox">
+					<a class="closeModal"><img src="Images/Default/delete.png" class="imgCloseModal"/></a>
+					<div class="clsCustomerEmployeesContainer"></div>
+		        </div>
+		    </div>
+		</div>
+		
+		<!-- Profile view window -->
+		<div class="modalBoxWrap" id="modalProfileView">
+		    <div class="modalBoxOverlay">
+		        &nbsp;
+		    </div>
+		    <div class="vertical-offset">
+		        <div class="modalBox">
+					<a class="closeModal"><img src="Images/Default/delete.png" class="imgCloseModal"/></a>
+					<div align="center" class="clsProfileViewBox">
+						<img>
+					</div>
+					<div class="clsProfileViewBoxDetail">
+						<div id="txtProfileViewName"></div>
+						<div id="txtProfileViewIndexNo"></div>
+						<div id="txtProfileViewGender"></div>
+						<div id="txtProfileViewAssignment"></div>
+						<div id="listProfileViewTasks"></div>
+					</div>
+		        </div>
+		    </div>
+		</div>
+		
+		<!-- Add details window -->
+		<div class="modalBoxWrap" id="modalAddDetails">
+		    <div class="modalBoxOverlay">
+		        &nbsp;
+		    </div>
+		    <div class="vertical-offset">
+		        <div class="modalBox">
+					<a class="closeModal"><img src="Images/Default/delete.png" class="imgCloseModal"/></a>
+					<div align="center">
+						<span id="cameraPicURI" style="display:none;"></span>
+						<div>
+							<a href="javascript:" id="btnCapturePhoto" class="clsButton gray"></a>
+							<a href="javascript:" id="btnGetPhoto" class="clsButton gray"></a>
+						</div>
+						<div class="clsCameraPictureContainer">
+					        <img id="cameraPic" src=""></img>
+					    </div>
+						<div class="clsUploadMemo">
+							<input type="Text" maxlength="400" name="txtUploadMemo" id="txtUploadMemo">
+						</div>
+						<a href="javascript:" id="btnUploadPhoto" class="clsButton gray"></a>
+						<div id="cameraPicURIPercentage"></div>
+					</div>
+		        </div>
+		    </div>
+		</div>
+		
+		<!-- Login modal window -->
+		<div class="modalBoxWrap" id="modalLogin">
+		    <div class="modalBoxLoginOverlay">
+		        &nbsp;
+		    </div>
+		    <div class="vertical-offsetLogin">
+		        <div class="modalBoxLogin">
+					<div>
+						<img id="imgLoginLogo" class="clsLoginLogo">
+					</div>
+					<br>
+					<div style="padding-left:20%;">
+						<div>
+							<label for="txtLoginName" id="lblLoginName" class="clsLoginLabel"></label>
+							<br>
+							<input type="Text" maxlength="20" name="txtLoginName" id="txtLoginName" class="clsLoginTextBox">
+						</div>
+						<br>
+						<div>
+							<label for="txtLoginPwd" id="lblLoginPwd" class="clsLoginLabel"></label>
+							<br>
+							<input type="Password" maxlength="20" name="txtLoginPwd" id="txtLoginPwd" class="clsLoginTextBox">
+						</div>
+					</div>
+					<br>
+					<div align="center">
+						<a href="javascript:" id="btnLogin" class="clsButton gray"></a>
+					</div>
+					<br>
+					<div align="center">
+						<label id="txtLoginResult" class="clsLoginResult"></label>
+					</div>
+		        </div>
+		    </div>
+		</div>
+
+		<!-- Global configuration -->
+		<script type="text/javascript" charset="utf-8" src="../../../System/Mobile/Scripts/Prosis/Initialization.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../../../System/Mobile/Scripts/Prosis/Language.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../../../System/Mobile/Scripts/Prosis/Global.js"></script>
+		
+		<!-- Functions Libraries -->
+		<script type="text/javascript" charset="utf-8" src="../../../System/Mobile/Scripts/Prosis/ColdfusionIterator.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../../../System/Mobile/Scripts/Prosis/FunctionLibrary.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../../../System/Mobile/Scripts/Prosis/DataManagementLibrary.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../../../System/Mobile/Scripts/Prosis/FilterManagementLibrary.js"></script>
+		
+		
+	</body>
+	
+</html>

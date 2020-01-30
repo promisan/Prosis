@@ -1,0 +1,152 @@
+
+<cf_DialogOrganization>
+
+<cfparam name="url.scope" default="backoffice">
+<cfparam name="url.systemfunctionid" default="">
+
+<script LANGUAGE = "JavaScript">
+
+	function reload() { 
+		   opener.location.reload();
+		   window.close();
+	}
+
+</script>
+
+<cfquery name="Org" 
+datasource="AppsOrganization" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+    SELECT *
+    FROM   Organization
+	WHERE  OrgUnit = '#URL.ID#'
+</cfquery>
+
+<cfinvoke component="Service.Access" 
+      method="org"  
+	  orgunit="#URL.ID#" 
+	  returnvariable="access">	
+		  
+<cfquery name="Root" 
+datasource="AppsOrganization" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+    SELECT *
+    FROM   Organization
+	WHERE  OrgUnitCode = '#Org.HierarchyRootUnit#'
+	  AND  Mission   = '#Org.Mission#'
+	  AND  MandateNo = '#Org.MandateNo#'
+</cfquery>
+
+<table width="100%" border="0" align="center" cellspacing="0" cellpadding="0">
+
+  <tr class="noprint">
+  
+    <td height="40" style="height:45px;font-size:25px;padding-left:15px" class="labelmedium">
+	<cfoutput>
+	#Org.OrgUnitName#
+	</cfoutput>
+    </td>
+	
+	<td align="right" bgcolor="ffffff" style="height:34;padding-right:20px">
+	
+		
+	    <cfif access eq "EDIT" or access eq "ALL">
+		
+			<cfoutput>
+			
+				<button name="Edit" id="Edit" style="height:25;width:150px" class="button10g" type="button" onClick="editOrgUnit('#URL.ID#')">
+					<cf_tl id="Settings">
+	    		</button>
+	   
+		    </cfoutput>		
+					
+		</cfif>
+		
+		
+	</td>
+  </tr> 	
+ 
+  <tr><td colspan="2" style="padding-left:20px;padding-right:20px">
+  
+  	<table width="100%"><tr><td style="border:1px solid silver">
+  
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" align="center">
+	 		 
+	 <tr>
+	 <td valign="top">
+		 
+		 <table width="100%" class="formpadding">
+		
+			 <cfoutput query="Org"> 		 
+							  		
+		     <tr style="height:20px">
+		        <td bgcolor="E6E6E6" style="padding-left:5px;width:15%" class="labelit"><cf_tl id="Name">:</td>
+				<cfif URL.scope eq "Portal">
+		        	<td  style="padding-left:5px;font-size:14px" class="labelit">#OrgUnitName# (#OrgUnitCode#)</td>
+				<cfelse>
+					<td  style="padding-left:5px;font-size:14px" class="labelit"><a href="javascript:editOrgUnit('#URL.ID#')">#OrgUnitName# <cfif OrgUnitNameShort neq "">[#OrgUnitNameShort#]</cfif></a></td>
+				</cfif>
+		     </tr>
+					  		
+			 <tr style="height:20px">
+		        <td bgcolor="E6E6E6"  style="width:10%;padding-left:5px;" class="labelit"><cf_tl id="Part of">:</b></td>
+		        <td>
+				
+					<table cellspacing="0" cellpadding="0">
+					<tr>
+					<td style="padding-left:5px;font-size:14px" class="labelit">#Root.OrgUnitName#</td>
+					 <cfif URL.scope neq "Portal">
+				          <td  style="padding-left:5px;font-size:14px" class="labelit">&nbsp;#Mission# [#MandateNo#]</td>
+			      	</cfif>
+					</tr>
+					</table>
+							
+				</td>
+		     </tr>
+				  
+		  </table>
+		  
+	  </td>
+		  
+	  <td valign="top">
+		  
+			 <cfif URL.scope neq "Portal">
+			 
+			 <table width="100%" class="formpadding">			 
+				
+			    <tr>
+		        	<td bgcolor="E6E6E6" style="padding-left:5px;" class="labelit"><cf_tl id="Effective">:</td>
+		        	<td class="labelit"  style="padding-left:5px;font-size:14px">#Dateformat(DateEffective, CLIENT.DateFormatShow)#</td>
+		      	</tr>
+			  
+			    <tr>
+		        	<td bgcolor="E6E6E6" style="padding-left:5px;" class="labelit"><cf_tl id="Expiration">:</td>
+		        	<td class="labelit" style="padding-left:5px;font-size:14px">#Dateformat(DateExpiration, CLIENT.DateFormatShow)#</td>
+		      	</tr>		  
+	      	</table>
+		  	</cfif>	  
+
+	  </td>
+	  
+	  </cfoutput> 
+	  	  
+	  </tr>
+	  
+	 
+	  	 					
+    </table>
+	
+	</td></tr>
+	
+	 <tr><td style="height:10px"></td></tr>
+	
+	</table>
+	
+    </td>
+  </tr>
+  
+   <cfif URL.scope neq "Portal">
+	  <tr><td colspan="2" class="linedotted"></td></tr>
+	  </cfif>
+</table>

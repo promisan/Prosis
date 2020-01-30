@@ -1,0 +1,179 @@
+
+  td.ctHeader {
+		font-family : calibri;
+		border-left: 1px solid e6e6e6;
+		border-bottom: 1px solid e6e6e6;
+		font-size: 15px;
+		background-image : url(../../Images/background_grayfade3.JPG);
+   }
+   
+	td.blank {
+		font-family : calibri;
+		border-left: 1px solid e6e6e6;
+		border-bottom: 1px solid e6e6e6;
+		background-color : f6f6f6;
+	}
+	
+	td.ctGrp {
+		font-family : calibri;
+		border-left: 1px solid e6e6e6;
+		border-bottom: 0px solid e6e6e6;
+		background-color : ffffcf;
+		font-size: 13px;
+	}
+	
+	td.ctCol {
+		font-family : calibri;
+		border-left: 1px solid e6e6e6;
+		border-bottom: 1px solid e6e6e6;
+		background-color : f8f8f8;
+		font-size: 13px;
+	}
+		
+	td.ctHdr {
+		font-family : calibri;
+		border-left: 1px solid e6e6e6;
+		border-bottom: 1px solid e6e6e6;
+		background-color : e6fafb;
+		font-size: x-small;
+	}
+    
+	td.cell_1 {
+		font-family : calibri;
+		border-left: 1px solid e6e6e6;
+		border-bottom: 1px solid e6e6e6;
+		background-color : FFFFFF;
+		font-size: 13px;
+		text-align : right;
+	}
+	
+	td.cell_2 {
+		font-family : calibri;
+		border-left: 1px solid e6e6e6;
+		border-bottom: 1px solid e6e6e6;
+		background-color : FFFFeF;
+		font-size: 13px;
+		text-align : right;
+	}
+	
+	td.cell_1_E	{
+		font-family : calibri;
+		border-left: 1px solid e6e6e6;
+		border-bottom: 1px solid e6e6e6;
+		border-right: 1px solid e6e6e6;
+		background-color : FFFFFF;
+		font-size: 13px;
+		text-align : right;
+	}
+	
+	td.cell_2_E	{
+		font-family : calibri;
+		border-left: 1px solid e6e6e6;
+		border-bottom: 1px solid e6e6e6;
+		border-right: 1px solid e6e6e6;
+		background-color : FFFFeF;
+		font-size: 13px;
+		text-align : right;
+	}
+	
+	td.cellH {
+		font-family : calibri;
+		border-left: 1px solid e6e6e6;
+		border-bottom: 1px solid e6e6e6;
+		background-color : ffffcf;
+		font-size: 13px;
+		text-align : right;
+	}
+	
+	td.cellT_B	{
+		font-family : calibri;
+		border-left: 1px solid e6e6e6;
+		border-bottom: 1px solid e6e6e6;
+		background-color : FFFFeF;
+		text-align : right;
+		font-size: 13px;	
+		cursor : pointer;	
+	}
+
+	td.cellT {
+		font-family : calibri;
+		border-left: 1px solid e6e6e6;
+		border-bottom: 1px solid e6e6e6;
+		text-align : right;
+		background-color : e1e1e1;
+		font-size: 13px;	
+		cursor : pointer;	
+	}
+	
+	td.cellT_E {
+		font-family : calibri;
+		border-left: 1px solid e6e6e6;
+		border-right: 1px solid e6e6e6;
+		border-bottom: 1px solid e6e6e6;
+		text-align : right;
+		background-color : e1e1e1;
+		font-size: 13px;	
+		cursor : pointer;	
+	}
+	
+	td.cellT2_B {
+		font-family : calibri;
+		border-left: 1px solid e6e6e6;
+		border-bottom: 1px solid e6e6e6;
+		background-color : F6FFFF;
+		text-align : right;
+		font-size: 13px;	
+	}
+	
+	td.cellT2 {
+		font-family : calibri;
+		border-left: 1px solid e6e6e6;
+		border-bottom: 1px solid e6e6e6;
+		background-color : F0FFFE;
+		text-align : right;
+		font-size: 13px;	
+		cursor : pointer;	
+		
+	}
+	
+	td.cellTT {
+		font-family : calibri;
+		border-left: 1px solid e6e6e6;
+		border-bottom: 1px solid c7c7c7;
+		background-color : e9e9e9;
+		text-align : right;
+		height : 20;
+		cursor : pointer;	
+		font-size: 13px;	
+		
+	}
+		
+	td.valuePlain {
+		font-family : calibri;
+		font-size: 12px;
+		background-color : FFFFFF;
+		text-align : right;
+	}
+	
+	td.value {
+		font-family : calibri;
+		font-size: 12px;
+		text-align : right;
+		cursor : pointer;
+	}
+	
+	td.valueH {
+		font-family : calibri;
+		font-size: 13px;
+		text-align : right;	
+		cursor : pointer;
+	}
+	
+	td.valueH2 {
+		font-family : calibri;
+		font-size: 13px;
+		text-align : right;	
+		color: red;
+		cursor : pointer;
+	}
+	

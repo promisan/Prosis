@@ -1,0 +1,278 @@
+
+<cfset dateValue = "">
+<CF_DateConvert Value="#url.date#">
+<cfset DTE = dateValue>
+	
+<cfset dte = DateAdd("h","#url.hour#", dte)>
+<cfset dte = DateAdd("n","#url.minu#", dte)>
+
+<cfparam name="url.customerId" 			default="00000000-0000-0000-0000-000000000000">
+<cfparam name="url.CustomerIdInvoice" 	default="00000000-0000-0000-0000-000000000000">
+<cfparam name="url.AddressId" 			default="00000000-0000-0000-0000-000000000000">
+<cfparam name="url.refreshContent" 		default="1">
+
+
+<!--- this template 
+1. adds a line to the list which it receives from the extended listing which has a form which passes
+2. refreshes the listing 
+--->
+
+
+<!--- defined price --->
+
+<cfif isDefined("url.CustomerIdInvoice")>
+	<cfif len(url.CustomerIdInvoice) lte 0>
+		<cfset url.CustomerIdInvoice ="00000000-0000-0000-0000-000000000000">
+	</cfif>
+</cfif>
+
+
+<cfquery name="warehouse" 
+	datasource="AppsMaterials" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	SELECT    *
+	FROM      Warehouse  
+	WHERE     Warehouse = '#url.Warehouse#' 
+</cfquery>	
+
+<cfquery name="getUoM" 
+	datasource="AppsMaterials" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	SELECT    *
+	FROM      ItemUoM
+	WHERE     ItemUoMId = '#url.ItemUoMId#' 
+</cfquery>	
+
+<cfset qty = "1">
+
+<cfif isDefined("url.BOMId")>
+	
+	<cfif trim(url.BOMId) neq "">
+	
+		<cfquery name="qGetItemBOM" 
+			  datasource="AppsMaterials" 
+			  username="#SESSION.login#" 
+			  password="#SESSION.dbpw#">
+			    SELECT    *
+				FROM      ItemBOM
+				WHERE     BOMId = '#url.BOMId#'   	
+		</cfquery>
+		
+		<cfquery name="qGetItemClass" 
+			  datasource="AppsMaterials" 
+			  username="#SESSION.login#" 
+			  password="#SESSION.dbpw#">
+			    SELECT    *
+				FROM      Item
+				WHERE     ItemNo = '#qGetItemBOM.ItemNo#'  	
+		</cfquery>
+			
+		<cfif qGetItemClass.itemClass eq "Bundle">
+		
+			<cfquery name="qGetItemBundle" 
+				  datasource="AppsMaterials" 
+				  username="#SESSION.login#" 
+				  password="#SESSION.dbpw#">
+				    SELECT 	*
+					FROM    ItemBOMDetail
+					WHERE   BOMId = '#url.BOMId#'  
+					AND		MaterialItemNo = '#getUoM.ItemNo#'  		 							   		      
+					AND		MaterialUoM = '#getUoM.UoM#'
+			</cfquery>
+		
+			<cfif qGetItemBundle.recordCount eq 1>
+				<cfset qty = qGetItemBundle.MaterialQuantity>
+			</cfif>
+		
+		</cfif>
+		
+	</cfif>
+
+</cfif>		
+		
+<cfinvoke component  = "Service.Process.Materials.POS"  
+   method            = "getPrice" 
+   priceschedule     = "#url.priceschedule#"
+   discount          = "#url.discount#"
+   warehouse         = "#url.warehouse#" 
+   customerid        = "#url.customerid#"
+   customeridTax     = "#url.customeridInvoice#"
+   currency          = "#url.Currency#"
+   ItemNo            = "#getUoM.itemno#"
+   UoM               = "#getUoM.uom#"
+   quantity          = "#qty#"
+   returnvariable    = "sale">	
+   
+   <cfquery name="getCategory" 
+	datasource="AppsMaterials" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	SELECT    *
+	FROM      Ref_Category
+	WHERE     Category = '#sale.Category#' 
+	</cfquery>	
+	
+	<!--- DEFINE he location from where it is retrieved --->			
+	<!--- --------------------------------------------- --->			
+	
+	<!--- transaction id --->
+	<cf_assignid>
+	
+	<!--- check if item is already requested by the same customer --->
+		
+	<cfquery name="get"
+	datasource="AppsTransaction" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT * 
+		FROM   Sale#URL.Warehouse# WITH (NOLOCK)
+		WHERE  CustomerId      = '#url.Customerid#'
+		AND    AddressId       = '#url.addressid#'
+		AND    Warehouse       = '#url.warehouse#'
+		AND    ItemNo          = '#getUoM.itemno#'
+		AND    TransactionUoM  = '#getUoM.uom#'	
+	</cfquery>
+	
+	<cfif get.recordcount eq "1" and getCategory.commissionMode eq "0">
+	
+		<cfset qty = get.TransactionQuantity+qty>
+				
+		<cfset price = get.SalesPrice>
+		<cfset tax   = get.TaxPercentage>
+				
+		<cfif get.TaxIncluded eq "0">
+								   
+			<cfset amountsle  = price * qty>
+			<cfset amounttax  = (tax * price) * qty>	
+				
+		<cfelse>				
+					
+			<cfset amounttax  = ((tax/(1+tax))*price)*qty>	
+			<!--- <cfset amountsle = ((1/(1+tax))*price)*qty> --->
+			<!--- changed way of calculating amountsle as otherwise sometimes we have .01 data loss ---->
+			<cfset amountsle  = (price * qty) - amounttax>	
+			
+		</cfif>
+		
+		<cfif get.TaxExemption eq "1">
+		  <cfset amounttax = 0>
+		</cfif>
+	
+		<cfquery name="setLine"
+			datasource="AppsTransaction" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			UPDATE Sale#URL.Warehouse# 
+			SET    TransactionQuantity = #qty#,
+			       SalesAmount         = '#amountsle#',
+				   SalesTax            = '#amounttax#',
+				   SalesPersonNo       = '#url.salespersonno#'
+			WHERE  TransactionId       = '#get.transactionid#'		
+		</cfquery>
+		
+	<cfelse>	
+	
+	    <cfquery name="getLines" 
+			datasource="AppsTransaction" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">			
+				SELECT   *
+				FROM     Sale#URL.Warehouse# T
+				WHERE    T.CustomerId      = '#url.customerid#'		
+				AND      T.AddressId       = '#url.addressid#'		
+		</cfquery>
+		
+		<cfif getLines.recordcount gte warehouse.salelines>
+		
+			<cf_tl id="Maximum sales lines reached">
+			<cfoutput>
+			<script>
+			alert("#lt_text#")
+			</script>
+			</cfoutput>
+		
+		<cfelse>	
+	
+			<cfquery name="Insert" 
+				datasource="AppsTransaction" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+				
+				INSERT INTO dbo.Sale#url.Warehouse# ( 				   
+						TransactionId, 
+						TransactionType, 
+						TransactionDate, 
+						ItemNo, 
+						ItemClass,
+						ItemDescription, 
+						ItemCategory, 
+						Mission, 
+						Warehouse, 
+						Location, 			
+			            TransactionUoM, 
+						TransactionLot,
+						TransactionQuantity,            
+						CustomerId, 
+						CustomerIdInvoice,
+						AddressId,
+						PriceSchedule,
+						SalesCurrency, 
+						SchedulePrice, 
+						SalesPrice, 
+						TaxCode,
+						TaxPercentage, 
+						TaxExemption, 
+						TaxIncluded, 
+						SalesAmount, 
+						SalesTax, 			           
+						PersonNo,
+						SalesPersonNo,
+						OfficerUserId,
+						OfficerLastName,
+						OfficerFirstName )  
+								
+				VALUES ('#rowguid#',
+					    '2',
+					    #dte#,
+					    '#getUoM.itemno#', 
+						'#sale.ItemClass#',
+						'#sale.ItemDescription#', 
+						'#sale.Category#',
+						'#sale.Mission#', 
+						'#url.warehouse#', 
+						'',
+						'#getUoM.uom#',     
+						'#url.transactionlot#',       
+						'#qty#',			           
+						'#url.Customerid#', 
+						'#url.CustomerIdInvoice#', 
+						'#url.addressId#',
+						'#sale.priceschedule#',
+						'#url.currency#', 
+						'#sale.price#', 
+						'#sale.price#', 
+						'#sale.TaxCode#',
+						'#sale.tax#', 
+						'#sale.taxexemption#', 
+						'#sale.inclusive#', 
+						'#sale.amount#', 
+						'#sale.amounttax#', 			           
+						'#client.PersonNo#',
+						'#url.salespersonno#',
+						'#session.acc#',
+						'#session.last#',
+						'#session.first#' )		  
+						
+				</cfquery>
+			
+			</cfif>
+		
+	</cfif>	
+
+<cfif url.refreshContent eq 1>
+	<!--- refresh the lines view --->
+	<cfinclude template="SaleViewLines.cfm">
+	<cfinclude template="setTotal.cfm">
+</cfif>

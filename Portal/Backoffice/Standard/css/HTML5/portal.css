@@ -1,0 +1,720 @@
+/************* General document *************/
+html {
+	overflow:						hidden;
+}
+
+html, body, .clsCarousel, .clsCarousel ul, .clsCarousel li, .clsDataContainer, .clsDataContainerFrame, .clsIframeContent, .clsIframeMainContent, .clsSplashContainer  {
+	height:							100%;
+	width:							100%;
+	margin:							0 auto;
+	padding:						0px;
+	text-rendering: 				optimizeLegibility;
+}
+
+body { 
+	font-family:					"Century Gothic", CenturyGothic, "Avant Garde", Avantgarde, "AppleGothic", Verdana, Arial, sans-serif;
+	font-size:						13px;
+}
+
+/************* Header *************/
+.clsHeader {
+	position:						fixed;
+	top:							0px;
+	left:							0px;
+	z-index:						10;
+	height:							60px;
+	width:							100%;
+}
+
+.clsHeaderLeftContainer {
+	position:						fixed;
+	top:							0px;
+	left:							0px;
+	height:							100px;
+	z-index:						10;
+}
+
+.clsHeaderLeftContainerWrapper {
+	height:							100%;
+}
+
+.clsHeaderLogoImage {
+	float:							left;
+	height:							100%;
+	padding-left:					2px;
+	padding-top:					2px;
+	cursor:							pointer;
+}
+
+.clsHeaderLogoImage img{
+	height:							96px;
+}
+
+.clsHeaderInformation {
+	position:						fixed;
+	top:							100px;
+	width:							100%;
+	max-height:						75%;
+	color:							#FFFFFF;
+	background-color:				rgba(0, 0, 0, 0.75);
+	font-size:						15px;
+	display:						none;
+	overflow:						auto;
+	padding-bottom:					10px;
+}
+
+.clsHeaderInformationText {
+	padding:						10px;
+	height:							100%;
+}
+
+.clsHeaderInformationTextLeft {
+	float:							left;
+	width:							50%;
+	height:							100%;
+}
+
+.clsHeaderInformationTextRight {
+	float:							left;
+	width:							50%;
+	height:							100%;
+}
+
+.clsHeaderOptionsContainer {
+	position:						fixed;
+	top:							0px;
+	left:							0px;
+	height:							60px;
+	width:							100%;
+	text-align:						right;
+	z-index:						1;
+}
+
+/************* Header Menu *************/
+.clsMainMenuContainer {
+	height:							100%;
+	display:						inline-block;
+	padding-top:					2px;
+	padding-right:					8px;
+	text-align:						center;
+	cursor:							pointer;
+}
+
+.clsMainMenuContainer img {
+	height:							93%;
+}
+
+.clsMainMenuContainerText {
+	color:							#FFFFFF;
+	font-size:						11px;
+	max-height:						12px;
+}
+
+.clsMainMenuOverlay {
+	position:						fixed;
+    width:							100%;
+    height:							100%;
+	top:							0px;
+	left:							0px;
+	overflow:						auto;
+	margin:							0px;
+	
+	background-color:				rgba(0, 0, 0, 0.75);
+    z-index:						100;
+	-webkit-tap-highlight-color:	rgba(255, 255, 255, 0);
+	
+  	-webkit-backface-visibility: 	hidden;
+	
+	-ms-transform-style: 			preserve-3d;
+    -webkit-transform-style: 		preserve-3d;
+	-moz-transform-style: 			preserve-3d;
+	-o-transform-style: 			preserve-3d;
+	transform-style: 				preserve-3d;
+	
+	-ms-transition:					all 0.5s;
+	-webkit-transition: 			all 0.5s;
+    -moz-transition:				all 0.5s;
+    -o-transition: 					all 0.5s;
+    transition: 					all 0.5s;
+}
+
+#MainMenuWait {
+	z-index:						500;
+}
+
+.clsMainMenuOverlayContainer {
+	width:							100%;
+    height:							100%;
+}
+
+.clsMainMenuOverlayClose {
+	text-align:						right;
+}
+
+.clsMainMenuOverlayClose img {
+	height:							50px;
+	cursor:							pointer;
+	padding-right:					10px;
+	padding-top:					10px;
+	visibility:						hidden;
+}
+
+.clsMainMenuOverlayItemContainer {
+	margin-left:					40%;
+	height:							85%;
+	width:							60%;
+}
+
+.clsMainMenuOverlayItemContainerFull {
+	margin-left:					0;
+	width:							100%;
+}
+
+.clsMainMenuOverlayItem {
+	width:							400px;
+	max-width:						100%;
+	min-width:						350px;
+	
+	display: 						inline-block;
+	margin-left:					5px;
+	color:							#FFFFFF;
+	padding-right:					20px;
+	
+	cursor:							pointer;
+	
+	-ms-transition:					all 1s;
+	-webkit-transition: 			all 1s;
+    -moz-transition:				all 1s;
+    -o-transition: 					all 1s;
+    transition: 					all 1s;
+}
+
+.clsMainMenuOverlayOptions {
+	height:							95%;
+	min-height:						500px; 
+	width:							96%; 
+	margin:							2%;
+	overflow:						hidden;
+	background-color:				#FFFFFF;/*rgba(255, 255, 255, 0.9);*/
+	-moz-border-radius:				12px;
+    -webkit-border-radius: 			12px;
+    -khtml-border-radius: 			12px;
+    border-radius: 					12px;
+}
+
+.clsMainMenuOverlayOptionsLanguage {
+	height:							3%; 
+	padding-top:					10px; 
+	padding-bottom:					10px; 
+	padding-left:					25px;
+	padding-right:					25px;
+}
+
+.clsMainMenuOverlayItemSelected, .clsMainMenuOverlayItem:hover {
+	background-color:				#125CBB;
+}
+
+.clsMainMenuOverlayItemNotSelected {
+	background-color:				"";
+	border-style:					none;
+}
+
+.clsMainMenuOverlayItemSelectedBar {
+	padding-right:					5px;
+	width:							0px; 
+	background-color:				"";
+	-ms-transition:					all 0.5s;
+	-webkit-transition: 			all 0.5s;
+    -moz-transition:				all 0.5s;
+    -o-transition: 					all 0.5s;
+    transition: 					all 0.5s;
+}
+
+.clsMainMenuOverlayItemSelectedBar-NotSelected, .clsMainMenuOverlayItemSelectedBar-MouseOut {
+	background-color:				"";
+	width:							0px;
+}
+
+.clsMainMenuOverlayItemSelectedBar-MouseOver, .clsMainMenuOverlayItemSelectedBar-Selected {
+	background-color:				#FFFFFF;
+	width:							35px;
+}
+
+.clsMainMenuOverlayItemSelectedBar-MouseOver {
+	background-color:				#FFFFFF;
+}
+
+.clsMainMenuOverlayItemSelectedBar-Selected {
+	background-color:				#F9601C;
+}
+
+.clsMainMenuOverlayItem img {
+	height:							100%;
+	max-height:						70px;
+}
+
+.clsMainMenuOverlayItemName {
+	font-size:						175%;
+	font-weight:					bold;
+	margin-left:					-2px;
+}
+
+.clsMainMenuOverlayItemMemo {
+	font-size:						115%;
+	font-weight:					normal;
+	padding-left:					3px;
+}
+
+.clsMainMenuOverlayItemCreated {
+	color:							#FFFFFF;
+	font-size:						80%;
+	font-weight:					normal;
+	padding-left:					3px;
+}
+
+.clsMainMenuLanguageMenu {
+	float:							right;
+	position:						relative;
+	z-index:						100;
+	padding:						0px; 
+	padding-top:					5px;
+	color:							#FFFFFF;
+	width:							100%;
+}
+
+.clsMainMenuLanguageMenuContainer {
+	padding:						10px;
+	background-color:				rgba(0, 0, 0, 0.6);
+	display:						none;
+	
+	-moz-border-radius:				5px;
+    -webkit-border-radius: 			5px;
+    -khtml-border-radius: 			5px;
+	-ms-border-radius: 				5px;
+	-o-border-radius: 				5px;
+    border-radius: 					5px;
+}
+
+.clsFlagIcon {
+	width:							50px !important;
+	height:							auto !important;
+}
+
+/************* Login *************/
+.clsLoginOverlay {
+	position:						fixed;
+    width:							100%;
+    height:							100%;
+	top:							0px;
+	left:							0px;
+	overflow:						auto;
+	margin:							0px;
+	text-align:						center;
+	
+	background-color:				#FFFFFF;
+    z-index:						200;
+	-webkit-tap-highlight-color:	rgba(255, 255, 255, 0);
+	
+  	-webkit-backface-visibility: 	hidden;
+	
+	-ms-transform-style: 			preserve-3d;
+    -webkit-transform-style: 		preserve-3d;
+	-moz-transform-style: 			preserve-3d;
+	-o-transform-style: 			preserve-3d;
+	transform-style: 				preserve-3d;
+	
+	-ms-transition:					all 0.5s;
+	-webkit-transition: 			all 0.5s;
+    -moz-transition:				all 0.5s;
+    -o-transition: 					all 0.5s;
+    transition: 					all 0.5s;
+}
+
+.clsLoginOverlayContainer {
+	width:							100%;
+    height:							100%;
+	overflow:						hidden;
+}
+
+.clsLoginWait {
+	height:							100%;
+	width:							100%;
+	text-align:						center;
+	font-size:						200%;
+}
+
+.clsLoginWaitBusy img {
+	height:							23px;
+}
+
+.clsLoginWaitLogo img {
+	height:							100px;
+}
+
+.clsLoginWaitText {
+	font-size:						14px;
+	color:							#FFFFFF;
+}
+
+.clsLoginLogo {
+	height:							150px;
+	text-align:						center; 
+	padding:						10px;
+}
+
+.clsLoginLogo img {
+	height:							100%;
+}
+
+.clsLoginSide {
+	width:							20%; 
+	height:							100%; 
+	float:							left; 
+}
+
+.clsLoginCenter {
+	float:							left; 
+	height:							100%; 
+	width:							75%;
+	margin-top:						5%;
+}
+
+.clsLoginSideLogo {
+	width:							85%;
+	text-align:						center; 
+	padding-top:					10px;
+	padding-bottom:					10px;
+	margin-top:						55%;
+}
+
+.clsLoginSideLogo img {
+	width:							100%;
+	max-width:						150px;
+}
+
+.clsLoginWelcome {
+	text-align:						center; 
+	font-size:						250%;
+	color:							#808080;
+	padding-bottom:					10px;
+	margin-left:					-20px;
+	font-weight:					lighter;
+}
+
+.clsLoginMission {
+	text-align:						center; 
+	font-size:						150%;
+	color:							#C0C0C0;
+}
+
+.clsLoginBox {
+	text-align:						center; 
+	width:							75%;
+	margin-left:					12.5%;
+	border:							3px solid #FFFFFF;
+	-moz-border-radius:				10px;
+    -webkit-border-radius: 			10px;
+    -khtml-border-radius: 			10px;
+	-ms-border-radius: 				10px;
+	-o-border-radius: 				10px;
+    border-radius: 					10px;		
+	padding:						10px;
+	background-color:				#FFFFFF;
+}
+
+.clsLoginFeatures {
+	text-align:						center;
+	padding-left:					20px;
+}
+
+.clsLoginFeatures a {
+	color:							#808080;
+	font-size:						85%;
+}
+
+.clsLoginLocalResult {
+	color:							#FF0000;
+}
+
+:-moz-placeholder {
+  	color: 							#E3E3E3;
+	opacity:  						0.95;
+}
+
+::-moz-placeholder {
+  	color: 							#E3E3E3;
+	opacity:  						0.95;
+}
+
+::-ms-input-placeholder {
+  	color: 							#E3E3E3;
+	opacity:  						0.95;
+}
+
+:-ms-input-placeholder {
+  	color: 							#E3E3E3;
+	opacity:  						0.95;
+}
+
+::-webkit-input-placeholder {
+  color: 							#E3E3E3;
+  opacity:  						0.95;
+}
+
+.clsTxtLogin {
+	font-size: 						150%;
+	padding:						8px;
+  	width:							75%;
+}
+
+.clsBtnLogin {
+	height: 						30px;
+	width:							33%;
+	font-size: 						150%;
+	color: 							#FFFFFF;
+	background: 					#BABABA;
+	border-style: 					none;
+	cursor:							pointer;
+	text-align:						center;
+}
+
+.clsSelectMissionText {
+	font-size:						100%;
+	color: 							#FFFFFF;
+}
+
+.clsSelectMission {
+	font-size:						100%;
+	color: 							#808080;
+	border-style:					1px solid #DBDBDB;
+	text-align:						center;
+	-webkit-appearance: 			none;
+	-moz-appearance: 				none;
+}
+
+.clsOptionsLanguageText {
+	font-size:						100%;
+	color: 							#808080;
+}
+
+.clsOptionsLanguageTextBig {
+	font-size:						175%;
+	color: 							#808080;
+}
+
+.clsOptionsLanguageSelect {
+	font-size:						100%;
+	color: 							#808080;
+	border-style:					1px solid #DBDBDB;
+	text-align:						center;
+	-webkit-appearance: 			none;
+	-moz-appearance: 				none;
+}
+
+.clsOptionsLanguageSelectBig {
+	font-size:						175%;
+	color: 							#808080;
+	border-style:					1px solid #DBDBDB;
+	text-align:						center;
+	-webkit-appearance: 			none;
+	-moz-appearance: 				none;
+}
+
+/************* Navigation Bar *************/
+.clsNavigationBar {
+	position:						fixed;
+	top:							60px;
+	left:							0px;
+	display: 						none;
+	height:							40px;
+	width:							100%;
+	color: 							#FFFFFF;
+	z-index:						1;
+}
+
+.clsNavigationBarPrev {
+	height:							100%;
+	width:							30%;
+	float:							left;
+	cursor:							pointer;
+	text-align:						right;
+	padding-top:					2px;
+	padding-bottom:					2px;
+}
+
+.clsNavigationBarPrev img {
+	height:							88%;
+	float:							right;
+	padding-right:					25px;
+}
+
+.clsNavigationBarTitlePrev {
+	padding-right:					25%;
+	padding-top:					20px;
+	/*font-style:						italic;*/
+	/*text-decoration:				underline;*/
+	float:							right;
+	/*display:						none;*/
+	font-size:						11px;
+}
+
+.clsNavigationBarTitleContainer {
+	height:							33px;
+	margin-top:						5px;
+	width:							39%;
+	text-align:						center;
+	float:							left;
+	overflow:						hidden;
+	background-color:				white;
+	border:							1px solid #FFFFFF;
+	border-radius:					10px 10px 0 0;
+	moz-border-radius:				10px 10px 0 0;
+	webkit-border-radius:			10px 10px 0 0;
+	ms-border-radius:				10px 10px 0 0;
+}
+
+.clsNavigationBarTitleWrapper {
+	padding-top:					2px;
+	display:						inline-block;
+}
+
+.clsNavigationBarRefresh {
+	height:							100%;
+	float:							left;
+	padding-top:					2px;
+	padding-right:					3px;
+}
+
+.clsNavigationBarRefresh img {
+	height:							25px;
+	cursor:							pointer;
+}
+
+.clsNavigationBarTitle {
+	height:							100%;
+	font-size:						22px;
+	/*font-weight:					bold;*/
+	padding-top:					2px;
+	float:							left;
+	color:							black;
+}
+
+.clsNavigationBarNext {
+	height:							100%;
+	width:							30%;
+	text-align:						left;
+	float:							left;
+	cursor:							pointer;
+	padding-top:					2px;
+	padding-bottom:					2px;
+}
+
+.clsNavigationBarNext img {
+	height:							88%;
+	float:							left;
+	padding-left:					25px;
+}
+
+.clsNavigationBarTitleNext {
+	padding-left:					25%;
+	padding-top:					20px;
+	/*font-style:						italic;*/
+	/*text-decoration:				underline;*/
+	float:							left;
+	/*display:						none;*/
+	font-size:						11px;
+}
+
+/************* Carousel *************/
+.clsCarousel {
+	margin-top:						100px;
+	-webkit-backface-visibility: 	hidden;
+}
+
+.clsCarousel ul {
+	list-style-type: 				none;
+    -webkit-backface-visibility: 	hidden;
+}
+
+.clsCarousel ul.animate {
+	-webkit-backface-visibility: 	hidden;
+	
+	-ms-transform-style: 			preserve-3d;
+	-webkit-transform-style: 		preserve-3d;
+	-moz-transform-style: 			preserve-3d;
+	-o-transform-style: 			preserve-3d;
+	transform-style: 				preserve-3d;
+	
+	-ms-transition:					all 1s;
+	-webkit-transition: 			all 1s;
+	-moz-transition:				all 1s;
+	-o-transition: 					all 1s;
+	transition: 					all 1s;
+}
+
+.clsCarousel li {
+	float: 							left;
+	/*overflow:						auto;
+	-ms-overflow-style: 			-ms-autohiding-scrollbar;*/
+	overflow:						hidden;
+}
+
+/************* Data containers *************/
+.clsDataContainer {
+	margin:							-1px;
+	width:							100.1%;
+}
+
+.clsDataContainerFrame {
+	color: 							#FFFFFF;
+    font-size: 						200%;
+    text-align: 					center;
+	-webkit-tap-highlight-color:	rgba(255, 255, 255, 0);
+}
+
+.clsDataContainerFrameBusy {
+	text-align:						center;
+	display:						none;
+	padding:						5%;
+}
+
+.clsDivMainItemContainer {
+	background-color:				#FFFFFF; 
+}
+
+.clsIframeMainContent {
+	margin-bottom:					-5px;
+}
+
+/************* Splash Container *************/
+.clsSplashContainer {
+	color: 							#333333;
+}
+
+/************* Utilities *************/
+.clsUnselectableImages img {
+   -moz-user-select:				none; 
+   -khtml-user-select: 				none;
+   -webkit-user-select: 			none;
+   -ms-user-select: 				none;
+   user-select: 					none;
+   
+   user-drag: 						none; 
+   -moz-user-drag: 					none;
+   -khtml-user-drag: 				none;
+   -webkit-user-drag: 				none;
+   -ms-user-drag: 					none;
+}
+
+.clsRemoveColors {
+	background-color:				transparent;
+	border:							0px;
+}
+
+.clsTopColor {
+	background-color:				#125CBB; /* Blue */
+}
+
+.clsBottomColor {
+	background-color:				#F9601C; /* Orange */
+}

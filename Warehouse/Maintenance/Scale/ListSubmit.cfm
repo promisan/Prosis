@@ -1,0 +1,74 @@
+
+<cfparam name="Form.Operational"    default="0">
+<cfparam name="Form.ListCode"       default="">
+<cfparam name="Form.ListValue"      default="">
+<cfparam name="Form.ListOrder"      default="">
+
+<cfif URL.ID2 neq "new">
+
+	 <cfquery name="Update" 
+		  datasource="AppsMaterials" 
+		  username="#SESSION.login#" 
+		  password="#SESSION.dbpw#">
+		  UPDATE Ref_ScaleDetail
+		  SET    CumDepreciation   = '#Form.CumDepreciation/100#'
+		  WHERE  AgeYear = '#URL.ID2#'
+		   AND   Code = '#URL.Code#' 
+	</cfquery>
+	
+	<cfset url.id2 = "">
+	<cf_ModuleControlLog systemfunctionid="#url.idmenu#" 
+	                     action="Update" 
+						 content="#Form#">
+				
+<cfelse>
+			
+		<cfquery name="Exist" 
+		    datasource="AppsMaterials" 
+		    username="#SESSION.login#" 
+		    password="#SESSION.dbpw#">
+		    SELECT    *
+			FROM     Ref_ScaleDetail
+			WHERE    AgeYear = '#Form.AgeYear#'
+		      AND    Code = '#URL.Code#' 
+		</cfquery>
+	
+	<cfif Exist.recordCount eq "0">
+		
+		<cfquery name="Insert" 
+		     datasource="AppsMaterials" 
+		     username="#SESSION.login#" 
+		     password="#SESSION.dbpw#">
+		    	 INSERT INTO Ref_ScaleDetail
+		         (Code,AgeYear,CumDepreciation)
+		     	 VALUES ('#URL.Code#','#Form.AgeYear#','#Form.CumDepreciation/100#')
+		</cfquery>
+		
+		<cf_ModuleControlLog systemfunctionid="#url.idmenu#" 
+	                     action="Insert" 
+						 content="#Form#">
+			
+	<cfelse>
+			
+		<script>
+			<cfoutput>
+				alert("Sorry, but #Form.ListValue# already exists")
+			</cfoutput>
+		</script>
+				
+	</cfif>	
+	
+	<cfif Form.CumDepreciation lt "100">
+	
+		<cfset url.id2 = "new">
+	
+	</cfif>	
+		   	
+</cfif>
+
+<cfoutput>
+  <script>
+	#ajaxlink('List.cfm?idmenu=#url.idmenu#&code=#url.code#&id2=#url.id2#')#
+  </script>	
+</cfoutput>
+

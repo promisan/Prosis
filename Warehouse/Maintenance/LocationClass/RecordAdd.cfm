@@ -1,0 +1,54 @@
+<cfparam name="url.idmenu" default="">
+
+<cf_screentop height="100%" 
+  			  scroll="Yes" 
+			  layout="webapp" 
+			  title="" 
+			  label="Add Location" 
+			  menuAccess="Yes" 
+			  systemfunctionid="#url.idmenu#">
+
+<cfform action="RecordSubmit.cfm?idmenu=#url.idmenu#" method="POST" enablecab="Yes" name="dialog">
+
+
+<!--- Entry form --->
+
+<table width="95%" cellspacing="0" align="center" class="formpadding">
+
+    <TR>
+    <TD><cf_tl id="Code">:</TD>
+    <TD>
+  	   <cfinput type="text" name="code" value="" message="Please enter a code" required="Yes" size="10" maxlength="10" class="regular">
+    </TD>
+	</TR>
+	
+	<TR>
+    <TD><cf_tl id="Description">:</TD>
+    <TD>
+  	   <cfinput type="text" name="Description" value="" message="Please enter a description" required="Yes" size="40" maxlength="40" class="regular">
+    </TD>
+	</TR>
+	
+	<TR>
+    <TD><cf_tl id="Icon">:</TD>
+    <TD>
+  	   <cfinput type="text" name="ListingIcon" value="" tooltip="Please enter the name of a graphic icon" required="No" size="20" maxlength="20" class="regular">
+    </TD>
+	</TR>
+	
+	<tr><td colspan="2" align="center" height="6">
+	<tr><td colspan="2" class="line"></td></tr>
+	<tr><td colspan="2" align="center" height="6">
+	
+	<tr>
+	<td align="center" colspan="2" height="40">
+	<input class="button10g" type="button" name="Cancel" id="Cancel" value=" Cancel " onClick="window.close()">
+    <input class="button10g" type="submit" name="Insert" id="Insert" value=" Submit ">
+	</td>	
+	</tr>
+	
+</TABLE>
+
+</CFFORM>
+
+

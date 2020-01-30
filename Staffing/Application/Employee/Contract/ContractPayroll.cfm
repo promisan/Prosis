@@ -1,0 +1,114 @@
+
+<cfparam name="Form.EnforceFinalPay" default="0">
+<cfparam name="status" default="2">
+
+<cf_verifyOperational 
+         datasource= "appsEmployee"
+         module    = "Payroll" 
+		 Warning   = "No">		
+		
+<cfquery name="Param" 
+	datasource="AppsEmployee" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    SELECT   *
+	    FROM     Parameter	
+</cfquery>		 
+				 
+<cfif Operational eq "1"  or Param.DependentEntitlement eq "1"> 
+
+		<!--- diusable this field as it works based on separatioj now
+	
+		<cfif form.EnforceFinalPay eq "0">
+		
+			<cfquery name="Reset" 
+			datasource="AppsEmployee" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				UPDATE Payroll.dbo.EmployeeSalary
+				SET    PaymentFinal = 0
+				FROM   Payroll.dbo.EmployeeSalary E INNER JOIN
+		               Payroll.dbo.SalarySchedulePeriod S ON E.Mission = S.Mission AND E.SalarySchedule = S.SalarySchedule AND E.PayrollStart = S.PayrollStart
+				WHERE  E.PersonNo = '#Form.PersonNo#'	   
+				AND    S.CalculationStatus != '2'
+				AND    E.PayrollEnd <= #END#		
+			</cfquery>
+				
+		</cfif>
+		
+		--->
+	
+		<cfquery name="Ent" 
+		datasource="AppsEmployee" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT    *
+			FROM      Payroll.dbo.Ref_PayrollTrigger
+			WHERE     EnableContract IN ('1','2')
+		</cfquery>
+	
+	    <cfparam name="Form.SalarySchedule" default="">	
+	
+		<cfloop query="Ent">
+		
+			<cfparam name="Form.#SalaryTrigger#" default="0">
+			<cfset val = evaluate("Form.#SalaryTrigger#")>
+			
+			 <cfquery name="ClearPrior" 
+			     datasource="AppsEmployee" 
+			     username="#SESSION.login#" 
+			     password="#SESSION.dbpw#">
+				     DELETE Payroll.dbo.PersonEntitlement 
+					 WHERE  ContractId    = '#ctid#'
+					 AND    SalaryTrigger = '#SalaryTrigger#'
+			 </cfquery>  
+		
+			<cfif val eq "1">
+	  	   		       										      			  
+				 <cfquery name="Insert" 
+					 datasource="AppsEmployee" 
+					 username="#SESSION.login#" 
+					 password="#SESSION.dbpw#">
+					 INSERT INTO Payroll.dbo.PersonEntitlement 
+					 
+				             (PersonNo,
+							  DateEffective,
+							  DateExpiration,
+							  <cfif form.salaryschedule neq "">
+							  SalarySchedule,
+							  </cfif>
+							  EntitlementClass,
+							  SalaryTrigger,
+							  Status,
+							  Remarks,
+							  ContractId,
+							  OfficerUserId,
+							  OfficerLastName,
+							  OfficerFirstName)
+							  
+					      VALUES
+						  
+						  	 ('#Form.PersonNo#',
+						      #STR#,
+							  #END#,
+							 <cfif form.salaryschedule neq "">
+							 '#Form.SalarySchedule#',
+							 </cfif>
+							 '#entitlementclass#',
+							 '#SalaryTrigger#',
+							 '2', <!--- #status#', cleared by default as it is contract related --->
+							 'Generated from contract',
+							 '#ctid#',
+							 '#SESSION.acc#',
+						     '#SESSION.last#',		  
+							 '#SESSION.first#'
+							 )
+							 
+				  </cfquery>
+								  
+		</cfif>
+			
+	</cfloop>		  
+	  	   
+ </cfif>
+  

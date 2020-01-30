@@ -1,0 +1,5 @@
+Invalid quoted string 'yyyy' encountered while parsing (tag "CFIF" with attributes). 
+Invalid quoted string 'yyyy' encountered while parsing (tag "CFIF" with attributes). 
+Invalid number "0" encountered while parsing (tag "CFIF" with attributes lookup.recordCount=). 
+Invalid quoted string ')>' encountered while parsing (tag "CFSET" with attributes vId=replace(vId,). 
+Invalid quoted string '' encountered while parsing (tag "CFSET" with attributes vId=replace(vId,). 

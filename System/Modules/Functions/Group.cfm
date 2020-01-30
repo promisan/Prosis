@@ -1,0 +1,166 @@
+
+<cfparam name="URL.ID1" default="">
+<cfparam name="url.dialogHeight" default="625">
+
+<cfparam name="url.action" default="">
+<cfparam name="url.access" default="edit">
+
+<cfif url.action eq "Insert">
+	
+	<cftry>
+	
+	   <!--- define effective date --->
+	   
+	   <cfquery name="Insert" 
+		datasource="AppsSystem" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		  INSERT INTO Ref_ModuleControlUserGroup
+		  (SystemFunctionId,Account,OfficerUserId,OfficerLastName,OfficerFirstName)
+		  VALUES
+		  ('#url.id#','#url.account#','#SESSION.acc#','#SESSION.last#','#SESSION.first#')		  
+	   </cfquery>
+	   
+    <cfcatch></cfcatch>
+	
+	
+		   
+	</cftry>	   
+	
+</cfif>
+
+<cfquery name="Group" 
+datasource="AppsOrganization" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+    SELECT DISTINCT A.*
+    FROM  System.dbo.UserNames A
+	WHERE A.Disabled = '0'
+	AND AccountType = 'Group'
+	AND A.Account NOT IN (SELECT Account 
+	                     FROM System.dbo.Ref_ModuleControlUserGroup
+						 WHERE SystemFunctionId = '#URL.ID#')
+	<cfif SESSION.isAdministrator eq "No">  					 
+	AND A.AccountOwner IN (SELECT ClassParameter
+						FROM   OrganizationAuthorization A
+						WHERE  A.UserAccount = '#SESSION.acc#'
+						  AND  A.Role = 'AdminSystem')			 
+	</cfif>					  
+	ORDER BY LastName
+</cfquery>
+
+<cfquery name="Check" 
+datasource="AppsSystem" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+    SELECT R.*
+    FROM Ref_ModuleControlUserGroup R
+	WHERE R.Operational = 1
+	AND  SystemFunctionId = '#URL.ID#'
+</cfquery>
+
+<cfquery name="Detail" 
+datasource="AppsSystem" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+    SELECT *
+    FROM Ref_ModuleControlUserGroup R, UserNames U
+	WHERE SystemFunctionId = '#URL.ID#'
+	AND U.Account = R.Account
+</cfquery>
+
+
+<cfform action="#SESSION.root#/System/Modules/Functions/GroupSubmit.cfm?ID=#URL.ID#&ID1=#URL.ID1#" method="POST" enablecab="Yes" name="group">
+
+<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+	    
+	  <tr>
+	    <td valign="center" width="100%" class="regular">
+	    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+		
+		<cfoutput>
+		
+		
+		<cfloop query="Detail">
+		
+		<cfset rl = Account>
+		<cfset ms = AccountMission>
+		<cfset op = Operational>
+												
+		<cfif URL.ID1 eq Account>
+									
+			<TR class="navigation_row">
+					
+		       <td class="labelmedium" width="10%">#Detail.AccountMission#<input type="hidden" name="Group" id="Group" value="#rl#"></td>		    					   						 						  
+			   <td class="labelmedium" width="20%">#Detail.Account#</td>
+			   <td class="labelmedium" width="60%" colspan="2">#Detail.LastName#</td>					   
+			   <td align="center">
+			      <input type="checkbox" name="Operational" id="Operational" value="1" <cfif "1" eq Detail.Operational>checked</cfif>>
+			   </td>			   
+			   <td colspan="2" align="right"><input type="submit" class="button10s" style="width:40;height:20" value="Save" >&nbsp;</td>
+
+		    </TR>	
+					
+		<cfelse>
+		
+			<TR bgcolor="ffffff" class="navigation_row">
+			   <td width="10%" style="padding-left:3px" class="labelmedium" height="25">#Detail.accountMission#</td>
+			   <td width="52%" class="labelmedium" colspan="2">#Detail.LastName# (#rl#)</td>			  
+			   <td width="30%" align="right" class="labelmedium">#OfficerUserId# (#dateformat(created,CLIENT.DateFormatShow)#)</td>
+			   <td width="40" align="center" class="labelmedium"><cfif op eq "0"><b>No</b></cfif></td>
+			   <td colspan="2" width="40" align="right">
+				   <table cellspacing="0" cellpadding="0">
+				   <tr>
+				   <td>	
+					<cf_img icon="edit" navigation="Yes" onclick="ColdFusion.navigate('#SESSION.root#/System/Modules/Functions/Group.cfm?ID=#URL.ID#&ID1=#account#','igroup')">
+				   </td>
+				   <td style="padding-left:6px;padding-right:5px;">
+					 <cf_img icon="delete" onclick="ColdFusion.navigate('#SESSION.root#/System/Modules/Functions/GroupPurge.cfm?ID=#URL.ID#&ID1=#account#','igroup')">
+				   </td>			   
+				   </tr>
+				   </table>
+			   </td>
+		    </TR>	
+		
+		</cfif>
+		
+		<tr><td height="1" colspan="7" class="linedotted"></td></tr>
+		
+		</cfloop>
+		</cfoutput>							
+												
+			<tr><td height="3"></td></tr>
+						
+			<TR>
+						 
+				<td colspan="5" height="30" class="labelmedium">
+				
+				   <cfset link = "#SESSION.root#/system/modules/functions/Group.cfm?id=#url.id#">
+				   
+				   	<cf_selectlookup
+				    class        = "UserGroup"
+				    box          = "igroup"
+					title        = "Select a user group to be granted access to this function."
+					link         = "#link#"							      	
+					dbtable      = "System.dbo.Ref_ModuleControlUserGroup"
+					des1         = "account"
+					height		 = "#url.dialogHeight#"
+					icon         = "Contract.gif"
+					close        = "No">
+				   
+				</td>				
+				    
+			</TR>	
+				
+		</table>
+		
+		</td>
+		</tr>
+				
+</table>
+
+</cfform>	
+
+<cfset ajaxonload("doHighlight")>
+	
+

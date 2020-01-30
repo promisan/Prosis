@@ -1,0 +1,221 @@
+
+<cfset url.id2 = "University">
+<cfparam name="CLIENT.Submission" default="Manual"> 
+
+<cfquery name="Parameter" 
+datasource="AppsSelection" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT * FROM Parameter
+</cfquery>
+
+<cfparam name="comparisonApplicantNo" default="">
+
+<cfquery name="qCheck" 
+datasource="AppsSelection" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	 
+    SELECT TOP 1 *
+	FROM   ApplicantSubmission S
+
+	 <cfif attributes.IDFunction neq "">
+	 
+	 		INNER JOIN ApplicantFunction AF
+				ON S.ApplicantNo = AF.ApplicantNo AND AF.FunctionId = '#Attributes.IDFunction#'
+			INNER JOIN ApplicantFunctionSubmission AFS
+				ON AF.ApplicantNo = AF.ApplicantNo AND AF.FunctionId = AFS.FunctionId
+			WHERE S.PersonNo ='#URL.PersonNo#'
+	 <cfelse>
+		WHERE 	1=0
+	 </cfif>	
+	  
+</cfquery>
+
+
+<cfif attributes.IDFunction neq "" and qCheck.recordcount neq 0>
+	<cfquery name="Detail" 
+	datasource="AppsSelection" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT   A.*, 
+		         A.SubmissionId as EXperienceId,
+		         F.ExperienceFieldId,
+			      F.Status as StatusDomain,
+		          R.Description,
+			      R.Status as TopicStatus,
+			      R.ExperienceClass,
+			      A.Source
+		    FROM  ApplicantFunctionSubmission S INNER JOIN
+		          ApplicantSubmission A ON S.SubmissionId = A.SubmissionId LEFT OUTER JOIN
+		          Ref_Experience R INNER JOIN
+		          ApplicantFunctionSubmissionField F ON R.ExperienceFieldId = F.ExperienceFieldId ON A.SubmissionId = F.SubmissionId 
+				  <cfif comparisonApplicantNo neq "">
+					AND 	 S.ApplicantNo = '#comparisonApplicantNo#'
+				  </cfif>
+		    WHERE A.PersonNo = '#URL.PersonNo#'
+			AND   A.Source   = '#SSource#'
+			AND   A.Status   != '9'
+			AND   F.Status   != '9'
+			AND   S.ExperienceCategory = '#URL.ID2#'
+			AND   S.FunctionId = '#Attributes.IDFunction#'
+			ORDER BY ExperienceCategory, ExperienceStart DESC
+	</cfquery>
+
+	
+<cfelse>
+
+	<cfquery name="Detail" 
+	datasource="AppsSelection" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT   A.*, 
+		         F.ExperienceFieldId,
+				   <!---
+				   F.ReviewLastName, 
+				   F.ReviewFirstName,
+				   F.ReviewDate,
+				   --->
+			      F.Status as StatusDomain,
+		          R.Description,
+			      R.Status as TopicStatus,
+			      R.ExperienceClass,
+			      S.Source
+		    FROM  ApplicantSubmission S INNER JOIN
+		          ApplicantBackground A ON S.ApplicantNo = A.ApplicantNo LEFT OUTER JOIN
+		          Ref_Experience R INNER JOIN
+		          ApplicantBackgroundField F ON R.ExperienceFieldId = F.ExperienceFieldId ON A.ExperienceId = F.ExperienceId AND 
+		          A.ApplicantNo = F.ApplicantNo
+				  <cfif comparisonApplicantNo neq "">
+					AND 	 S.ApplicantNo = #comparisonApplicantNo#
+				  </cfif>
+		    WHERE S.PersonNo = '#URL.PersonNo#'
+			AND   S.Source   = '#SSource#'
+			AND   A.Status != '9'
+			AND   A.ExperienceCategory = '#URL.ID2#'
+			ORDER BY ExperienceCategory, ExperienceStart DESC
+	</cfquery>
+
+</cfif>
+  
+<table width="99%" align="center" border="0" cellspacing="0" cellpadding="0">
+
+	
+	<cfif detail.recordcount eq "0">
+		<tr>	
+		<td colspan="8" align="center" class="labelit"><cf_tl id="No records found"></td>
+		</TR>
+	</cfif>
+	  
+	<cfoutput query="Detail" group="ExperienceId">
+	
+	<tr><td height="3" colspan="8"></td></tr>
+	
+	<tr>
+	<td class="labelsmall" width="5%">#currentrow#.</td>	
+	<td class="labelit" colspan="7"><b>#OrganizationName#</b></td>		
+	</tr>
+
+	<cfif OrganizationCity neq "">
+		<tr>
+		<td></td>				
+				
+		<cfquery name="Nation" 
+		datasource="AppsSystem" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT *
+			FROM   Ref_Nation
+			WHERE Code = '#OrganizationCountry#'
+		</cfquery>
+		
+		<td class="labelit" colspan="7">#OrganizationCity# #Nation.Name#</td>
+		</tr>
+	</cfif>
+	
+	<tr>
+		
+	<td colspan="8" align="right" class="labelit">#DateFormat(ExperienceStart,"MM/YYYY")#
+	- <cfif ExperienceEnd lt "01/01/40" or ExperienceEnd gt "01/01/2020">Todate<cfelse>#DateFormat(ExperienceEnd,"MM/YYYY")#</cfif></b>
+	</td>
+	
+	</tr>
+	
+	<cfif Remarks neq "" and ExperienceDescription neq remarks>
+		<tr>
+		<td></td>
+		<td class="labelit" colspan="7">#Remarks#</td>
+		</tr>
+	</cfif>
+	
+	<cfif OrganizationAddress neq "">
+		<tr>
+		<td></td>
+		<td class="labelit" colspan="7">#OrganizationAddress#</td>
+		</tr>
+	</cfif>
+	
+	<cfif OrganizationTelephone neq "">
+		<tr>
+		<td></td>
+		<td class="labelit" colspan="7"><cf_tl id="Tel">:#OrganizationTelephone#</td>
+		</tr>
+	</cfif>
+	
+	<cfif Status neq "9">
+	
+	    <tr>
+		
+	<cfelse>	
+	
+	    <tr bgcolor="red">	
+		
+	</cfif>
+		
+		<td></td>
+		<td colspan="7" class="labelit">
+		
+			<table cellspacing="0" cellpadding="0">
+			 <tr>
+			
+			 
+			 <cfif OrganizationClass neq ""><td class="labelit">#OrganizationClass#</b></td></cfif>
+			 <cfif ExperienceDescription neq ""><td class="labelit">#ExperienceDescription#</b></td></cfif>
+			 </tr>
+			</table>	
+			
+		</td>
+	
+	</tr>
+	
+	<cfoutput>
+	
+	    <cfif TopicStatus eq "1">
+	
+			<tr bgcolor="ffffcf">
+			<td bgcolor="white"></td>			  
+			<td colspan="6" class="labelit" style="padding-left:4px">#Description#</td>			
+			<TD class="labelit" width="10%" align="right" style="padding-right:4px">
+			
+				<cfif CLIENT.submission neq "Skill">
+					<cfif StatusDomain is "0"><cf_tl id="Pending"></cfif>
+					<cfif StatusDomain is "1"><cf_tl id="Cleared"></cfif>
+					<cfif StatusDomain is "9"><cf_tl id="Cancelled"></cfif>
+				</cfif>
+			
+			</TD>
+					
+			</TR>
+		
+		</cfif>
+		
+	</cfoutput>
+	
+	<cfif currentrow neq recordcount>
+		<tr><td height="3" colspan="8"></td></tr>
+		<tr><td colspan="8" class="linedotted"></td></tr>
+	</cfif>
+	
+	</cfoutput>
+	
+</table>

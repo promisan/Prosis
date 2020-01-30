@@ -1,0 +1,97 @@
+<!--- check for access --->
+
+<cfparam name="url.mission"          default="">
+<cfparam name="url.warehouse"        default="">
+<cfparam name="url.location"         default="">
+<cfparam name="url.systemfunctionid" default="">
+
+<cfinvoke component = "Service.Access"  
+	      method             = "function"  
+		  role               = "'WhsPick'"
+		  mission            = "#url.mission#"
+		  warehouse          = "#url.warehouse#"
+		  SystemFunctionId   = "#url.SystemFunctionId#" 
+		  returnvariable     = "access">	 		  
+	
+ <cf_LanguageInput
+	TableCode       = "Ref_ModuleControl" 
+	Mode            = "get"
+	Name            = "FunctionName"
+	Key1Value       = "#url.SystemFunctionId#"
+	Key2Value       = "#url.mission#"				
+	Label           = "Yes">								  
+
+<cfif access eq "DENIED">	 
+
+	<table width="100%" height="100%" 
+	       border="0" 
+		   cellspacing="0" 			  
+		   cellpadding="0" 
+		   align="center">
+		   <tr><td align="center" height="40">
+		    <font face="Verdana" color="FF0000">
+			<cf_tl id="Detected a Problem with your access"  class="Message">
+			</font>
+			</td></tr>
+	</table>	
+	<cfabort>	
+		
+</cfif>		
+
+<CF_DropTable dbName="AppsQuery"  tblName="#SESSION.acc#_#url.warehouse#_ItemStock"> 
+
+<!--- disalbed the table round for better performance in cf7/8 --->
+	  
+<table width="100%" height="100%" cellspacing="0" cellpadding="0" align="center">
+
+<!---
+
+<cfif url.location eq "">
+		
+		<tr>
+		  <td colspan="2" align="left" valign="bottom" height="50px">	 
+		  
+		    <cfoutput>
+		  	<table height="60px" cellpadding="0" cellspacing="0" border="0" style="overflow-x:hidden" >												
+				<tr>
+					<td style="z-index:5; position:absolute; top:5px; left:17px; ">
+						<img src="#SESSION.root#/images/logos/warehouse/Storage.png" height="42" >
+					</td>
+				</tr>							
+				<tr>
+					<td style="z-index:3; position:absolute; top:7px; left:70px; color:45617d; font-family:calibri,trebuchet MS; font-size:25px; font-weight:bold;">
+						#lt_content#
+					</td>
+				</tr>
+				<tr>
+					<td style="position:absolute; top:4px; left:70px; color:e9f4ff; font-family:calibri,trebuchet MS; font-size:40px; font-weight:bold; z-index:2">
+						#lt_content#
+					</td>
+				</tr>							
+				<tr>
+					<td style="position:absolute; top:45px; left:70px; color:45617d; font-family:calibri,trebuchet MS; font-size:12px; font-weight:bold; z-index:4">
+						#lt_content#
+					</td>
+				</tr>							
+			</table>
+			</cfoutput>
+    
+		  </td>
+		</tr>			
+		<tr><td height="12"></td></tr>	
+		<tr><td height="1" class="linedotted"></td></tr>	
+		
+</cfif>		
+
+--->
+
+<tr>
+	
+	<td colspan="1" height="100%" valign="top">	
+		<cfdiv id="divListingContainer" style="height:100%;" bind="url:../Inquiry/OnHand/ListingDataContainer.cfm?warehouse=#url.warehouse#&location=#url.location#&mission=#url.mission#&SystemFunctionId=#url.SystemFunctionId#">        	
+	</td>	
+
+</tr>	
+
+</table>
+

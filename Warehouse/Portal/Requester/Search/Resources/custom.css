@@ -1,0 +1,13 @@
+.clsElementHeader {
+	font-size:350%;
+	font-weight: bold;
+	color:#808080;
+}
+
+.clsElementListingItemText {
+	padding-left:25px; 
+}
+
+.panel-body {
+	border-top-width:3px !important;
+}

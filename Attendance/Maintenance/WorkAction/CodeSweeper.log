@@ -1,0 +1,6 @@
+Invalid character (&) encountered while parsing (tag "CFSET" with attributes vMissionList=vMissionList). 
+Invalid character (&) encountered while parsing (tag "CFSET" with attributes vMissionList=vMissionList). 
+Invalid character (&) encountered while parsing (tag "CFSET" with attributes vMissionList=vMissionList). 
+Invalid number "1" encountered while parsing (tag "CFSET" with attributes vMissionList=mid(vMissionList,). 
+Invalid number "1" encountered while parsing (tag "CFSET" with attributes vMissionList=mid(vMissionList,). 
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes cnt=cnt). 

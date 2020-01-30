@@ -1,0 +1,281 @@
+
+<cfparam name="URL.ID2" default="">
+
+<!--- custom fields lined to an action are always automatically
+ propagated to the step and can be diabled --->
+	
+<cfquery name="ActionMode" 
+	datasource="AppsOrganization" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	SELECT *
+	FROM   Ref_EntityAction
+	WHERE  ActionCode  = '#URL.ActionCode#'
+</cfquery>	
+
+ 
+<cfif url.publishNo neq "">
+	
+	<cfquery name="Insert" 
+	datasource="AppsOrganization" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    INSERT INTO Ref_EntityActionPublishDocument
+					(ActionPublishNo,ActionCode,DocumentId,ListingOrder)
+		SELECT      '#URL.PublishNo#','#URL.ActionCode#',R.DocumentId,S.DocumentOrder
+		FROM        Ref_EntityActionDocument R, Ref_EntityDocument S
+		WHERE       R.ActionCode = '#URL.ActionCode#'
+		AND         R.DocumentId = S.DocumentId 
+		AND         S.DocumentType IN ('field','attach')
+		AND         S.Operational = '1'
+		AND         R.DocumentId NOT IN (SELECT DocumentId 
+		                         FROM   Ref_EntityActionPublishDocument
+								 WHERE  ActionPublishNo = '#URL.PublishNo#'
+								 AND    ActionCode = '#URL.ActionCode#')						 
+	</cfquery>
+	
+	<cfquery name="Detail" 
+	datasource="AppsOrganization" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT    R.*, A.ListingOrder, A.ObjectFilter,A.Operational as Valid
+		FROM      Ref_EntityDocument R INNER JOIN
+		          Ref_EntityActionPublishDocument A ON R.DocumentId = A.DocumentId 
+				  	AND A.ActionPublishNo = '#URL.PublishNo#' 
+					AND A.ActionCode      = '#URL.ActionCode#'
+		<cfif actionMode.ProcessMode gte "1">			
+		WHERE     R.DocumentType IN  ('function','dialog','field','attach')
+		<cfelse>
+		WHERE     R.DocumentType IN  ('dialog','field','attach')
+		</cfif>
+		AND       R.EntityCode = '#url.entityCode#'	
+		UNION ALL
+		SELECT    *,0 as ListingOrder, '' as ObjectFilter, 0 as Valid
+		FROM      Ref_EntityDocument 
+		<cfif actionMode.ProcessMode gte "1">			
+		WHERE     DocumentType IN  ('function','dialog','attach')
+		<cfelse>
+		WHERE     DocumentType IN  ('dialog','attach')
+		</cfif>		
+		AND       DocumentId NOT IN (SELECT DocumentId 
+		                             FROM   Ref_EntityActionPublishDocument
+									 WHERE  ActionPublishNo = '#URL.PublishNo#'	
+									 AND    ActionCode       = '#URL.ActionCode#')	                      
+		AND       EntityCode = '#URL.EntityCode#'	
+		ORDER BY  R.DocumentType, R.DocumentOrder
+	</cfquery>
+
+<cfelse>
+
+	<cfquery name="Insert" 
+	datasource="AppsOrganization" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    INSERT INTO Ref_EntityClassActionDocument
+					(EntityCode, EntityClass,ActionCode,DocumentId,ListingOrder)
+		SELECT      '#URL.EntityCode#','#URL.EntityClass#','#URL.ActionCode#',R.DocumentId,S.DocumentOrder
+		FROM        Ref_EntityActionDocument R, Ref_EntityDocument S
+		WHERE       R.ActionCode = '#URL.ActionCode#'
+		AND         R.DocumentId = S.DocumentId 
+		AND         S.DocumentType IN ('field','attach')
+		AND         S.Operational = '1'
+		AND         R.DocumentId NOT IN (SELECT DocumentId 
+				                         FROM   Ref_EntityClassActionDocument
+										 WHERE  EntityCode  = '#URL.EntityCode#'
+										 AND    EntityClass = '#URL.EntityClass#'
+										 AND    ActionCode  = '#URL.ActionCode#')						 
+	</cfquery>
+	
+	<cfquery name="Detail" 
+	datasource="AppsOrganization" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT    R.*, A.ListingOrder, A.ObjectFilter, A.Operational as Valid
+		FROM      Ref_EntityDocument R INNER JOIN
+		          Ref_EntityClassActionDocument A ON R.DocumentId = A.DocumentId 
+				  	AND A.EntityCode      = '#URL.EntityCode#' 
+					AND A.EntityClass     = '#URL.EntityClass#' 
+					AND A.ActionCode      = '#URL.ActionCode#'
+		<cfif actionMode.ProcessMode gte "1">			
+		WHERE     R.DocumentType IN  ('function','dialog','field','attach')
+		<cfelse>
+		WHERE     R.DocumentType IN  ('dialog','field','attach')
+		</cfif>
+		AND       R.EntityCode = '#url.entityCode#'	
+		
+		UNION ALL
+		
+		SELECT    *,0 as ListingOrder, '' as objectFilter, 0 as Valid
+		FROM      Ref_EntityDocument as R
+		<cfif actionMode.ProcessMode gte "1">			
+		WHERE     R.DocumentType IN  ('function','dialog','field','attach')
+		<cfelse>
+		WHERE     R.DocumentType IN  ('dialog','field','attach')
+		</cfif>
+		AND       DocumentId NOT IN (SELECT DocumentId 
+		                             FROM   Ref_EntityClassActionDocument
+									 WHERE  EntityCode       = '#URL.EntityCode#'	
+									 AND    EntityClass      = '#URL.EntityClass#'
+									 AND    ActionCode       = '#URL.ActionCode#')	                      
+		AND       EntityCode = '#URL.EntityCode#'	
+		ORDER BY  R.DocumentType, R.DocumentOrder
+	</cfquery>
+
+</cfif>
+
+	<table width="94%" border="0" cellspacing="0" cellpadding="0" align="center">
+		    
+	  <tr><td height="10"></td></tr>	
+	  
+	  <tr>
+	    <td width="100%">
+	    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+				
+		<cfif detail.recordcount eq "0">
+		<tr><td colspan="6" align="center" height="80" class="labelmedium" style="font-weight:200">There were no custom fields configured for this action.</td></tr>
+		</cfif>
+		
+				
+		<!--- upon creation of the object we can pass a filter to the organizationObject, this will then 
+		allow to show the custom fields/templates only if that object at runtime has indeed the filtered value
+		as defined below --->
+		
+		<cfquery name="Filter" 
+			datasource="AppsOrganization" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			SELECT   DISTINCT ObjectFilter
+			FROM     OrganizationObject
+			WHERE    EntityCode  = '#URL.EntityCode#'
+			AND      ObjectFilter > ''
+		    ORDER BY ObjectFilter
+		</cfquery>	  		
+			
+		<cfoutput query="Detail" group="DocumentType">
+		
+		<tr><td height="16"></td></tr>
+		
+		<cfif DocumentType eq "Attach">
+		<tr><td colspan="6" style="font-size:20px;font-weight:200" class="labelmedium">Attachment</td></tr>
+		<cfelseif DocumentType eq "Field">
+		<tr><td colspan="6" style="font-size:20px;font-weight:200" class="labelmedium">Custom Fields</td></tr>
+		<cfelseif DocumentType eq "dialog">
+		<tr><td colspan="6" style="font-size:20px;font-weight:200" class="labelmedium">Custom Dialogs (not enabled yet, please use custom dialog on the standard setting tab)</td></tr>
+		<cfelse>		
+		<tr><td colspan="6" style="font-size:20px;font-weight:200" class="labelmedium">Standard workflow-only dialogs</td></tr>
+		</cfif>
+				
+		<tr><td height="4"></td></tr>
+		
+		 <TR class="line labelmedium">
+		   <td style="min-width:40px;padding-left:5px"></td>	
+		   <td style="min-width:40px;padding-left:4px"><cf_tl id="Code"></td>
+		   <td width="40%"><cf_tl id="Description"></td>
+		   <td width="30%"><cf_tl id="Apply"></td>
+		   <td width="6%"><cf_tl id="Sort"></td>
+		   <td width="10%" align="center"><cfif DocumentType eq "Field">Type</cfif></td>		  
+		  	  
+	    </TR>	
+				
+		<cfoutput>			
+										
+			<cfset cd  = DocumentCode>
+			<cfset ord = ListingOrder>
+			<cfset fil = ObjectFilter>
+						
+			<input type="hidden" name="Code" id="Code" value="<cfoutput>#cd#</cfoutput>">
+													
+				<TR class="labelmedium line" style="height:25px">
+				
+					 <td align="center">
+				      <input type="checkbox"
+					   name="operational#currentrow#" 
+					   id="operational#currentrow#"
+					   value="1" 
+					   style="height:16;width:16"
+					   onclick="ColdFusion.navigate('#SESSION.root#/System/EntityAction/EntityObject/WorkflowElement/ClassDocumentSubmit.cfm?EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&entitycode=#URL.EntityCode#&actionCode=#URL.ActionCode#&ID2=#documentid#&fil='+document.getElementById('objectfilter#currentrow#').value+'&lo='+document.getElementById('listingorder#currentrow#').value+'&op='+this.checked,'savedoc')"
+				    <cfif valid eq "1">checked</cfif>>
+				   </td>
+				   
+				   <td height="23" style="padding-left:4px;padding-right:5px" width="40">#cd#</td>
+				   <td>#DocumentDescription#</td>
+				   <td>
+				   
+				   <cfif DocumentType eq "function" and DocumentCode eq "fled">
+				   
+				   	<cfquery name="JournalList" 
+						datasource="AppsLedger" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+						SELECT   *
+						FROM     Ref_TransactionCategory						
+					</cfquery>	  
+					
+					<!-- <cfform> -->
+					
+					     <cfselect name="objectfilter#currentrow#"				         
+				          queryposition="below"
+				          query="JournalList"
+				          value="TransactionCategory"
+				          display="Description"
+				          visible="Yes"
+				          enabled="Yes"
+						  selected="#fil#"
+				          onchange="ColdFusion.navigate('#SESSION.root#/System/EntityAction/EntityObject/WorkflowElement/ClassDocumentSubmit.cfm?EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&entitycode=#URL.EntityCode#&actionCode=#URL.ActionCode#&ID2=#documentid#&fil='+this.value+'&lo='+document.getElementById('listingorder#currentrow#').value+'&op='+document.getElementById('operational#currentrow#').checked,'savedoc')"
+				          id="objectfilter#currentrow#"
+				          class="regularxl">
+							   
+					    <option value="">n/a</option>
+					  	
+						</cfselect>
+					   
+					   <!-- </cfform> -->
+				   
+				   
+				   <cfelse>
+				   
+					   <select name="objectfilter#currentrow#" 		
+					   		   id="objectfilter#currentrow#" 
+							   class="regularxl"				 						  					   
+							   onchange="ColdFusion.navigate('#SESSION.root#/System/EntityAction/EntityObject/WorkflowElement/ClassDocumentSubmit.cfm?EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&entitycode=#URL.EntityCode#&actionCode=#URL.ActionCode#&ID2=#documentid#&fil='+this.value+'&lo='+document.getElementById('listingorder#currentrow#').value+'&op='+document.getElementById('operational#currentrow#').checked,'savedoc')">
+							   
+					    <option value="">any</option>
+					  	 <cfloop query="filter">
+					  		<option value="#ObjectFilter#" <cfif fil eq Objectfilter>selected</cfif>>#Objectfilter#</option>		   
+					   	</cfloop>
+						</select>
+					
+				   </cfif>	
+				   
+				   </td>
+				   
+				   <td>
+				      <input type="Text" 
+					       value="#ord#" 
+						   name="listingorder#currentrow#" 
+						   id="listingorder#currentrow#"
+						   required="No" 
+						   visible="Yes" 
+						   enabled="Yes" 
+						   style="text-align:center"
+						   size="1" 
+						   onchange="ColdFusion.navigate('#SESSION.root#/System/EntityAction/EntityObject/WorkflowElement/ClassDocumentSubmit.cfm?EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&entitycode=#URL.EntityCode#&actionCode=#URL.ActionCode#&ID2=#documentid#&fil='+document.getElementById('objectfilter#currentrow#').value+'&lo='+this.value+'&op='+document.getElementById('operational#currentrow#').checked,'savedoc')"
+						   maxlength="2" 
+						   class="regularxl">
+						   
+				   </td>
+				   <td align="center"> <cfif DocumentType eq "Field">#FieldType#</cfif></td>			  
+				   
+				  				   
+			   </TR>	
+			   
+		</cfoutput>		
+									
+		</cfoutput>
+							
+		</table>
+		</td>
+		</tr>
+		<tr><td id="savedoc"></td></tr>
+							
+	</table>	

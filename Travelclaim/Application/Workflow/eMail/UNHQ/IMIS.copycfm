@@ -1,0 +1,43 @@
+<!--- this template fils 3 variables to serve the workflow framework
+		mailsubject;mailtext;mailatt (optional) --->
+	
+<cfset db = "TravelClaim.dbo.">
+<cfquery name="Claim" 
+	datasource="appsOrganization" 
+	username="#CLIENT.login#" 
+	password="#CLIENT.dbpw#">
+	SELECT    *
+	FROM      #db#Claim  C INNER JOIN #db#stPerson  P ON C.PersonNo = P.PersonNo
+	WHERE     C.ClaimId = '#Object.ObjectKeyValue4#'
+</cfquery>	
+
+<cfquery name="Request" 
+	datasource="appsOrganization" 
+	username="#CLIENT.login#" 
+	password="#CLIENT.dbpw#">
+	SELECT    *
+	FROM      #db#ClaimRequest C
+	WHERE     C.ClaimRequestId = '#Claim.ClaimRequestId#'
+</cfquery>	
+
+<cfset mailsubject = "Travel Claim APPROVAL - TCP #Claim.DocumentNo# against TVRQ #Request.DocumentNo# - #Claim.IndexNo# - #Claim.FirstName# #Claim.LastName#">
+
+<cfoutput>
+<cfsavecontent variable="mailtext">
+
+	<table width="100%" cellspacing="2" cellpadding="2">
+			   			
+	<tr><td>
+		This is to confirm the approval of your claim (TCP No:#Claim.DocumentNo#) against Travel Request No: #Request.DocumentNo#.
+	</td></tr>
+	<tr><td>&nbsp;</td></tr>
+	<tr><td>
+		For details please see the attached Travel Claim Document (requires Adobe 6.0 or higher).
+	</td></tr>
+					
+	</table>
+	
+</cfsavecontent>
+</cfoutput>
+
+<!--- end of template --->

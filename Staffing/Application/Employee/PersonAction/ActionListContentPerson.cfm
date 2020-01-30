@@ -1,0 +1,119 @@
+
+<cfset fields=ArrayNew(1)>
+
+<cfset itm = "0">
+
+<cfset itm = itm+1>					
+<cfset fields[itm] = {label      = "Code", 
+                    Display    = "0",						
+					field      = "ActionCode"}>		
+
+<cfset itm = itm+1>								
+<cfset fields[itm] = {label      = "Personnel Action", 					
+					field      = "PersonnelAction",											
+					filtermode = "2",
+					search     = "text"}>	
+					
+						
+
+<cfset itm = itm+1>						
+<cfset fields[itm] = {label      = "Reason", 					
+					field      = "ActionReason",											
+					filtermode = "2",
+					Display    = "0",	
+					search     = "text"}>	
+										
+<cfset itm = itm+1>
+<cfset fields[itm] = {label    = "No",                   	
+					field      = "ActionDocumentNo",	
+					width      = "20",					
+					search     = "text"}>
+
+<cfset itm = itm+1>					
+<cfset fields[itm] = {label      = "Entity",                   
+					field      = "Mission", 	
+					width      = "26",						
+					search     = "text"}>					
+
+<cfset itm = itm+1>								
+<cfset fields[itm] = {label      = "Status", 					
+					field      = "ActionStatus",					
+					alias      = ""}>		
+					
+<cfset itm = itm+1>								
+<cfset fields[itm] = {label    = "Workflow", 					
+					field      = "Workflow",					
+					alias      = ""}>									
+
+<cfset itm = itm+1>					
+<cfset fields[itm] = {label      = "Officer", 					
+					field      = "OfficerLastName",										
+					filtermode = "2",
+					search     = "text"}>													
+
+<cfset itm = itm+1>					
+<cfset fields[itm] = {label      = "Effective",    					
+					field      = "ActionDate",					
+					formatted  = "dateformat(ActionDate,CLIENT.DateFormatShow)",
+					search     = "date"}>	
+					
+<cfset itm = itm+1>					
+<cfset fields[itm] = {label    = "Expiration",    					
+					field      = "ActionExpiration",					
+					formatted  = "dateformat(ActionExpiration,CLIENT.DateFormatShow)",
+					search     = "date"}>										
+
+<cfset itm = itm+1>					
+<cfset fields[itm] = {label      = "Processed",    					
+					field      = "LastProcessed",					
+					formatted  = "dateformat(Lastprocessed,CLIENT.DateFormatShow) ",
+					search     = "date"}>		
+					
+<cfset itm = itm+1>					
+<cfset fields[itm] = {label      = "",    					
+					field      = "LastProcessed",					
+					formatted  = "timeformat(Lastprocessed,'HH:MM')"}>							
+								
+														
+
+<cfset itm = itm+1>
+<cfset fields[itm] = {label      = "No", 
+                    width      = "1%", 	
+					Display    = "0",				
+					field      = "ActionId"}>
+					
+<cfset itm = itm+1>											
+<cfset fields[itm] = {label      = "Source", 					
+					field      = "ActionSource",														
+					filtermode = "2",
+					search     = "text"}>								
+		
+<!--- embed|window|dialogajax|dialog|standard --->
+
+<table width="100%" height="99%" border="0" bordercolor="silver" cellspacing="0" cellpadding="0" align="center">
+	
+	<tr><td width="100%" height="100%">						
+	
+	<cf_listing header  = "PersonnelAction"
+	    box           = "actiondetail"
+		link          = "#SESSION.root#/Staffing/Application/Employee/PersonAction/ActionListContent.cfm?id=#url.id#"
+	    html          = "No"		
+		datasource    = "AppsQuery"
+		listquery     = "#myquery#"
+		listgroup     = "ActionSource"
+		listgroupalias = "R"
+		listorder     = "ActionDocumentNo"
+		listorderdir  = "DESC"
+		headercolor   = "ffffff"				
+		tablewidth    = "99%"
+		listlayout    = "#fields#"
+		FilterShow    = "Hide"
+		ExcelShow     = "Yes"
+		drillmode     = "tab" 
+		drillargument = "900;1080;false;true"	
+		drilltemplate = "Staffing/Application/Employee/PersonAction/ActionDialog.cfm?drillid="
+		drillkey      = "ActionDocumentNo">	
+		
+	</td></tr>
+
+</table>		

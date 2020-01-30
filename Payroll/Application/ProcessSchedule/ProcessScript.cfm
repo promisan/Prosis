@@ -1,0 +1,175 @@
+
+<cf_dialogStaffing>
+<cf_dialogProcurement>
+<cf_menuscript>
+
+<cfajaximport tags="cfwindow,cfdiv">
+
+<cfoutput>
+
+	<cf_ajaxRequest>
+	
+	<script>
+	
+	w = #CLIENT.width# - 55
+	h = #CLIENT.height# - 120
+		
+	function recap(id) {
+	    window.open("../../Inquiry/Entitlement/ControlView.cfm?id2="+id  , "_blank");	 
+	}
+		
+	function more(sch) {
+	
+		se = document.getElementsByName(sch)
+		count=0
+		
+		while (se[count]) {		  
+		   if (se[count].className == "hide") {
+			   se[count].className = "regular navigation_row line"
+		  } else {	   
+		     se[count].className = "hide"
+		  }		   
+		   count++
+		   }
+		}	
+	
+	function check(id) {	
+	    se = document.getElementById("cd"+id)
+		se.className = "regular"	
+		url = "CalculationCheck.cfm?id="+id
+		ColdFusion.navigate(url,'ci'+id ) 	
+	}
+
+	 function checkBalances(id){
+	  	se = document.getElementById("cd"+id)
+		se.className = "regular"
+	  	ColdFusion.navigate('ScheduleCheck.cfm?currentCalcId='+id,'ci'+id)
+	  }
+				
+	function del(id) {
+	
+	    if (confirm("Do you want to remove this calculation ?")) {  Prosis.busy('yes')
+	    ptoken.navigate('CalculationDelete.cfm?id='+id,'contentbox1') }
+			return false	
+	   
+	}	
+			
+	function slip(box,pay,sch,mis,per) {
+	
+		 se = document.getElementById("d"+box)
+		 icM  = document.getElementById(box+"Min")
+	     icE  = document.getElementById(box+"Exp")
+		 if (se.className == "regular") {
+		    se.className = "hide"
+			icE.className = "regular";
+  	        icM.className = "hide";
+			
+		 } else {
+			 icM.className = "regular";
+	         icE.className = "hide";
+			 url = "#SESSION.root#/Payroll/Application/Payroll/SalarySlip.cfm?ts="+new Date().getTime()+
+		       "&id="+per+
+			   "&paymentdate="+pay+
+			   "&salaryschedule="+sch+
+			   "&mission="+mis		   
+    
+			AjaxRequest.get({
+		        'url':url,
+	    	    'onSuccess':function(req){ 
+		    	document.getElementById("i"+box).innerHTML = req.responseText;	
+				se.className = "regular"					
+				},
+				'onError':function(req) { 
+				document.getElementById("i"+box).innerHTML = req.responseText;
+				se.className = "regular"
+				}	
+	    		 });	
+	     	}	
+	}	
+	
+	<!--- batch --->
+	function calc() {   
+         ColdFusion.Window.create('executetask', 'Batch Processing', '',{x:100,y:100,height:570,width:560,closable:false,modal:true,center:true})	
+		 ColdFusion.navigate('../Calculation/CalculationProcessExecute.cfm?mission=#URL.mission#','executetask')
+	}
+	
+	<!--- final payment --->
+	function calcperson(selectedid,contractid,mis,mode) {	
+         ColdFusion.Window.create('executetask', 'Final Payment Calculation', '',{x:100,y:100,height:570,width:560,closable:false,modal:true,center:true})	
+		 ColdFusion.navigate('../Calculation/CalculationProcessExecuteFinal.cfm?mode='+mode+'&selectedid='+selectedid+'&contractid='+contractid+'&mission=#URL.mission#','executetask')
+	}				
+	
+	<!--- manual process --->		
+	function payrollprocess(processno,personno,enforce,sel,mde) {
+				
+		 document.getElementById("submit").className = "hide"	
+		 		
+		 if (sel == '') {
+			    		
+			 se = document.getElementsByName("calculate")
+			 var selected = ""
+			 var count = 0
+			 while (se[count]) {
+			    if (se[count].checked == true) {
+	     		  if (selected == '') { 
+			         selected = se[count].value
+	    		  } else { 
+		    	     selected = selected+","+se[count].value}
+	    		  }		
+		     	 count++
+				}
+			
+		 } else { selected = sel }
+		
+		 <cfif getAdministrator("*") eq "1">	
+		 window.open('../Calculation/CalculationProcess.cfm?mode='+mde+'&processno='+processno+'&mission=#URL.mission#&persono='+personno+'&enforce='+enforce+'&selectedid='+selected,'_blank')			
+		 <cfelse>
+		 ColdFusion.navigate('../Calculation/CalculationProcess.cfm?mode='+mde+'&processno='+processno+'&mission=#URL.mission#&persono='+personno+'&enforce='+enforce+'&selectedid='+selected,'runbox') 		 										
+		 </cfif>
+		 showprogresscalculate(processno)		 
+				 
+	} 
+	
+	function showprogresscalculate(processno) {
+       ColdFusion.navigate('../Calculation/CalculationProcessProgress.cfm?processno='+processno,'progressbox')
+    }
+
+	function stopprogress() {
+		 clearInterval ( prg );
+	}	 
+	
+	function lock(calculationid,st) {   
+         ColdFusion.Window.create('executetask', 'Batch Processing', '',{x:100,y:100,height:570,width:560,closable:false,modal:true,center:true})	
+		 ColdFusion.navigate('../LockPayroll/CalculationLockExecute.cfm?mission=#URL.mission#&calculationid='+calculationid+'&actionstatus='+st,'executetask')
+	}
+		
+	function showprogresslock(processno,processclass) {
+       ColdFusion.navigate('../LockPayroll/CalculationLockProgress.cfm?processno='+processno,'progressbox')
+    }
+	
+	function unlock(id) {
+	
+		if (confirm("Do you really want to unlock this month and open the payroll for settlement adjustments ?")) {	
+		 ptoken.navigate('../LockPayroll/CalculationLockUndo.cfm?id='+id,'st'+id)
+		}	
+		return false	   
+	}			
+	
+	function payrolllock(processno,calculationid,st) {	
+		
+		 <cfif getAdministrator("*") eq '0'>		
+		 ColdFusion.navigate('../LockPayroll/CalculationLockGo.cfm?processno='+processno+'&calculationid='+calculationid+'&actionstatus='+st,'runbox') 		 							
+		 <cfelse>
+		 window.open('../LockPayroll/CalculationLockGo.cfm?processno='+processno+'&calculationid='+calculationid+'&actionstatus='+st,'_blank')
+		 </cfif>
+		 showprogresslock(processno)
+				 
+	} 	
+	
+	function scheduleedit(id1) {
+    	 window.open("../../Maintenance/SalarySchedule/ScheduleEdit.cfm?idmenu=&id1=" + id1, "_blank")
+	}		
+					
+</script>	
+
+</cfoutput>

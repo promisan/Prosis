@@ -1,0 +1,32 @@
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes yrEnd=yrEnd). 
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes yrEnd=yrInit). 
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes yrEnd=yrInit). 
+Invalid quoted string '' encountered while parsing (tag "CFIF" with attributes trim(url.category)=). 
+Invalid quoted string '' encountered while parsing (tag "CFIF" with attributes trim(url.category)=). 
+Invalid quoted string 'm' encountered while parsing (tag "CFSET" with attributes vRequestDue=dateAdd(). 
+Invalid quoted string 'm' encountered while parsing (tag "CFSET" with attributes vRequestDue=dateAdd(). 
+Invalid quoted string 'q' encountered while parsing (tag "CFSET" with attributes vRequestDue=dateAdd(). 
+Invalid quoted string 'q' encountered while parsing (tag "CFSET" with attributes vRequestDue=dateAdd(). 
+Invalid quoted string 'q' encountered while parsing (tag "CFSET" with attributes vRequestDue=dateAdd(). 
+Invalid quoted string 'q' encountered while parsing (tag "CFSET" with attributes vRequestDue=dateAdd(). 
+Invalid quoted string 'q' encountered while parsing (tag "CFSET" with attributes vRequestDue=dateAdd(). 
+Invalid quoted string 'q' encountered while parsing (tag "CFSET" with attributes vRequestDue=dateAdd(). 
+Invalid quoted string 'q' encountered while parsing (tag "CFSET" with attributes vRequestDue=dateAdd(). 
+Invalid quoted string 'q' encountered while parsing (tag "CFSET" with attributes vRequestDue=dateAdd(). 
+Invalid quoted string 'q' encountered while parsing (tag "CFSET" with attributes vRequestDue=dateAdd(). 
+Invalid character (-) encountered while parsing (tag "CFSET" with attributes vRequestDue=createDate(url.year). 
+Invalid quoted string 'function(){}' encountered while parsing (tag "CFSET" with attributes). 
+Invalid quoted string 'function(){ }' encountered while parsing (tag "CFSET" with attributes). 
+Invalid quoted string 'function(){ var$('>' encountered while parsing (tag "CFSET" with attributes). 
+Invalid quoted string 'function(){ var vW$('>' encountered while parsing (tag "CFSET" with attributes). 
+Invalid quoted string 'function(){ var vW =$('>' encountered while parsing (tag "CFSET" with attributes). 
+Invalid quoted string 'function(){ var vW = $('.cellDetail').first().width(); }' encountered while parsing (tag "CFSET" with attributes). 
+Invalid quoted string 'function(){ var vW = $('.cellDetail').first().width(); if }' encountered while parsing (tag "CFSET" with attributes). 
+Invalid quoted string 'function(){ var vW = $('.cellDetail').first().width(); if (vW) }' encountered while parsing (tag "CFSET" with attributes). 
+Invalid quoted string 'function(){ var vW = $('.cellDetail').first().width(); if (vW !=) }' encountered while parsing (tag "CFSET" with attributes). 
+Invalid quoted string 'function(){ var vW = $('.cellDetail').first().width(); if (vW != null) }' encountered while parsing (tag "CFSET" with attributes). 
+Invalid quoted string 'function(){ var vW = $('.cellDetail').first().width(); if (vW != null) {} }' encountered while parsing (tag "CFSET" with attributes). 
+Invalid quoted string 'function(){ var vW = $('.cellDetail').first().width(); if (vW != null) { } }' encountered while parsing (tag "CFSET" with attributes). 
+Invalid quoted string 'function(){ var vW = $('.cellDetail').first().width(); if (vW != null) { alert();$('>' encountered while parsing (tag "CFSET" with attributes). 
+Invalid quoted string 'function(){ var vW = $('.cellDetail').first().width(); if (vW != null) { alert(vW); $('.cellHeader').width(vW); } }' encountered while parsing (tag "CFSET" with attributes). 
+Invalid quoted string 'function(){ var vW = $('.cellDetail').first().width(); if (vW != null) { alert(vW); $('.cellHeader').width(vW &); } }' encountered while parsing (tag "CFSET" with attributes). 

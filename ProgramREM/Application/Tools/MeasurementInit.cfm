@@ -1,0 +1,113 @@
+
+<!--- sync the complete database --->
+
+
+<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Indicator</TITLE>
+	
+</HEAD>
+
+<cf_wait text="Initializing">
+
+<CF_DropTable dbName="AppsQuery"  tblName="#SESSION.acc#Indicator">
+		
+<cfquery name="Combinations" 
+datasource="AppsProgram" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+SELECT    Pe.ProgramCode, Pe.Period, R.IndicatorCode, PL.LocationCode
+INTO      userQuery.dbo.#SESSION.acc#Indicator
+FROM      ProgramPeriod Pe INNER JOIN
+          ProgramCategory PC ON Pe.ProgramCode = PC.ProgramCode INNER JOIN
+          Ref_Indicator R ON PC.ProgramCategory = R.ProgramCategory LEFT OUTER JOIN
+          ProgramLocation PL ON Pe.ProgramCode = PL.ProgramCode
+</cfquery>		
+
+<cfquery name="Update" 
+datasource="AppsQuery" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+UPDATE #SESSION.acc#Indicator 
+SET    LocationCode = ''
+WHERE  LocationCode is NULL
+</cfquery>		
+
+<cfquery name="InsertIndicator" 
+datasource="AppsProgram" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+INSERT INTO ProgramIndicator
+            (ProgramCode, Period, IndicatorCode, LocationCode, OfficerUserId)
+SELECT     R.ProgramCode, R.Period, R.IndicatorCode, R.LocationCode, 'Upload' AS Expr1
+FROM        ProgramIndicator PI RIGHT OUTER JOIN
+            userQuery.dbo.#SESSION.acc#Indicator R ON PI.ProgramCode = R.ProgramCode AND PI.Period = R.Period AND PI.IndicatorCode = R.IndicatorCode AND 
+            PI.LocationCode = R.LocationCode
+GROUP BY R.ProgramCode, R.Period, R.IndicatorCode, R.LocationCode, PI.TargetId
+HAVING      (PI.TargetId IS NULL)  
+</cfquery>	
+
+<CF_DropTable dbName="AppsQuery"  tblName="#SESSION.acc#Indicator">
+
+<cfquery name="CombinationsTarget" 
+datasource="AppsProgram" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+SELECT     ProgramIndicator.TargetId, Ref_Subperiod.SubPeriod
+INTO       userQuery.dbo.#SESSION.acc#Indicator
+FROM       ProgramIndicator CROSS JOIN
+           Ref_Subperiod
+</cfquery>	
+
+<cfquery name="CombinationsTarget" 
+datasource="AppsProgram" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+INSERT INTO ProgramIndicatorTarget
+           (TargetId, SubPeriod, TargetValue)
+SELECT     R.TargetId, R.SubPeriod,'0'
+FROM        ProgramIndicatorTarget PT RIGHT OUTER JOIN
+            userQuery.dbo.#SESSION.acc#Indicator R ON PT.TargetId = R.TargetId AND PT.SubPeriod = R.SubPeriod
+GROUP BY R.TargetId, R.SubPeriod, PT.Created
+HAVING      (PT.Created IS NULL)
+</cfquery>	
+
+<CF_DropTable dbName="AppsQuery"  tblName="#SESSION.acc#Indicator">
+
+<cfquery name="CombinationsAudit" 
+datasource="AppsProgram" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+SELECT     PI.TargetId, A.AuditId, S.Source, S.IndicatorCode
+INTO userQuery.dbo.#SESSION.acc#Indicator
+FROM         ProgramIndicator PI INNER JOIN
+                      Ref_IndicatorSource S ON PI.IndicatorCode = S.IndicatorCode CROSS JOIN
+                      Ref_Audit A
+</cfquery>	
+
+<cfquery name="CombinationsAudit" 
+datasource="AppsProgram" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+INSERT INTO ProgramIndicatorAudit
+           (TargetId, AuditId,Source)
+SELECT     R.TargetId, R.AuditId, R.Source
+FROM        ProgramIndicatorAudit PT RIGHT OUTER JOIN
+            userQuery.dbo.#SESSION.acc#Indicator R ON PT.TargetId = R.TargetId 
+			                                   AND PT.AuditId = R.AuditId
+											   AND PT.Source = R.Source
+GROUP BY R.TargetId, R.AuditId, R.Source, PT.Created 
+HAVING      (PT.Created IS NULL)
+</cfquery>	
+
+<cf_WaitEnd>
+
+<script>
+	window.location = "<cfoutput>#URL.URL#</cfoutput>"
+</script>
+
+ 

@@ -1,0 +1,4 @@
+Invalid character (-) encountered while parsing (tag "CFSET" with attributes). 
+Invalid number "3" encountered while parsing (tag "CFSET" with attributes). 
+Invalid character (-) encountered while parsing (tag "CFSET" with attributes). 
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes variable3=variable2). 

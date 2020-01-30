@@ -1,0 +1,98 @@
+<!--- this template fils 3 variables to serve the workflow framework
+		mailsubject;mailtext;mailatt (optional) --->
+		<cfobject action="create"
+		type="java"
+		class="coldfusion.server.ServiceFactory"
+		name="factory">
+
+<cfset dsService = factory.getDataSourceService()>
+<cfset DataSources = dsService.getDatasources()>
+<cfset DatabaseName = DataSources["appsTravelClaim"].URLMap.ConnectionProps.Database >
+<cfset DatabaseServer = DataSources["appsTravelClaim"].URLMap.ConnectionProps.Host>
+
+	<cfset db = "#DatabaseName#.dbo.">
+	
+<cfquery name="Param" 
+	datasource="appsOrganization" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	SELECT    *
+	FROM      #db#Parameter	
+</cfquery>	
+	
+<cfquery name="Claim" 
+	datasource="appsOrganization" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	SELECT    *
+	FROM      #db#Claim  C INNER JOIN #db#stPerson P  ON C.PersonNo = P.PersonNo
+	WHERE     C.ClaimId = '#Object.ObjectKeyValue4#'
+</cfquery>	
+
+<cfquery name="Request" 
+	datasource="appsOrganization" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	SELECT    *
+	FROM      #db#ClaimRequest 
+	WHERE     ClaimRequestId = '#Claim.ClaimRequestId#'
+</cfquery>	
+
+
+<cfset mailsubject = "Travel Claim RETURN - Further Action Required - TCP #Claim.DocumentNo# against TVRQ #Request.DocumentNo# - #Claim.IndexNo# - #Claim.FirstName# #Claim.LastName#">
+
+<cfoutput>
+<cfsavecontent variable="mailtext">
+
+	<table width="100%" cellspacing="2" cellpadding="2">
+	
+	<cfquery name="step" 
+		datasource="appsOrganization" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		SELECT   OA.*, R.ActionDescription
+		FROM     OrganizationObject O INNER JOIN
+                 OrganizationObjectAction OA ON O.ObjectId = OA.ObjectId INNER JOIN
+                 Ref_EntityActionPublish R ON OA.ActionPublishNo = R.ActionPublishNo AND OA.ActionCode = R.ActionCode
+		WHERE    OA.ActionId = '#URL.ID#' 		
+	</cfquery>	
+		
+	<tr><td colspan="2">	   					
+		The above travel claim has been <b>returned</b> from #step.ActionDescription# by #SESSION.first# #SESSION.last# for your further action.			
+	</td></tr>
+	<tr><td colspan="2" height="8"></td></tr>
+	
+	<cfquery name="ClaimSection" 
+	datasource="appsOrganization" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	SELECT    *
+	FROM      #db#ClaimSection S, #db#Ref_ClaimSection R
+	WHERE     ClaimId = '#Claim.ClaimId#'
+	AND       S.ClaimSection = R.Code
+	AND       S.ProcessProblem = '1'
+	</cfquery>	
+	
+	<cfif claimsection.recordcount gte "1">
+	<tr><td colspan="2"><b>Instructions for claimant:</b></td></tr>
+	<tr><td colspan="2" bgcolor="silver"></td></tr>
+	</cfif>
+			
+	<cfloop query="ClaimSection">
+	<tr><td width="100">#Description#:</td>
+	    <td>#ProcessProblemMemo#</td>
+	</tr>
+	</cfloop>
+	
+	<tr><td colspan="2">
+	   	 <br>You may access your claim by clicking 
+		<a href="#param.portalurl#?id=travelclaim&object=#Object.ObjectURL#&wcls=workflow" target="_blank">here</a> or via the Travel Claim Portal.
+		
+	</td></tr>
+	
+	</table>
+	
+</cfsavecontent>
+</cfoutput>
+
+<!--- end of template --->

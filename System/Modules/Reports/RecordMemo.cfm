@@ -1,0 +1,159 @@
+
+<cfparam name="url.memoid"    default="">
+<cfparam name="url.action"    default="">
+<cfparam name="url.controlid" default="">
+
+<cfparam name="form.ReportMemo" default="">
+
+<cfif url.memoid neq "">
+
+	<cfset memoid = url.memoid>
+
+</cfif>
+
+<cfif url.action eq "del">
+
+	<cfquery name="update" 
+			datasource="AppsSystem" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			    DELETE FROM Ref_ReportControlMemo				
+				WHERE  ControlId = '#URL.Controlid#'
+				AND    MemoId = '#memoid#'						
+			</cfquery>	
+
+<cfelse>
+	
+	<cfif form.ReportMemo neq "">
+	
+		<cfquery name="Check" 
+		datasource="AppsSystem" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		    SELECT *
+		    FROM   Ref_ReportControlMemo
+			WHERE  ControlId = '#URL.ControlId#'
+			AND    MemoId = '#memoid#'		
+		</cfquery>
+		
+		<cfif Check.recordcount eq "0">
+	
+			<cfquery name="Memo" 
+			datasource="AppsSystem" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			    INSERT INTO Ref_ReportControlMemo
+				(ControlId, MemoId, ReportMemo, OfficerUserId, OfficerLastName, OfficerFirstName)
+				VALUES
+				('#URL.ControlId#','#memoid#','#form.ReportMemo#','#SESSION.acc#','#SESSION.last#','#SESSION.first#')			
+			</cfquery>
+				
+		<cfelse>
+		
+			<cfquery name="update" 
+			datasource="AppsSystem" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			    UPDATE Ref_ReportControlMemo
+				SET ReportMemo   = '#form.ReportMemo#'
+				WHERE  ControlId = '#URL.Controlid#'
+				AND    MemoId    = '#memoid#'						
+			</cfquery>	
+		
+		</cfif>
+		
+		<cfset url.memoid = "">
+		
+	</cfif>
+
+</cfif>
+
+<cfquery name="Memo" 
+datasource="AppsSystem" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+    SELECT *
+    FROM   Ref_ReportControlMemo
+	WHERE  ControlId = '#URL.ControlId#'
+	ORDER BY Created DESC
+</cfquery>
+	
+	<br>
+	<table width="98%" align="center" border="0" class="navigation_table" cellspacing="0" cellpadding="0">
+	
+	<tr><td colspan="5" class="labelmedium">
+	
+		<font color="B0B0B0">Record Additional information on this report</font></td></tr>
+
+	<tr><td height="4"></td></tr>
+	<tr class="labelit line">
+	    <td width="16"></td>
+		<td width="70%">Memo</td>
+		<td>Officer</td>
+		<td>Date/Time</td>
+		<td align="center"></td>
+	
+	</tr>
+		
+	<cfoutput query="Memo">
+		
+	<cfif url.memoid eq memoid and form.ReportMemo eq "" and SESSION.acc eq OfficerUserId>
+	
+		<tr bgcolor="ffffff">
+		    <td>#currentrow#.</td>
+			<td colspan="4" align="center" style="padding-top:3px">
+			<textarea name="ReportMemo" class="regular" style="padding:3px;font-size:12px;width: 100%;height:100">#reportMemo#</textarea>
+			</td>
+		</tr>
+		
+		<tr>
+		<td colspan="5" align="center" style="padding:2px">
+		    <input type="button" name="Save" id="Save" value="Delete" style="width:100" class="button10g" onclick="ColdFusion.navigate('RecordMemo.cfm?action=del&controlid=#url.ControlId#&memoid=#memoid#','contentbox6','','','POST','entry')">
+			<input type="button" name="Save" id="Save" value="Save" style="width:100" class="button10g" onclick="ColdFusion.navigate('RecordMemo.cfm?action=sav&controlid=#url.ControlId#&memoid=#memoid#','contentbox6','','','POST','entry')">	
+		</td>
+		</tr>
+	
+	<cfelse>
+	
+	    <cfif SESSION.acc eq OfficerUserId>
+		<tr class="navigation_row line">
+		<cfelse>
+		<tr class="navigation_row line">
+		</cfif>
+		    <td class="labelit" style="width:30px;padding-left:4px!important">#currentrow#.</td>
+			<td class="labelit" width="60%" style="padding-left:6px;">#paragraphformat(ReportMemo)#</td>
+			<td class="labelit">#OfficerFirstName# #OfficerLastName#</td>
+			<td class="labelit" width="140">#dateformat(created,CLIENT.DateFormatShow)# #timeformat(created,"HH:MM")#</td>
+			<td class="labelit" align="center" style="padding-left:3px;padding-right:5px">			
+				<cf_img icon="edit" navigation="Yes" onclick="ColdFusion.navigate('RecordMemo.cfm?controlid=#url.controlid#&memoid=#memoid#','contentbox6')">						
+			</td>
+		</tr>		
+			
+	</cfif>
+	
+	</cfoutput>
+	
+	<cfif url.memoid eq "" or Memo.recordcount eq "0">
+	
+		<cf_assignId>
+		<cfset memoid = rowguid>	
+		
+		<tr bgcolor="ffffff">
+		<td style="width:30px;padding-left:4px!important;padding-top:4px" valign="top" class="cenllcontent"><cfoutput>#memo.recordcount+1#.</cfoutput></td>
+		<td colspan="4" align="left" style="padding-top:4px">
+		     <textarea name="ReportMemo" class="regular" style="padding:3px;font-size:12px;width: 94%;height:100"></textarea>
+		</td>
+		</tr>
+		<tr><td colspan="5" align="center" style="padding:2px">
+		    <cfoutput>
+				<input type="button" name="Save" id="Save" value="Add Memo"  style="width:100" class="button10s" onclick="ColdFusion.navigate('RecordMemo.cfm?controlid=#url.controlid#&memoid=#memoid#','contentbox6','','','POST','entry')">
+			</cfoutput>
+		</td></tr>
+
+	</cfif>
+
+</table>
+
+<cfset ajaxonload("doHighlight")>
+
+

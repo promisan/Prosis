@@ -1,0 +1,477 @@
+
+<cf_textareascript>
+
+<cf_screentop height="100%" label="New #url.type#" 
+    option="A #SESSION.welcome# utility" scroll="Yes" line="no" jquery="Yes" banner="blue" layout="webapp" band="No">
+
+<cfoutput>
+	<script>
+	
+	 function noteask(objectid,threadid,ser,mode,box,action,tpe) {
+	   	    ColdFusion.navigate('#SESSION.root#/tools/entityaction/Details/Notes/NoteDelete.cfm?box='+box+'&mode='+mode+'&objectid='+objectid+'&threadid='+threadid+'&serialno='+ser+'&actioncode='+action,'#url.box#') 							
+	  }
+		 
+	</script>
+</cfoutput>
+
+<cfinclude template="../DetailsScript.cfm">
+
+<cfparam name="url.ThreadId" default="">
+<cfparam name="url.to"       default="">
+<cfparam name="url.SeriaLNo" default="">
+<cfparam name="url.type"     default="Notes">
+<cfparam name="url.Mode"     default="regular">
+<cfparam name="url.sitem"    default="">
+
+<cfquery name="Object" 
+datasource="AppsOrganization" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+SELECT     *
+FROM       OrganizationObject
+WHERE      ObjectId = '#URL.ObjectId#'	
+</cfquery>
+
+<cfquery name="Get" 
+datasource="AppsOrganization" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+SELECT     *
+FROM       OrganizationObjectActionMail
+<cfif url.ThreadId neq "">
+	WHERE ThreadId = '#URL.ThreadId#'
+	AND   SerialNo = '#URL.SerialNo#'
+<cfelse>
+	WHERE 1=0
+</cfif>
+</cfquery>
+	
+<cfoutput>	
+
+<cfform name="noteentry" id="noteentry">
+
+<table width="100%" height="100%" align="center" cellspacing="0" cellpadding="0">
+
+<tr><td align="center" style="padding-left:20px;padding-right:20px">
+
+<table width="100%" height="100%" align="center" class="formpadding">
+
+<tr><td height="35" colspan="2" style="padding-left:5px" id="<cfoutput>#url.box#</cfoutput>">
+
+<cfif url.serialNo eq "">
+
+	<cf_tl id="Close" var="1">
+	<cfset tClose = "#Lt_text#">
+	
+	<cfif url.type eq "Mail">
+
+	<cf_tl id="Send" var="1">
+	<cfset tSend = "#Lt_text#">	
+	  <input class="button10g" type="button" name="Update" id="Update" value="#tSend#" onclick="updateTextArea();ColdFusion.navigate('#SESSION.root#/tools/entityaction/Details/Notes/NoteSubmit.cfm?mode=#url.mode#&box=#url.box#&type=#url.type#&actioncode=#url.actionCode#','#url.box#','','','POST','noteentry')">
+	
+	<cfelse>
+	
+	<cf_tl id="Save" var="1">
+	<cfset tSave = "#Lt_text#">		
+	  <input class="button10g" type="button" name="Update" id="Update" value="#tSave#" onclick="updateTextArea();ColdFusion.navigate('#SESSION.root#/tools/entityaction/Details/Notes/NoteSubmit.cfm?mode=#url.mode#&box=#url.box#&type=#url.type#&actioncode=#url.actionCode#','#url.box#','','','POST','noteentry')">
+	
+	</cfif>
+	
+<cfelse>
+
+	
+	<cf_tl id="Delete" var="1">
+	<cfset tDelete = "#Lt_text#">
+
+    <input class="button10g" type="button" name="Delete" id="Delete" value="#tDelete#" onclick="noteask('#url.objectid#','#url.threadid#','#url.serialno#','#url.mode#','#url.box#','#url.actioncode#','#url.type#')">
+	
+	<cf_tl id="Save" var="1">
+	<cfset tSave = "#Lt_text#">
+	
+    <input class="button10g" type="button" name="Update" id="Update" value="#tSave#" onclick="updateTextArea();ColdFusion.navigate('#SESSION.root#/tools/entityaction/Details/Notes/NoteSubmit.cfm?mode=#url.mode#&box=#url.box#&type=#url.type#&actioncode=#url.actionCode#','#url.box#','','','POST','noteentry')">
+		
+</cfif>
+</td>
+
+</tr>
+
+<tr><td colspan="2" class="linedotted"></td></tr>	
+<tr><td height="5"></td></tr>
+   
+<cfif get.recordcount eq "0">
+	<cf_assignid>   
+	<cfset att = rowguid>	
+<cfelse>
+    <cfset att = get.attachmentid> 
+</cfif>	
+   
+<cfoutput>
+	<input type="hidden" name="Mode" id="Mode"              value="#URL.Mode#">
+	<input type="hidden" name="ObjectId" id="ObjectId"      value="#URL.ObjectId#">
+	<input type="hidden" name="ThreadId" id="ThreadId"      value="#URL.ThreadId#">
+	<input type="hidden" name="SerialNo" id="SerialNo"      value="#URL.SerialNo#">
+	<input type="hidden" name="AttachId" id="AttachId"      value="#att#">
+	<input type="hidden" name="EntityCode" id="EntityCode"  value="#Object.EntityCode#">
+</cfoutput>      
+   
+<tr><td height="2"></td></tr>
+
+<cfif url.type eq "mail" or url.type eq "Exchange">
+
+<tr><td class="labelmedium" style="height:24;padding-left:7px"><cf_tl id="Priority">:</td>
+<td style="padding-right:20px">
+<select name="Priority" id="Priority" class="regularxl" style="width:100%" <cfif url.serialno neq "">disabled</cfif>>
+		<option value="1" <cfif "1" eq get.priority>selected</cfif>><cf_tl id="High Priority"></option>
+		<option value="3" <cfif "3" eq get.priority or get.priority eq "">selected</cfif>><cf_tl id="Normal Priority"></option>
+		<option value="5" <cfif "5" eq get.priority>selected</cfif>><cf_tl id="Low Priority"></option>
+</select>
+</td>
+</tr>
+
+ <cfif url.serialno neq "">
+	   <cfset ena = "no">	   
+ <cfelse>
+	   <cfset ena = "yes">
+ </cfif>
+
+<tr><td class="labelmedium" style="height:24;padding-left:7px"><cfif ena eq "yes"><a title="click to select from address book" href="javascript:address()"></cfif><cf_tl id="To">:</a></td>
+
+<td style="padding-right:20px">
+	  
+  <cfif ena eq "yes">
+  
+  		<cfif url.to eq "">
+		   <cfset to = get.MailTo>
+		<cfelse>
+		  <cfset to = url.to>
+		</cfif>
+  		
+		<cfinput type="Text"
+	       name="sendTO"
+		   id="sendTO"
+    	   value="#to#"
+	       message="Please enter a correct to: address"	   
+	       required="Yes"
+    	   visible="Yes"	
+		   maxlength="200"
+    	   class="regularxl"
+	       style="width:100%">
+  
+  <cfelse>
+	
+		 <cfinput type="Text"
+	       name="sendTO"
+		   id="sendTO"
+	       value="#get.MailTo#"
+	       message="Please enter a correct to: address"	   
+	       required="Yes"
+	       visible="Yes"	
+		   disabled		      
+	       maxlength="200"
+	       class="regularxl"
+	       style="width:100%">
+  </cfif>
+  
+</td>
+
+</tr>
+
+<tr><td class="labelmedium" style="height:24;padding-left:7px"><cfif ena eq "yes"><a title="click to select from address book" href="javascript:address()"></cfif>Cc:</a></td>
+<td style="padding-right:20px">
+  <cfinput type="Text"
+       name="sendCC"
+	   id="sendCC"
+       value="#get.MailCC#"
+       message="Please enter a correct to: address"
+       required="No"
+       visible="Yes"
+	   maxlength="200"
+       class="regularxl"
+       style="width:100%">
+</td>
+</tr>
+
+<tr><td class="labelmedium" style="height:24;padding-left:7px"><cfif ena eq "yes"><a title="click to select from address book" href="javascript:address()"></cfif>Bcc:</a></td>
+<td style="padding-right:20px">
+  <cfinput type="Text"
+       name="sendBCC"
+	   id="sendBCC"	   
+       message="Please enter a correct to: address"
+       required="No"
+       visible="Yes"
+       maxlength="200"
+       class="regularxl"
+       style="width:100%">
+</td>
+</tr>
+
+<input type="Hidden"
+       name="MailDate"
+	   id="MailDate"
+       value="#dateformat(now(),CLIENT.DateFormatShow)#">
+
+<cfelse>
+
+<tr>
+   <td class="labelmedium" style="height:24;padding-left:7px" width="120">Date:</td>
+   <td width="420" style="padding-right:20px">
+   <cfif url.serialno eq "">
+   
+		 <cf_intelliCalendarDate9
+			FieldName="MailDate" 
+			Default="#dateformat(now(),CLIENT.DateFormatShow)#"
+			AllowBlank="False"
+			Class="regularxl">	
+					
+   <cfelse>
+  
+			 <cf_intelliCalendarDate9
+			FieldName="MailDate" 
+			Default="#dateformat(get.MailDate,CLIENT.DateFormatShow)#"
+			AllowBlank="False"
+			Class="regularxl">	
+   
+   </cfif>						
+   </td>
+</tr>	
+
+</cfif>
+
+<tr><td class="labelmedium" style="height:24;padding-left:7px">Step:</td> 
+
+<cfif url.actioncode neq "" and url.actioncode neq "undefined">
+
+	<cfquery name="Current" 
+	datasource="AppsOrganization"
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	SELECT   ActionCode 
+    FROM     OrganizationObjectAction 
+    WHERE    ObjectId = '#ObjectId#'
+	AND      ActionCode = '#URL.actionCode#'	
+   </cfquery>	
+
+	<cfquery name="Step" 
+	datasource="AppsOrganization"
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	SELECT DISTINCT O.EntityCode, R.ActionDescription, R.ActionCode, R.ActionOrder
+	FROM      Ref_EntityActionPublish R INNER JOIN
+              OrganizationObject O ON R.ActionPublishNo = O.ActionPublishNo
+	WHERE     (O.ObjectId = '#ObjectId#')
+	AND       R.ActionCode = '#URL.actionCode#'	
+	</cfquery>	
+	
+<cfelse>
+	
+	<cfquery name="Current" 
+		datasource="AppsOrganization"
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		SELECT   ActionCode 
+	    FROM     OrganizationObjectAction 
+	    WHERE    ObjectId = '#URL.ObjectId#'
+		AND      ActionStatus = '0'
+		ORDER BY ActionFlowOrder 
+	</cfquery>	
+	
+	<cfquery name="Step" 
+		datasource="AppsOrganization"
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		SELECT DISTINCT O.EntityCode, R.ActionDescription, R.ActionCode, R.ActionOrder
+		FROM         Ref_EntityActionPublish R INNER JOIN
+	                 OrganizationObject O ON R.ActionPublishNo = O.ActionPublishNo
+		WHERE     (O.ObjectId = '#URL.ObjectId#')
+		AND        (R.ActionCode IN (SELECT ActionCode 
+		                             FROM   OrganizationObjectAction 
+								     WHERE  ObjectId = '#URL.ObjectId#'
+								     AND    ActionStatus >= '2') 
+									 
+								  OR R.ActionCode = '#current.actionCode#')
+		ORDER BY R.ActionOrder 
+	</cfquery>	
+	
+</cfif>
+<td style="padding-right:20px">
+	<cfif get.actionCode eq "">
+
+    <select name="ActionCode" id="ActionCode" class="regularxl" style="width:100%;">
+		<cfloop query="step">
+		<option value="#actionCode#" <cfif actioncode eq current.actioncode>selected</cfif>>#ActionDescription#</option>
+		</cfloop>
+    </select>
+	
+	<cfelse>
+	
+	 <select name="ActionCode" id="ActionCode" class="regularxl" style="width:100%;">
+		<cfloop query="step">
+		<option value="#actionCode#" <cfif actioncode eq get.actioncode>selected</cfif>>#ActionDescription#</option>
+		</cfloop>
+    </select>
+	
+	</cfif>
+	
+</td>
+
+<cfquery name="Group" 
+		datasource="AppsOrganization"
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		SELECT    L.DocumentItem, L.DocumentItemName, L.DocumentId
+		FROM      Ref_EntityDocument R INNER JOIN
+	              Ref_EntityDocumentItem L ON R.DocumentId = L.DocumentId
+		WHERE     R.DocumentMode = 'Notes'
+		AND       R.EntityCode = '#Step.EntityCode#'
+
+		ORDER BY L.ListingOrder
+	</cfquery>	 
+	
+<cfif group.recordcount gte "1">
+
+<tr>
+	<td class="labelmedium" style="height:24;padding-left:7px">Classification:</td>
+	
+	<input type="hidden" name="DocumentId" id="DocumentId" value="#Group.DocumentId#">	
+	<td style="padding-right:20px">
+	
+		<select name="DocumentItem" id="DocumentItem" style="width:100%;" class="regularxl">
+			<cfloop query="group">
+				<option value="#documentitem#" <cfif documentitem eq get.documentitem or documentitem eq url.sitem>selected</cfif>>#DocumentItemName#</option>
+			</cfloop>
+	    </select>
+		
+	</td>
+</tr>
+
+</cfif>	
+
+<tr>
+   <td class="labelmedium" style="height:24;padding-left:7px" width="120"><cf_tl id="Subject">:</td>
+   <td width="80%" style="padding-right:20px">
+   
+   <cfif url.ThreadId neq "" and url.serialNo eq "">
+		   
+		<cfquery name="Prior" 
+		datasource="AppsOrganization" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		SELECT     *
+		FROM       OrganizationObjectActionMail
+		WHERE ThreadId = '#URL.ThreadId#'		
+		</cfquery>
+		
+		<cfinput type="Text" 
+	    name="MailSubject" 
+		required="Yes" 
+		style="width:100%"
+		MaxLength="200"
+		value="re:#prior.MailSubject#"
+		visible="Yes" 
+		message="Please enter a subject" 
+		enabled="Yes" 
+		class="regularxl"
+		showautosuggestloadingicon="True" 
+		typeahead="No">
+		
+	<cfelse>	
+	
+		<cfinput type="Text" 
+	    name="MailSubject" 
+		required="Yes" 
+		style="width:100%"
+		MaxLength="200"
+		value="#get.MailSubject#"
+		visible="Yes" 
+		message="Please enter a subject" 
+		enabled="Yes" 
+		class="regularxl"
+		showautosuggestloadingicon="True" 
+		typeahead="No">
+		
+	</cfif>	
+   				
+   </td>
+</tr>	
+
+
+<tr>
+   <td class="labelmedium" style="height:24;padding-left:7px" width="120"><cf_tl id="Attach">:</td>
+   <td width="80%" id="#att#" style="padding-right:20px">
+   
+   <cfif url.serialno eq "" or SESSION.isAdministrator eq "Yes">
+
+		<cf_filelibraryN
+				DocumentPath="#Object.EntityCode#"
+				SubDirectory="#att#" 
+				Filter=""				
+				Width="100%"
+				Box = "#att#"
+				Insert="yes"
+				Remove="yes">	
+				
+	<cfelse>
+	
+		<cf_filelibraryN
+				DocumentPath="#Object.EntityCode#"
+				SubDirectory="#att#" 
+				Filter=""				
+				Width="100%"
+				Box = "#att#"
+				Insert="no"
+				Remove="no">	
+			
+	</cfif>	
+					
+	</td>
+</tr>			
+
+<tr><td height="5"></td></tr>
+<tr><td colspan="2" class="linedotted"></td></tr>	
+<tr><td height="5"></td></tr>
+
+<tr>
+  <td valign="top" colspan="2" height="100%">
+  
+	  <cfif url.type eq "Exchange">#Get.MailBody# <cfelse>			
+	  
+	  <table width="100%" height="100%" cellspacing="0" cellpadding="0">
+	  
+	   <tr><td bgcolor="white" valign="top">
+	   
+		   <cfif url.type eq "notes">
+	        
+	        <cf_textarea name="MailBody"	           				
+				 init="Yes"			
+				 color="ffffff"	 
+				 toolbar="Basic" height="355">#Get.MailBody#</cf_textarea>
+				 
+			<cfelse>
+			
+			 <cf_textarea name="MailBody"	           				
+				 init="Yes"		
+				 color="ffffff"		 
+				 toolbar="Basic" height="260">#Get.MailBody#</cf_textarea>			
+			
+			</cfif>	 
+					
+		</td></tr>
+		
+	   </table>
+		
+	   </cfif>
+   			 
+  </td>
+</tr>		
+   
+</table>
+</td></tr>
+</table>
+
+</cfform>
+
+</cfoutput>
+
+<cf_screenbottom layout="webapp">
+
+<cfset ajaxonload("initTextArea")>

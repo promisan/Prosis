@@ -1,0 +1,408 @@
+
+<cfparam name="url.referenceid" default="">
+<cfparam name="URL.IDSorting" default="ReferenceNo">
+<cfparam name="getTotal.records"         default="0">
+<cfparam name="searchresult.recordcount" default="#getTotal.records#">
+
+<table width="100%" height="100%" cellspacing="0" cellpadding="0">
+
+<tr>
+
+	<td valign="top">
+	
+	<table width="100%" height="100%" align="center" cellspacing="0" cellpadding="0">
+	    
+		  <tr style="height:20px" class="noprint line">
+		  
+		   <td style="padding-left:8px" class="labellarge clsNoPrint">
+	
+		    <cfif url.journal neq "">
+			
+			  	<table>											
+					<tr><td><cfinclude template="JournalTopMenu.cfm"></td></tr>						
+				</table>
+			
+			<cfelse>
+			
+				<cf_tl id="Status of Submitted Invoices">
+			
+			</cfif>
+				
+		  </td> 
+		  
+		  <td align="right" style="padding-right:6px">
+		  
+		   <cfquery name="Batch"
+			datasource="AppsLedger" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				SELECT   *
+				FROM     JournalBatch
+				WHERE    Journal = '#URL.Journal#' 	
+				AND      JournalBatchNo IN (SELECT JournalBatchNo 
+				                            FROM   TransactionHeader 
+											WHERE  Journal = '#URL.Journal#'
+											AND    AccountPeriod = '#URL.Period#')
+			</cfquery>	
+			
+			<table>
+			<tr>			
+			<td>
+					
+			<cfif Batch.recordcount gte "1">
+			
+				<select name="journalbatchno" id="journalbatchno" style="font-size:15px;height:27px;font-weight:300" 
+				class="regularxl" onchange="reloadForm(page.value,document.getElementById('idstatus').value)">
+				<option value=""><cf_tl id="All Batch periods"></option>
+				<cfoutput query="Batch">
+					<option value="#journalbatchno#" <cfif url.journalbatchno eq journalbatchno>selected</cfif>>#journalbatchno#</option>
+				</cfoutput>
+				</select>
+			
+			<cfelse>
+			
+				<input type="hidden" name="journalbatchno" id="journalbatchno"  value="">
+			
+			</cfif>
+			
+			</td>
+			  
+			   <cfquery name="Month"
+				datasource="AppsLedger" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					SELECT   DISTINCT MONTH(T.TransactionDate) AS Month
+					FROM     TransactionHeader T
+					WHERE    T.Journal       = '#URL.Journal#' 
+					AND      T.AccountPeriod = '#URL.Period#'
+					ORDER BY MONTH(T.TransactionDate)
+				</cfquery>
+			
+			<td>
+			
+			<cfdiv bind="url:#session.root#/gledger/application/transaction/setMonth.cfm?journal=#url.journal#&period={period}">
+						
+			</td>
+			
+			<td>
+			
+			<select name="period" id="period"
+			    size="1" style="font-size:15px;height:27px;"
+				class="regularxl"
+				onChange="reloadForm(page.value,document.getElementById('idstatus').value)">
+			    <cfoutput query="Period">
+				<option value="#AccountPeriod#" <cfif AccountPeriod is URL.Period>selected</cfif>>#AccountPeriod#</option>
+				</cfoutput>
+		    </select>
+			
+			</td>
+			
+			<td style="padding-right:10px">
+			
+				<cf_button2 
+					type		= "Print"
+					text        = "" 
+					id          = "Print"		
+					mode        = "icon"	
+					width       = "20px"												
+					height		= "28px"
+					imageheight = "25px"
+					printTitle	= "##printTitle"
+					printContent= ".clsPrintContent">
+			
+			</td>
+			
+			</tr>
+			</table>
+		 </td>
+			
+		 </tr> 
+		 		  
+		 <tr class="line" style="height:20px">
+		 
+		    <td style="padding-left:4px;padding-right:20px">
+			
+			<table>
+			<tr>				
+			
+			<td style="padding-left:3px;padding-right:20px;">
+			
+					<table>
+					<tr>			
+					<td width="4" style="height:28px;padding-left:4px"></td>
+					<td  style="border-left:1px solid silver;border-right:1px solid silver;background-color:f3f3f3">
+					
+						<input type = "text" 
+						   name     = "filtersearch" 
+						   id       = "filtersearch"
+						   style    = "width:150;border:0px;background-color:transparent"
+						   class    = "regularxl" 
+						   onKeyUp  = "search(event)"
+						   value    = "<cfoutput>#url.find#</cfoutput>">
+						   
+					   </td>
+					  
+					   <td style="border-left:1px solid silver;border-right:1px solid silver">
+					   				   
+						<cfoutput>
+						  
+						    <img src="#client.root#/Images/search.png" id="locate"
+							     style="cursor:pointer;height:25;width:25;" 
+							     alt="" 
+								 border="0" 
+								 align="absmiddle" 
+								 onclick="reloadForm(page.value,document.getElementById('idstatus').value)">
+							
+						</cfoutput>
+					  </td>  							 
+					  
+				   </tr>
+				   </table>
+						   
+			</td>
+			
+			<cfif url.journal eq "">
+			
+				<td>	
+				
+					<table>
+					<tr class="labelmedium">
+					<td  style="cursor: pointer;" onclick="reloadForm(document.getElementById('page').value,'Outstanding')">  					
+					<input type="radio" style="height:18px;width:18px" class="radiol" name="Status" value="Outstanding" <cfif URL.IDStatus eq "Outstanding">checked</cfif>>
+					</td>
+					<td style="padding-left:3px;padding-right:10px">
+					<cf_tl id="Outstanding">
+					</td>
+					<td style="padding-left:4px;cursor: pointer;" onclick="reloadForm(document.getElementById('page').value,'Voided')">
+					<input type="radio" style="height:18px;width:18px" class="radiol" name="Status" value="Voided" <cfif URL.IDStatus eq "Voided">Checked</cfif>>
+					</td>
+					<td style="padding-left:3px;padding-right:10px">
+					<font color="FF0000"><cf_tl id="Voided"></font>	
+					</td>
+					<td style="padding-left:4px;cursor: pointer;" onclick="reloadForm(document.getElementById('page').value,'All')">
+					<input type="radio" style="height:18px;width:18px" class="radiol" name="Status" value="All" <cfif URL.IDStatus neq "Outstanding" and URL.IDStatus neq "Voided">Checked</cfif>>
+					</td>
+					<td style="padding-left:3px;padding-right:10px">
+					<cf_tl id="All">	
+					</td>
+					
+					</tr>
+					</table>
+				
+				</td>	
+			
+			<cfelse>
+					
+				<cfif Journal.TransactionCategory is "Payables" or
+				      Journal.TransactionCategory is "Memorial" or 
+				      Journal.TransactionCategory is "DirectPayment" or 
+					  Journal.TransactionCategory is "Advances" or 
+					  Journal.TransactionCategory is "Receivables" or Journal.TransactionCategory is "Payment" or Journal.TransactionCategory is "Banking">
+					  
+					<td>	
+									
+					<table cellspacing="0" cellpadding="0" class="formpadding">
+					
+						<tr class="labelmedium">
+						
+						<td style="padding-left:4px;cursor: pointer;" onclick="reloadForm(document.getElementById('page').value,'All')">
+						<input type="radio" style="height:18px;width:18px" class="radiol" name="Status" value="All" <cfif URL.IDStatus eq "All" or URL.IDStatus eq "">Checked</cfif>>
+						</td>
+						<td style="padding-left:5px;padding-right:10px">
+						<cf_tl id="All Valid">
+						</td>
+						
+						<td style="padding-left:7px;cursor: pointer;" onclick="reloadForm(document.getElementById('page').value,'Pending')">  				
+						<input type="radio" style="height:18px;width:18px" class="radiol" name="Status" value="Pending" <cfif URL.IDStatus eq "Pending">checked</cfif>>
+						</td>
+						<td style="padding-left:5px;padding-right:10px">
+						<cf_tl id="Pending">
+						</td>
+						
+						<cfif Journal.TransactionCategory neq "Memorial">
+						
+						<td style="padding-left:7px;cursor: pointer;" onclick="reloadForm(document.getElementById('page').value,'Outstanding')">  				
+						<input type="radio" style="height:18px;width:18px" class="radiol" name="Status" value="Outstanding" <cfif URL.IDStatus eq "Outstanding">checked</cfif>>
+						</td>
+						<td style="padding-left:5px;padding-right:10px">
+						<cf_tl id="Offset">
+						</td>
+						
+						</cfif>
+						
+						<td style="padding-left:7px;cursor: pointer;" onclick="reloadForm(document.getElementById('page').value,'Voided')">
+						<input type="radio" style="height:18px;width:18px" class="radiol" class="radiol" name="Status" value="Voided" <cfif URL.IDStatus eq "Voided">Checked</cfif>>
+						</td>
+						<td style="padding-left:5px;padding-right:10px"><font color="FF0000"><cf_tl id="Voided"></font></td>
+						
+						</tr>
+					
+					</table>
+					
+					</td>	
+				
+				</cfif>	
+				
+			</cfif>	
+				
+			</tr>
+			</table>  
+		  
+		  </td>
+		  
+		  <td align="right" style="padding-right:10px">
+		  
+			  <select name="group" id="group" 
+			         class="regularxl" 
+					 onChange="reloadForm(document.getElementById('page').value,document.getElementById('idstatus').value)">
+					 
+				     <cfif url.journal eq "">
+			    	 <option value="Journal" <cfif URL.IDSorting eq "Journal">selected</cfif>><cf_tl id="Journal">
+					 </cfif>
+					 <OPTION value="ReferenceNo" <cfif URL.IDSorting eq "ReferenceNo">selected</cfif>><cf_tl id="Source Document">		    
+				     <OPTION value="ReferenceName" <cfif URL.IDSorting eq "ReferenceName">selected</cfif>><cf_tl id="Reference">
+				     <OPTION value="TransactionDate" <cfif URL.IDSorting eq "TransactionDate">selected</cfif>><cf_tl id="TransactionDate">
+					 <OPTION value="DocumentDate" <cfif URL.IDSorting eq "DocumentDate">selected</cfif>><cf_tl id="DocumentDate">
+					 
+			  </select> 	
+			  
+			  
+			  <!--- can be removed  
+			 
+			  <cfif pages eq "1">
+			   
+		    	     <input type="hidden" id="page" name="page" value="1">
+					 
+			  <cfelse>
+			   
+					<select name="page"  id="page" size="1" class="regularxl" onChange="reloadForm(document.getElementById('group').value,this.value,document.getElementById('period').value,'<cfoutput>#URL.IDStatus#</cfoutput>',document.getElementById('filtersearch').value)">
+					    <cfloop index="Item" from="1" to="#pages#" step="1">
+							<cf_tl id="Page" var="1">
+							<cfset vPage=#lt_text#>
+							
+							<cf_tl id="of" var="1">
+							<cfset vOf=#lt_text#>
+							
+					        <cfoutput><option value="#Item#"<cfif URL.page eq "#Item#">selected</cfif>>#vPage# #Item# #vOf# #pages#</option></cfoutput>
+					    </cfloop>	 
+					</SELECT>
+				
+				</cfif>  
+								
+				--->	
+		
+		  </td>
+		  
+		</tr> 	
+					
+		
+	
+	
+	
+		<td colspan="2" valign="top" style="height:10">
+					
+			  <table width="98%" align="center" class="navigation_table">
+		
+				  <tr style="height:10px" class="labelmedium line">
+				  
+				     <td style="min-width:70" align="left">
+				  	  				 
+					       <table>
+						   <tr>
+					 								
+							<!--- capture the screen result to allow for identical excel export --->
+																												   		    
+						    <cfinvoke component="Service.Analysis.CrossTab"  
+								  method      		= "ShowInquiry"					 		
+								  ButtonWidth 		= "90px" 
+								  ButtonHeight 		= "29px" 		
+								  buttonclass       = "td"				  		 					 							  					 					 					  
+								  buttonText  		= ".xls"						 
+								  reportPath  		= "GLedger\Application\Transaction\"
+								  SQLtemplate 		= "JournalListingExcel.cfm"
+								  querystring 		= "journal=#url.journal#"
+								  selectedId  		= "#preserveSingleQuotes(querystatement)#"
+								  dataSource  		= "appsQuery" 
+								  module     		= "Accounting"						  
+								  reportName  		= "Execution Report"
+								  table1Name  		= "Journal Transaction Document"		
+								  table2Name  		= "Journal Transaction Lines"						 		
+								  data        		= "1"
+								  ajax        		= "0"				 
+								  olap        		= "0" 
+								  excel       		= "1"> 	
+								  
+							</tr>
+							</table>	 	
+											
+				    </td>
+					
+					<td colspan="2" style="min-width:250"><cf_tl id="Reference"></td>
+					<td style="min-width:95"><cf_tl id="Batch"></TD>
+					<td style="min-width:95"><cf_tl id="Document"></TD>		
+					<td style="min-width:95"><cf_tl id="Series"></TD>
+					<td style="width:100%" colspan="2"><cf_tl id="Description"></TD>	
+					<td style="min-width:95"><cf_tl id="Posted"></TD>
+				    <td style="min-width:30" align="center"><cf_tl id="Curr"></TD>							
+					<cfif outst eq "1">			
+						<td style="min-width:120" align="right"><cf_tl id="Amount"></td>
+						<td style="min-width:120" align="right"><cf_tl id="Outstanding"></td>			
+						<cfset col = 9>			
+					<cfelse>			
+					    <td style="min-width:120" align="right"><cf_tl id="Document"></td>
+						<cfif journal.glaccount gte "1" and Journal.TransactionCategory neq "Memorial">
+							<td style="min-width:120" align="right"><cf_tl id="Debit"></td>
+							<td style="min-width:120" align="right"><cf_tl id="Credit"></td>
+							<cfset col = 11>
+						<cfelse>
+							<cfset col = 9>
+						</cfif>				
+					</cfif>				
+					<td><cf_space spaces="10"></td>								
+					</tr>
+					
+					<cfoutput>
+			
+				</tr>
+							  
+				<tr class="line labelmedium" style="background-color:f3f3f3">  
+				  
+				   <td colspan="10" height="24" style="font-size:14px;padding-left:20px"><cf_tl id="Journal totals">:</td> 				   
+				   <cfif outst eq "1">			   	   				
+					   	<td align="right" class="clsSearchField" style="min-width:100px;padding-right:3px">#NumberFormat(getTotal.Amount,',.__')#</td>	
+					    <td align="right" class="clsSearchField" style="min-width:100px;padding-right:3px">#NumberFormat(getTotal.AmountOutstanding,',.__')#</td>			
+				   <cfelse>	 		   			     	   
+				   	    <td class="clsSearchField" style="min-width:100px;padding-right:3px" align="right">#NumberFormat(getTotal.Amount,',.__')#</td>	
+			 	   		<cfif journal.glaccount gte "1" and Journal.TransactionCategory neq "Memorial">
+			   			<td class="clsSearchField" style="min-width:100px;padding-right:3px" align="right">#NumberFormat(getTotal.AmountTriggerDebit,',.__')#</td>	
+						<td class="clsSearchField" style="min-width:100px;padding-right:3px" align="right">#NumberFormat(getTotal.AmountTriggerCredit,',.__')#</td>	
+						</cfif>		   								
+				   </cfif>
+				   <td style="min-width:40px"></td>			   
+				</tr>
+						  
+				</cfoutput>	
+					 
+				</table>
+			
+			</td>		 
+	
+		</TR>
+		
+		<!--- content --->	
+					
+		<tr class="line">
+		
+			<td colspan="2" class="clsPrintContent" id="journalcontent" valign="top" style="min-width:1200px;height:100%">		
+				<cfinclude template="JournalListingDetail.cfm">											
+			</td>		
+		
+		</tr>					
+	
+	
+	</TABLE>
+	
+	</td>
+	</tr>
+
+</table>

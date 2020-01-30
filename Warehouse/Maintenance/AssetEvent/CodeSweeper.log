@@ -1,0 +1,6 @@
+Invalid character (&) encountered while parsing (tag "CFSET" with attributes vCat=, ). 
+Invalid character (&) encountered while parsing (tag "CFSET" with attributes vCat=vCate). 
+Invalid quoted string 'function()doHighlight' encountered while parsing (tag "CFSET" with attributes). 
+Invalid quoted string 'function() {doHighlight' encountered while parsing (tag "CFSET" with attributes). 
+Invalid quoted string 'function() { doHighlight();' encountered while parsing (tag "CFSET" with attributes). 
+Invalid quoted string 'function() { doHighlight(); }' encountered while parsing (tag "CFSET" with attributes). 

@@ -1,0 +1,196 @@
+P.SatMemo {
+	font-family : Arial; 
+	font-size : 12pt; 
+	text-justify: inter-word; 
+	margin: 0.0in 0.0in 0pt; 
+	text-align: justify;
+}
+
+P.SatMemoCenter {
+	font-family : Arial; 
+	font-size : 12pt; 
+	margin: 0.0in 0.0in 0pt; 
+	text-align: center;
+}
+
+P.SatMemoLeft {
+	font-family : Arial; 
+	font-size : 12pt; 
+	text-justify: inter-word; 
+	margin: 0.0in 0.0in 0pt; 
+	text-align: left;
+}
+
+P.SatMemoRight {
+	font-family : Arial; 
+	font-size : 12pt; 
+	margin: 0.0in 0.0in 0pt; 
+	text-align: right;
+}
+
+P.SatMemoBIG {
+	font-family : Arial; 
+	font-size : 14pt; 
+	text-justify: inter-word; 
+	margin: 0.0in 0.0in 0pt; 
+	text-align: justify;
+}
+
+P.SatMemoCenterBIG {
+	font-family : Arial; 
+	font-size : 14pt; 
+	margin: 0.0in 0.0in 0pt; 
+	text-align: center;
+}
+
+P.SatMemoLeftBIG {
+	font-family : Arial; 
+	font-size : 14pt; 
+	text-justify: inter-word; 
+	margin: 0.0in 0.0in 0pt; 
+	text-align: left;
+}
+
+P.SatMemoRightBIG {
+	font-family : Arial; 
+	font-size : 14pt; 
+	margin: 0.0in 0.0in 0pt; 
+	text-align: right;
+}
+
+P.SatMemoCenterSM {
+	font-family : Arial; 
+	font-size : 10pt; 
+	margin: 0.0in 0.0in 0pt; 
+	text-align: center;
+}
+
+P.SatMemoLeftSM {
+	font-family : Arial; 
+	font-size : 10pt; 
+	text-justify: inter-word; 
+	margin: 0.0in 0.0in 0pt; 
+	text-align: left;
+}
+
+P.SatMemoRightSM {
+	font-family : Arial; 
+	font-size : 10pt; 
+	margin: 0.0in 0.0in 0pt; 
+	text-align: right;
+}
+
+P.SatActa {
+	font-family : Arial; 
+	font-size : 12pt; 
+	line-height: 2;
+	text-justify: inter-word; 
+	margin: 0.0in 0.0in 0pt; 
+	text-align: justify;
+}
+
+P.SatActaCenter {
+	font-family : Arial; 
+	font-size : 12pt; 
+	line-height: 2;
+	margin: 0.0in 0.0in 0pt; 
+	text-align: center;
+}
+
+P.SatActaLeft {
+	font-family : Arial; 
+	font-size : 12pt; 
+	line-height: 2;
+	text-justify: inter-word; 
+	margin: 0.0in 0.0in 0pt; 
+	text-align: left;
+}
+
+P.SatActaRight {
+	font-family : Arial; 
+	font-size : 12pt; 
+	line-height: 2;
+	margin: 0.0in 0.0in 0pt; 
+	text-align: right;
+}
+
+P.SatActaBIG {
+	font-family : Arial; 
+	font-size : 13pt; 
+	line-height: 2;
+	text-justify: inter-word; 
+	margin: 0.0in 0.0in 0pt; 
+	text-align: justify;
+}
+
+P.SatActaCenterBIG {
+	font-family : Arial; 
+	font-size : 13pt; 
+	line-height: 2;
+	margin: 0.0in 0.0in 0pt; 
+	text-align: center;
+}
+
+P.SatActaLeftBIG {
+	font-family : Arial; 
+	font-size : 13pt; 
+	line-height: 2;
+	text-justify: inter-word; 
+	margin: 0.0in 0.0in 0pt; 
+	text-align: left;
+}
+
+P.SatActaRightBIG {
+	font-family : Arial; 
+	font-size : 13pt; 
+	line-height: 2;
+	margin: 0.0in 0.0in 0pt; 
+	text-align: right;
+}
+
+TD.Satlabel {
+	font-family : tahoma; 
+	border : 1px; 	
+	font-size : 14pt; 	
+	background  : 000000; 	
+	color : white; 
+	}
+	
+TD.Cuadro {
+	font-family : tahoma; 
+	font-size : 12pt; 	
+	}
+
+TD.firma {
+	font-family : Arial; 
+	font-size : 12pt; 	
+	}
+
+BODY {
+	font-family : Times New Roman;
+	scrollbar-base-color : e4e4e4;
+	scrollbar-shadow-color : e4e4e4;
+	scrollbar-track-color : f4f4f4;
+} 
+	 
+BODY.main {
+	margin-bottom : 12px;
+	margin-left : 10px;
+	margin-right : 7px;
+	margin-top : 12px;
+} 	 
+
+BODY.dialog {
+	margin-bottom : 0px;
+	margin-left : 0px;
+	margin-right : 0px;
+	margin-top : 0px;
+} 	
+
+BODY.dialog2 {
+	margin-bottom : 2px;
+	margin-left : 5px;
+	margin-right : 4px;
+	margin-top : 4px;
+} 	  
+

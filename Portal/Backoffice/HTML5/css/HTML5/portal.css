@@ -1,0 +1,897 @@
+/************* General document *************/
+html {
+	overflow:						hidden;
+}
+
+html, body, .clsCarousel, .clsCarousel ul, .clsCarousel li, .clsDataContainer, .clsDataContainerFrame, .clsIframeContent, .clsIframeMainContent, .clsSplashContainer  {
+	height:							100%;
+	width:							100%;
+	margin:							0 auto;
+	padding:						0px;
+	text-rendering: 				optimizeLegibility;
+}
+
+body { 
+	font-family:					-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif,"Raleway",sans-serif;
+	font-size:						13px;
+}
+
+/************* Header *************/
+.clsHeader {
+	position:						fixed;
+	top:							0px;
+	left:							0px;
+	z-index:						10;
+	height:							45px;
+	width:							100%;
+}
+
+.clsHeaderLeftContainer {
+	position:						fixed;
+	top:							0px;
+	left:							0px;
+	height:							45px;
+	z-index:						10;
+}
+
+.clsHeaderLeftContainerWrapper {
+	height:							100%;
+}
+
+.clsHeaderLogoImage {
+	float:							left;
+	height:							100%;
+	padding-left:						2px;
+	padding-top:						6px;
+	padding-left: 						10px;
+	cursor:							pointer;
+	outline:						1px solid transparent; /*SIT Chrome Rendering Anti Alias Fix*/
+}
+
+.clsHeaderLogoImage img{
+	width:							auto;
+  	height:							60px;
+}
+
+.clsHeaderInformation {
+	position:						fixed;
+	top:							70px;
+	width:							100%;
+	max-height:						75%;
+	color:							#FFFFFF;
+	background-color:				rgba(0, 0, 0, 0.75);
+	font-size:						15px;
+	display:						none;
+	overflow:						auto;
+	padding-bottom:					10px;
+}
+
+.clsHeaderInformationText {
+	color:							#FFFFFF;
+	padding:						10px;
+}
+
+.clsHeaderInformationText td {
+	color:							#FFFFFF;
+}
+
+.clsHeaderInformationTextLeft {
+	color:							#FFFFFF;
+	float:							left;
+	width:							50%;
+}
+
+.clsHeaderInformationTextRight {
+	color:							#FFFFFF;
+	float:							left;
+	width:							50%;
+}
+
+.clsHeaderOptionsContainer {
+	position:						fixed;
+	top:							0px;
+	left:							0px;
+	height:							45px;
+	width:							100%;
+	text-align:						right;
+	z-index:						1;
+}
+
+/************* Header Menu *************/
+.clsMainMenuContainer {
+	height:							100%;
+	display:						inline-block;
+	padding: 						2px 8px 0 0;
+	text-align:						center;
+	cursor:							pointer;
+}
+
+.clsMainMenuContainer img {
+	height:							30px;
+  	width:							30px;
+	outline:						1px solid transparent; /*SIT Chrome Rendering Anti Alias Fix*/
+}
+
+.clsMainMenuContainerText {
+	color:							#FFFFFF;
+	font-size:						8.5px;
+	max-height:						12px;
+ 	margin-top: 					-4px;
+	padding-top:					4px;
+}
+
+.clsMainMenuOverlay {
+	position:						fixed;
+    width:							100%;
+    height:							100%;
+	top:							0px;
+	left:							0px;
+	overflow:						auto;
+	margin:							0px;
+	
+	background-color:				rgba(0, 0, 0, 0.75);
+    z-index:						100;
+	-webkit-tap-highlight-color:	rgba(255, 255, 255, 0);
+	
+  	-webkit-backface-visibility: 	hidden;
+	
+	-ms-transform-style: 			preserve-3d;
+    -webkit-transform-style: 		preserve-3d;
+	-moz-transform-style: 			preserve-3d;
+	-o-transform-style: 			preserve-3d;
+	transform-style: 				preserve-3d;
+	
+	-ms-transition:					all 0.5s;
+	-webkit-transition: 			all 0.5s;
+    -moz-transition:				all 0.5s;
+    -o-transition: 					all 0.5s;
+    transition: 					all 0.5s;
+}
+
+#MainMenuWait {
+	z-index:						500;
+}
+
+#MainMenu {
+	max-width: 						500px;
+}
+
+.clsMainMenuOverlayContainer {
+	width:							100%;
+    height:							100%;
+}
+
+.clsMainMenuOverlayClose {
+	text-align:						right;
+}
+
+.clsMainMenuOverlayClose img {
+  cursor: pointer;
+  height: 28px;
+  padding-right: 9px;
+  padding-top: 7px;
+  visibility: hidden;
+}
+
+.clsMainMenuOverlayItemContainer {
+	margin-left:					40%;
+	height:							85%;
+	width:							60%;
+	overflow-x: 					hidden;
+}
+
+.clsMainMenuOverlayOptionContainer {
+	padding-top: 7px;
+}
+
+.clsMainMenuOverlayItemContainerFull {
+	margin-left:					0;
+	width:							100%;
+}
+
+.clsMainMenuOverlayItem {
+	width:							400px;
+	max-width:						100%;
+	min-width:						350px;
+	
+	display: 						inline-block;
+	color:							#FFFFFF;
+	padding-right:					20px;
+	
+	cursor:							pointer;
+	
+	-ms-transition:					all 1s;
+	-webkit-transition: 			all 1s;
+    -moz-transition:				all 1s;
+    -o-transition: 					all 1s;
+    transition: 					all 1s;
+}
+
+.clsMainMenuOverlayOptions {
+	height:							95%;
+	min-height:						500px; 
+	width:							96%; 
+	margin:							2%;
+	overflow:						hidden;
+	background-color:				#FFFFFF;/*rgba(255, 255, 255, 0.9);*/
+	-moz-border-radius:				12px;
+    -webkit-border-radius: 			12px;
+    -khtml-border-radius: 			12px;
+    border-radius: 					12px;
+}
+
+.clsMainMenuOverlayOptionsLanguage {
+	height:							3%; 
+	padding-top:					10px; 
+	padding-bottom:					10px; 
+	padding-left:					25px;
+	padding-right:					25px;
+}
+
+.clsMainMenuOverlayItemSelected, .clsMainMenuOverlayItem:hover {
+	background-color:				#555555;
+}
+
+.clsMainMenuOverlayItemNotSelected {
+	background-color:				"";
+	border-style:					none;
+}
+
+.clsMainMenuOverlayItemSelectedBar {
+	padding-right:					5px;
+	width:							0px; 
+	background-color:				"";
+	-ms-transition:					all 0.5s;
+	-webkit-transition: 			all 0.5s;
+    -moz-transition:				all 0.5s;
+    -o-transition: 					all 0.5s;
+    transition: 					all 0.5s;
+}
+
+.clsMainMenuOverlayItemSelectedBar-NotSelected, .clsMainMenuOverlayItemSelectedBar-MouseOut {
+	background-color:				"";
+	width:							0px;
+}
+
+.clsMainMenuOverlayItemSelectedBar-MouseOver, .clsMainMenuOverlayItemSelectedBar-Selected {
+	color:#FFFFFF!important;
+	width:	15px;
+}
+
+.clsMainMenuOverlayItemSelectedBar-MouseOver {
+	background:						transparent;
+}
+
+.clsMainMenuOverlayItemSelectedBar-Selected {
+	background-color:				#F9601C;
+}
+
+.clsMainMenuOverlayItem img {
+  height: 100%;
+  max-height: 23px;
+}
+
+.clsMainMenuOverlayItemName {
+	font-size:						175%;
+	font-weight:					bold;
+	margin-left:					-2px;
+	color:							#FAFAFA;
+}
+
+.clsMainMenuOverlayGroupItemName {
+	font-size:						150%;
+	color:							#FAFAFA;
+	padding:						10px; 
+	padding-bottom:					5px; 
+	margin:							10px; 
+	border-bottom:					1px solid rgba(255,255,255,0.5);
+}
+
+.clsMainMenuOverlayItemMemo {
+	font-size:						115%;
+	font-weight:					normal;
+	padding-left:					3px;
+	color:							#FAFAFA;
+}
+
+.clsMainMenuOverlayItemCreated {
+	color:							#FAFAFA;
+	font-size:						80%;
+	font-weight:					normal;
+	padding-left:					3px;
+}
+
+.clsMainMenuLanguageMenu {
+	float:							right;
+	position:						relative;
+	z-index:						100;
+	padding:						0px; 
+	padding-top:					5px;
+	color:							#FAFAFA;
+	width:							100%;
+}
+
+.clsMainMenuLanguageMenu td {
+	font-size:						8px;
+}
+
+.clsMainMenuLanguageMenuContainer {
+	padding:						0px;
+	background-color:				rgba(0, 0, 0, 0.6);
+	display:						none;
+	position: 						absolute;
+	-moz-border-radius:				5px;
+    -webkit-border-radius: 			5px;
+    -khtml-border-radius: 			5px;
+	-ms-border-radius: 				5px;
+	-o-border-radius: 				5px;
+    border-radius: 					5px;
+}
+
+.clsLanguageMenuContainer {
+	height:							100%;
+	display:						inline-block;
+	padding: 						2px 8px 0 0;
+	text-align:						center;
+	cursor:							pointer;
+}
+
+.clsLanguageMenuContainer .clsLanguageMenuIcon {
+	height:							30px;
+  	width:							30px;
+	outline:						1px solid transparent; /*SIT Chrome Rendering Anti Alias Fix*/
+}
+
+.clsFlagIcon {
+	width:							25px;
+	height:							auto;
+}
+
+.clsLanguageText {
+	color:							#FFFFFF;
+}
+
+.clsAnimate {
+	-webkit-backface-visibility: 	hidden;
+	
+	-ms-transform-style: 			preserve-3d;
+	-webkit-transform-style: 		preserve-3d;
+	-moz-transform-style: 			preserve-3d;
+	-o-transform-style: 			preserve-3d;
+	transform-style: 				preserve-3d;
+	
+	-ms-transition:					all 0.5s;
+	-webkit-transition: 			all 0.5s;
+	-moz-transition:				all 0.5s;
+	-o-transition: 					all 0.5s;
+	transition: 					all 0.5s;
+}
+
+/************* Login *************/
+.clsLoginOverlay {
+	position:						fixed;
+    width:							100%;
+    height:							100%;
+	top:							0px;
+	left:							0px;
+	overflow:						auto;
+	margin:							0px;
+	text-align:						center;
+	
+	background-color:				#FFFFFF;
+    z-index:						200;
+	-webkit-tap-highlight-color:	rgba(255, 255, 255, 0);
+	
+  	-webkit-backface-visibility: 	hidden;
+	
+	-ms-transform-style: 			preserve-3d;
+    -webkit-transform-style: 		preserve-3d;
+	-moz-transform-style: 			preserve-3d;
+	-o-transform-style: 			preserve-3d;
+	transform-style: 				preserve-3d;
+	
+	-ms-transition:					all 0.5s;
+	-webkit-transition: 			all 0.5s;
+    -moz-transition:				all 0.5s;
+    -o-transition: 					all 0.5s;
+    transition: 					all 0.5s;
+}
+
+.clsLoginOverlayContainer {
+	width:							100%;
+    height:							100%;
+	overflow:						hidden;
+}
+
+.clsLoginWait {
+	height:							100%;
+	width:							100%;
+	text-align:						center;
+	font-size:						200%;
+}
+
+.clsLoginWaitBusy img {
+	height:							23px;
+}
+
+.clsLoginWaitLogo img {
+	max-height:						100px;
+}
+
+.clsLoginWaitText {
+	font-size:						14px;
+	color:							#FFFFFF;
+}
+
+.clsLoginLogo {
+	height:							150px;
+	text-align:						center; 
+	padding:						10px;
+}
+
+.clsLoginLogo img {
+	height:							100%;
+}
+
+.clsLoginSide {
+	width:							20%; 
+	height:							100%; 
+	float:							left; 
+}
+
+.clsLoginCenter {
+	float:							left; 
+	height:							100%; 
+	width:							75%;
+	margin-top:						5%;
+}
+
+.clsLoginSideLogo {
+	width:							100%;
+	text-align:						center; 
+	padding-top:					10px;
+	padding-bottom:					10px;
+	margin-top:						55%;
+}
+
+.clsLoginSideLogo img {
+	width:							auto;
+	max-width:						175px;
+}
+
+.clsLoginWelcome {
+	text-align:						center; 
+	font-size:						250%;
+	color:							#808080;
+	padding-bottom:					10px;
+	margin-left:					-20px;
+	font-weight:					lighter;
+}
+
+.clsLoginMission {
+	text-align:						center; 
+	font-size:						150%;
+	color:							#C0C0C0;
+}
+
+.clsLoginBox {
+	text-align:						center; 
+	width:							75%;
+	margin-left:					12.5%;
+	border:							3px solid #FFFFFF;
+	-moz-border-radius:				10px;
+    -webkit-border-radius: 			10px;
+    -khtml-border-radius: 			10px;
+	-ms-border-radius: 				10px;
+	-o-border-radius: 				10px;
+    border-radius: 					10px;		
+	padding:						10px;
+	background-color:				#FFFFFF;
+}
+
+.clsLoginFeatures {
+	text-align:						center;
+	padding-left:					20px;
+}
+
+.clsLoginFeatures a {
+	color:							#808080;
+	font-size:						85%;
+}
+
+.clsLoginLocalResult {
+	color:							#FF0000;
+}
+
+
+:-moz-placeholder {
+  	color: 							#E3E3E3;
+	opacity:  						0.95;
+}
+
+::-moz-placeholder {
+  	color: 							#E3E3E3;
+	opacity:  						0.95;
+}
+
+::-ms-input-placeholder {
+  	color: 							#E3E3E3;
+	opacity:  						0.95;
+}
+
+:-ms-input-placeholder {
+  	color: 							#E3E3E3;
+	opacity:  						0.95;
+}
+
+::-webkit-input-placeholder {
+  color: 							#E3E3E3;
+  opacity:  						0.95;
+}
+
+.clsTxtLogin {
+	font-size: 						150%;
+	padding:						8px;
+  	width:							75%;
+}
+
+.clsBtnLogin {
+	height: 						30px;
+	width:							33%;
+	font-size: 						150%;
+	color: 							#FFFFFF;
+	background: 					#BABABA;
+	border-style: 					none;
+	cursor:							pointer;
+	text-align:						center;
+}
+
+.clsSelectMissionText {
+	font-size:						100%;
+	color: 							#FFFFFF;
+}
+
+.clsSelectMission {
+	font-size:						100%;
+	color: 							#808080;
+	border-style:					1px solid #DBDBDB;
+	text-align:						center;
+	-webkit-appearance: 			none;
+	-moz-appearance: 				none;
+}
+
+.clsOptionsLanguageText {
+	font-size:						100%;
+	color: 							#808080;
+}
+
+.clsOptionsLanguageTextBig {
+	font-size:						175%;
+	color: 							#808080;
+}
+
+.clsOptionsLanguageSelect {
+	font-size:						100%;
+	color: 							#808080;
+	border-style:					1px solid #DBDBDB;
+	text-align:						center;
+	-webkit-appearance: 			none;
+	-moz-appearance: 				none;
+}
+
+.clsOptionsLanguageSelectBig {
+	font-size:						175%;
+	color: 							#808080;
+	border-style:					1px solid #DBDBDB;
+	text-align:						center;
+	-webkit-appearance: 			none;
+	-moz-appearance: 				none;
+}
+
+/************* Navigation Bar *************/
+.clsNavigationBar {
+	position:						fixed;
+	top:							45px;
+	left:							0px;
+	display: 						none;
+	height:							25px;
+	width:							100%;
+	color: 							#FFFFFF;
+	z-index:						1;
+}
+
+.clsNavigationBarPrev {
+	height:							100%;
+	width:							30%;
+	float:							left;
+	cursor:							pointer;
+	text-align:						right;
+	padding:						0px;
+}
+
+.clsNavigationBarPrev img {
+	height:							10px;
+	float:							right;
+	padding: 						7px 10px 0;
+	width:							16px;
+}
+
+.clsNavigationBarTitlePrev {
+	padding-right:					25%;
+	padding-top:					4px;
+	/*font-style:						italic;*/
+	/*text-decoration:				underline;*/
+	float:							right;
+	/*display:						none;*/
+	font-size:						12px;
+}
+
+.clsNavigationBarTitleContainer {
+	height:							25px;
+	margin:							0px;
+	width:							39%;
+	text-align:						center;
+	float:							left;
+	overflow:						hidden;
+	background-color:				#FFFFFF;
+}
+
+.clsNavigationBarTitleWrapper {
+	padding-top:					2px;
+	display:						inline-block;
+}
+
+.clsNavigationBarRefresh {
+	height:							100%;
+	float:							right;
+	padding-top:					0px;
+	padding-left:					10px;
+}
+
+.clsNavigationBarRefresh img {
+	height:							14px;
+	width:							14px;
+	padding-top: 					3px;
+	cursor:							pointer;
+}
+
+.clsNavigationBarTitle {
+	height:							100%;
+	font-size:						15px;
+	/*font-weight:					bold;*/
+	padding-top:					0px;
+	float:							left;
+	color:							#000000;
+}
+
+.clsNavigationBarNext {
+	height:							100%;
+	width:							30%;
+	text-align:						left;
+	float:							left;
+	cursor:							pointer;
+	padding:						0px;
+}
+
+.clsNavigationBarNext img {
+	height:							10px;
+	float:							left;
+	padding: 						7px 10px 0;
+	width:							16px;
+}
+
+.clsNavigationBarTitleNext {
+	padding-left:					25%;
+	padding-top:					4px;
+	/*font-style:						italic;*/
+	/*text-decoration:				underline;*/
+	float:							left;
+	/*display:						none;*/
+	font-size:						12px;
+}
+
+/************* Carousel *************/
+.clsCarousel {
+	position:						fixed;
+	top:							70px;
+	-webkit-backface-visibility: 	hidden;
+}
+
+.clsCarousel ul {
+	list-style-type: 				none;
+    -webkit-backface-visibility: 	hidden;
+}
+
+.clsCarousel ul.animate {
+	-webkit-backface-visibility: 	hidden;
+	
+	-ms-transform-style: 			preserve-3d;
+	-webkit-transform-style: 		preserve-3d;
+	-moz-transform-style: 			preserve-3d;
+	-o-transform-style: 			preserve-3d;
+	transform-style: 				preserve-3d;
+	
+	-ms-transition:					all 1s;
+	-webkit-transition: 			all 1s;
+	-moz-transition:				all 1s;
+	-o-transition: 					all 1s;
+	transition: 					all 1s;
+}
+
+.clsCarousel li {
+	float: 							left;
+	/*overflow:						auto;
+	-ms-overflow-style: 			-ms-autohiding-scrollbar;*/
+	overflow:						hidden;
+}
+
+/************* Data containers *************/
+.clsDataContainer {
+	margin:							-1px;
+	width:							100.1%;
+}
+
+.clsDataContainerFrame {
+	color: 							#FFFFFF;
+    font-size: 						200%;
+    text-align: 					center;
+	-webkit-tap-highlight-color:	rgba(255, 255, 255, 0);
+}
+
+.clsDataContainerFrameBusy {
+	text-align:						center;
+	display:						none;
+	padding:						5%;
+}
+
+.clsDivMainItemContainer {
+	background-color:				#FFFFFF; 
+}
+
+.clsIframeMainContent {
+	margin-bottom:					-5px;
+}
+
+/************* Splash Container *************/
+.clsSplashContainer {
+	color: 							#333333;
+}
+
+/************* Utilities *************/
+.clsUnselectableImages img {
+   -moz-user-select:				none; 
+   -khtml-user-select: 				none;
+   -webkit-user-select: 			none;
+   -ms-user-select: 				none;
+   user-select: 					none;
+   
+   user-drag: 						none; 
+   -moz-user-drag: 					none;
+   -khtml-user-drag: 				none;
+   -webkit-user-drag: 				none;
+   -ms-user-drag: 					none;
+}
+
+.clsRemoveColors {
+	background-color:				transparent;
+	border:							0px;
+}
+
+.clsTopColor {
+	background-color:				#125CBB; /* Blue */
+}
+
+.clsBottomColor {
+	background-color:				#F9601C; /* Orange */
+}
+
+
+/* Switch IT - 2017 */
+
+.clsMainMenuOverlayItemCreated {
+
+}
+
+.clsMainMenuOverlay {
+    background-color: rgba(51, 51, 51,0.95);
+}
+
+.clsMainMenuOverlayItemName {
+    font-size: 17px;
+    font-weight: 400;
+    margin-left: -2px;
+    color: #555;
+}
+.clsMainMenuOverlayGroupItemName {
+    color: #333333;
+}
+.clsMainMenuOverlayGroupItemName {
+    border-bottom: 1px solid #ccc;
+}
+
+.clsMainMenuOverlayItemSelected .clsMainMenuOverlayItemName,
+.clsMainMenuOverlayItemSelectedBar-Selected .clsMainMenuOverlayItemName,
+.clsMainMenuOverlayItemSelectedBar-MouseOver .clsMainMenuOverlayItemName{
+	color:#FFFFFF!important;
+}
+.clsHeaderInformation{
+    background: rgba(227, 227, 227, 0.98);
+}
+.clsHeaderInformationText td {
+    color: #555555;
+}
+#__ProsisPresentation_Pic img{
+    width: 45px!important;
+    height: auto!important;
+}
+
+.clsMainMenuOverlayOptionsLanguage {
+    padding-right: 75px;
+    position: absolute;
+    right: 0;
+}
+
+#LanSwitch, #fmission{
+    padding: 3px 0 4px 12px;
+    background: #666666;
+    color: #FFFFFF;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif,"Raleway",sans-serif;
+    border-radius: 3px;
+}
+ #fmission{
+    padding: 3px 5px 4px 5px;
+}
+
+#frmLogin .clsBtnLogin {
+	background: rgba(106, 195, 255, 0.9);
+	display: inline-block;
+	text-align: center;
+	cursor: pointer;
+	height: 40px;
+	border-radius: 5px;
+	margin: 0;
+	color: #ffffff;
+    width: 120px;
+    font-size: 18px;
+}
+#frmLogin:hover .clsLoginBtn {
+	background: rgb(255, 132, 154)!important;
+}
+.clsLoginSideLogo img {
+	width: auto;
+	max-width: 120px;
+}
+.clsTxtLogin {
+	font-size: 150%;
+	padding: 8px;
+	width: 280px;
+	border-radius: 5px;
+	border: 1px solid #efefef;
+}
+.clsLoginWelcome{
+    font-family: 'Titillium Web', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif, "Raleway", sans-serif;
+}
+
+.clsMainMenuOverlayItemSelectedBar-Selected {
+	background:transparent;
+}
+.clsMainMenuOverlayItemSelectedBar-MouseOver, .clsMainMenuOverlayItemSelectedBar-Selected {
+	color: #FFFFFF !important;
+	width: 0;
+    font-family: Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif,"Raleway",sans-serif;
+}
+
+.clsMainMenuOverlayItemName {
+	font-size: 14px;
+	font-weight: 200;
+	margin-left: -2px;
+	color: #fff;
+	font-family: font-family: Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif,"Raleway",sans-serif;
+}
+.clsMainMenuOverlayItem{
+    width: 250px;
+    min-width: 250px;
+}

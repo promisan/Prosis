@@ -1,0 +1,417 @@
+
+<cfquery name="Parameter" 
+ datasource="AppsTravelClaim">
+ 	SELECT *
+	 FROM Parameter
+</cfquery>
+
+<!--- cross reference claim with IMIS claimNo --->
+<!--- Start added to prevent multiple emails being sent if ext_ref_num tcp number is there twice in IMIS  JG 01-27-2010 
+From the  start of this all the way to End we have added the logic so that there would be just 
+One TCP number associated with a claim in IMIS , instead of doing a fix in the data of IMIS 
+we are doing the fix in the data imported , not a clean way , but just to prevent unncessary complications
+We have the following logic
+1. Change all the ext_ref_num =NULL if the TVCV was cancelled 
+2. for all supplimental claim change ext_ref_num =NULL for the later created  IMIS/created/approved TVCV 
+
+
+--->
+<CF_DropTable dbName="AppsQuery"  tblName="tmp_1"> 
+<CF_DropTable dbName="AppsQuery"  tblName="tmp_2">
+<CF_DropTable dbName="AppsQuery"  tblName="tmp_3">  
+
+<cfquery name="insert_1"
+   datasource="appsTravelClaim"
+   username="#CLIENT.login#" 
+   password="#CLIENT.dbpw#">
+	  
+	select  db_mdst_source, DocIdRequest,ext_ref_num,count(*)as cnt
+		into userquery.dbo.tmp_1
+	from imp_claim
+	where ext_ref_num like 'TCP%'
+		group by db_mdst_source, DocIdRequest,ext_ref_num
+		having count(ext_ref_num)>1
+</cfquery>
+
+<cfquery name="update_1"
+   datasource="appsTravelClaim"
+   username="#CLIENT.login#" 
+   password="#CLIENT.dbpw#">
+
+	update imp_claim 
+		set ext_ref_num =NULL
+		from imp_claim A, userquery.dbo.tmp_1 B
+	where A.DocIdRequest = B.DocIdRequest
+		and   A.db_mdst_source =B.db_mdst_source
+		and   A.ext_ref_num = B.ext_ref_num
+		and   A.doc_stat_code ='ca'
+</cfquery>
+<cfquery name="insert_2"
+   datasource="appsTravelClaim"
+   username="#CLIENT.login#" 
+   password="#CLIENT.dbpw#">
+
+		select  db_mdst_source, DocIdRequest,ext_ref_num,count(*)as cnt
+		into userquery.dbo.tmp_2
+			from imp_claim
+		where ext_ref_num like 'TCP%'
+		group by db_mdst_source, DocIdRequest,ext_ref_num
+		having count(ext_ref_num)>1
+</cfquery>
+<cfquery name="insert_3"
+   datasource="appsTravelClaim"
+   username="#CLIENT.login#" 
+   password="#CLIENT.dbpw#">
+
+	select docidrequest,db_mdst_source,ext_ref_num,max(f_adlh_tran_ser_num)  as min_f_adlh_tran_ser_num
+		into userquery.dbo.tmp_3
+	from imp_claim where docidrequest in (select docidrequest from userquery.dbo.tmp_2) and ext_ref_num like 'TCP%'
+
+	group  by DocidRequest,db_mdst_source,ext_ref_num
+
+	order by DocidRequest
+</cfquery>
+<cfquery name="update_3"
+   datasource="appsTravelClaim"
+   username="#CLIENT.login#" 
+   password="#CLIENT.dbpw#">
+
+	update imp_claim set 
+		ext_ref_num =NULL
+	from imp_claim A, userquery.dbo.tmp_3 B
+		where A.ext_ref_num like 'TCP%'
+		and   A.db_mdst_source =B.db_mdst_source
+		and   A.ext_ref_num = B.ext_ref_num
+		and   A.DocidRequest =B.DocidRequest
+		and   A.f_adlh_tran_ser_num =B.min_f_adlh_tran_ser_num
+</cfquery>
+<!--- ENd added to prevent multiple emails being sent if ext_ref_num tcp number is there twice in IMIS  JG 01-27-2010 --->
+
+
+
+
+<cfquery name="CrossReference"
+   datasource="appsTravelClaim"
+   username="#CLIENT.login#" 
+   password="#CLIENT.dbpw#">
+   UPDATE Claim
+   SET    Reference = I.f_dorf_id_code, 
+          ReferenceNo = I.doc_id,
+          ReferenceStatus = I.doc_stat_code
+   FROM   IMP_CLAIM I, Claim 
+   WHERE  I.ext_ref_num = 'TCP' + Claim.DocumentNo
+   AND    I.ext_ref_num is not NULL
+</cfquery>   
+
+<cfquery name="InsertStatus"
+   datasource="appsTravelClaim"
+   username="#CLIENT.login#" 
+   password="#CLIENT.dbpw#">
+   INSERT INTO Ref_Status
+   (StatusClass,Status,Description)
+   SELECT DISTINCT 'TVCV',ReferenceStatus,'Undefined'
+   FROM Claim
+   WHERE ReferenceStatus NOT IN (SELECT Status
+                                 FROM Ref_Status
+								 WHERE StatusClass = 'TVCV') 
+    AND ReferenceStatus is not NULL								   
+</cfquery> 
+
+<cftransaction>
+	<!--- set claim status based on mapping table --->
+	
+	<!--- made correction to update the log file before it is updated --->
+	
+	<cfquery name="updateLog"
+	   datasource="appsTravelClaim"
+	   username="#CLIENT.login#" 
+	   password="#CLIENT.dbpw#">
+	    INSERT INTO ClaimActionLog
+		(ClaimId,ActionStatus,OfficerUserid,OfficerLastName,OfficerFirstName)
+		SELECT C.ClaimId, R.PointerStatus,'#client.acc#','#client.last#','#client.first#'
+		FROM   Claim C INNER JOIN
+		       Ref_Status R ON C.ReferenceStatus = R.Status
+		WHERE  R.StatusClass = 'TVCV' 
+		AND    C.Reference IS NOT NULL
+		AND    C.ActionStatus <> R.PointerStatus
+		AND    C.ActionStatus <> '6'
+	</cfquery>
+	
+	<cfquery name="updatestatus"
+	   datasource="appsTravelClaim"
+	   username="#CLIENT.login#" 
+	   password="#CLIENT.dbpw#">
+	    UPDATE Claim
+		SET    ActionStatus = R.PointerStatus,  
+		       ReferenceStatusDate = getDate(), 
+			   PointerChange = '1'
+		FROM   Claim C INNER JOIN
+		       Ref_Status R ON C.ReferenceStatus = R.Status
+		WHERE  R.StatusClass = 'TVCV' 
+		AND    C.Reference IS NOT NULL
+		AND    C.ActionStatus <> R.PointerStatus
+		AND    C.ActionStatus <> '6'
+	</cfquery>
+		
+	<!--- JUST A safeguard only as these claims or not portal related --->
+	
+	<cfquery name="correction"
+	   datasource="appsTravelClaim"
+	   username="#CLIENT.login#" 
+	   password="#CLIENT.dbpw#">
+		UPDATE Claim
+		SET   ActionStatus = '6' , 
+		      ReferenceStatusDate = getDate(),
+			  PointerChange = '0'
+		WHERE (
+		      (ActionStatus IN ('4','4c','5') AND (DocumentNo = '0' or documentNo is NULL or documentNo = ''))
+				OR PointerUpload = 1
+			   )
+		AND   ActionStatus <> '6'		
+	</cfquery>	
+
+</cftransaction>
+
+<!--- based on DW data from IMIS
+      1. update workflow, 
+      2. trigger email, 
+      3. complete last action for that claim --->
+ 
+
+<cfquery name="Entity" 
+	datasource="AppsOrganization"
+	username="#CLIENT.login#" 
+	password="#CLIENT.dbpw#">
+  		 SELECT  *  
+		 FROM    Ref_Entity
+		 WHERE   EntityCode = 'EntClaim' 
+</cfquery>	
+ 
+<cfif Entity.MailFrom eq "">
+  <cfset mailfrom = "hvanpelt@promisan.com">
+<cfelse>
+  <cfset mailfrom = Entity.MailFrom>  
+</cfif>  
+
+<!--- select approved claims in this session --->
+
+
+<cfquery name="result"
+   datasource="appsTravelClaim"
+   username="#CLIENT.login#" 
+   password="#CLIENT.dbpw#">
+	SELECT * 
+	FROM   Claim
+	WHERE  PointerChange = '1'
+	AND    ActionStatus  = '5' <!--- approved --->
+	<!--- Do  not send emails if the TCP numbers gets duplicated in the claim since it is manaully done by accounts --->
+	<!--- 01-27-2010 JG  --->
+	and   claimrequestid not in (select B.claimrequestid  from userquery.dbo.tmp_1 A, claimrequest B 
+	                            where A.docidRequest =B.documentno  )
+	
+	</cfquery>
+
+<cfloop query="result">
+
+      <!--- last step --->
+	  
+      <cfquery name="Action" 
+		datasource="AppsOrganization"
+		 username="#CLIENT.login#" 
+		 password="#CLIENT.dbpw#">
+         SELECT  TOP 1 
+		         M.PersonMailAction, 
+		         OA.ActionCode, 
+				 M.ActionTrigger,
+				 OA.ActionFlowOrder
+         FROM    OrganizationObjectAction OA INNER JOIN
+                 Ref_EntityActionPublish M ON OA.ActionPublishNo = M.ActionPublishNo 
+					AND OA.ActionCode = M.ActionCode
+		 WHERE   ObjectId IN
+	                 (SELECT  ObjectId
+	                  FROM    OrganizationObject
+					  WHERE   ObjectKeyValue4 = '#ClaimId#'
+					  AND     Operational = 1) 
+	     ORDER BY ActionFlowOrder DESC
+	</cfquery>		
+	
+	<cfquery name="Object" 
+		datasource="AppsOrganization"
+		 username="#CLIENT.login#" 
+		 password="#CLIENT.dbpw#">
+	  	 SELECT  *
+	     FROM    OrganizationObject
+	     WHERE   ObjectKeyValue4 = '#ClaimId#'
+		 AND     Operational = 1
+	</cfquery>	 
+		 
+	<!--- get attachment --->
+				  		  	
+	<cfif FileExists("#Parameter.DocumentLibrary#\Claim\TCP#documentNo#.txt")>
+	
+		<cffile action="READ" 
+	       	file="#Parameter.DocumentLibrary#\Claim\TCP#DocumentNo#.txt" 
+			variable="claimtext">
+			
+			<cfset l = Len(claimtext)>
+			<cfset t = "">
+			
+			<cfif l gt 50>
+			
+				<cfset t = right(claimtext,l-50)>	
+			
+			
+				<!--- PDF --->
+	
+			    <cfdocument 
+			      filename          = "#Parameter.DocumentLibrary#\Claim\TCP#documentNo#.pdf"
+		   	      format            = "PDF"
+		       	  pagetype          = "letter"
+		   	      orientation       = "portrait"
+		          unit              = "in"
+		   	      encryption        = "none"
+		    	  fontembed         = "No"
+		       	  backgroundvisible = "No"
+		          overwrite         = "Yes">
+										
+					<cfoutput>#HTMLCodeFormat(t)#</cfoutput> 
+		
+				</cfdocument>
+			
+				<!--- HTML --->
+				
+				<cffile action="WRITE" 
+				file="#Parameter.DocumentLibrary#\Claim\TCP#DocumentNo#.htm" 
+				output="#HTMLCodeFormat(t)#" 
+				addnewline="Yes" 
+				fixnewline="No">
+			
+			</cfif>
+	
+			<cfset att = "#Parameter.DocumentLibrary#\Claim\TCP#documentNo#.pdf">
+			<cfset htm = "#Parameter.DocumentLibrary#\Claim\TCP#documentNo#.htm">
+			
+	<cfelse>	
+			
+		    <cfset att = "">
+			<cfset htm = "">
+			<cfset t   = "No details were provided">		
+			
+	</cfif>		
+	
+	<!--- send eMail but only if the action is an External action --->		
+		   	
+	<cfif Action.PersonMailAction neq "" and Action.ActionTrigger eq "External">
+	
+			<cfquery name="Mail" 
+			 datasource="AppsOrganization"
+			 username="#CLIENT.login#" 
+			 password="#CLIENT.dbpw#">
+		   	  SELECT    *
+			  FROM      Ref_EntityDocument
+			  WHERE     EntityCode = '#Object.EntityCode#' 
+			   AND      DocumentCode IN ('#Action.PersonMailAction#') 
+			</cfquery>
+			
+			<cfif mail.recordcount gte "1">
+			
+			   <cfparam name="mailsubject" default="">
+			   <cfparam name="mailtext"    default="">
+			   
+			   <cfif FileExists("#client.rootPath#\#Mail.DocumentTemplate#")>			   						    
+			   	   <cfinclude template="../../../../#Mail.DocumentTemplate#">			   	
+			   </cfif>	
+					
+				<!--- process mail template --->
+					
+				<cfparam name="mailSubject" default="">
+				<cfparam name="mailText"    default="">
+				<cfparam name="mailto"    default="oppba@un.org">
+				<cfquery name="Entity" 
+					datasource="AppsOrganization"
+					username="#CLIENT.login#" 
+					password="#CLIENT.dbpw#">
+				  		 SELECT  *  
+						 FROM    Ref_Entity
+						 WHERE   EntityCode = 'EntClaim' 
+				</cfquery>	
+	 
+				<!--- ----------------------------------- --->
+				<!--- OVERRULE EMAIL ADDRESS WITH DEFAULT --->
+				<!--- ----------------------------------- --->
+				 
+				<cfif entity.MailRecipient neq "">
+				 
+				     <cfset mailto = entity.MailRecipient>
+					 
+				<cfelse>
+				      <cfif emailAddress NEQ ""> 
+				 	 <cfset mailto =emailAddress >
+					 </cfif>
+					 
+				</cfif>
+									
+				<cfmail TO          = "#mailto#"
+				    	FROM        = "#mailFrom#"
+						SUBJECT     = "#mailsubject#"
+						FAILTO      = "oppba@un.org"
+						mailerID    = "#CLIENT.Welcome# Mail Engine"
+						TYPE        = "html"
+						spoolEnable = "Yes"
+						wraptext    = "100">
+						#mailtext#
+						
+						<cfif att neq "">
+							<cfmailparam file = "#att#">
+						</cfif>			
+																						
+				</cfmail>	
+				   	
+		   </cfif>
+			   
+    </cfif> 	
+	
+	<cfif Action.ActionTrigger eq "External">	
+						  	  
+		<cfquery name="UpdateWorkflow"
+		   datasource="appsOrganization"
+		   username="#CLIENT.login#" 
+		   password="#CLIENT.dbpw#">	  
+		   UPDATE    OrganizationObjectAction
+		   SET       ActionStatus     = '2', 
+		             OfficerUserId    = '#CLIENT.acc#',
+					 OfficerLastName  = '#CLIENT.last#',
+					 OfficerFirstName = '#CLIENT.first#', 
+					 ActionMemo       = '#HTMLCodeFormat(t)#',
+					 OfficerDate      = getDate()
+		   WHERE     ObjectId IN
+		                 (SELECT  ObjectId
+		                  FROM    OrganizationObject
+		                  WHERE   ObjectKeyValue4 = '#ClaimId#'
+						  AND     Operational = 1) 
+		   AND       ActionFlowOrder = '#Action.ActionFlowOrder#'	 
+		</cfquery> 
+				
+	</cfif>	
+	
+</cfloop>	
+	  
+<cfquery name="reset"
+   datasource="appsTravelClaim"
+   username="#CLIENT.login#" 
+   password="#CLIENT.dbpw#">
+	UPDATE Claim
+	SET   PointerChange = '0'
+	WHERE PointerChange = '1'
+</cfquery>	
+
+<cfquery name="setUpload"
+   datasource="appsTravelClaim"
+   username="#CLIENT.login#" 
+   password="#CLIENT.dbpw#">
+	UPDATE stExportFile
+	SET   ActionStatus = '2'
+	WHERE ExportNO IN (SELECT ExportNo 
+	                   FROM Claim C 
+					   WHERE ActionStatus > '3')
+</cfquery>	

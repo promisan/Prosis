@@ -1,0 +1,59 @@
+<cfparam name="url.idmenu" default="">
+
+<cf_screentop height="100%" 
+			  scroll="Yes" 
+			  layout="webapp" 
+			  label="Add Status" 
+			  menuAccess="Yes" 
+			  systemfunctionid="#url.idmenu#">
+
+<cfform action="RecordSubmit.cfm" method="POST" enablecab="Yes" name="dialog">
+
+<!--- Entry form --->
+
+<table width="91%" cellspacing="0" cellpadding="0" align="center" class="formpadding formspacing">
+
+    <tr><td height="5"></td></tr>
+	
+    <TR>
+    <TD class="labelmedium">Class:</TD>
+    <TD class="labelmedium">
+	   <select name="StatusClass" class="regularxl">
+		   <option value="Status" selected>Status</option>
+		   <option value="Urgency">Urgency</option>
+		   <option value="Necessity">Necessity</option>
+		   <option value="Importancy">Importancy</option>
+	   </select>
+     </TD>
+	</TR>
+	
+    <TR>
+    <TD class="labelmedium">Code:</TD>
+    <TD class="regular">
+  	   <cfinput type="text" name="code" value="" message="Please enter a code" required="Yes" size="10" maxlength="10" class="regularxl">
+    </TD>
+	</TR>
+		
+	<TR>
+    <TD class="labelmedium">Description:</TD>
+    <TD class="regular">
+  	   <cfinput type="text" name="Description" value="" message="Please enter a description" required="Yes" size="30" maxlength="40" class="regularxl">
+    </TD>
+	</TR>
+	
+	<tr><td height="1" colspan="2" class="linedotted"></td></tr>
+		
+	<TR>	
+	<td colspan="2" align="center">
+	<input class="button10g" type="button" name="Cancel" value=" Cancel " onClick="window.close()">
+    <input class="button10g" type="submit" name="Insert" value=" Submit ">
+	
+	</td>		
+	</TR>
+</table>
+
+
+
+</CFFORM>
+
+

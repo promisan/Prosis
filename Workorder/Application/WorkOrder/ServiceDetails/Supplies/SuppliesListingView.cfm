@@ -1,0 +1,9 @@
+<cfoutput>
+	<iframe 
+		name="iSuppliesView" 
+		width="100%" 
+		height="240px" 
+		frameborder="no" 
+		src="#session.root#/workorder/application/workorder/serviceDetails/supplies/suppliesListing.cfm?WorkorderId=#url.WorkorderId#&workorderline=#url.workorderline#&addScripts=1">
+	</iframe>
+</cfoutput>

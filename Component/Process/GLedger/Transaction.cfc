@@ -1,0 +1,48 @@
+<cfcomponent>
+
+    <cfproperty name="name" type="string">
+    <cfset this.name = "Transaction utilities Queries">	
+
+	<cffunction name="LogTransaction"
+             access="public"
+             displayname="get the Sales Price and Tax into a struct variable">
+		
+		<cfargument name="Datasource"          type="string"  required="true"   default="AppsLedger">							
+		<cfargument name="Journal"             type="string"  required="true"   default="">								
+		<cfargument name="JournalSerialNo"     type="string"  required="true"   default="">		
+		<cfargument name="TransactionSerialNo" type="string"  required="true"   default="">					
+		<cfargument name="Action"              type="string"  required="true"   default="Delete">		
+								
+		<cfquery name="tablecontent" 
+		    datasource="#datasource#"  
+		    username="#SESSION.login#" 
+		    password="#SESSION.dbpw#">
+			SELECT   C.name, C.userType 
+		    FROM     Accounting.dbo.SysObjects S, Accounting.dbo.SysColumns C 
+			WHERE    S.id = C.id
+			AND      S.name = 'TransactionLine'	
+			AND      C.Name NOT IN ('OfficerUserId','OfficerLastName','OfficerFirstname','Created')
+			ORDER BY C.ColId			
+		</cfquery>
+		
+		<cfquery name="LogDeleteAction"
+		    datasource="#datasource#" 
+		    username="#SESSION.login#" 
+		    password="#SESSION.dbpw#">
+			INSERT INTO Accounting.dbo.TransactionLineLog
+			(LogAction,OfficerUserId,OfficerLastName,OfficerFirstName,<cfloop query="tablecontent">#name#<cfif currentRow neq recordcount>,</cfif></cfloop>)
+				SELECT '#Action#', 
+				       '#SESSION.acc#',
+				       '#SESSION.last#',
+					   '#SESSION.first#',<cfloop query="tablecontent">#name#<cfif currentRow neq recordcount>,</cfif></cfloop> 
+				FROM   Accounting.dbo.TransactionLine
+				WHERE  Journal             = '#Journal#'
+				AND    JournalSerialNo     = '#JournalSerialNo#'
+				<cfif transactionSerialNo neq "">
+				AND    TransactionSerialNo = '#TransactionSerialNo#'
+			    </cfif>
+		</cfquery>						
+								
+	</cffunction>					
+	
+</cfcomponent>	

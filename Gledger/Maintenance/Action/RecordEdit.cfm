@@ -1,0 +1,160 @@
+<cfparam name="url.idmenu" default="">
+
+<cf_screentop height="100%" 
+			  scroll="Yes" 
+			  banner="yellow" 
+			  layout="webapp" 
+			  label="Journal Action" 
+			  option="Edit settings of the ledger action" 
+			  menuAccess="Yes" 
+			  systemfunctionid="#url.idmenu#">
+
+<cfquery name="Get" 
+datasource="AppsLedger" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+SELECT *
+FROM Ref_Action
+WHERE Code = '#URL.ID1#'
+</cfquery>
+
+<script language="JavaScript">
+
+function ask()
+
+{
+	if (confirm("Do you want to remove this Action ?")) {
+	
+	return true 
+	
+	}
+	
+	return false
+	
+}	
+
+</script>
+
+<cf_dialogLedger>
+
+<!--- Entry form --->
+<cfform action="RecordSubmit.cfm" method="POST"name="dialog">
+<table width="95%" align="center" cellspacing="0" cellpadding="0" class="formpadding">
+	
+    <cfoutput>
+	<tr><td></td></tr>
+    <TR>
+    <TD class="labelmedium">Action:</TD>
+    <TD>
+  	   <input type="text"
+       name="ActionCode"
+       value="#get.Code#"
+       size="10"
+       maxlength="10"
+       readonly	   
+       class="regularxl"
+       style="text-align: center;background: ffffcf;">
+    </TD>
+	</TR>
+					
+	<TR>
+    <TD class="labelmedium">Description:</TD>
+    <TD>
+  	   <input type="text"
+       name="Description"
+       value="#get.Description#"
+       size="50"
+       maxlength="50"       	   
+       class="regularxl"
+       style="text-align: left;background: ffffcf;">
+  	  </TD>
+	</TR>
+	
+	<TR>
+    <TD class="labelmedium">Template:</TD>
+    <TD>
+  	   <input type="text"
+       name="Template"
+       value="#get.Template#"
+       size="40"
+       maxlength="40"       	   
+       class="regularxl"
+       style="text-align: left;background: ffffcf;"
+	   onblur="ColdFusion.navigate('CollectionTemplate.cfm?template='+this.value+'&container=indexTemplate&resultField=valIndexDataTemplate','indexTemplate')">
+  	  </TD>
+		 <td>
+		 	<cfdiv id="indexTemplate" 
+						   bind="url:CollectionTemplate.cfm">
+		 </td>	  
+	</TR>
+		
+	<TR>
+    <TD class="labelmedium">Listing Order:</TD>
+    <TD>
+  	   <input type="text"
+       name="ListingOrder"
+       value="#get.ListingOrder#"
+       size="4"
+       maxlength="2"     	   
+       class="regularxl"
+       style="text-align: center;background: ffffcf;">
+  	  </TD>
+	</TR>
+	
+	<TR>
+    <TD class="labelmedium">Lead Days:</TD>
+    <TD>
+  	   <input type="text"
+       name="LeadDays"
+       value="#get.LeadDays#"
+       size="4"
+       maxlength="2" 
+       class="regularxl"
+       style="text-align: center;background: ffffcf;">
+    </TD>
+	</TR>
+	
+	<TR>
+    <TD class="labelmedium">Mail Body Text:</TD>
+    <TD>
+		<textarea id="BodyText" name="BodyText" style="padding:3px;font-size:14px;width:99%" rows="7" class="regular">#get.MailTextBody#</textarea>	 
+	</TD>
+	</TR>
+
+	<TR>
+    <TD class="labelmedium">Is Open:</TD>
+    <TD>
+		<select name="IsOpen" class="regularxl">     	   
+        	<option value="1" <cfif get.IsOpen eq "1">Selected</cfif>>Yes</option>
+			<option value="0" <cfif get.IsOpen eq "0">Selected</cfif>>No</option>
+	    </select>	
+	</TD>
+	</TR>
+		
+	<TR>
+    <TD class="labelmedium">Operational:</TD>
+    <TD>
+		<select name="Operational" class="regularxl">     	   
+        	<option value="1" <cfif get.Operational eq "1">Selected</cfif>>Yes</option>
+			<option value="0" <cfif get.Operational eq "0">Selected</cfif>>No</option>
+	    </select>	
+	</TD>
+	</TR>		
+	</cfoutput>
+	
+	<tr><td colspan="2" align="center" height="6">
+	<tr><td colspan="2" class="line"></td></tr>
+	<tr><td colspan="2" align="center" height="6">
+	
+	<tr><td colspan="2" align="center">
+	
+		<input class="button10g" type="button" name="Cancel" value="Cancel" onClick="window.close()">
+		<input class="button10g" type="submit" name="Delete" value="Delete" onclick="return ask()">
+		<input class="button10g" type="submit" name="Update" value="Update">
+
+	</td></tr>
+	
+</TABLE>
+</CFFORM>
+
+</BODY></HTML>

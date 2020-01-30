@@ -1,0 +1,137 @@
+
+<cfquery name="Header"
+	datasource="AppsQuery" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	SELECT   *
+	FROM     #SESSION.acc#GledgerHeader_#client.sessionNo# 
+</cfquery>	
+
+<!--- retrieve transaction --->
+
+<cfparam name="url.mission"       default="">
+<cfparam name="url.accountperiod" default="2010">
+
+<table width="100%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+
+<tr>
+  <td align="center" style="padding-top:10px" class="labelmedium">This is a <b>preview</b> on how balance will be presented after this transaction is posted</td>
+</tr>
+
+<cfoutput>
+<tr><td align="center" class="labellarge">#url.accountPeriod#</td></tr>
+</cfoutput>
+
+<tr><td align="center">
+
+<table width="600" style="border:1px dotted silver" cellspacing="0" cellpadding="0" class="formpadding">
+
+<tr class="line">
+	<td colspan="2" class="labelmedium" style="padding:left:4px"><cf_tl id="Account"></td>
+	<td colspan="2" bgcolor="ffffcf" align="center" class="labelmedium"><cf_tl id="Current Total"></td>
+	<td colspan="2" align="center" bgcolor="EBF7FE" class="labelmedium"><cf_tl id="New Total"></td></tr>
+</tr>
+
+<tr class="line">
+	<td style="padding:2px"><cf_space spaces="25"></td>
+	<td style="padding:2px"><cf_space spaces="120"></td>
+	<td style="padding:2px" class="labelit" align="right"><cf_space spaces="25"><cf_tl id="Debit"></td>
+	<td style="padding:2px" class="labelit" align="right"><cf_space spaces="25"><cf_tl id="Credit"></td>
+	<td style="padding:2px" class="labelit" align="right"><cf_space spaces="25"><cf_tl id="Debit"></td>
+	<td style="padding:2px" class="labelit" align="right"><cf_space spaces="25"><cf_tl id="Credit"></td>
+</tr>	
+
+<cfquery name="Line"
+	datasource="AppsQuery" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	SELECT   GLAccount, 
+	         SUM(L.AmountBaseDebit) AS BaseDebit, 
+			 SUM(L.AmountBaseCredit) AS BaseCredit
+	FROM     #SESSION.acc#GledgerLine_#client.sessionNo# L
+	GROUP BY GLAccount
+</cfquery>	
+
+<cfif line.recordcount eq "0">
+
+<tr><td COLSPAN="6" align="center" height="30" class="labelmedium"><cf_tl id="No transactions recorded"></td></tr>
+
+</cfif>
+
+<cfoutput query="Line">
+
+<cfquery name="Account"
+	datasource="AppsLedger" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	SELECT   *
+	FROM     Ref_Account
+	WHERE    GLAccount = '#GLAccount#'
+</cfquery>	
+
+<cfquery name="Curr"
+	datasource="AppsLedger" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	SELECT   SUM(L.AmountBaseDebit)  AS BaseDebit, 
+	         SUM(L.AmountBaseCredit) AS BaseCredit
+	FROM     TransactionLine L INNER JOIN
+	         TransactionHeader H ON L.Journal = H.Journal AND L.JournalSerialNo = H.JournalSerialNo
+	WHERE    H.Mission       = '#url.mission#'
+	AND      H.AccountPeriod = '#url.accountperiod#'        
+	AND      H.ActionStatus != '9' 
+	AND      H.RecordStatus != '9'
+	AND      L.GLAccount     = '#GLAccount#'
+	AND      H.TransactionId != '#Header.TransactionId#'
+</cfquery>	
+
+<tr>
+   <td style="padding:2px;min-width:200px" class="labelit">#Account.GLAccount#</td>
+   <td style="padding:2px" class="labelit">#Account.Description#</td>
+   
+   <cfif curr.basedebit eq "">
+      <cfset currentdebit = 0>
+   <cfelse>
+      <cfset currentdebit = curr.basedebit>	  
+   </cfif>
+    <cfif curr.basecredit eq "">
+      <cfset currentcredit = 0>
+	 <cfelse>
+      <cfset currentcredit = curr.basecredit>	    
+   </cfif>
+   
+   <td style="padding:2px" align="right" class="labelit"><cfif Curr.BaseDebit gte Curr.BaseCredit>
+          #numberFormat(currentdebit-currentcredit,"__,__.__")#
+       </cfif>
+   </td>
+   <td style="padding:2px" align="right" class="labelit">
+	   <cfif Curr.BaseDebit lt Curr.BaseCredit>
+          #numberFormat(currentcredit-currentdebit,"__,__.__")#
+       </cfif>
+   </td>
+   
+   <cfset debit  = currentdebit+BaseDebit>
+   <cfset credit = currentcredit+BaseCredit>
+   
+   <td style="padding:2px" align="right" class="labelit"><cfif Debit gte Credit>
+          <font color="0080FF">#numberFormat(Debit-Credit,"__,__.__")#
+       </cfif>   
+   </td>
+   
+   <td style="padding:2px" align="right" class="labelit"><cfif Debit lt Credit>
+          <font color="0080FF">#numberFormat(Credit-Debit,"__,__.__")#
+       </cfif>   
+   
+   </td>
+      
+</tr>
+
+<tr><td colspan="6" class="line"></td></tr>
+
+</cfoutput>
+
+</table>
+
+</td></tr>
+
+</table>

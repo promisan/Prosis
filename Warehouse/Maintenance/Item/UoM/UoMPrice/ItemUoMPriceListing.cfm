@@ -1,0 +1,132 @@
+
+	<cfquery name="CheckMission" 
+	datasource="appsMaterials" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT TOP 1 *
+		FROM 	ItemUoMPrice
+		WHERE 	Mission = '#URL.selectedMission#'
+	</cfquery>
+	
+	<cfif CheckMission.recordCount eq 0><cfset URL.selectedMission = ""></cfif>
+	
+	<cfquery name="UoMPrice" 
+	datasource="appsMaterials" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT 	P.*, 
+				ISNULL(W.WarehouseName, 'For All Warehouses') as WarehouseName, 
+				S.Description as PriceScheduleName,
+				(SELECT Description FROM Accounting.dbo.Ref_Tax WHERE TaxCode = P.TaxCode) as TaxDescription
+		FROM 	ItemUoMPrice P INNER JOIN Ref_PriceSchedule S ON P.PriceSchedule = S.Code
+				LEFT OUTER JOIN Warehouse W	ON P.Warehouse = W.Warehouse
+		WHERE 	P.ItemNo = '#URL.ID#'
+		AND		P.UoM = '#URL.UoM#'
+		<cfif trim(URL.selectedMission) neq "">AND P.Mission = '#URL.selectedMission#'</cfif>
+		ORDER BY P.Mission, P.Warehouse, P.PriceSchedule, P.DateEffective
+	</cfquery>
+	
+	<table width="97%" align="center" cellspacing="0" cellpadding="0" class="navigation_table">
+	
+	<tr height="20">
+		<td style="padding-left:4px" align="left" colspan="8" valign="middle" height="30" class="labelit">
+		
+			<cf_tl id="Entity">: &nbsp;
+			<cfquery name="getLookup" 
+				datasource="AppsMaterials" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+				SELECT 	*
+				FROM 	Ref_ParameterMission
+				WHERE	Mission in (SELECT DISTINCT Mission
+				                    FROM   ItemUoMPrice 
+									WHERE  ItemNo = '#URL.ID#' 
+									AND    UoM = '#URL.UoM#')
+			</cfquery>
+			<cfoutput>
+			<select name="missionfilter" id="missionfilter" class="regularxl"
+				onchange="ColdFusion.navigate('UoMPrice/ItemUoMPriceListing.cfm?id=#url.id#&UoM=#URL.UoM#&selectedMission='+this.value,'itemUoMPricelist')">
+				<option value="">-- Any --</option>
+				<cfloop query="getLookup">
+				  <option value="#getLookup.mission#" <cfif getLookup.mission eq url.selectedmission>selected</cfif>>#getLookup.mission#</option>
+			  	</cfloop>
+			</select>
+			</cfoutput>
+			
+		</td>
+	</tr>
+	<tr><td colspan="8" class="line"></td></tr>
+		
+	<cfoutput>
+	<tr height="20" class="labelmedium line">	    		
+		<td align="center" colspan="3"><a class="navigation_action" href="javascript:uompriceedit('#URL.ID#', '#URL.UoM#', '', '#URL.selectedmission#')"><font color="0080FF"><cf_tl id="New Price"></font></a></td>		
+		<td><cf_tl id="Effective"></td>				
+		<td><cf_tl id="Tax"></td>
+		<td align="center"><cf_tl id="Calculation Mode"></td>
+		<td align="center"><cf_tl id="Currency"></td>
+		<td align="right"><cf_tl id="Price">&nbsp;</td>
+	</tr>
+			
+	<cfif UoMPrice.recordCount eq 0>
+		<tr><td colspan="8" align="center" class="labelmedium" style="color:808080;"><cf_tl id="No prices recorded"></td></tr>	
+	</cfif>
+	
+	</cfoutput>	
+	
+	<cfoutput query="UoMPrice" group="Mission">
+	
+	<tr><td height="20" style="font-size:20px;padding-left:5px" class="labellarge" colspan="8">#Mission#</td></tr>
+	
+	<cfoutput group="Warehouse">
+	
+	<tr><td></td><td height="20" colspan="7" class="labelmedium">#WarehouseName#</td></tr>
+	
+	<cfoutput group="PriceSchedule">
+	
+	<tr><td></td><td></td><td height="20" colspan="7" class="labelit">#PriceScheduleName#</td></tr>
+	
+	<cfoutput>
+	
+	<tr class="navigation_row labelmedium line" style="height:15px">
+	  <td width="20"></td>
+	  <td width="20"></td>
+	  <td width="80" align="center">
+	  
+	  	<table cellspacing="0" cellpadding="0">
+		<tr>
+		<td style="padding-top:2px">
+			<cf_img icon="edit" onClick="javascript:uompriceedit('#URL.ID#', '#URL.UoM#', '#PriceId#', '#URL.selectedmission#')">		
+		</td>
+		<td style="padding-left:6px;padding-top:3px">
+		
+			<cf_img icon="delete" onClick="uompricedelete('#URL.ID#', '#URL.UoM#', '#PriceId#', '#URL.selectedmission#')">
+	  						  
+		</td>
+		</tr>
+		</table>	  
+		 
+	  
+	  </td>
+	  <td>#Dateformat(DateEffective, "#CLIENT.DateFormatShow#")#</td>	  
+	  <td>#TaxDescription#</td>		  
+	  <td align="center">#CalculationMode#</td>
+	  <td align="center">#Currency#</td>
+	  <td align="right">#LSNumberFormat(SalesPrice, ",_.__")#&nbsp;</td>
+	</tr>  
+	</cfoutput>
+	</cfoutput>
+	</cfoutput>
+	</cfoutput>
+	
+	<tr><td height="1" class="line" colspan="8"></td></tr>	
+	<tr><td height="7" colspan="8"></td></tr>
+	
+	<!--- <tr>
+		<td align="center" colspan="8">
+			<input class="button10g" type="button" name="Cancel" value="Cancel" onclick="canceledit()">
+		</td>
+	</tr> --->
+	
+	</table>
+	
+<cfset AjaxOnLoad("doHighlight")>

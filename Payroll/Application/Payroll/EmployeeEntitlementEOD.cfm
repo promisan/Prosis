@@ -1,0 +1,295 @@
+
+<cfquery name="Entity" 
+datasource="AppsPayroll" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT   Mission
+	FROM     EmployeeSalary AS ES INNER JOIN
+	            EmployeeSalaryLine AS ESL ON ES.SalarySchedule = ESL.SalarySchedule AND ES.PayrollStart = ESL.PayrollStart AND ES.PersonNo = ESL.PersonNo AND 
+	            ES.PayrollCalcNo = ESL.PayrollCalcNo
+	WHERE    ES.PersonNo = '#URL.ID#'	
+	GROUP BY Mission
+</cfquery>
+
+<cfquery name="getPerson" 
+datasource="AppsEmployee" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT   *
+	FROM     Person
+	WHERE    PersonNo = '#URL.ID#'
+</cfquery>
+
+<table style="min-width:900" width="100%" align="center">
+<tr>
+<td class="clsPrintContent">
+
+
+	<table width="98%" align="center" border="0" class="navigation_table">
+	
+	<cfif Entity.recordcount eq "0">
+	
+	<tr><td height="80" align="center" class="labelmedium">No entitlement records found for this employee</td></tr>
+	
+	<cfelse>
+	
+	<cfset prior = "">
+	
+	<cfoutput query="Entity">
+	
+		<cfinvoke component = "Service.Process.Employee.PersonnelAction"
+			    Method          = "getEOD"
+			    PersonNo        = "#url.id#"
+				Mission         = "#mission#"
+			    ReturnVariable  = "EOD">	
+			
+		<cfquery name="Last" 
+			datasource="AppsPayroll" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			
+			SELECT    TOP 1 *
+			
+			FROM      EmployeeSalary AS ES INNER JOIN
+		              EmployeeSalaryLine AS ESL ON ES.SalarySchedule = ESL.SalarySchedule 
+					  AND ES.PayrollStart  = ESL.PayrollStart 
+					  AND ES.PersonNo      = ESL.PersonNo 
+					  AND ES.PayrollCalcNo = ESL.PayrollCalcNo
+		
+			WHERE     ES.Mission      = '#mission#'
+			AND       ES.PersonNo     = '#URL.ID#'
+			-- AND       ES.PayrollEnd >= '#EOD#'
+			ORDER BY  ES.PayRollStart DESC
+			
+		</cfquery>
+	
+		<tr class="line labelmedium">
+		<td style="width:90%;height:35px;font-size:25px;font-weight:200;padding-left:2px" colspan="5" align="left">		
+			<b>#Mission# <font size="2">(<cf_tl id="until">#dateformat(Last.PayrollStart,"YYYY MMMM")# )</font></b>	
+		</td>
+		<td align="right" style="padding-top:8px;padding-right:2px;" colspan="2" class="clsNoPrint">
+		
+			<table>
+			
+			<tr>		
+			<td style="font-size:15px;padding-right:6px;width:200px;">
+			<a href="javascript:ptoken.navigate('#session.root#/payroll/application/Payroll/EmployeeEntitlement.cfm?id=#url.id#','contentbox1')">Show by Calendar Year</a>
+			</td>		
+			<td align="right" style="padding-right:4px">
+			
+			<span id="printTitle" style="display:none;"><cf_tl id="Entitlements"> [#getPerson.indexNo#] #getPerson.fullName#</span>
+			
+			<cf_tl id="Print" var="1">
+			
+			<cf_button2 
+				mode		= "icon"
+				type		= "Print"
+				title       = "#lt_text#" 
+				id          = "Print"					
+				height		= "20px"
+				width		= "25px"
+				imageHeight = "20px"
+				printTitle	= "##printTitle"
+				printContent = ".clsPrintContent">
+				
+			</td>
+			</tr>
+			</table>	
+				
+		</td>
+		</tr>	
+		
+		<tr class="line labelmedium">
+		 <td></td>
+		 <td style="min-width:90%" colspan="2"><cf_tl id="Item"></td>
+		 <td colspan="1"></td>
+		 <td colspan="1" width="50"></td>
+		 <td colspan="1" align="right" style="width:140px"><cf_tl id="Entitlement"></td>
+		 <td colspan="1" align="right" style="width:140px"><cf_tl id="Settled"><cf_space spaces="40"></td>
+		</tr>
+		
+		<cfquery name="Item" 
+		datasource="AppsPayroll" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT   S.PayrollItem, 
+					 S.PayrollItemName,
+					 S.Source,
+					 S.ComponentOrder
+			FROM     Ref_PayrollItem S, Ref_PayrollSource R
+			WHERE    S.Source = R.Code
+			AND      PayrollItem IN ( SELECT   PayrollItem 
+			                          FROM     EmployeeSalaryLine E
+									  WHERE    PersonNo       = '#URL.ID#'
+									  -- AND      PayrollStart  >= '#EOD#'									 
+									  UNION ALL										
+									  SELECT   PayrollItem 				
+									  FROM     EmployeeSettlementLine  
+									  WHERE    PersonNo       = '#URL.ID#'
+									  AND      Mission        = '#mission#'
+									  -- AND      PayrollEnd    >= '#EOD#'
+									  )  
+					 				 
+									 
+			ORDER BY R.ListingOrder, ComponentOrder						  
+		</cfquery>
+		
+		<cfquery name="Currency" 
+		datasource="AppsPayroll" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT   DISTINCT ES.PaymentCurrency 
+			FROM     EmployeeSalary AS ES INNER JOIN
+		             EmployeeSalaryLine AS ESL ON ES.SalarySchedule = ESL.SalarySchedule AND ES.PayrollStart = ESL.PayrollStart AND ES.PersonNo = ESL.PersonNo AND 
+		             ES.PayrollCalcNo = ESL.PayrollCalcNo	
+			WHERE    ES.Mission = '#mission#'
+			AND      ES.PersonNo       = '#URL.ID#'
+			-- AND      ES.PayrollEnd >= '#EOD#'
+		</cfquery>
+		
+		<cfquery name="Entitlement" 
+		datasource="AppsPayroll" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		
+			SELECT *
+			FROM (
+			SELECT   ESL.PersonNo, 
+			         ESL.PayrollItem, 
+					 ESL.PaymentCurrency,
+					 SUM(ESL.PaymentAmount) AS Entitlement
+			FROM     EmployeeSalary AS ES INNER JOIN
+		             EmployeeSalaryLine AS ESL ON ES.SalarySchedule = ESL.SalarySchedule AND ES.PayrollStart = ESL.PayrollStart AND ES.PersonNo = ESL.PersonNo AND 
+		             ES.PayrollCalcNo = ESL.PayrollCalcNo	
+			WHERE    ES.Mission        = '#mission#'
+			AND      ES.PersonNo       = '#URL.ID#'
+			-- AND      ES.PayrollEnd    >= '#EOD#'
+			GROUP BY ESL.PersonNo, 
+			         ESL.PayrollItem, 
+					 ESL.PaymentCurrency		
+			
+					
+			) as B
+			
+			ORDER BY PersonNo, 
+			         PayrollItem, 
+					 PaymentCurrency		
+			
+					
+		</cfquery>
+		
+		<cfquery name="Payment" 
+		datasource="AppsPayroll" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT   E.PersonNo, 
+			         E.PayrollItem, 
+					 E.Currency,
+					 SUM(E.PaymentAmount) AS Payment
+			FROM     EmployeeSettlementLine E 
+			WHERE    PersonNo    = '#URL.ID#'
+			AND      Mission     = '#mission#'
+			-- AND      PaymentDate >= '#EOD#'
+			GROUP BY PersonNo, PayrollItem, Currency				
+		</cfquery>		
+		
+		<cfset yr  = "">
+		<cfset mis = Mission>
+			
+		<cfloop query="Item">
+		
+			<cfif Source neq prior>	
+				<tr class="line"><td style="padding-top:0px;height:36px;font-size:19px;font-weight:300" colspan="7" class="labellarge">#Source#</td></tr>	
+			</cfif>
+		
+			<cfset prior = source>
+			
+			<cfset itm = PayrollItem>
+			<cfset nme = PayrollItemName>
+			<cfset src = Source>
+			<cfset row = currentrow>
+		
+			<cfloop query="Currency">
+			
+				<cfquery name="Ent"
+		         dbtype="query">
+					SELECT   Entitlement
+					FROM     Entitlement 
+					WHERE    PersonNo          = '#URL.ID#'
+					AND      PaymentCurrency   = '#PaymentCurrency#'
+					AND      PayrollItem       = '#itm#'
+				</cfquery>
+			
+				<cfif ent.entitlement neq "">
+					   <cfset entitle = ent.entitlement>
+				<cfelse>
+					   <cfset entitle = 0>
+				</cfif>			
+					
+				<cfquery name="Pay"
+			         dbtype="query">
+						SELECT   Payment
+						FROM     Payment 
+						WHERE    PersonNo    = '#URL.ID#'
+						AND      Currency    = '#PaymentCurrency#'
+						AND      PayrollItem = '#itm#'
+					</cfquery>
+											
+				<cfif pay.payment neq "">
+				   <cfset paym = pay.payment>
+				<cfelse>
+				   <cfset paym = 0>
+				</cfif>		
+				
+				<cfif entitle neq "0" or paym neq "0" or pay.recordcount gt "0">
+				
+				<tr style="height:18px" class="line labelmedium navigation_row">
+					<td align="center" width="40">
+				
+						<img src="#SESSION.root#/Images/icon_expand.gif" alt="View History" 
+							id="#yr#_#row#_#currentrow#Exp" border="0" class="show" 
+							align="absmiddle" style="cursor: pointer;" height="12"
+							onClick="drill('eod','#mis#','#yr#_#row#_#currentrow#','','#itm#','#paymentCurrency#')">
+							
+							<img src="#SESSION.root#/Images/icon_collapse.gif" 
+							id="#yr#_#row#_#currentrow#Min" alt="Hide History" border="0" 
+							align="absmiddle" class="hide" style="cursor: pointer;" height="12"
+							onClick="drill('eod','#mis#','#yr#_#row#_#currentrow#','','#itm#','#paymentCurrency#')">				
+					
+					</td>
+					<td style="width:50px">#itm#</td>
+					<td>#nme#</td>
+					<td></td>
+					<td>#PaymentCurrency#</td>
+					<td align="right"><a href="javascript:drill('eod','#mis#','#yr#_#row#_#currentrow#','','#itm#','#paymentCurrency#')"><font color="000000">#numberFormat(entitle,",.__")#</a></td>				
+					<td align="right" style="padding-right:4px!important">					
+					<a href="javascript:drill('eod','#mis#','#yr#_#row#_#currentrow#','','#itm#','#paymentCurrency#')"><font color="000000">												
+						<cfif abs(entitle-paym) gte 0.01><font color="FF0000"></cfif>#numberFormat(pay.payment,",.__")#
+					</a>
+					</td>
+			
+			   </tr>	
+			
+			   <tr class="hide" id="d#yr#_#row#_#currentrow#">
+			       <td colspan="3"></td>
+			       <td id="i#yr#_#row#_#currentrow#" style="padding-right:5px" colspan="4"></td>
+		       </tr>		
+			
+			</cfif>
+			
+			</cfloop>
+			
+		</cfloop>
+		
+		<tr><td height="5"></td></tr>	
+			
+	</cfoutput>	
+	
+	</cfif>
+	
+	</table>
+	
+</td></tr>
+</table>
+
+<cfset ajaxOnLoad("doHighlight")>

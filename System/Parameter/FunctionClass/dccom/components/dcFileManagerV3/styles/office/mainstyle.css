@@ -1,0 +1,89 @@
+.currentPath {
+ padding-left:5px;
+ font-family:arial;
+ font-size:12px;
+ color:black;
+}
+
+.overAllContainer {
+ background-color:#FFFBFF;
+ border-left:1px solid #08246B;
+ border-top:1px solid #08246B;
+ BORDER-BOTTOM: #08246B 1px solid;
+ BORDER-right: #08246B 1px solid;
+}
+
+.innerStructure {
+ background-color:#FFFBFF;
+}
+
+.statusBar {
+ border-left:1px solid #848284;
+ border-top:1px solid #848284;
+ border-right:1px solid #ffffff;
+ border-bottom:1px solid #ffffff;
+ font-family:arial;
+ font-size:11px;
+ padding-left:5px;
+}
+
+.titleBar {
+ background-color:#288EE3;
+ font-family:arial;
+ font-size:12px;
+ color:white;
+ font-weight:bold;
+ padding-top:2px;
+ padding-bottom:2px;
+}
+
+.toolbar {
+ border-left:1px solid white;
+ border-top:1px solid white;
+ BORDER-BOTTOM: #848284 1px solid;
+ BORDER-right: #848284 1px solid;
+ padding:0px;
+}
+
+.buttonOff {
+ border-left:1px solid #FFFBFF;
+ border-right:1px solid #FFFBFF;
+ border-top:1px solid #FFFBFF;
+ border-bottom:1px solid #FFFBFF;
+ font-family:arial;
+ font-size:11px;
+ cursor:pointer;
+ cursor:hand;
+ padding-right:2px;
+ padding-bottom:2px;
+ padding-right:5px;
+}
+
+.buttonOn {
+ border-right:1px solid #08246B;
+ border-left:1px solid #08246B;
+ border-bottom:1px solid #08246B;
+ border-top:1px solid #08246B;
+ font-family:arial;
+ font-size:11px;
+ cursor:pointer;
+ cursor:hand;
+ padding-right:2px;
+ padding-bottom:2px;
+ padding-right:5px;
+ background-color:#B5CBFF;
+}
+
+.buttonPressed {
+ border-right:1px solid #08246B;
+ border-left:1px solid #08246B;
+ border-bottom:1px solid #08246B;
+ border-top:1px solid #08246B;
+ font-family:arial;
+ font-size:11px;
+ cursor:pointer;
+ cursor:hand;
+ padding-top:2px;
+ padding-right:5px;
+ background-color:#B5CBFF;
+}

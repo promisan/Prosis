@@ -1,0 +1,53 @@
+
+<cfquery name="Detail" 
+datasource="AppsOrganization" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT    R.* 
+	FROM      Ref_EntityDocument R INNER JOIN
+	          Ref_EntityActionDocument A ON R.DocumentId = A.DocumentId 
+			  	AND A.ActionCode      = '#GetAction.ActionCode#'
+	WHERE     R.DocumentType = 'report' 
+	AND       R.EntityCode = '#url.entityCode#'
+	ORDER BY  R.DocumentOrder
+</cfquery>
+
+<cfif Detail.recordcount eq 0>
+<!---	<table width="97%" align="center" cellspacing="0" cellpadding="0">
+		<tr><td height="10"></td></tr>
+		<tr><td height="20" align="center">
+				- There are no documents embedded in this action -
+		</td></tr>
+	</table>	 --->
+<cfelse>
+	
+    <table width="97%" align="center" border="0" bordercolor="silver" cellspacing="0" cellpadding="0" rules="rows">
+		
+	    <TR>
+		   <td width="15%" height="6">&nbsp;<b>Code</td>
+		   <td width="50%"><b>Description</td>
+		   <td width="10%" align="center"><b>Type</td>
+		   <td width="7%"></td>
+	    </TR>	
+	
+		<cfoutput>
+		<cfloop query="Detail">
+		
+			<tr><td height="1" colspan="6" bgcolor="e4e4e4"></td></tr>
+										
+			<cfset cd  = Detail.DocumentCode>
+															
+				<TR>
+				   <td height="20">&nbsp;#cd#</td>
+				   <td>#Detail.DocumentDescription#</td>
+				   <td align="center">#Detail.FieldType#</td>
+				   <td align="center">
+				   </td>				  			   
+			    </TR>	
+					
+		</cfloop>
+		</cfoutput>		
+							
+	</table>	
+</cfif>	
+	

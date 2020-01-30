@@ -1,0 +1,75 @@
+
+<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
+ 
+<cf_wait Text="Saving schedule components">
+
+<cfif ParameterExists(Form.Delete)>
+ 
+<cfquery name="Delete"
+  datasource="AppsPayroll" 
+  username="#SESSION.login#" 
+  password="#SESSION.dbpw#">
+     DELETE FROM SalaryScheduleMission
+	 WHERE  SalarySchedule  = '#URL.Schedule#'
+	 AND    Mission  = '#URL.Mission#'
+</cfquery>
+
+</cfif>
+
+
+<cfset dateValue = "">
+<CF_DateConvert Value="#form.DateEffective#">
+<cfset STR = dateValue>
+		
+<cfif ParameterExists(Form.Update)> 
+	
+	<cf_verifyOperational 
+	         datasource= "appsSystem"
+	         module    = "Accounting" 
+			 Warning   = "No">
+	  
+	<cfquery name="Update"
+	  datasource="AppsPayroll" 
+	  username="#SESSION.login#" 
+	  password="#SESSION.dbpw#">
+	     UPDATE SalaryScheduleMission
+		 SET    DateEffective          = #STR#	 	 
+		  <cfif operational eq "1">
+		  , GLAccount = '#Form.GLAccount#'
+		  </cfif>	 	
+		  	 	
+		 WHERE  SalarySchedule  = '#URL.Schedule#'
+		 AND    Mission  = '#URL.Mission#'
+	</cfquery>
+	
+	<cfquery name="Update"
+	  datasource="AppsPayroll" 
+	  username="#SESSION.login#" 
+	  password="#SESSION.dbpw#">
+	     DELETE FROM SalaryScale
+		 WHERE  SalarySchedule  = '#URL.Schedule#'
+		 AND    Mission  = '#URL.Mission#'
+		 AND    SalaryEffective < #STR#
+	</cfquery>
+	
+	<cfquery name="Clear"
+	  datasource="AppsPayroll" 
+	  username="#SESSION.login#" 
+	  password="#SESSION.dbpw#">
+	     DELETE FROM EmployeeSalary
+		 WHERE  SalarySchedule  = '#URL.Schedule#'
+		 AND    Mission  = '#URL.Mission#'
+		 AND    PayrollStart < #STR#
+	</cfquery>
+	
+		
+</cfif>
+
+<cfoutput>
+<script language="JavaScript">   
+     window.close()
+	 opener.location = "RecordListing.cfm?idmenu=#url.idmenu#&init=1"       
+</script>  
+</cfoutput>
+	
+

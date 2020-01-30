@@ -1,0 +1,252 @@
+<cf_screentop height="100%" html="No" jquery="Yes">
+
+<cfoutput>
+<script>
+	function saveList(id,id2)
+	{
+	    document.getElementById('formlist').onsubmit()
+				
+		if (_CF_error_messages.length == 0) {
+			ColdFusion.navigate('../../EntityObject/ElementList/ObjectListSubmit.cfm?DocumentId=' + id + '&id2=' + id2, 'lresult', '', '', 'POST', 'formlist')
+		}	
+	}	
+</script>
+</cfoutput>
+
+<cfajaximport tags = "cfform">
+
+<cfquery name="List" 
+datasource="AppsOrganization" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+    SELECT *
+    FROM  Ref_EntityDocumentItem
+	WHERE DocumentId = '#URL.DocumentId#'
+	ORDER BY ListingOrder
+</cfquery>
+
+<cfquery name="Last" 
+datasource="AppsOrganization" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+    SELECT Max(ListingOrder)+1 as Last
+    FROM   Ref_EntityDocumentItem
+	WHERE  DocumentId = '#URL.DocumentId#'	
+</cfquery>
+
+<cfif List.recordcount eq "0">
+   <cfparam name="URL.ID2" default="new">
+<cfelse>
+   <cfparam name="URL.ID2" default="">   
+</cfif>
+
+<cfset cnt = 0>
+
+<div id="lresult" height="100"></div>
+
+<cfform name="formlist" id="formlist">
+
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+	 
+	 	<tr>
+	
+	    <td width="100%">
+	    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="navigation_table">
+				
+	    <TR class="labelmedium line" height="18">
+		   <td style="padding-left:4px;width:40px">Code</td>
+		   <td width="60%">Description</td>
+		   <td width="50"  style="text-align:center">Sort</td>
+		   <td width="30" align="center">Active</td>
+		   <td colspan="2" align="right" style="width:40px">
+	       <cfoutput>
+			 <cfif URL.ID2 neq "new">
+			     <A href="#ajaxLink('../../EntityObject/ElementList/ObjectList.cfm?DocumentId=#URL.DocumentId#&ID2=new')#">
+				 <font color="0080FF">[add]</font></a>
+			 </cfif>
+			 </cfoutput>&nbsp;
+		   </td>		  
+	    </TR>
+							
+		<cfoutput>
+		
+		<cfloop query="List">
+					
+			<cfset nm = DocumentItem>
+			<cfset de = DocumentItemName>
+			<cfset ls = ListingOrder>
+			<cfset op = Operational>
+																					
+			<cfif URL.ID2 eq nm>		
+											
+			    <input type="hidden" name="DocumentItem" id="DocumentItem" value="<cfoutput>#nm#</cfoutput>">
+													
+				<TR style="height:35;padding-left:4px" class="labelmedium line navigation_row">
+				   <td style="padding-left:4px">#nm#</td>
+				   <td>
+				   	   <cfinput type="Text" 
+					   	value="#de#" 
+						name="DocumentItemName" 
+						message="You must enter a description" 
+						required="Yes" 
+						size="50" 
+						maxlength="80" 
+						class="regularxl">
+				  
+		           </td>
+				   <td height="22">
+				   	<cfinput type="Text"
+					       name="ListingOrder"
+						   style="text-align:center"
+					       value="#ls#"
+					       validate="integer"
+					       required="Yes"
+						   message="Please enter an order value" 
+					       visible="Yes"
+					       enabled="Yes"
+					       typeahead="No"
+					       size="1"
+					       maxlength="2"
+					       class="regularxl">
+				   			   
+				     </td>
+				  
+				   <td align="center">
+				      <input type="checkbox" class="radiol" name="Operational" id="Operational" value="1" <cfif "1" eq op>checked</cfif>>
+					</td>
+					
+				   <td colspan="2">
+				 
+				   <input type	= "button"
+						onclick = "javascript:saveList('#URL.DocumentId#','#url.id2#')" 
+				        value	= "Save" 
+						class	= "button10g" 
+						style	= "width:50;height:25px">
+					</td>
+			    </TR>				
+															
+			<cfelse>
+							
+				<cfquery name="Field" 
+				datasource="AppsOrganization" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+				    SELECT top 1 *
+				    FROM  OrganizationObjectInformation
+					WHERE DocumentId = '#URL.DocumentId#'
+					AND   DocumentItem = '#DocumentItem#'
+				</cfquery>	
+				
+				<cfquery name="Mail" 
+				datasource="AppsOrganization" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+				    SELECT top 1 *
+				    FROM  OrganizationObjectActionMail
+					WHERE DocumentId   = '#URL.DocumentId#'
+					AND   DocumentItem = '#DocumentItem#'
+				</cfquery>	
+						
+				<TR class="labelmedium line navigation_row" bgcolor="fcfcfc">
+				   <td height="15" style="padding-left:4px">#nm#</td>
+				   <td>#de#</td>
+				   <td style="text-align:center">#ls#</td>
+				   <td align="center"><cfif op eq "0"><b>No</b><cfelse>Yes</cfif></td>
+				   <td align="right" width="20">
+				      					   				       
+				       <a href="#ajaxLink('../../EntityObject/ElementList/ObjectList.cfm?DocumentId=#URL.DocumentId#&ID2=#nm#')#">
+						   <img src="#SESSION.root#/Images/edit.gif" height="11" width="11" alt="edit" border="0" align="absmiddle">
+					   </a>
+					   
+				   </td>
+				   <td style="padding-left:5px;padding-top:3px">
+				       <cfif Field.recordcount eq "0" and Mail.recordcount eq "0">
+					      						   
+				 	       <a href="#ajaxLink('../../EntityObject/ElementList/ObjectListPurge.cfm?DocumentId=#URL.DocumentId#&ID2=#nm#')#">
+						   <img src="#SESSION.root#/Images/delete5.gif" height="13" width="13" alt="delete" border="0" align="absmiddle">
+						   </a>
+						   
+					   </cfif>
+				    </td>
+				 </TR>	
+										
+			</cfif>
+			
+			<cfset cnt = cnt + 20>	
+						
+		</cfloop>
+		</cfoutput>
+													
+		<cfif URL.ID2 eq "new">		
+					
+			<TR>
+			<td height="35">
+				    <cfinput type="Text" 
+				         value="" 
+						 name="DocumentItem" 
+						 message="You must enter a code" 
+						 required="Yes" 
+						 size="2" 
+						 maxlength="20" 
+						 class="regularxl">
+	        </td>
+						   
+			    <td>
+				   	<cfinput type="Text" 
+				         name="DocumentItemName" 
+						 message="You must enter a name" 
+						 required="Yes" 
+						 size="50" 
+						 maxlength="80" 
+						 class="regularxl">
+				</td>								 
+				<td>
+				   <cfinput type="Text" 
+				      name="ListingOrder" 
+					  message="You must enter an order" 
+					  required="Yes" 
+					  size="1" 
+					  style="text-align:center"
+					  value="#last.Last#"
+					  validate="integer"
+					  maxlength="2" 
+					  class="regularxl">
+				</td>
+			
+			<td align="center">
+				<input type="checkbox" class="radiol" name="Operational" id="Operational" value="1" checked>
+			</td>
+								   
+			<td colspan="2">
+				<cfoutput>
+			    	<input type="button"
+						onclick = "javascript:saveList('#URL.DocumentId#','new')" 
+						value="Add" 
+						class="button10g" 
+						style="width:50;height:25px">
+				</cfoutput>
+									
+			</td>			    
+			</TR>	
+		
+			<cfset cnt = cnt + 40>						
+											
+		</cfif>								
+		</table>		
+		</td>
+		</tr>	
+								
+	</table>	
+</cfform>				
+
+<cfoutput>
+<script language="JavaScript">
+	
+	frm  = parent.document.getElementById("frm_#URL.documentid#");
+	he = 25+#list.recordcount*25#+#cnt#;
+	frm.height = he
+	
+</script>
+</cfoutput>
+
+<cfset ajaxonload("doHighlight")>

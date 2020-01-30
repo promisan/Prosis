@@ -1,0 +1,89 @@
+.text {
+	font-size: 10pt;
+	color: #000000;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.textsm {
+	font-size: 8pt;
+	color: #000000;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.textbold {
+	font-size: 10pt;
+	color: #000000;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-weight : bold;
+}
+
+.textheading {
+	font-size: 12pt;
+	color: #000000;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.textheadingbold {
+	font-size: 12pt;
+	color: #000000;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-weight : bold;
+}
+
+a.textlink {
+	font-size: 10pt;
+	color: #0000CD;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+a.textlink2 {
+	font-size: 10pt;
+	color: #CC3333;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+
+a.callink {
+	font-size: 8pt;
+	color: #0000CD;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+a.callinkbold {
+	font-size: 8pt;
+	color: #000000;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-weight : bold;
+}
+a.callinkday {
+	font-size: 8pt;
+	color: #FFFFF0;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	background-color: #821B1D;
+}
+.caltxt {
+	font-size: 8pt;
+	color: #000000;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+.caltxtbold {
+	font-size: 8pt;
+	color: #000000;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-weight : bold;
+}
+
+.time {
+	font-size: 10pt;
+	color: #708090;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-weight : bold;
+}
+
+.border1{ border-bottom: 1px solid #000000;  padding: 6px 4px 6px 4px;  }
+
+.border2{ border-bottom: 1px solid #000000; border-left: 1px solid Black;  border-right: 1px solid Black;  padding: 6px 4px 6px 4px;  }
+
+.border3{ border-top: 1px solid Black; border-bottom: 1px solid Black;   border-left: 1px solid Black;  border-right: 1px solid Black;  padding: 6px 4px 6px 4px;  }
+
+.border4{  padding: 6px 4px 6px 4px;  }
+
+.border5{ border-top: 1px solid Black; border-bottom: 1px solid Black;  padding: 6px 4px 6px 4px;  }

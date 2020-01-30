@@ -1,0 +1,57 @@
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes cnt=cnt). 
+Invalid character (&) encountered while parsing (tag "CFSET" with attributes domainValue=0). 
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes domainValue=domainValue). 
+Invalid character (&) encountered while parsing (tag "CFSET" with attributes domainValue=domainValue). 
+Invalid character (&) encountered while parsing (tag "CFSET" with attributes domainValue=Day ). 
+Invalid character (&) encountered while parsing (tag "CFSET" with attributes domainValue=--). 
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes). 
+Invalid quoted string 'yyyy-mm-dd' encountered while parsing (tag "CFSET" with attributes url.selectedDate=dateformat(k,). 
+Invalid number "1" encountered while parsing (tag "CFIF" with attributes defaultEmployee.recordCount=). 
+Invalid number "1" encountered while parsing (tag "CFIF" with attributes defaultEmployee.recordCount=). 
+Invalid number "1" encountered while parsing (tag "CFIF" with attributes defaultEmployee.recordCount=). 
+Invalid number "1" encountered while parsing (tag "CFIF" with attributes defaultEmployee.recordCount=). 
+Invalid number "1" encountered while parsing (tag "CFIF" with attributes s=). 
+Invalid number "1" encountered while parsing (tag "CFIF" with attributes s=). 
+Invalid number "1" encountered while parsing (tag "CFIF" with attributes s=). 
+Invalid number "1" encountered while parsing (tag "CFIF" with attributes s=). 
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes cnt=cnt). 
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes vOrgCnt=vOrgCnt). 
+Invalid character (&) encountered while parsing (tag "CFSET" with attributes responsibleList=responsibleList). 
+Invalid character (&) encountered while parsing (tag "CFSET" with attributes responsibleList=responsibleList). 
+Invalid character (&) encountered while parsing (tag "CFSET" with attributes responsibleList=responsibleList). 
+Invalid character (&) encountered while parsing (tag "CFSET" with attributes responsibleList=responsibleList). 
+Invalid character (&) encountered while parsing (tag "CFSET" with attributes responsibleList=responsibleList). 
+Invalid character (&) encountered while parsing (tag "CFSET" with attributes responsibleList=responsibleList). 
+Invalid character (&) encountered while parsing (tag "CFSET" with attributes responsibleList=responsibleList). 
+Invalid character (&) encountered while parsing (tag "CFSET" with attributes responsibleList=responsibleList). 
+Invalid character (&) encountered while parsing (tag "CFSET" with attributes responsibleList=). 
+Invalid character (&) encountered while parsing (tag "CFSET" with attributes responsibleList=). 
+Invalid character (&) encountered while parsing (tag "CFSET" with attributes responsibleList=). 
+Invalid character (&) encountered while parsing (tag "CFSET" with attributes responsibleList=[). 
+Invalid character (&) encountered while parsing (tag "CFSET" with attributes responsibleList=[). 
+Invalid character (&) encountered while parsing (tag "CFSET" with attributes responsibleList=[). 
+Invalid character (&) encountered while parsing (tag "CFSET" with attributes hours=lt_text). 
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes vCalendarHour=CalendarHour). 
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes vCalendarHour=CalendarHour). 
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes vCalendarHour=CalendarHour). 
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes vCalendarHour=CalendarHour). 
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes vCalendarHour=CalendarHour). 
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes vCalendarHour=CalendarHour). 
+Invalid character (,) encountered while parsing (tag "CFIF" with attributes). 
+Invalid character (,) encountered while parsing (tag "CFIF" with attributes). 
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes vSerialNo=getSerialNo.LastSerial). 
+Invalid quoted string 'day' encountered while parsing (tag "CFIF" with attributes getSchema.Periodicity=). 
+Invalid quoted string 'day' encountered while parsing (tag "CFIF" with attributes getSchema.Periodicity=). 
+Invalid quoted string 'day' encountered while parsing (tag "CFIF" with attributes getSchema.Periodicity=). 
+Invalid quoted string 'month' encountered while parsing (tag "CFIF" with attributes getSchema.Periodicity=). 
+Invalid quoted string 'month' encountered while parsing (tag "CFIF" with attributes getSchema.Periodicity=). 
+Invalid quoted string 'month' encountered while parsing (tag "CFIF" with attributes getSchema.Periodicity=). 
+Invalid quoted string 'month' encountered while parsing (tag "CFIF" with attributes getSchema.Periodicity=). 
+Invalid character (,) encountered while parsing (tag "CFIF" with attributes). 
+Invalid character (,) encountered while parsing (tag "CFIF" with attributes). 
+Invalid character (,) encountered while parsing (tag "CFIF" with attributes). 
+Invalid character (,) encountered while parsing (tag "CFIF" with attributes). 
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes cnt=cnt). 
+Invalid quoted string '' encountered while parsing (tag "CFIF" with attributes trim(url.scheduleId)=). 
+Invalid quoted string '' encountered while parsing (tag "CFIF" with attributes trim(url.scheduleId)=). 
+Invalid quoted string '' encountered while parsing (tag "CFIF" with attributes trim(url.scheduleId)=). 

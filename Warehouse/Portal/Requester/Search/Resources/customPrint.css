@@ -1,0 +1,36 @@
+.clsPersonDetailsList {
+	font-size:10px;
+}
+
+.clsPersonDetailSections div, .clsPersonDetailSections i {
+	font-size:10px;
+}
+
+.clsPersonDetailSections h3 {
+	font-size:16px;
+}
+
+.hpanel, .hpanel .panel-body  {
+	padding:5px;
+	margin-bottom:5px;
+}
+
+.clsRoundedPicture { 
+	background-size:cover; 
+	background-position:center center; 
+	background-repeat:no-repeat; 
+	background-color:#FAFAFA;
+}
+
+.clsElementHeader {
+	font-weight: bold;
+	color:#808080;
+}
+
+.clsElementListingItemText {
+	padding-left:25px; 
+}
+
+.panel-body {
+	border-top-width:3px !important;
+}

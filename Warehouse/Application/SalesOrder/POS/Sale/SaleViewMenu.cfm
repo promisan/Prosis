@@ -1,0 +1,187 @@
+<cfparam name="url.addressid"  default="00000000-0000-0000-0000-000000000000">
+
+<cfset vCellStyle    = "width:50%;min-width:140px;margin-bottom:20px;line-height:24px;padding:7px">
+<cfset vWidth        = "180px">
+<cfset vHeight       = "95px">
+<cfset vFontSize     = "24px">
+<cfset vBorderRadius = "5px">
+<cfset vBGColor     = "darkGray">
+
+<table border="0" class="formspacing">
+  <tr>
+  
+	<cfoutput>
+					
+	<td style="#vCellStyle#" align="center" valign="middle">
+	
+			<cfset link = "#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/addItemSelect.cfm?warehouse=#url.warehouse#&customerid={customeridselect}&customeridinvoice={customerinvoiceidselect}&discount={Discount}&PriceSchedule={PriceSchedule}&currency={currency}&salespersonno={salespersonno}&date={transaction_date}&hour={Transaction_hour}&minu={Transaction_minute}&addressid={addressidselect}">	
+			
+			<cf_tl id="Store Items" var="1">								  
+			
+			<cfset buttonlayout = {
+				id            = "buttonday",
+				subtext       = "#lt_text#",
+				height        = "#vHeight#",
+				image	      = "Inventory-W.png",
+				width         = "#vWidth#",
+				textsize      = "#vFontSize#", 	
+				bgColor	      = "0080C0",
+				textcolor     = "##FFFFFF",
+				borderColor   = "##FFFFFF",
+				borderRadius  = "3px",
+				bgColor		  = "##033f5d",
+                imageHeight   = "48px",
+                imagepos      = "right"}>
+                
+                
+			<cfquery name="qImage" 
+	  		datasource="AppsMaterials" 
+	  		username="#SESSION.login#" 
+	  		password="#SESSION.dbpw#">
+            	SELECT *                  			
+				FROM Ref_ImageClass
+				WHERE Target = 1
+			</cfquery>	                                                    
+                              						
+			<cfif get.SaleMode eq "1"> 	
+					
+				<cf_tl id="Add" var="1">		
+																
+				<cf_selectlookup
+				    box          = "salelines"
+					link         = "#link#"
+					button       = "cfbutton"
+					buttonlayout = "#buttonlayout#"						
+					close        = "No"	
+					title        = "#lt_text#"											
+					module       = "materials"	
+					modal        = "true"			
+					formname     = "saleform"
+					class        = "itemstock"  				
+					filter1      = "warehouse"
+					filter1value = "#url.warehouse#"		
+					filter2		 = "imageclass"				
+					filter2value = "#qImage.Code#"
+					des1         = "ItemNo"
+                    fontsize     = "#vFontSize#" 
+                    fontfamily   = "Arial, Helvetica, sans-serif">	
+				
+			<cfelse>
+							
+				<cf_tl id="Add" var="1">
+				
+				<cf_selectlookup
+				    box          = "salelines"
+					link         = "#link#"
+					button       = "cfbutton"
+					buttonlayout = "#buttonlayout#"						
+					close        = "No"	
+					title        = "#lt_text#"	
+                    width        = "#vWidth#"
+					module       = "materials"	
+					modal        = "true"			
+					formname     = "saleform"
+					class        = "itemextended"  				
+					filter1      = "warehouse"
+					filter1value = "#url.warehouse#"	
+					filter2		 = "imageclass"					
+					filter2value = "#qImage.Code#"
+					des1         = "ItemNo"
+                    fontsize     = "#vFontSize#" 
+                    fontfamily   = "Arial, Helvetica, sans-serif">
+			
+			</cfif>						
+                           
+      </td>			
+	  															
+	  <td style="#vCellStyle#" align="center">
+	  				
+		<cf_tl id="Sales" var="vSaleLbl">
+	   	<cf_tl id="Daily Closing" var="1">
+		<cf_button2
+                    text         = "#vSaleLbl#" 
+                    subText      = "#lt_text#"
+                    image        = "Financial-W.png"  
+                    onclick		= "salesdaytotal()" 	
+                    width        = "#vWidth#" 
+                    height       = "#vHeight#"
+				    bgColor		= "##0080C0"
+                    textColor    = "##FFFFFF"
+                    textSize     = "#vFontSize#"
+                    imageHeight  = "42px"
+                    imagepos     = "right"
+				    borderColor  = "##FFFFFF"
+				    borderRadius = "#vBorderRadius#">
+                               
+     </td>     									
+	 
+	</tr>
+    
+	<tr>
+          <td style="#vCellStyle#" align="center">	
+	 
+					<cfset link = "#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/getSalesOrder.cfm?mission=#url.mission#&warehouse=#url.warehouse#&">		
+					
+					<cf_tl id="sales orders" var="1">
+					
+					<cfset buttonlayout = {
+						subtext      = "#lt_text#",
+						id         	 = "buttonday",
+						image        = "Logos/Search-W.png",
+						height		 = "#vHeight#",
+						textcolor  	 = "ffffff",
+						width        = "#vWidth#",
+						bgColor		 = "0080C0",
+						textsize     = "#vFontSize#",
+						borderColor  = "##FFFFFF",
+						borderRadius = "#vBorderRadius#",
+                        imageHeight  = "42px",
+                        imagepos     = "right"}>
+					
+					<cf_tl id="Search" var="1">	 
+					
+					<cf_selectlookup
+					    box          = "search"
+						link         = "#link#"													
+						button       = "cfbutton"						
+						buttonlayout = "#buttonlayout#"
+						close        = "Yes"	
+						title        = "#lt_text#"		
+						module       = "materials"				
+						formname     = "saleform"
+						class        = "salesorder"  				
+						filter1      = "warehouse"
+						filter1value = "#url.warehouse#"						
+						des1         = "BatchId"
+                        fontsize     = "#vFontSize#" 
+                        width        = "#vWidth#" >	
+                        
+       </td>
+	   <td style="#vCellStyle# padding:5px;" align="center">		
+	   						
+					<cf_tl id="Register sale" var="1">
+					<cf_tl id="New" var="vNewLabel">
+					   
+					<cf_button2
+						text		= "#vNewLabel#" 
+						subtext		= "#lt_text#"
+						id			= "buttonnew"  						
+						textsize	= "#vFontSize#" 
+						height		= "#vHeight#"
+						width		= "#vWidth#"
+						image		= "New-Request-W.png"
+						borderColor = "##FFFFFF"
+						borderRadius= "#vBorderRadius#" 
+                        imageHeight  = "38px"
+						bgColor		 = "033f5d"
+                        imagepos     = "right"
+						onclick		= "ColdFusion.navigate('#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/applyCustomer.cfm?warehouse=#url.warehouse#','customerbox')"
+						textcolor	= "##FFFFFF">
+									   
+     	</td>
+                        </cfoutput>	
+					
+</tr>
+
+          
+</table>

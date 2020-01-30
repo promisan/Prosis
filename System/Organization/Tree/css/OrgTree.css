@@ -1,0 +1,44 @@
+.folder {
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 5px;
+    position: relative;
+    background-color: #dde0e1;
+	border:1px solid gray;
+    border-radius: 0 6px 6px 6px;
+	padding:1px; 
+}
+
+
+.grid{
+	width:21px;
+	background-image:url(../../../../images/tablegrid2.png);
+	height:13px;
+	display: block;
+	
+}
+
+.grid:hover{
+	background-image:url(../../../../images/tablegrid2_hover.png);
+	cursor: pointer;
+	
+}
+
+.arrow{
+	width:21px;
+	background-image:url(../../../../../images/arrow_up2.png);
+	height:13px;
+}
+
+
+.titleTree{
+	font-size:14px;
+	color:#484747;
+
+}
+.white{
+	color:#ffffff;
+}
+.nodHover{
+	 background-image: url(../../../../Images/bblue.jpg);
+}

@@ -1,0 +1,106 @@
+
+<cfparam name="URL.ID2" default="Template">
+<cfparam name="URL.ID3" default="0000">
+<cfparam name="URL.Mission" default="#URL.ID2#">
+<cfparam name="URL.Mandate" default="#URL.ID3#">
+<cfparam name="URL.FormName" default="">
+
+<cf_screentop html="No" jquery="Yes">
+
+<cf_divscroll>
+
+<input type="hidden" name="mission" value="<cfoutput>#URL.Mission#</cfoutput>">
+
+ <cfquery name="Mandate" 
+   datasource="AppsOrganization" 
+   username="#SESSION.login#" 
+   password="#SESSION.dbpw#">
+   SELECT * 
+   FROM Ref_Mandate
+   WHERE Mission = '#URL.Mission#'
+</cfquery>
+     
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+
+<tr><td valign="top">
+
+<CFSET cond = Replace("#URL.ID1#", "'", "''", "ALL" )>
+<cfset cond = "FunctionDescription LIKE '%#cond#%'">
+
+<cfquery name="Parameter" 
+   datasource="AppsSelection" 
+   username="#SESSION.login#" 
+   password="#SESSION.dbpw#">
+   SELECT * 
+   FROM Ref_ParameterOwner
+   <cfif URL.Owner neq "">
+   WHERE Owner = '#URL.Owner#'   
+   </cfif>
+</cfquery>
+
+<cfset fclass = ''>
+<cfloop query="Parameter">
+  <cfif fclass eq "">
+     <cfset fclass = "'#FunctionClassSelect#'">
+  <cfelse>
+  	 <cfset fclass = "#fclass#,'#FunctionClassSelect#'">
+  </cfif>
+</cfloop>    
+ 
+<!--- Query returning search results --->
+<cfquery name="Level01" 
+datasource="AppsSelection" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+SELECT DISTINCT F.FunctionNo, 
+        F.FunctionClass, 
+		F.FunctionDescription, 
+		FunctionOrganization.FunctionId AS Roster
+FROM    FunctionTitle F LEFT OUTER JOIN
+        FunctionOrganization ON F.FunctionNo = FunctionOrganization.FunctionNo
+WHERE   #preserveSingleQuotes(cond)#
+<cfif fclass neq "">
+AND      F.FunctionClass IN (#preserveSingleQuotes(fclass)#)
+</cfif>
+AND      F.FunctionOperational = '1'
+ORDER BY F.FunctionDescription
+</cfquery>
+
+<table align="center" width="98%" class="navigation_table formpadding">
+
+<TR class="labelmedium line">
+    <td width="30" height="20"></td>
+    <TD><cf_tl id="Id"></TD>
+	<TD><cf_tl id="Description">"</TD>
+	<TD><cf_tl id="Status"></TD>
+	<TD><cf_tl id="Bucket"></TD>
+</TR>
+
+<cfoutput query="Level01" group="FunctionDescription">
+	
+	<CFSET des = Replace("#FunctionDescription#", "'", "", "ALL" )> 
+	
+	<TR class="navigation_row line labelmedium">
+		<td align="center" style="padding-top:3px">
+			<cf_img icon="select" navigation="Yes" onclick="javascript:Selected('#FunctionNo#','#des#','#url.fldfunctionno#','#url.fldfunctiondescription#')">
+		</td>
+		<TD>#FunctionNo#</TD>
+		<TD>#FunctionDescription#</TD>
+		<TD><cfif FunctionClass eq "Standard">Approved</cfif></TD>
+		<td align="center" style="padding-right:4px"><cfif Roster neq "">*</cfif></td>
+	</TR>
+
+</CFOUTPUT>
+
+</TABLE>
+
+</td></tr>
+   
+</table>
+
+</cf_divscroll>
+
+<cfset ajaxonload("doHighlight")>
+
+

@@ -1,0 +1,95 @@
+
+<!--- 1. check format in NY/CICIG of the date
+      2. send eMail will details using the dialog we have 	  
+	  3. test behavior on windows dialog screen 
+ --->
+ 
+<cfoutput>
+
+<cftry>
+
+<cfquery name="Log" 
+	datasource="appsSystem" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#"> 
+	   SELECT * 
+	   FROM   UserError
+	   WHERE  ErrorId = <cfqueryparam
+						value="#URL.ID#"
+						cfsqltype="CF_SQL_IDSTAMP"> 
+</cfquery>			
+	
+    <!--- get the recorded error in the log file of cf 	
+	
+	Note:  April 10, 2015. by Nery.
+	As discussed with Hanno, I'm taking this out because: (a) We are already storing error diagnostics and error content in the database so no 
+	need for exception.log file to be populated
+	
+	<cffile action="READ" 
+	    file="#Server.ColdFusion.RootDir#\logs\exception.log" 
+		variable="flog">	
+		
+	<cfset base = right(flog, 7000)>
+	<cfset base = replace(base,'"',"-",'ALL')> 			
+					
+	<cfset loc = Find("#url.ts#", base)>		
+	
+	<cfif loc eq "0">
+	    <cfset err = mid(base, 1, 8000)>
+	<cfelse>
+		<cfset err = mid(base, loc, 8000)>		
+	</cfif>			
+
+	<cfset vErrorContent = "#Log.ErrorContent# Stack:  #HTMLCodeFormat(err)#">		
+									
+	<!--- update error details, at the begining it comes the information on the file location --->
+	<cfquery name="Update" 
+	datasource="AppsSystem">
+		UPDATE UserError
+		SET    ErrorContent = '#vErrorContent#'
+		WHERE  ErrorId      = '#url.id#'
+	</cfquery> 
+	
+	--->
+	
+	<!--- We send email only once per user and per error. EnableProcess is updated in Service.Process.System.SystemError--->
+	<cfif Log.EnableProcess eq 1> 
+	
+		<!--- sending a mail --->
+		<cf_ErrorInsertMail errorid="#url.id#">	
+								
+		<cfquery name="Parameter" 
+			datasource="AppsInit">
+			SELECT * 
+			FROM   Parameter
+			WHERE  HostName = '#CGI.HTTP_HOST#'
+		</cfquery>
+		
+		<!--- Nery, on 21/05/2015: removed as per discussion with Hanno.
+		<cfif Parameter.ErrorMailToOwner eq "9">
+			
+			<script>
+				alert("Thank you, an eMail notification was sent.")
+			</script>	
+		
+		</cfif> --->
+		
+	</cfif>		
+	
+<cfcatch>
+
+	<!---
+		
+	<script>
+		alert("Sorry, an automatic Email notification could NOT be sent to the administrator.")
+	</script>	
+	
+	--->
+			
+</cfcatch>
+
+</cftry>
+
+</cfoutput>
+
+

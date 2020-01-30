@@ -1,0 +1,128 @@
+
+<table width="97%" border="0" align="center" class="navigation_table" cellspacing="0" cellpadding="0">
+
+<cfquery name="Rate"
+datasource="AppsPayroll" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+    SELECT DISTINCT *, T.Description as TriggerDescription
+	FROM   SalaryScaleComponent C,
+		   Ref_PayrollComponent Com,
+		   Ref_PayrollTrigger T
+	WHERE  Com.Code = C.ComponentName
+	AND    T.SalaryTrigger = Com.SalaryTrigger
+	AND    C.ScaleNo       = '#Scale.ScaleNo#'
+	AND    C.Period        != 'PERCENT' and C.RateStep = '9'
+	ORDER BY T.Description
+</cfquery>
+
+<tr class="line labelmedium">
+    
+	<TD align="left"><cf_tl id="Component"></TD>	
+	<TD align="left"><cf_tl id="Group"></TD>
+	<TD align="left"><cf_tl id="Currency"></TD>
+	<TD align="right"><cf_tl id="Amount"></TD>
+	  
+</TR>
+
+
+<cfquery name="CurrencyList"
+	datasource="AppsLedger" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    SELECT *
+		FROM Currency
+</cfquery>
+
+<cfoutput query="Rate" group="SalaryTrigger">	
+
+	<tr><td colspan="3" class="labelmedium" style="font-size:20px;height:43px">#TriggerDescription#</td></tr>
+
+	<cfoutput>
+			   
+			<TR bgcolor="white" class="line navigation_row" style="height:20px">
+			
+			<cfset cp = "#replace(ComponentName,' ','','ALL')#">
+		    <cfset cp = "#replace(cp,'-','','ALL')#">
+			
+			<TD class="labelit" style="padding-left:20px">#Description# (#Code#)</TD>						
+						
+			<cfquery name="Group"
+			datasource="AppsPayroll" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				SELECT    *
+				FROM      Ref_PayrollTriggerGroup AS G 
+				WHERE     G.SalaryTrigger     = '#SalaryTrigger#'
+				AND       G.EntitlementGroup  = '#EntitlementGroup#'		  
+			</cfquery>						
+			
+			<TD class="labelit"><cfif Group.EntitlementName neq "">#Group.EntitlementName# (#Group.EntitlementGroup#)<cfelse>#Group.EntitlementGroup#</cfif></TD>		
+					
+			<cfquery name="getRate"
+					datasource="AppsPayroll" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+				    SELECT  TOP 1 *
+					FROM    SalaryScaleLine
+					WHERE   ScaleNo        = '#Scale.ScaleNo#' 				
+					AND     ComponentName  = '#ComponentName#'							
+	     		</cfquery>		
+				
+				<cfif Rate.recordcount gte "1">
+						
+	    			 <cfset curr = getRate.Currency>
+					 
+				<cfelse>
+							
+					 <cfquery name="schedule"
+						datasource="AppsPayroll" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+					    SELECT  TOP 1 *
+						FROM    SalarySchedule
+						WHERE   SalarySchedule = '#Scale.SalarySchedule#'						
+		     		</cfquery>		
+									
+				     <cfset curr = schedule.PaymentCurrency>
+					 
+				</cfif>			
+			
+			<TD style="border:1px solid silver;padding-right:2px" align="right">
+			<select name="Currency_#cp#" class="regularh enterastab" style="border:0px">
+				  <cfloop query="CurrencyList">
+				    <option value="#Currency#" <cfif Currency eq curr>selected</cfif>>#Currency#</option>
+				  </cfloop>
+			</select>	
+					
+			<input type="hidden" name="Currency_#cp#_old" id="Currency_#cp#_old" value="#getRate.Currency#">
+			
+			</td>		
+			<td style="border:1px solid silver">
+			
+			<cfinput type="Text"
+			       name="Amount_#cp#"
+				   id="Amount_#cp#"
+			       message="Please enter a valid amount"
+			       validate="float"
+				   value="#numberformat(getrate.amount,'.___')#"
+			       required="No"
+			       visible="Yes"
+			       enabled="Yes"							   
+			       size="5"
+				   maxlength="20"
+				   style="border:0px solid silver;width:95%;text-align:right"
+			       class="amount2 enterastab regularh"/>
+															   					   
+		    <input type="hidden"  id="Amount_#cp#_old" name="Amount_#cp#_old" value="#getRate.amount#">
+				
+					
+			</td>		
+			
+			</tr>	 
+	
+	</cfoutput>	
+	
+</cfoutput>	
+
+</table>

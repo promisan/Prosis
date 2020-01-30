@@ -1,0 +1,50 @@
+<cfquery name="List" 
+	datasource="AppsLedger" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    SELECT 	JA.*,
+				A.Description as AccountDescription
+	    FROM  	JournalAccount JA
+				INNER JOIN Ref_Account A
+					ON JA.GLAccount = A.GLAccount
+		WHERE 	Journal= '#URL.ID1#'	
+		ORDER BY ListOrder
+</cfquery>
+
+<table width="98%" align="center" class="navigation_table">
+	<tr><td height="10"></td></tr>
+	<tr class="labelmedium">
+		<td width="8%" align="center">
+			<cfoutput>
+				<a href="javascript:editJournalAccount('#url.id1#','');" style="color:##4DA0FF;">[<cf_tl id="Add">]</a>
+			</cfoutput>
+		</td>
+		<td width="6%" align="center"><cf_tl id="Order"></td>
+		<td><cf_tl id="Account"></td>
+		<td align="center"><cf_tl id="Default"></td>
+		<td align="center"><cf_tl id="Mode"></td>
+	</tr>	
+	<tr><td colspan="5" class="line"></td></tr>	
+	<cfoutput query="List">
+		<tr class="labelmedium navigation_row">
+			<td align="center">
+				<table>
+					<tr>
+						<td>
+							<cf_img icon="edit" navigation="yes" onclick="editJournalAccount('#url.id1#','#GLAccount#');">
+						</td>
+						<td style="padding-top:2px;padding-left:8px;">
+							<cf_img icon="delete" onclick="purgeJournalAccount('#url.id1#','#GLAccount#');">
+						</td>
+					</tr>
+				</table>
+			</td>
+			<td align="center">#ListOrder#</td>
+			<td>[#GLAccount#] #AccountDescription#</td>
+			<td align="center"><cfif ListDefault eq 1><b><cf_tl id="Yes"></b><cfelse><cf_tl id="No"></cfif></td>
+			<td align="center">#Mode#</td>
+		</tr>
+	</cfoutput>
+</table>
+
+<cfset AjaxOnLoad("doHighlight")>

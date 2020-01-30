@@ -1,0 +1,155 @@
+
+<cfparam name="url.action" default="">
+
+<cfif url.action eq "Insert">
+
+	<cfquery name="Check" 
+	datasource="AppsSystem" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	  DELETE FROM UserReport
+	  WHERE  ParentReportId = '#URL.ReportId#'
+	  AND    Account = '#URL.Account#'
+	</cfquery>
+	
+	<cfquery name="Address" 
+	datasource="AppsSystem" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	  SELECT * FROM UserNames
+	  WHERE  Account = '#URL.Account#'	  
+	</cfquery>
+	
+	<cfif Address.eMailAddress neq "">
+	    <cfset mail = address.eMailAddress>
+	<cfelse>
+	    <cfset mail = address.eMailAddressExternal> 
+	</cfif>
+	
+	<cf_assignid>
+		
+	<cfquery name="InsertReport" 
+		datasource="AppsSystem" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		INSERT INTO UserReport
+		
+		    (	ReportId,					
+				Account, 
+				NodeIP,
+				AccountSubscriber,
+				ParentReportId,
+				LayoutId, 
+				DistributionName, 
+				DistributionSubject, 
+				DistributionEMail, 				
+				DistributionReplyTo, 
+				DistributionMode, 
+	            FileFormat, 
+				DistributionPeriod, 
+				DistributionDOW, 
+				DistributionDOM, 
+				DateEffective, 
+				DateExpiration, 
+				Status, 
+				ShowPopular, 
+				OfficerUserId, 
+				OfficerLastName, 
+	            OfficerFirstName
+			)
+			
+		SELECT 	 	'#rowguid#',		
+					'#URL.Account#', 
+					NodeIp,
+					'#SESSION.acc#',
+					ReportId,
+					LayoutId, 
+					DistributionName, 
+					DistributionSubject, 
+					'#mail#', 					
+					DistributionReplyTo, 
+					DistributionMode, 
+    	    	    FileFormat, 
+					DistributionPeriod, 
+					DistributionDOW, 
+					DistributionDOM, 
+					DateEffective, 
+					DateExpiration, 
+					Status, 
+					ShowPopular, 
+					OfficerUserId, 
+					OfficerLastName, 
+	    	        OfficerFirstName			
+		FROM        UserReport
+		WHERE       ReportId = '#URL.reportid#'		
+			
+	</cfquery>	
+	
+	<cfquery name="InsertCriteria" 
+		datasource="AppsSystem" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		INSERT INTO UserReportCriteria (
+				ReportId, 
+			    CriteriaId, 
+		    	CriteriaName, 
+				CriteriaValue, 
+				CriteriaValueDisplay )	
+		SELECT     '#rowguid#', 
+		           CriteriaId, 
+				   CriteriaName, 
+				   CriteriaValue, 
+				   CriteriaValueDisplay
+		FROM       UserReportCriteria
+		WHERE      ReportId = '#URL.reportid#'		
+	</cfquery>	
+		
+<cfelseif url.action eq "delete">	
+
+	<cfquery name="Delete" 
+	datasource="AppsSystem" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	  DELETE FROM UserReport
+	  WHERE  Account        = '#url.account#' 
+	  AND    ParentReportId = '#URL.ReportId#'
+	</cfquery>
+		
+</cfif>
+
+<cfquery name="User" 
+	datasource="AppsSystem" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	  SELECT *
+	  FROM   UserNames U, UserReport M
+	  WHERE  ParentReportId = '#URL.ReportId#' 
+	  AND    U.Account = M.Account
+</cfquery>
+	
+<cfif user.recordcount gt "0">
+	
+    <table width="99%" align="center" border="0" cellspacing="0" cellpadding="0">	
+					   
+	   <cfoutput query="User">
+	   
+			<tr><td colspan="7" class="linedotted"></td></tr>
+			<tr>
+			   	  <td class="labelsmall"><font color="808080">#currentrow#.</td>
+			      <td class="labelit"><font color="808080">#Account#</td>
+				  <td class="labelit"><font color="808080">#FirstName# #LastName#</td>	 
+				  <td class="labelit"><font color="808080">#DistributionEMail#</td>			 
+				  <td>				    
+				      <cf_img icon="delete" onclick="ptoken.navigate('#SESSION.root#/Tools/CFReport/HTML/FormHTMLSubscriptionUser.cfm?reportid=#url.reportid#&action=delete&Account=#Account#','box#url.reportid#')">					 
+				  </td>
+			</tr>      
+	       
+	   </CFOUTPUT> 
+   
+   </table>
+   
+<cfelse>
+
+	<cf_compression>   
+   
+</cfif>      

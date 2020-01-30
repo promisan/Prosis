@@ -1,0 +1,138 @@
+<cfparam name="URL.DocNo"      default="">
+<cfparam name="url.wparam"     default="ALL">
+<cfparam name="URL.FunctionNo" default="0">
+
+<cfif URL.FunctionNo eq "">
+      <cfset URL.FunctionNo =  "0">
+</cfif>
+
+<cfquery name="Owner" 
+	datasource="AppsOrganization" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	SELECT *
+	FROM Ref_AuthorizationRoleOwner
+</cfquery>
+	
+<cfparam name="URL.Status" default="1">
+<cfparam name="URL.Mode"   default="Regular">
+<cfparam name="URL.Cat"    default="Regular">
+<cfparam name="URL.Owner"  default="#Owner.Code#">
+
+<cfif url.cat eq "Regular">
+   <cfset loc = "Search1.cfm?header=0&wparam=#url.wparam#&docno=#URL.DocNo#&functionno=#URL.FunctionNo#&mode=#URL.Mode#&owner=#URL.Owner#&Status=#URL.Status#">
+</cfif>
+
+<cfoutput>
+
+<cfif url.mode eq "ssa">
+	
+	<cf_screentop label="Candidate search for procurement job: #URL.DocNo#" 
+	   height       = "100%" 
+	   bannerheight = "60"
+	   band         = "No" 
+	   html         = "No"
+	   jQuery       = "Yes" 
+	   systemmodule = "Roster"
+	   option       = "Perform a search"
+	   layout       = "webdialog" 
+	   banner       = "yellow"
+	   scroll       = "no">
+
+<cfelseif URL.mode eq "Vacancy">
+	
+	<cf_screentop label="Candidate Search for recruitment track: #URL.DocNo#" 
+	   height    ="100%" 
+	   bannerheight="60"
+	   band      = "No" 
+	   html      = "No"  <!--- added the hide option here --->
+	   option    = "Perform a search"
+	   jQuery    = "Yes" 
+	   systemmodule = "Roster"
+	   layout    = "webapp" 
+	   banner    = "gray"
+	   scroll    = "yes">	      
+   
+<cfelse>
+	
+	<cf_screentop label="Roster search #URL.Owner#" 
+	   height       = "100%" 	  
+	   bannerheight = "55"
+	   band         = "No" 
+	   jQuery       = "Yes" 
+	   systemmodule = "Roster"
+	   option       = "Searches all enabled editions"
+	   layout       = "webapp" 
+	   banner       = "gray"
+	   scroll       = "yes">
+
+</cfif>   
+
+</cfoutput>
+
+<meta http-equiv="Pragma" content="no-cache"> 
+<script language="JavaScript">
+   javascript:window.history.forward(1);
+</script>
+
+<cfoutput>
+
+<cf_LayoutScript>
+		 
+<cfset attrib = {type="Border",name="mybox",fitToWindow="Yes"}>
+
+<cf_layout attributeCollection="#attrib#">
+	
+	<cfif url.mode neq "complete">
+	
+	<cf_layoutarea 
+	   	position  = "header"
+	   	name      = "rostertop"
+	   	minsize	  = "50px"
+		maxsize	  = "50px"
+		size 	  = "50px">	
+		
+		<cf_ViewTopMenu label="Select Candidate" background="red">
+					 			  
+	</cf_layoutarea>	
+	
+	</cfif>	
+	  
+	<cf_layoutarea 
+	    position      = "left" 
+		name          = "treebox" 
+		maxsize       = "340" 		
+		size          = "260" 
+		minsize       = "260"
+		collapsible   = "true" 
+		initcollapsed = "yes"
+		splitter      = "true"
+		overflow      = "hidden">
+													
+			<iframe src="SearchTree.cfm?ID=0&docno=#URL.DocNo#&functionno=#URL.FunctionNo#&mode=#URL.Mode#&owner=#URL.Owner#&Status=#URL.Status#"
+		        name="left"
+		        id="left"
+		        width="100%"
+		        height="99%"
+				scrolling="no"
+		        frameborder="0"></iframe>		
+				
+	</cf_layoutarea>
+	
+	<cf_layoutarea position="center" name="box" overflow = "hidden">										
+								
+			<iframe src="#loc#"
+			        name="main"
+			        id="main"
+			        width="100%"
+			        height="99%"
+					scrolling="no"
+			        frameborder="0"></iframe>
+					
+	</cf_layoutarea>			
+		
+</cf_layout>
+	
+</cfoutput>
+
+<cf_screenBottom layout="webapp">

@@ -1,0 +1,36 @@
+
+DIV.screen {
+   height : auto;
+   width : auto;
+   position:absolute; 
+   overflow: auto; 
+}	
+
+.noprint { display:none; }
+
+TD.regNoPrint { 
+	font-family : tahoma; 
+	font-size : 8pt; 
+	height : 15px; 
+	display:none;
+} 
+	
+TD.top2Np {
+	font-family : tahoma;
+	font-size : 8pt;
+	height : 15px;
+	background : Silver;
+	color : white;
+} 
+
+TD.regularBig { 
+	font-family : tahoma; 
+	font-size : 10pt; 
+	height : 15px;
+	line-height: 35pt; 
+}
+
+td {
+	font-size:7pt; 
+}
+

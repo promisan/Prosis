@@ -1,0 +1,58 @@
+
+
+<head>
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Applicant profile (PHP)</title>
+</head>
+
+<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
+	
+<cf_wait Text="Preparing Personal History Profile">
+
+<cfflush>
+ 
+<cfoutput>
+
+<cfif not DirectoryExists("#SESSION.rootPath#\rptFiles\pdfLibrary\Staffing\#SESSION.acc#")>
+      <cfdirectory action="CREATE" 
+      directory="#SESSION.rootPath#\rptFiles\pdfLibrary\Staffing\#SESSION.acc#">
+</cfif>
+
+<form action="#SESSION.root#/Tools/PDF/show_report.asp" method="post" name="pdf" target="php">
+
+   <input type="hidden" name="filetype" value="Adobe PDF" size="20">
+   <input type="hidden" name="filename" value="PHP.pdf">
+      
+   <!--- crystal report file --->
+   <input type="hidden" name="engine" value="#CLIENT.crystalengine#">
+   <input type="hidden" name="report_file" value="#SESSION.rootpath#\rptFiles\Roster\php.rpt">
+   
+   <!--- crystal parameters --->
+   <input type="hidden" name="pm_SearchID" value="#URL.ID1#">
+  
+   <!--- location --->
+   <input type="hidden" name="filepath" value="#SESSION.rootPath#\rptFiles\PDFLibrary\Staffing\#SESSION.acc#\">
+   <input type="hidden" name="caller" value="#SESSION.root#/rptFiles/PDFLibrary/Staffing/#SESSION.acc#/PHP.pdf">
+     
+  
+</form>   
+
+<script language="JavaScript">
+
+{
+ 
+ document.pdf.filename.value = pdf.filepath.value+pdf.filename.value 
+ this.focus()
+ pdf.submit() 
+   
+ }
+ 
+</script>
+
+
+</cfoutput>
+
+  
+

@@ -1,0 +1,105 @@
+BODY {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+EM {
+	FONT-WEIGHT: bold; FONT-STYLE: normal
+}
+A {
+	COLOR: #db0f18
+}
+A:visited {
+	COLOR: #db0f18
+}
+A.navBar {
+	COLOR: black
+}
+A.navBar:visited {
+	COLOR: black
+}
+TABLE.columns {
+	WIDTH: 99%
+}
+TABLE.columns TD.left {
+	VERTICAL-ALIGN: top; WIDTH: 150px; BACKGROUND-COLOR: #eeeeee
+}
+DIV.navBar {
+	
+}
+DIV.navBar A {
+	DISPLAY: block; COLOR: black; TEXT-DECORATION: none
+}
+DIV.navBar A:hover {
+	COLOR: white; BACKGROUND-COLOR: #db0f18
+}
+DIV.navBar DIV.section {
+	BORDER-RIGHT: black 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: black 1px solid; MARGIN-TOP: 5px; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; BORDER-LEFT: black 1px solid; CURSOR: hand; PADDING-TOP: 2px; BORDER-BOTTOM: black 1px solid
+}
+DIV.navBar DIV.sectionSelected {
+	BORDER-RIGHT: black 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: black 1px solid; MARGIN-TOP: 5px; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; BORDER-LEFT: black 1px solid; CURSOR: hand; PADDING-TOP: 2px; BORDER-BOTTOM: black 1px solid
+}
+DIV.navBar DIV.sectionSelected {
+	BACKGROUND-COLOR: #0c88d0
+}
+DIV.navBar DIV.sectionSelected A {
+	FONT-WEIGHT: bold; COLOR: white
+}
+DIV.navBar DIV.sectionSelected A:visited {
+	COLOR: white
+}
+DIV.navBar DIV.subSection {
+	BORDER-RIGHT: black 1px solid; PADDING-RIGHT: 1px; BORDER-TOP: black 1px solid; MARGIN-TOP: 2px; PADDING-LEFT: 1px; PADDING-BOTTOM: 1px; MARGIN-LEFT: 20px; BORDER-LEFT: black 1px solid; CURSOR: hand; PADDING-TOP: 1px; BORDER-BOTTOM: black 1px solid
+}
+DIV.navBar DIV.subSectionSelected {
+	BORDER-RIGHT: black 1px solid; PADDING-RIGHT: 1px; BORDER-TOP: black 1px solid; MARGIN-TOP: 2px; PADDING-LEFT: 1px; PADDING-BOTTOM: 1px; MARGIN-LEFT: 20px; BORDER-LEFT: black 1px solid; CURSOR: hand; PADDING-TOP: 1px; BORDER-BOTTOM: black 1px solid
+}
+DIV.navBar DIV.subSectionSelected {
+	BACKGROUND-COLOR: #07b8f4
+}
+TABLE.columns TD.middle {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 50px; VERTICAL-ALIGN: top; PADDING-TOP: 10px
+}
+TABLE.columns TD.middle H1 {
+	FONT-SIZE: x-large; COLOR: #425766
+}
+TABLE.columns TD.middle H2 {
+	FONT-SIZE: large; TEXT-DECORATION: underline
+}
+TABLE.columns TD.middle H3 {
+	FONT-SIZE: medium
+}
+TABLE.columns TD.middle OL LI {
+	MARGIN-TOP: 15px; MARGIN-BOTTOM: 15px
+}
+TABLE.columns TD.right {
+	VERTICAL-ALIGN: top; WIDTH: 120px
+}
+DIV.footer {
+	FONT-WEIGHT: bold; COLOR: white; HEIGHT: 30px; BACKGROUND-COLOR: #0c88d0; TEXT-ALIGN: center
+}
+DIV.source {
+	BORDER-RIGHT: black 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: black 1px solid; PADDING-LEFT: 5px; FONT-SIZE: smaller; PADDING-BOTTOM: 5px; OVERFLOW: scroll; BORDER-LEFT: black 1px solid; PADDING-TOP: 5px; BORDER-BOTTOM: black 1px solid; FONT-FAMILY: courier new, sans serif; WHITE-SPACE: pre; BACKGROUND-COLOR: #eeeeee
+}
+TABLE.sourceDetails {
+	BORDER-RIGHT: black 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: black 1px solid; PADDING-LEFT: 5px; FONT-SIZE: smaller; PADDING-BOTTOM: 5px; BORDER-LEFT: black 1px solid; PADDING-TOP: 5px; BORDER-BOTTOM: black 1px solid; BACKGROUND-COLOR: #eeeeee
+}
+TABLE.sourceDetails TH {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; PADDING-TOP: 2px; BACKGROUND-COLOR: #cccccc; TEXT-ALIGN: right
+}
+LEGEND {
+	BORDER-RIGHT: #0c88d0 1px solid; PADDING-RIGHT: 3px; BORDER-TOP: #0c88d0 1px solid; PADDING-LEFT: 3px; FONT-WEIGHT: bold; PADDING-BOTTOM: 3px; BORDER-LEFT: #0c88d0 1px solid; COLOR: #db0f18; PADDING-TOP: 3px; BORDER-BOTTOM: #0c88d0 1px solid; FONT-FAMILY: arial bold
+}
+FIELDSET {
+	BORDER-RIGHT: #0c88d0 2px solid; PADDING-RIGHT: 10px; BORDER-TOP: #0c88d0 2px solid; PADDING-LEFT: 10px; PADDING-BOTTOM: 10px; BORDER-LEFT: #0c88d0 2px solid; PADDING-TOP: 10px; BORDER-BOTTOM: #0c88d0 2px solid
+}
+DIV.examplesource {
+	BORDER-RIGHT: #cccccc 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #cccccc 1px solid; PADDING-LEFT: 5px; PADDING-BOTTOM: 5px; BORDER-LEFT: #cccccc 1px solid; PADDING-TOP: 5px; BORDER-BOTTOM: #cccccc 1px solid; FONT-FAMILY: courier new; BACKGROUND-COLOR: #eeeeee
+}
+DIV.examplesource PRE {
+	DISPLAY: inline
+}
+DIV.tip {
+	BORDER-RIGHT: #cccccc 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: #cccccc 1px solid; PADDING-LEFT: 20px; BACKGROUND: url(/lightbulb.gif) #ffffce no-repeat left top; PADDING-BOTTOM: 2px; BORDER-LEFT: #cccccc 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: #cccccc 1px solid
+}
+.activityMonitor {
+	BORDER-RIGHT: black 1px solid; BORDER-TOP: black 1px solid; FONT-WEIGHT: bold; BORDER-LEFT: black 1px solid; WIDTH: 150px; BORDER-BOTTOM: black 1px solid; HEIGHT: 50px; BACKGROUND-COLOR: red; TEXT-ALIGN: center
+}

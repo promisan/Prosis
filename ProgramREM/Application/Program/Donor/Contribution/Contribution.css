@@ -1,0 +1,89 @@
+
+body{
+font-family:"Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
+font-size:12px;
+}
+p, h1, form, button{border:0; margin:0; padding:0;}
+.spacer{clear:both; height:1px;}
+.spacer_small{clear:both;}
+
+.btn_small{
+	float:right;
+	clear:both;
+	width:50px;
+	height:20px;
+	text-align:center;
+	line-height:20px;
+	background:#777777;
+	color:#FFFFFF;
+	font-size:11px;
+	font-weight:bold;
+}
+
+th.n_contribution
+{
+	font: bold 11px "Trebuchet MS", Verdana, Arial, Helvetica,
+	sans-serif;
+	color:#666666;
+	border-right: 1px solid #C1DAD7;
+	border-bottom: 1px solid #C1DAD7;
+	border-top: 1px solid #C1DAD7;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	text-align: left;
+	padding: 3px 3px 3px 10px;
+	background: #CAE8EA ;
+	width:20px;
+}
+
+th.d_contribution
+{
+	font: bold 11px "Trebuchet MS", Verdana, Arial, Helvetica,
+	sans-serif;
+	color:#666666;
+	border-right: 1px solid #C1DAD7;
+	border-bottom: 1px solid #C1DAD7;
+	border-top: 1px solid #C1DAD7;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	text-align: left;
+	padding: 3px 3px 3px 3px;
+	background: #CAE8EA ;
+	width:200px;
+}
+
+.alert
+{
+	font: bold 11px "Trebuchet MS", Verdana, Arial, Helvetica,	sans-serif;
+	color:red;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	text-align: center;
+	padding: 6px 6px 6px 12px;
+	background: #CAE8EA ;
+}
+
+td.d_contribution_log {
+	background: #fff;
+	padding: 6px 6px 6px 12px;
+	color: #6D929B;
+	font-style:italic;
+	width: 200px;
+}
+
+.clsDetails {
+	display:none;
+}
+
+.clsEdit {
+	display:none;
+}
+
+.clsAdd {
+	display:none;
+}
+
+.cdate {
+	width: 70px;
+}
+

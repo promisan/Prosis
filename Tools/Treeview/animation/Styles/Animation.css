@@ -1,0 +1,170 @@
+html, body, .clsCurtain {
+	height: 			400px;
+	width:				550px;
+	margin:				0;
+	font-family:		"Century Gothic", CenturyGothic, "Avant Garde", Avantgarde, "AppleGothic", Verdana, Arial, sans-serif;
+	overflow:			hidden;
+}
+
+.clsCurtain {
+	position:				absolute;
+	left:					0px;
+	top:					0px;
+	z-index:				1;
+	background-color: 		transparent;
+	background-repeat:		no-repeat;
+	background-image:		url(../Images/1.png);
+	border:					1px solid white;
+	-webkit-border-radius:	15px;
+	-moz-border-radius:		15px;
+	border-radius:			15px;
+}
+
+.clsCurtainTextTop {
+	position:			absolute;
+	left:				25px;
+	top:				110px;
+	color:				#FFFFFF;
+	font-size:			9px;
+	letter-spacing:		3px;
+}
+
+.clsCurtainTextBottom {
+	position:			absolute;
+	left:				0px;
+	top:				93%;
+	color:				#FFFFFF;
+	font-size:			9px;
+	width:				98%;
+	text-align:			right;
+	letter-spacing:		4px;
+}
+
+.clsLogo {
+	position:			absolute;
+	left:				20px;
+	top:				20px;
+	z-index:			2;
+	height:				81px;
+	width:				185px;
+	overflow:			hidden;
+	background-color: 	transparent;
+	background-repeat:	no-repeat;
+}
+
+.clsElement {
+	position:			absolute;
+	left:				-50%;
+	top:				134px;
+	width:				119px;
+	height:				225px;
+	overflow:			hidden;
+	text-align:			center;
+}
+
+.clsElementImage {
+	background-color: 	transparent;
+	background-repeat:	no-repeat;
+	height:				119px;
+	width:				119px;
+	margin:				0;
+}
+
+.clsElementText {
+	position:			absolute;
+	left:				-500%;
+	top:				300px;
+	z-index:			2;
+	width:				100%;
+	text-align:			center;
+	color:				#FFFFFF;
+	font-size:			12px;
+	letter-spacing:		7px;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes goIn
+{
+	0%   {left:-50%; opacity:0;}
+	25%  {left:45%;}
+	100% {left:40%; opacity:1;}
+}
+
+@-webkit-keyframes goOut
+{
+	0%   {left:40%; opacity:1;}
+	15%	 {left:34%;}
+	100% {left:150%; opacity:0;}
+}
+
+@-webkit-keyframes goInText
+{
+	0%   {left:-500%;}
+	25%  {left:5%; opacity:0.25;}
+	100% {left:0; opacity:1;}
+}
+
+@-webkit-keyframes goOutText
+{
+	0%   {left:-4%; opacity:1;}
+	15%	 {left:0; opacity:0.1;}
+	100% {left:500%; opacity:0;}
+}
+
+/* FF */
+@-moz-keyframes goIn
+{
+	0%   {left:-50%; opacity:0;}
+	25%  {left:45%;}
+	100% {left:40%; opacity:1;}
+}
+
+@-moz-keyframes goOut
+{
+	0%   {left:40%; opacity:1;}
+	15%	 {left:34%;}
+	100% {left:150%; opacity:0;}
+}
+
+@-moz-keyframes goInText
+{
+	0%   {left:-500%;}
+	25%  {left:5%; opacity:0.25;}
+	100% {left:0; opacity:1;}
+}
+
+@-moz-keyframes goOutText
+{
+	0%   {left:-4%; opacity:1;}
+	15%	 {left:0; opacity:0.1;}
+	100% {left:500%; opacity:0;}
+}
+
+/* Standard */
+@keyframes goIn
+{
+	0%   {left:-50%; opacity:0;}
+	25%  {left:45%;}
+	100% {left:40%; opacity:1;}
+}
+
+@keyframes goOut
+{
+	0%   {left:40%; opacity:1;}
+	15%	 {left:34%;}
+	100% {left:150%; opacity:0;}
+}
+
+@keyframes goInText
+{
+	0%   {left:-500%;}
+	25%  {left:5%; opacity:0.25;}
+	100% {left:0; opacity:1;}
+}
+
+@keyframes goOutText
+{
+	0%   {left:-4%; opacity:1;}
+	15%	 {left:0; opacity:0.1;}
+	100% {left:500%; opacity:0;}
+}

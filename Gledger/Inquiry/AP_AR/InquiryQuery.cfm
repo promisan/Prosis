@@ -1,0 +1,50 @@
+	
+<cfparam name="url.action"         default="">	
+<cfparam name="url.personno"       default="">	
+<cfparam name="Form.ReferenceName" default="zz">
+<cfparam name="Form.Journal"       default="zz">
+<cfparam name="Form.Period"        default="zz">
+<cfparam name="Form.Status"        default="zz">
+<cfparam name="Criteria"           default="">
+
+<cfoutput>
+
+<!---
+<cfif Form.ReferenceName IS NOT 'zz'>
+     <CFSET Criteria = #Criteria#&" AND P.ReferenceName IN ( #PreserveSingleQuotes(Form.ReferenceName)# )">
+</cfif> 
+--->
+
+<cfset Criteria = "WHERE 1=1">
+
+<cfif url.personno IS NOT 'undefined'>
+     <CFSET Criteria = "#Criteria# AND EXISTS (SELECT 'X' FROM Accounting.dbo.TransactionHeaderActor WHERE Journal = P.Journal AND JournalSerialNo = P.JournalSerialNo AND PersonNo = '#url.personno#')"> 	
+</cfif> 
+
+<cfif Form.Journal IS NOT 'zz'>
+     <CFSET Criteria = "#Criteria# AND P.Journal IN ( #PreserveSingleQuotes(Form.Journal)# )">
+</cfif> 
+
+<cfif Form.Period IS NOT 'zz'>
+     <CFSET Criteria = "#Criteria#& AND P.AccountPeriod IN ( #PreserveSingleQuotes(Form.Period)# )">
+</cfif> 
+
+<cfset client.payables = criteria>
+
+<script>   
+  
+  _cf_loadingtexthtml=''  
+  ptoken.navigate('ShowAging.cfm?mode=#url.mode#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#','graph')     
+  ptoken.navigate('ShowPayee.cfm?mode=#url.mode#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#','payee')  
+  ptoken.navigate('InquiryListing.cfm?mode=#url.mode#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#','listbox')     
+</script>	
+
+<cfif url.action neq "person">
+     <script>
+	 ptoken.navigate('ShowPerson.cfm?mode=#url.mode#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#','person')
+	 </script>
+</cfif>
+
+</cfoutput>
+	
+

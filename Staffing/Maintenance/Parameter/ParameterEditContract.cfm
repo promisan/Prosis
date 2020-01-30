@@ -1,0 +1,134 @@
+
+<cfquery name="Get" 
+datasource="AppsEmployee" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+SELECT *
+FROM Ref_ParameterMission
+WHERE Mission = '#URL.Mission#' 
+</cfquery>
+
+<cfoutput query="get">
+
+<cfform method="POST"
+    name="formcontract">
+	
+<table width="95%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+	
+	<tr><td height="5"></td></tr>	
+	
+	<TR>
+	    <td class="labelmedium" width="170"><cf_UIToolTip tooltip="Enable Contract workflow">PA Contract Workflow:</b></cf_UIToolTip></td>
+								 
+	    <TD width="75%">
+		
+		    <cfdiv bind="url:#SESSION.root#/system/entityAction/EntityFlow/EntityAction/EntityStatus.cfm?mission=#url.mission#&entitycode=PersonContract" 
+			  id="wfPersonContract">
+		
+			</td>
+    </tr>
+	
+	
+	<TR>
+    <td class="labelmedium">Personnel Action No:</b></td>
+    <TD class="labelmedium">	
+	<table><tr>
+	<td><input type="radio" class="radiol" onclick="document.getElementById('pano').className='hide'" name="PersonActionEnable" <cfif PersonActionEnable eq "0">checked</cfif> value="0"></td><td class="labelmedium">Edit</td>
+	<td><input type="radio" class="radiol" onclick="document.getElementById('pano').className='regular'" name="PersonActionEnable" <cfif PersonActionEnable eq "1">checked</cfif> value="1"></td><td class="labelmedium">Automatic</td>	
+	</td></tr></table>
+    </td>
+    </tr>
+	
+	<cfif PersonActionEnable eq "1">
+	  <cfset cl = "regular">
+	<cfelse>
+	  <cfset cl = "hide">
+	</cfif>
+	    				
+    <TR id="pano" class="#cl#">
+    <td class="labelmedium" width="180">&nbsp;&nbsp;Mask:</b></td>
+    <TD class="labelmedium">
+  		<input type="text" class="regularxl" name="PersonActionPrefix" value="#PersonActionPrefix#" size="4" maxlength="4" style="text-align: right;">
+  		<input type="text" class="regularxl" name="PersonActionNo" value="#PersonActionNo#" size="6" maxlength="6" style="text-align: right;">
+	</TD>
+	</TR>
+	
+	
+	<TR>
+	<cf_UIToolTip tooltip="Disable registration of SPA records">
+    <td class="labelmedium">SPA action:</b></td>
+	</cf_UIToolTip>
+    <TD class="labelmedium">	
+	<table>
+	<tr>
+		<td><input class="radiol" type="radio" name="DisableSPA" <cfif DisableSPA eq "1">checked</cfif> value="1"></td><td class="labelmedium">Disabled</td>	
+		<td><input class="radiol" type="radio" name="DisableSPA" <cfif DisableSPA eq "0">checked</cfif> value="0"></td><td class="labelmedium">Enabled</td>
+	</tr>
+	</table>	
+    </tr>		
+	
+		
+	<TR>
+	    <td width="170" class="labelmedium"><cf_UIToolTip tooltip="Enable SPA workflow">PA SPA Workflow:</b></cf_UIToolTip></td>
+								 
+	    <TD width="75%">
+		
+		    <cfdiv bind="url:#SESSION.root#/system/entityAction/EntityFlow/EntityAction/EntityStatus.cfm?mission=#url.mission#&entitycode=PersonSPA" 
+			  id="wfPersonSPA">
+		
+			</td>
+    </tr>
+	
+	<TR>
+	    <td width="170" class="labelmedium"><cf_UIToolTip tooltip="Enable Dependennts workflow">PA Dependents Workflow:</b></cf_UIToolTip></td>
+								 
+	    <TD width="75%">
+		
+		    <cfdiv bind="url:#SESSION.root#/system/entityAction/EntityFlow/EntityAction/EntityStatus.cfm?mission=#url.mission#&entitycode=Dependent" 
+			  id="wfDependent">
+		
+			</td>
+    </tr>
+		
+	<TR>
+	<cf_UIToolTip tooltip="Generate Contract step increase record and personnel action workflow upon reachning the Next step increase date set.">
+    <td class="labelmedium">Step Increment Batch:</b></td>
+	</cf_UIToolTip>
+    <TD class="labelmedium">	
+	<table><tr>
+		<td><input class="radiol" type="radio" name="BatchStepIncrement" <cfif BatchStepIncrement eq "1">checked</cfif> value="1"></td><td class="labelmedium">Enabled</td>
+		<td><input class="radiol" type="radio" name="BatchStepIncrement" <cfif BatchStepIncrement eq "0">checked</cfif> value="0"></td><td class="labelmedium">Disabled</td>
+	</tr>
+	</table>	
+    </td>
+    </tr>		
+
+	<TR>
+	<cf_UIToolTip tooltip="This field represents the path and filename of the template that is responsible of producing an e-document to support personnel actions">
+    <td class="labelmedium">Person Action Template:</b></td>
+	</cf_UIToolTip>
+    <TD>	
+ 		<input type="text" class="regularxl" name="PersonActionTemplate" value="#PersonActionTemplate#" size="100" maxlength="100" style="text-align: left;">
+    </td>
+    </tr>			
+	
+	<tr><td height="5"></td></tr>
+	
+	<tr><td colspan="2" class="linedotted"></td></tr>
+	
+	<tr><td height="5"></td></tr>
+	
+	<tr><td colspan="2" align="center">
+	<input type="button" 
+	       class="button10g"
+		   value="Update"
+	       name="Update" 
+		   onclick="ColdFusion.navigate('ParameterEditContractSubmit.cfm?mission=#url.mission#','contentbox1','','','POST','formcontract')">
+	</td></tr>
+	
+	<tr><td height="5"></td></tr>
+	
+	</table>
+
+</CFFORM>		
+</cfoutput>	

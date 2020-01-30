@@ -1,0 +1,957 @@
+/* Resetting */
+li,h1,h2,h3,h4,h5,h6,pre,form,body,html,p,blockquote,fieldset,input{margin:0; padding:0;}
+
+/* Clearfix */
+.clearfix:after {
+   content: " "; /* Older browser do not support empty content */
+   visibility: hidden;
+   display: block;
+   height: 0;
+   clear: both;
+}
+
+/* General */
+html {
+	overflow:					hidden;
+}
+
+body { 
+	background:					url('../../Images/bg.jpg') no-repeat center center fixed;
+	font-family:				"Century Gothic", CenturyGothic, "Avant Garde", Avantgarde, "AppleGothic", Verdana, Arial, sans-serif;
+	font-size:					13px;
+	-webkit-background-size: 	cover;
+	-moz-background-size: 		cover;
+	-o-background-size: 		cover;
+	-ms-background-size: 		cover;
+	background-size:			cover;
+}
+
+/* Layout */
+.clsPage { 
+	height:						100%;
+	-webkit-tap-highlight-color:rgba(255, 255, 255, 0);
+}
+
+.clsPageHeader { 
+	position:					fixed;
+	width:						100%;
+	height:						8%;
+	overflow:					hidden;
+	background-color:			rgba(26, 104, 148, 0.5);
+	-webkit-tap-highlight-color:rgba(255, 255, 255, 0);
+}
+
+.clsDivLogo {
+	float:				left;
+	height:				100%;
+	width:				10%;
+}
+
+.clsDivLogo img{
+	position:			absolute;
+	top:				-3px;
+	height:				100%;
+}
+
+.clsTopMenuRight {
+	float:						right; 
+	height:						100%;
+	-webkit-tap-highlight-color:rgba(255, 255, 255, 0);
+}
+
+.clsTopMenuLeft {
+	float:						left; 
+	height:						100%;
+	-webkit-tap-highlight-color:rgba(255, 255, 255, 0);
+}
+
+.clsTopMenuElement {
+	height:				90%;
+	width:				auto;
+	float:				left;
+	padding-right:		10px;
+}
+
+.clsPageContent { 
+	padding-top:				8%;
+	width:						100%;
+	height:						92%;
+	-webkit-tap-highlight-color:rgba(255, 255, 255, 0);
+}
+
+.clsVerticalToggler { 
+	position:				fixed;
+	top:					8%;
+	left:					0px;
+	background-color:		rgba(26, 104, 148, 0.5);
+	cursor:					pointer;
+	float: 					left;
+	width:					50px;
+	height:					92%;
+	overflow:				hidden;
+	z-index:				5000;
+}
+
+.clsMainContent { 
+	position:					fixed;
+	top:						8%;
+	left:						50px;						
+	width:						100%;
+	height:						92%;
+	padding-left:				10px;
+	padding-right:				10px;
+	overflow:					auto;
+}
+
+/* Menu Icons */
+.clsMenuIcon {
+	height:			80%; 
+	cursor:			pointer;
+}
+
+.clsMenuIconSmall {
+	height:			80%; 
+	cursor:			pointer;
+}
+
+.clsIcon {
+	height:			80%; 
+}
+
+.clsBigInlineIcon {
+	height:			50px; 
+	align:			absmiddle;
+}
+
+.clsMediumInlineIcon {
+	height:			30px; 
+	align:			absmiddle;
+}
+
+.clsBigText {
+	font-size:		250%;
+	font-weight:	bold;
+}
+
+.clsMediumText {
+	font-size:		200%;
+}
+
+.cslTextMenuContainer {
+	padding-top:	10px;
+}
+
+.clsText {
+	font-size:		150%;
+}
+
+.clsIconText {
+	margin-top:		-6px;
+	font-size:		100%;
+}
+
+/* Modal Window */
+.modalBoxWrap { /* The div that shows/hides. */
+    display:					none; /* starts out hidden */
+    z-index:					9001; /* High z-index to ensure it appears above all content */
+	-webkit-tap-highlight-color:rgba(255, 255, 255, 0);
+}
+
+.modalBoxOverlay { /* Shades out background when selector is active */
+    position:					fixed;
+    width:						100%;
+    height:						100%;
+	top:						0px;
+	left:						0px;
+    background-color:			rgba(1, 43, 87, 0.7);
+    z-index:					9001;
+	-webkit-tap-highlight-color:rgba(255, 255, 255, 0);
+}
+
+.modalBoxLoginOverlay { /* Shades out background when selector is active */
+    position:					fixed;
+	width:						100%;
+    height:						100%;
+   	top:						0px;
+	left:						0px;
+	padding-bottom:				250px;
+	background:					url('../../Images/bg.jpg') repeat 49.9% center fixed;
+	-webkit-background-size: 	cover;
+	-moz-background-size: 		cover;
+	-o-background-size: 		cover;
+	-ms-background-size: 		cover;
+	background-size:			cover;
+	margin:						-10px -10px -10px -10px;
+    z-index:					9001;
+	-webkit-tap-highlight-color:rgba(255, 255, 255, 0);
+}
+
+.vertical-offset { /* Fixed position to provide the vertical offset */
+    position:					fixed;
+    top:						5%;
+    width:						100%;
+	height:						100%;
+    z-index:					9002; /* ensures box appears above overlay */
+	-webkit-tap-highlight-color:rgba(255, 255, 255, 0);
+}
+
+.vertical-offsetLogin { /* Fixed position to provide the vertical offset */
+    position:					fixed;
+    top:						10%;
+    width:						100%;
+    z-index:					9002; /* ensures box appears above overlay */
+	-webkit-tap-highlight-color:rgba(255, 255, 255, 0);
+}
+
+.modalBox { /* The actual box, centered in the fixed-position div */
+	color:						#FFFFFF;
+	text-shadow:				1px 1px #000000;
+    width:						80%; /* Whatever width you want the box to be */
+	height:						85%;
+    position:					relative;
+    margin:						0 auto;
+	
+    /* Everything below is just visual styling */
+	background-color:			rgba(256, 256, 256, 0.5);
+	
+    padding:					10px;
+    border:						1px solid white;
+	-moz-border-radius:			12px;
+    -webkit-border-radius: 		12px;
+    -khtml-border-radius: 		12px;
+    border-radius: 				12px;
+	-webkit-tap-highlight-color:rgba(255, 255, 255, 0);
+	z-index:					9003;
+}
+
+.modalBoxLogin { /* The actual box, centered in the fixed-position div */
+	color:						black;
+    width:						75%; /* Whatever width you want the box to be */
+	height:						75%;
+    position:					relative;
+    margin:						0 auto;
+	
+    /* Everything below is just visual styling */
+    
+	background-color:			rgba(30, 30, 30, 0.4); 
+	
+    padding:					10px;
+    border:						1px solid black;
+	-moz-border-radius:			12px;
+    -webkit-border-radius: 		12px;
+    -khtml-border-radius: 		12px;
+    border-radius: 				12px;
+	-webkit-tap-highlight-color:rgba(255, 255, 255, 0);
+	z-index:					9003;
+}
+
+.modalWait { /* The actual box, centered in the fixed-position div */
+    width:							50%; /* Whatever width you want the box to be */
+    position:						relative;
+    margin:							0 auto;
+	
+    /* Everything below is just visual styling */
+    
+	background: 					rgba(256, 256, 256, 0.25);
+	
+    padding:						10px;
+	-moz-border-radius: 			12px;
+    -webkit-border-radius: 			12px;
+    -khtml-border-radius: 			12px;
+	-o-border-radius:				12px;
+	-ms-border-radius: 				12px;
+    border-radius: 					12px;
+	-webkit-tap-highlight-color:rgba(255, 255, 255, 0);
+}
+
+.modalWait img {
+	height:					11px;
+}
+
+#modalAbout {
+	font-size: 				150%;
+}
+
+#lblPromisan {
+	font-size: 				175%;
+	font-weight:			bold;
+	text-shadow:			2px 2px #000000;
+}
+
+#lblPromisan img {
+	height:					75px;
+}
+
+#lblPromisanYear {
+	font-size: 				50%;
+	font-weight:			normal;
+}
+
+#lblPromisanAppVersion {
+	font-size: 				30%;
+	font-weight:			normal;
+	text-shadow:			0px 0px #000000;
+}
+
+#lblPromisanLink {
+	font-size: 				50%;
+	font-weight:			normal;
+	text-decoration:		none;
+	text-shadow:			0px 0px #000000;
+}
+
+.closeModal {
+	float:				right;
+	margin-right:		-35px;
+	margin-top:			-35px;
+	z-index:			50;
+}
+
+.imgCloseModal {
+	height:		55px; 
+	cursor:		pointer;
+}
+
+/* Main Listing */
+.clsMainListing { 
+	overflow:		hidden;
+	font-size:		100%;
+	padding-top:	8px;
+	padding-left:	0px;
+	padding-right:	20px;
+	padding-bottom:	20px;
+}
+
+.clsMainListingElementGroup {
+	color:						#E8E8E8;
+	font-weight:				bold;
+	width:						98%;
+	padding-bottom:				10px;
+	text-shadow: 				2px 2px #fff;
+	color:						#0084C0;
+	-webkit-text-stroke-width:	1px;
+	-webkit-text-stroke-color: 	#000;
+}
+
+.clsContainerGroupClass {
+	padding-left:				5px;
+	font-size:					300%;
+	-webkit-text-stroke-width:	1px;
+}
+
+.clsContainerGroupClass span {
+	cursor:						pointer;
+}
+
+.clsContainerGroupDomain {
+	padding-left:				20px;
+	font-size:					200%;
+}
+
+.clsContainerGroupArea {
+	padding-left:				30px;
+	font-size:					125%;
+	font-style:					italic;
+	padding-bottom:				25px;
+	-webkit-text-stroke-width:	0px;
+	text-shadow: 				0px 0px #242424;
+}
+
+.clsMainListingElementContainer {
+	padding-top:	5px;
+	padding-left:	0px;
+	padding-right:	0px;
+	padding-bottom:	20px;
+}
+
+.clsMainListingElement {
+	background: 			rgba(80, 80, 80, 0.1);
+	padding-top:			5px;
+	padding-bottom:			5px;
+	padding-left:			5px;
+	padding-right:			5px;
+	-moz-border-radius: 	10px;
+    -webkit-border-radius: 	10px;
+    -khtml-border-radius: 	10px;
+	-o-border-radius:		10px;
+	-ms-border-radius: 		10px;
+    border-radius: 			10px;
+	height:					100%;
+}
+
+.clsCriteriaDisplayContainer {
+	font-size:		100%;
+	padding-top:	10px;
+	padding-left:	0px;
+	padding-right:	0px;
+	padding-bottom:	20px;
+}
+
+.clsCriteriaDisplay {
+	background: 				rgba(256, 256, 256, 0.4);
+	padding-top:				5px;
+	padding-left:				10px;
+	padding-right:				5px;
+	padding-bottom:				5px;
+	-moz-border-radius: 		10px;
+    -webkit-border-radius: 		10px;
+    -khtml-border-radius: 		10px;
+	-o-border-radius:			10px;
+	-ms-border-radius: 			10px;
+    border-radius: 				10px;
+}
+
+.clsTxtPlaceDisplay {
+	font-size:					200%;
+	font-weight:				100;
+	color:						#FA880F;
+	-webkit-text-stroke-width:	0.35px;
+	-webkit-text-stroke-color: 	#062c57;
+}
+
+.clsTxtDateDisplay {
+	font-size:				125%;
+	font-weight:			bold;
+}
+
+.clsTxtCompletedDisplay {
+	font-size:				100%;
+	font-weight:			normal;
+	font-style:				italic;
+}
+
+.clsTxtUserDisplay {
+	font-size:				125%;
+}
+	
+/* Person boxes */
+.clsPersonPictureBoxContainer {
+	float:					right;
+	margin-bottom:			25px;
+	margin-top:				-55px;
+	margin-right:			-30px;
+}
+
+.clsPersonPictureBox {
+	float:					right;
+	width:					70px;
+	height:					70px;
+	padding-right:			10px;
+}
+
+.clsPersonPictureBox img{
+	height:					100%; 
+	cursor:					pointer;
+	-moz-border-radius: 	10px;
+    -webkit-border-radius: 	10px;
+    -khtml-border-radius: 	10px;
+	-o-border-radius:		10px;
+	-ms-border-radius: 		10px;
+    border-radius: 			10px;
+	width:					70px;
+	height:					70px;
+}
+
+.clsPersonPictureName {
+	font-size:	60%;
+}
+
+/* Hour Box */
+.clsHourBox {
+}
+
+.clsHourBox img{
+	height:					50px; 
+	padding-right:			5px;
+	margin-bottom:			-10px;
+}
+
+.clsHourBox span {
+	font-size:					300%;
+	font-weight: 				bold;
+	color:						#0084C0;
+	-webkit-text-stroke-width:	1px;
+	-webkit-text-stroke-color: 	#000;
+	text-shadow: 				2px 2px #FFF;
+}
+
+/* Description Box */
+.clsDescriptionBox {
+	font-size:				100%;
+}
+
+/* Add Icon  */
+.clsAddBoxContainer {
+	float:					right;
+	width:					auto;
+	margin-right:			-28px;
+	margin-top:				35px;
+}
+
+.clsAddBox {
+	float:					right;
+	height:					60px;
+}
+
+.clsAddBox img{
+	height:		100%; 
+	cursor:		pointer;
+}
+
+/* Action detail picture boxes */
+.clsActionDetailPictureBox {
+	padding-top:			10px;
+	width:					100%;
+	height:					100%;
+}
+
+.clsActionDetailPictureContainer {
+	float:					left;
+	padding-right:			5px;
+}
+
+.clsActionDetailPictureContainer .clsImgActionDetailPicture{
+	float:					left;
+	height:					100px; 
+	cursor:					pointer;
+	-moz-border-radius: 	10px;
+    -webkit-border-radius: 	10px;
+    -khtml-border-radius: 	10px;
+	-o-border-radius:		10px;
+	-ms-border-radius: 		10px;
+    border-radius: 			10px;
+}
+
+.clsActionDetailPictureContainer .clsRemoveActionDetailPicture {
+	height:				30px;
+	cursor:				pointer;
+	float:				right;
+	margin-left:		-15px;
+	margin-top:			-15px;
+	z-index:			50;
+}
+
+/* Picture view box */
+.clsPictureViewBox {
+	height:					; 
+	margin-top:				20px;
+}
+
+.clsPictureViewBox img {
+	max-width:				100%; 
+	max-height:				75%; 
+	-moz-border-radius: 	10px;
+    -webkit-border-radius: 	10px;
+    -khtml-border-radius: 	10px;
+	-o-border-radius:		10px;
+	-ms-border-radius: 		10px;
+    border-radius: 			10px;
+}
+
+.clsMemoPictureViewBox {
+	font-size:				125%;
+	width:					90%;
+	padding:				5px;
+	resize: 				none;
+}
+
+.clsDetailsPictureViewBox {
+	font-size:				100%;
+}
+
+/* Edit memo modal */
+.clsTxtActionMemoBoxContainer {
+	margin-top:			30px;
+}
+
+.clsTxtActionMemoBox {
+	font-size:				125%;
+	width:					90%;
+	padding:				5px;
+	resize: 				none;
+}
+
+/* Profile view window */
+.clsCustomerEmployeesContainer {
+	height:				90%;
+	max-height:			90%;
+	width:				100%;
+	overflow-x:			none;
+	overflow-y:			auto;
+}
+
+.clsPeopleImage {
+	height:				45px; 
+	cursor:				pointer;
+}
+
+.clsEmployeeContainer {
+	float:					left;
+	font-size:				90%;
+	margin:					2px;
+	margin-bottom:			3px;
+	-moz-border-radius: 	10px;
+    -webkit-border-radius: 	10px;
+    -khtml-border-radius: 	10px;
+	-o-border-radius:		10px;
+	-ms-border-radius: 		10px;
+    border-radius: 			10px;
+	background: 			rgba(26, 104, 148, 0.25);
+}
+
+.clsTableEmployeeContainer {
+	min-width:				300px;
+	max-width:				400px;
+}
+
+.clsEmployeeContainer .clsEmployeeContainerName {
+	font-size:			125%;
+	font-weight:		bold;
+}
+
+.clsEmployeeContainer .clsEmployeeContainerIndexNo {
+	font-style:			italic;
+}
+
+.clsEmployeeContainer .clsEmployeeContainerCounter {
+	font-style:			italic;
+}
+
+/* Profile view box */
+.clsProfileViewBox {
+	max-width:			95%; 
+	height:				30%;
+	max-height:			30%;
+	padding-bottom:		10px;
+}
+
+.clsProfileViewBoxDetail {
+	height:					68%;
+	max-height:				68%;
+	width:					98%;
+	overflow-x:				none;
+	overflow-y:				auto;
+	-moz-border-radius: 	10px;
+    -webkit-border-radius: 	10px;
+    -khtml-border-radius: 	10px;
+	-o-border-radius:		10px;
+	-ms-border-radius: 		10px;
+    border-radius: 			10px;
+	background: 			rgba(26, 104, 148, 0.2);
+	padding:				3px;
+	margin:					3px;
+}
+
+.clsProfileViewBox img{
+	max-width:				100%; 
+	max-height:				100%; 
+	-moz-border-radius: 	10px;
+    -webkit-border-radius: 	10px;
+    -khtml-border-radius: 	10px;
+	-o-border-radius:		10px;
+	-ms-border-radius: 		10px;
+    border-radius: 			10px;
+}
+
+.clsActivityListContainer {
+	padding-left:			5px; 
+	font-style:				italic; 
+}
+
+.clsActivityItemContainer .clsActivityListContainerImg {
+	height:					25px;
+}
+
+.clsActivityItemContainer .clsActivityListContainerHour {
+	font-weight:			bold;
+}
+
+/* Uploading */
+.clsCameraPictureContainer {
+	padding-top:			5px;
+	padding-bottom:			5px;
+	width:					95%;
+	height:					65%;
+	overflow:				auto;
+}
+
+.clsCameraPictureContainer img {
+	width:					100%;
+	height:					80%;
+}
+
+.clsUploadMemo {
+	padding:				10px;
+}
+
+.clsUploadMemo input {
+	width:					60%; 
+	padding:				10px; 
+	font-size:				125%;
+}
+
+#modalProfileView div{
+	font-size:		110%; 
+}
+
+/* Completed and Not completed elements */
+.clsElementNotCompleted {
+	cursor:			pointer;
+}
+
+/* Button */
+.clsButton {
+	display: 				inline-block;
+	zoom: 					1; /* zoom and *display = ie7 hack for display:inline-block */
+	vertical-align: 		baseline;
+	margin: 				0 2px;
+	outline:				none;
+	cursor: 				pointer;
+	text-align: 			center;
+	font-weight:	 		normal;
+	text-decoration:		none;
+	font-size: 				125%;
+	padding: 				5px 20px 5px 20px;
+	text-shadow:			0px 0px white;
+	-moz-border-radius: 	10px;
+    -webkit-border-radius: 	10px;
+    -khtml-border-radius: 	10px;
+	-o-border-radius:		10px;
+	-ms-border-radius: 		10px;
+    border-radius: 			10px;
+}
+.clsButton:hover {
+	text-decoration: 		none;
+}
+
+.gray {
+	color: 					#FFFFFF;
+	border: 				solid 2px #FFFFFF;
+	background: 			#0084C0;
+}
+.gray:hover {
+	color: 					#FFFFFF;
+	border: 				solid 2px #FFFFFF;
+	background: 			#0084C0;
+}
+.gray:active {
+	color: 					#FFFFFF;
+	border: 				solid 2px #FFFFFF;
+	background: 			#0084C0;
+}
+
+/* Search Textbox */
+.clsSearchTextbox {
+    border: 				1px solid #c4c4c4;
+    width: 					100%;
+    height: 				55%;
+    font-size: 				150%;
+    padding: 				5px 10px 5px 10px;
+    border-radius: 			4px;
+    -moz-border-radius: 	4px;
+    -webkit-border-radius:	4px;
+	-ms-border-radius:		4px;
+    box-shadow: 			0px 0px 10px #d9d9d9;
+    -moz-box-shadow: 		0px 0px 10px #d9d9d9;
+    -webkit-box-shadow: 	0px 0px 10px #d9d9d9;
+	-ms-box-shadow: 		0px 0px 10px #d9d9d9;
+}
+
+.clsSearchTextbox::-ms-clear {
+	display: none;
+}
+
+.clsSearchDiv {
+	padding-top:		10px;
+	padding-bottom:		10px;
+	width:				95%;
+}
+
+/* Date picker */ 
+.clsDatePicker {
+	font-size:				250%; 
+	text-align:				center; 
+	width:					80%; 
+	padding: 				5px 5px 5px 5px;
+	border: 				1px solid #c4c4c4;
+	border-radius: 			4px;
+    -moz-border-radius: 	4px;
+    -webkit-border-radius:	4px;
+    box-shadow: 			0px 0px 10px #808080;
+    -moz-box-shadow: 		0px 0px 10px #808080;
+    -webkit-box-shadow: 	0px 0px 10px #808080;
+	-ms-box-shadow: 		0px 0px 10px #808080;
+}
+
+/* Checkbox */
+.clsCheckbox {
+	padding-top:	5px;
+	padding-bottom:	5px;
+	cursor: 		pointer;
+}
+
+.clsCheckboxHour {
+	padding-top:	10px;
+	padding-bottom:	10px;
+	font-size:		200%;
+}
+
+.clsCheckbox img {
+	align:			absmiddle;
+	width: 			50px;
+	height: 		50px;
+}
+
+.clsCheckboxMenu {
+	height:			100%;
+	cursor: 		pointer;
+}
+
+.clsCheckboxMenu img {
+	align:			absmiddle;
+}
+
+/* Radio */
+.clsRadioButton {
+	width: 			30px;	
+	margin: 		-10px auto;
+	position: 		relative;
+}
+
+.clsRadioButton input[type=radio] {
+	display: 		none;
+}
+
+.clsRadioButton label {
+	cursor: 			pointer;
+	position: 			absolute;
+	width: 				30px;
+	height: 			30px;
+	top: 				0;
+	border-radius: 		50px;
+
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+	-moz-box-shadow: 	0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+	box-shadow: 		0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+
+	background: 		-webkit-linear-gradient(top, #222 0%, #45484d 100%);
+	background: 		-moz-linear-gradient(top, #222 0%, #45484d 100%);
+	background: 		-o-linear-gradient(top, #222 0%, #45484d 100%);
+	background: 		-ms-linear-gradient(top, #222 0%, #45484d 100%);
+	background: 		linear-gradient(top, #222 0%, #45484d 100%);
+	filter:				progid:DXImageTransform.Microsoft.gradient( startColorstr='#222', endColorstr='#45484d',GradientType=0 );
+}
+
+.clsRadioButton label:after {
+	-ms-filter: 		"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	filter: 			alpha(opacity=0);
+	opacity: 			0;
+	content: 			'';
+	position: 			absolute;
+	width: 				18px;
+	height: 			10px;
+	background: 		transparent;
+	top: 				5px;
+	left: 				4px;
+	border: 			3px solid #fcfff4;
+	border-top: 		none;
+	border-right: 		none;
+
+	-webkit-transform: 	rotate(-45deg);
+	-moz-transform: 	rotate(-45deg);
+	-o-transform: 		rotate(-45deg);
+	-ms-transform: 		rotate(-45deg);
+	transform: 			rotate(-45deg);
+}
+
+.clsRadioButton input[type=radio]:checked + label:after {
+	-ms-filter: 		"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	filter: 			alpha(opacity=100);
+	opacity: 			1;
+}
+
+
+/* Select */
+.clsSelect {
+	font-size:				150%;
+  	width: 					268px;
+   	padding: 				5px;
+  	font-size:				125%;
+   	line-height: 			1;
+  	border: 				0;
+   	-moz-border-radius:		4px;
+	-webkit-border-radius:	4px;
+	border-radius:			4px;
+   	height: 				34px;
+}
+
+/* Listing for menus */
+.clsDivListing {
+	padding:		10px;
+}
+
+#customerContainer {
+	max-height:		85%;
+	width:			100%;
+	overflow-x:		none;
+	overflow-y:		auto;
+}
+
+#divSelectWorkOrder {
+	max-height:		15%;
+	width:			100%;
+}
+
+/* Listing Container for filters */
+.clsDivFilterListingContainer {
+	padding-top: 		10px;
+	padding-bottom: 	25px;
+}
+
+/* Listing for filters */
+.clsDivFilterListing {
+	width: 			98%;
+	padding-top:	8px;
+	padding-right: 	5px;
+	padding-left: 	5px;
+}
+
+.clsFilterText {
+	font-size:		140%;
+}
+
+.clsFilterTextInfo {
+	font-size:		100%;
+}
+
+/* Login Elements */
+.clsLoginLabel {
+	color:			#E6E6E6;
+	text-shadow: 	2px 1px #212121;
+	font-size:		150%;
+}
+
+.clsLoginResult {
+	font-size:		125%; 
+	color:			red;
+	font-weight:	bold;
+	text-shadow: 	1px 1px #FFFFFF;
+}
+
+.clsLoginLogo {
+	height:			30%; 
+	max-height:		100px; 
+	max-width:		200px;
+}
+
+.clsLoginTextBox {
+	width:			80%; 
+	font-size:		200%; 
+	padding:		5px;
+}
+
+.clsImgEditActionMemo {
+	height:			40px;
+	cursor:			pointer;
+	padding-right:	3px;	
+}

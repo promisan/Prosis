@@ -1,0 +1,7 @@
+Invalid quoted string 'button' encountered while parsing (tag "CFIF" with attributes attributes.mode=). 
+Invalid quoted string 'button' encountered while parsing (tag "CFIF" with attributes attributes.mode=). 
+Invalid character (&) encountered while parsing (tag "CFSET" with attributes vOnClickEvent=vOnClickEvent). 
+Invalid character (&) encountered while parsing (tag "CFSET" with attributes vOnClickEvent=vOnClickEvent). 
+Invalid character (&) encountered while parsing (tag "CFSET" with attributes vOnClickEvent=Prosis.webPrint.print('#attributes.printTitle#','#attributes.printContent#', #attributes.printShowUser#, function(){ #attributes.printCallback# }); ). 
+Invalid quoted string 'button' encountered while parsing (tag "CFIF" with attributes attributes.mode=). 
+Invalid quoted string 'button' encountered while parsing (tag "CFIF" with attributes attributes.mode=). 

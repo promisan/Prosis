@@ -1,0 +1,14 @@
+Invalid quoted string 'listPersonal' encountered while parsing (tag "CFIF" with attributes itm=). 
+Invalid quoted string 'listPersonal' encountered while parsing (tag "CFIF" with attributes itm=). 
+Invalid quoted string '' encountered while parsing (tag "CFIF" with attributes Reference=). 
+Invalid quoted string '' encountered while parsing (tag "CFIF" with attributes Reference=). 
+Invalid quoted string '' encountered while parsing (tag "CFIF" with attributes Reference=). 
+Invalid quoted string '' encountered while parsing (tag "CFIF" with attributes Reference=). 
+Invalid quoted string 'Explorer' encountered while parsing (tag "CFIF" with attributes client.browser=). 
+Invalid quoted string 'Explorer' encountered while parsing (tag "CFIF" with attributes client.browser=). 
+Invalid quoted string 'Explorer' encountered while parsing (tag "CFIF" with attributes client.browser=). 
+Invalid quoted string 'Explorer' encountered while parsing (tag "CFIF" with attributes client.browser=). 
+Invalid equal sign (=) encountered while parsing (tag "CFDIV" with attributes). 
+Invalid quoted string 'MSIE 10' encountered while parsing (tag "CFIF" with attributes). 
+Invalid quoted string 'MSIE 10' encountered while parsing (tag "CFIF" with attributes). 
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes vCnt=vCnt). 

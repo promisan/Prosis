@@ -1,0 +1,10 @@
+ <cfset vMetric = "">
+ <cfset vSerial = "">
+ <cfset vUnit   = "">
+ <cfset vUNID   = "">
+ <cfset vPlate  = "">			
+ <cfset vType   = 8>
+ <cfset vQty = Evaluate("sDetails.#vName#.QTY")>
+ <cfset vReference = Evaluate("sDetails.#vName#.Reference")>   
+ <cfset vRecipient_name = Evaluate("sDetails.#vName#.Recipient_Name")>
+ <cfset vDestination = Evaluate("sDetails.#vName#.Destination")> 

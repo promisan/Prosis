@@ -1,0 +1,9 @@
+<cfoutput>
+    <iframe 
+        width="100%" 
+        height="101%" 
+        name="iCustomerView"
+        scroll="yes"
+        frameborder="0"
+        src="#session.root#/warehouse/application/salesorder/picking/monitor/customerView.cfm?warehouse=#url.warehouse#&mission=#url.mission#">
+</cfoutput>

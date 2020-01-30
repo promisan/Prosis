@@ -1,0 +1,49 @@
+body {
+	font-size:			13px;
+}
+
+.clsMenuContainer {
+	position:					fixed;
+	top:						8%;
+	left:						0px;
+	background-color:			rgba(1, 43, 87, 0.8);
+	float: 						left;
+	height:						92%;
+	max-width:					275px;
+	overflow:					auto;
+	display:					none;
+	z-index:					5000;
+	text-shadow: 				2px 1px #000000;
+}
+
+.clsVerticalMenu { 
+	float: 						none;
+	max-width:					200px;
+}
+
+.clsMainContent {
+	left:						0px;
+}
+
+.clsIconContainer {
+	width:						200px;
+	height:						90px;
+	cursor:						pointer;
+	overflow:					hidden;
+	padding-bottom:				10px;
+	padding-top:				5px;
+}
+
+.clsDivFilterListingContainer {
+	display:					none;
+}
+
+.clsContent { 
+	width:						100%;
+	height:						100%;
+	overflow:					hidden;
+}
+
+.clsContent, .clsSearchDiv, .clsMainListing, .clsCriteriaDisplayContainer {
+	min-width:					295px;
+}

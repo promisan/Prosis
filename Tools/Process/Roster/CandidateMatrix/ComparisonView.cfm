@@ -1,0 +1,190 @@
+
+<!--- ability to show candidates side by side --->
+
+<cfquery name="Parameter" 
+	datasource="AppsSelection" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+  	SELECT PHPSource
+  	FROM   Parameter
+</cfquery>
+
+<cfparam name="Attributes.HideTitle"      default="No">
+<cfparam name="Attributes.HidePerson"     default="No">
+<cfparam name="Attributes.HideLanguage"   default="No">
+<cfparam name="Attributes.HideEducation"  default="No">
+<cfparam name="Attributes.HideDetails"    default="No">
+<cfparam name="Attributes.HideTopics"     default="Yes">
+<cfparam name="Attributes.HideExperience" default="No">
+<cfparam name="Attributes.IDFunction"     default="">
+
+<cfparam name="Attributes.Height"         default="400">
+<cfparam name="Attributes.Attachment"     default="No">
+<cfparam name="Attributes.DocumentNo"     default="">
+<cfparam name="Attributes.ApplicantNo"    default="">
+<cfparam name="Attributes.PersonNo"	      default="">
+<cfparam name="Attributes.Owner"	      default="">
+<cfparam name="Attributes.Source"	      default="">
+<cfparam name="Attributes.RosterActionNo" default="">
+<cfparam name="Attributes.Layout"         	  default="Horizontal">
+<cfparam name="Attributes.ExperienceStatus"   default="'0','1'">
+<cfparam name="Attributes.ExperienceReviewed" default="No">
+
+<cf_dialogMail>
+
+<!--- document also retrieves the bucket and requirements --->
+
+<cfif attributes.applicantno neq "">
+
+
+		<cfquery name="getCandidates" 
+		     datasource="AppsSelection" 
+		  	 username="#SESSION.login#" 
+		     password="#SESSION.dbpw#">
+		     SELECT   A.*, S.SubmissionEdition, S.Source AS SSource, S.SubmissionId
+			 FROM     ApplicantSubmission S, Applicant.dbo.Applicant A
+			 WHERE    S.PersonNo = A.PersonNo
+			 AND      S.ApplicantNo = '#attributes.applicantno#'		 
+		</cfquery>	
+
+		
+<cfelseif attributes.personNo neq "" and attributes.source neq "">		
+
+	<cfquery name="getCandidates" 
+	     datasource="AppsSelection" 
+	  	 username="#SESSION.login#" 
+	     password="#SESSION.dbpw#">
+	     SELECT   A.*, S.SubmissionEdition, S.Source AS SSource, S.SubmissionId
+		 FROM     ApplicantSubmission S, Applicant.dbo.Applicant A
+		 WHERE    S.PersonNo = A.PersonNo
+		 AND      S.PersonNo = '#attributes.PersonNo#'		 
+		 AND      S.Source   = '#attributes.Source#'
+	</cfquery>	
+	
+<cfelseif attributes.personNo neq "" and attributes.owner neq "">	
+	
+	<!--- check if we have a default for this owner --->
+	
+	<cfquery name="PHPSource" 
+		datasource="AppsSelection" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+	  	SELECT DefaultPHPSource
+	  	FROM   Ref_ParameterOwner
+		WHERE  Owner = '#attributes.Owner#'
+	</cfquery>
+	
+	<cfif PHPSource.DefaultPHPSource eq "">
+	
+		<cfset ssource = PHPSource.DefaultPHPSource>
+			
+	<cfelse>
+	
+		<cfset ssource = Parameter.PHPSource>
+	
+	</cfif>
+
+	<cfquery name="getCandidates" 
+	     datasource="AppsSelection" 
+	  	 username="#SESSION.login#" 
+	     password="#SESSION.dbpw#">
+	     SELECT   A.*, S.SubmissionEdition, S.Source AS SSource, S.SubmissionId
+		 FROM     ApplicantSubmission S, Applicant.dbo.Applicant A
+		 WHERE    S.PersonNo = A.PersonNo
+		 AND      S.PersonNo = '#attributes.PersonNo#'		 
+		 AND      S.Source   = '#SSource#'
+	</cfquery>	
+	
+<cfelseif attributes.personNo neq "" and attributes.owner eq "">
+
+	<cfquery name="getCandidates" 
+	     datasource="AppsSelection" 
+	  	 username="#SESSION.login#" 
+	     password="#SESSION.dbpw#">
+	     SELECT   A.*, S.SubmissionEdition, S.Source AS SSource, S.SubmissionId
+		 FROM     ApplicantSubmission S, Applicant.dbo.Applicant A
+		 WHERE    S.PersonNo = A.PersonNo
+		 AND      S.PersonNo = '#attributes.PersonNo#'		 
+		 AND      S.Source   = '#Parameter.PHPSource#'
+	</cfquery>	
+
+<cfelse>
+	
+	<!---	
+				
+	<cfelseif attributes.documentNo neq "">
+		
+		<cfquery name="getCandidates" 
+		     datasource="AppsVacancy" 
+		  	 username="#SESSION.login#" 
+		     password="#SESSION.dbpw#">
+		     SELECT   A.*
+			 FROM     DocumentCandidate DC, Applicant.dbo.Applicant A
+			 WHERE    DC.PersonNo = A.PersonNo
+			 AND      DC.DocumentNo = '#attributes.documentNo#'
+			 AND      DC.Status >= '1'	
+		</cfquery>	
+		
+	--->
+
+	<cfparam name="getCandidates.recordcount" default="0">
+
+</cfif>
+
+
+<cfif getCandidates.recordcount gt "0">
+	
+	<!--- Hanno we need to define at the minium the source for the edition/languahe --->
+		
+	<table width="100%">
+	
+		<tr><td style="padding:6px" align="center">
+			
+			<table width="100%">
+			
+				<!--- get the candidates --->
+				
+				<cfif Attributes.Layout eq "Vertical">
+				
+					<cfif attributes.documentNo neq "">
+						<tr><td class="labelmedium" align="center">
+						<cfinclude template="ComparisonViewBucket.cfm">
+						</td></tr>
+					</cfif>
+					
+					<tr>
+					<td style="padding:5px" align="center">
+					<cfif attributes.applicantno neq "">		
+						<cfset URL.ID = attributes.applicantno>
+						<cfset URL.IDFunction = attributes.IDFunction>
+						<cfinclude template="ComparisonViewVertical.cfm"> 
+					</cfif>			
+					</td>
+					
+					</tr>
+				
+				<cfelse>
+				
+				    <tr>
+					<td style="padding:5px" align="center">
+					<cfif attributes.applicantno neq "">		
+						 <cfset URL.IDFunction = attributes.IDFunction>
+						 <cfinclude template="ComparisonViewHorizontal.cfm"> 
+					</cfif>			
+					</td>
+					
+					</tr>
+				
+					<!--- ---------------- --->
+					<!--- work in progress --->
+					<!--- ---------------- --->
+				
+				</cfif>
+			
+			</table>
+		
+		</td></tr>
+	
+	</table>
+
+</cfif>

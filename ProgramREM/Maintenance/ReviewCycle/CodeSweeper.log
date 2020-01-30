@@ -1,0 +1,4 @@
+Invalid quoted string 'function()doCalendar' encountered while parsing (tag "CFSET" with attributes). 
+Invalid quoted string 'function() {doCalendar' encountered while parsing (tag "CFSET" with attributes). 
+Invalid quoted string 'function() { doCalendar();}' encountered while parsing (tag "CFSET" with attributes). 
+Invalid quoted string 'function() { doCalendar();}' encountered while parsing (tag "CFSET" with attributes). 

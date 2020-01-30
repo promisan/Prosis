@@ -1,0 +1,80 @@
+
+<cf_submenutop>
+
+<cf_screentop html="No" jquery="Yes">
+
+<cf_submenuLogo module="Staffing" selection="Application">
+
+<cfparam name="URL.Operational" default="1">
+	   
+<cfquery name="SystemModule" 
+datasource="AppsSystem" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT *
+	FROM   Ref_ModuleControl
+	WHERE  FunctionPath = 'PostView/Staffing/PostView.cfm'
+</cfquery>
+
+<cfquery name="Parameter" 
+datasource="AppsEmployee" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT *
+	FROM   Parameter
+</cfquery>
+
+<table width="100%">
+<tr><td>
+	
+	<cfoutput>
+	
+		<cfset lnk = CGI.Query_string>
+		<cfif not find("operational=",CGI.Query_string)>
+		   <cfset lnk = "#CGI.Query_string#&operational=1">	   
+		</cfif> 
+		<cfset act = replaceNoCase(lnk, "operational=0","operational=1")>
+		<cfset cls = replaceNoCase(lnk, "operational=1","operational=0")>
+	
+		<table>
+		
+			<tr><td height="3"></td></tr>
+		
+			<tr>
+			<td style="height:50px;width:40px"></td>
+			<td class="label">
+			<input type="radio" class="radiol" name="toggle" value="1" onclick="Prosis.busy('yes');window.location='menu1.cfm?#act#'" <cfif url.operational eq "1">checked</cfif>>
+			</td><td>&nbsp;</td><td class="labellarge" style="cursor: pointer;pointer" onclick="Prosis.busy('yes');window.location='menu1.cfm?#act#'"><cfif url.operational eq "1"><b></cfif>Active</td>
+			
+			<td style="padding-left:10px">
+			<input type="radio" class="radiol" name="toggle" value="0" onclick="Prosis.busy('yes');window.location='menu1.cfm?#cls#'" <cfif url.operational eq "0">checked</cfif>>
+			</td><td>&nbsp;</td><td class="labellarge" style="cursor: pointer;pointer" onclick="Prosis.busy('yes');window.location='menu1.cfm?#cls#'"><font color="FF0000"><cfif url.operational eq "0"><b></cfif>Closed</td>
+			</tr>
+		
+		</table>
+	
+	</cfoutput>
+
+</td></tr>
+
+<tr><td>
+
+	<!--- mission/tree sensitve menu --->
+	<cfset verifysource = "'HROfficer','HRAssistant','HRPosition','HRLoaner','HRLocator','HRInquiry'">
+	<cfset verifytable  = "OrganizationAuthorization">
+	<cfset menutemplate = "#client.virtualdir#/Staffing/Reporting/PostView/Staffing/PostView.cfm">
+	
+	<!--- mission/tree sensitve menu --->	
+	<cfset target       = "mission">
+	<cfset module       = "'Staffing'">
+	<cfset class        = "#Parameter.AccessMode#">	
+	
+	<cfinclude template="../../Tools/SubmenuMission.cfm">	
+
+</td></tr>
+
+</table>	
+
+<script>
+	Prosis.busy('no')	
+</script>

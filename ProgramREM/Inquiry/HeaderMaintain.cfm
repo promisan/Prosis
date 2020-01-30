@@ -1,0 +1,75 @@
+
+<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
+<body leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0"></body>
+
+<cfparam name="page"        default="1">
+<cfparam name="add"         default="1">
+<cfparam name="save"        default="0">
+<cfparam name="option"      default="">
+<cfparam name="header"      default="">
+<cfparam name="URL.IDRefer" default="">
+
+<script language="JavaScript">
+
+function menu() {
+	window.location = "<cfoutput>#SESSION.root#</cfoutput>/ProgramRem/maintenance/Menu.cfm"
+}	
+
+</script>
+
+<cftry>
+	
+	<cfoutput>
+	
+		   <cf_menuTopSelectedItem
+		   	  idrefer        = "#URL.IDRefer#"
+			  idmenu         = "#URL.IDMenu#"
+			  showPage       = "#Page#"
+			  showAdd        = "#Add#"
+			  addHeader      = "#Header#"
+			  template       = "HeaderMenu1"
+			  systemModule   = "'Program'"
+			  items          = "4"
+			  Header1        = "Settings"
+	          FunctionClass1 = "'System'"
+	          MenuClass1     = "'Main'"
+			  Header2        = "Reference"
+	          FunctionClass2 = "'Maintain'"
+	          MenuClass2     = "'Main'"
+			  Header3        = "Indicator"
+	          FunctionClass3 = "'Maintain'"
+	          MenuClass3     = "'Indicator'"
+			  Header4        = "Allotment"
+	          FunctionClass4 = "'Maintain'"
+	          MenuClass4     = "'Allotment'">
+		
+	</cfoutput>  	
+
+	<cfcatch></cfcatch>
+
+</cftry>
+
+<table width="99%" border="0" cellspacing="0" cellpadding="0" align="center">
+<tr><td class="linedotted"></td></tr>
+<tr><td height="28" align="center">
+	<cfoutput>
+	  <input type="button" value="Back" class="button10g"  onclick="menu()">	
+	  <cfif add eq "1">
+      <input type="button" value="Add" class="button10g"  onclick="javascript:recordadd('')">
+	  </cfif>
+	  <cfif option neq "">
+	  #option#
+	  </cfif>
+	  <cfif save eq "1">
+	  <input type="submit" name="Update" value="Update" class="button10g">
+	  </cfif>
+	</cfoutput>
+	</td>
+</tr>
+<tr><td class="linedotted"></td></tr>
+
+</table>
+
+
+
+

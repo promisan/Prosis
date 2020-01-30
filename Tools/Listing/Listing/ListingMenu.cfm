@@ -1,0 +1,179 @@
+
+<cfsavecontent variable="selectme">       
+		onMouseOver="this.className='highlight2 labelmedium'"
+		onMouseOut="this.className='labelmedium'"
+</cfsavecontent>
+
+<cfoutput>
+
+	<cfset show = 0>
+	
+	<cftry>
+	
+	<cfloop array="#attributes.listlayout#" index="current">
+	
+		<cfparam name="current.search" default="">
+		<cfif current.search neq "">	
+			<cfset show = 1>
+		</cfif>		
+	
+	</cfloop>
+	
+	<cfcatch></cfcatch>
+	
+	</cftry>
+
+	<!--- -------------- --->
+	<!--- - menu box --- --->
+	<!--- -------------- --->			
+	
+	<cfif show eq "1">	
+	
+	   <table width="100%" cellspacing="0" cellpadding="0"><tr>
+	   <td style="padding-left:20px" align="right">
+	   	
+	   <table cellspacing="0" cellpadding="0" class="formspacing"><tr>
+	   	   		
+		<cfif url.systemfunctionid neq "">
+		
+			<cfquery name="system" 
+				datasource="AppsSystem" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					SELECT *
+					FROM   Ref_ModuleControl R
+					WHERE SystemFunctionId = '#URL.SystemFunctionId#'	
+			</cfquery>
+						
+			<cfif url.webapp eq "Backoffice" and system.functionTarget eq "Right">	
+			
+			   <td onclick="history.back()" #selectme# height="24" class="labelmedium" style="cursor:pointer;border: 1px transparent Solid;padding-left:4px;padding-right:4px">
+		 		 &nbsp;<img src="#SESSION.root#/Images/back.gif" alt="Function configuration" height="14" width="16" 
+			   	  style="cursor: pointer;" border="0" align="absmiddle">&nbsp;Back</font>			 
+			 </td>
+			 <td width="1">&nbsp;|&nbsp;</td>		
+			
+			</cfif>
+		
+		    <cfparam name="SESSION.isAdministrator" default="No">
+				 
+		     <cfif SESSION.isAdministrator eq "Yes">
+		     <td onclick="recordedit('#systemFunctionId#')" #selectme# height="24" class="labelmedium" style="cursor:pointer;border: 1px transparent Solid;padding-left:4px;padding-right:4px">
+		 		 &nbsp;<img src="#SESSION.root#/Images/configure.gif" alt="Function configuration" height="14" width="16" 
+			   	  style="cursor: pointer;" border="0" align="absmiddle">&nbsp;Configure</font>			 
+			 </td>
+			 <td width="1">&nbsp;|&nbsp;</td>			
+			</cfif>
+						 
+			<cfif isArray(attributes.menu)>	
+		
+				<cfloop array="#attributes.menu#" index="option">
+							
+					<cfif option.label neq "">											
+																						
+						<td #selectme# height="22" onclick="addlistingentry('#option.script#','#attributes.DrillArgument#')" 
+						   style="cursor:pointer;padding:2px;border: 1px transparent Solid;">
+						   						   
+							<table cellspacing="0" cellpadding="0">
+							<tr>									
+							<cfif option.icon neq "">
+								<td><img src="#SESSION.root#/images/#option.icon#" height="15" width="15" alt="" border="0" align="absmiddle"></td>
+							</cfif>						
+							<td class="labelmedium" style="padding-left:4px">#option.label#</td>		
+							</tr>
+							</table>	
+						
+						</td>
+							
+						<td width="1" style="padding:2px">|</td>	
+					 
+					</cfif>
+				
+				</cfloop>			
+			
+			</cfif>
+			
+			<cfparam name="setting[5]" default="yes">
+			
+			<cfif setting[5] eq "Yes">
+							 
+			<td #selectme# height="25" class="labelmedium" style="cursor:pointer;padding-left:5px;padding:2px;border:1px transparent Solid;">
+					 					  					  
+					 <cfquery name="ModuleControl" 
+						datasource="AppsSystem" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#"> 	
+						SELECT * 
+						FROM   Ref_ModuleControl
+						WHERE  SystemFunctionId = '#url.systemfunctionid#'		
+					 </cfquery>	
+										 
+					 <cfset name = replace(ModuleControl.FunctionName," ","","ALL")>
+					 
+					 <cfif len(name) gt "30">
+					    <cfset name = left(name,30)>
+					 </cfif>			
+					 
+					 <cfinvoke component="Service.Analysis.CrossTab"  
+						  method      = "ShowInquiry"
+						  buttonClass = "td"					  						 
+						  buttonText  = "<font size='3' style='font-family: calibri;'>Excel</font>"						 
+						  reportPath  = "Tools\Listing\Listing\"
+						  SQLtemplate = "ListingExcel.cfm"
+						  queryString = "systemfunctionid=#url.systemfunctionid#"
+						  dataSource  = "#attributes.datasource#" 
+						  module      = "SelfService"
+						  outputid    = "#url.systemfunctionid#"
+						  reportName  = "#ModuleControl.FunctionName#"
+						  table1Name  = "#name#"
+						  data        = "1"
+						  filter      = "1"
+						  olap        = "0" 
+						  ajax        = "2" 
+						  excel       = "1"> 							  
+						 					 
+			 </td>
+			 
+			 </cfif>
+			 
+			 <!--- *** LISTING PRINT FUNCTION **** --->
+			 <cfinclude template="ListingPrint.cfm">
+					 
+			 <cfquery name="Mail" 
+				datasource="AppsSystem" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#"> 	
+				SELECT * 
+				FROM   Ref_ModuleControlDetailField
+				WHERE  SystemFunctionId = '#url.systemfunctionid#'		
+				AND    FunctionSerialNo = '#url.functionserialNo#'
+				AND    (FieldOutputFormat = 'eMail' or FieldHeaderLabel = 'Name')
+			 </cfquery>	
+		 
+			 <cfif Mail.recordcount eq "2">
+			 
+			   <td width="1" style="padding:2px">|</td>	
+			   <td class="labelmedium" style="padding:2px" onclick="mail('#url.systemfunctionid#','#url.functionserialNo#')" #selectme#>	 
+			   <img src="#SESSION.root#/Images//mail3.gif" alt="" border="0">
+			    Broadcast Mail
+			   </td>
+			  <td width="1" style="padding:2px">|</td>	
+			 						 
+			 </cfif>
+					 
+			</cfif>
+						
+			<td id="menuprocess" style="padding-left:10px"></td>
+			
+		</tr>
+		
+		</table>
+	
+	</td></tr>
+	
+	</table>
+			
+	</cfif>
+	
+</cfoutput>	
+	

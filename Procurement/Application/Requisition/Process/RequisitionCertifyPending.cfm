@@ -1,0 +1,231 @@
+<cfoutput>
+
+<cfparam name="url.message" default="">
+<cfparam name="url.search" default="">
+<cfparam name="url.annotationid" default="">		
+<cfparam name="url.unit" default="">
+<cfparam name="url.fund"         default="">
+<cfparam name="url.fun"          default="funding">
+
+<cfquery name="Role" 
+	datasource="AppsOrganization" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    SELECT *
+	    FROM   Ref_AuthorizationRole
+		WHERE Role = 'ProcReqCertify' 
+</cfquery>
+
+<cfinvoke component = "Service.Process.Procurement.Requisition"  
+	method           = "getQueryScope" 
+	role             = "ProcReqCertify" 
+	accesslevel      = "'1','2'"
+	mode             = "OrgUnitImplement"
+	returnvariable   = "UserRequestScope">	
+
+<cfquery name="Parameter" 
+	datasource="AppsPurchase" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    SELECT *
+	    FROM Ref_ParameterMission
+		WHERE Mission = '#URL.Mission#' 
+</cfquery>
+
+<cfset fun = "0">		
+			
+<cfquery name="Requisition" 
+	datasource="AppsPurchase" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT    L.*, 
+		          I.Description, 
+				  
+				   (  SELECT count(*) 
+						 FROM RequisitionLineTravel
+						 WHERE RequisitionNo = L.RequisitionNo						 
+					  )  as IndTravel,			  
+					  
+					  (  SELECT count(*)
+						 FROM Employee.dbo.PositionParentFunding
+				         WHERE RequisitionNo = L.RequisitionNo
+					  )  as IndPosition,
+					  	
+					  (  SELECT count(*)
+				         FROM RequisitionLineService
+				         WHERE RequisitionNo = L.RequisitionNo
+			          )  as IndService,			  
+					  
+					   (  SELECT count(*)
+				 FROM   RequisitionLineTopic R, Ref_Topic S
+				 WHERE  R.Topic = S.Code
+			     AND    S.Operational   = 1
+			     AND    R.RequisitionNo = L.RequisitionNo
+			   ) as CountedTopics,	  
+					  
+				  Org.Mission, 
+				  Org.MandateNo, 
+				  Org.HierarchyCode, 
+				  Org.OrgUnitName
+		FROM      RequisitionLine L, 
+		          ItemMaster I, 
+				  Organization.dbo.Organization Org
+				  
+		WHERE     L.OrgUnit = Org.OrgUnit
+		AND       L.Mission = '#URL.Mission#' 
+		AND       I.Code    = L.ItemMaster 
+		
+		<!--- current status --->		
+		AND       L.ActionStatus IN ('2f') 	
+		
+		<!--- has access in this role to requisition --->						
+		<cfif getAdministrator(url.mission) eq "0">
+		AND       #preserveSingleQuotes(UserRequestScope)# 					
+		</cfif>		
+				
+		<cfif url.annotationid neq "">
+			
+			<cfif url.annotationid eq "None">
+				
+				AND  L.RequisitionNo NOT IN (SELECT ObjectKeyValue1
+				                         FROM   System.dbo.UserAnnotationRecord
+										 WHERE  Account = '#SESSION.acc#' 
+										 AND    EntityCode = 'ProcReq')	
+				
+			<cfelse>
+	
+				AND  L.RequisitionNo IN (SELECT ObjectKeyValue1
+				                         FROM   System.dbo.UserAnnotationRecord
+										 WHERE  Account = '#SESSION.acc#' 
+										 AND    EntityCode = 'ProcReq' 
+										 AND    AnnotationId = '#url.annotationid#')	
+										 
+			</cfif>						 
+			
+		</cfif>
+					
+		<cfif url.unit neq "">
+		AND   L.OrgUnit = '#url.Unit#'
+		</cfif>		
+	
+		
+				
+		<cfif url.fund neq "">	
+		AND   L.RequisitionNo IN (SELECT RequisitionNo 
+		                          FROM   RequisitionLineFunding 
+								  WHERE  Fund = '#url.fund#'
+								  AND    RequisitionNo = L.RequisitionNo)
+		</cfif>
+		
+		<cfif url.search neq "">
+		AND   (L.Reference LIKE '%#URL.Search#%' OR 
+	       L.RequisitionNo LIKE '%#URL.Search#%' OR 
+		   L.RequestDescription LIKE '%#URL.Search#%' OR 
+		   I.Description LIKE '%#URL.Search#%' OR 
+		   L.OfficerLastName LIKE '%#URL.Search#%' OR
+		   L.OfficerFirstName LIKE '%#URL.Search#%') OR
+		   L.RequisitionNo IN (SELECT RequisitionNo 
+		                       FROM RequisitionLineTopic
+							   WHERE RequisitionNo = L.RequisitionNo
+							   AND   (CAST(TopicValue AS varchar(100)) LIKE '%#URL.Search#%'))
+							   
+							   
+							   
+	</cfif>	   
+							
+		AND     L.Period  = '#URL.Period#'		
+	  	ORDER BY L.Reference, Org.Mission, Org.MandateNo, Org.HierarchyCode, L.Created DESC							
+</cfquery>
+
+	<cfset fun = "0">
+				
+	<cfset Mode = "Pending">
+				
+	<table width="100%" height="100%" class="formpadding">
+		
+	    <cfif url.message neq "">
+		<tr><td height="20">&nbsp;#url.message#</td></tr>
+		</cfif>
+		
+		<cfparam name="url.page" default="1">
+		
+		<cfquery name="Count"
+         dbtype="query">
+		 	SELECT DISTINCT Reference
+			FROM   Requisition		 
+		 </cfquery>		
+		 		 		 		
+		<cf_PageCountN count="#count.recordcount#" show="#Parameter.LinesInView#">
+						   
+		<cfif pages lte "1">
+		   
+		   		<input type="hidden" name="page" id="page" value="1">
+				
+		<cfelse>
+		   
+		   	<tr>
+			<td height="25" align="right" valign="bottom">
+		   		   		
+				<cfset currrow = 0>
+				<cfset navigation = 1>
+				
+				<cf_tl id="Page" var="1">
+				<cfset vPage = lt_text>
+	
+				<cf_tl id="Of" var="1">
+				<cfset vOf = lt_text>
+		   			   				
+			    <select name="page" id="page"
+			       size="1" 
+				   class="regularxl"
+				   style="background: color: 002350;"
+		           onChange="reqsearch()">
+				   
+				   <cfloop index="Item" from="1" to="#pages#" step="1">
+		              <cfoutput><option value="#Item#"<cfif URL.page eq "#Item#">selected</cfif>>#vPage# #Item# #vOf# #pages#</option></cfoutput>
+		           </cfloop>	 
+				   
+		        </SELECT>	
+			   
+			 </td>
+			 </tr>  	
+				   
+		</cfif>    
+		
+		<cfquery name="Parameter" 
+			datasource="AppsPurchase" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			    SELECT *
+			    FROM Ref_ParameterMission
+				WHERE Mission = '#URL.Mission#' 
+		</cfquery>
+			
+		<cfif Parameter.EnableFundingCheck gte "1">				
+			<cfset fundcheck = "Funds">
+		<cfelse>
+			<cfset fundcheck = "No">
+		</cfif>		
+		
+		<cfif Parameter.RequisitionProcessMode eq "0">
+			<cfset processlevel = "Line">
+		<cfelse>
+			<cfset processlevel = "Header">
+		</cfif>
+				
+		<cfset url.process = "radio">
+		<tr>
+			<td height="100%"><cfinclude template="RequisitionListing.cfm"></td>
+		</tr>							
+		
+		<cf_tl id="Submit" var="1">		
+		
+		<CFIF requisition.recordcount gt "0">					
+			<tr><td colspan="2" style="height:40px" id="block" align="center">
+			   <input style="font-size:20px;width:240;height:30" type="button" onclick="processdata('process','#url.period#','#url.role#')" name="Submit" id="Submit" value="#lt_text#" class="button10g">
+			</td></tr>
+		</cfif>		
+		
+	</table>	
+	
+</cfoutput>	

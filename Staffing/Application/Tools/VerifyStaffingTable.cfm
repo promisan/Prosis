@@ -1,0 +1,98 @@
+
+<!--- Prosis template framework --->
+<cfsilent>
+ <proUsr>administrator</proUsr>
+ <proOwn>Hanno van Pelt</proOwn>
+ <proDes>Staffing Table validation</proDes>
+ <!--- specific comments for the current change, may be overwritten --->
+ <proCom>Added on request of PMSS</proCom>
+</cfsilent>
+<!--- End Prosis template framework --->
+
+<cf_dialogPosition>
+
+<cfoutput>
+	
+	<script>
+		
+	function validate() {
+				
+		mis = document.getElementById("mission").value;
+		man = document.getElementById("mandateno").value	
+		cur = document.getElementById("current").checked
+		url = "VerifyStaffingTableResult.cfm?current="+cur+"&mission="+mis+"&mandateno="+man;
+		ColdFusion.navigate(url,'result')	 
+	}
+	
+	</script>
+
+</cfoutput>
+
+<cf_screentop height="100%" scroll="yes" html="No" jquery="Yes">
+
+<cfparam name="URL.Mission" default="SAT">
+<cfparam name="URL.MandateNo" default="P001">
+
+<cfquery name="Mission" 
+datasource="AppsOrganization" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT * 
+	FROM   Ref_Mission
+	WHERE  Mission IN (SELECT Mission 
+                   FROM Ref_MissionModule 
+				   WHERE SystemModule = 'Staffing')
+</cfquery>
+
+
+<cf_submenuLogo module="Staffing" selection="Maintenance">
+
+
+<cfoutput>
+<table width="95%" align="center" border="0" cellspacing="0" cellpadding="0" bordercolor="silver" class="formpadding">
+	
+	<tr><td colspan="2" height="1" class="line"></td></tr>
+	<tr><td height="5"></td></tr>
+	<tr><td></td><td style="height:22px" class="labelmedium">This function verifies a vaiety of staffing table inconsistencies (positions, contracts and assignments)</td></tr>
+	<tr><td></td><td style="height:22px" class="labelmedium" colspan="1"><font color="A0A0A0"><i>Results are logged in the table [Employee.dbo.AuditIncumbency]</i></td></tr>
+	<tr><td height="5"></td></tr>	
+	<tr><td colspan="2" height="1" class="line"></td></tr>
+	<tr><td height="5"></td></tr>
+	<tr><td valign="top">
+	   <table cellspacing="0" cellpadding="0">
+	    <tr><td height="4"></td></tr>
+		<tr><td class="labelmedium">&nbsp;&nbsp;Entity:</td></tr>
+    	</table>
+	</td>
+	<td width="80%" valign="top">
+	    <table cellspacing="0" cellpadding="0">
+			<tr><td valign="top" style="padding-top:3px">
+			<select name="mission" id="mission" class="regularxl">
+				<cfloop query="mission">
+					<option value="#Mission#">#Mission#</option>
+				</cfloop>
+			</select>
+			</td>
+			<td style="padding-left:10px"><cfdiv bind="url:VerifyStaffingTableMandate.cfm?mission={mission}"></td>
+			</tr>
+		</table>
+	</td></tr>
+	
+	<tr>	    
+		<td colspan="2" class="labelmedium">
+		&nbsp;&nbsp;Only current assignments:&nbsp;
+		<input type="checkbox" class="radiol" name="current" id="current" value="1" checked>
+		</td>
+	</tr>
+	<tr><td colspan="2" height="1" class="line"></td></tr>
+	<tr><td height="5"></td></tr>
+	<tr><td colspan="2" align="center" height="30">
+		<input type="button" name="validate" id="validate" style="width:190;height:25" onclick="validate()" class="button10g" value="Validate Now">
+	</td></tr>
+   
+	<tr><td colspan="2" height="1" class="line"></td></tr>
+	<tr><td colspan="2" id="result"></td></tr>
+	
+</table>
+
+</cfoutput>

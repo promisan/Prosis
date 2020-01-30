@@ -1,0 +1,99 @@
+<!--- Create Criteria string for query from data entered thru search form --->
+
+<!--- ------------------------------------------------------ --->
+<!--- template called from a portal function from a customer --->
+<!--- ------------------------------------------------------ --->
+
+<cfparam name="URL.OrgUnit"   default="#client.orgunit#">
+
+<cfquery name="Period" 
+  datasource="AppsLedger" 
+  username="#SESSION.login#" 
+  password="#SESSION.dbpw#">
+      SELECT * 
+	  FROM Period 
+	  WHERE ActionStatus = 0	 
+	  ORDER BY AccountPeriod
+</cfquery>
+
+<cfparam name="URL.IDStatus"  default="All">
+<cfparam name="URL.IDSorting" default="Journal">
+<cfparam name="URL.journal"   default="">
+<cfparam name="URL.Find"      default="">
+<cfparam name="URL.Month"     default="">
+<cfparam name="URL.Mission"   default="">
+<cfparam name="URL.Period"    default="#period.accountperiod#">
+
+<!--- --------------- --->
+<!--- hide the header --->
+<!--- --------------- --->
+
+<cfset access = "NONE">
+
+	<!--- Query returning search results --->
+	
+	<cfquery name="TransactionListing"
+	datasource="AppsLedger" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    SELECT T.Journal, 
+		       T.JournalSerialNo,
+			   T.TransactionDate, 
+			   T.JournalTransactionNo, 
+			   T.Description,
+			   T.ReferenceName, 
+			   T.ReferenceNo,
+			   T.Reference, 
+			   T.Currency,
+			   T.ActionStatus,
+			   T.Amount, 
+			   T.AmountOutstanding, 
+			   sum(L.AmountDebit) as AmountTriggerDebit,
+			   sum(L.AmountCredit) as AmountTriggerCredit
+		FROM   TransactionHeader T, TransactionLine L
+		WHERE  T.Journal                = L.Journal
+		AND    T.JournalSerialNo        = L.JournalSerialNo
+		AND    L.TransactionSerialNo    = '0'
+		AND    T.ReferenceOrgUnit       = '#URL.OrgUnit#' 		
+		AND    T.AccountPeriod          = '#URL.Period#'
+		<cfif URL.Month neq "">
+		AND    Month(T.TransactionDate) = '#URL.month#'
+		</cfif>
+		<cfif URL.IDStatus eq "Outstanding">
+		AND    T.AmountOutstanding > 0 
+		</cfif>
+		<cfif URL.find neq "">
+		AND    (
+		       T.JournalTransactionNo LIKE '%#URL.Find#%' OR
+		       T.ReferenceName    LIKE '%#URL.Find#%' OR
+			   T.ReferenceNo      LIKE '%#URL.Find#%' OR
+			   T.Description      LIKE '%#URL.Find#%' OR
+			   T.JournalSerialNo  LIKE '#URL.Find#%'  
+			   )
+		
+		</cfif>
+		GROUP BY T.Journal, 
+		       T.JournalSerialNo,
+			   T.JournalTransactionNo, 
+			   T.TransactionDate, 
+			   T.ReferenceName, 
+			   T.ReferenceNo,
+			   T.Description,
+			   T.Reference, 
+			   T.Currency,
+			   T.ActionStatus,
+			   T.Amount, 
+			   T.AmountOutstanding 
+		 ORDER BY T.#IDSorting# DESC, T.Currency <cfif idsorting neq "transactiondate">,T.TransactionDate DESC </cfif>
+	</cfquery>
+	
+<cfquery name="Period" 
+  datasource="AppsLedger" 
+  username="#SESSION.login#" 
+  password="#SESSION.dbpw#">
+      SELECT * 
+	  FROM Period 
+</cfquery>
+  
+<cfinclude template="JournalListing.cfm">
+ 

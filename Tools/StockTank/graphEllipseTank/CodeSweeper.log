@@ -1,0 +1,35 @@
+Invalid character (*) encountered while parsing (tag "CFSET" with attributes vWid=2). 
+Invalid character (*) encountered while parsing (tag "CFSET" with attributes vHei=2). 
+Invalid character (*) encountered while parsing (tag "CFSET" with attributes vHei=2). 
+Invalid character (*) encountered while parsing (tag "CFSET" with attributes vHei=2). 
+Invalid character (*) encountered while parsing (tag "CFSET" with attributes vHei=2). 
+Invalid character (*) encountered while parsing (tag "CFSET" with attributes vHei=2). 
+Invalid character (*) encountered while parsing (tag "CFSET" with attributes vWid=2). 
+Invalid character (*) encountered while parsing (tag "CFSET" with attributes vWid=2). 
+Invalid character (*) encountered while parsing (tag "CFSET" with attributes vHei=2). 
+Invalid character (*) encountered while parsing (tag "CFSET" with attributes vHei=2). 
+Invalid character (*) encountered while parsing (tag "CFSET" with attributes vWid=2). 
+Invalid character (*) encountered while parsing (tag "CFSET" with attributes vWid=2). 
+Invalid character (*) encountered while parsing (tag "CFSET" with attributes vWid=2). 
+Invalid character (*) encountered while parsing (tag "CFSET" with attributes vWid=2). 
+Invalid character (*) encountered while parsing (tag "CFSET" with attributes vWid=2). 
+Invalid character (*) encountered while parsing (tag "CFSET" with attributes vWid=2). 
+Invalid character (*) encountered while parsing (tag "CFSET" with attributes vWid=2). 
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes vGSizeHorizontal=160). 
+Invalid character (*) encountered while parsing (tag "CFSET" with attributes vGSizeHorizontal=160). 
+Invalid character (*) encountered while parsing (tag "CFSET" with attributes vGSizeHorizontal=160). 
+Invalid character (*) encountered while parsing (tag "CFSET" with attributes vGSizeHorizontal=160). 
+Invalid character (*) encountered while parsing (tag "CFSET" with attributes vGSizeHorizontal=160). 
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes vActualLabel=lowMeasurement). 
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes vActualLabel=lowMeasurement). 
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes vActualLabel=lowMeasurement). 
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes vActualLabel=lowMeasurement). 
+Invalid number "1" encountered while parsing (tag "CFIF" with attributes currentrow=). 
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes). 
+Invalid quoted string '#url.measurement#' encountered while parsing (tag "CFIF" with attributes). 
+Invalid quoted string '#url.measurement#' encountered while parsing (tag "CFIF" with attributes). 
+Invalid quoted string '#url.measurement#' encountered while parsing (tag "CFIF" with attributes). 
+Invalid quoted string '#url.measurement#' encountered while parsing (tag "CFIF" with attributes). 
+Invalid quoted string '#url.measurement#' encountered while parsing (tag "CFIF" with attributes). 
+Invalid quoted string 'StrappingList_GetMeasurement.cfm?warehouse=#URL.warehouse#&location=#url.location#&itemNo=#url.ItemNo#&uoM=#url.UoM#&uomDescription=#getUoM.UoMDescription#&measurement=' encountered while parsing (tag "INPUT" with attributes type=Button name=btnMeasurementGM class=button10g value=are style=text-align:center; height:18px; width:30px; onclick= javascript:=). 
+Invalid quoted string 'StrappingList_GetMeasurement.cfm?warehouse=#URL.warehouse#&location=#url.location#&itemNo=#url.ItemNo#&uoM=#url.UoM#&uomDescription=#getUoM.UoMDescription#&measurement=' encountered while parsing (tag "INPUT" with attributes type=Button name=btnMeasurementGM class=button10g value=are style=text-align:center; height:18px; width:30px; onclick= javascript:=). 

@@ -1,0 +1,78 @@
+
+<cf_compression>
+
+<cfparam name="Form.Code"               default="">
+<cfparam name="Form.Description"        default="">
+
+<cfif URL.Code neq "new">
+
+	 <cfquery name="Update" 
+		  datasource="AppsCaseFile" 
+		  username="#SESSION.login#" 
+		  password="#SESSION.dbpw#">
+		  UPDATE Ref_ClaimTypeClass
+		  SET    Description         = '#FORM.Description#',
+		 		 EntityClass		 = '#Form.EntityClass#'
+		  WHERE  Code                = '#URL.Code#'		 	   
+		  AND    ClaimType          = '#URL.ClaimType#' 
+	</cfquery>
+		
+	<cfset url.code = "">
+				
+<cfelse>
+			
+	<cfquery name="Exist" 
+	    datasource="AppsCaseFile" 
+	    username="#SESSION.login#" 
+	    password="#SESSION.dbpw#">
+	    SELECT  *
+		  FROM  Ref_ClaimTypeClass
+		  WHERE  Code                = '#FORM.Code#'		 	   
+	</cfquery>
+	
+	<cfif Exist.recordCount eq "0">
+		
+			<cfquery name="Insert" 
+			     datasource="AppsCaseFile" 
+			     username="#SESSION.login#" 
+			     password="#SESSION.dbpw#">
+			     INSERT INTO Ref_ClaimTypeClass
+			         (ClaimType,
+					 Code,
+					 Description,
+					 EntityClass,
+					 OfficerUserId,
+					 OfficerLastName,
+					 OfficerFirstName)
+			      VALUES (
+				      '#URL.ClaimType#',
+				      '#Form.Code#',
+					  '#Form.Description#',			
+					  '#Form.EntityClass#',		 
+					  '#SESSION.acc#',
+					  '#SESSION.last#',
+					  '#SESSION.first#'
+					  )
+			</cfquery>
+			
+	<cfelse>
+			
+		<cfoutput>	
+		<script>
+			alert("Sorry, but #Form.Code# already exists")
+		</script>
+		</cfoutput>
+				
+	</cfif>		
+	
+	<cfset url.code = "new">
+			   	
+</cfif>
+
+<cfoutput>
+  <script>
+    ColdFusion.navigate('RecordListingDelete.cfm?Code=#URL.ClaimType#','del_#url.claimtype#')	
+    ColdFusion.navigate('List.cfm?ClaimType=#URL.ClaimType#&code=#url.code#','#url.claimtype#_list')	
+  </script>	
+</cfoutput>
+

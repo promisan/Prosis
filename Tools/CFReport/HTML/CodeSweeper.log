@@ -1,0 +1,6 @@
+Invalid quoted string 'function()' encountered while parsing (tag "CFSET" with attributes). 
+Invalid quoted string 'function() {}' encountered while parsing (tag "CFSET" with attributes). 
+Invalid quoted string 'function() { }' encountered while parsing (tag "CFSET" with attributes). 
+Invalid quoted string 'function() { parent.document.getElementById('reportbox').style.border='3px>' encountered while parsing (tag "CFSET" with attributes). 
+Invalid quoted string 'function() { parent.document.getElementById('reportbox').style.border='3px soli>' encountered while parsing (tag "CFSET" with attributes). 
+Invalid quoted string 'function() { parent.document.getElementById('reportbox').style.border='3px solid>' encountered while parsing (tag "CFSET" with attributes). 

@@ -1,0 +1,493 @@
+
+<cfparam name="URL.DocNo"   default="">
+<cfparam name="URL.Scope"   default="Inquiry">
+<cfparam name="URL.Class"   default="">
+<cfparam name="URL.Mission" default="">
+
+<!--- ------------------------------------------------------------------------------------------------------------------ --->
+<!--- use URL.mode=Limited in the URL to show all candidates, this is an option to be granted for an auditor or verifier --->
+<!--- ------------------------------------------------------------------------------------------------------------------ --->
+
+<cfparam name="URL.Mode"    default="Regular">
+<cfparam name="URL.Height"  default="600">
+<cfparam name="URL.Owner"   default="">
+
+<script>
+
+function maxme(itm) {
+	 
+	 se   = document.getElementsByName(itm)
+	 icM  = document.getElementById(itm+"Min")
+	 icE  = document.getElementById(itm+"Exp")
+	 count = 0
+		
+	 if (icM.className == "regular") {
+	
+	 icM.className = "hide";
+	 icE.className = "regular";
+	 
+	 while (se[count]) {
+	   se[count].className = "hide"
+	   count++ }
+	 
+	 } else {
+	 	
+	 while (se[count]) {
+	 se[count].className = "regular"
+	 count++ }
+	 icM.className = "regular";
+	 icE.className = "hide";			
+	 }	
+	 
+ }		
+
+</script>
+
+	<cfif URL.Scope neq "Inquiry">
+	
+		<table width="100%" height="99%" cellspacing="0" cellpadding="0" class="formpadding">
+		
+		<tr><td height="5"></td></tr>
+				
+	<cfelse>
+	
+		<cf_screentop height="100%" jquery="Yes" scroll="No" html="No" menuAccess="Yes" SystemFunctionId="#url.idmenu#">
+	
+		<table width="98%" height="100%" cellspacing="0" cellpadding="0" align="center">
+		
+		<tr><td height="5"></td></tr>
+		
+		<t><td>
+		
+			<table width="100%" border="0" cellspacing="0" align="center" align="center" class="formpadding">
+							
+				 <tr class="line">
+				  
+				    <cfif url.mission neq "">
+					<cfoutput>
+					<td style="font-weight:200;height:50px;padding-left:10px;padding-top:8px;font-size:25px" class="labelit">#url.mission# <cf_tl id="Patients"></td>	
+					</cfoutput>
+					<cfelse>
+				    <td style="font-weight:200;padding-left:10px;padding-top:6px;font-size:30px" class="labelit"><cf_tl id="Inquiry"></td>					
+					</cfif>
+					<td align="right" width="30%" valign="bottom" style="font-weight:200;padding-right:10px" class="labelit">
+					<cfoutput><font color="gray"><cf_tl id="Mode">:&nbsp;&nbsp;<font color="002350">#URL.Mode#/#url.class#</font></cfoutput>
+					</td>
+				 </tr> 	
+				 			 
+			 </table>
+		 
+		 </td></tr>
+		 		
+	</cfif>
+	
+	<tr><td height="5"></td></tr>
+
+	<tr class="line">
+	
+	<td height="20" name="search" style="border:0px solid silver">
+								
+		<CFFORM action="#SESSION.root#/Roster/RosterGeneric/CandidateResult.cfm?mission=#url.mission#&height=#URL.height#&DocNo=#URL.DocNo#&Scope=#URL.Scope#&Mode=#URL.Mode#&Owner=#URL.Owner#"
+	        method="post" target="result">		
+					
+		<table width="98%" border="0" cellspacing="0" cellpadding="0" align="center" align="center" class="formpadding">
+		
+		    <cfif url.class neq "">
+				
+			   <cfoutput>		
+			   <input type="hidden" name="Class" value="#url.class#">
+			   </cfoutput>
+			
+			<cfelse>
+					 
+				<tr><td height="5"></td></tr>
+				
+				<tr>
+				
+				<!--- Field: Staff.Class=CHAR;20;TRUE --->
+					
+				<cfquery name="Class" 
+				datasource="AppsSelection" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					SELECT * 
+					FROM Ref_ApplicantClass
+				</cfquery>
+			
+				<td style="padding-left:10px" width="100" class="labelit" style="padding-top:2px"><cf_tl id="Class">:</td>
+				<td colspan="3">
+				
+				    <table>
+					<tr>
+					<td><input type="radio" name="Class" value="" checked></td><td class="labelit"><cf_tl id="Any"></td>
+					<cfoutput query="Class">
+					  <td style="padding-left:5px"><input type="radio" class="radiol" name="Class" value="#ApplicantClassId#"></td><td class="labelit"><cf_tl id="#Description#"></td>
+					</cfoutput>		
+					</tr>
+					</table>
+				   
+				</td>
+				</tr>
+							
+			</cfif>
+						
+			<tr>
+				
+			<cfquery name="Parameter" 
+			datasource="AppsEmployee" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			    SELECT * 
+		    	FROM Parameter
+			</cfquery>
+		
+			<!--- Field: IndexNo=CHAR;20;FALSE --->
+			<INPUT type="hidden" name="Crit8_FieldName" value="A.IndexNo">
+			<INPUT type="hidden" name="Crit8_FieldType" value="CHAR">
+			<TD style="padding-left:10px" class="labelit"><cfoutput query="Parameter">#IndexNoName#:</cfoutput></TD>
+			<TD class="labelit">
+						
+			<SELECT name="Crit8_Operator" class="regularxl">
+				
+					<OPTION value="CONTAINS">contains
+					<OPTION value="BEGINS_WITH">begins with
+					<OPTION value="ENDS_WITH">ends with
+					<OPTION value="EQUAL">is
+					<OPTION value="NOT_EQUAL">is not
+					<OPTION value="SMALLER_THAN">before
+					<OPTION value="GREATER_THAN">after
+				
+				</SELECT>
+				
+			<INPUT type="text" name="Crit8_Value" class="regularxl" size="20"> 
+						
+			</TD>
+			
+			<cfif url.class eq "">
+					
+			<TD class="labelit" style="padding-left:10"><cf_tl id="Roster bucket">:</TD>
+			<TD>
+			
+			<cfquery name="Edition" 
+			datasource="AppsSelection" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				SELECT *
+				FROM   Ref_SubmissionEdition
+				WHERE  Operational = 1
+			</cfquery>
+			
+			<select name="Roster" style="width: 250;" class="regularxl">
+			   <option value="" selected>All</option>
+			   <option value="1">Candidates cleared for at least one bucket</option>
+			   
+			   <cfoutput query="Edition">
+			   <option value="#SubmissionEdition#">Cleared for #Owner# #EditionDescription#</option>
+			   </cfoutput>	   
+			   
+			</select>
+			 	  	
+		  	</TD>		
+									
+			<cfelseif url.class eq "4">
+						
+				<!--- Field: Staff.LastName=CHAR;40;FALSE --->
+				<INPUT type="hidden" name="Crit2a_FieldName" value="A.DocumentReference">
+				<INPUT type="hidden" name="Crit2a_FieldType" value="CHAR">
+				
+				<TD style="padding-left:10px" class="labelit"><cf_tl id="Reference">:</TD>
+				<TD>
+				<SELECT name="Crit2a_Operator" class="regularxl">
+					
+						<OPTION value="CONTAINS">contains
+						<OPTION value="BEGINS_WITH">begins with
+						<OPTION value="ENDS_WITH">ends with
+						<OPTION value="EQUAL">is
+						<OPTION value="NOT_EQUAL">is not
+						<OPTION value="SMALLER_THAN">before
+						<OPTION value="GREATER_THAN">after
+					
+					</SELECT>
+						
+				<INPUT type="text" class="regularxl" name="Crit2a_Value" size="10"></TD>
+			
+			
+			</cfif>
+			
+			</TR>		
+						
+			<!--- Field: Staff.LastName=CHAR;40;FALSE --->
+			<INPUT type="hidden" name="Crit2_FieldName" value="A.FullName">
+			<INPUT type="hidden" name="Crit2_FieldType" value="CHAR">
+			<TR>
+			<TD style="padding-left:10px" class="labelit"><cf_tl id="Full Name">:</TD>
+			<TD>
+			<SELECT name="Crit2_Operator" class="regularxl">
+				
+					<OPTION value="CONTAINS">contains
+					<OPTION value="BEGINS_WITH">begins with
+					<OPTION value="ENDS_WITH">ends with
+					<OPTION value="EQUAL">is
+					<OPTION value="NOT_EQUAL">is not
+					<OPTION value="SMALLER_THAN">before
+					<OPTION value="GREATER_THAN">after
+				
+				</SELECT>
+					
+			<INPUT type="text" class="regularxl" name="Crit2_Value" size="20"></TD>
+			
+			<cfif url.class eq "">
+			
+				<TD class="labelit" style="padding-left:10px"><cf_tl id="Candidate Assessment">:</TD>
+				<TD>
+				
+				<select name="Assessment" style="width: 250;" class="regularxl">
+				   <option value="" selected>N/A</option>
+				   <option value="1">Candidates WITH a Skill Assessment</option>
+				   <option value="0">Candidates WITHOUT a Skill Assessment</option>
+				</select>
+				   
+			  	</TD>
+						
+			</cfif>
+			
+			</tr>
+							
+			<tr>
+		
+			<!--- Field: Staff.FirstName=CHAR;40;FALSE --->
+			<INPUT type="hidden" name="Crit3_FieldName" value="A.FirstName">
+			<INPUT type="hidden" name="Crit3_FieldType" value="CHAR">
+			<TD style="padding-left:10px" class="labelit"><cf_tl id="First name"></TD>
+			<TD class="regular">
+			<SELECT name="Crit3_Operator" class="regularxl">
+				
+					<OPTION value="CONTAINS">contains
+					<OPTION value="BEGINS_WITH">begins with
+					<OPTION value="ENDS_WITH">ends with
+					<OPTION value="EQUAL">is
+					<OPTION value="NOT_EQUAL">is not
+					<OPTION value="SMALLER_THAN">before
+					<OPTION value="GREATER_THAN">after
+				
+				</SELECT>
+				
+			<INPUT type="text" class="regularxl" name="Crit3_Value" size="20"> 
+			
+			</TD>
+			
+			<cfif url.class eq "">
+			
+			<TD class="labelit" style="padding-left:10px"><cf_tl id="Processed">:</TD>
+			<TD>
+			<select name="Filter" style="width: 250;" class="regularxl">
+			   <option value="" selected>All</option>
+			   <option value="1">Only candidates processed by <cfoutput>#SESSION.first# #SESSION.last#</cfoutput></option>
+			</select>
+			   
+		  	</TD>
+			
+			</cfif>
+			
+			</tr>	
+			
+		  <!--- Field: Staff.Person=CHAR;40;FALSE --->
+				
+		    <INPUT type="hidden" name="Crit7_FieldName" value="A.PersonNo">
+			<INPUT type="hidden" name="Crit7_FieldType" value="CHAR">
+			<TR>
+			<td style="padding-left:10px" class="labelit"><cf_tl id="Person Id">:</td>
+			<TD>
+			<SELECT name="Crit7_Operator" class="regularxl">
+				
+					<OPTION value="CONTAINS">contains
+					<OPTION value="BEGINS_WITH">begins with
+					<OPTION value="ENDS_WITH">ends with
+					<OPTION value="EQUAL">is
+					<OPTION value="NOT_EQUAL">is not
+					<OPTION value="SMALLER_THAN">before
+					<OPTION value="GREATER_THAN">after
+				
+				</SELECT>
+				
+			<INPUT type="text" class="regularxl" name="Crit7_Value" size="20"> 
+			
+			</TD>
+					
+						
+			<!--- Field: Staff.Source=CHAR;40;FALSE --->
+			
+			<INPUT type="hidden" name="Crit6_FieldName" value="A.Source">		
+			<INPUT type="hidden" name="Crit6_FieldType" value="CHAR">
+					
+			<TD style="padding-left:10px" class="labelit"><cf_tl id="Source">:</TD>
+			<TD>
+			<SELECT name="Crit6_Operator" class="regularxl">
+				
+					<OPTION value="CONTAINS">contains
+					<OPTION value="BEGINS_WITH">begins with
+					<OPTION value="ENDS_WITH">ends with
+					<OPTION value="EQUAL">is
+					<OPTION value="NOT_EQUAL">is not
+					<OPTION value="SMALLER_THAN">before
+					<OPTION value="GREATER_THAN">after
+				
+				</SELECT>
+				
+			<cfinput type="Text" class="regularxl" name="Crit6_Value" message="Enter an integer value" required="No" size="10"> </font>
+			
+			</TD>
+								
+			</TR>		
+				
+			<TR>
+		
+			<!--- Field: Staff.FirstName=CHAR;40;FALSE --->
+			<INPUT type="hidden" name="Crit5_FieldName" value="A.EMailAddress">
+			<INPUT type="hidden" name="Crit5_FieldType" value="CHAR">
+			<TD style="padding-left:10px" class="labelit"><cf_tl id="Email">:
+			<cf_space spaces="20">
+			
+			</TD>
+			
+			<TD>
+			
+			<cf_space spaces="90">
+			
+				<SELECT name="Crit5_Operator" class="regularxl">
+				
+					<OPTION value="CONTAINS">contains
+					<OPTION value="BEGINS_WITH">begins with
+					<OPTION value="ENDS_WITH">ends with
+					<OPTION value="EQUAL">is
+					<OPTION value="NOT_EQUAL">is not
+					<OPTION value="SMALLER_THAN">before
+					<OPTION value="GREATER_THAN">after
+				
+				</SELECT>
+				
+				<INPUT type="text" class="regularxl" name="Crit5_Value" size="20"> 
+			
+			</TD>
+			
+			<!--- Field: Staff.FirstName=CHAR;40;FALSE --->
+			<INPUT type="hidden" name="Crit5a_FieldName" value="A.MobileNumber">
+			<INPUT type="hidden" name="Crit5a_FieldType" value="CHAR">
+			<TD style="padding-left:10px" class="labelit"><cf_tl id="Mobile">:</TD>
+			
+			<TD>
+			
+				<SELECT name="Crit5a_Operator" class="regularxl">
+				
+					<OPTION value="CONTAINS">contains
+					<OPTION value="BEGINS_WITH">begins with
+					<OPTION value="ENDS_WITH">ends with
+					<OPTION value="EQUAL">is
+					<OPTION value="NOT_EQUAL">is not
+					<OPTION value="SMALLER_THAN">before
+					<OPTION value="GREATER_THAN">after
+				
+				</SELECT>
+				
+				<INPUT type="text" class="regularxl" name="Crit5a_Value" size="10"> 
+			
+			</TD>
+			
+			</TR>
+			
+			<!--- Field: Staff.Gender=CHAR;40;FALSE --->
+			<INPUT type="hidden" name="Crit4_FieldName" value="A.Gender">
+			<INPUT type="hidden" name="Crit4_FieldType" value="CHAR">
+			<INPUT type="hidden" name="Crit4_Operator" value="CONTAINS">
+			
+			<TR>
+			<TD style="padding-left:10px;height:30px;" class="labelit"><cf_tl id="Gender">:</TD>		
+			<TD class="labelit">
+				
+				<input type="radio" class="radiol" name="Crit4_Value" value="M"><cf_tl id="Male">
+			    <input type="radio" class="radiol" name="Crit4_Value" value="F"><cf_tl id="Female">
+				<input type="radio" class="radiol" name="Crit4_Value" value="" checked><cf_tl id="Any">
+			
+			</TD>
+			</TR>				 	 
+			
+			<tr><td height="4"></td></tr>
+			
+			<tr><td colspan="4" class="line"></td></tr>	
+			
+			<tr><td valign="center" style="padding-top:4px" colspan="4" align="center">
+			
+			    <cfoutput>
+			
+			    <cf_tl id="Reset" var="reset">
+			
+				<input type="reset" class="button10g" 
+					mode        = "silver"
+					value       = "#reset#" 						
+					id          = "reset"					
+					width       = "150px" 					
+					color       = "636334"
+					fontsize    = "11px">   
+					
+				<cf_tl id="Search" var="qsearch">
+							
+				<input type="submit" class="button10g" 
+					mode        = "silver"
+					onclick     = "document.getElementById('toggle').className='regular'"
+					value       = "#qSearch#" 							
+					id          = "submit"					
+					width       = "150px" 					
+					color       = "636334"
+					fontsize    = "11px">   
+					
+				</cfoutput>						
+					
+			
+			</td></tr>
+			
+		</TABLE>
+		
+		</CFFORM>
+		
+	</td>
+
+	</tr>
+
+	<cfoutput>
+		
+		<tr><td id="toggle" class="hide" width="100%">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" align="right" style="padding-right:5px">
+									
+					<tr><td width="100%" colspan="2" align="center" align="right" style="padding-right:5px">		
+					
+						<button style="height:20;width:44" onclick="maxme('search')" name="back" class="button3" type="button" 
+				        onMouseOver="this.className='button1'" onMouseOut="this.className='button3'">
+							<img id="searchExp" align="absmiddle" title="Full screen" src="#SESSION.root#/Images/down2.gif" border="0" class="hide">
+							<img id="searchMin" align="absmiddle" title="Split Screen" src="#SESSION.root#/Images/up2.gif" border="0" class="regular">
+						</button>
+										
+						</td>
+					</tr>	
+					<tr><td colspan="2" class="linedotted"></td></tr>
+					
+			</table>		
+		</td></tr>
+	
+	</cfoutput>	
+	
+	<tr><td height="100%" width="100%">
+		<table width="100%" height="100%" cellspacing="0" cellpadding="0" align="center">
+			<tr><td valign="top" height="100%" style="padding-left:5px">		
+				<iframe width="100%" height="100%" name="result" id="result" frameborder="0"></iframe>
+			</td></tr>
+		</table>
+	</td>
+	</tr>
+
+</table>
+
+<cfif URL.Scope eq "Inquiry">	
+	<cf_screenbottom html="No">
+</cfif>	
+
+

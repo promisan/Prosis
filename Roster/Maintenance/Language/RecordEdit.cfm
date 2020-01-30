@@ -1,0 +1,90 @@
+<cfparam name="url.idmenu" default="">
+
+<cf_screentop height="100%" 
+			  scroll="Yes" 
+			  layout="webapp" 
+			  banner="gray"
+			  label="Edit Language" 
+			  menuAccess="Yes" 
+			  systemfunctionid="#url.idmenu#">
+ 
+<cfquery name="Get" 
+datasource="AppsSelection" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+SELECT *
+FROM Ref_Language 
+WHERE LanguageId = '#URL.ID1#'
+</cfquery>
+
+<script language="JavaScript">
+
+function ask() {
+	if (confirm("Do you want to remove this record ?")) {	
+	return true 	
+	}	
+	return false	
+}	
+
+</script>
+
+
+<CFFORM action="RecordSubmit.cfm" method="post" enablecab="yes" name="dialog">
+
+<!--- edit form --->
+
+<table width="94%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+	 <cfoutput>
+	 <tr>
+		<td colspan="2" style="height:10px;"></td>
+	</tr>
+	
+	 <TR>
+	 <TD class="labelmedium" width="30%">Code:</TD>  
+	 <TD>
+	 	<input type="Text" name="LanguageId" id="LanguageId" value="#get.LanguageId#" size="10" maxlength="10"class="regularxl">
+		<input type="hidden" name="LanguageIdOld" id="LanguageIdOld" value="#get.LanguageId#" size="10" maxlength="10"class="regular">
+	 </TD>
+	 </TR>
+	 
+	 <tr><td height="3"></td></tr>
+	 
+    <!--- Field: Description --->
+    <TR>
+    <TD class="labelmedium">Description:</TD>
+    <TD>
+  	  	<input type="Text" name="LanguageName" id="LanguageName" value="#get.LanguageName#" message="Please enter a description" required="Yes" size="20" maxlength="20" class="regularxl">
+	</TD>
+	</TR>
+	
+	<tr><td height="3"></td></tr>
+	
+	   <!--- Field: Description --->
+    <TR>
+    <TD class="labelmedium">Class:</TD>
+    <TD class="labelmedium">
+	  <input type="radio" name="LanguageClass" class="radiol" id="LanguageClass" value="Official" <cfif get.LanguageClass eq "Official">checked</cfif>>Official
+	  <input type="radio" name="LanguageClass" class="radiol" id="LanguageClass" value="Standard" <cfif get.LanguageClass eq "Standard">checked</cfif>>Standard
+	</TD>
+	</TR>
+
+
+	<tr><td colspan="2" height="4"></td></tr>
+	<tr><td colspan="2" class="linedotted"></td></tr>
+	<tr><td colspan="2" height="10"></td></tr>	
+	
+	<TR>
+		<td colspan="2" align="Center">
+		<input class="button10s" style="width:110px" type="button" name="Cancel" value=" Cancel " onClick="window.close()">
+		<input class="button10s" style="width:110px" type="submit" name="Delete" value=" Delete " onclick="return ask()">
+		<input class="button10s" style="width:110px" type="submit" name="Update" value=" Update ">
+		</td>
+	</TR>
+	
+</cfoutput>
+    	
+</TABLE>
+
+
+</CFFORM>
+

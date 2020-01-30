@@ -1,0 +1,56 @@
+
+
+<!--- show relevant options --->
+
+<script>
+	 document.getElementById('filtercontent').className = "regular"
+</script>
+
+<cfparam name="url.mandate" default="">
+<cfparam name="man" default="#url.mandate#">
+
+<cfinvoke component="Service.AccessGlobal"  
+	   Method="global" 
+	   Role="AdminProgram" 
+	   Returnvariable="GlobalAccess">
+		
+<cfinvoke component="Service.Access"
+	   Method="Organization"
+	   Mission="#URL.Mission#"
+	   Role="ProgramOfficer', 'ProgramManager', 'ProgramAuditor"
+	   ReturnVariable="MissionAccess">		   
+					   			
+<cfset CLIENT.ShowReports = "YES">
+
+<cfquery name="getDate" 
+	  datasource="AppsProgram" 
+	  username="#SESSION.login#" 
+	  password="#SESSION.dbpw#">
+	      SELECT *
+		  FROM   Ref_Period
+		  WHERE  Period = '#url.period#'					 
+ </cfquery>  	
+
+<cfform>
+
+<cfset seldate = dateformat(getDate.DateExpiration,client.dateformatShow)>
+
+
+	
+<cfif GlobalAccess neq "NONE" OR MissionAccess eq "READ" OR MissionAccess eq "EDIT" or MissionAccess eq "ALL">
+		 
+ 	   <cftree name="idtree" format="html" required="No">
+		   <cftreeitem 
+			  bind="cfc:service.Tree.OrganizationTree.getNodes({cftreeitempath},{cftreeitemvalue},'#url.mission#','#man#','#session.root#/ProgramREM/Application/Program/ProgramView/ProgramViewOpen.cfm','PRG','#url.mission#','#url.mission#','#man#','','Full','0','none','#seldate#')">  		 
+	   </cftree>		
+
+<cfelse>
+	
+	    <cftree name="idtree" format="html" required="No">
+			<cftreeitem 
+			  bind="cfc:service.Tree.OrganizationTree.getNodes({cftreeitempath},{cftreeitemvalue},'#url.mission#','#man#','#session.root#/ProgramREM/Application/Program/ProgramView/ProgramViewOpen.cfm','PRG','#url.mission#','#url.mission#','#man#','','role','0','none','#seldate#')">  		 
+       </cftree>		
+    
+</cfif> 
+
+</cfform>

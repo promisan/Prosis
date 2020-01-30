@@ -1,0 +1,473 @@
+
+<cf_screentop html="Yes" height="100%"
+   label="Recruitment Request" 
+   line="no"
+   layout="webapp" 
+   scroll="yes"
+   user="yes"
+   close="ColdFusion.Window.destroy('mydialog',true)"
+   banner="gray">
+
+   
+<cf_calendarscript>
+
+<cfparam name="URL.ID" default="">
+<cfparam name="URL.box" default="">
+<cfparam name="URL.ID1" default="">
+<cfparam name="URL.Caller" default="">
+<cfparam name="DocumentNoTrigger" default="#URL.ID#">
+
+<cfquery name="Position" 
+datasource="AppsEmployee" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+    SELECT O.*,
+	       P.OrgUnitAdministrative,
+		   P.PostType,
+		   P.SourcePostNumber,
+		   P.PostGrade,
+		   P.Positionno,
+		   P.FunctionNo,
+		   P.FunctionDescription
+    FROM   Position P, 
+	       Organization.dbo.Organization O
+	WHERE  P.PositionNo         = '#URL.ID1#' 
+	AND    P.OrgUnitOperational = O.OrgUnit 
+</cfquery>
+
+<!--- check if the mandate is a current mandate --->
+
+<cfquery name="Mandate" 
+datasource="AppsOrganization" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+    SELECT *
+    FROM  Ref_Mandate
+	WHERE Mission   = '#Position.Mission#' 
+	AND   MandateNo = '#Position.MandateNo#'	
+</cfquery>
+
+<cfif Mandate.DateExpiration gte now() or Mandate.MandateDefault eq "1">
+
+<cfelse>
+
+	<cf_message return="no" message="Problem, you may not initiate a track for an already closed mandate [#Mandate.MandateNo#].">
+	<cfabort>
+
+</cfif>
+
+<cfquery name="Mission" 
+datasource="AppsOrganization" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+  SELECT DISTINCT M.Mission, M.MissionOwner
+  FROM   Ref_Mission M, Ref_MissionModule R
+  WHERE  M.Mission = R.Mission
+  AND    R.SystemModule = 'Vacancy'
+  AND   M.Mission IN (SELECT Mission 
+                      FROM   Ref_Mandate 
+					  WHERE  DateExpiration > getDate()) 
+				
+  <cfif getAdministrator(Position.Mission) eq "0">		
+  		
+  AND (
+      M.Mission IN (SELECT DISTINCT A.Mission
+					FROM     OrganizationAuthorization A INNER JOIN
+					         Ref_EntityAction R ON A.ClassParameter = R.ActionCode
+					WHERE   A.UserAccount = '#SESSION.acc#' 
+					AND     R.EntityCode = 'VacDocument'
+					AND     R.ActionType = 'Create')  
+	  OR M.Mission IN (SELECT  DISTINCT Mission 
+	                   FROM    OrganizationAuthorization
+					   WHERE   UserAccount = '#SESSION.acc#' 
+					   AND     Role = 'VacOfficer')
+	   )
+	               				
+  </cfif>	
+ 		
+</cfquery>
+
+<cfquery name="Admin" 
+datasource="AppsEmployee" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+    SELECT *
+    FROM   Organization.dbo.Organization Org
+	WHERE  OrgUnit = '#Position.OrgUnitAdministrative#' 
+</cfquery>
+
+<cfif Admin.recordcount eq "1">
+
+	<cfquery name="Own" 
+	datasource="AppsOrganization" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	SELECT     R.Mission, 
+	           R.MissionOwner as Owner
+	FROM       Organization O INNER JOIN
+	           Ref_Mission R ON O.Mission = R.Mission
+	WHERE      O.OrgUnit = '#Position.OrgUnitAdministrative#'
+	</cfquery>
+	
+	<cfif Own.Owner neq "">
+	     <cfset owner = Own.Owner>
+		 <cfset miss  = Own.Mission>
+	<cfelse>
+	     <cfset owner = Mission.MissionOwner>
+		 <cfset miss  = Mission.Mission>
+	</cfif>
+	
+<cfelse>
+
+	<cfquery name="Mis" 
+	datasource="AppsOrganization" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT *
+		FROM   Ref_Mission
+		WHERE  Mission = '#Position.Mission#'
+	</cfquery>
+
+	<cfset owner = Mis.MissionOwner>	
+	<cfset miss  = Mis.Mission>
+
+</cfif>
+
+<cfquery name="getMissionClass"
+	datasource="AppsOrganization" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	SELECT EntityClass 
+    FROM   Ref_EntityClassMission 
+    WHERE  EntityCode = 'VacDocument' 
+    AND    Mission    = '#Position.Mission#'
+</cfquery>	
+
+<cfquery name="Class"
+datasource="AppsOrganization" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+    SELECT DISTINCT R.*
+	FROM     Ref_EntityClass R, 
+	         Ref_EntityClassPublish P
+	WHERE    R.Operational = '1'
+	AND      R.EntityCode   = P.EntityCode 
+	AND      R.EntityClass  = P.EntityClass
+	AND      R.EntityCode = 'VacDocument'	
+	AND     
+	         (
+			 
+	         R.EntityClass IN (SELECT EntityClass 
+	                           FROM   Ref_EntityClassOwner 
+							   WHERE  EntityCode       = 'VacDocument'
+							   AND    EntityClass      = R.EntityClass
+							   AND    EntityClassOwner = '#owner#')
+							   
+			 OR
+			
+			  R.EntityClass NOT IN (SELECT EntityClass 
+	                                FROM   Ref_EntityClassOwner 
+							        WHERE  EntityCode       = 'VacDocument'
+							        AND    EntityClass      = R.EntityClass)
+							   
+			 )				   							   				   
+	
+	AND     (R.EntityParameter is NULL or R.EntityParameter = '' or R.EntityParameter = '#Position.PostType#')			
+	
+	<cfif getMissionClass.recordcount gte "1">
+	
+	AND     R.EntityClass IN (SELECT EntityClass 
+	                          FROM   Ref_EntityClassMission 
+					          WHERE  EntityCode = 'VacDocument' 
+					          AND    Mission = '#Position.Mission#')
+	</cfif>			
+		   
+	ORDER BY R.ListingOrder	 
+</cfquery>
+
+<cfif class.recordcount eq "0">
+
+	 <cf_message height="100" message="Problem, no workflows have been published for this track owner #owner#" return="close">
+	 <cf_screenbottom layout="innerbox">
+	 <cfabort>
+	 
+</cfif>
+
+<cfquery name="Access"
+datasource="AppsOrganization" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+   SELECT MissionOwner
+   FROM   OrganizationAuthorization OA INNER JOIN
+          Ref_Mission R ON OA.Mission = R.Mission
+   WHERE  UserAccount  = '#SESSION.acc#' 
+   AND    Role         = 'VacOfficer'
+   AND    MissionOwner = '#owner#'
+</cfquery>
+
+<cfif Access.recordcount eq "0" and getAdministrator(Position.mission) eq "0">
+
+	<cf_message return="close" header="No" message="You are not authorised to initiate a Recruitment tracks for owner <cfoutput>#Owner#</cfoutput>">
+	<cf_screenbottom layout="webapp">
+	
+	<cfabort>
+</cfif>
+
+<cfif Mission.Recordcount eq "0">
+
+<cf_message Message="Problem, you are <b>NOT</b> authorised to register vactracks" return="back">
+
+	<cfabort>
+
+</cfif>
+
+<cfform action="#session.root#/Vactrack/Application/Document/DocumentEntrySubmit.cfm?box=#url.box#&ID=#DocumentNoTrigger#&id1=#URL.ID1#"
+  method="POST" style="height:100%"
+  name="documententry" 
+  target="result">
+  
+<table width="93%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+    
+  <tr class="hide"><td><iframe name="result" id="result"></iframe></td></tr>
+       
+  <tr><td height="1"></td></tr>	   
+  <tr>
+    <td width="100%" height="100%">
+		
+	<cf_divscroll style="height:100%">
+	
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="formpadding formspacing">
+				
+		<TR>
+	    
+	    <td height="20" class="labelmedium"><cf_tl id="Entity">:</td>
+		<td class="labelmedium">
+			    <cfoutput>#Position.Mission#</cfoutput>
+			    <input type="hidden" name="Mission" value="<cfoutput>#Position.Mission#</cfoutput>">	
+						 
+	    </td>
+		</TR>		
+		
+		<TR>
+	    <TD class="labelmedium"><cf_tl id="PositionNo">:</TD>
+	    <TD>
+			<input class="regularxl" type="text" name="positionno" value="<cfoutput>#Position.PositionNo#</cfoutput>" size="8" maxlength="8" readonly style="text-align: center;">								
+		</td>
+		</TR>	
+	
+		<TR>
+	    <TD class="labelmedium"><cf_tl id="Position">:</TD>
+	    <TD>	
+		    <input class="regularxl" type="text" name="postnumber" size="20" maxlength="20" value="<cfoutput>#Position.SourcePostNumber#</cfoutput>" readonly>								
+		</td>
+		</TR>			
+		
+	
+		<TR>
+	    <TD class="labelmedium" height="23"><cf_tl id="Owner"> :</TD>
+	    <TD class="labelmedium"><cfoutput>#Owner# / #Position.PostType# 
+		<input type="hidden" name="Owner" value="#Owner#">
+		<input type="hidden" name="PostType" value="#Position.PostType#">
+		</cfoutput>
+		</td>
+		</TR>		
+							
+		<TR>
+	    <TD class="labelmedium"><cf_tl id="Post grade">:</TD>
+	    <TD><input type="text" class="regularxl" value="<cfoutput>#Position.PostGrade#</cfoutput>" name="postgrade" size="10" maxlength="10" readonly>
+		</TD>
+		</TR>	
+				
+	    <TR>
+	    <TD class="labelmedium"><cf_tl id="Functional title">:</TD>
+	    <TD>
+		
+			<table style="border:1px solid silver" cellspacing="0" cellpadding="0">
+			<tr><td style="height:15px;padding:0px">
+		
+			 <cfoutput>
+			 
+			  <input type="text" 
+			         name="functionaltitle" 
+					 id="functionaltitle"
+					 size="35" 
+					 style="border:0px"
+					 class="regularxl" 
+					 maxlength="60" 
+					 value="#Position.FunctionDescription#" readonly> 
+			  
+			  	</td>
+				<td width="23" align="center">
+			     		  
+			    <button  type="button" name="btnFunction" class="button3" onClick="selectfunction('webdialog','functionno','functionaltitle','#mission.missionowner#','','')"> 
+				  <img src="#SESSION.root#/Images/locate3.gif" alt="Select a function" name="img1" id="img1" width="14" height="14" border="0" align="bottom" style="cursor: pointer;">
+				</button>					
+		   
+			   <input type="hidden" 
+			          name="functionno" 
+					  id="functionno" 
+					  class="disabled" 
+					  size="8" 
+					  maxlength="6" 
+					  value="#Position.FunctionNo#" readonly>	
+					  
+				</td>	  
+					  
+			   <input type="hidden" name="documentnotrigger" class="disabled" size="6" maxlength="6" readonly>	
+			   
+			   </tr></table>
+		   
+		   </cfoutput>		
+	   	  
+		</TD>
+		</TR>	
+			
+	    <!--- Field: Unit --->
+	    <TR>
+	    
+	    <td class="labelmedium"><cf_tl id="Unit">:</td>
+		<td><input type="text" name="organizationunit" value="<cfoutput>#Position.OrgUnitName#</cfoutput>" size="50" maxlength="80" class="regularxl">		
+		</td>
+		</TR>		
+		
+	    <tr> 		
+		
+		<TD class="labelmedium"><cf_UIToolTip tooltip="Due date on a recruitment request refers to the deadline that a department has to fullfill this vacancy"><cf_tl id="Due date">:</cf_UIToolTip></td>
+	    
+		<td>
+			
+		  <cfset end = DateAdd("m",  2,  now())> 
+		
+		  <cf_intelliCalendarDate9
+			FieldName="DueDate"
+			ToolTip="Due Date" 	
+			Manual="False"		
+			Class="regularxl"	
+			Default="#Dateformat(end, CLIENT.DateFormatShow)#"
+			DateValidStart="#Dateformat(now(), 'YYYYMMDD')#"									
+			AllowBlank="False">	  
+			 	 
+		</td>
+		</TR>
+		
+			
+		<cfquery name="Deployment" 
+		datasource="AppsSelection" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		SELECT * FROM Ref_GradeDeployment
+		WHERE  GradeDeployment IN (	
+				SELECT 	 DISTINCT FO.GradeDeployment
+				FROM     Employee.dbo.Position AS P INNER JOIN
+				         FunctionTitle AS FT ON P.FunctionNo = FT.FunctionNo INNER JOIN
+				         FunctionOrganization AS FO ON FT.FunctionNo = FO.FunctionNo INNER JOIN
+				         Ref_SubmissionEdition AS Se ON FO.SubmissionEdition = Se.SubmissionEdition
+				WHERE    Se.Owner = '#owner#' 
+				AND      P.PositionNo = '#URL.ID1#'	
+				)
+		ORDER BY ListingOrder
+		</cfquery>
+		
+		<cfif Deployment.recordcount eq "0">
+			
+			<cfquery name="Deployment" 
+			datasource="AppsSelection" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			SELECT * FROM Ref_GradeDeployment
+			WHERE  PostGradeBudget IN (		
+						
+					SELECT   DISTINCT PG.PostGradeBudget
+					FROM     Employee.dbo.Position AS P INNER JOIN
+					                      Employee.dbo.Ref_PostGrade PG ON P.PostGrade = PG.PostGrade
+					WHERE    P.PositionNo = '#URL.ID1#'
+					
+					)
+					
+			ORDER BY ListingOrder
+			</cfquery>
+			
+		</cfif>
+	
+			
+	    <!--- Field: DeploymentLevel --->
+	    <TR>
+	    <td class="labelmedium"><cf_tl id="Roster Level">:</td>
+			
+		<td><cfselect name="GradeDeployment"  class="regularxl">
+		    <option value="">n/a</option>
+		    <cfoutput query="Deployment">
+			<option value="#GradeDeployment#">#Description#
+			</option>
+			</cfoutput>
+		    </cfselect>			
+		</td>
+		</TR>	   	   
+		
+	    
+	    <TR>
+	    <TD class="labelmedium" valign="top" style="padding-top:3px"><cf_tl id="Workflow">:</TD>
+	    <TD>    		
+			<table cellspacing="0" cellpadding="0">		
+			<cfset row = "0">
+		    <cfoutput query="Class">		
+			<cfset row = row+1>
+			<cfif row eq "1"><tr></cfif>
+			<td>
+			<input type="radio" name="EntityClass" class="radiol" value="#EntityClass#" <cfif currentRow eq "1">checked</cfif>>
+			</td><td class="labelmedium" style="padding-left:5px">#EntityClassName#</td>
+			<cfif row eq "1">
+			</tr>
+			<cfset row = "0">
+			</cfif>
+			</cfoutput>
+			</table>
+								
+		</TD>
+		</TR>	
+		   
+		<TR>
+			<td class="labelmedium" valign="top" style="padding-top:4px"><cf_tl id="Remarks">:<p></td>
+			 <TD>
+			 <textarea style="width:95%;padding:3px;font-size:14px" rows="2" name="Remarks" class="regular" maxlength="200"  onkeyup="return ismaxlength(this)"></textarea>
+			</TD>
+		</TR>
+		
+		<tr><td height="1" colspan="2" class="line"></td></tr>
+				
+		<TR>
+			<td height="30" colspan="2" align="center" class="labelmedium">		
+			
+			<cfquery name="PostGradeValidation" 
+			datasource="AppsSelection" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				SELECT   PostGradeBudget
+				FROM     Applicant.dbo.Ref_GradeDeployment
+				WHERE    (
+				         PostGradeBudget = '#Position.PostGrade#' OR GradeDeployment = '#Position.PostGrade#'
+						 )
+			</cfquery>
+			
+			<cf_tl id="Cancel" var="1">
+				
+			<cfif PostGradeValidation.recordcount neq 0>
+				<cf_tl id="Create" var="1">
+				<input class="button10g" onclick="document.getElementById('submit').className='hide'" id="submit" name="submit" type="submit" name="Submit" value="<cfoutput>#lt_text#</cfoutput>">
+			<cfelse>				
+				Alert: you may not raise a recruitment track for grade <cfoutput>#Position.PostGrade#</cfoutput>.<br>Check with your assigned focal point.				
+			</cfif>		
+			</td>
+		</TR>
+	
+	</TABLE>
+
+</cf_divscroll>
+
+</td></tr>
+
+</TABLE>
+
+</CFFORM>
+
+<cf_screenbottom layout="innerbox">

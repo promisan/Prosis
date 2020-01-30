@@ -1,0 +1,180 @@
+<!--- Create Criteria string for query from data entered thru search form --->
+
+<cfparam name="URL.Option" default="Hide">
+
+<HTML><HEAD><TITLE>Currency Maintenance</TITLE></HEAD>
+
+<cf_divscroll>
+
+<cfset add          = "1">
+<cfset Header       = "Currency Exchange Rates to <cfoutput>#APPLICATION.BaseCurrency#</cfoutput>">
+<cfinclude template = "../HeaderMaintain.cfm"> 
+
+<cf_PresentationScript>
+
+<cfparam name="URL.Option" default="show">
+
+<table width="96%" align="center" cellspacing="0" cellpadding="0">
+
+<cfquery name="Exchange"
+datasource="AppsLedger" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+    SELECT   CE.Currency, Max(CE.EffectiveDate) as EffectiveDate
+	FROM     CurrencyExchange CE, Currency C
+	WHERE    CE.Currency = C.Currency
+	AND      ExchangeRateModified < getdate()-1
+	GROUP BY CE.Currency
+</cfquery>
+
+<cfloop query="Exchange">
+
+	<cfquery name="Last"
+	datasource="AppsLedger" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    SELECT *
+		FROM  CurrencyExchange CE
+		WHERE Currency          = '#Currency#'
+		AND   EffectiveDate     = '#dateFormat(EffectiveDate,Client.DateSQL)#'
+	</cfquery>
+	
+	<cfquery name="Update"
+	datasource="AppsLedger" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    UPDATE Currency 
+		SET    ExchangeRate         = '#Last.ExchangeRate#',
+		       ExchangeRateModified = getdate()
+		WHERE  Currency           = '#Currency#'
+	</cfquery>
+
+</cfloop>
+
+<cfquery name="SearchResult"
+datasource="AppsLedger" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+    SELECT   *, 
+	         (SELECT MAX(EffectiveDate) FROM CurrencyExchange WHERE Currency = C.Currency) as Effective
+	FROM     Currency C
+	ORDER BY EnableProcurement DESC
+</cfquery>
+
+<cfoutput>
+
+<script>
+
+function recordadd(grp) {
+     ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=700, height=500, toolbar=no, status=yes, scrollbars=no, resizable=no");
+}
+
+function recordedit(id1,id2) {
+     ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1 +"&ID2=" + id2, "Edit", "left=80, top=80, width=700, height=500, toolbar=no, status=yes, scrollbars=no, resizable=no");
+}
+
+function exclog(id,id1) {
+ 	
+	se   = document.getElementById("log"+id);				 		 
+	if (se.className == "hide") {	   	
+		 se.className  = "regular";
+		 url = "RecordListingDetail.cfm?time=#now()#&id=" + id + "&id1=" + id1
+		 ColdFusion.navigate(url,'detail'+id)
+ 	 } else {	   	
+    	 se.className  = "hide"
+	 }
+		 		
+  }
+  
+</script>	
+
+</cfoutput>
+
+<tr><td height="1" class="line" colspan="9"></td></tr>
+
+<tr><td colspan="2" style="height:40">
+
+<cfinvoke component = "Service.Presentation.tableFilter"  
+			   method           = "tablefilterfield" 
+			   filtermode       = "direct"
+			   name             = "filtersearch"
+			   style            = "font:15px;height:25;width:120"
+			   rowclass         = "filter_row"
+			   rowfields        = "filter_content">
+
+</td></tr>
+	
+<tr>
+<td colspan="2">
+
+<table width="98%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+
+<tr class="labelmedium line">
+      
+    <td width="5%" align="left"></td> 
+    <td width="60" align="left">Acr</td>
+	<td width="15%" align="left">Description</td>	
+	<td width="80" align="left">Updated</td>	
+	<td align="15%" style="padding-left:3px">Officer</td>
+	<td width="5%" align="left"></td>
+    <td align="10%">Entered</td>
+	<td width="80" align="left">Effective</td>
+	<td width="100" align="right">Exchange Rate</td>	
+  
+</tr>
+
+<cfoutput query="SearchResult" group="EnableProcurement">
+
+<tr class="filter_row"><td colspan="8" style="height:40;font-size:20px;font-weight:200" class="labellarge"><cfif EnableProcurement eq "1">Procurement enabled<cfelse>Other</cfif></td></tr>
+	
+	<cfoutput>
+	    
+	    <tr class="labelmedium navigation_row line filter_row" style="height:20px">
+					
+			<td style="padding-left:5px;padding-top:4px;">
+			   <cf_img icon="edit" onclick="recordedit('#URLEncodedFormat(Currency)#')" navigation="yes">		   
+			</td>			
+			
+			<td class="filter_content"><a href="javascript:recordedit('#URLEncodedFormat(Currency)#')">#Currency#</a></td>
+			<td class="filter_content">#Description#</td>
+			
+			<td><cfif URL.Option eq "hide">#Dateformat(ExchangeRateModified, "#CLIENT.DateFormatShow#")#</cfif></td>
+			<td style="padding-left:10px">#OfficerFirstName# #OfficerLastName#</td>
+			
+			<td>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
+			<td align="center" style="height:18;padding-top:4px;">	
+			   <cf_img icon="expand" toggle="yes" onclick="exclog('#currency#')">	
+			</td>
+			<td><cfif URL.Option eq "hide">#Dateformat(Effective, "#CLIENT.DateFormatShow#")#</cfif></td>	
+			<td align="right" style="padding-right:1px"><cfif URL.Option eq "hide">#NumberFormat(ExchangeRate,'____,___.____')#</cfif></td>
+			
+	    </tr>
+		
+		<tr id="log#currency#" class="hide">
+		    <td colspan="4"></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td colspan="2" id="detail#currency#"></td>
+			
+		</tr>
+				
+	</cfoutput>		
+
+</CFOUTPUT>
+
+</table>
+
+</td>
+
+</table>
+
+</td>
+
+</table>
+
+</BODY>
+
+</cf_divscroll>
+
+</HTML>

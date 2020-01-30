@@ -1,0 +1,10 @@
+<cfoutput>
+	<iframe 
+		src="#session.root#/system/portal/support/summary/statistics/drillListing.cfm?val=#url.val#&series=#url.series#&item=#url.item#&init=#url.init#&end=#url.end#&by=#url.by#&id=#url.id#" 
+		height="100%" 
+		width="100%" 
+		frameborder="0" 
+		scrolling="Auto" 
+		name="i_detail">
+	</iframe>
+</cfoutput>

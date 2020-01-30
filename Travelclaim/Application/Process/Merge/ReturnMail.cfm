@@ -1,0 +1,234 @@
+
+<cfsilent>
+	 <proUsr>Joseph George</proUsr>
+	  <proOwn>Joseph George</proOwn>
+	 <proDes>Template Email for return travel </proDes>
+	 <proCom>Changed just text of the email JG3 </proCom>
+</cfsilent>
+	
+<!--- define base list of pending mail for people that want mails + have email address--->
+
+<cfobject action="create"
+		type="java"
+		class="coldfusion.server.ServiceFactory"
+		name="factory">
+
+<cfset dsService = factory.getDataSourceService()>
+<cfset DataSources = dsService.getDatasources()>
+<cfset DatabaseName = DataSources["appsTravelClaim"].URLMap.ConnectionProps.Database >
+<cfset DatabaseServer = DataSources["appsTravelClaim"].URLMap.ConnectionProps.Host>
+
+<cfquery name="Parameter" 
+	    datasource="appsTravelClaim" 
+	    username="#SESSION.login#" 
+	    password="#SESSION.dbpw#">
+		    SELECT *
+		    FROM   Parameter
+		</cfquery>
+		
+<cfif parameter.returnreminder eq "1">
+	
+	<cfquery name="EMailList" 
+	datasource="AppsTravelClaim" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	SELECT   TVRQ.PersonNo, 
+	     	 TVRQ.DocumentNo, 
+			 TVRQ.ClaimRequestId
+	FROM     dbo.ClaimRequest TVRQ 	
+	
+	<!--- has not an submitted claim for this request already either portal or outside portal --->		 
+	WHERE    TVRQ.ClaimRequestId NOT IN
+	               (SELECT     ClaimRequestId
+	                 FROM      Claim
+	                 WHERE     ActionStatus > '0')  
+					 
+	<!--- travel is approved --->				 
+	AND (TVRQ.ActionStatus = 'ap') 
+	
+	<!--- travel is not diabled --->				 
+	AND (TVRQ.Operational = '1') 
+	
+	<!--- has returned from his/her travels--->
+	AND TVRQ.ClaimRequestId IN
+	               (SELECT    ClaimRequestId
+	                 FROM     ClaimRequestItinerary
+	                 WHERE    DateReturn <= getdate()-1 
+					 AND      DateReturn > '#parameter.sourcedatecutoff#'
+				   ) 
+				   				 
+		
+	<!--- sent only to EO's that are operational --->	
+	AND TVRQ.OrgUnit IN (SELECT OrgUnit 
+	                     FROM Organization.dbo.Organization 
+						 WHERE DateEffective < getDate() and DateExpiration > getDate())
+	
+	<!--- was not recently provided with a reminder already --->
+	AND TVRQ.ClaimRequestId NOT IN   (SELECT ClaimRequestId
+						              FROM   ClaimRequestMail
+									  WHERE  EMailClass = 'Return'
+						              AND    EMailDate > getDate() - #Parameter.ReturnReminderInterval#)
+	</cfquery>									 
+				 
+	<!--- loop through this and send mail and update table --->
+		
+	<cfloop query="EMailList">
+	
+		<cfquery name="User" 
+		datasource="AppsTravelClaim" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT TOP 1 *
+			FROM   System.dbo.UserNames
+			WHERE  PersonNo = '#PersonNo#'									
+			ORDER BY Disabled 
+		</cfquery>
+		<!---
+		JG The above query does not take into account if there is no record in system.usernames
+		table , this can arise if the guy is not a IMIS user as well as there is no
+		email saved for him to prevent it we check against stperson table if such is the case
+		2008-11-19 JG3
+		
+		--->
+		<cfif User.recordcount eq 0 or User.eMailAddress eq "">
+			<cfquery name="GetAddressDW" 
+			datasource="AppsTravelClaim" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			SELECT TOP 1 *
+			FROM   stperson
+			WHERE  PersonNo = '#PersonNo#'									
+			</cfquery>
+		</cfif>		
+		
+		<!--- 
+		Detemination of the "TO" e-mail address to be used for the traveller 
+		2008-11-19 JG3
+		--->
+		
+		<cfset address = "">
+		
+		<!--- default generic address not used in production --->
+		<cfif Parameter.PortalMailAddress neq "">
+		    <cfset address = Parameter.PortalMailAddress>
+		<!--- If e-mail in user (system DB) we use it --->
+		<cfelseif isValid("email", "#User.eMailAddressExternal#")>
+			<cfset address = User.eMailAddressExternal>
+		<cfelseif isValid("email", "#User.eMailAddress#")>
+			<cfset address = User.eMailAddress>
+		<!--- If no record in user or no e-mail in user (system DB) we use the e-mail of STperson 
+		STperson is updated with the e-mail address used in IMIS for payslips --->	
+		<cfelseif isValid("email", "#GetAddressDW.eMailAddress#")>
+			<cfset address = GetAddressDW.eMailAddress>
+		</cfif>
+		<!--- wants indeed an eMail as expressed in TCP Portal - preferences --->	
+			
+		<!--- not 100% clear: it seems to select nearly every staff/account:
+		 - ones with no record in UserEntitySetting	
+		 - ones with record in UserEntitySetting with EnableMailHolder = 1 (all except 1)
+		--->
+		 
+		<cfquery name="Check" 
+			datasource="AppsSystem" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">			 
+			SELECT * FROM UserNames
+			WHERE Account = '#User.Account#'
+			AND (
+					Account IN (SELECT Account 
+	                        FROM   UserEntitySetting
+	                        WHERE  EntityCode = 'EntClaim'
+							AND    Account = '#User.Account#'
+							AND    EnableMailHolder = 1)  
+							
+					OR
+							
+					Account NOT IN (SELECT Account 
+	                        FROM   UserEntitySetting
+	                        WHERE  EntityCode = 'EntClaim'
+							AND    Account = '#User.Account#')				
+							
+				)		
+		</cfquery>
+		<!---
+		JG3 Added the Or clause since the Check.recordcount would only work if
+		the user table has a record so making sure that GetAddressDW gets executed
+		The above Query can be deleted  later since only record we try to 
+		avoid is one with EnableHolder is set to 0
+		--->				
+				
+		<cfif address neq "" and (check.recordcount eq "1" or GetAddressDW.Emailaddress neq "")>		
+										
+				<cfset db = "#DatabaseName#.dbo.">
+						
+				<cfquery name="Return1" 
+				datasource="appsOrganization" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					SELECT   TOP 1 *
+					FROM     #db#ClaimRequestItinerary  CRI INNER JOIN
+                             #db#ClaimRequest C ON CRI.ClaimRequestId = C.ClaimRequestId INNER JOIN
+                             #db#stPerson P ON C.PersonNo = P.PersonNo
+					WHERE    (C.ClaimRequestId = '#ClaimRequestId#') 
+				</cfquery>	
+				
+				<cfset mailsubject1 = "Travel Claim REMINDER - TVRQ #Return1.DocumentNo# - #Return1.IndexNo# - #Return1.FirstName# #Return1.LastName#">
+														
+				<cfmail 
+			        to       = "#address#"
+					from     = "OPPBA Travel Claim Portal"
+			        subject  = "#mailsubject1#"
+			        failto   = "#Parameter.PortalMailAddress#"
+			        mailerid = "TCP"
+			        type="HTML">
+																					
+					<cfinclude template="../../Workflow/eMail/UNHQ/ReturnFromTravel.cfm">						
+											
+			    </cfmail>
+				
+				<cfset FullNameIns ="">
+				<cfif User.recordcount gt 0>
+				 <cfset FullNameIns ="#User.FirstName#" & " "&  "#User.LastName#"  >
+				 <cfelseif GetAddressDW.recordcount gt 0 >
+				 <cfset FullNameIns ="#GetAddressDW.FirstName#" & " "& "#GetAddressDW.LastName#"  >
+				</cfif>
+				
+			   <cfquery name="Recipient" 
+			   datasource="AppsTravelClaim" 
+			   username="#SESSION.login#" 
+			   password="#SESSION.dbpw#">
+				   INSERT INTO ClaimRequestMail
+				         (ClaimRequestId, 
+						  eMailRecipient,
+						  eMailAddress, 
+						  OfficerUserId)
+				   VALUES ('#ClaimRequestId#','#FullNameIns#','#Address#','#SESSION.acc#')			     
+			   </cfquery>			 
+					
+		<cfelse>
+		
+			<!--- disabled for testing only 
+					
+					  <cfquery name="Recipient" 
+					   datasource="AppsTravelClaim" 
+					   username="#SESSION.login#" 
+					   password="#SESSION.dbpw#">		
+									   
+						   INSERT INTO ClaimRequestMail
+						         (ClaimRequestId, 
+								  EMailSent,
+								  EMailRecipient,
+								  eMailAddress, 
+								  OfficerUserId)
+						   VALUES ('#ClaimRequestId#','0','#User.FirstName# #User.LastName#','#Address#','#SESSION.acc#')			     
+					   </cfquery>	
+					   				   
+			 ---> 
+				   
+			
+		</cfif>	
+		
+	</cfloop>
+	
+</cfif>		
+				 

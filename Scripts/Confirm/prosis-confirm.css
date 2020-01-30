@@ -1,0 +1,11 @@
+.jconfirm-content {
+	font-size: 130%;
+}
+
+.jconfirm-bg {
+    background-color: rgba(0, 0, 0, 0.4) !important;
+}
+
+.jc-bs3-container {
+	margin-top:-150px;
+}

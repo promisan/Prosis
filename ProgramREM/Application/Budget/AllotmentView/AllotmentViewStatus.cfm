@@ -1,0 +1,138 @@
+
+<cfif URL.View eq "All">	
+ 	<cfset rows = "999">
+<cfelse>
+	<cfset rows = "1">
+</cfif>
+
+<cfquery name="Total" 
+	datasource="AppsQuery" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	
+		SELECT    <cfloop query="resource">
+				  sum(Ceiling_#currentrow#) as Ceiling_#currentrow#,
+		          sum(Resource_#currentRow#) as Resource_#currentRow#, 
+		          </cfloop>Sum(Total) as Total		
+		FROM      dbo.tmp#SESSION.acc#Allotment#FileNo#		
+		
+</cfquery>	
+	
+<cfquery name="SearchResult"
+        datasource="AppsOrganization"
+		maxrows="#rows#"
+		username="#SESSION.login#"
+        password="#SESSION.dbpw#">
+	    	SELECT   *
+		    FROM     userquery.dbo.tmp#SESSION.acc#Allotment#FileNo# V 		
+		    ORDER BY V.ReferenceBudget1,
+			         V.ReferenceBudget2,
+					 V.ReferenceBudget3,
+					 V.ReferenceBudget4,
+					 V.ReferenceBudget5,
+					 V.ReferenceBudget6
+</cfquery>
+
+<table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="navigation_table">
+
+<TR class="line">
+ <td width="7%" height="18"></td>
+ <TD class="labelit"><cf_space class="labelit" spaces="40" label="Code"></TD>
+ <td class="labelit" colspan="3" width="70%" style="border-right: 1px solid Silver;"><cf_tl id="Program Name"></td>
+ <cfloop query="Resource">
+	<cfoutput>	    
+	    <td class="labelit" align="center" style="min-width:100px;cursor:pointer;border-right: 1px solid Silver;">
+		<cf_space class="labelit" label="#Name#" align="center">		
+	</cfoutput>
+ </cfloop>
+ <td class="labelit" align="center" width="80" style="min-width:110px;border-right: 1px solid Silver;">
+ <cf_space class="labelit" align="center" label="Total">
+ </td>
+</TR>
+
+<cfif searchresult.recordcount eq "0">
+
+	<cfoutput>
+	<tr><td colspan="#Resource.RecordCount+6#" style="height:40px" class="labellarge" align="center"><cf_tl id="There are no pending requirements to clear for allotment"></td></tr>
+	</cfoutput>
+
+<cfelse>
+
+	<cfoutput query="Total">
+	
+		    <tr bgcolor="f1f1f1"><td style="height:35px" class="labelmedium" colspan="5">&nbsp;	<cf_tl id="Total"></td>
+			
+			<cfloop index="item" from="1" to="#Resource.RecordCount#" step="1">
+					
+						<cfset cei = Evaluate("Ceiling_" & Item)>
+						<cfset amt = Evaluate("Resource_" & Item)>
+							
+						<cfif cei gt "0" and cei lt amt and amt neq "">
+						    <td align="right" class="highlight5" style="min-width:100px;border-right: 1px solid silver;padding-right:2px;">						
+						<cfelse>
+							<td align="right" class="labelit" style="min-width:100px;border-right: 1px solid silver;padding-right:2px;">
+						</cfif>	
+						
+							<cfif Parameter.BudgetAmountMode eq "0">
+								<cf_numbertoformat amount="#amt#" present="1" format="number0">
+							<cfelse>
+								<cf_numbertoformat amount="#amt#" present="1000" format="number1">
+							</cfif> 	
+							#val#
+						</td>
+			    						
+					</cfloop>
+												
+					<td align="right" class="labelit" style="border-right: 1px solid Silver;padding-right:2px;">
+					
+					<cfif Parameter.BudgetAmountMode eq "0">
+						<cf_numbertoformat amount="#total#" present="1" format="number0">
+					<cfelse>
+						<cf_numbertoformat amount="#total#" present="1000" format="number1">
+					</cfif> 	
+					#val#
+									
+				  </td>
+	
+			  </tr>
+				  
+	</cfoutput>
+
+	<cfoutput query="SearchResult">
+	   
+	   <cfset color = "f1f1f1">
+	  
+	   <cfif searchresult.total gte "">
+	   			
+				    <cfif Parameter.EnableGlobalProgram>
+					
+						<cfquery name="Children" 
+				        datasource="AppsQuery" 
+				        username="#SESSION.login#" 
+				        password="#SESSION.dbpw#">
+					    SELECT *
+					    FROM   tmp#SESSION.acc#Allotment#FileNo# 
+					    WHERE  ProgramHierarchy LIKE '#ProgramHierarchy#%' 
+					    AND    ProgramScope = 'Unit'
+						AND    OrgUnit = '#OrgUnit#' 
+					    </cfquery>
+					
+					<cfelse>
+					    <cfset Children.recordcount = "1">
+					</cfif>
+				
+					<cfif Children.recordcount gte "1">				
+					    <cfinclude template="AllotmentViewListingDetail.cfm"> 
+					</cfif>	 	
+				 
+		</cfif>	 
+	
+	</CFOUTPUT>
+	
+</cfif>	
+
+<cfoutput>
+	<tr><td colspan="#Resource.RecordCount+6#" class="line"></td></tr> 
+</cfoutput>
+
+</table>

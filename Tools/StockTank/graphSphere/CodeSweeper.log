@@ -1,0 +1,19 @@
+Invalid character (*) encountered while parsing (tag "CFSET" with attributes vSize=Attributes.width). 
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes vWid=url.width). 
+Invalid character (*) encountered while parsing (tag "CFSET" with attributes scaleRadius=mainRadius). 
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes vSize=vCenter). 
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes vWid=url.width). 
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes vWid=url.width). 
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes vHei=url.height). 
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes vHei=url.height). 
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes vWid=Attributes.width). 
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes vWid=Attributes.width). 
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes vHei=Attributes.height). 
+Invalid character (+) encountered while parsing (tag "CFSET" with attributes vHei=Attributes.height). 
+Invalid character (*) encountered while parsing (tag "CFSET" with attributes fillShow=fill). 
+Invalid character (*) encountered while parsing (tag "CFSET" with attributes fillShow=fill). 
+End of file encountered while parsing (tag "CF_GRAPHCIRCLE" with attributes radius=#scaleRadius# color=223FA3 borderwidth=5 bordercolor=000 fillPercentage=#fill# opacity=0.65 tooltip=Second container<br>Scale: #lsnumberFormat(vScale*100,'>). 
+End of file encountered while parsing (tag "CF_GRAPHRECTANGLE" with attributes width=#mainRadius*2# height=#mainRadius*2# color=223FA3 borderwidth=5 bordercolor=000 fillPercentage=#fill# opacity=0.65 tooltip=Main container<br>Level: <b>#lsnumberFormat(fill*100,'>). 
+End of file encountered while parsing (tag "CF_GRAPHRECTANGLE" with attributes width=#scaleWidth# height=#scaleHeight# color=223FA3 borderwidth=5 bordercolor=000 fillPercentage=#fill# opacity=0.65 tooltip=Third container<br>Scale: #lsnumberFormat(vScale*100,'>). 
+End of file encountered while parsing (tag "CF_GRAPHCIRCLE" with attributes radius=#scaleRadius# color=223FA3 borderwidth=5 bordercolor=000 fillPercentage=#fill# opacity=0.65 tooltip=Second container - Scale: #lsnumberFormat(vScale*100,'_')#%<br>Level: <b>#lsnumberFormat(fill*100,'>). 
+End of file encountered while parsing (tag "CF_GRAPHRECTANGLE" with attributes width=#scaleWidth# height=#scaleHeight# color=223FA3 borderwidth=5 bordercolor=000 fillPercentage=#fill# opacity=0.65 tooltip=Third container - Scale: #lsnumberFormat(vScale*100,'_')#%<br>Level: <b>#lsnumberFormat(fill*100,'>). 

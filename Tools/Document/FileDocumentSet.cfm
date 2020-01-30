@@ -1,0 +1,1 @@
+<cfset CLIENT.DocumentServerPath = URL.DSP>
