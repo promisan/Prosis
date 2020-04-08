@@ -1,14 +1,5 @@
-<style>
-    body,font{
-        font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
-    }   
 
-    h3.lbl{
-        margin: 0;
-    }
-</style>
-
-<table style="width:95%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table style="width:95%" align="center">
 
 <cfif entrymode eq "workflow">
 
@@ -81,8 +72,8 @@
 
         <tr>
        
-	    <td class="labelmedium" style="height:45px;font-size: 18px;font-weight: 300;paddng-left:4px">#currentrow#. #QuestionLabel# #QuestionMemo#</td>				
-		<td align="right" style="padding-right:20px" class="labelit">
+	    <td class="labelmedium" style="height:45px;font-size: 18px;font-weight: 300;padding-left:4px">#currentrow#. #QuestionLabel# #QuestionMemo#</td>				
+		<td align="right" style="height:45px;font-size: 18px;font-weight: 300;padding-left:4px" class="labelmedium">
 		
 			<cfif InputMode eq "YesNo">			
 			
@@ -90,28 +81,24 @@
 				
 					<cfswitch expression="#score#">
 					
-						<cfcase value="0">No</cfcase>
+						<cfcase value="9">No</cfcase>
 						<cfcase value="1">Yes</cfcase>
 					
 					</cfswitch>
 					
 				<cfelse>				
 							
-					<table cellspacing="0" cellpadding="0">
+					<table>
 					<tr>	
 						<td><input type="radio" class="radiol"
 						      name="score_#left(QuestionId,8)#" 
-							  id="score_#left(QuestionId,8)#"
-						      onclick="#lkt#" 
-							  value="1" <cfif score eq "1">checked</cfif>>	
+							  id="score_#left(QuestionId,8)#" onclick="#lkt#" value="1" <cfif score eq "1">checked</cfif>>	
 						</td>
-						<td style="padding-left:3px;font-size: 18px;font-weight: 300;" class="labelmedium"><font color="green">Yes</font></td>
+						<td style="padding-left:3px;font-size: 18px;font-weight: 300;" class="labelmedium">Yes</td>
 						
 						<td style="padding-left:7px"><input type="radio" class="radiol"
-						      name="score_#left(QuestionId,8)#" 
-							  id="score_#left(QuestionId,8)#"
-						      onclick="#lkt#" value="0" <cfif score eq "0">checked</cfif>></td>
-						<td style="padding-left:3px;font-size: 18px;font-weight: 300;" class="labelmedium"><font color="red">No</font></td>
+						      name="score_#left(QuestionId,8)#" id="score_#left(QuestionId,8)#" onclick="#lkt#" value="9" <cfif score eq "9">checked</cfif>></td>
+						<td style="padding-left:3px;font-size: 18px;font-weight: 300;" class="labelmedium">No</td>
 					</tr>
 					</table>
 				
@@ -135,19 +122,51 @@
 					<tr>	
 						<td><input type="radio" class="radiol" name="score_#left(QuestionId,8)#" id="score_#left(QuestionId,8)#"
 						    onclick="#lkt#" value="1" <cfif score eq "1">checked</cfif>></td>
-						<td style="padding-left:3px" class="labelmedium"><font color="green"><cf_tl id="Yes"></font></td>
-						
-						<td style="padding-left:9px"><input class="radiol" type="radio" name="score_#left(QuestionId,8)#" id="score_#left(QuestionId,8)#"
-						    onclick="#lkt#" value="0" <cfif score eq "0">checked</cfif>></td>
-						<td style="padding-left:3px" class="labelmedium"><font color="red"><cf_tl id="No"></font></td>
+						<td style="padding-left:3px;font-size: 18px;font-weight: 300;" class="labelmedium"><cf_tl id="Yes"></td>
 						
 						<td style="padding-left:9px"><input class="radiol" type="radio" name="score_#left(QuestionId,8)#" id="score_#left(QuestionId,8)#"
 						    onclick="#lkt#" value="9" <cfif score eq "9">checked</cfif>></td>
-						<td style="padding-left:3px" class="labelmedium"><font color="gray"><cf_tl id="N/A"></font></td>
+						<td style="padding-left:3px;font-size: 18px;font-weight: 300;" class="labelmedium"><cf_tl id="No"></td>
+						
+						<td style="padding-left:9px"><input class="radiol" type="radio" name="score_#left(QuestionId,8)#" id="score_#left(QuestionId,8)#"
+						    onclick="#lkt#" value="0" <cfif score eq "0">checked</cfif>></td>
+						<td style="padding-left:3px;font-size: 18px;font-weight: 300;" class="labelmedium"><font color="gray"><cf_tl id="N/A"></font></td>
 					</tr>
 					</table>	
 				
 				</cfif>
+				
+			<cfelseif InputMode eq "YesNoPA">
+			
+				<cfif entrymode eq "view">
+				
+					<cfswitch expression="#score#">
+					
+						<cfcase value="9"><cf_tl id="No"></cfcase>
+						<cfcase value="1"><cf_tl id="Yes"></cfcase>
+						<cfcase value="5"><cf_tl id="N/A"></cfcase>
+					
+					</cfswitch>
+					
+				<cfelse>
+			
+					<table cellspacing="0" cellpadding="0">
+					<tr>	
+						<td><input type="radio" class="radiol" name="score_#left(QuestionId,8)#" id="score_#left(QuestionId,8)#"
+						    onclick="#lkt#" value="1" <cfif score eq "1">checked</cfif>></td>
+						<td style="padding-left:3px;font-size: 18px;font-weight: 300;" class="labelmedium"><cf_tl id="Yes"></font></td>
+						
+						<td style="padding-left:9px"><input class="radiol" type="radio" name="score_#left(QuestionId,8)#" id="score_#left(QuestionId,8)#"
+						    onclick="#lkt#" value="9" <cfif score eq "9">checked</cfif>></td>
+						<td style="padding-left:3px;font-size: 18px;font-weight: 300;" class="labelmedium"><cf_tl id="No"></td>
+						
+						<td style="padding-left:9px"><input class="radiol" type="radio" name="score_#left(QuestionId,8)#" id="score_#left(QuestionId,8)#"
+						    onclick="#lkt#" value="5" <cfif score eq "5">checked</cfif>></td>
+						<td style="padding-left:3px;font-size: 18px;font-weight: 300;" class="labelmedium"><cf_tl id="Partly"></td>
+					</tr>
+					</table>	
+				
+				</cfif>	
 				
 			<cfelse>
 			
@@ -159,7 +178,7 @@
 				
 					<cfloop index="itm" from="1" to="#inputmode#">					    
 							
-						<td  class="labelit"><h3><cfif score eq itm><b></cfif>#itm#</h3></td>
+						<td style="padding-left:3px;font-size: 18px;font-weight: 300;" class="labelmedium"><cfif score eq itm><b></cfif>#itm#</td>
 						<td width="3"></td>							
 					
 					</cfloop>
@@ -178,7 +197,7 @@
 								<td style="padding-left:6px"><input type="radio" class="radiol" name="score_#left(QuestionId,8)#" id="score_#left(QuestionId,8)#"
 								   onclick="#lkt#" 
 								   value="#itm#" <cfif score eq "#itm#">checked</cfif>></td>
-								<td style="padding-left:3px" class="labelmedium"><h3 class="lbl">#itm#</h3></td>
+								<td style="padding-left:3px;font-size: 18px;font-weight: 300;" class="labelmedium">#itm#</td>
 								<td width="3"></td>							
 						
 						</cfloop>
@@ -195,24 +214,18 @@
 		<td class="hide" id="i#questionid#"></td>
 		
 		</tr>
-							
-		
-		
+					
 		<cfif EnableInputMemo eq "1">
 		
 			<tr>
                 <td colspan="3" align="right" style="padding-right:10px;padding-left:10px">                    
 				
-				<cfif entrymode eq "view">	
-							
-				    #Memo#
-					 
-				<cfelse>
+				<cfif entrymode eq "view">#Memo#<cfelse>
 				
 				 <cfset text = replace(Memo,"<script","disable","all")>
 				 <cfset text = replace(text,"<iframe","disable","all")>		
 								
-	   			 <cf_textarea style="height:50px;width:1800px;min-height:40px;padding:3px;font-size:15px;" height="80" color="ffffff" toolbar="Mini"  init="Yes"
+	   			 <cf_textarea style="height:50px;width:1800px;min-height:40px;padding:3px;font-size:15px;" height="80" color="ffffff" toolbar="Mini" init="Yes"
 				   onchange="#lkm#" name="memo_#left(QuestionId,8)#" id="memo_#left(QuestionId,8)#">#Memo#</cf_textarea>				
 								  
 				</cfif>
@@ -230,28 +243,28 @@
 				<cfif entrymode eq "view">
 				
 					<cf_filelibraryN
-						DocumentPath="Questionnaire"
-						SubDirectory="#object.objectid#" 
-						Filter = "#left(questionid,8)#"											
-						box    = "box_#questionid#"
-						Insert = "no"
-						Remove = "no"
-						LoadScript = "No"
-						width  = "100%"									
-						border = "1">	
+						DocumentPath   = "Questionnaire"
+						SubDirectory   = "#object.objectid#" 
+						Filter         = "#left(questionid,8)#"											
+						box            = "box_#questionid#"
+						Insert         = "no"
+						Remove         = "no"
+						LoadScript     = "No"
+						width          = "100%"									
+						border         = "1">	
 				
 				<cfelse>
 					
 					<cf_filelibraryN
-						DocumentPath="Questionnaire"
-						SubDirectory="#object.objectid#" 
-						Filter = "#left(questionid,8)#"											
-						box    = "box_#questionid#"
-						Insert = "yes"
-						Remove = "yes"
-						LoadScript = "No"
-						width  = "100%"									
-						border = "1">	
+						DocumentPath   = "Questionnaire"
+						SubDirectory   = "#object.objectid#" 
+						Filter         = "#left(questionid,8)#"											
+						box            = "box_#questionid#"
+						Insert         = "yes"
+						Remove         = "yes"
+						LoadScript     = "No"
+						width          = "100%"									
+						border         = "1">	
 					
 				</cfif>				
 				
@@ -260,10 +273,8 @@
 		
 		</cfif>
 		
-		<cfif currentrow neq recordcount>
-				
-        <tr><td colspan="3" class="line" height="1"></td></tr>
-				
+		<cfif currentrow neq recordcount>				
+	        <tr><td colspan="3" class="line" height="1"></td></tr>				
 		</cfif>
 	
 	</cfloop>	

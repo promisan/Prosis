@@ -80,7 +80,7 @@
 	
 		<tr><td></td></tr>
 			
-		 <tr class="xxxhide"><td colspan="2" id="process"></td></tr>
+		 <tr class="hide"><td colspan="2" id="process"></td></tr>
 			
 		 <cfoutput>
 		 
@@ -192,17 +192,33 @@
 		 <TR class="labelmedium">
 			 <TD style="padding-right:20px">Enable Explanatory memo:</TD>  
 			 <TD>
-			 	<input type="radio" class="radiol" name="enableInputMemo" id="enableInputMemo" value="0" <cfif get.enableInputMemo eq "0">checked</cfif>>No
-				<input type="radio" class="radiol" name="enableInputMemo" id="enableInputMemo" value="1" <cfif get.enableInputMemo eq "1" or url.id2 eq "">checked</cfif>>Yes	
-			 </TD>
+			 	<table>
+				<tr class="labelmedium">
+					<td><input type="radio" class="radiol" name="enableInputMemo" id="enableInputMemo" value="0" <cfif get.enableInputMemo eq "0">checked</cfif>></td>
+					<td style="padding-left:2px">No</td>
+					<td style="padding-left:7px"><input type="radio" class="radiol" name="enableInputMemo" id="enableInputMemo" value="1" <cfif get.enableInputMemo eq "1" or url.id2 eq "">checked</cfif>></td>
+					<td style="padding-left:2px">Yes</td>
+					<td style="padding-left:7px"><input type="radio" class="radiol" name="enableInputMemo" id="enableInputMemo" value="1" <cfif get.enableInputMemo eq "2" or url.id2 eq "">checked</cfif>></td>
+					<td style="padding-left:2px">Enforce</td>
+					<td style="padding-left:7px"><input type="radio" class="radiol" name="enableInputMemo" id="enableInputMemo" value="0" <cfif get.enableInputMemo eq "3">checked</cfif>></td>
+					<td style="padding-left:2px">Enforce if different from [Score Target value]</td>
+				</tr>
+				</table>
+				 </TD>
 		 </TR>		
 		 
 		 <!--- Field: enableInputAttachment --->
 		 <TR class="labelmedium">
 			 <TD style="padding-right:20px">Enable Attachments:</TD>  
 			 <TD>
-			 	<input type="radio" class="radiol" name="enableInputAttachment" id="enableInputAttachment" value="0" <cfif get.enableInputAttachment eq "0">checked</cfif>>No
-				<input type="radio" class="radiol" name="enableInputAttachment" id="enableInputAttachment" value="1" <cfif get.enableInputAttachment eq "1" or url.id2 eq "">checked</cfif>>Yes	
+			 <table>
+				<tr class="labelmedium">
+					<td><input type="radio" class="radiol" name="enableInputAttachment" id="enableInputAttachment" value="0" <cfif get.enableInputAttachment eq "0">checked</cfif>></td>
+					<td style="padding-left:2px">No</td>
+					<td style="padding-left:7px"><input type="radio" class="radiol" name="enableInputAttachment" id="enableInputAttachment" value="1" <cfif get.enableInputAttachment eq "1" or url.id2 eq "">checked</cfif>></td>
+					<td style="padding-left:2px">Yes</td>					
+				</tr>
+				</table>
 			 </TD>
 		 </TR>		 		 
 		 		

@@ -95,7 +95,7 @@ function questionrefresh() {
 	<TD>#questionLabel#</TD>
 	<TD>#inputMode# #inputmodestringlist#</TD>
 	<TD style="padding-top:5px" align="center"><cfif enableinputAttachment eq "1">Y</cfif></TD>
-	<TD style="padding-top:5px" align="center"><cfif enableinputMemo eq "1">Y</cfif></TD>
+	<TD style="padding-top:5px" align="center"><cfif enableinputMemo gte "1">Y</cfif></TD>
 	
 	<td align="center" width="20">
 	   <cf_img icon="edit" navigation="Yes"  onclick="questionedit('#documentId#','#questionId#')">	  			

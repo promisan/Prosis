@@ -4,10 +4,11 @@
      datasource="AppsOrganization" 
 	 username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">
-	 SELECT * FROM OrganizationObjectQuestion
-	 WHERE ObjectId = '#url.objectid#'
-	 AND   ActionCode = '#url.actioncode#'
-	 AND   QuestionId = '#url.questionid#'	
+		 SELECT * 
+		 FROM   OrganizationObjectQuestion
+		 WHERE  ObjectId = '#url.objectid#'
+		 AND    ActionCode = '#url.actioncode#'
+		 AND    QuestionId = '#url.questionid#'	
 </cfquery>
 
 <cfif check.recordcount eq "0">
@@ -33,11 +34,11 @@
 	     datasource="AppsOrganization" 
 		 username="#SESSION.login#" 
 		 password="#SESSION.dbpw#">
-		 UPDATE OrganizationObjectQuestion
-		 SET    QuestionScore = '#score#'
-		 WHERE  ObjectId      = '#url.objectid#'
-		 AND    ActionCode    = '#url.actioncode#'
-		 AND    QuestionId    = '#url.questionid#'	 
+		 UPDATE  OrganizationObjectQuestion
+		 SET     QuestionScore = '#score#'
+		 WHERE   ObjectId      = '#url.objectid#'
+		 AND     ActionCode    = '#url.actioncode#'
+		 AND     QuestionId    = '#url.questionid#'	 
 	</cfquery>
 
 <cfelseif url.field eq "memo">
@@ -50,11 +51,11 @@
 	     datasource="AppsOrganization" 
 		 username="#SESSION.login#" 
 		 password="#SESSION.dbpw#">
-		 UPDATE OrganizationObjectQuestion
-		 SET    QuestionMemo = '#memo#'
-		 WHERE  ObjectId = '#url.objectid#'
-		 AND    ActionCode = '#url.actioncode#'
-		 AND    QuestionId = '#url.questionid#'	
+		 UPDATE  OrganizationObjectQuestion
+		 SET     QuestionMemo = '#memo#'
+		 WHERE   ObjectId     = '#url.objectid#'
+		 AND     ActionCode   = '#url.actioncode#'
+		 AND     QuestionId   = '#url.questionid#'	
 	</cfquery>
 
 </cfif>
