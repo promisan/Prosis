@@ -444,7 +444,7 @@ password="#SESSION.dbpw#">
 	<cfif Object.recordcount eq "1">
 	
 		<cf_layoutarea 
-		    position="right" name="commentbox" minsize="20%" maxsize="30%" size="350" overflow="yes" collapsible="true" splitter="true">
+		    position="right" name="commentbox" minsize="20%" maxsize="30%" size="380" overflow="yes" collapsible="true" splitter="true">
 		
 			<cf_divscroll style="height:100%">
 				<cf_commentlisting objectid="#Object.ObjectId#"  ajax="No">		
