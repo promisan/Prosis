@@ -801,9 +801,9 @@
 										
 				<cfif URL.Mode neq "Only" and url.sort neq "Workschedule">
 				
-				    <tr class="line labelit optional_#url.org#" style="height:10px">
+				    <tr class="line labelmedium optional_#url.org#" style="height:10px">
 						<td colspan="2"></td>
-						<td colspan="2" style="border-right:1px solid silver"><cf_tl id="Position title">:</td>
+						<td colspan="2" style="min-width:130px;padding-left:4px;background-color:f1f1f1;border-right:1px solid silver"><cf_tl id="Position title"></td>
 						<td colspan="2" style="padding-left:4px;font-size:14px;border-right:1px solid silver">
 							<cfif FunctionDescription eq "undefined">
 								A function description is not on file
@@ -811,7 +811,7 @@
 								<a href="javascript:gjp('#functionNo#','#postgrade#')">#FunctionDescription#</a>
 							</cfif>
 						</td>
-						<td colspan="1" style="background-color:e1e1e1;padding-left:4px;border-right:1px solid silver"><cf_tl id="Position effective"></td>
+						<td colspan="1" style="min-width:100px;background-color:f1f1f1;padding-left:4px;border-right:1px solid silver"><cf_tl id="Position effective"></td>
 						<td colspan="2" style="padding-left:4px;font-size:12px;border-right:1px solid silver">	
 							#DateFormat(PostEffective, CLIENT.DateFormatShow)# - #DateFormat(PostExpiration, CLIENT.DateFormatShow)#
 						</td>	

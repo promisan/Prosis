@@ -365,10 +365,14 @@
 			   <cfset itm = itm+1>
 			   <cf_menucontainer item="#itm#" class="hide" iframe="vacancybox" style="height:100%">
 			   
-			   <!---
-			   <cfset itm = itm+1>
-			   <cf_menucontainer item="#itm#" class="hide"/>	
-			   --->
+			   <cf_verifyOperational module="WorkOrder" Warning="No" Mission="#url.mission#">
+																		
+			   <cfif operational eq "1">	
+			   			   
+			  	   <cfset itm = itm+1>
+				   <cf_menucontainer item="#itm#" class="hide"/>	
+			  			   
+			   </cfif>
 			   
 			   <!---
 			    <cfset itm = itm+1>	      	     		  

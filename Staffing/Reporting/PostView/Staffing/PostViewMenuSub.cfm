@@ -7,8 +7,8 @@
     method="highlight" class="highlight3"
     returnvariable="stylescroll"/>
 	
-		<cfset ht = "58">
-		<cfset wd = "58">
+		<cfset ht = "64">
+		<cfset wd = "64">
 		
 		<cf_tl id="Advanced" var="1">
 		<cfset tInquiry = "#Lt_text#">		

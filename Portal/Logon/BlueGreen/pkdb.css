@@ -203,9 +203,11 @@
 	font-weight:700;
 }
 A {
-	color:#0B84CC;
+	color:#0A72AF;
 	text-decoration:none;
 }
+
+
 A:Hover {
 	color:gray;
 	text-decoration:underline;
