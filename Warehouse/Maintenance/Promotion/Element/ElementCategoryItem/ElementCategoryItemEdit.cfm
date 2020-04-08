@@ -44,7 +44,7 @@
 	<cfoutput>
 	<tr><td height="8"></td></tr>
 	<tr>
-		<td class="labelit" width="8%" height="23"><cf_tl id="Category">:</td>
+		<td class="labelit" style="min-width:120px" height="23"><cf_tl id="Category">:</td>
 		<td>
 			<cfset vCat = get.Category>
 			<cfif url.pcategory neq "">

@@ -23,7 +23,8 @@ datasource="AppsInit">
 
 	<cfparam name="Attributes.stylesheet"        default="PKDB.css">
 	<cfparam name="Attributes.HTML"              default="Yes">
-	<cfparam name="Attributes.jQuery"            default="No">	
+	<cfparam name="Attributes.jQuery"            default="No">
+	<cfparam name="Attributes.bootstrap"         default="No">	
 	<cfparam name="Attributes.blur"              default="No">
 	<cfparam name="Attributes.busy"              default="busy10.gif">	
 	<cfparam name="Attributes.SystemModule"      default="">	
@@ -105,6 +106,7 @@ datasource="AppsInit">
 	<cfparam name="attributes.menuCopy"       	 default="no">
 	<cfparam name="attributes.menuPrint"         default="no">
 	<cfparam name="attributes.menuPrintIcon"     default="print_white.png">
+	<cfparam name="attributes.TreeTemplate"      default="No">
 	
 	<!--- provision for CFM rending to DFP, Excel used in reporting framework to prevent it to be show ---> 
 	<cfparam name="URL.FileFormat"               default="HTM">
@@ -122,14 +124,9 @@ datasource="AppsInit">
 		<cfparam name="Attributes.color"        default="white">
 	</cfif>
 
-
-
 	<cfinclude template="HTMLHead.cfm">
 	<cfinclude template="HTMLBody.cfm">
 	<cfinclude template="AccessCheck.cfm">
-
-
-	
 	
 	<cfif Attributes.MenuAccess eq "Context">
 		<cfset url.menuaccess = attributes.MenuAccess>

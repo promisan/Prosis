@@ -13,7 +13,7 @@ w = #CLIENT.width# - 61;
 h = #CLIENT.height# - 120;
 
 function showclaim(id,id2)	{
-   ptoken.open("../CaseView/CaseView.cfm?claimId="+id+"&Mission="+id2,"_blank", "left=30, top=30, width=" + w + ", height= " + h + ", toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes");
+   ptoken.open("../CaseView/CaseView.cfm?claimId="+id+"&Mission="+id2,"_blank");
 }
 
 function showemployee(id) {

@@ -130,24 +130,23 @@ detail --->
 			    <cfset cols = "3">
 			</cfif>
 			
-			<tr class="line"><td height="20" colspan="#cols#" style="padding-left:4px" class="labellarge">#DateYear#</font></td></tr>		
+			<tr class="line"><td height="20" colspan="#cols#" style="padding-left:4px" class="labellarge">#DateYear#</td></tr>		
 						
 			<tr height="18" class="labelit">
 			  <td style="padding-left:5px;border:1px solid silver;"></td>
-			  <td align="center" id="labelqty" style="border:1px solid silver;font-weight:200;min-width:90px">
+			  <td align="center" id="labelqty" style="border:1px solid silver;min-width:90px">
 			  <cf_tl id="Quantity">
 			  </td>
 			  <cfif Object.RequirementMode eq "1">
-				  <td align="center" style="font-weight:200;border:1px solid silver;"><cf_tl id="Days"></td>
-				  <td align="center" style="font-weight:200;border:1px solid silver;"><cf_space spaces="8"><cf_tl id="Sum"></td>						 
+				  <td align="center" style="border:1px solid silver;"><cf_tl id="Days"></td>
+				  <td align="center" style="min-width:60px;border:1px solid silver;"><cf_tl id="Sum"></td>						 
 			  </cfif>
-			  <td width="50%" align="center" style="font-weight:200;padding-right:4px;border:1px solid silver;"><cf_tl id="Memo"></td>
-			</tr> 			
-			
+			  <td width="50%" align="center" style="padding-right:4px;border:1px solid silver;"><cf_tl id="Memo"></td>
+			</tr> 				
 						
 		</cfif>
 								
-		<tr class="labelit" style="height:17px">
+		<tr class="labelmedium" style="height:17px">
 			
 		<cfquery name="Label" 
 		datasource="AppsProgram" 
@@ -159,7 +158,7 @@ detail --->
 			AND    AuditClass = '#ItemMaster.BudgetAuditClass#'
 		</cfquery>
 			
-		<td style="font-weight:200;background-color:ffffcf;padding-left:6px;border:1px solid silver;">
+		<td style="background-color:ffffcf;padding-left:6px;border:1px solid silver;">
 		    <cfif Label.AuditLabel neq "">
 				#Label.AuditLabel#
 			<cfelseif Description neq "">
@@ -217,15 +216,15 @@ detail --->
 				   
 			    <td width="80%" style="padding-left:5px;padding-right:5px;border:1px solid silver">
 									   
-					      <cfinput type="Text"
-					       name="remarks_#currentrow#"
-					       value="#Dates.remarks#"						      
-						   size="50"
-						   style="width:100%;border:0px"
-						   tabindex="999"
-						   maxlength="50"							  					 
-					       required="No"      				      
-					       class="regularh enterastab">
+				      <cfinput type="Text"
+				       name="remarks_#currentrow#"
+				       value="#Dates.remarks#"						      
+					   size="50"
+					   style="width:100%;border:0px"
+					   tabindex="999"
+					   maxlength="50"							  					 
+				       required="No"      				      
+				       class="regularh enterastab">
 					   
 			    </td>
 					   
@@ -240,7 +239,7 @@ detail --->
 		      <td align="right" class="labelit" style=";border:1px solid silver">#Dates.ResourceQuantity#</td>
 			  <td align="right" class="labelit" style=";border:1px solid silver">#Dates.ResourceDays#</td> 
 			  <td align="right" class="labelit" style=";border:1px solid silver">#Dates.requestQuantity#</td>						
-			  <td align="right" class="labelit" style=";border:1px solid silver"><cf_space spaces="30">#Dates.Remarks#</td>
+			  <td align="right" class="labelit" style="min-width:120px;border:1px solid silver">#Dates.Remarks#</td>
 					
 		   <cfelse>
 		   

@@ -51,11 +51,12 @@
 		WHERE     H.Mission              = '#url.mission#'	
 	    AND       H.TransactionSource    = 'ReceiptSeries'
 	    AND       H.TransactionSourceNo  = '#url.receiptno#'	
-		AND       H.TransactionSourceId IS NULL <!--- cost reflected on the lines --->										
+		AND       H.TransactionSourceId IS NULL <!--- cost reflected on the lines --->
 	    AND       H.ActionStatus         <> '9' 	
 		AND       L.TransactionSerialNo != '0'  
-		AND       R.TaxAccount           = '0'				
-</cfquery>	
+		AND       R.TaxAccount           = '0'
+</cfquery>
+
 
 <cfif TransactionTotal.AmountBaseDebit eq "">
 	<cfset amt = 0>

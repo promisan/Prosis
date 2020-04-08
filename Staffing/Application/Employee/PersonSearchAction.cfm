@@ -36,7 +36,7 @@
 	
 	<cfoutput query="SearchResult">
 		<tr class="navigation_row line labelmedium">
-		    <td style="min-width:20;padding-left:9px">
+		    <td align="right" style="padding-top:2px;min-width:20;padding-right:3px">
 			<cf_img icon="select" onclick="ptoken.open('#SESSION.root#/ActionView.cfm?id=#ObjectId#')">
 			</td>
 			<td style="min-width:200px;padding-left:15px">#EntityDescription#</td>			

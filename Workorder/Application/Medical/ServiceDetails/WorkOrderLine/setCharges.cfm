@@ -8,12 +8,10 @@
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
 		SELECT * 
-		FROM   WorkOrder W, 
-		       WorkOrderLine WL,
-			   Customer C
-		WHERE  W.WorkOrderId   = WL.WorkOrderId
-		AND    WorkOrderLineId = '#url.workorderlineid#'				
-		AND    C.CustomerId = W.CustomerId
+		FROM   WorkOrder W 
+		       INNER JOIN WorkOrderLine WL ON W.WorkOrderId  = WL.WorkOrderId 
+		       INNER JOIN Customer C ON C.CustomerId         = W.CustomerId
+		WHERE  WorkOrderLineId = '#url.workorderlineid#'						
 </cfquery>	
 
 <cfquery name="resetdata" 
@@ -140,7 +138,7 @@ AND       Journal is not NULL
 			                     WHERE   WorkOrderId     = B.WorkOrderId
 								 AND     WorkOrderLine   = B.WorkOrderLine
 								 AND     TransactionDate = B.BillingExpiration
-								 AND     OrgUnit = B.OrgUnit )								
+								 AND     OrgUnit         = B.OrgUnit )								
 						
 			<!--- rates --->
 			AND      UM.DateEffective <= '#get.DateEffective#' and (UM.DateExpiration is NULL or UM.DateExpiration >= '#get.DateEffective#')	
@@ -176,8 +174,8 @@ AND       Journal is not NULL
 					 D.Currency,
 					 D.QuantityCost,
 					 D.Quantity,
-					 D.Rate   		
-					
+					 D.Rate  
+					 					
 	</cfquery>	
 	
 	
@@ -196,9 +194,9 @@ AND       Journal is not NULL
 		</cfquery>	
 			
 	</cfif>		
-		
+			
 	<cfloop query="Billing">
-	
+			
 		<cfif BillingExpiration eq "">
 			<cfset tradte = dateformat(now(),client.dateformatshow)>
 		<cfelse>

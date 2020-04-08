@@ -125,7 +125,7 @@
 <script>
 {   
 parent.parent.history.go()
-parent.parent.ColdFusion.Window.destroy('myassociate',true)	
+parent.parent.ProsisUI.closeWindow('myassociate',true)	
 
 }
 </script>

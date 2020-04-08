@@ -229,7 +229,7 @@
 		 WHERE   CustomerId = '#url.customerid#'	
 	</cfquery> 
 	
-	<cf_screentop height="100%" scroll="no" label="#set#" banner="blue" layout="webapp" close="ColdFusion.Window.destroy('wsettle',true)">
+	<cf_screentop jquery="yes" html="no">
 </cfif>
 
 <cfif url.scope neq "standalone">

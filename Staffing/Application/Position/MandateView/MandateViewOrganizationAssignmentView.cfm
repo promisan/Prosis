@@ -14,7 +14,7 @@
    <cfset descp = FunctionDescription>
    <cfset orgcp = OrgUnitOperational>
     
-   <table border="0" cellspacing="0" width="100%" cellpadding="0" class="navigation_table">     
+   <table width="100%" class="navigation_table">     
        
 	<cfparam name="Occurence" default="1">	
 	
@@ -26,17 +26,15 @@
 	   
 	<cfset orow = orow+1>
 	 
-	<tr bgcolor="#cl#" class="navigation_row labelmedium" style="height:22px" onContextMenu="cmexpand('posmenu','#rowguid#','#menufile#')">
+	<tr bgcolor="#cl#" class="navigation_row labelmedium" style="height:22px;border-top:1px solid silver" onContextMenu="cmexpand('posmenu','#rowguid#','#menufile#')">
 			
 		<td align="center" style="min-width:60px;height:19px">#orow#.</td>   
 	   
 	    <td style="min-width:40px">
 	
-			<table cellspacing="0" cellpadding="0">
+			<table>
 			<TR>		
-			
-		    <cfif URL.PDF eq 0>
-				
+					    				
 			   <td width="3"></td>
 			   	 			
 			   <cfif url.header eq "requisition">
@@ -61,49 +59,34 @@
 				
 				<td id="posmenu" name="posmenu" class="hide">
 					<table cellspacing="0" cellpadding="0"><tr><td id="posmenu#rowguid#"></td></tr></table>
-				</td>
-						
-			<cfelse>
-			
-				<td></td>
-				
-			</cfif>	 
+				</td>	
 				
 			</tr>
 			</table>
 		
 	    </td>		    
                
-	    <td style="min-width:70px"> 
-	  	<cfif (AccessPosition eq "EDIT" or AccessPosition eq "ALL") AND URL.PDF eq 0>
-			<a title="Edit Position" href="javascript:EditPosition('#Mission#','#MandateNo#','#PositionNo#','i#PositionNo#')">			 
-	    </cfif>#PostGrade#</a>
-		</td>
+	    <td style="min-width:70px">#PostGrade#<td>
 	   
-	    <td style="min-width:250px">
-		   <cfif (AccessPosition eq "EDIT" or AccessPosition eq "ALL") AND URL.PDF eq 0>
-			   <a title="Edit Position" href="javascript:EditPosition('#Mission#','#MandateNo#','#PositionNo#','i#PositionNo#')">
-		   </cfif>
+	    <td style="min-width:280px">
+		  
 		   <cfset fun = rtrim(ltrim(FunctionDescription))>
 		  	   
-		   <cfif len(fun) gte "35">
-			   <cfset fun = "#left(fun,35)#..">	   
+		   <cfif len(fun) gte "27">
+			   <cfset fun = "#left(fun,27)#..">	   
 		   </cfif>
 		   #fun#
-		   <cfif (AccessPosition eq "EDIT" or AccessPosition eq "ALL") AND URL.PDF eq 0></a></cfif>
+		   
 	   </td>
 	  
 	  <td style="min-width:70px;padding-left:2px">   
 		  
 		   <table>
-			<tr>
-			
-				 <cfif Occurence gte "2">			   
+			<tr>			
+				<cfif Occurence gte "2">			   
 			   		<td style="height:15px;min-width:8;background-color:yellow;border:1px solid black"></td>									   
-			     </cfif>  
-			
-				<td style="padding-left:5px">				
-			       
+			    </cfif>  			
+				<td style="padding-left:5px">							       
 				   <a title="Edit Position" href="javascript:EditPosition('#Mission#','#MandateNo#','#PositionNo#','i#PositionNo#')">    				   				   
 			   	   <cfif SourcePostNumber neq "">
 				    #SourcePostNumber#
@@ -111,21 +94,15 @@
 				   	#PositionParentId#
 				   </cfif>
 				   </a>					   
-			   </td>
-		   		 
-		   
-		   </tr>
+			   </td>		   		 		   
+			</tr>
 		   </table>
 		    
 	   </td>	 
 	   
 	   <td style="min-width:70px;padding-left:4px">
 		<!---- rfuetnes to show the name instead of the code ----->
-		   <cfif TRIM(LocationName) neq "">
-				#LocationName#
-			<cfelse>
-				#LocationCode#
-		   </cfif>
+		   <cfif TRIM(LocationName) neq "">#LocationName#<cfelse>#LocationCode#</cfif>
 	   </td>	   
 	   
 	   <td style="padding-left:10px;min-width:45px">
@@ -159,16 +136,13 @@
 	   	   	   
 	   <cfif LastName eq ""> 
 		   
-		   <td colspan="6" align="center" style="background-color:##e3e3e380;width:100%;border-left:1px solid silver;border-right:1px solid silver">	  
+		   <td colspan="7" align="center" style="background-color:##e3e3e380;width:100%;border-left:1px solid silver;border-right:1px solid silver">	  
 	   	   	      	   
-		  	   <font color="gray">#tVacant#</font>
-		   
-		       <cfif ParamMission.AssignmentEntryDirect eq "0" and getAdministrator("*") eq "0">
-			   
+		  	   <font color="gray">#tVacant#</font>		   
+		       <cfif ParamMission.AssignmentEntryDirect eq "0" and getAdministrator("*") eq "0">			   
 		       	<cfif (AccessStaffing eq "EDIT" or AccessStaffing eq "ALL") AND URL.PDF eq 0>	   
 		    	   <A HREF ="javascript:AddAssignment('#PositionNo#','i#PositionNo#')">[<cf_tl id="assign">]</a>
-				</cfif>  
-				
+				</cfif>  				
 			   </cfif>		
 			   
 			</td>    
@@ -177,8 +151,7 @@
 		   				   
 			   <TD style="background-color:###cl#80;width:100%;min-width:160px;padding-left:3px">
 									
-				<cfif Extension neq "">
-				
+				<cfif Extension neq "">				
 														
 				    <cfif Dateformat(DateExpirationAssignment, CLIENT.DateFormatShow) eq Dateformat(Mandate.DateExpiration, CLIENT.DateFormatShow)>
 								
@@ -186,7 +159,7 @@
 						
 					<cfelse>
 						
-						  <cfquery name="clean" 
+						 <cfquery name="clean" 
 							datasource="AppsEmployee" 
 							username="#SESSION.login#" 
 							password="#SESSION.dbpw#">
@@ -197,10 +170,8 @@
 							AND    PersonNo NOT IN (SELECT PersonNo 
 							                        FROM   PersonAssignment
 													WHERE  DateExpiration = '#Dateformat(Mandate.DateExpiration, CLIENT.DateSQL)#'
-													AND    AssignmentStatus IN ('0','1')
-												   )	
-						</cfquery>				
-						
+													AND    AssignmentStatus IN ('0','1'))	
+						 </cfquery>										
 					</cfif>
 						
 				</cfif>	
@@ -213,15 +184,15 @@
 								
 				</TD>
 					
-				<td style="background-color:###cl#80;min-width:85">		    
+				<td style="background-color:###cl#80;min-width:80px">		    
 					<cfif contractlevel neq "">#Contractlevel#/#ContractStep#<cfif contractTime neq "100">:#contractTime#%</cfif></cfif>			
 				</td>	
 				
-				<td  style="background-color:###cl#80;min-width:85">		
+				<td  style="background-color:###cl#80;min-width:80px">		
 				    <cfif PostAdjustmentlevel neq "">#PostAdjustmentlevel#/#PostAdjustmentStep#</cfif>			
 		    	</td>
 				
-		        <td style="background-color:###cl#80;min-width:100">		
+		        <td style="background-color:###cl#80;min-width:100px">		
 				    
 					<cfif (AccessStaffing eq "EDIT" or AccessStaffing eq "ALL") AND URL.PDF eq 0>
 					<a href="javascript:EditPerson('#PersonNo#','#AssignmentNo#','#PositionNo#','i#PositionNo#')">
@@ -229,23 +200,20 @@
 					<cfif IndexNo neq "">#IndexNo#<cfelse>#Reference#</cfif>			
 				</td>
 				
-			    <td style="background-color:###cl#80;min-width:40">#Gender#</td>
-			    <td style="background-color:###cl#80;min-width:40">#Nationality#</td>
+			    <td style="background-color:###cl#80;min-width:40px">#Gender#</td>
+			    <td style="background-color:###cl#80;min-width:40px">#Nationality#</td>
 				<cfif Incumbency eq "0">
-				<td align="center" bgcolor="red"  style="min-width:60"><b><font color="white">#Incumbency#</td>
+				<td align="center" bgcolor="red"  style="min-width:60px"><b><font color="white">#Incumbency#</td>
 				<cfelse>
-				<td align="center" style="background-color:###cl#80;min-width:60">#Incumbency#</td>
+				<td align="center" style="background-color:###cl#80;min-width:60px">#Incumbency#</td>
 				</cfif>
 		   
 	   </cfif>			
 	   
 	   <cfif url.header eq "Yes">
   
-		  <TD style="padding-left:4px;padding-right:4px">
+		  <TD style="padding-left:4px;padding-right:4px;min-width:30px">  		  		  
 		  
-		  <cf_space spaces="5">
-		  
-		   <cfif url.pdf eq "0">
 		        <cfif ( Mandate.MandateDefault eq 1 or Mandate.MandateStatus eq "0" )
 		         and ((AccessPosition eq "EDIT" or AccessPosition eq "ALL") or (AccessStaffing eq "EDIT" or AccessStaffing eq "ALL"))>
 		          <cfset batch = "1">    
@@ -255,7 +223,7 @@
 					     <input style="height:17px;width:17px" class="radiol" type="checkbox" name="position" value="#PositionNo#">   
 					   </cfif>
 		        </cfif>              
-		   </cfif>  
+		  
 		  </TD>
 		  
 	  </cfif>	  	
@@ -331,16 +299,17 @@
 				<td colspan="13">
 				    <table cellspacing="0" cellpadding="0">
 					<tr class="labelmedium" style="height:22px">
-					<td height="16">
-					<cfif URL.PDF eq 0><a href="javascript:showdocument('#DocumentNo#')"></cfif>
-					#tRecruitment#: [#EntityClassNameShort#] 
-					<cfif trim(InspiraTrack) neq "">
-						#InspiraTrack#
-					<cfelse>
-						#DocumentNo# 
-					</cfif>
-					(Officer - #LEFT(officerUserFirstName,1)#. #OfficerUserLastName# - Created on: #dateformat(created,CLIENT.DateFormatShow)#)</a>
-					</td>
+					
+						<td height="16">
+						<cfif URL.PDF eq 0><a href="javascript:showdocument('#DocumentNo#')"></cfif>
+						#tRecruitment#: [#EntityClassNameShort#] 
+						<cfif trim(InspiraTrack) neq "">
+							#InspiraTrack#
+						<cfelse>
+							#DocumentNo# 
+						</cfif>
+						(Officer - #LEFT(officerUserFirstName,1)#. #OfficerUserLastName# - Created on: #dateformat(created,CLIENT.DateFormatShow)#)</a>
+						</td>
 										 
 						 <cfquery name="Candidate" 
 							datasource="AppsVacancy" 
@@ -367,7 +336,7 @@
 						<cfelse>
 							<td style="padding-left:10px"> - #tNoCandidateInfo# -</a></td>
 						</cfif>
-						</tr>
+					</tr>						
 					</table>
 				</td>
 				
@@ -414,19 +383,19 @@
 						
 							  <table width="100%" border="0" cellspacing="0" cellpadding="0"> <!--- class="navigation_table" --->
 									
-								<tr class="labelit linedotted" bgcolor="DFEFFF">
+								<tr class="labelmedium line" bgcolor="DFEFFF">
 															
-									<td width="80"  class="labelit"><cf_tl id="Expiration"></td>
-									<td width="70"  class="labelit">Reference</td>
-									<td width="45%" class="labelit">Description</td>
-									<td width="20%" class="labelit">Requester</td></td>			
-									<td width="10%" class="labelit" align="right">Amount</td></td>				
+									<td width="80"><cf_tl id="Expiration"></td>
+									<td width="70">Reference</td>
+									<td width="45%">Description</td>
+									<td width="20%">Requester</td></td>			
+									<td width="10%" align="right">Amount</td></td>				
 																				
 								</tr>
 																											
 								<cfloop query="FundingSel">
 																			
-									<TR class="labelit" height="20">  <!--- class="labelit navigation_row" --->
+									<TR class="labelmedium" height="20">  <!--- class="labelit navigation_row" --->
 									   <td style="padding-left:4px">#Dateformat(dateexpiration,CLIENT.DateFormatShow)#</td>	
 									   <td><a href="javascript:ProcReqEdit('#RequisitionNo#','dialog')"><font color="0080C0"><u>#Reference#</u></font></a></td>								   
 									   <td>#RequestDescription# </td>
@@ -531,7 +500,7 @@
 			 
 				 <td colspan="13" style="height:100%">
 				 
-					 <table height="100%" width="100%" border="0" cellspacing="0" cellpadding="0" >
+					 <table height="100%" width="100%">
 					 
 					    <cfquery name="Loaned" 
 						datasource="AppsOrganization" 
@@ -570,7 +539,6 @@
 	 	 		 
 	 </cfif>	
 	 
-	 <tr><td class="line" colspan="14"></td></tr> 
 		 	 
 	 </table>
 	 	 

@@ -1,3 +1,4 @@
+<cfparam name="url.scope" default="backoffice">
 
 <cf_screentop label="Events and Actions"
     	height="100%" 
@@ -7,8 +8,7 @@
 		actionobject="Person"
 		actionobjectkeyvalue1="#url.id#"
 		jQuery="Yes">
-		
-	
+			
 <cf_actionListingScript>
 <cf_dialogPosition>
 <cf_filelibraryscript>
@@ -35,11 +35,15 @@
 
 <table height="100%" width="99%" align="center" border="0">		
       
-        <tr><td>		
+        <cfset vShowHeader = "">
+      	<cfif url.scope neq "backoffice">
+			<cfset vShowHeader = "display:none;">
+		</cfif>
+        <tr><td style="<cfoutput>#vShowHeader#</cfoutput>">		
 		    <cfset ctr = "1">
 			<cfset openmode = "show">
 			<cfinclude template="../PersonViewHeaderToggle.cfm">
-		</td></tr>		
+		</td></tr>
 		
 		<tr><td valign="top" style="padding-left:10px;padding-right:10px" height="100%">
 			<cfdiv id="eventdetail" bind="url:EventsListing.cfm?id=#url.id#">

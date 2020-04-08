@@ -1,9 +1,9 @@
 <!--- Create Criteria string for query from data entered thru search form --->
-<cf_screentop  layout="webapp" html="No" JQuery="Yes" height="100%" scroll="Yes" >
+<cf_screentop layout="webapp" html="No" JQuery="Yes" height="100%" scroll="No">
 	
 <cfparam name="URL.View" default="Hide">
 
-<cfajaximport tags="cfwindow,cfdiv,cfform,cfinput-datefield">
+<cfajaximport tags="cfdiv,cfform">
 
 <cfsavecontent variable="option">  
 
@@ -91,9 +91,10 @@
 </cfif>	
 
 --->
+
+<form name="searchform" style="height:99%">
  
-<cfajaximport>
-<table width="99%" height="100%" cellspacing="0" cellpadding="0" align="center">
+<table width="100%" height="100%" cellspacing="0" cellpadding="0" align="center">
 
 <tr><td height="30">
 	
@@ -115,7 +116,7 @@ function search(view) {
 }
 
 function recordadd(grp) {
-     window.open("RecordAdd.cfm?idMenu=#url.idmenu#&ts="+new Date().getTime(), "_blank");	
+    ptoken.open("RecordAdd.cfm?idMenu=#url.idmenu#&ts="+new Date().getTime(), "_blank");	
 }
 
 function refreshlisting(obj) {
@@ -126,27 +127,25 @@ function refreshlisting(obj) {
 }		
 
 function recordedit(id1) {  
-     ptoken.open("RecordEdit.cfm?idMenu=#url.idmenu#&mission="+document.getElementById('mission').value+"&ID1=" + id1,"_blank","left=30, top=30, width=1100, height=899, toolbar=no, menubar=no, status=yes, scrollbars=yes, resizable=yes");
+    ptoken.open("RecordEdit.cfm?idMenu=#url.idmenu#&mission="+document.getElementById('mission').value+"&ID1=" + id1,"_blank","left=30, top=30, width=1100, height=899, toolbar=no, menubar=no, status=yes, scrollbars=yes, resizable=yes");
 }
 	 
 function refreshlist(id1) {	 
 	
-	   _cf_loadingtexthtml='';	
-	   ColdFusion.navigate('RecordListingRefresh.cfm?id1='+id1+'&col=code',id1+'_code')
-	   ColdFusion.navigate('RecordListingRefresh.cfm?id1='+id1+'&col=desc',id1+'_desc')	
-	   ColdFusion.navigate('RecordListingRefresh.cfm?id1='+id1+'&col=objc',id1+'_objc')	
-	   ColdFusion.navigate('RecordListingRefresh.cfm?id1='+id1+'&col=clss',id1+'_clss')	
-	   ColdFusion.navigate('RecordListingRefresh.cfm?id1='+id1+'&col=oper',id1+'_oper')
+	 _cf_loadingtexthtml='';	
+	 ColdFusion.navigate('RecordListingRefresh.cfm?id1='+id1+'&col=code',id1+'_code')
+	 ColdFusion.navigate('RecordListingRefresh.cfm?id1='+id1+'&col=desc',id1+'_desc')	
+	 ColdFusion.navigate('RecordListingRefresh.cfm?id1='+id1+'&col=objc',id1+'_objc')	
+	 ColdFusion.navigate('RecordListingRefresh.cfm?id1='+id1+'&col=clss',id1+'_clss')	
+	 ColdFusion.navigate('RecordListingRefresh.cfm?id1='+id1+'&col=oper',id1+'_oper')
 	
-     }
+}
 
 </script>	
 
 <tr><td style="height:100%" valign="top">
 
-	<form name="searchform" style="height:100%">
-
-	<table width="96%" height="100%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+	<table width="96%" height="100%" align="center" class="formpadding">
 	
 	<tr><td valign="top" height="50">
 	
@@ -177,7 +176,7 @@ function refreshlist(id1) {
 		<cf_tl id="close" var="1">
 		<cfset vclose=#lt_text#>		
 		
-	    <table cellspacing="0" cellpadding="0" class="formpadding">
+	    <table class="formpadding">
 			
 		    <cfquery name="MissionList" 
 			datasource="AppsPurchase" 
@@ -304,10 +303,10 @@ function refreshlist(id1) {
 	
 	</TABLE>
 
-	</form>
-
 </td></tr>
 
 </table>
+
+</form>
 
 </cfoutput>

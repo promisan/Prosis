@@ -737,7 +737,7 @@ otherwise no action
 				
 					<td bgcolor="#color#" width="80%" id="editfield" name="editfield">
 								   		
-					<table ccellspacing="0" ccellpadding="0" class="formpadding">
+					<table cellspacing="0" cellpadding="0" class="formpadding">
 						<tr><td class="labelmedium ccell">	
 						
 						<cfif url.wf eq "1">

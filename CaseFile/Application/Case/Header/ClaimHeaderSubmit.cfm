@@ -4,6 +4,7 @@
 <cfparam name="Form.OrgUnitClaimant" default="">
 <cfparam name="Form.ClaimtypeClass" default="">
 <cfparam name="Form.ClaimMemo"       default="">
+<cfparam name="Url.curraction"       default="">
 
 <cfset dateValue = "">
 	 <CF_DateConvert Value="#Form.DocumentDate#">
@@ -14,10 +15,12 @@
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
 	    SELECT *
-	    FROM  Claim
-		WHERE ClaimId = '#url.Claimid#'
+	    FROM  	Claim
+		WHERE 	ClaimId = '#url.Claimid#'
+
 </cfquery>
-		
+
+
 <cfif Check.recordcount eq "0">
 
   <!--- define if we assign a new caseNo --->
@@ -152,46 +155,57 @@
  
 <cfelse>
 
-	<cftry>
+	
+	<!----validate if the argument is saying to delete this record instead of update ------>
+	<cfif url.curraction eq "del" >
+		<cfquery name="UpdateCase" 
+		 datasource="AppsCaseFile" 
+		 username="#SESSION.login#" 
+		 password="#SESSION.dbpw#">
+			/* UPDATE Claim
+			SET    ClaimMemo      = CAST(ClaimMemo as nvarchar(MAX)) + CAST(' deleted by: #Session.acc# on ' as NVARCHAR(MAX)) + CAST(GETDATE() as VARCHAR(20)),
+				ActionStatus   = '9'
+			*/
+			DELETE Claim 
+			WHERE  ClaimId = '#URL.ClaimID#'
+		 </cfquery>
 
-	 <cfquery name="UpdateCase" 
-     datasource="AppsCaseFile" 
-     username="#SESSION.login#" 
-     password="#SESSION.dbpw#">
-	 UPDATE Claim
-	 SET    DocumentNo      = '#Form.DocumentNo#',
-	        ClaimantEMail   = '#Form.ClaimantEMail#',	
-   			PersonNo	    = '#Form.PersonNo#',
-			<cfif form.dependentid eq "">
-		    DependentId = NULL,
-		    <cfelse>
-		    DependentId = '#Form.DependentId#',
-		    </cfif>
-			OrgUnitClaimant = '#Form.OrgunitClaimant#',
-			DocumentDescription =  '#Form.DocumentDescription#',
-			<cfif Form.ClaimMemo neq "null">
-				<!---Preventing a fast clicker to break the code 
-				Jorge Mazariegos on Sept 8 2010 --->
-				ClaimMemo       = '#Form.ClaimMemo#',
-			</cfif>					
-			OrgUnit         = '#Form.OrgUnit#',
-			<cfif form.claimtypeclass neq "">
-			ClaimTypeClass = '#Form.ClaimTypeClass#',
-			</cfif>
-			DocumentDate   = #dte#
-     WHERE  ClaimId = '#URL.ClaimID#' 
-     </cfquery>
+	<cfelse>
+	
+	
+		<cfquery name="UpdateCase" 
+		 datasource="AppsCaseFile" 
+		 username="#SESSION.login#" 
+		 password="#SESSION.dbpw#">
+		 UPDATE Claim
+		 SET    DocumentNo      = '#Form.DocumentNo#',
+				ClaimantEMail   = '#Form.ClaimantEMail#',	
+				PersonNo	    = '#Form.PersonNo#',
+				<cfif form.dependentid eq "">
+				DependentId = NULL,
+				<cfelse>
+				DependentId = '#Form.DependentId#',
+				</cfif>
+				OrgUnitClaimant = '#Form.OrgunitClaimant#',
+				DocumentDescription =  '#Form.DocumentDescription# -#url.curraction#-',
+				<cfif Form.ClaimMemo neq "null">
+					<!---Preventing a fast clicker to break the code 
+					Jorge Mazariegos on Sept 8 2010 --->
+					ClaimMemo       = '#Form.ClaimMemo#',
+				</cfif>					
+				OrgUnit         = '#Form.OrgUnit#',
+				<cfif form.claimtypeclass neq "">
+				ClaimTypeClass = '#Form.ClaimTypeClass#',
+				</cfif>
+				DocumentDate   = #dte#
+		 WHERE  ClaimId = '#URL.ClaimID#' 
+		 </cfquery>
+	</cfif>
 	 
-	 <cfcatch>
-	 <table align="center"><tr><td>
-	 <font size="2" color="#FF0000"><cf_tl id="Error occurred when trying to saving your update">.</font>
-	 </td></tr></table>
-	 </cfcatch>
-	 
-	 </cftry>
-
 </cfif>	
+
 <cf_getmid>
+
 <cfif Check.recordcount eq "0">	
 
 	<cfoutput>
@@ -207,21 +221,22 @@
 	</cfoutput>
 
 <cfelse>
+	<cfif url.curraction neq "del" >
+	   <cfoutput>
 
-   <cfoutput>
+			<cfset url.init = 0>
 
-	    <cfset url.init = 0>
-
-		<script>
-				 	
-			try { 
-					parent.window.location = "../Caseview/CaseView.cfm?claimid=#url.claimid#&mid=#mid#"
-					parent.opener.applyfilter('1','','#url.claimid#')  
-				} catch(e) {}		
-								
-		</script>
-	
-   </cfoutput>	
+			<script>
+						
+				try { 
+						parent.window.location = "../Caseview/CaseView.cfm?claimid=#url.claimid#&mid=#mid#"
+						parent.opener.applyfilter('1','','#url.claimid#')  
+					} catch(e) {}		
+									
+			</script>
 		
+	   </cfoutput>	
+   </cfif>
+	
 </cfif>
 	

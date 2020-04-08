@@ -11,30 +11,15 @@
 	   <!--- ------------ --->	
 	   <!--- -navigation- --->
 	   <!--- ------------ --->        
-	   <tr class="hide"><td id="listingaction"></td></tr>        
-	         
-	   <tr><td valign="top" height="10">   
-	      <table cellspacing="0" cellpadding="0" width="100%" border="0">
-		    <cfset stcl = "header">	   	
-			<tr><td height="5"></td></tr>
-		    <tr><td colspan="#cols+1#" class="line"></td></tr>   
-		    <cfinclude template="ListingHeader.cfm">		
-		    <tr><td colspan="#cols+1#" class="line"></td></tr>   
-		  </table>	  
-	   </td></tr>       
-	
-	   <tr><td style="height:10px" id="#attributes.box#_content_nav" class="clsNoPrint">
+	   <tr class="hide"><td id="listingaction"></td></tr> 
+	   
+	   <tr style="border-top:1px solid silver;border-bottom:1px solid silver"><td style="height:10px" id="#attributes.box#_content_nav" class="clsNoPrint">
 	       <cfinclude template="ListingNavigation.cfm">
 		   </td>
-	   </tr>		
-	      
+	   </tr>		       
+	   	 
 	   <tr><td valign="top" style="height:100%;">	
-	   		  			
-				<input type="hidden" name="rowno"      id="rowno"   	value="1">		
-				<input type="hidden" name="norows"     id="norows"   	value="#showrows#">			
-				<input type="hidden" name="page"       id="page"  	    value="#URL.page#">	 	
-				<input type="hidden" name="pages"      id="pages"  	    value="#pages#">			
-				
+	   		
 				<cfset row = 0>
 				<cfset lst = "">
 				
@@ -68,11 +53,22 @@
 							
 					<cfinclude template="ListingContentData.cfm">						
 									
-				</cfif>				
+				</cfif>			
+				
+				<input type="hidden" name="rowno"      id="rowno"   	value="1">		
+				<input type="hidden" name="norows"     id="norows"   	value="#showrows#">			
+				<input type="hidden" name="page"       id="page"  	    value="#URL.page#">	 	
+				<input type="hidden" name="pages"      id="pages"  	    value="#pages#">		
 											
 			
 			</td>		
-		</tr>			
+		</tr>	
+		
+		<tr style="border-top:1px solid silver">
+		   <td style="height:10px" id="#attributes.box#_content_nav" class="clsNoPrint">
+	       <cfinclude template="ListingNavigation.cfm">
+		   </td>
+	    </tr>				
 							
 	</table>	
 

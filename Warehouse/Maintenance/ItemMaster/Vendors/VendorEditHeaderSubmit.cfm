@@ -21,7 +21,7 @@
 	<cfoutput>
 		<script>		
 			ColdFusion.navigate('#SESSION.root#/Warehouse/Maintenance/ItemMaster/Vendors/VendorListing.cfm?id=#url.itemno#&mission=#url.mission#&uom=#url.uom#&orgunitvendor=#url.orgunitvendor#','divVendorListing');
-			ColdFusion.Window.hide('mydialog');
+			try { ProsisUI.closeWindow('mydialog') } catch(e) {}
 		</script>
 	</cfoutput>
 	

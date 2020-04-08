@@ -170,23 +170,77 @@
 			    FROM     Ref_PostGrade
 				WHERE    PostGradeContract = 1
 				AND      PostGradeParent IN (SELECT PostGradeParent
-					                        FROM   Ref_PostgradeParentMission
-				                            WHERE  Mission = '#url.mission#'
-											AND Mode = 'Edit'
+					                        FROM    Ref_PostgradeParentMission
+				                            WHERE   Mission = '#url.mission#'
+											AND     Mode = 'Edit'
 											)				
 				ORDER BY PostOrder
 			</cfquery>
 		
 		</cfif>
 		
-		<select name="contractlevel" size="1" class="regularxl">
-				<cfoutput query="PostGrade">
-				<option value="#PostGrade#" <cfif PostGrade eq url.default>selected</cfif>>
-		    		#PostGrade#  
-				</option>
-				</cfoutput>
-	    </select>		
+		<select name="contractlevel" size="1" class="regularxl" 
+		    onchange="ptoken.navigate('<cfoutput>#SESSION.root#</cfoutput>/staffing/Application/Employee/Contract/ContractField.cfm?field=contractstep&grade='+this.value,'fldcontractstep')">
+			<cfoutput query="PostGrade">
+			<option value="#PostGrade#" <cfif PostGrade eq url.default>selected</cfif>>
+	    		#PostGrade#  
+			</option>
+			</cfoutput>
+	    </select>	
+		
+		<!---
+		<cfoutput>
+		<script>
+		   ptoken.navigate('#SESSION.root#/staffing/Application/Employee/Contract/ContractField.cfm?field=contractstep&grade=#url.default#&default','fldcontractstep')
+		</script>	
+		</cfoutput>
+		--->
+		
+	</cfcase>				
 	
+	<cfcase value="contractstep">
+	
+		<cfparam name="url.default" default="1">
+							
+		<cfquery name="PostGrade" 
+		datasource="AppsEmployee" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		    SELECT   *
+		    FROM     Ref_PostGrade
+			WHERE    PostGrade = '#URL.Grade#'			
+		</cfquery>
+		
+		<cfoutput>
+		
+		<cfif PostGrade.PostGradeSteps lte "1">
+		
+			<input type="hidden" name="contractstep" value="1">
+			<cf_tl id="N/A">
+			
+			<script>
+			try {
+				document.getElementById('nextincrement').className = "hide" } catch(e) {}
+			</script>
+		
+		<cfelse>
+		
+			<select name="contractstep" class="regularxl">
+					
+				<cfloop index="st" from="1" to="#PostGrade.PostGradeSteps#">
+						<option value="#st#" <cfif url.default eq st>selected</cfif>>#st#</option>
+				</cfloop>	
+						
+			</select>	
+			
+			<script>
+			try {
+				document.getElementById('nextincrement').className = "regular" } catch(e) {}
+			</script>		
+		
+		</cfif>	
+		
+		</cfoutput>
 	
 	</cfcase>				
 		

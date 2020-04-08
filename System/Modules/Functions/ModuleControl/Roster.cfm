@@ -330,8 +330,7 @@
    FunctionDirectory = "Roster/Maintenance/"
    FunctionPath = "ReviewClass/RecordListing.cfm"
    ScriptName = ""
-   AccessUserGroup = "1">      
-        
+   AccessUserGroup = "1">              
         
 <cf_ModuleInsertSubmit
    SystemModule="Roster" 

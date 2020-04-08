@@ -1,5 +1,6 @@
 
 
+
 <!--- presentation order
 
 	1.	Post and incumbent
@@ -680,36 +681,77 @@
 					<td></td>
 					<td style="height:26px" class="labelit" id= "memo#rowguid#" colspan="12">#Remarks#</td>
 				</tr>
+											
+				<cfif sourceid neq "0">
 				
-				<cfif source eq "vac">
+					<cfset trackid = "">
 				
-				<tr id="source#rowguid#hdr" style="background-color:yellow;border-bottom:1px solid silver">
-					<td></td>
-					<td></td>
-					
-					<cfquery name="Track" 
+				    <cfquery name="Track" 
 						datasource="AppsEmployee" 
 						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">												  
-								
-						SELECT    D.*, RC.EntityClassName 
-						FROM      Vacancy.dbo.Document D INNER JOIN
-								  Organization.dbo.Ref_EntityClass RC ON RC.EntityClass = D.EntityClass AND RC.EntityCode = 'VacDocument'		
-						WHERE     D.DocumentNo = '#SourceId#' 
+						password="#SESSION.dbpw#">									
+							SELECT    D.*, RC.EntityClassName 
+							FROM      Vacancy.dbo.Document D INNER JOIN
+									  Organization.dbo.Ref_EntityClass RC ON RC.EntityClass = D.EntityClass AND RC.EntityCode = 'VacDocument'		
+							WHERE     D.DocumentNo = '#SourceId#' 
 					</cfquery>	
-										
-					<cfquery name="FO" 
-						datasource="AppsSelection" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">												
-						SELECT    D.*
-						FROM      Functionorganization D 		
-						WHERE     DocumentNo = '#sourceId#' 												
-					</cfquery>			
-										
-					<td style="height:26px" class="labelit" id= "source#rowguid#" colspan="12">
-					<cf_tl id="Recruited under">&nbsp;<a href="javascript:showdocument('#SourceId#')" title="TrackNo">#Track.entityclassName#&nbsp;:&nbsp;<cfif fo.recordcount eq "1">#FO.ReferenceNo#<cfelse>#SourceId#</cfif><cf_tl id="on"> #dateFormat(dateEffective,client.dateformatshow)#</td>
-				</tr>
+															
+					<cfif track.recordcount eq "0">
+																
+						<cfquery name="Prior" 
+							datasource="AppsEmployee" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">				
+								SELECT  *
+								FROM    PersonAssignment
+								WHERE   PersonNo     = '#PersonNo#'
+								AND     AssignmentNo = '#sourceId#'
+						</cfquery>
+					
+					    <cfif Prior.Source eq "vac">
+						
+							<cfset trackid = prior.sourceid>
+							
+							<cfquery name="Track" 
+							datasource="AppsEmployee" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">									
+							SELECT    D.*, RC.EntityClassName 
+							FROM      Vacancy.dbo.Document D INNER JOIN
+									  Organization.dbo.Ref_EntityClass RC ON RC.EntityClass = D.EntityClass AND RC.EntityCode = 'VacDocument'		
+							WHERE     D.DocumentNo = '#trackId#' 
+							</cfquery>	
+												
+						</cfif>
+											
+					<cfelse>
+					
+						<cfset trackid = sourceid>
+					
+					</cfif>
+					
+					<cfif trackid neq "">
+				
+						<tr id="source#rowguid#hdr" style="background-color:yellow;border-bottom:1px solid silver">
+							<td></td>
+							<td></td>				
+											
+							<cfquery name="FO" 
+								datasource="AppsSelection" 
+								username="#SESSION.login#" 
+								password="#SESSION.dbpw#">												
+								SELECT    D.*
+								FROM      Functionorganization D 		
+								WHERE     DocumentNo = '#trackid#' 												
+							</cfquery>			
+												
+						    <td style="height:26px" class="labelit" id= "source#rowguid#" colspan="12">
+						
+						    <cf_tl id="Recruited under">&nbsp;<a href="javascript:showdocument('#TrackId#')" title="TrackNo">#Track.entityclassName#&nbsp;:&nbsp;<cfif fo.recordcount eq "1">#FO.ReferenceNo#<cfelse>#TrackId#</cfif><cf_tl id="on"> #dateFormat(dateEffective,client.dateformatshow)#</td>
+					
+						</tr>
+					
+					</cfif>
 				
 				</cfif>
 				
@@ -903,8 +945,8 @@
 					<cfif DateExpiration lte cutoff and Dateexpiration gte now() and DateEffective lte now()>
 					
 					<tr class="labelmedium optional_#url.org# line">
-					     <td></td>
-					    <td height="22" colspan="11" align="center" bgcolor="FEBBAF" style="padding-left:5px">
+					    
+					    <td height="22" colspan="13" align="center" bgcolor="FEBBAF" style="padding-left:5px">
 						
 							<font color="black">
 							Assignment of #FullName# will end on <b><u>#dateformat(DateExpiration,client.dateformatshow)#

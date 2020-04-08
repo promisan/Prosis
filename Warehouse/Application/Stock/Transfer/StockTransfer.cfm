@@ -57,26 +57,26 @@
 <cfif url.mode eq "quick">
 
 	<cfoutput>
-	<input type    = "text"
-     name      = "transferquantity#TransactionId#"
-	 id        = "transferquantity#TransactionId#"
-     value     = "#TransferQuantity#"
-     size      = "8"
-     style     = "text-align:right;padding-right:3px;border:0px;border-left:1px solid silver;border-right:1px solid silver;background-color:ffffcf"
-     onchange  = "trfsave('#TransactionId#',document.getElementById('warehouseto').value,document.getElementById('locationto').value,'','','',this.value,'','',document.getElementById('transaction_date').value,document.getElementById('transaction_hour').value,document.getElementById('transaction_minute').value)"
-	 maxlength = "10"
-	 class     = "regularxl enterastab"> 
+	<input type  = "text"
+     name        = "transferquantity#TransactionId#"
+	 id          = "transferquantity#TransactionId#"
+     value       = "#TransferQuantity#"
+     size        = "8"
+     style       = "height:100%;text-align:right;padding-right:3px;border:0px;border-left:1px solid silver;border-right:1px solid silver;background-color:ffffaf"
+     onchange    = "trfsave('#TransactionId#',document.getElementById('warehouseto').value,document.getElementById('locationto').value,'','','',this.value,'','',document.getElementById('transaction_date').value,document.getElementById('transaction_hour').value,document.getElementById('transaction_minute').value)"
+	 maxlength   = "10"
+	 class       = "regularxl enterastab"> 
 	 
 	 </cfoutput>
 
 <cfelse>
 		
-		<table width="100%"  cellspacing="0" cellpadding="0">
+		<table width="100%" class="formpadding">
 		
 			<tr class="line">
 			<td style="padding-left:30px;padding-right:60px">
 						
-			<table width="100%"  cellspacing="0" cellpadding="0">
+			<table width="100%">
 			
 			<cfquery name="Transaction"
 					datasource="AppsMaterials" 
@@ -86,9 +86,8 @@
 					  FROM    userTransaction.dbo.Transfer#URL.Whs#_#SESSION.acc#
 					  WHERE   TransactionId = '#URL.Id#'  
 				</cfquery>	
-				
 											
-				<table width="95%" cellspacing="0" cellpadding="0" align="center">
+				<table width="95%" align="center">
 									
 				<cfoutput>
 						
@@ -263,7 +262,9 @@
 					
 					</tr>
 					
-				</cfif>						
+				</cfif>		
+				
+				<tr><td style="height:3px"></td></tr>				
 				
 				<!--- ----------------------------------------- --->
 				<!--- ---Receive as Item but ONLY if enabled--- --->
@@ -508,7 +509,7 @@
 				
 					<!--- standard mode --->
 				
-					<tr class="labelmedium" style="height:30px">
+					<tr class="labelmedium">
 					<td width="40"></td>
 					<td width="70%"><cf_tl id="Quantity">:</td>
 					<td>
@@ -539,9 +540,9 @@
 						      name     = "transaction#url.id#"     
 							  id       = "transaction#url.id#"   
 						      timeZone = "#tzcorrection#"     
-						      font     = "13"
+						      font     = "14"
 							  edit     = "Yes"
-							  class    = "regularXL"				  
+							  class    = "regularxl"				  
 						      mode     = "datetime"> 
 							  
 						</td>				  

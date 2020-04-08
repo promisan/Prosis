@@ -7,6 +7,7 @@
 </CFIF>
 
 <cf_dialogPosition>
+<cf_calendarscript>
 
 <cfquery name="Mis" 
 datasource="AppsOrganization" 
@@ -52,10 +53,8 @@ password="#SESSION.dbpw#">
 	}
 	
 		
-	function selected(pos) {
-	
-	    ColdFusion.Window.create('mydialog', 'Recruitment Track', '',{x:100,y:100,height:600,width:640,modal:false,resizable:false,center:true})    
-		ColdFusion.Window.show('mydialog') 				
+	function selected(pos) {	
+	    ProsisUI.createWindow('mydialog', 'Recruitment Track', '',{x:100,y:100,height:600,width:640,modal:false,resizable:false,center:true})    					
 		ColdFusion.navigate('#SESSION.root#/Vactrack/Application/Document/DocumentEntryPosition.cfm?ID1=' + pos + '&Caller=entry','mydialog')	
 	}
 		
@@ -76,7 +75,7 @@ password="#SESSION.dbpw#">
   <cfset html = "No">  
 </cfif>
 
-<cfajaximport tags="cfwindow,cfform,cfinput-datefield">
+<cfajaximport tags="cfform">
 
 <cf_screentop html="#html#" height="100%" label="Recruitment Request" layout="innerbox" scroll="Yes" jQuery="Yes">
 
@@ -98,7 +97,7 @@ password="#SESSION.dbpw#">
 	    		
 	    <td class="labelit" width="120" height="20"><cf_tl id="Tree/Organization">:</td>
 		<td>		     
-			 <select name="mission" id="mission" class="regularxl" style="font-size:27px;height:39px">
+			 <select name="mission" id="mission" class="regularxl" style="font-size:20px;height:34px">
 			 
 				 <cfoutput query="Mis">
 				 <cfinvoke component="Service.Access"  
@@ -113,9 +112,7 @@ password="#SESSION.dbpw#">
 			 </select>			 
 					 
 	    </td>	
-						
-		
-		
+			
 	    <TD class="labelit" style="padding-left:30px" width="140"><cf_tl id="Grade/Level">:</TD>
 	    <TD width="100">		
 		<cfdiv bind="url:DocumentEntryGrade.cfm?mission={mission}" id="gradebox">				
@@ -125,7 +122,7 @@ password="#SESSION.dbpw#">
 	  		  <cf_tl id="List" var="1">
 			  <input class="button10g"
 				     type="button" 
-				     style="width:120px;font-size:20px;height:37px"
+				     style="width:120px;font-size:20px;height:34px"
 					 name="Submit" 
 					 value="<cfoutput>#lt_text#</cfoutput>" 
 					 onclick="search()">

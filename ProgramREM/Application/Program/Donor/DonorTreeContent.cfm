@@ -79,11 +79,11 @@
 <cfif GlobalAccess neq "NONE" 
      OR MissionAccess eq "READ" OR MissionAccess eq "EDIT" or MissionAccess eq "ALL">
 	 		
- 	   <cftree name="idtree" format="html" required="No">
+ 	   <cf_UItree name="idtree" format="html" required="No">
 	  	  	   
-		   <cftreeitem 
-			  bind="cfc:service.Tree.OrganizationTree.getNodes({cftreeitempath},{cftreeitemvalue},'#url.mission#','P001','../Donor/Listing/DonorViewListing.cfm','DON','#vContributions#','#Param.TreeDonor#','P001',{period},'Full','0','&systemfunctionid!#url.systemfunctionid#')">  		 
-	    </cftree>		
+		   <cf_UItreeitem 
+			  bind="cfc:service.Tree.OrganizationTree.getNodesV2({cftreeitempath},{cftreeitemvalue},'#url.mission#','P001','../Donor/Listing/DonorViewListing.cfm','DON','#vContributions#','#Param.TreeDonor#','P001',{period},'Full','0','&systemfunctionid!#url.systemfunctionid#')">  		 
+	    </cf_UItree>		
 
 <cfelse>
 	

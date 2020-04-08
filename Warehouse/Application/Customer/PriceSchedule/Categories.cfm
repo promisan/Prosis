@@ -66,13 +66,16 @@
 						query="priceSchedule" 
 						display="Description" 
 						value="Code" 
-						class="regularxl" 
+						class="regularxl selPriceSchedule" 
 						required="Yes" 
 						selected="#Selected#" 
 						message="#errorMessage#" 
 						queryposition="below">
 						<option value="">-- #selectMessage# --
 					</cfselect>
+					<cfif currentrow eq 1 AND recordCount gt 1>
+						<a style="color:##369CF5; padding-left:15px;" href="javascript:$('.selPriceSchedule').val($('##PriceSchedule_#trim(Category)#').val());">[ <cf_tl id="Same for all"> ]</a>
+					</cfif>
 				</td>
 			</tr>
 		</cfoutput>

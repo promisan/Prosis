@@ -99,7 +99,7 @@
 
 <cf_screentop label="Attach documents" scroll="no" html="no" banner="gray" layout="webapp">
 
-<table width="100%" height="100%" bgcolor="ffffff" cellspacing="0" cellpadding="0">
+<table width="100%" height="100%" style="background-color:e4e4e4" cellspacing="0" cellpadding="0">
 
 	<cfif DocumentServerIsOp eq "1">
 	
@@ -156,7 +156,7 @@
 			title             = "#vSelectFiles#"
 			uploadbuttonlabel = "#vUpload#"
 			url               = "FileFormSubmit.cfm?host=#url.host#&mode=#url.mode#&Box=#URL.Box#&DIR=#URL.DIR#&ID=#URL.ID#&ID1=#URL.ID1#&reload=#URL.reload#&pdfconvert=true&DocumentServer=#url.DocumentServer#"
-			width             = "475"
+			width             = "500"
 			wmode             = "transparent">	
 			
 		</cffileupload>

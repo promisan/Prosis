@@ -1,11 +1,12 @@
 
-
 <cfif isDefined("Session.login")>
 
+<!--- can be removed was loading double 
 <cfoutput>
 	<link rel="stylesheet" type="text/css" href="#SESSION.root#/#client.style#">
 	<script type="text/javascript" src="#SESSION.root#/Scripts/jQuery/jquery.js"></script>
 </cfoutput>
+--->
 
 <cfajaximport>
 
@@ -60,7 +61,7 @@
 	}
 	
 	function maintain(mis) {
-	    ptoken.open("#SESSION.root#/Staffing/Application/Position/MandateView/InitView.cfm?mission="+mis+"&mandate=","maintain","left=10,top=10,width=" + f + ", height= " + h + ", status=yes, toolbar=no, scrollbars=no, resizable=yes")
+	    ptoken.open("#SESSION.root#/Staffing/Application/Position/MandateView/InitView.cfm?mission="+mis+"&mandate=","maintain")
 	}	
 	
 	function editentity(mis) {
@@ -78,19 +79,14 @@
 	     }else{
 	          while (itm.tagName!="TABLE")
 	          {itm=itm.parentNode;}
-	     }
-		 
+	     }		 
 		 	 		 	
-		 if (fld != false){
-			
-		 itm.className = "highLight";
-		 document.body.style.cursor = "pointer";
-		 self.status = name;
-		 }else{
-			
-	     itm.className = "regular";		
-		 document.body.style.cursor = "";
-		 self.status = name;
+		 if (fld != false){			
+			 itm.className = "highLight1 formpadding";
+			 itm.style.cursor = "pointer";	
+		 }else{			
+	    	 itm.className = "regularZ formpadding";		
+			 itm.style.cursor = ""; 
 		 }
 	  }
 	  
@@ -131,6 +127,7 @@
 	  }  
 
 	<cfif searchbar>
+	
 		$(document).ready(function(){			
 			
 			if ($(".cSearch").length > 7) {
@@ -145,42 +142,31 @@
 				$("##iSearch").on('keyup', function(ev){
 				
 					var query = $(this).val();
-
 					//cSearch = content search
 					//tSearch = text search
 					if (query != '') {
 						$(".cSearch:not(:contains('" + query + "'))").each(function(){
 							$(this).fadeOut();
-						});
-						
-						$(".cSearch:contains('" + query + "')").each(function(){
-						
+						});						
+						$(".cSearch:contains('" + query + "')").each(function(){						
 							$specific = $(this).find(".tSearch");
 							vtext = $specific.text();
-
 							if (vtext.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
 								$(this).fadeIn();
-							}
-							else 
-								$(this).fadeOut();
+							} else $(this).fadeOut();
 						});
-					}
-					else 
-						$(".cSearch").fadeIn();
+					} else $(".cSearch").fadeIn();
 					
-					if (ev.which == 13) {
-					
+					if (ev.which == 13) {					
 						ev.preventDefault();
 						ev.stopPropagation();
 					}
 				});				
 				$("##iSearch").focus();
-			}
-			else {				
-				$("##dSearchBar").remove();				
-			}
+			} else { $("##dSearchBar").remove(); }
 						
 		});
+		
 	</cfif>	
 		
 	</script>
@@ -198,25 +184,25 @@
 	password="#SESSION.dbpw#">
 	
 	    <cfif target eq "mission">
-		SELECT *,
-				(SELECT count(*)
-				 FROM   System.dbo.UserFavorite
-				 WHERE  Account          = '#SESSION.acc#'
-				 AND    SystemFunctionId = '#SystemModule.systemFunctionId#'
-				 AND    Mission          = R.Mission) as Favorite 
+		SELECT  *,
+				 (SELECT count(*)
+				  FROM   System.dbo.UserFavorite
+				  WHERE  Account          = '#SESSION.acc#'
+				  AND    SystemFunctionId = '#SystemModule.systemFunctionId#'
+				  AND    Mission          = R.Mission) as Favorite 
 		<cfelse>
-		SELECT *
+		SELECT  *
 		</cfif>		 
 				 
-		FROM   Ref_Mission R INNER JOIN Ref_AuthorizationRoleOwner O ON R.MissionOwner = O.Code
-		WHERE  Operational = '#url.operational#'
+		FROM    Ref_Mission R INNER JOIN Ref_AuthorizationRoleOwner O ON R.MissionOwner = O.Code
+		WHERE   Operational = '#url.operational#'
 		<cfif Selection eq "Favorite">
-		    AND    Mission IN (SELECT Mission 
-			                     FROM   System.dbo.UserFavorite 
-							     WHERE  Account = '#SESSION.acc#') 
-								 
+	    AND     Mission IN (SELECT Mission 
+			                FROM   System.dbo.UserFavorite 
+					        WHERE  Account = '#SESSION.acc#') 								 
 								 <!--- PENDING additional filter to select only modules that are enabled --->  
 		<cfelse>	
+		
 		    <cfif Module neq "">
 			AND    Mission IN (SELECT  Mission 
 			                     FROM  Ref_MissionModule 
@@ -238,22 +224,24 @@
 				 Mission, 
 				 MissionParent
 				 
+				 
 </cfquery>
 
-<table width="98%">
+<table width="93%" border="0" align="center">
 
 <cfif searchbar>
 
 	<tr id="dSearchBar"><td style="padding-top:5px">
 	
-			<table>				
-				<tr>					
-					<td style="height:30;padding-left:40px" class="labelmedium"><cf_tl id="Find">:</td>
-					<td align="left" style="padding-left:9px;padding-right:10px">
-					<input style="padding-left:8px;width:180;font-size:18px;height:30px" class="regularxl" type="text" name="iSearch" id="iSearch"  maxlenght="40" value="">
-					</td>
-				</tr>	
-			</table>	
+		<table>				
+			<tr>					
+				<td style="height:30;padding-left:40px" class="labelmedium"><cf_tl id="Find">:</td>
+				<td align="left" style="padding-left:9px;padding-right:10px">
+				<input style="padding-left:8px;width:180;font-size:18px;height:30px" class="regularxl" type="text" name="iSearch" id="iSearch"  maxlenght="40" value="">
+				</td>
+			</tr>	
+		</table>	
+		
 	</td>
 	</tr>
 	
@@ -305,8 +293,7 @@
 		 	 
 		</cfquery>		
 									
-		<cfset Group = GroupMission.recordCount>
-		
+		<cfset Group = GroupMission.recordCount>	
 		
 					
 	<cfelseif VerifyArea neq "">	
@@ -408,24 +395,20 @@
 		<cfset Group = GroupMission.recordCount>		
 						
 	</cfif>	
-													
+														
 	<cfif Group gte "1">	
-		
+			
 		<tr class="cSearch">
-		<td style="padding-left:30px">
-							
+		<td>
+											
 		<cfif not find("Mission",class)>	
-				
-			  <table width="100%">												
-			 			  
-			   <tr class="hide"><td id="#MissionType#0" class="linedotted" colspan="6"></td></tr>
-			   
-			   <tr><td height="4"></td></tr>
-			   		   
+								
+			  <table width="100%">	
+			  			 			  			   			   			   		   
 			   <TR id="#MissionType#1">
 				   <td colspan="6" width="10%">
 				   	  <table width="100%" border="0">
-					    <tr>
+					    <tr class="line">
 						  <td colspan="1" style="height:45px;font-size:26px;padding-top:5px;padding-left:13px" class="labellarge">
 					   		#MissionType# [#groupmission.recordcount#]
 						  </td>
@@ -433,17 +416,9 @@
 					  </table> 
 					</td>
 			   </tr>
-			   
-			   <tr class="hide"><td class="linedotted" id="#MissionType#2" colspan="6"></td></tr>
-			  			  				
-			   <cfset tpe = "#MissionType#">
-					
-			   <TR id="#MissionType#3" class="regular">
-			     <td height="1" colspan="6" bgcolor="white"></td>
-			   </TR>
-											
-			<table width="100%" id="#MissionType#">
-			
+			  			  			  			  				
+			   <cfset tpe = MissionType>							  											
+						
 		<cfelse>
 					
 			<table width="100%" border="0">
@@ -467,31 +442,27 @@
 		</cfif>	
 											
 		<CFIF Access gte 1>		
-									
+											
 			<cfif not find("Mission",class)>	
-						
-			    <cfset cnt = cnt + 1>
-				<cfset row = row + 1>
-			
-			    <cfif Row eq "1">				  
-				  <TR class="cSearch">				
-				<cfelse>  
-				  <cfset row = "0">
-				</cfif>
-				
+												
+			    <cfset cnt = cnt + 1>				
+				<cfset row = row + 1>				
+						    			  
+			    <TR class="cSearch">				
+								
 				<cfset missel = Mis>
 				
-				<td width="50%">
+				<td width="100%">
 								
-				<table width="100%">
+				<table border="0" width="100%" class="formpadding">
 													
-				<tr class="cSearch">	
+				<tr class="cSearch" style="border-bottom:1px solid silver" onMouseOver="hlmenu(this,true,'#Mission#')"  onMouseOut="hlmenu(this,false,'')">	
 									
 				<cfset sel=Replace(missel,'-','','ALL')>	
 						
 					<cfif Access gte 1 or VerifySource eq "">			
 																		 
-						<td width="87%" height="100%" colspan="2" align="left">
+						<td width="87%" height="100%" border="0" align="left">
 						
 						 <!--- we make sure the user may open this --->	
 														
@@ -507,106 +478,49 @@
 							<cfelse>
 								<cf_licenseCheck module="'System'" mission="'#SearchResultA.Mission#'" message="No">
 							</cfif>		
-												
-							<cfset License = "1">
-			
-							<cfif License eq 1>
-													
-							 <cfset vModuleId = replace(Module,"'","","all")> 					 
-							 
-						     <table width="98%" 							    							
-								 align="center" 	
-								 style="border-top:1px solid silver"
-								 class="regular"					         								 						 
-						         onMouseOver="hlmenu(this,true,'#Mission#')" 
-								 onMouseOut="hlmenu(this,false,'')">
-								 								 
-							<cfelse>	
-							 
-							<!--- No click allowable as the license has expired --->
-						     <table width="98%" 							    
-								 align="center" 
-						         bgcolor="FFCACA">
-							 
-							</cfif>						 
+																										
+							<cfset vModuleId = replace(Module,"'","","all")>							 
+						    <table width="98%" align="center" bgcolor="<cfif License eq 0>FFCACA</cfif>">								 
 						  	   	
-					      <tr>
-					        <td width="98%" align="left" style="padding-top:6px" title="#MissionName#">
-												
+						      <tr>
+							  
+						        <td width="98%" align="left" title="#MissionName#">																	
 																									
-								<table height="100%" width="100%">
-								<tr>
-													
-								  <cfparam name="SystemModule.systemFunctionid" default="">
-															  				
-								  <td width="100%" style="height:28px;padding-left:11px" class="tSearch labellarge" 
-								  onClick="modulelog('#SystemModule.systemFunctionId#','#missel#');loadform('#MenuTemplate#?systemfunctionid=#SystemModule.systemFunctionId#&mission=#missel#&module=#vModuleId#','#sel#');">								  				  							
-									  <cfset show = "1">									  				  					  					 
-									    #Mission#&nbsp;<font size="2" color="gray"></b>/ #Description#</b></font>						
-									  <cfif license eq 0>		
-									     <font size="3" color="FF0000">/<cf_tl id="License Expired"></font>
-									  </cfif>
-								 
-								  </td>									  		  
-																		  
-								  <cfparam name="url.module" default="">
-								  
-								  <cfif url.module eq "Staffing">
-								  											      
-									   <cfinvoke component="Service.Access"  
-								          method="StaffingTable" 
-										  mission="#Mission#" 
-										  returnvariable="maintain">
-										  							  
-									  <cfif maintain neq "NONE">	
-									  							  
-										  <td align="right" style="width:50;padding-right:10px" onClick="maintain('#mission#')" class="labelit">
-										  <a href="javascript:"><font color="gray"><cf_tl id="maintain"></font></a>	
-										  </td>				  
-														   
-									  <cfelse>
-									  
-										  <td></td> 
-									  
-									  </cfif>
-									  
-								  <cfelse>
-								  
-								  	<td></td>	  
-								  
-								  </cfif>					  					  
-								 				  
-								  </tr>										  
-								  <!---										 					 					  
-								  <tr>					  
-								  	<td onClick="modulelog('#SystemModule.systemFunctionId#','#missel#');loadform('#MenuTemplate#?sessionno=#sessionno#&mission=#missel#&module=#vModuleId#','#sel#');" colspan="2" style="padding-left:26px" class="labelit tSearch">#MissionName#</td> 					  
-								  </tr>								  
-								  --->
-								  
-								</table>
-							
-							
-						    </td> 
-					     </tr>
+									<table width="100%" border="0">
+									<tr>
+														
+									  <cfparam name="SystemModule.systemFunctionid" default="">
+																  				
+									  <td style="paddong-left:12px;font-size:28px;font-weight:340" class="tSearch labelmedium" 
+									  onClick="modulelog('#SystemModule.systemFunctionId#','#missel#');loadform('#MenuTemplate#?systemfunctionid=#SystemModule.systemFunctionId#&mission=#missel#&module=#vModuleId#','#sel#');">								  				  															  
+									    <a>#Mission#</a>&nbsp;<cfif MissionName neq Mission><font size="2" color="808080">#MissionName#</cfif>									
+									  </td>										
+									 </tr> 
+									 <cfif license neq 1>	
+										  <tr style="height:10px"><td style="padding-left:40px"><font size="3" color="FF0000"><cf_tl id="License Expired"></font></td></tr>
+									 </cfif>												  		  
+																										  
+									</table>							
+								
+							    </td> 
+						     </tr>
+						 
 						 </table>
 						 
 						 </td>
 						 
-						 <td width="30" align="left" style="min-width:50px">
-						 						    							 						 
-							 <table>
+						 <td width="30" align="left" style="padding-bottom:20px;height:100%;min-width:50px">
+						 						 						 								 					    							 						 
+							 <table style="height:100%;border-top:1px solid silver;border-bottom:1px solid silver">
 							 <tr>
-							 
-							 <cfif getAdministrator("#Missel#") eq "1">
-								 <td>
-								 
-								  <button class="button3" type="button" onClick="editentity('#missel#')">     
-								 		 	<img src="#SESSION.root#/Images/configure.gif" alt="Remove as Favorite" height="14" width="14" style="cursor: pointer;" border="0" align="absmiddle">
-								 </button> 	
-							
-								</td>
-								 
-							 </cfif>
+							 							 
+								 <cfif getAdministrator("#Missel#") eq "1">
+									 <td>								 
+									  <button class="button3" type="button" onClick="editentity('#missel#')">     
+									  <img src="#SESSION.root#/Images/configure.gif" alt="Remove as Favorite" height="14" width="14" style="cursor: pointer;" border="0" align="absmiddle">
+									  </button> 								
+									</td>								 
+								 </cfif>
 							 
 							 <cftry>
 							
@@ -618,18 +532,14 @@
 									
 									 	<td id="fav_#SystemModule.systemFunctionId#_#Missel#">	
 																												
-										<cfif favorite eq "1">
-										
+										<cfif favorite eq "1">										
 									     <button class="button3" type="button" onClick="favorite('0','#SystemModule.systemFunctionId#','#Missel#')">     
 								 		 	<img src="#SESSION.root#/Images/favorite.gif" alt="Remove as Favorite" height="14" width="14" style="cursor: pointer;" border="0" align="absmiddle">
-										 </button> 	
-										 
-										<cfelse>
-										
+										 </button> 											 
+										<cfelse>										
 										 <button class="button3" type="button"  onClick="favorite('1','#SystemModule.systemFunctionId#','#Missel#')">     
 								 		 	<img src="#SESSION.root#/Images/favoriteset1.gif" alt="Add to Favorites" height="14" width="14" style="cursor: pointer;" border="0" align="absmiddle">
-										 </button> 	
-										
+										 </button> 											
 										</cfif>
 									
 										</td>
@@ -652,8 +562,58 @@
 									  
 								</cfif>
 							  
-							  </td>							
-							</tr>									
+							  </td>		
+							  
+							  <td>				
+									
+								<cfif SESSION.isAdministrator eq "Yes">
+																		
+									<cfquery name="CheckLogging" 
+										datasource="AppsSystem" 
+										username="#SESSION.login#" 
+										password="#SESSION.dbpw#">
+											SELECT TOP 1 *
+											FROM   UserActionModule 
+											WHERE  SystemFunctionId = '#systemmodule.systemFunctionId#'					
+									</cfquery>	
+									
+									<cfif CheckLogging.recordCount gt 0>
+										<button type="button" class="button3" onClick="logging('#systemmodule.systemFunctionId#')">    						 
+								 			 <img src="#SESSION.root#/Images/info2.gif" alt="Function logging" height="16" width="16" border="0"
+										   	  style="cursor: pointer;" alt="" border="0" align="absmiddle">										  
+										</button>
+									</cfif>
+								</cfif>
+							
+							</td>		
+							  
+							  <cfif License eq 1>
+																						  
+								 <cfif module eq "'Staffing'">
+								  											      
+									   <cfinvoke component="Service.Access"  
+								          method="StaffingTable" 
+										  mission="#Mission#" 
+										  returnvariable="maintain">
+																				  							  
+									  <cfif maintain neq "NONE">	
+									  	 						  
+										  <td align="right" onClick="maintain('#mission#')" class="labelmedium" style="padding:2px;padding-right:5px;height:100%;cursor:pointer;min-width:50">
+										  <table style="height:100%">
+										  <tr>
+										     <td><a href="" title="Shortcut to staffing maintenance"><cf_tl id="maintain"></a></td>
+										  </tr>
+										  </table>
+										  </td>				  
+										 																			  									  
+									  </cfif>
+																	  
+								 </cfif>			
+								 
+							 </cfif>
+							 						  					
+							</tr>							 
+														
 							</table>			
 						
 					   	</td>
@@ -694,24 +654,34 @@
 			     </table>
 				 
 			 </td>
-			  			
-		     <cfif Row eq "2">
-			 </TR>					 
-			 </cfif>
-			 	 		
+			 	
+			 </TR>	
+			 			 			 
+			    <cfset heading    = "#Mission#">
+				<cfset class      = "'Detail'">
+				<cfset selection  = "'Application'">				
+														
+				<tr class="cSearch" style="border-top:0px solid silver">
+				<td colspan="6">
+					
+						<cfset scope = "mission">							
+					    <cfinclude template="Submenu.cfm"> 
+					
+				</td></tr>		
+				
+				<cfset class = "">		 
+			 			 	 		
 		<cfelse>	
 														
 			    <cfset heading = Mis>
 										
-				<tr class="cSearch" style="border-top:0px solid silver">
+				<tr class="cSearch">
 				<td colspan="6">
-					<table width="100%">
-					<tr><td style="width;100%">																		
+																				
 						<!--- added to prevent some behavior in the menu.cfm file --->
-						<cfset scope = "mission">																		
+						<cfset scope = "mission">																							
 					    <cfinclude template="Submenu.cfm"> 
-					</td></tr>
-					</table>
+					
 				</td></tr>
 								
 		</cfif>	
@@ -719,11 +689,7 @@
 	</cfif>
 
 	</cfoutput>
-			
-	<cfif row eq "1"><td></td><td></td></tr>		
-		 		 
-	</cfif>
-	
+		
 	</td></tr>
 	
 	</table>
@@ -733,11 +699,8 @@
 <cfif show eq "0">
 	
 	 <script>
-	     try {
-	     document.getElementById("#MissionType#0").className = "hide"
-		 document.getElementById("#MissionType#1").className = "hide"
-		 document.getElementById("#MissionType#2").className = "hide"
-		 document.getElementById("#MissionType#3").className = "hide" } catch(e) {}
+	     try {	    
+		 document.getElementById("#MissionType#1").className = "hide"} catch(e) {}
 	 </script>
  
 </cfif>

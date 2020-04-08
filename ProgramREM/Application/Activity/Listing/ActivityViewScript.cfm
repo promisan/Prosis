@@ -3,11 +3,8 @@
 
 <script language="JavaScript">	
 
-	function edit(id) {
-	  
-      w = #CLIENT.width#  - 110;
-      h = #CLIENT.height# - 100;	 
-	  ptoken.open("#SESSION.root#/programrem/application/program/ActivityProject/ActivityView.cfm?ProgramCode=#URL.ProgramCode#&Period=#url.period#&ActivityId=" + id,"_blank","width="+w+",height="+h+",status=yes,toolbar=no,scrollbars=yes,resizable=yes")		  
+	function edit(id) {      
+	  ptoken.open("#SESSION.root#/programrem/application/program/ActivityProject/ActivityView.cfm?ProgramCode=#URL.ProgramCode#&Period=#url.period#&ActivityId=" + id,id)		  
 	}
 			
 	 function showprogress(id) {
@@ -35,19 +32,17 @@
 		
 		var cnt = 0	
 		if (mx.className == "regular") {
-		   mx.className = "hide" 
-		   mn.className = "regular"		  	
+		    mx.className = "hide" 
+		    mn.className = "regular"		  	
 			while (se[cnt]) {
-			 se[cnt].className = "regular"
-			 cnt++
-			} 		 
+			 se[cnt].className = "navigation_row labelmedium line"
+			 cnt++ } 		 
 		} else {
-		   mx.className = "regular" 
-		   mn.className = "hide" 		  	
+		    mx.className = "regular" 
+		    mn.className = "hide" 		  	
 			while (se[cnt]) {
 			 se[cnt].className = "hide"
-			 cnt++
-			} 		
+			 cnt++ } 		
 		}
 	 }
 	 

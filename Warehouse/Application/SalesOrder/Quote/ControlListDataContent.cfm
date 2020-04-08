@@ -20,8 +20,9 @@
 				 C.PhoneNumber, 
 				 C.MobileNumber,
 				 C.eMailAddress, 
-				 P.LastName AS Officer, 
-				 S.SalesCurrency,
+				 MAX(P.LastName)        as Officer, 
+				 MAX(S.SalesCurrency)   as SalesCurrency,
+				 MAX(S.Source)          as Source,
 				 MAX(S.TransactionDate) AS TransactionDate, 
 				 SUM(S.SalesAmount)     AS SalesAmount, 
 				 SUM(S.SalesTax)        AS SalesTax, 
@@ -33,18 +34,16 @@
 	             System.dbo.Ref_Address AD ON AD.AddressId = S.AddressId
 		WHERE    BatchId is NULL <!--- not transformed into a real sale which is posted yet --->		 
 	    GROUP BY C.CustomerName,
-	    		 S.AddressId,
+	    		 S.AddressId,				
 		         AD.Address,
 		         AD.Address2,
 		         AD.AddressCity,
-		         C.Reference, 
-				 P.LastName, 
+		         C.Reference, 				 
 				 C.MobileNumber,
 				 C.PhoneNumber, 
 				 C.eMailAddress, 
-				 C.CustomerId,
-				 S.SalesCurrency	
-						
+				 C.CustomerId
+										
 </cfquery>		
 
 <cfsavecontent variable="myquery">
@@ -68,19 +67,28 @@
 						alias       = "C",																			
 						search      = "text",
 						filtermode  = "2"}>		
+						
+						
+	<cfset itm = itm+1>
+	<cf_tl id="Source" var = "1">
+	<cfset fields[itm] = {label     = "#lt_text#",                    
+	     				field       = "Source",		
+						formatted   = "Source",										
+						alias       = "S",																			
+						search      = "text",
+						filtermode  = "2"}>		
+											
 
-<!---
+
 	<cfset itm = itm+1>
 	<cf_tl id="Address" var = "1">
 	<cfset fields[itm] = {label     = "#lt_text#",                    
-	     				field       = "Address",		
-						formatted   = "Address",										
+	     				field       = "AddressCity",		
+						formatted   = "AddressCity",										
 						alias       = "AD",																			
 						search      = "text",
 						filtermode  = "2"}>		
 						
-						--->
-
 	
 	<cfset itm = itm+1>
 	<cf_tl id="Reference" var = "1">
@@ -98,7 +106,8 @@
 	     				field       = "MobileNumber",																	
 						alias       = "C",																			
 						search      = "text"}>				
-							
+	
+	<!---						
 	<cfset itm = itm+1>
 	<cf_tl id="eMail" var = "1">			
 	<cfset fields[itm] = {label     = "#lt_text#",                    
@@ -106,6 +115,8 @@
 						alias       = "C",																			
 						search      = "text",
 						filtermode  = "2"}>	
+						
+						--->
 						
 	<cfset itm = itm+1>
 		

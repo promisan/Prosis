@@ -214,10 +214,10 @@ password="#SESSION.dbpw#">
 	
 	<tr><td align="center" colspan="2" height="40">
 	<cfif url.price neq "">
-    <cf_button class="button10g" type="submit" name="Delete" id="Delete" value=" Delete " onclick="this.disabled=true; return ask();">
-    <cf_button class="button10g" type="submit" name="Update" id="Update" value=" Update " onclick="this.disabled=true;">
+    <cf_button class="button10g" type="submit" name="Delete" id="Delete" value=" Delete " onclick="return ask();">
+    <cf_button class="button10g" type="submit" name="Update" id="Update" value=" Update ">
 	<cfelse>
-	<cf_button class="button10g" type="submit" name="Save" id="Save" value="  Save  " onclick="this.disabled=true;">
+	<cf_button class="button10g" type="submit" name="Save" id="Save" value="  Save  ">
 	</cfif>
 	</td>	
 	

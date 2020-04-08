@@ -10,7 +10,6 @@
 <cf_dialogOrganization>
 <cf_dialogStaffing>
 <cf_systemscript>
-<cf_UIGadgets>
 
 <cf_mapscript scope="embed">
 

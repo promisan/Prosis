@@ -88,7 +88,7 @@
 	listlayout    = "#fields#"
 	filterShow    = "Yes"
 	excelShow     = "Yes"
-	drillmode     = "window"	
+	drillmode     = "tab"	
 	drillargument = "950;1200;false;false"
 	drilltemplate = "ProgramREM/Application/Program/ProgramView.cfm?period=#url.period#&programcode="
 	drillkey      = "ProgramCode">

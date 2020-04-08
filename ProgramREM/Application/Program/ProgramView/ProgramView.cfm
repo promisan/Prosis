@@ -24,11 +24,12 @@
 	html="No" 
 	jQuery="Yes"
 	validateSession="Yes"
+	TreeTemplate="Yes"
 	MenuAccess="Yes"
 	scroll="no">		
 		
 <cf_layoutscript>	
-<cfajaximport tags="cfform">
+<cfajaximport tags="cftree,cfform">
 <cf_ObjectControls>
 
 <cfset attrib = {type="Border",name="mybox",fitToWindow="Yes"}>	

@@ -93,48 +93,44 @@
 	
 	<cfif Perf.Actual gt "0">			
 		
-			<table width="100%" cellspacing="0" cellpadding="0" bgcolor="D2EBF9">
-				<tr><td width="180"
-				        height="20"
-						align="center"
-				        bgcolor="FfFfFf"
-						class="labelsmall"><cf_tl id="Process Indicator"></td>
-				<td class="labelit" width="50">&nbsp;&nbsp;Allowed:</td>
-				<td class="labelit"><b>#Perf.Planned# hour<cfif Perf.Planned gt "1">s</cfif></td>
-				<td class="labelit" width="40">Used:</td>
-				<td class="labelit"><b>#Perf.Actual# hour<cfif Perf.Actual gt "1">s</cfif></b> since #dateformat(Perf.StartStamp,CLIENT.DateFormatShow)# #timeformat(Perf.StartStamp,"HH:MM")#</td>
-				<td class="labelit" width="70">Compliance:</td>
-				<cfset ratio = (Perf.Planned/Perf.Actual)*100>
-				
-				<cfif ratio lte "60">
-					 <cfset color = "red">
-					<cfelseif ratio lte "80">
-					 <cfset color = "yellow"> 
-					<cfelse>
-					 <cfset color = "green"> 
-					</cfif>
-				
-				<td class="labelit" width="70"><b><font color="#color#">#numberformat(ratio,"__._")# %</td>
-				<td align="right">
-					
-					<table width="100" border="1" bordercolor="silver" cellspacing="0" cellpadding="0">
-					<tr>					
-						<td height="10" width="#ratio#" bgcolor="#color#"></td>
-						<td width="#100-ratio#" bgcolor="fafafa"></td>
-					</tr>
-					</table>
-				
-				</td>
-				<td width="10">&nbsp;</td>
-				
-				</tr>
-				<tr><td height="1" colspan="10" class="linedotted"></td></tr>	
-			</table>
+		<table width="100%" bgcolor="D2EBF9">
+			<tr class="labelmedium line">
+			<td width="180"
+			        height="20"
+					align="center"
+			        bgcolor="f1f1f1"
+					class="labelit"><cf_tl id="Process Indicator"></td>
+			<td width="50" style="padding-left:5px">Allowed:</td>
+			<td><b>#Perf.Planned# hour<cfif Perf.Planned gt "1">s</cfif></td>
+			<td width="40">Used:</td>
+			<td><b>#Perf.Actual# hour<cfif Perf.Actual gt "1">s</cfif></b> since #dateformat(Perf.StartStamp,CLIENT.DateFormatShow)# #timeformat(Perf.StartStamp,"HH:MM")#</td>
+			<td width="70">Compliance:</td>
+			<cfset ratio = (Perf.Planned/Perf.Actual)*100>
 			
-	<cfelse>
-	
-		<cf_compression>			
-					
+			<cfif ratio lte "60">
+				 <cfset color = "red">
+				<cfelseif ratio lte "80">
+				 <cfset color = "yellow"> 
+				<cfelse>
+				 <cfset color = "green"> 
+				</cfif>
+			
+			<td width="70"><b><font color="#color#">#numberformat(ratio,"__._")# %</td>
+			<td align="right">
+				
+				<table width="100" border="1" bordercolor="silver" cellspacing="0" cellpadding="0">
+				<tr>					
+					<td height="10" width="#ratio#" bgcolor="#color#"></td>
+					<td width="#100-ratio#" bgcolor="fafafa"></td>
+				</tr>
+				</table>
+			
+			</td>
+			<td width="10">&nbsp;</td>				
+			</tr>
+			
+		</table>
+							
 	</cfif>
 	
 	</cfoutput>

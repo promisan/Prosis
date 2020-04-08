@@ -1,4 +1,5 @@
 
+
 <!--- 
 
 	values for fields	
@@ -420,7 +421,7 @@
 		</cfif>
 								
 	</cfif>
-											
+													
 	<cfloop array="#attributes.listlayout#" index="current">
 	
 	    <!--- remove group fields --->	
@@ -508,7 +509,7 @@
 		<cfelse>
 			 <cfset fld = current.field>
 		</cfif>	
-		
+						
 		<cfif current.searchalias neq "">
 			 <cfset fld = "#current.searchalias#.#fld#">			
 		</cfif>
@@ -533,14 +534,15 @@
 															
 					<!--- declare the form filter field and populate it with the save value --->				   								
 					<cfparam name="form.filter#current.field#" default="#getval#">	
-					
+															
 					<cfset val = evaluate("form.filter#current.field#")>					
 					<cfset val = replace( val,"'", "''", "ALL" )>
 					<cfset val = trim(val)>
-			
-					<cfif val neq "">															
+																		
+					<cfif val neq "" and val neq ",">															
 					    <!--- determine that the interface should show the selected values --->
 					    <cfset attributes.isfiltered = "Yes">
+						
 					</cfif>
 															
 					<cfif current.filtermode eq "4">	
@@ -646,7 +648,7 @@
 					<cfset val = replace(val,",","")>		
 										
 					<cfif val neq "" and LSIsNumeric(val)>					
-					     <cfset condition   = "#condition# AND #fld# >= #val#">	
+					     <cfset condition   = "#condition# AND #fld# >= #val#">							
 						 <cfset attributes.isfiltered = "Yes">					
 					</cfif>  
 					
@@ -667,7 +669,7 @@
 					<cfset val = replace(val,",","")>					
 										
 					<cfif val neq "" and LSIsNumeric(val)>													
-					     <cfset condition   = "#condition# AND #fld# <= #val#">	
+					     <cfset condition   = "#condition# AND #fld# <= #val#">						 
 						 <cfset attributes.isfiltered = "Yes">					
 					</cfif>  
 					
@@ -691,7 +693,7 @@
 					<cfset val = replace(val,",","")>		
 										
 					<cfif val neq "" and LSIsNumeric(val)>					
-					     <cfset condition   = "#condition# AND #fld# >= #val#">	
+					     <cfset condition   = "#condition# AND #fld# >= #val#">							
 						 <cfset attributes.isfiltered = "Yes">					
 					</cfif>  
 					
@@ -713,6 +715,7 @@
 										
 					<cfif val neq "" and LSIsNumeric(val)>													
 					     <cfset condition   = "#condition# AND #fld# <= #val#">	
+						 zz
 						 <cfset attributes.isfiltered = "Yes">					
 					</cfif>  
 					
@@ -730,7 +733,7 @@
 					
 					<cfif getval neq "">					
 					    <!--- determine that the interface should show the selected values --->
-					    <cfset attributes.isfiltered = "Yes">
+					    <cfset attributes.isfiltered = "Yes">						
 					</cfif>
 				
 					<cfparam name="form.filter#current.field#" default="#getVal#">	
@@ -763,7 +766,7 @@
 						 <cfset dateValue = "">
 						 <CF_DateConvert Value="#val#">
 						 <cfset condition = "#condition# AND #fld# >= #dateValue#">
-						 <cfset attributes.isfiltered = "Yes">
+						 <cfset attributes.isfiltered = "Yes">						
 					</cfif>	 
 					
 					<cfif form.savefilter eq "1" and savefilter eq "Yes">
@@ -783,7 +786,7 @@
 						 <cfset dateValue = "">
 						 <CF_DateConvert Value="#val#">
 						 <cfset datevalue = dateAdd("d",  1,  datevalue)>						
-						 <cfset condition = "#condition# AND #fld# < #dateValue#">						
+						 <cfset condition = "#condition# AND #fld# < #dateValue#">						 						
 						 <cfset attributes.isfiltered = "Yes">
 					</cfif>	 
 					
@@ -804,14 +807,13 @@
 			</cfif>
 							
 		</cfif>	
-		
-						
+								
 		<!--- -------------------------------------------------- --->
 		<!--- -------------------------------------------------- --->
 		<!--- -------------------------------------------------- --->
 		
 	</cfloop>
-				
+					
 	<cfif url.systemfunctionid neq "">
 				
 		<cfquery name="cleanBlank" 
@@ -869,8 +871,8 @@
 				
 		<!--- we are going to determine if the main portion of the query has a group by --->
 							
-		<cfif not findnocase("GROUP BY ",attributes.listquery) and not findnocase("--Condition",attributes.listquery)>					
-						
+		<cfif not findnocase("GROUP BY ",attributes.listquery) and not findnocase("--Condition",attributes.listquery)>		
+					
 			<cfsavecontent variable="querylist">
 						
 			    #preserveSingleQuotes(listquery)# 	
@@ -966,7 +968,8 @@
 			
 				</cfif>					
 			
-			</cfsavecontent>												
+			</cfsavecontent>	
+												
 				
 		<cfelseif findnocase("--Condition",attributes.listquery)>			
 				
@@ -1016,8 +1019,7 @@
 				AND #qdrillkey# = '#url.ajaxid#'											
 				</cfif>	  			
 										 
-				</cfsavecontent>			
-							 
+				</cfsavecontent>								 
 				
 			</cfif>
 			
@@ -1079,10 +1081,10 @@
 						
 					</cfif>		
 					
-				</cfif>		
-											
+				</cfif>													
 			
-			</cfsavecontent>				
+			</cfsavecontent>
+					
 					
 		<cfelse>
 				
@@ -1139,7 +1141,7 @@
 			</cfif>
 			
 			<!--- compose the query --->
-			
+						
 			<cfset strqry = "#strleft# #strwhr# #condition# #ann# #strright#">
 			
 		
@@ -1191,13 +1193,14 @@
 						
 					</cfif>		
 					
-				</cfif>		
-								
+				</cfif>										
 			
-			</cfsavecontent>		
+			</cfsavecontent>
+			
+			
 		
-		</cfif>	
-	
+		</cfif>
+			
 	</cfoutput>
 	
 	<!--- preparation of a standard recorded listing --->	
@@ -1226,7 +1229,7 @@
 			<cfset sc = querylist>
 			
 			<cfinclude template="../../../System/Modules/InquiryBuilder/QueryValidateReserved.cfm">				
-			
+						
 			<cftry>
 			
 				<cftransaction isolation="read_uncommitted">									
@@ -1264,6 +1267,7 @@
 					
 				<cfinclude template="../../../System/Modules/InquiryBuilder/QueryPreparation.cfm">	
 				
+								
 				<cftry>
 				
 					<cftransaction isolation="read_uncommitted">						
@@ -1300,8 +1304,7 @@
 					<cfset sc = querylist>
 				
 					<cfinclude template="../../../System/Modules/InquiryBuilder/QueryValidateReserved.cfm">	
-					
-					
+										
 					<cftry>
 					
 						<cftransaction isolation="read_uncommitted">	
@@ -1386,7 +1389,7 @@
 			
 			<!--- convert reserved words in the query string like @user --->
 		    <cfinclude template="../../../System/Modules/InquiryBuilder/QueryValidateReserved.cfm">		
-			
+									
 			<cftry>
 			
 				<cftransaction isolation="read_uncommitted">	

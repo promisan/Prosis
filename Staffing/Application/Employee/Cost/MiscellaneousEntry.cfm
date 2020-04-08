@@ -1,5 +1,5 @@
 
-<cf_screentop height="100%" scroll="No" html="No" menuaccess="context">
+<cf_screentop height="100%" jquery="Yes" scroll="No" html="No" menuaccess="context">
 
 <cf_CalendarScript>
 <cf_dialogPosition>
@@ -68,6 +68,7 @@ password="#SESSION.dbpw#">
 												   --->
 </cfquery>
 
+
 <cfset openmode = "show">
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding">
@@ -104,7 +105,7 @@ password="#SESSION.dbpw#">
     <TD width="120"><cf_tl id="Entity">:</TD>
     <TD width="90%">
 	
-	    <cfselect name="Mission" 
+	    <cfselect name="mission" id="mission"
 		  size="1" 
 		  message="Select a cost category" 
 		  query="MissionList"		 
@@ -119,17 +120,18 @@ password="#SESSION.dbpw#">
 	<TR class="labelmedium">
     <TD width="120"><cf_tl id="Cost Category">:</TD>
     <TD width="90%">
-	    <cfselect name="Entitlement" 
+	    <cfselect name="entitlement" id="entitlement"
 		  size="1" 
 		  message="Select a cost category" 
 		  query="Entitlement"
 		  group="Source" 
 		  value="PayrollItem" 
 		  display="PayrollItemName" 
-		  visible="Yes" enabled="Yes" required="Yes" class="regularxl"/>
-				
+		  visible="Yes" enabled="Yes" required="Yes" class="regularxl"/>				
 	</TD>
 	</TR>
+	
+	
 	
 	<TR class="labelmedium">
     <TD><cf_tl id="Reference">:</TD>
@@ -154,8 +156,8 @@ password="#SESSION.dbpw#">
     <TD><cf_tl id="Class">:</TD>
     <TD><table>
 		<tr class="labelmedium">
-		<td><INPUT type="radio" class="radiol" name="EntitlementClass" value="Deduction" checked></td><td class="labelmedium" style="padding-left:5px;padding-right:10px"><cf_tl id="Deduction">/<cf_tl id="Recovery"></td>
-		<td><INPUT type="radio" class="radiol" name="EntitlementClass" value="Payment"></td><td class="labelmedium" style="padding-left:5px;padding-right:10px"><cf_tl id="Payment">/<cf_tl id="Earning"></td>
+		<td><INPUT type="radio" class="radiol" name="EntitlementClass" value="Payment" checked></td><td class="labelmedium" style="padding-left:5px;padding-right:10px"><cf_tl id="Payment">/<cf_tl id="Earning"></td>
+		<td><INPUT type="radio" class="radiol" name="EntitlementClass" value="Deduction"></td><td class="labelmedium" style="padding-left:5px;padding-right:10px"><cf_tl id="Deduction">/<cf_tl id="Recovery"></td>		
 		<td><INPUT type="radio" class="radiol" name="EntitlementClass" value="Contribution"></td><td class="labelmedium" style="padding-left:5px"><cf_tl id="Contribution"></td>		
 		</tr>
 		</table>
@@ -204,6 +206,13 @@ password="#SESSION.dbpw#">
 			
 	</TD>
 	</TR>	
+	
+	<TR class="labelmedium">
+    <TD width="120"><cf_tl id="Approval flow">:</TD>
+    <TD width="90%">
+	   <cfdiv id="entityclass" bind="url:getEntityClass.cfm?mission={mission}&entitlement={entitlement}">	  		
+	</TD>
+	</TR>
 	
 	<cf_assignid>
 	

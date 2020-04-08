@@ -98,20 +98,18 @@
 	
 <table width="97%" border="0" cellspacing="0" cellpadding="0" align="left" class="navigation_table">
 	
-	<!---
-	<tr><td height="3"></td></tr>
-	<tr class="labelmedium linedotted">
+
+
+	<tr class="labelmedium line fixrow">
 	    <td width="5%"></td>
-	    <TD><cf_tl id="Name"></TD>
-		<TD><cf_tl id="Account"></TD>
-		<td width="25%"><cf_tl id="Identification"></td>
+	    <TD><cf_tl id="Account"></TD>
+		<TD><cf_tl id="Memo"></TD>		
 		<TD align="center" width="5%">M</TD>
 		<TD><cf_tl id="Officer"></TD>
-	    <TD><cf_tl id="Sice"></TD>
+	    <TD><cf_tl id="Created"></TD>
 		<TD></TD>	
 	</TR>
-	--->
-	
+		
 	<cfif searchresult.recordcount eq "0">
 	
 	     <tr><td align="center" class="labelmedium" style="font-weight:200;padding-top:10px"><cf_tl id="There are no records to show in this view"></td></tr>
@@ -157,9 +155,7 @@
 		<cfoutput group = "AccountGroupName">		
 			
 			<tr>
-			<td colspan="8" style="height:31px;padding-top:5px;padding-left:27px;font-size:16px;font-weight:200">				
-			#AccountGroupName#			
-			</td></tr>						
+			<td colspan="8" style="height:31px;padding-top:5px;padding-left:27px;font-size:16px;">#AccountGroupName#</td></tr>						
 												
 				<cfoutput>
 												

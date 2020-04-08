@@ -78,14 +78,18 @@
 							
 					 WHERE   J.GLCategory      = 'Actuals'	
 					 AND     H.Mission         = '#Mission#'
-					 AND     H.RecordStatus    IN( '1')
-					 AND     H.ActionStatus IN ('0','1')
+					 AND     H.RecordStatus    IN ( '1')
+					 AND     H.ActionStatus    IN ('0','1')
 					 AND     G.AccountType    = '#itm#'	
 					 AND     G.AccountClass   = 'Balance'
 					 
 					 <cfif openingperiod neq "">	
-					 
+					 					 					 
 					 <!--- all opening transactions after the starting year --->
+					 AND    (H.TransactionSource != 'Opening' OR H.TransactionSource = 'Opening' AND H.AccountPeriod = '#OpeningPeriod#')
+					 					 					 
+					 <!--- 2020-03-05 balance should not have opening transaction that do not belong
+					 to that period below query was too slow 
 					 
 					 AND    NOT EXISTS (SELECT 'X'
 					                    FROM  Accounting#Suffix#.dbo.TransactionHeader 
@@ -94,7 +98,8 @@
 										AND   AccountPeriod     > '#OpeningPeriod#' 
 										AND   Journal         = H.Journal
 										AND   JournalSerialNo = H.JournalSerialNo)						 
-									 
+					 --->
+
 					 </cfif>
 														 		
 					 AND  H.AccountPeriod IN (#preserveSingleQuotes(AccountPeriod)#) 
@@ -129,6 +134,8 @@
 				
 				ORDER BY OrgUnitOwner,
 						 AccountPeriod
+						 
+						 
 						 
 			</cfquery>
 		

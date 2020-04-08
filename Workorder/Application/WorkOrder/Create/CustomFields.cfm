@@ -105,13 +105,11 @@
 			<cfif ValueClass neq "Memo">	
 			
 				   <cfif tooltip neq "">
-				      <td valign="top" class="labelmedium" style="#url.style#;cursor:pointer;padding-top:5px">			  
-					  
+				      <td valign="top" style="#url.style#;cursor:pointer;padding-top:5px">						  
 				   	  <cf_UIToolTip  tooltip="#Tooltip#"><font color="0080C0">#Description# : <cfif valueobligatory eq "1"><font color="red">*)</font></cfif></cf_UIToolTip>
 					  </td>
 				   <cfelse>
-				    <td valign="top" class="labelmedium" style="#url.style#;padding-top:5px">							
-					 
+				    <td valign="top" style="#url.style#;padding-top:5px">					 
 				     #Description# : <cfif valueobligatory eq "1"><font color="red">*)</font></cfif>
 				    </td>
 				   </cfif>
@@ -119,12 +117,11 @@
 			  <cfelse>
 			  
 				  <cfif tooltip neq "">
-				      <td valign="top" class="labelmedium" style="#url.style#;cursor:pointer;padding-top:5px" title="#Tooltip#">			  					 
+				      <td valign="top" style="#url.style#;cursor:pointer;padding-top:5px" title="#Tooltip#">			  					 
 				   	  <font color="0080C0">#Description# <cfif valueobligatory eq "1"><font color="red">*)</font></cfif>
 					  </td>
 				   <cfelse>
-				    <td valign="top" class="labelmedium" style="#url.style#;padding-top:5px">		
-					
+				    <td valign="top" style="#url.style#;padding-top:5px">					
 				     #Description# : <cfif valueobligatory eq "1"><font color="red">*)</font></cfif>				     
 				     <cfset ajaxonload("initTextArea")>				     
 				    </td>

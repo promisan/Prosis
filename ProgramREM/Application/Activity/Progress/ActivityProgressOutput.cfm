@@ -316,9 +316,9 @@ password="#SESSION.dbpw#">
 		 <tr><td colspan="4" bgcolor="ffffcf">
 		 
 			 <table width="95%" cellspacing="0" cellpadding="0" align="center">
-			 <tr class="labelmedium"><td colspan="2">#msg1# :</td></tr>
+			 <tr class="labelmedium"><td colspan="2">#msg1#:</td></tr>
 			 <cfloop query="ParentPending">
-			  <tr class="labelmedium"><td>-</td>#ActivityDescription#</td></tr>
+			  <tr class="labelmedium"><td style="width:20px">-</td><td>#ActivityDescription#</td></tr>
 			 </cfloop>
 			 </table>
 			 

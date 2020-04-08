@@ -64,7 +64,7 @@
 <cfoutput>
 	<table width="100%" align="center">
 		<tr>
-			<td align="center" style="color:#vColor#;"><b>#vText#</b></td>
+			<td align="center" style="color:#vColor#;">#vText#</td>
 		</tr>
 	</table>
 </cfoutput>

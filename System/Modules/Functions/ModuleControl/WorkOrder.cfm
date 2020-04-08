@@ -92,6 +92,18 @@
    FunctionDirectory = "Workorder/Application"
    FunctionPath      = "Medical/ServiceDetails/WorkPlan/WorkPlanView.cfm"     
    AccessUserGroup   = "0">    
+   
+<cf_ModuleInsertSubmit
+   SystemModule      = "WorkOrder" 
+   FunctionClass     = "Application"
+   FunctionName      = "Workorder Locations" 
+   MenuClass         = "Mission"
+   MenuOrder         = "6"
+   MainMenuItem      = "1"
+   FunctionMemo      = "Service Location Manager"
+   FunctionDirectory = "Workorder/Maintenance"
+   FunctionPath      = "Location/LocationListing.cfm"     
+   AccessUserGroup   = "0">     
         
 <cf_ModuleInsertSubmit
    SystemModule      = "WorkOrder" 
@@ -474,4 +486,3 @@
    FunctionDirectory = "WorkOrder/Maintenance/"
    FunctionPath      = "PresentationMode/RecordListing.cfm"
    AccessUserGroup   = "0">
-   

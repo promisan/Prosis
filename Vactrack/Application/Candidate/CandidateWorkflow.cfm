@@ -10,7 +10,7 @@
 		password="#SESSION.dbpw#">
 		    SELECT *
 		    FROM   DocumentCandidate 
-			WHERE  Candidateid   = '#URL.Ajaxid#'		
+			WHERE  CandidateId   = '#URL.Ajaxid#'		
 	</cfquery>
 	
 	<cfset url.id  = get.DocumentNo>
@@ -70,20 +70,20 @@
 		       and GetCandidateStatus.EntityClass neq "">
 			   					
 				   <cf_ActionListing TableWidth  = "100%"
-				    EntityCode       = "VacCandidate"
-					EntityClass      = "#GetCandidateStatus.EntityClass#"
-					EntityGroup      = "#Doc.Owner#"
-					EntityStatus     = ""
-					Mission          = "#Doc.Mission#"
-					OrgUnit          = "#Position.OrgUnitOperational#"
-					PersonNo         = "#GetCandidate.PersonNo#"
-					ObjectReference  = "#Pre# #GetCandidate.FirstName# #GetCandidate.LastName#"
-					ObjectReference2 = "#Doc.Mission#, #Doc.PostGrade# - #Doc.FunctionalTitle#"
-					AjaxId           = "#URL.ajaxId#"
-					ObjectKey1       = "#URL.ID#"
-					ObjectKey2       = "#URL.ID1#"
-				  	ObjectURL        = "#link#"
-					DocumentStatus   = "#Doc.Status#">
+					    EntityCode       = "VacCandidate"
+						EntityClass      = "#GetCandidateStatus.EntityClass#"
+						EntityGroup      = "#Doc.Owner#"
+						EntityStatus     = ""
+						Mission          = "#Doc.Mission#"
+						OrgUnit          = "#Position.OrgUnitOperational#"
+						PersonNo         = "#GetCandidate.PersonNo#"
+						ObjectReference  = "#Pre# #GetCandidate.FirstName# #GetCandidate.LastName#"
+						ObjectReference2 = "#Doc.Mission#, #Doc.PostGrade# - #Doc.FunctionalTitle#"
+						AjaxId           = "#URL.ajaxId#"
+						ObjectKey1       = "#URL.ID#"
+						ObjectKey2       = "#URL.ID1#"
+					  	ObjectURL        = "#link#"
+						DocumentStatus   = "#Doc.Status#">
 				
 		<cfelse>
 		

@@ -166,22 +166,16 @@ onLoad="javascript: try {document.forms.functionselect.occupationalgroup.focus()
 
 <cf_screentop html="No" label="Roster Bucket Select" height="100%" scroll="Yes">
 
+<cfform action="Search2Submit.cfm?docno=#url.docno#&ID=#URL.ID#&Owner=#URL.Owner#&mode=#URL.Mode#&status=#url.status#" method="POST" name="functionselect" style="height:97%">
 
-<table width="98%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
-
-<tr><td valign="top" height="100%">
-
-<cfform action="Search2Submit.cfm?docno=#url.docno#&ID=#URL.ID#&Owner=#URL.Owner#&mode=#URL.Mode#&status=#url.status#" method="POST" name="functionselect" style="height:100%">
-
-<table width="98%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="98%" height="100%" align="center" class="formpadding">
 
 <tr><td valign="top" height="100%">
 
-	<table height="100%" width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+	<table height="100%" width="100%" align="center">
 	 
-	 <tr>
-	    <td height="31" valign="top">
-		
+	 <tr class="line">
+	    <td height="31" valign="top">		
 				
 			<cfif occgroup.recordcount gte "2">
 			
@@ -206,28 +200,24 @@ onLoad="javascript: try {document.forms.functionselect.occupationalgroup.focus()
 		</td>
 	 </tr> 	
 	 
-	 <tr><td height="1" colspan="2" class="linedotted"></td></tr>
+	 <tr class="labelmedium line"><td colspan="2" align="left" style="font-weight:250;height:40px;font-size:18px;color:gray;padding-left:5px">
 	 
-	 <tr><td colspan="2" height="25" align="left" class="labelit" style="padding-left:5px">
-	 <cfif URL.DocNo neq "">
-	     <font color="C0C0C0">Recruitment Search is limited to listed buckets of associated occupational group</i></font>
-	 <cfelse>
-		 <cf_tl id="Select one or more buckets from occupational group" class="Message">
-	 </cfif>	 
+		 <cfif URL.DocNo neq "">
+		     Attention: Recruitment Search is limited to listed buckets of associated occupational group of the recruitment track
+		 <cfelse>
+			 <cf_tl id="Select one or more buckets from occupational group" class="Message">
+		 </cfif>	 
+	 
 	</td></tr>
-	 
-	<tr><td height="1" colspan="2" class="linedotted"></td></tr>
 	   
-	<tr><td colspan="2" height="100%" valign="top">
-		<cf_divscroll style="height:100%">
+	<tr><td colspan="2" height="97%" valign="top">
+	
+		<cf_divscroll style="height:99%">
 		   <cfdiv id="base" bind="url:Search2Detail.cfm?id=#url.id#&owner=#url.owner#&mode=#url.mode#&occ={occupationalgroup}">
 		</cf_divscroll>
 	
 	</td></tr>
-	
-	<tr><td height="1" valign="bottom"></td></tr>
-	<tr><td height="1" colspan="2"  class="line"></td></tr>
-	
+			
 	</table>	
 
 </td>
@@ -235,7 +225,7 @@ onLoad="javascript: try {document.forms.functionselect.occupationalgroup.focus()
 
 <tr><td colspan="2" height="35">
 	
-	<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+	<table width="100%" align="center">
 	
 	<tr>
 	<td align="center" valign="middle">
@@ -258,7 +248,3 @@ onLoad="javascript: try {document.forms.functionselect.occupationalgroup.focus()
 
 </CFFORM>
 
-
-</td></tr>
-
-</table>

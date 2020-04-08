@@ -1,11 +1,13 @@
 
+<!---
 <cf_screentop label="Search" height="100%" scroll="no" layout="webapp" banner="gray" close="ColdFusion.Window.hide('dialog#url.box#')">
+--->
 
 <cfoutput>
 
-<form name="selectowner" style="height:100%" method="post">
+<form name="selectowner" style="height:98%" method="post">
 
-<table width="98%" height="100%" border="0" align="center" cellspacing="0" cellpadding="0" align="center">
+<table width="98%" height="100%" border="0" align="center" align="center">
 
 <tr><td height="20">
 	
@@ -51,7 +53,7 @@
 	
 	</tr>
 	
-	<tr><td colspan="2" class="linedotted"></td></tr>
+	<tr><td colspan="2" class="line"></td></tr>
 		
 	<tr><td colspan="2" align="center" height="10">
 	  
@@ -66,10 +68,10 @@
 	
 	</cfoutput>
 	
-	<tr><td height="1" class="linedotted"></td></tr>
+	<tr><td height="1" class="line"></td></tr>
 	
 	<tr>
-		<td colspan="2" align="center" style="border:0px solid silver;padding:10px" height="100%">
+		<td colspan="2" align="center" style="padding:10px" height="100%">
 		<cf_divscroll style="height:100%" id="resultunit#box#"/>				
 		</td>
 	</tr>

@@ -73,7 +73,7 @@
 		<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 		<td align="right" style="font-weight:200;padding-right:10px">Extended Preparation SQL script:</td>		
 		<td width="20" align="right" style="padding-left:4px">
-		<input value="Preparion Query Script" class="button10s" style="height:29px;width:236;font-size:12px" type="button" onclick="editpreparation('#url.systemfunctionid#','#url.functionserialno#')"/>		
+		<input value="Preparation Query Script" class="button10s" style="height:29px;width:236;font-size:12px" type="button" onclick="editpreparation('#url.systemfunctionid#','#url.functionserialno#')"/>		
 		</td>
 		</tr>
 		</table>

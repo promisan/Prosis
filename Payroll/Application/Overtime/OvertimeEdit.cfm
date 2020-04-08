@@ -14,7 +14,7 @@ password="#SESSION.dbpw#">
 </cfquery>
 
 <cfif check.TransactionType eq "Schedule"> 
-	<cfinclude template="OvertimeEditSchedule.cfm">				
+	<cfinclude template="OvertimeEditSchedule.cfm">
 <cfelse>
 	<cfinclude template="OvertimeEditStandard.cfm">
 </cfif>

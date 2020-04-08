@@ -38,9 +38,9 @@
 
 </cfif>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" class="navigation_table" class="formpadding">
+<table width="100%" class="navigation_table" class="formpadding">
 		   	
-	 <TR class="labelmedium" height="16">
+	 <TR class="fixrow labelmedium">
 		<td width="10"></td>
 		<td width="20">S</td>
 		<td width="5%">Code</td>
@@ -137,29 +137,18 @@
 			   
 			  </td>
 			  
-			  <td>#ListingOrder#</td>
-			   
-			   <td height="17">
-				   <A href="javascript:recordedit('#code#')">
-				   #code#
-				   </a>
-			   </td>
-			   
-			    <td>
-				   <A href="javascript:recordedit('#code#')">
-				   #topiclabel#
-				   </a>
-			   </td>
-			  
-			   <td>
+			  <td>#ListingOrder#</td>			   
+			  <td>#code#</td>			   
+			  <td>#topiclabel#</td>			  
+			  <td>
 				   <a href="javascript:recordedit('#code#')">
 				   <cftry>#question#
 				   <cfcatch>#description#</cfcatch>
 				   </cftry>			   
 				   </a>
-			   </td>			   
+			  </td>			   
 			   
-			   <td>
+			  <td>
 			   		<cfif systemmodule neq "Roster">
 				   		<cfif mission eq "">any<cfelse>#Mission#</cfif>
 					</cfif>

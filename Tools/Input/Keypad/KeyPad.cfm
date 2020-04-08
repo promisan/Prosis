@@ -11,7 +11,7 @@
 
 <cfoutput>
 
-<cfset style = "font-size:#ft#;width:#wi#;height:#ht#;background-color:#attributes.buttoncolor#">
+<cfset style = "font-size:#ft#;width:#wi#px;height:#ht#px;background-color:#attributes.buttoncolor#">
 
 <cfswitch expression="#attributes.type#">
 	
@@ -22,7 +22,7 @@
 				<td><input class="button10g"  style="#style#" type="button" name="n7" id="n7" value="7" onclick="javascript:presskey('7');"></td>
 				<td><input class="button10g"  style="#style#" type="button" name="n8" id="n8" value="8" onclick="javascript:presskey('8');"></td>
 				<td><input class="button10g"  style="#style#" type="button" name="n9" id="n9" value="9" onclick="javascript:presskey('9');"></td>								
-				<td style="padding-left:2px" rowspan="3"><input class="button10s"  style="font-size:#ft#;width:#wi#;height:#ht*3+8#" type="button" name="erase" id="eraase" value="<-" onclick="javascript:presskey('back');"></td>												
+				<td style="padding-left:2px" rowspan="3"><input class="button10s"  style="font-size:#ft#;width:#wi#px;height:#ht*3+8#px" type="button" name="erase" id="eraase" value="<-" onclick="javascript:presskey('back');"></td>												
 			</tr>
 			
 			<tr>
@@ -36,12 +36,12 @@
 				<td><input class="button10g"  style="#style#" type="button" name="n3" id="n3" value="3" onclick="javascript:presskey('3');"></td>								
 			</tr>
 			<tr>
-				<td id="tdn0" name="tdn0" colspan="2"><input class="button10g"  style="font-size:#ft#;width:#wi*2+2#;height:#ht#;background-color:#attributes.buttoncolor#" type="button" name="n0" id="n0" value="0" onclick="javascript:presskey('0');"></td>
-				<td style="padding-left:0px" id="tddot" name="tddot"><input class="button10g"  style="font-size:#ft#;width:#wi#;height:#ht#;background-color:#attributes.buttoncolor#" type="button" name="dot" id="dot" value="." onclick="javascript:presskey('.');"></td>								
+				<td id="tdn0" name="tdn0" colspan="2"><input class="button10g"  style="font-size:#ft#;width:#wi*2+2#px;height:#ht#px;background-color:#attributes.buttoncolor#" type="button" name="n0" id="n0" value="0" onclick="javascript:presskey('0');"></td>
+				<td style="padding-left:0px" id="tddot" name="tddot"><input class="button10g"  style="font-size:#ft#;width:#wi#px;height:#ht#px;background-color:#attributes.buttoncolor#" type="button" name="dot" id="dot" value="." onclick="javascript:presskey('.');"></td>								
 				
 				<cf_tl id="erase" var="1">
 				
-				<td style="padding-left:2px"><input class="button10g"  style="font-size:13;width:#wi#;height:#ht#" type="button" name="ce" id="ce" value="#lt_text#" onclick="javascript:presskey('ce');"></td>												
+				<td style="padding-left:2px"><input class="button10g"  style="font-size:13;width:#wi#px;height:#ht#px" type="button" name="ce" id="ce" value="#lt_text#" onclick="javascript:presskey('ce');"></td>												
 			</tr>
 
 		</table>

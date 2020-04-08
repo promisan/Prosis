@@ -65,8 +65,8 @@
 		mission          = "#url.mission#" 	
 		orgunit          = "#orgunit#"					  
 		returnvariable   = "access">  
-							   
-	   <cfif access neq "NONE">		
+
+	   <cfif access neq "NONE">
 	        <cfset hasRecords = "1">		     		     
 	   </cfif>	  
 		   
@@ -122,8 +122,7 @@
 			 </select>		
 			 		
 		</cfoutput>
-			
-			
+
 		</td></tr>	
 		
 		<tr><td id="unitcontent">

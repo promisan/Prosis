@@ -134,17 +134,6 @@
 	
 		<!--- if position date before new mandate date, please adjust--->
 		
-		<cfquery name="UpdatePos" 
-		datasource="AppsEmployee" 
-		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">
-		UPDATE Position
-		SET    DateEffective = #STR#
-		WHERE  Mission      = '#Form.Mission#'
-		AND    MandateNo    = '#Form.MandateNo#'
-		AND    (DateEffective < #STR# or DateEffective = #STR1#)
-		</cfquery>
-		
 		<cfquery name="UpdatePar" 
 		datasource="AppsEmployee" 
 		username="#SESSION.login#" 
@@ -156,6 +145,17 @@
 			AND   (DateEffective < #STR# OR DateEffective = #STR1#)
 		</cfquery>
 		
+		<cfquery name="UpdatePos" 
+		datasource="AppsEmployee" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		UPDATE Position
+		SET    DateEffective = #STR#
+		WHERE  Mission      = '#Form.Mission#'
+		AND    MandateNo    = '#Form.MandateNo#'
+		AND    (DateEffective < #STR# or DateEffective = #STR1#)
+		</cfquery>
+						
 		<cfquery name="UpdateAss" 
 		datasource="AppsEmployee" 
 		username="#SESSION.login#" 
@@ -170,47 +170,99 @@
 		</cfquery>
 		
 	</cfif>
+	
+	<cfparam name="form.positionAdjust"  default="0">
+	<cfparam name="form.assignmentAdjust" default="0">
 
 	<cfif END neq END1>
 	
-		<!--- if position date lies after new mandate date, please adjust--->
+		<!--- if position or assignment date lies after new mandate date, please adjust--->
 		
-		<cfquery name="Update" 
-		datasource="AppsEmployee" 
-		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">
-			UPDATE Position
-			SET    DateExpiration = #END#
-			WHERE  Mission        = '#Form.Mission#'
-			AND    MandateNo      = '#Form.MandateNo#'
-			AND   (DateExpiration > #END# OR DateExpiration = #END1#)
-		</cfquery>
+		<cfif END gt END1>
 		
-		<cfquery name="Update" 
-		datasource="AppsEmployee" 
-		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">
-			UPDATE PositionParent
-			SET    DateExpiration = #END#
-			WHERE  Mission   = '#Form.Mission#'
-			AND    MandateNo  = '#Form.MandateNo#'
-			AND    (DateExpiration > #END# OR DateExpiration = #END1#)
-		</cfquery>
+			<cfquery name="Update" 
+			datasource="AppsEmployee" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				UPDATE PositionParent
+				SET    DateExpiration = #END#
+				WHERE  Mission        = '#Form.Mission#'
+				AND    MandateNo      = '#Form.MandateNo#'
+				AND    (DateExpiration > #END# OR DateExpiration = #END1#)
+			</cfquery>
+			
+			<cfif form.positionAdjust eq "1">
+			
+				<cfquery name="Update" 
+				datasource="AppsEmployee" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					UPDATE Position
+					SET    DateExpiration = #END#
+					WHERE  Mission        = '#Form.Mission#'
+					AND    MandateNo      = '#Form.MandateNo#'
+					AND   (DateExpiration > #END# OR DateExpiration = #END1#)
+				</cfquery>		
+			
+			</cfif>
+			
+			<cfif form.positionAdjust eq "1" and Form.AssignmentAdjust eq "1">
+			
+				<cfquery name="UpdateAss" 
+				datasource="AppsEmployee" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					UPDATE PersonAssignment
+					SET    DateExpiration = #END#
+					WHERE  PositionNo IN (SELECT PositionNo 
+					                      FROM   Position 
+										  WHERE  Mission   = '#Form.Mission#' 
+										  AND    MandateNo   = '#Form.MandateNo#')
+					AND   (PersonAssignment.DateExpiration > #END# OR PersonAssignment.DateExpiration = #END1#)
+				</cfquery>
+						
+			</cfif>
 		
-		<cfquery name="UpdateAss" 
-		datasource="AppsEmployee" 
-		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">
-			UPDATE PersonAssignment
-			SET    DateExpiration = #END#
-			WHERE  PositionNo IN (SELECT PositionNo 
-			                      FROM   Position 
-								  WHERE  Mission   = '#Form.Mission#' 
-								  AND    MandateNo   = '#Form.MandateNo#')
-			AND   (PersonAssignment.DateExpiration > #END# OR PersonAssignment.DateExpiration = #END1#)
-		</cfquery>
+		<cfelse>
+		
+			<cfquery name="Update" 
+			datasource="AppsEmployee" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				UPDATE PositionParent
+				SET    DateExpiration = #END#
+				WHERE  Mission        = '#Form.Mission#'
+				AND    MandateNo      = '#Form.MandateNo#'
+				AND    (DateExpiration > #END# OR DateExpiration = #END1#)
+			</cfquery>
+		
+			<cfquery name="Update" 
+			datasource="AppsEmployee" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				UPDATE Position
+				SET    DateExpiration = #END#
+				WHERE  Mission        = '#Form.Mission#'
+				AND    MandateNo      = '#Form.MandateNo#'
+				AND   (DateExpiration > #END# OR DateExpiration = #END1#)
+			</cfquery>		
+		
+			<cfquery name="UpdateAss" 
+			datasource="AppsEmployee" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				UPDATE PersonAssignment
+				SET    DateExpiration = #END#
+				WHERE  PositionNo IN (SELECT PositionNo 
+				                      FROM   Position 
+									  WHERE  Mission   = '#Form.Mission#' 
+									  AND    MandateNo   = '#Form.MandateNo#')
+				AND   (PersonAssignment.DateExpiration > #END# OR PersonAssignment.DateExpiration = #END1#)
+			</cfquery>
 		
 		<!--- remove positions which start lies after the enddate --->
+		
+		</cfif>
 		
 		<cfquery name="Remove" 
 		datasource="AppsEmployee" 

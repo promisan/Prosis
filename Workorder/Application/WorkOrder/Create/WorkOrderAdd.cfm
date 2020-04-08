@@ -1,6 +1,9 @@
 
 <cfif client.googlemap eq "1">
+    <cfajaximport tags="cfform,cfdiv,cfwindow">
+	<!---
 	<cfajaximport tags="cfmap,cfform,cfdiv,cfwindow" params="#{googlemapkey='#client.googlemapid#'}#">
+	--->
 <cfelse>
 	<cfajaximport tags="cfform,cfdiv,cfwindow">
 </cfif>	
@@ -295,9 +298,10 @@
 
 </td>
 
+<!--- tooltip
 <td style="min-width:10px"></td>
-
 <td id="helper" valign="top" style="min-width:500px;border-left:1px solid silver"></td>
+--->
 
 </tr>
 </table>

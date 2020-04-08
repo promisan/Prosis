@@ -17,7 +17,7 @@
    <cfset sc = "#function#('#passtru#',this.value,'#url.line#','#url.selected#')">
 </cfif>
 
-<select name="<cfoutput>#url.name#</cfoutput>" style="min-width:99%" class="<cfoutput>#url.class#</cfoutput> enterastab" onchange="<cfoutput>#sc#</cfoutput>">
+<select name="<cfoutput>#url.name#</cfoutput>" style="min-width:99%;border:0px;border-right:1px solid silver;width:100%;" class="<cfoutput>#url.class#</cfoutput> enterastab" onchange="<cfoutput>#sc#</cfoutput>">
 	<cfoutput query="getLocation">
 		<option value="#LocationCode#" <cfif trim(LocationCode) eq trim(url.selected)>selected</cfif>>#Description#</option>
 	</cfoutput>

@@ -1,6 +1,4 @@
 
-<cf_myClearancesPrepare mode="table">
-
 <cfquery name="getAction" 
  datasource="AppsOrganization"
  username="#SESSION.login#" 
@@ -51,23 +49,21 @@
 <!--- presentation --->
 
 <cfif getAction.recordcount eq "0">
-  <cfset cl = "green">
+	<cfset cl = "##59C25B">
 <cfelse>
-  <cfset cl = "red">   
+	<cfset cl = "##EF5555">
 </cfif>
 
 <cfoutput>
-<table align="center">
-	<tr class="labelit">			
-		<td valign="bottom" style="padding-left:6px;font-size:21px"><cfif getAction.recordcount eq "0"><cf_tl id="No"><cfelse><font color="#cl#">#getAction.recordcount#</cfif></td>
-		<td valign="bottom" style="padding-left:3px;font-size:21px"><cfif getAction.recordcount eq "1"><cf_tl id="action"><cfelse><cf_tl id="actions"></cfif><cf_tl id="and"></td>
-		<td valign="bottom" style="padding-left:3px;font-size:21px"><cfif tot eq "0"><cf_tl id="No"><cfelse><font color="#cl#">#tot#</font></cfif></td>
-		<td valign="bottom" style="padding-left:3px;font-size:21px"><cfif tot eq "1"><cf_tl id="Batch clearance"><cfelse><cf_tl id="Batch clerances"></cfif></td>	
-	</tr>
-	<tr>	
-		<td colspan="4" class="labelmedium" style="font-weight:200;font-size:16px;padding-left:10px">
-		<font color="0080C0">Refresh your view to reflect recent updates (#timeformat(now(),"HH:MM:SS")#)</font>
-		</td>
-	</tr>
-</table>
+
+	<div style="color:#cl#">
+		<cfif getAction.recordcount eq "0"><cf_tl id="No"> <cfelse>#getAction.recordcount#</cfif>
+		<cfif getAction.recordcount eq "1"><cf_tl id="action"><cfelse><cf_tl id="actions"></cfif><cf_tl id="and">
+		<cfif tot eq "0"><cf_tl id="No"><cfelse>#tot#</cfif>
+		<cfif tot eq "1"><cf_tl id="Batch clearance"><cfelse><cf_tl id="Batch clerances"></cfif>
+	</div>
+	<div style="color=##0080C0;">
+		<cf_tl id="Refresh your view to reflect recent updates"> (#timeformat(now(),"HH:MM:SS")#)
+	</div>
+
 </cfoutput>

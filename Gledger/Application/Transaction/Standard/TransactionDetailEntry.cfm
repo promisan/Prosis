@@ -349,9 +349,9 @@ password="#SESSION.dbpw#">
 				   <table cellspacing="0" cellpadding="0">
 					   <tr>						
 						<td>	  					    
-						<input type="text" name="entryglaccount"     id="entryglaccount"     value="#presetGLAccount#"          class="regularxl enterastab" size="6"  readonly style="text-align: left;">
+						<input type="text"   name="entryglaccount"     id="entryglaccount"     value="#presetGLAccount#"          class="regularxl enterastab" size="6"  readonly style="text-align: left;">
 						<input type="text"   name="entrygllabel"       id="entrygllabel"     value="#getGLAccount.accountLabel#"          class="regularxl enterastab" size="11"  readonly style="text-align: left">					  
-					    <input type="text" name="entrygldescription" id="entrygldescription" value="#getGLAccount.description#" class="regularxl enterastab" size="40" readonly style="text-align: left;">								  
+					    <input type="text"   name="entrygldescription" id="entrygldescription" value="#getGLAccount.description#" class="regularxl enterastab" size="40" readonly style="text-align: left;">								  
 					    </td>
 					   </tr>				   
 				   </table>			   			   
@@ -583,9 +583,7 @@ password="#SESSION.dbpw#">
 									  
 									  	 <table cellspacing="0" cellpadding="0">
 												 <tr>				 									 	 									 
-										  
-											  				
-																							
+										  										
 													<td>
 													  <input type="text"   name="programdescription2"  value="#Prg.ProgramName#" class="regularxl enterastab" size="60" maxlength="80" readonly>
 													  <input type="hidden" name="programcode2"         id="programcode2" value="#URL.ProgramCode2#">
@@ -759,7 +757,7 @@ password="#SESSION.dbpw#">
 								
 						<td width="1"></td>	
 						<td style="border:1px solid silver">
-							<input type="text" name="itemdescription" id="itemdescription" value="#item.itemdescription#" class="regularxl" size="30" readonly style="border:0px;text-align: left;">
+							<input type="text" name="itemdescription" id="itemdescription" value="#item.itemdescription#" class="regularxl" size="40" readonly style="border:0px;text-align: left;">
 						</td>		
 						<td width="1"></td>		
 						<td style="border:1px solid silver">				

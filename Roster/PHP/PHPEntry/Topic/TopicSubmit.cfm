@@ -5,17 +5,13 @@
 <cfparam name="URL.Mission" default="">
 
 <cfquery name="Parameter" 
-datasource="AppsSelection" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
+datasource="AppsSelection">
 	SELECT *
 	FROM Parameter
 </cfquery>
 
 <cfquery name="getThisSubmission" 
-	datasource="AppsSelection" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
+	datasource="AppsSelection">
 		SELECT	*
 		FROM	ApplicantSubmission
 		WHERE 	ApplicantNo = '#URL.ApplicantNo#'
@@ -25,9 +21,7 @@ password="#SESSION.dbpw#">
 <cfif getThisSubmission.recordCount gt 0 AND getThisSubmission.ActionStatus neq '1'>
 
 	<cfquery name="Delete" 
-			datasource="AppsSelection" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
+			datasource="AppsSelection">
 			DELETE FROM ApplicantSubmissionTopic
 			WHERE ApplicantNo = '#URL.ApplicantNo#'
 			AND Topic IN (SELECT Topic 
@@ -39,9 +33,7 @@ password="#SESSION.dbpw#">
 </cfif>
 
 <cfquery name="Master" 
-	datasource="AppsSelection" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
+	datasource="AppsSelection">
 	
 	  SELECT *
 	  FROM   Ref_Topic	 
@@ -69,9 +61,7 @@ password="#SESSION.dbpw#">
 		<cfif ValueClass eq "List">
 						
 			<cfquery name="Name" 
-			datasource="AppsSelection" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
+			datasource="AppsSelection">
 			  SELECT *
 			  FROM   Ref_TopicList
 			  WHERE  Code     = '#topic#'
@@ -85,9 +75,7 @@ password="#SESSION.dbpw#">
 			</cfif>			
 												
 			<cfquery name="InsertExperience" 
-			datasource="AppsSelection" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
+			datasource="AppsSelection">
 				INSERT INTO ApplicantSubmissionTopic 
 				         (ApplicantNo,
 						 Topic,
@@ -110,9 +98,7 @@ password="#SESSION.dbpw#">
 		<cfelse>
 	 		
 			<cfquery name="InsertExperience" 
-			datasource="AppsSelection" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
+			datasource="AppsSelection">
 			INSERT INTO ApplicantSubmissionTopic 
 			         (ApplicantNo,
 					 Topic,

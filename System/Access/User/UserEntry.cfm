@@ -101,22 +101,22 @@ password="#SESSION.dbpw#">
 </cfif>
 
 <cfif URL.ID eq "Individual">
-	<cf_ScreenTop height="100%" jquery="Yes" band="no" layout="webapp" 
+	<cf_ScreenTop height="100%" html="no" jquery="Yes" band="no" layout="webapp" 
 	label="Register User Account" scroll="Yes">
 <cfelse>
-	<cf_ScreenTop height="100%" jquery="Yes" band="No" layout="webapp" banner="blue"  label="Register User Group" scroll="Yes">
+	<cf_ScreenTop height="100%" html="no" jquery="Yes" band="No" layout="webapp" banner="blue"  label="Register User Group" scroll="No">
 </cfif>
 
 <cf_dialogStaffing>
 <cf_dialogPosition>
 
-<cfajaximport tags="cfdiv,cfwindow">
+<cfajaximport tags="cfdiv">
 
 <!--- Entry form --->
 
-<cfform action="UserEntrySubmit.cfm?mode=#URL.Mode#" method="POST" target="result" name="userenter">
+<cfform action="UserEntrySubmit.cfm?mode=#URL.Mode#" style="height:97%" method="POST" target="result" name="userenter">
 
-<table width="96%" border="0"
+<table width="96%" border="0" height="100%"
        cellspacing="0"
        cellpadding="0"
 	   class="formpadding"
@@ -166,19 +166,20 @@ password="#SESSION.dbpw#">
 
 <tr><td height="1" colspan="1" class="line"></td></tr>		
 
-<tr><td>
+<tr><td height="100%">
+
+		<cf_divscroll>
 
 		<table width="100%" 
-	      border="0"
-		  cellspacing="0" 
-		  cellpadding="0" 
-		  align="center" 
-	      bordercolor="d4d4d4">	  
+	      height="100%"
+		  align="center">	  
 	 		
 			<tr class="hide"><td valign="top" id="result"></td></tr>
 			   
 			<cf_menucontainer item="1" class="regular">
+				
 				<cfinclude template="UserEntryDetail.cfm">
+				
 			</cf_menucontainer>
 							
 			<cf_menucontainer item="2" class="hide">
@@ -187,7 +188,9 @@ password="#SESSION.dbpw#">
 		 	  </cfif>
 			</cf_menucontainer>
 	
-	</table>			
+	</table>	
+	
+	</cf_divscroll>		
 	
 	</td>
 </tr>
@@ -195,7 +198,7 @@ password="#SESSION.dbpw#">
 <tr><td height="1" colspan="1" class="line"></td></tr>	
 	
 <tr><td align="center" colspan="2">
-		<input class="button10g" type="button" value="Close" onClick="window.close()">
+		<input class="button10g" type="button" value="Close" onClick="parent.ProsisUI.closeWindow('newaccount')">
 		<INPUT class="button10g" type="submit" value="Save">
 	</td></tr>
 	

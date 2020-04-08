@@ -101,6 +101,13 @@ function leaveopen(per,id,scope,refer) {
 function eventdialog(key) {
    	ptoken.open(root + "/Staffing/Application/Employee/Events/EventDialog.cfm?portal=0&id="+key,"_blank")
 }	
+
+function eventedit(key) {
+      Prosis.busy('yes');
+      _cf_loadingtexthtml='';		
+	  ProsisUI.createWindow('evdialog', 'Event Dialog', '',{x:200,y:200,height:document.body.clientHeight-100,width:document.body.clientWidth-200,modal:true,resizable:false,center:true})    					
+      ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventForm.cfm?portal=0&id='+key,'evdialog')
+	}
 	
 function EditPerson(personno,sid,template) {
     w = #CLIENT.width# - 20;
@@ -210,8 +217,7 @@ function selectfunction(formname,fldfunctionno,fldfunctiondescription,owner,para
  
 function EditApplicant(id) {
 
-	ColdFusion.Window.create('mydialog', 'Edit', '',{x:100,y:100,height:750,width:650,modal:true,center:true})    
-	ColdFusion.Window.show('mydialog') 				
+	ProsisUI.createWindow('mydialog', 'Edit', '',{x:100,y:100,height:750,width:650,modal:true,center:true})    	 				
 	ptoken.navigate(root + '/Roster/Candidate/Details/Applicant/ApplicantView.cfm?id=' + id,'mydialog') 		
       
 }
@@ -271,8 +277,7 @@ function selectzip(fldzip,fldcity,fldcountry,mode) {
 		 myvar2 = fldcity
 		 myvar3 = fldcountry
 				 
-		 ColdFusion.Window.create('myzip', 'ZIP', '',{x:100,y:100,height:560,width:560,modal:true,center:true})    
-		 ColdFusion.Window.show('myzip') 				
+		 ProsisUI.createWindow('myzip', 'ZIP', '',{x:100,y:100,height:560,width:560,modal:true,center:true})    		 				
 		 ColdFusion.navigate(root + '/Tools/Input/ZIP/ZIPView.cfm?country='+sCountry,'myzip') 						 
 }
 
@@ -292,7 +297,7 @@ function zipapply(zip,city,country) {
 		  	 			
 			} catch(se) {} 			
 		     		
-		ColdFusion.Window.destroy('myzip',true)			  
+		ProsisUI.closeWindow('myzip',true)			  
 											
 		<!--- put the field values here and refresh the map --->
 		<cfif client.GoogleMap eq "1">mapaddress()</cfif>		

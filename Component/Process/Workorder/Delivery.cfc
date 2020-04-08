@@ -497,7 +497,8 @@
 			<cfargument name="Mission"       type="string" required="true">
 			<cfargument name="PositionNo"    type="string" required="true">		
 			
-			<cfargument name="PlanOrderCode" type="string" default="">		
+			<cfargument name="PlanOrderCode" type="string" default="">	
+			<cfargument name="LocationId"    type="string" default="00000000-0000-0000-0000-000000000000">		
 			
 			<cfargument name="Topic1"        type="string" required="false" default="">
 			<cfargument name="Topic1Value"   type="string" required="false" default="">
@@ -542,8 +543,7 @@
 			<cfquery name="Actor"
 				datasource="appsWorkOrder" 
 				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">						
-			
+				password="#SESSION.dbpw#">				
 				SELECT     PA.PositionNo, 
 						   PA.OrgUnit,	
 				           PA.FunctionNo, 
@@ -611,8 +611,7 @@
 							AND       EXISTS (SELECT 'X' 
 					                          FROM   WorkOrderLineAction 
 										      WHERE  WorkActionId = WLA.WorkActionId
-										      AND    ActionStatus != '9') <!--- action is valid    --->
-																								
+										      AND    ActionStatus != '9') <!--- action is valid    --->																								
 						</cfquery>				
 						
 						<cfif checkworkplan.recordcount gte "1">
@@ -658,8 +657,7 @@
 					AND       WPD.Operational = 1
 					AND       WLA.ActionStatus != '9'
 					
-				</cfquery>
-						
+				</cfquery>						
 				
 				<cfif check.recordcount gte "1">
 				
@@ -716,8 +714,7 @@
 				<cfquery name="addWorkPlan"
 				datasource="appsWorkOrder" 
 				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">	
-								
+				password="#SESSION.dbpw#">									
 				
 					INSERT INTO WorkPlan 
 						
@@ -989,8 +986,7 @@
 				<cfset last = "1">
 			<cfelse>
 				<cfset last = getLast.Last+1>	
-			</cfif>	
-			
+			</cfif>				
 			
 			<cfif workorder.serviceitem eq "Delivery">
 			
@@ -1014,12 +1010,12 @@
 					<cfquery name="addWorkPlanDetail"
 						datasource="appsWorkOrder" 
 						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">	
-											
+						password="#SESSION.dbpw#">												
 						INSERT INTO WorkPlanDetail (
 								WorkPlanId, 
 								PlanOrder, 
 								PlanOrderCode, 
+								LocationId,
 							    PlanActionMemo, 
 							    DateTimePlanning, 		    
 							    OrgUnitOwner, 
@@ -1031,6 +1027,11 @@
 							'#last#',
 							<cfif PlanOrderCode neq "">
 							'#PlanOrderCode#',
+							<cfelse>
+							NULL,
+							</cfif>
+							<cfif LocationId neq "00000000-0000-0000-0000-000000000000">
+							'#LocationId#',
 							<cfelse>
 							NULL,
 							</cfif>
@@ -1094,12 +1095,12 @@
 				<cfquery name="addWorkPlanDetail"
 					datasource="appsWorkOrder" 
 					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">		
-										
+					password="#SESSION.dbpw#">												
 						INSERT INTO WorkPlanDetail (
 							WorkPlanId, 
 							PlanOrder, 
 							PlanOrderCode, 
+							LocationId,
 						    PlanActionMemo, 
 						    DateTimePlanning, 		    
 						    WorkActionId, 
@@ -1114,13 +1115,17 @@
 						  <cfelse>
 						  NULL,
 						  </cfif>
+						  <cfif LocationId neq "00000000-0000-0000-0000-000000000000">
+							'#LocationId#',
+							<cfelse>
+							NULL,
+							</cfif>
 						  'Manual',
 						  #dtp#,
 						  '#workactionid#',
 						  '#session.acc#',
 						  '#session.last#',
-						  '#session.first#')		
-						  		
+						  '#session.first#')							  		
 				</cfquery>	
 				
 			<cfelse>
@@ -1350,6 +1355,5 @@
 			<cfreturn get>	
 					
 	</cffunction>
-		
-		
+					
 </cfcomponent>	

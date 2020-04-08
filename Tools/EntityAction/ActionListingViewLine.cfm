@@ -1,9 +1,6 @@
 <cfoutput>
 
-		<cfset vTextStyle       = "color:##FAFAFA; font-size:14px;">
-		<cfset vSquareStyle     = "padding:5px 0 0;border:0;border-radius:3px;max-width:360px;">            
-            
-		<cfset vDetailTextStyle = "font-size:12px;">
+		<cfset vTextStyle       = "color:##FAFAFA; font-size:14px;">		      
 			
 		<cfif Actions.ActionFlowOrder lte CheckNext.ActionFlowOrder or CheckNext.ActionFlowOrder eq "">
 
@@ -41,10 +38,8 @@
 				 
 				<cfset cl = "##FFEBCF">
 				<cfset box = "##D35400">
-				<cfset action = "1">
-                
-                <cfset vSquareStyle     = "padding:5px 0 0; border:0;border-radius:5px 0 0 5px;margin:0;">
-						
+				<cfset action = "1">               
+               						
 			<cfelseif (NextAction.ActionFlowOrder eq ActionFlowOrder or Concurrent.ActionParent eq ActionParent) and ActionStatus neq "2">
 						
 				<cfset cl = "##f4f4f4">
@@ -129,36 +124,12 @@
 			 </cfif>
 			
 			</cfif>
+																									
+			<tr bgcolor="#cl#" class="labelmedium" style="<cfif currentrow neq '1'>border-top:1px dotted silver</cfif>">
 			
-			<!--- subflow 			
-			<cfif attributes.subflow eq "Yes">
-				 <cfset cl = "f4f4f4">
-				 <cfset box = "rgba(211, 84, 0,0.9)">
-                 <cfset vSquareStyle     = "padding-top:9px;padding-bottom:9px;border:0;border-radius:5px 0 0 5px;">
-                     
-				
-                 <cfif ActionStatus eq "2">
-                    <cfset cl = "f4f4f4">
-				    <cfset box = "rgba(174, 192, 108,0.6)">    
-                    <cfset vSquareStyle     = "padding-top:9px;padding-bottom:9px;border:0;border-radius:3px;">
-					
-				<cfelseif ActionStatus eq "2N">
-               
-				    <cfset cl = "">
-					<cfset box = "rgba(205, 57, 57,0.8)">			
-					<cfset action = "0">	
-                    
-            	    <cfif currentrow neq "1"><!--- skip --->
-                	    <cfset box = "rgba(129, 168, 145,0.7)">			
-	                </cfif>
-                 </cfif>
-                   
-			</cfif>		
-			--->
-																						
-			<tr bgcolor="#cl#" style="padding:0px" >
-			
-			   <td align="center" style="width: 50px;">
+			   <td align="center" style="width:50px;">
+			   
+			    <cfset sub = "0">	
 			   			   			  	   
 				<cfswitch expression="#ActionStatus#">
 				
@@ -170,7 +141,7 @@
 						     alt="Embedded Step"
 						     border="0"
 						     align="right">
-										
+									
 						<cfelseif object_op is 1 
 						     and enableNotification eq "1" 
 							 and (isActor.recordcount gte "1" or getAdministrator(attributes.Mission) eq "1")>
@@ -217,7 +188,7 @@
 					<cfcase value="2">
 					
 					  <cfif attributes.subflow eq "Yes">
-						
+					  		<cfset sub = "1">			  						
 							 <img style="opacity:0.8;top:3px;position:relative;margin-right: 6px;" src="#SESSION.root#/Images/Sub-Workflow.png" width="24" height="24" alt="Embedded Step" border="0" align="right">
 							 	
 					  <cfelseif ActionCodeOnHold eq "">
@@ -236,8 +207,9 @@
 					</cfcase>
 					
 					<cfcase value="2Y">
-						 <cfif attributes.subflow eq "Yes">						
-							 <img style="opacity:0.8;top:3px;position:relative;margin-right: 6px;" src="#SESSION.root#/Images/Sub-Workflow.png" width="24" height="24" alt="Embedded Step" border="0" align="right">
+						 <cfif attributes.subflow eq "Yes">		
+						     <cfset sub = "1">					
+							 <img style="opacity:0.8;top:3px;position:relative;margin-right: 6px;" src="#SESSION.root#/Images/Sub-Workflow.png" width="24" height="24" alt="Embedded Step" border="0" align="right">							
 						<cfelse>
 							<img style="top:4px;position:relative;" src="#SESSION.root#/Images/Processed.png" width="32" height="32"  alt="Positive decision"  
 								 border="0" align="absmiddle">
@@ -245,8 +217,9 @@
 					</cfcase>
 					
 					<cfcase value="2N">
-						 <cfif attributes.subflow eq "Yes">					
-							 <img style="opacity:0.8;top:3px;position:relative;margin-right: 6px;" src="#SESSION.root#/Images/Sub-Workflow.png" width="24" height="24" alt="Embedded Step" border="0" align="right">
+						 <cfif attributes.subflow eq "Yes">		
+						 	 <cfset sub = "1">				
+							 <img style="opacity:0.8;top:3px;position:relative;margin-right: 6px;" src="#SESSION.root#/Images/Sub-Workflow.png" width="24" height="24" alt="Embedded Step" border="0" align="right">							
 						 <cfelse>
 						   <cfif currentrow eq "1">
 							<img src="#SESSION.root#/Images/Stopped.png" width="32" height="32" alt="Negative decision"  
@@ -266,40 +239,46 @@
 				
 				<cfif attributes.subflow eq "No" and showaction eq "1">
 				
-					<cfset ln = "5">									
-                        <td height="#attributes.rowheight#" valign="top" style="width: 360px;padding:2px 20px 0 0;max-width: 360px">
+					<cfset ln = "5">														
+                    <td valign="top" style="padding:2px 2px 2px 2px">												
 				
 				<cfelse>
 	
 					<cfset ln = "2">							
-                        <td width="360"  align="right" style="padding-right:13%;">
-				
+                    <td align="right">
+														
 				</cfif>
 					
-					<table cellspacing="0" cellpadding="0" height="100%" width="100%" style="max-width: 360px;">
+					<table height="100%" width="100%">
+					
+					<cfif (actionstatus eq "0" or currentrow eq 1) and sub eq "0">
+					
+					<tr><td style="height:10px"></td></tr>			
+					
+					<!--- nada --->
+					
+					<cfelse>
 					
 					<tr>
-						<td height="25%">
-																		
-							<table width="90%" height="100%" cellspacing="0" cellpadding="0" align="center">
+						<td style="height:20px">																								
+							<table width="90%" height="100%" align="center">
 					        <tr>
 					         <td width="49%"></td>
-							 <td width="3%" style="padding:4px 0 2px;">
-                                 <cfif actionstatus eq "0" or currentrow eq 1>
-									<div style="display: block; height: 7px;"></div>					 
-                                 <cfelse>
-								     <img src="#SESSION.root#/Images/Step-Up.png" height="16" alt="Next Step"  border="0" align="absmiddle">                                     
-                                 </cfif>
-                            </td>
-                                
+							 <td width="3%" style="padding:2px 0 2px;">
+                                 <img src="#SESSION.root#/Images/Step-Up.png" height="16" alt="Next Step"  border="0" align="absmiddle">                                     
+                             </td>                                
 							 <td width="48%"></td>
 							 </tr>	 
 					        </table>	
 						
 						</td>
 					</tr>	
-										
+					
+					</cfif>
+															
 					<cfif Action eq "1" and (EntityAccess eq "EDIT" OR EntityAccess eq "READ")>
+					
+					 <cfset vSquareStyle     = "padding:0px 0 0;border-radius:8px 0 0 8px;max-width:100%">		  
 										
 						<cfif attributes.hideprocess eq "0" and ActionTrigger eq "">
 						    <cfif attributes.subflow eq "No">
@@ -316,6 +295,10 @@
 						   <cfset pr = "">
 						</cfif>
 						
+						<cfif attributes.subflow eq "Yes">
+							<cfset box = "silver">
+						</cfif>
+						
 						<cfparam name="ActionCompleted" default="">
 						<cfparam name="ActionDenied" default="">
 						
@@ -327,96 +310,37 @@
 								 FROM  Ref_EntityDocument D
 								 WHERE EntityCode  = '#EntityCode#' 
 								 AND   DocumentCode = '#ActionDialog#'
-							</cfquery>
-						
-						<cfif ActionDialog neq "">
-																			
-							<cfif Dialog.DocumentMode eq "Popup">
-							
+						</cfquery>													
+													
 							<tr class="cellcontent">
-							<td height="35" class="Procets-L-W-2"> 
-				
-																	
-								<table width="360" height="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="Procets-L" style="background-color:#box#; #vSquareStyle#" line-height:35px;>
-									<tr>
-									
-									<td><cf_space spaces="6"></td>
-									
-									<td align="center" class="labelmedium" style="width:100%;cursor: pointer;font-size:14px;line-height:14px;cursor: pointer;color:rgba(255,255,255,1);font-weight:400;height:25px;"
-										  onClick="<cfif Object_op eq 1>#Dialog.DocumentTemplate#('#actioncode#','#actionId#','#url.ajaxid#')</cfif>">#ActionDescription#</td>
-										  
+							<td style="height:43px;padding-right:4%;min-width:200px;"> 		
+							<table width="100%" height="100%">
+							   <tr><td style="width:100%">																							
+								<table align="center" class="Procets-L" style="height:100%;width:100%;height:40px;max-width:360px;background-color:#box#;#vSquareStyle#;">								
+									<tr>									
+									<td style="min-width:10px"></td>	
+									<cfif Dialog.DocumentMode eq "Popup">								
+									<td align="center" class="labelmedium" style="width:100%;cursor: pointer;font-size:14px;line-height:14px;color:rgba(255,255,255,1);font-weight:400;height:25px;"
+										  onClick="<cfif Object_op eq 1>#Dialog.DocumentTemplate#('#actioncode#','#actionId#','#url.ajaxid#')</cfif>">#ActionDescription#</td>										  
+									<cfelse>
+									<td align="center" class="labelmedium" style="width:100%;cursor: pointer;font-size:14px;line-height:14px;color:rgba(255,255,255,1);font-weight:400;"
+									  ondblClick="<cfif SESSION.isAdministrator eq 'Yes'>javascript:stepedit('#Actions.EntityCode#','#Actions.EntityClass#','#Actions.ActionPublishNo#','#ActionCode#')</cfif>"
+									  onClick="<cfif Object_op eq 1>#pr#</cfif>">#ActionDescription#</td>	
+									</cfif>  	  
 									<td width="13" style="padding-left:5px; padding-right:5px;">		
 										<img style="padding-top:0;" src="#SESSION.root#/Images/Open-W.png" width="16" height="16"  alt="Open"
 									    	onClick="workflowshow('#Actions.ActionPublishNo#','#Actions.EntityCode#','#Actions.EntityClass#','#ActionCode#','#Object.Objectid#')">
 									</td>
 									</tr>
-								</table>
-								
-								<cfinclude template="ActionListingViewLineProcess.cfm">
-							</td>
-														
-							</tr>
-																			
-							<cfelse>
-						
-							<tr>
-								
-								<td height="35" class="Procets-L-W-2">
-							    <cfif currentrow eq "1"> 
-							    <cf_space spaces="50">	
-								</cfif>	
-								<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="Procets-L" style="background-color:#box#; #vSquareStyle#;">								
-									<tr>
-									
-									 <td><cf_space spaces="6"></td>
-									
-									 <td align="center" class="labelmedium" style="width:100%;cursor: pointer;font-size:14px;line-height:14px;cursor: pointer;color:rgba(255,255,255,1);font-weight:400;"
-									  ondblClick="<cfif SESSION.isAdministrator eq 'Yes'>javascript:stepedit('#Actions.EntityCode#','#Actions.EntityClass#','#Actions.ActionPublishNo#','#ActionCode#')</cfif>"
-									  onClick="<cfif Object_op eq 1>#pr#</cfif>">#ActionDescription#</td>
-									  
-									 <td width="13" style="padding-left:5px; padding-right:5px">		
-									 						 					
-											<img style="padding-top:0;" src="#SESSION.root#/Images/Open-W.png" width="16" height="16"  alt="Open"
-										    	onClick="workflowshow('#Actions.ActionPublishNo#','#Actions.EntityCode#','#Actions.EntityClass#','#ActionCode#','#Object.Objectid#')">											
-							   		 </td>
-									</tr>
-								</table>								
-								
-								<cfinclude template="ActionListingViewLineProcess.cfm">
-								</td>
-							</tr>
-							
-							</cfif>
-											
-						<cfelse> 
-						
-						
-							<tr>
-								<td height="35" valign="middle" class="Procets-L-W-2">
-																										
-								<table width="100%" height="100%"  cellspacing="0" cellpadding="0" align="center" style="background-color:#box#; #vSquareStyle#;" class="Procets-L">								
-									<tr>	
-									    <td><cf_space spaces="6"></td>	
-																							
-										<td align="center" class="labelmedium" style="width:100%;cursor: pointer;font-size:14px;line-height:14px;color:rgba(255,255,255,0.9);"
-										ondblClick="<cfif SESSION.isAdministrator eq "Yes">javascript:stepedit('#Actions.EntityCode#','#Actions.EntityClass#','#Actions.ActionPublishNo#','#ActionCode#')</cfif>"
-										onClick="<cfif Object_op eq 1>#pr#</cfif>">#ActionDescription#</td>									
-										<td width="13" style="padding-left:5px; padding-right:5px;">	
-																																			
-											<img style="padding-top:0;" src="#SESSION.root#/Images/Open-W.png" width="16" height="16"  alt="Open"
-										    	onClick="workflowshow('#Actions.ActionPublishNo#','#Actions.EntityCode#','#Actions.EntityClass#','#ActionCode#','#Object.Objectid#')">											
-										</td>									
-									</tr>
-                                          
 								</table>	
-							
-					      		<cfinclude template="ActionListingViewLineProcess.cfm">
-								</td>
-							</tr>
-                            
-						</cfif>	
-										
+								</td>							
+								<cfinclude template="ActionListingViewLineProcess.cfm">							
+								</tr></table>						
+							</tr>									
+																
 					<cfelse>
+					
+						<cfset vSquareStyle     = "padding:5px 0 0;border-radius:8px;max-width:95%">   
 					
 						<cfif ActionDialogContent neq "">
 						    <cfset pr = "javascript:actionlog('#ActionId#')">
@@ -424,28 +348,25 @@
 						    <cfset pr = "">
 						</cfif>						
 					
-						<tr><td height="35">
-						
-								<cfif currentrow eq "1"> 
-								    <cf_space spaces="50">	
-								</cfif>	
+						<tr><td style="<cfif sub eq '0'>height:43px<cfelse>height:25px</cfif>;min-width:200px;max-width:360px">
 								
-								<cfif box eq "C7FECB">
+								<cfif sub eq "1">	
+								    <cfset box = "FFFF97">																				
+								<cfelseif box eq "C7FECB">
 									<cfset boxend = "##77C97D">
 								<cfelseif box eq "##C9EDF1">
 									<cfset boxend = "##7DC9D1">
 								<cfelse>
 									<cfset boxend = "gray">
-								</cfif>						
+								</cfif>																														
 													
-								<table width="100%" height="100%" border="0" cellspacing="0" 
-								     cellpadding="0" align="center" onClick="#pr#"
-									 style="<cfif pr neq "" or SESSION.isAdministrator eq "Yes">cursor: pointer;</cfif> background-color:#box#; #vSquareStyle#"
+								<table width="100%" height="100%" onClick="#pr#"
+									 style="max-width:360px;<cfif pr neq "" or SESSION.isAdministrator eq 'Yes'>cursor: pointer;</cfif> background-color:#box#; #vSquareStyle#;"
 									 ondblClick="<cfif SESSION.isAdministrator eq "Yes">javascript:stepedit('#Actions.EntityCode#','#Actions.EntityClass#','#Actions.ActionPublishNo#','#ActionCode#')</cfif>">
 										<tr>
-											<td><cf_space spaces="6"></td>
-											<td align="center" class="labelmedium" style="font-size:14px;line-height:14px;cursor: pointer;color:rgba(0,0,0,0.7);font-weight:400;text-transform: capitalize;">
-											
+											<td style="min-width:5px"></td>
+											<td align="center" class="labelmedium" style="width:100%;font-size:14px;line-height:14px;cursor: pointer;color:rgba(0,0,0,0.7);font-weight:400;text-transform: capitalize;">
+																																												
 											<cfparam name="ActionCompleted" default="">
 											<cfparam name="ActionDenied" default="">
 											
@@ -460,7 +381,7 @@
 											</cfif>
 											
 											</td>											
-											<td><cf_space spaces="6"></td>
+											<td style="min-width:5px"></td>
 										</tr>
 								</table>
 							
@@ -469,32 +390,21 @@
 						
 					</cfif>
 					
+					<tr><td style="height:4px"></td></tr>
+					
 					<!--- line connecting --->
-					
-						<tr><td height="25%">
-						
-						<table width="90%" height="100%" cellspacing="0" cellpadding="0" align="center">
-					        <tr>
-					         <td width="49%"></td>
-							 <td width="3%">&nbsp;</td>
-							 <td width="48%"></td>
-							 </tr>	 
-				        </table>
-						
-						</td>
-						</tr>
-					
+										
 					</table>
 																	
 				</td>		
 											
-				<td  style="width: auto; min-width:140px;">
+				<td style="padding-top:4px;width: auto; min-width:140px;">
                           
 					<table cellspacing="0" cellpadding="0">			
 							
-						<tr>										
+						<tr class="labelmedium">										
 						<cfif Entity.EnablePerformance eq "1">						
-							<td style="font-size: 12px;" class="labelit"><cf_tl id="within"></td>
+							<td style="font-size: 12px;"><cf_tl id="within"></td>
 							
 							<cfif SESSION.isAdministrator eq "Yes">
 							<td class="labelit">
@@ -511,41 +421,28 @@
 							</td>							
 								
 							<cfelse>
-								<td class="labelit">
+								<td style="padding-left:4px">
 								#ActionTakeAction#
 								</td>
 							</cfif>
 							
-							<td style="padding-left:3px" class="labelit">	
-							<table cellspacing="0" cellpadding="0">
-							<tr>
-							<td class="labelit" style="padding-left:3px;padding-right:3px;font-size: 12px;"><cf_tl id="hr"></td>							
-							</tr>							
-							</table>
-							
-							</td>							
+							<td style="padding-left:3px;padding-right:3px;font-size: 12px;"><cf_tl id="hr"></td>							
 						</cfif>
 						
-						<td class="labelit" style="padding-left:5px;padding-left:3px;padding-right:3px;font-size: 12px;"> | #ActionReference#</td>						
+						<td style="padding-left:5px;padding-left:3px;padding-right:3px;font-size: 12px;"> | #ActionReference#</td>						
 						</tr>					
 						
 					</table>
 				
 				</td>
-																													
-							
-				</td>
-							
+											
 				<cfif EnableQuickProcess eq "1" 
 				     and ActionStatus eq "2" 
 					 and (EntityAccess eq "EDIT" or EntityAccess eq "READ")
 					 and Action eq "1">
 					
-				<td colspan="1" class="labelit" style="#vDetailTextStyle#; width: auto;min-width: 120px; ">
-					#OfficerFirstName# #OfficerLastName#
-				</td>	
-					
-				<td class="labelit" style="#vDetailTextStyle#; width: auto;min-width:140px;">				
+				<td colspan="1" style="padding-top:4px;width: auto;min-width: 120px; ">
+					#OfficerFirstName# #OfficerLastName#<br>
 					<cfif officerdate neq "">
 					
 						<cf_getLocalTime mission    = "#Object.Mission#" 
@@ -557,8 +454,8 @@
 					
 					</cfif>
 				</td>	
-				
-				<td class="labelit" style="#vDetailTextStyle# width: auto; min-width: 120px;">
+							
+				<td style="padding-top:4px;width: auto; min-width: 120px;">
 				
 					<cfif OfficerDate neq "">
 					
@@ -572,7 +469,7 @@
 										
 				</td>	
 							
-				<td class="labelit" style="#vDetailTextStyle#;width: auto;">#DateFormat(OfficerActionDate, CLIENT.DateFormatShow)#</td>
+				<td style="padding-top:4px;width: auto;">#DateFormat(OfficerActionDate, CLIENT.DateFormatShow)#</td>
 				
 				<!---
 				<cfelseif object_op is 1 and 
@@ -629,11 +526,10 @@
 							  --->
 				<cfelse>
 				
-					<td class="labelit" style="#vDetailTextStyle#; width: auto; min-width: 120px;">#OfficerFirstName# #OfficerLastName#</td>
-					<td class="labelit" style="#vDetailTextStyle#; width: auto; min-width: 120px;">
+					<td style="padding-top:4px; width: auto;">#OfficerFirstName# #OfficerLastName#
 					
 					<cfif officerdate neq "">
-					
+						<br>
 						<cf_getLocalTime mission    = "#Object.Mission#" 
 						                 recorddate = "#dateformat(OfficerDate,CLIENT.DateFormatShow)#"
 										 recordtime = "#timeformat(OfficerDate,'HH:MM:SS')#">					
@@ -649,8 +545,8 @@
 					</cfif>
 					
 					</td>
-					
-					<td class="labelit" style="#vDetailTextStyle#; width: auto; min-width: 80px;">
+										
+					<td style="padding-top:4px; width: auto">
 					
 					<cfif OfficerDate neq "">
 					
@@ -664,7 +560,7 @@
 										
 					</td>					
 					
-					<td class="labelit" style="#vDetailTextStyle#; width: auto; min-width: 80px;">#DateFormat(OfficerActionDate, CLIENT.DateFormatShow)#</td>
+					<td style="padding-top:4px; width: auto">#DateFormat(OfficerActionDate, CLIENT.DateFormatShow)#</td>
 					
 				</cfif>
 								
@@ -678,7 +574,7 @@
 						 AND   ActionStatus != '8' <!--- 8= preparation --->
 				</cfquery>				
 					
-				<td align="center" width="40" valign="middle" style="width: auto; min-width: 50px;"> 
+				<td align="center" valign="middle" style="width: auto; min-width: 20px;"> 
 													 
 					<cfif Mail.recordcount eq "1">
 					 										 	
@@ -722,9 +618,9 @@
 					 					  						  
 			    </td>
 								
-				<td valign="middle" style="width: auto; min-width: 150px;">
+				<td valign="middle" style="width:auto;">
 				
-				  <table width="100%" cellspacing="0" cellpadding="0" style="width:100%;max-width: 360px;">
+				  <table width="100%" cellspacing="0" cellpadding="0" style="width:100%">
 				  <tr>
 				  
 				    <!--- check if there is a predefined attachment option --->
@@ -786,15 +682,15 @@
 					datasource="appsOrganization" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
-					SELECT    TOP 1 *
-					FROM      System.dbo.Attachment
-					WHERE     DocumentPathName = '#EntityCode#' 
-					AND       ServerPath = '#EntityCode#/#ObjectId#/'
+						SELECT    TOP 1 *
+						FROM      System.dbo.Attachment
+						WHERE     DocumentPathName = '#EntityCode#' 
+						AND       ServerPath = '#EntityCode#/#ObjectId#/'
 					</cfquery>
 										
 					<cfif external.recordcount gte "1" and hasAttachment.recordcount gte "1">			
 					
-						  <td width="30" align="center">		
+						  <td align="center">		
 					
     					  <img  src    = "#SESSION.root#/Images/attachment.png"
 					     	 alt    = "Attachments"
@@ -886,8 +782,7 @@
 					</cfif>
 					
 					</tr>
-					</table>
-									
+					</table>									
 					</td>
 					
 					<td class="labellarge">	
@@ -992,7 +887,7 @@
 					</cfif>
 					
 					</td>
-					<td style="min-width:40"></td>
+					<td style="min-width:4"></td>
 					</tr>
 					</table>
 				</td>
@@ -1002,8 +897,7 @@
 			<cfif len(ActionMemo) gt "15" or actionReferenceDate neq "">	
 			
 			<tr>
-				<td bgcolor="#cl#" colspan="#col#" style="padding-top:0px;padding-bottom:1px;">
-				
+				<td bgcolor="#cl#" colspan="#col#" style="padding-bottom:1px;">		
 					<table cellpadding="0" cellspacing="0" width="88%" align="center">
 						<tr>
 						     <td bgcolor="#cl#">			
@@ -1042,14 +936,10 @@
 					</table>
 				</td>
 			</tr>	
-			
-			<cfelse>
-				
-			<tr><td bgcolor="#cl#" colspan="#col-1#"></td></tr>			
-				
+										
 			</cfif>				
 								
-			<tr bgcolor="#cl#">
+			<tr bgcolor="#cl#" style="height:1px">
 			    <td colspan="#col#">
 				 <table width="99%" border="0" cellspacing="0" cellpadding="0" align="center" style="">
 				   <tr><td id="u#ObjectId#_#objectcnt#_#actioncode#_#currentRow#"></td></tr>
@@ -1063,7 +953,7 @@
 							
 				<tr class="line">
 					<td colspan="#col#" id="h#currentrow#">
-				
+									
 				   <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="">
 				   <tr><td id="urldetail#currentrow#" height="15">   
 				   
@@ -1183,7 +1073,7 @@
 				</cfif>
 				
 				<tr class="hide" id="atta#actionid#">
-					
+									
 					<td colspan="#col#" style="padding-right:30px;height:36px">
 																				
 					<cfif SESSION.isAdministrator eq "Yes" or session.acc eq Object.OfficerUserid>
@@ -1233,10 +1123,12 @@
 			<cfinclude template="ActionListingViewFields.cfm">
 			
 			<cfinclude template="ActionListingViewFunction.cfm">
-								
+					
+			<!---					
 			<cfif currentRow neq "#Actions.Recordcount#">		
-				<tr><td colspan="#col#" class="line"></td></tr>	
+				<tr class="line"><td colspan="#col#"></td></tr>	
 			</cfif>
+			--->
 						
 		</cfif>	
 					

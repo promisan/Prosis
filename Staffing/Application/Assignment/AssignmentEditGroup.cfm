@@ -107,13 +107,15 @@ function hl(itm,fld){
 				<cfelse>  <TR class="regular">
 				</cfif>
 		   
-				<TD style="padding-left:3px" class="labelmedium">#Description#:</TD>
-				<TD align="right" style="padding:3px">
+				<TD style="max-width:40px;padding-left:3px">
 					<cfif PositionNo eq "">
 						<input type="checkbox" class="radiol" name="positiongroup" value="#GroupCode#" onClick="hl(this,this.checked)"></TD>
 					<cfelse>
 						<input type="checkbox" class="radiol" name="positiongroup" value="#GroupCode#" checked onClick="hl(this,this.checked)"></TD>
 				    </cfif>	
+				
+				<TD style="padding-left:3px" class="labelmedium">#Description#</TD>
+				
 				</tr>
 			
 			</table>

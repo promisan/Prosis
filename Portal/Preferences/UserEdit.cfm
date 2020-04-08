@@ -25,10 +25,7 @@
 <cf_screentop height="100%"  html="No" jquery="Yes">
 <cf_listingscript> 
 
-<cf_UIGadgets>
-
-
-<cfquery name="Get" 
+<cfquery name="Get"
 datasource="AppsSystem" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">

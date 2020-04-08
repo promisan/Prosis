@@ -3,6 +3,8 @@
 <cfparam name="URL.ProgramAccess" default="NONE">
 <cfparam name="URL.ManagerAccess" default="NONE">
 
+
+
 <!--- JM on 02/02/2010 Added Ajax Id, and moved some of the interface text --->
 
 <cfparam name="URL.AjaxId" default="">
@@ -278,7 +280,7 @@
 	     menuRows="10"
 		 AjaxId="#url.AjaxId#"	
 		 
-		  menuName1="#tEdit#"
+		 menuName1="#tEdit#"
 	     menuAction1="javascript:AddProject('#Program.mission#','#Program.Period#','#Program.PeriodParentCode#','#Program.OrgUnit#','#Program.ProgramCode#','0','#Program.ProgramId#');" 
 	     menuIcon1="#SESSION.root#/Images/view.jpg"
 	     menuStatus1="#tEdit#"
@@ -343,4 +345,6 @@
 	 </cfif>		 			 
 					    		
 </cfoutput>
+
+
 

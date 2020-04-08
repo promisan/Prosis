@@ -1,6 +1,7 @@
-<cf_divscroll>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<cf_screentop html="No" jquery="Yes">
+
+<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
 
 <cfquery name="SearchResult"
 datasource="AppsLedger" 
@@ -12,7 +13,12 @@ password="#SESSION.dbpw#">
 
 <cfset add          = "1">
 <cfset Header       = "transaction Speed type">
+
+<tr><td style="height:10">
+
 <cfinclude template = "../HeaderMaintain.cfm"> 
+
+</td></tr>
 
 <cfoutput>
 
@@ -30,10 +36,15 @@ function recordedit(id) {
 
 </cfoutput>
 
-<table width="96%" align="center" cellspacing="0" class="navigation_table" cellpadding="0" align="center">
+
+<tr><td>
+
+<cf_divscroll>
+
+<table width="96%" align="center" class="navigation_table" align="center">
 
 <thead>
-	<tr class="labelmedium">
+	<tr class="labelmedium fixrow line">
 	    <td></td>
 	    <td>Code</td>
 		<td>Description</td>
@@ -48,9 +59,8 @@ function recordedit(id) {
 
 <cfset i = 0>
 
-<tbody>
+<tr><td colspan="9" style="height:40px" class="labelmedium">Journal speedtypes are meant to assign to a your in order to control and ease manual entry interface</td></tr>
 
-<tr><td colspan="9" style="height:40px" class="labelmedium linedotted">Journal speedtypes are meant to assign to a your in order to control and ease manual entry interface</td></tr>
 <cfoutput query="SearchResult">
 	
 	<cfquery name="Parent"
@@ -78,9 +88,10 @@ function recordedit(id) {
     </tr>
 
 </cfoutput>
-</tbody>
+
 
 </table>
 
-
 </cf_divscroll>
+
+</table>

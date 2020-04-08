@@ -111,8 +111,7 @@
 	}		
 	
 	function potrack(po) {
-	    ColdFusion.Window.create('deliverdialog', 'Receipt', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,center:true})    
-	    ColdFusion.Window.show('deliverdialog')					
+	    ProsisUI.createWindow('deliverdialog', 'Delivery Tracking', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,center:true})    	   			
 	    ColdFusion.navigate(root + '/Procurement/Application/Delivery/DeliveryView.cfm?purchaseno='+po,'deliverdialog') 			 
 	}
 	

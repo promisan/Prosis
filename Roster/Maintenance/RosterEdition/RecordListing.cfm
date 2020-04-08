@@ -42,7 +42,7 @@ password="#SESSION.dbpw#">
 <script language = "JavaScript">
 
 	function recordadd(grp) {
-	     ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=580, height=560, toolbar=no, status=yes, scrollbars=no, resizable=no");
+	     ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=580, height=660, toolbar=no, status=yes, scrollbars=no, resizable=no");
 	}
 	
 	function recordedit(id1) {

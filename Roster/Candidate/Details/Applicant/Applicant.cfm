@@ -1,6 +1,5 @@
-
    
-<script>
+<script language="JavaScript">
 
 function reload() { 
    opener.location.reload();

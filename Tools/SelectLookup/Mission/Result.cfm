@@ -103,7 +103,7 @@ password="#SESSION.dbpw#">
 <cfoutput query="SearchResult" group="MissionType">
 	<cfif currentrow gte first>
 	<tr>
-		<td colspan="3" style="height:30px;font-size:19px;font-weight:200" class="labelmedium">#MissionType#</td>
+		<td colspan="3" style="height:34px;font-size:19px" class="labelmedium">#MissionType#</td>
 	</tr>
 	</cfif>
 	<cfoutput>
@@ -111,7 +111,7 @@ password="#SESSION.dbpw#">
 
 	<tr style="height:20px" class="line labelmedium navigation_row">
 	  
-	    <td width="30" class="navigation_action" style="padding-top:4px" onclick="ColdFusion.navigate('#link#&action=insert&#url.des1#=#URLEncodedFormat(Mission)#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ColdFusion.Window.hide('dialog#url.box#')</cfif>">
+	    <td width="30" class="navigation_action" style="padding-top:4px" onclick="ColdFusion.navigate('#link#&action=insert&#url.des1#=#URLEncodedFormat(Mission)#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">
 		
 		<cf_img icon="select">
 		

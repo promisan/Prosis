@@ -536,5 +536,5 @@ password="#SESSION.dbpw#">
 
 <script language="JavaScript">
    parent.history.go() 
-   parent.ColdFusion.Window.destroy('mydialog',true)   
+   parent.ProsisUI.closeWindow('mydialog',true)   
 </script>

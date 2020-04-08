@@ -16,7 +16,7 @@
 	password="#SESSION.dbpw#">
    		SELECT   *
    		FROM     Ref_Source
-		WHERE    Source = '#candidate.source#'		
+		WHERE    Source = '#candidate.source#'	
 </cfquery>	
 	
 <cfif source.entityClass neq "">	

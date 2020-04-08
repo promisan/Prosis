@@ -8,7 +8,6 @@
 <cf_menuscript>
 <cf_calendarviewscript>
 
-<script src="#SESSION.root#/Scripts/JQuery/jquery.js"></script>
 
 <cfinclude template="../../../Application/WorkSchedule/Planning/PlanningViewScript.cfm">
 
@@ -288,8 +287,7 @@ function AddReview(postno,box) {
 	}
 
 function AddVacancy(postno,box) {
-	ColdFusion.Window.create('mydialog', 'Recruitment Track', '',{x:100,y:100,height:600,width:640,modal:true,center:true});
-	ColdFusion.Window.show('mydialog');
+	ProsisUI.createWindow('mydialog', 'Record Recruitment Track', '',{x:100,y:100,height:600,width:640,modal:true,center:true});	
 	ColdFusion.navigate('#SESSION.root#/Vactrack/Application/Document/DocumentEntryPosition.cfm?box='+box+'&Mission=#URL.Mission#&ID1=' + postno + '&Caller=Listing','mydialog')	
 }
 
@@ -334,9 +332,7 @@ function search(tpe,date) {
 	fil  = document.getElementById("filterid").value
 	if (fld.value == "") {
 	   alert("Please enter your criteria")
-	   }
-	else
-	{
+	} else {
 	opt  = document.getElementById("option");
 	if (opt.checked)
 		{op = "1"}
@@ -378,80 +374,47 @@ function detaillisting(org,act,mode,filter,level,line,cell,sort,date,omis,oman,s
 	url = "PostViewDetail.cfm?tree=#URL.Tree#&filterid="+fil+"&Org=" + org + "&Mission="+mis+"&Mandate="+man+"&ID=0&ID1=" + org + "&Mode=" + mode + "&Filter=" + filter + "&Level=" + level + "&Line=" + line + "&unit=#URL.Unit#&sort="+sort+"&date="+date+"&cellspace="+space
 	 		 
 	if (act=="show") {		
-	    Prosis.busy('yes')	   
-		ptoken.navigate(url,'i'+org);
-		icM.className = "regular";
-	    icE.className = "hide";
-		se.className  = "regular";				    	
-	 } else {	
-     	 icM.className = "hide";
-	     icE.className = "regular";	
-		 se.className  = "hide";	 
+		  Prosis.busy('yes')	   
+		  ptoken.navigate(url,'i'+org);
+		  icM.className = "regular";
+		  icE.className = "hide";
+		  se.className  = "regular";				    	
+	 	} else {	
+	      icM.className = "hide";
+		  icE.className = "regular";	
+		  se.className  = "hide";	 
 	 }
 		 		
   }  
 		
 function shownode(itm) {
-
+     
 	 icM  = document.getElementById(itm+"Min")
 	 icM.className = "regular";
 	 icE  = document.getElementById(itm+"Exp")
 	 icE.className = "hide";
-		 	  
 	 var loop=0;
-	 
-	 while (loop<100){
-	     
-		 loop=loop+1
-				 
-		 if (loop<10)
-		 { sel = ".0"+loop }
-		 else
-		 { sel = "."+loop }
-		 
-		 se = document.getElementsByName("T"+itm+sel);
-		 count=0		 
-		 while (se[count]) { se[count].className = "regular";count=count+1;  }		 		 	 		 	 
-		 se   = document.getElementById(itm+sel);
-		 if (se) {se.className = "regular";}				 		 		 
-		}	 	 
-		
+	 while (loop<99) {	 	 
+	     loop=loop+1		 
+		 if (loop<10) { sel = ".0"+loop } else { sel = "."+loop }
+		  $("[class='"+itm+sel+" hide']").show();
+	 }
   }
   
 function hidenode(itm,len,lv) {
-
+     
      icM  = document.getElementById(itm+"Min")
 	 icE  = document.getElementById(itm+"Exp")
 	 if (icM) {
      	 icM.className = "hide";
 		 icE.className = "regular";
-	 }
-		 	  
-	 var loop=0;
-	 
-	 while (loop<100){
-	 	 
-	     loop=loop+1
-		 
-		 if (loop<10)
-		    { sel = ".0"+loop }
-		 else
-		    { sel = "."+loop }
-			
-		 se = document.getElementsByName("T"+itm+sel);
-		 count=0
-		 
-		 while (se[count]) { se[count].className = "hide"; 
-		                    count=count+1;
-						  }
-						 		 
-      	 se   = document.getElementById(itm+sel);
-		 if (se) {se.className = "hide";}
-		 <!--- 27/5/08 else {loop=100}	--->
-		 
-		 <!--- lt = 3 + parseInt(len) - 0 --->
-		 <!--- if (lt < 20) { hidesub1(itm+sel,lt) } --->		 		 							 
-		}	 				
+	 }		 	  
+	 var loop=0;	 
+	 while (loop<100){	 	 
+	     loop=loop+1		 
+		 if (loop<10) { sel = ".0"+loop } else { sel = "."+loop }			
+		  $("[class='"+itm+sel+" hide']").hide();		  
+	 } 				
   }  
     
 </script> 

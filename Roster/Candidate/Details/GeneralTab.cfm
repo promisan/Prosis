@@ -14,7 +14,7 @@ datasource="AppsSelection">
     SELECT *
     FROM Ref_ParameterSkill	
 	<cfif URL.Topic neq "All">
-	WHERE Code = '#URL.Topic#'
+	WHERE Code = '#URL.Topic#' 
 	</cfif>
 	ORDER BY ListingOrder 
 </cfquery>
@@ -34,8 +34,8 @@ datasource="AppsSelection">
 		
 	<table width="100%" border="0" align="center" cellspacing="0" cellpadding="0">		  		
 								
-			<cfset ht = "64">
-			<cfset wd = "64">
+			<cfset ht = "54">
+			<cfset wd = "54">
 			
 			<tr>
 			<cf_tl id="Submissions" var="1">
@@ -63,8 +63,7 @@ datasource="AppsSelection">
 								
 				<cfset URL.id2 = itm>	
 				
-				<cfif SkillCode.allowEdit eq "0">	
-						
+				<cfif SkillCode.allowEdit eq "0">							
 																 
 				    <cfsilent>
 					
@@ -77,8 +76,7 @@ datasource="AppsSelection">
 					  </cfif>		
 					  
 				    </cfsilent>	 
-
-						
+	
 				
 				<cfelse>
 								
@@ -178,6 +176,3 @@ datasource="AppsSelection">
 </table>	
 		
 </cfoutput>	
-
-
-

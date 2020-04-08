@@ -159,9 +159,9 @@ password="#SESSION.dbpw#">
     <TD class="labelmedium">
 	   
 		<table><tr class="labelmedium">
-		<td><INPUT type="radio" name="EnableManualEntry" id="EnableManualEntry" value="0"></td>
+		<td><INPUT type="radio" class="radiol" name="EnableManualEntry" id="EnableManualEntry" value="0"></td>
 		<td style="padding-left:5px">No</td>
-		<td style="padding-left:10px"><INPUT type="radio" name="EnableManualEntry" id="EnableManualEntry" value="1" checked></td>
+		<td style="padding-left:10px"><INPUT class="radiol" type="radio" name="EnableManualEntry" id="EnableManualEntry" value="1" checked></td>
 		<td style="padding-left:5px">Yes</td>
 		</tr>
 		</table>	   
@@ -171,9 +171,9 @@ password="#SESSION.dbpw#">
 	<TR valign="top">
     <TD class="labelmedium">Roster Search Mode:</TD>
     <TD>
-	    <INPUT type="radio" name="RosterSearchMode" id="RosterSearchMode" value="3" checked> Default <br>
-		<INPUT type="radio" name="RosterSearchMode" id="RosterSearchMode" value="1"> Limit recruitment search to associated bucket
-		<INPUT type="radio" name="RosterSearchMode" id="RosterSearchMode" value="0"> Hide
+	    <INPUT type="radio" class="radiol" name="RosterSearchMode" id="RosterSearchMode" value="3" checked> Default <br>
+		<INPUT type="radio" class="radiol" name="RosterSearchMode" id="RosterSearchMode" value="1"> Limit recruitment search to associated bucket
+		<INPUT type="radio" class="radiol" name="RosterSearchMode" id="RosterSearchMode" value="0"> Hide
 	</TD>
 	</TR>
 		
@@ -193,7 +193,7 @@ password="#SESSION.dbpw#">
 	  <cf_intelliCalendarDate9
 		FieldName="DateExpiration" 
 		Default="#Dateformat(now()+360, CLIENT.DateFormatShow)#"
-		AllowBlank="False" class="regularxl">	
+		AllowBlank="True" class="regularxl">	
   	</TD>
 	</tr>
 	

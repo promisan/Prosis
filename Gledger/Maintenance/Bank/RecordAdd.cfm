@@ -75,7 +75,7 @@ function applyaccount(acc) {
 	<TR>
     <TD class="labelmedium">Name:</TD>
     <TD>
-  	    <cfinput type="Text" class="regularxl" name="AccountName" value="" message="Please enter the name of your account" required="Yes" size="30" maxlength="40">
+  	    <cfinput type="Text" class="regularxl" name="AccountName" value="" message="Please enter the name of your account" required="Yes" size="40" maxlength="40">
     </TD>
 	</TR>
 			

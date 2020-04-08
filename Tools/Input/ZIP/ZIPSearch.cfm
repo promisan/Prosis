@@ -29,22 +29,22 @@
 <INPUT type="hidden" name="Country"           id="Country"            value="#URL.fldcountry#">
 <INPUT type="hidden" name="PCountry"          id="PCountry"           value="#URL.country#">
 
-	<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+	<table width="100%" height="100%" align="center">
 	
+	<!---
 	<tr class="line">
 	<td style="height:50;font-weight:200;font-size:21px;padding-left:5px" class="labelmedium">
 	<img src="#SESSION.root#/Images/zipcode.png" alt="" width="45" height="45" border="0" align="absmiddle">
 	<cf_tl id="Postal code search">
 	</td></tr>
+	--->
 	
 	</cfoutput>
 	
 	<tr><td height="30">
 	
-	    <table width="98%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
-			
-		<tr><td height="3"></td></tr>
-		
+	    <table width="100%" align="center" class="formpadding">
+				
 		<TR>
 		<TD style="padding-left:10px" class="labelit"><cf_tl id="Code">:</TD>	
 		<TD>		
@@ -108,13 +108,13 @@
 	</tr>
 	
 	<TR>
-	     <TD height="100%" style="padding-left:17px;padding-right:14px" valign="top">
+	     <TD height="100%" style="padding-left:10px;padding-right:10px" valign="top">
 		 
 		 <cf_divscroll id="zipresult">
 		 			
 				<table width="100%" height="100%">
-				<tr><td align="center" class="labelmedium" style="font-weight:200">
-				<cf_tl id="Please enter your criteria and press submit">......
+				<tr><td align="center" class="labelmedium">
+				<cf_tl id="Please enter your criteria and press Submit">......
 				</td></tr>
 				</table>
 				

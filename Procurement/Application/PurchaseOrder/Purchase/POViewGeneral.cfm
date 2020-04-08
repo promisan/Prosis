@@ -767,41 +767,39 @@
 
 </cfif>
 
-
-<cfquery name="Lines" 
-	datasource="AppsLedger" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">			
-	SELECT   H.Journal,
-	         H.JournalSerialNo,
-			 H.JournalTransactionNo, 
-	         H.Description, 
-			 H.Reference, 
-			 H.TransactionId,
-			 H.TransactionDate, 
-			 TL.Currency, 
-			 TL.AmountDebit, 
-			 TL.AmountCredit, 
-			 TL.GLAccount,
-			 H.ReferenceName, 
-			 H.ReferenceNo,
-			 H.ActionStatus,
-			 H.OfficerFirstName,
-			 H.OfficerLastName
-	FROM     TransactionHeader H INNER JOIN
-	         TransactionLine TL ON H.Journal = TL.Journal AND H.JournalSerialNo = TL.JournalSerialNo
-	WHERE    H.Reference   = 'Advance' 
-	AND      H.ReferenceNo = '#URL.ID1#' 
-	AND      TL.TransactionSerialNo != '0'
-	ORDER BY H.TransactionDate
-</cfquery>
-
-
 <!--- --------------------------------------- --->
 <!--- ----------Advances subtab ------------- --->
 <!--- --------------------------------------- --->
-	
+
 <cfif Parameter.InvoiceAdvance eq "1">
+	
+	<cfquery name="Lines" 
+		datasource="AppsLedger" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">			
+		SELECT   H.Journal,
+		         H.JournalSerialNo,
+				 H.JournalTransactionNo, 
+		         H.Description, 
+				 H.Reference, 
+				 H.TransactionId,
+				 H.TransactionDate, 
+				 TL.Currency, 
+				 TL.AmountDebit, 
+				 TL.AmountCredit, 
+				 TL.GLAccount,
+				 H.ReferenceName, 
+				 H.ReferenceNo,
+				 H.ActionStatus,
+				 H.OfficerFirstName,
+				 H.OfficerLastName
+		FROM     TransactionHeader H INNER JOIN
+		         TransactionLine TL ON H.Journal = TL.Journal AND H.JournalSerialNo = TL.JournalSerialNo
+		WHERE    H.Reference   = 'Advance' 
+		AND      H.ReferenceNo = '#URL.ID1#' 
+		AND      TL.TransactionSerialNo != '0'
+		ORDER BY H.TransactionDate
+	</cfquery>
 	
 	<cf_verifyOperational module="Accounting" Warning="No">
 			

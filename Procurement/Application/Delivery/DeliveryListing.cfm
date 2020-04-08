@@ -28,7 +28,7 @@
  <cfset open = 1> 
 </cfif>
 
-<cf_screentop height="100%" layout="webapp" label="Shipping and Delivery Tracking" close="parent.ColdFusion.Window.hide('deliverdialog')" banner="gray">
+<cf_screentop height="100%" html="No" layout="webapp" label="Shipping and Delivery Tracking" close="parent.ColdFusion.Window.hide('deliverdialog')" banner="gray">
 	
 	<cfparam name="URL.PurchaseNo" default="">
 	
@@ -52,7 +52,7 @@
         method="POST"
         target="result">
 		
-		<tr class="labelmedium linedotted">
+		<tr class="labelmedium line">
 		    <td></td>
 			<td><cf_tl id="Stage"></td>
 			<td><cf_tl id="Planning"></td>
@@ -143,7 +143,7 @@
 				   <table cellspacing="0" cellpadding="0" class="formspacing">
 				    <tr>
 					<td>
-					<cfinput type="button" name="Close" id="Close" value="Close" class="button10g" onclick="parent.ColdFusion.Window.hide('deliverdialog')">
+					<cfinput type="button" name="Close" id="Close" value="Close" class="button10g" onclick="parent.ProsisUI.closeWindow('deliverdialog')">
 					</td>
 					<td>
 					<cfinput type="submit" name="Save" id="Save"  value="Save"  class="button10g">

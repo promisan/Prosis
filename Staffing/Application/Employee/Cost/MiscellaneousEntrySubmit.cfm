@@ -60,9 +60,11 @@ password="#SESSION.dbpw#">
 	<cfinclude template="../PersonViewHeader.cfm">
 	
 	<table align="center">
-	<tr><td height="50">
-		<font color="FF0000"><b><cf_tl id="An entry with this effective date was already registered"></font></b></p>
-	</td></tr>
+	<tr class="labelmedium">
+	    <td height="50">
+		<cf_tl id="An entry with this effective date was already registered">
+	    </td>
+	</tr>
 	<tr><td align="center">
 		<cf_tl id="Edit Entitlement" var="1">
 		<input type="button" class="button10g" value="#lt_text#" onClick="javascript:editEntitlement('#Entitlement.PersonNo#','#Entitlement.CostId#');">
@@ -86,6 +88,7 @@ password="#SESSION.dbpw#">
      datasource="AppsPayroll" 
      username="#SESSION.login#" 
      password="#SESSION.dbpw#">
+	 
      INSERT INTO PersonMiscellaneous 
          
 			 (PersonNo,
@@ -115,7 +118,7 @@ password="#SESSION.dbpw#">
 			  '#Form.EntitlementClass#',
 			  '#Form.Entitlement#',
 			  '#Form.Currency#',
-			  <cfif PayrollItem.entityClass neq "">
+			  <cfif form.entityclass neq "">
 			  '0',
 			  <cfelse>
 			  '2',
@@ -128,8 +131,7 @@ password="#SESSION.dbpw#">
 		  
 	  </cfquery>	  		    
 	  
-    <cfoutput>
-	 
+   	 
 		<cfquery name="Person" 
 		datasource="AppsEmployee" 
 		username="#SESSION.login#" 
@@ -139,13 +141,13 @@ password="#SESSION.dbpw#">
 			WHERE  PersonNo = '#Form.PersonNo#' 
 		</cfquery>
 		
-		<cfif PayrollItem.entityClass neq "">
+		<cfif form.entityclass neq "">
 							 	
 			<cfset link = "Staffing/Application/Employee/Cost/MiscellaneousEdit.cfm?id=#form.personno#&id1=#form.costid#">
 			
 			<cf_ActionListing 
 			    EntityCode       = "EntCost"
-				EntityClass      = "#payrollItem.entityclass#"
+				EntityClass      = "#form.entityclass#"
 				EntityGroup      = ""
 				EntityStatus     = ""
 				Mission 		 = "#form.Mission#"
@@ -160,10 +162,12 @@ password="#SESSION.dbpw#">
 			
 		</cfif>	
 		
+		<cfoutput>>
+		
 	     <script language = "JavaScript">
 		 	   ptoken.location ("EmployeeMiscellaneous.cfm?ID=#Form.PersonNo#&ID1=#Form.IndexNo#");
 	     </script>	
 
-     </cfoutput>	   
+        </cfoutput>	   
 	
 </cfif>	

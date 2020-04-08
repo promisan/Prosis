@@ -315,7 +315,10 @@
 		                                 FROM   Organization.dbo.OrganizationAuthorization
 										 WHERE  UserAccount = '#SESSION.acc#')
 						)	
-		  AND   Code IN (SELECT GroupCode
+						 			
+		  </cfif>	
+		  
+		    AND   Code IN (SELECT GroupCode
 		                 FROM   Ref_PersonGroupOwner				
 						 WHERE  Owner IN (SELECT MissionOwner
 						                  FROM   Organization.dbo.Ref_Mission
@@ -324,8 +327,7 @@
 														     WHERE  PA.PositionNo = P.PositionNo
 														     AND    PA.PersonNo = '#Form.PersonNo#')
 										 )		
-						)													 			
-		  </cfif>	
+						)									
 		  AND Operational = 1							 
 								 
 		</cfquery>

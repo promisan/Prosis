@@ -45,7 +45,7 @@ function maxme(itm) {
 
 	<cfif URL.Scope neq "Inquiry">
 	
-		<table width="100%" height="99%" cellspacing="0" cellpadding="0" class="formpadding">
+		<table width="100%" height="99%" class="formpadding">
 		
 		<tr><td height="5"></td></tr>
 				
@@ -53,13 +53,13 @@ function maxme(itm) {
 	
 		<cf_screentop height="100%" jquery="Yes" scroll="No" html="No" menuAccess="Yes" SystemFunctionId="#url.idmenu#">
 	
-		<table width="98%" height="100%" cellspacing="0" cellpadding="0" align="center">
+		<table width="98%" height="100%" align="center">
 		
 		<tr><td height="5"></td></tr>
 		
 		<t><td>
 		
-			<table width="100%" border="0" cellspacing="0" align="center" align="center" class="formpadding">
+			<table width="100%" align="center" align="center" class="formpadding">
 							
 				 <tr class="line">
 				  
@@ -68,10 +68,10 @@ function maxme(itm) {
 					<td style="font-weight:200;height:50px;padding-left:10px;padding-top:8px;font-size:25px" class="labelit">#url.mission# <cf_tl id="Patients"></td>	
 					</cfoutput>
 					<cfelse>
-				    <td style="font-weight:200;padding-left:10px;padding-top:6px;font-size:30px" class="labelit"><cf_tl id="Inquiry"></td>					
+				    <td style="font-weight:200;padding-left:10px;padding-top:6px;font-size:30px"><cfoutput>#session.welcome#<cf_tl id="Natural Person Repository"></cfoutput></td>					
 					</cfif>
-					<td align="right" width="30%" valign="bottom" style="font-weight:200;padding-right:10px" class="labelit">
-					<cfoutput><font color="gray"><cf_tl id="Mode">:&nbsp;&nbsp;<font color="002350">#URL.Mode#/#url.class#</font></cfoutput>
+					<td align="right" width="30%" valign="bottom" style="padding-right:10px" class="labelit">
+					<cfoutput><cf_tl id="Mode">:&nbsp;&nbsp;<font color="002350">#URL.Mode# <cfif url.class eq ""><cf_tl id="Global"><cfelse>/#url.class#</cfif></cfoutput>
 					</td>
 				 </tr> 	
 				 			 
@@ -85,12 +85,12 @@ function maxme(itm) {
 
 	<tr class="line">
 	
-	<td height="20" name="search" style="border:0px solid silver">
+	<td height="20" name="search">
 								
 		<CFFORM action="#SESSION.root#/Roster/RosterGeneric/CandidateResult.cfm?mission=#url.mission#&height=#URL.height#&DocNo=#URL.DocNo#&Scope=#URL.Scope#&Mode=#URL.Mode#&Owner=#URL.Owner#"
 	        method="post" target="result">		
 					
-		<table width="98%" border="0" cellspacing="0" cellpadding="0" align="center" align="center" class="formpadding">
+		<table width="98%" align="center" align="center" class="formpadding">
 		
 		    <cfif url.class neq "">
 				
@@ -102,24 +102,24 @@ function maxme(itm) {
 					 
 				<tr><td height="5"></td></tr>
 				
-				<tr>
-				
-				<!--- Field: Staff.Class=CHAR;20;TRUE --->
-					
+				<tr class="labelmedium">
+													
 				<cfquery name="Class" 
 				datasource="AppsSelection" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
-					SELECT * 
-					FROM Ref_ApplicantClass
+					SELECT   * 
+					FROM     Ref_ApplicantClass
+					WHERE    Operational = 1
+					ORDER BY ListingOrder
 				</cfquery>
 			
-				<td style="padding-left:10px" width="100" class="labelit" style="padding-top:2px"><cf_tl id="Class">:</td>
+				<td style="padding-left:10px" width="100" style="padding-top:2px"><cf_tl id="Class">:</td>
 				<td colspan="3">
 				
 				    <table>
 					<tr>
-					<td><input type="radio" name="Class" value="" checked></td><td class="labelit"><cf_tl id="Any"></td>
+					<td><input type="radio" name="Class" value="" checked></td><td><cf_tl id="Any"></td>
 					<cfoutput query="Class">
 					  <td style="padding-left:5px"><input type="radio" class="radiol" name="Class" value="#ApplicantClassId#"></td><td class="labelit"><cf_tl id="#Description#"></td>
 					</cfoutput>		
@@ -165,7 +165,7 @@ function maxme(itm) {
 			
 			<cfif url.class eq "">
 					
-			<TD class="labelit" style="padding-left:10"><cf_tl id="Roster bucket">:</TD>
+			<TD style="padding-left:10"><cf_tl id="Roster bucket">:</TD>
 			<TD>
 			
 			<cfquery name="Edition" 
@@ -238,13 +238,26 @@ function maxme(itm) {
 			
 			<cfif url.class eq "">
 			
-				<TD class="labelit" style="padding-left:10px"><cf_tl id="Candidate Assessment">:</TD>
+				<TD style="padding-left:10px"><cf_tl id="Candidate Assessment">:</TD>
 				<TD>
 				
 				<select name="Assessment" style="width: 250;" class="regularxl">
 				   <option value="" selected>N/A</option>
 				   <option value="1">Candidates WITH a Skill Assessment</option>
 				   <option value="0">Candidates WITHOUT a Skill Assessment</option>
+				</select>
+				   
+			  	</TD>
+				
+			<cfelse>
+			
+				<TD style="padding-left:10px"><cf_tl id="Assessment">:</TD>
+				<TD>
+				
+				<select name="Assessment" style="width: 250;" class="regularxl">
+				   <option value="" selected>N/A</option>
+				   <option value="1"><cf_tl id="Cleared"></option>
+				   <option value="0"><cf_tl id="Pending"></option>
 				</select>
 				   
 			  	</TD>
@@ -258,7 +271,7 @@ function maxme(itm) {
 			<!--- Field: Staff.FirstName=CHAR;40;FALSE --->
 			<INPUT type="hidden" name="Crit3_FieldName" value="A.FirstName">
 			<INPUT type="hidden" name="Crit3_FieldType" value="CHAR">
-			<TD style="padding-left:10px" class="labelit"><cf_tl id="First name"></TD>
+			<TD style="padding-left:10px"><cf_tl id="First name"></TD>
 			<TD class="regular">
 			<SELECT name="Crit3_Operator" class="regularxl">
 				
@@ -278,7 +291,7 @@ function maxme(itm) {
 			
 			<cfif url.class eq "">
 			
-			<TD class="labelit" style="padding-left:10px"><cf_tl id="Processed">:</TD>
+			<TD style="padding-left:10px"><cf_tl id="Processed">:</TD>
 			<TD>
 			<select name="Filter" style="width: 250;" class="regularxl">
 			   <option value="" selected>All</option>
@@ -296,7 +309,7 @@ function maxme(itm) {
 		    <INPUT type="hidden" name="Crit7_FieldName" value="A.PersonNo">
 			<INPUT type="hidden" name="Crit7_FieldType" value="CHAR">
 			<TR>
-			<td style="padding-left:10px" class="labelit"><cf_tl id="Person Id">:</td>
+			<td style="padding-left:10px"><cf_tl id="Person Id">:</td>
 			<TD>
 			<SELECT name="Crit7_Operator" class="regularxl">
 				
@@ -320,7 +333,7 @@ function maxme(itm) {
 			<INPUT type="hidden" name="Crit6_FieldName" value="A.Source">		
 			<INPUT type="hidden" name="Crit6_FieldType" value="CHAR">
 					
-			<TD style="padding-left:10px" class="labelit"><cf_tl id="Source">:</TD>
+			<TD style="padding-left:10px"><cf_tl id="Source">:</TD>
 			<TD>
 			<SELECT name="Crit6_Operator" class="regularxl">
 				
@@ -345,7 +358,7 @@ function maxme(itm) {
 			<!--- Field: Staff.FirstName=CHAR;40;FALSE --->
 			<INPUT type="hidden" name="Crit5_FieldName" value="A.EMailAddress">
 			<INPUT type="hidden" name="Crit5_FieldType" value="CHAR">
-			<TD style="padding-left:10px" class="labelit"><cf_tl id="Email">:
+			<TD style="padding-left:10px"><cf_tl id="Email">:
 			<cf_space spaces="20">
 			
 			</TD>
@@ -373,7 +386,7 @@ function maxme(itm) {
 			<!--- Field: Staff.FirstName=CHAR;40;FALSE --->
 			<INPUT type="hidden" name="Crit5a_FieldName" value="A.MobileNumber">
 			<INPUT type="hidden" name="Crit5a_FieldType" value="CHAR">
-			<TD style="padding-left:10px" class="labelit"><cf_tl id="Mobile">:</TD>
+			<TD style="padding-left:10px"><cf_tl id="Mobile">:</TD>
 			
 			<TD>
 			
@@ -401,7 +414,7 @@ function maxme(itm) {
 			<INPUT type="hidden" name="Crit4_Operator" value="CONTAINS">
 			
 			<TR>
-			<TD style="padding-left:10px;height:30px;" class="labelit"><cf_tl id="Gender">:</TD>		
+			<TD style="padding-left:10px;height:30px;"><cf_tl id="Gender">:</TD>		
 			<TD class="labelit">
 				
 				<input type="radio" class="radiol" name="Crit4_Value" value="M"><cf_tl id="Male">
@@ -410,9 +423,7 @@ function maxme(itm) {
 			
 			</TD>
 			</TR>				 	 
-			
-			<tr><td height="4"></td></tr>
-			
+									
 			<tr><td colspan="4" class="line"></td></tr>	
 			
 			<tr><td valign="center" style="padding-top:4px" colspan="4" align="center">
@@ -458,7 +469,7 @@ function maxme(itm) {
 		<tr><td id="toggle" class="hide" width="100%">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0" align="right" style="padding-right:5px">
 									
-					<tr><td width="100%" colspan="2" align="center" align="right" style="padding-right:5px">		
+					<tr class="line"><td width="100%" colspan="2" align="center" align="right" style="padding-right:5px">		
 					
 						<button style="height:20;width:44" onclick="maxme('search')" name="back" class="button3" type="button" 
 				        onMouseOver="this.className='button1'" onMouseOut="this.className='button3'">
@@ -468,15 +479,14 @@ function maxme(itm) {
 										
 						</td>
 					</tr>	
-					<tr><td colspan="2" class="linedotted"></td></tr>
-					
+										
 			</table>		
 		</td></tr>
 	
 	</cfoutput>	
 	
 	<tr><td height="100%" width="100%">
-		<table width="100%" height="100%" cellspacing="0" cellpadding="0" align="center">
+		<table width="100%" height="100%" align="center">
 			<tr><td valign="top" height="100%" style="padding-left:5px">		
 				<iframe width="100%" height="100%" name="result" id="result" frameborder="0"></iframe>
 			</td></tr>

@@ -305,6 +305,18 @@ password="#SESSION.dbpw#">
 			  AND          Operational = 1
 			  ORDER BY     DateTimePlanning DESC) as DateTimePlanningWorkPlan,
 			  
+			  (SELECT TOP 1 LocationName
+			  FROM         WorkPlanDetail WPD INNER JOIN Location L ON WPD.LocationId = L.LocationId
+			  WHERE        WorkActionId = A.WorkActionid
+			  AND          WPD.Operational = 1
+			  ORDER BY     WPD.DateTimePlanning DESC) as LocationPlanningWorkPlan,
+			  
+			  (SELECT TOP 1 PlanOrderCode
+			  FROM         WorkPlanDetail
+			  WHERE        WorkActionId = A.WorkActionid
+			  AND          Operational = 1
+			  ORDER BY     DateTimePlanning DESC) as PlanOrderPlanningWorkPlan,  
+			  
 			 (SELECT TOP 1 DateTimePlanning
 			  FROM         WorkPlanDetail
 			  WHERE        WorkActionId = A.WorkActionid
@@ -615,7 +627,7 @@ password="#SESSION.dbpw#">
 					 <cfelseif DateTimePlanningWorkplan neq "">
 					
 					  <table cellspacing="0" cellpadding="0">
-					  <tr class="labelmedium" style="height:10px"><td>	
+					  <tr class="labelmedium" style="height:10px;min-width:100px"><td>	
 					  	  
 						  <cfif WorkOrderLineStatus lt "3" and DateTimeActual eq "">
 						  
@@ -657,9 +669,11 @@ password="#SESSION.dbpw#">
 						  
 						  </a>
 						  
-						   <cf_space spaces="70">
+						  #LocationPlanningWorkPlan#
 						  						  
 					  </td>
+					  
+					  
 					  
 					  <td style="padding-left:3px">
 					  					  

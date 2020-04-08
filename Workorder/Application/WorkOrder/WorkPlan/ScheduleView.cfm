@@ -1,6 +1,21 @@
 
 <cfparam name="url.mode"    default="embed"> 
-<cfparam name="url.orgunit" default="">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+<cfparam name="url.orgunit" default="">       
+
+<style>
+  .acell{text-align:center;border-left:1px solid silver;padding-left:2px;padding-right:2px;font-size:13px;min-width:30}
+  .bcell{border-left:1px solid silver;padding-left:2px;padding-right:2px;font-size:14px;min-width:40}
+  .ccell{min-width:20px;padding-top:2px;padding-left:2px;}
+  .dcell{width:100%;padding-left:6px;padding-right:4px;font-size:13px;}
+  .ecell{font-size:12px;height:20px;}
+  .fcell{font-size:12px;padding-top:2px;padding-left:4px;height:20px;min-width:12px;}
+  .gcell{min-width:32px;font-size:12px;padding-top:2px;height:20px;}
+  .hcell{font-size:15px;padding-left:11px;min-width:70px;}  
+  .lcell{height:20px;padding-right:3px;width:100%;padding-left:2px;border-right:1px solid silver;}
+  .atext{height:100%;background-color:ffffcf;border-top:0px;border-bottom:0px;width:100%;}
+  .amemo{height:42px;font-size:20px;background-color:ffffcf;border:0px;border-left:1px solid silver;border-right:1px solid silver;}
+  TR.line td{padding-top:0px !important; padding-bottom:0px !important;}
+</style>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
 <cfquery name="Line" 
 	datasource="AppsWorkOrder" 
 	username="#SESSION.login#" 
@@ -76,6 +91,7 @@
 	scroll="No" 	
 	html="No">	
 	
+
 	
 <cfoutput>
 	<script>
@@ -130,25 +146,33 @@
 
 <cf_layout attributeCollection="#attrib#">
 			
-		<cf_layoutarea 
-		   	position  = "header"		
-			style     = "height:80"		
-		   	name      = "plntop">	
+		<cfif url.mode eq "embed"> 
+		
+			<!--- new dialog --->
+		
+		<cfelse>
 			
-			<table cellspacing="0" height="50" width="100%" align="center" cellpadding="0">								
-				<tr><td valign="top">				
-					<cf_tl id="Medical Manager" var="1">		
-					
-					<cfif url.mode eq "embed"> 		
-						<cf_ViewTopMenu close="parent.ColdFusion.Window.destroy('myworkplan',true)" label="#url.mission# #lt_text#" background="gray">				
-					<cfelse>
-						<cf_ViewTopMenu label="#url.mission# #lt_text#" background="gray">	
-					</cfif>	
-				</td>
-				</tr>			
-			</table>
-						 			  
-		</cf_layoutarea>							
+			<cf_layoutarea 
+			   	position  = "header"		
+				style     = "height:80"		
+			   	name      = "plntop">	
+										
+				<table cellspacing="0" height="50" width="100%" align="center" cellpadding="0">								
+					<tr><td valign="top">				
+						<cf_tl id="Medical Manager" var="1">		
+						
+						<cfif url.mode eq "embed"> 		
+							<cf_ViewTopMenu close="parent.ColdFusion.Window.destroy('myworkplan',true)" label="#url.mission# #lt_text#" background="gray">				
+						<cfelse>
+							<cf_ViewTopMenu label="#url.mission# #lt_text#" background="gray">	
+						</cfif>	
+					</td>
+					</tr>			
+				</table>
+							 			  
+			</cf_layoutarea>	
+		
+		</cfif>						
 												
 		<cfparam name="url.mission"    default="">		
 		<cfparam name="url.orgunit"    default="#Line.OrgUnitImplementer#">
@@ -230,8 +254,8 @@
 			name        = "right" 		   	
 			collapsible = "false" 
 			splitter    = "true"
-			size        = "480" 
-			minsize     = "480">
+			size        = "520" 
+			minsize     = "520">
 		
 		    <cf_divscroll>
 			

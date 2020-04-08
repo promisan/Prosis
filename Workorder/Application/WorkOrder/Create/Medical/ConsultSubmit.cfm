@@ -312,8 +312,11 @@
 	workorderline     = "#line#"
 	ActionFulFillment = "schedule"
 	validation        = "SameDay"
-	mode              = "save">		
-	
+	mode              = "save">
+
+
+
+
 <cfoutput>
 
 
@@ -322,12 +325,12 @@
 	
 	
 
-		<script>	
-	
+		<script>
 
-		   <cfif setworkplan eq '1'>	
-		     
-		     try { opener.applyfilter('','','content') } catch(e) { console.log(e);}	
+
+		   <cfif setworkplan eq '1'>
+
+		     try { opener.applyfilter('','','content') } catch(e) { console.log('error in applyfilter',e);}
 			 
 			 <cfloop index="dte" list="#pdte#">	   		   		  		   			   		        		     
 		     try { opener.calendarrefresh('#day(dte)#','#dateformat(dte,client.datesql)#') } catch(e) { console.log(e); }
@@ -336,10 +339,18 @@
 			 try { window.close(); } catch(e) { console.log(e); }
 			 
 			  try {			 
-			      parent.Prosis.busy('yes') 
-			      parent.ptoken.open('#session.root#/WorkOrder/Application/Medical/ServiceDetails/Workorderline/WorkOrderLineView.cfm?drillid=#rowguid#&idmenu=#url.idmenu#','_self'); } catch(e) { console.log(e); }	
-				  parent.ProsisUI.closeWindow('myorder'); 	
-			 
+			      parent.Prosis.busy('yes')
+
+			      parent.ptoken.open('#session.root#/WorkOrder/Application/Medical/ServiceDetails/Workorderline/WorkOrderLineView.cfm?drillid=#rowguid#&idmenu=#url.idmenu#','_self');
+			 } catch(e)
+		   		{ console.log('error opening',e); }
+
+			 try {
+				 parent.ProsisUI.closeWindow('myorder');
+			 }catch(e)
+			 { console.log('error closing',e); }
+
+
 		   <cfelse>
 		   
 		   	 try {			 

@@ -1,16 +1,14 @@
-<!--- add entries is still missing --->
 
 <!--- provision to clean OrganizationObject records that have no linkage anymore for that document --->
 
+<!--- this was moved to a daily batch to be run API/WorkflowIntegrity
 
 <cfif Entity.EnableIntegrityCheck eq "1">
 
 	<cfset random = round(Rand()*30)>
  
  	<cfif random eq "5">
-		
-		<cftransaction>
-	
+					
 		<cfquery name="Clean" 
 		 datasource="#attributes.Datasource#"
 		 username="#SESSION.login#" 
@@ -73,8 +71,7 @@
 		 </cfif>
 			  
 		</cfquery>	
-		
-		</cftransaction>
+				
 		
 	</cfif>	
 	
@@ -112,6 +109,8 @@
 			
 </cfif>
 
+--->
+
 <!--- check if object exists --->
 
 
@@ -120,7 +119,7 @@
  username="#SESSION.login#" 
  password="#SESSION.dbpw#">
  SELECT *
- FROM   Organization.dbo.OrganizationObject O 
+ FROM   Organization.dbo.OrganizationObject O WITH (NOLOCK) 
  WHERE  O.EntityCode   = '#Attributes.EntityCode#' 
  AND    O.Operational  = 1
         #preserveSingleQuotes(condition)#  
@@ -159,7 +158,7 @@
 					 username="#SESSION.login#" 
 					 password="#SESSION.dbpw#">
 						 SELECT *   
-						 FROM   Organization.dbo.OrganizationObject
+						 FROM   Organization.dbo.OrganizationObject WITH (NOLOCK)
 						 WHERE  ObjectId = '#rowguid#'
 					</cfquery>
 					
@@ -315,7 +314,7 @@
 					 username="#SESSION.login#" 
 					 password="#SESSION.dbpw#">					 
 						 SELECT TOP 1 OA.*
-						 FROM   Organization.dbo.OrganizationObjectAction OA
+						 FROM   Organization.dbo.OrganizationObjectAction OA WITH (NOLOCK)
 						 WHERE  OA.ObjectId = '#objectid#' 
 						 AND    ActionStatus = '0'
 						 ORDER BY ActionFlowOrder asc						 
@@ -366,7 +365,7 @@
 								 username="#SESSION.login#" 
 								 password="#SESSION.dbpw#">
 								     SELECT * 
-									 FROM   Organization.dbo.OrganizationObjectActionAccess
+									 FROM   Organization.dbo.OrganizationObjectActionAccess WITH (NOLOCK)
 									 WHERE  ObjectId     = '#objectid#'
 									 AND    ActionCode   = '#SetAction#'
 									 AND    UserAccount  = '#flyact#' 
@@ -436,7 +435,7 @@
 				 username="#SESSION.login#" 
 				 password="#SESSION.dbpw#">
 					 SELECT TOP 1 OA.*
-					 FROM   Organization.dbo.OrganizationObjectAction OA
+					 FROM   Organization.dbo.OrganizationObjectAction OA WITH (NOLOCK)
 					 WHERE  OA.ObjectId = '#Object.ObjectId#'  
 					 AND    ActionStatus = '0'
 					 ORDER BY ActionFlowOrder asc					 					
@@ -479,7 +478,7 @@
 							 username="#SESSION.login#" 
 							 password="#SESSION.dbpw#">
 							     SELECT  * 
-								 FROM    Organization.dbo.OrganizationObjectActionAccess
+								 FROM    Organization.dbo.OrganizationObjectActionAccess WITH (NOLOCK)
 								 WHERE   ObjectId     = '#Object.objectid#'
 								 AND     ActionCode   = '#SetAction#'
 								 AND     UserAccount  = '#flyact#' 
@@ -531,7 +530,7 @@
 			 username="#SESSION.login#" 
 			 password="#SESSION.dbpw#">
 				 SELECT OA.*
-				 FROM   Organization.dbo.OrganizationObjectAction OA
+				 FROM   Organization.dbo.OrganizationObjectAction OA WITH (NOLOCK)
 				 WHERE  OA.ObjectId = '#Object.ObjectId#' 
 			 </cfquery>				 
 			 
@@ -576,8 +575,8 @@
 					 username="#SESSION.login#" 
 					 password="#SESSION.dbpw#">
 					 SELECT DISTINCT O.*, R.*
-					 FROM   Organization.dbo.OrganizationObject O,
-							Organization.dbo.Ref_Entity R
+					 FROM   Organization.dbo.OrganizationObject O WITH (NOLOCK),
+							Organization.dbo.Ref_Entity R WITH (NOLOCK)
 					 WHERE  O.ObjectId = '#Object.Objectid#'
 					 AND    O.EntityCode = R.EntityCode
 					 AND    O.Operational  = 1

@@ -1,20 +1,13 @@
-	
-<html>
-	
-	<head><title>Reporting Batch</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-	</head>
-	
-	<!--- this template selects the report variants that would need to be sent to a subscriber --->
-	
-	<body leftmargin="6" topmargin="6" rightmargin="4">
-	
-	<cfparam name="URL.Mode" default="Test">
+
+<cf_screenTop height="100%" label="Reporter distribution batch" html="No" band="No" jQuery="Yes" scroll="no">
+		
+	<cfparam name="URL.dts"        default="#dateformat(now(),client.dateformatshow)#">	
+	<cfparam name="URL.Mode"       default="schedule">
 	<cfparam name="URL.FormSelect" default="Batch">
+		
+	<cfif url.mode neq "schedule">
 	
-	<cfif url.mode eq "Trial">
-	
-		<!--- create an instance --->
+		<!--- create an instance as we by pass --->
 	
 		<cf_assignId>
 	
@@ -24,8 +17,9 @@
 		datasource="AppsSystem" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-		    SELECT * FROM Schedule
-			WHERE ScheduleName = 'ReportBatch'			
+		    SELECT * 
+			FROM   Schedule
+			WHERE  ScheduleName = 'ReportBatch'			
 		</cfquery>
 		
 		<cfquery name="Insert"
@@ -46,20 +40,25 @@
 		</cfquery>
 					
 	</cfif>
-		
-	<cfparam name="URL.Batch" default="1">
 	
-	<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
-	
-	<cfinclude template="Anonymous/PublicInit.cfm">
-	
-	<cfif url.mode eq "Test">
+	<cfif url.mode eq "Trial">
 	   <cfset class = "Trial">
 	   <cfset CLIENT.TrialMode = "1">
 	<cfelse>
 	   <cfset class = "Schedule">  
 	   <cfset CLIENT.TrialMode = "0">
 	</cfif> 
+		
+	<cfparam name="URL.Batch" default="1">
+			
+	<cfinclude template="Anonymous/PublicInit.cfm">
+	
+	<!--- set the dates	to work with --->
+		 
+	<CF_DateConvert Value="#URL.dts#">
+	<cfset STR = dateValue>	
+	<cfset PRI = dateadd("D","-1",STR)>
+	<cfset END = dateadd("D","1",STR)>			
 	
 	<!--- external reports are not supported for batch eMail --->
 	
@@ -84,8 +83,8 @@
 		AND   L.ControlId          =  R.ControlId
 		AND   Usr.Account          =  U.Account
 		AND   R.SystemModule       =  S.SystemModule
-		AND   U.DateEffective      <= getDate() 
-		AND   U.DateExpiration     >= getDate()
+		AND   U.DateEffective      <= #STR# 
+		AND   U.DateExpiration     >= #STR#
 		AND   U.DistributionEMail  > ''
 		AND   U.Status             != '5'
 		AND   U.DistributionPeriod != 'Manual'
@@ -96,18 +95,17 @@
 		AND   R.TemplateSQL        != 'External' 
 				
 		<cfif class neq "Trial">
-		<!---
-		AND   U.ReportId = 'bf4f2366-baae-369c-2f07-9a3837852517'
-		--->
+		
+		<!--- exclude reports that were created as part of a batch of the select date --->
+		
 		AND   U.ReportId NOT IN (
-		                         SELECT     D.ReportId
-							     FROM       ReportBatchLog Log INNER JOIN
-					                        UserReportDistribution D ON Log.BatchId = D.BatchId
-							     WHERE      Log.Created > GETDATE() - 1
-							     AND        Log.ProcessClass != 'Trial'
-							     -- AND        D.Account != 'administrator'
-							     ) 
-								
+                         SELECT     D.ReportId
+					     FROM       ReportBatchLog Log INNER JOIN
+			                        UserReportDistribution D ON Log.BatchId = D.BatchId
+					     WHERE      Log.Created = #STR# 
+					     AND        Log.ProcessClass != 'Trial'
+					     -- AND        D.Account != 'administrator'
+					     ) 							
 								 
 		</cfif>		
 		
@@ -134,32 +132,24 @@
 	   </cfif>
 	      
 	</table>
-	
-	<cfflush>
-	
+		
 	<cf_assignId>   
 	
 	<cfquery name="Log" 
 	datasource="AppsSystem">
 		INSERT INTO ReportBatchLog 
-			(BatchId,
-			 ProcessClass, 
-			 ProcessStart, 
-			 OfficerUserId, 
-			 ProcessStatus, 
-			 Created)
-		VALUES  ('#ROWGUID#',
-		        '#class#', 
-		        getDate(), 
-				'#CGI.Remote_Addr#', 
-				'In process', 
-				'#dateFormat(now(), CLIENT.DateSQL)#') 
+				(BatchId,
+				 ProcessClass, 
+				 ProcessStart, 
+				 OfficerUserId, 
+				 ProcessStatus, 
+				 Created)
+		VALUES  ('#ROWGUID#','#class#',getDate(),'#CGI.Remote_Addr#','In process',#STR#) 
 	</cfquery>
 	
 	<cfset batchid = rowguid>
 	
-	<cfset sent = 0>
-	
+	<cfset sent = 0>	
 		
 	<cfoutput query="Batch">	
 		
@@ -178,7 +168,7 @@
 				</cfcase>
 				
 				<cfcase value="Weekly">
-				    <cfset day = DayOfWeek(now())>
+				    <cfset day = DayOfWeek(STR)>
 					<cfloop index="d" list="#DistributionDOW#" delimiters="|">
 						<cfif d eq day>
 						    <cfset report = "Yes">
@@ -188,11 +178,11 @@
 				
 				<cfcase value="Monthly">
 				    <cfif DistributionDOM eq "0">
-						<cfif Day(now()) eq Day(DateEffective)>
+						<cfif Day(STR) eq Day(DateEffective)>
 						    <cfset report = "Yes">
 						</cfif>
 					<cfelse>
-						<cfif Day(now()) eq DistributionDOM>
+						<cfif Day(STR) eq DistributionDOM>
 						    <cfset report = "Yes">
 						</cfif>
 					</cfif>
@@ -347,7 +337,8 @@
 								  DistributionStatus,
 								  OfficerUserid, 
 								  OfficerLastName,
-								  BatchId,BatchSerialNo) 
+								  BatchId,
+								  BatchSerialNo) 
 						 VALUES ('#distributionid#',
 							     '#ReportId#', 
 							     '#ControlId#',
@@ -367,9 +358,9 @@
 								 '#Condition#',
 								 '#session.acc#',  
 								 'Batch',
-								 '#BatchId#','#serial#') 
-				    	</cfquery>		
-						
+								 '#BatchId#',
+								 '#serial#') 
+				    	</cfquery>						
 												
 					<cfif class eq "Trial">											
 					
@@ -399,8 +390,7 @@
 									
 						</cfif>
 					
-						<cfinclude template="ReportPrepareN.cfm">		
-														
+						<cfinclude template="ReportPrepareN.cfm">														
 						
 					<cfelse>
 					
@@ -453,7 +443,7 @@
 								<table width="96%" border="0" align="center">
 								      <tr>				
 									  <td>
-									  	<td class="labelmedium linedotted"><font color="FF0000">Problem with report. Report has been skipped</font></td>
+									  	<td class="labelmedium line"><font color="FF0000">Problem with report. Report has been skipped</font></td>
 									  </tr>
 								<table>
 							
@@ -469,8 +459,7 @@
 					
 					<cfif condition eq "1">
 					 	<cfset sent = sent+1>
-					</cfif>
-										
+					</cfif>										
 					
 					<cfset diff = datediff("s",  PrepS,  now())>
 					<cfif diff eq "0">
@@ -532,10 +521,9 @@
 	
 	</cfif>
 	
-	<table><tr><td height="30" class="labelmedium">
+	<table>
+	<tr><td height="30" class="labelmedium">	
+	Completed <cfif class eq "Trial"><br>Test Mode : No eMails were sent except for administrator account</cfif></b>	
+	</td></tr>
+	</table>
 	
-	Completed <cfif class eq "Trial"><br>Test Mode : No eMails were sent except for administrator account</cfif></b>
-	
-	</td></tr></table>
-	
-</html>

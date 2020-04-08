@@ -203,8 +203,7 @@
 	AND    WorkOrderLine = '#url.workorderline#'				  
 </cfquery>	
 
-
-<cfform name="orderform" onsubmit="return false" style="height:100%">
+<cfform name="orderform" onsubmit="return false" style="height:99%">
 	
 	<cfoutput>
 		<input type="hidden" name="ParentWorkOrderid"   value="#LastWorkOrderId#">
@@ -213,7 +212,7 @@
 	
 	<!--- there can be different rates basedon the topic + unit combinations --->
 		
-	<table style="width:98%;min-width:1000px" class="formspacing">
+	<table style="min-width:1000px" class="formspacing">
 		
 	<tr class="hide"><td id="process"></td></tr>
 	
@@ -234,8 +233,10 @@
 	</cfif>
 	
 	<tr>
-		<td  style="padding-left:4px" height="34" class="labelmedium" width="25%"><cf_tl id="Request date">:</td>
+		<td  style="padding-left:4px" class="labelmedium" width="25%"><cf_tl id="Request date">:</td>
 		<td>
+		 <table  cellspacing="0" cellpadding="0">
+				 <tr><td>
 						
 			 <cf_intelliCalendarDate9
 				FieldName="OrderDate" 
@@ -243,15 +244,19 @@
 				Default="#Dateformat(now(), CLIENT.DateFormatShow)#"
 				DateValidEnd="#Dateformat(now()+60, 'YYYYMMDD')#"
 				AllowBlank="False">				
+				
+				</td>
+				</tr>
+		  </table>		
 		
 		</td>
 	</tr>
 	
 	<tr>
-		<td  style="padding-left:4px" height="34" class="labelmedium" width="15%"><cf_tl id="Administrating Unit">:</td>
+		<td  style="padding-left:4px" class="labelmedium"><cf_tl id="Administrating Unit">:</td>
 		<td>
 			
-	         <table>
+	         <table  cellspacing="0" cellpadding="0">
 				 <tr><td>
 				       
 					 <cfinput type="text" name="orgunitname1" id="orgunitname1" value="#OrgUnitOwnerName#" message="No unit selected" required="Yes" class="regularxl" size="40" maxlength="80" readonly>					  
@@ -286,7 +291,7 @@
 	
 	<tr>
 		<td style="padding-left:4px" class="labelmedium"><cf_tl id="Currency">:</td>
-		<td class="labelmedium">
+		<td>
 		
 		<cfquery name="qCurrency" 
 		 datasource="AppsLedger" 
@@ -295,12 +300,20 @@
 			 SELECT    *
 			 FROM      Currency			
 		</cfquery>
+		
+		   <table cellspacing="0" cellpadding="0">
+					<tr>
+					<td>
 			
-		<select name="Currency" class="regularxl">
-		<cfoutput query="qCurrency">
-		    <option value="#Currency#" <cfif application.basecurrency eq currency>selected</cfif>>#Currency#</option>
-		</cfoutput>
-		</select>
+				<select name="Currency" class="regularxl">
+				<cfoutput query="qCurrency">
+				    <option value="#Currency#" <cfif application.basecurrency eq currency>selected</cfif>>#Currency#</option>
+				</cfoutput>
+				</select>
+				
+				</td>
+				</tr>
+			</table>	
 		
 		</td>
 	</tr>
@@ -309,21 +322,29 @@
 	
 	<tr>
 		<td style="padding-left:4px" class="labelmedium"><cf_tl id="Currency">:</td>
-		<td class="labelmedium">
+		<td>
 		
-		<cfquery name="qCurrency" 
-		 datasource="AppsLedger" 
-		 username="#SESSION.login#" 
-		 password="#SESSION.dbpw#">		 
-			 SELECT    *
-			 FROM      Currency			
-		</cfquery>
-			
-		<select name="Currency" class="regularxl">
-		<cfoutput query="qCurrency">
-		    <option value="#Currency#" <cfif application.basecurrency eq currency>selected</cfif>>#Currency#</option>
-		</cfoutput>
-		</select>
+		   <table cellspacing="0" cellpadding="0">
+					<tr>
+					<td>
+		
+				<cfquery name="qCurrency" 
+				 datasource="AppsLedger" 
+				 username="#SESSION.login#" 
+				 password="#SESSION.dbpw#">		 
+					 SELECT    *
+					 FROM      Currency			
+				</cfquery>
+					
+				<select name="Currency" class="regularxl">
+				<cfoutput query="qCurrency">
+				    <option value="#Currency#" <cfif application.basecurrency eq currency>selected</cfif>>#Currency#</option>
+				</cfoutput>
+				</select>
+				
+				</td>
+				</tr>
+			</table>	
 		
 		</td>
 	</tr>
@@ -333,8 +354,12 @@
 	<cfif url.orgunit eq "">
 	
 		<tr class="labelmedium">
-			<td  style="padding-left:4px" height="34" width="15%"><cf_tl id="Executing Unit">:</td>
+			<td  style="padding-left:4px"><cf_tl id="Executing Unit">:</td>
 			<td>	
+			
+			   <table cellspacing="0" cellpadding="0">
+					<tr>
+					<td>
 			
 				<cfquery name="Org" 
 				 datasource="AppsOrganization" 
@@ -366,6 +391,10 @@
 				    <option value="#orgunit#">#OrgUnitName#</option>
 				</cfoutput>
 				</select>
+				
+				</td>
+				</tr>
+				</table>
 								
 			</td>
 		</tr>	
@@ -421,8 +450,12 @@
 	<cfelse>
 	
 		<tr class="labelmedium">
-			<td  style="padding-left:4px" height="34" width="15%"><cf_tl id="Executing Unit">:</td>
-			<td style="padding-left:2px">	
+			<td  style="padding-left:4px"><cf_tl id="Executing Unit">:</td>
+			<td>	
+			
+			   <table cellspacing="0" cellpadding="0">
+					<tr>
+					<td>
 			
 				<cfquery name="Org" 
 				 datasource="AppsOrganization" 
@@ -454,6 +487,10 @@
 				    <option value="#orgunit#" <cfif orgunit eq url.orgunit>selected</cfif>>#OrgUnitName#</option>
 				</cfoutput>
 				</select>
+				
+					</td>
+					</tr>
+				</table>
 								
 			</td>
 		</tr>	
@@ -463,20 +500,12 @@
 	</cfif>
 	
 	<tr>
-		<td  style="padding-left:4px" height="34" class="labelmedium" width="15%"><cf_tl id="Responsible Specialist">:</td>
+		<td style="padding-left:4px" class="labelmedium"><cf_tl id="Responsible Specialist">:</td>
 		<td>
 		
 		      <table cellspacing="0" cellpadding="0">
 					<tr>
 					
-					<td id="member">
-					
-						<cfoutput>															
-							<input type="text"   value="#last.PersonNoName1#" name="name" value="" size="40" maxlength="40" class="regularxl enterastab" readonly style="padding-left:4px">				
-							<input type="hidden" value="#last.PersonNo1#" name="personno" id="personno" value="" size="10" maxlength="10" readonly>					
-						</cfoutput>
-					
-					</td>
 					<td>
 					
 					<cfset link = "#SESSION.root#/WorkOrder/Application/WorkOrder/Create/Medical/setEmployee.cfm?workorderid=#url.workorderid#">	
@@ -486,21 +515,31 @@
 						    box        = "member"
 							button     = "yes"
 							icon       = "search.png"
-							iconwidth  = "29"
-							iconheight = "29"
+							iconwidth  = "25"
+							iconheight = "25"
 							title      = "#lt_text#"
 							link       = "#link#"						
 							close      = "Yes"
 							des1       = "PersonNo">
 							
 					</td>
+					
+					<td id="member">
+					
+						<cfoutput>															
+							<input type="text"   value="#last.PersonNoName1#" name="name" value="" size="40" maxlength="40" class="regularxl enterastab" readonly style="padding-left:4px">				
+							<input type="hidden" value="#last.PersonNo1#" name="personno" id="personno" value="" size="10" maxlength="10" readonly>					
+						</cfoutput>
+					
+					</td>
+					
 					</tr>
 				</table>		
 			
 		</td>
 	</tr>
 	
-	<tr><td  style="padding-left:4px" height="34" class="labelmedium" width="15%"><cf_tl id="Activity">:</td>
+	<tr><td style="padding-left:4px" height="34" class="labelmedium"><cf_tl id="Activity">:</td>
 		
 		<cfquery name="ServiceArea" 
 			datasource="AppsWorkOrder" 
@@ -559,6 +598,9 @@
 				--->
 							   	
 			<cfelse>
+			
+				 <table  cellspacing="0" cellpadding="0">
+				 <tr><td>
 																					
 				<select name="ServiceReference" id="ServiceReference" class="regularxl enterastab">
 				<cfoutput query="ServiceArea">
@@ -566,6 +608,10 @@
 				   <option value="#Reference#" <cfif lastReference eq Reference>selected</cfif>>#lt_text#</option>
 				</cfoutput>					
 				</select>
+				
+				</td>
+				</tr>
+				</table>
 											
 			</cfif>
 																		
@@ -575,8 +621,15 @@
 	
 	</tr>
 	
+	<tr>	
+		<td style="padding-left:4px;min-width:166px" class="labelmedium"><cf_tl id="ReferenceNo">:</td>
+		<td style="min-width:100%">
+		<input type="text" class="regularxl enterastab" name="Reference" id="Reference" maxlength="20" style="width:100">	
+		</td>
+	</tr>
+	
 	<tr>
-		<td  style="padding-left:4px" height="34" class="labelmedium" width="15%"><cf_tl id="Class">:</td>
+		<td  style="padding-left:4px" height="34" class="labelmedium"><cf_tl id="Class">:</td>
 					
 		<cfquery name="DomainClass" 
 				datasource="AppsWorkOrder" 
@@ -612,7 +665,11 @@
 			
 			<cfif DomainClass.recordcount gte "1">
 						
-				<td class="labelmedium">	
+				<td>	
+				
+				 <table  cellspacing="0" cellpadding="0">
+				 <tr><td>
+								
 								
 					<cfif url.mode eq "View">
 					
@@ -641,30 +698,24 @@
 						</select>
 													
 					</cfif>
+					
+					
+				 </td>
+				 
+				 <td style="padding-left:10px;min-width:400px">			
+				    <cfdiv bind="url:#session.root#/WorkOrder/Application/WorkOrder/Create/Medical/getCustomField.cfm?mission=#url.mission#&serviceitem=#url.serviceitem#&domainclass={ServiceDomainClass}">		
+				 </td>
+				 </tr>
+				 </table>
 																				
 				</td>	
 						
 			</cfif>	
 			
 	</tr>
-	
-	<tr>	
-		<td style="padding-left:4px" class="labelmedium" width="15%"><cf_space spaces="66"><cf_tl id="ReferenceNo">:</td>
-		<td>
-		<input type="text" class="regularxl enterastab" name="Reference" id="Reference" maxlength="20" style="width:100">	
-		</td>
-	</tr>
 		
-	<tr>	
-	<td colspan="2" style="padding-left:0px">
-	
-	    <cfdiv bind="url:#session.root#/WorkOrder/Application/WorkOrder/Create/Medical/getCustomField.cfm?mission=#url.mission#&serviceitem=#url.serviceitem#&domainclass={ServiceDomainClass}">
-		
-	</td>
-	</tr>
-	
 	<tr>
-		<td  style="padding-left:4px" height="34" class="labelmedium" width="15%"><cf_tl id="Memo">:</td>
+		<td  style="padding-left:4px" class="labelmedium"><cf_tl id="Memo">:</td>
 		<td>
 		<input type="text" class="regularxl enterastab" name="OrderMemo" id="OrderMemo" style="width:80%">
 		</td>
@@ -673,15 +724,12 @@
 	<tr class="line">
 		<td  height="34" colspan="2" style="padding-left:4px;height:30px;font-size:16px" class="labelmedium" width="15%"><cf_tl id="Planned actions"></td>
 	</tr>
-	
-		
+			
 	<!--- Note for the file : Hanno 10/10/2016 ------------------------------------------------------- --->
 	<!--- attention : if the implementing orgunit changes 
 	     we should allow here to pass a different orgunit for the action fields : this is pending here --->
 	<!--- -------------------------------------------------------------------------------------------- --->	 
-	
-	
-	
+		
 	<cfif url.schedule eq "1">	
 										
 		<cfset datemode = "Planning">
@@ -698,7 +746,7 @@
 		   calendar          = "9"	
 		   time				 = "Yes"		
 		   date              = "#url.date#"
-		   padding           = "20"				  
+		   padding           = "0"				  
 		   actionrow         = "1"
 		   actionfulfillment = "Schedule"	<!--- filters on a certain action only --->  
 		   actiondatemode    = "#datemode#">	
@@ -719,7 +767,7 @@
 		   mode           = "edit"
 		   date           = "#url.date#"
 		   calendar       = "9"		
-		   padding        = "20"					  
+		   padding        = "0"					  
 		   actiondatemode = "#datemode#">		
 	
 	</cfif>	   

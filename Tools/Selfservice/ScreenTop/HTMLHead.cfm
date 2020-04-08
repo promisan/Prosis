@@ -60,7 +60,7 @@
 	
 		<cfoutput>
 			<script type="text/javascript" src="#SESSION.root#/Scripts/jQuery/jquery.js"></script>
-			<cf_UIGadgets>
+			<cf_UIGadgets TreeTemplate="#attributes.TreeTemplate#">
 			<cf_tl id="Yes" var="lblYes">
 			<cf_tl id="No" var="lblNo">
 			<cf_tl id="Cancel" var="lblCancel">
@@ -80,6 +80,11 @@
 			<!--- removed hanno 5/2/2016
 			<cfajaximport tags="cfwindow">
 			--->
+
+			<cfif attributes.bootstrap eq "Yes">
+				<link rel="stylesheet" href="#session.root#/scripts/mobile/resources/vendor/bootstrap/dist/css/bootstrap.css" />
+				<script src="#session.root#/scripts/mobile/resources/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+			</cfif>
 			
 		</cfoutput>
 	</cfif>

@@ -1,6 +1,8 @@
 <!--- Create Criteria string for query from data entered thru search form --->
 <cf_divscroll>
 
+<cf_screentop html="No" jquery="Yes">
+
 <cfquery name="SearchResult"
 datasource="appsMaterials" 
 username="#SESSION.login#" 
@@ -11,9 +13,11 @@ password="#SESSION.dbpw#">
 
 <cfset Page         = "0">
 <cfset add          = "1">
-<cfinclude template = "../HeaderMaintain.cfm"> 	
 
-<table width="95%" align="center" cellspacing="0" cellpadding="0" >
+
+<table height="100%" width="95%" align="center">
+
+<tr><td style="height:10px"><cfinclude template = "../HeaderMaintain.cfm"></td></tr>
 
 <cfajaximport tags="cfform">
 
@@ -22,11 +26,11 @@ password="#SESSION.dbpw#">
 <script>
 
 	function recordadd(grp) {
-	         window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 450, height= 300, toolbar=no, status=yes, scrollbars=no, resizable=no");
+	         window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=550, height= 300, toolbar=no, status=yes, scrollbars=no, resizable=no");
 	}
 	
 	function recordedit(id1) {
-	          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width= 450, height= 300, toolbar=no, status=yes, scrollbars=no, resizable=no");
+	          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=550, height= 300, toolbar=no, status=yes, scrollbars=no, resizable=no");
 	}
 
 	function show(cde) {
@@ -61,51 +65,53 @@ password="#SESSION.dbpw#">
 	
 <!--- "width=550, height=500, scrollbars=yes, resizable=yes" --->
 
-<tr><td colspan="2">
+<tr><td style="height:100%">
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0.1" align="center" class="navigation_table">
+<cf_divscroll>
 
-<tr>
+<table width="100%" align="center" class="navigation_table">
+
+<tr class="fixrow labelmedium line">
     <TD align="left"></TD>
-    <TD class="labelmedium" align="left">Code</TD>
-	<TD class="labelmedium" align="left">Description</TD>
-	<TD class="labelmedium" align="left">Mode</TD>
-	<TD class="labelmedium" align="left">Operational</TD>
-	<TD class="labelmedium" align="left">Officer</TD>
-    <TD class="labelmedium" align="left">Entered</TD>
+    <TD>Code</TD>
+	<TD>Description</TD>
+	<TD>Mode</TD>
+	<TD>Operational</TD>
+	<TD>Officer</TD>
+    <TD>Entered</TD>
 </TR>
-<cfoutput>
-<cfloop query="SearchResult">
 
-	<TR><TD height="1" colspan="7" class="line"></TD></TR>
-    
-    <TR class="navigation_row"> 
-		<TD align="center" style="padding-top:1.3px">
-			<table cellspacing="0" cellpadding="0">
-				<tr>
-					<td style="padding-right:3px"><cf_img icon="expand" toggle="Yes" onclick="show('#code#')"></td>
-					<td><cf_img icon="open" navigation="Yes" onclick="recordedit('#Code#');"></td>
-				</tr>
-			</table>
-		</TD>
-		<TD class="labelmedium">#Code#</TD>
-		<TD class="labelmedium">#Description#</TD>
-		<TD class="labelmedium">#Mode#</TD>
-		<TD class="labelmedium"><cfif #Operational# eq 1>Yes<cfelse>No</cfif></TD>
-		<TD class="labelmedium">#OfficerFirstName# #OfficerLastName#</TD>
-		<TD class="labelmedium">#Dateformat(Created, "#CLIENT.DateFormatShow#")#</TD>
-    </TR>
-
-   <TR id="#code#" class="hide">
-   		<TD></TD>
-   		<TD colspan="7" id="#code#_list">
-		</TD>
-	</TR>
-</cfloop>
-</cfoutput>
-
+	<cfoutput>
+	<cfloop query="SearchResult">
+				    
+	    <TR class="navigation_row line labelmedium"> 
+			<TD align="center" style="padding-top:1.3px">
+				<table cellspacing="0" cellpadding="0">
+					<tr>
+						<td style="padding-right:3px"><cf_img icon="expand" toggle="Yes" onclick="show('#code#')"></td>
+						<td><cf_img icon="open" navigation="Yes" onclick="recordedit('#Code#');"></td>
+					</tr>
+				</table>
+			</TD>
+			<TD>#Code#</TD>
+			<TD>#Description#</TD>
+			<TD>#Mode#</TD>
+			<TD><cfif #Operational# eq 1>Yes<cfelse>No</cfif></TD>
+			<TD>#OfficerFirstName# #OfficerLastName#</TD>
+			<TD>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</TD>
+	    </TR>
+	
+	   <TR id="#code#" class="hide">
+	   		<TD></TD>
+	   		<TD colspan="7" id="#code#_list">
+			</TD>
+		</TR>
+	</cfloop>
+	</cfoutput>
 
 </TABLE>
+
+</cf_divscroll>
 
 </td>
 
@@ -113,4 +119,3 @@ password="#SESSION.dbpw#">
 
 </TABLE>
 
-</cf_divscroll>

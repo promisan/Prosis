@@ -1,6 +1,5 @@
 
 <cf_screentop html="no">
-		  
 
 <cfquery name="CatItemS" 
     datasource="AppsMaterials" 
@@ -36,26 +35,21 @@
 			    datasource="AppsMaterials" 
 			    username="#SESSION.login#" 
 			    password="#SESSION.dbpw#">
-					INSERT INTO PromotionElementItem
-						(
+					INSERT INTO PromotionElementItem (
 							ElementSerialNo,
 							PromotionId,
 							Category,
 							CategoryItem,
 							OfficerUserId,
 							OfficerLastName,
-							OfficerFirstName
-						)
-					VALUES
-						(
-							'#url.serial#',
+							OfficerFirstName )
+					VALUES ('#url.serial#',
 							'#url.promotionId#',
 							'#form.category#',
 							'#CategoryItem#',
 							'#SESSION.acc#',
 							'#SESSION.last#',
-							'#SESSION.first#'
-						)
+							'#SESSION.first#' )
 			</cfquery>
 		
 		</cfif>
@@ -64,11 +58,11 @@
 
 </cftransaction>
 
-<cf_ModuleControlLog systemfunctionid="#url.idmenu#" 
-			                     action="Insert" 
-								 content="#form#">
+<cf_ModuleControlLog 
+         systemfunctionid="#url.idmenu#" 
+		 action="Insert" 
+		 content="#form#">
 								 
-
 <cfoutput>
 	<script>
 		ColdFusion.navigate('ElementCategoryItem/ElementCategoryItemEdit.cfm?idmenu=#url.idmenu#&promotionid=#url.promotionid#&serial=#url.serial#&category=&categoryItem=&pcategory=#form.category#','divElementCategoryItemListing');

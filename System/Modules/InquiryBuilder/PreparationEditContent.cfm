@@ -1,7 +1,7 @@
 
 <!--- edit screen for SQL.cfm --->
 
-<cf_screentop label="Pre Query Preparation" height="100%" scroll="No" banner="blue"  layout="webapp" close="parent.ColdFusion.Window.destroy('myscript',true)">
+<cf_screentop label="Pre Query Preparation" height="100%" scroll="No" banner="blue" html="No"  layout="webapp" close="parent.ColdFusion.Window.destroy('myscript',true)">
 
 <cfif ParameterExists(Form.Save)>
 
@@ -56,7 +56,7 @@
 
 <tr><td height="1" class="line"></td></tr>
 
-<tr class="line"><td align="center" height="25">
+<tr class="line"><td align="center" height="35">
 
 	<input type="button" name="Cancel" id="Cancel" style="width:100" value="Cancel" class="button10g" onclick="parent.ColdFusion.Window.destroy('myscript',true)">
 	<input type="submit" name="Save" id="Save" style="width:100" value="Save" class="button10g">
@@ -92,7 +92,7 @@
 		
 	<cfelse>
 	
-		<table width="100%" height="100%" cellspacing="0" cellpadding="0">
+		<table width="100%" height="100%">
 		<tr>
 		<td class="hide">
 		
@@ -105,7 +105,7 @@
 		</tr>
 		
 		<tr>
-		<td valign="top">
+		<td valign="top" height="100%">
 	
 		<cfinvoke component="Service.Presentation.ColorCode"  
 			      method="colorstring" 

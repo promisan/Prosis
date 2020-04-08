@@ -54,7 +54,7 @@
 	    </cfif>	
 		
 		<cfif url.close eq "yes">
-			parent.ColdFusion.Window.destroy('warehouseitemwindow',true);	
+			parent.ProsisUI.closeWindow('warehouseitemwindow',true);	
 		</cfif>
 		
 	}		
@@ -73,7 +73,7 @@
 
 <cf_tl id="Item search" var="vSearch">
 
-<cf_screentop bannerheight="55" html="Yes" label="#vSearch#" jQuery="Yes" banner="gray"  user="No" height="100%" layout="webapp" scroll="yes">
+<cf_screentop bannerheight="55" html="no" label="#vSearch#" jQuery="Yes" banner="gray"  user="No" height="100%" layout="webapp" scroll="no">
 
 <!--- End Prosis template framework --->
 
@@ -172,8 +172,8 @@
 				<tr><td height="3"></td></tr>
 				<tr><td height="30" colspan="3" align="center">
 					
-					<input class="button10g" style="width:140;heught:23" type="button" name"Search" ID="Search" value="#vSearch#"
-					onclick="ColdFusion.navigate('ItemSelectDetail.cfm?mission=#url.mission#&mode=#url.mode#&itemmaster=#url.itemmaster#&itemclass=#url.itemclass#','result','','','POST','locform')">
+					<input class="button10g" style="width:140;height:23" type="button" name"Search" ID="Search" value="#vSearch#"
+					onclick="ptoken.navigate('ItemSelectDetail.cfm?mission=#url.mission#&mode=#url.mode#&itemmaster=#url.itemmaster#&itemclass=#url.itemclass#','result','','','POST','locform')">
 				
 				</td></tr>
 				

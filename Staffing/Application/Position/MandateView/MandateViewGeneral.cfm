@@ -2,26 +2,26 @@
 <cfparam name="url.header" default="0">
 
 <cfif url.header eq "1">
-
-<cf_screentop scroll="no" 
-    height="100%" 
-	html="Yes" 
-	layout="webapp"
-	bannercolor="gray"
-	bannerforce="Yes"
-	menuaccess="context"
-	jquery="Yes"	
-	busy="busy10.gif" 
-	label="Staffing Table Detail">
+	
+	<cf_screentop scroll="no" 
+	    height="100%" 
+		html="Yes" 
+		layout="webapp"
+		bannercolor="gray"
+		bannerforce="Yes"
+		menuaccess="context"
+		jquery="Yes"	
+		busy="busy10.gif" 
+		label="Staffing Table Detail">
 	
 <cfelse>
-
-<cf_screentop scroll="no" 
-    height="100%" 
-	html="No" 
-	jquery="Yes"	
-	busy="busy10.gif" 
-	title="Staffing Table Detail">
+	
+	<cf_screentop scroll="no" 
+	    height="100%" 
+		html="No" 
+		jquery="Yes"	
+		busy="busy10.gif" 
+		title="Staffing Table Detail">
 
 </cfif>	
 	
@@ -71,9 +71,10 @@
 		Key           = "">       
 	
 	    <table width="100%" height="100%" align="center">
-		<tr><td align"center" id="list" height="100%">		
+		
+		<tr><td align"center" id="list" height="100%" style="padding-left:5px">		
 			
-		<cfdiv style="height:100%" bind="url:MandateViewList.cfm?#cgi.query_string#&lay=listing">			
+		    <cfdiv style="height:100%" bind="url:MandateViewList.cfm?#cgi.query_string#&lay=listing">			
 		
 		</td></tr></table> 			
 			

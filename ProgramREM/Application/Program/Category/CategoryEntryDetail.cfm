@@ -25,7 +25,7 @@
 	
 </cfif>	
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="100%" align="center">
 					
 	<tr class="hide"><td id="process"></td></tr>	
 	
@@ -130,7 +130,7 @@
 					<!--- has been valid in this period --->			
 					Code IN ( 
 					
-							  SELECT Parent 
+							  SELECT AreaCode 
 					          FROM   ProgramCategoryPeriod Pe, Ref_ProgramCategory R
 							  WHERE  Pe.ProgramCategory = R.Code
 							  AND    ProgramCode = '#URL.ProgramCode#'
@@ -148,14 +148,13 @@
 		  AND    (ProgramClass is NULL or ProgramClass = '#ProgramClass#')				  
 		 
 		  ORDER BY Area, HierarchyCode
-		  
+		  		  		  
 	</cfquery>	
 	
-		
-			
+							
 	<tr><td style="padding-left:10px">
 		   	
-    <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+    <table width="100%" height="100%">
 		
 	<cfoutput query="MasterArea" group="Area">
 		
@@ -173,7 +172,7 @@
 		<cfset arc = AreaCode>
 		<cfset ard = Description>
 		<cfset mem = DescriptionMemo>
-		 							
+				 							
 		<TR>
 			<td onClick="areaexpand('#arc#')" style="padding-top:1px;cursor: pointer;">
 				<table width="100%">
@@ -181,8 +180,7 @@
 					  <td align="left">
 					  			  			
 						   <table height="100%" width="100%" border="0" cellspacing="0" cellpadding="0">
-						   
-						       <tr><td height="10"></td></tr>
+						   						       
 							   <tr><td valign="top" width="20" style="padding-left:3px;padding-right:5px;height:34px;padding-top:10px">
 												   
 							      <img src="#SESSION.root#/Images/portal_max.png" 
@@ -196,7 +194,7 @@
 								</td>
 								
 								<cfif mem neq "">
-							      <td style="height:40px;padding-left:4px;font-size:25px;font-weight:200" colspan="1" valign="top" class="labelmedium"><font color="0080C0"><u>#ard# <cfif Obligatory eq "1"><font color="FF0000">*)</font></cfif></u></b>:
+							      <td style="height:30px;padding-left:4px;font-size:25px;font-weight:200" colspan="1" valign="top" class="labelmedium"><font color="0080C0"><u>#ard# <cfif Obligatory eq "1"><font color="FF0000">*)</font></cfif></u></b>:
 								      <font size="3" color="808080">#mem#</font></td>
 								<cfelse>
 								  <td style="height:25px;padding-left:7px;font-size:25px;font-weight:200" colspan="1"  class="labellarge"><font color="0080C0"><u>#ard#</u> <cfif Obligatory eq "1"><font color="FF0000">*)</cfif></td>
@@ -209,7 +207,7 @@
 						</td>
 						
 						<cfif EnableStatusWeight eq "1">
-							<td style="padding:5px;" width="10%">
+							<td style="padding:2px;" width="10%">
 								<table width="100%">
 									<tr>
 										<td align="center" style="font-size:60px;font-weight:bold; color:##808080;" class="labelmedium">
@@ -264,10 +262,9 @@
 			WHERE     F.AreaCode = '#Arc#' 
 			AND       HierarchyCode LIKE '__.%'			
 			ORDER BY  F.HierarchyCode			
-		</cfquery>
-		
+		</cfquery>		
 													
-   		<tr><td width="100%" height="100%" style="padding-left:20px; padding-top:20px;">
+   		<tr><td width="100%" height="100%" style="padding-left:20px; padding-top:10px;">
 								
 			<cfif Used neq "" or selectarea neq "">			
 			    <cfset cl = "regular">			
@@ -275,17 +272,14 @@
 				<cfset cl = "hide">			
 			</cfif>					
 									   					
-    		<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" align="right" class="#cl#" id="#arc#">
+    		<table width="100%" height="100%" align="right" class="#cl#" id="#arc#">
 						
 			<tr>
     			<td width="30" valign="top"></td>
-				<td width="100%" height="100%" style="border:0px solid silver">
+				<td width="100%" height="100%">
 				
 				<table width="100%" 
-				    height="100%" 
-					border="0" 
-					cellspacing="0" 					
-					cellpadding="0" 					
+				    height="100%"					
 					align="left">		
 					
 					<cfset row = 0>
@@ -322,16 +316,16 @@
 								<cfif Selected eq "" and Operational eq "0">
 								    <TR id="main#code#" class="hide">
 								<cfelse>  
-								    <TR id="main#code#" class="regular line">
+								    <TR id="main#code#" class="regular <cfif par eq "0" or (par eq "1" and EntryMode is "1")>line</cfif>">
 								</cfif>
 								
-								    <td style="width:100%;border-top:0px solid b0b0b0;">
+								    <td style="width:100%">
 									
-										<table width="100%" cellspacing="0" cellpadding="0" border="0">
+										<table width="100%">
 										
 											<tr>											
 											<cfif par eq "0" or (par eq "1" and EntryMode is "1")>											
-											 <td width="40" align="right" style="padding-left:19px;padding-top:3px;padding-right:5px">		
+											 <td width="40" align="right" style="padding-left:29px;padding-top:3px;padding-right:5px">		
 																										
 												<cfif Selected eq "">
 												    <input type="checkbox"  style="height:17px;width:17px" name="programcategory"  value="'#Code#'" onClick="hlsave(this.checked,'#url.programcode#','#code#','#mode#','#url.period#')">
@@ -343,11 +337,11 @@
 											   <td></td> 												
 											</cfif>
 																				   																		
-										    <TD width="99%" style="padding-top:3px">
+										    <TD width="99%" style="padding-top:2px">
 											
-												<table width="99%" cellspacing="0" cellpadding="0" height="100%">								  
+												<table width="99%" height="100%">								  
 													<tr>
-													<td valign="top" style="padding:3px;padding-left:14px;padding-top:4px;height:17px">
+													<td valign="top" style="padding:2px;padding-left:14px;padding-top:4px;height:17px">
 													<table width="99%">
 													<tr>
 													<td width="20%" class="<cfif par eq '1'>labellarge<cfelse>labelmedium</cfif>">
@@ -369,7 +363,7 @@
 										<cfelse>
 										
 											<tr class="regular" id="textbox#code#">
-												<td style="padding-left:28px;border:0px solid gray;width:100%" colspan="3">		
+												<td style="padding-left:28px;width:100%" colspan="3">		
 																																											
 												<cfset url.code = code>
 												<cfset url.mode = mode>

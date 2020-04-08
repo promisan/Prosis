@@ -9,35 +9,44 @@
 <!--- End Prosis template framework --->
 
 <cf_screentop html="No" jquery="Yes">
-<cf_uiGadgets gadget="notification">
+
+<cfparam name="URL.Next"          	default="Default">
+<cfparam name="URL.ApplicantNo"   	default="">
+<cfparam name="URL.ID"            	default="">
+<cfparam name="URL.Code"          	default="">
+<cfparam name="URL.Section"       	default="">
+<cfparam name="URL.Action"        	default="Edit">
+<cfparam name="URL.Public"        	default="0">
+<cfparam name="URL.DefaultCountry"	default="GT">
+
+<cfparam name="url.Scope"         	default="">
+<cfparam name="url.Owner"         	default="">
+<cfparam name="url.Class"         	default="0">
+<cfparam name="URL.Mission"       	default="">
+<cfparam name="URL.parent"        	default="Miscellaneous">
+
 <cf_windowNotification marginTop="-15px">
 <cf_pictureProfileStyle>
-<cf_dialogStaffing>
+<cfif url.public eq "0">
+	<cf_dialogStaffing>
+</cfif>
+<cf_filelibraryscript>
+<cf_calendarscript>	
 
-<cfparam name="URL.Next"          default="Default">
-<cfparam name="URL.ApplicantNo"   default="">
-<cfparam name="URL.ID"            default="">
-<cfparam name="URL.Code"          default="">
-<cfparam name="URL.Section"       default="">
-<cfparam name="URL.Action"        default="Edit">
+<cfoutput>
+	<link rel="stylesheet" href="#session.root#/scripts/mobile/resources/vendor/bootstrap/dist/css/bootstrap.css" />
+	<script src="#session.root#/scripts/mobile/resources/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+</cfoutput>
 
-<cfparam name="url.Scope"         default="">
-<cfparam name="url.Owner"         default="">
-<cfparam name="url.Class"         default="0">
-<cfparam name="URL.Mission"       default="">
-<cfparam name="URL.parent"        default="Miscellaneous">
 
 <cfquery name="Section" 
-	datasource="appsSelection" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
+	datasource="appsSelection">
 	SELECT   *
 	FROM     Ref_ApplicantSection
 	WHERE    Code = '#URL.Section#' 
 </cfquery>
 
-
-<cfparam name="URL.entrymode"              default="#section.TemplateCondition#">
+<cfparam name="URL.entrymode" default="#section.TemplateCondition#">
 
 <!--- harcoding Hanno 21/11/2015 --->
 <cfif url.mission eq "EAD">
@@ -47,29 +56,23 @@
 <cfset row = 0>
 
 <cfquery name="PHPParameter" 
-  datasource="AppsSelection" 
-  username="#SESSION.login#" 
-  password="#SESSION.dbpw#">
-	  SELECT   TOP 1 *
-	  FROM     Parameter
+  datasource="AppsSelection">
+	  SELECT  TOP 1 *
+	  FROM    Parameter
 </cfquery>
 
 <cfquery name="Get" 
-  datasource="AppsSelection"  
-  username="#SESSION.login#" 
-  password="#SESSION.dbpw#">
-	SELECT  *, 
-	        S.Source AS SubmissionSource
-	FROM    Applicant A, 
-	        ApplicantSubmission S
-	WHERE   A.PersonNo    = S.PersonNo
-	AND     S.ApplicantNo = '#url.ApplicantNo#' 
+  datasource="AppsSelection">
+	SELECT    *, 
+	          S.Source AS SubmissionSource
+	FROM      Applicant A, 
+	          ApplicantSubmission S
+	WHERE     A.PersonNo    = S.PersonNo
+	AND       S.ApplicantNo = '#url.ApplicantNo#' 
 </cfquery>
 
 <cfquery name="Nation" 
-  datasource="AppsSystem"  
-  username="#SESSION.login#" 
-  password="#SESSION.dbpw#">
+  datasource="AppsSystem">
     SELECT     Code, Name 
     FROM       Ref_Nation
 	WHERE      Operational = '1'
@@ -84,8 +87,7 @@
 		Prosis.notification.show('Error', msg, 'error', 2500); //error, success, information	
 		try {	
 			parent.Prosis.busy('no');	
-		}catch(ee) {}
-		
+		}catch(ee) {}		
 		try {
 			Prosis.busy('no');
 		}catch(eee){}
@@ -108,10 +110,16 @@
 
 </cfoutput>
 
-<table bgcolor="FFFFFF" style="width:100%;height:100%"><tr><td bgcolor="FFFFFF" height="100%">
+<cfif url.scope eq "BackOffice">	
+<table border="0" align="center" style="width:96%;height:98%">
+<cfelse>
+<table align="center" border="0" style="width:96%;height:98%">
+</cfif>
 
-	<cfform onsubmit="return false"  name="entry"  style="width:100%;height:100%">
-	  
+<tr><td height="100%">
+
+	<cfform onsubmit="return false"  name="entry" style="height:98%">
+		  
 		<cfoutput>
 		
 		<input type="hidden" name="SubmissionSource" value="#get.SubmissionSource#">
@@ -120,29 +128,30 @@
 		<input type="hidden" name="Mission"          value="#URL.Mission#">
 			
 		<cf_divscroll>
+					
+		<table width="98%" height="100%" border="0" class="formpadding">
 			
-		<table width="95%" height="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="formpadding">
-		
 			<tr>
 			<td height="35">
 					
 			<cfif URL.action eq "Create">	
-													
+			
+				<cfif url.scope eq "BackOffice">	
+																	
 				<table width="100%">
 					<tr><td height="17"></td></tr>
-					<tr><td align="left" style="height:60px;font-size:29px" class="labellarge">&nbsp;
-						<cfif url.scope neq "BackOffice">
-						<cf_tl id="My Profile"> - <cf_tl id="Request an Account">				
-						<cfelse>
-						<cf_tl id="Create Profile">	
-						</cfif>
-						
+					<tr><td style="height:60px;font-size:29px;padding-left:6px" class="labellarge">						
+						   <cf_tl id="Create Profile">												
 					</td></tr>
 					
 				</table>
 				
-				 <cf_assignid>
-				 <cfset submissionid = rowguid>
+				<cfelse>
+								
+				</cfif>
+							
+				<cf_assignid>
+				<cfset submissionid = rowguid>
 				 
 			<cfelse>
 			
@@ -152,42 +161,43 @@
 			
 			<input type="hidden" name="submissionid" value="#submissionid#">
 						
-			</td>
-			
+			</td>			
 			</tr>	
 										
 			<tr>		
-			    <td height="100%" valign="top" colspan="2" id="detailcontent" style="padding-left:20px">							
-				 <cfinclude template="GeneralForm.cfm">						 										
+			    <td height="100%" valign="top" id="detailcontent" style="padding-left:9px;padding-right:9px">		
+				<cfif url.action eq "Create" and url.scope neq "BackOffice">
+				    <cfinclude template="MobileForm.cfm">
+				<cfelse>							
+				    <cfinclude template="GeneralForm.cfm">						 										
+				</cfif> 
 				</td>			
 			</tr>
 											
 			<cfif URL.Action eq "Create">	
 			
 				<tr>
-				   <td colspan="3" align="center" style="padding-bottom:15px">
+				   <td align="center" style="padding-bottom:5px">
 				   
-				   <cf_assignid>
-				   <cfset submissionid = rowguid>
-				   
-				   <cfsavecontent variable="myscript">
-				   
-				   document.entry.onsubmit(); 		  			  
-					if(!_CF_error_exists) {					    
-		           		ptoken.navigate('#SESSION.root#/Roster/PHP/PHPEntry/Inception/GeneralSubmit.cfm?public=#url.public#&scope=#url.scope#&parent=#url.parent#&entrymode=#url.entrymode#&action=#url.action#&mission=#url.mission#&owner=#url.owner#&applicantclass=#url.class#&applicantno=','detailcontent','','','POST','entry')
-			       }   		   
-				   
-				   </cfsavecontent>
+					   <cf_assignid>
+					   <cfset submissionid = rowguid>
 					   
-				   <cf_tl id="Submit" var="1">
-				   				  			             
-				   <input style  = "width:240;height:30" 
-						 type    = "button" 
-						 class   = "button10g"
-						 onclick = "javascript:#myscript#"
-						 name    = "Submit"
-						 id      = "submitme"
-						 value   = "#lt_text#">
+					   <cfsavecontent variable="myscript">					   
+						   document.entry.onsubmit(); 		  			  
+							if(!_CF_error_exists) {					    
+				           		ptoken.navigate('#SESSION.root#/Roster/PHP/PHPEntry/Inception/GeneralSubmit.cfm?public=#url.public#&scope=#url.scope#&parent=#url.parent#&entrymode=#url.entrymode#&action=#url.action#&mission=#url.mission#&owner=#url.owner#&applicantclass=#url.class#&applicantno=','detailcontent','','','POST','entry')
+					       }   		   					   
+					   </cfsavecontent>
+						   
+					   <cf_tl id="Submit" var="1">
+					   				  			             
+					   <input style  = "width:240;height:34;font-size:15px" 
+							 type    = "button" 
+							 class   = "button10g"
+							 onclick = "javascript:#myscript#"
+							 name    = "Submit"
+							 id      = "submitme"
+							 value   = "#lt_text#">
 		  
 		          </td>
 				</tr>  
@@ -195,7 +205,7 @@
 			<cfelse>
 			
 			  	<tr>
-				   <td height="40" colspan="3" align="right" valign="bottom">
+				   <td height="40" align="right" valign="bottom">
 				   				   				   													
 					    <cf_Navigation
 							 Alias         = "AppsSelection"
@@ -232,4 +242,5 @@
 	</CFFORM>
 
 </td></tr>
+
 </table>

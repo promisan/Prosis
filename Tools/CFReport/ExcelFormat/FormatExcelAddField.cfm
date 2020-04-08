@@ -175,6 +175,14 @@
 
 	</cfloop>
 
+	<cfquery name="Insert" 
+		 datasource="appsSystem">
+		 	UPDATE 	[#Parameter.databaseServer#].System.dbo.UserReportOutput
+			SET 	OutputShow = '1'
+			WHERE  	UserAccount = '#SESSION.acc#'
+			AND    	OutputId = '#URL.id#'
+	</cfquery>
+
 </cfif>
 
 <!--- open screen again --->

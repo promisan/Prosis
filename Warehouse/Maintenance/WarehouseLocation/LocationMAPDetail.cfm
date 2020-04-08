@@ -22,7 +22,7 @@ password="#SESSION.dbpw#">
 	<table width="90%" align="center"><tr><td></td></tr></table>
 	</td></tr>
 	<tr><td height="4"></td></tr>
-	<tr><td align="center"><a href="javascript:editwarehouselocation('#URL.Warehouse#','#url.location#')"><font face="Verdana" color="0080C0">[<cf_tl id="Click here to Maintain">]</font></a></td></tr>
+	<tr><td align="center"><a href="javascript:editwarehouselocation('#URL.Warehouse#','#url.location#')">[<cf_tl id="Click here to Maintain">]</font></a></td></tr>
 	</table>
 	
 </cfoutput>

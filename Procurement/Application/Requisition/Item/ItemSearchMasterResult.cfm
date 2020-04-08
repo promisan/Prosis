@@ -181,6 +181,7 @@ password="#SESSION.dbpw#">
 	</cfif>
 	
 	ORDER BY I.EntryClass, I.Description
+		
 </cfquery>
 
 	

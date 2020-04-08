@@ -1,9 +1,10 @@
-<cfparam name="url.orgUnit" 		default="">
-<cfparam name="url.postGrade" 		default="">
-<cfparam name="url.functionNo" 		default="">
-<cfparam name="url.buildingcode" 	default="">
-<cfparam name="url.showAllTopics" 	default="SHOWALL">
-<cfparam name="url.flat" 			default="0">
+<cfparam name="url.orgUnit" 			default="">
+<cfparam name="url.postGrade" 			default="">
+<cfparam name="url.functionNo" 			default="">
+<cfparam name="url.buildingcode" 		default="">
+<cfparam name="url.showAllTopics" 		default="SHOWALL">
+<cfparam name="url.flat" 				default="0">
+<cfparam name="url.showDirectoryView"	default="1">
 
 <cfif trim(url.functions) neq "">
 
@@ -226,12 +227,16 @@
 				<cfif url.locationcode neq "">
 					AND	L.LocationCode = '#url.locationcode#'
 				</cfif>
+				<cfif trim(url.PostClass) neq "">
+					AND	A.PostClass = '#url.PostClass#'
+				</cfif>
 		) AS Data
+		INNER JOIN Ref_PostGrade CG ON Data.ContractLevel = CG.PostGrade
 		WHERE	1=1
 		<cfif trim(url.postGrade) neq "">
 			AND	Data.ContractLevel = '#url.postgrade#'
 		</cfif>
-		ORDER BY Data.HierarchyCode ASC, Data.PostOrder ASC   
+		ORDER BY Data.HierarchyCode, Data.PostOrder, CG.PostOrder   
 		
 </cfquery>
 
@@ -249,14 +254,16 @@
 
 <cfif getDirectory.recordcount gt 0>
 
-	<div class="row" style="padding-bottom:10px;">
-		<div class="input-group" style="width:100%; padding-left:5%;">
-		<input type="checkbox" id="cbRIR" onchange="doFlat(this)"  style="float:left; margin-top:5px; cursor:pointer;" <cfif url.flat eq 1>checked</cfif>>
-		<div style="margin-left: 25px;">
-     		<label for="cbRIR" style="margin-top:2px; cursor:pointer;">Directory View <!--- (Rir) ----></label>
-		</div>			
+	<cfif url.showDirectoryView eq "1">
+		<div class="row" style="padding-bottom:10px;">
+			<div class="input-group" style="width:100%; padding-left:5%;">
+			<input type="checkbox" id="cbRIR" onchange="doFlat(this)"  style="float:left; margin-top:5px; cursor:pointer;" <cfif url.flat eq 1>checked</cfif>>
+			<div style="margin-left: 25px;">
+	     		<label for="cbRIR" style="margin-top:2px; cursor:pointer;">Directory View <!--- (Rir) ----></label>
+			</div>			
+			</div>
 		</div>
-	</div>
+	</cfif>
 		
 	<div class="row">
 		<div class="input-group" style="width:100%; padding-left:5%;">
@@ -265,7 +272,7 @@
 			<cf_tl id="persons found..." var="lblSearch2">
 			<cfoutput>
 				
-				<input class="form-control" type="text" placeholder="#lblSearch1# #getDirectory.recordcount# #lblSearch2#" style="width:95%;" onkeyup="searchElement(this.value, '.personContainer', event);">
+				<input class="form-control" type="text" placeholder="#lblSearch1# #getDirectory.recordcount# #lblSearch2#" style="width:90%;" onkeyup="searchElement(this.value, '.personContainer', event);">
 				<div class="clsSearchSpinner" style="text-align:center; padding-top:75px; display:none;">
 					<i class="fa fa-cog fa-3x fa-spin text-success"></i>
 				</div>
@@ -364,6 +371,7 @@
 				</cfif>
 			
 				<div class="col-lg-#columns# animated-panel zoomIn personContainer" onclick="showProfile('#personNo#');" <cfif url.flat eq 1>style="max-width:50%; padding-left:3px; padding-right:3px;"</cfif>>
+	
 					<div class="searchable" style="display:none;">
 						#lastName#
 						#firstName#
@@ -373,7 +381,7 @@
 						<cfif trim(Nationality) neq "" and (FindNoCase('NAT',vAuthorizedElements) neq 0 OR vAuthorizedElements eq 'SHOWALL')>NAT:#Nationality#</cfif>
 						<cfif trim(PostGrade) neq "" and (FindNoCase('GRD',vAuthorizedElements) neq 0 OR vAuthorizedElements eq 'SHOWALL')>GRA:#Postgrade#</cfif>
 						GEN:<cfif Gender eq "f">Female<cfelse>Male</cfif>
-						#LocationName#
+						<cfif trim(LocationName) neq "" and (FindNoCase('LOC',vAuthorizedElements) neq 0 OR vAuthorizedElements eq 'SHOWALL')>#LocationName#</cfif>
 						#AddressRoom#
 						#BuildingName#
 						#AddressCity#
@@ -406,34 +414,36 @@
 								<p font-size:85%;">#OrgUnitName#</p>
 								
 								<cfif url.flat neq 1>
-									<cfif trim(LocationCode) neq "">
-										<p style="padding-top:7px;">
-											<i class="fa fa-map-marker" style="font-size:125%;"></i>&nbsp;&nbsp;#LocationName#
-										</p>
-									</cfif>
-									
-									<cfif trim(AddressRoom) neq "">
-										<p style="padding-top:7px;">
-											<i class="fa fa-building" style="font-size:125%;"></i>&nbsp;&nbsp;#AddressRoom#
-										</p>
-									</cfif>
-									
-									<cfif trim(ContactTelephoneNo) neq "">
-										<p style="padding-top:7px;">
-											<i class="fa fa-phone-square" style="font-size:125%;"></i>&nbsp;&nbsp;#vFormattedTelephone#
-										</p>
-									</cfif>
-									
-									<cfif trim(ContactEmailAddress) neq "">
-										<p style="padding-top:7px;">
-											<i class="fa fa-envelope" style="font-size:125%;"></i>&nbsp;&nbsp;#ContactEmailAddress#
-										</p>
-									</cfif>
-									
-									<cfif trim(ManagerPersonNo) neq "" and trim(ManagerPersonNo) neq PersonNo>
-										<p style="padding-top:7px;" class="clsPrintOnly">
-											<i class="fa fa-sort-amount-asc clsRotate-180" style="font-size:125%;"></i>&nbsp;&nbsp;<span style="text-transform:capitalize;">#lcase(ManagerName)#</span>
-										</p>
+									<cfif FindNoCase('LOC',vAuthorizedElements) neq 0 OR vAuthorizedElements eq 'SHOWALL'>
+										<cfif trim(LocationCode) neq "">
+											<p style="padding-top:7px;">
+												<i class="fa fa-map-marker" style="font-size:125%;"></i>&nbsp;&nbsp;#LocationName#
+											</p>
+										</cfif>
+										
+										<cfif trim(AddressRoom) neq "">
+											<p style="padding-top:7px;">
+												<i class="fa fa-building" style="font-size:125%;"></i>&nbsp;&nbsp;#AddressRoom#
+											</p>
+										</cfif>
+										
+										<cfif trim(ContactTelephoneNo) neq "">
+											<p style="padding-top:7px;">
+												<i class="fa fa-phone-square" style="font-size:125%;"></i>&nbsp;&nbsp;#vFormattedTelephone#
+											</p>
+										</cfif>
+										
+										<cfif trim(ContactEmailAddress) neq "">
+											<p style="padding-top:7px;">
+												<i class="fa fa-envelope" style="font-size:125%;"></i>&nbsp;&nbsp;#ContactEmailAddress#
+											</p>
+										</cfif>
+										
+										<cfif trim(ManagerPersonNo) neq "" and trim(ManagerPersonNo) neq PersonNo>
+											<p style="padding-top:7px;" class="clsPrintOnly">
+												<i class="fa fa-sort-amount-asc clsRotate-180" style="font-size:125%;"></i>&nbsp;&nbsp;<span style="text-transform:capitalize;">#lcase(ManagerName)#</span>
+											</p>
+										</cfif>
 									</cfif>
 								</cfif>	
 							<cfif url.flat eq 1>	

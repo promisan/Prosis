@@ -552,8 +552,11 @@
 						WHERE   SessionId = '#SESSION.SessionId#'
 						AND     ScopeId   = '#scopeid#'				    
 				  </cfquery>					  
-								  
+				  
+				 								  
 				  <cfif getObjects.ObjectScopeValue lt newValue>									  	
+				  
+				 
 				  
 					  	<!--- obtain the new value like 50:40 through component 
 						compare	it / if different
@@ -575,7 +578,7 @@
 						<cfset vObjectRefreshFunctionId = replace(getObjects.ObjectRefreshFunction, "-", "", "ALL")>
 					  										  
 						<script>
-						
+												
 								if  (document.getElementById('#getObjects.ObjectRefreshFunction#')) {										
 								     document.getElementById('#getObjects.ObjectRefreshFunction#').click()
 								} else {
@@ -588,7 +591,9 @@
 										
 						</script>
 					
+					
 					</cfif>					
+					
 																								  				  
 				  </cfcase>	
 				  		  

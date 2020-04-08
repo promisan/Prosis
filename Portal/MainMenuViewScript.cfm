@@ -32,6 +32,8 @@
 	<cf_tl id="November"   var="nov">
 	<cf_tl id="December"   var="dec">
 
+<cfinclude template="Logon/ThirdParty/Google/gScripts.cfm">
+
 <script language="JavaScript">
 
 		//w = width
@@ -393,7 +395,9 @@
 	<cfoutput>
 								
 		function exit() {
-		   window.open("#SESSION.root#/Tools/Control/LogoutExit.cfm?time=#now()#", "_top");
+			googleLogout(function(){
+				window.open("#SESSION.root#/Tools/Control/LogoutExit.cfm?time=#now()#", "_top");
+			});
 		}
 
 		function gohome() {

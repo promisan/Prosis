@@ -30,8 +30,8 @@ function editLocation(location) {
 }
 
 function editwarehouselocation(warehouse,location,access,idmenu) {		    
-    try { ColdFusion.Window.destroy('locationdetail',true) } catch(e) {}; 
-	ColdFusion.Window.create('locationdetail', 'Location Detail', '',{x:100,y:100,height:document.body.clientHeight-30,width:document.body.clientWidth-30,resizable:true,modal:true,center:true})	
+    try { ProsisUI.closeWindow('locationdetail',true) } catch(e) {}; 
+	ProsisUI.createWindow('locationdetail', 'Location Detail', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-80,resizable:true,modal:true,center:true})	
 	ColdFusion.navigate('#SESSION.root#/Warehouse/Maintenance/WarehouseLocation/LocationMain.cfm?systemfunctionid='+idmenu+'&access='+access+'&warehouse='+warehouse+'&location=' + location,'locationdetail')
 }
 

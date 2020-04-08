@@ -6,8 +6,6 @@
 <cfparam name="url.mission" default="">
 <cfajaximport>
 
-<cfinclude template = "../HeaderMaintain.cfm"> 	
-
 <cfoutput>
 
 <script>
@@ -16,13 +14,11 @@ function recordadd(grp) {
      window.open("RecordAdd.cfm?idmenu=#url.idmenu#&mission=#url.mission#", "Add", "left=80, top=80, width=1100, height=900, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
-function recordedit(cat) {
+function categoryedit(cat) {
 
 	var vHeight = document.body.clientHeight-50;
-	var vWidth = document.body.clientWidth-200;
-	
-	window.open("RecordEdit.cfm?idmenu=#url.idmenu#&mission=#url.mission#&id1="+cat, "Edit", "left=80, top=80, width="+vWidth+", height="+vHeight+", toolbar=no, status=yes, scrollbars=no, resizable=yes");
-   
+	var vWidth = document.body.clientWidth-200;	
+	window.open("RecordEdit.cfm?idmenu=#url.idmenu#&mission=#url.mission#&id1="+cat, "Edit");   
 }
 
 function recordrefresh(cat) {
@@ -55,9 +51,11 @@ function show(row) {
 
 </cfoutput>
 
-<cf_divscroll>
+<table width="97%" height="100%" align="center" class="navigation_table">
 
-<table width="97%" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<tr><td>
+<cfinclude template = "../HeaderMaintain.cfm"> 
+</td></tr>
 
 <tr><td colspan="9">
 	
@@ -74,12 +72,12 @@ function show(row) {
 		<td class="labelit">&nbsp;Click here to filter:&nbsp;</td>
 		<td class="labelmedium">
 		<cfoutput>
-		<a href="RecordListing.cfm?mission=&idmenu=#url.idmenu#&idrefer=#url.idrefer#"><font color="53A9FF"><cfif url.mission eq ""><b></cfif>ANY</b></a> 
+		<a href="RecordListing.cfm?mission=&idmenu=#url.idmenu#&idrefer=#url.idrefer#"><cfif url.mission eq ""><b></cfif>ANY</b></a> 
 		</cfoutput>
 		   <cfif MissionList.recordcount gte "1">,</cfif>
 		<cfoutput query="MissionList">
-		   <a href="RecordListing.cfm?mission=#mission#&idmenu=#url.idmenu#&idrefer=#url.idrefer#"><font color="53A9FF"><cfif url.mission eq mission><b></cfif>[#mission#]</b></font></a> 
-		   <cfif currentrow neq recordcount>,</cfif>
+		   <a href="RecordListing.cfm?mission=#mission#&idmenu=#url.idmenu#&idrefer=#url.idrefer#"><cfif url.mission eq mission><b></cfif>#mission#</b></a> 
+		   <cfif currentrow neq recordcount>|</cfif>
 		</cfoutput>
 		</td>
 		</tr>
@@ -87,7 +85,11 @@ function show(row) {
 
 </td></tr>
 
-<tr><td height="1" colspan="9" class="linedotted"></td></tr>	
+<tr><td style="height:100%">
+
+<cf_divscroll>
+
+<table style="width:100%">
 
 <tr class="labelheader line">
     <td></td>  
@@ -123,7 +125,7 @@ password="#SESSION.dbpw#">
 
 	<cfset earmark = budgetearmark>
     
-	<tr class="navigation_row">
+	<tr class="navigation_row line">
 		<td style="padding-left:10px;height:30px" align="left" width="40" class="navigation_action"  onclick="recordedit('#Code#')">	 
 			<cf_img icon="edit">		 
 		 </td>
@@ -133,14 +135,13 @@ password="#SESSION.dbpw#">
 		<td width="40%" class="labellarge">#Description#</td>
 		<td></td>
 		<td class="labelmedium" align="center"><cfif entryMode eq 0>No</b></cfif></td>
-		<td id="box_#code#">
+		<td id="box_#code#" style="padding-top:2px">
 			<cfinclude template="RecordListingMission.cfm">
 		</td>	
 		<td class="labelmedium">#OfficerLastName#</td>
 		<td class="labelmedium">#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
     </tr>
 		
-	<tr><td height="1" colspan="9" class="linedotted"></td></tr>	
 	
 	<cfquery name="Level2"
 	datasource="AppsProgram" 
@@ -153,11 +154,11 @@ password="#SESSION.dbpw#">
 
   <cfloop query="level2"> 
 	
-	<tr bgcolor="ffffcf" class="cellcontent linedotted navigation_row">
-		<td align="left" bgcolor="ffffff" style="padding-left:20px" height="18" class="navigation_action"  onclick="recordedit('#Code#')"> 		
+	<tr bgcolor="ffffcf" class="cellcontent line navigation_row">
+		<td align="left" bgcolor="ffffff" style="padding-left:20px" height="18" class="navigation_action" onclick="categoryedit('#Code#')"> 		
 			<cf_img icon="edit">				 
 		 </td>
-		<td style="cursor: pointer;">
+		<td style="cursor: pointer;padding-top:3px">
 		  <cfif children gte "1">
 				<cf_img icon="expand" toggle="Yes" onClick="show('#SearchResult.currentrow#_#currentrow#')" state="open">
 		  </cfif>		
@@ -182,9 +183,9 @@ password="#SESSION.dbpw#">
 
     <cfloop query="level3">
 	
-	    <tr bgcolor="ffffef" class="cellcontent linedotted navigation_row" 
+	    <tr bgcolor="ffffef" class="cellcontent line navigation_row" 
 		    name="box#SearchResult.currentrow#_#Level2.currentrow#" id="box#SearchResult.currentrow#_#Level2.currentrow#" class="hide">
-			<td align="right" bgcolor="white" class="navigation_action"  onclick="recordedit('#Code#')" style="padding-left:10px">
+			<td align="right" bgcolor="white" class="navigation_action"  onclick="categoryedit('#Code#')" style="padding-left:8px">
 			   <cf_img icon="edit">	
 			</td>
 			<td>
@@ -204,6 +205,9 @@ password="#SESSION.dbpw#">
 	
 </CFOUTPUT>
 
+</cf_divscroll>
+
+</table></td></tr>
+
 </table>
 
-</cf_divscroll>

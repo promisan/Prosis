@@ -8,6 +8,7 @@
 
 <cf_screentop height="100%" 
               scroll="Yes" 
+			  html="No"
 			  layout="webapp" 
 			  label="#vAction#" 
 			  banner="#vBanner#"
@@ -16,7 +17,7 @@
 			  close="parent.ColdFusion.Window.destroy('mypromo',true)"
 			  systemfunctionid="#url.idmenu#">
 
-<cfajaximport tags="cfform,cfdiv,cfwindow">
+<cfajaximport tags="cfform,cfdiv">
 
 <cfoutput>
 	<script>
@@ -25,12 +26,13 @@
 			if (control.checked) {
 				action = 'insert';
 				document.getElementById('td1_'+ci).style.backgroundColor = 'FFFFCF';
-			}
-			else {
+			} else {
 				action = 'delete';
 				document.getElementById('td1_'+ci).style.backgroundColor = '';
 			}
-			ColdFusion.navigate('ElementCategoryItem/ElementCategoryItemSingleSubmit.cfm?action='+action+'&promotionid='+promotionid+'&serial='+serial+'&category='+cat+'&categoryItem='+catitem,'processCategoryItemSelect');
+			
+			_cf_loadingtexthtml='';	
+			ptoken.navigate('ElementCategoryItem/ElementCategoryItemSingleSubmit.cfm?action='+action+'&promotionid='+promotionid+'&serial='+serial+'&category='+cat+'&categoryItem='+catitem,'processCategoryItemSelect');
 		}
 	</script>
 </cfoutput>

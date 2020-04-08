@@ -92,7 +92,7 @@ function processorg(org) {
 function selectmas(flditemmaster,mis,per,reqno) {
          
 		try { ProsisUI.closeWindow('mymaster',true) } catch(e) {}
-		ProsisUI.createWindow('mymaster', 'Procurement Master', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:false,resizable:false,center:true})    					
+		ProsisUI.createWindow('mymaster', 'Procurement Master', '',{x:100,y:100,height:document.body.clientHeight-120,width:document.body.clientWidth-120,modal:true,resizable:false,center:true})    					
 		ptoken.navigate('#SESSION.root#/Procurement/Application/Requisition/Item/ItemSearchView.cfm?id='+reqno+'&mission='+mis+'&period='+per+'&flditemmaster='+flditemmaster, 'mymaster');	       			
 }
 

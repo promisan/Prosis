@@ -17,27 +17,28 @@
      action="FileContent.cfm?openas=#url.openas#&mode=#url.mode#&path=#url.path#" 
 	 method="post">
    
-	<table height="100%" width="100%" cellspacing="0" cellpadding="0" class="formpadding" style="border:0px dotted silver">
+	<table height="100%" width="100%" cellspacing="0" cellpadding="0" class="formpadding">
 	
-	<tr><td align="center" height="25">
+	<tr class="line"><td align="center" height="25">	
 	
-		<input type="button" name="Cancel" id="Cancel" style="width:100" value="Cancel" class="button10s" onclick="parent.window.close()">
+	    <!---
+		<input type="button" name="Cancel" id="Cancel" style="width:100px;height:25px" value="Cancel" class="button10g" onclick="parent.window.close()">
+		--->
 			
 		<cfif url.openas eq "Edit" or url.mode eq "report"> 
-			<input type="submit" name="Save" id="Save" style="width:100" value="Save" class="button10s">
+			<input type="submit" name="Save" id="Save" style="width:100px;height:25px" value="Save" class="button10g">
 		</cfif>
 		
 		<cfif find(".cfm",  path) or find(".cfc",  path)>
 		<cfif ParameterExists(Form.Format)>
-			<input type="submit" name="Edit"   id="Edit"   style="width:100" value="Edit"      class="button10s">	
+			<input type="submit" name="Edit"   id="Edit"   style="width:100px;height:25px" value="Edit"      class="button10g">	
 		<cfelse>
-			<input type="submit" name="Format" id="Format" style="width:100" value="Formatted" class="button10s">	
+			<input type="submit" name="Format" id="Format" style="width:100px;height:25px" value="Formatted" class="button10g">	
 		</cfif>
 		</cfif> 
 	
 	</td></tr>
-	<tr><td height="1" class="linedotted"></td></tr>
-	
+		
 	<tr><td height="100%" valign="top">
 	
 	<cfif ParameterExists(Form.Edit) or ParameterExists(Form.Format)>

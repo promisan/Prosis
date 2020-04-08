@@ -52,7 +52,8 @@ color:#666666;
 					    SELECT    TOP 3 *
 						FROM      TransactionHeader
 						WHERE     ReferenceId = '#url.customerid#'	  
-						AND       TransactionSource = 'SalesSeries' 							   
+						AND       TransactionSource = 'SalesSeries' 	
+						AND       ActionStatus != '9' and RecordStatus != '9'						   
 						ORDER BY  Created DESC
 				</cfquery>
 				
@@ -60,7 +61,7 @@ color:#666666;
 			
 				<tr class="labelmedium">
 					<td style="font-weight:200;padding-top:82px;font-size:16px" align="center">
-						<i><cf_tl id="First time Customer"></i>
+						<cf_tl id="First time Customer">
 					</td>
 				</tr>
 			

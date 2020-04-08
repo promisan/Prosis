@@ -88,7 +88,7 @@
 			  jquery="Yes"
 			  line="no"
 			  html="Yes">
-
+			
 <cfelse>
 	
 	<cfquery name="Request" 
@@ -160,7 +160,7 @@
 			jquery="Yes"
 			scroll="Yes" 
 			html="Yes">	
-
+			
 </cfif>
 
 <cf_calendarscript>
@@ -169,8 +169,7 @@
 <cf_FileLibraryScript>
 <cf_menuscript>
 <cf_actionListingScript>
-
-<cfoutput><script type="text/javascript" src="#SESSION.root#/Scripts/jQuery/jquery.js"></script></cfoutput>				
+	
 
 <cfinclude template="../../../WorkOrder/ServiceDetails/Billing/DetailBillingFormScript.cfm">
 

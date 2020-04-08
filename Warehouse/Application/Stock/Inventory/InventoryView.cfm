@@ -57,10 +57,10 @@ password="#SESSION.dbpw#">
 
 <cfset client.stmenu = "stockinventory()">
 
-	<table width="100%" height="100%" align="center">
+	<table width="99%" height="100%" align="center">
 	
 		<tr class="line">
-		<td colspan="2" style="font-size:23px;min-width:400px;font-weight:bold">
+		<td colspan="2" style="padding-left:4px;height:40px;font-size:23px;min-width:400px">
 					
 			<cf_LanguageInput
 				TableCode       = "Ref_ModuleControl" 
@@ -70,57 +70,31 @@ password="#SESSION.dbpw#">
 				Key2Value       = "#url.mission#"				
 				Label           = "Yes">	
 					 
-				 <cfoutput>
-					#lt_content#
-					</cfoutput>	
+				 <cfoutput>#lt_content#</cfoutput>	
 		
 		</td>
 		</tr>
-		
-		<tr><td style="height:4px"></td></tr>
-	
+			
 		<tr>
-		
-		  <cfquery name="LocationList"
-			datasource="AppsMaterials" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-			    SELECT    Location, 
-				          WL.StorageCode+' '+WL.Description as Description, 
-						  R.Description as Class
-				FROM      WarehouseLocation WL LEFT OUTER JOIN Ref_WarehouseLocationClass R
-				ON        WL.LocationClass = R.Code
-				WHERE     WL.Warehouse = '#URL.Warehouse#'
-				AND       Operational = 1
-				ORDER BY  R.Description
-			</cfquery>	
-		
-		<td height="100%" style="width:100px">
-		
-			<cfform name="inventoryform" id="inventoryform" style="height:99.5%">
-		
+						
+		<td height="100%" style="width:100px;border:1px solid silver;padding-top:2px">
+
+			<cfoutput>
 			<input type="hidden" name="mission" id="mission"   value="#URL.mission#">	
-								
-					
-				<!--- search option --->
-					
-				<cfselect id="location" name="location"
-				     onchange="_cf_loadingtexthtml='';stockinventoryload('n','#url.systemfunctionid#')" 
-					 query="LocationList" 
-					 value="Location" 
-					 queryposition="below"
-					 display="Description" 
-					 multiple="Yes"
-					 style="background-color:ffffff;width:240px;height:100%;border:0px"
-					 group="Class" 
-					 class="regularxl">
-														
-					<option value=""><cf_tl id="View all locations"></option>
-					 
-					 
-				</cfselect>	
-				
-			</cfform>	
+			<cf_UIToolTip  tooltip="Filter by location">
+			<input 
+				type="textbox" 
+				class="regularxl" 
+				style="background-color:DAF9FC;width:100%;border:0px;border-bottom:1px solid silver" 
+				name="fltItem" 
+				id="fltItem" 
+				value="" 
+				onkeyup="ColdFusion.navigate('../Inventory/LocationList.cfm?warehouse=#url.warehouse#&systemfunctionid=#url.systemfunctionid#&item='+this.value,'divLocationList');">
+			</cf_UItooltip>
+			</cfoutput>
+			
+
+			<cfdiv id="divLocationList" style="height:97%; padding-top:5px;" bind="url:../Inventory/LocationList.cfm?warehouse=#url.warehouse#&systemfunctionid=#url.systemfunctionid#&item=">
 																				
 		</td>				
 		
@@ -145,7 +119,7 @@ password="#SESSION.dbpw#">
 								 
 								 <cf_getWarehouseTime warehouse="#url.warehouse#">
 								     <cfoutput>
-								     <td class="labelmedium" style="font-size:16px"><b><cf_tl id="Present stock levels in the warehouse time"> (#tzcorrection#) :</td>
+								     <td class="labelmedium" style="padding-left:5px;font-size:16px"><cf_tl id="Present stock levels in GMT time"> (#tzcorrection#) :</td>
 									 <td style="padding-left:5px">
 													
 									 <cf_setCalendarDate

@@ -198,7 +198,7 @@
 
     <cfset filter = "">
 	<cfset url.id = "2">
-	<cfinclude template="TransactionLogSheet.cfm">	
+	<cfinclude template="TransactionLogSheet.cfm">
 	
 <cfelse>
 	

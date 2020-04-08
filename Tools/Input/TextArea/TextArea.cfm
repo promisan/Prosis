@@ -103,6 +103,19 @@
 									} );
 							   	</cfif>	
 					   		</cfcase>
+						   <cfcase value="mini">
+							   <cfif Attributes.expand eq "No">
+									   var myeditor = CKEDITOR.replace('#attributes.name#', {
+									   customConfig: '#SESSION.root#/Scripts/TextArea/CK/prosis_mini_config_ne.js'
+								   } );
+
+							   <cfelse>
+									   var myeditor = CKEDITOR.replace('#attributes.name#', {
+									   customConfig: '#SESSION.root#/Scripts/TextArea/CK/prosis_mini_config.js'
+								   } );
+
+							   </cfif>
+						   </cfcase>
 					   		<cfdefaultcase>
 								<cfif Attributes.expand eq "No">
 									var myeditor = CKEDITOR.replace('#attributes.name#', {

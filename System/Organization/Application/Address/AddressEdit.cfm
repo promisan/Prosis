@@ -17,10 +17,7 @@
 <cf_mapscript scope="embed">
 <cfajaximport tags="cfwindow,cfmap,cfinput-datefield,cfform" params="#{googlemapkey='#client.googlemapid#'}#">
 
-<!--- color picker --->
-<cf_UIGadgets>			  
-
-<cfquery name="Type" 
+<cfquery name="Type"
 datasource="AppsOrganization" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">

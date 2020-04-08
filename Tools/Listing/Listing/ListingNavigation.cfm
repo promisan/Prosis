@@ -8,12 +8,12 @@
 			<td>	
 							
 				 <table>
-				 <tr class="labelmedium" style="font-size:17px;height:26px;font-weight:390"> 			
+				 <tr class="labelmedium" style="font-size:17px;font-weight:390"> 			
 				
-					<td style="padding-left:2px;padding-right:3px;padding-top:3px">
+					<td style="padding-left:2px;padding-right:1px">
 					
 					<cfif pages gte "2">					
-						<select name="selpage" id="selpage"
+						<select name="selpage" id="selpage" style="border:0px;border-right:1px solid silver"
 				        size="1" class="regularxl" 
 				        onChange="document.getElementById('page').value=this.value;applyfilter('','','content')">
 						  <cfloop index="Item" from="1" to="#pages#" step="1">
@@ -29,7 +29,7 @@
 				 <td style="padding-top:3px;padding-left:2px;"><cf_tl id="to"></td>
 				 <td style="padding-top:3px;padding-left:2px;"><cfif Last gt Counted>#Counted#<cfelse>#Last#</cfif></b></td>
 				 <td style="padding-top:3px;padding-left:2px;"><cf_tl id="of"></td>
-				 <td style="padding-top:3px;padding-left:2px;">#Counted#&nbsp;&nbsp;&nbsp;<cfif attributes.isFiltered eq "Yes"><i><u><a href="javascript:listingshow('locate#attributes.box#')"><font face="Calibri" size="2" color="FF8040">[<cf_tl id="total is filtered">]</a></i></font></cfif></td>
+				 <td style="padding-top:3px;padding-left:2px;">#Counted#&nbsp;&nbsp;&nbsp;<cfif attributes.isFiltered eq "Yes"><u><a href="javascript:listingshow('locate#attributes.box#')"><font face="Calibri" size="2" color="FF8040">[<cf_tl id="total is filtered">]</a></i></font></cfif></td>
 			
 				</tr>
 				</table>

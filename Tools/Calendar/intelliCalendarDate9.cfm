@@ -190,7 +190,7 @@
 	                rangeHigh:"#attributes.dateValidEnd#", 			
 					<cfif attributes.scriptdate neq "">
 					callbackFunctions:{"dateset":[#attributes.scriptdate#] },
-					<cfelseif attributes.scriptdate neq "">
+					<cfelseif attributes.script neq "">
 					callbackFunctions:{"dateset":[#attributes.script#] },
 					</cfif>
 					statusFormat:"l-cc-sp-d-sp-F-sp-Y"				  					   

@@ -4,7 +4,7 @@
 <cfparam name="url.id1" default="">
 
 <cfif url.header eq "1">	
-	<cf_screentop jquery="yes" html="yes" layout="webapp">
+	<cf_screentop jquery="yes" html="yes" layout="webapp">	
 </cfif>	
 
 <cfparam name="url.Mode" default="Person">
@@ -18,6 +18,7 @@
 <cfset FileNo = round(Rand()*10)>		 
 		 
 <CF_DropTable dbName="AppsQuery" tblName="tmp#SESSION.acc#StaffingLog_#fileno#">	 
+
 
 <!---
 <cftry> 
@@ -121,7 +122,6 @@
 				
 				ISNULL(
 				
-					 
 				
 					 CASE   A.ActionSource
 					
@@ -183,7 +183,7 @@
 		</cfquery>								   
 				
 	<cfelse>
-	
+			
 		<cfquery name="getDate" 
 		 datasource="AppsEmployee"
 		 username="#SESSION.login#" 
@@ -205,6 +205,7 @@
 				AND     A.MandateNo    = '#URL.MandateNo#'
 				
 			<cfelse>
+			
 				AND     A.ActionSource != 'Assignment'
 				<!--- exclude person actions --->
 				AND     A.ActionCode >= '2000'
@@ -225,13 +226,14 @@
 			<cfif url.id1 neq "">
 			AND A.ActionSource = '#url.id1#'
 			</cfif>
+				
 								
 		</cfquery>	
 		
 	</cfif>
 	
 	</cftransaction>
-			
+	
 	<!---
 		
 <cfcatch>
@@ -263,17 +265,6 @@
 	<cfinclude template="ActionListContentPerson.cfm">
 	
 <cfelse>	
-
-
-	<cfparam name="url.content" default="0">
-
-	<cfif url.content eq "0">
-	
-	<cf_ListingScript>
-	<cf_DialogStaffing>
-	<cf_screentop html="No" jquery="Yes">
-	
-	</cfif>
 
 	<cfinclude template="ActionListContentMandate.cfm">
 		

@@ -496,7 +496,6 @@
 															
 <cfelse>	
 
-
 	<cfif CriteriaInterface neq "Combo">	
 						
 			<CF_DropTable dbName="#LookupDataSource#" full="Yes" tblName="#SESSION.acc#_#criterianame#"> 
@@ -641,9 +640,6 @@
 							 </cfif>									 							 
 							 
 					   </cfquery> 	
-					   
-					   
-					   				   						
 					   
 					   <cfcatch>
 					   

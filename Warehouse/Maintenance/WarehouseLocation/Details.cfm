@@ -46,7 +46,7 @@
 				<tr>
 				<td width="4%">				
 					      
-						   <cfset link = "#SESSION.root#/warehouse/application/stock/Transaction/getItem.cfm?mode=#url.mode#&showLocation=no">	
+						   <cfset link = "#SESSION.root#/warehouse/application/stock/Transaction/getItem.cfm?mode=#url.mode#&showLocation=no&warehouse=#url.warehouse#">
 										      			   
 						   <cf_selectlookup
 							    box          = "itembox"

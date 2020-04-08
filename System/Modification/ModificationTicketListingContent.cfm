@@ -105,7 +105,7 @@
 								
 					</cfif>
 					
-					AND O.ActionStatus != '8'  <!--- hardcoded way to hide all records with status = 8 --->
+					<!---AND O.ActionStatus != '8'   hardcoded way to hide all records with status = 8 --->
 				
 				</cfquery>
 					

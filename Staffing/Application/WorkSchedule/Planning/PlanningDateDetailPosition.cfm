@@ -5,7 +5,7 @@
 <cfelse>
 	<cfset accessmode = "view">
 </cfif>
-	 
+
 
 <cfquery name  = "getHierarchy" 
     datasource= "AppsOrganization" 
@@ -63,8 +63,8 @@
 			
 			</cfoutput>
 			
-		</cfif>		
-			
+		</cfif>
+
 		<cfloop query="getOrgUnits">
 			
 			<cfquery name  = "getPositions" 
@@ -138,7 +138,8 @@
 			<!---
 			<cfoutput>#cfquery.executiontime#</cfoutput>
 			--->
-			
+
+
 			<cfif getPositions.recordCount gt 0 and getHierarchy.HierarchyCode neq getPositions.HierarchyCode>
 			
 				<cfoutput>
@@ -158,18 +159,19 @@
 				</cfoutput>
 				
 			</cfif>
-			
+
+
 			<cfoutput query="getPositions" group="Description">
 			
 				<tr><td colspan="4" class="labelmedium" style="padding-left:50px">#Description#</td></tr>
 			
 			<cfoutput>
-		
+
 				<cfif enabled gte "1">
 				<tr bgcolor="FFFF00" class="labelmedium navigation_row">
 				<cfelse>
-				<tr class="labelmedium navigation_row">			
-				</cfif>			
+				<tr class="labelmedium navigation_row">
+				</cfif>
 					<td bgcolor="white"></td>
 					<td width="5%"></td>
 					<td width="5%">
@@ -185,75 +187,79 @@
 									</td>
 								</tr>
 							</table>
-						</cfif>				   
+						</cfif>
 					</td>
-					<td width="15%"><cfif enabled eq "0"><font color="808080"></cfif>
-					<cfif currentrow eq "1">
-					<cf_space spaces="20">
-					</cfif>
-					<a href="javascript:EditPosition('#mission#','#mandateno#','#PositionNo#')"><font color="0080C0"><cfif SourcePostNumber eq "">#PositionNo#<cfelse>#SourcePostNumber#</cfif></font><cf_UIToolTip tooltip="Assigned to #tasks# active tasks">&nbsp;<cfif tasks gte "1">[#tasks#]</cfif> </font></cf_UIToolTip></a></td>
-					<td><cfif enabled eq ""><font color="808080"></cfif>#FunctionDescription#</td>					
+					<td width="15%">
+						<cfif enabled eq "0"><font color="808080"></cfif>
+						<cfif currentrow eq "1">
+							<cf_space spaces="20">
+						</cfif>
+						<a href="javascript:EditPosition('#mission#','#mandateno#','#PositionNo#')"><cfif SourcePostNumber eq "">#PositionNo#<cfelse>#SourcePostNumber#</cfif></a>
+					</td>
+					<td><cfif enabled eq ""><font color="808080"></cfif>#FunctionDescription#</td>
 					<td>
 					<cfif accessmode eq "edit" and enabled neq "">
-					
+
 						<cfset cur = pointerbreak>
 						<cfif cur eq "">
 							<cfset cur = "-">
 						</cfif>
 
 					    <select class="regularh" name="pointerBreak_#positionNo#" id="pointerBreak_#positionNo#" onchange="ColdFusion.navigate('#session.root#/staffing/application/workschedule/Planning/setPositionBreak.cfm?pointerbreak='+this.value+'&workschedule=#workschedule#&positionno=#positionno#&date=#urlencodedformat(url.selecteddate)#','positionprocess')">
-												
+
 						<cfloop index="pt" list="-1.5,-1,-0.5,-,0.5,1,1.5">
 						<option value="#pt#" <cfif pt eq cur>selected</cfif>>#pt#</option>
-						</cfloop>						
+						</cfloop>
 						</select>
-					
+
 					    <!---
 						<input type="text" name="pointerBreak" value="#PointerBreak#" class="enterastab"
 						 onchange="ColdFusion.navigate('#session.root#/staffing/application/workschedule/Planning/setPositionBreak.cfm?pointerbreak='+this.value+'&workschedule=#workschedule#&positionno=#positionno#&date=#urlencodedformat(url.selecteddate)#','positionprocess')" maxlength="10" style="padding-left:3px;border:1px dotted silver;width:50">
 						 --->
-					</cfif>					
+					</cfif>
 					</td>
-					<td style="padding-right:6px"><cfif enabled eq ""><font color="808080"></cfif>#PostGrade#</td>			
-					
+					<td style="padding-right:6px"><cfif enabled eq ""><font color="808080"></cfif>#PostGrade#</td>
+
 					<cfif OtherSchedule gte "1">
-						
+
 					<td bgcolor="C9F3FC" style="border-right:1px dotted silver;border-bottom:1px dotted silver;padding-bottom:1px;padding-left:4px">
-																							
-							<cfquery name  = "getOther" 
-						    datasource= "AppsEmployee" 
-						    username  = "#SESSION.login#" 
-							password  = "#SESSION.dbpw#"> 
+
+							<cfquery name  = "getOther"
+						    datasource= "AppsEmployee"
+						    username  = "#SESSION.login#"
+							password  = "#SESSION.dbpw#">
 								SELECT DISTINCT R.Description
 								FROM   WorkSchedulePosition W, WorkSchedule R
 								WHERE  W.WorkSchedule  = R.Code
 								AND    W.PositionNo    = '#positionno#'
-								AND    W.WorkSchedule != '#url.workschedule#' 
+								AND    W.WorkSchedule != '#url.workschedule#'
 		   					    AND    W.CalendarDate  = #url.selecteddate#
 							</cfquery>
-							
+
 							<cfloop query="getOther">
 								 #description# <cfif currentrow lt recordcount>;</cfif>
-							</cfloop>								
-											
+							</cfloop>
+
 						</td>
-						
+
 					<cfelse>
-					
-					<td></td>	
-								   				
-				 </cfif>	
-				 
+
+					<td></td>
+
+				 </cfif>
+
 				 </tr>
-				 
+
 			</cfoutput>
-			
+
 			</cfoutput>	 
 					
-		</cfloop>		
-		
+		</cfloop>
+
+
+
 		<tr><td height="4"></td></tr>
-		
+
 	</cfloop>
 	
 	</table>

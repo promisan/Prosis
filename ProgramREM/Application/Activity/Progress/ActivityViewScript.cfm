@@ -74,7 +74,7 @@
 		   mx.className = "hide" 
 		   mn.className = "regular"		  	
 			while (se[cnt]) {
-			 se[cnt].className = "regular"
+			 se[cnt].className = "navigation_row labelmedium line"
 			 cnt++
 			} 		 
 		} else {

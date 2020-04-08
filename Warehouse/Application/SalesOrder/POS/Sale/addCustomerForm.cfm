@@ -9,7 +9,6 @@
 
 <cf_calendarScript>
 <cf_dialogstaffing>
-<cf_uiGadgets gadget="notification">
 <cf_windowNotification marginTop="-15px">
 <cfajaxproxy cfc="Service.Process.EDI.Manager" jsclassname="EDI" />
 
@@ -87,7 +86,7 @@ password="#SESSION.dbpw#">
   <tr>
     <td width="100%" class="header" valign="top">
 		
-    <table border="0" width="93%" align="center" class="formpadding formspacing">
+    <table border="0" width="93%" align="center" class="formpadding">
 		
     <TR class="labelmedium">
     <TD><cf_tl id="Customer Reference">: <font color="FF0000">*</font></TD>

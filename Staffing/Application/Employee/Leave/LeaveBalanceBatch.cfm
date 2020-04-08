@@ -20,6 +20,9 @@ password="#SESSION.dbpw#">
        ScheduleRunId  = "#schedulelogid#"
 	   Description    = "#Mission#"
 	   StepStatus="1">
+	   
+	   
+	   <!--- for sickleave we need to exclude interns who do not have sickleave balances --->
 
 	<cfquery name="OnBoard" 
 	 datasource="AppsEmployee"
@@ -27,14 +30,23 @@ password="#SESSION.dbpw#">
 	 username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">
 	 	 
-	 SELECT        PersonNo, Created, Onboard
+	 SELECT        PersonNo, LastUpdated, Onboard
 	 FROM (
-		 SELECT   DISTINCT PA.PersonNo, P.Created, (SELECT COUNT(*) AS Expr1
-                                         FROM   PersonContract
-                                         WHERE  PersonNo = PA.PersonNo 
-										 AND    Mission = '#mission#' 
-										 AND    ActionStatus IN ('0', '1') 
-										 AND    DateExpiration > GETDATE()-20) AS Onboard   <!--- has active contract --->
+		 SELECT   DISTINCT PA.PersonNo, 
+		 
+		  (SELECT   TOP (1) ISNULL(Created, 01 / 01 / 1900) AS Expr1
+           FROM     PersonLeaveBalance
+           WHERE    LeaveType = '#url.leavetype#' 
+		   AND      BalanceStatus = '0' 
+		   AND      PersonNo = PA.PersonNo
+           ORDER BY Created DESC) AS LastUpdated,
+		 
+		  (SELECT COUNT(*) AS Expr1
+           FROM   PersonContract
+           WHERE  PersonNo = PA.PersonNo 
+		   AND    Mission = '#mission#' 
+		   AND    ActionStatus IN ('0', '1') 
+		   AND    DateExpiration > GETDATE()-20) AS Onboard   <!--- has active contract --->
 
 		 FROM     PersonAssignment PA INNER JOIN 
 		          Position PO ON PO.PositionNo = PA.PositionNo INNER JOIN
@@ -69,8 +81,9 @@ password="#SESSION.dbpw#">
 		 								
 		 ) as D
 		 WHERE    Onboard > 0
-		 ORDER BY Onboard DESC, Created		
-							
+		 ORDER BY Onboard DESC, LastUpdated		
+		 
+		 							
 		 
 	</cfquery>	
 	
@@ -130,8 +143,8 @@ password="#SESSION.dbpw#">
 			<cfif now()-2 gt check.created or check.recordcount eq "0">		
 			
 			--->
-																					
-			<!--- check how the system makes a start date here --->
+																		
+				<!--- check how the system makes a start date here --->
 						
 				<cfinvoke component   = "Service.Process.Employee.Attendance"  
 					    method        = "LeaveBalance" 			
@@ -142,8 +155,12 @@ password="#SESSION.dbpw#">
 						Mode          = "batch"
 						StartDate     = "01/01/2017"  
 						EndDate       = "12/31/#Year(now())#">
-												
-			<!--- </cfif> --->
+						
+			<!---			
+					
+			</cfif>		
+			
+			--->
 		  
 		</cfloop> 
 	

@@ -45,17 +45,18 @@
 		WHERE 	Mission = '#qWarehouse.mission#'
 </cfquery>
 
+<cf_divscroll>
+
 <cfform action="Journal/JournalSubmit.cfm?id1=#url.id1#" method="POST" name="warehousejournal" id="warehousejournal">
 
 <table width="90%" align="center">
 	
-	<tr><td height="10"></td></tr>
+	<tr><td height="5"></td></tr>
 	
 	<cfloop list="#areaList#" index="area">
-		<tr>
-			<td height="22" style="height:40px" class="labellarge"><cfoutput>#area#</cfoutput></td>
-		</tr>
-		<tr><td class="line"></td></tr>
+		<tr class="line">
+			<td class="labelmedium" style="height:40px;font-size:26px"><cfoutput>#area#</cfoutput></td>
+		</tr>		
 		<cfoutput query="Currency">
 		
 			<cfif area eq "STOCK" and Currency neq Application.BaseCurrency>
@@ -65,9 +66,9 @@
 				<td>
 					<table width="100%" align="center">
 						<tr>
-							<td width="2%" style="padding:3px;"></td>
-							<td width="200" class="labelmedium" style="padding:3px;" valign="top"><cf_space spaces="50">#Currency# #Description#:</td>
-							<td width="80%" style="padding:3px;" valign="top">
+							<td width="2%"></td>
+							<td width="200" class="labelmedium" valign="top"><cf_space spaces="50">#Currency# #Description#:</td>
+							<td width="80%" valign="top">
 							
 								<cfset tCat = "">
 								<cfif area eq "STOCK">
@@ -137,16 +138,15 @@
 											<table width="100%">
 												<tr>
 													<td width="95%"  style="padding:3px;" >
-														<cfinput 
-															type="Text" 
-															name="TemplateMode1_#area#_#currency#" 
-															id="TemplateMode1_#area#_#currency#" 
-															value="#qWJ.TransactionTemplateMode1#" 
-															class="regularxl clsTransactionTemplate" 
-															required="No" 
-															maxlength="80" 
-															style="width:100%;"
-															onblur= "ColdFusion.navigate('Journal/FileValidation.cfm?template='+this.value+'&container=pathValidationDivMode1_#area#_#currency#&resultField=validatePathMode1_#area#_#currency#','pathValidationDivMode1_#area#_#currency#')">
+														<cfinput type="Text" 
+																 name="TemplateMode1_#area#_#currency#" 
+																 id="TemplateMode1_#area#_#currency#" 
+																 value="#qWJ.TransactionTemplateMode1#" 
+																 class="regularxl clsTransactionTemplate" 
+																 required="No" 
+																 maxlength="80" 
+																 style="width:100%;"
+																 onblur= "ColdFusion.navigate('Journal/FileValidation.cfm?template='+this.value+'&container=pathValidationDivMode1_#area#_#currency#&resultField=validatePathMode1_#area#_#currency#','pathValidationDivMode1_#area#_#currency#')">
 													</td>
 													<td width="5%" style="padding-left:3px;">
 														<cfdiv id="pathValidationDivMode1_#area#_#currency#" bind="url:Journal/FileValidation.cfm?template=#qWJ.TransactionTemplateMode1#&container=pathValidationDivMode1_#area#_#currency#&resultField=validatePathMode1_#area#_#currency#">
@@ -240,3 +240,5 @@
 </table>
 
 </cfform>
+
+</cf_divscroll>

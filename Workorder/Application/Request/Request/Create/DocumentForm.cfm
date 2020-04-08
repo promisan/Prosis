@@ -275,7 +275,7 @@
 	
 	<cfif url.scope eq "backoffice">	
 
-		<td style="padding-right:6px" class="labelmedium"><cf_UIToolTip tooltip="The date of the request"><font color="808080"><cf_tl id="Date">:</cf_UIToolTip></td>
+		<td style="padding-right:6px;min-width:80px" class="labelmedium"><cf_UIToolTip tooltip="The date of the request"><cf_tl id="Date">:</cf_UIToolTip></td>
 		<td height="#ht#" class="labelmedium">
 		
 		 <cfif accessmode eq "view">
@@ -393,7 +393,7 @@
 
 	<cfif accessmode eq "Edit">
 
-	<td width="30%" class="labelmedium" align="right" style="padding-right:6px"><font color="808080"><cf_tl id="eMail">:<font color="FF0000">*</font></td>
+	<td width="30%" class="labelmedium" style="min-width:80px;padding-right:6px"><cf_tl id="eMail">:<font color="FF0000">*</font></td>
 	<td class="labelmedium" height="#ht#" style="padding-right:35px">
 		
 		<cfif Request.eMailAddress eq "">

@@ -1,5 +1,6 @@
 <cfparam name="url.sort" default="category">
 
+
 <cfset dest = "userTransaction.dbo.StockResupply#URL.Warehouse#_#SESSION.acc#">
 
 <cfquery name="ResultList" 
@@ -180,8 +181,8 @@ password="#SESSION.dbpw#">
 				<table width="100%">
 				
 					<tr class="labelmedium line" style="border-top:1px solid silver">
-					    <td style="min-width:50px"></td>
-						<td align="center" style="min-width:40px;border-left:1px solid silver;padding-right:4px"><cf_tl id="No"></td>
+					    <td style="min-width:35px"></td>
+						<td align="center" style="min-width:50px;border-left:1px solid silver;padding-right:4px"><cf_tl id="No"></td>
 						<td align="center" style="min-width:100px;border-left:1px solid silver;padding-right:4px"><cf_tl id="Barcode"></td>
 						<td align="center" style="width:89%;border-left:1px solid silver;padding-right:4px"><cf_tl id="Item"></td>	
 						<td align="center" style="min-width:100px;border-left:1px solid silver;padding-right:4px"><cf_tl id="MinOrder"></td>			
@@ -192,7 +193,7 @@ password="#SESSION.dbpw#">
 						<td style="border-left:1px solid silver;padding-right:4px" align="center" colspan="2"><cf_tl id="Procurement"></td>				
 						<td style="border-left:1px solid silver;padding-right:4px" align="center" colspan="2"><cf_tl id="Reserved"></td>				
 						<td style="border-left:1px solid silver;padding-right:4px" align="center"><cf_tl id="Economic"></td>				
-						<td colspan="2" style="border-left:1px solid silver;padding-left:10px;border-right:1px solid silver;;padding-right:4px" align="center"><cf_tl id="Proposed"></td>				
+						<td colspan="2" style="border-left:1px solid silver;border-right:1px solid silver;;padding-right:4px" align="center"><cf_tl id="Proposed"></td>				
 					</tr>
 					
 					<tr class="labelmedium line">
@@ -203,7 +204,7 @@ password="#SESSION.dbpw#">
 						   <tr>	
 						   <cfoutput>		  
 						   <td>
-						   <select name="sort" id="sort" style="width:300px;background-color:ffffcf" class="regularxl" 
+						   <select name="sort" id="sort" style="border:0px;border-left:1px solid silver;border-right:1px solid silver;width:300px;background-color:ffffcf" class="regularxl" 
 							    onChange="resupplysort('s','#url.systemfunctionid#',document.getElementById('restocking').value)">
 								<option value="category" <cfif url.sort eq "category">selected</cfif>><cf_tl id="Category"></option>
 								<option value="item" <cfif url.sort eq "item">selected</cfif>><cf_tl id="Item"></option>				
@@ -230,15 +231,12 @@ password="#SESSION.dbpw#">
 						<td style="border-left:1px solid silver;min-width:60;padding-right:2px" align="center"><cf_tl id="Request"></td>		
 						<td style="border-left:1px solid silver;min-width:60;padding-right:2px" align="center"><cf_tl id="Order"></td>					
 						<td style="border-left:1px solid silver;min-width:100;padding-right:4px" align="right"></td>				
-						<td colspan="2" style="min-width:130px;border-left:1px solid silver;padding-left:12px;padding-right:10px;border-right:1px solid silver;" align="right">
-						
-											
+						<td colspan="2" style="min-width:100px;border-left:1px solid silver;padding-left:12px;padding-right:10px;border-right:1px solid silver;" align="right">
+																	
 					     <!---
 						 <cfset cnt = 0>
 						 --->
-										    				
-				        
-										 				
+																	 				
 						 <cfif url.sort neq "Category">
 						 
 						 		 <cfset section = "0">
@@ -445,10 +443,9 @@ password="#SESSION.dbpw#">
 						
 							 <td align="center" style="border-left:1px solid silver;padding-left:4px;padding-right:4px">
 							 
-							 <table>
+							 <table style="height:100%">
 							 
-							 <tr><td style="padding-right:5px">
-							
+							 <tr><td style="padding-right:5px;padding-top:1px">
 														
 							<cfset vToBeRequested = ToBeRequested>
 							<cfset vInternalDraft = InternalDraft>		
@@ -484,7 +481,7 @@ password="#SESSION.dbpw#">
 							   
 						     </td>
 						
-							<td align="right" id="requestedqtycell_#lineno#" style="min-width:50px;height:20px;padding:2px">
+							<td align="right" id="requestedqtycell_#lineno#" style="min-width:50px;height:20px">
 																		   						
 								  <input type = "Text"
 							       name       = "requestedqty_#lineno#"
@@ -493,7 +490,7 @@ password="#SESSION.dbpw#">
 							       visible    = "Yes"
 							       disabled   = "#cl#"
 								   onChange   = "resupplyupdate('#lineno#',requestedqty_#lineno#.value,document.getElementById('selected_#lineno#').checked,'#section#','#url.sort#')"
-								   style      = "background-color:#color#;padding-right:3px;text-align: right;height:20px;font-size:11px;border:1px solid silver;width:100%"								       
+								   style      = "border:0px;border-left:1px solid silver;border-right:1px solid silver;background-color:#color#;padding-right:3px;text-align: right;height:100%;font-size:11px;width:100%"								       
 							       maxlength  = "20"
 							       class      = "regularxl enterastab enter_#section#">						
 							   

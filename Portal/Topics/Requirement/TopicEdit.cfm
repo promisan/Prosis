@@ -32,6 +32,8 @@ password="#SESSION.dbpw#">
 				OR Mission IN (#preservesingleQuotes(SESSION.isLocalAdministrator)#)	
 			</cfif>
 			
+			
+			
 			)
 			 
 

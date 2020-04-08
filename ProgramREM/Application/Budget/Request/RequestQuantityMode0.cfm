@@ -27,7 +27,7 @@
 						</cfif>	
 						
 						<cfif url.scope eq "standard">
-						<div id="total_display_#itm#" style="padding-top:3px;font-size:14">#numberformat(tot,",__.__")#</b></div>		
+						<div id="total_display_#itm#" style="padding-top:3px;font-size:14">#numberformat(tot,",.__")#</b></div>		
 						</cfif>
 										
 						<script language="JavaScript">
@@ -44,7 +44,7 @@
 			
 			<cfif url.scope eq "period">	
 			
-				<div id="total_display" style="font-size:15">#numberformat(tot,",__.__")#</b></div>				
+				<div id="total_display" style="font-size:15">#numberformat(tot,",.__")#</b></div>				
 					
 				<script>
 				  try {

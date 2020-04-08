@@ -73,10 +73,10 @@
 		function extendnow(mis,man) {
 			ColdFusion.navigate('MandateExtendSubmit.cfm?mission='+mis+'&mandateno='+man,'processextension')
 		}
-
 	
 		function AddVacancy(postno) {
-		   window.open("#SESSION.root#/Vactrack/Application/Document/DocumentEntry.cfm?mission=#URL.Mission#&ID1=" + postno + "&Caller=Listing", "_blank", "width=580, height=520, status=yes, toolbar=no, scrollbars=no, resizable=no");
+			ProsisUI.createWindow('mydialog', 'Record Recruitment Track', '',{x:100,y:100,height:600,width:640,modal:true,center:true});	
+			ColdFusion.navigate('#SESSION.root#/Vactrack/Application/Document/DocumentEntry.cfm?mission=#URL.Mission#&ID1='+postno+'&Caller=Listing','mydialog')	
 		}
 		
 		function ShowCandidate(App) {

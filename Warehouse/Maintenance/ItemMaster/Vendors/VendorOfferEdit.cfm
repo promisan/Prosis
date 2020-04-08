@@ -50,7 +50,6 @@
 	<cf_screentop height="100%" scroll="Yes" html="Yes" label="Vendor Offer" option="Add Vendor Offer" layout="webapp" user="no">
 </cfif>
 
-
 <cfoutput>
 
 <table class="hide">

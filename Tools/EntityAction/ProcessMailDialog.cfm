@@ -76,11 +76,11 @@
 	<cfset vTitle="NOTIFY actors by eMail">
 </cfif>
 
-<cf_screentop height="100%" label="Notification" layout="webapp" scroll="yes" banner="gray" option="#vTitle#">
+<cf_screentop height="100%" label="Notification" layout="webapp" scroll="no" banner="gray" option="#vTitle#">
 
-<form action="ProcessMailDialogSubmit.cfm" target="submit" method="post">
+<form action="ProcessMailDialogSubmit.cfm" target="submit" method="post" style="height:100%">
 	
-<table width="91%" align="center" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="91%" height="100%" align="center"  class="formpadding">
 	
 	<cfif Layout.recordcount eq "1">
 	
@@ -90,8 +90,7 @@
 	
 	<tr class="line"><td class="labellarge" style="padding-top:10px;font-size:22px;font-weight:200">Standard notification</td></tr>	
 	
-	</cfif>
-	
+	</cfif>	
 		
 	<tr><td></td></tr>		
 	<tr>
@@ -214,157 +213,161 @@
 	 	 
 	</script>
 	 	  
-	<tr><td colspan="2" valign="top">
-	 		    
-	 <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
-	 <tr class="labelmedium line">
-		 <td width="5%">&nbsp;</td>
-		 <td><cf_tl id="Name"></td>
-		 <td><cf_tl id="Last logon"></td>
-		 <td><cf_tl id="Last alert">:</td>
-		 <td><cf_tl id="EMail address"></td>
-		 <td align="center">
-			 <input type="checkbox" name="account" id="account" value="" checked onClick="check(this.checked)">
-		 </td>
-	 </tr>	 
-	 
-	 <cfquery name="UpdateAddress" 
-			datasource="AppsSystem" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-			UPDATE  UserNames
-			SET     EMailAddress = eMailAddressExternal
-			WHERE   (eMailAddress is NULL or eMailAddress = '')
-			AND     eMailAddressExternal > ''  
-	 </cfquery>
-				 
-	 <cfif Potential.recordcount eq "0">
-	 
-		 <tr><td height="5"></td></tr>
- 		 <tr><td colspan="6" class="labelit">
-		     <cf_message message="No actors with an eMail adressed were defined for the next step. Please contact your administrator" return="No">		
-		 </td></tr>
+	<tr><td colspan="2" valign="top" style="height:100%">
+	
+		<cf_divscroll>
+		 		    
+		 <table width="100%" align="center" class="formpadding">
+		 <tr class="labelmedium line">
+			 <td width="5%">&nbsp;</td>
+			 <td><cf_tl id="Name"></td>
+			 <td><cf_tl id="Last logon"></td>
+			 <td><cf_tl id="Last alert">:</td>
+			 <td><cf_tl id="EMail address"></td>
+			 <td align="center">
+				 <input type="checkbox" name="account" id="account" value="" checked onClick="check(this.checked)">
+			 </td>
+		 </tr>	 
 		 
-	 </cfif>
-	 
-	 <cfset row = 0>
-	 
-	 <cfloop query="Potential">
-	 
-	 
-		 <cfquery name="Notify" 
-			 datasource="AppsSystem"
-			 username="#SESSION.login#" 
-			 password="#SESSION.dbpw#">
-			 SELECT   *
-			 FROM     UserEntitySetting
-			 WHERE    Account     = '#Account#'  
-			 AND      EntityCode  = '#Object.EntityCode#'
-			 
-		</cfquery>
-		
-		<!--- if not record exist we assume the user wants a mail --->
-					
-		<cfif Notify.EnableMailNotification eq "1" or Notify.recordcount eq "0">
-	 
-			<cfinvoke component="Service.Access"  
-				method         = "AccessEntity" 
-				objectid       = "#Object.ObjectId#"
-				actioncode     = "#Action.ActionCode#" 
-				orgunit        = "#Object.OrgUnit#" 
-				mission        = "#Object.Mission#"
-				user           = "#Account#"
-				entitygroup    = "#Object.EntityGroup#" 
-				returnvariable = "entityaccess">
-				
-							  
-		    <cfif entityaccess eq "EDIT">
-															
-				<cfquery name="Last" 
+		 <cfquery name="UpdateAddress" 
 				datasource="AppsSystem" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
-				    SELECT   TOP 1 *
-				    FROM     UserStatusLog
-				    WHERE    Account = '#Account#'
-					ORDER BY Created DESC
-				</cfquery>
-				
-				<cfquery name="LastMail" 
-				datasource="AppsOrganization" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-				   SELECT *
-				   FROM   OrganizationObjectMail
-				   WHERE  Account    = '#Account#'
-				   AND    ObjectId   = '#Object.ObjectId#'
-				   AND    ActionCode = '#Action.ActionCode#'
-				   ORDER BY Created DESC
-				</cfquery>
-		  
-			    <cfif Potential.eMailAddress neq "">
-				   <cfset row = row+1>
-			       <tr class="labelmedium highlight1 linedotted" id="d#row#">
-				<cfelse>
-				   <tr class="labelmedium linedotted">
-				</cfif>
-				<td style="padding-left:7px">#currentRow#</td>
-				<td>#Potential.FirstName# #Potential.LastName#</td>
-				<td>
-					<cfif Last.Created eq ""><font color="FF0000"><b><cf_tl id="Never"></b>
-					<cfelse>#DateFormat(Last.Created, CLIENT.DateFormatShow)#
-					</cfif>
-				</td>
-				
-				<td style="padding-left:3px">				
-					<cfif LastMail.Created neq "">
-					<b>#DateFormat(LastMail.Created, CLIENT.DateFormatShow)# at #TimeFormat(LastMail.Created, "HH:MM")# [#lastMail.recordcount#]</b>					
-					<cfelse>
-					n/a
-					</cfif>								
-				</td>
-				<td>#Potential.emailAddress#</td>
-				<td height="25" align="center">
-					<cfif Potential.eMailAddress neq "">
-				    	<input type="checkbox" name="account" class="radiol" id="account" value="'#Account#'" checked onClick="hl(this,this.checked)">
-					<cfelse>
-						<cf_tl id="Not available">	
-					</cfif>
-				</td>
-				</tr>
-						         			  
-		    </cfif>	
+				UPDATE  UserNames
+				SET     EMailAddress = eMailAddressExternal
+				WHERE   (eMailAddress is NULL or eMailAddress = '')
+				AND     eMailAddressExternal > ''  
+		 </cfquery>
+					 
+		 <cfif Potential.recordcount eq "0">
+		 
+			 <tr><td height="5"></td></tr>
+	 		 <tr><td colspan="6" class="labelit">
+			     <cf_message message="No actors with an eMail adressed were defined for the next step. Please contact your administrator" return="No">		
+			 </td></tr>
+			 
+		 </cfif>
+		 
+		 <cfset row = 0>
+		 
+		 <cfloop query="Potential">
+		 
+		 
+			 <cfquery name="Notify" 
+				 datasource="AppsSystem"
+				 username="#SESSION.login#" 
+				 password="#SESSION.dbpw#">
+				 SELECT   *
+				 FROM     UserEntitySetting
+				 WHERE    Account     = '#Account#'  
+				 AND      EntityCode  = '#Object.EntityCode#'
+				 
+			</cfquery>
 			
-		</cfif>	
-		
-	 </cfloop>	
-	 
-	 </tr>
-	 	 	 
-	 <script language="JavaScript">
-	 
-		 function exit() {
-			   window.close(); 
-			//   opener.history.go();
-		 }  
-	 
-	 </script>
-	  	 	 			   
-	 </table>
+			<!--- if not record exist we assume the user wants a mail --->
+						
+			<cfif Notify.EnableMailNotification eq "1" or Notify.recordcount eq "0">
+		 
+				<cfinvoke component="Service.Access"  
+					method         = "AccessEntity" 
+					objectid       = "#Object.ObjectId#"
+					actioncode     = "#Action.ActionCode#" 
+					orgunit        = "#Object.OrgUnit#" 
+					mission        = "#Object.Mission#"
+					user           = "#Account#"
+					entitygroup    = "#Object.EntityGroup#" 
+					returnvariable = "entityaccess">
+					
+								  
+			    <cfif entityaccess eq "EDIT">
+																
+					<cfquery name="Last" 
+					datasource="AppsSystem" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+					    SELECT   TOP 1 *
+					    FROM     UserStatusLog
+					    WHERE    Account = '#Account#'
+						ORDER BY Created DESC
+					</cfquery>
+					
+					<cfquery name="LastMail" 
+					datasource="AppsOrganization" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+					   SELECT *
+					   FROM   OrganizationObjectMail
+					   WHERE  Account    = '#Account#'
+					   AND    ObjectId   = '#Object.ObjectId#'
+					   AND    ActionCode = '#Action.ActionCode#'
+					   ORDER BY Created DESC
+					</cfquery>
+			  
+				    <cfif Potential.eMailAddress neq "">
+					   <cfset row = row+1>
+				       <tr class="labelmedium highlight1 linedotted" id="d#row#">
+					<cfelse>
+					   <tr class="labelmedium linedotted">
+					</cfif>
+					<td style="padding-left:7px">#currentRow#</td>
+					<td>#Potential.FirstName# #Potential.LastName#</td>
+					<td>
+						<cfif Last.Created eq ""><font color="FF0000"><b><cf_tl id="Never"></b>
+						<cfelse>#DateFormat(Last.Created, CLIENT.DateFormatShow)#
+						</cfif>
+					</td>
+					
+					<td style="padding-left:3px">				
+						<cfif LastMail.Created neq "">
+						<b>#DateFormat(LastMail.Created, CLIENT.DateFormatShow)# at #TimeFormat(LastMail.Created, "HH:MM")# [#lastMail.recordcount#]</b>					
+						<cfelse>
+						n/a
+						</cfif>								
+					</td>
+					<td>#Potential.emailAddress#</td>
+					<td height="25" align="center">
+						<cfif Potential.eMailAddress neq "">
+					    	<input type="checkbox" name="account" class="radiol" id="account" value="'#Account#'" checked onClick="hl(this,this.checked)">
+						<cfelse>
+							<cf_tl id="Not available">	
+						</cfif>
+					</td>
+					</tr>
+							         			  
+			    </cfif>	
+				
+			</cfif>	
+			
+		 </cfloop>	
+		 
+		 </tr>
+		 	 	 
+		 <script language="JavaScript">
+		 
+			 function exit() {
+				   window.close(); 
+				//   opener.history.go();
+			 }  
+		 
+		 </script>
+		  	 	 			   
+		 </table>
+		 
+		 </cf_divscroll>
 	 	 	 
 	 </td></tr>
 	 
 	 <cfif Potential.recordcount gte "1">
 	 
 	 <tr>
-	 	<td height="35" align="center" colspan="2">
+	 	<td height="45" align="center" colspan="2">
 		 <input type="button" name="Cancel" id="Cancel" value="Close" class="button10g" onClick="javascript:exit()">
 		 <input type="submit" class="button10g" name="Send" id="Send" value="Send Mail">
 		 </td>
 	 </tr>
 	 
 	 <cfif getAdministrator("*") eq "1">
-	  <tr class="xhide">	
+	  <tr class="hide">	
 		 <td><iframe name="submit" id="submit" width="100%" height="100" scrolling="yes" frameborder="0"></iframe></td>
 	 </tr>
 	 <cfelse>
@@ -378,7 +381,7 @@
 	  	 
  </table>
  
-  </form>
+</form>
  
  <cf_screenbottom layout="webapp">
  

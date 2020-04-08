@@ -14,19 +14,30 @@
 <tr>
 <td valign="top" height="100%" style="padding:3px"> 	 
 
-<cf_LanguageInput
-	TableCode       = "Ref_ModuleControl" 
-	Mode            = "get"
-	Name            = "FunctionName"
-	Key1Value       = "#url.SystemFunctionId#"
-	Key2Value       = "#url.mission#"				
-	Label           = "Yes">
+	<cf_LanguageInput
+		TableCode       = "Ref_ModuleControl" 
+		Mode            = "get"
+		Name            = "FunctionName"
+		Key1Value       = "#url.SystemFunctionId#"
+		Key2Value       = "#url.mission#"				
+		Label           = "Yes">
 	
 	  <form name="criteria" method="post" style="height:100%">
 
-	  <table width="100%" height="100%" align="center" align="center">		  
+	  <table width="100%" height="100%" align="center" align="center">		
+	  
+	  <tr class="line">
+	    <td class="labelmedium" style="height:25px;font-size:18px">
+		<table width="100%">
+		<tr>
+		<td>#lt_content#</td>
+		<td align="right" style="padding-right:8px"><a href="javascript:$('##filter').toggle();"><cf_tl id="Filter"></a></td>		
+		</tr>
+		</table>
+		</td>
+	  </tr>  
 	        
-	  <tr>
+	  <tr id="filter">
 	    <td height="40"> 	 
 				
 		  <table width="100%" border="0" align="center" class="formpadding">
@@ -58,9 +69,7 @@
 					<option value="'#ProgramCode#'" <cfif find(programcode,session.mysupply['programcode'])>selected</cfif>>#ProgramName#</option>
 					</cfloop>
 				</select>
-		  	</td>			
-	                  		
-			<input type="hidden" name="restocking" id="restocking" value="">
+		  	</td>				
 			  
 			  <cfquery name="CategorySelect" 
 			datasource="AppsMaterials" 
@@ -120,11 +129,17 @@
 				</tr>
 				</table>
 				
+				<cfif get.SupplyWarehouse eq "">
+					<input type="hidden" name="restocking" id="restocking" value="Procurement">
+				<cfelse>
+				    <input type="hidden" name="restocking" id="restocking" value="Warehouse">
+				</cfif>	
+				
 		  	  </td>		
 			  
 			   <TD class="labelmedium"><cf_tl id="Refresh content">:</TD>
 	           <td align="left" valign="top" style="padding-top:3px">
-			    <input type="checkbox" name="refreshcontent" id="refreshcontent" value="1" class="radiol" onclick="resupply('s','#url.systemfunctionid#','Procurement')">
+			    <input type="checkbox" name="refreshcontent" id="refreshcontent" value="1" class="radiol" onclick="resupply('s','#url.systemfunctionid#',document.getElementById('restocking').value)">
 				
 			   </td>
 			  
@@ -135,7 +150,7 @@
 		</td>
 	</tr>
 	
-	<TR>
+	<tr>
 		<td colspan="3" valign="top" height="100%" id="subbox" bgcolor="ffffff"></td>	
 	</tr>
 	

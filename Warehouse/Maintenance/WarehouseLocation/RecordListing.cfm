@@ -82,7 +82,7 @@
 				   				   			
 			</cfif>
 						
-			<table height="100%" width="98%" id="listbox" align="center">
+			<table height="100%" width="99%" id="listbox" align="center">
 					
 				<cfif client.googleMAP eq "1">	
 					
@@ -122,42 +122,15 @@
 						   <td align="right">#dateformat(created,CLIENT.DateFormatShow)#</td>
 						   <td align="center" width="20"></td>   			   		   
 					   </tr>	
-					   
-					   <tr><td colspan="7">
-					   
-					   <table width="98%" align="center" class="navigation_table">
-					  
-						    <TR class="line labelmedium" bgcolor="fafafa" height="18">
-							   <td style="min-width:100px"><cf_tl id="Class"></td>
-							   <td style="min-width:100px"><cf_tl id="Code"></td>			  
-							   <td style="width:100%"><cf_tl id="Name"></td>
-							   <td style="min-width:100px"><cf_tl id="Id"></td>
-							   <td style="min-width:100px"><cf_tl id="DecalNo"></td>
-							   <td style="min-width:50px"><cf_tl id="I"></td>
-							   <td style="min-width:20px"><cf_tl id="Active"></td>
-							   <td colspan="2" align="right" style="min-width:120px">
-						       <cfoutput>
-								 <cfif URL.ID2 neq "new" and Access eq "ALL">
-								     <a href="javascript:ColdFusion.navigate('#SESSION.root#/warehouse/maintenance/warehouselocation/List.cfm?systemfunctionid=#url.systemfunctionid#&Warehouse=#URL.Warehouse#&ID2=new','f#url.warehouse#_list')">
-									 [<cf_tl id="add">]
-									 </a>
-								 </cfif>
-							   </cfoutput>
-							   </td>		  
-							</TR>
-						
-					   </table>
-					   </td></tr>	
-											   
-					   <tr class="line">
+					   					   											   
+					   <tr>
 					   <td></td>
-					   <td colspan="6" style="height:100%;padding-left:0px;padding-right:0px" id="f#warehouse#_list">	
+					   <td colspan="6" style="height:100%" id="f#warehouse#_list">	
 					       <cf_divscroll>
 					     	<cfinclude template="List.cfm">													   						   		
 						   </cf_divscroll>	
 					   </td>
-					   </tr>	
-					   			 			 			 					
+					   </tr>	 			 			 					
 										
 				</cfoutput>													
 							

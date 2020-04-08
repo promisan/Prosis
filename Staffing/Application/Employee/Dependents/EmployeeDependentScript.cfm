@@ -23,8 +23,8 @@
 	
 		if (mode == "contract") {
 		    
-			try { parent.ColdFusion.Window.destroy('mydependent',true) } catch(e) {}
-			parent.ColdFusion.Window.create('mydependent', 'Dependent', '',{x:100,y:100,height:parent.document.body.clientHeight-80,width:parent.document.body.clientWidth-80,modal:true,resizable:false,center:true})    					
+//			try { parent.ColdFusion.Window.destroy('mydependent',true) } catch(e) {}
+			parent.ProsisUI.createWindow('mydependent', 'Maintain Dependent', '',{x:100,y:100,height:parent.document.body.clientHeight-120,width:parent.document.body.clientWidth-120,modal:true,resizable:false,center:true})    					
 			parent.ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Dependents/DependentView.cfm?contractid='+ctr+'&action='+mode+'&ID='+persno+'&ID1='+depid,'mydependent') 		
 		
 		} else {

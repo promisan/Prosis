@@ -6,6 +6,7 @@
 <cfparam name="URL.Mode"        default = "undefined">
 <cfparam name="URL.Restocking"  default = "Procurement">
 
+
 <!--- main warehouse 
 	a. select mission
 	b. define items on requisition (Materials.dbo.Request)
@@ -258,7 +259,7 @@
 			AND       W.Restocking    = '#URL.Restocking#'  
 			
 			AND       I.ItemClass     = 'Supply' <!--- only supply items --->	
-												
+															
 	</cfquery>
 		
 </cfif>		

@@ -106,7 +106,7 @@
 
                 service = replace(service,"." & method,"");
 
-                serviceURL = replace(service,"service","component");
+                serviceURL = replaceNoCase(service,"service","component");
                 serviceURL = replace(serviceURL,".","/","all");
             </cfscript>
 
@@ -138,7 +138,7 @@
             </cffunction>
 
             <cfoutput>
-                <cfset AjaxOnLoad("function(){ProsisUI.doTreeBinder('#ATTRIBUTES.id#','#client.root##serviceURL#','#method#',#getParameters()#);}")>
+                <cfset AjaxOnLoad("function(){ProsisUI.doTreeBinder('#ATTRIBUTES.id#','#client.root#/#serviceURL#','#method#',#getParameters()#);}")>
             </cfoutput>
 
         </cfif>

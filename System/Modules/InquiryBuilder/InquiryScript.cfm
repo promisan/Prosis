@@ -56,9 +56,8 @@
 	}
 		
 	function editpreparation(id,ser) {	
-	    
-		try { ColdFusion.Window.destroy('myscript',true) } catch(e) {}
-		ColdFusion.Window.create('myscript', 'Query', '',{x:100,y:100,height:document.body.clientHeight-40,width:document.body.clientWidth-40,modal:true,resizable:false,center:true})    						
+	    		
+		ProsisUI.createWindow('myscript', 'Query', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,resizable:false,center:true})    						
 		ColdFusion.navigate('#SESSION.root#/system/modules/inquirybuilder/PreparationEdit.cfm?ts='+new Date().getTime()+'&systemfunctionid='+id+'&functionserialno='+ser,'myscript') 
 //		window.showxxxModalDialog("#SESSION.root#/system/modules/inquirybuilder/PreparationEdit.cfm?ts="+new Date().getTime()+"&systemfunctionid="+id+"&functionserialno="+ser, window, "unadorned:yes; edge:raised; status:yes; dialogHeight:770px; dialogWidth:970px; help:no; scroll:no; center:yes; resizable:yes");		
 	}	

@@ -388,7 +388,9 @@ password="#SESSION.dbpw#">
 			
 			    <td align="center" style="padding-left:4px;padding-right:4px;;<cfif actionstatus eq '0'>background-color:yellow</cfif>">
 				
+				<!---
 				<cfif actionstatus eq "1">
+				--->
 										
 					<input type = "checkbox" 
 					name        = "selected" 
@@ -396,7 +398,9 @@ password="#SESSION.dbpw#">
 					value       = "#TransactionLineId#"
 					onClick     = "hl(this,this.checked,'#TransactionLineId#');settotal('#url.mode#')">
 					
+					<!---
 					</cfif>
+					--->
 					
 				</td>
 				

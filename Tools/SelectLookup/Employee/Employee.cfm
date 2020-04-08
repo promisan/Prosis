@@ -1,8 +1,11 @@
 
+<!---
 <cf_screentop label="Search" option="Locate an employee / staffmember" 
    height="100%" scroll="No" html="Yes"
    layout="webapp" banner="gray"
    close="ColdFusion.Window.hide('dialog#url.box#')">   
+   
+   --->
 
 <table align="center" bgcolor="FFFFFF" width="100%" height="100%">
 

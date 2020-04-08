@@ -64,12 +64,12 @@
 													
 					try {										    
 							parent.parent.document.getElementById("att_#URL.Box#_refresh").click()			
-							parent.parent.ColdFusion.Window.hide('attachdialog')						
+							parent.parent.ProsisUI.closeWindow('attachdialog')						
 							} catch(e) {}				
 							
 					try {										    
 							parent.document.getElementById("att_#URL.Box#_refresh").click()			
-							parent.ColdFusion.Window.hide('attachdialog')						
+							parent.ProsisUI.closeWindow('attachdialog')						
 							} catch(e) {}			
 							
 					// cfdivscroll 

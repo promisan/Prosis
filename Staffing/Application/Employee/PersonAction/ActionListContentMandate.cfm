@@ -4,42 +4,41 @@
 
 <cfset itm = itm+1>
 <cfset fields[itm] = {label    = "No",                   	
-					field      = "ActionDocumentNo",	
-					width      = "8",					
-					search     = ""}>
+					  field      = "ActionDocumentNo",	
+					  width      = "8",					
+					  search     = ""}>
 			
 <cfset itm = itm+1>						
 <cfset fields[itm] = {label         = "Name", 					
-					field         = "Name",											
-					filtermode    = "0",
-					search        = "text"}>												
+					  field         = "Name",											
+					  filtermode    = "0",
+					  search        = "text"}>												
 
 <cfset itm = itm+1>						
-<cfset fields[itm] = {label      = "Index", 					
-					field      = "IndexNo",	
-					functionscript  = "EditPerson",
-					functionfield = "PersonNo",						
-					filtermode = "0",
-					search     = "text"}>	
+<cfset fields[itm] = {label           = "Index", 					
+					  field           = "IndexNo",	
+					  functionscript  = "EditPerson",
+					  functionfield   = "PersonNo",						
+					  filtermode      = "0",
+					  search          = "text"}>	
 					
 <cfset itm = itm+1>								
-<cfset fields[itm] = {label      = "Personnel Action", 					
-					field      = "ActionDescription",											
-					filtermode = "3",
-					display    = "0",
-					search     = "text"}>						
+<cfset fields[itm] = {label           = "Personnel Action", 					
+					  field           = "ActionCode",											
+					  filtermode      = "3",
+					  display         = "0",
+					  search          = "text"}>						
 										
 <cfset itm = itm+1>								
 <cfset fields[itm] = {label      = "Personnel Action", 					
-					field      = "PersonnelAction"									
-					}>						
+					  field      = "PersonnelAction"}>						
 	
 <cfset itm = itm+1>						
 <cfset fields[itm] = {label      = "Reason", 					
-					field      = "ActionReason",											
-					filtermode = "3",
-					display    = "0",
-					search     = "text"}>	
+					  field      = "ActionReason",											
+					  filtermode = "3",
+					  display    = "0",
+					  search     = "text"}>	
 
 <!---		
 <cfset itm = itm+1>								
@@ -69,7 +68,7 @@
 <cfset fields[itm] = {label     = "Raised by", 					
 					field       = "OfficerLastName",	
 					width       = "32",									
-					filtermode  = "2"}>			
+					filtermode  = "3"}>			
 					
 <cfset itm = itm+1>					
 <cfset fields[itm] = {label     = "Raised by", 					
@@ -100,8 +99,7 @@
 					align         = "center",
 					formatted     = "Rating",
 					ratinglist    = "In Process=Yellow,Completed=Green,9=Red"}>							
-
-				
+		
 										
 <cfset itm = itm+1>		
 <cfset fields[itm] = {label      = "No",                   
@@ -110,10 +108,6 @@
 	
 
 <!--- embed|window|dialogajax|dialog|standard --->
-
-<table width="100%" height="99%" border="0" bordercolor="silver" cellspacing="0" cellpadding="0" align="center">
-	
-	<tr><td width="100%" height="100%">						
 	
 	<cf_listing header  = "PersonnelAction"
 	    box           = "actiondetail"
@@ -131,8 +125,7 @@
 		drillmode     = "tab" 
 		drillargument = "900;990"	
 		drilltemplate = "Staffing/Application/Employee/PersonAction/ActionDialog.cfm?drillid="
-		drillkey      = "ActionDocumentNo">	
+		drillkey      = "ActionDocumentNo">			
 		
-	</td></tr>
-
-</table>		
+		
+		

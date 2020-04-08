@@ -133,21 +133,28 @@ password="#SESSION.dbpw#">
 <cfform action="#SESSION.root#/warehouse/maintenance/warehouselocation/ListSubmit.cfm?systemfunctionid=#url.systemfunctionid#&Warehouse=#URL.Warehouse#&id2=#url.id2#" 
  		method="POST" name="element">
 	
-<table width="98%" class="navigation_table">
+<table width="100%" class="navigation_table">
 			
-		<TR class="labelmedium" style="height:1px">
-		   <td style="min-width:100px"></td>
-		   <td style="min-width:100px"></td>			  
-		   <td style="width:100%"></td>
-		   <td style="min-width:100px"></td>
-		   <td style="min-width:100px"></td>
-		   <td style="min-width:50px"></td>
-		   <td style="min-width:20px"></td>
-		   <td colspan="2" align="right" style="min-width:80px"></td>		  
+		 <TR class="fixrow line labelmedium" bgcolor="fafafa" height="18">
+		   <td style="padding-left:3px;"><cf_tl id="Class"></td>
+		   <td><cf_tl id="Code"></td>			  
+		   <td><cf_tl id="Name"></td>
+		   <td><cf_tl id="Id"></td>
+		   <td><cf_tl id="DecalNo"></td>
+		   <td><cf_tl id="I"></td>
+		   <td><cf_tl id="Active"></td>
+		   <td colspan="2" align="center">
+	       <cfoutput>
+			 <cfif URL.ID2 neq "new" and Access eq "ALL">
+			     <a href="javascript:ColdFusion.navigate('#SESSION.root#/warehouse/maintenance/warehouselocation/List.cfm?systemfunctionid=#url.systemfunctionid#&Warehouse=#URL.Warehouse#&ID2=new','f#url.warehouse#_list')">
+				 [<cf_tl id="add">]
+				 </a>
+			 </cfif>
+		   </cfoutput>
+		   </td>		  
 		</TR>
 		
 		<tr class="hide"><td id="_list"></td></tr>
-					
 						
 		<cfoutput>
 						
@@ -204,6 +211,8 @@ password="#SESSION.dbpw#">
 						 style="width:99%"
 						 value="#storagecode#"
 						 maxlength="20" 
+						 onkeyup="removeBlankSpaces(this)"
+						 onblur="removeBlankSpaces(this)"
 						 class="regularxl">
 				  </td>		
 				
@@ -339,6 +348,8 @@ password="#SESSION.dbpw#">
 						 message="You must enter a code" 
 						 required="Yes" 
 						 size="2" 
+						 onkeyup="removeBlankSpaces(this)"
+						 onblur="removeBlankSpaces(this)"
 						 maxlength="20" 
 						 class="regularxl">
 	              </td>
@@ -360,6 +371,8 @@ password="#SESSION.dbpw#">
 						 required="Yes" 
 						 style="width:99%"
 						 maxlength="20" 
+						 onkeyup="removeBlankSpaces(this)"
+						 onblur="removeBlankSpaces(this)"
 						 class="regularxl">
 				  </td>		
 				

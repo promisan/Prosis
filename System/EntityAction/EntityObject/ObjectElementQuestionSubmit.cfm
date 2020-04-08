@@ -1,6 +1,6 @@
 <cfparam name="Form.CustomDialog" default="">
 		
-<cfif ParameterExists(Form.Save)>	
+<cfif url.questionid eq "">	
 
 	<cfquery name="Insert" 
 	datasource="AppsOrganization" 
@@ -15,29 +15,29 @@
             QuestionLabel,
             <cfif trim(Form.questionMemo) neq "">QuestionMemo,</cfif>
             InputMode,
+			InputModeStringList,
 			InputValuePass,
             EnableInputMemo,
             EnableInputAttachment,
             OfficerUserId,
             OfficerLastName,
-            OfficerFirstName
-			)
+            OfficerFirstName )
 		   
      VALUES
            ('#Form.documentId#',
-           '#Form.questionId#',
-           #Form.listingOrder#,
-           '#Form.questionCode#',
-           '#Form.questionLabel#',
-           <cfif trim(Form.questionMemo) neq "">'#Form.QuestionMemo#',</cfif>
-           '#Form.inputMode#',
-		   '#Form.inputValuePass#',
-           #Form.EnableInputMemo#,
-           #Form.EnableInputAttachment#,
-           '#SESSION.acc#',
-		   '#SESSION.last#',
-		   '#SESSION.first#'         
-		   )		
+            '#Form.questionId#',
+             #Form.listingOrder#,
+            '#Form.questionCode#',
+             '#Form.questionLabel#',
+            <cfif trim(Form.questionMemo) neq "">'#Form.QuestionMemo#',</cfif>
+            '#Form.inputMode#',
+		    '#Form.inputModeStringList#',
+		    '#Form.inputValuePass#',
+             #Form.EnableInputMemo#,
+             #Form.EnableInputAttachment#,
+            '#SESSION.acc#',
+		    '#SESSION.last#',
+		    '#SESSION.first#')		
 	</cfquery>
 	
 	<cf_LanguageInput
@@ -48,28 +48,24 @@
 			Name1           = "questionLabel"
 			Name2           = "questionMemo">
 	
-	<script language="JavaScript">   
-	     parent.parent.questionrefresh()
-		 parent.parent.ColdFusion.Window.destroy('myeditquestion',true)	    	          
-	</script>				
-	
 </cfif>
 
-<cfif ParameterExists(Form.Update)>			
+<cfif url.action eq "update">			
 	
 	<cfquery name="Update" 
 	datasource="AppsOrganization" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 	UPDATE 	Ref_EntityDocumentQuestion
-	SET    	ListingOrder           	= #Form.listingOrder#,
+	SET    	ListingOrder           	=  #Form.listingOrder#,
            	QuestionCode           	= '#Form.questionCode#',
            	QuestionLabel   		= '#Form.questionLabel#',
           	QuestionMemo 			= <cfif trim(Form.questionMemo) eq "">null<cfelse>'#Form.QuestionMemo#'</cfif>,
            	InputMode       		= '#Form.inputMode#',
+			InputModeStringList     = '#Form.inputModeStringList#',
 			InputValuePass          = '#Form.InputValuePass#',
-           	EnableInputMemo 		= #Form.EnableInputMemo#,
-           	EnableInputAttachment 	= #Form.EnableInputAttachment#
+           	EnableInputMemo 		=  #Form.EnableInputMemo#,
+           	EnableInputAttachment 	=  #Form.EnableInputAttachment#
 	WHERE 	DocumentId  			= '#Form.documentId#'
 	AND 	QuestionId  			= '#Form.questionId#'
 	</cfquery>
@@ -77,19 +73,12 @@
 	<cf_LanguageInput
 		TableCode       = "Questionaire" 
 		Mode            = "Save"
-		Key1Value       = "#Form.questionId#"
+		Key1Value       = "#url.questionId#"
 		Lines           = "2"
 		Name1           = "questionLabel"
-		Name2           = "questionMemo">
-	
-	<script language="JavaScript">   
-	     parent.parent.questionrefresh()
-		 parent.parent.ColdFusion.Window.destroy('myeditquestion',true)	    	          
-	</script>			
+		Name2           = "questionMemo">	
 
-</cfif>	
-
-<cfif ParameterExists(Form.Delete)>			
+<cfelseif url.action eq "delete">	
 
 	<cfquery name="verifyDelete"
 	datasource="AppsOrganization" 
@@ -97,8 +86,9 @@
 	password="#SESSION.dbpw#">
 		SELECT TOP 1 *
 		FROM	OrganizationObjectQuestion
-		WHERE 	questionId = '#Form.questionId#'
+		WHERE 	questionId = '#url.questionId#'
 	</cfquery>
+	
 	<cfif verifyDelete.recordCount eq 0>
 
 		<cfquery name="Delete" 
@@ -106,15 +96,17 @@
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
 			DELETE FROM Ref_EntityDocumentQuestion
-			WHERE 	documentId = '#Form.documentId#'
-			AND 	questionId = '#Form.questionId#'
+			WHERE 	documentId = '#url.documentId#'
+			AND 	questionId = '#url.questionId#'
 		</cfquery>
 		
 	</cfif>
 	
-	<script language="JavaScript">   
-	     parent.parent.questionrefresh()
-		 parent.parent.ColdFusion.Window.destroy('myeditquestion',true)	    	          
-	</script>		
+		
 	
 </cfif>
+
+<script language="JavaScript">   
+     parent.questionrefresh()
+	 parent.ProsisUI.closeWindow('myeditquestion',true)	    	          
+</script>	

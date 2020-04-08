@@ -30,7 +30,7 @@ password="#SESSION.dbpw#">
 	ORDER BY SerialNo 
 </cfquery>
 
-<table width="100%" align="center" class="navigation_table">
+<table width="95%" align="center" class="navigation_table">
 
 	<cfif get.recordcount eq "0">
 	

@@ -267,7 +267,9 @@ password="#SESSION.dbpw#">
 				      SELECT *
 				      FROM   Ref_Mandate
 				   	  WHERE  Mission   = '#URL.Mission#'
-					  AND    MandateNo = '#url.mandate#'		 
+					  AND    MandateNo = '#url.mandate#'	
+					  AND    Operational = 1	
+					  ORDER BY MandateDefault DESC 
 				</cfquery>				
 			 
 			 <!--- -------------------------- --->	

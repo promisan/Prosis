@@ -34,7 +34,11 @@
 	
 		<cfset vLocationId    = Evaluate("form.location_#vLocationFormatted#")>
 		<cfset vItemPriceFix  = Evaluate("form.ItemPriceFixed_#vLocationFormatted#")>
+		<cfset vItemPriceFix  = replace(vItemPriceFix,",","")>
+		
 		<cfset vItemPriceVar  = Evaluate("form.ItemPriceVariable_#vLocationFormatted#")>
+		<cfset vItemPriceVar  = replace(vItemPriceVar,",","")>
+		
 		
 		<cfif vItemPriceFix eq "">
 		  <cfset vItemPriceFix = "0">
@@ -137,6 +141,6 @@
 <cfoutput>
 	<script>
 		ColdFusion.navigate('#SESSION.root#/Warehouse/Maintenance/ItemMaster/Vendors/VendorListing.cfm?id=#url.itemno#&mission=#url.mission#&uom=#url.uom#&orgunitvendor=#url.orgunitvendor#','divVendorListing');
-		ColdFusion.Window.hide('mydialog');
+		try { ProsisUI.closeWindow('offerdialog') } catch(e) {}
 	</script>
 </cfoutput>

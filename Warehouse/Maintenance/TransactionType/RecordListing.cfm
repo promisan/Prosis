@@ -1,5 +1,7 @@
 <cf_divscroll>
 
+<cf_screentop html="No" jquery="Yes">
+
 <cfquery name="SearchResult"
 datasource="AppsMaterials" 
 username="#SESSION.login#" 
@@ -35,7 +37,7 @@ function recordedit(id1) {
 	
 	<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding navigation_table">
 	
-	<tr class="labelmedium">
+	<tr class="labelmedium fixrow">
 	    <TD></TD> 
 	    <TD>Code</TD>
 		<td>Description</td>

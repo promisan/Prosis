@@ -71,10 +71,8 @@
 				
 		<cfif url.scope eq "applicant" or url.scope eq "Backoffice">
 		
-			     <cfquery name="Check" 
-			     datasource="AppsSelection" 
-			     username="#SESSION.login#" 
-			     password="#SESSION.dbpw#">
+			     <cfquery name="CheckName" 
+			     datasource="AppsSelection">
 				 				 
 			 	    SELECT *
 			     	FROM   Applicant
@@ -88,10 +86,31 @@
 					--->
 					
 				 </cfquery>
-								 
-				<cfif check.recordcount gte "1">
+				 
+				 <cfif checkName.recordcount gte "1">
 				
-					<cf_message message="Sorry but it appears you already have a record for this person. Operation aborted." return="No">	
+					<cf_message message="Sorry but it appears you already have a record. Operation aborted." return="No">	
+					<cfabort>		
+				
+				</cfif>
+				 
+				 <cfquery name="CheckMail" 
+			     datasource="AppsSystem">
+				 				 
+			 	    SELECT *
+			     	FROM   UserNames
+				 	WHERE  eMailAddress = <cfqueryparam value="#MyForm.EMailAddress#"  cfsqltype="CF_SQL_CHAR" maxlength="50">
+				 	AND    Disabled = 0
+				 						
+					<!---
+				 	AND    FirstName   = <cfqueryparam value="#MyForm.firstname#"   cfsqltype="CF_SQL_CHAR" maxlength="30">
+					--->
+					
+				 </cfquery>
+								 
+				<cfif checkMail.recordcount gte "1">
+				
+					<cf_message message="Sorry but it appears your eMail address is already in use. Operation aborted." return="No">	
 					<cfabort>		
 				
 				</cfif>
@@ -100,18 +119,16 @@
 			
 		<cfif url.scope eq "applicant">
 		   		
-		    		<cfset SESSION.last     = MyForm.LastName> 
-					<cfset SESSION.first    = MyForm.FirstName> 
-					<cfset client.eMail     = MyForm.eMailAddress>
+    		<cfset SESSION.last     = MyForm.LastName> 
+			<cfset SESSION.first    = MyForm.FirstName> 
+			<cfset client.eMail     = MyForm.eMailAddress>
 		   			 
 		</cfif>
 	  
 	    <cftransaction>
 	  
 		   <cfquery name="Last" 
-		     datasource="AppsSelection" 
-		     username="#SESSION.login#" 
-		     password="#SESSION.dbpw#">
+		     datasource="AppsSelection">
 		    	SELECT    TOP 1 ApplicantNo AS LastNo 
 		     	FROM      ApplicantSubmission
 			 	ORDER BY  ApplicantNo DESC
@@ -124,26 +141,20 @@
 			</cfif> 
 					
 		   <cfquery name="AssignNo" 
-		     datasource="AppsSelection" 
-		     username="#SESSION.login#" 
-		     password="#SESSION.dbpw#">
+		     datasource="AppsSelection">
 		     	UPDATE Parameter SET ApplicantNo = #new#
 		     </cfquery>
 			 
 			<cfif MyForm.PersonNo eq "">
 		     
 			    <cfquery name="AssignNo" 
-			     datasource="AppsSelection" 
-			     username="#SESSION.login#" 
-			     password="#SESSION.dbpw#">
+			     datasource="AppsSelection">
 			     	UPDATE Parameter 
 					SET    PersonNo    = PersonNo+1
 				</cfquery>
 			
 			    <cfquery name="LastNo" 
-			     datasource="AppsSelection" 
-			     username="#SESSION.login#" 
-			     password="#SESSION.dbpw#">
+			     datasource="AppsSelection">
 				     SELECT *
 				     FROM Parameter
 				</cfquery>
@@ -157,9 +168,7 @@
 			</cfif>			
 			
 		    <cfquery name="InsertApplicant" 
-			     datasource="AppsSelection" 
-			     username="#SESSION.login#" 
-			     password="#SESSION.dbpw#">
+			     datasource="AppsSelection">
 			  	   INSERT INTO Applicant 
 			         (PersonNo,
 					 <cfif ISDEFINED("MyForm.Salutation")>
@@ -255,9 +264,7 @@
 		      <!--- Submit submission --->
 				
 			  <cfquery name="InsertSubmission" 
-			     datasource="AppsSelection" 
-			     username="#SESSION.login#" 
-			     password="#SESSION.dbpw#">
+			     datasource="AppsSelection">
 			  	   INSERT INTO ApplicantSubmission
 				         	(PersonNo,
 						 	ApplicantNo,
@@ -303,9 +310,7 @@
 			  <cfif myForm.mission neq "">
 								  
 				   <cfquery name="InsertCustomer" 
-				     datasource="AppsSelection" 
-				     username="#SESSION.login#" 
-				     password="#SESSION.dbpw#">
+				     datasource="AppsSelection">
 				  	   INSERT INTO WorkOrder.dbo.Customer
 					         	(PersonNo,
 							 	Mission,
@@ -330,9 +335,7 @@
 				  </cfquery>
 				  
 				   <cfquery name="InsertCustomer" 
-				     datasource="AppsSelection" 
-				     username="#SESSION.login#" 
-				     password="#SESSION.dbpw#">
+				     datasource="AppsSelection">
 				  	   INSERT INTO Materials.dbo.Customer
 					         	(PersonNo,
 							 	Mission,
@@ -388,44 +391,45 @@
 																	
 					<cfif CLIENT.LanguageId eq "ENG">		
 							
-					<table width="100%">
-						<tr><td height="120"></td></tr>
-						<tr><td align="center" class="labellarge">			  		 
-				     
-						 Thank you, your request under No: <cfoutput>#PersonNo#</cfoutput> for an account has been received. <br><br>
-						 You will be contacted by e-Mail with your assigned account which allows you to record your profile and more.
-						 			 
-						 </td></tr>
-					 </table>
+						<table width="100%">
+							<tr><td height="120"></td></tr>
+							<tr><td align="center" class="labellarge">			  		 
+					     
+							 Thank you, your request under No: <cfoutput>#PersonNo#</cfoutput> for an account has been received. <br><br>
+							 You will be contacted by e-Mail with your assigned account which allows you to record your profile and more.
+							 			 
+							 </td></tr>
+						 </table>
 					 
 					 <cfelseif CLIENT.LanguageId eq "ESP">
 					 
-					 <table width="100%">
-						<tr><td height="120"></td></tr>
-						<tr><td align="center" class="labellarge">			  		 
-				     
-						 Gracias, su numero de requerimiento es el : <cfoutput>#PersonNo#</cfoutput>. Pronto le contactaremos para darle sus credenciales<br><br>
-						 Usted sera contactado por correo con las mismas.
-						 			 
-						 </td></tr>
-					 </table>
+						 <table width="100%">
+							<tr><td height="120"></td></tr>
+							<tr><td align="center" class="labellarge">			  		 
+					     
+							 Gracias, su numero de requerimiento es el : <cfoutput>#PersonNo#</cfoutput>. Pronto le contactaremos para darle sus credenciales<br><br>
+							 Usted sera contactado por correo con las mismas.
+							 			 
+							 </td></tr>
+						 </table>
 					 
 					 
 					 <cfelse>
 					 
-					 <table width="100%">
-						<tr><td height="120"></td></tr>
-						<tr><td align="center" class="labellarge">			  		 
-				     
-						 Thank you, your request under No: <cfoutput>#PersonNo#</cfoutput> for an account has been received. <br><br>
-						 You will be contacted by e-Mail with your assigned account which allows you to record your profile and more.
-						 			 
-						 </td></tr>
-					 </table>				 
+						 <table width="100%">
+							<tr><td height="120"></td></tr>
+							<tr><td align="center" class="labellarge">			  		 
+					     
+							 Thank you, your request under No: <cfoutput>#PersonNo#</cfoutput> for an account has been received. <br><br>
+							 You will be contacted by e-Mail with your assigned account which allows you to record your profile and more.
+							 			 
+							 </td></tr>
+						 </table>				 
 					 
 					 </cfif>	
 					 
-				 </cfif>	 		 
+				 </cfif>	 	
+				 	 
 			<cfelse>
 			
 					<cfset StructDelete(Session,"myForm")>
@@ -441,18 +445,14 @@
 	  <cfelse>  
 	  
 		  <cfquery name="Submission" 
-		   datasource="AppsSelection" 
-		   username="#SESSION.login#" 
-		   password="#SESSION.dbpw#">
+		   datasource="AppsSelection">
 			    SELECT *
 				FROM   ApplicantSubmission
 				WHERE  ApplicantNo = <cfqueryparam value="#URL.ApplicantNo#" cfsqltype="CF_SQL_INTEGER" maxlength="10">
 		  </cfquery>	
 		  
 		   <cfquery name="get" 
-		   datasource="AppsSelection" 
-		   username="#SESSION.login#" 
-		   password="#SESSION.dbpw#">
+		   datasource="AppsSelection">
 			    SELECT * 
 				FROM   Applicant 		
 			    WHERE  PersonNo = '#Submission.PersonNo#'
@@ -475,9 +475,7 @@
 		  </cfif> 
 		  
 		   <cfquery name="UpdateApplicant" 
-		   datasource="AppsSelection" 
-		   username="#SESSION.login#" 
-		   password="#SESSION.dbpw#">
+		   datasource="AppsSelection">
 		   
 			UPDATE   Applicant 
 			

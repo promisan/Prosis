@@ -279,13 +279,13 @@ function togglebox(val) {
 
 </cfoutput>
 	
-	<table width="100%" style="height:100%">
+	<table class="formpadding" width="100%" style="height:100%">
 		
 	    <tr><td id="transactionbox" valign="top" style="height:100%">	
 		
 		<cfform name="transactionheader" id="transactionheader" onsubmit="return false" style="height:98%">
 	
-		<table width="100%" height="100%" style="min-width:900" lign="center">
+		<table class="formpadding" width="100%" height="100%" style="min-width:900" lign="center">
 		
 		<tr class="hide"><td id="process"></td></tr>
 		
@@ -299,11 +299,11 @@ function togglebox(val) {
 		  
 		    <td colspan="2" height="30" valign="top" bgcolor="ffffff"> 	
 							
-			  <table width="98%" align="center">		   
+			  <table width="98%" align="center" >		   
 			   
 			   <tr><td style="padding-left:17px;padding-right:17px">		   
 			   
-			   <table width="100%" align="center">		
+			   <table width="100%" align="center" class="formspacing">		
 			   
 			   <TR> 
 			     
@@ -315,18 +315,19 @@ function togglebox(val) {
 						password="#SESSION.dbpw#">
 						    SELECT   A.*, R.Description
 							FROM     JournalAccount A INNER JOIN Ref_Account R ON A.GLAccount = R.GLAccount
-							WHERE    Journal = '#HeaderSelect.Journal#' 	
-							AND      Mode = 'Contra'
+							WHERE    Journal  = '#HeaderSelect.Journal#' 	
+							AND      Mode     = 'Contra'
 							ORDER BY ListOrder, ListDefault DESC 
 						</cfquery>
-						
+																		
 					   <input class="hide" type="hidden" id="processaccount" value="process" onClick="setline()">	
 					   
 					   <TR> 
-					   					   						
-					   <cfif ContraAccount.recordcount eq "0" and HeaderSelect.contraGLAccount eq "">
 					   
-					   	 
+					  	   					   						
+					  
+					   <cfif ContraAccount.recordcount eq "0" and HeaderSelect.contraGLAccount eq "">
+					   					   					   
 					        <TD class="labelmedium"><cf_tl id="Contra-Account">:</TD>			   
 		    			    <td colspan="6">	 
 					  					   
@@ -334,7 +335,7 @@ function togglebox(val) {
 								  
 								  <td style="padding-right:2px">
 								  					  
-								  <input type="text" name="glaccount"     id="glaccount"      class="regularxl" value="" size="12"  readonly style="text-align: center;">
+								  <input type="text" name="glaccount"     id="glaccount"      class="regularxl" value="" size="12" readonly style="text-align: center;">
 				         		  <input type="text" name="gldescription" id="gldescription"  class="regularxl" value="" size="40" readonly style="text-align: center;">
 								  
 								  </td>
@@ -353,7 +354,39 @@ function togglebox(val) {
 								  
 							  </table>		
 							  
-							  </td>	  
+							  </td>	
+							  
+						 <cfelseif url.GLaccount neq "">	<!--- distribution --->
+						 
+						    <cfquery name="Distribution"
+							  datasource="AppsLedger" 
+							  username="#SESSION.login#" 
+							  password="#SESSION.dbpw#">
+							    SELECT   *
+								FROM     Ref_Account R 
+								WHERE    GLAccount = '#url.GLaccount#' 									
+							</cfquery>
+					   														       	   
+		    			    <td colspan="7">	 		   		
+										   
+					        <table border="0">
+							    <tr>
+																   
+								  <td class="labelmedium" style="font-size:27px;border:0px solid silver;padding-left:0px;padding:0px;padding-right:9px" height="16">#glaccdes#
+						          	 <input type="hidden" name="glaccount"       id="glaccount"     value="#Distribution.GLAccount#" size="12" style="text-align: center;" readonly class="disabled">
+					         		 <input type="hidden" name="gldescription"   id="gldescription" value="#Distribution.Description#" size="40" style="text-align: center;" readonly class="disabled">
+									 <input type="hidden" name="debitcredit"     id="debitcredit"   value="#url.AccountType#" size="8" style="text-align: center;" readonly class="disabled">
+								  </td>		
+								  
+								   <td class="labelmedium" style="font-size:17px;border:0px solid silver;padding:2px;padding-right:4px">#Distribution.GLAccount#</td>
+								 			 
+								  					 
+								  <td align="center" class="labelmedium" style="font-size:16px;border:0px solid silver;padding-left:6px;padding:2px;padding-right:4px">(#url.AccountType#)</td> 
+								  
+							    </tr>
+							</table>	
+							
+							  </td>	    
 							  
 								
 					   <cfelseif ContraAccount.recordcount eq "1" and HeaderSelect.ContraGLAccount neq "">		
@@ -665,7 +698,7 @@ function togglebox(val) {
 				  
 				  <TD class="labelmedium" style="padding-right:6px">				  		   
 					 
-					  <select name="Party" id="party" class="regularxl" style="padding-left:0px;border:0px;height:25px;width:99%" onchange="togglebox(this.value)">
+					  <select name="Party" id="party" class="regularxl" style="border:1px solid silver;height:25px;width:99%" onchange="togglebox(this.value)">
 						  	<option value="ven" <cfif HeaderSelect.ReferencePersonNo eq "">selected</cfif>><cf_tl id="Organization"></option>
 						  	<option value="emp" <cfif HeaderSelect.ReferencePersonNo neq "">selected</cfif>><cf_tl id="Staff"></option>
 							<option value="cus" <cfif HeaderSelect.ReferenceId neq "">selected</cfif>><cf_tl id="Customer"></option>
@@ -953,7 +986,7 @@ function togglebox(val) {
 					 
 				       <TD height="22" class="labelmedium"><cf_tl id="#text#">:</TD>
 		               <td colspan="1">	 
-					   
+					   					   
 					    <cf_space spaces="40">			  
 		     	   	 
 						   <cf_intelliCalendarDate9
@@ -1012,11 +1045,11 @@ function togglebox(val) {
 				   <cfoutput>
 				 				   				 
 				 	<tr>
-					
+															
 						<td colspan="5"></td>													
-					    <td class="labelmedium"><cf_tl id="Process date">:</td>		  
+					    <td class="labelmedium"><cf_tl id="Batch date">:</td>		  
 					    <td style="width:200">
-					  
+																	  
 					    <cf_intelliCalendarDate9
 					      FieldName="journalbatchdate" 			 
 						  class="regularxl enterastab"			  
@@ -1040,10 +1073,10 @@ function togglebox(val) {
 				<cfif tracat is "Payables" or tracat is "receivables">
 				
 				<tr>
-				   
+								   
 				   <TD class="labelmedium"><cf_tl id="Payment Due">:</TD>
 		           <td colspan="4">	 
-		     	  
+				   		     	  
 					   <cf_intelliCalendarDate9
 					   	  FieldName="actionbefore" 		
 						  class="regularxl enterastab"	 
@@ -1115,7 +1148,7 @@ function togglebox(val) {
 			
 			<tr>
 			
-					<td style="padding-left:30px;min-width:190px;width:190;max-width:190;border-right:1px solid silver" valign="top">
+					<td style="padding-left:35px;min-width:190px;width:190px;max-width:190px;border-right:1px solid silver" valign="top">
 					
 					<table align="center">					
 					    <cfinclude template="TransactionDetailMenu.cfm"> 					
@@ -1123,9 +1156,9 @@ function togglebox(val) {
 					
 					</td>
 				
-				    <td valign="top" style="height;100%;width:100%;padding-left:10px;padding-right:10px">		
+				    <td valign="top" style="height:100%;width:100%;padding-left:10px;padding-right:10px">		
 					
-						<table style="height;100%;width:100%;" border="0" align="center">
+						<table style="height:100%;width:100%;" border="0" align="center">
 						
 							<cf_menucontainer item="1" class="regular">
 								

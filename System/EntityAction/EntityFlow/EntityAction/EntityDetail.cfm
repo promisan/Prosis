@@ -26,17 +26,15 @@ password="#SESSION.dbpw#">
 <script language="JavaScript">
 
 function objectdialog(ent,code,type) {
-
-    try { parent.ColdFusion.Window.destroy('mydialog',true) } catch(e) {}
-	parent.ColdFusion.Window.create('mydialog', 'Question', '',{x:100,y:100,height:parent.document.body.clientHeight-80,width:parent.document.body.clientWidth-80,modal:true,resizable:false,center:true})    			
+    
+	parent.ProsisUI.createWindow('mydialog', 'Questionaire Items', '',{x:100,y:100,height:parent.document.body.clientHeight-90,width:parent.document.body.clientWidth-90,modal:true,resizable:false,center:true})    			
 	parent.ColdFusion.navigate('#SESSION.root#/System/EntityAction/EntityObject/ObjectElementQuestion.cfm?entitycode='+ent+'&code='+code+'&type='+type,'mydialog') 	
 }
 
 function showMailContentEdit(id){
-  
-	try { parent.ColdFusion.Window.destroy('mydialog',true) } catch(e) {}
-	parent.ColdFusion.Window.create('mydialog', 'Mail', '',{x:100,y:100,height:parent.document.body.clientHeight-80,width:parent.document.body.clientWidth-80,modal:true,resizable:false,center:true})    			
-	parent.ColdFusion.navigate('#SESSION.root#/System/EntityAction/EntityObject/ObjectElementMailContent.cfm?documentId=' + id,'mydialog') 	
+  	
+	parent.ProsisUI.createWindow('maildialog', 'Configure Customised Mail', '',{x:100,y:100,height:parent.document.body.clientHeight-90,width:parent.document.body.clientWidth-90,modal:true,resizable:false,center:true})    			
+	parent.ColdFusion.navigate('#SESSION.root#/System/EntityAction/EntityObject/ObjectElementMailContent.cfm?documentId=' + id,'maildialog') 	
 
 }
 
@@ -153,14 +151,13 @@ function toggle(val) {
 
 function clearno() { document.getElementById("find").value = "" }
 
-function searchme() {
-	 
+function searchme() {	 
 	if (window.event.keyCode == "13") { 	 
 	  document.getElementById("locateme").click() }				  
 	}  
 	
 function searching(cde,val)  {
-    _cf_loadingtexthtml='';
+    _cf_loadingtexthtml='';	
 	ptoken.navigate('ActionRecords.cfm?entitycode='+cde+'&search='+val,'actionrecords')
 	}		 
 	
@@ -246,16 +243,16 @@ function hl(itm,fld){
 			 <table width="95%" border="0" align="center" cellspacing="0" cellpadding="0" class="formpadding">
 			 
 				 <tr><td height="3"></td></tr>
-				 <tr><td style="height:50px;font-size:25px;font-weight:200" class="labelmedium"><cf_tl id="Grouping"></td></tr>				
+				 <tr><td style="height:34px;font-size:20px" class="labelmedium"><cf_tl id="Action Grouping"></td></tr>				
 				 <tr><td>  
 				 
 				 <cfoutput>
-				    <iframe id="ipar" src="ActionParent.cfm?entitycode=#URL.EntityCode#" width="100%" height="230" marginwidth="0" marginheight="0" hspace="0" vspace="0" align="left" scrolling="no" frameborder="0"></iframe>
+				    <iframe id="ipar" src="ActionParent.cfm?entitycode=#URL.EntityCode#" width="100%" height="230" marginwidth="0" marginheight="0" align="left" scrolling="no" frameborder="0"></iframe>
 			     </cfoutput>	
 				 
 				 </td></tr>
 				 
-				 <tr><td style="height:34px;font-size:20px;font-weight:200" class="labelmedium"><cf_tl id="Action Library"></td></tr>				
+				 <tr><td style="height:34px;font-size:20px" class="labelmedium"><cf_tl id="Action Library"></td></tr>				
 				 <tr><td>  	   
 					   
 					 <cfoutput>

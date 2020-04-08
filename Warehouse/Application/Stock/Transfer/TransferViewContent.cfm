@@ -85,7 +85,7 @@
 			 ItemDescription		 
 </cfquery>
 
-<table width="97%" align="center" class="navigation_table">
+<table width="100%" align="center" class="navigation_table">
 			
 <cfif url.stockorderid neq "">							
 	 				 
@@ -105,9 +105,8 @@
 	 
 	<cfif Prior.recordcount neq "0">
 	 
-	 <tr><td colspan="<cfoutput>#cols#</cfoutput>" class="labelit">Already recorded transfers as part of this action</td></tr>
-	 <tr><td colspan="<cfoutput>#cols#</cfoutput>" class="linedotted"></td></tr>
-	 
+	 <tr><td colspan="<cfoutput>#cols#</cfoutput>" class="labelit line">Already recorded transfers as part of this action</td></tr>
+	 	 
 	</cfif>
 	   
 	<cfloop query="prior">
@@ -165,22 +164,27 @@
   	  </td>			  	   
        </TR>	
 									
-	<tr>			       
+	<tr class="line">			       
 		<td colspan="<cfoutput>#cols#</cfoutput>" style="height:30;padding-top:7px;padding-left:2px" class="labellarge"><cf_tl id="Storage Locations"></td>
 	</tr>
 	
-	<tr><td height="1" colspan="#cols#" class="line"></td></tr>	
-
 </cfif>
 
 <cfoutput>
 
-<cfset cols = "12">
-						
-<tr class="labelmedium line">
+<cfset cols = "13">
+					
+<cfif searchresult.recordcount eq "0">
+		
+	<tr><td class="labelarge" colspan="#cols#" style="font-size:16px;padding-top:15px" align="center"><cf_tl id="No storage locations with stock found"></td></tr>
+
+<cfelse>
+
+					
+<tr class="fixrow labelmedium line">
     <td width="1%" height="17"></td>							
 	<td width="1%"></td>				
-	<TD style="min-width:50px"><cf_tl id="Cat"></TD>		
+	<TD style="padding-left:5px;min-width:50px"><cf_tl id="Cat"></TD>		
 	<TD style="min-width:60px"><cf_tl id="No"></TD>		
 	<td style="min-width:100px"><cf_tl id="BarCode"></td>		
 	<TD style="width:100%"><cf_tl id="Product"></TD>	
@@ -199,13 +203,8 @@
 	</cfif>
 	<TD width="10"></TD>	
 </TR>
-				
-<cfif searchresult.recordcount eq "0">
-		
-	<tr><td class="labelarge" colspan="#cols#" style="font-size:16px;padding-top:15px" align="center"><cf_tl id="No storage locations with stock found"></td></tr>
-
+	
 </cfif>			
-
 	
 <cfset rows = ceiling((url.height-110)/17)>
 <cfset first   = ((URL.Page-1)*rows)+1>
@@ -248,8 +247,8 @@
 	  		
 			<cfif url.stockorderid eq "">	
 			
-		    <tr bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('Ffffff'))#"
-			    style="cursor:pointer;height:20px"
+		    <tr bgcolor="#IIf(CurrentRow Mod 2, DE('f4f4f4'), DE('Ffffff'))#"
+			    style="cursor:pointer;height:20px;padding:0px"
 				class="labelmedium navigation_row regular line"					
 				ondblclick="item('#ItemNo#','#url.systemfunctionid#','#URL.Mission#')">
 				
@@ -257,24 +256,22 @@
 			
 			 <!--- embedded mode --->
 			
-			 <tr bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('Ffffff'))#"
-			    class="navigation_row labelmedium line" style="cursor : pointer;height:20px">
+			 <tr bgcolor="#IIf(CurrentRow Mod 2, DE('f4f4f4'), DE('Ffffff'))#"
+			    class="navigation_row labelmedium line" style="cursor : pointer;height:20px;padding:0px">
 				
 			</cfif>
 				
 		    <td style="padding-left:6px"></td>								
 			<td height="20"></td>						
-			<TD style="padding-right:3px">#Category#</TD>												
+			<TD style="padding-left:5px;padding-right:3px">#Category#</TD>												
 			<TD style="padding-right:3px"><cfif prior neq itemno>#ItemNo#<cfelse>&nbsp;</cfif></TD>			
 			<td style="padding-right:5px;">#ItemBarcode#</td>
 			
 			<cfif url.stockorderid eq "">					
 			
 				<TD><cfif prior neq itemno>
-				     <a href="javascript:item('#ItemNo#','#url.mission#','#url.systemfunctionid#')">
-					 <font color="0080C0">#ItemDescription#</font></a>
-					<cfelse><font>#ItemDescription#</font>
-					</cfif>
+				     <a href="javascript:item('#ItemNo#','#url.mission#','#url.systemfunctionid#')">#ItemDescription#</a>
+					<cfelse>#ItemDescription#</cfif>
 				</TD>
 	
 			<cfelse>
@@ -313,7 +310,7 @@
 			<td align="right"><cfif Quantity lte "0"><b><font color="FF0000"></cfif>#NumberFormat(Quantity,'#pformat#')#</font></td>													
 					
 			<cfif url.mode eq "Quick">
-				<td align="right" style="padding-left:5px;padding-top:1px;padding-bottom:1px">
+				<td align="right" style="padding-left:5px;">
 				<cfinclude template="StockTransfer.cfm">
 				<a class="hide" id="f#TransactionId#"></a>
 				<a class="hide" id="transfer#TransactionId#"></a>	
@@ -385,15 +382,16 @@
 				
 				<cfif transferquantity eq "">	
 				
-				<tr class="hide" id="transfer#TransactionId#row">
-					<td colspan="#cols#">										
+				<tr class="hide" id="transfer#TransactionId#row">				
+					<td colspan="#cols+1#" style="background-color:f1f1f1">											
 						<cfdiv id="transfer#TransactionId#">																
 					</td>
 				</tr>		
 				
-				<cfelse>			
+				<cfelse>	
+						
 				<tr class="hide" id="transfer#TransactionId#row">
-					<td colspan="#cols#">																									
+					<td colspan="#cols+1#" style="background-color:f1f1f1">																									
 						<cfdiv id="transfer#TransactionId#" 
 						   bind="url:#SESSION.root#/Warehouse/Application/Stock/Transfer/StockTransfer.cfm?whs=#url.warehouse#&loc=#url.loc#&mode=insert&id=#TransactionId#&systemfunctionid=#url.systemfunctionid#&stockorderid=#url.stockorderid#">																		
 					</td>
@@ -418,9 +416,9 @@
 			
 			     <cfcase value = "Location">
 				 
-				 <tr style="cursor:pointer;line">
+				 <tr style="cursor:pointer" class="line">
 															 
-					<td colspan="13" class="labellarge" style="font-weight:200;font-size:27px;height:40px;padding-bottom:3px;padding-top:4px;padding-left:4px">				
+					<td colspan="14" class="labelmedium" style="font-weight:200;font-size:27px;height:40px;padding-bottom:3px;padding-top:4px;padding-left:8px">				
 						 
 					<cfquery name="Loc"
 					datasource="AppsMaterials" 
@@ -434,7 +432,7 @@
 						AND   Location = '#Location#'														    
 					</cfquery>
 											   
-				 	<font color="008080">#Loc.Description# #Loc.StorageCode# <font size="2">(#location#)</font> 
+				 	#Loc.Description# #Loc.StorageCode# <font size="2">(#location#)</font> 
 					  
 					</td>
 										

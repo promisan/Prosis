@@ -85,7 +85,7 @@
 	
 	<cfif Attributes.mode neq "save">
 	
-			<table width="98%" border="0" cellspacing="0" cellpadding="0" align="center">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
 			
 			<cfoutput query="Notes">
 			
@@ -93,8 +93,7 @@
 				<cfset ht =  NoRows*15>				
 			<cfelse>
 				<cfset ht =  attributes.height>
-			</cfif>
-			
+			</cfif>			
 						
 			<tr><td height="1"></td></tr>
 			<tr>
@@ -106,11 +105,11 @@
 						<td align="left">  
 							<table>
 								<tr>
-									<cfif attributes.mode eq 'View' and attributes.toggle eq "Yes">
+									<cfif attributes.mode eq "View" and attributes.toggle eq "Yes">
 										<td> <cf_img icon="expand" toggle="yes" onclick="toggleTextArea('div_#Code#')"> </td>
 									</cfif>
 									<td style="font-size:18px" class="<cfif attributes.mode eq 'View'>labelmedium<cfelse>labelmedium</cfif>">
-										<cf_space spaces="80"><font color="gray">#Description#</font></b>
+										<cf_space spaces="80">#Description#
 									</td>
 								</tr>
 							</table>
@@ -152,7 +151,7 @@
 					<cfif Attributes.Format eq "Text">
 					 <td colspan="3" align="center" id="div_#Code#">	
 					 								
-						<textarea style="height:#ht#;width:95%;font-size:13px;padding:3px;border-radius: 1px;border:1px inset gray" name="#Code#_#Attributes.languageCode#"  id="#Code#_#Attributes.languageCode#"
+						<textarea style="height:#ht#;width:100%;font-size:13px;padding:3px;border:1px solid silver" name="#Code#_#Attributes.languageCode#"  id="#Code#_#Attributes.languageCode#"
 						 class="regular"><cf_paragraph>#evaluate(attributes.fieldoutput)#</cf_paragraph></textarea>		
 						 			   
 					<cfelse>

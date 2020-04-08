@@ -1,8 +1,4 @@
-<HTML><HEAD>
-    <TITLE>Item search</TITLE>
-   <link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>"> 
-   
-</HEAD><body leftmargin="2" topmargin="2" rightmargin="2" bottommargin="2">
+<cf_screentop html="no" jquery="yes" scroll="yes">
 
 <cfset Page         = "0">
 <cfset add          = "0">
@@ -280,7 +276,7 @@ password="#SESSION.dbpw#">
 	</TD></TR>	
 	
 	<tr><td height="1" class="line"></td></tr>
-	<tr><td height="25" align="center">
+	<tr><td height="25" align="center" style="padding-bottom:30px;">
 		<cf_tl id="Search" var="vSearch">
 		<input class="button10g" type="button" style="width:190;height:29" name="Insert" id="Insert" value="#vAdd#" onClick="recordedit('','')">
 		

@@ -71,17 +71,17 @@ password="#SESSION.dbpw#">
 			
 	</cfif>
 	
-			
+				
 <cfif applicant.scope eq "patient">	
-	
-	<cf_tl id= "Medical Profile" var = "1">
+
+	    <cf_tl id= "Medical Profile" var = "1">
 				
 		<cf_UItreeitem value="Medical"
 		        display="<span class='labelit' style='padding-bottom:4px;padding-top:4px;font-size:17px;font-weight:bold'>#lt_text#</span>"
 				parent="Root"	
 				href="General.cfm?ID=#URL.ID#&section=general&topic=customer"
 				target="right"														
-		        expand="Yes">					
+		        expand="Yes">			
 			
 						
 			<cfquery name="getSource" 
@@ -162,6 +162,70 @@ password="#SESSION.dbpw#">
 				target="right"			
 				href="General.cfm?ID=#URL.ID#&section=general&topic=diagnoses">		
 				
+<cfelseif applicant.scope eq "customer">	
+
+	<cf_tl id= "Customer Profile" var = "1">
+				
+		<cf_UItreeitem value="Customer"
+		        display="<span class='labelit' style='padding-bottom:4px;padding-top:4px;font-size:17px;font-weight:bold'>#lt_text#</span>"
+				parent="Root"	
+				href="General.cfm?ID=#URL.ID#&section=general&topic=customer"
+				target="right"														
+		        expand="Yes">	
+						
+		<cfquery name="getSource" 
+			datasource="AppsSelection" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				SELECT   DISTINCT Source
+				FROM     ApplicantSubmission
+				WHERE    PersonNo = '#URL.ID#'											
+				AND      Source IN (SELECT Source FROM Ref_Source WHERE Operational = 1)
+		</cfquery>	
+						
+		<cfloop query="getSource">
+		
+			<cf_tl id="obtained" var="1">
+		
+			<cf_UItreeitem value="customer#Source#"
+		        display="<span class='labelit' style='padding-bottom:4px;padding-top:4px;font-size:15px'>#Source# #lt_text#</span>"
+				parent="Customer"
+				target="right"			
+				href="General.cfm?ID=#URL.ID#&section=general&topic=recapitulation&Source=#Source#&edit=view&area=Medical">	
+		
+		</cfloop>					
+											
+		<cfquery name="Customer" 
+			datasource="AppsMaterials" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				SELECT   CustomerId, Mission
+				FROM     Customer
+				WHERE    PersonNo = '#URL.ID#'	
+				AND      Operational = 1															
+		</cfquery>				
+		
+		<cfloop query="Customer">
+		
+		<cf_UItreeitem value="customer#mission#"
+	        display="<span class='labelit' style='padding-bottom:4px;padding-top:4px;font-size:15px'>#Mission#</span>"
+			parent="Customer">	
+				
+		<cf_tl id= "Sales" var = "1">		
+		<cf_UItreeitem value="#mission#Sales"
+		        display="<span class='labelit' style='font-size:14px'>#lt_text#</span>"
+				parent="customer#mission#"
+				target="right">
+					
+		<cf_tl id= "Actions" var = "1">		
+				
+		<cf_UItreeitem value="#mission#Actions"
+	        display="<span class='labelit' style='font-size:14px'>#lt_text#</span>"
+			parent="customer#mission#"
+			target="right">		
+										
+		</cfloop>					
+			
 <cfelse>					
 		
 	<!--- ------------------------------------------- --->		
@@ -281,7 +345,7 @@ password="#SESSION.dbpw#">
 			<cfif Own.recordcount eq "1">
 			
 				<cf_UItreeitem value="Assessment"
-		        display="<span class='labelit' style='font-size:14px'>#lt_text#</span>"
+		        display="<span class='labelit' style='font-size:15px'>#lt_text#</span>"
 				parent="Profile"
 				target="right"			
 				href="General.cfm?Owner=#Own.Owner#&ID=#URL.ID#&section=general&topic=assessment">				
@@ -352,7 +416,7 @@ password="#SESSION.dbpw#">
 				<cf_tl id= "Verification" var = "1">
 		
 				<cf_UItreeitem value="Review"
-		        display="<span class='labelit' style='padding-bottom:2px;padding-top:2px;font-size:17px;font-weight:bold'>#lt_text#</span>"
+		        display="<span class='labelit'>#lt_text#</span>"
 				parent="Root"
 				<!---
 				img="#SESSION.root#/images/folder_collapse.JPG"
@@ -365,7 +429,7 @@ password="#SESSION.dbpw#">
 			<cfif Own.recordcount eq "1">
 			
 				<cf_UItreeitem value="rev_#description#"
-			        display="<span class='labelit' style='font-size:14px'>#description#</span>"
+			        display="<span class='labelit'>#description#</span>"
 					parent="Review"
 					target="right"				
 					href="General.cfm?Owner=#Own.Owner#&ID=#URL.ID#&section=general&topic=review&ID1=#code#">		
@@ -375,14 +439,14 @@ password="#SESSION.dbpw#">
 				<cfset cde = Code>
 			
 				<cf_UItreeitem value="rev_#cde#"
-		        	display="<span class='labelit' style='font-size:15px'>#description#</span>"
+		        	display="<span class='labelit'>#description#</span>"
 					parent="Review"
 					expand="No">		
 				
 					<cfloop query="own">
 					
 						<cf_UItreeitem value="rev_#cde#_#owner#"
-				        display="<span class='labelit' style='font-size:14px'>#owner#</span>"
+				        display="<span class='labelit'>#owner#</span>"
 						parent="rev_#cde#"
 						target="right"
 						href="General.cfm?Owner=#Owner#&ID=#URL.ID#&section=general&topic=review&ID1=#Cde#">		
@@ -563,7 +627,7 @@ password="#SESSION.dbpw#">
 	<!--- ------------------------------------------- --->		
 	
 <cf_UItreeitem value   = "Candidacy"
-	        display = "<span class='labelit' style='font-weight:bold;padding-bottom:4px;padding-top:4px;font-size:17px'>Job candidacy</span>"
+	        display = "<span class='labelit'>Job candidacy</span>"
 			parent  = "Root"
 			expand  = "Yes">
 				
@@ -586,7 +650,7 @@ password="#SESSION.dbpw#">
 			<cf_tl id= "Inspira/Galaxy" var = "1">
 			
 			<cf_UItreeitem value="Inspira"
-		        display="<span class='labelit' style='font-weight:bold;font-size:14px'>#lt_text#</span>"
+		        display="<span class='labelit'>#lt_text#</span>"
 				parent="Candidacy"
 				target="right"			
 				href="General.cfm?ID=#URL.ID#&section=vacancy&topic=inspira">	
@@ -605,7 +669,7 @@ password="#SESSION.dbpw#">
 			<cf_tl id= "Track Application" var = "1">
 				
 			<cf_UItreeitem value="Application"
-		        display="<span class='labelit' style='font-size:14px'>#lt_text#</span>"
+		        display="<span class='labelit'>#lt_text#</span>"
 				parent="Candidacy"
 				target="right"				
 				href="Functions/ApplicantFunction.cfm?ID=#URL.ID#">	
@@ -615,7 +679,7 @@ password="#SESSION.dbpw#">
 		<cf_tl id= "Track Shortlisted" var = "1">
 		
 		<cf_UItreeitem value="Short"
-	        display="<span class='labelit' style='font-size:14px'>#lt_text#</span>"
+	        display="<span class='labelit'>#lt_text#</span>"
 			parent="Candidacy"
 			target="right"			
 			href="General.cfm?ID=#URL.ID#&section=vacancy&topic=shortlist">	
@@ -623,7 +687,7 @@ password="#SESSION.dbpw#">
 		<cf_tl id= "Track Selected" var = "1">
 					
 		<cf_UItreeitem value="Selected"
-	        display="<span class='labelit' style='font-size:14px'>#lt_text#</span>"
+	        display="<span class='labelit'>#lt_text#</span>"
 			parent="Candidacy"
 			target="right"			
 			href="General.cfm?ID=#URL.ID#&section=vacancy&topic=selected">	
@@ -631,7 +695,7 @@ password="#SESSION.dbpw#">
 		<cf_tl id= "Offers" var = "1">
 					
 		<cf_UItreeitem value="Offer"
-	        display="<span class='labelit' style='font-size:14px'>#lt_text#</span>"
+	        display="<span class='labelit'>#lt_text#</span>"
 			parent="Candidacy"
 			target="right"			
 			href="General.cfm?ID=#URL.ID#&section=vacancy&topic=offer">		
@@ -657,7 +721,7 @@ password="#SESSION.dbpw#">
 	<cfif own.recordcount gte "1">
 	
 	<cf_UItreeitem value="Roster"
-        display="<span class='labelit' style='font-weight:bold;padding-bottom:4px;padding-top:4px;font-size:17px'>Rostering</span>"
+        display="<span class='labelit'>Rostering</span>"
 		parent="Root"												
         expand="Yes">	
 		
@@ -699,7 +763,7 @@ password="#SESSION.dbpw#">
 				<cfif edition.recordcount eq "0000">
 				
 				<cf_UItreeitem value="#Edition.EditionShort#"
-			        display="<span class='labelit' style='font-weight:bold;font-size:14px'>#Edition.EditionDescription#</span>"
+			        display="<span class='labelit'>#Edition.EditionDescription#</span>"
 					parent="Roster"
 					target="right"					
 					href="../Details/Functions/ApplicantFunction.cfm?Owner=#Owner#&ID=#URL.ID#&ID1=#Edition.SubmissionEdition#"				
@@ -708,7 +772,7 @@ password="#SESSION.dbpw#">
 				<cfelse>
 				
 					<cf_UItreeitem value="#OwnerCode#"
-			        display="<span class='labelit' style='padding-top:2px;padding-bottom:2px;font-size:15px'>#Description#</span>"
+			        display="<span class='labelit'>#Description#</span>"
 					parent="Roster"
 					target="right"					
 					href="Functions/ApplicantFunction.cfm?ID=#URL.ID#&Owner=#Owner#"				
@@ -719,7 +783,7 @@ password="#SESSION.dbpw#">
 					  <cfset Edit  = SubmissionEdition>
 					  				  
 					  <cf_UItreeitem value="#EditionShort#"
-					        display="<span class='labelit' style='font-size:14px'>#EditionShort#</span>"
+					        display="<span class='labelit'>#EditionShort#</span>"
 							parent="#OwnerCode#"
 							target="right"									
 							href="../Details/Functions/ApplicantFunction.cfm?Owner=#Owner#&ID=#URL.ID#&ID1=#SubmissionEdition#"

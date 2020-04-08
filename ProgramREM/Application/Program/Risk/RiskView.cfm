@@ -28,14 +28,17 @@
 		<cfset url.attach = "0">
 		<cfinclude template="../Header/ViewHeader.cfm">
 	</tr>	
+	
+	<!---
 										
 	<tr class="linedotted" >	
 		<td class="labellarge" style="padding-left:20px"><cfoutput>#Program.ProgramClass#</cfoutput> <cf_tl id="Risks and Assumptions"> </td>	
 		<td align="right"></td>
-	</tr> 	
-		
-	<tr><td style="padding:10px">
+	</tr>
 	
+	---> 	
+		
+	<tr><td style="padding-left:10px;padding-right:10px">
 	
 	
 		<cfoutput>
@@ -224,7 +227,7 @@
 	
 	<cfif EditAccess eq "EDIT" or EditAccess eq "ALL">
 	
-	<tr><td width="100%" align="center">
+	<tr><td width="100%" align="center" style="padding-top:3px">
 		<input type="submit" name="Save" value="Save" class="button10g" style="font-size:13px;width:140px;height:25px">
 	</td></tr>
 	

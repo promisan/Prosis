@@ -30,7 +30,7 @@
 					
 					<cfif url.scope eq "standard">
 															
-						<div id="total_display_#itm#" style="padding-top:3px;font-size:15">#numberformat(prc*qty*day,",__.__")#</div>
+						<div id="total_display_#itm#" style="padding-top:1px;font-size:14">#numberformat(prc*qty*day,",.__")#</div>
 					
 					</cfif>
 										
@@ -98,7 +98,7 @@
 		</cfloop>
 		
 		<cfif url.scope eq "period">	
-			<div id="total_display" style="font-size:15">#numberformat(tot,",__.__")#</div>
+			<div id="total_display" style="font-size:15">#numberformat(tot,",.__")#</div>
 			<input type="hidden" name="requestquantity_sum" id="requestquantity_sum" value="#numberformat(tot,",__")#">	
 		</cfif>	
 								

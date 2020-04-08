@@ -95,7 +95,7 @@
 				
 				<tr>   	
 				        
-			    	<td bgcolor="white" valign="top" style="padding:5px;height:100%;width:100%;padding-right:3px;border:0px solid gray">
+			    	<td bgcolor="white" valign="top" style="padding:5px;height:100%;width:85%;padding-right:3px;border:0px solid gray">
 			
 						<cf_divscroll id="itemlisting" style="height:100%;width:100%;border:1px solid silver">																
 							<cfinclude template="ItemList.cfm">
@@ -103,7 +103,7 @@
 			          
 					</td>
 					
-					<td valign="top" style="width:450;height:100%;padding-bottom:4px;padding-top:2px;border-left:1px solid gray">
+					<td valign="top" style="width:15%;height:100%;padding-bottom:4px;padding-top:2px;border-left:1px solid gray">
 					
 						<cf_space spaces="90">
 																

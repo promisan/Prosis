@@ -46,7 +46,6 @@ function hl(itm,fld){
 
 <cf_dialogREMProgram>
 <cf_dialogOrganization>
-<cf_UIGadgets>
 
 <cfif URL.ActivityID eq "">
 	<cfset Update="no">

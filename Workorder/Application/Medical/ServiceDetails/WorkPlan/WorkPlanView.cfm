@@ -154,8 +154,8 @@
 					<input type="hidden" id="menu" value="schedule">	
 								   
 				    <tr>					
-						<td id="targetleft" class="labellarge" style="font-size:22px;padding-right:20px;padding-left:10px;padding-bottom:5px">					
-							<cfinclude template="Agenda/ActivitySelect.cfm">						
+						<td id="targetleft" class="labellarge" style="font-size:22px;padding-right:20px;padding-left:10px;padding-bottom:5px">
+							<cfinclude template="Agenda/ActivitySelect.cfm">
 						</td>					
 					</tr>
 					

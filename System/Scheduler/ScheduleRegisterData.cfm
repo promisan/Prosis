@@ -189,6 +189,16 @@ first server that opens the script and that is recorded in the control database 
    ScheduleStartTime = "05:00"
    ApplicationServer = "#Host.ApplicationServer#" 
    ScheduleInterval  = "daily">      
+   
+<cf_ScheduleRegister
+   SystemModule      = "System" 
+   ScheduleTemplate  = "tools/entityaction/api/WorkFlowIntegrity.cfm"
+   ScheduleName      = "WorkflowIntegrity"
+   ScheduleMemo      = "Verifies and clears integrity issues with the workflow" 
+   ScheduleStartDate = "01/01/07"
+   ScheduleStartTime = "06:00"
+   ApplicationServer = "#Host.ApplicationServer#" 
+   ScheduleInterval  = "daily">         
 
 <cf_ScheduleRegister
    SystemModule      = "Roster" 

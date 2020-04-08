@@ -1,12 +1,15 @@
 <!--- Create Criteria string for query from data entered thru search form --->
 
-<cf_divscroll>
-
 <cfset add          = "1">
 <cfset save         = "0"> 
-<cfinclude template = "../HeaderMaintain.cfm"> 	
 
-<cfajaximport tags="cfwindow,cfdiv">
+<cf_screentop html="No" jquery="Yes">
+
+<table width="98%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+
+<tr style="height:10px"><td><cfinclude template = "../HeaderMaintain.cfm"></td></tr>
+
+<cfajaximport tags="cfdiv">
 
 <cf_verifyOperational 
          datasource= "appsProgram"
@@ -142,132 +145,136 @@ function recordedit(id1) {
 
 <cfparam name="client.objectusage" default="">
 
-<table width="95%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<tr><td style="height:100%">
 
-<tr class="hide"><td id="result"></td></tr>
+<cf_divscroll>
 
-<tr class="labelit line">
-    <td height="20"></td>
-    <td>CodeId</td>
-	<td>Display</td>
-	<td>Description</td>
-	<td>Sort</td>
-	<td>Parent</td>
-	<cfif operational eq "1">
-	<td>Item</td>
-	<cfelse>
-	<td></td>
-	</cfif>
-	<td>Officer</td>
-    <td>Entered</td>  
-</tr>
-
-<cfset Ord = 100>
-
-<cfoutput query="SearchResult" group="ObjectUsage">
-
-    <tr onclick="show('#usagecode#','#currentrow#')" style="cursor:pointer" class="navigation_row">
+	<table width="95%" align="center" class="navigation_table">
 	
-    <td colspan="8" height="20">
+	<tr class="hide"><td id="result"></td></tr>
 	
-	<cfif client.objectusage eq ObjectUsage>
-	    <cfset cl = "regular">
-		<cfset cla = "hide">
-	<cfelse>
-	    <cfset cl = "hide"> 
-		<cfset cla = "regular">
-	</cfif>
+	<tr class="labelmedium line fixrow">
+	    <td height="20"></td>
+	    <td>CodeId</td>
+		<td>Display</td>
+		<td>Description</td>
+		<td>Sort</td>
+		<td>Parent</td>
+		<cfif operational eq "1">
+		<td>Item</td>
+		<cfelse>
+		<td></td>
+		</cfif>
+		<td>Officer</td>
+	    <td>Entered</td>  
+	</tr>
+	
+	<cfset Ord = 100>
+	
+	<cfoutput query="SearchResult" group="ObjectUsage">
+	
+	    <tr onclick="show('#usagecode#','#currentrow#')" style="cursor:pointer" class="line navigation_row">
 		
-		<table width="100%" cellspacing="0" cellpadding="0" class="formpadding">		
-		<tr><td width="30" height="30" style="padding-left:3px" align="left">
+	    <td colspan="8" height="20">
+		
+		<cfif client.objectusage eq ObjectUsage>
+		    <cfset cl = "regular">
+			<cfset cla = "hide">
+		<cfelse>
+		    <cfset cl = "hide"> 
+			<cfset cla = "regular">
+		</cfif>
 			
-		<img src="#client.virtualdir#/Images/icon_expand.gif" alt="" 
-				name="d#currentrow#Exp" id="d#currentrow#Exp" 
-				border="0" 
-				align="absmiddle"
-				class="#cla#">
-					 
-		<img src="#client.virtualdir#/Images/icon_collapse.gif" 
-				name="d#currentrow#Min" id="d#currentrow#Min" alt="" border="0" 
-				align="absmiddle"
-				class="#cl#">
+			<table width="100%" cellspacing="0" cellpadding="0" class="formpadding">		
+			<tr><td width="30" height="30" style="padding-left:3px" align="left">
+				
+			<img src="#client.virtualdir#/Images/icon_expand.gif" alt="" 
+					name="d#currentrow#Exp" id="d#currentrow#Exp" 
+					border="0" 
+					align="absmiddle"
+					class="#cla#">
+						 
+			<img src="#client.virtualdir#/Images/icon_collapse.gif" 
+					name="d#currentrow#Min" id="d#currentrow#Min" alt="" border="0" 
+					align="absmiddle"
+					class="#cl#">
+			
+			</td>
+			<td class="labellarge">#Usage#</font></a></td>		
+			</tr>
+			
+			</table>
 		
 		</td>
-		<td class="labellarge"><font color="002350">#Usage#</font></a></td>		
-		</tr>
-		
-		</table>
-	
-	</td>
-		
-	<cfquery name="Total"
-	datasource="AppsProgram" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-	    SELECT count(*) as count
-		FROM   #CLIENT.LanPrefix#Ref_Object O
-		WHERE  O.ObjectUsage = '#ObjectUsage#'	
-	</cfquery>
-
-	<td class="labelmedium" style="padding-right:10px" align="right">#total.count#</td>
-		
-    </tr>	
 			
-	<cfoutput group="ResourceOrder">
+		<cfquery name="Total"
+		datasource="AppsProgram" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		    SELECT count(*) as count
+			FROM   #CLIENT.LanPrefix#Ref_Object O
+			WHERE  O.ObjectUsage = '#ObjectUsage#'	
+		</cfquery>
 	
-	<cfoutput group="ResourceDescription">
-	
-	    <tr id="box#UsageCode#" name="box#UsageCode#" class="#cl#">
-	    <td colspan="9" class="labelmedium" style="height:30px;padding-left:6px"><font color="804000">#ResourceDescription#</b></td>
-	    </tr>
-		
-		<tr id="box#UsageCode#" name="box#UsageCode#" class="#cl#">
-		<td height="1" class="linedotted" colspan="9"></td></tr>
-		
-			 <cfif Code neq "">
-			 
-			  <cfoutput>		
-			  
-			    <cfset use = usagecode>
-													
-			  	<cfinclude template="RecordListingDetail.cfm">		  			
-					
-				<cfquery name="SubLevel1"
-			     datasource="AppsProgram" 
-			     username="#SESSION.login#" 
-			     password="#SESSION.dbpw#">
-			     SELECT   O.*, 
-				          R.Description as ResourceDescription, 
-					      <cfif operational eq "1">
-					      (SELECT count(*) 
-					       FROM Purchase.dbo.ItemMasterObject 
-						   WHERE objectCode = O.Code) as ItemMaster,		   
-					      </cfif>
-					      R.ListingOrder as ResourceOrder
-				 FROM     #CLIENT.LanPrefix#Ref_Object O, 
-				          #CLIENT.LanPrefix#Ref_Resource R
-				 WHERE    O.Resource = R.Code
-				 AND      ParentCode = '#SearchResult.Code#' and O.ObjectUsage = '#use#'
-				 ORDER BY O.ListingOrder
-			    </cfquery>
-								
-				<cfloop query="SubLevel1">
+		<td class="labelmedium" style="padding-right:10px" align="right">#total.count#</td>
+			
+	    </tr>	
 				
-					<cfinclude template="RecordListingDetail.cfm">									
-					
-				</cfloop>
-			
-			</CFOUTPUT>		
-	
-		    </cfif> 
+		<cfoutput group="ResourceOrder">
 		
-	</CFOUTPUT>	
-	</CFOUTPUT>
+		<cfoutput group="ResourceDescription">
+		
+		    <tr id="box#UsageCode#" name="box#UsageCode#" class="#cl#">
+		    <td colspan="9" class="labelmedium" style="height:30px;padding-left:6px"><font color="804000">#ResourceDescription#</b></td>
+		    </tr>
+			
+			<tr id="box#UsageCode#" name="box#UsageCode#" class="#cl#">
+			<td height="1" colspan="9"></td></tr>
+			
+				 <cfif Code neq "">
+				 
+				  <cfoutput>		
+				  
+				    <cfset use = usagecode>
+														
+				  	<cfinclude template="RecordListingDetail.cfm">		  			
+						
+					<cfquery name="SubLevel1"
+				     datasource="AppsProgram" 
+				     username="#SESSION.login#" 
+				     password="#SESSION.dbpw#">
+				     SELECT   O.*, 
+					          R.Description as ResourceDescription, 
+						      <cfif operational eq "1">
+						      (SELECT count(*) 
+						       FROM Purchase.dbo.ItemMasterObject 
+							   WHERE objectCode = O.Code) as ItemMaster,		   
+						      </cfif>
+						      R.ListingOrder as ResourceOrder
+					 FROM     #CLIENT.LanPrefix#Ref_Object O, 
+					          #CLIENT.LanPrefix#Ref_Resource R
+					 WHERE    O.Resource = R.Code
+					 AND      ParentCode = '#SearchResult.Code#' and O.ObjectUsage = '#use#'
+					 ORDER BY O.ListingOrder
+				    </cfquery>
+									
+					<cfloop query="SubLevel1">					
+						<cfinclude template="RecordListingDetail.cfm">															
+					</cfloop>
+				
+				</CFOUTPUT>		
+		
+			    </cfif> 
+			
+		</CFOUTPUT>	
+		</CFOUTPUT>
+					
+	</CFOUTPUT>    
 	
-	<tr><td height="1" class="linedotted" colspan="9"></td></tr>
+	</table>
 
-</CFOUTPUT>    
-
-</table>
-
-</cf_divscroll>
+	</cf_divscroll>
+	
+	</td></tr>
+	
+</table>	

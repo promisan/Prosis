@@ -11,7 +11,6 @@
 <cf_dialogPosition>
 <cf_actionlistingscript mode="Regular">
 <cf_fileLibraryScript mode="Regular">
-<cfajaximport tags="cfinput-datefield">
 
  <cf_LanguageInput
 		TableCode       = "Ref_ModuleControl" 

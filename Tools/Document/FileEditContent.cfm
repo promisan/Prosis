@@ -55,10 +55,10 @@
 
 <tr><td align="center" height="25">
 
-	<input type="button" name="Cancel" id="Cancel" style="width:100" value="Cancel" class="button10s" onclick="parent.window.close()">
+	<input type="button" name="Cancel" id="Cancel" style="width:100" value="Cancel" class="button10g" onclick="parent.window.close()">
 		
 	<cfif url.openas eq "Edit" or url.mode eq "report"> 
-		<input type="submit" name="Save" id="Save" style="width:100" value="Save" class="button10s">
+		<input type="submit" name="Save" id="Save" style="width:100" value="Save" class="button10g">
 	</cfif>
 	
 	<cfif find(".cfm",  att.filename)>

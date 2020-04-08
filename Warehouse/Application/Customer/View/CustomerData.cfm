@@ -15,11 +15,11 @@
 	
 	<cfoutput>
 			
-	<table width="100%" border="0" class="formpadding  clsNoPrint" style="table-layout: fixed;" >
+	<table width="100%" class="clsNoPrint" style="table-layout: fixed;" >
 	
 		<tr class="hide"><td height="5" id="inputvalidation"></td></tr>
 					
-		<tr class="labelmedium" style="padding-right: 2px;">
+		<tr class="labelmedium" style="padding-right:2px">
 		
 			<td width="70"><cf_tl id="Mobile">:</td>	
 			<td width="110"> <input type="text" 
@@ -59,8 +59,7 @@
 			</td>
 			
 		</tr>	
-		
-		
+				
 		<tr><td height="2"></td></tr>
 				
 		<tr class="labelmedium">

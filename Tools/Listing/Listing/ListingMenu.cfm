@@ -29,10 +29,29 @@
 	
 	<cfif show eq "1">	
 	
-	   <table width="100%" cellspacing="0" cellpadding="0"><tr>
-	   <td style="padding-left:20px" align="right">
-	   	
-	   <table cellspacing="0" cellpadding="0" class="formspacing"><tr>
+	   <table width="100%" cellspacing="0" cellpadding="0">
+	   <tr>
+	   <td style="font-weight:320;font-size:25px;padding-top:4px;padding-left:10px;height:40px">
+	   
+	   <cfif system.functionTarget eq "Right">
+	   
+	   <cfquery name="Menu" 
+		datasource="AppsSystem" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT *
+			FROM   xl#Client.LanguageId#_Ref_ModuleControl R
+			WHERE SystemFunctionId = '#url.systemfunctionid#'	
+		</cfquery>
+	   
+	   <cfoutput>#Menu.FunctionName#</cfoutput>
+	   
+	   </cfif>
+	   
+	   </td>
+	   <td style="padding-left:20px;padding-right:14px" align="right">
+	  	      	
+	   <table class="formspacing"><tr>
 	   	   		
 		<cfif url.systemfunctionid neq "">
 		
@@ -49,7 +68,7 @@
 			
 			   <td onclick="history.back()" #selectme# height="24" class="labelmedium" style="cursor:pointer;border: 1px transparent Solid;padding-left:4px;padding-right:4px">
 		 		 &nbsp;<img src="#SESSION.root#/Images/back.gif" alt="Function configuration" height="14" width="16" 
-			   	  style="cursor: pointer;" border="0" align="absmiddle">&nbsp;Back</font>			 
+			   	  style="cursor: pointer;" border="0" align="absmiddle">&nbsp;<cf_tl id="Back">			 
 			 </td>
 			 <td width="1">&nbsp;|&nbsp;</td>		
 			
@@ -60,7 +79,7 @@
 		     <cfif SESSION.isAdministrator eq "Yes">
 		     <td onclick="recordedit('#systemFunctionId#')" #selectme# height="24" class="labelmedium" style="cursor:pointer;border: 1px transparent Solid;padding-left:4px;padding-right:4px">
 		 		 &nbsp;<img src="#SESSION.root#/Images/configure.gif" alt="Function configuration" height="14" width="16" 
-			   	  style="cursor: pointer;" border="0" align="absmiddle">&nbsp;Configure</font>			 
+			   	  style="cursor: pointer;" border="0" align="absmiddle">&nbsp;<cf_tl id="Configure"></font>			 
 			 </td>
 			 <td width="1">&nbsp;|&nbsp;</td>			
 			</cfif>
@@ -169,7 +188,8 @@
 		
 		</table>
 	
-	</td></tr>
+	  </td>
+	 </tr>
 	
 	</table>
 			

@@ -1,6 +1,6 @@
 <!--- Create Criteria string for query from data entered thru search form --->
 
-<cf_divscroll>
+<cf_screentop html="No" jquery="Yes">
 
 <cfquery name="SearchResult"
 datasource="appsMaterials" 
@@ -13,44 +13,47 @@ password="#SESSION.dbpw#">
 
 <cfset Page         = "0">
 <cfset add          = "0">
-<cfinclude template = "../HeaderMaintain.cfm"> 	
 
-<table width="99%" align="center" cellspacing="0" cellpadding="0">
+<table width="99%" height="100%" align="center">
+
+<tr><td><cfinclude template = "../HeaderMaintain.cfm"></td></tr>
  
- <cfoutput>
+<cfoutput>
 
 <script>
 
 	function recordadd(grp) {
-	          window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 450, height= 250, toolbar=no, status=yes, scrollbars=no, resizable=no");
+	          window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=550, height=250, toolbar=no, status=yes, scrollbars=no, resizable=no");
 	}
 	
 	function recordedit(id1) {
-	          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width= 450, height= 300, toolbar=no, status=yes, scrollbars=no, resizable=no");
+	          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=550, height=300, toolbar=no, status=yes, scrollbars=no, resizable=no");
 	}
 
 </script>	
 
 </cfoutput>
 
-<tr><td colspan="2">
+<tr><td colspan="2" style="height:100%">
 
-<table width="97%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table" >
+<cf_divscroll>
 
-<tr class="line labelit">
-    <TD align="left"></TD>
-    <TD align="left"><cf_tl id="Code"></TD>
-	<TD align="left"><cf_tl id="Description"></TD>
+<table width="97%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+
+<tr class="line labelmedium fixrow">
+    <TD></TD>
+    <TD><cf_tl id="Code"></TD>
+	<TD><cf_tl id="Description"></TD>
 	<TD align="center"><cf_tl id="Order"></TD>
-	<TD align="left"><cf_tl id="Printout"></TD>
-	<TD align="left"><cf_tl id="Officer"></TD>
-    <TD align="left"><cf_tl id="Entered"></TD>
+	<TD><cf_tl id="Printout"></TD>
+	<TD><cf_tl id="Officer"></TD>
+    <TD><cf_tl id="Entered"></TD>
 </TR>
 
 <cfoutput query="SearchResult">
     
-    <TR class="navigation_row labelit line"> 
-		<td align="center" style="width:40">
+    <TR class="navigation_row labelmedium line"> 
+		<td align="center">
 		    <cf_img navigation="yes" icon="open" onclick="recordedit('#Code#');">
 		</td>
 		<TD>#Code#</TD>
@@ -65,8 +68,9 @@ password="#SESSION.dbpw#">
 
 </TABLE>
 
+</cf_divscroll>
+
 </td>
 
 </TABLE>
 
-</cf_divscroll>

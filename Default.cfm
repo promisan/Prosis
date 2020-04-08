@@ -16,7 +16,7 @@
 <cfparam name="SESSION.last"              default="">
 <cfparam name="SESSION.first"             default="">
 
-<cf_setRelease version="8.42.02479" release="20200120">
+<cf_setRelease version="8.42.02504" release="20200325">
 
 <cfquery name="Get" 
 datasource="AppsSystem">
@@ -161,6 +161,10 @@ datasource="AppsSystem">
 		</script>
 		</cfoutput>			
 		<script src="Scripts/jQuery/jquery.prosis.js" type="text/javascript"></script>
+
+		<!--- Third-Party Authentication --->
+		<!--- google sign-in --->
+		<cfinclude template="Portal/Logon/ThirdParty/Google/gSigninValidation.cfm">
 		
 		<cfoutput>
 		
@@ -244,7 +248,9 @@ datasource="AppsSystem">
 		</script>	
 		
 		</cfoutput>	
-						
+
+		<cfinclude template="Portal/Logon/ThirdParty/ValidationContainer.cfm">
+
 		<div id="wrapper" style="height:100%">		
 		
 			<div id="content" style="height:100%">

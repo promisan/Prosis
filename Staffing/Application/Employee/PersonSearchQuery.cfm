@@ -336,6 +336,7 @@
 	password="#SESSION.dbpw#">
 		SELECT count(*) as Result 
 		#preservesinglequotes(qry)#
+		
 	</cfquery>
 	
 </cftransaction>

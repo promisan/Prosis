@@ -37,7 +37,7 @@
 		 	 	 		 	
 		 if (fld != false){
 			
-			 itm.className = "highLightT formpadding";
+			 itm.className = "highLight1 formpadding";
 			 itm.style.cursor = "pointer";
 			 self.status = name;
 			 
@@ -50,7 +50,7 @@
 	  }
 	  
 	function recordedit(id1,mis) {
-		ptoken.open("#SESSION.root#/System/Modules/Functions/RecordEdit.cfm?ID=" + id1 + "&mission=" + mis, "functionsetting", "top=20,left=20,height=890,width="+w+",status=yes,toolbar=no,scrollbars=no,resizable=yes");	
+		ptoken.open("#SESSION.root#/System/Modules/Functions/RecordEdit.cfm?ID=" + id1 + "&mission=" + mis, "functionsetting"+id1);	
 	}
 	
 	function logging(id1) {
@@ -62,11 +62,12 @@
 	}
 	
 	function favorite(act,id,mis,own,con) {
-	    ColdFusion.navigate('#SESSION.root#/Tools/Favorite.cfm?action='+act+'&systemfunctionid='+id+'&mission='+mis+'&owner='+own+'&condition='+con,'fav_'+id+'_'+mis)
+	    ptoken.navigate('#SESSION.root#/Tools/Favorite.cfm?action='+act+'&systemfunctionid='+id+'&mission='+mis+'&owner='+own+'&condition='+con,'fav_'+id+'_'+mis)
 	}  
 	    
 	function loadformI(name,cond,target,dir,idmenu,idrefer,reload,vir,host) { 
-		 
+	
+			 
 	   if (target != "newfull") {	 
 	     w = #CLIENT.width# - 60;
 		 full = "no";
@@ -111,8 +112,7 @@
 			   }
 		   }	  	   
 		
-		}	
-			
+		}				
 			   	  
 	   if (reload == 1) {  
 	           	   		  
@@ -136,8 +136,7 @@
 			   }   
 		   }   
 		   
-	   } else { 
-	     
+	   } else { 	     
 			 
 	    if (cond == "") {  
 		   ptoken.open(loc+"?idmenu="+idmenu+"&idrefer="+idrefer+"&height="+ih, target,"left=20, top=20, width=" + w + ", height= " + h + ", fullscreen=" + full+", status=yes, toolbar=no, scrollbars=yes, resizable=yes") 

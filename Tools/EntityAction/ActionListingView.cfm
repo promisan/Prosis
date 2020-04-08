@@ -3,12 +3,13 @@
 <style>
       .Procets{
           display: inline;
-		  line-height:13px;
+		  line-height:18px;
           background:##F4F4F4 url('#SESSION.root#/Images/Process.png') no-repeat 98% center;
           background-size:16px 16px;
           border: 1px solid ##cccccc;
-          border-radius: 0 5px 5px 0;
-          margin: 0 0 0 2px;
+		  border-left: 0px solid ##cccccc;
+          border-radius: 0 8px 8px 0;
+          margin: 0 0 0 0px;
           font-size: 11px;
           font-weight: 600;
           padding: 10px 18px 10px 10px;
@@ -36,14 +37,8 @@
           }
          
       }
-	.Procets-L {display: block;width: 100%;height: 100%;line-height: 32px;}
-	.Procets-L-2{}
-	.Procets-L-3 {display: block;width: 100%;height: 35px;line-height: 32px;}
-	.Procets-L-W{max-width: 180px;display:block;height: 35px;}
-	.Procets-L-W-2{line-height: 35px;    width: 362px;    height: auto!important; /*max-width: 270px; min-width: 270px; display:block; */}
-    .Procets-L-W-2 .Procets-L {max-width: 360px; /*min-width: 270px;*/ display:block; }
-	.Procets-R-W{width:auto;display:block;height: 35px!important;}
 	
+		
  </style>
 
 <cfparam name="CLIENT.LanPrefix" default="">
@@ -364,8 +359,7 @@
 				</table>
 			
 		</tr>	
-		<tr><td height="9" colspan="9"></td></tr>		
-				
+		<tr><td height="9" colspan="9"></td></tr>					
 		
 	<cfelse>
 	
@@ -385,29 +379,29 @@
 	
 	<cfif attributes.rowlabel eq "Yes">
 	
-		<tr class="labelmedium">
-		   <td colspan="2" style="min-width:200px;padding-left:10px"><cf_tl id="Status"><cfif refr eq "1">##</cfif></td>		  
-		   <td width="60"><cf_tl id="Action by"></td>
-		   <td width="120"><cf_tl id="Name"></td>		  
+		<tr class="labelmedium fixrow">
+		   <td colspan="2" style="min-width:380px;padding-left:10px"><cf_tl id="Status"><cfif refr eq "1">##</cfif></td>		  
+		   <td style="min-width:60px"><cf_tl id="Action by"></td>
+		   <td style="width:70%"><cf_tl id="Actor"></td>	
+		   <!---	  
 		   <td width="120"><cf_tl id="Processed"></td>
-		   <td width="60"><cf_tl id="Leadtime"></td>
-		   <td width="80"><cf_tl id="Action Date"></td>
-		   <td width="20"></td>
-		   <td width="20"></td>
+		   --->
+		   <td style="min-width:60px"><cf_tl id="Leadtime"></td>
+		   <td style="min-width:80px"><cf_tl id="Action Date"></td>
+		   <td width="10"></td>
+		   <td width="10"></td>
 		</tr>	
 	
 	<cfelse>
 	
 		<tr>
-		   <td width="35" align="center" height="3"></td>
-		   <td width="150"></td>
-		   <td width="170"></td>
-		   <td width="120"></td>
-		   <td width="50"></td>
-		   <td width="80"></td>
-		   <td width="80"></td>
-		   <td width="20"></td>
-		   <td width="20"></td>
+		   <td colspan="2" style="min-width:380px;padding-left:10px"></td>		  
+		   <td style="min-width:60px"></td>
+		   <td style="min-width:120px"></td>		  		  
+		   <td style="min-width:60px"></td>
+		   <td style="min-width:80px"></td>
+		   <td width="10"></td>
+		   <td width="10"></td>
 		</tr>	
 	
 	</cfif>
@@ -516,7 +510,7 @@
 	
 		<cfset showaction = 1>
 		<cfinclude template="ActionListingViewLine.cfm">
-							
+									
 		<cfset link = "#Object.ObjectURL#">
 								
 		<cf_ActionListing 
@@ -550,7 +544,7 @@
 			<cfinclude template="ActionListingViewLine.cfm">				
 				
 			<cfset link = "#Object.ObjectURL#">
-												
+															
 			<cf_ActionListing 
 				EntityCode       = "#Object.EntityCode#"
 				EntityClass      = "#EmbeddedClass#"
@@ -569,8 +563,7 @@
 				SubFlowName      = "#ActionDescription#"	
 				AjaxId           = "#Attributes.AjaxId#"	
 				CompleteFirst    = "No">						
-									
-				<tr><td colspan="#col#" class="line"></td></tr>	
+					
 			
 		 </cfif>	
 									

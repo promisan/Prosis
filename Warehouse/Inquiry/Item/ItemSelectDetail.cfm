@@ -123,11 +123,11 @@ password="#SESSION.dbpw#">
 		
 		<TR class="labelit linedotted navigation_row">
 
-			<td height="20" style="padding-left:4px;padding-top:3px;padding-right:5px">
+			<td height="20" style="padding-left:4px;padding-top:2px;padding-right:5px">
 			
-			<cfif url.mode eq "cfwindow">
+			<cfif url.mode eq "cfwindow">					
 		     	<cf_img icon="select" onClick="setvalue('#ItemUoMId#');" navigation="Yes">	
-		    <cfelse>
+		    <cfelse>			
 				<cf_img icon="select" onClick="Selected('#ItemNo#','#des#','#UoM#','#UoMDescription#');" navigation="Yes">	
 		    </cfif>
 			
@@ -138,7 +138,7 @@ password="#SESSION.dbpw#">
 			<TD style="padding-right:2px">#ItemBarCode#</TD>
 			<TD style="padding-right:2px">#Category#</TD>
 			<TD style="padding-right:2px">#UoMDescription#</TD>
-			<td style="padding-right:2px" align="right">#NumberFormat(StandardCost,'_,___.__')#</td>
+			<td style="padding-right:2px" align="right">#NumberFormat(StandardCost,',.__')#</td>
 		
 		</TR>
 		

@@ -60,7 +60,6 @@
 	jQuery="Yes">		
 
 <cfinclude template="OrgTreeScript.cfm">
-<cf_UIGadgets style="silver">
 <cfajaximport tags="cfdiv">
 
 

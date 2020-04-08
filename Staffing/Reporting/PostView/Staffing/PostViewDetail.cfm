@@ -259,7 +259,7 @@
 <cfset ePasOperational = operational>
 
 <cf_verifyOperational 
-         datasource= "AppsEmployee"
+         datasource= "AppsVacancy"
          module    = "Vacancy" 
 		 mission   = "#url.mission#"
 		 Warning   = "No">		
@@ -513,6 +513,7 @@
 		</cfif>		
 		
 		ORDER BY PositionNo  
+		
 		
 	</cfquery>		
 			

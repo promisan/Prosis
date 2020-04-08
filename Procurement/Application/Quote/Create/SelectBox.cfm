@@ -70,9 +70,9 @@
 				  WHERE  (Mission = '#URL.Mission#' or Mission is NULL or Code IN (SELECT Code FROM Ref_OrderClassMission WHERE Mission = '#url.mission#'))
 				  AND   PreparationMode = 'Direct'
 			  </cfquery>					
-			
+			 			
 	    	<cfif Check.recordcount gte "1">
-
+			
 		    	<cfif Parameter.EnableExpressPurchase eq "1">
 								
 					<cfset itm = itm + 1>	

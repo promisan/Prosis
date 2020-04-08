@@ -24,6 +24,7 @@
 		
 	<CFSET Caller.RosterActionNo = new.RosterActionNo>
 			
+			
 	   <cftry>
 	
 			<cfquery name="RosterAction" 
@@ -63,7 +64,8 @@
 			   '#attributes.date#'
 			   </cfif>)
 			</cfquery>
-				
+		
+		
 		<cfcatch>
 			
 				<cfoutput>
@@ -78,6 +80,7 @@
 		</cfcatch>
 		
 		</cftry>
+		
 		
 </cflock>
 

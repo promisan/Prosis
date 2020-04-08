@@ -1,5 +1,4 @@
 
-
 <cfparam name="scope" default="standard">
 
 <cfif scope eq "standard">
@@ -56,7 +55,6 @@
 <!--- script file --->
 <!--- ----------- --->
 
-
 <cfif attributes.loadscript eq "Yes">
 	 <cfinclude template="SubmenuScript.cfm">
 	 <cfinclude template="SubmenuScriptLoad.cfm">
@@ -74,7 +72,6 @@
 	<hr>
 
 </cfif>
-
 
 <!--- ---------------------- --->
 <!--- create views if needed --->
@@ -114,7 +111,7 @@
 	datasource="AppsSystem" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	
+		
 		SELECT  M.Description as ModuleDescription, 
 		        M.menuOrder as ModuleOrder, 
 				R.*,				
@@ -149,7 +146,7 @@
 				<cfelse>
 					,xl#Client.LanguageId#_Ref_SystemModule M
 				</cfif>		
-				<cfif selection eq "Favorite">        
+				<cfif selection eq "Favorite">    				   
 					,UserFavorite  F 
 				</cfif>
 				
@@ -163,7 +160,7 @@
 		    AND R.SystemFunctionId = F.SystemFunctionId
 			AND F.Account = '#SESSION.acc#'
 			<cfif find("Mission",class)>
-			AND    F.Mission = '#Heading#'
+			AND    F.Mission = '#Heading#'			
 			<cfelse>
 			AND    F.Mission is NULL
 			</cfif> 
@@ -171,39 +168,33 @@
 		<cfelse>
 		
 			<cfif module neq "">	
-			AND     R.SystemModule   = #PreserveSingleQuotes(module)#  
+			AND     R.SystemModule  =  #PreserveSingleQuotes(module)#  
 			</cfif>
 			
 			<cfif class neq "any" and class neq "">
-			AND     R.MenuClass     IN (#PreserveSingleQuotes(class)#)		
+			AND     R.MenuClass     IN (#PreserveSingleQuotes(class)#)					
 			</cfif>
 		
 			<cfif selection neq "">				   
-				AND  R.FunctionClass in (#PreserveSingleQuotes(selection)#)						
+			AND     R.FunctionClass IN (#PreserveSingleQuotes(selection)#)						
 			</cfif>
 			
 		</cfif>
 				
 		AND     R.Operational   = '1'
 		
-		<cfif find("Mission",class)>	
+		<cfif find("Mission",class) or find("Detail",class)>	
 		AND 	R.SystemFunctionId NOT IN (SELECT   SystemFunctionId
 									       FROM     Ref_ModuleControlDeny 
 									       WHERE    Mission = '#Heading#')  
 		</cfif>								   
         ORDER BY M.MenuOrder, R.FunctionClass, R.MenuOrder
-        <cfif session.acc eq "wdubbeling">
-        	
-        </cfif>  
+		      
 </cfquery>
-		
-<cfif SearchResult.recordcount eq "0">
 	
+<cfif SearchResult.recordcount eq "0">	
 	<cfinclude template="../System/Modules/Functions/ModuleControl/ModuleLanguage.cfm">
-
 </cfif>
-
-
 
 <!--- Search form --->
 
@@ -212,20 +203,18 @@
 <cfif Searchresult.recordcount gt "0">
 
 	<cfif Module neq "'Portal'" and not find("Mission",class)>	
-		<table width="97%"  border="0" align="center" bgcolor="white" class="formpadding">
-	<cfelseif find("Mission",class)>	
-		<table width="100%" border="0" align="center" bgcolor="white">
+		<table width="94%"  align="center" border="0" bgcolor="white">
+	<cfelseif find("Mission",class) or find("Detail",class)>	
+		<table width="100%"  align="center" border="0" bgcolor="white">
 	<cfelse>
-		<table width="99%"  border="0" align="center" bgcolor="white">		
+		<table width="96%"  align="center" border="0" bgcolor="white">
 	</cfif>
 
 <tr class="hide"><td id="modulelog"></td></tr>
 
-<tr><td height="5"></td></tr>
+<tr><td style="padding-left:15px;padding-right:15px" valign="top">
 
-<tr><td style="padding-left:20px;padding-right:20px">
-
-<table width="100%" border="0" align="center" bgcolor="white">
+<table width="100%" valign="top" align="center" bgcolor="white">
 
 <cfif not find("Mission",class) and selection eq "Favorite">
      <cfset grp = "ModuleOrder">
@@ -233,17 +222,15 @@
      <cfset grp = "FunctionClass"> 	 
 </cfif>
 
-<cfif selection eq "Favorite" and not find("Mission",class)>
+<cfif selection eq "Favorite" and not find("Mission",class) and not find("Detail",class)>
 
 	   <cfoutput>	   
-	   	  
-		   <tr id="m#heading#" class="hide"><td height="5"></td></tr>
-		   
-		   <tr class="hide" id="m#heading#"><td colspan="6">
+	   	  		   	   
+		   <tr class="xxxhide" id="m#heading#"><td colspan="6">
 		   
 			   <table width="458" border="0" cellspacing="0" cellpadding="0">
 				 	<tr>
-					<td width="100%" height="20" background="#SESSION.root#/Images/headermenu1b_long_fat.jpg">
+					<td width="100%" height="40">
 						<table border="0" cellspacing="0" cellpadding="0">
 						  <tr><td class="labellarge" style="font-weight:340;font-size:23px;padding-left:20px">
 						  #Heading# 
@@ -283,15 +270,15 @@
 			   </td></tr>
 			   
 			   <tr id="m#grp#3" class="xhide"><td height="1" colspan="6"></td></tr>
+			   
+		<cfelseif find("Detail",class)>	   
 			   	
 		<cfelseif not find("Mission",class)>
-				
-		   <cfif Heading neq "">
-		   	  
-			   <tr id="m#heading#1" class="hide"><td height="5"></td></tr>
-			   
-			   <tr class="hide" id="m#heading#2"><td colspan="6">
-		   
+									
+		   <cfif Heading neq "">			   
+		      	  
+			   <tr id="m#heading#1" class="hide"><td height="5"></td></tr>			   
+			   <tr class="hide" id="m#heading#2"><td colspan="6">		   
 				   <table width="458" border="0" cellspacing="0" cellpadding="0">
 					 	<tr><td>							
 							<table border="0" cellspacing="0" cellpadding="0">
@@ -301,19 +288,17 @@
 						    </table>
 					    	</td>
 						</tr>  
-				   </table>	
-				   
-			   </td></tr>
-			   
+				   </table>					   
+			   </td></tr>			   
 			   <tr id="m#heading#3" class="hide"><td height="1" colspan="6"></td></tr>
 		     
 		   </cfif>
 		    	  
 		<cfelse>
-			
+					
 			<!--- Mission --->
 		
-			<cfquery name="Mission" 
+			<cfquery name="MissionHeader" 
 			datasource="AppsOrganization" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
@@ -323,38 +308,29 @@
 			</cfquery>
 					   
 		    <tr style="display:block;">
-			  <td colspan="6">
-			 			  	
-					  <table width="100%">						
-						  <tr>
-						    <cfif getAdministrator("#Heading#") eq "1">
-							 <td style="font-size:28px;font-weight:340" class="labelmedium tSearch"><a href="javascript:editentity('#heading#')">#Heading#</a> <font size="2" color="808080"><cfif Mission.MissionName neq Heading>#Mission.MissionName#</cfif></td>
-							 <cfelse>
-							 <td style="font-size:28px;font-weight:340" class="labelmedium tSearch">#Heading# <cfif Mission.MissionName neq Heading><font size="2" color="808080">#Mission.MissionName#</cfif></td>
-							  </cfif>
-						  </tr>
-						  
-						  <!---
-						  <cfif Mission.MissionName neq Heading>
-						  <tr>						  
-						  <td style="padding-left:18px;font-size:15px" class="labelit tSearch">#Mission.MissionName#</td>
-						  </tr>		
-						  </cfif>		  
-						  --->
-					  </table>
-					
-				  
+			  <td colspan="6" style="padding-top:14px">
+			 			 			  	
+				  <table width="100%">						
+					  <tr>
+					  
+					    <cfif getAdministrator("#Heading#") eq "1">
+						 <td style="font-size:28px;font-weight:340" class="labelmedium tSearch"><a href="javascript:editentity('#heading#')">#Heading#</a> <font size="2" color="808080"><cfif MissionHeader.MissionName neq Heading>#MissionHeader.MissionName#</cfif></td>
+						 <cfelse>
+						 <td style="font-size:28px;font-weight:340" class="labelmedium tSearch">#Heading# <cfif MissionHeader.MissionName neq Heading><font size="2" color="808080">#MissionHeader.MissionName#</cfif></td>
+						  </cfif>
+					  </tr>						  
+				  </table>
+									  
 			  </td>
-			</tr>	
-			
-							  
+			</tr>				
+					  
 		</cfif>
 	
 		<cfoutput>		
 				
 			<cfset access = "DENIED">
 			
-			<cfif findNoCase("Mission",class)>
+			<cfif findNoCase("Mission",class) or findNoCase("Detail",class)>
 			
 			    <cfset Mode = Heading>	
 				
@@ -453,9 +429,10 @@
 					  (FunctionClass eq "Application" and SystemModule is "Roster") or
 					  MenuClass eq "Builder" or
 					  Find("Mission",class) or 
+					  Find("Detail",class) or
 					  Presentation eq "2" or
 					  Selection eq "Favorite">		
-					 					  		  								
+					  					 					  		  								
 					 <cfif Selection eq "Favorite">
 					 			  			
 						<cf_licenseCheck module="'#systemmodule#'" 
@@ -470,7 +447,7 @@
 								 
 					 </cfif>
 					 			 		
-					     <td width="<cfif row eq "2">50%</cfif>" colspan="3" align="center">						
+					     <td style="width:<cfif row eq "2">50%</cfif>" valign="top" colspan="3" align="center">						
 						 			 			 			 	 	 	 
 						 <cfset condition = FunctionCondition>
 						 	 
@@ -482,7 +459,7 @@
 							 <cfset condition = passtru>
 						 </cfif>
 							 	 	 
-						 <cfif find("Mission",class)>
+						 <cfif find("Mission",class) or find("Detail",class)>
 						 
 						 	 <cfset selmission = heading>
 					   		
@@ -503,10 +480,8 @@
 							 <cfif ScriptName eq "">
 							 		
 							     <table width="98%" align="center" class="regularZ formpadding" 
-								     onMouseOver="hl(this,true,'#FunctionName#')" onMouseOut="hl(this,false,'')">
-								  																						 
-								     <cfset go = "modulelog('#systemfunctionid#','#selmission#');loadformI('#FunctionPath#','#condition#','#FunctionTarget#','#FunctionDirectory#','#systemFunctionId#','#Heading#','#EnforceReload#','#FunctionVirtualDir#','#FunctionHost#')">
-								  
+								     onMouseOver="hl(this,true,'#FunctionName#')" onMouseOut="hl(this,false,'')">								  																						 
+								     <cfset go = "modulelog('#systemfunctionid#','#selmission#');loadformI('#FunctionPath#','#condition#','#FunctionTarget#','#FunctionDirectory#','#systemFunctionId#','#Heading#','#EnforceReload#','#FunctionVirtualDir#','#FunctionHost#')">								  
 							  <cfelse>
 							  							  	 
 								 <table width="98%" align="center" class="regularZ formpadding" onMouseOver="hl(this,true,'#FunctionName#')" onMouseOut="hl(this,false,'')">
@@ -524,20 +499,19 @@
 						      <table width="98%" align="center" bordercolor="FFFFF4"  class="regularZ">							
 							  <cfset go = "">
 								  			  
-						</cfif>		
-						
+						</cfif>								
 												 			    	  
 						<cfif find("Mission",class)>	
 																		  	 			  
 						      <tr bgcolor="<cfif license eq 0>FFCACA</cfif>">
 							  
-						        <td width="43" style="padding-left:0px" height="27" align="center" rowspan="2" onclick="<cfif License eq 1>#go#</cfif>"> 								
-									<cfinclude template="SubmenuImages.cfm">						
+						        <td style="width:50px;padding-left:0px" align="center" rowspan="2" onclick="<cfif License eq 1>#go#</cfif>"> 																
+									<cfinclude template="SubmenuImages.cfm">					
 						   	    </td>	
 								
 								<td align="left" class="labelmedium" style="font-weight:340;height:18px;font-size:20px" 
 								 valign="middle" onclick="<cfif License eq 1>#go#</cfif>">
-								 								 
+																 								 
 								   <!--- determine if we take another label here driven by the mission/entity --->
 								    
 								   <cfquery name="Alternate" 
@@ -560,10 +534,10 @@
 									  <cfset st =  Alternate.FunctionMemo>						  
 								  <cfelse>					   
 									  <cfset st =  FunctionMemo> 							 		   
-								  </cfif>									  			  	  
-								  					  
+								  </cfif>		
+								  							  					  
 			 					  <cfif functionsupport eq "1">
-									 #nm#
+									 <a>#nm#</a>
 								  <cfelse>						
 									 #nm#<font size="1" color="FF0000">&nbsp [#client.browser# is not supported]</font>
 								  </cfif>
@@ -579,33 +553,48 @@
 									<cfif license eq 1>
 									
 									    <table align="right" class="formpadding">
-											<tr>
+											<tr>			
 											
-											<td>	
-												
+											<td>				
+									
+												<cfif SESSION.isAdministrator eq "Yes">
+																						
+													<cfquery name="CheckLogging" 
+														datasource="AppsSystem" 
+														username="#SESSION.login#" 
+														password="#SESSION.dbpw#">
+															SELECT TOP 1 *
+															FROM   UserActionModule 
+															WHERE  SystemFunctionId = '#systemFunctionId#'					
+													</cfquery>	
+													
+													<cfif CheckLogging.recordCount gt 0>
+														<button type="button" class="button3" onClick="logging('#systemFunctionId#')">    						 
+												 			 <img src="#SESSION.root#/Images/info2.gif" alt="Function logging" height="16" width="16" border="0"
+														   	  style="cursor: pointer;" alt="" border="0" align="absmiddle">										  
+														</button>
+													</cfif>
+												</cfif>
+											
+											</td>		
+																			
+											<td>													
 												<cfif SESSION.isAdministrator eq "Yes">	
 												    <button class="button3" type="button" onClick="recordedit('#systemFunctionId#','#heading#')">     
 											 		 <img src="#SESSION.root#/Images/configure.gif" alt="Function configuration" height="16" width="16" border="0"
 													   	  style="cursor: pointer;" border="0" align="absmiddle">
 													</button> 	
-												</cfif>
-											
-											</td>
-											
-											<td style="padding-right:9px" id="fav_#systemFunctionId#_#heading#">								
-											
-											<cfif favorite gte "1">
-											
+												</cfif>											
+											</td>											
+											<td style="padding-right:9px" id="fav_#systemFunctionId#_#heading#">																			
+											<cfif favorite gte "1">											
 											     <button type="button" type="button"  class="button3" onClick="favorite('0','#systemFunctionId#','#Heading#')">     
 										 		 	<img src="#SESSION.root#/Images/favorite.gif" alt="Remove as Favorites" height="14" width="14" border="0" style="cursor: pointer;" border="0" align="absmiddle">
-												 </button> 	
-											 
-											<cfelse>
-											
+												 </button> 												 
+											<cfelse>											
 												 <button type="button" type="button"  class="button3" onClick="favorite('1','#systemFunctionId#','#Heading#')">     
 										 		 	<img src="#SESSION.root#/Images/favoriteset1.gif" alt="Add to Favorites" height="14" width="14" border="0" style="cursor: pointer;" border="0" align="absmiddle">
-												 </button> 	
-											
+												 </button> 												
 											</cfif>
 											
 											</td>
@@ -644,15 +633,120 @@
 								
 								</td>   
 								
-						      </tr>						  	
+						      </tr>		
+							  
+						 <cfelseif find("Detail",class)>
+						 
+						 <tr bgcolor="<cfif license eq 0>FFCACA</cfif>">
+							  
+						        <td style="width:50px;padding-left:0px" align="center" rowspan="2" onclick="<cfif License eq 1>#go#</cfif>"> 																
+									<cfinclude template="SubmenuImages.cfm">					
+						   	    </td>	
+								
+								<td align="left" class="labelmedium" style="font-weight:340;height:18px;font-size:16px" 
+								 valign="middle" onclick="<cfif License eq 1>#go#</cfif>">
+																 								 
+								   <!--- determine if we take another label here driven by the mission/entity --->
+								    
+								   <cfquery name="Alternate" 
+									datasource="AppsSystem" 
+									username="#SESSION.login#" 
+									password="#SESSION.dbpw#">
+										SELECT FunctionName, FunctionMemo
+										FROM   xl#Client.LanguageId#_Ref_ModuleControl
+										WHERE  Mission = '#Heading#' 
+										AND    SystemFunctionId = '#SystemFunctionId#'
+								  </cfquery>
+								   
+								  <cfif Alternate.recordcount eq "1" and Alternate.functionname neq "">
+								      <cfset nm  = Alternate.FunctionName>						  
+								  <cfelse>
+								      <cfset nm =  FunctionName>									 		   
+								  </cfif>						
+								   
+								  <cfif Alternate.recordcount eq "1" and Alternate.functionmemo neq "">					   
+									  <cfset st =  Alternate.FunctionMemo>						  
+								  <cfelse>					   
+									  <cfset st =  FunctionMemo> 							 		   
+								  </cfif>		
+								  							  					  
+			 					  <cfif functionsupport eq "1">
+									 <a>#nm#</a>&nbsp;<br><font size="2" color="808080">#st#</font>
+								  <cfelse>						
+									 #nm#<font size="1" color="FF0000">&nbsp [#client.browser# is not supported]</font>
+								  </cfif>
+			
+								  <cfif license eq 0>					  	
+									<font size="3" color="FF0000"><cf_tl id="License Expired. Please contact your administrator"></font>
+								  </cfif>			
+									
+								</td>  					
+								
+								<td align="right"> 
+																
+									<cfif license eq 1>
+									
+									    <table align="right" class="formpadding">
+											<tr>	
+											
+											<td>				
+									
+												<cfif SESSION.isAdministrator eq "Yes">
+																						
+													<cfquery name="CheckLogging" 
+														datasource="AppsSystem" 
+														username="#SESSION.login#" 
+														password="#SESSION.dbpw#">
+															SELECT TOP 1 *
+															FROM   UserActionModule 
+															WHERE  SystemFunctionId = '#systemFunctionId#'					
+													</cfquery>	
+													
+													<cfif CheckLogging.recordCount gt 0>
+														<button type="button" class="button3" onClick="logging('#systemFunctionId#')">    						 
+												 			 <img src="#SESSION.root#/Images/info2.gif" alt="Function logging" height="16" width="16" border="0"
+														   	  style="cursor: pointer;" alt="" border="0" align="absmiddle">										  
+														</button>
+													</cfif>
+												</cfif>
+											
+											</td>		
+																							
+											<td>													
+												<cfif SESSION.isAdministrator eq "Yes">	
+												    <button class="button3" type="button" onClick="recordedit('#systemFunctionId#','#heading#')">     
+											 		 <img src="#SESSION.root#/Images/configure.gif" alt="Function configuration" height="16" width="16" border="0"
+													   	  style="cursor: pointer;" border="0" align="absmiddle">
+													</button> 	
+												</cfif>											
+											</td>											
+											<td style="padding-right:9px" id="fav_#systemFunctionId#_#heading#">																			
+											<cfif favorite gte "1">											
+											     <button type="button" type="button"  class="button3" onClick="favorite('0','#systemFunctionId#','#Heading#')">     
+										 		 	<img src="#SESSION.root#/Images/favorite.gif" alt="Remove as Favorites" height="14" width="14" border="0" style="cursor: pointer;" border="0" align="absmiddle">
+												 </button> 												 
+											<cfelse>											
+												 <button type="button" type="button"  class="button3" onClick="favorite('1','#systemFunctionId#','#Heading#')">     
+										 		 	<img src="#SESSION.root#/Images/favoriteset1.gif" alt="Add to Favorites" height="14" width="14" border="0" style="cursor: pointer;" border="0" align="absmiddle">
+												 </button> 												
+											</cfif>
+											
+											</td>
+											</tr>
+																		
+										</table>
+										
+									</cfif>
+								</td>	 
+						      </tr>		
+							  				  		  				  	
 							  			  	 	       
 						 <cfelse>
 						 									 				 
 						    <tr>
-							
-					        <td width="45" height="27" style="padding-left:7px" align="center" valign="middle" onclick="#go#">	
-								<cfinclude template="SubmenuImages.cfm">	
-																
+														
+					        <td align="center" valign="middle" style="width:50px" onclick="#go#">																				
+								<cfinclude template="SubmenuImages.cfm">																	
 					       	</td>																	
 				
 							<td onclick="#go#">
@@ -662,7 +756,7 @@
 								<tr><td class="labelmedium" style="font-weight:340;height:20px;font-size:19px">		
 																			
 									<cfif functionsupport eq "1">
-										<cfif owner neq "">#Owner# </cfif>#FunctionName#</b>
+										<cfif owner neq "">#Owner# </cfif><a>#FunctionName#</a>
 									<cfelse>						
 										<cfif owner neq "">#Owner# </cfif>#FunctionName# <font color="FF0000">: [#client.browser# not supported]</font>
 									</cfif>									
@@ -698,7 +792,7 @@
 								
 							</td>   
 							
-							<td align="right" width="5%" style="padding-right:22px">
+							<td align="right" width="5%" style="padding-right:9px">
 									 
 							 	<table border="0" align="right" class="formpadding">
 									<tr>
@@ -796,9 +890,7 @@
 					 <cfelse>		 											
 									 
 					    </TR>
-						 
-						
-												 
+										 
 					 </cfif> 							
 				
 				<cfelseif FunctionClass eq "Portal">
@@ -826,7 +918,7 @@
 					 </cfif>
 					  
 					  <tr>			  
-					  <td width="40" height="25" align="center" bgcolor="FFFFFF">					 
+					  <td style="width:50%" height="25" align="center" bgcolor="FFFFFF">					 
 					    <button type="button" class="button3"><cfinclude template="SubmenuImages.cfm"></button>
 				      </td>			  
 					  <td style="font-weight:340;padding-left:10px"><font size="1" color="0080C0">#FunctionName#</td>			  
@@ -900,7 +992,7 @@
 														
 								<td width="92%" onclick="modulelog('#systemfunctionid#','#heading#');#load#">
 									<table>
-										<tr><td class="labellarge" style="font-weight:340;padding-left:5px;font-size:22px;height:20px">#nm#</td></tr>
+										<tr><td class="labellarge" style="font-weight:340;padding-left:5px;font-size:22px;height:20px"><a>#nm#</a></td></tr>
 										<tr><td class="labelmedium" style="font-weight:340;height:20px;padding-left:9px;font-size:13px">#st#</td></tr>
 									</table>						
 								</td>   
@@ -966,8 +1058,7 @@
 					 </cfif> 	
 					
 				<cfelse>	
-				
-																
+															
 				     <tr><td height="1" colspan="6"></td></tr>				 
 				     <tr>
 					 <td align="center" colspan="6" height="1" style="padding-left:20px">
@@ -1030,7 +1121,7 @@
 					 
 					     <table  class="formpadding">
 						 <tr>
-						 <td class="labelmedium" style="font-weight:340;height:20px;font-size:19px">#FunctionName#</td>
+						 <td class="labelmedium" style="font-weight:340;height:20px;font-size:19px"><a>#FunctionName#</a></td>
 						 </tr>
 						 
 						 <cfif functionMemo neq "">

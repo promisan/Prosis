@@ -1,5 +1,5 @@
 
-<table width="100%" height="100%" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="100%" class="formpadding">
 
 <cfinvoke component = "Service.Access"  
    method           = "CaseFileManager" 	   
@@ -12,19 +12,15 @@
 
 <cfif accesslevel eq "ALL" or accessLevel eq "EDIT">			  
 				
-	<tr><td class="labelmedium" style="height:22;padding-left:10px">
-	<img src="#Client.VirtualDir#/images/select.png" alt="" border="0">&nbsp;
-	<a href="javascript:showclaim('','#URL.mission#')"><font color="0080C0"><cf_tl id="Record New Case"></a>
+	<tr class="labelmedium line"><td style="height:22;padding-left:10px">	
+	<a href="javascript:showclaim('','#URL.mission#')"><cf_tl id="Record New Case"></a>
 	</td></tr>
 				  
 </cfif>		  
 
-<tr><td class="labelmedium" style="height:22;padding-left:10px">
-<img src="#Client.VirtualDir#/images/select.png" alt="" border="0">&nbsp;
-<a href="javascript:printme("><font color="0080C0"><cf_tl id="Print"></a>
+<tr class="labelmedium line"><td style="height:10;padding-left:10px">
+<a href="javascript:printme("><cf_tl id="Print"></a>
 </td></tr>
-
-<tr><td colspan="1" class="linedotted"></td></tr>
 
 </cfoutput>
 

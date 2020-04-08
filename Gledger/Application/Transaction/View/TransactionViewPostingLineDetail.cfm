@@ -49,15 +49,16 @@
 	   	------>
 	      	   		  			   		   
 		      <tr class="linedotted">
-			   <td style="padding-left:4px" class="labelit"><cf_tl id="Cost center">:</b></td>
+			   <td style="padding-left:4px" class="labelit"><cf_tl id="Cost center">:</td>
 			   <td height="18">
+			 			   
 			   <cfdiv id="unit#box#">
 			   		<table>
 					   <tr>
 					  	 <td class="labelit">
 						 <cfif (access eq "EDIT" and checkdis.recordcount eq "0" and url.print neq 1 and ActionStatus eq "0") or access eq "ALL">						  
-					      <a href="javascript:_cf_loadingtexthtml='';	ColdFusion.navigate('TransactionViewPostingLineEdit.cfm?selected=#orgunit#&#link#&fld=unit','unit#box#')">
-						  <font color="0080FF">[<cf_tl id="edit">]</font>
+					      <a href="javascript:_cf_loadingtexthtml='';ptoken.navigate('TransactionViewPostingLineEdit.cfm?selected=#orgunit#&#link#&fld=unit','unit#box#')">
+						  [<cf_tl id="edit">]
 						  </a>
 						  </cfif>
 						 </td>
@@ -133,7 +134,7 @@
 						</cfif>
 						</cfquery>
 					
-						<td style="padding-left:4px" class="labelit">Donor:</td>
+						<td style="padding-left:4px" class="labelit"><cf_tl id="Donor">:</td>
 					
 					    <td width="30%" height="18" id="donor#box#">			   
 					   		<table>
@@ -141,9 +142,8 @@
 							  	 <td class="labelit">
 								  <cfif (access eq "EDIT" and checkdis.recordcount eq "0" and url.print neq 1 and ActionStatus eq "0") or access eq "ALL">											  
 							      <a href="javascript:ColdFusion.navigate('TransactionViewPostingLineEdit.cfm?selected=#contributionlineid#&#link#&fld=contributionlineid','donor#box#')">
-								  <font color="0080FF">[<cf_tl id="edit">]</font>
+								  [<cf_tl id="edit">]</a>
 								  </cfif>
-								  </a>
 								 </td>
 								 <td>&nbsp;</td>
 								 <td class="labelit">
@@ -151,19 +151,14 @@
 								    <cfif Donor.recordcount gte "1"> 
 									
 									    <table cellspacing="0" cellpadding="0" class="formpadding">
-										<tr>
-										
-										<td class="labelit">
-										<a href="javascript:EditDonor('#ContributionLineId#')">   
-							       			#Donor.Donor# 
-								   		</a>
-										</td>								
-										
-										<td class="labelit">#Donor.Description#</td>
-										<td class="labelsmall" style="padding-left:3px">Reference:</td>
-										<td class="labelit" style="padding-left:3px">#Donor.Reference#</td>
-										</tr>
-										
+										<tr>										
+											<td class="labelit">
+												<a href="javascript:EditDonor('#ContributionLineId#')">#Donor.Donor#</a>
+											</td>																		
+											<td class="labelit">#Donor.Description#</td>
+											<td class="labelsmall" style="padding-left:3px">Reference:</td>
+											<td class="labelit" style="padding-left:3px">#Donor.Reference#</td>
+										</tr>										
 										</table>
 										
 								   <cfelse>

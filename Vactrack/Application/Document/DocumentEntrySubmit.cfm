@@ -21,6 +21,8 @@
 
 </cfoutput>
 
+<cfparam name="url.box" default="">
+
 <cfquery name="Verify" 
 datasource="appsVacancy" 
 username="#SESSION.login#" 
@@ -40,17 +42,14 @@ password="#SESSION.dbpw#">
 <cfif Verify.recordCount is 1 and URL.ID eq ""> 
 
 	<cfoutput>
-	    <cf_alert message = "Position #Form.PositionNo# (#Form.PostNumber#) has a registered and active track under #Verify.DocumentNo#. Operation not allowed.">
-   		
-		<script>		
-		   try {
-		    ColdFusion.Window.hide('mydialog') 			
-			} catch(e) {}     		
-		  try {
-		    parent.ColdFusion.Window.hide('mydialog') 			
-			} catch(e) {}
-		</script>
-		
+	    <cf_alert message = "Position #Form.PositionNo# (#Form.PostNumber#) has a registered and active track under #Verify.DocumentNo#. Operation not allowed.">	
+		<script>
+			try {
+				parent.ProsisUI.closeWindow('mydialog')
+			} catch(ex)	{
+				ProsisUI.closeWindow('mydialog')
+			}
+		</script>		
 	</cfoutput>
 
 <CFELSE>
@@ -201,6 +200,8 @@ password="#SESSION.dbpw#">
    <!--- ---------------------- --->	
    <!--- create workflow object --->
    <!--- ---------------------- --->
+   
+
    					
    <cf_ActionListing 
     TableWidth       = "100%"
@@ -220,15 +221,17 @@ password="#SESSION.dbpw#">
 	<cfif url.box neq "" and url.box neq "undefined">
 			
 		<script>
-			    		
-		    parent.ColdFusion.Window.hide('mydialog')
-
+			try {
+				parent.ProsisUI.closeWindow('mydialog')
+			} catch(ex) {
+				ProsisUI.closeWindow('mydialog')
+			}
 	    	<cfif url.box eq "isearch">
 	    		parent.document.getElementById("gosearch").click();
 	    	<cfelse>
 		   		parent.document.getElementById("refresh_#url.box#").click();
 		   	</cfif>
-		    	
+
 		</script>
 			
 	<cfelse>
@@ -236,28 +239,18 @@ password="#SESSION.dbpw#">
 		<!--- regular entry screen --->
 		
 		<script language="JavaScript">
-		
-			try {		    
-			    ColdFusion.Window.hide('mydialog') 			
-			} catch(e) {}
-		   
-			w = 0
-			h = 0
-			if (screen) {
-				w = #CLIENT.width# - 60
-				h = #CLIENT.height# - 116
+
+			try {
+				parent.ProsisUI.closeWindow('mydialog')
+			} catch(ex)	{
+				ProsisUI.closeWindow('mydialog')
 			}
-			ptoken.open("#session.root#/Vactrack/Application/Document/DocumentEdit.cfm?ID=#LastNo.DocumentNo#", "VacancyEdit", "left=20, top=20, width=" + w + ", height= " + h + ", status=yes, toolbar=no, scrollbars=no, resizable=no");
+			ptoken.open("#session.root#/Vactrack/Application/Document/DocumentEdit.cfm?ID=#LastNo.DocumentNo#", "Track#LastNo.DocumentNo#");
 				
 		</script>
 	
-	</cfif>
-		
+	</cfif>		
 		
 	</cfoutput>
 
 </cfif> 
-
-
-
-

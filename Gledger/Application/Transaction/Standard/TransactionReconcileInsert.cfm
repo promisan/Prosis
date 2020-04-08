@@ -169,7 +169,7 @@
 			datasource="AppsQuery" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
-			
+									
 			INSERT INTO dbo.#SESSION.acc#GLedgerLine_#client.sessionNo#
 			   (Journal, 
 			   JournalSerialNo,  
@@ -253,6 +253,7 @@
 	</cfoutput>
 	
 </cfloop>	
+
 
 <cfinclude template="TransactionDetailLines.cfm">
 

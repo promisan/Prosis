@@ -8,7 +8,6 @@
 
 <cfajaximport tags="cfform,cfmap">
 
-<cf_uiGadgets gadget="notification">
 <cf_windowNotification>
 <cf_mapscript>
 <cf_dialogstaffing>

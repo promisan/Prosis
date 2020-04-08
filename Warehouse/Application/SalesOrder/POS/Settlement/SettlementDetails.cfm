@@ -27,7 +27,7 @@
 		<tr>
 			<td width="2%"></td>
 			<td style="padding-left:10px" colspan="2" width="40%">
-				<input type="text" id="CC_number" name="CC_number" style="width:220;padding-right:3px" maxlength="20" class="regularxl" onfocus="setFocus(this,'no')">						
+				<input type="text" id="CC_number" name="CC_number" style="width:220px;padding-right:3px" maxlength="20" class="regularxl" onfocus="setFocus(this,'no')">						
 			</td>	
 			<td colspan="2" width="40%" style="padding-left:10px">
 				<table width="100%" cellpadding="0" cellspacing="0">
@@ -78,7 +78,7 @@
 			<tr>
 				<td width="3%"></td>
 				<td colspan="2" width="40%">
-					<input type="text" id="bank_number" name="bank_number" style="width:320;padding-right:3px" maxlength="25" class="regularxl" onfocus="javascript:setFocus(this,'no')">						
+					<input type="text" id="bank_number" name="bank_number" style="width:320px;padding-right:3px" maxlength="25" class="regularxl" onfocus="javascript:setFocus(this,'no')">						
 				</td>	
 			</tr>			
 			<tr>

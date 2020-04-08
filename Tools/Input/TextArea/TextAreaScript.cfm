@@ -9,11 +9,18 @@
 			
 			<script type="text/javascript" src="#SESSION.root#/Scripts/TextArea/CK/#Attributes.mode#/ckeditor.js"></script>
 			<script type="text/javascript" src="#SESSION.root#/Scripts/TextArea/CK/#Attributes.mode#/styles.js"></script>
-			
-			
+
+
 			<script>
+
+
 				var _calculated_width_ = '100%';
-				
+
+				function removeTextAreaBorder()
+				{
+					$('.cke_chrome').css({"border":"0px"});
+					$('.cke_bottom').css({"display":"none"});
+				}
 				
 				function updateTextArea() {
 		              $(".ckeditor").each(function(index) {

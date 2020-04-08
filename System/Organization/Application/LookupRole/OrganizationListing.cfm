@@ -120,8 +120,7 @@
 			} catch(e) {}
 			
 		    </cfif>
-			parent.ColdFusion.Window.hide('orgunitwindow');	// as otherwise IE11 gets stuck
-			// parent.ColdFusion.Window.destroy('orgunitwindow',true);	
+			parent.ProsisUI.closeWindow('orgunitwindow');	
 			
 		}		
 

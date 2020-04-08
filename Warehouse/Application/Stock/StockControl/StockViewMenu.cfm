@@ -19,19 +19,20 @@
    mission          = "#unit.mission#" 
    warehouse        = "#url.warehouse#"
    returnvariable   = "access">	
-
+  
+ 
 <cfif access eq "EDIT" or access eq "ALL">
    
    <script>   
    	document.getElementById("optionmenu").className = "regular"      
    </script>
-   
+      
 <cfelse>
 
    <script>   
    	document.getElementById("optionmenu").className = "hide"      
    </script>
-   
+     
 </cfif>
 
 <cfif Unit.MissionOrgUnitId eq "">
@@ -41,12 +42,13 @@
 		   cellspacing="0" 			  
 		   cellpadding="0" 
 		   align="center">
-	   <tr>
-	   <td align="center" height="40"><font face="Verdana" color="FF0000"><cf_tl id="Detected a Problem with the configuration"  class="Message"></font></td>
+	   <tr class="labelmedium">
+	   <td align="center" style="padding-top:10px" height="40"><cf_tl id="Detected a Problem with the configuration"  class="Message"></font></td>
 	   </tr>
 	</table>	
-	<cfabort>
-		
+	
+	<cfset unit = "0">
+	
 <cfelse>
 	
 	<cfquery name="Org" 
@@ -59,25 +61,27 @@
 	</cfquery>
 		
 	<cfif Org.recordcount eq "0">
-		
+			
 		<table width="100%" height="100%" 
 		       border="0" 
 			   cellspacing="0" 			  
 			   cellpadding="0" 
 			   align="center">
-		   <tr><td align="center" height="40">
+		   <tr  class="labelmedium"><td align="center" style="padding-top:10px" height="40">
 		    
 			<cf_tl id="Detected a Problem with the configuration"  class="Message">
 			
 			</td></tr>
 		</table>	
-		<cfabort>
-	
+		
+		<cfset unit = "">
+			
 	<cfelse>
-	
-		<cfset unit = "0">
-	
+		
+		<cfset unit = "">
+					
 		<cfloop query="Org">
+		
 		    <cfif unit eq "">
 				<cfset unit = "'#orgunit#'">
 			<cfelse>
@@ -89,7 +93,9 @@
 
 </cfif>
 
-<table width="100%" height="100%" border="0" cellspacing="0" class="xxxxtree" cellpadding="0" align="left">
+<cfif unit neq "" or getAdministrator("#url.mission#") eq "1">
+
+<table width="100%" height="100%" border="0" cellspacing="0" class="tree" cellpadding="0" align="left">
 	   
 	<tr>
 		<td align="left" valign="top">
@@ -199,4 +205,6 @@
 	</tr>
 	
 </table>
+
+</cfif>
 

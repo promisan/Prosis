@@ -656,7 +656,7 @@ function del(jrn,ser) {
   
    <td width="100%" colspan="2" height="39">
      <table border="0" cellpadding="0" width="100%">
-      <tr class="line">
+      <tr>
         <td width="100" style="padding-left:3px" class="labelmedium"  bgcolor="fafafa"><cf_tl id="Transaction date">:</td>
 		<td width="80" style="padding-left:3px" class="labelmedium"  bgcolor="fafafa"><cf_tl id="Transaction period">:</td>
         <td width="30%" colspan="2" style="padding-left:3px" class="labelmedium"  bgcolor="fafafa">
@@ -1775,8 +1775,9 @@ function del(jrn,ser) {
 					
 					</cfif>
 					
-					<!--- check process access --->		
-															
+					<!--- check process access --->
+				  	<cftransaction isolation="serializable">
+					
 					 <cfquery name="checkadvances"
 		               datasource="AppsLedger" 
 		               username="#SESSION.login#" 
@@ -1827,7 +1828,8 @@ function del(jrn,ser) {
 						 									 
 						ORDER BY TransactionDate					
 					</cfquery>
-										
+					</cftransaction>
+					
 					<cfif checkadvances.recordcount gt "0">
 						<td style="padding-left:10px;padding-right:10px">|</td>
 						<td class="labelmedium">

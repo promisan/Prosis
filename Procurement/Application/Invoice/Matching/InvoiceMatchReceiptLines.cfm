@@ -2,6 +2,7 @@
  <!--- show receipt mapping screen --->
 
 <tr><td colspan="7" style="padding-top:5px;padding-left:13px">
+
 	 
 <table width="100%" align="center">
 
@@ -55,8 +56,8 @@
 			   <td><!--- Purchase ---></td>
 			   <td colspan="2" style="border-left:1px solid silver;padding-left:4px"><cf_tl id="Delivery"></td>
 			   <td width="30%" colspan="2" style="padding-left:4px;border-left:1px solid silver;border-bottom:1px dotted silver"><cf_tl id="Product"></td>						  
-			   <td style="padding-left:4px;border-left:1px solid silver">Qty</td>
-			   <td align="center" style="padding-left:4px;border-left:1px solid silver">Curr.</td>
+			   <td style="padding-left:4px;border-left:1px solid silver"><cf_tl id="Qty"></td>
+			   <td align="center" style="padding-left:4px;border-left:1px solid silver"><cf_tl id="Curr">.</td>
 			   <td colspan="2" align="left" style="padding-left:4px;border-left:1px solid silver;padding-right:2px;border-bottom:1px dotted silver"><cf_tl id="Receipt"></td>
 			   <cfif Parameter1.InvoiceMatchPriceActual neq "0">
 			   <td colspan="3" align="left" style="padding-left:4px;border-left:1px solid silver;padding-right:2px;border-bottom:1px dotted silver"><cf_tl id="On Invoice"></td>						   						  
@@ -76,11 +77,11 @@
 			   <td style="width:50px;padding-left:4px;border:1px solid silver"></td>
 			   <td align="center" style="width:50px;border:1px solid silver"></td>
 			   <td align="right" style="width:100px;border:1px solid silver"><cf_tl id="Price"></td>
-			   <td align="right" style="width:100px;border:1px solid silver;padding-right:2px"><cf_tl id="Amount"></td>
+			   <td align="right" style="width:90px;border:1px solid silver;padding-right:2px"><cf_tl id="Amount"></td>
 			   <cfif Parameter1.InvoiceMatchPriceActual neq "0">
-			   <td align="right" style="width:100px;border:1px solid silver;padding-right:2px"><cf_tl id="Price"></td>
-			   <td align="right" style="width:100px;border:1px solid silver;padding-right:2px"><cf_tl id="Tax"></td>
-			   <td align="right" style="width:100px;border:1px solid silver;padding-right:2px"><cf_tl id="Amount"></td>
+			   <td align="right" style="width:90px;border:1px solid silver;padding-right:2px"><cf_tl id="Price"></td>
+			   <td align="right" style="width:90px;border:1px solid silver;padding-right:2px"><cf_tl id="Tax"></td>
+			   <td align="right" style="width:90px;border:1px solid silver;padding-right:2px"><cf_tl id="Amount"></td>
 			   </cfif>
 			   <td width="2%" style="border:1px solid silver"></td>
 				  
@@ -259,22 +260,24 @@
 								
 				<!--- receipt currency != invoice currency --->
 				<cfif Currency neq Invoice.DocumentCurrency>
-								
+										
 					<cfquery name="CheckCurrency" 
 						datasource="AppsLedger" 
 						username="#SESSION.login#" 
 						password="#SESSION.dbpw#">
 					    SELECT  *
-		                FROM    Currency C
+		                FROM    CurrencyExchange C
 						WHERE   Currency = '#Invoice.DocumentCurrency#' 
+						AND     EffectiveDate <= '#Invoice.DocumentDate#'
+						ORDER BY EffectiveDate DESC
 					</cfquery>
-					
+															
 					<!--- show receipt amount expressed in the invoice currency --->
-					#checkcurrency.Exchangerate#										
+																							
 					<cfset amt = ReceiptAmountBase*CheckCurrency.ExchangeRate>
 														
 				<cfelse>
-				
+												
 					<cfset amt = ReceiptAmount>
 													
 				</cfif>
@@ -325,7 +328,7 @@
 						</cfif>								
 						
 						</td>								
-						<td style="min-width:200px;padding-left:4px;border-left:1px solid silver">#ReceiptItem#</td>
+						<td style="min-width:200px;padding-left:4px;border-left:1px solid silver">#left(ReceiptItem,40)#</td>
 						<td style="padding-left:4px;border-left:1px solid silver">#ReceiptItemNo#</td>
 					    <td align="right" style="max-width:60px;padding-left:4px;border-left:1px solid silver;padding-right:3px">#numberformat(ReceiptQuantity,',__')#</td>
 						<td style="padding-left:4px;border-left:1px solid silver" align="center">#Invoice.DocumentCurrency#</td>
@@ -359,7 +362,7 @@
 															
 							</td>
 							
-							<td align="right" style="padding-right:3px;border-left:1px solid silver;width:80px">#numberformat(ReceiptTax*100,'__._')#%</td>
+							<td align="right" style="padding-right:3px;border-left:1px solid silver;width:80px">#numberformat(ReceiptTax*100,'._')#%</td>
 							
 							<td align="right" 
 							    style="border-left:1px solid silver;padding-right:4px" 

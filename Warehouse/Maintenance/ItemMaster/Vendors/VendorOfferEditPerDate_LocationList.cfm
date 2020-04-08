@@ -132,26 +132,24 @@
 		<table width="100%" align="center">
 			<cfset vColumns = 7>
 			<tr><td height="1" class="line" colspan="<cfoutput>#vColumns#</cfoutput>"></td></tr>
-			<tr>
+			<tr class="labelmedium line">
 				<td height="20" width="20"></td>
-				<td class="labelmedium"><cf_tl id="Price Location"></td>	
-				<td class="labelmedium"><cf_tl id="Fixed"></td>
-				<td class="labelmedium"><cf_tl id="Variable"></td>	
+				<td><cf_tl id="Price Location"></td>	
+				<td><cf_tl id="Fixed"></td>
+				<td><cf_tl id="Variable"></td>	
 				<!---
 				<td><cf_tl id="Price"></td>
 				--->
-				<td class="labelmedium"><cf_tl id="Tax"></td>
-				<td align="center" class="labelmedium"><cf_tl id="Tax Included"></td>
+				<td><cf_tl id="Tax"></td>
+				<td align="center"><cf_tl id="Tax Included"></td>
 				<td width="20"></td>
 			</tr>
-			<tr><td height="1" class="line" colspan="<cfoutput>#vColumns#</cfoutput>"></td></tr>
-			<tr><td height="5"></td></tr>
-			
+						
 			<cfoutput query="get" group="LocationClass">					
-				<tr><td colspan="#vColumns#" class="labelmedium">#LocationClassDescription#</td></tr>
+				<tr class="labelmedium"><td colspan="#vColumns#">#LocationClassDescription#</td></tr>
 				<cfoutput>
 				
-					<tr style="height:40px" onMouseOver="this.bgColor='FFFFCF'" onMouseOut="this.bgColor='FFFFFF'" bgcolor="FFFFFF">
+					<tr style="height:30px" onMouseOver="this.bgColor='FFFFCF'" onMouseOut="this.bgColor='FFFFFF'" bgcolor="FFFFFF">
 						<td></td>
 						<cfset vLocationFormatted = replace("#get.location#","-","","ALL")>
 						<input type="Hidden" name="location_#vLocationFormatted#" id="location_#vLocationFormatted#" value="#get.location#">
@@ -209,16 +207,18 @@
 <tr><td height="10"></td></tr>
 
 <cfif url.offerId eq "" or get.offerid eq url.offerid>
-<tr>
-	<td colspan="2" align="center">
-		<input	mode        = "silver"
-				value       = "Save" 
-				type        = "Submit"
-				class       = "button10g"
-				id          = "save"> 
-	</td>
-</tr>
+	
+	<tr>
+		<td colspan="2" align="center">
+			<input	mode        = "silver"
+					value       = "Save" 
+					type        = "Submit"
+					class       = "button10g"
+					id          = "save"> 
+		</td>
+	</tr>
+	
 </cfif>
+
 </table>
-<!-- </cfform> -->
-		
+<!-- </cfform> -->		

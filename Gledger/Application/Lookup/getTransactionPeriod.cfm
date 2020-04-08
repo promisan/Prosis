@@ -18,7 +18,7 @@ password="#SESSION.dbpw#">
 	ORDER BY  TransactionPeriod DESC
 </cfquery>
 
-<select id="transactionperiod" name="TransactionPeriod" class="regularxl" onchange="reloadForm()">
+<select id="transactionperiod" name="TransactionPeriod" class="regularxl" style="border:0px" onchange="reloadForm()">
 
     <option value="" selected>All</option>
 	<cfoutput query="Period">

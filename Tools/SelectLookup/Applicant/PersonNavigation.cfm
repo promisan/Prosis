@@ -4,9 +4,8 @@
 <cfset nav = "#SESSION.root#/tools/selectlookup/Applicant/PersonResult.cfm?height=#url.height#&close=#url.close#&box=#box#&link=#url.link#&des1=#des1#&filter1=#url.filter1#&filter1value=#url.filter1value#&filter2=#url.filter2#&filter2value=#url.filter2value#&filter3=#url.filter3#&filter3value=#url.filter3value#">
 
 <table width="100%" cellspacing="0" cellpadding="0">
-<tr><td colspan="2" class="linedotted"></td></tr>
-<tr>
-	<td class="labelit">
+<tr class="line labelmedium">
+	<td>
 	 &nbsp;<cf_tl id="Record"> <b>#First#</b> <cf_tl id="to2"> <b><cfif Last gt Counted>#Counted#<cfelse>#Last#</cfif></b> <cf_tl id="of"> <b>#Counted#</b> <cf_tl id="selected records"> 
 	</td>
 	<td align="right" style="padding-right:10px">
@@ -20,7 +19,7 @@
 	   
 	</td>	
 </tr>						
-<tr><td colspan="2" class="linedotted"></td></tr>							
+					
 </table>	
 
 </cfoutput>						

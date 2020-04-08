@@ -3,6 +3,8 @@
 	<cfset URL.costcenter  = "All">
 </cfif>
 
+<CF_DropTable dbName="AppsQuery"  tblName="#SESSION.acc#GLedgerStandard">
+
 <cfquery name="GLAccount"
 datasource="AppsLedger" 
 username="#SESSION.login#" 
@@ -17,7 +19,8 @@ password="#SESSION.dbpw#">
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
 				
-		    SELECT T.*, 
+		    SELECT 
+			       T.*, 
 			       J.TransactionPeriod as HeaderTransactionPeriod,
 			       J.TransactionCategory, 
 				   J.TransactionReference,
@@ -33,31 +36,34 @@ password="#SESSION.dbpw#">
 				    WHERE    Currency       = '#curr#'
 					AND      EffectiveDate <= T.TransactionDate
 					ORDER BY EffectiveDate DESC) as DateExchangeRate
+					
+			INTO  userQuery.dbo.#SESSION.acc#GLedgerStandard
 				   
 			FROM   TransactionLine T INNER JOIN TransactionHeader J ON T.Journal = J.Journal and T.JournalSerialNo = J.JournalSerialNo
 			
 			WHERE  T.GLAccount = '#URL.Account#'
 			
-			
 			<cfif Category.recordcount eq "1">
-			AND   J.Journal IN (SELECT Journal 
-			                    FROM   Journal 
-							    WHERE  GLCategory = '#URL.GLCategory#')
+			AND    J.Journal IN (SELECT Journal 
+			                     FROM   Journal 
+							     WHERE  GLCategory = '#URL.GLCategory#')
 			</cfif>
 			
 			<cfif URL.Period neq "All">
-				AND  T.AccountPeriod = '#URL.Period#' 
+			AND    J.AccountPeriod = '#URL.Period#' 
 			<cfelse>
-				AND  J.Journal NOT IN (SELECT Journal FROM Journal WHERE SystemJournal = 'Opening')
+			AND    J.Journal NOT IN (SELECT Journal FROM Journal WHERE SystemJournal = 'Opening')
 			</cfif>
 			
 			<cfif url.find neq "">
-				AND    (J.JournalTransactionNo LIKE '%#url.find#%' 
+				AND    (
+				        J.JournalTransactionNo LIKE '%#url.find#%' 
 						OR J.JournalSerialNo LIKE '%#url.find#%'
 						OR J.TransactionReference  LIKE '%#url.find#%'
 						OR J.Description LIKE '%#url.find#%'
-						OR J.ReferenceName LIKE '%#url.find#%' )
- 
+						OR J.Journal LIKE '%#url.find#%'
+						OR J.ReferenceName LIKE '%#url.find#%'
+					   ) 
 			</cfif>
 			
 			<cfif url.class eq "Debit">
@@ -87,9 +93,8 @@ password="#SESSION.dbpw#">
 			AND	   J.OrgUnitOwner IN ('#URL.owner#')			
 			</cfif>
 			
-			<!--- RFUENTES 12/10/2015 added: to filter only valid transactions ----->
-			AND J.RecordStatus    != '9'
-			AND J.ActionStatus 	  != '9'
+			AND  J.RecordStatus    IN ( '1')
+	   	    AND  J.ActionStatus    IN ('0','1')
 			
 			<cfif URL.ID eq "Created">
 			ORDER BY T.Created 
@@ -98,9 +103,33 @@ password="#SESSION.dbpw#">
 			<cfelseif URL.ID eq "JournalTransactionNo">
 			ORDER BY J.JournalTransactionNo, T.ReferenceId
 			<cfelseif URL.ID eq "TransactionPeriod">
-			ORDER BY J.TransactionPeriod
+			ORDER BY J.TransactionPeriod, J.TransactionDate
 			<cfelse>
-			ORDER BY T.#URL.ID# 
-			</cfif>		
+			ORDER BY T.#URL.ID#, J.TransactionDate 
+			</cfif>	
+			
+						
 		</cfquery>
+						
+<!--- now we pass --->
+
+<cfquery name="SearchResult" 
+		datasource="AppsLedger" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">	
+		SELECT     *
+		FROM       userQuery.dbo.#SESSION.acc#GLedgerStandard	
+		<cfif URL.ID eq "Created">
+			ORDER BY Created 
+		<cfelseif URL.ID eq "DocumentDate">
+			ORDER BY DocumentDate 
+		<cfelseif URL.ID eq "JournalTransactionNo">
+			ORDER BY JournalTransactionNo, ReferenceId
+		<cfelseif URL.ID eq "TransactionPeriod">			
+			ORDER BY HeaderTransactionPeriod, TransactionDate
+		<cfelse>
+			ORDER BY #URL.ID# 
+		</cfif>				
+</cfquery>		
+		
 		

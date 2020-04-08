@@ -1,10 +1,10 @@
 
-<cf_screentop height="100%" 
-              html="Yes" 
+<cf_screentop height="100%"               
 			  banner="gray" 
 			  layout="webapp" 
 			  band="No" 
 			  scroll="No"
+			  html="No"			  
 			  label="Find User Account"			  
 			  systemmodule="System" 
 			  close="parent.ColdFusion.Window.destroy('userdialog',true)"
@@ -20,13 +20,13 @@
 <cfparam name="URL.ID3"  default="">
 <cfparam name="URL.ID4"  default="">
 
-<table style="width:100%;height:100%" class="formpadding">
+<table style="width:100%;height:100%">
 
 <tr><td style="width:100%;height:100%" valign="top">
 
 <FORM target="result" action="UserSearchCriteria.cfm?Form=<cfoutput>#URL.Form#&ID=#URL.Id#&ID1=#URL.ID1#&ID2=#URL.ID2#&ID3=#URL.ID3#&ID4=#URL.ID4#</cfoutput>" method="post">
 
-<table width="90%" align="center" class="formpadding formspacing">
+<table width="90%" align="center" class="formpadding">
 
     <tr><td height="7"></td></tr>
   

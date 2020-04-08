@@ -1,9 +1,3 @@
-<cf_compression>
-
-<cfinvoke component="Service.Presentation.Presentation" 
-       		   method="highlight" 
-			   class="highlight2"
-			   returnvariable="stylescroll"/>
 			   
 <cfquery name="Doc" 
 	datasource="AppsVacancy" 
@@ -63,7 +57,7 @@ password="#SESSION.dbpw#">
 
 <table width="99%" align="center" border="0" bgcolor="white" cellspacing="0" cellpadding="0" align="center" id="selected">
 
-<tr class="line"><td align="center" style="height:40px;padding-left:8px;font-size:20px" class="labelmedium"><cf_tl id="Selected Candidates"></td></tr>
+<tr class="line"><td style="height:27px;padding-left:8px;font-size:17px;font-weight:bold" class="labelmedium"><cf_tl id="Selected"></td></tr>
 
 <tr><td>
 
@@ -218,7 +212,7 @@ password="#SESSION.dbpw#">
 
 </td></tr>
 
-<tr><td height="3"></td></tr>
+<tr class="line"><td height="3"></td></tr>
 
 </table>
 

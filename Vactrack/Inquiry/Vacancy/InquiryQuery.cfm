@@ -54,7 +54,7 @@
 </cfif>
 
 <cfif FORM.Post neq "">
-	<CFSET Criteria = "#Criteria# AND (V.PositionNo LIKE ('#Form.Post#') OR V.PositionNO IN ( SELECT PositionNo FROM Employee.dbo.Position WHERE SourcePostNumber LIKE ('#Form.Post#%') ))">
+	<CFSET Criteria = "#Criteria# AND (V.PositionNo LIKE ('%#Form.Post#%') OR V.PositionNO IN ( SELECT PositionNo FROM Employee.dbo.Position WHERE SourcePostNumber LIKE ('%#Form.Post#%') ))">
 </cfif>
 
 <cfif Form.Class IS NOT 'All'>
@@ -100,6 +100,8 @@
 <cfelse>
 	 <cfset join2 = "LEFT OUTER JOIN">
 </cfif>
+
+<cfset join2 = "LEFT OUTER JOIN">
 
 <cfset FileNo = round(Rand()*10)>
 
@@ -167,6 +169,7 @@
 	datasource="appsVacancy" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">		
+	
 		SELECT      DISTINCT V.DocumentNo, 
 		            V.Mission, 
 					V.ActionClass, 

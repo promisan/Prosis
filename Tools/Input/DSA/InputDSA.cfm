@@ -46,7 +46,7 @@
 	
 	<tr><td style="min-width:100">
 		
-		<select name="dsa_country_<cfoutput>#attributes.line#</cfoutput>" class="<cfoutput>#attributes.class#</cfoutput> enterastab">
+		<select name="dsa_country_<cfoutput>#attributes.line#</cfoutput>" style="border:0px;border-right:1px solid silver;width:100%;" class="<cfoutput>#attributes.class#</cfoutput> enterastab">
 			<cfoutput query="getCountry">
 				<option value="#LocationCountry#" <cfif getSelect.locationcountry eq LocationCountry>selected</cfif>>#LocationCountry# #Name#</option>
 			</cfoutput>

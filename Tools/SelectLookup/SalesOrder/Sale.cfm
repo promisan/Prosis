@@ -10,7 +10,7 @@
 
 <cfoutput>
 
-<table width="95%" height="100%" align="center">
+<table width="98%" height="100%" align="center">
 
 	<tr class="line"><td style="padding-top:5px">
 		
@@ -30,7 +30,7 @@
 			<INPUT type="hidden" name="Crit4_FieldName" id="Crit4_FieldName" value="BatchNo">			
 			<INPUT type="hidden" name="Crit4_FieldType" id="Crit4_FieldType" value="CHAR">
 			
-			<TD style="padding-left:5px;font-size:20px"><cf_tl id="Sales No">:</TD>
+			<TD style="padding-left:5px;font-size:20px"><cf_tl id="Sales No"></TD>
 			<TD class="hide">
 			      <SELECT name="Crit4_Operator" id="Crit4_Operator" style="height:25;width:60px;font:18px">
 					#SelectOptions#
@@ -43,7 +43,7 @@
 			<INPUT type="hidden" name="Crit1_FieldName" id="Crit1_FieldName" value="CustomerName">			
 			<INPUT type="hidden" name="Crit1_FieldType" id="Crit1_FieldType" value="CHAR">
 						
-			<TD style="font-size:20px"><cf_tl id="Customer">:</TD>
+			<TD style="font-size:20px"><cf_tl id="Customer"></TD>
 			<TD class="hide"><SELECT name="Crit1_Operator" id="Crit1_Operator" style="height:25;font:18px">
 					#SelectOptions#
 				</SELECT>
@@ -55,7 +55,7 @@
 			<INPUT type="hidden" name="Crit2_FieldName" id="Crit2_FieldName" value="CustomerInvoice">
 			<INPUT type="hidden" name="Crit2_FieldType" id="Crit2_FieldType" value="CHAR">
 		
-			<TD style="padding-left:5px;font-size:20px"><cf_tl id="Customer invoice">:</TD>
+			<TD style="padding-left:5px;font-size:20px"><cf_tl id="Invoice"></TD>
 			<TD class="hide"><SELECT name="Crit2_Operator" id="Crit2_Operator" style="height:25;font:18px">
 					#SelectOptions#
 				</SELECT>
@@ -68,7 +68,7 @@
 			<INPUT type="hidden" name="Crit3_FieldName" id="Crit3_FieldName" value="Reference">	
 			<INPUT type="hidden" name="Crit3_FieldType" id="Crit3_FieldType" value="CHAR">
 			
-			<TD style="padding-left:5px;font-size:20px"><cf_tl id="Reference">:</TD>
+			<TD style="padding-left:5px;font-size:20px"><cf_tl id="Reference"></TD>
 			<TD class="hide"><SELECT name="Crit3_Operator" id="Crit3_Operator" style="height:25px;width:100;font:18px">
 					#SelectOptions#
 				</SELECT>
@@ -85,7 +85,7 @@
 					text		= "#lt_text#" 
 					id			= "salesearch"  
 					textsize	= "20px" 
-					width		= "150px"
+					width		= "120px"
 					height		= "35px"
 					borderRadius= "3px" 
 					onclick		= "_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/tools/selectlookup/SalesOrder/SaleResult.cfm?page=1&close=#url.close#&box=#box#&link=#link#&des1=#des1#&filter1=#filter1#&filter1value=#filter1value#&filter2=#filter2#&filter2value=#filter2value#','#url.box#result','','','POST','selectsale')">		   

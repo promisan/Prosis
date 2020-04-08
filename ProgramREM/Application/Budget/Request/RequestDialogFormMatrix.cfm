@@ -1,4 +1,5 @@
 
+
 <!--- apply labels --->
 
 <cfquery name="Master" 
@@ -156,6 +157,7 @@
 		ORDER BY  DateYear, AuditDate 
 </cfquery>
 
+
 <cfif Dates.recordcount eq "0">
 
 	<table width="100%" style="border:1px dotted silver" bordercolor="e4e4e4" width="100%" align="center">
@@ -171,8 +173,8 @@
 	
 	<table width="100%" cellspacing="0" cellpadding="0">
 	
-	<tr><td style="border-radius:1px;border:1px solid silver">
-	
+	<tr><td style="border:1px solid silver">
+		
 	<table width="100%" cellspacing="0" cellpadding="0" class="navigation_table">
 	
 	<!--- ajax calculation box --->
@@ -210,7 +212,7 @@
 	
 	<cfloop query="dates">
 	 
-	  <td align="center" bgcolor="e4e4e4" style="padding-top:0px;font-size:10px;border-top:1px solid silver" class="labelit">#dateformat(AuditDate,"M")#
+	  <td align="center" bgcolor="e4e4e4" style="padding-top:0px;font-size:10px;border-top:1px solid silver" class="labelit">#dateformat(AuditDate,"MMM")#
 	    <cf_space spaces="4">   
 	  </td>
 	  
@@ -229,9 +231,10 @@
 	</td>
 		
 	</tr>
+
 		
-	<cfif mode.BudgetEntryPosition eq "0">			
-		<cfinclude template="RequestDialogFormMatrixItemMaster.cfm">		
+	<cfif mode.BudgetEntryPosition eq "0">		
+			<cfinclude template="RequestDialogFormMatrixItemMaster.cfm">		
 	<cfelse>		
 		<cfinclude template="RequestDialogFormMatrixPosition.cfm">	
 	</cfif>	
@@ -241,7 +244,7 @@
 	<!--- ------------ --->
 	
 	<tr>
-	 <td style="border-bottom:0px dotted silver;padding-left:10px;border-top:1px solid silver;" colspan="1" class="labelit"><cf_tl id="Subtotal"></td>
+	 <td style="padding-left:10px;border-top:1px solid silver;" colspan="1" class="labelit"><cf_tl id="Subtotal"></td>
 	 
 		 	 
 	  <cfloop query="dates">

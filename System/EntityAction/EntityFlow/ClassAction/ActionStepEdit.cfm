@@ -59,7 +59,7 @@
 
 <cf_textareascript>
 <cf_LayoutScript>
-<cf_UIGadgets>
+
 	
 <table style="height:100%" width="100%" align="center">
 

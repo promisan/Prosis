@@ -125,8 +125,8 @@ password="#SESSION.dbpw#">
 	<cfelse>	
 			
 	    <TR>
-	    <TD class="labelmedium"><cf_tl id="Facility Class">:</TD>
-	    <TD>	
+	    <TD style="width:30%" class="labelmedium"><cf_tl id="Facility Class">:</TD>
+	    <TD style="width:70%">	
 		    	 
 			<cfselect name="WarehouseClass" 
 			   style="font:10px" query="getClass" 
@@ -489,7 +489,7 @@ password="#SESSION.dbpw#">
 <tr><td colspan="2" height="20" style="border-bottom:1px dotted silver">
 	
 		<table width="100%" cellspacing="0" cellpadding="0">
-		<tr><td class="labellarge" style="height:40px;font-size:27px">
+		<tr><td class="labellarge" style="padding-left:33px;height:40px;font-size:27px">
 		<cf_tl id="Settings for Operations">
 		</td>
 		<td align="right" style="padding-right:30px">
@@ -508,7 +508,7 @@ password="#SESSION.dbpw#">
 	</td></tr>
 						  
 	<tr>
-	<td class="labelmedium" style="padding-left:8px"><cf_UIToolTip tooltip="This storage location can be used in a request direction process"><cf_tl id="Stock Distributor">:</cf_UIToolTip></td>
+	<td class="labelmedium" style="padding-left:33px"><cf_UIToolTip tooltip="This storage location can be used in a request direction process"><cf_tl id="Stock Distributor">:</cf_UIToolTip></td>
 	<td>   
 	   <table cellspacing="0" cellpadding="0"><tr><td>	
 	   <input type="checkbox" class="radiol" name="Distribution" id="Distribution" value="1" <cfif "1" eq get.Distribution>checked</cfif>>					
@@ -522,7 +522,7 @@ password="#SESSION.dbpw#">
 	</tr>	
 	
     <TR>
-    <TD class="labelmedium" style="padding-left:8px"><cf_tl id="Parent Facility">:</TD>
+    <TD class="labelmedium" style="padding-left:33px"><cf_tl id="Parent Facility">:</TD>
 	
     <TD id="supply">
 	
@@ -585,7 +585,7 @@ password="#SESSION.dbpw#">
 		
 			
 	<tr>
-	<td class="labelmedium" height="20" style="padding-left:8px"><cf_UIToolTip tooltip="Taskorder Sourcing"><cf_tl id="Tasking Mode"></cf_UIToolTip>:</td>
+	<td class="labelmedium" height="20" style="padding-left:33px"><cf_UIToolTip tooltip="Taskorder Sourcing"><cf_tl id="Tasking Mode"></cf_UIToolTip>:</td>
 	<td>   
 	   <table cellspacing="0" cellpadding="0">
 	   <tr><td>
@@ -599,7 +599,7 @@ password="#SESSION.dbpw#">
 	</tr>				
 			
 	<tr>
-	<td height="20" class="labelmedium" style="padding-left:8px"><cf_UIToolTip tooltip="Mode under which items to be transferred are transferred are accepted in this warehouse"><cf_tl id="Receipt Mode"></cf_UIToolTip>:</td>
+	<td height="20" class="labelmedium" style="padding-left:33px"><cf_UIToolTip tooltip="Mode under which items to be transferred are transferred are accepted in this warehouse"><cf_tl id="Receipt Mode"></cf_UIToolTip>:</td>
 	<td>   
 	   <table cellspacing="0" cellpadding="0">
 	   <tr><td>
@@ -616,7 +616,7 @@ password="#SESSION.dbpw#">
 	</tr>	
 			
     <TR>
-    <TD valign="top" class="labelmedium" style="padding-top:4px;padding-left:8px"><cf_tl id="Stock Managed">:</TD>
+    <TD valign="top" class="labelmedium" style="padding-top:4px;padding-left:33px"><cf_tl id="Stock Managed">:</TD>
     <TD style="width:500">
 		<cfdiv id="#url.id1#_list" bind="url:Category/CategoryListing.cfm?ID1=#url.id1#">
 	</TD>
@@ -624,7 +624,7 @@ password="#SESSION.dbpw#">
 	
 	
 	<TR>
-	    <TD class="labelmedium" style="padding-left:8px"><cf_UIToolTip tooltip="Default Sale Currency"><cf_tl id="Sale Mode">:</cf_UIToolTip></TD>
+	    <TD class="labelmedium" style="padding-left:33px"><cf_UIToolTip tooltip="Default Sale Currency"><cf_tl id="Sale Mode">:</cf_UIToolTip></TD>
 	    <TD>
 		
 			<table cellspacing="0" cellpadding="0">

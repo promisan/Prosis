@@ -111,10 +111,10 @@ password="#SESSION.dbpw#">
 				
 				<td></td>
 				
-				<td style="padding-left:10px" class="labelit"><cf_tl id="Actor">:</td>
+				<td style="padding-left:10px" class="labelit"><cf_tl id="Actor"></td>
 											
 					<td class="label" style="color:gray;padding-left:12px">	
-					  <select class="regularxl" id="fldactor_#thisDivName#" onchange="doChangeActor('#link#','#URL.mission#',this,document.getElementById('fldsort_#thisDivName#'),document.getElementById('fldstage_#thisDivName#').value,'#thisDivName#')">					 		
+					  <select class="regularxl" id="fldactor_#thisDivName#" onchange="doChangeActor('#link#','#URL.mission#',this,document.getElementById('fldsort_#thisDivName#'),document.getElementById('fldstage_#thisDivName#'),'#thisDivName#')">					 		
 					       <option value="">ANY</option>
 						  <cfloop query="Actor">				  
 						  	<option value="#Account#" <cfif session.acc eq account and lastName neq "Pana">selected</cfif>>#FirstName# #LastName#</option>					  
@@ -124,7 +124,7 @@ password="#SESSION.dbpw#">
 					
 					<input type="hidden" id="fldstatus_#thisDivName#" value="0">	
 					
-				<td style="padding-left:10px" class="labelit"><cf_tl id="Distribution by">:</td>
+				<td style="padding-left:10px" class="labelit"><cf_tl id="Distribution"></td>
 								
 				<td class="labelit" style="color:gray;padding-left:12px">	
 				  <select class="regularxl" id="fldsort_#thisDivName#" onchange="doChangeActor('#link#','#URL.mission#',document.getElementById('fldactor_#thisDivName#'),this,document.getElementById('fldstage_#thisDivName#'),'#thisDivName#')">					 		
@@ -133,7 +133,7 @@ password="#SESSION.dbpw#">
 				  </select>	
 				</td>		
 				
-				<td style="padding-left:10px" class="labelit"><cf_tl id="Status">:</td>
+				<td style="padding-left:10px" class="labelit"><cf_tl id="Status"></td>
 								
 				<td class="labelit" style="color:gray;padding-left:12px">	
 				  <select class="regularxl" id="fldstage_#thisDivName#" onchange="doChangeActor('#link#','#URL.mission#',document.getElementById('fldactor_#thisDivName#'),document.getElementById('fldsort_#thisDivName#'),this,'#thisDivName#');">					 		

@@ -95,11 +95,13 @@ password="#SESSION.dbpw#">
 			</table>		
 
 		</td>
-		<td style="padding-left:4px"><img height="17" width="17" style="cursor:pointer" onclick="document.getElementById('BuyerDefault_#entryClass#').value='@requester'" 
+		<td style="padding-left:4px"><img height="17" width="17" style="cursor:pointer" onclick="document.getElementById('BuyerDefault_#entryClass#').value='@requester';document.getElementById('name0_#entryClass#').value='@requester'" 
 	     src="#session.root#/images/request.jpg" alt="Requester" border="0"></td>
 		 <td style="padding-left:8px" class="labelit">#application.basecurrency#</td>
 		 <td style="padding-left:4px">		 
-			 <cfinput  validate="float" style="text-align:right" tooltip="Threshold : if requisition exceeds the threshold amount the buyer will not receive the action" class="regularxl" type="Text" id="BuyerDefaultThreshold_#entryClass#" name="BuyerDefaultThreshold_#entryClass#" value="#BuyerDefaultThreshold#" required="No" size="4" maxlength="10">				 
+		 <cf_UITooltip tooltip="Threshold : if requisition exceeds the threshold amount the buyer will not receive the action">
+			 <cfinput validate="float" style="text-align:right" class="regularxl" type="Text" id="BuyerDefaultThreshold_#entryClass#" name="BuyerDefaultThreshold_#entryClass#" value="#BuyerDefaultThreshold#" required="No" size="4" maxlength="10">				 
+		 </cf_UITooltip>	 
 		 </td>
 	</tr>		
 	</table>		
@@ -111,7 +113,6 @@ password="#SESSION.dbpw#">
 	<table cellspacing="0" cellpadding="0" class="formspacing">
 	<tr><td>			  
 			<cfset link="ParameterEditJobEntryClassBuyer.cfm?serialno=1&entryclass=#entryClass#&defaultbuyer=#BuyerDefaultBackup#">
-
 			<cf_selectlookup
 			    box          = "sBuyerDefaultBackup_#entryClass#"
 			    link         = "#link#"
@@ -121,34 +122,25 @@ password="#SESSION.dbpw#">
 				iconheight   = "14"
 				close        = "Yes"
 				class        = "user"
-				des1         = "account">	
-
-		
+				des1         = "account">			
 		</td>			
 		<td>		  					  
-	    	<table width="100%">
-					    		
-	    		<tr>
-	    			<td>
+	    	<table width="100%">					    		
+	    		<tr><td>
 						<cfdiv id="sBuyerDefaultBackup_#entryClass#" bind="url:ParameterEditJobEntryClassBuyer.cfm?serialno=1&entryclass=#entryClass#&defaultbuyer=#BuyerDefaultBackup#">
 					</td>
 				</tr>
 			</table>		
 		</td>
 	 	<td style="padding-left:4px">
-	 		<img height="17" width="17" style="cursor:pointer" onclick="document.getElementById('BuyerDefaultBackup_#entryClass#').value='@requester'" 
-	     	src="#session.root#/images/request.jpg" alt="Requester" border="0">
+	 		<img height="17" width="17" style="cursor:pointer" onclick="document.getElementById('BuyerDefaultBackup_#entryClass#').value='@requester';;document.getElementById('name1_#entryClass#').value='@requester'" src="#session.root#/images/request.jpg" alt="Requester" border="0">
 	    </td>
-	 	<td style="padding-left:8px" class="labelit">
-	 		#application.basecurrency#
-	 	</td>	 
+	 	<td style="padding-left:8px" class="labelit">#application.basecurrency#</td>	 
 	 	<td style="padding-left:4px">
-			 <cfinput  validate="float" style="text-align:right"  class="regularxl" type="Text" id="BuyerDefaultBackupThreshold_#entryClass#" name="BuyerDefaultBackupThreshold_#entryClass#" value="#BuyerDefaultBackupThreshold#" required="No" size="4" maxlength="10">				 
+			 <cfinput validate="float" style="text-align:right"  class="regularxl" type="Text" id="BuyerDefaultBackupThreshold_#entryClass#" name="BuyerDefaultBackupThreshold_#entryClass#" value="#BuyerDefaultBackupThreshold#" required="No" size="4" maxlength="10">				 
 		 </td>	 
-	 </tr>
-		
+	</tr>		
 	</table>
-
 </tr>
 </cfoutput>
 

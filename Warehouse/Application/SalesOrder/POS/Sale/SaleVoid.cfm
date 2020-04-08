@@ -33,15 +33,16 @@
 <CFParam name="Attributes.width"  default="780">	
 <CFParam name="Attributes.Modal"  default="true">	
 			
-<cfset link = "#SESSION.root#/warehouse/application/SalesOrder/POS/Sale/applyCustomer.cfm?warehouse=#url.warehouse#&">
-			
-<cfset jvlink = "ProsisUI.createWindow('dialogcustomerbox', 'Customer', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,modal:#attributes.modal#,center:true});ColdFusion.navigate('#SESSION.root#/Tools/SelectLookup/Customer/Customer.cfm?datasource=appsMaterials&close=Yes&class=Customer&box=customerbox&link=#link#&dbtable=&des1=customerid&filter1=&filter1value=&filter2=&filter2value=','dialogcustomerbox')">		
+<cfset link   = "#SESSION.root#/warehouse/application/SalesOrder/POS/Sale/applyCustomer.cfm?warehouse=#url.warehouse#&">			
+<cfset jvlink = "ProsisUI.createWindow('dialogcustomerbox','Customer','',{x:100,y:100,height:document.body.clientHeight-80,width:#Attributes.width#,modal:#attributes.modal#,center:true});ColdFusion.navigate('#SESSION.root#/Tools/SelectLookup/Customer/Customer.cfm?datasource=appsMaterials&close=Yes&class=Customer&box=customerbox&link=#link#&dbtable=&des1=customerid&filter1=&filter1value=&filter2=&filter2value=','dialogcustomerbox')">		
 	
 <cfif getBatch.recordCount eq 1>
 
 	<cfif getBatch.BatchId neq "">
 	
-	    <table><tr><td valign="top">
+	    <table>
+		<tr>
+		<td valign="top">
 			
 			<cfset go = "0">
 
@@ -107,9 +108,8 @@
             <tr>
 				<td>			
 				
-                <button type="button" class="btn btn-lg btn-light" onclick="#jvlink#" style="height: 48px;width: 180px;padding: 4px 0 0 9px!important;text-align: left; margin-bottom:3px!important;">                                                       
-				<img src="#SESSION.root#/Images/Search-R-Blue.png" width="36"><span style="top:-12px;left: -2px;"><cf_tl id="Find Customer"></span>
-				</button>
+                <button type="button" class="btn btn-lg btn-light" onclick="#jvlink#" style="height: 40px;width: 180px;padding: 0 0 0 9px!important;text-align: left; margin-bottom:0px!important;">                                                       
+				<img src="#SESSION.root#/Images/Search-R-Blue.png" width="36"><cf_tl id="Find Customer"></button>
 				
 				</td>
 			</tr>
@@ -118,11 +118,9 @@
 			<tr>
 				<td>
 				
-                 <button type="button" class="btn btn-lg btn-light" style="height: 48px;width: 180px;padding: 4px 0 0 9px!important;text-align: left; margin-bottom:3px!important;"
+                 <button type="button" class="btn btn-lg btn-light" style="height: 40px;width: 180px;padding: 0 0 0 9px!important;text-align: left; margin-bottom:0px!important;"
 					  onclick="searchcombo('#getCustomer.mission#','#url.warehouse#','','switch','inmemory','up','','##customeridselect_val')">
-					  <img src="#SESSION.root#/Images/SwitchUser-Blue.png" width="36">
-					  <span style="top:-12px;left: -2px;"><cf_tl id="Switch Sale"></span>
-					</button>
+					  <img src="#SESSION.root#/Images/SwitchUser-Blue.png" width="36"><cf_tl id="Switch Sale"></button>
 				
 				</td>
 			</tr>                
@@ -156,7 +154,7 @@
 		            
             <tr>
 				<td>					
-                <button type="button" class="btn btn-lg btn-light" onclick="#jvlink#" style="height: 48px;width: 180px;padding: 4px 0 0 9px!important;text-align: left; margin-bottom:3px!important;">                                                       
+                <button type="button" class="btn btn-lg btn-light" onclick="#jvlink#" style="height: 40px;width: 180px;padding: 0 0 0 9px!important;text-align: left; margin-bottom:0px!important;">                                                       
 				<img src="#SESSION.root#/Images/Search-R-Blue.png" width="36"><span style="top:-12px;left: -2px;"><cf_tl id="Find Customer"></span>
 				</button>
 				</td>
@@ -167,7 +165,7 @@
 				<tr>
 					<td>
 					
-	                <button type="button" class="btn btn-lg btn-light" style="height: 48px;width: 180px;padding: 4px 0 0 9px!important;text-align: left; margin-bottom:3px!important;"
+	                <button type="button" class="btn btn-lg btn-light" style="height: 40px;width: 180px;padding: 0 0 0 9px!important;text-align: left; margin-bottom:0px!important;"
 					  onclick="searchcombo('#getCustomer.mission#','#url.warehouse#','','switch','inmemory','up','','##customeridselect_val')">
 					  <img src="#SESSION.root#/Images/SwitchUser-Blue.png" width="36">
 					  <span style="top:-12px;left: -2px;"><cf_tl id="Switch Sale"></span>

@@ -159,7 +159,7 @@
 					
 	<td width="250" valign="top" style="height:150px;padding-top:8px">
 	
-	  <table height="100%" cellspacing="0" cellpadding="0" border="0">
+	  <table height="100%" border="0">
 	 
 	 	  <tr><td valign="top" align="center" style="padding-top:7px;">
 		  				  
@@ -173,8 +173,7 @@
 					</cfif>						
 				    GROUP BY   EventTrigger,EventTriggerName    
 					ORDER BY   EventTriggerName
-			  </cfquery>	
-			  					
+			  </cfquery>				  					
 				
 			  <cfset vColorlist = "##D24D57,##52B3D9,##E08283,##E87E04,##81CFE0,##2ABB9B,##5C97BF,##9B59B6,##E08283,##663399,##4DAF7C,##87D37C">
 			  <cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
@@ -265,7 +264,7 @@
 				
 	<td valign="top" style="border-left:1px solid silver;border-bottom:1px solid silver;border-top:1px solid silver">
 		
-		<table width="100%" height="100%" cellspacing="0" cellpadding="0" align="center">
+		<table width="100%" height="100%" align="center">
 		
 		<cfif base.recordcount gte "800">
 		
@@ -282,13 +281,13 @@
 		<cfoutput>	
 				
 		<tr class="labelmedium">
-						
-			<td style="padding-left:5px;min-width:120px;width:100%;border-bottom:1px solid silver"><cf_tl id="Description"></td>		
+							
+			<td style="padding-left:5px;width:100%;border-bottom:1px solid silver"><cf_tl id="Event"></td>		
 			<cfloop index="mth" from="1" to="12">
-			<td colspan="<cfif url.stage eq "">2<cfelse>1</cfif>" style="min-width:#width#;border:1px solid silver;border-top:0px solid silver;<cfif mth eq 12>border-right:0px solid silver</cfif>" 
+			<td colspan="<cfif url.stage eq "">2<cfelse>1</cfif>" style="min-width:#width#px;border-bottom:1px solid silver;border-left:1px solid silver;<cfif mth eq 12>border-right:0px solid silver</cfif>" 
 			    align="center">#left(monthasstring(mth),3)#</td>
 			</cfloop>			
-			<td align="center" style="min-width:#width#;border:1px solid silver;border-top:0px solid silver;<cfif mth eq 12>border-right:0px solid silver</cfif>" colspan="2"><cf_tl id="Total"></td>
+			<td align="center" style="min-width:#width#px;border-bottom:1px solid silver;border-left:1px solid silver;<cfif mth eq 12>border-right:0px solid silver</cfif>" colspan="2"><cf_tl id="Total"></td>
 		
 		</tr>
 		
@@ -296,7 +295,8 @@
 		
 		<tr class="labelmedium line" bgcolor="f4f4f4" style="height:10px">
 		
-			<td style="width:100%"></td>		
+			<td style="width:100%"></td>	
+										
 			<cfloop index="mth" from="1" to="12">	
 			    <cfif url.stage eq "">		
 				<td align="center" bgcolor="yellow" style="font-size:10px;min-width:#width#px;border-left:1px solid silver">P</td>
@@ -316,10 +316,7 @@
 			<cfelse>				
 				<td align="center" bgcolor="B9F4C4" style="font-size:10px;min-width:#width#px;border-left:1px solid silver;border-right:1px solid silver">C</td>	
 			</cfif>
-			<!---
-			<td style="padding-left:2px;min-width:18px;"></td>
-			--->
-				
+							
 		</tr>
 		
 		</cfif>
@@ -334,49 +331,52 @@
 		 
 		 <cfset prior = "">
 		 
+		  <!---	
+		 
 		 <tr><td height="100%" colspan="28">
-		 	
-			 <!---	 
+				 	
+			 
 		     <cf_divscroll overflowy="scroll" style="height:100%">
-			 --->
-			 			 		 
+			 			 			 		 
 			 <table width="100%" border="0" cellspacing="0" cellpadding="0">
+			 
+			 --->
 			 
 			 <cfset trp = "border-left:1px solid silver;">
 			 
 			 <cfoutput>		 
 			 <tr>
 			
-					<td style="padding-left:4px;min-width:120px;width:100%"></td>		
+					<td style="padding-left:4px;width:100%"></td>		
 					<cfloop index="mth" from="1" to="12">	
 						<cfif url.stage eq "" or url.stage eq "Pending">		
-						<td align="center" style="background-color:##ffffaf50;min-width:#width#px;border-left:1px solid silver"></td>
+						<td align="center" style="background-color:##ffffaf50;min-width:#width#px;#trp#"></td>
 						</cfif>
 						<cfif url.stage eq "" or url.stage eq "Completed">
-						<td align="center" style="background-color:##B9F4C450;min-width:#width#px;border-left:1px solid silver"></td>					
+						<td align="center" style="background-color:##B9F4C450;min-width:#width#px;#trp#"></td>					
 						</cfif>
 					</cfloop>
 					<cfif url.stage eq "" or url.stage eq "Pending">
-					<td align="center" bgcolor="yellow" style="min-width:#width#px;border-left:1px solid silver"></td>
+					<td align="center" bgcolor="yellow" style="min-width:#width#px;#trp#"></td>
 					</cfif>
 					<cfif url.stage eq "" or url.stage eq "Completed">
-					<td align="center" bgcolor="B9F4C4" style="min-width:#width#px;border-left:1px solid silver;border-right:1px solid silver"></td>	
+					<td align="center" bgcolor="B9F4C4" style="min-width:#width#px;#trp#;border-right:1px solid silver"></td>	
 					</cfif>
 					
 				</tr>		
 				
 			</cfoutput>		
 			 								
-			 <cfoutput query="List">	
-			 										
+			 <cfoutput query="List">				 										
 								
 				<tr class="navigation_row line">
-				  <td width="100%" style="padding-left:4px">
-					  <table width="100%">
+				  <td style="width:100%">
+				  
+					  <table width="95%" align="right">
 					  <tr class="labelit">
-					  	<td style="height:10px;font-size:12px;">													
+					  	<td style="height:23px;font-size:12px">													
 							<cfif prior neq FieldRowName>
-							#left(FieldRowName,26)#
+							#left(FieldRowName,26)# 
 							<cfset prior = fieldRowName>
 							</cfif>
 						</td>
@@ -425,7 +425,9 @@
 				    <cfset arComplete[EventMonth]=Counted> 									   
 				  </cfloop> 
 				  				 
-				  <cfloop index="mth" from="1" to="12">			  
+				  <cfloop index="mth" from="1" to="12">
+				  
+				   	  
 													
 						<cfset pend = arPending[mth]>
 						
@@ -433,10 +435,10 @@
 						
 						<cfif url.stage eq "" or url.stage eq "Pending">
 							<cfif pend eq "0">																	
-								<td style="#trp#" align="center">-</td>						
+								<td style="#trp#;min-width:#width#px" align="center">-</td>						
 							<cfelse>							
 								<td onclick="doPersonEvent('#url.mission#','#unit#','#eventyear#','#url.sort#','#mth#','#user#','#url.layout#','#fieldrow#','P','#thisDivName#')" 
-								   style="#trp#;cursor:pointer;background-color:##FFFF0050" align="center">#pend#</td>														
+								   style="#trp#;min-width:#width#px;cursor:pointer;background-color:##FFFF0050" align="center">#pend#</td>														
 							</cfif>
 						</cfif>
 													
@@ -444,10 +446,10 @@
 						
 						<cfif url.stage eq "" or url.stage eq "Completed">										
 							<cfif cmpl eq "0">																	
-								<td style="#trp#" align="center">-</td>						
+								<td style="#trp#;min-width:#width#px" align="center">-</td>						
 							<cfelse>							
 								<td onclick="doPersonEvent('#url.mission#','#unit#','#eventyear#','#url.sort#','#mth#','#user#','#url.layout#','#fieldrow#','C','#thisDivName#')" 
-								   style="#trp#;cursor:pointer;background-color:##00FF4050" align="center">#cmpl#</td>														
+								   style="#trp#;min-width:#width#px;cursor:pointer;background-color:##00FF4050" align="center">#cmpl#</td>														
 							</cfif>						
 						</cfif>
 							
@@ -456,13 +458,13 @@
 				<cfset pend = ArraySum(arPending)>	
 				
 				<cfset thisDivName	="#LEFT(REPLACE(url.mission,"__","","ALL"),25)#YKK"> <!----throwing an error when selecting more than 7 entities---->
-				
+			
 				<cfif url.stage eq "" or url.stage eq "Pending">
 					<cfif pend eq "0">																	
-						<td style="#trp#" align="center">-</td>							
+						<td style="#trp#;min-width:#width#px" align="center">-</td>							
 					<cfelse>							
 						<td bgcolor="yellow" onclick="doPersonEvent('#url.mission#','#unit#','#eventyear#','#url.sort#','','#user#','#url.layout#','#fieldrow#','P','#thisDivName#')" 
-						    style="#trp#;cursor:pointer" align="center">#pend#</td>														
+						    style="#trp#;min-width:#width#px;cursor:pointer" align="center">#pend#</td>														
 					</cfif>
 				</cfif>
 								
@@ -470,10 +472,10 @@
 					
 				<cfif url.stage eq "" or url.stage eq "Completed">		
 					<cfif cmpl eq "0">						
-					<td align="center" style="#trp#;border-left:1px solid silver;border-right:1px solid silver">-</td>			  						
+					<td align="center" style="#trp#;min-width:#width#px;border-left:1px solid silver;border-right:1px solid silver">-</td>			  						
 					<cfelse>
 					<td align="center" bgcolor="00FF40" onclick="doPersonEvent('#url.mission#','#unit#','#eventyear#','#url.sort#','','#user#','#url.layout#','#fieldrow#','C','#thisDivName#')" 
-					    style="border-left:1px solid silver;border-right:1px solid silver">#cmpl#</td>			  												
+					    style="min-width:#width#px;border-left:1px solid silver;border-right:1px solid silver">#cmpl#</td>			  												
 					</cfif>		
 				</cfif>				
 				 
@@ -481,13 +483,17 @@
 				
 			</cfoutput>		
 			
+		 <!---	
+			
 			</table>
 		 
-		 <!---
+		
 		 </CF_DIVSCROLL>
-		 --->
+		 
 		 
 		 </td></tr>	
+		 
+		 --->
 		 
 		<cfoutput>
 		 
@@ -525,7 +531,6 @@
 		</cfloop> 	
 		
 		 
-		 
 		<tr class="navigation_row labelmedium">
 			  <td width="100%" style="padding-left:4px"><cf_tl id="Total"></td>
 			  
@@ -554,15 +559,13 @@
 			  <cfif url.stage eq "" or url.stage eq "Pending">
 			  <cfset pend = ArraySum(arPending)>										
 			  <td bgcolor="yellow" style="border-left:1px solid silver" align="center"
-  				onclick="doPersonEvent('#url.mission#','#unit#','#url.period#','#url.sort#','','#user#','#url.layout#','','P','#thisDivName#')">
-				#pend#</td>
+  				onclick="doPersonEvent('#url.mission#','#unit#','#url.period#','#url.sort#','','#user#','#url.layout#','','P','#thisDivName#')">#pend#</td>
 			  </cfif>
 			  
 			  <cfif url.stage eq "" or url.stage eq "Completed">				 						
 			  <cfset cmpl = ArraySum(arComplete)>							
 			  <td align="center" bgcolor="e4e4e4" style="border-left:1px solid silver;border-right:1px solid silver"
-				onclick="doPersonEvent('#url.mission#','#unit#','#url.period#','#url.sort#','','#user#','#url.layout#','','C','#thisDivName#')">
-				#cmpl#</td>		
+				onclick="doPersonEvent('#url.mission#','#unit#','#url.period#','#url.sort#','','#user#','#url.layout#','','C','#thisDivName#')">#cmpl#</td>		
 			   </cfif>	  
 			 
 			</tr>

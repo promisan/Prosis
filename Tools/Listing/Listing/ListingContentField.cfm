@@ -293,6 +293,8 @@
 																				
 			<cfelse>	
 			
+				<cfset fontcolor = "">
+			
 				<cfset inner = evaluate(current.formatted)>		
 											 
 				<cfif inner neq "" and current.functionscript neq "" and url.ajaxid eq "content"> <!--- somehow the inner would not work for a refresh --->
@@ -302,19 +304,17 @@
 						 
 						    <cfset cellstyle = "cursor:pointer;">
 							<cfset cellclick = "#current.functionscript#('#evaluate(current.functionfield)#','#url.systemfunctionid#','#current.functioncondition#')">							
-							<cfset fontcolor = "0080C0">							
+													
 							
 					 <cfelse>
-						 
-						 	<cfset fontcolor = "0080C0">							
+						 						 							
 						 	<cfset cellstyle = "cursor:pointer;">
 						    <cfset cellclick = "#current.functionscript#('#evaluate(current.field)#','#url.systemfunctionid#','#current.functioncondition#')">
 														
 					 </cfif>	 
 						  
 				<cfelseif inner neq "" and current.drilltemplate neq "">
-				
-						  <cfset fontcolor = "0080C0">					 
+										 				 
 					 	  <cfset cellstyle = "cursor:pointer;text-decoration: underline;">
 						  <cfset cellclick = "toggledrill('embed','box#dkey#','#current.drilltemplate#','#evaluate(current.functionfield)#','','','')">	  
 					 						  
@@ -342,10 +342,10 @@
 					<cfif colspan eq "1">										
 						<cfif current.align eq "left">					
 							<td style="#cellstyle#;#current.style#;padding-right:4px;color:#fontcolor#" class="#class#"
-							    onclick="listshowRow('#row#','#s#');#cellclick#" id="f#box#_#dkey#_#rowshow#_#cnt#">#inner#</td>										
+							    onclick="listshowRow('#row#','#s#');#cellclick#" id="f#box#_#dkey#_#rowshow#_#cnt#"><cfif cellclick neq ""><a>#inner#</a><cfelse>#inner#</cfif></td>										
 						<cfelse>
 							<td style="#cellstyle#;#current.style#;padding-right:4px;color:#fontcolor#" class="#class#"
-								align="#current.align#" onclick="listshowRow('#row#','#s#');#cellclick#" id="f#box#_#dkey#_#rowshow#_#cnt#">#inner#</td>													
+								align="#current.align#" onclick="listshowRow('#row#','#s#');#cellclick#" id="f#box#_#dkey#_#rowshow#_#cnt#"><cfif cellclick neq ""><a>#inner#</a><cfelse>#inner#</cfif></td>													
 						</cfif>						
 					<cfelse>					
 						<td style="#cellstyle#;#current.style#color:#fontcolor#" class="#class#" align="#current.align#"

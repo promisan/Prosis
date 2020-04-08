@@ -314,9 +314,7 @@ password="#SESSION.dbpw#">
 	</td>
 	
 	<td valign="top" align="right" style="padding-left:10px">
-
-		<cf_mapshow scope="embed" mode="edit" script="no" width="400" height="390">		
-			
+		<cf_mapshow scope="embed" mode="edit" script="no" width="400" height="390">							
 	</td>	
 	
 	</tr>	

@@ -1,20 +1,27 @@
 
 <cfset vContentHeight = "100%">		
 
+<cfset orderset = 0>
+<cfset col      = 0>
+<cfset total    = 0>
+<cfset showrows = 1>	
+
 <cf_divscroll id="_divContentFields" height="#vContentHeight#">
 
 	<cfoutput>
 	   		   
-		<table cellspacing="0" cellpadding="0" width="100%" border="0" style="padding-right:5px; border-collapse:separate;">
-		
-			<cfif searchresult.recordcount eq "0">						    								
-				<tr><td style="height:21" align="center" colspan="#cols#" class="labelmedium"><cf_tl id="NoRecords" var="tlNoRecords">#tlNoRecords#.</td></tr>							
-			</cfif>	
+		<table style="width:99%">
+							
+			<cfif searchresult.recordcount eq "0">					
+							    								
+				<tr><td style="height:50" align="center" colspan="#cols#" class="labelmedium"><cf_tl id="NoRecords" var="tlNoRecords">#tlNoRecords#.</td></tr>							
 			
-			<cfset stcl = "zzline"> 
-			<cfset stylescroll = "">	
+			<cfelse>
 			
-			<cfinclude template="ListingHeader.cfm">
+			 <cfset stcl = "header"> 						
+			 <cfinclude template="ListingHeader.cfm">
+				
+			</cfif>							
 			
 			<cfloop query="SearchResult" startrow="1" endrow="#last#">
 						
@@ -92,8 +99,8 @@
 					  
 					  <!--- grouping record --->
 																
-					  <tr bgcolor="f2f2f2">
-					  <td colspan="#cols-3#" class="labellarge" style="padding-left:5px;height:30px">	
+					  <tr class="line">
+					  <td colspan="#cols-3#" class="labellarge" style="font-weight:bold;padding-left:5px;height:30px">	
 					      
 						   <cfif findNoCase('00:00',evaluate(url.listgroupfield))>
 							 #dateformat(evaluate(url.listgroupfield),CLIENT.DateFormatShow)#
@@ -106,9 +113,9 @@
 						   </cfif>				 
 						   </td>		
 						   <cfif aggregate eq "">		 
-						   <td align="right" colspan="3" class="labelmedium" style="padding-top:4px;padding-bottom:2px;padding-right:10px">#subtotal.counted#</td>				 
+						   <td align="right" colspan="3" class="labelmedium" style="font-weight:bold;padding-top:4px;padding-bottom:2px;padding-right:10px">#subtotal.counted#</td>				 
 						   <cfelse>
-						   <td align="right" colspan="3" class="labelmedium" style="padding-top:4px;padding-bottom:2px;padding-right:10px">
+						   <td align="right" colspan="3" class="labelmedium" style="font-weight:bold;padding-top:4px;padding-bottom:2px;padding-right:10px">
 						   <cfif subtotal.counted gt "1">
 						   (#subtotal.counted#)&nbsp;
 						   </cfif>#evaluate(aggregateformat)#</td>	
@@ -217,8 +224,7 @@
 												
 						<cfif annotation neq "">		
 							
-							<td id="note#dkey#" align="center">		
-							    <cfif row eq "1"><cf_space spaces="7"></cfif>
+							<td id="note#dkey#" align="center">									    
 							   	<cfif doc.entityKeyField4 neq "">				
 									<cf_annotationshow entity="#annotation#" keyvalue4="#dkey#" docbox="note#dkey#">					   
 								<cfelse>				

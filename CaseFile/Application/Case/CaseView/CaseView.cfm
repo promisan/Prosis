@@ -1,5 +1,5 @@
 
-<cfajaximport tags="cfform,cfmenu,cfdiv,cfinput-datefield,cfinput-autosuggest,cfwindow">
+<cfajaximport tags="cfform,cfmenu,cfdiv,cfinput-autosuggest,cfwindow">
 
 <cf_ActionListingScript>
 <cf_FileLibraryScript>
@@ -228,14 +228,13 @@ function validateincident(id,box) {
 			
 				<cfif accessgranted gte accesslevelread and accessgranted neq "">		
 							
-					<cfset itm = itm+1>
-					
+					<cfset itm = itm+1>					
 					<cfif tabtemplate eq "element" or ModeOpen eq "Bind">						
 						<cf_menucontainer item="#itm#" class="hide">														
 					<cfelse>								
 					    <cf_menucontainer item="#itm#" class="hide">										
-							<cfinclude template="#TabTemplate#">
-					</cf_menucontainer>						
+						<cfinclude template="#TabTemplate#">
+					    </cf_menucontainer>						
 					</cfif>
 				
 				</cfif>

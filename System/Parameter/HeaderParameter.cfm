@@ -1,7 +1,6 @@
 
 <cf_screenTopMaintenance>
 
-
 <cfparam name="page"        default="1">
 <cfparam name="add"         default="1">
 <cfparam name="save"        default="0">
@@ -16,8 +15,6 @@
 <!--- ----------------------------------------------------------- --->		
 
 <cfoutput>
-
-<script type="text/javascript" src = "#SESSION.root#/Scripts/jQuery/jquery.js"></script>
 
 <script language="JavaScript">
 

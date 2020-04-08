@@ -19,13 +19,13 @@ password="#SESSION.dbpw#">
     WHERE 	D.DocumentNo = '#Object.ObjectKeyValue1#'	
 </cfquery>
 
-<table width="98%" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="white">
+<table width="98%" align="center" bgcolor="white">
          
   <tr>
     <td colspan="2">
-    <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+    <table width="100%" align="center" class="formpadding">
 			
-	<TR class="labelit">
+	<TR class="labelmedium line">
     <TD><cf_tl id="Functional title">:</TD>
     <td><cfoutput>#Doc.FunctionalTitle#</cfoutput></td>
 	<TD><cf_tl id="Grade deployment">:</TD>
@@ -35,8 +35,8 @@ password="#SESSION.dbpw#">
 	
 	<cf_calendarScript>
 	
-	<TR class="labelit">
-    <TD><cf_tl id="External VA No">:</TD>
+	<TR class="labelmedium line">
+    <TD><cf_tl id="Job No">:</TD>
     	
 	<cfif Doc.VAId neq "">
 				
@@ -60,17 +60,17 @@ password="#SESSION.dbpw#">
 	
 	</TR>	
 	
-	<TR class="labelit">
+	<TR class="labelmedium line">
     <td><cf_tl id="Date effective">:</td>
     <TD>
 	
 	    <cfoutput>
 		
 		<cf_intelliCalendarDate9
-		FieldName="DateEffective" 
-		class="regularxl"
-		Default="#Dateformat(Doc.VAEffective, CLIENT.DateFormatShow)#"
-		AllowBlank="False">	
+			FieldName="DateEffective" 
+			class="regularxl"
+			Default="#Dateformat(Doc.VAEffective, CLIENT.DateFormatShow)#"
+			AllowBlank="False">	
 		
 		<input name="Key1"       type="hidden"  value="#Object.ObjectKeyValue1#">
 	    <input name="savecustom" type="hidden"  value="Vactrack/Application/Announcement/DocumentSubmit.cfm">
@@ -89,9 +89,8 @@ password="#SESSION.dbpw#">
 			AllowBlank="False">	
 			
 	</td>
-	</TR>	
-		
-	<tr><td height="1" colspan="4" bgcolor="DFDFDF"></td></tr>	
+	</TR>		
+	
 	<tr><td height="2" colspan="4">
 			
 	<cfif Doc.VAId eq "">
@@ -108,18 +107,17 @@ password="#SESSION.dbpw#">
 		
 	<cfelse>
 		
-	   <cf_ApplicantTextArea
-		Table           = "FunctionOrganizationNotes" 
-		Domain          = "#url.wParam#"
-		FieldOutput     = "ProfileNotes"
-		Mode            = "Edit"
-		Key01           = "FunctionId"
-		Key01Value      = "#Doc.VAId#">
+		   <cf_ApplicantTextArea
+			Table           = "FunctionOrganizationNotes" 
+			Domain          = "#url.wParam#"
+			FieldOutput     = "ProfileNotes"
+			Mode            = "Edit"
+			Key01           = "FunctionId"
+			Key01Value      = "#Doc.VAId#">
 			
 	</cfif>	
 			
-	</td></tr>
-	
+	</td></tr>	
 		
 </TABLE>
 

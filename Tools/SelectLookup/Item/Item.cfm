@@ -1,5 +1,6 @@
 <cf_tl id = "Item Search" var = "vTitle">
 
+<!---
 <cf_screentop 
    label="#vTitle#"    
    height="100%" 
@@ -10,6 +11,8 @@
    layout="webapp" 
    banner="gray" 
    close="ColdFusion.Window.hide('dialog#url.box#')">
+   
+   --->
 
 <table align="center" bgcolor="FFFFFF" width="100%" height="100%">
 
@@ -127,7 +130,6 @@
 							</table>					
 						</TD>
 						</TR>				
-				
 				
 				</cfif>
 						

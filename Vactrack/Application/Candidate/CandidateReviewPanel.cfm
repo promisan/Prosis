@@ -83,7 +83,7 @@
 	</cfquery>
 
     <table width="99%" align="center" border="0" cellspacing="0" cellpadding="0" class="formpadding">			
-    <tr class="labelit linedotted">
+    <tr class="labelmedium line">
 	   <td></td>
        <td height="15">IndexNo </td>
 	   <TD height="15">Name</TD>
@@ -107,7 +107,7 @@
 	  
 	   <cfif PriorPanel.RecordCount gt 0>
 	  
-	  	<tr>
+	  	<tr class="labelmedium">
 			<td colspan="7" align="center" >
 				<cfoutput>
 				 <a style="color:blue;" href="javascript:#ajaxLink('#SESSION.root#/vactrack/application/candidate/CandidateReviewPanel.cfm?action=Inherit&DocumentNo=#DocumentNo#&PersonNo=#PersonNo#&ActionCode=#ActionCode#')#">
@@ -122,7 +122,7 @@
   </cfif>
   
    <cfoutput query="Employee">  
-	   <tr class="linedotted labelit">
+	   <tr class="line labelmedium">
 	   	  <td height="20">#currentrow#</td>
 	      <td><a href="javascript:EditPerson('#PersonNo#')">#IndexNo#</a></td>
 		  <td><a href="javascript:EditPerson('#PersonNo#')">#FirstName# #LastName#</a></td>

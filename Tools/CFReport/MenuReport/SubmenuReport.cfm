@@ -13,24 +13,18 @@ datasource="AppsSystem">
 <cfif uniqueheader eq "">
 
 	<cf_screentop height="100%" scroll="Yes" html="No" jquery="yes">
-	<cfajaximport tags="cfform,cfwindow,cfdiv,CFINPUT-DATEFIELD,CFINPUT-AUTOSUGGEST">
+	<cfajaximport tags="cfform,cfwindow,cfdiv">
 </cfif>
 
 <style>
 
 	table.rpthighLight {
-		BACKGROUND-COLOR: #f9f9f9;		
-		border-top : 1px solid silver;
-		border-right : 1px solid silver;
-		border-left : 1px solid silver;
-		border-bottom : 1px solid silver;
+		BACKGROUND-COLOR: #f3f3f3;		
+		border : 1px solid white;
 	}
 	table.rptnormal {
 		BACKGROUND-COLOR: #ffffff;
-		border-top : 1px solid white;
-		border-right : 1px solid white;
-		border-left : 1px solid white;
-		border-bottom : 1px solid white;
+		border : 1px solid white;
 	}
 	
 </style>

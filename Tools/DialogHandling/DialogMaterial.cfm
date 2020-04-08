@@ -79,8 +79,7 @@
 
 	function selectwarehouseitem(mis,cls,mas,applyscript,scope) {	
 	    // 15/2/2015 newly added to replace modal dialog 	
-		ColdFusion.Window.create('warehouseitemwindow', 'Item', '',{x:100,y:100,height:document.body.clientHeight-80,width:750,modal:true,center:true})    
-		ColdFusion.Window.show('warehouseitemwindow')				
+		ProsisUI.createWindow('warehouseitemwindow', 'Item', '',{x:100,y:100,height:document.body.clientHeight-80,width:790,modal:true,center:true})    					
 		ptoken.navigate(root + '/Warehouse/Inquiry/Item/ItemView.cfm?mission='+mis+'&itemmaster='+mas+'&itemclass='+cls+'&script='+applyscript+'&scope='+scope,'warehouseitemwindow') 				
 	}
 	
@@ -126,12 +125,10 @@
 		ptoken.open(root +  "/Procurement/Vendor/VendorMenu.cfm?ID=" + Id + "&ID1=" + ST, "VendorDialog", "left=15, top=15, width=" + w + ", height= " + h + ", status=yes, scrollbars=yes, resizable=no");
 	}
 	
-	// function selectitm(formname,flditemno,flditemdescription,fldrequestdescription,fldrequestquantity,fldrequestcostprice,fldquantityuom,fldquantitywhsuom,tpe,mission,master,req,update) {
 	
 	function selectitm(mission,itemmaster,field,script,scope,access) {
-		
-		try { ColdFusion.Window.destroy('mystock',true) } catch(e) {}
-		ColdFusion.Window.create('mystock', 'Stock Item', '',{x:100,y:100,height:document.body.clientHeight-40,width:document.body.clientWidth-40,modal:false,resizable:false,center:true})    				
+				
+		ProsisUI.createWindow('mystock', 'Stock Item', '',{x:100,y:100,height:document.body.clientHeight-120,width:document.body.clientWidth-120,modal:true,resizable:false,center:true})    				
 		ColdFusion.navigate(root + '/Procurement/Application/Requisition/Item/ItemSearchView.cfm?access='+access+'&mission=' + mission + '&itemmaster=' + itemmaster + '&field=' + field + '&script=' + script + '&scope=' + scope,'mystock') 		
 		
 	  }	

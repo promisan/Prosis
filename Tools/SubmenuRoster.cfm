@@ -1,8 +1,4 @@
 
-<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
-
-<body leftmargin="4" topmargin="4">
-
 <style>
 
 	table.highLight {
@@ -41,7 +37,7 @@
 	}
 	
 	function modulelog(id,mis) {
-		 ColdFusion.navigate('#SESSION.root#/Tools/SubmenuLog.cfm?systemfunctionid='+id+'&mission='+mis,'modulelog')
+		 ptoken.navigate('#SESSION.root#/Tools/SubmenuLog.cfm?systemfunctionid='+id+'&mission='+mis,'modulelog')
 	}	
 	
 	function hl(itm,fld,name){
@@ -86,7 +82,7 @@
 
 <cfif MenuClass eq "Special">
 	 
-     <cfif row eq "1"><TR><td height="6" colspan="6"></td></TR><TR></cfif>
+     <cfif row eq "1"><TR class="line"></cfif>
 
      <td width="50%" colspan="3" align="center">
 	 	 	 
@@ -94,15 +90,15 @@
 	 	 
 	 <cfif FunctionPath neq "">
 		   
-     <table width="90%" border="0" cellspacing="0" cellpadding="0" align="center" 
-	      bordercolor="FFFFFF" style="padding:4px"
+     <table width="90%" align="center" 
+	      bordercolor="FFFFFF" 
 	      onClick="modulelog('#function.systemfunctionid#','#submissionedition#');loadform('#FunctionPath#','#condition#','#FunctionTarget#')" 
 	      onMouseOver="hl(this,true,'#FunctionName#')" onMouseOut="hl(this,false,'')">
 	  
 	  <cfelse>
 	  
-	   <table width="90%" border="0" cellspacing="0" cellpadding="0" align="center" 
-	      bordercolor="FFFFFF" style="padding:4px"
+	   <table width="90%" align="center" 
+	      bordercolor="FFFFFF" 
 	      onClick="modulelog('#function.systemfunctionid#','#submissionedition#');#ScriptName#('#mode#')" 
 	      onMouseOver="hl(this,true,'#FunctionName#')" onMouseOut="hl(this,false,'')">
 	  	  
@@ -112,7 +108,7 @@
 	        <td width="40" rowspan="2" align="center">       
 			  <cfinclude template="submenuImages.cfm">		
 			</td>
-			<td width="80%" style="padding-left:2px;height:23px;font-size:24px" class="labelmedium">#FunctionName#</font></b></td>   
+			<td width="80%" style="padding-left:2px;height:23px;font-size:22px" class="labelmedium">#FunctionName#</td>   
         </tr>
 				       
 		<tr> 
@@ -124,8 +120,7 @@
      </td>
 		
      <cfif row eq "1"><cfelse></TR>
-	 <tr><td height="7" colspan="6" bgcolor="white"></td></tr>
-	
+		
 	 </cfif> 	
 
 <cfelse>

@@ -29,7 +29,10 @@ password="#SESSION.dbpw#">
 	ORDER BY LastName, FirstName
 </cfquery>
 
-<cf_screentop label="Associate candidate to employee record" close="ColdFusion.Window.destroy('myperson',true)" option="Enforce database integrity" jquery="Yes" line="no" layout="webapp" banner="yellow" height="100%" scroll="Yes">
+<!---
+<cf_screentop label="Associate candidate to employee record" close="ColdFusion.Window.destroy('myperson',true)" 
+ option="Enforce database integrity" jquery="Yes" html="No" layout="webapp" banner="yellow" height="100%" scroll="Yes">
+--->
 	
 <cfif SearchResult.recordcount eq "0" and Parameter.TrackToEmployee eq "1">
 		
@@ -44,24 +47,25 @@ password="#SESSION.dbpw#">
 	</cfoutput>
 
 <cfelse>
-		
-	
+			
 	<cf_dialogStaffing>
 	
-		<table width="99%" align="center" border="0" cellspacing="0" cellpadding="0">
+		<table height="100%" width="99%" align="center">
 		  
-		  <tr><td style="padding:10px">
+		  <tr><td style="height:100%;padding:10px">
+		  
+		  <cf_divscroll>
 		  
 			<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding navigation_table">
 			
-			<TR class="labelmedium line">
+			<TR class="labelmedium line fixrow">
 			    <TD>&nbsp;</TD>
 			    <TD><cfoutput>#client.indexNoName#</cfoutput></TD>
-			    <TD>LastName</TD>
-			    <TD>FirstName</TD>
-			    <TD>Nat.</TD>
-			    <TD>Gender</TD>
-			    <TD>DOB</TD>
+			    <TD><cf_tl id="LastName"></TD>
+			    <TD><cf_tl id="FirstName"></TD>
+			    <TD><cf_tl id="Nat."></TD>
+			    <TD><cf_tl id="Gender"></TD>
+			    <TD><cf_tl id="DOB"></TD>
 			</TR>
 			
 			 <cfif SearchResult.recordcount eq "0">		  
@@ -84,13 +88,14 @@ password="#SESSION.dbpw#">
 			
 			</TABLE>
 			
+			</cf_divscroll>
+			
 		</tr></td>
 		
-		<tr><td height="1" bgcolor="silver"></tr>
-		
+				
 		<tr><td align="center" height="30">
 		
-			<input type="button" class="button10g" name="OK"    value="Close" onClick="ColdFusion.Window.destroy('myperson',true)">
+			<input type="button" class="button10g" name="OK"    value="Close" onClick="ProsisUI.closeWindow('myperson',true)">
 		
 		</td></tr>
 		

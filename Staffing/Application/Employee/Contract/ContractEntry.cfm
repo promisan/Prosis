@@ -369,7 +369,7 @@
     <TD>
 	
 	   <cfif lastContract.dateExpiration neq "" and lastContract.dateExpiration gte now()-10>	
-	
+
 		  <cf_intelliCalendarDate9
 			FieldName="DateExpiration" 
 			Default="#Dateformat(lastContract.dateExpiration+1, CLIENT.DateFormatShow)#"
@@ -378,7 +378,7 @@
 			class="regularxl">	
 		
 		<cfelse>
-		
+
 		  <cf_intelliCalendarDate9
 			FieldName="DateExpiration" 
 			Default=""
@@ -558,9 +558,9 @@
 		datasource="AppsEmployee" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-		    SELECT *
-		    FROM Ref_PostGrade
-			WHERE PostGradeContract = 1
+		    SELECT   *
+		    FROM     Ref_PostGrade
+			WHERE    PostGradeContract = 1
 			ORDER BY PostOrder
 		</cfquery>
 					
@@ -575,25 +575,18 @@
 		</tr>
 		
 		<tr><TD class="labelmedium"><cf_tl id="Step">:</TD>
-		    <td>
+		    <td id="fldcontractstep">
 			
-				<cfoutput>
-				<select name="contractstep" class="regularxl">
-				
-					<cfloop index="st" from="1" to="15">
-						<option value="#st#" <cfif LastContract.contractstep eq st>selected</cfif>>#st#</option>
-					</cfloop>	
-					
-				</select>	
-				</cfoutput>
+				<cfdiv bind="url:#SESSION.root#/staffing/Application/Employee/Contract/ContractField.cfm?field=contractstep&grade=#LastContract.contractlevel#&default=#LastContract.contractstep#">
+							
 				</TD> 
 					
 			</td>
 		</tr>
 		
-		<tr>
+		<tr id="nextincrement">
 		<TD class="labelmedium"><cf_tl id="Step Increase">:</TD>
-		<TD id="increment">			
+		<TD class="labelmedium" id="increment">			
 		      <cfset url.lastcontractid = lastcontract.contractid>		   
 			  <cfinclude template="ContractEditFormIncrement.cfm">					  
 		</TD>
@@ -603,16 +596,16 @@
 					
 		<cfoutput>				
 		<tr>			
-	  	<TD class="labelmedium"><a id="contractselect" href="javascript:selectscale('#url.id#','#lastcontract.contractType#','#url.id1#')"><font color="0080C0"><cf_tl id="Grade">:</font></TD>
+	  	<TD class="labelmedium"><a id="contractselect" href="javascript:selectscale('#url.id#','#lastcontract.contractType#','#url.id1#')"><cf_tl id="Grade">:</font></TD>
 		    <TD><input type="text" name="contractlevel" id="contractlevel" value="#lastcontract.contractlevel#" size="20" maxlength="20" readonly class="regularxl" style="background-color: f4f4f4;"></TD> 
 		</tr>
 		<tr>
-		<TD class="labelmedium"><a href="javascript:selectscale('#url.id#','#lastcontract.contractType#','#url.id1#')"><font color="0080C0"><cf_tl id="Step">:</a></TD>
+		<TD class="labelmedium"><a href="javascript:selectscale('#url.id#','#lastcontract.contractType#','#url.id1#')"><cf_tl id="Step">:</a></TD>
 			<TD><input type="text" id="contractstep" name="contractstep" value="#lastcontract.contractstep#" style="background-color: f4f4f4;" class="regularxl" size="4" maxlength="4" readonly></TD> 							
 		</tr>
 		</cfoutput>
 					
-		<tr>
+		<tr id="nextincrement">
 		<TD class="labelmedium"><cf_tl id="Next Step Increase">:</TD>
 	    <TD id="increment">		
 		  <cfset url.lastcontractid = lastcontract.contractid>

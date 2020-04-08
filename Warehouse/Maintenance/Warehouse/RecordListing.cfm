@@ -1,17 +1,14 @@
 
-<cfparam name="client.fmission" default="">
+<cf_screentop html="No" jquery="Yes">
 
-<cf_divscroll>
+<cfparam name="client.fmission" default="">
 
 <cfset Page         = "0">
 <cfset add          = "1">
-<cfinclude template = "../HeaderMaintain.cfm"> 		
 
-<cf_screentop html="No" jquery="Yes">
 <cf_presentationScript>
 
 <cfoutput>
-
 
 <script>
 
@@ -33,9 +30,12 @@
 
 </cfoutput>
 
-<table width="95%" align="center">
+<table width="95%" align="center" style="height:100%">
+
+	<tr><td style="height:10px"><cfinclude template = "../HeaderMaintain.cfm"></td></tr>
+    
 	<tr>
-		<td align="left">
+		<td align="left" style="height:10px">
 			<table>
 				<tr>
 					<td class="labelit"><cf_tl id="Entity">:</td>
@@ -95,10 +95,12 @@
 	</tr>
 	<tr><td height="5"></td></tr>
 	<tr>
-		<td>
+		<td style="height:100%">
+		  <cf_divscroll>
 			<cfdiv id="divDetail" bind="url:RecordListingDetail.cfm?fmission=#client.fmission#">
+		  </cf_divscroll>	
 		</td>
 	</tr>
+	
 </table>
 
-</cf_divscroll>

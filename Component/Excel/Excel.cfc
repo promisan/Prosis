@@ -69,9 +69,9 @@
 			<cfloop index="x" from="1" to="#ArrayLen(cols)#">
 			
 			    <cfif x eq "1">
-				    <cfset sel = "#cols[x][1]# as ['#cols[x][3]#']">
+				    <cfset sel = "[#cols[x][1]#] as ['#cols[x][3]#']">
 				<cfelse>
-					<cfset sel = "#sel#,#cols[x][1]# as ['#cols[x][3]#']">
+					<cfset sel = "#sel#,[#cols[x][1]#] as ['#cols[x][3]#']">
 				</cfif>	
 			
 			</cfloop>

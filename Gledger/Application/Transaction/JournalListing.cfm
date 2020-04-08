@@ -90,6 +90,7 @@
 			    size="1" style="font-size:15px;height:27px;"
 				class="regularxl"
 				onChange="reloadForm(page.value,document.getElementById('idstatus').value)">
+				<option value=""><cf_tl id="All"></option>
 			    <cfoutput query="Period">
 				<option value="#AccountPeriod#" <cfif AccountPeriod is URL.Period>selected</cfif>>#AccountPeriod#</option>
 				</cfoutput>

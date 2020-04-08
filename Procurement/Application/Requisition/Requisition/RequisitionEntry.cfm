@@ -13,7 +13,7 @@
 
   <cfoutput>
 
-	<tr><td colspan="2" height="100%" valign="top">	
+	<tr><td colspan="2" height="100%" valign="top">
 
 	    <cf_divscroll style="height:100%">
 
@@ -24,7 +24,7 @@
 
 		</td>
 	</tr>
-	 	
+
   </cfoutput>
-	
+
 </table>

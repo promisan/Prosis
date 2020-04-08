@@ -1,18 +1,20 @@
 <!--- Create Criteria string for query from data entered thru search form --->
 
-<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
+<cf_screentop html="No" jquery="Yes">
 
-<HTML><HEAD><TITLE>Account Period Maintenance</TITLE></HEAD>
-
-<body leftmargin="3" topmargin="3" rightmargin="1">
-
-<cf_divscroll>
-
-<table width="100%" cellspacing="0" cellpadding="0">
+<table height="100%" width="94%" align="center" cellspacing="0" cellpadding="0" align="center">
 
 <cfset add          = "1">
 <cfset Header       = "Account Period">
+
+<tr><td style="height:10">
+
 <cfinclude template = "../HeaderMaintain.cfm"> 
+
+</td></tr>
+
+
+
 
 <cfquery name="SearchResult"
 datasource="AppsLedger" 
@@ -38,10 +40,15 @@ function recordedit(id1,id2) {
 
 </cfoutput>
 
-<table width="93%" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<tr><td>
+
+<cf_divscroll>
+
+
+<table width="99%" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
 
 <thead>
-<tr class="line labelmedium">
+<tr class="line labelmedium fixrow">
     <td></td>
     <td>Period</td>
 	<td>Description</td>
@@ -75,3 +82,7 @@ function recordedit(id1,id2) {
 </table>
 
 </cf_divscroll>
+
+</table>
+
+<cfset ajaxonload("doHighlight")>

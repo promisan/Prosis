@@ -156,7 +156,7 @@ function _mobileInitializeDatePicker(pSelector, pFormat, pDate, pMinDate, pMaxDa
 	
 	$(pSelector)
     	.datepicker({ 
-    		dateFormat: pFormat,
+    		format: pFormat,
     		todayHighlight: true,
     		todayBtn: 'linked'
     	})

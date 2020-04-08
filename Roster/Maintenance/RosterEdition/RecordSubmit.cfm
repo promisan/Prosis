@@ -3,12 +3,12 @@
 
 <cfset dateValue = "">
 <CF_DateConvert Value="#Form.DateEffective#">
-<cfset STR = #dateValue#>
+<cfset STR = dateValue>
 
 <cfset dateValue = "">
-<cfif #Form.DateExpiration# neq ''>
+<cfif Form.DateExpiration neq ''>
     <CF_DateConvert Value="#Form.DateExpiration#">
-    <cfset END = #dateValue#>
+    <cfset END = dateValue>
 <cfelse>
     <cfset END = 'NULL'>
 </cfif>	

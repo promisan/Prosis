@@ -193,7 +193,12 @@
 		AND          A.DateEffective    <= #dt# 
 		AND          A.DateExpiration   >= #dt# 
 		<cfif url.category neq "" and url.category neq "all">
-		AND          A.Incumbency = '#url.category#'
+			<cfif url.category eq "0">
+				AND A.Incumbency = '0'
+			</cfif>
+			<cfif url.category eq "100">
+				AND A.Incumbency > '0'
+			</cfif>
 		</cfif>
 		AND          A.AssignmentStatus IN ('0','1')	
 		AND          A.AssignmentType    = 'Actual'	
@@ -333,7 +338,12 @@
 				AND          A.DateExpiration >= #prior# 
 				AND          A.AssignmentStatus IN ('0','1')
 				<cfif url.category neq "" and url.category neq "all">
-				AND          A.Incumbency = '#url.category#'
+					<cfif url.category eq "0">
+						AND A.Incumbency = '0'
+					</cfif>
+					<cfif url.category eq "100">
+						AND A.Incumbency > '0'
+					</cfif>
 				</cfif>
 				AND          A.AssignmentType = 'Actual'
 				
@@ -405,7 +415,12 @@
 				AND          A.DateExpiration >= #prior# 
 				AND          A.AssignmentStatus IN ('0','1')
 				<cfif url.category neq "" and url.category neq "all">
-				AND          A.Incumbency = '#url.category#'
+					<cfif url.category eq "0">
+						AND A.Incumbency = '0'
+					</cfif>
+					<cfif url.category eq "100">
+						AND A.Incumbency > '0'
+					</cfif>
 				</cfif>
 				AND          A.AssignmentType = 'Actual'
 				

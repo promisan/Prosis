@@ -23,17 +23,20 @@ password="#SESSION.dbpw#">
 <script>
 	function applyCustomerData(mis,fld,val) {	
 		_cf_loadingtexthtml='';		
-	   	ColdFusion.navigate('#SESSION.root#/Warehouse/Application/Customer/View/setCustomerData.cfm?mode=form&scope=mission&scopeid='+mis+'&field='+fld+'&value='+val,'inputvalidation');
+	   	ptoken.navigate('#SESSION.root#/Warehouse/Application/Customer/View/setCustomerData.cfm?mode=form&scope=mission&scopeid='+mis+'&field='+fld+'&value='+val,'inputvalidation');
 	}
 </script>
-
-<cfajaximport tags="cfwindow">
 
 <cfform method="POST"  name="customerform" onsubmit="return false">
 
 <table width="95%" class="formpadding formspacing" align="center">
 
 	<tr><td colspan="2" height="10" id="inputvalidation"></td></tr>
+	
+	<tr>
+	<td class="labelmedium"><cf_tl id="Entity"></td>
+	<td class="labelmedium">#Customer.Mission#</td>
+	</tr>
 	
 	<tr>
 		<td width="18%" class="labelmedium"> <cf_tl id="Reference"> : <font color="red">*</font></td>
@@ -108,50 +111,130 @@ password="#SESSION.dbpw#">
 		</td>
 	</tr>
 	
-	<tr>
-		<td class="labelmedium"><cf_tl id="Employee">:</td>
-		<td>		
-				
-		<cfquery name="Get" 
+	<cfquery name="Person" 
 		datasource="AppsMaterials" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
 			SELECT *
-		    FROM   Employee.dbo.Person E
+			    FROM   Employee.dbo.Person E
+			    WHERE  PersonNo = '#Customer.PersonNo#'			
+	</cfquery>
+	
+	<cfif Person.Recordcount eq "0">
+	
+		<tr>
+			<td class="labelmedium"><cf_tl id="Individual">:</td>
+			<td>		
+					
+			<cfquery name="Get" 
+			datasource="AppsMaterials" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				SELECT *
+		    FROM   Applicant.dbo.Applicant
 		    WHERE  PersonNo = '#Customer.PersonNo#'
-		</cfquery>
-		
-		<table cellspacing="0" cellpadding="0">
-				<tr>
-				
-				<td id="member">
-															
-				<input type="text" name="name" value="#Get.FirstName# #Get.LastName#" size="40" maxlength="40" class="regularxl" readonly style="padding-left:4px">				
-				<input type="hidden" name="personno" id="personno" value="#Get.PersonNo#" size="10" maxlength="10" readonly>
-				
-				</td>
-				<td>
-				
-				<cfset link = "#SESSION.root#/Warehouse/Application/Customer/View/setEmployee.cfm?customerid=#url.drillid#">	
-							
-				 <cf_selectlookup
-				    class      = "Employee"
-				    box        = "member"
-					button     = "no"
-					icon       = "search.png"
-					iconwidth  = "25"
-					iconheight = "25"
-					title      = "#lt_text#"
-					link       = "#link#"						
-					close      = "Yes"
-					des1       = "PersonNo">
-						
-				</td>
-				</tr>
-			</table>		
+			</cfquery>
 			
-		</td>
-	</tr>
+     			<table>
+				
+					<tr>
+					
+					<td id="member">
+																
+						<input type="text"   name="name"     id="name" value="#Get.FirstName# #Get.LastName#" size="40" maxlength="40" class="regularxl" readonly style="padding-left:4px">				
+						<input type="hidden" name="personno" id="personno" value="#Get.PersonNo#" size="10" maxlength="10" readonly>
+					
+					</td>
+					<td style="padding-left:3px">
+					
+					<cfset link = "#SESSION.root#/Warehouse/Application/Customer/View/setApplicant.cfm?customerid=#url.drillid#">	
+								
+					 <cf_selectlookup
+					    class      = "Applicant"
+					    box        = "member"
+						button     = "no"
+						icon       = "search.png"
+						iconwidth  = "25"
+						iconheight = "25"
+						title      = "#lt_text#"
+						link       = "#link#"						
+						close      = "Yes"
+						des1       = "PersonNo">
+							
+					</td>
+										
+					<cfif get.PersonNo neq "">
+					
+					<td>
+					    <cf_img icon="delete" onclick="document.getElementById('personno').value='';document.getElementById('name').value=''">
+					</td>
+					
+					</cfif>
+												
+					</tr>
+				</table>		
+				
+			</td>
+		</tr>
+	
+	<cfelse>
+	
+		<tr>
+			<td class="labelmedium"><cf_tl id="Staff member">:</td>
+			<td>		
+					
+			<cfquery name="Get" 
+			datasource="AppsMaterials" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				SELECT *
+			    FROM   Employee.dbo.Person E
+			    WHERE  PersonNo = '#Customer.PersonNo#'
+			</cfquery>
+			
+			<table cellspacing="0" cellpadding="0">
+					<tr>
+					
+					<td id="member">
+																
+					<input type="text" name="name" id="name" value="#Get.FirstName# #Get.LastName#" size="40" maxlength="40" class="regularxl" readonly style="padding-left:4px">				
+					<input type="hidden" name="personno" id="personno" value="#Get.PersonNo#" size="10" maxlength="10" readonly>
+					
+					</td>
+					<td style="padding-left:3px">
+					
+					<cfset link = "#SESSION.root#/Warehouse/Application/Customer/View/setEmployee.cfm?customerid=#url.drillid#">	
+								
+					 <cf_selectlookup
+					    class      = "Employee"
+					    box        = "member"
+						button     = "no"
+						icon       = "search.png"
+						iconwidth  = "25"
+						iconheight = "25"
+						title      = "#lt_text#"
+						link       = "#link#"						
+						close      = "Yes"
+						des1       = "PersonNo">
+							
+					</td>
+					
+					<cfif get.PersonNo neq "">
+					
+					<td>
+					    <cf_img icon="delete" onclick="document.getElementById('personno').value='';document.getElementById('name').value=''">
+					</td>
+					
+					</cfif>
+					
+					
+					</tr>
+				</table>		
+				
+			</td>
+		</tr>
+		
+	</cfif>	
 	
 	<tr>
 		<td class="labelmedium"><cf_tl id="Organization">:</td>
@@ -165,17 +248,14 @@ password="#SESSION.dbpw#">
 		    FROM   Organization E
 		    WHERE  OrgUnit = '#Customer.OrgUnit#'
 		</cfquery>
-		
-		<table cellspacing="0" cellpadding="0">
-				<tr>
-				
-				<td id="orgunitbox">
-															
-				<input type="text" name="name" value="#Get.OrgUnitName#" size="40" maxlength="40" class="regularxl" readonly style="padding-left:4px">				
-				<input type="hidden" name="orgunit" id="orgunit" value="#Get.OrgUnit#" size="10" maxlength="10" readonly>
-				
+						
+		<table>
+			<tr>				
+				<td id="orgunitbox">															
+					<input type="text" name="orgname" id="orgname" value="#Get.OrgUnitName#" size="40" maxlength="40" class="regularxl" readonly style="padding-left:4px">				
+					<input type="hidden" name="orgunit" id="orgunit" value="#Get.OrgUnit#" size="10" maxlength="10" readonly>				
 				</td>
-				<td>
+				<td style="padding-left:3px">
 				
 				<cfset link = "#SESSION.root#/Warehouse/Application/Customer/View/setOrgUnit.cfm?customerid=#url.drillid#">	
 							
@@ -194,9 +274,17 @@ password="#SESSION.dbpw#">
 					des1         = "Orgunit">
 						
 				</td>
-				</tr>
-			</table>		
-			
+				
+				<cfif get.OrgUnit neq "">
+					
+					<td>
+					    <cf_img icon="delete" onclick="document.getElementById('orgunit').value='';document.getElementById('orgname').value=''">
+					</td>
+					
+				</cfif>
+				
+			</tr>
+		</table>					
 		</td>
 	</tr>
 	
@@ -213,7 +301,7 @@ password="#SESSION.dbpw#">
 			<cfinput name="eMailAddress"
 			    id="emailaddress_#mission#" 
 				 onKeyUp="applyCustomerData('#url.mission#','emailaddress',this.value)"
-			    class="regularxl enterastab" type="text" value="#Customer.eMailAddress#" validate="email" size="30" maxlength="50">
+			    class="regularxl enterastab" type="text" value="#Customer.eMailAddress#" validate="email" size="45" maxlength="50">
 		</td>
 	</tr>
 	
@@ -255,10 +343,10 @@ password="#SESSION.dbpw#">
 					  name      = "PostalCode"
 				      value     = "#Customer.PostalCode#"
 				      required  = "No"
-					  size      = "2"
-					  maxlength = "2"
+					  size      = "12"
+					  maxlength = "12"
 					  label     = "&nbsp;"
-					  style     = "text-align: center;">		
+					  style     = "width:100px;text-align: center;">		
 		
 			
 		</td>

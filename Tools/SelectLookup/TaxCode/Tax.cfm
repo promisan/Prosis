@@ -1,7 +1,7 @@
 
 <!--- not needed 
 <cf_screentop label="Search" height="100%"
-    scroll="no" jquery="Yes" banner="gray" line="no" layout="webapp" close="ProsusUI.closeWindow.hide('dialog#url.box#')">
+    scroll="no" jquery="Yes" banner="gray" line="no" layout="webapp" close="ProsisUI.closeWindow.hide('dialog#url.box#')">
 --->
 
 <table align="center" bgcolor="FFFFFF" width="100%" height="100%">

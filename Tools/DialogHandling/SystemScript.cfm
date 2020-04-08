@@ -222,11 +222,17 @@
 		
 		Security.prototype.navigate = function(p1,p2,p3,p4,p5,p6) {
 			//ColdFusion.navigate(p1, p2, p3, p4, p5, p6);
-			ColdFusion.navigate(p1, p2, function() { 
-				if ($.trim(p3) != '' && $.trim(p3).toLowerCase() != 'null') { 
-					window[p3](); 
-				} 
-			}, p4, p5, p6);
+			if (typeof (p3) != 'function') {
+				ColdFusion.navigate(p1, p2, function () {
+					if ($.trim(p3) != '' && $.trim(p3).toLowerCase() != 'null') {
+						window[p3]();
+					}
+				}, p4, p5, p6);
+			}
+			else
+			{
+				ColdFusion.navigate(p1, p2,p3, p4, p5, p6);
+			}
 		}
 
 		Security.prototype.submit = function(p1,p2,p3) {
@@ -373,7 +379,7 @@
 		if (!!window.jQuery) {
 			var vJQVersion = $.fn.jquery.split('.');
 			if (parseInt(vJQVersion[0]) > 1 || (parseInt(vJQVersion[0]) == 1 && parseInt(vJQVersion[1]) >= 7)) {
-				console.log('all good with jQuery');
+				//console.log('all good with jQuery');
 			}else {
 				//reload jquery 1.9
 				console.log('reload');

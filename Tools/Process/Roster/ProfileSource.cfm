@@ -1,4 +1,6 @@
 
+<!--- we show the most applicable source --->
+
 <cfparam name="Attributes.PersonNo" default="">
 <cfparam name="Attributes.Selected" default="">
 <cfparam name="Attributes.ShowAll"  default="No">
@@ -25,7 +27,7 @@
 		</cfif>									 
 		ORDER BY Created DESC
 	</cfquery>
-			
+				
 	<cfquery name="getUser" 
 	datasource="AppsSystem" 
 	username="#SESSION.login#" 
@@ -87,26 +89,21 @@
 		<cfset src = getBackground.source>
 			
 	</cfif>
-	
+			
 	<!--- wildcard if we can not define a default --->
 	
 	<cfif src eq "">
 				
-		<cfif getSource.recordcount gte "1">
-	
-			<cfset src = getSource.source>
-		
-		<cfelse>
-	
-			<cfset src = client.submission>	
-		
+		<cfif getSource.recordcount gte "1">	
+			<cfset src = getSource.source>				
+		<cfelse>	
+			<cfset src = client.submission>						
 		</cfif>			
 		
 	</cfif>	
 	
 	<!--- set the forced overrulling default --->
-	
-		
+			
 	<cfif attributes.selected neq "">
 		<cfset src = attributes.selected>
 	</cfif>
@@ -120,7 +117,7 @@
 			<tr>			
 			<td valign="top" class="labelmedium" style="padding-top:12px;height:50px;padding-left:10px;padding-right:6px">#attributes.label#:</td>			
 			<td style="padding-left:4px">
-			<select name="source" id="source" class="regularxl" style="font-size:20px;height:30px">
+			<select name="source" id="source" class="regularxl" style="font-size:20px;height:35px">
 			<cfloop query="getSource">
 				<option value="#Source#" <cfif source eq src>selected</cfif>>#Source#</option>
 			</cfloop>
@@ -153,4 +150,5 @@
 	
 	
 <cfset url.source = src>
+
 

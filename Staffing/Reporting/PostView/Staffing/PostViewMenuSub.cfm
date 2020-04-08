@@ -7,8 +7,8 @@
     method="highlight" class="highlight3"
     returnvariable="stylescroll"/>
 	
-		<cfset ht = "48">
-		<cfset wd = "48">
+		<cfset ht = "58">
+		<cfset wd = "58">
 		
 		<cf_tl id="Advanced" var="1">
 		<cfset tInquiry = "#Lt_text#">		
@@ -25,8 +25,7 @@
 						padding    = "3"
 						class      = "highlight1"						
 						iconheight = "#ht#" 
-						name       = "#vUnitAndGrade#">					
-				
+						name       = "#vUnitAndGrade#">				
 			
 			<cfset itm = itm+1>				
 			
@@ -68,12 +67,10 @@
 			<cf_verifyOperational module="WorkOrder" Warning="No" Mission="#url.mission#">
 			
 			<cf_tl id="Workschedule" var="vWorkforce">
-			
-			<cfset itm = itm+1>		
-																
-			<cfif operational eq "1">				
+															
+			<cfif operational eq "1">			
 							
-														
+				<cfset itm = itm+1>											
 				<cf_menutab item       = "#itm#" 
 				            iconsrc    = "Logos/Staffing/Workschedule.png" 
 							iconwidth  = "#wd#" 
@@ -83,6 +80,8 @@
 							source     = "../../../Application/Workschedule/WorkScheduleListing.cfm?mission=#url.mission#&mandate=#url.mandate#">		
 						
 			</cfif>		
+			
+			<!---
 						
 			<cfset itm = itm+1>		
 			<cf_tl id="Events and Actions"	var="vPersonalLog">
@@ -92,6 +91,8 @@
 						iconheight = "#ht#" 	
 						padding    = "1"					
 						name       = "#vPersonalLog#">				
+						
+			--->			
 			
 			<cfif maintain neq "NONE">
 						
@@ -121,6 +122,8 @@
 									
 			</cfif>
 			
+			<!---
+			
 			<cfif maintain neq "NONE">
 			
 			<cfset itm = itm+1>						
@@ -135,6 +138,8 @@
 						source     = "javascript:window.open('MandateExpiration.cfm?dte=#dte#&mission=#url.mission#&mandate=#url.mandate#','expirationbox')">										   				  		   									
 						
 			</cfif>
+			
+			--->
 			
 		</tr>
 </table>

@@ -194,7 +194,7 @@ password="#SESSION.dbpw#">
   </td></tr>
   
   <cfoutput>
-  <tr class="line"><td class="labellarge" style="height:34px;font-weight:200;font-size:18px;padding-left:10px" colspan="2"><cfif missionselect neq "">#missionselect#:</cfif><font color="FF0080"><cf_tl id="Your search criteria resulted in"><b>#SearchTotal.Total#</b><cfif SearchTotal.total eq "1"><cf_tl id="match"><cfelse><cf_tl id="matches"></cfif></td></tr>
+  <tr class="line"><td class="labellarge" style="height:34px;font-size:18px;padding-left:10px" colspan="2"><cfif missionselect neq "">#missionselect#:</cfif><font color="FF0080"><cf_tl id="Your search criteria resulted in"><b>#SearchTotal.Total#</b><cfif SearchTotal.total eq "1"><cf_tl id="match"><cfelse><cf_tl id="matches"></cfif></td></tr>
   </cfoutput>
      
    <td height="100%" width="100%" colspan="2" valign="top" style="min-width:500">
@@ -208,9 +208,11 @@ password="#SESSION.dbpw#">
 		    <TD></TD>
 			<TD></TD>
 			
-		    <TD style="min-width:100px"><cf_tl id="Last name"></TD>			
+		    <TD style="min-width:100px"><cf_tl id="Name"></TD>	
+			<!---		
 		    <TD style="min-width:90px"><cf_tl id="First name"></TD>
 			<TD style="min-width:70px"><cf_tl id="Middle"></TD>
+			--->
 			<td style="min-width:65px"><cf_tl id="No"></td>
 			<TD style="min-width:90px"><cf_tl id="IndexNo"></TD>		    
 		    <td style="min-width:20px"><cf_tl id="S"></td>
@@ -262,9 +264,11 @@ password="#SESSION.dbpw#">
 				     <cf_img icon="select">						     
 				   </td>		
 				  
-				   <TD style="padding-left:3px">#LastName# #MaidenName#</TD>				  
+				   <TD style="padding-left:3px">#FullName#</TD>				  
+				   <!---
 				   <TD style="padding-left:1px">#FirstName#</TD>
 				   <TD style="padding-left:1px">#MiddleName#</TD>
+				   --->
 				   <TD style="padding-left:1px">#PersonNo#</TD>
 				   <TD style="padding-left:1px">#IndexNo#</TD>				   
 				   <TD style="padding-left:1px">#Gender#</TD>
@@ -322,10 +326,9 @@ password="#SESSION.dbpw#">
 			  
 			   </cfif>
 			   
-			   <tr id="row#PersonNo#" class="hide">
-			   		   
+			   <tr id="row#PersonNo#" class="hide">			   		   
 			   <td></td>
-			   <td colspan="15" id="line#PersonNo#" style="border-left:1px solid silver"></td>
+			   <td colspan="13" id="line#PersonNo#" style="border-left:1px solid silver"></td>
 			   </tr>
 			     			
 			</cfif>

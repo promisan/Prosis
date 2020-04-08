@@ -42,15 +42,15 @@ password="#SESSION.dbpw#">
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 		UPDATE ProgramAllotment
-		SET    <cfif Parameter.EnableDonor eq "1">
-				   SupportPercentage = '#form.SupportPercentage#', 
-				   SupportObjectCode = '#form.SupportObjectCode#',
+		SET    <cfif Parameter.EnableDonor eq "1">				   
 				   ModeMappingTransaction = '#form.ModeMappingTransaction#',
 			   </cfif>
-			   DueCalculation = '#form.DueCalculation#',
-			   Fund           = '#form.Fund#',
-			   FundEnforce    = '#form.FundEnforce#',
-			   AmountRounding = '#form.AmountRounding#'
+			   SupportPercentage = '#form.SupportPercentage#', 
+			   SupportObjectCode = '#form.SupportObjectCode#',
+			   DueCalculation    = '#form.DueCalculation#',
+			   Fund              = '#form.Fund#',
+			   FundEnforce       = '#form.FundEnforce#',
+			   AmountRounding    = '#form.AmountRounding#'
 			   <cfif get.LockEntry neq form.LockEntry>
 			   , LockEntry      = '#form.LockEntry#' 	
 			   , LockEntryOfficer = '#session.acc#'

@@ -35,17 +35,10 @@
 		
 		<tr><td height="1" colspan="6" class="line"></td></tr>
 		
-		<cfif group.recordcount eq "0">
-	
-		<tr>
-		    <td colspan="6" height="30" class="labelit"><font color="gray">There has been NO membership defined for this user</td>
-		</tr>
-		
-		<cfelse>
-		
-		<tr><td colspan="5" class="labellarge">Assigned Usergroup</td></tr>
-		
-		
+		<cfif group.recordcount eq "0">	
+		<tr><td colspan="6" height="30" class="labelit"><font color="gray">There has been NO membership defined for this user</td></tr>		
+		<cfelse>		
+		<tr><td colspan="5" class="labellarge">Assigned Usergroup</td></tr>	
 		</cfif>
 		
 		<cfoutput query="group">
@@ -54,7 +47,7 @@
 									
 			<tr class="labelmedium line" bgcolor="E8F5FD">
 			   <td style="height:20px;padding-left:4px"><a href="javascript:ShowUser('#AccountGroup#')">#LastName#</a></td>
-			   <td><a href="javascript:ShowUser('#AccountGroup#')"><font color="0080C0">#AccountGroup#</a></td>
+			   <td>#AccountGroup#</td>
 			   <td>#AccountMission#</td>
 			   <td>#OfficerFirstName# #OfficerLastName#</td>
 			   <td>#dateformat(Created, CLIENT.DateFormatShow)#</td>
@@ -104,9 +97,9 @@
 					 onClick = "this.value=''" 
 					 onkeyup= "filterme()">
 					 
-					 </td>
+					</td>
 					 
-					 <td style="border: 1px solid Silver;">
+					<td style="border: 1px solid Silver;">
 					 
 					<img src="#SESSION.root#/images/search.png"
 					     alt="Search"
@@ -117,7 +110,8 @@
 					     style="cursor: pointer;"
 					     onClick="filterme()">		
 						 
-						</td> 
+					</td> 
+						
 				</cfoutput>	
 				
 				</tr></table>		

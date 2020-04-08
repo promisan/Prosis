@@ -23,13 +23,13 @@
 	}
 </style>
 
-<table width="100%" height="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+<table width="96%" border="0" height="100%" align="center">
 	
 	<tr class="hide"><td id="process"></td></tr>	
 	
-	<tr>
+	<tr class="line">
 	
-		<td height="16" style="padding-top:4px">
+		<td height="16" style="padding-top:14px">
 		
 			<cfinvoke component = "Service.Presentation.TableFilter"  
 			   method           = "tablefilterfield" 
@@ -42,11 +42,11 @@
 		</td>
 	</tr>
 				
-	<tr class="line"><td width="100%" height="100%" style="padding:4px;">
+	<tr><td width="100%" height="100%" style="padding:4px">
 	
 	<cfset vURLObjectId = replace(url.objectId,"-","","ALL")>
 			
-	<cf_divscroll style="width:100%;height:100%" id="communicatecomment_#vURLObjectId#">
+	<cf_divscroll id="communicatecomment_#vURLObjectId#">
 		<cfinclude template="CommentListingContent.cfm">
 	</cf_divscroll>
 			
@@ -91,11 +91,11 @@
 		
 	</cfquery>	
 	
-	<tr><td style="padding-bottom:10px" width="100%" id="add" align="center">		
+	<tr class="hide"><td id="processchat"></td></tr>
+	
+	<tr><td width="95%" id="add" valign="bottom">		
 	     <cfinclude template="CommentEntry.cfm">		 			
 		</td>
 	</tr>
-	
-	<tr><td id="processchat"></td></tr>
 	
 </table>

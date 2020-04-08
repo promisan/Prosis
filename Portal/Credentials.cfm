@@ -197,6 +197,9 @@
 					
 						<input style="height:25px; width:100px; border:1px solid ##C0C0C0; font-size:14px; font-family: 'Montserrat', Verdana, Arial, sans-serif;" type="button" 
 						  class="button10g" name="Submit" id="Submit" value="Login"   onclick="openmenu('acc','pwd')">
+						
+						<!--- google sign-in --->
+						<cfinclude template="Logon/ThirdParty/Google/gSigninButton.cfm">
 						  
 					</td>		
 				</tr>		

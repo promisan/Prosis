@@ -1,3 +1,4 @@
+
 <cfset vTotal = 0 >
 <cfif url.requirementid neq "">
 
@@ -199,7 +200,7 @@
 						
 				<cfset ser = s>
 														
-				<tr id="line_#code#_#s#" class="#cl# clsBudgetRow_#code# clsBudgetRow_#code#_#s#">				
+				<tr id="line_#code#_#s#" class="#cl# clsBudgetRow_#code# clsBudgetRow_#code#_#s# line">				
 								
 					<td valign="top" style="padding-left:10px;">
 																		
@@ -213,7 +214,7 @@
 								<td>
 									<table>
 										<tr>
-											<td width="14px;" style="padding-top:6px">
+											<td width="14px;" style="padding-top:2px">
 												<cfif BudgetEntryLines gt 1>
 													<cf_tl id="add line" var="1">
 													<img src="#session.root#/images/btn_add.gif" 
@@ -224,13 +225,12 @@
 														 onclick="addBudgetEntryLine('#code#',#BudgetEntryLines#);syncAmounts()">
 												</cfif>
 											</td>
-											<td width="14px;" style="padding-left:2px;padding-top:7px">
+											<td width="14px;" style="padding-left:2px;padding-top:3px">
 												<cf_tl id="View Instructions" var="1">
 												<table>
 													<tr>
 														<td>
-															<img 
-																id="imgViewInstructions_#code#"
+															<img id="imgViewInstructions_#code#"
 																name="imgViewInstructions_#code#"
 																src="#session.root#/images/arrowright.gif" 
 																style="height:12px; width:12px; cursor:pointer;" 
@@ -247,7 +247,7 @@
 									</table>
 								</td>	 
 								
-								<td style="padding-left:4px;padding-top:6px;min-width:180px" class="labelmedium">#Description#</td>
+								<td style="padding-left:4px;padding-top:0px;max-width:120px;min-width:220px" class="labelmedium">#Description#:</td>
 								
 								</tr>
 							</table>
@@ -275,13 +275,13 @@
 							 
 						<cfif URL.Mode neq "edit" and url.mode neq "add">	
 						   
-						   	 <td style="height:35px;padding-right:1px;min-width:160" id="description" class="labelmedium">	  
+						   	 <td style="height:25px;padding-right:1px;min-width:160" id="description" class="labelmedium">	  
 						     	#entry.requestDescription#
 							 </td>
 							 	   
 					    <cfelse>		
 					   				     		 
-							  <td style="height:35px;width:100%;padding-right:4px">	
+							  <td style="height:25px;width:100%;padding-right:4px;border-left:1px solid silver">	
 							  
 							  <cfif entry.requirementid eq "">							  
 							  		<cfset vid = "">
@@ -334,7 +334,7 @@
 								   id="resourcequantity_#row#"
 							       value="#entry.resourceQuantity#"					       	
 								   class="enterastab regularxl"		  
-								   style="text-align:right;height:25;width:50"
+								   style="text-align:right;height:25;width:50;border:0px;border-right:1px solid silver"
 								   message="Please enter a quantity"
 								   onblur="javascript:syncAmounts()"
 							       required="no">
@@ -355,7 +355,7 @@
 								   id="resourcedays_#row#"
 							       value="#vTempResourceDays#"					       
 								   class="enterastab regularxl"			  
-								   style="text-align:right;height:25;width:50"
+								   style="text-align:right;height:25;width:50;border:0px;border-right:1px solid silver"
 								   message="Please enter a quantity"
 							       required="no">
 								   
@@ -370,12 +370,12 @@
 								   
 						    </td>
 						 				 					   
-						    <td style="padding-left:1px;text-align:right;padding-right:1px;vertical-align: middle;">
+						    <td style="padding-left:1px;text-align:right;padding-right:1px;">
 						   			  
-							  <cfdiv id="quantity_#row#" class="labelmedium" style="background-color:f4f4f4;width:50;border:1px solid silver;height:27;padding-right:3px;" bindonload="No"
+							  <cfdiv id="quantity_#row#" class="labelmedium" style="background-color:f4f4f4;width:50;border-right:1px solid silver;height:25;padding-right:3px;" bindonload="No"
 							    bind="url:RequestQuantityMode1.cfm?start=#row#&lines=#row#&mode=quantity&resource_#row#={resourcequantity_#row#}&day_#row#={resourcedays_#row#}">
 								
-								<div id="quantity_display_#row#" style="padding-top:4px;font-size:15">#numberformat(entry.requestQuantity,"__,__")#</div>
+								<div id="quantity_display_#row#" style="padding-top:3px;font-size:14">#numberformat(entry.requestQuantity,",__")#</div>
 														
 								<input type="hidden" name="requestquantity_#row#" id="requestquantity_#row#" value="#entry.requestQuantity#">	
 								
@@ -387,18 +387,17 @@
 											 	 			  		   
 						 <cfif URL.Mode neq "edit" and url.mode neq "add">
 							   
-						   	     <td style="padding-right:1px" align="right" class="labelmedium">#numberformat(entry.requestPrice,"__,__.__")# </td>
+						   	     <td style="padding-right:3px" align="right" class="labelmedium">#numberformat(entry.requestPrice,",.__")# </td>
 							   
 						 <cfelse>
 							   
-								 <td style="padding-left:1px;padding-right:1px">
-								
-																									
+								 <td style="padding-left:1px;padding-right:3px;">
+																																
 									   <cfif entry.requestprice lte "0.05">
-									     <cfset val = "#numberformat(CostPrice,",__.__")#">
+									     <cfset val = "#numberformat(CostPrice,",.__")#">
 									     <!--- <cfset val = "0.00">	--->
 									   <cfelse>	 			
-									      <cfset val = "#numberformat(entry.requestPrice,",__.__")#">
+									      <cfset val = "#numberformat(entry.requestPrice,",.__")#">
 									   </cfif>
 						
 									   <cf_tl id="Please enter an amount" var="1">
@@ -409,7 +408,7 @@
 										   name     = "requestprice_#row#"
 										   id       = "requestprice_#row#"
 									       value    = "#val#"							       				   
-										   style    = "text-align:right;width:70;height:25"
+										   style    = "text-align:right;width:70;height:25;border:0px;border-right:1px solid silver"
 										   message  = "#lt_text#" readonly
 										   class    = "regularxl enterastab" 
 									       required = "no">		
@@ -420,7 +419,7 @@
 										   name     = "requestprice_#row#"
 										   id       = "requestprice_#row#"
 									       value    = "#val#"							       				   
-										   style    = "text-align:right;width:70;height:25"
+										   style    = "text-align:right;width:70;height:25;border:0px;border-right:1px solid silver"
 										   message  = "#lt_text#"
 										   class    = "regularxl enterastab" 
 									       required = "no">			   
@@ -434,17 +433,17 @@
 						 </cfif>		
 				 	   			   
 						 <td align="right" class="labelmedium"
-						    style="padding-left:4px;width:85px;text-align:right">
+						    style="width:85px;text-align:right;border-bottom:1px solid silver;border-right:1px solid silver">
 					   
 					   	<cfif URL.Mode neq "edit" and url.mode neq "add">
 		
-						   		#numberformat(entry.requestAmountBase,"__,__.__")#
+						   		#numberformat(entry.requestAmountBase,",.__")#
 							
 						<cfelse>							
 																				
-								<cfdiv id="total_#row#" class="labelmedium" style="background-color:A4FFA4;width:80;border:1px solid silver;height:25;padding-top:2px;padding-right:3px;" bindonload="No"
+								<cfdiv id="total_#row#" class="labelmedium" style="background-color:A4FFA4;width:80;border:0px solid silver;height:25;padding-top:3px;padding-right:3px;" bindonload="No"
 								bind="url:RequestQuantityMode1.cfm?start=#row#&lines=#row#&mode=total&price={requestprice_#row#}&resource_#row#={resourcequantity_#row#}&day_#row#={resourcedays_#row#}">							
-								#numberformat(entry.requestAmountBase,"__,__.__")#
+								#numberformat(entry.requestAmountBase,",.__")#
 								
 								<!--- removed by hanno not needed in my view 28/7/2014
 								<div id="total_display_#row#" style="padding-top:3px;font-size:14">														

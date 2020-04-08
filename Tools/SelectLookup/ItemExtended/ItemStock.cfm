@@ -235,7 +235,7 @@ and a select/uom/quantity mode if this is for supplies or other classes --->
 			  
 				  <input type    = "button" 
 				         class   = "button10g" 
-						 style   = "width:165;height:40"
+						 style   = "width:165px;height:40px"
 				         onclick = "#setlink#;<cfif url.close eq 'Yes'>Prosis.closeWindow('dialog#url.box#')</cfif>" name="Select" value="Save">			  
 			  			 						
 			  </td>
@@ -455,7 +455,7 @@ and a select/uom/quantity mode if this is for supplies or other classes --->
 											      name    = "Quantity_#currentrow#" 
 												  id      = "Quantity_#currentrow#" 
 												  value   = "#qty#" 
-												  style   = "text-align:center;width:70;height:40;font-size:30px">
+												  style   = "text-align:center;width:70px;height:40px;font-size:30px">
 											  
 										  <cfelse>		
 										  						  
@@ -463,7 +463,7 @@ and a select/uom/quantity mode if this is for supplies or other classes --->
 											      name    = "Quantity_#currentrow#" 
 												  id      = "Quantity_#currentrow#" 
 												  value   = "0" 
-												  style   = "text-align:center;width:70;height:40;font-size:30px">	  
+												  style   = "text-align:center;width:70px;height:40px;font-size:30px">	  
 											  
 										  </cfif>	
 																			  

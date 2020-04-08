@@ -1,5 +1,4 @@
 
-
 <cf_tl id="Maintain Project Activity" var="1">
 			
 <cf_screentop height="100%" label="#lt_text#" html="yes" 
@@ -69,7 +68,6 @@
 <cf_calendarscript>
 <cf_dialogOrganization>
 <cf_textareascript>
-<cf_UIGadgets>
 
 <cfinclude template="ActivityEditScript.cfm">		
 <cfajaximport tags="cfdiv,cfform">
@@ -130,20 +128,24 @@
 
 	<cf_tl id="AddActivity" var="1">
 	
+	<!--- in the top
 	<cf_screentop height="100%" label="#lt_text#" option="Maintain activity and output details"
-	    jQuery="Yes"  bannerheight="80" line="no" scroll="yes" banner="blue" layout="webapp">
+	    jQuery="Yes"  bannerheight="50" line="no" scroll="yes" banner="blue" layout="webapp">
+		--->
 			
-		<table width="100%" height="100%" align="center" cellspacing="0" cellpadding="0">
+		<table width="100%" height="99%">
 				
 		  <tr>
-		  <td style="padding:10px" id="contentbox1">			 							 
+		  <td style="padding:4px" id="contentbox1">			 							 
 		      <cfinclude template="ActivityEdit.cfm">		  
 		  </td>
 		  </tr>
 		  
 		 </table> 
 	
+	<!---
 	<cf_screenbottom layout="webapp">
+	--->
 	
 <cfelse>
 		

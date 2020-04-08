@@ -78,7 +78,7 @@
 		
 	<tr>
 	
-	<td valign="top" style="width:350px;min-width:350px;max-width:350px;padding-left:17px;padding-top:10px">
+	<td valign="top" style="width:400px;min-width:400px;max-width:400px;padding-left:17px;padding-top:10px">
 				
 		<table width="100%">
 			
@@ -93,7 +93,7 @@
 						  id="additional" 
 						  name="additional" 
 						  class="settlement_details" 
-						  style="border:1px outset gray;height:115;padding-right:10px;padding-left:10px">			  
+						  style="border:1px outset gray;height:115px;padding-right:10px;padding-left:10px">			  
 						    <cfset url.mode = qType.mode>	
 														
 							<cfinclude template="SettlementDetails.cfm">	
@@ -179,26 +179,25 @@
 				<table cellpadding="0" cellspacing="0" width="100%">
 					<tr>
 					   					
-						<td align="left" width="50%" style="padding-left:3px">
+						<td align="left" width="50%" style="padding-left:5px;">
 							<input type="Text" 
 								  id   = "line_amount_number" 
 								  name = "line_amount_number" 
 								  maxlength="9" 
-								  size="13" 
 								  value=""
-								  style="text-align:right;font-size:22px;height:30px;border:1px solid gray;border-radius:4px;padding-right:4px"
+								  style="text-align:right;font-size:22px;height:30px;border:1px solid gray;border-radius:4px;padding-right:4px;width:95%;"
 								  class="regularxl" 
 								  onKeyUp="saveenter()"
 								  onfocus="setFocusPOS(this,'yes')">
 								  
 						</td>
 						
-						<td align="right" width="50%" style="padding-left:7px;padding-right:1px">
+						<td align="right" width="50%" style="padding-left:5px;padding-right:5px;">
 						
 						    <cf_tl id="Save" var="1">
 							<cfoutput>
 								<input class="button10g"  
-								   style="width:100%;height:31;font-size:15" 
+								   style="width:100%;height:31px;font-size:15;width:95%;" 
 								   type="button" 
 								   name="Update" 
 								   id="Update" 

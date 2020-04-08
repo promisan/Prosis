@@ -58,7 +58,7 @@
 	</td></tr></table>
 </cfif>
 
-<cfajaximport tags="cfwindow,cfdiv">
+<cfajaximport tags="cfdiv">
 <cfinclude template="ScheduleScript.cfm">
 
 <cf_distributer>

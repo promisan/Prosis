@@ -39,9 +39,10 @@
 		  ptoken.open("#SESSION.root#/programrem/application/program/ActivityProject/ActivityView.cfm?ActivityId=" + id,"_blank","width="+w+",height="+h+",status=yes,toolbar=no,scrollbars=yes,resizable=yes")		  
 		}
 		
-		function targetrefresh(programcode,period,targetid,cat,programaccess) {
+		function targetrefresh(programcode,period,targetid,cat,programaccess) {		
 			ptoken.navigate('#session.root#/ProgramREM/Application/Program/Target/TargetListing.cfm?programcode='+programcode+'&period='+period+'&targetid='+targetid+'&category='+cat+'&programaccess='+programaccess, 'targetdetail_'+cat)	
 		}	
+		
 		function editTarget(programcode,period,targetid,cat,programaccess) {
 			 w = #CLIENT.width# - 60;
 		     h = #CLIENT.height# - 120;		
@@ -61,7 +62,7 @@
 			 se  = document.getElementById(itm)
 			 icM  = document.getElementById(itm+"Min")
 		     icE  = document.getElementById(itm+"Exp")			
-			 if (se.className == "regular") {
+			 if (se.className == "regular line") {
 			 	 se.className   = "hide";
 				 icM.className  = "hide";
 				 icE.className  = "regular";	

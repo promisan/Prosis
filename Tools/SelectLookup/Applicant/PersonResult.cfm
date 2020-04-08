@@ -53,18 +53,44 @@
 
 <cfoutput>
 
-<cfsavecontent variable="qry">
-
-	FROM  Applicant	P
-	<cfif PreserveSingleQuotes(Criteria) neq "">
-	WHERE #PreserveSingleQuotes(Criteria)# 
+	<cfif Form.Crit8_Value eq "Individual">
+	
+		<cfsavecontent variable="sel">
+		   ,(SELECT count(*) FROM System.dbo.UserNames AS U INNER JOIN
+            Applicant.dbo.ApplicantSubmission AS S ON U.ApplicantNo = S.ApplicantNo AND S.PersonNo = P.PersonNo) as UserAccount
+		</cfsavecontent>	
+	
+		<cfsavecontent variable="qry">
+	
+			FROM  Applicant	P
+			<cfif PreserveSingleQuotes(Criteria) neq "">
+			WHERE #PreserveSingleQuotes(Criteria)# 
+			<cfelse>
+			WHERE P.PersonNo is not NULL
+			</cfif>
+		
+		</cfsavecontent>
+	
 	<cfelse>
-	WHERE P.PersonNo is not NULL
+	
+		<cfsavecontent variable="sel">		
+		  ,(SELECT count(*) FROM System.dbo.UserNames WHERE PersonNo = P.PersonNo) as UserAccount
+		</cfsavecontent>	
+			
+		<cfsavecontent variable="qry">
+	
+			FROM  Employee.dbo.Person	P
+			<cfif PreserveSingleQuotes(Criteria) neq "">
+			WHERE #PreserveSingleQuotes(Criteria)# 
+			<cfelse>
+			WHERE P.PersonNo is not NULL
+			</cfif>	
+		
+		</cfsavecontent>
+	
 	</cfif>
 				
-</cfsavecontent>
 </cfoutput>
-
 
 <cfquery name="Total" 
 datasource="AppsSelection" 
@@ -74,7 +100,7 @@ password="#SESSION.dbpw#">
     #preserveSingleQuotes(qry)#	
 </cfquery>
 
-<cfset show = int((url.height-350)/20)>
+<cfset show = int((url.height-350)/27)>
 
 <cf_pagecountN show="#show#" 
                count="#Total.Total#">
@@ -85,7 +111,7 @@ password="#SESSION.dbpw#">
 datasource="AppsSelection" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-	SELECT TOP #last# *
+	SELECT  TOP #last# * #preserveSingleQuotes(sel)#
     #preserveSingleQuotes(qry)#	
 	ORDER BY LastName, FirstName, MiddleName 
 </cfquery>
@@ -116,7 +142,7 @@ password="#SESSION.dbpw#">
 				  
 				  <cfoutput>
 				   <td class="labelmedium">
-				      <a href="javascript:lookuppersonadd('#url.box#','#link#')"><font color="6688aa"><cf_tl id="Register a new person"></a>
+				      <a href="javascript:lookuppersonadd('#url.box#','#link#')"><cf_tl id="Register a new person"></a>
 				   </td>
 				  </cfoutput> 
 				   
@@ -140,15 +166,16 @@ password="#SESSION.dbpw#">
 			 <cfinclude template="PersonNavigation.cfm">
 		</td></tr>
 		
-		<TR>
+		<TR class="fixrow labelmedium line">
 		    <td height="20"></td>		   
-			<TD class="labelit"><cf_tl id="Name"></TD>
-		    <TD class="labelit"><cf_tl id="Nat."></TD>
-			<TD class="labelit"><cf_tl id="S"></TD>
-			<TD class="labelit"><cf_tl id="Index No"></TD>
+			<TD><cf_tl id="Name"></TD>
+			<td><cf_tl id="User"></td>
+		    <TD><cf_tl id="Nat"></TD>
+			<TD><cf_tl id="G"></TD>
+			<TD><cf_tl id="Index No"></TD>
 			<cfif accessstaffing neq "NONE">
-			<TD class="labelit"><cf_tl id="Id"></TD>
-			<TD class="labelit"><cf_tl id="DOB"></TD>			
+			<TD><cf_tl id="Id"></TD>
+			<TD><cf_tl id="DOB"></TD>			
 			</cfif>
 		</TR>
 	
@@ -156,48 +183,38 @@ password="#SESSION.dbpw#">
 			
 	<CFOUTPUT query="SearchShow">
 	
-	<cfset currrow = currrow + 1>
-	 
-	<cfif currrow lte last and currrow gte first>		
-		
-		<tr><td height="0" colspan="8" class="linedotted"></td></tr>
-				
-		<TR class="navigation_row labelit">
-		
-		
-			
-			<TD width="30" align="center" style="height:18;padding-top:2px"
-			  class="navigation_action"
-			  onclick="ColdFusion.navigate('#link#&action=insert&#url.des1#=#personno#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ColdFusion.Window.hide('dialog#url.box#')</cfif>">			
-				<cf_img icon="select">				  
-			</TD>						
-			<TD>#LastName#, #FirstName# #MiddleName#</font></TD>
-			<TD>#Nationality#</font></TD>
-			<TD>#Gender#</font></TD>			
-			<cfif accessstaffing neq "NONE">
-			<TD><A title="View profile" href="javascript:EditPerson('#PersonNo#','#IndexNo#')"><font color="6688aa">#IndexNo#</a></TD>			
-			<td>#PersonNo#</td>
-			<TD>#DateFormat(DOB, CLIENT.DateFormatShow)#</TD>			
-			<cfelse>
-			<TD>#IndexNo#</TD>						
-			</cfif>
-			
-		</TR>
-		
-		<!---
-		<cfif OrganizationName neq "">
-			<tr class="navigation_row_child">
-				<td></td>
-				<cfif accessstaffing neq "NONE">
-					<td colspan="7" class="labelit">#OrganizationName#</td>
+		<cfset currrow = currrow + 1>
+		 
+		<cfif currrow lte last and currrow gte first>				
+					
+			<TR class="navigation_row labelmedium line">				
+				<TD width="30" align="center" style="height:18;padding-top:2px"
+				  class="navigation_action"
+				  onclick="ColdFusion.navigate('#link#&action=insert&#url.des1#=#personno#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">			
+					<cf_img icon="select">				  
+				</TD>						
+				<TD>#LastName#, #FirstName# #MiddleName#</TD>
+				<cfif UserAccount gte "1">
+				<td style="padding-top:3px"><img src="#session.root#/images/user.png" alt="" width="25" height="19" border="0" title="Has a user account">#useraccount#</td>
 				<cfelse>
-					<td colspan="4" class="labelit">#OrganizationName#</td>
+				<td></td>
 				</cfif>
-			</tr>	
+				<TD>#Nationality#</font></TD>
+				<TD>#Gender#</font></TD>			
+				<cfif accessstaffing neq "NONE">
+				<TD style="padding-left:3px"><A title="View profile" href="javascript:EditPerson('#PersonNo#','#IndexNo#')">#IndexNo#</TD>			
+				<td>#PersonNo#</td>
+				<cfif Form.Crit8_Value eq "Individual">
+				<TD>#DateFormat(DOB, CLIENT.DateFormatShow)#</TD>			
+				<cfelse>
+				<TD>#DateFormat(BirthDate, CLIENT.DateFormatShow)#</TD>		
+				</cfif>
+				<cfelse>
+				<TD>#IndexNo#</TD>						
+				</cfif>			
+			</TR>	
+			
 		</cfif>
-		--->
-		
-	</cfif>
 	
 	</CFOUTPUT>
 	

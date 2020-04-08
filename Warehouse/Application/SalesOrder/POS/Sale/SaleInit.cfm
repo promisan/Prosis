@@ -12,8 +12,8 @@
 <!--- this is for embedding the sales screen in a different context --->
 
 	<cfif url.mode neq "embed">
-
-		<cf_screentop height="100%" label="POS" jquery="Yes" html="No">
+		
+		<cf_screentop height="100%" label="POS" jquery="Yes" html="No" scroll="No">
 
 		<cfquery name="Parameter"
 				datasource="AppsPurchase"
@@ -24,7 +24,7 @@
 			WHERE  Mission = '#URL.Mission#'
 		</cfquery>
 
-		<cfajaximport tags="cfform,cfwindow">
+		<cfajaximport tags="cfform">
 
 		<cfquery name="Param"
 				datasource="AppsMaterials"
@@ -49,12 +49,9 @@
 
 	$(document).ready(function () {
 	setInterval( function() {
-	time_refresh('#URL.warehouse#');
-}, 60000 );
-});
+	time_refresh('#URL.warehouse#');}, 60000 );});
 
-
-</script>
+	</script>
 
 </cfoutput>
 
@@ -116,6 +113,7 @@
 		[SalesAmount] [float] NULL ,
 		[SalesTax] [float] NULL ,
 		[SalesTotal] AS ([SalesAmount] + [SalesTax]) ,
+		[Source] [varchar] (10) NULL CONSTRAINT [DF_Sale_Source#URL.Warehouse#] DEFAULT ('Manual'),
 		[OrgUnit] [int] NULL ,
 		[OrgUnitCode] [varchar] (20) NULL ,
 		[OrgUnitName] [varchar] (100) NULL ,

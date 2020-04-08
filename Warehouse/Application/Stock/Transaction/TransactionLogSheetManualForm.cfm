@@ -61,7 +61,6 @@
 						class     = "regularxl enterastab" 
 						style     = "width:130" 
 						maxlength = "20" 
-						tooltip   = "#vAssetSelectTooltip#"
 						onkeyup   = "searchcombo('#mission#','#url.warehouse#',document.getElementById('categoryselect').value,'asset',this.value,'up',document.getElementById('itemno').value,'');"
 						onkeydown = "searchcombo('#mission#','#url.warehouse#',document.getElementById('categoryselect').value,'asset',this.value,'down',document.getElementById('itemno').value,'');">
 						
@@ -185,8 +184,7 @@
 				  class       = "regularxl enterastab" 
 				  style       = "width:99" 
 				  maxlength   = "20" 
-				  tooltip     = "#vEnterIndex#"					  
-				  onblur      = "_cf_loadingtexthtml='';ColdFusion.navigate('../Transaction/validatePerson.cfm?mission=#url.mission#&value='+this.value+'&personno='+document.getElementById('personidselect').value,'personfind')"	  
+				  onblur      = "_cf_loadingtexthtml='';ColdFusion.navigate('../Transaction/validatePerson.cfm?mission=#url.mission#&value='+this.value+'&personno='+document.getElementById('personidselect').value,'personfind')"
 				  onkeyup     = "searchcombo('#mission#','#url.warehouse#',document.getElementById('categoryselect').value,'person',this.value,'up',document.getElementById('itemno').value,'');"
 				  onkeydown   = "searchcombo('#mission#','#url.warehouse#',document.getElementById('categoryselect').value,'person',this.value,'down',document.getElementById('itemno').value,'');">
 				 				 			  
@@ -358,8 +356,7 @@
 			 		<cf_tl id="Remarks" var="vRemarks">
 			 					
 		  		    <textarea name="remarks" id="remarks"
-					     tooltip="#vRemarks#"
-						 class="regular enterastab" 
+						 class="regular enterastab"
 						 totlength="200"
 						 onkeyup="return ismaxlength(this)"					
 						 style="padding:4px;font-size:14px;height:40;width:100%"></textarea>

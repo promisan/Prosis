@@ -274,10 +274,10 @@ password="#SESSION.dbpw#">
 	<tr name="l#cat#" class="linedotted">
 	<td colspan="#col#">
 		
-	<table width="100%" cellspacing="0" cellpadding="0" class="formspacing">
-	<tr>
+	<table width="100%" cellspacing="0" cellpadding="0" class="formpadding">
+	<tr class="labelmedium">
 	
-		<td class="labelmedium" style="font-size:21px;height:40px;padding-left:18px">
+		<td style="font-size:21px;height:40px;padding-left:18px">
 			<a href="javascript:AuditProgram('#ProgramCode#','#URL.Period#')"><font color="0080C0">#ProgramName#</a>
 		</td>
 		
@@ -327,8 +327,8 @@ password="#SESSION.dbpw#">
 	<cfoutput group="LocationCode">
 	
 	<cfif LocationName neq "">
-		<tr name="l#cat#">
-		 <td colspan="#col#" class="labelit" style="padding-left:8px" bgcolor="f4f4f4">#LocationName#</td>
+		<tr name="l#cat#" class="labelmedium">
+		 <td colspan="#col#" style="padding-left:8px" bgcolor="f4f4f4">#LocationName#</td>
 		</tr>	
 	</cfif>	
 	
@@ -342,7 +342,7 @@ password="#SESSION.dbpw#">
 		 <cfset p = #p#&"_">
 		</cfloop> 
 		
-		<tr name="l#cat#" style="height:10px" class="navigation_row">
+		<tr name="l#cat#" style="height:10px" class="line navigation_row">
 		
 		  <td width="5%" align="center">
 		  
@@ -361,8 +361,8 @@ password="#SESSION.dbpw#">
 		  <td>
 		  
 			  <table width="100%" cellspacing="0" cellpadding="0">
-				  <tr>
-				  <td class="labelit">#IndicatorDescription#</td>
+				  <tr class="labelmedium">
+				  <td>#IndicatorDescription#</td>
 				  <td width="30" align="right">
 				  			  
 				  <cf_helpfile 
@@ -386,7 +386,7 @@ password="#SESSION.dbpw#">
 		       <cfset val = evaluate("Target_04")>
 			   <cfif val neq "">
 				<cfif IndicatorType eq "0002">
-				#numberFormat(val*100,"__,__._")#%
+				#numberFormat(val*100,",._")#%
 				<cfelse>
 				#numberFormat(val,"__,__#p#")#
 				</cfif>
@@ -474,13 +474,13 @@ password="#SESSION.dbpw#">
 								
 					  <cfif Show[itm] eq "1">
 					      <cfif sta eq "0" or sta eq "">						  
-					      <td align="center" bgcolor="ffffef" class="labelit">						  
+					      <td align="center" bgcolor="ffffef">						  
 				          <font color="FF8080">
 						      N/A
 						  </font>	
 						  </td>
 						  <cfelse>
-					      <td class="labelit" align="center" bgcolor="ffffef">
+					      <td align="center" bgcolor="ffffef">
 					      <font color="blue">
 						      N/Ap
 						  </font>	

@@ -268,12 +268,8 @@
 						 				 
 						 <td align="center" colspan="3" width="#vWidth#" style="border-bottom:1px dotted silver; padding-bottom:1px; padding-top:1px">
 												 		      	 	  	  
-							  <table width="98%"
-							      border="0"
-							      cellspacing="0" 
-								  cellpadding="0" 
-								  align="center" 						  
-								  class="formpadding"
+							  <table width="98%"							     
+								  align="center" 						  								  
 							      onMouseOver="hl(this,true,'')" 
 								  onMouseOut="hl(this,false,'')">
 							       	
@@ -314,11 +310,11 @@
 											 <tr>
 											 	<td style="padding-left:10px;font-size:20px;height:20px" class="labelmedium">
 												    <cfif ReportLabel neq "">
-													#ReportLabel#
+													<a>#ReportLabel#</a>
 													<cfelse>
-													#FunctionName# 
+													<a>#FunctionName#</a>
 													</cfif>													
-													<cfif FunctionClass neq "System" and client.languageid neq languagecode><font color="0080C0">[#languagecode#]</cfif>
+													<cfif FunctionClass neq "System" and client.languageid neq languagecode><font size="2" color="gray">[#languagecode#]</cfif>
 												</td>
 											</tr>										 
 											 <cfif FunctionMemo neq "">										 

@@ -8,31 +8,33 @@
 			
     <tr bgcolor="eaeaea" class="line navigation_row labelit" style="cursor: pointer;">
 	<cfif url.outputshow eq "0">
-	<td align="left" colspan="2" valign="top" style="padding-left:4px;padding-top:2px;height:23px;border-right: 0px solid Gray;">
 	
-	<cf_space spaces="18">
-		
+	<td align="left" colspan="2" valign="top" style="min-width:25px;padding-left:4px;padding-top:2px;height:23px;border-right: 0px solid Gray;">
+				
 	<img src="#SESSION.root#/Images/Expand4.gif"
-     alt="Progress"
-     id="pmax#clrow#"
-     border="0"
-	 align="absmiddle"
-     class="hide"
-     style="cursor: pointer;border:1px solid gray"
-     onClick="showproject('#clrow#')">
+	     alt="Progress"
+	     id="pmax#clrow#"
+	     border="0"
+		 align="absmiddle"
+	     class="hide"
+	     style="cursor: pointer;border:1px solid gray"
+	     onClick="showproject('#clrow#')">
 	 
 	<img src="#SESSION.root#/Images/Collapse4.gif"
-     alt="Collapse"
-     id="pmin#clrow#"
-     border="0"
-	 align="absmiddle"
-     class="regular"
-     style="cursor: pointer;;border:1px solid gray"
-     onClick="showproject('#clrow#')">
+	     alt="Collapse"
+	     id="pmin#clrow#"
+	     border="0"
+		 align="absmiddle"
+	     class="regular"
+	     style="cursor: pointer;;border:1px solid gray"
+	     onClick="showproject('#clrow#')">
 	
 	</td>
+	
 	<cfelse>
+	
 	<td colspan="2"></td>
+	
 	</cfif>
 	
 	<td style="border-right: 1px solid Gray;">				

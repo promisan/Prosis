@@ -29,45 +29,68 @@
 	FROM      dbo.PersonAddress S INNER JOIN System.dbo.Ref_Address A ON S.AddressId = A.AddressId
 	ORDER BY  S.PersonNo  
 	
-  </cfquery>
- 
-   
+ </cfquery>
+    
 <!--- employee --->
 
 <cf_ModuleInsertSubmit
-   SystemModule="Staffing" 
-   FunctionClass = "Application"
-   FunctionName = "Staffing table" 
-   MenuClass = "Mission"
-   MenuOrder = "1"
-   MainMenuItem = "1"
-   FunctionTarget = "Mission"
-   FunctionMemo = "Manage Staffing Table"
+   SystemModule      = "Staffing" 
+   FunctionClass     = "Application"
+   FunctionName      = "Staffing table" 
+   MenuClass         = "Mission"
+   MenuOrder         = "1"
+   MainMenuItem      = "1"
+   FunctionTarget    = "Mission"
+   FunctionMemo      = "Manage Staffing Table"
    FunctionDirectory = "Staffing/Reporting"
-   FunctionPath = "PostView/Staffing/PostView.cfm"> 
+   FunctionPath      = "PostView/Staffing/PostView.cfm"> 
+ 
+ <cf_ModuleInsertSubmit
+   SystemModule      = "Staffing" 
+   FunctionClass     = "Application"
+   FunctionName      = "Actions" 
+   MenuClass         = "Detail"
+   MenuOrder         = "1"
+   MainMenuItem      = "1"  
+   AccessUserGroup   = "1"
+   FunctionMemo      = "Personnel and other actions"
+   FunctionDirectory = "Staffing/Reporting"
+   FunctionPath      = "ActionLog/MandateAction.cfm"> 
    
 <cf_ModuleInsertSubmit
-   SystemModule="Attendance" 
-   FunctionClass = "Application"
-   FunctionName = "Attendance" 
-   MenuClass = "Mission"
-   MenuOrder = "1"
-   MainMenuItem = "1"
-   FunctionTarget = "Mission"
-   FunctionMemo = "Manage Attendance"
+   SystemModule      = "Staffing" 
+   FunctionClass     = "Application"
+   FunctionName      = "Positions" 
+   MenuClass         = "Detail"
+   MenuOrder         = "1"
+   MainMenuItem      = "1"  
+   AccessUserGroup   = "1"
+   FunctionMemo      = "Staff and other positions by staffing period"
+   FunctionDirectory = "Staffing/Reporting"
+   FunctionPath      = "PostView/Position/MandatePosition.cfm">        
+      
+<cf_ModuleInsertSubmit
+   SystemModule      = "Attendance" 
+   FunctionClass     = "Application"
+   FunctionName      = "Attendance" 
+   MenuClass         = "Mission"
+   MenuOrder         = "1"
+   MainMenuItem      = "1"
+   FunctionTarget    = "Mission"
+   FunctionMemo      = "Manage Attendance"
    FunctionDirectory = "Attendance/Application"
-   FunctionPath = "TimeView/View.cfm">    
+   FunctionPath      = "TimeView/View.cfm">    
 
 <cf_ModuleInsertSubmit
-   SystemModule="Staffing" 
-   FunctionClass = "System"
-   FunctionName = "Staffing Table Verification" 
-   MenuClass = "Main"
-   MenuOrder = "1"
-   MainMenuItem = "1"
-   FunctionMemo = "Review Consistency Parent Position, Positions and Assignments"
-   FunctionPath = "../Application/Tools/VerifyStaffingTable.cfm"
-   FunctionIcon = "Review">   
+   SystemModule      = "Staffing" 
+   FunctionClass     = "System"
+   FunctionName      = "Staffing Table Verification" 
+   MenuClass         = "Main"
+   MenuOrder         = "1"
+   MainMenuItem      = "1"
+   FunctionMemo      = "Review Consistency Parent Position, Positions and Assignments"
+   FunctionPath      = "../Application/Tools/VerifyStaffingTable.cfm"
+   FunctionIcon      = "Review">   
 
 <!--- -------- --->
 <!--- History- --->
@@ -663,36 +686,56 @@
    FunctionIcon = "Maintain">    
    
 <!--- matrix action --->  
-    
-<cf_ModuleInsertSubmit
-   SystemModule  = "Staffing" 
-   FunctionClass = "Inquiry"
-   FunctionName  = "Personnel Events" 
-   MenuClass     = "Action"
-   MenuOrder     = "1"
-   MainMenuItem  = "0"
-   FunctionMemo  = "Inquiry Personnel Events"
-   ScriptName    = "personevent">     
-   
-<cf_ModuleInsertSubmit
-   SystemModule  = "Staffing" 
-   FunctionClass = "Inquiry"
-   FunctionName  = "Assignments" 
-   MenuClass     = "Action"
-   MenuOrder     = "1"
-   MainMenuItem  = "0"
-   FunctionMemo  = "Inquiry Assignments"
-   ScriptName    = "personassignment">        
 
 <cf_ModuleInsertSubmit
-   SystemModule  = "Staffing" 
-   FunctionClass = "Inquiry"
-   FunctionName  = "Personnel Actions" 
-   MenuClass     = "Action"
-   MenuOrder     = "1"
-   MainMenuItem  = "0"
-   FunctionMemo  = "Inquiry Personnel Action"
-   ScriptName    = "personaction">        
+   SystemModule      = "Staffing" 
+   FunctionClass     = "Inquiry"
+   FunctionName      = "Positions" 
+   MenuClass         = "Position"
+   MenuOrder         = "1"
+   MainMenuItem      = "0"
+   FunctionMemo      = "Inquiry Staff positions"
+   ScriptName        = "position"> 
+    
+<cf_ModuleInsertSubmit
+   SystemModule      = "Staffing" 
+   FunctionClass     = "Inquiry"
+   FunctionName      = "Personnel Events" 
+   MenuClass         = "Action"
+   MenuOrder         = "1"
+   MainMenuItem      = "0"
+   FunctionMemo      = "Inquiry Personnel Events"
+   ScriptName        = "personevent">     
+   
+<cf_ModuleInsertSubmit
+   SystemModule      = "Staffing" 
+   FunctionClass     = "Inquiry"
+   FunctionName      = "Staff costs" 
+   MenuClass         = "Action"
+   MenuOrder         = "1"
+   MainMenuItem      = "0"
+   FunctionMemo      = "Inquiry Staff Miscellaneous Cost"
+   ScriptName        = "personcost">      
+   
+<cf_ModuleInsertSubmit
+   SystemModule      = "Staffing" 
+   FunctionClass     = "Inquiry"
+   FunctionName      = "Assignments" 
+   MenuClass         = "Action"
+   MenuOrder         = "1"
+   MainMenuItem      = "0"
+   FunctionMemo      = "Inquiry Assignments"
+   ScriptName        = "personassignment">        
+
+<cf_ModuleInsertSubmit
+   SystemModule      = "Staffing" 
+   FunctionClass     = "Inquiry"
+   FunctionName      = "Personnel Actions" 
+   MenuClass         = "Action"
+   MenuOrder         = "1"
+   MainMenuItem      = "0"
+   FunctionMemo      = "Inquiry Personnel Action"
+   ScriptName        = "personaction">        
              
    
    

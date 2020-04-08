@@ -74,42 +74,40 @@ password="#SESSION.dbpw#">
 	ORDER BY ItemDescription 
 </cfquery>
 
-
 <cf_divscroll>
 	
-<table width="100%" align="right" class="navigation_table">
+<table width="98%" class="navigation_table">
 
-  <tr>
-   
-   <td style="padding:10px">
-    
-		<table width="100%" border="0" cellspacing="0" cellpadding="0">   
-				
-			<CFOUTPUT query="SearchResult">
-			
-			<cfset des = ReplaceNoCase(ItemDescription,"'",'','ALL')>
-			<cfset des = ReplaceNoCase(des,'"','','ALL')>
-			
-			<TR class="navigation_row linedotted">
-				<td style="padding-left:3px;padding-top:2px;padding-right:3px">		
-					<cf_img icon="select" navigation="Yes" onClick="selected('#ItemUoMId#')">				        			
-				</td>
-				<td class="labelit" style="padding-left:4px"></td>
-				<TD class="labelit" style="padding-right:3px"><A HREF ="javascript:item('#ItemNo#','#URL.Mission#','')">#ItemDescription#</A></TD>
-				<TD class="labelit" style="padding-right:3px">#Classification#</TD>
-				<TD class="labelit" style="padding-right:3px">#Category#</TD>
-				<TD class="labelit" style="padding-right:3px">#ItemBarCode#</TD>
-				<TD class="labelit" style="padding-right:3px">#UoMDescription#</TD>
-				<td class="labelit" align="right" style="padding-right:3px">#NumberFormat(StandardCost,',.__')#</td>		
-			</TR>
-			
-			</CFOUTPUT>
-		
-		</table>
-		
-   </td>
-		
- </tr>
+  <tr class="fixrow labelmedium">
+	  <td></td>
+	  <td></td>
+	  <td><cf_tl id="Description"></td>
+	  <td><cf_tl id="Classification"></td>
+	  <td><cf_tl id="Category"></td>
+	  <td><cf_tl id="Barcode"></td>
+	  <td><cf_tl id="UoM"></td>
+	  <td align="right" style="padding-right:3px"><cf_tl id="Cost"></td>
+  </tr>	
+      				
+  <CFOUTPUT query="SearchResult">
+	
+	<cfset des = ReplaceNoCase(ItemDescription,"'",'','ALL')>
+	<cfset des = ReplaceNoCase(des,'"','','ALL')>
+	
+	<TR class="navigation_row line labelmedium" style="height:23px">
+		<td style="padding-left:3px;padding-top:2px;padding-right:3px">		
+			<cf_img icon="select" navigation="Yes" onClick="selected('#ItemUoMId#')">				        			
+		</td>
+		<td style="padding-left:4px"></td>
+		<TD style="padding-right:3px"><A HREF ="javascript:item('#ItemNo#','#URL.Mission#','')">#ItemDescription#</A></TD>
+		<TD style="padding-right:3px">#Classification#</TD>
+		<TD style="padding-right:3px">#Category#</TD>
+		<TD style="padding-right:3px">#ItemBarCode#</TD>
+		<TD style="padding-right:3px">#UoMDescription#</TD>
+		<td align="right" style="padding-right:3px">#NumberFormat(StandardCost,',.__')#</td>		
+	</TR>
+	
+  </CFOUTPUT>	
 		
 </TABLE>
 

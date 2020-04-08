@@ -234,7 +234,7 @@
 			</cfif> 
 	
 	    </cfif>		
-				
+						
 		<cfif delaymail eq "0">
 		
 		

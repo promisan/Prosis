@@ -56,16 +56,13 @@ password="#SESSION.dbpw#">
 			if (confirm("Do you want to remove this mandate ?")) {	
 			return true 	
 			}	
-			return false
-			
+			return false			
 		}	
 		
-		function recopy() {
-		
+		function recopy() {		
 		   try { ColdFusion.Window.destroy('recopy',true) } catch(e) {}
 		   ColdFusion.Window.create('mydialog', 'recopy', '',{x:100,y:100,height:document.body.clientHeight-100,width:document.body.clientWidth-100,modal:true,resizable:false,center:true})    						
-		   ColdFusion.navigate('RecopyAssignmentDialog.cfm?mission=#URL.ID#&mandateparent=#GetParent.MandateNo#&mandateNo=#URL.ID1#','mydialog')  
-			
+		   ColdFusion.navigate('RecopyAssignmentDialog.cfm?mission=#URL.ID#&mandateparent=#GetParent.MandateNo#&mandateNo=#URL.ID1#','mydialog')  			
 		}
 		
 		function extend() {	   
@@ -74,19 +71,22 @@ password="#SESSION.dbpw#">
 		
 		function transform(docno) {
 		 	window.open("TransformView/TransformView.cfm?ID=#URL.ID#&ID1=#URL.ID1#&ID4=" + docno,  "madatescreen", "left=20, top=20, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=yes, resizable=no");
-		}
+		}		
 		
-		
-		function mandate() {
-		    
-			try { ColdFusion.Window.destroy('mydialog',true) } catch(e) {}
-			ColdFusion.Window.create('mydialog', 'Mandate', '',{x:100,y:100,height:document.body.clientHeight-100,width:document.body.clientWidth-100,modal:true,resizable:false,center:true})    						
+		function mandate() {		    
+			ProsisUI.createWindow('mydialog', 'Process Staffing Period', '',{x:100,y:100,height:document.body.clientHeight-100,width:document.body.clientWidth-100,modal:true,resizable:false,center:true})    						
 			ColdFusion.navigate('MandateView.cfm?ID=#URL.ID#&ID1=#URL.ID1#','mydialog')  
 		}
 		
 		function PrintCustom(ad) {
 			window.open("#SESSION.root#/#GetParameter.PersonActionTemplate#?ID=#URL.ID#&ID1=#URL.ID1#&ID2="+ad)
 		}
+		
+		function expiration_selectdate() {					 	
+			  // trigger a function to set the cf9 calendar by running in the ajax td						 
+			  _cf_loadingtexthtml="";
+			  ptoken.navigate('MandateExpirationScript.cfm?action=init&id=#URL.ID#&id1=#URL.ID1#','DateExpiration_trigger')					  						
+		} 
 	
 	</script>
 
@@ -98,11 +98,11 @@ password="#SESSION.dbpw#">
 		 mandateNo="#URL.ID1#"
 		 returnvariable="orgaccess">
 		 
-<cf_screentop height="100%" scroll="Yes" html="No" layout="innerbox" title="#Get.Mission# Staffing period">		 
+<cf_screentop height="100%" jquery="Yes"  scroll="Yes" html="No" title="#Get.Mission# Staffing period">		 
 
 <cfform action="MandateEditSubmit.cfm" method="POST" name="mandateform">
 
-<table width="97%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding formspacing">
+<table width="97%" align="center" class="formpadding">
 
   <cfoutput>  
   
@@ -141,7 +141,7 @@ password="#SESSION.dbpw#">
 					
 					</td></tr>
 					<tr><td  height="30" class="labelmedium">
-					    <a href="javascript:recopy()"><font color="0080C0">Recopy Assignments and Contracts</a>				
+					    <a href="javascript:recopy()">Recopy Assignments and Contracts</a>				
 					</td></tr>
 				</table>				
 			</td>
@@ -154,16 +154,16 @@ password="#SESSION.dbpw#">
 			
 	
 	<tr class="labelmedium">
-    <td style="padding-left:3px">Name:</td>
+    <td style="padding-left:3px"><cf_tl id="Name">:</td>
 	<td><cfinput type="Text" name="Description" value="#get.Description#" message="Please enter a description" required="Yes" size="30" maxlength="40" class="regularxl">
 		<input  type="hidden" name="mission"       value="#Get.Mission#">
 		<input type="hidden" name="mandatestatus"  value="#Get.MandateStatus#">
-		<input type="hidden" name="mandateno" value="#Get.MandateNo#">
+		<input type="hidden" name="mandateno"      value="#Get.MandateNo#">
 	</td>
 	</TR>	
 	
 	<tr class="labelmedium"> 		
-		<TD style="padding-left:3px">Effective:</td>
+		<TD style="padding-left:3px"><cf_tl id="Effective">:</td>
     
 		<td>
 		
@@ -175,95 +175,150 @@ password="#SESSION.dbpw#">
 			Default="#Dateformat(Get.DateEffective, CLIENT.DateFormatShow)#"
 			AllowBlank="False">	
 		</td>
-		<TD style="padding-left:15px"><font face="Calibri" size="2">Expiration:</td>
+		<TD style="padding-left:15px"><cf_tl id="Expiration">:</td>
     
 		<td style="padding-left:3px"><input type="hidden" name="DateExpirationOld" value="#Dateformat(Get.DateExpiration, CLIENT.DateFormatShow)#"> 
 	   	   	<cf_intelliCalendarDate9
 			FieldName="DateExpiration" 
 			class="regularxl"
 			Default="#Dateformat(Get.DateExpiration, CLIENT.DateFormatShow)#"
+			scriptdate="expiration_selectdate"
 			AllowBlank="False">	
 		</td>
+		<td id="DateExpiration_trigger"></td>
 		</tr>
 		</table>
 	</TR>
+	
+	
+		<tr class="labelmedium"> 		
+			<TD valign="top" style="padding-top:3px;padding-left:3px"><cf_tl id="Valid">:</td>    
+			
+			<td>
+			   <table border="0" cellspacing="0" cellpadding="0">
+			   
+			   <tr class="labelmedium" style="height:20px">				
+			    <td style="min-width:100px;border:1px solid silver;padding-left:3px"><cf_tl id="Date"></td>  
+			    <td style="min-width:110px;border:1px solid silver;padding-left:5px"><cf_tl id="Parent positions"></td>
+				<td style="min-width:110px;border:1px solid silver;padding-left:5px">Active Positions</td>
+				<td style="min-width:110px;border:1px solid silver;padding-left:5px">Assignments</td>
+			   </tr>			   
+			   
+			   <cfif get.DateEffective lte now() AND get.DateExpiration gte now()>
+	
+				<cfquery name="Pos" 
+				datasource="AppsEmployee" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					SELECT count(*) as Total
+					FROM   PositionParent
+					WHERE  MandateNo = '#URL.ID1#'
+					AND    Mission   = '#URL.ID#'				
+					AND   DateExpiration >= getDate()			
+				</cfquery>
+				
+				<cfquery name="ValidPosition" 
+				datasource="AppsEmployee" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					SELECT count(*) as Total
+					FROM  Position
+					WHERE MandateNo = '#URL.ID1#'
+					AND   Mission   = '#URL.ID#'			
+					AND   DateExpiration >= getDate()			
+				</cfquery>
 					
-	<cfquery name="Pos" 
-	datasource="AppsEmployee" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-		SELECT count(*) as Total
-		FROM   PositionParent
-		WHERE  MandateNo = '#URL.ID1#'
-		AND    Mission   = '#URL.ID#'
-	</cfquery>
+				<cfquery name="ValidAssignment" 
+				datasource="AppsEmployee" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					SELECT count(*) as Total
+					FROM  PersonAssignment
+					WHERE PositionNo IN (SELECT PositionNo
+					                    FROM  Position
+										WHERE MandateNo = '#URL.ID1#'
+										AND   Mission   = '#URL.ID#'								
+										AND   DateExpiration >= getDate()
+										AND   DateEffective  < getDate()								
+					                    )
+					AND   AssignmentStatus IN ('0','1')			
+					AND   DateExpiration >= getDate()
+					AND   DateEffective  < getDate()
+								
+				</cfquery>			
+			   
+			    <tr class="labelmedium" style="height:20px">				
+			    <td style="border:1px solid silver;padding-left:3px" align="center">#dateformat(now(),CLIENT.DateFormatShow)#</td>  			    
+				<td style="border:1px solid silver;padding-right:3px;font-weight:normal" align="right">#numberformat(Pos.Total,',')#</td>				
+				<td style="border:1px solid silver;padding-right:3px;font-weight:normal" align="right">#numberformat(ValidPosition.Total,',')#</td>				
+				<td style="border:1px solid silver;padding-right:3px;font-weight:normal" align="right">#numberformat(ValidAssignment.Total,',')#</td>
+			    </tr>			   
+				
+				</cfif>
+				
+				<cfquery name="Pos" 
+					datasource="AppsEmployee" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+						SELECT count(*) as Total
+						FROM   PositionParent
+						WHERE  MandateNo = '#URL.ID1#'
+						AND    Mission   = '#URL.ID#'		
+						AND   DateExpiration = '#Get.DateExpiration#'		
+					</cfquery>
+					
+					<cfquery name="ValidPosition" 
+					datasource="AppsEmployee" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+						SELECT count(*) as Total
+						FROM  Position
+						WHERE MandateNo      = '#URL.ID1#'
+						AND   Mission        = '#URL.ID#'		
+						AND   DateExpiration = '#Get.DateExpiration#'		
+					</cfquery>
+						
+					<cfquery name="ValidAssignment" 
+					datasource="AppsEmployee" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+						SELECT count(*) as Total
+						FROM  PersonAssignment
+						WHERE PositionNo IN (SELECT PositionNo
+						                    FROM  Position
+											WHERE MandateNo = '#URL.ID1#'
+											AND   Mission   = '#URL.ID#'
+											AND   DateExpiration = '#Get.DateExpiration#' )
+						AND   AssignmentStatus IN ('0','1')		
+						AND   DateExpiration = '#Get.DateExpiration#'		
+					</cfquery>					
+				
+				   <tr class="labelmedium" style="height:20px">
+				    <TD style="border:1px solid silver;padding-left:3px" align="center">#dateformat(Get.DateExpiration,CLIENT.DateFormatShow)#</td>				    
+					<td style="border:1px solid silver;font-weight:normal;padding-right:3px" align="right">#numberformat(Pos.Total,',')#</td>					
+					<td style="border:1px solid silver;font-weight:normal;padding-right:3px" align="right">
+						<table>
+						<tr>						
+						<td style="border:0px solid silver" title="Extend positions to new expiration date" id="positionexpirationadjust"></td>											
+						<td align="right">#numberformat(ValidPosition.Total,',')#</td></tr>
+						</table>
+					</td>					
+					<td style="border:1px solid silver;font-weight:normal;padding-right:3px" align="right">
+					<table>
+						<tr>
+						<td style="border:0px solid silver" title="Extend assignments to new expiration date" align="right" id="assignmentexpirationadjust"></td>
+						<td align="right">#numberformat(ValidAssignment.Total,',')#</td></tr>
+						</table>
+					</td>						
+					
+				   </tr>			   
+				
+				
+			   </table>
+			</td>		
+		</TR>
 	
-	<cfif get.DateEffective lte now() AND get.DateExpiration gte now()>
-	 <cfset cur = "1">	 
-	<cfelse>
-	 <cfset cur = "0">
-	</cfif>
-	
-	<cfquery name="ValidPosition" 
-	datasource="AppsEmployee" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-		SELECT count(*) as Total
-		FROM  Position
-		WHERE MandateNo = '#URL.ID1#'
-		AND   Mission   = '#URL.ID#'
-		<cfif cur eq "1">		
-		AND   DateExpiration >= getDate()
-		<cfelse>
-		AND   DateExpiration = '#Get.DateExpiration#'
-		</cfif>
-	</cfquery>
-		
-	<cfquery name="ValidAssignment" 
-	datasource="AppsEmployee" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-		SELECT count(*) as Total
-		FROM  PersonAssignment
-		WHERE PositionNo IN (SELECT PositionNo
-		                    FROM  Position
-							WHERE MandateNo = '#URL.ID1#'
-							AND   Mission   = '#URL.ID#'
-							<cfif cur eq "1">
-							AND   DateExpiration >= getDate()
-							AND   DateEffective  < getDate()
-							<cfelse>
-							AND   DateExpiration = '#Get.DateExpiration#'
-							</cfif>
-		                    )
-		AND   AssignmentStatus IN ('0','1')
-		<cfif cur eq "1">
-		AND   DateExpiration >= getDate()
-		AND   DateEffective < getDate()
-		<cfelse>
-		AND   DateExpiration = '#Get.DateExpiration#'
-		</cfif>
-		
-	</cfquery>
-		
-	<tr class="labelmedium line"> 		
-		<TD valign="top" style="padding-top:6px;padding-left:3px">Summary:</td>    
-		
-		<td>
-		   <table cellspacing="0" cellpadding="0" class="formpadding">
-		   <tr class="labelmedium">
-		    <td>Total Positions:</td>
-			<td style="padding-left:10px"><b>#numberformat(Pos.Total,'__,__')#</td>
-			<td style="padding-left:20px">As per <cfif cur eq "1">#dateformat(now(),CLIENT.DateFormatShow)#<cfelse>#dateformat(Get.DateExpiration,CLIENT.DateFormatShow)#</cfif></td>
-			<td style="padding-left:5px">Positions:</td>
-			<td style="padding-left:10px" align="right"><font color="000000">#numberformat(ValidPosition.Total,'__,__')#</td>
-			<td style="padding-left:5px">Assignments:</td>
-			<td  style="padding-left:10px" align="right">#numberformat(ValidAssignment.Total,'__,__')#</td>
-		   </tr>			   
-		   </table>
-		</td>		
-	</TR>
-		
+				
 	<tr class="labelmedium line"> 		
 		<TD style="padding-left:3px;padding-right:5px;height:40px">is&nbsp;Default&nbsp;Period:</td>
     	<td><input class="radiol" type="checkbox" name="MandateDefault" <cfif Get.MandateDefault eq "1">checked</cfif> value="1">
@@ -271,7 +326,7 @@ password="#SESSION.dbpw#">
 	</TR>
 				
 	<tr class="labelmedium"> 		
-		<TD height="24" style="padding-left:3px" class="labelmedium">Status:</td>
+		<TD height="24" style="padding-left:3px" class="labelmedium"><cf_tl id="Status">:</td>
 		
 		<td>
 		 <table>

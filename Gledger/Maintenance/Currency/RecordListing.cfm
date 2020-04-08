@@ -2,19 +2,22 @@
 
 <cfparam name="URL.Option" default="Hide">
 
-<HTML><HEAD><TITLE>Currency Maintenance</TITLE></HEAD>
-
-<cf_divscroll>
-
 <cfset add          = "1">
 <cfset Header       = "Currency Exchange Rates to <cfoutput>#APPLICATION.BaseCurrency#</cfoutput>">
-<cfinclude template = "../HeaderMaintain.cfm"> 
 
 <cf_PresentationScript>
 
 <cfparam name="URL.Option" default="show">
 
-<table width="96%" align="center" cellspacing="0" cellpadding="0">
+<cf_screentop html="No" jquery="Yes">
+
+<table height="100%" width="94%" align="center" cellspacing="0" cellpadding="0" align="center">
+
+<tr><td style="height:10">
+
+<cfinclude template = "../HeaderMaintain.cfm"> 
+
+</td></tr>
 
 <cfquery name="Exchange"
 datasource="AppsLedger" 
@@ -90,9 +93,8 @@ function exclog(id,id1) {
 
 </cfoutput>
 
-<tr><td height="1" class="line" colspan="9"></td></tr>
 
-<tr><td colspan="2" style="height:40">
+<tr><td style="height:40">
 
 <cfinvoke component = "Service.Presentation.tableFilter"  
 			   method           = "tablefilterfield" 
@@ -105,11 +107,13 @@ function exclog(id,id1) {
 </td></tr>
 	
 <tr>
-<td colspan="2">
+<td colspan="1" style="height:100%">
+
+<cf_divscroll>
 
 <table width="98%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
 
-<tr class="labelmedium line">
+<tr class="labelmedium line fixrow">
       
     <td width="5%" align="left"></td> 
     <td width="60" align="left">Acr</td>
@@ -165,16 +169,10 @@ function exclog(id,id1) {
 
 </table>
 
-</td>
-
-</table>
-
-</td>
-
-</table>
-
-</BODY>
-
 </cf_divscroll>
 
-</HTML>
+</td>
+
+</table>
+
+<cfset ajaxonload("doHighlight")>

@@ -122,7 +122,6 @@
 <table height="100%" width="100%" align="center">
 
 <tr><td height="20">
-
 <cfinclude template = "../HeaderMaintain.cfm"> 
 </td></tr>
   
@@ -178,12 +177,13 @@ to this group. If a group is no roles, no membership is allowed --->
 					       maxlength = "25"
 					       class     = "regular3">
 				   
-				  </td>				   
-				  <td class="hide">				  				   
+				</td>				   
+				
+				<td class="hide">				  				   
 				    <input type="button" id="searchbutton" onclick= "reload(document.getElementById('find').value,document.getElementById('mission').value)">					
-				  </td>	
+				</td>	
 				   
-				  <td align="center" style="padding-right:1px;border-right:1px solid silver;border-top:1px solid silver;border-bottom:1px solid silver;padding-right:0px">
+				<td align="center" style="padding-right:1px;border-right:1px solid silver;border-top:1px solid silver;border-bottom:1px solid silver;padding-right:0px">
 				  
 				    <img src="#CLIENT.virtualdir#/Images/search.png" 
 							  alt    = "Search for a group name or owner" 

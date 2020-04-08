@@ -81,7 +81,7 @@ password="#SESSION.dbpw#">
 					      AND    (Period = '#url.period#' or Period is NULL)
 					     )
 	AND    P.Status != '9'
-	AND    R.Area != 'Risk'
+	AND    R.Area != 'Risk' and R.Area != 'Gender Marker'
 </cfquery>
 
 <cfquery name="ParentProgram" 

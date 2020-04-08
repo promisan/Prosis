@@ -38,7 +38,14 @@ password="#SESSION.dbpw#">
 
 <cfajaximport tags="cfform">
 
-<cf_screenTop height="100%" title="Organization User Roles" jQuery="yes" border="0" html="No" scroll="no">
+<cf_screenTop
+		height="100%"
+		title="Organization User Roles"
+		jQuery="yes"
+		TreeTemplate="Yes"
+		border="0"
+		html="No"
+		scroll="no">
 
 <cf_layoutscript>
 

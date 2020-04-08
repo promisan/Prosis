@@ -58,7 +58,8 @@
 <cfif url.content eq "1">
 
 	<table width="100%" height="100%">		
-	  <tr><td height="100%"><cfinclude template="ListingContent.cfm"></td></tr>
+	  <tr><td height="100%">	 
+	  <cfinclude template="ListingContent.cfm"></td></tr>
 	</table> 
 	
 <cfelse>

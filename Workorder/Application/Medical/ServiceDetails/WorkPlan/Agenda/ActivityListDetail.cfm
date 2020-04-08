@@ -1,4 +1,5 @@
 
+
 <cfoutput>
 	
 	<cfset thisPending  	= "##E8E8E8">
@@ -65,7 +66,7 @@
 	<cfif url.size eq "small" or url.size eq "embed">
 	
 		<tr class="clsPatientRow navigation_row" style="<cfif currentrow gte "2">border-top:1px solid silver</cfif>">		
-		    <td align="center" class="ecell" style="border-left:9px solid #cl#;"></td> 						
+		    <td align="center" class="ecell" style="border-left:9px solid #cl#"></td> 						
 			<cfif hasBilling neq "">
 				<td style="border-left:9px solid #clb#"></td> 		
 			<cfelse>
@@ -73,8 +74,11 @@
 			</cfif>													
 			<td class="ccontent dcell" style="background-color:#plancolor#">
 			<a class="navigation_action" style="font-size: 12px; color: 555" href="javascript:openaction('#workorderlineid#')">#FirstName# <cfif MiddleName neq "">#MiddleName# </cfif>#LastName# <cfif LastName2 neq "">#LastName2#</cfif>&nbsp;/
-			<cfif documentReference neq "">#DocumentReference#<cfelse>#PersonNo#</cfif></a></td>						
-			<td class="ccontent acell" style="font-size: 12px; color: 555;background-color:#plancolor#">#left(WorkOrderService,3)#</td>	
+			<cfif documentReference neq "">#DocumentReference#<cfelse>#PersonNo#</cfif></a>
+			</td>						
+			<td class="ccontent acell" style="font-size: 12px; color: 555;background-color:#locationcolor#">
+			<cfif locationname neq ""><cf_UITooltip Tooltip="#LocationName#">#UCASE(left(WorkOrderService,3))#</cf_UITooltip><cfelse>#UCASE(left(WorkOrderService,3))#</cfif>
+			</td>	
 			<td class="ccontent acell" style="font-size: 12px; color: 555;min-width:40px;background-color:#plancolor#">#tpe#</td>	
 			<td class="ccontent acell" style="font-size: 12px; color: 555;background-color:#plancolor#"><cfif PlanOrder neq "">#left(PlanOrder,1)#</cfif></td>	
 			<td class="ccontent acell" style="font-size: 12px; color: 555;background-color:#plancolor#">#Description#</td>	
@@ -91,13 +95,15 @@
 				</cfif>				
 			</td>				
 		</tr>
-		
+				
 		<cfif ScheduleLog gte 1>
 			<tr id="log_#workactionid#" style="display:none;">
 				<td colspan="2"></td>
 				<td colspan="7" id="logContent_#workactionid#"></td>
 			</tr>
-			<tr id="#workactionid#" class="hide"><td colspan="9" class="line" id="#workactionid#_content"></td></tr>
+			
+			<tr id="#workactionid#" style="display:none;" class="hide"><td colspan="9" class="line" id="#workactionid#_content"></td></tr>
+			
 		</cfif>
 					
 	<cfelse>
@@ -110,7 +116,7 @@
 		   <a class="navigation_action" href="javascript:openaction('#workorderlineid#')"><cfif documentReference neq "">#DocumentReference#<cfelse>#PersonNo#</cfif></a> 
 	    </td>					
 		<td class="ccontent bcell" style="width:100%;background-color:#plancolor#;font-size:14px"> #FirstName# <cfif MiddleName neq "">#MiddleName# </cfif>#LastName# <cfif LastName2 neq "">#LastName2#</cfif></td>			
-		<td class="ccontent acell" style="background-color:#plancolor#">#left(WorkOrderService,3)#</td>	
+		<td class="ccontent acell" style="background-color:#plancolor#"><cfif locationname neq ""><cf_UITooltip Tooltip="#LocationName#">#UCASE(left(WorkOrderService,3))#</cf_UITooltip><cfelse>#UCASE(left(WorkOrderService,3))#</cfif></td>	
 		<td class="ccontent acell" style="min-width:40px;background-color:#plancolor#">#tpe#</td>	
 		<td class="ccontent acell" style="background-color:#plancolor#"><cfif PlanOrder neq "">#left(PlanOrder,1)#</cfif></td>	
 		<td class="ccontent acell" style="background-color:#plancolor#">#Description#</td>	
@@ -151,7 +157,9 @@
 				<td colspan="2"></td>
 				<td style="border-left:1px solid silver" colspan="8" id="logContent_#workactionid#"></td>
 			</tr>
+			<!---
 			<tr id="#workactionid#" class="hide"><td colspan="8" class="line" id="#workactionid#_content"></td></tr>
+			--->
 		</cfif>
 		
 	</cfif>	

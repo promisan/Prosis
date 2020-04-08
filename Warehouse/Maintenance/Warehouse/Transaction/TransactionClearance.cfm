@@ -36,7 +36,7 @@ password="#SESSION.dbpw#">
 
 <cfform name="frmTransaction" action="Transaction/TransactionClearanceSubmit.cfm?warehouse=#URL.warehouse#">
 
-<table width="90%" cellspacing="0" cellpadding="0" align="center" class="formpadding navigation_table">
+<table width="90%" align="center" class="navigation_table">
 
 	<tr><td height="10" style="padding-top:10px" colspan="6" class="labelmedium">Used for scenarios where it is not defined on the storage location</td></tr>
 	
@@ -59,7 +59,7 @@ password="#SESSION.dbpw#">
 	<cfoutput query="types" group="TransactionClass">
 			
 		<tr class="line">
-			<td colspan="#vColumns#" class="labellarge" style="font-size:34px;font-weight:200">
+			<td colspan="#vColumns#" class="labelmedium" style="height:40px;font-size:26px">
 				<cfif TransactionClass eq "">
 					[<cf_tl id="No class defined">]
 				<cfelse>
@@ -70,7 +70,7 @@ password="#SESSION.dbpw#">
 		
 		<cfoutput>
 		
-			<tr class="navigation_row line labelmedium" bgcolor="FFFFFF" style="height:30px">
+			<tr class="navigation_row line labelmedium" bgcolor="FFFFFF">
 				<td></td>
 				<td>
 					#Description#
@@ -117,8 +117,7 @@ password="#SESSION.dbpw#">
 				</td>
 				
 				<td>------</td>
-				
-				
+								
 				<td align="center" class="Labelmedium">
 					<table><tr><td>
 					<input type="radio" class="radiol" name="Operational_#TransactionType#" id="Operational_#TransactionType#" value="0" <cfif operational eq 0>checked</cfif>>

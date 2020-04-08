@@ -84,8 +84,8 @@
 					   
 			</cfif>		
 			
-			ORDER BY C.ListingOrder, W.City, W.WarehouseClass 							  
-		  
+			ORDER BY C.ListingOrder, W.City, W.WarehouseClass 			
+					  
 </cfquery>	
 	
 <cfif warehouseList.recordcount eq "0">
@@ -102,44 +102,48 @@
 			</font>
 			</td></tr>
 		</table>	
-		<cfabort>
+		
+		<cfset caller.selWarehouse = "">
+		<cfset caller.selMission   = "">
+			
+<cfelse>		
+	
+	<cfif attributes.Grouping eq "City">
+		
+			<cfform>																			
+													
+				<cfselect name="#attributes.name#" id="#attributes.name#" 
+				    style    = "#attributes.style#"  
+					query    = "warehouselist" 
+					selected = "#attributes.initwarehouse#"
+					display  = "warehousename" 
+					value    = "warehouse" 
+					group    = "city"   
+			        onChange = "#preservesingleQuotes(attributes.onchange)#"/>
+				
+			</cfform>	
+		
+	<cfelse>
+		
+			<cfoutput>
+		
+				<select name="#attributes.name#" id="#attributes.name#" 
+				    style="#attributes.style#"  						
+			        onChange="#preservesingleQuotes(attributes.onchange)#">
+					<cfloop query="WarehouseList">
+					<option value="#Warehouse#" <cfif attributes.initwarehouse eq warehouse>selected</cfif>>#Warehousename#</option>
+					</cfloop>
+				</select>	
+				
+			</cfoutput>	
+		
+	</cfif>
+		
+	<cfif attributes.initwarehouse neq "">	
+		<cfset caller.selWarehouse = attributes.initwarehouse>
+	<cfelse>	
+		<cfset caller.selWarehouse = warehouseList.Warehouse>
+	</cfif>	
+	<cfset caller.selMission   = warehouseList.mission>
 	
 </cfif>		
-	
-<cfif attributes.Grouping eq "City">
-	
-		<cfform>																			
-												
-			<cfselect name="#attributes.name#" id="#attributes.name#" 
-			    style    = "#attributes.style#"  
-				query    = "warehouselist" 
-				selected = "#attributes.initwarehouse#"
-				display  = "warehousename" 
-				value    = "warehouse" 
-				group    = "city"   
-		        onChange = "#preservesingleQuotes(attributes.onchange)#"/>
-			
-		</cfform>	
-	
-<cfelse>
-	
-		<cfoutput>
-	
-			<select name="#attributes.name#" id="#attributes.name#" 
-			    style="#attributes.style#"  						
-		        onChange="#preservesingleQuotes(attributes.onchange)#">
-				<cfloop query="WarehouseList">
-				<option value="#Warehouse#" <cfif attributes.initwarehouse eq warehouse>selected</cfif>>#Warehousename#</option>
-				</cfloop>
-			</select>	
-			
-		</cfoutput>	
-	
-</cfif>
-	
-<cfif attributes.initwarehouse neq "">	
-	<cfset caller.selWarehouse = attributes.initwarehouse>
-<cfelse>	
-	<cfset caller.selWarehouse = warehouseList.Warehouse>
-</cfif>	
-<cfset caller.selMission   = warehouseList.mission>	

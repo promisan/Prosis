@@ -24,11 +24,11 @@
 		function editvendor(mission,itemno,uom,orgunitvendor) {
 		
 			var width = 800;
-	   		var height = 680;	   
-   
-			ColdFusion.Window.create('mydialog', 'Supply', '',{x:30,y:30,height:height,width:width,modal:true,center:true});    
-			ColdFusion.Window.show('mydialog'); 				
-			ColdFusion.navigate("#SESSION.root#/Warehouse/Maintenance/ItemMaster/Vendors/vendorEdit.cfm?itemno="+itemno+"&mission="+mission+"&uom="+uom+"&orgunitvendor="+orgunitvendor+"&ts="+new Date().getTime(),'mydialog'); 
+	   		var height = 680;
+
+			try { ProsisUI.closeWindow('mydialog') } catch(e) {}
+			ProsisUI.createWindow('mydialog', 'Vendor Item/UoM', '',{x:0,y:0,height:document.body.clientHeight-100,width:790,modal:true,center:true})
+			ptoken.navigate("#SESSION.root#/Warehouse/Maintenance/ItemMaster/Vendors/vendorEdit.cfm?itemno="+itemno+"&mission="+mission+"&uom="+uom+"&orgunitvendor="+orgunitvendor+"&ts="+new Date().getTime(),'mydialog'); 
 			
 		}
 		
@@ -51,11 +51,9 @@
 		
 		function editvendorofferperdate(offerid,mission,itemno,uom,orgunitvendor,dateeffective) {
 			var width = 700;
-	   		var height = 600;
-
-			ColdFusion.Window.create('mydialog', 'Supply', '',{x:30,y:30,height:height,width:width,modal:true,center:true});    
-			ColdFusion.Window.show('mydialog'); 				
-			ColdFusion.navigate("#SESSION.root#/Warehouse/Maintenance/ItemMaster/Vendors/vendorOfferEditPerDate.cfm?offerid="+offerid+"&itemno="+itemno+"&mission="+mission+"&uom="+uom+"&orgunitvendor="+orgunitvendor+"&dateEffective="+dateeffective+"&ts="+new Date().getTime(),'mydialog'); 
+	   		var height = 500;
+			ProsisUI.createWindow('offerdialog', 'Supply', '',{x:30,y:30,height:height,width:width,modal:true,center:true});    			
+			ptoken.navigate("#SESSION.root#/Warehouse/Maintenance/ItemMaster/Vendors/vendorOfferEditPerDate.cfm?offerid="+offerid+"&itemno="+itemno+"&mission="+mission+"&uom="+uom+"&orgunitvendor="+orgunitvendor+"&dateEffective="+dateeffective+"&ts="+new Date().getTime(),'offerdialog'); 
 		}	
 		
 		function cloneOffers(suffix) {

@@ -12,7 +12,7 @@ function EditPost(posno) {
 function maintain(org,mis,man) {
     w = #CLIENT.width# - 85;
     h = #CLIENT.height# - 110;
-	window.open("#SESSION.root#/Staffing/Application/Position/MandateView/MandateViewGeneral.cfm?ID=ORG&ID1=" + org + "&ID2="+mis+"&ID3="+man, "_blank", "left=30, top=30, width=790, height= " + h + ", toolbar=no, status=yes, scrollbars=yes, resizable=no")
+	window.open("#SESSION.root#/Staffing/Application/Position/MandateView/MandateViewGeneral.cfm?ID=ORG&ID1=" + org + "&ID2="+mis+"&ID3="+man, "maintain"+org)
 }  
 
 </script>
@@ -33,32 +33,26 @@ AND       S.DocumentNo = '#URL.ID#'
 ORDER BY  P.SourcePostNumber 
 </cfquery>
 
-  <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
-    
-	  <!---	
-	  <tr><td height="25" class="labelit"><b>Reserved Positions</font></td></tr>
-  
-  	  <tr><td height="1" class="linedotted"></td></tr>
-	  --->
-	  
+  <table width="100%" cellpadding="0" align="center">
+    	  
 	  <tr><td>
 	  
-	  <table width="99%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+	  <table width="99%" align="center" class="formpadding">
 	  
 	  <TR class="labelmedium line">
 	    <td width="33"></td>
-	    <TD>Post number</TD>
-	    <TD>Function</TD>
-	    <TD>Grade</TD>		
-		<TD>Unit</TD>
-		<TD>Expiration</TD>		
-		<TD>IndexNo</TD>
-		<TD>Name</TD>
-		<TD>End date</TD>
+	    <TD><cf_tl id="Post number"></TD>
+	    <TD><cf_tl id="Function"></TD>
+	    <TD><cf_tl id="Grade"></TD>		
+		<TD><cf_tl id="Unit"></TD>
+		<TD><cf_tl id="Expiration"></TD>		
+		<TD><cf_tl id="IndexNo"></TD>
+		<TD><cf_tl id="Name"></TD>
+		<TD><cf_tl id="End date"></TD>
 	  </TR>
 	  
 	  <cfif Post.recordcount eq "0">
-	   <tr><td height="1" colspan="9" align="center" class="labelmedium" bgcolor="red"><font color="FFFFFF"><b>Problem: Recruitment track is not associated to a valid position (anymore)</font></td></tr>	  
+	   <tr><td height="1" colspan="9" align="center" class="labelmedium" bgcolor="red"><font color="FFFFFF">Problem: Recruitment track is not associated to a valid position (anymore)</font></td></tr>	  
 	  </cfif>
 	
 	  <cfoutput query="Post"> 
@@ -87,7 +81,7 @@ ORDER BY  P.SourcePostNumber
 		<cfif Person.recordcount eq 0 or Person.DateExpiration lt now()>
 		     <tr class="regular line labelmedium">
 		<cfelse>
-		     <tr class="highLight2 line labelmedium">
+		     <tr class="highLight4 line labelmedium">
 		</cfif> 
 		
 		<td height="18"></td>  	  
@@ -113,4 +107,4 @@ ORDER BY  P.SourcePostNumber
 	</td>
 	</tr>
 
-</TABLE>
+</table>

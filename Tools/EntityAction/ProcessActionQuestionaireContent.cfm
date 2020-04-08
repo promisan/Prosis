@@ -1,27 +1,19 @@
 <style>
     body,font{
         font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
-    }
-    TEXTAREA {
-	border-color: #cccccc;
-	font-size: 9pt;
-	overflow: auto;
-	width: 95%;
-	margin: auto;
-	max-width: 400px;
-    height: 120px;
-}
+    }   
+
     h3.lbl{
         margin: 0;
     }
 </style>
-<div style="max-width:650px;margin: auto;">
-<table cellspacing="0" cellpadding="0" align="center">
+
+<table style="width:95%" border="0" cellspacing="0" cellpadding="0" align="center">
 
 <cfif entrymode eq "workflow">
 
 	<tr class="hide"><td colspan="3" id="processquestion"></td></tr>
-	<tr><td style="padding-top:4px" class="labelmedium" align="center" height="24" colspan="3"><font color="6688aa">Attention: Edits are automatically saved.</font></td></tr>
+	<tr><td style="padding-top:4px" class="labelmedium" align="center" height="24" colspan="3">Attention: Edits are automatically saved.</font></td></tr>
 	
 </cfif>
 
@@ -53,9 +45,8 @@
 	<cfif content.recordcount gte "1">
 		
 		<tr><td height="4"</td></tr>
-		<tr><td colspan="3" style="padding:3px" class="labellarge">#DocumentDescription#</td></tr>		
-		<tr><td colspan="3" class="linedotted"></td></tr>
-	
+		<tr class="line" ><td colspan="3" style="padding:3px;font-size:20px;font-weight:300" class="labelmedium">#DocumentDescription#</td></tr>		
+			
 	</cfif>
 	
 	<!--- embedded trigger script : driven by Erin 10/3/2012 and diabled
@@ -88,14 +79,10 @@
 		
 		<input type="hidden" name="process_#left(QuestionId,8)#" id="process_#left(QuestionId,8)#" value="<cfif score neq "">processed</cfif>">
 
-        <tr height="25"></tr>
-        <tr height="50">
-            <td  class="labelit" style="text-align: center;font-size: 18px;font-weight: 200;">#currentrow#. #QuestionLabel#</td>
-        </tr>
-        <tr height="50">
-							
-					
-		<td width="15%" align="center" style="padding-right:20px" class="labelit">
+        <tr>
+       
+	    <td class="labelmedium" style="height:45px;font-size: 18px;font-weight: 300;paddng-left:4px">#currentrow#. #QuestionLabel# #QuestionMemo#</td>				
+		<td align="right" style="padding-right:20px" class="labelit">
 		
 			<cfif InputMode eq "YesNo">			
 			
@@ -118,13 +105,13 @@
 						      onclick="#lkt#" 
 							  value="1" <cfif score eq "1">checked</cfif>>	
 						</td>
-						<td style="padding-left:3px" class="labelmedium"><font color="green">Yes</font></td>
+						<td style="padding-left:3px;font-size: 18px;font-weight: 300;" class="labelmedium"><font color="green">Yes</font></td>
 						
 						<td style="padding-left:7px"><input type="radio" class="radiol"
 						      name="score_#left(QuestionId,8)#" 
 							  id="score_#left(QuestionId,8)#"
 						      onclick="#lkt#" value="0" <cfif score eq "0">checked</cfif>></td>
-						<td style="padding-left:3px" class="labelmedium"><font color="red">No</font></td>
+						<td style="padding-left:3px;font-size: 18px;font-weight: 300;" class="labelmedium"><font color="red">No</font></td>
 					</tr>
 					</table>
 				
@@ -208,17 +195,13 @@
 		<td class="hide" id="i#questionid#"></td>
 		
 		</tr>
+							
 		
-		<cfif QuestionMemo neq "">		
-            <tr height="40"></tr>
-            <tr height="40"><td style="text-align: center;">#QuestionMemo# (Opcional)</td></tr>		
-		</cfif>
 		
 		<cfif EnableInputMemo eq "1">
 		
 			<tr>
-                <td style="text-align: center;">
-                    
+                <td colspan="3" align="right" style="padding-right:10px;padding-left:10px">                    
 				
 				<cfif entrymode eq "view">	
 							
@@ -228,9 +211,9 @@
 				
 				 <cfset text = replace(Memo,"<script","disable","all")>
 				 <cfset text = replace(text,"<iframe","disable","all")>		
-				
-	   			 <textarea height="100" width="95%" color="ffffff" init="Yes" onchange="#lkm#"  name="memo_#left(QuestionId,8)#" 
-					  id="memo_#left(QuestionId,8)#" toolbar="basic">#Memo#</textarea>				
+								
+	   			 <cf_textarea style="height:50px;width:1800px;min-height:40px;padding:3px;font-size:15px;" height="80" color="ffffff" toolbar="Mini"  init="Yes"
+				   onchange="#lkm#" name="memo_#left(QuestionId,8)#" id="memo_#left(QuestionId,8)#">#Memo#</cf_textarea>				
 								  
 				</cfif>
 				
@@ -238,11 +221,11 @@
 			</tr>
 		
 		</cfif>
-				
+		
 		<cfif EnableInputAttachment eq "1">
 		
-			<tr><td></td>
-			    <td colspan="1" class="labelit" style="padding-top:2px;padding-left:10px;padding-right:3px">
+			<tr>
+			    <td colspan="3" style="padding-top:2px;padding-left:10px;padding-right:13px">
 				
 				<cfif entrymode eq "view">
 				
@@ -278,9 +261,8 @@
 		</cfif>
 		
 		<cfif currentrow neq recordcount>
-		
-		<tr><td colspan="3" height="40"></td></tr>
-        <tr><td colspan="3" class="linedotted" height="1"></td></tr>
+				
+        <tr><td colspan="3" class="line" height="1"></td></tr>
 				
 		</cfif>
 	
@@ -289,4 +271,3 @@
 </cfoutput>
   
 </table>
-</div>

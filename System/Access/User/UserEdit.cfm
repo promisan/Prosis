@@ -112,7 +112,6 @@ password="#SESSION.dbpw#">
 
 <cf_dialogPosition>
 <cf_textAreaScript>
-<cfajaximport tags="cfwindow">
 
 	<table width="100%" height="100%">
 			
@@ -328,7 +327,7 @@ password="#SESSION.dbpw#">
 				   class="regularxl"
 			       visible="Yes"
 			       enabled="Yes"
-			       size="20"
+			       size="40"
 			       maxlength="40">
 				
 				
@@ -549,12 +548,8 @@ password="#SESSION.dbpw#">
 			
 			<cfif get.recordcount eq "1">
 					
-				<tr><td colspan="2" align="center" height="25">
-				   <cfif url.script eq "">
-					<input class="button10g" style="width:130px;height:27px" type="button" value="Close" onClick="window.close()">
-					<cfelse>
-					<input class="button10g" style="width:130px;height:27px" type="button" value="Close" onClick="parent.ProsisUI.closeWindow('mydialog',true)">
-					</cfif>
+				<tr><td colspan="2" align="center" height="25">				  
+					<input class="button10g" style="width:130px;height:27px" type="button" value="Close" onClick="parent.ProsisUI.closeWindow('mydialog',true)">					
 					<input class="button10g" style="width:130px;height:27px" type="submit" value="Save">
 				</td></tr>
 			

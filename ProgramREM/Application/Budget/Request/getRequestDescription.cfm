@@ -64,19 +64,18 @@
 	
 		<script language="JavaScript">			    
 			try {  		    
-			document.getElementById('labelitem').innerHTML = '#label_itm#:'			
+			document.getElementById('labelitem').innerHTML = '#label_itm#'			
 			} catch(e) {}
-			document.getElementById('labelqty').innerHTML  = '#label_qty#:'
+			document.getElementById('labelqty').innerHTML  = '#label_qty#'
 			try {
-			document.getElementById('labelday').innerHTML  = '#label_day#:'		
+			document.getElementById('labelday').innerHTML  = '#label_day#'		
 			} catch(e) {}
-			document.getElementById('labelmemo').innerHTML = '#label_mem#:'
+			document.getElementById('labelmemo').innerHTML = '#label_mem#'
 		</script>
 		
 	</cfoutput>
 
 </cfif>
-
 
 <cfif Master.BudgetTopic eq "DSA">
 
@@ -112,7 +111,7 @@
 			       name      = "RequestDescription_#url.line#"		   	   
 				   maxlength = "200"	
 				   class     = "regularxl enterastab"
-				   style     = "width:98%;height:25;padding-left:4px"	
+				   style     = "width:98%;height:25;padding-left:4px;border:0px;border-left:1px solid silver;border-right:1px solid silver"	
 				   size      = "40"   
 			       value     = "#entry.requestDescription#">
 				</td>
@@ -133,9 +132,8 @@
 		<tr><td>
 					
 			<cfset sel = list.topicvaluecode>
-			
-								
-			<select name="TopicValueCode_#url.line#"  class="regularxl enterastab" style="width:99%" 
+											
+			<select name="TopicValueCode_#url.line#"  class="regularxl enterastab" style="width:99%;border:0px;border-right:1px solid silver" 
 				onchange="applycost('#url.itemmaster#',this.value,'#url.line#','#entry.topicvaluecode#','#url.mission#','#url.location#')">
 				
 				<option value="">--<cf_tl id="select option">--</option>

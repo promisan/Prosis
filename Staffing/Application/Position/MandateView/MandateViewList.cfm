@@ -1226,41 +1226,14 @@
 		  	  </td>
 		  
 	   </tr>
-	   
-	  <cfif URL.Lay eq "Listing">
-	   
-		   <tr style="height:20px">
-		   <td colspan="2" style="padding-bottom:5px" class="clsPrintContent">
-		    <table width="100%">
-			<tr style="background-color:efefef" class="labelmedium line">			
-			    <td style="padding-left:110px"></td>
-				<td style="min-width:70px"><cf_tl id="Grade"></td>
-				<td style="min-width:250px"><cf_tl id="Function"></td>
-				<td style="min-width:70px"><cf_tl id="PostNo"></td>
-				<td style="min-width:70px"><cf_tl id="Duty"></td>
-				<td style="min-width:45px"><cf_tl id="Group"></td>
-				<td style="width:100%"><cf_tl id="Incumbent"></td>
-				<td style="min-width:85px"><cf_UIToolTip  tooltip="Contract Grade and Step"><cf_tl id="Contract"></cf_UIToolTip></td>
-				<td style="min-width:85px"><cf_tl id="SPA"></td>
-				<td style="min-width:100px"><cf_tl id="IndexNo"></td>
-				<td style="min-width:45px"><cf_tl id="Gender"></td>
-				<td style="min-width:40px"><cf_UIToolTip  tooltip="Current Nationality"><cf_tl id="Nat"></cf_UIToolTip></td>
-				<td style="min-width:60px"><cf_UIToolTip  tooltip="Percentage of post incumbency"><cf_tl id="Percent"></cf_UIToolTip></td>
-				<td style="min-width:40px"></td>
-			</tr>
-			</table>
-			</td>
-		   </tr>
-	   
-	  </cfif> 
-	  	  	  	 		   		  	    
+	     	  	 		   		  	    
 	  <tr>
 	  
-	  <td valign="top" colspan="2" style="height:100%;padding-left:7px;padding-right:7px;padding-bottom:9px" class="clsPrintContent">
+	  <td valign="top" colspan="2" style="min-width:1000px;height:100%;padding-left:7px;padding-right:7px;padding-bottom:9px" class="clsPrintContent">
 	  
 	  	<cf_divscroll overflowy="scroll">
 	        
-		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="navigation_table">
+		<table width="100%" class="navigation_table">		
 				
 			<cfif URL.Sort eq "OrgUnit">
 			  
@@ -1340,7 +1313,7 @@
 					FROM      userQuery.dbo.#SESSION.acc#Post#FileNo# Post 
 					GROUP BY  #URL.Sort# 
 				</cfquery>
-				   
+								   
 				<cfoutput query="PostShow" group="#URL.Sort#">
 				
 				   <cfif (currrow gte first and currrow lte last) or currrow eq "0">
@@ -1492,7 +1465,7 @@
 							</cfif>					  
 									  
 					  <cfoutput group="PositionNo">
-					  				
+					  					  					  					  					  				
 						<cfset currrow = currrow + 1>
 						
 						<cfif currrow gte first and currrow lte last>
@@ -1501,7 +1474,7 @@
 								
 							  <cfif currrow gte first and currrow lte last>
 							   <tr class="navigation_row">
-								 <td colspan="10" class="regular"><cfinclude template="MandateViewOrganizationPosition.cfm"></td>
+								 <td colspan="10"><cfinclude template="MandateViewOrganizationPosition.cfm"></td>
 							   </tr>	 																								
 								
 							   <cfoutput group="AssignmentNo"> <!--- loop of assignments --->
@@ -1517,9 +1490,8 @@
 												
 						        <cfif currrow gte first and currrow lte last>
 								 <tr class="navigation_row">
-								    <td colspan="10">																
-							          <cfinclude template="MandateViewOrganizationAssignmentView.cfm">
-								     </td>
+								     <td></td>
+								     <td colspan="9"><cfinclude template="MandateViewOrganizationAssignmentView.cfm"></td>
 								 </tr>	  
 						        </cfif>									
 								
@@ -1530,8 +1502,7 @@
 							 <tr><td colspan="10">
 							   <cfinclude template="Navigation.cfm">
 							 </td></tr>
-							 
-														 
+							 													 
 							 <cfinclude template="MandateViewExit.cfm">
 							 
 								<CF_DropTable dbName="AppsQuery" tblName="#SESSION.acc#Position#FileNo#">	

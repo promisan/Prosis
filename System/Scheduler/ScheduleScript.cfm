@@ -14,7 +14,7 @@ function scheduleoption(id) {
 }
 
 function recordrun(id) {   
-     ColdFusion.Window.create('executetask', 'Execute Task', '',{x:100,y:100,height:580,width:560,closable:false,modal:true,center:true})	
+     ProsisUI.createWindow('executetask', 'Execute Task', '',{x:100,y:100,height:580,width:560,closable:false,modal:true,center:true})	
 	 ColdFusion.navigate('#SESSION.root#/System/Scheduler/ScheduleExecute.cfm?id='+id,'executetask')
 }
 

@@ -66,6 +66,8 @@
 		
 	<cfset caller.getval = ValueList(getValue.value)>	
 	
+	
+	
 	</cfif>	
 	
 <cfelse>

@@ -1,5 +1,6 @@
 
-<cf_screentop html="Yes" height="100%"
+<!---
+<cf_screentop html="No" height="100%"
    label="Recruitment Request" 
    line="no"
    layout="webapp" 
@@ -7,9 +8,7 @@
    user="yes"
    close="ColdFusion.Window.destroy('mydialog',true)"
    banner="gray">
-
-   
-<cf_calendarscript>
+   --->
 
 <cfparam name="URL.ID" default="">
 <cfparam name="URL.box" default="">
@@ -185,10 +184,11 @@ password="#SESSION.dbpw#">
 	ORDER BY R.ListingOrder	 
 </cfquery>
 
+
 <cfif class.recordcount eq "0">
 
 	 <cf_message height="100" message="Problem, no workflows have been published for this track owner #owner#" return="close">
-	 <cf_screenbottom layout="innerbox">
+	
 	 <cfabort>
 	 
 </cfif>
@@ -207,26 +207,24 @@ password="#SESSION.dbpw#">
 
 <cfif Access.recordcount eq "0" and getAdministrator(Position.mission) eq "0">
 
-	<cf_message return="close" header="No" message="You are not authorised to initiate a Recruitment tracks for owner <cfoutput>#Owner#</cfoutput>">
-	<cf_screenbottom layout="webapp">
-	
+	<cf_message return="close" header="No" message="You are not authorised to initiate a Recruitment tracks for owner <cfoutput>#Owner#</cfoutput>">		
 	<cfabort>
+	
 </cfif>
 
 <cfif Mission.Recordcount eq "0">
 
-<cf_message Message="Problem, you are <b>NOT</b> authorised to register vactracks" return="back">
-
+	<cf_message Message="Problem, you are <b>NOT</b> authorised to register vactracks" return="back">
 	<cfabort>
 
 </cfif>
 
 <cfform action="#session.root#/Vactrack/Application/Document/DocumentEntrySubmit.cfm?box=#url.box#&ID=#DocumentNoTrigger#&id1=#URL.ID1#"
-  method="POST" style="height:100%"
+  method="POST" style="height:98%"
   name="documententry" 
   target="result">
   
-<table width="93%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="93%" height="98%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
     
   <tr class="hide"><td><iframe name="result" id="result"></iframe></td></tr>
        
@@ -243,8 +241,7 @@ password="#SESSION.dbpw#">
 	    <td height="20" class="labelmedium"><cf_tl id="Entity">:</td>
 		<td class="labelmedium">
 			    <cfoutput>#Position.Mission#</cfoutput>
-			    <input type="hidden" name="Mission" value="<cfoutput>#Position.Mission#</cfoutput>">	
-						 
+			    <input type="hidden" name="Mission" value="<cfoutput>#Position.Mission#</cfoutput>">						 
 	    </td>
 		</TR>		
 		
@@ -261,7 +258,6 @@ password="#SESSION.dbpw#">
 		    <input class="regularxl" type="text" name="postnumber" size="20" maxlength="20" value="<cfoutput>#Position.SourcePostNumber#</cfoutput>" readonly>								
 		</td>
 		</TR>			
-		
 	
 		<TR>
 	    <TD class="labelmedium" height="23"><cf_tl id="Owner"> :</TD>
@@ -326,46 +322,45 @@ password="#SESSION.dbpw#">
 	    <TR>
 	    
 	    <td class="labelmedium"><cf_tl id="Unit">:</td>
-		<td><input type="text" name="organizationunit" value="<cfoutput>#Position.OrgUnitName#</cfoutput>" size="50" maxlength="80" class="regularxl">		
+		<td><input type="text" name="organizationunit" value="<cfoutput>#Position.OrgUnitName#</cfoutput>" size="70" maxlength="80" class="regularxl">		
 		</td>
 		</TR>		
 		
 	    <tr> 		
 		
-		<TD class="labelmedium"><cf_UIToolTip tooltip="Due date on a recruitment request refers to the deadline that a department has to fullfill this vacancy"><cf_tl id="Due date">:</cf_UIToolTip></td>
+		<TD class="labelmedium"><cf_uitooltip tooltip="Due date on a recruitment request refers to the deadline that a department has to fullfill this vacancy"><cf_tl id="Due date">:</cf_uitooltip></td>
 	    
 		<td>
 			
 		  <cfset end = DateAdd("m",  2,  now())> 
 		
 		  <cf_intelliCalendarDate9
-			FieldName="DueDate"
-			ToolTip="Due Date" 	
-			Manual="False"		
-			Class="regularxl"	
-			Default="#Dateformat(end, CLIENT.DateFormatShow)#"
-			DateValidStart="#Dateformat(now(), 'YYYYMMDD')#"									
-			AllowBlank="False">	  
+				FieldName="DueDate"
+				ToolTip="Due Date" 	
+				Manual="False"		
+				Class="regularxl"	
+				Default="#Dateformat(end, CLIENT.DateFormatShow)#"
+				DateValidStart="#Dateformat(now(), 'YYYYMMDD')#"									
+				AllowBlank="False">	  
 			 	 
 		</td>
-		</TR>
-		
+		</TR>		
 			
 		<cfquery name="Deployment" 
 		datasource="AppsSelection" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-		SELECT * FROM Ref_GradeDeployment
-		WHERE  GradeDeployment IN (	
-				SELECT 	 DISTINCT FO.GradeDeployment
-				FROM     Employee.dbo.Position AS P INNER JOIN
-				         FunctionTitle AS FT ON P.FunctionNo = FT.FunctionNo INNER JOIN
-				         FunctionOrganization AS FO ON FT.FunctionNo = FO.FunctionNo INNER JOIN
-				         Ref_SubmissionEdition AS Se ON FO.SubmissionEdition = Se.SubmissionEdition
-				WHERE    Se.Owner = '#owner#' 
-				AND      P.PositionNo = '#URL.ID1#'	
-				)
-		ORDER BY ListingOrder
+			SELECT * FROM Ref_GradeDeployment
+			WHERE  GradeDeployment IN (	
+					SELECT 	 DISTINCT FO.GradeDeployment
+					FROM     Employee.dbo.Position AS P INNER JOIN
+					         FunctionTitle AS FT ON P.FunctionNo = FT.FunctionNo INNER JOIN
+					         FunctionOrganization AS FO ON FT.FunctionNo = FO.FunctionNo INNER JOIN
+					         Ref_SubmissionEdition AS Se ON FO.SubmissionEdition = Se.SubmissionEdition
+					WHERE    Se.Owner = '#owner#' 
+					AND      P.PositionNo = '#URL.ID1#'	
+					)
+			ORDER BY ListingOrder
 		</cfquery>
 		
 		<cfif Deployment.recordcount eq "0">
@@ -387,8 +382,7 @@ password="#SESSION.dbpw#">
 			ORDER BY ListingOrder
 			</cfquery>
 			
-		</cfif>
-	
+		</cfif>	
 			
 	    <!--- Field: DeploymentLevel --->
 	    <TR>
@@ -402,25 +396,25 @@ password="#SESSION.dbpw#">
 			</cfoutput>
 		    </cfselect>			
 		</td>
-		</TR>	   	   
-		
+		</TR>			
 	    
 	    <TR>
 	    <TD class="labelmedium" valign="top" style="padding-top:3px"><cf_tl id="Workflow">:</TD>
-	    <TD>    		
-			<table cellspacing="0" cellpadding="0">		
-			<cfset row = "0">
-		    <cfoutput query="Class">		
-			<cfset row = row+1>
-			<cfif row eq "1"><tr></cfif>
-			<td>
-			<input type="radio" name="EntityClass" class="radiol" value="#EntityClass#" <cfif currentRow eq "1">checked</cfif>>
-			</td><td class="labelmedium" style="padding-left:5px">#EntityClassName#</td>
-			<cfif row eq "1">
-			</tr>
-			<cfset row = "0">
-			</cfif>
-			</cfoutput>
+	    <TD>   
+		 		
+			<table>		
+				<cfset row = "0">
+			    <cfoutput query="Class">		
+				<cfset row = row+1>
+				<cfif row eq "1"><tr></cfif>
+				<td>
+				<input type="radio" name="EntityClass" class="radiol" value="#EntityClass#" <cfif currentRow eq "1">checked</cfif>>
+				</td><td class="labelmedium" style="padding-left:5px">#EntityClassName#</td>
+				<cfif row eq "1">
+				</tr>
+				<cfset row = "0">
+				</cfif>
+				</cfoutput>
 			</table>
 								
 		</TD>
@@ -444,19 +438,17 @@ password="#SESSION.dbpw#">
 			password="#SESSION.dbpw#">
 				SELECT   PostGradeBudget
 				FROM     Applicant.dbo.Ref_GradeDeployment
-				WHERE    (
-				         PostGradeBudget = '#Position.PostGrade#' OR GradeDeployment = '#Position.PostGrade#'
-						 )
+				WHERE   (PostGradeBudget = '#Position.PostGrade#' OR GradeDeployment = '#Position.PostGrade#')
 			</cfquery>
 			
-			<cf_tl id="Cancel" var="1">
-				
+			
 			<cfif PostGradeValidation.recordcount neq 0>
 				<cf_tl id="Create" var="1">
 				<input class="button10g" onclick="document.getElementById('submit').className='hide'" id="submit" name="submit" type="submit" name="Submit" value="<cfoutput>#lt_text#</cfoutput>">
 			<cfelse>				
 				Alert: you may not raise a recruitment track for grade <cfoutput>#Position.PostGrade#</cfoutput>.<br>Check with your assigned focal point.				
 			</cfif>		
+			
 			</td>
 		</TR>
 	
@@ -470,4 +462,5 @@ password="#SESSION.dbpw#">
 
 </CFFORM>
 
-<cf_screenbottom layout="innerbox">
+<cfset ajaxonload("doCalendar")>
+

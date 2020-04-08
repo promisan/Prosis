@@ -94,7 +94,9 @@ password="#SESSION.dbpw#">
 		
 		<cfif ReferenceId neq "">
 		
-		    <!--- determine if we have an advance recorded for this PO order based on the invoice->PO association  --->
+		    <!--- determine if we have an advance recorded for this PO order based on the invoice->PO association  
+			                                or 
+			new : based on the entry in the system journal advance with the same reference --->
 										
 			<cfquery name="Advance" 
 			datasource="AppsLedger" 
@@ -124,7 +126,7 @@ password="#SESSION.dbpw#">
 						FROM   TransactionLine
 						WHERE  ReferenceNo = '#Advance.ReferenceNo#'							
 						AND    GLAccount   = '#Advance.GLAccount#'		
-						AND    ParentJournal is not NULL
+						AND    ParentJournal         is not NULL
 						AND    ParentJournalSerialNo is not NULL													
 						<!--- this is the transaction base --->
 				</cfquery>   
@@ -135,14 +137,16 @@ password="#SESSION.dbpw#">
 				  <cfset val = val+Offsetted.Total>
 				</cfif>
 				
+				 <!--- determine how much is in the osset as it is selected in this run-time transaction --->
+				
 				<cfquery name="OffsettedSelected" 
 					    datasource="AppsQuery" 
 					    username="#SESSION.login#" 
 					    password="#SESSION.dbpw#">						
 					    SELECT SUM(AmountCredit*ExchangeRate) as Total 
 						FROM   #SESSION.acc#GLedgerLine_#client.sessionNo#
-						WHERE  ReferenceNo    = '#Advance.ReferenceNo#'	
-						AND    GLAccount      = '#Advance.GLAccount#'	
+						WHERE  ReferenceNo      = '#Advance.ReferenceNo#'	
+						AND    GLAccount        = '#Advance.GLAccount#'	
 						AND    ParentJournal         is not NULL
 						AND    ParentJournalSerialNo is not NULL														
 						<!--- this is the transaction base --->

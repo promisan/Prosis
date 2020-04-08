@@ -481,7 +481,7 @@
 			 <cfargument name="Warehouse"     type="string"  required="true"   default="">		
 			 <cfargument name="Customerid"    type="GUID"    required="true"   default="">
 			 							 
-				<!--- meta code 
+			 <!--- meta code 
 				
 				1. Define the mission from the input and filter only valid promotions sorted by priority
 				2. We iniitalise the data set the field PROMOTIONID and PromotionDiscount to NULL in the temp table
@@ -493,18 +493,43 @@
 					B3  If not met we remove the TransactionId from the array for any of the elements for the promotion	
 				A2. We go to the Next promotion					
 				
-				--->
-				
-				<cfquery name="resetLines" 
+			 --->
+			 
+			 <cftry>
+			 
+			 <cfquery name="resetPrices" 
 				datasource="AppsTransaction" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">							
 					UPDATE   Sale#Warehouse# 	
+					SET      SalesPrice      = SchedulePrice * ((100 - salesDiscount)/100), 					 
+					         SalesAmount     = SchedulePrice * ((100 - salesDiscount)/100) * TransactionQuantity * (1-taxpercentage/1),				 		
+							 SalesTax        = SchedulePrice * ((100 - salesDiscount)/100) * TransactionQuantity * (taxpercentage/1)
+					WHERE    CustomerId = '#Customerid#' 	
+					AND      TaxIncluded = '1' and SchedulePrice is not NULL	
+					AND      BatchId is NULL		
+					
+					UPDATE   Sale#Warehouse# 	
+					SET      SalesPrice      = SchedulePrice * ((100 - salesDiscount)/100), 					 
+					         SalesAmount     = SchedulePrice * ((100 - salesDiscount)/100) * TransactionQuantity,				 		
+							 SalesTax        = SchedulePrice * ((100 - salesDiscount)/100) * TransactionQuantity * taxpercentage
+					WHERE    CustomerId = '#Customerid#' 	
+					AND      TaxIncluded = '0' and SchedulePrice is not NULL			
+					AND      BatchId is NULL	
+					
+					UPDATE   Sale#Warehouse# 	
 					SET      PromotionId        = NULL,
 							 PromotionDiscount = 0							 		
-					WHERE    CustomerId = '#Customerid#' 							
-				</cfquery>		
-						 
+					WHERE    CustomerId = '#Customerid#' 	
+					AND      PromotionId is not NULL	
+					AND      BatchId is NULL	
+								
+			 </cfquery>	
+			 
+			 <cfcatch></cfcatch>	
+			 
+			 </cftry>
+							 						 
 			 <cfquery name="get" 
 				datasource="AppsMaterials" 
 				username="#SESSION.login#" 
@@ -519,11 +544,14 @@
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">			
 				SELECT    *
-				FROM      Promotion
+				FROM      Promotion T
 				WHERE     Mission = '#get.mission#' 
 				AND       DateEffective  <= GETDATE()
 				AND       (DateExpiration >= GETDATE() or DateExpiration is NULL)
 				AND       Operational = 1
+				AND       EXISTS (SELECT 'X' 
+						          FROM   PromotionElementItem 
+								  WHERE  PromotionId = T.PromotionId ) 				
 				ORDER BY  Priority
 			</cfquery>	
 			
@@ -532,127 +560,86 @@
 			<cfloop query="promotion">	
 			
 				<cfset status = "1">	
-			
-				<cfloop condition="#status# eq 1">		
-				
-					<cfset serno = serno+1>
-							
-					<cfquery name="element" 
-						datasource="AppsMaterials" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">			
+												
+				<cfquery name="element" 
+					datasource="AppsMaterials" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">			
 						SELECT    *
 						FROM      PromotionElement
-						WHERE     PromotionId = '#promotionid#' 
+						WHERE     PromotionId = '#promotionid#' 						
 						ORDER BY  ElementOrder				
+				</cfquery>				
+						   				
+				<cfset serno = serno+1>						
+									
+				<cfloop query="element">	
+					
+					<cfset ids = "">
+					<cfset qty = "0">												
+										
+				    <!--- get all element items in a promotion, they act as OR --->
+			
+					<cfquery name="ElementItem" 
+					datasource="AppsMaterials" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">			
+						SELECT    Category+'-'+CategoryItem as Item
+						FROM      PromotionElementItem
+						WHERE     PromotionId     = '#promotionid#' 
+						AND       ElementSerialNo = '#elementserialno#'							
 					</cfquery>	
-									
-					<cfloop query="element">
-													
-						<cfif status eq "1">
-						
-						    <!--- get all element items in a promotion, they act as OR --->
-					
-							<cfquery name="ElementItem" 
-							datasource="AppsMaterials" 
-							username="#SESSION.login#" 
-							password="#SESSION.dbpw#">			
-								SELECT    Category+'-'+CategoryItem as Item
-								FROM      PromotionElementItem
-								WHERE     PromotionId     = '#promotionid#' 
-								AND       ElementSerialNo = '#elementserialno#'							
-							</cfquery>	
-																		
-							<cfset targetlist = quotedvaluelist(ElementItem.Item)>
-													
-							<cfset mapped = "0">				
-						
-							<cfquery name="getSaleLines" 
-							datasource="AppsTransaction" 
-							username="#SESSION.login#" 
-							password="#SESSION.dbpw#">							
-								SELECT   T.TransactionId, 
-								         I.Category+'-'+I.CategoryItem AS Item, 
-										 T.TransactionQuantity
-								FROM     Sale#Warehouse# T INNER JOIN Materials.dbo.Item I ON T.ItemNo = I.ItemNo					
-								WHERE    PromotionId IS NULL <!--- no double promotions --->
-								AND      CustomerId = '#url.customerid#' 	
-								ORDER BY SchedulePrice DESC						
-							</cfquery>											
-						
-							<cfloop query="getSaleLines">
-							
-								<cfif findNoCase(Item,Targetlist) gt 0>
-								
-									<!--- tag the lines that were matched to a potential promotion --->
-									
-									<!---
-									<cfif mapped lt element.quantity or element.recordcount eq element.currentrow>
-									--->
-									
-									<cfif mapped lt element.quantity> 
-																																									
-										<cfquery name="taglines" 
-										datasource="AppsTransaction" 
-										username="#SESSION.login#" 
-										password="#SESSION.dbpw#">							
-											UPDATE   Sale#Warehouse#  	
-											SET      PromotionId       = '#element.PromotionId#',
-													 PromotionDiscount = '#element.Discount#',		
-													 PromotionType     = '#element.DiscountType#',												 
-													 PromotionRun      = '#serno#'	
-											WHERE    TransactionId     = '#TransactionId#' 							
-										</cfquery>		
-										
-									<cfelse>
-									
-										<!--- we already met the criteria so we do not apply this yet as we nee to keep it available for the
-										other lines in case the second item qualifies for discount --->	
-																	
-									</cfif>
-									
-									<cfset mapped =  mapped + TransactionQuantity>
-									
-								</cfif>		
-																						
-							</cfloop>			
-							
-							<!--- we finished checking the lines and now we check if the condition was met --->						
-																			
-							<cfif mapped lt quantity>
-																								
-								<!--- the full promotion was not met, so we stop below and go to the next promotion --->
-							    <cfset status = "0">
-																			
-							</cfif>
-							
-						</cfif>	
-					
-					</cfloop>
-													
-					<!--- which finished looping through the elements and we get the results on the promotion level --->
-						
-					<cfif status eq "0">
-						
-						<!--- not met, we reset the lines to be considered for other promotions --->
-					
-						<cfquery name="resetLines" 
-							datasource="AppsTransaction" 
-							username="#SESSION.login#" 
-							password="#SESSION.dbpw#">							
-								UPDATE   Sale#Warehouse# 	
-								SET      PromotionId       = NULL,
-										 PromotionDiscount = 0		
-								WHERE    PromotionId       = '#PromotionId#' 	
-								AND      PromotionRun      = '#serno#'
-								AND      CustomerId        = '#customerid#'						
-						</cfquery>		
-						
+																														
+					<cfset targetlist = quotedvaluelist(ElementItem.Item)>
+											
+					<cfset mapped = "0">				
 												
-					 </cfif>
+					<cfquery name="getSaleLines" 
+					datasource="AppsTransaction" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">							
+						SELECT   T.TransactionId, 
+						         I.Category+'-'+I.CategoryItem AS Item, 
+								 T.TransactionQuantity
+						FROM     Sale#Warehouse# T INNER JOIN Materials.dbo.Item I ON T.ItemNo = I.ItemNo					
+						WHERE    PromotionId IS NULL <!--- no double promotions --->
+						AND      CustomerId = '#url.customerid#' <!--- this applies to all addresses of the customer --->	
+						ORDER BY SchedulePrice DESC						
+					</cfquery>											
+				
+					<cfloop query="getSaleLines">
 					
-				  </cfloop>	
-										
+						<cfif findNoCase(Item,Targetlist) gt 0>
+							
+							<cfif ids eq "">
+								<cfset ids = "'#transactionid#'">
+							<cfelse>																									
+								<cfset ids = "#ids#,'#transactionid#'">
+							</cfif>
+							<cfset qty = qty + TransactionQuantity> 
+											
+						</cfif>										
+																				
+					</cfloop>	
+					
+					<cfif qty gte element.Quantity>
+					
+				           <cfquery name="taglines" 
+							datasource="AppsTransaction" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">							
+								UPDATE   Sale#Warehouse#  	
+								SET      PromotionId       = '#element.PromotionId#',
+										 PromotionDiscount = '#element.Discount#',		
+										 PromotionType     = '#element.DiscountType#',												 
+										 PromotionRun      = '#serno#'	
+								WHERE    TransactionId     IN (#preservesingleQuotes(ids)#) 							
+							</cfquery>				
+								
+					</cfif>								
+					
+				</cfloop>																							
+														
 			</cfloop>
 			
 			<!--- Apply the discounts AND also review the existing lines who might have lost the discount --->
@@ -663,8 +650,7 @@
 				password="#SESSION.dbpw#">							
 					SELECT  * 
 					FROM    Sale#Warehouse#  							
-					WHERE   CustomerId = '#customerid#'		
-					
+					WHERE   CustomerId = '#customerid#'							
 			</cfquery>		
 				
 			<cfloop query="lines">	
@@ -728,7 +714,8 @@
 				
 					<cfset amount  = round(amount*100)/100>
 					<cfset amounttax     = round(amounttax*100)/100>
-																			
+					
+											
 					<cfquery name="applyDiscount" 
 					datasource="AppsTransaction" 
 					username="#SESSION.login#" 

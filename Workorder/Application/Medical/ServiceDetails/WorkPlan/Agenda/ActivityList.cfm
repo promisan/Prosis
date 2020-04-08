@@ -323,6 +323,9 @@
 			   WPD.WorkPlanId,
 			   WPD.WorkPlanDetailId,
 			   WPD.DateTimePlanning, 
+			   WPD.LocationId,
+			   L.Color as LocationColor,
+			   L.LocationName,
 			   WPD.Memo,
 			   WP.PositionNo,
 			   A.LastName, 
@@ -339,7 +342,8 @@
 				AND    Operational=0) as ScheduleLog
 			   
 			   
-	FROM       WorkPlanDetail WPD  WITH (NOLOCK) INNER JOIN
+	FROM       WorkPlanDetail WPD  WITH (NOLOCK) LEFT OUTER JOIN
+			   Location L WITH (NOLOCK) ON WPD.LocationId = L.LocationId INNER JOIN
                WorkPlan WP WITH (NOLOCK) ON WPD.WorkPlanId = WP.WorkPlanId INNER JOIN
                WorkOrderLineAction WLA WITH (NOLOCK) ON WPD.WorkActionId = WLA.WorkActionId INNER JOIN
                WorkOrderLine WL WITH (NOLOCK) ON WLA.WorkOrderId = WL.WorkOrderId AND WLA.WorkOrderLine = WL.WorkOrderLine INNER JOIN
@@ -416,14 +420,14 @@
 		</cfif>	
 								
  </cfquery>
-
+ 
  <cfsavecontent variable="vTheMainContent">
 
 	<table style="min-width:500" border="0" width="99%" height="100%">
 
 	<tr><td valign="top" style="padding-left:6px;padding-right:6px">
 
-	<table width="100%" height="100%" class="navigation_table">
+	<table width="100%" height="100%" cellspacing="0" cellpadding="0" class="navigation_table">
 
 	<tr style="height:20px">	
 				
@@ -581,7 +585,6 @@
 		</cfoutput>
 
 	</tr>    
-		
 		 
 	<tr><td id="process" class="hide"></td></tr>
 
@@ -632,7 +635,7 @@
 
 			<cf_divScroll id="mainAgendaListing">
 											
-			<table width="99%" border="0" class="clsPrintContent navigation_table">
+			<table width="99%" border="0" cellspacing="0" cellpadding="0" class="clsPrintContent navigation_table">
 			
 				<cfif url.size eq "small" or 
 				      url.size eq "embed" or  
@@ -718,8 +721,7 @@
 											style="font-size:30px;cursor:pointer;height:12px;padding-left:1px;padding-right:1px"
 											onClick="#link#" onMouseOver="this.bgColor='Yellow'" onMouseOut="this.bgColor='EfEfEf'">																														
 											
-											<cfinclude template="ShowSchedule.cfm">
-											
+											<cfinclude template="ShowSchedule.cfm">											
 																																																							
 										</td>
 										
@@ -736,9 +738,8 @@
 																																
 												<cfif summary.PositionNo neq "">															
 												
-													<td height="100%" class="line labelit" valign="top" colspan="4">															
-														<table width="100%" height="100%" border="0">		
-																								
+													<td height="100%" style="padding:0px" colspan="4" class="line">															
+														<table width="100%" height="100%" style="border:2px solid white" cellspacing="0" cellpadding="0">																									
 															<cfoutput query="Summary">																													
 																<cfinclude template="ActivityListDetail.cfm">				
 															</cfoutput>													
@@ -765,7 +766,6 @@
 													 
 													 <td onMouseOver="this.bgColor='cacaca'" onMouseOut="this.bgColor='EfEfEf'" bgcolor="EfEfEf" 
 														  colspan="4" style="width:100%;border-top:solid silver 1px;border-right:none;height:23px;padding-right:6px;padding-left:40px;cursor:pointer">
-														 
 														 
 														  <table height="100%" width="100%" border="0">
 														     <tr class="labelit">
@@ -957,18 +957,34 @@
 			password="#SESSION.dbpw#">		
 			SELECT     *				   
 			FROM       WorkPlanDetail WITH (NOLOCK)
-			WHERE      WorkActionId = '#url.workactionid#'			
+			WHERE      WorkActionId = '#url.workactionid#'		
+			AND        Operational = 1   	
 		</cfquery>	
 			
 		<cfif found.recordcount gte "0">
 		
-			<tr><td style="height:10px"></td></tr>
+			<tr><td style="height:5px"></td></tr>
+			
+			<cfoutput>
+				<input type="hidden" id="workactionid" value="#url.workactionid#">
+			</cfoutput>	
+			
+			 <cfquery name="get" 
+				datasource="AppsWorkOrder" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">		
+				SELECT   C.CustomerName, C.PersonNo, W.ServiceItem
+				FROM     WorkOrderLineAction WLA WITH (NOLOCK) INNER JOIN
+		                 WorkOrder W WITH (NOLOCK) ON WLA.WorkOrderId = W.WorkOrderId INNER JOIN
+		                 Customer C WITH (NOLOCK)  ON W.CustomerId = C.CustomerId 
+				WHERE    WorkActionId = '#url.workactionid#'	
+			</cfquery>	
 
 			<tr>
-			<td bgcolor="e1e1e1" colspan="5" style="padding-bottom:3px;padding-top:2px;border:1px solid gray">
+			<td colspan="5" style="background-color:eaeaea;padding-bottom:3px;padding-top:2px;border:1px solid gray">
 			<table width="100%">
 				<tr class="labelmedium" style="height:18px">
-					<td style="padding-left:4px"><cf_tl id="Customer"></td>
+					<td style="padding-left:4px"><cfoutput>#get.Customername#</cfoutput></td>
 					<td align="right" style="padding-right:4px">
 					<cfoutput>
 					<!--- onclick="$('##currentcustomer').html('');" --->
@@ -982,45 +998,19 @@
 			</td></tr>
 			
 			<tr>
-			<td id="currentcustomer" colspan="5" align="center" bgcolor="e4e4e4" style="height:35px;padding-bottom:3px;padding-top:2px;border:1px solid gray">
+			<td id="currentcustomer" colspan="5" style="padding-top:10px;padding-left:10px;border:1px solid gray">
 			
 				<form name="scheduleform" id="scheduleform">
 			
-					<table>
+					<table style="height:100%">
 					
-					 <cfoutput>
+					<cfoutput>
 						<input type="hidden" id="workactionid" value="#url.workactionid#">
-					</cfoutput>	
-					
-					 <cfquery name="get" 
-						datasource="AppsWorkOrder" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">		
-						SELECT   C.CustomerName, C.PersonNo
-						FROM     WorkOrderLineAction WLA WITH (NOLOCK) INNER JOIN
-				                 WorkOrder W WITH (NOLOCK) ON WLA.WorkOrderId = W.WorkOrderId INNER JOIN
-				                 Customer C WITH (NOLOCK)  ON W.CustomerId = C.CustomerId 
-						WHERE    WorkActionId = '#url.workactionid#'	
-					</cfquery>	
-					
-					<cfif url.positionno neq "">
-					
-						<tr class="labelmedium">
-						
-						<td colspan="3" style="height:40px;padding-right:5px"><cfoutput>#get.Customername#</cfoutput></td>
-						
-					
-					<cfelse>
-					
-						<tr class="labelmedium">
-						
-						<td colspan="3" style="height:40px;padding-right:5px"><cfoutput>#get.Customername#</cfoutput></td>
-					
-					</cfif>
-									
+					</cfoutput>										
+											
 						<cfif url.positionno neq "">
 						
-						<td height="35">
+						<td>
 																	
 							<cfquery name="getHour"
 								datasource="AppsEmployee" 
@@ -1086,12 +1076,47 @@
 							</cfquery>	
 							
 													
-							<select name="PlanOrderCode" class="regularxl">
+							<select name="PlanOrderCode" class="regularxl" style="height:27px">
 								<cfoutput query="PlanOrderList">
 								<option value="#Code#" <cfif found.PlanOrderCode eq Code>selected</cfif>>#Description#</option>
 								</cfoutput>					
 							</select>					
 						
+						</td>
+						
+						<td style="padding-left:4px">
+						
+							<cfquery name="LocationList"
+								datasource="AppsWorkOrder" 
+								username="#SESSION.login#" 
+								password="#SESSION.dbpw#">
+								SELECT     *
+								FROM       Location
+								WHERE      Mission = '#url.mission#'
+								AND        LocationId IN (SELECT LocationId FROM LocationServiceItem WHERE ServiceItem = '#get.ServiceItem#')
+								ORDER BY   ListingOrder
+							</cfquery>	
+							
+							<cfif LocationList.recordcount eq "0">
+							
+								<cfquery name="LocationList"
+									datasource="AppsWorkOrder" 
+									username="#SESSION.login#" 
+									password="#SESSION.dbpw#">
+									SELECT     *
+									FROM       Location
+									WHERE      Mission = '#url.mission#'								
+									ORDER BY   ListingOrder
+								</cfquery>	
+							
+							</cfif>							
+													
+							<select name="LocationId" class="regularxl" style="height:27px">
+								<cfoutput query="LocationList">
+								<option value="#LocationId#" <cfif found.LocationId eq LocationId>selected</cfif>>#LocationName#</option>
+								</cfoutput>					
+							</select>					
+													
 						</td>
 						
 						<cfif url.positionno neq "">
@@ -1101,7 +1126,7 @@
 							<cfoutput>															
 							
 							<cf_tl id="Save" var="1">
-							<input type="button" style="width:80px"
+							<input type="button" style="width:80px;height:27px"
 							   onclick="_cf_loadingtexthtml='';	ptoken.navigate('#session.root#/WorkOrder/Application/WorkOrder/WorkPlan/setSchedule.cfm?workschedule=#getSchedule.code#&size=#url.size#&mode=medical&workactionid=#url.workactionid#&selecteddate=#URLencodedformat(url.selecteddate)#&mission=#url.mission#&orgunit=#url.orgunit#&positionno=#url.positionno#&personno=#url.personno#','calendartarget','','','POST','scheduleform')" name="Save" class="button10g" value="#lt_text#">	
 							   
 							</cfoutput>
@@ -1120,8 +1145,6 @@
 		</cfif>	
 
 	</cfif>
-
-
 
 	</table>
 

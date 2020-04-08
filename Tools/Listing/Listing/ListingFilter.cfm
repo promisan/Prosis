@@ -107,8 +107,7 @@
 				<cfparam name="form.filter#current.field#_operator" default="xxx">		
 				<cfparam name="current.lookupscript"       default="">		
 				<cfparam name="current.lookupgroup"        default="0">		
-				<cfparam name="current.selectfield"        default="">			
-				
+				<cfparam name="current.selectfield"        default="">						
 																																							
 				<cfif current.search neq ""  and current.displayfilter eq "yes">	
 				
@@ -210,8 +209,6 @@
 							</cftry>
 						
 						</cfif>
-						
-			
 						
 						<cfif lookupdata.recordcount gte "2">						
 							<cfset showfield = "1">		
@@ -333,46 +330,54 @@
 																											
 										<cfif lookupdata.recordcount lte "200">
 																						
-											<cfif current.LookupGroup eq "">																			
-																																																							
-												<cfselect name="filter#current.field#"	
+											<cfif current.LookupGroup eq "">
+
+												<cfif LookupData.recordcount gt 10>
+													<cfset vFilter = "contains">
+												<cfelse>
+													<cfset vFilter ="">
+												</cfif>
+
+												<cf_UIselect name="filter#current.field#"
 												    class="regularxl" 
 													queryposition="below"
-													query="lookupdata"												
+													query="#lookupdata#"
 													value="CODE"
 													required="#oblig#"
 													onchange="applyfilter('','1','content')"	
 													message="Please select a #Current.LabelFilter#"
 													display="DISPLAY"
+													filter="#vFilter#"
 													selected="#val#"																								
 													style="width:90%;">
 													<cfif current.filterforce eq "0">
-												    <option value="" style="background: White;font:10px"><cf_tl id="Any"></option>		
+												    <option value="" style="background: White;font:10px"><cf_tl id="Any"></option>
 													<cfelse>
-													 <option value="" style="background: White;font:10px">--<cf_tl id="Select">--</option>														
+													 <option value="" style="background: White;font:10px">--<cf_tl id="Select">--</option>
 													</cfif>
-												</cfselect>	
+												</cf_UIselect>
 											
 											<cfelse>
-																																																																														
-												<cfselect name="filter#current.field#"	
+
+												<cf_UISelect name="filter#current.field#"
 												    class="regularxl" 
 													queryposition="below"
-													query="lookupdata"
+													query="#lookupdata#"
 													group="#current.LookupGroup#"
 													value="CODE"
 													onchange="applyfilter('','1','content')"
 													message="Please select a #Current.LabelFilter#"
 													required="#oblig#"
 													display="DISPLAY"
-													selected="#val#"																								
+													selected="#val#"
+													filter="contains"
 													style="width:90%">
 													<cfif current.filterforce eq "0">
 												    <option value="" style="background: White;font:10px"><cf_tl id="Any"></option>		
 													<cfelse>
 													 <option value="" style="background: White;font:10px">--<cf_tl id="Select">--</option>		
 													</cfif>																								
-												</cfselect>	
+												</cf_UIselect>
 											
 											</cfif>
 																						
@@ -424,19 +429,21 @@
 											</tr></table>
 										
 										<cfelse>
-																																											
-											<cfselect name="filter#current.field#" size="4" class="regularxl" 
-											     message="Please select a value #Current.LabelFilter#" required="#oblig#"
-											     multiple style="height:80;width:90%">										   
-												 
-												<cfloop query="lookupdata">
-													<cfif pk neq "">
-														<option style="background: White;font:10px" value="#PK#" <cfif find("#pk#,",val)>selected</cfif>>#DISPLAY#</option>
-													</cfif>
-												</cfloop>
-												
-											</cfselect>		
-											
+											<cf_UISelect
+													name="filter#current.field#"
+													class="regularxl"
+													queryposition="below"
+													query="#lookupdata#"
+													value="PK"
+													onchange="applyfilter('','1','content')"
+													message="Please select a value #Current.LabelFilter#"
+													required="#oblig#"
+													display="DISPLAY"
+													selected="#val#"
+													multiple="yes">
+											</cf_UIselect>
+
+
 										   <cfset reset =  "#reset#;document.getElementById('filter#current.field#').value=''">	 
 									  									
 										</cfif>

@@ -99,7 +99,7 @@ password="#SESSION.dbpw#">
 					
 				  )	
 			   
-		ORDER BY ViewOrder,PostOrder		
+		ORDER BY PostOrder		
 		   
 </cfquery>
 

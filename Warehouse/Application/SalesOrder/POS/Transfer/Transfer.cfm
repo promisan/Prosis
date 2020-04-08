@@ -1,5 +1,7 @@
 
+<!---
 <cf_screentop height="100%" scroll="no" label="Transfer" banner="blue" layout="webapp" close="ProsisUI.closeWindow('wtransfer')">
+--->
 
 <cfquery name="get"
 datasource="AppsTransaction" 

@@ -40,15 +40,15 @@
 	<tr><td height="1" colspan="<cfoutput>#dColumns#</cfoutput>" class="line"></td></tr>
 	<tr><td height="2"></td></tr>
 	
-	<tr>
+	<tr class="labelmedium">
 		<td width="40"></td>
-		<td class="labelit"><cf_tl id="Location"></td>		
-		<td class="labelit" align="right"><cf_tl id="Currency"></td>
-		<td class="labelit" align="right"><font size="1" color="808080"><cf_tl id="Fixed"></td>
-		<td class="labelit" align="right"><font size="1" color="808080"><cf_tl id="Variable"></td>
-		<td class="labelit" align="right"><cf_tl id="Price"></td>
-		<td class="labelit" align="right"><cf_tl id="Tax"></td>
-		<td class="labelit" align="center"><cf_tl id="Tax Incl."></td>
+		<td><cf_tl id="Location"></td>		
+		<td align="right"><cf_tl id="Currency"></td>
+		<td align="right"><font size="1" color="808080"><cf_tl id="Fixed"></td>
+		<td align="right"><font size="1" color="808080"><cf_tl id="Variable"></td>
+		<td align="right"><cf_tl id="Price"></td>
+		<td align="right"><cf_tl id="Tax"></td>
+		<td align="center"><cf_tl id="Tax Incl."></td>
 		<td width="40"></td>
 	</tr>
 	
@@ -93,7 +93,7 @@
 			<td></td>
 		</tr>
 		</cfoutput>
-		<tr><td height="5"></td></tr>
+		
 	</cfoutput>
 	<cfelse>
 		<tr><td height="2"></td></tr>
@@ -104,3 +104,4 @@
 	<tr><td height="1" colspan="<cfoutput>#dColumns#</cfoutput>" class="line"></td></tr>		
 </table>
 </div>
+

@@ -121,13 +121,14 @@ password="#SESSION.dbpw#">
 				WHERE    Acc.AccountClass   = 'Balance'
 				AND      Line.AccountPeriod = '#prior#' 
 				AND      Hdr.Mission        = '#Mission#'
-				AND      Hdr.RecordStatus    IN('0', '1')
+				AND      Hdr.RecordStatus    IN('0','1')
 				AND      Hdr.ActionStatus IN ('0','1')				
 				AND      Hdr.Journal IN (SELECT Journal 
 			                             FROM   Journal 
 								         WHERE  GLCategory = 'Actuals')
 				GROUP BY Hdr.Mission, <cfif Param.AdministrationLevel neq "Tree">Hdr.OrgUnitOwner, </cfif> Line.Currency, Line.GLAccount, Acc.MonetaryAccount,
 						 Acc.RevaluationMode
+						
 			</cfquery>
 
 			<!--- prepare data --->
@@ -176,8 +177,7 @@ password="#SESSION.dbpw#">
 				         OrgUnitOwner,
 						 Currency 		 
 			</cfquery>
-			
-											
+														
 				<cfloop query="header">
 				
 					<cfquery name="Account"
@@ -204,7 +204,7 @@ password="#SESSION.dbpw#">
 							    Abort          = "No">
 					
 					<cfelse>
-				
+					
 						<cfquery name="Journal"
 						datasource="AppsLedger" 
 						username="#SESSION.login#" 
@@ -227,8 +227,8 @@ password="#SESSION.dbpw#">
 						
 						<cfelse>	
 						
-							<cftransaction>			
-															
+							<cftransaction>		
+																						
 								<CF_DateConvert Value="#DateFormat(Period.PeriodDateStart,CLIENT.DateFormatShow)#">
 								
 								<cfset dte = dateValue>
@@ -538,8 +538,8 @@ password="#SESSION.dbpw#">
 								datasource="AppsLedger" 
 								username="#SESSION.login#" 
 								password="#SESSION.dbpw#">								    
-									SELECT ISNULL(sum(AmountDebit)     - sum(AmountCredit),0)     as Capital,
-										   ISNULL(sum(AmountBaseDebit) - sum(AmountBaseCredit),0) as CapitalBase
+									SELECT round(ISNULL(sum(AmountDebit)     - sum(AmountCredit),0),2)     as Capital,
+										   round(ISNULL(sum(AmountBaseDebit) - sum(AmountBaseCredit),0),2) as CapitalBase
 								    FROM   TransactionHeader H, TransactionLine L
 									WHERE  H.Journal           = L.Journal
 									AND    H.JournalSerialNo   = L.JournalSerialNo 
@@ -548,12 +548,13 @@ password="#SESSION.dbpw#">
 									AND    H.AccountPeriod     = '#new#'
 									AND    H.TransactionSource = 'Opening'									
 									AND    H.Currency          = '#Currency#'
-								</cfquery>											
-													
+									
+								</cfquery>		
+										
 								<!--- capital transaction --->
 								
 								<cfif Capital.Capital neq "0">
-								
+																
 									<cfoutput>
 										#Currency#-#Capital.Capital/Capital.CapitalBase#
 									</cfoutput>

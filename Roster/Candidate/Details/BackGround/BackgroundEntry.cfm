@@ -3,7 +3,6 @@
 
 <cf_calendarScript>
 
-<cf_uiGadgets gadget="notification">
 <cf_windowNotification marginTop="-15px">
 
 <cf_param name="url.source"  default="" type="String"> 

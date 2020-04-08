@@ -12,12 +12,11 @@
 	function userlocateN(formname,id,id1,id2,id3,id4) {
 		
 		wid = document.body.clientWidth-80
-		if (wid > 800) {
-		  wid = 800
+		if (wid > 900) {
+		  wid = 900
 		}
-		ColdFusion.Window.create('userdialog', 'User', '',{x:100,y:100,height:document.body.clientHeight-80,width:wid,modal:false,center:true})    
-		ColdFusion.Window.show('userdialog') 				
-		ColdFusion.navigate(root + '/System/Access/Lookup/UserSearch.cfm?Form=' + formname + '&id=' + id + '&id1=' + id1 + '&id2=' + id2 + '&id3=' + id3 + '&id4=' + id4,'userdialog') 	
+		ProsisUI.createWindow('userdialog', 'Users', '',{x:100,y:100,height:document.body.clientHeight-90,width:wid,modal:true,center:true})    
+		ptoken.navigate(root + '/System/Access/Lookup/UserSearch.cfm?Form=' + formname + '&id=' + id + '&id1=' + id1 + '&id2=' + id2 + '&id3=' + id3 + '&id4=' + id4,'userdialog') 	
 	
 	}
 	

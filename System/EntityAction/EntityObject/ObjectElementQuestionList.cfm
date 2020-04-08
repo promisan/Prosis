@@ -18,7 +18,7 @@ password="#SESSION.dbpw#">
 	ORDER BY D.created desc
 </cfquery>
 
-<cf_screentop height="98%" label="Questionaire - #getHeader.entityDescription#" jquery="Yes"
+<cf_screentop height="98%" label="Questionaire - #getHeader.entityDescription#" jquery="Yes" html="No"
    option="Questions Maintenance - [#getHeader.documentCode#] #getHeader.documentDescription#" user="No" scroll="Yes" layout="webapp" banner="gray">
    
 <cfajaximport tags="cfwindow">
@@ -46,9 +46,8 @@ function questionpurge(id1, id2) {
 }
 
 function questionedit(id1, id2) { 
-   
-	try { ColdFusion.Window.destroy('myeditquestion',true) } catch(e) {}
-	ColdFusion.Window.create('myeditquestion', 'Question', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,resizable:false,center:true})    				
+   	
+	ProsisUI.createWindow('myeditquestion', 'Question', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,resizable:false,center:true})    				
 	ColdFusion.navigate('ObjectElementQuestionEditView.cfm?ID1=' + id1 + '&ID2=' + id2,'myeditquestion') 		
 
 }
@@ -77,10 +76,10 @@ function questionrefresh() {
 
 <tr><td height="10" colspan="7"></td></tr>
 
-<tr class="labelmedium linedotted">
+<tr class="labelmedium line">
 	<td>Sort</td>
 	<td>Code</td>
-	<TD width="60%">Label</TD>
+	<TD>Label</TD>
     <TD>Mode</TD>
 	<td align="center">Att</td>
 	<td align="center">Txt</td>
@@ -90,13 +89,13 @@ function questionrefresh() {
 
 <cfoutput query="SearchResult">
 	  	
-    <TR class="labelmedium linedotted navigation_row"> 
+    <TR class="labelmedium line navigation_row"> 
 	<TD style="padding-left:3px">#listingOrder#</TD>
 	<TD>#questionCode#</TD>
 	<TD>#questionLabel#</TD>
-	<TD>#inputMode#</TD>
-	<TD style="padding-top:5px" align="center"><cfif enableinputAttachment eq "1">*</cfif></TD>
-	<TD style="padding-top:5px" align="center"><cfif enableinputMemo eq "1">*</cfif></TD>
+	<TD>#inputMode# #inputmodestringlist#</TD>
+	<TD style="padding-top:5px" align="center"><cfif enableinputAttachment eq "1">Y</cfif></TD>
+	<TD style="padding-top:5px" align="center"><cfif enableinputMemo eq "1">Y</cfif></TD>
 	
 	<td align="center" width="20">
 	   <cf_img icon="edit" navigation="Yes"  onclick="questionedit('#documentId#','#questionId#')">	  			

@@ -120,7 +120,7 @@
 
 <tr><td class="line" colspan="<cfoutput>#cols#</cfoutput>"></td></tr> 
 
-<tr class="line labelmedium">
+<tr class="fixrow labelmedium line">
 	<td style="display:none;"></td>
     <td height="20" width="10"></td>
 	<td width="10"></td>
@@ -141,8 +141,6 @@
 	</cfif>
 	<td align="right" style="padding-right:3px"><cf_tl id="Created"></td>
 </tr>
-
-
 
 <cfoutput query="SearchResult" group="ItemClass">
 	
@@ -228,7 +226,7 @@
 		 				  
 		</td>				  
 		
-		<TD width="40%">#it##ItemDescription#</TD>
+		<TD width="30%">#it##ItemDescription#</TD>
 		<td>#it##Make#</td>
 		<TD>#it##Classification#</TD>
 		<TD>#it##ProgramName#</TD>

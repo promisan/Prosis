@@ -1,4 +1,5 @@
 
+
   <cfparam name="mailto" default="">
   <cfparam name="mailpriority" default="2">
   <cfparam name="mailtoDocumentId" default="">
@@ -49,21 +50,22 @@ function toggleBody(control){
 <cf_screentop height="100%" 
     label="Mail Content" 
 	option="Mail content edition [#MailCustom.documentCode# - #MailCustom.documentDescription#]" 
-	scroll="Yes" 
+	scroll="No" 
+	html="no"
 	jquery="Yes"
 	close="parent.parent.ColdFusion.Window.destroy('mydialog',true)"
 	layout="webapp" 
 	bannerheight="60" 
 	bannerforce="yes"	
 	banner="blue">
-
-<table width="95%" align="center" height="100%">
+	
+<cfform action="#SESSION.root#/System/EntityAction/EntityObject/ObjectElementMailContentSubmit.cfm" method="POST" name="formmailcontent" target="mailContentSubmit">
+		
+<table width="95%" align="center" height="99%">
 
 <tr><td bgcolor="white" height="5"></td></tr>
 
 <tr class="hide"><td><iframe name="mailContentSubmit" id="mailContentSubmit" frameborder="0"></iframe></td></tr>
-
-<cfform action="#SESSION.root#/System/EntityAction/EntityObject/ObjectElementMailContentSubmit.cfm" method="POST" name="formmailcontent" target="mailContentSubmit">
 
  <cfinput type="Hidden" name="documentId" value="#URL.documentId#">
 
@@ -122,8 +124,9 @@ function toggleBody(control){
 				<td id="boxmailscript" width="20" class="#ml#">
 				
 				<img src="#SESSION.root#/Images/help.gif" 
-					style="cursor:pointer" 
+					style="cursor:pointer;height:20px;width:20px" 
 					alt="Mail script" 
+					
 					onclick="window.open('#SESSION.root#/system/entityaction/EntityObject/ObjectElementMailInfo.cfm?ts='+new Date().getTime(), 'maininfobox', 'left=40, top=40, width=800,height=800, status=yes, scrollbars=no, resizable=yes');"
 					border="0">
 				
@@ -222,7 +225,7 @@ function toggleBody(control){
 	   <td>
 	   
 	   <table cellspacing="0" cellpadding="0"><tr><td>
-	    <select name="mailbody" id="mailbody" class="regularxl enterastab" style="width:230>
+	    <select name="mailbody" id="mailbody" class="regularxl enterastab" style="width:230">
 	      <option value="custom" <cfif MailCustom.mailbody eq "custom">selected</cfif>>Custom Mail Body</option>
 		  <option value="script" <cfif MailCustom.mailbody eq "script">selected</cfif>>Scripted</option>
 		</select>
@@ -257,10 +260,12 @@ function toggleBody(control){
   </table>
   
   </cfoutput>    
-
-  </cfform>
   
   </td></tr>
   
 </table>
+
+</cfform>
+
+
 

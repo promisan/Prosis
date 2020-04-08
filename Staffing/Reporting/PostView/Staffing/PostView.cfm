@@ -39,6 +39,7 @@
     SELECT   * 
     FROM     Ref_Mandate
 	WHERE    Mission = '#URL.Mission#'
+	AND      Operational = 1	
 	ORDER BY MandateDefault DESC
 </cfquery>
 

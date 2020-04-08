@@ -21,6 +21,6 @@
 
 <cfif ParameterExists(Form.SaveClose)>
 	<script>
-		parent.parent.parent.ColdFusion.Window.hide('mydialog',true)
+		parent.parent.parent.ProsisUI.closeWindow('maildialog',true)
 	</script>
 </cfif>

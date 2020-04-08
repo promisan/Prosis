@@ -419,8 +419,7 @@
 		SELECT * 
 		FROM Parameter
 		WHERE HostName = '#CGI.HTTP_HOST#'  
-	</cfquery>	
-	
+	</cfquery>		
 																	
 	<cfreport  
 	   template      = "#rootpath#\#Report.ReportPath#\#Report.TemplateReport#" 
@@ -476,8 +475,7 @@
 			<cfreportparam name = "ReportTitle"     value="#Report.LayoutTitle#">
 			<cfreportparam name = "ReportSubTitle"  value="#Report.LayoutSubTitle#">
 			
-	</cfreport>
-	
+	</cfreport>	
 			
 	<!--- archive the report --->
 		
@@ -538,8 +536,7 @@
 				window.location = "#SESSION.root#/Tools/Mail/Mail.cfm?ID1=#Report.FunctionName#&ID2=#attach#&Source=Listing&Sourceid=#URL.ReportId#&Mode=Full&GUI=#URL.GUI#"
 			}
 				
-		</script>
-		
+		</script>		
 	
 	<cfelse>
 	
@@ -552,8 +549,7 @@
 		   alert("Completed.  Email has been sent to your account and your request has been logged.");		   
 		   #ajaxLink('#SESSION.root#/tools/cfreport/ReportSQLInstant.cfm?status=1')#
 		   
-		</script> 		
-	
+		</script> 			
 		
 	</cfif>	
 	

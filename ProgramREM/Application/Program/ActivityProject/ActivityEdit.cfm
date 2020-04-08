@@ -94,7 +94,7 @@ password="#SESSION.dbpw#">
 
 <cf_divscroll style="height:100%">
 
-<cfform name="activityentryform" method="post" onsubmit="return false" style="height:100%"> 
+<cfform name="activityentryform" method="post" onsubmit="return false"> 
 
 	<table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
 			   

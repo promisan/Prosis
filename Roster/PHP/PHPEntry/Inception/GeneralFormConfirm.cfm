@@ -3,8 +3,6 @@
 
 <cfoutput>
 
-
-
 <table width="90%" align="center" class="formpadding formspacing">
 
 	<tr><td height="4"></td></tr>
@@ -12,10 +10,7 @@
 	<tr><td colspan="2" class="labellarge"><cf_tl id="Please verify the below submitted information before you send it"></td></tr>
 	
 	<tr><td height="4"></td></tr>
-	
-	
-	<tr><td height="4"></td></tr>
-	
+		
 	<tr id="personfield" name="personfield">		
 	    <TD class="labelmedium" align="left"><cf_tl id="LastName">:</TD>
 	    <TD class="labelmedium" style="font-size:22px" align="left" width="80%">#Form.LastName#</td>
@@ -79,13 +74,13 @@
 			  <input style  = "width:200;height:28" 
 					 type    = "button" 
 					 class   = "button10g"
-					 onclick = "ptoken.location('#session.root#/Roster/PHP/PHPEntry/Inception/General.cfm?public=#url.public#&entrymode=#url.entrymode#&scope=#url.scope#&applicant=#url.applicantno#&Public=1&Action=#form.mode#&Class=#url.applicantclass#&Owner=#url.owner#&mission=#url.mission#')"
+					 onclick = "ptoken.location('#session.root#/Roster/PHP/PHPEntry/Inception/General.cfm?entrymode=#url.entrymode#&scope=#url.scope#&applicant=#url.applicantno#&Public=1&Action=#form.mode#&Class=#url.applicantclass#&Owner=#url.owner#&mission=#url.mission#')"
 					 name    = "Back"
 					 id      = "submitme"
-					 value   = "#lt_text#">
-			
+					 value   = "#lt_text#">			
 			
 			</td>
+			
 			<td>
 			
 			<cfsavecontent variable="submitscript">					   		    

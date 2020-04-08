@@ -22,9 +22,9 @@
 
     <cfoutput>
 	
-	<TR>
-    <TD class="labelmedium" height="28"><cf_tl id="Entity">:</TD>
-    <TD class="labelmedium">
+	<TR class="labelmedium">
+    <TD height="28"><cf_tl id="Entity">:</TD>
+    <TD>
 		<cfif url.id1 neq "">
 			<b>#get.Mission#</b>
 			<input name="Mission" id="Mission" type="Hidden" value="#get.Mission#">
@@ -40,24 +40,23 @@
 					  				WHERE SystemModule = 'Warehouse')
 			</cfquery>
 	  	   
-		    <cfselect name="Mission" query="Mis" value="Mission" display="Mission" selected="#get.Mission#" required="Yes" message="Please, select a valid entity.">
+		    <cfselect name="Mission" class="regularxl" query="Mis" value="Mission" display="Mission" selected="#get.Mission#" required="Yes" message="Please, select a valid entity.">
 			</cfselect>
 		</cfif>
     </TD>
 	</TR>
 	
 	<cfif url.id1 neq "">
-		<TR>
-	    <TD class="labelmedium" height="28"><cf_tl id="Code">:</TD>
-	    <TD class="labelmedium">
-			<b>#get.promotionNo#</b>
+		<TR class="labelmedium">
+	    <TD height="28"><cf_tl id="Code">:</TD>
+	    <TD><b>#get.promotionNo#</b>
 	    </TD>
 		</TR>
 	</cfif>
 	
-	<TR>
-	    <TD class="labelmedium"><cf_tl id="Description">:</TD>
-	    <TD class="labelmedium">
+	<TR class="labelmedium">
+	    <TD><cf_tl id="Description">:</TD>
+	    <TD>
 	  	   
 		    <cfinput type="text" 
 		       name="Description" 
@@ -70,9 +69,9 @@
 	    </TD>
 	</TR>
 	
-	<TR>
-	    <TD class="labelmedium"><cf_tl id="Customer Label">:</TD>
-	    <TD class="labelmedium">
+	<TR class="labelmedium">
+	    <TD><cf_tl id="Customer Label">:</TD>
+	    <TD>
 	  	   
 		    <cfinput type="text" 
 		       name="CustomerLabel" 
@@ -85,22 +84,23 @@
 	    </TD>
 	</TR>
 	
-	<TR>
-	    <TD class="labelmedium"><cf_tl id="Priority">:</TD>
+	<TR class="labelmedium">
+	    <TD><cf_tl id="Priority">:</TD>
 	    <TD>
-	  	   <table cellspacing="0" cellpadding="0" class="formspacing"><tr>
-		   <td><input type="radio" name="Priority" <cfif get.Priority eq "1" or get.Priority eq "">checked</cfif> value="1"></td><td class="labelmedium">1</td>
-		   <td><input type="radio" name="Priority" <cfif get.Priority eq "2">checked</cfif> value="2"></td><td class="labelmedium">2</td>
-		   <td><input type="radio" name="Priority" <cfif get.Priority eq "3">checked</cfif> value="3"></td><td class="labelmedium">3</td>
-		   <td><input type="radio" name="Priority" <cfif get.Priority eq "4">checked</cfif> value="4"></td><td class="labelmedium">4</td>
-		   <td><input type="radio" name="Priority" <cfif get.Priority eq "5">checked</cfif> value="5"></td><td class="labelmedium">5</td>
+	  	   <table cellspacing="0" cellpadding="0" class="formspacing">
+		   <tr class="labelmedium">
+		   <td><input class="radiol" type="radio" name="Priority" <cfif get.Priority eq "1" or get.Priority eq "">checked</cfif> value="1"></td><td>1</td>
+		   <td><input class="radiol" type="radio" name="Priority" <cfif get.Priority eq "2">checked</cfif> value="2"></td><td>2</td>
+		   <td><input class="radiol" type="radio" name="Priority" <cfif get.Priority eq "3">checked</cfif> value="3"></td><td>3</td>
+		   <td><input class="radiol" type="radio" name="Priority" <cfif get.Priority eq "4">checked</cfif> value="4"></td><td>4</td>
+		   <td><input class="radiol" type="radio" name="Priority" <cfif get.Priority eq "5">checked</cfif> value="5"></td><td>5</td>
 		   </tr>
 		   </table>
 	    </TD>
 	</TR>
 	
-	<tr>
-		<td class="labelmedium"><cf_tl id="Effective">:</td>
+	<tr class="labelmedium">
+		<td><cf_tl id="Effective">:</td>
 		<td>
 			<table cellspacing="0" cellpadding="0">
 				<tr>
@@ -147,8 +147,8 @@
 		</td>
 	</tr>
 	
-	<tr>
-		<td class="labelmedium"><cf_tl id="Expiration">:</td>
+	<tr class="labelmedium">
+		<td><cf_tl id="Expiration">:</td>
 		<td>
 			<table cellspacing="0" cellpadding="0">
 				<tr>
@@ -191,13 +191,14 @@
 		</td>
 	</tr>
 	
-	<tr>
-		<td class="labelmedium"><cf_tl id="Operational">:</td>
-		<td class="labelmedium">
-		<table cellspacing="0" cellpadding="0" class="formspacing"><tr class="labelmedium">
-		   <td><input name="operational" id="operational" type="Radio" value="1" <cfif get.operational eq 1 or url.id1 eq "">checked</cfif>></td>
+	<tr class="labelmedium">
+		<td><cf_tl id="Operational">:</td>
+		<td>
+		<table cellspacing="0" cellpadding="0" class="formspacing">
+		   <tr class="labelmedium">
+		   <td><input class="radiol" name="operational" id="operational" type="Radio" value="1" <cfif get.operational eq 1 or url.id1 eq "">checked</cfif>></td>
 		   <td style="padding-left:4px">Yes</td>
-		   <td style="padding-left:7px"><input name="operational" id="operational" type="Radio" value="0" <cfif get.operational eq 0>checked</cfif>></td>
+		   <td style="padding-left:7px"><input class="radiol" name="operational" id="operational" type="Radio" value="0" <cfif get.operational eq 0>checked</cfif>></td>
 		   <td style="padding-left:4px">No</td>
 		   </tr>
 		   </table>
@@ -205,9 +206,9 @@
 	</tr>
 	
 	<cfif url.id1 neq "">
-	<tr>
-		<td class="labelmedium" height="23"><cf_tl id="Created">:</td>
-		<td class="labelmedium">#get.OfficerFirstName# #get.OfficerLastName# @ #Dateformat(get.Created, "#CLIENT.DateFormatShow#")#</td>
+	<tr class="labelmedium">
+		<td height="23"><cf_tl id="Created">:</td>
+		<td>#get.OfficerFirstName# #get.OfficerLastName# @ #Dateformat(get.Created, "#CLIENT.DateFormatShow#")#</td>
 	</tr>
 	</cfif>
 		

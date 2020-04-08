@@ -117,7 +117,7 @@
 		
 <cfelseif URL.Mode eq "new">		
 
-	<script>
+	     <script>
 			 window.close()
 			 opener.history.go()
 		</script>	

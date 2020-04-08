@@ -1,4 +1,7 @@
+
+<!---
 <cf_screentop label="Search Entity" height="100%" banner="yellow" scroll="no" layout="webapp" user="no" close="ColdFusion.Window.hide('dialog#url.box#')">
+--->
 
 <cf_divscroll>
 

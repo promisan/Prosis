@@ -13,6 +13,8 @@
 <cfparam name="url.printWindowSizeChrome" 		default="800">
 <cfparam name="url.showAllTopics"				default="SHOWALL">
 <cfparam name="url.scope"						default="backoffice">
+<cfparam name="url.showDirectoryView"			default="1">
+<cfparam name="url.systemProfileAccess"			default="true">
 
 <!--- Define mandateno --->
 <cfif trim(url.mandateNo) eq "">
@@ -147,6 +149,7 @@
 				var orgunittype = $('input[name=orgunittype]:checked').val();
 				var orgunit = $('##orgunit').val();
 				var postgrade = $('##postgrade').val();
+				var postclass = $('##postclass').val();
 				var functionno = $('##functionno').val();
 				var buildingcode = $('##buildingcode').val();
 				var locationcode = $('##locationcode').val();
@@ -155,7 +158,7 @@
 				var employee = $.trim($('##employee').val());
 				var referencedate = _mobileGetISODate('##referenceDatePicker');
 				
-				ptoken.navigate('#session.root#/system/organization/orgTree/OrgTreeDetail.cfm?id=#url.id#&showAllTopics=#url.showAllTopics#&mission=#url.mission#&mandateno=#url.mandateno#&systemfunctionid=#url.systemfunctionid#&configsystemfunctionid=#url.configsystemfunctionid#&orgunittype='+orgunittype+'&orgunit='+orgunit+'&postgrade='+postgrade+'&functionNo='+functionno+'&buildingcode='+buildingcode+'&locationcode='+locationcode+'&nationality='+nationality+'&referencedate='+referencedate+'&functions='+functions+'&employee='+employee+'&flat='+flat,'divDirectoryDetail');				
+				ptoken.navigate('#session.root#/system/organization/orgTree/OrgTreeDetail.cfm?id=#url.id#&showAllTopics=#url.showAllTopics#&mission=#url.mission#&mandateno=#url.mandateno#&systemfunctionid=#url.systemfunctionid#&configsystemfunctionid=#url.configsystemfunctionid#&orgunittype='+orgunittype+'&orgunit='+orgunit+'&postgrade='+postgrade+'&postclass='+postclass+'&functionNo='+functionno+'&buildingcode='+buildingcode+'&locationcode='+locationcode+'&nationality='+nationality+'&referencedate='+referencedate+'&functions='+functions+'&employee='+employee+'&flat='+flat,'divDirectoryDetail');				
 				
 			} 
 			
@@ -215,6 +218,7 @@
 				var orgunittype = $('input[name=orgunittype]:checked').val();
 				var orgunit = $('##orgunit').val();
 				var postgrade = $('##postgrade').val();
+				var postclass = $('##postclass').val();
 				var functionno = $('##functionno').val();
 				var buildingcode = $('##buildingcode').val();
 				var locationcode = $('##locationcode').val();
@@ -223,7 +227,7 @@
 				var employee = $.trim($('##employee').val());
 				var referencedate = _mobileGetISODate('##referenceDatePicker');
 				
-				ptoken.navigate('#session.root#/system/organization/orgTree/OrgTree'+filterType+'.cfm?id=#url.id#&showAllTopics=#url.showAllTopics#&mission=#url.mission#&mandateno=#url.mandateno#&systemfunctionid=#url.systemfunctionid#&configsystemfunctionid=#url.configsystemfunctionid#&orgunittype='+orgunittype+'&orgunit='+orgunit+'&postgrade='+postgrade+'&functionNo='+functionno+'&buildingcode='+buildingcode+'&locationcode='+locationcode+'&nationality='+nationality+'&referencedate='+referencedate+'&functions='+functions+'&employee='+employee,'divDirectoryDetail');
+				ptoken.navigate('#session.root#/system/organization/orgTree/OrgTree'+filterType+'.cfm?id=#url.id#&showAllTopics=#url.showAllTopics#&mission=#url.mission#&mandateno=#url.mandateno#&systemfunctionid=#url.systemfunctionid#&configsystemfunctionid=#url.configsystemfunctionid#&showDirectoryView=#url.showDirectoryView#&orgunittype='+orgunittype+'&orgunit='+orgunit+'&postgrade='+postgrade+'&postclass='+postclass+'&functionNo='+functionno+'&buildingcode='+buildingcode+'&locationcode='+locationcode+'&nationality='+nationality+'&referencedate='+referencedate+'&functions='+functions+'&employee='+employee,'divDirectoryDetail');
 			}
 			
 			function showProfile(personno) {
@@ -310,7 +314,7 @@
 						</a>
 						<cf_tl id="Open complete profile in a new window" var="1">
 						<a class="clsNoPrint pull-right" style="padding-right:10px;" title="#lt_text#">
-							<cfif url.scope eq "backoffice">
+							<cfif url.scope eq "backoffice" AND (url.systemProfileAccess eq "true" OR url.systemProfileAccess eq "1")>
 								<i class="fa fa-external-link clsOpenProfileButton clsOpenStaffingProfile" onclick=""></i>
 							</cfif>
 						</a>
@@ -339,7 +343,7 @@
 		<div class="content animate-panel" style="padding-bottom:0px;">
 	
 		    <div class="row">
-		        <div class="col-md-3 animated-panel zoomIn" style="animation-delay: 0.1s; position:fixed; max-height:100%; overflow-y:auto;">
+		        <div class="col-md-3 animated-panel zoomIn" style="animation-delay: 0.1s; overflow-y:auto; position:sticky; top:0;">
 					<cf_tl id="Filters" var="1">
 					
 					<cf_mobilePanel
@@ -415,10 +419,10 @@
 					</cf_mobilePanel>
 					
 				</div>
-		        <div class="col-md-9 col-lg-offset-3 animated-panel zoomIn" style="animation-delay: 0.2s;">
+		        <div class="col-md-9 animated-panel zoomIn" style="animation-delay: 0.2s;">
 		            <div class="row">
 		                <div class="col-lg-12 animated-panel zoomIn" style="animation-delay: 0.3s;">
-							<div class="content animate-panel">
+							<div class="content animate-panel" style="padding-top:0px;">
 								<cfdiv id="divDirectoryDetail" bind="url:#session.root#/system/organization/orgTree/OrgTreeInstructions.cfm">
 						    </div>
 		                </div>

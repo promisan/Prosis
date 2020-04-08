@@ -46,7 +46,8 @@
 		   <cfif URL.access eq "ALL">		   		  
 			   <input class="radiol" 
 			   onclick="ColdFusion.navigate('#session.root#/ProgramREM/Application/Program/ActivityCluster/setActivityCluster.cfm?activityid=#url.activityid#&activityclusterid=','clusterset')"
-			   type="radio" <cfif URL.SelClusterId eq "">checked</cfif> name="ActivityClusterId" value="">
+			   type="radio" <cfif URL.SelClusterId eq "">checked</cfif> name="ActivityClusterId" id="ActivityClusterId" value="">
+			   
 		   </cfif>
 		   </cfoutput>
 		   </td>
@@ -64,9 +65,9 @@
 			<tr bgcolor="f4f4f4" class="line labelmedium">
 			<td width="20" align="center">#CurrentRow+1#.</td>
 			<td>
-			<input type="radio" class="radiol" 
-			name="activityclusterid" value="#ActivityClusterId#" 
-			   <cfif ActivityClusterId eq URL.SelClusterId>checked</cfif>>			
+			<input type="radio" class="radiol" name="ActivityClusterId" id="ActivityClusterId" value="#ActivityClusterId#" 
+			   <cfif ActivityClusterId eq URL.SelClusterId>checked</cfif>>	
+			   	
 			</td>			
 			<td align="center" style="padding-left:30px;height:30">
 			
@@ -107,7 +108,7 @@
 			   
 			     <input type="radio" class="radiol" 
 				 onclick="ColdFusion.navigate('#session.root#/ProgramREM/Application/Program/ActivityCluster/setActivityCluster.cfm?activityid=#url.activityid#&activityclusterid=#activityclusterid#','clusterset')"
-				  name="activityclusterid" value="#ActivityClusterId#" 
+				  name="ActivityClusterId" id="ActivityClusterId" value="#ActivityClusterId#" 
 				 <cfif ActivityClusterId eq get.ActivityClusterId>checked</cfif>>
 			   </td>
 			   

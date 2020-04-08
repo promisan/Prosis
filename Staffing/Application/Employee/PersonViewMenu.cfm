@@ -361,8 +361,8 @@ password="#SESSION.dbpw#">
 		<cfset titlecolor   = vColor>
 		<cfinclude template = "../../../Tools/SubmenuLeft.cfm">
 	</td></tr>	
-	
-		<tr><td>
+		
+	<tr><td>
 		<cfset heading      = "Other Data">
 		<cfset module       = "'Staffing'">
 		<cfset selection    = "'Employee'">
@@ -370,6 +370,7 @@ password="#SESSION.dbpw#">
 		<cfset titlecolor   = vColor>
 		<cfinclude template = "../../../Tools/SubmenuLeft.cfm">
 	</td></tr>	
+	
 
 	
 	</td>

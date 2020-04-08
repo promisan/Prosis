@@ -37,21 +37,22 @@ password="#SESSION.dbpw#">
 	
 <cfoutput query="Position">
 	
-	<tr class="navigation_row">
+	<tr class="navigation_row labelmedium line">
 	
-		<td width="6%" align="center" rowspan="2" height="35">		
+		<td width="6%" align="center" height="35">		
 		  <cf_img icon="open" navigation="Yes" onclick="selected('#positionno#')">		 		
 		</td>
-		<TD width="50%" class="labelit">#FunctionDescription#</TD>
-		<TD width="6%"  class="labelit">#PostGrade#</TD>
-		<TD width="15%" class="labelit">#PostType#</TD>
-		<TD width="10%" class="labelit">#SourcePostNumber#</TD>
-		<TD width="9%"  class="labelit">#DateFormat(DateEffective, CLIENT.DateFormatShow)#</TD>
-		<TD width="9%"  class="labelit" style="padding-right:5px">#DateFormat(DateExpiration, CLIENT.DateFormatShow)#</TD>
+		<TD width="50%">#FunctionDescription#</TD>
+		<TD width="6%">#PostGrade#</TD>
+		<TD width="15%">#PostType#</TD>
+		<TD width="10%">#SourcePostNumber#</TD>
+		<TD width="9%">#DateFormat(DateEffective, CLIENT.DateFormatShow)#</TD>
+		<TD width="9%" style="padding-right:5px">#DateFormat(DateExpiration, CLIENT.DateFormatShow)#</TD>
 		
 	</tr> 
 		
 	<tr class="navigation_row_child">
+	    <td></td>
 		<td colspan="6" class="labelit">#OrgUnitName#</td>
 	</tr>
 	
@@ -75,22 +76,21 @@ password="#SESSION.dbpw#">
 	</cfquery>
 	
 	<cfif Assignment.recordcount eq "0">
-		<tr bgcolor="f9f9f9" class="navigation_row_child">
-		   <td colspan="7" align="center" class="labelit"><font color="FF0000"><b>Vacant</b></font></td>	  
-		</tr>
-		<tr><td height="1" colspan="7" class="linedotted"></td></tr>
+		<tr bgcolor="f9f9f9" class="navigation_row_child linedotted labelmedium">
+		   <td colspan="7" align="center"><font color="FF0000">Vacant</font></td>	  
+		</tr>		
 	</cfif>
 	
 	<cfloop query="assignment">
 	
-	<tr class="navigation_row_child">
+	<tr class="navigation_row_child line labelmedium">
 	   <td></td>
-	   <td class="labelit">#FullName#</td>
-	   <td class="labelit">#Gender#</td>
+	   <td>#FullName#</td>
+	   <td>#Gender#</td>
 	   <td></td>
 	   <td></td>
-	   <td class="labelit">#DateFormat(DateEffective,CLIENT.DateFormatShow)#</td>
-	   <td class="labelit">#DateFormat(DateExpiration,CLIENT.DateFormatShow)#</td>	   
+	   <td>#DateFormat(DateEffective,CLIENT.DateFormatShow)#</td>
+	   <td>#DateFormat(DateExpiration,CLIENT.DateFormatShow)#</td>	   
 	</tr>
 		
 	</cfloop>	

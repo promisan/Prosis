@@ -40,9 +40,10 @@
   
 </cfif> 
 
-<cfajaximport tags="cfchart,cfform,cfwindow,cfdiv">
-	
+<cfajaximport tags="cftree,cfchart,cfform,cfwindow,cfdiv">
+<cf_presentationScript>
 
+	
 <cfparam name="client.warehouseselected" default="">
 
 <input type="hidden" name="optionselect" id="optionselect">	

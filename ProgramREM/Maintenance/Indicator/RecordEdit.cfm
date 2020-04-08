@@ -105,16 +105,14 @@ function togglename(val) {
 			  systemfunctionid="#url.idmenu#">
 
 <cfform action="RecordSubmit.cfm?mission=#url.mission#" name="dialog">
+			
+	<table width="94%" align="center" class="formpadding">
 	
-		
-	<table width="94%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
-	
-	    <cfoutput>
-		
 		<tr><td></td></tr>
-	  		
-		<TR>
-	    <td class="labelmedium" width="140">Display:<cf_space spaces="50"></td>
+	    <cfoutput>
+			  		
+		<TR class="labelmedium">
+	    <td style="min-width:150px">Display:</td>
 	    <TD>
 			<table cellspacing="0" cellpadding="0">
 			<tr>
@@ -139,8 +137,8 @@ function togglename(val) {
 		</td>
 		</TR>
 		
-		<TR>
-	    <TD class="labelmedium">Program Classiciation:</TD>
+		<TR class="labelmedium">
+	    <TD>Program Classiciation:</TD>
 	    <TD>
 		   <table cellspacing="0" cellpadding="0">
 		   <TR><TD>
@@ -227,8 +225,8 @@ function togglename(val) {
 	    </TD>
 		</TR>
 		
-		<TR>
-	    <TD class="labelmedium">Description:</TD>
+		<TR class="labelmedium">
+	    <TD>Description:</TD>
 	    <TD>
 		<cf_LanguageInput
 				TableCode       = "Ref_Indicator" 
@@ -245,17 +243,17 @@ function togglename(val) {
 		   </TD>
 		</TR>
 		
-		<TR>
-	    <TD class="labelmedium">Alternate description:</TD>
-	    <TD class="labelmedium">
+		<TR class="labelmedium">
+	    <TD>Alternate description:</TD>
+	    <TD>
 	  	   <cfinput type="text" name="IndicatorDescriptionAlternate" value="#get.IndicatorDescriptionAlternate#" 
 		     size="70" maxlength="100" class="regularxl">
 	    </TD>
 		</TR>
 			
-		<TR>
-	    <TD class="labelmedium">UOM type:</TD>
-	    <TD >
+		<TR class="labelmedium">
+	    <TD>UOM type:</TD>
+	    <TD>
 		   <select name="IndicatorType" onchange="togglename(this.value)" class="regularxl">
 		   <cfloop query="IndicatorType">
 		   	<option value="#Code#" <cfif get.IndicatorType eq "#Code#">selected</cfif>>#Description#</option>
@@ -264,8 +262,8 @@ function togglename(val) {
 		</TR>
 		
 			
-		<tr>
-		<td class="labelmedium">Counter:</td>
+		<tr class="labelmedium">
+		<td>Counter:</td>
 		<td>
 		<table width="100%" cellspacing="0" cellpadding="0">
 			<tr><td>
@@ -285,8 +283,8 @@ function togglename(val) {
 		</td>
 		</tr>
 		
-		<TR>
-	    <TD class="labelmedium">UoM description:</TD>
+		<TR class="labelmedium">
+	    <TD>UoM description:</TD>
 	    <TD>
 	  	   <cfinput type="Text" name="IndicatorUoM" value="#get.IndicatorUoM#" message="Please enter a UoM" 
 		      required="Yes" size="60" maxlength="200" class="regularxl">
@@ -294,28 +292,26 @@ function togglename(val) {
 		</TR>
 		
 			
-		<TR>
-	    <TD class="labelmedium">Zero based:</TD>
-	    <TD class="labelmedium">
+		<TR class="labelmedium">
+	    <TD>Zero based:</TD>
+	    <TD>
 		    <INPUT type="radio" class="radiol" name="ZeroBase" value="0"  <cfif get.ZeroBase eq "0">checked</cfif>> Default
 			<INPUT type="radio" class="radiol" name="ZeroBase" value="1"  <cfif get.ZeroBase eq "1">checked</cfif>> Zero based
 			<input type="radio" class="radiol" name="ZeroBase" value="2" disabled  <cfif get.ZeroBase eq "2">checked</cfif>> Cumulative
 		</TD>
 		</TR>
 		
-		<TR>
-	    <TD class="labelmedium">Indicator Weight:</TD>
+		<TR class="labelmedium">
+	    <TD>Indicator Weight:</TD>
 	    <TD>
 		    <cfinput type="Text" name="IndicatorWeight" style="text-align: center;" class="regularxl" value="#get.IndicatorWeight#" range="1,20" message="Enter a relative weight" validate="integer" required="Yes" size="2" maxlength="2">
 		</TD>
 		</TR>
 		
-		<TR>
-		<TR>
-	    <TD class="labelmedium" style="cursor: pointer;"><cf_UIToolTip tooltip="Audit Value within the range will be acceptable">Target direction:</cf_UIToolTip></TD>
-	   
+		<TR class="labelmedium">
+	    <TD style="cursor: pointer;"><cf_UItooltip tooltip="Audit Value within the range will be acceptable">Target direction:</cf_UItooltip></TD>
 	    <TD>
-		 <table cellspacing="0" cellpadding="0" class="formpadding"><tr>
+		 <table cellspacing="0" cellpadding="0"><tr class="labelmedium">
 		    <td style="padding-left:0px">
 	    	<INPUT type="radio" class="radiol" name="TargetDirection" value="Up" <cfif get.TargetDirection eq "Up">checked</cfif>>
 			</td>
@@ -340,16 +336,16 @@ function togglename(val) {
 		</TD>
 		</TR>
 				
-		<TR>
-	    <TD class="labelmedium">Precision:</TD>
-	    <TD class="labelmedium">
+		<TR class="labelmedium">
+	    <TD>Precision:</TD>
+	    <TD>
 		    <cfinput type="Text" class="regularxl" name="IndicatorPrecision" range="0,3" message="Enter a valid number between 0 and 3" value="#get.IndicatorPrecision#" validate="integer" required="Yes" visible="Yes" enabled="Yes" size="1" maxlength="1" style="text-align: center;"> digit
 		</TD>
 		</TR>
 		
 		
-		<TR>
-	    <TD class="labelmedium">Audit class:</TD>
+		<TR class="labelmedium">
+	    <TD>Audit class:</TD>
 	    <TD>
 		    <table cellspacing="0" cellpadding="0">
 			<tbody>
@@ -366,9 +362,9 @@ function togglename(val) {
 		</TD>
 		</TR>
 			
-		<TR>
-	    <TD class="labelmedium">Source:</TD>
-	    <TD class="labelmedium">
+		<TR class="labelmedium">
+	    <TD>Source:</TD>
+	    <TD>
 		    <INPUT type="radio" class="radiol" name="AuditSource" value="Manual" <cfif get.AuditSource eq "Manual">checked</cfif> onclick="measuresource('manual')"> Manual
 			<INPUT type="radio" class="radiol" name="AuditSource" value="External" <cfif get.AuditSource eq "External">checked</cfif> onclick="measuresource('external')"> External
 			&nbsp;
@@ -397,12 +393,12 @@ function togglename(val) {
 		
 		<tr><td colspan="3" class="labelmedium"><b>Chart</td></tr>
 		
-		<tr>
-		 <td style="padding-left:20px" class="labelmedium">style:</td>
-		 <td colspan="3" class="labelmedium">
+		<tr class="labelmedium">
+		 <td style="padding-left:20px">style:</td>
+		 <td colspan="3">
 		    <table cellspacing="0" cellpadding="0">
 			<tbody>
-			<tr  class="labelmedium">
+			<tr class="labelmedium">
 		    <td style="padding-left:0px"><input type="radio" class="radiol" name="ChartType" value="Line" <cfif get.Charttype eq "Line">checked</cfif>></td>
 			<td style="padding-left:4px">Line</td>
 			<td style="padding-left:9px"><input type="radio" class="radiol" name="ChartType" value="Bar" <cfif get.Charttype eq "Bar">checked</cfif>></td>
@@ -412,11 +408,11 @@ function togglename(val) {
 	 	 </td>
 		</tr>
 				
-		<tr>
-		 <td style="padding-left:20px" class="labelmedium">color:</td>
+		<tr class="labelmedium">
+		 <td style="padding-left:20px">color:</td>
 		 <td colspan="3">
-			 <table cellspacing="0" cellpadding="0" class="formpadding formspacing">
-			 <tr>
+			 <table cellspacing="0" cellpadding="0">
+			 <tr class="labelmedium">
 			 <td class="labelmedium">Target</td>
 			 <td style="padding-left:4px"><input type="text" name="ChartColorTarget" class="regularxl" value="#get.ChartColorTarget#" size="4" maxlength="10"></td>
 			 <td class="labelmedium">Upload</td>
@@ -466,20 +462,21 @@ function togglename(val) {
 		</td>
 		</tr>
 				
-		<TR>
-	    <TD class="labelmedium">Template drilldown:</TD>
+		<TR class="labelmedium">
+	    <TD>Template drilldown:</TD>
 	    <TD>
 		   <table cellspacing="0" cellpadding="0">
-		   <tr>
-		   <td class="labelmedium">
-		   <INPUT type="radio" class="radiol" name="IndicatorDrilldown" value="0" <cfif get.IndicatorDrilldown eq "0">checked</cfif> onclick="javascript:template('0')"> No
-		   <input type="radio" class="radiol" name="IndicatorDrilldown" value="1" <cfif get.IndicatorDrilldown eq "1">checked</cfif> onClick="javascript:template('1')"> Yes
+		   <tr class="labelmedium">
+		   <td><INPUT type="radio" class="radiol" name="IndicatorDrilldown" value="0" <cfif get.IndicatorDrilldown eq "0">checked</cfif> onclick="javascript:template('0')"></td>
+		   <td>No</td>
+		   <td><input type="radio" class="radiol" name="IndicatorDrilldown" value="1" <cfif get.IndicatorDrilldown eq "1">checked</cfif> onClick="javascript:template('1')"></td>
+		   <td>Yes</td>
 		   <cfif get.IndicatorDrilldown eq "1">
 		     <cfset cl = "regularxl">
 		   <cfelse>
 		     <cfset cl = "hide"> 	 
 		   </cfif>
-		   </td>
+		   
 		   <td style="padding:10px"></td>
 		   
 		   <cfif get.IndicatorTemplateAjax eq "1">
@@ -539,14 +536,14 @@ function togglename(val) {
 		 <td>
 		 	<table cellspacing="0" cellpadding="0">
 				 <tr><td height="24" class="labelmedium">
-				 <cf_UIToolTip tooltip="Define a tree for which this indicator will be made available">
+				 <cf_UItooltip tooltip="Define a tree for which this indicator will be made available">
 				 Tree:
-				 </cf_UIToolTip>
+				 </cf_UItooltip>
 				 </td></tr>
 				 <tr><td height="24" class="labelmedium">
-				 <cf_UIToolTip tooltip="Define a code to be used in conjunction with the workflow to enter indicator values">
+				 <cf_UItooltip tooltip="Define a code to be used in conjunction with the workflow to enter indicator values">
 				 Auth. Class:
-				 </cf_UIToolTip>
+				 </cf_UItooltip>
 				 </td></tr>
 		    </table>
 		 </td>

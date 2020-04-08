@@ -109,9 +109,9 @@
 		<table width="99%" height="100%" cellspacing="0" cellpadding="0" align="center">	
 		
 		    <tr>
-			<td class="linedotted" colspan="2" style="padding-left:6px;height:30px;">
+			<td colspan="2" style="padding-left:6px;height:30px;">
 						
-				<table><tr><td class="labelit">		
+				<table><tr><td class="labelmedium">		
 				<cf_tl id="Valid for period">:
 				</td>
 				

@@ -128,8 +128,7 @@
 						       showautosuggestloadingicon="No"
 						       typeahead   = "Yes"
 							   required    = "#req#"	
-							   tooltip     = "#DocumentDescription#"
-						       size        = "#fieldlength#"						   
+						       size        = "#fieldlength#"
 						       maxlength   = "#fieldlength#"
 						       class       = "regularxl">	
 		       
@@ -161,7 +160,6 @@
 							validate="#fieldvalidation#"						
 							class   ="regularxl"
 							size    ="#fieldlength#"
-							tooltip = "#DocumentDescription#"
 					        maxlength="#fieldlength#"
 							message="Please enter a correct #DocumentDescription#">							
 														
@@ -188,8 +186,7 @@
 					       value       = "#Topic.documentItemValue#"
 					       message     = "Please enter correct Google MAP coordinates latitude:longitude"
 						   required    = "#req#"	
-						   tooltip     = "#DocumentDescription#"
-					       size        = "50"						   
+					       size        = "50"
 					       maxlength   = "50"
 					       class       = "regularxl">		
 						   

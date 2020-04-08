@@ -1,6 +1,8 @@
 
+<!---
 <cf_screentop label="Search" height="100%"
-    scroll="no" banner="blue" line="no" layout="webapp" close="ColdFusion.Window.hide('dialog#url.box#')">
+    scroll="no" banner="blue" line="no" layout="webapp" close="ProsisUI.closeWindow('dialog#url.box#')">
+	--->
 
 <table align="center" bgcolor="FFFFFF" width="100%" height="100%">
 

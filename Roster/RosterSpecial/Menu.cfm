@@ -200,16 +200,26 @@ password="#SESSION.dbpw#">
 	</cfif>
 	
 			
-		 <tr><td colspan="6" style="font-size:26px;padding-top:17px;padding-left:10px" class="labellarge">
-		    <cfoutput>#own#</cfoutput>
+		 <tr class="line"><td colspan="6" style="padding-left:2px;height:38px;font-size:25px" class="labelmedium">
+		 
+		 <cfquery name="OwnerName" 
+			datasource="AppsOrganization" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			    SELECT * 
+			    FROM   Ref_AuthorizationRoleOwner
+				WHERE Code = '#own#'
+			</cfquery>
+		 
+		    <cfoutput>#OwnerName.Description#</cfoutput>
 			</td>
-			</tr>
-		    <tr><td height="1" colspan="6" class="linedotted"></td></tr>
-			
+		</tr>
+		   		
 			
 	  <cfif Check.recordcount gte "1">
 			
 		   <tr><td>
+		   <table width="100%" cellspacing="0" cellpadding="0">	  
 		   <cfset row = 0>
 		   <cfoutput query="Check">
 		  
@@ -231,6 +241,7 @@ password="#SESSION.dbpw#">
 			    </cfif>	 
 		         
 		    </cfoutput>
+			</table>	
 			</td></tr>  
 			
 		<cfelse>

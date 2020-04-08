@@ -50,12 +50,12 @@
 				</td>
 			</tr>							
 			<tr>
-				<td style="z-index:3; position:absolute; top:17px; left:90px; color:45617d; font-family:calibri,trebuchet MS; font-size:25px; font-weight:bold;">
+				<td style="z-index:3; position:absolute; top:17px; left:90px; color:##45617d; font-family:calibri,trebuchet MS; font-size:25px; font-weight:bold;">
 					#lt_content#
 				</td>
 			</tr>
 			<tr>
-				<td style="position:absolute; top:04px; left:90px; color:e9f4ff; font-family:calibri,trebuchet MS; font-size:40px; font-weight:bold; z-index:2">
+				<td style="position:absolute; top:04px; left:90px; color:##e9f4ff; font-family:calibri,trebuchet MS; font-size:40px; font-weight:bold; z-index:2">
 					#lt_content#
 				</td>
 			</tr>		
@@ -69,7 +69,7 @@
 			Label           = "Yes">
 							
 			<tr>
-				<td style="position:absolute; top:45px; left:93px; color:45617d; font-family:calibri,trebuchet MS; font-size:12px; font-weight:bold; z-index:4">
+				<td style="position:absolute; top:45px; left:93px; color:##45617d; font-family:calibri,trebuchet MS; font-size:12px; font-weight:bold; z-index:4">
 					#lt_content#
 				</td>
 			</tr>							

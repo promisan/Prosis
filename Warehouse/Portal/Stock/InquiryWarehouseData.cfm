@@ -82,6 +82,7 @@
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 	SELECT <!--- TOP 800 save guard to keep the size smaller --->
+			TOP 500
 	       W.Warehouse, 
 	       W.WarehouseName,
 		   W.City,
@@ -135,13 +136,16 @@
 		   WL.LocationClass as LocationClassCode,
 		   
 		   <!--- cart --->
-					  
+
+			<!---				  
 		   (SELECT TOP 1 CartId
                 FROM    WarehouseCart
                 WHERE   ShipToWarehouse   = I.Warehouse 
 			    AND     ShipToLocation    = I.Location 
 			    AND     ItemNo            = I.ItemNo 
-			    AND     UoM               = I.UoM) AS CartId, 	  		  
+			    AND     UoM               = I.UoM) AS CartId, 
+			--->
+			null AS CartId,	  		  
 		   
 		   (SELECT      Description 
 		       FROM     Ref_WarehouseLocationClass 
@@ -161,14 +165,17 @@
 		    <!--- ----------------------------------------- ---> 	
 			<!--- ------------DRAFT REQUEST---------------- --->
 			<!--- ----------------------------------------- ---> 			
-						  
+
+			<!---			  
 			(SELECT sum(Quantity) 
                 FROM     WarehouseCart
                 WHERE    ShipToWarehouse    = I.Warehouse 
 			    AND      ShipToLocation     = I.Location 
 			    AND      ItemNo             = I.ItemNo 
 			    AND      UoM                = I.UoM				
-				) AS onDraft, 			
+				) AS onDraft, 
+			--->
+			0 AS onDraft,			
 							
 			<!--- ----------------------------------------- --->
 			<!--- stock on request for the storage location --->		

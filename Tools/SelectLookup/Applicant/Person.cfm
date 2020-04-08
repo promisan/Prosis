@@ -1,20 +1,17 @@
 
 <cf_tl id="Locate individual" var="1">
 
+<!---
 <cf_screentop label="Search" option="#lt_text#" 
    height="100%" scroll="No" html="Yes"
    layout="webapp" banner="gray"
    close="ColdFusion.Window.hide('dialog#url.box#')">   
+   --->
 
-<table align="center" bgcolor="FFFFFF" width="100%" height="100%">
 
-<tr><td valign="top">
+<table width="100%" height="100%" border="0" align="center" class="formspacing" cellspacing="0" cellpadding="0" align="center">
 
-<cf_divscroll>
-
-<table width="100%" border="0" align="center" class="formspacing" cellspacing="0" cellpadding="0" align="center">
-
-<tr><td style="padding-top:4px">
+<tr><td style="height:10">
 	
 <cfoutput>
 
@@ -24,7 +21,7 @@
 
     <form name="<cfoutput>select_#url.box#</cfoutput>" id="<cfoutput>select_#url.box#</cfoutput>" method="post">
 	
-	<table width="94%" border="0" cellspacing="0" align="center" class="formpadding"
+	<table width="96%" border="0" cellspacing="0" align="center" class="formpadding"
 	onkeyup="if (window.event.keyCode == '13') { document.getElementById('search').click() }">
 			
 	    <tr><td height="4"></td></tr>
@@ -52,7 +49,7 @@
 				<INPUT type="hidden" name="Crit4_FieldType" id="Crit4_FieldType" value="CHAR">
 				<INPUT type="hidden" name="Crit4_Operator" id="Crit4_Operator" value="CONTAINS">
 			
-				<TD class="labelmedium" align="left" style="padding-left:7px"><cf_tl id="Gender">: </TD>
+				<TD class="labelmedium" align="left" style="min-width:90px;padding-left:17px"><cf_tl id="Gender">: </TD>
 				
 				<TD style="padding-left:3px">
 				
@@ -82,6 +79,10 @@
 				<td style="padding-left:4px">	
 					<INPUT type="text" name="Crit1_Value" id="Crit1_Value" size="20" class="regularxl" value="">
 				</td>
+				
+				
+				
+				
 		   	</tr>
 		</table>
 		</TD>
@@ -93,7 +94,7 @@
 		
 		<TR>
 		
-			<TD class="labelmedium"><cf_tl id="ExternalReference">:</TD>
+			<TD class="labelmedium"><cf_tl id="Badge No">:</TD>
 			<TD>
 			<table cellspacing="0" cellpadding="0">
 				<tr>
@@ -105,6 +106,20 @@
 					<td style="padding-left:4px">	
 						<INPUT type="text" name="Crit3_Value" id="Crit3_Value" size="20" class="regularxl" value="">
 					</td>
+					
+									
+				<TD colspan="2" style="padding-left:3px">
+				
+					<table>
+					<tr>					
+					<td style="padding-left:8px"><input type="radio" name="Crit8_Value" id="Crit8_Value" checked value="Individual" class="regularxl"></td><td style="padding-left:4px"><cf_tl id="Registered Individual"></td>					
+					<td style="padding-left:8px"><input type="radio" name="Crit8_Value" id="Crit8_Value" value="Staff" class="regularxl"></td><td style="padding-left:4px"><cf_tl id="Staff"></td>					
+					</td>
+					</tr>
+					</table>
+										   	
+				</TD>
+					
 			   	</tr>
 			</table>
 			</TD>
@@ -192,29 +207,29 @@
 
 <cfoutput>
 		
-<tr><td class="linedotted" height="1"></td></tr>
-
 <cfset nav = "#SESSION.root#/tools/selectlookup/Applicant/PersonResult.cfm?height='+document.body.clientHeight+'&close=#url.close#&box=#url.box#&link=#link#&des1=#des1#&filter1=#url.filter1#&filter1value=#url.filter1value#&filter2=#url.filter2#&filter2value=#url.filter2value#&filter3=#url.filter3#&filter3value=#url.filter3value#">
 	
-<tr><td colspan="2" height="30" align="center">   
+<tr><td class="line" colspan="2" height="30" align="center" style="padding-top:4px">   
+
 	<cf_tl id="Search" var="1">
 	<input type="button" 
 	   value="#lt_text#" 
 	   class="button10g"
-	   onclick="ColdFusion.navigate('#nav#&page=1','searchresult#url.box#','','','POST','select_#url.box#')"	  
+	   onclick="_cf_loadingtexthtml='';ColdFusion.navigate('#nav#&page=1','searchresult#url.box#','','','POST','select_#url.box#')"	  
 	   name="search"
 	   id="search">
+	   
 </td></tr>
 
 <tr>
-	<td colspan="2" align="center" id="searchresult#url.box#"></td>
+	<td height="100%" colspan="2" align="center">
+	<cf_divscroll>
+		<cfdiv id="searchresult#url.box#">
+	</cf_divscroll>
+	</td>
 </tr>
 
 </cfoutput>
+
 </table>
 	
-</cf_divscroll>
-
-</td></tr>
-
-</table>

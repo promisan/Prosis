@@ -52,7 +52,6 @@
 	</cfif>	
 </head>
 
-<cf_UIGadgets>
 
 <body>
 

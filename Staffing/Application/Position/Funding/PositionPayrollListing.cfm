@@ -50,7 +50,7 @@
 				<cfdiv 
 					id="divPositionPayrollListing"
 					style="height:100%;" 
-					bind="url:#session.root#/Staffing/Application/Position/Funding/PositionPayrollSettlement.cfm?systemfunctionid=#url.systemfunctionid#&positionno=#url.positionno#&rand=#rand(10)#">
+					bind="url:#session.root#/Staffing/Application/Position/Funding/PositionPayrollSettlement.cfm?systemfunctionid=#url.systemfunctionid#&positionno=#url.positionno#">
 			</td>
 		</tr>
 		<tr><td height="5"></td></tr>

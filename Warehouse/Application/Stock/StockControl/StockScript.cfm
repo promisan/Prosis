@@ -25,7 +25,6 @@
 <cf_KeyPadScript>
 
 <!--- To show notifications --->
-<cf_uiGadgets>
 <cf_windowNotification>
 
 <!--- ------------------------------------------- --->
@@ -2501,7 +2500,7 @@ function clearStockIssueEndFocus() {
 		
 	function salesdaytotal()	{	  
 		   
-		try { ProsusUI.closeWindow('daytotal',true)} catch(e){};
+		try { ProsisUI.closeWindow('daytotal',true)} catch(e){};
    		ProsisUI.createWindow('daytotal', 'Day totals', '',{x:100,y:100,width:1080,height:650,resizable:true,modal:true,center:true});
    		ptoken.navigate('#SESSION.root#/Warehouse/Application/Salesorder/POS/Inquiry/daytotal.cfm?systemfunctionid=#url.systemfunctionid#&mission='+mis+'&warehouse='+whs,'daytotal');				
 	}			

@@ -1,7 +1,7 @@
 
 <cfoutput>
 
-<cf_screentop height="100%" jquery="Yes" title="Program Audit Tree View" html="No" scroll="Yes">
+<cf_screentop height="100%" jquery="Yes" title="Reporter Audit View" html="No" scroll="Yes">
 
 <cf_dialogStaffing>
 
@@ -142,7 +142,7 @@ GROUP BY M.Description,
 	<cfset min = "0">   
 </cfif>
 
-<table width="96%" align="center" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="96%" align="center" class="formpadding">
 
  <tr><td height="4"></td></tr>
  
@@ -151,34 +151,34 @@ GROUP BY M.Description,
  </tr> 
  <tr class="line labelmedium">
    <td width="160">Server IP:</td>
-   <td width="80%">#OfficerUserId#</td>
+   <td style="font-size:16px;height:28px" width="80%">#OfficerUserId#</td>
  </tr>  
  <tr class="line labelmedium">
    <td>Batch status:</td>
-   <td><cfif ProcessStatus eq "Empty"><font color="red">Empty batch<cfelse><font color="408080"><b>#ProcessClass# #ProcessStatus#</cfif></td>
+   <td  style="font-size:16px;height:28px"><cfif ProcessStatus eq "Empty"><font color="red">Empty batch<cfelse><font color="408080">#ProcessClass# | #ProcessStatus#</cfif></td>
  </tr>
  <tr class="line labelmedium">
-   <td height="20">Process period:</td>
-   <td>from: <b>#TimeFormat(ProcessStart,"HH:MM:SS")#</b> - until: <b>#TimeFormat(ProcessEnd,"HH:MM:SS")#</b></td>
+   <td height="20">Process execution:</td>
+   <td  style="font-size:16px;height:28px">#dateFormat(ProcessStart,client.dateformatshow)#: <b>#TimeFormat(ProcessStart,"HH:MM:SS")#</b> - ended: <b>#TimeFormat(ProcessEnd,"HH:MM:SS")#</b></td>
  </tr>
  <tr class="line labelmedium">  
    <td>Duration</td>
-   <td><cfif min neq "0"><b>#int(min)#</b> minutes<cfelse><b>#sec#</b> second(s)</cfif></td>   
+   <td  style="font-size:16px;height:28px"><cfif min neq "0"><b>#int(min)#</b> minutes<cfelse><b>#sec#</b> second(s)</cfif></td>   
  </tr>
    
  <cfset sent = EMailSent - Failed.recordcount>
   
  <tr class="line labelmedium">  
-   <td>No of eMail sent:</td>
-   <td><b>#Sent#</b> message(s) successfully delivered to CF defined mail engine</td>
+   <td>No of e-Mails sent:</td>
+   <td style="font-size:16px;height:28px"><b>#Sent#</b> message(s) <font size="1">successfully delivered to CF defined mail engine</td>
  </tr>
  
  <cfif sent gt "0">
  
  <tr class="line labelmedium">  
-   <td>Average time per eMail</td>
-   <td><b>#numberformat(sec/Sent,"__,_._")#&nbsp;</b><cfif #numberformat(sec/Sent,"__,_._")# eq "1">second<cfelse>seconds</cfif>
-   &nbsp;[System average : #numberformat(Avg.AvgTimeEmail,"__,_._")# seconds]
+   <td>Average time per e-Mail</td>
+   <td  style="font-size:16.5px;height:28px"><b>#numberformat(sec/Sent,",_._")#&nbsp;</b><cfif #numberformat(sec/Sent,",_._")# eq "1">second<cfelse>seconds</cfif>
+   &nbsp;[System average : #numberformat(Avg.AvgTimeEmail,",_._")# seconds]
    </td>
  </tr>
 
@@ -189,15 +189,15 @@ GROUP BY M.Description,
  <cfif Header.ProcessStatus neq "Empty">
  
  <tr class="line">  
-   <td height="20" class="labelmedium" valign="top" style="padding-top:3px">Total by format:</td>
+   <td height="20" class="labelmedium" valign="top" style="padding-top:5px">Total by format:</td>
    <td>    
 	<table width="100%" >
 	<cfoutput query="Mode">
  		 <tr class="labelmedium">  
-		   <td width="150">#DistributionCategory#</td>
-		   <td>#Mode#</td>
+		   <td width="150"  style="font-size:16px;height:28px">#DistributionCategory#</td>
+		   <td style="font-size:16px;height:28px">#Mode#</td>
 		 </tr>
-		  <cfif Mode.recordcount neq "#CurrentRow#">
+		  <cfif Mode.recordcount neq CurrentRow>
 		 <tr class="line"><td height="1" colspan="2"></td></tr>
 		 </cfif>
 	</cfoutput>	 
@@ -206,16 +206,16 @@ GROUP BY M.Description,
  </tr>
   
  <tr class="line labelmedium">  
-   <td height="20" valign="top" style="padding-top:3px">Total by module:</td>
+   <td height="20" valign="top" style="padding-top:5px">Total by module:</td>
    <td>
     
 	<table width="100%">
 	<cfoutput query="Module">
- 		 <tr>  
-		   <td class="labelmedium" width="150">#Description#</td>
-		   <td class="labelmedium">#Module#</td>
+ 		 <tr class="labelmedium">  
+		   <td style="min-width:200px;font-size:15px">#Description#</td>
+		   <td align="right" style="font-size:15px;padding-right:10px">#Module#</td>
 		 </tr>
-		 <cfif Module.recordcount neq "#CurrentRow#">
+		 <cfif Module.recordcount neq CurrentRow>
 		 <tr class="line"><td height="1" colspan="2"></td></tr>
 		 </cfif>
 	</cfoutput>	 
@@ -228,7 +228,7 @@ GROUP BY M.Description,
  
  <tr class="line labelmedium">  
    <td height="20">Preparation failed for:</td>
-   <td class="labelmedium"><cfif Failed.recordcount gt "0"><b>
+   <td style="font-size:15px;padding-right:10px" ><cfif Failed.recordcount gt "0"><b>
    <img src="#SESSION.root#/Images/caution.gif" alt=""  border="0">
    <font color="FF0000">#Failed.recordcount#</b> report variants!<cfelse>None</cfif></td>
  </tr>
@@ -327,7 +327,7 @@ GROUP BY M.Description,
 		   
 			   <cfif Access eq "EDIT" or Access eq "ALL">
 			   
-			       <a title="Report configuration" href="javascript:recordedit('#ControlId#')"><font color="0080C0">#FunctionName#</font></a>
+			       <a title="Report configuration" href="javascript:recordedit('#ControlId#')">#FunctionName#</a>
 				   
 			   <cfelse>
 			   

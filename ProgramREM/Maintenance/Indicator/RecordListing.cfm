@@ -8,20 +8,6 @@
 
 <cfajaximport tags="cfform">
 
-<!---
-<cfwindow 
-          name="dialog"
-          title="Indicator"
-          height="700"
-          width="740"
-          minheight="700"
-          minwidth="740"
-          bodystyle="overflow: hidden;"
-          center="True"
-          draggable="True"
-          modal="True"></cfwindow>		
-		  ---> 
-
 <cfquery name="Check"
 datasource="AppsProgram" 
 username="#SESSION.login#" 
@@ -56,26 +42,28 @@ password="#SESSION.dbpw#">
 <cfset save         = "0"> 
 <cfinclude template = "../HeaderMaintain.cfm"> 	
 
+<cf_screentop html="No" jquery="Yes">
+
 <cf_divscroll>
-<table width="93%" align="center" cellspacing="0" cellpadding="0">
+
+<table width="93%" align="center">
 
 <cfoutput>
 
 <script>
 
 function init(mis) {
-	if (confirm("Do you want to create records ?")) 
-		{
+	if (confirm("Do you want to create records ?")) {
 		window.location = "MeasurementInit.cfm?idmenu=#url.idmenu#&mission="+mis;
 		}
 	}		
 
 function recordadd(mis) {
-          window.open("RecordAdd.cfm?idmenu=#url.idmenu#&mission="+mis, "Add", "left=100, top=30, width=900, height=900, toolbar=no, status=yes, scrollbars=no, resizable=yes");
+    window.open("RecordAdd.cfm?idmenu=#url.idmenu#&mission="+mis, "IndicatorAdd");
 	}
 
 function recordedit(mis,id1) {
-        window.open("RecordEdit.cfm?idmenu=#url.idmenu#&mission="+mis+"&ID1="+ id1, "Edit", "left=100, top=30, width=920, height=900, toolbar=no, status=yes, scrollbars=no, resizable=yes");				
+    window.open("RecordEdit.cfm?idmenu=#url.idmenu#&mission="+mis+"&ID1="+ id1, "IndicatorEdit");				
 	}	
 		
 function show(mis) {

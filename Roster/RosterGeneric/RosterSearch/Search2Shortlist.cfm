@@ -187,11 +187,10 @@ password="#SESSION.dbpw#">
 			 
 			<cfform action="Search2Submit.cfm?docno=#url.docno#&ID=#URL.ID#&owner=#Owner.Owner#&mode=vacancy&status=1" method="POST" name="functionselect">
 			
-			<table width="97%" border="0" frame="hsides"cellspacing="0" cellpadding="0" align="center">
+			<table width="97%" border="0" align="center">
 			
-			 <tr>
-			    <td height="40" class="labelit" style="padding-left:4px">
-				  <font color="gray">Select one of more roster buckets for your search:</b>
+			 <tr class="labelmedium">
+			    <td height="40" style="font-size:20px;padding-left:4px">Select one of more roster buckets for your search
 				
 				  <input type="hidden" id="OccupationalGroup" name="OccupationalGroup" value="<cfoutput>#Doc.OccupationalGroup#</cfoutput>">
 				  
@@ -215,11 +214,11 @@ password="#SESSION.dbpw#">
 			   
 			<tr><td colspan="2">
 			
-			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+			<table width="100%" class="formpadding">
 			
-			<tr><td height="1" colspan="5" class="linedotted"></td></tr>
+			<tr><td height="1" colspan="6" class="line"></td></tr>
 			
-			<TR class="labelmedium linedotted">
+			<TR class="labelmedium line">
 			    <td height="23"><cf_tl id="Area"></td>
 			    <TD><cf_tl id="Function"></TD>
 			    <TD><cf_tl id="Level"></TD>
@@ -230,7 +229,7 @@ password="#SESSION.dbpw#">
 				
 			<cfloop query="FunctionAll"> 
 			
-			<cfset rowClass="labelmedium linedotted">
+			<cfset rowClass="labelmedium line">
 			<cfif url.docno neq "">
 				<cfset rowClass= rowClass & " highLight2">
 			</cfif>
@@ -241,9 +240,7 @@ password="#SESSION.dbpw#">
 			    <TD>#FunctionDescription#</TD>
 			    <TD>#GradeDescription#</TD>
 				<td><cfif DocumentNo neq "">
-				     <A href="javascript:showdocument('#DocumentNo#')">
-					 <font color="6688aa">#ReferenceNo#</font>
-					 </a>
+				     <A href="javascript:showdocument('#DocumentNo#')">#ReferenceNo#</a>
 					<cfelse>
 					 #ReferenceNo#
 					</cfif>
@@ -273,7 +270,7 @@ password="#SESSION.dbpw#">
 			
 			</td></tr>
 			
-			<tr><td class="linedotted" colspan="6"></td></tr>
+			<tr><td class="line" colspan="6"></td></tr>
 			
 			<tr>
 			<td colspan="6" align="center" valign="middle" height="39">	

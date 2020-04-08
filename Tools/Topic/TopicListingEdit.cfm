@@ -3,7 +3,7 @@
 
 <cfajaximport tags="cfform,cfinput-autosuggest">
 
-<cf_screentop label="Edit Topic field" scroll="Yes" line="no" banner="gray" jquery="Yes" bannerforce="Yes" layout="webapp">
+<cf_screentop label="Edit Topic field" scroll="No" line="no" banner="gray" jquery="Yes" bannerforce="Yes" layout="webapp">
 
 <cfoutput>
 
@@ -90,7 +90,7 @@ password="#SESSION.dbpw#">
 
 <cfoutput query="Topic">
 
-<table width="100%" height="100%">
+<table width="100%" height="99%">
 
 <tr><td height="20" bgcolor="white" valign="top">
 	

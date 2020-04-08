@@ -8,9 +8,15 @@ password="#SESSION.dbpw#">
 	ORDER BY ListingOrder
 </cfquery>
 
+<cf_screentop html="No" jquery="Yes">
+
 <cfset Page         = "0">
 <cfset add          = "1">
+
+<table width="99%"  border="0" align="center" bordercolor="silver" cellspacing="0" cellpadding="0">  
+<tr><td colspan="2">
 <cfinclude template = "../HeaderMaintain.cfm"> 
+</td></tr>
 
 <cfoutput>
 
@@ -28,22 +34,20 @@ function recordedit(id1) {
 
 </cfoutput>
 
-<table width="99%"  border="0" align="center" bordercolor="silver" cellspacing="0" cellpadding="0">  
-
 <tr><td colspan="2">
 
 <table width="100%" border="0" cellspacing="0" align="center" class="navigation_table">
 
-<tr class="labelmedium line">
+<tr class="fixrow labelmedium line">
     <TD></TD> 
-    <TD>Code</TD>
-	<td>Description</td>
-	<td>Template</td>
-	<td align="center">WF</td>
-	<td align="center">Sort</td>	
-	<td align="center">Ope.</td>
-	<TD>Officer</TD>
-    <TD>Entered</TD>
+    <TD><cf_tl id="Code"></TD>
+	<td><cf_tl id="Description"></td>
+	<td><cf_tl id="Template"></td>
+	<td align="center"><cf_tl id="WF"></td>
+	<td align="center"><cf_tl id="Sort"></td>	
+	<td align="center"><cf_tl id="Ope."></td>
+	<TD><cf_tl id="Officer"></TD>
+    <TD><cf_tl id="Entered"></TD>
 	<td></td>
   
 </TR>

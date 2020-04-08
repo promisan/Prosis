@@ -22,7 +22,7 @@ password="#SESSION.dbpw#">
 		password="#SESSION.dbpw#">
 				
 		    SELECT newid() as TransactionLineId,
-			       J.TransactionPeriod as TransactionPeriod,
+			       J.TransactionPeriod as HeaderTransactionPeriod,
 			       J.TransactionCategory, 				   
 				   J.Description as DescriptionHeader,
 				   J.Journal,
@@ -31,6 +31,7 @@ password="#SESSION.dbpw#">
 				   J.DocumentDate,
 				   T.TransactionDate, 
 				   T.TransactionDate as Created,
+				   CONVERT(int, T.TransactionDate) AS CreatedInt,
 				   ROUND(SUM(AmountDebit), 2) AS AmountDebit, 
 				   ROUND(SUM(AmountCredit), 2) AS AmountCredit, 
                    ROUND(SUM(AmountBaseDebit), 2) AS AmountBaseDebit, 
@@ -58,7 +59,7 @@ password="#SESSION.dbpw#">
 			</cfif>
 			
 			<cfif URL.Period neq "All">
-				AND  T.AccountPeriod = '#URL.Period#' 
+				AND  J.AccountPeriod = '#URL.Period#' 
 			<cfelse>
 				AND  J.Journal NOT IN (SELECT Journal FROM Journal WHERE SystemJournal = 'Opening')
 			</cfif>
@@ -68,6 +69,7 @@ password="#SESSION.dbpw#">
 						OR J.JournalSerialNo LIKE '%#url.find#%'
 						OR J.TransactionReference  LIKE '%#url.find#%'
 						OR J.Description LIKE '%#url.find#%'
+						OR J.Journal LIKE '%#url.find#%'
 						OR J.ReferenceName LIKE '%#url.find#%' )
  
 			</cfif>
@@ -104,13 +106,21 @@ password="#SESSION.dbpw#">
 			AND J.ActionStatus 	  != '9'
 								
 			GROUP BY J.Journal,J.TransactionPeriod, J.TransactionCategory, J.Description, J.JournalTransactionNo, J.DocumentDate, T.Currency, T.TransactionDate 
-			ORDER BY T.TransactionDate
-						
 			
+			<cfif URL.ID eq "Created">
+			ORDER BY T.Created 
+			<cfelseif URL.ID eq "DocumentDate">
+			ORDER BY J.DocumentDate 
+			<cfelseif URL.ID eq "JournalTransactionNo">
+			ORDER BY J.JournalTransactionNo, T.ReferenceId
+			<cfelseif URL.ID eq "TransactionPeriod">			
+			ORDER BY J.TransactionPeriod
+			<cfelse>
+			ORDER BY T.#URL.ID# 
+			</cfif>		
+						
 		</cfquery>
-		
-		
-		
+			
 <!--- now we pass --->
 
 <cfquery name="SearchResult" 
@@ -118,7 +128,17 @@ password="#SESSION.dbpw#">
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">	
 		SELECT     *
-		FROM       userQuery.dbo.#SESSION.acc#GLedgerAggregate	
-		ORDER BY   TransactionDate	
+		FROM       userQuery.dbo.#SESSION.acc#GLedgerAggregate		
+		<cfif URL.ID eq "Created">
+			ORDER BY Created 
+		<cfelseif URL.ID eq "DocumentDate">
+			ORDER BY DocumentDate 
+		<cfelseif URL.ID eq "JournalTransactionNo">
+			ORDER BY JournalTransactionNo, ReferenceId
+		<cfelseif URL.ID eq "TransactionPeriod">			
+			ORDER BY HeaderTransactionPeriod, TransactionDate
+		<cfelse>
+			ORDER BY #URL.ID# 
+		</cfif>				
 </cfquery>
 		

@@ -1,5 +1,5 @@
 
-<table width="95%" cellspacing="0" cellpadding="0" align="center" class="formpadding formspacing">
+<table width="95%" align="center" class="formpadding">
 
 <cfquery name="Check" 
 	datasource="appsSystem" 
@@ -148,7 +148,7 @@
 	
 	    <!--- Field: eMail --->
 	    <TR class="labelmedium">
-	    <TD><cf_tl id="eMail"> (<cf_tl id="Primary">) : <font color="#FF0000">*</font></TD>
+	    <TD style="min-width:220px"><cf_tl id="eMail">-<cf_tl id="Primary">: <font color="#FF0000">*</font></TD>
 	    <TD>
 			<cfinput type="Text"
 		       name="eMailAddress"
@@ -168,7 +168,7 @@
 		
 		<!--- Field: eMail --->
 	    <TR class="labelmedium">
-	    <TD><cf_tl id="eMail"> (<cf_tl id="Primary">) :</TD>
+	    <TD><cf_tl id="eMail">-<cf_tl id="Primary"> :</TD>
 	    <TD>
 			<cfinput type="Text"
 		       name="eMailAddress"
@@ -188,7 +188,7 @@
 		
 		 <!--- Field: eMailExternal --->
 	    <TR class="labelmedium">
-	    <TD><cf_tl id="eMail"> (<cf_tl id="Secundary">):</TD>
+	    <TD><cf_tl id="eMail">-<cf_tl id="Secundary">:</TD>
 	    <TD>
 			<cfinput type="Text"
 		       name="eMailAddressExternal"
@@ -303,7 +303,7 @@
 		
 	<tr class="labelmedium">		
 	 <td valign="top" style="padding-top:3px"><cf_tl id="Notes">:</td>
-	 <TD><textarea class="regular" style="width:99%;padding:3px;font-size:13px" rows="6" name="Remarks" id="Remarks"></textarea>
+	 <TD><textarea class="regular" style="width:99%;padding:3px;font-size:13px" rows="2" name="Remarks" id="Remarks"></textarea>
 	</TD>
 	</TR>
 	

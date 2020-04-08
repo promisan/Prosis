@@ -1,5 +1,6 @@
 
-<cf_screentop height="100%" layout="webapp" close="parent.ColdFusion.Window.destroy('myassociate',true)" banner="gray" line="no" label="Associate - Position to recruitment request" band="No" scroll="Yes">
+
+<cf_screentop html="no" height="100%" layout="webapp" banner="gray" line="no" label="Associate - Position to recruitment request" band="No" scroll="Yes">
 
 <cfoutput>
 
@@ -155,48 +156,46 @@ password="#SESSION.dbpw#">
 
 <form action="AssociatePostSubmit.cfm" method="post" target="result">
 	  
-<table width="95%" align="center" border="0" cellspacing="0" cellpadding="0">
+<table width="95%" height="100%" align="center">
 
   <tr class="hide"><td><iframe name="result" id="result"></iframe></td></tr>
 
-  <tr><td height="4"></td></tr>
-
-  <tr><td height="23" class="labelit">&nbsp;Organization: <b><cfoutput>&nbsp;#URL.ID1#</b> &nbsp;Grade level: <b>#URL.ID2#</cfoutput></b></td></tr>
+  <tr class="line"><td style="height:40px;font-size:25px;padding-left:4px" class="labelmedium">Organization: <b><cfoutput>&nbsp;#URL.ID1#</b> &nbsp;Grade level: <b>#URL.ID2#</cfoutput></b></td></tr>
 
   <cfoutput>
      <input type="hidden" name="DocumentNo" value="#URL.ID#">
   </cfoutput>
   
-  <tr><td>
+  <tr><td style="height:100%">
+  
+  <cf_divscroll>
 
-  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <table width="100%">
 
-	  <TR class="labelmedium line">
+	  <TR class="labelmedium line fixrow">
 	    <td></td>
-		<TD>Post number</TD>
-	    <TD class="labelit">Function</TD>
-	    <TD class="labelit">Grade</TD>
-		<TD class="labelit">Expiration</TD>
-		<TD class="labelit">IndexNo</TD>
-		<TD class="labelit">Name</TD>
-		<TD class="labelit">End date</TD>
+		<TD><cf_tl id="Post number"></TD>
+	    <TD><cf_tl id="Function"></TD>
+	    <TD><cf_tl id="Grade"></TD>
+		<TD><cf_tl id="Expiration"></TD>
+		<TD><cf_tl id="IndexNo"></TD>
+		<TD><cf_tl id="Name"></TD>
+		<TD><cf_tl id="End date"></TD>
 	  </TR>
 	
-	  <cfoutput query="Post"> 
-	 
+	  <cfoutput query="Post"> 	 
 	 	
 	  <cfif CurrentAssigned eq "0">
 	     <tr class="regular labelmedium line">
 	  <cfelse>
 	     <tr class="highLight2 labelmedium line">
-	  </cfif>   
+	  </cfif>   	  
 	  
-	  
-	  <TD>&nbsp;  
+	  <TD style="padding-left:4px;padding-right:4px"> 
 	  <cfif CurrentAssigned eq "0">
-	    <input type="checkbox" name="Selected" value="#PositionNo#" onClick="hl(this,this.checked)">
+	    <input type="checkbox" name="Selected" class="radiol" value="#PositionNo#" onClick="hl(this,this.checked)">
 	  <cfelse>
-	    <input type="checkbox" name="Selected" value="#PositionNo#" checked onClick="hl(this,this.checked)">
+	    <input type="checkbox" name="Selected" class="radiol" value="#PositionNo#" checked onClick="hl(this,this.checked)">
 	  </cfif>
 	  </TD>
 	    <TD>#SourcePostNumber#</TD>
@@ -210,15 +209,20 @@ password="#SESSION.dbpw#">
 
 	</CFOUTPUT>
 
-	<tr><td height="42" colspan="8" align="center">
+	
+
+</TABLE>
+
+</cf_divscroll>
+
+</td>
+</tr>
+
+<tr><td height="42" colspan="8" align="center">
 	
 	<input class="button10g" style="width:140;height:29" type="submit" name="Update" value="Associate">
 
 </td></tr>
-
-</TABLE>
-</td>
-</tr>
 
 </table>
 

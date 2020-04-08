@@ -1,41 +1,39 @@
 
 <!--- year, month, moments --->
 
-<cfquery name="Year" 
+<cfquery name="YearList" 
   datasource="AppsSystem" 
   username="#SESSION.login#" 
   password="#SESSION.dbpw#">
       SELECT   DISTINCT YEAR(Created) as Year
       FROM     ReportBatchLog
 	  WHERE    ProcessClass != 'Trial'
-	  AND      YEAR(Created) >= '#year(now())#'	  
-	  ORDER BY Year DESC
+	  AND      YEAR(Created) >= '#year(now())-1#'	  
+	  ORDER BY Year DESC	  	  
 </cfquery>
 
-<cftree name="root"
-	   font="calibri"
-	   fontsize="12"		
-	   bold="No"   
-	   format="html"    
-	   required="No">  	
+<cf_UItree
+	id="root"
+	title="<span style='font-size:16px;color:gray;padding-bottom:3px'>Log</span>"	
+	expand="Yes">
 
 	<cfoutput>
-	
-	  <cfloop query="Year">
-	  
+			
+	  <cfloop query="YearList">	 
+		  
 	  <cfif YEAR(now())>
 	      <cfset exp = "Yes">
 	  <cfelse>
 	      <cfset exp = "No"> 
 	  </cfif>
 	  
-	  <cftreeitem value="#year#"
-		   display="<font face='Calibri' size='4'><b>#Year#"
-		   parent="Root"					
-		   expand="#exp#">		
-	    
+	   <cf_UItreeitem value="#year#"
+	        display="<span style='font-size:18px;padding-bottom:5px;font-weight:bold' class='labellarge'>#Year#</span>"														
+			parent="root"							
+	        expand="#exp#">	
+	 	     
 	     <cfset yr = year>
-	    
+		 		 	    
 		 <cfquery name="Month" 
 		  datasource="AppsSystem" 
 		  username="#SESSION.login#" 
@@ -52,24 +50,24 @@
 		    <cfset mt  = Month.Month>
 		    <cfset mtS = monthAsString(Month.Month)>
 			
-			<cftreeitem value="#yr##mts#"
-		        display="<font face='Calibri' size='3'>#mtS#</font>"
-				parent="#yr#"					
-		        expand="No">		
-				
+			 <cf_UItreeitem value="#yr##mts#"
+		        display="<span style='font-size:15px;padding-bottom:4px;' class='labellarge'>#mtS#</span>"														
+				parent="#yr#"							
+		        expand="No">			
+						
 			 <cfquery name="Date" 
-		    datasource="AppsSystem" 
-		    username="#SESSION.login#" 
-		    password="#SESSION.dbpw#">
-		      SELECT DISTINCT DAY(Created) as DAY
-		      FROM ReportBatchLog
-			  WHERE YEAR(Created) = #yr#
-			  AND MONTH(Created) = #mt#
-			  AND    ProcessClass != 'Trial'
-			  ORDER BY DAY DESC
-		   </cfquery>	
+		      datasource="AppsSystem" 
+		      username="#SESSION.login#" 
+		      password="#SESSION.dbpw#">
+			      SELECT   DISTINCT DAY(Created) as DAY
+			      FROM     ReportBatchLog
+				  WHERE    YEAR(Created)  = #yr#
+				  AND      MONTH(Created) = #mt#
+				  AND      ProcessClass  != 'Trial'
+				  ORDER BY DAY DESC
+		     </cfquery>	
 		   
-		    <cfloop query="Date">
+		     <cfloop query="Date">
 			
 			    <cfset dy   = Date.Day>
 									
@@ -78,11 +76,11 @@
 			    username="#SESSION.login#" 
 			    password="#SESSION.dbpw#">
 			      SELECT *
-			      FROM ReportBatchLog
-				  WHERE YEAR(Created) = #yr#
-				  AND MONTH(Created) = #mt#
-				  AND DAY(Created) = #dy#
-				  AND    ProcessClass != 'Trial'
+			      FROM    ReportBatchLog
+				  WHERE   YEAR(Created)  = #yr#
+				  AND     MONTH(Created) = #mt#
+				  AND     DAY(Created)   = #dy#
+				  AND     ProcessClass != 'Trial'
 			   </cfquery>	
 			   
 			    <cfif len(dy) eq "1">
@@ -94,34 +92,31 @@
 			   
 			   <cfif Check.recordcount eq "1">	
 			   
-				   	<cftreeitem value="#yr##mts##dy#"
-		            display="<font face='Calibri' size='2'>#dy# [#dys#]</font>"
-		            parent="#yr##mts#"
-					target="right"
-		            href="DistributionLog.cfm?ID=#Check.BatchId#"
-		            queryasroot="No"
-		            expand="No">	    
+			   		 <cf_UItreeitem value="#yr##mts##dy#"
+				        display="<span style='font-size:13px;padding-bottom:2px;' class='labellarge'>#dy# [#dys#]</span>"														
+						parent="#yr##mts#"		
+						target="right"
+			            href="DistributionLog.cfm?ID=#Check.BatchId#"					
+				        expand="No">				   			  
 			  			
 				<cfelse>
 				
-						<cftreeitem value="#yr##mts##dy#"
-		            display="#dy# [#dys#]"
-		            parent="#yr##mts#"
-					target="right"
-		            href="DistributionLog.cfm?ID=#Check.BatchId#"
-		            queryasroot="No"
-		            expand="No">	  
-												
+					 <cf_UItreeitem value="#yr##mts##dy#"
+				        display="<span style='font-size:13px;padding-bottom:2px;' class='labellarge'>#dy# [#dys#]</span>"														
+						parent="#yr##mts#"		
+						target="right"
+			            href="DistributionLog.cfm?ID=#Check.BatchId#"					
+				        expand="No">		
+																
 					<cfloop query="Check">
 					
-						<cftreeitem value="#yr##mts##dy#_#currentrow#"
-		            display="#timeformat(ProcessEnd, "HH:MM")#"
-		            parent="#yr##mts##dy#"
-					target="right"
-		            href="DistributionLog.cfm?ID=#Check.BatchId#"
-		            queryasroot="No"
-		            expand="No">	  
-									
+						 <cf_UItreeitem value="#yr##mts##dy#_#currentrow#"
+				        display="<span style='font-size:12px;padding-bottom:2px;' class='labellarge'>#timeformat(ProcessEnd, "HH:MM")#</span>"														
+						parent="#yr##mts##dy#"		
+						target="right"
+			            href="DistributionLog.cfm?ID=#Check.BatchId#"					
+				        expand="No">	
+														
 					</cfloop>
 				
 				</cfif>
@@ -129,13 +124,9 @@
 			</cfloop>  
 			
 			</cfloop>  
-						   
+									   
 		   </cfloop>  
 		   		 
 	</cfoutput>
 
-</cftree>
-
-
-
-
+</cf_UItree>

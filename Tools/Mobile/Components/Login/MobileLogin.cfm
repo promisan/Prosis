@@ -44,8 +44,8 @@
 	                <div class="panel-body">
 						<cfif getApplication.recordCount eq 0>
 							<div class="text-center">
-								<h2>There is a misconfiguration issue.</h2>
-								<h2>Please contact your administrator.</h2>
+								<h3><cf_tl id="You don't have a valid session on this application"></h3>
+								<h3><cf_tl id="Please login again or contact your administrator"></h3>
 							</div>
 						<cfelse>
 							<cfoutput>

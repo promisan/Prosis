@@ -1,9 +1,9 @@
 <cfparam name="url.addressid"  default="00000000-0000-0000-0000-000000000000">
 
-<cfset vCellStyle    = "width:50%;min-width:140px;margin-bottom:20px;line-height:24px;padding:7px">
-<cfset vWidth        = "180px">
-<cfset vHeight       = "95px">
-<cfset vFontSize     = "24px">
+<cfset vCellStyle    = "width:50%;min-width:114px;margin-bottom:10px;line-height:24px;padding:1px">
+<cfset vWidth        = "170px">
+<cfset vHeight       = "85px">
+<cfset vFontSize     = "22px">
 <cfset vBorderRadius = "5px">
 <cfset vBGColor     = "darkGray">
 
@@ -129,9 +129,9 @@
 						id         	 = "buttonday",
 						image        = "Logos/Search-W.png",
 						height		 = "#vHeight#",
-						textcolor  	 = "ffffff",
+						textcolor  	 = "##ffffff",
 						width        = "#vWidth#",
-						bgColor		 = "0080C0",
+						bgColor		 = "##0080C0",
 						textsize     = "#vFontSize#",
 						borderColor  = "##FFFFFF",
 						borderRadius = "#vBorderRadius#",
@@ -173,7 +173,7 @@
 						borderColor = "##FFFFFF"
 						borderRadius= "#vBorderRadius#" 
                         imageHeight  = "38px"
-						bgColor		 = "033f5d"
+						bgColor		 = "##033f5d"
                         imagepos     = "right"
 						onclick		= "ColdFusion.navigate('#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/applyCustomer.cfm?warehouse=#url.warehouse#','customerbox')"
 						textcolor	= "##FFFFFF">

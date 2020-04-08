@@ -1,7 +1,7 @@
 <cfparam name="url.Mission" default="'ALL'">
 <cfparam name="url.action" default="1">
 
-<cf_screentop height="100%" html="No" scroll="Vertical" jquery="Yes">
+<cf_screentop height="100%" jquery="Yes" html="No" scroll="Vertical">
 
 <cf_systemscript> 
 <cf_ParameterSystemInit>

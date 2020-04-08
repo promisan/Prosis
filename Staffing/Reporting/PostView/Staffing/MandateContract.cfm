@@ -62,7 +62,7 @@
 	   
 	   <tr>  
 	   
-	   <td class="labellarge" style="font-size: 20px;height: 30px;padding-top: 0;padding-right: 5px;top: -2px;position: relative"><cf_tl id="Select">:</td>
+	   <td class="labellarge" style="font-size: 18px;height: 30px;padding-top: 4px;padding-right: 5px;top: -2px;position: relative"><cf_tl id="Select">:</td>
 	         
 	   <cfoutput query="Parent">
 	   

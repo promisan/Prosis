@@ -8,10 +8,10 @@
 datasource="AppsSystem" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-    SELECT CODE, NAME 
-    FROM   Ref_Nation
-	WHERE  NAME > 'A'
-	AND Code IN (SELECT DISTINCT Nationality FROM Employee.dbo.Person)
+    SELECT   CODE, NAME 
+    FROM     Ref_Nation
+	WHERE    NAME > 'A'
+	AND      Code IN (SELECT DISTINCT Nationality FROM Employee.dbo.Person)
 	ORDER BY NAME
 </cfquery>
 
@@ -21,6 +21,11 @@ username="#SESSION.login#"
 password="#SESSION.dbpw#">
     SELECT *
     FROM   Ref_ParameterMission	
+	<cfif getAdministrator("*") eq "0">
+	WHERE  Mission IN (SELECT DISTINCT Mission 
+	                   FROM   Organization.dbo.OrganizationAuthorization 
+					   WHERE  UserAccount = '#session.acc#')
+	</cfif>				   
 </cfquery>
 
 <cf_tl id="contains" var="1">
@@ -79,7 +84,7 @@ password="#SESSION.dbpw#">
 				   </select>		   
 			   </td>	   
 			   <td style="padding-left:5px"><input type="radio" onclick="document.getElementById('filter').className='hide'" class="radiol" name="Crit5_Value" value="0" <cfif SESSION.StaffSearch["Mode"] eq "0">checked</cfif>></td>
-			   <td style="padding-left:5px;font-size:17px"><cf_tl id="All staff"></td>
+			   <td style="padding-left:5px;font-size:17px"><cf_tl id="All recorded persons"></td>
 			     	
 			</tr>
 			</table>

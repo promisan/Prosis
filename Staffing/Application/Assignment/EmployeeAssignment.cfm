@@ -301,7 +301,7 @@
 							 
 							 <td></td>
 							 
-							 <td colspan="12" style="font-size:15px;font-weight:300;height:31px">
+							 <td colspan="12" style="font-size:15px;height:31px">
 							 
 							  <cfquery name="Parent" 
 								    datasource="AppsOrganization" 

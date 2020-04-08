@@ -57,11 +57,11 @@
 	   <td class="labelit" style="padding-right:3px;border-left:1px solid silver" bgcolor="ffffcf" width="8%" align="right">
 	   <cfif AmountBaseDebit is not "">
 	   <cfif AmountDebit eq "0"><font color="C0C0C0"></cfif>
-	   #NumberFormat(AmountBaseDebit,'_____,__.__')#</cfif></td>
+	   #NumberFormat(AmountBaseDebit,',.__')#</cfif></td>
 	   <td class="labelit" style="padding-right:3px;border-left:1px solid silver" bgcolor="ffffcf" width="8%" align="right">
 	   <cfif AmountBaseCredit is not "">
 	   <cfif AmountCredit eq "0"><font color="C0C0C0"></cfif>
-	   #NumberFormat(AmountBaseCredit,'_____,__.__')#</cfif></td>  
+	   #NumberFormat(AmountBaseCredit,',.__')#</cfif></td>  
 	          
 	   <td align="center" style="border-left:1px solid silver;padding-left:4px;padding-right:4px">
 	       
@@ -107,11 +107,18 @@
 						 </cfif>	 
 						 
 					 <cfelseif CheckDis.recordcount gte "1">
-					 
+					
+					
+					      <cf_UItooltip  tooltip="Amount of this lines has been further distributed or was reconciled">
+						  
+						  ...
+						  <!---
 					   	  <img src="#SESSION.root#/Images/senddown2.gif"
-					    	 alt="Amount of this lines has been further distributed or was reconciled."
 						     border="0"		
 						     style="cursor: pointer;">
+							 --->
+							
+						 </cf_UItooltip> 
 						 
 					 </cfif>
 			 

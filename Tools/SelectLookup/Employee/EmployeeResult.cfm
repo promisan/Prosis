@@ -291,7 +291,7 @@ password="#SESSION.dbpw#">
 					
 					<TD width="30" align="center" style="padding-top:3px"
 					  class="navigation_action"
-					  onclick="ColdFusion.navigate('#link#&action=insert&#url.des1#=#personno#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ColdFusion.Window.hide('dialog#url.box#')</cfif>">			
+					  onclick="ColdFusion.navigate('#link#&action=insert&#url.des1#=#personno#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">			
 						<cf_img icon="select">				  
 					</TD>						
 					<TD>#LastName#, #FirstName# #MiddleName#</TD>

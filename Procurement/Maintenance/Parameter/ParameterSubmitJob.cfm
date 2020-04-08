@@ -36,12 +36,12 @@ password="#SESSION.dbpw#">
 
 <cfloop query="Class">
 
-    <cfparam name="Form.name0_#entryclass#"                default="">
+    <cfparam name="Form.name0_#entryclass#"                       default="">
 	<cfparam name="Form.BuyerDefaultThreshold_#entryclass#"       default="0">
-	<cfparam name="Form.name1_#entryclass#"          default="">
+	<cfparam name="Form.name1_#entryclass#"                       default="">
 	<cfparam name="Form.BuyerDefaultBackupThreshold_#entryclass#" default="0">
 	
-	<cfset buy       = evaluate("Form.name0_#entryclass#")>
+	<cfset buy      = evaluate("Form.name0_#entryclass#")>
 	<cfset buythres = evaluate("Form.BuyerDefaultThreshold_#entryclass#")>
 	<cfset bck      = evaluate("Form.name1_#entryclass#")>
 	<cfset bckthres = evaluate("Form.BuyerDefaultBackupThreshold_#entryclass#")>
@@ -61,6 +61,7 @@ password="#SESSION.dbpw#">
 				Created          			=  getdate()				
 		WHERE   Mission               = '#url.Mission#' 
 		AND     EntryClass            = '#entryclass#'
+		
 	</cfquery>
 	
 </cfloop>

@@ -93,7 +93,7 @@
 		datasource="AppsMaterials" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-		
+				
 			SELECT   'Sale' as Mode,
 					 H.TransactionCategory,
 			         I.Category,
@@ -203,6 +203,7 @@
 	</cfquery>	
 				
 	<cfif getSales.recordcount eq "0">
+	
 	
 	<tr><td align="center" class="labelmedium"><cf_tl id="No sales recorded"></td></tr>
 	

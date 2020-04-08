@@ -135,12 +135,13 @@
 				<!--- -------------------------- --->					   
 				
 				<cfelseif Attributes.actiondatemode eq "Planning">
+								
 										
 					<tr>
 							
 					<td colspan="2" style="z-index:#99-currentrow#; position:relative;padding-left:0px">
 				
-					<table border="0">
+					<table style="width:100%" border="0">
 					
 					<cfif row eq "1">
 					<tr>		
@@ -152,7 +153,7 @@
 					
 					<tr class="labelmedium" style="height:15px">
 					
-						<td align="right" style="padding-right:7px;min-width:40px">
+						<td align="right" style="padding-right:7px;min-width:10px">
 																		
 							<cfif row gte "2">
 								<input type="checkbox" 
@@ -171,8 +172,7 @@
 						<td style="min-width:20px;padding-right:5px">#row#</td>
 										
 						<td class="labelmedium row#code#_#row# #cl#" style="min-width:100px;font-size:15px;padding-right:10px;padding-right:10px">		
-						
-						   																	
+												   																	
 							<cfset val = evaluate("Action.DateTimeRequested")>
 							
 							<cfif attributes.mode eq "View">
@@ -214,8 +214,7 @@
 							</cfif>	
 							
 						</td>					
-						
-																
+																						
 						<td class="row#code#_#row# #cl#" style="font-size:15px;padding-right:4px">													
 																		
 							<cfif attributes.mode eq "View">
@@ -388,22 +387,59 @@
 						
 						</td>
 						
-						<cfif attributes.time eq "Yes">
+						<!--- Location --->
+						<cfquery name="Location" 
+						 datasource="AppsWorkOrder" 
+						 username="#SESSION.login#" 
+						 password="#SESSION.dbpw#">
+							SELECT   *
+							FROM     Location
+							WHERE    Mission = '#mission#'
+							AND      LocationId IN (SELECT LocationId FROM LocationServiceItem WHERE ServiceItem = '#attributes.serviceItem#')
+							ORDER BY ListingOrder
+						</cfquery>		
 						
-						<td style="padding-left:8px" class="labelmedium row#code#_#row# #cl#">					
-												
-						<input type="button" value="check" style="width:50px"
-						   class="button10g" id="result#Code#_#row#" 
-						   onclick="_cf_loadingtexthtml='';ptoken.navigate('#session.root#/Tools/Process/WorkOrder/validateWorkplanInit.cfm?customerid=#attributes.customerid#&mission=#attributes.mission#&code=#Code#_#row#','result#Code#_#row#_content')">
+						<cfif Location.recordcount eq "0">
+						
+							<cfquery name="Location" 
+							 datasource="AppsWorkOrder" 
+							 username="#SESSION.login#" 
+							 password="#SESSION.dbpw#">
+								SELECT   *
+								FROM     Location
+								WHERE    Mission = '#mission#'
+								ORDER BY ListingOrder
+							</cfquery>		
+						
+						</cfif>
+											
+						<td class="row#code#_#row# #cl#" style="font-size:15px;padding-left:4px">
+						
+							<select class="regularxl" 
+							   onchange="<cfif attributes.time eq 'Yes'>document.getElementById('result#Code#_#row#').click()</cfif>" 
+							   id="LocationId#Code#_#row#" 
+							   name="LocationId#Code#_#row#">
+								<cfloop query="Location">
+									<option value="#LocationId#">#LocationName#</option>
+								</cfloop>
+							</select>
+						
 						</td>
 						
-						<td id="result#Code#_#row#_content" style="padding-top:1px" class="labelmedium row#code#_#row# #cl#"></td>
+						<cfif attributes.time eq "Yes">
+						
+							<td style="padding-left:8px" class="labelmedium row#code#_#row# #cl#">		
+																						
+							<input type="button" value="check" style="width:50px"
+							   class="button10g" id="result#Code#_#row#" 
+							   onclick="_cf_loadingtexthtml='';ptoken.navigate('#session.root#/Tools/Process/WorkOrder/validateWorkplanInit.cfm?customerid=#attributes.customerid#&mission=#attributes.mission#&code=#Code#_#row#','result#Code#_#row#_content')">
+							</td>		
+										
+							<td id="result#Code#_#row#_content" style="width:50px" class="labelmedium row#code#_#row# #cl#"></td>
 						
 						</cfif>												
 					
 					</tr>
-					
-					
 									
 					</table>
 													
@@ -598,8 +634,7 @@
 			<!--- ------------------------------- --->		
 			
 			<cfparam name="FORM.Action#Code#_#row#" default="0">	
-			<cfset doit   = Evaluate("FORM.Action#Code#_#row#")>	
-			
+			<cfset doit   = Evaluate("FORM.Action#Code#_#row#")>				
 						
 			<cfif doit eq "3">
 			
@@ -671,6 +706,9 @@
 					
 					<cfparam name="FORM.PlanOrderCode#Code#_#row#" default="">				
 					<cfset pln  = Evaluate("FORM.PlanOrderCode#Code#_#row#")>
+					
+					<cfparam name="FORM.LocationId#Code#_#row#" default="00000000-0000-0000-0000-000000000000">				
+					<cfset loc  = Evaluate("FORM.LocationId#Code#_#row#")>
 											
 					<cfif pos neq "">				
 						<cfset caller.setworkplan = "1">				
@@ -968,9 +1006,7 @@
 				<cfparam name="listpdte" default="">
 								
 				<cfif caller.setworkplan eq "1">
-				
-				
-				
+								
 					<!--- now we post the workplan record as well --->
 											
 					<cfinvoke component = "Service.Process.WorkOrder.Delivery"  
@@ -982,7 +1018,8 @@
 					   DateHour			= "#hour#"	
 					   DateMinute       = "#minu#"		   
 					   PositionNo       = "#pos#"
-					   PlanOrderCode    = "#pln#">   	
+					   PlanOrderCode    = "#pln#"
+					   LocationId       = "#loc#">   	
 					   
 					   <cfif listpdte eq "">
 					  	 <cfset listpdte = "#pdte#">

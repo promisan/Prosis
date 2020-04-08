@@ -4,6 +4,7 @@
 	scroll="yes" 
 	jquery="Yes" 
 	user="no"
+	html="No"
 	close="parent.ColdFusion.Window.destroy('userdialog',true)"
 	layout="webapp" 	
 	banner="gray">
@@ -44,7 +45,7 @@
 			parent.document.getElementById(fldfirst).value = first } catch(e) {}
 			try {
 			parent.document.getElementById(fldname).value =  first+' '+last } catch(e) {}			
-			parent.ColdFusion.Window.destroy('userdialog',true);
+			parent.ProsisUI.closeWindow('userdialog',true);
 			
 		</cfif>	
 	}
@@ -139,13 +140,13 @@ ORDER BY #URL.IDSorting#
 
 	<cf_divscroll>
 
-	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<table width="100%" border="0">
 	
 	<td colspan="2">
 	
 		<table width="100%" align="center" class="navigation_table">
 		
-		<Tr class="labelmedium line">
+		<Tr class="fixrow labelmedium line">
 		    <td></td>
 		    <TD><cf_tl id="Account"></TD>
 		    <TD><cf_tl id="Name"></TD>
@@ -202,7 +203,7 @@ ORDER BY #URL.IDSorting#
 			   </TD>	   
 			   <cfif AccountType eq "Individual">
 				   <TD width="35%"><A style="padding-right:5px" HREF ="javascript:ShowPerson('#IndexNo#')">#IndexNo#</a>#LastName#, #FirstName#</TD>	   
-				   <TD width="25%"><cfif eMailAddress neq "">
+				   <TD width="25%" style="padding-right:8px"><cfif eMailAddress neq "">
 					   <a href="javascript:email('#eMailAddress#','','','','User','#Account#')">
 					   </cfif>#eMailAddress#
 				   </TD>	

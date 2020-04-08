@@ -80,7 +80,7 @@
 </cftransaction>
 
 <script>
- parent.parent.ColdFusion.Window.hide('deliverdialog')	
+ parent.parent.ProsisUI.closeWindow('deliverdialog')	
 </script>
   
 	

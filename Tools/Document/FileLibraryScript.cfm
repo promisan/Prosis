@@ -18,33 +18,50 @@ function addfile(mode,host,dir,subdir,fil,box,ref,svr,window,pdf) {
 	} else {
 		vHeight=480;
 	}		
-
+		
     if (window == 'cfwindow') {
 	
 		if (mode == 'attachmentmultiple') {
 					
-			ColdFusion.Window.create('attachdialog', 'Attachment', '',{x:100,y:100,height:350,width:490,resizable:false,modal:false,center:true})    
-			ColdFusion.Window.show('attachdialog') 					
+			ProsisUI.createWindow('attachdialog', 'Attachment', '',{x:100,y:100,height:350,width:590,resizable:false,modal:false,center:true,color:'##e1e1e1'})    
+			// ColdFusion.Window.show('attachdialog') 					
 			ColdFusion.navigate('#SESSION.root#/Tools/Document/FileFormDialog.cfm?host='+host+'&mode='+mode+'&box='+box+'&dir=' + dir + '&ID=' + subdir + '&ID1=' + fil + '&reload='+ref+'&documentserver='+svr+'&pdfscript='+pdf,'attachdialog') 		
 		
 		} else {
-		
-			ColdFusion.Window.create('attachdialog', 'Attachment', '',{x:100,y:100,height:550,width:530,resizable:false,modal:true,center:true})    
-			ColdFusion.Window.show('attachdialog') 					
+				    		
+			ProsisUI.createWindow('attachdialog', 'Attachment', '',{x:100,y:100,height:400,width:530,resizable:false,modal:true,center:true})    
+			// ColdFusion.Window.show('attachdialog') 					
 			ColdFusion.navigate('#SESSION.root#/Tools/Document/FileFormDialog.cfm?host='+host+'&mode='+mode+'&box='+box+'&dir=' + dir + '&ID=' + subdir + '&ID1=' + fil + '&reload='+ref+'&documentserver='+svr+'&pdfscript='+pdf,'attachdialog') 		
 		}	
 	
 	} else {
-						   	
-		if (mode == 'attachmentmultiple') {
-		
-		    _cf_loadingtexthtml="";		 
-			ColdFusion.navigate('#SESSION.root#/Tools/Document/FileForm.cfm?host='+host+'&mode='+mode+'&box='+box+'&dir=' + dir + '&ID=' + subdir + '&ID1=' + fil + '&reload='+ref+'&documentserver='+svr+'&pdfscript='+pdf,box+'_holder') 						
 	
-		} else {					
-		    _cf_loadingtexthtml="";		 
-			ColdFusion.navigate('#SESSION.root#/Tools/Document/FileForm.cfm?host='+host+'&mode='+mode+'&box='+box+'&dir=' + dir + '&ID=' + subdir + '&ID1=' + fil + '&reload='+ref+'&documentserver='+svr+'&pdfscript='+pdf,box+'_holder') 						
+    	if (mode == 'attachmentmultiple') {
+					
+			ProsisUI.createWindow('attachdialog', 'Attachment', '',{x:100,y:100,height:400,width:590,resizable:false,modal:false,center:true,color:'##e1e1e1'})    
+			// ColdFusion.Window.show('attachdialog') 					
+			ColdFusion.navigate('#SESSION.root#/Tools/Document/FileFormDialog.cfm?host='+host+'&mode='+mode+'&box='+box+'&dir=' + dir + '&ID=' + subdir + '&ID1=' + fil + '&reload='+ref+'&documentserver='+svr+'&pdfscript='+pdf,'attachdialog') 		
+		
+		} else {
+		
+		    		
+			ProsisUI.createWindow('attachdialog', 'Attachment', '',{x:100,y:100,height:400,width:530,resizable:false,modal:true,center:true})    
+			// ColdFusion.Window.show('attachdialog') 					
+			ColdFusion.navigate('#SESSION.root#/Tools/Document/FileFormDialog.cfm?host='+host+'&mode='+mode+'&box='+box+'&dir=' + dir + '&ID=' + subdir + '&ID1=' + fil + '&reload='+ref+'&documentserver='+svr+'&pdfscript='+pdf,'attachdialog') 		
 		}	
+	
+							   	
+		// if (mode == 'attachmentmultiple') {
+		
+		//    _cf_loadingtexthtml="";		 
+		//	ColdFusion.navigate('#SESSION.root#/Tools/Document/FileForm.cfm?host='+host+'&mode='+mode+'&box='+box+'&dir=' + dir + '&ID=' + subdir + '&ID1=' + fil + '&reload='+ref+'&documentserver='+svr+'&pdfscript='+pdf,box+'_holder') 						
+	
+		// } else {					
+		//    _cf_loadingtexthtml="";		 
+		//	ColdFusion.navigate('#SESSION.root#/Tools/Document/FileForm.cfm?host='+host+'&mode='+mode+'&box='+box+'&dir=' + dir + '&ID=' + subdir + '&ID1=' + fil + '&reload='+ref+'&documentserver='+svr+'&pdfscript='+pdf,box+'_holder') 						
+		// }	
+		
+		
 	
 	}
 	

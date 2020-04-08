@@ -1,7 +1,19 @@
 <cf_tl id="Workflow Manager" var="1">
 
 
-<cf_screenTop height="100%" html="No" band="No" title="#SESSION.welcome# #lt_text#" banner="red" bannerforce="Yes" bannerheight="55" border="0" jquery="Yes" scroll="no" menuaccess="Yes" validateSession="Yes">
+<cf_screenTop height="100%"
+		html="No"
+		band="No"
+		title="#SESSION.welcome# #lt_text#"
+		banner="red"
+		treeTemplate="yes"
+		bannerforce="Yes"
+		bannerheight="55"
+		border="0"
+		jquery="Yes"
+		scroll="no"
+		menuaccess="Yes"
+		validateSession="Yes">
 
 <cf_layoutscript>
 <cf_presentationScript>

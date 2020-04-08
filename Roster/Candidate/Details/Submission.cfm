@@ -8,8 +8,9 @@ password="#SESSION.dbpw#">
     FROM   ApplicantSubmission AS APPS
 		   INNER JOIN Ref_SubmissionEdition RS
 		   		ON APPS.SubmissionEdition = RS.SubmissionEdition
-    WHERE  PersonNo = '#URL.ID#' 
+    WHERE  PersonNo = '#URL.ID#' AND Source = '#url.source#'
 </cfquery>
+
 
 <cfquery name="SubmissionEdition" 
 datasource="AppsSelection" 
@@ -20,7 +21,7 @@ password="#SESSION.dbpw#">
     WHERE  SubmissionEdition = '#Submission.SubmissionEdition#' 
 </cfquery>
 
-<table border="0" width="98%" align="center" class="formpadding">
+<table border="0" width="98%" align="center">
 		
      <tr><td>
 			 
@@ -141,7 +142,7 @@ password="#SESSION.dbpw#">
 								
 								 <TR>
 					 
-								  <td colspan="10" style="padding-top:4px;padding-left:25px">		
+								  <td colspan="10" style="padding-top:4px;padding-right:10px">		
 								 
 							 		<cf_filelibraryN
 										DocumentPath="Submission"

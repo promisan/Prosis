@@ -423,7 +423,7 @@
 		
 		<cfsavecontent variable="header">
 
-		<tr class="pleft labelit">
+		<tr class="pleft labelmedium">
 		    <td height="18"></td>
 			<td></td>	
 			<td><cfif url.edition eq ""><cf_tl id="Edition"></cfif></td>
@@ -464,7 +464,7 @@
 		<cfoutput query="FunctionAll" group="SubmissionEdition">		
 		
 		    <cfif url.edition eq "All">
-		    <tr><td colspan="#col#" class="linedotted"></td></tr>
+		    <tr><td colspan="#col#" class="line"></td></tr>
 			<tr class="line"><td colspan="#col#" class="labelmedium" style="height:45px;font-size:26px;padding-left:10px">#EditionDescription#</td></tr>			
 			</cfif>
 			
@@ -473,7 +473,7 @@
 		<cfoutput group="OrganizationDescription">			
 		
 			<cfif OrganizationDescription neq "[All]">		
-		    <tr><td colspan="#col#" class="linedotted"></td></tr>
+		    <tr><td colspan="#col#" class="line"></td></tr>
 			<tr><td></td><td colspan="#col-1#" class="labelmedium" style="height:20px;padding-left:18px"><font size="2"><cf_tl id="Area">:</font>&nbsp;<font color="gray">#OrganizationDescription#</b></td></tr>			
 			</cfif>
 				
@@ -483,7 +483,7 @@
 				
 		<cfif URL.search eq "1">
 		
-			<tr><td height="1" colspan="#col#" class="linedotted"></td></tr>
+			<tr><td height="1" colspan="#col#" class="line"></td></tr>
 			<tr>
 			  <td width="100%" height="1" colspan="#col#">
 			   <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -505,7 +505,7 @@
 		<cfset row = row + 1>
 							
 			<cfif total eq ""> 		
-			   <tr bgcolor="ffffef" id="line_#functionId#" class="navigation_row">
+			   <tr bgcolor="f4f4f4" id="line_#functionId#" class="navigation_row">
 			<cfelseif Status eq "9">  
 			   <tr bgcolor="FCFBE0" id="line_#functionId#" class="navigation_row"> 
 			<cfelse> 
@@ -519,7 +519,7 @@
 				 	<cf_space spaces="22">
 				 </cfif>
 				 
-				  <table width="100%" border="0" cellspacing="0" cellpadding="0"><tr>
+				  <table width="100%"><tr>
 					
 				   <td style="width:25%;padding-left:4px">	   
 				   <cfif Status eq "9">				      
@@ -557,8 +557,7 @@
 						 </td>			
 						 
 					<cfelse>
-					     <td width="20" style="width:25%;padding-right:1px;padding-top:2px">
-						</td>		  
+					     <td width="20" style="width:25%;padding-right:1px;padding-top:2px"></td>		  
 					 										 
 					</cfif>	
 							
@@ -669,7 +668,7 @@
 			
 			<td width="14%" class="line cellcontent" style="padding-right:4px">
 			    <cfif ReferenceNo neq "Direct">
-			    <A href="javascript:va('#functionId#')"><font color="0080C0">#ReferenceNo#</font></a>
+			    <A href="javascript:va('#functionId#')">#ReferenceNo#</a>
 				<cfelse>
 				#ReferenceName#
 				</cfif>
@@ -679,7 +678,7 @@
 			
 			<cfif PostSpecific eq "0">
 			
-				<font color="gray"><i>Generic</i></font>
+				<font color="gray">Generic</font>
 			
 			<cfelse>
 			

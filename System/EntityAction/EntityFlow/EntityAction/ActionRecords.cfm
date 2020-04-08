@@ -1,8 +1,4 @@
 
-<cfinvoke component="Service.Presentation.Presentation"
-    method="highlight"
-    returnvariable="stylescroll"/>
-
 <cfparam name="URL.search" default="">
 <cfparam name="Box"        default="">
 
@@ -87,17 +83,17 @@ password="#SESSION.dbpw#">
 				
 		<td height="20" style="padding-left: 5px;padding-right: 5px;">	   
 				   
-			    <img src="#SESSION.root#/Images/locate3.gif" 
-					 alt         = "Search" 
-					 name        = "locateme" 
-					 id          = "locateme"
-					 onMouseOver = "document.locate.src='#SESSION.root#/Images/button.jpg'" 
-					 onMouseOut  = "document.locate.src='#SESSION.root#/Images/locate3.gif'"
-					 style       = "cursor: pointer;" 					 
-					 border      = "0" 
-					 height      = "14" width="14"
-					 align       = "absmiddle" 
-					 onclick     = "searching('#url.entitycode#',find.value)">
+		    <img src="#SESSION.root#/Images/locate3.gif" 
+				 alt         = "Search" 
+				 name        = "locateme" 
+				 id          = "locateme"
+				 onMouseOver = "document.locate.src='#SESSION.root#/Images/button.jpg'" 
+				 onMouseOut  = "document.locate.src='#SESSION.root#/Images/locate3.gif'"
+				 style       = "cursor: pointer;" 					 
+				 border      = "0" 
+				 height      = "14" width="14"
+				 align       = "absmiddle" 
+				 onclick     = "searching('#url.entitycode#',document.getElementById('find').value)">
 			
 		  </td> 
 	  
@@ -130,7 +126,7 @@ password="#SESSION.dbpw#">
 	         
 			 <cfoutput>			 
 			 <cfif URL.ID2 neq "new">
-			     <A href="javascript:#ajaxLink('ActionRecords.cfm?EntityCode=#URL.EntityCode#&search=#url.search#&ID2=new')#"><font color="0080FF">[add]</font></a>
+			     <A href="javascript:#ajaxLink('ActionRecords.cfm?EntityCode=#URL.EntityCode#&search=#url.search#&ID2=new')#">[add]</a>
 			 </cfif>			
 			 </cfoutput>
 			 

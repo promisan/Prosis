@@ -271,11 +271,10 @@ password="#SESSION.dbpw#">
    <cfset root = "#SESSION.root#">
 
     <script>
-	    
-		<!--- try { opener.location.reload(); } catch(e) { } --->
-		try {parent.opener.todays()} catch(e) {parent.opener.history.go()}		
-		parent.window.close();
-	
+	    		
+		parent.parent.todays()	
+		parent.parent.ProsisUI.closeWindow('newaccount')	
+			
 	</script>	 	
 	
     </cfoutput>	  

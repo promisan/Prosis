@@ -11,7 +11,5 @@
 
 <cfform name="actionform" onsubmit="return false">
 
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
 </cfform>
 

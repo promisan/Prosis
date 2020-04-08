@@ -1,10 +1,20 @@
 <!--- Create Criteria string for query from data entered thru search form --->
 
-<cf_divscroll>
+
 
 <cfset add          = "1">
 <cfset Header       = "Bank Accounts">
+
+<cf_screentop html="No" jquery="Yes">
+
+<table height="100%" width="94%" align="center" cellspacing="0" cellpadding="0" align="center">
+
+<tr><td style="height:10">
+
 <cfinclude template = "../HeaderMaintain.cfm"> 
+
+</td></tr>
+
 
 <cfquery name="SearchResult"
 datasource="AppsLedger" 
@@ -31,35 +41,44 @@ password="#SESSION.dbpw#">
 
 </cfoutput>
 
+<tr><td>
+	
+	<cf_divscroll>
+	
+		
+		<table width="99%" align="center" class="navigation_table">
+		
+			<tr class="labelmedium fixrow">
+			    <td></td>
+			    <td>Bank</td>
+				<td>Currency</td>
+				<td>Name</td>
+				<td>AccountNo</td>
+				<td>Bank Address</td>
+			    <td>GL Account</td>
+			</tr>			
+			
+				<cfoutput query="SearchResult">
+				    <tr class="navigation_row line labelmedium">
+						<td align="center" style="width:30px">
+							  <cf_img icon="edit" navigation="yes" onclick="recordedit('#BankId#')">
+						</td>
+						<td><a href="javascript:recordedit('#BankId#')">#BankName#</a></td>
+						<td>#Currency#</td>
+						<td>#AccountNo#</td>
+						<td>#AccountName#</td>
+						<td>#BankAddress#</td>
+						<td>#GLAccount# #Description#</td>
+				    </tr>
+				</cfoutput>
+			
+		
+		</table>
+	
+	</cf_divscroll>
 
-<table width="95%" cellspacing="0" cellpadding="0" align="center" class="maintenancetable navigation_table">
-
-	<tr class="lableit">
-	    <td></td>
-	    <td>Bank</td>
-		<td>Currency</td>
-		<td>Name</td>
-		<td>AccountNo</td>
-		<td>Bank Address</td>
-	    <td>GL Account</td>
-	</tr>
-
-<tbody>
-	<cfoutput query="SearchResult">
-	    <tr class="navigation_row">
-			<td align="center" style="width:30px">
-				  <cf_img icon="edit" navigation="yes" onclick="recordedit('#BankId#')">
-			</td>
-			<td><a href="javascript:recordedit('#BankId#')">#BankName#</a></td>
-			<td>#Currency#</td>
-			<td>#AccountNo#</td>
-			<td>#AccountName#</td>
-			<td>#BankAddress#</td>
-			<td>#GLAccount# #Description#</td>
-	    </tr>
-	</cfoutput>
-</tbody>
+</td>
 
 </table>
 
-</cf_divscroll>
+<cfset ajaxonload("doHighlight")>

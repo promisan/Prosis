@@ -1,3 +1,5 @@
+
+<!---
 <cf_screentop 
    label="Item Select" 
    height="100%" 
@@ -5,6 +7,8 @@
    layout="webapp" 
    banner="gray" 
    close="ColdFusion.Window.hide('dialog#url.box#')">
+   
+   --->
 
 <table align="center" bgcolor="FFFFFF" width="100%" height="100%">
 
@@ -63,7 +67,7 @@
 
 </tr>
 
-<tr><td colspan="2" class="linedotted"></td></tr>
+<tr><td colspan="2" class="line"></td></tr>
 	
 <tr><td colspan="2" align="center">
 	

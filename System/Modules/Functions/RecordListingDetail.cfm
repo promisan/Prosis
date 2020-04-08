@@ -105,7 +105,11 @@ password="#SESSION.dbpw#">
 	AND   M.FunctionClass = '#URL.FunctionClass#' 	
 	AND   M.MainMenuItem = '#URL.Main#' 
 	</cfif>	
+	<cfif FunctionClass eq "Inquiry">
+	ORDER BY M.Created DESC
+	<cfelse>
 	ORDER BY M.MenuClass,M.MenuOrder, M.SystemFunctionId 
+	</cfif>
 	</cfquery>
 
 </cfif>
@@ -119,15 +123,15 @@ password="#SESSION.dbpw#">
 <input class="hide" type="button" id="listing_refresh" onclick="more('#url.Module#','#url.main#','#url.functionClass#','#url.find#')">
 </cfoutput>
 
-<tr><td style="padding-left:22px;padding-right:22px">
+<tr><td>
 
-	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="navigation_table">
+	<table width="100%" border="0" class="navigation_table">
 	
 	 <cfif lcase(url.module) eq "selfservice" or lcase(url.module) eq "pmobile">
 	 	<cfoutput>
 		   <tr>
 		   <td colspan="7" align="left" height="20">
-				<table cellspacing="0" cellpadding="0" class="formpadding">
+				<table class="formpadding">
 				  <tr><td height="4"></td></tr>
 				  <tr><td colspan="2" class="labellarge">
 				  	<img onclick="addportal('#url.Module#','#url.main#','#url.functionClass#','#url.find#')" src="#SESSION.root#/Images/webportal.png" alt="" border="0" align="absmiddle">		
@@ -135,7 +139,7 @@ password="#SESSION.dbpw#">
 					<cfif lcase(url.module) eq "pmobile">
 						<cfset vTitleNew = "Prosis Mobile"> 
 					</cfif>
-				  	<a href="javascript:addportal('#url.Module#','#url.main#','#url.functionClass#','#url.find#')"><font color="0080C0"><u>Create a new #vTitleNew# Instance</font></a>
+				  	<a href="javascript:addportal('#url.Module#','#url.main#','#url.functionClass#','#url.find#')">Create a new #vTitleNew# Instance</a>
 				  </td>
 				  </tr>		
 			    </table>
@@ -163,7 +167,7 @@ password="#SESSION.dbpw#">
 				  <tr><td colspan="2" width="20">		  
 				  <img onclick="addmanual('#url.Module#','#url.main#','#url.functionClass#','#url.find#')" src="#SESSION.root#/Images/manual.png" height="31" width="31" alt="" border="0" align="absmiddle">		  
 				  </td>
-				  <td style="padding-left:8px;padding-top:6px"><a href="javascript:addmanual('#url.Module#','#url.main#','#url.functionClass#','#url.find#')"><b><font face="Calibri" size="4" color="0080C0"><i>Add a Manual<font></a>
+				  <td style="padding-left:8px;padding-top:6px"><a href="javascript:addmanual('#url.Module#','#url.main#','#url.functionClass#','#url.find#')"><b>Add a Manual</a>
 				  </td>
 				  </tr>
 				  <tr><td height="2"></td></tr>
@@ -183,9 +187,9 @@ password="#SESSION.dbpw#">
 		   <td colspan="7" align="left" height="20">
 				<table cellspacing="0" cellpadding="0" class="formpadding">
 				  <tr><td height="4"></td></tr>
-				  <tr>
-				  	<td class="labellarge" style="font-size:20px;font-weight:200">		  				  	  
-					  <a href="javascript:add('#url.Module#','#url.main#','#url.functionClass#','#url.find#')"><font color="0080C0"><cf_tl id="Add a custom Listing"></font></a>
+				  <tr>				 
+				  	<td class="labellarge" style="font-size:20px">		  				  	  
+					  <a href="javascript:add('#url.Module#','#url.main#','#url.functionClass#','#url.find#')"><cf_tl id="Add a custom Listing"></a>
 					  </td>
 				  </tr>				 
 				  <tr>				  
@@ -200,26 +204,24 @@ password="#SESSION.dbpw#">
 		  </cfif>
 	  
 	  </cfif>
-	  
-	  <tr><td height="10"></td></tr>
-	    
+	  	    
 	</cfif>
 	
 	<cfoutput group="FunctionClass">
 	
 	<cfif url.find neq "">
-		<tr class="linedotted"><td colspan="7" class="labellarge" style="height:35">#FunctionClass#</b></td></tr>
+		<tr class="line"><td colspan="7" class="labellarge" style="padding-left:10px;height:35">#FunctionClass#</td></tr>
 		
 	</cfif>
 	
 	<cfif currentrow eq "1">
-		<tr class="labelmedium line"> 
+		<tr class="labelmedium line fixrow"> 
 		    <td width="20"></td>
-		    <TD width="15%"><cf_tl id="Name"></TD>
+		    <TD style="min-width:200px"><cf_tl id="Name"></TD>
 			<TD width="25%"><cf_tl id="Template"></TD>		
-			<TD width="80"><cf_tl id="Entered"></TD>
-			<TD width="45%"><cf_tl id="Role"> / <cf_tl id="Usergroup"></TD>
-			<TD width="30" align="center">O</TD>		
+			<TD style="min-width:80px"><cf_tl id="Entered"></TD>
+			<TD style="min-width:20px" align="center">O</TD>	
+			<TD width="45%"><cf_tl id="Role"> / <cf_tl id="Usergroup"></TD>				
 		</TR>		
 	</cfif>
 	
@@ -229,13 +231,11 @@ password="#SESSION.dbpw#">
 		
 			<tr class="line">
 			
-				<td colspan="6" style="font-weight:200;padding-top:5px;height:56px;font-size:31px" class="labelmedium">
+				<td colspan="6" style="padding-left:10px;font-weight:200;padding-top:5px;height:56px;font-size:31px" class="labelmedium">
 					<cfif SystemModule eq "Portal" and FunctionClass eq "Portal" and MenuClass eq "Topic">
-						<a href="javascript: maintaintopics('#SystemModule#','0','#FunctionClass#','');" title="Click to maintain topics">
-							<font color="0080C0">#MenuClass#</font>
-						</a>
+						<a href="javascript: maintaintopics('#SystemModule#','0','#FunctionClass#','');" title="Click to maintain topics">#MenuClass#</a>
 					<cfelse>
-						<font color="FF8000">#MenuClass#
+						#MenuClass#
 					</cfif>
 				</td>
 			</tr>
@@ -257,7 +257,7 @@ password="#SESSION.dbpw#">
 							class="navigation_action"
 							onClick="portaledit('#SystemFunctionId#','#systemmodule#','#url.functionClass#')">
 							
-						<cf_img icon="select">
+						<cf_img icon="edit">
 											
 					<cfelseif menuclass eq "Builder">
 						<td height="20" 
@@ -265,7 +265,7 @@ password="#SESSION.dbpw#">
 							class="navigation_action"
 							onClick="functionedit('#SystemFunctionId#')">
 							
-					   	  <cf_img icon="select">
+					   	  <cf_img icon="edit">
 
 					<cfelse>
 						<td height="20" 
@@ -273,27 +273,26 @@ password="#SESSION.dbpw#">
 							class="navigation_action"
 							onClick="functionedit('#SystemFunctionId#')">							
 	
-						 <cf_img icon="select">		
+						 <cf_img icon="edit">		
 						  
 					</cfif>	  
 					
 				</td>
-				<TD class="labelmedium">
+				<TD style="width:100%">
 				
 				<cfif url.find neq "">
-				<cfset cc = replaceNocase(FunctionName,  URL.Find,  "<b><u><font color='0080C0'>#URL.Find#</font></u></b>" ,  "ALL")>
-				#cc#
+					<cfset cc = replaceNocase(FunctionName,  URL.Find,  "<b><u><font color='0080C0'>#URL.Find#</font></u></b>" ,  "ALL")>
+					#cc#
 				<cfelse>
 				   <cfif mainmenuitem eq "0"></cfif>#FunctionName#
 				</cfif>
 				
 				</TD>
-				<td class="labelmedium">
+				<td style="padding-left:4px;padding-right:4px">
 				
-				<cfif menuclass eq "Builder">	
-					<i>#OfficerLastname#</i>	
-				<cfelse>
-				
+				<cfif menuclass eq "Builder">					
+					#OfficerLastname#						
+				<cfelse>				
 					<cfif FunctionPath eq ""><b>jv:</b>&nbsp;#ScriptName#
 					<cfelse>
 						<cfif len(FunctionPath) gt 44>#left(FunctionPath,30)#...<cfelse>#FunctionPath#</cfif>
@@ -303,22 +302,19 @@ password="#SESSION.dbpw#">
 				
 				</td>
 				
-				<TD class="labelmedium" style="padding-right:4px">#Dateformat(Created, "DD/MM/YY")#</TD>
+				<TD style="padding-right:4px">#Dateformat(Created, "DD/MM/YY")#</TD>
+				
+				<TD style="min-width:20px;padding-right:5px" id="status#SystemFunctionId#" align="center">				
+				   <cfif Operational eq "0"><font color="FF0000">D</font><cfelse></cfif>
+			    </TD>	
 					
-				<TD style="padding:2px" id="role#SystemFunctionId#">
+				<TD id="role#SystemFunctionId#" style="min-width:480px">
 				    <cfif systemmodule neq "selfservice" or systemmodule eq "pmobile">
 						<cfset url.id = "#SystemFunctionId#">
 						<cfinclude template="RecordListingRole.cfm">		
 					</cfif>
 				</TD>
-				<TD class="labelmedium" valign="top" style="padding-top:3px;padding-right:5px" id="status#SystemFunctionId#" align="center">
 				
-				   <cfif Operational eq "0">				   
-				     <img src="#SESSION.root#/Images/stop.png" alt="Deactivated" width="18" height="18" border="0" align="absmiddle" title="Function is disabled">
-				   <cfelse>
-				 
-				   </cfif>
-			    </TD>	
 				
 			    </TR>						
 										

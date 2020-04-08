@@ -165,7 +165,10 @@
                    Description="Case" scope="CaseFile">					   
 				   
 <cf_insertClass    Id="4" 
-                   Description="Patient" scope="Patient">					   
+                   Description="Patient" scope="Patient">		
+				   
+<cf_insertClass    Id="5" 
+                   Description="Customer" scope="Customer">					   			   
 				   
 				   
 <!--- action --->

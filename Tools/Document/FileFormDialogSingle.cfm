@@ -17,8 +17,9 @@
 
 <cfelse>
 
-<cf_screentop height="100%" label="Attach file"
-   scroll="no" banner="red" html="Yes" user="no" bannerheight="40" layout="webapp">
+
+<cf_screentop height="100%" label="Attach file" html="No"
+   scroll="no" banner="red" user="no" bannerheight="40" layout="webapp">
    
 </cfif>
 		
@@ -101,8 +102,8 @@
 <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">	
 
 <cfif DocumentServerIsOp eq "0">	
-		<TR>
-			<td width="100" class="labelit"><cf_tl id="File">:</td>
+		<TR class="labelmedium">
+			<td width="100"><cf_tl id="File">:</td>
 			<TD>
 				<cfif DocumentServerIsOp eq "1">
 					<input type="file" 
@@ -124,12 +125,12 @@
 				</cfif>
 			</TD>
 		</TR>
-		<tr class="labelit">
+		<tr class="labelmedium">
 		   <td></td>
 		   <td><font color="808080">Use the 'Browse...' button to locate the file on your local file system.</td>
 		</tr>
 		<tr><td height="6"></td></tr>
-		<TR class="labelit">
+		<TR class="labelmedium">
 		   <td style="cursor: pointer;"><cf_tl id="Save as">:</td>
 		   <td style="padding-left:3px">
 		        <cfoutput>

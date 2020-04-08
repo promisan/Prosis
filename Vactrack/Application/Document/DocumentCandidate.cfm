@@ -161,7 +161,7 @@
 		
 	<cfif (RosterParameter.SelectionDaysOverwrite eq "1" and accessOverwrite eq "GRANTED") or Validation.recordcount eq "1" or getAdministrator("*") eq "1">
 		
-		<tr bgcolor="e4e4e4" class="line"><td>
+		<tr class="line"><td>
 		
 			<cfoutput>
 			<table cellspacing="0" cellpadding="0">
@@ -175,7 +175,7 @@
 					
 				<cfelse>
 					
-				<tr><td height="20" style="font-weight:200;height:25px;padding-left:20px" id="selectionvalidation" class="labelmedium">	
+				<tr><td height="20" style="height:25px;padding-left:20px" id="selectionvalidation" class="labelmedium">	
 					 <a href="javascript:ColdFusion.navigate('DocumentCandidateValidation.cfm?documentNo=#url.ajaxid#','selectionvalidation')">					 
 					 Press here</a> to overwrite the candidate selection limitation
 					</td>
@@ -203,14 +203,14 @@
 	<cfif Search.Recordcount gte "1">
 		<tr class="line">
 			<td style="padding-left:20px;padding-top:5px;fon-weight:200" class="labelmedium">The below candidates were shortlisted through the following roster searches: <cfoutput query="Search">
-			<a href="javascript:searchview('#url.ajaxid#','#searchid#')"><font color="0080FF">#searchid# (#OfficerlastName#)</a>
+			<a href="javascript:searchview('#url.ajaxid#','#searchid#')">#searchid# (#OfficerlastName#)</a>
 			<cfif currentrow neq recordcount>,</cfif> </cfoutput></td>
 		</tr>
 	</cfif>
 	
 	<tr><td>
 	
-	<table width="96%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding navigation_table">
+	<table width="96%" align="center" class="formpadding navigation_table">
 	
 	    <TR class="labelmedium line">
 	   	  <TD></TD>
@@ -238,7 +238,7 @@
 			 	
 		<cfoutput query="SearchResult">
 			
-		<TR class="labelmedium line navigation_row" style="height:20px">
+		<TR class="labelmedium <cfif currentrow neq recordcount>line</cfif> navigation_row" style="height:20px">
 		
 		<td width="30" align="center" style="padding-top:4px">
 		

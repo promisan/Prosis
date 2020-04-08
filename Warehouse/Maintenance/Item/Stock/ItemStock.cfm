@@ -184,7 +184,7 @@ password="#SESSION.dbpw#">
 			<td width="8%" align="center"><cf_tl id="Minimum"></td>
 			<td width="8%" align="center"><cf_tl id="Maximum"></td>
 			<td width="8%" align="center"><cf_tl id="On Hand"></td>
-			<td width="8%" align="center"><cf_tl id="Avg Price"></td>
+			<td width="8%" align="center"><cf_tl id="Cost"></td>
 			<td width="8%" align="center"><cf_tl id="Value">#application.basecurrency#</td>
 	    	</tr>		
 			

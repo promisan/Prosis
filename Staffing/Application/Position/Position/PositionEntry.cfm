@@ -265,11 +265,11 @@ password="#SESSION.dbpw#">
 	
 	</cfif>
 			
-	<cf_screentop label="Position - Entry (#URL.ID# #URL.ID1#)" layout="webapp" banner="gray" line="no" jquery="yes" height="100%" scroll="yes">
-				
-	<cfform method="POST" name="PositionEntry" onSubmit="return false" style="height:100%">	
-	
+	<cf_screentop label="Position - Entry (#URL.ID# #URL.ID1#)" layout="webapp" banner="gray" line="no" jquery="yes" height="100%" scroll="no">
+					
 	<cf_divscroll>
+	
+	<cfform method="POST" name="PositionEntry" onSubmit="return false" style="height:96%">	
 			
 	<table width="100%" align="center">	
 
@@ -696,6 +696,9 @@ password="#SESSION.dbpw#">
 			     FROM   Ref_PositionParentGroup
 				 WHERE  Code IN (SELECT GroupCode 
 				                 FROM Ref_PositionParentGroupList)
+				 AND    Code IN (SELECT GroupCode 
+				                 FROM   Ref_PositionParentGroupMission 
+								 WHERE  Mission = '#url.id#')				 
 			</cfquery>
 			
 			<cfif Topic.recordcount gt "0">
@@ -767,11 +770,9 @@ password="#SESSION.dbpw#">
 	
 	</table>
 	
+	</cfform>
+	
 	</cf_divscroll>
-	
-	</CFFORM>
-	
-	
 			
 <cfelse>
 

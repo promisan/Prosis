@@ -27,7 +27,7 @@
 			
 	<cfloop query="roles">
 	
-	 <tr class="linedotted">
+	 <tr class="line">
 		 <td width="30" class="labelit" height="17" style="padding-left:3px">
 		 <cfset row = row+1>#row#. 
 		 </td>
@@ -56,7 +56,7 @@
 		<cfloop query="access">
 		
 			 <cftry>			
-				#label[accesslevel+1]# <cfcatch>lvl:#accesslevel#</cfcatch>
+				#label[accesslevel+1]#<cfcatch>lvl:#accesslevel#</cfcatch>
 			</cftry>
 			<cfif currentrow neq recordcount>,</cfif>
 				
@@ -81,7 +81,7 @@
 	<cfset crow = "0">
 	
 	<cfif group.recordcount eq "0">
-	<tr><td colspan="3" class="labelit" style="padding-left:4px"><font color="gray">No group access set</td></tr>	
+	<tr><td colspan="3" class="labelit" style="padding-left:4px"><font color="gray">No user group access set</td></tr>	
 	</cfif>
 	
 	<cfloop query="group">

@@ -11,19 +11,17 @@
 
 <table width="98%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
 
-<tr>
+<tr class="line labelmedium">
     <TD align="center" class="labelit" width="10%">
 		<cfoutput>
-		<a href="javascript:elementEdit('#url.id1#','')">
-			<font color="0080FF">[<cf_tl id="add">]</font>
-		</a>
+		<a href="javascript:elementEdit('#url.id1#','')">[<cf_tl id="add">]</a>
 		</cfoutput>
 	</TD>
-	<TD class="labelit" align="left" width="35%"><cf_tl id="Name"></TD>
-	<TD class="labelit" align="center" width="5%"><cf_tl id="Apply<br>Sequence"></TD>
-	<TD class="labelit" align="right" width="15%" title="Quantity Required for Discount"><cf_tl id="Qty. Req.<br>For Discount"></TD>
-	<TD class="labelit" align="right" width="10%"><cf_tl id="Discount"></TD>
-	<TD class="labelit" align="right"><cf_tl id="Created"></TD>
+	<TD align="left" width="35%"><cf_tl id="Name"></TD>
+	<TD align="center" width="5%"><cf_tl id="Apply<br>Sequence"></TD>
+	<TD align="right" width="15%" title="Quantity Required for Discount"><cf_tl id="Qty. Req.<br>For Discount"></TD>
+	<TD align="right" width="10%"><cf_tl id="Discount"></TD>
+	<TD align="right"><cf_tl id="Created"></TD>
 </TR>
 
 <cfset vCols = 6>
@@ -42,42 +40,37 @@
 	<tr><td height="1" colspan="#vCols#" class="line"></td></tr>
 	
 	<cfoutput>
-    <tr class="line">
-		<td colspan="#vCols#">
-			<table width="100%" align="center">
-				<tr class="labelmedium">
-					<td align="center" style="padding-top:3px" width="10%">
-						<table>
-							<tr>
-								<td><cf_img icon="delete" onclick="elementPurge('#PromotionId#','#ElementSerialNo#');"></td>
-								<td>&nbsp;</td>
-								<td><cf_img icon="edit" onclick="elementEdit('#PromotionId#','#ElementSerialNo#');"></td>
-							</tr>
-						</table>
-					</td>
-					<td width="35%">#ElementName#</td>
-					<td align="center" width="5%">#ElementOrder#</td>
-					<td align="right" width="15%">#NumberFormat(Quantity, ",")#</td>
-					<cfset vSuffix = "">
-					<cfset vDiscount = Discount>
-					<cfif DiscountType eq "Percentage">
-						<cfset vSuffix = "%">
-						<cfset vDiscount = Discount * 100>
-					</cfif>
-					<td align="right" width="10%">
-						#NumberFormat(vDiscount, ",.__")# #vSuffix#
-					</td>
-					<td align="right">#OfficerFirstName# #OfficerLastName# @ #Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
-				</tr>
-				<tr>
-					<td></td>
-					<td colspan="#vCols-1#">
-						<cfdiv id="divElementListingDetail_#elementSerialNo#" bind="url:Element/ElementListingDetail.cfm?idmenu=#url.idmenu#&id1=#url.id1#&serial=#elementSerialNo#">
-					</td>
-				</tr>
-			</table>
-		</td>
-    </tr>
+    
+		<tr class="labelmedium">
+			<td align="center" style="padding-top:3px" width="10%">
+				<table>
+					<tr>
+						<td style="padding-right:3px"><cf_img icon="delete" onclick="elementPurge('#PromotionId#','#ElementSerialNo#');"></td>						
+						<td><cf_img icon="edit" onclick="elementEdit('#PromotionId#','#ElementSerialNo#');"></td>
+					</tr>
+				</table>
+			</td>
+			<td width="35%">#ElementName#</td>
+			<td align="center" width="5%">#ElementOrder#</td>
+			<td align="right" width="15%">#NumberFormat(Quantity, ",")#</td>
+			<cfset vSuffix = "">
+			<cfset vDiscount = Discount>
+			<cfif DiscountType eq "Percentage">
+				<cfset vSuffix = "%">
+				<cfset vDiscount = Discount * 100>
+			</cfif>
+			<td align="right" width="10%">
+				#NumberFormat(vDiscount, ",.__")# #vSuffix#
+			</td>
+			<td align="right">#OfficerFirstName# #OfficerLastName# @ #Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td colspan="#vCols-1#">
+				<cfdiv id="divElementListingDetail_#elementSerialNo#" bind="url:Element/ElementListingDetail.cfm?idmenu=#url.idmenu#&id1=#url.id1#&serial=#elementSerialNo#">
+			</td>
+		</tr>
+			
 	</cfoutput>
 	
 </cfoutput>

@@ -152,7 +152,11 @@
 	
 			SELECT *, M.MissionOwner
 			FROM   Position P, Organization.dbo.Organization O, Organization.dbo.Ref_Mission M
-			WHERE  P.PositionNo IN (#preservesinglequotes(url.positions)#)		
+			<cfif mandateStatus neq "locked">
+			WHERE  P.PositionParentId IN (#preservesinglequotes(url.positions)#)		
+			<cfelse>
+			WHERE  P.PositionNo IN (#preservesinglequotes(url.positions)#)	
+			</cfif>
 			AND    O.OrgUnit   = P.OrgUnitOperational
 			AND    P.Mission   = '#url.mission#'
 			AND    P.MandateNo = '#url.mandateno#'		

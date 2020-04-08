@@ -71,45 +71,8 @@
 								WHERE  T.Mission = M.Mission
 								AND    SystemModule = 'Warehouse')
 		</cfquery>
-			
-		<cfif check.recordcount eq "1">
 		
-			<tr>
-		    <td class="labelmedium" style="padding-left:5px" height="21" width="140"><cf_tl id="Class">:</td>
-		    <td class="labelmedium">#Item.ItemClass# / #Item.mission#
-				<input type="hidden" name="mission" id="mission" value="#Item.mission#">
-				<input type="hidden" name="itemclass" id="itemclass" value="#Item.ItemClass#">
-				&nbsp;&nbsp;&nbsp;<font size="2" color="808080"><cfoutput>#item.OfficerFirstName# #Item.OfficerLastName# : #dateformat(item.created,CLIENT.DateFormatShow)#</cfoutput></font>
-		    </td>
-		    </tr>
 		
-		<cfelse>
-		
-			<cfquery name="Cls" 
-			datasource="AppsMaterials" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-				SELECT     *
-				FROM       Ref_ItemClass
-				ORDER BY   ListingOrder 
-			</cfquery>
-			
-	        <tr>
-		    <td class="labelmedium" style="padding-left:5px" width="140"><cf_tl id="Class">:</b></td>
-		    <td>
-				<select name="itemclass" id="itemclass" class="regularxl">		
-				<cfloop query="Cls">
-				    <!--- hidden other by hanno 16/1/2012 --->
-				    <cfif code neq "Other">
-						<option value="#Code#" <cfif Item.ItemClass eq Code>selected</cfif>>#Description# [#Code#]</option>
-					</cfif>
-				</cfloop>
-				</select>
-		    </td>
-		    </tr>
-		
-		</cfif>	
-			
 		<cfquery name="Mis" 
 		datasource="AppsMaterials" 
 		username="#SESSION.login#" 
@@ -136,15 +99,52 @@
 		 </TR>
 		 
 		 </cfif>
+			
+		<cfif check.recordcount eq "1">
+		
+			<tr>
+		    <td class="labelmedium" style="padding-left:5px" height="21" width="140"><cf_tl id="Class">:</td>
+		    <td class="labelmedium">#Item.ItemClass# / #Item.mission#
+				<input type="hidden" name="mission" id="mission" value="#Item.mission#">
+				<input type="hidden" name="itemclass" id="itemclass" value="#Item.ItemClass#">
+				&nbsp;&nbsp;&nbsp;<font size="2" color="808080"><cfoutput>#item.OfficerFirstName# #Item.OfficerLastName# : #dateformat(item.created,CLIENT.DateFormatShow)#</cfoutput></font>
+		    </td>
+		    </tr>
+		
+		<cfelse>
+		
+			<cfquery name="Cls" 
+			datasource="AppsMaterials" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				SELECT     *
+				FROM       Ref_ItemClass
+				ORDER BY   ListingOrder 
+			</cfquery>
+			
+	        <tr>
+		    <td class="labelmedium" style="padding-left:5px" width="140"><cf_tl id="Class">:</td>
+		    <td>
+				<select name="itemclass" id="itemclass" class="regularxl">		
+				<cfloop query="Cls">
+				    <!--- hidden other by hanno 16/1/2012 --->
+				    <cfif code neq "Other">
+						<option value="#Code#" <cfif Item.ItemClass eq Code>selected</cfif>>#Description# [#Code#]</option>
+					</cfif>
+				</cfloop>
+				</select>
+		    </td>
+		    </tr>
+		
+		</cfif>	
+			
 		 
 		 <TR>
 			 <TD class="labelmedium" style="padding-left:5px" width="150"><cf_tl id="Project"> :<font color="FF0000">*</font></TD>  
 			 <TD>		 
 			 <cfdiv id="bProgram" bind="url:getProgram.cfm?mission={mission}&itemNo=#URL.Id#">		 	
 			 </TD>
-		 </TR>
-		 
-		 		 
+		 </TR>		 
 		 
 		<cf_verifyOperational 
 	         datasource= "AppsMaterials"

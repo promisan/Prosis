@@ -433,12 +433,12 @@ password="#SESSION.dbpw#">
 
 		<cf_dialogStaffing>   
 		 
-		<table height="100%" width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+		<table height="100%" width="100%" align="center">
 		  
 		  <cfif searchresult.recordcount gt "0">
 		  
-			  <tr>
-			  <td style="padding-left:3px;height:30px;font-size:20px;font-weight:200" class="labellarge"><font color="gray">
+			  <tr class="line">
+			  <td style="padding-left:3px;height:30px;font-size:20px0" class="labellarge"><font color="gray">
 			     <cfoutput>
 					#SearchTotal.total# <cf_tl id="matching records found">...				    
 				</cfoutput>
@@ -447,15 +447,16 @@ password="#SESSION.dbpw#">
 				  <cf_pagenavigation cpage="#cpage#" pages="#pages#">
 			  </td>
 			  </tr>
-			  <tr><td class="line" colspan="3"></td></tr>
-			  
+			 			  
 		  </cfif>
+		  	  		 
+		  <tr><td colspan="3" height="100%"> 	 
 		  
-		  <tr><td colspan="3" height="10">
-		  
-		  	<table width="99%">
-		  
-		  	<TR class="labelmedium line" style="font-weight:200">
+		    <cf_divscroll>
+		  				
+			<table width="99%" class="formpadding navigation_table">
+			
+			<TR class="fixrow labelmedium line">
 			    <TD style="min-width:26"></TD>
 			    <TD style="width:100%;min-width:200px"><cf_tl id="Name"></TD>				
 			    <TD style="min-width:50"><cf_tl id="Nat."></TD>
@@ -468,31 +469,6 @@ password="#SESSION.dbpw#">
 				<td style="min-width:40" align="center"></td>
 				<td style="min-width:50" width="10"></td>
 				<td style="min-width:20" width="10"></td>
-			 </TR>
-			 
-			</table>
-			
-			<td>
-		 </tr>
-		 
-		  <tr><td colspan="3" height="100%"> 	 
-		  
-		    <cf_divscroll>
-		  				
-			<table width="99%" border="0"  class="formpadding navigation_table" cellspacing="0" cellpadding="0">
-			
-			<TR>
-			    <TD style="min-width:26"></TD>
-			    <TD style="width:100%"></TD>								
-			    <TD style="min-width:50"></TD>
-			    <TD style="min-width:40"></TD>
-			    <TD style="min-width:120"></TD>
-			    <TD style="min-width:100"></TD>
-				<TD style="min-width:100"></TD>			    
-			    <TD style="min-width:100"></TD>
-				<TD style="min-width:130"></TD>
-				<td style="min-width:40"></td>
-				<td style="min-width:50"></td>
 			 </TR>
 				
 			<cfquery name="Parameter" 
@@ -515,13 +491,10 @@ password="#SESSION.dbpw#">
 			
 				<cfif currentrow-first lt rows>		
 						      
-					<TR style="cursor:pointer;height:16px" class="line cellcontent navigation_row">
+					<TR style="cursor:pointer;height:16px" class="line labelmedium navigation_row">
 						
-					<TD style="padding-left:4px;padding-top:5px;padding-right:4px" class="navigation_action" onClick="javascript:ShowCandidate('#PersonNo#')"> 				
-					    <cf_img icon="select">					
-				    </TD>
-					<TD style="padding-right:4px"><a href="javascript:ShowCandidate('#PersonNo#')"><font color="0080C0">#LastName# #LastName2#, #FirstName# #MiddleName#</font></a></TD>
-					
+					<TD style="padding-left:4px;padding-top:2px;padding-right:4px" class="navigation_action" onClick="javascript:ShowCandidate('#PersonNo#')"><cf_img icon="select"></TD>
+					<TD style="padding-right:4px"><a href="javascript:ShowCandidate('#PersonNo#')">#LastName# #LastName2#, #FirstName# #MiddleName#</a></TD>					
 					<TD style="padding-right:4px">#Nationality#</TD>
 					<TD style="padding-right:4px">#Gender#</TD>
 					
@@ -543,7 +516,7 @@ password="#SESSION.dbpw#">
 					 </cfif>	
 					
 					<td style="padding-right:4px">#DateFormat(DOB, CLIENT.DateFormatShow)# (#age#)</td>
-					<TD><a title="Employee details" href="javascript:EditPerson('#IndexNo#')"><font color="0080C0">#IndexNo#</font></a></TD>					
+					<TD><a title="Employee details" href="javascript:EditPerson('#IndexNo#')">#IndexNo#</a></TD>					
 					<TD>#DocumentReference#</TD>
 					<td style="padding-right:4px">#DateFormat(Created, CLIENT.DateFormatShow)#</td>					
 					<td style="padding-right:4px">
@@ -620,7 +593,7 @@ password="#SESSION.dbpw#">
 					
 					<cfif remarks neq "">
 				 
-				 		<tr class="labelit" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('F9F9F9'))#">
+				 		<tr class="labelmedium" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('F9F9F9'))#">
 						 <td></td> 						
 						 <td colspan="9" style="padding-left:4px"><font color="gray">#remarks#</td>
 						</tr>
@@ -652,7 +625,4 @@ password="#SESSION.dbpw#">
 	</table>  
 
 </cfif>
-
 <cfset ajaxonload("doHighlight")>
-
-

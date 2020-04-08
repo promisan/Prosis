@@ -60,6 +60,8 @@ password="#SESSION.dbpw#">
     FROM   Ref_WarehouseLocationClass	
 </cfquery>
 
+<cf_divscroll>
+
 <cfform method="POST" name="formlocation">
 
 <table width="97%" align="center" class="formspacing" cellspacing="0" cellpadding="0">
@@ -527,3 +529,5 @@ password="#SESSION.dbpw#">
 </table>
 
 </cfform>
+
+</cf_divscroll>

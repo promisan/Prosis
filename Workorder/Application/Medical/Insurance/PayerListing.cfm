@@ -35,6 +35,8 @@
 
 <cfif url.entryScope eq "Portal">
 	<cf_screentop height="100%" scroll="Yes" html="No" jQuery="Yes">
+<cfelse>
+	<cf_uiGadgets gadget="notification" jQuery="Yes">
 </cfif>
 
 <cfparam name="url.owner" default="">
@@ -43,7 +45,7 @@
 
 <cfajaximport tags="cfform,cfmap">
 <cf_calendarScript>
-<cf_uiGadgets gadget="notification">
+
 <cf_windowNotification>
 <cf_mapscript>
 <cf_DialogOrganization>	

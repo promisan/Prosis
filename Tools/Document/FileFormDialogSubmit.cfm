@@ -5,9 +5,13 @@
 
     <cf_tl id="Cancel" var="1">
 
+	<!---
 	<input type="button"  value="#lt_text#" class="button10g" 
 	onclick="parent.document.getElementById('#url.box#_holdercontent_close').click()">
+	--->
 	
+	<input type="button"  value="#lt_text#" class="button10g" onclick="parent.ProsisUI.closeWindow('attachdialog')">
+		
 		<input type="submit" 
 		    name="save" 
 			id="save"  

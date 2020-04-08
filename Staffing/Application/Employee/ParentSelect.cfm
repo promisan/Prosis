@@ -10,24 +10,22 @@
 </cfquery>
 
 <cf_screentop height="100%" 
-    close="ColdFusion.Window.destroy('myparent',true)" 
+    close="ProsisUI.closeWindow('myparent',true)" 
 	layout="webapp" 
-	html="yes" 
+	html="no" 
 	scroll="yes" 
 	label="Parent Office">
 
 <cf_divscroll>
 	  
-	<table width="93%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
-	
-	<tr><td height="10px"></td></tr>
-	
-	<TR class="labelmedium line">    
-	    <td style="height:30px"><cf_tl id="Office"></TD>
+	<table width="96%" align="center" class="navigation_table">
+		
+	<TR class="labelmedium line fixrow">    
+	    <td style="height:30px;padding-left:4px"><cf_tl id="Office"></TD>
 		<td></td>
 	    <td><cf_tl id="Location"></TD>
 	    <td><cf_tl id="Contact"></TD>
-	    <td><cf_tl id="Title"></TD>	
+	    <td style="padding-right:4px"><cf_tl id="Title"></TD>	
 	</TR>
 	
 	<cfset prior = "">
@@ -39,10 +37,10 @@
 			<cfset par = replace(ParentLocation, ",", "", "ALL")> 
 			<cfset par = replace(par, "'", "", "ALL")> 
 				
-			<TR class="line labelit navigation_row">
+			<TR class="line labelmedium navigation_row" style="height:20px">
 			 
 			 <cfif parentoffice neq prior>
-			 <td style="border-bottom:0px;border-top:1px solid silver;font-size:15px;padding-left:4px">#ParentOffice#</td>
+			 <td style="border-top:1px solid silver;font-size:14px;padding-left:4px">#ParentOffice#</td>
 			 <cfelse>
 			 <td style="border-bottom:0px"></td>
 			 </cfif>

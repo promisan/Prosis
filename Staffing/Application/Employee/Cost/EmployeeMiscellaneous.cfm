@@ -306,8 +306,8 @@ password="#SESSION.dbpw#">
 				   --->
 				   
 				<tr id="box_#workflow#">
-								   				 
-					    <td colspan="10" id="#workflow#" style="padding-left:20px">
+						<td></td>		   				 
+					    <td colspan="11" id="#workflow#" style="padding-left:20px">
 						
 						<cfif wfstatus eq "open">
 						
@@ -324,7 +324,7 @@ password="#SESSION.dbpw#">
 	
 	</cfif>
 	
-	<tr><td colspan="10" class="line"></td></tr>
+	<tr class="line" style="padding:0px"><td colspan="12"></td></tr>
 	
 	</cfoutput>
 	

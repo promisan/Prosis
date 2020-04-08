@@ -1,11 +1,19 @@
+
 <!--- Create Criteria string for query from data entered thru search form --->
+
+<cf_screentop html="No" jquery="Yes">
+
 <cf_divscroll>
 
 <cfset Page         = "0">
 <cfset add          = "1">
-<cfinclude template = "../HeaderMaintain.cfm"> 	
 
 <table width="98%" align="center" cellspacing="0" cellpadding="0" >
+
+<tr><td>
+<cfinclude template = "../HeaderMaintain.cfm"> 	
+</td>
+</tr>
 
 <cfoutput>
 
@@ -45,7 +53,6 @@ password="#SESSION.dbpw#">
 		  				WHERE SystemModule = 'Warehouse')
 </cfquery>
 
-<tr><td height="8"></td></tr>
 <tr>
 	<table width="95%" align="center">
 		<form name="filters" id="filters">

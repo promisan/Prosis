@@ -1,6 +1,8 @@
 <!--- Create Criteria string for query from data entered thru search form --->
 <cf_divscroll>
 
+<cf_screentop html="No" jquery="Yes">
+
 <cfquery name="SearchResult"
 datasource="appsMaterials" 
 username="#SESSION.login#" 
@@ -33,20 +35,20 @@ password="#SESSION.dbpw#">
 	
 	<tr><td colspan="2">
 		
-		<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding navigation_table">
+		<table width="100%" align="center" class="formpadding navigation_table">
 		
-		<tr class="labelit">
-		    <TD align="left"></TD>
-		    <TD align="left"><cf_tl id="Code"></TD>
-			<TD align="left"><cf_tl id="Description"></TD>
+		<tr class="labelmedium fixrow">
+		    <TD></TD>
+		    <TD><cf_tl id="Code"></TD>
+			<TD><cf_tl id="Description"></TD>
 			<TD align="center"><cf_tl id="Enforce TO Attachment"></TD>
-			<TD align="left"><cf_tl id="Officer"></TD>
-		    <TD align="left"><cf_tl id="Entered"></TD>
+			<TD><cf_tl id="Officer"></TD>
+		    <TD><cf_tl id="Entered"></TD>
 		</TR>
 		
 		<cfoutput query="SearchResult">
 				    
-		    <TR class="labelit line navigation_row"> 
+		    <TR class="labelmedium line navigation_row"> 
 				<td align="center" height="20">
 					  <cf_img icon="open" onclick="recordedit('#Code#');">
 				</td>

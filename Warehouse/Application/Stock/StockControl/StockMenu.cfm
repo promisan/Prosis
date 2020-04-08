@@ -1,5 +1,4 @@
 
-
 <cfoutput>		
 	
 	<table height="100%" width="100%" border="0">
@@ -27,6 +26,8 @@
 						
 						</td>
 					</tr>		
+					
+									
 					
 					<tr><td height="3"></td></tr>				
 																			
@@ -64,12 +65,14 @@
 					<cf_submenuleftscript>
 					
 					<tr>			
-						<td width="100%" height="100%" id="tree" name="tree">
-						
+						<td width="100%" height="100%" valign="top" id="tree" name="tree">
+																		
 				  			<cfset url.warehouse = selWarehouse>		
-							<cfset url.mission   = selMission>																																												
+							<cfset url.mission   = selMission>		
+										
+																																																					
 							<cfinclude template="StockViewMenu.cfm">				
-							
+														
 						</td>						
 					</tr>						
 				</table>	

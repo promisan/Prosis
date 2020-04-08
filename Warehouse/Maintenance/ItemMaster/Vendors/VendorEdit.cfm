@@ -32,11 +32,15 @@
 </cfquery>	
 
 <cfif url.uom neq "" and url.orgunitvendor neq "">	
-	<cf_tl id = "Maintain" var = "1">
-	<cf_screentop height="100%" scroll="Yes" html="Yes" label="Vendor Item/UoM" option="#lt_text# #get.VendorName# #get.ItemDescription#/#get.UoMDescription#" layout="webapp" banner="gray" user="no">
+	<cf_tl id = "Maintain" var = "1">	
+	<!---
+	<cf_screentop height="100%" scroll="Yes" html="No" label="Vendor Item/UoM" option="#lt_text# #get.VendorName# #get.ItemDescription#/#get.UoMDescription#" layout="webapp" banner="gray" user="no">
+	--->
 <cfelse> 
-	<cf_tl id = "Add Vendor Item/UoM" var = "1">
-	<cf_screentop height="100%" scroll="Yes" html="Yes" label="Vendor Item/UoM" option="#lt_text#" layout="webapp" user="no">
+	<cf_tl id = "Add Vendor Item/UoM" var = "1">	
+	<!---
+	<cf_screentop height="100%" scroll="Yes" html="No" label="Vendor Item/UoM" option="#lt_text#" layout="webapp" user="no">
+	--->
 </cfif>
 
 <table width="95%" align="center">

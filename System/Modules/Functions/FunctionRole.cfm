@@ -68,7 +68,7 @@ password="#SESSION.dbpw#">
 	<tr><td colspan="2" class="line"></td></tr>
 	<!--- show only for menu items that are per mission or for menu items that are part of a scope like the warehouse tasks which always 
 	have a mission scope --->
-	<cfif Line.MenuClass eq "Mission" or Line.MainmenuItem eq "0" 
+	<cfif Line.MenuClass eq "Mission" or Line.MenuClass eq "Detail" or Line.MainmenuItem eq "0" 
 		or (Line.MenuClass eq "Builder" and Line.FunctionClass eq "Application") 
 		or (Line.SystemModule eq "SelfService")>
 		

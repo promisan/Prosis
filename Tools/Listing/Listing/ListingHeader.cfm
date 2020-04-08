@@ -2,20 +2,15 @@
 
 <cfset stl = "cursor:pointer;font-size:11px;">
 
-<tr class="line">
+<tr class="line fixrow">
 
     <td style="min-width:30px"></td>	
-    <td style="min-width:30px"></td>
-	
+    <td style="min-width:30px"></td>	
+		
 	<cfif attributes.selectmode neq "">
 	   <td></td>
 	</cfif>
 	
-	<cfset orderset = 0>
-	<cfset col = 0>
-	<cfset total = 0>
-	<cfset showrows = 1>	
-
 	<!--- determine the best width --->
 	
 	<cfloop array="#attributes.listlayout#" index="current">
@@ -241,33 +236,16 @@
 	
 	</cfif>
 		
-	<cfif attributes.listtype eq "Directory">
-	
-	<td width="30" class="#attributes.classheader#"><cf_tl id="sel"></td>
-	
+	<cfif attributes.listtype eq "Directory">	
+	<td width="30" class="#attributes.classheader#"><cf_tl id="sel"></td>	
 	</cfif>
 	
-	<cfif deletetable neq "">
-	
-		<td width="20" align="right" style="border-left: 1px solid silver;">
-		<cf_space spaces="8">
-		</td>	
-		
+	<cfif deletetable neq "">	
+	<td width="20" align="right" style="min-width:20px;border-left: 1px solid silver;"></td>			
 	</cfif>
 	
-	<cfif annotation neq "">
-	
-	<td align="right" style="border-left: 1px solid silver;">
-	<cf_space spaces="8">
-	</td>
-		
-	</cfif>
-	
-	<!--- first removed on monday for fuel listing, scroll bar provision --->
-	<cfif searchresult.recordcount gte 10>
-	<cfif stcl eq "header">
-	<td><cf_space spaces="5"></td>	
-	</cfif>
+	<cfif annotation neq "">	
+	<td align="right" style="min-width:20px;border-left: 1px solid silver;"></td>		
 	</cfif>
 	
 </tr>	

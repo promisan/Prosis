@@ -18,11 +18,12 @@ WHERE      ObjectId = '#URL.Objectid#'
 
 <cfelse>
 
-	<form method="post" name="entryform" id="entryform" style="width:100%">
 	
-		<table align="center" style="width:100%">
+		<table align="center" style="height:100%;width:98%;pdding-left:4px;">
 			
-			<tr><td style="padding-top:2px;padding-left:1px;padding-right:1px">
+			<tr><td style="padding:2px;padding-left:1px;padding-right:1px;border-top:1px solid silver;border-bottom:1px solid silver">
+			
+			<form method="post" name="entryform" id="entryform" style="width:99%">
 	
 				<table style="width:100%">
 				
@@ -30,8 +31,8 @@ WHERE      ObjectId = '#URL.Objectid#'
 				
 				<table width="100%"><tr>
 				
-						<td style="padding-left:8px" width="80">
-						<select name="Priority" id="Priority" class="regularxl" style="width:90" title="Important comments will be shown as red and be tagges as such in the mail.">
+						<td style="padding-left:5px" width="80">
+						<select name="Priority" id="Priority" class="regularxl" style="border:0px;width:90" title="Important comments will be shown as red and be tagges as such in the mail.">
 						        <option value="3"><cf_tl id="Normal"></option>			
 								<option value="1"><cf_tl id="Important"></option>
 								</select>
@@ -72,33 +73,29 @@ WHERE      ObjectId = '#URL.Objectid#'
 			
 				</td></tr>
 								
-				<cfif getFlyActors.recordcount gte "1">
-						
+				<cfif getFlyActors.recordcount gte "1">						
 						
 					<tr id="mailbox" class="hide">
 						<td colspan="5" style="padding-right:6px">
 							<table width="100%">
-								<tr class="labelmedium" style="height:20px">
-								    <td valign="top" width="20"><img src="<cfoutput>#session.root#</cfoutput>/images/join.gif" alt="" border="0"></td>
-									<td width="30" style="padding-left:4px;color:#6688aa;padding-right:3px"><b><cf_tl id="Mail"></td>
+								<tr class="labelmedium" style="height:26px;border-top:1px solid silver">								    
+									<td width="30" valign="top" style="border-right:1px solid silver;padding-top:3px;min-width:70px;padding-left:12px;padding-right:3px">
+									<cf_tl id="Send to"></td>
 									
-									<td id="mailselect" align="left">
+									<td id="mailselect" align="left" style="width:80%;padding-left:4px">
 									
-										<table>
-										<tr>
-																					
+										<table style="width:100%">
+																				
 											<cfoutput query="getFlyActors">
-											    <td class="labelit" style="padding-left:1px; color:black;">
-												#LastName#
-												</td>
-												<td style="padding-top:2px;padding-left:2px;padding-right:4px">
+											    <tr class="<cfif currentrow neq recordcount>line</cfif>">
+											    <td class="labelit" style="padding-top:1px;padding-left:1px; color:black;">#LastName#</td>
+												<td align="right" style="padding-top:2px;padding-left:1px;padding-right:4px">
 												<cf_img icon="delete" onclick="ptoken.navigate('#session.root#/Tools/EntityAction/Details/Comment/setMailAddress.cfm?objectid=#url.objectid#&action=delete&useraccount=#useraccount#','mailselect','','','POST','entryform')">
 												</td> 												
+												</tr>
 											</cfoutput>
-											
-											
-																					
-										</tr>
+																			
+										
 										</table>
 										
 										<cfoutput>										
@@ -108,7 +105,7 @@ WHERE      ObjectId = '#URL.Objectid#'
 											
 									</td>	
 									
-									<td align="right" style="padding-right:4px">
+									<td align="right" valign="top" style="padding-left:4px;border-left:1px solid silver;padding-top:3px;padding-right:2px">
 									
 									 <cf_tl id="Add" var="lbl">				   	  	  
 									 <cfset link = "#session.root#/Tools/EntityAction/Details/Comment/setMailAddress.cfm?objectid=#url.objectid#|action=insert">
@@ -132,32 +129,34 @@ WHERE      ObjectId = '#URL.Objectid#'
 				
 				</cfif>
 				
-				<tr><td style="padding-bottom:6px;padding-left:5px;padding-right:6px;">
+				<tr><td style="border-top:1px solid silver;padding-bottom:2px;padding-left:3px;padding-right:3px;">
 
 					<cfif Attributes.ajax eq "No">
 					
 					 <cf_textarea name="MailBody"	           		 
 						 init="Yes"							
 						 color="ffffff"	 
-						 resize="true"		 
-						 toolbar="Basic" 
-						 height="130"
-						 width="100%"/>
+						 resize="false"		
+						 border="0" 
+						 toolbar="Mini"
+						 height="120"
+						 width="99%"/>
 						 
 					<cfelse>
 					
 					 <cf_textarea name="MailBody"	           		 						 						
 						 color="ffffff"	 
-						 resize="true"		 
-						 toolbar="Basic" 
-						 height="130"
-						 width="100%"/>
+						 resize="false"		
+						 border="0" 
+						 toolbar="Mini" 
+						 height="120"
+						 width="99%"/>
 						 				
 					</cfif>	 
 			
 				</td></tr>
 				
-				<tr><td style="padding-top:2px;padding-left:4px;padding-right:9px;padding-bottom:4px">
+				<tr><td style="border-top:1px solid silver;padding-left:4px;padding-right:5px">
 				
 				<cf_assignid>   
 				<cfset att = rowguid>	
@@ -175,6 +174,7 @@ WHERE      ObjectId = '#URL.Objectid#'
 					Filter=""		
 					color="Transparent"		
 					Width="100%"
+					height="100%"
 					Box = "#att#"
 					attachdialog="cfwindow"
 					showsize="0"
@@ -188,11 +188,13 @@ WHERE      ObjectId = '#URL.Objectid#'
 				
 				</table>
 				
+				</form>
+				
 			</td></tr>
 					
 		</table>
 	
-	</form>
+	
 	
 </cfif>	
 

@@ -120,8 +120,7 @@
    <cfset cond = CondA>
 </cfif>
 
-<!--- somewhere here strange behaviour with cfdocument --->
-<table width="100%" align="center" border="0" cellspacing="0" cellpadding="0"> 
+<table width="100%" cellspacing="0" cellpadding="0" align="center"> 
 
 <cfif PostShow.recordcount eq "0">
 
@@ -136,20 +135,45 @@
      <cfset org  = OrgUnit>   
                 
 	 <cfif currentRow eq "1">
+	 
+		 	<cfif URL.Lay eq "Listing">
+		   
+			   <tr class="line labelmedium fixrow" style="background-color:efefef">
+			   <td colspan="8" class="clsPrintContent">
+				    <table width="100%">
+					<tr class="labelmedium">			
+					    <td style="padding-left:100px"></td>
+						<td style="min-width:70px"><cf_tl id="Grade"></td>
+						<td style="min-width:290px"><cf_tl id="Function"></td>
+						<td style="min-width:70px"><cf_tl id="PostNo"></td>
+						<td style="min-width:75px"><cf_tl id="Duty"></td>
+						<td style="min-width:50px"><cf_tl id="G"></td>
+						<td style="width:100%"><cf_tl id="Incumbent"></td>
+						<td style="min-width:85px"><cf_UIToolTip  tooltip="Contract Grade and Step"><cf_tl id="Contract"></cf_UIToolTip></td>
+						<td style="min-width:85px"><cf_tl id="SPA"></td>
+						<td style="min-width:100px"><cf_tl id="IndexNo"></td>
+						<td style="min-width:45px"><cf_UIToolTip  tooltip="Gender"><cf_tl id="G"></cf_UIToolTip></td>
+						<td style="min-width:40px"><cf_UIToolTip  tooltip="Current Nationality"><cf_tl id="Nat"></cf_UIToolTip></td>
+						<td style="min-width:60px"><cf_UIToolTip  tooltip="Percentage of post incumbency"><cf_tl id="Percent"></cf_UIToolTip></td>
+						<td style="min-width:20px"></td>
+					</tr>
+					
+					</table>
+				</td>
+			   </tr>
+		   
+		   	</cfif>  
 	    	   
-	   <tr class="line labelmedium">
-		 
-		   <td width="2%">&nbsp;</td>
-	       <td colspan="2" style="width:100%"></td>
-		   <td style="min-width:90px" align="center"><cf_tl id="Authorised"></td>
-	   	   <td style="min-width:90px" align="center"><cf_tl id="Positions"></td>
-		   <td style="min-width:90px" align="center"><cf_tl id="Loaned"></td>
-	       <td style="min-width:90px" align="center"><cf_tl id="Borrowed"></td>
-	       <td style="min-width:90px" align="center"><cf_tl id="Incumbered"></td>
-		 
-	   </tr>
-	   
-	   			   	   	   
+		    <tr class="line labelmedium">			 
+			   <td width="2%">&nbsp;</td>
+		       <td colspan="2" style="width:100%"></td>
+			   <td style="min-width:90px" align="center"><cf_tl id="Authorised"></td>
+		   	   <td style="min-width:90px" align="center"><cf_tl id="Positions"></td>
+			   <td style="min-width:90px" align="center"><cf_tl id="Loaned"></td>
+		       <td style="min-width:90px" align="center"><cf_tl id="Borrowed"></td>
+		       <td style="min-width:90px" align="center"><cf_tl id="Incumbered"></td>			 
+		     </tr>
+	   	   			   	   	   
 	    	   <cfquery name="Total" 
 			       datasource="AppsQuery" 
 			       username="#SESSION.login#" 
@@ -164,123 +188,117 @@
 			  			   		   		   
 			   <tr class="labelmedium">
 			   
-			   <td width="65%" colspan="3" style="height:20px;padding-right:10px">
-			   
-			   	   <cfif URL.header eq "requisition">
+				   <td width="65%" colspan="3" style="height:20px;padding-right:10px">
 				   
-				   	<cf_tl id="Summary">
+				   	   <cfif URL.header eq "requisition">
+					   
+					   	<cf_tl id="Summary">
+					   
+					   <cfelse>
 				   
-				   <cfelse>
-			   
-				       <table width="100%" border="0" class="formpadding">
-					   <tr>
-					   					   
-					   <!--- moved from the bottom --->
-						  
-						  <cfif URL.PDF eq 0 and (accessPosition eq "ALL" or accessPosition eq "EDIT")>
-						  											 		 		  		  
-								<cfquery name="Check" 
-								datasource="AppsOrganization" 
-								username="#SESSION.login#" 
-								password="#SESSION.dbpw#">
-									  SELECT   *
-									  FROM     Ref_Mandate
-									  WHERE    Mission = '#URL.Mission#'					      					 
-								      AND      DateEffective > '#Mandate.DateEffective#'	
-									  AND      MandateStatus = '1'
-									  ORDER BY DateEffective		 	  
-						        </cfquery>
-								
-								<!--- check if there is a mandate after the current mandate and make sure this one is open --->
-																																										
-								<cfif check.recordcount eq "0" and (accessPosition eq "ALL" or accessStaffing eq "EDIT" or accessStaffing eq "ALL")>
-													
-								  <td width="20" colspan="1" height="20">  		
-								  <cf_tl id="Extend Assignment" var="vBatch">			  
-								  <input type="button" name="Extend" id="Extend" style="height:25;width:200" value="#vBatch#" class="button10g clsNoPrint" onClick="extend('#URL.Mission#','#URL.Mandate#')">
-								  </td>
-								  
-								</cfif>  
-											
+					       <table width="100%" border="0" class="formpadding">
+						   <tr>
+						   					   
+						   <!--- moved from the bottom --->
+							  
+							  <cfif URL.PDF eq 0 and (accessPosition eq "ALL" or accessPosition eq "EDIT")>
+							  											 		 		  		  
+									<cfquery name="Check" 
+									datasource="AppsOrganization" 
+									username="#SESSION.login#" 
+									password="#SESSION.dbpw#">
+										  SELECT   *
+										  FROM     Ref_Mandate
+										  WHERE    Mission = '#URL.Mission#'					      					 
+									      AND      DateEffective > '#Mandate.DateEffective#'	
+										  AND      MandateStatus = '1'
+										  ORDER BY DateEffective		 	  
+							        </cfquery>
+									
+									<!--- check if there is a mandate after the current mandate and make sure this one is open --->
+																																											
+									<cfif check.recordcount eq "0" and (accessPosition eq "ALL" or accessStaffing eq "EDIT" or accessStaffing eq "ALL")>
+														
+									  <td width="20" colspan="1" height="20">  		
+									  <cf_tl id="Extend Assignment" var="vBatch">			  
+									  <input type="button" name="Extend" id="Extend" style="height:25;width:200" value="#vBatch#" class="button10g clsNoPrint" onClick="extend('#URL.Mission#','#URL.Mandate#')">
+									  </td>
+									  
+									</cfif>  
 												
-									<cfif ( Mandate.MandateStatus eq "0" or Mandate.MandateStatus eq "" or Mandate.MandateDefault eq 1) and counted gt 0 > 
-										
-										<td width="20" style="padding-left:1px;height:20px">
-										
-											<input type="button" 
-												  name="MovePositions" 
-												  id="MovePositions" 
-												  value="Move Selected Positions" 
-												  onclick="movePositions('#URL.Mission#','#URL.Mandate#')" 
-												  class="button10g clsNoPrint" 
-												  style="height:25;width:180px">	
-											  
-										</td>
-										
-									</cfif>
-									
-									<cfif ( Mandate.MandateStatus eq "0" or Mandate.MandateStatus eq "")> 
-									
-										<td width="20" style="padding-left:1px">	
-											<input type="button" name="Remove" id="Remove" class="button10g" 
-										    		style="height:25;width:180"
-													value="Remove Selected Positions" 							
-													onClick="ColdFusion.navigate('#SESSION.root#/staffing/application/position/PositionBatch.cfm?action=purge&Lay=#url.lay#&page=#url.page#&sort=#url.sort#&id=#url.id#&id1=#url.id1#&Mission=#URL.Mission#&mandate=#URL.Mandate#','process')"/>															
-										</td>	
-									
-									</cfif>
-								
+													
+										<cfif ( Mandate.MandateStatus eq "0" or Mandate.MandateStatus eq "" or Mandate.MandateDefault eq 1) and counted gt 0 > 
 											
-							</cfif>	
-							
-							<td align="right" class="labelmedium">
-							
-							 <cfif hunit neq "">
-					   		   
-								    <cfif URL.PDF eq 0>
-								   		<a href="javascript:sumpos('#hunit#','p#hunit#','all')"><font color="0080C0"><cf_tl id="Total">: #DateFormat(IncumDate, CLIENT.DateFormatShow)#</font></a>
-									<cfelse>
-								   		<font size="4"><cf_tl id="Total">:</font> #DateFormat(IncumDate, CLIENT.DateFormatShow)#
-									</cfif>		
-										   
-							   </cfif>
-							
-							</td>
+											<td width="20" style="padding-left:1px;height:20px">
+											
+												<input type="button" 
+													  name="MovePositions" 
+													  id="MovePositions" 
+													  value="Move Selected Positions" 
+													  onclick="movePositions('#URL.Mission#','#URL.Mandate#')" 
+													  class="button10g clsNoPrint" 
+													  style="height:25;width:180px">	
+												  
+											</td>
+											
+										</cfif>
+										
+										<cfif ( Mandate.MandateStatus eq "0" or Mandate.MandateStatus eq "")> 
+										
+											<td width="20" style="padding-left:1px">	
+												<input type="button" name="Remove" id="Remove" class="button10g" 
+											    		style="height:25px;width:180px"
+														value="Remove Selected Positions" 							
+														onClick="ColdFusion.navigate('#SESSION.root#/staffing/application/position/PositionBatch.cfm?action=purge&Lay=#url.lay#&page=#url.page#&sort=#url.sort#&id=#url.id#&id1=#url.id1#&Mission=#URL.Mission#&mandate=#URL.Mandate#','process')"/>															
+											</td>	
+										
+										</cfif>
+									
+												
+								</cfif>	
+								
+								<td align="right" class="labelmedium">
+								
+								 <cfif hunit neq "">
+						   		   
+									    <cfif URL.PDF eq 0>
+									   		<a href="javascript:sumpos('#hunit#','p#hunit#','all')"><font color="0080C0"><cf_tl id="Total">: #DateFormat(IncumDate, CLIENT.DateFormatShow)#</font></a>
+										<cfelse>
+									   		<font size="4"><cf_tl id="Total">:</font> #DateFormat(IncumDate, CLIENT.DateFormatShow)#
+										</cfif>		
+											   
+								   </cfif>
+								
+								</td>
+						   
+						   </tr>
+						   
+						   </table>
 					   
-					   </tr>
-					   
-					   </table>
-				   
+					   </cfif>
+				   			   
+				   </td>
+			   
+		   	       <td class="cell" style="font-size:16px;background-color:eaeaea;border:1px solid silver;border-top:0px;height:20px;padding-right:3px" align="right">			   
+				   		#total.authorised#			  
+				   </td>
+			   
+				   <td class="cell" style="font-size:16px;background-color:eaeaea;border:1px solid silver;border-top:0px;height:20px;padding-right:3px" align="right">
+				   <cfif total.postloaned eq "">
+				   		#total.post#
+				   <cfelse>
+					    #total.post-total.postloaned#
 				   </cfif>
-			   			   
-			   </td>
-			   
-	   	       <td class="cell" style="font-size:16px;background-color:D3E9F8;border:1px solid silver;border-top:0px;height:20px;padding-right:3px" align="right">			   
-			   		#total.authorised#			  
-			   </td>
-			   
-			   <td class="cell" style="font-size:16px;background-color:D3E9F8;border:1px solid silver;border-top:0px;height:20px;padding-right:3px" align="right">
-			   <cfif total.postloaned eq "">
-			   		#total.post#
-			   <cfelse>
-				    #total.post-total.postloaned#
-			   </cfif>
-			   
-			   </td> 
-			   <td class="cell" style="font-size:16px;background-color:D3E9F8;border:1px solid silver;border-top:0px;height:20px;padding-right:3px" align="right">#total.postloaned#</td>
-			   <td class="cell" style="font-size:16px;background-color:D3E9F8;border:1px solid silver;border-top:0px;height:20px;padding-right:3px" align="right">#total.postborrowed#</td>
-			   <td class="cell" style="font-size:16px;background-color:D3E9F8;border:1px solid silver;border-top:0px;height:20px;padding-right:3px" align="right">#total.staff#</td>
-			
+				   
+				   </td> 
+				   <td class="cell" style="font-size:16px;background-color:eaeaea;border:1px solid silver;border-top:0px;height:20px;padding-right:3px" align="right">#total.postloaned#</td>
+				   <td class="cell" style="font-size:16px;background-color:eaeaea;border:1px solid silver;border-top:0px;height:20px;padding-right:3px" align="right">#total.postborrowed#</td>
+				   <td class="cell" style="font-size:16px;background-color:eaeaea;border:1px solid silver;border-top:0px;height:20px;padding-right:3px" align="right">#total.staff#</td>
+				
 		   </tr>
-		   
-		   <cfif URL.PDF eq 0>
-		   <tr id="sumboxp#hunit#" class="hide"><td colspan="8">   
-		        <cfdiv id="sump#hunit#">
-		   </td></tr>
-		   </cfif>
-		   
-		   <tr><td height="2"></td></tr>
-	   
+		  	  
+		   <tr id="sumboxp#hunit#" class="hide"><td colspan="8"><cfdiv id="sump#hunit#"></td></tr>
+		  		   	   
 	  </cfif>
 	  	   
    <cfquery name="Check" 
@@ -318,8 +336,10 @@
 	    </cfif>
 				
 		<cfif Go eq "1">
+		
+				<tr><td style="height:13px"></td></tr>
 								
-			    <tr class="labelmedium line">
+			    <tr class="labelmedium" style="height:39px;border-top:1px solid silver">
 			    <td width="30" style="padding-left:3px;padding-top:5px">
 								
 					<cfif url.pdf eq "0">	 					     
@@ -343,7 +363,7 @@
 					<cfparam name="dropdownno" 		   default="#CLIENT.dropdownno#">
 					
 					<tr onContextMenu="cmexpand('mymenu','#dropdownno#','')" onclick="cmclear('mymenu')">
-					<td class="labellarge" style="height:20;font-size:18px">#OrgUnitName# [#OrgUnitCode#]</td>
+					<td class="labellarge" style="height:20;font-size:18px">#OrgUnitName# <font size="1">#OrgUnitCode#</font></td>
 					<td id="mymenu#dropdownno#" class="hide">
 								
 						 <cf_dropDownMenu
@@ -372,10 +392,14 @@
 				
 				<cfset unit = OrgUnitName>
 				  
-				  <td class="cell" style="font-size:16px;background-color:D3E9F8;border:1px solid silver;border-top:0px;height:20px;padding-right:3px" width="40" align="right">				   
+				  <td><table style="width:100%"><tr>
+				  <td class="cell" style="font-size:16px;background-color:eaeaea;border:1px solid silver;border-right:0px;height:20px;padding-right:3px" align="right">				   
 				   #check.authorised#				  
 				  </td>
-				  <td class="cell" style="font-size:16px;background-color:D3E9F8;border:1px solid silver;border-top:0px;height:20px;padding-right:3px" width="40" align="right">
+				  </tr></table></td>
+				  
+				  <td><table style="width:100%"><tr>
+				  <td class="cell" style="font-size:16px;background-color:eaeaea;border:1px solid silver;border-right:0px;height:20px;padding-right:3px" align="right">
 				  
 				    <cfif check.postloaned eq "">
 				   		#check.post#
@@ -384,15 +408,22 @@
 				   </cfif>
 				   
 				  </td> 
-				  <td class="cell" style="font-size:16px;background-color:D3E9F8;border:1px solid silver;border-top:0px;height:20px;padding-right:3px" width="40" align="right">#check.postloaned#</td>
-				  <td class="cell" style="font-size:16px;background-color:D3E9F8;border:1px solid silver;border-top:0px;height:20px;padding-right:3px" width="40" align="right">#check.postborrowed#</b></td>
-				  <td class="cell" style="font-size:16px;background-color:D3E9F8;border:1px solid silver;border-top:0px;height:20px;padding-right:3px" width="40" align="right">#check.staff#</td>				
+				  </tr></table></td>
+				  
+				  <td><table style="width:100%"><tr>
+				  <td class="cell" style="font-size:16px;background-color:eaeaea;border:1px solid silver;border-right:0px;height:20px;padding-right:3px" align="right">#check.postloaned#</td>
+				  </tr></table></td>
+				  
+				  <td><table style="width:100%"><tr>
+				  <td class="cell" style="font-size:16px;background-color:eaeaea;border:1px solid silver;border-right:0px;height:20px;padding-right:3px" align="right">#check.postborrowed#</b></td>
+				  </tr></table></td>
+				  
+				  <td><table style="width:100%"><tr>
+				  <td class="cell" style="font-size:16px;background-color:eaeaea;border:1px solid silver;height:20px;padding-right:3px" align="right">#check.staff#</td>				
+				  </tr></table></td>
 				</tr>
-				
-								
-				<tr id="sumbox#org#" class="hide"><td colspan="8">  
-				   <cfdiv id="sum#org#">
-			   </td></tr>
+												
+				<tr id="sumbox#org#" class="hide"><td colspan="8"><cfdiv id="sum#org#"></td></tr>
 			   
 			   <cfset pte = "">
 			   <cfset orow = 0>
@@ -484,14 +515,13 @@
 								</td></tr>
 															
 								<tr>																
-								<td colspan="8" id="i#positionno#">								
+								<td colspan="8" id="i#positionno#">																
 								<cfoutput group="AssignmentNo">								
 									<input type="button" id="refresh_i#positionno#" class="hide" type="button" onclick="reloadassignment('#positionno#','#url.lay#')">								 							 										 							
 		 							<cfinclude template="MandateViewOrganizationAssignment.cfm">																
 								</cfoutput>								
 								</td>
-								</tr>	
-								<tr><td height="2"></td></tr>									
+								</tr>														
 																	
 						  </cfif>
 								
@@ -504,11 +534,7 @@
 									onclick="reloadposition('#positionno#','#url.lay#','#class#')"/>
 																 
 								 <cfoutput group="AssignmentNo">
-								 <tr>
-								 <td colspan="8" id="i#positionno#" align="center">										 															 
-							        <cfinclude template="MandateViewOrganizationAssignmentView.cfm">																									
-								  </td>
-								 </tr>	
+								 <tr style="height:0px"><td colspan="8" id="i#positionno#" align="center"><cfinclude template="MandateViewOrganizationAssignmentView.cfm"></td></tr>	
 								 </cfoutput>
 								 
 						       </cfif>						   
@@ -516,13 +542,9 @@
 						</cfif>
 								 	
 				     <cfelseif currrow gt last>
-					 					 
-						 <tr><td height="1" colspan="12" class="line"></td></tr>
-						 
+					 														 
 						 <tr><td height="8" colspan="12">
-						 <cfif URL.PDF eq 0>
-						 	<cfinclude template="Navigation.cfm">
-						 </cfif>
+						<cfinclude template="Navigation.cfm">
 						 </td></tr>								 		
 						 <cfinclude template="MandateViewExit.cfm">
 					     <cfabort> 

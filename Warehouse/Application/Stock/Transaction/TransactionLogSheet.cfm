@@ -511,78 +511,78 @@
 					<td height="30" id="formdata" name="formdata" class="regular">
 					
 					<table cellspacing="0" cellpadding="0"  width="100%">
-							
+
 						<tr id="boxmanual" class="#ma#">
-							<td id="inputboxmanual">	
-								<cfinclude template="TransactionLogSheetManual.cfm">						
+							<td id="inputboxmanual">
+								<cfinclude template="TransactionLogSheetManual.cfm">
 							</td>
 						</tr>
-						
+
 						<tr id="boxdevice" class="#cl#">
 							<td id="inputboxdevice">
 								<cfinclude template="TransactionLogSheetDevice.cfm">
 							</td>
-						</tr>	
-						
+						</tr>
+
 						<tr id="boxpdf" class="#cl#">
 							<td id="inputboxpdf">
 								<cfinclude template="TransactionLogSheetPDF.cfm">
 							</td>
-						</tr>	
-					
+						</tr>
+
 					</table>
 					</td>
 					</tr> 							
 							
 					<tr><td colspan="2" height="100%">
-					
+
 						<table width="100%" height="100%" align="center" cellspacing="0" cellpadding="0">
-							
-							<tr><td height="3"></td></tr>	
-																								
-							<tr id="meter0" height="20" class="line">					
+
+							<tr><td height="3"></td></tr>
+
+							<tr id="meter0" height="20" class="line">
 								<td width="90%" id="readingbox" style="padding:0px">
-								 	<cfinclude template="LogReading/TransactionLogReading.cfm">			
-								</td>	   		
+								 	<cfinclude template="LogReading/TransactionLogReading.cfm">
+								</td>
 							</tr>
-																											
+
 							 <cfif url.height lte "900">
-								 
+
 								 	<tr>
-									<td colspan="2" width="100%" style="padding:6px" id="detail">	
-								  
+									<td colspan="2" width="100%" style="padding:6px" id="detail">
+
 									<cfset url.tratpe = url.id>
-									<cfinclude template="TransactionDetailLines.cfm">	
-									
+									<cfinclude template="TransactionDetailLines.cfm">
+
 									</td>
-									</tr>																						
-								  			
-							 <cfelse>		
-								 
+									</tr>
+
+							 <cfelse>
+
 								 	<tr>
-									<td colspan="2" height="100%"  width="100%" style="padding:6px">					    							
-								 
+									<td colspan="2" height="100%"  width="100%" style="padding:6px">
+
 									   <cf_divscroll id="detail">
 										<cfset url.tratpe = url.id>
-										<cfinclude template="TransactionDetailLines.cfm">																						
-									   </cf_divscroll>	
-									   
+										<cfinclude template="TransactionDetailLines.cfm">
+									   </cf_divscroll>
+
 									 </td>
-									</tr>	  									
-								   
-							  </cfif>  
-														
+									</tr>
+
+							  </cfif>
+
 							<tr><td class="linedotted"></td></tr>
 							<tr>
 								<td style="height:35" class="top4n" bgcolor="eaeaea" id="logtotals">
-								<cfinclude template="TransactionLogSheetTotal.cfm">								
+								<cfinclude template="TransactionLogSheetTotal.cfm">
 								</td>
 							</tr>
-						
-						</table>			
-					
+
+						</table>
+
 					</td></tr>
-					 				
+
 				 </table>
 				 
 				 </td>

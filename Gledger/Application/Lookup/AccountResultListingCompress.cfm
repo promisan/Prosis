@@ -72,7 +72,9 @@ password="#SESSION.dbpw#">
 		AND    L.AmountCredit > 0
 		</cfif>
 		<cfif URL.Period neq "All">
-		AND    L.AccountPeriod = '#URL.Period#' 
+		AND    H.AccountPeriod = '#URL.Period#' 
+		<cfelse>
+		AND    J.Journal NOT IN (SELECT Journal FROM Journal WHERE SystemJournal = 'Opening')		
 		</cfif>
 		AND    L.ParentJournal IS NULL		 
 		
@@ -81,9 +83,8 @@ password="#SESSION.dbpw#">
 		AND	   L.OrgUnit IN ('#URL.costcenter#')
 		</cfif>
 
-
 		<cfif url.owner neq "All">
-			AND	   H.OrgUnitOwner IN ('#URL.owner#')			
+		AND	   H.OrgUnitOwner IN ('#URL.owner#')			
 		</cfif>
 
 		<!--- RFUENTES 12/10/2015 added: to filter only valid transactions ----->

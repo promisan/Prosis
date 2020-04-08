@@ -5,7 +5,7 @@
 <!--- JM added this on 02/02/2010 in order to allow closing for a particular Id --->
 <cfparam name="Attributes.AjaxId"    default="">
 
-<div style="position:absolute; width:180px; background-color: F6F6F6; z-index:1; border: 1px ridge silver; ">
+<div style="position:absolute; width:250px; background-color: F6F6F6; z-index:1; border: 1px ridge silver; ">
 
 	<table width="100%" cellspacing="0" cellpadding="0">
 		
@@ -20,7 +20,7 @@
 			
 			<tr class="line" bgcolor="e1e1e1"> 
 			  <td width="165" style="padding-left:4px;padding-right:3px" height="18" class="labelmedium"><cf_tl id="Submenu"></td>
-			  <td style="padding-left:4px;padding-right:2px">
+			  <td align="right" style="padding-left:4px;padding-right:2px">
 			  <cf_img icon="delete">
 			</td>
 			</tr>

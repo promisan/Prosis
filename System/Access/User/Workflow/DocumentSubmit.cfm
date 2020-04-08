@@ -208,9 +208,8 @@ password="#SESSION.dbpw#">
 	<!--- insert group membership --->
 	
 	<cfset URL.acc  =  Account>
-	<cfset URL.mode = "new">
-	<cfinclude template="../../Membership/UserMemberSubmit.cfm">   
-				
+	<cfset URL.mode = "workflow">
+	<cfinclude template="../../Membership/UserMemberSubmit.cfm">   				
 
 </cfif>
    

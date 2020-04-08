@@ -11,9 +11,6 @@
 
 <cf_screenTopMaintenance>
 
-<cfajaximport tags="cfwindow">
-
-
 <script language="JavaScript">
 
 function menu() {

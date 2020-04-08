@@ -1,11 +1,12 @@
 <cf_screentop height="98%" label="Questionaire Maintenance" 
-   close="parent.ColdFusion.Window.destroy('myeditquestion',true)" option="Question Maintenance" scroll="Yes" layout="webapp" banner="gray">
+   close="parent.ProsisUI.closeWindow('myeditquestion',true)" option="Question Maintenance" html="no" scroll="Yes" layout="webapp" banner="gray">
 
+    <cfoutput>  
 	<script language="JavaScript">
 		
 		function ask() {
 			if (confirm("Do you want to remove this record ?")) {			
-			return true 			
+			ptoken.navigate('ObjectElementQuestionSubmit.cfm?action=delete&documentid=#url.id1#&questionId=#url.id2#','process','','','POST','formquestion')		
 			}			
 			return false			
 		}				
@@ -25,12 +26,19 @@
 				}
 			}
 			
-			if (!memoReturn) alert(message)
-			
+			if (!memoReturn) alert(message)			
 			return (memoReturn)
-		}	
+			}
+				
+		function formvalidate() {
+			document.formquestion.onsubmit() 
+			if( _CF_error_messages.length == 0 ) {
+    	      ptoken.navigate('ObjectElementQuestionSubmit.cfm?action=update&documentid=#url.id1#&questionId=#url.id2#','process','','','POST','formquestion')
+	    	}   
+        }	 	
 		
 	</script>
+	</cfoutput>
 	
 	<cfquery name="Get" 
 		datasource="AppsOrganization" 
@@ -64,26 +72,25 @@
 	</cfquery>
 	
 	<cfset newId = getId.newId>	
-	
-	
-    <CFFORM action="ObjectElementQuestionSubmit.cfm" target="questionSubmit" method="post" name="formquestion">
+		
+    <CFFORM method="post" name="formquestion">
 	
 	<!--- edit form --->
-	<table width="94%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+	<table width="94%" align="center" class="formpadding">
 	
 		<tr><td></td></tr>
 			
-		 <tr class="hide"><td colspan="2"><iframe name="questionSubmit" id="questionSubmit" frameborder="0"></iframe></td></tr>
+		 <tr class="xxxhide"><td colspan="2" id="process"></td></tr>
 			
 		 <cfoutput>
 		 
-		 <cfinput type="Hidden" name="documentId"    value="#URL.ID1#">		
+		 <input type="hidden" name="documentId"    value="#URL.ID1#">		
 		  
 		 <cfif url.id2 neq "">
-		 	<cfinput type="Hidden" name="questionId"    value="#URL.ID2#">
+		 	<input type="hidden" name="questionId"    value="#URL.ID2#">
 			<cfset qIdLanguageInput = "#URL.ID2#">	
 		 <cfelse>
-		 	<cfinput type="Hidden" name="questionId"    value="#newId#">	
+		 	<input type="hidden" name="questionId"    value="#newId#">	
 			<cfset qIdLanguageInput = "#newId#">
 		 </cfif>		
 				 
@@ -105,16 +112,16 @@
 		 </TR>
 		 
 		 <!--- Field: questionCode --->
-		 <TR>
-			 <TD class="labelmedium">Code *:&nbsp;</TD>  
+		 <TR  class="labelmedium">
+			 <TD>Code *:</TD>  
 			 <TD>
 			 	<cfinput type="Text" name="questionCode" value="#get.questionCode#" message="Please enter a question code" required="Yes" size="20" maxlength="40" class="regularxl">
 			 </TD>
 		 </TR>	
 		 
 		 <!--- Field: questionLabel --->
-		 <TR>
-			 <TD class="labelmedium" valign="top">Label *:&nbsp;</TD>  
+		 <TR  class="labelmedium">
+			 <TD>Label *:</TD>  
 			 <TD>			 	 	
 				<cf_LanguageInput
 					TableCode       = "Questionaire" 
@@ -132,8 +139,8 @@
 		 </TR>
 		 
 		 <!--- Field: questionMemo --->
-		 <TR>
-			 <TD class="labelmedium" valign="top">Memo:&nbsp;</TD>  
+		 <TR class="labelmedium">
+			 <TD valign="top" style="padding-top:3px;padding-right:5px">Instruction:</TD>  
 			 <TD width="75%">
 			 	<cf_LanguageInput
 					TableCode       = "Questionaire" 
@@ -147,59 +154,67 @@
 					MaxLength       = "200"
 					Rows            = "6"
 					Cols            = "40"
-					Class           = "regular">
+					Class           = "regularxl">
 			 </TD>
 		 </TR>
 		 
 		 <!--- Field: inputMode --->
-		 <TR>
-			 <TD class="labelmedium">Input Mode *:</b></TD>  
+		 <TR class="labelmedium">
+			 <TD>Score Mode *:</b></TD>  
 			 <TD>
+			 <table>
+			 <tr><td>
 			 	<select name="inputMode" id="inputMode" class="regularxl">
-					<option value="YesNo" <cfif get.inputMode eq "YesNo">selected</cfif>>Yes-No</option>
-					<option value="YesNoNA" <cfif get.inputMode eq "YesNoNA">selected</cfif>>Yes-No-NA</option>
-					<option value="5" <cfif get.inputMode eq "5">selected</cfif>>Score in 5</option>
-					<option value="3" <cfif get.inputMode eq "3">selected</cfif>>Score in 3</option>					
+					<option value="YesNo" <cfif get.inputMode eq "YesNo">selected</cfif>>Yes[1]-No[9]</option>
+					<option value="YesNoNA" <cfif get.inputMode eq "YesNoNA">selected</cfif>>Yes[1]-No[9]-NA[0]</option>
+					<option value="YesNoPa" <cfif get.inputMode eq "YesNoPA">selected</cfif>>Yes[1]-No[9]-Partly[5]</option>
+					<option value="6" <cfif get.inputMode eq "6">selected</cfif>>Score 1-6</option>
+					<option value="5" <cfif get.inputMode eq "5">selected</cfif>>Score 1-5</option>
+					<option value="4" <cfif get.inputMode eq "4">selected</cfif>>Score 1-4</option>
+					<option value="3" <cfif get.inputMode eq "3">selected</cfif>>Score 1-3</option>					
 				</select>
 			 </TD>
+			 <td style="padding-left:4px"><cfdiv bind="url:#session.root#/system/entityaction/EntityObject/getQuestionTarget.cfm?field=inputmodelabel&documentid=#URL.ID1#&questionid=#URL.ID2#&inputmode={inputMode}"></td>
+			 </tr>
+			 </table>
 		 </TR>
-		 
-		  <!--- Field: inputMode --->
-		 <TR>
-			 <TD class="labelmedium">Set Target *:</b></TD>  
+		 	 
+		 <!--- Field: inputMode --->
+		 <TR class="labelmedium">
+			 <TD>Score Target value *:</b></TD>  
 			 <TD>
-			    <cfdiv bind="url:#session.root#/system/entityaction/EntityObject/getQuestionTarget.cfm?inputmode={inputMode}&selected=#get.inputValuePass#">
+			    <cfdiv bind="url:#session.root#/system/entityaction/EntityObject/getQuestionTarget.cfm?field=target&inputmode={inputMode}&selected=#get.inputValuePass#">
 				
 			 </TD>
 		 </TR>
 		 		 
 		 <!--- Field: enableInputMemo --->
-		 <TR>
-			 <TD class="labelmedium" style="padding-right:20px">Enable Memo *:</TD>  
-			 <TD class="labelmedium">
+		 <TR class="labelmedium">
+			 <TD style="padding-right:20px">Enable Explanatory memo:</TD>  
+			 <TD>
 			 	<input type="radio" class="radiol" name="enableInputMemo" id="enableInputMemo" value="0" <cfif get.enableInputMemo eq "0">checked</cfif>>No
 				<input type="radio" class="radiol" name="enableInputMemo" id="enableInputMemo" value="1" <cfif get.enableInputMemo eq "1" or url.id2 eq "">checked</cfif>>Yes	
 			 </TD>
 		 </TR>		
 		 
 		 <!--- Field: enableInputAttachment --->
-		 <TR>
-			 <TD class="labelmedium" style="padding-right:20px">Enable Attachment *:</TD>  
-			 <TD class="labelmedium">
+		 <TR class="labelmedium">
+			 <TD style="padding-right:20px">Enable Attachments:</TD>  
+			 <TD>
 			 	<input type="radio" class="radiol" name="enableInputAttachment" id="enableInputAttachment" value="0" <cfif get.enableInputAttachment eq "0">checked</cfif>>No
 				<input type="radio" class="radiol" name="enableInputAttachment" id="enableInputAttachment" value="1" <cfif get.enableInputAttachment eq "1" or url.id2 eq "">checked</cfif>>Yes	
 			 </TD>
 		 </TR>		 		 
 		 		
 		<tr><td height="6"></td></tr>
-		<tr><td colspan="4" class="linedotted"></td></tr>
+		<tr><td colspan="4" class="line"></td></tr>
 		<tr><td height="6"></td></tr>
 		
 		<tr><td colspan="4" align="center" height="30">
 		
 		<cfif url.id2 eq "">				
 		
-			<input class="button10g" type="submit" name="Save" id="Save" value="Save" onclick="return validateTextArea('formquestion', 'QuestionMemo', 200)">
+			<input class="button10g" type="button" name="Save" id="Save" value="Save" onclick="formvalidate()">
 			
 		<cfelse>
 		
@@ -214,7 +229,7 @@
 			
 			<cfif verifyDelete.recordCount eq 0><input class="button10g" type="submit" name="Delete" id="Delete" value="Delete" onclick="return ask()"></cfif>
 			
-			<input class="button10g" type="submit" name="Update" id="Update" value="Update" onclick="return validateTextArea('formquestion', 'QuestionMemo', 200)">
+			<input class="button10g" type="button" name="Update" id="Update" value="Update" onclick="formvalidate()">
 		
 		</cfif>		
 		

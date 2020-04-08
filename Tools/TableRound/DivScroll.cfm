@@ -5,6 +5,7 @@
     <cfparam name="Attributes.onclose" 			default="">
     <cfparam name="Attributes.overflowx" 		default="hidden"> 	<!--- Standard cross compatible HORIZONTAL scrollbar  --->
 	<cfparam name="Attributes.overflowy" 		default="auto"> 	<!--- Standard cross compatible VERTICAL scrollbar  --->
+	<cfparam name="Attributes.hiddenScroll"		default="true">
 	<cfparam name="Attributes.height" 			default="100%">
 	<cfparam name="Attributes.width" 			default="100%">
 	<cfparam name="Attributes.padding" 			default="0">
@@ -65,19 +66,37 @@
 	
 			<cfif Attributes.float eq "no">			
 				<div style="#vTouchScroll# ffffff; position:relative; width:#Attributes.width##px#; height:#Attributes.height##px#; min-height:#Attributes.height##px#; max-height:#Attributes.height##px#; overflow-x:hidden; overflow-y:hidden; padding:0px; margin:0px; <cfif attributes.hide neq "no">display:none</cfif>">
-			</cfif>					
-			
+			</cfif>		
+
+			<cfset vToggleScrollXClass = "">
+			<cfset vToggleScrollXStyle = "overflow-x:#Attributes.overflowx#;">
+			<cfif lcase(trim(Attributes.overflowx)) neq "hidden" AND lcase(trim(Attributes.overflowx)) neq "none">
+				<cfif lcase(trim(Attributes.hiddenScroll)) eq "true" OR lcase(trim(Attributes.hiddenScroll)) eq "yes" OR lcase(trim(Attributes.hiddenScroll)) eq "1">
+					<cfset vToggleScrollXClass = "toggleScroll-x">
+					<cfset vToggleScrollXStyle = "">
+				</cfif>
+			</cfif>
+
+			<cfset vToggleScrollYClass = "">
+			<cfset vToggleScrollYStyle = "overflow-y:#Attributes.overflowy#;">
+			<cfif lcase(trim(Attributes.overflowy)) neq "hidden" AND lcase(trim(Attributes.overflowy)) neq "none">
+				<cfif lcase(trim(Attributes.hiddenScroll)) eq "true" OR lcase(trim(Attributes.hiddenScroll)) eq "yes" OR lcase(trim(Attributes.hiddenScroll)) eq "1">
+					<cfset vToggleScrollYClass = "toggleScroll-y">
+					<cfset vToggleScrollYStyle = "">
+				</cfif>
+			</cfif>		
+						
 			<div id="#Attributes.id#"    
 					 name="#Attributes.id#"
                      <cfif Attributes.float neq "no" and Attributes.close eq "yes">
                         onkeydown="if (event.keyCode == 27){document.getElementById('#Attributes.id#').style.display = 'none'; document.getElementById('modalbg').style.display = 'none'}"
                      </cfif>
-					 class="clsCFDIVSCROLL_MainContainer <cfif Attributes.drag neq "no">drag </cfif><cfif client.browser eq "Explorer" and Attributes.drag eq "yes">screen</cfif>"
+					 class="clsCFDIVSCROLL_MainContainer #vToggleScrollXClass# #vToggleScrollYClass# <cfif Attributes.drag neq "no">drag </cfif>"
 					 
 					 style="#vTouchScroll# 
 					 		position:absolute;
-					 		overflow-y:#Attributes.overflowy#; 
-							overflow-x:#Attributes.overflowx#; 
+					 		#vToggleScrollXStyle#
+							#vToggleScrollYStyle#
 							width:#Attributes.width##px#; 
 							height:#Attributes.height##px#;
 							min-height:#Attributes.height##px#;
@@ -157,8 +176,7 @@
 						</cfif>
                         >
 				<cfelse>
-					<div 
-                    	id="modalbg" 
+					<div id="modalbg" 
                         name="modalbg" 
 						style="filter: Alpha(Opacity=40); -moz-opacity:0.4; opacity: 0.4; width: 100%; height: 100%; background-color: ##999999; position: absolute; z-index: 9099; top: 0px; left: 0px;" 
                         <cfif Attributes.close eq "yes" and Attributes.backgroundclose eq "yes">

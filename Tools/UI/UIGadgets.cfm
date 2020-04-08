@@ -1,6 +1,7 @@
 <cfparam name="attributes.style" 		default="default-v2"> <!--- possible values: silver, flat --->
 <cfparam name="attributes.gadget" 		default="all"> <!--- possible values: silver, flat --->
 <cfparam name="attributes.jquery" 		default="no"> <!--- possible values: silver, flat --->
+<cfparam name="attributes.treeTemplate"	default="no"> <!--- possible values: silver, flat --->
 
 <cfoutput>
 
@@ -10,16 +11,12 @@
     <link rel="stylesheet" href="#Session.root#/scripts/kendoui/styles/kendo.rtl.min.css"/>
     <link rel="stylesheet" href="#Session.root#/scripts/kendoui/styles/kendo.silver.min.css"/>
 
-	
-	<cfif attributes.jquery eq "yes">
-		<script type="text/javascript" src="#SESSION.root#/Scripts/jQuery/jquery.js"></script>
-	</cfif>
 	<cfif attributes.gadget eq "all">
 
 		<script src="#Session.root#/scripts/kendoui/js/kendo.all.min.js"></script>
 		<script src="#Session.root#/scripts/kendoui/js/cultures/kendo.culture.en-NL.min.js"></script>
 
-		<cfelseif attributes.gadget eq "notification">
+	<cfelseif attributes.gadget eq "notification">
 
 		<script src="#Session.root#/scripts/kendoui/js/kendo.core.min.js"></script>
 			<script src="#Session.root#/scripts/kendoui/js/kendo.fx.min.js"></script>
@@ -85,7 +82,11 @@
 			$("##_ProsisUI").append("<div id='"+f+"' name='"+f+"' style='display:none'></div>");
 		}
 
+
 		$('##'+f).kendoWindow(params).data("kendoWindow").open()
+
+		if (params["color"])
+			$(".k-content").css('background-color',params["color"]);
 
 		if (params["center"])
 			$('##'+f).data("kendoWindow").center();
@@ -321,9 +322,97 @@ function _expand_to()
 	}
 }
 
- _UIObject.prototype.doToolTip = function(id)
+ _UIObject.prototype.doToolTip = function(id,title,content,contentURL,w,h,position,duration,callout,showOn)
 {
-	var tooltip = $("##cf_tip_"+id).kendoTooltip({}).data("kendoTooltip");
+
+	if (content =='')
+	{
+		if (contentURL == '')
+		{
+			tooltip = $("##cf_tip_"+id).kendoTooltip({}).data("kendoTooltip");
+		}
+		else
+		{
+			tooltip = $("##cf_tip_"+id).kendoTooltip(
+				{
+					'content': {
+						url : contentURL
+					 } ,
+					'callout': (callout.localeCompare("false") ==0 ? 0 : 1),
+					'width': w,
+					'height': h,
+					'showOn': showOn,
+					'position': position,
+					show: function() {
+						this.refresh();
+					},
+					animation: {
+						open: {
+							effects: "zoom:in",
+							duration: duration
+						}
+					}
+				}
+				).data("kendoTooltip");
+
+		}
+	}
+	else
+	{
+		tooltip = $("##cf_tip_"+id).kendoTooltip(
+				{
+					'content': content,
+					'callout': (callout.localeCompare("false") ==0 ? 0 : 1),
+					'width': w,
+					'height': h,
+					'showOn': showOn,
+					'position': position,
+					animation: {
+						open: {
+							effects: "zoom:in",
+							duration: duration
+						}
+					}
+				}
+		).data("kendoTooltip");
+	}
+
+}
+
+_UIObject.prototype.doTooltipPositioning = function(h)
+{
+
+	var dTT = $('div.k-tooltip:visible');
+	dTT.animate({height:h},400,function(){
+
+		var childPos = dTT.offset();
+		var parentPos = dTT.parent().offset();
+
+		var eWidth = dTT.width();
+		var eHeight = dTT.height();
+
+		var wWidth = $(window).width()
+		var wHeight = $(window).height()
+
+		var dWidth = $(document).width()
+		var dHeight = $(document).height()
+
+		vTop = parentPos.top;
+		var vsum = vTop+eHeight;
+		console.log('sum',vsum);
+
+		if (vsum > wHeight)
+		{
+			vNewTop = wHeight - eHeight-40;
+			childPos.top = vNewTop;
+			parentPos.top = vNewTop;
+
+			console.log('new top',childPos);
+			//dTT.offset(childPos);
+			dTT.parent().offset(parentPos);
+		}
+	});
+
 
 }
 
@@ -345,6 +434,16 @@ _UIObject.prototype.doTree = function(id)
 	}
 
 }
+
+_UIObject.prototype.doTabStrip = function(id,content)
+{
+	var ts = $("##tabstrip_"+id).kendoTabStrip({
+		animation: {open: {effects: "fadeIn"}},
+		contentUrls: content
+	}).data('kendoTabStrip');
+
+}
+
 
 
 _UIObject.prototype.doTreeBinder = function(id,serviceRoot,serviceMethod,serviceData)
@@ -460,7 +559,9 @@ _UIObject.prototype.doCalendarRange = function(id)
 <div id="_ProsisUI" class="k-content"></div>
 </cfoutput>
 
-<cfinclude template="UITreeBinderTemplate.cfm">
+<cfif attributes.treeTemplate eq "Yes">
+	<cfinclude template="UITreeBinderTemplate.cfm">
+</cfif>
 
 
 <script>

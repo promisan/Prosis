@@ -133,7 +133,7 @@ password="#SESSION.dbpw#">
 	
 	<cfelse>
 
-    <table><tr><td class="labelmedium"><i><font color="FF0000"><cf_tl id="Not found"></font></td></tr></table>
+    <table><tr><td class="labelmedium"><font color="FF0000"><cf_tl id="Not found"></font></td></tr></table>
 	
 	</cfif>
 	
@@ -201,7 +201,11 @@ password="#SESSION.dbpw#">
 				<table>
 					<tr>
 					<td class="labelit">
-					#getItem.ItemDescription# <font color="FF0000">: <cf_tl id="Out-of-stock"> [#getStock.OnHand#]</font>
+					<cfif len(getItem.ItemDescription) gt "30">
+					#left(getItem.ItemDescription,30)#
+					<cfelse>
+					#getItem.ItemDescription#
+					</cfif> <font color="FF0000">:<cf_tl id="Out-of-stock"></font>
 					</td>
 					</tr>
 				</table>
@@ -210,10 +214,15 @@ password="#SESSION.dbpw#">
 			
 		        <cfparam name="Form.SalesPersonNo" default="">	    
 				
-				<table>
-					<tr>
-					<td class="labelit"><font color="green"> #getItem.ItemDescription#</td>
-					<td style="padding-left:4px"><img src="#SESSION.root#/images/checkmark.png" alt="" border="0"></td>		
+				<table width="100%">
+					<tr class="labelmedium">
+					<td><font color="green">
+					<cfif len(getItem.ItemDescription) gt "44">
+					#left(getItem.ItemDescription,44)#<cfelse>
+					#getItem.ItemDescription#
+					</cfif>
+					</td>
+					<td align="right" style="padding-left:4px"><img height="20" width="20" src="#SESSION.root#/images/checkmark.png" alt="" border="0"></td>		
 					<td class="hide">	
 					    <cf_tl id="Add Item" var="1">			
 					    <input type="button" id= "posadditem" Value = "#lt_text#" class = "button10s">			

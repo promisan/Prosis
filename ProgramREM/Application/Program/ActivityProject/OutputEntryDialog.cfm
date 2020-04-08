@@ -157,9 +157,7 @@ password="#SESSION.dbpw#">
 				   resize         = "yes"
 				   color          = "ffffff">#Output.ActivityOutput#</cf_textarea>
 			<cfelse>
-				<textarea class="regular" style="font-size:15px;padding:5px;width:100%;height:250px;" name="activityoutput" id="activityoutput">
-					#Output.ActivityOutput#
-				</textarea>
+				<textarea class="regular" style="font-size:15px;padding:5px;width:100%;height:250px;" name="activityoutput" id="activityoutput">#Output.ActivityOutput#</textarea>
 			</cfif>	
 		   						
 		</td>				   

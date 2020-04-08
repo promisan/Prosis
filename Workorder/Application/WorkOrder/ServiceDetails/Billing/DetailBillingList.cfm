@@ -77,6 +77,15 @@ password="#SESSION.dbpw#">
      FROM    WorkOrder
 	 WHERE   WorkOrderId     = '#url.workorderid#'	
 </cfquery>
+
+<cfquery name="WorkOrderFunding" 
+datasource="AppsWorkOrder" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	 SELECT  *	
+     FROM    WorkOrderFunding
+	 WHERE   WorkOrderId     = '#url.workorderid#'	
+</cfquery>
 	
 <cfquery name="Param" 
   datasource="AppsWorkOrder" 
@@ -303,8 +312,6 @@ password="#SESSION.dbpw#">
 		 </cfif>
 </cfquery>
 
-
-
 <cfset row = 0>
 
 <cfoutput>
@@ -425,8 +432,8 @@ password="#SESSION.dbpw#">
 	  
 	  <cfelse>
 	  
-	  	  <td colspan="7" class="labelmedium" style="font-size:20px;padding-left:17px;height:25px">
-	  	      	  
+	  	  <td colspan="7" class="labelmedium" style="padding-left:17px;height:25px">
+	  	      	 
 	      <table width="100%">
 		  		  
 		  <tr class="labelmedium">
@@ -463,20 +470,16 @@ password="#SESSION.dbpw#">
 					password="#SESSION.dbpw#">	
 						SELECT DISTINCT	WPD.*, RA.Description as ActionDescription
 						FROM	WorkOrderLineBillingDetail WB
-								INNER JOIN WorkOrderLineBillingAction WA
-									ON WB.WorkOrderid = WA.WorkOrderid
+								INNER JOIN WorkOrderLineBillingAction WA ON WB.WorkOrderid = WA.WorkOrderid
 									AND WB.WorkOrderLine = WA.WorkOrderLine
 									AND WB.BillingEffective = WA.BillingEffective
-								INNER JOIN WorkPlanDetail WPD
-									ON WA.WorkActionId = WPD.WorkActionId
-								INNER JOIN WorkOrderLineAction A
-									ON WA.WorkActionId = A.WorkActionId
-								INNER JOIN Ref_Action RA
-									ON A.ActionClass = RA.Code
-						WHERE	WB.WorkOrderid = '#url.workorderid#'
-						AND  	WB.WorkOrderLine = '#url.workorderline#'
-						AND  	WB.BillingEffective = '#BillingEffective#'
-						AND		WPD.Operational = 1
+								INNER JOIN WorkPlanDetail WPD			 ON WA.WorkActionId = WPD.WorkActionId
+								INNER JOIN WorkOrderLineAction A    	 ON WA.WorkActionId = A.WorkActionId
+								INNER JOIN Ref_Action RA				 ON A.ActionClass = RA.Code
+						WHERE	WB.WorkOrderid       = '#url.workorderid#'
+						AND  	WB.WorkOrderLine     = '#url.workorderline#'
+						AND  	WB.BillingEffective  = '#BillingEffective#'
+						AND		WPD.Operational      = 1
 					</cfquery>
 
 					<cfif Encounters.recordCount gt 0>
@@ -530,8 +533,7 @@ password="#SESSION.dbpw#">
 		  
 		  </td>   
 		  		  
-		</cfif>  
-		  
+		</cfif>  		  
 	
 	  <td colspan="1"></td>
 	  
@@ -634,9 +636,10 @@ password="#SESSION.dbpw#">
 	</tr>	
 		
 	<!--- funding on the billing level --->
-	<cfif url.scope eq "backoffice">
-		<tr><td colspan="9" style="border:0px solid silver">
-				<table width="96%" cellspacing="0" cellpadding="0" align="right">
+	
+	<cfif url.scope eq "backoffice" and WorkOrderFunding.recordcount gte "1">
+		<tr><td colspan="9" style="height:0px;border:0px solid silver">
+				<table width="96%" align="right">
 					<tr><td>	
 					<cfdiv id="funding_#row#" 
 					      bind="url:#SESSION.root#/workorder/application/workorder/Funding/Fundingline.cfm?tabno=1&row=#row#&WorkOrderId=#url.workorderid#&billingdetailid=#billingid#">	
@@ -673,6 +676,16 @@ password="#SESSION.dbpw#">
 					 AND   ServiceItemUnit = W.ServiceItemUnit
 					 AND   Warehouse is not NULL
 					 ) as Stock,
+					 
+					 (
+					 SELECT count(*)
+					 FROM  ServiceItemUnitMission 
+					 WHERE Mission         = '#workorder.Mission#'
+					 AND   ServiceItem     = W.ServiceItem				 
+					 AND   ServiceItemUnit = W.ServiceItemUnit
+					 AND   DateEffective <= '#workorderline.DateEffective#' 
+					 AND   (DateExpiration is NULL or DateExpiration >= '#workorderline.DateEffective#')					 
+					 ) as Active,
 					 
 					 W.QuantityCost,		
 					 W.Quantity, 
@@ -719,16 +732,14 @@ password="#SESSION.dbpw#">
 				
 			<cfset row = row+1>
 			
-			<tr class="labelit line">
+			<tr class="labelmedium line">
 			
 			    <td width="20" valign="top" style="padding-left:20px">	
-				    &nbsp;					
+				    &nbsp;				
 				</td>
 				
-				<td style="padding-left:8px" width="50%">
-					<cfif unitparent neq "">	
-					<img src="#SESSION.root#/images/join.gif" alt="" border="0">						
-					</cfif>
+				<td style="padding-left:8px" width="50%">	
+					<cfif unitparent neq "">. . .</cfif>				
 					<cfif stock neq ""><a href="javascript:item('#stock#','#workorder.mission#')"><font color="black"></cfif>
 					#UnitDescription# 
 				</td>
@@ -742,9 +753,8 @@ password="#SESSION.dbpw#">
 					<td height="20">#FrequencyDescription#</td>
 					<td align="center"><cfif charged eq "0">No<cfelse><cf_tl id="Yes"></cfif></td>
 					<td align="center"><cfif Stock gte "1">#QuantityCost#|</cfif>#Quantity#</td>			
-					<td align="center">#Currency#</td>		
-					
-					<td align="right">#numberformat(Rate,',.__')#</td>
+					<td align="center">#Currency#</td>							
+					<td align="right"><cfif active eq "0"><cf_uitooltip tooltip="No rate defined for this date"><font color="FF0000">#numberformat(Rate,',.__')# *</cf_uitooltip><cfelse>#numberformat(Rate,',.__')#</cfif></td>
 					<td align="right">#numberformat(Amount,',.__')#</td>		
 					<td align="right">
 					
@@ -795,22 +805,21 @@ password="#SESSION.dbpw#">
 	<cfquery name="Total" 
 			datasource="AppsWorkOrder" 
 			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-			
-			SELECT   Currency, 
+			password="#SESSION.dbpw#">			
+			SELECT   Currency, count(*) as Lines,
 			         SUM(Amount) AS Total
 			FROM     WorkOrderLineBillingDetail
 			WHERE    WorkOrderId      = '#url.workorderid#'
 			AND      WorkOrderLine    = '#url.workorderline#'		
 			AND      BillingEffective = '#BillingEffective#'
-			AND      Frequency = 'Once' 
-			AND      Operational = 1 
-			AND      Charged = 1
-			GROUP BY Currency
-			
+			AND      Frequency        = 'Once' 
+			AND      Operational      = 1 
+			AND      Charged          = 1
+			GROUP BY Currency			
 	</cfquery>		
 		
-	<cfif Total.recordcount gte "1">
+	<cfif Total.recordcount gte "1" and Total.lines gt "1">
+	
 	<tr class="line"><td style="padding-left:20px" class="labelmedium"></td>
 	    <td colspan="7" align="right">
 			<table>
@@ -824,8 +833,7 @@ password="#SESSION.dbpw#">
 	   <td></td>
 	   </tr>
 	</cfif>
-	
-			
+				
 </cfloop>
 
 <!--- 24/9/2016 added a summary in case the billing mode is ONCE --->

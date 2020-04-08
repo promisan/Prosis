@@ -85,11 +85,12 @@ function mail(id,ser) {
 }
 
 function gofilter(e) {
-	  	      
-	   keynum = e.keyCode ? e.keyCode : e.charCode;	   	 						
+
+	   keynum = e.keyCode ? e.keyCode : e.charCode;
 	   if (keynum == 13) {
-	      applyfilter('','1','content') 	      
-	   }						
+	   	  e.stopPropagation()
+	      applyfilter('','1','content')
+	   }
   }
 
 <!--- make ajax sensitive 26/08/2010 --->
@@ -225,12 +226,12 @@ function deleterow(row,dsn,table,field,value) {
 function listnavigateRow()	{
 	
 	vrowno  = document.getElementById("rowno").value
-		
+
 	if(window.event) {
 		keynum = window.event.keyCode;
 	} else {
 		keynum = window.event.which;
-	}	
+	}
 						
 	if (keynum == 13) {		   
 	   try { document.getElementById("exp"+vrowno).click() } catch(e) {} 	  

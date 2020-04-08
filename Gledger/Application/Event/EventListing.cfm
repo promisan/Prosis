@@ -19,7 +19,9 @@
 					E.OrgUnit,
 					E.Mission, 
 					O.OrgUnitName,
+					
 					E.ActionStatus, 
+					CASE WHEN E.ActionStatus = '1' THEN 'Completed' ELSE 'Pending' END as ActionStatusName,
 					E.ActionCode, 
 					R.Description,
 					E.EventDate, 
@@ -36,6 +38,7 @@
 						ON 			E.OrgUnit = O.OrgUnit
 		WHERE     	E.Mission       = '#url.mission#'
 		AND       	E.AccountPeriod = '#url.Period#'
+		AND         E.Operational = 1
 	
 </cfquery>
 

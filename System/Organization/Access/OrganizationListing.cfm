@@ -71,6 +71,7 @@ This is not how it intended, solution prevent check box if this was inherited by
 	 ORDER BY ListingOrder
 </cfquery>
 
+
 <!--- 10/10/2010 tuning for cleaning if role has a parameter remove the access for users granted to default --->
 
 <cfquery name="RoleSelect"
@@ -352,7 +353,7 @@ This is not how it intended, solution prevent check box if this was inherited by
 <cfoutput query="SearchResult" group="AccountType">
 
  <tr>
-    <td colspan="9" class="labelmedium" style="height:45px;font-size:21px;font-weight:280"><cfif accounttype eq "Group">User Group<cfelse>Individual User Account</cfif></b></td>
+    <td colspan="9" class="labelmedium" style="height:45px;font-size:21px"><cfif accounttype eq "Group">User Group<cfelse>Individual User Account</cfif></b></td>
  </tr>
 
 <cfset box = 0>
@@ -367,24 +368,24 @@ This is not how it intended, solution prevent check box if this was inherited by
 	  
 		  <cfif type eq "1. Manual">
 		  
-		    <h2 style="font-weight: 300;font-size: 15px;margin-bottom: 0px;">
+		    <h2 style="font-size: 15px;margin-bottom: 0px;">
 			<img width="24" src="#SESSION.root#/images/select.png" align="absmiddle" alt="" border="0" style="position: relative;top: -1px;"> 
 			Recorded / Amended</h2>
 			
 		  <cfelseif type eq "2. Inherited">
 		    
-            <h2 style="font-weight: 300;font-size: 15px;margin-bottom: 0px;">
+            <h2 style="font-size: 15px;margin-bottom: 0px;">
 			<img width="24" src="#SESSION.root#/images/Access-Granted.png" align="absmiddle" alt="" border="0" style="position: relative;top: -1px;">
 			Inherited access through user group(s)</h2>
            			
 		  <cfelseif Type eq "3. Denied">
-	        <h2 style="font-weight: 300;font-size: 15px;margin-bottom: 0px;">
+	        <h2 style="font-size: 15px;margin-bottom: 0px;">
 			<img width="24" src="#SESSION.root#/images/workflow_denied.png" align="absmiddle" alt="" border="0" style="position: relative;top: -1px;"> 
 			<span color="808080">Denied</span>
 		    One or more rights inherited from a usergroup were revoked on the individual user level</h2>
 	 	 
 		  <cfelseif left(type,1) eq "0">
-		    <h2 style="font-weight: 300;font-size: 15px;margin-bottom: 0px;">
+		    <h2 style="font-size: 15px;margin-bottom: 0px;">
 			<img width="24" src="#SESSION.root#/images/select.png" align="absmiddle" alt="" border="0" style="position: relative;top: -1px;"> 
 			Inherited through Global #url.mission# access</h2>
 		  			

@@ -139,7 +139,7 @@ function openschedule(wla) {
      <cfajaximport tags="cfmap" params="#{googlemapkey='#client.googlemapid#'}#">  
 </cfif>
 
-<cfajaximport tags="cfform,cfinput-datefield,cfwindow"> 
+<cfajaximport tags="cfform,cfwindow"> 
 	
 <cf_dialogStaffing>
 <cf_mapscript width="360" height="300" scope="embed">
@@ -472,11 +472,14 @@ function openschedule(wla) {
 			password="#SESSION.dbpw#">
 			   SELECT Owner
 			   FROM   Ref_ParameterOwner
-			   WHERE  Owner IN (SELECT Owner 
+			   WHERE  Operational = 1
+			   <!---
+			   AND    Owner IN (SELECT Owner 
 			                    FROM   Ref_Assessment)
-			   AND    Operational = 1
+								--->
+			   
 			</cfquery>
-			
+						
 			<cfelse>
 		
 			<cfquery name="Own" 
@@ -496,9 +499,11 @@ function openschedule(wla) {
 						
 			<cfloop query="Own">
 			
-			<tr><td valign="top">		
+			<tr><td valign="top">	
+			
 			<table width="#w#" align="center" border="0" cellpadding="0" cellspacing="0" class="show" id="attach" bgcolor="white">
-				<tr><td height="22">				
+				<tr><td height="22">	
+						
 				    <cfset url.owner = owner>
 					<cfset url.memo  = 0>
 					<cfinclude template="Attachments/DocumentFileForm.cfm">			    
@@ -581,11 +586,6 @@ function openschedule(wla) {
 						<font color="red"><b><cf_tl id="Attention"></b>:<font color="gray"><cf_tl id="There are"> #customer.recordcount# <cf_tl id="customer profiles associated to the candidate"></font>
 					</cfif>							
 
-										
-					<!---
-					<a href="javascript:alert('a')"><font size="3" color="0080C0"><cf_tl id="Press here to create one"></font></a>
-					--->
-					
 				</td></tr>
 				
 				<cfset url.personno = url.id>			
@@ -617,7 +617,7 @@ function openschedule(wla) {
 					<table width="99%" height="100%" border="0" cellpadding="0" cellspacing="0" align="center">
 							
 					<tr><td class="labelmedium" style="height:1px;padding-left:5px">				
-						<cf_ProfileSource PersonNo = "#url.id#">									
+						<cf_ProfileSource PersonNo = "#url.id#" showall="Yes">									
 						</td>
 					</tr>	
 					

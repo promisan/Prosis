@@ -70,13 +70,14 @@
 							AND      R.Mission      = '#URL.Mission#'
 							AND      R.Mission      = M.Mission
 							AND      R.MandateNo    = M.MandateNo
+							AND      M.Operational  = 1	
 							ORDER BY SnapshotDate 
 						</cfquery>	
 												
 					    <cfif SnapShot.recordcount gte "1">
 						
-							<table>
-							<tr><td class="labelmedium" style="height:28px;border:1px solid gray;padding-left:3px;padding-right:3px">
+							<table cellspacing="0" cellpadding="0">
+							<tr><td style="height:28px;border:1px solid gray;padding-left:3px;padding-right:3px">
 						
 							<select name="snapshot" 
 							     id="snapshot" 
@@ -243,7 +244,7 @@
 								  buttonText     = "&nbsp;Export&nbsp;"
 								  buttonClass    = "button10g"
 								  buttonIcon     = "/Logos/Staffing/Excel.png"
-                                  buttonStyle    = "font-size:14px;"
+                                  buttonStyle    = "font-size:14px;height:28px"
 								  reportPath     = "Staffing\Reporting\PostView\Staffing\"
 								  SQLtemplate    = "PostViewDetailExcel.cfm"
 								  queryString    = "mode=full&Mission=#URL.Mission#&Mandate=#URL.Mandate#&selectiondate=#url.snap#&box=1&filterid=#url.filterid#"
@@ -262,13 +263,14 @@
 					
 					</td>							
 					
-					<td style="padding-left:20px;padding-right:4px" class="labelit">
-					 <a href="javascript:refresh()" title="Review Workforce Structure in grahical representation.">
-					<cf_tl id="Refresh">:
-					</a>
+					<td style="padding-left:20px;padding-right:4px;cursor:pointer" class="labelit" onclick="javascript:refresh()">
+					 <CF_UITooltip Tooltip="Review Workforce Structure in grahical representation.">
+					<cf_tl id="Refresh">
+					</cf_uiTooltip>
+					
 					</td>
 
-					<td class="labelmedium" style="border: 1px solid Gray;padding-left:10px;padding-right:10px">
+					<td class="labelmedium" align="center" style="min-width:120px;border: 1px solid Gray;padding-left:10px;padding-right:10px">
 					#DateFormat(Source.Created,CLIENT.DateFormatShow)# #TimeFormat(now(),"HH:mm")#</b>				
 					</td>
 					
@@ -333,257 +335,229 @@
 	   <tr><td colspan="<cfoutput>#tblr#</cfoutput>" align="center" style="padding-left:30px;height:30px" width="<cfoutput>#tblw1#</cfoutput>" class="clsNoPrint">
 			<cfinclude template="MandateFilterInit.cfm">
 	   </td></tr>
-	   	   
-	   <tr><td colspan="<cfoutput>#tblr#</cfoutput>" style="height:10px" class="clsNoPrint">
-		
-		    <table align="center">
-			<cfinclude template="PostViewHeader.cfm">
-			</table>
-			
-	   </td></tr>	   
-	   	   	  
-	   <tr><td style="padding-top:1px" colspan="<cfoutput>#tblr#</cfoutput>" style="height:100%" class="clsPrintContent">	 
+	  	   	   	  
+	   <tr><td colspan="<cfoutput>#tblr#</cfoutput>" style="height:100%;padding-left:45px;padding-right:45px" class="clsPrintContent">	 
 	   		
-				<cf_divscroll style="align:center" overflowy="scroll">	     	   	
-								
-				<table align="center">
-					
-				  <tr><td colspan="<cfoutput>#tblr#</cfoutput>" style="padding-right:19px;padding-bottom:4px" align="center" width="<cfoutput>#tblw1#</cfoutput>">
-						   <cfinclude template="PostViewOrgClass.cfm"> 
-				  </td></tr>	
-				  
-				   				   		   
-				  <tr><td>
-				  
-				   <table width="100%">
-				    
-					<tr><td>
-					
-					<table width="100%" class="formpadding">
-					    <tr><td></td>
-						<td>
-						
-						<table width="100%">
-						<tr>
-																
-						<td class="labelmedium" style="font-size:29px;font-weight:200">
+			<cf_divscroll style="align:center" overflowy="scroll">	     	   	
 							
-							<cfquery name="Tree" 
+			<table style="width:98%" border="0" align="center">
+				
+			  <cfinclude template="PostViewOrgClass.cfm"> 		  	  			  						 
+			  				   		   
+			  <tr>
+			  <td colspan="<cfoutput>#Resource.RecordCount+2#</cfoutput>">
+			  			  				
+				<table width="100%">
+				   
+				    <tr>
+					<td></td>
+					<td>
+					
+					<table width="100%">
+					<tr>
+															
+					<td class="labelmedium" style="font-size:29px;font-weight:200">
+						
+						<cfquery name="Tree" 
+						datasource="AppsOrganization" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+							SELECT   *
+							FROM     Ref_Mission
+							WHERE    Mission = '#URL.Mission#'
+						</cfquery>
+												
+						<cfif Tree.TreeAdministrative neq "" or Tree.TreeFunctional neq "">
+						
+							<!--- check if any functional relations are found for this tree --->
+							 
+							<cfquery name="Check" 
 							datasource="AppsOrganization" 
 							username="#SESSION.login#" 
-							password="#SESSION.dbpw#">
-								SELECT   *
-								FROM     Ref_Mission
-								WHERE    Mission = '#URL.Mission#'
-							</cfquery>
+							password="#SESSION.dbpw#">							 
+								SELECT TOP 1 P.Mission
+								FROM   Ref_Mandate R INNER JOIN 
+								       Employee.dbo.Position P ON P.Mission = R.Mission and P.MandateNo = R.MandateNo
+								
+								WHERE  R.Mission IN 
+								                  (SELECT Mission FROM Ref_Mission WHERE TreeFunctional IS NOT NULL AND Operational = 1)
+								
+								AND   R.DateEffective IN
+								
+								     ( SELECT MAX(DateEffective)
+								               FROM     Ref_Mandate 
+								               WHERE    DateEffective < '#dte#'
+								               AND      Mission = R.Mission
+								               GROUP BY Mission
+								     )
+									 
+								AND  P.OrgUnitFunctional is not NULL  	 
+								
+								AND  P.OrgUnitFunctional IN (SELECT OrgUnit 
+								             FROM   Organization 
+											 WHERE  OrgUnit = P.OrgUnitFunctional
+											 AND   MissionAssociation = '#url.mission#')
+																						
+														
 													
-							<cfif Tree.TreeAdministrative neq "" or Tree.TreeFunctional neq "">
+							</cfquery> 
+													
+						    <cfoutput>
 							
-								<!--- check if any functional relations are found for this tree --->
-								 
-								<cfquery name="Check" 
-								datasource="AppsOrganization" 
-								username="#SESSION.login#" 
-								password="#SESSION.dbpw#">							 
-									SELECT TOP 1 P.Mission
-									FROM   Ref_Mandate R INNER JOIN 
-									       Employee.dbo.Position P ON P.Mission = R.Mission and P.MandateNo = R.MandateNo
+							<select name="treename"
+							        id="treename"
+							        class="regularxl"
+							        onChange="Prosis.busy('yes');reloadview('#URL.Unit#',snapshot.value,this.value,'<cfoutput>#URL.Mandate#</cfoutput>')">
 									
-									WHERE  R.Mission IN 
-									                  (SELECT Mission FROM Ref_Mission WHERE TreeFunctional IS NOT NULL AND Operational = 1)
-									
-									AND   R.DateEffective IN
-									
-									     ( SELECT MAX(DateEffective)
-									               FROM     Ref_Mandate 
-									               WHERE    DateEffective < '#dte#'
-									               AND      Mission = R.Mission
-									               GROUP BY Mission
-									     )
-										 
-									AND  P.OrgUnitFunctional is not NULL  	 
-									
-									AND  P.OrgUnitFunctional IN (SELECT OrgUnit 
-									             FROM   Organization 
-												 WHERE  OrgUnit = P.OrgUnitFunctional
-												 AND   MissionAssociation = '#url.mission#')
-																							
-															
-														
-								</cfquery> 
-														
-							    <cfoutput>
-								
-								<select name="treename"
-								        id="treename"
-								        class="regularxl"
-								        onChange="Prosis.busy('yes');reloadview('#URL.Unit#',snapshot.value,this.value,'<cfoutput>#URL.Mandate#</cfoutput>')">
-										
-								 <option value="Operational" <cfif URL.tree eq "Operational">selected</cfif>>
-								    <cf_tl id="Operational">
+							 <option value="Operational" <cfif URL.tree eq "Operational">selected</cfif>>
+							    <cf_tl id="Operational">
+							 </option>
+							 
+							 <cfif Tree.TreeAdministrative neq "">
+							 	<option value="Administrative" 
+								  <cfif URL.tree eq "Administrative">selected</cfif>><cf_tl id="Administrative">
+								</option>
+							 </cfif>
+							 																 
+							 <cfif check.recordcount gte "1">						 
+								<option value="Functional" 
+								  <cfif URL.tree eq "Functional">selected</cfif>>
+								     <cf_tl id="Functional Relationship">
 								 </option>
-								 
-								 <cfif Tree.TreeAdministrative neq "">
-								 	<option value="Administrative" 
-									  <cfif URL.tree eq "Administrative">selected</cfif>><cf_tl id="Administrative">
-									</option>
-								 </cfif>
-								 																 
-								 <cfif check.recordcount gte "1">						 
-									<option value="Functional" 
-									  <cfif URL.tree eq "Functional">selected</cfif>>
-									     <cf_tl id="Functional Relationship">
-									 </option>
-								 </cfif>
-								 
-								</select>
-																								
-								</cfoutput>
-																
-								
+							 </cfif>
+							 
+							</select>
+																							
+							</cfoutput>
+															
+							
+						<cfelse>
+						  <cf_tl id="operational">	
+						   <input type="hidden" name="treename" id="treename" value="Operational">
+						</cfif>
+						
+						<cfoutput>
+						  <input type="hidden" name="totals" id="totals" value="#URL.UNIT#">
+						</cfoutput>					
+					
+					</td>
+					
+					<td align="right" style="padding-right:4px">
+						<table class="formpadding">
+						<tr>
+						
+						<td style="height:30px;padding-left:3px"></td>
+						<td>					
+						<input type="radio" class="radiol" style="height:20px;width:20px"
+						   name="summarytotal" id="unittotal" 
+						   value="unit" 
+						   onClick="Prosis.busy('yes');totals.value='unit';reloadview('unit',snapshot.value,treename.value,'<cfoutput>#URL.Mandate#</cfoutput>')" <cfif URL.UNIT neq "cum">checked</cfif>>
+						</td>   
+																				   
+						<td onclick="Prosis.busy('yes');unittotal.click()" style="cursor: pointer;;padding-left:4px" class="labelmedium">
+						
+							<cfif URL.UNIT neq "cum">
+							<font color="0080C0" style="font-size: 16px;">
 							<cfelse>
-							  <cf_tl id="operational">	
-							   <input type="hidden" name="treename" id="treename" value="Operational">
+							<font style="font-size: 14px;">
 							</cfif>
-							
-							<cfoutput>
-							  <input type="hidden" name="totals" id="totals" value="#URL.UNIT#">
-							</cfoutput>					
+							<cf_tl id="Unit totals">	
+								
+						</td>			
 						
+						<td style="padding-left:10px">
+						<input type="radio" class="radiol" style="height:20px;width:20px"
+						     name="summarytotal" id="cumtotal" 
+							 value="cum" 
+							 onClick="Prosis.busy('yes');totals.value='cum';reloadview('cum',snapshot.value,treename.value,'<cfoutput>#URL.Mandate#</cfoutput>')" <cfif URL.UNIT eq "cum">checked</cfif>>
 						</td>
+						<td onclick="Prosis.busy('yes');cumtotal.click()" class="labelmedium" style="cursor: pointer;padding-left:4px;padding-right:10px">
 						
-						<td align="right" style="padding-right:4px">
-							<table class="formpadding">
-							<tr>
-							
-							<td style="height:30px;padding-left:3px"></td>
-							<td>					
-							<input type="radio" class="radiol" style="height:20px;width:20px"
-							   name="summarytotal" id="unittotal" 
-							   value="unit" 
-							   onClick="Prosis.busy('yes');totals.value='unit';reloadview('unit',snapshot.value,treename.value,'<cfoutput>#URL.Mandate#</cfoutput>')" <cfif URL.UNIT neq "cum">checked</cfif>>
-							</td>   
-																					   
-							<td onclick="Prosis.busy('yes');unittotal.click()" style="cursor: pointer;;padding-left:4px" class="labelmedium">
-							
-								<cfif URL.UNIT neq "cum">
+							<cfif URL.UNIT eq "cum">
 								<font color="0080C0" style="font-size: 16px;">
-								<cfelse>
+							<cfelse>
 								<font style="font-size: 14px;">
-								</cfif>
-								<cf_tl id="Unit totals">	
-									
-							</td>			
-							
-							<td style="padding-left:10px">
-							<input type="radio" class="radiol" style="height:20px;width:20px"
-							     name="summarytotal" id="cumtotal" 
-								 value="cum" 
-								 onClick="Prosis.busy('yes');totals.value='cum';reloadview('cum',snapshot.value,treename.value,'<cfoutput>#URL.Mandate#</cfoutput>')" <cfif URL.UNIT eq "cum">checked</cfif>>
-							</td>
-							<td onclick="Prosis.busy('yes');cumtotal.click()" class="labelmedium" style="cursor: pointer;padding-left:4px;padding-right:10px">
-							
-								<cfif URL.UNIT eq "cum">
-									<font color="0080C0" style="font-size: 16px;">
-								<cfelse>
-									<font style="font-size: 14px;">
-								</cfif>
-								<cf_tl id="Cumulative totals">
-							
-							</td>
-							</tr>
-							</table>
+							</cfif>
+							<cf_tl id="Cumulative totals">
+						
 						</td>
 						</tr>
 						</table>
-						
-						</td>
-											
-						</tr>
-						</table>
-						</td></tr>
-						</table>
-						
-						</td>
-						</tr>		
-						
-																							  
-						<tr id="detailh" bgcolor="transparent">
-						
-						      <td align="right" style="padding-right:17px">
-							  
-							  <!--- feature to clean the results based on the access rights --->
-		 
-							  <cfset accesslist = "">	
-								  
-							  <cf_treeUnitList
-								 mission   = "#URL.Mission#"
-								 mandateno = "#URL.Mandate#"
-								 role      = "'HROfficer','HRAssistant','HRPosition', 'HRLoaner', 'HRLocator','HRInquiry'"
-								 tree      = "1">	
-												 		 					
-								 
-							  <cfif accesslist neq "" and accesslist neq "full">
-							  
-							  	 <cfquery name="ClearNoAccess" 
-								  datasource="AppsQuery" 
-								  username="#SESSION.login#" 
-								  password="#SESSION.dbpw#">
-								  	  DELETE  
-									  FROM   userquery.dbo.#SESSION.acc#Grade2_#FileNo#
-								      WHERE  OrgUnit NOT IN (#preservesinglequotes(accesslist)#)	   
-								  </cfquery>							  
-								  
-							  						  
-							  </cfif>	
-							  							   						
-							  
-							 <!--- create HTML output on the parent level ---> 
-							 
-							 <!--- this table has the correct hierarchy already --->
-							 
-							 <cfquery name="OrgUnitList" 
-								datasource="AppsOrganization" 
-								username="#SESSION.login#" 
-								password="#SESSION.dbpw#">
-									SELECT    DISTINCT Mission, OrgUnitCode, OrgUnitName, HierarchyCode  
-									FROM      userquery.dbo.#SESSION.acc#Grade2_#FileNo# 						
-									WHERE     HierarchyCode LIKE '__'													
-									ORDER BY  HierarchyCode   
-							 </cfquery>
-														 							 							 																				 						 						
-							 <cfoutput query="OrgUnitList">
-									
-									<cfset HStart = hierarchycode>
-									
-									<cfset No = HStart+1>
-									<cfif No lt 10>
-								     	<cfset HEnd = "0#No#">
-									<cfelse>
-									    <cfset HEnd = "#No#">
-									</cfif>
-																																							
-									<cfquery name="Max"
-									datasource="AppsQuery"
-									username="#SESSION.login#"
-									password="#SESSION.dbpw#">
-									SELECT  MAX(Total) as Total
-									FROM  	#SESSION.acc#Grade2_#FileNo# V
-									WHERE 	HierarchyCode >= '#HStart#' 
-									AND 	HierarchyCode < '#HEnd#'
-									</cfquery>
-																																													   
-							   		<cfinclude template="PostViewOrganization.cfm"> 
-										  						      
-								</cfoutput>															
-														 
-							  </td>
-						  </tr>
-												  					  
-					  </table>				  
-					 
-					  
-				</cf_divscroll>	  
+					</td>
+					</tr>
+					</table>					
+					</td>										
+					</tr>
+					</table>
+										
+				</td>
+			  </tr>					
+										  
+			  <!--- feature to clean the results based on the access rights --->
+
+			  <cfset accesslist = "">	
+				  
+			  <cf_treeUnitList
+				 mission   = "#URL.Mission#"
+				 mandateno = "#URL.Mandate#"
+				 role      = "'HROfficer','HRAssistant','HRPosition', 'HRLoaner', 'HRLocator','HRInquiry'"
+				 tree      = "1">									 		 					
+				 
+			  <cfif accesslist neq "" and accesslist neq "full">
+			  
+			  	 <cfquery name="ClearNoAccess" 
+				  datasource="AppsQuery" 
+				  username="#SESSION.login#" 
+				  password="#SESSION.dbpw#">
+				  	  DELETE  
+					  FROM   userquery.dbo.#SESSION.acc#Grade2_#FileNo#
+				      WHERE  OrgUnit NOT IN (#preservesinglequotes(accesslist)#)	   
+				  </cfquery>				  
+			  						  
+			  </cfif>				  							   						
+			  
+			 <!--- create HTML output on the parent level ---> 
+			 
+			 <!--- this table has the correct hierarchy already --->
+			 
+			 <cfquery name="OrgUnitList" 
+				datasource="AppsOrganization" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					SELECT    DISTINCT Mission, OrgUnitCode, OrgUnitName, HierarchyCode  
+					FROM      userquery.dbo.#SESSION.acc#Grade2_#FileNo# 						
+					WHERE     HierarchyCode LIKE '__'													
+					ORDER BY  HierarchyCode   
+			 </cfquery>
+										 							 							 																				 						 						
+			 <cfoutput query="OrgUnitList">
+					
+				<cfset HStart = hierarchycode>
+				
+				<cfset No = HStart+1>
+				<cfif No lt 10>
+			     	<cfset HEnd = "0#No#">
+				<cfelse>
+				    <cfset HEnd = "#No#">
+				</cfif>
+																																		
+				<cfquery name="Max"
+				datasource="AppsQuery"
+				username="#SESSION.login#"
+				password="#SESSION.dbpw#">
+					SELECT  MAX(Total) as Total
+					FROM  	#SESSION.acc#Grade2_#FileNo# V
+					WHERE 	HierarchyCode >= '#HStart#' 
+					AND 	HierarchyCode < '#HEnd#'
+				</cfquery>
+																																																	   
+		   		<cfinclude template="PostViewOrganization.cfm"> 					
+					  						      
+			  </cfoutput>															
+											  					  					  
+			   </table>				  					 
+				  
+			</cf_divscroll>	  
 					 		 			  
 		  </td></tr>
 		 		  

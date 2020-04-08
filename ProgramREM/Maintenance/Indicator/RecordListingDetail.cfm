@@ -27,14 +27,14 @@
 	<cfoutput query="searchresult" group="AreaCode">
 		
 		<cfoutput group="Code">
-		    <tr class="linedotted">
-			    <td colspan="12" height="25" class="labelmedium"><b>#Code# #Description#</b></td>
+		    <tr class="line labelmedium">
+			    <td style="font-size:18px;height:30px" colspan="12" height="25">#Code# #Description#</td>
 		    </tr>	
 			
 			<cfoutput>		
-			<TR class="cellcontent linedotted navigation_row">		
+			<TR class="labelmedium line navigation_row">		
 			<td height="18" width="4%" align="center"></td>
-			<TD><a href="javascript:recordedit('#mission#','#IndicatorCode#')"><font color="0080FF">#IndicatorCode#</a></TD>
+			<TD><a href="javascript:recordedit('#mission#','#IndicatorCode#')">#IndicatorCode#</a></TD>
 			<cfif indicatorcode neq IndicatorCodeDisplay>
 			<TD>
 			<a href="javascript:recordedit('#mission#','#IndicatorCode#')">#IndicatorCodeDisplay#</a>

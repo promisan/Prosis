@@ -166,10 +166,10 @@ password="#SESSION.dbpw#">
 			password="#SESSION.dbpw#">
 			UPDATE FunctionOrganization
 			SET    GradeDeployment = '#Doc.GradeDeployment#',
-				   ReferenceNo = '#Form.ReferenceNo#',
-				   DocumentNo = '#Doc.DocumentNo#',
-				   FunctionNo = '#Doc.FunctionNo#'
-			WHERE  FunctionId = '#Form.FunctionId#'
+				   ReferenceNo     = '#Form.ReferenceNo#',
+				   DocumentNo      = '#Doc.DocumentNo#',
+				   FunctionNo      = '#Doc.FunctionNo#'
+			WHERE  FunctionId      = '#Form.FunctionId#'
 		</cfquery>
 		
 		<!--- disabled 05/06/2008 
@@ -215,14 +215,10 @@ password="#SESSION.dbpw#">
 
 	<br>
 	<b>Vacancy announcement</b>
-	<p></p>
-	
-	<cfoutput query="document">
-		 	
-	 <b><u>#Description#</u></b><br>#ProfileNotes#<p></p>
-	 	 					
-	</cfoutput>	
-	
+		
+	<cfoutput query="document">		 	
+	 <b><u>#Description#</u></b><br>#ProfileNotes#<p></p>	 	 					
+	</cfoutput>		
 
 </cfsavecontent>		
 		

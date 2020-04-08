@@ -259,6 +259,7 @@
 						
 			INSERT INTO WorkPlanDetail (
 					WorkPlanId, 
+					LocationId,
 					PlanOrder, 			
 					PlanOrderCode,
 				    PlanActionMemo, 
@@ -272,8 +273,13 @@
 				    OfficerLastName, 
 		            OfficerFirstName
 			      ) VALUES (
-				  	'#workplanid#',
-					'1',		
+				  	'#workplanid#',						
+					<cfif form.LocationId neq "">
+					'#Form.LocationId#',
+					<cfelse>
+					NULL,
+					</cfif>
+					'1',	
 					<cfif form.PlanOrderCode neq "">
 					'#Form.PlanOrderCode#',
 					<cfelse>
@@ -350,7 +356,3 @@
 </cfif>
 
 </cfoutput>
-
-
-
-

@@ -286,7 +286,7 @@
      
 <cfform target="_self" action="Search4Submit.cfm?docno=#url.docno#&ID=#URL.ID#&Owner=#Search.Owner#&mode=#url.mode#&status=#search.status#" method="POST" name="searchform" id="searchform" style="height:100%">
 
-<table style="height:100%" width="100%">
+<table style="height:99.5%" width="100%">
 
  <tr>
 	    <td height="40" style="padding-left:15px;padding-right:15px">	

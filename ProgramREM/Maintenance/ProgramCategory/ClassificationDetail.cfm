@@ -1,5 +1,4 @@
 <cfset vSelectedColor = "##D2FDC6">
-
 		
 	<cfquery name="programStatus" 
 		datasource="AppsProgram" 
@@ -13,8 +12,8 @@
 	
 	<cfoutput query="programStatus" group="StatusClass">
 	
-		<tr>
-			<td class="labelmedium" width="10%" valign="top" style="padding-top:3px;">
+		<tr class="line" class="labelmedium">
+			<td width="10%" valign="top">
 				<table>
 					<tr>
 						<td class="labelmedium">
@@ -36,7 +35,7 @@
 						</cfif>
 						
 							
-							<tr class="navigation_row clsClass_#StatusClass#">
+							<tr class="navigation_row clsClass_#StatusClass# labelmedium" style="height:15px">
 								<td style="#vStatusStyle#" class="row_#vStatusId#" width="2%">
 									<input type="Checkbox" 
 										id="status_#vStatusId#" 
@@ -44,7 +43,7 @@
 										onclick="selectorHL('.row_#vStatusId#','#vSelectedColor#',this.checked)" 
 										<cfif Selected eq Code>checked</cfif>>
 								</td>
-								<td style="#vStatusStyle#" class="labelmedium row_#vStatusId#"><label for="status_#vStatusId#">#Description#</label></td>
+								<td style="#vStatusStyle#" class="row_#vStatusId#"><label for="status_#vStatusId#">#Description#</label></td>
 							</tr>
 						
 						
@@ -53,14 +52,12 @@
 			</td>
 		
 		</tr>
-		
-		<tr><td colspan="2" class="linedotted"></td></tr>
-		
+				
 	</cfoutput>
 				
 			
-	<tr>
-		<td class="labelmedium" valign="top" style="padding-top:3px;">Text entry areas:</td>
+	<tr class="labelmedium">
+		<td valign="top" style="padding-top:3px;">Text entry areas:</td>
 		<td valign="top" style="padding-top:3px;">
 			<cfquery name="programProfile" 
 				datasource="AppsProgram" 
@@ -81,7 +78,7 @@
 					<cfif Selected eq Code>
 						<cfset vProfileStyle = "background-color:#vSelectedColor#;">
 					</cfif>
-					<tr class="navigation_row" id="rowp_#vProfileId#">
+					<tr class="navigation_row labelmedium" id="rowp_#vProfileId#" style="height:15px">
 						<td style="#vProfileStyle#" width="2%">
 							<input 
 								type="Checkbox" 
@@ -90,7 +87,7 @@
 								onclick="selectorHL('##rowp_#vProfileId#','#vSelectedColor#',this.checked)"
 								<cfif Selected eq Code>checked</cfif>>
 						</td>
-						<td style="padding-left:6px; #vProfileStyle#" class="labelmedium">
+						<td style="padding-left:6px; #vProfileStyle#">
 							<label for="profile_#vProfileId#">
 								#Description#
 							</label>

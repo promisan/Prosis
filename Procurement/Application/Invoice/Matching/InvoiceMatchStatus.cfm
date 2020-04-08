@@ -73,9 +73,10 @@ password="#SESSION.dbpw#">
 	  
 	<cfelse>
 			
-		<cf_exchangerate datasource   = "AppsPurchase" 
-		                 currencyFrom = "#Receipt.Currency#" 
-						 currencyTo   = "#Invoice.DocumentCurrency#">
+		<cf_exchangerate datasource    = "AppsPurchase" 
+		                 currencyFrom  = "#Receipt.Currency#" 
+						 currencyTo    = "#Invoice.DocumentCurrency#"
+						 EffectiveDate = "#dateformat(Invoice.DocumentDate,client.dateformatshow)#">
 					
 		<cfset amt = amt+(Receipt.ReceiptAmount/exc)> 
 		<cfset inv = inv+(Receipt.InvoiceAmount/exc)> 
@@ -102,7 +103,7 @@ password="#SESSION.dbpw#">
 	<cfset perc_all = Parameter.InvoiceMatchDifference/100> 	
 	
 	<cfif Parameter.InvoiceMatchPriceActual eq "0">
-	
+		
 		<cfif perc_dif lte perc_all or amt_dif lte Parameter.InvoiceMatchDifferenceAmount>
 		
 		       <cfset acceptable = "Yes">
@@ -213,12 +214,13 @@ password="#SESSION.dbpw#">
 			  <td style="width:20%;padding-left:10px"><cf_tl id="Matched lines">:</td>
 			  <td>[#getLines.recordcount#]</td>  
 			  <td>  
-				 <cfif amt neq ""><b>#NumberFormat(amt,"__,__.__")#<cfelse>0.00</cfif>      
+				 <cfif amt neq ""><b>#NumberFormat(amt,",.__")#<cfelse>0.00</cfif>      
 			  </td>
 			  <td style="width:80">	 
 				<cf_tl id="Balance">: 
 			  </td>
-			  <td>	        
+			  <td>	 
+			         
 				 <cfif abs(Invoice.DocumentAmount-amt) gt "0.05"><font color="green"></cfif>	 
 			  	 #NumberFormat(Invoice.DocumentAmount-amt,",.__")# 
 				 <cfif amt gte "1">
@@ -229,16 +231,15 @@ password="#SESSION.dbpw#">
 			  <cfif Parameter.InvoiceMatchPriceActual gte "1">
 				<td><b><cf_tl id="On invoice"></td>
 				<td style="padding-left:5px"> 
-					 <cfif amt neq "">#NumberFormat(inv,"__,__.__")#<cfelse>0.00</cfif>   
+					 <cfif amt neq "">#NumberFormat(inv,",.__")#<cfelse>0.00</cfif>   
 				     -> <font size="1"><cf_tl id="Balance"></font>:        
 					 <cfif abs(Invoice.DocumentAmount-inv) gt "0.05"><font color="red"></cfif>	 
-				  	 #NumberFormat(Invoice.DocumentAmount-inv,"__,__.__")#  	   
+				  	 #NumberFormat(Invoice.DocumentAmount-inv,",.__")#  	   
 				</td>     
 			  </cfif>
 			  <td align="right"> 
 			     
-			   	 <cf_tl id="Posting">   
-				  <b> 
+			   	 <cf_tl id="Posting">   				 
 			     <cfif acceptable eq "Yes">
 				  <font size="3" color="008000">: <cf_tl id="Yes">
 				 <cfelse>

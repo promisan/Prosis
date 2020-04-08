@@ -1,5 +1,5 @@
 
-<cf_screentop height="100%"  scroll="Yes" label="Edit Person" html="Yes" line="no" layout="webapp" jquery="Yes" user="No" banner="gray">
+<cf_screentop height="100%"  scroll="Yes" label="Edit Person" html="No" line="no" layout="webapp" jquery="Yes" user="No" banner="gray">
 
 <cfquery name="Nation" 
 datasource="AppsSystem" 

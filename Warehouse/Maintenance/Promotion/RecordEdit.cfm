@@ -13,11 +13,10 @@
 			  label="#vAction# Promotion" 
 			  banner="#vBanner#"
 			  menuAccess="Yes" 
-			  jquery="Yes"
-			  bannerheight="55"
+			  jquery="Yes"			  
 			  systemfunctionid="#url.idmenu#">
 
-<cfajaximport tags="cfform,cfdiv,cfwindow,cfinput-datefield">
+<cfajaximport tags="cfform,cfdiv,cfwindow">
 <cf_calendarScript>
 
 <cf_tl id = "The expiration date and time must be greater than the effective date and time." var = "vDateError">
@@ -86,13 +85,9 @@
 		
 		function elementEdit(promotionid,serial) {
 		    
-			try { ColdFusion.Window.destroy('mypromo',true) } catch(e) {}
-			ColdFusion.Window.create('mypromo', 'Promotion', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,resizable:false,center:true})    							
+			try { ProsisUI.closeWindow('mypromo',true) } catch(e) {}
+			ProsisUI.createWindow('mypromo', 'Promotion Element', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,resizable:false,center:true})    							
 			ColdFusion.navigate('#session.root#/Warehouse/Maintenance/Promotion/Element/ElementView.cfm?idmenu=#url.idmenu#&promotionid=' + promotionid + '&serial=' + serial,'mypromo') 		
-//
-//
-//			window.showModalDialog('Element/ElementEdit.cfm?idmenu=#url.idmenu#&promotionid=' + promotionid + '&serial=' + serial + '&ts=' + new Date().getTime(), window, 'dialogWidth: 800px; dialogHeight: 600px; resizable:yes');
-//			ColdFusion.navigate('Element/ElementListing.cfm?idmenu=#url.idmenu#&id1=' + promotionid, 'divElementListing');
 		}
 		
 		function elementrefresh(promotionid) {

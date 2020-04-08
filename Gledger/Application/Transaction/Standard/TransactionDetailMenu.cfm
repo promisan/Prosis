@@ -128,14 +128,14 @@
 		 <cfset sc = "Payment">	 
 		 <cfinclude template="TransactionDetailScript.cfm">
 					
-				<cfset wd = "64">
-				<cfset ht = "64">
+				<cfset wd = "68">
+				<cfset ht = "68">
 			
 				<cf_tl id="Manual Transaction Entry" var="1">
 				
 				<cfset itm = "1">
 				
-				<tr>
+				<tr class="line">
 					
 				<cf_menutab item       = "#itm#" 
 				            iconsrc    = "Manual-Entry.png" 
@@ -175,7 +175,7 @@
 								
 					<cf_tl id="Select Pending Payable Transactions" var="1">			
 					
-					<tr>		
+					<tr class="line">		
 									
 					<cf_menutab item       = "#itm#" 
 					            iconsrc    = "Pending-Payments.png" 
@@ -190,7 +190,7 @@
 				
 				<cfset itm = itm+1>	
 					
-				<tr>			
+				<tr class="line">			
 				<cf_menutab item       = "#itm#" 
 				            iconsrc    = "Detail.png" 
 							iconwidth  = "#wd#" 

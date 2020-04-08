@@ -258,14 +258,16 @@ function toggleme(box,action) {
 	</TR>
 	
 	<TR>
-    <TD valign="top" class="labelmedium" style="padding-top:3px">Accrual method:</TD>
-    <TD>
+    <TD valign="top" class="labelmedium" style="padding-top:3px"><cf_tl id="Accrual method">:</TD>
+    <TD>	    
 		<table cellspacing="0" cellpadding="0">
-		    <tr><td class="labelmedium"><INPUT type="radio" class="radiol" name="LeaveAccrual" onclick="toggleme('accrual','regular')" id="LeaveAccrual" value="1" <cfif get.LeaveAccrual eq "1">checked</cfif>> Accrual setting</td></tr>
-			<tr><td class="labelmedium"><INPUT type="radio" class="radiol" name="LeaveAccrual" onclick="toggleme('accrual','regular')" id="LeaveAccrual" value="2" <cfif get.LeaveAccrual eq "2">checked</cfif>> Recorded Overtime</td></tr>
-			<tr><td class="labelmedium"><INPUT type="radio" class="radiol" name="LeaveAccrual" onclick="toggleme('accrual','regular')" id="LeaveAccrual" value="3" <cfif get.LeaveAccrual eq "3">checked</cfif>> Contract Entitlement</td></tr>
-			<tr><td class="labelmedium"><INPUT type="radio" class="radiol" name="LeaveAccrual" onclick="toggleme('accrual','regular')" id="LeaveAccrual" value="4" <cfif get.LeaveAccrual eq "4">checked</cfif>> Threshold</td></tr>
-			<tr><td class="labelmedium"><INPUT type="radio" class="radiol" name="LeaveAccrual" onclick="toggleme('accrual','hide')" id="LeaveAccrual" value="0" <cfif get.LeaveAccrual eq "0">checked</cfif>> No Accrual</td></tr>
+		    <tr class="labelmedium">
+			<td><INPUT type="radio" class="radiol" name="LeaveAccrual" onclick="toggleme('accrual','regular')" id="LeaveAccrual" value="1" <cfif get.LeaveAccrual eq "1">checked</cfif>></td><td style="padding-right:3px">Accrual setting</td>
+			<td><INPUT type="radio" class="radiol" name="LeaveAccrual" onclick="toggleme('accrual','regular')" id="LeaveAccrual" value="2" <cfif get.LeaveAccrual eq "2">checked</cfif>></td><td style="padding-right:3px">Recorded Overtime</td>
+			<td><INPUT type="radio" class="radiol" name="LeaveAccrual" onclick="toggleme('accrual','regular')" id="LeaveAccrual" value="3" <cfif get.LeaveAccrual eq "3">checked</cfif>></td><td style="padding-right:3px">Contract Entitlement</td>
+			<td><INPUT type="radio" class="radiol" name="LeaveAccrual" onclick="toggleme('accrual','regular')" id="LeaveAccrual" value="4" <cfif get.LeaveAccrual eq "4">checked</cfif>></td><td style="padding-right:3px">Threshold</td>
+			<td><INPUT type="radio" class="radiol" name="LeaveAccrual" onclick="toggleme('accrual','hide')" id="LeaveAccrual" value="0" <cfif get.LeaveAccrual eq "0">checked</cfif>></td><td style="padding-right:3px">No Accrual</td>
+			</tr>
 		</table>
 	</TD>
 	</TR>	
@@ -280,9 +282,9 @@ function toggleme(box,action) {
     <TD valign="top" class="labelmedium" style="padding-top:3px">Balance calculation Mode:</TD>
     <TD>
 		<table cellspacing="0" cellpadding="0">
-		    <tr>
-			<td class="labelmedium"><INPUT type="radio" class="radiol" name="LeaveBalanceMode" id="LeaveBalanceMode" value="Absolute" <cfif get.LeaveBalanceMode eq "Absolute">checked</cfif>> Absolute</td>			
-			<td class="labelmedium"><INPUT type="radio" class="radiol" name="LeaveBalanceMode" id="LeaveBalanceMode" value="Relative" <cfif get.LeaveBalanceMode neq "Absolute">checked</cfif>> Relative</td>
+		    <tr class="labelmedium">
+			<td><INPUT type="radio" class="radiol" name="LeaveBalanceMode" id="LeaveBalanceMode" value="Absolute" <cfif get.LeaveBalanceMode eq "Absolute">checked</cfif>></td><td style="padding-right:3px">Absolute</td>			
+			<td><INPUT type="radio" class="radiol" name="LeaveBalanceMode" id="LeaveBalanceMode" value="Relative" <cfif get.LeaveBalanceMode neq "Absolute">checked</cfif>></td><td style="padding-right:3px">Relative</td>
 			</tr>
 		</table>
 	</TD>
@@ -299,9 +301,9 @@ function toggleme(box,action) {
     <TD valign="top" class="labelmedium" style="padding-top:3px">Enable sufficient balance check:</TD>
     <TD>
 		<table cellspacing="0" cellpadding="0">
-		    <tr>
-			<td class="labelmedium"><INPUT type="radio" class="radiol" name="LeaveBalanceEnforce" id="LeaveBalanceEnforce" value="1" <cfif get.LeaveBalanceEnforce eq "1">checked</cfif>> Yes</td>			
-			<td class="labelmedium"><INPUT type="radio" class="radiol" name="LeaveBalanceEnforce" id="LeaveBalanceEnforce" value="0" <cfif get.LeaveBalanceEnforce eq "0">checked</cfif>> Disabled</td>
+		    <tr class="labelmedium">
+			<td><INPUT type="radio" class="radiol" name="LeaveBalanceEnforce" id="LeaveBalanceEnforce" value="1" <cfif get.LeaveBalanceEnforce eq "1">checked</cfif>></td><td style="padding-right:3px">Yes</td>			
+			<td><INPUT type="radio" class="radiol" name="LeaveBalanceEnforce" id="LeaveBalanceEnforce" value="0" <cfif get.LeaveBalanceEnforce eq "0">checked</cfif>></td><td style="padding-right:3px">Disabled</td>
 			</tr>
 		</table>
 	</TD>
@@ -312,11 +314,11 @@ function toggleme(box,action) {
        <td class="labelmedium">Deduct working days only:</TD>    
 	   <td>
 		   <table>
-			   <tr>
-			   <td class="labelmedium"><INPUT type="radio" class="radiol" name="WorkdaysOnly" id="WorkdaysOnly" value="1" <cfif get.WorkDaysOnly eq "1">checked</cfif>></td>
-			   <td class="labelmedium">Yes</td>
-			   <td class="labelmedium"><INPUT type="radio" class="radiol" name="WorkdaysOnly" id="WorkdaysOnly" value="0" <cfif get.WorkDaysOnly eq "0">checked</cfif>></td>
-			   <td class="labelmedium">No</td>	
+			   <tr class="labelmedium">
+			   <td><INPUT type="radio" class="radiol" name="WorkdaysOnly" id="WorkdaysOnly" value="1" <cfif get.WorkDaysOnly eq "1">checked</cfif>></td>
+			   <td>Yes</td>
+			   <td><INPUT type="radio" class="radiol" name="WorkdaysOnly" id="WorkdaysOnly" value="0" <cfif get.WorkDaysOnly eq "0">checked</cfif>></td>
+			   <td>No</td>	
 			   </tr>
 		   </table>
 	   </td>

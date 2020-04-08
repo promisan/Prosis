@@ -86,10 +86,10 @@ password="#SESSION.dbpw#">
 		FROM  #SESSION.acc#GledgerLine_#client.sessionNo# 		
 	</cfquery>	
 	
-								
+	<cfset apply = "0">
+									
 	<cfloop query="Contra">
-	
-					
+						
 		<cfif ParentLineId neq "">
 													
 			<cfquery name="Header" 
@@ -186,27 +186,30 @@ password="#SESSION.dbpw#">
 								
 				<cfquery name="Check" 
 				 datasource="AppsLedger" 
-				        username="#SESSION.login#" 
-				        password="#SESSION.dbpw#">
-						SELECT *
-						FROM   TransactionLine
-						WHERE  Journal               = '#HeaderSelect.Journal#'
-						AND    JournalSerialNo       = '#HeaderSelect.JournalSerialNo#'	
-						<!--- provision added 10/5/2010 based on obsevation kristina to edit a payment reconciliation record)" ---> 
+				 username="#SESSION.login#" 
+				 password="#SESSION.dbpw#">
+						SELECT  *
+						FROM    TransactionLine
+						WHERE   Journal               = '#HeaderSelect.Journal#'
+						AND     JournalSerialNo       = '#HeaderSelect.JournalSerialNo#'	
+						<!---   provision added 10/5/2010 based on obsevation kristina to edit 
+						        a payment reconciliation record)" ---> 
 						<cfif amtD gt 0>
-						AND   AmountDebit > 0 
+						AND     AmountDebit > 0 
 						<cfelse>
-						AND   AmountCredit > 0
+						AND     AmountCredit > 0
 						</cfif>						  
-						AND   TransactionSerialNo   = '0'						
+						AND     TransactionSerialNo   = '0'						
 				</cfquery>
 				
-				   <!--- not allowed --->				
+				<!--- not allowed --->				
 				
-				<cfif Check.recordcount eq "1">
-				  <!--- provision added 10/5/2010 based on obsevation kristina to edit a payment reconciliation record)" ---> 
-				 			  
-				   <cfset lineid = Check.TransactionLineId>				   
+				<cfif Check.recordcount eq "1" and apply eq "0">
+				
+				   <!--- provision added 10/5/2010 based on obsevation kristina to edit a payment reconciliation record 
+				   adjust a but by hanno to prevent doubles ---> 				 			  
+				   <cfset lineid = Check.TransactionLineId>		
+				   <cfset apply = "1">		   
 				   
 				<cfelse>
 				
@@ -217,8 +220,8 @@ password="#SESSION.dbpw#">
 			
 				<cfcatch>	
 						
-					 <cf_assignId>					
-				     <cfset lineid = rowguid>
+					<cf_assignId>					
+				    <cfset lineid = rowguid>
 					 
 				</cfcatch>
 			
@@ -846,6 +849,4 @@ password="#SESSION.dbpw#">
 <script>
 	Prosis.busy('no')
 </script>
-
-<cf_compression>
 

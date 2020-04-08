@@ -44,7 +44,7 @@
 	<tr><td colspan="2" style="font-size:20px;height:40px" class="labellarge">Workflow <u>Process Dialog</u></td></tr>	
 	
 	<tr>				
-	   	 <TD class="labelmedium" style="padding-left:10px;cursor:pointer"><cf_UIToolTip  tooltip="Allow actor to enter the processing date">Enable Process date:</cf_UIToolTip></TD>
+	   	 <TD class="labelmedium" style="padding-left:10px;cursor:pointer"><cftooltip  tooltip="Allow actor to enter the processing date">Enable Process date:</cftooltip></TD>
 		 <TD width="80%">
 		   <INPUT type="checkbox" class="radiol" name="ActionDateInput" id="ActionDateInput" value="1" <cfif Get.ActionDateInput eq "1">checked</cfif>>
 		 </td>			
@@ -252,9 +252,9 @@
 		 <table cellspacing="0" cellpadding="0">
 		 <tr><td height="3"></td></tr>
 		 <tr><td style"padding-left:10px" class="labelmedium">
-		 <cf_UIToolTip tooltip="Write a SELECT query that should have at least one record as a result in order to trigger the embedded workflow:">
+		 <cftooltip tooltip="Write a SELECT query that should have at least one record as a result in order to trigger the embedded workflow:">
 		 Condition for Embedding:
-		 </cf_UIToolTip>
+		 </cftooltip>
 		 </td></tr></table>
 		 </td>
 		
@@ -281,9 +281,9 @@
 	
 	<TR>
 		<TD style="cursor:pointer;padding-left:10px" class="labelmedium">
-		<cf_UIToolTip tooltip="Show the standard document reference in the process dialog.">
+		<cftooltip tooltip="Show the standard document reference in the process dialog.">
 		Object Reference:
-		</cf_UIToolTip>
+		</cftooltip>
 		</TD>
 		<TD class="labelmedium">
 		<table>
@@ -302,9 +302,9 @@
 	
 	<TR>
     <TD class="labelmedium" style="cursor:pointer;padding-left:10px">	
-	<cf_UIToolTip  tooltip="Select a custom dialog which will be loaded once the step is processed">
+	<cftooltip  tooltip="Select a custom dialog which will be loaded once the step is processed">
 	[TAB] Custom Dialog:
-	</cf_UIToolTip>
+	</cftooltip>			
 	</TD>
     <td><table cellspacing="0" cellpadding="0"><tr><td>
 		    
@@ -321,7 +321,7 @@
 						
 			</td>
 			
-			<td class="labelmedium" style="padding-left:5px"><cf_UIToolTip  tooltip="Parameter to be passed (url.wparam) to the process in order to trigger a predefined behavior for the dialog.<br><b>Example</b> HRAP to show certain data for entry">&wparam=</cf_UIToolTip></td>
+			<td class="labelmedium" style="padding-left:5px"><cftooltip  tooltip="Parameter to be passed (url.wparam) to the process in order to trigger a predefined behavior for the dialog.<br><b>Example</b> HRAP to show certain data for entry">&wparam=</cftooltip></td>
 			<td style="padding-left:5px">
 			
 			<cfif Get.actionDialog eq "">
@@ -383,7 +383,7 @@
 		<!--- prevent embed within an embed --->
 					
 		<tr>				
-	   	 <TD style="padding-left:4px;cursor:pointer" class="labelit"><cf_UIToolTip  tooltip="Memo entry box">Memo/Notes:</cf_UIToolTip></TD>
+	   	 <TD style="padding-left:4px;cursor:pointer" class="labelit"><cftooltip  tooltip="Memo entry box">Memo/Notes:</cftooltip></TD>
 		 <TD>
 		 
 		 <table>
@@ -425,15 +425,15 @@
 		<TR>
 		    <TD style="cursor:pointer;padding-left:4px" class="labelit">			
 			
-			<cf_UIToolTip tooltip="Select an embedded workflow which needs to be completed before this step can be processed">
+			<cftooltip tooltip="Select an embedded workflow which needs to be completed before this step can be processed">
 			  Embedded flow:
-			</cf_UIToolTip>
+			</cftooltip>
 			
 			</td>
 			
 			<td class="labelit">
-
-			 <cfif Embed.recordcount gte "1" and Check.EmbeddedFlow eq "0" and (ActionMode.ProcessMode eq "1" or ActionMode.ProcessMode eq "2")>
+			
+			 <cfif Embed.recordcount gte "1" and Check.EmbeddedFlow eq "0" and (ActionMode.ProcessMode eq "1" or ActionMode.ProcessMode eq "2"  or ActionMode.ProcessMode eq "3")>
 											   
 					   <select class="regularxl" name="EmbeddedClass" id="EmbeddedClass">
 					    <option value=""  <cfif Get.EmbeddedClass eq "">selected</cfif>>N/A</option>
@@ -462,8 +462,8 @@
 	
 					
 	<TR>
-    <TD class="labelmedium" height="25" style="padding-right:15px;padding-left:10px;cursor:pointer"><cf_UIToolTip  tooltip="Merge the [Notes/Memo] from previously completely step into the text input for this step">
-	  [TAB]&nbsp;Prior&nbsp;Document:</cf_UIToolTip></b>
+    <TD class="labelmedium" height="25" style="padding-right:15px;padding-left:10px;cursor:pointer"><cftooltip  tooltip="Merge the [Notes/Memo] from previously completely step into the text input for this step">
+	  [TAB]&nbsp;Prior&nbsp;Document:</cftooltip></b>
     </TD>
 	<TD>
 	  <table cellspacing="0" cellpadding="0">
@@ -486,7 +486,7 @@
 		
 		<cfset cl = "hide">							
 		
-		<TD class="#cl#" id="inherit1"><cf_UIToolTip  tooltip="Merge the [Text Input] from previously completely step into the text input for this step">Inherit text:</cf_UIToolTip></TD>
+		<TD class="#cl#" id="inherit1"><cftooltip  tooltip="Merge the [Text Input] from previously completely step into the text input for this step">Inherit text:</cftooltip></TD>
 		<TD class="#cl#" id="inherit2">
 			<INPUT type="checkbox" name="ActionViewMemoCopy" id="ActionViewMemoCopy" value="1" <cfif #Get.ActionViewMemoCopy# eq "1">checked</cfif>>
 		</td>
@@ -503,7 +503,7 @@
 	<tr><td style="font-size:20px;height:40px" class="labellarge">Ticklers/Notification</font></td></tr>
 	
 	<tr>				
-   	 <TD class="labelmedium" style="padding-left:10px;cursor:pointer"><cf_UIToolTip tooltip="Once this action is due, the action will be presented for the actor under the [My Clearances] function">Show <font color="2894FF"><u>My Clearances</u></font></cf_UIToolTip></td>
+   	 <TD class="labelmedium" style="padding-left:10px;cursor:pointer"><cftooltip tooltip="Once this action is due, the action will be presented for the actor under the [My Clearances] function">Show <font color="2894FF"><u>My Clearances</u></font></cftooltip></td>
 	 <TD>
 	   <INPUT type="checkbox" class="radiol" name="EnableMyClearances" id="EnableMyClearances" value="1" <cfif Get.EnableMyClearances eq "1">checked</cfif>> 
 	 </td>			
@@ -517,9 +517,9 @@
 	
 	<tr>				
    	 <td height="30" class="labelmedium" style="padding-top:5px;padding-left:10px;cursor:pointer" valign="top">
-	  <cf_UIToolTip tooltip="Actor Mail. Mail or Exchange Task Action will not be sent once the user disabled mail and/or exchange notification in his/her preferences">
+	  <cftooltip tooltip="Actor Mail. Mail or Exchange Task Action will not be sent once the user disabled mail and/or exchange notification in his/her preferences">
 	  Mail / Exchange Task
-	  </cf_UIToolTip>
+	  </cftooltip>	
 	 </td>
 	 
 	 
@@ -539,7 +539,7 @@
 								<!--- <td class="labelmedium" style="min-width:70px;padding-top:2px;padding-left:9px" valign="top"></td> --->
 								<td class="labelmedium" style="min-width:80px;padding-left:3px;padding-right:5px;min-width:140px">Actors On-the-fly:</td>
 								<td style="padding-left:6px;"><input type="checkbox" class="radiol" name="NotificationFly" id="NotificationFly" value="1" <cfif Get.NotificationFly eq "1">checked</cfif>></td>											
-								<td class="labelmedium" style="min-width:80px;padding-left:13px;padding-right:5px"><cf_UIToolTip tooltip="Users that have been preset with access to this step">Role enabled actors:</cf_UIToolTip></td>
+								<td class="labelmedium" style="min-width:80px;padding-left:13px;padding-right:5px"><cftooltip tooltip="Users that have been preset with access to this step">Role enabled actors:</cftooltip></td>
 								<td><input type="checkbox" class="radiol" name="NotificationGlobal" id="NotificationGlobal" value="1" <cfif Get.NotificationGlobal eq "1">checked</cfif>> </td>
 							</tr>	
 						</table>
@@ -573,7 +573,7 @@
 				</td>		
 	
 				<cfif entity.DocumentPathName neq "">
-					<td width="10%" class="labelmedium" style="padding-left:13px"><cf_UIToolTip tooltip="Include source object attachments"><font face="Calibri" size="2"><i>Attachments:</cf_UIToolTip></td>
+					<td width="10%" class="labelmedium" style="padding-left:13px"><cftooltip tooltip="Include source object attachments"><font face="Calibri" size="2"><i>Attachments:</cftooltip></td>
 					<td width="5%"><input type="checkbox" class="radiol" name="NotificationAttachment" id="NotificationAttachment" value="1" <cfif Get.NotificationAttachment eq "1">checked</cfif>> </td>		
 				</cfif>
 			</tr>		

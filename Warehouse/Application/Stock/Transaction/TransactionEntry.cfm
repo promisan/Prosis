@@ -152,17 +152,17 @@
 					</td>
 				</tr>							
 				<tr>
-					<td style="z-index:3; position:absolute; top:27px; left:90px; color:45617d; font-family:calibri,trebuchet MS; font-size:25px; font-weight:bold;">
+					<td style="z-index:3; position:absolute; top:27px; left:90px; color:##45617d; font-family:calibri,trebuchet MS; font-size:25px; font-weight:bold;">
 						<cfoutput>#lt_content#</cfoutput>
 					</td>
 				</tr>
 				<tr>
-					<td style="position:absolute; top:14px; left:90px; color:e9f4ff; font-family:calibri,trebuchet MS; font-size:40px; font-weight:bold; z-index:2">
+					<td style="position:absolute; top:14px; left:90px; color:##e9f4ff; font-family:calibri,trebuchet MS; font-size:40px; font-weight:bold; z-index:2">
 						<cfoutput>#lt_content#</cfoutput>
 					</td>
 				</tr>							
 				<tr>
-					<td style="position:absolute; top:55px; left:90px; color:45617d; font-family:calibri,trebuchet MS; font-size:12px; font-weight:bold; z-index:4">
+					<td style="position:absolute; top:55px; left:90px; color:##45617d; font-family:calibri,trebuchet MS; font-size:12px; font-weight:bold; z-index:4">
 										
 					 <cf_LanguageInput
 						TableCode       = "Ref_ModuleControl" 

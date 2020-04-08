@@ -1,6 +1,6 @@
 <!--- Create Criteria string for query from data entered thru search form --->
 
-<cf_screentop height="100%" scroll="Yes" html="No">
+<cf_screentop height="100%" jquery="yes" scroll="Yes" html="No">
 
 <table width="100%" 
        height="100%" 

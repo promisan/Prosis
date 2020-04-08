@@ -82,9 +82,8 @@
 				 if (confirm("#lt_text#?")) {
 				 
 				  ref = document.getElementById("customeridselect_val").value;
-								  
-				  try { ColdFusion.Window.destroy('customeradd',true)} catch(e){};
-				  ProsisUI.createWindow('customeradd', 'Add Customer', '',{x:100,y:100,width:700,height:700,resizable:false,modal:true,center:true})			  
+									 
+				  ProsisUI.createWindow('customeradd', 'Add Customer', '',{x:100,y:100,width:700,height:document.body.clientHeight-80,resizable:false,modal:true,center:true})			  
 		  	      ptoken.navigate('#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/addCustomer.cfm?mission=#url.mission#&warehouse=#url.warehouse#&reference='+ref,'customeradd');
 				  
 			     // if (ret != 1 && ret) {					  

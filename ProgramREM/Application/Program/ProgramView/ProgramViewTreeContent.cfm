@@ -39,17 +39,17 @@
 	
 <cfif GlobalAccess neq "NONE" OR MissionAccess eq "READ" OR MissionAccess eq "EDIT" or MissionAccess eq "ALL">
 		 
- 	   <cftree name="idtree" format="html" required="No">
-		   <cftreeitem 
-			  bind="cfc:service.Tree.OrganizationTree.getNodes({cftreeitempath},{cftreeitemvalue},'#url.mission#','#man#','#session.root#/ProgramREM/Application/Program/ProgramView/ProgramViewOpen.cfm','PRG','#url.mission#','#url.mission#','#man#','','Full','0','none','#seldate#')">  		 
-	   </cftree>		
+ 	   <cf_UItree name="idtree" format="html" required="No">
+		   <cf_UItreeitem 
+			  bind="cfc:service.Tree.OrganizationTree.getNodesV2({cftreeitempath},{cftreeitemvalue},'#url.mission#','#man#','#session.root#/ProgramREM/Application/Program/ProgramView/ProgramViewOpen.cfm','PRG','#url.mission#','#url.mission#','#man#','','Full','0','none','#seldate#')">  		 
+	   </cf_UItree>		
 
 <cfelse>
 	
-	    <cftree name="idtree" format="html" required="No">
-			<cftreeitem 
-			  bind="cfc:service.Tree.OrganizationTree.getNodes({cftreeitempath},{cftreeitemvalue},'#url.mission#','#man#','#session.root#/ProgramREM/Application/Program/ProgramView/ProgramViewOpen.cfm','PRG','#url.mission#','#url.mission#','#man#','','role','0','none','#seldate#')">  		 
-       </cftree>		
+	    <cf_UItree name="idtree" format="html" required="No">
+			<cf_UItreeitem 
+			  bind="cfc:service.Tree.OrganizationTree.getNodesV2({cftreeitempath},{cftreeitemvalue},'#url.mission#','#man#','#session.root#/ProgramREM/Application/Program/ProgramView/ProgramViewOpen.cfm','PRG','#url.mission#','#url.mission#','#man#','','role','0','none','#seldate#')">  		 
+       </cf_UItree>		
     
 </cfif> 
 

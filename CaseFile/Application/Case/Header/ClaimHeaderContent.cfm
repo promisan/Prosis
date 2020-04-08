@@ -25,6 +25,14 @@
 		 }  
 	}
 
+	function del(id) {
+			
+		var ans	=	confirm("this Case file will be removed, please confirm?");
+		if(ans == true){
+			ptoken.navigate('../Header/ClaimHeaderSubmit.cfm?mid=#mid#&claimid='+id+'&curraction=del','detailsubmit','','','POST','caseform')		
+		}
+		 
+	}
 
 	function selectclaimant(tpe,tree) {   		
    		  ptoken.navigate('../Header/ClaimantSelect.cfm?mid=#mid#&tree='+tree+'&claimid=#URL.ClaimId#&claimtype='+tpe,'claimant')		  
@@ -305,7 +313,7 @@
 		
 			<cfinput type="Text"
 		       name="DocumentNo"
-		       required="Yes"
+		       required="No"
 			   message="Please enter a document reference"
 			   class="regularxl"
 			   maxlength="20"
@@ -498,7 +506,7 @@
 		           bindonload     = "No" 	      			 			 				          		            
 				   init           = "yes"  
 				   resize         = "No" 
-				   height         = "420"    
+				   height         = "220"    
 				   color          = "ffffff" 
 		           toolbar        = "full">#get.ClaimMemo#</cf_textarea>
 				 
@@ -512,7 +520,7 @@
 		    <cf_textarea name="ClaimMemo"                 		          
 		           bindonload     = "No" 	      			 			 				          
 		           resize         = "No"             				
-				   height         = "320"
+				   height         = "220"
 				   init           = "yes"  
 		           toolbar        = "basic"
 				   color          = "ffffff">#get.ClaimMemo#</cf_textarea>
@@ -545,13 +553,26 @@
 	
 	<tr><td height="1" colspan="4" class="linedotted"></td></tr>
 	<tr>
-	<td align="center" colspan="4">
-		
-				<cfoutput>
-				    <cf_tl id="Update" var="1">
-				    <input type="button" name="Save" style="font-size:13px;height:28;width:250" class="button10g" value="#lt_text#" onclick="Prosis.busy('yes');updateTextArea();validate('#url.claimid#')">				
-				</cfoutput>		
-		</td>
+	<cfset thisColsPan="4">
+	
+	<!---checking on the access and status to remove this record ---->
+	<cfif Get.ActionStatus neq "1" and (Access eq "EDIT" or Access eq "ALL")>
+		<cfset thisColsPan="2">
+		<td align="center" colspan="#thisColsPan#">
+			<cfoutput>
+			    <cf_tl id="Remove" var="1">
+					<input type="button" name="Save" style="font-size:13px;height:28;width:250" class="button10g" value="#lt_text#" onclick="Prosis.busy('yes');del('#url.claimid#'); parent.window.close()">				
+			</cfoutput>	
+		</td>	
+			
+	</cfif>
+	
+		<td align="center" colspan="#thisColsPan#">
+			<cfoutput>
+			    <cf_tl id="Update" var="1">
+					<input type="button" name="Save" style="font-size:13px;height:28;width:250" class="button10g" value="#lt_text#" onclick="Prosis.busy('yes');updateTextArea();validate('#url.claimid#')">				
+			</cfoutput>	
+		</td>	
 	</tr>	
 	
 	

@@ -115,10 +115,9 @@
 
 	var lastSelectedRow = -1;
 	
-	function selectmas(flditemmaster,mis,per,reqno) {
-         
-		try { ColdFusion.Window.destroy('mymaster',true) } catch(e) {}
-		ColdFusion.Window.create('mymaster', 'Procurement Master', '',{x:100,y:100,height:document.body.clientHeight-60,width:document.body.clientWidth-60,modal:false,resizable:false,center:true})    							
+	function selectmas(flditemmaster,mis,per,reqno) {        
+		
+		ProsisUI.createWindow('mymaster', 'Procurement Master', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:false,resizable:false,center:true})    							
 		ColdFusion.navigate('#SESSION.root#/Procurement/Application/Requisition/Item/ItemSearchView.cfm?mission='+mis+'&flditemmaster= ' + flditemmaster, 'mymaster');	       			
 		
    }

@@ -153,7 +153,7 @@ ORDER BY HierarchyCode
 		  
 		    <td width="30" class="navigation_action" 
 				style="padding-left:6px;padding-top:1px" 
-				onclick="ColdFusion.navigate('#link#&action=insert&#url.des1#=#orgunit#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ColdFusion.Window.hide('dialog#url.box#')</cfif>;">			
+				onclick="ColdFusion.navigate('#link#&action=insert&#url.des1#=#orgunit#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>;">			
 			   <cf_img icon="open">			  		
 			</td>
 			<td width="60">#OrgUnitCode#</td>

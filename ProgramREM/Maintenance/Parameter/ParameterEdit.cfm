@@ -15,7 +15,7 @@
   
  </style>
 
-<cf_screentop html="No" height="100%" scroll="Yes">
+<cf_screentop html="No" height="100%" jquery="yes" scroll="Yes">
  
 <cfquery name="MissionList" 
 	datasource="AppsProgram" 
@@ -98,7 +98,7 @@
 			
 				<td valign="top" style="width:10%;padding-top:12px;padding-left:30px;padding-right:10px">
 		
-					<select name="mission" id="mission" onchange="Prosis.busy('yes');reload(this.value)" size="1" style="font-size:19px;width:160px;size:4" class="regularxl">
+					<select name="mission" id="mission" onchange="Prosis.busy('yes');reload(this.value)" size="1" style="font-size:19px;width:160px;height:30px" class="regularxl">
 											<cfloop query="MissionList">
 												 <option value="#Mission#" <cfif mission eq "#URL.mission#">selected</cfif>>#Mission#
 											</cfloop>

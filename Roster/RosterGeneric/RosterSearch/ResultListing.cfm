@@ -1,5 +1,5 @@
 	
-<cf_screentop label="Roster Search Result" height="100%" jQuery="Yes" scroll="Yes" html="No">
+<cf_screentop label="Roster Search Result" height="100%" jQuery="Yes" scroll="no" html="No">
 
 <cfparam name="url.print" default="0">
 <cfparam name="url.docno" default="">
@@ -27,15 +27,15 @@
 <table width="100%" height="100%"><tr><td style="width:100%;height:100%" class="clsPrintContent">
  
 <form action="<cfoutput>#SESSION.root#/roster/rostergeneric/RosterSearch/ResultShortList.cfm?mode=#url.mode#&docno=#url.docno#&ID=#URL.ID#&ID1=#URL.ID1#&ID2=#URL.ID2#&ID3=#URL.ID3#</cfoutput>" 
-	method="post" style="height:100%;padding-right:8px"
+	method="post" style="height:98%;padding-right:8px"
 	name="resultlist">
 
-<table width       = "98%" height="100%"    
+<table width       = "98%"    
        border      = "0"
        cellspacing = "0"
        cellpadding = "0"
 	   class       = "formpadding"
-	   style       = "padding-top:4px;padding-right:6px"
+	   style       = "height:100%;padding-top:4px;padding-right:6px"
        align       = "right">
  
 <input type="hidden" name="lay" id="lay" value="<cfoutput>#URL.Lay#</cfoutput>">
@@ -53,22 +53,20 @@
     	<cfoutput>
 		
 		<table width="100%">
-		<tr><td style="height:20px;font-weight:200" class="labelmedium"><cf_tl id="Search">:</td>
-			<td style="height:20px;padding-left:10px;font-weight:200"  class="labelmedium">#SearchAction.OfficerFirstName# #SearchAction.OfficerLastName# (#SearchAction.SearchId#)</b></td>
+		<tr class="labelmedium"><td style="height:20px"><cf_tl id="Search">:</td>
+			<td style="height:20px;padding-left:10px"  class="labelmedium">#SearchAction.OfficerFirstName# #SearchAction.OfficerLastName# (#SearchAction.SearchId#)</b></td>
 		</tr>
-		<tr> 
-			<td style="height:20px;font-weight:200"  class="labelmedium"><cf_tl id="Date">:</td>
-			<td style="height:20px;padding-left:10px;font-weight:200"  class="labelmedium">#DateFormat(SearchAction.Created)#</b>
+		<tr class="labelmedium"> 
+			<td style="height:20px"><cf_tl id="Date">:</td>
+			<td style="height:20px;padding-left:10px"  class="labelmedium">#DateFormat(SearchAction.Created)#</b>
 		</tr>
 
 		<cfif CheckDetail.recordcount eq "1">
-		<tr><td style="height:20px"  class="labelmedium"><cf_tl id="Document">:</td>
-			<td style="height:20px;padding-left:10px"  class="labelmedium"><cfif CheckDetail.DocumentNo neq "">
-				  <a href="javascript: showdocument('#CheckDetail.DocumentNo#')">
-				  <font color="000033">#CheckDetail.ReferenceNo#</font></a>
+		<tr class="labelmedium"><td style="height:20px"><cf_tl id="Document">:</td>
+			<td style="height:20px;padding-left:10px"><cfif CheckDetail.DocumentNo neq "">
+				  <a href="javascript: showdocument('#CheckDetail.DocumentNo#')">#CheckDetail.ReferenceNo#</a>
 				<cfelse>
-				  <a href="javascript: va('#CheckDetail.FunctionId#')">
-				  <font color="000033">#CheckDetail.ReferenceNo#</font></a>
+				  <a href="javascript: va('#CheckDetail.FunctionId#')">#CheckDetail.ReferenceNo#</a>
 			</cfif>
 		</td>
 		</tr>	
@@ -192,7 +190,7 @@
 				</td>
 				<td style="padding-left:5px">
 				<cfif url.mode neq "ssa" and url.mode neq "vacancy">
-				<a href="##" title="View criteria" class="clsNoPrint"><font color="6688aa"><u>View criteria</u></a>
+				<a href="##" title="View criteria" class="clsNoPrint"><u>View criteria</u></a>
 				</cfif>
 				</td>
 				
@@ -263,11 +261,9 @@
 		<cfif CheckDetail.recordcount eq "1">&nbsp;<cf_tl id="for">: <b>
 		
 		<cfif CheckDetail.DocumentNo neq "">
-		  <a href="javascript: showdocument('#CheckDetail.DocumentNo#')">
-		  <font color="000033">#CheckDetail.ReferenceNo#</font></a>
+		  <a href="javascript: showdocument('#CheckDetail.DocumentNo#')">#CheckDetail.ReferenceNo#</a>
 		<cfelse>
-		  <a href="javascript: va('#CheckDetail.FunctionId#')">
-		  <font color="000033">#CheckDetail.ReferenceNo#</font></a>
+		  <a href="javascript: va('#CheckDetail.FunctionId#')">#CheckDetail.ReferenceNo#</a>
 		</cfif>
 		</b></cfif>
 		&nbsp;&nbsp;
@@ -304,7 +300,7 @@
 		</td>
 		</tr>
 					
-		<tr class="labelmedium">
+		<tr class="labelmedium line">
 			<td style="padding-left:5px" >
 			  <cfif url.print eq "0">
 				<input type="checkbox" name="selectall" value="" onClick="selall(this,this.checked);selected('',this.checked)" class="clsNoPrint">
@@ -363,11 +359,11 @@
 				   <cfswitch expression = "#URL.Sort#">
 				    
 					 <cfcase value = "Gender">
-						 <tr class="line"><td style="height:32px;font-weight:200;font-size:17px" colspan="12" class="labelmedium"><cfif Gender eq "M"><cf_tl id="Male"><cfelse><cf_tl id="Female"></cfif></b></font></td></tr>						
+						 <tr class="line labelmedium"><td style="height:32px;font-weight:200;font-size:17px" colspan="12"><cfif Gender eq "M"><cf_tl id="Male"><cfelse><cf_tl id="Female"></cfif></b></font></td></tr>						
 				     </cfcase>
 					 
 				     <cfcase value = "Continent">
-						 <tr class="line"><td style="height:32px;font-weight:200;font-size:17px" colspan="12" class="labelmedium">#Continent#</td></tr>						
+						 <tr class="line labelmedium"><td style="height:32px;font-weight:200;font-size:17px" colspan="12">#Continent#</td></tr>						
 				     </cfcase>
 					 
 				   </cfswitch>
@@ -429,7 +425,7 @@
 			     <TD>#DateFormat(DOB, CLIENT.DateFormatShow)#</TD>
 			     <td style="padding-left:2px;padding-right:2px" align="center">#Gender#</td>
 				 <TD>#Nationality#</TD>
-			     <TD><A href ="javascript:EditPerson('#IndexNo#')"><font color="0080C0">#IndexNo#</font></a></TD>
+			     <TD><A href ="javascript:EditPerson('#IndexNo#')">#IndexNo#</a></TD>
 				 <cfif IndexNo neq "" and ContractLevel eq "">
 				 <td colspan="2" align="left">.....</td>	
 				 <cfelse>

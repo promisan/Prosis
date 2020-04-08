@@ -39,17 +39,14 @@
 				   OfficerLastName,
 				   OfficerFirstName)
 			   
-			VALUES
-			
-				(
+			VALUES (
 				 '#URL.ID4#',
 				 'Disabled',
 				 '1',
 				 '0',				
 				 '#SESSION.acc#',
 				 '#SESSION.last#',
-				 '#SESSION.first#'
-				 )
+				 '#SESSION.first#' )
 				 
 			</cfquery>		
 		
@@ -58,15 +55,12 @@
 			<cf_MailUserAccountEnable 
 			     account="#URL.ID4#">		
 		<!--- ----------------------- --->
-		
-		 <button class="button3" type="button"
-		        onClick="javascript:setstatus('#URL.ID4#','0')"> 
-		    <img align="absmiddle" height="13" width="13"
-			    src="#SESSION.root#/Images/light_green1.gif" 
-				alt="Click to Deactivate" 
-				border="0">
-		</button>
-		
+		 
+		<img align="absmiddle" height="16" width="16"
+		    src="#SESSION.root#/Images/light_green1.gif" 
+			alt="Click to Deactivate" 
+			border="0" onClick="javascript:setstatus('#URL.ID4#','0')">
+				
 	<cfelse>
 	
 		<cfquery name="UpdateUser" 
@@ -79,15 +73,12 @@
 		         DisabledModified  = '#DateFormat(Now(),CLIENT.DateSQL)#' 
 		WHERE    Account = '#URL.ID4#'
 		</cfquery>
-		
-		<button class="button3" type="button"
-		        onClick="javascript:setstatus('#URL.ID4#','1')">
-			   <img align="absmiddle" height="13" width="13"
-			      src="#SESSION.root#/Images/light_red1.gif" 
-				  alt="Click to Activate user" 
-				  border="0">
-		</button>
-	
+				
+		<img align="absmiddle" height="16" width="16"
+		     src="#SESSION.root#/Images/light_red1.gif" 
+			 alt="Click to Activate user" onClick="javascript:setstatus('#URL.ID4#','1')"
+			 border="0">
+
 	</cfif>	
 
 </cfoutput>

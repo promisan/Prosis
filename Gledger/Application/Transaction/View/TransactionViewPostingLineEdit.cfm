@@ -56,18 +56,21 @@
 			   TransactionSerialNo = "#url.transactionSerialNo#"
 			   Action              = "Edit Memo">		 							
 					   
-		</cftransaction>   
-		  	  
+		</cftransaction>   	  	  
 	  	  
 	  </cfif>	
 	 	  
 	  <cfoutput>	
 	  
 		 <cfif url.mode eq "Edit">
-	 	 		   
+	 	 	
+			<table><tr><td>   
 			 <input type="text" name="text#box#" value="#url.selected#" class="regular" size="60" maxlength="80">
-			 <input type="button" name="Save" value="Save" class="button10s" style="width:40;height:18" 
+			 </td>
+			 <td>
+			 <input type="button" name="Save" value="Save" class="button10s" style="font-size:10px;width:40;height:18" 
 			     onclick="ColdFusion.navigate('TransactionViewPostingLineEdit.cfm?mode=save&selected='+text#box#.value+'&#link#&fld=memo','memo#url.box#')">	
+			</td></tr></table>		 
 			   
 	     <cfelse>
 	   
@@ -75,7 +78,7 @@
 			<tr>
 			<td class="labelit">
        		<a href="javascript:ColdFusion.navigate('TransactionViewPostingLineEdit.cfm?selected=#url.selected#&#link#&fld=memo','memo#url.box#')">
-			   <font color="0080FF">[<cf_tl id="edit">]</font>
+			   [<cf_tl id="edit">]
 			</a>			
 			</td>
 			<td>&nbsp;</td>		
@@ -180,7 +183,7 @@
 				<tr>
 					<td class="labelit">			   
 			   		  <a href="javascript:ColdFusion.navigate('TransactionViewPostingLineEdit.cfm?selected=#url.selected#&#link#&fld=objectcode','objectcode#url.box#')">
-					  	 <font color="0080FF">[<cf_tl id="edit">]</font>
+					  	 [<cf_tl id="edit">]
 					  </a>	
 					</td>
 					<td>&nbsp;</td>		
@@ -265,7 +268,7 @@
 			<td class="labelit">
 	   
 	   		  <a href="javascript:ColdFusion.navigate('TransactionViewPostingLineEdit.cfm?selected=#url.selected#&#link#&fld=unit','unit#url.box#')">
-			  	 <font color="0080FF">[<cf_tl id="edit">]</font>
+			  	 [<cf_tl id="edit">]
 			  </a>	
 			</td>
 			<td>&nbsp;</td>		
@@ -331,7 +334,7 @@
 			<td class="labelit">
 	   
 	   		  <a href="javascript:ColdFusion.navigate('TransactionViewPostingLineEdit.cfm?selected=#url.selected#&#link#&fld=fund','fund#url.box#')">
-			  	 <font color="0080FF">[<cf_tl id="edit">]</font>
+			  	 [<cf_tl id="edit">]
 			  </a>	
 			</td>
 			<td>&nbsp;</td>		
@@ -424,7 +427,7 @@
 				<tr>
 				<td class="labelit">
 				   <a href="javascript:ColdFusion.navigate('TransactionViewPostingLineEdit.cfm?selected=#PRG.programcode#&#link#&fld=program','program#box#')">
-				   <font color="0080FF">[<cf_tl id="edit">]</font>
+				   [<cf_tl id="edit">]
 				   </a>
 				</td>   
 			    <td>&nbsp;</td>		
@@ -551,18 +554,18 @@
 		   		  		   				
 			<div style="position:absolute; color: white; z-index: 2000;" id="contributionfind">
 						   				
-				<table style="border:1px double silver" bgcolor="fafafa">			
+				<table style="border:1px solid silver" bgcolor="fafafa">			
 								
 				<tr>
 				
 				<td width="350"  style="padding-top:5px" valign="top">
-				<table width="92%" cellspacing="0" cellpadding="0" align="center">
-				<tr class="line">
-					<td class="labelit"><cf_tl id="Donor"></td>
-					<td align="center" class="labelit"><cf_tl id="Effective"></td>
-					<td align="center" class="labelit"><cf_tl id="Expiration"></td>
-					<td align="right" width="60" class="labelit"><cf_tl id="Amount"></td>		
-					<td align="right" width="60" style="padding-right:4px" class="labelit"><cf_tl id="Used"></td>				
+				<table width="92%" align="center">
+				<tr class="line labelmedium">
+					<td><cf_tl id="Donor"></td>
+					<td align="center"><cf_tl id="Effective"></td>
+					<td align="center"><cf_tl id="Expiration"></td>
+					<td align="right" width="60"><cf_tl id="Amount"></td>		
+					<td align="right" width="60" style="padding-right:4px"><cf_tl id="Used"></td>				
 				</tr>
 				
 				<cfoutput>
@@ -596,8 +599,8 @@
 								</td>
 								<td align="center">#dateformat(DateEffective,CLIENT.DateFormatShow)#</td>
 								<td align="center">#dateformat(DateExpiration,CLIENT.DateFormatShow)#</td>
-								<td align="right">#numberformat(AmountBase,'__,__')#</td>		
-								<td align="right" style="padding-right:4px">#numberformat(AmountUsed,'__,__')#</td>			
+								<td align="right">#numberformat(AmountBase,',__')#</td>		
+								<td align="right" style="padding-right:4px">#numberformat(AmountUsed,',__')#</td>			
 							</tr>			
 					
 						</cfoutput>
@@ -642,14 +645,14 @@
 					
 					 <cfif Donor.recordcount gte "1"> 
 								
-					    <table cellspacing="0" cellpadding="0" class="formpadding">
+					    <table class="formpadding">
 						
 						 <tr>
 						   
 						    <td class="labelit">		
 							
-						    <a href="javascript:ColdFusion.navigate('TransactionViewPostingLineEdit.cfm?selected=#url.selected#&#link#&fld=contributionlineid','donor#box#')">
-							<font color="0080FF">[<cf_tl id="edit">]</font>							
+						    <a href="javascript:ptoken.navigate('TransactionViewPostingLineEdit.cfm?selected=#url.selected#&#link#&fld=contributionlineid','donor#box#')">
+							[<cf_tl id="edit">]							
 							</a>
 							
 						    </td>
@@ -729,15 +732,13 @@
 			  <table>
 				<tr>
 				<td class="labelit">
-				   <a href="javascript:ColdFusion.navigate('TransactionViewPostingLineEdit.cfm?selected=#PRG.programcode#&#link#&fld=programprovider','programprovider#box#')">
-				   <font color="0080FF">[<cf_tl id="edit">]</font>
+				   <a href="javascript:ptoken.navigate('TransactionViewPostingLineEdit.cfm?selected=#PRG.programcode#&#link#&fld=programprovider','programprovider#box#')">
+				   [<cf_tl id="edit">]
 				   </a>
 				</td>   
 			    <td>&nbsp;</td>		
 			    <td class="labelit">
-				    <a href="javascript:EditProgram('#Prg.ProgramCode#','#Prg.Period#','#Prg.ProgramClass#')">   
-			       		#Prg.ProgramName#
-				    </a>
+				    <a href="javascript:EditProgram('#Prg.ProgramCode#','#Prg.Period#','#Prg.ProgramClass#')">#Prg.ProgramName#</a>
 				</td>
 				</td>
 			</table> 		 
@@ -748,7 +749,4 @@
 		  
 </cfcase>
 
-
 </cfswitch>
-
-

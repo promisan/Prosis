@@ -5,7 +5,6 @@
 <cfparam name="url.AddressId" default="00000000-0000-0000-0000-000000000000">
 <cfparam name="url.mode"       default="embed">
 
-
 <!--- apply the promotions --->
 			
 <cfinvoke component = "Service.Process.Materials.POS"  
@@ -30,13 +29,11 @@ password="#SESSION.dbpw#">
 	FROM   Ref_ParameterMission
 	WHERE  Mission = '#WParameter.Mission#'	
 </cfquery>
- 
- 
+  
 <cf_tl id="also considered by" var="watched">
 <cf_tl id="people" var="people">	
 <cf_tl id="person" var="person">
 <cf_tl id="transfer from" var="transferFrom">
-
       
 <cfquery name="getLines"
 	datasource="AppsTransaction" 
@@ -94,12 +91,11 @@ password="#SESSION.dbpw#">
 										
 		<!--- ajax box for processing --->
 		
-		<tr class="hide"><td colspan="7" id="processline"></td></tr>
+		<tr class="xxxxhide"><td colspan="7" id="processline"></td></tr>
 				
 		<cfset tcounter = 1>
 			
-		<cfoutput query="getLines">		
-			
+		<cfoutput query="getLines">					
 			
 			<tr style="border-bottom:1px solid silver;height:25px;font-size:12px" class="navigation_row labelmedium" <cfif ItemClass neq 'Service' and TransactionQuantity gt 0 and TransactionQuantity gt OnHand>bgcolor="FFC1C1"<cfelse><cfif getLines.currentrow MOD 2>bgcolor="fefefe"</cfif></cfif> id="line_#currentrow#">
 			
@@ -195,14 +191,14 @@ password="#SESSION.dbpw#">
 								
 							<cfif SalesUoM neq "" and TransactionUoM neq SalesUoM>		
 								
-								<cfinvoke component = "Service.Process.Materials.Stock"  
-											method           = "getStock" 
+								<cfinvoke component         = "Service.Process.Materials.Stock"  
+											method          = "getStock" 
 											Mission			= "#Mission#"
-											warehouse        = "#Warehouse#" 							  
-											ItemNo           = "#ItemNo#"
-											UoM              = "#TransactionUoM#"		
-											TransactionLot   = "#TransactionLot#"					  
-											returnvariable   = "stockTransactionUoM">	
+											warehouse       = "#Warehouse#" 							  
+											ItemNo          = "#ItemNo#"
+											UoM             = "#TransactionUoM#"		
+											TransactionLot  = "#TransactionLot#"					  
+											returnvariable  = "stockTransactionUoM">	
 								
 								<cfset vStock = stockTransactionUoM.onhand>
 									
@@ -245,12 +241,9 @@ password="#SESSION.dbpw#">
 									
 							</cfif>
 
-
-						
 						</cfif>
 						
-					</span>
-					
+					</span>					
 					
 				</td>
 								
@@ -286,15 +279,14 @@ password="#SESSION.dbpw#">
 					<input type="text" 
 					 style = "background-color:fff;width:100px;text-align:center;border:1px solid ##CCCCCC;border-radius:4px;" 
 					 id    = "SalesPrice_#currentrow#"
-					 class = "regularxxl enterastab"
+					 class = "regularxxl enterastab SalesPrice_#transactionid#"
 					 <cfif vLast eq currentrow>
 					 	tabindex = "#tcounter#"
 					 	<cfset tcounter = tcounter + 1>
 					 <cfelse>
 					 	tabindex = "0"
-					 </cfif>	 
-					 
-					 value = "#numberformat(SalesPrice,'_.__')#" 
+					 </cfif>					 
+					 value = "#numberformat(SalesPrice,'.__')#" 
 					 name  = "SalesPrice_#currentrow#"
 					 onchange="$('##SalesPrice_#currentrow#').attr('value', this.value); ptoken.navigate('#client.virtualdir#/warehouse/Application/SalesOrder/POS/Sale/setLine.cfm?warehouse=#url.warehouse#&line=#currentrow#&id=#transactionid#&action=price&value='+this.value,'processline')">
 
@@ -304,7 +296,7 @@ password="#SESSION.dbpw#">
 
 				</td>				
 	
-				<td valign="top" align="right" style="padding:8px 0;padding-right:4px; width:10%;" id="total_#currentrow#">
+				<td valign="top" align="right" style="padding:8px 0;padding-right:4px; width:10%;" id="total_#currentrow#" class="labelmedium total_#transactionid#">
 					<div style="height:25px;" class="labelmedium">
 						#numberformat(SalesTotal,',.__')#
 					</div>

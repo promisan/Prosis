@@ -4,17 +4,14 @@
 <script language="JavaScript">
 
 function refreshTree() {
-  ColdFusion.navigate('DistributionViewTree.cfm','tree');
+      ColdFusion.navigate('DistributionViewTree.cfm','tree');
 }
 
-function batch(mode) {	 
-    
-   right.location = "#SESSION.root#/tools/cfreport/EngineReport.cfm?ts="+new Date().getTime()+"&mode="+mode;
+function batch(mode) {	     
+      right.location = "#SESSION.root#/tools/cfreport/EngineReport.cfm?ts="+new Date().getTime()+"&mode="+mode;
 }
 
 </script>
-
-<cfajaximport tags="cftree,cfform">
 
 <cf_tl id="Reporter distribution log" var="1">
 

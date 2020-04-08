@@ -132,6 +132,7 @@ password="#SESSION.dbpw#">
 		UNION
 		SELECT CustomerId,Reference,PersonNo,CustomerName,PhoneNumber,eMailAddress, OrgUnit
 		FROM WorkOrder.dbo.Customer
+		
 				
 	</cfsavecontent>
 

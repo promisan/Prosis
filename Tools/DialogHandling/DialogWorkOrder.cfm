@@ -46,9 +46,9 @@
 		
 	   } else {
 	   	
-	       try { ColdFusion.Window.destroy('myworkplan',true) } catch(e) {}
-		   ColdFusion.Window.create('myworkplan', 'Workplan', '',{x:100,y:100,height:document.body.clientHeight-50,width:document.body.clientWidth-50,modal:true,center:true,resizable:true})    	  				
-		   ColdFusion.navigate('#session.root#/WorkOrder/Application/WorkOrder/WorkPlan/Schedule.cfm?workactionid='+wla,'myworkplan') 		 	
+	       try { ProsisUI.closeWindow('myworkplan',true) } catch(e) {}
+		   ProsisUI.createWindow('myworkplan', 'Workplan', '',{x:100,y:100,height:document.body.clientHeight-60,width:document.body.clientWidth-60,modal:true,center:true,resizable:true})    	  				
+		   ptoken.navigate('#session.root#/WorkOrder/Application/WorkOrder/WorkPlan/Schedule.cfm?workactionid='+wla,'myworkplan') 		 	
 		   
 		}   
 	}

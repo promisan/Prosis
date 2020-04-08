@@ -79,7 +79,7 @@ SELECT TOP #last# *
 
 	<tr class="navigation_row">
 	  
-	    <td height="18" width="30" style="padding-right:5px" class="navigation_action" onclick="ColdFusion.navigate('#link#&action=insert&#url.des1#=#code#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ColdFusion.Window.hide('dialog#url.box#')</cfif>">
+	    <td height="18" width="30" style="padding-right:5px" class="navigation_action" onclick="ColdFusion.navigate('#link#&action=insert&#url.des1#=#code#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">
 			  	
 			<cf_img icon="select">					   
 		

@@ -12,14 +12,14 @@ password="#SESSION.dbpw#">
 
 <cfif searchresult.recordcount gte "1">
 		
-<table width="100%"  border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="100%" align="center">
 		
 	<tr class="labelmedium line" style="border-top:1px solid silver;height:18px">	   	   
-	    <td style="padding-left:4px;font-weight:200"><cf_tl id="Insurance"></td>
-		<td style="font-weight:200"><cf_tl id="Policy"></td>
-		<td style="font-weight:200"><cf_tl id="Certification"></td>
-		<td style="font-weight:200"><cf_tl id="Effective"></td>
-		<td style="font-weight:200"><cf_tl id="Expiration"></td>   		
+	    <td style="padding-left:4px"><cf_tl id="Insurance"></td>
+		<td><cf_tl id="Policy"></td>
+		<td><cf_tl id="Certification"></td>
+		<td><cf_tl id="Effective"></td>
+		<td><cf_tl id="Expiration"></td>   		
 	</TR>
 	
 	<cfif searchresult.recordcount eq "0">

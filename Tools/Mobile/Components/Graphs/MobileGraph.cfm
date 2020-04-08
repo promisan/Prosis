@@ -2,6 +2,7 @@
 <cfparam name="attributes.type"					default=""> <!--- line, radar, bar, horizontalBar, doughnut, pie, polarArea, bubble, scatter, area --->
 <cfparam name="attributes.series"				default="#ArrayNew(1)#"  type="array">
 <cfparam name="attributes.height"				default="250px">
+<cfparam name="attributes.width"				default="300px">
 <cfparam name="attributes.dots"					default="30.0">
 <cfparam name="attributes.responsive"			default="yes">
 <cfparam name="attributes.grids"				default="true">
@@ -76,7 +77,7 @@
 			
 		<cfoutput>
 			<div>
-				<canvas class="#vResponsive#" id="#attributes.id#" height="#attributes.height#"></canvas>
+				<canvas class="#vResponsive#" id="#attributes.id#" height="#attributes.height#" width="#attributes.width#"></canvas>
 			</div>
 		</cfoutput>
 		

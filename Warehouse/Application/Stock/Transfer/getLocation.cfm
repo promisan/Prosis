@@ -21,8 +21,7 @@
  
 <cfoutput>
 
-<cfif conversion eq "0">
-		
+<cfif conversion eq "0">		
  	 
 	 <cfquery name="Default"
              datasource="AppsMaterials"

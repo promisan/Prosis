@@ -125,7 +125,7 @@
 				<td class="label" style="color:gray;padding-left:4px;border-bottom:1px solid silver;">	
 					  <select  style="border:0px;width:60px;" class="regularxl" id="fldcategorydiv_#url.mission#" 
 					       onchange="doChangeFilter('#link#','#box#',document.getElementById('fldfund_#url.mission#'),getElementById('fldpostclass_#url.mission#'),this,getElementById('fldauthorised_#url.mission#'))">					 		
-					       <option value="100">100</option>
+					       <option value="100">> 0</option>
 						   <option value="0">0</option>
 						   <option value="">Any</option>						   
 					  </select>	

@@ -1,19 +1,15 @@
 
-<cf_ScreenTop height="100%" close="parent.ColdFusion.Window.destroy('mydialog',true)" label="Utility: Create Usergroup account for other entities" layout="webapp" scroll="yes">
+<cf_ScreenTop html="no" height="100%" close="parent.ColdFusion.Window.destroy('mydialog',true)" label="Utility: Create Usergroup account for other entities" layout="webapp" scroll="yes">
 
 <cfparam name="URL.Group" default="">
 
 <script language="JavaScript">
 
 	function ChangeAccount(mission,vdefault) {
-		 e  = document.getElementById("iAccount")
-		 
+		 e  = document.getElementById("iAccount")		 
 		 e.value = mission + vdefault;
 	}
-
-function savedet(itm,fld){
- }
-		
+			
 </script>
 
 
@@ -110,20 +106,16 @@ password="#SESSION.dbpw#">
    
 <cfform action="CopyAccessSubmit.cfm?Group=#URL.Group#" target="result" method="POST"  name="cloning">
 
-<table width="90%"
-       border="0"
-       cellspacing="0"
-       cellpadding="0"
+<table width="90%"      
        align="center"
-       bordercolor="d0d0d0"
        class="formpadding">
 	
-<tr><td height="20"  colspan="3"></td></tr>
+<tr><td height="20" colspan="3"></td></tr>
 
 <tr>
 	
 	<td width="20%" colspan="2" class="labelmedium">
-		Entity:</b>
+		<cf_tl id="Entity">:</b>
 	</td>
 	<td width="70%" class="labelmedium">
 		<cfoutput>
@@ -205,7 +197,7 @@ password="#SESSION.dbpw#">
 	<input type="hidden" name="oAccount" ID="oAccount" value="#URL.Group#">
 	<input type="hidden" name="iAccount" id="iAccount" value="#vDefault#">
 	</cfoutput>
-	<input class="button10g" type="button" value="Close" onClick="window.close()">
+	<input class="button10g" type="button" value="Close" onClick="parent.ProsisUI.closeWindow('mydialog')">
 	<input class="button10g" type="submit" value="Save">
 	</td>
 	

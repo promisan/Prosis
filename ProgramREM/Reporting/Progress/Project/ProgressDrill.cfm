@@ -267,8 +267,8 @@
 					type		= "Print"
 					title       = "#lt_text#" 
 					id          = "Print"					
-					height		= "30px"
-					width		= "35px"
+					height		= "25px"
+					width		= "25px"
 					printTitle	= ".section_#URL.ProgramCode# ##printTitle_#URL.ProgramCode#"
 					printContent = ".section_#URL.ProgramCode# .clsPrintContent_#URL.ProgramCode#">
 			</cfoutput>

@@ -33,8 +33,7 @@
 
 </cfif>
 
-<table width="100%" height="100%" cellspacing="0" cellpadding="0" class="tree formpadding">
-
+<table width="100%" class="tree formpadding">
 
 	<cfinvoke component = "Service.Access"  
 	   method           = "CaseFileManager" 	   
@@ -47,19 +46,19 @@
 				
 	<tr><td class="labelmedium" style="height:22;padding-left:10px">
 	<img src="#Client.VirtualDir#/images/select.png" alt="" border="0">&nbsp;
-	<a href="javascript:showclaim('','#URL.id2#')"><font color="0080C0"><cf_tl id="Record New Case"></a>
+	<a href="javascript:showclaim('','#URL.id2#')"><cf_tl id="Record New Case"></a>
 	</td></tr>
 				  
 </cfif>		  
 
 <tr><td class="labelmedium" style="height:22;padding-left:10px">
 <img src="#Client.VirtualDir#/images/select.png" alt="" border="0">&nbsp;
-<a href="javascript:printme("><font color="0080C0"><cf_tl id="Print"></a>
+<a href="javascript:printme("><cf_tl id="Print"></a>
 </td></tr>
 
 </cfoutput>
 
-<tr><td colspan="1" class="linedotted"></td></tr>
+<tr><td colspan="1" class="line"></td></tr>
 
 <tr><td valign="top" width="100%" height="100%"  style="padding-top:6px;padding-left:10px;">
 
@@ -81,27 +80,23 @@
 			<cfoutput query="StatusList">				
 										
 					<cftreeitem value="#mode#_#status#"
-		            display="<b>#Description#</b>"
-		            parent="status"		           
-		            href="javascript:list('#mode#','#url.id2#','#status#','','')"
-		            queryasroot="No"
-		            expand="yes">						
+			            display="<b>#Description#</b>"
+			            parent="status"		           
+			            href="javascript:list('#mode#','#url.id2#','#status#','','')"
+			            queryasroot="No"
+			            expand="yes">						
 					
 					<cfquery name="ClaimType" 
 							datasource="AppsCaseFile" 
 							username="#SESSION.login#" 
 							password="#SESSION.dbpw#">
-								SELECT RCT.Code, 
-								       RCT.Description, 
-									   '#status#' as Status, 
-									   '#statusclass#' as StatusClass 
-								FROM Ref_ClaimType RCT
-								WHERE EXISTS ( 
-									SELECT * 
-									FROM   Claim C 
-									WHERE  RCT.Code = C.ClaimType
-									AND    ActionStatus = '#status#'
-									AND    Mission = '#url.id2#'
+								SELECT RCT.Code,RCT.Description,'#status#' as Status,'#statusclass#' as StatusClass 
+								FROM   Ref_ClaimType RCT
+								WHERE EXISTS ( SELECT * 
+											   FROM   Claim C 
+											   WHERE  RCT.Code = C.ClaimType
+											   AND    ActionStatus = '#status#'
+											   AND    Mission = '#url.id2#'
 								)
 					</cfquery>	
 					

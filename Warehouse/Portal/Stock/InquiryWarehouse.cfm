@@ -116,7 +116,9 @@ warehouse to process --->
 			<!--- regular user for one or more facilities then we show the notifier --->
 	
 			<tr><td colspan="13" align="center" >
-				<cfdiv id="checkpending" bind="url:#session.root#/warehouse/portal/checkout/checkPending.cfm?mission=#url.mission#">				
+				<!---
+				<cfdiv id="checkpending" bind="url:#session.root#/warehouse/portal/checkout/checkPending.cfm?mission=#url.mission#">
+				--->				
 			</td>
 			</tr>
 		

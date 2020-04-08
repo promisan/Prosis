@@ -114,13 +114,13 @@ password="#SESSION.dbpw#">
 
 <cfform style="height:100%" name="organizationsearch" id="organizationsearch" onsubmit="return false">
 
-	<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+	<table width="100%" height="100%">
 	 
-	<tr><td colspan="2" valign="top" style="padding:0px">
+	<tr><td colspan="2" valign="top">
 	
 	<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center">
 	
-		<tr style="height:37px">
+		<tr style="height:37px" class="line">
 	   	 
 		<cfif url.mission eq "" or url.mission eq "undefined" or url.orgtype neq "Operational">
 			 
@@ -133,7 +133,7 @@ password="#SESSION.dbpw#">
 			<cfelse> 		 
 					
 				<TD style="padding-left:17px">
-					<cfselect name="missionselect" size="1" group="MissionType" query="Mission" value="Mission" display="Mission" selected="#url.mission#" id="missionselect" class="regularxl"></cfselect>					
+					<cfselect name="missionselect" size="1" group="MissionType" query="Mission" value="Mission" display="MissionName" selected="#url.mission#" id="missionselect" class="regularxl"></cfselect>					
 				</TD>
 					
 			</cfif>
@@ -166,8 +166,8 @@ password="#SESSION.dbpw#">
 		
 		<tr><td height="1" colspan="6" class="line"></td></tr>	
 		<tr>  
-		  <td colspan="6" style="padding:3px" width="100%">
-		   <button class="button10g" type="button" name"Submit" id="Submit" value="Search" style="height:24;width:120px" onclick="search()">
+		  <td colspan="6" style="height:30px;padding-left:15px" width="100%">
+		   <button class="button10g" type="button" name"Submit" id="Submit" value="Search" style="height:25;width:120px" onclick="search()">
 		    Search
 		   </button>	
 		  </td>

@@ -240,6 +240,45 @@
 
 </cfif>
 
+<cfquery name="getClasses" 
+	datasource="AppsEmployee">
+		SELECT DISTINCT PC.PostClass, PC.ListingOrder
+		FROM
+			(
+				SELECT 	A.PostClass		
+				FROM	vwAssignment A
+				WHERE	A.MissionOperational = '#url.mission#'
+				AND		A.DateEffective  <= '#vDate#'
+				AND		A.DateExpiration >= '#vDate#'
+				AND		A.AssignmentStatus IN ('0', '1')
+				AND		A.Incumbency > 0
+				AND		A.Operational = 1
+			) as Data
+			INNER JOIN Ref_PostClass PC
+				ON Data.PostClass = PC.PostClass
+		ORDER BY PC.ListingOrder ASC
+</cfquery>
+
+<cfif getClasses.recordCount gt 1>
+
+	<div class="form-group">
+		<label class="control-label"><cf_tl id="Class">:</label>
+		<div class="input-group" style="width:100%;">
+			<select class="form-control m-b" name="postclass" id="postclass">
+				<option value=""> - <cf_tl id="ALL"> -
+				<cfoutput query="getClasses">
+					<option value="#PostClass#">#PostClass#
+				</cfoutput>
+			</select>
+		</div>
+	</div>
+	
+<cfelse>
+
+	<input type="Hidden" name="postclass" id="postclass" value="">
+
+</cfif>
+
 <cfquery name="getFunctions" 
 	datasource="AppsEmployee">
 		SELECT DISTINCT 

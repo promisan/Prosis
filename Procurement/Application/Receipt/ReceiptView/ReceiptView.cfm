@@ -1,8 +1,7 @@
 
 <cf_tl id="Receipt and Inspection Management" var="1">
 
-<cf_screenTop height="100%" title="#lt_text#  #URL.Mission#" 
-   option="Enter Receipt and Inspection report" border="0" 
+<cf_screenTop height="100%" title="#lt_text#  #URL.Mission#" border="0" 
    html="No" scroll="No" menuAccess="Yes" jquery="Yes" validateSession="Yes">
    
 <cfoutput>

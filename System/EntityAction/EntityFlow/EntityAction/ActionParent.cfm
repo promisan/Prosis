@@ -35,30 +35,24 @@ password="#SESSION.dbpw#">
 
 <div style="position:absolute;top:0; overflow: auto; width:100%; height:100%; scrollbar-face-color: F4f4f4; clip: auto;">
 
-	<table width="97%" border="0" 
-		cellspacing="0"  
-		cellpadding="0"
-		class="formspacing"
-       	align="center">
+	<table width="97%" class="formspacing"	align="center">
    
 	  <tr>
-	    <td width="100%">
-		
-	    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+	    <td width="100%">		
+	    <table width="100%">
 			
 	    <TR class="labelmedium line">
-		   <td height="18" width="8%">&nbsp;Code</td>
-		   <td width="70%">Description</td>
-		   <td width="6%">Order</td>
-		   <td width="10%" align="center">Active</td>
+		   <td height="18" style="padding-left:5px" width="8%"><cf_tl id="Code"></td>
+		   <td width="70%"><cf_tl id="Description"></td>
+		   <td width="6%"><cf_tl id="Order"></td>
+		   <td width="10%" align="center"><cf_tl id="Active"></td>
 		   <td width="7%" align="center"></td>
 		   <td width="7%"></td>
 	    </TR>	
 				
 		<cfset cnt = cnt + 30>
 			
-		<cfoutput query="Detail" group="Owner">
-				
+		<cfoutput query="Detail" group="Owner">				
 		
 		<tr class="labelmedium line"><td height="1" colspan="5" style="padding-left:3px">#Owner#</td>
 		     <td class="labelit">
@@ -72,23 +66,19 @@ password="#SESSION.dbpw#">
 				   
 		   <input type="hidden" name="Owner" id="Owner" value="#owner#">
 					
-			<TR bgcolor="ffffdf" class="labelmedium line">
+			<TR bgcolor="ffffdf" class="labelmedium line" style="height:20px">
 			<td style="padding-left:3px">
 			  <cfinput type="Text" value="" name="Code" message="You must enter a code" required="Yes" size="4" maxlength="6" class="regularxl">
-	        </td>
-			
+	        </td>			
 			<td>
 			   <cfinput type="Text" name="Description" message="You must enter a description" required="Yes" size="40" maxlength="50" class="regularxl">
-			</td>
-			
+			</td>			
 			<td>
 			   <cfinput type="Text" name="ListingOrder" validate="integer" required="No" visible="Yes" enabled="Yes" size="1" maxlength="2" class="regularxl">
-			</td>
-			
+			</td>			
 			<td align="center">
 				<input type="checkbox" name="Operational" id="Operational" value="1" checked>
-			</td>		
-											   
+			</td>											   
 			<td align="right" colspan="2" style="padding-right:4px"><input type="submit" value="Add" class="button10g" style="height:25;width:60"></td>
 			    
 			</TR>	
@@ -99,7 +89,7 @@ password="#SESSION.dbpw#">
 		
 		<cfoutput>
 				
-		<cfset cnt = cnt + 31>
+		<cfset cnt = cnt + 25>
 								
 		<cfset cd   = Code>
 		<cfset de   = Description>
@@ -127,7 +117,7 @@ password="#SESSION.dbpw#">
 					
 		<cfelse>		
 			
-			<TR class="labelmedium line">
+			<TR class="labelmedium line" style="height:22px">
 			
 			   <td height="15" style="padding-left:7px">#cd#</td>
 			   <td>#de#</td>
@@ -174,7 +164,7 @@ password="#SESSION.dbpw#">
 
 </cfform>
 
-<cfif cnt lt "250">	
+<cfif cnt lt "200">	
 		
 	<cfoutput>
 	<script language="JavaScript">
@@ -188,4 +178,4 @@ password="#SESSION.dbpw#">
 	</script>
 	</cfoutput>
 	
-	</cfif>
+</cfif>

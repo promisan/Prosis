@@ -52,7 +52,8 @@ password="#SESSION.dbpw#">
 
 <cfif GroupNew.recordcount gt "0">
 
-	<table height="100%" width="100%" align="center">		   
+
+	<table height="100" width="100%" align="center">		   
 				
 		<!---
 		
@@ -74,9 +75,9 @@ password="#SESSION.dbpw#">
 		
 			<cfoutput group="AccountMission">
 			
-				<tr>
+				<tr class="line labelmedium">
 				
-					<td class="labelit">
+					<td>
 														 
 					<img src="#SESSION.root#/Images/icon_close.gif"
 					     border="0"
@@ -87,7 +88,7 @@ password="#SESSION.dbpw#">
 					     onClick="javascript:document.getElementById('#currentrow#_exp').className='hide';ptoken.navigate('#SESSION.root#/system/access/membership/MemberSelectDetail.cfm?owner=#accountowner#&mission=#AccountMission#&grp=#grp#','#AccountOwner#_#AccountMission#')">
 						
 					</td>
-					<td height="24" colspan="6" class="labelmedium" style="padding-left:3px;font-size:20px;width:100%;height:21">
+					<td height="24" colspan="6" style="padding-left:3px;font-size:20px;width:100%;height:21">
 							
 						<a href="javascript:document.getElementById('#currentrow#_exp').className='hide';ptoken.navigate('#SESSION.root#/system/access/membership/MemberSelectDetail.cfm?owner=#accountowner#&mission=#AccountMission#&grp=#grp#','#AccountOwner#_#AccountMission#')">
 						<cfif AccountMission eq "">&nbsp;Global<cfelse>&nbsp;#AccountMission#</cfif>

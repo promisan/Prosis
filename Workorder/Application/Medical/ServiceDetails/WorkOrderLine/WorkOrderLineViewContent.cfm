@@ -282,7 +282,7 @@
 			               		LayoutCode="Agenda" 
 						   		ListCriteria="#fields#"
 								Icon="Report/report.png"
-								IconStyle="height:15px;">			
+								IconStyle="height:20px;">			
 						</td>	
 					<cfif Line.actionStatus lt "4" and editmode eq "Edit">
 						<td style="padding-left:4px;padding-right:4px"><cf_img icon="edit" onclick="editForm('#line.workorderlineid#')"></td>
@@ -601,8 +601,7 @@
 			  				  			
 			   <cf_tl id="Prepare Charges and Post Stock Consumption" var="1">
 			
-			   <cfoutput>	
-			   				   
+			   <cfoutput>				   				   
 			   		  				   
 			   		<input type="button"
 					      onclick="ptoken.navigate('setCharges.cfm?workorderlineid=#url.drillid#','posting')" 

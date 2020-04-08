@@ -192,7 +192,7 @@
 	 WHERE     ClassStatus = 'Progress'	 
 	 </cfquery>
 		 
-	 <table width="99%" border="0" cellspacing="0" cellpadding="0" align="center" bordercolor="e4e4e4" class="formpadding">
+	 <table width="99%" align="center" class="formpadding">
 	 
 	 <cfoutput>
 	 <tr>
@@ -404,22 +404,24 @@
 					PA.ActivityId 
 		 </cfquery>
 				 		 
-		 <table width="100%" cellspacing="0" cellpadding="0" id="test">
+		 <table width="96%" align="center" id="test">
 		  			
 			<cfoutput query="Detail" group="ListingOrder">	
+			
 				<cfif ListingOrder neq "">
 				
-				 <tr>
+				 <tr class="line">
 				  <td colspan="5">
-				  <table width="100%">
-				    <tr>
-				      <td width="70%" class="labelit"><b>#ClusterDescription#</b></td>
-				    </tr>
-					
-			   	  </table>
+					  <table width="100%">
+					    <tr class="labelmedium">
+					      <td width="70%" style="font-size:25px">#ClusterDescription#</td>
+					    </tr>					
+				   	  </table>
 				  </td>
 				 </tr>
+				 
 				 </cfif>  
+				 
 				 <!---
 				   <tr bgcolor="f4f4f4">
 			 		 <td width="5%"></td>
@@ -429,30 +431,27 @@
 					 <td width="14%"><cf_tl id="Reported"></td>
 				</tr>
 				--->
-				<tr><td height="1" colspan="5" class="line"></td></tr>
-				
+								
 			<cfoutput group="ActivityDateStart">
+			
 			<cfoutput group="ActivityId">
 			 
 			 <tr>
 			  
 			  <td colspan="5">
 			  
-			  <table width="97%" align="center" cellspacing="0" cellpadding="0">
+			  <table width="97%" align="center">
 			  
-			    <cfif ProgramCode neq URL.ProgramCode>
-				
+			    <cfif ProgramCode neq URL.ProgramCode>				
 				<tr>
-					<td bgcolor="ffffcf" style="height:30;padding-left:6px" colspan="2" class="labelmedium"><font size="1"><cf_tl id="Subproject">:</font>#ProgramName#</b></td>
-				</tr>
-				
+					<td bgcolor="ffffcf" style="height:30;padding-left:6px" colspan="2" class="labelmedium"><cf_tl id="Subproject">:#ProgramName#</td>
+				</tr>				
 				</cfif>
 				
-			    <tr>
-			      <td width="70%" style="height:22" class="labelit"><font size="1">a:</font>#ActivityDescription#</td>
-				  <td align="right" class="labelit">#DateFormat(ActivityDateStart, CLIENT.DateFormatShow)# - #DateFormat(ActivityDate, CLIENT.DateFormatShow)#</td>
+			    <tr class="line labelmedium">
+			      <td width="70%">#ActivityDescription#</td>
+				  <td align="right">#DateFormat(ActivityDateStart, CLIENT.DateFormatShow)# - #DateFormat(ActivityDate, CLIENT.DateFormatShow)#</td>
 			    </tr>
-				<tr><td height="1" colspan="5" class="linedotted"></td></tr>
 							
 		   	  </table>
 			  
@@ -462,9 +461,9 @@
 			
 			 <cfoutput>
 			 
-			 <tr>
-			 	 <td style="width:20px;padding-left:20px" class="labelsmall">#CurrentRow#.</td> 
-				 <td style="width:30px;padding-right:4px">
+			 <tr class="labelmedium">
+			 	 <td style="width:20px;padding-left:20px">#CurrentRow#.</td> 
+				 <td style="width:30px;padding-left:4px;padding-right:4px">
 			  	     <cfif Status eq 0>
 					     <cf_tl id="Not available" var="1">
 					     <img src="#SESSION.root#/Images/alert_stop.gif" alt="#lt_text#" border="0" align="bottom">
@@ -479,9 +478,9 @@
 						 <img src="#SESSION.root#/Images/alert_caution.gif" alt="#lt_text#" border="0" align="bottom">
 					 </cfif>
 			  	</td>		 
-			  	<td width="70%" class="labelit">#ActivityOutput#</td>
-			  	<td width="80"  class="labelit">#Description#</td>
-			  	<td width="60"  class="labelit" style="padding-right:15px">#DateFormat(LastSubmitted, CLIENT.DateFormatShow)#</td>
+			  	<td width="70%">#ActivityOutput#</td>
+			  	<td width="80">#Description#</td>
+			  	<td width="60" style="padding-right:15px">#DateFormat(LastSubmitted, CLIENT.DateFormatShow)#</td>
 			 </tr>
 			
 			</cfoutput>

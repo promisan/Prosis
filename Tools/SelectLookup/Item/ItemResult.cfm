@@ -25,6 +25,7 @@
 
 </cfif>
 
+<cfparam name="Form.Crit4_Value_#url.box#" default="">
 
 <CFSET val = evaluate("Form.Crit4_Value_#url.box#")>
 	
@@ -121,7 +122,9 @@ password="#SESSION.dbpw#">
 	<cf_pagecountN show="13" 
           count="#Total.Total#">
 
-</cfif>			   
+</cfif>		
+
+  
 			   
 <cfset counted  = total.total>			   
 
@@ -168,7 +171,7 @@ SELECT TOP #last# *
 		<cfset vItemClass = ListQualify(filter2value,"'")>
 		AND   ItemClass in (#preserveSingleQuotes(vItemClass)#)
 	</cfif>
-	
+		
 ORDER BY ItemNo
 </cfquery>
 

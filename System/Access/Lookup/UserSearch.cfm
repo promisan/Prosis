@@ -1,8 +1,6 @@
 
 <cfoutput>
 
-<cfajaximport tags="cfwindow">
-
 <cfparam name="url.id" default="">
 <cfparam name="url.id1" default="">
 <cfparam name="url.id2" default="">

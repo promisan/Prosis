@@ -147,10 +147,10 @@ password="#SESSION.dbpw#">
 	
 	    <table width="800" align="right" class="formpadding"><tr>
 		
-	       <td class="labelmedium" style="padding-left:4px"><cf_tl id="Entity">:</td>
+	       <td class="labelmedium" style="padding-left:4px"><cf_tl id="Entity"></td>
 			<td style="padding-left:4px">
 			
-			 <select name="mission" id="mission" class="regularxl" onChange="document.getElementById('menu1').click();ColdFusion.navigate('ParameterEditGeneral.cfm?mission='+this.value,'generalbox')">
+			 <select name="mission" id="mission" class="regularxl" onChange="document.getElementById('menu1').click();ptoken.navigate('ParameterEditGeneral.cfm?mission='+this.value,'generalbox')">
 			
 				<cfloop query="MissionList">
 				 <option value="#Mission#" <cfif mission eq URL.mission>selected</cfif>>#Mission#

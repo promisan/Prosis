@@ -155,9 +155,9 @@
 	
 	</cfif>	
 	
-	<TR class="labelmedium">
-    <TD>Listing Order:</TD>
-    <TD>
+	<TR class="labelmedium">    
+    <TD><cf_tl id="ListingOrder"></td>
+	<td>
   	   <cfinput type="Text" value="#next#" name="ListingOrder" message="Please enter an valid integer" validate="integer" required="Yes" visible="Yes" enabled="Yes" size="1" maxlength="4" class="regularxl">
     </TD>
 	</TR>
@@ -192,21 +192,14 @@
      </TD>
 	</TR>
 	
-	<tr><td height="5"></td></tr>
-	<tr><td colspan="2" class="linedotted"></td></tr>	
-	<tr><td height="5"></td></tr>
-	
-	<tr>
+			
+	<tr class="line">
 		<td style="padding-left:7px" colspan="2">
 			<cfset vThisCode = "">
 			<cfinclude template="ClassificationDetail.cfm">
 		</td>
 	</tr>
-	
-	<tr><td height="5"></td></tr>
-	<tr><td colspan="2" class="linedotted"></td></tr>	
-	<tr><td height="5"></td></tr>
-	
+		
 	<tr>	
 	<td colspan="2" align="center" height="30">	
 		

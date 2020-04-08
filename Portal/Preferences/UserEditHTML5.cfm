@@ -26,7 +26,7 @@
 
 <cf_listingscript> 
 <cf_menuscript>
-<cf_UIGadgets>
+
 <cfajaximport tags="CFFORM">
 
 <cfquery name="Get" 

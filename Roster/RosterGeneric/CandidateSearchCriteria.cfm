@@ -18,6 +18,8 @@
 	
 	<cfif form.class eq "4">
 	
+		<cfparam name="Form.Crit2a_Value" default="">
+	
 		<cfif Form.Crit2a_Value neq "">
 		<CF_Search_AppendCriteria
 		    FieldName="#Form.Crit2a_FieldName#"

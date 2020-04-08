@@ -1,5 +1,6 @@
 <!--- Create Criteria string for query from data entered thru search form --->
-<cf_divscroll>
+
+<cf_screentop html="No" jquery="Yes">
 
 <cfquery name="SearchResult"
 datasource="appsMaterials" 
@@ -11,9 +12,10 @@ password="#SESSION.dbpw#">
 
 <cfset Page         = "0">
 <cfset add          = "1">
-<cfinclude template = "../HeaderMaintain.cfm"> 	
 
 <table width="97%" align="center" cellspacing="0" cellpadding="0" class="table_navigation">
+
+<tr><td><cfinclude template = "../HeaderMaintain.cfm"> 	</td></tr>
 
 <cfoutput>
 
@@ -31,46 +33,46 @@ password="#SESSION.dbpw#">
 
 </cfoutput> 
 	
-<!--- "width=550, height=500, scrollbars=yes, resizable=yes" --->
-
 <tr><td colspan="2">
 
-<table width="97%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table formpadding">
+<cf_divscroll>
 
-<cfset col="7">
-
-<tr class="labelit line">
-    <TD align="left"></TD>
-    <TD align="left">Code</TD>
-	<TD align="left">Description</TD>
-	<TD align="left">Width</TD>
-	<TD align="left">Height</TD>
-	<TD align="left">Officer</TD>
-    <TD align="left">Entered</TD>
-</tr>
-
-<cfoutput query="SearchResult">
-    
-    <tr class="navigation_row labelit line"> 
-		<td align="center" height="20" style="padding-top:3px">
-		   <cf_img icon="open" onclick="recordedit('#Code#');" navigation="Yes" >
-		</td> 
-		<TD>#Code#</TD>
-		<TD>#Description#</TD>
-		<TD>#ResolutionWidth#</TD>
-		<TD>#ResolutionHeight#</TD>
-		<TD>#OfficerFirstName# #OfficerLastName#</TD>
-		<TD>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</TD>
-    </TR>
+	<table width="97%" align="center" class="navigation_table formpadding">
 	
+	<cfset col="7">
+	
+	<tr class="fixrow labelmedium line">
+	    <TD></TD>
+	    <TD><cf_tl id="Code"></TD>
+		<TD><cf_tl id="Description"></TD>
+		<TD><cf_tl id="Width"></TD>
+		<TD><cf_tl id="Height"></TD>
+		<TD><cf_tl id="Officer"></TD>
+	    <TD><cf_tl id="Entered"></TD>
+	</tr>
+	
+	<cfoutput query="SearchResult">
+	    
+	    <tr class="navigation_row labelmedium line"> 
+			<td align="center" height="20" style="padding-top:3px">
+			   <cf_img icon="open" onclick="recordedit('#Code#');" navigation="Yes" >
+			</td> 
+			<TD>#Code#</TD>
+			<TD>#Description#</TD>
+			<TD>#ResolutionWidth#</TD>
+			<TD>#ResolutionHeight#</TD>
+			<TD>#OfficerFirstName# #OfficerLastName#</TD>
+			<TD>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</TD>
+	    </TR>		
+	
+	</CFOUTPUT>
+	
+	</TABLE>
 
-</CFOUTPUT>
-
-</TABLE>
+</cf_divscroll>
 
 </td>
 </tr>
 
 </TABLE>
 
-</cf_divscroll>

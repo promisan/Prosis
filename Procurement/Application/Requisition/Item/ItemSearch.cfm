@@ -11,7 +11,6 @@
 
 <CFOUTPUT>		
 
-
 <script LANGUAGE = "JavaScript">
 
 	function selected(itemuomid) {
@@ -25,7 +24,7 @@
 		</cfif>	
 			
 		try {
-			parent.ProsisUI.closeWindow('mymaster');
+			parent.ProsisUI.closeWindow('mystock');
 		} catch(e) { parent.ColdFusion.Window.destroy('mystock',true); }
 	}
 
@@ -43,11 +42,11 @@
 
 	<cfparam name="url.itemmaster" default="">
 
-	<form name="locform" style="height:100%">
+	<form name="locform" style="height:98%">
 	
 		<input type="hidden" name="itemmaster" value="#trim(url.itemmaster)#">
 	
-	    <table height="100%" class="formpadding" width="97%" border="0" align="center">
+	    <table height="98%" class="formspacing" width="97%" border="0" align="center">
 			
 		<tr><td height="5"></td></tr>	
 		

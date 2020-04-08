@@ -128,17 +128,45 @@
 <!--- -------------------------- --->
 
 <cf_ModuleInsertSubmit
-   SystemModule="Warehouse" 
-   FunctionClass = "Inquiry"
-   FunctionName = "Stock Distribution" 
-   MenuClass = "Main"
-   MenuOrder = "7"
-   MainMenuItem = "1"
-   FunctionMemo = "Stock Distribution Inquiry"
+   SystemModule      = "Warehouse" 
+   FunctionClass     = "Inquiry"
+   FunctionName      = "Stock Distribution" 
+   MenuClass         = "Main"
+   MenuOrder         = "7"
+   MainMenuItem      = "1"
+   FunctionMemo      = "Stock Distribution Inquiry"
    FunctionDirectory = "Warehouse/Inquiry"
-   FunctionPath = "Warehouse/WarehouseView.cfm"   	  
-   AccessUserGroup = "0"
-   Operational="1">   	   
+   FunctionPath      = "Warehouse/WarehouseView.cfm"   	  
+   AccessUserGroup   = "0"
+   Operational       = "1">   	
+   
+<cf_ModuleInsertSubmit
+   SystemModule      = "Warehouse" 
+   FunctionClass     = "Inquiry"
+   FunctionName      = "Record Natural Person" 
+   MenuClass         = "Main"
+   MenuOrder         = "2"
+   MainMenuItem      = "1"
+   FunctionMemo      = "Record an individual"
+   FunctionDirectory = "Roster/PHP/"
+   FunctionPath      = "PHPEntry/Inception/General.cfm"
+   FunctionCondition = "class=5&action=create"
+   ScriptName        = ""
+   AccessUserGroup   = "1">    
+   
+<cf_ModuleInsertSubmit
+   SystemModule      = "Warehouse" 
+   FunctionClass     = "Inquiry"
+   FunctionName      = "Natural Person Repository" 
+   MenuClass         = "Main"
+   MenuOrder         = "3"
+   MainMenuItem      = "1"
+   FunctionMemo      = "Search for a recorded individual"
+   FunctionDirectory = "Roster/"
+   FunctionPath      = "RosterGeneric//CandidateSearch.cfm"
+   FunctionCondition = "class=5"
+   ScriptName        = ""
+   AccessUserGroup   = "1">        
    
 	   
 <!--- ------------------------ --->   

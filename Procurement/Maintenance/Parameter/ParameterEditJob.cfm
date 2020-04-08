@@ -16,6 +16,7 @@ password="#SESSION.dbpw#">
 <cfform action="ParameterSubmitJob.cfm?mission=#URL.mission#&period=#url.period#"
         method="POST"
         name="job">	
+
 		
 <table width="94%" border="0" cellspacing="0" align="center" class="formspacing">
 					
@@ -30,7 +31,7 @@ password="#SESSION.dbpw#">
     <TR class="labelmedium">
     <td>Attachment Path:</b></td>
     <TD>
-  	    /<cfinput class="regularxl" type="Text" name="QuotationLibrary" value="#QuotationLibrary#" message="Please enter a directory name" required="Yes" size="30" maxlength="30">
+  	    <cfinput class="regularxl" type="Text" name="QuotationLibrary" value="#QuotationLibrary#" message="Please enter a directory name" required="Yes" size="30" maxlength="30">
     </TD>
 	</TR>	
 		
@@ -49,7 +50,7 @@ password="#SESSION.dbpw#">
 	</tr>
 		
 	<TR class="labelmedium">
-    <td>Vendor Roster:</b></td>
+    <td><cf_tl id="Vendor Roster"></td>
     <TD>
 	<table>
 	    <tr>
@@ -103,7 +104,7 @@ password="#SESSION.dbpw#">
 	</table>	
     </td>
     </td>
-    </tr>
+    </tr>	
 			
 	<TR class="labelmedium">
     <td>Buyer Label:</b></td>
@@ -138,7 +139,7 @@ password="#SESSION.dbpw#">
 		</select>
 				
 	</td>
-	</tr>	
+	</tr>		
 	
 	<tr class="labelmedium">
 	<td style="padding-top:6px" valign="top">
@@ -156,7 +157,7 @@ password="#SESSION.dbpw#">
 		</td>
 	</cfif>
 	</tr>
-				
+			
 	<cfquery name="Award" 
 	datasource="AppsPurchase" 
 	username="#SESSION.login#" 
@@ -185,6 +186,8 @@ password="#SESSION.dbpw#">
 	</td></tr>
 					
 	</table>	
+	
+	--->
 		
 	</cfform>	
 		

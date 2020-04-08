@@ -1,13 +1,11 @@
 
-<cf_screentop height="100%" close="parent.ColdFusion.Window.destroy('mydialog',true)" scroll="No" layout="webapp" banner="blue" label="Process new Staffing Period">
+<cf_screentop height="100%" close="parent.ColdFusion.Window.destroy('mydialog',true)" html="No" scroll="No" layout="webapp" banner="blue" label="Process new Staffing Period">
 
 <cfoutput>
 <script language="JavaScript">
-
-function process(st) {
-    ColdFusion.navigate('MandateProcessAction.cfm?Mission=#URL.ID#&MandateNo=#URL.ID1#&Status=' + st,'processbox')
-}
-
+	function process(st) {
+	    ptoken.navigate('MandateProcessAction.cfm?Mission=#URL.ID#&MandateNo=#URL.ID1#&Status=' + st,'processbox')
+	}
 </script>
 </cfoutput>
 

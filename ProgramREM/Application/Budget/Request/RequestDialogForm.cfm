@@ -682,6 +682,7 @@ password="#SESSION.dbpw#">
 		 <!--- ------------------ --->		
 		 		
 		     <cfif parameter.BudgetLocation eq "Staffing">
+		
 						 
 			 	 <cfquery name="LocationList" 
 						datasource="AppsEmployee" 
@@ -695,6 +696,7 @@ password="#SESSION.dbpw#">
 								
 			 	 
 		     <cfelse>	
+		
 			 		 
 				 <cfquery name="LocationList" 
 						datasource="AppsPayroll" 
@@ -954,8 +956,7 @@ password="#SESSION.dbpw#">
 													title="#lt_text#" 
 													onclick="getItemObjectInstructions('#url.objectcode#', $('##itemmaster').val(), '#url.programcode#','#url.period#','#url.editionid#','InstructionsDetail', this, 'collapse.png', 'expand.png');">
 											</td>
-											<td style="padding-left:3px;" class="labelmedium">
-											    <font color="0080C0">
+											<td style="padding-left:3px;" class="labelmedium">											    
 												<label for="imgViewInstructions"><cf_tl id="View Instructions"></label>	
 											</td>
 										</tr>
@@ -1019,36 +1020,24 @@ password="#SESSION.dbpw#">
 					<cfinclude template="RequestDialogFormItemMaster.cfm">
 													
 				<cfelse>
-							
+											
 					<tr>
 						<td valign="top" class="labelmedium"></td>
 						<td>
 						<table width="100%" cellspacing="0" cellpadding="0">
 						
-							<tr>
-							    <td id="labelmediumem" class="labelit"><font color="808080"><cf_tl id="Item"></td>
-								<td id="labelqty" class="labelit" align="right"><font color="808080"><cf_tl id="Quantity"></td>
+							<tr class="labelmedium line">
+							    <td id="labelitem"><cf_tl id="Item"></td>
+								<td id="labelqty"><cf_tl id="Quantity"></td>
 								<cfif Object.RequirementMode eq "1">
-								<td id="labelday" class="labelit" align="right"><font color="808080"><cf_tl id="Days"></td>
-								<td class="labelit" align="right"><font color="808080"><cf_tl id="Sum"></td>
+								<td id="labelday"><cf_tl id="Days"></td>
+								<td><cf_tl id="Sum"></td>
 								</cfif>
-								<td class="labelit" align="right"><font color="808080"><cf_tl id="Cost"></td>
-								<td class="labelit" align="right"><font color="808080"><cf_tl id="Total"> #Parameter.BudgetCurrency#</td>
+								<td align="right"><cf_tl id="Cost"></td>
+								<td align="right"><cf_tl id="Total"> #Parameter.BudgetCurrency#</td>
 							</tr>
-							
-							<cfif Object.RequirementMode eq "1">
-	
-								<tr><td colspan="6" class="line"></td></tr>
-		
-							<cfelse>
-							
-								<tr><td colspan="4" class="line"></td></tr>
-							
-							</cfif>
-							
-							<tr><td height="3"></td></tr>
-											
-							<tr>				
+																			
+							<tr class="labelmedium line">				
 						  
 									<cfif URL.Mode neq "edit" and url.mode neq "add">	
 									   
@@ -1083,7 +1072,7 @@ password="#SESSION.dbpw#">
 												       value     = "#entry.requestQuantity#"
 												       validate  = "float"
 													   class     = "enterastab regularxl"
-													   style     = "text-align:right;width:40;height:25"		  
+													   style     = "text-align:right;padding-right:3px;width:40;height:25;border:0px;border-right:1px solid silver"		  
 													   message   = "Please enter a quantity"
 												       required  = "Yes"      
 												       typeahead = "No">
@@ -1096,15 +1085,15 @@ password="#SESSION.dbpw#">
 									 					 							
 											<cfif URL.Mode neq "edit" and url.mode neq "add">
 									   
-									   	     <td style="padding-right:0px;width:60" align="right" class="labelmedium">						   
+									   	     <td style="padding-right:0px;width:60" align="right">						   
 									   	      #entry.ResourceQuantity# 
 											 </td> 
 											 
-											 <td style="padding-right:0px;width:60" align="right" class="labelmedium">						   
+											 <td style="padding-right:0px;width:60" align="right">						   
 									   	      #entry.ResourceDays#					   
 										     </td>
 											 
-											 <td style="padding-right:0px;width:60" align="right" class="labelmedium">						   
+											 <td style="padding-right:0px;width:60" align="right">						   
 									   	      #entry.requestQuantity#					   
 										     </td>
 									   
@@ -1118,7 +1107,7 @@ password="#SESSION.dbpw#">
 											       value="#entry.resourceQuantity#"
 											       validate="float"			
 												   class="enterastab regularxl"		  
-												   style="text-align:right;height:25;width:60"
+												   style="text-align:right;padding-right:3px;height:25;width:60;border:0px;border-right:1px solid silver"
 												   message="Please enter a quantity"
 											       required="Yes">
 										   
@@ -1132,7 +1121,7 @@ password="#SESSION.dbpw#">
 											       value="#entry.resourcedays#"
 											       validate="float"		
 												   class="enterastab regularxl"			  
-												   style="text-align:right;height:25;width:60"
+												   style="text-align:right;padding-right:3px;height:25;width:60;border:0px;border-right:1px solid silver"
 												   message="Please enter a quantity"
 											       required="Yes">
 												   
@@ -1140,7 +1129,7 @@ password="#SESSION.dbpw#">
 										 				 					   
 										    <td style="padding-left:3px;text-align:right;padding-right:3px;vertical-align: middle;">
 										   						  
-											  <cfdiv id="quantity_1" style="width:60;border:1px solid silver;height:23;padding-right:3px;"
+											  <cfdiv id="quantity_1" style="width:60;border-right:1px solid silver;height:25;padding-right:3px;"
 											    bind="url:RequestQuantityMode1.cfm?mode=quantity&resource_1={resourcequantity_1}&day_1={resourcedays_1}"/>
 																											   
 										     </td>
@@ -1151,7 +1140,7 @@ password="#SESSION.dbpw#">
 									 	 			  		   
 									 <cfif URL.Mode neq "edit" and url.mode neq "add">
 										   
-									   	     <td style="padding-right:1px" align="right" class="labelmedium">#numberformat(entry.requestPrice,"__,__.__")# </td>
+									   	     <td style="padding-right:3px;border-right:1px solid silver" align="right" class="labelmedium">#numberformat(entry.requestPrice,",.__")# </td>
 										   
 									 <cfelse>
 										   
@@ -1160,7 +1149,7 @@ password="#SESSION.dbpw#">
 												   <cfif entry.requestprice lte "0.05">
 												     <cfset val = "0.00">				
 												   <cfelse>	 			
-												      <cfset val = "#numberformat(entry.requestPrice,",__.__")#">
+												      <cfset val = "#numberformat(entry.requestPrice,",.__")#">
 												   </cfif>
 									
 												   <cf_tl id="Please enter a cost price" var="1">
@@ -1169,7 +1158,7 @@ password="#SESSION.dbpw#">
 													   name     = "requestprice_1"
 													   id       = "requestprice_1"
 												       value    = "#val#"												       				   
-													   style    = "text-align:right;width:70;height:25"
+													   style    = "padding-right:3px;text-align:right;width:70;height:25;border:0px;border-right:1px solid silver"
 													   message  = "#lt_text#"
 													   class    = "regularxl enterastab"
 												       required = "Yes">	
@@ -1181,22 +1170,22 @@ password="#SESSION.dbpw#">
 									 </cfif>		
 							 	   			   
 									 <td align="right" class="labelmedium"
-									    style="padding-left:4px;width:85px;border:0px solid silver;text-align:right;padding-right:0px">
+									    style="padding-left:4px;width:85px;border-bottom:1px solid silver;text-align:right;padding-right:0px">
 								   
 								   	<cfif URL.Mode neq "edit" and url.mode neq "add">
 										
-									   		#numberformat(entry.requestAmountBase,"__,__.__")#
+									   		#numberformat(entry.requestAmountBase,",.__")#
 										
 									<cfelse>							
 																						
 											<cfif Object.RequirementMode eq "0">							
 											   
-											    <cfdiv id="total_div" style="background-color:A4FFA4;width:80;border:1px solid silver;height:23;padding-right:3px;"
+											    <cfdiv id="total_div" style="background-color:f1f1f1;width:80;border-right:1px solid silver;height:25;padding-right:3px;"
 												bind="url:RequestQuantityMode0.cfm?mode=total&price={requestprice_1}&quantity_1={requestquantity_1}"/>
 																				
 											<cfelse>												
 																							
-												<cfdiv id="total_div" style="background-color:A4FFA4;width:80;border:1px solid silver;height:23;padding-right:3px;"
+												<cfdiv id="total_div" style="background-color:f1f1f1;width:80;border-right:1px solid silver;height:25;padding-right:3px;"
 												bind="url:RequestQuantityMode1.cfm?mode=total&price={requestprice_1}&resource_1={resourcequantity_1}&day_1={resourcedays_1}"/>
 																															
 											</cfif>													
@@ -1259,8 +1248,8 @@ password="#SESSION.dbpw#">
 						</tr>
 						</table>
 								
-					<cfelse>			
-						
+					<cfelse>		
+																
 						<cfif Object.RequirementMode eq "0" or Object.RequirementMode eq "1">			
 							
 							  <table width="100%" align="center" border="0" style="border:0px dotted silver" cellspacing="0" cellpadding="0">
@@ -1320,7 +1309,7 @@ password="#SESSION.dbpw#">
 									
 							   		<table cellspacing="0" cellpadding="0" class="formpadding">
 										<tr>
-											<td align="right" style="border: 1px solid silver;bheight:25;width:90px;padding-right:4px">																				
+											<td align="right" style="border: 1px solid silver;height:25px;width:90px;padding-right:4px">																				
 											
 												<cfif URL.Mode eq "edit" or url.mode eq "add">
 													
@@ -1355,7 +1344,7 @@ password="#SESSION.dbpw#">
 								
 									<table cellspacing="0" cellpadding="0" class="formpadding">
 										<tr>
-											<td bgcolor="F4F4F4" align="right" class="labelmedium" style="border:1px solid silver;width:90px;padding-right:4px">	
+											<td bgcolor="F4F4F4" align="right" class="labelmedium" style="border:1px solid silver;width:90px;height:25px;padding-right:4px">	
 																																										
 											<cfif URL.Mode eq "edit" or url.mode eq "add">
 												
@@ -1370,13 +1359,13 @@ password="#SESSION.dbpw#">
 																														
 												<cfdiv id="subtotal" bindonload="false"	bind="url:RequestQuantityMode1.cfm?scope=period&mode=quantity&#lk#">	
 												
-													<div id="total_display" style="font-size:13">#numberformat(entry.RequestQuantity,",__.__")#</div>
+													<div id="total_display" style="font-size:13">#numberformat(entry.RequestQuantity,",.__")#</div>
 													
 												</cfdiv>
 															
 											<cfelse>
 																						
-												<div id="total_display" style="font-size:13">#numberformat(entry.RequestQuantity,",__.__")#</div>
+												<div id="total_display" style="font-size:13">#numberformat(entry.RequestQuantity,",.__")#</div>
 																					
 											</cfif>
 									
@@ -1420,7 +1409,7 @@ password="#SESSION.dbpw#">
 						   <cfif entry.requestprice lte "0.05">
 						      <cfset val = "0.00">				
 						   <cfelse>	 			
-						      <cfset val = "#numberformat(entry.requestPrice,",__.__")#">
+						      <cfset val = "#numberformat(entry.requestPrice,",.__")#">
 						   </cfif>
 			
 						   <cf_tl id="Please enter an amount" var="1">

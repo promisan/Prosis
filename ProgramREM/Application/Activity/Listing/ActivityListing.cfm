@@ -548,10 +548,10 @@ password="#SESSION.dbpw#">
 								
 			    <cfinclude template="ActivityListingCluster.cfm">				
 							
-				<cfoutput>					
-				
+				<cfoutput>		
+									
 					<cfinclude template="ActivityListingLine.cfm">
-							
+												
 				</cfoutput>
 			
 			</cfoutput>

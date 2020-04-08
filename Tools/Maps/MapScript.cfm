@@ -34,8 +34,8 @@
 		aRelated = new Array();
 	}
 			
-	function mapaddress(scope) {	 	
-		   
+	function mapaddress(scope) {	
+			   
 	    add   = document.getElementById('address').value	    								
 		cit   = document.getElementById('addresscity').value		
 		cou   = document.getElementById('country').value		

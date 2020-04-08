@@ -1,5 +1,5 @@
 
-<cf_screentop height="100%" scroll="Yes" html="No" jquery="Yes">
+<cf_screentop height="100%" scroll="Yes" html="No" jquery="Yes" TreeTemplate="Yes">
 
 <cfparam name="URL.unitselect" default="0">
 

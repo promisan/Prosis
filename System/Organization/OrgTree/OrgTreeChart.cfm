@@ -161,26 +161,24 @@
 				</cfif>
 				<cfif url.locationcode neq "">
 					AND	A.LocationCode = '#url.locationcode#'
-				</cfif>
-				
-				<cfif url.postGrade neq "">
-				AND  (SELECT	TOP 1 PC.ContractLevel
-							FROM	PersonContract PC							
-							WHERE	PC.PersonNo        = A.PersonNo
-							AND     PC.ActionStatus    = '1'					
-							AND     PC.DateExpiration >= '#url.referencedate#'
-							ORDER BY DateExpiration DESC ) = '#url.postgrade#'
-				</cfif>
-			
-			
+				</cfif>	
+
+				<cfif trim(url.PostClass) neq "">
+					AND	A.PostClass = '#url.PostClass#'
+				</cfif>		
 				
 			) as Data
 			
+			INNER JOIN Ref_PostGrade CG ON Data.ContractLevel = CG.PostGrade
 			RIGHT OUTER JOIN Organization.dbo.Organization O ON Data.OrgUnit#trim(url.orgunittype)# = O.OrgUnit 
 			
 			WHERE  O.Mission          = '#url.mission#'
 			AND		O.MandateNo        = '#url.mandateno#'
-			AND    	(O.DateExpiration <= '#getMandate.DateExpiration#' OR O.DateExpiration >= '#url.referencedate#')	
+			AND    	(O.DateExpiration <= '#getMandate.DateExpiration#' OR O.DateExpiration >= '#url.referencedate#')
+
+			<cfif trim(url.postGrade) neq "">
+				AND	Data.ContractLevel = '#url.postgrade#'
+			</cfif>	
 																	
 			<cfif url.orgUnit eq "all">
 			
@@ -208,43 +206,28 @@
 			
 		
 		
-		ORDER BY O.HierarchyCode, Data.PostOrder			
+		ORDER BY O.HierarchyCode, Data.PostOrder, CG.PostOrder		
 		
 </cfquery>
 
 
 <cfquery name="getResult" maxrows=1 dbtype="query">
-SELECT *
+	SELECT *
 	FROM	getDirectory
-	WHERE   LastName > ''</cfquery>
+	WHERE   LastName > ''
+</cfquery>
 
 <cfif getResult.recordcount eq 0>
 
 	<cfinclude template="OrgTreeInstructions.cfm">
 
 <cfelse>
-
-	<div class="row">
-		<div class="input-group" style="width:100%; padding-left:5%; text-align:right;">
-			<!---
-			<cf_tl id="Search for any of the" var="lblSearch1">
-			<cf_tl id="units..." var="lblSearch2">
-			<cfoutput>
-				<input class="form-control" 
-				 type="text" placeholder="#lblSearch1# #getDistinctOrgUnits.recordcount# #lblSearch2#" 
-				 style="width:95%;" 
-				 onkeyup="searchElement(this.value, '.orgUnitTopContainer', event);">
-				<div class="clsSearchSpinner" style="text-align:center; padding-top:75px; display:none;">
-					<i class="fa fa-cog fa-3x fa-spin text-success"></i>
-				</div>
-			</cfoutput>
-			--->
-			<cfoutput>
-				<cf_tl id="Print" var="1">
-				<i class="fa fa-print" style="font-size:210%; cursor:pointer;" onclick="printList();" title="#lt_text#"></i>					
-			</cfoutput>
-		</div>
-		<br>
+	
+	<div style="position:fixed;top:25px;right:60px;">
+		<cfoutput>
+			<cf_tl id="Print" var="1">
+			<i class="fa fa-print" style="font-size:210%; cursor:pointer;" onclick="printList();" title="#lt_text#"></i>					
+		</cfoutput>
 	</div>
 	
 	<div class="clsListingContainer">

@@ -1,7 +1,9 @@
 
 <!--- check record if not create record and open it for processing --->
 
-<cfparam name="url.eventid" default="">
+<cfparam name="url.eventid"  default="">
+<cfparam name="eventid"  default="#url.eventid#">
+<cfparam name="url.date" default="">
 
 <cfquery name="get" 
    datasource="AppsMaterials" 
@@ -12,7 +14,36 @@
     WHERE     Warehouse = '#url.warehouse#'			
 </cfquery>		
 
-<cfif url.eventid eq "">
+<cfif url.date neq "">
+
+    <cfset dateValue = "">
+	<CF_DateConvert Value="#url.date#">
+	<cfset DTS = dateValue>
+
+	<cfquery name="close"
+		datasource="AppsMaterials" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+	
+		SELECT    *
+		FROM      Accounting.dbo.Event
+		WHERE     OrgUnit IN
+                             (SELECT  O.OrgUnit
+                              FROM    Warehouse W, Organization.dbo.Organization O
+                              WHERE   W.MissionorgUnitid = O.MissionOrgUnitId
+							  AND     W.Warehouse = '#url.warehouse#') 
+		AND       ActionCode = 'Closing' 
+	    AND       EventDate  = #DTS#
+	
+	</cfquery>
+	
+	<cfif close.recordcount gte "1">	
+		 <cfset eventid = close.eventid>	 
+	</cfif>
+	
+</cfif>	
+
+<cfif eventid eq "">
 	
 	<cf_assignid>
 	
@@ -122,10 +153,6 @@
 		
 	</cfif>	
 	 
-<cfelse>
-
-	<cfset eventid = url.eventid>
-
 </cfif>	 
  
 <cfoutput>

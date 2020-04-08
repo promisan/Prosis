@@ -39,35 +39,35 @@
 				   
 </cfquery>
 
-<cf_divscroll>
-
-<table width="98%" align="center" bordercolor="white" border="0" cellspacing="0" cellpadding="0">
+<cfform action="#session.root#/System/EntityAction/EntityFlow/ClassAction/ActionStepAddSubmit.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#" target="result" method="POST" style="height:98%">
+		
+<table height="100%" width="98%" align="center">
 
 <tr class="hide"><td><iframe name="result" id="result"></iframe></td></tr>
 
 <cf_presentationscript>
 
 <tr>
-			<td style="padding-left:15px;">
-			
-				<cfinvoke component = "Service.Presentation.TableFilter"  
-				   method           = "tablefilterfield" 
-				   filtermode       = "auto"
-				   name             = "filtersearch"
-				   style            = "font:13px;height:21;width:120"
-				   rowclass         = "lines"
-				   rowfields        = "cdescription,ccode,csearch">							
-				
-			</td>
-		</tr>
-
-<tr><td valign="top">
-
-	<cfform action="#session.root#/System/EntityAction/EntityFlow/ClassAction/ActionStepAddSubmit.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#" target="result" method="POST">
+	<td style="padding-left:10px;">
 	
-	<table width="97%" align="center" border="0" cellspacing="0" cellpadding="0" class="formpadding navigation_table">
+	<cfinvoke component = "Service.Presentation.TableFilter"  
+	   method           = "tablefilterfield" 
+	   filtermode       = "auto"
+	   name             = "filtersearch"
+	   style            = "font:13px;height:21;width:120"
+	   rowclass         = "lines"
+	   rowfields        = "cdescription,ccode,csearch">							
 		
-	<tr class="labelmedium line">
+	</td>
+</tr>
+
+<tr><td valign="top" height="95%">
+			
+	<cf_divscroll>
+	
+	<table width="97%" align="center" class="formpadding navigation_table">
+		
+	<tr class="fixrow labelmedium line">
 	   <td width="10%">Code</td>
 	   <td width="40%">Description</td>
 	   <td width="10%">Type</td>
@@ -77,9 +77,7 @@
 	</tr>
 		
 	<cfoutput query="Action">
-	
-		<cfset search = "#Action.ActionCode# #Action.ActionDescription#">
-	
+				
 		<cfquery name="Used" 
 		datasource="AppsOrganization" 
 		username="#SESSION.login#" 
@@ -92,7 +90,7 @@
 		AND      A.EntityClass != '#URL.EntityClass#'
 		</cfquery>
 	
-	<tr class="line labelmedium navigation_row">
+	<tr class="line labelmedium navigation_row lines">
 		<td class="ccode" style="padding-left:4px">#ActionCode#</td>
 		<td class="cdescription">#ActionDescription#</td>
 		<td>#ActionType#</td>
@@ -107,10 +105,12 @@
 		</cfif>
 		</td>
 	</tr>
+	
+	<cfset search = "#Action.ActionCode# #Action.ActionDescription#">
 		
 	<cfif Used.recordcount gte "1">
 	
-		<tr>
+		<tr class="lines">
 		  <td style="display:none" class="csearch">#search#</td>
 		  <td colspan="1" align="right" style="padding-right:4px">
 		  <font size="1" color="6688aa">Used in:</font>	  
@@ -122,7 +122,7 @@
 		</tr>
 		
 		<cfloop query="Used" startrow="2">
-		<tr>
+		<tr class="lines">
 			<td style="display:none" class="csearch">#search#</td>
 			<td></td>
 			<td colspan="4"> <font size="1" face="Verdana" color="gray">#entityClassName# (#Used.EntityClass#)</td>
@@ -131,27 +131,29 @@
 	
 	</cfif>
 	
-	<tr style="display:none" class="lines"><td style="display:none" class="csearch">#search#</td><td colspan="6" class="line"></td></tr>
+	<tr style="display:none" class="lines">
+	   <td style="display:none" class="csearch">#search#</td><td colspan="6" class="line"></td>
+	</tr>
 		
 	</cfoutput>	
-	
-	<tr>
-	<td colspan="5" height="25" align="center" valign="bottom">	
-		<input type="submit" name="Submit" id="Submit" value="Add" style="width:200px" class="button10g">
-	</td>
-	</tr>
-	
-	</table>
 		
-	</cfform>
+	</table>
 	
+	</cf_divscroll>
+		
 	</td>
 
 </tr>
 
+<tr>
+	<td colspan="5" height="25" align="center" valign="bottom">	
+		<input type="submit" name="Submit" id="Submit" value="Add" style="width:200px" class="button10g">
+	</td>
+</tr>
+
 </table>
 
-</cf_divscroll>
+</cfform>
 
 <cfset ajaxonload("doHighlight")>
 

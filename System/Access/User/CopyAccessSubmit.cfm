@@ -14,20 +14,18 @@
 	<cfloop list="#Form.Missions#"  index="Element">
 		<cfset vToCreate=#Element#&#Form.iAccount#>
 		<cfset vToCreate=Left(vToCreate,20)>
-		
-		
+				
 		<cfquery name="check" datasource="AppsSystem">
 			SELECT * 
-			FROM UserNames 
-			WHERE Account='#vToCreate#'
+			FROM   UserNames 
+			WHERE  Account='#vToCreate#'
 		</cfquery>
 		
 		<cfif check.recordcount eq 0>
 			<!---Account can be created without problem ---->
 			
 			<cfquery name="first" datasource="AppsSystem">
-				INSERT INTO UserNames 
-				(
+				INSERT INTO UserNames (
 				   [Account]
 			      ,[AccountType]
 			      ,[IndexNo]
@@ -179,15 +177,15 @@
 		    
 		<!--- try { opener.location.reload(); } catch(e) { } --->
 		parent.parent.todays("yes")
-		parent.parent.ColdFusion.Window.destroy('mydialog',true)
+		parent.parent.ProsisUI.closeWindow('mydialog',true)
 		
 	</script>	
 
 </cfoutput>
 
 <cfelse>
-	<cf_message message = "The current Account is not associated to a mission"
-	  return = "">
-	<cfabort>
 
+	<cf_message message = "The current Account is not associated to a mission" return = "">
+	<cfabort>
+	
 </cfif>

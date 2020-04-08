@@ -1,12 +1,5 @@
 <!--- Create Criteria string for query from data entered thru search form --->
 
-<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>"><HTML>
-<HEAD><TITLE>Tax Maintenance</TITLE></HEAD>
-
-<body leftmargin="3" topmargin="3" rightmargin="1">
-
-<cf_divscroll>
-
 <cfquery name="SearchResult"
 datasource="AppsLedger" 
 username="#SESSION.login#" 
@@ -15,10 +8,19 @@ password="#SESSION.dbpw#">
 	FROM Ref_Tax
 </cfquery>
 
+<cf_screentop html="No" jquery="Yes">
+
 <cfset Page         = "0">
 <cfset add          = "1">
 <cfset Header       = "Tax Code">
+
+<table height="100%" width="94%" align="center" cellspacing="0" cellpadding="0" align="center">
+
+<tr><td>
+
 <cfinclude template = "../HeaderMaintain.cfm"> 
+
+</td></tr>
 
 <cfoutput>
 
@@ -36,10 +38,14 @@ function recordedit(id) {
 
 </cfoutput>
 
+<tr>
+<td style="height:100%">
 
-<table width="94%" class="navigation_table" align="center" cellspacing="0" cellpadding="0" align="center">
+<cf_divscroll>
 
-<tr class="labelmedium line">
+<table width="100%" class="navigation_table">
+
+<tr class="fixrow labelmedium line">
     <td width="40" align="left"></td>
     <td align="left">Code</td>
 	<td width="25%" align="left">Description</td>
@@ -75,3 +81,9 @@ function recordedit(id) {
 </table>
 
 </cf_divscroll>
+
+</td></tr>
+
+</table>
+
+<cfset ajaxonload("doHighlight")>

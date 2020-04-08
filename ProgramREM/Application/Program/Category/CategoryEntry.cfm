@@ -1,9 +1,8 @@
 
 <cf_tl id="Do you want to remove this target ?" var="vDeleteQuestion">
 
-
-
 <cfparam name="url.script" default="1">
+
 <cfif url.script eq "1">
 	<cfajaximport tags="cfform">
 	<cfinclude template="CategoryScript.cfm">
@@ -13,8 +12,6 @@
 </cfif>
 
 <cfparam name="url.header" default="0">
-
-
 	
 	<table width="100%" height="100%" border="0">
 	
@@ -28,7 +25,7 @@
 		<cfelse>
 		
 			<cfset programaccess = "Edit"> 
-			<tr><td colspan="2" style="height:10px"></td></tr>
+			<tr><td colspan="2" style="height:5px"></td></tr>
 			
 		</cfif>
 					

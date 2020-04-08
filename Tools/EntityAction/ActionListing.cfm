@@ -362,14 +362,14 @@
 
 <cfif Attributes.Show eq "Yes" and attributes.subflow eq "No">
 
-	<table width="<cfoutput>#attributes.Tablewidth#</cfoutput>" cellspacing="0" cellpadding="0" align="center">
+	<table width="<cfoutput>#attributes.Tablewidth#</cfoutput>" align="center">
 	<tr>
 	<td style="padding:1px">
 
 	<table width="100%" cellspacing="0" cellpadding="0" align="center" style="border:0px solid silver;padding:2px">			
 	<tr><td colspan="2" style="padding-top:4px">
 
-	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<table width="100%" border="0">
 	
 </cfif>
 

@@ -481,11 +481,13 @@ password="#SESSION.dbpw#">
 									<td align="left" style="border-left:1px solid silver;padding-left:5px;padding-right:3px"><cfif dateeffective neq dateexpiration>#Dateformat(DateExpiration, CLIENT.DateFormatShow)# <font size="1"><cfif DateExpirationFull eq "0"><cfif DateEffectiveHour eq "12">PM<cfelse>AM</cfif><cfelse>...</cfif></cfif></font></td>							
 									<td align="right" style="border-left:1px solid silver;padding-left:4px;padding-right:3px;">#NumberFormat(DaysLeave,".__")#</TD>		
 									<cfif LeaveAccrual eq "0" and WorkdaysOnly eq "0">
+									
 									<td align="right" style="cursor:pointer;border:1px solid silver;background-color:ffffff;padding-left:3px;padding-right:3px;">
 										#NumberFormat(DaysDeduct,".__")#
 									</td>
 									<cfelse>
-										<cfif leavedeductdetail gt "0" and edt eq "1">										
+									
+										<cfif leavedeductdetail gte "0" and edt eq "1">																				
 										<td align="right" onclick="deduction('#leaveid#')" style="cursor:pointer;border:1px solid silver;background-color:##ffffaf50;padding-left:3px;padding-right:3px;" id="deduct_#leaveid#">
 										#NumberFormat(LeaveDeductDetail,".__")#
 										</td>

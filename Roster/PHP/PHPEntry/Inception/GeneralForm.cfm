@@ -41,12 +41,11 @@
 	
 </cfif>
 
-<table  border="0" cellspacing="0" cellpadding="0" class="formpadding">
+<table border="0" class="formpadding">
 
 <cfoutput>
 					
-		<cfset row=row+1>
-		
+		<cfset row=row+1>		
 		
 		<!--- 13/10 in the initial request of an account we no longer ask for the picture, this is reserved for the portal --->
 				
@@ -60,17 +59,13 @@
 						    <cfif get.PersonNo eq "">
 						
 							 <cfquery name="AssignNo" 
-							     datasource="AppsSelection" 
-							     username="#SESSION.login#" 
-							     password="#SESSION.dbpw#">
+							     datasource="AppsSelection">
 							     	UPDATE Parameter 
 									SET    PersonNo    = PersonNo+1
 								</cfquery>
 							
 							    <cfquery name="LastNo" 
-							     datasource="AppsSelection" 
-							     username="#SESSION.login#" 
-							     password="#SESSION.dbpw#">
+							     datasource="AppsSelection">
 							     SELECT *
 							     FROM Parameter
 								</cfquery>
@@ -115,37 +110,39 @@
 		
 		<!---  --->
 		
-	    <TR id="personfield" name="personfield">
-		<td class="labelit" height="20" tyle="padding-top:6px;width:30px"></td>
-	    <TD class="labelmedium" style="width:23%" align="left"><cf_tl id="Salutation">  : <cfif get.CandidateStatus neq "1"><font color="FF0000">&nbsp;*&nbsp;</font></cfif></TD>
-	    <TD class="labelmedium" style="width:50%"  align="left">	
-							
-				<cfquery name="qSalutation" 
-						datasource="appsSelection" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">
-							SELECT   *
-							FROM Ref_Salutation
-				</cfquery>
-						
-				
-				<select name="salutation" id="salutation" class="regularxl">
-				    <option value=""></option>
-					<cfloop query="qSalutation">
-						<option value="#Code#" <cfif Code eq get.salutation>selected</cfif>>#qSalutation.Description#</option>
-					</cfloop>
-				</select>				
-			
-		</TD>
-		</TR>
+		<cfquery name="qSalutation" 
+				datasource="appsSelection">
+					SELECT   *
+					FROM Ref_Salutation
+		</cfquery>		
 		
-									
-		<cfset row=row+1>	
+		<cfif qSalutation.recordcount eq "0">
+		
+		    <!--- NA --->
+					
+		<cfelse>
+		
+		    <TR id="personfield" name="personfield">			
+		    <TD class="labelmedium" style="min-width:160px;width:23%" align="left"><cf_tl id="Salutation">  : <cfif get.CandidateStatus neq "1"><font color="FF0000">&nbsp;*&nbsp;</font></cfif></TD>
+		    <TD class="labelmedium" style="width:50%"  align="left">	
+							
+					<select name="salutation" id="salutation" class="regularxl">
+					    <option value=""></option>
+						<cfloop query="qSalutation">
+							<option value="#Code#" <cfif Code eq get.salutation>selected</cfif>>#qSalutation.Description#</option>
+						</cfloop>
+					</select>				
+				
+			</TD>
+			</TR>
+												
+			<cfset row=row+1>	
+		
+		</cfif>
 					
 	    <!--- Field: Applicant.LastName --->
-	    <TR id="personfield" name="personfield">
-		<td class="labelit" height="20" tyle="padding-top:6px;width:30px"></td>
-	    <TD class="labelmedium" align="left"><cf_tl id="LastName">  : <cfif get.CandidateStatus neq "1"><font color="FF0000">&nbsp;*&nbsp;</font></cfif></TD>
+	    <TR id="personfield" name="personfield">		
+	    <TD class="labelmedium" style="min-width:160px;width:23%" align="left"><cf_tl id="LastName">  : <cfif get.CandidateStatus neq "1"><font color="FF0000">&nbsp;*&nbsp;</font></cfif></TD>
 	    <TD class="labelmedium" align="left">	
 				
 		   <cf_tl class="Message" id="LastName:Entry" var="1">
@@ -177,8 +174,7 @@
 		<cfif url.entrymode eq "Extended">
 							
 		    <!--- Field: Applicant.LastName --->
-		    <TR id="personfield" name="personfield">
-			<td height="20"></td>	
+		    <TR id="personfield" name="personfield">			
 		    <TD class="labelmedium" align="left"><cf_tl id="LastName2"> :</TD>
 		    <TD align="left">		
 			   
@@ -208,8 +204,7 @@
 		<cfset row=row+1>	
 						
 	    <!--- Field: Applicant.LastName --->
-	    <TR id="personfield" name="personfield">
-		<td class="labelit" height="20" tyle="padding-top:6px;width:30px"></td>
+	    <TR id="personfield" name="personfield">		
 	    <TD class="labelmedium"><cf_tl id="MaidenName"> :</TD>
 	    <TD>	
 		
@@ -238,8 +233,7 @@
 							
 	    <!--- Field: Applicant.FirstName --->
 	    <TR id="personfield" name="personfield">
-		<td class="labelit" tyle="padding-top:6px;width:30px" height="20"></td>
-	    <TD class="labelmedium" align="left"><cf_tl id="FirstName"> : <font color="FF0000"><cfif get.CandidateStatus neq "1">&nbsp;*&nbsp;</cfif></font></TD>
+		<TD class="labelmedium" align="left"><cf_tl id="FirstName"> : <font color="FF0000"><cfif get.CandidateStatus neq "1">&nbsp;*&nbsp;</cfif></font></TD>
 	    <TD class="labelmedium" align="left">
 					
 		   <cf_tl class="Message" id="FirstName:Entry" var="1">
@@ -271,8 +265,7 @@
 		<cfif url.entrymode eq "Extended">
 								
 		    <!--- Field: Applicant.MiddleName --->
-		    <TR id="personfield" name="personfield">
-			<td height="20"></td>	
+		    <TR id="personfield" name="personfield">			
 		    <TD class="labelmedium" align="left"><cf_tl id="FirstName2"> :</TD>
 		    <TD align="left">		
 			
@@ -287,8 +280,7 @@
 			
 			<cfset row=row+1>	
 												
-		    <TR id="personfield" name="personfield">
-			<td class="labelit" tyle="padding-top:6px;width:30px" height="20"></td>
+		    <TR id="personfield" name="personfield">			
 		    <TD class="labelmedium" align="left"><cf_tl id="FirstName3"> :</TD>
 		    <TD align="left">
 			
@@ -317,10 +309,9 @@
 		
 		<cfset row=row+1>					
 	  
-	    <TR id="personfield" name="personfield">
-		<td class="labelit" height="20" tyle="padding-top:6px;width:30px"></td>
+	    <TR id="personfield" name="personfield">		
 	    <TD class="labelmedium" align="left">
-	    	<cf_tl id="#client.IndexNoName#">:<cf_space spaces="36">
+	    	<cf_tl id="#client.IndexNoName#">:
     	</TD>
 	    <TD align="left" width="60%">
 		
@@ -329,12 +320,11 @@
 				     <input type="text"
 				       name="indexno"
 				       value="#get.IndexNo#"
-				       size="15"
+				       size="20"
 					   onchange="#locmatch#"
-				       maxlength="15"
+				       maxlength="20"
 					   <cfif get.candidateStatus eq "1">readonly</cfif>
-				       class="regularxl enterastab"
-				       style="text-align: center;">				
+				       class="regularxl enterastab">				
 			   
 			  <cfelse>
 			  
@@ -346,18 +336,25 @@
 		<cfset row=row+1>	
 				
 	    <!--- Field: Applicant.Gender --->
-	    <TR id="personfield" name="personfield">
-		<td class="labelit" tyle="padding-top:6px;width:30px" height="23"></td>	
+	    <TR id="personfield" name="personfield">		
 	    <TD class="labelmedium" align="left"><cf_tl id="Gender"> : <cfif get.CandidateStatus neq "1"><font color="FF0000">&nbsp;*&nbsp;</font></cfif></TD>
 	    <TD align="left" class="labelmedium">
 		
 		    <cfif url.mode neq "view" and get.CandidateStatus neq "1">
-					
-	    		<INPUT type="radio" name="Gender" class="enterastab radiol" value="M" <cfif Get.Gender IS "M" or Get.Gender is "">checked</cfif>> <cf_tl id="Male">
-		    	<INPUT type="radio" name="Gender" class="enterastab radiol" value="F" <cfif Get.Gender IS "F">checked</cfif>> <cf_tl id="Female"> 
+			
+				<table>
+				<tr class="labelmedium" style="height:26px">
+				<td><INPUT type="radio" name="Gender" class="enterastab radiol" value="M" <cfif Get.Gender IS "M" or Get.Gender is "">checked</cfif>> 
+				</td><td style="padding-left:3px"><cf_tl id="Male"></td>
+		    	<td style="padding-left:10px"><INPUT type="radio" name="Gender" class="enterastab radiol" value="F" <cfif Get.Gender IS "F">checked</cfif>> 
+				</td><td style="padding-left:3px"><cf_tl id="Female"></td>
 				<cfif url.scope eq "casefile">
-				<INPUT type="radio" name="Gender" class="enterastab radiol" value="U" <cfif Get.Gender IS "U">checked</cfif>> <cf_tl id="Undefined"> 
-				</cfif>
+				<td style="padding-left:10px">
+				<INPUT type="radio" name="Gender" class="enterastab radiol" value="U" <cfif Get.Gender IS "U">checked</cfif>>
+				</td><td style="padding-left:3px"><cf_tl id="Undefined"></td>				
+				</cfif>				
+				</tr>
+				</table>
 						
 			<cfelse>
 			
@@ -372,16 +369,14 @@
 			</cfif>
 			
 		</TD>
-		</TR>
-		
+		</TR>		
 		
 		<cfif entrymode eq "Extended">
 		
 			<cfset row=row+1>	
 						
 		    <!--- Field: Applicant.MiddleName --->
-		    <tr id="personfield" name="personfield">
-			<td class="labelit" tyle="padding-top:6px;width:30px" height="23"></td>	
+		    <tr id="personfield" name="personfield">			
 		    <td class="labelmedium" align="left"><cf_tl id="BirthCity">:</TD>
 		    <td align="left">
 			
@@ -399,8 +394,7 @@
 		<cfset row=row+1>	
 				
 	    <!--- Field: Applicant.DOB --->
-	    <TR id="personfield" name="personfield">
-		<td class="labelit" tyle="padding-top:6px;width:30px" style="width:35px" height="23">&nbsp;&nbsp;&nbsp;&nbsp;</td>	
+	    <TR id="personfield" name="personfield">		
 	    <TD class="labelmedium" align="left"><cf_tl id="DOB"> : <cfif url.scope neq 'casefile'><cfif get.CandidateStatus neq "1"><font color="FF0000">&nbsp;*&nbsp;</font></cfif></cfif></TD>
 	    <TD align="left" class="labelmedium" style="z-index:20; position:relative;padding:0px">	
 		
@@ -438,50 +432,52 @@
 		</TD>
 		</TR>
 		
+		<tr><td style="height:2px"></td></tr>
+		
 		<!--- Field: Applicant.MaritalStatus --->
-	    <TR id="personfield" name="personfield">
-		<td class="labelit" tyle="padding-top:6px;width:30px" height="23"></td>	
+	    <TR id="personfield" name="personfield">		
 	    <TD class="labelmedium"><cf_tl id="Marital Status">:<font color="FF0000">&nbsp;*</font></TD>
 	    <TD>
 			<cfoutput>
 			<cfquery name = "qMarital" datasource = "AppsSelection">
-				SELECT * FROM Ref_MaritalStatus
-				ORDER BY Code DESC
+				SELECT    * 
+				FROM      Ref_MaritalStatus
+				ORDER BY  Code DESC
 			</cfquery>
 
 	  	 	<cfselect name="MaritalStatus" id="maritalstatus" required="Yes" class="regularxl enterastab">
-			
+			<option value=""><cf_tl id="Select"></option>
 		    <cfloop query="qMarital">
-	        		 <option value="#Code#" <cfif Code IS get.MaritalStatus>selected</cfif>><cf_tl id="#Description#"></option>
+	        	 <option value="#Code#" <cfif Code IS get.MaritalStatus>selected</cfif>><cf_tl id="#Description#"></option>
 			</cfloop> 
 		    </cfselect>	
 			
 			</cfoutput>
 		</TD>
-		</TR>
-		
+		</TR>		
 						
 		<cfset row=row+1>	
 				
 	    <!--- Field: Applicant.Nationality --->
-	    <tr id="personfield" name="personfield">
-		<td class="labelit" tyle="padding-top:6px;width:30px" height="23"></td>	
+	    <tr id="personfield" name="personfield">		
 	    <td class="labelmedium" align="left"><cf_tl id="Nationality"> : <cfif get.CandidateStatus neq "1"><font color="FF0000">&nbsp;*&nbsp;</font></cfif></TD>
 	    <td align="left" class="labelmedium">
 		
 			<cfif url.mode neq "view" and get.CandidateStatus neq "1">
 								
-	    	<cfselect name="Nationality" required="No" class="regularxl enterastab">
-			<cfset nat = Get.Nationality>
-			<cfif nat eq "">
-				<cfset nat= PHPParameter.PHPNationality>
-			</cfif>
+	    	<cfselect name="Nationality" style="width:268px" required="No" class="regularxl enterastab">
+				
+				<cfset nat = Get.Nationality>
+				<cfif nat eq "">
+					<cfset nat= PHPParameter.PHPNationality>
+				</cfif>
 			
-		    <cfloop query="Nation">
-	        		 <option value="#Code#" <cfif Code IS nat>selected</cfif>>#Name#</option>
-			</cfloop> 
+			    <cfloop query="Nation">
+		        		 <option value="#Code#" <cfif Code IS nat>selected</cfif>>#Name#</option>
+				</cfloop> 
+				
 		    </cfselect>	
-			
+						
 			<cfelse>
 			
 			#get.Nationality#
@@ -494,8 +490,7 @@
 		
 			<cfset row=row+1>	
 			
-			<tr id="personfield" name="personfield">
-			<td class="labelit" tyle="padding-top:6px;width:30px" height="23"></td>	
+			<tr id="personfield" name="personfield">			
 			<td class="labelmedium" align="left"><cf_tl id="Nationality2"> :</TD>
 			<td align="left" class="labelmedium">
 			
@@ -530,7 +525,7 @@
 		
 		<cfset req = "Yes"> 
 		
-		<cfquery name="GetSource" datasource="AppsSelection" username="#SESSION.login#" password="#SESSION.dbpw#">
+		<cfquery name="GetSource" datasource="AppsSelection">
 			SELECT PHPMode
 			FROM   Ref_Source
 			WHERE  Source = '#Get.SubmissionSource#'
@@ -556,8 +551,7 @@
 			
 		</cfif>		
 		
-	    <TR id="personfield" name="personfield">
-		<td class="labelit" tyle="padding-top:6px;width:30px" height="23"></td>	
+	    <TR id="personfield" name="personfield">		
 	    <TD class="labelmedium" align="left"><cf_tl id="e-mail Address"> : <cfif req eq "Yes"><cfif get.CandidateStatus neq "1"><font color="FF0000">&nbsp;*&nbsp;</font></cfif></cfif></TD>
 	    <TD align="left" class="labelmedium">
 									
@@ -587,8 +581,7 @@
 		</TD>
 		</TR>
 		
-		<TR id="personfield" name="personfield">
-		<td class="labelit" tyle="padding-top:6px;width:30px" height="23"></td>	
+		<TR id="personfield" name="personfield">		
 	    <TD class="labelmedium" align="left"><cf_tl id="Mobile Number"> : <cfif req eq "Yes"><cfif get.CandidateStatus neq "1"><font color="FF0000">&nbsp;*&nbsp;</font></cfif></cfif></TD>
 	    <TD align="left" class="labelmedium">
 									
@@ -620,9 +613,7 @@
 		<!--- include initial topics --->
 								
 		<cfquery name="Master" 
-		datasource="AppsSelection" 
-		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">
+		datasource="AppsSelection">
 		     SELECT *
 			 FROM (
 		 	  SELECT   C.ListingOrder as ClassOrder,
@@ -661,9 +652,7 @@
 									   
 			 <cfset row=row+1>							  									  	 						  	 
 			 
-			  <tr> 	
-			  				  									  	  		
-				  <td class="labelit" align="right" style="width:20px;padding-right:5px;padding-top:2px"></td>									
+			  <tr> 					 								
 								  
 				  <cfif valueClass eq "List">	
 														  	
@@ -724,35 +713,31 @@
 														  		  
 		</cfloop>		  		
 				
-		
-		<cfif url.scope eq "casefile">
-		
+		<cfif entrymode eq "Extended" and get.CandidateStatus neq "1">	     						
+			
+				 <cfset row=row+1>	
+			
+				 <TR id="personfield" name="personfield">					 <
+				     <td valign="top" style="padding-top:4px" class="labelmedium" align="left"><cf_tl id="More information"> :</td>
+				     <TD colspan="2" class="labelmedium" align="left">	 
+					 <cfif url.mode neq "view">	
+					 <textarea rows="2" name="Remarks" class="regular" style="width:100%;font-size:13px;padding:3px;scrollbar-track-color: silver;">#Get.Remarks#</textarea>
+					 <cfelse>
+					 #Get.Remarks#
+					 </cfif>
+				    </TD>
+				 </TR>
+				 
+		<cfelse>	
+			
 		 <input type="hidden" name="Remarks" value="#Get.Remarks#">
-				
-		<cfelse>
-
- 		 <cfif get.CandidateStatus neq "1">								
-			 <cfset row=row+1>	
-		
-			 <TR id="personfield" name="personfield">
-				 <td valign="top" style="padding-top:6px;width:30px" class="labelit"></td>	
-			     <td valign="top" style="padding-top:4px" class="labelmedium" align="left"><cf_tl id="More information"> :</td>
-			     <TD colspan="2" class="labelmedium" align="left">	 
-				 <cfif url.mode neq "view">	
-				 <textarea rows="2" name="Remarks" class="regular" style="width:90%;font-size:13px;padding:3px;width:90%; scrollbar-track-color: silver;">#Get.Remarks#</textarea>
-				 <cfelse>
-				 #Get.Remarks#
-				 </cfif>
-			    </TD>
-			 </TR>
-		  </cfif>
-		</cfif>		
+		 
+		</cfif> 					
 		
 		<cfif entrymode eq "Extended" and url.action neq "Create">
 				
 		<cfset row=row+1>	
-		<tr style="padding-top:6px;">
-			<td  valign="top" style="padding-top:6px" class="labelit" style="width:40px" ></td>
+		<tr style="padding-top:6px;">			
 			<td valign="top" style="padding-top:4px" class="labelmedium"><cf_tl id="Attachments">:</td>
 			<td>
 						
@@ -764,6 +749,7 @@
 					Box="submission"
 					showsize="no"
 					Remove="yes">	
+					
 			</td>
 		</tr>
 		

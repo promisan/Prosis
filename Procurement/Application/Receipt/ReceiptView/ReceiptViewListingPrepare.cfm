@@ -76,7 +76,9 @@
 		      	 R.OfficerLastName,
 		      	 R.OfficerFirstName,
 	    	  	 R.Created,
-				 (SELECT count(*) FROM PurchaseLineReceipt WHERE ReceiptNo = R.ReceiptNo AND ActionStatus != '9') as Lines,
+				 (SELECT COUNT(*)               FROM PurchaseLineReceipt WHERE ReceiptNo = R.ReceiptNo AND ActionStatus != '9') as Lines,				 
+				 (SELECT SUM(ReceiptAmountBase) FROM PurchaseLineReceipt WHERE ReceiptNo = R.ReceiptNo AND ActionStatus != '9') as AmountBase, 
+				 (SELECT MIN(ActionStatus) FROM PurchaseLineReceipt WHERE ReceiptNo = R.ReceiptNo AND ActionStatus != '9') as ReceiptStatus, 			 	
 				 (SELECT TOP 1 Warehouse FROM PurchaseLineReceipt WHERE ReceiptNo = R.ReceiptNo AND ActionStatus != '9') as Warehouse,
 	    	     L.ReceiptId
 				 
@@ -118,6 +120,9 @@
 	      	   R.OfficerFirstName,
 	      	   R.Created,
 			   (SELECT count(*) FROM PurchaseLineReceipt WHERE ReceiptNo = R.ReceiptNo AND ActionStatus != '9') as Lines,
+			   (SELECT SUM(ReceiptAmountBase) FROM PurchaseLineReceipt WHERE ReceiptNo = R.ReceiptNo AND ActionStatus != '9') as AmountBase, 
+			   (SELECT MIN(ActionStatus) FROM PurchaseLineReceipt WHERE ReceiptNo = R.ReceiptNo AND ActionStatus != '9') as ReceiptStatus, 
+			 			
 			   (SELECT TOP 1 Warehouse FROM PurchaseLineReceipt WHERE ReceiptNo = R.ReceiptNo AND ActionStatus != '9') as Warehouse
 				 
 		INTO   userQuery.dbo.#SESSION.acc#Receipt

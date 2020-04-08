@@ -1,15 +1,15 @@
 
-<cfparam name="URL.class"          default="">  
-<cfparam name="URL.header"         default="1">   
-<cfparam name="URL.idmenu"         default="">   
-<cfparam name="URL.remove"         default="">   
-<cfparam name="URL.submissionedition" default="Generic">   
-<cfparam name="URL.Next"           default="Default">
-<cfparam name="URL.Mission"        default="">
-<cfparam name="URL.OrgUnit"        default="">
-<cfparam name="URL.PersonNo"       default="">
-<cfparam name="URL.date"           default="">
-<cfparam name="URL.ID"             default="">  <!--- bucket id of the application --->
+<cfparam name="URL.class"              default="">  
+<cfparam name="URL.header"             default="1">   
+<cfparam name="URL.idmenu"             default="">   
+<cfparam name="URL.remove"             default="">   
+<cfparam name="URL.submissionedition"  default="Generic">   
+<cfparam name="URL.Next"               default="Default">
+<cfparam name="URL.Mission"            default="">
+<cfparam name="URL.OrgUnit"            default="">
+<cfparam name="URL.PersonNo"           default="">
+<cfparam name="URL.date"               default="">
+<cfparam name="URL.ID"                 default="">  <!--- bucket id of the application --->
 
 <cfquery name="Parameter" 
    datasource="AppsSelection" 
@@ -51,7 +51,7 @@
    <cf_screentop height="100%" scroll="Yes" html="#html#" JQuery="yes" menuAccess="no" layout="webapp" label="Add Person" systemfunctionid="#url.idmenu#">
    <cfset url.header = "0">
 <cfelseif url.id eq "" and url.remove eq "" and url.idmenu neq "">
-	<cf_screentop height="100%" scroll="Yes" html="#html#" JQuery="yes" menuAccess="Yes" label="Add Person" systemfunctionid="#url.idmenu#">
+	<cf_screentop height="100%" scroll="Yes" html="no" JQuery="yes" menuAccess="Yes" label="Add Person" systemfunctionid="#url.idmenu#">
 <cfelse>
     <cf_screentop height="100%" scroll="Yes" html="#html#" layout="webapp" JQuery="yes" menuAccess="No"  label="Add Person" systemfunctionid="#url.idmenu#"> 
 </cfif>	
@@ -241,7 +241,7 @@ password="#SESSION.dbpw#">
 	  <tr>
 	    <td width="100%">
 				
-	    <table border="0" cellpadding="0" class="formpadding formspacing" width="100%">
+	    <table border="0" cellpadding="0" class="formpadding" width="100%">
 		
 		<!--- capture the organizational source of the candidate, like for secondment --->
 						
@@ -361,30 +361,25 @@ password="#SESSION.dbpw#">
 			<cfinput type="Text"  onchange="validate()" class="regularxl enterastab" id="firstname" name="firstName" message="#lt_text#" required="Yes" size="30" maxlength="30">
 			
 		</TD>
-		</TR>
-					
-	    <!--- Field: Applicant.MiddleName --->
-	    <TR>
-	    <TD class="labelmedium"><cf_tl id="Second name">:</TD>
+		 <TD class="labelmedium"><cf_tl id="Second name">:</TD>
 	    <TD>		
 			<INPUT type="text" class="regularxl enterastab" name="middlename" id="middlename" maxLength="30" size="30">			
 		</TD>
 		</TR>
-			
+					
+	   		
 	  
 	    <TR>
 	    <TD class="labelmedium"><cf_tl id="Last name">:<font color="FF0000">&nbsp;*</font></TD>
 	    <TD><cf_tl id="Please enter lastname" var="1" class="message">
 			<cfinput type="Text" onchange="validate()" class="regularxl enterastab" id="lastname" name="lastname" message="#lt_text#" required="Yes" size="40" maxlength="40" >			
 		</TD>
-		</TR>	
-		
-		  <TR>
-	    <TD class="labelmedium"><cf_tl id="Second Last name">:</TD>
+		  <TD class="labelmedium"><cf_tl id="Second Last name">:</TD>
 	    <TD><cf_tl id="Please enter lastname" var="1" class="message">
 			<cfinput type="Text" class="regularxl enterastab" id="lastname2" name="lastname2" message="#lt_text#" required="No" size="40" maxlength="40" >			
 		</TD>
 		</TR>	
+		
 		
 		 <!--- Field: Applicant.Mainden Name --->
 	    <TR>
@@ -423,10 +418,17 @@ password="#SESSION.dbpw#">
 				
 		</TD>
 		</TR>
-
-		<!--- Field: Applicant.MaritalStatus --->
+						
+	    <!--- Field: Applicant.Gender --->
 	    <TR>
-	    <TD class="labelmedium"><cf_tl id="Marital Status">:<font color="FF0000">&nbsp;*</font></TD>
+	    <TD class="labelmedium"><cf_tl id="Gender">:<font color="FF0000">&nbsp;*</font></TD>
+	    <TD>
+		
+			<INPUT type="radio" name="Gender" id="Mgender" class="enterastab" value="M" checked> <cf_tl id="Male">
+			<INPUT type="radio" name="Gender" id="Fgender" class="enterastab" value="F"> <cf_tl id="Female"> 
+			
+		</TD>
+		<TD class="labelmedium"><cf_tl id="Marital Status">:<font color="FF0000">&nbsp;*</font></TD>
 	    <TD>
 			<cfoutput>
 			<cfquery name = "qMarital" datasource = "AppsSelection">
@@ -434,26 +436,13 @@ password="#SESSION.dbpw#">
 				ORDER  BY ListingOrder
 			</cfquery>
 
-	  	 	<cfselect name="MaritalStatus" id="maritalstatus" required="Yes" class="regularxl enterastab">
-			
-		    <cfloop query="qMarital">
-	        		 <option value="#Code#"><cf_tl id="#Description#"></option>
-			</cfloop> 
+	  	 	<cfselect name="MaritalStatus" id="maritalstatus" required="Yes" class="regularxl enterastab">			
+			    <cfloop query="qMarital">
+		        		 <option value="#Code#"><cf_tl id="#Description#"></option>
+				</cfloop> 
 		    </cfselect>	
 			
 			</cfoutput>
-		</TD>
-		</TR>
-		
-		
-	    <!--- Field: Applicant.Gender --->
-	    <TR>
-	    <TD class="labelmedium"><cf_tl id="Gender">:<font color="FF0000">&nbsp;*</font></TD>
-	    <TD class="labelmedium">
-		
-			<INPUT type="radio" name="Gender" id="Mgender" class="enterastab" value="M" checked> <cf_tl id="Male">
-			<INPUT type="radio" name="Gender" id="Fgender" class="enterastab" value="F"> <cf_tl id="Female"> 
-			
 		</TD>
 		</TR>
 			
@@ -477,8 +466,8 @@ password="#SESSION.dbpw#">
 			</cfif>
 			
 	    </TD>
-				
-		<TR>
+			
+		
 		<TD class="labelmedium"><cf_tl id="2nd Nationality">:</TD>
 		<TD>
 	
@@ -499,10 +488,7 @@ password="#SESSION.dbpw#">
 			<cf_tl id="Please enter an e-mail address" var="1" class="message">
 			<cfinput type="Text" name="emailaddress" id="emailaddress" validate="email" message="#lt_text#" required="Yes" visible="Yes" enabled="Yes" size="40" maxlength="50" class="enterastab regularxl">
 		</TD>
-		</TR>
-						
-		<!--- Field: Applicant.EmailAddress --->
-	    <TR>
+		
 	    <TD class="labelmedium"><cf_tl id="Mobile Number">:</TD>
 	    <TD>		
 			<cfinput class="regularxl enterastab" type="text" name="MobileNumber" size="40" maxlength="50">			
@@ -516,7 +502,7 @@ password="#SESSION.dbpw#">
 		
 		<TR>
 	     <td class="labelmedium" valign="top" style="padding-top:4px"><cf_tl id="Remarks">:</td>
-	     <TD><textarea style="font-size:14px;padding:4px;width:99%" class="regular enterastab" rows="3" name="Remarks" totlength="400" onkeyup="return ismaxlength(this)"></textarea>
+	     <TD colspan="3"><textarea style="font-size:14px;padding:4px;width:99%" class="regular enterastab" rows="2" name="Remarks" totlength="400" onkeyup="return ismaxlength(this)"></textarea>
 	    </TD>
 		</TR>	
 						
@@ -537,8 +523,7 @@ password="#SESSION.dbpw#">
 				  <cf_tl id="Reset" var="reset">
 					
 				  <td style="padding-left:3px">	 
-					<input class="button10g" type="reset" style="font-size:13px;height:29;width:80px"
-					     onclick="validate()" name="Reset" value="#reset#">     
+					<input class="button10g" type="reset" style="font-size:13px;height:29;width:80px" onclick="validate()" name="Reset" value="#reset#">     
 		 		  </td>
 				  
 			  </tr>

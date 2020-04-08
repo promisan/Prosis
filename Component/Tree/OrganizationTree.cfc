@@ -50,7 +50,7 @@
 	  password="#SESSION.dbpw#">
 	      SELECT *
 		  FROM   Ref_ParameterMission
-		  WHERE  TreeVendor = '#Mission#'				 			 
+		  WHERE  TreeVendor = '#Mission#'				  		 			 
 	  </cfquery>  		
 	  
 	   <cfquery name="Entity" 
@@ -1342,6 +1342,7 @@ AND    O.OrgUnit IN (SELECT Pe.OrgUnit
 		</cfscript>
 
 	</cffunction>
+
 
 
 </cfcomponent>

@@ -18,12 +18,12 @@
 
 	<tr bgcolor="#color#" class="#cl# navigation_row line <cfif abs(onhand) lte "0.02">zero<cfelse>standard</cfif>">			 	    			  
 	    		
-		<td align="right" valign="top" style="min-width:26px;padding-left:6px">#currentrow#.</td>					
-		<td style="min-width:110"><cfif transactionReference neq "">#TransactionReference#:</cfif></td>	
+		<td align="right" valign="top" style="width:26px;padding-left:6px">#currentrow#.</td>					
+		<td style="width:110px"><cfif transactionReference neq "">#TransactionReference#:</cfif></td>	
 				
 		<cfif url.earmark eq "false">
 		
-		<td style="min-width:200">#mylot#</td>
+		<td style="width:200px">#mylot#</td>
 		
 		<cfelse>
 				
@@ -79,9 +79,9 @@
 		
 		</cfif>					
 		
-		<td style="padding-left:3px;min-width:100">#ItemBarCode#</td>
+		<td style="padding-left:3px;width:100px">#ItemBarCode#</td>
 		
-		<td style="cursor:pointer;padding-left:4px;padding-right:4px;;min-width:20" 
+		<td style="cursor:pointer;padding-left:4px;padding-right:4px;;width:20px" 
 		  onclick="locarcshow('#warehouse#','#location#','#itemno#','#uom#','#transactionlot#','locarc#url.box#_#currentrow#')">
 		  						
 		<img src="#SESSION.root#/images/ExpandArrow.gif"
@@ -95,7 +95,7 @@
 			
 		</td>
 		
-		<td style="padding-left:2px;min-width:100">
+		<td style="padding-left:2px;width:100px">
 							
 			<cfif Strapping eq "0">
 			   <cfset url.mode = "standard">
@@ -115,13 +115,13 @@
 		
 		    <cfif url.mode eq "standard">
 			
-				<td align="right" style="background-color:ffffaf;height:100%;padding-right:3px;padding-left:3px;min-width:100;border-left:1px solid silver;border-right:1px solid silver">
+				<td align="right" style="background-color:ffffaf;height:100%;padding-right:3px;padding-left:3px;width:100px;border-left:1px solid silver;border-right:1px solid silver">
 					
 				<input type="text"
 				      name="counted"
 					  id="counted"
 				      value="#counted#"			     
-				      style="background-color:ffffaf;height:100%;border:0px;text-align:right;width:97%;padding-right:2px;" 
+				      style="background-color:ffffaf;height:100%;border:0px;text-align:right;width:100%;padding-right:2px;" 
 					  onChange="invsave('#TransactionId#',this.value,'regular','#url.systemfunctionid#','#url.box#');document.getElementById('save#url.box#_#currentrow#').className='regular'"
 					  maxlength="10"
 					  class="regularxl enterastab">
@@ -130,7 +130,7 @@
 				  
 			<cfelse>
 			
-			<td align="right" bgcolor="ffffcf" style="border-left:1px solid silver;padding-left:10px;;min-width:200">
+			<td align="right" bgcolor="ffffcf" style="border-left:1px solid silver;padding-left:10px;;width:200px">
 			
 				<!--- strapping table --->
 						
@@ -174,7 +174,7 @@
 							  
 		</cfif>	  		
 	   
-	   <td style="width:100%;min-width:100px">
+	   <td style="width:100px;min-width:100px">
 	  	     
 		   <table width="100%" height="100%" cellspacing="0" cellpadding="0">
 		      <tr>

@@ -132,7 +132,7 @@
 	
 		<cf_screentop label="Workforce summary #URL.Mission#" banner="blue" bannerforce="Yes" systemmodule="Staffing"
 			FunctionClass="Window"
-			FunctionName="Main Workforce Dialog" height="100%" layout="webapp" scroll="Yes" Jquery="Yes">	
+			FunctionName="Main Workforce Dialog" height="100%" layout="webapp" scroll="Yes" Jquery="Yes">
 		  
 			<cfinclude template="../../../../CFReports/Cache/#link#.htm">				
 			
@@ -189,8 +189,9 @@
 	password="#SESSION.dbpw#">
 	    SELECT   *
 	    FROM     Ref_Mandate
-		WHERE    Mission = '#URL.Mission#'
+		WHERE    Mission   = '#URL.Mission#'
 		AND      MandateNo = '#URL.Mandate#'
+		AND      Operational = 1	
 		ORDER BY DateEffective
 	</cfquery>
 	
@@ -364,13 +365,17 @@
 			   <cfset itm = itm+1>
 			   <cf_menucontainer item="#itm#" class="hide" iframe="vacancybox" style="height:100%">
 			   
+			   <!---
 			   <cfset itm = itm+1>
 			   <cf_menucontainer item="#itm#" class="hide"/>	
+			   --->
 			   
+			   <!---
 			    <cfset itm = itm+1>	      	     		  
 			   <cf_menucontainer item="#itm#" class="hide">		
 				     <cfinclude template="MandateAction.cfm"> 
 			   </cf_menucontainer>		
+			   --->
 			   			   			   
 			   <cfset itm = itm+1>
 			   <cf_menucontainer item="#itm#" class="hide">		

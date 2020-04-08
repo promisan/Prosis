@@ -6,7 +6,7 @@
 <cf_tl id="Item Master" var="1">
 
 <cf_screentop label="#lt_text#" line="No" html="no" busy="busy10.gif"
-   layout="webapp" close="parent.ColdFusion.Window.destroy('mymaster',true)" height="100%" jQuery="Yes" banner="gray" scroll="yes">
+   layout="webapp" close="parent.ColdFusion.Window.destroy('mymaster',true)" height="100%" jQuery="Yes" banner="gray" scroll="no">
 
 <cfajaximport tags="cfwindow">
 
@@ -20,8 +20,10 @@
 			try {				    
 				parent.selectmasapply(val);	
 			} catch(e) {}
-			
-			parent.ProsisUI.closeWindow('mymaster')
+
+			try {
+				parent.ProsisUI.closeWindow('mymaster');
+			} catch(e) { parent.ColdFusion.Window.destroy('mymaster',true); }
 						
 		}			
 		
@@ -46,7 +48,7 @@
 	
 	</script>
 
-<form name="locform" id="locform" style="height:100%">
+<form name="locform" id="locform" style="height:98%">
 
 	<INPUT type="hidden" name="mission"               id="mission"                value="#url.mission#">
 	<INPUT type="hidden" name="period"                id="period"                 value="#url.period#">	
@@ -216,7 +218,7 @@
 		
 	</cfoutput>
 	
-	<table class="formspacing" cellspacing="0" cellpadding="0"><tr>		
+	<table class="formspacing"><tr>		
 	
 	<cfif entryclass.recordcount gte "5">	
 	

@@ -24,11 +24,13 @@
 		 AND		V.OrgUnitVendor = #url.orgunitvendor#		
 </cfquery>
 
+<!--- not needed in dialog 
 <cfif url.dateEffective neq "">	
-	<cf_screentop height="100%" scroll="Yes" html="Yes" label="Vendor Offer" option="Maintain Vendor Offer" layout="webapp" banner="blue" user="no">
+	<cf_screentop height="100%" scroll="Yes" html="No" label="Vendor Offer" option="Maintain Vendor Offer" layout="webapp" banner="blue" user="no">
 <cfelse> 
-	<cf_screentop height="100%" scroll="Yes" html="Yes" label="Vendor Offer" option="Add Vendor Offer" layout="webapp" user="no">
+	<cf_screentop height="100%" scroll="Yes" html="No" label="Vendor Offer" option="Add Vendor Offer" layout="webapp" user="no">
 </cfif>
+--->
 
 <table class="hide">
 	<tr><td><iframe name="processeditvendoroffer" id="processeditvendoroffer" frameborder="0"></iframe></td></tr>

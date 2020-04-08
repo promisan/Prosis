@@ -40,25 +40,25 @@ I will prepare a landing screen to procees the editing from
 					search        = "text"}>		
 					
 <cfset itm = itm+1>		
-<cfset fields[itm] = {label      = "Unit Code", 
-					field      = "OrgUnit",
-					search     = "text"}>					
+<cfset fields[itm] = {label       = "Unit Code", 
+					field         = "OrgUnit",
+					search        = "text"}>					
 									
 <cfset itm = itm+1>	
-<cfset fields[itm] = {label      = "Org Unit Name", 
-					field      = "OrgUnitName",
-					search     = "text"}>
+<cfset fields[itm] = {label       = "Org Unit Name", 
+					field         = "OrgUnitName",
+					search        = "text"}>
 					
 <cfset itm = itm+1>								
-<cfset fields[itm] = {label      = "Action Description", 
-					field      = "EventDescription",
-					search     = "text"}>							
-					
+<cfset fields[itm] = {label       = "Action Description", 
+					field         = "EventDescription",
+					search        = "text"}>							
 					
 <cfset itm = itm+1>						
 <cfset fields[itm] = {label       = "S", 	
                     LabelFilter   = "Status",				
-					field         = "ActionStatus",					
+					field         = "ActionStatus",		
+					selectfield   = "ActionStatusName",			
 					filtermode    = "3",    
 					search        = "text",
 					align         = "center",
@@ -66,9 +66,9 @@ I will prepare a landing screen to procees the editing from
 					ratinglist    = "0=Yellow,1=Green,9=Red"}>													
 						
 <cfset itm = itm+1>											
-<cfset fields[itm] = {label      = "Officer",    
-					field      = "OfficerUserId",		
-					search     = "date"}>	
+<cfset fields[itm] = {label       = "Officer",    
+					field         = "OfficerUserId",		
+					search        = "date"}>	
 
 <table width="100%" height="100%" cellspacing="0" cellpadding="0" align="center">
 <tr><td style="padding:6px">

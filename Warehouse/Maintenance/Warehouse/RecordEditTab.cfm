@@ -136,24 +136,28 @@
 				return true;	
 			}
 		}
+
+		function removeBlankSpaces(el) {
+			$(el).val($(el).val().replace(/\s/g,''));
+		}
 	
 	</script>
 
 </cfoutput>
 
-<table width="100%" height="100%" align="center">
+<table style="min-width:1200px" width="100%" height="100%" align="center">
 	<tr class="hide"><td height="1" id="process2"></td></tr>	 
 	
-	<tr><td style="padding-top:0px">
+	<tr><td>
 	
 		<table width="100%" align="center" cellspacing="0" cellpadding="0">
 		<tr>
 		
-				<cfset wd = "64">
-				<cfset ht = "64">		
+				<cfset wd = "58">
+				<cfset ht = "58">		
 				<cfset itm="1">	
 						
-				<cf_tl id = "General Information" var = "vName1">
+				<cf_tl id = "Settings" var = "vName1">
 				
 				<cf_menutab item       = "#itm#" 
 				            iconsrc    = "Information.png" 
@@ -163,8 +167,17 @@
 							class      = "highlight1"
 							name       = "#vName1#">
 							
-				<cfset itm=itm+1>				
-							
+				<cfset itm=itm+1>							
+				<cf_tl id = "Storage Locations" var = "vName2">
+				<cf_menutab item       = "#itm#" 
+				            iconsrc    = "Address.png" 
+							iconwidth  = "#wd#" 
+							iconheight = "#ht#"
+							targetitem = "2"							
+							name       = "#vName2#"
+							source     = "../WarehouseLocation/RecordListing.cfm?idmenu=#url.idmenu#&warehouse=#URL.ID1#&box=contentbox2">		
+										
+				<cfset itm=itm+1>							
 				<cf_tl id = "Transaction Clearance" var = "vName1a">
 				<cf_menutab item       = "#itm#" 
 				            iconsrc    = "Transaction.png" 
@@ -174,8 +187,17 @@
 							name       = "#vName1a#"
 							source     = "Transaction/TransactionClearance.cfm?idmenu=#url.idmenu#&warehouse=#URL.ID1#&box=contentbox2">
 							
-				<cfset itm=itm+1>				
+				<cfset itm=itm+1>							
+				<cf_tl id = "Ledger Journal" var = "vName4">							
+				<cf_menutab item       = "#itm#" 
+				            iconsrc    = "Accounting-Journal.png" 
+							iconwidth  = "#wd#" 
+							iconheight = "#ht#"
+							targetitem = "2"							
+							name       = "#vName4#"
+							source     = "Journal/Journal.cfm?ID1=#URL.ID1#&box=contentbox2">				
 							
+				<cfset itm=itm+1>								
 				<cf_tl id = "Association" var = "vName1c">
 				<cf_menutab item       = "#itm#" 
 				            iconsrc    = "Association.png" 
@@ -183,33 +205,9 @@
 							iconheight = "#ht#" 
 							targetitem = "2"													
 							name       = "#vName1c#"
-							source     = "Association/AssociationListing.cfm?idmenu=#url.idmenu#&warehouse=#URL.ID1#&box=contentbox2">
-													
-										
-				<cfset itm=itm+1>	
-							
-				<cf_tl id = "Storage Locations" var = "vName2">
-				<cf_menutab item       = "#itm#" 
-				            iconsrc    = "Address.png" 
-							iconwidth  = "#wd#" 
-							iconheight = "#ht#"
-							targetitem = "2"							
-							name       = "#vName2#"
-							source     = "../WarehouseLocation/RecordListing.cfm?idmenu=#url.idmenu#&warehouse=#URL.ID1#&box=contentbox2">		
-
-				<cfset itm=itm+1>	
+							source     = "Association/AssociationListing.cfm?idmenu=#url.idmenu#&warehouse=#URL.ID1#&box=contentbox2">													
 				
-				<cf_tl id = "Strategic Stock Levels" var = "vStock">
-				<cf_menutab item       = "#itm#" 
-				            iconsrc    = "Warehouse.png" 
-							iconwidth  = "#wd#" 
-							iconheight = "#ht#" 
-							targetitem = "2"													
-							name       = "#vStock#"
-							source     = "StockLevels/StockLevelsListing.cfm?idmenu=#url.idmenu#&warehouse=#URL.ID1#&box=contentbox2">
-										
-				<cfset itm=itm+1>	
-				
+				<cfset itm=itm+1>					
 				<cf_tl id = "Projects" var = "vName3">							
 				<cf_menutab item       = "#itm#" 
 				            iconsrc    = "Projects.png" 
@@ -218,17 +216,16 @@
 							targetitem = "2"							
 							name       = "#vName3#"
 							source     = "Program/ProgramListing.cfm?warehouse=#URL.ID1#&box=contentbox2">
-				
-				<cfset itm=itm+1>	
-							
-				<cf_tl id = "Ledger Journal" var = "vName4">							
+					
+				<cfset itm=itm+1>					
+				<cf_tl id = "Strategic Stock" var = "vStock">
 				<cf_menutab item       = "#itm#" 
-				            iconsrc    = "Accounting-Journal.png" 
+				            iconsrc    = "Warehouse.png" 
 							iconwidth  = "#wd#" 
-							iconheight = "#ht#"
-							targetitem = "2"							
-							name       = "#vName4#"
-							source     = "Journal/Journal.cfm?ID1=#URL.ID1#&box=contentbox2">																
+							iconheight = "#ht#" 
+							targetitem = "2"													
+							name       = "#vStock#"
+							source     = "StockLevels/StockLevelsListing.cfm?idmenu=#url.idmenu#&warehouse=#URL.ID1#&box=contentbox2">						
 				
 				<cfset itm=itm+1>	
 				<cf_tl id = "Statistics" var = "vName5">							

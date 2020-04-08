@@ -22,7 +22,7 @@ if (screen) {
 function maintainStaffing(org,mis,man) {		        
 	w = #CLIENT.width# - 85;
 	h = #CLIENT.height# - 110;
-	ptoken.open("#SESSION.root#/Staffing/Application/Position/MandateView/MandateViewGeneral.cfm?ID=ORG&ID1="+org+"&ID2="+mis+"&ID3="+man,"_blank","left=30,top=30,width=" + w + ",height=" + h + ",toolbar=no,status=yes, scrollbars=no, resizable=no")
+	ptoken.open("#SESSION.root#/Staffing/Application/Position/MandateView/MandateViewGeneral.cfm?ID=ORG&ID1="+org+"&ID2="+mis+"&ID3="+man,"maintain"+org)
 }  
 
 function AssignmentConflict(call,caller,st,source,recordid,appno,posno,box) {       
@@ -112,7 +112,7 @@ function AddAssignment(postno,box) {
 function EditAssignment(per,ass,pos,box) {
         w = #CLIENT.width# - 120;
         h = #CLIENT.height# - 160;
-		ptoken.open(root + "/Staffing/Application/Assignment/AssignmentEdit.cfm?box="+box+"&ID=" + per + "&ID1=" + ass + "&Template=Assignment", "assignment"+pos, "left=20, top=20, width=" + w + ", height= " + h + ", status=yes, toolbar=no, scrollbars=no, resizable=yes");
+		ptoken.open(root + "/Staffing/Application/Assignment/AssignmentEdit.cfm?box="+box+"&ID=" + per + "&ID1=" + ass + "&Template=Assignment", "assignment"+pos);
 }
 
 function History(Ind) {
@@ -136,7 +136,7 @@ function selectfunction(formname, fldfunctionno, fldfunctiondescription, owner,p
 } 
   
 function selectscale(personno,contracttype,contractid) {
-	 ProsisUI.createWindow('mydialog', 'Salary scale', '',{x:100,y:100,height:document.body.clientHeight-120,width:document.body.clientWidth-120,modal:true,center:true})    	 
+	 ProsisUI.createWindow('mydialog', 'Salary scale', '',{x:100,y:100,height:document.body.clientHeight-100,width:document.body.clientWidth-100,modal:true,center:true})    	 		 	
 	 ptoken.navigate(root + '/Payroll/Application/SalaryScale/SalaryScaleView.cfm?personno='+personno+'&contracttype='+contracttype+'&contractid='+contractid,'mydialog') 			
 }
 

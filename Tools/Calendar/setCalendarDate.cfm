@@ -23,7 +23,6 @@
 <cfparam name="attributes.minHour"    	    default="0">
 <cfparam name="attributes.maxHour"    	    default="23">
 
-
 <cfif attributes.value eq "">
 
 	<cfset dte = now()>
@@ -83,7 +82,7 @@
 				<td id="datecheck" class="hide"></td>
 				
 				<td style="padding-right:3px">
-								
+																
 				<cfset width = (attributes.font+10) * 4.2>
 																			
 				<cfif attributes.edit eq "Yes">
@@ -91,7 +90,7 @@
 					<input type="text" 
 				     name     = "#attributes.name#_date"
 				     id       = "#myid#_date" 
-					 style    = "padding-left:5px;padding-right:5px;border:1px solid silver;padding-top:1px;font-size:#attributes.font#px;height:#attributes.font+10#;width:#width#;text-align:center" 
+					 style    = "padding-left:5px;padding-right:5px;padding-top:1px;font-size:#attributes.font#px;height:#attributes.font+12#;width:#width#;text-align:center" 
 					 class    = "#attributes.class# enterastab"
 					 onchange = "ColdFusion.navigate('#SESSION.root#/tools/calendar/DateChange.cfm?key1=#attributes.key1#&key2=#attributes.key2#&key3=#attributes.key3#&key4=#attributes.key4#&datevalidstart=#attributes.datevalidstart#&future=#attributes.future#&function=#attributes.pfunction#&name=#myid#&value='+this.value+'&increment=0','#attributes.name#_datebox')"
 					 onblur   = "ColdFusion.navigate('#session.root#/tools/Calendar/setCalendarDateCheck.cfm?name=#myid#&val='+this.value,'datecheck')" 
@@ -112,7 +111,7 @@
 				
 				<td style="padding-top:3px;padding-bottom:3px">			
 							
-				<table border="0" cellspacing="0" style="border:1px solid silver;height:#attributes.font+10#" cellpadding="0" bgcolor="e7e7e7">
+				<table border="0" cellspacing="0" style="border:1px solid silver;height:#attributes.font+12#" cellpadding="0" bgcolor="e7e7e7">
 				
 					<tr class="#vDisplayClassUp#" id="#myid#_date_datenext_tr">
 					

@@ -19,7 +19,7 @@
 
 <cfoutput>
 	
-	<script>
+	<script language="JavaScript">
 	
 	function setstatus(acc,act)	{
 		var accId = acc.replace(/ /gi, '');
@@ -37,11 +37,8 @@
 		}	
 	}
 	
-	function CopyAccess(grp) {
-	
-	    
-		try { ColdFusion.Window.destroy('mydialog',true) } catch(e) {}
-		ColdFusion.Window.create('mydialog', 'Receipt', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,resizable:false,center:true})    						
+	function CopyAccess(grp) {	    
+		ProsisUI.createWindow('mydialog', 'Copy access to other entities', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,resizable:false,center:true})    						
 		ColdFusion.navigate('#SESSION.root#/System/Access/User/CopyView.cfm?group='+grp,'mydialog') 	
 	}
 	
@@ -55,34 +52,33 @@
 	}
 	
 	function newuser(grp) { 
-	    ptoken.open("UserEntry.cfm?mode=&ID="+grp,"user","left=20, top=20, width=770, height=730, status=yes, toolbar=no, scrollbars=no, resizable=no");			
-	}		
-	  
-	function UserEdit(Account) {
-	    ptoken.open("UserEdit.cfm?ID=" + Account,"user","left=100,top=40,width=800,height=700,status=yes,toolbar=no,scrollbars=no,resizable=no");		
-	}  
+	    ProsisUI.createWindow('newaccount', 'User account', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,resizable:false,center:true})
+		ColdFusion.navigate('#SESSION.root#/System/Access/User/UserEntryView.cfm?mode=entry&ID='+grp,'newaccount')
+	}	
 	
+	function UserEdit(Account) {
+		ProsisUI.createWindow('mydialog', 'User account', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,resizable:false,center:true})
+		ColdFusion.navigate('#SESSION.root#/System/Access/User/UserEntryView.cfm?mode=edit&ID=' + Account,'mydialog');		
+	}  	
+	 
+		
 	ie = document.all?1:0
 	ns4 = document.layers?1:0
 	
-		function hl(itm,fld){
-		 
+		function hl(itm,fld){		 
 	     if (ie){
 	          while (itm.tagName!="TR")
 	          {itm=itm.parentElement;}
 	     }else{
 	          while (itm.tagName!="TR")
 	          {itm=itm.parentNode;}
-	     }	 
-		 	 	
+	     }	 		 	 	
 		 if (fld != false){
-			 itm.className = "labelit highlight2";
+			 itm.className = "labelmedium line highlight2";
 		 }else{
-			 itm.className = "labelit";		
-		 }
-	
-	  }
-	 
+			 itm.className = "labelmedium line";		
+		 }	
+	  }	 
 	</script>	
 		
 </cfoutput>
@@ -119,74 +115,63 @@
 	datasource="AppsSystem" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-		SELECT  rTrim(U.Account) as Account, 
-		        U.IndexNo, 
-			    U.AccountType, 
-			    U.LastName, 
-				U.AccountNo,
-				U.MailServerAccount,
-				U.MailServerDomain,
-			    U.FirstName, 
-			    U.eMailAddress, 
-				U.AccountMission,
-			    U.AccountGroup,
-			    U.PersonNo, 
-			    U.OfficerUserId,
-			    U.Created, 
-				
-				(SELECT LastConnection 
+		SELECT   rTrim(U.Account) as Account, 
+		         U.IndexNo, 
+			     U.AccountType, 
+			     U.LastName, 
+				 U.AccountNo,
+				 U.MailServerAccount,
+				 U.MailServerDomain,
+			     U.FirstName, 
+			     U.eMailAddress, 
+				 U.AccountMission,
+			     U.AccountGroup,
+			     U.PersonNo, 
+			     U.OfficerUserId,
+			     U.Created, 
+				 (   SELECT LastConnection 
 				    FROM   skUserLastLogon 
-					WHERE  Account = U.Account) as LastLogon,		
-					
-				(SELECT count(*) 
+					WHERE  Account = U.Account) as LastLogon,							
+				 (	SELECT count(*) 
 				    FROM    Ref_Application
-					WHERE   OfficerManager = U.Account) as Manager,
-				
-				<cfif AdminAccess eq "NONE">	
-				
-				 <!--- check if access to this person is granted --->
-					(
-					 SELECT count(*)
-					 FROM   Organization.dbo.OrganizationAuthorization
-					 WHERE  UserAccount = '#session.acc#'
-					 AND    Mission     = U.AccountMission
-					 AND    Role        = 'OrgUnitManager'
-					 AND    AccessLevel IN ('2','3')
-					 ) as AccessCount, 	
-				 
-				<cfelse> 
-				
-				 1 as AccessCount,
-				
-				</cfif>
-					
-						  
-			     U.disabled
+					WHERE   OfficerManager = U.Account) as Manager,				
+				 <cfif AdminAccess eq "NONE">					
+					<!--- check if access to this person is granted --->
+					( SELECT count(*)
+					  FROM   Organization.dbo.OrganizationAuthorization
+					  WHERE  UserAccount = '#session.acc#'
+					  AND    Mission     = U.AccountMission
+					  AND    Role        = 'OrgUnitManager'
+					  AND    AccessLevel IN ('2','3')
+					 ) as AccessCount, 					 
+				 <cfelse> 				   				    
+					1 as AccessCount,						
+				 </cfif>											  
+			     U.disabled				 
 		FROM     UserNames U
 		WHERE    1=1 
 		<cfif len(Client.UserQueryString) gte "2">
 		#PreserveSingleQuotes(Client.UserQueryString)# 
 		</cfif>
 		<cfif url.idsorting neq "" and url.idsorting neq "AccountType">
-		ORDER BY U.#URL.IDSorting#, AccountType
+		ORDER BY  U.#URL.IDSorting#, AccountType
 		<cfelse>
-		ORDER BY AccountType 
+		ORDER BY  AccountType 
 		</cfif>
 	</cfquery>
 
 <cf_dialogStaffing>
 
-<body leftmargin="0" topmargin="0" rightmargin="0">
-
-<form action="UserBatch.cfm?idmenu=<cfoutput>#URL.IDMenu#</cfoutput>" method="post" name="result" id="result">
+<form style="height:98%" action="UserBatch.cfm?idmenu=<cfoutput>#URL.IDMenu#</cfoutput>" method="post" name="result" id="result">
 
 <input type="hidden" name="operation" id="operation" value="">
 	
-<table width="96%" align="center" border="0" cellspacing="0" cellpadding="0">
+<table width="96%" height="100%" align="center">
+ 
   <tr><td height="6"></td></tr>
   <tr class="line">
       <td style="height:50;font-size:30px;padding-top:4px;padding-left:6px;font-weight:200" class="labellarge">
-		<cfoutput>#SESSION.welcome#</cfoutput> User Accounts
+		<cfoutput>#SESSION.welcome#</cfoutput> <cf_tl id="User Accounts">
 	</td>
 	<td align="right">
     </td>
@@ -194,15 +179,15 @@
    
   <tr>
 
-<td width="100%" colspan="2">
+	<td height="100%" width="100%" colspan="2">
 
-		<table width="99%" align="center" border="0" cellspacing="0" cellpadding="0">
+		<table width="100%" align="center" height="100%">
 		
 		<TR>
 		
 		<td colspan="2">
 		
-			<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+			<table height="100%" width="100%" align="center">
 			
 			<script language="JavaScript">
 			
@@ -255,15 +240,16 @@
 				ORDER BY U.Created
 			</cfquery>
 			
-				<table width="100%" cellspacing="0" cellpadding="0" class="navigation_table" navigationhover="#e4e4e4" navigationselected="yellow">
+				<table height="100%" width="100%" class="navigation_table" navigationhover="#e4e4e4" navigationselected="d6d6d6">
 				
 				<cfif today.recordcount gte "0">
 					
-					<tr bgcolor="white">
+					<tr bgcolor="white" style="height:10px">
 					    
 						<cfoutput>
 						
 						<td colspan="1" width="30" height="27">
+						
 						  <img src="#client.virtualdir#/Images/ct_collapsed.gif" alt="Show candidates" 
 							id="todayExp" 
 							border="0" 
@@ -278,8 +264,10 @@
 							onClick="todays()">
 													
 						</td>
-						<td width="99%" colspan="8" class="labelit" style="padding-left:5px">
-						<a href="javascript:todays()"><font color="0080C0">Click here to hide/show user accounts that were added by me recently</font></a></td>
+						
+						<td colspan="8" class="labelit" style="padding-top:2px;padding-left:5px">
+						<a href="javascript:todays()">Click here to hide/show user accounts that were added by me recently</a>
+						</td>
 						</cfoutput>
 						
 					</tr>
@@ -292,9 +280,9 @@
 					
 				</cfif>	
 					
-				<tr bgcolor="white">
+				<tr bgcolor="white" style="height:20px">
 				
-				<td colspan="12" align="right">
+				<td colspan="13" align="right">
 					<table width="100%" cellspacing="0" cellpadding="0">
 					
 					<tr><td style="padding:4px">
@@ -355,8 +343,14 @@
 					
 				</td>
 				</tr>
+				
+				<tr><td colspan="2" style="height:100%">
+				
+				<cf_divscroll>
+				
+				<table width="100%">
 								
-				<tr class="labelmedium line">
+				<tr class="labelmedium line fixrow">
 					<td height="22" width="30"></td>
 					<td width="25%"><cf_tl id="Name"></td>
 					<td width="100"><cf_tl id="Account"></td>
@@ -366,6 +360,7 @@
 					<td width="20%"><cf_tl id="eMail"></td>
 					<td width="100"><cf_tl id="Group"></td>
 					<td width="110"><cf_tl id="Last logon"></td>
+					<td width="20"></td>
 					<td width="20"></td>
 					<td width="20"></td>
 					<td width="20"></td>
@@ -403,51 +398,44 @@
 				   
 				   <cfif currrow lte No>
 				   
-				   <TR bgcolor="#IIf(disabled eq '1', DE('FFFFcF'), DE('FFFFFF'))#" class="labelmedium navigation_row line">
+				   <TR bgcolor="#IIf(disabled eq '1', DE('d6d6d6'), DE('FFFFFF'))#" class="labelmedium navigation_row line">
 				        
 				   <td width="60" align="center">
 				   
 					   <table cellspacing="0" cellpadding="0">
 					   <tr>
+					  
+					  						
+						<cfif AccessCount gte "1">
 					   	   
 						    <cfif AccountType eq "Group">
 							
-						         <td style="width:24;padding-left:6px;padding:1px">
-								 
-								     <img src="#client.virtualdir#/Images/group.png"
-										 class="navigation_action" 
-									     alt="Usergroup profile"
-									     name="cl#currrow#"
-									     id="cl#currrow#"
-									     width="14"
-									     height="14"
-									     border="0"
-									     align="absmiddle"
-									     style="cursor: pointer;"
-									     onClick="ShowUser('#URLEncodedFormat(Account)#')"
-									     onMouseOver="document.cl#currrow#.src='#CLIENT.virtualdir#/Images/button.jpg'"
-									     onMouseOut="document.cl#currrow#.src='#client.virtualdir#/Images/group.png'">
-									 
+						        <td style="width:24;padding-left:6px;padding:1px" class="navigation_action" onclick="UserEdit('#Account#')">								 
+								  <cf_img icon="select">										     									 
 								</td>
 								
 						   <cfelse>
 						   
-						        <td style="width:24;padding-left:6px;padding-top:2px" class="navigation_action" onclick="ShowUser('#URLEncodedFormat(Account)#')">				
-									<cf_img icon="select">							   				 
-								 </td>    	 
+						        <td style="width:24;padding-left:6px;padding-top:2px" class="navigation_action" onclick="UserEdit('#Account#')">				
+								  <cf_img icon="select">							   				 
+								</td>    	 
 								 
-						   </cfif>	 
+						   </cfif>	
 						   
-					  	  
+						  <cfelse>
+						  
+						  <!--- no access ---> 
+						   
+						  </cfif>  						 				  	  
 							
-					   		</tr>
+					   	</tr>
 						</table>
 					
 				   </td>
 				
-				   <TD><a href="javascript:ShowUser('#URLEncodedFormat(Account)#')">#LastName#, #FirstName#</a></td> 
+				   <TD><a href="javascript:ShowUser('#URLEncodedFormat(Account)#')">#LastName#<cfif firstname neq "">, #FirstName#</cfif></a></td> 
 				   <TD>#Account#</TD>  
-				   <TD style="padding-right:5px">#MailServerDomain#/#MailServerAccount#</TD> 
+				   <TD style="padding-right:5px"><cfif mailserverdomain neq "">#MailServerDomain#/</cfif>#MailServerAccount#</TD> 
 				   <TD><A HREF="javascript:EditPerson('#PersonNo#')">#IndexNo#</a></TD>   
 				   <td style="padding-left:4px">#AccountMission#</td>
 				   <TD style="padding-left:4px">
@@ -459,12 +447,11 @@
 				   </cfif>
 				   
 				   </TD>
-				   <TD style="padding-left:3px">#AccountGroup#</TD>
+				   <TD style="padding-left:3px;padding-right:5px">#AccountGroup#</TD>
 				   <TD>
 				       <cfif DateFormat(LastLogon, CLIENT.DateFormatShow) eq "">
 					   <font color="FF0000">never</font><cfelse>#DateFormat(LastLogon, CLIENT.DateFormatShow)#</cfif>
-				   </td>
-				      
+				   </td>				      
 				   <td align="right" style="height:20px;padding-right:5px">
 				
 					    <cfif AccessCount gte "1">
@@ -476,16 +463,16 @@
 							 
 							 	<cfif disabled eq "1">
 									
-							   		 <img align="absmiddle"  height="13" width="13" style="cursor:pointer"
+							   		 <img align="absmiddle"  height="16" width="16" style="cursor:pointer"
 								    src="#client.virtualdir#/Images/light_red1.gif" 
-									alt="Click to activate" onclick="javascript:setstatus('#account#','1')" 
+									alt="Click to activate" onclick="setstatus('#account#','1')" 
 									border="0">					
 							 	
 								<cfelse>
 								
-								   <img align="absmiddle"  height="13" width="13" style="cursor:pointer"
+								   <img align="absmiddle"  height="16" width="16" style="cursor:pointer"
 								      src="#client.virtualdir#/Images/light_green1.gif" 
-									  alt="Click to deactivate" onclick="javascript:setstatus('#account#','0')"
+									  alt="Click to deactivate" onclick="setstatus('#account#','0')"
 									  border="0">
 																	
 								</cfif>
@@ -495,20 +482,18 @@
 						<cfelse>
 								
 							<cfif disabled is '1'>
-								<img align="absmiddle" src="#client.virtualdir#/Images/light_red1.gif"  height="13" width="13" border="0">						
+								<img align="absmiddle" src="#client.virtualdir#/Images/light_red1.gif"  height="16" width="16" border="0">						
 							<cfelse> 					
-								<img align="absmiddle" src="#client.virtualdir#/Images/light_green1.gif"  height="13" width="13" border="0">						 
+								<img align="absmiddle" src="#client.virtualdir#/Images/light_green1.gif"  height="16" width="16" border="0">						 
 							</cfif>		
 						
 						</cfif> 
 						 
 				   </td>
 				   
-				    <td style="padding-right:8px">					            
-							    <cfif AccessCount gte "1">
-								 <cf_img icon="edit" onclick="UserEdit('#Account#')">				   
-								</cfif>  
-					   		</td>
+				   <td style="padding-right:8px">					            
+					  
+				   </td>
 				   
 				   <td style="padding-right:8px">	
 				   
@@ -519,7 +504,7 @@
 								  alt="" 
 								  name="clc#currrow#"
 								  border="0" 
-								  height="13" width="13"
+								  height="16" width="16"
 								  align="absmiddle"
 								  onclick="CopyAccess('#URLEncodedFormat(Account)#')"
 							      onMouseOver="document.clc#currrow#.src='#CLIENT.virtualdir#/Images/button.jpg'"
@@ -589,8 +574,12 @@
 				   
 				</CFOUTPUT>
 				
+				</table>
+				</cf_divscroll>
+				</td></tr>
+								
 				<td colspan="12" height="23">
-					<table width="100%" align="right" border="0" cellspacing="0" cellpadding="0">
+					<table width="100%" align="right">
 					<tr>
 					<td colspan="1" align="right" height="35">
 					    <input type="button" name="Purge" id="Purge" value="Remove" class="button10g" style="width:140;height:23" onClick="Process('remove')">		
@@ -612,5 +601,10 @@
 		</tr>
 		
 		</table>
+		
+</td>
+		</tr>
+		
+		</table>		
 
 </form>

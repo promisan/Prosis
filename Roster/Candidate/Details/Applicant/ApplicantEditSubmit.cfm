@@ -111,16 +111,53 @@
 		
         </cfquery>
 		
-		<!--- patient update --->
+		<cfquery name="get" 
+      datasource="AppsSelection" 
+      username="#SESSION.login#" 
+      password="#SESSION.dbpw#">
+	  
+			SELECT * 
+			FROM   Applicant 				 
+			WHERE  PersonNo = '#Form.PersonNo#'
 		
-		<cfif Form.ApplicantClass eq "4">
+        </cfquery>
+		
+		<cf_verifyOperational 
+         datasource= "AppsSelection"
+         module    = "WorkOrder" 
+		 Warning   = "No">
+						
+		<cfif operational eq "1">
+		
+			 <!--- patient update --->
 	  
 	   		 <cfquery name="updatePatientCustomer" 
 			     datasource="AppsSelection" 
 			     username="#SESSION.login#" 
 			     password="#SESSION.dbpw#">				 
 				 UPDATE   WorkOrder.dbo.Customer
-				 SET      CustomerName  = '#form.firstname# #form.lastname#', 
+				 SET      CustomerName  = '#get.fullname#', 
+				          eMailAddress  = '#Form.eMailAddress#'				 
+		         WHERE    PersonNo      = '#Form.PersonNo#'
+		     </cfquery>
+		  
+		 </cfif> 
+		 
+		 <cf_verifyOperational 
+         datasource= "AppsSelection"
+         module    = "Warehouse" 
+		 Warning   = "No">
+						
+		 <cfif operational eq "1">		
+		 		 
+		 	 <!--- customer update --->
+	  
+	   		 <cfquery name="updatePatientCustomer" 
+			     datasource="AppsSelection" 
+			     username="#SESSION.login#" 
+			     password="#SESSION.dbpw#">				 
+				 UPDATE   Materials.dbo.Customer
+				 SET      CustomerName  = '#get.FullName#', 
 				          eMailAddress  = '#Form.eMailAddress#'				 
 		         WHERE    PersonNo      = '#Form.PersonNo#'
 		     </cfquery>
@@ -135,7 +172,7 @@
 
 <script language="JavaScript">
  	parent.refreshheader('#Form.PersonNo#')
-	parent.ColdFusion.Window.destroy('mydialog',true)
+	parent.ProsisUI.closeWindow('mydialog',true)
 </script>
 
 </cfoutput>

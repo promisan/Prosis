@@ -108,5 +108,7 @@
 
 <table width="100%" height="100%" border="0">
 <tr><td id="topiclist">
+    <cf_divscroll>
 	<cfinclude template="TopicListingDetail.cfm">
+	</cf_divscroll>
 </td></tr></table>

@@ -1,5 +1,6 @@
 <cf_tl id = "Unit" var = "vTitle">
 
+<!---
 <cf_screentop 
    label="#vTitle#"    
    height="100%" 
@@ -10,6 +11,7 @@
    layout="webapp" 
    banner="gray" 
    close="ColdFusion.Window.hide('dialog#url.box#')">
+   --->
    
 <table align="center" bgcolor="FFFFFF" width="100%" height="100%">
 
@@ -36,9 +38,9 @@
 					<INPUT type="hidden" name="Crit1_FieldName" id="Crit1_FieldName" value="OrgUnitName">
 					
 					<INPUT type="hidden" name="Crit1_FieldType" id="Crit1_FieldType" value="CHAR">
-					<TR>
+					<TR class="labelmedium">
 					
-					<TD width="50" style="padding-left:10px" class="labelit"><cf_tl id="Name">:</TD>
+					<TD width="50" style="min-width:100px;padding-left:10px"><cf_tl id="Name">:</TD>
 					<TD class="hide"><SELECT type="hidden" name="Crit1_Operator" id="Crit1_Operator" class="regularh">#SelectOptions#</SELECT>
 					</td>
 					<td style="padding-left:10px">	
@@ -52,7 +54,7 @@
 					<INPUT type="hidden" name="Crit2_FieldName" id="Crit2_FieldName" value="OrgUnitCode">			
 					<INPUT type="hidden" name="Crit2_FieldType" id="Crit2_FieldType" value="CHAR">
 					
-					<TD style="padding-left:10px" class="labelit"><cf_tl id="Code">:</TD>
+					<TD style="padding-left:10px"><cf_tl id="Code">:</TD>
 					<TD class="hide">
 					<SELECT type="hidden" name="Crit2_Operator" id="Crit2_Operator" class="regularh">#SelectOptions#</SELECT>				
 					</td>

@@ -14,7 +14,7 @@
 	
 <cfelseif url.action eq "Contract">
 
-	<cf_screentop height="100%" close="parent.ColdFusion.Window.destroy('mydependent',true)" jquery="Yes" bannerforce="yes" label="Edit Dependent" scroll="Yes" layout="webapp" banner="blue">
+	<cf_screentop height="100%" close="parent.ProsisUI.closeWindow('mydependent',true)" html="No" jquery="Yes" bannerforce="yes" label="Edit Dependent" scroll="Yes" layout="webapp" banner="blue">
 	
 <cfelse>	
 

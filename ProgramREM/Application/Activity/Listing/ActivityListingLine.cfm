@@ -30,16 +30,14 @@
 		<cfset de = ActivityDate>
 	</cfif>
 		
-	<tr name="cl#clrow#" id="cl#clrow#" class="navigation_row labelit line">
+	<tr name="cl#clrow#" id="cl#clrow#" class="navigation_row labelmedium line">
 		
 	<cfif url.outputshow eq "0" and url.option neq "2">
 	
-		<td align="center" style="cursor:pointer" onClick="javascript:showprogress('#activityId#')">
-		
+		<td align="center" style="height:24px;cursor:pointer;min-width:20px" onClick="javascript:showprogress('#activityId#')">
+				
 		<cfset cl = "hide">
-		
-		<cf_space spaces="12">
-		
+				
 		<img src="#SESSION.root#/Images/ArrowRight.gif"
 		     alt="Progress"
 		     id="max#activityId#"
@@ -52,7 +50,7 @@
 		     id="min#activityId#"
 		     border="0"
 			 align="absmiddle"
-		     class="hide">
+		     class="hide">		
 		 								 
 		</td>
 		
@@ -64,58 +62,82 @@
 	
 	</cfif>
 	
-	<td style="cursor: pointer;" onClick="javascript:showprogress('#activityId#')">
-	<cf_space spaces="10" label="#currentrow#.">
+	<td style="cursor: pointer;min-width:30px;padding-right:5px" onClick="javascript:showprogress('#activityId#')">
+	
+		#currentrow#
+	
 	</td>	
 	
 	<cfif ActivityDescription neq "">
-		<cfset vDescription=ActivityDescription>
+		<cfset vDescription = ActivityDescription>
 	<cfelse>
 		<cf_tl id="Undefined" var="1">
-		<cfset vDescription="<font color='red'>(#lt_text#)</font>">
+		<cfset vDescription = "<font color='red'>(#lt_text#)</font>">
 	</cfif>
 		
 	<cfif (EditAccess eq "Edit" or EditAccess eq "ALL") and (ActivityPeriod eq url.Period)>	
-	    <td>
-		<cf_space spaces="72" label="<font color='0080C0'>#vDescription#" class="labelit" script="javascript:edit('#activityid#')">
+	    <td style="padding-left:10px;width:100%" onclick="javascript:edit('#activityid#')">
+		  
+		  <font color="0080C0">
+		  
+		  <cf_UITooltip
+			id         = "#activityId#"
+			ContentUrl = "Listing/ActivityPopup.cfm?activityid=#activityid#"
+			CallOut    = "false"
+			Position   = "right"  
+			Width      = "400"
+			Height     = "200"
+			Duration   = "300">#vDescription#</cf_UITooltip>
+		  
+		  </font>
 		</td>
 	<cfelse>
-		<td>
-		<cf_space spaces="72" label="#vDescription#" class="labelit">
+		<td style="width:100%">
+		
+		<cf_UITooltip
+			id         = "#activityId#"
+			ContentUrl = "Listing/ActivityPopup.cfm?activityid=#activityid#"
+			CallOut    = "false"
+			Position   = "right"  
+			Width      = "400"
+			Height     = "200"
+			Duration   = "300">#vDescription#</cf_UITooltip>
+			
 		</td>
 	</cfif>
 		
 	<td align="center">
+			
+		<cfquery name="Locations" 
+		datasource="AppsProgram" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT   L.Description as LocationName	        
+			FROM     ProgramActivityLocation P ,Payroll.dbo.Ref_PayrollLocation L
+			WHERE    ProgramCode    = '#ProgramCode#'
+			AND      ActivityPeriod = '#ActivityPeriod#'
+			AND      ActivityID     = '#ActivityID#'  		
+			AND      P.LocationCode = L.LocationCode
+		</cfquery>
 	
-	<cfquery name="Locations" 
-	datasource="AppsProgram" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-		SELECT   L.Description as LocationName	        
-		FROM     ProgramActivityLocation P ,Payroll.dbo.Ref_PayrollLocation L
-		WHERE    ProgramCode    = '#ProgramCode#'
-		AND      ActivityPeriod = '#ActivityPeriod#'
-		AND      ActivityID     = '#ActivityID#'  		
-		AND      P.LocationCode = L.LocationCode
-	</cfquery>
-	
-	<table>
-	<cfloop query="Locations">	
-		<tr class="labelmedium"><td>#LocationName#</td></tr>	
-	</cfloop>
-	</table>
+		<table>
+		<cfloop query="Locations">	
+			<tr class="labelmedium"><td>#LocationName#</td></tr>	
+		</cfloop>
+		</table>
 			
 	</td>
 							
-	<td><cf_space align="center" spaces="23" label="#DateFormat(ActivityDateStart, CLIENT.DateFormatShow)#"></td>
-	<td>
+	<td align="center" style="min-width:100px">#DateFormat(ActivityDateStart, CLIENT.DateFormatShow)#</td>
+	<td align="center" style="min-width:100px">
 	<cfif url.output eq "1" or Status eq "Pending">
 		<!--- the real planned date ---->
-		<cf_space align="center" spaces="23" class="labelit" label="#DateFormat(ActivityDateEnd, CLIENT.DateFormatShow)#">
+		#DateFormat(ActivityDateEnd, CLIENT.DateFormatShow)#
 	<cfelse>
-		<cf_space align="center" spaces="23" class="labelit" label="#DateFormat(ActivityDate, CLIENT.DateFormatShow)#">
+		#DateFormat(ActivityDate, CLIENT.DateFormatShow)#
 	</cfif>	
 	</td>
+	
 	<td>
 	
 	<cftry>
@@ -251,18 +273,23 @@
 		<tr name="cl#clrow#" id="cl#clrow#" style="border-top:1px solid silver">
 		
 		    <td colspan="2"></td>
+			
 			<td colspan="#cols#">		
 			
-			<table border="0" width="100%">
-			<tr id="row#activityid#" class="#cl#"><td id="box#activityid#">
-						
-			   <cfset url.fileNo = fileNo>							 
-			   <cfset url.activityid = activityid>
-			   <cfset url.mode = "read">
-			      
-			   <cfinclude template="ActivityListingOutput.cfm">
-			   		
-			</td></tr></table>		   
+				<table border="0" width="100%">
+					<tr id="row#activityid#" class="#cl#">
+					<td id="box#activityid#">
+								
+					   <cfset url.fileNo = fileNo>							 
+					   <cfset url.activityid = activityid>
+					   <cfset url.mode = "read">
+					      
+					   <cfinclude template="ActivityListingOutput.cfm">
+					   		
+					</td>
+					</tr>
+				</table>	
+				   
 			</td>
 			<td></td>
 		 </tr>	 	

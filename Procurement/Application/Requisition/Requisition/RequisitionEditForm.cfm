@@ -304,7 +304,7 @@ password="#SESSION.dbpw#">
 				  onMouseOver="document.img0.src='#SESSION.root#/Images/search.png'" 
 				  onMouseOut="document.img0.src='#SESSION.root#/Images/search.png'"
 				  style="cursor: pointer;" alt="" width="28" height="29" border="1" align="absmiddle" 
-				  onClick="selectorgroleN('#mis#','',document.getElementById('period').value,'ProcReqEntry','orgunit','applyorgunit','1','','enable')"> 
+				  onClick="selectorgroleN('#mis#','',document.getElementById('period').value,'ProcReqEntry','orgunit','applyorgunit','1','modal','enable')"> 
 				 				  
 			 </td>
 			 
@@ -378,7 +378,7 @@ password="#SESSION.dbpw#">
 			  onMouseOver="document.img9.src='#SESSION.root#/Images/search.png'" 
 			  onMouseOut="document.img9.src='#SESSION.root#/Images/search.png'"
 			  style="cursor: pointer;;border-radius:0px" alt="" width="28" height="29" border="1" align="absmiddle" 
-			  onClick="selectorgroleN('#mis#','',document.getElementById('period').value,'ProcReqEntry','orgunit','applyorgunit','2','','disable')">
+			  onClick="selectorgroleN('#mis#','',document.getElementById('period').value,'ProcReqEntry','orgunit','applyorgunit','2','modal','disable')">
 			  
 			 </td>
 			

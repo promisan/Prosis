@@ -31,7 +31,6 @@
     <cfset url.Group = "Location">
 </cfif>
 
-
 <cfif url.loc eq "0" and url.stockorderid eq "">
 
 	<table width="100%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
@@ -106,7 +105,7 @@
 			 ItemDescription		 
 </cfquery>
 
-<form name="transferform" id="transferform" style="height:99.7%">
+<form name="transferform" id="transferform" style="height:99.4%">
 
 <cfoutput>
 <input type="hidden" id="totalrecords" value="#Searchresult.recordcount#">
@@ -230,7 +229,7 @@
 	
 	 <tr>
 	 
-	 <td height="100%" valign="top">   
+	 <td height="100%" valign="top" style="padding:5px">   
 	    
 		 <table width="100%" border="0" height="100%" align="center">	
 		    	    
@@ -267,13 +266,13 @@
 						  					  
 						  		<table>		
 								
-								<tr class="labelmedium" style="height:38px">
+								<tr class="labelmedium" style="height:30px">
 								
 								<cfoutput>
-								<td style="font-size:23px;min-width:400px;font-weight:bold">#lt_content#</td>
+								<td style="font-size:18px;min-width:300px;">#lt_content#</td>
 								</cfoutput>
 								
-								<td style="padding-right:4px"><cf_tl id="Preset destination">:<cf_space spaces="50"></td>
+								<td style="padding-right:4px"><cf_tl id="Destination"></td>
 								<td>
 								
 								<table><tr><td>
@@ -306,7 +305,7 @@
 								  <select name  = "warehouseto"
 								    id         = "warehouseto" 
 									class      = "regularxl"
-									style      = "width:290"
+									style      = "width:auto;"
 								    onchange   = "ptoken.navigate('#SESSION.root#/warehouse/application/stock/Transfer/setLocation.cfm?systemfunctionid=#url.systemfunctionid#&whs=#url.warehouse#&warehouseto='+this.value,'locationbox')">
 									
 									<option value=""><cf_tl id="Select"></option>
@@ -323,8 +322,8 @@
 								 
 								 </td>
 								 
-								 <td class="labelmedium hide" style="min-width:100px;padding-left:10px" id="locationrow">
-								 <cf_tl id="Location">:
+								 <td class="labelmedium hide" style="padding-left:3px" id="locationrow">
+								 <!--- <cf_tl id="Location">: --->
 								 </td>
 								 							 
 								 <td id="locationbox" style="padding-left:4px">							 							 		
@@ -333,11 +332,12 @@
 																					 
 								 <td id="setvalue"></td>
 								 
-								 </tr></table>
+								 </tr>
+								 </table>
 								 
 								 </td>
 														
-										<td style="padding-left:20px;padding-right:20px;min-width:120px"><cf_tl id="Date/Time">:</td>
+										<td style="padding-left:20px;padding-right:20px;min-width:60px"><cf_tl id="Date/Time"></td>
 										<td>
 										
 										 <cf_getWarehouseTime warehouse="#url.warehouse#">
@@ -413,9 +413,11 @@
 						
 							<table height="100%">
 							
+							    <!---
 								<tr class="line">						
 									<td class="labelmedium" width="120" style="background-color:f1f1f1;height:27px;padding-left:10px;padding-right:10px;padding-bottom:0px"><cf_tl id="Filter Location"></td>
-								</tr>						
+								</tr>
+								--->						
 								
 								<tr>
 								

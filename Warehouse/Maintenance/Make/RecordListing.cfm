@@ -1,5 +1,6 @@
 <!--- Create Criteria string for query from data entered thru search form --->
-<cf_divscroll>
+
+<cf_screentop html="No" jquery="Yes">
 
 <cfquery name="SearchResult"
 datasource="appsMaterials" 
@@ -11,9 +12,10 @@ password="#SESSION.dbpw#">
 
 <cfset Page         = "0">
 <cfset add          = "1">
-<cfinclude template = "../HeaderMaintain.cfm"> 	
 
-<table width="99%" align="center" cellspacing="0" cellpadding="0" >
+<table height="100%" width="99%" align="center" cellspacing="0" cellpadding="0">
+
+<tr><td style="height:10px"><cfinclude template = "../HeaderMaintain.cfm"></td></tr>
 
 <cfoutput>
 
@@ -31,42 +33,40 @@ function recordedit(id1) {
 
 </cfoutput> 
 	
-<!--- "width=550, height=500, scrollbars=yes, resizable=yes" --->
+<tr><td valign="top">
 
-<tr><td colspan="2">
+	<cf_divscroll>
 	
-	<table align="center" width="97%" border="0" cellspacing="0" cellpadding="0" class="navigation_table">
+	<table align="center" width="97%" class="navigation_table">
 	
-	<tr>
-	    <td align="left" class="labelit"></td>
-	    <td align="left" class="labelit">Code</td>
-		<td align="left" class="labelit">Description</td>
-		<td align="left" class="labelit">Officer</td>
-	    <td align="left" class="labelit">Entered</td>
+	<tr class="fixrow labelmedium line">
+	    <td></td>
+	    <td><cf_tl id="Code"></td>
+		<td><cf_tl id="Description"></td>
+		<td><cf_tl id="Officer"></td>
+	    <td><cf_tl id="Entered"></td>
 	</tr>
-	
-	<tr><td height="1" colspan="5" class="line"></td></tr>
-	
+			
 	<cfoutput query="SearchResult">
 	 		
-	    <tr class="navigation_row"> 
-			<td align="center" class="line" style="padding-top:0px">
+	    <tr class="navigation_row labelmedium line" style="height:20px"> 
+			<td align="center" style="padding-top:2px">
 			   <cf_img icon="open" navigation="yes" onclick="recordedit('#Code#');">
 			</td>
-			<td class="line labelit">#Code#</td>
-			<td class="line labelit">#Description#</td>
-			<td class="line labelit">#OfficerFirstName# #OfficerLastName#</td>
-			<td class="line labelit">#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
-			
+			<td>#Code#</td>
+			<td>#Description#</td>
+			<td>#OfficerFirstName# #OfficerLastName#</td>
+			<td>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>			
 	    </tr>
 			
 	</CFOUTPUT>
 	
 	</table>
 	
+	</cf_divscroll>
+	
 	</td>
 </tr>
 
 </table>
 
-</cf_divscroll>

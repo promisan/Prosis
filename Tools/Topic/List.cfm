@@ -37,8 +37,7 @@ password="#SESSION.dbpw#">
 		<cfif list.recordcount eq "0">
 		  <cfset url.id2 = "new">
 		</cfif>  
-		
-		
+				
 		    <TR class="line labelmedium">
 			   <td height="23" style="padding-left:3px" width="40">#.</td>
 			   <td width="50">Code</td>
@@ -76,7 +75,7 @@ password="#SESSION.dbpw#">
 				   	<cfinput type="Text"
 					       name="ListOrder"
 					       value="#ls#"
-						   class="regularh"
+						   class="regularxl"
 					       validate="integer"
 					       required="Yes"
 						   message="Please enter an order value" 
@@ -124,7 +123,7 @@ password="#SESSION.dbpw#">
 					<cfinput type="button" 
 						value="Update" 
 						name = "Update"
-						class="button10s" 
+						class="button10g" 
 						style="width:70" 
 						onClick="updateList('#code#_list','#url.code#','#url.systemmodule#','#alias#','edit')">
 						
@@ -191,7 +190,7 @@ password="#SESSION.dbpw#">
 					  style="text-align:center;width:30"
 					  value="#lst#"
 					  validate="integer"
-					  class="regularh"
+					  class="regularxl"
 					  maxlength="2">
 					  
 				</td>
@@ -205,7 +204,7 @@ password="#SESSION.dbpw#">
 						 required="Yes" 
 						 size="2" 
 						 maxlength="20" 
-						 class="regularh">
+						 class="regularxl">
 	        </td>
 						  						 
 			
@@ -217,7 +216,7 @@ password="#SESSION.dbpw#">
 						 required="Yes" 
 						 size="60" 
 						 maxlength="80" 
-						 class="regularh">
+						 class="regularxl">
 				</td>		
 				
 			<td>
@@ -234,7 +233,7 @@ password="#SESSION.dbpw#">
 			<cfinput type="button" 
 				value="Add" 
 				name = "Add"
-				class="button10s" 
+				class="button10g" 
 				style="width:50" 
 				onClick="updateList('#code#_list','#url.code#','#url.systemmodule#','#alias#','new')">
 			

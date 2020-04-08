@@ -139,37 +139,24 @@ password="#SESSION.dbpw#">
  							<tr>
  								<td width="35%" valign="top" style="padding-top:7px">
 								
- 										<table width="100%" cellspacing="0" cellpadding="0" class="formPadding">
-																
+ 										<table width="100%" cellspacing="0" cellpadding="0" class="formPadding">													
  												
- 												<tr class="labelmedium" style="height:22px">
- 																								   
-		  										<td colspan="2" style="min-width:480px" class="labelmedium">
-																								
-												<table><tr>
-																								
-												</td>
-												
-												<td class="labelmedium" style="font-size:21px">
-												
-												<cfif AccessRoster neq "NONE" and url.drillid neq "">
-												
+ 												<tr class="labelmedium" style="height:22px"> 																								   
+		  										<td colspan="2" style="min-width:480px" class="labelmedium">																								
+												<table>
+												<tr>																																																
+												<td class="labelmedium" style="font-size:21px">												
+												<cfif AccessRoster neq "NONE" and url.drillid neq "">												
 													<a href="javascript:ShowCandidate('#Candidate.PersonNo#')">
-														#Candidate.LastName#, #Candidate.LastName2# #Candidate.FirstName# #Candidate.MiddleName# <font size="3">#Candidate.PersonNo#</font> 
-													</a>
-													
+														#Candidate.LastName#, #Candidate.LastName2# #Candidate.FirstName# #Candidate.MiddleName#&nbsp;<font size="3">#Candidate.PersonNo#</font> 
+													</a>													
 												<cfelse>																								
-													#Candidate.LastName#, #Candidate.LastName2# #Candidate.FirstName# #Candidate.MiddleName#<font size="3">#Candidate.PersonNo#</font> 													
-												</cfif>		
-												
-												</td>		
-												
-												<cfif AccessRoster eq "EDIT" or AccessRoster eq "ALL">
-												
-													<td valign="top" style="padding-top:6px;padding-left:4px;padding-right:5px"><cf_img icon="edit" onclick="EditApplicant('#Candidate.PersonNo#')"></td>
-													
-												</cfif>									   					   
-																								
+													#Candidate.LastName#, #Candidate.LastName2# #Candidate.FirstName# #Candidate.MiddleName#&nbsp;<font size="3">#Candidate.PersonNo#</font> 													
+												</cfif>													
+												</td>													
+												<cfif AccessRoster eq "EDIT" or AccessRoster eq "ALL">												
+													<td valign="top" style="padding-top:6px;padding-left:4px;padding-right:5px"><cf_img icon="edit" onclick="EditApplicant('#Candidate.PersonNo#')"></td>													
+												</cfif>									   					   																								
 												</tr>
 												
 										</table>
@@ -188,7 +175,7 @@ password="#SESSION.dbpw#">
 								</cfif> 		
 																												
 								<tr class="labelmedium" style="height:22px">
-									<td width="19%"><font color="808080"><cf_space spaces="40">#client.indexNoName#:</td>
+									<td width="19%" style="min-width:100px"><font color="808080">#client.indexNoName#:</td>
 									<td width="70%" colspan="1">   
 									  															
 										<cfif Employee.PersonNo neq "">
@@ -261,6 +248,18 @@ password="#SESSION.dbpw#">
 								</tr>
 								
 								</cfif>
+								
+								<tr class="labelmedium" style="height:22px">
+										<td><font color="808080"><cf_tl id="Status">:</td>
+										<td>
+																																		
+										<cfif CandidateStatus eq "0">
+										<font color="FF0000"><cf_tl id="Pending"></font>
+										<cfelse>
+										<cf_tl id="Cleared">
+										</cfif>
+									
+								</tr>
 									
 									<!--- deactiveate 6/2/2016
 									    													
@@ -301,11 +300,7 @@ password="#SESSION.dbpw#">
 							<tr class="labelmedium" style="height:22px">
  									<td class="labelmedium"><font color="808080"><cf_tl id="Mobile">:</td>
  									<td class="labelmedium"><cfif Candidate.MobileNumber eq ""><cf_tl id="N/A">
-								  	<cfelse>
-										
-											#Candidate.MobileNumber#
-										
-									</cfif>
+								  	<cfelse>#Candidate.MobileNumber#</cfif>
  									</td>
  							</tr>
  							
@@ -313,20 +308,30 @@ password="#SESSION.dbpw#">
 						    datasource="AppsSystem" 
 						    username="#SESSION.login#" 
 						    password="#SESSION.dbpw#">
-							   SELECT   TOP 1 *
+							   SELECT   *
 								FROM    UserNames
 								WHERE   ApplicantNo IN (SELECT ApplicantNo 
 								                        FROM   Applicant.dbo.ApplicantSubmission 
 														WHERE  PersonNo = '#PersonNo#')		
+								AND     Disabled = 0						
 							   ORDER BY Created DESC															
 	  					    </cfquery>		
 				
 						<tr class="labelmedium" style="height:22px">
 							<td><font color="808080"><cf_tl id ="User account">:</td>
-							<td><cfif User.Account neq "">														
-								<a href="javascript:ShowUser('#User.account#')"><font color="0080C0">#User.Account#</a>		
+							<td>
+							
+							<cfif User.Account neq "">		
+								<table cellspacing="0" cellpadding="0">
+							    <cfloop query="User">											
+								<tr><td><a href="javascript:ShowUser('#User.account#')">#User.Account#</a><cfif user.recordcount gt "1">;</cfif></td></tr>		
+								</cfloop>
+								</table>
+								
 							    <cfelse>
-								<cfif LoginAccount eq "">N/A<cfelse>#LoginAccount#</cfif>
+								     <!--- can be removed was for UN galaxy --->
+								     <cfif LoginAccount eq "">N/A<cfelse>#LoginAccount#</cfif>
+									 
 								</cfif>
  							</td>
  						</tr>
@@ -454,16 +459,15 @@ password="#SESSION.dbpw#">
 	   	</cfquery>
 				
 		<cfset url.ajaxid = URL.ID>
-									
+													
 		<cfif Candidate.CandidateStatus eq "0" and check.operational is "1">
 								
 			<cfoutput>		
-
+			
 			   <input type="hidden" 
 				   name="workflowlink_#URL.ajaxid#" 
 				   id="workflowlink_#URL.ajaxid#" 				   
-				   value="#session.root#/Roster/Candidate/Details/Applicant/ApplicantDetailWorkflow.cfm">	
-				
+				   value="#session.root#/Roster/Candidate/Details/Applicant/ApplicantDetailWorkflow.cfm">					
 				   								
 			   <tr>
 				  <td id="#URL.ajaxid#" colspan="3">										  					 
@@ -485,6 +489,7 @@ password="#SESSION.dbpw#">
 	</cfif>
 
 	<cfif Candidate.ApplicantClass eq "4">
+	
 		<cftry>
 			
 			<cfif url.drillid eq "">		
@@ -520,27 +525,26 @@ password="#SESSION.dbpw#">
 			<tr><td colspan="3"><cfinclude template="../../../../WorkOrder/Application/Medical/ServiceDetails/WorkOrderLine/WorkOrderPayer.cfm"></td></tr>
 			----->
 			<tr><td colspan="3">
-							<cfset url.id      = "#Candidate.PersonNo#">
-							<cfset url.section = "general">
-							<cfset url.topic   = "recapitulation">
-							<cfset url.source  = "">
-							<cfset url.area    = "medical">
-							<cfset url.attachment  = "1">
-							
-							<cfset url.personno = url.id>
-							<cfinclude template="../../../PHP/PHPEntry/Topic/TopicRecapitulation.cfm">								
+			
+					<cfset url.id      = "#Candidate.PersonNo#">
+					<cfset url.section = "general">
+					<cfset url.topic   = "recapitulation">
+					<cfset url.source  = "">
+					<cfset url.area    = "medical">
+					<cfset url.attachment  = "1">
+					
+					<cfset url.personno = url.id>
+					<cfinclude template="../../../PHP/PHPEntry/Topic/TopicRecapitulation.cfm">								
 								
-			</td></tr>
-			
-			
+			</td></tr>		
 			
 		<cfcatch>
+		
 				<tr><td colspan="3">Invalid Context!</td></tr>
+				
 		</cfcatch>		
 		</cftry>	
 	</cfif>	
-
-
 	
 	<tr><td height="5"></td></tr>
 	

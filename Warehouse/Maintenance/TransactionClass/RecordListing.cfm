@@ -20,11 +20,11 @@ password="#SESSION.dbpw#">
 <script>
 
 function recordadd(grp) {
-          window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "AddTransactionClass", "left=80, top=80, width=450, height= 275, toolbar=no, status=no, scrollbars=no, resizable=yes");
+          window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "AddTransactionClass", "left=80, top=80, width=550, height= 275, toolbar=no, status=no, scrollbars=no, resizable=yes");
 }
 
 function recordedit(id1) {
-          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "EditTransactionClass", "left=80, top=80, width= 450, height= 275, toolbar=no, status=no, scrollbars=no, resizable=yes");
+          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "EditTransactionClass", "left=80, top=80, width= 550, height= 275, toolbar=no, status=no, scrollbars=no, resizable=yes");
 }
 
 </script>	

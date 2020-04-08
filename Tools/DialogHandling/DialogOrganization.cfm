@@ -13,16 +13,15 @@
 		
 	var root = "#SESSION.root#";
 	
-	function showparent(form,off,loc) {	
-		try { ColdFusion.Window.destroy('myparent',true) } catch(e) {}
-		ColdFusion.Window.create('myparent', 'Parent Office', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,resizable:false,center:true})    						
+	function showparent(form,off,loc) {			
+		ProsisUI.createWindow('myparent', 'Parent Office', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,resizable:false,center:true})    						
 		ColdFusion.navigate('#SESSION.root#/Staffing/Application/Employee/ParentSelect.cfm?FormName= ' + form + '&parentoffice=' + off + '&parentlocation=' + loc,'myparent') 			
 	}
 	
 	function parentselect(fldoff,fldloc,off,loc) {	    
 	    document.getElementById(fldoff).value = off;
 		document.getElementById(fldloc).value = loc;	
-		try { ColdFusion.Window.destroy('myparent',true) } catch(e) {}	
+		try { ProsisUI.closeWindow('myparent',true) } catch(e) {}	
 	}	
 	
 	function workflow(ent,cls) {
@@ -47,15 +46,14 @@
 	//	}	
 	// }
 	
-	function selectorgN(mission,orgtype,fldorgunit,script,scope,single,modal)	{		
-
-	    try { ProsisUI.closeWindow('orgunitwindow') } catch(e) {} 	
+	function selectorgN(mission,orgtype,fldorgunit,script,scope,single,modal)	{
+	    try { ProsisUI.closeWindow('orgunitwindow') } catch(e) {}
 		if (modal == 'modal') {
-		ProsisUI.createWindow('orgunitwindow', 'Select', '',{x:0,y:0,height:document.body.clientHeight-100,width:670,modal:true,center:true})    		 				
+			ProsisUI.createWindow('orgunitwindow', 'Select', '',{x:0,y:0,height:document.body.clientHeight-100,width:670,modal:true,center:true})
 		} else {
-		ProsisUI.createWindow('orgunitwindow', 'Select', '',{x:0,y:0,height:document.body.clientHeight-100,width:670,modal:false,center:true})   
+			ProsisUI.createWindow('orgunitwindow', 'Select', '',{x:0,y:0,height:document.body.clientHeight-100,width:670,modal:true,center:true})
 		}
-		ColdFusion.navigate(root + '/System/Organization/Application/OrganizationSearchView.cfm?singlemission='+single+'&mode=cfwindow&script='+script+'&Mission=' + mission + '&OrgType=' + orgtype + '&fldorgunit=' + fldorgunit + '&scope=' + scope,'orgunitwindow') 				
+		ColdFusion.navigate(root + '/System/Organization/Application/OrganizationSearchView.cfm?singlemission='+single+'&mode=cfwindow&script='+script+'&Mission=' + mission + '&OrgType=' + orgtype + '&fldorgunit=' + fldorgunit + '&scope=' + scope,'orgunitwindow')
 		
 	}	
 	
@@ -63,9 +61,9 @@
 	
 	    try { ProsisUI.closeWindow('orgunitwindow') } catch(e) {} 	
 		if (modal == 'modal') {
-			ProsisUI.createWindow('orgunitwindow', 'Select', '',{x:100,y:100,height:document.body.clientHeight-40,width:670,modal:true,center:true})    		 				
+			ProsisUI.createWindow('orgunitwindow', 'Select', '',{x:100,y:100,height:document.body.clientHeight-90,width:670,modal:true,center:true})    		 				
 		} else {
-			ProsisUI.createWindow('orgunitwindow', 'Select', '',{x:100,y:100,height:document.body.clientHeight-40,width:670,modal:false,center:true})   
+			ProsisUI.createWindow('orgunitwindow', 'Select', '',{x:100,y:100,height:document.body.clientHeight-90,width:670,modal:false,center:true})   
 		}
 		ColdFusion.navigate(root + '/System/Organization/Application/LookupRole/Organization.cfm?mode=cfwindow&script=' + script + '&mission=' + mission + '&mandate=' + mandate + '&period=' +period + '&role=' + role +' &fldorgunit=' + fldorgunit + '&scope=' + scope + '&action=' + action,'orgunitwindow') 				
 		// try { ColdFusion.Window.show('orgunitwindow') } catch(e) {}

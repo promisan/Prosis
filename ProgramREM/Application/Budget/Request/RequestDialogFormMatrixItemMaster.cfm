@@ -12,7 +12,7 @@
 
 <cfif list.recordcount eq "0">
 	
-	<tr><td colspan="#dates.recordcount+4#" align="center" height="30" class="labelit"><font color="FF0000">No items defined. Please contact administrator</font></td></tr>
+	<tr class="labelmedium"><td colspan="#dates.recordcount+4#" align="center" height="30" ><font color="FF0000">No items defined. Please contact administrator</font></td></tr>
 	
 <cfelse>	
 	

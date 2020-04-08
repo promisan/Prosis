@@ -16,8 +16,6 @@
 <cfset passName = get.functionName>
 <cfset passName = replace(passName, "'", "%27", "ALL")>
 
-<cf_UIGadgets style="metro">
-
 <cfoutput>
 
 	<script>

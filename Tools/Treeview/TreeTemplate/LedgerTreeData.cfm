@@ -5,10 +5,10 @@ username="#SESSION.login#"
 password="#SESSION.dbpw#">
 	SELECT * 
 	FROM   Ref_ParameterMission
-	WHERE  Mission = '#URL.Mission#'
+	WHERE  Mission = '#Attributes.Mission#'
 </cfquery>
 
-<cf_tl id="#url.mission#" var="mis">
+<cf_tl id="#Attributes.Mission#" var="mis">
 
 <cf_UItree
 	id="root"
@@ -143,7 +143,7 @@ password="#SESSION.dbpw#">
 				
 			</cfoutput>							
 						
-			<cfif url.GLCategory eq "Actuals">
+			<cfif Attributes.GLCategory eq "Actuals">
 											
 				<cf_tl id="Views" var="vLedgerViews">
 				
@@ -209,8 +209,7 @@ password="#SESSION.dbpw#">
 							
 			</cfif>		
 					
-	<cfelse>
-	
+	<cfelse>	
 			
 		  <cf_tl id="Actions" var="vEvents">
 			  
@@ -219,9 +218,7 @@ password="#SESSION.dbpw#">
 				href="JournalViewOpen.cfm?ID=EVE&ID1=0&Mission=#Attributes.Mission#"				
 				parent="root"		
 				target="right"					
-		        expand="Yes">	
-					
-	
+		        expand="Yes">		
 	
 		<cfquery name="Mandate" 
 		  datasource="AppsOrganization" 
@@ -311,7 +308,7 @@ password="#SESSION.dbpw#">
 											 	 WHERE  Operational = 1 
 												 AND    GLCategory = '#Attributes.GLCategory#'
 												 AND    Mission    = '#Attributes.Mission#')
-				  <cfif getAdministrator(url.mission) eq "0">
+				  <cfif getAdministrator(attributes.mission) eq "0">
 				  AND      TransactionCategory IN (SELECT TransactionCategory
 										             FROM    Journal
 			      	    							 WHERE   Journal IN (SELECT ClassParameter 
@@ -371,7 +368,7 @@ password="#SESSION.dbpw#">
 					 AND    Operational = 1
 					 AND    GLCategory = '#Attributes.GLCategory#'
 					 AND    Mission = '#Attributes.Mission#'
-					 <cfif getAdministrator(url.mission) eq "0">
+					 <cfif getAdministrator(attributes.mission) eq "0">
 					 AND  Journal IN (SELECT ClassParameter 
 					                  FROM   Organization.dbo.OrganizationAuthorization
 					                  WHERE  UserAccount = '#SESSION.acc#' 

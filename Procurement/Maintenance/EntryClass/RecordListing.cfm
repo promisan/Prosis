@@ -1,4 +1,6 @@
 
+<cf_screentop html="no" jquery="yes">
+
 <cfquery name="qMis" 
 datasource="appsMaterials" 
 username="#SESSION.login#" 

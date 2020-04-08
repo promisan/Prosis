@@ -1,5 +1,5 @@
 
-<table border="0" align="center" width="96%" height="100%">
+<table border="0" align="center" width="100%" height="100%">
 
 	<tr><td colspan="<cfoutput>#tblr#</cfoutput>" valign="top">
 
@@ -7,7 +7,7 @@
 		      
 			   <tr>
 			  
-			   <td style="height:30px;padding-left:3px;padding-top: 4px;" class="labelit">
+			   <td style="height:30px;padding-left:13px;padding-top: 4px;" class="labelit">
 									
 					<cfoutput><cf_tl id="Matrix was cached, it was last updated on">: 
 					
@@ -67,7 +67,8 @@
 	<tr style="vertical-align:top;"><td colspan="<cfoutput>#tblr#</cfoutput>" valign="top" height="100%">
 	
 	<cf_divscroll overflowy="scroll">
-	<table width="100%" height="100%">
+	
+	<table width="97%" height="100%" align="center">
 	   
 	<cfloop index="Tbl" list="#list#" delimiters=",">
 				
@@ -231,7 +232,7 @@
 													
 							</cfif>
 													
-							<cfset sp = "22">											 
+							<cfset sp = "20">											 
 														
 							<cfif Evaluate("Grade_" & item) neq "">
 								<cf_space spaces="#sp#" class="labelmedium" padding="0" align="right" label="#numberformat(Evaluate('Grade_' & item),'_,_')#&nbsp;">
@@ -252,7 +253,7 @@
 							
 							</cfif>
 							
-							<cfset sp = "14">					 
+							<cfset sp = "16">					 
 							 						
 							<cfif Evaluate("Grade_" & item) neq "">
 								<cf_space spaces="#sp#" class="labelmedium" padding="0" align="right" label="#numberformat(Evaluate('Grade_' & item),'_,_')#&nbsp;">

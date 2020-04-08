@@ -39,12 +39,10 @@ password="#SESSION.dbpw#">
 					WHERE  TransactionId = '#url.id#'		
 			</cfquery>
 			
-			
-			
 			<cfinclude template="SaleViewLines.cfm">
 			
 			<script language="JavaScript">				
-	   			try { opener.applyfilter('1','','#url.customerid#') } catch(e) {}			
+	   			try { opener.applyfilter('1','','#url.customerid#|#url.addressid#') } catch(e) {}			
 			</script>	
 					
 		</cfcase>
@@ -84,8 +82,7 @@ password="#SESSION.dbpw#">
 							
 				<!--- rounding --->
 				<cfset amountsle  = round(amountsle*100)/100>
-				<cfset amounttax  = round(amounttax*100)/100>
-				
+				<cfset amounttax  = round(amounttax*100)/100>				
 			
 			    <cfquery name="setLine"
 					datasource="AppsTransaction" 
@@ -93,18 +90,18 @@ password="#SESSION.dbpw#">
 					password="#SESSION.dbpw#">
 						UPDATE Sale#URL.Warehouse# 
 						SET    TransactionQuantity = '#url.value#',
-						       SalesAmount   = '#amountsle#',
-							   SalesTax      = '#amounttax#'
-						WHERE  TransactionId = '#url.id#'		
+						       SalesAmount         = '#amountsle#',
+							   SalesTax            = '#amounttax#'
+						WHERE  TransactionId       = '#url.id#'		
 				</cfquery>
 				
-				<!--- apply promotions --->
+				<!--- apply quantity promotions --->
 									
 				<cfinvoke component = "Service.Process.Materials.POS"  
-				   method           = "applyPromotion" 
-				   warehouse        = "#url.warehouse#" 
-				   customerid       = "#url.customerid#">	
-								
+				      method        = "applyPromotion" 
+				      warehouse     = "#url.warehouse#" 
+				      customerid    = "#url.customerid#">						  
+												
 				<cfquery name="get"
 				datasource="AppsTransaction" 
 				username="#SESSION.login#" 
@@ -114,14 +111,27 @@ password="#SESSION.dbpw#">
 					WHERE  TransactionId = '#url.id#'		
 				</cfquery>
 				
-				<script language="JavaScript">				
-				    document.getElementById('SalesPrice_#url.line#').value = '#numberformat(get.SalesPrice,',.__')#'
-					document.getElementById('total_#url.line#').innerHTML = '#numberformat(get.SalesTotal,',.__')#'
+				<cfquery name="linelist"
+				datasource="AppsTransaction" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					SELECT * 
+					FROM   Sale#URL.Warehouse# 
+					WHERE  CustomerId = '#get.CustomerId#'						
+				</cfquery>	
+				
+				<script language="JavaScript">	
+				
+					<cfloop query="LineList">																			
+						$('.SalesPrice_#TransactionId#').val('#numberformat(SalesPrice,',.__')#')						
+						$('.total_#TransactionId#').html('#numberformat(SalesTotal,',.__')#')						
+					</cfloop>										
+				  					
 					_cf_loadingtexthtml='';	
-					ColdFusion.navigate('#session.root#/Warehouse/Application/SalesOrder/POS/Sale/getOnHand.cfm?action=#url.action#&line=#url.line#&warehouse=#url.warehouse#&id=#get.TransactionId#','onhand_#url.line#')
-	
+					ColdFusion.navigate('#session.root#/Warehouse/Application/SalesOrder/POS/Sale/getOnHand.cfm?action=#url.action#&line=#url.line#&warehouse=#url.warehouse#&id=#get.TransactionId#','onhand_#url.line#');
+						
 					<cfif qWarehouse.Beneficiary eq 1 and get.ItemClass eq "Service">
-						ColdFusion.navigate('#session.root#/Warehouse/Application/SalesOrder/POS/Sale/getBeneficiary.cfm?crow=#url.line#&warehouse=#url.warehouse#&id=#get.TransactionId#&clines=#url.value#','Beneficiary_#url.line#')
+						ColdFusion.navigate('#session.root#/Warehouse/Application/SalesOrder/POS/Sale/getBeneficiary.cfm?crow=#url.line#&warehouse=#url.warehouse#&id=#get.TransactionId#&clines=#url.value#','Beneficiary_#url.line#');
 					</cfif>
 					
 				</script>
@@ -182,20 +192,18 @@ password="#SESSION.dbpw#">
 					<cfset amountsle  = price * qty>
 					<cfset amounttax  = (tax * price) * qty>	
 					
-				<cfelse>				
-						
+				<cfelse>							
 	
 					<cfset amounttax  = ((tax/(1+tax))*price)*qty>
 					<!--- <cfset amountsle = ((1/(1+tax))*price)*qty> --->
-					<!---- changed way of calculating amountsle as otherwise sometimes we have .01 data loss ---->
+					<!--- changed way of calculating amountsle as otherwise sometimes we have .01 data loss --->
 					<cfset amountsle  = (price * qty) - amounttax>	
 					
 				</cfif>
 				
 				<cfif get.taxExemption eq "1">
 					<cfset amounttax = 0>
-				</cfif>
-				
+				</cfif>				
 							
 				<cfinvoke component  = "Service.Access" 
 			      method         	 = "RoleAccess"				  	
@@ -203,6 +211,7 @@ password="#SESSION.dbpw#">
 				  returnvariable 	 = "changePriceRole">	
 				  
 				 <!--- If user has explicit access to change sales price, process it --->
+				 
 				 <cfif changePriceRole eq "GRANTED">
 				 
 				 	  <cfquery name="setLine"
@@ -217,6 +226,7 @@ password="#SESSION.dbpw#">
 						</cfquery>			
 				
 				<!--- Otherwise, check if access is within the threshold --->		
+				
 				<cfelse>
 				 
 				 	 <cfquery name="Threshold"

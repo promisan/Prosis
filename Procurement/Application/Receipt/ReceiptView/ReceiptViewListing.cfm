@@ -149,10 +149,22 @@
 				R.ReceiptReference3, 
 				R.ReceiptReference4, 
 				R.ReceiptDate,
-			        (SELECT count(*) 
-					 FROM   PurchaseLineReceipt 
-					 WHERE  ReceiptNo = R.ReceiptNo  
-					 AND    ActionStatus != '9') as Lines,
+				
+		        (SELECT count(*) 
+				 FROM   PurchaseLineReceipt 
+				 WHERE  ReceiptNo = R.ReceiptNo  
+				 AND    ActionStatus != '9') as Lines,
+				
+				(SELECT SUM(ReceiptAmountBase)  
+				 FROM   PurchaseLineReceipt 
+				 WHERE  ReceiptNo = R.ReceiptNo  
+				 AND    ActionStatus != '9') as AmountBase, 
+				 
+				(SELECT MIN(ActionStatus) 
+			     FROM PurchaseLineReceipt 
+			     WHERE ReceiptNo = R.ReceiptNo 
+			     AND ActionStatus != '9') as ReceiptStatus,  
+					 
 		        L.ReceiptId, 
 				PL.RequisitionNo as RequisitionNo, 
 				P.PurchaseNo, 
@@ -189,8 +201,24 @@
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 	SELECT    R.*, 
-			  (SELECT count(*) FROM PurchaseLineReceipt WHERE ReceiptNo = R.ReceiptNo  AND ActionStatus != '9') as Lines,
+			  
+			  (SELECT count(*) 
+			   FROM PurchaseLineReceipt 
+			   WHERE ReceiptNo = R.ReceiptNo  
+			   AND ActionStatus != '9') as Lines,
+			  
+			  (SELECT SUM(ReceiptAmountBase)  
+				 FROM   PurchaseLineReceipt 
+				 WHERE  ReceiptNo = R.ReceiptNo  
+				 AND    ActionStatus != '9') as AmountBase, 
+				 
+			  (SELECT MIN(ActionStatus) 
+			   FROM PurchaseLineReceipt 
+			   WHERE ReceiptNo = R.ReceiptNo 
+			   AND ActionStatus != '9') as ReceiptStatus, 
+			 		 			  
 	          L.ReceiptId, L.RequisitionNo, P.PurchaseNo, P.OrgUnitVendor, P.PersonNo
+			  
     FROM      Materials.dbo.Ref_Category C
 	          INNER JOIN  Materials.dbo.Item I ON C.Category = I.Category 
 			  INNER JOIN  Receipt R 
@@ -287,25 +315,31 @@ password="#SESSION.dbpw#">
 	
 </tr>
 
-<tr><td colspan="11" style="border-bottom:1px solid gray;height:26px;padding-bottom:4px">						 
+<tr><td colspan="13" style="border-bottom:1px solid gray;height:26px;padding-bottom:4px">						 
 		 <cfinclude template="Navigation.cfm">	 				 
 </td></tr>
 
 <TR class="labelmedium line">
 	    <td style="min-width:20"></td>
-		<td style="min-width:100"><cf_tl id="Receipt"></td>		
-		<td style="min-width:50"><cf_tl id="Lines"></td>		
+		<td style="min-width:100"><cf_tl id="Receipt"></td>	
+		<td style="min-width:70"><cf_tl id="Status"></td>			
 		<td style="min-width:100"><cf_tl id="Purchase"></td>
 		<td width="100%"><cf_tl id="Vendor"></td>
 		<td style="min-width:150px"><cf_tl id="Packingslip"></td>
 		<td style="min-width:100px"><cf_tl id="Date"></td>
+		<cfif Custom.ReceiptReference1 neq "">
 		<td style="min-width:80px"><cfoutput>#Custom.ReceiptReference1#</cfoutput></td>
+		</cfif>
+		<cfif Custom.ReceiptReference2 neq "">
 		<td style="min-width:80px"><cfoutput>#Custom.ReceiptReference2#</cfoutput></td>		
+		</cfif>
 		<td style="min-width:250"><cf_tl id="Officer"></td>
+		<td style="min-width:50"><cf_tl id="Lines"></td>			
+		<td align="right" style="min-width:80"><cf_tl id="Value"></td>			
 		<td style="min-width:20"></td>
 	</TR>
 
-<tr><td width="100%" height="100%" colspan="11">
+<tr><td width="100%" height="100%" colspan="13">
 
 	<cf_divscroll>
 
@@ -313,21 +347,27 @@ password="#SESSION.dbpw#">
 	
 	<TR style="height:1px">
 	    <td style="min-width:20"></td>
-		<td style="min-width:100"></td>		
-		<td style="min-width:50"></td>		
+		<td style="min-width:100"></td>				
+		<td style="min-width:70"></td>		
 		<td style="min-width:100"></td>
 		<td width="100%"></td>
 		<td style="min-width:150px"></td>
 		<td style="min-width:100px"></td>
+		<cfif Custom.ReceiptReference1 neq "">
 		<td style="min-width:80px"></td>
+		</cfif>
+		<cfif Custom.ReceiptReference2 neq "">
 		<td style="min-width:80px"></td>		
+		</cfif>
 		<td style="min-width:250"></td>
+		<td style="min-width:50"></td>		
+		<td style="min-width:80"></td>	
 	</TR>
 	
 	<cfif searchresult.recordcount eq "0">
 	
 	<tr>
-		<td colspan="10" style="padding-top:20px" class="labelmedium" align="center"><cf_tl id="No records to show in this view"></td>
+		<td colspan="12" style="padding-top:20px" class="labelmedium" align="center"><cf_tl id="No records to show in this view"></td>
 	</tr>
 	
 	</cfif>
@@ -404,15 +444,21 @@ password="#SESSION.dbpw#">
 					   <cfelse>				   
 					   <a class="navigation_action" href="javascript:receiptdialog('#ReceiptNo#','receipt')">#ReceiptNo#</a>
 					   </cfif>					 					   
-					</td>
-					<TD>#Lines#</TD>					  
+					</td>		
+					<td><cfif receiptstatus eq "2"><cf_tl id="Matched"><cfelseif receiptstatus eq "1"><cf_tl id="Posted"></cfif></td>					  
 					<TD>#PurchaseNo#</TD>
 					<TD>#beneficiary#</TD>
 					<TD style="padding-right:2px;">#PackingSlipNo#</TD>
 					<TD style="padding-right:2px;">#DateFormat(ReceiptDate, CLIENT.DateFormatShow)#</td>
+					<cfif Custom.ReceiptReference1 neq "">
 					<TD style="padding-right:2px;">#ReceiptReference1#</TD>
+					</cfif>
+					<cfif Custom.ReceiptReference2 neq "">
 					<TD style="padding-right:2px;">#ReceiptReference2#</TD>									
+					</cfif>
 				    <TD>#OfficerLastName# : #DateFormat(Created, "dd/mm/yy")#</TD>				
+					<TD align="right">#Lines#</TD>	
+					<td align="right">#numberformat(amountBase,",.__")#</td>		
 				</TR>								
 				
 				<cfif URL.ID1 eq "Equipment" or URL.ID1 eq "Today" or URL.ID1 eq "Pending">

@@ -18,13 +18,13 @@ password="#SESSION.dbpw#">
 	ORDER BY PostalCode
 </cfquery>
 	    
-<table width="99%" border="0" cellspacing="0" cellpadding="0" class="navigation_table">   
+<table width="99%" class="navigation_table">   
 							
-	<TR class="labelmedium line">
+	<TR class="labelmedium line fixrow">
 	    <td height="17"></td>					    
 	    <TD><cf_tl id="Code"></TD>
 		<TD><cf_tl id="Location"></TD>
-		<td align="right" width="20%"><cf_tl id="Country"></td>
+		<td align="right" style="padding-right:5px"><cf_tl id="Country"></td>
 	</TR>
 	
 	<CFOUTPUT query="SearchResult">
@@ -37,7 +37,7 @@ password="#SESSION.dbpw#">
 			</td>
 			<TD width="70">#PostalCode#</TD>
 			<TD>#Location#</TD>
-			<TD align="right" style="padding-right:3px">#Country#</TD>			
+			<TD align="right" style="padding-right:5px">#Country#</TD>			
 		</TR>
 					
 	</CFOUTPUT>

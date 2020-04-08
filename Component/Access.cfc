@@ -4455,6 +4455,8 @@
 					<cfif tasktype neq "">		
 					AND  ClassParameter = '#tasktype#'
 					</cfif>
+					
+					xxxxx
 			   </cfquery>	
 
 				<cfif qAccess.RecordCount eq "0">

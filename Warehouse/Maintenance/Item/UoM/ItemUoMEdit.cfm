@@ -44,9 +44,9 @@ password="#SESSION.dbpw#">
 	<tr><td colspan="2" height="100" id="processItemUoM"></td></tr>
 </table>
 
-<cfform name="frmItemUoM" onsubmit="return false">
-
 <cf_divscroll>
+
+<cfform name="frmItemUoM" onsubmit="return false">
 
 	<cfoutput>
 			
@@ -321,9 +321,9 @@ password="#SESSION.dbpw#">
 		
 	</cfoutput>	
 	
-	</cf_divscroll>
-	
 </cfform>
+
+</cf_divscroll>
 
 <cfset AjaxOnload("initTextArea")>	
 

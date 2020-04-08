@@ -361,6 +361,8 @@
 								<cfset vDetails = "#CustomerName#...">
 							</cfif>
 							<a HREF ="javascript:editCustomer('#ReferenceId#')">#vDetails#</a>
+						<cfelse>
+							#nme#
 						</cfif>
 		
 						<!---

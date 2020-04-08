@@ -95,6 +95,7 @@
 
 	<script>
 	    Prosis.busy('no')	
+		_cf_loadingtexthtml='';	
 	  	#ajaxLink('#SESSION.root#/System/Access/Membership/UserMemberList.cfm?id=#URL.acc#')#
 	</script>
 
@@ -102,6 +103,7 @@
 
 	<script>
 		Prosis.busy('no')	
+		_cf_loadingtexthtml='';	
 		#ajaxLink('#SESSION.root#/System/Access/Membership/RecordListingDetail.cfm?row=#url.row#&mod=#URL.id1#')#		
 	</script>	
 

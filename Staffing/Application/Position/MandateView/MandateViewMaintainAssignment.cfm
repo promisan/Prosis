@@ -1,5 +1,6 @@
 <cfoutput>
 
+
 		<cfif prior gte AssignmentStart and cls neq "" and Incumbency neq "0">
 		
 		<tr><td bgcolor="white"></td>

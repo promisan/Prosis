@@ -282,13 +282,10 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 --->
 <cfset col = "130">
 
-<table width="96%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="96%" align="center" class="formpadding">
  
- 	<tr><td class="linedotted" height="10" colspan="4"></td></tr>
-	  <!--- Field: Unit --->
-    <TR>
-	
-    <td class="labelmedium"><cf_tl id="Unit">:</td>
+ <tr>
+ 	<td class="labelmedium"><cf_tl id="Unit">:</td>
 	<td class="labelmedium" bgcolor="white">
 		<cfoutput><b>#Doc.OrganizationUnit#</cfoutput>
 	</td>
@@ -330,7 +327,7 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 	<td class="labelmedium"><cf_tl id="VA No">:&nbsp;</td>
     <TD class="labelmedium"> 
 	   <cfif Bucket.ReferenceNo neq "">
-	   <cfoutput><b><A href="javascript:va('#Bucket.FunctionId#');"><font color="0080FF">#Bucket.ReferenceNo#</a></cfoutput>
+	   <cfoutput><b><A href="javascript:va('#Bucket.FunctionId#');">#Bucket.ReferenceNo#</a></cfoutput>
 	   <cfelse>
 	   n/a
 	   </cfif>
@@ -373,7 +370,7 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 	
 	<cfset act = Action.ActionCode>
 
-<tr><td colspan="4" class="labelmedium" style="padding-left:5px">
+<tr class="line"><td colspan="4" class="labelmedium" style="padding-left:5px">
 
 <cfif SearchResult.recordCount eq "0">
 
@@ -381,9 +378,9 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 
 <cfelse>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<table width="100%" align="center" class="navigation_table">
 
-    <TR class="labelmedium">
+    <TR class="labelmedium line">
 	  <td width="20" height="16"></td>
 	  <td width="50"><cfoutput>#checkText#</cfoutput></td>
 	  <td width="20"></td>
@@ -412,9 +409,7 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 	  --->
   	  <td align="center"><cf_tl id="Memo"></td>
     </TR>	
-			
-	<tr><td></td><td colspan="10" class="linedotted"></td></tr>
-			
+						
 	<cfquery name="Mission" 
 	datasource="appsOrganization" 
 	username="#SESSION.login#" 
@@ -523,9 +518,9 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 	   returnvariable   = "PreventSelection">		
 			
 	<cfif Status lt final>
-        <TR bgcolor="#IIf(CurrentRow Mod 2, DE('ffffff'), DE('ffffff'))#" class="navigation_row labelmedium" style="height:35">
-    <cfelse> 
-	    <TR class="highlight2 navigation_row labelmedium">
+        <TR bgcolor="#IIf(CurrentRow Mod 2, DE('ffffff'), DE('ffffff'))#" class="navigation_row labelmedium">		
+    <cfelse> 	
+	    <TR class="highlight2 navigation_row labelmedium">		
     </cfif> 
 					
 	<cfif ReviewMemo eq "" and final neq "2">
@@ -539,15 +534,16 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 	
 	<cfset stop = "0">
 			
-	<td align="center" style="height:22" width="5%">
+	<td align="center" width="5%">
 	
 		<cfset state="">
 		
 		<cfif clb eq "regular">
-			<cfset state = "open">
+			  <cfset state = "open">
 		</cfif>
 	
 		<cf_img icon="expand" toggle="yes" onclick="more('detail#CurrentRow#')">	
+		
 	</td>
 	
 	<cfset tdSize = "60">
@@ -555,7 +551,7 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 		<cfset tdSize = 100>
 	</cfif>
 	
-	<td width="#tdSize#" align="left" >
+	<td width="#tdSize#" style="padding-top:6px;padding-bottom:4px" align="left">
 
 		<cfset cls = CandidateClass>
 				
@@ -580,18 +576,16 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 		    <cfif (PreventSelection.recordcount eq "0" or Validation.recordcount eq "1") and 
 			  (Selected.recordcount eq "0" or Status eq "9" or Selected.Status gte "2" or Selected.Status lte "2s")>
 
-				<input onClick="hl(this,this.checked)" class="Radiol" type="checkbox" name="ReviewStatus_#CurrentRow#" id="ReviewStatus_#CurrentRow#" value="#Final#" <cfif Status eq Final>checked</cfif> style="cursor:pointer;">
+				<input onClick="hl(this,this.checked)" class="Radiol" style="height:18px;width:18px" type="checkbox" name="ReviewStatus_#CurrentRow#" id="ReviewStatus_#CurrentRow#" value="#Final#" <cfif Status eq Final>checked</cfif> style="cursor:pointer;">
 				
 				<cfif dialog eq "Interview">
 				
-					<img src="#SESSION.root#/Images/pointer2.gif" alt="Interview" 
-					onClick     = "interview('#PersonNo#','#Act#')" align="top"
-					style="padding-left:15px; cursor:pointer">
+					<img src="#SESSION.root#/Images/interview.png" alt="Interview" 
+					onClick     = "interview('#PersonNo#','#Act#')" align="top" style="border:1px solid gray;height:18px;width:18px;cursor:pointer">
 
 				</cfif>
 				
-			<cfelse>
-			
+			<cfelse>			
 				
 				 <!--- can't select a candidate that has been selected ---> 
 				 <cfset stop = "1">
@@ -627,11 +621,11 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 		<cfif IndexNoA neq "">#IndexNoA#<cfelse>[<cf_tl id="undefined">]</cfif>
 		</a>
 	</td>
-    <td><a href ="javascript:ShowCandidate('#PersonNo#')"><font color="0080C0">#LastName#</a></td>
+    <td><a href ="javascript:ShowCandidate('#PersonNo#')">#LastName#</a></td>
 	<td>#FirstName#</td>
 	<td>#Nationality#</td>
-	<td class="labelmedium" align="center"><cfif Gender eq "F"><cf_tl id="Female"><cfelse><cf_tl id="Male"></cfif></td>
-	<td class="labelmedium" align="center">
+	<td align="center"><cfif Gender eq "F"><cf_tl id="Female"><cfelse><cf_tl id="Male"></cfif></td>
+	<td align="center">
 	
 	     <cfif Final gt "2">
 		 
@@ -696,9 +690,9 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 	</cfloop>
 	
 	<cfif Remarks neq "">
-		<tr class="navigation_row_child">
+		<tr class="navigation_row_child labelmedium">
 			<td colspan="2"></td>
-			<td colspan="9" class="labelmedium">#Remarks#</td>
+			<td colspan="9">#Remarks#</td>
 		</tr>
 	</cfif>
 	
@@ -720,8 +714,7 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 			
 		    <table border="0" cellpadding="0" cellspacing="0" width="100%">
 				<cfloop query="OtherCandidates">
-				<tr><td class="labelmedium" style="padding-left:10px">
-				    
+				<tr><td class="labelmedium" style="padding-left:10px">				    
 					<a href="javascript:showdocument('#OtherCandidates.DocumentNo#')">
 					<b><font color="0080C0">#Status#</font></b> <cf_tl id="for">: <font color="800000">#OtherCandidates.Mission#&nbsp;#OtherCandidates.PostGrade# #OtherCandidates.FunctionalTitle#</b></font></a>
 			    	</td>
@@ -737,7 +730,7 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 		<tr class="navigation_row_child">
 			<td colspan="2"></td>
 			<td colspan="9">
-		    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+		    <table width="100%">
 				<tr><td class="labelmedium" style="padding-left:10px">;
 					<a href="javascript:showdocumentcandidate('#Object.ObjectKeyValue1#','#PersonNo#')">
 					<b><font color="FF0000"><cf_tl id="Attention">:</font></b> <cf_tl id="This candidate has already a recruitment track." class="Message"></font></a>
@@ -759,8 +752,7 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 	</tr>
 	
 	<cfif dialog eq "Interview">
-	
-	
+		
 		<!--- Are there competencies defined for the bucket linked to this document --->
 		<cfquery name="BucketCompetencies" 
 		datasource="appsVacancy" 
@@ -800,34 +792,33 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 		
 		<tr id="detail#currentrow#" class="hide" valign="tops">
 		
-		<td align="right" width="40"><img src="#Session.root#/images/join.gif"></td>
+		<td align="right" width="40"></td>
 		
 		<td colspan="10" align="left"> 
 		
-		<table width="90%" cellspacing="0" cellpadding="0" align="left" style="border:1px solid gray; border-radius:5px;">
+		<table width="90%" align="left">
 			
 			<tr>
 				<td colspan="3" class="labelmedium" style="padding-left:10px"><b>Interview details</b></td>
 			</tr>
 			
 			<cfif ReviewMemo neq "">
-				<tr class="linedotted">
+				<tr class="line">
 					<td height="19" width="20" align="center"></td>
-					<td class="labelmedium" width="20%" style="color:blue">Assessment</td>
+					<td class="labelmedium" width="20%" style="color:blue"><cf_tl id="Assessment"></td>
 					<td>#ReviewMemo#</td>
 				</tr>
 			</cfif>
 			
 			<cfloop query="Competencies">
 			
-			<tr class="linedotted">
+			<tr class="line">
 			    <td height="19" width="20" align="center"></td>
-				<td class="labelmedium" width="20%">
-				    <font color="004000">#Description#</font>
-				</td>
+				<td class="labelmedium" width="20%"><font color="004000">#Description#</font></td>
 			    <td style="pading-left:15px;" class="labelmedium"><cfif InterviewNotes eq ""><font color="FF8080">[no comments]</font>
-				                       <cfelse>#ParagraphFormat(InterviewNotes)#
-									   </cfif></td>
+                       <cfelse>#ParagraphFormat(InterviewNotes)#
+					   </cfif>
+			    </td>
 			</tr>
 						
 			</cfloop>
@@ -839,20 +830,18 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 	<cfelse>
 		
 		<tr id="detail#currentrow#" class="#clb#">
-			
-			<td></td>
-			<td colspan="11" style="padding-top:1px">
-				<table width="90%" align="center" class="formpadding">
+						
+			<td colspan="12" style="padding-top:1px">
+				<table width="97%" align="center" class="formpadding">
 					<tr>
-						<td></td>
-						<td colspan="10" align="center" style="padding-right:10px">
-						<textarea cols="#col#" rows="5" name="ReviewMemo_#currentrow#" class="regular" style="border:1px solid silver;width: 100%; font-size:13px;padding: 3px; border-radius:4px;background-color: f8f8f8;">#ReviewMemo#</textarea>
+						
+						<td colspan="11" align="center" style="padding-right:10px">
+						<textarea cols="#col#" rows="5" name="ReviewMemo_#currentrow#" class="regular" style="border:1px solid silver;width: 100%; font-size:13px;padding: 3px;background-color: f8f8f8;">#ReviewMemo#</textarea>
 						</td>		
 						</tr>
 						
-						<tr>
-						<td></td>
-						<td colspan="10" align="center">
+						<tr>						
+						<td colspan="11">
 						 
 					 	 <input type="Hidden" id="ReviewId_#currentrow#" name="ReviewId_#currentrow#" value="#rowguid#">
 				
@@ -875,8 +864,8 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 	
 	</cfif>
 	
-	<tr> <td></td><td colspan="10" class="linedotted" ></td></tr>
-		
+	<tr class="line"><td colspan="11"></td></tr>
+			
 	</cfoutput>	
 	
 	<input type="hidden" name="Row" value="<cfoutput>#searchResult.recordcount#</cfoutput>">
@@ -886,6 +875,8 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 </cfif>
 
 </td></tr>
+
+<tr><td></td></tr>
 
 </table>     
 

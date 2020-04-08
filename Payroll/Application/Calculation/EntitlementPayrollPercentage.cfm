@@ -556,12 +556,26 @@ have percentages in the result --->
 					    EntitlementAmountBase = ((Percentage/100)*AmountCalculationBase)*SalaryMultiplier, 
 						EntitlementAmountWork = ((Percentage/100)*AmountCalculationWork)*SalaryMultiplier,
 						EntitlementAmount     =
+						
+						<!---
 						CASE  WHEN CalculationBaseMode =  '1'    THEN ((Percentage/100)*AmountBase)*SalaryMultiplier*((EntitlementDays-EntitlementLWOP-EntitlementSUSPEND)/#Form.SalaryDays#)
+							  ELSE ((Percentage/100)*AmountBase)*SalaryMultiplier*((EntitlementDays-EntitlementLWOP-EntitlementSUSPEND)/EntitlementDaysBase)					    			    
+						END,										
+						Hanno 20/2 adjusted the = '1' to take the full amount as recorded AmountCalculationFull. We had an issue with a person that had only partial period of allowance						
+						--->
+						
+						CASE  WHEN CalculationBaseMode =  '1'    THEN ((Percentage/100)*AmountCalculationFull)*SalaryMultiplier*((EntitlementDays-EntitlementLWOP-EntitlementSUSPEND)/#Form.SalaryDays#)
 							  ELSE ((Percentage/100)*AmountBase)*SalaryMultiplier*((EntitlementDays-EntitlementLWOP-EntitlementSUSPEND)/EntitlementDaysBase)					    			    
 						END,	
 											  
 						PaymentAmount        =
+						<!---
 						CASE  WHEN CalculationBaseMode =  '1'    THEN ((Percentage/100)*AmountBase)*SalaryMultiplier*((EntitlementDays-EntitlementLWOP-EntitlementSUSPEND)/#Form.SalaryDays#)
+							  ELSE ((Percentage/100)*AmountBase)*SalaryMultiplier*((EntitlementDays-EntitlementLWOP-EntitlementSUSPEND)/EntitlementDaysBase)					    			    
+						END		
+						--->
+						
+						CASE  WHEN CalculationBaseMode =  '1'    THEN ((Percentage/100)*AmountCalculationFull)*SalaryMultiplier*((EntitlementDays-EntitlementLWOP-EntitlementSUSPEND)/#Form.SalaryDays#)
 							  ELSE ((Percentage/100)*AmountBase)*SalaryMultiplier*((EntitlementDays-EntitlementLWOP-EntitlementSUSPEND)/EntitlementDaysBase)					    			    
 						END										
 						

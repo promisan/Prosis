@@ -11,6 +11,8 @@
 	padding : 2px; }  
  </style> 
  
+ <cf_screentop html="No" jquery="Yes">
+ 
 <cfquery name="MissionList" 
 datasource="AppsEmployee" 
 username="#SESSION.login#" 

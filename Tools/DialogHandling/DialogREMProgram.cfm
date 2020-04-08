@@ -159,7 +159,7 @@ function ViewProgram(Code, Period, Layout) {
 function AllotmentProgram(mission,code,period) {
         w = #CLIENT.width# - 80;
         h = #CLIENT.height# - 120;
-		ptoken.open(root + "/ProgramREM/Application/Budget/Allotment/AllotmentView.cfm?Mission=" + mission + "&Program=" + code + "&Period=" + period, "ProgramAll", "left=40, top=40, width=" + w + ", height= " + h + ", status=yes, toolbar=no, scrollbars=yes, resizable=yes");
+		ptoken.open(root + "/ProgramREM/Application/Budget/Allotment/AllotmentView.cfm?Mission=" + mission + "&Program=" + code + "&Period=" + period, "ProgramAll");
 }
 
 function allotdetail(prg,per,ed,fd,ob,box,par) {
@@ -207,7 +207,7 @@ function AuditProject(Code,period) {
         w = #CLIENT.width# - 80;
 		g = w-35;
         h = #CLIENT.height# - 120;
-		ptoken.open(root + "/ProgramREM/Application/Activity/Progress/ActivityView.cfm?html=yes&output=0&ProgramCode=" + Code + "&Period=" + period, "_blank", "left=40, top=40, width=" + w + ", height= " + h + ", status=yes, toolbar=no, scrollbars=no, resizable=yes");
+		ptoken.open(root + "/ProgramREM/Application/Activity/Progress/ActivityView.cfm?html=yes&output=0&ProgramCode=" + Code + "&Period=" + period, "Program"+Code);
 }
 
 function AuditActivity(id) {

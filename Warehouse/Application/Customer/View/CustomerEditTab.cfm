@@ -42,17 +42,12 @@
 		
 </cfif>
 			  
-<cfajaximport tags="cfwindow,cfform,cfdiv">
+<cfajaximport tags="cfdiv,cfform">
 
 <cf_calendarscript>
 <cf_dialogstaffing>
-
 <cf_fileLibraryScript>
-<cf_mapscript scope="embed">
-
 <cf_listingscript>
-
-<cfajaximport tags="cfmap,cfform" params="#{googlemapkey='#client.googlemapid#'}#">
 
 <cf_tl id="Do you want to remove this customer and all of its details ?" var="vPurgeCustomerMess">
 
@@ -233,3 +228,8 @@
 </td></tr>
 
 </table>
+
+<cf_mapscript scope="embed">
+<!---
+<cfajaximport tags="cfmap" params="#{googlemapkey='#client.googlemapid#'}#">
+--->

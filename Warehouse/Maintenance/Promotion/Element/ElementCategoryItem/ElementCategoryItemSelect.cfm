@@ -19,7 +19,8 @@
 		<cfoutput query="CatItemS">
 			<cfset cnt = cnt + 1>
 			<cfset vCategoryItem = replace(categoryItem, ' ', '_', 'ALL')>
-			<td onMouseOver="this.bgColor='FFFFCF'" onMouseOut="this.bgColor=''" bgcolor="" width="#100/cols#%" style="border:1px dotted ##C0C0C0;" id="td1_#vCategoryItem#" <cfif selected neq "">style="background-color:'FFFFCF';"</cfif>>
+			<td onMouseOver="this.bgColor='FFFFCF'" onMouseOut="this.bgColor=''" bgcolor="" width="#100/cols#%" 
+			  style="border:1px dotted ##C0C0C0;" id="td1_#vCategoryItem#" <cfif selected neq "">style="background-color:'FFFFCF';"</cfif>>
 				<table width="100%">
 					<tr>
 						<td class="labelit">

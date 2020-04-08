@@ -65,11 +65,11 @@
 
 <cfset link = new>
   
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<table width="100%">
 
 <tr>
  
-<td width="100%" colspan="2" valign="top" style="padding:10px">
+<td width="100%" colspan="2" valign="top" style="padding:0px">
 
 <!--- Query returning search results --->
 
@@ -99,7 +99,7 @@ password="#SESSION.dbpw#">
 		     )
 </cfquery>
 
-<cf_pagecountN show="16" 
+<cf_pagecountN show="18" 
                count="#Total.Total#">
 			   
 <cfset counted  = total.total>			   
@@ -122,9 +122,9 @@ SELECT TOP #last# *
 	ORDER BY SourcePostNumber, DateEffective
 </cfquery>
 
-<table border="0" cellpadding="0" cellspacing="0" width="100%" class="navigation_table">
+<table width="100%" class="navigation_table">
 
-<tr><td height="14" colspan="6">						 
+<tr class="line"><td height="14" colspan="6">						 
 	 <cfinclude template="PositionSingleNavigation.cfm">	 				 
 </td></tr>
 
@@ -132,9 +132,8 @@ SELECT TOP #last# *
 
 <cfif currentrow gte first>
 
-	<tr class="navigation_row line labelmedium" style="height:23px">
-	  
-	    <td height="14" width="35" style="padding-left:5px;padding-right:6px;padding-top:7px" class="navigation_action" onclick="ColdFusion.navigate('#link#&action=insert&#url.des1#=#positionNo#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ColdFusion.Window.hide('dialog#url.box#')</cfif>">			  
+	<tr class="navigation_row line labelmedium" style="height:19px">	  
+	    <td width="35" style="padding-left:5px;padding-right:6px;padding-top:2px" class="navigation_action" onclick="ColdFusion.navigate('#link#&action=insert&#url.des1#=#positionNo#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">			  
 			<cf_img icon="select">						
 		</td>
 		<td width="10%"><cfif SourcePostNumber eq "">#PositionParentId#<cfelse>#SourcePostNumber#</cfif></td>
@@ -147,8 +146,6 @@ SELECT TOP #last# *
 </cfif>	
 		     
 </CFOUTPUT>
-
-<tr><td colspan="5" class="line"></td></tr>
 
 <tr><td height="14" colspan="6">						 
 	 <cfinclude template="PositionSingleNavigation.cfm">	 				 

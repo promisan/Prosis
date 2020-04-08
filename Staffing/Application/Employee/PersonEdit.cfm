@@ -589,28 +589,31 @@ password="#SESSION.dbpw#">
 		</TR>
 		
 		<TR class="labelmedium">
-		    <TD><cf_tl id="Parent Office">:</TD>
-		    <TD colspan="5">
+	    <TD><cf_tl id="Parent Office">:</TD>
+	    <TD colspan="5">
+		
+			<table>
+			<tr>
+			<td><input type="text" id="parentoffice"   name="parentoffice" value="#Person.parentoffice#" style="width:139px" maxlength="20" readonly class="regularxl enterastab"></td>
+			<td style="padding-left:4px"><input type="text" id="parentlocation" name="parentlocation" value="#Person.parentofficelocation#" size="30" maxlength="20" readonly class="regularxl enterastab"></td>
+			<td style="padding-left:2px">
 			
-				<table>
-				<tr>
-				<td><input type="text" id="parentoffice"   name="parentoffice" value="#Person.parentoffice#" style="width:139px" maxlength="20" readonly class="regularxl enterastab"></td>
-				<td style="padding-left:4px"><input type="text" id="parentlocation" name="parentlocation" value="#Person.parentofficelocation#" size="30" maxlength="20" readonly class="regularxl enterastab"></td>
-				<td style="padding-left:2px">
-				
-					  <img src="#SESSION.root#/Images/search.png" name="img5" 
-						  onMouseOver="document.img5.src='#SESSION.root#/Images/contract.gif'" 
-						  onMouseOut="document.img5.src='#SESSION.root#/Images/search.png'"
-						  style="cursor: pointer;" width="27" height="27" border="0" align="absmiddle" 
-						  onClick="javascript:showparent('Webdialog','parentoffice','parentlocation')">
-								  
-					</td>
-				</tr>
-				</table>
-				
-			</TD>
+				  <img src="#SESSION.root#/Images/search.png" name="img5" 
+					  onMouseOver="document.img5.src='#SESSION.root#/Images/contract.gif'" 
+					  onMouseOut="document.img5.src='#SESSION.root#/Images/search.png'"
+					  style="cursor: pointer;" width="27" height="27" border="0" align="absmiddle" 
+					  onClick="javascript:showparent('Webdialog','parentoffice','parentlocation')">
+							  
+				</td>
+			</tr>
+			</table>
+			
+		</TD>
 		</TR>			
-				
+		
+		<!---
+		<cfif 1 eq  0>
+		--->
 		<TR class="labelmedium">
 	    	<TD><cf_tl id="Entry organization">:</TD>
 		    <TD colspan="5">
@@ -620,7 +623,12 @@ password="#SESSION.dbpw#">
 				AllowBlank="True">	
 			</TD>
 		</TR>
-					  	
+		<!---
+		<cfelse>
+			<input type="hidden" id="OrganizationStart" name="OrganizationStart" value="#Dateformat(Person.OrganizationStart, CLIENT.DateFormatShow)#">
+	    </cfif>
+		--->
+			  	
 		<cf_verifyOperational module = "Accounting" Warning = "No">
 				
 		<cfif operational eq "1">
@@ -730,8 +738,7 @@ password="#SESSION.dbpw#">
 		       maxlength="20">
 			   </td>
 			   
-			   <cfif getAdministrator("*") eq "1">	
-			   
+			   <cfif getAdministrator("*") eq "1">				   
 			  	    
 			    <TD style="padding-left:8px" class="labelmedium"><cf_tl id="Listing Order">:</TD>
 			    <TD style="padding-left:4px">
@@ -748,36 +755,35 @@ password="#SESSION.dbpw#">
 					
 				</TD>
 		
-			<cfelse>
+			   <cfelse>
 			
 			    <td class="hide">
 					
-				<input type="Text"
-			       name="ListingOrder"
-			       value="#Person.ListingOrder#"
-			       validate="integer"
-			       required="No"    
-				   type="hidden"
-				   style="width:30px;text-align:center" 
-			       size="2"
-			       maxlength="4">
+					<input type="Text"
+				       name="ListingOrder"
+				       value="#Person.ListingOrder#"
+				       validate="integer"
+				       required="No"    
+					   type="hidden"
+					   style="width:30px;text-align:center" 
+				       size="2"
+				       maxlength="4">
 				   
 				   </td>
 		
-			</cfif>
+			   </cfif>
 						   
 			</tr>
 			</table>
 			
 		</TD>
-		</TR>	
-			
+		</TR>				
 		
 		<cfinvoke component="Service.Access"  
-		 method="employee"  
-		 owner = "Yes" 
-		 personno="#URL.ID#" 
-		 returnvariable="HRAccess"> 			
+			 method="employee"  
+			 owner = "Yes" 
+			 personno="#URL.ID#" 
+			 returnvariable="HRAccess"> 			
 			
 		<cfquery name="Topic" 
 		datasource="AppsEmployee" 
@@ -802,6 +808,10 @@ password="#SESSION.dbpw#">
 											 WHERE  UserAccount = '#SESSION.acc#')
 							)	
 												
+			 		   
+															   
+			 </cfif>	
+			 
 			 AND   Code IN (SELECT GroupCode
 			                FROM   Ref_PersonGroupOwner				
 							WHERE  Owner IN (SELECT MissionOwner
@@ -811,9 +821,7 @@ password="#SESSION.dbpw#">
 															    WHERE  PA.PositionNo = P.PositionNo
 															    AND    PA.PersonNo = '#URL.ID#')
 											)
-						  )									   
-															   
-			 </cfif>	
+						  )							
 			 											   
 		</cfquery>
 		

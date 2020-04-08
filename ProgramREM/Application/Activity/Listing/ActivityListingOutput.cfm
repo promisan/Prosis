@@ -60,7 +60,7 @@ password="#SESSION.dbpw#">
 
 <tr><td id="box#activityid#">
 			 
-	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<table width="100%">
 			
 	<cfset line = 0>	
 	<cfset period = "">
@@ -77,8 +77,8 @@ password="#SESSION.dbpw#">
 		    <cfset out = out + 1>
 			<cfset outdte = ActivityOutputDate>
 								
-			<tr class="line" bgcolor="fafafa">
-		   		<td valign="top"  height="20" width="4%" style="padding-top:2px;padding-left:7px"><font color="gray">
+			<tr class="line labelmedium">
+		   		<td style="padding-top:2px;padding-left:7px"><font color="gray">
 				
 				<cfif targetid neq "">
 					<img src="#SESSION.root#/Images/logos/program/target.png" height="15" alt="Milestone/Output" border="0" align="absmiddle">
@@ -87,7 +87,7 @@ password="#SESSION.dbpw#">
 				</cfif>
 				
 				</td>	    	
-				<td valign="top" width="10%" style="padding-top:1px;padding-left:7px;padding-right:7px" class="labelit">
+				<td width="10%" style="padding-top:1px;padding-left:7px;padding-right:7px">
 				<font color="gray">
 				<cfif targetid neq "">
 				#DateFormat(TargetDueDate, CLIENT.DateFormatShow)#
@@ -96,17 +96,17 @@ password="#SESSION.dbpw#">
 				</cfif>
 				</font>
 				</td>	
-		    	<td valign="top" width="74%" class="labelit" style="padding-right:5px"><font color="gray">
+		    	<td width="74%" style="padding-right:5px"><font color="gray">
 				<cfif targetid neq "">
 				<table>
-					<tr><td class="labelit"><b>#TargetReference#</b> - #TargetDescription#</td></tr>
-					<tr><td class="labelit">#TargetIndicator#</td></tr>
+					<tr><td><b>#TargetReference#</b> - #TargetDescription#</td></tr>
+					<tr><td>#TargetIndicator#</td></tr>
 				</table>
 				<cfelse>
 				#ActivityOutput#
 				</cfif>
 				</td>
-				<td valign="top" width="14%" class="labelit" style="padding-top:1px;padding-right:5px"><font color="gray">#CategoryName#</td>					
+				<td style="min-width:200px;padding-top:1px;padding-right:5px">#CategoryName#</td>					
 		
 			</tr>
 			
