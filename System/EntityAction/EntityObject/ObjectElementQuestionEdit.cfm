@@ -198,14 +198,23 @@
 					<td style="padding-left:2px">No</td>
 					<td style="padding-left:7px"><input type="radio" class="radiol" name="enableInputMemo" id="enableInputMemo" value="1" <cfif get.enableInputMemo eq "1" or url.id2 eq "">checked</cfif>></td>
 					<td style="padding-left:2px">Yes</td>
-					<td style="padding-left:7px"><input type="radio" class="radiol" name="enableInputMemo" id="enableInputMemo" value="1" <cfif get.enableInputMemo eq "2" or url.id2 eq "">checked</cfif>></td>
+					<td style="padding-left:7px"><input type="radio" class="radiol" name="enableInputMemo" id="enableInputMemo" value="2" <cfif get.enableInputMemo eq "2" or url.id2 eq "">checked</cfif>></td>
 					<td style="padding-left:2px">Enforce</td>
-					<td style="padding-left:7px"><input type="radio" class="radiol" name="enableInputMemo" id="enableInputMemo" value="0" <cfif get.enableInputMemo eq "3">checked</cfif>></td>
-					<td style="padding-left:2px">Enforce if different from [Score Target value]</td>
+					<td style="padding-left:7px"><input type="radio" class="radiol" name="enableInputMemo" id="enableInputMemo" value="3" <cfif get.enableInputMemo eq "3">checked</cfif>></td>
+					<td style="padding-left:2px">Enforce Score <> [Score Target value]</td>
+					<td style="padding-left:7px"><input type="radio" class="radiol" name="enableInputMemo" id="enableInputMemo" value="4" <cfif get.enableInputMemo eq "4">checked</cfif>></td>
+					<td style="padding-left:2px">Enforce Score = [Score Target value]</td>
 				</tr>
 				</table>
 				 </TD>
 		 </TR>		
+		 
+		 <TR  class="labelmedium">
+			 <TD>Memo instruction:</TD>  
+			 <TD>			 	 	
+			 	<cfinput type="Text" name="InputMemoInstruction" value="#get.InputMemoInstruction#" required="No" size="60" maxlength="100" class="regularxl">						
+			 </TD>
+		 </TR>
 		 
 		 <!--- Field: enableInputAttachment --->
 		 <TR class="labelmedium">

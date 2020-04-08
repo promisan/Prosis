@@ -59,3 +59,44 @@
 	</cfquery>
 
 </cfif>
+
+<!--- with result we do several evaluations --->
+
+<cfquery name="config" 
+	datasource="AppsOrganization" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	SELECT  * 
+	FROM  	Ref_EntityDocumentQuestion	
+	WHERE 	QuestionId  			= '#url.questionId#'
+</cfquery>
+
+<cfquery name="get" 
+	     datasource="AppsOrganization" 
+		 username="#SESSION.login#" 
+		 password="#SESSION.dbpw#">
+		 SELECT * FROM OrganizationObjectQuestion		 
+		 WHERE   ObjectId     = '#url.objectid#'
+		 AND     ActionCode   = '#url.actioncode#'
+		 AND     QuestionId   = '#url.questionid#'	
+</cfquery>
+
+<cfif config.InputMemoInstruction neq "">
+    <cf_tl id="#config.InputMemoInstruction#" var="1">
+<cfelse>
+	<cf_tl id="Please provide explanation" var="1">
+</cfif>
+
+<cfoutput>
+
+<cfif config.EnableInputMemo eq "2" and get.QuestionMemo eq "">
+	<font color="FF0000">#lt_text#</font>	
+<cfelseif config.EnableInputMemo eq "3" and get.QuestionMemo eq "" and config.InputValuePass neq get.QuestionScore>		
+	<font color="FF0000">#lt_text#</font>	
+<cfelseif config.EnableInputMemo eq "4" and get.QuestionMemo eq "" and config.InputValuePass eq get.QuestionScore>
+    <font color="FF0000">#lt_text#</font>		
+<cfelse>
+    <!--- nada --->	
+</cfif>
+
+</cfoutput>
