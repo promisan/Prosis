@@ -18,6 +18,7 @@
 			InputModeStringList,
 			InputValuePass,
             EnableInputMemo,
+			InputMemoInstruction,
             EnableInputAttachment,
             OfficerUserId,
             OfficerLastName,
@@ -33,7 +34,8 @@
             '#Form.inputMode#',
 		    '#Form.inputModeStringList#',
 		    '#Form.inputValuePass#',
-             #Form.EnableInputMemo#,
+            '#Form.EnableInputMemo#',
+			'#Form.InputMemoInstruction#',
              #Form.EnableInputAttachment#,
             '#SESSION.acc#',
 		    '#SESSION.last#',
@@ -65,6 +67,7 @@
 			InputModeStringList     = '#Form.inputModeStringList#',
 			InputValuePass          = '#Form.InputValuePass#',
            	EnableInputMemo 		=  #Form.EnableInputMemo#,
+			InputMemoInstruction    = '#Form.InputMemoInstruction#',
            	EnableInputAttachment 	=  #Form.EnableInputAttachment#
 	WHERE 	DocumentId  			= '#Form.documentId#'
 	AND 	QuestionId  			= '#Form.questionId#'
@@ -96,13 +99,11 @@
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
 			DELETE FROM Ref_EntityDocumentQuestion
-			WHERE 	documentId = '#url.documentId#'
-			AND 	questionId = '#url.questionId#'
+			WHERE 	DocumentId = '#url.documentId#'
+			AND 	QuestionId = '#url.questionId#'
 		</cfquery>
 		
-	</cfif>
-	
-		
+	</cfif>		
 	
 </cfif>
 

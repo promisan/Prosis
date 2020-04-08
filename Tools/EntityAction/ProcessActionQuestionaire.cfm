@@ -20,7 +20,6 @@
     ORDER BY   D.DocumentOrder 
 </cfquery>	
 
-
 <cfif Questionaire.recordcount neq "0">
 	
 	<cfset entrymode = "workflow">
@@ -44,20 +43,7 @@
 			 </form>
 		 </cf_menucontainer>	
 		
-	</cfif>	   
+	</cfif>	   	
 	
-	<!---
-	<cflayoutarea 
-	    name   = "questionaire"
-	    title  = "Questionaire">	
-			 
-		 <form name="formquestionaire" id="formquestionaire">					 
-			 <cfinclude template="ProcessActionQuestionaireContent.cfm">	
-		 </form>
-	
-	</cflayoutarea>
-	
-	--->
-
 </cfif>
 

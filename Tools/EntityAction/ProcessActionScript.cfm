@@ -4,10 +4,8 @@
 <cf_dialogStaffing>
 <cf_mapscript>
 
-
 <cfparam name="url.windowmode" default="window">
 <cfparam name="url.myentity"   default="">
-
 
 <script language="JavaScript">
     
@@ -17,26 +15,18 @@
 		   				    	
 	    try {			    
 				   
-			document.getElementById(frm).onsubmit()		
-			
-			if( _CF_error_messages.length == 0 ) {	  
-			   
+			document.getElementById(frm).onsubmit()					
+			if( _CF_error_messages.length == 0 ) {	  			   
 	    	    <!--- [it passed Passed the CFFORM JS validation, now run a Ajax script to save] --->
 				ptoken.navigate('ProcessActionSubmit.cfm?myentity=#url.myentity#&windowmode=#url.windowmode#&submitaction=embedsave&process='+prc+'&wfmode=8&ID='+id+'&ajaxId='+ajax,target,'','','POST',frm)				  
-				return true
-											
-			} else {	
-								
-				return false
-			
-			}   
-		
+				return true											
+			} else {									
+				return false			
+			}   		
 		} catch(e) {		
 		    <!--- [it passed Passed the CFFORM JS validation, now run a Ajax script to save] --->
-			ptoken.navigate('ProcessActionSubmit.cfm?myentity=#url.myentity#&windowmode=#url.windowmode#&submitaction=embedsave&process='+prc+'&wfmode=8&ID='+id+'&ajaxId='+ajax,target,'','','POST',frm)				
-											
-		}
-	 
+			ptoken.navigate('ProcessActionSubmit.cfm?myentity=#url.myentity#&windowmode=#url.windowmode#&submitaction=embedsave&process='+prc+'&wfmode=8&ID='+id+'&ajaxId='+ajax,target,'','','POST',frm)															
+		}	 
 	}
 	
 	function openmap(field)	{		   	
@@ -46,18 +36,16 @@
 		ColdFusion.navigate('#SESSION.root#/Tools/Maps/MapView.cfm?field='+field+'&coordinates='+val,'mymap') 					
     }
 	
-	function refreshmap(field,ret) {		
-	      	    
+	function refreshmap(field,ret) {		      	    
 		document.getElementById(field).value = ret
 		ptoken.navigate('#SESSION.root#/tools/maps/getAddress.cfm?coordinates='+ret,field)	
 	} 
 
  	function profilereload(){
-	        ptoken.navigate('ProcessAction8Embed.cfm?ajaxid=#URL.ajaxid#&process=#url.process#&ID=#URL.ID#','embeddialog')
+	    ptoken.navigate('ProcessAction8Embed.cfm?ajaxid=#URL.ajaxid#&process=#url.process#&ID=#URL.ID#','embeddialog')
 	 }
 	 
-	function savereportfields(mode) {		
-			
+	function savereportfields(mode) {					
 		emb = document.getElementById('formembed');
 		fld = document.getElementById('formcustomfield');
 		ap  = document.getElementById('actionprocessbox');
@@ -66,19 +54,18 @@
 		
 	    var wfmode = 8
 						
-	    if (emb) { 		
-		  
+	    if (emb) { 				  
 		  ptoken.navigate('ProcessActionSubmit.cfm?myentity=#url.myentity#&windowmode=#url.windowmode#&submitaction=embedsave&wfmode='+wfmode+'&ajaxid=#URL.ajaxid#&process=#url.process#&ID=#URL.ID#','actionprocessbox','','','POST','formembed') 
 		}
 														
 		if (fld && ap) {			  		  
 		  ptoken.navigate('ProcessActionSubmitCustom.cfm?closemode='+mode+'&windowmode=#url.windowmode#&wfmode='+wfmode+'&process=#URL.Process#&ID=#URL.ID#&ajaxId=#url.ajaxid#','actionprocessbox',mycallBack(),'','POST','formcustomfield')  
 		}		
-	
 	}
 	
-	function savequestionaire(objectid,actioncode,id,formfield,field) {		     
-		 ptoken.navigate('ProcessActionQuestionaireSubmit.cfm?objectid='+objectid+"&actioncode="+actioncode+'&questionid='+id+'&formfield='+formfield+'&field='+field,'processquestion','','','POST','formquestionaire')	
+	function savequestionaire(objectid,actioncode,id,formfield,field) {		     	     
+		 _cf_loadingtexthtml='';	
+		 ptoken.navigate('ProcessActionQuestionaireSubmit.cfm?objectid='+objectid+"&actioncode="+actioncode+'&questionid='+id+'&formfield='+formfield+'&field='+field,'i'+id,'','','POST','formquestionaire')	
 	}
 
     function saveforms(mode) {		
@@ -359,10 +346,8 @@
 		 	 }		 
 		 }
 		 count++
+	 }	 	 
 	 }
-	 	 
-	 }	
-
 		
 	</script>
 	
