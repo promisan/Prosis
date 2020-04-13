@@ -404,10 +404,10 @@
 							
 						<tr class="labelmedium">										
 						<cfif Entity.EnablePerformance eq "1">						
-							<td style="font-size: 12px;"><cf_tl id="within"></td>
+							<td style="font-size: 13px;padding-right:5px"><cf_tl id="within"></td>
 							
 							<cfif SESSION.isAdministrator eq "Yes">
-							<td class="labelit">
+							<td>
 							
 								<input type="text" 
 								   name="hour#ActionId#" 
@@ -415,8 +415,8 @@
 								   value="#actionTakeAction#" 
 								   maxlength="3" 
 								   class="regularxl" 
-								   style="width: 23px; text-align: center" 
-								   onChange="_cf_loadingtexthtml='';ColdFusion.navigate('#SESSION.root#/tools/entityAction/ActionListingPerformance.cfm?objectid=#objectid#&actionid=#actionid#&hour='+this.value,'perf')">
+								   style="width: 39px; text-align: center" 
+								   onChange="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/tools/entityAction/ActionListingPerformance.cfm?objectid=#objectid#&actionid=#actionid#&hour='+this.value,'perf')">
 									
 							</td>							
 								
@@ -458,7 +458,7 @@
 				<td style="padding-top:4px;width: auto; min-width: 120px;">
 				
 					<cfif OfficerDate neq "">
-					
+															
 						<cfif OfficerLeadTime gt 48>
 						 #round(OfficerLeadTime/24)#d
 						<cfelse> 
@@ -547,11 +547,11 @@
 					</td>
 										
 					<td style="padding-top:4px; width: auto">
-					
+															
 					<cfif OfficerDate neq "">
 					
 						<cfif OfficerLeadTime gt 48>
-						 #round(OfficerLeadTime/24)#d
+						 #round(OfficerLeadTime/24)#d 
 						<cfelse> 
 						 #numberformat(OfficerLeadTime,"_._")# h 
 						</cfif>

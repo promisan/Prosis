@@ -34,7 +34,11 @@
                 </cfloop>
             </select>
 
+            <cfset vSelected = "">
+            <cfloop list="#attributes.selected#" index="element"><cfset vSelected = "#vSelected#,'#Replace(element,"'","","ALL")#'"></cfloop>
+
             <input name="#Attributes.Name#"	id="#Attributes.Name#" 	type="hidden" value="#attributes.selected#" >
+
         </cfif>
 
     </cfoutput>
@@ -109,12 +113,14 @@
                         change: function(e) {
                             $("###Attributes.Name#").val(this.value());
                             console.log(this.value());
-                        }
+                        },
+                        <cfif attributes.selected neq "">
+                            value :[#vSelected#]
+                        </cfif>
                     });
 
 
 
-            $('.k-multiselect-wrap .k-button').css({"padding":"0px 0px !important;"});
             </cfsavecontent>
 
             <cfset AjaxOnLoad("function(){#kDropDown#}")>
@@ -229,7 +235,7 @@
     <cfloop condition="LOCAL.AttributeMatcher.Find()">
 
 <!--- Grab the attribute name. --->
-        <cfset LOCAL.Name = LOCAL.AttributeMatcher.Group( 1 ) />
+        <cfset LOCAL.Name = LOCAL.AttributeMatcher.Group( JavaCast('int',1) ) />
 
 <!---
     Create an entry for the attribute in our attributes
@@ -245,7 +251,7 @@
     (if the group in our name-value pattern failed
     to match).
 --->
-        <cfset LOCAL.Value = LOCAL.AttributeMatcher.Group( 2 ) />
+        <cfset LOCAL.Value = LOCAL.AttributeMatcher.Group( JavaCast('int',2) ) />
 
 <!---
     Check to see if we still have the value. If the
@@ -294,7 +300,7 @@
 
     <cfif LOCAL.InsideMatcher.Find()>
 
-        <cfset LOCAL.Tag.Attributes['Inside'] =  LOCAL.InsideMatcher.Group( 1 ) />
+        <cfset LOCAL.Tag.Attributes['Inside'] =  LOCAL.InsideMatcher.Group(JavaCast('int',1) ) />
 
     </cfif>
 

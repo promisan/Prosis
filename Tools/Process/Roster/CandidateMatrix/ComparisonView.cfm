@@ -36,7 +36,6 @@
 
 <cfif attributes.applicantno neq "">
 
-
 		<cfquery name="getCandidates" 
 		     datasource="AppsSelection" 
 		  	 username="#SESSION.login#" 
@@ -46,7 +45,6 @@
 			 WHERE    S.PersonNo = A.PersonNo
 			 AND      S.ApplicantNo = '#attributes.applicantno#'		 
 		</cfquery>	
-
 		
 <cfelseif attributes.personNo neq "" and attributes.source neq "">		
 
@@ -54,13 +52,16 @@
 	     datasource="AppsSelection" 
 	  	 username="#SESSION.login#" 
 	     password="#SESSION.dbpw#">
-	     SELECT   A.*, S.SubmissionEdition, S.Source AS SSource, S.SubmissionId
+	     SELECT   A.*, S.ApplicantNo, S.SubmissionEdition, S.Source AS SSource, S.SubmissionId
 		 FROM     ApplicantSubmission S, Applicant.dbo.Applicant A
 		 WHERE    S.PersonNo = A.PersonNo
 		 AND      S.PersonNo = '#attributes.PersonNo#'		 
 		 AND      S.Source   = '#attributes.Source#'
+		 ORDER BY Created DESC
 	</cfquery>	
 	
+	<cfset attributes.applicantNo = getCandidates.applicantNo>
+		
 <cfelseif attributes.personNo neq "" and attributes.owner neq "">	
 	
 	<!--- check if we have a default for this owner --->
@@ -88,12 +89,16 @@
 	     datasource="AppsSelection" 
 	  	 username="#SESSION.login#" 
 	     password="#SESSION.dbpw#">
-	     SELECT   A.*, S.SubmissionEdition, S.Source AS SSource, S.SubmissionId
+	     SELECT   A.*, S.ApplicantNo, S.SubmissionEdition, S.Source AS SSource, S.SubmissionId
 		 FROM     ApplicantSubmission S, Applicant.dbo.Applicant A
 		 WHERE    S.PersonNo = A.PersonNo
 		 AND      S.PersonNo = '#attributes.PersonNo#'		 
 		 AND      S.Source   = '#SSource#'
+		 ORDER BY Created DESC
 	</cfquery>	
+	
+	<cfset attributes.applicantNo = getCandidates.applicantNo>
+	
 	
 <cfelseif attributes.personNo neq "" and attributes.owner eq "">
 
@@ -101,13 +106,16 @@
 	     datasource="AppsSelection" 
 	  	 username="#SESSION.login#" 
 	     password="#SESSION.dbpw#">
-	     SELECT   A.*, S.SubmissionEdition, S.Source AS SSource, S.SubmissionId
+	     SELECT   A.*, S.ApplicantNo, S.SubmissionEdition, S.Source AS SSource, S.SubmissionId
 		 FROM     ApplicantSubmission S, Applicant.dbo.Applicant A
 		 WHERE    S.PersonNo = A.PersonNo
 		 AND      S.PersonNo = '#attributes.PersonNo#'		 
 		 AND      S.Source   = '#Parameter.PHPSource#'
+		 ORDER BY Created DESC
 	</cfquery>	
-
+	
+	<cfset attributes.applicantNo = getCandidates.applicantNo>
+	
 <cfelse>
 	
 	<!---	
@@ -125,40 +133,44 @@
 			 AND      DC.Status >= '1'	
 		</cfquery>	
 		
-	--->
-
+	--->	
+	
 	<cfparam name="getCandidates.recordcount" default="0">
+	
 
 </cfif>
 
+<cfset applicantNo = attributes.applicantNo>
 
 <cfif getCandidates.recordcount gt "0">
-	
+
 	<!--- Hanno we need to define at the minium the source for the edition/languahe --->
 		
-	<table width="100%">
+	<table style="width:100%;height:<cfoutput>#attributes.height#</cfoutput>">
 	
 		<tr><td style="padding:6px" align="center">
 			
-			<table width="100%">
-			
+			<table width="100%" height="100%">			
+						
 				<!--- get the candidates --->
 				
 				<cfif Attributes.Layout eq "Vertical">
 				
 					<cfif attributes.documentNo neq "">
-						<tr><td class="labelmedium" align="center">
+						<tr><td class="labelmedium" align="center">						
 						<cfinclude template="ComparisonViewBucket.cfm">
 						</td></tr>
 					</cfif>
 					
 					<tr>
 					<td style="padding:5px" align="center">
+					
 					<cfif attributes.applicantno neq "">		
 						<cfset URL.ID = attributes.applicantno>
 						<cfset URL.IDFunction = attributes.IDFunction>
 						<cfinclude template="ComparisonViewVertical.cfm"> 
-					</cfif>			
+					</cfif>
+								
 					</td>
 					
 					</tr>
@@ -166,9 +178,10 @@
 				<cfelse>
 				
 				    <tr>
-					<td style="padding:5px" align="center">
+					<td style="padding:5px;height:100%" align="center">
+					
 					<cfif attributes.applicantno neq "">		
-						 <cfset URL.IDFunction = attributes.IDFunction>
+						 <cfset URL.IDFunction = attributes.IDFunction>						 
 						 <cfinclude template="ComparisonViewHorizontal.cfm"> 
 					</cfif>			
 					</td>

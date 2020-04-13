@@ -8,9 +8,9 @@
 
 <tr><td id="lineentry" style="width:100%">
 	
-<table width="100%" border="0" cellspacing="0" cellpadding="0" >
+<table width="98%">
 		
-	<tr style="border-top:1px solid silver;border-bottom:1px solid silver;height:34px">
+	<tr style="border-bottom:1px solid silver;height:34px">
 		<td colspan="2">
 		
 		<table><tr  class="labelmedium">

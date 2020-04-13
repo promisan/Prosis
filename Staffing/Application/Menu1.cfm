@@ -41,14 +41,31 @@ password="#SESSION.dbpw#">
 			<tr><td height="3"></td></tr>
 		
 			<tr>
-			<td style="height:50px;width:40px"></td>
+			
+			<td style="padding-left:6px">
+	
+			<table>				
+				<tr id="dSearchBar">									
+					<td align="left" style="padding-left:38px;padding-right:3px">
+					<cf_uitooltip tooltip="Search for an entity">
+					<input style="padding-left:8px;width:180;font-size:18px;height:30px" 
+					class="regularxl" type="text" name="iSearch" id="iSearch"  maxlenght="40" value="">
+					</cf_uitooltip>
+					</td>
+				</tr>	
+			</table>	
+		
+			</td>			
+			
+			<td style="height:50px;width:20px"></td>
 			<td class="label">
 			<input type="radio" class="radiol" name="toggle" value="1" onclick="Prosis.busy('yes');window.location='menu1.cfm?#act#'" <cfif url.operational eq "1">checked</cfif>>
-			</td><td>&nbsp;</td><td class="labellarge" style="cursor: pointer;pointer" onclick="Prosis.busy('yes');window.location='menu1.cfm?#act#'"><cfif url.operational eq "1"><b></cfif>Active</td>
+			</td><td>&nbsp;</td><td class="labellarge" style="cursor: pointer;" onclick="Prosis.busy('yes');window.location='menu1.cfm?#act#'"><cfif url.operational eq "1"><b></cfif><cf_tl id="Active"></td>
 			
 			<td style="padding-left:10px">
 			<input type="radio" class="radiol" name="toggle" value="0" onclick="Prosis.busy('yes');window.location='menu1.cfm?#cls#'" <cfif url.operational eq "0">checked</cfif>>
-			</td><td>&nbsp;</td><td class="labellarge" style="cursor: pointer;pointer" onclick="Prosis.busy('yes');window.location='menu1.cfm?#cls#'"><font color="FF0000"><cfif url.operational eq "0"><b></cfif>Closed</td>
+			</td><td>&nbsp;</td><td class="labellarge" style="cursor: pointer;" onclick="Prosis.busy('yes');window.location='menu1.cfm?#cls#'"><font color="FF0000"><cfif url.operational eq "0"><b></cfif><cf_tl id="Closed"></td>
+						
 			</tr>
 		
 		</table>

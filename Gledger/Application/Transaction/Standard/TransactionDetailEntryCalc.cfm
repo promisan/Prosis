@@ -9,7 +9,6 @@
  
 <CF_DateConvert Value="#url.date#">
 <cfset dte = dateValue>
-
  	
  <cfquery name="ExcDoc"
     datasource="AppsLedger" 
@@ -51,7 +50,7 @@
 	ORDER BY EffectiveDate DESC
  </cfquery>	  
      		
- <table width="270" border="0" cellspacing="0" style="padding-right:4px;border:1px dotted silver" bgcolor="ffffef" class="formpadding">
+ <table width="270" bgcolor="f4f4f4" class="formpadding">
   
  <cfset show = "regular">
 	
@@ -117,9 +116,9 @@
  </cfif> 
 
 	  
- <tr>
+ <tr class="labelmedium">
  <td>&nbsp;</td>
- <TD class="labelmedium" style="padding-left:0px;padding-right:5px"><cf_tl id="Exchange"> #Journ.Currency#:</TD>  
+ <TD style="padding-left:5px;padding-right:5px"><cf_tl id="Exchange"> #Journ.Currency#:</TD>  
  <td align="right">		  
       <input type="text"
       name="entryexcjrn"
@@ -133,9 +132,9 @@
  </td>
  </tr>
  
- <tr>
+ <tr class="labelmedium">
  <td></td> 
- <td class="labelmedium"><cf_tl id="Total"> #Journ.Currency#:</td>
+ <td style="padding-left:5px;padding-right:5px"><cf_tl id="Total"> #Journ.Currency#:</td>
  <td align="right">
  
  	<input type="text"

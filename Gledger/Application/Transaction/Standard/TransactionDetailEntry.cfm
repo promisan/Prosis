@@ -196,12 +196,18 @@ password="#SESSION.dbpw#">
 			 
 	         <TR> 
 	          <TD width="20%" class="labelmedium"><cf_tl id="Transaction">:</TD>
-	          <td width="50%" align="left" valign="top">	
-			  			 			 			  	  	  		  
+	          <td colspan="3" width="50%" align="left" valign="top">	
+			  
+			  <table><tr>
+			  	
+			   <td>		 			 			  	  	  		  
 			   <select name="entrydebitcredit" class="regularxl enterastab" id="entrydebitcredit">
 	            	<option value="Debit" <cfif URL.entrydebitcredit eq "Debit">selected</cfif>><cf_tl id="Debit"></option>
 	          		<option value="Credit" <cfif URL.entrydebitcredit eq "Credit">selected</cfif>><cf_tl id="Credit"></option>
 	           </select>
+			   </td>
+			   
+			   <td style="padding-left:4px">
 			   	  
 			   <select name="transactiontype" id="transactiontype" class="regularxl enterastab" onchange="tratoggle(this.value)">
 			   	 <cfoutput query="TransactionType">
@@ -209,13 +215,10 @@ password="#SESSION.dbpw#">
 	         	 </cfoutput>
 		       </select>
 			   
-			   <!--- hidden after discussion for SAT, maybe paramrter later --->
-			   <cfoutput> <input type="hidden" name="transactioncategory" id="transactioncategory" value="#TraCat#" size="16" readonly></cfoutput>
-			  				
-			  </td>
-			  
-			  <cfoutput>
-				  <TD class="labelmedium" style="padding-right:4px"><cf_tl id="Note"></TD>
+			   </td>
+			   
+			    <cfoutput>
+				  <TD class="labelmedium" style="padding-left:6px;padding-right:4px"><cf_tl id="Note"></TD>
 		          <td align="left">
 				  <input type="text"   id="memo"            name="memo"    class="regularxl enterastab" value="#URL.memo#" style="width:100%" maxlength="80">
 				  <input type="hidden" id="serialno"        name="serialno"                     value="#URL.serialno#">
@@ -224,6 +227,14 @@ password="#SESSION.dbpw#">
 				  <input type="hidden" id="parenttransactionid"    name="parenttransactionid"   value="#URL.parenttransactionid#">
 				  </td>		
 			  </cfoutput>
+			   
+			   <!--- hidden after discussion for SAT, maybe paramrter later --->
+			   <cfoutput> <input type="hidden" name="transactioncategory" id="transactioncategory" value="#TraCat#" size="16" readonly></cfoutput>
+			   
+			   </tr></table>
+			  				
+			  </td>
+			  
 			   
 	        </tr>			
 			
@@ -301,24 +312,24 @@ password="#SESSION.dbpw#">
 				
 				   <table cellspacing="0" cellpadding="0">
 				   <tr>
-				   					
-					<td>						
-											
-						<cfquery name="getGL" 
-							datasource="AppsLedger" 
-							username="#SESSION.login#" 
-							password="#SESSION.dbpw#">
-							    SELECT *
-								FROM   Ref_Account
-								WHERE  GLAccount = '#entryglaccount#'
-						</cfquery>
-
-					  				    
-						<input type="hidden" name="entryglaccount"     id="entryglaccount"     value="#entryglaccount#"          class="regularxl enterastab" size="11"  readonly style="text-align: left">
+				   												
+					<cfquery name="getGL" 
+						datasource="AppsLedger" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+						    SELECT *
+							FROM   Ref_Account
+							WHERE  GLAccount = '#entryglaccount#'
+					</cfquery>
+			  			
+					<td>
 						<input type="text"   name="entrygllabel"       id="entrygllabel"       value="#getGL.AccountLabel#"      class="regularxl enterastab" size="11"  readonly style="text-align: left">
+						<input type="hidden" name="entryglaccount"     id="entryglaccount"     value="#entryglaccount#"          class="regularxl enterastab" size="11"  readonly style="text-align: left">
+					
+					</td>
+					<td style="padding-left:3px">
 					    <input type="text"   name="entrygldescription" id="entrygldescription" value="#URL.entrygldescription#"  class="regularxl enterastab" style="width:354px" readonly style="text-align: left;">							  
-						
-				    </td>
+					</td>
 					
 					 <td style="padding-left:2px">						   
 				  				   				   	  
@@ -346,13 +357,11 @@ password="#SESSION.dbpw#">
 						WHERE  GLAccount = '#PresetGLAccount#'
 					</cfquery>		
 				   
-				   <table cellspacing="0" cellpadding="0">
+				   <table>
 					   <tr>						
-						<td>	  					    
-						<input type="text"   name="entryglaccount"     id="entryglaccount"     value="#presetGLAccount#"          class="regularxl enterastab" size="6"  readonly style="text-align: left;">
-						<input type="text"   name="entrygllabel"       id="entrygllabel"     value="#getGLAccount.accountLabel#"          class="regularxl enterastab" size="11"  readonly style="text-align: left">					  
-					    <input type="text"   name="entrygldescription" id="entrygldescription" value="#getGLAccount.description#" class="regularxl enterastab" size="40" readonly style="text-align: left;">								  
-					    </td>
+						<td><input type="text"   name="entryglaccount"     id="entryglaccount"     value="#presetGLAccount#"            class="regularxl enterastab" size="6"  readonly style="text-align: left;"></td>
+						<td><input type="text"   name="entrygllabel"       id="entrygllabel"       value="#getGLAccount.accountLabel#"  class="regularxl enterastab" size="11"  readonly style="text-align: left"></td>					  
+						<td><input type="text"   name="entrygldescription" id="entrygldescription" value="#getGLAccount.description#"   class="regularxl enterastab" size="40" readonly style="text-align: left;"></td>								  					    
 					   </tr>				   
 				   </table>			   			   
 			   
@@ -767,8 +776,7 @@ password="#SESSION.dbpw#">
 						<td style="border:1px solid silver">
 							<input type="text" name="uomname" id="uomname" value="#item.uomdescription#" size="7" class="regularxl" readonly style="border:0px;text-align: center;">
 						</td>
-							<input type="hidden" name="itemuom"       id="itemuom"  value="#url.itemuom#" size="10" class="regularxl" readonly style="border:0px;text-align: left;">										
-						
+							<input type="hidden" name="itemuom"       id="itemuom"  value="#url.itemuom#" size="10" class="regularxl" readonly style="border:0px;text-align: left;">																
 						</tr>
 						</table>
 						
@@ -832,9 +840,7 @@ password="#SESSION.dbpw#">
 							  
 							  	 <table cellspacing="0" cellpadding="0">
 				    			 <tr>
-								 
 								
-								 
 								 <td>	
 								    
 								  <input type="text"   name="orgunitname1"  id="costcentername1" class="regularxl" value="#Org.OrgUnitName#"  style="width:422px" readonly ondblclick="resetcost()">
@@ -877,12 +883,7 @@ password="#SESSION.dbpw#">
 				 
 				<td class="labelmedium"><!--- <cf_tl id="Exchange">:---></td>
 				
-			    <td rowspan="4" valign="top" id="amountdetail">
-
-					<cfset url.entryCurrency = URL.currency>
-					<cfinclude template="TransactionDetailEntryCalc.cfm">
-										
-				</td>
+			   
 				
 		  </tr>					 
 		
@@ -972,13 +973,13 @@ password="#SESSION.dbpw#">
 		</cfif>
 			
 		<tr>
-				  <TD class="labelmedium" height="21"><cf_tl id="Amount">:</TD>
+				  <TD style="padding-top:3px;" valign="top" class="labelmedium" height="21"><cf_tl id="Amount">:</TD>
 		          <td>
 				  
 					  <table cellspacing="0" cellpadding="0">
 					  <tr>
 					
-					   <td>
+					   <td style="padding-top:0px;" valign="top">
 					   
 					   <cfif acc.ForceCurrency neq "">					  
 					   	 <cfset dis = "disabled">
@@ -997,12 +998,11 @@ password="#SESSION.dbpw#">
 						
 					   </td>  
 					  
-					   <td id="amtinput" style="padding-left:3px">
+					   <td id="amtinput" style="padding-top:0px; padding-left:3px" valign="top">
 					   
 					  <cfif url.entryamount eq "0">
 					  	<cfset url.entryamount = "">
-					  </cfif>
-					  	
+					  </cfif>					  	
 										  
 					   <input type="text"
 						       name="entryamount"
@@ -1018,11 +1018,7 @@ password="#SESSION.dbpw#">
 							    onkeyup="amountcalc('0')"  --->
 					   
 						</td>
-						
-						<td>   
-				   			   
-					     </td>
-					   
+											   
 					     <td id="calc" class="hide">
 							  							
 								<cf_calculator
@@ -1060,6 +1056,13 @@ password="#SESSION.dbpw#">
 							 </script>
 							
 							</td>
+							
+							<td style="padding-left:4px" colspan="3" id="amountdetail">
+			 
+								<cfset url.entryCurrency = URL.currency>
+								<cfinclude template="TransactionDetailEntryCalc.cfm">
+													
+							</td>
 					
 					   </tr>
 					   
@@ -1068,10 +1071,8 @@ password="#SESSION.dbpw#">
 				</TD>
 				
 			</tr>
-			  
-			  </tr>
-			  <tr><td colspan="4" height="5" align="center">
-			  
+			 
+			 			  
 			  <tr><td colspan="4" class="line"></td></tr>
 			  
 			  <tr><td colspan="4" height="30" align="center">

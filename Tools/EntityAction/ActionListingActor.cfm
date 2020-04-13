@@ -335,7 +335,8 @@
 	
 		<cfif Actor.recordCount eq "0">
 			
-		<tr class="line" style="border-top:1px solid silver"><td colspan="3" align="center" style="padding-left:80px" class="labelmedium">
+		<tr class="line" style="border-top:1px solid silver">
+		<td colspan="3" align="center" style="padding-left:80px" class="labelmedium">
 		
 			<cfoutput>				
 				<font color="FF0000"><b>Attention:</b></font><font color="gray"> No Actors were predefined for the above step. Please do select an actor</font>
@@ -356,10 +357,7 @@
 			
 			<td colspan="2" height="100%" valign="top">
 			
-			<table width="100%" height="100%"
-			   border="0" 
-			   cellspacing="0" 
-			   cellpadding="0" 			    
+			<table width="100%" height="100%"			      
 			   class="formpadding"
 			   id="#URL.ActionCode#_#type#">
 			
@@ -367,12 +365,12 @@
 			
 			<tr>
 			<td colspan="2" class="labelmedium" valign="top"
-			    style="cursor: pointer;padding:15px;" 
+			    style="cursor: pointer;padding:4px;padding-left:30px;height:30px;" 
 			    onClick="javascript:document.getElementById('#URL.ActionCode#_#type#').className='regular';">
 	
-			<font color="6688aa"><u>CLICK HERE</u></b> <cf_tl id="view Inherited access through ROLE granted authorization"></font><br>
+			<a>CLICK HERE <cf_tl id="view Inherited access through ROLE granted authorization"></a><br>
 	
-			<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" id="#URL.ActionCode#_#type#" class="hide formpadding">
+			<table width="100%" align="center" id="#URL.ActionCode#_#type#" class="hide formpadding">
 			</cfif>		
 			
 			<tr>		
@@ -402,6 +400,7 @@
 				<cfif currentRow neq "1">
 				<tr><td height="1" colspan="9" class="line"></td></tr>
 				</cfif>
+				
 			</cfif>	
 			
 			    <td style="padding-left:20px;padding-right:10px"><b>#C#.</b></td>
@@ -416,15 +415,13 @@
 							
 					 <font color="gray">	
 					 
-					 	<table cellspacing="0" cellpadding="0"><tr>
-						 <td class="labelmedium" style="height:17px">
-					 			
-						 #LastName#, #FirstName# <cfif accesslevel eq "0"><font size="1" color="808080">[<cf_tl id="Assistant">]</font></cfif>
-						 
+					 	<table>
+						 <tr class="labelmedium">
+						 <td style="height:17px">					 			
+						 #LastName# <cfif firstname neq "">, #FirstName#</cfif> <cfif accesslevel eq "0"><font size="1" color="808080">[<cf_tl id="Assistant">]</font></cfif>						 
 						 </td>
 						 					 
-						 <cfparam name="url.group" default="">
-						
+						 <cfparam name="url.group" default="">						
 						 <td style="padding-left:4px;padding-top:2px;padding-right:5px">			
 						 
 						   <cf_img icon="delete"							  
@@ -456,17 +453,17 @@
 								   height="14" 
 								   border="0" 
 								   style="cursor: pointer;" 
-								   onClick="ColdFusion.navigate('#SESSION.root#/tools/entityAction/ProcessActionAccessFavorite.cfm?ObjectId=#url.ObjectId#&ActionCode=#url.ActionCode#&action=grant&account=#Account#&accesslevel=#accesslevel#','b#account#_favorite')">
+								   onClick="ptoken.navigate('#SESSION.root#/tools/entityAction/ProcessActionAccessFavorite.cfm?ObjectId=#url.ObjectId#&ActionCode=#url.ActionCode#&action=grant&account=#Account#&accesslevel=#accesslevel#','b#account#_favorite')">
 								   
 							  <cfelse>
 							  
 								   <img src="#SESSION.root#/Images/favorite.png" 
-								   title="Account was delegated for future actions for this entity (#LastName#, #FirstName#), press to remove" 
+								   title="Account was delegated for future actions for the same entity (#LastName#, #FirstName#), press to remove" 
 								   width="14" 
 								   height="14" 
 								   border="0" 
 								   style="cursor: pointer;" 
-								   onClick="ColdFusion.navigate('#SESSION.root#/tools/entityAction/ProcessActionAccessFavorite.cfm?ObjectId=#url.ObjectId#&ActionCode=#url.ActionCode#&action=reset&account=#Account#&accesslevel=#accesslevel#','b#account#_favorite')">
+								   onClick="ptoken.navigate('#SESSION.root#/tools/entityAction/ProcessActionAccessFavorite.cfm?ObjectId=#url.ObjectId#&ActionCode=#url.ActionCode#&action=reset&account=#Account#&accesslevel=#accesslevel#','b#account#_favorite')">
 													  
 							  </cfif> 
 						  
@@ -477,18 +474,16 @@
 					<cfelseif URL.mode eq "View" and SESSION.isAdministrator eq "Yes">
 									
 					   <font color="gray">* 
-						<a href="javascript:ShowUser('#URLEncodedFormat(Account)#')">#LastName#, #FirstName#</a>
+						<a href="javascript:ShowUser('#URLEncodedFormat(Account)#')">#LastName# <cfif firstname neq "">, #FirstName#</cfif></a>
 									
 					<cfelseif URL.Mode eq "Insert">
 							
 						<cfif SESSION.isAdministrator eq "Yes">
-							<a href="javascript:accessedit('#URL.Role#','Object','#URL.ObjectId#','#Account#','#url.box#','#url.mode#','#url.orgunit#','#url.actionPublishNo#','#url.actionCode#','#url.group#','#url.assist#')">
-							<font color="2894FF">
-							<!--- #dateformat(created,CLIENT.DateFormatShow)#--->#LastName#, #FirstName# <cfif accesslevel eq "0"><font color="gray">[Assistant]</font></cfif>
-							</font>
+							<a href="javascript:accessedit('#URL.Role#','Object','#URL.ObjectId#','#Account#','#url.box#','#url.mode#','#url.orgunit#','#url.actionPublishNo#','#url.actionCode#','#url.group#','#url.assist#')">							
+							<!--- #dateformat(created,CLIENT.DateFormatShow)#--->#LastName# <cfif firstname neq "">, #FirstName#</cfif> <cfif accesslevel eq "0"><font color="gray">[Assistant]</font></cfif>							
 							</a>
 						<cfelse>
-							#LastName#, #FirstName#
+							#LastName# <cfif firstname neq "">, #FirstName#</cfif>
 						</cfif>			   
 					    					
 						<cfparam name="url.group" default="">
@@ -505,19 +500,16 @@
 											
 					<cfelseif URL.mode eq "BatchInsert">	
 					
-						<cfif SESSION.isAdministrator eq "Yes">
-						
+						<cfif SESSION.isAdministrator eq "Yes">						
 							<a href="javascript:accessedit('#URL.Role#','Object','#URL.ObjectId#','#Account#','#url.box#','#url.mode#','#url.orgunit#','#url.actionPublishNo#','#url.actionCode#','#url.group#','#url.assist#')">
-							<font color="2894FF">#LastName#, #FirstName#</font>
+							#LastName#<cfif firstname neq "">, #FirstName#</cfif>
 							</a>
 						<cfelse>
-						     <font color="gray">#LastName#, #FirstName#</font>
+						     <font color="gray">#LastName#<cfif firstname neq "">, #FirstName#</cfif></font>
 						</cfif>		
 						
-					<cfelse>
-					
-						   <font color="gray">#LastName#, #FirstName#</font>
-						
+					<cfelse>					
+						   <font color="gray">#LastName#<cfif firstname neq "">, #FirstName#</cfif></font>						
 					</cfif>				
 					
 					</td></tr>
@@ -551,7 +543,7 @@
 								   height="12" 
 								   border="0" 
 								   style="cursor: pointer;" 
-								   onClick="ColdFusion.navigate('#SESSION.root#/tools/entityAction/ProcessActionAccessDelete.cfm?box=#url.box#&Mode=#url.Mode#&ObjectId=#url.ObjectId#&OrgUnit=#url.OrgUnit#&Role=#url.Role#&ActionPublishNo=#url.actionPublishNo#&ActionCode=#url.actionCode#&ActionDelete=#classparameter#&Group=#url.group#&assist=#url.assist#&account=#Account#','#url.box#')">
+								   onClick="ptoken.navigate('#SESSION.root#/tools/entityAction/ProcessActionAccessDelete.cfm?box=#url.box#&Mode=#url.Mode#&ObjectId=#url.ObjectId#&OrgUnit=#url.OrgUnit#&Role=#url.Role#&ActionPublishNo=#url.actionPublishNo#&ActionCode=#url.actionCode#&ActionDelete=#classparameter#&Group=#url.group#&assist=#url.assist#&account=#Account#','#url.box#')">
 								   
 							 </cfif>  
 							   
@@ -570,7 +562,7 @@
 			
 			<cfif r eq "0">
 				</tr>
-				<tr><td height="1" colspan="9" class="line"></td></tr>
+				<tr class="line"><td height="1" colspan="9"></td></tr>
 			</cfif>	
 			
 			</cfoutput>

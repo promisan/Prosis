@@ -123,9 +123,7 @@
 								  <td width="70" style="padding:2px" bgcolor="white" style="border-right:1px solid silver"></td>
 								  <cfset cl = "hide">
 							  </cfif>
-							  <td align="center" class="labelit" style="padding:2px;cursor:pointer" onclick="showentity('#URL.mission#','#ms#','')">					  
-							  <font color="6688aa">Click here to manage access</u></font>
-							  </td>					 
+							  <td align="center" class="labelit" style="padding:2px;cursor:pointer" onclick="showentity('#URL.mission#','#ms#','')">Click here to manage access</td>					 
 							  </tr>
 						  </table>		
 						  			  

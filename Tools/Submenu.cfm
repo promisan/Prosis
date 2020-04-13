@@ -509,8 +509,7 @@
 									<cfinclude template="SubmenuImages.cfm">					
 						   	    </td>	
 								
-								<td align="left" class="labelmedium" style="font-weight:340;height:18px;font-size:20px" 
-								 valign="middle" onclick="<cfif License eq 1>#go#</cfif>">
+								<td align="left" class="labelmedium" style="font-weight:340;height:18px;font-size:20px" valign="middle" onclick="<cfif License eq 1>#go#</cfif>">
 																 								 
 								   <!--- determine if we take another label here driven by the mission/entity --->
 								    
@@ -569,7 +568,7 @@
 													</cfquery>	
 													
 													<cfif CheckLogging.recordCount gt 0>
-														<button type="button" class="button3" onClick="logging('#systemFunctionId#')">    						 
+														<button type="button" class="button3" onClick="logging('#systemFunctionId#','#heading#')">    						 
 												 			 <img src="#SESSION.root#/Images/info2.gif" alt="Function logging" height="16" width="16" border="0"
 														   	  style="cursor: pointer;" alt="" border="0" align="absmiddle">										  
 														</button>
@@ -607,7 +606,8 @@
 						      </tr>		
 							  						    
 							  <tr bgcolor="<cfif license eq 0>FFCACA</cfif>">
-						        <td class="labelit" align="left" valign="middle" style="padding-left:8px" <cfif License eq 1>onclick="#go#"</cfif>>
+
+						        <td class="labelit" align="left" valign="middle" style="padding-left:8px" onclick="<cfif License eq 1>#go#</cfif>">
 																
 								<cfif st neq "">
 								<font size="2">#st#</font><br>
@@ -703,7 +703,7 @@
 													</cfquery>	
 													
 													<cfif CheckLogging.recordCount gt 0>
-														<button type="button" class="button3" onClick="logging('#systemFunctionId#')">    						 
+														<button type="button" class="button3" onClick="logging('#systemFunctionId#','#heading#')">    						 
 												 			 <img src="#SESSION.root#/Images/info2.gif" alt="Function logging" height="16" width="16" border="0"
 														   	  style="cursor: pointer;" alt="" border="0" align="absmiddle">										  
 														</button>
@@ -825,8 +825,9 @@
 													WHERE  SystemFunctionId = '#systemFunctionId#'					
 											</cfquery>	
 											
+																						
 											<cfif CheckLogging.recordCount gt 0>
-												<button type="button" class="button3" onClick="logging('#systemFunctionId#')">    						 
+												<button type="button" class="button3" onClick="logging('#systemFunctionId#','')">    						 
 										 			 <img src="#SESSION.root#/Images/info2.gif" alt="Function logging" height="16" width="16" border="0"
 												   	  style="cursor: pointer;" alt="" border="0" align="absmiddle">										  
 												</button>

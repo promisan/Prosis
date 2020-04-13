@@ -14,7 +14,10 @@
 	password="#SESSION.dbpw#">
 		SELECT 	*
 		FROM   	UserActionModule
-		WHERE  	SystemFunctionId = '#url.id#'					
+		WHERE  	SystemFunctionId = '#url.id#'		
+		<cfif url.mission neq "">
+		AND     Mission = '#url.mission#'
+		</cfif>		   			
 </cfquery>
 
 <cfquery name="actionList" dbtype="query">
@@ -50,9 +53,10 @@
 	  option="#function.functionMemo#"
 	  banner="gray" 	  
 	  menuAccess="yes" 
+	  jquery="Yes"
 	  systemfunctionid="#url.id#">
 
-<cfajaximport tags="cfdiv,cfwindow">
+<cfajaximport tags="cfdiv">
 <cf_calendarscript>
 
 <cfset lastNDays = 5>
@@ -60,9 +64,7 @@
 <cf_tl id = "The end date must be greater or equal than the initial date." var = "vDateError">
 
 <cfoutput>
-	
-	<script type="text/javascript" src="#SESSION.root#/Scripts/jQuery/jquery.js"></script>
-	
+		
 	<script>
 	
 		function hideAllDetails() {
@@ -83,7 +85,7 @@
 			if ($('##detailPanel_'+id).is(':hidden')) {
 				$('##detailPanel_'+id).show(350, showBtnHideAll);
 				$('##btnViewDetail_'+id).attr('title','hide '+desc+' detail');
-				ColdFusion.navigate('LoggingDetail.cfm?moduleActionId=' + id + '&ts=' + new Date().getTime(),'loggingDetail_'+id);
+				ptoken.navigate('LoggingDetail.cfm?moduleActionId=' + id + '&ts=' + new Date().getTime(),'loggingDetail_'+id);
 			}else{
 				$('##detailPanel_'+id).hide(350, showBtnHideAll);
 				$('##btnViewDetail_'+id).attr('title','view '+desc+' detail');
@@ -92,6 +94,7 @@
 		}
 		
 		function validateDateFields(vInitDate,vEndDate) {
+		
 			var vMessage = '';
 			var vFirstError = '';
 			
@@ -158,7 +161,7 @@
 			$('##frmFilter').submit();
 			if( _CF_error_messages.length == 0 && validateDateFields(vInitDate,vEndDate)) {
 				$('##logStatus').text('Showing records from ' + $('##InitialDate').val() + ' to ' +  $('##EndDate').val() + '.');
-				ColdFusion.navigate('RecordListingDetail.cfm?id=#url.id#&filter=1&lastNDays=#lastNDays#&action='+vAction+'&account='+vAccount+'&node='+vNode+'&host='+vHost+'&initial='+vStringInitDate+'&end='+vStringEndDate,'divDetail');
+				ptoken.navigate('RecordListingDetail.cfm?id=#url.id#&filter=1&lastNDays=#lastNDays#&action='+vAction+'&account='+vAccount+'&node='+vNode+'&host='+vHost+'&initial='+vStringInitDate+'&end='+vStringEndDate,'divDetail');
 			}
 		}
 		
@@ -169,26 +172,19 @@
 		
 		$(document).ready(function(){
 			
-			$('##toggleFilter').click(function(){
-				
-				if ($('##filterPanel').is(':hidden')) {
-				
+			$('##toggleFilter').click(function(){				
+				if ($('##filterPanel').is(':hidden')) {				
 					$('##filterTwistie').attr('src','#SESSION.root#/Images/collapse-up.png');
 					$('##toggleFilter').attr('title','Hide filters');
 					$('##dateContainer').slideDown(250);
-					$('##filterPanel').slideDown(300,showDates);
-					
-				}else {
-				
+					$('##filterPanel').slideDown(300,showDates);					
+				}else{				
 					$('##filterTwistie').attr('src','#SESSION.root#/Images/collapse-down.png');
 					$('##toggleFilter').attr('title','Show filters');
 					$('##dateContainer').slideUp(250);
-					$('##filterPanel').slideUp(300);
-					
-				}
-				
-			});
-			
+					$('##filterPanel').slideUp(300);					
+				}				
+			});			
 		});
 		
 	</script>
@@ -315,7 +311,7 @@
 
 	<tr>
 		<td>
-			<cfdiv id="divDetail" bind="url:RecordListingDetail.cfm?id=#url.id#&filter=0&lastNDays=#lastNDays#">
+			<cfdiv id="divDetail" bind="url:RecordListingDetail.cfm?mission=#url.mission#&id=#url.id#&filter=0&lastNDays=#lastNDays#">
 		</td>
 	</tr>
 	

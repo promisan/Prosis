@@ -140,8 +140,8 @@ password="#SESSION.dbpw#">
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
 			SELECT *
-			FROM Ref_Account
-			WHERE GLAccount = '#AdvanceGLAccount#'
+			FROM   Ref_Account
+			WHERE  GLAccount = '#AdvanceGLAccount#'
 		</cfquery>
 	
 	<cf_dialogLedger>
@@ -184,7 +184,7 @@ password="#SESSION.dbpw#">
 				  onMouseOver="document.img3.src='#SESSION.root#/Images/contract.gif'" 
 				  onMouseOut="document.img3.src='#SESSION.root#/Images/search.png'"
 				  style="cursor: pointer;" width="25" height="25" border="0" align="absmiddle" 
-				  onClick="javascript:selectaccount('AdvanceGLAccount','AdvanceGLDescription','entrydebitcredit','#URL.mission#');">
+				  onClick="javascript:selectaccountgl('#URL.mission#', '', '', '', 'applyAdvanceAccount', '');">
 		    <td>
 			<td style="padding-left:2px">
 			<input type="text" name="AdvanceGLAccount" id="AdvanceGLAccount" size="6" value="#AdvanceGLAccount#"  class="regularxl" readonly style="text-align: center;">
@@ -207,7 +207,7 @@ password="#SESSION.dbpw#">
 			SELECT *
 			FROM Ref_Account
 			WHERE GLAccount = '#ReceiptGLAccount#'
-		</cfquery>
+	</cfquery>
 		
 	<TR id="receiptaccount">
     <td width="260" style="padding-left:30px" class="labelmedium">Receipt Ledger GL Account:</b></td>

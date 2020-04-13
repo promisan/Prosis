@@ -5,11 +5,9 @@
 
 <cf_dialogLedger>
 
-<cfajaximport tags="cfwindow">
-
 <cfform method="POST" name="entry">
 
-<table width="92%" align="center" height="100%" cellspacing="0" cellpadding="0" class="formpadding formspacing">
+<table width="92%" align="center" height="100%" cellspacing="0" cellpadding="0" class="formpadding">
 
 <cfquery name="PO"
 	datasource="AppsPurchase" 
@@ -184,12 +182,12 @@
 
 <tr><td colspan="2" id="result"></td></tr>
 
-<tr><td height="65" valign="bottom" colspan="2" align="center">
+<tr><td height="45" valign="bottom" colspan="2" align="center">
 
   <cfoutput>
 	<input type="button" name="Submit" id="Submit" value="Close" class="button10g" style="width:120;height:24" onclick="parent.ColdFusion.Window.destroy('myadvance',true)">
 	<input type="button" name="Submit" id="Submit" value="Submit" class="button10g" style="width:120;height:24"
-			 onclick="ColdFusion.navigate('POViewAdvanceRequestSubmit.cfm?id=#url.id#','result','','','POST','entry')">
+			 onclick="ptoken.navigate('POViewAdvanceRequestSubmit.cfm?id=#url.id#','result','','','POST','entry')">
   </cfoutput>
   
 </td></tr>

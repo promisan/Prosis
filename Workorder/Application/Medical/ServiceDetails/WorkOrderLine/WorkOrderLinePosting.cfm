@@ -48,7 +48,7 @@
 	</cfif>
 	--->
 	
-	ORDER BY C.OrgUnitOwner, C.OrgUnitCustomer, C.TransactionDate 
+	ORDER BY C.OrgUnitOwner, C.OrgUnitCustomer, C.TransactionDate, R.Description
 	
 </cfquery>	
 
@@ -218,8 +218,7 @@
 													
 					<cfoutput group="OrgUnitCustomer">
 																							
-							 <cfif OrgUnitCustomer eq "0">
-							 						 							     							 
+							 <cfif OrgUnitCustomer eq "0">							 						 							     							 
 								 
 							 <cfelse>
 							 
@@ -242,6 +241,7 @@
 							 </cfif>
 							 
 						<cfset reference = ""> 
+						<cfset prior     = "">
 									
 						<cfoutput group="TransactionDate">
 
@@ -254,32 +254,32 @@
 							<td colspan="7"  style="padding-left:10px;height:1px;">
 								<!--- we are hiding this now as it gave some confusion in the presentation 
 								#dateformat(TransactionDate,client.dateformatshow)#
-								--->
-																
-								<b>#BillingReference# - #BillingName#
-								
-								<cfset reference = "#BillingReference# - #BillingName#">
-								
+								--->																
+								<b>#BillingReference# - #BillingName#								
+								<cfset reference = "#BillingReference# - #BillingName#">								
 							</td></tr>
 							</cfif>
-											
+							
+						<cfoutput group="UnitClassName">		
+						
 						<cfoutput>
 						
-							<tr class="labelmedium" style="height:20px;border-top:1px solid silver">		
-							    														
-								<td style="padding-left:10px;border-bottom:1px solid silver">#UnitClassName#</td>
+							<tr class="labelmedium" style="height:20px;border-top:1px solid silver">							    														
+								<td style="padding-left:10px;border-bottom:1px solid silver"><cfif prior neq UnitClassName>#unitclassname#</cfif></td>
 								<td style="width:40%;border-bottom:1px solid silver">#UnitDescription#</td>		
 								<td align="right" style="border-left:1px solid silver;border-right:1px solid silver;padding-right:4px"><cfif quantityCost gte "1">#QuantityCost#|</cfif>#Quantity#</td>																	
 								<td align="right" style="border-left:1px solid silver;border-right:1px solid silver;padding-right:4px"></td>
 								<td align="right" style="border-left:1px solid silver;border-right:1px solid silver;padding-right:4px" >#numberformat(SaleAmountIncome,',__.__')#</td>		
 								<td align="right" style="border-right:1px solid silver;padding-right:4px">#numberformat(SaleAmountTax,',.__')#</td>									
-								<td align="right" style="border-right:1px solid silver;padding-right:10px">#numberformat(SalePayable,',.__')#</td>
-								
+								<td align="right" style="border-right:1px solid silver;padding-right:10px">#numberformat(SalePayable,',.__')#</td>								
 							</tr>
 							
 							<cfset vamt = vamt + SaleAmountIncome>	
 							<cfset vtax = vtax + SaleAmountTax>		
+							<cfset prior = unitclassname>
 																	
+						</cfoutput>
+						
 						</cfoutput>
 																										
 						<tr class="labelmedium">
@@ -360,7 +360,6 @@
 											</a>									
 											
 										</td>
-											
 										
 										<!--- if transaction has no offset postings we allow to remove it --->
 										
@@ -461,9 +460,7 @@
 										 <tr>
 											<cf_tl id="Record Settlement" var="1">
 											<td class="labelmedium" style="min-width:200;font-size:24px;padding-top:4px;padding-left:20px;padding-right:4px" colspan="1">		
-											<a href="javascript:dosettlement('#url.workorderlineid#','#orgunitowner#','#sdte#','#stme#')">
-											   <font color="0080C0">[#lt_text#]</font></b>
-											</a>					
+											<a href="javascript:dosettlement('#url.workorderlineid#','#orgunitowner#','#sdte#','#stme#')">[#lt_text#]</a>					
 											</td>					
 											
 											<td width="100%" valign="top" align="right" style="padding-top:1px;padding-right:30px">

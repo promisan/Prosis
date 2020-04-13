@@ -17,7 +17,6 @@
 
 <cf_screenbottom html="No">
 
-
 <cfparam name="Form.misrow" default="global">
 
 <cfif Form.MisRow eq "0">
@@ -162,7 +161,7 @@ WHERE Account = '#URL.ACC#'
 <script>
 
 	try { 
-	  parent.parent.ColdFusion.Window.destroy('userdialog',true) } 
+	  parent.parent.ProsisUI.closeWindow('userdialog',true) } 
 	catch(e) {	parent.parent.window.close() }
 	
 	

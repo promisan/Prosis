@@ -1,14 +1,13 @@
 
-<HTML><HEAD>
-    <TITLE>Document:<cfoutput>#URL.ID#</cfoutput></TITLE>
-    <link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
-</HEAD>
-
+<!---
 <cf_systemscript>
+--->
 
 <cfset checkText = "Select">
 
 <cfif url.wparam eq "MARK" or url.wparam eq "TEST">
+	 
+	<!--- we check if there is an interview step otherwise it goes to 2 = recommended --->
 	  
 	<cfquery name="Interview" 
 	datasource="AppsOrganization" 
@@ -23,7 +22,7 @@
 	<cfif url.wparam eq "MARK">
 	
 		<cfset dialog = "Mark">
-		<cfset checkText = "Select">
+		<cfset checkText = "Eligible">
 		
 	<cfelse>
 	
@@ -34,19 +33,19 @@
 	
 	<cfif Interview.RecordCount gte 1>
 	
-		<input type="Hidden" id="ReviewReset"  name="ReviewReset" value="0">
+		<input type="Hidden" id="ReviewReset"  name="ReviewReset"  value="0">
 		<input type="Hidden" id="ReviewStatus" name="ReviewStatus" value="1">
 		<cfset required = "'0','1','2','2s','9'">
 		<!--- If there is a interview step, upon processing candidates should get status 1--->
-		<cfset final = "1">
+		<cfset wfinal = "1">
 	
 	<cfelse>
 	
-		<input type="Hidden" id="ReviewReset"  name="ReviewReset" value="0">
-		<input type="Hidden" id="ReviewStatus" name="ReviewStatus" value="2">
+		<input type="Hidden" id="ReviewReset"  name="ReviewReset"   value="0">
+		<input type="Hidden" id="ReviewStatus" name="ReviewStatus"  value="2">
 		<cfset required = "'0','1','2','2s','9'">
 		<!--- If there is no interview step, upon processing candidates should get status 2--->
-		<cfset final = "2">
+		<cfset wfinal = "2">
 	
 	</cfif>
 	
@@ -55,10 +54,10 @@
 	<cfset checkText = "Recommended">
 
 	<cfset dialog = "Interview">
-	<input type="Hidden" id="ReviewReset"  name="ReviewReset" value="1">
-	<input type="Hidden" id="ReviewStatus" name="ReviewStatus" value="2">
+	<input type="Hidden" id="ReviewReset"  name="ReviewReset"   value="1">
+	<input type="Hidden" id="ReviewStatus" name="ReviewStatus"  value="2">
 	<cfset required = "'1','2'">
-	<cfset final = "2">
+	<cfset wfinal = "2">
 
 <cfelseif url.wparam eq "SELECT">
 	
@@ -68,7 +67,7 @@
 	<input type="Hidden" id="ReviewReset"  name="ReviewReset" value="2">
 	<input type="Hidden" id="ReviewStatus" name="ReviewStatus" value="2s">
 	<cfset required = "'2','2s','9'">
-	<cfset final = "2s">
+	<cfset wfinal = "2s">
 
 <cfelse>
 
@@ -79,65 +78,64 @@
 	<input type="Hidden" id="ReviewReset"  name="ReviewReset" value="2s">
 	<input type="Hidden" id="ReviewStatus" name="ReviewStatus" value="Track">
 	<cfset required = "'2s'">
-	<cfset final = "Track">
+	<cfset wfinal = "Track">
 	
 </cfif>
 
 <cf_dialogStaffing>
+<cf_calendarscript>
 
 <cfinclude template="../Document/Dialog.cfm">
 
 <cfoutput>
 
 <script language="JavaScript">
-
-ie = document.all?1:0
-ns4 = document.layers?1:0
-
-function hl(itm,fld){
-
-     if (ie){
-          while (itm.tagName!="TR")
-          {itm=itm.parentElement;}
-     }else{
-          while (itm.tagName!="TR")
-          {itm=itm.parentNode;}
-     }
- 	 		 	
-	 if (fld != false){
-		
-	 itm.className = "highLight2";
-	 }else{
-		
-     itm.className = "";		
-	 }
-  }
-
-function more(bx) {
-
-	se   = document.getElementById(bx)
-
-	if (se.className == "regular"){
-		se.className = "hide";
-	}else{
-		se.className = "regular";
+	
+	ie = document.all?1:0
+	ns4 = document.layers?1:0
+	
+	function hl(itm,fld){
+	
+	     if (ie){
+	          while (itm.tagName!="TR")
+	          {itm=itm.parentElement;}
+	     }else{
+	          while (itm.tagName!="TR")
+	          {itm=itm.parentNode;}
+	     }
+	 	 		 	
+		 if (fld != false){
+			
+		 itm.className = "highLight2";
+		 }else{
+			
+	     itm.className = "";		
+		 }
+	  }
+	
+	function more(bx) {
+	
+		se   = document.getElementById(bx)
+		if (se.className == "regular"){
+			se.className = "hide";
+		}else{
+			se.className = "regular";
+		}
+	
 	}
-
-}
-
-function interview(per,act) {
-	w = #CLIENT.width# - 100;
-	h = #CLIENT.height# - 160;
-	window.open("#SESSION.root#/Vactrack/Application/Candidate/CandidateInterview.cfm?DocumentNo=#Object.ObjectKeyValue1#&PersonNo="+per+"&ActionCode="+act, "_blank", "left=30, top=30, width=" +w+ ", height=" +h+ ", toolbar=no, menubar=no, status=yes, scrollbars=yes, resizable=yes");
-}
+	
+	function interview(per,act) {		
+		ProsisUI.createWindow('interviewbox', 'Interview record','',{x:100,y:100,width:document.body.offsetWidth-100,height:document.body.offsetHeight-90,modal:true,center:true})
+		ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/CandidateInterview.cfm?DocumentNo=#Object.ObjectKeyValue1#&PersonNo='+per+'&ActionCode='+act,'interviewbox');
+	}
+	
+	function savecandidateeval(obj,per,act,com,val,fld) {		   	     
+		 _cf_loadingtexthtml='';	
+		 ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/CandidateAssessmentSubmit.cfm?objectid='+obj+'&personno='+per+'&actioncode='+act+'&competenceid='+com+'&formfield='+val+'&field='+fld,'process','','','POST','formembed')	
+	}
+	
 
 </script>
-
-</cfoutput>
-
-<body>
-
-<cfoutput>
 
 	<input name="Key1"       type="hidden"  value="#Object.ObjectKeyValue1#">
 	<input name="ActionCode" type="hidden"  value="#Action.ActionCode#">
@@ -154,8 +152,6 @@ password="#SESSION.dbpw#">
     FROM  Document
 	WHERE DocumentNo = '#Object.ObjectKeyValue1#' 
 </cfquery>
-
-
 
 <!--- ---------------------------------------------------------------- --->
 <!--- determine of the document is enabled for overwrite of candidates --->
@@ -217,7 +213,6 @@ password="#SESSION.dbpw#">
 	
 	AND   (R.EntityParameter is NULL or R.EntityParameter = '' or R.EntityParameter = '#Position.PostType#')	  
 </cfquery>
-
 
 <cfif class.recordcount eq "0">
 
@@ -282,62 +277,60 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 --->
 <cfset col = "130">
 
-<table width="96%" align="center" class="formpadding">
+<table border="0" width="98%" align="center">
+
+<cfoutput>
  
- <tr>
- 	<td class="labelmedium"><cf_tl id="Unit">:</td>
-	<td class="labelmedium" bgcolor="white">
-		<cfoutput><b>#Doc.OrganizationUnit#</cfoutput>
+ <tr class="labelmedium line">
+ 	<td><cf_tl id="Unit">:</td>
+	<td bgcolor="white">
+		#Doc.OrganizationUnit#
 	</td>
-	<TD class="labelmedium"><cf_tl id="Due date"></td>
-    <td class="labelmedium" bgcolor="white">
-		<cfoutput><b>#Dateformat(Doc.Duedate, CLIENT.DateFormatShow)#</cfoutput>
-	</td>
+	<TD><cf_tl id="Due date"></td>
+    <td bgcolor="white">#Dateformat(Doc.Duedate, CLIENT.DateFormatShow)#</td>
 	</TR>
 		
 	<TR>
-    <TD class="labelmedium"><cf_tl id="Functional title">:</TD>
-    <TD class="labelmedium">
-		<cfoutput><b>#Doc.FunctionalTitle#</cfoutput>
-	</TD>
-	<td class="labelmedium"><cf_tl id="Grade">:&nbsp;</td>
-	<td class="labelmedium">
-		<cfoutput><b>#Doc.PostGrade#</cfoutput>
+    <TD><cf_tl id="Functional title">:</TD>
+    <TD>#Doc.FunctionalTitle#</TD>
+	<td><cf_tl id="Grade">:</td>
+	<td>#Doc.PostGrade#
 	</td>
 	</TR>	
 		
- 	<TR>
+ 	<TR class="labelmedium line">
 	
-    <td class="labelmedium"><cf_tl id="Remarks">:</td>
-	<TD class="labelmedium">
-		<cfoutput><b>#Doc.Remarks#</cfoutput> 
-	</TD>
+	<cfif doc.remarks neq "">
+	    <td><cf_tl id="Remarks">:</td>
+		<TD>#Doc.Remarks#</TD>
+	</cfif>
 	
 	<cfif Doc.FunctionId neq "">
 
-	<cfquery name="Bucket" 
-	datasource="appsSelection" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-    	SELECT *
-	    FROM  FunctionOrganization
-		WHERE FunctionId = '#Doc.FunctionId#'
-	</cfquery>
-
-	<td class="labelmedium"><cf_tl id="VA No">:&nbsp;</td>
-    <TD class="labelmedium"> 
-	   <cfif Bucket.ReferenceNo neq "">
-	   <cfoutput><b><A href="javascript:va('#Bucket.FunctionId#');">#Bucket.ReferenceNo#</a></cfoutput>
-	   <cfelse>
-	   n/a
-	   </cfif>
-	</TD>
+		<cfquery name="Bucket" 
+		datasource="appsSelection" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+	    	SELECT *
+		    FROM  FunctionOrganization
+			WHERE FunctionId = '#Doc.FunctionId#'
+		</cfquery>
+	
+		<td><cf_tl id="VA No">:</td>
+	    <TD> 
+		   <cfif Bucket.ReferenceNo neq "">
+		   <A href="javascript:va('#Bucket.FunctionId#');">#Bucket.ReferenceNo#</a>
+		   <cfelse>
+		   n/a
+		   </cfif>
+		</TD>
+		
 	</cfif>
 	
 	</TR>
 	
-	<tr><td height="1" colspan="4" class="line"></td></tr>	
-		
+	</cfoutput>
+	
 	<cfquery name="Searchresult" 
 	datasource="appsVacancy" 
 	username="#SESSION.login#" 
@@ -380,34 +373,30 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 
 <table width="100%" align="center" class="navigation_table">
 
-    <TR class="labelmedium line">
+    <TR class="labelmedium line fixrow">
 	  <td width="20" height="16"></td>
-	  <td width="50"><cfoutput>#checkText#</cfoutput></td>
+	  <td style="font-size:17px" width="50"><cfoutput>#checkText#</cfoutput></td>
 	  <td width="20"></td>
 	  <cfif dialog eq "Test"> 
 	  	<td width="70">
-	 	 	<cf_tl id="Score"> 
+	 	<cf_tl id="Score"> 
 	  	</td>
 	  <cfelse>	
 	  	<td width="10"></td>
 	  </cfif>
-   	  <TD><cf_tl id="IndexNo"></TD>
-      <TD><cf_tl id="LastName"></TD>
-      <TD><cf_tl id="FirstName"></TD>
-	  <TD><cf_tl id="Nat."></TD>
-      <TD align="center"><cf_tl id="Gender"></TD>
-   	  <TD align="center">
+   	  <TD style="font-size:17px"><cf_tl id="IndexNo"></TD>
+      <TD style="font-size:17px"><cf_tl id="LastName"></TD>
+      <TD style="font-size:17px"><cf_tl id="FirstName"></TD>
+	  <TD style="font-size:17px"><cf_tl id="Nat."></TD>
+      <TD style="font-size:17px" align="center"><cf_tl id="Gender"></TD>
+   	  <TD style="font-size:17px" align="center">
 	  	<cfif dialog eq "Selection">
 			<cf_tl id="Interview">
 		<cfelse>
 			<cf_tl id="Status">
-		</cfif>
-		
-	  </TD>
-	  <!---
-	  <TD><cf_tl id="Entered"></TD>
-	  --->
-  	  <td align="center"><cf_tl id="Memo"></td>
+		</cfif>		
+	  </TD>	  
+  	  <TD style="font-size:17px" align="center"><cf_tl id="Memo"></td>
     </TR>	
 						
 	<cfquery name="Mission" 
@@ -434,14 +423,10 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 		AND   ActionCode = '#Act#'  
 	 </cfquery>	
 	 
-	  <cfif Check.recordcount eq 0>
-		
-			 <cf_assignid>
-			 
-	 <cfelse>
-		 
-			<cfset rowguid = Check.ReviewId>
-			
+	 <cfif Check.recordcount eq 0>		
+		 <cf_assignid>			 
+	 <cfelse>		 
+		 <cfset rowguid = Check.ReviewId>			
 	 </cfif>
 	 
 	 <cfif Check.Recordcount eq "0">
@@ -517,13 +502,13 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 	   Status           = "#status#"   
 	   returnvariable   = "PreventSelection">		
 			
-	<cfif Status lt final>
-        <TR bgcolor="#IIf(CurrentRow Mod 2, DE('ffffff'), DE('ffffff'))#" class="navigation_row labelmedium">		
+	<cfif Status lt wfinal>
+        <TR bgcolor="#IIf(CurrentRow Mod 2, DE('ffffff'), DE('ffffff'))#" class="navigation_row labelmedium" style="height:20px">		
     <cfelse> 	
-	    <TR class="highlight2 navigation_row labelmedium">		
+	    <TR class="highlight2 navigation_row labelmedium" style="height:20px">		
     </cfif> 
 					
-	<cfif ReviewMemo eq "" and final neq "2">
+	<cfif ReviewMemo eq "" and wfinal neq "2">
 		 <cfset cla = "regular">
 		 <cfset clb = "hide">
 		
@@ -534,7 +519,7 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 	
 	<cfset stop = "0">
 			
-	<td align="center" width="5%">
+	<td align="center" style="min-width:40px">
 	
 		<cfset state="">
 		
@@ -547,15 +532,16 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 	</td>
 	
 	<cfset tdSize = "60">
-	<cfif Final eq "Track">
+	<cfif wFinal eq "Track">
+	    <!--- onboarding track --->
 		<cfset tdSize = 100>
 	</cfif>
 	
-	<td width="#tdSize#" style="padding-top:6px;padding-bottom:4px" align="left">
+	<td width="#tdSize#" style="padding-top:3px;padding-bottom:2px" align="left">
 
 		<cfset cls = CandidateClass>
 				
-		 <cfif Final eq "Track">
+		 <cfif wFinal eq "Track">
 			
 			<select class="regularxl" name="EntityClass_#CurrentRow#">
 			
@@ -576,12 +562,13 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 		    <cfif (PreventSelection.recordcount eq "0" or Validation.recordcount eq "1") and 
 			  (Selected.recordcount eq "0" or Status eq "9" or Selected.Status gte "2" or Selected.Status lte "2s")>
 
-				<input onClick="hl(this,this.checked)" class="Radiol" style="height:18px;width:18px" type="checkbox" name="ReviewStatus_#CurrentRow#" id="ReviewStatus_#CurrentRow#" value="#Final#" <cfif Status eq Final>checked</cfif> style="cursor:pointer;">
+				<input onClick="hl(this,this.checked)" class="Radiol" style="height:21px;width:21px" 
+				type="checkbox" name="ReviewStatus_#CurrentRow#" id="ReviewStatus_#CurrentRow#" value="#wFinal#" <cfif Status eq wFinal>checked</cfif> style="cursor:pointer;">
 				
 				<cfif dialog eq "Interview">
 				
 					<img src="#SESSION.root#/Images/interview.png" alt="Interview" 
-					onClick     = "interview('#PersonNo#','#Act#')" align="top" style="border:1px solid gray;height:18px;width:18px;cursor:pointer">
+					onClick     = "interview('#PersonNo#','#Act#')" align="top" style="border:1px solid gray;height:21px;width:21px;cursor:pointer">
 
 				</cfif>
 				
@@ -589,23 +576,24 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 				
 				 <!--- can't select a candidate that has been selected ---> 
 				 <cfset stop = "1">
-			     <font face="verdana" color="FF0000"><cf_tl id="See below"></font>						 	
+			     <font color="FF0000"><cf_tl id="See below"></font>						 	
 				 
 			</cfif>
 		</cfif>
 	</td>
 	
     <input type="hidden" name="PersonNo_#CurrentRow#" value="#PersonNo#">
-	<td width="30" style="padding-left:10px">
+	
+	<td style="padding-left:10px">
 		<!--- track for candidate already exists --->
-		<cfif (Status eq "2s" and CandidateClass neq "" and final neq "Track")>
+		<cfif (Status eq "2s" and CandidateClass neq "" and wfinal neq "Track")>
 			<button class="button3" onClick="javascript:showdocumentcandidate('#Object.ObjectKeyValue1#','#PersonNo#')">
 				<img src="#SESSION.root#/Images/contract.gif" alt="Open candidate track" width="13" height="14">
 			</button>
 		</cfif>
 	
 	</td>
-	<td align="left" >
+	<td align="left" >	
 		<cfif dialog eq "Test">
 			<input type="text" 
 				name="ReviewScore_#currentrow#" 
@@ -617,17 +605,17 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 				style="text-align:right">
 		</cfif>
 	</td>
-	<td><a href ="javascript:ShowCandidate('#PersonNo#')">
+	<td style="font-size:17px"><a href ="javascript:ShowCandidate('#PersonNo#')">
 		<cfif IndexNoA neq "">#IndexNoA#<cfelse>[<cf_tl id="undefined">]</cfif>
 		</a>
 	</td>
-    <td><a href ="javascript:ShowCandidate('#PersonNo#')">#LastName#</a></td>
-	<td>#FirstName#</td>
-	<td>#Nationality#</td>
-	<td align="center"><cfif Gender eq "F"><cf_tl id="Female"><cfelse><cf_tl id="Male"></cfif></td>
-	<td align="center">
+    <td style="font-size:17px"><a href ="javascript:ShowCandidate('#PersonNo#')">#LastName#</a></td>
+	<td style="font-size:17px">#FirstName#</td>
+	<td style="font-size:17px">#Nationality#</td>
+	<td style="font-size:17px" align="center"><cfif Gender eq "F"><cf_tl id="Female"><cfelse><cf_tl id="Male"></cfif></td>
+	<td style="font-size:17px" align="center">
 	
-	     <cfif Final gt "2">
+	     <cfif wFinal gt "2">
 		 
 			<img src="#SESSION.root#/Images/pointer2.gif" 
 			    alt="See interview notes" 
@@ -647,7 +635,7 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 	<!---
 	<td class="labelmedium">#Dateformat(Created, CLIENT.DateFormatShow)#</td>
 	--->
-	<td align="center">
+	<td style="font-size:17px" align="center">
 	
 		<cfset row = CurrentRow>
 		
@@ -658,7 +646,7 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 		      SELECT  *
 		      FROM     DocumentCandidateReview 
 			  WHERE    DocumentNo = '#Object.ObjectKeyValue1#'
-			  AND      PersonNo = '#PersonNo#'
+			  AND      PersonNo   = '#PersonNo#'
 			  AND      ActionStatus = '1'
 			  AND      ReviewMemo IS NOT NULL
 			  AND      ActionCode != '#Act#'
@@ -690,10 +678,12 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 	</cfloop>
 	
 	<cfif Remarks neq "">
+	
 		<tr class="navigation_row_child labelmedium">
 			<td colspan="2"></td>
 			<td colspan="9">#Remarks#</td>
 		</tr>
+		
 	</cfif>
 	
 	 <!--- check if there is are any other candidacy for this person --->
@@ -716,7 +706,7 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 				<cfloop query="OtherCandidates">
 				<tr><td class="labelmedium" style="padding-left:10px">				    
 					<a href="javascript:showdocument('#OtherCandidates.DocumentNo#')">
-					<b><font color="0080C0">#Status#</font></b> <cf_tl id="for">: <font color="800000">#OtherCandidates.Mission#&nbsp;#OtherCandidates.PostGrade# #OtherCandidates.FunctionalTitle#</b></font></a>
+					#Status#<cf_tl id="for">: <font color="800000">#OtherCandidates.Mission#&nbsp;#OtherCandidates.PostGrade# #OtherCandidates.FunctionalTitle#</b></font></a>
 			    	</td>
 				</tr>
 				</cfloop>
@@ -782,9 +772,7 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 			WHERE  C.Operational = 1
 			<!--- Means that competencies applicable for this track have been defined at the bucket level --->
 			<cfif BucketCompetencies.recordcount gt 0>
-				AND C.CompetenceId IN (
-					#QuotedValueList(BucketCompetencies.CompetenceId)#
-				)
+			AND    C.CompetenceId IN (#QuotedValueList(BucketCompetencies.CompetenceId)#)
 			</cfif>
 		 	ORDER BY C.ListingOrder
 			
@@ -799,7 +787,7 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 		<table width="90%" align="left">
 			
 			<tr>
-				<td colspan="3" class="labelmedium" style="padding-left:10px"><b>Interview details</b></td>
+				<td colspan="3" class="labelmedium" style="padding-left:10px"><cf_tl id="Interview details"></td>
 			</tr>
 			
 			<cfif ReviewMemo neq "">
@@ -826,6 +814,19 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 		</table>
 		
 		</td></tr>
+		
+		<tr id="detail#currentrow#" class="hide"><td colspan="12">
+		    <cfset per = personNo>
+			<cfinclude template="CandidateAssessment.cfm">
+		</td></tr>		
+		
+	<cfelseif dialog eq "Mark">
+	
+		<tr id="detail#currentrow#" class="#clb#"><td colspan="12">
+		    <cfset per = personNo>
+			<cfinclude template="CandidateAssessment.cfm">
+		</td></tr>
+		
 	
 	<cfelse>
 		
@@ -836,7 +837,7 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 					<tr>
 						
 						<td colspan="11" align="center" style="padding-right:10px">
-						<textarea cols="#col#" rows="5" name="ReviewMemo_#currentrow#" class="regular" style="border:1px solid silver;width: 100%; font-size:13px;padding: 3px;background-color: f8f8f8;">#ReviewMemo#</textarea>
+						<textarea name="ReviewMemo_#currentrow#" class="regular" style="height:40px;border:1px solid silver;width: 100%; font-size:13px;padding: 3px;background-color: f8f8f8;">#ReviewMemo#</textarea>
 						</td>		
 						</tr>
 						
@@ -845,15 +846,15 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 						 
 					 	 <input type="Hidden" id="ReviewId_#currentrow#" name="ReviewId_#currentrow#" value="#rowguid#">
 				
-						 <cf_filelibraryN
-							DocumentPath="VacDocument"
-							SubDirectory="#rowguid#" 			
-							Insert="yes"
-							Filter=""	
-							LoadScript="No"
-							Box="vacdocument_#currentrow#"
-							Remove="yes"
-							ShowSize="yes">	
+							 <cf_filelibraryN
+								DocumentPath  = "VacDocument"
+								SubDirectory  = "#rowguid#" 			
+								Insert        = "yes"
+								Filter        = ""	
+								LoadScript    = "No"
+								Box           = "vacdocument_#currentrow#"
+								Remove        = "yes"
+								ShowSize      = "yes">	
 				
 						</td>		
 					</tr>
@@ -876,10 +877,11 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 
 </td></tr>
 
-<tr><td></td></tr>
-
 </table>     
+
+<p></p>
 
 <cfif SearchResult.recordCount gte "1">
 	<cfset ajaxonload("doHighlight")>    
+	
 </cfif>

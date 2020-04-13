@@ -18,12 +18,12 @@ function Statement(mis, ser, per) {
 }
 
 function ShowTransaction(jrn,ser,mde,tgt,rle) {
-    w = #CLIENT.width# - 80;
+    w = #CLIENT.width#  - 80;
     h = #CLIENT.height# - 140;
 	if (tgt == "tab") {
-	   ptoken.open(root +  "/Gledger/Application/Transaction/View/TransactionViewDetail.cfm?journal=" + jrn + "&JournalSerialNo=" + ser + "&mode=" + mde+ "&role=" + rle, "test"+jrn+ser);
+	   ptoken.open(root +  "/Gledger/Application/Transaction/View/TransactionView.cfm?journal=" + jrn + "&JournalSerialNo=" + ser + "&mode=" + mde+ "&role=" + rle, "test"+jrn+ser);
 	} else {
-	  ptoken.open(root +  "/Gledger/Application/Transaction/View/TransactionViewDetail.cfm?journal=" + jrn + "&JournalSerialNo=" + ser + "&mode=" + mde+ "&role=" + rle, "test"+jrn+ser ,"left=30, top=30, width=" + w + ", height= " + h + ", toolbar=no,status=yes, scrollbars=no, resizable=yes");	
+	   ptoken.open(root +  "/Gledger/Application/Transaction/View/TransactionView.cfm?journal=" + jrn + "&JournalSerialNo=" + ser + "&mode=" + mde+ "&role=" + rle, "test"+jrn+ser ,"left=30, top=30, width=" + w + ", height= " + h + ", toolbar=no,status=yes, scrollbars=no, resizable=yes");	
 	}
 }
 

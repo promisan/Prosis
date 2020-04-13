@@ -230,12 +230,12 @@ password="#SESSION.dbpw#">
 	
 	<cfset itm = itm+1>	
 	<cf_tl id="Position" var = "1">		
-	<cfset fields[itm] = {label       = "#lt_text#",                    
-	     				field         = "fPosition",							
+	<cfset fields[itm] = {label        = "#lt_text#",                    
+	     				field          = "fPosition",							
 						functionscript = "ViewPosition", 
-						width         = "18",
-						functionfield = "PositionNo",																																						
-						search        = "text"}>	
+						width          = "18",
+						functionfield  = "PositionNo",																																						
+						search         = "text"}>	
 						
 	<cfset itm = itm+1>	
 	<cf_tl id="JO" var = "1">		
@@ -457,7 +457,7 @@ password="#SESSION.dbpw#">
 						search      = "text",
 						display       = "1",	
 						rowlevel      = "2",
-						colspan       = "2",
+						colspan       = "3",
 						displayfilter = "Yes",										
 						search      = "text",
 						filtermode  = "2"}>		
@@ -477,8 +477,8 @@ password="#SESSION.dbpw#">
 <cfset menu=ArrayNew(1)>	
 
 <cf_listing
-	    header              = "event"
-	    box                 = "eventlisting"
+	    header              = "myevent"
+	    box                 = "myeventlisting"
 		link                = "#SESSION.root#/Staffing/Reporting/ActionLog/EventListingContent.cfm?mission=#url.mission#&systemfunctionid=#url.systemfunctionid#"
 	    html                = "No"		
 		tableheight         = "100%"

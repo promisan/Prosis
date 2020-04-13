@@ -1,5 +1,4 @@
 
-
 <!--- 
 
 	values for fields	
@@ -60,8 +59,8 @@
 <cfparam name="attributes.tableborder"        default="1">
 <cfparam name="attributes.font"               default="">
 
-<cfparam name="attributes.classheader"        default="labelnormal">
-
+<cfparam name="attributes.classheader"        default="labelnormal line">
+<cfparam name="attributes.classsub"           default="labelnormal linedotted">
 <cfparam name="attributes.classline"          default="">
 
 <cfparam name="attributes.tablewidth"         default="100%">
@@ -523,22 +522,22 @@
 		<!--- ------------------------------------------------------ --->
 		<!--- --retrieve initial values if the form is loaded------- --->
 		<!--- ------------------------------------------------------ --->	
-											
+															
 		<cfif current.search neq "">		    
 						
 			<cfswitch expression="#Current.search#">
-											
+																	
 				<cfcase value="text">
-												
+																			
 					<cf_getUserFilter systemfunctionid="#url.systemfunctionid#" field="#current.field#" filter="#savefilter#">												
-															
+																													
 					<!--- declare the form filter field and populate it with the save value --->				   								
 					<cfparam name="form.filter#current.field#" default="#getval#">	
 															
 					<cfset val = evaluate("form.filter#current.field#")>					
 					<cfset val = replace( val,"'", "''", "ALL" )>
 					<cfset val = trim(val)>
-																		
+																												
 					<cfif val neq "" and val neq ",">															
 					    <!--- determine that the interface should show the selected values --->
 					    <cfset attributes.isfiltered = "Yes">
@@ -556,22 +555,19 @@
 						<cfparam name="form.filter#current.field#_operator" default="#getval#">							
 						<cfset getval = evaluate("form.filter#current.field#_operator")>													
 						
-						<CFIF getval is 'EQUAL'>    
-						    
-							     <CFSET Crit = " = '#val#'">
-							
-							<CFELSEIF getval is 'NOT_EQUAL'>   <CFSET Crit = " <> '#val#'">			
-							<CFELSEIF getval is 'CONTAINS'>    <CFSET Crit = " LIKE '%#Replace(val,' ','%','ALL')#%'">
-							<CFELSEIF getval is 'BEGINS_WITH'> <CFSET Crit = " LIKE '#val#%'">
-							<CFELSEIF getval is 'ENDS_WITH'>   <CFSET Crit = " LIKE '%#val#'">
-							
+						<CFIF getval is 'EQUAL'>    						    
+							<CFSET Crit = " = '#val#'">
+						<CFELSEIF getval is 'NOT_EQUAL'>   <CFSET Crit = " <> '#val#'">			
+						<CFELSEIF getval is 'CONTAINS'>    <CFSET Crit = " LIKE '%#Replace(val,' ','%','ALL')#%'">
+						<CFELSEIF getval is 'BEGINS_WITH'> <CFSET Crit = " LIKE '#val#%'">
+						<CFELSEIF getval is 'ENDS_WITH'>   <CFSET Crit = " LIKE '%#val#'">							
 						</CFIF>		
 						
 						<cfif val neq "">					
 							<cfset length   = len(val)>                                                            
 							<cfset condition   = "#condition# AND CONVERT(VARCHAR(100),#fld#) #crit# #CLIENT.Collation#">					
-						</cfif>  														
-						
+						</cfif>  	
+											
 						<cfif form.savefilter eq "1" and savefilter eq "Yes">
 						
 							<cf_setUserFilter systemfunctionid="#url.systemfunctionid#" 
@@ -604,7 +600,7 @@
 						<!--- multi-select --->		
 																																
 						<cfset thiscondition = "">
-						
+																		
 						<cfloop index="itm" list="#val#">
 						
 							<cfif thiscondition eq "">							
@@ -615,10 +611,10 @@
 							
 							<!--- declare the form filter field and populate it with the save value 			   								
 							<cfparam name="form.filter#current.field#" default="#getval#">	 
-							--->												
+							--->								
 							
 							<cfif form.savefilter eq "1" and savefilter eq "Yes">
-																					
+																												
 								<cf_setUserFilter systemfunctionid="#url.systemfunctionid#" 
 								    field = "#current.field#" 
 									mode  = "multi"
@@ -635,7 +631,6 @@
 					</cfif>
 																					
 				</cfcase>
-
 				
 				<cfcase value="number">
 								
@@ -1522,7 +1517,6 @@
 <cfelse>	
 	 
 	<cfif searchResult.recordcount eq "1">	
-			
 			 
 		<cfloop query="SearchResult">		
 		    <cfset rowshow = "1">									
@@ -1558,6 +1552,6 @@
 <cfparam name="appliedfilter" default="0">
 
 <cfif appliedfilter eq "1" and attributes.calendar eq "9">
-	<cfset ajaxonload("doCalendar")>
+	<cfset ajaxonload("doCalendar")>	
 </cfif>
 

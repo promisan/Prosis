@@ -49,7 +49,9 @@
      	</td>		
 		<td style="padding-left:0px" class="labelsmall"> 			
 		   <cfif AccessLvl eq "0"><font color="0080FF"></cfif>
-		   <img src="#session.root#/images/posting_open.gif" alt="Assist" border="0">
+		   <cf_uiTooltip tooltip="User may only access this step but is not allowed to forward it or move it otherwise">
+		   <img src="#session.root#/images/posting_open.gif" border="0">
+		   </cf_uiTooltip>
 		   <!--- <cfif AccessList.Number gt "1">Assist<cfelse>Assist</cfif>	   --->
 		   
 	   </td>
@@ -73,7 +75,9 @@
 			   			   
    </td>   
    <td style="padding-left:0px;padding-right:2px" class="labelsmall"><cfif AccessLvl eq "1"><font color="0080FF"></cfif>
+   <cf_uiTooltip tooltip="User may both access this AND is allowed to forward it">
    <img src="#session.root#/images/posting_done.gif" alt="Process" border="0">
+   </cf_uiTooltip>
    <!---Process---></td>   
    <td width="1" id="d#ms#_#CurrentRow#2">   
 	

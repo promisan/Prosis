@@ -328,6 +328,7 @@ function reinstate(vacno,persno) {
 	
 }	
 
+
 function personnote(per,act) {  
 	w = #CLIENT.width# - 100;
 	h = #CLIENT.height# - 160;

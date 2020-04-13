@@ -29,13 +29,13 @@
 			<cfparam name="FORM.ReviewScore_#Rec#"  default="">
 			<cfparam name="FORM.ReviewId_#Rec#"     default="">
 			
-			<cfset memo       = Evaluate("FORM.ReviewMemo_" & #Rec#)>
-			<cfset class      = Evaluate("FORM.EntityClass_" & #Rec#)>
-		    <cfset status     = Evaluate("FORM.ReviewStatus_" & #Rec#)>
-		    <cfset memo       = Evaluate("FORM.ReviewMemo_" & #Rec#)>
-			<cfset reviewScore= Evaluate("FORM.ReviewScore_" & #Rec#)>
-		    <cfset personNo   = Evaluate("FORM.PersonNo_" & #Rec#)>
-		    <cfset reviewId   = Evaluate("FORM.ReviewId_" & #Rec#)>
+			<cfset memo        = Evaluate("FORM.ReviewMemo_" & #Rec#)>
+			<cfset class       = Evaluate("FORM.EntityClass_" & #Rec#)>
+		    <cfset status      = Evaluate("FORM.ReviewStatus_" & #Rec#)>
+		    <cfset memo        = Evaluate("FORM.ReviewMemo_" & #Rec#)>
+			<cfset reviewScore = Evaluate("FORM.ReviewScore_" & #Rec#)>
+		    <cfset personNo    = Evaluate("FORM.PersonNo_" & #Rec#)>
+		    <cfset reviewId    = Evaluate("FORM.ReviewId_" & #Rec#)>
 														
 			<cfif status neq "" 
 			       	OR class neq "">
@@ -50,15 +50,15 @@
 					datasource="AppsVacancy" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
-					UPDATE DocumentCandidate
-					SET   Status                 = '#Form.ReviewStatus#',
-					      StatusDate             = getDate(),
-						  StatusOfficerUserId    = '#SESSION.acc#',
-						  StatusOfficerLastName  = '#SESSION.last#',
-						  StatusOfficerFirstName = '#SESSION.first#'
-					WHERE DocumentNo   =  '#Key1#'
-					  AND PersonNo     =  '#PersonNo#'  
-					  AND Status < '3' or Status = '9' 
+						UPDATE DocumentCandidate
+						SET   Status                 = '#Form.ReviewStatus#',
+						      StatusDate             = getDate(),
+							  StatusOfficerUserId    = '#SESSION.acc#',
+							  StatusOfficerLastName  = '#SESSION.last#',
+							  StatusOfficerFirstName = '#SESSION.first#'
+						WHERE DocumentNo   =  '#Key1#'
+						  AND PersonNo     =  '#PersonNo#'  
+						  AND Status < '3' or Status = '9' 
 				    </cfquery>	
 				
 				<cfelse>
@@ -124,23 +124,23 @@
 				AND   ActionCode = '#ActionCode#'  
 			 </cfquery>	
 			 
-			 <cfif #Check.Recordcount# eq "1">
+			 <cfif Check.Recordcount eq "1">
 			 
 				 <cfquery name="Update" 
 					datasource="AppsVacancy" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
 					UPDATE DocumentCandidateReview
-					SET ReviewMemo = '#memo#',
-						<cfif reviewScore neq "">
-						ReviewScore = '#reviewScore#',
-						</cfif>
-					    ReviewDate = #now()#,
-						ActionStatus = '#s#'
+					SET   ReviewMemo = '#memo#',
+						  <cfif reviewScore neq "">
+						  ReviewScore = '#reviewScore#',
+						  </cfif>
+					      ReviewDate = #now()#,
+						  ActionStatus = '#s#'
 					WHERE DocumentNo = '#Key1#'
 					AND   PersonNo   = '#PersonNo#'	 
 					AND   ActionCode = '#ActionCode#'	
-					</cfquery>
+				</cfquery>
 			 
 			 <cfelse>
 			 
@@ -149,21 +149,21 @@
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
 					INSERT INTO DocumentCandidateReview
-						 (DocumentNo,
-						  PersonNo,		  
-						  ActionCode,
-						  <cfif ReviewScore neq "">
-						  ReviewScore,
-						  </cfif>
-						  ReviewMemo,
-						  ReviewDate, 
-						  ActionStatus,
-						  <cfif Form.Dialog neq "Interview">
-						  ReviewId,
-						  </cfif>
-						  OfficerUserId,
-						  OfficerLastName,
-						  OfficerFirstName)
+							 (DocumentNo,
+							  PersonNo,		  
+							  ActionCode,
+							  <cfif ReviewScore neq "">
+							  ReviewScore,
+							  </cfif>
+							  ReviewMemo,
+							  ReviewDate, 
+							  ActionStatus,
+							  <cfif Form.Dialog neq "Interview">
+							  ReviewId,
+							  </cfif>
+							  OfficerUserId,
+							  OfficerLastName,
+							  OfficerFirstName)
 					  VALUES ('#Key1#', 
 							  '#PersonNo#',		  
 							  '#ActionCode#',
@@ -187,9 +187,7 @@
 		
 		</cftransaction>
 			
-
-	
-	<!--- generate action line lines --->		
+	<!--- generate canddiate track  --->		
 	
 	<cfif Form.ReviewStatus eq "Track">
 		
@@ -320,7 +318,3 @@
 	</cfif>
 	
 </cfif>
-
-
-
-

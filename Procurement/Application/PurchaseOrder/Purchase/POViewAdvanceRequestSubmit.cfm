@@ -261,8 +261,8 @@
 		ReferenceNo1          = "#Purchase.PurchaseNo#"
 		TransactionType1      = "Standard"
 		Amount1               = "#amt#"		
-		TransactionSerialNo2  = "0"
 		
+		TransactionSerialNo2  = "0"		
 		Class2                = "Credit"
 		Reference2            = "Advance"       
 		ReferenceName2        = "#Form.ReferenceName#"

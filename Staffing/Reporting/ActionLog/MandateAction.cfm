@@ -7,6 +7,9 @@
 </cfsilent>
 <!--- End Prosis template framework --->
 
+
+
+
 <cfinvoke component="Service.Presentation.Presentation" 
      method="highlight" 
 	 returnvariable="stylescroll">
@@ -21,10 +24,12 @@
 	 
 <cf_screentop label="#lt_content#" html="Yes" jquery="Yes" layout="Webapp">	 
 
-<cf_ListingScript>
-<cf_actionListingScript>
-<cf_DialogStaffing>
-<cf_calendarscript>
+<cf_listingscript       mode="Regular">
+<cf_dialogstaffing>
+<cf_dialogPosition>
+<cf_actionlistingscript mode="Regular">
+<cf_fileLibraryScript   mode="Regular">
+<cfajaximport tags="cfdiv">
 
 <cfparam name="url.mandate" default="P002">
    
@@ -42,7 +47,7 @@
 			 Except           = "''"
    			 Anonymous        = ""
 			 returnvariable   = "listaccess">		 
-				     
+	  
 
 <cfif listaccess.recordcount eq "">
 
@@ -139,7 +144,7 @@
 		   <tr>
 		  		     
 			   <cfloop query="listaccess"> 
-				
+			   			    				
 					 <td name="actionlog#currentrow#" id="actionlog#currentrow#" style="padding-top3px" #stylescroll# 			  
 						  onclick="submenu('actionlog','#currentrow#','#recordcount#');#scriptname#('#systemfunctionid#')">
 						
@@ -165,14 +170,10 @@
 	 </cfoutput>
 	 	 
 	 <tr>
-	  <td height="100%" valign="top" colspan="3" id="actionbox">		 
-	  
-	     <!--- content box for the listing, putting it in an iframe makes it quicker --->	
-	     <iframe name="actionbox" id="actionbox1" width="100%" height="100%" scrolling="no" frameborder="0"></iframe>	  
-		
-	  </td>
+	  <td height="100%" valign="top" colspan="3" id="actionbox"></td>
 	 </tr>
 					  
 	</table>  
 	
-</cfif>	 
+</cfif>	
+ 

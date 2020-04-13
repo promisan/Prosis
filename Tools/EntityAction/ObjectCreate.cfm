@@ -313,10 +313,10 @@
 					 datasource="#attributes.Datasource#"
 					 username="#SESSION.login#" 
 					 password="#SESSION.dbpw#">					 
-						 SELECT TOP 1 OA.*
-						 FROM   Organization.dbo.OrganizationObjectAction OA WITH (NOLOCK)
-						 WHERE  OA.ObjectId = '#objectid#' 
-						 AND    ActionStatus = '0'
+						 SELECT   TOP 1 OA.*
+						 FROM     Organization.dbo.OrganizationObjectAction OA WITH (NOLOCK)
+						 WHERE    OA.ObjectId = '#objectid#' 
+						 AND      ActionStatus = '0'
 						 ORDER BY ActionFlowOrder asc						 
 					 </cfquery>	
 								

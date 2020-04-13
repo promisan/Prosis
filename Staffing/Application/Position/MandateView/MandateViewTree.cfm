@@ -1,7 +1,7 @@
 
-<cfparam name="URL.Mission" default="New">
-<cfparam name="URL.Mandate" default="">
-<cfparam name="AccessStaffing" default="NONE">
+<cfparam name="URL.Mission"          default="New">
+<cfparam name="URL.Mandate"          default="">
+<cfparam name="AccessStaffing"       default="NONE">
 <cfparam name="URL.SystemFunctionId" default="">
 
 <cfif URL.Mandate eq "">
@@ -34,6 +34,8 @@
 	<cfset MandateDefault = "#URL.Mandate#">	
 
 </cfif>
+
+<cfset url.mandate = mandatedefault>
 
 <cf_calendarscript>
 

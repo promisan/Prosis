@@ -11,8 +11,8 @@
 
 <script language="JavaScript">
 	
-	function modulelog(id,mis) {
-		 ColdFusion.navigate('#SESSION.root#/Tools/SubmenuLog.cfm?systemfunctionid='+id+'&mission='+mis,'modulelog')
+	function modulelog(id,mis) {	    
+		 ptoken.navigate('#SESSION.root#/Tools/SubmenuLog.cfm?systemfunctionid='+id+'&mission='+mis,'modulelog')
 	}
 	
 	ie = document.all?1:0
@@ -53,20 +53,19 @@
 		ptoken.open("#SESSION.root#/System/Modules/Functions/RecordEdit.cfm?ID=" + id1 + "&mission=" + mis, "functionsetting"+id1);	
 	}
 	
-	function logging(id1) {
+	function logging(id1,mis) {
 		var w = 1024;
 		var h = 900;
 		var left = (#CLIENT.widthfull#/2)-(w/2);
 		var top = (#CLIENT.height#/2)-(h/2);
-		ptoken.open('#SESSION.root#/System/Modules/Functions/Logging/RecordListing.cfm?ID=' + id1 + '&ts=' + new Date().getTime(), '_blank', 'top=' + top + ', left='+left + ', width=' + w + ', height=' + h + ', status=no, center=yes, toolbar=no, scrollbars=yes, resizable=yes');
+		ptoken.open('#SESSION.root#/System/Modules/Functions/Logging/RecordListing.cfm?ID=' + id1 + '&mission=' + mis + '&ts=' + new Date().getTime(), '_blank', 'top=' + top + ', left='+left + ', width=' + w + ', height=' + h + ', status=no, center=yes, toolbar=no, scrollbars=yes, resizable=yes');
 	}
 	
 	function favorite(act,id,mis,own,con) {
 	    ptoken.navigate('#SESSION.root#/Tools/Favorite.cfm?action='+act+'&systemfunctionid='+id+'&mission='+mis+'&owner='+own+'&condition='+con,'fav_'+id+'_'+mis)
 	}  
 	    
-	function loadformI(name,cond,target,dir,idmenu,idrefer,reload,vir,host) { 
-	
+	function loadformI(name,cond,target,dir,idmenu,idrefer,reload,vir,host) { 	
 			 
 	   if (target != "newfull") {	 
 	     w = #CLIENT.width# - 60;
