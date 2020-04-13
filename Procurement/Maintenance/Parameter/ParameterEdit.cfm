@@ -122,6 +122,10 @@ password="#SESSION.dbpw#">
 	function applyReceiptAccount(val, scope, fld) {
 		ColdFusion.navigate('#session.root#/procurement/maintenance/parameter/setGLAccount.cfm?codefld=ReceiptGLAccount&descfld=ReceiptGLDescription&glaccount='+val,'tdSubmit');
 	}
+	
+	function applyAdvanceAccount(val, scope, fld) {
+		ColdFusion.navigate('#session.root#/procurement/maintenance/parameter/setGLAccount.cfm?codefld=AdvanceGLAccount&descfld=AdvanceGLDescription&glaccount='+val,'tdSubmit');
+	}
 		
 </script>
 </cfoutput>

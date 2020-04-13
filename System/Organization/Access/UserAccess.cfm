@@ -7,9 +7,12 @@
 
 	<!--- dialog embedded --->
     <cf_screentop height="100%" jquery="Yes" html="no" user="no" label="User Authorization" scroll="no" validateSession="No" layout="webapp" banner="gray">
+	
 <cfelse>
+
 	<cf_screentop height="100%" jquery="Yes" html="no" user="no" Band="No" label="User Authorization" validateSession="Yes"
 	              scroll="no" layout="webapp" banner="gray">
+				  
 </cfif>
 
 <cf_dialoglookup>
@@ -31,7 +34,7 @@
 			document.getElementById("i_"+mis).className = "hide";		
 			document.getElementById("s_"+mis).className = "regular";
 		} catch(e) {}
-	    ColdFusion.navigate('UserAccess_Entity.cfm?mode=query&acc=#URL.ACC#&mission='+mis+'&ms='+no+'&id=#URL.ID#&access='+lvl,'s_'+mis)
+	    ptoken.navigate('UserAccess_Entity.cfm?mode=query&acc=#URL.ACC#&mission='+mis+'&ms='+no+'&id=#URL.ID#&access='+lvl,'s_'+mis)
 	}
 	
 	function showaccess(lvl,box) {
@@ -41,7 +44,7 @@
 			document.getElementById("s_"+box).className = "regular";
 		} catch(e) {}
 		
-	    ColdFusion.navigate('UserAccess_EntityToggle.cfm?action='+lvl+'&box='+box,'s'+box)
+	    ptoken.navigate('UserAccess_EntityToggle.cfm?action='+lvl+'&box='+box,'s'+box)
 	}
 	
 	function ClearRow(row,itm) {
@@ -82,21 +85,20 @@
 	ie = document.all?1:0
 	ns4 = document.layers?1:0
 		
-	function hl(itm,fld,rw){
-			 
-		     if (ie){
-	          while (itm.tagName!="TD")
-	          {itm=itm.parentElement;}
-		     }else{
-	          while (itm.tagName!="TD")
-	          {itm=itm.parentNode;}
-		     }
-			 	 	
-			 if (fld != false){				
-			 itm.className = "highlight";			 
-			 }else{				
-		     itm.className = "regular";		
-			 }		
+	function hl(itm,fld,rw){			 
+	     if (ie){
+          while (itm.tagName!="TD")
+          {itm=itm.parentElement;}
+	     }else{
+          while (itm.tagName!="TD")
+          {itm=itm.parentNode;}
+	     }
+		 	 	
+		 if (fld != false){				
+		 itm.className = "highlight";			 
+		 }else{				
+	     itm.className = "regular";		
+		 }		
 	 }	  
 	  
 	function selectall(chk,val,pr) {
@@ -116,38 +118,36 @@
 			 	 
 		 if (pr == "0") {
 		 
-		 se[val].value = "1";
-		 fld[val].checked = true;
-			 			
-	     if (ie){
-		      itm1=itm[val].parentElement; 
-			  itm1=itm1.parentElement; 
-			  }
-	     else{
-	          itm1=itm[val].parentElement; 
-			  itm1=itm1.parentElement; }		
-			
-		 	
-		 itm1.className = "highLight1";
-		 window.roster.prior.value = "1";
+			 se[val].value = "1";
+			 fld[val].checked = true;
+				 			
+		     if (ie){
+			      itm1=itm[val].parentElement; 
+				  itm1=itm1.parentElement; 
+				  }
+		     else{
+		          itm1=itm[val].parentElement; 
+				  itm1=itm1.parentElement; }		
+				
+			 	
+			 itm1.className = "highLight1";
+			 window.roster.prior.value = "1";
 	    	 
 		 } else {
 		 
-		 fld[val].checked = false;
-		 se[val].value = "0";
-			 			
-	     if (ie){
-		      itm1=itm[val].parentElement; 
-			  itm1=itm1.parentElement; 
-			  }
-	     else{
-	          itm1=itm[val].parentElement; 
-			  itm1=itm1.parentElement; }		
-			
-		 	
-		 itm1.className = "regular";
-		 window.roster.prior.value = "0";
-		 	 
+			 fld[val].checked = false;
+			 se[val].value = "0";
+				 			
+		     if (ie){
+			     itm1=itm[val].parentElement; 
+				 itm1=itm1.parentElement; 
+			 }else{
+		         itm1=itm[val].parentElement; 
+				 itm1=itm1.parentElement; }				
+			 	
+			 itm1.className = "regular";
+			 window.roster.prior.value = "0";	
+			 	 	 
 		 }
 		
 	    count++;
@@ -848,12 +848,17 @@ WHERE   Role = '#URL.ID#'
 			<tr><td align="center" id="accessresults" class="line" style="padding-top:3px">
 			    <table>
 			    <tr><td>
-			    <!--- 
-				<input type="button" class="button10g" name="close" id="close" value="Close" onClick="parent.parent.ColdFusion.Window.destroy('myaccess',true)">
-				--->
+			    
+				<input type="button" class="button10g" name="close" id="close" value="Close" onClick="parent.ProsisUI.closeWindow('myaccess',true)">
+				
 				</td><td style="padding-left:2px">
+				    <!---
 					<input type="submit" class="button10g"  style="height:25px;width:200px" value="Apply" 
 							onclick="ColdFusion.Window.show('progress'); ColdFusion.ProgressBar.start('pBar');">	
+				
+					--->							
+					
+					<input type="submit" class="button10g"  style="height:25px;width:200px" value="Apply" onclick="Prosis.busy('yes');">			
 					</td>
 				</tr>
 				</table>				
@@ -888,6 +893,8 @@ WHERE   Role = '#URL.ID#'
 	
 	</table>	
 	
+	<!--- disabled 11/4/2020
+	
 	<cfwindow name="progress"
           title="Wait"
           height="50"
@@ -915,6 +922,8 @@ WHERE   Role = '#URL.ID#'
 		</table>
 	
 	</cfwindow>		
+	
+	--->
 
 </table>
 	

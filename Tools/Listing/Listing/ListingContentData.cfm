@@ -17,8 +17,7 @@
 				<tr><td style="height:50" align="center" colspan="#cols#" class="labelmedium"><cf_tl id="NoRecords" var="tlNoRecords">#tlNoRecords#.</td></tr>							
 			
 			<cfelse>
-			
-			 <cfset stcl = "header"> 						
+						 					
 			 <cfinclude template="ListingHeader.cfm">
 				
 			</cfif>							
@@ -53,9 +52,7 @@
 								</cfif>
 				
 						  </cfloop>
-						  
-						  
-						  						  			  								  
+						 						  			  								  
 						  <cfquery name="subtotal"       
 					         dbtype="query">
 							 SELECT COUNT(*) as counted <cfif aggregate neq "">,#aggregate#</cfif>
@@ -78,8 +75,6 @@
 								  
 						  <cfcatch>		
 						  
-						       
-						  
 						  	<cfif val eq "">
 								 <cfset val = 0>
 							 </cfif>
@@ -94,8 +89,6 @@
 						  </cfcatch>
 					  
 					  </cftry>		
-					  
-					     
 					  
 					  <!--- grouping record --->
 																
@@ -142,10 +135,9 @@
 					<!--- ------------------ ---> 
 															
 					<cfif showrows eq "1">								   
-					<tr class="regular line" id="r#row#" keyvalue="#s#" name="f#box#_#dkey#">
-					
+					   <tr class="#attributes.classheader#" id="r#row#" keyvalue="#s#" name="f#box#_#dkey#">					
 					<cfelse>
-					<tr class="regular" id="r#row#" keyvalue="#s#" name="f#box#_#dkey#">
+					  <tr class="#attributes.classsub#" id="r#row#" keyvalue="#s#" name="f#box#_#dkey#">
 					</cfif>
 															
 					<cfif rowspan eq "1">																	   
@@ -189,8 +181,8 @@
 						
 						   <cfset cl = "toggledrill('#lcase(tdrillmode)#','box#dkey#','#drilltemplate#','#dkey#','#argument#','#drillbox#','#drillstring#')">
 							
-						   <td align="center" rowspan="#rowspan#" style="padding-top:1px">
-						   <cfif row eq "1" and client.browser eq "Explorer"><cf_space spaces="5"></cfif>
+						   <td align="center" rowspan="#rowspan#" style="padding-top:1px;padding-left:5px">
+						   
 						   <img style="cursor:pointer" name="exp#dkey#" id="exp#dkey#" 
 						     class="regular" src="#client.VirtualDir#/Images/arrowright.gif" align="absmiddle" alt="Expand" height="9" width="7" onclick="#cl#" border="0"> 	
 							 
@@ -208,7 +200,6 @@
 							</td>
 													 
 						</cfif>  		
-																
 						
 						<!--- ------------------------------------------------------------------- --->
 						<!--- -------------------------SHOW FIELD CONTENT------------------------ --->				
@@ -216,7 +207,6 @@
 						<cfset rowshow = 1><cfinclude template="ListingContentField.cfm">			
 						<!--- ------------------------------------------------------------------- --->	
 						<!--- ------------------------------------------------------------------- --->																				
-						
 												
 						<cfif attributes.listtype eq "Directory">			
 							<td style="border-left:1px dotted ##C0C0C0;"><input type="checkbox" value="#attributes.listquery#\#name#"></td>			
@@ -244,22 +234,33 @@
 					
 					<!--- determine if we need to show a second row --->
 					
-					<cfif showrows gte "2"> 													
-						<tr onclick="listshowRow('#row#');" name="f#box#_#dkey#" id="s#row#" class="<cfif showrows eq "2">line</cfif>">	  
+					<cfif showrows gte "2"> 	
+					
+						<cfset hascontent = "No">														
+						<tr onclick="listshowRow('#row#');" name="f#box#_#dkey#" id="s#row#" class="<cfif showrows eq "2">#attributes.classheader#<cfelse>#attributes.classsub#</cfif>">	  
 						    <td colspan="2"></td>							
 						   	<cfset rowshow = "2">								
-							<cfinclude template="ListingContentField.cfm">			
+							<cfinclude template="ListingContentField.cfm">
+							<cfif hascontent eq "No">
+								<cfset ajaxOnLoad("function(){ $('##s#row#').removeClass('#attributes.classheader#').addClass('hide'); }")>
+							</cfif>		
 						</tr>					
 					</cfif>							
 					
 					<!--- determine if we need to show a third row --->
 					
-					<cfif showrows eq "3">							    				
-						<tr onclick="listshowRow('#row#')" name="f#box#_#dkey#" id="t#row#" class="<cfif showrows eq "3">line</cfif>">
+					<cfif showrows eq "3">		
+					
+					    <cfset hascontent = "No">					    				
+						<tr onclick="listshowRow('#row#')" name="f#box#_#dkey#" id="t#row#" class="<cfif showrows eq "3">#attributes.classheader#<cfelse>#attributes.classsub#</cfif>">
 							<td colspan="2"></td>								  		
 						    <cfset rowshow = "3">
-							<cfinclude template="ListingContentField.cfm">			
-						</tr>				
+							<cfinclude template="ListingContentField.cfm">	
+							<cfif hascontent eq "No">
+								<cfset ajaxOnLoad("function(){ $('##t#row#').removeClass('#attributes.classheader#').addClass('hide'); }")>
+							</cfif>			
+						</tr>		
+												
 					</cfif>		
 					
 					<cfif drilltemplate neq "" and drillkey neq "" and drillmode neq "">					

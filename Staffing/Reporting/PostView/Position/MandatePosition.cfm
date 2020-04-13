@@ -11,6 +11,8 @@
      method="highlight" 
 	 returnvariable="stylescroll">
 	 
+
+	 
  <cf_LanguageInput
 	TableCode       = "Ref_ModuleControl" 
 	Mode            = "get"
@@ -18,6 +20,7 @@
 	Key1Value       = "#url.idmenu#"
 	Key2Value       = "#url.mission#"				
 	Label           = "Yes">	
+	
 	 
 <cf_screentop label="#lt_content#" html="Yes" jquery="Yes" layout="Webapp">	 
 
@@ -88,7 +91,9 @@
 		 
 	 <tr class="line">
 	 	    
-	   <td class="labellarge" style="padding-left:6px;max-width:80px;min-width:80px;width:80px;font-size: 18px;height: 35px;padding-top: 2px;padding-right: 5px"><cf_tl id="Period">:</td>
+	      <td class="labellarge" style="background-color:f1f1f1;border-right:1px solid silver;padding-left:6px; width:5%; font-size:16px; height:35px; padding-top:1px; padding-right:5px">
+		  <cf_tl id="Period">
+		  </td>
 	   
 	        <cfquery name="MandateList" 
 			datasource="AppsOrganization" 
@@ -101,22 +106,21 @@
 				ORDER BY DateEffective
 			</cfquery>
 								
-			<td style="width:100px;max-width:100px">
+			<td style="width:10%;">
 			
-				<select name="MandateSelect" id="mandateselect" style="border:0px;font-size:18px;height:26px;width:190" class="regularxl" onChange="reloadview(totals.value,snapshot.value,'operational',this.value)">
+				<select name="mandateselect" id="mandateselect" style="border:0px;font-size:16px;height:26px;width:200px;" class="regularxl" onChange="reloadview(totals.value,snapshot.value,'operational',this.value)">
 					<cfloop query="MandateList">
-						<option value="#MandateNo#" 
-						<cfif MandateNo eq "#URL.Mandate#">selected</cfif>>
-						#MandateNo# [#DateFormat(DateExpiration, CLIENT.DateFormatShow)#]
-					</option>						
+						<option value="#MandateNo#" <cfif MandateNo eq "#URL.Mandate#">selected</cfif>>
+							#MandateNo# [#DateFormat(DateExpiration, CLIENT.DateFormatShow)#]
+						</option>						
 					</cfloop>
 				</select>
 																		
 			</td>
 		  
-	       <td align="right" style="width:100%;padding-left:10px">
+	       <td style="padding-left:10px; width:90%;">
 		   
-			   <table style="height:100%" cellspacing="0" cellpadding="0">
+			   <table cellspacing="0" cellpadding="0">
 			   <tr>
 			  		     
 				   <cfloop query="listaccess"> 
@@ -129,7 +133,7 @@
 							<td height="26" align="center" style="padding-left:6px">
 								<img src="#SESSION.root#/Images/Contract.png" height="26" width="26">
 							</td>						
-							<td align="center" style="padding:0 20px 0 2px;font-size:16px;border-right:1px solid ##cccccc;" class="labelmedium"><cf_uitooltip tooltip="#FunctionMemo#">#FunctionName#</cf_uitooltip><td>
+							<td align="center" style="padding:0 20px 0 2px;font-size:16px;border-right:1px solid ##cccccc;" class="labelmedium"><cf_uitooltip tooltip="#FunctionMemo#"><font color="000000">#FunctionName#</cf_uitooltip><td>
 							</tr>				
 				  		    </table>  
 													
@@ -147,7 +151,7 @@
 	 </cfoutput>
 	 	 
 	 <tr>
-	  <td height="100%" style="width:100%" valign="top" colspan="3"><cfdiv style="height:100%;padding-bottom:5px" id="actionbox"/></td>
+	    <td height="100%" valign="top" colspan="3"><cfdiv style="width:100%;height:100%;padding-bottom:5px" id="actionbox"></td>
 	 </tr>
 					  
 	</table>  

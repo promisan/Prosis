@@ -59,10 +59,8 @@
 																								
 				<cfloop query="searchresult" startrow="1" endrow="25">
 				
-				    <cfif current.formatted eq "Rating">
-					
-						<cfset sizefield = "10">
-					
+				    <cfif current.formatted eq "Rating">					
+						<cfset sizefield = "10">					
 					<cfelse>
 					
 						<cftry>													
@@ -134,7 +132,7 @@
 			
 			<cfif current.formatted eq "class">
 			
-				<td style="width:20px;#stl#"><cf_space spaces="2">
+				<td style="min-width:20px;#stl#">
 													
 			<cfelseif current.sort eq "No">
 						
@@ -158,8 +156,8 @@
 					<cfelse> 
 										
 						<td style="width:#dw#;#stl#">				
-						<cf_space spaces="#current.width#">						
-												
+						<cf_space spaces="#current.width#">		
+																	
 					</cfif>	
 							
 			<cfelse>
@@ -180,68 +178,54 @@
 						<cfset current.formatted = "#current.field#">
 					</cfif>																					 																
 					<td onClick="#sc#" #stylescroll# style="width:#dw#;#stl#">									
-					<cf_space spaces="#wd[col]#">																							
-										
+					<cf_space spaces="#wd[col]#">										
 				</cfif>	
 									
 			</cfif>
 			
 			<!--- table to be shown --->
-				
-			<cfif stcl eq "header">
-				  
-				<table width="100%" cellspacing="0" cellpadding="0">
+						  
+			<table width="100%">
 
-					  <cfset vThisAlign = current.align>
-					  <cfset vThisAlignStyle = "padding-left: 3px;">
-					  <cfif current.formatted eq 'Rating'>
-					  	<cfset vThisAlign = 'center'>
-					  </cfif>
-					  <cfif vThisAlign eq 'right'>
-					  	<cfset vThisAlignStyle = "padding-right: 8px;">
-					  </cfif>
-				      
-					  <tr>
-						  <td class="#attributes.classheader# labelnormal" height="17" align="#vThisAlign#" 
-						  style="#vThisAlignStyle# #stl#"><font color="004080">#current.label#</font></td>
-						 
-						  <cfif url.listorder eq current.fieldsort>
-						  <td align="right" style="padding-right:3px;">							  
-							    <cfif url.listorderdir is "ASC">
-							 	    <img src="#SESSION.root#/Images/sort_asc.gif" alt="" border="0">
-								<cfelse>
-									<img src="#SESSION.root#/Images/sort_desc.gif" alt="" border="0">
-								</cfif>										  	  
-						  </td>
-						  </cfif>	
-						 
-					  </tr>
+				  <cfset vThisAlign = current.align>
+				  <cfset vThisAlignStyle = "padding-left: 0px;">
+				  <cfif current.formatted eq 'Rating'>
+				  	<cfset vThisAlign = 'center'>
+				  </cfif>
+				  <cfif vThisAlign eq 'right'>
+				  	<cfset vThisAlignStyle = "padding-right: 8px;">
+				  </cfif>
+			      
+				  <tr>
+					  <td class="#attributes.classheader# labelnormal" align="#vThisAlign#" 
+					  style="#vThisAlignStyle# #stl#">#current.label#</td>
+					 
+					  <cfif url.listorder eq current.fieldsort>
+					  <td align="right" style="padding-right:3px;">							  
+						    <cfif url.listorderdir is "ASC">
+						 	    <img src="#SESSION.root#/Images/sort_asc.gif" alt="" border="0">
+							<cfelse>
+								<img src="#SESSION.root#/Images/sort_desc.gif" alt="" border="0">
+							</cfif>										  	  
+					  </td>
+					  </cfif>	
+					 
+				  </tr>
 
-				</table>
-				
-			</cfif>
+			</table>
 			  			  
 			</td>
 		  
 		  </cfif>
 	
     </cfloop>	
-	
-	<cfif stcl eq "header">
-		
-	<input type="hidden" name="listorder"      id="listorder"       value="#url.listorder#">	
-	<input type="hidden" name="listorderfield" id="listorderfield"  value="#url.listorderfield#">	
-	<input type="hidden" name="listorderalias" id="listorderalias"  value="#url.listorderalias#">	
-	<input type="hidden" name="listorderdir"   id="listorderdir"    value="#url.listorderdir#">	
-	
-	</cfif>
-		
+				
 	<cfif attributes.listtype eq "Directory">	
 	<td width="30" class="#attributes.classheader#"><cf_tl id="sel"></td>	
 	</cfif>
 	
 	<cfif deletetable neq "">	
-	<td width="20" align="right" style="min-width:20px;border-left: 1px solid silver;"></td>			
+	<td align="right" style="min-width:20px;border-left: 1px solid silver;"></td>			
 	</cfif>
 	
 	<cfif annotation neq "">	

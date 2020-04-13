@@ -12,8 +12,8 @@
 
 <cfset rand = round(Rand()*100)>
 
-<cfparam name="target" default="_top">
-<cfparam name="searchbar" default=true>
+<cfparam name="target"    default="_top">
+<cfparam name="searchbar" default="true">
 
 <style>
 
@@ -124,13 +124,13 @@
 		 icM.className = "regular";
 		 icE.className = "hide";
 				
-	  }  
+	  }  	  
 
 	<cfif searchbar>
 	
-		$(document).ready(function(){			
-			
-			if ($(".cSearch").length > 7) {
+		$(document).ready(function(){	
+				   					
+			if ($(".cSearch").length > 2) {
 			
 				$.extend($.expr[':'], {
 					'contains': function(elem, i, match, array){
@@ -142,12 +142,15 @@
 				$("##iSearch").on('keyup', function(ev){
 				
 					var query = $(this).val();
+					
 					//cSearch = content search
 					//tSearch = text search
 					if (query != '') {
+					
 						$(".cSearch:not(:contains('" + query + "'))").each(function(){
 							$(this).fadeOut();
 						});						
+						
 						$(".cSearch:contains('" + query + "')").each(function(){						
 							$specific = $(this).find(".tSearch");
 							vtext = $specific.text();
@@ -155,6 +158,7 @@
 								$(this).fadeIn();
 							} else $(this).fadeOut();
 						});
+						
 					} else $(".cSearch").fadeIn();
 					
 					if (ev.which == 13) {					
@@ -163,6 +167,7 @@
 					}
 				});				
 				$("##iSearch").focus();
+				
 			} else { $("##dSearchBar").remove(); }
 						
 		});
@@ -222,33 +227,15 @@
 		         Operational DESC, 
 				 OrderSort, 
 				 Mission, 
-				 MissionParent
-				 
+				 MissionParent				 
 				 
 </cfquery>
 
-<table width="93%" border="0" align="center">
-
-<cfif searchbar>
-
-	<tr id="dSearchBar"><td style="padding-top:5px">
-	
-		<table>				
-			<tr>					
-				<td style="height:30;padding-left:40px" class="labelmedium"><cf_tl id="Find">:</td>
-				<td align="left" style="padding-left:9px;padding-right:10px">
-				<input style="padding-left:8px;width:180;font-size:18px;height:30px" class="regularxl" type="text" name="iSearch" id="iSearch"  maxlenght="40" value="">
-				</td>
-			</tr>	
-		</table>	
-		
-	</td>
-	</tr>
-	
-</cfif>
+<table width="93%" align="center">
 
 <cfif searchresultA.recordcount neq "0">
 
+<!--- ajax to run the logging --->
 <tr class="hide"><td id="modulelog"></td></tr>
 
 <cfoutput query="searchresultA" group="MissionType">
@@ -294,7 +281,6 @@
 		</cfquery>		
 									
 		<cfset Group = GroupMission.recordCount>	
-		
 					
 	<cfelseif VerifyArea neq "">	
 			
@@ -398,19 +384,19 @@
 														
 	<cfif Group gte "1">	
 			
-		<tr class="cSearch">
+		<tr>
 		<td>
-											
+													
 		<cfif not find("Mission",class)>	
 								
 			  <table width="100%">	
-			  			 			  			   			   			   		   
-			   <TR id="#MissionType#1">
+			  			  			 			  			   			   			   		   
+			   <TR id="#MissionType#1" class="cSearch">
 				   <td colspan="6" width="10%">
 				   	  <table width="100%" border="0">
-					    <tr class="line">
-						  <td colspan="1" style="height:45px;font-size:26px;padding-top:5px;padding-left:13px" class="labellarge">
-					   		#MissionType# [#groupmission.recordcount#]
+					    <tr>
+						  <td colspan="1" style="height:45px;font-size:26px;padding-top:5px;padding-left:11px" class="labelmedium">
+					   		#MissionType# : #groupmission.recordcount#
 						  </td>
 						</TR>
 					  </table> 
@@ -439,7 +425,7 @@
 						
 		<cfif SESSION.isAdministrator eq "Yes">
 		    <cfset Access = "1">
-		</cfif>	
+		</cfif>			
 											
 		<CFIF Access gte 1>		
 											
@@ -453,10 +439,12 @@
 				<cfset missel = Mis>
 				
 				<td width="100%">
-								
+				
+				<cfset show = "1">
+																
 				<table border="0" width="100%" class="formpadding">
 													
-				<tr class="cSearch" style="border-bottom:1px solid silver" onMouseOver="hlmenu(this,true,'#Mission#')"  onMouseOut="hlmenu(this,false,'')">	
+				<tr style="border-bottom:1px solid silver" onMouseOver="hlmenu(this,true,'#Mission#')"  onMouseOut="hlmenu(this,false,'')">	
 									
 				<cfset sel=Replace(missel,'-','','ALL')>	
 						
@@ -509,9 +497,9 @@
 						 
 						 </td>
 						 
-						 <td width="30" align="left" style="padding-bottom:20px;height:100%;min-width:50px">
+						 <td width="30" align="left" style="padding-top:20px;height:100%;min-width:50px">
 						 						 						 								 					    							 						 
-							 <table style="height:100%;border-top:1px solid silver;border-bottom:1px solid silver">
+							 <table style="height:100%;border-top:1px solid silver">
 							 <tr>
 							 							 
 								 <cfif getAdministrator("#Missel#") eq "1">
@@ -578,7 +566,7 @@
 									</cfquery>	
 									
 									<cfif CheckLogging.recordCount gt 0>
-										<button type="button" class="button3" onClick="logging('#systemmodule.systemFunctionId#')">    						 
+										<button type="button" class="button3" onClick="logging('#systemmodule.systemFunctionId#','#missel#')">    						 
 								 			 <img src="#SESSION.root#/Images/info2.gif" alt="Function logging" height="16" width="16" border="0"
 										   	  style="cursor: pointer;" alt="" border="0" align="absmiddle">										  
 										</button>
@@ -651,24 +639,34 @@
 					</cfif>
 							 
 					 </tr>
+					 
 			     </table>
 				 
 			 </td>
-			 	
+			 			 	
 			 </TR>	
-			 			 			 
+			 		 			 			 			 
 			    <cfset heading    = "#Mission#">
 				<cfset class      = "'Detail'">
 				<cfset selection  = "'Application'">				
 														
 				<tr class="cSearch" style="border-top:0px solid silver">
 				<td colspan="6">
-					
-						<cfset scope = "mission">							
-					    <cfinclude template="Submenu.cfm"> 
-					
-				</td></tr>		
 				
+					<table width="100%">
+					<tr class="hide"><td class="tSearch">#mission#</td></tr>
+					<tr><td>
+					
+					<cfset scope       =  "mission">							
+				    <cfinclude template = "Submenu.cfm"> 
+					
+					</td>
+					</tr>
+					</table>
+					
+				</td>
+				</tr>	
+								
 				<cfset class = "">		 
 			 			 	 		
 		<cfelse>	
@@ -676,7 +674,7 @@
 			    <cfset heading = Mis>
 										
 				<tr class="cSearch">
-				<td colspan="6">
+				<td colspan="6" class="tSearch">
 																				
 						<!--- added to prevent some behavior in the menu.cfm file --->
 						<cfset scope = "mission">																							

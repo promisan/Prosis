@@ -1,7 +1,7 @@
 
 <cfparam name="URL.EntityClassNew" default="">
-<cfparam name="URL.Archive" default="0">
-<cfparam name="url.ajaxid" default="">
+<cfparam name="URL.Archive"        default="0">
+<cfparam name="url.ajaxid"         default="">
 
 <cfif CGI.HTTPS eq "off">
 	<cfset tpe = "http">
@@ -70,7 +70,7 @@
 		          Ref_Entity E
 		 WHERE    S.EntityCode     = '#Doc.EntityCode#' 
 		 AND      S.EntityClass    = '#URL.EntityClassNew#' 		 
-		 AND      E.EntityCode = S.EntityCode 
+		 AND      E.EntityCode     = S.EntityCode 
 		 ORDER BY DateEffective DESC 
 	</cfquery>
 
@@ -78,15 +78,15 @@
 	 datasource="AppsOrganization"
 	 username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">
-	 UPDATE OrganizationObject
-	 SET    ActionPublishNo = '#Entity.ActionPublishNo#',
-	        EntityClass     = '#URL.EntityClassNew#' 	         
-	 WHERE  ObjectId        = '#URL.ObjectId#'
+	 UPDATE   OrganizationObject
+	 SET      ActionPublishNo = '#Entity.ActionPublishNo#',
+	          EntityClass     = '#URL.EntityClassNew#' 	         
+	 WHERE    ObjectId        = '#URL.ObjectId#'
 	</cfquery>
 				
 </cfif>
 
-<cfif url.archive eq "0">
+<cfif url.archive eq "false">
 		
 	<!--- ---------------------------------------------------------- ---> 
 	<!--- 18/1/2008 NEW remove the in the workflow embedded subflows --->
@@ -98,9 +98,7 @@
 	 	DELETE FROM OrganizationObject
 		WHERE ObjectKeyValue4 IN (SELECT ActionId
 		                          FROM   OrganizationObjectAction 
-								  WHERE  ObjectId = '#URL.ObjectId#'
-								 )				
-								 
+								  WHERE  ObjectId = '#URL.ObjectId#')												 
 										  	
 	</cfquery>
 		
@@ -181,7 +179,9 @@
 		WHERE  ObjectId = '#URL.ObjectId#' 
 	</cfquery>
 	
-	<!--- not sure, but I think this as embedded workflows in a workflow  --->
+	<!--- parent object applies to a successive flows in different entities i.e 
+	Recruitment and onboarding track, in
+	principle it is better to PREVENT in such cases to remove those flows --->
 	
 	<cfquery name="Action" 
 	 datasource="AppsOrganization"
@@ -221,12 +221,36 @@
 	 datasource="AppsOrganization"
 	 username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">
-	 	UPDATE OrganizationObject
-		SET    Operational = 0
-		WHERE  ObjectId = '#URL.ObjectId#'		
+	 	UPDATE  OrganizationObject
+		SET     Operational = 0
+		WHERE   ObjectId = '#URL.ObjectId#'		
 	</cfquery>
 	
-	<!--- ---------------------------------------------- --->
+	<cfinvoke component  = "Service.Process.System.Database"  
+	   method            = "getTableFields" 
+	   datasource	     = "AppsOrganization"	  
+	   tableName         = "OrganizationObject"
+	   ignoreFields		 = "'ObjectId','ParentObjectId','OfficerNodeIP','OfficerHostName','Operational','ActionPublishNo','EntityClass'"
+	   returnvariable    = "fields">	
+	   
+	<cf_assignid>
+		
+	<cfquery name="ReinstateNewHeader" 
+		 datasource="AppsOrganization"
+		 username="#SESSION.login#" 
+		 password="#SESSION.dbpw#">
+		    INSERT INTO OrganizationObject
+			       (ObjectId,#preservesingleQuotes(fields)#,OfficerNodeIp,OfficerHostName,ActionPublishNo,EntityClass)
+			SELECT '#rowguid#',
+			        #preservesingleQuotes(fields)#,		      
+				   '#CGI.Remote_Addr#',
+				   '#CGI.HTTP_HOST#',
+				   '#Entity.ActionPublishNo#',
+				   '#url.entityclassnew#' 
+		 	FROM   OrganizationObject
+			WHERE  ObjectId = '#URL.ObjectId#'		
+	</cfquery>
+			<!--- ---------------------------------------------- --->
 	<!--- this will now create a new object and elements --->
 	<!--- ---------------------------------------------- --->
 
@@ -237,10 +261,11 @@
 <cfoutput>
 <cfset ref = replace("#url.ref#","|","&","ALL")>
 
-<cfif url.ajaxid eq "">
+<cfif url.ajaxid eq "" or url.archive eq "true">
 
 	<script language="JavaScript">        	   
 		window.location = "#tpe#://#CGI.HTTP_HOST##ref#"
+		ProsisUI.closeWindow('wfreset')
 	</script>
 	
 <cfelse>
@@ -252,6 +277,7 @@
 		 } catch(e) {		   
 		   window.location = "#tpe#://#CGI.HTTP_HOST##ref#"
 		 }
+		 ProsisUI.closeWindow('wfreset')
 	 </script>
 
 </cfif>	

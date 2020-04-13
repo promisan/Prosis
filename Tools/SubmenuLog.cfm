@@ -1,6 +1,4 @@
 
-<cf_compression>
-
 <cfparam name="attributes.systemfunctionid" default="">
 <cfparam name="attributes.mission"          default="">
 <cfparam name="url.systemfunctionid"        default="#attributes.systemfunctionid#">
@@ -13,10 +11,8 @@
 
 <cfif url.systemfunctionid neq "">
 
-	<cf_getHost host="#cgi.http_host#">
-			
-	<cftry>
-	
+	<cf_getHost host="#cgi.http_host#">			
+		
 		<cfquery name="user" 
 			datasource="AppsSystem">
 				SELECT * 
@@ -30,44 +26,59 @@
 				FROM   Ref_ModuleControl
 				WHERE  SystemFunctionId = '#url.systemfunctionid#'				
 		</cfquery>
+				
 		
 		<cfif user.recordcount eq "1">
 		
-			<cfquery name="LogMenuAction" 
+			<cfquery name="check" 
 				datasource="AppsSystem">
-					INSERT INTO UserActionModule 
-						(Account, 
-						 AccountMission,
-						 HostName, 
-						 NodeIP,
-						 SystemFunctionId,
-						 FunctionName,
-						 Mission,
-						 ActionDescription,
-						 ActionObject,
-						 ActionObjectKeyValue1,
-						 ActionObjectKeyValue2,
-						 ActionObjectKeyValue3,
-						 ActionObjectKeyValue4)
-					VALUES 
-						('#SESSION.acc#',
-						 '#User.AccountMission#',
-						 '#host#',
-						 '#CGI.Remote_Addr#',
-						 '#url.systemFunctionId#',
-						 '#get.FunctionName#',
-						 '#url.mission#',
-						 'Open Function',
-						 '#attributes.ActionObject#',
-						 '#attributes.ActionObjectKeyValue1#',
-						 '#attributes.ActionObjectKeyValue2#',
-						 '#attributes.ActionObjectKeyValue3#',
-						 <cfif attributes.ActionObjectKeyValue4 neq "">
-						 	'#attributes.ActionObjectKeyValue4#'
-						 <cfelse>
-						 	NULL
-						 </cfif>) 			
+					SELECT *
+					FROM   UserActionModule 
+					WHERE  Account           = '#SESSION.acc#'
+					AND    SystemFunctionId  = '#url.systemFunctionId#'
+					AND    ActionTimeStamp   = '#dateformat(now(),client.dateSQL)# #timeformat(now(),'HH:MM:SS')#'					
 			</cfquery>
+			
+			<cfif check.recordcount eq "0">
+		
+				<cfquery name="LogMenuAction" 
+					datasource="AppsSystem">
+						INSERT INTO UserActionModule 
+							   (Account, 
+								AccountMission,
+								HostName, 
+								NodeIP,
+								SystemFunctionId,
+								FunctionName,
+								Mission,
+								ActionDescription,
+								ActionObject,
+								ActionObjectKeyValue1,
+								ActionObjectKeyValue2,
+								ActionObjectKeyValue3,
+								ActionObjectKeyValue4,
+								ActionTimeStamp)
+						VALUES ('#SESSION.acc#',
+								 '#User.AccountMission#',
+								 '#host#',
+								 '#CGI.Remote_Addr#',
+								 '#url.systemFunctionId#',
+								 '#get.FunctionName#',
+								 '#url.mission#',
+								 'Open Function',
+								 '#attributes.ActionObject#',
+								 '#attributes.ActionObjectKeyValue1#',
+								 '#attributes.ActionObjectKeyValue2#',
+								 '#attributes.ActionObjectKeyValue3#',
+								 <cfif attributes.ActionObjectKeyValue4 neq "">
+								 	'#attributes.ActionObjectKeyValue4#',
+								 <cfelse>
+								 	NULL,
+								 </cfif>
+								 '#dateformat(now(),client.dateSQL)# #timeformat(now(),'HH:MM:SS')#' ) 			
+				</cfquery>
+			
+			</cfif>
 						
 			<cfif url.mission eq "">
 			
@@ -94,11 +105,7 @@
 			
 			</cfif>
 			
-		</cfif>	
-	
-		<cfcatch></cfcatch>
-	
-	</cftry>
+		</cfif>		
 	
 <cfelse>
 

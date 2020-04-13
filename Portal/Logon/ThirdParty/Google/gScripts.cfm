@@ -16,11 +16,19 @@
         }
 
         function googleLogout(callback) {
-            var auth2 = gapi.auth2.getAuthInstance();
-            auth2.signOut().then(function () {
+            try {
+                var auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function() {
+                    callback();
+                }).error(function() {
+                    console.log('Google signin error.  Please check your configurations.');
+                    callback();
+                });
+                auth2.disconnect();
+            } catch(e) {
+                console.log('Google signin error.  Please check your configurations.');
                 callback();
-            });
-            auth2.disconnect();
+            }
         }
     </script>
 

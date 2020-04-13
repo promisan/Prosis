@@ -8,14 +8,14 @@
 
 <!--- to be tuned to only load relevant scripts --->
 
-<cfparam name="attributes.classheader" default="labelnormal line">
-<cfparam name="attributes.classsub"    default="labelnormal linedotted">
-<cfparam name="attributes.mode"        default="extended">
-<cfparam name="attributes.gadgets"     default="No">
+<cfparam name="attributes.classheader"  default="labelnormal line">
+<cfparam name="attributes.classsub"     default="labelnormal linedotted">
+<cfparam name="attributes.mode"         default="extended">
+<cfparam name="attributes.gadgets"      default="No">
 
 <cfif attributes.mode eq "Extended">
 	
-	<cfajaximport tags="cfform,cfinput-datefield,cfinput-autosuggest,cfdiv,cftree">
+	<cfajaximport tags="cfform,cfinput-autosuggest,cfdiv,cftree">
 		
 <cfelse>
 
@@ -32,6 +32,7 @@
 </cfif>
 
 <script language="JavaScript">
+
 
 function recordedit(id1) {
 	ptoken.open("#SESSION.root#/System/Modules/Functions/RecordEdit.cfm?ID=" + id1 + "&ts="+new Date().getTime(), "configure");
@@ -70,12 +71,12 @@ function filtertree(treefld,treeval) {
 	   box   = document.getElementById('gridbox').value  	 	   
 	   fld   = document.getElementById('selectedfields').value
 	   	   	  
-	   _cf_loadingtexthtml="<div><img src='#SESSION.root#/images/busy10.gif'/>";	
+	   _cf_loadingtexthtml="<div><img src='#SESSION.root#/images/busy10.gif'/>";	  
 	   
-	   if (lkf == "") {	   
+	   if (lkf == "") {		   
 	   	ptoken.navigate(lk+'page='+pg+'&listorder='+or+'&selfld='+fld+'&listorderalias='+orala+'&listorderdir='+ordir+'&content=1&treefield='+treefld+'&treevalue='+treeval,box,'','','POST','listfilter')	   
-	   } else {	   
-	    ptoken.navigate(lk+'page='+pg+'&listorder='+or+'&selfld='+fld+'&listorderalias='+orala+'&listorderdir='+ordir+'&content=1&treefield='+treefld+'&treevalue='+treeval,box,'','','POST','listfilter','','','POST',lkf)		   
+	   } else {	   	   
+	    ptoken.navigate(lk+'page='+pg+'&listorder='+or+'&selfld='+fld+'&listorderalias='+orala+'&listorderdir='+ordir+'&content=1&treefield='+treefld+'&treevalue='+treeval,box,'','','POST',lkf)		   
 	   }	  
     }    
 } 
@@ -97,11 +98,8 @@ function gofilter(e) {
 
 function applyfilter(md,mypage,ajaxid,callback) {	
 
-		_cf_loadingtexthtml='';		
-		
-		//  _cf_loadingtexthtml="<div><img src='#SESSION.root#/images/busy10.gif'/>";	        	
-        // provision to refresh a tree which has an onclick method
-								
+		_cf_loadingtexthtml='';				
+										
 		try { document.getElementById("treerefresh").click();} catch(e) {}
 		
 	    try {	
@@ -112,50 +110,48 @@ function applyfilter(md,mypage,ajaxid,callback) {
 		   pg = mypage
 		}	
 																						 					  	
-		document.listfilter.onsubmit() 		
-		
-								
+		document.listfilter.onsubmit() 	
+									
 		if( _CF_error_messages.length == 0 ) {
 							
 		   Prosis.busy('yes')	
-		 						  		   		  	  
-		   lk    = document.getElementById('mylink').value		
-		   lkf   = document.getElementById('mylinkform').value      		  
-		   or    = document.getElementById('listorder').value
-		   orfld = document.getElementById('listorderfield').value
-		   ordir = document.getElementById('listorderdir').value  	
+		   		 						  		   		  	  
+		   lk    = document.getElementById('mylink').value			  
+		   lkf   = document.getElementById('mylinkform').value   		     		  		  
+		   or    = document.getElementById('listorder').value		  
+		   orfld = document.getElementById('listorderfield').value		   
+		   ordir = document.getElementById('listorderdir').value  		       
 		   orala = document.getElementById('listorderalias').value 		
-		  		   				  		   		   
+		   			  		   				  		   		   
 		   if (ajaxid == "content") {		  		   		  
-		   <!--- redirect if the action if to refresh a line itself --->
-		   target   = document.getElementById('gridbox').value  
+			   <!--- redirect if the action if to refresh a line itself --->
+			   target   = document.getElementById('gridbox').value  
 		   } else {				   
-		   target   = document.getElementById('ajaxbox').value  			   
-		   
-		   se = document.getElementById(ajaxid)		  		 
-		  		   
-		   if (se) {} else { 		   
-			   alert("View could not be updated : "+ajaxid); target="" 
-			  }		   
-		   }	
-		  		   		   
-		   if (target != "") {		   		   	  		   		   	 					   		   
-			   sfld  = document.getElementById('selectedfields').value	 				 			 		 
-			   if (lkf == "") {					     	    			
-			   	  window['__printListingCallback'] = function(){ if (callback) callback(); };
-			      ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&listorder='+or+'&listorderfield='+orfld+'&selfld='+sfld+'&listorderalias='+orala+'&listorderdir='+ordir+'&content=1&refresh='+md,target,'__printListingCallback','','POST','listfilter')				  
-			   } else {				   	      		   
-			      ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&listorder='+or+'&listorderfield='+orfld+'&selfld='+sfld+'&listorderalias='+orala+'&listorderdir='+ordir+'&content=1&refresh='+md,target,'','','POST',lkf)		  
-			   }		   
-		   }	
-		    		
-		   
+			   target   = document.getElementById('ajaxbox').value  		   
+			   se = document.getElementById(ajaxid)		  		 
+		   		   		  		   
+			   if (se) {} else { 		   
+				   alert("View could not be updated : "+ajaxid); target="" 
+				  }		   
+			   }		  
+			  		   		   
+			   if (target != "") {		   		   	  		   		   	 					   		   
+				   sfld  = document.getElementById('selectedfields').value	 				 			 		 
+				   if (lkf == "") {					   
+				   	  window['__printListingCallback'] = function(){ if (callback) callback(); };
+				      ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&listorder='+or+'&listorderfield='+orfld+'&selfld='+sfld+'&listorderalias='+orala+'&listorderdir='+ordir+'&content=1&refresh='+md,target,'__printListingCallback','','POST','listfilter')				  
+				   } else {				   	      		   			 
+				      ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&listorder='+or+'&listorderfield='+orfld+'&selfld='+sfld+'&listorderalias='+orala+'&listorderdir='+ordir+'&content=1&refresh='+md,target,'','','POST',lkf)		  
+				   }		   
+			   }	
+		  
 	       }   
 
-	} catch(e) {						
-							
+	} catch(e) {	
+								
   	   if (!pg)
-	   	pg=0
+	   
+	   pg=0
 
 	   lk=""
 	   if (document.getElementById('mylink'))							
@@ -163,7 +159,7 @@ function applyfilter(md,mypage,ajaxid,callback) {
 	   
 	   lkf=""
 	   if (document.getElementById('mylinkform'))	
-	   	lkf   = document.getElementById('mylinkform').value
+	   	   lkf   = document.getElementById('mylinkform').value
 
 	   or=""	   	  	   
 	   if (document.getElementById('listorder')) 
@@ -192,16 +188,15 @@ function applyfilter(md,mypage,ajaxid,callback) {
 	   
 	   sfld =""
 	   if (document.getElementById('selectedfields'))
-	   		sfld  = document.getElementById('selectedfields').value
-	   	   
-	   _cf_loadingtexthtml="<div><img src='#SESSION.root#/images/busy10.gif'/>";	
-	   		    
-	   if (target!="") {
-	   	if (lkf == "") {			  	 
-	    	 ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&listorder='+or+'&listorderfield='+orfld+'&selfld='+sfld+'&listorderalias='+orala+'&listorderdir='+ordir+'&content=1',target)
-	   	} else {
-	     ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&listorder='+or+'&listorderfield='+orfld+'&selfld='+sfld+'&listorderalias='+orala+'&listorderdir='+ordir+'&content=1',target,'','','POST',lkf)
-	   	}
+	    	sfld  = document.getElementById('selectedfields').value  			
+	  	   		    
+	   if (target != "") {
+	   
+		   	if (lkf == "") {			  	 			
+		     	ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&listorder='+or+'&listorderfield='+orfld+'&selfld='+sfld+'&listorderalias='+orala+'&listorderdir='+ordir+'&content=1',target)
+		   	} else {			
+		      ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&listorder='+or+'&listorderfield='+orfld+'&selfld='+sfld+'&listorderalias='+orala+'&listorderdir='+ordir+'&content=1',target,'','','POST',lkf)
+		   	}
 	   } else { Prosis.busy('no') } }
 	   Prosis.busy('no')
 }
@@ -331,18 +326,18 @@ function listshowRow(rowno) {
 	   count = 1	
 	     	   	     			  						 	   
 	   while (document.getElementById("r"+count)) {
-	   
+	   	   
 	       if (rows == "1") {
 	          rf = document.getElementById("r"+count)		
 			 			  
 			   <!--- check if already deleted --->
 			   if (rf.className != "hide") { 
 				   if (count != rowno) {
-				       if (rf.className != "#attributes.classheader# regular") { 
-					       rf.className  = "#attributes.classheader# regular"					  						   
+				       if (rf.className != "#attributes.classheader#") { 
+					       rf.className  = "#attributes.classheader#"					  						   
 						   } 
 					   } else {
-					       rf.className  = "#attributes.classheader# highlight1"					   						   			    					 
+					       rf.className  = "#attributes.classheader# highlight4"					   						   			    					 
 				       }				   			    	   
 			   } 
 			   count++ 
@@ -356,13 +351,13 @@ function listshowRow(rowno) {
 			   <!--- check if already deleted --->
 			   if (rf.className != "hide") { 
 				   if (count != rowno) {
-				       if (rf.className != "#attributes.classsub# regular") { 
-					       rf.className  = "#attributes.classsub# regular"					  
-						   rs.className  = "#attributes.classheader# regular" 						  
+				       if (rf.className != "#attributes.classsub#") { 
+					       rf.className  = "#attributes.classsub#"					  
+						   rs.className  = "regular" 						  
 						   } 
 					   } else {
-					       rf.className  = "#attributes.classsub# highlight1"					   
-						   rs.className  = "#attributes.classheader# highlight1" 						  			    					 
+					       rf.className  = "#attributes.classsub# highlight4"					   
+						   rs.className  = "highlight4" 						  			    					 
 				       }				   			    	   
 			   } 
 			   count++ 			  
@@ -376,15 +371,15 @@ function listshowRow(rowno) {
 			   <!--- check if already deleted --->
 			   if (rf.className != "hide") { 
 				   if (count != rowno) {
-				       if (rf.className != "#attributes.classsub# regular") { 
-					       rf.className  = "#attributes.classsub# regular"					  
-						   rs.className  = "#attributes.classsub# regular" 
-						   rt.className  = "#attributes.classheader# regular" 
+				       if (rf.className != "#attributes.classsub#") { 
+					       rf.className  = "#attributes.classsub#"					  
+						   rs.className  = "#attributes.classsub#" 
+						   rt.className  = "regular" 
 						   } 
 					   } else {
-					       rf.className  = "#attributes.classsub# highlight1"					   
-						   rs.className  = "#attributes.classsub# highlight1"
-						   rt.className  = "#attributes.classheader# highlight1"					    					 
+					       rf.className  = "#attributes.classsub# highlight4"					   
+						   rs.className  = "#attributes.classsub# highlight4"
+						   rt.className  = "highlight4"					    					 
 				       }				   			    	   
 			   } 
 			   count++ 			  
@@ -417,24 +412,26 @@ function listingshow(itm) {
 function showtemplate(path,key) {
     window.open("#SESSION.root#/System/Modification/PostFile/TemplateDetail.cfm?path="+path+"&file="+key+"&ts="+new Date().getTime(), "dialog", "unadorned:yes; edge:raised; status:no; dialogHeight:#client.height-100#px; dialogWidth:#client.width-140#px; help:no; scroll:no; center:yes; resizable:yes");	
 }	
+
 	
-function addlistingentry(template,arg) {
+// function addlistingentry(template,arg) {
    
-	val = arg.split(";");		
+//	val = arg.split(";");		
 		
-	if 	(val[2] == "true") {				
+//	if 	(val[2] == "true") {				
    	
-			 ret = window.showModalDialog("#SESSION.root#/"+template+"&mode=insert&ts="+new Date().getTime(),window,"unadorned:yes; edge:raised; status:no; dialogHeight:"+val[0]+"px; dialogWidth:"+val[1]+"px; help:no; scroll:no; center:"+val[3]+"; resizable:yes");									
+//			 ret = window.showModalDialog("#SESSION.root#/"+template+"&mode=insert&ts="+new Date().getTime(),window,"unadorned:yes; edge:raised; status:no; dialogHeight:"+val[0]+"px; dialogWidth:"+val[1]+"px; help:no; scroll:no; center:"+val[3]+"; resizable:yes");									
 
 			 // feature to refresh a tree value upon return of the focus
 			 
-			 try { document.getElementById("treerefresh").click(); } catch(e) {}				 
-			 if (ret) {	applyfilter('1','','content') }		
+//			 try { document.getElementById("treerefresh").click(); } catch(e) {}				 
+//			 if (ret) {	applyfilter('1','','content') }		
 			 
-		} else {			   
- 		  ptoken.open("#SESSION.root#/"+template+"&mode=insert","Listing","left=20, top=20, width=" + val[1] + "px, height=" + val[0] + "px, status=yes, toolbar=no, scrollbars=yes, resizable=yes")						    
-		}				
-}
+//		} else {			   
+// 		  ptoken.open("#SESSION.root#/"+template+"&mode=insert","Listing","left=20, top=20, width=" + val[1] + "px, height=" + val[0] + "px, status=yes, toolbar=no, scrollbars=yes, resizable=yes")						    
+//		}				
+// }
+
 
 function toggledrill(mode,box,template,key,arg,drillbox,str) {
 
@@ -501,9 +498,7 @@ function toggledrill(mode,box,template,key,arg,drillbox,str) {
 	
 	
 	if (mode == "drillbox") {
-
-		   ColdFusion.navigate('#SESSION.root#/'+template+'?drillid='+key+'&'+str,drillbox);
-		   
+	   ColdFusion.navigate('#SESSION.root#/'+template+'?drillid='+key+'&'+str,drillbox);		   
     }	  
 		  
 	if (mode == "workflow") {

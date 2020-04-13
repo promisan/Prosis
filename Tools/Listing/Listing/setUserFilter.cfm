@@ -1,9 +1,7 @@
 
 <cfparam name="attributes.mode" default="single">
 
-
 <cfif attributes.systemfunctionid neq "">
-
 	
 	<cfquery name="getValue" 
 		datasource="AppsSystem" 

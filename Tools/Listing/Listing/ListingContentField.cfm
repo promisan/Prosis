@@ -6,10 +6,9 @@
 <cfset dkey = evaluate(drillkey)>
 
 <cfoutput> 		
-
 							
 	<cfloop array="#attributes.listlayout#" index="current">	
-					
+							
 		<cfparam name="current.display"     default="yes">		
 		<cfparam name="current.style"       default="">
 		<!--- row to be shown : row 1, row 2 etc. --->
@@ -57,14 +56,15 @@
 					
 			<!--- edit field:  and evaluate(accesslevel) gte "1" --->		
 			
-			<cfif current.processmode neq "" and 
-			          current.processtemplate neq "" >
+			<cfif current.processmode neq "" and current.processtemplate neq "" >
 					  
 					<cfparam name="current.processstring" default="">
 			
-					<td align="#current.align#" style="#current.style#;padding-right:5px;padding-left:3px">					
+					<td align="#current.align#" style="#current.style#;padding-right:5px;padding-left:3px">										
 					
 					<cfif current.processmode eq "text">
+					
+						<CFSET hascontent="Yes">
 					
 						<cfif url.ajaxid eq "content">	
 																			
@@ -80,6 +80,8 @@
 						</cfif>
 					
 					<cfelseif current.processmode eq "checkbox">
+					
+						<CFSET hascontent="Yes">
 					
 						<cfif url.ajaxid eq "content">	
 						
@@ -119,8 +121,9 @@
 						
 					<cfelseif current.processmode eq "radio">	
 					
-						<table cellspacing="0" cellpadding="0">
-							<tr>						
+						<CFSET hascontent="Yes">
+					
+						<table><tr>						
 							
 							<cfset pcnt = "0">
 																
@@ -183,7 +186,9 @@
 					
 			<!--- presentation of the line --->			
 					
-			<cfelseif current.formatted eq "Class">			
+			<cfelseif current.formatted eq "Class">		
+			
+				<CFSET hascontent="Yes">	
 			
 			    <!--- we set the class of the row --->
 				
@@ -195,23 +200,22 @@
 				
 				  <cfloop index="itm" list="#rec#" delimiters="=">
 							
-							<cfif setclass eq "0">
-													   				   
-			   					<cfif evaluate(current.field) eq itm>						   
-								       <cfset setclass = "1">					   
-								</cfif>						   
-	
-							<cfelse>					
-							
-							  <cfset class  = "#itm#">
-							  <cfset setclass = "0">
-								  
-							</cfif>   						   
+						<cfif setclass eq "0">
+												   				   
+		   					<cfif evaluate(current.field) eq itm>						   
+							       <cfset setclass = "1">					   
+							</cfif>						   
+
+						<cfelse>					
+						
+						  <cfset class  = "#itm#">
+						  <cfset setclass = "0">
+							  
+						</cfif>   						   
 						   
 				   </cfloop>
 						
-				</cfloop>	
-				
+				</cfloop>				
 				<td>
 				<cfif class neq "labelnormal">		
 				    <table height="20"><tr><td height="100%" bgcolor="0080C0" style="width:1px"></td></tr></table>				
@@ -221,6 +225,8 @@
 			<!--- rating box --->	
 					
 			<cfelseif current.formatted eq "Rating">	
+			
+					<CFSET hascontent="Yes">
 			
 					<cfparam name="current.ratinglist" default="">
 					<cfset setcolor = "0">
@@ -265,6 +271,8 @@
 			
 			<cfelseif cnt eq "1" and drilltemplate neq "" and drillkey neq "" and attributes.drillrow eq "No">
 			
+				<CFSET hascontent="Yes">
+			
 				 <cfif rowshow eq "1">
 				 	 <cfset fontcolor = "black">
 				 <cfelse>
@@ -293,18 +301,15 @@
 																				
 			<cfelse>	
 			
-				<cfset fontcolor = "">
-			
-				<cfset inner = evaluate(current.formatted)>		
-											 
+				<cfset fontcolor = "">			
+				<cfset inner = evaluate(current.formatted)>													 
 				<cfif inner neq "" and current.functionscript neq "" and url.ajaxid eq "content"> <!--- somehow the inner would not work for a refresh --->
 					
 					 <cfparam name="current.functionfield" default="">
 					 <cfif current.functionfield neq "">
 						 
 						    <cfset cellstyle = "cursor:pointer;">
-							<cfset cellclick = "#current.functionscript#('#evaluate(current.functionfield)#','#url.systemfunctionid#','#current.functioncondition#')">							
-													
+							<cfset cellclick = "#current.functionscript#('#evaluate(current.functionfield)#','#url.systemfunctionid#','#current.functioncondition#')">												
 							
 					 <cfelse>
 						 						 							
@@ -336,20 +341,21 @@
 				<cfif url.ajaxid eq "content">	
 				
 					<cfif rowshow gte "2" and len(inner) gte "2">
-						<cfset hascontent = "Yes">
-					</cfif>	
+						<cfset hascontent = "Yes">															
+					</cfif>						
 														
-					<cfif colspan eq "1">										
+					<cfif colspan eq "1">		
+											
 						<cfif current.align eq "left">					
-							<td style="#cellstyle#;#current.style#;padding-right:4px;color:#fontcolor#" class="#class#"
-							    onclick="listshowRow('#row#','#s#');#cellclick#" id="f#box#_#dkey#_#rowshow#_#cnt#"><cfif cellclick neq ""><a>#inner#</a><cfelse>#inner#</cfif></td>										
+						<td style="#cellstyle#;#current.style#;padding-right:4px;color:#fontcolor#" 
+						    onclick="listshowRow('#row#','#s#')" id="f#box#_#dkey#_#rowshow#_#cnt#"><cfif cellclick neq ""><span onClick="#cellclick#"><a>#inner#</a></span><cfelse>#inner#</cfif></td>										
 						<cfelse>
-							<td style="#cellstyle#;#current.style#;padding-right:4px;color:#fontcolor#" class="#class#"
-								align="#current.align#" onclick="listshowRow('#row#','#s#');#cellclick#" id="f#box#_#dkey#_#rowshow#_#cnt#"><cfif cellclick neq ""><a>#inner#</a><cfelse>#inner#</cfif></td>													
+						<td style="#cellstyle#;#current.style#;padding-right:4px;color:#fontcolor#" 
+							align="#current.align#" onclick="listshowRow('#row#','#s#')" id="f#box#_#dkey#_#rowshow#_#cnt#"><cfif cellclick neq ""><span onClick="#cellclick#"><a>#inner#</a></span><cfelse>#inner#</cfif></td>													
 						</cfif>						
 					<cfelse>					
-						<td style="#cellstyle#;#current.style#color:#fontcolor#" class="#class#" align="#current.align#"
-						colspan="#colspan#" onclick="listshowRow('#row#','#s#');#cellclick#" id="f#box#_#dkey#_#rowshow#_#cnt#">#inner#</td>														
+						<td style="#cellstyle#;#current.style#color:#fontcolor#" align="#current.align#"
+						    colspan="#current.colspan#" onclick="listshowRow('#row#','#s#');#cellclick#" id="f#box#_#dkey#_#rowshow#_#cnt#"><cfif cellclick neq ""><span onClick="#cellclick#"><a>#inner#</a></span><cfelse>#inner#</cfif></td>														
 					</cfif>							
 				
 				<cfelse>	
@@ -383,4 +389,6 @@
 	</cfloop>	
 
 </cfoutput>
+
+
 

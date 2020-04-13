@@ -569,8 +569,7 @@
 					<td width="10" style="padding-top:5px"><img src="<cfoutput>#session.root#</cfoutput>/images/go.png" height="23" width="25px" alt="" border="0"></td>
 					<td style="font-weight:200;padding-left:10px;padding-top:3px;height:40px;font-size:30px" class="labellarge"><font color="0080C0"><cf_tl id="Provisioning"></td>
 					<td width="90%"></td>
-				</tr>
-				
+				</tr>				
 				
 				<tr><td colspan="3" style="padding-left:35px;"><cfinclude template="WorkOrderPayer.cfm"></td></tr>			
 						

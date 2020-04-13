@@ -207,8 +207,7 @@
 	function doPrintFormat(journal, journalserialno, documentid, template) {
 		ptoken.open("<cfoutput>#SESSION.root#</cfoutput>/"+template+"?journal="+journal+"&journalserialno="+journalserialno+"&printdocumentid="+documentid,"doPrintFormat","left=100, top=100, width=500, height=500, status=no, toolbar=no, scrollbars=yes, resizable=yes");
 	}
-	
-	
+		
 	function editForm(wli) {
 	   	try { ColdFusion.Window.destroy('wEditForm',true)} catch(e){};
        	ColdFusion.Window.create('wEditForm', '<cfoutput>#vLabelForm#</cfoutput>', '',{x:100,y:100,width:600,height:400,resizable:false,modal:true,center:true})		
@@ -269,11 +268,9 @@
 			     <table><tr><td style="padding:5px">
 				<cf_compositiontreedata mission="#get.mission#" ajax="No">		
 				</td></tr></table>
-			</cf_divscroll>
+			</cf_divscroll>						
 						
-						
-	</cf_layoutarea>		
-	
+	</cf_layoutarea>			
 		
 	<cfquery name="Check" 
 		datasource="AppsOrganization" 
@@ -281,9 +278,9 @@
 		password="#SESSION.dbpw#">
 		SELECT   TOP 1 *
 		FROM    OrganizationObject    
-    	WHERE   EntityCode = 'Candidate' 
+    	WHERE   EntityCode      = 'Candidate' 
 		AND     ObjectKeyValue1 = '#url.id#' 
-		AND     Operational = '1'
+		AND     Operational     = '1'
 	</cfquery>	
 					
 	<cf_wfactive objectId="#Check.ObjectId#">	

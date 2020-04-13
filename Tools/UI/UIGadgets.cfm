@@ -1,4 +1,4 @@
-<cfparam name="attributes.style" 		default="default-v2"> <!--- possible values: silver, flat --->
+<cfparam name="attributes.style" 		default="metro"> <!--- possible values: silver, flat --->
 <cfparam name="attributes.gadget" 		default="all"> <!--- possible values: silver, flat --->
 <cfparam name="attributes.jquery" 		default="no"> <!--- possible values: silver, flat --->
 <cfparam name="attributes.treeTemplate"	default="no"> <!--- possible values: silver, flat --->
@@ -6,8 +6,9 @@
 <cfoutput>
 
 	<link rel="stylesheet" href="#Session.root#/scripts/kendoui/styles/kendo.common.min.css" />
-	<link rel="stylesheet" href="#Session.root#/scripts/kendoui/styles/kendo.default.mobile.min.css" />
 	<link rel="stylesheet" href="#Session.root#/scripts/kendoui/styles/kendo.#attributes.style#.min.css" />
+	<link rel="stylesheet" href="#Session.root#/scripts/kendoui/styles/kendo.#attributes.style#.mobile.min.css" />
+
     <link rel="stylesheet" href="#Session.root#/scripts/kendoui/styles/kendo.rtl.min.css"/>
     <link rel="stylesheet" href="#Session.root#/scripts/kendoui/styles/kendo.silver.min.css"/>
 
@@ -27,6 +28,7 @@
 	<script type="text/javascript" src="#SESSION.root#/Scripts/js-cookie/js.cookie.js"></script>
 	<div id="_UIDialog" style="display:none">
 	</div>
+
 
 	<script type="text/javascript">
 

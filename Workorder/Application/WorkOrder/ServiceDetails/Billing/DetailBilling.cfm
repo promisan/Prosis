@@ -68,7 +68,7 @@
 	
 	<cfif CheckSupply.MaterialsCategory neq "">	
 				
-		<tr><td style="padding-left:20px;border:0px solid silver">					
+		<tr><td style="padding-left:20px;border:0px solid silver">							
 			<cfinclude template="../Supplies/SuppliesListingView.cfm">				
 		</td></tr>
 			

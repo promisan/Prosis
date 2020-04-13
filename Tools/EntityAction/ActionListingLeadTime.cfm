@@ -34,7 +34,7 @@
 					password="#SESSION.dbpw#">			
 					UPDATE OrganizationObjectAction 
 					SET    OfficerLeadTime = '#leadtime#'					
-					WHERE  ActionId = '#ActionId#'				
+					WHERE  ActionId        = '#ActionId#'				
 				</cfquery>
 				
 			</cfif>

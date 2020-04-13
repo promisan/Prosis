@@ -34,34 +34,24 @@
 
 <cfif mandateAccessStaffing eq "NONE" and mandateAccessPosition eq "NONE">
 
-	<table width="98%" align="center" border="0" cellspacing="0" cellpadding="0">
-
-		<tr><td align="center" class="labelmedium" style="padding-top:40px"><font color="FF0000">You have no access to this staffing period.<br>Please contact your administrator</td></tr>
-	
+	<table width="98%" align="center">
+		<tr><td align="center" class="labelmedium" style="padding-top:40px"><font color="FF0000">You have no access to this staffing period.<br>Please contact your administrator</td></tr>	
 	</table>	
 
 <cfelse>
 	
-	<table width="98%" align="center" height="100%">
-	 
-	  <tr><td height="4"></td></tr>
-	  
+	<table width="98%" align="center" height="100%">	 
+	 <tr><td height="4"></td></tr>	  
 	 <tr>
 	     <td style="padding-left:10px" class="labelmedium"><font color="red">Expired : Parent Positions which have fallen of from the workforce table as its expiration date was reached.</font></td>
-	 </tr>
-	 
-	 <tr><td height="4"></td></tr>
-		
+	 </tr>	 
+	 <tr><td height="4"></td></tr>		
 	 <tr>
-	  <td height="100%" valign="top">
-	  
-	  <cfset url.dte = dateformat(Mandate.dateExpiration,client.datesql)>
-	 
-	  <cfinclude template="PositionMandateContent.cfm">	
-		
+	  <td height="100%" valign="top" style="padding:5px">	  
+	  <cfset url.dte = dateformat(Mandate.dateExpiration,client.datesql)>	 
+	  <cfinclude template="PositionMandateContent.cfm">			
 	  </td>
-	 </tr>
-						  
+	 </tr>						  
 	</table>   
 	
 </cfif>	

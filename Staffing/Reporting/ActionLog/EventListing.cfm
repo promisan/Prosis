@@ -1,23 +1,23 @@
 <cfparam name="url.header" default="0">
 
-<cfif url.header eq "0">
-	<cf_screentop jquery="yes" html="no" label="Personnel Event Inquiry">
-<cfelse>
+<cfif url.header eq "1">	
+
 	<cf_screentop jquery="yes" html="yes" layout="webapp" label="Personnel Event Inquiry">
-</cfif>	
-
-<cf_listingscript mode="Regular">
-<cf_dialogstaffing>
-<cf_dialogPosition>
-<cf_actionlistingscript mode="Regular">
-<cf_fileLibraryScript mode="Regular">
-
- <cf_LanguageInput
+	
+	<cf_listingscript       mode="Regular">
+	<cf_dialogstaffing>
+	<cf_dialogPosition>
+	<cf_actionlistingscript mode="Regular">
+	<cf_fileLibraryScript   mode="Regular">
+	
+	 <cf_LanguageInput
 		TableCode       = "Ref_ModuleControl" 
 		Mode            = "get"
 		Name            = "FunctionName"
 		Key1Value       = "#url.idmenu#"				
-		Label           = "Yes">		
+		Label           = "Yes">	
+	
+</cfif>	
 
 <!--- moved to 2nd page for refresh
 <cf_wfpending entityCode="PersonEvent"  

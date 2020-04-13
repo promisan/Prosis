@@ -100,11 +100,11 @@
 					align="center"
 			        bgcolor="f1f1f1"
 					class="labelit"><cf_tl id="Process Indicator"></td>
-			<td width="50" style="padding-left:5px">Allowed:</td>
-			<td><b>#Perf.Planned# hour<cfif Perf.Planned gt "1">s</cfif></td>
-			<td width="40">Used:</td>
+			<td width="50" style="padding-left:5px;padding-right:4px"><cf_tl id="Allowed"></td>
+			<td><b>#Perf.Planned# <cfif Perf.Planned gt "1"><cf_tl id="hour"><cfelse><cf_tl id="hours"></cfif></td>
+			<td width="40" style="padding-right:4px"><cf_tl id="Used"></td>
 			<td><b>#Perf.Actual# hour<cfif Perf.Actual gt "1">s</cfif></b> since #dateformat(Perf.StartStamp,CLIENT.DateFormatShow)# #timeformat(Perf.StartStamp,"HH:MM")#</td>
-			<td width="70">Compliance:</td>
+			<td width="70" style="padding-right:4px"><cf_tl id="Compliance"></td>
 			<cfset ratio = (Perf.Planned/Perf.Actual)*100>
 			
 			<cfif ratio lte "60">

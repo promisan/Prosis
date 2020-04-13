@@ -147,7 +147,7 @@ password="#SESSION.dbpw#">
 	
 </cfoutput>
 	
-<script>
-	window.close()
-	opener.history.go()
+<script>	
+	parent.parent.opener.history.go()
+	parent.parent.ProsisUI.closeWindow('interviewbox')
 </script>

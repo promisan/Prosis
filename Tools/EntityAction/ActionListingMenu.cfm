@@ -13,29 +13,32 @@
 		    <td height="18" style="padding-left:5px;padding-right:3px" class="labelit"><a href="javascript:aboutworkflow('#Object.ObjectId#')"><font color="6688aa">O:#Actions.OwnerLastName#</font></u></font></a></td>
 			<td width="1" style="padding-left:3px;padding-right:3px">|</td>		
 			
+			<!--- deprecated 10/4/2020, make the expense sheet visible 
 			<cfif attributes.annotation eq "Yes">
 			<td id="mail_select"  onMouseOver="this.className='labelit highlight2'"
 				onMouseOut="this.className='labelit'" style="cursor:pointer;padding-left:3px;padding-right:3px" class="labelit" onclick="objectdetail('#Object.ObjectId#','mail')">&nbsp;<cf_tl id="Annotations"></td>
 			<td width="1" style="padding-left:3px;padding-right:3px">|</td>
 			</cfif>
-			
+						
 			<cfif attributes.communicator eq "Yes">
 			<td id="communicator_select"  onMouseOver="this.className='labelit highlight2'"
 				onMouseOut="this.className='labelit'" style="cursor:pointer;padding-left:3px;padding-right:3px" class="labelit" onclick="objectdetail('#Object.ObjectId#','communicator')">&nbsp;<cf_tl id="Communicator"></td>
 			<td width="1" style="padding-left:3px;padding-right:3px">|</td>
 			</cfif>
 			
+			--->
+			
 			
 			<td class="labelit" style="cursor:pointer;padding-left:3px;padding-right:3px" id="pdf_select_#Object.ObjectId#"  onMouseOver="this.className='labelit highlight2'"
 				onMouseOut="this.className='labelit'" onclick="pdf_merge('#Object.ObjectId#')"><cf_tl id="Print"></td>
 			<td id="pdf_wait_#Object.ObjectId#" class="hide" style="padding-left:3px;padding-right:3px">
 			   <img src="#SESSION.root#/Images/busy4.gif" align="absmiddle" height="16" width="16" alt="" border="0">
-			    <font color="0080FF"><b>wait...</b>		
+			    <font color="0080FF">wait...</b>		
 			</td>		
 					
 		<cfif Attributes.AllowProcess eq "No">
 		
-			<td class="labelit" style="padding-left:3px;padding-right:3px">|<font color="FF0000">Workflow locked</font></td>
+			<td class="labelit" style="padding-left:3px;padding-right:3px">|<font color="FF0000"><cf_tl id="Workflow locked"></font></td>
 				
 		<cfelse>
 		
@@ -44,13 +47,13 @@
 				<!--- only administrator --->
 								
 				<cfif getAdministrator("#Object.Mission#") eq "1" or SESSION.acc eq Actions.OwnerId>
-				<td style="padding-left:3px;padding-right:3px">|</td>					
-				<td class="labelit" style="cursor:pointer;padding-left:3px;padding-right:3px" onclick="resetwf('#ObjectId#','<cfif attributes.reset neq 'full'>#url.ajaxid#</cfif>')" onMouseOver="this.className='labelit highlight2'"
-				onMouseOut="this.className='labelit'"><cf_tl id="Reset">
 				
-				</td>	
+					<td style="padding-left:3px;padding-right:3px">|</td>					
+					<td class="labelit" style="cursor:pointer;padding-left:3px;padding-right:3px" onclick="resetwf('#ObjectId#','<cfif attributes.reset neq 'full'>#url.ajaxid#</cfif>','0','#attributes.entityClass#')" onMouseOver="this.className='labelit highlight2'"
+					onMouseOut="this.className='labelit'"><cf_tl id="Reset"></td>	
+				
 				</cfif>
-				<input type="hidden" name="newclass_#objectid#" id="newclass_#objectid#" value="#attributes.entityClass#">
+								
 								
 			<cfelse>
 									
@@ -68,93 +71,21 @@
 				
 				</cfif>
 														
-				<cfif resetenabled eq "1" and CheckClosed.recordcount gt "0"> 
-																
-						<cfquery name="Class" 
-					 datasource="AppsOrganization"
-					 username="#SESSION.login#" 
-					 password="#SESSION.dbpw#">
-						 SELECT *
-						 FROM   Ref_EntityClass R
-						 WHERE  EntityCode = '#attributes.entityCode#'							 
-						 
-						 <cfif Object.Owner neq ""> 
-						 
-						 AND     
-					         (
-							 
-					         R.EntityClass IN (SELECT EntityClass 
-					                           FROM   Ref_EntityClassOwner 
-											   WHERE  EntityCode = '#attributes.entityCode#'
-											   AND    EntityClass = R.EntityClass
-											   AND    EntityClassOwner = '#Object.Owner#')
-											   
-							 OR
-							
-							 R.EntityClass NOT IN (SELECT EntityClass 
-					                           FROM   Ref_EntityClassOwner 
-											   WHERE  EntityCode = '#attributes.entityCode#'
-											   AND    EntityClass = R.EntityClass)
-											   
-							  OR
-							
-							 R.EntityClass IN (SELECT EntityClass 
-					                           FROM   Ref_EntityClassMission 
-											   WHERE  EntityCode = '#attributes.entityCode#'
-											   AND    Mission = '#Object.Mission#'
-											   AND    EntityClass = R.EntityClass)				   
-											   
-							 )				
-						 		 
-												
-						 </cfif>
-						 						 
-						 <cfif Entity.EntityTableName neq "" and entity.EntityClassField neq "">
-						 AND   EntityClass IN (SELECT #entity.EntityClassField# FROM #Entity.EntityTableName#)
-						 </cfif>
-						 AND    Operational = 1
-					</cfquery>						
-								
-					<cfif attributes.reset eq "Yes" or Entity.EnableClassSelect eq "1"> 
-				
+				<cfif resetenabled eq "1" and CheckClosed.recordcount gt "0"> 								
+									
 					<td style="padding-left:3px;padding-right:3px">|</td>
 					
-							<td class="labelit" style="cursor:pointer;padding-left:5px;padding-right:3px" onclick="resetwf('#ObjectId#','#url.ajaxid#')" 
-					    onMouseOver="this.className='labelit highlight2'"
-						onMouseOut="this.className='labelit'"><cf_tl id="Reset">:
-											
-						</td>
-															
-					<td>
-					
-					    <cfif Object.EntityClass neq "">
+						<cfif Object.EntityClass neq "">
 						    <cfset cls = Object.EntityClass>
 						<cfelse>
 							<cfset cls = attributes.entityClass>						
-						</cfif>					   					
-						<select name="newclass_#ObjectId#" id="newclass_#ObjectId#" class="regularh">
-							<cfloop query="Class">
-							<option value="#EntityClass#" <cfif entityClass eq cls>selected</cfif>>#EntityClassName#</option>
-							</cfloop>
-						</select>
+						</cfif>			
 					
-					</td>
-					
-								
-				
-					
-					</cfif>
-					
-					<cfif getAdministrator("#Object.Mission#") eq "1">
-					
-					<td style="padding-left:3px;padding-right:3px">|</td>											
-					<td>
-					
-					
-						<input type="button" class="button10g" style="height:20px" value="Archive" onclick="archivewf('#ObjectId#','#url.ajaxid#')">
-					</td>					
-									
-					</cfif>
+						<td class="labelit" style="cursor:pointer;padding-left:5px;padding-right:3px" onclick="resetwf('#ObjectId#','#url.ajaxid#','1','#cls#')" 
+					    onMouseOver="this.className='labelit highlight2'"
+						onMouseOut="this.className='labelit'"><cf_tl id="Reset">:</td>
+											
+					</td>									
 					
 				</cfif>
 			

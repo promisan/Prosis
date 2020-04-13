@@ -223,13 +223,13 @@ FROM (
 
 <!--- embed|window|dialogajax|dialog|standard --->
 
-<table width="98%" height="100%" align="center">
+<table width="100%" height="100%" align="center">
 	
 	<tr><td width="100%" height="100%">			
 	
 	<cf_listing header  = "PositionExpiration"
 	    box             = "actiondetail"
-		link            = "#SESSION.root#/Staffing/Reporting/PostView/Position/PositionMandateContent.cfm?mission=#url.mission#&mandate=#url.mandate#&dte=#url.dte#"
+		link            = "#SESSION.root#/Staffing/Reporting/PostView/Position/PositionMandateContent.cfm?systemfunctionid=#url.systemfunctionid#&mission=#url.mission#&mandate=#url.mandate#&dte=#url.dte#"
 	    html            = "No"		
 		datasource      = "AppsEmployee"
 		listquery       = "#myquery#"

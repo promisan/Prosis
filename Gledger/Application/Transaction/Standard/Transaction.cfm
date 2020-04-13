@@ -309,6 +309,8 @@ function togglebox(val) {
 			     
 					   <cfoutput>	
 					   
+					   <cfparam name="url.glaccount" default="">
+					   
 					   <cfquery name="ContraAccount"
 						datasource="AppsLedger" 
 						username="#SESSION.login#" 
@@ -323,8 +325,7 @@ function togglebox(val) {
 					   <input class="hide" type="hidden" id="processaccount" value="process" onClick="setline()">	
 					   
 					   <TR> 
-					   
-					  	   					   						
+					 						
 					  
 					   <cfif ContraAccount.recordcount eq "0" and HeaderSelect.contraGLAccount eq "">
 					   					   					   

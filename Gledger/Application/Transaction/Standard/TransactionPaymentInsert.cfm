@@ -92,7 +92,7 @@ password="#SESSION.dbpw#">
 		<!--- offset advances --->
 		<!--- --------------- --->
 		
-		<cfif ReferenceId neq "">
+		<cfif ReferenceId neq "" or ReferenceNo neq "">
 		
 		    <!--- determine if we have an advance recorded for this PO order based on the invoice->PO association  
 			                                or 
@@ -102,16 +102,44 @@ password="#SESSION.dbpw#">
 			datasource="AppsLedger" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
-				SELECT   *,
-				         AmountDebit * ExchangeRate AS Advance
-				FROM     TransactionLine
-				WHERE    ReferenceNo IN (
-										SELECT    IP.PurchaseNo
-										FROM      Purchase.dbo.InvoicePurchase IP 
-										WHERE     IP.InvoiceId = '#ReferenceId#'
-										)			 
-				AND      TransactionSerialNo != '0'		
+			
+				<!--- 1/2 look for advance related to the ReferenceNo of the invoice of the accounting module --->
+			
+				SELECT   TL.TransactionCurrency, TL.Currency, TL.Reference, TH.ReferenceNo, TL.GLAccount, 
+				         AmountDebit * TL.ExchangeRate AS Advance
+				FROM     TransactionHeader AS TH INNER JOIN
+                         TransactionLine AS TL ON TH.Journal = TL.Journal AND TH.JournalSerialNo = TL.JournalSerialNo
+				WHERE    TH.ReferenceNo = '#ReferenceNo#' 
+				AND      TH.Journal IN (SELECT   Journal
+                                        FROM     Journal
+                                        WHERE    SystemJournal = 'Advance' 
+										AND      Mission = '#mission#') 
+				AND      TL.TransactionSerialNo != '0'
+				AND      ParentLineId is NULL		
+								
+				<cfif referenceId neq "">
+				
+				<!--- 2/2 look for advance related to the PO of the invoice PO module --->
+				
+				UNION
+				
+				SELECT   TL.TransactionCurrency, TL.Currency,  TL.Reference, TL.ReferenceNo, TL.GLAccount,
+				         AmountDebit * TL.ExchangeRate AS Advance
+				FROM     TransactionHeader AS TH INNER JOIN
+                         TransactionLine AS TL ON TH.Journal = TL.Journal AND TH.JournalSerialNo = TL.JournalSerialNo
+				WHERE    ReferenceNo IN ( SELECT    IP.PurchaseNo
+										  FROM      Purchase.dbo.InvoicePurchase IP 
+										  WHERE     IP.InvoiceId = '#ReferenceId#' )	
+				AND      TH.Journal IN (SELECT   Journal
+                                        FROM     Journal
+                                        WHERE    SystemJournal = 'Advance' 
+										AND      Mission      = '#mission#') 						  		 
+				AND      TransactionSerialNo != '0'						
 				AND      ParentLineId is NULL	
+				
+				
+				</cfif>				
+				
 			</cfquery>
 			
 			<cfif Advance.recordcount gte "1">
@@ -122,12 +150,16 @@ password="#SESSION.dbpw#">
 					    datasource="AppsLedger" 
 					    username="#SESSION.login#" 
 					    password="#SESSION.dbpw#">						
-					    SELECT sum(AmountCredit*ExchangeRate) as Total 
+					    SELECT SUM(AmountCredit*ExchangeRate) as Total 
 						FROM   TransactionLine
 						WHERE  ReferenceNo = '#Advance.ReferenceNo#'							
 						AND    GLAccount   = '#Advance.GLAccount#'		
+						AND    Journal IN (SELECT   Journal
+                                           FROM     Journal
+                                           WHERE    Mission      = '#mission#') 				
 						AND    ParentJournal         is not NULL
-						AND    ParentJournalSerialNo is not NULL													
+						AND    ParentJournalSerialNo is not NULL	
+																		
 						<!--- this is the transaction base --->
 				</cfquery>   
 				
@@ -137,7 +169,7 @@ password="#SESSION.dbpw#">
 				  <cfset val = val+Offsetted.Total>
 				</cfif>
 				
-				 <!--- determine how much is in the osset as it is selected in this run-time transaction --->
+				 <!--- determine how much is in offset as it is selected in this run-time transaction --->
 				
 				<cfquery name="OffsettedSelected" 
 					    datasource="AppsQuery" 
@@ -145,8 +177,8 @@ password="#SESSION.dbpw#">
 					    password="#SESSION.dbpw#">						
 					    SELECT SUM(AmountCredit*ExchangeRate) as Total 
 						FROM   #SESSION.acc#GLedgerLine_#client.sessionNo#
-						WHERE  ReferenceNo      = '#Advance.ReferenceNo#'	
-						AND    GLAccount        = '#Advance.GLAccount#'	
+						WHERE  ReferenceNo        = '#Advance.ReferenceNo#'	
+						AND    GLAccount          = '#Advance.GLAccount#'							
 						AND    ParentJournal         is not NULL
 						AND    ParentJournalSerialNo is not NULL														
 						<!--- this is the transaction base --->
@@ -167,14 +199,10 @@ password="#SESSION.dbpw#">
 					
 						<!--- advance currency = currency of the invoice --->
 									
-						<cfif amountOutstanding gte diff>
-											
-								<cfset offset = diff>
-								
-						<cfelse>
-												
-								<cfset offset = payment>
-						
+						<cfif amountOutstanding gte diff>											
+							<cfset offset = diff>								
+						<cfelse>												
+							<cfset offset = payment>						
 						</cfif>		
 					
 					<cfelse>
@@ -184,17 +212,13 @@ password="#SESSION.dbpw#">
 						<cf_exchangeRate CurrencyFrom="#Advance.TransactionCurrency#" CurrencyTo="#currency#">	
 					    <cfset adv = NumberFormat(diff/exc,'.__')>	
 				        			
-						<cfif amountOutstanding gte adv>
-					
-								<!--- offset in the currency of the advance --->
-								<cfset offset = advance.advance>
-								
-						<cfelse>
-						
-								<!--- offset in the currency of the advance --->
-								<cf_exchangeRate CurrencyFrom="#Currency#" CurrencyTo="#Advance.TransactionCurrency#">	
-								<cfset offset = payment/exc>
-						
+						<cfif amountOutstanding gte adv>					
+							<!--- offset in the currency of the advance --->
+							<cfset offset = advance.advance>								
+						<cfelse>						
+							<!--- offset in the currency of the advance --->
+							<cf_exchangeRate CurrencyFrom="#Currency#" CurrencyTo="#Advance.TransactionCurrency#">	
+							<cfset offset = payment/exc>						
 						</cfif>					
 							
 					</cfif>		

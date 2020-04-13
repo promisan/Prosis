@@ -55,9 +55,8 @@
 		if (wid > 800) {
 		  wid = 800
 		}
-		ColdFusion.Window.create('userdialog', 'User', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,center:true})    
-		ColdFusion.Window.show('userdialog') 				
-		ColdFusion.navigate('#SESSION.root#/System/Access/Lookup/UserSearch.cfm?Form=' + formname + '&id=' + id + '&id1=' + id1 + '&id2=' + id2 + '&id3=' + id3 + '&id4=' + id4,'userdialog') 	
+		ProsisUI.createWindow('userdialog', 'Select User', '',{x:100,y:100,height:document.body.clientHeight-90,width:wid,modal:true,center:true})    
+		ptoken.navigate('#SESSION.root#/System/Access/Lookup/UserSearch.cfm?Form=' + formname + '&id=' + id + '&id1=' + id1 + '&id2=' + id2 + '&id3=' + id3 + '&id4=' + id4,'userdialog') 	
 	
 	}
 		
@@ -95,14 +94,14 @@
 	  function commentstatus(last,id,ajaxid) {	       	  	    
         se = document.getElementById('communicatecomment_'+id)				
 		if (se) {					
-		ColdFusion.navigate('#SESSION.root#/tools/EntityAction/getCommentStatus.cfm?last='+last+'&objectid='+id+'&ajaxid='+ajaxid,'communicatecomment_'+id,null,workflowerrorhandler)	 		 									
+		ptoken.navigate('#SESSION.root#/tools/EntityAction/getCommentStatus.cfm?last='+last+'&objectid='+id+'&ajaxid='+ajaxid,'communicatecomment_'+id,null,workflowerrorhandler)	 		 									
 		}		
   }		
 	  
 	function commentreload(ajaxid) {	
 		var vId = ajaxid.replace(/-/gi, '');	 
 	  	_cf_loadingtexthtml="";
-	  	ColdFusion.navigate('#session.root#/Tools/EntityAction/Details/Comment/CommentListingContent.cfm?objectid='+ajaxid,'communicatecomment_'+vId)	
+	  	ptoken.navigate('#session.root#/Tools/EntityAction/Details/Comment/CommentListingContent.cfm?objectid='+ajaxid,'communicatecomment_'+vId)	
 	}  	   
 		
 	var isNN = (navigator.appName.indexOf("Netscape")!=-1);
@@ -339,28 +338,18 @@
   <!--- ------------------------------------------------ ---> 
   <!--- modified to open without a nasty dialog 6/5/2009 --->
   <!--- ------------------------------------------------ ---> 
-  function resetwf(id,ajaxid) {    
-	if (confirm("Do you want to initialize all the steps of the workflow ?")) {
-	   se = document.getElementById("newclass_"+id).value			   	  	   
-	   if (ajaxid == '') {
-	   ptoken.location('#SESSION.root#/Tools/EntityAction/ActionReset.cfm?ref=#loadlink#&objectid='+id+'&entityclassnew='+se) 	  
-	   } else {	   	 	 
-	   ptoken.navigate('#SESSION.root#/Tools/EntityAction/ActionReset.cfm?ref=#loadlink#&objectid='+id+'&entityclassnew='+se+'&ajaxid='+ajaxid,ajaxid) 	  
-	   }
-	   
-     } 
-  }	    
+  function resetwf(id,ajaxid,cls) {   
+      ProsisUI.createWindow('wfreset', 'Reset workflow', '',{x:100,y:100,height:300,width:600,modal:true,center:true})    
+	  ptoken.navigate('#SESSION.root#/Tools/EntityAction/Dialog/DialogReset.cfm?entityclass=' + cls + '&objectid=' + id + '&ajaxid=' + ajaxid,'wfreset') 	
+  }
   
-  function archivewf(id,ajaxid) {    
-	if (confirm("Do you want to archive this instance and create a new workflow ?")) {	   	   	  	   
+  function resetwfapply(id,ajaxid,mde,cls) {  
 	   if (ajaxid == '') {
-	   ptoken.location('#SESSION.root#/Tools/EntityAction/ActionReset.cfm?ref=#loadlink#&objectid='+id+'&archive=1') 	  
+	   ptoken.location('#SESSION.root#/Tools/EntityAction/ActionReset.cfm?archive='+mde+'&ref=#loadlink#&objectid='+id+'&entityclassnew='+cls) 	  
 	   } else {	   	 	 
-	   ptoken.navigate('#SESSION.root#/Tools/EntityAction/ActionReset.cfm?ref=#loadlink#&objectid='+id+'&archive=1&ajaxid='+ajaxid,ajaxid) 	  
-	   }
-	   
-     } 
-  }	      
+	   ptoken.navigate('#SESSION.root#/Tools/EntityAction/ActionReset.cfm?archive='+mde+'&ref=#loadlink#&objectid='+id+'&entityclassnew='+cls+'&ajaxid='+ajaxid,ajaxid) 	  
+	   }  
+  } 
   
   function resetgroup(id) {    
    if (confirm("Do you want to associate the flow to a different authorization group ?")) {	   

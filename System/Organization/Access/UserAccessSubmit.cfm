@@ -1,5 +1,4 @@
 
-
 <link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
 
 <cfparam name="Form.misrow" default="1">
@@ -734,16 +733,17 @@ password="#SESSION.dbpw#">
 
 	<!--- below is relevant from user profile edit --->
 	
-	<script language="JavaScript">	  
-	    parent.parent.refreshaccess('#url.acc#')
-		parent.parent.ProsisUI.closeWindow('myaccess',true)					
+	<script language="JavaScript">	  		
+	     parent.parent.refreshaccess('#url.acc#')
+		 parent.parent.ProsisUI.closeWindow('myaccess',true)					
 	</script>
 
 <cfelse>
 
-	<script language="JavaScript"> 	    
-	    parent.parent.history.go()	
-	    parent.parent.ProsisUI.closeWindow('myaccess',true)	    
+	<script language="JavaScript"> 	   
+		
+	     parent.parent.history.go()	
+	     parent.parent.ProsisUI.closeWindow('myaccess',true)	    
 	</script>
 
 </cfif>

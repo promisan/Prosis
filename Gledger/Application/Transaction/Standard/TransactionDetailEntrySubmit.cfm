@@ -225,6 +225,7 @@ password="#SESSION.dbpw#">
 
 <cfparam name="URL.entryreference"     default="">
 <cfparam name="URL.entryreferenceName" default="">
+<cfparam name="URL.entryreferenceno"   default="">
 
 <cfif Check.AccountClass eq "Result">
 	 
@@ -264,6 +265,7 @@ password="#SESSION.dbpw#">
 	   TransactionType,
 	   Reference, 
 	   ReferenceName,
+	   ReferenceNo,
 	   <cfif url.TransactionType eq "item">
 	   Warehouse,
 	   WarehouseItemNo,
@@ -317,6 +319,7 @@ password="#SESSION.dbpw#">
 	   '#URL.TransactionType#',
 	   '#URL.entryreference#',
 	   '#URL.entryreferenceName#',
+	   '#URL.entryreferenceNo#',
 	   <cfif url.TransactionType eq "item">
 	   '#url.Warehouse#',
 	   '#url.ItemNo#',

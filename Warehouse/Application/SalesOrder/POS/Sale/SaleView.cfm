@@ -64,7 +64,7 @@ password="#SESSION.dbpw#">
 			<cfset bck = "">
 	</cfif>
 	
-	<cfform id="saleform" name="saleform" style="width:100%;height:99%">
+	<cfform id="saleform" name="saleform" style="width:100%;height:98%">
 	
 	<table style="width:100%;height:100%" background="#bck#" onclick = "doHideSelectBox()">
 		

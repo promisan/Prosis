@@ -1,5 +1,6 @@
 
 <cfparam name="url.action" 	default="">
+<cfparam name="url.mission"	default="">
 <cfparam name="url.account" default="">
 <cfparam name="url.node" 	default="">
 <cfparam name="url.host" 	default="">
@@ -61,6 +62,9 @@
 		</cfif>
 		<cfif url.initial neq "" and url.end neq "">
 		AND		A.ActionTimeStamp BETWEEN #vInitialDate# AND #vEndDate#
+		</cfif>
+		<cfif url.mission neq "">
+		AND    A.Mission = '#url.mission#'
 		</cfif>
 		ORDER BY A.ActionTimeStamp DESC		
 		

@@ -1,6 +1,6 @@
 <head>
 	<cf_textareascript>
-	<cfajaximport tags="cfform,cfwindow,cfinput-autosuggest,cfdiv,cfinput-datefield">
+	<cfajaximport tags="cfform,cfwindow,cfinput-autosuggest,cfdiv">
 	<cf_ActionListingScript>
 	<cf_FileLibraryScript>
 	<cf_DetailsScript>
@@ -9,7 +9,6 @@
 </head>
 
 <table class="hide"><tr><td><cf_textarea name="FieldDocument" height="2" init="Yes"></cf_textarea></td></tr></table>
-
 
 <cfparam name="URL.Process" default="">
 <cfparam name="url.id"  default="{00000000-0000-0000-0000-000000000000}">
@@ -50,7 +49,6 @@
 	</cfif>	
 		
 </cfif>
-
 
 <script language="JavaScript">
 	
@@ -108,7 +106,7 @@
 
 <table width="100%" height="100%" cellspacing="0" cellpadding="0">
 	
-	<tr><td colspan="2" style="padding:20px">
+	<tr><td colspan="2" style="padding-left:15px;padding-right:15px;">
    	
 	<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
 		
@@ -124,18 +122,18 @@
 			
 	  <cfif ActionReferenceShow eq "1"> 
 				   
-		  <tr><td colspan="2" height="15" valign="top">
+		  <tr class="fixrow"><td colspan="2" valign="top">
 		
-		  <table width="99%" cellspacing="0" cellpadding="0" align="center">
+		  <table width="100%" cellspacing="0" cellpadding="0" align="center">
 			  
 		    <!--- Element 1b of 3 about --->	
 								   
-			    <tr class="labelmedium">
-			    <td class="labelmedium" height="34" width="24%" style="padding-left:10px">#Object.EntityDescription#:</td>
+			    <tr class="labelmedium line">
+			    <td height="34" width="24%" style="font-size:16px;padding-left:10px">#Object.EntityDescription#:</td>
 				<td>
 				<table width="100%">
-					<tr>
-					<td class="labelmedium">
+					<tr class="labelmedium">
+					<td style="font-size:16px">
 					#Object.ObjectReference# <cfif Object.ObjectReference2 neq "">(#Object.ObjectReference2#)</cfif>
 					</td>					
 					<td align="right">
@@ -155,9 +153,6 @@
 				</td>
 			   </tr>	
 			   
-			   <tr><td colspan="2" class="line"></td></tr>
-			   <tr><td height="6"></td></tr>
-			   	   
 		  </table>
 		  </td></tr> 	
 			  
