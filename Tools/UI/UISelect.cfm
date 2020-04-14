@@ -100,6 +100,9 @@
                 {
                 #attributes.onchange#
                 }
+
+
+                $('..k-dropdown-wrap.k-state-hover').css();
             </cfsavecontent>
 
             <cfset AjaxOnLoad("function(){#kDropDown#}")>

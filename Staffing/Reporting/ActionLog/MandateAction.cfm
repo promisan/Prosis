@@ -22,7 +22,7 @@
 	Key2Value       = "#url.mission#"				
 	Label           = "Yes">	
 	 
-<cf_screentop label="#lt_content#" html="Yes" jquery="Yes" layout="Webapp">	 
+<cf_screentop label="#url.mission# : #lt_content#" html="Yes" jquery="Yes" layout="Webapp">	 
 
 <cf_listingscript       mode="Regular">
 <cf_dialogstaffing>

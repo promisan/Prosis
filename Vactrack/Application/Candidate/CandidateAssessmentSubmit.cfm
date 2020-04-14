@@ -12,6 +12,15 @@
 		 WHERE  ObjectId = '#url.objectid#'
 </cfquery>
 
+<cfquery name="user" 
+     datasource="AppsSystem" 
+	 username="#SESSION.login#" 
+	 password="#SESSION.dbpw#">
+		 SELECT * 
+		 FROM   UserNames
+		 WHERE  Account = '#url.useraccount#'
+</cfquery>
+
 <cfif check.recordcount eq "1">
 	
 	<cfquery name="getReview" 
@@ -41,9 +50,9 @@
 			  VALUES ('#check.ObjectKeyValue1#',		  
 					  '#url.personNo#',							 
 					  '#url.actionCode#',
-					  '#SESSION.acc#',
-					  '#SESSION.last#',		  
-					  '#SESSION.first#')
+					  '#user.account#',
+					  '#user.lastname#',		  
+					  '#user.firstname#')
 		</cfquery>	
 	
 	</cfif>
@@ -58,7 +67,7 @@
 		 AND    PersonNo      = '#url.personno#'
 		 AND    ActionCode    = '#url.actionCode#'
 		 AND    Competenceid  = '#url.competenceid#'
-		 AND    OfficerUserid = '#session.acc#'  
+		 AND    OfficerUserid = '#user.account#'  
 	</cfquery>
 	
 	<cfif getAssessment.recordcount eq "1">
@@ -79,7 +88,7 @@
 			 AND    PersonNo        = '#url.personno#'
 			 AND    ActionCode      = '#url.actionCode#'
 			 AND    Competenceid    = '#url.competenceid#'
-			 AND    OfficerUserid   = '#session.acc#' 
+			 AND    OfficerUserid   = '#user.account#' 
 	     </cfquery>
 		
 	<cfelse>
@@ -108,9 +117,9 @@
 						  '#url.actionCode#',
 						  '#url.competenceid#',
 						  '#val#',
-						  '#SESSION.acc#',
-						  '#SESSION.last#',		  
-						  '#SESSION.first#')
+						  '#user.account#',
+						  '#user.lastname#',		  
+						  '#user.firstname#')
 			</cfquery>			
 		
 	 </cfif>

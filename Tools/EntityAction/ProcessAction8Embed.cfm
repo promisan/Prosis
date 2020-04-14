@@ -93,22 +93,21 @@ insurance dialog.
 --->
 
 	   <cfset showProcess = "1">
-	  
 	  	   	   
 	   <cfif embed.documentMode neq "Ajax">
 	  	  	   				   
-		  	<cfform onsubmit="return false" method= "POST" name= "formembed">				
+		  	<cfform onsubmit="return false" method= "POST" name= "formembed" style="height:99%">				
 			    		   	   		
-				<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+				<table style="height:100%;width:100%">
 				 	   		
 				   <!--- traditional form which can be submitted directly or as part of the submit process --->
 				  		 			 
 					  <tr><td id="submit_formembed" height="1"></td></tr>
 					 
 					  <tr>
-						<td colspan="2" valign="top">	
+						<td colspan="2" valign="top" style="height:100%">	
 						
-							<cfdiv id="dialog">
+							<cfdiv id="dialog" style="height:100%">
 									
 							     <cfset url.WParam = Action.ActionDialogParameter>
 								 <cfset tempvaraction = URL.ID>						 						 

@@ -37,8 +37,7 @@
 		    <cfset personNo    = Evaluate("FORM.PersonNo_" & #Rec#)>
 		    <cfset reviewId    = Evaluate("FORM.ReviewId_" & #Rec#)>
 														
-			<cfif status neq "" 
-			       	OR class neq "">
+			<cfif status neq "" OR class neq "">
 					
 				<cfset s = "1">	
 					
@@ -86,8 +85,8 @@
 						username="#SESSION.login#" 
 						password="#SESSION.dbpw#">
 							DELETE FROM Organization.dbo.OrganizationObject
-							WHERE ObjectId = '#Check.ObjectId#'
-							AND  Operational  = 1
+							WHERE  ObjectId = '#Check.ObjectId#'
+							AND    Operational  = 1
 						</cfquery>	
 									
 					</cfif>
@@ -99,8 +98,8 @@
 					password="#SESSION.dbpw#">
 						UPDATE DocumentCandidate
 						SET    EntityClass = '#class#'
-						WHERE  DocumentNo = '#Key1#'
-						  AND  PersonNo = '#PersonNo#'
+						WHERE  DocumentNo  = '#Key1#'
+						  AND  PersonNo    = '#PersonNo#'
 					</cfquery>	
 								
 				</cfif>
