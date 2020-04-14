@@ -1,6 +1,8 @@
 
 <!--- standard transaction view --->
 
+<cf_systemscript>
+
 <cfparam name="url.embed"   default="0">
 <cfparam name="url.id"      default="">
 <cfparam name="url.role"    default="">
