@@ -230,9 +230,9 @@
 		w = #CLIENT.width# - 80;
 	    h = #CLIENT.height# - 70;	
 						
-		if (ajaxid == "" || pmde == "0" || pmde == "2" || pmde == "3" || pmde == "4")) {	
+		if (ajaxid == "" || pmde == "0" || pmde == "2" || pmde == "3" || pmde == "4") {	
 			
-			if (pmde == "3") ||(pmde == "4") {				   
+			if (pmde == "3" || pmde == "4") {				   
 			ptoken.open("#SESSION.root#/Tools/EntityAction/ProcessAction.cfm?windowmode=window&ajaxid="+ajaxid+"&process="+allow+"&id="+id+"&myentity=#url.myclentity#", "_blank"); 					
 			} else {
 			ptoken.open("#SESSION.root#/Tools/EntityAction/ProcessAction.cfm?windowmode=window&ajaxid="+ajaxid+"&process="+allow+"&id="+id+"&myentity=#url.myclentity#", "_blank", "left=30, top=30, width=" + w + ", height= " + h + ", toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes"); 								
