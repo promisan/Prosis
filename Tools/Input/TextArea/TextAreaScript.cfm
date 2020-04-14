@@ -155,7 +155,20 @@
 						   		var myeditor = CKEDITOR.inline(this.id, {
 									customConfig: '#SESSION.root#/Scripts/TextArea/CK/prosis_config.js'
 								} );							
-					   }		
+					   }
+					   else if (document.getElementById(this.id+'_toolbar').value.toLowerCase()=="mini")
+						{
+
+
+								if (document.getElementById(this.id+'_expand').value.toLowerCase()=="no")
+									var myeditor = CKEDITOR.inline(this.id, {
+										customConfig: '#SESSION.root#/Scripts/TextArea/CK/prosis_mini_config_ne.js'
+									} );
+								else
+									var myeditor = CKEDITOR.inline(this.id, {
+										customConfig: '#SESSION.root#/Scripts/TextArea/CK/prosis_mini_config.js'
+									} );
+						}
 					   else
 					   {
 					   		if (document.getElementById(this.id+'_expand').value.toLowerCase()=="no")
@@ -188,7 +201,19 @@
 										customConfig: '#SESSION.root#/Scripts/TextArea/CK/prosis_config.js'
 									} );
 								
-						   } else {
+						   }
+							else if (document.getElementById(this.id+'_toolbar').value.toLowerCase()=="mini")
+							{
+									if (document.getElementById(this.id+'_expand').value.toLowerCase()=="no")
+									var myeditor = CKEDITOR.replace(this.id, {
+										customConfig: '#SESSION.root#/Scripts/TextArea/CK/prosis_mini_config_ne.js'
+									} );
+									else
+									var myeditor = CKEDITOR.replace(this.id, {
+										customConfig: '#SESSION.root#/Scripts/TextArea/CK/prosis_mini_config.js'
+									} );
+						   }
+						   else {
 						   		if (document.getElementById(this.id+'_expand').value.toLowerCase()=="no")
 									var myeditor = CKEDITOR.replace(this.id, {
 										customConfig: '#SESSION.root#/Scripts/TextArea/CK/prosis_basic_config_ne.js'

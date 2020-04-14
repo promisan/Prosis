@@ -201,7 +201,7 @@ function del(jrn,ser) {
 <cf_ActionListingScript>
 <cf_CalendarScript>
 
-<cfajaximport tags="cfform,cfwindow">
+<cfajaximport tags="cfform">
 
 <cfparam name="URL.Show"          default="Show">
 <cfparam name="URL.Journal"         type="string" default="">
@@ -333,9 +333,7 @@ password="#SESSION.dbpw#">
 
 </cfif>
 
-
 </cfoutput>
-
 
 <cfquery name="Object" 
 datasource="AppsOrganization" 

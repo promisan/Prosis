@@ -1,4 +1,4 @@
-<cfparam name="attributes.style" 		default="metro"> <!--- possible values: silver, flat --->
+<cfparam name="attributes.style" 		default="default-v2"> <!--- possible values: silver, flat --->
 <cfparam name="attributes.gadget" 		default="all"> <!--- possible values: silver, flat --->
 <cfparam name="attributes.jquery" 		default="no"> <!--- possible values: silver, flat --->
 <cfparam name="attributes.treeTemplate"	default="no"> <!--- possible values: silver, flat --->

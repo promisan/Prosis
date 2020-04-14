@@ -115,13 +115,13 @@ password="#SESSION.dbpw#">
 	    <TR class="line labelmedium">
 		   
 		   <td></td>
-		   <td height="20" style="padding-left:5px"><cf_tl id="Code"></td>		  
-		   <td width="50%"><cf_tl id="Description"></td>
-		   <td width="40">S</td>
-		   <td width="10%"><cf_tl id="Class"></td>
-		   <td><cf_UIToolTip tooltip="Uses Tabbed form and presents the action dialog as modal dialog"><cf_tl id="Dialog"></cf_UIToolTip></td>
-		   <td width="40" align="center"><cf_UIToolTip tooltip="Allow Object Owner to grant access to users for this step on the object level">Fly.</cf_UIToolTip></td>
-		   <td width="40" align="center"><cf_UIToolTip tooltip="Enabled for embediding in new worflows">Op.</cf_UIToolTip></td>
+		   <td style="padding-left:4px" height="20" style="padding-left:5px"><cf_tl id="Code"></td>		  
+		   <td style="padding-left:4px" width="50%"><cf_tl id="Description"></td>
+		   <td style="padding-left:4px" width="40">S</td>
+		   <td style="padding-left:4px" width="10%"><cf_tl id="Class"></td>
+		   <td style="padding-left:8px"><cf_UIToolTip tooltip="Uses Tabbed form and presents the action dialog as modal dialog"><cf_tl id="Dialog"></cf_UIToolTip></td>
+		   <td style="padding-left:4px" width="40" align="center"><cf_UIToolTip tooltip="Allow Object Owner to grant access to users for this step on the object level">Fly.</cf_UIToolTip></td>
+		   <td style="padding-left:4px" width="40" align="center"><cf_UIToolTip tooltip="Enabled for embediding in new worflows">Op.</cf_UIToolTip></td>
 		   <td align="right" style="padding-right:10px"  colspan="4">
 	         
 			 <cfoutput>			 
@@ -144,7 +144,7 @@ password="#SESSION.dbpw#">
 				<td>-</td>
 				<td>
 				<cfinput type="Text" value="" name="ActionCode" 
-				   message="You must enter a unique action code" required="Yes" size="1" maxlength="4" class="regularxl">
+				   message="You must enter a unique action code" required="Yes" size="1" maxlength="4" class="regularxl" style="border:0px;border-right:1px solid silver;border-left:1px solid silver">
 				</td></tr>
 				</table> 
 	        </td>
@@ -162,7 +162,7 @@ password="#SESSION.dbpw#">
 					Message         = "Please enter a description"
 					MaxLength       = "80"
 					Size            = "40"
-					style           = "width:99%"
+					style           = "width:99%;border:0px;border-left:1px solid silver"
 					Class           = "regularxl">					
 					
 			</td>
@@ -174,7 +174,7 @@ password="#SESSION.dbpw#">
 					 size="1" 					
 					 maxlength="2" 
 					 class="regularxl" 
-					 style="text-align:center;width:25;width:99%" 
+					 style="text-align:center;width:25;width:99%;border:0px;border-right:1px solid silver;border-left:1px solid silver" 
 					 validate="integer" 
 					 visible="Yes" 
 					 enabled="Yes">
@@ -183,7 +183,7 @@ password="#SESSION.dbpw#">
 			
 			<td style="padding-left:3px">
 						 
-				<select name="ActionType" id="ActionType" class="regularxl" style="width:99%">
+				<select name="ActionType" id="ActionType" class="regularxl" style="width:99%;border:0px;border-right:1px solid silver;border-left:1px solid silver">
 				<cfif Check.recordcount eq "0" and Entity.EnableCreate eq "1">
 				<option value="Create">Create</option>
 				</cfif>
@@ -193,11 +193,12 @@ password="#SESSION.dbpw#">
 			</td>
 			
 			<td align="center" style="padding-left:3px">
-				<select name="ProcessMode" id="ProcessMode" class="regularxl" style="width:99%">				
-					<option value="0">Single Dialog</option>									
+				<select name="ProcessMode" id="ProcessMode" class="regularxl" style="width:99%;border:0px;border-right:1px solid silver;border-left:1px solid silver">				
+					<option value="0">Single Dialog (legacy)</option>									
 					<option value="2">Window</option>		
-					<option value="3">Browser Tab</option>			
-					<option value="1">Modal Dialog (deprecated, IE only)</option>
+					<option value="3">Browser Tab</option>		
+					<option value="4">Browser Tab with right panel</option>		
+					<option value="1">Modal Dialog (Kendo)</option>
 				</select>
 				
 			</td>
@@ -218,13 +219,9 @@ password="#SESSION.dbpw#">
 			
 			<cfif parent.recordcount gt "0">	
 			
-			<tr bgcolor="f9f9f9"><td></td>
-			
-			<td></td>
-			<td colspan="9" height="24" class="labelmedium">
-			
-			    Parent:
-			    <select name="ParentCode" id="ParentCode" class="regularxl">
+			<tr><td></td><td style="padding-left:8px;height:30px;" class="labelmedium">Parent:</td>
+			    <td colspan="9" height="24" class="labelmedium">
+			    <select name="ParentCode" id="ParentCode" class="regularxl" style="border:0px">
 			       <cfoutput query="Parent">
 				   <option value="#Code#">#Code#</option>
 				   </cfoutput>
@@ -249,7 +246,7 @@ password="#SESSION.dbpw#">
 		
 		    <input type="hidden" name="ActionCode" id="ActionCode" value="<cfoutput>#par#</cfoutput>">
 												
-			<tr class="line" style="height:30px">				  
+			<tr class="line" style="padding:0px;height:30px">				  
 			   
 			   <td width="2"></td>
 			   <td class="labelit" height="26" style="padding-left:5px">#nm#</td>			  
@@ -266,31 +263,32 @@ password="#SESSION.dbpw#">
 						Message         = "Please enter a description"
 						MaxLength       = "80"
 						Size            = "40"
-						style           = "width:99%"
+						style           = "width:99%;border:0px;border-left:1px solid silver"
 						Class           = "regularxl">				
 
 	           </td>
 			   <td style="padding-left:3px">
-			      <cfinput type="Text" value="#ListingOrder#" style="text-align:center;height:25;width:30" name="ListingOrder" validate="integer" required="No" visible="Yes" enabled="Yes" size="1" maxlength="2" class="regularxl">
+			      <cfinput type="Text" value="#ListingOrder#" style="text-align:center;height:25;width:30;border:0px;border-right:1px solid silver;border-left:1px solid silver" name="ListingOrder" validate="integer" required="No" visible="Yes" enabled="Yes" size="1" maxlength="2" class="regularxl">
 			   </td>			   
 			   <td style="padding-left:3px">
 			    <cfif ActionType neq "Create">
-				<select name="ActionType" id="ActionType" class="regularxl" tyle="width:99%">
+				<select name="ActionType" id="ActionType" class="regularxl" tyle="width:99%;border:0px;border-right:1px solid silver;border-left:1px solid silver">
 				   <option value="Action" <cfif ActionType eq "Action">selected</cfif>>Action</option>
 				   <option value="Decision" <cfif ActionType eq "Decision">selected</cfif>>Decision</option>
 				</select>
 				<cfelse>
-				<select name="ActionType" id="ActionType" class="regularxl" tyle="width:99%">
+				<select name="ActionType" id="ActionType" class="regularxl" tyle="width:99%;border:0px;border-right:1px solid silver;border-left:1px solid silver">
 				   <option value="Action" <cfif ActionType eq "Create">selected</cfif>>Create</option>
 				</select>
 				</cfif>
 			   </td>
 			   <td align="center" style="padding-left:3px">
-			   	<select name="ProcessMode" id="ProcessMode" style="width:99%" class="regularxl">				
+			   	<select name="ProcessMode" id="ProcessMode" style="width:99%;border:0px;border-right:1px solid silver;border-left:1px solid silver" class="regularxl">				
 					<option value="0" <cfif "0" eq ProcessMode>selected</cfif>>Single Dialog</option>									
 					<option value="2" <cfif "2" eq ProcessMode>selected</cfif>>Window</option>						
-					<option value="3" <cfif "3" eq ProcessMode>selected</cfif>>Browser tab</option>					
-					<option value="1" <cfif "1" eq ProcessMode>selected</cfif>>Modal Dialog (IE11 only)</option>
+					<option value="3" <cfif "3" eq ProcessMode>selected</cfif>>Browser tab</option>			
+					<option value="4" <cfif "4" eq ProcessMode>selected</cfif>>Browser tab with right panel</option>				
+					<option value="1" <cfif "1" eq ProcessMode>selected</cfif>>Modal Dialog (Kendo)</option>
 				</select>			  
 			   </td>
 			   <td align="center" style="padding-left:3px">
@@ -307,9 +305,9 @@ password="#SESSION.dbpw#">
 			<cfif parent.recordcount gt "0">
 			
 			<tr><td></td>
-			    <td class="labelit">Parent:</td>
+			    <td style="padding-left:8px;height;30px" class="labelmedium">Parent:</td>
 			    <td>
-			    <select name="ParentCode" id="ParentCode" class="regularxl">
+			    <select name="ParentCode" id="ParentCode" class="regularxl" style="border:0px">
 			       <cfloop query="Parent">
 				   <option value="#Code#" <cfif #Code# eq "#par#">selected</cfif>>#Code#</option>
 				   </cfloop>
@@ -321,17 +319,18 @@ password="#SESSION.dbpw#">
 								
 		<cfelse>		
 					
-			<TR class="navigation_row line labelmedium" style="height:22px" bgcolor="<cfif ActionType eq 'Create'>ffffdf</cfif>">		   
+			<TR class="navigation_row line labelmedium" style="height:22px;padding:0px" bgcolor="<cfif ActionType eq 'Create'>ffffdf</cfif>">		   
 			   
 			   <td width="2"></td>
-			   <td style="padding-left:5px" height="20">#nm#</td>			  
+			   <td style="padding-left:5px">#nm#</td>			  
 			   <td style="padding-left:3px">#de#</td>
 			   <td>#ListingOrder#</td>
 			   <td><cfif ActionType eq "Create"><b><font color="6688aa"></cfif>#ActionType#</td>
 			   <td>
 				<cfif "0" eq ProcessMode>Window
 				<cfelseif ProcessMode eq "2">Tabbed&nbsp;Window
-				<cfelseif ProcessMode eq "3">Browser tab
+				<cfelseif ProcessMode eq "3">Browser&nbsp;tab
+				<cfelseif ProcessMode eq "4">Browser&nbsp;panel&nbsp;tab
 				<cfelse>Tabbed&nbsp;Modal
 				</cfif>
 			   </td>
@@ -340,7 +339,7 @@ password="#SESSION.dbpw#">
 			   <td align="center" style="padding-top:1px">				   	   
 			     <cf_img icon="edit" navigation="Yes" onclick="#ajaxLink('ActionRecords.cfm?EntityCode=#URL.EntityCode#&ID2=#nm#&search=#url.search#')#">	   											 
 			   </td>
-			   <td align="center" style="padding-top:3px;padding-left:2px;padding-right:2px">
+			   <td align="center" style="padding-left:2px;padding-right:2px">
 			
 				    <cfif Used eq "">	
 					

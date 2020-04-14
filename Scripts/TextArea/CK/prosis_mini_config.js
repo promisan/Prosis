@@ -9,7 +9,7 @@ CKEDITOR.editorConfig = function( config ) {
 
 	// Toolbar configuration generated automatically by the editor based on config.toolbarGroups.
 	config.toolbar = [
-		{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline','FontSize','TextColor','NumberedList', 'BulletedList' ] },
+		{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Underline','FontSize','TextColor','NumberedList', 'BulletedList' ] },
 		{ name: 'tools', items: [ 'Maximize' ] }
 	];
 

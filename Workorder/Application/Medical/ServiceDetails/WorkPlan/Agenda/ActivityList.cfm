@@ -423,11 +423,12 @@
  
  <cfsavecontent variable="vTheMainContent">
 
-	<table style="min-width:500" border="0" width="99%" height="100%">
+	<table style="min-width:500;height:99.9%;width:99%" border="0">
 
-	<tr><td valign="top" style="padding-left:6px;padding-right:6px">
+	<tr>
+	<td valign="top" style="padding-left:6px;padding-right:6px">
 
-	<table width="100%" height="100%" cellspacing="0" cellpadding="0" class="navigation_table">
+	<table width="100%" height="99.9%" class="navigation_table">
 
 	<tr style="height:20px">	
 				
@@ -542,8 +543,7 @@
 					
 					</cfif>
 						
-					<td>
-											
+					<td>											
 												
 						<cfset vPositionsArray = "[]">							
 						<cfif Position.recordcount gt 0>			
@@ -561,6 +561,7 @@
 							height		= "40px"
 							width		= "36px"
 							onclick		= "showPrintableAgenda('#url.mission#', '#url.orgunit#', '#getSchedule.Code#', '#dateformat(url.selecteddate,client.dateSQL)#', #vPositionsArray#);">
+							
 					</td>
 					
 					<td style="padding-left:7px">
@@ -998,7 +999,7 @@
 			</td></tr>
 			
 			<tr>
-			<td id="currentcustomer" colspan="5" style="padding-top:10px;padding-left:10px;border:1px solid gray">
+			<td id="currentcustomer" colspan="5" style="padding-top:5px;padding-left:10px;border:1px solid gray">
 			
 				<form name="scheduleform" id="scheduleform">
 			
@@ -1167,7 +1168,6 @@
 	
 	</cfif>
 	
-
 	<!--- --------------------------------------------------------------------------------- --->
 
 	<cfset ajaxonload("doHighlight")>
