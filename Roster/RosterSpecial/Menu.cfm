@@ -197,8 +197,7 @@ password="#SESSION.dbpw#">
 				
 		</cfquery>
 	
-	</cfif>
-	
+	</cfif>	
 			
 		 <tr class="line"><td colspan="6" style="padding-left:2px;height:38px;font-size:25px" class="labelmedium">
 		 
@@ -217,9 +216,7 @@ password="#SESSION.dbpw#">
 		   		
 			
 	  <cfif Check.recordcount gte "1">
-			
-		   <tr><td>
-		   <table width="100%" cellspacing="0" cellpadding="0">	  
+					  
 		   <cfset row = 0>
 		   <cfoutput query="Check">
 		  
@@ -241,8 +238,7 @@ password="#SESSION.dbpw#">
 			    </cfif>	 
 		         
 		    </cfoutput>
-			</table>	
-			</td></tr>  
+			
 			
 		<cfelse>
 			 			

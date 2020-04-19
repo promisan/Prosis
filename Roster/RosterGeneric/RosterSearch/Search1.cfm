@@ -185,8 +185,8 @@ password="#SESSION.dbpw#">
 			 <table width="100%" cellspacing="0" cellpadding="0">
 			 <tr>
 					 
-			 	<cfset ht = "48">
-				<cfset wd = "48">
+			 	<cfset ht = "64">
+				<cfset wd = "64">
 				
 				<cfset tabNo = 0>
 				
@@ -214,7 +214,7 @@ password="#SESSION.dbpw#">
 					<cfset tabNo = tabNo + 1>
 								 		
 					<cf_menutab item       = "#tabNo#" 
-					            iconsrc    = "Logos/User/UserGroup.png" 
+					            iconsrc    = "Logos/Roster/Search-Roster.png" 
 								iconwidth  = "#wd#" 
 								iconheight = "#ht#" 
 								class      = "regular"

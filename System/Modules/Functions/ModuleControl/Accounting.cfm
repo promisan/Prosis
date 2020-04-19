@@ -15,7 +15,66 @@
    FunctionIcon    = "Folder"
    MenuClass       = "Mission"
    ScriptName      = "financials"
-   AccessUserGroup = "0">   
+   AccessUserGroup = "0">  
+   
+<!--- journal listing --->  
+
+<cf_ModuleInsertSubmit
+   SystemModule      = "Accounting" 
+   FunctionClass     = "Inquiry"
+   FunctionName      = "Staff Advances" 
+   MenuClass         = "Journal"
+   MenuOrder         = "1"
+   MainMenuItem      = "0"
+   FunctionMemo      = "Inquiry Staff advances"
+   FunctionDirectory = "GLedger/Inquiry/"
+   FunctionPath      = "Advance/ListingEmployee.cfm"> 
+   
+<cf_ModuleInsertSubmit
+   SystemModule      = "Accounting" 
+   FunctionClass     = "Inquiry"
+   FunctionName      = "Vendor Advances" 
+   MenuClass         = "Journal"
+   MenuOrder         = "1"
+   MainMenuItem      = "0"
+   FunctionMemo      = "Inquiry Vendor advances"
+   FunctionDirectory = "GLedger/Inquiry/"
+   FunctionPath      = "Advance/ListingVendor.cfm">    
+   
+<cf_ModuleInsertSubmit
+   SystemModule      = "Accounting" 
+   FunctionClass     = "Inquiry"
+   FunctionName      = "Checks Issued" 
+   MenuClass         = "Journal"
+   MenuOrder         = "2"
+   MainMenuItem      = "0"
+   FunctionMemo      = "Inquiry Checks issued"
+   FunctionDirectory = "GLedger/Inquiry/"
+   FunctionPath      = "Checks/CheckIssued.cfm">    
+    
+ <cf_ModuleInsertSubmit
+   SystemModule      = "Accounting" 
+   FunctionClass     = "Inquiry"
+   FunctionName      = "Purchases" 
+   MenuClass         = "Journal"
+   MenuOrder         = "3"
+   MainMenuItem      = "0"
+   FunctionMemo      = "Inquiry Purchases"
+   FunctionDirectory = "GLedger/Inquiry/"
+   FunctionPath      = "Purchase/PurchaseBook.cfm">    
+   
+<cf_ModuleInsertSubmit
+   SystemModule      = "Accounting" 
+   FunctionClass     = "Inquiry"
+   FunctionName      = "Interoffice transactions" 
+   MenuClass         = "Journal"
+   MenuOrder         = "3"
+   MainMenuItem      = "0"
+   FunctionMemo      = "Inquiry Interoffice transaction"
+   FunctionDirectory = "GLedger/Inquiry/"
+   FunctionPath      = "Interoffice/InterOffice.cfm">      
+   
+<!--- --------------- --->       
    
 <cf_ModuleInsertSubmit
    SystemModule      = "Accounting" 

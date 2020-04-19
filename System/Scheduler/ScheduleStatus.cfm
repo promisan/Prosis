@@ -68,6 +68,7 @@
 			    <td>
 			    <img src="#client.VirtualDir#/Images/light_red3.gif"
 			     border="0"
+				 height="18"
 				 alt="Enable"
 				 onClick="toggle('#URL.Id#')"
 				 align="absmiddle"
@@ -96,6 +97,7 @@
 				     <img src="#client.virtualdir#/Images/light_green2.gif"
 				     border="0"
 					 alt="Disable"
+					 height="18"
 					 onClick="toggle('#URL.Id#')"
 					 align="absmiddle"
 				     style="cursor: pointer;">
@@ -111,10 +113,8 @@
 								 
 				 <td id="del#url.id#" style="padding-left:4px;padding-top:2px">
 				 
-					<cfif schedule.ScheduleClass eq "Custom" or (SESSION.acc eq Schedule.OfficerUserid or SESSION.isAdministrator eq "Yes")>
-						
-						<cf_img icon="delete" onclick="ColdFusion.navigate('ScheduleApply.cfm?action=delete&id=#url.id#','del#url.id#')">
-
+					<cfif schedule.ScheduleClass eq "Custom" or (SESSION.acc eq Schedule.OfficerUserid or SESSION.isAdministrator eq "Yes")>						
+						<cf_img icon="delete" onclick="ptoken.navigate('ScheduleApply.cfm?action=delete&id=#url.id#','del#url.id#')">
 					</cfif>
 				 
 				 </td>
@@ -127,7 +127,7 @@
 		<table width="100%" cellspacing="0" cellpadding="0"><tr>
 			 <td id="del#url.id#" style="padding-left:4px;padding-top:3px">
 				<cf_img icon="delete"
-				 onclick="ColdFusion.navigate('ScheduleApply.cfm?action=delete&id=#url.id#','del#url.id#')">						
+				 onclick="ptoken.navigate('ScheduleApply.cfm?action=delete&id=#url.id#','del#url.id#')">						
 			</td>
 			
 		</table>				

@@ -1,4 +1,6 @@
 
+
+
 <cfset Criteria = ''>
 
 <cf_divscroll style="height:99%">
@@ -31,7 +33,7 @@
 			<cfelse>
 			<td align="center" height="40">
 			<cfoutput>
-				<button onClick="javascript:batch('manual')" style="width:170" class="button10g" ><font face="Calibri" size="3">Run #dateFormat(now(), "dd MMM")#</font></button>
+				<button onClick="javascript:batch('backoffice')" style="width:170" class="button10g" ><font face="Calibri" size="3">Run #dateFormat(now(), "dd MMM")#</font></button>
 			</cfoutput>
 			</td>	
 			</cfif>		
@@ -40,7 +42,7 @@
 		</cfoutput>
 	  
 	    <tr class="labelmedium" style="height:35px">
-           <td><a href="javascript:refreshTree()"><cf_tl id="Refresh Log"></a>&nbsp;|&nbsp;<a title="All Reports are prepared but are not distributed by Mail" href="javascript:batch('trial')">Test run</a></td>
+           <td><a href="javascript:refreshTree()">Refresh</a>&nbsp;|&nbsp;<a title="All Reports are prepared but are not distributed by Mail" href="javascript:batch('trial')">Test run</a></td>
         </tr>
 			
 	   	  
@@ -64,4 +66,5 @@
 </table>
 
 </cf_divscroll>
+
 

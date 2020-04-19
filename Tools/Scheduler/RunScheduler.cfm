@@ -23,7 +23,7 @@
 	<cf_assignId>	
 	<cfset schedulelogid = rowguid>
 	
-<cfelseif url.mode eq "Trial">
+<cfelseif url.mode eq "Manual">
 
 	<cfquery name="Template"
 	datasource="AppsSystem" 
@@ -51,17 +51,18 @@
 	
 </cfif>	
 
+
 <cfoutput>
 
-<cfif url.mode eq "Trial">
+<cfif url.mode eq "Manual">
 
 		<cfquery name="Insert"
 			datasource="AppsSystem" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
 			    INSERT INTO ScheduleLog
-				       (ScheduleId, ScheduleRunId)
-				VALUES ('#Template.scheduleId#','#schedulelogid#') 
+				       (ScheduleId, ScheduleRunId,ScheduleMode)
+				VALUES ('#Template.scheduleId#','#schedulelogid#','Manual') 
 		</cfquery>
 	
 		<cfset runId = schedulelogid>
@@ -73,7 +74,7 @@
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
 			    UPDATE ScheduleLog
-				SET    ProcessEnd = getDate(),
+				SET    ProcessEnd       = getDate(),
 				       NodeIP           = '#CGI.Remote_Addr#', 
 					   ActionStatus     = '1',				  
 					   OfficerUserId    = '#SESSION.acc#' 
@@ -98,8 +99,8 @@
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
 			    INSERT INTO ScheduleLog
-				       (ScheduleId, ScheduleRunId)
-				VALUES ('#Template.scheduleId#','#schedulelogid#') 
+				       (ScheduleId, ScheduleRunId,ScheduleMode)
+				VALUES ('#Template.scheduleId#','#schedulelogid#','#url.mode#') 
 			</cfquery>
 		
 		</cfif>
@@ -251,7 +252,7 @@
 
 </cfoutput>
 
-<table><tr<<td>Script completed !</td></table>
+<table><tr class="labelmedium"><td style="padding-left:10px;padding-right:10px">Batch execution completed !</td></table>
 
 
 

@@ -314,7 +314,7 @@
 				<cfselect name = "#CriteriaName#" 
 				selected       = "#DefaultValue#"
 		    	size           = "1" 
-				class          = "#cl# regularxl"
+				class          = "#cl# regularXXL"
 				id             = "#fldid#"
 				multiple       = "No"
 				message        = "#Error#" 
@@ -338,7 +338,7 @@
 			<cfselect name = "#CriteriaName#" 
 				selected       = "#DefaultValue#"
 		    	size           = "1" 
-				class          = "#cl# regularxl"
+				class          = "#cl# regularXXL"
 				id             = "#fldid#"
 				multiple       = "No"
 				message        = "#Error#" 
@@ -420,7 +420,7 @@
 			   maxlength = "800"
 			   size      = "#sizeU#"
 			   style     = "border:1px solid silver;width: #SizeU*8#;"
-			   class     = "regularxl"
+			   class     = "regularXXL"
 			   readonly
 			   label     = "#CriteriaDescription#:">  								   
 			   
@@ -433,7 +433,7 @@
 			   maxlength  = "800"
 			   size       = "#sizeU#"
 			   style      = "border:1px solid silver;width: #SizeU*8#;"
-			   class      = "regularxl"
+			   class      = "regularXXL"
 			   readonly>  				 
 			 
 			 </cfif>  
@@ -722,7 +722,7 @@
 				        id      = "#CriteriaName#"
 				        size    = "#s#"
 				        multiple
-				        class   = "regularxl"
+				        class   = "regularXXL"
 				        style   = "height:#ht#;width:#SizeU*8#;">
 				
 						<cfloop query="query#CriteriaName#">

@@ -45,7 +45,7 @@
 	   class="radiol"
 	   name="actionstatus" 
 	   value="0"  <cfif Status eq "0">checked</cfif>
-       onClick="javascript:selectoption('d0','0');updateTextArea();ColdFusion.navigate('ProcessActionButton.cfm?wfmode=#wfmode#&PublishNo=#ActionPublishNo#&ActionCode=#ActionCode#&Method=Pending','processnow')">
+       onClick="javascript:selectoption('d0','0');updateTextArea();ptoken.navigate('ProcessActionButton.cfm?wfmode=#wfmode#&PublishNo=#ActionPublishNo#&ActionCode=#ActionCode#&Method=Pending','processnow')">
    </td>
     	
    <td id="d0"  class="labelmedium" style="cursor: pointer;padding:0 10px 0 0;" onclick="document.getElementById('r0').click()">
@@ -116,12 +116,13 @@
 				 ORDER BY P.ActionOrder 
 				 
 			   </cfquery>
-		           
-			   <cfif Revert.recordcount gte "1" and (TriggerActionType neq "Action")>
-			  	        
+			 		           
+			   <cfif Revert.recordcount gte "1" and TriggerActionType neq "Action">
+			   			  	        
 				   <td style="padding-left:8px">
+				  
 				   <input type="radio" style="cursor: pointer;" class="radiol" id="r1" name="actionstatus" value="1"  <cfif Status eq "1">checked</cfif>
-				   onClick="selectoption('d1','2N');updateTextArea();ColdFusion.navigate('ProcessActionButton.cfm?wfmode=#wfmode#&PublishNo=#ActionPublishNo#&ActionCode=#ActionCode#&Method=Revert','processnow')">
+				   onClick="selectoption('d1','2N');updateTextArea();ptoken.navigate('ProcessActionButton.cfm?wfmode=#wfmode#&PublishNo=#ActionPublishNo#&ActionCode=#ActionCode#&Method=Revert','processnow')">
 				   </td>
 				    	
 				   <td class="labelmedium" style="padding:0 10px 0 0;cursor: pointer;" id="d1" onclick="document.getElementById('r1').click()">
@@ -143,7 +144,7 @@
 					      
 					 <div class="#r#" id="d1b" style="padding-left:4px;padding-right:8px;position:relative;top:-4px;left:0;font-weight:normal;">
 					 
-					   <select style="width:240px;font-size:12px;" name="ActionCodeOnHold" id="ActionCodeOnHold" class="regularxl">
+					   <select style="width:240px;" name="ActionCodeOnHold" id="ActionCodeOnHold" class="regularxl">
 						<cfloop query="Revert">
 						  <option value="#Revert.ActionCode#" style="font-size:12px;"><cfif ActionCompleted neq "">#ActionCompleted#<cfelse>#ActionCode# #ActionDescription#</cfif></option>
 						</cfloop>
@@ -179,8 +180,8 @@
 			 AND    ActionPublishNo = '#ActionPublishNo#' 		 
 			 AND    Method          = 'Deny' 			 
 	  	   </cfquery>
-        	  		   
-	 		<cfif MethodEnabled.recordcount eq "1" or Methods.Recordcount eq "0">	   
+		          	  		   
+	 		<cfif MethodEnabled.recordcount eq "1" or len(Methods.MethodScript) lte "5">	   
 	   	      		      
 			<td style="padding-left:5px">
 
@@ -191,7 +192,7 @@
 					class="radiol"
 					value="2N" 
 					<cfif URL.Process neq "">disabled</cfif> <cfif Status eq "2N">checked</cfif>
-			        onClick="selectoption('d2n','2N');updateTextArea();ColdFusion.navigate('ProcessActionButton.cfm?wfmode=#wfmode#&PublishNo=#ActionPublishNo#&ActionCode=#ActionCode#&Method=Deny','processnow')">
+			        onClick="selectoption('d2n','2N');updateTextArea();ptoken.navigate('ProcessActionButton.cfm?wfmode=#wfmode#&PublishNo=#ActionPublishNo#&ActionCode=#ActionCode#&Method=Deny','processnow')">
 			</td>
 			        	
 			<td id="d2n" class="labelmedium" style="padding:0 10px 0 0;cursor: pointer;" onclick="document.getElementById('r2n').click()">
@@ -220,7 +221,7 @@
 			   class="radiol"
 		       style="cursor: pointer;" <cfif URL.Process neq "">disabled</cfif>  
 			   <cfif Status eq "2Y">checked</cfif>
-		       onClick="selectoption('d2y','2Y');updateTextArea();ColdFusion.navigate('ProcessActionButton.cfm?wfmode=#wfmode#&PublishNo=#ActionPublishNo#&ActionCode=#ActionCode#&Method=Submission','processnow')">
+		       onClick="selectoption('d2y','2Y');updateTextArea();ptoken.navigate('ProcessActionButton.cfm?wfmode=#wfmode#&PublishNo=#ActionPublishNo#&ActionCode=#ActionCode#&Method=Submission','processnow')">
 			   
 		   </td>
 		        	
@@ -243,7 +244,7 @@
       
    <cfif Action.ActionDateInput eq "1">
    
-	   <td class="labelmedium" style="padding-left:1px;padding-bottom:1px;padding-right:4px">on:</td>
+	   <td class="labelmedium" style="padding-left:1px;padding-bottom:1px;padding-right:4px"><cf_tl id="on">:</td>
 	   <td style="min-width:130px;">
 										
 				<cfif Action.ActionDateInput eq "">

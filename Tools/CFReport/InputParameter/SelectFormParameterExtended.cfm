@@ -94,7 +94,7 @@
 					<cfselect name="#CriteriaName#_#Name1#"
 						bindOnLoad="yes"										
 						multiple="#mul#"	
-						class="regularxl"
+						class="regularXXL"
 						style="height:#ht#;padding-right:10px;padding-right:10px"
 						size="#s#" 						
 						bind="cfc:service.Input.InputDropdown.DropdownSelect('#LookupDataSource#','#LookupTable#','#Name1#','#Sort1#','#Display1#','parent',{#CriteriaNameParent#},'','','','','#def#','#cond#','#Name1#','#codeInDisplay1#')"/>				
@@ -105,7 +105,7 @@
 						bindOnLoad="yes"										
 						multiple="#mul#"	
 						style="height:#ht#;padding-right:10px"
-						class="regularxl"
+						class="regularXXL"
 						size="#s#" 						
 						bind="cfc:service.Input.InputDropdown.DropdownSelect('#LookupDataSource#','#LookupTable#','#Name1#','#Sort1#','#Display1#','','','','','','','#def#','#cond#','#Name1#','#codeInDisplay1#')"/>				
 									
@@ -152,7 +152,7 @@
 				  	<cfselect name="#CriteriaName#"
 						bindOnLoad="yes"	
 						multiple="#mul#"	
-						class="regularxl"
+						class="regularXXL"
 						style="height:#ht#;padding-right:10px"
 						size="#s#" 						
 						bind="cfc:service.Input.InputDropdown.DropdownSelect('#LookupDataSource#','#LookupTable#','#Name2#','#Sort2#','#Display2#','parent',{#CriteriaNameParent#},'#Name1#',{#CriteriaName#_#Name1#},'','','#def#','#cond#','#LookupFieldValue#','#codeInDisplay2#')"/>				
@@ -163,7 +163,7 @@
 						bindOnLoad="yes"	
 						multiple="#mul#"	
 						style="height:#ht#;padding-right:10px"
-						class="regularxl"
+						class="regularXXL"
 						size="#s#" 									
 						bind="cfc:service.Input.InputDropdown.DropdownSelect('#LookupDataSource#','#LookupTable#','#Name2#','#Sort2#','#Display2#','','','#Name1#',{#CriteriaName#_#Name1#},'','','#def#','#cond#','#LookupFieldValue#','#codeInDisplay2#')"/>				
 												
@@ -210,7 +210,7 @@
 					 <cfselect name="#CriteriaName#_#Name2#"
      				     bindonload="yes"
 						 multiple="#mul#"
-						 class="regularxl"
+						 class="regularXXL"
 						 style="height:#ht#;padding-right:10px"
 						 size="#s#" 
 						 bind="cfc:service.Input.InputDropdown.DropdownSelect('#LookupDataSource#','#LookupTable#','#Name2#','#Sort2#','#Display2#','parent',{#CriteriaNameParent#},'#Name1#',{#CriteriaName#_#Name1#},'','','#def#','#cond#','#Name2#','#codeInDisplay2#')"/>				
@@ -220,7 +220,7 @@
 					  <cfselect name="#CriteriaName#_#Name2#"
 	       				 bindonload="yes"
 						 multiple="#mul#"
-						 class="regularxl"
+						 class="regularXXL"
 						 style="height:#ht#;padding-right:10px"
 						 size="#s#" 
 						 bind="cfc:service.Input.InputDropdown.DropdownSelect('#LookupDataSource#','#LookupTable#','#Name2#','#Sort2#','#Display2#','','','#Name1#',{#CriteriaName#_#Name1#},'','','#def#','#cond#','#name2#','#codeInDisplay2#')"/>				
@@ -267,7 +267,7 @@
 				 <cfselect name="#CriteriaName#"
 					 bindOnLoad="yes"
 					 multiple="#mul#"
-					 class="regularxl"
+					 class="regularXXL"
 					 style="height:#ht#;padding-right:10px"
 					 size="#s#" 
 					 bind="cfc:service.Input.InputDropdown.DropdownSelect('#LookupDataSource#','#LookupTable#','#Name3#','#Sort3#','#Display3#','parent',{#CriteriaNameParent#},'#Name1#',{#CriteriaName#_#Name1#},'#Name2#',{#CriteriaName#_#Name2#},'#def#','#cond#','#LookupFieldValue#','#codeInDisplay3#')"/>														
@@ -277,7 +277,7 @@
 				 <cfselect name="#CriteriaName#"
 					 bindOnLoad="yes"
 					 multiple="#mul#"
-					 class="regularxl"
+					 class="regularXXL"
 					 style="height:#ht#;padding-right:10px"
 					 size="#s#" 
 					 bind="cfc:service.Input.InputDropdown.DropdownSelect('#LookupDataSource#','#LookupTable#','#Name3#','#Sort3#','#Display3#','','','#Name1#',{#CriteriaName#_#Name1#},'#Name2#',{#CriteriaName#_#Name2#},'#def#','#cond#','#LookupFieldValue#','#codeInDisplay3#')"/>														

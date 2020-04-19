@@ -196,9 +196,9 @@
 	
 	<cf_divscroll>
 	
-	<table width="98%" align="center" class="navigation_table">
+	<table width="99%" class="navigation_table">
 	
-	<tr class="labelmedium line">
+	<tr class="labelmedium line fixrow">
 	    <TD height="30" align="left"></TD>
 	    <TD width="10" align="left"></TD>
 		<td width="10"></td>
@@ -246,10 +246,8 @@
 				
 		<tr class="navigation_row labelmedium <cfif scheduleMemo eq "">line</cfif>" id="lin#scheduleid#" style="height:22px">
 		
-		<td width="20"></td>
-	   	
-		<td width="10" align="center">#currentRow#.</td>
-		
+		<td width="20"></td>	   	
+		<td width="10" align="center">#currentRow#.</td>		
 		<td style="padding-left:5px" width="20" align="center" id="option#scheduleid#">
 				 
 		    <cfset url.id  = scheduleId>
@@ -399,8 +397,7 @@
 			<td></td>
 			<td style="padding-bottom:5px" colspan="10" id="detail#scheduleid#" align="center"></td>
 			<td></td>
-		</tr>
-				
+		</tr>				
 		
 	</CFOUTPUT>	
 	</CFOUTPUT>	
@@ -417,10 +414,10 @@
 
 <cfoutput>
 <tr style="height:10">
-<td colspan="3" id="verify" style="padding-right:6px" align="center" height="24" class="labelmedium">
+<td colspan="3" id="verify" style="padding-right:6px;font-size:16px" height="34" class="labelmedium">
   
    <img src="#client.virtualdir#/Images/finger.gif" alt="" border="0" align="absmiddle">
-    <a href="javascript:ColdFusion.navigate('ScheduleCheck.cfm','verify')">
+    <a href="javascript:ptoken.navigate('ScheduleCheck.cfm','verify')">
    <font color="gray">Verify registered schedules on server</font>
    </a>	
 </td>

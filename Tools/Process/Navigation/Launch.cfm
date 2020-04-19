@@ -46,27 +46,27 @@
 		datasource="#Alias#" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-		SELECT *
-		FROM #Object#Event C
-		WHERE #Object#Id = '#URL.Id#' 
+		SELECT   *
+		FROM     #Object#Event C
+		WHERE    #Object#Id = '#URL.Id#' 
 		ORDER BY EventDateEffective
 	</cfquery>
 	
 	<cfset event = "#Event.ClaimEventId#">
 	
 	<cfcatch>
-	 <cfset event = "">
+	     <cfset event = "">
 	</cfcatch>
 
 </cftry>
 
-
 <cfif Item.Recordcount eq "1">
 	
 	<cfoutput>
-	
-		
+			
 		<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+		<!--- get a token which is 10 seconds valid so the below template indeed passes 
+		      but not later unless it is the same user as  stored in the table --->
 		<cfset mid = oSecurity.gethash()/>
 
 		<!--- loading template --->		

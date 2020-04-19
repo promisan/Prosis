@@ -12,7 +12,7 @@ password="#SESSION.dbpw#">
 		
 <cf_ComparisonView 
     personNo="#url.PersonNo#" 
-	hideperson="Yes" 
+	hideperson="No" 
 	owner="#doc.owner#" 
 	layout="vertical">					
 		

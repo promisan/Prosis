@@ -35,12 +35,15 @@
 	password="#SESSION.dbpw#">
 	DELETE OrganizationObject
 	WHERE ObjectId IN (
-		SELECT ObjectId
-		FROM OrganizationObject O
-		WHERE     (EntityCode = 'VacCandidate') AND (NOT EXISTS
-        	                  (SELECT     'X' AS Expr1
-            	                FROM          Vacancy.dbo.DocumentCandidate
-                	            WHERE      (DocumentNo = O.ObjectKeyValue1) AND (PersonNo = O.ObjectKeyValue2))))
+		     SELECT ObjectId
+		     FROM   OrganizationObject O
+		     WHERE  EntityCode = 'VacCandidate' 
+			 AND    ObjectReference2 != 'Embedded workflow'
+			 AND    NOT EXISTS
+        	                (SELECT  'X' AS Expr1
+            	             FROM    Vacancy.dbo.DocumentCandidate
+                	         WHERE   DocumentNo = O.ObjectKeyValue1 
+							 AND     PersonNo = O.ObjectKeyValue2))
 </cfquery>			
 
 <cfquery name="Mission" 

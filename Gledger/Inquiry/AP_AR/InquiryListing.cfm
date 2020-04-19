@@ -208,7 +208,7 @@
 		annotation       = "GLTransaction"
 		drillmode        = "tab"
 		drillargument    = "920;1180;false;false"	
-		drilltemplate    = "Gledger/Application/Transaction/View/TransactionViewDetail.cfm?id="
+		drilltemplate    = "Gledger/Application/Transaction/View/TransactionView.cfm?id="
 		drillkey         = "TransactionId">
 		
 </td></tr></table>		

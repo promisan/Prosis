@@ -180,25 +180,23 @@ password="#SESSION.dbpw#">
 	
 		<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
 				
-		<tr><td height="20">
-			<cfinclude template="RosterViewLoopSubMenu.cfm">		
+		<tr><td height="20">		
+			<cfinclude template="RosterViewLoopSubMenu.cfm">				
 		</td></tr>
-		
-		<tr><td colspan="1" class="linedotted"></td></tr>
-		
+				
 		<tr>
 		
-		<td style="padding-left:9x;padding-right:9px" height="100%" valign="top">
+		<td style="padding-left:9x;padding-right:9px;height:100%" valign="top">		
 		
-		
-		<table height="100%" width="100%" class="formpadding" cellspacing="0" cellpadding="0">				
-	
+		<table style="height:100%;width:100%">
+				
 			<cf_menucontainer item="1" class="<cfif getBuckets.recordcount gte '1' and getPositions.recordcount eq '0'>regular<cfelse>hide</cfif>">						
 			
 					<cfinclude template="RosterViewLoopContent.cfm">	
 						 	
-			<cf_menucontainer>		
+			<cf_menucontainer>	
 			
+						
 			<cf_menucontainer item="2" class="hide">						
 							   
 				   <table width="100%"><tr><td>
@@ -258,7 +256,7 @@ password="#SESSION.dbpw#">
 				  </table>
 				 								 	
 			<cf_menucontainer>		
-			
+						
 			<cfif getBuckets.recordcount gte "1" or url.edition eq "all" or getPositions.recordcount eq "0">
 			
 				<cf_menucontainer item="3" class="hide"/>	

@@ -39,7 +39,7 @@
 				   tooltip="#vRelDateErrMess#"
 				   style="text-align: center;height:25;border:1px solid silver"
 			       maxlength="4"
-				   class="regularxl">
+				   class="regularXXL">
 			   
 			   </td>
 		   
@@ -72,7 +72,7 @@
 			   tooltip="#vRelDateErrMess#"
 			   style="text-align: center;height:25;border:1px solid silver"
 		       maxlength="4"
-			   class="regularxl">	
+			   class="regularXXL">	
 			   
 			   </td>
 		   		   
@@ -111,7 +111,7 @@
 					mask             = "false"
 					AllowBlank       = "#obd#"
 					style            = "text-align: center;font-size:14px;height:25;border:1px solid silver"		
-					class            = "regularxl">	
+					class            = "regularXXL">	
 			
 			</td>
 			
@@ -129,7 +129,7 @@
 						mask             = "false"
 						style            = "text-align: center;font-size:14px;height:25;border:1px solid silver"	
 						AllowBlank       = "#obd#"
-						class            = "regularxl">	
+						class            = "regularXXL">	
 										
 				    </td>
 			</cfif>

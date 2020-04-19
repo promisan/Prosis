@@ -1,4 +1,4 @@
-	
+
 <CF_DropTable dbName="AppsQuery"  tblName="#SESSION.acc#_ItemTransaction_item"> 
 	
 <cfoutput>

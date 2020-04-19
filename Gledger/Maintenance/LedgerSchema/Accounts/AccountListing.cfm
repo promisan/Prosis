@@ -209,17 +209,15 @@ function accounttoggle(mis,acc,act) {
 </td></tr>
 
 <tr><td colspan="2" class="line"></td></tr>	
-<tr><td height="4"></td></tr>
+
 <tr>
 <td colspan="2" style="border:0px solid silver" height="100%">
 
 <cf_divscroll id="divPrintContent">
 
-	<table width="99%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+	<table width="99%" class="navigation_table">
 		
-	  <tr><td height="4"></td></tr>
-	
-		<tr class="labelmedium line">
+		<tr class="labelmedium line fixrow">
 		    <td height="18" width="40"></td>
 			<td width="60"></td>
 		    <td width="8%"><cf_tl id="Code"></td>
@@ -234,13 +232,12 @@ function accounttoggle(mis,acc,act) {
 			<td width="4%" style="cursor: pointer;"><cf_UItooltip  tooltip="Enforce Program Entry"><cf_tl id="Prg"></cf_UItooltip></td>
 			<td width="4%" style="cursor: pointer;"><cf_UItooltip  tooltip="Tax Account"><cf_tl id="Tax"></cf_UItooltip></td>
 			<td width="4%" style="cursor: pointer;"><cf_UItooltip  tooltip="Stock"><cf_tl id="Stck"></cf_UItooltip></td>
-			<td width="7%" align="right" colspan="2" style="cursor: pointer;"><cf_UItooltip  tooltip="Used"><cf_tl id="Used"></cf_UItooltip></td>
-						
+			<td width="7%" align="right" colspan="2" style="cursor: pointer;"><cf_UItooltip  tooltip="Used"><cf_tl id="Used"></cf_UItooltip></td>						
 		</tr>	
 	
 	<cfoutput query="SearchResult" group="AccountParent">
 	
-	     <tr class="line clsSearchrow">
+	     <tr class="line clsSearchrow fixrow">
 		 	 <td style="display:none;" class="ccontent"><b>#AccountParent# #Parentdescription#</td>
 			 <td height="25" style="padding-left:4px;padding-top:2px" align="absmiddle">
 			 	<table>
@@ -260,7 +257,7 @@ function accounttoggle(mis,acc,act) {
 			 	
 	<cfoutput group="AccountGroup1">
 	   
-	     <tr class="line navigation_row clsSearchrow">
+	     <tr class="line navigation_row clsSearchrow labelmedium fixrow">
 		 <td style="display:none;" class="ccontent">#AccountGroup1# #GroupDescription#</td>
 	     <td></td>	
 	     <td colspan="1">
@@ -268,14 +265,14 @@ function accounttoggle(mis,acc,act) {
 			  <tr><td style="padding-top:1px;">
 		  	  	  <cf_img buttonClass="clsNoPrint" icon="add" onClick="add('#AccountGroup1#')"> 			
 				  </td>
-				  <td style="padding-left:4px;padding-top:0px;">		
+				  <td style="padding-left:4px;padding-top:2px;">		
 				  <cf_img buttonClass="clsNoPrint" icon="edit" onclick="grpedit('#AccountGroup1#');">
 				  </td>
 			   </tr>
 		     </table>
 		 </td>
-		 <td class="labelmedium" style="padding-left:6px">#AccountGroup1#</td>
-		 <td class="labelmedium" colspan="12" style="padding-left:4px"><a href="javascript:grpedit('#AccountGroup1#')">#GroupDescription#</a></td>
+		 <td style="padding-left:6px">#AccountGroup1#</td>
+		 <td colspan="12" style="padding-left:4px"><a href="javascript:grpedit('#AccountGroup1#')">#GroupDescription#</a></td>
 		 <td></td>
 		 </tr>
 		   

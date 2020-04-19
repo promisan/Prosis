@@ -47,11 +47,11 @@
 			
 			<table>
 			<tr>			
-			<td>
+			<td style="border-right:1px solid right">
 					
 			<cfif Batch.recordcount gte "1">
 			
-				<select name="journalbatchno" id="journalbatchno" style="font-size:15px;height:27px;font-weight:300" 
+				<select name="journalbatchno" id="journalbatchno" style="font-size:15px;height:27px;border:0px;" 
 				class="regularxl" onchange="reloadForm(page.value,document.getElementById('idstatus').value)">
 				<option value=""><cf_tl id="All Batch periods"></option>
 				<cfoutput query="Batch">
@@ -78,16 +78,16 @@
 					ORDER BY MONTH(T.TransactionDate)
 				</cfquery>
 			
-			<td>
+			<td style="border-right:1px solid right">
 			
 			<cfdiv bind="url:#session.root#/gledger/application/transaction/setMonth.cfm?journal=#url.journal#&period={period}">
 						
 			</td>
 			
-			<td>
+			<td style="border-right:1px solid right">
 			
 			<select name="period" id="period"
-			    size="1" style="font-size:15px;height:27px;"
+			    size="1" style="font-size:15px;height:27px;;border:0px"
 				class="regularxl"
 				onChange="reloadForm(page.value,document.getElementById('idstatus').value)">
 				<option value=""><cf_tl id="All"></option>
@@ -254,7 +254,7 @@
 		  <td align="right" style="padding-right:10px">
 		  
 			  <select name="group" id="group" 
-			         class="regularxl" 
+			         class="regularxl" style="border:0px;border-left:1px solid silver"
 					 onChange="reloadForm(document.getElementById('page').value,document.getElementById('idstatus').value)">
 					 
 				     <cfif url.journal eq "">
@@ -295,91 +295,29 @@
 		  </td>
 		  
 		</tr> 	
-					
 		
+		<tr>
 	
-	
-	
-		<td colspan="2" valign="top" style="height:10">
+		<td colspan="2" valign="top" style="height:10px;min-width:1200px">
 					
-			  <table width="98%" align="center" class="navigation_table">
-		
-				  <tr style="height:10px" class="labelmedium line">
+			  <table width="100%" align="center" class="navigation_table">			  
+					
+				<cfoutput>
+										  
+				<tr class="line labelmedium" style="background-color:e3e3e3">  
 				  
-				     <td style="min-width:70" align="left">
-				  	  				 
-					       <table>
-						   <tr>
-					 								
-							<!--- capture the screen result to allow for identical excel export --->
-																												   		    
-						    <cfinvoke component="Service.Analysis.CrossTab"  
-								  method      		= "ShowInquiry"					 		
-								  ButtonWidth 		= "90px" 
-								  ButtonHeight 		= "29px" 		
-								  buttonclass       = "td"				  		 					 							  					 					 					  
-								  buttonText  		= ".xls"						 
-								  reportPath  		= "GLedger\Application\Transaction\"
-								  SQLtemplate 		= "JournalListingExcel.cfm"
-								  querystring 		= "journal=#url.journal#"
-								  selectedId  		= "#preserveSingleQuotes(querystatement)#"
-								  dataSource  		= "appsQuery" 
-								  module     		= "Accounting"						  
-								  reportName  		= "Execution Report"
-								  table1Name  		= "Journal Transaction Document"		
-								  table2Name  		= "Journal Transaction Lines"						 		
-								  data        		= "1"
-								  ajax        		= "0"				 
-								  olap        		= "0" 
-								  excel       		= "1"> 	
-								  
-							</tr>
-							</table>	 	
-											
-				    </td>
-					
-					<td colspan="2" style="min-width:250"><cf_tl id="Reference"></td>
-					<td style="min-width:95"><cf_tl id="Batch"></TD>
-					<td style="min-width:95"><cf_tl id="Document"></TD>		
-					<td style="min-width:95"><cf_tl id="Series"></TD>
-					<td style="width:100%" colspan="2"><cf_tl id="Description"></TD>	
-					<td style="min-width:95"><cf_tl id="Posted"></TD>
-				    <td style="min-width:30" align="center"><cf_tl id="Curr"></TD>							
-					<cfif outst eq "1">			
-						<td style="min-width:120" align="right"><cf_tl id="Amount"></td>
-						<td style="min-width:120" align="right"><cf_tl id="Outstanding"></td>			
-						<cfset col = 9>			
-					<cfelse>			
-					    <td style="min-width:120" align="right"><cf_tl id="Document"></td>
-						<cfif journal.glaccount gte "1" and Journal.TransactionCategory neq "Memorial">
-							<td style="min-width:120" align="right"><cf_tl id="Debit"></td>
-							<td style="min-width:120" align="right"><cf_tl id="Credit"></td>
-							<cfset col = 11>
-						<cfelse>
-							<cfset col = 9>
-						</cfif>				
-					</cfif>				
-					<td><cf_space spaces="10"></td>								
-					</tr>
-					
-					<cfoutput>
-			
-				</tr>
-							  
-				<tr class="line labelmedium" style="background-color:f3f3f3">  
-				  
-				   <td colspan="10" height="24" style="font-size:14px;padding-left:20px"><cf_tl id="Journal totals">:</td> 				   
+				   <td colspan="10" height="24" style="width:100%;font-size:14px;padding-left:20px"><cf_tl id="Journal totals">:</td> 				   
 				   <cfif outst eq "1">			   	   				
-					   	<td align="right" class="clsSearchField" style="min-width:100px;padding-right:3px">#NumberFormat(getTotal.Amount,',.__')#</td>	
-					    <td align="right" class="clsSearchField" style="min-width:100px;padding-right:3px">#NumberFormat(getTotal.AmountOutstanding,',.__')#</td>			
+					   	<td align="right" class="clsSearchField" style="min-width:117px;padding-right:3px">#NumberFormat(getTotal.Amount,',.__')#</td>	
+					    <td align="right" class="clsSearchField" style="min-width:117px;padding-right:3px">#NumberFormat(getTotal.AmountOutstanding,',.__')#</td>			
 				   <cfelse>	 		   			     	   
-				   	    <td class="clsSearchField" style="min-width:100px;padding-right:3px" align="right">#NumberFormat(getTotal.Amount,',.__')#</td>	
+				   	    <td class="clsSearchField" style="min-width:107px;padding-right:3px" align="right">#NumberFormat(getTotal.Amount,',.__')#</td>	
 			 	   		<cfif journal.glaccount gte "1" and Journal.TransactionCategory neq "Memorial">
-			   			<td class="clsSearchField" style="min-width:100px;padding-right:3px" align="right">#NumberFormat(getTotal.AmountTriggerDebit,',.__')#</td>	
-						<td class="clsSearchField" style="min-width:100px;padding-right:3px" align="right">#NumberFormat(getTotal.AmountTriggerCredit,',.__')#</td>	
+			   			<td class="clsSearchField" style="min-width:107px;padding-right:3px" align="right">#NumberFormat(getTotal.AmountTriggerDebit,',.__')#</td>	
+						<td class="clsSearchField" style="min-width:107px;padding-right:3px" align="right">#NumberFormat(getTotal.AmountTriggerCredit,',.__')#</td>	
 						</cfif>		   								
 				   </cfif>
-				   <td style="min-width:40px"></td>			   
+				   <td style="min-width:50px"></td>			   
 				</tr>
 						  
 				</cfoutput>	
@@ -394,11 +332,11 @@
 					
 		<tr class="line">
 		
-			<td colspan="2" class="clsPrintContent" id="journalcontent" valign="top" style="min-width:1200px;height:100%">		
+			<td colspan="2" class="clsPrintContent" id="journalcontent" valign="top" style="padding-left:10px;min-width:1200px;height:100%">		
 				<cfinclude template="JournalListingDetail.cfm">											
 			</td>		
 		
-		</tr>					
+		</tr>				
 	
 	
 	</TABLE>

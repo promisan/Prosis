@@ -12,7 +12,7 @@
 <!--- verify if a schedule is already running for this id with a actionstatus = 0 and created time less than
 10 minutes different then we do not launch this one --->
 			
-	<cfoutput> 
-		<cfdiv bind="url:#SESSION.root#/Tools/Scheduler/RunScheduler.cfm?idlog=#url.idlog#&id=#url.id#&mode=manual&#Template.SchedulePassThru#">
-	</cfoutput>
+<cfoutput> 
+	<cfdiv bind="url:#SESSION.root#/Tools/Scheduler/RunScheduler.cfm?idlog=#url.idlog#&id=#url.id#&mode=schedule&#Template.SchedulePassThru#">
+</cfoutput>
 

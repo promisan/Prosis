@@ -89,14 +89,10 @@
 					search     = "text"}>								
 		
 <!--- embed|window|dialogajax|dialog|standard --->
-
-<table width="100%" height="99%" border="0" bordercolor="silver" cellspacing="0" cellpadding="0" align="center">
-	
-	<tr><td width="100%" height="100%">						
 	
 	<cf_listing header  = "PersonnelAction"
 	    box           = "actiondetail"
-		link          = "#SESSION.root#/Staffing/Application/Employee/PersonAction/ActionListContent.cfm?id=#url.id#"
+		link          = "#SESSION.root#/Staffing/Application/Employee/PersonAction/ActionListContent.cfm?init=0&id=#url.id#&systemfunctionid=#url.systemfunctionid#&mode=#url.mode#"
 	    html          = "No"		
 		datasource    = "AppsQuery"
 		listquery     = "#myquery#"
@@ -105,7 +101,7 @@
 		listorder     = "ActionDocumentNo"
 		listorderdir  = "DESC"
 		headercolor   = "ffffff"				
-		tablewidth    = "99%"
+		tablewidth    = "100%"
 		listlayout    = "#fields#"
 		FilterShow    = "Hide"
 		ExcelShow     = "Yes"
@@ -114,6 +110,3 @@
 		drilltemplate = "Staffing/Application/Employee/PersonAction/ActionDialog.cfm?drillid="
 		drillkey      = "ActionDocumentNo">	
 		
-	</td></tr>
-
-</table>		

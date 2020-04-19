@@ -49,13 +49,16 @@
 			<!--- attention this is not correct as the period in ProgramPeriod = plan period and not the execution period
 			so we need to link this first to MissionPeriod and then to PlanPeriod found there --->
 					   
-			FROM       TransactionLine AS L LEFT OUTER JOIN
-                       Program.dbo.ProgramPeriod AS Pe ON L.ProgramPeriod = Pe.Period AND L.ProgramCode = Pe.ProgramCode
+			FROM       TransactionLine AS L 
+					   INNER JOIN TransactionHeader H ON H.Journal = L.Journal and H.JournalSerialNo = L.JournalSerialNo
+					   LEFT OUTER JOIN Program.dbo.ProgramPeriod AS Pe ON L.ProgramPeriod = Pe.Period AND L.ProgramCode = Pe.ProgramCode
 					   LEFT OUTER JOIN
                        Program.dbo.Contributionline AS C ON C.ContributionLineId = L.ContributionLineId
 			
-			WHERE     Journal = '#url.journal#' 
-			AND       AccountPeriod = '#url.period#'
+			WHERE     H.Journal       = '#url.journal#' 
+			AND       H.AccountPeriod = '#url.period#'
+			AND       H.ActionStatus != '9'
+			AND       H.RecordStatus != '9'
 		
 	</cfsavecontent>
 
@@ -136,7 +139,7 @@
 					<!--- search     = "number", --->
 					aggregate  = "sum",
 					align      = "right",
-					formatted  = "numberformat(AmountDebit,'__,__.__')"}>	
+					formatted  = "numberformat(AmountDebit,',.__')"}>	
 					
 <cfset itm = itm+1>										
 <cfset fields[itm] = {label      = "Credit",  
@@ -144,7 +147,7 @@
 					<!--- search     = "number", ---> 
 					aggregate  = "sum",
 					align      = "right",
-					formatted  = "numberformat(AmountCredit,'__,__.__')"}>						
+					formatted  = "numberformat(AmountCredit,',.__')"}>						
 					
 <cfset itm = itm+1>					
 <cfset fields[itm] = {label     = "Id",    					
@@ -176,7 +179,7 @@
 	annotation    = "GLTransaction"
 	drillmode     = "securewindow"
 	drillargument = "1040;#client.widthfull#;false;false"	
-	drilltemplate = "Gledger/Application/Transaction/View/TransactionViewDetail.cfm?id="
+	drilltemplate = "Gledger/Application/Transaction/View/TransactionView.cfm?id="
 	drillkey      = "TransactionLineId">
 	
 	<cfcatch>

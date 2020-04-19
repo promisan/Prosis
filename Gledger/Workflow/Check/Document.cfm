@@ -29,6 +29,13 @@ password="#SESSION.dbpw#">
 	<cfset cur = get.Currency>
 	<cfset cno = "">
 	<cfset mem = "">
+
+	<cfif amt eq "">
+		<cfset amt = get.Amount>
+		<cfif amt eq "">
+			<cfset amt = 0>
+		</cfif>
+	</cfif>
 	
 <cfelse>
 

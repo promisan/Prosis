@@ -6,8 +6,6 @@
 
 <cfif url.objectid neq "">
 
-
-
 <cfquery name="BucketCompetencies" 
 datasource="appsVacancy" 
 username="#SESSION.login#" 
@@ -41,7 +39,7 @@ password="#SESSION.dbpw#">
 
 	<cfset w = 100/competencies.recordcount>
 
-	<table border="1" style="width:100%">
+	<table border="0" style="width:100%">
 	
 	<tr class="fixrow">   
 	    <td style="background-color:f1f1f1;padding:4px;border:1px solid silver;min-width:140px"><cf_tl id="Officer"></td>
@@ -128,7 +126,8 @@ password="#SESSION.dbpw#">
 			
 			</td></tr>
 			
-			<tr><td style="min-width:200px">			
+			<tr><td style="min-width:310px">	
+			
 							
 			<cfif Attributes.ajax eq "No">
 							
@@ -161,10 +160,10 @@ password="#SESSION.dbpw#">
 			
 		 <cfelse>
 		
-		 <td valign="top" style="border-right:1px solid silver;padding:0px;;<cfif session.acc neq usr>background-color:eaeaea</cfif>">
+		 <td valign="top" style="border-right:1px solid silver;padding:0px;<cfif session.acc neq usr>background-color:eaeaea</cfif>">
 		 
 			 <table width="100%">			 
-			 <tr class="line" style="height:27px;background-color:<cfif get.AssessmentScore neq "1">ffffaf<cfelse>lime</cfif>">
+			 <tr style="height:27px;background-color:<cfif get.AssessmentScore neq "1">ffffaf<cfelse>lime</cfif>">
 			 <td style="padding-left:4px">
 			 <cfswitch expression="#get.AssessmentScore#">
 				 <cfcase value="0"><cf_tl id="undefined"></cfcase>
@@ -175,7 +174,11 @@ password="#SESSION.dbpw#">
 			 </cfswitch>
 			 
 			 </td></tr>
-			 <tr><td style="padding:3px">#get.AssessmentMemo#</td></tr>	 
+			 
+			 <cfif len(get.AssessmentMemo) gte "5">			 
+				 <tr><td style="padding:3px">#get.AssessmentMemo#</td></tr>	 			 
+			 </cfif>
+			 
 			 </table>
 		 
 		 </td>

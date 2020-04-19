@@ -1,8 +1,6 @@
 
 <cfparam name="url.init" default="0">
 
-<cf_compression>
-
 <cfquery name="Log" 
 	datasource="appsSystem">
 	SELECT *
@@ -20,7 +18,7 @@
 
 <cfoutput>
 	
-	<table width="100%" cellspacing="0" cellpadding="0">
+	<table width="100%">
 	
 	<cfif Log.ProcessEnd neq "">
 	

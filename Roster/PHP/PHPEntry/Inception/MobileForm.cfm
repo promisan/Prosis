@@ -13,8 +13,7 @@
 			message="#lt_text#"
 			id="LastName"
 			required="true"
-			maxlength="40"
-			onError="show_error"
+			maxlength="40"			
 			class="form-control enterastab">
 	</div>
 
@@ -39,8 +38,7 @@
 			id="FirstName"
 			message="#lt_text#"
 			required="true"
-			maxlength="30"
-			onError="show_error"
+			maxlength="30"			
 			class="form-control enterastab">
 	</div>
 
@@ -52,6 +50,18 @@
 			id="indexno"
 			message="#lt_text#"
 			maxlength="20"
+			class="form-control enterastab">
+	</div>
+	
+	<div class="form-group">
+		<label for="Reference"><cf_tl id="Reference"> <span style="color:##EF4D50; font-weight:bold;">*</span>:</label>
+		<cf_tl id="Please enter a valid reference" var="1">
+		<cfinput type="text"
+			name="reference"
+			id="reference"
+			required="true"
+			message="#lt_text#"
+			maxlength="20"			
 			class="form-control enterastab">
 	</div>
 
@@ -76,8 +86,7 @@
 			FieldName="DOB" 
 			Default=""
 			message="#lt_text#"
-			AllowBlank="False"
-			onError="show_error"	
+			AllowBlank="False"			
 			DateValidEnd="#Dateformat(now(), 'YYYYMMDD')#"				
 			class="regularxl enterastab">
 	</div>
@@ -95,8 +104,7 @@
 			name="MaritalStatus" 
 			id="maritalstatus" 
 			required="true" 
-			message="#lt_text#" 
-			onError="show_error"
+			message="#lt_text#" 			
 			class="form-control enterastab">
 				<option value=""><cf_tl id="Select"></option>
 				<cfloop query="qMarital">
@@ -129,8 +137,7 @@
 			message="#lt_text#"
 			required="true"
 			validate="email"
-			maxlength="50"
-			onError="show_error"
+			maxlength="50"			
 			class="form-control enterastab">
 	</div>
 
@@ -142,8 +149,7 @@
 			id="MobileNumber"	
 			message="#lt_text#"	       
 			required="true"
-			maxlength="50"
-			onError="show_error"
+			maxlength="50"			
 			class="form-control enterastab">
 	</div>
 

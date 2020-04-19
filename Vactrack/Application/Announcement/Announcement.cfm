@@ -18,8 +18,7 @@
 	<cf_screentop 
 		html      = "Yes" 
 		layout    = "webapp" 
-		banner    = "gray" 		
-		icon      = "logo.png"
+		banner    = "gray" 				
 		jquery    = "Yes"
 		label     = "#label#" 				
 		menuPrint = "Yes"

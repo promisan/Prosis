@@ -1,6 +1,4 @@
-  
-  
-			 
+  	 
   
 	 <cfquery name="Select" 
      datasource="AppsSelection" 
@@ -131,7 +129,7 @@
 									 
 				 <script language="javascript">		
 				      				     
-					    alert("Notification, You have shortlisted one or more candidates that are already SELECTED for other recruitment requests.")			 			 			  						  
+					    alert("Notification, You have listed one or more candidates that are already SELECTED for another recruitment request.")			 			 			  						  
 					  
 					    se = parent.parent.window																						 																
 						try {
@@ -150,7 +148,7 @@
 			    <cfif cnt neq "0">
 		
 				 	<script language="javascript">
-					    alert("Sofar <cfoutput>#cnt#</cfoutput> candidate<cfif #cnt# eq '1'> has<cfelse>s have</cfif> been shortlisted.")
+					    alert("Sofar <cfoutput>#cnt#</cfoutput> candidate<cfif #cnt# eq '1'> has<cfelse>s have</cfif> been listed for your track.")
 																								 					 
 						se = parent.parent.window																						 																
 						try {
@@ -240,7 +238,7 @@
 		    <cfoutput>
 	
 			<script language="javascript">
-			   alert("Sofar #cnt# candidate<cfif #cnt# eq '1'> has<cfelse>s have</cfif> were shortlisted.")			   
+			   alert("Sofar #cnt# candidate<cfif #cnt# eq '1'> has<cfelse>s have</cfif> were listed for your track.")			   
 			   se = parent.parent.window				  																				 																
 			   try {				
 				se.opener.document.getElementById('workflowbutton_#docno#').click()

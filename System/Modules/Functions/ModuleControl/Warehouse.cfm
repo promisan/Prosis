@@ -150,7 +150,7 @@
    FunctionMemo      = "Record an individual"
    FunctionDirectory = "Roster/PHP/"
    FunctionPath      = "PHPEntry/Inception/General.cfm"
-   FunctionCondition = "class=5&action=create"
+   FunctionCondition = "class=5&action=create&scope=backoffice"
    ScriptName        = ""
    AccessUserGroup   = "1">    
    

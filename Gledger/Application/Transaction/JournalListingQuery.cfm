@@ -52,7 +52,6 @@
 
 <cfoutput>
 
-
 	<cfsavecontent variable="querystatement">
 	    TransactionHeader T WITH (NOLOCK)
 		       INNER JOIN TransactionLine L WITH (NOLOCK) ON T.Journal = L.Journal AND T.JournalSerialNo = L.JournalSerialNo
@@ -103,6 +102,8 @@
 			   L.ReferenceNo       LIKE '%#URL.Find#%' OR
 			   C.CustomerName      LIKE '%#URL.Find#%' OR
 			   T.ReferencePersonNo LIKE '%#URL.Find#%' OR
+			   T.OfficerLastName   LIKE '%#URL.Find#%' OR
+			   T.OfficerFirstName  LIKE '%#URL.Find#%' OR
 			   P.LastName          LIKE '%#URL.Find#%' OR 
 			   P.IndexNo           LIKE '%#URL.Find#%' OR
 			   T.Description       LIKE '%#URL.Find#%' OR
@@ -173,14 +174,16 @@
 				   SUM(AmountTriggerDebit)  as AmountTriggerDebit, 
 				   SUM(AmountTriggerCredit) as AmountTriggerCredit 
 		FROM      (SELECT  T.TransactionId,
-			               SUM(Amount) as Amount, 
-				           SUM(AmountOutstanding)  as AmountOutstanding,
+			               T.Amount                as Amount, 
+				           T.AmountOutstanding     as AmountOutstanding,
 					       SUM(L.AmountDebit)      as AmountTriggerDebit, 
 			               SUM(L.AmountCredit)     as AmountTriggerCredit 
 				   FROM    #preserveSingleQuotes(querystatement)# ) as Tbl
+				   
 	</cfquery>		
 
 <cfelse>
+
 	
 	<cfquery name="getTotal"
 		datasource="AppsLedger" 
@@ -241,5 +244,5 @@
 			   SUM(L.AmountDebit)  as AmountTriggerDebit,
 			   SUM(L.AmountCredit) as AmountTriggerCredit
 		 FROM  #preserveSingleQuotes(querystatement)#
-		 ORDER BY T.Currency, T.#IDSorting#, T.Created DESC		 
+		 ORDER BY T.Currency, T.#IDSorting# <cfif url.idsorting eq "DocumentDate" or url.idsorting eq "TransactionDate">DESC</cfif>, T.Created DESC		 
 </cfquery>

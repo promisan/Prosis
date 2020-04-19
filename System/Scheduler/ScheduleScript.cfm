@@ -39,12 +39,11 @@ function deletelog(id,id1) {
 }
 
 function recordexecute(id,idlog) {       
-	    ColdFusion.navigate('ScheduleExecuteGo.cfm?now=1&idlog='+idlog+'&id='+id+'&mode=manual','run'+id)		
-    	ColdFusion.navigate('#SESSION.root#/System/Scheduler/ScheduleExecuteProgress.cfm?init=1&idlog='+idlog+'&id='+id,'progress'+id)				
+	ptoken.navigate('ScheduleExecuteGo.cfm?now=1&idlog='+idlog+'&id='+id+'&mode=manual','run'+id)		
+    ptoken.navigate('#SESSION.root#/System/Scheduler/ScheduleExecuteProgress.cfm?init=1&idlog='+idlog+'&id='+id,'progress'+id)				
 }
 
-function schedulelog(id,id1,act) { 
-   
+function schedulelog(id,id1,act) {    
 
 	icM  = document.getElementById(id+"Min")
     icE  = document.getElementById(id+"Exp")

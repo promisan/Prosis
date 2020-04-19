@@ -5,7 +5,8 @@
 
 <!--- don't save if user selects the send back option --->
 
-<cfif Form.actionStatus neq "1">
+<cfif Form.actionStatus neq "1" and 
+     (form.Dialog neq "Interview")>
 
 		<cftransaction action="BEGIN">
 		
@@ -15,9 +16,9 @@
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
 			UPDATE DocumentCandidate
-			SET    Status = '#Form.ReviewReset#'  
-			WHERE  DocumentNo = '#Key1#'
-			 AND   Status >= '#Form.ReviewStatus#' 
+			SET    Status      = '#Form.ReviewReset#'  
+			WHERE  DocumentNo  = '#Key1#'
+			 AND   Status     >= '#Form.ReviewStatus#' 
 			 AND   EntityClass is NULL
 		</cfquery>	
 		
@@ -73,7 +74,7 @@
 						WHERE ObjectKeyValue1 = '#Key1#'
 						  AND ObjectKeyValue2 = '#PersonNo#'
 						  AND Operational  = 1
-						  AND EntityCode = 'VacCandidate' 
+						  AND EntityCode = 'VacCandidate' 						 
 					</cfquery>	
 					
 					<cfif Check.entityClass neq "#Class#" 
@@ -241,8 +242,7 @@
 			password="#SESSION.dbpw#">
 			    SELECT TOP 1 *
 			    FROM   OrganizationObject
-				WHERE  ObjectKeyValue1 = '#Key1#'
-				AND    ObjectKeyValue2 = '#PersonNo#'
+				WHERE  ObjectKeyValue1 = '#Key1#'				
 				AND    Operational     = 1
 			</cfquery>
 		

@@ -51,7 +51,7 @@ password="#SESSION.dbpw#">
 	 <!--- there is a balance for this payment invoice --->
 	 AND       P.AmountOutstanding   > 0.01 
 	 AND       P.RecordStatus        = '1'
-	 AND       P.TransactionCategory = 'Payables'
+	 AND       P.TransactionCategory IN ('Payables')
 	 AND       J.Currency            = '#Journal.Currency#' <!--- you can make a payment order in the same currency --->
 	 
 	 <!--- already selected transactions for payment in memory of this entry transaction  --->

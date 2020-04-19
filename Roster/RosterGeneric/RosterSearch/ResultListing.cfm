@@ -723,13 +723,13 @@
 						
 							<cfif SearchResult.recordcount neq "0">
 							
-								<cf_tl id="Add to Shortlist" var="1">	
+								<cf_tl id="Add to the list of candidates" var="1">	
 																			   
 							    <input type = "button" 
 									name        = "Add" 
 									class       = "button10g"		
 									value       = "<cfoutput>#lt_text#</cfoutput>" 						
-									style       = "width:140;height:25"								
+									style       = "width:240;height:25"								
 									onClick     = "return info('Add selected candidates to the shortlist')">
 							
 							</cfif>					

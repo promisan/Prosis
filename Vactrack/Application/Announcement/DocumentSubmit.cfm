@@ -14,9 +14,9 @@ datasource="appsVacancy"
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
 	SELECT  D.*, 
-	        F.FunctionId as VAId, 
-			F.ReferenceNo as VAReferenceNo,
-			F.DateEffective as VAEffective,
+	        F.FunctionId     as VAId, 
+			F.ReferenceNo    as VAReferenceNo,
+			F.DateEffective  as VAEffective,
 			F.DateExpiration as VAExpiration
     FROM  	Document D LEFT OUTER JOIN Applicant.dbo.FunctionOrganization F ON D.FunctionId = F.FunctionId
 	WHERE 	D.DocumentNo = '#Form.Key1#'	
@@ -86,8 +86,7 @@ password="#SESSION.dbpw#">
 			
 			<cfset id = Check.FunctionId>
 		
-		<cfelse>
-		
+		<cfelse>		
 		
 			<cftry>
 		
@@ -169,7 +168,7 @@ password="#SESSION.dbpw#">
 				   ReferenceNo     = '#Form.ReferenceNo#',
 				   DocumentNo      = '#Doc.DocumentNo#',
 				   FunctionNo      = '#Doc.FunctionNo#'
-			WHERE  FunctionId      = '#Form.FunctionId#'
+			WHERE  FunctionId      = '#Doc.VAId#'
 		</cfquery>
 		
 		<!--- disabled 05/06/2008 
@@ -185,7 +184,7 @@ password="#SESSION.dbpw#">
 		
 		--->
 				
-		<cfset id = Form.FunctionId>
+		<cfset id = Doc.VAId>
 		
 </cfif>
 
@@ -199,6 +198,8 @@ password="#SESSION.dbpw#">
 		Key01           = "FunctionId"
 		Key01Value      = "#id#"
 		Officer         = "N">
+		
+<!---		
 	
 <cfsavecontent variable="text">
 
@@ -220,5 +221,7 @@ password="#SESSION.dbpw#">
 	 <b><u>#Description#</u></b><br>#ProfileNotes#<p></p>	 	 					
 	</cfoutput>		
 
-</cfsavecontent>		
+</cfsavecontent>	
+
+--->	
 		

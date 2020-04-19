@@ -127,6 +127,7 @@ password="#SESSION.dbpw#">
 								 WHERE  FunctionId = Fo.FunctionId)
 		</cfif>
 		GROUP BY  F.OccupationalGroup, R.PostGradeBudget, R.PostGradeParent 
+				
 		
 	</cfquery>
 	
@@ -211,12 +212,11 @@ password="#SESSION.dbpw#">
 	               R.PostGradeBudget, 
 				   R.PostGradeParent, 
 				   Ap.Status 
-	</cfquery>
-		
+				  
+	</cfquery>		
 	
 	</cftransaction>
-	
-		
+					
 <cfloop query="resource">
     
 	<cfquery name="RosterCandidated" 
@@ -239,7 +239,7 @@ password="#SESSION.dbpw#">
 	<cfset cd = Code>
 
 	<cfoutput query="steps">
-			
+				
 		<cfquery name="RosterCandidated" 
 		datasource="AppsQuery" 
 		username="#SESSION.login#" 
@@ -343,9 +343,9 @@ SELECT OccupationalGroup,
 			  LEFT OUTER JOIN userquery.dbo.#SESSION.acc#RosterView1_#FileNo# AP ON AP.OccupationalGroup = Occ.OccupationalGroup
 	WHERE     Occ.Status = 1		  
 	GROUP BY  Occ.ListingOrder, Occ.Description, Occ.OccupationalGroup
-	ORDER BY  Occ.ListingOrder, Occ.Description 
-	
+	ORDER BY  Occ.ListingOrder, Occ.Description 	
     </cfquery>
+		
 	
 	<!---
 	<cfoutput>6. #cfquery.executionTime#  </cfoutput>	

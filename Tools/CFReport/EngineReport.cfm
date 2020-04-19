@@ -3,36 +3,34 @@
 		
 	<cfparam name="URL.dts"        default="#dateformat(now(),client.dateformatshow)#">	
 	<cfparam name="URL.Mode"       default="schedule">
-	<cfparam name="URL.FormSelect" default="Batch">
+	<cfparam name="URL.FormSelect" default="Batch">	
+	
+	<!--- create an instance as we bypass from the backoffice or trial mode --->
+			
+	<cfif url.mode neq "schedule" and url.mode neq "manual">
 		
-	<cfif url.mode neq "schedule">
-	
-		<!--- create an instance as we by pass --->
-	
 		<cf_assignId>
 	
 		<cfset schedulelogid = rowguid>
 		
 		<cfquery name="Schedule"
-		datasource="AppsSystem" 
-		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">
+		datasource="AppsSystem">	
 		    SELECT * 
 			FROM   Schedule
 			WHERE  ScheduleName = 'ReportBatch'			
 		</cfquery>
 		
 		<cfquery name="Insert"
-		datasource="AppsSystem" 
-		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">
+		datasource="AppsSystem">
 		    INSERT INTO ScheduleLog
 			       (ScheduleId, 
+				    ScheduleMode,
 				    ScheduleRunId,
 					OfficerUserId,
 					OfficerFirstName,
 					OfficerLastName)
 			VALUES ('#Schedule.scheduleId#',
+			        '#url.mode#',
 			        '#schedulelogid#',
 					'#SESSION.acc#',
 					'#SESSION.first#',
@@ -51,10 +49,8 @@
 		
 	<cfparam name="URL.Batch" default="1">
 			
-	<cfinclude template="Anonymous/PublicInit.cfm">
-	
 	<!--- set the dates	to work with --->
-		 
+			 
 	<CF_DateConvert Value="#URL.dts#">
 	<cfset STR = dateValue>	
 	<cfset PRI = dateadd("D","-1",STR)>
@@ -132,7 +128,9 @@
 	   </cfif>
 	      
 	</table>
-		
+	
+	<cfflush>
+	
 	<cf_assignId>   
 	
 	<cfquery name="Log" 
@@ -144,7 +142,12 @@
 				 OfficerUserId, 
 				 ProcessStatus, 
 				 Created)
-		VALUES  ('#ROWGUID#','#class#',getDate(),'#CGI.Remote_Addr#','In process',#STR#) 
+		VALUES  ('#ROWGUID#',
+		        '#class#', 
+		        getDate(), 
+				'#CGI.Remote_Addr#', 
+				'In process', 
+				#STR#) 
 	</cfquery>
 	
 	<cfset batchid = rowguid>
@@ -443,7 +446,7 @@
 								<table width="96%" border="0" align="center">
 								      <tr>				
 									  <td>
-									  	<td class="labelmedium line"><font color="FF0000">Problem with report. Report has been skipped</font></td>
+									  	<td class="labelmedium linedotted"><font color="FF0000">Problem with report. Report has been skipped</font></td>
 									  </tr>
 								<table>
 							
@@ -522,8 +525,8 @@
 	</cfif>
 	
 	<table>
-	<tr><td height="30" class="labelmedium">	
-	Completed <cfif class eq "Trial"><br>Test Mode : No eMails were sent except for administrator account</cfif></b>	
+	<tr><td style="padding-left:20px" height="30" class="labelmedium">	
+	Completed <cfif class eq "Trial"><br>Test Mode : No eMails were sent except for administrator account</cfif>	
 	</td></tr>
 	</table>
 	

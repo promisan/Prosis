@@ -28,38 +28,39 @@
 
 	<cfset itm = 1>
 	<cf_tl id="Facility" var = "1"> 
-	<cfset fields[itm] = {label     = "#lt_text#",                    
-	     				field       = "WarehouseName",					
-						alias       = "",																			
-						search      = "text",
-						filtermode  = "2"}>
+	<cfset fields[itm] = {label       = "#lt_text#",                    
+	     				field         = "WarehouseName",					
+						alias         = "",																			
+						search        = "text",
+						filtermode    = "2"}>
 						
 	<cfset itm = itm+1>
 	<cf_tl id="Location" var = "1"> 								
-	<cfset fields[itm] = {label     = "#lt_text#",                    
-	     				field       = "Location",					
-						alias       = "",																			
-						search      = "text",
-						filtermode  = "2"}>							
+	<cfset fields[itm] = {label       = "#lt_text#",                    
+	     				field         = "Location",					
+						alias         = "",																			
+						search        = "text",
+						filtermode    = "2"}>							
 						
 	<cfset itm = itm+1>
 	<cf_tl id="Purchase" var = "1"> 	
-	<cfset fields[itm] = {label       = "#lt_text#",                    
-	     				field         = "PurchaseNo",	
+	<cfset fields[itm] = {label         = "#lt_text#",                    
+	     				field           = "PurchaseNo",	
 						functionscript  = "ProcPOEdit",
-						functionfield = "PurchaseNo",									
-						alias         = "",																			
-						search        = "text"}>	
+						functionfield   = "PurchaseNo",		
+						width           = "25",							
+						alias           = "",																			
+						search          = "text"}>	
 											
 	<cfset itm = itm+1>
 	<cf_tl id="BatchNo" var = "1"> 								
-	<cfset fields[itm] = {label        = "#lt_text#",                    
-	     				field          = "TransactionBatchNo",					
-						alias          = "",		
-						functionscript = "batch",
-						functionfield  = "TransactionBatchNo",																		
-						search         = "text",
-						filtermode     = "2"}>		
+	<cfset fields[itm] = {label         = "#lt_text#",                    
+	     				field           = "TransactionBatchNo",					
+						alias           = "",		
+						functionscript  = "batch",
+						functionfield   = "TransactionBatchNo",																		
+						search          = "text",
+						filtermode      = "2"}>		
 															
 								
 	<cfif checkLocation.recordcount gte "1">		
@@ -75,11 +76,11 @@
 						
 	<cfset itm = itm+1>
 	<cf_tl id="Type" var = "1"> 			
-	<cfset fields[itm] = {label     = "#lt_text#",                    
-	     				field       = "Description",					
-						alias       = "",																			
-						search      = "text",
-						filtermode  = "2"}>		
+	<cfset fields[itm] = {label         = "#lt_text#",                    
+	     				field           = "Description",					
+						alias           = "",																			
+						search          = "text",
+						filtermode      = "2"}>		
 						
 	<cfset itm = itm+1>
 	<cf_tl id="Class" var = "1"> 			
@@ -102,8 +103,7 @@
 	<cf_tl id="Date" var = "1"> 				
 	<cfset fields[itm] = {label     = "#lt_text#",                    
 	     				field       = "TransactionDate",					
-						alias       = "",		
-						align       = "center",		
+						alias       = "",									
 						formatted   = "dateformat(TransactionDate,CLIENT.DateFormatShow)",																	
 						search      = "date"}>		
 						
@@ -111,8 +111,7 @@
 	<cf_tl id="Time" var = "1"> 					
 	<cfset fields[itm] = {label     = "#lt_text#",                    
 	     				field       = "TransactionDate",					
-						alias       = "",		
-						align       = "center",		
+						alias       = "",								
 						formatted   = "timeformat(TransactionDate,'HH:MM')",																	
 						search      = ""}>		
 						

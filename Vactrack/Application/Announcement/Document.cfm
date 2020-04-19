@@ -36,13 +36,13 @@ password="#SESSION.dbpw#">
 	<cf_calendarScript>
 	
 	<TR class="labelmedium line">
-    <TD><cf_tl id="Job No">:</TD>
+    <TD><cf_UITooltip Tooltip="Record only if this number is already known"><cf_tl id="Job Opening No">:</cf_UITooltip></TD>
     	
 	<cfif Doc.VAId neq "">
 				
 		<td colspan="3">
     	<cfoutput>
-		<input type="text" name="ReferenceNo" class="regularxl" value="#Doc.VAReferenceNo#" size="20" maxlength="20">
+		<input type="text" name="ReferenceNo" class="regularxl" value="#Doc.VAReferenceNo#" size="10" maxlength="20">
 		<input type="hidden" name="FunctionId" value="#Doc.VAId#">
 		</cfoutput>
 		</td>
@@ -51,7 +51,7 @@ password="#SESSION.dbpw#">
 	
 		<td colspan="3">
     	<cfoutput>
-		<input type="text" name="ReferenceNo" class="regularxl" value="" size="20" maxlength="20">
+		<input type="text" name="ReferenceNo" class="regularxl" value="" size="10" maxlength="20">
 		<input type="hidden" name="FunctionId" value="">
 		</cfoutput>
 		</td>
@@ -61,7 +61,7 @@ password="#SESSION.dbpw#">
 	</TR>	
 	
 	<TR class="labelmedium line">
-    <td><cf_tl id="Date effective">:</td>
+    <td><cf_tl id="Announcement effective">:</td>
     <TD>
 	
 	    <cfoutput>
@@ -79,7 +79,7 @@ password="#SESSION.dbpw#">
 		</cfoutput>
 		
 	</td>
-	<td><cf_tl id="Date expiration">:</td>
+	<td><cf_tl id="Announcement expiration">:</td>
 	<td>
 	
 		   <cf_intelliCalendarDate9
@@ -106,7 +106,7 @@ password="#SESSION.dbpw#">
 			Key02Value      = "#Doc.GradeDeployment#">
 		
 	<cfelse>
-		
+				
 		   <cf_ApplicantTextArea
 			Table           = "FunctionOrganizationNotes" 
 			Domain          = "#url.wParam#"

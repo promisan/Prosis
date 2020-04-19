@@ -74,7 +74,7 @@
 	</cfquery>	
 		
      <table width="98%" border="0" cellspacing="0" cellpadding="0" class="navigation_table">
-	 <TR class="line labelmedium"> 
+	 <TR class="line labelmedium fixrow"> 
        <td width="8%" height="19" ></td>
        <TD width="20%"><cf_tl id="Account"></TD>
        <TD width="50%"><cf_tl id="Description"></TD>

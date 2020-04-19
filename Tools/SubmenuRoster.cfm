@@ -3,17 +3,17 @@
 
 	table.highLight {
 		BACKGROUND-COLOR: #ffffcf;
-		border-top : 1px solid silver;
-		border-right : 1px solid silver;
-		border-left : 1px solid silver;
-		border-bottom : 1px solid silver;
+		border-top : 0px solid silver;
+		border-right : 0px solid silver;
+		border-left : 0px solid silver;
+		border-bottom : 0px solid silver;
 	}
 	table.regular {
 		BACKGROUND-COLOR: #ffffff;
-		border-top : 1px solid white;
-		border-right : 1px solid white;
-		border-left : 1px solid white;
-		border-bottom : 1px solid white;
+		border-top : 0px solid white;
+		border-right : 0px solid white;
+		border-left : 0px solid white;
+		border-bottom : 0px solid white;
 	}
 	
 </style>
@@ -52,12 +52,8 @@
 		 	 		 	
 		 if (fld != false){
 			 itm.className = "highLight";
-			 itm.style.cursor = "pointer";
-			 self.status = name;
 		 }else{
-			 itm.className = "";		
-			 itm.style.cursor = "";
-			 self.status = name;
+			 itm.className = "";					
 		 }
 	  }
 	    
@@ -90,15 +86,13 @@
 	 	 
 	 <cfif FunctionPath neq "">
 		   
-     <table width="90%" align="center" 
-	      bordercolor="FFFFFF" 
+     <table width="100%" 
 	      onClick="modulelog('#function.systemfunctionid#','#submissionedition#');loadform('#FunctionPath#','#condition#','#FunctionTarget#')" 
 	      onMouseOver="hl(this,true,'#FunctionName#')" onMouseOut="hl(this,false,'')">
 	  
 	  <cfelse>
 	  
-	   <table width="90%" align="center" 
-	      bordercolor="FFFFFF" 
+	   <table width="100%"
 	      onClick="modulelog('#function.systemfunctionid#','#submissionedition#');#ScriptName#('#mode#')" 
 	      onMouseOver="hl(this,true,'#FunctionName#')" onMouseOut="hl(this,false,'')">
 	  	  
@@ -108,7 +102,7 @@
 	        <td width="40" rowspan="2" align="center">       
 			  <cfinclude template="submenuImages.cfm">		
 			</td>
-			<td width="80%" style="padding-left:2px;height:23px;font-size:22px" class="labelmedium">#FunctionName#</td>   
+			<td width="80%" style="padding-left:2px;height:23px;font-size:22px" class="labelmedium"><a>#FunctionName#</a></td>   
         </tr>
 				       
 		<tr> 
@@ -119,48 +113,47 @@
 	 	   
      </td>
 		
-     <cfif row eq "1"><cfelse></TR>
-		
-	 </cfif> 	
+     <cfif row eq "1"><cfelse></TR></cfif> 	
 
 <cfelse>
  
      <tr><td height="4" colspan="6"></td></tr>
-     <tr><td align="center" colspan="6" height="1">
+     <tr><td colspan="6" height="1">
 	   
      <cfset condition = FunctionCondition>
 	 	 
 	 <cfif FunctionPath neq "">
 		  
-     <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center" bordercolor="FFFFFF" style="padding:4px"
+     <table width="95%" border="0" bordercolor="FFFFFF" style="padding:4px"
       onClick="modulelog('#systemfunctionid#','#submissionedition#');loadform('#FunctionPath#','#condition#','#FunctionTarget#')" 
       onMouseOver="hl(this,true,'#FunctionName#')" onMouseOut="hl(this,false,'')">
 	  
 	  <cfelse>
 	  	  
-	  <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center" bordercolor="FFFFFF" style="padding:4px"       
+	  <table width="95%" border="0" bordercolor="FFFFFF" style="padding:4px"       
 	  onClick="modulelog('#systemfunctionid#','');#ScriptName#('#mode#')" 
       onMouseOver="hl(this,true,'#FunctionName#')" onMouseOut="hl(this,false,'')">
 	  	  	  
 	  </cfif>
      	 	   
-     <td width="40" height="43" align="center" rowspan="2">	      
+     <td style="width:20px;" align="center" rowspan="2">	      
     	 <cfinclude template="submenuImages.cfm">    
      </td>
   
-     <td width="47%"  style="padding-left:2px" class="labelmedium"><b>#FunctionName#</b></td>
-     <td width="40%" align="right"></td>
-	    
+     <td width="47%" style="padding-left:2px" class="labelmedium"><b>#FunctionName#</b></td>
+    	    
      </tr> 
   
      <tr> 
-       <td colspan="6" style="padding-left:20px">#FunctionMemo#</td>
+       <td colspan="3" style="padding-left:20px">#FunctionMemo#</td>
      </tr>
 	 	    
      </table>
     
      </td></tr> 
-	 <tr><td height="3" colspan="6"></td></tr>
+	 
+	 <tr><td height="3" colspan="3"></td></tr>
+	 
 	
 </cfif>
   

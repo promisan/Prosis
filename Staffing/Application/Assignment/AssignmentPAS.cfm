@@ -23,7 +23,7 @@
 		Mission         = "#list.mission#"
     	ReturnVariable  = "EOD">	
 		
-	<cfset dte = eod>	
+	<cfset dte = dateadd("m",0,eod)>	
 		
 	<!--- obtain existing --->
 	
@@ -33,13 +33,14 @@
 	  password="#SESSION.dbpw#">
 		  SELECT    *
 		  FROM      Contract 
-		  WHERE     PersonNo   = '#list.PersonNo#' 		
-		  AND       Mission    = '#list.mission#'
+		  WHERE     PersonNo      = '#list.PersonNo#' 		
+		  AND       Mission       = '#list.mission#'
 		  AND       ContractClass = 'Standard'
 		  AND       ActionStatus != '9'
-		  ORDER BY DateEffective  
-	</cfquery>
-	
+		  AND       DateExpiration >= '#eod#'
+		  ORDER BY  DateEffective DESC 
+	</cfquery>	
+			
 	<cfquery name="class"
 	  datasource="AppsEPas" 
 	  username="#SESSION.login#" 
@@ -51,7 +52,7 @@
 			
 	<cfif last.recordcount gte "1">
 	
-		<cfif last.dateExpiration gt eod>
+		<cfif last.dateExpiration gte eod>
 		
 			<cfset dte = dateadd("d",1,last.dateExpiration)>
 			

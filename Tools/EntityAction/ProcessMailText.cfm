@@ -17,20 +17,20 @@
 <cfif Attributes.to neq "">
 
 	<cfquery name="qObject" 
-			 datasource="AppsOrganization"
-			 username="#SESSION.login#" 
-			 password="#SESSION.dbpw#">
+		 datasource="AppsOrganization"
+		 username="#SESSION.login#" 
+		 password="#SESSION.dbpw#">
 			 SELECT   O.* , R.EntityDescription, R.DocumentPathName
-			 FROM OrganizationObject O, Ref_Entity R
-			 WHERE ObjectId = '#Attributes.ObjectId#'
-			 AND  O.EntityCode = R.EntityCode
-			 AND O.Operational  = 1
+			 FROM     OrganizationObject O, Ref_Entity R
+			 WHERE    ObjectId = '#Attributes.ObjectId#'
+			 AND      O.EntityCode = R.EntityCode
+			 AND      O.Operational  = 1
 	</cfquery>
 	
 	<cfquery name="Last" 
-			 datasource="AppsOrganization"
-			 username="#SESSION.login#" 
-			 password ="#SESSION.dbpw#">
+		 datasource="AppsOrganization"
+		 username="#SESSION.login#" 
+		 password ="#SESSION.dbpw#">
 			 SELECT    TOP 1 *
 			 FROM OrganizationObjectAction
 			 WHERE ObjectId = '#Attributes.ObjectId#'
@@ -38,22 +38,22 @@
 	</cfquery>
 	
 	<cfquery name="Mail" 
-			 datasource="AppsOrganization"
-			 username="#SESSION.login#" 
-			 password="#SESSION.dbpw#">
+		 datasource="AppsOrganization"
+		 username="#SESSION.login#" 
+		 password="#SESSION.dbpw#">
 			SELECT   *
 			FROM     System.dbo.UserNames
 			WHERE    Account = '#Last.OfficerUserId#'
 	</cfquery>		
 	
 	<cfquery name="Action" 
-			 datasource="AppsOrganization"
-			 username="#SESSION.login#" 
-			 password="#SESSION.dbpw#">
-			 SELECT     *
-			 FROM Ref_EntityAction
-			 WHERE ActionCode = '#Attributes.ActionCode#'
-			 
+		 datasource="AppsOrganization"
+		 username="#SESSION.login#" 
+		 password="#SESSION.dbpw#">
+		 	SELECT       *
+			FROM            Ref_EntityActionPublish
+			WHERE ActionPublishNo = '#qObject.ActionPublishNo#' and ActionCode = '#Attributes.ActionCode#'
+				 
 	</cfquery>
 
 <cfset headercolor = "ffffff">

@@ -7,9 +7,30 @@
 datasource="AppsOrganization" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-SELECT     *
-FROM       OrganizationObject
-WHERE      ObjectId = '#URL.Objectid#'
+	SELECT     *
+	FROM       OrganizationObject
+	WHERE      ObjectId = '#URL.Objectid#'
+</cfquery>
+
+<cfquery name="Related" 
+datasource="AppsOrganization" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT     ObjectId
+	FROM       OrganizationObject
+	WHERE      EntityCode = '#Object.EntityCode#'
+	<cfif Object.ObjectKeyValue1 neq "">
+	AND        ObjectKeyValue1 = '#Object.ObjectKeyValue1#' 
+	</cfif>
+	<cfif Object.ObjectKeyValue2 neq "">
+	AND        ObjectKeyValue2 = '#Object.ObjectKeyValue2#' 
+	</cfif>
+	<cfif Object.ObjectKeyValue3 neq "">
+	AND        ObjectKeyValue3 = '#Object.ObjectKeyValue3#' 
+	</cfif>
+	<cfif Object.ObjectKeyValue4 neq "">
+	AND        ObjectKeyValue4 = '#Object.ObjectKeyValue4#' 
+	</cfif>	
 </cfquery>
 
 <cfquery name="Get" 
@@ -18,7 +39,7 @@ username="#SESSION.login#"
 password="#SESSION.dbpw#">
 	SELECT     *
 	FROM       OrganizationObjectActionMail M
-	WHERE      ObjectId = '#url.objectid#'
+	WHERE      ObjectId IN (#quotedvalueList(Related.ObjectId)#)
 	AND        MailType = 'Comment'
 	<cfif getAdministrator("*") eq "0">
 	AND        MailScope = 'All'

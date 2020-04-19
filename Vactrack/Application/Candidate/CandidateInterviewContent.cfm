@@ -386,7 +386,7 @@ password="#SESSION.dbpw#">
 			<tr class="line">
 				<td valign="top" class="labelmedium" style="width:200px;padding-top:4px">#Description#</td>
 			    <td style="padding-left:0px">
-				<cfif ActionCode eq URL.ActionCode or Interview.ActionCode eq "" and url.actioncode neq "view">			
+				<cfif (ActionCode eq URL.ActionCode or Interview.ActionCode eq "") and url.actioncode neq "view">			
 				
 				 <cf_textarea name="#CompetenceId#"	           		 
 						 init="Yes"							
@@ -411,6 +411,8 @@ password="#SESSION.dbpw#">
 		<tr valign="top" class="line">
 		<td style="width:200px" class="labelmedium"><cf_tl id="Assessment">:</td>
 		<td colspan="3">
+				
+		<cfif (ActionCode eq URL.ActionCode or Interview.ActionCode eq "") and url.actioncode neq "view">		
 		
 		 <cf_textarea name="ReviewMemo"	           		 
 						 init="Yes"							
@@ -420,6 +422,12 @@ password="#SESSION.dbpw#">
 						 toolbar="Mini"
 						 height="90"
 						 width="100%"><cfoutput>#CandidateReview.ReviewMemo#</cfoutput></cf_textarea>		
+						 
+		 <cfelse>
+		 
+		 <cfoutput>#CandidateReview.ReviewMemo#</cfoutput>
+		 
+		 </cfif>				 
 			
 		</td>
 	</tr>
@@ -427,16 +435,28 @@ password="#SESSION.dbpw#">
 	<tr class="line" style="height:30px">
 		<td class="labelmedium"><cf_tl id="Recommended">:</td>
 		<td colspan="3">
+		   <cfif (ActionCode eq URL.ActionCode or Interview.ActionCode eq "") and url.actioncode neq "view">		
+		   
 			<select name="CandidateStatus" id="CandidateStatus" style="border:0px;border-left:1px solid silver;border-right:1px solid silver" class="regularxl">
 				<option value="1" <cfif Candidate.Status lt 2>selected</cfif>  >No</option>
 				<option value="2" <cfif Candidate.Status gte 2>selected</cfif> >Yes</option>
 			</select>
+			
+			<cfelse>
+			
+			  <cfif Candidate.Status gte 2>Yes<cfelse>No</cfif>
+			
+			</cfif>
+			
 		</td>
 	</tr>
 	
 	<tr class="labelmedium line" style="height:30px">
 	    <td style="padding-top:4px"><cf_tl id="Attachments">: </td>
 		<td colspan="3">
+		
+		<cfif ActionCode eq URL.ActionCode or Interview.ActionCode eq "" and url.actioncode neq "view">		
+		
 		 <cf_filelibraryN
 			DocumentPath="VacDocument"
 			SubDirectory="#rowguid#" 			
@@ -446,6 +466,20 @@ password="#SESSION.dbpw#">
 			Box="interview"
 			Remove="yes"
 			ShowSize="yes">	
+			
+		  <cfelse>
+		  
+		   <cf_filelibraryN
+			DocumentPath="VacDocument"
+			SubDirectory="#rowguid#" 			
+			Insert="yes"
+			Filter=""	
+			LoadScript="Yes"
+			Box="interview"
+			Remove="no"
+			ShowSize="yes">	
+		  
+		  </cfif>	
 		</td>
 	</tr>	
 	

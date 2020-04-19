@@ -46,6 +46,8 @@
 	      				WHERE  EntityCode   = 'GLTransaction'
 						AND    DocumentType = 'document'
 	      			  </cfquery>
+					  
+					 
 			   
 			      <select name="printdocumentid" id="printdocumentid" style="width:200px" class="regularxl enterastab">
 				 	

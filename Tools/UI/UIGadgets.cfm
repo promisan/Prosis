@@ -25,7 +25,41 @@
 			<script src="#Session.root#/scripts/kendoui/js/kendo.notification.min.js"></script>
 
 	</cfif>
+
 	<script type="text/javascript" src="#SESSION.root#/Scripts/js-cookie/js.cookie.js"></script>
+
+	<style>
+		.k-dropdown .k-state-default
+		{
+			background-color: white;
+			background-image: none;
+		}
+
+		.k-multiselect-wrap {
+			font-style: normal;
+			opacity: 0.6;
+			color: grey;
+			font-size: 14px;
+		}
+
+
+		.k-multiselect-wrap .k-select
+		{
+			position: relative !important;
+		}
+
+		.k-list .k-item.k-state-hover.k-state-selected
+		{
+			background-color: ##1984c8  !important;
+		}
+
+		.k-list .k-item.k-state-selected
+		{
+			background-color: ##1984c8  !important;
+		}
+
+	</style>
+
 	<div id="_UIDialog" style="display:none">
 	</div>
 

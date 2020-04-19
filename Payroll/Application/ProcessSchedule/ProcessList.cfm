@@ -136,28 +136,21 @@ password="#SESSION.dbpw#">
 	</td>
 </tr>
 
-<tr><td height="20">
-	
-	<table width="98%" border="0" align="left">
-	
-	<tr class="labelmedium line">
-		<td style="min-width:80px">&nbsp;</td>
-		<td style="min-width:200px;width:100%"><cf_tl id="Month"></td>
-		<td style="min-width:150px"><cf_tl id="Last calculated"></td>
-		<td style="min-width:250px"><cf_tl id="Separation"></td>
-		<td style="min-width:250px" align="right"><cf_tl id="Status"></td>
-		<td style="min-width:50px"></td>
-	</tr>
-	
-	</table>
-
-</td></tr>
-
 <tr><td valign="top">
 
 	<cf_divscroll>
 				
 		<table width="98%" border="0" align="center">
+		
+		<tr class="labelmedium line fixrow">
+		
+		<td style="min-width:10px"></td>
+		<td style="min-width:200px;width:100%"><cf_tl id="Month"></td>
+		<td style="min-width:150px"><cf_tl id="Last calculated"></td>
+		<td style="min-width:250px"><cf_tl id="Separation"></td>
+		<td style="min-width:250px"><cf_tl id="Status"></td>
+		
+		</tr>
 					
 		<!--- ------------------------------ --->
 		<!--- preparation of the calculation --->
@@ -254,72 +247,72 @@ password="#SESSION.dbpw#">
 				GROUP BY PersonNo
 									   
 		 </cfquery>				 			   
-		 
-					
-		<tr><td style="height:10px"></td></tr>
-					
-		<tr>
-		
-			<td colspan="11" style="height:40px;">
-		
-			    <table width="100%" cellspacing="0" cellpadding="0">
-				<tr>
 				
-					 <td></td>	   
-				     <td style="font-weight:200;height:30px;font-size:23px;" class="labelmedium">
-					   <a href="javascript:scheduleedit('#SalarySchedule#')"><font color="black">#Description# <cfif dateExpiration neq ""><font size="2" color="FF0000"><cf_tl id="Expiry">: #dateFormat(DateExpiration,client.dateformatShow)#</font></cfif></a>
+		<tr>
+					
+		     <td style="padding-top:5px;font-weight:200;height:40px;font-size:23px;" valign="top" class="labelmedium" colspan="2">
+			   <a href="javascript:scheduleedit('#SalarySchedule#')"><font color="black">#Description# 
+			   <cfif dateExpiration neq ""><font size="2" color="FF0000"><cf_tl id="Expiry">: #dateFormat(DateExpiration,client.dateformatShow)#</font></cfif>
+			   </a>
+			 </td>
+	    	
+			 <td align="right" colspan="3" style="font-weight:200;padding-right:28px;font-size:16px">
+			 
+			  <cfquery name="Last" dbtype="query">
+				 SELECT *
+				 FROM Pending
+				 ORDER BY FirstAction ASC
+			 </cfquery>		
+			 
+				 <cfif Last.FirstAction neq "" and PayrollStart gt Last.FirstAction>
+				 <table class="navigation_table">
+				 <tr class="labelmedium line">
+				 <td colspan="6">
+				 	Recommended recalculation:<font color="FF0000"> <b>#dateFormat(Pending.FirstAction,'MMMM YYYY')#</b>						
+				 </td></tr>
+				 
+				 <cfset row = "0">
+				 
+				 <cfloop query="Pending">
+				 
+				 	<cfset row = row+1>
+					 <cfif row eq "1">
+					 <tr class="line labelmedium">
+					 </cfif>
+					 <td style="padding-left:3px;padding-right:7px">
+					 <a href="javascript:EditPerson('#PersonNo#','#url.idmenu#','Contract')">#PersonNo#</a>
 					 </td>
-			    	 <td></td>
-					 <td align="right" style="font-weight:200;padding-right:28px;font-size:16px">
 					 
-					  <cfquery name="Last" dbtype="query">
-						 SELECT *
-						 FROM Pending
-						 ORDER BY FirstAction ASC
-					 </cfquery>		
+					 <cfquery name="Person"
+						datasource="AppsEmployee" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">		
+						SELECT *
+						FROM Person
+						WHERE PersonNo = '#PersonNo#'
+					  </cfquery>
+					  
+					  <td style="padding-left:3px;padding-right:7px">#Person.FirstName# #Person.LastName#</td>
+					  <td align="right" style="padding-left:3px;padding-right:7px">#Class#</td>
 					 
-					 <cfif Last.FirstAction neq "" and PayrollStart gt Last.FirstAction>
-					 <table class="navigation_table">
-					 <tr class="labelmedium"><td colspan="3">		 					 					
-					 	Recommended recalculation:<font color="FF0000"> <b>#dateFormat(Pending.FirstAction,'MMMM YYYY')#</b>						
-					 </td></tr>
-					 
-					 <cfloop query="Pending">
-						 <tr class="line navigation_row">
-						 <td style="padding-left:2px"><a href="javascript:EditPerson('#PersonNo#','#url.idmenu#','Contract')">#PersonNo#</a></td>
-						 
-						 <cfquery name="Person"
-							datasource="AppsEmployee" 
-							username="#SESSION.login#" 
-							password="#SESSION.dbpw#">		
-							SELECT *
-							FROM Person
-							WHERE PersonNo = '#PersonNo#'
-						  </cfquery>
-						  
-						  <td>#Person.FirstName# #Person.LastName#</td>
-						  <td align="right" style="padding-right:2px">#Class#</td>
-						 
-						 </tr>
-					 </cfloop>
-					 					 
-					 </table>
+					 <cfif row eq "2">
+					 </tr><cfset row = "0">
 					 </cfif>
 					 
-					 </td>
-				
-				</tr>
-				
-				
-				</table>
+				 </cfloop>
+				 					 
+				 </table>
+				 </cfif>
+			 
+			 </td>
 		
-			</td>
-		   
 		</tr>
-		
+			
 		<tr><td style="height:5px"></td></tr>
 		
-		<tr class="line"><td style="padding-left:30px;padding-right:30px">
+		<tr class="line">
+		
+		    <td style="padding-left:10px;padding-right:10px" colspan="5">
 		
 			<table width="100%" border="0" class="navigation_table">
 						
@@ -960,7 +953,7 @@ password="#SESSION.dbpw#">
 		</tr>
 		
 		<cfif row gte "5">
-			<tr><td height="20" colspan="9" class="labelmedium" style="padding-left:30px;padding-top:7px;font:14px">						
+			<tr><td height="20" colspan="9" class="labelmedium" style="padding-left:30px;padding-top:5px;font-size:12px">						
 			<a href="javascript:more('#salaryschedule#')">
 			>> <cf_tl id="Toggle additional payroll periods of">#salaryschedule#</a></td></tr>
 		</cfif>	
