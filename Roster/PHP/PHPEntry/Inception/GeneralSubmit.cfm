@@ -34,6 +34,7 @@
 	</cftry>	
 			
 	<cfparam name="MyForm.documentreference"     default="">
+	<cfparam name="MyForm.Reference"             default="">
 	<cfparam name="MyForm.nationalityadditional" default="">		
 	<cfparam name="URL.TriggerGroup"             default="PHP">
 	
@@ -198,6 +199,7 @@
 					 <cfif ISDEFINED("MyForm.Remarks")>
 					 Remarks,
 					 </cfif>
+					 Reference,
 					 Source,
 					 eMailAddress,
 					 MobileNumber,
@@ -241,7 +243,7 @@
 					    <cfif ISDEFINED("MyForm.Remarks")>
 					       <cfqueryparam value="#MyForm.Remarks#"        cfsqltype="CF_SQL_CHAR" maxlength="400">,				
 					    </cfif>	  
-					  
+					    <cfqueryparam value="#MyForm.Reference#"         cfsqltype="CF_SQL_CHAR" maxlength="20">,
 					    '#source#',
 					    <cfqueryparam value="#MyForm.eMailAddress#"      cfsqltype="CF_SQL_CHAR" maxlength="50">,	
 						<cfqueryparam value="#MyForm.MobileNumber#"      cfsqltype="CF_SQL_CHAR" maxlength="50">,		      
@@ -270,6 +272,7 @@
 						 	ApplicantNo,
 							SubmissionId,
 				  		 	SubmissionDate, 
+							SubmissionReference,
 						 	ActionStatus,
 						 	Source,				 	
 						 	eMailAddress,
@@ -282,9 +285,10 @@
 					       	'#new#', 
 							 '#MyForm.submissionid#',
 				           	'#DateFormat(Now(),CLIENT.dateSQL)#',
+							<cfqueryparam value="#MyForm.reference#"    cfsqltype="CF_SQL_CHAR" maxlength="20">,
 						  	'0',
 						  	'#Source#',				  	
-						  	<cfqueryparam value="#MyForm.eMailAddress#"      cfsqltype="CF_SQL_CHAR" maxlength="50">,	
+						  	<cfqueryparam value="#MyForm.eMailAddress#" cfsqltype="CF_SQL_CHAR" maxlength="50">,	
 							'001',
 						  	'#SESSION.acc#',
 				    	  	'#SESSION.last#',		  
@@ -324,7 +328,7 @@
 							 	Created)
 				      	VALUES ('#LastNo.PersonNo#',
 					       	'#MyForm.Mission#', 
-							<cfqueryparam value="#MyForm.IndexNo#"       cfsqltype="CF_SQL_CHAR" maxlength="20">,
+							<cfqueryparam value="#MyForm.Reference#"     cfsqltype="CF_SQL_CHAR" maxlength="20">,
 				           	'#MyForm.firstname# #MyForm.lastname#',				  		  	
 						  	<cfqueryparam value="#MyForm.eMailAddress#"  cfsqltype="CF_SQL_CHAR" maxlength="50">,		
 							<cfqueryparam value="#MyForm.MobileNumber#"  cfsqltype="CF_SQL_CHAR" maxlength="50">,				
@@ -350,7 +354,7 @@
 							 	Created)
 				      	VALUES ('#LastNo.PersonNo#',
 					       	'#MyForm.Mission#', 
-							<cfqueryparam value="#MyForm.IndexNo#"       cfsqltype="CF_SQL_CHAR" maxlength="20">,
+							<cfqueryparam value="#MyForm.Reference#"       cfsqltype="CF_SQL_CHAR" maxlength="20">,
 				           	'#MyForm.firstname# #MyForm.lastname#',			
 							#DOB#,	  		  	
 						  	<cfqueryparam value="#MyForm.eMailAddress#"  cfsqltype="CF_SQL_CHAR" maxlength="50">,		

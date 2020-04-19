@@ -177,7 +177,7 @@ password="#SESSION.dbpw#">
 	     				field       = "TransactionQuantity",	
 						align       = "right",				
 						alias       = "",					
-						formatted   = "numberformat(TransactionQuantity,'__,__')",														
+						formatted   = "numberformat(TransactionQuantity,',__')",														
 						search      = "number"}>								
 	
 	<!--- define access --->
@@ -213,7 +213,7 @@ password="#SESSION.dbpw#">
 			     				field       = "TransactionValue",					
 								align       = "right",
 								alias       = "",					
-								formatted   = "numberformat(TransactionValue*-1,'__,__.__')",														
+								formatted   = "numberformat(TransactionValue*-1,',.__')",														
 								search      = ""}>	
 							
 		</cfif>		

@@ -30,7 +30,7 @@ loop per person
 	  FROM     Employee.dbo.vwAssignment AS A INNER JOIN
                Organization.dbo.Organization AS P ON A.OrgUnitOperational = P.OrgUnit
 	  WHERE    A.Mission = '#get.mission#' 
-	  AND      A.AssignmentStatus IN ('0', '1') 
+	  AND      A.AssignmentStatus IN ('0','1') 
 	  AND      A.DateEffective  <= '#dateformat(get.PasPeriodStart,client.dateSQL)#' 
 	  AND      A.DateExpiration >= '#dateformat(get.PasPeriodStart,client.dateSQL)#' 
 	  AND      A.PostType IN (SELECT PostType
@@ -91,8 +91,7 @@ loop per person
 				'#session.acc#',
 				'#session.last#',
 				'#session.first#')			
-			</cfquery>
-		
+			</cfquery>		
 	</cfif>
 
 </cfloop>
@@ -101,14 +100,14 @@ loop per person
 	  datasource="AppsEPas" 
 	  username="#SESSION.login#" 
 	  password="#SESSION.dbpw#">
-	  SELECT   R.Status, R.Description, COUNT(*) AS Counted
-	  FROM     Contract AS C INNER JOIN
-                     Ref_Status AS R ON C.ActionStatus = R.Status
-	  WHERE    R.ClassStatus = 'Contract' 
-	  AND      C.Operational = 1
-	  AND      C.Period = '#url.code#'
-	  GROUP BY R.Status,R.Description
-	  ORDER BY R.Status
+	  SELECT    R.Status, R.Description, COUNT(*) AS Counted
+	  FROM      Contract AS C INNER JOIN
+                Ref_Status AS R ON C.ActionStatus = R.Status
+	  WHERE     R.ClassStatus = 'Contract' 
+	  AND       C.Operational = 1
+	  AND       C.Period = '#url.code#'
+	  GROUP BY  R.Status,R.Description
+	  ORDER BY  R.Status
 	</cfquery> 
 	
 	<table width="100%">	

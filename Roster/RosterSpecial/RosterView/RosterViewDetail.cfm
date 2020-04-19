@@ -423,7 +423,7 @@
 		
 		<cfsavecontent variable="header">
 
-		<tr class="pleft labelmedium">
+		<tr class="pleft labelmedium fixrow">
 		    <td height="18"></td>
 			<td></td>	
 			<td><cfif url.edition eq ""><cf_tl id="Edition"></cfif></td>

@@ -3,7 +3,7 @@
 
 <table width="100%">
 	
-	<tr class="line" class="labelmedium" style="height:20px">
+	<tr class="labelmedium" style="height:20px">
 		<td style="padding-left:14px">
 		 <cf_tl id="Record"> <b>#First#</b> <cf_tl id="to2"> <b><cfif Last gt Counted>#Counted#<cfelse>#Last#</cfif></b> <cf_tl id="of"> <b>#Counted#</b> <cf_tl id="selected records"> 
 		</td>

@@ -306,7 +306,7 @@
 		
 		<td>#Nat.Name#</td>
 		<td><cfif Gender eq "F">Female<cfelse>Male</cfif></td>
-		<td>#dateFormat(DOB,CLIENT.DateFormatShow)# <cfif DocParameter.MaximumAge lt Age><font color="FF0000">alert&nbsp;</cfif>age:<b>#age#</b></font></td>
+		<td>#dateFormat(DOB,CLIENT.DateFormatShow)# <cfif DocParameter.MaximumAge lt Age><font color="FF0000"></cfif><cf_tl id="Age">:<b>#age#</b></font></td>
 		<td>#Description#<cfif Status eq "2s" and CandidateClass eq "">&nbsp;<b>:&nbsp;Flow</b></cfif></td>
 		<td width="30">
 		
@@ -339,27 +339,32 @@
 		</td>
 		
 		<td>
+		
+		
 		<cfif reviewInitiated eq "0">
+		
+		<cf_UItooltip tooltip="Attention: No profile background reviews were initiated for this candidate">
 		<table><tr><td width="10" height="12" bgcolor="FF0000" style="border:1px solid black"></td></tr></table>
+		</cf_UITooltip>
+		
 		</cfif>
+		
 		</td>
 		
 		<td>	
-							
+									
 			<cfparam name="dialogAccess" default="edit">	
 									
 			<cfif Status lte "2s">
 					
-				<cfif dialogAccess eq "EDIT">
-				 
-				   <cf_img icon="delete" onClick="personcancel('#URL.ajaxid#','#PersonNo#','#url.line#','DocumentCandidateDeleteSubmit.cfm')">
-				   			 
+				<cfif (dialogAccess eq "EDIT" and Actions.ActionStatus eq "0") or getAdministrator("#doc.Mission#") eq "1">				 
+				   <cf_img icon="delete" onClick="personcancel('#URL.ajaxid#','#PersonNo#','#url.line#','DocumentCandidateDeleteSubmit.cfm')">				   			 
 			    </cfif>
 			
 			<cfelseif Status eq "6" <!--- stalled ---> or Status eq "9" <!--- withdrawm --->>
 				
-				<cfif dialogAccess eq "EDIT">
-				<a href="javascript:reinstate('#URL.ajaxid#','#PersonNo#')"><font color="0080C0">[reinstate]</font></a>
+				<cfif (dialogAccess eq "EDIT" and Actions.ActionStatus eq "0") or getAdministrator("#doc.Mission#") eq "1">			
+				<a href="javascript:reinstate('#URL.ajaxid#','#PersonNo#')">[reinstate]</a>
 				</cfif>
 					
 			</cfif>

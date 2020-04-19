@@ -669,6 +669,7 @@
 				   Currency           = "#currency#"
 				   ProgramCode        = "#ProgramCode#"
 				   ProgramHierarchy   = "#ProgramHierarchy#"  
+				   ProgramActivity	  = "#ProgramActivity#"
 				   Fund               = "#fund#"
 				   Class              = "#Class#" 
 				   ClassValue         = "#ClassValue#"

@@ -51,7 +51,7 @@
 				
 		<cfif url.action neq "create">
 				
-			<td valign="top" rowspan="30" align="left" style="padding-top:5px;width:130">
+			<td valign="top" rowspan="30" align="left" style="padding-top:5px;width:130;padding-right:10px">
 				<table>
 					<tr>
 						<td style="border:1px solid C0C0C0;">
@@ -332,6 +332,33 @@
 				  
 			  </cfif> 
 		</TD>
+		</tr>
+		
+		<cfset row=row+1>					
+	  
+	    <TR id="personfield" name="personfield">		
+	    <TD class="labelmedium" align="left">
+	    	<cf_tl id="Reference">:
+    	</TD>
+	    <TD align="left" width="60%">
+		
+			<cfif url.mode eq "edit" or url.action eq "create" or url.mode eq "php">
+			
+				     <input type="text"
+				       name="reference"
+				       value="#get.Reference#"
+				       size="20"
+					   onchange="#locmatch#"
+				       maxlength="20"					   
+				       class="regularxl enterastab">				
+			   
+			  <cfelse>
+			  
+			      #get.Reference#
+				  
+			  </cfif> 
+		</TD>
+		</tr>
 						
 		<cfset row=row+1>	
 				

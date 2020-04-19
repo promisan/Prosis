@@ -12,24 +12,21 @@ password="#SESSION.dbpw#">
 	
 	  <cfparam name="url.file" default="">
 	 
-	  <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+	  <table width="100%" height="100%">
+	  
+	  		<tr class="line labelmedium">
 			
-			<td width="55%" height="25" class="labelit">
-			
-				<cfif SESSION.isAdministrator eq "Yes">
+			<td width="55%" height="35">
 				<img src="#client.virtualdir#/Images/finger.gif" alt="" border="0" align="absmiddle">
 				&nbsp;
-				<a alt="Execute this script" href="#SESSION.root#/tools/scheduler/RunScheduler.cfm?id=#Line.scheduleName#&#Line.SchedulePassThru#&mode=trial" target="_blank">
-				<font size="2" color="0080FF">Press here to Manually Execute script</font></a>
-				</cfif>
+				<a alt="Execute this script" href="#SESSION.root#/tools/scheduler/RunScheduler.cfm?id=#Line.scheduleName#&#Line.SchedulePassThru#&mode=manual" target="_blank">
+				<font size="3">Press here to Manually Execute script</font></a>
 			</td>
 			
-			<td width="45%" align="right" style="padding-right:5px" class="labelit">#Line.ScheduleTemplate#</td>
+			<td width="45%" align="right" style="padding-right:5px">#Line.ScheduleTemplate#</td>
 			
 			</tr>
-			
-			<tr><td colspan="2" class="linedotted" height="1"></td></tr>
-			
+						
 			<tr><td colspan="2" valign="top" width="100%" height="100%" style="font-family : arial; font-size : 8pt;">
 			
 			<cf_divscroll>			
@@ -38,7 +35,7 @@ password="#SESSION.dbpw#">
 				   filename="#SESSION.rootpath#\#line.ScheduleTemplate#" 
 				   returnvariable="result">			
 				   
-	    	   <cfset result = replace(result, "ï¿½", "", "all") />		
+	    	   <cfset result = replace(result, "Â", "", "all") />		
 			   
 				#result#	
 				
@@ -46,10 +43,8 @@ password="#SESSION.dbpw#">
 				
 				</td>
 				
-			</tr>	
-							   	
+			</tr>								   	
 			   		
-	 </table>
-	 
+	 </table>	 
 					
 </cfoutput>

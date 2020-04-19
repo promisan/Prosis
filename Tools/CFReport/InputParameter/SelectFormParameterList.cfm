@@ -187,26 +187,24 @@
 						<cfset s = 2>
 					</cfif>
 				</cfif>
-				<cfset ht = s*18+3>				
-							
-				<cfselect name     = "#CriteriaName#" 
-						selected   = "#CriteriaDefault#"
-				    	size       = "#s#" 
-						multiple   = "Yes"
-					    message    = "#Error#" 
-					   	required   = "#ob#"
-						class      = "#class# radiol"
-						id         = "#fldid#"
-						width      = "#sizeU#"
-						style      = "width: #SizeU*8#;font-size:14px;height:#ht#;border:1px solid silver;font-family:calibri;"							
-						tooltip    = "#CriteriaMemo#"
-						label      = "#CriteriaDescription#:"
-						query      = "query#CriteriaName#"
-						queryPosition="below"
-						value      = "ListValue"
-						display    = "ListDisplay">
-						
-				</cfselect>	
+				<cfset ht = s*22+3>		
+																				
+				<cfselect name        = "#CriteriaName#" 
+						selected      = "#CriteriaDefault#"
+				    	size          = "#s#" 
+						multiple      = "Yes"
+					    message       = "#Error#" 
+					   	required      = "#ob#"
+						class         = "regularxxl"
+						id            = "#fldid#"
+						width         = "#sizeU#"
+						style         = "width: #SizeU*8#;height:#ht#;border:1px solid silver;font-family:calibri;"							
+						tooltip       = "#CriteriaMemo#"
+						label         = "#CriteriaDescription#:"
+						query         = "query#CriteriaName#"
+						queryPosition = "below"
+						value         = "ListValue"
+						display       = "ListDisplay"/>	
 			
 			<cfelse>
 			

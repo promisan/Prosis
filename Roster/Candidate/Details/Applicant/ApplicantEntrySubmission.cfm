@@ -6,9 +6,9 @@
 
 <table width="100%" border="0">
   
-<tr id="applicationbox" class="xhide"><td class="line"></td></tr>
+<tr id="applicationbox" class="hide"><td class="line"></td></tr>
 
- <table width="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+ <table width="100%" class="formpadding">
 	 
 	 	<tr>
 		<td class="labelmedium" width="250"><cf_tl id="Source">:</td>

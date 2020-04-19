@@ -77,7 +77,7 @@
 			 <cfelseif FunctionIcon eq "Library">	
 	              <img src="#client.virtualdir#/Images/folder4.gif"  #att#> 
 			 <cfelseif FunctionIcon eq "Roster">				
-			      <img src="#client.virtualdir#/Images/search4.png"  #att# height="37" width="37"> 
+			      <img src="#client.virtualdir#/Images/Logos/Roster/Search-Roster.png"  #att# height="37" width="37"> 
 	 		 <cfelseif FunctionIcon eq "Dictionary">	
 			      <img src="#client.virtualdir#/Images/dictionary.png" align="absmiddle" width="36" height="36" border="0"> 				 	 
 			 <cfelseif FunctionIcon eq "Document">	

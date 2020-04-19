@@ -1,5 +1,3 @@
-
-
 <cfparam name="Attributes.VerifyMultipleLogon"  default="0">
 <cfparam name="Attributes.VerifyCSRF"           default="0">
 <cfparam name="Attributes.VerifyAuthentication" default="0">
@@ -34,6 +32,7 @@
    </cfoutput>
    
 <cfelse>  
+
 
 	<!--- this method is made to check if the session of the user is considered cancelled based on the content
 	of the parameter table for this application server --->
@@ -149,7 +148,7 @@
 		<cf_trackUser>
 	</cfif>
 				
-	<cfif Attributes.VerifyCSRF eq "1x">
+	<cfif Attributes.VerifyCSRF eq "1">
 								
 		<cfif (CGI.SCRIPT_NAME eq "/apps/Component/Process/Workorder/UploadPicture.cfm" AND 
 		       findNoCase("android", GetHttpRequestData().Headers["user-agent"]) neq 0) 
@@ -160,8 +159,7 @@
 			<!--- 2015-03-07 kherrera: if upload picture and android then exception or if it is an upload --->
 			
 		<cfelse>
-				
-		
+						
 			<cfif CGI.REQUEST_METHOD eq "POST">
 		
 				<cfset vProtocol = "http://">
@@ -186,9 +184,24 @@
 					<cfset vValidServer = CGI.SERVER_NAME>
 				</cfif>
 
-				
-				<cfif mid(vReqClient,1,len(vValidServer)) neq vValidServer>
-				
+				<cfset source = ListToArray(vReqClient,'.')>
+				<cfset destination = ListToArray(vValidServer,'.')>
+
+				<cfset slen = ArrayLen(source)>
+				<cfset sdest = ArrayLen(destination)>
+
+				<cfset vPass = 1>
+				<cfif slen gt 2>
+					<cfif source[slen] neq destination[sdest] OR source[slen-1] neq destination[sdest-1]>
+						<cfset vPass = 0>
+					</cfif>
+				<cfelse>
+					<cfif mid(vReqClient,1,len(vValidServer)) neq vValidServer>
+						<cfset vPass = 0>
+					</cfif>
+				</cfif>
+
+				<cfif vPass eq 0>
 					<cfheader statusCode="403" statusText="Forbidden">
 					<!--- generic error page --->
 					#vReqClient#-#vValidServer#
@@ -251,10 +264,9 @@
 		
 		<!--- we check if the template is launched by this user within a certain time frame based on an 
 		id created upon triggering the termplate --->		
-		
-						
+									
 		<cfif mid neq "" and not findNoCase("default.cfm",CGI.SCRIPT_NAME)>
-														
+																
 			<cfinvoke component   = "Service.Process.System.UserController"  
 				method            = "RecordSessionTemplate"  
 				Hash              = "#mid#"

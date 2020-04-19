@@ -819,7 +819,7 @@ password="#SESSION.dbpw#">
 				  	<table><tr>			
 					
 					<td align="center" >
-				    <button  type="button" value="Post Transaction" onclick="javascript:doSubmit(this)" class="button10g" style="background-color:##6688aa80;border: double;font-size:16px;height:30px; width:240px">
+				    <button  type="button" value="Post Transaction" onclick="javascript:doSubmit(this)" class="button10g" style="background-color:##6688aa80;font-size:16px;height:30px; width:240px">
 						<cf_tl id="Post Transaction">
 					</button>			
 					</td></tr></table>

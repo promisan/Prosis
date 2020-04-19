@@ -88,8 +88,10 @@ password="#SESSION.dbpw#">
 
 <cf_tl id="Stock Transaction" var="1">
 
-<cf_screentop height="100%"  
-    bannerheight="50" 
+<cfset url.mission = batch.mission>
+
+
+<cf_screentop height="100%"     
 	title="#lt_text# : #URL.BatchNo# (#Batch.Mission#)" 
 	label="#lt_text# : #URL.BatchNo# <font size='1'>(#Batch.Mission#)</font>" 
 	layout="webapp" 	

@@ -1233,11 +1233,11 @@
   						datasource="AppsMaterials" 
   						username="#SESSION.login#" 
   						password="#SESSION.dbpw#">	
-						SELECT *
-	 					FROM Accounting.dbo.TransactionHeader TH 
- 						WHERE TransactionSourceId='#setbatchid#'
-					</cfquery>
-							
+						SELECT  *
+	 					FROM    Accounting.dbo.TransactionHeader TH 
+ 						WHERE   TransactionSourceId = '#setbatchid#' 
+						AND     TransactionSource = 'SalesSeries'
+					</cfquery>							
 							
 					<cfset parentJournal          = qHeader.Journal>
 					<cfset parentJournalSerialNo  = qHeader.JournalSerialNo>	

@@ -1,13 +1,13 @@
 
 <cfparam name="url.header"    default="0">
 <cfparam name="url.mandateno" default="">
-<cfparam name="url.id1" default="">
+<cfparam name="url.id1"       default="">
+<cfparam name="url.init"      default="1">
+<cfparam name="url.Mode"      default="Person">
 
 <cfif url.header eq "1">	
 	<cf_screentop jquery="yes" html="yes" layout="webapp">	
 </cfif>	
-
-<cfparam name="url.Mode" default="Person">
 
 <!--- generate the listing for the presentation --->
 
@@ -18,7 +18,6 @@
 <cfset FileNo = round(Rand()*10)>		 
 		 
 <CF_DropTable dbName="AppsQuery" tblName="tmp#SESSION.acc#StaffingLog_#fileno#">	 
-
 
 <!---
 <cftry> 
@@ -226,7 +225,6 @@
 			<cfif url.id1 neq "">
 			AND A.ActionSource = '#url.id1#'
 			</cfif>
-				
 								
 		</cfquery>	
 		
@@ -260,12 +258,20 @@
 </cfsavecontent>
 </cfoutput>
 
-<cfif url.mode eq "Person">
-
-	<cfinclude template="ActionListContentPerson.cfm">
-	
-<cfelse>	
-
-	<cfinclude template="ActionListContentMandate.cfm">
+<table width="100%" height="100%">
 		
-</cfif>
+   <tr>
+
+   <td colspan="1" height="100%" valign="top" style="<cfif url.init eq '1'>padding:10px</cfif>">
+	
+	<cfif url.mode eq "Person">	
+		<cfinclude template="ActionListContentPerson.cfm">		
+	<cfelse>		
+		<cfinclude template="ActionListContentMandate.cfm">			
+	</cfif>
+	
+	</td>
+	
+	</tr>
+	
+</table>	

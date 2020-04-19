@@ -124,9 +124,8 @@
 			</cfquery>	
 		
 		</cftransaction>
-												
-		<cfif get.recordcount eq "0" or get.Operational eq "0">
-		
+														
+		<cfif get.recordcount eq "0" or get.Operational eq "0">		
 								
 			<!--- validate the hash --->
 						
@@ -138,12 +137,10 @@
 				 <cfset Match_SES = FALSE>	 
 			</cfif>		
 
-			<cf_gethost>		
-			
-				
-				
+			<cf_gethost>	
+													
 			<cfif Match_USR or Match_SES or force eq "Yes">		
-																
+																						
 					<cfquery name="getUser" 
 						datasource="AppsSystem">
 							SELECT * 
@@ -183,8 +180,8 @@
 									 '#tmp#')
 							</cfquery>							
 					
-					</cfif>					
-					
+					</cfif>		
+															
 					<cfif session.acc neq "">
 					
 						<cfif get.recordcount eq "0">

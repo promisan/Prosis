@@ -19,22 +19,13 @@
 				
 				</td>
 				
-				<td align="right">
-				
-				
-				</td>
 			  </tr>
 				 
 		  </table>		  
 		  </td>
    </tr>
-   
-   <tr><td height="5">
-   	   	  
-	<cfinclude template="RosterViewHeader.cfm">
-	
-	</td></tr>
-	   
+  
+  	   
 	<cf_tl id="Add bucket" var="1">
 	<cfset tAddRosterBucket = "#Lt_text#">
 	   
@@ -64,12 +55,13 @@
 		<cfset list = "T">		
 	</cfif>	 
 	
-	<tr style="vertical-align:top;"><td colspan="<cfoutput>#tblr#</cfoutput>" valign="top" height="100%">
+	<tr style="vertical-align:top;">
+	<td colspan="<cfoutput>#tblr#</cfoutput>" valign="top" height="100%">
 	
 	<cf_divscroll overflowy="scroll">
 	
 	<table width="97%" height="100%" align="center">
-	   
+		   
 	<cfloop index="Tbl" list="#list#" delimiters=",">
 				
 	   <cfquery name="SearchResult"
@@ -82,7 +74,7 @@
 	   </cfquery>	  
 	   
 	   <cfif SearchResult.recordcount lte "10">
-	   
+	   	   
 		   <!--- 13/5/2016 this is likely a start-up roster so we need to show data at least --->
 		   
 		   <cfquery name="SearchResult"
@@ -94,13 +86,12 @@
 		   </cfquery>	
 	   
 	   </cfif>
-	   	   	   		 	      
+	  	  	   	   	   		 	      
 	   <cfif SearchResult.recordcount lt "1" and Tbl eq "T" and (AccessBucket eq "EDIT" or AccessBucket eq "ALL")>
 	   
 			<cfoutput>
 			  <tr><td colspan="#tblr#" align="left" colspan="4" style="height:35px" class="labelmedium">			   
-				   <a href="javascript:recordadd('','','','','','','','','#url.edition#')">
-				   <font color="0080C0"><cf_tl id="Add a bucket"></font></a>				  
+				   <a href="javascript:recordadd('','','','','','','','','#url.edition#')"><cf_tl id="Add a bucket"></a>				  
 				 </td>
 			  </tr>
 			</cfoutput>			
@@ -138,15 +129,12 @@
 				</td>
 			   	
 				<cfif Total lte "100" or Tbl neq "T">
-			    <td style="cursor:pointer;height:40px" valign="bottom" class="labellarge" onClick="listing('#occ#','show','only','','','#URL.Status#','','#url.exerciseclass#')">	
-				#tSummary#</font>
-				</td>		
+			    <td style="cursor:pointer;height:40px" valign="bottom" 
+				class="labellarge" onClick="listing('#occ#','show','only','','','#URL.Status#','','#url.exerciseclass#')">#tSummary#</td>		
 				<cfelse>
-				<td>	
+				<td></td>	
 				</cfif>						
-			    
-				</td>	
-
+			   
 				</tr>			
 			</cfif>	
 			
@@ -180,33 +168,32 @@
 			<cfelse>
 				<td width="95%" valign="bottom" class="labelmedium">	
 			</cfif>
-			<b>#Description#</b>
+			#Description#
 			</td>
 			
 			</tr>
 		</cfif>	
-		
-		
-		
+				
 		<tr style="vertical-align:top; height:0;">
 		 		 
 		<td align="right" colspan="2">
 						 
-		 <table width="100%" align="right" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+		 <table width="100%" align="right">
+		 		 
+		 	<cfinclude template="RosterViewHeader.cfm">
 		 		 	  
-			<tr>
+			<tr class="labelmedium" style="height:20px">
 			
-			      <td style="width:100%;border:1px solid silver;padding-left:8px" class="labelmedium"><cf_space spaces="36"><cf_tl id="Roster Buckets"></td>
+			      <td style="width:100%;border:1px solid silver;padding-left:8px" ><cf_tl id="Buckets"></td>
 				   
-	 	  	      <td align="right" style="border:1px solid silver">
-				  				  				 				 				    				
-					 <cfset sp = "24">					 
-										 
+	 	  	      <td align="right" style="border:1px solid silver;padding-right:2px">
+				  												 
 					 <cfif Total neq "">
-					 	 <cf_space spaces="#sp#" class="labelmedium" padding="0" align="right" label="#numberformat(Total,'_,_')#&nbsp;">								
+					    #numberformat(Total,'_,_')#					 							
 					 <cfelse>
-					     <cf_space spaces="#sp#" class="labelmedium" padding="0" align="right" label="">							
+					    -					  						
 					 </cfif>				
+					 
 			      </td>
 			    
 			      <cfloop index="item" from="1" to="#Resource.RecordCount#" step="1">
@@ -219,25 +206,19 @@
 						
 				  		<cfif find("-"&item&"-", SubT)>
 						
-						    <cfif cl eq "1">
-							
+						    <cfif cl eq "1">							
 								<td align="right" 								
 								id="cl#Occ#"
-								style="cursor: pointer;border:1px solid silver" 
-								onClick="javascript: listing('#Occ#','show','all','#columnParent[item]#','subtotal','#URL.Status#',this,'#url.exerciseclass#')">
-								
-							<cfelse>
-							
-								<td align="right" style="border:1px solid silver">							
-													
-							</cfif>
-													
-							<cfset sp = "20">											 
+								style="cursor: pointer;border:1px solid silver;padding-right:2px" 
+								onClick="javascript: listing('#Occ#','show','all','#columnParent[item]#','subtotal','#URL.Status#',this,'#url.exerciseclass#')">								
+							<cfelse>							
+								<td align="right" style="border:1px solid silver;padding-right:2px">																				
+							</cfif>																 
 														
 							<cfif Evaluate("Grade_" & item) neq "">
-								<cf_space spaces="#sp#" class="labelmedium" padding="0" align="right" label="#numberformat(Evaluate('Grade_' & item),'_,_')#&nbsp;">
+							     #numberformat(Evaluate('Grade_' & item),'_,_')#								
 							<cfelse>
-								<cf_space spaces="#sp#" class="labelmedium" padding="0" align="right" label="">
+							     -								
 							</cfif>
 								
 						<cfelse>
@@ -252,18 +233,17 @@
 							<td align="right" style="border:1px solid silver"> 					
 							
 							</cfif>
-							
-							<cfset sp = "16">					 
-							 						
+														 						
 							<cfif Evaluate("Grade_" & item) neq "">
-								<cf_space spaces="#sp#" class="labelmedium" padding="0" align="right" label="#numberformat(Evaluate('Grade_' & item),'_,_')#&nbsp;">
+							    #numberformat(Evaluate('Grade_' & item),'_,_')#
 							<cfelse>
-								<cf_space spaces="#sp#" class="labelmedium" padding="0" align="right" label="">
+							    -								
 							</cfif>
 							
 						</cfif>
 										
 					</td>
+					
 			      </cfloop>
 						  
 			  </tr>
@@ -330,20 +310,20 @@
 				  <cfset ac   = "#Get.TextHeader#">
 				  <cfset tool = "#Get.Meaning#">
 									  
-		          <tr bgcolor="#cl#" class="labelmedium">
+		          <tr bgcolor="#cl#" class="labelmedium" style="height:20px">
 				  
 				     <td width="40" bgcolor="f4f4f4" style="border:1px solid silver;padding-left:8px">
 						 <table>
 						 <tr class="labelmedium">
 						 <td>#ac#<cf_space spaces="10"></td>
-						 <td style="border-left:1px solid silver;padding-left:4px">#get.Meaning#<cf_space spaces="40"></td>
+						 <td style="border-left:1px solid silver;padding-left:4px">#get.Meaning#</td>
 						 </tr>
 						 </table>
 					 </td>						  
-		 		     <td align="right" bgcolor="E6EFD6" style="border:1px solid d3d3d3">
+		 		     <td align="right" style="background-color:E6EFD6;border:1px solid silver;padding-right:2px">
 									
 					   <cfif Evaluate("Total" & st) neq "">					  
-							#numberformat(Evaluate("Total" & st),'_,-')#&nbsp;
+							#numberformat(Evaluate("Total" & st),'_,-')#
 							<cfelse>-
 						</cfif>
 							 	  
@@ -433,5 +413,5 @@
 	
 	</td></tr>
 	
-	</table>
+</table>
 	

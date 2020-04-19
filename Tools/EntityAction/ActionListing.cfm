@@ -233,7 +233,6 @@
 	<cfset condition = "">
 </cfif>	
 
-
 <cfloop index="itm" from="1" to="4"> 
 
 	 <cfset val = evaluate("Attributes.ObjectKey#itm#")>
@@ -385,9 +384,7 @@
 	 AND      EntityClass    = '#Attributes.EntityClass#'	 
 </cfquery>
 
-
-<cfif attributes.hidecurrent eq "No">
-   
+<cfif attributes.hidecurrent eq "No">   
 
 	   	<cfinclude template="ObjectCreate.cfm">		
 

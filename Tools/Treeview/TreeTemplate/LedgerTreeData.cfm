@@ -171,38 +171,93 @@ password="#SESSION.dbpw#">
 					        display="<span style='font-size:15px;padding-top:5px;padding-bottom:5px' class='labelit'>#Currency#</span>"
 							parent="views"											
 							target="right"
-					        expand="No">			 			
-						
-						<cfquery name="Area" 
-						  datasource="AppsLedger" 
-						  username="#SESSION.login#" 
-						  password="#SESSION.dbpw#">
-						      SELECT * 
-						      FROM   Employee.dbo.Ref_AreaGLedger	
-							  WHERE Area = 'Advance'					 
-						</cfquery>	
-						
-						<cfloop query="Area">
-						
-							<cf_tl id="Advance Employee" var="vStatusEmployee">
-						
-							<cf_UItreeitem value="#cur#_#area#"
-					        	display="<span style='padding-bottom:5px;font-size:14px' class='labelit'>#vStatusEmployee#</span>"
-								parent="vw_#cur#"		
-								href="../../Inquiry/Advance/ListingEmployee.cfm?systemfunctionid=#url.systemfunctionid#&mission=#Attributes.Mission#&currency=#cur#&area=#area#"							
-								target="right"																					
-						        expand="No">	
+					        expand="No">		
 							
-						</cfloop>	
+						<cfinvoke component = "Service.Authorization.Function"  
+			  			 method           = "AuthorisedFunctions" 
+						 mode             = "View"			 
+						 mission          = "#attributes.mission#" 
+						 orgunit          = ""
+			   			 Role             = ""
+						 SystemModule     = "'Accounting'"
+						 FunctionClass    = "'Inquiry'"
+						 MenuClass        = "'Journal'"
+						 Except           = "''"
+			   			 Anonymous        = ""
+						 returnvariable   = "listaccess">		
+						 
+						<cfloop query="listaccess"> 	
 						
-						<cf_tl id="Advance Vendor" var="vStatusVendor">
-						
-						<cf_UItreeitem value="#cur#_vendor"
-					      	    display="<span style='padding-bottom:5px;font-size:14px' class='labelmedium'>#vStatusVendor#</span>"
-								parent="#cur#"		
-								href="../../Inquiry/Advance/ListingVendor.cfm?systemfunctionid=#url.systemfunctionid#&mission=#Attributes.Mission#&currency=#cur#"							
-								target="right"																					
-						        expand="No">						
+							<cfif FunctionName eq "Staff Advances">
+							
+								<cfquery name="Area" 
+								  datasource="AppsLedger" 
+								  username="#SESSION.login#" 
+								  password="#SESSION.dbpw#">
+								      SELECT * 
+								      FROM   Employee.dbo.Ref_AreaGLedger	
+									  WHERE Area = 'Advance'					 
+								</cfquery>	
+								
+								<cfif area.recordcount eq "1">
+								
+								 <cf_UItreeitem value="#cur#_#left(systemfunctionid,8)#"
+							      	    display="<span style='font-size:14px' class='labelit'>#FunctionName#</span>"
+										parent="vw_#cur#"
+										href="../../../#FunctionDirectory#/#FunctionPath#?systemfunctionid=#url.systemfunctionid#&mission=#Attributes.Mission#&period=#attributes.Period#&currency=#cur#"							
+										target="right"																					
+								        expand="No">	
+								
+								</cfif>
+							
+							<cfelse>
+							
+								 <cf_UItreeitem value="#cur#_#left(systemfunctionid,8)#"
+						      	    display="<span style='font-size:14px' class='labelit'>#FunctionName#</span>"
+									parent="vw_#cur#"	
+									href="../../../#FunctionDirectory#/#FunctionPath#?systemfunctionid=#url.systemfunctionid#&mission=#Attributes.Mission#&period=#attributes.Period#&currency=#cur#"							
+									target="right"																					
+							        expand="No">		
+									
+							</cfif>
+												    				
+															
+						    <!--- remove me
+							
+							<cfquery name="Area" 
+							  datasource="AppsLedger" 
+							  username="#SESSION.login#" 
+							  password="#SESSION.dbpw#">
+							      SELECT * 
+							      FROM   Employee.dbo.Ref_AreaGLedger	
+								  WHERE Area = 'Advance'					 
+							</cfquery>	
+							
+							<cfloop query="Area">
+							
+								<cf_tl id="Advance Employee" var="vStatusEmployee">
+							
+								<cf_UItreeitem value="#cur#_#area#"
+						        	display="<span style='padding-bottom:5px;font-size:14px' class='labelit'>#vStatusEmployee#</span>"
+									parent="vw_#cur#"		
+									href="../../Inquiry/Advance/ListingEmployee.cfm?systemfunctionid=#url.systemfunctionid#&mission=#Attributes.Mission#&currency=#cur#&area=#area#"							
+									target="right"																					
+							        expand="No">	
+								
+							</cfloop>	
+							
+							<cf_tl id="Advance Vendor" var="vStatusVendor">
+							
+							<cf_UItreeitem value="#cur#_vendor"
+						      	    display="<span style='padding-bottom:5px;font-size:14px' class='labelmedium'>#vStatusVendor#</span>"
+									parent="#cur#"		
+									href="../../Inquiry/Advance/ListingVendor.cfm?systemfunctionid=#url.systemfunctionid#&mission=#Attributes.Mission#&currency=#cur#"							
+									target="right"																					
+							        expand="No">	
+									
+							 --->		
+									
+						</cfloop>							
 				
 				</cfloop>	
 				

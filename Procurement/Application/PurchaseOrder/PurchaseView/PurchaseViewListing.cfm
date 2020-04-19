@@ -347,11 +347,11 @@
 					
 <cf_tl id="Date" var="1">
 <cfset fields[itm] = {label      = "#lt_text#",    
-					width      = "0", 
-					field      = "OrderDate",		
-					labelfilter = "Order Date",			
-					formatted  = "dateformat(OrderDate,CLIENT.DateFormatShow)",
-					search     = "date"}>
+					width        = "0", 
+					field        = "OrderDate",		
+					labelfilter  = "Order Date",			
+					formatted    = "dateformat(OrderDate,CLIENT.DateFormatShow)",
+					search       = "date"}>
 					
 <cfset itm = itm+1>					
 					

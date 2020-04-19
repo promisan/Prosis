@@ -111,7 +111,7 @@
 	
 	<cf_listing header  = "PersonnelAction"
 	    box           = "actiondetail"
-		link          = "#SESSION.root#/Staffing/Application/Employee/PersonAction/ActionListContent.cfm?id1=#url.id1#&systemfunctionid=#url.systemfunctionid#&mode=#url.mode#&mission=#url.mission#&mandateno=#url.mandateno#"
+		link          = "#SESSION.root#/Staffing/Application/Employee/PersonAction/ActionListContent.cfm?init=0&id1=#url.id1#&systemfunctionid=#url.systemfunctionid#&mode=#url.mode#&mission=#url.mission#&mandateno=#url.mandateno#"
 	    html          = "No"		
 		datasource    = "AppsQuery"
 		listquery     = "#myquery#"

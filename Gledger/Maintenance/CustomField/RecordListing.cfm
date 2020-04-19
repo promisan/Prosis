@@ -5,14 +5,12 @@
 <cfset add          = "1">
 <cfinclude template = "../HeaderMaintain.cfm"> 		
 	
-<table width="96%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
-
-	<tr><td height="1" class="linedotted"></td></tr>
-    <tr><td height="4"></td></tr>				
+<table height="100%" width="96%" align="center" class="formpadding">
+	   	
 	<tr>
 	
-	    <td width="100%" id="listing">
-
+	    <td height="100%" width="100%" id="listing">
+						
 		   <cf_TopicListingView 
 		       systemmodule      = "Accounting"
 		       alias             = "appsLedger"
@@ -38,7 +36,7 @@
 			   topicscope3       = "Ref_SpeedtypeTopic"
 			   topicscope3table  = "Ref_SpeedType"
 			   topicscope3field  = "Speedtype">					   
-			   
+			  			   
 		</td>
 		
 	</tr>		

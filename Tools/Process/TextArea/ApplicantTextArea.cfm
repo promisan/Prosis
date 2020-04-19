@@ -101,15 +101,15 @@
 				<td colspan="2">
 
 				    <table width="100%" cellspacing="0" cellpadding="0">
-					<tr>
-						<td align="left">  
+					<tr>					
+						<td align="left" style="padding-top:10px">  
 							<table>
 								<tr>
 									<cfif attributes.mode eq "View" and attributes.toggle eq "Yes">
 										<td> <cf_img icon="expand" toggle="yes" onclick="toggleTextArea('div_#Code#')"> </td>
 									</cfif>
 									<td style="font-size:18px" class="<cfif attributes.mode eq 'View'>labelmedium<cfelse>labelmedium</cfif>">
-										<cf_space spaces="80">#Description#
+										#Description#
 									</td>
 								</tr>
 							</table>
@@ -149,10 +149,11 @@
 					<tr>					
 									   				
 					<cfif Attributes.Format eq "Text">
-					 <td colspan="3" align="center" id="div_#Code#">	
-					 								
+					
+					 <td colspan="3" syule="padding-top:5px" align="center" id="div_#Code#">	
+					 																					
 						<textarea style="height:#ht#;width:100%;font-size:13px;padding:3px;border:1px solid silver" name="#Code#_#Attributes.languageCode#"  id="#Code#_#Attributes.languageCode#"
-						 class="regular"><cf_paragraph>#evaluate(attributes.fieldoutput)#</cf_paragraph></textarea>		
+						 class="regular">#evaluate(attributes.fieldoutput)#</textarea>		
 						 			   
 					<cfelse>
 					

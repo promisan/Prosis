@@ -4,7 +4,7 @@
 
 <cfif url.scope neq "none">
 	<cfif url.scope eq "settlement" or url.scope eq "standalone">
-		<cfform id="salesdetails" name="salesdetails" method="POST" style="height:100%">		
+		<cfform id="salesdetails" name="salesdetails" method="POST" style="height:98%">		
 			<cfinclude template="SettlementViewBody.cfm">
 		</cfform>
 	<cfelse>	

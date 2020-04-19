@@ -291,7 +291,8 @@ password="#SESSION.dbpw#">
 			password="#SESSION.dbpw#">
 				SELECT DISTINCT Source, Description
 				FROM   Ref_Source
-				WHERE  Operational = 1 AND AllowEdit = 1 				
+				WHERE  Operational = 1 
+				AND    AllowEdit   = 1 				
 				AND    Description != ''
 		</cfquery>	
 		

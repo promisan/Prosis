@@ -85,7 +85,7 @@
 		</cfif>		
 		
 		<cfif cl eq "regular">
-		 <cfset cl = "regularxl">
+		 <cfset cl = "regularXXL">
 		</cfif>
 				
 		<cfif ajax eq "0">		
@@ -235,7 +235,7 @@
 				   maxlength = "800"
 				   size      = "#sizeU#"
 				   style     = "width: #SizeU*8#;"
-				   class     = "regularxl"
+				   class     = "regularXXL"
 				   readonly
 				   label     = "#CriteriaDescription#:">  								   
 				   
@@ -248,7 +248,7 @@
 				   maxlength  = "800"
 				   size       = "#sizeU#"
 				   style      = "width: #SizeU*8#;"
-				   class      = "regularxl"
+				   class      = "regularXXL"
 				   readonly>  				 
 				 
 				 </cfif>  
@@ -356,7 +356,7 @@
 				<tr><td>
 				
 				<cfif cl eq "regular">
-					<cfset cl = "regularxl">
+					<cfset cl = "regularXXL">
 				</cfif>
 				
 				<cfif ajax eq "0">		

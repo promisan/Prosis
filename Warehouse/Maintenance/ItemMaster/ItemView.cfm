@@ -63,8 +63,7 @@ function toggleMenu(){
 	  label="#url.mission#: #Item.ItemDescription#" 
 	  html="no"
 	  layout="webapp"	
-	  banner="gray"
-	  bannerheight="50"		   
+	  banner="gray"	     
 	  band="No" 
 	  line="no"
 	  scroll="no" 
@@ -74,13 +73,14 @@ function toggleMenu(){
 	  
 <cfelse>
 
+	<!--- we have an MIP which indicates the context --->
+
 	<cf_screenTop border="0" 
       height="100%" 
 	  label="#url.mission#: #Item.ItemDescription#" 
 	  html="no"
 	  layout="webapp"	
-	  banner="gray"
-	  bannerheight="50"		   
+	  banner="gray"	   
 	  band="No" 
 	  line="no"
 	  scroll="no" 

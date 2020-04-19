@@ -17,23 +17,22 @@
 	<cfquery name="insert" 
 		datasource="AppsVacancy">
 			INSERT INTO DocumentInquiryLog  
-				(DocumentNo, 
-				 NodeIP, 
-				 HostSessionNo, 
-				 ActionTimeStamp,
-				 FunctionName, 
-				 OfficerUserId,
-				 OfficerLastName,
-				 OfficerFirstName)
-			VALUES 
-			('#URL.ID#',					 
-			 '#CGI.Remote_Addr#', 
-			 '#CLIENT.sessionNo#', 
-			 getDate(),
-			 'Track',
-			 '#SESSION.acc#',
-			 '#SESSION.last#',
-			 '#SESSION.first#')
+					(DocumentNo, 
+					 NodeIP, 
+					 HostSessionNo, 
+					 ActionTimeStamp,
+					 FunctionName, 
+					 OfficerUserId,
+					 OfficerLastName,
+					 OfficerFirstName)
+			VALUES	('#URL.ID#',					 
+					 '#CGI.Remote_Addr#', 
+					 '#CLIENT.sessionNo#', 
+					 getDate(),
+					 'Track',
+					 '#SESSION.acc#',
+					 '#SESSION.last#',
+					 '#SESSION.first#')
 	</cfquery>		
 
 	<cfcatch></cfcatch>
@@ -97,7 +96,7 @@ password="#SESSION.dbpw#">
 
 	<cfif Doc.recordcount eq "0">
 	
-	<cf_screentop title         = "Recruitment request No: #URL.ID#" 
+	<cf_screentop title     = "Recruitment request No: #URL.ID#" 
               height        = "100%" 
 			  layout        = "webapp"
 			  banner        = "gray"	

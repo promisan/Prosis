@@ -51,7 +51,7 @@
 		
 	<cf_screenTop height="100%" jquery="Yes" 
 	    html="yes" band="no" scroll="yes" menuaccess="context" layout="webapp" label="Final Payment #Person.FullName#" actionobject="Person"
-		actionobjectkeyvalue1="#get.settlementid#">	
+		actionobjectkeyvalue4="#get.settlementid#">	
 	
 		<table width="99%" align="center" border="0" cellspacing="0" cellpadding="0" class="formpadding">
 		

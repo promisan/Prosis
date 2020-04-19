@@ -36,7 +36,7 @@
 						       enabled   = "Yes"
 						       size      = "#CriteriaWidth#"
 						       maxlength = "800"
-							   class     = "regularxl"
+							   class     = "regularXXL"
 							   tooltip   = "#CriteriaMemo#"
 							   message   = "#Error#">			 
 				 
@@ -57,7 +57,7 @@
 						       enabled         = "Yes"
 						       size            = "#CriteriaWidth#"
 						       maxlength       = "800"
-							   class           = "regularxl"
+							   class           = "regularXXL"
 							   autosuggest     = "cfc:service.reporting.presentation.getlookup('#ControlId#','#CriteriaName#',{cfautosuggestvalue})"
 						       tooltip         = "#CriteriaMemo#"
 							   message         = "#Error#">

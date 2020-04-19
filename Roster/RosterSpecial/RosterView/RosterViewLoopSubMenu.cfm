@@ -1,4 +1,5 @@
 <cfparam name="URL.Ajax"     default="No">
+
 <cfif URL.Ajax eq "No">
 	<cf_textareascript>
 </cfif>		
@@ -51,18 +52,14 @@ There are three mode
 				  <!--- we always show the matrx first if we have buckets or the mode=all or if we do not have underlying
 				  positions to be pusblushed for this edition --->
 				  
-				  <cfif (getBuckets.recordcount gte "1" 
-				      or url.edition eq "all" 					  
-					  or getPositions.recordcount eq "0") and get.ActionStatus neq "0">
+				  <cfif (getBuckets.recordcount gte "1" or url.edition eq "all" or getPositions.recordcount eq "0") and get.ActionStatus neq "0">
 					  
 					  <td valign="top" style="padding-right:6px;padding-top:5px;border-right:0px solid gray">
 					  
 							<table>
 														
 							<tr><td style="padding-left:4px;padding-top:5px">
-							
-							<cf_space spaces="112">
-						
+												
 							<cfquery name="Class" 
 							datasource="AppsSelection" 
 							username="#SESSION.login#" 
@@ -173,8 +170,7 @@ There are three mode
 									WHERE   ExcerciseClass = '#Edition.ExerciseClass#'
 							  </cfquery>
 							  
-							  <cfif getClass.TreePublish neq "">			
-							
+							  <cfif getClass.TreePublish neq "">								
 								
 								<cfif Edition.ActionStatus neq "3">
 								
@@ -211,9 +207,7 @@ There are three mode
 				  
 				  </cfif>					  
 				  
-				  <cfif getBuckets.recordcount gte "1" 
-				      or url.edition eq "all" 
-					  or getPositions.recordcount eq "0">
+				  <cfif getBuckets.recordcount gte "1" or url.edition eq "all"  or getPositions.recordcount eq "0">
 										  
 					  	<cfset itm = itm+1>		
 																 								 										
@@ -222,14 +216,12 @@ There are three mode
 							iconwidth      = "#wd#" 
 							targetitem     = "4"
 							iconheight     = "#ht#" 								
-							name           = "Roster Candidates"
+							name           = "Candidates"
 							source         = "#session.root#/Roster/Maintenance/RosterEdition/Candidate/CandidateListing.cfm?systemfunctionid=#url.systemfunctionid#&owner=#url.owner#&exerciseclass=#url.exerciseclass#&submissionedition=#URL.edition#">
 					  
 				  </cfif>
 				  
-				  <cfif getBuckets.recordcount eq "0" 
-				      and url.edition neq "all" 
-					  and getPositions.recordcount neq "0">
+				  <cfif getBuckets.recordcount eq "0" and url.edition neq "all"  and getPositions.recordcount neq "0">
 			
 					  <!--- ---------------------------- --->	
 					  <!--- ---------- buckets---------- --->	

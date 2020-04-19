@@ -81,7 +81,7 @@
 		  <cfset co = "transparent">
 		</cfif>
 	
-    	<TR valign="top" bgcolor="#co#" id="#HierarchyCode#" class="#cls#">
+    	<TR bgcolor="#co#" id="#HierarchyCode#" class="#cls#">
 		
 		<!---				
 		<cfset grp = HierarchyCode>

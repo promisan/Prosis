@@ -261,7 +261,7 @@
 							   <cfinput type  = "text" 
 							      name        = "filter#current.field#" 
 								  value       = "#val#" 
-								  class       = "regularxl" 
+								  class       = "regularxxl" 
 								  message     = "Please select a #Current.LabelFilter#"
 								  required    = "#oblig#"
 								  size        = "20" 
@@ -280,7 +280,7 @@
 								      name      = "filter#current.field#" 
 									  value     = "#val#" 
 									  onkeyup   = "gofilter(event)"									 
-									  class     = "regularxl" 
+									  class     = "regularxxl" 
 									  message   = "Please select a #Current.LabelFilter#"
 									  required  = "#oblig#"
 									  size      = "20" 								 
@@ -301,7 +301,7 @@
 										   <cfinput type="text" 
 										      name="filter#current.field#" 
 											  value="#val#" 
-											  class="regularxl" 
+											  class="regularxxl" 
 											  size="20" 
 											  message="Please select a #Current.LabelFilter#"
 											  required="#oblig#"
@@ -316,7 +316,7 @@
 										     <cfinput type="text" 
 										      name="filter#current.field#" 
 											  value="#val#" 
-											  class="regularxl" 
+											  class="regularxxl" 
 											  size="20"
 											  message="Please select a #Current.LabelFilter#"
 											  required="#oblig#" 
@@ -342,18 +342,18 @@
 													<cfset vFilter ="">
 												</cfif>
 
-												<cf_UIselect name          = "filter#current.field#"
-												    class         = "regularxl" 
-													queryposition = "below"
-													query         = "#lookupdata#"
-													value         = "CODE"
-													required      = "#oblig#"
-													onchange      = "applyfilter('','1','content')"	
-													message       = "Please select a #Current.LabelFilter#"
-													display       = "DISPLAY"
-													filter        = "#vFilter#"
-													selected      = "#val#"																								
-													style         = "width:90%;">
+												<cf_UIselect name   = "filter#current.field#"
+												    class           = "regularxxl" 
+													queryposition   = "below"
+													query           = "#lookupdata#"
+													value           = "CODE"
+													required        = "#oblig#"
+													onchange        = "applyfilter('','1','content')"	
+													message         = "Please select a #Current.LabelFilter#"
+													display         = "DISPLAY"
+													filter          = "#vFilter#"
+													selected        = "#val#"																								
+													style           = "width:90%;">
 													<cfif current.filterforce eq "0">
 												      <option value="" style="background: White;font:10px"><cf_tl id="Any"></option>
 													<cfelse>
@@ -363,19 +363,19 @@
 											
 											<cfelse>
 
-												<cf_UISelect name = "filter#current.field#"
-												    class         = "regularxl" 
-													queryposition = "below"
-													query         = "#lookupdata#"
-													group         = "#current.LookupGroup#"
-													value         = "CODE"
-													onchange      = "applyfilter('','1','content')"
-													message       = "Please select a #Current.LabelFilter#"
-													required      = "#oblig#"
-													display       = "DISPLAY"
-													selected      = "#val#"
-													filter        = "contains"
-													style         = "width:90%">
+												<cf_UISelect name   = "filter#current.field#"
+												    class           = "regularxxl" 
+													queryposition   = "below"
+													query           = "#lookupdata#"
+													group           = "#current.LookupGroup#"
+													value           = "CODE"
+													onchange        = "applyfilter('','1','content')"
+													message         = "Please select a #Current.LabelFilter#"
+													required        = "#oblig#"
+													display         = "DISPLAY"
+													selected        = "#val#"
+													filter          = "contains"
+													style           = "width:90%">
 													<cfif current.filterforce eq "0">
 												    <option value="" style="background: White;font:10px"><cf_tl id="Any"></option>		
 													<cfelse>
@@ -392,7 +392,7 @@
 										   <cfinput type   = "text" 
 										       name        = "filter#current.field#" 
 											   value       = "#val#" 
-											   class       = "regularxl" 
+											   class       = "regularxxl" 
 											   message     = "Please select a #Current.LabelFilter#"
 											   required    = "#oblig#" 
 											   style       = "width:180;"						 
@@ -435,7 +435,7 @@
 										<cfelse>
 										
 											<cf_UISelect name  = "filter#current.field#"
-											     class         = "regularxl"
+											     class         = "regularxxl"
 											     queryposition = "below"
 											     query         = "#lookupdata#"
 											     value         = "PK"
@@ -461,7 +461,7 @@
 								   								  									
 								   <table cellspacing="0" cellpadding="0"><tr><td>
 								   
-								   <select name="filter#current.field#_operator" class="regularxl">
+								   <select name="filter#current.field#_operator" class="regularxxl">
 		
 										<OPTION value="CONTAINS" <cfif ope eq "CONTAINS">selected</cfif>><cfoutput>#vcontains#</cfoutput>
 										<OPTION value="BEGINS_WITH" <cfif ope eq "BEGINS_WITH">selected</cfif>><cfoutput>#vbegins#</cfoutput>
@@ -485,7 +485,7 @@
 									  onkeyup="gofilter(event)"
 									  message="Please select a #Current.LabelFilter#"
 									  required="#oblig#" 
-									  class="regularxl" 
+									  class="regularxxl" 
 									  size="40" 								 
 									  maxlength="100">	
 									  
@@ -511,7 +511,7 @@
 									  style="text-align:right"
 									  required="#oblig#" 
 									  message="Incorrect numeric value #Current.LabelFilter#"
-									  class="regularxl enterastab" 
+									  class="regularxxl enterastab" 
 									  size="8" 
 									  maxlength="20">
 									  
@@ -531,7 +531,7 @@
 									  validate="float"
 									  style="text-align:right"
 									  required="#oblig#" 
-									  class="regularxl enterastab" 
+									  class="regularxxl enterastab" 
 									  message="Incorrect numeric value #Current.LabelFilter#"
 									  size="8" 
 									  maxlength="20">
@@ -555,7 +555,7 @@
 									  style="text-align:right"
 									  required="#oblig#" 
 									  message="Incorrect numeric value #Current.LabelFilter#"
-									  class="regularxl enterastab" 
+									  class="regularxxl enterastab" 
 									  size="8" 
 									  maxlength="20">
 									  
@@ -575,7 +575,7 @@
 									  validate="float"
 									  style="text-align:right"
 									  required="#oblig#" 
-									  class="regularxl enterastab" 
+									  class="regularxxl enterastab" 
 									  message="Incorrect numeric value #Current.LabelFilter#"
 									  size="8" 
 									  maxlength="20">
@@ -592,7 +592,7 @@
 							   <input type="text" 
 							          name="filter#current.field#" 
 									  id="filter#current.field#"
-									  class="regularxl" 
+									  class="regularxxl" 
 									  value="#val#" 
 									  size="20" 
 									  maxlength="20">
@@ -612,7 +612,7 @@
 							     <cf_intelliCalendarDate9
 									FieldName="filter#current.field#_from" 
 									Default="#val#"
-									class="regularxl"
+									class="regularxxl"
 									AllowBlank="#blank#">	
 																		
 							   <cfset reset =  "#reset#;document.getElementById('filter#current.field#_from').value=''">	 
@@ -628,7 +628,7 @@
 								   <cf_intelliCalendarDate9 
 								     FieldName="filter#current.field#_to" 
 									 Default="#val#"
-									 class="regularxl"
+									 class="regularxxl"
 									 AllowBlank="#blank#">		
 									 
 								   <cfset reset =  "#reset#;document.getElementById('filter#current.field#_to').value=''">	 									  	 								 							

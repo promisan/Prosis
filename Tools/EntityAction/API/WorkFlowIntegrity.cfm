@@ -1,12 +1,14 @@
 
+<cfparam name="attributes.Datasource" default="appsOrganization">
+
 <cfquery name="getEntity" 
 	 datasource="#attributes.Datasource#"
 	 username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">
 		SELECT     *
-		FROM       Ref_Entity AS B
+		FROM       Organization.dbo.Ref_Entity AS B
 		WHERE      EntityCode IN (SELECT  EntityCode
-    	                          FROM    OrganizationObject
+    	                          FROM    Organization.dbo.OrganizationObject
         	                      WHERE   EntityCode = B.EntityCode)
 </cfquery>	
 

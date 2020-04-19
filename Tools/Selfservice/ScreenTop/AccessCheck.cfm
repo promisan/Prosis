@@ -43,6 +43,7 @@
 		is now much wider
 		
 		<cfif url.mid neq "">
+				
 	
 			<cfinvoke component   = "Service.Process.System.UserController"  
 				method            = "RecordSessionTemplate"  
@@ -50,7 +51,9 @@
 				ActionTemplate    = "#CGI.SCRIPT_NAME#"
 				Hash              = "#URL.mid#"
 				ActionQueryString = "#CGI.QUERY_STRING#"
-				AccessValidate    = "Yes">								  
+				AccessValidate    = "Yes">	
+				
+								  
 			
 		</cfif>	
 		

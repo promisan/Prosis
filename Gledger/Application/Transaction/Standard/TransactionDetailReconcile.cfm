@@ -5,9 +5,14 @@
 
 <table width="100%" style="height:100%;min-height:385;padding-top:5px">
 	
-	<tr><td id="lineentry" style="height:100%;padding-top:5px">
+	<tr><td id="lineentry" style="height:100%">
 									
 		<table width="100%" height="100%">
+		
+			
+			<tr>			
+				<td width="100%" id="tSearch" name="tSearch" colspan="2" style="height:40px;padding-left:20px;padding-right:28px"></td>			
+			</tr>	
 		
 			<cfquery name="HeaderSelect"
 			datasource="AppsQuery" 
@@ -47,21 +52,13 @@
 					</tr>
 				 </table>	
 				 </td>
-			</tr>	
-			
-			<tr>			
-				<td width="100%" id="tSearch" name="tSearch" colspan="2" style="height:40px;padding-left:20px;padding-right:28px"></td>			
-			</tr>	 
+			</tr>			 
 											
 			<tr>
-				<td colspan="2" align="center" style="height:420px;padding-left:20px;padding-right:25px;padding-bottom:10px">
-											  
-				  <cf_divscroll style="padding-right:4px;padding-bottom:5px">
-				  			  				  
+				<td colspan="2" align="center" style="height:420px;padding-left:20px;padding-right:30px;padding-bottom:10px">											  
+				  <cf_divscroll style="padding-right:4px;padding-bottom:5px">				  			  				  
 				      <cfdiv id="reconcileresult" name="reconcileresult" style="height:100px;" bind="url:TransactionDetailReconcileResult.cfm?mode=#url.mode#&journal=#URL.journal#&period=#URL.Period#&find=#URL.find#&ID1=#URL.ID1#" bindonload="true">			
-				  	  
-				  </cf_divscroll>
-				  
+				  </cf_divscroll>				  
 				</td>
 			</tr>				
 		

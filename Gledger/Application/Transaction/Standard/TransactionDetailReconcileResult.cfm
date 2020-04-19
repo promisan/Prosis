@@ -31,7 +31,8 @@ password="#SESSION.dbpw#">
 <!--- sub query for payment order --->
 
 <cfoutput>
-			
+
+
 <cfsavecontent variable="Outstanding">
 	
 		<!--- --------------------------------------------------------------------------------------------------- --->
@@ -107,6 +108,7 @@ password="#SESSION.dbpw#">
 		HAVING      (  L.AmountDebit  <> 0 AND L.AmountDebit <> ISNULL(SUM(R.AmountCredit*R.ExchangeRate),0) ) OR 				
 					<!--- if orginal amount is credit, check for the debit amounts --->				
 					(  L.AmountCredit <> 0 AND L.AmountCredit <> ISNULL(SUM(R.AmountDebit*R.ExchangeRate),0) )	
+					
 			
 </cfsavecontent>
 
@@ -175,10 +177,8 @@ password="#SESSION.dbpw#">
 	 AND     J.Journal IN (SELECT Journal
 		                   FROM   Journal 
 						   WHERE  Mission = '#HeaderSelect.Mission#'	
-						   AND    TransactionCategory  IN ('Payables','DirectPayment'))		 
-	
-	
-	
+						   AND    TransactionCategory  IN ('Payables','DirectPayment'))		
+						   
 	<cfelseif url.mode eq "PO">
 			
 	 AND     J.Journal IN (SELECT Journal 
@@ -264,7 +264,6 @@ password="#SESSION.dbpw#">
 	
 	ORDER BY P.#URL.ID1#,P.AccountPeriod <cfif url.id1 neq "TransactionDate">,P.TransactionDate</cfif>
 	
-
 </cfquery>
 
 <!---
@@ -298,18 +297,7 @@ password="#SESSION.dbpw#">
 </cfoutput>
 						
 <table width="99%" class="navigation_table">
-								
-<tr style="height:1px">
-    <TD width="20" align="center"></TD>
-	<TD style="padding-left:5px;min-width:40px"><!--- <cf_tl id="Per"> ---></TD>
-    <TD style="padding-left:2px;padding-right:2px;min-width:110"><!---<cf_tl id="Transaction">---></TD>
-	<TD style="padding-left:5px;min-width:170"><!--- <cf_tl id="Account">---></TD>			
-	<TD style="padding-left:5px;min-width:100"></td>
-	<TD style="padding-left:5px;min-width:90"><!---<cf_tl id="Date">---></TD>
-    <TD style="padding-left:5px;width:100%"><!---<cf_tl id="Reference">---></TD>
-	<TD style="min-width:150" colspan="2" align="center"><!---<cf_tl id="Outstanding">---></TD>		  	
-	<td style="min-width:250" colspan="3" align="center"></td>			
-</tr>
+	
 				
 <cfset prior = "">		
 
@@ -340,17 +328,17 @@ password="#SESSION.dbpw#">
    		   
    <cfif prior neq curr>
    		  
-   <tr class="labelmedium line">
+   <tr class="labelmedium line fixrow" style="height:30px">
  		
 	   <cfswitch expression="#URL.ID1#">
 	     <cfcase value = "Journal">			 
-	     <td align="left" colspan="13" style="padding:1px;">#Journal# #JournalDescription#</td>			 	 
+	     <td align="left" colspan="13" style="padding-left:4px;;font-size:16px">#Journal# #JournalDescription#</td>			 	 
 	     </cfcase>
 	     <cfcase value = "ReferenceName">
-	     <td align="left" colspan="13" style="padding:1px;">#ReferenceName#</td> 
+	     <td align="left" colspan="13" style="padding-left:4px;font-size:16px;">#ReferenceName#</td> 
 	     </cfcase>	 
 	     <cfcase value = "TransactionDate">
-	     <td align="left" colspan="13" style="padding:1px;">#Dateformat(TransactionDate, "#CLIENT.DateFormatShow#")#</td>
+	     <td align="left" colspan="13" style="padding-left:4px;font-size:16px;">#Dateformat(TransactionDate, "#CLIENT.DateFormatShow#")#</td>
 	     </cfcase>			
 		 <td style="min-width:350px"></td>
 	   </cfswitch>
@@ -553,6 +541,19 @@ password="#SESSION.dbpw#">
 			</cfif>					
 				   
    </cfoutput>
+   
+   							
+<tr style="height:0px">
+    <TD width="20" align="center"></TD>
+	<TD style="padding-left:5px;min-width:40px"><!--- <cf_tl id="Per"> ---></TD>
+    <TD style="padding-left:2px;padding-right:2px;min-width:110"><!---<cf_tl id="Transaction">---></TD>
+	<TD style="padding-left:5px;min-width:170"><!--- <cf_tl id="Account">---></TD>			
+	<TD style="padding-left:5px;min-width:100"></td>
+	<TD style="padding-left:5px;min-width:90"><!---<cf_tl id="Date">---></TD>
+    <TD style="padding-left:5px;width:100%"><!---<cf_tl id="Reference">---></TD>
+	<TD style="min-width:150" colspan="2" align="center"><!---<cf_tl id="Outstanding">---></TD>		  	
+	<td style="min-width:250" colspan="3" align="center"></td>			
+</tr>
    		   		   
 </table>	
 			

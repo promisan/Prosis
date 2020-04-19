@@ -23,7 +23,7 @@
 	
 	<tr><td bgcolor="white" valign="top">
 	
-		<table width="94%" align="center" cellspacing="0" cellpadding="0" class="formpadding">
+		<table width="94%" align="center" class="formpadding">
 		
 		<tr><td width="130" class="labelit">#Schedule.SystemModule#:</td><td style="height:20px" class="labelmedium" width="80%">#Schedule.ScheduleName#</td></tr>
 		
@@ -35,7 +35,7 @@
 		
 		<cfdiv id="progress#url.id#" style="position:relative;overflow: auto; width:100%; height:420; scrollbar-face-color: F4f4f4;">
 			
-			<table width="100%" cellspacing="0" cellpadding="0">
+			<table width="100%">
 			<tr><td colspan="2" align="center" height="390">
 			
 				<button onclick="recordexecute('#url.id#','#rowguid#'); prg = setInterval('showprogress(\'#url.id#\',\'#rowguid#\')', 5000)"			
@@ -43,7 +43,7 @@
 					name="execute" id="execute"
 					type="button"
 					value="Close">
-					 Start &nbsp;<img src="#client.virtualdir#/Images/Execute-W.png" alt="" border="0" width="28" height="28" align="absmiddle" style="position: relative;top: -2px;">
+					 <cf_tl id="Start"> &nbsp;<img src="#client.virtualdir#/Images/Execute-W.png" alt="" border="0" width="28" height="28" align="absmiddle" style="position: relative;top: -2px;">
 				</button>
 				
 				</td>

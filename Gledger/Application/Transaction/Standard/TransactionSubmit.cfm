@@ -149,8 +149,9 @@ password="#SESSION.dbpw#">
 <script language='JavaScript'>       
      try {parent.opener.document.getElementById('apply').click();} catch(e) {
    	      try {parent.opener.history.go();} catch(e) {}
-	 }							
-	 try {parent.history.go() } catch(e) {}	
+	 }	
+	 parent.window.close()			
+	 //try {parent.history.go() } catch(e) {}	
 		
 </script>
 

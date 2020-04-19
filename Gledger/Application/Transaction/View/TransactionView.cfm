@@ -111,7 +111,7 @@ password="#SESSION.dbpw#">
 
 function PosSettlement() {	
 	 // try { ColdFusion.Window.destroy('wsettle',true)} catch(e){};
-     ProsisUI.createWindow('wsettle', 'Settlement', '',{x:100,y:100,width:900,height:670,resizable:false,modal:false,center:true})		
+     ProsisUI.createWindow('wsettle', 'Settlement', '',{x:100,y:100,width:900,height:690,resizable:false,modal:true,center:true})		
 	 ptoken.navigate("#SESSION.root#/Warehouse/Application/SalesOrder/POS/Settlement/SettleView.cfm?journal=#url.journal#&journalSerialNo=#url.journalSerialNo#", "wsettle");		
 }
 

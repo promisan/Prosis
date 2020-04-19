@@ -9,7 +9,7 @@
 <cfparam name="attributes.ActionObjectKeyValue3" default = "">
 <cfparam name="attributes.ActionObjectKeyValue4" default = "">
 
-<cfif url.systemfunctionid neq "">
+<cfif url.systemfunctionid neq "" and url.systemfunctionid neq "undefined">
 
 	<cf_getHost host="#cgi.http_host#">			
 		

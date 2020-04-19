@@ -4454,9 +4454,7 @@
 					AND  Role           = 'WhsShip'		
 					<cfif tasktype neq "">		
 					AND  ClassParameter = '#tasktype#'
-					</cfif>
-					
-					xxxxx
+					</cfif>					
 			   </cfquery>	
 
 				<cfif qAccess.RecordCount eq "0">
