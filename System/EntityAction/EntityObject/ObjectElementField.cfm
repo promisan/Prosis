@@ -1,25 +1,25 @@
 
  <cfif url.fieldtype eq "text">
  
- <table cellspacing="0" cellpadding="0" class="formpadding">	
+ <table class="formpadding">	
  
  	  <cfquery name="Val" 
 		datasource="AppsOrganization" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-		SELECT  * FROM Ref_EntityDocument
-		WHERE    DocumentId = '#URL.documentid#'		
+			SELECT  * FROM Ref_EntityDocument
+			WHERE    DocumentId = '#URL.documentid#'		
 	  </cfquery>						  
 				   
 	  <cfquery name="Field" 
 		datasource="AppsControl" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-		SELECT   FieldName
-		FROM     DictionaryTableField
-		WHERE    DataSource = '#url.lookupdatasource#' 
-		AND      TableName = '#url.lookupTable#'
-		ORDER BY FieldOrder
+			SELECT   FieldName
+			FROM     DictionaryTableField
+			WHERE    DataSource = '#url.lookupdatasource#' 
+			AND      TableName = '#url.lookupTable#'
+			ORDER BY FieldOrder
 	  </cfquery>			   
    
       <tr><td class="labelmedium" width="198"><cf_tl id="Key"></td>

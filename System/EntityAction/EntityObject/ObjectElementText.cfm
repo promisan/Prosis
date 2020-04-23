@@ -52,7 +52,7 @@
 	   </tr>	
 	  	   	   
 	   <tr class="labelmedium">
-	   <td><cf_UIToolTip  tooltip="9 = number, A is character">Mask:</cf_UIToolTip></td>
+	   <td><cf_UIToolTip tooltip="9 = number, A is character">Mask:</cf_UIToolTip></td>
 	   <td>
 	   
 		   <cfinput type="Text"
@@ -68,7 +68,7 @@
 	  </tr>	
 	  
 	   <tr class="labelmedium">
-	   <td><cf_UIToolTip  tooltip="Default value, you may use CF strings and variables like 'O-SAT-S-000-'&Year(now())">Default Value:</cf_UIToolTip></td>
+	   <td><cf_UIToolTip tooltip="Default value, you may use CF strings and variables like O-SAT-S-000-&Year(now())">Default Value:</cf_UIToolTip></td>
 	   <td>
 	   
 		   <cfinput type="Text"
@@ -81,8 +81,7 @@
 	       maxlength="40">
 	   	   
 	   </td>	   
-	  </tr>	
-	  
+	  </tr>		  
   			  
 	  <tr class="labelmedium">
 	    <td width="100">Lookup Table:</td>
@@ -142,7 +141,7 @@
 		   <td style="padding-left:4px">
 		   <input type="radio" class="radiol" name="LookupSelect" id="LookupSelect" value="1" <cfif lookupselect eq "1">checked</cfif>>
 		   </td>
-		   <td style="padding-left:4px">Dropwdown</td>
+		   <td style="padding-left:4px">Dropdown</td>
 				   
 		   </tr>
 		   
