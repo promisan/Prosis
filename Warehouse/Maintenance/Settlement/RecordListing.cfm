@@ -26,11 +26,11 @@ password="#SESSION.dbpw#">
 <script>
 
 	function recordadd(grp) {
-	         window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=550, height= 300, toolbar=no, status=yes, scrollbars=no, resizable=no");
+	    window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=650, height= 300, toolbar=no, status=yes, scrollbars=no, resizable=no");
 	}
 	
 	function recordedit(id1) {
-	          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=550, height= 300, toolbar=no, status=yes, scrollbars=no, resizable=no");
+	    window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=650, height= 300, toolbar=no, status=yes, scrollbars=no, resizable=no");
 	}
 
 	function show(cde) {
@@ -42,20 +42,19 @@ password="#SESSION.dbpw#">
 		} else {
 			se.className  = "hide"		
 		}
-
 	}
 
 	function addMission(code) {
-	   ColdFusion.navigate('List.cfm?action=new&code='+code,code+'_list')
+	     ptoken.navigate('List.cfm?action=new&code='+code,code+'_list')
 	}
 	
 	function saveMission(code) {
-		   form_id = 'settlement_'+code;
-		   alert(form_id);
-		   document.forms[form_id].onsubmit() 
-			if( _CF_error_messages.length == 0 ) {
-		       	ColdFusion.navigate('ListSubmit.cfm',code+'_list','','','POST',form_id);
-			}  
+		 form_id = 'settlement_'+code;
+		 alert(form_id);
+		 document.forms[form_id].onsubmit() 
+		 if( _CF_error_messages.length == 0 ) {
+		       	ptoken.navigate('ListSubmit.cfm',code+'_list','','','POST',form_id);
+		 }  
 			 
 	} 
 	
@@ -85,10 +84,10 @@ password="#SESSION.dbpw#">
 	<cfloop query="SearchResult">
 				    
 	    <TR class="navigation_row line labelmedium"> 
-			<TD align="center" style="padding-top:1.3px">
+			<TD align="center">
 				<table cellspacing="0" cellpadding="0">
 					<tr>
-						<td style="padding-right:3px"><cf_img icon="expand" toggle="Yes" onclick="show('#code#')"></td>
+						<td style="padding-top:7px;padding-right:1px"><cf_img icon="expand" toggle="Yes" onclick="show('#code#')"></td>
 						<td><cf_img icon="open" navigation="Yes" onclick="recordedit('#Code#');"></td>
 					</tr>
 				</table>
@@ -103,7 +102,7 @@ password="#SESSION.dbpw#">
 	
 	   <TR id="#code#" class="hide">
 	   		<TD></TD>
-	   		<TD colspan="7" id="#code#_list">
+	   		<TD colspan="8" id="#code#_list">
 			</TD>
 		</TR>
 	</cfloop>
