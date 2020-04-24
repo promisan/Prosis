@@ -7,6 +7,7 @@
 	label         = "#lt_text# #url.id#" 
 	title         = "#url.id#"
 	banner        = "gray" 
+	scroll        = "No"
 	bannerforce   = "Yes" 
 	layout        = "webapp" 
 	line          = "no" 
@@ -22,7 +23,8 @@
 	<iframe src="ReceiptEditContent.cfm?#cgi.query_string#&header=0" width="100%" height="100%" frameborder="0"></iframe> 
 	</cfoutput>
 	
-	</td></tr></table>
+	</td></tr>
+	</table>
 
 <cf_screenbottom layout="webapp">
  

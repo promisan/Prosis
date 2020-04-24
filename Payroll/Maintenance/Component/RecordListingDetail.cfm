@@ -20,7 +20,7 @@ password="#SESSION.dbpw#">
 	ORDER BY R.TriggerGroup,R.SalaryTrigger, C.EntitlementPointer, ListingOrder DESC
 </cfquery>
 
-<tr class="line labelmedium">
+<tr class="labelmedium fixrow">
     <td></td>
 	<td><cf_tl id="Description"></td>
 	<td><cf_tl id="M"></td>
@@ -34,12 +34,13 @@ password="#SESSION.dbpw#">
 
 <cfoutput query="SearchResult" group="TriggerGroup">
 
-	<tr><td colspan="9" style="height:45;font-size:30px;padding-left:10px" class="labellarge">#TriggerGroup#</td></tr>
+	<tr class="fixrow2 labelmedium">
+	<td colspan="9" style="height:45px;font-size:30px;padding-left:10px">#TriggerGroup#</td></tr>
 	
 	<cfoutput group="SalaryTrigger">
 	
-	<tr class="line">
-	    <td colspan="9" class="labellarge" style="padding-left:30px;height:30px"><font color="6688aa">#TriggerDescription#</td></tr>
+	<tr class="line fixrow3 labelmedium">
+	    <td colspan="9" style="padding-left:30px;height:30px;top:65px;"><font color="6688aa">#TriggerDescription#</td></tr>
 		
 		<cfoutput group="EntitlementPointer">  
 		

@@ -6,9 +6,9 @@
 <cfparam name="URL.ID"           default="0">
 <cfparam name="URL.IDLog"        default="0">
 <cfparam name="URL.Batch"        default="1">
-<cfparam name="URL.mode"         default="scheduler">
+<cfparam name="URL.mode"         default="schedule">
 
-<cfif url.mode eq "Scheduler">
+<cfif url.mode eq "Schedule">
 
 	<cfinclude template="../CFReport/Anonymous/PublicInit.cfm">
 	
@@ -16,12 +16,14 @@
 	datasource="AppsSystem" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	    SELECT * FROM Schedule
-		WHERE  ScheduleName = '#URL.ID#'
+	    SELECT * 
+		FROM   Schedule
+		WHERE  ScheduleId = '#URL.ID#'
 	</cfquery>
 	
-	<cf_assignId>	
-	<cfset schedulelogid = rowguid>
+	<cfset schedulelogid = url.idlog>	
+	
+	
 	
 <cfelseif url.mode eq "Manual">
 
@@ -42,15 +44,14 @@
 	datasource="AppsSystem" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	    SELECT * 
-		FROM   Schedule
+	    SELECT * FROM Schedule
 		WHERE  ScheduleId = '#URL.ID#'
 	</cfquery>
 	
-	<cfset schedulelogid = url.idlog>	
+	<cf_assignId>	
+	<cfset schedulelogid = rowguid>
 	
 </cfif>	
-
 
 <cfoutput>
 

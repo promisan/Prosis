@@ -132,30 +132,20 @@
 	
 	<cfoutput>
 	
-	<tr>
+	<tr class="line">
 	
 	<td align="left" colspan="2" style="padding-left:5px;font-size:17px" class="labelmedium">
 	
-	<cfif url.svr eq "0">
-	
-		 <a href="javascript:reload('#url.op#','1','')">Show this server only</a>
-		 
-	<cfelse>
-	
-		 <a href="javascript:reload('#url.op#','0','')">Show all servers</a>	 
-	
-	</cfif>
-	
-	|
-	
-	<cfif url.op eq "0">
-	
-		 <a href="javascript:reload('1','#url.svr#','')">Show Activated Schedules</a>
-		
-	<cfelse>
-	
-		 <a href="javascript:reload('0','#url.svr#','')">Show Disabled Schedules</a>
-		
+	<cfif url.svr eq "0">	
+		 <a href="javascript:reload('#url.op#','1','')">Show this server only</a>		 
+	<cfelse>	
+		 <a href="javascript:reload('#url.op#','0','')">Show all servers</a>	 	
+	</cfif>	
+	|	
+	<cfif url.op eq "0">	
+		 <a href="javascript:reload('1','#url.svr#','')">Show Activated Schedules</a>		
+	<cfelse>	
+		 <a href="javascript:reload('0','#url.svr#','')">Show Disabled Schedules</a>		
 	</cfif>
 	
 	</td>
@@ -179,7 +169,7 @@
 	
 	</tr>
 	
-	<tr><td height="1" class="line" colspan="3" id="process"></td></tr>
+	<tr class="hidden"><td height="1" class="line" colspan="3" id="process"></td></tr>
 	
 	</cfoutput>
 	
@@ -222,7 +212,7 @@
 	
 	<cfoutput group="SystemModule">
 	
-	<tr style="cursor: pointer" height="20" class="labelmedium">	
+	<tr style="cursor: pointer" height="20" class="fixrow2 labelmedium">	
 		<td colspan="13" style="font-weight:300;font-size:18px;height:30;padding-left:15px"><font color="black">#Description#</td>	
 	</tr>	
 	

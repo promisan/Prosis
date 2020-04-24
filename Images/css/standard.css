@@ -12068,7 +12068,7 @@ readers do not read off random characters that represent icons */
   width: 10px;
     font-weight: 900;
     font-size: 15px;
-    position: relative;
+    /*position: relative;*/
     top: 3px;
 }
 .compress:before {

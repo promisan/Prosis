@@ -97,7 +97,6 @@
 	</cfquery>
 	
 <table width="97%" border="0" cellspacing="0" cellpadding="0" align="left" class="navigation_table">
-	
 
 
 	<tr class="labelmedium line fixrow">
@@ -147,20 +146,20 @@
 		<cfoutput group = "HierarchyCode">	
 		
 		 <cfif entities.recordcount lte "10">	
-			<tr><td colspan="8" style="height:42px;padding-top:5px;padding-left:25px;font-size:26px;font-weight:350">		   		
+			<tr style="background-color:white"><td colspan="8" style="height:42px;padding-top:5px;padding-left:25px;font-size:26px;font-weight:350">		   		
 			<cfif orgunitname eq ""><cf_tl id="Multiple"><cfelse>#OrgUnitName#</cfif>		
 			</td></tr>	
 		 </cfif>	
 				
 		<cfoutput group = "AccountGroupName">		
 			
-			<tr>
+			<tr class="fixrow2">
 			<td colspan="8" style="height:31px;padding-top:5px;padding-left:27px;font-size:16px;">#AccountGroupName#</td></tr>						
 												
 				<cfoutput>
 												
 				 	<TR bgcolor="white" class="navigation_row line labelmedium" style="height:22px">
-					<td align="center" style="padding-left:40px;height:19;padding-top:5px;font-weight:200">				
+					<td align="center" style="padding-left:40px;height:19;padding-top:5px">				
 					    <cf_img icon="expand" toggle="yes" onclick="more('#Account#','#currentRow#')">														
 					</td>
 	

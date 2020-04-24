@@ -15,7 +15,7 @@ password="#SESSION.dbpw#">
 	AND    C.Period        = 'PERCENT' 	
 </cfquery>
 
-<tr class="line labelmedium">
+<tr class="line labelmedium fixrow">
     
 	<TD align="left"><cf_tl id="Component"></TD>
 	<TD align="left" style="padding-right:5px"><cf_tl id="Condition"></TD>

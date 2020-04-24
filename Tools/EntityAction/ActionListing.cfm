@@ -477,7 +477,6 @@
 <!--- redefine entitygroup --->
 
 
-
 <cfif Attributes.Show eq "Yes"> 
 	
 	<cfif entity.showhistory gte "1">

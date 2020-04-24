@@ -1,16 +1,16 @@
 <!--- Create Criteria string for query from data entered thru search form --->
 
+<cf_screentop html="No" jquery="Yes">
+
 <table style="height:100%;width:100%">
 <tr><td style="height:20">
 
 <cfset add          = "1">
 <cfset Header       = "Payroll Item">
 <cfinclude template = "../HeaderPayroll.cfm">   
-
 </td></tr>
- 
 
-<!--- initially populate --->
+ <!--- initially populate --->
 
 <cfquery name="List"
 datasource="AppsPayroll" 
@@ -73,16 +73,16 @@ password="#SESSION.dbpw#">
 	<script>
 	
 	function recordadd(grp) {
-	          window.open("RecordEditTab.cfm?idmenu=#url.idmenu#&ID1=", "Add");
+	        window.open("RecordEditTab.cfm?idmenu=#url.idmenu#&ID1=", "Add");
 	}
 	
 	function recordedit(id1) {
-	          window.open("RecordEditTab.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit");
+	        window.open("RecordEditTab.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit");
 	}
 	
 	function recordpurge(id) {
 		if (confirm('Do you want to remove this item ?')) {
-			ColdFusion.navigate('RecordPurge.cfm?idmenu=#url.idmenu#&id1=' + id,'divDetail');
+			ptoken.navigate('RecordPurge.cfm?idmenu=#url.idmenu#&id1=' + id,'divDetail');
 		}
 	}
 	

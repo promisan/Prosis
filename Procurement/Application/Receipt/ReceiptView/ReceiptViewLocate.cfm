@@ -1,13 +1,21 @@
 <cfparam name="URL.ActionStatus" default="1">
 
+<cfquery name="Period" 
+	datasource="AppsOrganization" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    SELECT *
+		FROM  Program.dbo.Ref_Period
+		WHERE Period = '#url.period#'		
+	</cfquery>
+
 <cf_calendarScript>
 
 <!--- Search form --->
-	<cfform name="formlocate" onsubmit="return false">
+		
+	<table width="98%" border="0" align="center" class="formpadding">
 	
-	<table width="98%" border="0" cellspacing="0" cellpadding="0" align="center" class="formspacing formpadding">
-	
-	<tr>
+	<tr class="line">
 		
 	<cfquery name="Vendor" 
 	datasource="AppsOrganization" 
@@ -51,7 +59,9 @@
 	
 	<td>	
 	
-	<table width="98%" align="center" class="formspacing formpadding">
+	<cfform name="formlocate" onsubmit="return false">	
+		
+	<table width="98%" align="center" class="formpadding">
 	
 		<TR>
 		<TD class="labelmedium"><cf_tl id="Receipt No">:</TD>
@@ -64,29 +74,44 @@
 		<input type="text" name="PackingSlipNo" id="PackingSlipNo" value="" size="20" class="regularxl">		
 		</TD>
 		</tr>
-	
-	
+		
 		<TR>
 		<TD class="labelmedium"><cf_tl id="Received in period from">:</TD>
 		<TD>	
 		
 		 <cf_intelliCalendarDate9
 			FieldName="datestart" 
-			Default="01/01/#year(now())#"
+			Default="01/01/#year(period.DateEffective)#"
 			AllowBlank="True"
 			Class="regularxl">	
 			
 		</TD>
 		
 		<TD class="labelmedium"><cf_tl id="until">:</TD>
-		<TD>
-		<cf_intelliCalendarDate9
-			FieldName="dateend" 
-			Default="#Dateformat(now(), CLIENT.DateFormatShow)#"
-			AllowBlank="True"
-			Class="regularxl">	
+		
+			<TD>
 			
-		</TD>
+			<cfif period.dateExpiration gte now()>
+			
+			<cf_intelliCalendarDate9
+				FieldName="dateend" 
+				Default="#Dateformat(now(), CLIENT.DateFormatShow)#"
+				AllowBlank="True"
+				Class="regularxl">	
+				
+			<cfelse>
+			
+			<cf_intelliCalendarDate9
+				FieldName="dateend" 
+				Default="#Dateformat(Period.dateExpiration, CLIENT.DateFormatShow)#"
+				AllowBlank="True"
+				Class="regularxl">	
+			
+			
+			</cfif>	
+				
+			</TD>
+		
 		</tr>
 			
 		<TR>
@@ -111,11 +136,11 @@
 			</cfoutput>
 		    </select>
 		</td>	
-		<TD>
-		
+				
 		</TR>
 		
 		<TR>
+		
 		<TD class="labelmedium"><cf_tl id="Vendor">:</TD>
 				
 		<td align="left" valign="top">
@@ -143,21 +168,32 @@
 			</TD>		
 		</tr>
 		
+		<tr><td colspan="4">
+						
+		<table>
+		<tr>
+		<td>
 		
-	</TABLE>
-	</td></tr>
-	
-	<tr><td height="1" class="linedotted"></td></tr>
-	
-	<tr bgcolor="ffffff"><td align="center">
-	<cfoutput>
+		<cfoutput>
 		<cf_tl id="Reset" var="1">
 		<input type="reset"  style="height:25px" class="button10g" value="#lt_text#">
+		</td>
+		<td style="padding-left:2px"> 
 		<cf_tl id="Find" var="1">
 		<input type="button" style="height:25px" onClick="filter()" name="Submit" id="Submit" value="#lt_text#" class="button10g">
-	</cfoutput>	
-	</td></tr>
+		</cfoutput>		
+		</td></tr>
+		
+		</table>
+
+		</td></tr>
 	
+	</TABLE>
+		
+	</CFFORM>
+	
+	</td></tr>
+		
 	</table>
 	
-</CFFORM>
+

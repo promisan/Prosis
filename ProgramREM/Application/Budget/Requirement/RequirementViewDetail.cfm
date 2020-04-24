@@ -31,8 +31,8 @@
 		<cfset ToDateDueSub = 0>
 		<cfset TotalDueSub = 0>
 	
-		<tr class="clsRequirementRow line navigation_row">
-		    <td colspan="7" class="ccontent labellarge" width="20" style="height:40px;padding-left:2px">#OrgUnitName# <font size="2">#OrgUnitNameShort#</td>
+		<tr class="clsRequirementRow line navigation_row fixrow">
+		    <td colspan="10" class="ccontent labellarge" width="20" style="height:40px;padding-left:5px">#OrgUnitName# <font size="2">#OrgUnitNameShort#</td>
 		</tr>	
 	
 		<cfoutput>

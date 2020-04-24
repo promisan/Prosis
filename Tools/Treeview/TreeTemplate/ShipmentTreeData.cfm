@@ -1,18 +1,20 @@
  
 <cfoutput>
 
-<cftree name="root"
-   font="verdana"
-   fontsize="11"		
-   bold="No"   
-   format="html"    
-   required="No"> 
-   
-   	 <cftreeitem value="Tasks"
-	        display="<span style='padding-top:3px;padding-bottom:3px;color: gray;' class='labellarge'><b>Other Tasks</span>"
-			parent="Root"								
-	        expand="Yes">	
-			
+<cf_tl id="Shipments" var="vReceipt">
+
+<cf_UItree
+	id="root"
+	title="<span style='font-size:16px;color:gray;padding-bottom:3px'>#vReceipt# #attributes.mission#</span>"	
+	expand="Yes">
+
+   <cf_tl id="Other Tasks" var="vTasks">
+   	   
+   <cf_UItreeitem value="Tasks"
+		        display="<span style='font-size:17px;padding-top:5px;padding-bottom:5px;font-weight:bold' class='labelit'>#vTasks#</span>"
+				parent="root"								
+		        expand="Yes">	   
+   			
 		 <!--- get the functions and determine access --->
 		 
 		   <cfinvoke component = "Service.Access.Menu"  
@@ -23,65 +25,64 @@
 			 MenuClass          = "'Shipment'"
 			 returnvariable     = "functionlist">	 		 
 			 
-		 <cfloop query="FunctionList">		 
-		 		 
-			  <cftreeitem value="#currentrow#"
-			        display="<span style='padding-top:3px;padding-bottom:3px;color: gray;' class='labelmedium'>#FunctionName#</span>"
-					parent="Tasks"			
-					href="#FunctionPath#?ID1=Pending&systemfunctionid=#systemfunctionid#&Mission=#Attributes.Mission#&#FunctionCondition#"							
-					target="right"
-			        expand="No">	
+		 <cfloop query="FunctionList">		
 		 
+		 	 <cf_UItreeitem value="Pending"
+		        display="<span style='font-size:14px' class='labelit'>#FunctionName#</span>"
+				parent="Tasks"			
+				href="#FunctionPath#?ID1=Pending&systemfunctionid=#systemfunctionid#&Mission=#Attributes.Mission#&#FunctionCondition#"							
+				target="right"
+		        expand="No">		 
+		 			 
 		 </cfloop> 	 
-		
-   <cftreeitem value=""
-			display="<span class='labelmedium'></span>"
-	    	parent=""									  				  	 				 		  								
-   			expand="yes">								
+	 		
    
    <cf_tl id="Inquiry" var="pInquiry">	
    
-	<cftreeitem value="Listing"
-	        display="<span style='padding-top:15px;padding-bottom:3px;color: gray;' class='labellarge'><b>#pInquiry#</span>"
-			parent="Root"						
-	        expand="Yes">	 
+   <cf_UItreeitem value="Listing"
+		        display="<span style='font-size:17px;padding-top:5px;padding-bottom:5px;font-weight:bold' class='labelit'>#pInquiry#</span>"
+				parent="root"								
+		        expand="Yes">	  
 			
 	<cf_tl id="Open WorkOrders" var="pWorkOrder">		
 		
 	<!--- pending embedding in the menu framework --->
-							
-	<cftreeitem value="WorkOrder"
-	        display="<span style='padding-top:3px;padding-bottom:3px;color: gray;' class='labelmedium'>#pWorkOrder#"
-			parent="Listing"				
-			target="right"
-			href="WorkOrderView/WorkOrderListing.cfm?systemfunctionid=#attributes.systemfunctionid#&ID1=OPEN&ID=STA&Mission=#Attributes.Mission#">			  
 	
-	<cf_tl id="Shipped" var="pShipped">		
-	<cf_tl id="after" var="pLast">		
-	<!--- pending embedding in the menu framework --->
-							
-	<cftreeitem value="Today"
-	        display="<span style='padding-top:3px;padding-bottom:3px;color: gray;' class='labelmedium'>#pShipped# on <u><font color='6688aa'>#dateformat(now(), CLIENT.DateFormatShow)#</u></span>"
-			parent="Listing"				
-			target="right"
-			href="#attributes.destination#?systemfunctionid=#attributes.systemfunctionid#&ID1=TODAY&ID=STA&Mission=#Attributes.Mission#">			  
+	 	 <cf_UItreeitem value="WorkOrder"
+		        display="<span style='font-size:14px' class='labelit'>#pWorkOrder#</span>"
+				parent="Listing"			
+				href="WorkOrderView/WorkOrderListing.cfm?systemfunctionid=#attributes.systemfunctionid#&ID1=OPEN&ID=STA&Mission=#Attributes.Mission#"							
+				target="right"
+		        expand="No">		 
+					
+			<cf_tl id="Shipped" var="pShipped">		
+			<cf_tl id="after" var="pLast">		
+			<!--- pending embedding in the menu framework --->
 			
-	<cftreeitem value="Week"
-	        display="<span style='padding-top:3px;padding-bottom:3px;color: gray;' class='labelmedium'>#pShipped# #plast# <u><font color='6688aa'>#dateformat(now()-30, CLIENT.DateFormatShow)#</span>"
-			parent="Listing"				
-			target="right"
-			href="#attributes.destination#?systemfunctionid=#attributes.systemfunctionid#&ID1=WEEK&ID=STA&Mission=#Attributes.Mission#">			
+		 <cf_UItreeitem value="Today"
+		        display="<span style='font-size:14px' class='labelit'>#pShipped# #plast# #dateformat(now(), CLIENT.DateFormatShow)#</span>"
+				parent="Listing"			
+				href="#attributes.destination#?systemfunctionid=#attributes.systemfunctionid#&ID1=TODAY&ID=STA&Mission=#Attributes.Mission#"							
+				target="right"
+		        expand="No">		
+				
+		 <cf_UItreeitem value="Week"
+		        display="<span style='font-size:14px' class='labelit'>#pShipped# #pLast# #dateformat(now()-30, CLIENT.DateFormatShow)#</span>"
+				parent="Listing"			
+				href="#attributes.destination#?systemfunctionid=#attributes.systemfunctionid#&ID1=WEEK&ID=STA&Mission=#Attributes.Mission#"							
+				target="right"
+		        expand="No">						
 		
-	<cf_tl id="Billed" var="pBilled">
+		 <cf_tl id="Billed" var="pBilled">
 	
-	<cftreeitem value="Billed"
-	        display="<span style='padding-top:3px;padding-bottom:3px;color: gray;' class='labelmedium'>#pBilled# #plast# <u><font color='6688aa'>#dateformat(now()-360, CLIENT.DateFormatShow)#</span>"
-			parent="Listing"				
-			target="right"
-			href="BillingView/BillingListing.cfm?systemfunctionid=#attributes.systemfunctionid#&ID1=Billing&ID=STA&Mission=#Attributes.Mission#">		 
-			
-
-</cftree>
+		 <cf_UItreeitem value="Billed"
+			        display="<span style='font-size:14px' class='labelit'>#pBilled# #pLast# #dateformat(now()-36, CLIENT.DateFormatShow)#</span>"
+					parent="Listing"			
+					href="BillingView/BillingListing.cfm?systemfunctionid=#attributes.systemfunctionid#&ID1=Billing&ID=STA&Mission=#Attributes.Mission#"							
+					target="right"
+			        expand="No">		
+	
+	</cf_UItree>
 
 </cfoutput>
 

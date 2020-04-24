@@ -38,7 +38,7 @@
 			
 			</td>
 		    <td height="21" width="40" colspan="3">&nbsp;&nbsp;Total:</td>
-		    <td colspan="1" align="right">#numberformat(Check.Amount,",__.__")#&nbsp;</td>
+		    <td colspan="1" align="right">#numberformat(Check.Amount,",.__")#&nbsp;</td>
 			<td></td>
 		</TR>
 		
@@ -74,13 +74,12 @@
 					
 		<cfif currrowX gte first>
 	  
-			<tr bgcolor="e6e6e6">
+			<tr bgcolor="e6e6e6" class="line">
 		   	<td colspan="10" align="center">
 				<font size="3"><b>#OrgUnitName#</b></font> 
 			</td>
 			</TR>
-			<tr><td colspan="10" class="linedotted"></td></tr>
-														
+																	
 			<cfloop query="Requisition">
 			
 			     <cfset currrow = currrow + 1>
@@ -91,13 +90,13 @@
          		     <tr><td height="14" colspan="10">
 						 <cfinclude template="Navigation.cfm">
 					 </td></tr>
-					 
-					 
+					 					 
 					<script>
 						Prosis.busy('no')
 					</script>
 					 <cfset AjaxOnLoad("doHighlight")>	
 				     <cfabort> 
+					 
 		         </cfif> 
 	  	     </cfloop>
 		     
@@ -108,8 +107,7 @@
 		<cfif currrow gte last>
         	 <tr><td height="14" colspan="10">
 			 <cfinclude template="Navigation.cfm">
-		     </td></tr>
-			 			 
+		     </td></tr>			 			 
 		</cfif>	
 
 </CFOUTPUT>

@@ -61,7 +61,7 @@ password="#SESSION.dbpw#">
 			   '#memo#',	  
 			   '#SESSION.acc#',
 			   '#SESSION.last#',
-			   '#SESSION.first#'		)
+			   '#SESSION.first#'	)
 	</cfquery>	
 
 </cfloop>	
@@ -70,7 +70,7 @@ password="#SESSION.dbpw#">
 
 <cfoutput>
 
-<script language="JavaScript">
+<script language="JavaScript">    
     locarcshow('#List.warehouse#','#List.location#','#List.itemno#','#List.UoM#','#List.TransactionLot#','locarc#url.box#_#url.currentrow#','enforce')
 </script>
 

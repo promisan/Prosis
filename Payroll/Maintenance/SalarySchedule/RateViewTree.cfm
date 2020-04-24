@@ -22,13 +22,13 @@
 
 <!--- no rates found --->
 	
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table height="100%" width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
   
   	 <tr><td height="3"></td></tr>
       <tr>
-        <td valign="top" style="padding-top:4px;padding-left:5px"> 
-		<table width="95%" border="0" align="center">
-		<tr><td>
+        <td valign="top" style="height:100%;padding-top:4px;padding-left:5px"> 
+				
+		<cf_divscroll>
 		
 		<cfform>
 				
@@ -97,13 +97,12 @@
 								
 			</cfoutput>		
 		
-		</cftree> 		
+		</cftree> 	
 		
-		</cfform>
-	
-		</td></tr>
-		</table>
-											
+		</cfform>	
+						
+		</cf_divscroll>
+												
 		</td>
 	  </tr>
 	  	  

@@ -1,8 +1,10 @@
 
-<table width="95%" align="center">
+<table width="95%" align="center" class="printContent">
   
 	  <tr class="noprint clsNoPrint">
 	  <td colspan="2" align="center" height="20">
+	  
+	  <div id="printTitle" style="display:none;"><cf_tl id="HARDCOPY General Ledger Transaction"></div>
 	  
 	  <cfset url.mode = "view">
 	  
@@ -13,24 +15,18 @@
 			<tr>				
 			    <td>
 				
-				<div id="printTitle" style="display:none;"><cf_tl id="HARDCOPY General Ledger Transaction"></div>
-				
 				<cf_tl id="Print" var="1">
 				<cf_button2 
 	                id="printButton"
 	                type="print" 
-					mode="icon"
-	                text="#lt_text#"
+					mode="icon"	               
 					height="21px"
 					imageheight="25px"
 					textColor="##808080"
 					textSize="12px"
 	                printTitle="##printTitle"
 	                printContent=".printContent"
-	                printCallback="$('.clsCFDIVSCROLL_MainContainer').attr('style','width:100%;'); $('.clsCFDIVSCROLL_MainContainer').parent('div').attr('style','width:100%;'); $('.clsCFDIVSCROLL_MainContainer').parent('div').attr('style','height:100%;');">
-					
-				<!--- <cf_print mode="roundedbutton" label="screen print"> --->
-				<!---source="#client.virtualdir#/Gledger/Application/Transaction/View/TransactionViewDetail.cfm?journal=#url.journal#&journalserialNo=#url.journalserialno#&summary=#url.summary#"--->
+	                printCallback="$('.clsCFDIVSCROLL_MainContainer').attr('style','width:100%;'); $('.clsCFDIVSCROLL_MainContainer').parent('div').attr('style','width:100%;'); $('.clsCFDIVSCROLL_MainContainer').parent('div').attr('style','height:100%;');">					
 				
 				</td>
 						
@@ -107,6 +103,7 @@
 				</td>
 				
 			</tr>
+			
 		</table>	
 		
 		</cfoutput>		
@@ -119,7 +116,8 @@
 	   } 	    
   </style>
       
-  <tr>
+  <tr class="printContent">
+  
     <td width="100%" colspan="2">
 	
     <table border="0" cellpadding="0" width="100%" class="formpadding">
@@ -248,6 +246,7 @@
 		</cfif>		
 		
 		</cfoutput></td>
+		
       </tr>
     </table>
     </td>

@@ -79,7 +79,7 @@
 		</cfquery>		
 		
 		<cfif param.URLProtectionMode eq "0">	
-		    
+				    
 			<!--- we always allow for this as the CSFR is disabled --->	
 		    <cfset force = "Yes">
 			
@@ -113,14 +113,14 @@
 		<cftransaction isolation="READ_UNCOMMITTED">
 		
 			<cfquery name="get" 
-				datasource="AppsSystem">
+				datasource="AppsSystem">				
 					SELECT  * 
 					FROM    UserStatusController
 					WHERE   Account            = '#SESSION.acc#'
 					AND     HostName           = '#CGI.http_host#'
 					AND     HostSessionId      = '#SESSION.SessionId#'         				
 					AND     ActionTemplate     = '#tmp#'
-					AND     ActionQueryString  = '#str#'  				
+					AND     ActionQueryString  = '#str#'  									
 			</cfquery>	
 		
 		</cftransaction>
@@ -253,11 +253,9 @@
 															
 			<cfelse>
 						
-				<cfset accessRight = "GRANTED">		
-						
+				<cfset accessRight = "GRANTED">								
 								
-			</cfif>
-			
+			</cfif>			
 			
 		<cfelse>
 		
@@ -288,8 +286,7 @@
 		<cfreturn AccessRight>	
 		
 	</cffunction>	
-	
-	
+		
 	<cffunction name="ValidateFunctionAccess" access="public" 
 	     returntype="string" displayname="Verify Function Session Access to control CSRF" output="yes">
 			
@@ -305,7 +302,7 @@
 				FROM    Parameter
 				WHERE   HostName = '#CGI.http_host#'				
 		</cfquery>		
-				
+						
 		<cfif param.URLProtectionMode eq "0">		
 		
 			<CFSET AccessRight = "GRANTED">	
@@ -346,7 +343,7 @@
 				 </cfif>
 				 AND    ActionTemplate     = '#tmp#'
 				 AND    ActionQueryString  = '#str#'  
-				 AND    Operational        = '1'   				
+				 AND    Operational        = '1'   						 	
 			</cfquery>		
 																	
 			<cfif checkAccess.RecordCount eq "0">
@@ -364,7 +361,7 @@
 						 UPDATE UserStatusController
 						 SET    Operational        = '0'
 						 WHERE  Account            = '#SESSION.acc#'						 
-						 AND    ActionTemplate     = '#tmp#'						 
+						 AND    ActionTemplate     = '#tmp#'					 
 						 AND    ActionQueryString  = '#str#'  										 
 					</cfquery>										
 			

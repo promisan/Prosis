@@ -1,24 +1,13 @@
-
-<cfwindow 
-   name        = "dialog"
-   title       = "Detail Table"
-   height      = "430"
-   width       = "350"   
-   minheight   = "250"
-   minwidth    = "350"
-   center      = "True"
-   modal       = "True"/>
    
-<cf_screentop html="No" scroll="Yes" jQuery="Yes">
+<cf_screentop html="No" scroll="No" jQuery="Yes">
 
 <cf_calendarScript>
-<cfajaximport tags="cfform">
 
-<cfparam name="URL.Schedule"   default="SALARYICTY">
-<cfparam name="URL.Mission"    default="Promisan">
-<cfparam name="URL.Location"   default="R001">
-<cfparam name="URL.Operational"   default="1">
-<cfparam name="URL.Effective"  default="">  <!--- SQL format --->
+<cfparam name="URL.Schedule"     default="SALARYICTY">
+<cfparam name="URL.Mission"      default="Promisan">
+<cfparam name="URL.Location"     default="R001">
+<cfparam name="URL.Operational"  default="1">
+<cfparam name="URL.Effective"    default="">  <!--- SQL format --->
      
 <cfoutput>
 
@@ -67,7 +56,7 @@ function maximize(itm){
 function showdetails(sn,cn,pt,mode) {
 	
 	if (mode != "Default" && mode != "Hour") {	
-	    ColdFusion.Window.show('dialog')		
+	    ProsisUI.createWindow('dialog', 'Details', '',{x:100,y:100,height:525,width:400,resizable:false,modal:true,center:true})		
 	    _cf_loadingtexthtml='';		
 	    ptoken.navigate('DetailTable.cfm?sn='+sn+'&cn='+cn+'&ep='+pt+'&detailmode='+mode,'dialog') 	
 	    document.getElementById('percent_'+cn).className = "hide"				
@@ -94,13 +83,13 @@ function savemonth(sn,cn,pt,mde) {
 }
 
 function hidedialog() {
-      ColdFusion.Window.hide('dialog')	
+      ProsisUI.closeWindow('dialog')	
 }
 
 function purge(){
 	  var r=confirm("Are you sure you want to delete fully this scale ?");
 	  if (r==true) {
-		  ColdFusion.navigate("RatePurgeSubmit.cfm?Schedule=#URL.Schedule#&Mission=#URL.Mission#&Location=#URL.Location#&Effective=#URL.Effective#",'dialog','','','POST','rateform')
+		  ptoken.navigate("RatePurgeSubmit.cfm?Schedule=#URL.Schedule#&Mission=#URL.Mission#&Location=#URL.Location#&Effective=#URL.Effective#",'process','','','POST','rateform')
 	  }
 }
 
@@ -108,7 +97,7 @@ function scaleactivate(id,val){
 
 	  var r=confirm("Are you sure you want to change the operational status of this scale ?");	 
 	  if (r==true) {
-		  ColdFusion.navigate('RateActivateSubmit.cfm?idmenu=#url.idmenu#&ScaleNo='+id+'&operational='+val,'activatebox')
+		  ptoken.navigate('RateActivateSubmit.cfm?idmenu=#url.idmenu#&ScaleNo='+id+'&operational='+val,'activatebox')
 	  }
 }
 
@@ -167,9 +156,6 @@ password="#SESSION.dbpw#">
 	   </cfif>							
 </cfquery>
 
-
-
-
 <!--- we check if the scale has component defined --->
 
 <cfinvoke component = "Service.Process.Payroll.Scale"  
@@ -194,27 +180,29 @@ password="#SESSION.dbpw#">
 	FROM Currency
 </cfquery>
 
-<table align="center" border="0">
-	<tr class="xhide"><td id="cprint"></td></tr>
-</table>
+<table width="100%" height="100%" align="center">
 
-<table width="100%" height="100%" align="center" >
+	<tr><td id="process">
+	
+	<table align="center" border="0">
+	<tr class="hide"><td id="cprint"></td></tr>
+	</table>
+	
+	</td></tr>
 
 	<cfif url.schedule neq "">
 	
 	<tr><td colspan="2" valign="top" height="100%" style="width:100%;border-left:1px solid silver">
 	  
-		<cfform name="rateform" 
-		   style="height:100%;width:100%" 
-		   onsubmit="return false">
+		<cfform name="rateform" style="height:98%;width:100%" onsubmit="return false">
 			
 		<cfoutput>
 		
-			<table width="100%" height="100%" border="0">
+			<table style="min-width:1000px" width="100%" height="100%" border="0">
 			
-			<cfset jvlink = "ColdFusion.Window.create('addscale', 'Add Scale', '',{x:100,y:100,height:325,width:400,resizable:false,modal:true,center:true});ColdFusion.navigate('#SESSION.root#/payroll/maintenance/SalarySchedule/RateAdd.cfm?scaleno=#scale.scaleno#','addscale')">		
+			<cfset jvlink = "ProsisUI.createWindow('addscale', 'Add Scale', '',{x:100,y:100,height:325,width:400,resizable:false,modal:true,center:true});ptoken.navigate('#SESSION.root#/payroll/maintenance/SalarySchedule/RateAdd.cfm?scaleno=#scale.scaleno#','addscale')">		
 									
-			<tr class="labelmedium line" id="header" style="background-color:<cfif scale.operational eq '1'>eaeaea<cfelse>FF8080</cfif>;height:25px">
+			<tr class="labelmedium line" id="header" style="background-color:<cfif scale.operational eq '1'>ffffff<cfelse>FF8080</cfif>;height:35px">
 			  <td style="padding-left:10px;"><cf_tl id="Entity">:</td> 
 			  <td style="font-size:14px">#URL.Mission#</b></td>
 			  <td><cf_tl id="Schedule">:</td>
@@ -223,7 +211,7 @@ password="#SESSION.dbpw#">
 			  <td style="font-size:14px">#URL.Location# [#Location.LocationCountry# - #Location.Description#]</b></td>
 			</tr>	
 				
-			<tr class="labelmedium line" style="background-color:eaeaea;height:35px">
+			<tr class="labelmedium line" style="background-color:ffffff;height:35px">
 			 
 			    <td height="20" style="padding-left:10px" class="labelmedium"><cf_tl id="Currency">:</td>
 			    <td class="labelmedium">
@@ -311,13 +299,13 @@ password="#SESSION.dbpw#">
 				
 			<tr style="height:100%;width:100%">
 			
-			<td colspan="6" valign="top" style="width:100%;border:0px solid silver;padding-top:5px;height:100%;padding-bottom:5px">
+			<td colspan="6" valign="top" style="width:100%;padding-top:0px;height:100%;padding-bottom:5px">
 											
 				<cfif url.mode eq "Percentage">
 				
-					<cf_divscroll overflowx="auto" style="width:100%">	
+					<cf_divscroll style="width:100%;min-width:900px">	
 				
-						<table width="100%">
+						<table width="100%" style="min-width:900px">
 															
 						<tr id="percent" name="percent" class="regular" style="padding-left:30px">
 						     <td><cfinclude template="RateEditPercentage.cfm"></td>
@@ -329,16 +317,16 @@ password="#SESSION.dbpw#">
 					
 				<cfelseif url.mode eq "Rate">
 				
-					<cf_divscroll overflowx="auto" style="height:99%;width:100%">	
+					<cf_divscroll style="height:99%;width:100%;min-width:900px" overflowy="auto" overflowx="auto">	
 					
 					<table width="100%">				
 						<tr class="regular">
-					     <td  style="padding-left:20px"><cfinclude template="RateEditRate.cfm"></td>
+					     <td style="padding-left:20px"><cfinclude template="RateEditRate.cfm"></td>
 					</tr>		
 					</table>
 					
 					</cf_divscroll>	
-										
+															
 				<cfelse>
 					 				
 					<cfquery name="Component"
@@ -352,6 +340,8 @@ password="#SESSION.dbpw#">
 						AND      S.ScaleNo = '#Scale.ScaleNo#'
 						ORDER BY S.ListingOrder 
 				    </cfquery>
+					
+					<cf_divscroll style="width:100%" overflowy="auto" overflowx="auto">	
 														
 					<table style="height:100%;width:100%">	
 																					
@@ -361,7 +351,9 @@ password="#SESSION.dbpw#">
 							</td>
 						</tr>	
 																	
-					</table>					
+					</table>	
+					
+					</cf_divscroll>					
 					
 				</cfif>	
 						

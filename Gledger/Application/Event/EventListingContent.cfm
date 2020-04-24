@@ -68,7 +68,7 @@ I will prepare a landing screen to procees the editing from
 <cfset itm = itm+1>											
 <cfset fields[itm] = {label       = "Officer",    
 					field         = "OfficerUserId",		
-					search        = "date"}>	
+					search        = "text"}>	
 
 <table width="100%" height="100%" cellspacing="0" cellpadding="0" align="center">
 <tr><td style="padding:6px">

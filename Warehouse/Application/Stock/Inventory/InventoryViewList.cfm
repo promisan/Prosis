@@ -99,8 +99,6 @@ password="#SESSION.dbpw#">
 			 WorkOrderId  <!--- first the onhand option --->
 </cfquery>
 
-
-
 <!---
 <cfoutput>query show: #cfquery.executiontime#</cfoutput>
 --->
@@ -113,7 +111,20 @@ password="#SESSION.dbpw#">
 
 	<tr><td style="padding:0px">
 		
-			<table width="100%" lign="center" class="navigation_table">
+	<table width="100%" lign="center" class="navigation_table">
+
+		    <tr class="labelmedium fixrow3">
+			   <td style="min-width:26px;top:53px"></td>			  
+			   <td style="min-width:110px;top:53px"><cf_tl id="Roll"></td>	
+			   <td style="min-width:200px;top:53px"><cf_tl id="Earmarked"></td>   <!--- earmark --->			  		   		  			   
+			   <td style="min-width:100px;top:53px"><cf_tl id="Barcode"></td>
+			   <td style="min-width:20px;top:53px"></td>
+			   <td style="min-width:100px;top:53px"><cf_tl id="Mode"></td>  
+			   <td style="min-width:100px;top:53px"><cf_tl id="UoM"></td>   
+			   <td style="min-width:100px;top:53px" align="right"><cf_tl id="On Hand"><cf_space spaces="20"></td>
+			   <td style="min-width:100px;top:53px" align="right"><cf_tl id="Measurement"></td>
+			   <td style="width:25%;padding-right:5px;top:53px" align="right"><cf_tl id="Result"></td>				   
+			</tr>	
 							
 			<cf_tl id = "Standard"   var = "vStandard">
 			<cf_tl id = "Strapping"  var = "vStrapping">
@@ -125,7 +136,8 @@ password="#SESSION.dbpw#">
 			<cfoutput group="ItemNo">
 						
 			<tr bgcolor="f4f4f4" class="line clsFilterRow">
-			<td><table>
+			
+			<td colspan="10"><table>
 				<tr class="labelmedium">
 					<td class="ccontent" style="font-size:15px;padding-left:40px;min-width:70px;"><a href="javascript:locationitem('#itemLocationId#')">#ItemNo#</a></td>
 					<td class="ccontent" style="height:26;font-size:15px">#ItemDescription#</td>
@@ -166,31 +178,61 @@ password="#SESSION.dbpw#">
 								<td class="ccontent hide">#ItemNo# #ItemDescription#</td>						
 								</tr>
 							
-							</cfif>				
-													
-							<tr class="clsFilterRow">
-							<td style="padding:0px">	
-							
-							   <cfoutput>													
-							      <cfinclude template="InventoryViewListLine.cfm"> 
-							   </cfoutput>						    
-							
-							</td>
-							<td class="ccontent hide">#ItemNo# #ItemDescription#</td>
-							</tr>	
+							</cfif>		
+																				
+							<cfoutput>	
+															
+								<!--- item --->										
+								<cfif onhand lt -0.005>
+									<cfset color = "FED7CF">
+								<cfelse>
+									<cfset color = "transparent">
+								</cfif>
+								
+								<cfif url.zero eq "true" and abs(onhand) lte "0.01">					
+								   <cfset cl="hide">					
+								<cfelse>					
+								   <cfset cl="regular">										
+								</cfif>			
+								
+							   <tr bgcolor="#color#" class="#cl# clsFilterRow navigation_row line <cfif abs(onhand) lte "0.02">zero<cfelse>standard</cfif>">											
+							       <cfinclude template="InventoryViewListLine.cfm"> 
+								   <td class="ccontent hide">#ItemNo# #ItemDescription#</td>
+								</tr>	
+								
+								<tr id="locarc#url.box#_#currentrow#_box" class="hide">		
+								    <td id="locarc#url.box#_#currentrow#" class="hide" align="center" colspan="10"></td>
+								</tr>	
+								
+							</cfoutput>					
 							
 						<cfelse>
 						
 							<cfset mylot = "">
 						
-							<cfoutput>			   
+							<cfoutput>																	
+																
+								<!--- item --->										
+								<cfif onhand lt -0.005>
+									<cfset color = "FED7CF">
+								<cfelse>
+									<cfset color = "transparent">
+								</cfif>
+								
+								<cfif url.zero eq "true" and abs(onhand) lte "0.01">					
+								   <cfset cl="hide">					
+								<cfelse>					
+								   <cfset cl="regular">										
+								</cfif>			   
 														
-								<tr class="clsFilterRow">
-								<td>															
+								<tr bgcolor="#color#" class="#cl# clsFilterRow navigation_row line <cfif abs(onhand) lte "0.02">zero<cfelse>standard</cfif>">																		  				
 								   <cfinclude template="InventoryViewListLine.cfm">														   
-								</td>
-								<td class="ccontent hide">#ItemNo# #ItemDescription#</td>
+								   <td class="ccontent hide">#ItemNo# #ItemDescription#</td>
 								</tr>		
+								
+								<tr id="locarc#url.box#_#currentrow#_box" class="hide">		
+								    <td id="locarc#url.box#_#currentrow#" class="hide" align="center" colspan="10"></td>
+								</tr>	
 													
 							</cfoutput>
 																				

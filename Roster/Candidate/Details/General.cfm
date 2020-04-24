@@ -135,8 +135,9 @@ function openschedule(wla) {
 
 <!--- scripts --->
 
-<cfif client.googlemap eq "1">
+<cfif client.googlemap eq "1" and url.topic eq "address">
      <cfajaximport tags="cfmap" params="#{googlemapkey='#client.googlemapid#'}#">  
+	 <cf_mapscript width="360" height="300" scope="embed">
 </cfif>
 
 <cfajaximport tags="cfform,cfwindow"> 

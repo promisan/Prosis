@@ -112,21 +112,21 @@ password="#SESSION.dbpw#">
 		
 	    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="navigation_table">
 			
-	    <TR class="line labelmedium">
+	    <TR class="line labelmedium  fixrow">
 		   
 		   <td></td>
-		   <td style="padding-left:4px" height="20" style="padding-left:5px"><cf_tl id="Code"></td>		  
-		   <td style="padding-left:4px" width="50%"><cf_tl id="Description"></td>
-		   <td style="padding-left:4px" width="40">S</td>
-		   <td style="padding-left:4px" width="10%"><cf_tl id="Class"></td>
-		   <td style="padding-left:8px"><cf_UIToolTip tooltip="Uses Tabbed form and presents the action dialog as modal dialog"><cf_tl id="Dialog"></cf_UIToolTip></td>
-		   <td style="padding-left:4px" width="40" align="center"><cf_UIToolTip tooltip="Allow Object Owner to grant access to users for this step on the object level">Fly.</cf_UIToolTip></td>
-		   <td style="padding-left:4px" width="40" align="center"><cf_UIToolTip tooltip="Enabled for embediding in new worflows">Op.</cf_UIToolTip></td>
-		   <td align="right" style="padding-right:10px"  colspan="4">
+		   <td style="padding-left:2px" height="20" style="padding-left:5px"><cf_tl id="Code"></td>		  
+		   <td style="padding-left:2px" width="50%"><cf_tl id="Description"></td>
+		   <td style="padding-left:2px" width="40">S</td>
+		   <td style="padding-left:2px" width="10%"><cf_tl id="Class"></td>
+		   <td style="padding-left:6px"><cf_UIToolTip tooltip="Uses Tabbed form and presents the action dialog as modal dialog"><cf_tl id="Dialog"></cf_UIToolTip></td>
+		   <td style="padding-left:2px" width="40" align="center"><cf_UIToolTip tooltip="Allow Object Owner to grant access to users for this step on the object level">Fly.</cf_UIToolTip></td>
+		   <td style="padding-left:2px" width="40" align="center"><cf_UIToolTip tooltip="Enabled for embediding in new worflows">Op.</cf_UIToolTip></td>
+		   <td align="right" style="padding-right:10px" colspan="4">
 	         
 			 <cfoutput>			 
 			 <cfif URL.ID2 neq "new">
-			     <A href="javascript:#ajaxLink('ActionRecords.cfm?EntityCode=#URL.EntityCode#&search=#url.search#&ID2=new')#">[add]</a>
+			     <A href="javascript:#ajaxLink('ActionRecords.cfm?EntityCode=#URL.EntityCode#&search=#url.search#&ID2=new')#">add</a>
 			 </cfif>			
 			 </cfoutput>
 			 
@@ -249,7 +249,7 @@ password="#SESSION.dbpw#">
 			<tr class="line" style="padding:0px;height:30px">				  
 			   
 			   <td width="2"></td>
-			   <td class="labelit" height="26" style="padding-left:5px">#nm#</td>			  
+			   <td class="labelit" height="26" style="padding-left:2px">#nm#</td>			  
 			   <td style="padding-left:3px">
 			   
 			   	<cf_LanguageInput

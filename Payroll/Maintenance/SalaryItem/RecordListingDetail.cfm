@@ -23,9 +23,7 @@ password="#SESSION.dbpw#">
 
 <table width="95%" align="center" class="navigation_table">
 
-<tr><td></td></tr>
-
-<tr class="line labelmedium">
+<tr class="labelmedium fixrow">
    	<TD style="padding-left:4px;height:20"><cf_tl id="Section"></TD> 
 	<TD><cf_tl id="Code"></TD>
 	<TD><cf_tl id="Description"></TD>
@@ -36,14 +34,14 @@ password="#SESSION.dbpw#">
 
 <cfoutput query="SearchResult" group="PrintGroup">
 
-  <TR class="line">
+  <TR class="line fixrow2" style="top:45px;">
 	<TD COLSPAN="6" style="font-weight:290;font-size:32px;height:47;padding-left:8px" class="labelmedium">#PrintGroup#</TD>	
   </TR>
   
 <cfoutput group="Source">
 
- <TR class="line">
-	<TD COLSPAN="6" style="font-weight:200;font-size:20px;height:40;padding-left:8px" class="labelmedium">#Source#</TD>	
+ <TR class="line fixrow3">
+	<TD COLSPAN="6" style="top:65px;font-weight:200;font-size:20px;height:40;padding-left:8px" class="labelmedium">#Source#</TD>	
   </TR>
   
 <cfoutput group="Printorder">    
@@ -89,15 +87,15 @@ password="#SESSION.dbpw#">
 					FROM 	Ref_PayrollComponent R 
 					WHERE   R.PayrollItem = '#payrollitem#'												
 					ORDER BY R.Description
-				</cfquery>
-											
-				<cf_divscroll>    
-			    <cfloop query="Component">
-				<table width="100%">				   									
-					<tr class="labelmedium <cfif currentrow neq recordcount>line</cfif>" style="height:10px"><td style="padding-left:4px;padding-right:4px">#Description# (#Period#)</td></tr>								
-				</table>
-				</cfloop>	
-				</cf_divscroll>
+				</cfquery>   
+
+				<div style="max-height:#ht#px;" class="toggleScroll-y">
+					<cfloop query="Component">
+					<table width="100%">				   									
+						<tr class="labelmedium <cfif currentrow neq recordcount>line</cfif>" style="height:10px"><td style="padding-left:4px;padding-right:4px">#Description# (#Period#)</td></tr>								
+					</table>
+					</cfloop>
+				</div>	
 							
 			</TD>
 			

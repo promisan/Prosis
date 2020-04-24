@@ -87,7 +87,7 @@
 			        
 				url = "#SESSION.root#/Tools/ComboBox/ComboMultiSelected.cfm?mode=view&fld="+fld+"&alias="+alias+"&table="+table+"&pk="+pk+"&desc="+desc+"&selected="+val;
 				parent.ColdFusion.navigate(url,"combo"+fld);
-				try { parent.ColdFusion.Window.destroy('combomulti',true)} catch(e){};	
+				try { parent.ProsisUI.closeWindow('combomulti',true)} catch(e){};	
 			</cfif>
 						
 			

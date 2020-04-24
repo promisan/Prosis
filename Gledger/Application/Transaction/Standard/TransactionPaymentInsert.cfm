@@ -127,7 +127,7 @@ password="#SESSION.dbpw#">
 				         AmountDebit * TL.ExchangeRate AS Advance
 				FROM     TransactionHeader AS TH INNER JOIN
                          TransactionLine AS TL ON TH.Journal = TL.Journal AND TH.JournalSerialNo = TL.JournalSerialNo
-				WHERE    ReferenceNo IN ( SELECT    IP.PurchaseNo
+				WHERE    TL.ReferenceNo IN ( SELECT    IP.PurchaseNo
 										  FROM      Purchase.dbo.InvoicePurchase IP 
 										  WHERE     IP.InvoiceId = '#ReferenceId#' )	
 				AND      TH.Journal IN (SELECT   Journal

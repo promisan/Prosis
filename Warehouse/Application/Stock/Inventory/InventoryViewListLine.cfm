@@ -1,22 +1,5 @@
 
-<!--- item --->										
-<cfif onhand lt -0.005>
-	<cfset color = "FED7CF">
-<cfelse>
-	<cfset color = "transparent">
-</cfif>
-
-<cfif url.zero eq "true" and abs(onhand) lte "0.01">					
-   <cfset cl="hide">					
-<cfelse>					
-   <cfset cl="regular">										
-</cfif>		
-
 <cfoutput>
-
-<table width="100%" >
-
-	<tr bgcolor="#color#" class="#cl# navigation_row line <cfif abs(onhand) lte "0.02">zero<cfelse>standard</cfif>">			 	    			  
 	    		
 		<td align="right" valign="top" style="width:26px;padding-left:6px">#currentrow#.</td>					
 		<td style="width:110px"><cfif transactionReference neq "">#TransactionReference#:</cfif></td>	
@@ -51,7 +34,6 @@
 					AND RL.ActionStatus!='9'
 					AND PL.ActionStatus!='9'					
 				</cfquery>		
-
 
 				<td class="labelit" style="min-width:200">
 				<table width="100%">
@@ -117,14 +99,14 @@
 			
 				<td align="right" style="background-color:ffffaf;height:100%;padding-right:3px;padding-left:3px;width:100px;border-left:1px solid silver;border-right:1px solid silver">
 					
-				<input type="text"
-				      name="counted"
-					  id="counted"
-				      value="#counted#"			     
-				      style="background-color:ffffaf;height:100%;border:0px;text-align:right;width:100%;padding-right:2px;" 
-					  onChange="invsave('#TransactionId#',this.value,'regular','#url.systemfunctionid#','#url.box#');document.getElementById('save#url.box#_#currentrow#').className='regular'"
-					  maxlength="10"
-					  class="regularxl enterastab">
+					<input type="text"
+					      name="counted"
+						  id="counted"
+					      value="#counted#"			     
+					      style="background-color:ffffaf;height:100%;border:0px;text-align:right;width:100%;padding-right:2px;" 
+						  onChange="invsave('#TransactionId#',this.value,'regular','#url.systemfunctionid#','#url.box#');document.getElementById('save#url.box#_#currentrow#').className='regular'"
+						  maxlength="10"
+						  class="regularxl enterastab">
 					  
 				</td>	  
 				  
@@ -174,12 +156,12 @@
 							  
 		</cfif>	  		
 	   
-	   <td style="width:100px;min-width:100px">
+	   <td style="width:100px;min-width:200px">
 	  	     
-		   <table width="100%" height="100%" cellspacing="0" cellpadding="0">
+		   <table width="100%" height="100%">
 		      <tr>
 			  
-			  	<td id="f#TransactionId#" style="padding-left:1px" width="100%">  
+			  	<td id="f#TransactionId#" style="padding-left:1px" style="width:100%;min-width:170px">  
 				   
 				   <cfset url.id = transactionid> 
 				   <cfset itemlocationid = itemlocationid>
@@ -199,7 +181,7 @@
 					<cfset cl = "regular">
 				</cfif>
 						
-				<td id="f#TransactionId#_log" style="padding-left:3px;padding-right:3px" align="right" colspan="11" class="#cl#">
+				<td id="f#TransactionId#_log" style="padding-left:3px;padding-right:3px" align="right" class="#cl#">
 				
 					<cfif workorderid eq "">
 							
@@ -219,13 +201,5 @@
 		   </table>	
 		  
 	   </td>
-	</tr>
-				
-	<tr id="locarc#url.box#_#currentrow#_box" class="hide">		
-	    <td id="locarc#url.box#_#currentrow#" class="hide" align="center" colspan="10"></td>
-	</tr>	
-	
-</table>	
 	
 </cfoutput>	
-

@@ -46,7 +46,9 @@
 					WHERE Account = '#session.acc#'							  
 			</cfquery>
 			
-			<cfif check.recordcount eq "1">				 
+			<cfif check.recordcount eq "1">			
+			
+				<!--- pending for action listing alert --->	 
 				 									
 				<cfif Object eq "ActionCenter"> 	
 				
@@ -77,7 +79,9 @@
 								   ObjectValue       = "#Planned#"  						   
 								   ObjectRefresh     = "content_#scopeid#_#OrgUnit#_refresh">											   						   
 							   
-						</cfloop>	
+						</cfloop>
+						
+				<!--- POS picking screen alerter --->			
 						
 				<cfelseif Object eq "WarehouseBatchCenter"> 
 												
@@ -160,7 +164,9 @@
 							   
 						</cfif>	   
 							   
-					</cfloop>		   										   
+					</cfloop>		
+					
+				<!--- workflow object --->	   										   
 							  					
 				<cfelseif Object eq "WorkflowAction"> 				
 				
@@ -190,7 +196,9 @@
 								   ObjectValue      = "#Last.OfficerDate#"
 								   ObjectRefresh    = "content_#scopeid#_#ObjectId#_refresh">							   
 					
-						</cfloop>	
+						</cfloop>				
+				
+				
 						
 			     <cfelseif Object eq "WorkAction"> 				
 				
@@ -551,13 +559,10 @@
 						FROM    UserConnectionController
 						WHERE   SessionId = '#SESSION.SessionId#'
 						AND     ScopeId   = '#scopeid#'				    
-				  </cfquery>					  
-				  
+				  </cfquery>				  
 				 								  
 				  <cfif getObjects.ObjectScopeValue lt newValue>									  	
-				  
-				 
-				  
+				  				  
 					  	<!--- obtain the new value like 50:40 through component 
 						compare	it / if different
 							update table UserConnectionController
@@ -589,14 +594,11 @@
 									} 
 								} 
 										
-						</script>
+						</script>					
 					
-					
-					</cfif>					
-					
+					</cfif>							
 																								  				  
-				  </cfcase>	
-				  		  
+				  </cfcase>				  		  
 				  
 				   <cfcase value="DeliveryCenter">
 				   

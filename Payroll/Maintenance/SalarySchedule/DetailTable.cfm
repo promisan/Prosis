@@ -9,7 +9,7 @@
 
 <!--- based on the calculated base amount a different percentage --->
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" bordercolor="E4E4E4" class="formpadding">
+<table width="100%" class="formpadding">
 
 <tr><td align="center" style="padding-top:5px">
 	
@@ -20,7 +20,6 @@
 	   	<cfswitch expression="#Trim(URL.OP)#"> 
 		
 			   <cfcase value="save"> 
-			   
 			   			   							   
 				<cfquery name="setparent" 
 					datasource="AppsPayroll" 

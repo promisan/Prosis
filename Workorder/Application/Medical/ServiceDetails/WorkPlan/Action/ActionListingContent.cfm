@@ -53,6 +53,8 @@ password="#SESSION.dbpw#">
 				END
 			END as contact
 		FROM     userQuery.dbo.actionListing_#Session.acc# 
+		WHERE  1=1
+		-- condition
 		ORDER BY DatetimePlanning ASC 					
 	</cfoutput>	
 	
@@ -72,56 +74,57 @@ password="#SESSION.dbpw#">
 
 	<cfset itm = itm+1>
 	<cf_tl id="Scheduled" var = "1">				
-	<cfset fields[itm] = {label       		= "#lt_text#",                    
-	     				field         		= "DateTimePlanning",					
-						alias         		= "",	
-						filterforce   		= "#force#",	
-						functionscript      = "openschedule",
-						functionfield 		= "workactionid",
-						align         		= "left",		
-						width         		= "12",
-						formatted     		= "lsdateformat(DateTimePlanning,'DD/MM/YYYY')",																	
-						search        		= "date"}>
+	<cfset fields[itm] = {label       	= "#lt_text#",                    
+	     				field         	= "DateTimePlanning",					
+						alias         	= "",	
+						filterforce   	= "#force#",	
+						functionscript  = "openschedule",
+						functionfield 	= "workactionid",
+						align         	= "left",		
+						width         	= "12",
+						formatted     	= "lsdateformat(DateTimePlanning,'DD/MM/YYYY')",																	
+						search        	= "date"}>
 	
 	<cfset itm = itm+1>					
 	<cf_tl id="Day" var = "1">				
-	<cfset fields[itm] = {label       = "#lt_text#",                    
-	     				field         = "DateTimePlanning",					
-						alias         = "",	
-						filterforce   = "#force#",							
-						align         = "left",		
-						width         = "6",
-						formatted     = "lsdateformat(DateTimePlanning,'DDD')"}>					
+	<cfset fields[itm] = {label         = "#lt_text#",                    
+	     				field           = "DateTimePlanning",					
+						alias           = "",	
+						filterforce     = "#force#",							
+						align           = "left",		
+						width           = "6",
+						formatted       = "lsdateformat(DateTimePlanning,'DDD')"}>					
 						
 	<cfset itm = itm+1>
 	<cf_tl id="Time" var = "1">				
-	<cfset fields[itm] = {label     = "#lt_text#",                    
-	     				field       = "DateTimePlanning",					
-						alias       = "",		
-						align       = "center",		
-						formatted   = "timeformat(DateTimePlanning,'HH:MM')"}>		
+	<cfset fields[itm] = {label         = "#lt_text#",                    
+	     				field           = "DateTimePlanning",					
+						alias           = "",		
+						align           = "center",		
+						formatted       = "timeformat(DateTimePlanning,'HH:MM')"}>		
 						
 	<cfset itm = itm+1>	
 	<cf_tl id="Status" var = "1">						
-	<cfset fields[itm] = {label       = "Status", 	
-                      LabelFilter = "#lt_text#",				
-					  field       = "WorkOrderlineActionStatus",					
-					  filtermode  = "3",    
-					  search      = "text",
-					  align       = "center",
-					  formatted   = "Rating",
-					  ratinglist  = "Process=Yellow,Completed=Blue,Process=Green,Revoked=Red"}>						
+	<cfset fields[itm] = {label         = "Status", 	
+                      LabelFilter       = "#lt_text#",				
+					  field             = "WorkOrderlineActionStatus",					
+					  filtermode        = "3",    
+					  search            = "text",
+					  align             = "center",
+					  formatted         = "Rating",
+					  ratinglist        = "Process=Yellow,Completed=Blue,Process=Green,Revoked=Red"}>						
 			
 	<cfif url.personno eq "">	
 					
-	<cfset itm = itm+1>
-	<cf_tl id="Patient" var = "1">			
-	<cfset fields[itm] = {label       		= "#lt_text#",                    
-	     				field         		= "CustomerName",					
-						alias         	    = "",	
-						functionscript      = "openaction",
-						functionfield 		= "workorderlineid",																						
-						search        		= "text"}>							
+		<cfset itm = itm+1>
+		<cf_tl id="Patient" var = "1">			
+		<cfset fields[itm] = {label       	= "#lt_text#",                    
+		     				field         	= "CustomerName",					
+							alias         	= "",	
+							functionscript  = "openaction",
+							functionfield 	= "workorderlineid",																						
+							search        	= "text"}>	
+													
 	</cfif>	
 	
 	<cfset itm = itm+1>
@@ -136,49 +139,48 @@ password="#SESSION.dbpw#">
 						
 	<cfset itm = itm+1>	
 	<cf_tl id="Type" var = "1">		
-	<cfset fields[itm] = {label     = "#lt_text#",                    
-	     				field       = "Contact",																																								
-						search      = "text",	
-						width       = "8",						
-						filtermode  = "3"}>												
+	<cfset fields[itm] = {label             = "#lt_text#",                    
+	     				field               = "Contact",																																								
+						search              = "text",	
+						width               = "8",						
+						filtermode          = "3"}>												
 						
 	<cfset itm = itm+1>	
 	<cf_tl id="Action" var = "1">		
-	<cfset fields[itm] = {label     = "#lt_text#",                    
-	     				field       = "WorkOrderService",																																								
-						search      = "text",						
-						filtermode  = "3"}>		
+	<cfset fields[itm] = {label             = "#lt_text#",                    
+	     				field               = "WorkOrderService",																																								
+						search              = "text",						
+						filtermode          = "3"}>		
 						
 				
 	<cfset itm = itm+1>
 	<cf_tl id="Unit" var = "1">				
-	<cfset fields[itm] = {label       = "#lt_text#",                    
-	     				field         = "OrgUnitName",					
-						alias         = "",	
-						display       = "0",
-						displayfilter = "Yes",						
-						filtermode    = "2",																						
-						search        = "text"}>			
+	<cfset fields[itm] = {label             = "#lt_text#",                    
+	     				field               = "OrgUnitName",					
+						alias               = "",	
+						display             = "0",
+						displayfilter       = "Yes",						
+						filtermode          = "2",																						
+						search              = "text"}>			
 				
 	
 	<cfset itm = itm+1>
 	<cf_tl id="Class" var = "1">		
-	<cfset fields[itm] = {label     = "#lt_text#",                    
-	     				field       = "Description",																	
-						alias       = "",																							
-						search      = "text",
-						filtermode  = "2"}>	
+	<cfset fields[itm] = {label             = "#lt_text#",                    
+	     				field               = "Description",																	
+						alias               = "",																							
+						search              = "text",
+						filtermode          = "2"}>	
 						
 	<cfset itm = itm+1>
 	<cf_tl id="Plan" var = "1">		
-	<cfset fields[itm] = {label     = "#lt_text#",                    
-	     				field       = "PlanOrder",																	
-						alias       = "",		
-						width       = "8",																					
-						search      = "text",
-						filtermode  = "2"}>						
-							
-																			
+	<cfset fields[itm] = {label             = "#lt_text#",                    
+	     				field               = "PlanOrder",																	
+						alias               = "",		
+						width               = "8",																					
+						search              = "text",
+						filtermode          = "2"}>						
+																										
 <cfset menu=ArrayNew(1)>	
 
 <!--- <cfset filters=ArrayNew(1)>		

@@ -3,7 +3,6 @@
 
 <cf_tl id="Financial Event" var="1">
 
-
 <cfparam name="url.ajaxid" default="">
 <cfparam name="url.id" default="#url.ajaxid#">
 
@@ -22,10 +21,20 @@
 <cfoutput>
 
 <cf_textareascript>
-<cfajaximport tags="cfmenu,cfdiv,cfform,cfwindow">
+<cfajaximport tags="cfdiv,cfform">
 <cf_ActionListingScript>
 <cf_FileLibraryScript>
 <cf_PresentationScript>
+
+<cfquery name="Object" 
+datasource="AppsOrganization" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT * 
+	FROM   OrganizationObject
+	WHERE  ObjectKeyValue4 = '#url.id#'
+	AND    Operational = 1
+</cfquery>
 
 <cf_layoutscript>
 
@@ -40,16 +49,20 @@
 		  
 		<cf_ViewTopMenu label="Financial Event" menuaccess="context" background="blue" systemModule="Accounting">
 				
-	</cf_layoutarea>		 
-
-	<cf_layoutarea 
-	    position="right" name="commentbox" minsize="30%" maxsize="30%" size="30%" overflow="yes" collapsible="true" splitter="true">
+	</cf_layoutarea>	
 	
-		<cf_divscroll style="height:99%">
-			<cf_commentlisting objectid="#url.id#"  ajax="No">		
-		</cf_divscroll>
+	<cfif Object.recordcount eq "1">	 
+
+		<cf_layoutarea 
+		    position="right" name="commentbox" minsize="30%" maxsize="30%" size="30%" overflow="yes" collapsible="true" splitter="true">
 		
-	</cf_layoutarea>
+			<cf_divscroll style="height:99%">
+				<cf_commentlisting objectid="#url.id#"  ajax="No">		
+			</cf_divscroll>
+			
+		</cf_layoutarea>
+	
+	</cfif>
 
 	<cf_layoutarea  position="center" name="box">
 	

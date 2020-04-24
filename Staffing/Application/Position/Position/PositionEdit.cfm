@@ -486,7 +486,7 @@ password="#SESSION.dbpw#">
 	    SELECT   *
 	    FROM     Ref_PostClass
 		WHERE    (PostClass IN (SELECT PostClass FROM Ref_PostClassMission WHERE Mission = '#url.id#') AND Operational = 1)
-				 OR Code = '#Position.PostClass#'	<!--- existing selection --->   
+				 OR PostClass = '#Position.PostClass#'	<!--- existing selection --->   
 		ORDER BY ListingOrder
 	</cfquery>
 

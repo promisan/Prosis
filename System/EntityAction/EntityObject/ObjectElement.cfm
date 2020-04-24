@@ -47,6 +47,7 @@ password="#SESSION.dbpw#">
 </cfif>
 
 
+
 <cfif url.type neq "mail">
 
 	<cfset ret = "return false">
@@ -72,6 +73,7 @@ password="#SESSION.dbpw#">
 	<cfset act = "../../EntityObject/ObjectElementSubmit.cfm?entitycode=#URL.entitycode#&documentid=#documentid#&type=#url.type#&id2=new">	
 </cfif>
 
+
 <table width="99%" border="0" cellspacing="0" cellpadding="0" align="center">
 
 	    <tr><td height="4"></td></tr>
@@ -87,7 +89,7 @@ password="#SESSION.dbpw#">
 									
 	    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding navigation_table">
 			
-	    <TR height="18" class="labelmedium line" style="height:15px">
+	    <TR class="labelmedium line fixrow" style="height:15px">
 		
 		   <td style="padding-left:4px" width="10%">Code</td>
 		   <cfif url.type neq "Attach" and url.type neq "Field"> 
@@ -96,9 +98,8 @@ password="#SESSION.dbpw#">
 		   <td width="40%">Name</td>
 		   </cfif>
 		   <td style="cursor:pointer">
-		   <cf_UIToolTip  tooltip="Refer to Prosis Developer reference for instructions on how to define the mode based on the developed embedded form">
-		   Mode</td>
-		   </cf_UIToolTip>
+		   <cf_UIToolTip tooltip="Refer to Prosis Developer reference for instructions on how to define the mode based on the developed embedded form">Mode</cf_UIToolTip></td>
+		   
 		   <cfif url.type neq "Attach"  and url.type neq "Field"> 
 		   <td width="10%"></td>
 		   <cfelseif url.type eq "Field">
@@ -113,16 +114,15 @@ password="#SESSION.dbpw#">
 		   </td>
 		   </cfif>
 		   <td width="40" align="center" style="cursor:pointer">
-			   <cf_UIToolTip  tooltip="Listing order">Sort</cf_UIToolTip>
+			   <cf_UIToolTip tooltip="Listing order">Sort</cf_UIToolTip>
 		   </td>
 		   <td width="40" style="padding-left:6px;cursor:pointer">
-			   <cf_UIToolTip  tooltip="Activated / deactivated">Op</cf_UIToolTip>
+			   <cf_UIToolTip tooltip="Activated / deactivated">Op</cf_UIToolTip>
 		   </td>
-		   <td colspan="2" align="right" width="70">
+		   <td colspan="2" align="right" width="70" style="padding-right:6px">
 	       <cfoutput>
 			 <cfif URL.ID2 neq "new">
-			     <A href="#ajaxLink('../../EntityObject/ObjectElement.cfm?EntityCode=#URL.EntityCode#&ID2=new&type=#URL.type#')#">
-				 <font color="0080FF">[add]</font></a>&nbsp;
+			     <A href="#ajaxLink('../../EntityObject/ObjectElement.cfm?EntityCode=#URL.EntityCode#&ID2=new&type=#URL.type#')#">add</a>
 			 </cfif>
 			 </cfoutput>
 		   </td>		  
@@ -134,13 +134,13 @@ password="#SESSION.dbpw#">
 			<cfset dew = 25> 
 		</cfif>	
 		
-		<!--- NEW --->		
-		
+		<!--- NEW --->
+
 		<cfif URL.ID2 eq "new">
 											
 			<TR>
 			
-			<td height="30" style="padding-left:4px">
+			<td height="30" style="padding-left:4px">			
 			
 			    <cfinput type="Text" 
 			         value="" 
@@ -150,11 +150,11 @@ password="#SESSION.dbpw#">
 					 size="4" 
 					 maxlength="20" 
 					 class="regularxl">
+					
 	        </td>	
 								   
-			<td>			
-				
-				
+			<td>	
+						
 				<cf_LanguageInput
 					TableCode       = "Ref_EntityDocument" 
 					Mode            = "Edit"
@@ -166,11 +166,11 @@ password="#SESSION.dbpw#">
 					Message         = "Please enter a description"
 					MaxLength       = "80"
 					style           = "width:95%"					
-					Class           = "regularxl">			
-						
+					Class           = "regularxl">		
+											
 			</td>
 			<td>
-			 
+
 			    <cfif URL.type eq "dialog">
 			      <select name="DocumentMode" id="DocumentMode" class="regularxl">
 				   <option value="Embed" selected>Embed</option>
@@ -262,8 +262,8 @@ password="#SESSION.dbpw#">
 
 					<input type="hidden" name="DocumentMode" id="DocumentMode" value="Embed">Embed
 					
-				</cfif>   
-			     
+				</cfif>
+
 		       </td>
 			   
 			<cfif url.type neq "Attach" and url.type neq "Field"> 			 
@@ -275,11 +275,7 @@ password="#SESSION.dbpw#">
 			   <td>
 			   	<table cellspacing="0" cellpadding="0">
 		   		<tr><td <td style="padding-right:4px;padding-left:4px">
-			      <input type="Checkbox"
-			       name="FieldRequired"
-				   class="radiol"
-				   id="FieldRequired"
-			       value="0">
+			      <input type="Checkbox" name="FieldRequired" class="radiol" id="FieldRequired" value="0">
 				  </td>
 				  
 				  <td style="padding-right:4px;padding-left:4px">
@@ -298,8 +294,9 @@ password="#SESSION.dbpw#">
 	           </td>	
 			   
 			</cfif>
-			
+
 			<td align="center" width="35">
+			
 			   	<cfinput type="Text" 
 			         name="DocumentOrder" 
 					 message="You must enter a ordinal number" 
@@ -310,6 +307,7 @@ password="#SESSION.dbpw#">
 					 style="width:30;text-align:center"
 					 maxlength="2" 
 					 class="regularxl">
+					
 			</td>
 				
 			<td align="center" width="25">
@@ -319,7 +317,7 @@ password="#SESSION.dbpw#">
 					   id="Operational" 
 					   value="1" checked>
 			</td>
-								   
+
 			<td colspan="2" align="center">
 			<cfif url.type neq "mail">
 			<cfoutput>
@@ -339,8 +337,8 @@ password="#SESSION.dbpw#">
 			</cfif>
 			
 			</td>			    
-			</TR>	
-			
+			</TR>
+
 			<cfif url.type neq "Attach" and url.type neq "Field" and url.type neq "Question"> 		
 				 
 				<tr>
@@ -417,32 +415,33 @@ password="#SESSION.dbpw#">
 					</td>
 				</tr>
 			</cfif>
-			
+
+						
 			<cfif url.type eq "Field">			
 									
 				<tr id="text" bgcolor="ffffff" class="hide">
 				  <td></td>
 				  <td colspan="7">
 				  	  <cfinclude template="ObjectElementText.cfm">
-				   </td>					
+				   </td>
 				</tr>
-														
+
 				<tr id="list" bgcolor="ffffff" class="#cl#">
 				  <td></td>
 				  <td colspan="7">
 				  	  <cfinclude template="ObjectElementList.cfm">
-				   </td>					
+				   </td>
 				</tr>
-			
+
 				<tr id="date" bgcolor="ffffff" class="hide">
 				  <td></td>
 				  <td colspan="7">
 				  	  <cfinclude template="ObjectElementDate.cfm">
-				   </td>					
+				   </td>
 				</tr>
 			
 			</cfif>	
-			
+						
 			<cfif url.type eq "Mail">			
 									
 				<tr id="mail" bgcolor="f1f1f1" class="hide">
@@ -453,8 +452,8 @@ password="#SESSION.dbpw#">
 				   </td>					
 				</tr>
 									
-			</cfif>											
-			
+			</cfif>
+
 			<cfif url.type neq "Attach" and url.type neq "Field" and url.type neq "Mail">  								
 													
 							<cfif url.type eq "field">
@@ -1447,5 +1446,5 @@ password="#SESSION.dbpw#">
 
 
 <cfset AjaxOnLoad("doHighlight")>	
-
+<cfset AjaxOnLoad("doCalendar")>	
 

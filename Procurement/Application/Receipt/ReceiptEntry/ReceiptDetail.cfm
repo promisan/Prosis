@@ -217,9 +217,9 @@ password="#SESSION.dbpw#">
 	 <cfelse>
 	   	    		  
 		 <cfif URL.Mode eq "Entry">
-		   <tr bgcolor="f5f5f5" class="line labelmedium">	  
+		   <tr bgcolor="f5f5f5" class="line labelmedium fixrow">	  
 		 <cfelse>
-		   <tr class="line labelmedium">
+		   <tr class="line labelmedium fixrow">
 		 </cfif>
 	  
 		 <td width="1%">&nbsp;</td>

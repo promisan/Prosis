@@ -14,7 +14,6 @@ password="#SESSION.dbpw#">
 <cfset Page         = "0">
 <cfset add          = "1">
 
-
 <table height="100%" width="95%" align="center">
 
 <tr><td style="height:10px"><cfinclude template = "../HeaderMaintain.cfm"></td></tr>
@@ -38,7 +37,7 @@ password="#SESSION.dbpw#">
 		se = document.getElementById(cde)	
 		if (se.className == "hide") {
 			se.className  = "labelmedium" 
-			ColdFusion.navigate('List.cfm?code='+cde,cde+'_list')
+			ptoken.navigate('List.cfm?code='+cde,cde+'_list')
 		} else {
 			se.className  = "hide"		
 		}
@@ -49,8 +48,7 @@ password="#SESSION.dbpw#">
 	}
 	
 	function saveMission(code) {
-		 form_id = 'settlement_'+code;
-		 alert(form_id);
+		 form_id = 'settlement_'+code;		
 		 document.forms[form_id].onsubmit() 
 		 if( _CF_error_messages.length == 0 ) {
 		       	ptoken.navigate('ListSubmit.cfm',code+'_list','','','POST',form_id);
@@ -68,47 +66,48 @@ password="#SESSION.dbpw#">
 
 <cf_divscroll>
 
-<table width="100%" align="center" class="navigation_table">
-
-<tr class="fixrow labelmedium line">
-    <TD align="left"></TD>
-    <TD>Code</TD>
-	<TD>Description</TD>
-	<TD>Mode</TD>
-	<TD>Operational</TD>
-	<TD>Officer</TD>
-    <TD>Entered</TD>
-</TR>
-
-	<cfoutput>
-	<cfloop query="SearchResult">
-				    
-	    <TR class="navigation_row line labelmedium"> 
-			<TD align="center">
-				<table cellspacing="0" cellpadding="0">
-					<tr>
-						<td style="padding-top:7px;padding-right:1px"><cf_img icon="expand" toggle="Yes" onclick="show('#code#')"></td>
-						<td><cf_img icon="open" navigation="Yes" onclick="recordedit('#Code#');"></td>
-					</tr>
-				</table>
-			</TD>
-			<TD>#Code#</TD>
-			<TD>#Description#</TD>
-			<TD>#Mode#</TD>
-			<TD><cfif #Operational# eq 1>Yes<cfelse>No</cfif></TD>
-			<TD>#OfficerFirstName# #OfficerLastName#</TD>
-			<TD>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</TD>
-	    </TR>
+	<table width="100%" align="center" class="navigation_table">
 	
-	   <TR id="#code#" class="hide">
-	   		<TD></TD>
-	   		<TD colspan="8" id="#code#_list">
-			</TD>
-		</TR>
-	</cfloop>
-	</cfoutput>
-
-</TABLE>
+	<tr class="fixrow labelmedium line">
+	    <TD align="left"></TD>
+	    <TD>Code</TD>
+		<TD>Description</TD>
+		<TD>Mode</TD>
+		<TD>Operational</TD>
+		<TD>Officer</TD>
+	    <TD>Entered</TD>
+	</TR>
+	
+		<cfoutput>
+		<cfloop query="SearchResult">
+					    
+		    <TR class="navigation_row line labelmedium"> 
+				<TD align="center">
+					<table cellspacing="0" cellpadding="0">
+						<tr>
+							<td style="padding-top:7px;padding-right:1px"><cf_img icon="expand" toggle="Yes" onclick="show('#code#')"></td>
+							<td><cf_img icon="open" navigation="Yes" onclick="recordedit('#Code#');"></td>
+						</tr>
+					</table>
+				</TD>
+				<TD>#Code#</TD>
+				<TD>#Description#</TD>
+				<TD>#Mode#</TD>
+				<TD><cfif #Operational# eq 1>Yes<cfelse>No</cfif></TD>
+				<TD>#OfficerFirstName# #OfficerLastName#</TD>
+				<TD>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</TD>
+		    </TR>
+		
+		   <TR id="#code#" class="hide">
+		   		<TD></TD>
+		   		<TD colspan="8" id="#code#_list">
+				</TD>
+			</TR>
+			
+		</cfloop>
+		</cfoutput>
+	
+	</TABLE>
 
 </cf_divscroll>
 

@@ -60,20 +60,18 @@ password="#SESSION.dbpw#">
 	
 	<table width="97%" align="center" class="navigation_table">
 	
-	<tr class="line labelmedium">
+	<tr class="labelmedium fixrow">
 	    <td></td>
 		<td><cf_tl id="Code"></td>
 		<td><cf_tl id="Description"></td>
 		<td><cf_tl id="Entry Class"></td>
 		<td width="100"><cf_tl id="Contract"></td>
-		<td><cf_tl id="Oper"></td>
-		  
+		<td><cf_tl id="Oper"></td>		  
 	</tr>
 	
 	<cfoutput query="SearchResult" group="TriggerGroup">
-	
-		<tr><td height="4"></td></tr>
-		<tr><td colspan="5" style="height:30px" class="labellarge">#TriggerGroup#</td></tr>
+			
+		<tr class="fixrow2"><td colspan="6" style="height:30px" class="labellarge">#TriggerGroup#</td></tr>
 		
 		<cfoutput>     
 			

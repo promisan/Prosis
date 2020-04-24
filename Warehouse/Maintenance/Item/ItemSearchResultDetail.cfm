@@ -116,7 +116,7 @@
 	<cfset cols = 15>			
 </cfif>
    
-<table id="myListing" style="width:100%;" class="navigation_table" align="center">  
+<table id="myListing" style="width:98.5%" class="navigation_table">  
 
 <tr><td class="line" colspan="<cfoutput>#cols#</cfoutput>"></td></tr> 
 
@@ -155,7 +155,7 @@
 		</cfif>
 		<cfoutput group="#sort2#">
 			<cfif CategoryItemName neq "default" and sort2Show eq 1>
-				<tr class="clsItemRow">
+				<tr class="fixrow2 clsItemRow">
 				<td height="20" colspan="#cols#" class="line labelmedium" style="font-color:gray;height:45px;padding-left:6px">
 					#Evaluate("#sort2#")#
 				</td>

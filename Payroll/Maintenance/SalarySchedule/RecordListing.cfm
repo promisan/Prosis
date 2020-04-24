@@ -81,7 +81,7 @@ password="#SESSION.dbpw#">
 	
 		<table width="98%">
 		 
-			<tr class="line" style="height:20px;">
+			<tr class="line fixrow" style="height:20px;">
 		    <td width="4%" class="labelit" align="center"></td>
 		    <td width="10%" class="labelit"><cf_tl id="Code"></td>
 			<td width="20%" class="labelit"><cf_tl id="Name"></td>

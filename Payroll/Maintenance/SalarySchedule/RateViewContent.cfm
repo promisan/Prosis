@@ -20,11 +20,9 @@
 		collapsible="true"		
 		splitter="true">
 		
-		<cfform>
-		
-		<table width="100%">
+		<table width="100%" height="100%">
 
-			<tr class="line labelmedium"  style="background-color:eaeaea;height:60px">
+			<tr class="line labelmedium"  style="height:40px">
 				<td align="center" style="padding-left:5px;height:40px">
 				<cfoutput>	
 				<select name="operational" id="operational" class="regularxl" style="background-color:f1f1f1;height:28px;font-size:18px;width:90%" onchange="ptoken.navigate('RateViewTree.cfm?idmenu=#url.idmenu#&location=#url.location#&schedule=#url.schedule#&mission=#url.mission#&operational='+this.value,'treeview')">
@@ -36,14 +34,12 @@
 			</tr>
 			
 			<tr>
-				<td id="treeview">				
+				<td id="treeview" style="height:100%">				
 				<cfinclude template="RateViewTree.cfm">			
 				</td>
 			</tr>
 		</table>	
 			
-		</cfform>	
-	
 	</cf_layoutarea>
 	
 	<cf_layoutarea  position="center" name="box">

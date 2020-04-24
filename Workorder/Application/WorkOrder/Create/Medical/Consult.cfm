@@ -203,7 +203,7 @@
 	AND    WorkOrderLine = '#url.workorderline#'				  
 </cfquery>	
 
-<cfform name="orderform" onsubmit="return false" style="height:99%">
+<cfform name="orderform" onsubmit="return false" style="height:99%;padding-left:15px">
 	
 	<cfoutput>
 		<input type="hidden" name="ParentWorkOrderid"   value="#LastWorkOrderId#">
@@ -506,6 +506,17 @@
 		      <table cellspacing="0" cellpadding="0">
 					<tr>
 					
+					
+					
+					<td id="member">
+					
+						<cfoutput>															
+							<input type="text"   value="#last.PersonNoName1#" name="name" value="" size="40" maxlength="40" class="regularxl enterastab" readonly style="padding-left:4px">				
+							<input type="hidden" value="#last.PersonNo1#" name="personno" id="personno" value="" size="10" maxlength="10" readonly>					
+						</cfoutput>
+					
+					</td>
+					
 					<td>
 					
 					<cfset link = "#SESSION.root#/WorkOrder/Application/WorkOrder/Create/Medical/setEmployee.cfm?workorderid=#url.workorderid#">	
@@ -522,15 +533,6 @@
 							close      = "Yes"
 							des1       = "PersonNo">
 							
-					</td>
-					
-					<td id="member">
-					
-						<cfoutput>															
-							<input type="text"   value="#last.PersonNoName1#" name="name" value="" size="40" maxlength="40" class="regularxl enterastab" readonly style="padding-left:4px">				
-							<input type="hidden" value="#last.PersonNo1#" name="personno" id="personno" value="" size="10" maxlength="10" readonly>					
-						</cfoutput>
-					
 					</td>
 					
 					</tr>
@@ -629,7 +631,7 @@
 	</tr>
 	
 	<tr>
-		<td  style="padding-left:4px" height="34" class="labelmedium"><cf_tl id="Class">:</td>
+		<td  valign="top" style="padding-left:4px;padding-top:4px" height="34" class="labelmedium"><cf_tl id="Class">:</td>
 					
 		<cfquery name="DomainClass" 
 				datasource="AppsWorkOrder" 
@@ -702,10 +704,15 @@
 					
 				 </td>
 				 
-				 <td style="padding-left:10px;min-width:400px">			
+				 </tr>
+				 
+				 <tr>
+				 
+				 <td style="min-width:400px">
 				    <cfdiv bind="url:#session.root#/WorkOrder/Application/WorkOrder/Create/Medical/getCustomField.cfm?mission=#url.mission#&serviceitem=#url.serviceitem#&domainclass={ServiceDomainClass}">		
 				 </td>
 				 </tr>
+				 
 				 </table>
 																				
 				</td>	

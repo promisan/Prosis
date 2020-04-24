@@ -1,5 +1,5 @@
 
-<table width="97%" border="0" align="center" class="navigation_table" cellspacing="0" cellpadding="0">
+<table width="97%" align="center" class="navigation_table">
 
 <cfquery name="Rate"
 datasource="AppsPayroll" 
@@ -16,7 +16,7 @@ password="#SESSION.dbpw#">
 	ORDER BY T.Description
 </cfquery>
 
-<tr class="line labelmedium">
+<tr class="line labelmedium fixrow">
     
 	<TD align="left"><cf_tl id="Component"></TD>	
 	<TD align="left"><cf_tl id="Group"></TD>

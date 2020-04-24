@@ -77,8 +77,15 @@ function recordedit(id) {
 			</table>
 		</td>
 	</tr>
+			
+	<tr>
+	<td colspan="10" align="right">
 	
-	<tr style="height:20px" class="labelmedium line">
+	<cf_divscroll>
+	
+	<table width="100%">
+	
+	<tr style="height:25px" class="labelmedium line fixrow">
 	    <td style="min-width:60px"></td>		
 		<td style="min-width:70px"><cf_tl id="Class"></td>		
 	    <td style="min-width:70px"><cf_tl id="Code"></td>
@@ -90,30 +97,10 @@ function recordedit(id) {
 		<td style="min-width:60px;padding-left:4px;padding-right:30px">O</td>		
 		<td>&nbsp;&nbsp;</td>
 	</tr>
-	
-	<tr>
-	<td colspan="10" align="right">
-	
-	<cf_divscroll>
-	
-	<table width="100%">
-	
-	<tr style="height:1px">
-	   <td style="min-width:60px"></td>		
-		<td style="min-width:70px"></td>		
-	    <td style="min-width:70px"></td>
-		<td style="min-width:60px"></td>			
-		<td style="min-width:80px"></td>		
-		<td style="width:50%"></td>	
-	    <td style="width:50%"></td>		
-		<td style="min-width:60px"></td>
-		<td style="min-width:60px;padding-left:4px;padding-right:30px"></td>				
-	</tr>
-	
 		
 	<cfoutput query="SearchResult" group="OrderListing">
 	
-		  <tr>
+		  <tr class="fixrow2">
 		    <td colspan="9" style="font-size:23px;height:43;font-weight:200;padding-left:10px" class="labelmedium">#DescriptionCategory#</td>
 		  </tr>	
 		 

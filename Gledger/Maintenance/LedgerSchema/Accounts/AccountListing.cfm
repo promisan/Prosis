@@ -237,7 +237,7 @@ function accounttoggle(mis,acc,act) {
 	
 	<cfoutput query="SearchResult" group="AccountParent">
 	
-	     <tr class="line clsSearchrow fixrow">
+	     <tr class="line clsSearchrow fixrow2">
 		 	 <td style="display:none;" class="ccontent"><b>#AccountParent# #Parentdescription#</td>
 			 <td height="25" style="padding-left:4px;padding-top:2px" align="absmiddle">
 			 	<table>
@@ -253,11 +253,10 @@ function accounttoggle(mis,acc,act) {
 			 </td>
 		     <td colspan="15" class="labellarge" style="cursor: pointer;" onclick="reloadForm('#url.mission#','#AccountParent#','#url.op#')">#AccountParent# #Parentdescription#</td>	 	 
 		 </tr>	
-		
-			 	
+					 	
 	<cfoutput group="AccountGroup1">
 	   
-	     <tr class="line navigation_row clsSearchrow labelmedium fixrow">
+	     <tr class="line navigation_row clsSearchrow labelmedium fixrow3">
 		 <td style="display:none;" class="ccontent">#AccountGroup1# #GroupDescription#</td>
 	     <td></td>	
 	     <td colspan="1">

@@ -4,7 +4,7 @@
 
 <cfset dependentshow = "0">
 
-<cfajaximport tags="cfwindow,cfdiv,cfform">
+<cfajaximport tags="cfdiv,cfform">
 <cf_actionListingScript>
 <cf_FileLibraryScript>
 <cf_dialogposition>
@@ -134,7 +134,7 @@
 
 <cfset ctr= 0>
 
-<table width="100%" border="0" ccellspacing="0" ccellpadding="0" align="center" class="formpadding">
+<table width="100%" height="100%" border="0" ccellspacing="0" ccellpadding="0" align="center" class="formpadding">
 
 <cfparam name="url.header" default="1">
 <cfif url.header eq "1">
@@ -147,9 +147,9 @@
 </tr>	
 </cfif>
 
-<tr><td>
+<tr><td style="height:100%">
 
-<table width="99%" align="center" border="0" ccellpadding="0" class="navigation_table">
+<table width="99%" style="height:100%" align="center" border="0" ccellpadding="0" class="navigation_table">
 
 <cfparam name="url.status" default="valid">
 
@@ -279,9 +279,9 @@ password="#SESSION.dbpw#">
 	ORDER By  DateExpiration DESC 
 </cfquery>
 
-<tr><td>
+<tr><td style="height:100%">
 	
-<table width="98%" border="0" align="center" class="formpadding" style="min-width:1024px">
+<table width="98%" border="0" align="center" class="formpadding" style="min-width:1024px;height:100%">
 	
 	<cfinvoke component  = "Service.Access" 
       method     = "contract"
@@ -411,11 +411,13 @@ password="#SESSION.dbpw#">
 	   Attention :<font color="FF0000"><cf_tl id="This person has no active appointment at this moment"></td></tr>	  
    </cfif>
    
-  <td width="100%" colspan="2">
+  <td width="100%" colspan="2" height="100%">
+  
+  	  <cf_divscroll>
  
-	  <table border="0" width="100%">
+	  <table border="0" style="width:98.5%">
 			
-		<TR class="labelmedium line">
+		<TR class="labelmedium line fixrow">
 		    <td width="3%" height="18" align="center"></td>
 			<td width="3%"></td>		
 			<TD width="50"><cf_tl id="Entity"></TD>	
@@ -1116,6 +1118,8 @@ password="#SESSION.dbpw#">
 		</cfoutput>
 				
 		</TABLE>
+		
+		</cf_divscroll>
 
 </td>
 

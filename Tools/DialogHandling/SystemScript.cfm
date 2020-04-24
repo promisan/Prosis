@@ -122,7 +122,6 @@
 </cfoutput>
 <!--- -------------------------------------- --->
 
-
 <!--- a link to a cfc for assigning a number --->
 
 <cfquery name="param" 
@@ -131,13 +130,11 @@
 	FROM    Parameter
 	WHERE   HostName           = '#CGI.http_host#'				
 </cfquery>		
-				
-<cfif param.URLProtectionMode eq "0" or attributes.force eq "1">			
 
+	
+<cfif param.URLProtectionMode eq "0" or attributes.force eq "1">	
 	<!--- code to bypass the token method and revert to regular openings --->
-	
-	
-	
+		
 	<script language="JavaScript">
 	
 		function Security(){}
@@ -155,8 +152,7 @@
 		
 		}
 		
-		function doWindowArguments(p1,p2,p3,p4)
-		{
+		function doWindowArguments(p1,p2,p3,p4)	{
 			var win;
 			if (p3 && p4)
 				win = dialogArguments.window.open(p1, p2, p3, p4);	
@@ -251,8 +247,7 @@
 				} 
 			}, p4, p5, p6);
 		}		
-		
-		
+				
 		var ptoken = new Security;
 			
 	</script>	

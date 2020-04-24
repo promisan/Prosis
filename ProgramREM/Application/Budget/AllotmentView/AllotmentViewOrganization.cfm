@@ -49,9 +49,9 @@
 <!--- -------Mark down list-------------- --->
 <!--- ----------------------------------- --->
 
-<table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="navigation_table">
+<table style="width:98.5%" class="navigation_table">
 	
-	<TR class="line"><td width="6%" height="20"></td>
+	<TR class="line fixrow"><td width="6%" height="20"></td>
 	
 	    <TD class="labelit"><cf_tl id="Code" var="1"><cf_space spaces="30" label="#lt_text#"></TD>
 		

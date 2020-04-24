@@ -292,9 +292,9 @@ password="#SESSION.dbpw#">
 	FROM Ref_CustomFields
 </cfquery>
 
-<table width="96%" height="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+<table width="97%" height="100%" align="center" border="0">
 		
-<tr><td colspan="4" style="font-weight:200;height:40;font-size:25px;height:45px;padding-left:0px" class="labelmedium"><cfoutput>#Text#</cfoutput></font></td>
+<tr><td colspan="4" style="height:35;font-size:25px;height:45px;padding-left:0px" class="labelmedium"><cfoutput>#Text#</cfoutput></td>
 
 	<td colspan="5" align="right" style="padding-right:5px">	
 	    
@@ -319,31 +319,33 @@ password="#SESSION.dbpw#">
 		 <cfinclude template="Navigation.cfm">	 				 
 </td></tr>
 
-<TR class="labelmedium line">
-	    <td style="min-width:20"></td>
-		<td style="min-width:100"><cf_tl id="Receipt"></td>	
-		<td style="min-width:70"><cf_tl id="Status"></td>			
-		<td style="min-width:100"><cf_tl id="Purchase"></td>
-		<td width="100%"><cf_tl id="Vendor"></td>
-		<td style="min-width:150px"><cf_tl id="Packingslip"></td>
-		<td style="min-width:100px"><cf_tl id="Date"></td>
-		<cfif Custom.ReceiptReference1 neq "">
-		<td style="min-width:80px"><cfoutput>#Custom.ReceiptReference1#</cfoutput></td>
-		</cfif>
-		<cfif Custom.ReceiptReference2 neq "">
-		<td style="min-width:80px"><cfoutput>#Custom.ReceiptReference2#</cfoutput></td>		
-		</cfif>
-		<td style="min-width:250"><cf_tl id="Officer"></td>
-		<td style="min-width:50"><cf_tl id="Lines"></td>			
-		<td align="right" style="min-width:80"><cf_tl id="Value"></td>			
-		<td style="min-width:20"></td>
-	</TR>
-
 <tr><td width="100%" height="100%" colspan="13">
 
 	<cf_divscroll>
 
 	<table width="100%" class="navigation_table">	
+			
+	<TR class="labelmedium line fixrow">
+		    <td style="min-width:20"></td>
+			<td style="min-width:100"><cf_tl id="Receipt"></td>	
+			<td style="min-width:70"><cf_tl id="Status"></td>			
+			<td style="min-width:100"><cf_tl id="Purchase"></td>
+			<td width="100%"><cf_tl id="Vendor"></td>
+			<td style="min-width:150px"><cf_tl id="Packingslip"></td>
+			<td style="min-width:100px"><cf_tl id="Date"></td>
+			<cfif Custom.ReceiptReference1 neq "">
+			<td style="min-width:80px"><cfoutput>#Custom.ReceiptReference1#</cfoutput></td>
+			</cfif>
+			<cfif Custom.ReceiptReference2 neq "">
+			<td style="min-width:80px"><cfoutput>#Custom.ReceiptReference2#</cfoutput></td>		
+			</cfif>
+			<td style="min-width:250"><cf_tl id="Officer"></td>
+			<td style="min-width:50"><cf_tl id="Lines"></td>			
+			<td align="right" style="min-width:80"><cf_tl id="Value"></td>			
+			<td style="min-width:20"></td>
+		</TR>
+	
+	<!---
 	
 	<TR style="height:1px">
 	    <td style="min-width:20"></td>
@@ -362,7 +364,10 @@ password="#SESSION.dbpw#">
 		<td style="min-width:250"></td>
 		<td style="min-width:50"></td>		
 		<td style="min-width:80"></td>	
+		<td style="min-width:20"></td>
 	</TR>
+	
+	--->
 	
 	<cfif searchresult.recordcount eq "0">
 	
@@ -418,8 +423,8 @@ password="#SESSION.dbpw#">
 						
 						 	<cf_tl id="Clear" var="vClear">
 							
-						    <button style="font-size:12px;border:1px solid silver;height:22;padding-top:3px" 
-							   class="button3" type="button" class="button10s navigation_action"
+						    <button style="font-size:12px;border:1px solid silver;height:21;padding-top:2px;padding-bottom:2px" 
+							   class="button10g" type="button" class="button10s navigation_action"
 							   name="Clear" id="Clear" onClick="receiptdialog('#ReceiptNo#','receipt')">#vClear#</button> 												 
 						
 						<cfelse>

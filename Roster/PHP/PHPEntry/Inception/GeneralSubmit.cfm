@@ -203,6 +203,7 @@
 					 Source,
 					 eMailAddress,
 					 MobileNumber,
+					 PhoneNumber,
 					 DocumentReference
 					 <cfif ISDEFINED("MyForm.MaritalStatus")>
 					 ,MaritalStatus
@@ -231,7 +232,7 @@
 							  '#MyForm.LastName2#',
 							  '#MyForm.MiddleName#',
 							  '#MyForm.MiddleName2#',			 	
-							  <cfqueryparam value="#MyForm.BirthCity#"          cfsqltype="CF_SQL_CHAR" maxlength="50">,
+							  <cfqueryparam value="#MyForm.BirthCity#"  cfsqltype="CF_SQL_CHAR" maxlength="50">,
 						</cfif>	
 						 		  
 					    <cfqueryparam value="#MyForm.NationalityAdditional#" cfsqltype="CF_SQL_CHAR" maxlength="3">,		  
@@ -246,7 +247,8 @@
 					    <cfqueryparam value="#MyForm.Reference#"         cfsqltype="CF_SQL_CHAR" maxlength="20">,
 					    '#source#',
 					    <cfqueryparam value="#MyForm.eMailAddress#"      cfsqltype="CF_SQL_CHAR" maxlength="50">,	
-						<cfqueryparam value="#MyForm.MobileNumber#"      cfsqltype="CF_SQL_CHAR" maxlength="50">,		      
+						<cfqueryparam value="#MyForm.MobileNumber#"      cfsqltype="CF_SQL_CHAR" maxlength="50">,	
+						<cfqueryparam value="#MyForm.PhoneNumber#"       cfsqltype="CF_SQL_CHAR" maxlength="50">,		      
 					    <cfqueryparam value="#MyForm.DocumentReference#" cfsqltype="CF_SQL_CHAR" maxlength="20">		
 					  
 					    <cfif ISDEFINED("MyForm.MaritalStatus")>
@@ -321,7 +323,8 @@
 								Reference,
 					  		 	CustomerName, 					 		 	
 							 	eMailAddress,		
-								MobileNumber,			 	
+								MobileNumber,	
+								PhoneNumber,		 	
 						 	 	OfficerUserId,
 							 	OfficerLastName,
 							 	OfficerFirstName,	
@@ -331,7 +334,8 @@
 							<cfqueryparam value="#MyForm.Reference#"     cfsqltype="CF_SQL_CHAR" maxlength="20">,
 				           	'#MyForm.firstname# #MyForm.lastname#',				  		  	
 						  	<cfqueryparam value="#MyForm.eMailAddress#"  cfsqltype="CF_SQL_CHAR" maxlength="50">,		
-							<cfqueryparam value="#MyForm.MobileNumber#"  cfsqltype="CF_SQL_CHAR" maxlength="50">,				
+							<cfqueryparam value="#MyForm.MobileNumber#"  cfsqltype="CF_SQL_CHAR" maxlength="50">,	
+							<cfqueryparam value="#MyForm.PhoneNumber#"   cfsqltype="CF_SQL_CHAR" maxlength="50">,			
 						  	'#SESSION.acc#',
 				    	  	'#SESSION.last#',		  
 					  	  	'#SESSION.first#',
@@ -346,7 +350,8 @@
 								Reference,
 					  		 	CustomerName, 	
 								CustomerDOB,				 		 	
-							 	eMailAddress,		
+							 	eMailAddress,	
+								MobileNumber,		
 								PhoneNumber,			 	
 						 	 	OfficerUserId,
 							 	OfficerLastName,
@@ -354,11 +359,12 @@
 							 	Created)
 				      	VALUES ('#LastNo.PersonNo#',
 					       	'#MyForm.Mission#', 
-							<cfqueryparam value="#MyForm.Reference#"       cfsqltype="CF_SQL_CHAR" maxlength="20">,
+							<cfqueryparam value="#MyForm.Reference#"     cfsqltype="CF_SQL_CHAR" maxlength="20">,
 				           	'#MyForm.firstname# #MyForm.lastname#',			
 							#DOB#,	  		  	
 						  	<cfqueryparam value="#MyForm.eMailAddress#"  cfsqltype="CF_SQL_CHAR" maxlength="50">,		
-							<cfqueryparam value="#MyForm.MobileNumber#"  cfsqltype="CF_SQL_CHAR" maxlength="50">,				
+							<cfqueryparam value="#MyForm.MobileNumber#"  cfsqltype="CF_SQL_CHAR" maxlength="50">,		
+							<cfqueryparam value="#MyForm.PhoneNumber#"   cfsqltype="CF_SQL_CHAR" maxlength="50">,				
 						  	'#SESSION.acc#',
 				    	  	'#SESSION.last#',		  
 					  	  	'#SESSION.first#',
@@ -430,7 +436,9 @@
 							 </td></tr>
 						 </table>				 
 					 
-					 </cfif>	
+					 </cfif>
+
+					 <cfset StructDelete(Session,"myForm")>	
 					 
 				 </cfif>	 	
 				 	 

@@ -10,7 +10,7 @@
 
 	<cfoutput>
 	   		   
-		<table style="width:99%">
+		<table style="width:98.5%">
 							
 			<cfif searchresult.recordcount eq "0">					
 							    								
@@ -92,7 +92,7 @@
 					  
 					  <!--- grouping record --->
 																
-					  <tr class="line">
+					  <tr class="line fixrow2">
 					  <td colspan="#cols-3#" class="labellarge" style="font-weight:bold;padding-left:5px;height:30px">	
 					      
 						   <cfif findNoCase('00:00',evaluate(url.listgroupfield))>

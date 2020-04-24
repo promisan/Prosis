@@ -203,7 +203,7 @@ password="#SESSION.dbpw#">
 
 		<table width="98%" border="0" cellspacing="0" cellpadding="0" class="navigation_table" align="center">
 		
-		<TR class="labelmedium line">
+		<TR class="labelmedium line fixrow">
 		
 		    <TD></TD>
 			<TD></TD>

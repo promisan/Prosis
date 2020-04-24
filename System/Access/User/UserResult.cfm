@@ -350,7 +350,7 @@
 				
 				<table width="100%">
 								
-				<tr class="labelmedium line fixrow">
+				<tr class="labelmedium fixrow">
 					<td height="22" width="30"></td>
 					<td width="25%"><cf_tl id="Name"></td>
 					<td width="100"><cf_tl id="Account"></td>
@@ -375,8 +375,7 @@
 					   <cfswitch expression="#URL.IDSorting#">
 					   
 					     <cfcase value = "AccountGroup">
-					      <tr><td colspan="12" height="23" bgcolor="white" class="labelmedium">#AccountGroup#</td></tr>
-						  <tr><td height="1" colspan="12" bgcolor="E5E5E5"></td></tr>
+					      <tr class="fixrow2 labelmedium line"><td colspan="12" height="23" bgcolor="white">#AccountGroup#</td></tr>						  
 					     </cfcase>
 					     <cfcase value = "LastName">
 						 
