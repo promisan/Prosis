@@ -31,22 +31,22 @@ password="#SESSION.dbpw#">
 
 <cfform  method="POST" name="settlement_#code#" id="settlement_#code#" onsubmit="return false">
 	
-<table width="80%" border="0" cellspacing="0" cellpadding="0" class="navigation_table">					
+<table width="80%" class="navigation_table">					
 		
 		<tr><td colspan="6" height="10"></td></tr>
 		
 		<cfoutput>
 		
-		 <TR height="18" class="line">
-			   <td class="labelit"><cf_tl id="Mission"></td>
+		 <TR height="18" class="line labelmedium">
+			   <td><cf_tl id="Mission"></td>
 			   <td width="40%" class="labelit"><cf_tl id="GLAccount"></td>
-			   <td class="labelit"><cf_tl id="Order"></td>		
-   			   <td class="labelit"><cf_tl id="Officer"></td>		
-   			   <td class="labelit"><cf_tl id="Created"></td>		
-			   <td class="labelit" align="right" style="padding-right:4px">
+			   <td><cf_tl id="Order"></td>		
+   			   <td><cf_tl id="Officer"></td>		
+   			   <td><cf_tl id="Created"></td>		
+			   <td align="right" style="padding-right:4px">
 			   		<cfoutput>
 						<cfif url.action neq 'new'>
-							<a title="Link new mission" href="javascript:addMission('#url.code#')"><font color="0080FF">[Add]</font></a>
+							<a title="Link new mission" href="javascript:addMission('#url.code#')">[Add]</a>
 						</cfif>
 					</cfoutput>
 			   </td>  
@@ -91,9 +91,9 @@ password="#SESSION.dbpw#">
    					    <cf_tl id="Save" var ="1">
 					   <input type="button" 
 					        value="#lt_text#" 
-							class="button10s" 
+							class="button10g" 
 							onclick="saveMission('#Code#')"
-							style="width:50;height:25px">
+							style="width:80px;height:25px">
 				   </td>
 			    </TR>					
 				
@@ -134,15 +134,15 @@ password="#SESSION.dbpw#">
 							message="#lt_text#" 
 							required="Yes" 							 
 							maxlength="2" 
-							class="regularxl" style="width:25px;">
+							class="regularxl" style="width:25px;text-align:center">
 				   </td>
 				   <td colspan="3" align="right">
    					   <cf_tl id="Save" var ="1">
 					   <input type="button" 
 					        value="#lt_text#" 
-							class="button10s" 
+							class="button10g" 
 							onclick="saveMission('#Code#');"
-							style="width:50;height:25px">
+							style="width:80px;height:25px">
 				   </td>
 			    </TR>							
 				
@@ -150,14 +150,14 @@ password="#SESSION.dbpw#">
 													
 			<cfelse>								
 						
-				<TR class="navigation_row line" bgcolor="ffffff">
-				   <td class="labelit">&nbsp;#Mission#</td>
-				   <td height="20" class="labelit"><cfif GLAccount eq ""><font color="808080">[Accounts Receivable]</font><cfelse>#GLAccount# #Description#</cfif></td>
-   				   <td height="20" class="labelit">#ListingOrder#</td>
-				   <td class="labelit">#OfficerFirstName# #OfficerLastName#</td>
-				   <td class="labelit">#dateFormat(Created,"dd/mm/yyyy")#</td>
+				<TR class="navigation_row line labelmedium" bgcolor="ffffff">
+				   <td style="padding-left:4px">&nbsp;#Mission#</td>
+				   <td height="20"><cfif GLAccount eq ""><font color="808080">[Accounts Receivable]</font><cfelse>#GLAccount# #Description#</cfif></td>
+   				   <td height="20">#ListingOrder#</td>
+				   <td>#OfficerFirstName# #OfficerLastName#</td>
+				   <td>#dateFormat(Created,"dd/mm/yyyy")#</td>
 				   <td align="right" style="padding-right:4px">
-					  <cf_img icon="edit" navigation="Yes" onclick="ColdFusion.navigate('List.cfm?code=#URL.code#&mission=#mission#','#url.code#_list')">
+					  <cf_img icon="edit" navigation="Yes" onclick="ptoken.navigate('List.cfm?code=#URL.code#&mission=#mission#','#url.code#_list')">
 				   </td>					
 				 </TR>					 
 										

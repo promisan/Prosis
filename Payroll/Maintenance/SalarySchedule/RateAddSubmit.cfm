@@ -203,7 +203,7 @@
  <script>
  
    parent.ColdFusion.navigate('RateViewTree.cfm?mission=#scale.mission#&schedule=#scale.salaryschedule#&location=#form.servicelocation#','treebox') 
-   ColdFusion.Window.hide('addscale')   
+   ProsisUI.closeWindow('addscale')   
    window.location = "rateedit.cfm?mission=#scale.mission#&schedule=#scale.salaryschedule#&location=#form.servicelocation#&effective=#dateformat(eff,client.dateSQL)#&mode=grade&operational=1"
  
  </script>	

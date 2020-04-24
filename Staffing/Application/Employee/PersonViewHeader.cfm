@@ -304,6 +304,7 @@
 											</td>
 											
 											<!--- check if there is an assignment on the same date --->
+											
 											<cfquery name="Assignment" 
 										      datasource="AppsEmployee" 		  
 											  username="#SESSION.login#" 
@@ -311,15 +312,17 @@
 												SELECT     *
 												FROM       PersonAssignment AS PA INNER JOIN
 								                           Position AS P ON PA.PositionNo = P.PositionNo
-												WHERE      PA.PersonNo = '#url.id#'
-												AND        P.Mission = '#mission#' 
+												WHERE      PA.PersonNo      = '#url.id#'
+												AND        P.Mission        = '#mission#' 
 												AND        PA.AssignmentStatus IN ('0', '1') 
 												AND        PA.DateEffective = '#dateformat(EOD,client.datesql)#'
 											</cfquery>
 											
 											<cfif Assignment.recordcount eq "0">
 											
-											<td style="padding-left:7px;font-size:14px"><font color="FF0000"><cf_tl id="Check assignment">!</td>
+											<td style="padding-left:7px;font-size:14px"><font color="FF0000">
+											<cf_UItooltip tooltip="No assignment started on the same date as the EOD"><font color="8000FF"><cf_tl id="Check assignment"></cf_UItooltip>
+											</td>
 											
 											</cfif>
 											

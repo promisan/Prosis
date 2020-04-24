@@ -202,7 +202,9 @@
 			   WL.ParentWorkOrderId,
 			   WLA.ActionClass, 
 			   WS.DescriptionShort as WorkOrderService,
-			   S.Description as ServiceItemDescription,
+			   WS.Color            as WorkOrderServiceColor,
+			   
+			   S.Description       as ServiceItemDescription,
 			   
 			   <!---
 			   ( SELECT WorkActionId
@@ -282,12 +284,9 @@
 			   <!--- get the very first contact action of this person to compare with the action to show to determine if this is New New --->
 			   
 			   ISNULL(( SELECT TOP 1 wpd1.WorkActionId
-        		  FROM WorkOrderLineAction CWL WITH (NOLOCK)
-		  			inner join WorkOrder CW WITH (NOLOCK)
-		  			ON CW.WorkOrderId = CWL.WorkOrderId
-					inner join WorkPlanDetail wpd1 WITH (NOLOCK)
-		  			on wpd1.WorkActionId = cwl.WorkactionId
-		  			and wpd1.Operational = '1'
+        		        FROM         WorkOrderLineAction CWL WITH (NOLOCK)
+					  			     INNER JOIN WorkOrder CW WITH (NOLOCK)        ON CW.WorkOrderId = CWL.WorkOrderId
+									 INNER JOIN WorkPlanDetail wpd1 WITH (NOLOCK) ON wpd1.WorkActionId = cwl.WorkactionId AND wpd1.Operational = '1'
 	   				WHERE CW.CustomerId =W.CustomerId
               			AND CWL.ActionClass = 'Contact'
               			AND CWL.ActionStatus not in ('9','8')
@@ -312,9 +311,7 @@
 					              AND wla1.WorkActionId != wla.WorkActionId
 							      AND ISNULL(wpd1.DateTimePlanning,wla1.DateTimePlanning) <= ISNULL(wpd.DateTimePlanning,wla.DateTimePlanning)
 					       ORDER BY ISNULL(wpd1.DateTimePlanning, wla1.DateTimePlanning) DESC
-				) as lastServiceDomainClass, 
-				
-				
+				) as lastServiceDomainClass, 				
 						   	
 			   WLA.ActionStatus as WorkOrderLineActionStatus,
 			   WL.ServiceDomainClass,
@@ -661,17 +658,17 @@
 									<cfoutput>																											
 									
 									 <cfif url.size neq "small">	
-										 <tr class="labelmedium">								
-									     <td colspan="5" style="font-size:25px;height:50px;padding-left:5px;"><font color="0080C0">#LastName#,#FirstName#</td>									
+										 <tr class="labelmedium fixrow">								
+									     <td colspan="5" style="font-size:25px;height:50px;padding-left:5px;">#LastName#,#FirstName#</td>									
 										 </tr>
 									 <cfelseif url.size eq "embed">	
-										 <tr class="labelmedium">								
-									     <td colspan="5" style="font-size:25px;height:50px;padding-left:5px;"><font color="0080C0">#LastName#,#FirstName#</td>									
+										 <tr class="labelmedium fixrow">								
+									     <td colspan="5" style="font-size:25px;height:50px;padding-left:5px;">#LastName#,#FirstName#</td>									
 										 </tr>	 
 									 <cfelse>
 										 <cfif Position.recordcount gte "2">
-										 <tr class="labelmedium">
-										 <td colspan="5" style="font-size:17px;height:32px;padding-left:5px;"><font color="0080C0">#LastName#,#FirstName#</td>
+										 <tr class="labelmedium fixrow">
+										 <td colspan="5" style="font-size:17px;height:32px;padding-left:5px;">#LastName#,#FirstName#</td>
 										 </tr>
 										 </cfif>
 									 </cfif>									
@@ -801,7 +798,7 @@
 					
 						<cfset url.matrix = "Yes">					
 													
-						<tr class="labelmedium line" style="height:20px;border-top:1px solid silver">
+						<tr class="labelmedium line fixrow" style="height:20px;border-top:1px solid silver">
 						
 							<td align="center" style="border-right:1px solid silver;height:38px;font-size:16px"><cf_tl id="Time"></td>
 							

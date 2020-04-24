@@ -33,7 +33,6 @@
    
 <cfelse>  
 
-
 	<!--- this method is made to check if the session of the user is considered cancelled based on the content
 	of the parameter table for this application server --->
 
@@ -159,7 +158,8 @@
 			<!--- 2015-03-07 kherrera: if upload picture and android then exception or if it is an upload --->
 			
 		<cfelse>
-						
+		
+								
 			<cfif CGI.REQUEST_METHOD eq "POST">
 		
 				<cfset vProtocol = "http://">

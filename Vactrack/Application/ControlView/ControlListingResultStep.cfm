@@ -26,12 +26,21 @@
 
 </cfoutput>
 
-<table width="100%" 
-      border="0" 
-	  align="center" 
-	  cellspacing="0" 
-	  cellpadding="0" 
-	  class="navigation_table">
+
+<table width="100%" class="navigation_table">
+
+ <tr class="line labelmedium">
+   <td style="min-width:40"></td>
+   <td><cf_tl id="Class"></td>
+   <td><cf_tl id="Track"></td>
+   <td><cf_tl id="Due"></td>
+   <td><cf_tl id="VA"></td>
+   <td><cf_tl id="Grade">/<cf_tl id="Candidate"></td>
+   <td><cf_tl id="Position"></td>		       
+   <td><cf_tl id="Title"></td>
+   <td><cf_tl id="Office"></td>	   
+   <td><cf_tl id="Officer"></td>	   
+  </tr>		
 
 <cfoutput query="Summary">
 		   
@@ -47,20 +56,13 @@
 		
 			<cfif description neq "">
 		  
-			  	<cfif URL.mode neq "Print">
+			  	<cfif URL.mode neq "Print" AND EntityCode neq "">
 				
 				    <td width="4%" height="20" align="center">
-				 
-					<img src="#SESSION.root#/Images/arrowright.gif" alt="" 
-						id="d#URL.Mission##currentrow#Exp" border="0" class="show" 
-						align="absmiddle" style="cursor: pointer;" 
-						onClick="listing('#URL.Mission#','#URL.Mission##currentrow#','#EntityCode#','#Code#')">
-						
-						<img src="#SESSION.root#/Images/arrowdown.gif" 
-						id="d#URL.Mission##currentrow#Min" alt="" border="0" 
-						align="absmiddle" class="hide" style="cursor: pointer;" 
-						onClick="listing('#URL.Mission#','#URL.Mission##currentrow#','#EntityCode#','#Code#')">
-						
+						<i class="fas fa-caret-circle-down" 
+							style="font-size:18px; color:##A5A5A5; cursor:pointer;" 
+							onclick="$('##d#URL.Mission##currentrow#').toggle(); $(this).toggleClass('fa-caret-circle-down').toggleClass('fa-caret-circle-up')">
+						</i>
 					</td>
 				</cfif>
 				
@@ -70,7 +72,7 @@
 			
 			</cfif>
 			
-			<td colspan="2" style="height:32px;font-size:17px">										
+			<td colspan="8" style="height:32px;font-size:17px">										
 					
 				<cfif code neq "0">
 				
@@ -90,7 +92,7 @@
 					</cfquery>		
 
 					<cfloop query="get">
-						<a href="javascript:showdocument('#DocumentNo#','')"><font color="0080C0">#documentno#</a>
+						<a href="javascript:showdocument('#DocumentNo#','')">#documentno#</a>
 						<cfif currentrow neq recordcount>,</cfif>
 					</cfloop>
 					
@@ -102,17 +104,15 @@
 		 		 
 		 <cfif currentrow neq recordcount>
 		 
-		 	<tr><td colspan="3" class="line"></td></tr>
+		 	<tr><td colspan="13" class="line"></td></tr>
 			
 		 </cfif>			 
-		 
-		<!--- content box, better to make each line hide/show --->  		
-		<tr class="<cfif URL.mode neq 'Print'>hide</cfif>" id="d#URL.Mission##currentrow#">
-		
-			<td colspan="6" style="padding-left:38px">												
-				<cfinclude template="ControlListingResultStepDetail.cfm">										
-		    </td>
-			
+	
+		<tr id="d#URL.Mission##currentrow#" style="display:none;">
+			<td colspan="13" style="padding-left:38px">		
+				<cfset row = currentrow>														
+				<cfinclude template="ControlListingResultStepDetail.cfm">											
+		    </td>	
 		</tr>
 	
 	</cfif>

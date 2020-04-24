@@ -101,7 +101,7 @@
 
 <table width="95%" height="100%" align="center" cellspacing="0" cellpadding="0">
 	   
-  <tr><td height="18"></td></tr>	   
+  <tr><td height="5"></td></tr>	   
 	   
   <tr class="noprint">
     <td style="padding-left:4px;font-size:31px;padding-top:5px;height:45;font-weight:200" class="labelmedium">
@@ -303,7 +303,7 @@
 
 <tr><td colspan="2" height="100%">
 
-	<table height="100%" width="100%" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+	<table height="100%" width="100%" align="center" class="navigation_table">
 	
 	<tr>
 	
@@ -431,7 +431,7 @@
 	
 	<table width="100%">
 	
-	<tr class="labelmedium line">
+	<tr class="labelmedium fixrow">
 	    <td height="20" align="left"></td>
 		<td>Owner</td>
 		<td width="30%">Name</td>
@@ -441,9 +441,7 @@
 		<td width="20"></td>
 		<td width="20"></td>
 	</tr>
-	
-	<tr><td height="2"></td></tr>	
-	
+		
 	<cfoutput query="SearchResult" group="SystemModule">
 	
 		<cfquery name="Total"
@@ -453,7 +451,7 @@
 			WHERE SystemModule = '#SystemModule#'				
 			</cfquery>
 	
-	<tr>
+	<tr class="fixrow2">
 	  <td height="21" colspan="4" class="labelmedium" style="font-weight:400;height;31;font-size:16px;padding-left:20px">#Description#&nbsp;&nbsp;<font size="2">[#Total.Total#]</font></td>
 	  <td colspan="4" align="right">
 	  
@@ -473,11 +471,7 @@
 		  
 		</td>
 	</tr>  
-	
-	<tr><td height="2"></td></tr>	
-	<tr><td colspan="8" height="1" class="line"></td></tr>
-	<tr><td height="3"></td></tr>	
-	
+		
 	<cfset prior = "">
 	
 	<cfoutput group="FunctionClass">
@@ -490,7 +484,7 @@
 		AND    FunctionClass = '#FunctionClass#'				
 	</cfquery>		
 	
-	<tr><td colspan="8" class="labelmedium" style="padding-top:5px;padding-bottom:2px;padding-left:20px">/#FunctionClass#/ [#total.total#]</b></font></td></tr>
+	<tr class="fixrow3"><td colspan="8" class="labelmedium" style="padding-left:20px">/#FunctionClass#/ [#total.total#]</b></font></td></tr>
 		
 	<cfoutput group="MenuClass">
 	
@@ -566,13 +560,13 @@
 		<cfif functionName neq prior>
 			
 		<cfif TemplateSQL eq "Application"><b>Tag:</b>&nbsp;</cfif>
-			<cfif operational eq "0"><font color="0080C0"></cfif>
+			<cfif operational eq "0"><font color="gray"></cfif>
 				#MenuClass#/#FunctionName#
 			
 		<cfelse>
 		
 			<img src="#SESSION.root#/Images/join.gif" align="absmiddle" alt="" border="0">
-			<font color="0080C0">
+			
 			<cfif operational neq "1">
 				Development version
 			<cfelse>

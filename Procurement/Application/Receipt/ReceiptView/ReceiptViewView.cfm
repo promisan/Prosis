@@ -55,14 +55,10 @@
 	
 	</cfoutput>
 
-<table width="99%" align="center" height="100%" cellspacing="0" cellpadding="0">
+<table width="99%" border="0" align="center" height="100%">
     <cfif url.id1 eq "Locate">
-	<tr><td>
-		<cfinclude template="ReceiptViewLocate.cfm">
-	</td></tr>
-	<tr><td height="100%" valign="top">
-		<cfdiv id="detail" style="height:100%">
-	</td></tr>
+		<tr><td style="height:10px"><cfinclude template="ReceiptViewLocate.cfm"></td></tr>
+		<tr><td height="100%" valign="top"><cfdiv id="detail" style="height:100%"></td></tr>
 	<cfelse>
 	<tr><td height="100%">
 	    <cfdiv id="detail" style="height:100%">

@@ -296,9 +296,9 @@ password="#SESSION.dbpw#">
 				
 					<cfset cnt=0>
 				
-					<tr class="line" style="height:1px">
+					<tr class="fixrow" style="height:26px">
 						
-						    <td colspan="4" style="width:100%;padding-top:1px" class="labellarge">
+						    <td colspan="4" style="width:100%;padding-top:1px;font-weight:bold" class="labellarge">
 							
 							<cfif lsort[1] eq "category">
 							
@@ -344,18 +344,18 @@ password="#SESSION.dbpw#">
 										    				
 				         <cfset section = section + 1>
 				 				
-						 <tr class="line">
+						 <tr class="line fixrow2">
 						   <td colspan="4" style="padding-left:5px;width:100%;height:35px" class="labelmedium"><cfif CategoryItemName neq "Default">#CategoryItemName#</cfif></td>
-						   <td colspan="12" align="right" style="padding-right:0px">	
+						   <td colspan="12" align="right" style="padding-right:7px">	
 							   <table>
 							   <tr>
 							   <td>
 							   <cf_tl id="All" var="tAll">
-							   <input type="button" class="button10g" onclick="ptoken.navigate('#session.root#/warehouse/application/stock/resupply/setCheckbox.cfm?warehouse=#url.warehouse#&action=all&lineno=#lineno#&section=#section#&sort=#url.sort#','submitted')" style="height:19px;width:60;border-top-left-radius:9px;border-bottom-left-radius:9px" value="#tAll#">
+							   <input type="button" class="button10g" onclick="ptoken.navigate('#session.root#/warehouse/application/stock/resupply/setCheckbox.cfm?warehouse=#url.warehouse#&action=all&lineno=#lineno#&section=#section#&sort=#url.sort#','submitted')" style="height:21px;width:60;border-top-left-radius:4px;border-bottom-left-radius:4px" value="#tAll#">
 							   </td>
 							   <td>
 		   					   <cf_tl id="None" var="tNone">
-							   <input type="button" class="button10g" onclick="ptoken.navigate('#session.root#/warehouse/application/stock/resupply/setCheckbox.cfm?warehouse=#url.warehouse#&action=none&lineno=#lineno#&section=#section#&sort=#url.sort#','submitted')" style="height:19px;width:60;border-top-right-radius:9px;border-bottom-right-radius:9px" value="#tNone#">
+							   <input type="button" class="button10g" onclick="ptoken.navigate('#session.root#/warehouse/application/stock/resupply/setCheckbox.cfm?warehouse=#url.warehouse#&action=none&lineno=#lineno#&section=#section#&sort=#url.sort#','submitted')" style="height:21px;width:60;border-left:0px;border-top-right-radius:4px;border-bottom-right-radius:4px" value="#tNone#">
 							   </td>
 							   </tr>
 							   </table>		

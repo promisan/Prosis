@@ -207,7 +207,7 @@
 		listlayout        = "#fields#"
 		drillmode         = "window" 
 		drillargument     = "950;1150;true;true"	
-		drilltemplate     = "/Gledger/Application/Transaction/View/TransactionViewDetail.cfm?id="
+		drilltemplate     = "/Gledger/Application/Transaction/View/TransactionView.cfm?id="
 		drillkey          = "TransactionId"
 		drillbox          = "blank">	
 		

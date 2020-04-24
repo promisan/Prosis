@@ -1,5 +1,5 @@
 
-<table style="width:100%"  cellspacing="0" cellpadding="0" height="100%">
+<table style="width:100%"  height="100%">
 
 <cfquery name="CurrencyList"
 	datasource="AppsLedger" 
@@ -11,10 +11,8 @@
 
 <cfif Component.recordcount eq "0">
 
-	<table><tr><td class="labellarge">
-	
-	  Schedule has not been enabled for components 
-	  
+	<table><tr><td class="labellarge">	
+	  Schedule has not been enabled for components 	  
 	  </td></tr></table>
 	
 <cfelse>
@@ -72,13 +70,13 @@
 				 
 			</cfif>		
 		   
-		   <td valign="top" style="border-bottom:1px solid silver;border-top:1px solid silver;padding-right:2px;border-right:1px solid silver;border-left:1px solid silver;padding-left:2px">
+		   <td valign="top" style="border-bottom:1px solid silver;padding-right:2px;border-right:1px solid silver;border-left:1px solid silver;padding-left:2px">
 		   
 		   <table width="100%" cellspacing="0" cellpadding="0" align="center" class="formpadding">		
 		    
 			   <tr class="labelit line">
-			   <td height="20" align="center" style="cursor:pointer;min-width:80px;word-break: break-all;">
-				   <cf_UItooltip  tooltip="#ComponentName# #Description#">#left(ComponentName,12)#</cf_UItooltip>
+			   <td height="20" align="center" style="font-size:14px;cursor:pointer;min-width:80px;word-break: break-all;">
+				   <cf_UItooltip  tooltip="#ComponentName# #Description#">#left(ComponentName,10)#</cf_UItooltip>
 			   </td>
 			   </tr> 
 			   
@@ -89,7 +87,7 @@
 			    <cfset cp = "#replace(ComponentName,' ','','ALL')#">
 			    <cfset cp = "#replace(cp,'-','','ALL')#">
 				
-			   	<select name="Currency_#cp#" style="font:10px">
+			   	<select name="Currency_#cp#" style="font:10px;border:0px">
 				  <cfloop query="CurrencyList">
 				    <option value="#Currency#" <cfif Currency eq curr>selected</cfif>>#Currency#</option>
 				  </cfloop>
@@ -108,7 +106,7 @@
 		   </td>
 		   </cfoutput>
 		   
-		   <td style="width:29px"></td>
+		   <td style="width:25px"></td>
 		   
 		</tr>			
 		
@@ -150,7 +148,7 @@
 		
 		<td colspan="<cfoutput>#component.recordcount+2#</cfoutput>" valign="top" style="width:99%;height:99%">
 						
-		<cf_divscroll overflowy="scroll">
+		<cf_divscroll>
 						
 			<table style="width:98.7%;height:100%">		
 						
@@ -176,7 +174,7 @@
 						onClick="maximize('#gr#')">
 											
 						</td>
-						<td style="height:32px; font-size:18px; font-weight:200" class="labelmedium"><a href="javascript:maximize('#gr#')">#PostGrade#</font></a></td></tr>
+						<td style="height:32px; font-size:18px" class="labelmedium"><a href="javascript:maximize('#gr#')">#PostGrade#</font></a></td></tr>
 						</table>
 						
 					</td>
@@ -266,7 +264,7 @@
 								       visible="Yes"
 								       enabled="Yes"							   							       
 									   maxlength="20"
-									   style="border:0px solid silver;text-align:right;width:97%;font-size:11px!important;"
+									   style="border:0px solid silver;text-align:right;width:97%;font-size:12.5px!important;"
 								       class="amount2 enterastab regularh"/>
 									   
 									   <input type="hidden"  name="#gr#_#st#_#cp#_old" value="#amt#">

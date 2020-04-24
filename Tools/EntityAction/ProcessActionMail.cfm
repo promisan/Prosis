@@ -253,13 +253,10 @@
   
 </cfif>    				   			   
     
-   <tr>
-    <td colspan="2" height="18" id="mailblock2" style="font-weight:200;font-size:20px;height;30px;padding-left:10px" class="labelmedium">
-	<b><cf_tl id="Mail to be sent">:
-	</td>
+   <tr class="line">
+    <td colspan="2" height="18" id="mailblock2" style="font-weight:200;font-size:20px;height;30px;padding-left:10px" class="labelmedium"><cf_tl id="Mail to be sent">:</td>
 	</tr>
-	<tr><td colspan="2" class="linedotted"></td></tr>
-	
+		
 	<tr>				
 	
 	<td colspan="2" id="mailblock1">
@@ -267,7 +264,7 @@
 	   <table width="97%" align="center" cellspacing="0" cellpadding="0" class="formpadding">	
 	   
 	     <tr>
-		   <td width="90" class="labelmedium"><cf_tl id="Priority">:</b></td>
+		   <td width="90" class="labelmedium"><cf_tl id="Priority">:</td>
 		   <td colspan="1">		
 		   
 		   <table>

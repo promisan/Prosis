@@ -1,8 +1,8 @@
 
 <cfif fld eq "">
-    <cf_screentop jquery="Yes" height="100%" scroll="no" layout="webapp" label="Lookup" user="no">
+    <cf_screentop jquery="Yes" height="100%" scroll="no" layout="webapp" label="Lookup" user="no" html="No">
 <cfelse>
-	<cf_screentop jquery="Yes" height="100%" scroll="no" layout="webapp" label="#fld#" user="no">
+	<cf_screentop jquery="Yes" height="100%" scroll="no" layout="webapp" label="#fld#" user="no" html="No">
 </cfif>
 	 
 <cfoutput>
@@ -17,7 +17,7 @@
 <cfajaximport>
 <cf_comboMultiScript>
 
-<table width="100%" height="100%" cellspacing="0" cellpadding="0" align="center">
+<table width="100%" height="100%" align="center">
 
 	 <input type="hidden" 
 	 value="#url.Selected#" 

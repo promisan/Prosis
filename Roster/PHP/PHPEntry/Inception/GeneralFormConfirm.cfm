@@ -3,11 +3,9 @@
 
 <cfoutput>
 
-<table width="90%" align="center" class="formpadding formspacing">
-
-	<tr><td height="4"></td></tr>
+<table width="85%" align="center" class="formpadding formspacing">
 	
-	<tr><td colspan="2" class="labellarge"><cf_tl id="Please verify the below submitted information before you send it"></td></tr>
+	<tr><td colspan="2" class="labelmedium" style="font-size:25px"><cf_tl id="Please verify the below submitted information before you send it"></td></tr>
 	
 	<tr><td height="4"></td></tr>
 		
@@ -40,7 +38,7 @@
 	<tr><td height="4"></td></tr>
 	
 	<tr id="personfield" name="personfield">		
-	    <TD class="labelmedium" align="left">#client.IndexNoName#:<cf_space spaces="46"></TD>
+	    <TD class="labelmedium" align="left"><cf_tl id="Indexno">:<cf_space spaces="46"></TD>
 	    <TD class="labelmedium" style="font-size:22px" align="left" width="80%">#Form.IndexNo#</td>
 	</tr>
 	
@@ -56,6 +54,14 @@
 	<tr id="personfield" name="personfield">		
 	    <TD class="labelmedium" align="left"><cf_tl id="MobileNumber">:</TD>
 	    <TD class="labelmedium" style="font-size:22px" align="left" width="80%">#Form.MobileNumber#</td>
+	</tr>
+	
+	
+	<tr><td height="4"></td></tr>
+	
+	<tr id="personfield" name="personfield">		
+	    <TD class="labelmedium" align="left"><cf_tl id="Fixed Land line Number">:</TD>
+	    <TD class="labelmedium" style="font-size:22px" align="left" width="80%">#Form.PhoneNumber#</td>
 	</tr>
 	
 	<tr><td height="4"></td></tr>

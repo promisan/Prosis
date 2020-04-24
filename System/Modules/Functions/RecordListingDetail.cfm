@@ -116,7 +116,7 @@ password="#SESSION.dbpw#">
 
 <cf_divscroll style="height:100%">
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<table style="width:98.5%">
 
 <cfoutput>
 <!--- added button to trigger a refresh --->
@@ -214,8 +214,8 @@ password="#SESSION.dbpw#">
 		
 	</cfif>
 	
-	<cfif currentrow eq "1">
-		<tr class="labelmedium line fixrow"> 
+	<cfif currentrow eq "1">	
+		<tr class="labelmedium fixrow"> 
 		    <td width="20"></td>
 		    <TD style="min-width:200px"><cf_tl id="Name"></TD>
 			<TD width="25%"><cf_tl id="Template"></TD>		
@@ -229,9 +229,9 @@ password="#SESSION.dbpw#">
 	
 		<cfoutput group="MenuClass">
 		
-			<tr class="line">
+			<tr class="line fixrow2">
 			
-				<td colspan="6" style="padding-left:10px;font-weight:200;padding-top:5px;height:56px;font-size:31px" class="labelmedium">
+				<td colspan="6" style="padding-left:10px;font-weight:200;padding-top:5px;height:50px;font-size:31px" class="labelmedium">
 					<cfif SystemModule eq "Portal" and FunctionClass eq "Portal" and MenuClass eq "Topic">
 						<a href="javascript: maintaintopics('#SystemModule#','0','#FunctionClass#','');" title="Click to maintain topics">#MenuClass#</a>
 					<cfelse>

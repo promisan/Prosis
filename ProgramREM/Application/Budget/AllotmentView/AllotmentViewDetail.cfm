@@ -289,9 +289,9 @@ the item master that were added temp for the OICT-M usage class --->
 
 <cfelse>
 
-<table width="98%" align="center" border="0" cellspacing="0" cellpadding="0">
+<table width="98%" align="center">
 
-<tr>
+<tr class="line">
     <td>
 	
 		<table width="100%" cellspacing="0" cellpadding="0">

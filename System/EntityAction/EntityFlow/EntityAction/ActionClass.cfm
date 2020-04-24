@@ -15,6 +15,7 @@ password="#SESSION.dbpw#">
     SELECT DISTINCT E.*
     FROM  Ref_EntityClass E
 	WHERE E.EntityCode = '#URL.EntityCode#'
+	ORDER BY Operational DESC
 </cfquery>
 
 <cfquery name="Owner" 
@@ -52,7 +53,7 @@ password="#SESSION.dbpw#">
 		
 	    <table width="100%">
 			
-	    <TR class="line labelmedium">
+	    <TR class="line labelmedium fixrow">
 		   
 		   <td width="80"><cf_space spaces="34">Code</b>		   
 		   <td width="45%">Description</td>
@@ -60,12 +61,12 @@ password="#SESSION.dbpw#">
 		   <td width="8%" align="center">Embed</td>
 		   <td width="8%" align="center">Active</td>
 		   <td width="8%" align="center">Mail</td>
-		   <td width="8%" align="center">Refresh</td>
+		   <td width="8%" align="center"><cf_tl id="Refresh"></td>
 		   <td width="20"></td>
 		   <td style="width:30px" colspan="2" align="right">
 		     <cfoutput>
 			 <cfif URL.ID2 neq "new">
-			     <A href="javascript:ptoken.navigate('ActionClass.cfm?EntityCode=#URL.EntityCode#&ID2=new','icls')">[add]</a>
+			     <A href="javascript:ptoken.navigate('ActionClass.cfm?EntityCode=#URL.EntityCode#&ID2=new','icls')"><cf_tl id="add"></a>
 			 </cfif>
 			 </cfoutput>
 		   </td>
@@ -160,9 +161,9 @@ password="#SESSION.dbpw#">
 					
 		<cfelse>
 		
-			<cfset edit = "javascript:ColdFusion.navigate('ActionClass.cfm?EntityCode=#URL.EntityCode#&ID2=#nm#','icls')">
+			<cfset edit = "javascript:ptoken.navigate('ActionClass.cfm?EntityCode=#URL.EntityCode#&ID2=#nm#','icls')">
 						
-			<TR class="labelmedium navigation_row line">
+			<TR class="labelmedium navigation_row line" style="height:23px">
 			
 			   <!---
 			   <td onclick="#edit#"><cfif ow eq ""><font color="C0C0C0">All<cfelse>#ow#</cfif></td>
@@ -173,9 +174,9 @@ password="#SESSION.dbpw#">
 			   <td>#de#</td>
 			   <td>#pm#</td>
 			  			   			   
-			   <td align="center"><cfif eb eq "0"><b><font color="FF0000">No</font></b><cfelse>Yes</cfif></td>
-			   <td align="center"><cfif op eq "0"><b><font color="FF0000">No</font></b><cfelse>Yes</cfif></td>
-			   <td align="center"><cfif ml eq "0"><b><font color="FF0000">No</font></b><cfelse>Yes</cfif></td>
+			   <td align="center"><cfif eb eq "0"><font color="FF0000">No</font></b><cfelse>Yes</cfif></td>
+			   <td align="center"><cfif op eq "0"><font color="FF0000">No</font></b><cfelse>Yes</cfif></td>
+			   <td align="center"><cfif ml eq "0"><font color="FF0000">No</font></b><cfelse>Yes</cfif></td>
 			   <td align="center">
 			   <cfif entity.EnableRefresh eq "1">	
 			   		<cfif re eq "0">disabled<cfelse>#re# sec.</cfif>
@@ -184,7 +185,7 @@ password="#SESSION.dbpw#">
 				</cfif>		   					   
 			   </td>
 			   <td align="right" style="padding-right:4px">			   
-			      <cf_img icon="edit" navigation="Yes" onClick="javascript:ColdFusion.navigate('ActionClass.cfm?EntityCode=#URL.EntityCode#&ID2=#nm#','icls')">			 				 
+			      <cf_img icon="edit" navigation="Yes" onClick="javascript:ptoken.navigate('ActionClass.cfm?EntityCode=#URL.EntityCode#&ID2=#nm#','icls')">			 				 
 			   </td>
 			   
 			   <td align="left" style="padding-left:2px;padding-top:2px;padding-right:3px">
@@ -212,6 +213,8 @@ password="#SESSION.dbpw#">
 		    </TR>	
 			
 			<cfset cl = replaceNoCase(entityclass," ","")>
+			
+			<cfif op eq "1">
 			
 			<tr class="line" style="height:20px;">
 			<td colspan="9">
@@ -290,6 +293,8 @@ password="#SESSION.dbpw#">
 			
 			</td>
 			</tr>
+			
+			</cfif>
 								
 		</cfif>
 				
@@ -360,7 +365,7 @@ password="#SESSION.dbpw#">
 			
 			    <cfif entity.EnableRefresh eq "1">	
 					
-			    <select name="RefreshInterval">
+			    <select name="RefreshInterval" class="regularxl">
 				   <option value="0" selected>No refresh</option>
 				   <option value="5">5 seconds</option>
 				   <option value="10">10 seconds</option>

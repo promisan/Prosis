@@ -107,8 +107,7 @@
 				  <cfelse>
 				  
 				  	  <cfset EFF = 'NULL'>
-					  <cfset EXP = 'NULL'>
-				  	  
+					  <cfset EXP = 'NULL'>				  	  
 						
 				  </cfif>
 				 
@@ -133,6 +132,7 @@
 			    </cfquery>
 		</cfif>		
 </cfloop>	
+
 	
 <cfloop index="itm" list="eff_Application,exp_Application" delimiters=",">	
 		
@@ -630,8 +630,7 @@
 	        VALUES ('#URL.ID#',
 		       'OwnerKeyWord', 
 	          '#Form.OwnerKeyWord#','#Form.OwnerKeyWord#','4') 
-	       </cfquery>	
-	   
+	       </cfquery>		   
 	     
 		
 <!--- insert language entries --->
@@ -666,8 +665,7 @@
 	 FROM RosterSearchLine INNER JOIN Ref_Language S ON RosterSearchLine.SelectId =  S.LanguageId 
 	 WHERE RosterSearchLine.SearchId = '#URL.ID#'
 	 AND   RosterSearchLine.SearchClass = 'Language'
-    </cfquery>
-	
+    </cfquery>	
 	
 </cfloop>	
 

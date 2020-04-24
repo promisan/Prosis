@@ -409,7 +409,7 @@ password="#SESSION.dbpw#">
 				<cf_tl id="#Description#" var="1">
 			  		  
 			    <cf_UItreeitem value="#OrgUnit#_#ct#"
-			        display="<span style='font-size:15px' class='labelit'>#lt_text#</span>"
+			        display="<span style='font-size:15px;padding-top:3px;;padding-bottom:2px;color:6688aa;font-weight:bold' class='labelit'>#lt_text#</span>"
 					parent="#OrgUnit#"											
 			        expand="No">	
 			  				  
@@ -446,7 +446,7 @@ password="#SESSION.dbpw#">
 		             <cfloop query="Journal">
 					 
 						<cf_UItreeitem value="#OrgUnit#_#ct#_#Journal#"
-				         display  = "<span style='padding-bottom:5px;font-size:14px' class='labelit'>#Description#</span>"
+				         display  = "<span style='font-size:13.5px' class='labelit'>#Description#</span>"
 						 parent   = "#OrgUnit#_#ct#"								
 						 href     = "JournalViewOpen.cfm?ID=JOU&ID1=#OrgUnit#&ID2=#Journal.Journal#&Mission=#Attributes.Mission#"							
 						 target   = "right"

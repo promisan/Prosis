@@ -90,7 +90,7 @@
 	<td align="left" valign="top" colspan="8">
 		<table width="100%">
 		<tr>
-		<td style="height:35px;padding-top:4px;font-weight:240;font-size:20px" class="labellarge"><cf_tl id="User activity"></td>		
+		<td style="height:35px;padding-top:4px;font-size:20px" class="labellarge"><cf_tl id="User activity"></td>		
 		<td style="font-weight:200;padding-top:9px" class="labelit" align="right">
 		   <a href="javascript:refresh()"><cf_tl id="Refresh"></a>	  
 		</tr>   

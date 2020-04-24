@@ -40,6 +40,8 @@ password="#SESSION.dbpw#">
 
 <cfoutput>
 
+<cfinclude template="../../../Vactrack/Application/Document/Dialog.cfm">
+
 <script language="JavaScript">
 	
 	ie = document.all?1:0
@@ -149,6 +151,16 @@ password="#SESSION.dbpw#">
 						 F1.DocumentNo,
 						 G.Description AS GradeDescription, 
 						 F1.OrganizationCode,
+						  <!--- find the number of candidate to be selected --->				 
+						 (   SELECT count(*)
+							 FROM   ApplicantFunction
+							 WHERE  FunctionId = F1.FunctionId
+							 AND    Status IN ( 
+										  SELECT   Status
+										  FROM     Ref_StatusCode
+										  WHERE    ID    = 'FUN'
+										  AND      Owner = '#Owner.Owner#') 
+						 				 ) as Candidates,
 						 <!--- find the number of candidate to be selected --->				 
 						 (   SELECT count(*)
 							 FROM   ApplicantFunction
@@ -159,7 +171,7 @@ password="#SESSION.dbpw#">
 										  WHERE    ID    = 'FUN'
 										  AND      Owner = '#Owner.Owner#' 
 										  AND      (PreRosterStatus = 1 OR Status = '3')) 
-						 				 ) as Candidates
+						 				 ) as VettedCandidates
 										 
 				FROM     FunctionTitle F, 
 				         FunctionOrganization F1, 
@@ -216,14 +228,16 @@ password="#SESSION.dbpw#">
 			
 			<table width="100%" class="formpadding">
 			
-			<tr><td height="1" colspan="6" class="line"></td></tr>
+			<tr><td height="1" colspan="7" class="line"></td></tr>
 			
 			<TR class="labelmedium line">
 			    <td height="23"><cf_tl id="Area"></td>
 			    <TD><cf_tl id="Function"></TD>
 			    <TD><cf_tl id="Level"></TD>
+				<td><cf_tl id="Track"></td>
 				<td><cf_tl id="VA"></td>
-				<TD align="right" style="padding-right:5px"><cf_tl id="Candidates"></TD>
+				<TD align="right" style="padding-right:5px"><cf_tl id="Applications"></TD>
+				<TD align="right" style="padding-right:5px"><cf_tl id="Vetted"></TD>
 				<TD></TD>
 			</TR>
 				
@@ -234,18 +248,16 @@ password="#SESSION.dbpw#">
 				<cfset rowClass= rowClass & " highLight2">
 			</cfif>
 			
-			<TR class="#rowClass#" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('f6f6f6'))#">
+			<TR class="#rowClass# line" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('f6f6f6'))#">
 			
 			    <TD style="padding-left:3px">#OrganizationDescription#</TD>
 			    <TD>#FunctionDescription#</TD>
 			    <TD>#GradeDescription#</TD>
-				<td><cfif DocumentNo neq "">
-				     <A href="javascript:showdocument('#DocumentNo#')">#ReferenceNo#</a>
-					<cfelse>
-					 #ReferenceNo#
-					</cfif>
+				<td><A href="javascript:showdocument('#DocumentNo#')">#DocumentNo#</a></td>
+				<td>#ReferenceNo#
 				</td>
 				<td style="padding-right:5px" align="right">#candidates#</td>
+				<td style="padding-right:5px" align="right">#VettedCandidates#</td>
 				<td align="right" style="padding-right:4px">
 				
 				<input type="hidden" id="function_#currentRow#"    name="function_#currentRow#" value="#FunctionNo#">
@@ -269,9 +281,7 @@ password="#SESSION.dbpw#">
 			</table>
 			
 			</td></tr>
-			
-			<tr><td class="line" colspan="6"></td></tr>
-			
+						
 			<tr>
 			<td colspan="6" align="center" valign="middle" height="39">	
 			

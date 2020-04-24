@@ -279,7 +279,7 @@ password="#SESSION.dbpw#">
 <!--- ------ --->
 
 <tr>
-<td style="height:20px;border-top:1px solid silver;padding-right:20px">
+<td style="height:20px;border-top:1px solid silver;padding-right:21px">
 
 	<table width="100%" cellspacing="0" cellpadding="0">
 		
@@ -317,24 +317,22 @@ password="#SESSION.dbpw#">
 				<td align="right" bgcolor="FBFCDA" style="#st#">#numberformat(AllotedToDate2,",._")#</td>		
 				
 				<cfif abs(Overdue) lt 3> 
-						<td align="right" style="#st#;padding-right:4px;border-left:1px solid silver;border-right:1px solid silver">--<cf_space spaces="22"></td>		
+						<td align="right" style="#st#;padding-right:4px;border-left:1px solid silver;border-right:1px solid silver;min-width:98px">--</td>		
 				<cfelseif due gte "3">
-					<td align="right" bgcolor="red" style="#st#;padding-right:4px;border-left:1px solid silver;">
+					<td align="right" bgcolor="red" style="#st#;padding-right:4px;border-left:1px solid silver;;min-width:98px">
 					
 					<font color="white">
 					#numberformat(due,",._")#
 					</font>
-					<cf_space spaces="22">
+					
 					</td>
 				<cfelse>
-					<td align="right" bgcolor="green" style="#st#;padding-right:4px;border-left:1px solid silver;">
+					<td align="right" bgcolor="green" style="#st#;padding-right:4px;border-left:1px solid silver;min-width:98px">
 					<font color="white"><b>
 					#numberformat(due*-1,",._")#
-					</font>		
-					<cf_space spaces="20">
+					</font>							
 					</td>
-				</cfif>	
-				<td style="min-width:17px"></td> 
+				</cfif>					
 				
 			</tr>	
 				

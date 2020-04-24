@@ -318,7 +318,7 @@ function validate() {
 	<tr><td colspan="2" align="center">
 	
 	<table class="formspacing"><tr><td>
-	<input type="button" name="close" id="close" value="Close" class="button10g" onClick="parent.ColdFusion.Window.destroy('mydialog',true)">
+	<input type="button" name="close" id="close" value="Close" class="button10g" onClick="parent.ProsisUI.closeWindow('mydialog',true)">
 	</td>	
 	<td>
 	<input class="button10g" type="submit" name="Update" id="Update" value="Save" onclick="Prosis.busy('yes');validate()">

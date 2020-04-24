@@ -357,22 +357,24 @@ password="#SESSION.dbpw#">
 
 <CF_DropTable dbName="AppsQuery"  tblName="#SESSION.acc#Invoice_#fileNo#">
 
-<table width="100%" border="0" bgcolor="white">
+<table width="100%" height="100%" border="0" bgcolor="white">
 
-<tr><td>
+<tr><td height="100%">
 
-<table width="100%" cellspacing="0" cellpadding="0" class="navigation_table">
+<cf_divscroll>
 
-<tr class="line">
+<table style="width:98.5%" class="navigation_table">
+
+<tr class="line fixrow labelmedium">
 	<td width="5%"></td>
-	<td class="cellcontent"><cf_tl id="Vendor"></td>
-	<td class="cellcontent"><cf_tl id="Purchase No"></td>
-	<td class="cellcontent"><cf_tl id="Class"></td>
-	<td class="cellcontent"><cf_tl id="Type"></td>
-	<td class="cellcontent"><cf_tl id="Status"></td>
+	<td><cf_tl id="Vendor"></td>
+	<td><cf_tl id="Purchase No"></td>
+	<td><cf_tl id="Class"></td>
+	<td><cf_tl id="Type"></td>
+	<td><cf_tl id="Status"></td>
 	<td></td>
-	<td class="cellcontent"><cf_tl id="Curr">.</td>
-	<td class="cellcontent" align="right"><cf_tl id="Amount"></td>
+	<td><cf_tl id="Curr">.</td>
+	<td align="right"><cf_tl id="Amount"></td>
 	<td></td>
 </tr>
 
@@ -388,7 +390,7 @@ password="#SESSION.dbpw#">
 
 <cfoutput query="ResultSet" group="PurchaseNo">
 		
-	<tr id="#currentrow#" class="navigation_row line" style="height:17px">
+	<tr id="#currentrow#" class="navigation_row line" style="height:24px">
 		
 	<td style="height:16" width="5%" align="center">
 		    	
@@ -440,6 +442,8 @@ password="#SESSION.dbpw#">
 </cfoutput>
 
 </table>
+
+</cf_divscroll>
 
 </td></tr>
 

@@ -145,7 +145,7 @@ datasource="AppsSystem">
 		<table><tr><td>
 			<input type="radio" name="view" id="current" class="Radiol" name="Toggle" id="Toggle" value="hide" checked onClick="document.getElementById('view').value='hide';ptoken.navigate('UserAction'+document.getElementById('orderselect').value+'.cfm?view=hide&find=','detail')">
 			</td>
-			<td style="padding-left:3px" class="labelmedium">Current</td>
+			<td style="padding-left:3px" class="labelmedium"><cf_tl id="Current"></td>
 			<td style="padding-left:8px">
 		    <input type="radio" name="view" id="etmaal" class="Radiol" name="Toggle" id="Toggle" value="show" onClick="document.getElementById('view').value='show';ptoken.navigate('UserAction'+document.getElementById('orderselect').value+'.cfm?view=show&find=','detail')">
 			</td><td style="padding-left:3px" class="labelmedium">Last 24h</td></tr>

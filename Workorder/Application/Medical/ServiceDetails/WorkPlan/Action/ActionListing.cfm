@@ -1,4 +1,3 @@
-<cf_screentop jquery="yes" html="no">
 
 <cfparam name="url.personno" default="">
 
@@ -6,7 +5,7 @@
 		TableCode       = "Ref_ModuleControl" 
 		Mode            = "get"
 		Name            = "FunctionName"
-		Key1Value       = "#url.idmenu#"				
+		Key1Value       = "#url.systemfunctionid#"				
 		Label           = "Yes">		
 		
 <CF_DropTable dbName="AppsQuery"  tblName="actionListing_#Session.acc#">				
@@ -24,7 +23,6 @@ password="#SESSION.dbpw#">
 <cf_tl id="Completed" var="lblCompleted">
 <cf_tl id="Process" var="lblProcess">
 <cf_tl id="Revoked" var="lblRevoked">
-
 		
 <cfquery name="prepare" 
 datasource="AppsWorkOrder" 
@@ -149,7 +147,9 @@ password="#SESSION.dbpw#">
 		) as CC
 		
 		WHERE 1=1 
-						
+		
+		--condition
+								
 </cfquery>			
 
 <table width="100%" height="100%">

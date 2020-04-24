@@ -1,5 +1,5 @@
 
-<cfset link = "Gledger/Application/Transaction/View/TransactionViewDetail.cfm?id=#url.ajaxid#">
+<cfset link = "Gledger/Application/Transaction/View/TransactionView.cfm?id=#url.ajaxid#">
 	 
 <cfquery name="Transaction" 
 	datasource="AppsLedger" 

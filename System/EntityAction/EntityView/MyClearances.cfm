@@ -10,7 +10,8 @@
 <!--- Start mobile application --->
 <cf_mobile 
 	appId="MyClearances" 
-	validateLogin="Yes">
+	validateLogin="Yes"
+	bodyClass="toggleScroll-y">
 
 	<cf_dialogStaffing>
 	<cf_systemscript>

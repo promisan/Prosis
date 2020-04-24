@@ -249,7 +249,7 @@ password="#SESSION.dbpw#">
 											height		= "32px"
 											width		= "32px"
 											printTitle	= "##printTitle"
-                                            printIcon   = "Print-W.png"
+                                            printIcon   = "Print-blue.png"
                                             imageHeight = "32px"
 											printContent = ".clsPrintContent"
 											printCallback="$('.clsCFDIVSCROLL_MainContainer').attr('style','width:100%;'); $('.clsCFDIVSCROLL_MainContainer').parent('div').attr('style','width:100%;'); $('.clsCFDIVSCROLL_MainContainer').parent('div').attr('style','height:100%;'); $('##saleform').attr('style','height:auto'); $('##customer_box').attr('style','height:auto')">
@@ -258,7 +258,7 @@ password="#SESSION.dbpw#">
 							   
                                <cfif url.mode eq "embed">
 								  <td align="right" width="30%" align="right" height="100%" onClick="stockfullview()" style="padding-left:0;padding-top:6px;padding-right:9px;color:000000;cursor:pointer" id="fullview" class="labelmedium">
-								  <img src="#session.root#/Images/Maximize-W.png" alt="maximize screen" height="36" border="0" title="maximize screen">
+								  <img src="#session.root#/Images/Maximize-blue.png" alt="maximize screen" height="36" border="0" title="maximize screen">
 								  </td>	
 							   </cfif>					
                                 

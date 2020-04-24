@@ -66,7 +66,8 @@
 			
 	<tr><td height="2"></td></tr>		
 	<cfif url.view eq "Prg">
-	<tr id="box#programid#" style="border-bottom:1px solid silver" class="line" onContextMenu="cmexpand('mymenu','#rowguid#','#menufile#')">
+	<tr id="box#programid#" style="border-bottom:1px solid silver" class="line fixrow2" onContextMenu="cmexpand('mymenu','#rowguid#','#menufile#')">
+	
 	<cfelse>
 	
 		<cfif url.programgroup eq "">
@@ -84,15 +85,15 @@
 				  WHERE    ProgramCode  = '#ProgramCode#'
 				  AND      ProgramGroup = '#url.programgroup#'	 
 			</cfquery>
-					
+							
 			<cfif check.recordcount eq "1">
-				<tr class="line" style="border-bottom:1px solid silver" id="box#programid#" onContextMenu="cmexpand('mymenu','#rowguid#','#menufile#')">			
+				<tr class="line fixrow2" style="border-bottom:1px solid silver" id="box#programid#" onContextMenu="cmexpand('mymenu','#rowguid#','#menufile#')">							
 			<cfelse>
-				<tr class="hide line" style="border-bottom:1px solid silver" id="box#programid#" onContextMenu="cmexpand('mymenu','#rowguid#','#menufile#')">			
+				<tr class="hide line" style="border-bottom:1px solid silver" id="box#programid#" onContextMenu="cmexpand('mymenu','#rowguid#','#menufile#')">					
 			</cfif>
 								
 		</cfif>
-	
+			
 	</cfif>
 	
 	<td colspan="7">	
@@ -514,8 +515,9 @@
 				
 	<cfif value neq "">				
 	   <script language="JavaScript">
-			document.getElementById('box#prior#').className = "regular"
+			document.getElementById('box#prior#').className = "regular fixrow2"
 	   </script>
+	  
 	</cfif>
 			
 </cfoutput>   

@@ -35,14 +35,14 @@
 		
 			<cfelse>
 												
-			<tr class="line">
+			<tr class="line fixrow2">
 						
 				<td colspan="8" align="left">
 				
 				    <table cellspacing="0" cellpadding="0">
 					
 					<tr class="labelmedium">
-						<td style="min-width:150px;height:40px;font-weight:300">								
+						<td style="min-width:150px;height:40px">								
 						<a title="view requisition" href="javascript:RequisitionView('#URL.Mission#','#URL.Period#','#Reference#')">
 						
 						<cfsilent>
@@ -402,14 +402,11 @@
 
 		</td>		
 		
-		<td id="note#RequisitionNo#" width="30" style="padding-right:4px" align="right">
-		
+		<td id="note#RequisitionNo#" width="30" style="padding-left:3px;padding-right:4px" align="right">		
 			<cf_annotationshow entity="ProcReq" 
 			                   keyvalue1="#requisitionno#" 
-							   docbox="note#RequisitionNo#">
-		
-		</td>
-						
+							   docbox="note#RequisitionNo#">		
+		</td>						
 		</TR>
 		
 		<!---		

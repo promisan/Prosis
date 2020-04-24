@@ -85,15 +85,14 @@ password="#SESSION.dbpw#">
 			<input 
 				type="textbox" 
 				class="regularxl" 
-				style="background-color:DAF9FC;width:100%;border:0px;border-bottom:1px solid silver" 
+				style="background-color:fafafa;width:100%;border:0px;border-bottom:1px solid silver" 
 				name="fltItem" 
 				id="fltItem" 
 				value="" 
-				onkeyup="ColdFusion.navigate('../Inventory/LocationList.cfm?warehouse=#url.warehouse#&systemfunctionid=#url.systemfunctionid#&item='+this.value,'divLocationList');">
+				onkeyup="ptoken.navigate('../Inventory/LocationList.cfm?warehouse=#url.warehouse#&systemfunctionid=#url.systemfunctionid#&item='+this.value,'divLocationList');">
 			</cf_UItooltip>
 			</cfoutput>
 			
-
 			<cfdiv id="divLocationList" style="height:97%; padding-top:5px;" bind="url:../Inventory/LocationList.cfm?warehouse=#url.warehouse#&systemfunctionid=#url.systemfunctionid#&item=">
 																				
 		</td>				
@@ -102,7 +101,7 @@ password="#SESSION.dbpw#">
 			
 			 <table height="100%" width="98%" align="center">		  
 			 
-			  <tr class="xhide"><td height="1" id="process"></td></tr>		  
+			  <tr class="hide"><td height="1" id="process"></td></tr>		  
 			 		 			  
 				  <tr>
 				 	 				
@@ -173,31 +172,11 @@ password="#SESSION.dbpw#">
 			 </tr>	
 								
 			<tr class="hide"><td height="4" id="logging"></td></tr>		
-			
-			<tr class="line"><td style="padding-left:62px">
-			<table width="100%">
-			    <tr class="labelmedium">
-				   <td style="min-width:26px"></td>			  
-				   <td style="min-width:110px"><cf_tl id="Roll"></td>	
-				   <td style="min-width:200px"><cf_tl id="Earmarked"></td>   <!--- earmark --->			  		   		  			   
-				   <td style="min-width:100px"><cf_tl id="Barcode"></td>
-				   <td style="min-width:20px"></td>
-				   <td style="min-width:100px"><cf_tl id="Mode"></td>  
-				   <td style="min-width:100px"><cf_tl id="UoM"></td>   
-				   <td style="min-width:100px" align="right"><cf_tl id="On Hand"><cf_space spaces="20"></td>
-				   <td style="min-width:100px" align="right"><cf_tl id="Measurement"></td>
-				   <td style="width:100%;padding-right:5px" align="right"><cf_tl id="Result"></td>
-				   <td style="min-width:30px"></td>
-				</tr>	
-			</table>
-			</td></tr>	
-											
-			<tr><td colspan="2" height="100%">		
-			
+														
+			<tr><td colspan="2" style="height:99%" valign="top">					
 				<cf_divscroll id="content">							
 					 <cfinclude template="InventoryViewContent.cfm">					 
-				</cf_divscroll>	 
-													  
+				</cf_divscroll>	 													  
 				</td>
 			</tr>
 					
@@ -207,7 +186,6 @@ password="#SESSION.dbpw#">
 	</tr>
 	
 	</table>
-
 
 <cfset AjaxOnLoad("doHighlight")>
 	

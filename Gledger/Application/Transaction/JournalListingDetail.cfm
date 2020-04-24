@@ -134,7 +134,7 @@
 																																							
 									<cfinclude template="JournalListingSubtotal.cfm">								  								
 									<cfset last = "today">									
-								   	<tr class="labelmedium">
+								   	<tr class="labelmedium fixrow2">
 									<td style="height:40px;font-size:19px" colspan="14">
 							    	   <cf_tl id="Today">
 									</td>
@@ -147,7 +147,7 @@
 								<cfif last neq "yesterday">																   								
 									<cfinclude template="JournalListingSubtotal.cfm">															  																														
 									<cfset last = "yesterday">
-								    <tr class="labelmedium"><td style="height:40px;font-size:19px" colspan="12">
+								    <tr class="labelmedium  fixrow2"><td style="height:40px;font-size:19px" colspan="12">
 									  <cf_tl id="Yesterday">
 									   </td>
 									</tr>   																	
@@ -158,7 +158,7 @@
 								<cfif last neq "thisweek">																	
 									<cfinclude template="JournalListingSubtotal.cfm">																														
 									<cfset last = "thisweek">
-								    <tr class="labelmedium"><td style="height:40px;font-size:19px" colspan="12">
+								    <tr class="labelmedium fixrow2"><td style="height:40px;font-size:19px" colspan="12">
 									   <cf_tl id="This Week">
 									   </td>
 									</tr>   									
@@ -169,7 +169,7 @@
 								<cfif last neq "oneweek">																
 									<cfinclude template="JournalListingSubtotal.cfm">													
 									<cfset last = "oneweek">									
-								    <tr class="labelmedium"><td style="height:40px;font-size:19px" colspan="12">
+								    <tr class="labelmedium fixrow2"><td style="height:40px;font-size:19px" colspan="12">
 									   <cf_tl id="One Week Ago">
 									   </td>
 									</tr>   								
@@ -180,7 +180,7 @@
 								<cfif last neq "twoweek">																	
 									<cfinclude template="JournalListingSubtotal.cfm">		    																													
 									<cfset last = "twoweek">
-								    <tr class="labelmedium"><td style="height:40px;font-size:19px" colspan="12">
+								    <tr class="labelmedium fixrow2"><td style="height:40px;font-size:19px" colspan="12">
 									   <cf_tl id="Two Weeks Ago">
 									   </td>
 									</tr>   									
@@ -191,7 +191,7 @@
 								<cfif last neq "threeweek">																	
 									<cfinclude template="JournalListingSubtotal.cfm">													
 									<cfset last = "threeweek">
-								    <tr class="labelmedium"><td style="height:40px;font-size:19px" colspan="12">
+								    <tr class="labelmedium fixrow2"><td style="height:40px;font-size:19px" colspan="12">
 									   <cf_tl id="Three Weeks Ago">
 									   </td>
 									</tr>   									
@@ -202,7 +202,7 @@
 							    <cfif last neq "older">								
 									<cfinclude template="JournalListingSubtotal.cfm">																			
 									<cfset last = "older">
-									<tr class="labelmedium"><td style="height:40px;font-size:16px" colspan="12">
+									<tr class="labelmedium fixrow2"><td style="height:40px;font-size:19px" colspan="12">
 									   <cf_tl id="Older">
 									   </td>
 									</tr>   									

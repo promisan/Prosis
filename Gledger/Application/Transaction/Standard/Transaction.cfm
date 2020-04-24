@@ -42,8 +42,20 @@ password="#SESSION.dbpw#">
 </cfif>
 </cfoutput>
 
-<cfif url.journal eq "">
+
+<cfif url.journal eq "" or not findNoCase(url.journal,valueList(Journal.Journal))>
+
 	<cfset url.journal = journal.journal>
+		
+	<cfquery name = "HeaderSelect"
+	   datasource = "AppsQuery" 
+	   username   = "#SESSION.login#" 
+	   password   = "#SESSION.dbpw#">
+	    UPDATE #SESSION.acc#GledgerHeader_#client.sessionNo#
+		SET Journal = '#journal.journal#', TransactionCategory = '#journal.TransactionCategory#'
+		
+	</cfquery>
+	
 </cfif>
 
 <cfquery name="SpeedType"

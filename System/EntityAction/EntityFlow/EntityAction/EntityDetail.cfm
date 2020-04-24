@@ -2,8 +2,8 @@
 <!--- Create Criteria string for query from data entered thru search form --->
  
 <cf_textareascript>
-<cfajaximport tags="CFFORM,cfwindow,cflayout-tab,cfdiv,cfinput-autosuggest,cfinput-datefield">
-
+<cfajaximport tags="CFFORM,cfwindow,cfdiv,cfinput-autosuggest">
+<cf_calendarscript>
 <cf_entityScript>
 
 <cfquery name="SearchResult" 

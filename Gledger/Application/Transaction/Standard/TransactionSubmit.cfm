@@ -124,7 +124,7 @@ password="#SESSION.dbpw#">
 	     <cfset org = "#OrgUnitOwner#">				  
     </cfif>
 	
-	<cfset link = "gledger/application/transaction/view/TransactionViewDetail.cfm?id=#trid#">
+	<cfset link = "gledger/application/transaction/view/TransactionView.cfm?id=#trid#">
 	
 	<cf_ActionListing 
 		    TableWidth       = "100%"

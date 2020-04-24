@@ -1757,7 +1757,7 @@ function locarcshow(whs,loc,itm,uom,lot,box,action) {
 		icE  = document.getElementById(box+"exp");
 		se   = document.getElementById(box);	
 		rw   = document.getElementById(box+"_box");	
-		
+								
 		if (icM != null && icE != null && se != null) {
 			if (se.className == "hide" || action == "enforce") {
 
@@ -1834,10 +1834,10 @@ function invsave(id,qty,mode,sysid,box) {
 
 <!--- archives measurement on a -daily- basis --->	 
 function invarchive(loc,itm,uom,lot,sysid,row,box) {       
-		whs  = document.getElementById("warehouse").value		
+		whs  = document.getElementById("warehouse").value	
 		_cf_loadingtexthtml='';						
-		url = "../Inventory/InventoryArchiveSave.cfm?box=" + box + "&whs=" + whs + "&loc=" + loc  + "&itemno=" + itm + "&uom=" + uom + "&transactionlot=" + lot + "&systemfunctionid=" + sysid	+ "&box=" + box + "&currentrow=" + row			
-		ptoken.navigate(url,'process','','','POST','forminventory_'+box)						
+		url = "../Inventory/InventoryArchiveSave.cfm?box=" + box + "&whs=" + whs + "&loc=" + loc  + "&itemno=" + itm + "&uom=" + uom + "&transactionlot=" + lot + "&systemfunctionid=" + sysid + "&currentrow=" + row			
+		ptoken.navigate(url,'process','','','POST','forminventory_'+box)					
 	 }				 	 
 
  <!--- submits for stock on hand amendment --->	

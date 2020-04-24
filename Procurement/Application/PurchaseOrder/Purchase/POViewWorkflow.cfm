@@ -65,7 +65,7 @@
 	ActionMail       = "Yes"
 	PersonNo         = ""
 	PersonEMail      = ""
-	TableWidth       = "99%"
+	TableWidth       = "100%"
 	DocumentStatus   = "0">		
 	
 	<!---	EntityGroup      = "#Job.JobCategory#" --->

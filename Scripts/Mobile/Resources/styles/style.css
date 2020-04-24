@@ -3547,3 +3547,37 @@ ul.h-list li:hover a {
     display:block;
     margin-bottom:5%;
 }
+
+div.toggleScroll-x, table.toggleScroll-x, td.toggleScroll-x, body.toggleScroll-x {
+  overflow-x: hidden;
+}
+div.toggleScroll-x:hover, table.toggleScroll-x:hover, td.toggleScroll-x:hover, body.toggleScroll-x:hover {
+  overflow-x: overlay;
+}
+
+div.toggleScroll-y, table.toggleScroll-y, td.toggleScroll-y, body.toggleScroll-y {
+  overflow-y: hidden;
+}
+div.toggleScroll-y:hover, table.toggleScroll-y:hover, td.toggleScroll-y:hover, body.toggleScroll-y:hover {
+  overflow-y: overlay;
+}
+
+.toggleScroll-x::-webkit-scrollbar {
+width:13px; 
+}
+.toggleScroll-x::-webkit-scrollbar * {
+background:transparent; 
+}
+.toggleScroll-x::-webkit-scrollbar-thumb {
+background:rgba(0,0,0,0.25) !important; 
+}
+
+.toggleScroll-y::-webkit-scrollbar {
+width:13px; 
+}
+.toggleScroll-y::-webkit-scrollbar * {
+background:transparent; 
+}
+.toggleScroll-y::-webkit-scrollbar-thumb {
+background:rgba(0,0,0,0.25) !important; 
+}

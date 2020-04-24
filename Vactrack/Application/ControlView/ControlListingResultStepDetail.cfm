@@ -1,6 +1,4 @@
-
-<table width="100%" border="0" cellpadding="0" align="center">
-
+<table width="100%">
 <cfif EntityCode eq "VacDocument">
 
 	   <!--- show track --->	
@@ -13,6 +11,8 @@
 			          EntityClass,
 					  DocumentNo
 	  </cfquery>
+	  
+	  <!---
 	   
 	   <cfif details.recordcount gte "1">
 	   
@@ -28,8 +28,10 @@
 		   <td style="min-width:120"><cf_tl id="Office"></td>	   
 		   <td style="min-width:120"><cf_tl id="Officer"></td>	   
 		   </tr>
-	   
+			   
 	   </cfif>
+	   
+	   --->
 					
 	   <cfoutput query="Details" group="ActionCode">
 	   
@@ -39,14 +41,14 @@
 		   <cfset cl = "white">
 	   </cfif>	   	 
 	   
-	   <tr>
-	   		<td align="left" colspan="6" style="padding:2px" class="labelmedium"><font color="408080">#ActionDescription#</td>
+	   <tr id="d#URL.Mission##row#" class="labelmedium">
+	   		<td align="left" colspan="6" style="padding-left:24px;font-weight:bold" class="labelmedium">#ActionDescription#</td>
 	   </tr>
 	 	 		   	   
 		   <cfoutput>
 	
-			   <tr bgcolor="#cl#" class="navigation_row line labelmedium">
-			      <td style="padding-left:4px">#CurrentRow#</td> 
+			   <tr bgcolor="#cl#" class="navigation_row line labelmedium" id="d#URL.Mission##row#" style="height:20px">
+			      <td style="padding-left:24px">#CurrentRow#</td> 
 				  <td style="padding-right:3px">#EntityClass#</td>
 				 
 			      <td style="padding-left:2px;padding-right:3px"><a href="javascript:showdocument('#DocumentNo#','')">#DocumentNo#</a> </td>	
@@ -96,7 +98,7 @@
 								</cfif>
 							</td>
 							
-							<td valign="top" class="labelit" style="padding-left:3px">
+							<td style="padding-left:3px">
 								#DateFormat(AssignmentExpiration,client.dateformatshow)#							
 							</td>
 							
@@ -127,6 +129,8 @@
 			FROM    DetailsCandidate
 			WHERE   ParentCode = '#Code#'
 	  </cfquery>
+	  
+	  <!---
 		
 	   <cfif details.recordcount gte "1">	
 	   
@@ -141,15 +145,16 @@
 		   <td style="min-width:200"><cf_tl id="Title"></td>
 		   <td style="min-width:120"><cf_tl id="Office"></td>	   
 		   <td style="min-width:120"><cf_tl id="Officer"></td>	   
-		   </tr>
-		
+		   </tr>		
 	   
 	   </cfif>
 	   
+	   --->
+	   
 	   <cfoutput query="Details"> 
 	   
-		   <tr class="navigation_row line labelmedium">
-		      <td style="padding-left:4px">#CurrentRow#</td> 
+		   <tr class="navigation_row line labelmedium" id="d#URL.Mission##row#" style="height:20px">
+		      <td style="padding-left:24px">#CurrentRow#</td> 
 		      <td>#EntityClass#</td>			  
 		      <td style="padding-left:2px"><a href="javascript:showdocument('#DocumentNo#','')">#DocumentNo#</a></td>	
 			  <td style="padding-right:3px">#dateformat(duedate,client.dateformatshow)#</td>		 
@@ -214,7 +219,5 @@
 	    </cfoutput>
 	   
 </cfif>
-
-<tr><td height="5"></td></tr>
-
 </table>
+

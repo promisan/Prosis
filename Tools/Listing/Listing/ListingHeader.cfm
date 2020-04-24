@@ -2,7 +2,7 @@
 
 <cfset stl = "cursor:pointer;font-size:11px;">
 
-<tr class="line fixrow">
+<tr class="fixrow" style="height:26px">
 
     <td style="min-width:30px"></td>	
     <td style="min-width:30px"></td>	

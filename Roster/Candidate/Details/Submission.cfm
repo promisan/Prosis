@@ -30,8 +30,9 @@ password="#SESSION.dbpw#">
 			  <TR class="labelmedium line">
 			  	  <td></td>
 				  <td height="19" ><cf_tl id="Date submission"></td>
+				   <TD><cf_tl id="Source"></TD>
 				  <TD><cf_tl id="Application No"></TD>
-				  <TD><cf_tl id="Source"></TD>
+				 
 			      <TD><cf_tl id="Edition"></TD>
 				  <TD><cf_tl id="Origin"></TD>
 				  <TD><cf_tl id="Status"></TD>
@@ -65,7 +66,7 @@ password="#SESSION.dbpw#">
 					  
 					  </td>
 					  <TD style="height:23px;padding-left:3px">#DateFormat(SubmissionDate, CLIENT.DateFormatShow)#</TD>
-					  <TD>#ApplicantNo#</TD>
+					  <TD>#Source#</TD>
 					  <TD>
 					  
 						  <cfquery name="Submission" 

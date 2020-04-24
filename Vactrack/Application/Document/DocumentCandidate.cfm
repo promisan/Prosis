@@ -1,5 +1,5 @@
 
-<cfset linestatus = "h">
+<cfparam name="actions.actionstatus" default="0">
 <cfparam name="currentrow" default="1">
 <cfparam name="candidate" default="0">
 <cfparam name="url.line" default="#currentrow#">

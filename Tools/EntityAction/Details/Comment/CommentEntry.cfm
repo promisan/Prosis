@@ -21,7 +21,7 @@ WHERE      ObjectId = '#URL.Objectid#'
 	
 		<table align="center" style="height:100%;width:98%;pdding-left:4px;">
 			
-			<tr><td style="padding:2px;padding-left:1px;padding-right:1px;border-top:1px solid silver;border-bottom:1px solid silver">
+			<tr><td style="padding:2px;padding-left:1px;padding-right:1px;border-bottom:1px solid silver">
 			
 			<form method="post" name="entryform" id="entryform" style="width:99%">
 	
@@ -139,7 +139,7 @@ WHERE      ObjectId = '#URL.Objectid#'
 						 resize="false"		
 						 border="0" 
 						 toolbar="Mini"
-						 height="120"
+						 height="90"
 						 width="99%"/>
 						 
 					<cfelse>
@@ -149,7 +149,7 @@ WHERE      ObjectId = '#URL.Objectid#'
 						 resize="false"		
 						 border="0" 
 						 toolbar="Mini" 
-						 height="120"
+						 height="90"
 						 width="99%"/>
 						 				
 					</cfif>	 

@@ -158,23 +158,17 @@ password="#SESSION.dbpw#">
 		<cfoutput group="ListingOrder">
 		
 			<cfoutput group="Location">
-			
-				  <tr><td height="4"></td></tr>	
-		
-				  <tr bgcolor="DAF9FC" class="line" style="height:34px;border-top:1px solid silver">
-					   										
-					  <td colspan="2" class="labelmedium" style="font-size:20px;padding-left:8px">#Location#</td>						 		 		 
-					 
-					  <td colspan="1" width="93%" style="padding-left:4px">
-					  
+							 		
+				  <tr bgcolor="DAF9FC" class="line fixrow" style="height:25px">					   										
+					  <td colspan="2" class="labelmedium" style="font-size:16px;padding-left:8px">#Location#</td>						 		 		 					 
+					  <td colspan="1" width="93%" style="padding-left:4px">					  
 						  <table width="100%" cellpadding="0">
 						  	<tr class="labelmedium">
-							  <td width="50%" style="font-size:20px;padding-left:4px">#Description#</td>
+							  <td width="50%" style="font-size:16px;padding-left:4px">#Description#</td>
 							  <td width="20%">#StorageCode#</td>
 							  <td width="30%">#SerialNo#</td>
 						    </tr>								  
-						  </table>
-					  
+						  </table>					  
 					  </td>
 				  </tr>
 				  
@@ -182,9 +176,9 @@ password="#SESSION.dbpw#">
 				  				 					  
 				  <cfoutput group="CategoryName">
 				  
-				  	 <tr class="line">								     
-					 	 	<td colspan="3" style="font-size:19px;padding-top:2px;padding-left:4px;height:38" class="labellarge">#CategoryName# <cfif ParentItemNo neq "">/ #ParentItemNo# #ParentItemName#</cfif></td>								  										 
-					 </tr>
+				   <tr class="line">								     
+					  <td colspan="3" style="font-size:19px;padding-top:2px;padding-left:4px;height:38" class="labellarge">#CategoryName# <cfif ParentItemNo neq "">/ #ParentItemNo# #ParentItemName#</cfif></td>								  										 
+				   </tr>
 					 					 
 					 <!--- Category Item --->
 					 					  
@@ -192,9 +186,9 @@ password="#SESSION.dbpw#">
 					  
 					 <cfset apply = "locshow('#location#','#category#','#categoryitem#','box#currentrow#','#url.systemfunctionid#','','',document.getElementById('hidezero').checked,'#parentItemNo#',document.getElementById('ebox#currentrow#').checked,'1')">
 					  
-					  <tr class="navigation_row line">
+					  <tr class="navigation_row line fixrow2">
 					  
-					     <td class="navigation_action" align="left" style="min-width:40px;padding-top:3px;padding-left:5px"  onClick="#apply#">
+					     <td class="navigation_action" align="left" style="fix:40px;min-width:40px;padding-top:3px;padding-left:5px"  onClick="#apply#">
 						 						  						   
 						   <cfif recorded eq "0">
 						
@@ -204,8 +198,7 @@ password="#SESSION.dbpw#">
 							id="box#currentrow#Exp" height="25" width="25" border="0" class="show" align="absmiddle" style="cursor: pointer">
 							
 							<img src="#SESSION.root#/Images/ct_expanded.png" 
-							id="box#currentrow#Min" height="25" width="25" alt="" border="0" align="absmiddle" 
-							class="hide" style="cursor: pointer;">
+							id="box#currentrow#Min" height="25" width="25" alt="" border="0" align="absmiddle" class="hide" style="cursor: pointer;">
 						
 						  <cfelse>
 						
@@ -215,52 +208,48 @@ password="#SESSION.dbpw#">
 							id="box#currentrow#Exp" height="25" width="25" border="0" class="hide" align="absmiddle" style="cursor: pointer">
 							
 							<img src="#SESSION.root#/Images/ct_expanded.png" 
-							id="box#currentrow#Min" height="25" width="25" alt="" border="0" align="absmiddle" 
-							class="show" style="cursor: pointer;">
+							id="box#currentrow#Min" height="25" width="25" alt="" border="0" align="absmiddle" class="show" style="cursor: pointer;">
 															
 						  </cfif>									 
 						 
 						 </td>
 						 
-					 	 <td width="100%" colspan="2" style="height:100%">
+					 	 <td width="100%" colspan="2" style="height:100%;fix:40px;">
 						 
 							 <table width="100%" style="height:100%">
 							 <tr>
-							 <td onclick="#apply#" style="font-size:15px;height:23px;padding-top:3px;padding-left:4px">#CategoryItem# #CategoryItemName#</td>
-							 
-							 <!--- filter box --->
-							 
-							 <td align="right" id="filterbox#currentrow#" class="#cl#">
-							 
-								  <table style="height:100%">
-								  
-								  <tr>
-								  
-								  <td class="labelit" style="font-size:14px;font-weight:200;height:26px;"><cf_tl id="Earmarked">:</td>
-								  <td style="padding-left:4px;padding-right:10px">
-								   <input class="radiol" type="checkbox" id="ebox#currentrow#" value="1">
-								  </td>
-								  								  								   							 
-								  <td class="labelit" style="font-size:14px;height:26px;"><cf_tl id="Filter">:</td>
-									<td style="padding-left:4px">
-									
-									<input type="text" id="fbox#currentrow#"  class="regularxl enterastab" style="height:100%;width:140;border:0px;border-left:1px solid silver;border-right:1px solid silver" value=""></td>
-									   
-									<td style="padding-left:3px;padding-right:4px">
+								 <td onclick="#apply#" style="fix:40px;font-size:15px;height:23px;padding-top:3px;padding-left:4px">#CategoryItem# #CategoryItemName#</td>
+								 
+								 <!--- filter box --->
+								 
+								 <td align="right" id="filterbox#currentrow#" class="#cl#">
+								 
+									  <table style="height:100%">									  
+									  <tr>									  
+									  <td class="labelit" style="fix:40px;font-size:14px;height:26px;"><cf_tl id="Earmarked">:</td>
+									  <td style="fix:40px;padding-left:4px;padding-right:10px">
+									   <input class="radiol" type="checkbox" id="ebox#currentrow#" value="1">
+									  </td>
+									  								  								   							 
+									  <td class="labelit" style="fix:40px;font-size:14px;height:26px;"><cf_tl id="Filter">:</td>
+									  <td style="fix:40px;padding-left:4px">
 										
-									<input type="button" 
-									    name="Find" 
-										value="Find" 
-										class="button10g"
-										style="width:50;height:23;" 
-										onclick="locshow('#location#','#category#','#categoryitem#','box#currentrow#','#url.systemfunctionid#','1',document.getElementById('fbox#currentrow#').value,document.getElementById('hidezero').checked,'#parentitemno#',document.getElementById('ebox#currentrow#').checked,'0')">
-									
-									</td>
-									
-									</tr>
-									</table>
-							 
-							 </td>
+									  <input type="text" id="fbox#currentrow#"  class="regularxl enterastab" style="height:100%;width:140;border:0px;border-left:1px solid silver;border-right:1px solid silver" value=""></td>
+										   
+									  <td style="fix:40px;padding-left:3px;padding-right:4px">
+											
+										<input type="button" 
+										    name="Find" 
+											value="Find" 
+											class="button10g"
+											style="width:50;height:23;" 
+											onclick="locshow('#location#','#category#','#categoryitem#','box#currentrow#','#url.systemfunctionid#','1',document.getElementById('fbox#currentrow#').value,document.getElementById('hidezero').checked,'#parentitemno#',document.getElementById('ebox#currentrow#').checked,'0')">
+										
+									   </td>										
+									   </tr>
+									   </table>
+								 
+								 </td>
 							 </tr>
 							 </table>					 
 						 

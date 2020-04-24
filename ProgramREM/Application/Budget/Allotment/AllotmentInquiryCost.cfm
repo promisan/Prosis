@@ -10,7 +10,18 @@
 			SELECT *
 			FROM   Program
 			WHERE ProgramAllotment = '9'						
-   	 </cfquery>	  
+   	 </cfquery>	
+
+	 <cfquery name="qGetSupcode" 
+		datasource="AppsProgram"			
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		SELECT TOP 1 *
+		FROM   ProgramAllotment
+		WHERE  ProgramCode = '#url.ProgramCode#' 
+		AND    Period      = '#PlanPeriod#'					
+	 </cfquery>
+	 <cfset suppCostCode = qGetSupcode.supportObjectCode>
 	 
 	 <cfif check.recordcount eq "1">
 	 
@@ -1035,87 +1046,90 @@
 				   <!--- ------------------------------------------------ --->
 				   <!--- 1. LINE FOR REGULAR CODE NO PARENT AND NO CHILD- --->
 				   <!--- ------------------------------------------------ --->
+				   <cfif code eq suppCostCode OR RequirementEnable eq "1" OR (RequirementEnable eq "2" and (BudgetManagerAccess eq "EDIT" or BudgetManagerAccess eq "ALL"))>
 			
-				   <TR class="line" bgcolor="#IIf(CurrentRow Mod 2, DE('#c#'), DE('#c#'))#" id="line#resource#">
-				   		   
-				     <td width="94%" style="border-bottom: 1px solid e5e5e5;" id="box#Code#" class="regular" style="cursor:pointer" onclick="objectinfo('#code#')">
-						 <table cellspacing="0" cellpadding="0">
-							 <tr>
-							 <td style="padding-left:23px"><cf_space spaces="10" class="cellcontent" padding="0" label="#CodeDisplay#"></td>
-							 <td><cf_space spaces="60" class="cellcontent" padding="0" label="#Description#"></td>
-							 </tr>					
-						 </table>
-					 </td>
-					 
-					 <cf_tl id="hidden" var="1">			 
-					 <cfset vNoRights = lt_text>
-					  
-					 <!--- ----------- ---> 
-					 <!--- cell totals --->
-					 <!--- ----------- ---> 
-								  
-					 <cfloop index="Edition" list="#EditionList#" delimiters="' ,">
-					 
-					 	<td align="center" class="labelit" width="20" style="padding-top:2px;padding-left:3px;padding-right:3px;border-left: 1px dotted Silver;">	
-							<cfset col = "ffffff">
-							
-							<cfset supp       = evaluate("e#edition#support")>
-							<cfset perc       = evaluate("e#edition#percentage")>
-						    <cfset planPeriod = evaluate("e#edition#planperiod")>
-							
-							<cfif supp eq code and perc gt "0">
-												
-							       <cf_UItooltip tooltip="Support account"><font color="808080">SA</font></cf_UItooltip>
-								   <cfset col = "ffffaf">
-							   
-							<cfelse>
-																						
-							     <cfif RequirementEnable eq "1" or (RequirementEnable eq "2" and (BudgetManagerAccess eq "EDIT" or BudgetManagerAccess eq "ALL"))>
-								 							 						
-								    <cfif evaluate("e#edition#mode") eq "2">
-									
-										<div class="clsNoPrint">
-											<cf_img icon="open" onclick="alldetinsert('#edition#_#code#','#edition#','#code#','','view','','#url.programcode#','#PlanPeriod#')"> 
-										</div>
-										<cfset col = "ffffff">
-															
-									</cfif>		
+						<TR class="line" bgcolor="#IIf(CurrentRow Mod 2, DE('#c#'), DE('#c#'))#" id="line#resource#">
 								
-								</cfif>
+							<td width="94%" style="border-bottom: 1px solid e5e5e5;" id="box#Code#" class="regular" style="cursor:pointer" onclick="objectinfo('#code#')">
+								<table cellspacing="0" cellpadding="0">
+									<tr>
+									<td style="padding-left:23px"><cf_space spaces="10" class="cellcontent" padding="0" label="#CodeDisplay#"></td>
+									<td><cf_space spaces="60" class="cellcontent" padding="0" label="#Description#"></td>
+									</tr>					
+								</table>
+							</td>
+							
+							<cf_tl id="hidden" var="1">			 
+							<cfset vNoRights = lt_text>
+							
+							<!--- ----------- ---> 
+							<!--- cell totals --->
+							<!--- ----------- ---> 
+										
+							<cfloop index="Edition" list="#EditionList#" delimiters="' ,">
+							
+								<td align="center" class="labelit" width="20" style="padding-top:2px;padding-left:3px;padding-right:3px;border-left: 1px dotted Silver;">	
+									<cfset col = "ffffff">
+									
+									<cfset supp       = evaluate("e#edition#support")>
+									<cfset perc       = evaluate("e#edition#percentage")>
+									<cfset planPeriod = evaluate("e#edition#planperiod")>
+									
+									<cfif supp eq code and perc gt "0">
+														
+										<cf_UItooltip tooltip="Support account"><font color="808080">SA</font></cf_UItooltip>
+										<cfset col = "ffffaf">
+									
+									<cfelse>
+																								
+										<cfif RequirementEnable eq "1" or (RequirementEnable eq "2" and (BudgetManagerAccess eq "EDIT" or BudgetManagerAccess eq "ALL"))>
+																							
+											<cfif evaluate("e#edition#mode") eq "2">
+											
+												<div class="clsNoPrint">
+													<cf_img icon="open" onclick="alldetinsert('#edition#_#code#','#edition#','#code#','','view','','#url.programcode#','#PlanPeriod#')"> 
+												</div>
+												<cfset col = "ffffff">
+																	
+											</cfif>		
+										
+										</cfif>
+														
+									</cfif>
+																		
+								</td>	
+			
+								<cfparam name="cl#resource#_#edition#" default="regular">					
+								
+								<td bgcolor="#col#" align="center" class="#evaluate('cl#resource#_#edition#')#" id="b#edition#_#resource#" style="padding-right:1px;border-left: 1px dotted Silver;border-bottom: 1px solid e5e5e5;">
+									<table width="100%" cellspacing="0" cellpadding="0"><tr>
+									<td align="right" id="#Edition#_#Code#_cell" class="labelit">				 
+										<cfset par = 0>
+										<cfif find(Edition,exec)>
+											<cfset exe = 1> 
+										<cfelse>
+											<cfset exe = 0>
+										</cfif>			
 												
+										<cfinclude template="AllotmentInquiryCellObject.cfm">							  
+									</td></tr>
+									</table>
+								</td>
+							
+							</cfloop> 
+							
+							<!--- overall total --->
+							
+							<cfif no gte "2"> 
+								<td class="labelit" align="right" style="padding-right:1px;border-right:1px solid silver;border-left: 1px solid Silver;border-bottom: 1px solid e5e5e5;" bgcolor="#cltotal#" id="#Code#_tot">			 
+									<cfset par = 0>						 
+									<cfinclude template="AllotmentInquiryCellTotal.cfm">			    	
+								</td>
 							</cfif>
-																
-						</td>	
-	
-	 					 <cfparam name="cl#resource#_#edition#" default="regular">					
-						
-						 <td bgcolor="#col#" align="center" class="#evaluate('cl#resource#_#edition#')#" id="b#edition#_#resource#" style="padding-right:1px;border-left: 1px dotted Silver;border-bottom: 1px solid e5e5e5;">
-							 <table width="100%" cellspacing="0" cellpadding="0"><tr>
-						     <td align="right" id="#Edition#_#Code#_cell" class="labelit">				 
-							     <cfset par = 0>
-								  <cfif find(Edition,exec)>
-								     <cfset exe = 1> 
-								  <cfelse>
-								     <cfset exe = 0>
-								  </cfif>			
-								 		  
-								 <cfinclude template="AllotmentInquiryCellObject.cfm">							  
-							 </td></tr>
-							 </table>
-						 </td>
-					  
-					 </cfloop> 
-					  
-					 <!--- overall total --->
-					  
-					 <cfif no gte "2"> 
-						 <td class="labelit" align="right" style="padding-right:1px;border-right:1px solid silver;border-left: 1px solid Silver;border-bottom: 1px solid e5e5e5;" bgcolor="#cltotal#" id="#Code#_tot">			 
-						 	 <cfset par = 0>						 
-							 <cfinclude template="AllotmentInquiryCellTotal.cfm">			    	
-						 </td>
-					 </cfif>
-					
-				   </tr> 				 
+							
+						</tr>
+
+					</cfif> 				 
 			
 			   <cfelse>
 				   

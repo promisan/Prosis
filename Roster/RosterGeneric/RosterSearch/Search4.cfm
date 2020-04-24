@@ -307,10 +307,7 @@
 	<cf_divscroll style="height:100%">
 	
 	<table width="96%"
-	       height="99%"
-	       border="0"
-	       cellspacing="0"
-	       cellpadding="0"
+	       height="99%"	     
 		   class="formpadding"
 	       align="center">  
 		
@@ -390,14 +387,14 @@
 		         S.Description
 	</cfquery>
 	
-	<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+	<table width="100%" border="0" class="formpadding">
 	
 	<tr><td>
 	
-	<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">	
+	<table width="100%" align="center">	
 	<TR style="height:30px">  
-	   <td colspan="1" class="labellarge" style="font-weight:200;height:20px"><cf_tl id="Bucket assessment"></b><font color="FF0000">*)</font></td>
-	   <td colspan="1" class="labellarge" style="font-weight:200;height:20px"><cf_tl id="Candidate profile"></td>   
+	   <td colspan="1" class="labellarge" style="height:20px;font-weight:bold"><cf_tl id="Bucket assessment"></b><font color="FF0000">*)</font></td>
+	   <td colspan="1" class="labellarge" style="height:20px;font-weight:bold"><cf_tl id="Candidate profile"></td>   
 	</TR>
 	
 	<tr>
@@ -540,7 +537,7 @@
 	   	
 	</TD>
 	
-	<TD valign="top" width="40%" style="padding-left:4px;border-right:0px dotted silver">
+	<TD valign="top" width="40%" style="padding-left:4px;">
 		
 	   <cfquery name="Check" 
 	        datasource="AppsSelection" 
@@ -675,9 +672,9 @@
 	<tr  class="line"><td height="1" colspan="3"></td></tr> 
 	<tr><td height="4"></td></tr>
 	<tr>
-	   <td height="27" class="labelmedium" style="height:20px"><cf_tl id="Application Received">:</td>
-	   <td colspan="1" class="labelmedium" style="height:20px"><cf_tl id="Limit result to VA"></td> 
-	   <td colspan="1" class="labelmedium" style="height:20px"><cf_tl id="Specific Candidate"></td> 
+	   <td height="27" class="labelmedium" style="height:20px;font-weight:bold"><cf_tl id="Application Received">:</td>
+	   <td colspan="1" class="labelmedium" style="height:20px;font-weight:bold"><cf_tl id="Limit result to VA"></td> 
+	   <td colspan="1" class="labelmedium" style="height:20px;font-weight:bold"><cf_tl id="Specific Candidate"></td> 
 	</tr>
 	
 	<TR>  
@@ -893,7 +890,7 @@
 	
 		<table cellspacing="0" cellpadding="0">
 	
-		<tr><td style="padding-left:10px;height:20px" class="labelmedium"><cf_tl id="Class">:</td>
+		<tr><td style="padding-left:10px;height:20px;font-weight:bold" class="labelmedium"><cf_tl id="Class">:</td>
 		
 		<cfquery name="Class" 
 		datasource="AppsSelection" 
@@ -973,7 +970,7 @@
 	<td>
 	  <table cellspacing="0" cellpadding="0">
 	
-	  <tr><td class="labelmedium" style="height:40px"><cf_tl id="Age">:</td>
+	  <tr><td class="labelmedium" style="height:40px;font-weight:bold"><cf_tl id="Age">:</td>
 	  
 	  <cfquery name="AgeFrom" 
 	        datasource="AppsSelection" 
@@ -1044,7 +1041,7 @@
 	      <cfset SelectId = Check.SelectId>  
 	  </cfif>
 	  
-	  <td class="labelmedium" style="height:20px" colspan="2">
+	  <td class="labelmedium" style="height:20px;font-weight:bold" colspan="2">
 	  
 	  <cf_tl id="Experience in years">:</b>
 	 
@@ -1185,7 +1182,7 @@
 		<!--- ------------------------------------------------- --->
 	
 		<TR>  
-		   <td colspan="6" class="labelmedium" style="font-size:16px;font-weight:200;height:34px"><cf_tl id="Minimum profile requirements"></td>
+		   <td colspan="6" class="labelmedium" style="font-size:16px;font-weight:200;height:34px;font-weight:bold"><cf_tl id="Minimum profile requirements"></td>
 		</TR> 
 			
 		<cfquery name="Function" 
@@ -1449,9 +1446,7 @@
 							<cfset order    = "">
 																	
 						</cfif>
-						
-						
-													
+																			
 						<cfinclude template="../../../Tools/ComboBox/ComboMultiSelected.cfm">
 																									
 					    </td>
@@ -1744,7 +1739,7 @@
 	</td>
 	</tr>
 
-<tr bgcolor="f4f4f4" class="line" style="border-top:1px solid silver">
+<tr class="line" style="border-top:1px solid silver">
 
 	<td align="center" height="35">
 	<button name="Prior" class="button10g" style="width:160;height:27"

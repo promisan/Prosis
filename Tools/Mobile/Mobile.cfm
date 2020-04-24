@@ -8,6 +8,8 @@
 <cfparam name="attributes.chartJS"					default="no">
 <cfparam name="attributes.toastr"					default="no">
 <cfparam name="attributes.customCSS"				default="">
+<cfparam name="attributes.bodyClass"				default="">
+<cfparam name="attributes.bodyStyle"				default="">
 <cfparam name="attributes.printWindowSize"			default="10">
 <cfparam name="attributes.printWindowSizeChrome"	default="800">
 <cfparam name="attributes.allowLogout"				default="true">
@@ -219,7 +221,7 @@
 			</script>
 		
 		</head>
-		<body>
+		<body class="#attributes.bodyClass#" style="#attributes.bodyStyle#">
 		
 		<!-- Simple splash screen-->
 		<div class="splash"> <div class="color-line"></div><div class="splash-title"><h1>#getApplication.FunctionMemo#</h1><p>#attributes.welcome#</p><i class="fa fa-cog fa-spin fa-4x ProsisColorOrng"></i></div> </div>

@@ -297,19 +297,19 @@
 	
 <cf_divscroll>		
 	
-<table width="98%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table style="width:98.5%" align="center">
 
-	<tr>
+	<tr class="fixrow">
 	
 	<td>
 	<cfoutput>
 		
-	<table width="95%" align="center" border="0" cellspacing="0" cellpadding="0" class="formpadding">
-	   <tr>
-	    <td height="32">
+	<table width="99%" align="center" class="formpadding">
+	   <tr class="fixrow">
+	    <td height="32" style="padding-left:5px">
 						
-		 <font face="Calibri" size="3" color="gray"><cf_tl id="#PurchaseType.Description#">:</font>		 
-		 <cfoutput><font face="Calibri" size="3" color="black"><b>#PO.PurchaseNo#<cfif PO.ModificationNo neq "">/#PO.ModificationNo#</cfif></font></cfoutput>			
+		 <font face="Calibri" size="4" color="gray"><cf_tl id="#PurchaseType.Description#">:</font>		 
+		 <cfoutput><font face="Calibri" size="4" color="black"><b>#PO.PurchaseNo#<cfif PO.ModificationNo neq "">/#PO.ModificationNo#</cfif></font></cfoutput>			
 						
 		</td>
 
@@ -368,7 +368,7 @@
       
   <tr><td colspan="2">
   
-  <table width="98%" align="center" border="0" cellspacing="0" cellpadding="0">
+  <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
        
     <cfif URL.Mode eq "Edit" and PO.ActionStatus eq "0">
 	 	<cfset b = "regular">
@@ -380,7 +380,7 @@
 			
 	<tr><td colspan="2">
 	
-	<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+	<table width="100%" align="center">
 			
 	 <cfquery name="CheckMission" 
 		 datasource="AppsEmployee"
@@ -394,7 +394,7 @@
  	
 	<tr><td colspan="2">
 	
-		 <table width="99%" style="border:0px dotted silver" cellspacing="0" cellpadding="0" align="center">
+		 <table width="99%" align="center">
 			
 		 <tr>
 		     <td height="20">
@@ -538,10 +538,11 @@
 
 	<table width="99%" border="0" cellspacing="0" cellpadding="0" align="center">
 	  
-       <tr><td height="20" onClick="more('fun','show')" style="cursor: pointer;">
+       <tr class="fixrow"><td height="20" onClick="more('fun','show')" style="cursor: pointer;">
 		   <table width="100%">
 		   
-		    <tr class="line"><td width="24" align="center" style="border-right: 0px solid Silver;">
+		    <tr class="line">
+			<td width="24" align="center">
 			
 		    <cfoutput>
 			
@@ -563,7 +564,7 @@
 			
 	    <tr id="fun" class="hide">		 
 		  <td>
-		  <table width="100%" cellspacing="0" cellpadding="0" align="center">
+		  <table width="100%" align="center">
 		    
 		      <tr><td>
 			   <cfinclude template="POViewFunding.cfm"> 
@@ -627,14 +628,14 @@
 	 
 </cfoutput>	 	
 
-<table width="98%" align="center" class="formpadding">				
+<table width="100%" align="center">				
 
 <tr><td>
 		
 	<table width="99%" align="center">
   	
-       <tr><td height="24" style="cursor: pointer;">
-	  
+       <tr class="fixrow"><td height="24" style="cursor: pointer;">
+	   	  
 		   <table width="100%">
 		   
 		   		<cfoutput>
@@ -703,8 +704,7 @@
 		
 			<cfdiv id="linescontent">				
 				<cfinclude template="POViewGeneralLines.cfm">
-			</cfdiv>
-		 						 
+			</cfdiv>	 						 
 		 
 		 </td>
 	  </tr>
@@ -722,7 +722,7 @@
 
 <tr><td>
 
-	<table width="99%" border="0" cellspacing="0" cellpadding="0" align="center">
+	<table width="99%" align="center">
 	  
        <tr><td height="20" onClick="more('dis','show')" style="cursor: pointer;">
 		   <table width="100%">
@@ -749,7 +749,7 @@
 	    <tr id="dis" class="hide">		 
 		  <td>
 		 
-			  <table width="100%" cellspacing="0" cellpadding="0" align="center">		     
+			  <table width="100%" align="center">		     
 			      <tr><td>		
 				       <cfdiv id="boxdistribution">    
 					   <cfinclude template="POViewDistribution.cfm"> 
@@ -813,7 +813,7 @@
 	
 		<table width="99%" align="center">
 	  	
-	       <tr><td height="20" onClick="more('adv','show')" style="cursor: pointer;">
+	       <tr class="fixrow"><td height="20" onClick="more('adv','show')" style="cursor: pointer;">
 		   <table width="100%">
 			    <tr class="line"><td width="24" align="center">
 			    <cfoutput>
@@ -870,9 +870,10 @@
 	
 		<table width="99%" align="center" border="0" cellspacing="0">
 		 
-	       <tr><td height="20" style="cursor: pointer;">
+	       <tr class="fixrow"><td height="20" style="cursor: pointer;">
 		   
 		   <table width="100%" cellspacing="0" cellpadding="0">
+			  
 			    <tr class="line">
 				<td width="24" align="center" onClick="more('inv','show','inv2')">
 			   
@@ -1042,7 +1043,7 @@
 	<table width="99%" align="center" border="0" cellspacing="0" cellpadding="0">
 	   <tr><td height="20" onClick="more('act','show')" style="cursor: pointer;">
 	   <table width="100%">
-		    <tr class="line"><td width="24" align="center">
+		    <tr class="line fixrow"><td width="24" align="center">
 		    <cfoutput>
 			<img src="#SESSION.root#/Images/arrowright.gif" alt="" 
 				id="actExp" border="0" class="regular" 

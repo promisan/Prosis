@@ -1,8 +1,6 @@
 
 <cfoutput>
 
-<cf_screentop height="100%" scroll="No" html="Yes" layout="webapp" banner="yellow" label="Add Scale" user="No">
-
 <cfquery name="Scale"
 datasource="AppsPayroll" 
 username="#SESSION.login#" 
@@ -23,7 +21,7 @@ password="#SESSION.dbpw#">
 							 WHERE  Mission = '#scale.mission#')	  					
 </cfquery>
 
-<table width="100%" height="100%" bgcolor="white" cellspacing="0" cellpadding="0">
+<table width="100%" height="100%" bgcolor="white">
 
 <tr><td height="14"></td></tr>
 

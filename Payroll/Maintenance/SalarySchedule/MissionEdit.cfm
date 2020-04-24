@@ -10,8 +10,7 @@
 <cf_dialogLedger>
 <cf_calendarscript>
 	
-<cfform style="height:100%" action="MissionEditSubmit.cfm?idmenu=#URL.idmenu#&mission=#URL.mission#&schedule=#URL.schedule#" method="POST">
-
+<cfform style="height:98%" action="MissionEditSubmit.cfm?idmenu=#URL.idmenu#&mission=#URL.mission#&schedule=#URL.schedule#" method="POST">
 
 	<cfquery name="Get" 
 	datasource="AppsPayroll" 
@@ -99,9 +98,7 @@
 	</td></tr>
 	
 	</cfoutput>
-		
-	
-		
+				
 </cfform>	
 
 <script>
