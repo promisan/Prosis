@@ -11,10 +11,10 @@
 	<td align="right" style="padding-right:10px">
 
 	 <cfif URL.Page gt "1">	 
-	       <input type="button" name="Prior" id="Prior" value="<<" class="button3" onClick="ColdFusion.navigate('#nav#&page=#url.page-1#','searchresult#url.box#','','','POST','select_#url.box#')">
+	       <input type="button" name="Prior" id="Prior" value="<<" class="button3" onClick="_cf_loadingtexthtml='';ptoken.navigate('#nav#&page=#url.page-1#','searchresult#url.box#','','','POST','select_#url.box#')">
 	   </cfif>
 	  <cfif URL.Page lt "#Pages#">
-	       <input type="button" name="Next" id="Next" value=">>" class="button3" onClick="ColdFusion.navigate('#nav#&page=#url.page+1#','searchresult#url.box#','','','POST','select_#url.box#')">
+	       <input type="button" name="Next" id="Next" value=">>" class="button3" onClick="_cf_loadingtexthtml='';ptoken.navigate('#nav#&page=#url.page+1#','searchresult#url.box#','','','POST','select_#url.box#')">
 	   </cfif>
 	   
 	</td>	

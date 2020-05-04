@@ -80,23 +80,10 @@
 
 <table width="98%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
 
-<tr style="height:20px">
+<tr>
 <td width="100%">
 	
 	<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
-	
-	<tr class="line">
-		<TD  style="min-width:20"></TD>
-	    <TD style="min-width:30"></TD>    
-		<TD  width="80%" class="labelit">Description</TD>
-		<TD  style="min-width:80"  class="labelit" align="left">Code</TD>
-		<TD  style="min-width:30"  class="labelit">Op</TD>
-		<TD  style="min-width:80"  class="labelit">Class</TD>
-		<td  style="min-width:80"  class="labelit">Usage</td>
-		<TD  style="min-width:60"  class="labelit">Object</TD>			
-		<td  style="min-width:200" class="labelit">Name</td>
-		<td style="min-width:15px"></td>
-	</TR>
 	
 	<cfif searchresult.recordcount eq 350>
 		<tr bgcolor="red"><td colspan="8" align="center" class="labelit">
@@ -115,6 +102,18 @@
 	<cf_divscroll>
 		
 		<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+		
+			<tr class="line fixrow labelmedium">
+			<TD  style="min-width:20"></TD>
+		    <TD  style="min-width:30"></TD>    
+			<TD  width="80%">Description</TD>
+			<TD  style="min-width:80" align="left">Code</TD>
+			<TD  style="min-width:30">Op</TD>
+			<TD  style="min-width:80">Class</TD>
+			<td  style="min-width:80">Usage</td>
+			<TD  style="min-width:60">Object</TD>			
+			<td  style="min-width:200">Name</td>
+		  </TR>
 							
 			<cfset row = 0>
 			

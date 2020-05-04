@@ -1,11 +1,11 @@
 
 <cf_screentop height="100%" label="Function Title" 
-  option="Maintain functional title" user="yes" html="no" banner="gray" bannerforce="Yes" layout="webapp" 
+  option="Maintain functional title" user="yes" html="no" banner="gray" bannerforce="Yes" layout="webapp" jquery="yes"
   close="parent.ColdFusion.Window.destroy('functionedit',true)"	
   band="no" 
   scroll="yes"> 
 
-<cfajaximport tags="cfform,cfdiv,cfwindow">
+<cfajaximport tags="cfform,cfdiv">
 
 <cf_dialogPosition>
 <cf_filelibraryscript>
@@ -53,7 +53,14 @@ function maintain(id1){
     ptoken.open("FunctionGrade.cfm?idmenu=#url.idmenu#&ID=" + id1, "_blank", "left=30, top=30, width= " + w + ", height=" + h + ", toolbar=no, status=yes, scrollbars=yes, resizable=yes");
 }
 
+function Selected(no,description) {									
+	  document.getElementById('functionno').value = no
+	  document.getElementById('functionaltitle').value = description					 
+	  ProsisUI.closeWindow('myfunction')
+ }		
+
 </script>
+
 
 </cfoutput>
 

@@ -71,7 +71,8 @@
 <cfparam name="mailto"      default="#sendTo#">
 <cfparam name="mailsubject" default="">
 <cfparam name="mailtext"    default="">
-<cfparam name="mailatt"     default="">
+
+<cfset mailatt = ArrayNew(2)>
 
 <cfif mailto eq "">
 	<cfset mailto = sendTo>
@@ -84,7 +85,18 @@
 	
 </cfif>
 
+<!--- now we remove attachments that are not selected in the interface --->
 
+<cfset row = 1>
+<cfloop index="att" from="1" to="#ArrayLen(mailatt)#">
+		
+	<cfif not find(att,form.actionMailAttachment)>	
+		<cfset ArrayDeleteAt(mailatt, row)>			
+	<cfelse>
+		<cfset row = row+1>	
+	</cfif>
+
+</cfloop>
 
 <!--- we continue and complement whatever is needed here --->
 
@@ -1007,13 +1019,36 @@
 													'#SESSION.last#',
 													'#SESSION.first#')
 								    </cfquery>	
+									
+									<!--- record attachement --->									
+									
+									<cfloop index="att" from="1" to="10" step="1">
+													   
+									   <cfparam name="mailatt[#Att#][1]" default="none">
+									   <cfparam name="mailatt[#Att#][2]" default="none">									   
+									   <cfparam name="mailatt[#Att#][3]" default="none">											   
+									   
+									   <cfif mailatt[att][1] neq "none">	
+									   									           										
+											<cfquery name="Insert" 
+											datasource="AppsOrganization" 
+											username="#SESSION.login#" 
+											password="#SESSION.dbpw#">					
+												INSERT INTO OrganizationObjectActionMailAttach (ThreadId,SerialNo,AttachmentNo,AttachmentPath,AttachmentDisposition,AttachmentName)
+												VALUES ('#Attributes.ActionId#','#next#','#att#','#mailatt[att][1]#','#mailatt[att][2]#','#mailatt[att][3]#')
+											</cfquery>													
+												
+										</cfif>
+																		   				  			   
+								    </cfloop>
+									
+									
 						    
 						    </cfif>				   
 											 
 						</cfif>	 
 					  
-					</cfloop>
-				
+					</cfloop>				
 				
 				<cfelse>
 				
@@ -1028,30 +1063,30 @@
 								spoolEnable = "Yes"			
 								wraptext    = "100">											
 								#sendBody#																
+								
 								<!--- try to attach possible documents --->
+								
 								<cftry>
 									 		
-										<cfloop index="att" from="1" to="10" step="1">
-												   
-										   <cfparam name="mailatt[#Att#][1]" default="none">
-										   <cfparam name="mailatt[#Att#][2]" default="none">									   
-										   <cfparam name="mailatt[#Att#][3]" default="none">
+									<cfloop index="att" from="1" to="10" step="1">
+											   
+									   <cfparam name="mailatt[#Att#][1]" default="none">
+									   <cfparam name="mailatt[#Att#][2]" default="none">									   
+									   <cfparam name="mailatt[#Att#][3]" default="none">
 
-											   	   <cfif mailatt[att][1] neq "none">	
-											            <cfif mailatt[att][2] eq "inline">
-														    <cfmailparam file = "#mailatt[att][1]#" contentid="#mailatt[att][3]#" disposition="inline">
-														<cfelse>									 
-													        <cfmailparam file = "#mailatt[att][1]#">
-														</cfif>	
-												   </cfif>
-																		   				  			   
-											</cfloop>
-
+								   	   <cfif mailatt[att][1] neq "none">	
+								            <cfif mailatt[att][2] eq "inline">
+											    <cfmailparam file = "#mailatt[att][1]#" contentid="#mailatt[att][3]#" disposition="inline">
+											<cfelse>									 
+										        <cfmailparam file = "#mailatt[att][1]#">
+											</cfif>	
+									   </cfif>
+																	   				  			   
+									</cfloop>
 											
-											<cfcatch>
-											</cfcatch>
+								<cfcatch></cfcatch>
 										
-									</cftry>
+								</cftry>
 																									
 						</cfmail>				
 							
@@ -1138,7 +1173,29 @@
 								'#SESSION.acc#',
 								'#SESSION.last#',
 								'#SESSION.first#')
-				    </cfquery>					   
+				    </cfquery>		
+					
+					<!--- record attachement --->									
+									
+					<cfloop index="att" from="1" to="10" step="1">
+									   
+					   <cfparam name="mailatt[#Att#][1]" default="none">
+					   <cfparam name="mailatt[#Att#][2]" default="none">									   
+					   <cfparam name="mailatt[#Att#][3]" default="none">											   
+					   
+					   <cfif mailatt[att][1] neq "none">	
+					   									           										
+							<cfquery name="Insert" 
+							datasource="AppsOrganization" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">					
+								INSERT INTO OrganizationObjectActionMailAttach (ThreadId,SerialNo,AttachmentNo,AttachmentPath,AttachmentDisposition,AttachmentName)
+								VALUES ('#Attributes.ActionId#','#next#','#att#','#mailatt[att][1]#','#mailatt[att][2]#','#mailatt[att][3]#')
+							</cfquery>													
+								
+						</cfif>
+														   				  			   
+				    </cfloop>								   
 					
 					<cfif Object.PersonClass eq "Candidate" and Object.personNo neq "">
 					

@@ -192,7 +192,8 @@
 				 ActionViewMemo           = '#Form.ActionViewMemo#',
 				 ActionViewMemoCopy       = '#Form.ActionViewMemoCopy#',
 				 <cfif url.PublishNo eq "">
-				 ActionDescription        = '#GetDescription.ActionDescription#',
+				 ActionDescription        = '#Form.ActionDescription#',
+				 <!--- ActionDescription        = '#GetDescription.ActionDescription#', --->
 				 <cfelse>
 				 ActionDescription        = '#Form.ActionDescription#',
 				 </cfif>				 

@@ -38,18 +38,18 @@
   
 	<td height="100%" colspan="2" valign="top" style="padding:1px">		
 					
-	<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+	<table width="100%" align="center" class="navigation_table">
 	
 		<cfoutput>
 		
-		<tr class="line labelmedium">
+		<tr class="line labelmedium fixrow">
 		    <td style="width:40"></td>
-		    <td height="17" style="padding-left:25px;padding-right:5px"><cf_tl id="Batch"></td>		
+		    <td height="17" style="padding-right:5px"><cf_tl id="Batch"></td>		
 			<TD><cf_tl id="Receipt"></TD>			
 			<TD><cf_tl id="Class"></TD>				   
-			<TD><cf_tl id="Storage location"></TD>							
-			<TD><cf_tl id="Usage"></TD>
-		    <TD><cf_tl id="Processed by"></TD>
+			<TD><cf_tl id="Location"></TD>							
+			<TD style="padding-right:4px"><cf_tl id="Usage"></TD>
+		    <TD><cf_tl id="Processed"></TD>
 			<TD><cf_tl id="Facility"></TD>				
 			<td><cf_tl id="Item"></td>		
 		</TR>
@@ -90,21 +90,13 @@
 						
 						<tr bgcolor="#cl#" class="navigation_row labelmedium line" style="height:20px">
 											    	
-							<td align="center" style="padding-left:5px;padding-right:5px;" height="19">#row#</td>
+							<td style="padding-left:5px;padding-right:5px;" height="19">#row#</td>
 							
-							<TD style="padding-right:5px">
-		
-								<table cellspacing="0" cellpadding="0">
-									<tr>										
-									<td style="padding-right:8px;padding-left:8px;padding-top:1px">										
-									<cf_img icon="select" navigation="Yes" onClick="batch('#BatchNo#','#url.mission#','process','#url.systemfunctionid#')">											
-									</td>									
-									<td style="padding-left:2px">#BatchNo#</td>										
-									</tr>
-								</table>
+							<TD style="padding-right:5px" class="navigation_action">
+		                     <a href="javascript:batch('#BatchNo#','#url.mission#','process','#url.systemfunctionid#')">#BatchNo#</a>								
 							
 							</TD>
-							<TD>#BatchReference#</TD>
+							<TD style="min-width:90px">#BatchReference#</TD>
 							<TD><cf_tl id="#BatchDescription#"></TD>
 							<td>#LocationDescription#</td>							
 							<TD>#Category#</TD>

@@ -1,13 +1,8 @@
 <!--- Create Criteria string for query from data entered thru search form --->
 
-<HTML><HEAD><TITLE>Occupational group</TITLE></HEAD>
-
-<cf_divscroll>
-
 <cfset Page         = "0">
 <cfset add          = "1">
 <cfset Header       = "Occupational group">
-<cfinclude template = "../HeaderRoster.cfm"> 
 
 <cfquery name="SearchResult" 
 datasource="AppsSelection" 
@@ -20,26 +15,36 @@ password="#SESSION.dbpw#">
 	ORDER BY ListingOrder, OccupationalGroup
 </cfquery>
 
+
+<table style="height:100%;width:100%">
+
+<tr><td><cfinclude template = "../HeaderRoster.cfm"> </td></tr>
+
+
+
 <cfoutput>
 
 <script LANGUAGE = "JavaScript">
 
 function recordadd(grp) {
-          window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=550, height=470, toolbar=no, status=yes, scrollbars=no, resizable=no");
+      window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=650, height=470, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 function recordedit(id1) {
-          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=550, height=470, toolbar=no, status=yes, scrollbars=no, resizable=no");
+      window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=650, height=470, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 </script>	
 
 </cfoutput>
 
-<table width="97%" cellspacing="0" cellpadding="0" align="center" class="maintenancetable navigation_table formpadding">
+<tr><td style="height:100%">
 
-<thead>
-	<tr>
+<cf_divscroll>
+
+<table width="97%" align="center" class="navigation_table formpadding">
+
+	<tr class="fixrow labelmedium line">
 	    <td></td>
 	    <td>Code</td>
 		<td>Name</td>
@@ -50,15 +55,13 @@ function recordedit(id1) {
 		<td>Officer</td>
 	    <td>Entered</td>
 	</tr>
-</thead>
 
-<tbody>
 <cfoutput query="SearchResult">
 
 	<cfif Status neq "1">
-	<tr style="background-color:##FBE0D9" class="navigation_row">
+	<tr style="background-color:##FBE0D9" class="navigation_row labelmedium line">
 	<cfelse>
-	<tr class="navigation_row">
+	<tr class="navigation_row labelmedium line">
 	</cfif> 
 	<td width="5%" align="center">
 		  <cf_img icon="open" navigation="Yes" onclick="recordedit('#OccupationalGroup#')">
@@ -114,7 +117,7 @@ function recordedit(id1) {
 		<td>#Description#</td>
 		<td>#DescriptionFull#</td>
 		<td>#ListingOrder#</td>
-		<td>#titles#</td>
+		<td align="right">#titles#</td>
 		<td><cfif Status neq "1">No<cfelse>Yes</cfif>&nbsp;</td>
 		<td>#OfficerFirstName# #OfficerLastName#</td>
 		<td>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
@@ -126,9 +129,11 @@ function recordedit(id1) {
 	
 </cfoutput>
 
-</tbody>
-
 </table>
 
-
 </cf_divscroll>
+
+</td>
+</tr>
+</table>
+

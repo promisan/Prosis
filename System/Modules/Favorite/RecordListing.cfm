@@ -1,5 +1,5 @@
 
-<cf_screentop height="100%" scroll="Yes" html="No">
+<cf_screentop height="100%" scroll="Yes" html="No" jquery="Yes">
 
 <table width="98%" align="center">
 

@@ -10,9 +10,7 @@
 <cfinvoke component="Service.Presentation.Presentation" 
      method="highlight" 
 	 returnvariable="stylescroll">
-	 
-
-	 
+	 	 
  <cf_LanguageInput
 	TableCode       = "Ref_ModuleControl" 
 	Mode            = "get"
@@ -20,13 +18,12 @@
 	Key1Value       = "#url.idmenu#"
 	Key2Value       = "#url.mission#"				
 	Label           = "Yes">	
-	
-	 
+		 
 <cf_screentop label="#url.mission# : #lt_content#" html="Yes" jquery="Yes" layout="Webapp">	 
 
 <cf_ListingScript>
 <cf_DialogStaffing>
-<cf_calendarscript>
+<cf_Calendarscript>
 
 <cfparam name="url.mandate" default="P002">
    
@@ -110,7 +107,7 @@
 			
 				<select name="mandateselect" id="mandateselect" style="border:0px;font-size:16px;height:26px;width:200px;" class="regularxl" onChange="reloadview(totals.value,snapshot.value,'operational',this.value)">
 					<cfloop query="MandateList">
-						<option value="#MandateNo#" <cfif MandateNo eq "#URL.Mandate#">selected</cfif>>
+						<option value="#MandateNo#" <cfif MandateNo eq URL.Mandate>selected</cfif>>
 							#MandateNo# [#DateFormat(DateExpiration, CLIENT.DateFormatShow)#]
 						</option>						
 					</cfloop>

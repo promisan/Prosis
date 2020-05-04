@@ -16,7 +16,7 @@
 	password="#SESSION.dbpw#">
 		    SELECT   *
 		    FROM     Ref_Mandate
-			WHERE    Mission = '#URL.Mission#' 
+			WHERE    Mission   = '#URL.Mission#' 
 			AND      MandateNo = '#url.mandate#'				
 </cfquery>
 
@@ -43,12 +43,17 @@
 	<table width="98%" align="center" height="100%">	 
 	 <tr><td height="4"></td></tr>	  
 	 <tr>
-	     <td style="padding-left:10px" class="labelmedium"><font color="red">Expired : Parent Positions which have fallen of from the workforce table as its expiration date was reached.</font></td>
+	     <td style="padding-left:10px" class="labelmedium"><font color="red">Expired : Parent Positions which have fallen of from the workforce table as its Position expiration date was reached.</font></td>
 	 </tr>	 
 	 <tr><td height="4"></td></tr>		
 	 <tr>
-	  <td height="100%" valign="top" style="padding:5px">	  
-	  <cfset url.dte = dateformat(Mandate.dateExpiration,client.datesql)>	 
+	  <td height="100%" valign="top" style="padding:5px">	
+	  <cfif Mandate.dateExpiration lt now()>  
+		  <cfset url.dte = dateformat(Mandate.dateExpiration,client.datesql)>			  
+	  <cfelse>
+	  	  <cfset url.dte = dateformat(now(),client.datesql)>		  
+	  </cfif>	  
+	  
 	  <cfinclude template="PositionMandateContent.cfm">			
 	  </td>
 	 </tr>						  

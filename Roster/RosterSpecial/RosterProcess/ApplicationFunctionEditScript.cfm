@@ -11,7 +11,7 @@ function gjp(fun,grd) {
 
 function st(currentStatus, status, applicantNo, functionId ) {
     
-	ColdFusion.navigate('#SESSION.root#/Roster/RosterSpecial/RosterProcess/ApplicationFunctionEditRule.cfm?currentStatus='+currentStatus+'&status='+status+'&owner=#get.Owner#'+'&applicantNo='+applicantNo+'&functionId='+functionId,'reason')
+	ptoken.navigate('#SESSION.root#/Roster/RosterSpecial/RosterProcess/ApplicationFunctionEditRule.cfm?currentStatus='+currentStatus+'&status='+status+'&owner=#get.Owner#'+'&applicantNo='+applicantNo+'&functionId='+functionId,'reason')
 	document.getElementById("statusnew").value = status;
 }
 
@@ -37,8 +37,7 @@ function hr(itm,fld){
 	 if (fld != false){
 		
 	 itm.className = "highLight2";
-	 }else{
-		
+	 }else{		
      itm.className = "regular";		
 	 }
 		 
@@ -46,8 +45,7 @@ function hr(itm,fld){
   
 function toggleRemarks(decisionCode,checked){
 
-	s = document.getElementById('td_remarks_'+decisionCode);
-	
+	s = document.getElementById('td_remarks_'+decisionCode);	
 	if (checked == true){
 		s.style.display = '';
 	}else{
@@ -57,11 +55,11 @@ function toggleRemarks(decisionCode,checked){
 }
 
 function saveremarks() {
-	  ColdFusion.navigate('ApplicationFunctionDecision.cfm?id=#url.id#&id1=#url.id1#&process=memo&box=#URL.box#&Owner=#Get.Owner#&Mode=#URL.Mode#&IDFunction=#URL.IDFunction#','saveremarks','','','POST','edit')	
+	  ptoken.navigate('ApplicationFunctionDecision.cfm?id=#url.id#&id1=#url.id1#&process=memo&box=#URL.box#&Owner=#Get.Owner#&Mode=#URL.Mode#&IDFunction=#URL.IDFunction#','saveremarks','','','POST','edit')	
 }    
   
 function save() {
-	  ColdFusion.navigate('ApplicationFunctionDecision.cfm?id=#url.id#&id1=#url.id1#&process=memo&box=#URL.box#&Owner=#Get.Owner#&Mode=#URL.Mode#&IDFunction=#URL.IDFunction#','processbox','','','POST','edit')	
+	  ptoken.navigate('ApplicationFunctionDecision.cfm?id=#url.id#&id1=#url.id1#&process=memo&box=#URL.box#&Owner=#Get.Owner#&Mode=#URL.Mode#&IDFunction=#URL.IDFunction#','processbox','','','POST','edit')	
 }  
   
 function ask(mde) {
@@ -72,10 +70,10 @@ function ask(mde) {
 	if (se1.value == se2.value) { 
 		 
 		   if (confirm("You have not changed the candidate status. Do you want to re-submit and record your comments regardless ?")) {
-		      ColdFusion.navigate('ApplicationFunctionDecision.cfm?id=#url.id#&id1=#url.id1#&process='+mde+'&box=#URL.box#&Owner=#Get.Owner#&Mode=#URL.Mode#&IDFunction=#URL.IDFunction#','processbox','','','POST','edit')
+		      ptoken.navigate('ApplicationFunctionDecision.cfm?id=#url.id#&id1=#url.id1#&process='+mde+'&box=#URL.box#&Owner=#Get.Owner#&Mode=#URL.Mode#&IDFunction=#URL.IDFunction#','processbox','','','POST','edit')
 		   } else { 
 		   if (mde == "close") {
-		     returnvalue=1; window.close() } else { return false }
+		     window.close() } else { return false }
 		   } 				
 	  }		
 	
@@ -84,13 +82,13 @@ function ask(mde) {
 	     if (se1.value == "2" && se1.value != se2.value) { 
 		 
 		   if (confirm("Please confirm that you want to clear this candidate ?")) { 
-		       ColdFusion.navigate('ApplicationFunctionDecision.cfm?id=#url.id#&id1=#url.id1#&process='+mde+'&box=#URL.box#&Owner=#Get.Owner#&Mode=#URL.Mode#&IDFunction=#URL.IDFunction#','processbox','','','POST','edit')
+		       ptoken.navigate('ApplicationFunctionDecision.cfm?id=#url.id#&id1=#url.id1#&process='+mde+'&box=#URL.box#&Owner=#Get.Owner#&Mode=#URL.Mode#&IDFunction=#URL.IDFunction#','processbox','','','POST','edit')
 		    } else {  
 			 return false
 			} 
 				
 		  }	else { 
-			  ColdFusion.navigate('ApplicationFunctionDecision.cfm?id=#url.id#&id1=#url.id1#&process='+mde+'&box=#URL.box#&Owner=#Get.Owner#&Mode=#URL.Mode#&IDFunction=#URL.IDFunction#','processbox','','','POST','edit')
+			  ptoken.navigate('ApplicationFunctionDecision.cfm?id=#url.id#&id1=#url.id1#&process='+mde+'&box=#URL.box#&Owner=#Get.Owner#&Mode=#URL.Mode#&IDFunction=#URL.IDFunction#','processbox','','','POST','edit')
 		  } 
 		  
 		 }  

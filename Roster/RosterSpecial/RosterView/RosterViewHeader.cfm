@@ -1,7 +1,7 @@
 
 <cfoutput>
 	 
-	   <tr class="labelmedium fixrow line">
+	   <tr class="labelmedium fixrow line" style="border-top:1px solid silver;background-color:c0c0c0">
 	       <td align="center" width="100%"></td>
 		   <td align="center" style="min-width:60px"><cf_tl id="Total"></td>
 		  	 

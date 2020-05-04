@@ -14,7 +14,7 @@ function excel(filename) {
 }
 
 function email(to,subj,att,filter) {
-	ptoken.open(root + "Tools/Mail/Mail.cfm?ID=" + to +"&ID1=" + subj + "&ID2=" + att + "&ID3=" + filter, "MailDialog", "width=800, height=635, status=yes, toolbar=no, scrollbars=no, resizable=no");
+	ptoken.open(root + "Tools/Mail/Mail.cfm?ID=" + to +"&ID1=" + subj + "&ID2=" + att + "&ID3=" + filter, "MailDialog", "width=1000, height=735, status=yes, toolbar=no, scrollbars=no, resizable=no");
 }
 
 </script>

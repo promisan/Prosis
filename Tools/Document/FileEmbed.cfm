@@ -22,15 +22,16 @@
 	<cfset rt = "#att.server#">
 </cfif>
 
-<cfset Path = replaceNoCase(att.ServerPath,"|","\","ALL")> 
+<cfset Path = replaceNoCase(att.ServerPath,"|","\","ALL")>
 
-<table width="100%" cellspacing="0" cellpadding="0" align="center">
+<table width="100%" height="100%" align="center">
 
 <tr>
-<td> <img src="#SESSION.root#/Images/line.gif" alt="" border="0"></td>
+<td colspna="2"style="padding-left:15px"><img src="#SESSION.root#/Images/line.gif" alt="" border="0"></td>
 </tr>
+
 <tr>
-<td width="20" valign="top">
+<td width="20" valign="top" style="padding-left:15px">
     <img src="#SESSION.root#/Images/join.gif" alt="" border="0">
 </td>
 
@@ -41,14 +42,16 @@
 <cfif w gt 800>
   <cfset w = 800>
 </cfif>
+
 <td>
 
-<table width="#w#" cellspacing="0" cellpadding="0" style="border:1px solid silver">
-	<tr>		
+<table style="border:1px solid silver;width:100%;height:100%">
+	
+	<tr class="line">		
 		<td class="top4n labelmedium" 
 		  width="99%" 		  
 		  style="cursor: pointer;padding-left:5px;height:26"  
-		  onclick="embedfile('#url.mode#','#url.box#','hide','#url.id#')">&nbsp;#att.filename#
+		  onclick="embedfile('#url.mode#','#url.box#','hide','#url.id#')">#att.filename#
 		</td>
 		  
 		<td class="top4n" width="22" style="padding-right:5px" align="right">
@@ -63,11 +66,9 @@
 		   
 		</td>
 	</tr>
-	
-	<tr><td colspan="2" class="linedotted"></td></tr>
-			
+					
 	<tr>
-	<td colspan="2" align="center" bgcolor="f4f4f4" style="padding:8px">
+	<td colspan="2" align="center" bgcolor="F4F4F4" style="padding: 8px;">
 	
 	<cfif att.server eq "documentserver">
 				
@@ -188,17 +189,18 @@
 				
 					<cfset vPath="#SESSION.root#\CFRStage\User\#SESSION.acc#\#att.fileName#">
 					
-					<img src="#vPath#" alt="" border="0" width="800">
-					
-					<!---
-												
+					<!---								
+					<img src="#vPath#" alt="" border="0" style="overflow-y: scroll;">
+					--->
+										
+					<!--- to show better scrollbars --->
+																	
 					<iframe src="#vPath#"
 				       width="100%"
-					   height="100%"
+					   height="400"
 				        frameborder="0">
-					</iframe>
+					</iframe>					
 					
-					--->
 					
 				<!---	
 					
@@ -211,11 +213,13 @@
 		
 		</td>
 		</tr>
-	 
+		
+			 
 	</table>  
 </td>
 </tr>
 <tr><td height="8"></td></tr>
 </table>	
+
 
 </cfoutput> 

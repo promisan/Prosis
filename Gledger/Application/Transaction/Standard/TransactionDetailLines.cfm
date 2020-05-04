@@ -416,7 +416,7 @@ password="#SESSION.dbpw#">
 
 	<table width="99%" align="center" class="navigation_table">
 	   
-	   <tr bgcolor="ffffff" class="line labelmedium">
+	   <tr bgcolor="ffffff" class="line labelmedium fixrow">
 	   
 	      <TD height="20"></TD>
 	      <TD></TD>

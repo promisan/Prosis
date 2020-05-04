@@ -137,7 +137,6 @@ password="#SESSION.dbpw#">
 	ORDER BY   P.ViewOrder, PostOrderBudget 
 </cfquery>
 
-
 <!--- process table --->
 <cfquery name="ResourceInit" 
 datasource="AppsQuery" 

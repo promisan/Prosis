@@ -67,11 +67,11 @@ password="#SESSION.dbpw#">
 	ORDER BY A.LastName, A.FirstName
 </cfquery>
 
-<table width="99%" align="center" bgcolor="white"><tr><td>
+<table style="width:98.5%" align="center" bgcolor="white"><tr><td>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<table width="100%"  align="center" class="navigation_table">
 
-<TR class="line labelmedium">
+<TR class="line labelmedium fixrow">
     <TD></TD>
     <TD><cf_tl id="Last name"></TD>
 	<TD><cf_tl id="Middle name"></TD>
@@ -85,11 +85,11 @@ password="#SESSION.dbpw#">
 	<td width="25"></td>
  </TR>
  
- <tr><td height="20" colspan="11" class="labelmedium line" style="font-size:21px;padding-left:3px;height:45"><a href="javascript:addCandidate('')"><font color="0080C0">Record a new Candidate</a></td></tr>
+ <tr class="fixrow2"><td height="20" colspan="11" class="labelmedium line" style="font-size:21px;padding-left:3px;height:45"><a href="javascript:addCandidate('')">Record a new Candidate</a></td></tr>
  
 <CFOUTPUT query="SearchResult">
 
-<TR class="navigation_row line labelit" style="height:17px" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('F6F6F6'))#">
+<TR class="navigation_row line labelmedium" style="height:17px" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('F6F6F6'))#">
 
     <cfif url.mode eq "Event">
 	<td style="padding-left:5px;padding-top:4px;padding-right:5px">  

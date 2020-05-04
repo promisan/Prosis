@@ -18,8 +18,6 @@
 
 <cfoutput>
 
-
-
 	<cfswitch expression="#Role.Parameter#">
 		
 		  <cfcase value="Journal">

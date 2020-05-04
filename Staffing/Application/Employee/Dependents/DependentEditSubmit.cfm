@@ -112,8 +112,8 @@
 			  AND    DependentId  = '#Form.DependentId#'  
 		</cfquery>	
 	
-	<cfif Len(Form.Remarks) gt 300>
-	  <cfset remarks = left(Form.Remarks,300)>
+	<cfif Len(Form.Remarks) gt 400>
+	  <cfset remarks = left(Form.Remarks,400)>
 	<cfelse>
 	  <cfset remarks = Form.Remarks>
 	</cfif>  
@@ -229,7 +229,7 @@
 			            AND  DependentId   = '#FORM.DependentId#' 			   
 			      </cfquery>						
 					
-					</cfif>	
+				</cfif>	
 			
 			</cfif>		
 			

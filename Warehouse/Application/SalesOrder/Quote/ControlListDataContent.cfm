@@ -13,6 +13,7 @@
 				 C.CustomerId,
 		         C.CustomerName,
 		         S.AddressId,
+				 C.PersonNo,
 		         AD.Address,
 		         AD.Address2,
 		         AD.AddressCity,
@@ -34,7 +35,8 @@
 	             System.dbo.Ref_Address AD ON AD.AddressId = S.AddressId
 		WHERE    BatchId is NULL <!--- not transformed into a real sale which is posted yet --->		 
 	    GROUP BY C.CustomerName,
-	    		 S.AddressId,				
+	    		 S.AddressId,	
+				 C.PersonNo,			
 		         AD.Address,
 		         AD.Address2,
 		         AD.AddressCity,
@@ -68,6 +70,21 @@
 						search      = "text",
 						filtermode  = "2"}>		
 						
+	<cfset itm = itm+1>
+	<cf_tl id="Date" var = "1">			
+	<cfset fields[itm] = {label     = "#lt_text#",                    
+	     				field       = "TransactionDate",	
+						formatted   = "dateformat(TransactionDate,client.dateformatshow)",					
+						alias       = "",																			
+						search      = "date"}>		
+						
+	<cfset itm = itm+1>
+	<cf_tl id="Time" var = "1">			
+	<cfset fields[itm] = {label     = "#lt_text#",                    
+	     				field       = "TransactionDate",	
+						formatted   = "timeformat(TransactionDate,'HH:MM')",					
+						alias       = ""}>											
+						
 						
 	<cfset itm = itm+1>
 	<cf_tl id="Source" var = "1">
@@ -85,7 +102,7 @@
 	<cfset fields[itm] = {label     = "#lt_text#",                    
 	     				field       = "AddressCity",		
 						formatted   = "AddressCity",										
-						alias       = "AD",																			
+						alias       = "C",																			
 						search      = "text",
 						filtermode  = "2"}>		
 						
@@ -105,7 +122,15 @@
 	<cfset fields[itm] = {label     = "#lt_text#",                    
 	     				field       = "MobileNumber",																	
 						alias       = "C",																			
-						search      = "text"}>				
+						search      = "text"}>		
+						
+	<cfset itm = itm+1>
+		
+	<cf_tl id="Fixed" var = "1">		
+	<cfset fields[itm] = {label     = "#lt_text#",                    
+	     				field       = "PhoneNumber",																	
+						alias       = "C",																			
+						search      = "text"}>									
 	
 	<!---						
 	<cfset itm = itm+1>
@@ -124,22 +149,10 @@
 	<cfset fields[itm] = {label     = "#lt_text#",                    
 	     				field       = "Officer",																	
 						alias       = "C",																			
-						search      = "text"}>									
+						search      = "text",
+						filtermode  = "2"}>									
 						
-	<cfset itm = itm+1>
-	<cf_tl id="Date" var = "1">			
-	<cfset fields[itm] = {label     = "#lt_text#",                    
-	     				field       = "TransactionDate",	
-						formatted   = "dateformat(TransactionDate,client.dateformatshow)",					
-						alias       = "",																			
-						search      = "date"}>		
-						
-	<cfset itm = itm+1>
-	<cf_tl id="Time" var = "1">			
-	<cfset fields[itm] = {label     = "#lt_text#",                    
-	     				field       = "TransactionDate",	
-						formatted   = "timeformat(TransactionDate,'HH:MM')",					
-						alias       = ""}>							
+		
 						
 	<cfset itm = itm+1>
 	<cf_tl id="Curr" var = "1">			
@@ -163,8 +176,15 @@
 	<cfset fields[itm] = {label     = "#lt_text#",                    
 	     				field       = "CustomerId",					
 						display     = "No",
-						alias       = "",																			
-						search      = "text"}>																																
+						alias       = ""}>		
+						
+	<cfset itm = itm+1>
+	<cf_tl id="PersonNo" var = "1">
+	<cfset fields[itm] = {label     = "#lt_text#",                    
+	     				field       = "PersonNo",		
+						formatted   = "PersonNo",		
+						display     = "No",								
+						alias       = "C"}>																																					
 		
 <cfset menu=ArrayNew(1)>	
 	
@@ -183,7 +203,7 @@
 		listorderdir        = "ASC"
 		headercolor         = "ffffff"		
 		menu                = "#menu#"
-		filtershow          = "Hide"
+		filtershow          = "Yes"
 		excelshow           = "Yes" 			
 		listlayout          = "#fields#"
 		drillmode           = "tab" 

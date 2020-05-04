@@ -93,13 +93,15 @@
 		<cfelse>
 			 <cfset tmp = ActionTemplate>
 		</cfif> 
-			
+				
 		<cfif FindNoCase("&mid=",ActionQueryString)>
 		    <cfset vPos   = FindNoCase("&mid=",ActionQueryString)>
 			<cfset str    = Left(ActionQueryString,vPos-1)>
 		<cfelseif FindNoCase("?mid=",ActionQueryString)>		
 		    <cfset vPos   = FindNoCase("?mid=",ActionQueryString)>
-			<cfset str    = Left(ActionQueryString,vPos-1)>	
+			<cfset str    = "">	
+		<cfelseif FindNoCase("mid=",ActionQueryString)>				    
+			<cfset str    = "">		
 		<cfelse>
     		<cfset str    = ActionQueryString>
 		</cfif>		
@@ -242,14 +244,14 @@
 						<cfset AccessRevoke = "Yes">
 				</cfif>		
 								
-				<cfinvoke component  = "Service.Process.System.UserController"  
-				   	method               = "ValidateFunctionAccess"  			
-					ActionTemplate       = "#CGI.SCRIPT_NAME#"
-					ActionQueryString    = "#CGI.QUERY_STRING#"
-					AccessRevoke         = "#AccessRevoke#"
-					AccessMessage        = "#AccessMessage#"
-					Redirect             = "#redirect#"
-					returnvariable       = "AccessRight">	
+				<cfinvoke component     = "Service.Process.System.UserController"  
+				   	method              = "ValidateFunctionAccess"  			
+					ActionTemplate      = "#CGI.SCRIPT_NAME#"
+					ActionQueryString   = "#CGI.QUERY_STRING#"
+					AccessRevoke        = "#AccessRevoke#"
+					AccessMessage       = "#AccessMessage#"
+					Redirect            = "#redirect#"
+					returnvariable      = "AccessRight">	
 															
 			<cfelse>
 						
@@ -322,7 +324,10 @@
 				<cfset str    = Left(ActionQueryString,vPos-1)>
 			<cfelseif FindNoCase("?mid=",ActionQueryString)>
 			    <cfset vPos   = FindNoCase("?mid=",ActionQueryString)>
-				<cfset str    = Left(ActionQueryString,vPos-1)>
+				<cfset str    = "">
+			<cfelseif FindNoCase("mid=",ActionQueryString)>		
+			    <cfset vPos   = FindNoCase("mid=",ActionQueryString)>
+				<cfset str    = "">			
 			<cfelse>
     			<cfset str    = ActionQueryString>
 			</cfif>		
@@ -336,10 +341,10 @@
 				 SELECT * 
 				 FROM   UserStatusController
 				 <cfif session.acc eq "">
-				 WHERE  HostSessionId = '#Session.sessionid#'				
+				 WHERE  HostSessionId  = '#Session.sessionid#'				
 				 <cfelse>
-				 WHERE  Account = '#SESSION.acc#'
-				 AND    HostSessionId = '#Session.sessionid#'
+				 WHERE  Account        = '#SESSION.acc#'
+				 AND    HostSessionId  = '#Session.sessionid#'
 				 </cfif>
 				 AND    ActionTemplate     = '#tmp#'
 				 AND    ActionQueryString  = '#str#'  

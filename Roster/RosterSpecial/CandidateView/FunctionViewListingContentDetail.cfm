@@ -1,31 +1,11 @@
-                                               <table width="99%" border="0" cellspacing="0" cellpadding="0" class="navigation_table" >
-		
-	<TR>
-    <td colspan="4"><cf_space spaces="26"></td>	   		
-	<TD width="100%"></TD>
-	<TD><cf_space spaces="10"></TD>
-	<td><cf_space spaces="20"></td>
-	<TD></TD>
-	<TD><cf_space spaces="15"></TD>
-	<TD><cf_space spaces="40"></TD>
-	<TD><cf_space spaces="4"></TD>
-	<TD><cf_space spaces="20"></TD>	
-    <TD><cf_space spaces="10"></TD>
-	<td><cf_space spaces="10"></td>
-	<TD></TD>				
-   </tr>
-      	
-	<tr><td>
+
+<cfif Searchresult.recordcount eq "0">
 	
-	<cfinclude template="FunctionStatusRefresh.cfm">
-	
-	</td></tr>	
-	
-	<cfif Searchresult.recordcount eq "0">
-	
+	 <table width="99%" class="navigation_table" >	
 		<tr><td height="30" colspan="<cfoutput>#col#</cfoutput>" class="labelit" align="center"><font color="gray"><cf_tl id="There are no candidates to show in this view">.</td></tr>
+	 </table>	
 	
-	<cfelse>
+<cfelse>
 	
 	<cfparam name="URL.page" default="1">
 		
@@ -37,7 +17,31 @@
 		</cfif>
 		<cfset per = URL.Page*50-50>
 		<cfset perT = "">
+
+    <table width="99%" class="navigation_table" >	
+					
+	<tr class="fixrow"><td colspan="14" colspan="#col#"><cfinclude template="Navigation.cfm"></td></tr>
 	
+	<TR class="labelit fixrow2 line">
+	    <td colspan="4" height="20"></td>	   		
+		<TD><cf_tl id="Name"></TD>
+		<TD><cfoutput>#client.IndexNoName#</cfoutput></TD>
+		<td></td>
+		<TD></TD>
+		<TD style="padding-right:20px"><cf_tl id="Grade"></TD>		
+		<TD align="center"><cf_tl id="Gender"></TD>
+		<TD><cf_tl id="Birth date"></TD>	
+	    <TD><cf_tl id="Nat"></TD>
+		<td><cf_tl id="Profile"></td>
+		<TD></TD>				
+	</tr>
+      	
+	<tr><td>
+	
+	<cfinclude template="FunctionStatusRefresh.cfm">
+	
+	</td></tr>		
+		
 	<cfoutput Query="SearchResult" group="Status">
 	
 		<cfif url.source eq "Manual">
@@ -79,11 +83,7 @@
 					
 			<tr class="line"><td colspan="#col#" cstyle="height:30px" class="labellarge">#Meaning# [#Status#]</td></tr>
 			
-			<cfelse>
-			
-			<tr><td colspan="#col#"><cfinclude template="Navigation.cfm"></td></tr>
-			
-			</cfif>
+			</cfif>		
 			
 			<cfswitch expression="#URL.View#">
 					
@@ -111,20 +111,19 @@
 			
 					<cfif grp eq "Created">
 					
-					  <tr><td colspan="#col#" align="left" class="labelit" style="height:24;width:99%;"><font size="1">
+					  <tr class="fixrow3 line"><td colspan="#col#" align="left" class="labelit" style="padding-left:4px;font-size:16px;height:25;width:99%;"><font size="1">
 				    	  <cf_tl id="Received on">:</font><b>&nbsp;#DateFormat(Created,CLIENT.DateFormatShow)#				
 					   </td></tr>
-					   <tr><td colspan="#col#" class="linedotted"></td></tr>
+					  
 					  
 					</cfif>  
 					
 					<cfif grp eq "Gender">
 					
-					 <tr><td colspan="#col#" align="left" class="labelmedium" style="height:24;width:99%;"><i>
-				    	  <b><cfif gender eq "M"><cf_tl id="Male"><cfelse><cf_tl id="Female"></cfif>			
+					 <tr class="fixrow3 line"><td colspan="#col#" align="left" class="labelmedium" style="font-size:16px;padding-left:4px;height:25;width:99%;">
+				    	  <cfif gender eq "M"><cf_tl id="Male"><cfelse><cf_tl id="Female"></cfif>			
 					   </td></tr>
-					   <tr><td colspan="#col#" class="linedotted"></td></tr>
-					  
+					 					  
 					</cfif>  
 					
 					<cfif grp eq "Nationality">
@@ -138,8 +137,8 @@
 						 WHERE  Code = '#Nationality#'			
 						</cfquery>
 										
-					 <tr class="linedotted">
-					   <td colspan="#col#" align="left" class="labelmedium" style="height:24;width:99%;"><b>#Nation.Name#</td>
+					 <tr class="fixrow3 line">
+					   <td colspan="#col#" align="left" class="labelmedium" style="height:24;width:99%;">#Nation.Name#</td>
 					 </tr>
 										
 					</cfif> 
@@ -220,8 +219,7 @@
 								   
 							</td>
 							
-							<!---
-							
+							<!---						
 							
 							<td align="center" style="padding-top:1px;width:20px;border-left:1px solid d4d4d4">
 							
@@ -291,32 +289,30 @@
 							</cfif>
 							</TD>
 							
-						    <TD style="padding-right:4px" align="center">#Gender#</TD>
-							
-						    <TD style="padding-right:4px">#DateFormat(DOB, CLIENT.DateFormatShow)#</TD>	
-							
-						    <TD style="padding-right:4px"><cfif Nationality eq ""><font color="FF0000">N/A</font><cfelse>#Nationality#</cfif></TD>
-							
+						    <TD style="padding-right:4px" align="center">#Gender#</TD>							
+						    <TD style="padding-right:4px">#DateFormat(DOB, CLIENT.DateFormatShow)#</TD>								
+						    <TD style="padding-right:4px"><cfif Nationality eq ""><font color="FF0000">N/A</font><cfelse>#Nationality#</cfif></TD>							
 							<td style="border-right:1px solid d4d4d4">
 							
 								<table cellspacing="0" cellpadding="0" class="formspacing">
 									<tr>							
-									<td style="padding:0 5px;border-right:1px solid ##efefef;" align="center">
-									    <cfif University gt 0><i class="fas fa-user-graduate" style="font-size: 15px;color: ##c83702;"></i></cfif>
-									</td>																			
-									<td style="padding:0 5px;border-right:1px solid ##efefef;" align="center">
-										<cfif Employment gt 0><i class="fas fa-briefcase" style="font-size: 16px;color: ##c83702;"></i></cfif>
+									
+									<td title="Has one or more education records" style="padding:0 5px;border-right:1px solid ##efefef;" align="center">
+									    <cfif University gt 0><i class="fas fa-user-graduate" style="font-size: 15px;color: ##gray;"></cfif>
+									</td>														
+												
+									<td title="Has one or more employment records" style="padding:0 5px;border-right:1px solid ##efefef;" align="center">
+										<cfif Employment gt 0><i class="fas fa-briefcase" style="font-size: 16px;color: ##gray;"></cfif>
 									</td>						
 									<td style="padding:0 5px;" align="center">
-										<cfif Language gt 0><span style="font-weight: 800;color: ##c83702;">ENG</span></cfif>
+										<cfif Language gt 0><span style="font-weight: 800;color: ##gray;">ENG</span></cfif>
 									</td>
 									</tr>
 								</table>
 								
 							</td>
 							
-							<td style="padding-left:6px;padding-right:9px">#dateformat(LastRosterAction,client.dateformatshow)#</td>
-							
+							<td style="padding-left:6px;padding-right:9px">#dateformat(LastRosterAction,client.dateformatshow)#</td>							
 							<td align="center"></td>						
 											
 						</TR>
@@ -370,10 +366,10 @@
 		</cfif>
 		
 		</cfoutput>
-	
-	</cfif>
-		
+				
 </table>
+
+</cfif>
 
 <!--- is throwing an error on refresh --->
 <cfset AjaxOnLoad("doHighlight")>

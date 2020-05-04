@@ -7,7 +7,6 @@
 
 <cf_tl id="Job Description" var="label">
 
-
 <!--- temp bypass for UN for template : DWarehouse/Galaxy/VacancyListing.cfm--->
 <cfif len(url.id) lte "6">
 	<cflocation url="../../../Custom/DPKO/VA/Announcement.cfm?id1=#url.id#&header=yes" addtoken="No">
@@ -20,9 +19,12 @@
 		layout    = "webapp" 
 		banner    = "gray" 				
 		jquery    = "Yes"
-		label     = "#label#" 				
+		label     = "#label#" 		
+		scroll    = "Yes"		
 		menuPrint = "Yes"
 		menuClose = "Yes">
+		
+		<cf_textareascript>
 	
 </cfif>
 
@@ -87,7 +89,7 @@
 
 <cfif FileExists("#SESSION.rootPath#\Custom\#Owner.PathVacancyText#") and url.apply neq "1">
 
-	   <table border="0" cellpadding="0" cellspacing="0" bgcolor="ffffff" height="100%" width="100%" align="center">
+	   <table border="0" cellpadding="0" cellspacing="0" bgcolor="ffffff" height="100%" width="95%" align="center">
 	   <tr><td height="100%" width="100%" style="padding:20px">	  
 	  
 	      <!--- uustom path --->
@@ -105,11 +107,11 @@
 		
 	<cfoutput query = "VA">
 		
-	   <table border="0" cellpadding="0" cellspacing="0" width="99%" align="center" class="formpadding">
+	   <table border="0" cellpadding="0" cellspacing="0" width="96%" align="center" class="formpadding">
 	   	    		 
 		<cfif PostSpecific eq "1">
 		
-		<tr class="labelit">
+		<tr class="labelmedium">
 	        <td width="160" style="padding-left:3px" align="left">Position specific:</b></td>
 	        <td width="80%" align="left"><cfif PostSpecific eq "1">Yes<cfelse>No</cfif><td>
 		</tr>		
@@ -118,29 +120,29 @@
 		
 		<cfif VA.Announcement eq "1">   	
 	
-			<tr class="labelit">
+			<tr class="labelmedium">
 		        <td align="left" style="padding-left:3px">Post date:</td>
 		        <td align="left">#Dateformat(DateEffective, "#CLIENT.DateFormatShow#")#<td>
 			</tr>		
 			
-			 <tr class="labelit">
+			 <tr class="labelmedium">
 		        <td width="130" style="padding-left:3px" align="left">Reference No:</b></td>
 		        <td align="left"><cfif ReferenceNo eq "">n/a<cfelse>#ReferenceNo#</cfif><td>
 			</tr>	
 		
 		    <cfif DateExpiration neq "">
-				<tr class="labelit">
+				<tr class="labelmedium">
 			        <td align="left" style="padding-left:3px">Expiration date:</td>
 			        <td align="left">#Dateformat(DateExpiration, "#CLIENT.DateFormatShow#")#<td>
 				</tr>		
 			</cfif>
 		
-		     <tr class="labelit">
+		     <tr class="labelmedium">
 		        <td align="left" style="padding-left:3px"><cf_tl id="Title">:</td>
 		        <td align="left" colspan="1">#FunctionDescription# - #GradeDeployment#</td>
 		     </tr>
 			
-			 <tr class="labelit">
+			 <tr class="labelmedium">
 		        <td align="left" style="padding-left:3px"><cf_tl id="Area">:</td>
 		        <td align="left" colspan="1">#OrganizationDescription#</td>
 		     </tr>
@@ -156,19 +158,19 @@
 		  
 			 <cfif Applicant.recordcount gte "1">
 				  
-				  <tr class="labelit">
+				  <tr class="labelmedium">
 			        <td align="left" style="padding-left:3px">Applicant:</b></td>
 			        <td align="left" colspan="1">#Applicant.FirstName# #Applicant.LastName#</td>
 			     </tr>
 				 
 				 <cfloop query="Applicant">
 				 
-					 <tr class="labelit">
+					 <tr class="labelmedium">
 				        <td align="left" style="padding-left:3px">Date:</b></td>
 				        <td align="left" colspan="1">#dateformat(DocumentDate, CLIENT.DateFormatShow)#</td>
 				     </tr>
 					   
-					 <tr class="labelit">
+					 <tr class="labelmedium">
 				        <td align="left" style="padding-left:3px">#DocumentType#:</b></td>
 				        <td align="left" colspan="1">#DocumentText#</td>
 				     </tr>
@@ -176,7 +178,7 @@
 				 </cfloop>
 				 
 				 <tr><td height="3"></td></tr>
-				 <tr><td height="1" colspan="3" class="linedotted"></td></tr>
+				 <tr><td height="1" colspan="3" class="line"></td></tr>
 				 <tr><td height="2"></td></tr>
 			  
 			  </cfif>
@@ -184,10 +186,11 @@
 		  </cfif>	  
 		  
 		  </cfoutput>	
-		 			   
+		  		 			   
 		  <cfif VA.postSpecific eq "1">
-		  
-		    <cfif URL.Mode eq "Edit">
+		  		  
+		    <cfif URL.Mode eq "Edit">		
+			
 		  	    
 		   		<cfform action="AnnouncementSubmit.cfm?ID=#URL.ID#" method="post" name="gjp" id="gjp">
 				
@@ -198,10 +201,10 @@
 						Domain          = "JobProfile"
 						FieldOutput     = "ProfileNotes"
 						Mode            = "#URL.Mode#"
-						Format          = "RichText"
+						Format          = "Mini"
 						Key01           = "FunctionId"
 						Key01Value      = "#URL.ID#">
-			
+															
 				</td></tr>
 			
 				<cfinvoke component="Service.AccessGlobal"  
@@ -216,7 +219,7 @@
 								
 				<input type="button" name="Close" class="button10g" style="width:150px;height:23px" onclick="window.close()" value="Close profile">&nbsp;
 				<cfif Access eq "EDIT" or Access eq "ALL"> 
-					<input type="submit" name="Save"  class="button10s" style="width:150px;height:23px" value="Save profile">
+					<input type="submit" name="Save"  class="button10g" style="width:150px;height:23px" value="Save profile">
 				</cfif>
 				</td></tr>
 								
@@ -230,40 +233,23 @@
 						Table           = "FunctionOrganizationNotes" 
 						Domain          = "JobProfile"
 						FieldOutput     = "ProfileNotes"				
-						Mode            = "#URL.Mode#"
-						Format          = "RichText"
+						Mode            = "#URL.Mode#"						
 						Key01           = "FunctionId"
 						Key01Value      = "#URL.ID#">
-				
+						
+																
 				</td></tr>
 				
 					<cfinvoke component="Service.AccessGlobal"  
 				      method="global" 
 					  role="FunctionAdmin" 
 					  returnvariable="Access">		
-						
-					  <cfoutput>	  
-					  
-						  <script language="JavaScript">
-										  
-							w = 0
-							h = 0
-							if (screen) {
-								w = #CLIENT.width# - 60
-								h = #CLIENT.height# - 110
-							}
-			
-						   function va() {
-						      window.open("#SESSION.root#/vactrack/application/Announcement/Announcement.cfm?ID=#URL.ID#&Mode=EDIT","VA","left=20, top=20, width=" + w + ", height= " + h + ", status=yes, toolbar=no, location=no, scrollbars=yes, resizable=no")
-						   }	
-						   
-						  </script>
-					  
-					  </cfoutput>
-					  		  		  
+											  					  		  		  
 					<cfif (Access eq "EDIT" or Access eq "ALL") and URL.Apply eq "0">       
 					<tr><td colspan="4" align="center">
-						<input type="button" class="button10g" style="width:100px;height:20px" onclick="va()" value="Maintain">
+					<cfoutput>
+						<input type="button" class="button10g" style="width:100px;height:25px" onclick="ptoken.open('#SESSION.root#/vactrack/application/Announcement/Announcement.cfm?ID=#URL.ID#&Mode=EDIT','VA','left=20, top=20, width=#CLIENT.width-60#, height=800, status=yes, toolbar=no, location=no, scrollbars=yes, resizable=no')" value="Maintain">
+					</cfoutput>	
 					</td></tr>
 					</cfif>									
 				
@@ -272,9 +258,10 @@
 		  <cfelse>
 		  
 		  	  <cfif VA.Announcement eq "1">
+			  
 		  
 				  <tr><td colspan="4">
-				  
+				  				  
 						  	<cfquery name="Check"
 				         datasource="AppsSelection"
 				         username="#SESSION.login#"
@@ -338,6 +325,3 @@
 					
 </cfif>
 
-<cfif url.mode eq "" or url.mode eq "Edit">
-	<cf_screenbottom>
-</cfif>

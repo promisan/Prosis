@@ -5,7 +5,7 @@
 <!--- JM added this on 02/02/2010 in order to allow closing for a particular Id --->
 <cfparam name="Attributes.AjaxId"    default="">
 
-<div style="position:absolute; width:250px; background-color: F6F6F6; z-index:1; border: 1px ridge silver; ">
+<div style="position:absolute; width:280px; background-color: F6F6F6; z-index:999999; border: 1px ridge silver; ">
 
 	<table width="100%" cellspacing="0" cellpadding="0">
 		
@@ -55,7 +55,7 @@
 				onMouseOut="hl(this,false,'')"
 				class="formpadding">
 				<cfif line eq "Yes">
-				<tr><td height="1" colspan="2" class="linedotted"></td></tr>
+				<tr><td height="1" colspan="2" class="line"></td></tr>
 				</cfif>
 				<tr> 
 				  <td width="30" align="center" height="23">

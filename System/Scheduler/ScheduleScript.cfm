@@ -9,33 +9,35 @@ function output(id) {
 
 function scheduleoption(id) {
      _cf_loadingtexthtml="";	
-	 ColdFusion.navigate('ScheduleOption.cfm?id='+id,'option'+id)	
+	 ptoken.navigate('ScheduleOption.cfm?id='+id,'option'+id)	
 	 _cf_loadingtexthtml="<div><img src='#SESSION.root#/images/busy11.gif'/>"; 
 }
 
 function recordrun(id) {   
      ProsisUI.createWindow('executetask', 'Execute Task', '',{x:100,y:100,height:580,width:560,closable:false,modal:true,center:true})	
-	 ColdFusion.navigate('#SESSION.root#/System/Scheduler/ScheduleExecute.cfm?id='+id,'executetask')
+	 ptoken.navigate('#SESSION.root#/System/Scheduler/ScheduleExecute.cfm?id='+id,'executetask')
 }
 
 function showprogress(id,idlog) {
-   _cf_loadingtexthtml="";	
-   ColdFusion.navigate('#SESSION.root#/System/Scheduler/ScheduleExecuteProgress.cfm?id='+id+'&idlog='+idlog,'progress'+id)
-   _cf_loadingtexthtml="<div><img src='#SESSION.root#/images/busy11.gif'/>"; 
+    _cf_loadingtexthtml="";	
+    if (document.getElementById('progress'+id)) {
+       ptoken.navigate('#SESSION.root#/System/Scheduler/ScheduleExecuteProgress.cfm?id='+id+'&idlog='+idlog,'progress'+id)
+    }
+    _cf_loadingtexthtml="<div><img src='#SESSION.root#/images/busy11.gif'/>"; 
 }
 
 function stopprogress() {
-	 clearInterval ( prg );
+	clearInterval ( prg );
 }	 
 
 function showlastaction(id) {    
-	ColdFusion.navigate('#SESSION.root#/System/Scheduler/ScheduleLast.cfm?id='+id,'last'+id)		
+	ptoken.navigate('#SESSION.root#/System/Scheduler/ScheduleLast.cfm?id='+id,'last'+id)		
 }
 
 function deletelog(id,id1) {
-	 _cf_loadingtexthtml="";	
-	 ColdFusion.navigate('ScheduleLog.cfm?id='+id+'&id1='+id1,'detail'+id)
-	 _cf_loadingtexthtml="<div><img src='#SESSION.root#/images/busy11.gif'/>";
+	_cf_loadingtexthtml="";	
+	ptoken.navigate('ScheduleLog.cfm?id='+id+'&id1='+id1,'detail'+id)
+	_cf_loadingtexthtml="<div><img src='#SESSION.root#/images/busy11.gif'/>";
 }
 
 function recordexecute(id,idlog) {       

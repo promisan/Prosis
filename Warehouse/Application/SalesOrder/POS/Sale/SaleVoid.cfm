@@ -40,7 +40,7 @@
 
 	<cfif getBatch.BatchId neq "">
 	
-	    <table>
+	    <table class="formspacing">
 		<tr>
 		<td valign="top">
 			
@@ -103,7 +103,7 @@
 			
 		<cfoutput>	
 
-			<table>
+			<table class="formspacing">
 				                
             <tr>
 				<td>			
@@ -150,7 +150,7 @@
 			
 	<cfoutput>
 		
-		<table>
+		<table class="formspacing">
 		            
             <tr>
 				<td>					

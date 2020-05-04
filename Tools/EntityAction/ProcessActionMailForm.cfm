@@ -1,6 +1,7 @@
 
-
 <cfoutput>
+
+<cfparam name="sendto"    default="">		
 
 <!--- define if a record already exists --->
 
@@ -15,6 +16,8 @@
 	ORDER BY Created DESC
 </cfquery>
 
+<!--- retrieve the last records --->
+
 <cfif select.recordcount eq "1">
 
    <!--- assign custom subject --->
@@ -24,26 +27,48 @@
   
    <cfparam name="mailbcc"     default="">	
    <cfparam name="mailsubject" default="#select.mailsubject#">				
-   <cfparam name="mailtext"    default="#select.mailbody#">		
-				
-<cfelse>					
-  	   
-   <cfif Mail.DocumentTemplate neq "">
-																		   
-		  <cfinclude template="../../#Mail.DocumentTemplate#">		
-		  								
-   </cfif>
+   <cfparam name="mailtext"    default="#select.mailbody#">	
    
+   <cfquery name="att" 
+	datasource="AppsOrganization" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT * 
+		FROM   OrganizationObjectActionMailAttach
+		WHERE  ThreadId   = '#Select.ThreadId#'
+		AND    SerialNo   = '#Select.SerialNo#'	
+		ORDER BY Created DESC
+	</cfquery>
+	
+	<cfset mailatt = ArrayNew(2)>
+	
+	<cfset i = 0>
+		
+	<cfloop query="att">
+		
+		<cfset i= i +1>
+		<cfset mailatt[i][1]="#attachmentPath#">
+		<cfset mailatt[i][2]="#attachmentDisposition#">
+		<cfset mailatt[i][3]="#attachmentName#">
+	
+	</cfloop>
+					
+<cfelse>		
+  	   
+   <cfif Mail.DocumentTemplate neq "">																		   
+		  <cfinclude template="../../#Mail.DocumentTemplate#">			  								
+   </cfif>
+     
    <!--- retrieve the addressee --->
    
    <cfswitch expression="#Mail.MailTo#">		
    
   		<cfcase value="Holder">
-			
+					
 			<cfif Object.PersonEMail neq "">
-		
+					
 			 	<cfset sendto = "#Object.PersoneMail#">
-	 
+									 
 	 		<cfelseif Object.PersonClass eq "Employee">
 	  
 		      <cfquery name="Address" 
@@ -115,6 +140,8 @@
 				 			  
 				  <cfloop query="Address">
 				  
+				    <cfparam name="sendto" default="">
+				  
 				  	<cfif isValid("email", "#eMailAddress#")> 
 				  
 						 <cfif sendto eq "">
@@ -162,10 +189,17 @@
    	</cfswitch>
 	
     <cfparam name="sendto"   default="">  		
+		
 	<cfparam name="mailto"   default="#sendto#">
+	
+	<!--- adjusted 15/11/2012 to ensure it has a value --->
+	<cfif mailto eq "">
+		 <cfset mailto = sendto>
+	</cfif>
+	
 	<cfparam name="mailcc"   default="">
-	<cfparam name="mailbcc"  default="">
-      
+	<cfparam name="mailbcc"  default="">	
+		      
     <!--- assign custom subject --->
    	
    <cfparam name="mailsubject" default="">
@@ -184,30 +218,13 @@
 		      <cfset mailSubject = Mail.MailSubjectCustom>						
 		</cfcase>
 		
-		<cfcase value="Script">													   
+		<cfcase value="Script">		
+													   
 		   	  <cfinclude template="../../#Mail.DocumentTemplate#">						   	 						   
+			  
 		</cfcase>
 		
   </cfswitch>	
-  
-  
-  <!--- to be removed to prior to the text of the body 
-  
-  <cftry>
-		    				
-	  <cfloop index="att" from="1" to="10" step="1">
-	   
-		   <cfparam name="mailatt[#Att#][1]" default="none">
-		   <cfparam name="mailatt[#Att#][2]" default="none">
-		   <cfparam name="mailatt[#Att#][3]" default="none">
-		  		  			   
-	  </cfloop>											   
-         
-	  <cfcatch></cfcatch>
-		   
-  </cftry>		
-  
-  --->		
 
   <cfparam name="mailtext" default="">
   
@@ -222,8 +239,7 @@
 			   The user triggering the mail @user
 			   Action description @action 
 			   todays date @today
-			   
-			  --->			 
+			   --->			 
 			   		   
 		      <cfset mailtext = Mail.MailBodyCustom>		
 			  
@@ -245,8 +261,10 @@
 			  		  
 		</cfcase>
 		
-		<cfcase value="Script">							   
+		<cfcase value="Script">		
+							   
 		      <cfinclude template="../../#Mail.DocumentTemplate#">						   	 						   
+			  
 		</cfcase>
 		
   </cfswitch>	
@@ -254,37 +272,42 @@
 </cfif>    				   			   
     
    <tr class="line">
-    <td colspan="2" height="18" id="mailblock2" style="font-weight:200;font-size:20px;height;30px;padding-left:10px" class="labelmedium"><cf_tl id="Mail to be sent">:</td>
-	</tr>
-		
-	<tr>				
+    <td colspan="2"id="mailblock2" style="font-weight:200;font-size:22px;height:46px;padding-top:10px;padding-left:10px" class="labelmedium">	
+	<cf_tl id="Mail to be sent upon submission">:
+	</td>
+   </tr>
 	
-	<td colspan="2" id="mailblock1">
+   <tr class="line">				
+	
+	<td colspan="2" id="mailblock1" style="padding-bottom:5px;padding-top:5px">
    
-	   <table width="97%" align="center" cellspacing="0" cellpadding="0" class="formpadding">	
+	   <table width="97%" align="center" class="formspacing">	
 	   
+	     <tr><td colspan="2"></td></tr>
 	     <tr>
-		   <td width="90" class="labelmedium"><cf_tl id="Priority">:</td>
+		   <td style="color:gray;padding-left:10px" width="90" class="labelmedium"><cf_tl id="Priority">:</b></td>
 		   <td colspan="1">		
-		   
-		   <table>
-		   <tr class="labelmedium">
+		     		
+				<table>
+			    <tr class="labelmedium">	
 		   				   
 				<cfif Select.priority neq ""> 
 			
-				    <td><input type="radio" class="radiol" name="ActionMailPriority" id="ActionMailPriority" value="1" <cfif Select.priority eq "1">checked</cfif>></td><td>High</td> 
-				    <td><input type="radio" class="radiol" name="ActionMailPriority" id="ActionMailPriority" value="2" <cfif Select.priority eq "2">checked</cfif>></td><td>Normal</td>
-				    <td><input type="radio" class="radiol" name="ActionMailPriority" id="ActionMailPriority" value="3" <cfif Select.priority eq "3">checked</cfif>></td><td>Low</td>       
+				    <td><input type="radio" class="radiol" name="ActionMailPriority" id="ActionMailPriority" value="1" <cfif Select.priority eq "1">checked</cfif>></td><td class="labelit" style="padding-left:6px"><font color="red"><cf_tl id="Priority High"></td> 
+				    <td style="padding-left:6px"><input type="radio" class="radiol" name="ActionMailPriority" id="ActionMailPriority" value="2" <cfif Select.priority eq "2">checked</cfif>></td><td class="labelit" style="padding-left:6px"><font color="green"><cf_tl id="Normal"></td> 
+				    <td style="padding-left:6px"><input type="radio" class="radiol" name="ActionMailPriority" id="ActionMailPriority" value="3" <cfif Select.priority eq "3">checked</cfif>></td><td class="labelit" style="padding-left:6px"><font color="blue"><cf_tl id="Priority Low"></td>    
+					<td style="padding-left:6px"><input type="radio" class="radiol" name="ActionMailPriority" id="ActionMailPriority" value="0" <cfif Select.priority eq "0">checked</cfif>></td><td class="labelit" style="padding-left:6px"><font color="gray"><cf_tl id="Do not send"></font></td>     
 					 
 			    <cfelse>          
 				      
-				    <td><input type="radio" class="radiol" name="ActionMailPriority" id="ActionMailPriority" value="1" <cfif Mail.mailpriority eq "1">checked</cfif>></td><td>High</td>
-				    <td><input type="radio" class="radiol" name="ActionMailPriority" id="ActionMailPriority" value="2" <cfif Mail.mailpriority eq "2" or Mail.MailPriority eq "">checked</cfif>></td><td>Normal</td>
-				    <td><input type="radio" class="radiol" name="ActionMailPriority" id="ActionMailPriority" value="3" <cfif Mail.mailpriority eq "3">checked</cfif>></td><td>Low</td>                
+				    <td><input type="radio" class="radiol" name="ActionMailPriority" id="ActionMailPriority" value="1" <cfif Mail.mailpriority eq "1">checked</cfif>></td><td class="labelit" style="padding-left:6px"><font color="red"><cf_tl id="Priority High"></td> 
+				    <td style="padding-left:6px"><input type="radio" class="radiol" name="ActionMailPriority" id="ActionMailPriority" value="2" <cfif Mail.mailpriority eq "2" or Mail.MailPriority eq "">checked</cfif>></td><td class="labelit" style="padding-left:6px"><font color="green"><cf_tl id="Normal"></td> 
+				    <td style="padding-left:6px"><input type="radio" class="radiol" name="ActionMailPriority" id="ActionMailPriority" value="3" <cfif Mail.mailpriority eq "3">checked</cfif>></td><td class="labelit" style="padding-left:6px"><font color="blue"><cf_tl id="Priority Low"></td>   
+					<td style="padding-left:6px"><input type="radio" class="radiol" name="ActionMailPriority" id="ActionMailPriority" value="0" <cfif Mail.mailpriority eq "0">checked</cfif>></td><td class="labelit" style="padding-left:6px"><font color="gray"><cf_tl id="Do not send"></font></td>                 
 					  
    				</cfif>
-			
-			</tr>	
+				
+				</tr>	
 			</table>	
 
 		   </td>
@@ -295,52 +318,55 @@
 		 --->
 		 
 				 <tr>
-				   <td width="90"><a title="click to select from address book" href="javascript:address()"><cf_tl id="To">:</a></td>
+				   <td style="padding-left:10px" width="90" class="labelmedium"><a title="click to select from address book" href="javascript:address()"><cf_tl id="To">:</a></td>
 				   <td colspan="1">						   
 				   
 				   <cfinput type="Text"
 					       name="sendto"
+						   id="sendTO"
 				    	   value="#mailto#"
 					       message="Please enter a correct to: address"	   
 					       required="Yes"
 				    	   visible="Yes"	
 						   maxlength="200"
 				    	   class="regularxl enterastab"
-					       style="width:100%">
+					       style="width:99%">
 				   
 				   </td>
 			   </tr>
 			   
 			   <tr>
-				   <td width="90"><a title="click to select from address book" href="javascript:address()"><cf_tl id="Cc">:</a></b></td>
+				   <td style="padding-left:10px" width="90" class="labelmedium"><a title="click to select from address book" href="javascript:address()"><cf_tl id="Cc">:</a></b></td>
 				   <td colspan="1">
 				   
 				      <cfinput type="Text"
-				       name="sendcc"
-			    	   value="#mailcc#"
-				       message="Please enter a correct to: address"	   
-				       required="Yes"
-			    	   visible="Yes"	
-					   maxlength="200"
-			    	   class="regularxl enterastab"
-				       style="width:100%">						   
+					       name="sendcc"
+						   id="sendCC"
+				    	   value="#mailcc#"
+					       message="Please enter a correct to: address"	   
+					       required="Yes"
+				    	   visible="Yes"	
+						   maxlength="200"
+				    	   class="regularxl enterastab"
+					       style="width:99%">						   
 				   				   
 				   </td>
 			   </tr>
 			   
 			    <tr>
-				   <td width="90"><a title="click to select from address book" href="javascript:address()"><cf_tl id="Bcc">:</a></b></td>
+				   <td style="padding-left:10px" width="90" class="labelmedium"><a title="click to select from address book" href="javascript:address()"><cf_tl id="Bcc">:</a></b></td>
 				   <td colspan="1">
 				   
 				      <cfinput type="Text"
-				       name="sendbcc"
-			    	   value="#mailbcc#"
-				       message="Please enter a correct to: address"	   
-				       required="Yes"
-			    	   visible="Yes"	
-					   maxlength="200"
-			    	   class="regularxl enterastab"
-				       style="width:100%">		
+					       name="sendbcc"
+						   id="sendBCC"
+				    	   value="#mailbcc#"
+					       message="Please enter a correct to: address"	   
+					       required="Yes"
+				    	   visible="Yes"	
+						   maxlength="200"
+				    	   class="regularxl enterastab"
+					       style="width:99%">		
 					   
 				   </td>
 			   </tr>
@@ -348,44 +374,46 @@
 		<!--- </cfif> --->
 	      	     	  
 	   <tr>
-		   <td width="90"><cf_tl id="Subject">:</b></td>
+		   <td style="padding-left:10px" width="90" class="labelmedium"><cf_tl id="Subject">:</b></td>
 		   <td colspan="1">
 		   
 		  	   <input type = "text"
 				   name      = "ActionMailSubject"
 				   id        = "ActionMailSubject"
 				   value     = "#mailsubject#"
-				   style     = "width:100%"
+				   style     = "width:99%"
 				   class     = "regularxl enterastab"
 				   maxlength = "120">
+			   
 		   </td>
 	   </tr>
 	   
 	   <tr>
 		 
-	       <td height="300" colspan="2" style="padding-right:6px">
+	       <td height="140" colspan="2" style="padding-left:10px;padding-top:5px;border:0px solid silver;padding-right:4px;padding-left:2px">
 		   
-		     <cfif findNoCase("cf_nocache",cgi.query_string)> 
-		   		    									   
-			     <cf_textarea height="300"   					 					
-						color="ffffff" 
-						toolbar="basic"								
-						name="ActionMailBody" 
-						resize="ture"
-						style="width:100%">#mailtext#</cf_textarea>
+		   <cfif findNoCase("cf_nocache",cgi.query_string)> 
+		   
+		   	<cf_textarea height="180"   
+					color="ffffff" 
+					toolbar="basic"		
+					resize="true"					
+					name="ActionMailBody" 
+					style="width:100%">#mailtext#</cf_textarea>
+		   
+		   <cfelse>
+		   		   		   	
+				  <cf_textarea height="180"   
+					color="ffffff" 
+					toolbar="basic"		
+					resize="true"		
+					init="Yes"				
+					name="ActionMailBody" 
+					style="width:100%">#mailtext#</cf_textarea>
 					
-			 <cfelse>
-			 
-				   <cf_textarea height="300"   
-						init="Yes"      					
-						color="ffffff" 
-						toolbar="basic"			
-						resize="true"					
-						name="ActionMailBody" 
-						style="width:100%">#mailtext#</cf_textarea>
-			 			 
-			 </cfif>		
-							  							 
+			</cfif>			
+				
+		  							 
 	      </td>
 	  </tr>
 	   
@@ -404,7 +432,10 @@
 				  function view(att) {
 				  window.open(att, "Attachment", "width=850, height=660, menubar=yes, status=yes, toolbar=no, scrollbars=yes, resizable=yes"); }
 			  </script>
-						
+			  
+			  <table>
+			  <tr class="labelmedium">	
+			  	
 			  <cfloop index="att" from="1" to="10" step="1">
 			   
 				   <cfparam name="mailatt[#Att#][1]" default="none">
@@ -413,18 +444,28 @@
 				   
 				   <cftry>
 	
-				   <cfif mailatt[att][1] neq "none" and mailatt[att][1] neq "inline">
-				        <input type="checkbox" name="ActionMailAttachment" id="ActionMailAttachment" value="#mailatt[att][1]#" checked>
-						<a href="javascript:view('#mailatt[att][2]#')">#mailatt[att][3]#</a>&nbsp;
-				   <!--- <cfelse>
-				   	 #mailatt[att][3]# --->
+				   <cfif mailatt[att][1] neq "none">
+				   
+				        <td style="padding-right:4px">
+				        <input type="checkbox" class="radiol"
+						    name  = "ActionMailAttachment" 
+							id    = "ActionMailAttachment" 
+							value = "#att#" checked>							
+						</td>	
+						<td style="padding-right:10px"><a href="javascript:view('#mailatt[att][2]#')">#mailatt[att][3]#</a></td>
+						
+				   <cfelse>
+				   
 				   </cfif>
 				   
 				   <cfcatch></cfcatch>
 				   
 				   </cftry>
 				  			   
-			  </cfloop>											   
+			  </cfloop>		
+			  </tr>
+			  </table>
+			  									   
 		      </td>
 		   </tr>
 		   
@@ -432,7 +473,7 @@
 		   
 		   <cfcatch></cfcatch>
 		   
-		</cftry>				 
+		   </cftry>				 
 	   
 	   </table>				   
 	   </td>			   
@@ -440,8 +481,4 @@
       
 </cfoutput>   
 
-<cfset ajaxOnLoad("doHighlight")>
-
-<cfif findNoCase("cf_nocache",cgi.query_string)>
-	<cfset ajaxonload("initTextArea")>
-</cfif> 
+<cfset AjaxOnLoad("initTextArea")>

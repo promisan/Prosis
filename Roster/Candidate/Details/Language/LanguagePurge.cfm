@@ -1,4 +1,3 @@
-
 <cfparam name="url.scope" default="Profile">
 
 <TITLE>Update Experience</TITLE>
@@ -13,22 +12,18 @@ password="#SESSION.dbpw#">
 </cfquery>
 
 <!---
-
 <cfif url.entryScope eq "Backoffice">
-
 	<cflocation url="../General.cfm?ID=#URL.ID#&ID2=#URL.ID2#&Topic=#URL.Topic#&source=#url.source#">		  
-
 <cfelseif url.entryScope eq "Portal">
-
 --->
 	
 	<cfquery name="get" 
 	datasource="AppsSelection" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	SELECT *
-	FROM   ApplicantSubmission
-	WHERE  ApplicantNo = '#url.id3#'
+		SELECT *
+		FROM   ApplicantSubmission
+		WHERE  ApplicantNo = '#url.id3#'
 	</cfquery>
 	
 	<cfparam name="url.applicantno" default="0">
@@ -39,8 +34,6 @@ password="#SESSION.dbpw#">
 	
     <cfinclude template="Language.cfm">
 
-<!--- 
-		
+<!--- 		
 </cfif>	
-
 --->

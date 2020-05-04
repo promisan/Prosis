@@ -10,6 +10,7 @@
 	
 	<!--- Step Due --->
 	<cf_tl id="Step Due" var="1">
+			
 	<cf_layoutArea 
 		id 		= "stepDue" 
 		label 	= "#lt_text#"
@@ -164,6 +165,7 @@
 		
 	</cf_layoutArea>
 		
+			
 	<!--- Condition --->
 	<cf_tl id="Submission Condition" var="1">
 	<cf_layoutArea 
@@ -173,12 +175,12 @@
 		stateIconHeight = "#vTogglerSize#"
 		labelFontSize = "#vTextSize#">
 		
-		<table width="97%" height="100%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+		<table width="97%" height="100%" align="center" class="formpadding">
 				
 		<tr><td height="5"></td></tr>		
 		
 		<TR>
-		    <TD height="16" class="labelit" style="cursor:pointer" colspan="1"><cf_UIToolTip  tooltip="Turn-off/on the condition">Enable:</cf_UIToolTip></b></TD>
+		    <TD height="16" class="labelit" style="cursor:pointer" colspan="1"><cf_UIToolTip tooltip="Turn-off/on the condition">Enable:</cf_UIToolTip></b></TD>
 		    <TD>
 		    	<table>
 				<tr><td class="labelit">
@@ -189,9 +191,11 @@
 				</table>
 			</TD>
 		</TR>	
+		
+		
 							
 		<tr>
-		<td height="16" class="labelit" style="cursor:pointer"><cf_UIToolTip  tooltip="Associate a Condition script which must return a variable to be declared under [Return Variable]">Condition Script:</cf_UIToolTip></td>
+		<td height="16" class="labelit" style="min-width:150px;cursor:pointer"><cf_UIToolTip tooltip="Associate a Condition script which must return a variable to be declared under [Return Variable]">Condition Script:</cf_UIToolTip></td>
 			<td>
             <table cellspacing="0" cellpadding="0">
 			<tr><td>
@@ -234,10 +238,11 @@
 			</table>
 		</tr>	
 		
+		
+		
 		<tr>
 			
-			<td height="20" class="labelit">Script Alias:</td>
-			
+			<td height="20" class="labelit">Script Alias:</td>			
 			<td>
 			
 			<cfset ds = "#ScriptCondition.MethodDataSource#">
@@ -272,9 +277,13 @@
 									
 			</td>
 		</tr>	
+		
+		
 				
 		<TR>
-	    <TD height="100%" class="labelit" valign="top" style="cursor:pointer"><cf_UIToolTip tooltip="Enter a valid SQL syntax which queries the database for a value to be used as a condition">SQL Query Script:</cf_UIToolTip></TD>
+	    <TD height="100%" class="labelit" valign="top" style="cursor:pointer">
+		<cf_UIToolTip tooltip="Enter a valid SQL syntax which queries the database for a value to be used as a condition">SQL Query Script:</cf_UIToolTip>
+		</TD>
 		<TD align="right">
 	    	<textarea 
 			 style="width:100%;height:110px;padding:3px;font-size:12px" 
@@ -292,28 +301,36 @@
 		Executed prior to a positive decision. <b>Record the condition for a negative decision under workflow settings</b>!
 		</cfif>
 		<br>Use <b>@action, @object, @key1, @key2, @key3 and @key4</b> to refer to the object identification</td></tr>				
-		<tr><td height="0"></td></tr>
-			
+		<tr><td height="0"></td></tr>		
+		
+		
 		
 		<TR>
-	    <TD height="15" class="labelit" style="cursor:pointer;padding-right:10px"><cf_UIToolTip  tooltip="This is either a field or a variable return by the selected script">Return Variable:</cf_UIToolTip></TD>
+	    <TD height="15" class="labelit" style="cursor:pointer;padding-right:10px">
+		<cf_UIToolTip tooltip="This is either a field or a variable return by the selected script">Return Variable:</cf_UIToolTip></TD>
 	    <TD>
 		<table><tr><td class="labelit">
 		<cfinput class="regularxl" type="Text" value="#Get.ConditionField#"  name="ConditionField" required="No" size="30" maxlength="30">
 		</td>
-		 <TD height="15" class="labelit" style="padding-left:10px;cursor:pointer"><cf_UIToolTip  tooltip="Variable condition like [gte '4'] or [is 'No']">Operand & Value:</cf_UIToolTip></TD>
+		
+		 <TD height="15" class="labelit" style="padding-left:4px;cursor:pointer;padding-right:4px">Operand & Value:</TD>
+		
 	    <TD>
 		<cfinput class="regularxl" type="Text" value="#Get.ConditionValue#"  name="ConditionValue" required="No" size="10" maxlength="20">
 		</TD>
 		</tr></table>
 		</TD>
-		</TR>		
-			
+		</TR>	
+				
+		<tr><td height="10" class="labelit" align="right"></td></td><td colspan="1" class="labelit">
+		example of operand & value <b>gte '4' || is 'No'			
+		<tr><td height="0"></td></tr>	
+					
 								
 		<TR>
-	    <TD height="15" class="labelit" style="cursor:pointer"><cf_UIToolTip  tooltip="Error Message to be shown to the user">Error message:</cf_UIToolTip></TD>
+	    <TD height="15" class="labelit" style="cursor:pointer"><cf_UIToolTip tooltip="Error Message to be shown to the user">Error message:</cf_UIToolTip></TD>
 	    <TD>
-		<cfinput class="regularxl" type="Text" value="#Get.ConditionMessage#"  name="ConditionMessage" required="No" size="50" maxlength="80">
+		<cfinput class="regularxl" type="Text" value="#Get.ConditionMessage#" name="ConditionMessage" required="No" size="50" maxlength="80">
 		</TD>
 		</TR>
 		
@@ -336,9 +353,11 @@
 			</td></tr>	
 						
 		</table>
+		
 	
-	</cf_layoutArea>
+	</cf_layoutArea>	
 	
+				
 	<!--- Decision --->
 	<cfif Get.ActionType eq "Decision">
 		<cf_tl id="Decision: Positive" var="1">
@@ -403,8 +422,6 @@
 			</TR>
 		
 		</cfif>		
-		
-		
 		
 		<tr><td class="labelit" height="30">Script file:</td>
 		    <TD>	
@@ -522,8 +539,7 @@
 		</table>
 		
 	</cf_layoutArea>
-	
-	
+					
 	<cfif Get.ActionType eq "Decision">
 	
 		<!--- Negative --->
@@ -676,7 +692,8 @@
 			
 			</table>
 			
-		</cf_layoutArea>					
+		</cf_layoutArea>	
+			
 				
 	<cfelse>	
 
@@ -684,9 +701,9 @@
 	 <input type="hidden" name="ResetScript" id="ResetScript" value="">		
 	 <input type="hidden" name="MethodDeny" id="MethodDeny" value="">				
 
-	</cfif>
+	</cfif>	
 	
 </cf_layout>							
-			
+	
 			
 </cfoutput>			

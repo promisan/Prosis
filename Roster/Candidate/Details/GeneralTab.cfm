@@ -63,7 +63,9 @@ datasource="AppsSelection">
 								
 				<cfset URL.id2 = itm>	
 				
-				<cfif SkillCode.allowEdit eq "0">							
+				<cfif SkillCode.allowEdit eq "0">	
+				
+										
 																 
 				    <cfsilent>
 					
@@ -75,8 +77,7 @@ datasource="AppsSelection">
 							<cfset dis = "false">
 					  </cfif>		
 					  
-				    </cfsilent>	 
-	
+				    </cfsilent>	 						
 				
 				<cfelse>
 								
@@ -102,8 +103,8 @@ datasource="AppsSelection">
 			
 			<!--- only if the source = global PHP source ---> 
 			
-			<cfif url.source eq parameter.PHPSource>  	
-
+			<cfif url.source eq parameter.PHPSource>  				
+			
 				<cfquery name="SearchResult" 
 					datasource="AppsSelection" 
 					username="#SESSION.login#" 
@@ -125,14 +126,14 @@ datasource="AppsSelection">
 						
 							<cf_tl id="Assessment" var="1">
 					
-							<cf_menutab item       = "#menu+1#" 
-				            iconsrc    = "Logos/Roster/assessment.png" 
-							iconwidth  = "#wd#" 
-							targetitem = "3"
-							iconheight = "#ht#" 
-							name       = "#lt_text#"
-							source="#SESSION.root#/roster/candidate/details/BackGroundRelevant/SelectBackground.cfm?id=#url.id#&id2=#url.id2#&topic=#url.topic#&source={source}">					  											
-							
+							<cf_menutab item   = "#menu+1#" 
+					            iconsrc        = "Logos/Roster/assessment.png" 
+								iconwidth      = "#wd#" 
+								targetitem     = "3"
+								iconheight     = "#ht#" 
+								name           = "#lt_text#"
+								source         = "#SESSION.root#/roster/candidate/details/BackGroundRelevant/SelectBackground.cfm?id=#url.id#&id2=#url.id2#&topic=#url.topic#&source={source}">					  											
+								
 			       </cfif>
 				   
 			 </cfif>   

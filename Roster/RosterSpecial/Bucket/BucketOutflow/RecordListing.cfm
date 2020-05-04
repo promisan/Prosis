@@ -1,5 +1,4 @@
 
-<cf_screentop height="100%" scroll="yes" html="No">
 
 <cfinvoke component="Service.Presentation.Presentation" 
        		   method="highlight" 
@@ -7,11 +6,10 @@
 			   returnvariable="stylescroll"/>
 
 		
-<table width="95%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
-
- <tr><td height="3"></td></tr> 		
+<table width="100%" align="center" class="formpadding">
+		
  <tr>
-	   <td colspan="3" class="labelmedium"><b>Set the roster outflow rules for this bucket</font></td>
+	   <td colspan="3" class="labelmedium" style="font-size:20px">Set the roster outflow rules for this bucket</font></td>
  </tr>
 	
  <tr><td height="6"></td></tr> 		
@@ -56,14 +54,13 @@
 		 AND   FunctionId = '#url.idFunction#'			
 	</cfquery>
 	
-	 <tr>
-	 	 <td height="28"><input type="checkbox" name="#Code#_operational" value="1" onclick="#link#" <cfif check.operational eq "1">checked</cfif>></td>
-		 <td class="labelit">#Description#  <input type="Text" name="#Code#_days" class="regular" onchange="#link#" size="2" style="text-align:center" value="#check.days#" maxlength="3"> days</td>
-		 <td><input type="checkbox" name="#Code#_AllowReactivation" value="1" onclick="#link#" <cfif check.AllowReactivation eq "1">checked</cfif>></td>
-		 <td><input type="checkbox" name="#Code#_MailNotification" value="1" onclick="#link#" <cfif check.MailNotification eq "1">checked</cfif>></td>
+	 <tr class="line">
+	 	 <td height="28"><input type="checkbox" class="radiol" name="#Code#_operational" value="1" onclick="#link#" <cfif check.operational eq "1">checked</cfif>></td>
+		 <td class="labelit">#Description#  <input type="Text" name="#Code#_days" class="regularxl" onchange="#link#" size="2" style="text-align:center" value="#check.days#" maxlength="3"> days</td>
+		 <td><input type="checkbox" class="radiol" name="#Code#_AllowReactivation" value="1" onclick="#link#" <cfif check.AllowReactivation eq "1">checked</cfif>></td>
+		 <td><input type="checkbox" class="radiol" name="#Code#_MailNotification" value="1" onclick="#link#" <cfif check.MailNotification eq "1">checked</cfif>></td>
 	 </tr>
-	 <tr><td colspan="4" height="1" class="linedotted"></td></tr>
-	
+	 
 	</cfoutput>
 	
 	</form>		

@@ -554,7 +554,7 @@
 							  
 							  <td>				
 									
-								<cfif SESSION.isAdministrator eq "Yes">
+								<cfif SESSION.isAdministrator eq "Yes" and systemmodule.systemfunctionid neq "">
 																		
 									<cfquery name="CheckLogging" 
 										datasource="AppsSystem" 
@@ -649,33 +649,35 @@
 			    <cfset heading    = "#Mission#">
 				<cfset class      = "'Detail'">
 				<cfset selection  = "'Application'">				
-														
-				<tr class="cSearch" style="border-top:0px solid silver">
-				<td colspan="6">
-				
-					<table width="100%">
-					<tr class="hide"><td class="tSearch">#mission#</td></tr>
-					<tr><td>
 					
-					<cfset scope       =  "mission">							
-				    <cfinclude template = "Submenu.cfm"> 
-					
+				<cfif module neq "">									
+					<tr class="cSearch" style="border-top:0px solid silver">
+					<td colspan="6">
+																				
+						<table width="100%">
+						<tr class="hide"><td class="tSearch">#mission#</td></tr>
+						<tr><td>
+											
+						<cfset scope       =  "mission">							
+					    <cfinclude template = "Submenu.cfm"> 
+						
+						</td>
+						</tr>
+						</table>
+						
 					</td>
-					</tr>
-					</table>
-					
-				</td>
-				</tr>	
+					</tr>	
+				</cfif>
 								
 				<cfset class = "">		 
 			 			 	 		
 		<cfelse>	
 														
 			    <cfset heading = Mis>
-										
+																		
 				<tr class="cSearch">
 				<td colspan="6" class="tSearch">
-																				
+																								
 						<!--- added to prevent some behavior in the menu.cfm file --->
 						<cfset scope = "mission">																							
 					    <cfinclude template="Submenu.cfm"> 

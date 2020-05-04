@@ -166,7 +166,9 @@
 							  </cfif>	
 							  
 							 <cfif attributes.Format eq "RichTextFull">
-								  <cfset rt = "Default">								
+								  <cfset rt = "Default">	
+							 <cfelseif attributes.Format eq "Mini">
+								  <cfset rt = "Mini">			  							
 							 <cfelse>
 							  	  <cfset rt = "Basic">	  
 							 </cfif>		
@@ -183,7 +185,7 @@
 								     toolbar="#rt#" 									 
 									 color="ffffff" 
 									 height="#ht#" 
-									 resize="true"><cf_paragraph>#vText#</cf_paragraph></cf_textarea>																
+									 resize="false"><cf_paragraph>#vText#</cf_paragraph></cf_textarea>																
 								 
 							 <cfelse>
 							 							 							 
@@ -192,7 +194,7 @@
 									 init="Yes" 
 									 color="ffffff" 
 									 height="#ht#" 
-									 resize="true"><cf_paragraph>#vText#</cf_paragraph></cf_textarea>		
+									 resize="false"><cf_paragraph>#vText#</cf_paragraph></cf_textarea>		
 							 							 
 							 </cfif>	 
 												

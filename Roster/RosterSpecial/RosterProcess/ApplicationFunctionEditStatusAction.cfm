@@ -39,7 +39,7 @@
 	  
 <cfset accessarray =  ListToArray(AccessList)>
 	  
-<table height="26" width="320" class="formpadding" cellspacing="0" cellpadding="0">
+<table height="26" width="320" class="formpadding">
 
 <cfset cnt = 1>
 <cfset go  = 0>
@@ -55,12 +55,12 @@
 				<td width="15%" 
 				    height="22" 
 					id="status_#currentrow#" 
-					align="left" 
-					style="border: 0px dotted silver;"
-					bgcolor="ffffcf">
+					align="left" 					
+					style=";border:1px solid gray"
+					bgcolor="yellow">
 					
 					<table cellspacing="0" cellpadding="0" class="formpadding">
-					<tr><td style="padding-left:6px;">
+					<tr><td style="padding-left:6px">
 															
 					 <cfif findNoCase(Status, AccessList)>
 					 
@@ -79,7 +79,7 @@
 						
 					    </td>
 						
-						<td style="padding-left:6px" class="labelit"><!---#status#---> #Meaning#</td>
+						<td style="padding-left:6px" class="labelmedium"><!---#status#---> #Meaning#</td>
 						
 					</tr>
 						
@@ -95,7 +95,7 @@
 					 
 		  <cfif cnt eq "1"><tr></cfif>
 				<td width="15%" id="status_#currentrow#" align="left"
-					style="padding-left:6px;border: 0px solid white;"  class="regular"> 
+					style="padding-left:6px;border: 1px solid gray;"  class="regular"> 
 					
 					<cfset ruleDescription = "">
 						
@@ -123,7 +123,7 @@
 					 </td>
 					<td style="padding-top:1px;padding-left:3px" align="left">
 					    <table>
-						<tr class="labelit">
+						<tr class="labelmedium">
 						 <td style="padding-left:0px"><!---#status#---></td>
 						 <td style="padding-left:3px">#Meaning#</td>
 						 <td style="padding-left:2px">

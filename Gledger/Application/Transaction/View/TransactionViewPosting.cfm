@@ -499,7 +499,7 @@ a workflow created and also status = 0 is applies, then it will be picked up her
 
 				</tr>
 
-				<tr class="labelmedium line" style="height:20px">
+				<tr class="labelmedium line fixrow" style="height:20px">
 
 				<TD style="min-width:35;padding-right:4px" height="20" align="center">
 

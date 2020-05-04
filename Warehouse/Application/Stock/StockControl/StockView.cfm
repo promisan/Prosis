@@ -126,8 +126,8 @@
 	</cf_layoutarea>
 	
 	<cf_layoutarea  position="center" name="right">	
-					
-		<cf_divscroll style="height:100%">				
+				
+				
 		<table width="100%" height="99%">			    
 			<tr>											
 				<td width="100%" height="99%" valign="top" id="main" align="center">				   			
@@ -135,7 +135,7 @@
 				</td>				
 			</tr>
 		</table>
-		</cf_divscroll>
+		
 					
 	</cf_layoutarea>			
 		

@@ -28,48 +28,77 @@
 <CFSET cond = Replace("#URL.ID1#", "'", "''", "ALL" )>
 <cfset cond = "FunctionDescription LIKE '%#cond#%'">
 
-<cfquery name="Parameter" 
+<!--- Hanno the field URL.Owner can be passed a mission or straight as the owner --->
+
+<cfparam name="URL.Owner" default="">
+
+<cfset fclass = "">
+<cfset owner  = url.owner>
+
+<cfif url.Owner neq "">
+	
+	<cfquery name="Mission" 
+	   datasource="AppsOrganization" 
+	   username="#SESSION.login#" 
+	   password="#SESSION.dbpw#">
+	   SELECT * 
+	   FROM Ref_Mission 
+	   WHERE Mission = '#URL.Owner#'
+	</cfquery>
+	
+	<cfif mission.recordcount eq "1">
+
+		<cfset fclass = "'#Mission.FunctionClass#'">
+		<cfset owner  = Mission.MissionOwner>
+		
+	</cfif>
+	
+</cfif>
+
+ <cfquery name="Parameter" 
    datasource="AppsSelection" 
    username="#SESSION.login#" 
    password="#SESSION.dbpw#">
-   SELECT * 
-   FROM Ref_ParameterOwner
-   <cfif URL.Owner neq "">
-   WHERE Owner = '#URL.Owner#'   
+   SELECT *
+   FROM Ref_ParameterOwner 
+   <cfif URL.Owner neq "">   
+   WHERE Owner = <cfqueryparam
+				 value="#Owner#"
+				 cfsqltype="CF_SQL_VARCHAR" 
+				 maxlength="10">
    </cfif>
 </cfquery>
-
-<cfset fclass = ''>
+	
 <cfloop query="Parameter">
   <cfif fclass eq "">
      <cfset fclass = "'#FunctionClassSelect#'">
   <cfelse>
   	 <cfset fclass = "#fclass#,'#FunctionClassSelect#'">
   </cfif>
-</cfloop>    
+</cfloop>
  
 <!--- Query returning search results --->
 <cfquery name="Level01" 
 datasource="AppsSelection" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-SELECT DISTINCT F.FunctionNo, 
-        F.FunctionClass, 
-		F.FunctionDescription, 
-		FunctionOrganization.FunctionId AS Roster
-FROM    FunctionTitle F LEFT OUTER JOIN
-        FunctionOrganization ON F.FunctionNo = FunctionOrganization.FunctionNo
-WHERE   #preserveSingleQuotes(cond)#
-<cfif fclass neq "">
-AND      F.FunctionClass IN (#preserveSingleQuotes(fclass)#)
-</cfif>
-AND      F.FunctionOperational = '1'
-ORDER BY F.FunctionDescription
+	SELECT TOP 50 F.FunctionNo, 
+	        F.FunctionClass, 
+			F.FunctionDescription, 
+			FunctionOrganization.FunctionId AS Roster
+	FROM    FunctionTitle F LEFT OUTER JOIN
+	        FunctionOrganization ON F.FunctionNo = FunctionOrganization.FunctionNo
+	WHERE   #preserveSingleQuotes(cond)#
+	<cfif fclass neq "">
+	AND      F.FunctionClass IN (#preserveSingleQuotes(fclass)#)
+	</cfif>
+	AND      F.FunctionOperational = '1'
+	ORDER BY F.FunctionDescription
 </cfquery>
 
 <table align="center" width="98%" class="navigation_table formpadding">
 
-<TR class="labelmedium line">
+<TR class="labelmedium line fixrow">
     <td width="30" height="20"></td>
     <TD><cf_tl id="Id"></TD>
 	<TD><cf_tl id="Description">"</TD>
@@ -87,7 +116,7 @@ ORDER BY F.FunctionDescription
 		</td>
 		<TD>#FunctionNo#</TD>
 		<TD>#FunctionDescription#</TD>
-		<TD><cfif FunctionClass eq "Standard">Approved</cfif></TD>
+		<TD>#FunctionClass#</TD>
 		<td align="center" style="padding-right:4px"><cfif Roster neq "">*</cfif></td>
 	</TR>
 

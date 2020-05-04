@@ -21,8 +21,6 @@ password="#SESSION.dbpw#">
 	ORDER BY LanguageCode	
 </cfquery>
 
-
-
 <table width="100%" height="100%" align="center">
 
 	<cfif get.SubmissionStatus lt "3">
@@ -61,7 +59,7 @@ password="#SESSION.dbpw#">
 							iconwidth  = "#wd#" 								
 							iconheight = "#ht#" 		
 							class      = "#cl#"						
-							name       = "Job Profile Outline"
+							name       = "Job Profile"
 							source     = "../Bucket/BucketProfile/BucketProfile.cfm?accessmode=view&idfunction=#url.idfunction#&languagecode=#languagecode#">
 							
 				</cfoutput>																								

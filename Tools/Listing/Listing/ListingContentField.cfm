@@ -256,7 +256,7 @@
 				<cfif url.ajaxid eq "content">	
 	<td align="#current.align#" colspan="#colspan#" style="cursor:pointer;border-left: 0px solid ##C0C0C0; padding: 2px; filter: alpha(opacity=50);-moz-opacity: .50;opacity: .50;" onclick="listshowRow('#row#','#s#');">
 	<table cellspacing="0" cellpadding="0" class="formpadding">
-		<tr><td id="f#box#_#dkey#_#cnt#" width="8" height="10" bgcolor="#color#" style="border: 1px solid Gray;"></td></tr>
+		<tr><td id="f#box#_#dkey#_#cnt#" width="8" height="10" style="border: 1px solid Gray; background-color:#color#;"></td></tr>
 	</table></td>					
 				<cfelse>
 																							

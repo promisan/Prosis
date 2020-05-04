@@ -173,7 +173,7 @@ function recordedit(id1) {
 	
 	<cfoutput query="SearchResult" group="ObjectUsage">
 	
-	    <tr onclick="show('#usagecode#','#currentrow#')" style="cursor:pointer" class="line navigation_row">
+	    <tr onclick="show('#usagecode#','#currentrow#')" style="cursor:pointer" class="line navigation_row fixrow2">
 		
 	    <td colspan="8" height="20">
 		
@@ -200,7 +200,7 @@ function recordedit(id1) {
 					class="#cl#">
 			
 			</td>
-			<td class="labellarge">#Usage#</font></a></td>		
+			<td class="labellarge">#Usage#</a></td>		
 			</tr>
 			
 			</table>
@@ -225,7 +225,7 @@ function recordedit(id1) {
 		<cfoutput group="ResourceDescription">
 		
 		    <tr id="box#UsageCode#" name="box#UsageCode#" class="#cl#">
-		    <td colspan="9" class="labelmedium" style="height:30px;padding-left:6px"><font color="804000">#ResourceDescription#</b></td>
+		    <td colspan="9" class="labelmedium" style="height:30px;padding-left:6px"><font color="804000">#ResourceDescription#</td>
 		    </tr>
 			
 			<tr id="box#UsageCode#" name="box#UsageCode#" class="#cl#">

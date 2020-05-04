@@ -648,7 +648,7 @@
 	
 	<cf_insertRoles   Role="FunctionAdmin"    		Area="Human Resources"  
 					  SystemModule="Roster" 		SystemFunction="Roster"
-					  OrgUnitLevel="Global"  		Description="Function Administrator" 
+					  OrgUnitLevel="Global"  		Description="Function Administrator" Group="OccGroup"
 					  Parameter="Owner"				Memo="Maintain roster reference information and maintains/enters functions and buckets">
 	
 	<cf_insertRoles   Role="CandidateProfile" 		Area="Human Resources"  

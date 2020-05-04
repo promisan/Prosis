@@ -26,9 +26,8 @@
 				FROM   Ref_ModuleControl
 				WHERE  SystemFunctionId = '#url.systemfunctionid#'				
 		</cfquery>
-				
-		
-		<cfif user.recordcount eq "1">
+						
+		<cfif user.recordcount eq "1" and get.recordcount eq "1">
 		
 			<cfquery name="check" 
 				datasource="AppsSystem">

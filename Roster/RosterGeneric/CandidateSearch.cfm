@@ -27,9 +27,9 @@ function maxme(itm) {
 	 icE.className = "regular";
 	 
 	 while (se[count]) {
-	   se[count].className = "hide"
-	   count++ }
-	 
+	     se[count].className = "hide"
+	     count++ }
+		 	 
 	 } else {
 	 	
 	 while (se[count]) {
@@ -291,7 +291,7 @@ function maxme(itm) {
 			
 			<cfif url.class eq "">
 			
-			<TD style="padding-left:10px"><cf_tl id="Processed">:</TD>
+			<TD style="padding-left:10px"><cf_tl id="Bucket Processed">:</TD>
 			<TD>
 			<select name="Filter" style="width: 250;" class="regularxl">
 			   <option value="" selected>All</option>
@@ -422,6 +422,19 @@ function maxme(itm) {
 				<input type="radio" class="radiol" name="Crit4_Value" value="" checked><cf_tl id="Any">
 			
 			</TD>
+			
+				<TD style="padding-left:10px"><cf_tl id="Candidate status">:</TD>
+				<TD>
+				
+				<select name="CandidateStatus" style="width: 250;" class="regularxl">
+				   <option value="" selected>All but cancelled</option>
+				   <option value="0"><cf_tl id="Pending"></option>
+				   <option value="1"><cf_tl id="Accepted"></option>
+				   <option value="9"><cf_tl id="Denied"></option>				   
+				</select>
+				   
+			  	</TD>
+			
 			</TR>				 	 
 									
 			<tr><td colspan="4" class="line"></td></tr>	

@@ -30,7 +30,7 @@
 			Domain          = "JobProfile"
 			FieldOutput     = "ProfileNotes"				
 			Mode            = "Edit"
-			Format          = "Basic"
+			Format          = "Mini"
 			Key01           = "FunctionId"
 			Key01Value      = "#URL.ID#">			
 	

@@ -2,7 +2,7 @@
 <cfparam name="URL.Mode" default="Event">
 
 <cfif url.mode eq "Bucket">	
-	<cfset html= "Yes">
+	<cfset html= "No">
 <cfelse>
 	<cfset html = "No">
 </cfif>
@@ -34,7 +34,7 @@ function documentadd(per){
 
 <!--- Search form --->
 
-<table width="100%" height="100%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="100%" height="100%" align="center" class="formpadding">
 
 <cfquery name="Nationality" 
 datasource="AppsSystem" 

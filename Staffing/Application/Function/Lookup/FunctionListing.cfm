@@ -26,43 +26,19 @@
 				 maxlength="30">
 </cfquery>
 
- <cfquery name="Parameter" 
-   datasource="AppsSelection" 
-   username="#SESSION.login#" 
-   password="#SESSION.dbpw#">
-   SELECT *
-   FROM Ref_ParameterOwner 
-   <cfif URL.Owner neq "">   
-   WHERE Owner = <cfqueryparam
-				 value="#URL.Owner#"
-				 cfsqltype="CF_SQL_VARCHAR" 
-				 maxlength="10">
-   </cfif>
-</cfquery>
-
-<cfset fclass = ''>
-	
-<cfloop query="Parameter">
-  <cfif fclass eq "">
-     <cfset fclass = "'#Parameter.FunctionClassSelect#'">
-  <cfelse>
-  	 <cfset fclass = "#fclass#,'#Parameter.FunctionClassSelect#'">
-  </cfif>
-</cfloop>
+<cfparam name="URL.Owner" default="">
    
-<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+<table width="100%" height="100%">
   <tr>  
   <td width="100%" height="100%" colspan="2" valign="top">
 
-<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<table width="100%" height="100%" align="center" class="navigation_table">
 
 <cfif URL.ID0 eq "OCC">
-   <cfset cond = "O.OccupationalGroup = '#URL.ID1#' AND (F.ParentFunctionNo is NULL or F.ParentFunctionNo = '')">
+   <cfset cond = "O.OccupationalGroup = '#URL.ID1#' AND F.FunctionClass = '#url.functionclass#' AND (F.ParentFunctionNo is NULL or F.ParentFunctionNo = '')">
 <cfelse>
    <cfset cond = "F.FunctionNo = '#URL.ID1#'">
 </cfif>
-
-<cfparam name="URL.Owner" default="">
  
 <!--- Query returning search results --->
 
@@ -82,18 +58,16 @@ password="#SESSION.dbpw#">
 	WHERE #preserveSingleQuotes(cond)#
 	AND   O.Status = '1'
 	AND   F.FunctionOperational = '1' 
-	<cfif fclass neq "">	
-	AND   F.FunctionClass IN (#preserveSingleQuotes(fclass)#) 
-	</cfif>
+	
 	GROUP BY F.FunctionNo, 
 		     F.FunctionClass, 
 		     F.FunctionDescription
 	ORDER BY F.FunctionDescription
 </cfquery>
 
-<table border="0" cellpadding="0" cellspacing="0" width="100%" class="navigation_table">
+<table width="100%" class="navigation_table">
 
-<TR class="line labelmedium">
+<TR class="line labelmedium fixrow">
     <td height="20" ></td>
     <TD></TD>
     <TD><cf_tl id="Id"></TD>
@@ -131,10 +105,7 @@ password="#SESSION.dbpw#">
 			   FunctionOrganization.FunctionId AS Roster
 	    FROM   FunctionTitle LEFT OUTER JOIN
 	           FunctionOrganization ON FunctionTitle.FunctionNo = FunctionOrganization.FunctionNo
-		WHERE  ParentFunctionNo = '#Level01.FunctionNo#'
-		<cfif fclass neq "">
-		AND    FunctionTitle.FunctionClass IN (#preserveSingleQuotes(fclass)#)
-		</cfif>
+		WHERE  ParentFunctionNo = '#Level01.FunctionNo#'		
 		AND    FunctionOperational = '1' 
    </cfquery>
 	   
@@ -159,10 +130,7 @@ password="#SESSION.dbpw#">
 	    SELECT DISTINCT FunctionTitle.FunctionNo, FunctionTitle.FunctionClass, FunctionTitle.FunctionDescription, FunctionOrganization.FunctionId AS Roster
 	    FROM   FunctionTitle LEFT OUTER JOIN
 	           FunctionOrganization ON FunctionTitle.FunctionNo = FunctionOrganization.FunctionNo
-		WHERE  ParentFunctionNo = '#Level02.FunctionNo#'
-		<cfif fclass neq "">
-		AND   FunctionTitle.FunctionClass IN (#preserveSingleQuotes(fclass)#)
-		</cfif>
+		WHERE  ParentFunctionNo = '#Level02.FunctionNo#'		
 		AND   FunctionOperational = '1'
     </cfquery>
 

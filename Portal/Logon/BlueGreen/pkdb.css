@@ -795,18 +795,21 @@ TR.fixrow td {
     position: sticky; 
 	top: 0;
 	background: #f1f1f1;	
+	z-index:99999;
 }
 
 TR.fixrow2 td {
     position: sticky; 
     top: 24px;
-    background: #fafafa;
+	background: #fafafa;
+	z-index:99999;
 }
 
 TR.fixrow3 td {
     position: sticky; 
     top: 48px;
-    background: #fafafa;
+	background: #fafafa;
+	z-index:99999;
 }
 
 button.ButtonPrint {

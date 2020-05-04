@@ -66,7 +66,7 @@ function applyunit(org) {
 function Selected(no,description) {									
 	  document.getElementById('functionno').value = no
 	  document.getElementById('functiondescription').value = description					 
-	  ColdFusion.Window.hide('myfunction')
+	  ProsisUI.closeWindow('myfunction')
  }		
 		
 </script>
@@ -1332,7 +1332,7 @@ password="#SESSION.dbpw#">
 					   <input type="text" id="functiondescription" name="functiondescription" value="<cfoutput>#Position.functiondescription#</cfoutput>" class="regularxl" size="60" maxlength="60" readonly> 
 				    </td>
 				    <td style="padding-left:2px">				   
-				    <input type="button" name="btnFunction" value="..." style="height:25;width:30px;" class="button10g" onClick="selectfunction('webdialog','functionno','functiondescription','<cfoutput>#mission.missionowner#</cfoutput>','','')"/> 
+				    <input type="button" name="btnFunction" value="..." style="height:25;width:30px;" class="button10g" onClick="selectfunction('webdialog','functionno','functiondescription','<cfoutput>#mission.mission#</cfoutput>','','')"/> 
 					<input type="hidden" id="functionno" name="functionno" value="<cfoutput>#Position.functionno#</cfoutput>" class="disabled" size="6" maxlength="6" readonly>		
 					</td>
 				   </tr>

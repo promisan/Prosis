@@ -178,7 +178,7 @@ password="#SESSION.dbpw#">
     #preserveSingleQuotes(qry)#	
 </cfquery>
 
-<cfset show = int((url.height-350)/25)>
+<cfset show = int((url.height-390)/25)>
 
 <cf_pagecountN show="#show#" 
                count="#Total.Total#">
@@ -216,11 +216,11 @@ password="#SESSION.dbpw#">
    method           = "staffing" 		  
    returnvariable   = "accessStaffing">	  
 
-<table width="97%" align="center" border="0" cellspacing="0" cellpadding="0" id="t_result"> 
+<table width="98%" border="0" height="100%" id="t_result"> 
   
-  <tr><td colspan="2" valign="top">
+  <tr><td colspan="2" valign="top" height="100%">
   
-		<table border="0" cellpadding="0" cellspacing="0" width="100%" class="navigation_table">
+		<table width="100%" height="100%" class="navigation_table">
 		
 			<cfset link    = replace(url.link,"||","&","ALL")>
 			<cfset currrow = 0>	
@@ -256,11 +256,17 @@ password="#SESSION.dbpw#">
 				
 			<cfelse>
 			
-				<tr><td height="24" colspan="8">
+				<tr><td colspan="8">
 					 <cfinclude template="EmployeeNavigation.cfm">
 				</td></tr>
 				
-				<TR class="labelmedium line">
+				<tr><td valign="top" colspan="8" height="100%">
+				
+				<cf_divscroll>
+				
+				<table width="100%">
+								
+				<TR class="labelmedium line fixrow">
 				    <td height="20"></td>		   
 					<TD><cf_tl id="Name"></TD>
 					<TD><cf_tl id="Function"></TD>
@@ -278,51 +284,56 @@ password="#SESSION.dbpw#">
 					--->
 					
 				</TR>
-			
-			</cfif>
+							
+				<CFOUTPUT query="SearchShow">
 				
-			<CFOUTPUT query="SearchShow">
-			
-			<cfset currrow = currrow + 1>
-			 
-			<cfif currrow lte last and currrow gte first>		
+				<cfset currrow = currrow + 1>
+				 
+				<cfif currrow lte last and currrow gte first>		
+							
+					<TR class="navigation_row labelmedium" style="height:22px">
 						
-				<TR class="navigation_row labelmedium" style="height:22px">
+						<TD width="30" align="center" style="padding-top:3px"
+						  class="navigation_action"
+						  onclick="ptoken.navigate('#link#&action=insert&#url.des1#=#personno#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">			
+							<cf_img icon="select">				  
+						</TD>						
+						<TD>#LastName#, #FirstName# #MiddleName#</TD>
+						<TD>#FunctionTitle#</TD>				
+						<TD>#Gender#</TD>			
+						<cfif accessstaffing neq "NONE">
+							<TD>#IndexNo#</TD>			
+							<td onclick="EditPerson('#PersonNo#','#IndexNo#')">#PersonNo#</td>				
+						<cfelse>
+							<TD>#IndexNo#</TD>						
+						</cfif>
+						
+					</TR>
 					
-					<TD width="30" align="center" style="padding-top:3px"
-					  class="navigation_action"
-					  onclick="ColdFusion.navigate('#link#&action=insert&#url.des1#=#personno#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">			
-						<cf_img icon="select">				  
-					</TD>						
-					<TD>#LastName#, #FirstName# #MiddleName#</TD>
-					<TD>#FunctionTitle#</TD>				
-					<TD>#Gender#</TD>			
-					<cfif accessstaffing neq "NONE">
-						<TD>#IndexNo#</TD>			
-						<td onclick="EditPerson('#PersonNo#','#IndexNo#')"><font color="0080C0"><u>#PersonNo#</td>				
-					<cfelse>
-						<TD>#IndexNo#</TD>						
+					<cfif OrganizationName neq "">
+						<tr class="navigation_row_child">
+							<td></td>
+							<cfif accessstaffing neq "NONE">
+								<td colspan="7" class="labelit">#OrganizationName#</td>
+							<cfelse>
+								<td colspan="4" class="labelit">#OrganizationName#</td>
+							</cfif>
+						</tr>	
 					</cfif>
 					
-				</TR>
-				
-				<cfif OrganizationName neq "">
-					<tr class="navigation_row_child">
-						<td></td>
-						<cfif accessstaffing neq "NONE">
-							<td colspan="7" class="labelit">#OrganizationName#</td>
-						<cfelse>
-							<td colspan="4" class="labelit">#OrganizationName#</td>
-						</cfif>
-					</tr>	
+					<tr><td colspan="11" class="line"></td></tr>
+					
 				</cfif>
 				
-				<tr><td colspan="11" class="line"></td></tr>
+				</CFOUTPUT>			
 				
-			</cfif>
-			
-			</CFOUTPUT>
-		
+				</table>
+				
+				</cf_divscroll>
+				
+			</td>
+			</tr>	
+	
 			<cfif searchshow.recordcount neq "0">	
 			<tr><td height="24" colspan="8">
 			     <cfinclude template="EmployeeNavigation.cfm">
@@ -330,6 +341,8 @@ password="#SESSION.dbpw#">
 			</cfif>
 	
 		</TABLE>
+		
+		</cfif>
 
 	</td></tr>
 

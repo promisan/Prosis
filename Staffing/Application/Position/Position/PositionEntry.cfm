@@ -49,7 +49,7 @@
 	function Selected(no,description) {									
 		document.getElementById('functionno').value = no
 		document.getElementById('functiondescription').value = description					 
-		ColdFusion.Window.hide('myfunction')
+		ProsisUI.closeWindow('myfunction')
 	}		
   
 
@@ -349,7 +349,7 @@ password="#SESSION.dbpw#">
 			    <input type="text" name="functiondescription" id="functiondescription"  value="#Function.functiondescription#" class="regularxl" size="60" maxlength="60" readonly> 
 				</td>
 				<td style="padding-left:4px">
-				<button name="btnfun" type="button" class="button10g" style="height:25;width:40" onClick="selectfunction('webdialog','functionno','functiondescription','<cfoutput>#current.missionowner#</cfoutput>','','')"> 
+				<button name="btnfun" type="button" class="button10g" style="height:25;width:40" onClick="selectfunction('webdialog','functionno','functiondescription','<cfoutput>#current.mission#</cfoutput>','','')"> 
 					  <img src="#SESSION.root#/Images/locate.gif" alt="" name="img2" height="15" width="15"  style="cursor: pointer;" alt="" border="0" align="top">
 				</button>	
 				<input type="hidden" id="functionno"  name="functionno" value="#Function.functionno#" class="disabled" size="6" maxlength="6" readonly>		

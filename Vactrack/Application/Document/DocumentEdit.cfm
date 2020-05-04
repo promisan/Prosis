@@ -218,8 +218,8 @@ if (screen) {
 function review(per,cls) {
 		
 	try { ColdFusion.Window.destroy('mydialog',true) } catch(e) {}
-	ColdFusion.Window.create('mydialog', 'Receipt', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,resizable:false,center:true})    
-	ColdFusion.navigate('#SESSION.root#/roster/candidate/details/review/TrackReview.cfm?documentno=#url.id#&personno='+per+'&reviewcode='+cls,'mydialog') 		
+	ProsisUI.createWindow('mydialog', 'Receipt', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,resizable:false,center:true})    
+	ptoken.navigate('#SESSION.root#/roster/candidate/details/review/TrackReview.cfm?documentno=#url.id#&personno='+per+'&reviewcode='+cls,'mydialog') 		
 }
 
 function reviewrefresh(id) {
@@ -235,7 +235,7 @@ function rostersearch(action,actionid,ajaxid) {
 function Selected(no,description) {			
     document.getElementById('functionno').value = no
 	document.getElementById('functionaltitle').value = description
-	ColdFusion.Window.hide('myfunction')
+	ProsisUI.closeWindow('myfunction')	
 }
 
 function more(bx,act) {

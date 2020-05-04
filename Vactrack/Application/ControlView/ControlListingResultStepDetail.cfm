@@ -1,4 +1,4 @@
-<table width="100%">
+
 <cfif EntityCode eq "VacDocument">
 
 	   <!--- show track --->	
@@ -41,13 +41,13 @@
 		   <cfset cl = "white">
 	   </cfif>	   	 
 	   
-	   <tr id="d#URL.Mission##row#" class="labelmedium">
+	   <tr class="labelmedium cls#URL.Mission##row#" style="display:none;">
 	   		<td align="left" colspan="6" style="padding-left:24px;font-weight:bold" class="labelmedium">#ActionDescription#</td>
 	   </tr>
 	 	 		   	   
 		   <cfoutput>
 	
-			   <tr bgcolor="#cl#" class="navigation_row line labelmedium" id="d#URL.Mission##row#" style="height:20px">
+			   <tr bgcolor="#cl#" class="navigation_row line labelmedium cls#URL.Mission##row#" style="height:20px; display:none;">
 			      <td style="padding-left:24px">#CurrentRow#</td> 
 				  <td style="padding-right:3px">#EntityClass#</td>
 				 
@@ -153,7 +153,7 @@
 	   
 	   <cfoutput query="Details"> 
 	   
-		   <tr class="navigation_row line labelmedium" id="d#URL.Mission##row#" style="height:20px">
+		   <tr class="navigation_row line labelmedium cls#URL.Mission##row#" style="height:20px; display:none;">
 		      <td style="padding-left:24px">#CurrentRow#</td> 
 		      <td>#EntityClass#</td>			  
 		      <td style="padding-left:2px"><a href="javascript:showdocument('#DocumentNo#','')">#DocumentNo#</a></td>	
@@ -219,5 +219,5 @@
 	    </cfoutput>
 	   
 </cfif>
-</table>
+
 

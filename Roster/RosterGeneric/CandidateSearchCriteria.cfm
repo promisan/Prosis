@@ -1,8 +1,9 @@
 
-<cfparam name="Form.Class" default="">
-<cfparam name="Form.Roster" default="">
-<cfparam name="Form.Filter" default="">
-<cfparam name="Form.Assessment" default="">
+<cfparam name="Form.Class"           default="">
+<cfparam name="Form.Roster"          default="">
+<cfparam name="Form.Filter"          default="">
+<cfparam name="Form.Assessment"      default="">
+<cfparam name="Form.CandidateStatus" default="">
 
 <CFSET Criteria = ''>
 
@@ -112,6 +113,12 @@
     <CFSET Criteria = Criteria&" AND A.ApplicantClass = '#Form.class#'">
 </cfif> 
 
+<cfif Form.CandidateStatus eq "">
+	<CFSET Criteria = Criteria&" AND A.CandidateStatus IN ('0','1')">
+<cfelse>
+    <CFSET Criteria = Criteria&" AND A.CandidateStatus = '#Form.CandidateStatus#'">
+</cfif> 
+
 
 <cfif Form.Assessment eq "1">
     <CFSET Criteria = Criteria&" AND A.PersonNo IN (SELECT DISTINCT A.PersonNo FROM ApplicantAssessment A INNER JOIN ApplicantAssessmentDetail Ad ON A.AssessmentId = Ad.AssessmentId)">
@@ -122,13 +129,9 @@
 <cfif Form.Roster eq "">
 
 <cfelseif Form.Roster eq "1">
-
-    <CFSET Criteria = #Criteria#&" AND B.ApplicantNo IN (SELECT ApplicantNo FROM ApplicantFunction WHERE Status IN ('1','2','3'))">
-	
+    <CFSET Criteria = #Criteria#&" AND B.ApplicantNo IN (SELECT ApplicantNo FROM ApplicantFunction WHERE Status IN ('1','2','3'))">	
 <cfelse>	
-
-	<CFSET Criteria = #Criteria#&" AND B.ApplicantNo IN (SELECT ApplicantNo FROM ApplicantFunction F, FunctionOrganization F1 WHERE F1.FunctionId = F.FunctionId AND F1.SubmissionEdition = '#Form.Roster#' AND F.Status IN ('1','2','3'))">
-	
+	<CFSET Criteria = #Criteria#&" AND B.ApplicantNo IN (SELECT ApplicantNo FROM ApplicantFunction F, FunctionOrganization F1 WHERE F1.FunctionId = F.FunctionId AND F1.SubmissionEdition = '#Form.Roster#' AND F.Status IN ('1','2','3'))">	
 </cfif> 
 
 <cfif Form.Filter neq "">

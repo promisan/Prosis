@@ -9,7 +9,7 @@
 <!--- to be tuned to only load relevant scripts --->
 
 <cfparam name="attributes.classheader"  default="labelnormal line">
-<cfparam name="attributes.classsub"     default="labelnormal linedotted">
+<cfparam name="attributes.classsub"     default="labelnormal line">
 <cfparam name="attributes.mode"         default="extended">
 <cfparam name="attributes.gadgets"      default="No">
 

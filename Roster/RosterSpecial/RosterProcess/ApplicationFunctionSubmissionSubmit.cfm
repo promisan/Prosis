@@ -91,8 +91,6 @@
 </cfloop>		
 
 <script>
-	
-
 	Prosis.busy('no')
 </script>	
 

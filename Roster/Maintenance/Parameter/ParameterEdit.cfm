@@ -2,7 +2,7 @@
 	<TITLE>Parameters - Roster Edit Form</TITLE>
 </HEAD>
 
-<cf_screentop height="100%" scroll="Yes" html="No">
+<cf_screentop height="100%" scroll="Yes" html="No" jquery="Yes">
 
 <cfset Page         = "0">
 <cfset add          = "0">
@@ -25,12 +25,12 @@
 	}
 	
 	function processrefresh(owner) {
-	   _cf_loadingtexthtml='';	
-	   ColdFusion.navigate('ParameterEditOwnerStatus.cfm?owner='+owner,'mysubtarget_'+owner)		
+	    _cf_loadingtexthtml='';	
+	    ptoken.navigate('ParameterEditOwnerStatus.cfm?owner='+owner,'mysubtarget_'+owner)		
 	}
 		
 	function deny(owner) {
-	   window.open("ParameterEditOwnerGrade.cfm?owner=" + owner, "_blank");
+	    window.open("ParameterEditOwnerGrade.cfm?owner=" + owner, "_blank");
 	}
 	
 	function authorization(owner) {
@@ -39,13 +39,12 @@
 	
 	function authorizationrefresh(owner) {	   
 		_cf_loadingtexthtml='';	
-	   ColdFusion.navigate('ParameterEditOwnerStatus.cfm?owner='+owner,'mysubtarget_'+owner);
+	    ColdFusion.navigate('ParameterEditOwnerStatus.cfm?owner='+owner,'mysubtarget_'+owner);
 	}
 	
-	function checkProcessAuthorization(owner, selectedstatus) {	
-	    
-		try { ColdFusion.Window.destroy('mydialog',true) } catch(e) {}
-		ColdFusion.Window.create('mydialog', 'Authorization', '',{x:100,y:100,height:document.body.clientHeight-50,width:document.body.clientWidth-50,modal:false,resizable:false,center:true})    			
+	function checkProcessAuthorization(owner, selectedstatus) {		    
+		
+		ProsisUI.createWindow('mydialog', 'Authorization', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:false,resizable:false,center:true})    			
 		ColdFusion.navigate('#SESSION.root#/Roster/Maintenance/Parameter/ParameterEditOwnerView.cfm?owner=' + owner + '&selectedStatus=' + selectedstatus + '&isReadonly=1','mydialog') 		
 	}
 	

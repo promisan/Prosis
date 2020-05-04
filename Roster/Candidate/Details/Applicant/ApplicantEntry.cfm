@@ -164,11 +164,11 @@ password="#SESSION.dbpw#">
 <script language="JavaScript">
 
 	function indexblank() {
-		document.getElementById('indexno').value = ""
+		 document.getElementById('indexno').value = ""
 	}
 	
 	function validate() {	   	  		
-		ptoken.navigate('ApplicantEntryValidate.cfm?next=#url.next#&submissionedition=#url.submissionedition#&source=#url.source#&mission=#url.mission#&orgunit=#url.orgunit#&personno=#url.personno#','submissionbox','','','POST','applicantentry');
+		 ptoken.navigate('ApplicantEntryValidate.cfm?next=#url.next#&submissionedition=#url.submissionedition#&source=#url.source#&mission=#url.mission#&orgunit=#url.orgunit#&personno=#url.personno#','submissionbox','','','POST','applicantentry');
 	}
 	
 	function save() {	

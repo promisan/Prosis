@@ -9,119 +9,169 @@
 			<cfargument name = "Account"	type = "string" default = "" required = "Yes">
 			<cfargument name = "Pwd" 		type = "string" default = "" required = "Yes">
 			<cfargument name = "DeviceId" 	type = "string" default = "" required = "Yes">	
+						
+			<cfquery name="System" 
+				datasource="AppsSystem">
+				SELECT  *	
+				FROM    Parameter 
+			</cfquery>	
+			
+			<cfquery name="get" 
+			    datasource="AppsSystem">
+			     SELECT  *
+			     FROM    UserNames
+			     WHERE   Account     = '#Account#' 	
+				 AND     AccountType = 'Individual'
+			</cfquery>  
+			
+			<cfif get.recordcount eq "0">
+			
+				<cfquery name="get" 
+				    datasource="AppsSystem">
+				     SELECT *
+				     FROM   UserNames
+				     WHERE (Account = '#Account#' 		 
+						   <cfif System.LogonIndexNo eq "1">					 
+						 	   <cfif findNoCase("@",enteredAccount)>		 
+							   OR eMailAddress = '#Account#'			   
+							   <cfelse>			   
+							   OR IndexNo      = '#Account#'			   			   
+							   </cfif>						   		 				 
+					       </cfif>
+						   )						   
+					 <cfif System.UserGroupLogon eq "1">
+					 <cfelse>
+					 AND    AccountType = 'Individual'
+					 </cfif>	   		 
+			    </cfquery>  	   	
+			
+			</cfif>		
+			
+			<cfif get.recordcount eq "1">
+			
+			     <cfset account = get.Account>	
 	
-			<cfinvoke component="Service.Authorization.Password"  
-				Method       		= "Prosis"
-				Account      		= "#Account#"
-				Pwd			   		= "#Pwd#"
-				returnvariable   	= "searchresult">	
+				<cfinvoke component="Service.Authorization.Password"  
+					Method       		= "Prosis"
+					Account      		= "#Account#"
+					Pwd			   		= "#Pwd#"
+					returnvariable   	= "searchresult">	
 			  
-			<cfif SearchResult.recordCount eq 1>
-				<cfif len(CGI.HTTP_USER_AGENT) gt "200">
-					<cfset version = "#left(CGI.HTTP_USER_AGENT,200)#">
-				<cfelse>
-					<cfset version = "#CGI.HTTP_USER_AGENT#">
-				</cfif>		  	  
-			
-				<cfset host = cgi.http_host>
-				
-				<cfquery name="Init" 
-					datasource="AppsInit">
-						SELECT * 
-						FROM   Parameter
-						WHERE  HostName = '#CGI.HTTP_HOST#'		
-				</cfquery>	
-				
-				<cfquery name="getUserStatus" 
-					datasource="AppsSystem">
+					<cfif SearchResult.recordCount eq 1>
 					
-						SELECT 	*
-						FROM	UserStatus
-						WHERE	Account = '#Account#'
-						AND		HostName = '#host#'
-						AND		NodeIp = '#CGI.Remote_Addr#'
+						<cfif len(CGI.HTTP_USER_AGENT) gt "200">
+							<cfset version = "#left(CGI.HTTP_USER_AGENT,200)#">
+						<cfelse>
+							<cfset version = "#CGI.HTTP_USER_AGENT#">
+						</cfif>		  	  
 					
-				</cfquery>		
-				
-				<cfquery name="getUser" 
-					datasource="AppsSystem">
+						<cfset host = cgi.http_host>
 						
-						SELECT 	*
-						FROM	UserNames
-						WHERE	Account = '#Account#'
-					
-				</cfquery>  
-				
-				<cfif getUserStatus.recordCount eq 0>
-				
-					<cf_AssignId>
-					<cfset SessionId = rowguid>
-					
-					<cfquery name="insert" 
-						datasource="AppsSystem">
-							INSERT INTO UserStatus 
-							(Account, 
-							HostName, 
-							NodeIP, 
-							ApplicationServer,
-							NodeVersion, 		
-							HostSessionNo,
-							HostSessionId,
-							DeviceId,		 
-							TemplateGroup,
-							ActionTimeStamp, 
-							ActionTemplate)
-							VALUES 
-							('#Account#',
-							'#host#', 
-							'#CGI.Remote_Addr#', 
-							'#init.applicationserver#',
-							'#version#', 	
-							0,			 
-							'#SessionId#',
-							'#DeviceId#',
-							'Mobile',
-							getDate(), 
-							'#CGI.SCRIPT_NAME#')
-					</cfquery>
-				
-				<cfelse>
-				
-					<cfquery name="update" 
-						datasource="AppsSystem">
+						<cfquery name="Init" 
+							datasource="AppsInit">
+								SELECT * 
+								FROM   Parameter
+								WHERE  HostName = '#CGI.HTTP_HOST#'		
+						</cfquery>	
 						
-						UPDATE	UserStatus
-						SET		DeviceId = '#DeviceId#',
-								ActionTimeStamp = getDate(),
-								TemplateGroup = 'Mobile',
-								ActionTemplate = '#CGI.SCRIPT_NAME#'
-						WHERE	Account = '#Account#'
-						AND		HostName = '#host#'
-						AND		NodeIp = '#CGI.Remote_Addr#'
+						<cfquery name="getUserStatus" 
+							datasource="AppsSystem">
+							
+								SELECT 	*
+								FROM	UserStatus
+								WHERE	Account = '#Account#'
+								AND		HostName = '#host#'
+								AND		NodeIp = '#CGI.Remote_Addr#'
+							
+						</cfquery>		
 						
-					</cfquery>
+						<cfquery name="getUser" 
+							datasource="AppsSystem">
+								
+								SELECT 	*
+								FROM	UserNames
+								WHERE	Account = '#Account#'
+							
+						</cfquery>  
+						
+						<cfif getUserStatus.recordCount eq 0>
+						
+							<cf_AssignId>
+							<cfset SessionId = rowguid>
+							
+							<cfquery name="insert" 
+								datasource="AppsSystem">
+									INSERT INTO UserStatus 
+									(Account, 
+									HostName, 
+									NodeIP, 
+									ApplicationServer,
+									NodeVersion, 		
+									HostSessionNo,
+									HostSessionId,
+									DeviceId,		 
+									TemplateGroup,
+									ActionTimeStamp, 
+									ActionTemplate)
+									VALUES 
+									('#Account#',
+									'#host#', 
+									'#CGI.Remote_Addr#', 
+									'#init.applicationserver#',
+									'#version#', 	
+									0,			 
+									'#SessionId#',
+									'#DeviceId#',
+									'Mobile',
+									getDate(), 
+									'#CGI.SCRIPT_NAME#')
+							</cfquery>
+						
+						<cfelse>
+						
+							<cfquery name="update" 
+								datasource="AppsSystem">
+								
+								UPDATE	UserStatus
+								SET		DeviceId        = '#DeviceId#',
+										ActionTimeStamp = getDate(),
+										TemplateGroup   = 'Mobile',
+										ActionTemplate  = '#CGI.SCRIPT_NAME#'
+								WHERE	Account         = '#Account#'
+								AND		HostName        = '#host#'
+								AND		NodeIp          = '#CGI.Remote_Addr#'
+								
+							</cfquery>
+							
+							<cfset SessionId = getUserStatus.HostSessionId>
+						
+						</cfif>
+						
+						<cfset vSessionId = SessionId>
+						<cfset vAccount = getUser.Account>
+						<cfset vName = getUser.FirstName & " " & getUser.LastName>
 					
-					<cfset SessionId = getUserStatus.HostSessionId>
-				
-				</cfif>
-				
-				<cfset vSessionId = SessionId>
-				<cfset vAccount = getUser.Account>
-				<cfset vName = getUser.FirstName & " " & getUser.LastName>
+					<cfelse>	  
+					
+						<cfset vSessionId = "">
+						<cfset vAccount   = "">
+						<cfset vName      = "">
+					
+					</cfif> 
+					
+			<cfelse>
 			
-			<cfelse>	  
+					<cfset vSessionId     = "">
+					<cfset vAccount       = "">
+					<cfset vName          = "">			
 			
-				<cfset vSessionId = "">
-				<cfset vAccount = "">
-				<cfset vName = "">
-			
-			</cfif> 
+			</cfif>		
 			
 			<cfquery name="get"
 				datasource="AppsWorkOrder">
 					SELECT	'#vSessionId#' AS HostSessionId,
-							'#vAccount#' AS Account,
-							'#vName#' AS Name
+							'#vAccount#'   AS Account,
+							'#vName#'      AS Name
 			</cfquery>
 			
 			<cfset data = serializeJSON(get,true)>
@@ -129,7 +179,6 @@
 			<cfreturn data>
 			  
 	</cffunction>			
-	
 	
 	<cffunction  
 		access      = "public"
@@ -183,9 +232,7 @@
 				<cfset vAccount = "">
 				<cfset vName = "">			
 			</cfif>
-			
-			
-			
+						
 			<cfquery name="get"
 				datasource="AppsWorkOrder">
 					SELECT	'#vReturn#' AS Result,
@@ -240,7 +287,5 @@
 		<cfreturn data>		
 	
 	</cffunction>
-
-
 
 </cfcomponent>

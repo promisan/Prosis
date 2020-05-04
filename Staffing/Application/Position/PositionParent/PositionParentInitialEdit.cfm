@@ -37,7 +37,7 @@
 		function Selected(no,description) {									
 			  document.getElementById('functionno').value = no
 			  document.getElementById('functiondescription').value = description					 
-			  ColdFusion.Window.hide('myfunction')
+			 ProsisUI.closeWindow('myfunction')
 		 }		
 	
 	</script>

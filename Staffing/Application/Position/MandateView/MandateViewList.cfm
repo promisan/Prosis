@@ -14,7 +14,8 @@
 <cfparam name="AccessStaffing"    		default="NONE">
 <cfparam name="CLIENT.lay"        		default="Listing">
 <cfparam name="URL.ShowAllRecords"   	default="0">
-<cfparam name="CLIENT.OldPageRecords"   default="25">
+<cfparam name="CLIENT.OldPageRecords"   default="40">
+
 
 <cfif url.selectiondate eq "undefined">
 	<cfset url.selectiondate = "">

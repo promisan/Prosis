@@ -1,16 +1,34 @@
 
 <!--- candidate recommendation --->
 
+<cfquery name="doc" 
+	datasource="appsVacancy" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    SELECT  *	   
+		FROM    Document				   	   
+		WHERE   DocumentNo = '#url.documentNo#'		 		 	 
+</cfquery>
+
+<cfquery name="fun" 
+	datasource="appsSelection" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    SELECT  *	   
+		FROM    FunctionOrganization				   	   
+		WHERE   DocumentNo = '#doc.documentNo#'		 		 	 
+</cfquery>
+
 <cfquery name="get" 
 	datasource="appsVacancy" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	      SELECT   A.*, DC.Status			   
-		   FROM    DocumentCandidate DC INNER JOIN
-                   Applicant.dbo.Applicant A ON DC.PersonNo = A.PersonNo INNER JOIN
-                   Ref_Status S ON DC.Status = S.Status    				   	   
-		  WHERE    DC.DocumentNo = '#url.documentNo#'		 
-		  AND      DC.PersonNo = '#url.personno#'		 
+	    SELECT  A.*, DC.Status			   
+		FROM    DocumentCandidate DC INNER JOIN
+                Applicant.dbo.Applicant A ON DC.PersonNo = A.PersonNo INNER JOIN
+                Ref_Status S ON DC.Status = S.Status    				   	   
+		WHERE   DC.DocumentNo = '#url.documentNo#'		 
+		AND     DC.PersonNo   = '#url.personno#'		 
 </cfquery>
 
 <cfoutput>
@@ -22,12 +40,12 @@
 	<tr><td id="myprocess"></td></tr>
 	
 	<tr class="labelmedium line">
-	<td style="height:30px;font-size:18px"><cf_tl id="Candidate"></td>
+	<td style="height:40px;font-size:18px"><cf_tl id="Candidate"></td>
 	<td style="width:80%;;font-size:18px"><cfoutput>#get.LastName#, #get.FirstName#</cfoutput></td>
 	</tr>
 	
 	<tr class="labelmedium line">
-	<td style="height:30px;font-size:18px"><cf_tl id="Recommend candidate"></td>
+	<td style="height:40px;font-size:18px"><cf_tl id="Recommend for Job"></td>
 	<td style="width:80%">
 		<input class = "Radiol" 
 		       style = "height:21px;width:21px" 
@@ -37,6 +55,21 @@
 	</td>
 	</tr>
 	
+	<cfif fun.recordcount eq "1">
+	
+		<tr class="labelmedium line">
+		<td style="height:40px;font-size:18px"><cf_tl id="Roster candidate"></td>
+		<td style="width:80%">
+		 
+		 <cfset url.id       = get.PersonNo>
+	 	 <cfset url.id1      = fun.submissionedition>		
+		 <cfinclude template = "CandidateRecommendationBucket.cfm">			
+		
+		</td>
+		</tr>
+	
+	</cfif>
+		
 	<tr><td style="height:2px"></td></tr>
 	
 	<tr class="labelmedium" style="height:80%">
@@ -59,7 +92,7 @@
 				 resize="false"		
 				 border="0" 
 				 toolbar="Mini"
-				 height="80%"
+				 height="150"
 				 width="100%">#Check.ReviewMemo#</cf_textarea>
 	</td>
 	</tr>

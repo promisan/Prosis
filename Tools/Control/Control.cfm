@@ -33,6 +33,7 @@
    
 <cfelse>  
 
+
 	<!--- this method is made to check if the session of the user is considered cancelled based on the content
 	of the parameter table for this application server --->
 
@@ -158,8 +159,7 @@
 			<!--- 2015-03-07 kherrera: if upload picture and android then exception or if it is an upload --->
 			
 		<cfelse>
-		
-								
+						
 			<cfif CGI.REQUEST_METHOD eq "POST">
 		
 				<cfset vProtocol = "http://">
@@ -249,18 +249,30 @@
 						
 		</cfloop>	
 		
-		<!--- added by hanno to allow for direct calls of a template, instead of ajax driven call which
-		will have additional attributes in the URL --->
-										
-		<cfif checkenabled.recordcount gte "1" and mid eq "" and findNoCase("cf_clientid",CGI.QUERY_STRING) eq "1">
-				
-			<!--- ---------------------------------------------------------------- --->
+		<!--- Hanno detect if template may be opened without any MID included which them bypasses the
+		MIP validation as soon as we have reason to believe this link is controlled by MID before
+		
+		right now we do this for ajax links but i think we should do this for any links
+		
+		
+		--->
+		
+		<cfif mid eq "" and checkenabled.recordcount gte "1">
+		
+		<!---
+												
+		<cfif mid eq "" and checkenabled.recordcount gte "1" and findNoCase("cf_clientid",CGI.QUERY_STRING) eq "1">
+		
+		--->
+						
+			<!--- ----------------------------------------------------------------- --->
 			<!--- we let this fail if MID does not exist and this is an ajax call  --->
-			<!--- ---------------------------------------------------------------- --->
+			<!--- ----------------------------------------------------------------- --->
 			
 			<cfset mid = "999">					
 											
-		</cfif>					
+		</cfif>		
+		
 		
 		<!--- we check if the template is launched by this user within a certain time frame based on an 
 		id created upon triggering the termplate --->		

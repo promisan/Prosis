@@ -7,6 +7,7 @@
 
 <cfoutput>
 
+
 <table width="97%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center">
 <tr><td>	  
 	 
@@ -198,7 +199,7 @@
 						</TR>
 						
 						</cfif>
-													
+																									
 					    <TR>
 					    <TD width="25%" height="25" class="labelmedium" style="padding-left:15px">Label Step Completed:</TD>
 					    <TD colspan="2">
@@ -264,7 +265,9 @@
 													)
 						</cfquery>
 										
-					</cfif>					
+					</cfif>		
+					
+								
 															
 					<table height="100%" width="100%">
 					
@@ -410,7 +413,8 @@
 							
 							</table>				
 																					
-						</td>					
+						</td>		
+														
 						<td height="100%" width="90%" valign="top" style="padding-left:10px">
 						
 						<table width="100%" height="100%">					
@@ -428,6 +432,8 @@
 							FROM    Ref_SystemLanguage
 							WHERE   Operational   = '2' 
 						</cfquery>
+						
+						
 					   
 					    <cfif qLanguage.recordcount gt 0>
 					   
@@ -437,6 +443,7 @@
 						   </cf_menucontainer>
 											   					   
 					    </cfif>				
+						
 						
 					   
 					    <cfif Access.recordcount gte "1" or Entity.PersonClass neq "">
@@ -452,8 +459,7 @@
 						
 						<cfset itm = itm+1>
 						<cf_menucontainer name="subbox" item="#itm#" class="hide"/>	
-											
-												
+													
 						<!--- mail --->
 												
 						<cfset itm = itm+1>
@@ -461,7 +467,9 @@
 							<cfparam name="url.ajax" default="No">
 							
 							<cfinclude template="ActionStepEditActionMail.cfm">			
-						</cf_menucontainer>				
+						</cf_menucontainer>		
+						
+							
 						
 						<!--- docs --->
 												
@@ -470,6 +478,7 @@
 							<cfinclude template="ActionStepEditActionEmbed.cfm">		
 						</cf_menucontainer>		
 						
+												
 						<!--- methods --->
 												
 						<cfset itm = itm+1>
@@ -509,9 +518,11 @@
 						
 				</table>
 				
+				
 	</CFFORM>		
 	
 	</td></tr>		
 	</table>	
+	
 	
 </cfoutput>

@@ -161,17 +161,20 @@ password="#SESSION.dbpw#">
 						             listinfo="name">
 							
 						<cfif getfiles.recordcount gte "1">
-																	
-							<tr class="clsRow_#currentrow#">
+																							
+							<tr class="clsRow_#currentrow# line" style="border-top:1px solid silver">
 							  
 							   <td style="padding-left:10px">
-							       <table cellspacing="0" cellpadding="0">
-								   <td style="padding-left:10px;font-size:11px;padding-right:3px" class="labelit"><cf_tl id="Attach">:</td>
+							       <table width="100%" cellspacing="0" cellpadding="0">
+								   <tr class="labelmedium">
+								   <td style="padding-left:10px;padding-right:3px"><cf_tl id="Attach">:</td>
 							       <cfloop query="getfiles">								   			
-										<td class="labelit ccontent">
-											<a href="#SESSION.rootDocument#/#object.entitycode#/#get.attachmentid#/#name#" target="_blank"><font color="0080C0">#name#</a>
-										</td>										
+									<td class="labelmedium">
+										<a href="#SESSION.rootDocument#/#object.entitycode#/#get.attachmentid#/#name#" target="_blank">#name#</a>
+										<cfif currentrow neq recordcount>;</cfif>
+									</td>										
 								   </cfloop>
+								   </tr>
 								   </table>
 							   </td>
 							</tr>

@@ -29,12 +29,11 @@
 
 <cfset SESSION.acc             = Form.Account>   
 <cfset CLIENT.logoncredential  = Form.Account>
-
-    <!--- We do not eliminate spaces as spaces can be used in the context of some mail servers e.g Lotus notes--->
-	
+    
 	<cfif System.LogonMode eq "Prosis">
          <cfset EnteredAccount = Replace(SESSION.acc, " ", "", "ALL")>
     <cfelse>
+		<!--- We do not eliminate all spaces as spaces can be used in the context of some mail servers e.g Lotus notes--->	
          <cfset EnteredAccount = Rtrim(LTrim(SESSION.acc))>
     </cfif>
     
@@ -45,6 +44,7 @@
      SELECT  *
      FROM    UserNames
      WHERE   Account = '#EnteredAccount#' 	
+	 AND     AccountType = 'Individual'
 	 <!--- make sure that if the account also exists as accountNo it will not be used for Prosis --->
 	 
 	 <!---
@@ -53,8 +53,7 @@
                 FROM     UserNames
                 WHERE    AccountNo = '#EnteredAccount#')				
 	--->
-	
-	 AND     AccountType = 'Individual'	 
+		  
    </cfquery>  
    
    <cfset Credentials = "PROSIS">
@@ -67,26 +66,22 @@
 	    datasource="AppsSystem">
 	     SELECT *
 	     FROM   UserNames
-	     WHERE (
+	     WHERE (Account = '#EnteredAccount#' 		 
+			   <cfif System.LogonIndexNo eq "1">
 		 
-		        Account = '#EnteredAccount#' 
-		 
-		 <cfif System.LogonIndexNo eq "1">
-		 
-		 	   <cfif findNoCase("@",enteredAccount)>
-		 
-			   OR eMailAddress = '#EnteredAccount#'
-			   
-			   <cfelse>
-			   
-			   OR IndexNo      = '#EnteredAccount#'
-			   			   
-			   </cfif>
+			 	   <cfif findNoCase("@",enteredAccount)>		 
+				   OR eMailAddress = '#EnteredAccount#'			   
+				   <cfelse>			   
+				   OR IndexNo      = '#EnteredAccount#'			   			   
+				   </cfif>
 			   		 				 
-		 </cfif>
-		 
-		 ) 
-		 
+		       </cfif>
+			   )
+			   
+		 <cfif System.UserGroupLogon eq "1">
+		 <cfelse>
+		 AND    AccountType = 'Individual'
+		 </cfif>	   		 
 		 <!--- make sure that if the account also exists as accountNo it will not be used for Prosis 
 		  AND    NOT EXISTS
                (SELECT   'X'
@@ -94,12 +89,7 @@
                 WHERE    AccountNo = '#EnteredAccount#')			
 				--->
 		 
-		 <cfif System.UserGroupLogon eq "1">
-		 AND  AccountType = 'Individual'
-		 </cfif>
-		 
-	   </cfquery>  
-	   
+	   </cfquery>  	   
 	   
 	   <cfif Account.recordcount eq "0" and System.LogonMode neq "Prosis">
 	   
@@ -117,6 +107,7 @@
 			 ) 
 			 
 			 <cfif System.UserGroupLogon eq "1">
+			 <cfelse>
 			 AND  AccountType = 'Individual'
 			 </cfif>
 			 

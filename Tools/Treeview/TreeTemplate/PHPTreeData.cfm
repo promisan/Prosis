@@ -69,8 +69,7 @@ password="#SESSION.dbpw#">
 			target="right"			
 			href="General.cfm?ID=#URL.ID#&section=contact&topic=references">	
 			
-	</cfif>
-	
+	</cfif>	
 				
 <cfif applicant.scope eq "patient">	
 
@@ -81,8 +80,7 @@ password="#SESSION.dbpw#">
 				parent="Root"	
 				href="General.cfm?ID=#URL.ID#&section=general&topic=customer"
 				target="right"														
-		        expand="Yes">			
-			
+		        expand="Yes">				
 						
 			<cfquery name="getSource" 
 				datasource="AppsSelection" 
@@ -91,7 +89,9 @@ password="#SESSION.dbpw#">
 					SELECT   DISTINCT Source
 					FROM     ApplicantSubmission
 					WHERE    PersonNo = '#URL.ID#'											
-					AND      Source IN (SELECT Source FROM Ref_Source WHERE Operational = 1)
+					AND      Source IN (SELECT Source 
+					                    FROM   Ref_Source 
+										WHERE  Operational = 1)
 			</cfquery>	
 						
 		<cfloop query="getSource">
@@ -245,8 +245,7 @@ password="#SESSION.dbpw#">
 				parent="Root"	
 				target="right"			
 				href="General.cfm?ID=#URL.ID#&section=profile&topic=all"									
-		        expand="Yes">		
-				
+		        expand="Yes">				
 						
 		<cfinvoke component="Service.Access"  
 			method="roster" 
@@ -259,22 +258,25 @@ password="#SESSION.dbpw#">
 				datasource="AppsSelection" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
-					SELECT   DISTINCT Source
-					FROM     ApplicantSubmission
-					WHERE    PersonNo = '#URL.ID#'											
-					AND      Source IN (SELECT Source 
-					                    FROM   Ref_Source 
-										WHERE  Operational = 1 
-										AND    AllowEdit = 1)
+					SELECT   *
+					FROM     Ref_Source R 
+					WHERE    Source IN (SELECT Source
+										FROM   ApplicantSubmission
+					                    WHERE  Source = R.Source
+					                    AND    PersonNo = '#URL.ID#' )
+					AND     Operational = 1 
+					--	AND AllowEdit = 1		
 			</cfquery>
 					
 			<cfloop query="getSource">
 		     	
 				<cf_tl id="Source" var="1">
 				<cf_UItreeitem value="#source#"
-			        display="<span class='labelit' style='padding-bottom:2px;padding-top:2px;font-size:15px'>#lt_text# : #Source#</span>"
+			        display="<span class='labelit' style='color:gray;padding-bottom:2px;padding-top:6px;font-size:11px'>#lt_text# :&nbsp;</span><span class='labelit' style='padding-bottom:2px;padding-top:2px;font-size:15px'>#Source#</span>"
 					parent="Profile"							
-					Expand="No">		
+					Expand="No">	
+					
+				<!--- define if there are more than one submission --->		
 					
 				 <cfset src = source> 	
 					
@@ -284,8 +286,18 @@ password="#SESSION.dbpw#">
 			        display  = "<span class='labelit' style='font-size:14px'>#lt_text#</span>"
 					parent   = "#source#"
 					target   = "right"				
-					href     = "General.cfm?ID=#URL.ID#&section=general&topic=recapitulation&Source=#Source#&edit=view&area=Miscellaneous">	 		
-												
+					href     = "General.cfm?ID=#URL.ID#&section=general&topic=recapitulation&Source=#Source#&edit=view&area=Miscellaneous">
+					
+					<cfquery name="getSubmission" 
+				datasource="AppsSelection" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">	 	
+					
+					SELECT    ApplicantNo, SubmissionDate
+					FROM      ApplicantSubmission
+					WHERE     PersonNo = '#url.ID#' AND Source = '#src#'					
+				</cfquery>	
+				
 				<cfquery name="PHP"
 			         datasource="AppsSelection"
 			         username="#SESSION.login#"
@@ -296,18 +308,47 @@ password="#SESSION.dbpw#">
 					 ORDER BY ListingOrder
 			    </cfquery>
 				
-				<cfloop query="PHP">		
+				<cfif getSubmission.recordcount eq "1">												
+							
+					<cfloop query="PHP">		
+					
+						<cf_tl id="#Description#" var="1">
 				
-					<cf_tl id="#Description#" var="1">
-			
-					<cf_UItreeitem value="#description#_#src#"
-				        display="<span class='labelit' style='font-size:14px'>#lt_text#</span>"
-						parent="#src#"
-						target="right"				
-						href="General.cfm?source=#src#&ID=#URL.ID#&section=profile&id2=#code#&topic=#code#">		
+						<cf_UItreeitem value="#description#_#src#"
+					        display="<span class='labelit' style='font-size:14px'>#lt_text#</span>"
+							parent="#src#"
+							target="right"				
+							href="General.cfm?source=#src#&ID=#URL.ID#&section=profile&id2=#code#&topic=#code#">		
+					
+					</cfloop>
+					
+				<cfelse>
 				
-				</cfloop>
+				     <cfloop query="getSubmission">
+					 
+						 	<cfset appNo = applicantNo>
+						 
+						 	<cf_UItreeitem value="#appNo#"
+						        display="<span class='labelit' style='font-size:14px'>#dateformat(submissiondate,client.dateformatshow)#&nbsp;</span>&nbsp;<span style='padding-top:3px' class='labelit' style='font-size:12px'></span>"
+								parent="#src#" 							
+								Expand="No">	
+						 				
+						    <cfloop query="PHP">		
+							
+								<cf_tl id="#Description#" var="1">
+						
+								<cf_UItreeitem value="#description#_#src#"
+							        display="<span class='labelit' style='font-size:14px'>#lt_text#</span>"
+									parent="#appno#"
+									target="right"				
+									href="General.cfm?source=#src#&ID=#URL.ID#&section=profile&id2=#code#&topic=#code#&applicantno=#appno#">		
+							
+							</cfloop>
+						
+					 </cfloop>
 				
+				</cfif>
+									
 			</cfloop>	
 			
 		</cfif>

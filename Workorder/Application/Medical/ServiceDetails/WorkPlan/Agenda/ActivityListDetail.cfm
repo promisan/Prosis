@@ -116,7 +116,7 @@
 		   <a class="navigation_action" title="#LocationName#" href="javascript:openaction('#workorderlineid#')"><cfif documentReference neq "">#DocumentReference#<cfelse>#PersonNo#</cfif></a> 
 	    </td>					
 		<td class="ccontent bcell" style="width:100%;background-color:#plancolor#;font-size:14px"> #FirstName# <cfif MiddleName neq "">#MiddleName# </cfif>#LastName# <cfif LastName2 neq "">#LastName2#</cfif></td>			
-		<td class="ccontent acell" style="color:#workorderservicecolor#;background-color:#plancolor#"><cfif locationname neq "">#UCASE(left(WorkOrderService,3))#<cfelse>#UCASE(left(WorkOrderService,3))#</cfif></td>	
+		<td class="ccontent acell" style="color: #WorkOrderServiceColor#;background-color:#locationcolor#"><cfif locationname neq "">#UCASE(left(WorkOrderService,3))#<cfelse>#UCASE(left(WorkOrderService,3))#</cfif></td>	
 		<td class="ccontent acell" style="min-width:40px;background-color:#plancolor#">#tpe#</td>	
 		<td class="ccontent acell" style="background-color:#plancolor#"><cfif PlanOrder neq "">#left(PlanOrder,1)#</cfif></td>	
 		<td class="ccontent acell" style="background-color:#plancolor#">#Description#</td>	

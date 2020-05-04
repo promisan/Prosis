@@ -1,12 +1,12 @@
 
 <!--- Hanno : we need a provision for the online user to process it, even if allowedit = 0 --->
 
+<cfparam name="url.applicantno" default="0">
+<cfparam name="URL.ID3"         default="#url.applicantno#">
 <cfparam name="URL.ID4"         default="">
-<cfparam name="URL.ID3"         default="">
 <cfparam name="URL.source"      default="Manual">  
 
 <cfparam name="url.section" 	default="">
-<cfparam name="url.applicantno" default="0">
 <cfparam name="url.entryScope"  default="Backoffice">
 <cfparam name="url.Scope"       default="">
 
@@ -14,55 +14,54 @@
 datasource="AppsSelection" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-	SELECT *
-	FROM Parameter
+	SELECT  *
+	FROM    Parameter
 </cfquery>
 
 <cfquery name="getSource" 
 datasource="AppsSelection" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-	SELECT *
-	FROM   Ref_Source
-	WHERE  Source = '#url.source#'
+	SELECT  *
+	FROM    Ref_Source
+	WHERE   Source = '#url.source#'
 </cfquery>
 
 <cfquery name="Detail" 
 datasource="AppsSelection" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-SELECT   L.*, 
-         R.LanguageClass, 
-	     R.ListingOrder, 
-	     R.LanguageName, 
-		 S.Source,
-		 So.AllowEdit
-FROM     ApplicantSubmission S, ApplicantLanguage L, Ref_Language R, Ref_Source So
-WHERE    S.PersonNo    = '#URL.ID#'
-  AND    S.ApplicantNo = L.ApplicantNo
-  <cfif url.applicantno neq 0>
-  AND    S.ApplicantNo = '#url.applicantno#'
-  </cfif>
-  AND    S.Source      = So.Source  
-  <!--- we show from any source the data here for now to give a full picture
-  AND    So.Source     = '#url.source#'  
-  --->
-  AND    L.LanguageId = R.LanguageId
-ORDER BY LanguageClass, ListingOrder, LanguageName
+	SELECT   L.*, 
+	         R.LanguageClass, 
+		     R.ListingOrder, 
+		     R.LanguageName, 
+			 S.Source,
+			 So.AllowEdit
+	FROM     ApplicantSubmission S, ApplicantLanguage L, Ref_Language R, Ref_Source So
+	WHERE    S.PersonNo        = '#URL.ID#'
+	  AND    S.ApplicantNo     = L.ApplicantNo
+	  <cfif url.applicantno neq "0">
+	  AND    S.ApplicantNo     = '#url.applicantno#'
+	  </cfif>
+	  AND    S.Source          = So.Source  
+	  <!--- we show from any source the data here for now to give a full picture
+	  AND    So.Source     = '#url.source#'  
+	  --->
+	  AND    L.LanguageId      = R.LanguageId
+	ORDER BY LanguageClass, ListingOrder, LanguageName
 </cfquery>
 
 <cfif url.entryScope eq "Backoffice">
 	
 	<cfinvoke component="Service.Access"  
- 	method="roster" 
- 	returnvariable="Access"
- 	role="'AdminRoster','CandidateProfile'">
+	 	method="roster" 
+	 	returnvariable="Access"
+ 		role="'AdminRoster','CandidateProfile'">
  	
- <cfelseif url.entryScope eq "Portal">
- 
- 	<cfset Access = "ALL">
- 	
+<cfelseif url.entryScope eq "Portal"> 
+ 	<cfset Access = "ALL"> 	
 </cfif>
+
  
 <cfif URL.Topic neq "All">  
 
@@ -76,8 +75,7 @@ ORDER BY LanguageClass, ListingOrder, LanguageName
 		
 		<cfif URL.Topic neq "All">
 		
-		<tr><td style="font-size:24px;padding-top:8px;height:46px;padding-left:5px" class="labellarge"><cf_tl id="Languages"></td></tr>
-		<tr><td class="linedotted" height="1"></td></tr>
+		<tr class="line"><td style="font-size:24px;padding-top:8px;height:46px;padding-left:5px" class="labellarge"><cf_tl id="Languages"></td></tr>
 		
 		<cfelse>
 		
@@ -88,7 +86,7 @@ ORDER BY LanguageClass, ListingOrder, LanguageName
 		<tr>
 		  <td style="padding-left:0px">
 			
-			<table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="formpadding;navigation_table">
+			<table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="formpadding navigation_table">
 			
 			<TR class="labelmedium linedotted">
 			    <td height="20" width="20%" style="padding-left:40px" align="left"><cfif url.entryScope eq "Backoffice"><cf_tl id="Name"></cfif></td>
@@ -172,7 +170,7 @@ ORDER BY LanguageClass, ListingOrder, LanguageName
 						<td align="center" colspan="3" style="padding-right:5px">
 						<cfif URL.Topic neq "All">  
 						    <input type="button" value=" Save " class="button10g"
-							   onclick="Prosis.busy('yes');ColdFusion.navigate('#SESSION.root#/roster/candidate/details/Language/LanguageSubmit.cfm?entryScope=#url.entryScope#&applicantno=#url.applicantno#&section=#url.section#&source=#url.source#&ID2=#URL.ID2#&ID3=#URL.ID3#&ID4=#URL.ID4#&Topic=#URL.Topic#','languagebox','','','POST','languageform')">				
+							   onclick="Prosis.busy('yes');ptoken.navigate('#SESSION.root#/roster/candidate/details/Language/LanguageSubmit.cfm?entryScope=#url.entryScope#&applicantno=#url.applicantno#&section=#url.section#&source=#url.source#&ID2=#URL.ID2#&ID3=#URL.ID3#&ID4=#URL.ID4#&Topic=#URL.Topic#','languagebox','','','POST','languageform')">				
 						<cfelse>
 							<input type="submit" value=" Save " class="button10g">
 						</cfif>	
@@ -241,7 +239,7 @@ ORDER BY LanguageClass, ListingOrder, LanguageName
 									<a class="navigation_action" href="#template#?ApplicantNo=#url.ApplicantNo#&section=#url.section#&entryScope=#url.entryScope#&ID=#URL.ID#&ID2=#URL.ID2#&ID3=#ApplicantNo#&ID4=#LanguageId#&Topic=#URL.Topic#&source=#URL.Source#">
 								<cfelse>
 									<cfset template="#SESSION.root#/Roster/Candidate/Details/Language/Language.cfm">
-									<a class="navigation_action" href="javascript:Prosis.busy('yes');ColdFusion.navigate('#template#?ApplicantNo=#url.ApplicantNo#&section=#url.section#&entryScope=#url.entryScope#&ID=#URL.ID#&ID2=#URL.ID2#&ID3=#ApplicantNo#&ID4=#LanguageId#&Topic=#URL.Topic#&source=#URL.Source#','languagebox');">
+									<a class="navigation_action" href="javascript:Prosis.busy('yes');ptoken.navigate('#template#?ApplicantNo=#url.ApplicantNo#&section=#url.section#&entryScope=#url.entryScope#&ID=#URL.ID#&ID2=#URL.ID2#&ID3=#ApplicantNo#&ID4=#LanguageId#&Topic=#URL.Topic#&source=#URL.Source#','languagebox');">
 								</cfif>
 								<img src="#SESSION.root#/Images/edit.gif" height="13" width="13" align="absmiddle" alt="Edit" border="0">
 								<a>
@@ -253,15 +251,16 @@ ORDER BY LanguageClass, ListingOrder, LanguageName
 					</td>
 					<td align="left" style="padding-left:6px;padding-right:5px;padding-top:2px" width="20">
 					
+										
 					<cfif url.source eq source>
-					
+										
 						<cfif ((URL.Topic neq "All" or url.entryScope eq "Portal") and getSource.allowEdit eq "1" and getSource.operational eq "1")>
 						
 							<!--- Hanno : we need a provision for the online user to process it, even if allowedit = 0
 								<cfif Source neq "#Parameter.PHPSource#" and URL.Topic neq "All">		
 							--->
 			
-							<A href="javascript:Prosis.busy('yes');ColdFusion.navigate('#SESSION.root#/roster/candidate/details/Language/LanguagePurge.cfm?ApplicantNo=#url.ApplicantNo#&section=#url.section#&entryScope=#url.entryScope#&ID=#URL.ID#&ID2=#URL.ID2#&ID3=#ApplicantNo#&ID4=#LanguageId#&Topic=#URL.Topic#&source=#url.source#','languagebox')">
+							<A href="javascript:Prosis.busy('yes');ptoken.navigate('#SESSION.root#/roster/candidate/details/Language/LanguagePurge.cfm?ApplicantNo=#url.ApplicantNo#&section=#url.section#&entryScope=#url.entryScope#&ID=#URL.ID#&ID2=#URL.ID2#&ID3=#ApplicantNo#&ID4=#LanguageId#&Topic=#URL.Topic#&source=#url.source#','languagebox')">
 							<img src="#SESSION.root#/Images/delete5.gif" height="15" width="13" alt="Remove record" border="0">					
 							<a>
 							
@@ -366,8 +365,8 @@ ORDER BY LanguageClass, ListingOrder, LanguageName
 							    </select>	
 						</TD>
 						</cfoutput>
-						<cfif url.entryScope eq "Backoffice">
 						
+						<cfif url.entryScope eq "Backoffice">						
 						<td align="center"></td>
 						</cfif>
 						
@@ -375,12 +374,10 @@ ORDER BY LanguageClass, ListingOrder, LanguageName
 						
 						<cfoutput>
 						
-						<cfif URL.Topic neq "All">  
-											
+						<cfif URL.Topic neq "All">  											
 						    <input type="button" value=" Save " class="button10g" style="width:90"
-							   onclick="Prosis.busy('yes');ColdFusion.navigate('#SESSION.root#/roster/candidate/details/Language/LanguageSubmit.cfm?entryScope=#url.entryScope#&applicantno=#url.applicantno#&section=#url.section#&source=#url.source#&ID2=#URL.ID2#&ID3=#URL.ID3#&ID4=#URL.ID4#&Topic=#URL.Topic#','languagebox','','','POST','languageform')">				
-						<cfelse>
-											
+							   onclick="Prosis.busy('yes');ptoken.navigate('#SESSION.root#/roster/candidate/details/Language/LanguageSubmit.cfm?entryScope=#url.entryScope#&applicantno=#url.applicantno#&section=#url.section#&source=#url.source#&ID2=#URL.ID2#&ID3=#URL.ID3#&ID4=#URL.ID4#&Topic=#URL.Topic#','languagebox','','','POST','languageform')">				
+						<cfelse>											
 							<input type="submit" value=" Save " class="button10g">
 						</cfif>	
 						
@@ -409,6 +406,7 @@ ORDER BY LanguageClass, ListingOrder, LanguageName
 			
 				<CFOUTPUT query="Detail">
 				
+								
 				<cfif MotherTongue eq "1">
 					<cfset cl = "ffffaf">					
 				<cfelse>

@@ -221,6 +221,7 @@
 				          visible="Yes"
 				          enabled="Yes"
 						  selected="#fil#"
+						  style="border:0px;border-left:1px solid silver; border-right:1px solid silver"
 				          onchange="ColdFusion.navigate('#SESSION.root#/System/EntityAction/EntityObject/WorkflowElement/ClassDocumentSubmit.cfm?EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&entitycode=#URL.EntityCode#&actionCode=#URL.ActionCode#&ID2=#documentid#&fil='+this.value+'&lo='+document.getElementById('listingorder#currentrow#').value+'&op='+document.getElementById('operational#currentrow#').checked,'savedoc')"
 				          id="objectfilter#currentrow#"
 				          class="regularxl">
@@ -236,8 +237,9 @@
 				   
 					   <select name="objectfilter#currentrow#" 		
 					   		   id="objectfilter#currentrow#" 
-							   class="regularxl"				 						  					   
-							   onchange="ColdFusion.navigate('#SESSION.root#/System/EntityAction/EntityObject/WorkflowElement/ClassDocumentSubmit.cfm?EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&entitycode=#URL.EntityCode#&actionCode=#URL.ActionCode#&ID2=#documentid#&fil='+this.value+'&lo='+document.getElementById('listingorder#currentrow#').value+'&op='+document.getElementById('operational#currentrow#').checked,'savedoc')">
+							   class="regularxl"	
+							   style="border:0px;border-left:1px solid silver; border-right:1px solid silver"			 						  					   
+							   onchange="ptoken.navigate('#SESSION.root#/System/EntityAction/EntityObject/WorkflowElement/ClassDocumentSubmit.cfm?EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&entitycode=#URL.EntityCode#&actionCode=#URL.ActionCode#&ID2=#documentid#&fil='+this.value+'&lo='+document.getElementById('listingorder#currentrow#').value+'&op='+document.getElementById('operational#currentrow#').checked,'savedoc')">
 							   
 					    <option value="">any</option>
 					  	 <cfloop query="filter">
@@ -257,9 +259,9 @@
 						   required="No" 
 						   visible="Yes" 
 						   enabled="Yes" 
-						   style="text-align:center"
+						   style="text-align:center;border:0px;border-left:1px solid silver; border-right:1px solid silver"
 						   size="1" 
-						   onchange="ColdFusion.navigate('#SESSION.root#/System/EntityAction/EntityObject/WorkflowElement/ClassDocumentSubmit.cfm?EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&entitycode=#URL.EntityCode#&actionCode=#URL.ActionCode#&ID2=#documentid#&fil='+document.getElementById('objectfilter#currentrow#').value+'&lo='+this.value+'&op='+document.getElementById('operational#currentrow#').checked,'savedoc')"
+						   onchange="ptoken.navigate('#SESSION.root#/System/EntityAction/EntityObject/WorkflowElement/ClassDocumentSubmit.cfm?EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&entitycode=#URL.EntityCode#&actionCode=#URL.ActionCode#&ID2=#documentid#&fil='+document.getElementById('objectfilter#currentrow#').value+'&lo='+this.value+'&op='+document.getElementById('operational#currentrow#').checked,'savedoc')"
 						   maxlength="2" 
 						   class="regularxl">
 						   
