@@ -93,7 +93,6 @@
 <cfif access eq "ALL">	
   <cfset menu[1] = {label = "#lt_text#", script = "recordadd()"}>		  
 </cfif>   
-
 	
 <cf_listing
     header         = "Role"		

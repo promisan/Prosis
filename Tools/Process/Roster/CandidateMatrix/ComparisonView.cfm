@@ -75,14 +75,10 @@
 		WHERE  Owner = '#attributes.Owner#'
 	</cfquery>
 	
-	<cfif PHPSource.DefaultPHPSource eq "">
-	
-		<cfset ssource = PHPSource.DefaultPHPSource>
-			
-	<cfelse>
-	
-		<cfset ssource = Parameter.PHPSource>
-	
+	<cfif PHPSource.DefaultPHPSource neq "">		
+		<cfset ssource = PHPSource.DefaultPHPSource>			
+	<cfelse>	
+		<cfset ssource = Parameter.PHPSource>	
 	</cfif>
 
 	<cfquery name="getCandidates" 

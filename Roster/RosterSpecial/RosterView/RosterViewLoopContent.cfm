@@ -23,8 +23,7 @@
 				 
 		  </table>		  
 		  </td>
-   </tr>
-  
+   </tr>  
   	   
 	<cf_tl id="Add bucket" var="1">
 	<cfset tAddRosterBucket = "#Lt_text#">
@@ -87,7 +86,7 @@
 	   
 	   </cfif>
 	  	  	   	   	   		 	      
-	   <cfif SearchResult.recordcount lt "1" and Tbl eq "T" and (AccessBucket eq "EDIT" or AccessBucket eq "ALL")>
+	   <cfif SearchResult.recordcount lt "10" and Tbl eq "T" and (AccessBucket eq "EDIT" or AccessBucket eq "ALL")>
 	   
 			<cfoutput>
 			  <tr><td colspan="#tblr#" align="left" colspan="4" style="height:35px" class="labelmedium">			   
@@ -182,14 +181,14 @@
 		 		 
 		 	<cfinclude template="RosterViewHeader.cfm">
 		 		 	  
-			<tr class="labelmedium" style="height:20px">
+			<tr class="labelmedium" style="height:24px;background-color:f1f1f1">
 			
-			      <td style="width:100%;border:1px solid silver;padding-left:8px" ><cf_tl id="Buckets"></td>
+			      <td style="width:100%;border:1px solid silver;padding-left:8px"><cf_tl id="Buckets or Job Openings"></td>
 				   
 	 	  	      <td align="right" style="border:1px solid silver;padding-right:2px">
 				  												 
 					 <cfif Total neq "">
-					    #numberformat(Total,'_,_')#					 							
+					    #numberformat(Total,',_')#					 							
 					 <cfelse>
 					    -					  						
 					 </cfif>				
@@ -209,10 +208,10 @@
 						    <cfif cl eq "1">							
 								<td align="right" 								
 								id="cl#Occ#"
-								style="cursor: pointer;border:1px solid silver;padding-right:2px" 
+								style="cursor: pointer;border:1px solid silver;padding-right:4px" 
 								onClick="javascript: listing('#Occ#','show','all','#columnParent[item]#','subtotal','#URL.Status#',this,'#url.exerciseclass#')">								
 							<cfelse>							
-								<td align="right" style="border:1px solid silver;padding-right:2px">																				
+								<td align="right" style="border:1px solid silver;padding-right:4px">																				
 							</cfif>																 
 														
 							<cfif Evaluate("Grade_" & item) neq "">
@@ -225,12 +224,12 @@
 						
 							<cfif cl eq "1">
 						
-							<td align="right" style="border:1px solid silver" style="cursor: pointer" id="cl#Occ#"
+							<td align="right" style="border:1px solid silver;padding-right:4px" style="cursor: pointer" id="cl#Occ#"
 							onClick="listing('#Occ#','show','all','#column[item]#','grade','#URL.Status#',this,'#url.exerciseclass#')"> 	
 							
 							<cfelse>
 							
-							<td align="right" style="border:1px solid silver"> 					
+							<td align="right" style="border:1px solid silver;padding-right:4px"> 					
 							
 							</cfif>
 														 						
@@ -306,24 +305,24 @@
 					AND    Status = '#st#'
 				  </cfquery>
 			  
-				  <cfset cl   = "#Get.ShowRosterColor#">
-				  <cfset ac   = "#Get.TextHeader#">
-				  <cfset tool = "#Get.Meaning#">
+				  <cfset cl   = Get.ShowRosterColor>
+				  <cfset ac   = Get.TextHeader>
+				  <cfset tool = Get.Meaning>
 									  
-		          <tr bgcolor="#cl#" class="labelmedium" style="height:20px">
+		          <tr bgcolor="#cl#" class="labelmedium line" style="height:20px">
 				  
-				     <td width="40" bgcolor="f4f4f4" style="border:1px solid silver;padding-left:8px">
+				     <td width="40" style="border:1px solid d3d3d3;padding-left:8px">
 						 <table>
-						 <tr class="labelmedium">
+						 <tr class="labelmedium" style="height:15px">
 						 <td>#ac#<cf_space spaces="10"></td>
 						 <td style="border-left:1px solid silver;padding-left:4px">#get.Meaning#</td>
 						 </tr>
 						 </table>
 					 </td>						  
-		 		     <td align="right" style="background-color:E6EFD6;border:1px solid silver;padding-right:2px">
+		 		     <td align="right" style="border:1px solid d3d3d3;padding-right:4px">
 									
-					   <cfif Evaluate("Total" & st) neq "">					  
-							#numberformat(Evaluate("Total" & st),'_,-')#
+					   <cfif Evaluate("Total" & st) neq "" and Evaluate("Total" & st) neq "0">					  
+							#numberformat(Evaluate("Total" & st),'_,-')#  
 							<cfelse>-
 						</cfif>
 							 	  
@@ -341,7 +340,7 @@
 							 
 							 	 <cfif cl eq "1">	
 													
-								<td align="right" bgcolor="E6EFD6" id="cl#Occ#"
+								<td align="right" id="cl#Occ#"
 									style="border:1px solid silver;cursor: pointer;padding-right:4px" 
 									onClick="javascript: listing('#Occ#','show','all','#columnParent[item]#','subtotal','#URL.Status#',this,'#url.exerciseclass#')">
 								
@@ -357,7 +356,7 @@
 							
 								<td align="right" style="border:1px solid silver;cursor: pointer;padding-right:4px"
 								id="cl#Occ#" onClick="javascript: listing('#Occ#','show','all','#column[item]#','grade','#URL.Status#',this,'#url.exerciseclass#')"> 	
-								
+																
 								<cfelse>
 								
 								<td align="right" style="border:1px solid silver;padding-right:4px"> 
@@ -365,10 +364,11 @@
 								</cfif>
 								
 							</cfif>
-					 			    
+					 			  
 							<cfif Evaluate("Grade" & st & "_" & item) neq "">							
 							#numberformat(Evaluate("Grade" & st & "_" & item),'_,_')#
 							<cfelse>
+							-
 							</cfif>
 							
 						</td>

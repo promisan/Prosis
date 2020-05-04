@@ -15,13 +15,13 @@
 	
 	<cfoutput>
 			
-	<table width="100%" class="clsNoPrint" style="table-layout: fixed;" >
+	<table width="95%" align="right" class="clsNoPrint" style="table-layout: fixed;" >
 	
 		<tr class="hide"><td height="5" id="inputvalidation"></td></tr>
 					
 		<tr class="labelmedium" style="padding-right:2px">
 		
-			<td width="70"><cf_tl id="Mobile">:</td>	
+			<td width="70" style="padding-left:30px"><cf_tl id="Mobile">:</td>	
 			<td width="110"> <input type="text" 
 					   id="mobilenumber_#url.customerid#"
 					   size="8" style="align:center"
@@ -48,6 +48,7 @@
 			
 			<td width="50"><cf_tl id="Mail">:</td>	
 			<td width="170">
+			
 				  <input type="text" 				  
 					   id  ="emailaddress_#url.customerid#"
 					   size="15"
@@ -64,9 +65,9 @@
 				
 		<tr class="labelmedium">
 			
-			<td style="min-width:60px;padding-right:4px;"><cf_tl id="Postal">:</td>	
+			<td style="min-width:60px;padding-right:4px;padding-left:30px"><cf_tl id="Postal">:</td>	
 			<td colspan="2">		
-			
+						
 				 <cf_textInput
 						  form      = "customerform"
 						  type      = "ZIP"
@@ -130,8 +131,11 @@
 		</cfquery> 							
 				
 		<cfif customerAddress.recordcount neq 0>
+		
+			<tr><td height="2"></td></tr>
+			
 			<tr class="labelmedium">
-				<td width="50"><cf_tl id="Branch">:</td>	
+				<td width="50" style="padding-left:30px"><cf_tl id="Branch">:</td>	
 				
 				<cfif url.addressid eq "00000000-0000-0000-0000-000000000000" and qExisting.recordcount neq 0>
 					<cfset url.addressid = qExisting.AddressId>

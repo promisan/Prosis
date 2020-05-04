@@ -82,10 +82,9 @@
 					<table width="100%" cellspacing="0" cellpadding="0" bgcolor="ffffff">
 					
 					    <!--- processbox --->
-					    <tr class="hide"><td id="processbox"></td></tr>
+					    <tr class="xxhide"><td id="processbox"></td></tr>
 						
-						<tr>
-						
+						<tr>						
 						<td width="160" valign="top" id="setstatusbox" style="padding:8px">
 						
 						<cf_ApplicationFunctionEditStatusAction
@@ -216,9 +215,7 @@
 			</td>
 		</tr>
 		
-	   </cfif>   
-	   
-	  
+	   </cfif>  
 	   	   
 </table>
 		 

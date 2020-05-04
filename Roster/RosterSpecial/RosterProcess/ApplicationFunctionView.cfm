@@ -4,8 +4,7 @@
 	layout="webapp" 
 	banner="gray" 
 	jquery="Yes" 
-	line="no" 
-	bannerheight="55" 
+	line="no" 	
 	scroll="no" 
 	label="Process Roster Application">
 
@@ -217,7 +216,7 @@ password="#SESSION.dbpw#">
 <cfparam name="URL.Mode" default="0">
 <cfparam name="URL.Print" default="0">
 
-<cfajaximport tags="cftree,cfform,cfmenu,cfdiv,cfwindow">
+<cfajaximport tags="cftree,cfform,cfdiv,cfwindow">
 
 <cf_ActionListingScript>
 <cf_FileLibraryScript>	

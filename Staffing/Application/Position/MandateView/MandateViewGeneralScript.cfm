@@ -16,7 +16,7 @@
 		function Selected(no,description,fldfunctionno,fldfunctiondescription) {									
 			  document.getElementById(fldfunctionno).value = no
 			  document.getElementById(fldfunctiondescription).value = description					 
-			  ColdFusion.Window.hide('myfunction')
+			  ProsisUI.closeWindow('myfunction')
 		 }		
 		
 		function AddAssignment(postno,box) {

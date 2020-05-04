@@ -21,7 +21,7 @@
 <cf_textareascript>
 
 <cf_screentop layout="webapp" banner="blue" jQuery="yes" scroll="Yes"
-         height="100%" bannerheight="55" label="#URL.Owner# - #URL.Status#: #Action.Meaning#">
+         height="100%" label="#URL.Owner# - #URL.Status#: #Action.Meaning#">
 
 <cfoutput>
 	
@@ -91,10 +91,10 @@
 
 	<cfform action="ParameterEditStepSubmit.cfm?Owner=#URL.Owner#&Status=#URL.Status#" 
 	        target="result" 
-			style="height:100%"
+			style="height:98%"
 			method="post">	
 	
-	<table width="95%" height="100%" align="center" border="0" cellspacing="0" cellpadding="0">	   		
+	<table width="95%" height="100%" align="center">	   		
 							     	   
 	  	   <tr class="hide" colspan="2"><td><iframe name="result" id="result"></iframe></td></tr>
 				   			      

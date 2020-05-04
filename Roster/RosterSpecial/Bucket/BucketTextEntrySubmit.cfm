@@ -18,7 +18,7 @@
 		parent.parent.document.getElementById('refresh'+scope).click()
 	} catch(e) {}
 	
-	parent.parent.ColdFusion.Window.destroy('myfunction',true)
+	parent.parent.ProsisUI.closeWindow('myfunction',true)
 	
 		  							       
 </script>  

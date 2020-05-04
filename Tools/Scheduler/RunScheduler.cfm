@@ -6,11 +6,15 @@
 <cfparam name="URL.ID"           default="0">
 <cfparam name="URL.IDLog"        default="0">
 <cfparam name="URL.Batch"        default="1">
-<cfparam name="URL.mode"         default="schedule">
+<cfparam name="URL.mode"         default="Auto">
 
-<cfif url.mode eq "Schedule">
+<cfif url.mode eq "Auto">
 
 	<cfinclude template="../CFReport/Anonymous/PublicInit.cfm">
+
+</cfif>
+
+<cfif url.mode eq "Schedule">
 	
 	<cfquery name="Template"
 	datasource="AppsSystem" 
@@ -22,10 +26,8 @@
 	</cfquery>
 	
 	<cfset schedulelogid = url.idlog>	
-	
-	
-	
-<cfelseif url.mode eq "Manual">
+
+<cfelseif url.mode eq "Manual" or url.mode eq "Auto">
 
 	<cfquery name="Template"
 	datasource="AppsSystem" 
@@ -254,6 +256,3 @@
 </cfoutput>
 
 <table><tr class="labelmedium"><td style="padding-left:10px;padding-right:10px">Batch execution completed !</td></table>
-
-
-

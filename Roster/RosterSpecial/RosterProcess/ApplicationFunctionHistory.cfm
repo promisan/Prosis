@@ -44,15 +44,14 @@
 --->
 
 <tr class="labelmedium line">
-   	<td width="130" style="padding-left:10px">Officer</td>
-   	<TD>Timestamp</TD>
-	<TD>Process action</TD>
-	<td>Applied</td>
-	<TD>Action</TD>	
-	<td align="right">Confirmation</td>
+   	<td width="130" style="padding-left:10px"><cf_tl id="Officer"></td>
+   	<TD><cf_tl id="Timestamp"></TD>
+	<TD><cf_tl id="Process action"></TD>
+	<td><cf_tl id="Applied"></td>
+	<TD align="right"><cf_tl id="Roster Action"></TD>	
+	<td align="right"><cf_tl id="Confirmation"></td>
 </TR>
    
-
     <cfif history.recordcount eq "0">
 	
 	<tr class="labelmedium"><td colspan="6" align="center" style="padding-top:5"><font color="808080">No prior roster action history found</font></td></tr>
@@ -61,12 +60,12 @@
 	
     <cfoutput query="History">
  	  
-     <TR class="labelmedium navigation_row" style="height:20px">
+     <TR class="line labelmedium navigation_row" style="height:20px">
      <td style="padding-left:10px">#OfficerUserFirstName# #OfficerUserLastName#</td>
      <TD>#DateFormat(ActionSubmitted, CLIENT.DateFormatShow)# #TimeFormat(ActionSubmitted, "HH:MM")#</TD>
      <TD><cfif status eq "3"><font color="008000"></cfif>#Status# - #Meaning#</font></TD>
 	 <td>#DateFormat(StatusDate, CLIENT.DateFormatShow)#</b></td>
-	 <TD style="padding-left:4px">#RosterActionNo#</TD>
+	 <TD align="center" style="padding-left:4px">#RosterActionNo#</TD>
     
 	 <td style="padding-right:3px" align="right">
 	 
@@ -94,18 +93,19 @@
 			</td></tr></table>
 													
 		</cfif>
-				
-				
-				
-				
+	
 	</td>
 	
     </TR>
+	
+	<cfif actionRemarks neq "">
 	
 	<tr class="labelmedium navigation_row_child line" style="height:15px">
 	    <td></td>
 	    <TD colspan="5"><font color="408080">#ActionRemarks#</TD>
 	</tr>
+	
+	</cfif>
 	 
 	 <cfquery name="Decision" 
 		datasource="AppsSelection" 

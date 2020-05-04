@@ -43,7 +43,7 @@ password="#SESSION.dbpw#">
 </cfoutput>
 
 
-<cfif url.journal eq "" or not findNoCase(url.journal,valueList(Journal.Journal))>
+<cfif url.journal eq "" or not findNoCase(url.journal,valueList(Journal.Journal)) or url.journal eq "undefined">
 
 	<cfset url.journal = journal.journal>
 		

@@ -9,11 +9,19 @@ password="#SESSION.dbpw#">
 	Order  By TextAreaDomain, ListingOrder 
 </cfquery>
 
-<cf_divscroll>
+<cf_screentop html="No" jquery="Yes">
 
 <cfset add          = "1">
+
+<table style="height:100%;width:100%">
+
+<tr><td style="height:10">
+
 <cfset Header       = "Text Areas">
 <cfinclude template = "../HeaderRoster.cfm"> 
+
+</td>
+</tr>
  
 <cfoutput>
  
@@ -31,13 +39,16 @@ function recordedit(id1) {
 	
 </cfoutput>
 
-<table width="97%" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<tr><td style="height:100%">
 
-	<tr class="labelheader line">
+<cf_divscroll>
+
+<table width="97%" align="center" class="navigation_table">
+
+	<tr class="labelmedium line fixrow">
 	    <td></td> 
 	    <td>Code</td>
-		<td>Description</td>
-		<td></td>
+		<td>Description</td>		
 		<td>Sort</td>
 		<td>Officer</td>
 	    <td>Entered</td>
@@ -45,16 +56,15 @@ function recordedit(id1) {
 	
 	<cfoutput query="SearchResult" group="TextAreaDomain">
 	
-	   <tr><td height="1" colspan="6" style="height:40px" class="labellarge">&nbsp;#TextAreaDomain#</b></td></tr>	
+	   <tr class="fixrow2"><td height="1" colspan="6" style="height:40px" class="labellarge">#TextAreaDomain#</b></td></tr>	
   
 	   <cfoutput>
-		    <tr class="labelmedium linedotted navigation_row" style="height:22px">
+		    <tr class="labelmedium line navigation_row" style="height:22px">
 				<td width="5%" align="center">
 					  <cf_img icon="open" onclick="recordedit('#Code#')" navigation="Yes">
 				</td>		
 				<td><a href="javascript:recordedit('#Code#')">#Code#</a></td>
-				<td><a href="javascript:recordedit('#Code#')">#Description#</a></td>
-				<td width="30%">#Explanation#</td>
+				<td>#Description# : <font style="color:gray">#Explanation#</td>				
 				<td>#ListingOrder#</td>
 				<td>#OfficerLastName#</td>
 				<td>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
@@ -67,3 +77,8 @@ function recordedit(id1) {
 </table>
 
 </cf_divscroll>
+
+</td>
+</tr>
+</table>
+

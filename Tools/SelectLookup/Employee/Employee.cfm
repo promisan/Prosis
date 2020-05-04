@@ -7,7 +7,7 @@
    
    --->
 
-<table align="center" bgcolor="FFFFFF" width="100%" height="100%">
+<table align="center" border="0" style="height:100%;width:100%">
 
 <tr><td valign="top" height="20">
 
@@ -207,12 +207,8 @@
 </td>
 </tr>
 
-<tr>
-	
-	<td colspan="2" align="center" height="100%">
-	<cf_divscroll id="searchresult#url.box#"></cf_divscroll>
-	</td>
-	
+<tr>	
+  <td colspan="2" align="center" height="100%" id="searchresult<cfoutput>#url.box#</cfoutput>"></td>	
 </tr>
 
 </table>

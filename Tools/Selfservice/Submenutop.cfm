@@ -1,12 +1,4 @@
 
-<cfif find ("MSIE 7","#CGI.HTTP_USER_AGENT#")>
+<cfset validateSession = "No">
 
-	<cfset validateSession = "Yes">
-	
-<cfelse>
-
-	<cfset validateSession = "No">
-
-</cfif>
-
-<cf_screentop height="100%" scroll="vertical" html="No" ValidateSession="#validateSession#">
+<cf_screentop height="100%" jquery="Yes" scroll="vertical" html="No" ValidateSession="#validateSession#">

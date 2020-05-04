@@ -1,5 +1,4 @@
 
-
 <cfoutput>
 
 <cf_screentop height="100%" html="No" scroll="Yes" jquery="Yes">
@@ -84,10 +83,8 @@
 		ptoken.open("#SESSION.root#/Vactrack/Application/Document/DocumentEdit.cfm?ID=" + vacno, "_blank", "left=20, top=20, width=" + w + ", height= " + h + ", status=yes, toolbar=no, scrollbars=yes, resizable=yes");
 	}
 	
-	function ShowFunction(AppNo,FunId,mode) {
-		w = #client.width# - 100;
-	    h = #client.height# - 100;
-		ptoken.open("#SESSION.root#/roster/RosterSpecial/RosterProcess/ApplicationFunctionView.cfm?Mode=#URL.Mode#&ID=" + AppNo + "&ID1=" + FunId + "&IDFunction=" + FunId + "&IDTemplate=#URL.IDTemplate#&page=1&ts="+new Date().getTime(), "_blank", "left=20, top=20, width=" + w + ", height= " + h + ", status=yes, toolbar=no, scrollbars=yes, resizable=yes");		
+	function ShowFunction(AppNo,FunId,mode) {		
+		ptoken.open("#SESSION.root#/roster/RosterSpecial/RosterProcess/ApplicationFunctionView.cfm?Mode=#URL.Mode#&ID=" + AppNo + "&ID1=" + FunId + "&IDFunction=" + FunId + "&IDTemplate=#URL.IDTemplate#&page=1", AppNo);		
 	}
 
 </script>
@@ -244,7 +241,7 @@ password="#SESSION.dbpw#">
 	<table border="0" align="center" cellspacing="0" width="98%" style="padding-left:3px" class="navigation_table">
 		   
 	<tr>
-	  <td colspan="5" height="26" style="height:50px;font-size:30px;padding-top:4px;padding-left:15px" class="labellarge"><cf_tl id="Roster Candidacy"></b></td>
+	  <td colspan="5" height="26" style="height:50px;font-size:30px;padding-top:4px;padding-left:5px" class="labellarge"><cf_tl id="Roster Candidacy"></td>
 	  
 	  <td colspan="6" class="labelmedium" align="right" style="padding-right:5px">
 	  
@@ -284,10 +281,8 @@ password="#SESSION.dbpw#">
 	  
 	  </td>
 	</tr>
-	
-	<tr><td colspan="11" class="linedotted"></td></tr>
-	
-	<TR class="labelit line">
+			
+	<TR class="labelmedium line fixrow" style="border-top:1px solid silver">
 	    <TD height="20"></TD>
 	    <TD style="width:20px"></TD>
 		<TD><cf_tl id="Title"></TD>
@@ -307,23 +302,22 @@ password="#SESSION.dbpw#">
 	<cfif getEdition.EnableManualEntry eq "1" and getEdition.Operational eq "1">
 	
 		<cfif FunctionAll.recordcount eq "0">		
-		<tr><td colspan="11" style="height:30" align="center" class="labelit">
+		<tr class="line labelmedium"><td colspan="11" style="height:30" align="center">
 		<font color="FF0000">No candidacy records found for this edition.
 			  <cfif Access eq "EDIT" or Access eq "ALL">	
 			  <cfoutput>
-			  <a href="ApplicantFunctionEntry.cfm?id=#url.id#&id1=#url.id1#"><font color="0080C0"><u>Press here to record Candidacy</font></a>				 
+			  <a href="ApplicantFunctionEntry.cfm?id=#url.id#&id1=#url.id1#">Press here to record Candidacy</a>				 
 			  </cfoutput>
 			  </cfif>
 		</font></td>
-		</tr>
-		<tr><td colspan="11" class="linedotted"></td></tr>	
+		</tr>		
 		</cfif>
 	
 	</cfif>
 	
 	<cfoutput query="FunctionAll" group="ClassDescription">
 		
-	<tr><td colspan="8" class="labelit" style="padding-left:10px;font-size:35px;height:67px">#ClassDescription#</td></tr>	
+	<tr class="labelmedium fixrow2"><td colspan="8" style="padding-left:10px;font-size:35px;height:67px">#ClassDescription#</td></tr>	
 	
 	<cfoutput>
 	
@@ -394,7 +388,7 @@ password="#SESSION.dbpw#">
 		
 			<cfif show eq "1">
 			
-			<TR class="labelit line navigation_row"">
+			<TR class="labelmedium line navigation_row"">
 			    <td height="20" align="right"></td>
 				<td style="padding-left:9px;padding-right:4px">
 				   
@@ -407,13 +401,13 @@ password="#SESSION.dbpw#">
 					
 				</td>		
 				
-				<td width="35%" class="labelmedium" style="height:27">
-				<a href="javascript:ShowFunction('#applicantNo#','#functionId#')"><b>
+				<td width="35%" class="labelmedium">
+				<a href="javascript:ShowFunction('#applicantNo#','#functionId#')">
 				<cfif AnnouncementTitle neq "">#AnnouncementTitle#<cfelse>#FunctionDescription#</cfif>
 				</a>
 				<cfif OrganizationCode neq "[ALL]"><font color="gray">: #OrganizationDescription#</cfif>
 				</TD>
-			    <TD class="labelmedium"><b>#GradeDeployment#</TD>
+			    <TD class="labelmedium">#GradeDeployment#</TD>
 				<td class="labelmedium">#mission#</td>
 				<TD>
 				<cfif DocumentNo neq "">
@@ -436,7 +430,7 @@ password="#SESSION.dbpw#">
 					
 						<cfif statuscode eq "3">
 						
-							<a href="javascript:ColdFusion.navigate('../Functions/ApplicantFunctionProcess.cfm?owner=#owner#&applicantno=#applicantNo#&functionid=#functionId#&status=#PreRosterStatus.status#','#functionid#')"><font color="0080FF">#Meaning#</a>
+							<a href="javascript:ptoken.navigate('../Functions/ApplicantFunctionProcess.cfm?owner=#owner#&applicantno=#applicantNo#&functionid=#functionId#&status=#PreRosterStatus.status#','#functionid#')"><font color="0080FF">#Meaning#</a>
 							
 							<img src="#SESSION.root#/Images/arrow-down.gif" 
 								  align="absmiddle" 
@@ -447,7 +441,7 @@ password="#SESSION.dbpw#">
 						  
 						<cfelseif statuscode eq PreRosterStatus.status>
 						
-							<a href="javascript:ColdFusion.navigate('../Functions/ApplicantFunctionProcess.cfm?owner=#owner#&applicantno=#applicantNo#&functionid=#functionId#&status=3','#functionid#')"><font color="0080FF">#Meaning#</a>
+							<a href="javascript:ptoken.navigate('../Functions/ApplicantFunctionProcess.cfm?owner=#owner#&applicantno=#applicantNo#&functionid=#functionId#&status=3','#functionid#')"><font color="0080FF">#Meaning#</a>
 											
 							<img src="#SESSION.root#/Images/favorite.gif" 
 								  align="absmiddle" 
@@ -539,10 +533,7 @@ password="#SESSION.dbpw#">
 				<tr>
 					<td height="3" colspan="9" id="h#currentrow#" class="xxhide" style="padding:5px">
 					
-						<table width="100%"
-					       border="0"
-					       cellspacing="0"
-					       cellpadding="0"
+						<table width="100%"					     
 						   class="formpadding"
 					       align="center"
 					       bordercolor="d0d0d0"
@@ -552,15 +543,13 @@ password="#SESSION.dbpw#">
 					</td>
 				</tr>							
 					
-			</cfif>		
-			
+			</cfif>					
 					
 			<cfif RosterGroupMemo neq "">
 				<TR class="labelit"><td></td><td></td>
 					<td colspan="8" bgcolor="ffffcf" class="labelit" style="padding-left:10px">#RosterGroupMemo#</td>
 				</TR>
-			</cfif>		
-			
+			</cfif>					
 			
 		    <CFIF Access eq "EDIT" or Access eq "ALL"> 
 		  		
@@ -571,7 +560,7 @@ password="#SESSION.dbpw#">
 					<td></td><td></td>
 					
 					<TD colspan="8">
-					  <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+					  <table width="100%" align="center">
 					   <tr bgcolor="ECF5FF" class="labelit line">
 					    <td width="5%" align="center">No</td>
 						<td width="50%"><cf_tl id="Topic/Question"></td>				
@@ -660,7 +649,7 @@ password="#SESSION.dbpw#">
 			   
 			   <cfloop query = "History">			   
 			        					 
-				     <tr class="labelit linedotted">
+				     <tr class="labelmedium line">
 					 
 				     <td width="20%" style="padding-left:20px">#OfficerUserLastName#</td>
 				     <td width="17%">#DateFormat(ActionSubmitted, CLIENT.DateFormatShow)# #TimeFormat(ActionSubmitted, "HH:MM:SS")#</TD>
@@ -738,9 +727,7 @@ password="#SESSION.dbpw#">
 						<tr><td height="3" colspan="5" id="d#currentrow#" class="hide" style="padding:3px">
 												
 							<table width="100%"
-						       border="1"
-						       cellspacing="0"
-						       cellpadding="0"
+						       border="1"						      
 							   class="formpadding"
 						       align="center"
 						       bordercolor="d0d0d0"

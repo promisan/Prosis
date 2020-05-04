@@ -18,12 +18,12 @@
 	<cfif url.wparam eq "MARK">
 	
 		<cfset dialog = "Mark">
-		<cfset checkText = "Recommendation">
+		<cfset checkText = "Pass">
 		
 	<cfelse>
 	
 		<cfset dialog = "Test">
-		<cfset checkText = "Recommendation">
+		<cfset checkText = "Pass">
 		
 	</cfif>
 	
@@ -82,9 +82,27 @@
 <cf_calendarscript>
 <cfinclude template="../Document/Dialog.cfm">
 
+<cfquery name="Owner" 
+	datasource="AppsSelection" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT  TOP 1 *
+		FROM   Ref_ParameterOwner
+	</cfquery>
+
+	<cfif Owner.PathHistoryProfile eq "">
+		<cfset path = "Roster/PHP/PDF/PHP_Combined_List.cfm">
+	<cfelse>
+	    <cfset path = "Custom/#Owner.PathHistoryProfile#">
+	</cfif>
+
 <cfoutput>
 
 <script language="JavaScript">
+
+	function printingPHP(roster,format,script) {
+		 ptoken.open("#SESSION.root#/cfrstage/user/#SESSION.acc#/php_"+script+".pdf?ts="+new Date().getTime(),"php_"+script, "location=no, toolbar=no, scrollbars=yes, resizable=yes")
+	}
 	
 	ie = document.all?1:0
 	ns4 = document.layers?1:0
@@ -504,21 +522,18 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 		<cfif Status lt wfinal>
 	        <TR bgcolor="#IIf(CurrentRow Mod 2, DE('ffffff'), DE('ffffff'))#" class="line navigation_row labelmedium" style="font-size:18px;height:26px">		
 	    <cfelse> 	
-		    <TR class="line navigation_row labelmedium" style="font-size:18px;height:26px">		
+		    <TR class="line navigation_row labelmedium" style="font-size:18px;height:26px;border-top:1px solid silver">		
 	    </cfif> 
-		
-		
+				
 		<cfset cla = "hide">
 		<cfset clb = "regular">					 
 		
 		<cfset stop = "0">
 				
-		<td style="padding-left:4px;padding-top:3px">
+		<td style="padding-left:4px;padding-top:5px">
 		
-			<cfif wfinal neq "2s" and wfinal neq "track">
-					
-				<cf_img icon="expand" toggle="yes" onclick="assessment('assessment#CurrentRow#','#Object.ObjectKeyValue1#','#personno#','#action.actioncode#')">	
-			
+			<cfif url.wparam eq "INTERVIEW">					
+				<cf_img icon="expand" toggle="yes" onclick="assessment('assessment#CurrentRow#','#Object.ObjectKeyValue1#','#personno#','#action.actioncode#')">				
 			</cfif>
 			
 		</td>	
@@ -547,7 +562,7 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 					maxlength="3" 
 					size="3" 
 					class="regularxl"
-					style="text-align:right">
+					style="background-color:ffffcf;text-align:right;border:0px;border-left:1px solid silver;border-right:1px solid silver;">
 					
 			<cfelseif dialog eq "Interview">		
 			
@@ -731,7 +746,7 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 			    <table width="100%">
 					<tr><td class="labelmedium" style="padding-left:10px">;
 						<a href="javascript:showdocumentcandidate('#Object.ObjectKeyValue1#','#PersonNo#')">
-						<b><font color="FF0000"><cf_tl id="Attention">:</font></b> <cf_tl id="This candidate has already a recruitment track." class="Message"></font></a>
+						<b><font color="FF0000"><cf_tl id="Attention">:</font></b> <cf_tl id="This candidate has already a recruitment track." class="Message"></a>
 				    	</td>
 					</tr>
 				</table>
@@ -812,11 +827,8 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 				</cfloop>
 				
 			</table>
-			
-			
+					
 			</td></tr>
-			
-			
 			
 			--->
 			
@@ -836,7 +848,7 @@ Rem'd out becuase attending the interview does not mean that the candidate is se
 			
 			<tr id="detail#currentrow#" class="#clb#">
 							
-				<td colspan="10" style="padding-top:1px">
+				<td colspan="10" style="padding-top:1px;padding-bottom:4px">
 					<table width="97%" align="center" class="formpadding">
 						<tr>
 							

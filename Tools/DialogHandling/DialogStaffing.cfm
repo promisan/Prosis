@@ -209,15 +209,15 @@ function showdocumentcandidate(vacno,persno,status) {
 
 function selectfunction(formname,fldfunctionno,fldfunctiondescription,owner,param1,param2) {
 
-     try { ColdFusion.Window.destroy('myfunction',true) } catch(e) {}
-	 ColdFusion.Window.create('myfunction', 'Functional Titles', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,resizable:false,center:true})    					
-	 ColdFusion.navigate(root + "/Staffing/Application/Function/Lookup/FunctionView.cfm?FormName=" + formname + "&fldfunctionno=" + fldfunctionno + "&fldfunctiondescription=" + fldfunctiondescription + "&owner=" + owner + "&param1=" + param1 + "&param2=" + param2,'myfunction') 	
+     try { ProsisUI.closeWindow('myfunction',true) } catch(e) {}
+	 ProsisUI.createWindow('myfunction', 'Functional Titles', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,resizable:false,center:true})    					
+	 ptoken.navigate(root + "/Staffing/Application/Function/Lookup/FunctionView.cfm?FormName=" + formname + "&fldfunctionno=" + fldfunctionno + "&fldfunctiondescription=" + fldfunctiondescription + "&owner=" + owner + "&param1=" + param1 + "&param2=" + param2,'myfunction') 	
 	
 }
  
 function EditApplicant(id) {
 
-	ProsisUI.createWindow('mydialog', 'Edit', '',{x:100,y:100,height:750,width:650,modal:true,center:true})    	 				
+	ProsisUI.createWindow('mydialog', 'Edit', '',{x:100,y:100,height:document.body.clientHeight-90,width:650,modal:true,center:true})  				
 	ptoken.navigate(root + '/Roster/Candidate/Details/Applicant/ApplicantView.cfm?id=' + id,'mydialog') 		
       
 }
@@ -255,12 +255,6 @@ function ShowUserRole(Account) {
         w = #CLIENT.width# - 250;
         h = #CLIENT.height# - 140;
 	    ptoken.open(root + "/System/Organization/Access/UserAccessListing.cfm?ID=" + Account + "&ID1=" + h + "&ID2=" + w, "_blank", "left=20, top=20, width=" + w + ", height= " + h + ", status=yes, toolbar=no, scrollbars=no, resizable=yes");
-}
-
-function ShowFunctionProcess(AppNo, FunId) {
-        w = #CLIENT.width# - 60;
-        h = #CLIENT.height# - 120;
-	    ptoken.open(root + "/Roster/RosterSpecial/ApplicationFunctionProcess.cfm?ID=" + AppNo + "&ID1=" + FunId, "IndexWindow", "left=20, top=20, width=" + w + ", height= " + h + ", status=yes, toolbar=no, scrollbars=yes, resizable=yes");
 }
 
 function selectzip(fldzip,fldcity,fldcountry,mode) {

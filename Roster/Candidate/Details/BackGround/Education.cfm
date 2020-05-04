@@ -1,4 +1,8 @@
 
+<!--- -------------------------------------- --->
+<!--- ------ 20/4/2020 used for portal ----- --->
+<!--- -------------------------------------- --->
+
 <cfparam name="URL.entryScope"   default="Backoffice">
 <cfparam name="url.section" 	 default="">
 <cfparam name="URL.source"       default="Manual">  
@@ -17,33 +21,37 @@ password="#SESSION.dbpw#">
 datasource="AppsSelection" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-	SELECT   A.*, 
-	         F.ExperienceFieldId,
-			 (SELECT Name FROM System.dbo.Ref_Nation WHERE Code = A.OrganizationCountry) as CountryName,
-			   <!---
-			   F.ReviewLastName, 
-			   F.ReviewFirstName,
-			   F.ReviewDate,
-			   --->
-		      F.Status as StatusDomain,
-	          R.Description,
-		      R.Status as TopicStatus,
-		      R.ExperienceClass,
-		      S.Source
-	    FROM  ApplicantSubmission S INNER JOIN
-	          ApplicantBackground A ON S.ApplicantNo = A.ApplicantNo LEFT OUTER JOIN
-	          Ref_Experience R INNER JOIN
-	          ApplicantBackgroundField F ON R.ExperienceFieldId = F.ExperienceFieldId ON A.ExperienceId = F.ExperienceId AND 
-	          A.ApplicantNo = F.ApplicantNo
-	    WHERE S.PersonNo = '#URL.ID#'
-		AND   S.Source   = '#url.source#'
-		<cfif url.applicantno neq "">
-			AND S.ApplicantNo = '#url.applicantno#'
-		</cfif>	
-		<!--- AND   S.Source IN ('#CLIENT.Submission#','#Parameter.PHPSource#','Manual') --->
-		AND   A.Status != '9'
-		AND   A.ExperienceCategory = '#URL.ID2#'
-		ORDER BY ExperienceCategory, ExperienceStart DESC
+
+	SELECT      A.*, 
+	            F.ExperienceFieldId,
+			    (SELECT Name FROM System.dbo.Ref_Nation WHERE Code = A.OrganizationCountry) as CountryName,
+			     <!---
+			     F.ReviewLastName, 
+			     F.ReviewFirstName,
+			     F.ReviewDate,
+			     --->
+		         F.Status as StatusDomain,
+	             R.Description,
+		         R.Status as TopicStatus,
+		         R.ExperienceClass,
+		         S.Source
+			  
+	FROM         ApplicantSubmission S INNER JOIN
+	             ApplicantBackground A ON S.ApplicantNo = A.ApplicantNo LEFT OUTER JOIN
+	             Ref_Experience R INNER JOIN
+	             ApplicantBackgroundField F ON R.ExperienceFieldId = F.ExperienceFieldId ON A.ExperienceId = F.ExperienceId AND 
+	             A.ApplicantNo = F.ApplicantNo
+			  
+    WHERE        S.PersonNo = '#URL.ID#'
+	AND          S.Source   = '#url.source#'
+	<cfif url.applicantno neq "">
+		AND      S.ApplicantNo = '#url.applicantno#'
+	</cfif>	
+	<!--- AND   S.Source IN ('#CLIENT.Submission#','#Parameter.PHPSource#','Manual') --->
+	AND          A.Status != '9'
+	AND          A.ExperienceCategory = '#URL.ID2#'
+	ORDER BY     ExperienceCategory, ExperienceStart DESC
+	
 </cfquery>
 
 <cfoutput>

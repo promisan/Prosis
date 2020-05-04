@@ -136,8 +136,6 @@
 				
 			</cfif>					
 					
-					
-		
 			<cfquery name="customerAddress" 
 			  datasource="AppsMaterials" 
 			  username="#SESSION.login#" 
@@ -148,8 +146,6 @@
 							ON CA.AddressId = A.AddressId
 					WHERE  CustomerId = '#url.customerid#'
 			</cfquery>
-			
-			
 			
 			
 			<cfquery name="qExisting"

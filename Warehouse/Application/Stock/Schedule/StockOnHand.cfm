@@ -35,6 +35,6 @@ datasource="AppsMaterials">
 
 <cfloop query="Mission">
 
-	<cf_setRequestStatus mission="#mission#">
+	<cf_setRequestStatus mission="#mission#" datasource="AppsMaterials">
 	
 </cfloop>	

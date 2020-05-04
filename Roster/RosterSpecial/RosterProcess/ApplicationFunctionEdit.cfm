@@ -19,7 +19,7 @@
 	<input type="hidden" id="clCount"      name="clCount"      value="0">	
 </cfoutput>
 
-<table width="100%">
+<table width="100%" style="min-width:1000px">
     
   <tr><td style="padding-top:3px" valign="top">
     
@@ -41,17 +41,17 @@
 		
 		    <table>
 			    <tr class="labelmedium" style="height:40px">
-			    <td style="padding-left:5px;font-size:20px;font-weight:200">
-			    <cfoutput query="Get" maxrows=1><a href="javascript:gjp('#FunctionNo#','#GradeDeployment#')" title="Access Function detailed description"><font color="0080C0">#FunctionDescription# [#FunctionNo#]</font></a></cfoutput>		
+			    <td style="padding-left:5px;font-size:20px">
+			    <cfoutput query="Get" maxrows=1><a href="javascript:gjp('#FunctionNo#','#GradeDeployment#')" title="Access Function detailed description">#FunctionDescription# <font size="1">[#FunctionNo#]</font></a></cfoutput>		
 				</td>		
-				<td style="padding-left:20px;padding-right:5px"><cf_tl id="Level">:</td>
-				<TD style="font-size:20px;padding-left:20px;padding-right:5px;font-weight:200">
+				<td style="padding-left:20px;padding-right:5px"><cf_tl id="Level"></td>
+				<TD style="font-size:20px;padding-left:20px;padding-right:5px">
 					<cfoutput query="Get" maxrows=1><a href="javascript:gjp('#FunctionNo#','#GradeDeployment#')">#GradeDeployment#</a></cfoutput>
 					<cfoutput query="Get" maxrows=1>#OrganizationDescription#</cfoutput>
 				</TD>		
 				<cfif Get.ReferenceNo neq "">				
-			    	<td height="20" style="padding-left:20px"><cf_tl id="JO No">:</td>
-				    <td style="padding-left:5px;font-size:20px;font-weight:200"><cfoutput query="Get" maxrows=1>&nbsp;#ReferenceNo#</cfoutput></td>			
+			    	<td height="20" style="padding-left:20px"><cf_tl id="JO No"></td>
+				    <td style="padding-left:5px;font-size:20px"><cfoutput query="Get" maxrows=1>#ReferenceNo#</cfoutput></td>			
 				</cfif>					
 				</tr>		
 			</table>
@@ -71,11 +71,11 @@
 										
 						<TD style="padding-top:2px">
 					    <cfoutput query="Get" maxrows=1>
-					    	<textarea class="regular" name="Remarks" style="font-size:13px;height:25px;padding:2px;min-height:15;padding:4px;width:99%" type="text">#RosterGroupMemo#</textarea>
+					    	<textarea class="regular" name="Remarks" style="font-size:13px;height:40px;padding:2px;min-height:15;padding:4px;width:99%" type="text">#RosterGroupMemo#</textarea>
 					    </cfoutput>				
 					    </TD>
 						<td align="right" style="width:100;padding-top:2px;padding-right:3px">				
-					    <input type="button" name="Memo" value="Save" onclick="saveremarks()" style="width:100px" class="button10g"></td>
+					    <input type="button" name="Memo" value="Save" onclick="saveremarks()" style="height:40px;width:100px" class="button10g"></td>
 						<td class="hide" id="saveremarks"></td>
 					</tr>
 					</table>
@@ -369,7 +369,3 @@
 </CFFORM>
 
 </cf_divscroll>
-
-
-
-

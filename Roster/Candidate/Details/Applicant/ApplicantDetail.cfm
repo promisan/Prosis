@@ -152,7 +152,7 @@ password="#SESSION.dbpw#">
 													</a>													
 												<cfelse>																								
 													#Candidate.LastName#, #Candidate.LastName2# #Candidate.FirstName# #Candidate.MiddleName#&nbsp;<font size="3">#Candidate.PersonNo#</font> 													
-												</cfif>													
+												</cfif>																									
 												</td>													
 												<cfif AccessRoster eq "EDIT" or AccessRoster eq "ALL">												
 													<td valign="top" style="padding-top:6px;padding-left:4px;padding-right:5px"><cf_img icon="edit" onclick="EditApplicant('#Candidate.PersonNo#')"></td>													

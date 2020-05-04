@@ -915,8 +915,6 @@
 				     journal="#URL.Journal#" 
 					 journalserialno="#URL.JournalSerialNo#">
 
-
-
 		        <cf_filelibraryCheck
 						DocumentPath="GlTransaction"
 						SubDirectory="#TransactionId#" 
@@ -924,11 +922,10 @@
 						
 				<cfif files gte "1">
 			  
-				    <tr>
+				    <tr class="line">
 				        <td colspan="2" style="padding-left:3px" height="19" class="labelmedium"><cf_tl id="Attachment">:</td>		
 				    </tr>
-					<tr><td colspan="2" height="1" class="line"></td></tr>
-				  
+					
 					<tr><td colspan="2">
 					 
 					<cf_filelibraryN
@@ -965,11 +962,10 @@
 						
 				<cfif files gte "1">
 			  
-				    <tr>
+				    <tr class="line">
 				        <td colspan="2" style="padding-left:3px" height="19" class="labelmedium"><cf_tl id="Attachment">:</td>		
 				    </tr>
-					<tr><td colspan="2" height="1" class="line"></td></tr>
-				  
+									  
 					<tr><td colspan="2">
 					 
 					<cf_filelibraryN
@@ -1017,8 +1013,8 @@
 				  			  			  
 				  <cfoutput>
 				   	
-						<a href="javascript:ProcessTransaction('#Transaction.Mission#','#Transaction.OrgUnitOwner#','Payment','#CurPeriod.CurrentAccountPeriod#')">
-						<font color="0080C0"><cf_tl id="Submit a Payment Order">
+						<a href="javascript:ProcessTransaction('#Transaction.Mission#','#Transaction.OrgUnitOwner#','Payment','#CurPeriod.CurrentAccountPeriod#','','')">
+						<cf_tl id="Submit a Payment Order">
 						</a>
 								      
 				  </cfoutput>
@@ -1033,7 +1029,7 @@
 											  
 					  	<cfoutput>
 					   		<a href="javascript:CorrectTransaction('#Transaction.Journal#','#Transaction.JournalSerialNo#','Payables')">
-						    <font color="0080C0"><cf_tl id="Record a discount">
+						    <cf_tl id="Record a discount">
 							</a>
 					   	</cfoutput>		
 												

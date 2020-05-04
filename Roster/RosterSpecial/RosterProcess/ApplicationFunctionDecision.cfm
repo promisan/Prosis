@@ -548,12 +548,19 @@
 		<script>
 		
 			_cf_loadingtexthtml='';	
+			
 			<!--- refresh the container --->
+			
+			try {
 			opener.document.getElementById('refresh').click()
+			} catch(e) {}
+						
 			<!--- adjust the [current] process box --->		
-		    ColdFusion.navigate('ApplicationFunctionEditCurrent.cfm?id=#FORM.ApplicantNo#&id1=#URL.IDFunction#&owner=#url.owner#&status=#setstatus#','currentbox')			
+		    ptoken.navigate('ApplicationFunctionEditCurrent.cfm?id=#FORM.ApplicantNo#&id1=#URL.IDFunction#&owner=#url.owner#&status=#setstatus#','currentbox')			
+			
 				<!--- adjust the [current] process box --->		
-		    ColdFusion.navigate('ApplicationFunctionEditStatusAction.cfm?owner=#url.owner#&currentstatus=#setstatus#&applicantno=#FORM.ApplicantNo#&functionid=#URL.IDFunction#','setstatusbox')	
+		    ptoken.navigate('ApplicationFunctionEditStatusAction.cfm?owner=#url.owner#&currentstatus=#setstatus#&applicantno=#FORM.ApplicantNo#&functionid=#URL.IDFunction#','setstatusbox')	
+			
 			// document.getElementById('move').className = "hide"		
 	
 		</script>
@@ -561,6 +568,3 @@
 	</cfif>	
 	
 </cfoutput>
-
-  
-

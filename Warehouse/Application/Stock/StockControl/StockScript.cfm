@@ -123,7 +123,7 @@ function setCursor(){
 function printSale(cus,whs,bat,ter) {	
     try { ColdFusion.Window.destroy('wreprint',true)} catch(e){};    
     ColdFusion.Window.create('wreprint', 'Re-Print', '',{x:100,y:100,width:870,height:620,resizable:false,modal:true,center:true})		
-	ColdFusion.navigate("#SESSION.root#/Warehouse/Application/Salesorder/POS/Settlement/SaleInvoiceRePrint.cfm?warehouse="+whs+"&terminal="+ter+"&customerid="+cus+"&batchid="+bat+"&ts="+new Date().getTime(),'wreprint');	
+	ptoken.navigate("#SESSION.root#/Warehouse/Application/Salesorder/POS/Settlement/SaleInvoiceRePrint.cfm?warehouse="+whs+"&terminal="+ter+"&customerid="+cus+"&batchid="+bat+"&ts="+new Date().getTime(),'wreprint');	
 }
 
 function stockfullview() {
@@ -140,7 +140,7 @@ function stockfullview() {
 function validate() {
 	document.formperson.onsubmit() 
 	if( _CF_error_messages.length == 0 ) {			
-       	ColdFusion.navigate('#SESSION.root#/warehouse/application/stock/Transaction/setPersonSubmit.cfm','personresult','','','POST','formperson')
+       	ptoken.navigate('#SESSION.root#/warehouse/application/stock/Transaction/setPersonSubmit.cfm','personresult','','','POST','formperson')
     }   
 }	
 
@@ -198,7 +198,7 @@ function importpdf(file) {
 	  var vwarehouse = $("##warehouse").val();	    	  
 	  var vlocation  = $("##location").val();	    	  
 	  var vmode      = $("##mode").val();	    	  	  
-      ColdFusion.navigate('../Transaction/TransactionLogSheetPDFSubmit.cfm?pdfform='+file+'&warehouse='+vwarehouse+'&location='+vlocation+'&mode='+vmode,'detail','','','POST','transactionform')  
+      ptoken.navigate('../Transaction/TransactionLogSheetPDFSubmit.cfm?pdfform='+file+'&warehouse='+vwarehouse+'&location='+vlocation+'&mode='+vmode,'detail','','','POST','transactionform')  
   }
 }
 
@@ -249,7 +249,7 @@ function listfiltermain(mis,whs,id) {
 	            "&warehouse="+whs+
 				"&mission="+mis+
 				"&systemfunctionid="+id
-	ColdFusion.navigate(url,'mainlisting','','','POST','filterform')			
+	ptoken.navigate(url,'mainlisting','','','POST','filterform')			
 }
 
 function onhandfiltermain(mis,whs,id) {
@@ -258,7 +258,7 @@ function onhandfiltermain(mis,whs,id) {
 	            "&warehouse="+whs+
 				"&mission="+mis+
 				"&systemfunctionid="+id
-	ColdFusion.navigate(url,'mainlisting','','','POST','filterform')			
+	ptoken.navigate(url,'mainlisting','','','POST','filterform')			
 }
 
 function pricefiltermain(mis,whs,id) {
@@ -267,7 +267,7 @@ function pricefiltermain(mis,whs,id) {
 	            "&warehouse="+whs+
 				"&mission="+mis+
 				"&systemfunctionid="+id
-	ColdFusion.navigate(url,'mainlisting','','','POST','filterform')			
+	ptoken.navigate(url,'mainlisting','','','POST','filterform')			
 }
 
 function togglePriceDetail(id) {
@@ -382,7 +382,7 @@ function stockshipping(s,modid) {
             "&warehouse="+whs+
 			"&mission="+mis+
 			"&systemfunctionid="+modid				
-	ColdFusion.navigate(url,'main')		   
+	ptoken.navigate(url,'main')		   
 }
 	
 function stockreceipt(s,modid) {
@@ -412,7 +412,7 @@ function stockreceipt(s,modid) {
 				"&group="+grp+
 				"&loc=0"+
 				"&fnd="+fnd;								
-	ColdFusion.navigate(url,'main')					 
+	ptoken.navigate(url,'main')					 
 	}		
 	
 function stockreceiptissue(s,modid) {
@@ -443,7 +443,7 @@ function stockreceiptissue(s,modid) {
 				"&loc=0"+
 				"&fnd="+fnd;	
 							
-	ColdFusion.navigate(url,'main')		
+	ptoken.navigate(url,'main')		
 			 
 	}			
 
@@ -458,7 +458,7 @@ function stocksale(s,modid) {
 	document.getElementById("optionselect").value = "stocksale('','"+modid+"')"	
 	whs  = document.getElementById("warehouse").value	
 	mis  = document.getElementById("mission").value	
-	ColdFusion.navigate('../Transaction/TransactionInit.cfm?systemfunctionid='+modid+'&mode=sale&height='+document.body.offsetHeight+'&warehouse='+whs+'&mission='+mis,'main')		
+	ptoken.navigate('../Transaction/TransactionInit.cfm?systemfunctionid='+modid+'&mode=sale&height='+document.body.offsetHeight+'&warehouse='+whs+'&mission='+mis,'main')		
 	
 	}		
 
@@ -467,7 +467,7 @@ function stockexternalsale(s,modid) {
 	document.getElementById("optionselect").value = "stockexternalsale('','"+modid+"')"	
 	whs  = document.getElementById("warehouse").value	
 	mis  = document.getElementById("mission").value	
-	ColdFusion.navigate('../Transaction/TransactionInit.cfm?systemfunctionid='+modid+'&mode=externalsale&height='+document.body.offsetHeight+'&warehouse='+whs+'&mission='+mis,'main')		
+	ptoken.navigate('../Transaction/TransactionInit.cfm?systemfunctionid='+modid+'&mode=externalsale&height='+document.body.offsetHeight+'&warehouse='+whs+'&mission='+mis,'main')		
 	}			
 	
 function stockdisposal(s,modid) {		
@@ -476,7 +476,7 @@ function stockdisposal(s,modid) {
 	
 	whs  = document.getElementById("warehouse").value	
 	mis  = document.getElementById("mission").value	
-	ColdFusion.navigate('../Transaction/TransactionInit.cfm?systemfunctionid='+modid+'&mode=disposal&height='+document.body.offsetHeight+'&warehouse='+whs+'&mission='+mis,'main')	
+	ptoken.navigate('../Transaction/TransactionInit.cfm?systemfunctionid='+modid+'&mode=disposal&height='+document.body.offsetHeight+'&warehouse='+whs+'&mission='+mis,'main')	
 	
 	}			
 	
@@ -513,7 +513,7 @@ function stockquote(s,modid) {
 				"&loc=0"+
 				"&fnd="+fnd;	
 							
-	ColdFusion.navigate(url,'main')					 
+	ptoken.navigate(url,'main')					 
 }		
 
 function saledispatch(s,modid) {		
@@ -544,7 +544,7 @@ function saledispatch(s,modid) {
 				"&loc=0"+
 				"&fnd="+fnd;	
 							
-	ColdFusion.navigate(url,'main')					 
+	ptoken.navigate(url,'main')					 
 }		
 
 	
@@ -576,32 +576,32 @@ function stockpos(s,modid) {
 				"&loc=0"+
 				"&fnd="+fnd;	
 							
-	ColdFusion.navigate(url,'main')					 
+	ptoken.navigate(url,'main')					 
 	}		
 	
 function itemprice(s,modid) {		
 	document.getElementById("optionselect").value = "itemprice('','"+modid+"')"	
 	whs  = document.getElementById("warehouse").value	
 	mis  = document.getElementById("mission").value	
-	ColdFusion.navigate('../../SalesOrder/Pricing/PricingView.cfm?systemfunctionid='+modid+'&height='+document.body.offsetHeight+'&warehouse='+whs+'&mission='+mis,'main')		
+	ptoken.navigate('../../SalesOrder/Pricing/PricingView.cfm?systemfunctionid='+modid+'&height='+document.body.offsetHeight+'&warehouse='+whs+'&mission='+mis,'main')		
 	}		
 	
 function setsaletime(dte,hr,mn,id,whs) {
-  ColdFusion.navigate('#client.virtualdir#/warehouse/Application/SalesOrder/POS/Sale/setLine.cfm?action=time&warehouse='+whs+'&id='+id+'&date='+dte+'&hour='+hr+'&minute='+mn,'processline') 
+   ptoken.navigate('#client.virtualdir#/warehouse/Application/SalesOrder/POS/Sale/setLine.cfm?action=time&warehouse='+whs+'&id='+id+'&date='+dte+'&hour='+hr+'&minute='+mn,'processline') 
 }		
 
 function stockcol(s,modid) {		
 	document.getElementById("optionselect").value = "stockcol('','"+modid+"')"	
 	whs  = document.getElementById("warehouse").value	
 	mis  = document.getElementById("mission").value	
-	ColdFusion.navigate('../../SalesOrder/Picking/PickingView.cfm?systemfunctionid='+modid+'&height='+document.body.offsetHeight+'&warehouse='+whs+'&mission='+mis,'main')		
+	ptoken.navigate('../../SalesOrder/Picking/PickingView.cfm?systemfunctionid='+modid+'&height='+document.body.offsetHeight+'&warehouse='+whs+'&mission='+mis,'main')		
 	}
 
 function customerview(s,modid) {		
 	document.getElementById("optionselect").value = "customerview('','"+modid+"')"	
 	whs  = document.getElementById("warehouse").value	
 	mis  = document.getElementById("mission").value	
-	ColdFusion.navigate('../../SalesOrder/Picking/Monitor/Customer.cfm?systemfunctionid='+modid+'&height='+document.body.offsetHeight+'&warehouse='+whs+'&mission='+mis,'main')		
+	ptoken.Navigate('../../SalesOrder/Picking/Monitor/Customer.cfm?systemfunctionid='+modid+'&height='+document.body.offsetHeight+'&warehouse='+whs+'&mission='+mis,'main')		
 }
 	
 function pickingThreshold(s,modid,el,ord) {		
@@ -613,7 +613,7 @@ function pickingThreshold(s,modid,el,ord) {
 	} else {
 	   	threshold = 0;
 	}	
-	ColdFusion.navigate('../../SalesOrder/Picking/PickingView.cfm?systemfunctionid='+modid+'&height='+document.body.offsetHeight+'&warehouse='+whs+'&mission='+mis+'&threshold='+threshold+'&ordering='+ord,'main')		
+	ptoken.navigate('../../SalesOrder/Picking/PickingView.cfm?systemfunctionid='+modid+'&height='+document.body.offsetHeight+'&warehouse='+whs+'&mission='+mis+'&threshold='+threshold+'&ordering='+ord,'main')		
  }
 
 
@@ -663,7 +663,7 @@ function possettlement(s,modid) {
 		    
 	    try { ProsisUI.closeWindow('wsettle',true)} catch(e){};
 	    ProsisUI.createWindow('wsettle', 'Settlement', '',{x:100,y:100,width:1080,height:670,resizable:false,modal:true,center:true})		
-		ColdFusion.navigate("#SESSION.root#/Warehouse/Application/SalesOrder/POS/Settlement/SettleView.cfm?warehouse="+whs+"&terminal="+ter+"&customerid="+cus+"&batchid="+bat+"&td="+tr_d+"&th="+tr_h+"&tm="+tr_m+"&addressid="+addr+"&ts="+new Date().getTime(),'wsettle');
+		ptoken.navigate("#SESSION.root#/Warehouse/Application/SalesOrder/POS/Settlement/SettleView.cfm?warehouse="+whs+"&terminal="+ter+"&customerid="+cus+"&batchid="+bat+"&td="+tr_d+"&th="+tr_h+"&tm="+tr_m+"&addressid="+addr+"&ts="+new Date().getTime(),'wsettle');
 		
 	} else {  Ext.MessageBox.alert('Information', '#vValidCustomerMessage#'); }
 	 
@@ -707,7 +707,7 @@ function stocktransfer(s,modid) {
 			"&warehouseto="+whsto
 			Prosis.busy('yes')
 						
-			ColdFusion.navigate(url,'main')				
+			ptoken.navigate(url,'main')				
 				   
 				   }
 	else {		
@@ -728,7 +728,7 @@ function stocktransfer(s,modid) {
 			"&mde="+mde+			
 			"&fnd="+fnd+
 			"&warehouseto="+whsto					
-			ColdFusion.navigate(url,'content','','','POST','transferform')							
+			ptoken.navigate(url,'content','','','POST','transferform')							
 	}								
 			
 	_cf_loadingtexthtml="<div><img src='<cfoutput>#SESSION.root#</cfoutput>/images/busy11.gif'/>";		
@@ -763,8 +763,8 @@ function go() {
 	function editdetailline(mode,id,warehouse,wlocation,ctype){
 	    
 		document.getElementById('tratpe').value = ctype;		
-		ColdFusion.navigate('../Transaction/setTransactionType.cfm?warehouse='+warehouse+'&location='+wlocation+'&transactiontype='+ctype,'transactionbox');		
-		ColdFusion.navigate('../Transaction/getLineEdit.cfm?mode='+mode+'&id='+id+'&warehouse='+warehouse,'transactionbox');
+		ptoken.navigate('../Transaction/setTransactionType.cfm?warehouse='+warehouse+'&location='+wlocation+'&transactiontype='+ctype,'transactionbox');		
+		ptoken.navigate('../Transaction/getLineEdit.cfm?mode='+mode+'&id='+id+'&warehouse='+warehouse,'transactionbox');
 
 	}
 	
@@ -837,7 +837,7 @@ function stockbatchsummary(modid) {
 	mis  = document.getElementById("mission").value	
 	whs  = document.getElementById("warehouse").value		
 	if (document.getElementById('batchsummary')) {  
-	ColdFusion.navigate('../Batch/StockBatchSummary.cfm?ts='+new Date().getTime()+'&width='+document.body.offsetWidth+'&systemfunctionid='+modid+'&mission='+mis+'&warehouse='+whs,'batchsummary')	
+	ptoken.navigate('../Batch/StockBatchSummary.cfm?ts='+new Date().getTime()+'&width='+document.body.offsetWidth+'&systemfunctionid='+modid+'&mission='+mis+'&warehouse='+whs,'batchsummary')	
 	}
 	_cf_loadingtexthtml="<div><img src='<cfoutput>#SESSION.root#</cfoutput>/images/busy11.gif'/>";
 }	
@@ -861,7 +861,7 @@ function stockinspection(s,modid) {
 	        "&warehouse="+whs+
 	    	"&mission="+mis					
 			
-	ColdFusion.navigate(url,'main')		 
+	ptoken.navigate(url,'main')		 
 	
 	}		
 
@@ -899,7 +899,7 @@ function stockpicking(s,modid) {
 				"&group="+grp+
 				"&fnd="+fnd;				
 	}			
-	ColdFusion.navigate(url,'main')			 	
+	ptoken.navigate(url,'main')			 	
 }
 
 function stockpickingedit(id,qty) {	
@@ -916,7 +916,7 @@ function stockpickingedit(id,qty) {
 }	
 	
 function forwardrequest(id,whs) {
-    ColdFusion.navigate('../Pickticket/BackOrderForward.cfm?requestid='+id+'&warehouse='+whs,'forward_'+id)	
+    ptoken.navigate('../Pickticket/BackOrderForward.cfm?requestid='+id+'&warehouse='+whs,'forward_'+id)	
 }	
 
 
@@ -965,7 +965,7 @@ function stockbackorder(s,modid) {
 				"&fnd="+fnd;				
 	}		
 	
-	ColdFusion.navigate(url,'main')		 
+	ptoken.navigate(url,'main')		 
 	}
 	
 
@@ -1004,7 +1004,7 @@ function stocktaskorder(s,modid) {
 				"&loc=0"+
 				"&fnd="+fnd;
 				
-	ColdFusion.navigate(url,'main')			
+	ptoken.navigate(url,'main')			
 	 
 	}	
 	
@@ -1040,15 +1040,15 @@ function stocktaskorderconfirm(s,modid,mde) {
 				"&loc=0"+
 				"&fnd="+fnd;
 				
-	ColdFusion.navigate(url,'main')			
+	ptoken.navigate(url,'main')			
 	 
 	}		
 	
 function settaskreceived(id,tn,stockorderid) {		
 
       	if (confirm("Do you want to close the remaining shipping balance for this task ? This action can not be reverted.")) {			   
-		ColdFusion.navigate('#SESSION.root#/warehouse/application/stockorder/task/shipment/TaskDirect.cfm?id='+id+'&tn='+tn,'d'+id+'_'+tn);
-		ColdFusion.navigate('#SESSION.root#/warehouse/application/stockorder/task/shipment/TaskViewWorkflow.cfm?ajaxid='+stockorderid,stockorderid);
+		ptoken.navigate('#SESSION.root#/warehouse/application/stockorder/task/shipment/TaskDirect.cfm?id='+id+'&tn='+tn,'d'+id+'_'+tn);
+		ptoken.navigate('#SESSION.root#/warehouse/application/stockorder/task/shipment/TaskViewWorkflow.cfm?ajaxid='+stockorderid,stockorderid);
 		}
 		// try {document.getElementById('tasktreerefresh').click();}  catch(e){};						
 }
@@ -1059,7 +1059,7 @@ function processtaskorder(tid,actormode,template,action,id) {
 	    ht = document.body.offsetHeight-80
 		try { ColdFusion.Window.destroy('dialogprocesstask',true)} catch(e){};
 		ColdFusion.Window.create('dialogprocesstask', 'Internal Task Order', '',{x:100,y:100,width:890,height:ht,resizable:true,modal:true,center:true})	
-		ColdFusion.navigate('../../StockOrder/Task/Process/TaskForm'+template+'.cfm?taskid='+tid+'&actormode='+actormode+'&action='+action+'&actionid='+id,'dialogprocesstask')			
+		ptoken.navigate('../../StockOrder/Task/Process/TaskForm'+template+'.cfm?taskid='+tid+'&actormode='+actormode+'&action='+action+'&actionid='+id,'dialogprocesstask')			
 }
 
 // direct taskorder issuance (variation)	
@@ -1068,7 +1068,7 @@ function processtaskorder(tid,actormode,template,action,id) {
 		wd = document.body.offsetWidth-80
 		try { ColdFusion.Window.destroy('dialogprocesstask',true)} catch(e){};
 		ColdFusion.Window.create('dialogprocesstask', 'Issuance on task order', '',{x:100,y:100,width:wd,height:ht,resizable:true,modal:true,center:true})			
-		ColdFusion.navigate('#SESSION.root#/Warehouse/Application/StockOrder/Task/Process/TaskForm'+template+'.cfm?taskid='+tid+'&actormode='+actormode+'&action='+action,'dialogprocesstask')		
+		ptoken.navigate('#SESSION.root#/Warehouse/Application/StockOrder/Task/Process/TaskForm'+template+'.cfm?taskid='+tid+'&actormode='+actormode+'&action='+action,'dialogprocesstask')		
 	}
 
 function processtaskorderreceipt(tid,actormode,template,action,id,batchid) {	
@@ -1082,7 +1082,7 @@ function processtaskorderreceipt(tid,actormode,template,action,id,batchid) {
 		if (confirm("Do you want to save the "+template+" record ?")) {			
 				
 		_cf_loadingtexthtml="";		
-		ColdFusion.navigate('../../StockOrder/Task/Process/TaskForm'+template+'Submit.cfm?taskid='+tid+'&actormode='+actormode+'&action='+action+'&actionid='+id+'&batchid='+batchid,'processtask','','','POST','formtask')	
+		ptoken.navigate('../../StockOrder/Task/Process/TaskForm'+template+'Submit.cfm?taskid='+tid+'&actormode='+actormode+'&action='+action+'&actionid='+id+'&batchid='+batchid,'processtask','','','POST','formtask')	
 		_cf_loadingtexthtml="<div><img src='<cfoutput>#SESSION.root#</cfoutput>/images/busy11.gif'/>";					
 	 	}
 	} else {
@@ -1091,11 +1091,11 @@ function processtaskorderreceipt(tid,actormode,template,action,id,batchid) {
 } 	
 
 function showtaskpending(mis,tasktype) {
-	    ColdFusion.navigate('#SESSION.root#/warehouse/application/stockorder/Task/Shipment/TaskAssignment.cfm?mission='+mis+'&tasktype='+tasktype+'&warehouse='+document.getElementById('warehouse').value,'main')
+	    ptoken.navigate('#SESSION.root#/warehouse/application/stockorder/Task/Shipment/TaskAssignment.cfm?mission='+mis+'&tasktype='+tasktype+'&warehouse='+document.getElementById('warehouse').value,'main')
 	}
 	
 function showtask(mid,mis,tasktype,cls,st,cde) {
-	    ColdFusion.navigate('#SESSION.root#/warehouse/application/stockorder/Task/Shipment/TaskListing.cfm?systemfunctionid='+mid+'&mission='+mis+'&warehouse='+document.getElementById('warehouse').value+'&tasktype='+tasktype+'&type='+cls+'&sta='+st+'&code='+cde,'main')
+	    ptoken.navigate('#SESSION.root#/warehouse/application/stockorder/Task/Shipment/TaskListing.cfm?systemfunctionid='+mid+'&mission='+mis+'&warehouse='+document.getElementById('warehouse').value+'&tasktype='+tasktype+'&type='+cls+'&sta='+st+'&code='+cde,'main')
 	}	
 	
 <!--- added to allow for splitting a requesttask line after it was effectively tasked by the planner already --->
@@ -1104,15 +1104,15 @@ function settasksplit(tid) {
 		ht = 200; <!--- document.body.offsetHeight-80 --->
 		try { ColdFusion.Window.destroy('dialogprocesstask',true)} catch(e){};
 		ColdFusion.Window.create('dialogprocesstask', 'Split Tasked Line', '',{x:100,y:100,width:300,height:ht,resizable:true,modal:true,center:true})	
-		ColdFusion.navigate('../../StockOrder/Task/Shipment/TaskSplit.cfm?taskid='+tid,'dialogprocesstask')			
+		ptoken.navigate('../../StockOrder/Task/Shipment/TaskSplit.cfm?taskid='+tid,'dialogprocesstask')			
 	}		
 	
 	function showreceipt(mis,mode,sta) {
-	    ColdFusion.navigate('#SESSION.root#/warehouse/application/stockorder/Task/Receipt/ReceiptOpen.cfm?actionstatus='+sta+'&mission='+mis+'&warehouse='+document.getElementById('warehouse').value+'&id1='+mode,'main')
+	    ptoken.navigate('#SESSION.root#/warehouse/application/stockorder/Task/Receipt/ReceiptOpen.cfm?actionstatus='+sta+'&mission='+mis+'&warehouse='+document.getElementById('warehouse').value+'&id1='+mode,'main')
 	}	
 	
 	function showreceipttransfer(mis,mode,sta) {
-	    ColdFusion.navigate('#SESSION.root#/warehouse/application/stockorder/Task/Receipt/ReceiptListing.cfm?actionstatus='+sta+'&mission='+mis+'&warehouse='+document.getElementById('warehouse').value+'&id1='+mode,'main')
+	    ptoken.navigate('#SESSION.root#/warehouse/application/stockorder/Task/Receipt/ReceiptListing.cfm?actionstatus='+sta+'&mission='+mis+'&warehouse='+document.getElementById('warehouse').value+'&id1='+mode,'main')
 	}	
 	
 function submittask(mis,whs,tasktype,cls) {	
@@ -1120,21 +1120,21 @@ function submittask(mis,whs,tasktype,cls) {
 	   wd = document.body.offsetWidth-160
 	   try { ColdFusion.Window.destroy('dialogprocesstask',true)} catch(e){};
 	   ColdFusion.Window.create('dialogprocesstask', 'Submit Task Order', '',{x:100,y:100,width:wd,height:ht,resizable:true,modal:true,center:true})
-	   ColdFusion.navigate('#SESSION.root#/warehouse/application/stockorder/Task/Shipment/TaskForm.cfm?mission='+mis+'&warehouse='+whs+'&tasktype='+tasktype,'dialogprocesstask','','','POST','taskplanning')		   
+	   ptoken.navigate('#SESSION.root#/warehouse/application/stockorder/Task/Shipment/TaskForm.cfm?mission='+mis+'&warehouse='+whs+'&tasktype='+tasktype,'dialogprocesstask','','','POST','taskplanning')		   
 	}
 		
 	function submittaskorder(mis,whs,tasktype) {	
 		if (confirm("Do you want to submit this task order ?")) {	
-			 ColdFusion.navigate('#SESSION.root#/warehouse/application/stockorder/Task/Shipment/TaskAssignmentSubmit.cfm?mission='+mis+'&warehouse='+whs+'&tasktype='+tasktype,'dialogprocesstask','','','POST','formtask')		
+			 ptoken.navigate('#SESSION.root#/warehouse/application/stockorder/Task/Shipment/TaskAssignmentSubmit.cfm?mission='+mis+'&warehouse='+whs+'&tasktype='+tasktype,'dialogprocesstask','','','POST','formtask')		
 		 }
 	}
 	
 	function cancelstockorder(id,scope) {
-	    ColdFusion.navigate('#SESSION.root#/warehouse/application/stockorder/Task/Shipment/TaskAssignmentCancel.cfm?scope='+scope+'&id='+id,'processtask')				
+	    ptoken.navigate('#SESSION.root#/warehouse/application/stockorder/Task/Shipment/TaskAssignmentCancel.cfm?scope='+scope+'&id='+id,'processtask')				
 	}
 			
 	function direct_receive(id,tn) {
-		ColdFusion.navigate('#SESSION.root#/warehouse/application/stockorder/Task/Shipment/TaskDirect.cfm?id='+id+'&tn='+tn,'d'+id+'_'+tn);	
+		ptoken.navigate('#SESSION.root#/warehouse/application/stockorder/Task/Shipment/TaskDirect.cfm?id='+id+'&tn='+tn,'d'+id+'_'+tn);	
 	}
 		
 <!--------- TASK---------- --->
@@ -1148,7 +1148,7 @@ function stockproduction(s,modid) {
 				
 	whs  = document.getElementById("warehouse").value	
 	mis  = document.getElementById("mission").value	
-	ColdFusion.navigate('../Production/ProductionInit.cfm?systemfunctionid='+modid+'&mode=production&height='+document.body.offsetHeight+'&warehouse='+whs+'&id=0&mission='+mis,'main')	
+	ptoken.navigate('../Production/ProductionInit.cfm?systemfunctionid='+modid+'&mode=production&height='+document.body.offsetHeight+'&warehouse='+whs+'&id=0&mission='+mis,'main')	
 	}	
 	
 	
@@ -1163,7 +1163,7 @@ function stockinitial(s,modid) {
 				
 	whs  = document.getElementById("warehouse").value	
 	mis  = document.getElementById("mission").value	
-	ColdFusion.navigate('../Transaction/TransactionInit.cfm?systemfunctionid='+modid+'&mode=initial&height='+document.body.offsetHeight+'&warehouse='+whs+'&id=9&mission='+mis,'main')	
+	ptoken.navigate('../Transaction/TransactionInit.cfm?systemfunctionid='+modid+'&mode=initial&height='+document.body.offsetHeight+'&warehouse='+whs+'&id=9&mission='+mis,'main')	
 	}	
 
 <!--------- POS Customer Details ---------- --->
@@ -1176,7 +1176,7 @@ function customertoggle(target,cid,action,w,adr) {
 	} else {	
 		if (document.getElementById(target+'_box').className == "hide" || action == "open")	{	
 								
-			ColdFusion.navigate('#SESSION.root#/Warehouse/Application/Customer/View/CustomerData.cfm?customerid='+cid+'&warehouse='+w+'&addressid='+adr,target+'_content');				
+			ptoken.navigate('#SESSION.root#/Warehouse/Application/Customer/View/CustomerData.cfm?customerid='+cid+'&warehouse='+w+'&addressid='+adr,target+'_content');				
 			document.getElementById(target+'_main').className = "highlight4";			
 			document.getElementById(target+'_box').className = "regular"; 		
 			document.getElementById(target+'_exp').className = "hide"; 				
@@ -1195,7 +1195,7 @@ function customertoggle(target,cid,action,w,adr) {
 
 function applyCustomerData(cid,fld,val,input) {	
 	_cf_loadingtexthtml='';		
-   	ColdFusion.navigate('#SESSION.root#/Warehouse/Application/Customer/View/setCustomerData.cfm?mode=ajax&scope=customer&scopeid='+cid+'&field='+fld+'&input='+input+'&value='+val,'inputvalidation');
+   	ptoken.navigate('#SESSION.root#/Warehouse/Application/Customer/View/setCustomerData.cfm?mode=ajax&scope=customer&scopeid='+cid+'&field='+fld+'&input='+input+'&value='+val,'inputvalidation');
 }
 
 function applyBeneficiaryData(w,b,c,id,act,v,r) {
@@ -1309,7 +1309,7 @@ function searchcombo(mis,whs,cat,mde,val,mode,itm,valfield) {
 		   		} else {
 		   			template = mde;
 		   		}
-			  	ColdFusion.navigate('#SESSION.root#/Warehouse/Application/Tools/divSearch/get'+template+'Search.cfm?mission='+mis+'&warehouse='+whs+'&category='+cat+'&itemno='+itm+'&search='+val+'&context='+mde+'selectbox',mde+'find')
+			  	ptoken.navigate('#SESSION.root#/Warehouse/Application/Tools/divSearch/get'+template+'Search.cfm?mission='+mis+'&warehouse='+whs+'&category='+cat+'&itemno='+itm+'&search='+val+'&context='+mde+'selectbox',mde+'find')
 		   }	
 	    }	 
     }    
@@ -1341,7 +1341,7 @@ function stockissue(s,modid) {
 	document.getElementById("optionselect").value = "stockissue('','"+modid+"')"	
 	whs  = document.getElementById("warehouse").value	
 	mis  = document.getElementById("mission").value	
-	ColdFusion.navigate('../Transaction/TransactionInit.cfm?systemfunctionid='+modid+'&mode=issue&height='+document.body.offsetHeight+'&warehouse='+whs+'&mission='+mis,'main')	
+	ptoken.navigate('../Transaction/TransactionInit.cfm?systemfunctionid='+modid+'&mode=issue&height='+document.body.offsetHeight+'&warehouse='+whs+'&mission='+mis,'main')	
 
 }	
 
@@ -1359,11 +1359,11 @@ function transactionreload(details) {
 	} else {
 	    det = 0
 	}
-	ColdFusion.navigate('../Transaction/TransactionDetailLines.cfm?systemfunctionid='+document.getElementById('systemfunctionid').value+'&tratpe='+tpe+'&mode='+mde+'&warehouse='+whs+'&location='+loc+'&itemNo='+itm+'&UoM='+uom+'&details='+det,'detail')			
+	ptoken.navigate('../Transaction/TransactionDetailLines.cfm?systemfunctionid='+document.getElementById('systemfunctionid').value+'&tratpe='+tpe+'&mode='+mde+'&warehouse='+whs+'&location='+loc+'&itemNo='+itm+'&UoM='+uom+'&details='+det,'detail')			
 }	
 
 function validatemetric(actionid,metric,value,box,field) { 
-    ColdFusion.navigate('../Transaction/ValidateMetric.cfm?field='+field+'&assetactionid='+actionid+'&metric='+metric+'&value='+value+'&box='+box,box)		
+    ptoken.navigate('../Transaction/ValidateMetric.cfm?field='+field+'&assetactionid='+actionid+'&metric='+metric+'&value='+value+'&box='+box,box)		
 }
 			
 
@@ -1385,7 +1385,7 @@ function stockinventory(s,modid) {
 	            "&warehouse="+whs+
 				"&id=5"+
 				"&mission="+mis
-	ColdFusion.navigate(url,'main')				
+	ptoken.navigate(url,'main')				
  
 	}	
 	
@@ -1403,7 +1403,7 @@ function stockinventoryload(s,modid) {
 			"&systemfunctionid="+modid+
 	        "&warehouse="+whs+
 			"&mission="+mis			
-		ColdFusion.navigate(url,'content','','','POST','inventoryform')		
+		ptoken.navigate(url,'content','','','POST','inventoryform')		
 			
 	}		
 	
@@ -1421,7 +1421,7 @@ function stockinventorydate(modid,dte,hr,mi) {
 				"&transaction_date="+dte+
 				"&transaction_hour="+hr+
 				"&transaction_minute="+mi
-	ColdFusion.navigate(url,'content','','','POST','inventoryform')			
+	ptoken.navigate(url,'content','','','POST','inventoryform')			
  
 	}			
 	
@@ -1443,7 +1443,7 @@ function stockresupply(s,modid) {
 				"&id=1"+
 				"&mission="+mis
 				
-	ColdFusion.navigate(url,'main')				 
+	ptoken.navigate(url,'main')				 
 	}			
 
 <!--- ----TRANSACTIONS---- --->
@@ -1452,19 +1452,19 @@ function stockresupply(s,modid) {
 <!--- -------------------- --->		
 
 function initpayable(mis,whs,orgunit,id) {
-   ColdFusion.navigate('#SESSION.root#/Warehouse/Application/Stock/Shipping/Payables/Create/PrepareInvoice.cfm?systemfunctionid='+id+'&mission='+mis+'&warehouse='+whs+'&orgunit='+orgunit,'contentbox1','','','POST','transactionform')
+   ptoken.navigate('#SESSION.root#/Warehouse/Application/Stock/Shipping/Payables/Create/PrepareInvoice.cfm?systemfunctionid='+id+'&mission='+mis+'&warehouse='+whs+'&orgunit='+orgunit,'contentbox1','','','POST','transactionform')
 }
 
 function payablerefresh(mis,whs,orgunit) { 
    if (document.getElementById('contentbox1')) {	
-    ColdFusion.navigate('#SESSION.root#/Warehouse/Application/Stock/Shipping/PendingTransaction/Pending.cfm?mission='+mis+'&warehouse='+whs+'&orgunit='+orgunit,'contentbox1')
+    ptoken.navigate('#SESSION.root#/Warehouse/Application/Stock/Shipping/PendingTransaction/Pending.cfm?mission='+mis+'&warehouse='+whs+'&orgunit='+orgunit,'contentbox1')
 	}
 }
 
 function payablecreate(mis,whs,org,pur,id,cur) { 
     try { ColdFusion.Window.destroy('recordpayable',true) } catch(e) {}; 	
 	ColdFusion.Window.create('recordpayable', 'Register Payable', '',{x:10,y:10,height:document.body.clientHeight-40,width:1000,resizable:true,draggable:false,modal:true,center:true});		
-	ColdFusion.navigate('#SESSION.root#/Warehouse/Application/Stock/Shipping/Payables/Create/RecordInvoice.cfm?salesid='+id+'&mode=warehouse&mission='+mis+'&Warehouse='+whs+'&period=&orgunit='+org+'&personno=&PurchaseNo='+pur+'&currency='+cur,'recordpayable','','','POST','transactionform')	
+	ptoken.navigate('#SESSION.root#/Warehouse/Application/Stock/Shipping/Payables/Create/RecordInvoice.cfm?salesid='+id+'&mode=warehouse&mission='+mis+'&Warehouse='+whs+'&period=&orgunit='+org+'&personno=&PurchaseNo='+pur+'&currency='+cur,'recordpayable','','','POST','transactionform')	
  }
 
 		
@@ -1486,7 +1486,7 @@ function stockonhand(s,modid) {
 				"&mission="+mis+
 				"&SystemFunctionid"+modid
 								
-	ColdFusion.navigate(url,'main')			
+	ptoken.navigate(url,'main')			
 	 
 }
 

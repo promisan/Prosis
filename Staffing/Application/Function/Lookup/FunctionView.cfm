@@ -6,13 +6,10 @@
 <cfparam name="url.edition" default="">
 
 <!--- helper to reload the buckets --->
-<cfoutput>
-	<input type="hidden" id="scope" value="#url.occ#">		
-</cfoutput>
+
+<input type="hidden" id="scope" value="#url.occ#">		
 
 <cf_tl id="Functional Title" var="1">
-
-<cf_screenTop height="100%" close="ColdFusion.Window.destroy('myfunction',true)" label="#lt_text#" layout="webapp" html="Yes" band="No" jquery="Yes" scroll="yes">
 
 <table width="100%" height="100%" class="formspacing">
 	<tr>
@@ -25,16 +22,11 @@
 		</cfif>
 				
 		<iframe src="#link#"
-	        name="left" id="left" width="100%" height="100%" scrolling="no" frameborder="0"></iframe>			
+	        name="left" id="left" width="100%" height="99%" scrolling="no" frameborder="0"></iframe>			
 					
 		</td>
 		<td valign="top" height="100%" style="padding:10px;border-left: 1px solid Silver;" id="rightme"></td>
 	</tr>
 </table>
 
-<cf_screenbottom html="No">
-
 </cfoutput>
-
-
-

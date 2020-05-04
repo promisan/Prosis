@@ -5,10 +5,6 @@
 
 <tr><td style="padding-top:8px">
 	
-<table width="98%" align="center" cellspacing="0" cellpadding="0" class="formpadding">
-
-<tr><td>	
-
 <cfoutput>
 
 <cfquery name="Bucket" 
@@ -32,33 +28,29 @@
 
 function bucketreq() {
 	// ColdFusion.navigate('../../Maintenance/FunctionalTitles/FunctionGradeView.cfm?ID=#bucket.functionno#&id1=#bucket.gradedeployment#','detail') 
-	ColdFusion.navigate('../Bucket/BucketProfile/BucketView.cfm?IDFunction=#url.idfunction#','detail') 	
+	ptoken.navigate('../Bucket/BucketProfile/BucketView.cfm?IDFunction=#url.idfunction#','detail') 	
 }
 
 function bucketann() {
-	ColdFusion.navigate('#SESSION.root#/Vactrack/Application/Announcement/Announcement.cfm?mode=embed&id=#url.idfunction#&header=no','detail')
+	ptoken.navigate('#SESSION.root#/Vactrack/Application/Announcement/Announcement.cfm?mode=view&id=#url.idfunction#&header=no','detail')
 }
 
 function bucketsrc() {
-	ColdFusion.navigate('FunctionViewLoopSearch.cfm?fileno=#fileNo#','detail')
+	ptoken.navigate('FunctionViewLoopSearch.cfm?fileno=#fileNo#','detail')
 }
 
 function bucketsta() {
-	ColdFusion.navigate('FunctionViewLoopSearch.cfm?fileno=#fileNo#','detail')
+	ptoken.navigate('FunctionViewLoopSearch.cfm?fileno=#fileNo#','detail')
 }
 
 </script>
 
 </cfoutput>
 
-<cfform>
-
-<cftree name="root"
-   font="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif,'Raleway',sans-serif !important"
-   fontsize="13"		
-   bold="No"   
-   format="html"    
-   required="No"> 
+<cf_UItree
+	id="root"
+	title="<span style='font-size:16px;color:gray;padding-bottom:3px'>Bucket Administration</span>"	
+	expand="Yes">
    
     <!--- access is limited to the role of roster admin --->
 	
@@ -69,59 +61,65 @@ function bucketsta() {
 			 role="'AdminRoster','CandidateProfile'">
 			 
 	<cfif Access eq "EDIT" or Access eq "ALL">	 
-	   
-   	<cftreeitem value="bck"
-        display="<span style='font-size:18px' class='labelit'>Bucket Configuration</span>"
-		parent="Root"							
-        expand="Yes">	
-		   
-   	<cftreeitem value="req"
-	        display="<span class='labelmedium'>Job Profile</span>"
-			parent="bck"				
-			href="javascript:bucketreq()"						
-	        expand="Yes">	
-	   
-	<cftreeitem value="vac"
-	        display="<span class='labelmedium'>Announcement</span>"
-			parent="bck"				
-			href="javascript:bucketann()"						
-	        expand="Yes">	
-			
-	<cftreeitem value="co"
-	        display="<span class='labelmedium'>Competencies</span>"
-			parent="bck"				
-			href="javascript:ColdFusion.navigate('../Bucket/BucketCompetence/RecordListing.cfm?idfunction=#url.idfunction#','detail')"						
-	        expand="Yes">	
-			
-	<cftreeitem value="que"
-	        display="<span class='labelmedium'>Questions</span>"
-			parent="bck"					
-			href="javascript:ColdFusion.navigate('../Bucket/BucketQuestion/RecordListing.cfm?idfunction=#url.idfunction#','detail')"						
-	        expand="Yes">	
-			
-	<cftreeitem value="mes"
-	        display="<span class='labelmedium'>Messages</span>"
-			parent="bck"				
-			href="javascript:ColdFusion.navigate('../Bucket/BucketMessage/RecordListing.cfm?idfunction=#url.idfunction#','detail')"						
-	        expand="Yes">						
-			
-	<cftreeitem value="out"
-	        display="<span class='labelmedium'>Outflow Rules</span>"
-			parent="bck"				
-			href="javascript:ColdFusion.navigate('../Bucket/BucketOutflow/RecordListing.cfm?idfunction=#url.idfunction#','detail')"						
-	        expand="Yes">					
 	
-	<cftreeitem value="dummy"
-	        display=""
-			parent="Root">	
-			
-	</cfif>			
+	 <cf_tl id="Configuration" var="vText">
+	
+	 <cf_UItreeitem value="bck"
+		        display="<span style='font-size:17px;padding-top:10px;padding-bottom:5px;font-weight:bold' class='labelit'>#vText#</span>"
+				parent="root"								
+		        expand="Yes">	  
+	   
+    <cf_UItreeitem value="prf"
+		        display="<span style='font-size:14px' class='labelit'>Bucket Job Profile</span>"
+				parent="bck"			
+				href="javascript:bucketreq()"							
+				target="right"
+		        expand="No">	
+				
+	 <cf_UItreeitem value="ann"
+		        display="<span style='font-size:14px' class='labelit'>Announcement Text</span>"
+				parent="bck"			
+				href="javascript:bucketann()"							
+				target="right"
+		        expand="No">					
+						   
+   <cf_UItreeitem value="com"
+		        display="<span style='font-size:14px' class='labelit'>Competencies</span>"
+				parent="bck"			
+				href="javascript:ptoken.navigate('../Bucket/BucketCompetence/RecordListing.cfm?idfunction=#url.idfunction#','detail')"							
+				target="right"
+		        expand="No">	
+	   
+	<cf_UItreeitem value="que"
+		        display="<span style='font-size:14px' class='labelit'>Questions</span>"
+				parent="bck"			
+				href="javascript:ptoken.navigate('../Bucket/BucketQuestion/RecordListing.cfm?idfunction=#url.idfunction#','detail')"							
+				target="right"
+		        expand="No">				
+	
+	<cf_UItreeitem value="mes"
+		        display="<span style='font-size:14px' class='labelit'>Messages</span>"
+				parent="bck"			
+				href="javascript:ptoken.navigate('../Bucket/BucketMessage/RecordListing.cfm?idfunction=#url.idfunction#','detail')"							
+				target="right"
+		        expand="No">			
 					
-	<cftreeitem value="can"
-        display="<span style='padding-bottom:8px;font-size:18px'>Candidates</span>"
-		parent="Root"							
-        expand="Yes">	
-		
+	<cf_UItreeitem value="out"
+		        display="<span style='font-size:14px' class='labelit'>Outflow Rules</span>"
+				parent="bck"			
+				href="javascript:ptoken.navigate('../Bucket/BucketOutflow/RecordListing.cfm?idfunction=#url.idfunction#','detail')"							
+				target="right"
+		        expand="No">				
+				
+	</cfif>		
+	
+	<cf_tl id="Candidates" var="vCan">	
+	
+	<cf_UItreeitem value="can"
+		        display="<span style='font-size:17px;padding-top:10px;padding-bottom:5px;font-weight:bold' class='labelit'>#vCan#</span>"
+				parent="root"								
+		        expand="Yes">	  
+	   		
 		<cfset denied = 0>
 		
 		 <!--- relevant combinations --->
@@ -197,11 +195,12 @@ function bucketsta() {
 								<cfif denied eq "0"> 
 								
 									<!--- show a tree node with subnotes --->
-							 
-									<cftreeitem value="#st#"
-								        display="<span class='labelmedium'><font color='FF0000'>#Label#</font> <a id='count_#status#'>[#getStatus.counted#]</a>"
-										parent="can"																							
-								        expand="yes">	
+									
+									<cf_UItreeitem value="#st#"
+								        display="<span style='font-size:14px' class='labelit'>#Label# <a id='count_#status#'>[#getStatus.counted#]</a></span>"
+										parent="can"																			
+										target="right"
+								        expand="No">								
 									
 									<cfset denied = 1>
 								
@@ -209,11 +208,13 @@ function bucketsta() {
 							
 							    <cfset myurl = "FunctionViewListing.cfm?tab=detail&owner=#function.owner#&idfunction=#url.idfunction#&process=#access#&expand=#expand#&day=#day#&status=#status#&processstatus=#processstatus#&meaning=#label#&processmeaning=#processmeaning#&orgunit=#orgunit#&total=#total#">
 						 
-								<cftreeitem value="#st#_#currentrow#"
-							        display="<span class='labelmedium'>from:<font color='FF0000'>#processmeaning#"
-									parent="#st#"	
-									href="javascript:Prosis.busy('yes');_cf_loadingtexthtml='';ptoken.navigate('#myurl#','detail')">		
-							
+								 <cf_UItreeitem value="#st#_#currentrow#"
+								        display="<span style='font-size:13px' class='labelit'>from:<font color='FF0000'>#processmeaning#</span>"
+										parent="#st#"																			
+										target="right"										
+										href="javascript:Prosis.busy('yes');_cf_loadingtexthtml='';ptoken.navigate('#myurl#','detail')"
+								        expand="No">		
+								
 							</cfif>								
 						 																				
 				  </cfloop>	
@@ -221,35 +222,33 @@ function bucketsta() {
 				  <cfelse>
 				  
 					  <cfset myurl = "FunctionViewListing.cfm?tab=detail&owner=#function.owner#&idfunction=#url.idfunction#&process=1&expand=1&day=#day#&status=#status#&processstatus=#status#&meaning=#label#&processmeaning=#meaning#&orgunit=#orgunit#&total=5">
-							
-				   		<cftreeitem value="#st#"
-					        display="<span class='labelmedium'>#label# <a id='count_#status#'>[#counted#]</a>"
-							parent="can"	
+					  
+					  <cf_UItreeitem value="#st#"
+					        display="<span style='font-size:14px' class='labelit'>#Label# <a id='count_#status#'>[#getStatus.counted#]</a></span>"
+							parent="can"																			
+							target="right"
 							href="javascript:Prosis.busy('yes');_cf_loadingtexthtml='';ptoken.navigate('#myurl#','detail')"
-					        expand="Yes">	
-				
+					        expand="No">	
+									
 				</cfif>		
 				
 			 </cfif>								
 				
 		</cfoutput>		
 		
-		<cftreeitem value="dummy"
-	        display=""
-			parent="can">	
-	
-		<cftreeitem value="src"
-	        display="<span class='labelmedium'>Search</b>"
-			href="javascript:bucketsrc()"
-			img="#SESSION.root#/Images/Search-R.png"
-			parent="can"							
-	        expand="Yes">	
-		
+		 <cf_UItreeitem value="src"
+		        display="<span style='padding-left:8px;padding-top:5px;font-size:15px;color:purple' class='labelit'>Search</span>"
+				parent="can"	
+				img="#SESSION.root#/Images/Search-R.png"		
+				href="javascript:bucketsrc()"							
+				target="right"
+		        expand="No">			
+				
         <cfinvoke component="Service.Access"  
-		   method="roster" 
-		   returnvariable="Access"
-		   owner="#function.owner#"
-		   role="'AdminRoster'">	
+			   method="roster" 
+			   returnvariable="Access"
+			   owner="#function.owner#"
+			   role="'AdminRoster'">	
 		   
 		  <cfinvoke component="Service.Access.Roster"  
 			   	 method         = "RosterStep" 
@@ -264,54 +263,41 @@ function bucketsta() {
 			  			  
 		  	    <cfset myurl = "FunctionViewListing.cfm?tab=detail&box=manual&source=manual&owner=#function.owner#&idfunction=#url.idfunction#&filter=0&total=0">
 				
-				<cftreeitem value="manual"
-			        display="<span class='labelmedium'>Manually Recorded</b>"
+				 <cf_UItreeitem value="src"
+			        display="<span style='padding-left:8px;font-size:15px;color:purple' class='labelit'>Manually Recorded</span>"
 					parent="can"	
 					img="#SESSION.root#/Images/Caret-Right.png"
-                    href="javascript:ColdFusion.navigate('#myurl#','detail')"						
-		    	    expand="Yes">
-			  	
+	                href="javascript:ptoken.navigate('#myurl#','detail')"								
+					target="right"
+			        expand="No">	
+							  	
 			   </cfif>					  
 				
 		  </cfif>
 		  
-	  <cftreeitem value="dummy"
-	        display=""
-			parent="Root">	
-				  
-	<cftreeitem value="aut"
-        display="<span style='font-size: 16px;position: relative;top: 4px;' class='labellarge'><b>Authorization Settings</span>"
-		parent="Root"							
-        expand="Yes">			
-		<style>
-            #ygtvc19{
-                position: relative;
-                top: 5px;
-            }
-        </style>
-	<cftreeitem value="delm"
-        display="This bucket delegation"
-		parent="aut"	
-		img="#SESSION.root#/Images/Key.png"
-		href="javascript:ColdFusion.navigate('FunctionViewLoopGrant.cfm?owner=#function.owner#&idfunction=#url.idfunction#&source=manual','detail')"						
-        expand="Yes">			
-		
-		<cftreeitem value="deli"
-        display="Role based delegation"
-		parent="aut"	
-		img="#SESSION.root#/Images/Key.png"
-		href="javascript:ColdFusion.navigate('FunctionViewLoopGrant.cfm?owner=#function.owner#&idfunction=#url.idfunction#&source=manager','detail')"						
-        expand="Yes">					
-			 
+	<cf_UItreeitem value="aut"
+        display="<span style='font-size:17px;padding-top:10px;padding-bottom:5px;font-weight:bold' class='labelit'>Authorization Settings</span>"
+		parent="root"								
+        expand="Yes">	  	  
+			
+	 <cf_UItreeitem value="delm"
+	        display="<span style='font-size:14px;padding-left:8px' class='labelit'>This bucket delegation</span>"
+			parent="aut"	
+			img="#SESSION.root#/Images/Key.png"
+			href="javascript:ptoken.navigate('FunctionViewLoopGrant.cfm?owner=#function.owner#&idfunction=#url.idfunction#&source=manual','detail')"						    				
+			target="right"
+	        expand="No">		
+			
+	<cf_UItreeitem value="delr"
+	        display="<span style='font-size:14px;padding-left:8px' class='labelit'>Role based delegation</span>"
+			parent="aut"	
+			img="#SESSION.root#/Images/Key.png"
+			href="javascript:ptoken.navigate('FunctionViewLoopGrant.cfm?owner=#function.owner#&idfunction=#url.idfunction#&source=manager','detail')"						
+        	target="right"
+	        expand="No">						
 
-</cftree>
-
-</cfform>
-
+</cf_UItree>		
+	
 </td></tr>
 
 </table>		  	
-
-</td></tr>
-
-</table>

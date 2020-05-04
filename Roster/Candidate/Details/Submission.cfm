@@ -29,10 +29,9 @@ password="#SESSION.dbpw#">
 			
 			  <TR class="labelmedium line">
 			  	  <td></td>
-				  <td height="19" ><cf_tl id="Date submission"></td>
-				   <TD><cf_tl id="Source"></TD>
-				  <TD><cf_tl id="Application No"></TD>
-				 
+				  <td height="19"><cf_tl id="Date submission"></td>
+				  <TD><cf_tl id="Source"></TD>
+				  <TD><cf_tl id="Application No"></TD>				 
 			      <TD><cf_tl id="Edition"></TD>
 				  <TD><cf_tl id="Origin"></TD>
 				  <TD><cf_tl id="Status"></TD>
@@ -49,9 +48,7 @@ password="#SESSION.dbpw#">
 					   <cfif EntityClass neq "" >
 					   
 				   			<cf_wfactive entityCode="CanSubmission" ObjectKeyValue1="#ApplicantNo#">
-
-							<cfset iconStatus = "open">
-							
+							<cfset iconStatus = "open">							
 							<cfif wfstatus eq "closed">
 								<cfset iconStatus = "">
 							</cfif>
@@ -60,7 +57,7 @@ password="#SESSION.dbpw#">
 						
 					  <cfelse>
 					  
-					  	<cfset wfstatus = "">
+					  	    <cfset wfstatus = "">
 					  	
 				   	  </cfif>
 					  
@@ -81,14 +78,14 @@ password="#SESSION.dbpw#">
 						  
 						  <cfif submission.recordcount gte "1">
 						  
-						  <cf_RosterPHP 
-								DisplayType = "HLink"
-								Image       = "#SESSION.root#/Images/pdf_small.gif"
-								DisplayText = "#Source#"
-								style       = "height:14;width:16"
-								Script      = "#currentrow#"
-								RosterList  = "#ApplicantNo#"
-								Format      = "Document">	
+							  <cf_RosterPHP 
+									DisplayType = "HLink"
+									Image       = "#SESSION.root#/Images/pdf_small.gif"
+									DisplayText = "#Source#"
+									style       = "height:14;width:16"
+									Script      = "#currentrow#"
+									RosterList  = "#ApplicantNo#"
+									Format      = "Document">	
 						  
 						  <cfelse>
 						  

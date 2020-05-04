@@ -80,10 +80,10 @@
 	<tr>
 	<td width="95%" align="center">
 	
-	    <cfset url.scope   = "entry">
-		<cfset url.id1     = url.submissionedition>
-		<cfset url.source  = url.source>
-		<cfinclude template="../Functions/ApplicantFunctionEntry.cfm">
+	    <cfset url.scope     = "entry">
+		<cfset url.id1       = url.submissionedition>
+		<cfset url.source    = url.source>
+		<cfinclude template  ="../Functions/ApplicantFunctionEntry.cfm">
 		
 	</td>
 	</tr>

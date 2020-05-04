@@ -30,11 +30,13 @@
 				
 			#preserveSingleQuotes(Client.condition)#
 			<cfif SESSION.isAdministrator eq "No">
-			AND F.FunctionClass IN (SELECT FunctionClass
-			                      FROM Organization.dbo.OrganizationAuthorization A, Ref_FunctionClass R
-							      WHERE R.Owner = A.ClassParameter
-							      AND   A.Role = 'FunctionAdmin' 
-							      AND   A.UserAccount = '#SESSION.acc#')
+			AND EXISTS  (SELECT 'X'
+			             FROM   Organization.dbo.OrganizationAuthorization A, Ref_FunctionClass R
+						 WHERE  R.Owner          = A.ClassParameter
+						 AND    A.Role           = 'FunctionAdmin' 
+						 AND    R.FunctionClass  = F.FunctionClass
+						 AND    A.GroupParameter = F.OccupationalGroup
+						 AND    A.UserAccount    = '#SESSION.acc#')
 			</cfif>	
 			
 		ORDER BY O.OccupationalGroup, 
@@ -62,13 +64,14 @@ password="#SESSION.dbpw#">
 		#PreserveSingleQuotes(condition)#
 		
 		<cfif SESSION.isAdministrator eq "No">
-		AND FunctionClass IN (SELECT FunctionClass
-		                      FROM   Organization.dbo.OrganizationAuthorization A, Ref_FunctionClass R
-						      WHERE  R.Owner = A.ClassParameter
-						      AND    A.Role = 'FunctionAdmin' 
-						      AND    A.UserAccount = '#SESSION.acc#'
-							 )
-		</cfif>		
+			AND EXISTS  (SELECT 'X'
+			             FROM   Organization.dbo.OrganizationAuthorization A, Ref_FunctionClass R
+						 WHERE  R.Owner          = A.ClassParameter
+						 AND    A.Role           = 'FunctionAdmin' 
+						 AND    R.FunctionClass  = F.FunctionClass
+						 AND    A.GroupParameter = F.OccupationalGroup
+						 AND    A.UserAccount    = '#SESSION.acc#')
+			</cfif>	
 						
 	ORDER BY O.OccupationalGroup, F.FunctionDescription
 </cfquery>

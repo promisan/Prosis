@@ -1,27 +1,21 @@
 
-<cf_param name="URL.ID"      default=""		type="string">
-<cf_param name="URL.ID1"     default="" type="string">
+<cf_param name="URL.ID"      default=""		     type="string">
+<cf_param name="URL.ID1"     default=""          type="string">
 <cf_param name="URL.Subject" default="#URL.ID1#" type="string">
-<cf_param name="URL.Content" default="" type="string">
-<cf_param name="URL.ID2"     default="" type="string">
-<cf_param name="URL.ID3"     default="" type="string">
-<cf_param name="URL.Mode"    default="dialog" type="string">
+<cf_param name="URL.Content" default=""          type="string">
+<cf_param name="URL.ID2"     default=""          type="string">
+<cf_param name="URL.ID3"     default=""          type="string">
+<cf_param name="URL.Mode"    default="dialog"    type="string">
 
 <cfparam name="att"         default="">
 
-<cf_textareascript>
-
 <cfif url.mode eq "Dialog">
-
-	<cf_screentop height="100%" jquery="Yes" scroll="no" html="No" bannerheight="55" banner="gray" band="No" layout="webapp" label="New Message">	
-
+	<cf_screentop height="100%" jquery="Yes" scroll="no" html="Yes" banner="gray" band="No" layout="webapp" label="New Message">	
 <cfelse>
-
 	<cf_screentop height="100%" jquery="Yes" scroll="no" html="No" ValidateSession="Yes">	
-
 </cfif>
 
-<cfajaximport tags="cfwindow">
+<cf_textareascript>
 
 <script language="JavaScript">
 
@@ -31,7 +25,7 @@
 	bcc = document.getElementById("sendBCC")
 	
 	ProsisUI.createWindow('addressdialog', 'Address book', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,center:true})    				
-	ColdFusion.navigate('AddressBook.cfm?to='+to.value+'&cc='+cc.value+'&bcc='+bcc.value,'addressdialog') 	
+	ptoken.navigate('AddressBook.cfm?to='+to.value+'&cc='+cc.value+'&bcc='+bcc.value,'addressdialog') 	
 	
 	}
 
@@ -122,17 +116,17 @@
 
 <cfoutput> 
 
-<table width="100%" height="98%">
+<table width="100%" height="99%">
 
 <tr><td>
 
 	<cfform action="MailVerify.cfm?id1=#url.id1#&Mode=#URL.Mode#" 
 	        method="post" 
-			style="height:98%"
+			style="height:99%"
 			name="mail" 
 			target="mailsubmit">	
 				 
-	<table width="99%" align="center" height="100%" border="0" cellspacing="0" cellpadding="0">
+	<table width="99%" align="center" height="100%">
 	
 	<tr class="hide"><td><iframe name="mailsubmit" id="mailsubmit"></iframe></td></tr>
 	
@@ -200,7 +194,7 @@
 		    <TD class="labelmedium" valign="top" style="padding-top:4px;padding-left:20px"><b>From:</TD>
 			<TD>
 			
-				<table cellspacing="0" cellpadding="0"><tr><td class="labelmedium">
+				<table cellspacing="0" cellpadding="0"><tr><td class="labelmedium" style="padding-top:3px">
 				
 				<cfquery name="Parameter" 
 				   datasource="AppsSystem" 
@@ -281,7 +275,7 @@
 			<table width="100%">
 		  	   <!--- Field: SendTO --->
 			<TR>
-		    <td class="labelmedium" width="100" height="22"><b><a href="javascript:address()"><font color="0080C0"><u>To:</a></td>
+		    <td class="labelmedium" width="100" height="22"><a href="javascript:address()">To:</a></td>
 			<TD width="85%" class="labelmedium" >
 			   <cfoutput>
 			   		   		   
@@ -336,7 +330,7 @@
 			
 		   <!--- Field: SendCC --->
 		    <TR>
-		    <TD height="22" class="labelmedium"><b><a href="javascript:address()"><font color="0080C0"><u>Cc:</a></TD>
+		    <TD height="22" class="labelmedium"><a href="javascript:address()">Cc:</a></TD>
 			<TD>
 				<cfinput type="Text"
 			       name="sendCC"
@@ -362,7 +356,7 @@
 			
 		   <!--- Field: SendCC --->
 		    <TR>
-		    <TD height="22" class="labelmedium" ><b><a href="javascript:address()"><u>Bcc:</a></TD>
+		    <TD height="22" class="labelmedium" ><a href="javascript:address()">Bcc:</a></TD>
 			<TD>
 				<cfinput type="Text"
 			       name="sendBCC"
@@ -384,7 +378,7 @@
 			
 		    <!--- Field: Subject --->
 		    <TR>
-		    <TD height="22" class="labelmedium" ><b><cf_tl id="Subject">:</TD>
+		    <TD height="22" class="labelmedium"><cf_tl id="Subject">:</TD>
 			<TD>
 			   <cfif URL.ID1 is not "">
 			   
@@ -616,20 +610,20 @@
 		<cfif url.mode eq "Dialog" or url.mode eq "cfwindow">
 			
 		<cf_textarea name="SentBody"			
-			 toolbar="Basic"			
+			 toolbar="Mini"			
 			 color="ffffff"			 
 			 init="Yes" 	
-			 resize="yes"		    
-			 height="278"><cfoutput>#mailbody#</cfoutput></cf_textarea>
+			 resize="false"		    
+			 height="60%"><cfoutput>#mailbody#</cfoutput></cf_textarea>
 			
 		<cfelse>	
 						  	  				
 			<cf_textarea name="SentBody"
-	         toolbar="Basic"
-			 height="84%"		
+	         toolbar="Mini"
+			 height="60%"		
 			 init="Yes"	
 			 color="ffffff"
-			 resize="no"><cfoutput>#mailbody#</cfoutput></cf_textarea>
+			 resize="false"><cfoutput>#mailbody#</cfoutput></cf_textarea>
 					 
 		</cfif>	
 			

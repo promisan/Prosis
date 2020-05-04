@@ -7,7 +7,15 @@ username="#SESSION.login#"
 password="#SESSION.dbpw#">
     SELECT   OccupationalGroup, Description, Acronym, ParentGroup
 	FROM     OccGroup
-	WHERE    Status = '1'			
+	WHERE    Status = '1'	
+	
+	<cfif SESSION.isAdministrator eq "No">
+	AND OccupationalGroup IN (  SELECT GroupParameter 
+      			                FROM   Organization.dbo.OrganizationAuthorization 
+				  	            WHERE  Role = 'FunctionAdmin' 
+					            AND    UserAccount = '#SESSION.acc#')					
+	</cfif>		
+		
 	ORDER BY ParentGroup,ListingOrder,OccupationalGroup, Description
 </cfquery>
 
@@ -25,6 +33,7 @@ password="#SESSION.dbpw#">
 	                FROM   Organization.dbo.OrganizationAuthorization 
 					WHERE  Role = 'FunctionAdmin' 
 					AND    UserAccount = '#SESSION.acc#')
+					
 	</cfif>				
 	ORDER BY R.ListingOrder
 </cfquery>
@@ -33,15 +42,15 @@ password="#SESSION.dbpw#">
 
 <cf_divscroll>
 
-<table width="96%" align="center"  bgcolor="ffffff" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="96%" align="center" class="formpadding">
 	
 	<tr><td style="padding-top:25px">
 	
 	<CFFORM action="RecordSearchQuery.cfm?idmenu=#url.idmenu#" method="post">
 	
-	<table width="99%" align="center" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+	<table width="99%" align="center" class="formpadding">
 		
-		<tr>
+		<tr class="line">
 		<TD colspan="2" class="labellarge">
 		<table><tr>
 		   <td style="font-size:29px" class="labellarge"><cf_tl id="Select functional titles"></b></td>
@@ -50,12 +59,11 @@ password="#SESSION.dbpw#">
 		</table>
 		</TD>	
 	    </tr>
-			
-		<tr><td colspan="2" class="linedotted"></td></tr>
+		
 		<tr><td height="6"></td></tr>
 	 	
 		<TR>
-			<TD style="padding-left:20px" class="labelmedium"><cf_tl id="Search for a Title">:</TD>
+			<TD style="min-width:200px;padding-left:20px" class="labelmedium"><cf_tl id="Search for a Title">:</TD>
 			<TD><INPUT type="text" name="FunctionDescription" size="30" class="regularxl"></TD>
 		</TR>
 		
@@ -90,8 +98,8 @@ password="#SESSION.dbpw#">
 		</TR>
 		
 		<TR>
-			<td style="padding-left:20px" class="labelmedium"><cf_tl id="Edition">:</td>
-			<td>
+			<td style="padding-left:20px;width:200px" class="labelmedium"><cf_tl id="Edition">:</td>
+			<td style="width:80%">
 					
 			<cfquery name="Edition"
 			datasource="AppsSelection" 
@@ -101,6 +109,13 @@ password="#SESSION.dbpw#">
 				FROM      Ref_SubmissionEdition R INNER JOIN
 			              Ref_ExerciseClass E ON R.ExerciseClass = E.ExcerciseClass
 				WHERE     R.Operational = 1
+				<cfif SESSION.isAdministrator eq "No">
+				AND R.Owner IN (  SELECT ClassParameter 
+	        			          FROM   Organization.dbo.OrganizationAuthorization 
+							  	  WHERE  Role = 'FunctionAdmin' 
+								  AND    UserAccount = '#SESSION.acc#')
+					
+				</cfif>		
 				ORDER BY  R.Owner, R.EditionDescription
 			</cfquery>
 			

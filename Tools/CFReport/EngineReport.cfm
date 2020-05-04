@@ -4,10 +4,11 @@
 	<cfparam name="URL.dts"        default="#dateformat(now(),client.dateformatshow)#">	
 	<cfparam name="URL.Mode"       default="schedule">
 	<cfparam name="URL.FormSelect" default="Batch">	
-	
-	<!--- create an instance as we bypass from the backoffice or trial mode --->
+				
+	<!--- create an instance as we bypass from the CF, schedule dialog or manual mode 
+	this is coming straight from trial or the other mode in the view of the report batches --->
 			
-	<cfif url.mode neq "schedule" and url.mode neq "manual">
+	<cfif url.mode neq "auto" and url.mode neq "schedule" and url.mode neq "manual">
 		
 		<cf_assignId>
 	

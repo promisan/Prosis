@@ -339,7 +339,7 @@
 		
 				<tr><td style="height:13px"></td></tr>
 								
-			    <tr class="labelmedium" style="height:39px;border-top:1px solid silver">
+			    <tr class="labelmedium fixrow2" style="height:39px;border-top:1px solid silver">
 			    <td width="30" style="padding-left:3px;padding-top:5px">
 								
 					<cfif url.pdf eq "0">	 					     

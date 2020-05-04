@@ -238,82 +238,7 @@ password="#SESSION.dbpw#">
 				
 		<tr class="hide"><td height="1" id="process"></td></tr>
 				
-		<tr class="labelmedium line">
-		    <td style="min-width:20px"></td>
-		    <td style="min-width:20px"></td>  				
-				 
-			<cfif URL.id neq "">
-			
-			    <TD style="min-width:100px"><cf_tl id="Type"></TD>				
-				<TD style="min-width:80px"><cf_tl id="Reference"></TD>
-				<TD style="min-width:100px"><cf_tl id="Voucher"></TD>			
-				<TD style="min-width:150px"><cfif searchresult.assetid neq ""><cf_tl id="Make">/<cf_tl id="Id"><cfelseif searchresult.workorderid neq ""><cf_tl id="Workorder"><cfelse><cf_tl id="Beneficiary"></cfif></TD>
-				
-			<cfelseif Batch.BatchDescription eq "Receipt Distribution">
-						   
-			    <TD style="width:100%" colspan="4"><cf_tl id="Product"></TD>				
-				
-			<cfelse>	
-									
-				<cfif batch.transactiontype eq "9">
-				<TD style="width:100%" colspan="3"><cf_tl id="Product"></TD>
-				<td style="min-width:100px"></td>
-				<cfelse>	
-				<TD style="width:100%" colspan="2"><cf_tl id="Product"></TD>
-				<TD style="min-width:100px"><cf_tl id="Voucher"></TD>			
-				<TD style="min-width:150px"><cfif searchresult.assetid neq ""><cf_tl id="Make">/<cf_tl id="Id"><cfelseif searchresult.workorderid neq ""><cf_tl id="Workorder"><cfelse><cf_tl id="Beneficiary"></cfif></TD>
-				</cfif>
-			   				
-			</cfif>	  				
-			
-			<cfif Batch.TransactionType neq "5">
-			<td style="padding-right:4px;min-width:60px">
-				<cfif param.LotManagement eq "1">
-					<cf_tl id="Lot">
-				<cfelse>
-					<cf_tl id="Metric">
-				</cfif>
-			</td>		
-			<TD style="min-width:150px"><cf_tl id="Request"></TD>			
-			<cfelse>
-			<TD style="min-width:100px" colspan="2"><cf_tl id="Stock amendment"></TD>					
-			</cfif>
-			<TD style="min-width:100px"><cf_tl id="Date"></TD>				
-				
-			<TD align="right" style="min-width:70px;padding-left:3px"><cf_tl id="UoM"></TD>
-		    <TD align="right" style="padding-right:3px;min-width:100px"><cf_tl id="Quantity"></TD>				
-			<TD style="padding-left:3px;padding-right:23px;min-width:36px">
-				<cf_UIToolTip tooltip="Accounts Payable for outsourced transaction"><font color="0080C0"><cf_tl id="AP"></font></cf_UIToolTip>
-			</TD>	
-			
-		</tr>
 		
-		<cfif url.modality eq "1">
-		
-			<tr  class="labelmedium">
-					<td></td>
-					<td></td>						
-											
-					<td colspan="9" bgcolor="DAF9FC" align="right">
-						<table height="100%">
-						<tr class="labelmedium">
-						    <td style="min-width:12px"></td>
-						    <td style="width:100%;border-right:1px solid silver;padding-right:4px" align="right"></td>
-							<td style="min-width:90px;border-right:1px solid silver;padding-right:4px" align="right"><cf_tl id="Price"></td>															
-							<td style="min-width:90px;border-right:1px solid silver;padding-right:4px" align="right"><cf_tl id="Net Sale"></td>								
-							<td style="min-width:90px;border-right:1px solid silver;padding-right:4px" align="right"><cf_tl id="Tax"></td>
-							<td style="min-width:90px;border-right:1px solid silver;padding-right:4px" align="right"><cf_tl id="Receivable"></td>
-							<td style="min-width:90px;border-right:1px solid silver;padding-right:4px" align="right" bgcolor="f1f1f1"></td>
-							<td style="min-width:110px;border-right:1px solid silver;padding-right:4px" align="right" bgcolor="f1f1f1"><cf_tl id="COGS"></td>
-							<td style="min-width:110px;border-right:1px solid silver;padding-right:4px" align="right" bgcolor="f1f1f1"><cf_tl id="Sale"></td>
-							<td style="min-width:110px;border-right:1px solid silver;padding-right:4px" align="right" bgcolor="f1f1f1"><cf_tl id="Margin"></td>							
-						</tr>
-						</table>
-					</td>
-					<td style="width:23px"></td>
-			</tr>
-		
-		</cfif>
 					
 		</cfoutput>
 					
@@ -427,6 +352,89 @@ password="#SESSION.dbpw#">
 						
 			<table width="99%">
 			
+			<cfoutput>
+			
+			<tr class="labelmedium line fixrow">
+			    <td style="min-width:20px"></td>
+			    <td style="min-width:20px"></td>  				
+					 
+				<cfif URL.id neq "">
+				
+				    <TD style="min-width:100px"><cf_tl id="Type"></TD>				
+					<TD style="min-width:80px"><cf_tl id="Reference"></TD>
+					<TD style="min-width:100px"><cf_tl id="Voucher"></TD>			
+					<TD style="min-width:150px"><cfif searchresult.assetid neq ""><cf_tl id="Make">/<cf_tl id="Id"><cfelseif searchresult.workorderid neq ""><cf_tl id="Workorder"><cfelse><cf_tl id="Beneficiary"></cfif></TD>
+					
+				<cfelseif Batch.BatchDescription eq "Receipt Distribution">
+							   
+				    <TD style="width:100%" colspan="4"><cf_tl id="Product"></TD>				
+					
+				<cfelse>	
+										
+					<cfif batch.transactiontype eq "9">
+					<TD style="width:100%" colspan="3"><cf_tl id="Product"></TD>
+					<td style="min-width:100px"></td>
+					<cfelse>	
+					<TD style="width:100%" colspan="2"><cf_tl id="Product"></TD>
+					<TD style="min-width:100px"><cf_tl id="Voucher"></TD>			
+					<TD style="min-width:150px"><cfif searchresult.assetid neq ""><cf_tl id="Make">/<cf_tl id="Id"><cfelseif searchresult.workorderid neq ""><cf_tl id="Workorder"><cfelse><cf_tl id="Beneficiary"></cfif></TD>
+					</cfif>
+				   				
+				</cfif>	  				
+				
+				<cfif Batch.TransactionType neq "5">
+				<td style="padding-right:4px;min-width:60px">
+					<cfif param.LotManagement eq "1">
+						<cf_tl id="Lot">
+					<cfelse>
+						<cf_tl id="Metric">
+					</cfif>
+				</td>		
+				<TD style="min-width:150px"><cf_tl id="Request"></TD>			
+				<cfelse>
+				<TD style="min-width:100px" colspan="2"><cf_tl id="Stock amendment"></TD>					
+				</cfif>
+				<TD style="min-width:100px"><cf_tl id="Date"></TD>				
+					
+				<TD align="right" style="min-width:70px;padding-left:3px"><cf_tl id="UoM"></TD>
+			    <TD align="right" style="padding-right:3px;min-width:100px"><cf_tl id="Quantity"></TD>				
+				<TD style="padding-left:3px;padding-right:23px;min-width:36px">
+					<cf_UIToolTip tooltip="Accounts Payable for outsourced transaction"><font color="0080C0"><cf_tl id="AP"></font></cf_UIToolTip>
+				</TD>	
+			
+			</tr>
+			
+			</cfoutput>		
+			
+			<cfif url.modality eq "1">
+			
+				<tr  class="labelmedium">
+						<td></td>
+						<td></td>						
+												
+						<td colspan="9" bgcolor="DAF9FC" align="right">
+							<table height="100%">
+							<tr class="labelmedium">
+							    <td style="min-width:12px"></td>
+							    <td style="width:100%;border-right:1px solid silver;padding-right:4px" align="right"></td>
+								<td style="min-width:90px;border-right:1px solid silver;padding-right:4px" align="right"><cf_tl id="Price"></td>															
+								<td style="min-width:90px;border-right:1px solid silver;padding-right:4px" align="right"><cf_tl id="Net Sale"></td>								
+								<td style="min-width:90px;border-right:1px solid silver;padding-right:4px" align="right"><cf_tl id="Tax"></td>
+								<td style="min-width:90px;border-right:1px solid silver;padding-right:4px" align="right"><cf_tl id="Receivable"></td>
+								<td style="min-width:90px;border-right:1px solid silver;padding-right:4px" align="right" bgcolor="f1f1f1"></td>
+								<td style="min-width:110px;border-right:1px solid silver;padding-right:4px" align="right" bgcolor="f1f1f1"><cf_tl id="COGS"></td>
+								<td style="min-width:110px;border-right:1px solid silver;padding-right:4px" align="right" bgcolor="f1f1f1"><cf_tl id="Sale"></td>
+								<td style="min-width:110px;border-right:1px solid silver;padding-right:4px" align="right" bgcolor="f1f1f1"><cf_tl id="Margin"></td>							
+							</tr>
+							</table>
+						</td>
+						<td style="width:23px"></td>
+				</tr>
+			
+			</cfif>
+			
+			<!--- no longer needed 	
+						
 			<tr style="height:1px">
 			    <td style="min-width:20px"></td>
 			    <td style="min-width:20px"></td>  					 
@@ -459,6 +467,8 @@ password="#SESSION.dbpw#">
 			    <TD style="min-width:100px"></TD>				
 				<TD style="min-width:35px"></TD>				
 		    </tr>
+			
+			--->
 						
 			<!--- ---------------------------------------- --->
 			<!--- ------------- LISTING ------------------ --->
@@ -476,8 +486,8 @@ password="#SESSION.dbpw#">
 					<!--- --------------- LOCATION --------------- --->
 					<!--- ---------------------------------------- --->
 					
-					<tr class="line">
-							<td class="labellarge" style="height:33px;padding-left:4px" colspan="12">
+					<tr class="line fixrow2">
+							<td class="labellarge" style="font-size:18px;height:33px;padding-left:4px" colspan="12">
 							
 							<cfif warehouse neq Batch.Warehouse>
 																					
@@ -743,22 +753,23 @@ password="#SESSION.dbpw#">
 																		AND     ActionMemo !=''
 																		GROUP BY ActionCode) M	ON     I.ActionCode = M.ActionCode AND I.ActionDate = M.ActionDate
 															WHERE	 I.TransactionId = '#transactionid#'
-															AND      I.ActionMemo IS NOT NULL AND I.ActionMemo !=''
+															AND      I.ActionMemo IS NOT NULL 
+															AND      I.ActionMemo !=''
 															ORDER BY I.ActionDate DESC														
 													</cfquery>
 													
 													<cfif qActions.recordcount neq 0>
 													
-														<tr class="labelmedium" style="height:20px">
+														<tr style="height:20px">
 															<td colspan="2">
 															
-															<table width="100%">														
+															<table width="100%" style="background-color:ffffcf">														
 															<cfloop query="qActions">
-																<tr>
-																	<td>#qActions.ActionCode#</td>
-																	<td>#qActions.OfficerUserId#</td>	
-																	<td>#qActions.ActionMemo#</td>	
-																	<td>#DateFormat(qActions.ActionDate, client.dateformatshow)# - #timeFormat(qActions.ActionDate, "hh:mm tt")#</td>	
+																<tr class="labelmedium" style="height:20px">
+																	<td style="border:1px solid silver;border-bottom:0px;padding-left:3px">#qActions.ActionCode#</td>
+																	<td style="border:1px solid silver;border-bottom:0px;padding-left:3px">#qActions.OfficerUserId#</td>	
+																	<td style="border:1px solid silver;border-bottom:0px;padding-left:3px">#qActions.ActionMemo#</td>	
+																	<td style="border:1px solid silver;border-bottom:0px;padding-left:3px">#DateFormat(qActions.ActionDate, client.dateformatshow)# - #timeFormat(qActions.ActionDate, "hh:mm tt")#</td>	
 																</tr>	
 															</cfloop>
 															</table>	

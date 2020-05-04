@@ -136,9 +136,9 @@
 </script>
 
 <cfif url.isReadonly eq 9>
-	<cf_screentop height="100%" label="Bucket Process Authorization Matrix #url.owner#" scroll="Yes" line="no" layout="webapp" banner="gray"  bannerheight="55" jquery="Yes">
+	<cf_screentop height="100%" label="Bucket Process Authorization Matrix #url.owner#" html="No" scroll="Yes" line="no" layout="webapp" banner="gray" jquery="Yes">
 <cfelse>
-	<cf_screentop height="100%" close="parent.ColdFusion.Window.destroy('mydialog',true)" label="Bucket Process Authorization Matrix" option="Readonly" line="no" scroll="Yes" layout="webapp" banner="gray" bannerheight="55" jQuery="Yes">
+	<cf_screentop height="100%" close="parent.ColdFusion.Window.destroy('mydialog',true)" label="Bucket Process Authorization Matrix" html="no" option="Readonly" line="no" scroll="Yes" layout="webapp" banner="gray" bannerheight="55" jQuery="Yes">
 </cfif>
 
 <cfoutput>

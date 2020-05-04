@@ -25,17 +25,17 @@ password="#SESSION.dbpw#">
 	
 <cfif Bucket.recordCount gt "0">
 
-<table width="100%"  cellspacing="0" cellpadding="0">
+<table width="100%">
 
 <tr><td style="padding:4px">
 
-  <table class="navigation_table" width="94%" style="border:0px dotted silver" cellspacing="0" cellpadding="0" align="center">
+  <table class="navigation_table" width="94%" align="center">
  
   <cfoutput query="Bucket">
   <cfif ReferenceNo neq "Direct">
- 	<tr bgcolor="fafafa" class="labelit linedotted navigation_row" >
+ 	<tr bgcolor="fafafa" class="labelmedium line navigation_row" style="height:20px">
   <cfelse>
-    <tr bgcolor="ffffdf" class="labelit linedotted navigation_row">
+    <tr bgcolor="ffffdf" class="labelmedium line navigation_row" style="height:20px">
   </cfif>		  
 		    		  
 	  <td width="4%" align="center" style="padding-top:2px;">	  
@@ -68,14 +68,14 @@ password="#SESSION.dbpw#">
 	  			
 	  </cfif>	
 	  </td>
-	  <td width="10%">
+	  
+	  <td width="20%">
 	  <cfif Bucket.ReferenceNo neq "Direct">
-	  <a href="javascript:va('#Bucket.FunctionId#');"><font color="0080C0"><u>#ReferenceNo#</font></a>
+	  <a href="javascript:va('#Bucket.FunctionId#');">#ReferenceNo#</a>
 	  <cfelse>
 	  #ReferenceNo#
 	  </cfif>
-	  </td>
-	  
+	  </td>	  
 	  <td style="padding-left:15px" width="20%">#Mission#</td>
 	  <td style="padding-left:2px" width="10%">
 	  <cfif DateExpiration eq "">

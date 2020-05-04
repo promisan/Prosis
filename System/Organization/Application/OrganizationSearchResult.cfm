@@ -57,11 +57,7 @@
 
 <tr><td style="padding-left:5px;padding-bottom:4px">
 
-<!---
-<div style="overflow: auto; height:480px; scrollbar-face-color: F4f4f4;">
---->
-
-<table border="0" cellpadding="0" cellspacing="0" width="99%" class="navigation_table">
+<table width="98%" class="navigation_table">
 
 <cfif URL.UNI eq ''> 
 
@@ -103,9 +99,10 @@
 				 
 			  </td>
 			 			  
-			  <td width="16%" class="labelit" style="padding-left:7px;padding-right:4px">#OrgUnitCode#</td>
+			  <td class="labelit" style="width:50px;padding-left:7px;padding-right:4px">#OrgUnitCode#</td>
+			  <td width="16%" class="labelit" style="padding-left:7px;padding-right:4px">#OrgUnitNameShort#</td>
 			   
-			  <TD class="labelit" width="70%"><cfif enabled eq "0"><font color="gray"></cfif>#OrgUnitName#</b></TD>
+			  <TD class="labelit" width="70%"><cfif enabled eq "0"><font color="gray"></cfif>#OrgUnitName#</TD>
 			  
 			   <td width="15%" class="labelit" style="padding-left:4px;padding-right:4px">
 				  <cfif enabled eq "0"><font color="gray"></cfif>#HierarchyCode#</b>
@@ -133,9 +130,11 @@
 		   
 		   </td>
 		  
-			<td width="80" style="padding-left:7px;padding-right:4px">#OrgUnitCode#</td>
+			<td style="width:50px;padding-left:7px;padding-right:4px">#OrgUnitCode#</td>
 			
 			<cfset nm = replace(OrgUnitName, "'","","ALL")> 
+			
+			<td>#OrgUnitNameShort#</td>
 						
 		    <TD width="60%">
 			   <cfif enabled eq "0"><font color="gray"></cfif>#OrgUnitName#

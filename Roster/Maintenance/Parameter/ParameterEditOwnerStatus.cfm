@@ -117,26 +117,25 @@
 	
     <TD colspan="2">
 	
-		<table border="0" bgcolor="white"  width="100%" cellspacing="0" cellpadding="0" class="navigation_table">
-		<tr>
+		<table border="0" width="100%" class="navigation_table">
+		<tr class="line labelmedium">
 		  <td width="5%" height="20"></td>
-		  <td colspan="2" class="labelit"><cf_tl id="Roster Status"></td>
-		  <td align="center" class="labelit"><cf_tl id="Needs Action"></td>
-		  <td align="center" class="labelit" style="cursor: pointer;"><cf_UIToolTip tooltip="Show candidate totals in roster cells for this status"><font color="0080FF"><cf_tl id="Show in Roster"></cf_UIToolTip></td>
-		  <td align="center" class="labelit" style="cursor: pointer;"><cf_UIToolTip tooltip="Show candidate totals in preview boxes"><font color="0080FF"><cf_tl id="Show in Search"></cf_UIToolTip></td>
-		  <td align="center" class="labelit" style="cursor: pointer;"><cf_UIToolTip tooltip="Status which represents the pre-roster status"><font color="0080FF">Pre-roster</cf_UIToolTip></td>
-		  <td align="center" class="labelit"><cf_tl id="Method"></td>
-		  <td align="center" class="labelit"><cf_tl id="Workflow"></td>
-		  <td align="center" class="labelit"><cf_tl id="Reason"></td>		
-		  <td align="center" class="labelit"><cf_tl id="Access Process"></td>	  
-		  <td align="center" class="labelit"><cf_tl id="Access Search"></td>		
-		  <td align="center" class="labelit"><cf_tl id="Notification"></td>
+		  <td colspan="2"><cf_tl id="Roster Status"></td>
+		  <td align="center"><cf_tl id="Needs Action"></td>
+		  <td align="center" style="cursor: pointer;"><cf_UIToolTip tooltip="Show candidate totals in roster cells for this status"><cf_tl id="Show in Roster"></cf_UIToolTip></td>
+		  <td align="center" style="cursor: pointer;"><cf_UIToolTip tooltip="Show candidate totals in preview boxes"><cf_tl id="Show in Search"></cf_UIToolTip></td>
+		  <td align="center" style="cursor: pointer;"><cf_UIToolTip tooltip="Status which represents the pre-roster status">Pre-roster</cf_UIToolTip></td>
+		  <td align="center"><cf_tl id="Method"></td>
+		  <td align="center"><cf_tl id="Workflow"></td>
+		  <td align="center"><cf_tl id="Reason"></td>		
+		  <td align="center"><cf_tl id="Access Process"></td>	  
+		  <td align="center"><cf_tl id="Access Search"></td>		
+		  <td align="center"><cf_tl id="Notification"></td>
 		  </tr>
-		  <tr><td height="1" colspan="13" class="linedotted"></td></tr>
-		  
+				  
 		<cfoutput query="step">
 		
-		<tr class="navigation_row cellcontent linedotted">
+		<tr class="navigation_row cellcontent line">
 		  <td align="center" style="height:20px">
 		    <cf_img icon="edit" navigation="Yes" onClick="javascript:process('#owner#','#status#')">
 		  </td>

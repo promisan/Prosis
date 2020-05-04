@@ -441,7 +441,7 @@
 					
 				<cfelse>
 				
-					<!--- check if person has already a confliucting appointment for the same service on the same day --->
+					<!--- check if person has already a confliucting appointment for -the same service- on the same day --->
 				
 					<cfquery name="check"
 					datasource="appsWorkOrder" 
@@ -454,7 +454,8 @@
 			                      Customer C ON W.CustomerId = C.CustomerId INNER JOIN
 		    	                  WorkPlanDetail WPD ON WLA.WorkActionId = WPD.WorkActionId INNER JOIN
 		    	                  WorkPlan WP ON WP.WorkPlanId = WPD.WorkPlanId
-						WHERE     W.CustomerId                = '#CustomerId#' 
+						WHERE     W.Mission                   = '#mission#'	
+						AND       W.CustomerId                = '#CustomerId#' 
 						<!--- AND     W.ServiceItem               = '#ServiceItem#'	--->
 											
 						AND       DAY(WPD.DateTimePlanning)   = #day(dtp)# 

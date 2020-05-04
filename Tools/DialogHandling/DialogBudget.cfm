@@ -58,7 +58,7 @@
 	}
 	
 	function email(to,subj) {
-		ptoken.open(root + "/Tools/Mail/Mail.cfm?ID=" + to +"&ID1=" + subj, "MailDialog", "width=500, height=480, toolbar=no, scrollbars=no, resizable=no");
+		ptoken.open(root + "/Tools/Mail/Mail.cfm?ID=" + to +"&ID1=" + subj, "MailDialog", "width=1000, height=680, toolbar=no, scrollbars=no, resizable=no");
 	}
 	
 	</script>

@@ -59,7 +59,6 @@
 
 <cf_textareascript>
 <cf_LayoutScript>
-
 	
 <table style="height:100%" width="100%" align="center">
 
@@ -135,5 +134,3 @@
 </table>
 
 </cfoutput>
-
-

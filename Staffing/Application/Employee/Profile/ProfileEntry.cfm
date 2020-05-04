@@ -4,7 +4,7 @@
 	
 	<cfparam name="URL.Status" default="9">
 	
-	<cfajaximport tags="cfform,cfinput-datefield">
+	<cfajaximport tags="cfform">
 
 	<cf_textareascript>
 			
@@ -12,7 +12,7 @@
 	
 	function sel(id,lan,row) {
 	
-	  ColdFusion.navigate('ProfileDetail.cfm?id='+id+'&languagecode='+lan,'profile');
+	  ptoken.navigate('ProfileDetail.cfm?id='+id+'&languagecode='+lan,'profile');
 	  se = document.getElementsByName('language');
 	  count = 0
 	  while (se[count]) {
@@ -37,7 +37,9 @@
 	</cfquery> 
 
 <form method="post" name="profileform" id="profileform">
+
 <cf_divscroll>		
+
 	<table width="100%" height="100%" align="center" border="0" cellspacing="0" cellpadding="0">
 	
 	<tr><td height="10" style="padding-left:7px">	
@@ -49,17 +51,16 @@
 		
 	<tr><td height="100%" style="padding:9px">
 				
-			   <table width="100%" height="100%" cellspacing="0" cellpadding="0" class="formpadding">
+			   <table width="100%" height="100%" class="formpadding">
 			   
 			   <tr><td height="20">
 				   <table cellspacing="0" cellpadding="0" width="100%">
 					  <tr>
 					  <cfoutput query="LanguageList">
-					  <td style="cursor: pointer;" onclick="sel('#url.id#','#code#','#currentrow-1#')" class="labelit">
+					  <td style="cursor: pointer;" onclick="sel('#url.id#','#code#','#currentrow-1#')" class="labelmedium">
 					  
 					    <table><tr><td style="padding-left:10px">
-					  	     <input type="radio" class="radiol"
-							 id="language" name="language"	 
+					  	     <input type="radio" class="radiol" id="language" name="language"	 
 							 value="#Code#" <cfif Code eq CLIENT.LanguageId>checked</cfif>>
 							 </td>
 							 <td style="padding-left:4px" class="labelmedium">
@@ -72,12 +73,13 @@
 					  </cfoutput>
 					  <td align="right" width="90%">
 					  <cfoutput>
+					  
 						  <input type="button" 
 					         	name="Save" 
 							 	style="width:200px;height:25px" 
 							 	class="button10g" 
 							 	value="Save" 
-							 	onclick="updateTextArea();ColdFusion.navigate('ProfileDetail.cfm?id=#url.id#&languagecode='+document.getElementById('lanselect').value,'profile','','','POST','profileform')">
+							 	onclick="updateTextArea();_cf_loadingtexthtml='';ptoken.navigate('ProfileDetail.cfm?id=#url.id#&languagecode='+document.getElementById('lanselect').value,'profile','','','POST','profileform')">
 							 
 					  </cfoutput>		 
 					  </td>

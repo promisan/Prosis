@@ -454,21 +454,19 @@ password="#SESSION.dbpw#">
 		  
 		    <cf_divscroll>
 		  				
-			<table width="99%" class="formpadding navigation_table">
+			<table border="0" width="99%" class="formpadding navigation_table">
 			
 			<TR class="fixrow labelmedium line">
 			    <TD style="min-width:26"></TD>
 			    <TD style="width:100%;min-width:200px"><cf_tl id="Name"></TD>				
-			    <TD style="min-width:50"><cf_tl id="Nat."></TD>
-			    <TD style="min-width:40">S</TD>
+			    <TD style="min-width:40"><cf_tl id="Nat."></TD>
+			    <TD style="min-width:30">S</TD>
 			    <TD style="min-width:120"><cf_tl id="BirthDate"></TD>
-			    <TD style="min-width:100"><cfoutput query="Parameter">#IndexNoName#:</cfoutput></TD>
-				<TD style="min-width:100"><cf_tl id="Reference"></TD>			    
+			    <TD style="min-width:100"><cfoutput>#client.IndexNoName#</cfoutput></TD>
+				<TD style="min-width:150"><cf_tl id="Reference"></TD>			    
 			    <TD style="min-width:100"><cf_tl id="Entered"></TD>
-				<TD style="min-width:130"><cf_tl id="Accessed"></TD>
-				<td style="min-width:40" align="center"></td>
-				<td style="min-width:50" width="10"></td>
-				<td style="min-width:20" width="10"></td>
+				<TD style="min-width:110"><cf_tl id="Accessed"></TD>
+				<td style="min-width:40" align="center"></td>							
 			 </TR>
 				
 			<cfquery name="Parameter" 
@@ -517,7 +515,7 @@ password="#SESSION.dbpw#">
 					
 					<td style="padding-right:4px">#DateFormat(DOB, CLIENT.DateFormatShow)# (#age#)</td>
 					<TD><a title="Employee details" href="javascript:EditPerson('#IndexNo#')">#IndexNo#</a></TD>					
-					<TD>#DocumentReference#</TD>
+					<TD style="padding-right:4px"><cfif documentReference neq "">#DocumentReference#<cfelseif eMailAddress neq "">#emailAddress#</cfif></TD>
 					<td style="padding-right:4px">#DateFormat(Created, CLIENT.DateFormatShow)#</td>					
 					<td style="padding-right:4px">
 						<cfif dateformat(LastViewed,"YYYY") eq year(now())>
@@ -527,7 +525,7 @@ password="#SESSION.dbpw#">
 						</cfif>
 					</td>
 					
-					<td colspan="2" align="right" style="padding-right:5px">
+					<td colspan="1" align="right" style="padding-right:5px">
 					
 						<cfif submissions eq "0">
 						

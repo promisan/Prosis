@@ -129,10 +129,10 @@ function selectposition(source, mission, mandateno, applicantno, personno, recor
 
 function selectfunction(formname, fldfunctionno, fldfunctiondescription, owner,param1,param2) {
   
-	try { ColdFusion.Window.destroy('myfunction',true) } catch(e) {}
-	ColdFusion.Window.create('myfunction', 'Functional Titles', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:false,resizable:false,center:true})    					
+    try { ProsisUI.closeWindow('myfunction',true) } catch(e) {}
+	ProsisUI.createWindow('myfunction', 'Functional Titles', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,resizable:false,center:true})    					
 	ptoken.navigate(root + "/Staffing/Application/Function/Lookup/FunctionView.cfm?FormName=" + formname + "&fldfunctionno=" + fldfunctionno + "&fldfunctiondescription=" + fldfunctiondescription + "&owner=" + owner + "&param1=" + param1 + "&param2=" + param2,'myfunction') 	
-	
+			
 } 
   
 function selectscale(personno,contracttype,contractid) {

@@ -178,9 +178,7 @@
 									iconheight = "#ht#" 
 									name       = "#vHistory#"
 									source 	   = "../History/RecordListing.cfm?customerid=#url.drillid#&mission=#Customer.mission#">
-							
-
-
+						
 						<cfset itm = itm+1>		
 						<cf_tl id="Beneficiaries" var="vBeneficiaries">
 						<cf_menutab item       = "#itm#" 

@@ -60,7 +60,7 @@
 		function Selected(no,description) {									
 			  document.getElementById('functionno').value = no
 			  document.getElementById('functiondescription').value = description					 
-			  ColdFusion.Window.hide('myfunction')
+			  ProsisUI.closeWindow('myfunction')
 		 }		
 			
 	</script>
@@ -301,7 +301,7 @@ password="#SESSION.dbpw#">
 					</cfif>
 				
 				</td>			
-				<td class="labelit" style="width:400px;padding-left:10px">Record the correct assignment start date once this is a continuation.</td>			
+				<td class="labelit" style="width:400px;padding-left:10px">Record assignment start date once this is a continuation.</td>			
 			</tr>
 			</table>
 				

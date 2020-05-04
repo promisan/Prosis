@@ -303,7 +303,7 @@ password="#SESSION.dbpw#">
 					<!--- --------------- --->
 															
 					<tr>
-					<td valign="top" style="width:40px;height:30px;padding-top:3px;padding-left:5px;padding-right:10px; color:##000000;" class="labelmedium">
+					<td valign="top" style="width:20px;height:30px;padding-top:3px;padding-left:5px;padding-right:10px; color:##000000;" class="labelmedium">
 						
 						<table 
 						    style="cursor: pointer;" 
@@ -350,15 +350,15 @@ password="#SESSION.dbpw#">
 								
 								<cf_tl id="Select a customer" var="1">
 																						
-							  	<cfinput type      = "text" 
-								         name      = "customerselect" 
-								         id        = "customerselect"	
-										 onfocus   = "document.getElementById('customerinvoiceselectbox').className ='hide';this.style.border='1px solid silver';" 
-										 onblur    = "this.style.border='1px solid silver';forceSelect(this, 'customeridselect');"			 
-								         style     = "border:1px solid silver;padding-left:3px;padding-top:1px;width:130;height:26;font-size:14px; z-index:3;"
+							  	<cfinput type         = "text" 
+								         name         = "customerselect" 
+								         id           = "customerselect"	
+										 onfocus      = "document.getElementById('customerinvoiceselectbox').className ='hide';this.style.border='1px solid silver';" 
+										 onblur       = "this.style.border='1px solid silver';forceSelect(this, 'customeridselect');"			 
+								         style        = "border-bottom:1px solid silver;padding-left:3px;padding-top:1px;width:130;height:26;font-size:14px; z-index:3;"
 								         autocomplete = "off" 				  							       		  
-								         onkeyup   = "searchcombo('#get.mission#','#url.warehouse#','','customer',this.value,'up','','##customeridselect_val');"
-								         onkeydown = "searchcombo('#get.mission#','#url.warehouse#','','customer',this.value,'down','','##customeridselect_val');">
+								         onkeyup      = "searchcombo('#get.mission#','#url.warehouse#','','customer',this.value,'up','','##customeridselect_val');"
+								         onkeydown    = "searchcombo('#get.mission#','#url.warehouse#','','customer',this.value,'down','','##customeridselect_val');">
 								  
 								  <cfif url.mode eq "embed">
 								  	<cfset ajaxOnload('salesfocus')>
@@ -369,7 +369,7 @@ password="#SESSION.dbpw#">
 							  <td style="padding-left:2px;width:100%;color:##000000;" class="regular">	
 							  
 							       <table width="100%">								  
-								   <tr><td id="customerbox" style="background-color:ffffff;border:1px solid silver;min-width:150px;height:25px;font-size:14px;padding-left:5px;padding-top:1px">					 						 								  
+								   <tr><td id="customerbox" style="min-width:150px;height:25px;padding-left:5px;font-size:23px">					 						 								  
 								   <cfinclude template="applyCustomer.cfm">												
 								   </td>								  	
 								   </tr>
@@ -406,7 +406,7 @@ password="#SESSION.dbpw#">
 					</tr>	
 										
 					<tr id="customerdata_box" class="#vHide#">						
-						<td style="padding-left:5px" colspan="3" id="customerdata_content"></td>
+						<td style="padding-left:5px;padding-top:3px;padding-bottom:3px" colspan="3" id="customerdata_content"></td>
 					</tr>	
 					
 					<!--- combo box to select the customer --->
@@ -621,7 +621,7 @@ password="#SESSION.dbpw#">
 					
 						<table>
 						<tr class="labelmedium">						
-						<td style="padding-right:10px; color:##000000;min-width:120px"><cf_tl id="Price Schedule">:</td>
+						<td style="padding-right:10px; color:##000000;min-width:120px"><cf_tl id="Price Schedule"></td>
 						<td style="padding-right:10px;" id="schedulebox">
 						
 						<cfinclude template="getSchedule.cfm">					

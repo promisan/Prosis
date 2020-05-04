@@ -246,15 +246,24 @@ function _tree_action(e) {
 
 	console.log(url);
 	console.log(target);
-	if (url) {
-		if (target != '') {
-			ptoken.open(url, target);
-		}
-		else {
-			eval(url);
-		}
 
+	if (url) {
+		if (url != '') {
+			if (url.search("javascript")!=-1) {
+				eval(url);
+			}
+			else
+			{
+				if (target != '') {
+					ptoken.open(url, target);
+				}
+			}
+		}
 	}
+
+
+
+
 	
 }
 
@@ -307,8 +316,16 @@ function _tree_action_binder(e) {
 	console.log(target);
 	saveExpanded(id,e.node);
 	if (url) {
-		if (url != '' && target != '') {
-			ptoken.open(url, target);
+		if (url != '') {
+			if (url.search("javascript")!=-1) {
+				eval(url);
+			}
+			else
+			{
+				if (target != '') {
+					ptoken.open(url, target);
+				}
+			}
 		}
 	}
 
@@ -323,8 +340,16 @@ function _tree_action_binder_single(item) {
 	console.log(target);
 
 	if (url) {
-		if (url != '' && target != '') {
-			ptoken.open(url, target);
+		if (url != '') {
+			if (url.search("javascript")!=-1) {
+				eval(url);
+			}
+			else
+			{
+				if (target != '') {
+					ptoken.open(url, target);
+				}
+			}
 		}
 	}
 

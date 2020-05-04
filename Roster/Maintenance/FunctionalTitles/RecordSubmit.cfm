@@ -120,10 +120,9 @@ password="#SESSION.dbpw#">
 	<cfoutput>
 	<script language="JavaScript">	  	        
 		parent.parent.reloadForm('1','title','new')			
-    	parent.parent.ColdFusion.Window.destroy('functiondialog',true);	        
+		parent.parent.ProsisUI.closeWindow('functiondialog',true);	    	   
 	</script> 
-	</cfoutput>   
-	
+	</cfoutput>   	
 	           
 </cfif>
 
@@ -202,7 +201,7 @@ password="#SESSION.dbpw#">
 				parent.recordRefresh('#Form.FunctionNoOld#','desc')					  
 				parent.recordRefresh('#Form.FunctionNoOld#','code')	    
 				try { parent.recordRefresh('#Form.FunctionNoOld#','grde') } catch(e) {}
-	    		parent.ColdFusion.Window.destroy('functionedit',true);	        	
+	    		parent.ProsisUI.closeWindow('functionedit',true);	        	
 		    </script>  
 		
 		</cfoutput>  
@@ -248,15 +247,9 @@ password="#SESSION.dbpw#">
 			parent.recordRefresh('#Form.FunctionNoOld#','desc')	    
 			parent.recordRefresh('#Form.FunctionNoOld#','code')	    
 			try { parent.recordRefresh('#Form.FunctionNoOld#','grde') } catch(e) {}
-	    	parent.ColdFusion.Window.destroy('functionedit',true);	        	
+	    	parent.ProsisUI.closeWindow('functionedit',true);	        	
 	     </script>  	 
 	
 	</cfoutput>        
 			
 </cfif>	
-
-
-
-
-
-

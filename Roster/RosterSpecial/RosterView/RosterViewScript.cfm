@@ -344,10 +344,9 @@ function retire(id,no,occ,mode,filter,level,line) {
 	}
 	
 function recordadd(occ,act,mode,filter,level,line,cell,edit,edition) {
- 	
-	try { ColdFusion.Window.destroy('myfunction',true) } catch(e) {}
-	ColdFusion.Window.create('myfunction', 'Bucket', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,resizable:false,center:true})    
-	ColdFusion.navigate("#SESSION.root#/Staffing/Application/Function/Lookup/FunctionView.cfm?edition="+edition+"&occ="+occ+"&owner=#URL.Owner#&mode=Bucket&ts="+new Date().getTime(),'myfunction') 	   
+ 		
+	ProsisUI.createWindow('myfunction', 'Bucket', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,resizable:false,center:true})    
+	ptoken.navigate('#SESSION.root#/Staffing/Application/Function/Lookup/FunctionView.cfm?edition='+edition+'&occ='+occ+'&owner=#URL.Owner#&mode=Bucket','myfunction') 	   
 }	
 
 function Selected(no,description) {				

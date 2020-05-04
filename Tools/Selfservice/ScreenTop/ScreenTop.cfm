@@ -218,21 +218,19 @@ datasource="AppsInit">
 		   <cfset attributes.systemfunctionid = rowguid>
 		   		   
    </cfif>
-   
-      
+        
    <cfif attributes.mission neq "" or attributes.systemfunctionid neq "">
-  
-       
+         
    		<!--- added 1/12/2016 to log also from valid system function to capture
 		the mission etc.the action being loaded --->
 						
 		<cf_submenuLog systemfunctionid = "#attributes.systemfunctionid#"
-		      mission="#attributes.mission#"
-			  actionObject="#attributes.ActionObject#"
-			  actionObjectKeyValue1="#attributes.ActionObjectKeyValue1#"
-			  actionObjectKeyValue2="#attributes.ActionObjectKeyValue2#"
-			  actionObjectKeyValue3="#attributes.ActionObjectKeyValue3#"
-			  actionObjectKeyValue4="#attributes.ActionObjectKeyValue4#">				
+		      mission               = "#attributes.mission#"
+			  actionObject          = "#attributes.ActionObject#"
+			  actionObjectKeyValue1 = "#attributes.ActionObjectKeyValue1#"
+			  actionObjectKeyValue2 = "#attributes.ActionObjectKeyValue2#"
+			  actionObjectKeyValue3 = "#attributes.ActionObjectKeyValue3#"
+			  actionObjectKeyValue4 = "#attributes.ActionObjectKeyValue4#">				
    
    </cfif>
 

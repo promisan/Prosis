@@ -1,18 +1,27 @@
 
 <cf_screentop height="100%" 
-     layout="webapp" label="Record New Functional Title" close="parent.ColdFusion.Window.destroy('functiondialog',true)" line="no" scroll="yes" banner="gray" bannerforce="Yes"> 
+     layout="webapp" html="No" label="Record New Functional Title" close="parent.ColdFusion.Window.destroy('functiondialog',true)" line="no" scroll="yes" banner="gray" bannerforce="Yes"> 
 
 <cf_dialogPosition>
 
-<cfajaximport tags="cfform,cfdiv,cfwindow">
+<cfajaximport tags="cfdiv,cfwindow">
 
 <cfquery name="SearchOccGroup"
 datasource="AppsSelection" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
     SELECT OccupationalGroup, Description
-	FROM OccGroup
-	WHERE Status = '1'
+	FROM   OccGroup O
+	WHERE  Status = '1'
+	
+	<cfif SESSION.isAdministrator eq "No">
+		AND EXISTS  (SELECT 'X'
+		             FROM   Organization.dbo.OrganizationAuthorization A
+					 WHERE  A.Role           = 'FunctionAdmin' 						 
+					 AND    A.GroupParameter = O.OccupationalGroup
+					 AND    A.UserAccount    = '#SESSION.acc#')
+	</cfif>	
+	
 	ORDER BY Description
 </cfquery>
 
@@ -97,25 +106,25 @@ password="#SESSION.dbpw#">
     <TR>
 		
 	<tr><td valign="top" style="padding-top:7px" class="labelmedium"><cf_tl id="Title Construct">:</td><td>
-	<table class="formspacing" cellspacing="0" cellpadding="0">
+	<table class="formspacing">
 				
 		<TR class="labelit">
-		<TD><font color="gray">Prefix:</TD>
+		<TD><cf_uitooltip tooltip="Functional Title Prefix like : <b>Chief">Prefix:</cf_uitooltip></TD>
 	    <TD>
-	  	   <cfinput type="Text" name="FunctionPrefix" tooltip="Functional Title Prefix like : <b>Chief" value="" required="No" size="15" maxlength="20" class="regularxl">
+	  	   <cfinput type="Text" name="FunctionPrefix" value="" required="No" size="15" maxlength="20" class="regularxl">
 	    </TD>
 		</tr>
 		
 		<tr class="labelit">
-		<TD><font color="gray">Keyword:</TD>
+		<TD><cf_uitooltip tooltip="Functional Title Prefix like : <b>Finance">Keyword:</cf_uitooltip></TD>
 		<TD>
-	  	   <cfinput type="Text" name="FunctionKeyword" tooltip="Functional Title Prefix like : <b>Finance" value="" required="No" size="25" maxlength="60" class="regularxl">
+	  	   <cfinput type="Text" name="FunctionKeyword" value="" required="No" size="25" maxlength="60" class="regularxl">
 	    </TD>
 		</tr>
 		<tr class="labelit">
-		<TD><font color="gray">Suffix:</TD>
+		<TD><cf_uitooltip tooltip="Functional Title Prefix like : <b>Officer">Suffix:</cf_uitooltip></TD>
 		<TD>
-	  	   <cfinput type="Text" name="FunctionSuffix" tooltip="Functional Title Prefix like : <b>Officer" value="" required="No" size="15" maxlength="20" class="regularxl">
+	  	   <cfinput type="Text" name="FunctionSuffix" value="" required="No" size="15" maxlength="20" class="regularxl">
 	    </TD>
 		</TR>
 	
@@ -170,7 +179,7 @@ password="#SESSION.dbpw#">
     <TD class="labelmedium">
 	 
 	   <table cellspacing="0" cellpadding="0"><tr><td>
-	   <cfinput type="text" name="functionaltitle" id="functionaltitle" ondblclick="this.value='';document.getElementById('functionno').value=''" tooltip="doubleclick to remove entry" class="regularxl" size="50" maxlength="60" readonly> 
+	   <cfinput type="text" name="functionaltitle" id="functionaltitle" ondblclick="this.value='';document.getElementById('functionno').value=''" class="regularxl" size="50" maxlength="60" readonly> 
 	   </td>
 	   <td style="padding-left:3px">
   	   <img src="<cfoutput>#SESSION.root#</cfoutput>/Images/locate3.gif"
@@ -227,7 +236,7 @@ password="#SESSION.dbpw#">
 	
 		<table class="formspacing">
 		<tr><td>
-			<input class="button10g" type="button" name="Cancel" value=" Cancel " onClick="parent.ColdFusion.Window.destroy('functiondialog',true)">
+			<input class="button10g" type="button" name="Cancel" value=" Cancel " onClick="parent.ProsisUI.closeWindow('functiondialog',true)">
 	    </td>
 		<td>
 		    <input class="button10g" type="submit" name="Insert" value="Save">	

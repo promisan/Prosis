@@ -8,13 +8,20 @@ password="#SESSION.dbpw#">
 	ORDER  BY Created DESC
 </cfquery>
 
-<cf_divscroll>
+<cf_screentop html="No" jquery="Yes">
 
 <cfset Page         = "0">
 <cfset add          = "1">
+
+<table style="height:100%;width:100%">
+
+<tr><td style="height:10">
+
 <cfset Header       = "Submission Source">
 <cfinclude template = "../HeaderRoster.cfm"> 
 
+</td>
+</tr>
  
 <cfoutput>
 
@@ -32,7 +39,11 @@ password="#SESSION.dbpw#">
 
 </cfoutput>  
 
-<table width="97%" cellspacing="0" cellpadding="0" align="center" class="navigation_table formpadding">
+<tr><td style="height:100%">
+
+<cf_divscroll>
+
+<table width="97%" align="center" class="navigation_table formpadding">
 
 	<tr class="labelmedium line navigation_row">
 	    <td ></td>
@@ -46,11 +57,10 @@ password="#SESSION.dbpw#">
 	    <td>Entered</td>
 	</tr>
 
-
 	<cfoutput query="SearchResult">
 	
-		<tr style="height:20px" class="labelmedium navigation_row">
-			<td width="10%" style="padding-top:3px" align="center"> <cf_img icon="select" navigation="Yes" onclick="recordedit('#Source#')"> </td>		
+		<tr style="height:20px" class="labelmedium navigation_row line">
+			<td width="10%" style="padding-top:3px" align="center"> <cf_img icon="edit" navigation="Yes" onclick="recordedit('#Source#')"> </td>		
 			<td><a href="javascript:recordedit('#Source#')">#Source#</a></td>
 			<td>#Description#</td>
 			<td><cfif AllowEdit eq "1">Yes<cfelse>No</cfif></td>
@@ -62,9 +72,12 @@ password="#SESSION.dbpw#">
 	    </tr>
 	
 	</cfoutput>
-	
-</tbody>
   
 </table>
 
 </cf_divscroll>
+
+</td>
+</tr>
+</table>
+

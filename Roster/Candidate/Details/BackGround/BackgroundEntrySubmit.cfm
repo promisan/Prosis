@@ -233,9 +233,9 @@ password="#SESSION.dbpw#">
 		 datasource="AppsSelection" 
 		 username="#SESSION.login#" 
 		 password="#SESSION.dbpw#">
-		 DELETE ApplicantBackgroundContact
-		 WHERE  ApplicantNo = '#appno#'
-		 AND    ExperienceId = '#url.id#'		  
+			 DELETE ApplicantBackgroundContact
+			 WHERE  ApplicantNo = '#appno#'
+			 AND    ExperienceId = '#url.id#'		  
 	</cfquery>
 	
 	<cfloop index="itm" from="1" to="3">
@@ -250,25 +250,25 @@ password="#SESSION.dbpw#">
 			 datasource="AppsSelection" 
 			 username="#SESSION.login#" 
 			 password="#SESSION.dbpw#">
-			 INSERT INTO ApplicantBackgroundContact
-			            (ApplicantNo,
-						 ExperienceId,
-						 ContactSerialNo,
-						 ContactClass,						 
-						 ContactReference,
-						 ContactCallSign,
-					 	 OfficerUserId,
-						 OfficerLastName,
-						 OfficerFirstName)
-		      VALUES ('#AppNo#',
-			  		  '#URL.ID#',
-			          '#itm#', 				  
-				      '#contactclass#', 
-					  '#contactReference#',
-					  '#contactCallSign#',			     
-		              '#SESSION.acc#',
-		    	      '#SESSION.last#',		  
-			  	      '#SESSION.first#')
+				 INSERT INTO ApplicantBackgroundContact
+				            (ApplicantNo,
+							 ExperienceId,
+							 ContactSerialNo,
+							 ContactClass,						 
+							 ContactReference,
+							 ContactCallSign,
+						 	 OfficerUserId,
+							 OfficerLastName,
+							 OfficerFirstName)
+			      VALUES ('#AppNo#',
+				  		  '#URL.ID#',
+				          '#itm#', 				  
+					      '#contactclass#', 
+						  '#contactReference#',
+						  '#contactCallSign#',			     
+			              '#SESSION.acc#',
+			    	      '#SESSION.last#',		  
+				  	      '#SESSION.first#')
 			</cfquery>
 				
 		</cfif>
@@ -285,12 +285,12 @@ password="#SESSION.dbpw#">
 		datasource="AppsSelection" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-		SELECT  Topic, Description, Question
-		FROM    Ref_Topic
-		WHERE   Parent      = 'Experience'
-		AND     Source      = '#url.source#'
-		AND     ValueClass  = 'Memo'
-		AND     Operational = 1 
+			SELECT  Topic, Description, Question
+			FROM    Ref_Topic
+			WHERE   Parent      = 'Experience'
+			AND     Source      = '#url.source#'
+			AND     ValueClass  = 'Memo'
+			AND     Operational = 1 
 	</cfquery>		
 		
 	<cfloop query = "Detail">

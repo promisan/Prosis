@@ -60,7 +60,7 @@
 <cfparam name="attributes.font"               default="">
 
 <cfparam name="attributes.classheader"        default="labelnormal line">
-<cfparam name="attributes.classsub"           default="labelnormal linedotted">
+<cfparam name="attributes.classsub"           default="labelnormal line">
 <cfparam name="attributes.classline"          default="">
 
 <cfparam name="attributes.tablewidth"         default="100%">

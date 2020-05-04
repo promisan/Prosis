@@ -48,8 +48,7 @@
 		   
 		<cfelse>	  
 		   <cfset pass = Password>
-		</cfif>	 
-				
+		</cfif>	 				
 				
 		<cfif Len(Trim(System.PasswordOverwrite)) gt 20> 
 		   <!--- encrypt password --->
@@ -70,7 +69,6 @@
 		</cfif>	  
 		
 		<!--- check if the users is a local administrator --->
-
 		
 		<cfif qAccount.Account neq "">
 				    
@@ -116,9 +114,7 @@
 		
 			<cfset overwrite = "0">
 		
-		</cfif>
-		
-			
+		</cfif>			
 		
 		<cfif overwrite eq "0">
 		

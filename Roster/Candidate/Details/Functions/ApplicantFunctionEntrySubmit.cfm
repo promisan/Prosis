@@ -1,6 +1,5 @@
 
-<TITLE>Submit Functions</TITLE>
-<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
+<cf_screentop html="No" jquery="Yes">
  
 <!--- verify if Submission record submission exists --->
 
@@ -244,15 +243,23 @@ password="#SESSION.dbpw#">
 
 </cftransaction>
 
+<cfoutput>
+
 <cfif url.scope eq "Entry">
-    	
-	<cflocation url="#client.root#/Roster/Candidate/Details/Applicant/ApplicantEntryBucket.cfm?ID=#URLEncodedFormat(Form.PersonNo)#&source=#form.source#&submissionedition=#Form.Edition#" addtoken="No">		  
-	
+
+	<script>
+	 ptoken.location('#client.root#/Roster/Candidate/Details/Applicant/ApplicantEntryBucket.cfm?ID=#URLEncodedFormat(Form.PersonNo)#&source=#form.source#&submissionedition=#Form.Edition#')	
+	</script>
+    
 <cfelse>
 
-	<cflocation url="ApplicantFunction.cfm?ID=#URLEncodedFormat(Form.PersonNo)#&ID1=#Form.Edition#" addtoken="No">
+	<script>
+	 ptoken.location('ApplicantFunction.cfm?ID=#URLEncodedFormat(Form.PersonNo)#&ID1=#Form.Edition#')	
+	</script>
 
 </cfif>	
+
+</cfoutput>
 	
 	
 

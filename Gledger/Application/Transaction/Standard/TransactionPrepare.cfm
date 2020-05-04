@@ -33,7 +33,7 @@ Tthe field ParentLineId is populated with
   <cfset   AccountPeriod     = "#URL.AccountPeriod#">
 </cfoutput>
 
-<cfif URL.Journal eq "">
+<cfif URL.Journal eq "" or  url.journal eq "undefined">
 
 	<cfquery name="Journal"
 	datasource="AppsLedger" 

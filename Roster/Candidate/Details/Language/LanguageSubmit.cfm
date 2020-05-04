@@ -5,7 +5,11 @@
 <cfparam name="Form.Proficiency"  default="0">
 <cfparam name="url.entryScope"    default="Backoffice">
 
-<cfif URL.ID4 eq ""> 
+<cfif url.id3 neq "">
+
+	<cfset appno = url.id3>
+
+<cfelseif URL.ID4 eq ""> 
 
 	<cfinclude template="../SubmissionSubmit.cfm">
 
@@ -27,37 +31,37 @@
 <!--- edit background --->
 
 <cfif Form.select eq "">
-
-<cfquery name="InsertLanguage" 
-datasource="AppsSelection" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-INSERT INTO ApplicantLanguage 
-         (ApplicantNo,
-		 LanguageId, 
-		 Status,
-		 Mothertongue,
-		 Proficiency,
-		 LevelRead,
-		 LevelWrite,
-		 LevelSpeak,
-		 LevelUnderstand,
-		 OfficerUserId,
-		 OfficerLastName,
-		 OfficerFirstName)
-  VALUES ('#appNo#', 
-          '#Form.Language#',
-		  '0',
-		  '#Form.Mothertongue#',
-		  '#Form.Proficiency#',
-		  '#Form.LevelRead#',
-		  '#Form.LevelWrite#',
-		  '#Form.LevelSpeak#',
-		  '#Form.LevelUnderstand#',
-		  '#SESSION.acc#',
-		  '#SESSION.last#',
-		  '#SESSION.first#')
-</cfquery>
+	
+	<cfquery name="InsertLanguage" 
+	datasource="AppsSelection" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	INSERT INTO ApplicantLanguage 
+	         (ApplicantNo,
+			 LanguageId, 
+			 Status,
+			 Mothertongue,
+			 Proficiency,
+			 LevelRead,
+			 LevelWrite,
+			 LevelSpeak,
+			 LevelUnderstand,
+			 OfficerUserId,
+			 OfficerLastName,
+			 OfficerFirstName)
+	  VALUES ('#appNo#', 
+	          '#Form.Language#',
+			  '0',
+			  '#Form.Mothertongue#',
+			  '#Form.Proficiency#',
+			  '#Form.LevelRead#',
+			  '#Form.LevelWrite#',
+			  '#Form.LevelSpeak#',
+			  '#Form.LevelUnderstand#',
+			  '#SESSION.acc#',
+			  '#SESSION.last#',
+			  '#SESSION.first#')
+	</cfquery>
 
 <cfelse>
 

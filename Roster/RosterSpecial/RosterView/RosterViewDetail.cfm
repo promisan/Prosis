@@ -208,14 +208,15 @@
 		datasource="AppsSelection" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-		SELECT *
-		FROM Ref_StatusCode
-		WHERE Owner = '#URL.Owner#'
-		AND   Id    = 'FUN'
+		SELECT   *
+		FROM     Ref_StatusCode
+		WHERE    Owner = '#URL.Owner#'
+		AND      Id    = 'FUN'
+		AND      ShowRoster = 1			
 		ORDER BY Status 
 	</cfquery>	
 	
-	<!--- define the steps to which the user has access --->
+	<!--- define the steps to which the user has access besides the overall access in showroster --->
 	
 	<cfloop query="steps">
 				 
@@ -369,7 +370,7 @@
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table formpadding"
     style="background-color:white; padding:5px">
-
+	
 <cfset Fun = "new">
 <cfset Org = "new">
 <cfset row = 0>
@@ -379,11 +380,12 @@
 <cfinvoke component = "Service.Access"  
 	method          = "vacancytree" 		
 	returnvariable  = "accessTree">
-		
-		<cfif accessRoster eq "EDIT" 
+	
+			
+		<cfif accessRoster    eq "EDIT" 
 		      or accessRoster eq "ALL" 
-			  or accessTree eq "EDIT" 
-			  or accessTree eq "ALL">
+			  or accessTree   eq "EDIT" 
+			  or accessTree   eq "ALL">
 			  
 			   <cfquery name="Class"
 		   datasource="AppsSelection"
@@ -391,20 +393,20 @@
 		   password="#SESSION.dbpw#">
 			  	SELECT * 
 			   FROM  Ref_ExerciseClass
-			   WHERE ExcerciseClass = '#url.exerciseclass#'
+			   WHERE ExcerciseClass = '#url.exerciseclass#' 
 		   </cfquery>	  
-								
+		   		   								
 			<cfif URL.OCC neq "" 
 			     and URL.search eq "0" 
 				 and class.operational eq "1">
-				
+								
 				<cfoutput>
 				
 				<tr>
 				  <td height="20" class="labellarge" colspan="#col#" style="height:30px;padding-top:4px;padding-left:10px">
 				  
 				   <a href="javascript:recordadd('#url.occ#','show','only','','#URL.level#','','','','#url.edition#')">
-					   <font color="0080C0"><cf_tl id="Add"><cf_tl id="Roster Bucket"></font>					  
+					   <cf_tl id="Add"><cf_tl id="Roster Bucket">				  
 				   </a>
 				  </td>
 				</tr>
@@ -421,16 +423,16 @@
 		
 		</cfif>
 		
-		<cfsavecontent variable="header">
+		
 
-		<tr class="pleft labelmedium fixrow">
+		<tr class="pleft labelmedium fixrow" style="border-top:1px solid silver">
 		    <td height="18"></td>
 			<td></td>	
 			<td><cfif url.edition eq ""><cf_tl id="Edition"></cfif></td>
 			<td><cf_tl id="Grade"></td>	
 		    <td><cf_tl id="Function"></td>																
 		    <td><cf_tl id="JO"></td>
-			<TD><cf_space spaces="30"><cf_tl id="Recr. Track">/<br><cf_tl id="Organization"></TD>			
+			<TD><cf_space spaces="30"><cf_tl id="Track"></TD>			
 			
 			<cfset priorEdition = "">
 			
@@ -445,6 +447,7 @@
 						WHERE   Owner = '#URL.Owner#'
 						AND     Id    = 'FUN'
 						AND     Status = '#status#'
+						AND     ShowRoster = 1
 					</cfquery>	
 					
 					<cfoutput>
@@ -457,7 +460,6 @@
 			
 		</TR>	
 		
-		</cfsavecontent>	
 				
 		<cfset col = 8+steps.recordcount>
 				
@@ -465,11 +467,9 @@
 		
 		    <cfif url.edition eq "All">
 		    <tr><td colspan="#col#" class="line"></td></tr>
-			<tr class="line"><td colspan="#col#" class="labelmedium" style="height:45px;font-size:26px;padding-left:10px">#EditionDescription#</td></tr>			
+			<tr class="line fixrow2"><td colspan="#col#" class="labelmedium" style="font-weight:250;height:45px;font-size:26px;padding-left:10px">#EditionDescription#</td></tr>			
 			</cfif>
-			
-			#header#
-					
+								
 		<cfoutput group="OrganizationDescription">			
 		
 			<cfif OrganizationDescription neq "[All]">		
@@ -505,41 +505,37 @@
 		<cfset row = row + 1>
 							
 			<cfif total eq ""> 		
-			   <tr bgcolor="f4f4f4" id="line_#functionId#" class="navigation_row">
+			   <tr bgcolor="f4f4f4" id="line_#functionId#" class="navigation_row" style="height:25px">
 			<cfelseif Status eq "9">  
-			   <tr bgcolor="FCFBE0" id="line_#functionId#" class="navigation_row"> 
+			   <tr bgcolor="FCFBE0" id="line_#functionId#" class="navigation_row" style="height:25px"> 
 			<cfelse> 
-			   <TR bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('FFFFFF'))#" id="line_#functionId#" class="navigation_row">
+			   <TR bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('FFFFFF'))#" id="line_#functionId#" class="navigation_row" style="height:25px">
 			</cfif>
 		
 		   	<td width="30" class="cellcontent" bgcolor="white" style="padding-left:20px;padding-right:3px">#row#.</td>													  
-			<td class="line"> 
-			
-			     <cfif currentrow eq "1">
-				 	<cf_space spaces="22">
-				 </cfif>
-				 
-				  <table width="100%"><tr>
+			<td class="line" style="min-width:100px"> 
+						    				 
+				  <table><tr>
 					
-				   <td style="width:25%;padding-left:4px">	   
+				   <td style="min-width:40px;padding-left:4px">	   				  
 				   <cfif Status eq "9">				      
 				   	   <img src="#SESSION.root#/Images/na.gif" alt="Vacancy has been cancelled" width="12" height="12" border="0">					   
 				   </cfif>
 				   </td>	
 				   
-				    <td width="20" style="width:25%;padding-left:6px;padding-right:1px;padding-top:1px">					
+				    <td style="min-width:40px;padding-left:6px;padding-right:1px;padding-top:1px">					
 					  <cf_img icon="edit" navigation="Yes" onClick="details('#functionId#');">														 
 				    </td>
 																	
 					<cfif Total gt 0 and Access eq "1"> 
 					
-					<td width="20" style="width:25%;padding-right:1px;padding-top:2px">					
+					<td width="20" style="min-width:40px;padding-right:1px;padding-top:2px">					
 					    <cf_img icon="log" onClick="initial('#functionId#','Roster');">										 
 					 </td>				
 					 
 					 <cfelseif total gt 0>
 					 
-					 	 <td width="20" style="width:25%;padding-right:1px;padding-top:2px">
+					 	 <td width="20" style="min-width:40px;padding-right:1px;padding-top:2px">
 					 					 			 
 					 	<img src="#SESSION.root#/Images/locate3.gif"
 						     alt="Advanced search"
@@ -557,8 +553,7 @@
 						 </td>			
 						 
 					<cfelse>
-					     <td width="20" style="width:25%;padding-right:1px;padding-top:2px"></td>		  
-					 										 
+					     <td width="20" style="min-width:40px;padding-right:1px;padding-top:2px"></td>		  					 										 
 					</cfif>	
 							
 				
@@ -569,7 +564,7 @@
 						 records based on the expiration date                     --->
 						<!--- --------------------------------------------------- ---> 
 						
-						<td id="retire#functionId#" style="width:25%;padding-left:3px;padding-right:4px;padding-top:2px">
+						<td id="retire#functionId#" style="min-width:40px;padding-left:3px;padding-right:4px;padding-top:2px">
 																											
 						<cfif Status_0 gt "0" and Access eq "1">		
 						
@@ -591,8 +586,8 @@
 							 	<img src="#SESSION.root#/Images/buttonred.jpg"								   
 								     name="img2_#currentrow#"
 								     id="img2_#currentrow#"
-								     width="11"
-								     height="11"
+								     width="14"
+								     height="14"
 								     border="0"
 									 alt="Outdate Applications"
 								     align="absmiddle"
@@ -636,17 +631,11 @@
 				--->
 			</td>
 			
-			<td width="6%" class="cellcontent line"> 
-				<cfif currentrow eq "1">
-				<cf_space spaces="18">
-				</cfif>#left(GradeDeployment,12)#</td>		
+			<td width="6%" class="cellcontent line" style="min-width:80px"> 
+				#left(GradeDeployment,12)#</td>		
 			
-			<td width="45%" class="cellcontent line">
-				
-				<cfif currentrow eq "1">
-					<cf_space spaces="55">
-				</cfif>				
-			
+			<td width="45%" class="cellcontent line" style="min-width:200px">
+							
 			    <cfif URL.search eq "0">
 				    
 					<!--- It means that the bucket was published with a custom FT--->
@@ -676,17 +665,15 @@
 			
 			<td width="16%" class="cellcontent line" style="border-right:1px solid silver;">
 			
-			<cfif PostSpecific eq "0">
-			
-				<font color="gray">Generic</font>
-			
+			<cfif PostSpecific eq "0">			
+				<font color="gray">Generic</font>			
 			<cfelse>
 			
 				<cfif DocumentNo neq "">
 				
 				<A href="javascript:showdocument('#DocumentNo#')">
 				
-				    <font color="0080C0">#DocumentNo# 
+				    #DocumentNo# 
 
 					<cfquery name="Doc" 
 						datasource="AppsVacancy" 
@@ -716,17 +703,20 @@
 			</td>			
 									
 			<cfloop index="st" list="#stp#" delimiters=",">	
-				<TD class="cellcontent line" width="1%" align="right" bgcolor="<cfif Access eq '2' and #evaluate('Status_#st#')# gt "0">E9E9D1</cfif>"
-				style="padding-right:2;border-right: solid 1px silver;">
-				<cfif currentrow eq "1">
-				<cf_space spaces="10">
-				</cfif>
-				#evaluate('Status_#st#')#</TD>
+			    
+				<cfquery name="color" dbtype="query">
+					SELECT   *
+					FROM     steps
+					WHERE    Status = '#st#'
+				</cfquery>	
+				
+				<TD class="cellcontent line" align="right" bgcolor="<cfif Access eq '2' and #evaluate('Status_#st#')# gt "0">E9E9D1</cfif>"
+				style="background-color:#color.showrostercolor#;padding-right:2;border-right: solid 1px silver;min-width:60px">			
+				#evaluate('Status_#st#')#
+				</TD>
 			</cfloop>
 									
-			<TD class="cellcontent line" align="right" style="padding-right:2px;border-right:solid 1px gray" bgcolor="e1e1e1">
-				<cfif currentrow eq "1"><cf_space spaces="14"></cfif>#Total#</b>
-			</TD>
+			<TD class="cellcontent line" align="right" style="min-width:80px;padding-right:2px;border-right:solid 1px gray;background-color:##e1e1e150">#Total#</TD>
 						 
 		</TR>		
 		

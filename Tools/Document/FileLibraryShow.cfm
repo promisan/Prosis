@@ -227,10 +227,10 @@
 			<cfif GetFiles.recordCount gt 0>
 			
 			    <cfif rowheader eq "Yes">
-					<TR>
+					<TR class="line">
 					   <td colspan="6" class="cellcontent" align="center" class="top3n" style="padding-left:4px"><cf_tl id="Attachment"></td>				   				  
 					</TR>	
-					<tr><td colspan="6" class="linedotted"></td></tr>					
+									
 				</cfif>
 				
 			</cfif>		
@@ -430,7 +430,7 @@
 											</td>																											  
 											
 											<td width="50%" style="padding-left:10px" 
-											   onclick="embedfile('#contextmode#','#attachment.attachmentid#','show','#attachment.attachmentid#')" class="cellcontent"><a href="##"><font color="0080C0">#Nameshow#</a></td>    	               
+											   onclick="embedfile('#contextmode#','#attachment.attachmentid#','show','#attachment.attachmentid#')" class="cellcontent"><a href="##">#Nameshow#</a></td>    	               
 										
 										<cfelse>
 										
@@ -495,7 +495,7 @@
 										<cfif DocumentServerIsOp eq "0">			
 											<td width="50%" class="cellcontent" style="padding-left:10px" 
 											    onclick="showfile('#contextmode#','#openas#','#attachment.attachmentid#')">
-												<a href="##"><font color="0080C0">#Nameshow#</font></a>
+												<a href="##">#Nameshow#</a>
 											</td>
 										<cfelse>
 
@@ -515,9 +515,8 @@
 										    <cfset vName = Replace(vName,"#Filter#_","","all")>
 										    <cfset vUrl  = Replace(Attachment.FileName,"#Filter#_","","all")>
 
-
 											<td width="50%" class="cellcontent" style="padding-left:10px" >
-												<a href="#vURl#" target="new"><font color="0080C0">#vName#</font></a>
+												<a href="#vURl#" target="new">#vName#</a>
 											</td>
 
 										</cfif>	

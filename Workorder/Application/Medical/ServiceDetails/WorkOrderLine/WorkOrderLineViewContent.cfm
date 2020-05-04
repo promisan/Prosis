@@ -342,8 +342,7 @@
 				</tr>	
 			
 			</cfif>
-			
-								
+							
 			<!--- ------------------------------------- --->
 			<!--- ------------------------------------- --->
 			
@@ -465,7 +464,7 @@
 	
 	<!--- this postion of the code
 	that captures topics on the workorderline is going to be taken by the Composition object 31/12/2019 
-	Hanno
+	Hanno --->
 	
 	<tr><td height="10"></td></tr>			
 				 
@@ -514,7 +513,7 @@
 			    <cfset url.mode = editmode>
 				<cfset url.inputclass = "regularxl">
 				<cfset url.topicclass = "request">
-				<cfset url.style      = "padding-left:35px;height:28px">
+				<cfset url.style      = "min-width:400px;padding-left:65px;height:28px">
 				<cfset url.serviceitem = get.ServiceItem>
 				<cfset url.domainclass = DomainClass>
 				<!--- Custom classification fields --->
@@ -547,9 +546,8 @@
 	</td></tr>  
 	
 	</cfif>
+			
 		
-	--->				
-	
 	<cfinvoke component  = "Service.Access"  
 		method           = "WorkOrderBiller" 
 		mission          = "#get.mission#"  
@@ -558,9 +556,9 @@
 		returnvariable   = "accessbiller">	
 		
 	<cfset billingStatus = get.BillingStatus>	
-								
-	<cfif get.BillingStatus lt "3">	
-					
+							
+	<cfif get.BillingStatus lt "3">
+						
 		<tr><td id="billing" colspan="2">
 						
 			<table width="100%">
@@ -569,15 +567,16 @@
 					<td width="10" style="padding-top:5px"><img src="<cfoutput>#session.root#</cfoutput>/images/go.png" height="23" width="25px" alt="" border="0"></td>
 					<td style="font-weight:200;padding-left:10px;padding-top:3px;height:40px;font-size:30px" class="labellarge"><font color="0080C0"><cf_tl id="Provisioning"></td>
 					<td width="90%"></td>
-				</tr>				
+				</tr>
+				
 				
 				<tr><td colspan="3" style="padding-left:35px;"><cfinclude template="WorkOrderPayer.cfm"></td></tr>			
 						
 				<tr class="clsPrintProvisioning">
 					<td height="30" colspan="3" class="labelmedium" style="padding-left:25px;">
 					<table width="100%"><tr><td style="border:0px solid silver;padding-right:2px;padding-left:10px;padding-bottom:6px">
-					<!--- access in controlled in this subfunction, processor and funding --->
-					<cfinclude template="../../../WorkOrder/ServiceDetails/Billing/DetailBilling.cfm">	
+					<!--- access in controlled in this subfunction, processor and funding --->					
+					<cfinclude template="../../../WorkOrder/ServiceDetails/Billing/DetailBilling.cfm">						
 					</td></tr></table>	
 					</td>
 				</tr>
@@ -600,7 +599,8 @@
 			  				  			
 			   <cf_tl id="Prepare Charges and Post Stock Consumption" var="1">
 			
-			   <cfoutput>				   				   
+			   <cfoutput>	
+			   				   
 			   		  				   
 			   		<input type="button"
 					      onclick="ptoken.navigate('setCharges.cfm?workorderlineid=#url.drillid#','posting')" 
@@ -658,6 +658,7 @@
 				<td colspan="2" id="posting" style="padding-left:20px;padding-right:1px">		
 				    <table width="100%"><tr><td style="border:0px solid silver;padding-top:0px;padding-left:8px">	
 					<cfset post = "0">
+					
 					<cfinclude template="WorkOrderLinePosting.cfm">
 					</td></tr>	
 					</table>

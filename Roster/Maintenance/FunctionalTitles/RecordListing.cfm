@@ -9,7 +9,7 @@
 			  systemfunctionid="#url.idmenu#">
 
 <cf_dialogPosition>
-<cfajaximport tags="cfwindow">
+<cfajaximport tags="cftooltip">
 
 <cfparam name="URL.view"      default="title">
 <cfparam name="URL.mode"      default="regular">
@@ -57,11 +57,13 @@ password="#SESSION.dbpw#">
 		
 			#preserveSingleQuotes(Client.condition)#
 			<cfif SESSION.isAdministrator eq "No">
-			AND F.FunctionClass IN (SELECT FunctionClass
-			                      FROM Organization.dbo.OrganizationAuthorization A, Ref_FunctionClass R
-							      WHERE R.Owner = A.ClassParameter
-							      AND   A.Role = 'FunctionAdmin' 
-							      AND   A.UserAccount = '#SESSION.acc#')
+			AND EXISTS  (SELECT 'X'
+			             FROM   Organization.dbo.OrganizationAuthorization A, Ref_FunctionClass R
+						 WHERE  R.Owner          = A.ClassParameter
+						 AND    A.Role           = 'FunctionAdmin' 
+						 AND    R.FunctionClass  = F.FunctionClass
+						 AND    A.GroupParameter = F.OccupationalGroup
+						 AND    A.UserAccount    = '#SESSION.acc#')
 			</cfif>	
 		<cfelse>
 		    AND F.OfficerUserId = '#SESSION.acc#'
@@ -96,13 +98,14 @@ password="#SESSION.dbpw#">
 			#PreserveSingleQuotes(Client.condition)#
 			
 			<cfif SESSION.isAdministrator eq "No">
-			AND FunctionClass IN (SELECT FunctionClass
-			                      FROM   Organization.dbo.OrganizationAuthorization A, Ref_FunctionClass R
-							      WHERE  R.Owner = A.ClassParameter
-							      AND    A.Role = 'FunctionAdmin' 
-							      AND    A.UserAccount = '#SESSION.acc#'
-								 )
-			</cfif>		
+			AND EXISTS  (SELECT 'X'
+			             FROM   Organization.dbo.OrganizationAuthorization A, Ref_FunctionClass R
+						 WHERE  R.Owner          = A.ClassParameter
+						 AND    A.Role           = 'FunctionAdmin' 
+						 AND    R.FunctionClass  = F.FunctionClass
+						 AND    A.GroupParameter = F.OccupationalGroup
+						 AND    A.UserAccount    = '#SESSION.acc#')
+			</cfif>	
 		
 		<cfelse>
 		
@@ -191,7 +194,7 @@ password="#SESSION.dbpw#">
 			    <cfinvoke component="Service.Analysis.CrossTab"  
 					  method      = "ShowInquiry"
 					  buttonClass = "button10g"			
-					  buttonstyle = "width:100"		  						 
+					  buttonstyle = "width:120"		  						 
 					  buttonText  = "Export Excel"						 
 					  reportPath  = "Roster\Maintenance\FunctionalTitles\"
 					  SQLtemplate = "RecordListingExcel.cfm"
@@ -221,251 +224,243 @@ password="#SESSION.dbpw#">
 	 </td>
 </tr>
 
+<tr><td colspan="10"><cfinclude template="Navigation.cfm"></td></tr>
+
 <tr>
 <td colspan="10" height="100%">
 
-<cf_divscroll>
-
-	<table width="100%" class="navigation_table">
+	<cf_divscroll>
 	
-	<tr class="labelmedium linedotted">
-	    <td colspan="2" style="padding-left:4px"><cf_tl id="No"></td>		
-		<td><cf_tl id="Class"></td>
-		<td width="2%">R.</td>
-		<!---
-		<td><cf_tl id="Parent"></td>
-		--->
-		<td width="40%"><cf_tl id="Description"></td>
-		<td width="70"><cf_tl id="Code"></td>		
-		<td><cfif URL.View eq "grade"><cf_tl id="Owner"><cfelse><cf_tl id="Grade deployment"></cfif></td>
-		<td><cf_tl id="Entered"></td>
-		<td></td>
-	</tr>
-	
-	<tr><td colspan="9"><cfinclude template="Navigation.cfm"></td></tr>
-	
-	<tr class="linedotted"><td colspan="10"></td></tr>
-	
-	<cfif URL.View eq "grade">
-	
-		<cfoutput query="SearchResult" group="Description">
-		
-		    <cfif currrow gte first and currrow lte last> 
-			    <tr class="linedotted"><td colspan="9" height="20" class="labellarge">#Description# [#Acronym#]</td></tr>
-			</cfif>
+		<table width="100%" class="navigation_table">
 			
-			<cfoutput group="ListingOrder">
-			<cfoutput group="GradeDeployment">
-			
-			<cfif currrow gte first and currrow lte last>
-			<tr class="linedotted">
-		      <td class="labelmedium" colspan="9" style="font-size:18px;padding-left:4px"><b>			  
-			  <cfif GradeDeployment eq "">		  
-			  <cf_tl id="Not defined"><cfelse>#GradeDeployment#</cfif></b>
-			  </td>	
-			</tr>
-			</cfif>
-				
-			<cfoutput>
-			
-			<cfset currrow = currrow + 1>
-			
-			<cfif currrow gte first and currrow lte last>
-					
-				    <!--- <tr bgcolor="#IIf(Currentrow Mod 2, DE('FFFFFF'), DE('ffffcf'))#"> --->
-					<cfif FunctionOperational eq "0">
-					<tr bgcolor="FBB5AA" style="height:20px" class="navigation_row labelmedium linedotted">
-					<cfelseif Bucket eq "0">
-					<tr bgcolor="ffffff" style="height:20px" class="navigation_row labelmedium linedotted">
-					<cfelse>
-					<tr style="height:20px" class="navigation_row labelmedium linedotted">
-					</cfif>
-					
-					<td width="50" style="font-size:12px;padding-left:5px;height:20px" class="navigation_action"><a href="javascript:recordedit('#FunctionNo#','#currentrow#')">#FunctionNo#</a></td>	
-															
-					<cfif Bucket neq "0">
-					
-							<td width="50" style="padding-left:4px">
-							
-							<cf_img icon="expand" toggle="Yes" onclick="listing('#Currentrow#','#FunctionNo#','#GradeDeployment#')">
-															
-							</td>	
-						
-					<cfelse>
-						
-						<td >
-							 <!--- <cf_img icon="edit" onclick="recordedit('#FunctionNo#','#currentrow#');"> --->
-						</td>							
-						
-					</cfif>			
-								
-					<td>#FunctionClass#</td>
-					<td><cfif FunctionRoster eq "1"><img src="#SESSION.root#/Images/check.png" height="11" alt="= Roster function" border="0"></cfif></td>
-					
-					<!---
-					<td>#ParentFunctionNo#</td>
-					--->
-					<td id="desc_#currentrow#">				
-					<font color="0080C0">
-					<cfif URL.ID neq "">
-						#ReplaceNoCase(Searchresult.FunctionDescription, URL.ID, "<b><u>#URL.ID#</u></b>")#
-					<cfelse>
-						#FunctionDescription#
-					</cfif>				
-					</td>
-					<td id="code_#currentrow#"><cfif FunctionClassification eq "">#Reference#<cfelse>#FunctionClassification#</cfif></td>
-					<td>#OfficerFirstName# #OfficerLastName#</td>
-					<td>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
-					<td align="left" id="grde_#currentrow#" class="hide"></td>					
-				    </tr>
-											
-					<tr id="d#currentrow#" class="hide"><td></td>
-					    <td colspan="8" id="i#currentrow#"></td>
-				    </tr>
-				
-			</cfif>
-			
-			<cfif currrow gt last>			  
-				<cfabort>
-			</cfif>
-				
-			</cfoutput>
-			</cfoutput>
-		   	</cfoutput>
-				
+		<tr class="labelmedium line fixrow">
+		    <td colspan="2" style="padding-left:4px"><cf_tl id="No"></td>		
+			<td><cf_tl id="Class"></td>
+			<td width="2%">R.</td>
+			<!---
+			<td><cf_tl id="Parent"></td>
+			--->
+			<td width="40%"><cf_tl id="Description"></td>
+			<td width="70"><cf_tl id="Code"></td>		
+			<td><cfif URL.View eq "grade"><cf_tl id="Owner"><cfelse><cf_tl id="Grade deployment"></cfif></td>
+			<td><cf_tl id="Entered"></td>
+			<td></td>
 		</tr>
-		</CFOUTPUT>
-	
-	<cfelse>
-	
-		<cfoutput query="SearchResult" group="Description">
-		
-			<cfif currrow gte first and currrow lte last> 	
-		    	<tr class="linedotted"><td colspan="9" height="24" style="font-size:22px;height:40px;padding-left:5px">#Description#</td></tr>
-			</cfif>
-					
-			<cfoutput>
 			
-			<cfset currrow = currrow + 1>
-					
-			<cfif currrow gte first and currrow lte last> 
-							
-			    <cfif Bucket neq "0">
-				<tr style="height:18px" class="navigation_row labelmedium linedotted">
-				<cfelse>
-				<tr style="height:18px" class="navigation_row labelmedium linedotted">				
+		<cfif URL.View eq "grade">
+		
+			<cfoutput query="SearchResult" group="Description">
+			
+			    <cfif currrow gte first and currrow lte last> 
+				    <tr class="linedotted"><td colspan="9" height="20" class="labellarge">#Description#</td></tr>
 				</cfif>
 				
-				<td style="font-size:12px;padding-left:5px;padding-right:5px"><a href="javascript:recordedit('#FunctionNo#','#currentrow#')"><font color="0080C0">#FunctionNo#</a></td>	
+				<cfoutput group="ListingOrder">
+				<cfoutput group="GradeDeployment">
 				
-					<cfif Bucket neq "0">
-					
-					   <td align="center" style="padding-right:5px">					   					   
-					    <cf_img icon="expand" toggle="Yes" onclick="listing('#Currentrow#','#FunctionNo#','')">										   							
-						</td>	
-							
-					<cfelse>
-					
-						<td style="padding-right:5px">					
-						</td>
-										
-						 		
-					</cfif>			
-									
-				<td style="padding-right:5px">#FunctionClass#</td>
-				<td><cfif FunctionRoster eq "1"><img src="#SESSION.root#/Images/check.png" height="11" alt="= Roster function" border="0"></cfif></td>
-					
-				<!---
-				<td style="padding-right:5px">#ParentFunctionNo#</td>
-				--->
-				<td id="desc_#currentrow#">
-					<table cellspacing="0" cellpadding="0">				
-					<cfif URL.ID neq "">
-					    <tr style="height:18px" class="labelmedium"><td><font color="0080C0">#ReplaceNoCase(Searchresult.FunctionDescription, URL.ID, "<b><u>#URL.ID#</u></b>")#</td></tr>
-					<cfelse>
-					    <tr style="height:18px" class="labelmedium"><td>#FunctionDescription#</td></tr>
-						<cfif FunctionPrefix neq "">
-						<tr style="height:18px" class="labelmedium"><td>#FunctionPrefix#.#FunctionKeyWord#.#FunctionSuffix#</td></tr>
-						</cfif>
-					</cfif>
-					</table>
-				</td>
-				<td style="padding-right:5px" id="code_#currentrow#">#FunctionClassification#</td>				
-				<td style="padding-right:5px" width="25%" id="grde_#currentrow#">
-				
-					<cfquery name="Grade"
-					datasource="AppsSelection" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-						SELECT   DISTINCT 
-						         FG.FunctionNo,
-								 FG.Reference,
-						         FG.GradeDeployment, 
-								 FP.FunctionNo as Profile
-						FROM     FunctionTitleGrade FG LEFT OUTER JOIN FunctionTitleGradeProfile FP
-						  ON     FG.FunctionNo = FP.FunctionNo AND FG.GradeDeployment = FP.GradeDeployment
-						WHERE    FG.FunctionNo = '#FunctionNo#'		
-						AND      FG.Operational = 1			
-						GROUP BY FG.FunctionNo,
-						         FG.GradeDeployment,
-								 FP.FunctionNo,
-								 FG.Reference
-					</cfquery>
-				
-					<table width="100%" cellspacing="0" cellpadding="0"><tr><td class="labelit">
-					
-						<cfloop query="Grade">
-						<a title="Maintain job profile" href="javascript:maintain('#FunctionNo#','#GradeDeployment#')">
-						
-						<cfif Profile neq ""><font color="0080C0"><b><cfelse><font color="0080C0"></cfif>
-						#Grade.GradeDeployment#<cfif grade.reference neq "">/#reference#</cfif>
-						<cfif Profile neq ""></b></cfif>
-						</font>
-						</a>						
-						<cfif Currentrow neq Recordcount>;</cfif>
-						</cfloop>
-					</td>	
-					</tr>
-					</table>
-					
-				</td>
-				<td style="font-size:13px;padding-right:5px">#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
-				<td align="left" style="padding-left:4px;padding-top:1px;">
-				<!---
-					 <cf_img icon="open" onclick="EditFunction('#FunctionNo#')">		
-					 --->
-					 
-				</td>
+				<cfif currrow gte first and currrow lte last>
+				<tr class="linedotted">
+			      <td class="labelmedium" colspan="9" style="font-size:18px;padding-left:4px"><b>			  
+				  <cfif GradeDeployment eq "">		  
+				  <cf_tl id="Not defined"><cfelse>#GradeDeployment#</cfif></b>
+				  </td>	
 				</tr>
-				
-				<tr id="d#currentrow#" class="hide">
-				<td colspan="9" id="i#currentrow#"></td></tr>
-							
-								
-			</cfif>
-			
-			<cfif currrow gt last>
+				</cfif>
 					
-				<tr><td colspan="9">
-				<cfinclude template="Navigation.cfm">
-				</td></tr>		  
-				<cfabort>
-			</cfif>
+				<cfoutput>
 				
-			</cfoutput>
+				<cfset currrow = currrow + 1>
 				
-		</tr>
-		</CFOUTPUT>
+				<cfif currrow gte first and currrow lte last>
+						
+					    <!--- <tr bgcolor="#IIf(Currentrow Mod 2, DE('FFFFFF'), DE('ffffcf'))#"> --->
+						<cfif FunctionOperational eq "0">
+						<tr bgcolor="FBB5AA" style="height:20px" class="navigation_row labelmedium linedotted">
+						<cfelseif Bucket eq "0">
+						<tr bgcolor="ffffff" style="height:20px" class="navigation_row labelmedium linedotted">
+						<cfelse>
+						<tr style="height:20px" class="navigation_row labelmedium linedotted">
+						</cfif>
+						
+						<td width="50" style="font-size:12px;padding-left:5px;height:20px" class="navigation_action"><a href="javascript:recordedit('#FunctionNo#','#currentrow#')">#FunctionNo#</a></td>	
+																
+						<cfif Bucket neq "0">
+						
+								<td width="50" style="padding-left:4px">								
+								<cf_img icon="expand" toggle="Yes" onclick="listing('#Currentrow#','#FunctionNo#','#GradeDeployment#')">
+																
+								</td>	
+							
+						<cfelse>
+							
+							<td >
+								 <!--- <cf_img icon="edit" onclick="recordedit('#FunctionNo#','#currentrow#');"> --->
+							</td>							
+							
+						</cfif>			
+									
+						<td>#FunctionClass#</td>
+						<td><cfif FunctionRoster eq "1"><img src="#SESSION.root#/Images/check.png" height="11" alt="= Roster function" border="0"></cfif></td>
+						
+						<!---
+						<td>#ParentFunctionNo#</td>
+						--->
+						<td id="desc_#currentrow#">				
+						<font color="0080C0">
+						<cfif URL.ID neq "">
+							#ReplaceNoCase(Searchresult.FunctionDescription, URL.ID, "<b><u>#URL.ID#</u></b>")#
+						<cfelse>
+							#FunctionDescription#
+						</cfif>				
+						</td>
+						<td id="code_#currentrow#"><cfif FunctionClassification eq "">#Reference#<cfelse>#FunctionClassification#</cfif></td>
+						<td>#OfficerFirstName# #OfficerLastName#</td>
+						<td>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
+						<td align="left" id="grde_#currentrow#" class="hide"></td>					
+					    </tr>
+												
+						<tr id="d#currentrow#" class="hide"><td></td>
+						    <td colspan="8" id="i#currentrow#"></td>
+					    </tr>
+					
+				</cfif>
+				
+				<cfif currrow gt last>			  
+					<cfabort>
+				</cfif>
+					
+				</cfoutput>
+				</cfoutput>
+			   	</cfoutput>
+					
+			</tr>
+			</CFOUTPUT>
+		
+		<cfelse>
+		
+			<cfoutput query="SearchResult" group="Description">
+			
+				<cfif currrow gte first and currrow lte last> 	
+			    	<tr class="line fixrow2"><td colspan="9" height="24" style="font-size:22px;height:40px;padding-left:5px">#Description#</td></tr>
+				</cfif>
+						
+				<cfoutput>
+				
+				<cfset currrow = currrow + 1>
+						
+				<cfif currrow gte first and currrow lte last> 
+								
+				    <cfif Bucket neq "0">
+					<tr style="height:18px" class="navigation_row labelmedium line">
+					<cfelse>
+					<tr style="height:18px" class="navigation_row labelmedium line">				
+					</cfif>
+					
+					<td style="font-size:12px;padding-left:5px;padding-right:5px">					
+					    <a href="javascript:recordedit('#FunctionNo#','#currentrow#')">#FunctionNo#</a></td>	
+					
+						<cfif Bucket neq "0">
+						
+						   <td align="center" style="padding-top:5px;;padding-right:5px">					   					   
+						    <cf_img icon="expand" toggle="Yes" onclick="listing('#Currentrow#','#FunctionNo#','')">										   							
+						   </td>	
+								
+						<cfelse>						
+							<td style="padding-right:5px"></td>							 		
+						</cfif>			
+										
+					<td style="padding-right:5px">#FunctionClass#</td>
+					<td><cfif FunctionRoster eq "1"><img src="#SESSION.root#/Images/check.png" height="11" alt="= Roster function" border="0"></cfif></td>
+						
+					<!---
+					<td style="padding-right:5px">#ParentFunctionNo#</td>
+					--->
+					<td id="desc_#currentrow#">
+						<table cellspacing="0" cellpadding="0">				
+						<cfif URL.ID neq "">
+						    <tr style="height:18px" class="labelmedium"><td><font color="0080C0">#ReplaceNoCase(Searchresult.FunctionDescription, URL.ID, "<b><u>#URL.ID#</u></b>")#</td></tr>
+						<cfelse>
+						    <tr style="height:18px" class="labelmedium"><td>#FunctionDescription#</td></tr>
+							<cfif FunctionPrefix neq "">
+							<tr style="height:18px" class="labelmedium"><td>#FunctionPrefix#.#FunctionKeyWord#.#FunctionSuffix#</td></tr>
+							</cfif>
+						</cfif>
+						</table>
+					</td>
+					<td style="padding-right:5px" id="code_#currentrow#">#FunctionClassification#</td>				
+					<td style="padding-right:5px" width="25%" id="grde_#currentrow#">
+					
+						<cfquery name="Grade"
+						datasource="AppsSelection" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+							SELECT   DISTINCT 
+							         FG.FunctionNo,
+									 FG.Reference,
+							         FG.GradeDeployment, 
+									 FP.FunctionNo as Profile
+							FROM     FunctionTitleGrade FG LEFT OUTER JOIN FunctionTitleGradeProfile FP
+							  ON     FG.FunctionNo = FP.FunctionNo AND FG.GradeDeployment = FP.GradeDeployment
+							WHERE    FG.FunctionNo = '#FunctionNo#'		
+							AND      FG.Operational = 1			
+							GROUP BY FG.FunctionNo,
+							         FG.GradeDeployment,
+									 FP.FunctionNo,
+									 FG.Reference
+						</cfquery>
+					
+						<table width="100%" cellspacing="0" cellpadding="0"><tr><td class="labelit">
+						
+							<cfloop query="Grade">
+							<a title="Maintain job profile" href="javascript:maintain('#FunctionNo#','#GradeDeployment#')">
+							
+							<cfif Profile neq ""><font color="0080C0"><b><cfelse><font color="0080C0"></cfif>
+							#Grade.GradeDeployment#<cfif grade.reference neq "">/#reference#</cfif>
+							<cfif Profile neq ""></b></cfif>
+							</font>
+							</a>						
+							<cfif Currentrow neq Recordcount>;</cfif>
+							</cfloop>
+						</td>	
+						</tr>
+						</table>
+						
+					</td>
+					<td style="font-size:13px;padding-right:5px">#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
+					<td align="left" style="padding-left:4px;padding-top:1px;">
+					<!---
+						 <cf_img icon="open" onclick="EditFunction('#FunctionNo#')">		
+						 --->						 
+					</td>
+					</tr>
+					
+					<tr id="d#currentrow#" class="hide">
+					   <td colspan="9" id="i#currentrow#"></td>
+					</tr>								
+									
+				</cfif>
+					
+				</cfoutput>
+					
+			</tr>
+			</CFOUTPUT>
+		
+		</cfif>
+		
+		</table>
 	
-	</cfif>
-	
-	</table>
-
-</cf_divscroll>
+	</cf_divscroll>
 
 </td></tr>
 
-</table>
+<cfif currrow gt last>
+					
+	<tr style="border-top:1px solid silver"><td colspan="10">
+	<cfinclude template="Navigation.cfm">
+	</td></tr>		  	
+	
+</cfif>
 
+</table>
 
 <cf_droptable dbname="appsQuery" tblname="#SESSION.acc#Bucket">

@@ -4,7 +4,7 @@
 	
 	<cfparam name="URL.ID" default="Individual">
 	<cfparam name="URL.Mode" default="">
-	 
+			 
 	<cfif url.wparam eq "PHP">
 				  
 		<cfquery name="Person" 
@@ -119,7 +119,7 @@
 	
 	<cfelse>
 		
-		<cfset account = "">
+		<cfset account   = person.personNo>
 		<cfset lastname  = person.lastname>
 		<cfset firstname = person.firstname>
 		<cfset eMail     = person.eMailAddress>
@@ -211,12 +211,16 @@
 			AND    Operational = 1
 		</cfquery>
 		
+		<!---
+		
 		    <cfif account neq "">
 			    <tr><td colspan="3" style="padding-bottom:5px" class="labelmedium"><b><font color="red">Attention:</b> An existing user account has been detected for this candidate under name #Account#. <br>If this is not the correct account simply assign a new account name and continue.</font></td></tr>
 			    <input type="hidden" name="detected" id="detected" value="#Account#">
 			<cfelse>
 			    <input type="hidden" name="detected" id="detected" value=""> 
 			</cfif>
+			
+			--->
 		   
 			<!--- Field: Account --->
 		    <TR class="labelmedium">
@@ -232,7 +236,7 @@
 					message="Please enter an account name"
 					required="Yes" 
 					size="20" 
-					onkeyup="_cf_loadingtexthtml='';ColdFusion.navigate('#session.root#/System/Access/User/Workflow/checkaccount.cfm?detected=#Account#&account='+this.value,'accountcheck')"
+					onkeyup="_cf_loadingtexthtml='';ptoken.navigate('#session.root#/System/Access/User/Workflow/checkaccount.cfm?detected=#Account#&account='+this.value,'accountcheck')"
 					maxlength="20">
 				</td>
 				<td style="padding-left:3px" id="accountcheck"></td>
@@ -242,7 +246,7 @@
 			</TR>
 						
 		    <TR>
-		    <TD class="labelmedium"><cf_tl id="IndexNo">:</TD>
+		    <TD class="labelmedium">#client.IndexNoName#:</TD>
 		    <TD>
 			
 				<table cellspacing="0" cellpadding="0">
@@ -251,12 +255,7 @@
 				<input class="regularxl" type="text" name="indexno" id="indexno" value="#indexNo#" size="20" maxlength="20" readonly>
 				<input type="hidden" name="applicantno" id="applicantno" value="#appl#">
 				</td>
-				
-				<!---
-				<td width="20" align="center">
-			  		   <cf_img icon="edit">				
-				</td>
-				--->
+								
 				<td>
 				 <input type="hidden" name="personno" id="personno" value="#personno#">
 				</td>
@@ -355,12 +354,25 @@
 		    <!--- Field: AccountGroup --->
 		    <TR>
 		    <TD class="labelmedium"><cf_tl id="Account Class">: <font color="FF0000">*</font></TD>
-		    <TD>			
-		    	<cfselect name="AccountGroup" required="Yes" class="regularxl">
+		    <TD>	
+			<cfif usernames.accountgroup neq "">
+			
+			    <select name="AccountGroup" required="Yes" class="regularxl">
 				    <cfloop query="Group">
 						<option value="#AccountGroup#" <cfif usernames.accountgroup eq AccountGroup>selected</cfif>>#AccountGroup#</option>
 					</cfloop>
-			    </cfselect>						
+			    </select>		
+						
+			<cfelse>
+			
+				<select name="AccountGroup" required="Yes" class="regularxl">
+				    <cfloop query="Group">
+						<option value="#AccountGroup#" <cfif "portal" eq Category>selected</cfif>>#AccountGroup#</option>
+					</cfloop>
+			    </select>		
+
+			</cfif>		
+		   			
 			</TD>
 			</TR>	
 					

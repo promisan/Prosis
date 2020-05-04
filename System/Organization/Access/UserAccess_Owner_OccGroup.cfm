@@ -41,20 +41,23 @@
 		        ) 
 		</cfquery>
 		
+		<!--- this is the actual base --->
+		
 		<cfquery name="AccessBase" 
 		datasource="AppsSelection"
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
 		SELECT DISTINCT S.Owner AS Code, O.OccupationalGroup, O.Description
 		INTO   userQuery.dbo.#SESSION.acc#TreeAccess2
-		FROM         FunctionOrganization F INNER JOIN
-                      Ref_SubmissionEdition S ON F.SubmissionEdition = S.SubmissionEdition INNER JOIN
-                      FunctionTitle FT ON F.FunctionNo = FT.FunctionNo INNER JOIN
-                      OccGroup O ON FT.OccupationalGroup = O.OccupationalGroup
+		FROM   FunctionOrganization F INNER JOIN
+               Ref_SubmissionEdition S ON F.SubmissionEdition = S.SubmissionEdition INNER JOIN
+               FunctionTitle FT ON F.FunctionNo = FT.FunctionNo INNER JOIN
+               OccGroup O ON FT.OccupationalGroup = O.OccupationalGroup
 		<cfif SESSION.isAdministrator eq "No">
 		WHERE S.Owner IN (SELECT ClassParameter 
-		                 FROM Organization.dbo.OrganizationAuthorization 
-						 WHERE UserAccount  = '#SESSION.acc#' and Role = 'AdminUser')	
+		                  FROM   Organization.dbo.OrganizationAuthorization 
+						  WHERE  UserAccount  = '#SESSION.acc#' 
+						  AND    Role = 'AdminUser')	
 		
 		</cfif>					  
 		ORDER BY Code, O.Description						 	
@@ -83,27 +86,23 @@
 	<CF_DropTable dbName="AppsQuery"  tblName="#SESSION.acc#TreeAccess1">			
 		
 	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding">
-	<tr>
-	<td height="20"><b>Owner</td>
-	<td></td>
-	
+	<tr class="line">
+	<td height="20" colspan="labelmedium"><cf_tl id="Owner"></td>
+	<td></td>	
 	<cfinclude template="UserAccessSelectLabel.cfm">
 	</tr>
-	
-	<tr><td colspan="<cfoutput>#No+4#</cfoutput>" class="linedotted"></td></tr>	
+		
 	<cfoutput query="AccessList" group="Code">
-	<tr>
+	<tr class="line">
 	  <td height="20" style="padding-left:10px"><b>#Code#</b></td>
-	  <td colspan="3"></td>	
+	  <td colspan="5"></td>	
 	</tr>
 	
 	<cfoutput>
 	<input type="hidden" name="#ms#_classparameter_#CurrentRow#" id="#ms#_classparameter_#CurrentRow#" value="#Code#">
 	<input type="hidden" name="#ms#_groupparameter_#CurrentRow#" id="#ms#_groupparameter_#CurrentRow#" value="#OccupationalGroup#">
-	
-	<tr><td class="line" colspan="#No+4#"></td></tr>
-	
-	<tr>
+			
+	<tr class="labelmedium line">
 	  <td colspan="2" style="padding-left:20px" width="30%">#Description#</td>	  
 	   <cfset row = currentrow>		
 	   <cfinclude template="UserAccessSelect.cfm">	  

@@ -53,15 +53,17 @@
 		</cfif>
 					
 		<tr class="labelmedium">
+
+			<cfset vOpenDetail = "$('.cls#URL.Mission##currentrow#').toggle(); $('.clsIcon#URL.Mission##currentrow#').toggleClass('fa-caret-circle-down').toggleClass('fa-caret-circle-up');">
 		
 			<cfif description neq "">
 		  
 			  	<cfif URL.mode neq "Print" AND EntityCode neq "">
 				
 				    <td width="4%" height="20" align="center">
-						<i class="fas fa-caret-circle-down" 
+						<i class="fas fa-caret-circle-down clsIcon#URL.Mission##currentrow#" 
 							style="font-size:18px; color:##A5A5A5; cursor:pointer;" 
-							onclick="$('##d#URL.Mission##currentrow#').toggle(); $(this).toggleClass('fa-caret-circle-down').toggleClass('fa-caret-circle-up')">
+							onclick="#vOpenDetail#">
 						</i>
 					</td>
 				</cfif>
@@ -76,7 +78,7 @@
 					
 				<cfif code neq "0">
 				
-					<a href="javascript:listing('#URL.Mission#','#URL.Mission##currentrow#','#EntityCode#','#Code#')">#Desc# (#counted#)</a>
+					<a href="javascript:#vOpenDetail#">#Desc# (#counted#)</a>
 				
 				<cfelse>
 				
@@ -108,12 +110,8 @@
 			
 		 </cfif>			 
 	
-		<tr id="d#URL.Mission##currentrow#" style="display:none;">
-			<td colspan="13" style="padding-left:38px">		
-				<cfset row = currentrow>														
-				<cfinclude template="ControlListingResultStepDetail.cfm">											
-		    </td>	
-		</tr>
+		<cfset row = currentrow>														
+		<cfinclude template="ControlListingResultStepDetail.cfm">
 	
 	</cfif>
 			   			

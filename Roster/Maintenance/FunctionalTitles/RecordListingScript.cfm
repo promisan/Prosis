@@ -31,15 +31,13 @@
 	}
 	
 	function recordadd(grp) {
-	    ColdFusion.Window.create('functiondialog', 'Functional Title', '',{x:100,y:100,height:document.body.clientHeight-40,width:document.body.clientWidth-90,modal:false,center:true})    
-		ColdFusion.Window.show('functiondialog') 					
-		ColdFusion.navigate('RecordView.cfm?action=add&idmenu=#url.idmenu#','functiondialog') 	
+	    ProsisUI.createWindow('functiondialog', 'Functional Title', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,center:true})    						
+		ptoken.navigate('RecordView.cfm?action=add&idmenu=#url.idmenu#','functiondialog') 	
 	}
 	
 	function recordedit(id,row) {	
-		ColdFusion.Window.create('functionedit', 'Functional Title', '',{x:100,y:100,height:document.body.clientHeight-40,width:document.body.clientWidth-90,modal:false,center:true})    
-		ColdFusion.Window.show('functionedit') 					
-		ColdFusion.navigate('RecordView.cfm?action=edit&idmenu=#url.idmenu#&ID1=' + id ,'functionedit') 	
+		ProsisUI.createWindow('functionedit', 'Functional Title', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,center:true})    					
+		ptoken.navigate('RecordView.cfm?action=edit&idmenu=#url.idmenu#&ID1=' + id ,'functionedit') 	
 	    document.getElementById('myrow').value = row  
 	}
 	

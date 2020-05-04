@@ -30,9 +30,9 @@ AND   Operational = 1
 datasource="AppsSelection" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-SELECT *
-FROM  Ref_GradeDeployment
-ORDER By ListingOrder
+	SELECT   *
+	FROM     Ref_GradeDeployment
+	ORDER BY ListingOrder
 </cfquery>
 
 <cfquery name="Mis" 
@@ -40,10 +40,9 @@ datasource="AppsOrganization"
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
 
-  SELECT DISTINCT M.Mission, 
-                  M.MissionOwner
+  SELECT DISTINCT M.Mission, M.MissionOwner
   FROM   Ref_Mission M, Ref_MissionModule R
-  WHERE  M.Mission = R.Mission
+  WHERE  M.Mission      = R.Mission
   AND    R.SystemModule = 'Vacancy'  
   			
   <cfif SESSION.isAdministrator eq "No">	
@@ -64,7 +63,7 @@ password="#SESSION.dbpw#">
 					AND     Role          = 'VacOfficer')
 					
 	  <cfif SESSION.isOwnerAdministrator neq "No">	 
-	    OR M.Mission IN (#preserveSingleQuotes(SESSION.isLocalAdministrator)#)	  	 	 
+	    OR M.MissionOwner IN (#preserveSingleQuotes(SESSION.isOwnerAdministrator)#)	  	 	 
 	  </cfif>				
 	  				
 	 )

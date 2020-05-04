@@ -313,8 +313,9 @@ password="#SESSION.dbpw#">
 		<tr class="line">
 		
 		    <td style="padding-left:10px;padding-right:10px" colspan="5">
-		
+								
 			<table width="100%" border="0" class="navigation_table">
+					
 						
 			<cfinclude template="CalculationStart.cfm">
 				
@@ -322,8 +323,8 @@ password="#SESSION.dbpw#">
 			
 				<cfoutput group="PayrollEnd">	
 					
-					<cfoutput>
-					
+					<cfoutput>					
+										
 						<cfquery name="Schedule"
 						datasource="AppsPayroll" 
 						username="#SESSION.login#" 

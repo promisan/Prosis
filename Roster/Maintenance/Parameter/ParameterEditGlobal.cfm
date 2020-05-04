@@ -65,7 +65,7 @@ password="#SESSION.dbpw#">
 	
 	 <!--- Field: Editions --->
     <TR>
-    <td align="right" class="labelit">PHP External:</td>
+    <td align="right" class="labelit"><cf_uitooltip tooltip="The source used for external/uploaded PHP records">PHP External:</cf_uitooltip></td>
     <TD>
 		
 		<cfquery name="Org" 
@@ -76,7 +76,7 @@ password="#SESSION.dbpw#">
 		FROM Ref_Source
 		</cfquery>
 		
-		<cfselect name="PHPSource" class="regularxl" tooltip="The source used for external/uploaded PHP records" visible="Yes" enabled="Yes">
+		<cfselect name="PHPSource" class="regularxl" visible="Yes" enabled="Yes">
 		<cfoutput query = "Org">
 		 <option value="#Org.Source#" <cfif Get.PHPSource eq "#Org.Source#">selected</cfif>>#Org.Source#</option>  
 	    </cfoutput>  
@@ -87,7 +87,7 @@ password="#SESSION.dbpw#">
 	
 	 <!--- Field: Editions --->
     <TR>
-    <td align="right" class="labelit">PHP Entry:</td>
+    <td align="right" class="labelit"><cf_uitooltip tooltip="The source used to for entries made through the PHP/SI module">PHP Entry:</cf_uitooltip></td>
     <TD class="labelit">
 		
 		<cfquery name="Org" 
@@ -98,7 +98,7 @@ password="#SESSION.dbpw#">
 		FROM Ref_Source
 		</cfquery>
 		
-		<cfselect name="PHPEntry" class="regularxl" tooltip="The source used to for entries made through the PHP/SI module">
+		<cfselect name="PHPEntry" class="regularxl">
 		<cfoutput query = "Org">
 		 <option value="#Org.Source#" <cfif #Get.PHPEntry# eq "#Org.Source#">selected</cfif>>#Org.Source#</option>  
 	    </cfoutput>  

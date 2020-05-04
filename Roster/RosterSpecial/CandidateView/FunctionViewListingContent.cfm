@@ -442,7 +442,7 @@ password="#SESSION.dbpw#">
 	
 	  <tr>
 	
-	  <td colspan="5" align="left">
+	  <td colspan="5" align="left" style="height:31px">
 	    <table cellspacing="0" cellpadding="0">
 	    <cfoutput>
 		    <tr><td style="padding-left:4px;padding-right:4px">
@@ -451,7 +451,7 @@ password="#SESSION.dbpw#">
 			<td style="padding-left:4px;padding-right:4px">   	   
 			    <i class="fas fa-caret-right"></i>
 			</td>
-			<td class="labelit"><a href="javascript:candidate('#URL.Idfunction#')"><font color="0080C0"><cf_tl id="Press here to register candidate"></font></a></td>
+			<td class="labelmedium" style="font-size:18px"><a href="javascript:candidate('#URL.Idfunction#')"><cf_tl id="Press here to register candidate"></font></a></td>
 			</tr>	
 	    </cfoutput>
 	    </table>
@@ -467,35 +467,12 @@ password="#SESSION.dbpw#">
 
 <cfset col = "18">
 
-<!--- header --->
-
-<!---
-
-<TR class="labelit">
-    <td colspan="5" height="20"><cf_space spaces="30"></td>	   		
-	<TD width="100%"><cf_tl id="Name"></TD>
-	<TD><cfoutput>#client.IndexNoName#</cfoutput><cf_space spaces="10"></TD>
-	<td><cf_space spaces="20"></td>
-	<TD></TD>
-	<TD style="padding-right:20px"><cf_tl id="Grade"><cf_space spaces="15"></TD>
-	<TD><cf_tl id="Organization"><cf_space spaces="40"></TD>
-	<TD align="center"><cf_tl id="S"><cf_space spaces="4"></TD>
-	<TD><cf_tl id="Birth date"><cf_space spaces="20"></TD>	
-    <TD><cf_tl id="Nat"><cf_space spaces="10"></TD>
-	<td><cf_tl id="Profile"><cf_space spaces="10"></td>
-	<TD><cf_space spaces="20"></TD>				
-</tr>
-
---->
-
 <cfif URL.print neq "3">
 <tr>
     <td style="border:0px solid silver;padding-right:10px" height="100%" valign="top" colspan="<cfoutput>#col#</cfoutput>">
 	
-	<cfif url.print eq "1">
-		
-		<cfinclude template="FunctionViewListingContentDetail.cfm">
-		
+	<cfif url.print eq "1">		
+		<cfinclude template="FunctionViewListingContentDetail.cfm">		
 	<cfelse>
 	
 		<cf_divscroll>		
