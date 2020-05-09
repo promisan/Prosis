@@ -141,6 +141,7 @@ password="#SESSION.dbpw#">
 				<tr class="labelmedium">
 					<td class="ccontent" style="font-size:15px;padding-left:40px;min-width:70px;"><a href="javascript:locationitem('#itemLocationId#')">#ItemNo#</a></td>
 					<td class="ccontent" style="height:26;font-size:15px">#ItemDescription#</td>
+					<td style="display:none;" class="ccontent">#ItemBarCode#</td>
 				</tr>
 				</table>
 			</td></tr>

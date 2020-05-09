@@ -16,7 +16,7 @@
 	datasource="AppsMaterials" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	SELECT    SaleLinesOrder, Mission
+	SELECT    SaleLinesOrder, Mission, SingleLine
 	FROM      Warehouse  
 	WHERE     Warehouse = '#url.Warehouse#' 
 </cfquery>	
@@ -111,11 +111,20 @@ password="#SESSION.dbpw#">
 				
 				</td>
 				<style>
-				.clsDetailLineCell {height: 25px;}
+				.clsDetailLineCell {height: 25px; <cfif WParameter.SingleLine eq 1>display:none</cfif>}
 				</style>
 				<td style="width:60%;padding:4px 0;">
 					<div style="height:25px;">
-						<p style="font-size:15px;text-transform:capitalize;padding-top:2px;">#ItemDescription# <span style="display:none; font-size:12px!important;color:##808080;" class="clsDetailLineCell">(#ItemBarcode#)</span></p>
+						<cfif WParameter.SingleLine eq 1>
+							(#ItemBarCode#) #ItemDescription# - #UoMDescription# 
+						<cfelse>
+							<p style="font-size:15px;text-transform:capitalize;padding-top:2px;">
+							#ItemDescription# 
+							<span style="display:none; font-size:12px!important;color:##808080;" class="clsDetailLineCell">
+								(#ItemBarcode#)
+							</span>
+						</cfif>	
+						</p>
 					</div>
 					<div class="clsDetailLineCell">
 											
@@ -330,7 +339,7 @@ password="#SESSION.dbpw#">
 						GROUP BY T.CustomerId
 			</cfquery>
 			
-			<cfif qOverlap.recordcount neq 0>
+			<cfif qOverlap.recordcount neq 0 and WParameter.SingleLine eq 0>
 				<tr class="line labelit">
 					<td colspan="2"></td>
 					<td colspan="6">
@@ -342,7 +351,7 @@ password="#SESSION.dbpw#">
 			</cfif>	
 		
 			<cfif MParameter.EarmarkManagement eq "0" OR CommissionMode eq "1">
-				<tr class="line" style="height:20px">
+				<tr class="line" style="height:20px;<cfif WParameter.SingleLine eq 1>display:none</cfif>">
 					<td colspan="2"></td>
 					<cfif CommissionMode eq "1">
 						<cfset vTheseCols = 5>

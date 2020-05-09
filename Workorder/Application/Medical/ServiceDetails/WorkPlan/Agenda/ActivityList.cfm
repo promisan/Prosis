@@ -1158,7 +1158,7 @@
 		<cfset dte = dateformat(url.selecteddate,client.dateformatshow)>
 		<script>
 			_cf_loadingtexthtml='';
-			ColdFusion.navigate('#session.root#/WorkOrder/Application/Medical/ServiceDetails/WorkPlan/Agenda/ActivitySelectPerson.cfm?mission=#url.mission#&orgunit='+document.getElementById('orgunitimplementer').value+'&selecteddate=#dte#&positionno=#url.positionno#','unitcontent')
+			ptoken.navigate('#session.root#/WorkOrder/Application/Medical/ServiceDetails/WorkPlan/Agenda/ActivitySelectPerson.cfm?mission=#url.mission#&orgunit='+document.getElementById('orgunitimplementer').value+'&selecteddate=#dte#&positionno=#url.positionno#','unitcontent')
 			Prosis.busy('no')
 		</script>
 		</cfoutput>

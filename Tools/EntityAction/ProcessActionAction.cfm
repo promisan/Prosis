@@ -55,7 +55,7 @@
 
    <td style="cursor: pointer;" title="#vLblTTPending#">
 
-  		 <input style="cursor: pointer;" id="r0" class="radiol" type="radio" name="actionstatus" value="0"  <cfif Status eq "0">checked</cfif> onClick="_cf_loadingtexthtml='';updateTextArea();selectoption('d0','0');ColdFusion.navigate('ProcessActionButton.cfm?wfmode=#wfmode#&PublishNo=#ActionPublishNo#&ActionCode=#ActionCode#&Method=Pending','processnow');<cfif entityaccess eq 'EDIT'>ColdFusion.navigate('#SESSION.root#/tools/EntityAction/ActionListingFly.cfm?mode=regular&objectid=#object.Objectid#&ActionPublishNo=#ActionPublishNo#&ActionCode=#ActionCode#','stepflyaccess')</cfif>;">
+  		 <input style="cursor: pointer;" id="r0" class="radiol" type="radio" name="actionstatus" value="0"  <cfif Status eq "0">checked</cfif> onClick="_cf_loadingtexthtml='';updateTextArea();selectoption('d0','0');ptoken.navigate('ProcessActionButton.cfm?wfmode=#wfmode#&PublishNo=#ActionPublishNo#&ActionCode=#ActionCode#&Method=Pending','processnow');<cfif entityaccess eq 'EDIT'>ColdFusion.navigate('#SESSION.root#/tools/EntityAction/ActionListingFly.cfm?mode=regular&objectid=#object.Objectid#&ActionPublishNo=#ActionPublishNo#&ActionCode=#ActionCode#','stepflyaccess')</cfif>;">
   
    </td>
         <td class="labelmedium" style="padding-left:3px;padding-right:3px" title="#vLblTTPending#">
@@ -215,11 +215,11 @@
 			
 			   <tr> 
                    <td class="labelit" style="padding-left:3px;padding-right:3px" title="#vLblTTNext#">
-		  
+				  		  
 		   <input type="radio" id="r2" style="cursor: pointer;" class="radiol"
 		   <cfif URL.Process neq "">disabled</cfif>
 		   name="actionstatus" value="2"  <cfif Status eq "2">checked</cfif>
-		   onClick="_cf_loadingtexthtml='';selectoption('d2','2');updateTextArea();ptoken.navigate('ProcessActionButton.cfm?wfmode=#wfmode#&PublishNo=#ActionPublishNo#&ActionCode=#ActionCode#&Method=Submission','processnow'); ColdFusion.navigate('#SESSION.root#/tools/EntityAction/ActionListingFly.cfm?mode=regular&objectid=#object.Objectid#&ActionPublishNo=#ActionPublishNo#&ActionCode=#ActionCode#','stepflyaccess');">
+		   onClick="_cf_loadingtexthtml='';selectoption('d2','2');updateTextArea();ptoken.navigate('ProcessActionButton.cfm?wfmode=#wfmode#&PublishNo=#ActionPublishNo#&ActionCode=#ActionCode#&Method=Submission','processnow'); ptoken.navigate('#SESSION.root#/tools/EntityAction/ActionListingFly.cfm?mode=regular&objectid=#object.Objectid#&ActionPublishNo=#ActionPublishNo#&ActionCode=#ActionCode#','stepflyaccess');">
 		   
 		  </td>
 				  <td class="labelmedium" style="padding-right:3px" title="#vLblTTNext#">

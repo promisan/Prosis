@@ -461,62 +461,7 @@ function openschedule(wla) {
 
 <cfcase value="Profile">
 
-    <cfif CLIENT.Submission eq "MANUAL">
-						
-	    <cfif URL.Topic eq "All">
-				
-			<cfif SESSION.isAdministrator eq "Yes" and SESSION.isOwnerAdministrator neq "No">
-		
-			<cfquery name="Own" 
-			datasource="AppsSelection" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-			   SELECT Owner
-			   FROM   Ref_ParameterOwner
-			   WHERE  Operational = 1
-			   <!---
-			   AND    Owner IN (SELECT Owner 
-			                    FROM   Ref_Assessment)
-								--->
-			   
-			</cfquery>
-						
-			<cfelse>
-		
-			<cfquery name="Own" 
-			datasource="AppsOrganization" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-				SELECT    DISTINCT ClassParameter as Owner
-				FROM      OrganizationAuthorization
-				WHERE     UserAccount = '#SESSION.acc#' 
-				AND       Role IN ('AdminRoster', 'RosterClear')
-				AND       ClassParameter IN (SELECT Owner 
-				                             FROM   Applicant.dbo.Ref_ParameterOwner 
-											 WHERE  Operational = 1)
-			</cfquery>
-		
-			</cfif>
-						
-			<cfloop query="Own">
-			
-			<tr><td valign="top">	
-			
-			<table width="#w#" align="center" border="0" cellpadding="0" cellspacing="0" class="show" id="attach" bgcolor="white">
-				<tr><td height="22">	
-						
-				    <cfset url.owner = owner>
-					<cfset url.memo  = 0>
-					<cfinclude template="Attachments/DocumentFileForm.cfm">			    
-				</td></tr>
-				</table>	
-			</td></tr>	
-				
-			</cfloop>									
-						
-		</cfif>	
-				
-	</cfif>	
+    	
 	
 	<cfif Candidate.ApplicantClass eq "4">
 		
@@ -617,7 +562,8 @@ function openschedule(wla) {
 						 
 					<table width="99%" height="100%" border="0" cellpadding="0" cellspacing="0" align="center">
 							
-					<tr><td class="labelmedium" style="height:1px;padding-left:5px">				
+					<tr><td class="labelmedium" style="height:1px;padding-left:5px">	
+							
 						<cf_ProfileSource PersonNo = "#url.id#" showall="Yes">									
 						</td>
 					</tr>	
@@ -685,6 +631,64 @@ function openschedule(wla) {
 				</cfif>
 				
 		</cfif>		
+		
+		<cfif CLIENT.Submission eq "MANUAL">
+						
+	    <cfif URL.Topic eq "All">
+				
+			<cfif SESSION.isAdministrator eq "Yes" and SESSION.isOwnerAdministrator neq "No">
+		
+			<cfquery name="Own" 
+			datasource="AppsSelection" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			   SELECT Owner
+			   FROM   Ref_ParameterOwner
+			   WHERE  Operational = 1
+			   <!---
+			   AND    Owner IN (SELECT Owner 
+			                    FROM   Ref_Assessment)
+								--->
+			   
+			</cfquery>
+						
+			<cfelse>
+		
+			<cfquery name="Own" 
+			datasource="AppsOrganization" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				SELECT    DISTINCT ClassParameter as Owner
+				FROM      OrganizationAuthorization
+				WHERE     UserAccount = '#SESSION.acc#' 
+				AND       Role IN ('AdminRoster', 'RosterClear')
+				AND       ClassParameter IN (SELECT Owner 
+				                             FROM   Applicant.dbo.Ref_ParameterOwner 
+											 WHERE  Operational = 1)
+			</cfquery>
+		
+			</cfif>
+						
+			<cfloop query="Own">
+			
+			<tr><td valign="top">	
+			
+			<table width="#w#" align="center" class="show" id="attach" bgcolor="white">
+				<tr><td height="22" style="padding-left:20px;padding-right:10px">	
+						
+				    <cfset url.owner = owner>
+					<cfset url.memo  = 0>					
+					<cfinclude template="Attachments/DocumentFileForm.cfm">			    
+					
+				</td></tr>
+				</table>	
+			</td></tr>	
+				
+			</cfloop>									
+						
+		</cfif>	
+				
+	</cfif>
 	
 </cfcase>		
 

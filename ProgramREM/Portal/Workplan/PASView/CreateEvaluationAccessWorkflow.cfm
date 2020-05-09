@@ -85,7 +85,7 @@
 	
 <cfelse>
 
-	<table align="center"><tr><td class="labelmedium" align="center"><cf_tl id="Problem, user could not be identified"></td></tr></table>	
+	<table align="center"><tr><td class="labelmedium" align="center"><cf_tl id="Problem, processing actor could not be identified"></td></tr></table>	
 
 </cfif>
 		

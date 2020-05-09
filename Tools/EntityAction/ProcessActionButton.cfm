@@ -36,8 +36,8 @@
     <cfoutput>
 	
     <script>
-	    ColdFusion.Window.create('boxauth', 'Process Action', '',{x:100,y:100,height:220,width:350,closable:false,resizable:false,modal:true,center:true});
-		ColdFusion.navigate('ProcessActionPassword.cfm?wfmode=#url.wfmode#&PublishNo=#url.PublishNo#&ActionCode=#url.ActionCode#&Method=#url.method#','boxauth')		
+	    ProsisUI.createWindow('boxauth', 'Process Action', '',{x:100,y:100,height:220,width:350,closable:false,resizable:false,modal:true,center:true});
+		ptoken.navigate('ProcessActionPassword.cfm?wfmode=#url.wfmode#&PublishNo=#url.PublishNo#&ActionCode=#url.ActionCode#&Method=#url.method#','boxauth')		
 	</script>
 	
 	</cfoutput> 

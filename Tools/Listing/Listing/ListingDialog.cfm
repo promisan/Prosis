@@ -14,7 +14,7 @@
 			
 	<script>
 	try {		
-		applyfilter('1','','#id#')			
+		//applyfilter('1','','#id#')			
 	} catch(e) {}			
 	</script>		
 			    		

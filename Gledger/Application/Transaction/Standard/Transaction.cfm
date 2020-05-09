@@ -1143,7 +1143,8 @@ function togglebox(val) {
 					   <!--- show the prepared transactions for posting --->
 					   <!--- ------------------------------------------ --->	
 					   					   	  
-					   <cfdiv bind="url:TransactionDetailLines.cfm?editmode=#editmode#" id="lines" style="height:100%">				  
+					   <cf_securediv bind="url:TransactionDetailLines.cfm?editmode=#editmode#" id="lines" style="height:100%">				  			   
+					  
 				   
 				</td>
 			</tr>			
@@ -1161,7 +1162,7 @@ function togglebox(val) {
 			
 			<tr>
 			
-					<td style="padding-left:35px;min-width:190px;width:190px;max-width:190px;border-right:1px solid silver" valign="top">
+					<td style="padding-left:35px;min-width:160px;width:160px;max-width:160px;border-right:1px solid silver" valign="top">
 					
 					<table align="center">					
 					    <cfinclude template="TransactionDetailMenu.cfm"> 					

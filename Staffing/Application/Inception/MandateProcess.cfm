@@ -1,5 +1,5 @@
 
-<cf_screentop height="100%" close="parent.ColdFusion.Window.destroy('mydialog',true)" html="No" scroll="No" layout="webapp" banner="blue" label="Process new Staffing Period">
+<cf_screentop height="100%" close="parent.ColdFusion.Window.destroy('mydialog',true)" jquery="Yes" html="No" scroll="No" layout="webapp" banner="blue" label="Process new Staffing Period">
 
 <cfoutput>
 <script language="JavaScript">

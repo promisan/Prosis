@@ -33,7 +33,6 @@
    
 <cfelse>  
 
-
 	<!--- this method is made to check if the session of the user is considered cancelled based on the content
 	of the parameter table for this application server --->
 
@@ -254,30 +253,31 @@
 		
 		right now we do this for ajax links but i think we should do this for any links
 		
+		--->		
 		
-		--->
-		
-		<cfif mid eq "" and checkenabled.recordcount gte "1">
-		
-		<!---
-												
 		<cfif mid eq "" and checkenabled.recordcount gte "1" and findNoCase("cf_clientid",CGI.QUERY_STRING) eq "1">
 		
-		--->
-						
 			<!--- ----------------------------------------------------------------- --->
 			<!--- we let this fail if MID does not exist and this is an ajax call  --->
 			<!--- ----------------------------------------------------------------- --->
+		
+			<cfset mid = "9999999">		
+		
+		<cfelseif mid eq "" and checkenabled.recordcount gte "1" and session.acc eq "Administrator">
+													
+			<!--- ----------------------------------------------------------------- --->
+			<!--- we let this fail if MID does not exist -------------------------- --->
+			<!--- ----------------------------------------------------------------- --->
 			
-			<cfset mid = "999">					
-											
+			<cfset mid = "9999999">			
+														
 		</cfif>		
 		
 		
 		<!--- we check if the template is launched by this user within a certain time frame based on an 
 		id created upon triggering the termplate --->		
 									
-		<cfif mid neq "" and not findNoCase("default.cfm",CGI.SCRIPT_NAME)>
+		<cfif mid neq "" and not findNoCase("default.cfm",CGI.SCRIPT_NAME) and not findNoCase("mainmenuopen.cfm",CGI.SCRIPT_NAME)>
 																
 			<cfinvoke component   = "Service.Process.System.UserController"  
 				method            = "RecordSessionTemplate"  

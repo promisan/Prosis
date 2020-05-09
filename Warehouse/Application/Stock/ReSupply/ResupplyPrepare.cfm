@@ -19,6 +19,7 @@
 
 <cfparam name="Form.ProgramCode"       default="">
 <cfparam name="Form.Category"          default="">
+<cfparam name="Form.CategoryItem"      default="">
 <cfparam name="Form.Filter"            default="">
 <cfparam name="Form.RestockingSelect"  default="">
 <cfparam name="Form.RefreshContent"    default="0">
@@ -312,6 +313,10 @@
 			AND       R.Category      IN (#preserveSingleQuotes(Form.Category)#)  	
 			</cfif>
 			
+			<cfif Form.CategoryItem neq "">
+			AND       I.CategoryItem IN (#preserveSingleQuotes(Form.CategoryItem)#)  
+			</cfif>
+			
 			<cfif Form.ProgramCode neq "">
 			AND       I.ProgramCode IN (#preserveSingleQuotes(Form.ProgramCode)#)  
 			</cfif>
@@ -320,6 +325,7 @@
 			AND      (I.ItemDescription        LIKE '%#form.filter#%' 
 			      or I.ItemDescriptionExternal LIKE N'%#form.filter#%' 
 				  or I.ItemNoExternal          LIKE '%#form.filter#%' 
+				  or U.ItemBarCode             LIKE '%#form.filter#%'
 				  or U.UoMDescription          LIKE '%#form.filter#%'
 				  or I.OfficerLastName         LIKE '%#form.filter#%')
 			</cfif>

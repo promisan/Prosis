@@ -151,17 +151,16 @@ password="#SESSION.dbpw#">
 				        display="<span style='font-size:18px;padding-top:5px;padding-bottom:5px;font-weight:bold' class='labellarge'>#vLedgerViews#</span>"						
 						parent="root"							
 				        expand="Yes">		
-										
-				<cfquery name="Currency" 
+									
+				  <cfquery name="Currency" 
 				  datasource="AppsLedger" 
 				  username="#SESSION.login#" 
 				  password="#SESSION.dbpw#">
-				      SELECT DISTINCT L.Currency 
-				      FROM   TransactionLine L, TransactionHeader H
-					  WHERE  L.Journal = H.Journal
-					  AND    L.JournalSerialNo = H.JournalSerialNo
-					  AND    H.Mission = '#Attributes.Mission#'		  
-				</cfquery>		
+				      SELECT   DISTINCT Currency 
+				      FROM     Journal
+					  WHERE    Mission = '#Attributes.Mission#'		  					  
+				  </cfquery>	
+				 
 				
 				<cfloop query="Currency">
 			

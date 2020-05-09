@@ -3,17 +3,12 @@
 <cfparam name="URL.journal" default="">
 <cfparam name="URL.period"  default="">
 
-<table width="100%" style="height:100%;min-height:385;padding-top:5px">
+<table width="100%" style="height:100%;min-height:385;padding-right:20px">
 	
-	<tr><td id="lineentry" style="height:100%">
+	<tr><td id="lineentry" style="height:100%;padding-right:25px">
 									
-		<table width="100%" height="100%">
-		
+		<table width="100%" height="100%" border="0" style="border:1px solid silver">		
 			
-			<tr>			
-				<td width="100%" id="tSearch" name="tSearch" colspan="2" style="height:40px;padding-left:20px;padding-right:28px"></td>			
-			</tr>	
-		
 			<cfquery name="HeaderSelect"
 			datasource="AppsQuery" 
 			username="#SESSION.login#" 
@@ -22,12 +17,12 @@
 				FROM #SESSION.acc#GledgerHeader_#client.sessionNo#
 			</cfquery>
 						
-			<tr style="height:20px">
-				<td colspan="2" align="center" style="padding-left:20px;padding-right:28px">
-				<table width="100%">										
+			<tr style="height:20px" class="line">
+				<td colspan="2" valign="top" align="center" style="height:60px">
+				<table width="100%" style="height:100%">										
 					<tr class="line labelmedium">
-					    <td id="total" align="right" style="width:100%;padding-right:10px"></td>
-						
+					    <td id="tSearch" name="tSearch" align="right" bgcolor="f4f4f4" style="border-right:1px solid silver;width:100%;padding-right:4px;padding-left:3px"></td>
+						<td id="total" valign="bottom" align="right" bgcolor="ffffcf" style="border-right:1px solid silver;padding-bottom:2px;padding-right:1px"></td>
 						<!---
 					    <TD width="20"  align="center">S</TD>
 						<TD width="70"><cf_tl id="Per"></TD>
@@ -37,9 +32,9 @@
 					    <TD style="padding-left:5px" width="27%"><cf_tl id="Reference"></TD>
 						--->
 						
-						<TD bgcolor="yellow" style="border:1px solid silver;min-width:120" align="center" colspan="2"><cf_tl id="Outstanding"></TD>		  
+						<TD bgcolor="yellow" style="border-right:1px solid silver;min-width:120" align="center" colspan="2"><cf_tl id="Outstanding"></TD>		  
 						
-						<td style="border:1px solid silver;min-width:260" align="center" bgcolor="D7EFF7">
+						<td style="min-width:260" align="center" bgcolor="D7EFF7">
 						<table width="100%">
 						  <tr class="line labelmedium"><td align="center" colspan="3"><cf_tl id="Reconciliation"></td></tr>
 						  <tr class="labelmedium" bgcolor="D3E9F8">		
@@ -55,9 +50,11 @@
 			</tr>			 
 											
 			<tr>
-				<td colspan="2" align="center" style="height:420px;padding-left:20px;padding-right:30px;padding-bottom:10px">											  
-				  <cf_divscroll style="padding-right:4px;padding-bottom:5px">				  			  				  
-				      <cfdiv id="reconcileresult" name="reconcileresult" style="height:100px;" bind="url:TransactionDetailReconcileResult.cfm?mode=#url.mode#&journal=#URL.journal#&period=#URL.Period#&find=#URL.find#&ID1=#URL.ID1#" bindonload="true">			
+				<td colspan="2" align="center" style="height:420px;padding-left:5px">														  
+				  <cf_divscroll>				  			  				  
+				      <cf_securediv id="reconcileresult" 
+					  name="reconcileresult" 
+					  bind="url:TransactionDetailReconcileResult.cfm?init=Yes&mode=#url.mode#&journal=#URL.journal#&period=#URL.Period#&find=#URL.find#&ID1=#URL.ID1#" bindonload="true">			
 				  </cf_divscroll>				  
 				</td>
 			</tr>				

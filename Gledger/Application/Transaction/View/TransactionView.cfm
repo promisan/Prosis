@@ -139,7 +139,7 @@ function applyprogram(prg,scope) {
 }  
 
 function view(sum) {
-	ptoken.open("TransactionViewDetail.cfm?embed=#url.embed#&journal=#url.journal#&journalserialNo=#url.journalserialno#&mode=regular&summary="+sum,"_self")
+	ptoken.open("TransactionView.cfm?embed=#url.embed#&journal=#url.journal#&journalserialNo=#url.journalserialno#&mode=regular&summary="+sum,"_self")
 }
 
 function more(bx) {

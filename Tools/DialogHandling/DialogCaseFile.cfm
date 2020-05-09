@@ -16,7 +16,7 @@
 		
 		try { ColdFusion.Window.destroy('editelement',true) } catch(e) {}
 		ColdFusion.Window.create('editelement', 'Edit Element', '',{x:100,y:100,height:#client.height-140#,width:#client.widthfull-160#,modal:true,resizable:false,center:true})    
-		ColdFusion.navigate('#SESSION.root#/CaseFile/Application/Element/Create/ElementEditView.cfm?claimid='+claimid+'&elementid='+elementid,'editelement') 
+		ptoken.navigate('#SESSION.root#/CaseFile/Application/Element/Create/ElementEditView.cfm?claimid='+claimid+'&elementid='+elementid,'editelement') 
 
 	}
 

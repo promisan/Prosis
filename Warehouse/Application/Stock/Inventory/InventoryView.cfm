@@ -81,7 +81,7 @@ password="#SESSION.dbpw#">
 
 			<cfoutput>
 			<input type="hidden" name="mission" id="mission"   value="#URL.mission#">	
-			<cf_UIToolTip  tooltip="Filter by location">
+			<cf_UIToolTip  tooltip="Filter by location or Item">
 			<input 
 				type="textbox" 
 				class="regularxl" 

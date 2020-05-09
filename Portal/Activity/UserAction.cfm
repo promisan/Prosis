@@ -76,7 +76,7 @@ datasource="AppsSystem">
 
 <table width="98%" align="right" height="100%">
 
-<tr><td style="padding:5px" height="10">
+<tr><td height="10">
    
 	<cfinclude template="UserActionSummary.cfm">
 	

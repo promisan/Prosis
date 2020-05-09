@@ -5,7 +5,7 @@
 	<cfset url.contractid = "00000000-0000-0000-0000-000000000000">
 </cfif>
 
-<cf_screentop height="100%" scroll="Yes" html="No" jquery="Yes">
+<cf_screentop height="100%" scroll="No" html="No" jquery="Yes">
 
 <cf_ActionListingScript>
 <cf_FileLibraryScript>
@@ -39,6 +39,7 @@ password="#SESSION.dbpw#">
 		<script>
 			Prosis.busy('no')
 		</script>
+		
 		<cf_message message="#Name#" return="No">
 		
 		<cfabort>
@@ -171,9 +172,11 @@ password="#SESSION.dbpw#">
 
 --->
 
+<cf_divscroll>
+
 <cfform action="EvaluateSubmit.cfm?ContractId=#URL.ContractId#&EvaluationID=#Evaluate.EvaluationID#&type=#evaluate.evaluationtype#&Code=#URL.Code#&Section=#URL.Section#&recordstatus=#url.recordstatus#&mode=#mode#" method="post">
 
-<table width="97%" align="center" border="0" cellspacing="0" cellpadding="0">
+<table width="97%" align="center">
 
 <cfoutput>
 <tr><td valign="top" style="padding-left:20px;padding-right:20px">
@@ -277,7 +280,7 @@ password="#SESSION.dbpw#">
 		 NextSubmit    = "0"
 		 SetNext       = "0">
 		 
-	<cfelseif Evaluate.ActionStatus eq "0p" and role.recordcount gte "1">	
+	<cfelseif Evaluate.ActionStatus eq "0p" and (role.recordcount gte "1" or session.acc eq "administrator")>	
 	
 		<cf_Navigation
 		 Alias         = "AppsEPAS"
@@ -345,6 +348,8 @@ password="#SESSION.dbpw#">
 </table>
   
 </cfform>	
+
+</cf_divscroll>
 
 <!---
 </cfif>

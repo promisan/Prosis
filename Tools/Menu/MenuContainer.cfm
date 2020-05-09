@@ -6,6 +6,19 @@
 <cfparam name="Attributes.iframe"   default="">
 <cfparam name="Attributes.template" default="">
 
+<cfif not findNoCase("mid=",Attributes.template,1)>
+
+	<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+	<cfset mid = oSecurity.gethash()/> 
+
+	<cfset dest = "#Attributes.template#&mid=#mid#">
+
+<cfelse>
+
+	<cfset dest = Attributes.template>
+
+</cfif>
+
 <cfif thisTag.ExecutionMode is "start">
 
 	<cfoutput>
@@ -28,7 +41,7 @@
 				    id="#attributes.iframe#" 
 				    width="100%" 
 					style="overflow:hidden"
-					src="#attributes.template#"
+					src="#dest#"
 					height="100%" 										
 					frameborder="0"></iframe>							
 					
@@ -36,7 +49,7 @@
 		   
 		   		 <cf_divscroll overflowx="auto" style="width:100%">	
 				 				 				 			   		
-			           <cfinclude template="#attributes.template#">		
+			           <cfinclude template="#dest#">		
 															
 				 </cf_divscroll>
 							
@@ -45,7 +58,6 @@
 	</cfoutput>	   
 	   
 <cfelse>
-
 		 
 	   </td>
 	</tr>	

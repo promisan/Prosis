@@ -268,6 +268,7 @@
 									 ActionStatus,
 									 RequestType,
 									 RequestDescription,
+									 O.SupportEnable,
 									 PAR.OfficerUserId,	
 									 PAR.OfficerFirstName,	
 									 PAR.OfficerLastName,						
@@ -316,9 +317,9 @@
 									 O.Resource, 
 									 ObjectCode, 
 									 
-									  (SELECT     TOP 1 ObjectCode
-		                              FROM       ProgramAllotmentRequest
-			                          WHERE      RequirementIdParent = PARQ.RequirementIdParent AND RequestType = 'Standard') as ObjectCodeParent,
+									  (SELECT  TOP 1 ObjectCode
+		                               FROM    ProgramAllotmentRequest
+			                           WHERE   RequirementIdParent = PARQ.RequirementIdParent AND RequestType = 'Standard') as ObjectCodeParent,
 									 
 									 
 									 Fund, 
@@ -331,6 +332,7 @@
 									 ActionStatus,
 									 RequestType,
 									 RequestDescription,
+									 O.SupportEnable,
 									 PARQ.OfficerUserId,	
 									 PARQ.OfficerFirstName,	
 									 PARQ.OfficerLastName,						 
@@ -349,10 +351,10 @@
 						   <cfelse>
 						   AND       P.ProgramCode IN (
 						   								SELECT PPx.ProgramCode
-						                                 FROM   ProgramPeriod PPx INNER JOIN Organization.dbo.Organization Ox ON PPx.OrgUnit = Ox.OrgUnit
-														 WHERE  PPx.ProgramCode = PARQ.ProgramCode 
-														 AND	PPx.Period = '#period#'
-														 AND    Ox.Mission = '#mission#'
+						                                FROM   ProgramPeriod PPx INNER JOIN Organization.dbo.Organization Ox ON PPx.OrgUnit = Ox.OrgUnit
+														WHERE  PPx.ProgramCode = PARQ.ProgramCode 
+														AND	   PPx.Period = '#period#'
+														AND    Ox.Mission = '#mission#'
 						   							  ) 
 						   </cfif>
 						   
@@ -368,9 +370,7 @@
 						   
 						   AND       PARQ.ActionStatus IN (#preservesingleQuotes(ActionStatus)#)
 						
-			</cfsavecontent>	
-			
-									
+			</cfsavecontent>				
 			
 			<cfsavecontent variable="thisquery">
 			
@@ -390,16 +390,25 @@
 							 YEAR(RequestDue) AS RequestYear, 
 							 DatePart(QUARTER,RequestDue) as RequestQuarter,
 							 RequestQuantity, 
-							 <cfif Support eq "Yes">						 
-							 RequestAmountBase+(RequestAmountBase*ISNULL(SupportPercentage/100.0,0)) as RequestAmountBase, 	
+							 <cfif Support eq "Yes">	
+							 (CASE WHEN B.SupportEnable = 1 THEN 					 
+							 RequestAmountBase+(RequestAmountBase*ISNULL(SupportPercentage/100.0,0))
+							 ELSE  RequestAmountBase END) as RequestAmountBase, 	
+							  (CASE WHEN B.SupportEnable = 1 THEN 					 
+							 (RequestAmountBase*ISNULL(SupportPercentage/100.0,0))
+							 ELSE  0 END) as SupportAmountBase, 	
 							 <cfelse>
 							 RequestAmountBase,
+							 (CASE WHEN B.SupportEnable = 1 THEN 					 
+							 (RequestAmountBase*ISNULL(SupportPercentage/100.0,0))
+							 ELSE  0 END) as SupportAmountBase, 	
 							 </cfif>										
 							 RequirementIdParent,
 							 RequestRemarks,
 							 ActionStatus,
 							 RequestType,
 							 RequestDescription,
+							 B.SupportEnable,
 							 B.OfficerUserId,	
 							 B.OfficerFirstName,	
 							 B.OfficerLastName,						
@@ -409,12 +418,12 @@
 					INTO     userquery.dbo.#table#
 					</cfif>		 
 							 
-					FROM     ( #preserveSingleQuotes(basequery)# ) as B INNER JOIN 
-					         ProgramAllotment PA ON B.ProgramCode = PA.ProgramCode and B.Period = PA.Period AND B.EditionId = PA.EditionId 
-					WHERE    B.Mission       = '#mission#'		
+					FROM       ( #preserveSingleQuotes(basequery)# ) as B INNER JOIN 
+					           ProgramAllotment PA ON B.ProgramCode = PA.ProgramCode and B.Period = PA.Period AND B.EditionId = PA.EditionId 
+					WHERE      B.Mission       = '#mission#'		
 					
 					<cfif programcode eq "">			 	   
-					AND      B.ProgramClass != 'Program'
+					AND        B.ProgramClass != 'Program'
 					</cfif>
 					 
 				<cfif Support eq "Object">
@@ -436,13 +445,19 @@
 							   RequestDue,
 							   YEAR(RequestDue) AS RequestYear, 
 							   DatePart(QUARTER,RequestDue) as RequestQuarter,
-							   RequestQuantity, 											 
-							   RequestAmountBase*ISNULL(PA.SupportPercentage/100.0,0) as RequestAmountBase, 															
+							   RequestQuantity, 	
+							   (CASE WHEN B.SupportEnable = 1 THEN 					 
+								 RequestAmountBase+(RequestAmountBase*ISNULL(SupportPercentage/100.0,0))
+								 ELSE  RequestAmountBase END) as RequestAmountBase, 	
+							   (CASE WHEN B.SupportEnable = 1 THEN 					 
+							    (RequestAmountBase*ISNULL(SupportPercentage/100.0,0))
+							    ELSE  0 END) as SupportAmountBase, 		 										 							   															
 							   RequirementIdParent,
 							   RequestRemarks,
 							   ActionStatus,
 							   RequestType,
 							   RequestDescription,
+							   B.SupportEnable,
 							   B.OfficerUserId,	
 							   B.OfficerFirstName,	
 							   B.OfficerLastName,						
@@ -461,8 +476,7 @@
 			   
 			   </cfsavecontent>
 			   			 
-			   </cfoutput>		
-			     
+			   </cfoutput>				     
 			   
 			   <cfif mode eq "table">
 			   

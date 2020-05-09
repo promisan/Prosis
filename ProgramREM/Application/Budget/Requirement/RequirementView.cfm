@@ -217,9 +217,7 @@ password="#SESSION.dbpw#">
 </cfif>
 
 <cfif Listing.recordcount gte "1">
-	
-	
-	
+		
 	<tr><td style="height:30px;border-bottom:0px solid silver;padding-right:17px">
 	
 		<table width="100%" cellspacing="0" cellpadding="0">

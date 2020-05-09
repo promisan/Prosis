@@ -11,12 +11,12 @@
 	
 	   try { ProsisUI.closeWindow('myprovision',true) } catch(e) {}		
 	   ProsisUI.createWindow('myprovision', 'Provisioning', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,center:true,resizable:true})    	   					
-	   ColdFusion.navigate('#session.root#/workorder/application/workorder/ServiceDetails/Billing/DetailBillingDialog.cfm?mode=workorder&workorderid='+wid+'&workorderline='+lid+'&billingid='+bid,'myprovision') 		 
+	   ptoken.navigate('#session.root#/workorder/application/workorder/ServiceDetails/Billing/DetailBillingDialog.cfm?mode=workorder&workorderid='+wid+'&workorderline='+lid+'&billingid='+bid,'myprovision') 		 
 	}
 
 	function resetlinebillingdetail(wid,lid,bid) {       
 		
-	   ColdFusion.navigate('#session.root#/workorder/application/workorder/ServiceDetails/Billing/resetBilling.cfm?workorderid='+wid+'&workorderline='+lid,'resetlinebill');
+	   ptoken.navigate('#session.root#/workorder/application/workorder/ServiceDetails/Billing/resetBilling.cfm?workorderid='+wid+'&workorderline='+lid,'resetlinebill');
 	   window.location.reload();		 
 	}
 	
@@ -61,7 +61,7 @@
 	
 	function workplanaction(wla) {
 	    if (document.getElementById('plan'+wla)) {
-	    ColdFusion.navigate('#session.root#/WorkOrder/Application/WorkOrder/ServiceDetails/Action/setWorkPlan.cfm?workactionid='+wla,'plan'+wla)	
+	    ptoken.navigate('#session.root#/WorkOrder/Application/WorkOrder/ServiceDetails/Action/setWorkPlan.cfm?workactionid='+wla,'plan'+wla)	
 		}
 	}
 		
@@ -109,7 +109,7 @@
 		
 		try { ProsisUI.closeWindow('myorder',true) } catch(e) {}
 		ProsisUI.createWindow('myorder', 'Add Order', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,resizable:false,center:true})    					
-		ColdFusion.navigate(root + '/WorkOrder/Application/WorkOrder/Create/WorkOrder.cfm?mission=' + mission + '&customerid=' + customerid + '&workorderid=' + workorderid + '&workorderline=' + workorderline+ '&context=' + context,'myorder') 	
+		ptoken.navigate(root + '/WorkOrder/Application/WorkOrder/Create/WorkOrder.cfm?mission=' + mission + '&customerid=' + customerid + '&workorderid=' + workorderid + '&workorderline=' + workorderline+ '&context=' + context,'myorder') 	
 	}	
 	
 </script>

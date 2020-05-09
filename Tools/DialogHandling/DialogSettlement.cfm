@@ -46,7 +46,7 @@
 		$('##btn_settlement').val('tdm'+box);	
 		$('##settlement').val(box);	
 		_cf_loadingtexthtml='';							   	      
-		ColdFusion.navigate('#SESSION.root#/warehouse/application/salesorder/pos/settlement/SettlementDetails.cfm?scope=#attributes.scope#&mode='+c,'additional');	
+		ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/pos/settlement/SettlementDetails.cfm?scope=#attributes.scope#&mode='+c,'additional');	
 	      
 	}
 	

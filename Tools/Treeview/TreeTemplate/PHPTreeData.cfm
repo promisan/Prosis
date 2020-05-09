@@ -272,7 +272,7 @@ password="#SESSION.dbpw#">
 		     	
 				<cf_tl id="Source" var="1">
 				<cf_UItreeitem value="#source#"
-			        display="<span class='labelit' style='color:gray;padding-bottom:2px;padding-top:6px;font-size:11px'>#lt_text# :&nbsp;</span><span class='labelit' style='padding-bottom:2px;padding-top:2px;font-size:15px'>#Source#</span>"
+			        display="<span class='labelit' style='color:gray;padding-bottom:0px;padding-top:4px;font-size:11px'>#lt_text# :&nbsp;</span><span class='labelit' style='padding-bottom:0px;padding-top:0px;font-size:15px'>#Source#</span>"
 					parent="Profile"							
 					Expand="No">	
 					

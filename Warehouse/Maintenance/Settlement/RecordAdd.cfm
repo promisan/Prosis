@@ -13,34 +13,35 @@
 
 <!--- Entry form --->
 
-<table width="92%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<cfform action="RecordSubmit.cfm?idmenu=#url.idmenu#" method="POST" enablecab="Yes" name="dialog">
 
-	<cfform action="RecordSubmit.cfm?idmenu=#url.idmenu#" method="POST" enablecab="Yes" name="dialog">
+<table width="92%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
 
 	<tr><td height="10"></td></tr>
 
     <TR>
-    <TD class="labelmedium">Code:</TD>
+    <TD class="labelmedium"><cf_tl id="Code">:</TD>
     <TD class="labelmedium">
   	   <cfinput type="text" name="code" value="" message="Please enter a code" required="Yes" size="10" maxlength="10" class="labelmedium">
     </TD>
 	</TR>
 	
 	<TR>
-    <TD class="labelmedium">Description:</TD>
+    <TD class="labelmedium"><cf_tl id="Description">:</TD>
     <TD class="labelmedium">
   	   <cfinput type="text" name="Description" value="" message="Please enter a description" required="Yes" size="40" maxlength="40" class="labelmedium">
     </TD>
 	</TR>
 	
 	<TR>
-    <TD class="labelmedium">Mode:</TD>
+    <TD class="labelmedium"><cf_tl id="Mode">:</TD>
     <TD class="labelmedium">
   	   <cfselect name="mode" id="mode" required="No">
-	   		<option value="">
-			<option value="Cash">Cash
-			<option value="Credit">Credit
-			<option value="Gif">Gif
+	   		<option value=""></option>
+			<option value="Cash">Cash</option>
+			<option value="Credit">Credit</option>
+			<option value="Check">Check</option>
+			<option value="Gift">Gift</option>
 	   </cfselect>
     </TD>
 	</TR>
@@ -68,9 +69,9 @@
 	</td>	
 	
 	</tr>
-	
-	</CFFORM>
-	
+		
 </TABLE>
+
+</CFFORM>
 
 <cf_screenbottom layout="innerbox">

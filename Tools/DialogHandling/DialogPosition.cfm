@@ -64,7 +64,7 @@ function EditPosition(mission,mandate,posno,box,refresh) {
 
 function workscheduleaction(act,wsch,posno,seldate,memo) {
 	if (confirm("Do you want to "+memo+" ?")) {	
-		ColdFusion.navigate('#session.root#/Staffing/Application/WorkSchedule/Position/WorkScheduleViewDetail.cfm?action='+act+'&workschedule='+wsch+'&positionno='+posno+'&selecteddate='+seldate,'calendartarget')
+		ptoken.navigate('#session.root#/Staffing/Application/WorkSchedule/Position/WorkScheduleViewDetail.cfm?action='+act+'&workschedule='+wsch+'&positionno='+posno+'&selecteddate='+seldate,'calendartarget')
 	}	
 }
 
@@ -78,7 +78,7 @@ function replaceWorkSchedule(ws,pos,posparent) {
 	
 	ColdFusion.Window.create('mydialog', 'Supply', '',{x:30,y:30,height:height,width:width,modal:true,center:true});    
 	ColdFusion.Window.show('mydialog'); 				
-	ColdFusion.navigate(root + "/Staffing/Application/WorkSchedule/Position/ReplaceWorkSchedule.cfm?workSchedule=" + ws + "&positionNo=" + pos + "&positionParentId=" + posparent + "&ts="+new Date().getTime(),'mydialog'); 
+	ptoken.navigate(root + "/Staffing/Application/WorkSchedule/Position/ReplaceWorkSchedule.cfm?workSchedule=" + ws + "&positionNo=" + pos + "&positionParentId=" + posparent + "&ts="+new Date().getTime(),'mydialog'); 
 }
 
 function EditFunction(funno) {
@@ -172,8 +172,6 @@ function gjp() {
 	grd = document.getElementById("postgrade")
     ptoken.open("#SESSION.root#/Roster/Maintenance/FunctionalTitles/FunctionGradePrint.cfm?ID=" + fun.value + "&ID1=" + grd.value, "_blank", "toolbar=no, status=yes, scrollbars=no, resizable=yes"); 
 }
-
-
 
 </script>
 </cfoutput>

@@ -40,24 +40,22 @@ password="#SESSION.dbpw#">
 
 <cfif format.recordcount gte "1">
 
-<tr class="line"><td colspan="2" class="labelmedium" style="font-weight:200;height:40px;font-size:22px;padding-left:10px"> 	
-	<cf_tl id="Select Documents">:
-	</td>
-</tr>
-   
+
+<tr class="line"><td style="height:46px;padding-left:10px;padding-top:5px;font-size:19px" colspan="2" class="labellarge"><font color="804040"><cfoutput><cf_tl id="Generate preconfigured Documents or Forms for this action"></cfoutput>:</b></td></tr>
+	   
 <tr><td colspan="2" style="padding-top:4px">
 
 	<cfform action="ProcessActionSubmit.cfm?reload=1&wfmode=8&process=#url.process#&ID=#URL.ID#&ajaxId=#url.ajaxid#" 
        method="post" name="processaction"  id="processaction">
 
-	<table width="95%" align="center" cellspacing="0" cellpadding="0">
+	<table width="100%" align="center" cellspacing="0" cellpadding="0">
 	   		 
 	<tr><td class="hide"></td></tr>	
 					
 		 <!--- Element 3 of 3 GENERATE DOCUMENT --->
 		 
 		<cfoutput query="Format">  	
-		    	   
+		    	  
 		  		   
 		   <!--- new form to capture the results of the selected report(s) to be generated --->
 		   	   
@@ -71,14 +69,15 @@ password="#SESSION.dbpw#">
 					    <cfset cls = "">	
 							      
 						   <cfif CurrentDocument eq "">
-						        <TR class="regular line">
+						        <TR class="regular line" style="border-top:1px solid silver">
 					       <cfelse>
-						        <TR class="highlight1 line">
+						        <TR class="highlight1 line" style="border-top:1px solid silver">
 					       </cfif> 
 						   
-						   <td width="40" id="docoption#documentid#">
+						   <td style="padding-left:30px" width="40" id="docoption#documentid#">
 						  						   
-							<table cellspacing="0" cellpadding="0" class="formpadding"><tr><td>
+							<table cellspacing="0" cellpadding="0" class="formpadding">
+							<tr class="labelmedium"><td>
 																    
 								<cfif CurrentDocument eq "">
 								
@@ -108,9 +107,9 @@ password="#SESSION.dbpw#">
 							</table>								
 						   
 						   </td>	
-						   <TD class="labelmedium" style="height:28px;padding-left:4px">#CurrentRow#.</TD>
-					       <TD class="labelmedium">#DocumentDescription#</TD>
-						   <TD class="labelmedium">#DocumentCode#</TD>
+						   <TD style="height:28px;padding-left:4px">#CurrentRow#.</TD>
+					       <TD>#DocumentDescription#</TD>
+						   <TD>#DocumentCode#</TD>
 						   						   
 							<cfquery name="PresetDefault" 
 							datasource="appsOrganization" 
@@ -177,14 +176,18 @@ password="#SESSION.dbpw#">
 									</cfloop>
 									
 									<cfif vListFinal eq "">
-										
-									</cfif>
-																			
+									
+									<input type="hidden" name="format#documentcode#" id="format#documentcode#" value="">
+									
+									<cfelse>																	
+																												
 							        <select name="format#documentcode#" id="format#documentcode#" style="width:90px" size="1" class="regularxl">
 										<cfloop list="#vListFinal#" index="vItem">
 											<option value="#vItem#" <cfif Format.DocumentFormat eq "#vItem#">selected</cfif>>#vItem#</option>
 										</cfloop>
-									</select>										   
+									</select>
+									
+									</cfif>										   
 							   
 							   </td>
 						   
@@ -208,8 +211,7 @@ password="#SESSION.dbpw#">
 											WHERE  EntityCode = '#Object.EntityCode#'
 											AND    Mission    = '#Object.Mission#')							
 							AND    Operational = 1
-							</cfquery>	
-														
+							</cfquery>															
 							
 							<cfif Signature.recordcount eq "0">
 														
@@ -227,7 +229,8 @@ password="#SESSION.dbpw#">
 								</cfquery>	
 							
 							</cfif>
-						   						   <cfif signature.recordcount gte "1">
+						   	
+							<cfif signature.recordcount gte "1">
 						   
 						   		<select name="signatureblock#documentcode#" id="signatureblock#documentcode#" size="1" class="regularxl">
 								<cfloop query="Signature">
@@ -242,15 +245,14 @@ password="#SESSION.dbpw#">
 						   </cfif>		
 								  
 						   </td>
-						   <td class="labelmedium"><cfif CurrentDocument neq "">#LastName#</cfif></td>
-						   <TD class="labelmedium">#DateFormat(Created,CLIENT.DateFormatShow)#</TD>
+						   <td><cfif CurrentDocument neq "">#LastName#</cfif></td>
+						   <TD>#DateFormat(Created,CLIENT.DateFormatShow)#</TD>
 							
 						   </TR>
 						 
 						   <tr><td colspan="9" id="docaction#documentid#"></td></tr>
 							
-					   </td></tr>						 	   	
-						
+					   </td></tr>						 	   						
 		  	
 		 </CFOUTPUT>	
 		 

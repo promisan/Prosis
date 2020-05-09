@@ -96,6 +96,7 @@ password="#SESSION.dbpw#">
 		        <OPTION value="" <cfif URL.Status eq "">selected</cfif>><cf_tl id="All except cancelled">
 		        <OPTION value="0" <cfif URL.Status eq "0">selected</cfif>><cf_tl id="Pending">
 			    <OPTION value="2" <cfif URL.Status eq "2">selected</cfif>><cf_tl id="Approved">
+				<OPTION value="3" <cfif URL.Status eq "3">selected</cfif>><cf_tl id="Payment">
 			    <OPTION value="5" <cfif URL.Status eq "5">selected</cfif>><cf_tl id="Settled">
 				<OPTION value="9" <cfif URL.Status eq "9">selected</cfif>><cf_tl id="Cancelled">
 			 </SELECT>		
@@ -113,9 +114,9 @@ password="#SESSION.dbpw#">
 <tr>  
 <td width="100%" colspan="2">
   
-	<table border="0" cellspacing="0" style="min-width:1000px" width="100%" class="navigation_table">
+	<table style="min-width:1000px" width="100%" class="navigation_table">
 		
-	<TR class="line labelmedium">
+	<TR class="line labelmedium fixrow">
 	    <td colspan="2" style="width:60px" align="center"></td>
 	    <td width="10%"><cf_tl id="Effective"></td>
 		<TD width="10%"><cf_tl id="Status"></TD>
@@ -240,7 +241,7 @@ password="#SESSION.dbpw#">
 		</td>	
 		
 		<td>#Dateformat(DateEffective, CLIENT.DateFormatShow)#</td>
-		<td><cfif Status eq "2">Cleared<cfelseif Status eq "5"><font color="008000">In Payroll</font><cfelse>Pending</cfif></td>
+		<td id="status_#workflow#"><cfif Status eq "2"><font color="008000">Cleared<cfelseif Status eq "3"><font color="008000">Cleared<cfelseif Status eq "5"><font color="008000">In Payroll</font><cfelse>Pending</cfif></td>
 		<td>#DocumentReference#</TD>
 		<td>#OfficerLastName#</TD>
 		<td>#Source#</TD>
@@ -299,11 +300,11 @@ password="#SESSION.dbpw#">
 			       name="workflowlink_#workflow#" id="workflowlink_#workflow#" 		   
 			       value="MiscellaneousWorkflow.cfm">			   
 			  
-			   <!---
+			   
 				<input type="hidden" 
 				   name="workflowlinkprocess_#workflow#" id="workflowlinkprocess_#workflow#" 
-				   onclick="ColdFusion.navigate('setEntitlementStatus.cfm?ajaxid=#workflow#','status_#workflow#')">		    
-				   --->
+				   onclick="_cf_loadingtexthtml='';ptoken.navigate('getMiscellaneousStatus.cfm?ajaxid=#workflow#','status_#workflow#')">		    
+				
 				   
 				<tr id="box_#workflow#">
 						<td></td>		   				 
@@ -333,7 +334,5 @@ password="#SESSION.dbpw#">
 	</TABLE>
 
 </td>
-
 </tr>
-
 </table>

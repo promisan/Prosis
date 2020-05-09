@@ -217,7 +217,6 @@ password="#SESSION.dbpw#">
 
 	<cfform style="height:100%" action="TasksSubmit.cfm?Section=#URL.Section#&recordstatus=#url.recordstatus#" method="POST" name="entry">
 	
-	
 	<table height="100%" width="100%">
 	
 	<tr><td style="height:100%">	
@@ -275,7 +274,7 @@ password="#SESSION.dbpw#">
 	    
 		  <tr><td>
 		         
-		    <table border="0" cellpadding="0" cellspacing="0" width="97%" align="center">
+		    <table width="97%" align="center">
 			
 			<tr><td colspan="1">
 			
@@ -302,14 +301,14 @@ password="#SESSION.dbpw#">
 				<TR>
 				    <cfoutput>
 					
-						<TD valign="top" style="padding-left:10px;padding-right:10px">
+						<TD valign="top" style="padding-left:10px;padding-right:10px;border-bottom:1px solid silver">
 									
 						 <cf_textarea name="Description"                                            
 						   height         = "400"
 			               width          = "100%"
-						   toolbar        = "basic"
+						   toolbar        = "mini"
 						   loadscript     = "Yes"
-						   resize         = "0"
+						   resize         = "yes"
 						   color          = "ffffff">#EditActivity.ActivityDescription#</cf_textarea>
 						</TD>
 					

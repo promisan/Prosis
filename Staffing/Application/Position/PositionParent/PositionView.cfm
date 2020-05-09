@@ -107,7 +107,7 @@
 	 }	 	 
 		 
 	function funding(clr,fundingid,act,fd,fdcl,obj,pg,dat,exp) {	
-   	   	ColdFusion.navigate('#SESSION.root#/Staffing/Application/Position/Funding/PositionFunding.cfm?ID=#Position.PositionParentId#&clear='+clr+'&mission=#Position.Mission#&access=edit&fundingid='+fundingid+'&action='+act+'&fund='+fd+'&fundclass='+fdcl+'&objectcode='+obj+'&programcode='+pg+'&date='+dat+'&expiration='+exp,'fundbox')
+   	   	ptoken.navigate('#SESSION.root#/Staffing/Application/Position/Funding/PositionFunding.cfm?ID=#Position.PositionParentId#&clear='+clr+'&mission=#Position.Mission#&access=edit&fundingid='+fundingid+'&action='+act+'&fund='+fd+'&fundclass='+fdcl+'&objectcode='+obj+'&programcode='+pg+'&date='+dat+'&expiration='+exp,'fundbox')
 	}		
 		
 	ie = document.all?1:0
@@ -127,10 +127,10 @@
 		 if (fld != false){
 			
 		 itm.className = "highLight2";
-		 ColdFusion.navigate('#SESSION.root#/Staffing/Application/Position/PositionParent/WorkforceEntrySubmit.cfm?action=insert&positionno='+pos+'&category='+cat,'wfresult')
+		 ptoken.navigate('#SESSION.root#/Staffing/Application/Position/PositionParent/WorkforceEntrySubmit.cfm?action=insert&positionno='+pos+'&category='+cat,'wfresult')
 		 }else{		
 	     itm.className = "regular";		
-		 ColdFusion.navigate('#SESSION.root#/Staffing/Application/Position/PositionParent/WorkforceEntrySubmit.cfm?action=delete&positionno='+pos+'&category='+cat,'wfresult')
+		 ptoken.navigate('#SESSION.root#/Staffing/Application/Position/PositionParent/WorkforceEntrySubmit.cfm?action=delete&positionno='+pos+'&category='+cat,'wfresult')
 		 }
 	  }
 	    
@@ -158,7 +158,7 @@
 	function editFunding(pos, fund) {
 		try { ColdFusion.Window.destroy('wFundingEdit',true) } catch(e) {}
 		ColdFusion.Window.create('wFundingEdit', 'Funding Edit', '',{x:100,y:100,height:document.body.clientHeight-40,width:document.body.clientWidth-40,modal:false,resizable:false,center:true})    				
-		ColdFusion.navigate('#SESSION.root#/Staffing/Application/Position/Funding/PositionFundingPercentageEdit.cfm?PositionParentId='+pos+'&fundingid='+fund, 'wFundingEdit');
+		ptoken.navigate('#SESSION.root#/Staffing/Application/Position/Funding/PositionFundingPercentageEdit.cfm?PositionParentId='+pos+'&fundingid='+fund, 'wFundingEdit');
 	}
 
 	function applyprogramfunding(prg,scope) {	  
@@ -169,7 +169,7 @@
 		vFundPercentageLineId = vFundPercentageLineId + 1;
 		$('##fundingList').append('<tr class="navigation_row clsFundingLine" id="fundingLine_'+vFundPercentageLineId+'"><td id="fundingLineTD_'+vFundPercentageLineId+'"></td></tr>');
 		$('##btnFundSave').hide();
-		ColdFusion.navigate('#session.root#/staffing/application/position/funding/setFundPercentageLine.cfm?lineId='+vFundPercentageLineId+'&positionparentid='+pos+'&FundingId='+fund, 'fundingLineTD_'+vFundPercentageLineId, function(){
+		ptoken.navigate('#session.root#/staffing/application/position/funding/setFundPercentageLine.cfm?lineId='+vFundPercentageLineId+'&positionparentid='+pos+'&FundingId='+fund, 'fundingLineTD_'+vFundPercentageLineId, function(){
 			$('##btnFundSave').show();
 		});
 	}
@@ -275,11 +275,11 @@
 						name       = "#vFunding#"
 						source     = "PositionSupply.cfm?ID=#Position.PositionNo#&ID2=#Position.PositionParentId#">		
 						
-				<cfinvoke component="Service.Access"
-					Method="PayrollOfficer"
-					Role="PayrollOfficer"
-					Mission="#Position.mission#"
-					ReturnVariable="PayrollAccess">		
+				<cfinvoke component= "Service.Access"
+					Method         = "PayrollOfficer"
+					Role           = "PayrollOfficer"
+					Mission        = "#Position.mission#"
+					ReturnVariable = "PayrollAccess">		
 					
 				<cfinvoke component="Service.Access"  
 				  method         = "position" 
@@ -466,7 +466,7 @@
 	
 	<script>
 	function ShowPA(Doc,Ind) {
-			window.open("#SESSION.root#/DWarehouse/InquiryEmployee/PA_Detail.cfm?ID1=" + Doc + "&ID2=" + Ind, "DialogPA", "width=700, height=600, toolbar=yes, scrollbars=yes, resizable=yes");
+		ptoken.open('#SESSION.root#/DWarehouse/InquiryEmployee/PA_Detail.cfm?ID1=' + Doc + '&ID2=' + Ind, 'DialogPA', 'width=900, height=600, toolbar=yes, scrollbars=yes, resizable=yes');
 	}
 	</script>
 	

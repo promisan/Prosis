@@ -61,7 +61,7 @@
 		
 		</cfif>					
 		
-		<td style="padding-left:3px;width:100px">#ItemBarCode#</td>
+		<td style="padding-left:3px;width:100px" class="ccontent">#ItemBarCode#</td>
 		
 		<td style="cursor:pointer;padding-left:4px;padding-right:4px;;width:20px" 
 		  onclick="locarcshow('#warehouse#','#location#','#itemno#','#uom#','#transactionlot#','locarc#url.box#_#currentrow#')">

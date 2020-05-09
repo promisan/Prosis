@@ -142,7 +142,7 @@
 		excelShow      = "Yes"
 		drillmode      = "window"	
 		drillargument  = "900;1200"
-		drilltemplate  = "../Gledger/Application/Transaction/View/TransactionViewDetail.cfm?id="
+		drilltemplate  = "../Gledger/Application/Transaction/View/TransactionView.cfm?id="
 		drillkey       = "TransactionId">		
 	
 	</td></tr>

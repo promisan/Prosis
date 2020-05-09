@@ -35,26 +35,28 @@ password="#SESSION.dbpw#">
 	ORDER BY Source DESC
 </cfquery>
 
+<cf_divscroll>
+
 <cfform action="MiscellaneousEditSubmit.cfm?Status=#URL.Status#" method="POST" name="MiscellaneousEdit">
 
 <cfset openmode = "show">
-<cfinclude template="../PersonViewHeaderToggle.cfm">
-
-<table width="100%"><td height="1" class="linedotted"></td></table>
 
 <cfoutput>
 <input type="hidden" name="PersonNo" value="#URL.ID#" class="regular">
 <input type="hidden" name="CostId"   value="#URL.ID1#" class="regular">
 </cfoutput>
 
-<table width="98%" align="center" border="0" cellspacing="0" cellpadding="0" class="formpadding">
-  <tr><td>
+<table width="98%" align="center">
 
-<table width="96%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<tr><td><cfinclude template="../PersonViewHeaderToggle.cfm"></td></tr>
+
+<tr><td>
+
+<table width="96%" align="center" class="formpadding">
   
    <tr class="line">
     
-	<td style="padding:10px 20px 20px;font-size:30px;height:50px" class="labelit">
+	<td style="padding:5px 10px 10px;font-size:30px;height:45px" class="labelit">
 		    <img src="<cfoutput>#SESSION.root#</cfoutput>/Images/Logos/Payroll/Miscellaneous.png" height="64" alt=""  border="0" align="absmiddle">
 			
     	&nbsp;<cf_tl id="Edit Miscellaneous entry"> : <cfoutput>#entitlement.source#</cfoutput>
@@ -275,3 +277,5 @@ password="#SESSION.dbpw#">
 </table>
 
 </CFFORM>
+
+</cf_divscroll>

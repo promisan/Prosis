@@ -11,56 +11,56 @@
 			vdata = $(".dbutton");
 			$(vdata).each(function() {	
 	
-				  var oname = $(this).attr('name');
-				  
-				  oname = oname.substr(1,oname.length);
-				  
-				  var id = $('#id_'+oname).val();  		  
-				  
+			  var oname = $(this).attr('name');
+			  
+			  oname = oname.substr(1,oname.length);
+			  
+			  var id = $('#id_'+oname).val();  		  
+			  
+			  $('#'+oname).removeClass('bactive');
+			  $('#'+oname).removeClass('binactive');	
+
+			  if ($('#'+oname).attr('disabled') == 'disabled') {
+					  
 				  $('#'+oname).removeClass('bactive');
-				  $('#'+oname).removeClass('binactive');	
-	
-				  if ($('#'+oname).attr('disabled') == 'disabled') {
-						  
-					  $('#'+oname).removeClass('bactive');
-					  $('#'+oname).addClass('binactive');	
-					  
-					  $('#'+oname+'_text').removeClass('tactive');
-					  $('#'+oname+'_text').addClass('tinactive');
-					  
-					  $('#'+id).removeClass('highlight');
-					  $('#'+id).removeClass('regular');
-	
-					  $('#'+id).unbind('mouseover');
-					  $('#'+id).unbind('mouseout');
-					  
-  					  $('#i'+oname).removeClass('iactive');
-  					  $('#i'+oname).addClass('iinactive');
-					
-				 } else {
-	
-					  $('#'+oname).removeClass('binactive');
-					  $('#'+oname).addClass('bactive');	
-					  
-					  $('#'+oname+'_text').removeClass('tinactive');
-					  $('#'+oname+'_text').addClass('tactive');				  
-	
-					  $('#'+id).bind('mouseover',function(){
-	
-						$(this).removeClass('regular');
-						$(this).addClass('highlight');					
-							
-						});
-	
-					   $('#'+id).bind('mouseout',function() {
-							$(this).removeClass('highlight');
-							$(this).addClass('regular');
-						});		
+				  $('#'+oname).addClass('binactive');	
+				  
+				  $('#'+oname+'_text').removeClass('tactive');
+				  $('#'+oname+'_text').addClass('tinactive');
+				  
+				  $('#'+id).removeClass('highlight');
+				  $('#'+id).removeClass('regular');
+
+				  $('#'+id).unbind('mouseover');
+				  $('#'+id).unbind('mouseout');
+				  
+ 					  $('#i'+oname).removeClass('iactive');
+ 					  $('#i'+oname).addClass('iinactive');
+				
+			 } else {
+
+				  $('#'+oname).removeClass('binactive');
+				  $('#'+oname).addClass('bactive');	
+				  
+				  $('#'+oname+'_text').removeClass('tinactive');
+				  $('#'+oname+'_text').addClass('tactive');				  
+
+				  $('#'+id).bind('mouseover',function(){
+
+					$(this).removeClass('regular');
+					$(this).addClass('highlight');					
 						
-  					  $('#i'+oname).addClass('iactive');
-  					  $('#i'+oname).removeClass('iinactive');
-								 
-				 }
+					});
+
+				   $('#'+id).bind('mouseout',function() {
+						$(this).removeClass('highlight');
+						$(this).addClass('regular');
+					});		
+					
+ 					  $('#i'+oname).addClass('iactive');
+ 					  $('#i'+oname).removeClass('iinactive');
+							 
+			 }
 			});		
 	}
 	
@@ -136,7 +136,7 @@
 			
 			     box.className = "hide"		
 		         _cf_loadingtexthtml='';	
-			     ColdFusion.navigate(vir+'/tools/empty.cfm',element+'_content')  		   
+			     ptoken.navigate(vir+'/tools/empty.cfm',element+'_content')  		   
 			     img.src = vir+"/Images/arrowright.gif"		   
 			     _cf_loadingtexthtml="<div><img src='<cfoutput>#SESSION.root#</cfoutput>/images/busy11.gif'/>";
 			
@@ -144,7 +144,7 @@
 			
 			     box.className = "regular"	   
 			     _cf_loadingtexthtml='';	
-			     ColdFusion.navigate(vir+'/'+url,element+'_content')  
+			     ptoken.navigate(vir+'/'+url,element+'_content')  
 			     img.src = vir+"/Images/arrowdown.gif"		   
 			     _cf_loadingtexthtml="<div><img src='<cfoutput>#SESSION.root#</cfoutput>/images/busy11.gif'/>";
 				 

@@ -1,4 +1,4 @@
-<cf_screentop html="no" scroll="yes" jquery="yes">
+<cf_screentop html="no" scroll="no" jquery="yes">
 
 <cfparam name="url.type" default="preparation">
 <cfparam name="url.actionstatus" default="2">
@@ -90,7 +90,7 @@ password="#SESSION.dbpw#">
 		
 </cfif>
 
-<cfajaximport tags="cfmenu,cfdiv,cfwindow">
+<cfajaximport tags="cfdiv">
 <cf_ActionListingScript>
 
 <cfoutput>
@@ -207,17 +207,17 @@ password="#SESSION.dbpw#">
 					
 		<cf_divscroll>
 						
-		<table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+		<table width="100%" align="center" class="formpadding">
 		
 		  <tr>
 		    <td height="80" align="left">				
 					<table width="100%">
 						<tr>					
-							<td class="labellarge"><h1 style="font-size:30px;height:40px;padding:15px 15px 0;font-weight: 200;">#Section.Description#</h1></td>							
+							<td class="labellarge" style="padding-left:20px"><h1 style="font-size:30px;height:30px;padding:5px 0px 0;font-weight: 250;">#Section.Description#</h1></td>							
 						</tr>
 						<cfif section.Instruction neq "">
 						<tr>					
-							<td class="labellarge"><h1 style="color:6688aa;font-size:16px;height:50px;padding:15px 15px 0;font-weight: 200;">#Section.Instruction#</h1></td>																					
+							<td class="labellarge" style="padding-left:20px"><h1 style="color:6688aa;font-size:16px;height:50px;font-weight: 250;">#Section.Instruction#</h1></td>																					
 						</tr>
 						</cfif>
 					</table>				
@@ -234,15 +234,17 @@ password="#SESSION.dbpw#">
 					AND   EvaluationType = '#URL.Type#'
 			</cfquery>
 		 	 		   
-		   <tr><td style="padding-top:20px;padding-left:30px;padding-right:20px">
+		   <tr><td style="padding-left:30px;padding-right:20px">
 		   
 		    <cf_textarea name="Description"                                            
 			   height         = "300"
                width          = "100%"
-			   toolbar        = "basic"
+			   toolbar        = "mini"
 			   loadscript     = "Yes"
 			   resize         = "0"
+			   script         = "border-bottom:1px solid silver"
 			   color          = "ffffff">#Evaluation.Evaluation#</cf_textarea>
+			   
 		   </td></tr>
 		   		 		
 		   <tr class="line"><td style="padding:10px">

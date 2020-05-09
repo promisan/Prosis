@@ -33,7 +33,7 @@ datasource="AppsInit">
 		
 		<cfoutput query="get">
 			<cfinput class="regularxl" 
-			  tooltip="Set the default home page for this link. Used for login expiration reset" 
+			  title="Set the default home page for this link. Used for login expiration reset" 
 			  type="Text" 
 			  name="ApplicationHome" 
 			  value="#ApplicationHome#" size="30" maxlength="80">
@@ -183,7 +183,7 @@ datasource="AppsInit">
     <td style="padding-left:10px;" class="labelit" width="160">Scheduler Root path:</td>
     <TD>
   	   <cfoutput query="get">
-		<cfinput class="regularxl" type="Text" name="SchedulerRoot" tooltip="Location for scheduler task files" value="#SchedulerRoot#" message="Please enter the correct path" required="Yes" size="50" maxlength="50">
+		<cfinput class="regularxl" type="Text" name="SchedulerRoot" title="Location for scheduler task files" value="#SchedulerRoot#" message="Please enter the correct path" required="Yes" size="50" maxlength="50">
 		</cfoutput>
     </TD>
 	</TR>	

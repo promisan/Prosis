@@ -34,7 +34,7 @@
 <script>
 
 function owner(act,text) {
-   window.location = "PositionEdit.cfm?box=#url.box#&Action="+act+"&ActionText="+text+"&ID=#URL.ID#&ID1=#URL.ID1#&ID2=#URL.ID2#"
+   ptoken.location('PositionEdit.cfm?box=#url.box#&Action='+act+'&ActionText='+text+'&ID=#URL.ID#&ID1=#URL.ID1#&ID2=#URL.ID2#')
 }
 
 function admblank() {
@@ -541,11 +541,7 @@ password="#SESSION.dbpw#">
   <tr>
     <td width="100%" colspan="2">
 	
-    <table width="99%"
-	       border="0"		  
-	       cellspacing="0"
-	       cellpadding="0" class="formpadding"
-	       align="center">
+    <table width="99%" class="formpadding" align="center">
 		   
 	<cfif PositionParent.DateEffective neq Mandate.DateEffective or 
 	      PositionParent.DateExpiration neq Mandate.DateExpiration>
@@ -559,10 +555,8 @@ password="#SESSION.dbpw#">
 					
 	<tr bgcolor="#c#">
 	   <td class="labelmedium" style="height:30px;border:1px solid silver;width:150px;padding-left:6px"><cf_space spaces="65"><cf_tl id="Owner">/<cf_tl id="Budget Title">/<cf_tl id="Grade">:</td>
-	   <td class="labelmedium" style="padding-left:10px">
-		   
-		      #PositionParent.OrgUnitName# / #PositionParent.FunctionDescription# / #PositionParent.PostGrade#
-			
+	   <td class="labelmedium" style="padding-left:10px">		   
+		      #PositionParent.OrgUnitName# / #PositionParent.FunctionDescription# / #PositionParent.PostGrade#			
 	   </td>
 	</tr>
 					
@@ -677,7 +671,7 @@ password="#SESSION.dbpw#">
 						
 						    <cfif LaterPosition.recordcount eq "0">							
 								<cf_tl id="Loan position" var="1">
-							    <input type="button" style="height:19px" class="button10g" value="<cfoutput>#lt_text#</cfoutput>" onclick="owner('loan','Loan position')">								
+							    <input type="button" style="height:23px" class="button10g" value="<cfoutput>#lt_text#</cfoutput>" onclick="owner('loan','Loan position')">								
 							</cfif>							
 							&nbsp;<cf_tl id="This position incumbered until">							
 							<b>#DateFormat(PositionParent.DateExpiration, CLIENT.DateFormatShow)#</b>														
@@ -851,14 +845,14 @@ password="#SESSION.dbpw#">
 					
 					<cfif PositionParent.DateEffective lte eff and EarlierPosition.recordcount eq "0">
 					
-						<cfif url.action neq "loan">
+						<cfif url.action neq "loan" and url.action neq "owner">
                              <td style="padding-left:5px">
-                             <input  type="checkbox" name="forceamend" value="1" checked  >
+                             <input type="checkbox" name="forceamend" value="1" checked>
                              </td>
                              <td style="padding-left:4px"><cf_tl id="Amend"></td>
 	                    <cfelse>
                               <td style="padding-left:5px">
-                              <input class="hide" type="checkbox" name="forceamend" value="0" >
+                              <input class="hide" type="checkbox" name="forceamend" value="0">
                               </td>
                               <td style="padding-left:4px"></td>
 	                    </cfif>
@@ -2098,7 +2092,7 @@ password="#SESSION.dbpw#">
    <script language="JavaScript">
    
 	    function editposition() {
-	   		window.location = "PositionEdit.cfm?box=#url.box#&mode=edit&id=#url.id#&id1=#url.id1#&id2=#url.id2#"
+	   		ptoken.location('PositionEdit.cfm?box=#url.box#&mode=edit&id=#url.id#&id1=#url.id1#&id2=#url.id2#')
 	    }
 		
    </script>

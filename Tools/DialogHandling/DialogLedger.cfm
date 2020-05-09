@@ -58,7 +58,7 @@ function EditTransaction(jrn, ser) {
 }
 
 function editCustomer(customerId){
-	window.open("#SESSION.root#/warehouse/application/customer/view/CustomerEditTab.cfm?drillid="+customerId, "EditCustomer");
+	ptoken.open("#SESSION.root#/warehouse/application/customer/view/CustomerEditTab.cfm?drillid="+customerId, "EditCustomer");
 }
 
 function selectaccount(acc,des,tpe,mis,field,filter,journal) {	

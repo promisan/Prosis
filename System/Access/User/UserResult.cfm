@@ -348,7 +348,7 @@
 				
 				<cf_divscroll>
 				
-				<table width="100%">
+				<table width="98%">
 								
 				<tr class="labelmedium fixrow">
 					<td height="22" width="30"></td>

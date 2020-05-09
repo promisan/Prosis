@@ -19,7 +19,7 @@
      name="transactionbox" 
 	 id="transactionbox" 
 	 width="100%" 
-	 height="99%" 
+	 height="100%" 
 	 marginwidth="0" 
 	 marginheight="0" 
 	 scrolling="0" 

@@ -51,7 +51,7 @@
 		
 	function validationcheck()	 { 			   			
 		_cf_loadingtexthtml="";			    								
-	    ColdFusion.navigate(spth+'/Tools/Control/validateSessionStart.cfm?acc='+cacc,'sessionvalidcheck',sessioninitsuccesshandler,sessioninitfailhandler);				
+	    ptoken.navigate(spth+'/Tools/Control/validateSessionStart.cfm?acc='+cacc,'sessionvalidcheck',sessioninitsuccesshandler,sessioninitfailhandler);				
 		_cf_loadingtexthtml="<cfoutput><div><img src='#SESSION.root#/images/busy11.gif'/></cfoutput>";				 				
 	}	
 	

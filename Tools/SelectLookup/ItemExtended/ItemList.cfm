@@ -127,8 +127,28 @@
 		
 		</cfif>
 			  
-	</cfif>				  
-	
+	</cfif>
+	<cfif session.acc eq "mleonardo">
+		AND
+		(
+			EXISTS
+			(
+			SELECT 'X'
+			FROM ItemWarehouseLocation IWL
+			WHERE IWL.Location='006'
+			AND IWL.ItemNo = I.ItemNo
+			)
+			OR
+			EXISTS
+			(
+			SELECT 'X'
+			FROM Item I2
+			WHERE I2.ItemNo = I.ItemNo
+			AND I2.Make = 'STIHL'
+			)
+		)
+	</cfif>
+
 </cfquery>
 
 <cfif getList.recordcount eq "0" and url.search neq "">

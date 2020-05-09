@@ -33,6 +33,16 @@ password="#SESSION.dbpw#">
 	AND    SelectDefault = 1 
 </cfquery>	
 
+<cfquery name="ScoreResult" 
+datasource="AppsEPAS" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">                                                                         
+	SELECT  TOP 1 *
+	FROM    ContractEvaluationActivity
+	WHERE   EvaluationId =  '#evid#' 
+</cfquery>
+
+
 <!--- provision to add record --->
 				
 <cfquery name="getActivity" 
@@ -86,8 +96,12 @@ password="#SESSION.dbpw#">
 	  </cfquery>
   
  </cfif> 
-
-<cfset sc = score.code>
+ 
+ <cfif ScoreResult.EvaluationScore eq "">
+     <cfset sc = Default.Code>
+  <cfelse>
+     <cfset sc = ScoreResult.EvaluationScore>
+ </cfif>   
 
 <cfoutput>
 
@@ -197,8 +211,8 @@ password="#SESSION.dbpw#">
 														
 							  <tr style="height:50px">		
 							  								 
-							   	<cfset ord = ActivityOrder>		
-																					
+							   	<cfset ord = ActivityOrder>	
+																													
 								<cfloop query="score">								
 																													
 								   <cfif Sc eq Code>
@@ -295,8 +309,7 @@ password="#SESSION.dbpw#">
 					AND      CA.Operational = 1
 					ORDER BY ActivityOrder					
 				</cfquery>		
-						
-																						
+																												
 				<cfif detail.recordcount gte "1">							
 											
 				    <tr class="line">						
@@ -385,7 +398,7 @@ password="#SESSION.dbpw#">
 									  <tr style="background-color:f5f5f5;height:55px;padding-left:20px;padding-right:20px">	
 									  																		  								 
 									   	<cfset ord = ActivityOrder>		
-																	
+																																					
 										<cfloop query="score">
 										
 										   <cfif Sc eq Code>
@@ -394,7 +407,7 @@ password="#SESSION.dbpw#">
 											 <cfset cl = "regular">
 											</cfif> 
 																						
-											<cfif (Evaluate.ActionStatus eq "0" or Evaluate.ActionStatus eq "0p") and ev eq "Evaluate" and Mode eq "Evaluate" and role.recordcount gte "1">
+											<cfif (Evaluate.ActionStatus eq "0" or Evaluate.ActionStatus eq "0p") and ev eq "Evaluate" and Mode eq "Evaluate" and (role.recordcount gte "1" or session.acc eq "administrator")>
 										
 											<td width="25%" class="#cl#" id="b_#ord#_#currentrow#"  align="center" style="background-color:e4e4e4;padding-top:2px;">
 												<input type="radio" name="Activity_Score_#ord#" class="radiol" style="height:25px;width:25px" value="#Code#" 

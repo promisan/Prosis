@@ -41,6 +41,7 @@ password="#SESSION.dbpw#">
 	WHERE Code = '#URL.Section#'
 </cfquery>
 
+
 <cfif Check.recordcount eq "1">
 
 	<cfif Check.ContractEvaluation eq "" and Check.PasEvaluation lte now()>
@@ -52,9 +53,7 @@ password="#SESSION.dbpw#">
 	 	<!--- go ahead --->
 		 		 
 	<cfelse>	
-	
-	
-		
+			
 	<table width="97%" align="center" border="0" cellspacing="0" cellpadding="0">
 	
 	<tr><td valign="top">
@@ -92,7 +91,6 @@ password="#SESSION.dbpw#">
 	</cfif>
 	
 </cfif>
-
 
 <cfquery name="Evaluate" 
 datasource="AppsEPAS" 
@@ -190,12 +188,12 @@ password="#SESSION.dbpw#">
 	
 	--->
 			
-	<table width="97%" height="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+	<table width="97%" height="100%" align="center">
 	
 	<tr><td valign="top" height="100%" style="padding-bottom:5px">
-		
-		<cf_divscroll>
 	
+	<cf_divscroll>
+		
 		<table width="100%" border="0" align="center" class="formpadding">
 		
 		<cfoutput>
@@ -220,7 +218,6 @@ password="#SESSION.dbpw#">
 		<cfset url.recordstatus = "2">  <!--- take updated action to be shown --->	
 
 	   <tr><td colspan="2" style="padding-left:30px"><cfinclude template="EvaluateGeneral.cfm"></td></tr>	   
-		
 			      	   
 	   <cfquery name="Contract" 
 		datasource="appsEPAS" 
@@ -254,23 +251,7 @@ password="#SESSION.dbpw#">
 			</td>						 
 			</tr>		 
 	     
-		 <tr><td style="padding-left:30px">
-		      <table width="99%" align="center">
-			  <tr><td>		
-			  
-			  	 <cfset wflnk = "EvaluatePreWorkflow.cfm">			  
-			     <cfset pk = Evaluate.EvaluationId>
-			  
-			     <cfoutput>			  
-			        <input type="hidden" id="workflowlink_#pk#" value="#wflnk#"> 				  
-			     </cfoutput>	  
- 
-			     <cfdiv id="#pk#"  bind="url:#wflnk#?ajaxid=#pk#"/> 	
-			 
-			 </td></tr>
-			 </table>
-			 </td>
-		 </tr>
+		
 				 
 		<!---		 
 					
@@ -279,21 +260,20 @@ password="#SESSION.dbpw#">
 		--->
 			       	
 		</table>
-	
-	</cf_divscroll>
+		
+		</cf_divscroll>
 	
 	</td>
 	
 	</tr>
 	
 	<tr><td>
-				
+					
 		<cfif SESSION.isAdministrator eq "Yes">
 			<cfset rest = 1>
 		<cfelse>
 			<cfset rest = 0>
-		</cfif>
-					
+		</cfif>					
 		
 		<cfif Evaluate.ActionStatus lte "1">
 		
@@ -339,6 +319,7 @@ password="#SESSION.dbpw#">
 			
 	</table>
 	
+
 <!---			
 	</cfif>
 	--->

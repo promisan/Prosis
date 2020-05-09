@@ -3191,8 +3191,7 @@
 									<cfelse>
 															
 										<!--- we have a break, so we reset this --->
-										<cf_LeaveAccrual DS="#DS#"  DE="#DE#" End="#End#" Credit="#credit.CreditFull#" mode="Standard">
-										
+										<cf_LeaveAccrual DS="#DS#"  DE="#DE#" End="#End#" Credit="#credit.CreditFull#" mode="Standard">										
 																			
 										<cfset DayFirst = day(START)>	
 										

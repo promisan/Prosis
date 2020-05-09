@@ -469,7 +469,12 @@
 					<tr>
 					
 				   <td>
-	 				   <cfinput type="text"   id="referenceorgunitname1" name="referenceorgunitname1" class="regularxl" value="" size="46" maxlength="40" required="Yes" message="Plaese, select a valid vendor." readonly>
+				   		<cfif Mis.EarmarkManagement eq 1>
+							<cfset vRequired = "Yes">
+						<cfelse>
+							<cfset vRequired = "No">						
+						</cfif>
+	 				   <cfinput type="text"   id="referenceorgunitname1" name="referenceorgunitname1" class="regularxl" value="" size="46" maxlength="40" required="#vRequired#" message="Plaese, select a valid vendor." readonly>
 					   <input type="hidden" name="referenceorgunit" id="referenceorgunit1" value="">		
 					     			  
 				   </td>

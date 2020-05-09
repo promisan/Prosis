@@ -1,11 +1,11 @@
 
 <cfparam name="URL.ID1"      default="Journal">
 <cfparam name="URL.find"     default="">
+<cfparam name="URL.init"     default="No">
 <cfparam name="URL.tax"      default="">
 <cfparam name="URL.ijournal" default="">
 <cfparam name="URL.period"   default="">
 <cfparam name="URL.mode"     default="">
-
 
 <cfquery name="HeaderSelect"
 datasource="AppsQuery" 
@@ -14,7 +14,6 @@ password="#SESSION.dbpw#">
     SELECT *
 	FROM #SESSION.acc#GledgerHeader_#client.sessionNo#
 </cfquery>
-
 
 <!--- check if the contract account for the payment is associated to a certain bank, this we can
 use to filter payment transactions to this bank only  --->
@@ -30,230 +29,292 @@ password="#SESSION.dbpw#">
 
 <!--- sub query for payment order --->
 
-<cfoutput>
+<cfif url.init eq "Yes">
 
-
-<cfsavecontent variable="Outstanding">
+	<cfif url.mode eq "PO">
 	
-		<!--- --------------------------------------------------------------------------------------------------- --->
-	    <!--- --- Payment order from an incoming Payable that need reconciliation one by one -------------------- --->
-		<!--- --------------------------------------------------------------------------------------------------- --->
-					
-		SELECT   	<!--- payment order --->
-		            L.TransactionLineId, 
-		         	L.AmountDebit, 
-				 	L.AmountCredit, 
-					<!--- processed already reconciled details, 14/7 correction of currency as these will be in the same currency --->
-				 	ISNULL(SUM(R.AmountDebit *R.ExchangeRate),0) AS RecDebit, 
-				 	ISNULL(SUM(R.AmountCredit*R.ExchangeRate),0) AS RecCredit
-											
-		FROM     	TransactionLine L WITH(NOLOCK)
-						LEFT OUTER JOIN TransactionLine R WITH(NOLOCK)  <!--- processed actions for payment records --->
-							INNER JOIN Accounting.dbo.TransactionHeader TH1 WITH(NOLOCK)
-								ON TH1.Journal = R.Journal
-								AND TH1.JournalSerialNo = R.JournalSerialNo
-								AND TH1.RecordStatus != '9'
-								AND TH1.ActionStatus IN ('0','1')
-		                      ON  R.ParentJournal         = L.Journal 
-				              AND R.ParentJournalSerialNo = L.JournalSerialNo 
-							  AND R.GLAccount             = L.GLAccount
-							  <!--- link to the line of the payment order, does not apply for sales contract --->
-							  AND R.ParentLineId          = L.TransactionLineId 
-							  AND R.ParentLineId is not NULL							  
-							  
-		WHERE    	L.ReconciliationPointer = 0  <!--- not manually overruled as reconciled ---> 
-		
-		 <!--- ---------------------------------------------------------- --->
-		 <!--- -------------------Period is not closed-: TO BE CHECK----- --->
-		 <!--- ---------------------------------------------------------- --->
-		
-		 AND        EXISTS (SELECT 'X'
-		                    FROM   Period 
-					        WHERE  AccountPeriod = L.AccountPeriod 
-						    AND    ActionStatus = '0')			
-				
-		 <!--- ---------------------------------------------------------- --->
-		 <!--- ------------------Payment order journal------------------- --->
-		 <!--- ---------------------------------------------------------- --->
-		
-		 AND        L.Journal IN (SELECT Journal 
-		                          FROM   Journal 
-								  WHERE  Mission = '#HeaderSelect.Mission#'	
-								  AND    TransactionCategory IN ('Payment','DirectPayment'))		
-		
-		 <!--- ---------------------------------------------------------- --->
-		 <!--- the parent transaction GL account requires reconcilitation --->
-		 <!--- ---------------------------------------------------------- --->
-		 	 
-		 AND        EXISTS  (SELECT   'X'
-		                     FROM     Ref_Account
-						     WHERE    GLAccount = L.GLAccount
-		                     AND      BankReconciliation = 1)
-		
-		<!--- --------------------------------------------------------- --->
-		<!--- payments can ONLY be reconciled against 
-		      the same currency of the processing bank journal, ATTENTION for a receivable this is not necessarily the case -------- --->
-		<!--- --------------------------------------------------------- --->
-		
-		AND         L.Currency       = '#HeaderSelect.Currency#'
-						  
-		GROUP BY 	L.Journal, 
-		         	L.JournalSerialNo,
-				 	L.TransactionLineId, 
-				 	L.AmountDebit, 
-				 	L.AmountCredit
-					
-	    <!--- the system allows you to settle from a different currency, in that we reconstruct the value in the issued currency 13/7/2013 --->
-		 				
-		HAVING      (  L.AmountDebit  <> 0 AND L.AmountDebit <> ISNULL(SUM(R.AmountCredit*R.ExchangeRate),0) ) OR 				
-					<!--- if orginal amount is credit, check for the debit amounts --->				
-					(  L.AmountCredit <> 0 AND L.AmountCredit <> ISNULL(SUM(R.AmountDebit*R.ExchangeRate),0) )	
-					
+		<cfoutput>
+	
+		<cfsavecontent variable="Outstanding">
 			
-</cfsavecontent>
+				<!--- --------------------------------------------------------------------------------------------------- --->
+			    <!--- --- Payment order from an incoming Payable that need reconciliation one by one -------------------- --->
+				<!--- --------------------------------------------------------------------------------------------------- --->
+							
+				SELECT   	<!--- payment order --->
+				            L.TransactionLineId, 
+				         	L.AmountDebit, 
+						 	L.AmountCredit, 
+							<!--- processed already reconciled details, 14/7 correction of currency as these will be in the same currency --->
+						 	ISNULL(SUM(R.AmountDebit *R.ExchangeRate),0) AS RecDebit, 
+						 	ISNULL(SUM(R.AmountCredit*R.ExchangeRate),0) AS RecCredit
+													
+				FROM     	TransactionLine L WITH(NOLOCK)
+								LEFT OUTER JOIN TransactionLine R WITH(NOLOCK)  <!--- processed actions for payment records --->
+									INNER JOIN Accounting.dbo.TransactionHeader TH1 WITH(NOLOCK)
+										ON TH1.Journal = R.Journal
+										AND TH1.JournalSerialNo = R.JournalSerialNo
+										AND TH1.RecordStatus != '9'
+										AND TH1.ActionStatus IN ('0','1')
+				                      ON  R.ParentJournal         = L.Journal 
+						              AND R.ParentJournalSerialNo = L.JournalSerialNo 
+									  AND R.GLAccount             = L.GLAccount
+									  <!--- link to the line of the payment order, does not apply for sales contract --->
+									  AND R.ParentLineId          = L.TransactionLineId 
+									  AND R.ParentLineId is not NULL							  
+									  
+				WHERE    	L.ReconciliationPointer = 0  <!--- not manually overruled as reconciled ---> 
+				
+				 <!--- ---------------------------------------------------------- --->
+				 <!--- -------------------Period is not closed-: TO BE CHECK----- --->
+				 <!--- ---------------------------------------------------------- --->
+				
+				 AND        EXISTS (SELECT 'X'
+				                    FROM   Period 
+							        WHERE  AccountPeriod = L.AccountPeriod 
+								    AND    ActionStatus = '0')			
+						
+				 <!--- ---------------------------------------------------------- --->
+				 <!--- ------------------Payment order journal------------------- --->
+				 <!--- ---------------------------------------------------------- --->
+				
+				 AND        L.Journal IN (SELECT Journal 
+				                          FROM   Journal 
+										  WHERE  Mission = '#HeaderSelect.Mission#'	
+										  AND    TransactionCategory IN ('Payment','DirectPayment'))		
+				
+				 <!--- ---------------------------------------------------------- --->
+				 <!--- the parent transaction GL account requires reconcilitation --->
+				 <!--- ---------------------------------------------------------- --->
+				 	 
+				 AND        EXISTS  (SELECT   'X'
+				                     FROM     Ref_Account
+								     WHERE    GLAccount = L.GLAccount
+				                     AND      BankReconciliation = 1)
+				
+				<!--- --------------------------------------------------------- --->
+				<!--- payments can ONLY be reconciled against 
+				      the same currency of the processing bank journal, ATTENTION for a receivable this is not necessarily the case -------- --->
+				<!--- --------------------------------------------------------- --->
+				
+				AND         L.Currency       = '#HeaderSelect.Currency#'
+								  
+				GROUP BY 	L.Journal, 
+				         	L.JournalSerialNo,
+						 	L.TransactionLineId, 
+						 	L.AmountDebit, 
+						 	L.AmountCredit
+							
+			    <!--- the system allows you to settle from a different currency, in that we reconstruct the value in the issued currency 13/7/2013 --->
+				 				
+				HAVING      (  L.AmountDebit  <> 0 AND L.AmountDebit <> ISNULL(SUM(R.AmountCredit*R.ExchangeRate),0) ) OR 				
+							<!--- if orginal amount is credit, check for the debit amounts --->				
+							(  L.AmountCredit <> 0 AND L.AmountCredit <> ISNULL(SUM(R.AmountDebit*R.ExchangeRate),0) )	
+							
+					
+		</cfsavecontent>
+		
+		</cfoutput>
+		
+	</cfif>		
 
-</cfoutput>
+	<cf_droptable dbname="AppsQuery" tblname="#HeaderSelect.Mission##SESSION.acc#Ledger">	
+	
+	<!--- Query returning search results --->
+	<cfquery name="SearchResult"
+	datasource="AppsLedger" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	
+	  <!--- select transactions which still have a balance on the orig amount 
+	  and are not part of this transaction already --->
+	   
+	  SELECT   P.Journal,
+	  		   J.Description as JournalDescription,
+	           P.JournalSerialNo,
+			   P.JournalTransactionNo,
+			   H.TransactionReference,
+			   H.ActionStatus,
+			   P.GLAccount,
+	           P.ReferenceName,
+			   P.TransactionDate,
+			   P.AccountPeriod,		
+			   P.ReferenceNo,   
+			   P.TransactionLineId,
+			   
+			   (SELECT TOP 1 ActionReference1
+		        FROM   TransactionHeaderAction TA 
+			    WHERE  Journal         = H.Journal
+			    AND    JournalSerialNo = H.JournalSerialNo) as Tax,		
+			   
+			   P.Currency,		   		  
+			   P.AmountDebit,
+			   P.AmountCredit, 		
+			   
+			   <cfif url.mode neq "PO">
+			   H.AmountOutstanding,
+			   <cfelseif url.mode eq "PO">
+			  (O.AmountCredit-O.RecDebit) as AmountOutstanding,		   
+			   </cfif>
+			   
+	           R.Description   as GLDescription, 
+			   H.Description   as HeaderDescription, 
+			   H.TransactionId as TransactionIdHeader	
+			   
+	  INTO     userQuery.dbo.#HeaderSelect.Mission##SESSION.acc#Ledger		   	   
+		
+	  FROM     TransactionLine P 
+	           INNER JOIN TransactionHeader H  ON P.Journal     = H.Journal AND P.JournalSerialNo = H.JournalSerialNo	 
+			   INNER JOIN Ref_Account R        ON P.GLAccount   = R.GLAccount	
+			   INNER JOIN Journal J            ON J.Journal     = P.Journal
+			   
+			   <cfif url.mode eq "PO">
+			   INNER JOIN (#PreserveSingleQuotes(Outstanding)#) O ON P.TransactionLineId = O.TransactionLineId		   
+			   </cfif>
+	  
+	  <!--- ------------------------------------------------------------------------------------------ --->	
+	  <!--- -------------------------- Transaction needs to belong to same entity -------------------- --->
+	  <!--- ------------------------------------------------------------------------------------------ --->
+	  
+	  WHERE    H.Mission        = '#HeaderSelect.Mission#'	
+	    AND    H.RecordStatus   = '1'
+		<!--- Parent transaction has been approved --->													 
+		AND    H.ActionStatus IN ('0','1')	<!--- has been approved in the workflow --->	
+	    AND    H.TransactionCategory NOT IN ('Inventory','Memorial','Receipt')
+	    			
+		<cfif HeaderSelect.OrgUnitOwner neq "0">	
+		AND    H.OrgUnitOwner = '#HeaderSelect.OrgUnitOwner#'	 	
+		</cfif>	
+		
+		<cfif url.mode eq "AP">
+		
+		 AND     J.Journal IN (SELECT Journal
+			                   FROM   Journal 
+							   WHERE  Mission = '#HeaderSelect.Mission#'	
+							   AND    TransactionCategory  IN ('Payables','DirectPayment'))		
+							   
+		<cfelseif url.mode eq "PO">
+				
+		 AND     J.Journal IN (SELECT Journal 
+			                   FROM   Journal 
+							   WHERE  Mission = '#HeaderSelect.Mission#'	
+							   AND    TransactionCategory IN ('Payment'))		<!--- direct payment ????? --->
+							   
+		
+		<cfelse>
+		
+		 AND     J.Journal IN (SELECT Journal
+			                   FROM   Journal 
+							   WHERE  Mission = '#HeaderSelect.Mission#'	
+							   AND    TransactionCategory  IN ('Receivables','Memorial','Banking'))		<!--- added receipt as this journal is used to present a settlement --->	 
+			
+		</cfif>
+		
+		<!--- ------------------------------------------------------------------------------------------ --->	
+	           	
+	    <!--- The account code of the parent transaction has been tagged as bank reconcilable, 
+		    not each acocunt requires reconciliation --->
+			
+	    AND    EXISTS   (  SELECT   GLAccount
+	                       FROM     Ref_Account
+						   WHERE    GlAccount = P.GLAccount
+	                       AND      BankReconciliation = 1
+						)  
+		
+		<!--- ------------------------------------------------------------------------------------------ --->
+		<!--- bank defined for contra-account of this journal is same as the defined bank for the parent --->
+		<!--- ------------------------------------------------------------------------------------------ --->
+		
+		<cfif ActionBank.BankId neq "">					
+		 AND     (H.ActionBankId is NULL or H.ActionBankId = '#ActionBank.BankId#') 
+		</cfif>			
+		
+		AND     ABS(H.AmountOutstanding) >= 0.05
+							
+		<!--- ------------------------------------------------------------------------------------------ --->
+		<!--- -------------------------------exclude opening balance transactions----------------------- --->
+		<!--- ------------------------------------------------------------------------------------------ --->	
+		AND    P.Journal NOT IN (SELECT Journal FROM Journal WHERE SystemJournal = 'Opening')
+		<!--- ------------------------------------------------------------------------------------------ --->
+				
+		<!--- ------------------------------------------------------------------------------------------ --->
+		<!--- -------already selected in the current active transaction in the process list ------------ --->
+		<!--- ------------------------------------------------------------------------------------------ 	
+		AND    P.TransactionLineId NOT IN (SELECT ParentLineId 
+	                                       FROM   userQuery.dbo.#SESSION.acc#GledgerLine_#client.sessionNo#
+								           WHERE  ParentLineId IS NOT NULL) 
+										   	
+		<cfif URL.find neq "">
+	     AND (
+			 	R.Description          like '%#URL.find#%' OR 
+				H.JournalTransactionNo like '%#URL.find#%' OR 
+				H.Description          like '%#URL.find#%' OR 
+				P.ReferenceName        like '%#URL.find#%' OR
+				P.ReferenceNo          like '%#URL.find#%' OR
+				H.TransactionReference like '%#URL.find#%' )
+	    </cfif>
+		
+		<cfif URL.tax neq "">			
+										
+				AND EXISTS (SELECT 'X'
+				        FROM   TransactionHeaderAction TA 
+						WHERE  Journal         = P.Journal
+				        AND    JournalSerialNo = P.JournalSerialNo
+						AND    ActionReference1 LIKE '%#URL.tax#%')													
+				 
+				
+		</cfif>		
+					
+		<cfif URL.iJournal neq "">
+	    AND     P.Journal  in (#PreserveSingleQuotes(URL.iJournal)#)            
+		</cfif>					
+		
+		<cfif URL.Period neq "">
+	    AND     P.AccountPeriod =  '#URL.Period#'
+		</cfif>		
+		
+		--->
+		
+	</cfquery>
+	
+	<!---	
+	<cfoutput>1. #cfquery.executiontime#</cfoutput>
+	--->
+	
+</cfif>	
+
 
 <!--- Query returning search results --->
+
 <cfquery name="SearchResult"
-datasource="AppsLedger" 
+datasource="AppsQuery" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
 
-
-  <!--- select transactions which still have a balance on the orig amount 
-  and are not part of this transaction already --->
-   
-  SELECT   P.Journal,
-  		   J.Description as JournalDescription,
-           P.JournalSerialNo,
-		   P.JournalTransactionNo,
-		   H.TransactionReference,
-		   H.ActionStatus,
-		   P.GLAccount,
-           P.ReferenceName,
-		   P.TransactionDate,
-		   P.AccountPeriod,		   
-		   P.TransactionLineId,
-		   P.Currency,		   		  
-		   P.AmountDebit,
-		   P.AmountCredit, 		
-		   
-		   <cfif url.mode neq "PO">
-		   H.AmountOutstanding,
-		   <cfelseif url.mode eq "PO">
-		  (O.AmountCredit-O.RecDebit) as AmountOutstanding,		   
-		   </cfif>
-		   
-           R.Description   as GLDescription, 
-		   H.Description   as HeaderDescription, 
-		   H.TransactionId as TransactionIdHeader		   
-	
-  FROM     TransactionLine P WITH(NOLOCK) 
-           INNER JOIN TransactionHeader H WITH(NOLOCK) ON P.Journal     = H.Journal AND P.JournalSerialNo = H.JournalSerialNo	 
-		   INNER JOIN Ref_Account R WITH(NOLOCK)       ON P.GLAccount   = R.GLAccount	
-		   INNER JOIN Journal J WITH(NOLOCK)           ON J.Journal     = P.Journal
-		   
-		   <cfif url.mode eq "PO">
-		   INNER JOIN (#PreserveSingleQuotes(Outstanding)#) O ON P.TransactionLineId = O.TransactionLineId		   
-		   </cfif>
-  
-  <!--- ------------------------------------------------------------------------------------------ --->	
-  <!--- -------------------------- Transaction needs to belong to same entity -------------------- --->
-  <!--- ------------------------------------------------------------------------------------------ --->
-  
-  WHERE    H.Mission        = '#HeaderSelect.Mission#'	
-    AND    H.RecordStatus   = '1'
-	<!--- Parent transaction has been approved --->													 
-	AND    H.ActionStatus IN ('0','1')	<!--- has been approved in the workflow --->	
-    AND    H.TransactionCategory NOT IN ('Inventory','Memorial','Receipt')
-    			
-	<cfif HeaderSelect.OrgUnitOwner neq "0">	
-	AND    H.OrgUnitOwner = '#HeaderSelect.OrgUnitOwner#'	 	
-	</cfif>	
-	
-	<cfif url.mode eq "AP">
-	
-	 AND     J.Journal IN (SELECT Journal
-		                   FROM   Journal 
-						   WHERE  Mission = '#HeaderSelect.Mission#'	
-						   AND    TransactionCategory  IN ('Payables','DirectPayment'))		
-						   
-	<cfelseif url.mode eq "PO">
-			
-	 AND     J.Journal IN (SELECT Journal 
-		                   FROM   Journal 
-						   WHERE  Mission = '#HeaderSelect.Mission#'	
-						   AND    TransactionCategory IN ('Payment'))		<!--- direct payment ????? --->
-						   
-	
-	<cfelse>
-	
-	 AND     J.Journal IN (SELECT Journal
-		                   FROM   Journal 
-						   WHERE  Mission = '#HeaderSelect.Mission#'	
-						   AND    TransactionCategory  IN ('Receivables','Memorial','Banking'))		<!--- added receipt as this journal is used to present a settlement --->	 
-		
-	</cfif>
-	
-	<!--- ------------------------------------------------------------------------------------------ --->	
-           	
-    <!--- The account code of the parent transaction has been tagged as bank reconcilable, 
-	    not each acocunt requires reconciliation --->
-		
-    AND    EXISTS   (  SELECT   GLAccount
-                       FROM     Ref_Account
-					   WHERE    GlAccount = P.GLAccount
-                       AND      BankReconciliation = 1
-					)  
-	
-	<!--- ------------------------------------------------------------------------------------------ --->
-	<!--- bank defined for contra-account of this journal is same as the defined bank for the parent --->
-	<!--- ------------------------------------------------------------------------------------------ --->
-	
-	<cfif ActionBank.BankId neq "">					
-	 AND     (H.ActionBankId is NULL or H.ActionBankId = '#ActionBank.BankId#') 
-	</cfif>			
-	
-	AND     ABS(H.AmountOutstanding) >= 0.05
-
-	<!--- ------------------------------------------------------------------------------------------ ---> 			
-					
-	<!--- ------------------------------------------------------------------------------------------ --->
-	<!--- -------------------------------exclude opening balance transactions----------------------- --->
-	<!--- ------------------------------------------------------------------------------------------ --->	
-	AND    P.Journal NOT IN (SELECT Journal FROM Journal WHERE SystemJournal = 'Opening')
-	<!--- ------------------------------------------------------------------------------------------ --->
+	SELECT *
+	FROM   #HeaderSelect.Mission##SESSION.acc#Ledger P
 	
 	<!--- ------------------------------------------------------------------------------------------ --->
 	<!--- -------already selected in the current active transaction in the process list ------------ --->
 	<!--- ------------------------------------------------------------------------------------------ --->	
-	AND    P.TransactionLineId NOT IN (SELECT ParentLineId 
+	WHERE   P.TransactionLineId NOT IN (SELECT ParentLineId 
                                        FROM   userQuery.dbo.#SESSION.acc#GledgerLine_#client.sessionNo#
 							           WHERE  ParentLineId IS NOT NULL) 
 									   	
-
 	<cfif URL.find neq "">
      AND (
-		 	R.Description          like '%#URL.find#%' OR 
-			H.JournalTransactionNo like '%#URL.find#%' OR 
-			H.Description          like '%#URL.find#%' OR 
-			P.ReferenceName        like '%#URL.find#%' OR
-			P.ReferenceNo          like '%#URL.find#%' OR
-			H.TransactionReference like '%#URL.find#%' )
+		 	GLDescription          like '%#URL.find#%' OR 
+			JournalTransactionNo   like '%#URL.find#%' OR 
+			HeaderDescription      like '%#URL.find#%' OR 
+			ReferenceName          like '%#URL.find#%' OR
+			ReferenceNo            like '%#URL.find#%' OR
+			TransactionReference   like '%#URL.find#%' )
     </cfif>
 	
-	<cfif URL.tax neq "">			
-									
-			AND EXISTS (SELECT 'X'
-			        FROM   TransactionHeaderAction TA WITH(NOLOCK)
-					WHERE  Journal         = P.Journal
-			        AND    JournalSerialNo = P.JournalSerialNo
-					AND    ActionReference1 LIKE '%#URL.tax#%')													
-			 
-			
-	</cfif>		
-				
+	<cfif URL.tax neq "">		
+	AND     P.TAX LIKE '%#URL.tax#%'			
+	</cfif>				
+					
 	<cfif URL.iJournal neq "">
     AND     P.Journal  in (#PreserveSingleQuotes(URL.iJournal)#)            
 	</cfif>					
@@ -263,13 +324,12 @@ password="#SESSION.dbpw#">
 	</cfif>		
 	
 	ORDER BY P.#URL.ID1#,P.AccountPeriod <cfif url.id1 neq "TransactionDate">,P.TransactionDate</cfif>
-	
+
 </cfquery>
 
 <!---
-<cfoutput>#cfquery.executiontime#:#searchresult.recordcount#</cfoutput>
+<cfoutput>2. #cfquery.executiontime#:#searchresult.recordcount#</cfoutput>
 --->
-
 
 <!--- lookup values --->
 
@@ -283,7 +343,7 @@ password="#SESSION.dbpw#">
 	FROM SearchResult
 </cfquery>
 
-<cfset client.pagerecords = 80>
+<cfset client.pagerecords = 100>
 
 <cfinclude template="../../../../Tools/PageCount.cfm">
  
@@ -296,9 +356,8 @@ password="#SESSION.dbpw#">
 	<input type="hidden" name="iPeriod"		 	id="iPeriod"   		value="#ValueList(PeriodList.AccountPeriod)#">									
 </cfoutput>
 						
-<table width="99%" class="navigation_table">
-	
-				
+<table width="99%" align="left" class="navigation_table">
+					
 <cfset prior = "">		
 
 <cfif searchresult.recordcount eq "0">
@@ -367,8 +426,7 @@ password="#SESSION.dbpw#">
 		   </cfif>	  
 		</cfif>  		
 		
-		--->
-		
+		--->		
 	
 		<cfif abs(val) gte 0.10>
 				
@@ -468,8 +526,7 @@ password="#SESSION.dbpw#">
 					 style="padding-top:2px"
 					 value="#NumberFormat(val,',.__')#" 
 					 size="10" >
-				     #NumberFormat(val,',.__')#   
-					
+				     #NumberFormat(val,',.__')#   					
 					
 				</td>	
 				
@@ -540,8 +597,7 @@ password="#SESSION.dbpw#">
 														
 			</cfif>					
 				   
-   </cfoutput>
-   
+   </cfoutput>   
    							
 <tr style="height:0px">
     <TD width="20" align="center"></TD>

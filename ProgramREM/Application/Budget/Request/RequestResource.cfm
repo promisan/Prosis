@@ -62,7 +62,7 @@
 	 if (se.className == "hide") {	  	
 	    se.className = "regular"	
 		_cf_loadingtexthtml='';	
-		ColdFusion.navigate('<cfoutput>#session.root#</cfoutput>/ProgramREM/Application/Budget/Request/getAllotmentDetail.cfm?Year='+yr+'&RequirementIdParent='+id+'&ObjectCode='+ob,'content'+id+'_'+ob+'_'+yr)
+		ptoken.navigate('<cfoutput>#session.root#</cfoutput>/ProgramREM/Application/Budget/Request/getAllotmentDetail.cfm?Year='+yr+'&RequirementIdParent='+id+'&ObjectCode='+ob,'content'+id+'_'+ob+'_'+yr)
 	 } else {
 	    se.className = "hide"
 	 }	
@@ -77,6 +77,8 @@
 	
 	
 </script>
+
+<cf_divscroll>
 
 <table width="100%" align="center" border="0">
 	
@@ -116,6 +118,8 @@
 	</tr>
 
 </table>
+
+</cf_divscroll>
 
 <input type="hidden" name="savecustom" id="savecustom" value="">
 

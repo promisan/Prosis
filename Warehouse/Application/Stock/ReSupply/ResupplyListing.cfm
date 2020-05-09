@@ -25,62 +25,35 @@ password="#SESSION.dbpw#">
 	
 </cfquery>
 
+<cfif ResultList.recordcount gte "250">
 
-<cfif ResultList.recordcount gte "1000">
-
-	<table border="0" class="formspacing">
+	<table class="formspacing">
 
 	<tr><td height="30"></td></tr>
-	<tr> 	  
-	 <TD height="20" align="left" class="labelmedium"><cf_tl id="Filter Item">:</TD>		 
-	 <td colspan="2">
-	    <cfoutput>
-		   <input type="text" name="filter" id="filter" size="40" class="regularxl enterastab" 
-		 	onkeyup="resupply('s','#url.systemfunctionid#',document.getElementById('restocking').value,'filter')">		
-		</cfoutput> 
-	 </td>
-	</tr>	
-	<tr><td height="30"></td></tr>
-	<tr><td height="100%" colspan="3" align="center" class="labelmedium">
+	<tr><td height="100%" colspan="3" align="center" class="labelmedium" style="padding-left:20px">
 		<cf_tl id="There were too many items found that would need to be replenished. Please update your filtering">
 	</td>
 	</tr>
-	
-	</table>
-	
-	<script>
-		Prosis.busy('no')
-	</script>
-
-<cfelseif ResultList.recordcount eq "0">
-
-	<table border="0" class="formspacing">
-	
 	<tr> 	  
-	 <TD height="20" align="left" class="labelmedium"><cf_tl id="Filter Item">:</TD>		 
-	 <td colspan="2">
- 		<cfoutput>
-		
-		   <input type="text" name="filter" id="filter" size="40" class="regularxl enterastab" 
-		 	onkeyup="resupply('s','#url.systemfunctionid#',document.getElementById('restocking').value,'filter')">		 
-		</cfoutput>
+	 <TD height="20" style="padding-left:20px" align="left" class="labelmedium"><cf_tl id="Filter Item">:</TD>		 
+	 <td colspan="2" style="padding-left:20px">
+	    <cfoutput>
+		   <input type="text" name="filter" id="filter" size="30" class="regularxl" style="font-size:30px;height:40px"
+		 	onkeyup="if (event.keyCode == 13) {resupply('s','#url.systemfunctionid#',document.getElementById('restocking').value,'filter')}">					
+		</cfoutput> 
 	 </td>
-	</tr>	
-	<tr><td height="30"></td></tr>
-	<tr><td height="100%" colspan="3" align="center" class="labelmedium">
-	<cf_tl id="There were NO items found that would need to be replenished for this warehouse with your selection">
-	</td>
-	</tr>
+	</tr>		
+	
 	
 	</table>
-		
+	
 	<script>
 		Prosis.busy('no')
 	</script>
 
 <cfelse>
 
-	<table height="100%" border="0" width="100%" class="formspacing" align="center">
+	<table height="100%" border="0" width="100%" align="center">
 
 	<tr> 	  
 	 <TD colspan="3">
@@ -88,20 +61,21 @@ password="#SESSION.dbpw#">
 	 <cfoutput>
 	 <table>
 	 <tr>
-	 <TD align="left" class="labelmedium"><cf_tl id="Filter Item">:</TD>		 
-	 <td colspan="2">
+	 <TD align="left" class="labelmedium"><cf_tl id="Filter Item"></TD>		 
+	 <td colspan="2" style="padding-left:4px">
 	      
-		   <input type="text" name="filter" id="filter" size="40" value="#Form.filter#" class="regularxl enterastab" 
-		 	onchange="resupply('s','#url.systemfunctionid#',document.getElementById('restocking').value,'filter')">		 
+		   <input type="text" name="filter" id="filter" size="20" value="#Form.filter#" class="regularxl" 
+		 	onkeyup="if (event.keyCode == 13) {resupply('s','#url.systemfunctionid#',document.getElementById('restocking').value,'filter')}"
+			style="border:0px;border-left:1px solid silver;border-right:1px solid silver;background-color:f1f1f1;">		 
 		 	
 	 </td>
 	 <td>
 			<table>									  
 			   <tr class="labelmedium">			   			   	  
 				   <td style="padding-left:10px;padding-right:5px"><cf_tl id="Items"></td>
-				   <td style="border:1px solid silver;width:50px;padding-left:5px;padding-right:5px;" align="center" id="items">#resultlist.recordcount#</td>
+				   <td style="border-left:1px solid silver;border-right:1px solid silver;width:50px;padding-left:5px;padding-right:5px;" align="center" id="items">#resultlist.recordcount#</td>
 				   <td colspan="2" style="padding-left:10px;padding-right:8px" align="right" id="selected"><cf_tl id="Selected">:</td>
-				   <td bgcolor="ffffbf" colspan="2" style="border:1px solid silver;width:50px;padding-left:5px;padding-right:5px;" align="center" class="labelmedium" id="section0"></td>		   		   					   
+				   <td bgcolor="ffffbf" colspan="2" style="border-left:1px solid silver;border-right:1px solid silver;width:50px;padding-left:5px;padding-right:5px;" align="center" class="labelmedium" id="section0"></td>		   		   					   
 			   </tr>				   
 		   </table>
 				
@@ -174,16 +148,23 @@ password="#SESSION.dbpw#">
 			 <input type="hidden" name="warehouse"     id="warehouse"     value="#URL.Warehouse#">	
 							 
 			</cfoutput>
-					
-			<tr bgcolor="ffffff">
-			<td colspan="3">
 						
-				<table width="100%">
-				
-					<tr class="labelmedium line" style="border-top:1px solid silver">
+			<script>
+				 Prosis.busy('no')
+			</script>
+
+			<tr bgcolor="ffffff">
+			
+				<td height="100%" colspan="3" style="border:0px solid silver">
+									
+				<cf_divscroll overflowy="scroll" style="padding-right:5px">
+														
+				<table width="99%" border="0" class="navigation_table">
+																				
+					<tr class="labelmedium line fixrow" style="border-top:1px solid silver">
 					    <td style="min-width:35px"></td>
 						<td align="center" style="min-width:50px;border-left:1px solid silver;padding-right:4px"><cf_tl id="No"></td>
-						<td align="center" style="min-width:100px;border-left:1px solid silver;padding-right:4px"><cf_tl id="Barcode"></td>
+						<td align="center" style="min-width:120px;border-left:1px solid silver;padding-right:4px"><cf_tl id="Barcode"></td>
 						<td align="center" style="width:89%;border-left:1px solid silver;padding-right:4px"><cf_tl id="Item"></td>	
 						<td align="center" style="min-width:100px;border-left:1px solid silver;padding-right:4px"><cf_tl id="MinOrder"></td>			
 						<td align="center" style="min-width:100px;border-left:1px solid silver;padding-right:4px"><cf_tl id="Price"></td>			
@@ -195,8 +176,8 @@ password="#SESSION.dbpw#">
 						<td style="border-left:1px solid silver;padding-right:4px" align="center"><cf_tl id="Economic"></td>				
 						<td colspan="2" style="border-left:1px solid silver;border-right:1px solid silver;;padding-right:4px" align="center"><cf_tl id="Proposed"></td>				
 					</tr>
-					
-					<tr class="labelmedium line">
+							
+					<tr class="labelmedium line fixrow2">
 					
 					    <td colspan="9">
 						
@@ -209,16 +190,7 @@ password="#SESSION.dbpw#">
 								<option value="category" <cfif url.sort eq "category">selected</cfif>><cf_tl id="Category"></option>
 								<option value="item" <cfif url.sort eq "item">selected</cfif>><cf_tl id="Item"></option>				
 							</select>	
-							</td>
-		
-							<!---					
-							<TD align="left" style="padding-top:5px" class="labelmedium"><cf_tl id="Item">:</TD>
-	 
-							<td>
-							 <input type="text" name="filter" id="filter" size="40" class="regularxl enterastab" 
-							 	onchange="resupply('s','#url.systemfunctionid#',document.getElementById('restocking').value,this.value)">		 
-							</td>
-							--->
+							</td>		
 							</cfoutput>	  
 							
 							</tr>
@@ -260,25 +232,7 @@ password="#SESSION.dbpw#">
 							
 						
 						</td>				
-					</tr>
-				
-				</table>
-				
-				</td>
-				
-			</tr>
-			
-			<script>
-				 Prosis.busy('no')
-			</script>
-
-			<tr bgcolor="ffffff">
-			
-				<td height="100%" colspan="3" style="border:0px solid silver">
-									
-				<cf_divscroll overflowy="scroll" style="padding-right:5px">
-														
-				<table width="99%" border="0" class="navigation_table">
+				</tr>
 				
 				<cfset section = 0>
 				
@@ -296,7 +250,7 @@ password="#SESSION.dbpw#">
 				
 					<cfset cnt=0>
 				
-					<tr class="fixrow" style="height:26px">
+					<tr class="fixrow3" style="height:26px">
 						
 						    <td colspan="4" style="width:100%;padding-top:1px;font-weight:bold" class="labellarge">
 							
@@ -344,7 +298,7 @@ password="#SESSION.dbpw#">
 										    				
 				         <cfset section = section + 1>
 				 				
-						 <tr class="line fixrow2">
+						 <tr class="line">
 						   <td colspan="4" style="padding-left:5px;width:100%;height:35px" class="labelmedium"><cfif CategoryItemName neq "Default">#CategoryItemName#</cfif></td>
 						   <td colspan="12" align="right" style="padding-right:7px">	
 							   <table>
@@ -521,7 +475,7 @@ password="#SESSION.dbpw#">
 					   <tr>			   
 					   <td colspan="4" style="height:25px" class="labelit"></td>
 					   <td class="labelmedium" colspan="4"><cf_tl id="Items">&nbsp;:&nbsp;#cnt#</b></td>
-					   <td colspan="2" style="padding-right:8px" align="right" id="selected" class="labelmedium"><cf_tl id="Selected">:</td>
+					   <td colspan="2" style="padding-right:8px" align="right" id="selected" class="labelmedium"><cf_tl id="Selected"></td>
 					   <td bgcolor="ffffbf" 
 					     colspan="2" style="border:1px solid silver;padding-left:10px;padding-right:5px;" align="right" class="labelmedium" id="section#section#">#sel#</td>		   		   					   
 					   </tr>	
@@ -539,9 +493,10 @@ password="#SESSION.dbpw#">
 				</cf_divscroll>
 				
 			</td></tr>
+			
+			<cfif ResultList.recordcount gte "1">
 							
 			<cfif url.restocking eq "Procurement">		
-			
 			
 					
 				<!--- 22/3/2017 by default the current period is taken here, little ne3ed to changeit in this screen
@@ -590,7 +545,7 @@ password="#SESSION.dbpw#">
 				
 				<tr>
 				
-				<TD width="133" style="padding-left:14px;height:25px" class="labelmedium"><cf_tl id="Request">:</TD>
+				<TD width="133" style="padding-left:14px;height:25px" class="labelmedium"><cf_tl id="Request"></TD>
 				
 					<cfquery name="RequestTypeList" 
 						datasource="AppsMaterials" 
@@ -633,7 +588,7 @@ password="#SESSION.dbpw#">
 				</tr>	
 				
 				<tr>
-					<TD style="padding-left:14px;height:25px" class="labelmedium"><cf_tl id="Priority"> <font color="FF0000">*</font>:</TD>						
+					<TD style="padding-left:14px;height:25px" class="labelmedium"><cf_tl id="Priority"> <font color="FF0000">*</font></TD>						
 					<td id="requestaction">		
 						<cfdiv bind="url:#SESSION.root#/Warehouse/Application/Stock/Resupply/getRequestAction.cfm?warehouse=#url.warehouse#&requesttype={requesttype}">		
 					</td>
@@ -643,7 +598,7 @@ password="#SESSION.dbpw#">
 			
 			<tr><td class="line" colspan="2"></td></tr>										
 			<TR> 
-		       <TD style="padding-left:14px;height:25px" class="labelmedium"><cf_tl id="Unit"><font color="FF0000">*</font> :</TD>
+		       <TD style="padding-left:14px;height:25px" class="labelmedium"><cf_tl id="Unit"><font color="FF0000">*</font></TD>
 		       <td align="left">
 			   
 			   <cfquery name="Units" 
@@ -683,7 +638,7 @@ password="#SESSION.dbpw#">
 				
 				<TR>
 			        <td style="padding-left:13px;height:25px" class="labelmedium" id="fundingrefresh" onclick="funding()">
-					<cf_tl id="Funding">:
+					<cf_tl id="Funding">
 					</td>
 					
 					<TD id="fundbox" style="padding-right:20px">
@@ -701,8 +656,9 @@ password="#SESSION.dbpw#">
 			
 			</cfif>		
 			
+			<tr><td style="height:3px"></td></tr>
 			<TR> 
-		       <TD style="padding-left:14px;height:25px" class="labelmedium"><cf_tl id="Memo"><font color="FF0000">*</font> :<cf_space spaces="30"></TD>
+		       <TD style="padding-left:14px;height:25px;min-width:200px" class="labelmedium"><cf_tl id="Memo"><font color="FF0000">*</font></TD>
 		       <td align="left" style="width:100%">
 			   
 			    <cf_tl id="Replenishment" var="memo">
@@ -712,7 +668,10 @@ password="#SESSION.dbpw#">
 			   </td>			  	   
 		    </TR>
 			
-			<tr><td id="submitted" colspan="3"></td></tr>		
+			<tr><td style="height:3px"></td></tr>
+						
+			<tr><td id="submitted" colspan="3"></td></tr>	
+				
 			
 			<cfoutput>
 			
@@ -799,6 +758,8 @@ password="#SESSION.dbpw#">
 						 	
 			</td></tr>
 			</cfoutput> 
+			
+		</cfif>	
 		
 </cfif>			
 		

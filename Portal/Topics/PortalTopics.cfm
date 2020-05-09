@@ -171,7 +171,8 @@ password="#SESSION.dbpw#">
 	</cfif>
 			
 	<tr><td height="10px"></td></tr>
-			
+	
+		
 <cfoutput query="searchresult">
    
    <tr class="line" style="height:40px"><td colspan="4" style="padding-top:4px;height:20px;padding-left:20px" class="labellarge">
@@ -221,8 +222,10 @@ password="#SESSION.dbpw#">
 		    <tr>					
 		     <cfif Status is "1">
 			 	<td style="padding-left:47px;padding-top:4px" align="center" id="content_#currentrow#">
-				 <cfset scope = "topic">
+				 <cfset scope = "topic">				
+				 				 
 				 <cfinclude template="#FunctionPath#/Topic.cfm">
+				 
 				 </td>
 			 <cfelse>
 			    <td style="padding-left:47px;padding-top:4px" align="center" id="content_#currentrow#"></td>	 				 

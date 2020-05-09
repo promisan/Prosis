@@ -12,25 +12,25 @@
 	function removevendor(unit,wf,per,id1,sort) {
 	
 	if (confirm("Do you want to remove this vendor ?"))	{	
-		ColdFusion.navigate('#SESSION.root#/procurement/application/quote/quotationview/VendorDeleteSubmit.cfm?workflow='+wf+'&OrgUnit=' + unit + '&Period='+per+'&ID1='+id1+'&Sort='+sort,'dialog')
+		ptoken.navigate('#SESSION.root#/procurement/application/quote/quotationview/VendorDeleteSubmit.cfm?workflow='+wf+'&OrgUnit=' + unit + '&Period='+per+'&ID1='+id1+'&Sort='+sort,'dialog')
 		}
 	}	
 			
 	function markvendor(unit,tree,wf,per,id1,sort) {
 		if (confirm("Do you want to mark all lines of this vendor ?")) {
-			ColdFusion.navigate('#SESSION.root#/procurement/application/quote/quotationview/VendorSelectSubmit.cfm?workflow='+wf+'&mission='+tree+'&OrgUnit=' + unit + '&Period='+per+'&ID1='+id1+'&Sort='+sort,'dialog')	
+			ptoken.navigate('#SESSION.root#/procurement/application/quote/quotationview/VendorSelectSubmit.cfm?workflow='+wf+'&mission='+tree+'&OrgUnit=' + unit + '&Period='+per+'&ID1='+id1+'&Sort='+sort,'dialog')	
 		}
 	}
 	
 	function reloadvendorform(mode,wf,per,id1,sort) {
 	    _cf_loadingtexthtml="";	
-		ColdFusion.navigate('#SESSION.root#/procurement/application/quote/quotationview/JobViewVendor.cfm?workflow='+wf+'&Period='+per+'&ID1='+id1+'&Sort='+sort,'dialog')	
+		ptoken.navigate('#SESSION.root#/procurement/application/quote/quotationview/JobViewVendor.cfm?workflow='+wf+'&Period='+per+'&ID1='+id1+'&Sort='+sort,'dialog')	
 		_cf_loadingtexthtml="<div><img src='<cfoutput>#SESSION.root#</cfoutput>/images/busy11.gif'/>";	
 	}
 	
 	function delline(id,wf,per,id1,sort) {
 	    if (confirm("Do you want to delete this line ?"))	   
-	    ColdFusion.navigate('#SESSION.root#/procurement/application/quote/quotationview/JobViewProcess.cfm?line='+id+'&workflow='+wf+'&Period='+per+'&ID1='+id1+'&Sort='+sort,'dialog')		
+	    navigate('#SESSION.root#/procurement/application/quote/quotationview/JobViewProcess.cfm?line='+id+'&workflow='+wf+'&Period='+per+'&ID1='+id1+'&Sort='+sort,'dialog')		
 	}	
 	
 	function showvendor() {
@@ -53,7 +53,7 @@
 			se.className = "hide"	
 			} else {
 			se.className = "regular"		
-			ColdFusion.navigate('#SESSION.root#/procurement/application/requisition/requisition/RequisitionActionLog.cfm?id='+id,'log'+box)
+			ptoken.navigate('#SESSION.root#/procurement/application/requisition/requisition/RequisitionActionLog.cfm?id='+id,'log'+box)
 		}
 	}	
 	
@@ -66,9 +66,9 @@
 		} else {		   
 			se.className = "regular"		
 			if (type != "Warehouse") {						
-				  ColdFusion.navigate('#SESSION.root#/Procurement/Application/Requisition/Requisition/RequisitionEntryRegular.cfm?mode='+mode+'&option=itm&itemmaster='+mas+'&reqid='+id+'&mis='+mis+'&id=itm&access=view&des=&item=','det'+box)
+				  ptoken.navigate('#SESSION.root#/Procurement/Application/Requisition/Requisition/RequisitionEntryRegular.cfm?mode='+mode+'&option=itm&itemmaster='+mas+'&reqid='+id+'&mis='+mis+'&id=itm&access=view&des=&item=','det'+box)
 			    } else {
-			 	  ColdFusion.navigate('#SESSION.root#/Procurement/Application/Requisition/Requisition/RequisitionEntryWarehouse.cfm?mode='+mode+'&option=itm&itemmaster='+mas+'&reqid='+id+'&mis='+mis+'&id=itm&access=view&des=&item='+itm,'det'+box)
+			 	  ptoken.navigate('#SESSION.root#/Procurement/Application/Requisition/Requisition/RequisitionEntryWarehouse.cfm?mode='+mode+'&option=itm&itemmaster='+mas+'&reqid='+id+'&mis='+mis+'&id=itm&access=view&des=&item='+itm,'det'+box)
 			    }
 		}
 		
@@ -76,7 +76,7 @@
 	
 	function showarchive(actionid,req) {
 	   ProsisUI.createWindow('reqarchive', 'Requisition Action', '',{x:100,y:100,height:550,width:740,modal:false,center:true})>			   
-	   ColdFusion.navigate('#SESSION.root#/procurement/application/requisition/requisition/RequisitionArchive.cfm?actionid='+actionid,'reqarchive')
+	   ptoken.navigate('#SESSION.root#/procurement/application/requisition/requisition/RequisitionArchive.cfm?actionid='+actionid,'reqarchive')
 	}
 	
 	var root = "#root#";
@@ -112,7 +112,7 @@
 	
 	function potrack(po) {
 	    ProsisUI.createWindow('deliverdialog', 'Delivery Tracking', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,center:true})    	   			
-	    ColdFusion.navigate(root + '/Procurement/Application/Delivery/DeliveryView.cfm?purchaseno='+po,'deliverdialog') 			 
+	    ptoken.navigate(root + '/Procurement/Application/Delivery/DeliveryView.cfm?purchaseno='+po,'deliverdialog') 			 
 	}
 	
 	function ProcRcptEntry(rcptid,reqno,mode,action,box,taskid) {      
@@ -123,11 +123,11 @@
 	
 	function ProcRcptLineEdit(rcptid,reqno,mode,action,box,taskid,dte) {
 	   ProsisUI.createWindow('receiptdialog', 'Receipt', '',{x:100,y:100,height:document.body.clientHeight-150,width:document.body.clientWidth-100,modal:true,resizable:false,center:true})    	   			
-	   ColdFusion.navigate(root + '/Procurement/Application/Receipt/ReceiptEntry/ReceiptLineView.cfm?date='+dte+'&mode=' + mode + '&rctid='+rcptid+'&reqno=' + reqno + '&action=' + action + '&taskid=' + taskid,'receiptdialog') 			   
+	   ptoken.navigate(root + '/Procurement/Application/Receipt/ReceiptEntry/ReceiptLineView.cfm?date='+dte+'&mode=' + mode + '&rctid='+rcptid+'&reqno=' + reqno + '&action=' + action + '&taskid=' + taskid,'receiptdialog') 			   
 	}     	
 	
 	function ProcRcptLineDelete(rcptid,reqno,mode,action,box) {    
-		ColdFusion.navigate(root + '/Procurement/Application/Receipt/ReceiptEntry/ReceiptDetail.cfm?action='+action+'&rctid='+rcptid+'&box='+box+'&reqno='+reqno+'&mode='+mode,box)	
+		ptoken.navigate(root + '/Procurement/Application/Receipt/ReceiptEntry/ReceiptDetail.cfm?action='+action+'&rctid='+rcptid+'&box='+box+'&reqno='+reqno+'&mode='+mode,box)	
 	}
 	
 	function ProcLineEdit(recno,mode) {  
@@ -139,7 +139,7 @@
 	function ProcReqAdd(job) {	
 		ColdFusion.Window.create('myshipping', 'Shipping and Handling', '',{x:100,y:100,height:document.body.clientHeight-80,width:800,modal:false,center:true})    
 		ColdFusion.Window.show('myshipping')				
-		ColdFusion.navigate(root + '/Procurement/Application/Quote/Create/AddView.cfm?ID=' + job,'myshipping') 		
+		ptoken.navigate(root + '/Procurement/Application/Quote/Create/AddView.cfm?ID=' + job,'myshipping') 		
 	}
 	
 	function ProcReqSplit(recno) {
@@ -224,7 +224,7 @@
 		    se.className  = "regular"
 			icM.className = "regular"
 			icE.className = "hide"		
-			ColdFusion.navigate(root + '/Procurement/Application/Requisition/Funding/RequisitionEntryFundingSelectObject.cfm?mode=list&cellwidth=19&id='+id+'&programcode='+prg+'&programclass='+cls+'&mission='+mis+'&programhierarchy=&planperiod='+planperiod+'&period='+period+'&edition='+edt+'&fund='+fund+'&unithierarchy='+org+'&scope=embed',box+'_content')	
+			ptoken.navigate(root + '/Procurement/Application/Requisition/Funding/RequisitionEntryFundingSelectObject.cfm?mode=list&cellwidth=19&id='+id+'&programcode='+prg+'&programclass='+cls+'&mission='+mis+'&programhierarchy=&planperiod='+planperiod+'&period='+period+'&edition='+edt+'&fund='+fund+'&unithierarchy='+org+'&scope=embed',box+'_content')	
 			
 		} else {
 		
@@ -244,7 +244,7 @@
 			    se.className = "hide"
 			} else {
 			  se.className = "regular";
-		      ColdFusion.navigate('#SESSION.root#/ProgramREM/Application/Budget/Allotment/AllotmentInquiryDetail.cfm?status='+status+'&isParent=1&ProgramCode='+prg+'&Period='+period+'&Edition='+ed+'&Fund='+fund+'&Object='+obj+'&mode='+mode+'&programhierarchy='+hier+'&unithierarchy='+org+'&resource='+resource,'a'+tpc+box)
+		      ptoken.navigate('#SESSION.root#/ProgramREM/Application/Budget/Allotment/AllotmentInquiryDetail.cfm?status='+status+'&isParent=1&ProgramCode='+prg+'&Period='+period+'&Edition='+ed+'&Fund='+fund+'&Object='+obj+'&mode='+mode+'&programhierarchy='+hier+'&unithierarchy='+org+'&resource='+resource,'a'+tpc+box)
 			}
 		}	      
 	
@@ -315,14 +315,14 @@
 			val = ret.split(";");
 			document.getElementById(itm).value = val[0];											
 			url = root + "/Warehouse/Inquiry/Item/ItemSelectDisplay.cfm?ts="+new Date().getTime()+"&itemno="+val[0]+"&uom="+val[2]
-			ColdFusion.navigate(url,box)					 
+			ptoken.navigate(url,box)					 
 		}					
 	}
 	
 	function refreshtree(mis,per,role) {
 		var div = document.getElementById('drefresh');
 		if (div) {
-			ColdFusion.navigate('#SESSION.root#/Procurement/Application/Requisition/RequisitionView/RequisitionViewTreeRefresh.cfm?mission='+mis+'&period='+per+'&role='+role,'drefresh');					
+			ptoken.navigate('#SESSION.root#/Procurement/Application/Requisition/RequisitionView/RequisitionViewTreeRefresh.cfm?mission='+mis+'&period='+per+'&role='+role,'drefresh');					
 		}	
 	}
 	

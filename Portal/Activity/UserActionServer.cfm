@@ -79,7 +79,7 @@ ORDER BY U.HostName, N.LastName, U.NodeIp
 <td>
 <table width="100%" cellspacing="0" cellpadding="0" class="navigation_table">
 
-<tr class="labelit line">
+<tr class="labelmedium line fixrow">
 	<td><cf_tl id="No"></td>
 	<td><cf_tl id="Host"></td>
 	<td></td>

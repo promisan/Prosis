@@ -49,7 +49,7 @@
 	  
 	function settotal(mode) { 	   
 	   _cf_loadingtexthtml='';		 
-	   ColdFusion.navigate('setTotal.cfm?mode='+mode,'total','','','POST','transactionheader')
+	   ptoken.navigate('setTotal.cfm?mode='+mode,'total','','','POST','transactionheader')
 	
 	}
 		
@@ -86,7 +86,7 @@
 		excb   = document.getElementById("entryexcbase").value;					
 		_cf_loadingtexthtml='';	
 							
-		ColdFusion.navigate('TransactionDetailEntryCalc.cfm?journal=#url.journal#&glaccount='+acc+'&date='+dte+'&entryamount='+amt+'&mode='+mode+
+		ptoken.navigate('TransactionDetailEntryCalc.cfm?journal=#url.journal#&glaccount='+acc+'&date='+dte+'&entryamount='+amt+'&mode='+mode+
 				'&entrycurrency='+cur+
 				'&entryexcjrn='+excj+
 				'&entryexcbase='+excb,'amountdetail')				       			 
@@ -128,8 +128,8 @@
 		 <cfset sc = "Payment">	 
 		 <cfinclude template="TransactionDetailScript.cfm">
 					
-				<cfset wd = "68">
-				<cfset ht = "68">
+				<cfset wd = "54">
+				<cfset ht = "54">
 			
 				<cf_tl id="Manual Transaction Entry" var="1">
 				
@@ -269,8 +269,8 @@
 		 <cfset sc = "">	
 		 <cfinclude template="TransactionDetailScript.cfm">		 
 				 
-		 <cfset wd = "64">
-		 <cfset ht = "64">
+		 <cfset wd = "54">
+		 <cfset ht = "54">
 		 
 		 <cf_tl id="Manual Transaction Entry" var="1">
 			<tr>		

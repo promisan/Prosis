@@ -1,5 +1,5 @@
 
-<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#</cfoutput>/<cfoutput>#client.style#</cfoutput>">
+<cf_screentop jquery="Yes" html="No" scroll="No">
 
 <cfoutput>
 
@@ -385,7 +385,7 @@ password="#SESSION.dbpw#">
 </cfloop>	
 
 <script>
-	window.location = "Evaluate.cfm?ContractId=#URL.ContractId#&EvaluationID=#url.EvaluationID#&type=#url.type#&Code=#URL.Code#&Section=#URL.Section#&recordstatus=#url.recordstatus#&mode=#url.mode#"
+	ptoken.location('Evaluate.cfm?ContractId=#URL.ContractId#&EvaluationID=#url.EvaluationID#&type=#url.type#&Code=#URL.Code#&Section=#URL.Section#&recordstatus=#url.recordstatus#&mode=#url.mode#')	
 </script>
 		
 </cfoutput>	   

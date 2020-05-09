@@ -270,7 +270,7 @@ password="#SESSION.dbpw#">
 								  <cfset url.category     = category>
 								  <cfset url.categoryitem = categoryitem>	
 								  <cfset url.parentItemNo = parentItemNo>  										  
-						  		  
+						  		  ...
 						  		  <cfinclude template="InventoryViewList.cfm">
 								  
 							  </cfif>

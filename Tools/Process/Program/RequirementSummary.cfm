@@ -25,24 +25,36 @@
 			ActionStatus   = "'0','1'"  <!--- 5/15/2015 added '0' --->
 			Mode           = "variable"
 			Support        = "#attributes.Support#"
-			ReturnVariable = "myquery">							
-				
+			ReturnVariable = "myquery">			
+			
+	<cfquery name="getSupport" 
+		datasource="AppsProgram">
+		    SELECT PA.*, O.Resource
+			FROM   ProgramAllotment PA INNER JOIN Ref_Object O ON PA.SupportobjectCode = O.Code
+			WHERE  PA.ProgramCode = '#URL.ProgramCode#' 
+			AND    PA.Period      = '#URL.Period#'
+			-- AND    EditionId   = '#URL.Edition#' 
+    </cfquery>	  
+	
+ 			
 	<cfquery name="getSummary" 
 		datasource="AppsProgram" 
 		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">	
+		password="#SESSION.dbpw#">			
 								
 		SELECT     R.ListingOrder, 
 		           R.Name, 
+				   R.Code,
 				   R.Description,
 				   D.RequestYear, 
 				   D.RequestQuarter,				   
-				   SUM(RequestAmountBase) AS Total  
+				   SUM(RequestAmountBase) AS Total,  
+				   SUM(SupportAmountBase) AS Support  
 				   
-		FROM      (#preservesingleQuotes(myquery)#) D INNER JOIN Ref_Resource R ON R.Code = D.Resource					   					   
-			
-		GROUP BY R.ListingOrder, R.Name, R.Description, D.RequestYear, D.RequestQuarter 
-		ORDER BY R.ListingOrder, R.Name, R.Description, D.RequestYear, D.RequestQuarter
+		FROM      (#preservesingleQuotes(myquery)#) D INNER JOIN Ref_Resource R ON R.Code = D.Resource	
+				
+		GROUP BY R.ListingOrder, R.Name, R.Code, R.Description, D.RequestYear, D.RequestQuarter 
+		ORDER BY R.ListingOrder, R.Name, R.Code, R.Description, D.RequestYear, D.RequestQuarter
 									
 	</cfquery>	
 			
@@ -71,9 +83,9 @@
 	<cfif getSummary.recordcount eq "0">
 	
 		<table width="100%">
-		<tr>
-		<td class="labelmedium" align="center" style="font-size:22px; height:40px"><font color="FF0000"><cf_tl id="No detailed requirements found"></font></td>
-		</tr>
+			<tr>
+			<td class="labelmedium" align="center" style="font-size:22px; height:40px"><font color="FF0000"><cf_tl id="No detailed requirements found"></font></td>
+			</tr>
 	    </table>
 		<cfabort>
 	
@@ -98,16 +110,12 @@
 				password="#SESSION.dbpw#">	
 				SELECT    MIN(DateEffective) as DateEffective, MAX(DateExpiration) as DateExpiration 				
 				FROM      Ref_Period						
-				WHERE     Period IN (SELECT Period FROM ref_AllotmentEdition WHERE Mission = '#ProgramPeriod.Mission#')	
-				
-				<cfif url.edition gte "1">
-				
-					AND    Period IN (SELECT Period FROM Ref_AllotmentEdition WHERE EditionId = '#url.edition#')
-					
-				<cfelse>	
-												
+				WHERE     Period IN (SELECT Period FROM ref_AllotmentEdition WHERE Mission = '#ProgramPeriod.Mission#')					
+				<cfif url.edition gte "1">				
+				AND       Period IN (SELECT Period FROM Ref_AllotmentEdition WHERE EditionId = '#url.edition#')					
+				<cfelse>													
 				<!--- we show consequitive requirements --->
-				AND Period IN (
+				AND       Period IN (
 			               SELECT Period 
 			               FROM   Ref_Period 
 						   WHERE  DateExpiration >= '#PlanPeriod.DateEffective#'
@@ -127,9 +135,7 @@
 												 AND    Re.IsPlanningPeriod = 1 
 												 AND    PP.isPlanPeriod = 1)		
 													
-					 )
-			 
-																								 
+					      )																							 
 				</cfif>
 			</cfquery>
 									
@@ -142,13 +148,16 @@
 				
 			<cfquery name="getLast" dbtype="query">
 			    SELECT    *
-				FROM      getSummary
+				FROM      getSummary				
 				ORDER BY  RequestYear DESC
-			</cfquery>	
+			</cfquery>						
 			
 			<cfquery name="getResource" dbtype="query">
 			    SELECT    DISTINCT ListingOrder, Name, Description
 				FROM      getSummary
+				<cfif getsupport.Resource neq "">
+				WHERE     Code <> '#getsupport.Resource#'
+		       </cfif>					
 			</cfquery>	
 				
 			<cfset SY = year(getPeriod.DateEffective)>
@@ -168,18 +177,20 @@
 			
 				<cfoutput>
 				
-				<cfset ar = ArrayNew(3)>
+				<cfset ar = ArrayNew(3)> <!--- requirement --->
+				<cfset su = ArrayNew(3)> <!--- support     --->
 			
 			    <!--- populate array --->
 				<cfloop query="getSummary">
 				    <cfif RequestQuarter eq "">
 						<cfset ar[SY][SM][ListingOrder] = total>	
+						<cfset su[SY][SM][ListingOrder] = support>
 					<cfelse>					   	
 						<cfset ar[RequestYear][RequestQuarter][ListingOrder] = total>	
-					</cfif>
-					
+						<cfset su[RequestYear][RequestQuarter][ListingOrder] = support>	
+					</cfif>					
 				</cfloop>
-			
+							
 			    <!--- get width --->	
 						
 				<cfset cnt = 0>		
@@ -205,9 +216,11 @@
 				<cfset w = 65/cnt>
 				
 				<cfset cnt = 0>
-				<tr class="labelit line" style="background-color:f1f1f1">
-				<td width="26%" style="height:20px;padding-left:4px"><cf_tl id="Resource"></td>
+				<tr class="labelmedium line" style="background-color:f1f1f1">
+				<td width="26%" style="height:20px;padding-left:4px;border:1px solid silver"><cf_tl id="Resource"></td>
+				
 				<cfloop index="yr" from="#SY#" to="#EY#">		
+				
 				    <cfif yr eq SY>					
 					    <cfset fr = sm>
 						<cfset to = 4>				
@@ -220,11 +233,11 @@
 					</cfif>									
 					<cfloop index="mt" from="#fr#" to="#to#">				
 						<cfset cnt = cnt+1>				
-					    <td width="#w#%" class="labelit" align="right" style="padding-right:4px;" align="center"><font size="2">Qtr #mt#</td>														
+					    <td width="#w#%" align="right" style="padding-right:4px;border:1px solid silver" align="center">Qtr #mt#</td>														
 					</cfloop>	
-					<td bgcolor="ffffcf" class="labelit" align="right" width="#w#%" style="padding-right:4px;" align="center"><font size="3"><b>#yr#</td>								
+					<td bgcolor="ffffcf" align="right" width="#w#%" style="font-size:16px;padding-right:4px;border:1px solid silver" align="center">#yr#</td>								
 				</cfloop>
-				<td width="9%" align="right" bgcolor="E3E8C6" class="labelit" style="padding-right:4px"><b><font size="3"><cf_tl id="Total"> #planperiod.description#</td>
+				<td style="font-size:16px;min-width:130px;padding-right:4px;border:1px solid silver" align="right" bgcolor="E3E8C6"><b>#planperiod.description#</td>
 				</tr>
 						
 				<!--- lines --->		
@@ -233,8 +246,10 @@
 				
 				    <cfset tot = 0>	
 					<tr class="linedotted navigation_row">	
-					<td class="labelit" style="height:18px;padding-left:4px;">#Description#</td>		
-						<cfloop index="yr" from="#SY#" to="#EY#">					
+					<td class="labelit" style="height:18px;padding-left:4px;">#Description#</td>	
+						
+						<cfloop index="yr" from="#SY#" to="#EY#">		
+									
 						    <cfif yr eq SY>					
 							    <cfset fr = sm>
 								<cfset to = 4>				
@@ -245,6 +260,7 @@
 								<cfset fr = 1>
 								<cfset to = em>			  
 							</cfif>		
+							
 							<cfset yrt = 0>
 												
 							<cfloop index="mt" from="#fr#" to="#to#">	
@@ -263,9 +279,10 @@
 							
 							<td bgcolor="ffffcf" align="right" class="labelit" style="border-right:1px solid silver;background-color:##ffffaf80;height:18px;padding-right:3px;">#numberformat(yrt,'__,__')#</td>
 											   								
-						</cfloop>		
+						</cfloop>	
+							
 						<td width="10%" class="labelmedium" bgcolor="E3E8C6" style="border-right:1px solid silver;background-color:##E3E8C680;font-size:13px;height:18px;padding-right:3px;" align="right">
-						#numberformat(tot,'__,__')#			
+						#numberformat(tot,',__')#			
 						</td>				
 					</tr>				
 							
@@ -273,8 +290,10 @@
 				
 				<cfset tot = 0>	
 				<tr class="line" style="border-top:1px solid silver">	
-					<td class="labelmedium" style="padding-left:4px;"><cf_tl id="Total"></td>		
+					<td class="labelmedium" style="padding-left:4px;"><cf_tl id="Total Requirements"></td>
+							
 						<cfloop index="yr" from="#SY#" to="#EY#">					
+						
 						    <cfif yr eq SY>					
 							    <cfset fr = sm>
 								<cfset to = 4>				
@@ -285,7 +304,9 @@
 								<cfset fr = 1>
 								<cfset to = em>			  
 							</cfif>		
+							
 							<cfset yrt = 0>										
+							
 							<cfloop index="mt" from="#fr#" to="#to#">	
 							    
 								<cfset sub = 0>
@@ -314,78 +335,23 @@
 						<td class="labelmedium" width="10%" align="right" bgcolor="E3E8C6" style="border-right:1px solid silver;background-color:##E3E8C680;height:22px;padding-right:3px;">
 						#numberformat(tot,',__')#			
 						</td>				
-				</tr>	
 				
+				</tr>										
+				 										
+				<cfif getsupport.SupportPercentage gt "0">
 					
-				<cfquery name="get" 
-					datasource="AppsProgram">
-					    SELECT *
-						FROM   ProgramAllotment
-						WHERE  ProgramCode = '#URL.ProgramCode#' 
-						AND    Period      = '#URL.Period#'
-						-- AND    EditionId   = '#URL.Edition#' 
-				</cfquery>		
-				
-				<cfif get.SupportPercentage gt "0">
-				
-					<cfset ratio = get.SupportPercentage/100>
-					
-					<tr class="line">	
-						<td class="labelit" style="padding-left:14px;"><cf_tl id="Program Support Cost"></td>		
-							<cfloop index="yr" from="#SY#" to="#EY#">					
-							    <cfif yr eq SY>					
-								    <cfset fr = sm>
-									<cfset to = 4>				
-								<cfelseif yr lt EY>
-									<cfset fr = 1>
-									<cfset to = 4>			   
-								<cfelse>
-									<cfset fr = 1>
-									<cfset to = em>			  
-								</cfif>		
-								<cfset yrt = 0>										
-								<cfloop index="mt" from="#fr#" to="#to#">	
-								    
-									<cfset sub = 0>
-									 
-									<cfloop query="getResource">	
-									
-									    <cftry>
-										<cfset sub = sub + ar[yr][mt][listingorder]>
-										<cfset yrt = yrt + ar[yr][mt][listingorder]>
-										<cfcatch></cfcatch>
-										</cftry>
-									
-									</cfloop>
-														    							
-									<td align="right" class="labelmedium" style="border-right:1px solid silver;font-size:13px;height:18px;padding-right:3px;">						
-										#numberformat(sub*ratio,',__')#							
-									</td>									
-																										
-									<cfset tot = tot>
-									
-																
-								</cfloop>	
-								
-								<td class="labelmedium" bgcolor="ffffcf" style="border-right:1px solid silver;font-size:13px;height:18px;padding-right:3px;" align="right">#numberformat(yrt*ratio,'__,__')#</td>
-																				   								
-							</cfloop>		
-							<td class="labelmedium" bgcolor="E3E8C6" width="10%" align="right" style="border-right:1px solid silver;font-size:13px;height:18px;padding-right:3px;">
+					<!---
+						<cfset ratio = getsupport.SupportPercentage/100>
+						
+						--->
+						
+						<tr class="line">	
+							<td class="labelit" style="padding-left:5px;"><cf_tl id="Program Support Cost"></td>	
 							
-							#numberformat(tot*ratio,',__')#			
-							</td>				
-					</tr>	
-					
-					<cfif BudgetAccess neq "NONE">
-					
-						<!--- final overal total row --->
-					
-						<tr bgcolor="EBEAE7">	
-							<td class="labelmedium" style="padding-left:4px;"><cf_tl id="Overall"></td>		
-							
-							    <cfset tot = 0>
+								<cfset tot = 0>			
 								
-								<cfloop index="yr" from="#SY#" to="#EY#">					
+								<cfloop index="yr" from="#SY#" to="#EY#">		
+											
 								    <cfif yr eq SY>					
 									    <cfset fr = sm>
 										<cfset to = 4>				
@@ -396,42 +362,150 @@
 										<cfset fr = 1>
 										<cfset to = em>			  
 									</cfif>		
-									<cfset yrt = 0>										
+									
+									<cfset yrt = 0>		
+																										
 									<cfloop index="mt" from="#fr#" to="#to#">	
 									    
 										<cfset sub = 0>
+										<cfset flt = 0>
+										
+										<!--- calculated support records --->	
 										 
 										<cfloop query="getResource">	
 										
 										    <cftry>
-											<cfset sub = sub + ar[yr][mt][listingorder]>
-											<cfset yrt = yrt + ar[yr][mt][listingorder]>
+											<cfset sub = sub + su[yr][mt][listingorder]>
+											<cfset yrt = yrt + su[yr][mt][listingorder]>
+											<cfset tot = tot + su[yr][mt][listingorder]>
 											<cfcatch></cfcatch>
-											</cftry>
-										
+											</cftry>	
+																				
 										</cfloop>
-															    							
-										<td align="right" class="labelmedium" style="border-right:1px solid silver;height:22px;padding-right:3px;">						
-											<b>#numberformat(sub+(sub*ratio),',__')#</b>							
-										</td>	
-																		
-										<cfset tot = tot+sub>									
+																																																	
+										<!--- now we add manual support records --->										
+																				
+										<cfif getSupport.Resource neq "">
+										
+											<cfquery name="getSupportLines" dbtype="query">
+											    SELECT    DISTINCT ListingOrder, Name, Description
+												FROM      getSummary											
+												WHERE     Code = '#getsupport.Resource#'									      					
+											</cfquery>
+											
+											<cfloop query="getSupportLines">
+											
+												<cftry>
+												<cfset sub = sub + ar[yr][mt][listingorder]>												
+												<cfset yrt = yrt + ar[yr][mt][listingorder]>
+												<cfset tot = tot + ar[yr][mt][listingorder]>
+												<cfcatch></cfcatch>
+												</cftry>
+											
+											</cfloop>	
+																															
+										</cfif>																		
+																																			    							
+										<td align="right" class="labelmedium" style="border-right:1px solid silver;font-size:13px;height:18px;padding-right:3px;">						
+											#numberformat(sub,',__')#							
+										</td>									
 																	
 									</cfloop>	
-									
-									<td class="labelmedium" bgcolor="ffffcf" style="border-right:1px solid silver;height:22px;padding-right:3px;" align="right"><b>#numberformat(yrt+yrt*ratio,'__,__')#</b></td>
+																																																					
+									<td class="labelmedium" bgcolor="ffffcf" style="border-right:1px solid silver;font-size:13px;height:18px;padding-right:3px;" align="right">
+									#numberformat(yrt,',__')#
+									</td>
 																					   								
-								</cfloop>		
-								<td class="labelmedium" width="10%" align="right" bgcolor="E3E8C6" style="border-right:1px solid silver;height:22px;padding-right:3px;">
-									<b>#numberformat(tot+(tot*ratio),',__')#</b>
+								</cfloop>	
+																						
+								<td class="labelmedium" bgcolor="E3E8C6" width="10%" align="right" style="border-right:1px solid silver;font-size:13px;height:18px;padding-right:3px;">								
+								#numberformat(tot,',__')#			
 								</td>				
-						</tr>		
-					
-					</cfif>				
-									
-				
-				</cfif>			
+								
+						</tr>	
 						
+						<cfif BudgetAccess neq "NONE">
+						
+							<!--- final overal total row --->
+						
+							<tr bgcolor="EBEAE7">	
+								<td class="labelmedium" style="padding-left:4px;"><cf_tl id="Overall"></td>		
+								
+								    <cfset tot = 0>
+									
+									<cfloop index="yr" from="#SY#" to="#EY#">		
+												
+									    <cfif yr eq SY>					
+										    <cfset fr = sm>
+											<cfset to = 4>				
+										<cfelseif yr lt EY>
+											<cfset fr = 1>
+											<cfset to = 4>			   
+										<cfelse>
+											<cfset fr = 1>
+											<cfset to = em>			  
+										</cfif>		
+										<cfset yrt = 0>		
+																												
+										<cfloop index="mt" from="#fr#" to="#to#">	
+										    
+											<cfset sub = 0>
+											 
+											<cfloop query="getResource">	
+											
+											    <cftry>
+												<cfset sub = sub + ar[yr][mt][listingorder]>
+												<cfset sub = sub + su[yr][mt][listingorder]>
+												<cfset yrt = yrt + ar[yr][mt][listingorder]>
+												<cfset yrt = yrt + su[yr][mt][listingorder]>
+												<cfset tot = tot + ar[yr][mt][listingorder]>
+												<cfset tot = tot + su[yr][mt][listingorder]>
+												<cfcatch></cfcatch>
+												</cftry>
+											
+											</cfloop>
+																																	
+											<cfif getSupport.Resource neq "">
+										
+												<cfquery name="getSupportLines" dbtype="query">
+												    SELECT    DISTINCT ListingOrder, Name, Description
+													FROM      getSummary											
+													WHERE     Code = '#getsupport.Resource#'									      					
+												</cfquery>
+												
+												<cfloop query="getSupportLines">
+												
+													<cftry>
+													<cfset sub = sub + ar[yr][mt][listingorder]>
+													<cfset yrt = yrt + ar[yr][mt][listingorder]>
+													<cfset tot = tot + ar[yr][mt][listingorder]>
+													<cfcatch></cfcatch>
+													</cftry>
+												
+												</cfloop>	
+																				
+											</cfif>											
+																											    							
+											<td align="right" class="labelmedium" style="border-right:1px solid silver;height:22px;padding-right:3px;">						
+												<b>#numberformat(sub,',__')#</b>							
+											</td>																
+																		
+																		
+										</cfloop>	
+																				
+										<td class="labelmedium" bgcolor="ffffcf" style="border-right:1px solid silver;height:22px;padding-right:3px;" align="right">
+										<b>#numberformat(yrt,',__')#</b></td>
+																						   								
+									</cfloop>		
+																		
+									<td class="labelmedium" width="10%" align="right" bgcolor="E3E8C6" style="border-right:1px solid silver;height:22px;padding-right:3px;">
+										<b>#numberformat(tot,',__')#</b></td>				
+							</tr>		
+						
+						</cfif>												
+					
+					</cfif>							
+											
 			    </cfoutput>	
 			
 			</table>

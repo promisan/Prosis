@@ -153,6 +153,7 @@
 		     programcode="#url.programcode#" 
 			 period="#url.period#" 
 			 Support="No">
+			 		
 			 
 	</td>
 	</tr>	
@@ -463,8 +464,8 @@
 						  		   
 			<cfoutput query="details" group="ResourceDescription">
 				   
-				   <tr class="line">
-				   <td height="25" colspan="#cols#" style="padding-top:15px;height:24px;font-size:19px;" class="labelmedium">&nbsp;#ResourceDescription#</td>
+				   <tr class="line fixrow">
+				   <td colspan="#cols#" style="font-size:15px;padding-left:5px;font-weight:bold" class="labelmedium">#ResourceDescription#</td>
 				   			  
 				     <cfquery name="Resource" dbtype="query">
 						   	SELECT SUM(RequestAmountBase) as Total, 
@@ -486,17 +487,16 @@
 							AND       YEAR(TransactionDate) = '#yr#'
 					 </cfquery>	  
 				  
-				   <td width="85" align="right" style="padding-top:15px;padding-left:4px" class="labelmedium"><b>#numberformat(Resource.Total,"#format#")#</td>
-				   <td class="labelmedium line" style="padding-top:15px;" width="85" align="right">#numberformat(Resource.Allotment,"#format#")#</td>					   
+				   <td align="right" style="padding-left:4px" class="labelmedium"><b>#numberformat(Resource.Total,"#format#")#</td>
+				   <td class="labelmedium line" align="right">#numberformat(Resource.Allotment,"#format#")#</td>		
+				   <td></td>			   
 				 	  
 				   </tr>
 				   		   
 				   <cfoutput group="ObjectCode">
 				   
-				       <tr bgcolor="fafafa" class="labelmedium">
-					   <td colspan="#cols#" style="padding-left:9px;height:24px" class="line">
-					   #ObjectCode# #ObjectDescription#
-					   </td>
+				       <tr class="labelmedium fixrow2">
+					   <td colspan="#cols#" style="padding-left:9px;height:24px;font-weight:bold" class="line">#ObjectCode# #ObjectDescription# </td>
 					   
 					    <cfquery name="Object" dbtype="query">
 						   	SELECT    SUM(RequestAmountBase) as Total, 
@@ -519,9 +519,9 @@
 							AND       YEAR(TransactionDate) = '#yr#'
 					 </cfquery>	
 					 
-					   <td colspan="1" class="line" width="85" align="right"><b>#numberformat(Object.Total,"#format#")#</b></td>					   
-					   <td colspan="1" class="line" width="85" align="right">#numberformat(ObjectAll.Total,"#format#")#</td>					   
-				 	   
+					   <td class="line" align="right"><b>#numberformat(Object.Total,"#format#")#</b></td>					   
+					   <td class="line" align="right">#numberformat(ObjectAll.Total,"#format#")#</td>		
+					   <td></td>					 	   
 					   </tr>
 					   
 					   <cfoutput group="ActionStatus">
@@ -551,9 +551,9 @@
 							   </cfquery>		
 							   												
 							   <cfset row = row+1>	
-						   	   <tr bgcolor="#bgcolor#" class="navigation_row labelmedium navigation_action line">						   
+						   	   <tr bgcolor="#bgcolor#" class="navigation_row labelmedium navigation_action line" style="height:22px">						   
 								   <td style="padding-left:30px">#row#.</td>
-								   <td style="padding-top:9px;padding-left:5px;width:20px" class="line">
+								   <td style="padding-top:5px;padding-left:5px;width:20px" class="line">
 								  							  						   							   
 								   <img src="#SESSION.root#/Images/arrowright.gif"
 									     alt="Expand" 
@@ -572,26 +572,26 @@
 									     onClick="togglecontent('#RequirementIdParent#_#ObjectCode#_#yr#')">
 									
 								   </td>
-								   <td colspan="#cols-4#" style="padding-left:2px;height:20px"><cfif RequestType eq "Ripple">Rippled<cfelse>#RequestRemarks#</cfif></td>
-								   <td style="padding-left:4px">
+								   <td colspan="#cols-4#" style="padding-left:2px;padding-right:4px"><cfif RequestType eq "Ripple">Rippled<cfelse>#RequestRemarks#</cfif></td>
+								   <td style="padding-left:4px;min-width:140px;">
 								   
 								   <cfif Parent.DateFrom eq "">#dateformat(Parent.RequestDue,"YYYY:MMMM")#
 								   <cfelse>
 									<cfif dateformat(Parent.DateFrom,"YYYY") eq dateformat(Parent.DateTo,"YYYY") and dateformat(Parent.DateFrom,"MMM") eq dateformat(Parent.DateTo,"MMM")>							
-								    #dateformat(Parent.DateTo,"YYYY:MMMM")#							
+								    #dateformat(Parent.DateTo,"YYYY : MMMM")#							
 									<cfelseif dateformat(Parent.DateFrom,"YYYY") eq dateformat(Parent.DateTo,"YYYY")>
-								    #dateformat(Parent.DateFrom,"YYYY:MMM")#&nbsp;-&nbsp;#dateformat(Parent.DateTo,"YYYY:MMMM")#
+								    #dateformat(Parent.DateFrom,"YYYY : MMM")#&nbsp;-&nbsp;#dateformat(Parent.DateTo,"YYYY : MMM")#
 									<cfelse>
-									#dateformat(Parent.DateFrom,"YYYY:MMM")#&nbsp;-&nbsp;#dateformat(Parent.DateTo,"YYYY:MMMM")#
+									#dateformat(Parent.DateFrom,"YYYY : MMM")#&nbsp;-&nbsp;#dateformat(Parent.DateTo,"YYYY : MMM")#
 									</cfif>
 									</cfif>
 								   
 								   </td>
 								   <td></td>
-								   <td width="85" align="right" style="padding-left:4px">#numberformat(Parent.Total,"#format#")#</td>								   
-								   <td width="85" align="right" style="padding-left:4px">#numberformat(Parent.Allotment,"#format#")#</td>
+								   <td align="right" style="min-width:85px;padding-left:4px">#numberformat(Parent.Total,"#format#")#</td>								   
+								   <td align="right" style="min-width:85px;padding-left:4px">#numberformat(Parent.Allotment,"#format#")#</td>
 								  								   
-								   <td width="30" align="right" style="padding-left:4px;padding-right:15px">		
+								   <td align="right" style="padding-left:4px;padding-right:15px">		
 								   								   
 								   <cfif Parent.Allotment gte "1">
 								   
@@ -625,9 +625,9 @@
 										   <table>
 										   <tr>
 										   <td><img src="#session.root#/images/join.gif" alt="" border="0"></td>
-										   <td class="labelit" style="padding-left:4px;width:80px">#dateformat(act.ActivityDateStart,client.dateformatshow)#</td>						   
-										   <td class="labelit" style="padding-left:4px;width:80px">#dateformat(act.ActivityDate,client.dateformatshow)#</td>
-										   <td class="labelit" style="padding-left:4px">#Act.ActivityDescription#</td>										  
+										   <td style="padding-left:4px;width:80px">#dateformat(act.ActivityDateStart,client.dateformatshow)#</td>						   
+										   <td style="padding-left:4px;width:80px">#dateformat(act.ActivityDate,client.dateformatshow)#</td>
+										   <td style="padding-left:4px">#Act.ActivityDescription#</td>										  
 										   </tr>
 										   </table>
 								   </tr>							   
@@ -695,17 +695,17 @@
 									</cfif>
 									
 									</td>
-									<td width="45%" style="border-bottom:1px solid silver;padding-left:3px">
+									<td colspan="2" style="border-bottom:1px solid silver;padding-left:3px">
 										<cfif RequestType eq "ripple">
 										<font size="1" color="808080"><cf_tl id="ripple">:&nbsp;</font>
 										</cfif>#ItemMasterDescription# #RequestDescription#
 									</td>		
-									<td width="15%" style="border-bottom:1px solid silver;padding-left:4px">#OfficerLastName# <font size="1">#dateformat(Created,client.dateformatshow)#</font></td>					
-									<td width="14%" style="border-bottom:1px solid silver;padding-left:4px">#dateformat(RequestDue,"YYYY : MMMM")#</td>
-									<td width="70" style="border-bottom:1px solid silver;padding-left:4px">#Fund#</td>							
-									<td width="85" align="right" style="border-bottom:1px solid silver;padding-left:4px">#numberformat(RequestAmountBase,"#format#")#</td>									
-									<td width="85" align="right" style="border-bottom:1px solid silver;padding-left:4px"></td>																		
-									<td width="20" align="right" style="border-bottom:1px solid silver;padding-right:15px">		
+									<td style="border-bottom:1px solid silver;padding-left:4px">#OfficerLastName# <font size="1">#dateformat(Created,client.dateformatshow)#</font></td>					
+									<td style="border-bottom:1px solid silver;padding-left:4px">#dateformat(RequestDue,"YYYY : MMM")#</td>
+									<td style="border-bottom:1px solid silver;padding-left:4px">#Fund#</td>							
+									<td align="right" style="border-bottom:1px solid silver;padding-left:4px">#numberformat(RequestAmountBase,"#format#")#</td>									
+									<td align="right" style="border-bottom:1px solid silver;padding-left:4px"></td>																		
+									<td align="right" style="border-bottom:1px solid silver;padding-right:15px">		
 																											
 									<!--- condition for delete if edition is open --->								
 									<cfif Allotment eq "0">

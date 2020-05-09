@@ -34,7 +34,7 @@
 				   FROM   OrganizationObjectQuestion 
 				   WHERE  ObjectId   = '#url.ObjectId#'
 				   AND    ActionCode = '#actionCode#' 
-				   AND    QuestionId = P.QuestionId) as Score,
+				   AND    QuestionId = P.QuestionId) as QuestionScore,
 				   
 				  (SELECT QuestionMemo 
 				   FROM   OrganizationObjectQuestion 
@@ -64,7 +64,9 @@
 						
 			<table cellspacing="0" cellpadding="0">
 					
-			<tr>		
+			<tr>	
+			
+			<td>	
 		
 		      <cfif InputMode eq "YesNo">			
 											
@@ -83,27 +85,32 @@
 						<cfcase value="1"><cf_tl id="Yes"></cfcase>
 						<cfcase value="9"><cf_tl id="N/A"></cfcase>
 					
-					</cfswitch>			
+					</cfswitch>		
+					
+				<cfelseif InputMode eq "YesNoPA">			
+				
+					<cfswitch expression="#questionscore#">
+					
+						<cfcase value="0"><cf_tl id="No"></cfcase>
+						<cfcase value="1"><cf_tl id="Yes"></cfcase>
+						<cfcase value="9"><cf_tl id="Partly"></cfcase>
+					
+					</cfswitch>					
 				
 				<cfelse>
-			
-								
-					<table cellspacing="0" cellpadding="0">
-							
-					<tr>		
 				
+					<cfset arr = listToArray(inputmodestringlist)>	
+					
 					<cfloop index="itm" from="1" to="#inputmode#">					    
 							
-						<td  class="labelit"><font face="blue"><cfif score eq itm><b></cfif>#itm#</font></td>
-						<td width="3"></td>							
+						<cfif questionscore eq itm><cfif arr[itm] neq "">#arr[itm]#<cfelse>#itm#</cfif></cfif>											
 					
 					</cfloop>
-					
-					</tr>
-					
-					</table>				
+						
 				
 				</cfif>
+				
+			</td>	
 			
 			</tr>
 			

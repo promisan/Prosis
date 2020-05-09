@@ -15,7 +15,7 @@
 	
 	function showparent(form,off,loc) {			
 		ProsisUI.createWindow('myparent', 'Parent Office', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,resizable:false,center:true})    						
-		ColdFusion.navigate('#SESSION.root#/Staffing/Application/Employee/ParentSelect.cfm?FormName= ' + form + '&parentoffice=' + off + '&parentlocation=' + loc,'myparent') 			
+		ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/ParentSelect.cfm?FormName= ' + form + '&parentoffice=' + off + '&parentlocation=' + loc,'myparent') 			
 	}
 	
 	function parentselect(fldoff,fldloc,off,loc) {	    
@@ -53,7 +53,7 @@
 		} else {
 			ProsisUI.createWindow('orgunitwindow', 'Select', '',{x:0,y:0,height:document.body.clientHeight-100,width:670,modal:true,center:true})
 		}
-		ColdFusion.navigate(root + '/System/Organization/Application/OrganizationSearchView.cfm?singlemission='+single+'&mode=cfwindow&script='+script+'&Mission=' + mission + '&OrgType=' + orgtype + '&fldorgunit=' + fldorgunit + '&scope=' + scope,'orgunitwindow')
+		ptoken.navigate(root + '/System/Organization/Application/OrganizationSearchView.cfm?singlemission='+single+'&mode=cfwindow&script='+script+'&Mission=' + mission + '&OrgType=' + orgtype + '&fldorgunit=' + fldorgunit + '&scope=' + scope,'orgunitwindow')
 		
 	}	
 	
@@ -65,7 +65,7 @@
 		} else {
 			ProsisUI.createWindow('orgunitwindow', 'Select', '',{x:100,y:100,height:document.body.clientHeight-90,width:670,modal:false,center:true})   
 		}
-		ColdFusion.navigate(root + '/System/Organization/Application/LookupRole/Organization.cfm?mode=cfwindow&script=' + script + '&mission=' + mission + '&mandate=' + mandate + '&period=' +period + '&role=' + role +' &fldorgunit=' + fldorgunit + '&scope=' + scope + '&action=' + action,'orgunitwindow') 				
+		ptoken.navigate(root + '/System/Organization/Application/LookupRole/Organization.cfm?mode=cfwindow&script=' + script + '&mission=' + mission + '&mandate=' + mandate + '&period=' +period + '&role=' + role +' &fldorgunit=' + fldorgunit + '&scope=' + scope + '&action=' + action,'orgunitwindow') 				
 		// try { ColdFusion.Window.show('orgunitwindow') } catch(e) {}
 	
 		
@@ -73,7 +73,7 @@
 		
 	function applyorgunit(fld,val,scope,action) {		   	   
 
-		ColdFusion.navigate(root + '/System/Organization/Application/setOrgUnit.cfm?field='+fld+'&orgunit='+val+'&scope=' + scope+'&action=' + action,'process') 													
+		ptoken.navigate(root + '/System/Organization/Application/setOrgUnit.cfm?field='+fld+'&orgunit='+val+'&scope=' + scope+'&action=' + action,'process') 													
 		if (action == 'enable') {				  
 				try { processorg(val) } catch(e) {}     	
 			}		
@@ -82,8 +82,7 @@
 		
 	function applyOrgunit(fld,val,scope,action) {		   	   
 
-		ColdFusion.navigate(root + '/System/Organization/Application/setOrgUnit.cfm?field='+fld+'&orgunit='+val+'&scope=' + scope+'&action=' + action,'process') 											
-		
+		ptoken.navigate(root + '/System/Organization/Application/setOrgUnit.cfm?field='+fld+'&orgunit='+val+'&scope=' + scope+'&action=' + action,'process') 													
 		if (action == 'enable') {				  
 				try { processorg(val) } catch(e) {}     	
 			}		
@@ -109,7 +108,7 @@
 	
 		if (formname == "webdialog") {
 			ColdFusion.Window.create('orgunitselectwindow', 'Select', '',{x:0,y:0,height:document.body.clientHeight-100,width:document.body.clientWidth-50,modal:true,center:true})
-			ColdFusion.navigate(root + "/System/Organization/Application/Lookup/OrganizationViewView.cfm?FormName=" + formname + "&fldorgunit=" + fldorgunit + "&fldorgunitcode=" + fldorgunitcode + "&fldmission=" + fldmission + "&fldorgunitname=" + fldorgunitname + "&fldorgunitclass=" + fldorgunitclass + "&mission=" + mission + "&mandate=" + mandate + "&effective=" + effective + "&ts="+new Date().getTime(),'orgunitselectwindow');
+			ptoken.navigate(root + "/System/Organization/Application/Lookup/OrganizationViewView.cfm?FormName=" + formname + "&fldorgunit=" + fldorgunit + "&fldorgunitcode=" + fldorgunitcode + "&fldmission=" + fldmission + "&fldorgunitname=" + fldorgunitname + "&fldorgunitclass=" + fldorgunitclass + "&mission=" + mission + "&mandate=" + mandate + "&effective=" + effective + "&ts="+new Date().getTime(),'orgunitselectwindow');
 		 } else {	
 		 	ptoken.open(root + "/System/Organization/Application/Lookup/OrganizationView.cfm?FormName=" + formname + "&fldorgunit=" + fldorgunit + "&fldorgunitcode=" + fldorgunitcode + "&fldmission=" + fldmission + "&fldorgunitname=" + fldorgunitname + "&fldorgunitclass=" + fldorgunitclass + "&mission=" + mission + "&mandate=" + mandate + "&effective=" + effective , "IndexWindow", "width=850, height=660, status=yes, toolbar=no, scrollbars=yes, resizable=yes");
 		 }
@@ -130,7 +129,7 @@
 			         
 		try { ColdFusion.Window.destroy('mylocation',true) } catch(e) {}
 		ColdFusion.Window.create('mylocation', 'Location', '',{x:100,y:100,height:document.body.clientHeight-80,width:900,modal:false,resizable:false,center:true})    						
-		ColdFusion.navigate(root + '/Staffing/Application/Location/Lookup/LocationView.cfm?id='+ id + '&FormName=' + formname + '&fldlocationcode=' + fldlocationcode + '&fldlocationname=' + fldlocationname + '&mission=' + mission,'mylocation') 		
+		ptoken.navigate(root + '/Staffing/Application/Location/Lookup/LocationView.cfm?id='+ id + '&FormName=' + formname + '&fldlocationcode=' + fldlocationcode + '&fldlocationname=' + fldlocationname + '&mission=' + mission,'mylocation') 		
 		
 	}
 	
@@ -145,7 +144,7 @@
 	}
 	
 	function addOrgUnit(mission,mandate,org,par,src,mode) {
-	    window.location  = root + "/System/Organization/Application/OrganizationAdd.cfm?mode="+mode+"&source="+src+"&ID1=" + mission + "&ID2=" + mandate + "&ID3=" + org + "&ID4=" + par
+	    ptoken.location(root + '/System/Organization/Application/OrganizationAdd.cfm?mode='+mode+'&source='+src+'&ID1=' + mission + '&ID2=' + mandate + '&ID3=' + org + '&ID4=' + par)
 	}
 	
 	function editOrgUnit(org,node,src) {	    
@@ -153,7 +152,7 @@
 	}
 	
 	function hierarchy(mission) {
-	     ptoken.open(root+ "/System/Organization/Application/OrganizationHierarchy.cfm?href=" + window.location.href + "&Mission=" + mission, "_blank", "width=300, height=300 status=yes, toolbar=no, scrollbars=no, resizable=yes") 
+	    ptoken.open(root+ "/System/Organization/Application/OrganizationHierarchy.cfm?href=" + window.location.href + "&Mission=" + mission, "_blank", "width=300, height=300 status=yes, toolbar=no, scrollbars=no, resizable=yes") 
 	}
 	
 	</script>
