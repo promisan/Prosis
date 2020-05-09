@@ -280,20 +280,22 @@
 										    and ev eq "Evaluate" and mode eq "Evaluate" 
 											and (role.recordcount gte "1" or session.acc eq "Administrator")>																																
 																						
-											<cf_UIToolTip tooltip="#DescriptionMemo#">
+											
 												<td width="20%" 
 												name="b_#cde#" id="b_#cde#_#currentrow#" 
 												align="center" 
-												style="border: 0px solid ##DCDCDC;height:25px"
+												style="border: 1px solid silver;height:30px"
 												class="#cl# labelit">
+												<cf_UIToolTip tooltip="#DescriptionMemo#">
 													<input type="radio" 
 													       name="Behavior_Score_#cde#" 
 														   value="#Code#" class="radiol"
-													<cfif Sc eq "#Code#">checked</cfif>
+													<cfif Sc eq Code>checked</cfif>
 													       onclick="hl('#cde#','#currentrow#','#Score.Recordcount#')">
+														   </cf_UIToolTip>
 														   
 												</td>
-											</cf_UIToolTip>
+											
 											
 										<cfelse>
 										
@@ -327,9 +329,7 @@
 								 <tr id="#Behaviorcode#" class="#cl#">
 										<td colspan="3">				
 											<table width="94%"
-												   style="border: 1px solid ##e4e4e4;" 
-												   cellspacing="0" 
-												   cellpadding="0"
+												   style="border: 1px solid ##e4e4e4;" 												  
 												   class="formpadding" 
 												   align="center">
 												   
