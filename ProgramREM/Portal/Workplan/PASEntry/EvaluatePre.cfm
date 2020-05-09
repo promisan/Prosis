@@ -187,12 +187,12 @@ password="#SESSION.dbpw#">
 	<cfelse>
 	
 	--->
+	
+	<cf_divscroll>
 			
 	<table width="97%" height="100%" align="center">
 	
 	<tr><td valign="top" height="100%" style="padding-bottom:5px">
-	
-	<cf_divscroll>
 		
 		<table width="100%" border="0" align="center" class="formpadding">
 		
@@ -249,9 +249,25 @@ password="#SESSION.dbpw#">
 				</tr>
 				</table>						 
 			</td>						 
-			</tr>		 
+		  </tr>		 
 	     
-		
+		 <tr><td style="padding-left:30px">
+		      <table width="99%" align="center">
+			  <tr><td>		
+			  
+			  	 <cfset wflnk = "EvaluatePreWorkflow.cfm">			  
+			     <cfset pk = Evaluate.EvaluationId>
+			  
+			     <cfoutput>			  
+			        <input type="hidden" id="workflowlink_#pk#" value="#wflnk#"> 				  
+			     </cfoutput>	  
+ 
+			     <cfdiv id="#pk#"  bind="url:#wflnk#?ajaxid=#pk#"/> 	
+			 
+			 </td></tr>
+			 </table>
+			 </td>
+		 </tr>
 				 
 		<!---		 
 					
@@ -261,14 +277,13 @@ password="#SESSION.dbpw#">
 			       	
 		</table>
 		
-		</cf_divscroll>
 	
 	</td>
 	
 	</tr>
 	
-	<tr><td>
-					
+	<tr><td style="padding-bottom:10px">
+						
 		<cfif SESSION.isAdministrator eq "Yes">
 			<cfset rest = 1>
 		<cfelse>
@@ -276,7 +291,7 @@ password="#SESSION.dbpw#">
 		</cfif>					
 		
 		<cfif Evaluate.ActionStatus lte "1">
-		
+				
 			<cf_Navigation
 			 Alias         = "AppsEPAS"
 			 Object        = "Contract"
@@ -295,7 +310,7 @@ password="#SESSION.dbpw#">
 			 SetNext       = "0">
 			 
 		<cfelseif Evaluate.ActionStatus gte "2">
-											
+													
 		<cf_Navigation
 			 Alias         = "AppsEPAS"
 			 Object        = "Contract"
@@ -318,6 +333,8 @@ password="#SESSION.dbpw#">
 		 </td></tr>
 			
 	</table>
+		
+	</cf_divscroll>
 	
 
 <!---			

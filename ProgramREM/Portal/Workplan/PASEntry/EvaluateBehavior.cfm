@@ -14,7 +14,7 @@
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding">
 
-	<tr class="line">						
+	<tr class="line fixrow">						
 		<td width="100%" colspan="3" class="labelit">					
 			<table>
 			<tr>
@@ -278,7 +278,7 @@
 																																
 										<cfif (Evaluate.ActionStatus eq "0" or Evaluate.ActionStatus eq "0p") 
 										    and ev eq "Evaluate" and mode eq "Evaluate" 
-											and role.recordcount gte "1">																																
+											and (role.recordcount gte "1" or session.acc eq "Administrator")>																																
 																						
 											<cf_UIToolTip tooltip="#DescriptionMemo#">
 												<td width="20%" 
@@ -363,7 +363,7 @@
 														  </cfif>
 														</td>
 														
-														<cfif (Evaluate.ActionStatus eq "0" or Evaluate.ActionStatus eq "0p") and role.recordcount gte "1">
+														<cfif (Evaluate.ActionStatus eq "0" or Evaluate.ActionStatus eq "0p") and (role.recordcount gte "1" or session.acc eq "Administrator")>
 														     <td width="80%" align="left" class="labelit">															
 															 	<textarea style="padding:3px;font-size:13px;" onkeyup="return ismaxlength(this)" totlength="700" class="regular" cols="60" rows="1" name="Behavior_Remarks#itm#_#cde#" totlength="800" onkeyup="return ismaxlength(this)">#t#</textarea>
 															 </td>
@@ -395,7 +395,7 @@
 												AND     TrainingReason is not NULL
 											</cfquery>
 																								
-											<cfif (Evaluate.ActionStatus eq "0" or Evaluate.ActionStatus eq "0p") and role.recordcount gte "1">
+											<cfif (Evaluate.ActionStatus eq "0" or Evaluate.ActionStatus eq "0p") and (role.recordcount gte "1" or session.acc eq "Administrator")>
 																  
 												<tr>										
 												    <td colspan="2" class="labelit">

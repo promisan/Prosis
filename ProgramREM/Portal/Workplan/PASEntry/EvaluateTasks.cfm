@@ -33,14 +33,7 @@ password="#SESSION.dbpw#">
 	AND    SelectDefault = 1 
 </cfquery>	
 
-<cfquery name="ScoreResult" 
-datasource="AppsEPAS" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">                                                                         
-	SELECT  TOP 1 *
-	FROM    ContractEvaluationActivity
-	WHERE   EvaluationId =  '#evid#' 
-</cfquery>
+
 
 
 <!--- provision to add record --->
@@ -97,11 +90,7 @@ password="#SESSION.dbpw#">
   
  </cfif> 
  
- <cfif ScoreResult.EvaluationScore eq "">
-     <cfset sc = Default.Code>
-  <cfelse>
-     <cfset sc = ScoreResult.EvaluationScore>
- </cfif>   
+ <cfset sc = Default.Code>
 
 <cfoutput>
 
@@ -160,8 +149,24 @@ password="#SESSION.dbpw#">
 							
 		<table border="0" width="100%" class="formpadding">
 						
-			<cfoutput query="SearchResult">						
+			<cfoutput query="SearchResult">			
 			
+				<cfquery name="Result" 
+				datasource="AppsEPAS" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					SELECT  *
+					FROM    ContractEvaluationActivity
+					WHERE   EvaluationId = '#evid#'
+					AND     ActivityId   = '#ActivityId#'							
+				</cfquery>		
+				
+				<cfif Result.EvaluationScore eq "">												
+					 <cfset sc = Default.Code>							   
+				<cfelse>																												
+				   <cfset sc = Result.EvaluationScore>							   
+   			    </cfif>
+											
 				<cfif Mode eq "View">
 							
 					<tr class="line">
@@ -335,8 +340,8 @@ password="#SESSION.dbpw#">
 				
 				    <cfloop index="ev" list="#evlist#" delimiters=",">					
 															
-					       <cfset evid = evaluate("#ev#.EvaluationId")>
-						  						   					 			
+					       <cfset evid = evaluate("#ev#.EvaluationId")>						   
+						 						  						   					 			
 							<cfquery name="Result" 
 							datasource="AppsEPAS" 
 							username="#SESSION.login#" 
@@ -374,7 +379,7 @@ password="#SESSION.dbpw#">
 																				
 							<cfif Result.EvaluationScore eq "">												
 							   <cfset sc = Default.Code>							   
-							<cfelse>															
+							<cfelse>																					
 							   <cfset sc = Result.EvaluationScore>							   
 							</cfif>
 							
@@ -540,7 +545,7 @@ password="#SESSION.dbpw#">
 										</h1>
 									</td>
 									</tr>
-									<tr class="line" ><td class="labelmedium" style="font-weight:280;color:gray;font-size:12px;padding:4px;padding-left:20px">Comments should be specific as possible. They should also provide additional information on points that merit particular attention, e.g. responsibility
+									<tr class="line" ><td class="labelmedium" style="font-weight:342;color:gray;font-size:12px;padding:4px;padding-left:20px">Comments should be specific as possible. They should also provide additional information on points that merit particular attention, e.g. responsibility
 									beyond those usually performed at the staff member's level, or lack of progress after performance problems had been identified and an improvement plan put into place.
 									Specific explanations are required for "Above" and "Below" expectation rattings in both individual appraisal and overall appraisal.</td></tr>
 								</table>						 
@@ -553,11 +558,10 @@ password="#SESSION.dbpw#">
 							
 							<tr style="height:80px" class="line">							
 																																
-							<cfif (Evaluate.ActionStatus eq "0" or Evaluate.ActionStatus eq "0p") and ev eq "Evaluate" and Mode eq "Evaluate" and role.recordcount gte "1">
-							     <td width="100%" align="left" colspan="2" style="padding-left:20px">
-								 
+							<cfif (Evaluate.ActionStatus eq "0" or Evaluate.ActionStatus eq "0p") and ev eq "Evaluate" and Mode eq "Evaluate" and (role.recordcount gte "1" or session.acc eq "Administrator")>
+							     <td width="100%" align="left" colspan="2" style="padding-left:20px">								 
 									<textarea class="regular" 
-									style="border:1px solid silver;padding:5px;font-size:14px;width:98%" rows="20" name="Activity_Remarks_#ord#">#t#</textarea>
+									style="border:1px solid silver;padding:5px;font-size:14px;width:98%" rows="10" name="Activity_Remarks_#ord#">#t#</textarea>
 								 </td>
 							<cfelse>
 							      <td width="100%" style="background-color:ffffcf;padding-left:20px;padding:15px;font-size:14px" 
