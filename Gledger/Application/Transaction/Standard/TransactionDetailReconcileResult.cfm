@@ -384,7 +384,7 @@ password="#SESSION.dbpw#">
 	      <cfset curr = Dateformat(TransactionDate, "#CLIENT.DateFormatShow#")>
       </cfcase>			
    </cfswitch>
-   		   
+      		   
    <cfif prior neq curr>
    		  
    <tr class="labelmedium line fixrow" style="height:30px">
@@ -429,6 +429,8 @@ password="#SESSION.dbpw#">
 		--->		
 	
 		<cfif abs(val) gte 0.10>
+		
+			<cfset fld = left(TransactionLineId,8)>
 				
 		    <TR class="navigation_row clsFinance labelmedium" style="height:20px;border-bottom:1px solid silver">
 			
@@ -442,7 +444,7 @@ password="#SESSION.dbpw#">
 					name        = "selected" 
 					id          = "selected"							
 					value       = "#TransactionLineId#"
-					onClick     = "hl(this,this.checked,'#TransactionLineId#');settotal('#url.mode#')">
+					onClick     = "hl(this,this.checked,'#fld#');settotal('#url.mode#')">
 					
 					<!---
 					</cfif>
@@ -452,10 +454,10 @@ password="#SESSION.dbpw#">
 				
 				<TD style="padding-left:2px;padding-right:4px">#AccountPeriod#</td>
 				<TD style="padding-left:5px;padding-right:5px;width:auto"><a class="navigation_action" href="javascript:ShowTransaction('#Journal#','#JournalSerialNo#','1')">#JournalTransactionNo#</a></TD>
-				<TD style="padding-left:2px;">#GLAccount# <cfif len(GLDescription) gt "20">#left(GLDescription,20)#..<cfelse>#GLDescription#</cfif></TD>		
+				<TD style="min-width:200px;padding-left:2px;">#GLAccount# <cfif len(GLDescription) gt "20">#left(GLDescription,20)#..<cfelse>#GLDescription#</cfif></TD>		
 				<TD style="padding-left:5px;">#TransactionReference#</TD> 						
 				<TD style="padding-left:5px;">#Dateformat(TransactionDate, "#CLIENT.DateFormatShow#")#</TD>
-			    <TD style="padding-left:6px;"><cfif referencename eq "" or referencename eq "Contra-account">#HeaderDescription#<cfelse>#ReferenceName#</cfif></TD>
+			    <TD style="width:50%;padding-left:6px;"><cfif referencename eq "" or referencename eq "Contra-account">#HeaderDescription#<cfelse>#ReferenceName#</cfif></TD>
 				
 				<!--- 
 				
@@ -506,7 +508,7 @@ password="#SESSION.dbpw#">
 					 
 				</TD>							
 				
-			    <TD style="padding-left:2px;padding-right:4px;border-right:1px solid silver;min-width:50" align="right">											
+			    <TD style="background-color:yellow;padding-left:2px;padding-right:4px;border-right:1px solid silver;min-width:50" align="right">											
 												
 					<cfif currency neq headerselect.currency>
 					   
@@ -530,7 +532,7 @@ password="#SESSION.dbpw#">
 					
 				</td>	
 				
-				<td align="right" id="box_#TransactionLineId#_3" style="min-width:80;border-left:1px solid silver;padding-right:2px;" class="hide">
+				<td align="right" id="box_#TransactionLineId#_3" style="min-width:80;border-left:1px solid silver;padding-right:2px;" class="xxhide">
 																
 					<input type="text" 
 						 name="val_#fld#" 
@@ -539,15 +541,15 @@ password="#SESSION.dbpw#">
 						 size="10" 
 						 maxlength="12" 
 						 onchange="recalcline('#TransactionLineId#','#fld#')"
-						 class="regular3 enterastab" 
-						 style="background-color:ffffaf;height:100%;width:100%;text-align:right;padding-top:0px">
+						 class="hide" 
+						 style="background-color:f1f1f1;height:100%;width:100%;text-align:right;padding-top:0px">
 				 						 
 				</td>	
 										
-				<td id="box_#TransactionLineId#_2" style="min-width:70;border-left:1px solid silver;padding-right:2px;" class="hide" align="right">
+				<td id="box_#TransactionLineId#_2" style="min-width:70;border-left:1px solid silver;padding-right:2px;" class="xxhide" align="right">
 				
 				<cfif currency eq headerselect.currency>
-										
+																		
 					<input type="text" 
 						 name="exc_#fld#" 
 						 id="exc_#fld#"
@@ -556,11 +558,11 @@ password="#SESSION.dbpw#">
 						 maxlength="10" 
 						 readonly
 						 tabindex="9999"
-						 class="regular3 enterastab" 
-						 style="background-color:ffffaf;text-align: right;padding-top:0px;height:100%;width:100%;">
+						 class="hide" 
+						 style="background-color:f1f1f1;text-align: right;padding-top:0px;height:100%;width:100%;">
 					 
 				<cfelse>
-										
+																						
 					 <input type="text" 
 						 name="exc_#fld#" 
 						 id="exc_#fld#"
@@ -569,13 +571,13 @@ password="#SESSION.dbpw#">
 						 onchange="recalcline('#TransactionLineId#','#fld#')"				 
 						 tabindex="9999"
 						 maxlength="10" 							 
-						 class="regular3 enterastab" 
-						 style="background-color:ffffaf;text-align: right;padding-top:0px;height:100%;width:100%;">
+						 class="hide" 
+						 style="background-color:f1f1f1;text-align: right;padding-top:0px;height:100%;width:100%;">
 				 
 				</cfif>
 				</td>						
 				
-				<td id="box_#TransactionLineId#_1" style="min-width:80;border-left:1px solid silver;padding-right:2px;border-right:1px solid silver" class="hide" align="right">
+				<td id="box_#TransactionLineId#_1" style="min-width:80;border-left:1px solid silver;padding-right:2px;border-right:1px solid silver" class="xxhide" align="right">
 				
 					<input type="text" 
 					 name="off_#fld#" 
@@ -585,7 +587,7 @@ password="#SESSION.dbpw#">
 					 readonly
 					 tabindex="9999"
 					 maxlength="12" 
-					 class="regular3 enterastab" 							 
+					 class="hide" 							 
 					 style="text-align: right;padding-top:0px;height:100%;width:100%;">
 				
 				</td>

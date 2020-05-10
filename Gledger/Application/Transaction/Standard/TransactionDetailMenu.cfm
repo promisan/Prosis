@@ -32,17 +32,17 @@
 		 if (fld != false){			 
 			 itm.className = "highLight2 labelmedium";
 			 try {		
-			 document.getElementById("box_"+id+"_1").className = "labelit"
-			 document.getElementById("box_"+id+"_2").className = "labelit"
-			 document.getElementById("box_"+id+"_3").className = "labelit"
+			 document.getElementById("val_"+id).className = "regular3 enterastab"
+			 document.getElementById("exc_"+id).className = "regular3 enterastab"
+			 document.getElementById("off_"+id).className = "regular3 enterastab"
 			 } catch(e) {}
 			 
 		 } else {			    
 			 itm.className = "regular labelmedium";		
 			 try {
-			 document.getElementById("box_"+id+"_1").className = "hide"
-			 document.getElementById("box_"+id+"_2").className = "hide"
-			 document.getElementById("box_"+id+"_3").className = "hide"
+			 document.getElementById("val_"+id).className = "hide"
+			 document.getElementById("exc_"+id).className = "hide"
+			 document.getElementById("off_"+id).className = "hide"
 			 } catch(e) {}			 
 		 }
 	  }  

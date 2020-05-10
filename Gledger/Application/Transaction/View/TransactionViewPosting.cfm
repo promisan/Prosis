@@ -12,13 +12,12 @@
 		datasource="AppsLedger"
 		username="#SESSION.login#"
 		password="#SESSION.dbpw#">
-	SELECT   H.*,
-	P.ActionStatus as AccountStatus
+	SELECT   H.*,P.ActionStatus as AccountStatus
 	FROM     TransactionHeader H, Period P
 	WHERE    H.Journal         = '#URL.Journal#'
-AND      H.JournalSerialNo = '#URL.JournalSerialNo#'
-AND      H.AccountPeriod = P.AccountPeriod
-ORDER BY H. TransactionDate
+	AND      H.JournalSerialNo = '#URL.JournalSerialNo#'
+	AND      H.AccountPeriod = P.AccountPeriod
+	ORDER BY H. TransactionDate
 </cfquery>
 
 <cfquery name="JournalList"
@@ -62,6 +61,32 @@ Armin 10/4/2013: Very important query as it combines child/parent transactions. 
 
 <!--- item as supplies --->
 
+<cfquery name="base"
+		datasource="AppsLedger"
+		username="#SESSION.login#"
+		password="#SESSION.dbpw#">
+		SELECT  TransactionLineId
+		FROM    TransactionLine 
+		WHERE   Journal         = '#Transaction.Journal#'
+		AND     JournalSerialNo = '#Transaction.JournalSerialNo#'			
+</cfquery>
+
+<cfset lines = quotedvaluelist(base.TransactionLineId)>
+
+<cfquery name="parent"
+		datasource="AppsLedger"
+		username="#SESSION.login#"
+		password="#SESSION.dbpw#">
+		SELECT  TransactionLineId
+		FROM    TransactionLine 
+		WHERE   ParentJournal         = '#Transaction.Journal#'
+		AND     ParentJournalSerialNo = '#Transaction.JournalSerialNo#'			
+</cfquery>
+
+<cfif parent.recordcount gte "1">
+	<cfset lines = "#lines#,#quotedvaluelist(parent.TransactionLineId)#">
+</cfif>
+
 <cfif proc eq "1" and (JournalList.TransactionCategory is "Payables" or JournalList.TransactionCategory is "DirectPayment")>
 
 	<cfquery name="presetsupply"
@@ -77,7 +102,11 @@ Armin 10/4/2013: Very important query as it combines child/parent transactions. 
 			AND     L.Reference = 'Receipt'
 			AND     D.Reference = 'Warehouse'
 	</cfquery>
-
+	
+	<cfif presetsupply.recordcount gte "1">
+		<cfset lines = "#lines#,#quotedvaluelist(presetsupply.TransactionLineId)#">
+	</cfif>
+	
 	<!--- item as assets --->
 
 	<cfquery name="presetasset"
@@ -94,6 +123,10 @@ Armin 10/4/2013: Very important query as it combines child/parent transactions. 
 			AND     L.Reference = 'Receipt'
 			AND     D.Reference = 'Receipt'
 	</cfquery>
+	
+	<cfif presetasset.recordcount gte "1">
+		<cfset lines = "#lines#,#quotedvaluelist(presetasset.TransactionLineId)#">
+	</cfif>
 
 </cfif>
 
@@ -101,7 +134,7 @@ Armin 10/4/2013: Very important query as it combines child/parent transactions. 
 
 <cfif proc eq "1" and JournalList.TransactionCategory eq "Receivables" and Transaction.TransactionSource neq "WorkOrderSeries">
 
-		<cfquery name="presetunknown"
+		<cfquery name="presetCOGS"
 			datasource="AppsLedger"
 			username="#SESSION.login#"
 			password="#SESSION.dbpw#">
@@ -110,6 +143,10 @@ Armin 10/4/2013: Very important query as it combines child/parent transactions. 
 			  		  TransactionLine AS SL ON SH.Journal = SL.Journal AND SH.JournalSerialNo = SL.JournalSerialNo
 			WHERE     SH.TransactionSourceId = '#Transaction.TransactionSourceId#'			
 		</cfquery>
+		
+		<cfif presetCOGS.recordcount gte "1">
+			<cfset lines = "#lines#,#quotedvaluelist(presetCOGS.TransactionLineId)#">
+		</cfif>
 
 </cfif>
 
@@ -145,195 +182,149 @@ Armin 10/4/2013: Very important query as it combines child/parent transactions. 
 			AND         TS.JournalSerialNo = '#Transaction.JournalSerialNo#'
 
 	</cfquery>
+	
+	 <cfif presetSale.recordcount gte "1">
+			<cfset lines = "#lines#,#quotedvaluelist(presetSale.TransactionLineId)#">
+	 </cfif>
 
 </cfif>
+
+
 
 <cfquery name="Lines"
 		datasource="AppsLedger"
 		username="#SESSION.login#"
 		password="#SESSION.dbpw#">
 		
-		SELECT  H.Created,
-		CASE H.TransactionId WHEN '#Transaction.TransactionId#' THEN '0' ELSE '1' END as Sorting,
-			H.TransactionSource,
-			H.Mission,
-			H.OrgUnitOwner,
-			CASE T.Reference
-				WHEN 'Off-set Receivable' THEN H.JournalTransactionNo+'-'+CAST(T.JournalSerialNo as varchar)
-				WHEN 'Receipt on Receivable' THEN H.JournalTransactionNo+'-'+CAST(T.JournalSerialNo as varchar)
-				ELSE H.JournalTransactionNo END AS JournalTransactionNo,
-			H.ActionStatus,
-			H.RecordStatus,
-			H.TransactionId,
-			H.TransactionPeriod as TransactionPeriodHeader,
-			T.TransactionDate,
-			T.TransactionPeriod as TransactionPeriodLine,
-			G.Description as GLDescription,
-			G.AccountLabel,
-			GP.Description as GroupDescription,
-			G.ForceProgram,
-			G.AccountClass,
-			T.TransactionType,
-			T.Reference,
-			T.ReferenceId,
-			T.ReferenceIdParam,
-			T.ReferenceName,
-			T.ReferenceNo,
-			T.GLAccount,
-			T.AccountPeriod,
-			T.Journal,
-			T.JournalSerialNo,
-			T.TransactionSerialNo,
-			T.OrgUnit,
-			T.ProgramCode,
-			T.ProgramCodeProvider,
-			T.Fund,
-			T.ObjectCode,
-			T.ContributionLineId,
-			<!--- 7/13/2018 adjusted
-			T.TransactionCurrency as Currency,
-			--->
-			T.Currency,
-			T.ParentJournal,
-			T.ParentJournalSerialNo,
-			T.TransactionCurrency,
-			T.WarehouseItemNo,
-			T.Memo,
-			P.ActionStatus as PeriodStatus,
-		
-			(SELECT TOP 1 ObjectId
-			 FROM   Organization.dbo.OrganizationObject
-			 WHERE  ObjectkeyValue4 = H.TransactionId
-			 AND    Operational = 1 ) as WorkflowId,
-		
-			SUM(T.TransactionAmount) as DocumentAmount,
-			SUM(T.AmountDebit)       as AmountDebit,
-			SUM(T.AmountCredit)      as AmountCredit,
-			SUM(T.AmountBaseDebit)   as AmountBaseDebit,
-			SUM(T.AmountBaseCredit)  as AmountBaseCredit
-		
-			FROM    TransactionHeader H,
-					TransactionLine T,
-					Ref_Account G,
-					Ref_AccountGroup GP,
-					Period P
-			WHERE   H.Mission = '#Transaction.mission#'
-		
-		<!---
-		AND     H.Journal = '#Transaction.Journal#'
-		--->
-		
-			AND     (T.AmountDebit <> 0 or T.AmountCredit <> 0)		
-			AND     T.Journal         = H.Journal
-			AND     T.JournalSerialNo = H.JournalSerialNo
-			AND     (
+		    SELECT  H.Created,
+					CASE H.TransactionId 
+					     WHEN '#Transaction.TransactionId#' THEN '0' ELSE '1' END as Sorting,
+					H.TransactionSource,
+					H.Mission,
+					H.OrgUnitOwner,
+					CASE T.Reference
+						WHEN 'Off-set Receivable' THEN H.JournalTransactionNo+'-'+CAST(T.JournalSerialNo as varchar)
+						WHEN 'Receipt on Receivable' THEN H.JournalTransactionNo+'-'+CAST(T.JournalSerialNo as varchar)
+						ELSE H.JournalTransactionNo END AS JournalTransactionNo,
+					H.ActionStatus,
+					H.RecordStatus,
+					H.TransactionId,
+					H.TransactionPeriod as TransactionPeriodHeader,
+					T.TransactionDate,
+					T.TransactionPeriod as TransactionPeriodLine,
+					G.Description as GLDescription,
+					G.AccountLabel,
+					GP.Description as GroupDescription,
+					G.ForceProgram,
+					G.AccountClass,
+					T.TransactionType,
+					T.Reference,
+					T.ReferenceId,
+					T.ReferenceIdParam,
+					T.ReferenceName,
+					T.ReferenceNo,
+					T.GLAccount,
+					T.AccountPeriod,
+					T.Journal,
+					T.JournalSerialNo,
+					T.TransactionSerialNo,
+					T.OrgUnit,
+					T.ProgramCode,
+					T.ProgramCodeProvider,
+					T.Fund,
+					T.ObjectCode,
+					T.ContributionLineId,
+					<!--- 7/13/2018 adjusted
+					T.TransactionCurrency as Currency,
+					--->
+					T.Currency,
+					T.ParentJournal,
+					T.ParentJournalSerialNo,
+					T.TransactionCurrency,
+					T.WarehouseItemNo,
+					T.Memo,
+					P.ActionStatus as PeriodStatus,
+				
+					(SELECT TOP 1 ObjectId
+					 FROM   Organization.dbo.OrganizationObject
+					 WHERE  ObjectkeyValue4 = H.TransactionId
+					 AND    Operational = 1 ) as WorkflowId,
+				
+					SUM(T.TransactionAmount) as DocumentAmount,
+					SUM(T.AmountDebit)       as AmountDebit,
+					SUM(T.AmountCredit)      as AmountCredit,
+					SUM(T.AmountBaseDebit)   as AmountBaseDebit,
+					SUM(T.AmountBaseCredit)  as AmountBaseCredit
+				
+			FROM    TransactionHeader H 
+			        INNER JOIN TransactionLine T   ON T.Journal = H.Journal AND T.JournalSerialNo = H.JournalSerialNo
+					INNER JOIN Ref_Account G       ON  T.GLAccount = G.GLAccount
+					INNER JOIN Ref_AccountGroup GP ON G.AccountGroup  = GP.AccountGroup
+					INNER JOIN Period P            ON H.AccountPeriod = P.AccountPeriod
+					
+			WHERE   H.Mission = '#Transaction.mission#'		
+			<!---
+			AND     H.Journal = '#Transaction.Journal#'
+			--->		
+			AND     (T.AmountDebit <> 0 or T.AmountCredit <> 0)					
+			AND     T.TransactionLineId IN (#preservesingleQuotes(Lines)#)
 
-				<!--- this line --->
-			        (T.Journal = '#Transaction.Journal#'      AND T.JournalSerialNo = '#Transaction.JournalSerialNo#')
-		
-					OR
-		
-				   <!--- children --->
-				   (T.ParentJournal = '#Transaction.Journal#' AND T.ParentJournalSerialNo = '#Transaction.JournalSerialNo#')
-		
-					<cfif operational eq "1" and (JournalList.TransactionCategory is "Payables" or JournalList.TransactionCategory is "DirectPayment")>	
-					
-					<!--- warehouse receipt details that are booked separately usually before the invoice is posted as an RI and are related to the
-					invoice association to the receipt query was tuned 14/10/2012,
-					14/10/2012 : tuning the query resulted in a performance gain --->
-					
-					<!--- L = posting of the invoice, and we related back to the RI through InvoiceIdMatched to the posted receipts  --->
-					
-							<cfif presetSupply.recordcount neq "0">
-								OR 	T.TransactionLineId IN  ( #quotedvaluelist(presetSupply.TransactionLineId)# )
-							</cfif>
-					
-							<cfif presetAsset.recordcount neq "0">
-								OR T.TransactionLineId IN  ( #quotedvaluelist(presetAsset.TransactionLineId)# )
-							</cfif>
-					
-					</cfif>
-		
-					<cfif proc eq "1" and JournalList.TransactionCategory eq "Receivables" and Transaction.TransactionSource neq "WorkOrderSeries">
-						
-						<!--- salama issue--->
-						<cfif Transaction.TransactionSourceId neq "">							
-							OR T.TransactionLineId IN  ( #quotedvaluelist(presetUnknown.TransactionLineId)# )																					
-						</cfif>
-				
-					</cfif>
-					
-					<cfif work eq "1" and JournalList.TransactionCategory is "Receivables">
-		
-						<!--- condition adjusted on 4/9/2016, based on the fact that Fomtex needed to see COGS bookings for a sale					
-						    <cfif work eq "1" and JournalList.TransactionCategory is "Receivables" and Transaction.TransactionSource neq "WorkOrderSeries">					
-						--->				
-				
-						<cfif presetSale.recordcount neq "0">
-							OR T.TransactionLineId IN  ( #quotedvaluelist(presetSale.TransactionLineId)# )
-						</cfif>
-				
-					</cfif>				
-		
-					)
-		
-					AND      T.GLAccount     = G.GLAccount
-					AND      H.AccountPeriod = P.AccountPeriod
-					AND      G.AccountGroup  = GP.AccountGroup
-		
+							
 			GROUP BY H.Created,
-						H.TransactionSource,
-						H.Mission,
-						H.OrgUnitOwner,
-						H.JournalTransactionNo,
-						H.ActionStatus,
-						H.RecordStatus,
-						H.TransactionId,
-						H.TransactionPeriod,
-						T.TransactionDate,
-						T.TransactionPeriod,
-						G.Description,
-						G.AccountLabel,
-						T.ReferenceName,
-						T.ReferenceNo,
-						GP.Description,
-						G.ForceProgram,
-						G.AccountClass,
-						T.TransactionCurrency,
-						T.TransactionType,
-						T.Reference,
-						T.ReferenceId,
-						T.ReferenceIdParam,
-						T.GLAccount,
-						T.AccountPeriod,
-						T.Journal,
-						T.JournalSerialNo,
-						T.TransactionSerialNo,
-						T.OrgUnit,
-						P.ActionStatus,
-						T.ProgramCode,
-						T.ProgramCodeProvider,
-						T.Fund,
-						T.ObjectCode,
-						T.ContributionLineId,
-						T.Currency,
-						T.Memo,
-						T.WarehouseItemNo,
-						T.ParentJournal,
-						T.ParentJournalSerialNo
+					 H.TransactionSource,
+					 H.Mission,
+					 H.OrgUnitOwner,
+					 H.JournalTransactionNo,
+					 H.ActionStatus,
+					 H.RecordStatus,
+					 H.TransactionId,
+					 H.TransactionPeriod,
+				 	 T.TransactionDate,
+					 T.TransactionPeriod,
+					 G.Description,
+					 G.AccountLabel,
+					 T.ReferenceName,
+					 T.ReferenceNo,
+					 GP.Description,
+					 G.ForceProgram,
+					 G.AccountClass,
+					 T.TransactionCurrency,
+					 T.TransactionType,
+					 T.Reference,
+					 T.ReferenceId,
+					 T.ReferenceIdParam,
+					 T.GLAccount,
+					 T.AccountPeriod,
+					 T.Journal,
+					 T.JournalSerialNo,
+					 T.TransactionSerialNo,
+					 T.OrgUnit,
+					 P.ActionStatus,
+					 T.ProgramCode,
+					 T.ProgramCodeProvider,
+					 T.Fund,
+					 T.ObjectCode,
+					 T.ContributionLineId,
+					 T.Currency,
+					 T.Memo,
+					 T.WarehouseItemNo,
+					 T.ParentJournal,
+					 T.ParentJournalSerialNo
 					
 					<!--- hanno 29/7 adjusted the sorting --->
 					
-						ORDER BY Sorting,
-						T.TransactionDate,
-						H.JournalTransactionNo,
-						H.Created,
-						T.ParentJournal,
-						T.ParentJournalSerialNo,
-						T.GLAccount,
-						T.TransactionSerialNo
+			ORDER BY Sorting,
+					T.TransactionDate,
+					H.JournalTransactionNo,
+					H.Created,
+					T.ParentJournal,
+					T.ParentJournalSerialNo,
+					T.GLAccount,
+					T.TransactionSerialNo
 
 </cfquery>
+
+
 
 <!--- prepare a summary based on the user selection --->
 

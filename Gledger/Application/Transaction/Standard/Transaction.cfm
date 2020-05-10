@@ -1170,7 +1170,7 @@ function togglebox(val) {
 					
 					</td>
 				
-				    <td valign="top" style="height:100%;width:100%;padding-left:10px;padding-right:10px">		
+				    <td valign="top" style="height:100%;width:100%;padding-left:10px;padding-right:15px">		
 					
 						<table style="height:100%;width:100%;" border="0" align="center">
 						
