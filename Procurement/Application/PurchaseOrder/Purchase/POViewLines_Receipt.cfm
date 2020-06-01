@@ -11,13 +11,13 @@
 
 <cfoutput>
 	
-		<tr>	
+		<tr style="height:30px">	
 		
 		<td></td>	
 		
 		<td colspan="13">
 		
-			<table width="100%" border="0" class="navigation_table">
+			<table width="100%" height="100%" border="0" class="navigation_table">
 			     
 	 			<cfloop query="ReceiptList">
 				

@@ -15,7 +15,7 @@
 	
 <cfoutput>
 
-<table width="100%" align="center" height="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+<table style="width:98.5%" height="100%">
     
 	<!---
 	<tr>
@@ -30,14 +30,14 @@
     </tr>	
 	--->
 	<tr>
-		<td valign="top" height="30" style="padding-left;4px" align="center">
-	    <table width="95%" cellspacing="0"  cellpadding="0" align="center" class="navigation_table">
-	    <tr class="line">
-	      <td class="labelmedium" width="180"><cf_tl id="Type"></td>
-	      <td class="labelmedium" width="120" style="padding-right:4px"><cf_tl id="Name"></td>
-		  <td class="labelmedium" width="180"><cf_tl id="Value passed"></td>
+		<td valign="top" height="30" style="padding-left:4px" align="center">
+	    <table width="100%" align="center" class="navigation_table">
+	    <tr class="line labelmedium fixrow" style="height:30px">
+	      <td style="font-size:16px"><cf_tl id="Type"></td>
+	      <td style="padding-right:4px;font-size:16px"><cf_tl id="Name"></td>
+		  <td style="font-size:16px"><cf_tl id="Value passed"></td>
 	    </tr>			
-	      #session.parscript#		
+	    #session.parscript#		
 	    </table> 	
         </td>
 	</tr>
@@ -45,18 +45,21 @@
 	<tr>
        <td valign="top" height="100%">
 	   <table width="100%" height="100%" align="center" align="right">
-		   <tr class="labelmedium">
-		    <td height="20" align="left" style="padding:2px; padding-left:10px">
+		   <tr class="labelmedium fixrow line">
+		    <td height="20" align="left" style="height:40px;font-size:20px;padding-left:10px">
 		    <cf_tl id="Report Query Script">
-			<font face="Verdana" color="gray">(#UserReport.ReportPath#/#UserReport.TemplateSQL#)</font> 
-		    <select name="format" id="format" class="regularxl"><option value="Yes" selected>Line</option><option value="No">No lines</select></b>
 			</td>
+			<td>
+			<select style="font-size:20px;height:35px;" name="format" id="format" class="regularxl"><option value="Yes" selected>Line</option><option value="No">Hide lines</select></b>
+			</td>
+			<td align="right" style="padding-right:8px;font-size:16px">
+			Path: #session.rootpath##UserReport.ReportPath##UserReport.TemplateSQL#</font> 
+			</td>
+		    </td>
 			</tr>	
-			<tr><td height="1" bgcolor="C0C0C0"></td></tr>						
-			<tr><td height="100%" width="95%" align="center">
-						
-				<cfdiv bind="url:ReportViewSQLContent.cfm?id=#userreport.controlid#&format={format}" id="sqlcontent" style="height:100%;"/>			
-					 
+								
+			<tr><td height="100%" colspan="3" width="95%" align="center">						
+				<cf_securediv bind="url:ReportViewSQLContent.cfm?id=#userreport.controlid#&format={format}" id="sqlcontent" style="height:100%;">								 
 			</td>
 			</tr>		
 		</table> 

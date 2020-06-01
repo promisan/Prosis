@@ -77,27 +77,64 @@ password="#SESSION.dbpw#">
 			
 		<tr>
 						
-		<td height="100%" style="width:100px;border:1px solid silver;padding-top:2px">
+		<td height="100%" style="min-width:200px;border:1px solid silver;padding-top:2px">
 
 			<cfoutput>
 			<input type="hidden" name="mission" id="mission"   value="#URL.mission#">	
-			<cf_UIToolTip  tooltip="Filter by location">
-			<input 
-				type="textbox" 
-				class="regularxl" 
-				style="background-color:fafafa;width:100%;border:0px;border-bottom:1px solid silver" 
-				name="fltItem" 
-				id="fltItem" 
-				value="" 
-				onkeyup="ptoken.navigate('../Inventory/LocationList.cfm?warehouse=#url.warehouse#&systemfunctionid=#url.systemfunctionid#&item='+this.value,'divLocationList');">
+			<cf_UIToolTip  tooltip="Filter by location or Item">
+			
+				<table>
+				<tr>
+				<td>
+				
+					<cf_tl id="contains" var="1">
+					<cfset vcontains=#lt_text#>
+					<cf_tl id="begins with" var="1">
+					<cfset vbegins=#lt_text#>
+					<cf_tl id="ends with" var="1">
+					<cfset vends=#lt_text#>
+					<cf_tl id="is" var="1">
+					<cfset vis=#lt_text#>
+					<cf_tl id="is not" var="1">
+					<cfset visnot=#lt_text#>
+					<cf_tl id="before" var="1">
+					<cfset vbefore=#lt_text#>
+					<cf_tl id="after" var="1">
+					<cfset vafter=#lt_text#>
+					
+					<select id="fltOperator" name="fltOperator" style="border:0px;border-right:1px solid silver;border-bottom:1px solid silver" class="regularxl" onchange="ptoken.navigate('../Inventory/LocationList.cfm?warehouse=#url.warehouse#&systemfunctionid=#url.systemfunctionid#&filteroperator='+this.value+'&item='+document.getElementById('fltItem').value,'divLocationList');">
+				
+						<OPTION value="CONTAINS"><cfoutput>#vcontains#</cfoutput>
+						<OPTION value="BEGINS_WITH" selected><cfoutput>#vbegins#</cfoutput>
+						<OPTION value="ENDS_WITH"><cfoutput>#vends#</cfoutput>
+						<OPTION value="EQUAL"><cfoutput>#vis#</cfoutput>
+												
+					
+					</SELECT>
+					
+				</td>
+				<td>
+				
+				<input type="textbox" 
+					class="regularxl" 
+					style="background-color:fafafa;width:100%;border:0px;border-bottom:1px solid silver" 
+					name="fltItem" id="fltItem" value="" 
+					onkeyup="ptoken.navigate('../Inventory/LocationList.cfm?warehouse=#url.warehouse#&systemfunctionid=#url.systemfunctionid#&item='+this.value+'&filteroperator='+document.getElementById('fltOperator').value,'divLocationList');">
+					
+				</td>
+				</tr>
+				</table>	
+			
 			</cf_UItooltip>
 			</cfoutput>
 			
-			<cfdiv id="divLocationList" style="height:97%; padding-top:5px;" bind="url:../Inventory/LocationList.cfm?warehouse=#url.warehouse#&systemfunctionid=#url.systemfunctionid#&item=">
+			<cf_securediv id="divLocationList" 
+			    style="height:97%; padding-top:5px;min-width:200px" 
+				bind="url:../Inventory/LocationList.cfm?warehouse=#url.warehouse#&systemfunctionid=#url.systemfunctionid#&item=&filteroperator=">
 																				
 		</td>				
 		
-		<td>
+		<td style="width:100%">
 			
 			 <table height="100%" width="98%" align="center">		  
 			 
@@ -143,16 +180,33 @@ password="#SESSION.dbpw#">
 								  <tr>
 								  
 								 	<td style="padding-right:20px" class="labelmedium" colspan="1">
+
+									 <table>
+										<tr>
+											<td style="width:25px;">
+												<cf_tl id="Open/close all" var="1">
+												<i class="clsLocToggler fas fa-folder" 
+													style="cursor:pointer; color:#CE4A19; font-size:20px;" 
+													title="<cfoutput>#lt_text#</cfoutput>"
+													onclick="toggleLocations();"></i>
+											</td>
+											<td>
+												<cfinvoke component = "Service.Presentation.TableFilter"  
+													method           = "tablefilterfield" 
+													filtermode       = "direct"
+													label            = "Quick find"
+													name             = "filtersearch"
+													style            = "font:14px;height:25;width:150px;"
+													rowclass         = "clsFilterRow"
+													rowfields        = "ccontent">
+											</td>
+										</tr>
+									 </table>
 									 
-									 <cfinvoke component = "Service.Presentation.TableFilter"  
-									   method           = "tablefilterfield" 
-									   filtermode       = "direct"
-									   label            = "Quick find"
-									   name             = "filtersearch"
-									   style            = "font:14px;height:25;width:150px;"
-									   rowclass         = "clsFilterRow"
-									   rowfields        = "ccontent">
-									  </td> 
+									 
+
+
+									</td> 
 									  
 									 <td style="padding-left:3px;" class="labelmedium"><cf_tl id="Suppress 0 (ZERO) stock">:</td>
 									 <td style="padding-left:6px;padding-right:5px">

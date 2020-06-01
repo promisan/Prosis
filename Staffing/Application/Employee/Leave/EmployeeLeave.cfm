@@ -61,9 +61,11 @@
 		</tr>	
 		
 		<tr><td height="100%" width="100%" align="center">
+		        <cf_divscroll>
 				<table width="100%" height="100%" cellspacing="0" cellpadding="0">
 				<tr><td style="padding-left:10px"><cfinclude template="EmployeeLeaveTab.cfm"></td></tr>
 				</table>	
+				</cf_divscroll>
 			</td>
 		</tr>
 		

@@ -81,7 +81,7 @@ datasource="AppsSystem">
 
 <table width="100%" cellspacing="0" cellpadding="0" class="navigation_table">
 
-	<tr class="labelmedium line">
+	<tr class="labelmedium line fixrow">
 	<td height="21"></td>
 	<td><cf_tl id="Account"></td>
 	<td><cf_tl id="Owner"></td>

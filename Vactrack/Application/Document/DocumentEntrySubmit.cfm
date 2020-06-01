@@ -121,11 +121,11 @@ password="#SESSION.dbpw#">
 	          '#Form.DocumentNoTrigger#',
 	          '0',
 			  '#Form.FunctionNo#',
-	          '#Form.FunctionalTitle#',
-			  '#Form.OrganizationUnit#',
+	          '#Form.FunctionDescription#',
+			  '#Form.OrgUnit#',
 			  '#Form.Mission#',
 			  '#Form.Owner#',
-			  '#Form.PostNumber#',
+			  '#Form.SourcePostNumber#',
 			  '#Form.PositionNo#',
 			  #Due#,
 			  '#Form.PostGrade#',
@@ -157,22 +157,22 @@ password="#SESSION.dbpw#">
 	  </cfquery>  
 	    
 		<cfquery name="InsertDocumentPost" 
-		datasource="appsVacancy" 
-		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">
-		INSERT INTO DocumentPost
-			         (DocumentNo,
-					 PositionNo,
-					 PostNumber,
-					 OfficerUserId,
-					 OfficerLastName,
-					 OfficerFirstName)
-		  VALUES ('#LastNo.DocumentNo#',
-		          '#Form.PositionNo#',
-		          '#Form.PostNumber#',
-				  '#SESSION.acc#',
-		    	  '#SESSION.last#',		  
-			  	  '#SESSION.first#')
+			datasource="appsVacancy" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			INSERT INTO DocumentPost
+				         (DocumentNo,
+						 PositionNo,
+						 PostNumber,
+						 OfficerUserId,
+						 OfficerLastName,
+						 OfficerFirstName)
+			VALUES ('#LastNo.DocumentNo#',
+			        '#Form.PositionNo#',
+			        '#Form.PostNumber#',
+			        '#SESSION.acc#',
+			    	'#SESSION.last#',		  
+				  	'#SESSION.first#')
 		  </cfquery>	   
 		
 	<cfoutput>

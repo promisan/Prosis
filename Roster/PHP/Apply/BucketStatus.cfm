@@ -58,7 +58,7 @@
 	   <td></td>
 	   <td colspan="5">
 	   	   	   
-	  		 <cfdiv id="c#functionid#" bind="url:#SESSION.root#/Roster/PHP/Apply/Candidacy.cfm?functionid=#functionid#">	   
+	  		 <cf_securediv id="c#functionid#" bind="url:#SESSION.root#/Roster/PHP/Apply/Candidacy.cfm?functionid=#functionid#">	   
 	  	  	   
 	   </td>
 	</tr>

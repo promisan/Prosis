@@ -118,7 +118,7 @@
 		    		   name="uploadedfile"
 					   id="uploadedfile"
 				       size="32"
-					   style="height:30px;font-size:16px;height:30px;;border:0px"			  
+					   style="height:30px;font-size:16px;height:30px;border:0px"			  
 			    	   class="regularxl"
 				       onChange="ColdFusion.navigate('FileFormPDF.cfm?box=#url.box#&dir=#url.dir#&source='+this.value+'&destination='+document.getElementById('ServerFile').value,'pdf')">		
 					  </cfoutput> 
@@ -127,7 +127,7 @@
 		</TR>
 		<tr class="labelmedium">
 		   <td></td>
-		   <td><font color="808080">Use the 'Browse...' button to locate the file on your local file system.</td>
+		   <td><font color="808080">Use the 'Choose file...' button to locate the file on your local file system or drag it.</td>
 		</tr>
 		<tr><td height="6"></td></tr>
 		<TR class="labelmedium">
@@ -173,7 +173,7 @@
 			   class="regular" 
 			   maxlength="200"
 			   onkeyup="return ismaxlength(this)"					
-			   style="border-radius:2px;font-size:13px;padding:3px;height:38;width:98%"></textarea>	
+			   style="font-size:13px;padding:3px;height:38;width:98%"></textarea>	
 							
 	</TD>
 </TR>

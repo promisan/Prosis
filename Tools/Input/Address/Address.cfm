@@ -20,6 +20,7 @@
 	password="#SESSION.dbpw#">
 	    SELECT *
 	    FROM   #CLIENT.LanPrefix#Ref_Nation
+		 ORDER BY Name
 	</cfquery>
   	
 	<cfquery name="qMission" 

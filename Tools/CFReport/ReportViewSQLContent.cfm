@@ -26,20 +26,15 @@
 			
 	</cfif>		   
 		
-	<table width="100%" height="100%" cellspacing="0" cellpadding="0" align="center">
+	<table width="100%" height="100%" align="center">
 	<tr><td class="labelit"> 
 	
 		<cfoutput> 
-		
-		<cf_divscroll>
-
+				
 			<font face="Courier"  style="font: 10px;">
 				#RESULT#
 			</font>
 
-		</cf_divscroll>
-		   	  
-			
 	    </cfoutput>	
 				
 	</td></tr>    

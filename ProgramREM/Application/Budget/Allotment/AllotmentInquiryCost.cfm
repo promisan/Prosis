@@ -1,5 +1,5 @@
 
-<table width="100%"       
+<table width="98%"       
 	  style="padding-right:4px"
 	  align="center">	
 	  
@@ -31,7 +31,7 @@
 	 	  
 		  <cfoutput>	  
 			
-			  <tr>
+			  <tr class="line">
 			 
 			  <td class="hide" id="moveresult"></td> 
 			  <td></td>
@@ -701,7 +701,7 @@
 			<!--- ----over-all totals----- --->
 			<!--- ------------------------ --->
 			 
-			<tr class="line" bgcolor="e4e4e4" height="30">
+			<tr class="line fixrow" bgcolor="e4e4e4" height="30">
 			 
 			  <td width="50%">
 				  <table cellpadding="0" cellspacing="0" border="0"><tr><td>&nbsp;&nbsp;</td>
@@ -790,10 +790,8 @@
 	<!--- --------------------------------------- --->
 	
 	<cfset rcl = "dadada">
-	
-	<tr><td height="2"></td></tr>
-	
-	<tr>
+			
+	<tr class="fixrow2">
 	
 	    <td rowspan="2" style="border-bottom: 1px dotted b0b0b0;">
 			<table cellspacing="0" cellpadding="0">

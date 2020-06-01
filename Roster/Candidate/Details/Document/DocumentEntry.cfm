@@ -86,7 +86,7 @@ password="#SESSION.dbpw#">
 			<table cellspacing="0" cellpadding="0">
 			<tr><td class="labelmedium"><cf_tl id="Document No">:</td>
 			<td>
-			<cfdiv bind="url:getDocumentReference.cfm?doctype={documenttype}" id="ref">
+			<cf_securediv bind="url:getDocumentReference.cfm?doctype={documenttype}" id="ref">
 			</td>
 			</tr></table>
 			
@@ -181,7 +181,7 @@ password="#SESSION.dbpw#">
 												
 			<tr>
 				<td class="labelmedium"><cf_tl id="Attachment">:</td>
-				<td><cfdiv bind="url:DocumentEntryAttachment.cfm?personno=#url.id#&id=#rowguid#&doctype={documenttype}" id="att"></td>			
+				<td><cf_securediv bind="url:DocumentEntryAttachment.cfm?personno=#url.id#&id=#rowguid#&doctype={documenttype}" id="att"></td>			
 			</tr>	
 									
 			<tr><td height="1" colspan="2" class="line"></td></tr>

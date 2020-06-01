@@ -115,6 +115,7 @@ password="#SESSION.dbpw#">
                                         WHERE    SystemJournal = 'Advance' 
 										AND      Mission = '#mission#') 
 				AND      TL.TransactionSerialNo != '0'
+				AND      TH.Journal != '#SearchResult.Journal#'
 				AND      ParentLineId is NULL		
 								
 				<cfif referenceId neq "">
@@ -128,15 +129,14 @@ password="#SESSION.dbpw#">
 				FROM     TransactionHeader AS TH INNER JOIN
                          TransactionLine AS TL ON TH.Journal = TL.Journal AND TH.JournalSerialNo = TL.JournalSerialNo
 				WHERE    TL.ReferenceNo IN ( SELECT    IP.PurchaseNo
-										  FROM      Purchase.dbo.InvoicePurchase IP 
-										  WHERE     IP.InvoiceId = '#ReferenceId#' )	
+										     FROM      Purchase.dbo.InvoicePurchase IP 
+										     WHERE     IP.InvoiceId = '#ReferenceId#' )	
 				AND      TH.Journal IN (SELECT   Journal
                                         FROM     Journal
                                         WHERE    SystemJournal = 'Advance' 
 										AND      Mission      = '#mission#') 						  		 
 				AND      TransactionSerialNo != '0'						
-				AND      ParentLineId is NULL	
-				
+				AND      ParentLineId is NULL					
 				
 				</cfif>				
 				

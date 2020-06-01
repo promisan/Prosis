@@ -16,17 +16,19 @@
 
 <cfoutput>
 
-<cf_screentop html="yes" height="100%" scroll="Yes" label="Payroll Calculation Batch" layout="webapp" banner="Yellow" user="No">
+<!---
+<cf_screentop html="no" height="100%" scroll="Yes" label="Payroll Calculation Batch" layout="webapp" banner="Yellow" user="No">
+--->
 
-<table bgcolor="white" width="100%" height="100%" cellspacing="0" cellpadding="0" class="formpadding">
+<table bgcolor="white" width="100%" height="100%" class="formpadding">
 
 	<tr><td valign="center" align="center">
 	
-		<table width="94%" height="95%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+		<table width="94%" height="100%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
 		
 		<tr><td class="labelmedium" style="padding:2px" width="130"><cf_tl id="Payroll">:</td>
 		    <td class="labelmedium" width="70%" style="padding:2px"><cf_tl id="Calculation"></td></tr>
-		<tr><td class="labelmedium" style="padding:2px"><cf_tl id="Officer">:</b></td>
+		<tr class="line"><td class="labelmedium" style="padding:2px"><cf_tl id="Officer">:</b></td>
 		    <td class="labelmedium" style="padding:2px">#SESSION.first# #SESSION.last# on #timeformat(now(),"HH:MM:SS")#</td></tr>
 		
 		<!--- at some point for CICIG 
@@ -68,10 +70,9 @@
 		</tr>
 		
 		--->
-		
-		<tr><td colspan="2" height="1" class="line"></td></tr>
-		<tr><td colspan="2" class="hide" id="runbox"></td></tr>
-		<tr><td colspan="2" height="350">
+				
+		<tr class="hide"><td colspan="2" class="hide" id="runbox"></td></tr>
+		<tr class="line"><td colspan="2" style="height:100%" valign="top">
 		<cfdiv id="progressbox" style="position:relative;overflow: auto; width:100%; height:330; scrollbar-face-color: F4f4f4;">
 			
 			<table width="100%" cellspacing="0" cellpadding="0">
@@ -80,9 +81,16 @@
 				<button onclick="payrollprocess('#nextprocess#','','','',''); prg = setInterval('showprogresscalculate(\'#nextprocess#\')', 5000)"			
 				    class="button10g" 
 					name="execute" 
+					style="height:40px"
 					type="button"
 					value="Close">
-					<img src="#SESSION.root#/Images/play.png" height="15" width="15" border="0" align="absmiddle">&nbsp;Start
+					<table align="center"><tr class="labelmedium"><td>
+					<img src="#SESSION.root#/Images/play.png" height="18" width="18" border="0" align="absmiddle">
+					</td>
+					<td style="font-size:17px;padding-left:4px"><cf_tl id="Start"></td>
+					</tr>
+					</table>
+					
 				</button>
 				</td>
 			</tr>	
@@ -90,9 +98,9 @@
 			
 		</cfdiv>
 		</td></tr>
-		<tr><td colspan="2" height="1" class="line"></td></tr>
+		
 		<tr><td align="center" colspan="2">
-		<input type="button" onclick="ColdFusion.Window.hide('executetask');history.go()" class="button10g" name="Close" value="Close">
+		<input type="button" onclick="ProsisUI.closeWindow('executetask');history.go()" class="button10g" name="Close" value="Close">
 		</td></tr>
 		</table>
 	

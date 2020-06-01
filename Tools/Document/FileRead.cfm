@@ -166,15 +166,17 @@
 		
 	<cfif Parameter.AttachModeOpen eq "0">	
 		
-		<!--- open a copy --->
-		<cflocation addtoken="No" url="#session.root#/tools/document/FileReadShow.cfm?id=#url.id#">	
+		<!--- open a copy --->		
+		<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+		<cfset mid = oSecurity.gethash()/>		
+		<cflocation addtoken="No" url="#session.root#/tools/document/FileReadShow.cfm?id=#url.id#&mid=#mid#">	
 		
 	<cfelse>
 	
 		<!--- open a secre copy so users can not apply the link to each other --->
 		<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
-		<cfset token = oSecurity.gethash()/>		
-		<cflocation addtoken="No" url="#session.root#/tools/document/FileReadShow.cfm?id=#url.id#&mid=#token#">		
+		<cfset mid = oSecurity.gethash()/>		
+		<cflocation addtoken="No" url="#session.root#/tools/document/FileReadShow.cfm?id=#url.id#&mid=#mid#">		
 		
 	</cfif>
 	

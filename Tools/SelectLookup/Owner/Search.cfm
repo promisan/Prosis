@@ -61,7 +61,7 @@
 		
 		<input type="button" 
 		   value="<cfoutput>#lt_text#</cfoutput>" 
-		   onclick="ColdFusion.navigate('#SESSION.root#/tools/selectlookup/Owner/Result.cfm?page=1&close=#url.close#&box=#box#&link=#link#&des1=#des1#&filter1=#filter1#&filter1value=#filter1value#&filter2=#filter2#&filter2value=#filter2value#','resultunit#box#','','','POST','selectowner')"
+		   onclick="ptoken.navigate('#SESSION.root#/tools/selectlookup/Owner/Result.cfm?page=1&close=#url.close#&box=#box#&link=#link#&des1=#des1#&filter1=#filter1#&filter1value=#filter1value#&filter2=#filter2#&filter2value=#filter2value#','resultunit#box#','','','POST','selectowner')"
 		   class="button10g">
 		   
 	</td></tr>

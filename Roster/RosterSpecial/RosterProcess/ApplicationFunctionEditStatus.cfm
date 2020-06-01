@@ -117,7 +117,8 @@
 								
 								<!--- show the reasons as ajax --->
 								<tr><td colspan="2">
-									<cfdiv id="reason" bind="url:#SESSION.root#/Roster/RosterSpecial/RosterProcess/ApplicationFunctionEditReason.cfm?status=#get.Status#&owner=#url.Owner#&functionid=#get.FunctionId#&applicantno=#URL.ID#">
+									<cf_securediv id="reason" 
+									  bind="url:#SESSION.root#/Roster/RosterSpecial/RosterProcess/ApplicationFunctionEditReason.cfm?status=#get.Status#&owner=#url.Owner#&functionid=#get.FunctionId#&applicantno=#URL.ID#">
 								</td></tr>
 								
 							</table>

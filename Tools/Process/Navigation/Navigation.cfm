@@ -145,9 +145,7 @@ RELOAD : enforces the left menu to be reloades upon launching of the template.
 <cfset vBtnResetImg = "nav_flat_reset.png">
 <cfset vBtnImgHeight = "14px">
 
-
 <cfinclude template="NavigationTheme.cfm">
-
 
 <cfquery name="Parameter" 
 	datasource="#Alias#" 
@@ -339,19 +337,19 @@ RELOAD : enforces the left menu to be reloades upon launching of the template.
 				  		<cf_tl id="#Attributes.BackName#" var="1">
 							
 						<td style="padding:1px 1px 1px 1px">
-						 <cf_button2 id="Back"
-							text   = "#lt_text#" 
-							bgcolor = "#vBtnColor#"
-							textColor = "#vBtnTextColor#"
-							textSize = "#vBtnTextSize#"
-							borderColor = "#vBtnBorderColor#"
+						 <cf_button2 id     = "Back"
+							text            = "#lt_text#" 
+							bgcolor         = "#vBtnColor#"
+							textColor       = "#vBtnTextColor#"
+							textSize        = "#vBtnTextSize#"
+							borderColor     = "#vBtnBorderColor#"
 							borderColorInit = "#vBtnBorderColor#"
-							image   = "#vBtnBackImg#"
-							imageHeight = "#vBtnImgHeight#"
-							borderRadius = "0px"
-							height = "#attributes.ButtonHeight#"						
-							width   = "#Attributes.ButtonWidth#"
-							onclick = "#Attributes.BackScript#">
+							image           = "#vBtnBackImg#"
+							imageHeight     = "#vBtnImgHeight#"
+							borderRadius    = "0px"
+							height          = "#attributes.ButtonHeight#"						
+							width           = "#Attributes.ButtonWidth#"
+							onclick         = "#Attributes.BackScript#">
 						</td>
 						</cfif>  
 						
@@ -442,9 +440,7 @@ RELOAD : enforces the left menu to be reloades upon launching of the template.
 						--->
 									
 						<cfif Attributes.ProcessEnable eq "1">
-						
-						    
-																		
+																								
 						    <cfif Attributes.NextSubmit eq "0">
 														
 								<cf_tl id="#Attributes.ProcessName#" var="1">
@@ -473,6 +469,7 @@ RELOAD : enforces the left menu to be reloades upon launching of the template.
 								<cf_tl id="#Attributes.ProcessName#" var="1">
 								
 								<td style="padding:1px 1px 1px 1px">
+														
 																
 								  <cf_button2 id = "Process"
 									text         = "#lt_text#" 
@@ -496,23 +493,24 @@ RELOAD : enforces the left menu to be reloades upon launching of the template.
 						<cfelseif Attributes.NextEnable eq "1">	
 						
 							<cfif Attributes.SaveSubmit eq "1">
-							
+														
 								<cf_tl id="Save" var="1">
 								
 								<td style="padding:1px 1px 1px 1px">
 							 	
-									<cf_button2 id="Current" 
-										text         = "#lt_text#" 
-										bgcolor      = "#vBtnColor#"
-										textColor    = "#vBtnTextColor#"
-										textSize     = "#vBtnTextSize#"
-										borderColor  = "#vBtnBorderColor#"
+									<cf_button2 
+									    id              = "Current" 
+										text            = "#lt_text#" 
+										bgcolor         = "#vBtnColor#"
+										textColor       = "#vBtnTextColor#"
+										textSize        = "#vBtnTextSize#"
+										borderColor     = "#vBtnBorderColor#"
 										borderColorInit = "#vBtnBorderColor#"										
-										borderRadius = "0px"
-										imagepos     = "right"
-										width        = "#Attributes.ButtonWidth#"
-										height       = "#attributes.ButtonHeight#"										
-										type         = "submit">
+										borderRadius    = "0px"
+										imagepos        = "right"
+										width           = "#Attributes.ButtonWidth#"
+										height          = "#attributes.ButtonHeight#"										
+										type            = "submit">
 										
 										<!--- onclick      = "return #Attributes.Nextscript# ; parent.Prosis.busy('yes');" --->
 									
@@ -568,6 +566,8 @@ RELOAD : enforces the left menu to be reloades upon launching of the template.
 								</td>		
 																					  
 							<cfelseif Attributes.NextMode eq "1">		
+							
+							
 														  
 							   <cf_tl id="#Attributes.NextName#" var="1">
 							  
@@ -637,6 +637,7 @@ RELOAD : enforces the left menu to be reloades upon launching of the template.
 										width        = "#Attributes.ButtonWidth#"
 										height       = "#attributes.ButtonHeight#"
 										onclick      = "message()">
+									
 									
 								</td>
 								

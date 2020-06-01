@@ -180,16 +180,18 @@
 				                            FROM      Materials.dbo.ItemTransaction T INNER JOIN
 				                                      Materials.dbo.ItemTransactionShipping S ON T.TransactionId = S.TransactionId INNER JOIN
 				                                      Materials.dbo.Ref_Category R ON T.ItemCategory = R.Category
-				                            WHERE     S.Journal = H.Journal 
+				                            WHERE     S.Journal         = H.Journal 
 											AND       S.JournalSerialNo = H.JournalSerialNo 
-											AND       T.Mission = '#url.mission#' 
-											AND       TransactionType = '2'
+											AND       T.Mission         = H.Mission 
+											AND       T.TransactionType = '2'
 											AND       R.FinishedProduct = '#itm#')
 							<!--- settment date --->				
 							AND      L.TransactionDate >= '#dateformat(Period.PeriodDateStart,dateSQL)#'
-							AND      L.TransactionDate <= '#dateformat(Period.PeriodDateEnd,dateSQL)#'		
+							AND      L.TransactionDate <= '#dateformat(Period.PeriodDateEnd,dateSQL)#'	
+														
 					</cfquery>	
 					
+															
 					</cftransaction>
 										
 					<cfquery name="Week" dbtype="query">
@@ -228,6 +230,7 @@
 								
 		</cfloop>
 		
+				
 		<cftransaction isolation="READ_UNCOMMITTED">
 				
 			<cfquery name="ARBase"
@@ -250,13 +253,14 @@
 				
 				AND        R.AccountClass       = 'Balance' <!--- balance --->
 				AND        R.AccountType        = 'Debit'   <!--- asset   --->
+				AND        R.AccountCategory    IN ('Vendor','Neutral')
 				
 				GROUP BY   R.GLAccount, 
 				           R.Description,
 						   H.TransactionPeriod				   
 						   
 			</cfquery>	
-		
+					
 		</cftransaction>
 	
 		<tr><td colspan="4">
@@ -278,8 +282,7 @@
 			 SELECT    DISTINCT TransactionPeriod
 			 FROM      ARBase
 			</cfquery>	
-		
-		
+				
 			<table width="100%">		
 			<cfoutput>
 			<tr><td colspan="3" style="height:35px" class="labellarge"><b>
@@ -319,7 +322,7 @@
 				
 				</table>
 			</td></tr>
-			
+						
 			</table>
 		
 		</td></tr>

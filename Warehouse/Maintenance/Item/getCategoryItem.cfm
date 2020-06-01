@@ -38,7 +38,7 @@
 		itm    = document.getElementById('ItemMasterOld');
    		miss   = document.getElementById('mission');  
 		_cf_loadingtexthtml='';	
-		if ($('#bItemMaster').length > 0) { 		
+		if ($('#bItemMaster').length > 0) { 				
    			ptoken.navigate('getItemMaster.cfm?itemmaster='+itm.value+'&mission='+miss.value+'&categoryitem=<cfoutput>#CatItem.CategoryItem#</cfoutput>','bItemMaster')	
 		}
 	    try {

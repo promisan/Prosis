@@ -13,7 +13,7 @@
 
   <script language="JavaScript">
   
-   parent.window.location = "InitView.cfm";
+   parent.ptoken.location('InitView.cfm');
   
   </script>	
   

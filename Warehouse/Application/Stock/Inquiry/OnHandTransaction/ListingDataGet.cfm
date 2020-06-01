@@ -100,8 +100,11 @@
                    WarehouseLocation WL ON T.Warehouse = WL.Warehouse AND T.Location = WL.Location INNER JOIN
                    Ref_Category R ON T.ItemCategory = R.Category INNER JOIN
 				   ItemUoM U ON T.ItemNo = U.ItemNo AND T.TransactionUoM = U.UoM	
+				   
 		WHERE      T.Mission = '#url.mission#'
+		
 		AND        R.StockControlMode = 'Individual'
+		
 		AND        T.TransactionIdOrigin IS NULL
 					
 		<cfif url.filterwarehouse eq "1">
@@ -258,9 +261,9 @@
 	</cfquery>	 
 	
 
-<table width="99%" align="center" style="height:100%;" border="0" cellspacing="0" cellpadding="0" class="formpadding">	
+<table width="99%" align="center" style="height:100%;" class="formpadding">	
 	<tr>
-		<td align="right" height="100%">
+		<td align="right" height="100%">		
 		   <cfinclude template="ListingDataContent.cfm">					
 		</td>
 	</tr>					

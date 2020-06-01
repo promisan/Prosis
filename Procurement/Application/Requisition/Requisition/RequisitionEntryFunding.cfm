@@ -597,7 +597,7 @@ password="#SESSION.dbpw#">
 	<cf_tl id="Save" var="1">
 	<cfset vsave=lt_text>	
 			
-	<table border="0" width="100%" class="navigation_table">
+	<table border="0" class="navigation_table">
 		    
 		  <tr>
 		  	  
@@ -626,7 +626,7 @@ password="#SESSION.dbpw#">
 			</cfif>
 		    
 		    <td>
-						
+				
 			<table width="100%">
 									
 			<cfoutput>
@@ -660,7 +660,7 @@ password="#SESSION.dbpw#">
 												
 				<TR style="height:25px" class="navigation_row line">
 				
-				   <td style="padding-left:3px">
+				   <td>
 				   
 				     <select name="programperiod" id="programperiod" class="regularxl">
 			           <cfloop query="PeriodList">
@@ -672,7 +672,7 @@ password="#SESSION.dbpw#">
 							
 				   <cfif Parameter.EnforceProgramBudget eq "0">				   	   	   
 				    					   						 						  
-					   <td>
+					   <td style="padding-left:3px">
 					   <select name="fund" id="fund" class="regularxl">
 			           <cfloop query="FundList">
 					     <option value="#Code#" <cfif fd eq Code> SELECTED</cfif>>#Code#</option>
@@ -681,7 +681,7 @@ password="#SESSION.dbpw#">
 					   </td>				  					   
 					   <td></td>
 					   
-					   <td>
+					   <td style="padding-left:3px">
 					   				   
 					   <select name="objectcde" id="objectcde" class="regularxl">
 			           <cfloop query="ObjectList">
@@ -692,7 +692,7 @@ password="#SESSION.dbpw#">
 				   
 				   <cfelse>
 				   
-					     <td class="labelit">#Fund#</td>
+					     <td class="labelit" style="padding-left:3px">#Fund#</td>
 												  
 						 <cfquery name="Program" 
 							datasource="AppsProgram" 
@@ -706,7 +706,7 @@ password="#SESSION.dbpw#">
 												AND    Period = '#url.per#')					
 							</cfquery>
 						 						 						 
-						 <td class="labelit">
+						 <td class="labelit" style="padding-left:3px">
 						 <cfif programName neq "">
 						 
 							 <cfif Program.reference neq "">
@@ -722,7 +722,7 @@ password="#SESSION.dbpw#">
 						 </cfif>
 						 
 						 </td>
-						 <td class="labelit"><cfif CodeDisplay neq "">#CodeDisplay#<cfelse>#ObjectCode#</cfif> #Description#</td>
+						 <td class="labelit" style="padding-left:3px"><cfif CodeDisplay neq "">#CodeDisplay#<cfelse>#ObjectCode#</cfif> #Description#</td>
 						 <input type="hidden" name="fund" id="fund" value="#Fund#">
 						 <input type="hidden" name="objectcde" id="objectcde" value="#ObjectCode#">
 					 
@@ -730,7 +730,7 @@ password="#SESSION.dbpw#">
 				   			   
 				   <input type="hidden" name="programcode" id="programcode" value="">
 				 			   
-				   <td>
+				   <td style="padding-left:3px">
 				  	 <input type="Text" class="regularxl" name="percentage" id="percentage" value="#percentage*100#" size="2" style="text-align:center" maxlength="5">&nbsp;%
 				   </td>
 				   
@@ -766,7 +766,7 @@ password="#SESSION.dbpw#">
 						
 				<TR class="labelmedium navigation_row line">
 				    <td width="50" style="padding-left:3px">#ProgramPeriod#</td>
-				    <td width="50">#Fund#</td>
+				    <td width="50" style="padding-left:3px">#Fund#</td>
 										
 					 <cfquery name="Program" 
 						datasource="AppsProgram" 
@@ -800,12 +800,12 @@ password="#SESSION.dbpw#">
 						 
 					</td>					
 					
-					<td><cfif CodeDisplay neq "">#CodeDisplay#<cfelse>#ObjectCode#</cfif> #Description# </td>
-					<td width="50">#numberformat(Percentage*100,"._")#%</td>
+					<td style="padding-left:3px"><cfif CodeDisplay neq "">#CodeDisplay#<cfelse>#ObjectCode#</cfif> #Description# </td>
+					<td style="padding-left:3px" width="50">#numberformat(Percentage*100,"._")#%</td>
 															
 					<cfset amt = requisition.requestamountbase*percentage>
 					
-					<td align="right">
+					<td align="right" style="padding-left:3px">
 						<table>
 							<tr>					
 							<cfif Parameter.EnforceProgramBudget eq "1">		
@@ -818,9 +818,9 @@ password="#SESSION.dbpw#">
 						</table>
 					</td>
 					<td style="padding-left:6px" align="right">#dateformat(created,CLIENT.DateFormatShow)#</td>
-					<td align="center">
+					<td align="center" style="padding-left:3px">
 																									   
-						 <table cellspacing="0" cellpadding="0" class="formpadding">
+						 <table class="formpadding">
 						   
 						   <tr>			
 						   
@@ -858,8 +858,7 @@ password="#SESSION.dbpw#">
 						   
 					   </td>
    			    </tr>	
-				
-												
+																
 				<tr style="height:0px">								
 				<td colspan="7" style="padding-left:20px">												
 				    <cfdiv bind="url:#SESSION.root#/Procurement/Application/Requisition/FundingDetail/FundingDetail.cfm?id=#url.id#&fundingid=#fundingid#&access=view" 
@@ -919,7 +918,7 @@ password="#SESSION.dbpw#">
 					   
 					   </td>
 					
-					   <td>
+					   <td style="padding-left:3px">
 					   <select name="fund" id="fund" class="regularxl">
 			           <cfoutput query="FundList">
 					     <option value="#Code#">#Code#</option>
@@ -928,21 +927,21 @@ password="#SESSION.dbpw#">
 					   
 					   <td></td>
 					 					   
-					   <td>
+					   <td style="padding-left:3px">
 					    <select name="objectcde" id="objectcde" class="regularxl">
 			           <cfoutput query="ObjectList">
 					     <option value="#Code#">#Code# #Description#</option>
 					   </cfoutput>
 				   	   </select>
 					   </td>
-					   <td>
+					   <td style="padding-left:3px">
 					   <cfoutput>
 					   <input type="Text" name="percentage" id="percentage" class="regularxl" value="#perc*100#" range="1,#perc*100#" message="You entered an invalid percentage" validate="integer" required="Yes" size="3" maxlength="3" style="height;21;font-size:13px;text-align:center">&nbsp;%
 					   </cfoutput>
 					   </td>
 					   <input type="hidden" name="programcode" id="programcode" value="">					   
 					   <td></td>
-					   <td colspan="3">
+					   <td colspan="3" style="padding-left:3px">
 					   
 					   <cfoutput>
 					   

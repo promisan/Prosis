@@ -11,7 +11,6 @@
 
 </cfif>
 
-
 <cf_calendarscript>
 
 <script>
@@ -122,7 +121,7 @@ password="#SESSION.dbpw#">
 	id="inputform" 
 	action="#SESSION.root#/Warehouse/Maintenance/ItemMaster/Pricing/PricingSubmit.cfm?mission=#url.mission#&id=#url.id#&drillid=#url.drillid#">
 
-<table width="96%" align="center" cellspacing="0" cellpadding="0">
+<table width="96%" align="center">
 	  	  
 	<cfquery name="Cls" 
 	datasource="AppsMaterials" 
@@ -144,13 +143,13 @@ password="#SESSION.dbpw#">
 		<table width="100%" class="formpadding">
 		
 			<TR class="labelmedium">
-		    <td height="14" width="140"><cf_tl id="Item">:</b></td>
+		    <td height="14" width="140"><cf_tl id="Item">:</td>
 		    <TD width="80%">#item.ItemNo#
 		    </td>
 		    </tr>
 		
 			<TR class="labelmedium">
-		    <td height="14" width="140"><cf_tl id="Class">:</b></td>
+		    <td height="14" width="140"><cf_tl id="Class">:</td>
 		    <TD width="80%">#Cls.Description#
 		    </td>
 		    </tr>
@@ -200,16 +199,14 @@ password="#SESSION.dbpw#">
 	<!--- pricing globally --->
 	
 	<tr class="line labelmedium">
-			<td colspan="9" height="34" style="font-size:28px;font-weight:200"><cf_tl id="#URL.Mission#"></td>
-		</tr>	
+			<td colspan="11" height="34" style="font-size:28px;font-weight:200"><cf_tl id="#URL.Mission#"></td>
+	</tr>	
 					
-		<cfset w = "">				
-		<cfinclude template="PricingDataContent.cfm">
+	<cfset w = "">				
+	<cfinclude template="PricingDataContent.cfm">
 				
-		<tr><td height="5"></td></tr>
-	
-	</tr>
-	
+	<tr><td height="5"></td></tr>
+		
 	<!--- by store --->
 
 	<cfoutput query="warehouse">	
@@ -224,19 +221,18 @@ password="#SESSION.dbpw#">
 		</cfquery>	
 				
 		<tr class="line labelmedium">
-			<td colspan="9" height="34" style="font-size:28px;font-weight:200">#getWarehouse.WarehouseName# (#Warehouse#)</td>
+			<td colspan="11" style="font-size:28px;font-weight:200">#getWarehouse.WarehouseName# (#Warehouse#)</td>
 		</tr>	
 			
 	    <cfset w = warehouse>		
 		
 		<cfinclude template="PricingDataContent.cfm">
-		
-						
+								
 		<tr><td height="5"></td></tr>
 		
 	</cfoutput>
 		
-	<tr><td colspan="9" height="34" align="center">
+	<tr><td colspan="11" height="34" align="center">
 	<input type="submit" class="button10g" style="width:150" name="Save" id="Save" value="Save">
 	</td></tr>
 	

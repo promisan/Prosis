@@ -1230,7 +1230,7 @@
 	<cfoutput>
 
 	<script>
-		parent.window.location = "PositionEdit.cfm?id=#url.id#&id1=#url.id1#&id2=#url.id2#&mode=read"	
+		parent.ptoken.location('PositionEdit.cfm?id=#url.id#&id1=#url.id1#&id2=#url.id2#&mode=read')	
 		parent.Prosis.busy('no')
 	</script> 
 	

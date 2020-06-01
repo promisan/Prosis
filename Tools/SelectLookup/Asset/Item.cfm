@@ -219,7 +219,7 @@
 		   id="search"
 		   value="<cfoutput>#lt_text#</cfoutput>" 
 		   style="height:20px"
-		   onclick="ColdFusion.navigate('#SESSION.root#/tools/selectlookup/Asset/ItemResult.cfm?height='+document.body.clientHeight+'&page=1&close=#url.close#&box=#box#&link=#link#&des1=#des1#&filter1=#filter1#&filter1value=#filter1value#&filter2=#filter2#&filter2value=#filter2value#&filter3=#filter3#&filter3value=#filter3value#&filter4=#filter4#&filter4value=#filter4value#','result#url.box#','','','POST','select_#url.box#')"
+		   onclick="ptoken.navigate('#SESSION.root#/tools/selectlookup/Asset/ItemResult.cfm?height='+document.body.clientHeight+'&page=1&close=#url.close#&box=#box#&link=#link#&des1=#des1#&filter1=#filter1#&filter1value=#filter1value#&filter2=#filter2#&filter2value=#filter2value#&filter3=#filter3#&filter3value=#filter3value#&filter4=#filter4#&filter4value=#filter4value#','result#url.box#','','','POST','select_#url.box#')"
 		   class="button10g">
 	   
 	   </td>

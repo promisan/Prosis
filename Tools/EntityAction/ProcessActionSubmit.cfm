@@ -85,7 +85,7 @@
 	        <cfinclude template="../../#Form.SaveCustom#">
 		</cfif>
 	<cfset url.id = t>	
-		
+			
 	<!--- ------------------------------------------------------------------------------------------ --->			
 	<!--- conventional mode upload document text into the framework used if variable text is defined --->
 	<!--- ------------------------------------------------------------------------------------------ --->
@@ -109,7 +109,7 @@
 				<tr><td height="30" align="center" class="labelmedium"><font color="gray"><cf_tl id="Information was submitted"> <b>#timeformat(now(),"HH:MM")#</td></tr>
 				<tr><td height="1" class="linedotted"></td></tr>
 			</table>
-			
+						
 			<cfif url.submitaction eq "embedsave">
 			
 				<script>				 				  			  
@@ -118,6 +118,7 @@
 			
 			<cfelse>
 			
+									
 				<script>	
 			
 				   custo  = document.getElementById("formcustomfield");		
@@ -141,10 +142,11 @@
 				   }
 				   
 				</script>
+		
 						
 			</cfif>
 						
-		</cfoutput>		
+		</cfoutput>				
 			
 	<cfelse>
 	
@@ -152,14 +154,12 @@
 					
 		<cfoutput>
 			<script language="JavaScript">						   
-				window.location = "ProcessAction.cfm?wfmode=#url.wfmode#&ajaxid=#url.ajaxid#&ID=#URL.ID#"								
+				ptoken.location('ProcessAction.cfm?wfmode=#url.wfmode#&ajaxid=#url.ajaxid#&ID=#URL.ID#')								
 			</script>
 		</cfoutput>
 		
 	</cfif>
-	
-	
-			
+					
 <cfelseif ParameterExists(Form.CustomDocument)> 
  		
 	<!--- creates the report with the text --->
@@ -169,7 +169,7 @@
 		
 		<cfoutput>
 			<script language="JavaScript">
-				window.location = "ProcessAction.cfm?ajaxid=#url.ajaxid#&ID=#URL.ID#"
+				ptoken.location('ProcessAction.cfm?ajaxid=#url.ajaxid#&ID=#URL.ID#')
 			</script>
 		</cfoutput>
 				
@@ -177,15 +177,14 @@
 		
 		<cfoutput>
 			<script language="JavaScript">
-				window.location = "ProcessAction.cfm?ajaxid=#url.ajaxid#&ID=#URL.ID#"
+				ptoken.location('ProcessAction.cfm?ajaxid=#url.ajaxid#&ID=#URL.ID#')
 			</script>
 		</cfoutput>
 		
 	</cfif>
 	
 <cfelseif ParameterExists(Form.SaveAction) or url.submitaction eq "saveaction">
-
-   
+  
 	
 	 <!--- 10/11/2009 correction based on invoice testing --->
 	<!--- added this safe guard, that if a workflow has 
@@ -234,7 +233,7 @@
 	</cfif>	
 	
 	
-	
+		
 	<!--- --------------------------------------- --->
 	<!--- Perform general validation requirements --->
 	<!--- --------------------------------------- --->
@@ -277,9 +276,7 @@
 	</cfoutput>
 	<cfabort>
 	--->
-	
-	
-			
+		
 	<!--- --------------------------------- --->
     <!--- require reasons in case of denial --->
 	<!--- --------------------------------- --->
@@ -288,8 +285,7 @@
 
 	   	<cf_alert 
 		   message="You must provide a written explanation for your decision. [#len(Form.ActionMemo)# chars]"
-		   return="#ret#">		
-		   
+		   return="#ret#">				   
 		  
 		   <cfabort>
 
@@ -412,6 +408,7 @@
                Ref_EntityDocument R ON O.DocumentId = R.DocumentId
 		WHERE  ActionId   = '#URL.ID#' 
 		AND    DocumentMode = 'AsIs' and DocumentLayout <> 'PDF'
+		AND    Operational = 1
 	</cfquery>
 		
 	<cfloop query="documents">
@@ -448,8 +445,7 @@
 		    <cfset url.WParam = DocumentStringList>
 		    <cfset URL.actionId = "#URL.ID#">
 			<cfinclude template="../../#DocumentTemplate#">		
-		</cfsavecontent>
-				
+		</cfsavecontent>				
 
 		<cfif documents.DocumentStringList neq "norefresh">   			
 			<cfquery name="UpdateMemo" 
@@ -464,8 +460,7 @@
 		</cfif>	
 			
 	</cfloop>	
-	
-		
+			
 	<cfset ObjectId = "#Object.ObjectId#">
 	
 	<cfset keyname1 = "#Object.EntityKeyField1#">
@@ -527,7 +522,6 @@
 			</cfquery>
 					   		  	   
 	</cfif>		
-	
 			
 	<!--- ensure changes are made consistently 
 	
@@ -941,7 +935,7 @@ in the new code --->
 	<cfoutput>
 	
     	<script language="JavaScript">
-	    	window.location = "ProcessAction.cfm?ajaxid=#url.ajaxid#&ID=#URL.ID#&Mode=Print"
+	    	ptoken.location('ProcessAction.cfm?ajaxid=#url.ajaxid#&ID=#URL.ID#&Mode=Print')
     	</script>
 	
 	</cfoutput>
@@ -962,13 +956,12 @@ in the new code --->
 	<cfoutput>
 	
     	<script language="JavaScript">
-	    	window.location = "ProcessAction.cfm?ajaxid=#url.ajaxid#&ID=#URL.ID#&Mode=Mail"
+	    	ptoken.location('ProcessAction.cfm?ajaxid=#url.ajaxid#&ID=#URL.ID#&Mode=Mail')
     	</script>
 	
 	</cfoutput>	
 
 </cfif>
-
 
 <!--- refresh of the [my clearances] in a none modal setup --->
 
@@ -984,3 +977,4 @@ in the new code --->
 		</script>			
 	</cfoutput>
 </cfif>
+

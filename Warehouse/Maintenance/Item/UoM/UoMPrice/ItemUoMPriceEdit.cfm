@@ -36,9 +36,9 @@ password="#SESSION.dbpw#">
 </cfquery>
 
 <cfif url.price neq "">
-	<cf_screentop height="100%" close="parent.ColdFusion.Window.destroy('mydialog',true)" scroll="Yes" layout="webapp" label="Unit of Measure Price" option="Maintain Unit of Measure Price [#Item.ItemDescription# - #Item.UoMDescription#]" banner="yellow">
+	<cf_screentop height="100%" close="parent.ColdFusion.Window.destroy('mydialog',true)" html="No" scroll="Yes" layout="webapp" label="Unit of Measure Price" option="Maintain Unit of Measure Price [#Item.ItemDescription# - #Item.UoMDescription#]" banner="yellow">
 <cfelse>
-	<cf_screentop height="100%" close="parent.ColdFusion.Window.destroy('mydialog',true)" scroll="Yes" layout="webapp" label="Unit of Measure Price" option="Add Unit of Measure Price [#Item.ItemDescription# - #Item.UoMDescription#]">
+	<cf_screentop height="100%" close="parent.ColdFusion.Window.destroy('mydialog',true)" html="No" scroll="Yes" layout="webapp" label="Unit of Measure Price" option="Add Unit of Measure Price [#Item.ItemDescription# - #Item.UoMDescription#]">
 </cfif>
 <cfoutput>
 

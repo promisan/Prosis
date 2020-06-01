@@ -15,18 +15,15 @@
 		  	
 	<table align="right">
 	
-		<tr class="labelmedium">
-		
-			<td>
-			
+		<tr class="labelmedium">		
+			<td style="padding-left:3px">			
 				<cfif abs(val) gte "0.001">			
 				 <cf_tl id="Apply" var="1">		
-			     <input class="button10g" style="font-size:13px;height:25;width:140"  type="button" name="Submit" value="#lt_text#" onClick="addlines()">
+			     <input class="button10g" style="font-size:14px;height:25;width:100px"  type="button" name="Submit" value="#lt_text#" onClick="addlines()">
 			     <input type="hidden" id="lastselectedmode" name="lastselectedmode" value="#url.mode#">	
-				</cfif>
-				
+				</cfif>				
 			</td>
-			<td style="padding-left:40px;align:right;min-width:200px;padding-right:20px;font-size:18px">
+			<td style="padding-left:40px;align:right;padding-right:4px;font-size:18px">
 				<cfif abs(val) gte "0.001">#numberFormat(val,",.__")#</cfif>
 			</td>
 		

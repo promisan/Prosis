@@ -89,7 +89,7 @@
 			    <table width="100%">
 			    <tr class="labelit" style="font-size:12px">				
 								
-				<td style="padding-top:2px;padding-left:10px;border-bottom:1px solid silver;border-left:1px solid silver" ><cf_tl id="Category">:</td>
+				<td style="padding-top:2px;padding-left:10px;border-bottom:1px solid silver;border-left:1px solid silver" ><cf_tl id="Category"></td>
 											
 					<td class="label" style="color:gray;padding-left:4px;border-bottom:1px solid silver;">	
 										 
@@ -108,7 +108,7 @@
 				
 				<cfoutput>				
 								
-				<td style="padding-top:2px;padding-left:10px;border-bottom:1px solid silver;border-left:1px solid silver"><cf_tl id="Class">:</td>
+				<td style="padding-top:2px;padding-left:10px;border-bottom:1px solid silver;border-left:1px solid silver"><cf_tl id="Class"></td>
 				
 				<td class="label" style="color:gray;padding-left:4px;border-bottom:1px solid silver;">	
 					  <select style="border:0px" class="regularxl" id="fldpostclass_#url.mission#" 
@@ -120,7 +120,7 @@
 					  </select>	
 				</td>		
 				
-				<td style="padding-top:2px;padding-left:10px;border-left:1px solid silver;border-bottom:1px solid silver;"><cf_tl id="Incumbency">:</td>
+				<td style="padding-top:2px;padding-left:10px;border-left:1px solid silver;border-bottom:1px solid silver;"><cf_tl id="Incumbency"></td>
 				
 				<td class="label" style="color:gray;padding-left:4px;border-bottom:1px solid silver;">	
 					  <select  style="border:0px;width:60px;" class="regularxl" id="fldcategorydiv_#url.mission#" 
@@ -131,7 +131,7 @@
 					  </select>	
 				</td>		
 				
-				<td style="padding-top:2px;padding-left:10px;border-left:1px solid silver;border-bottom:1px solid silver;"><cf_tl id="Authorised">:</td>
+				<td style="padding-top:2px;padding-left:10px;border-left:1px solid silver;border-bottom:1px solid silver;"><cf_tl id="Authorised"></td>
 				
 				<td class="label" style="color:gray;padding-left:4px;border-bottom:1px solid silver;">	
 				       

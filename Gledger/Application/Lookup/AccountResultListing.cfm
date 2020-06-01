@@ -31,12 +31,13 @@
 	    FROM   Ref_GLCategory
 		WHERE  GLCategory = '#URL.GLCategory#'
 	</cfquery>	
-		
+				
 	<cfif url.mde eq "Transaction">	
 		<cfinclude template="AccountResultListingCompress.cfm">		
 	<cfelseif url.mde eq "JournalTransactionNo">				
 		<cfinclude template="AccountResultListingAggregate.cfm">							
 	<cfelse>		
+		<!--- posting --->
 		<cfinclude template="AccountResultListingStandard.cfm">				
 	</cfif>
 			 	
@@ -54,8 +55,6 @@
 	 
 	 --->
 	 
-	  
-
 </cfcatch>
 
 </cftry>
@@ -139,9 +138,9 @@
 				<CF_DateConvert Value="#dateformat(now(),CLIENT.DateFormatShow)#">
 				<cfset DTE = dateValue>		
 				
-				<cf_ExchangeRate EffectiveDate="#dateformat(now(),CLIENT.DateFormatShow)#"
-				        CurrencyFrom="#Application.BaseCurrency#" 
-						CurrencyTo="#curr#">
+			<cf_ExchangeRate EffectiveDate="#dateformat(now(),CLIENT.DateFormatShow)#"
+			     CurrencyFrom="#Application.BaseCurrency#" 
+				CurrencyTo="#curr#">
 		
 				
 			
@@ -203,7 +202,7 @@
 			<cfelse>
 			    <!--- economical period --->
 			    AND  J.TransactionPeriod <= '#url.pap#'
-			</cfif> 
+			</cfif> 			
 			
         </cfif>
 		
@@ -220,145 +219,133 @@
 		
 	</cfquery>		
 	
-		<cfif total.recordcount gte "1">	
-							
-		<cfoutput>   
-		  
-		  <TR bgcolor="fafafa" class="line labelmedium">	
-		    
-		  	<td colspan="3">
-			
-			<table><tr>
-			
-			  <!---
-			  <cfset lines = quotedValueList(SearchResult.TransactionLineId)>
-			  selectedid  = "#lines#"
-			  --->
-					 					
-					  <cfinvoke component="Service.Analysis.CrossTab"  
-							  method      = "ShowInquiry"
-							  buttonClass = "td"									   						 
-							  buttonText  = "Export Excel"						 
-							  reportPath  = "GLedger\Application\Lookup\"
-							  SQLtemplate = "AccountResultExcel.cfm"
-							  querystring = "id=#url.mde#&account=#URL.Account#"
-							  filter      = ""						  
-							  dataSource  = "appsQuery" 
-							  module      = "Accounting"						  
-							  reportName  = "Execution Report"
-							  table1Name  = "Ledger Transactions"						 		
-							  data        = "1"
-							  ajax        = "0"				 
-							  olap        = "0" 
-							  excel       = "1"> 	
-									
-			</tr></table>
-			
-			</td>
-		    
-		    <cfif URL.ID neq "Transaction"> 
-		    <td colspan="5" align="right" style="padding-right:5px" height="22"><cf_tl id="Total">:</td>
-		    <cfelse>
-			<td colspan="6" align="right" style="padding-right:5px" height="22"><cf_tl id="Total">:</td>
-		    </cfif>		
-											
-			<td style="border-top:1px solid silver;border-bottom:1px solid silver;border-left:1px solid silver;padding-right:2px" bgcolor="yellow" align="right" width="10%">
-			#NumberFormat(total.DebitBase/exch,',.__')#
-			</td>	
-			<td style="border-top:1px solid silver;border-left:1px dotted silver;border-bottom:1px solid silver;border-right:1px solid silver;padding-right:4px" bgcolor="yellow" align="right" width="10%">
-			#NumberFormat(total.CreditBase/exch,',.__')#
-			</td>	
-			
-			<cfif URL.ID neq "Transaction"> 
-			<td align="right" bgcolor="80FF80" style="border-top:1px solid silver;padding-right:4px">
-				<cfif total.balance gte 0>
-				<cfif Account.accounttype eq "Credit">			
-					<font color="FF0000">
-				</cfif>
-				#NumberFormat(total.balance/exch,',.__')#
-				<cfelse>
-				<cfif Account.accounttype eq "Debit">			
-					<font color="FF0000">
-				</cfif>
-				<cfif total.balance neq "">
-				#NumberFormat(abs(total.balance/exch),',.__')#</b>
-				</cfif>
-				</font>
-				</cfif>
-			</td>	
-			</cfif>
-			<td></td>
-		  </TR>
-		  
-		  </cfoutput>
-		  
-		  </cfif>	
-		  
-	<cfoutput>
-			
-		<tr class="labelmedium line">
-		    <td style="min-width:40px"></td>
-			<TD style="min-width:100px"><cf_tl id="Journal"></TD>
-		    <TD style="min-width:130px"><cf_tl id="TraNo"></TD>
-			<TD width="100%"><cf_tl id="Reference"></TD>
-			
-			<cfif URL.ID neq "Transaction">
-			
-				<cfif url.id neq "Created">
-				<TD style="min-width:100px"><cf_tl id="Date"></TD>
-				<cfelse>
-				<TD style="min-width:100px"><cf_tl id="Posted"></TD>
-				</cfif>
-				
-			<cfelse>
-			
-				<TD style="min-width:100px"><cf_tl id="Date"></TD>
-				<TD style="min-width:100px"><cf_tl id="Posted"></TD>		
-					
-			</cfif>	
-		    <TD style="min-width:60px"><cf_tl id="Curr"></TD>
-			<td style="min-width:100px" align="right"><cf_tl id="Debit"></td>
-			<td style="min-width:100px;padding-right:4px" align="right"><cf_tl id="Credit"></td>
-			<td style="min-width:96px;border-top:1px solid silver;border-left:1px solid silver;padding-right:2px" bgcolor="yellow" align="right"><cf_tl id="Debit"> #curr#</td>
-			<td style="min-width:96px;border-left:1px dotted silver;border-top:1px solid silver;border-right:1px solid silver;padding-right:4px" bgcolor="yellow" align="right"><cf_tl id="Credit"> #curr#</td>
-			<cfif URL.ID neq "Transaction">
-				<td style="min-width:100px;" align="right"><cf_tl id="EoD Balance"></td>			
-			</cfif>
-			<td style="min-width:36px;"></td>
-		</TR>
-				
-	 </cfoutput>	  
-	
-	<tr><td width="100%" colspan="14" style="padding:6px">
+	<tr><td width="100%" colspan="14">
 	
 	    <cf_divscroll overflowy="scroll">
 	
 		<table width="99%" border="0" cellspacing="0" cellpadding="0" class="navigation_table">
+		
+				<cfoutput>
+				
+				<cfif total.recordcount gte "1">								
+				  
+				  <TR bgcolor="fafafa" class="line labelmedium fixrow">	
+				    
+				  	<td colspan="3">
 					
-			<cfoutput>
-			
-				<tr style="height:1px">
-				    <td style="min-width:30px"></td>
-					<TD style="min-width:100px"></TD>
-				    <TD style="min-width:130px"></TD>
-					<TD width="100%"></TD>						
-					<TD style="min-width:100px"></TD>					
-				    <TD style="min-width:60px"></TD>
-					<td style="min-width:100px"></td>
-					<td style="min-width:100px"></td>
-					<td style="min-width:100px"></td>
-					<td style="min-width:100px"></td>
-					<cfif URL.ID neq "Transaction">
-					<td style="min-width:100px"></td>
-					</cfif>				
+					<table><tr>
+					
+					  <!---
+					  <cfset lines = quotedValueList(SearchResult.TransactionLineId)>
+					  selectedid  = "#lines#"
+					  --->
+							 					
+							  <cfinvoke component="Service.Analysis.CrossTab"  
+									  method      = "ShowInquiry"
+									  buttonClass = "td"									   						 
+									  buttonText  = "Export Excel"						 
+									  reportPath  = "GLedger\Application\Lookup\"
+									  SQLtemplate = "AccountResultExcel.cfm"
+									  querystring = "id=#url.mde#&account=#URL.Account#"
+									  filter      = ""						  
+									  dataSource  = "appsQuery" 
+									  module      = "Accounting"						  
+									  reportName  = "Execution Report"
+									  table1Name  = "Ledger Transactions"						 		
+									  data        = "1"
+									  ajax        = "0"				 
+									  olap        = "0" 
+									  excel       = "1"> 	
+											
+					</tr></table>
+					
+					</td>
+				 
+					<td colspan="5" align="right" style="padding-right:5px" height="22"><cf_tl id="Total">:</td>
+				   													
+					<td style="border-bottom:1px solid silver;border-left:1px solid silver;padding-right:2px" bgcolor="yellow" align="right" width="10%">
+					#NumberFormat(total.DebitBase/exch,',.__')#
+					</td>	
+					<td style="border-left:1px dotted silver;border-bottom:1px solid silver;border-right:1px solid silver;padding-right:4px" bgcolor="yellow" align="right" width="10%">
+					#NumberFormat(total.CreditBase/exch,',.__')#
+					</td>	
+					
+					<cfif URL.mde neq "Transaction"> 
+					
+					<td align="right" bgcolor="80FF80" style="padding-right:4px">
+						<cfif total.balance gte 0>
+						<cfif Account.accounttype eq "Credit">			
+							<font color="FF0000">
+						</cfif>
+						#NumberFormat(total.balance/exch,',.__')#
+						<cfelse>
+						<cfif Account.accounttype eq "Debit">			
+							<font color="FF0000">
+						</cfif>
+						<cfif total.balance neq "">
+						#NumberFormat(abs(total.balance/exch),',.__')#</b>
+						</cfif>
+						</font>
+						</cfif>
+					</td>	
+					<cfelse>
+					<td></td>
+					</cfif>
+					
+					<td>
+					</td>
+					
+				  </TR>	  
+		  		  
+			    </cfif>									
+					
+				<tr class="labelmedium line fixrow2">
+				    <td style="min-width:40px"></td>
+					<TD style="min-width:100px"><cf_tl id="Journal"></TD>
+				    <TD style="min-width:130px;width:20%"><cf_tl id="TraNo"></TD>
+					<TD style="width:60%"><cf_tl id="Reference"></TD>
+					
+					<cfif URL.mde neq "Transaction">
+					
+						<cfif url.id neq "Created">
+						<TD style="min-width:100px"><cf_tl id="Date"></TD>
+						<cfelse>
+						<TD style="min-width:100px"><cf_tl id="Posted"></TD>
+						</cfif>
+						
+					<cfelse>
+					
+						<TD style="min-width:100px"><cf_tl id="Date"></TD>
+						<TD style="min-width:100px"><cf_tl id="Posted"></TD>		
+							
+					</cfif>	
+				    <TD style="min-width:60px"><cf_tl id="Curr"></TD>
+					<td style="min-width:100px" align="right"><cf_tl id="Debit"></td>
+					<td style="min-width:100px;padding-right:4px" align="right"><cf_tl id="Credit"></td>
+					<td style="min-width:96px;border-left:1px solid silver;padding-right:2px" bgcolor="yellow" align="right"><cf_tl id="Debit"> #curr#</td>
+					<td style="min-width:96px;border-left:1px dotted silver;border-right:1px solid silver;padding-right:4px" bgcolor="yellow" align="right"><cf_tl id="Credit"> #curr#</td>
+					
+					<cfif URL.mde neq "Transaction">
+						<td style="min-width:100px;;border-right:1px solid silver;padding-right:4px" align="right"><cf_tl id="Running"></td>	
+					<cfelse>
+						<td style="min-width:0px;" align="right"></td>		
+					</cfif>
+					
+					<cfif URL.mde eq "Posting">
+					<td style="min-width:30px;" align="right"><cf_tl id="Note"></td>	
+					<cfelse>
+					   <td style="min-width:0px;" align="right"></td>		
+					</cfif>
+					
 				</TR>
-										
-			</cfoutput>
-					
+						
+			 </cfoutput>	  
+				
+								
 			<cfif Searchresult.recordcount eq "0">
 				<tr>
 				   <td style="padding-top:10px"
-				       colspan="11" 
+				       colspan="13" 
 					   align="center" 
 					   class="labelmedium"><font color="FF0000"><cf_tl id="No transactions found to show in this view"></td>
 				 </tr>	
@@ -406,9 +393,11 @@
 				<cfparam name="ar[currentrow][2]" default="0">		
 				<cfparam name="ar[currentrow][3]" default="0">	
 					
-			</cfloop>		 
+			</cfloop>		
+			
+			<cfset srow = "0"> 
 									 												
-			<cfoutput query="SearchResult" group="#group#" startrow="#first#">
+			<cfoutput query="SearchResult" group="#group#" startrow="1">
 											
 			  <cfset amtD   = 0>
 			  <cfset amtC   = 0>
@@ -418,15 +407,44 @@
 				 
 				 <cfcase value = "TransactionType">
 				 <tr>
-				     <td colspan="11" class="labelmedium" style="height:35;padding-left:3px">#TransactionType#</td> 
+				     <td colspan="13" class="labelmedium" style="height:35;padding-left:3px">#TransactionType#</td> 
 				 </tr>			 
 			     </cfcase>							 					
 				 
 			  </cfswitch>
 			     
-				  <cfoutput>					  
+				  <cfoutput>	
+				  
+				  	  <cfset show = "1">	 	
+				  
+				  	  <cfif url.pap neq "">
+					  
+					  	<cfif HeaderTransactionPeriod neq url.pap>
+							<cfset show = "0">
+						</cfif>
+											  
+					  </cfif>
+				  
+				  	  <cfif show eq "1">
+					  
+						  <cfset srow = srow+1>
+					  
+					  </cfif>		
+					  
+					  <!--- runtime balance totals --->
+					  
+					  <cfif AmountBaseDebit is not "">
+					    	<cfset AmtD = AmtD + AmountBaseDebit*DateExchangeRate>
+							<cfset RunD = RunD + AmountBaseDebit>
+					  </cfif> 
+					
+					  <cfif AmountBaseCredit is not "">
+					        <cfset AmtC  = AmtC + AmountBaseCredit*DateExchangeRate>		
+							<cfset RunC  = RunC + AmountBaseCredit>
+					  </cfif>			  
 				  														
-					  <cfif currentrow-first lt rows>									
+					  <cfif srow-first lt rows and show eq "1">									
+					  
 					    <tr id="r#currentrow#" class="navigation_row labelmedium line" style="height:15px">																		    
 						<td align="center">#currentrow#</td>						
 						<TD style="padding-left:4px">
@@ -505,7 +523,7 @@
 							<cfset t = "">
 						</cfif>
 												
-						<cfif URL.ID neq "Transaction">
+						<cfif URL.mde neq "Transaction">
 						
 							<cfif url.id neq "Created">
 							<TD></TD>
@@ -531,29 +549,27 @@
 											
 					    <TD align="left">#SearchResult.Currency#</TD>
 					    <td align="right">#t##NumberFormat(AmountDebit,',.__')#</td>	
-						<td align="right" style="padding-right:4px">#t##NumberFormat(AmountCredit,',.__')#</td>							
-						<td style="border-left:1px solid silver;padding-right:2px;background-color:##ffffaf80" align="right">#t##NumberFormat(AmountBaseDebit*DateExchangeRate,',.__')#</td>	
-						<td style="border-left:1px solid silver;border-right:1px dotted silver;border-right:1px solid silver;padding-right:4px;background-color:##ffffaf80" align="right">#t##NumberFormat(AmountBaseCredit*DateExchangeRate,',.__')#</td>	
+						<td align="right" style="padding-right:3px">#t##NumberFormat(AmountCredit,',.__')#</td>							
+						<td style="border-left:1px solid silver;padding-right:3px;background-color:##ffffaf80" align="right">#t##NumberFormat(AmountBaseDebit*DateExchangeRate,',.__')#</td>	
+						<td style="border-left:1px solid silver;border-right:1px dotted silver;border-right:1px solid silver;padding-right:3px;background-color:##ffffaf80" align="right">#t##NumberFormat(AmountBaseCredit*DateExchangeRate,',.__')#</td>	
+						
+						<td align="right" style="border-left:solid silver 1px;padding-right:4px;border-top:solid gray 0px"></td>
 
-						<cfif URL.ID neq "Transaction">		    
-						<td align="right"></td>
+						<cfif URL.mde eq "Posting">		    
+							<td align="right" id="note_#Journal#_#JournalSerialNo#" style="padding-bottom:5px">
+								<cf_annotationshow entity="GLTransaction" 
+							         keyvalue4="#TransactionId#"
+								     docbox="note_#Journal#_#JournalSerialNo#">		
+							</td>
+						<cfelse>
+							<td></td>						
 						</cfif>
-													
-						<cfif AmountBaseDebit is not "">
-					    	<cfset AmtD = AmtD + AmountBaseDebit*DateExchangeRate>
-							<cfset RunD = RunD + AmountBaseDebit>
-						</cfif> 
-					
-						<cfif AmountBaseCredit is not "">
-					        <cfset AmtC  = AmtC + AmountBaseCredit*DateExchangeRate>		
-							<cfset RunC  = RunC + AmountBaseCredit>
-						</cfif>	
 						
 					    </TR>
 						
 						<tr class="hide" id="row#currentrow#">
 							<td colspan="2"></td>
-							<td colspan="5"><cfdiv id="box#currentrow#"></td>
+							<td colspan="8"><cfdiv id="box#currentrow#"></td>
 						</tr>						
 															
 					  </cfif>	
@@ -576,7 +592,7 @@
 					or URL.ID eq "DocumentDate" 
 					or URL.ID eq "Created">
 														 
-					    <cfif currentrow-first lte rows or grp eq "1"> 
+					    <cfif (srow-first lte rows or grp eq "1") and show eq "1"> 
 										
 						    <cfloop index="row" from="1" to="#currlist.recordcount#">
 							
@@ -623,13 +639,14 @@
 															
 									</td>
 									
-									<td align="right" bgcolor="#cl#" style="font-size:12px;padding-right:3px;border-bottom:1px solid gray" colspan="1">#ar[row][1]#</td>
-									<td align="right" bgcolor="#cl#" style="padding-right:3px;border-bottom:1px solid gray" colspan="1"><font color="808080">#NumberFormat(ar[row][2],',.__')#</td>
-									<td align="right" bgcolor="#cl#" style="padding-right:3px;border-bottom:1px solid gray" colspan="1"><font color="808080">#NumberFormat(ar[row][3],',.__')#</td>															
-									<td align="right" bgcolor="#cl#" style="border-left:solid silver 1px;border-bottom:solid gray 1px;padding-right:10px">#NumberFormat(RunD/exch,',.__')#</td>							
-									<td align="right" bgcolor="#cl#" style="border-left:solid silver 1px;border-bottom:solid gray 1px;padding-right:10px">#NumberFormat(RunC/exch,',.__')#</td>											
-									<td align="right" bgcolor="#cl#" style="border-left:solid silver 1px;padding-right:4px;border-top:solid gray 0px;border-bottom:solid gray 1px">
+									<td align="right" bgcolor="#cl#" style="font-size:12px;padding-right:3px;border-bottom:1px solid silver" colspan="1">#ar[row][1]#</td>
+									<td align="right" bgcolor="#cl#" style="padding-right:3px;border-bottom:1px solid silver" colspan="1"><font color="808080">#NumberFormat(ar[row][2],',.__')#</td>
+									<td align="right" bgcolor="#cl#" style="padding-right:3px;border-bottom:1px solid silver" colspan="1"><font color="808080">#NumberFormat(ar[row][3],',.__')#</td>															
+									<td align="right" bgcolor="#cl#" style="border-left:solid silver 1px;border-bottom:solid silver 1px;padding-right:3px">#NumberFormat(RunD/exch,',.__')#</td>							
+									<td align="right" bgcolor="#cl#" style="border-left:solid silver 1px;border-bottom:solid silver 1px;padding-right:3px">#NumberFormat(RunC/exch,',.__')#</td>											
 									
+									<td align="right" bgcolor="#cl#" style="border-left:solid silver 1px;padding-right:4px;border-top:solid gray 0px;border-bottom:solid silver 1px">
+																											
 										<cfset run = (RunD-RunC) / exch>
 									
 									    <cfif run gte 0>
@@ -648,7 +665,9 @@
 											
 										</cfif>			
 											
-									</td>						
+									</td>		
+									
+									<td style="border-left:solid silver 1px;padding-right:4px;border-top:solid gray 0px;border-bottom:solid silver 1px"></td>				
 																	
 							    </TR>
 								

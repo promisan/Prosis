@@ -1,39 +1,40 @@
    
+<cfoutput>
+   
 <script language="JavaScript">
-
-function reload() { 
-   opener.location.reload();
-   window.close();
-}
-
-function setappno(app) {  
-   parent.frames[0].applicantmenu.applicantno.value = app;
-}
-
-function more(bx) {
-
-    icM  = document.getElementById(bx+"Min")
-    icE  = document.getElementById(bx+"Exp")
-	se   = document.getElementById(bx)
-		
-	if (se.className == "hide")	{
-		se.className  = "regular";
-		icM.className = "regular";
-    	icE.className = "hide";
-	} else	{
-		se.className  = "hide";
-    	icM.className = "hide";
-	    icE.className = "regular";
+	
+	function reload() { 
+	   opener.location.reload();
+	   window.close();
 	}
-}
-
-function submitPHP(app) {
-	window.location = "<cfoutput>#SESSION.root#</cfoutput>/Roster/Candidate/Details/PHPIssue.cfm?ID1="+app
-}
+	
+	function setappno(app) {  
+	   parent.frames[0].applicantmenu.applicantno.value = app;
+	}
+	
+	function more(bx) {
+	
+	    icM  = document.getElementById(bx+"Min")
+	    icE  = document.getElementById(bx+"Exp")
+		se   = document.getElementById(bx)
+			
+		if (se.className == "hide")	{
+			se.className  = "regular";
+			icM.className = "regular";
+	    	icE.className = "hide";
+		} else	{
+			se.className  = "hide";
+	    	icM.className = "hide";
+		    icE.className = "regular";
+		}
+	}
+	
+	function submitPHP(app) {
+		ptoken.location('#SESSION.root#/Roster/Candidate/Details/PHPIssue.cfm?ID1='+app)
+	}
 
 </script>  
 
-<cfoutput>
 	
 	<cfquery name="Owner" 
 	datasource="AppsSelection" 
@@ -81,5 +82,5 @@ function submitPHP(app) {
 <cf_actionListingScript>
 <cf_FileLibraryScript>
 
-<cfdiv bind="url:#SESSION.root#/roster/candidate/details/applicant/ApplicantDetail.cfm?id=#url.id#" id="boxappdetail">
+<cf_securediv bind="url:#SESSION.root#/roster/candidate/details/applicant/ApplicantDetail.cfm?id=#url.id#" id="boxappdetail">
    

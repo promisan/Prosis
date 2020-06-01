@@ -136,8 +136,11 @@ password="#SESSION.dbpw#">
 
 <cfoutput>
 
+<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+<cfset mid = oSecurity.gethash()/>   
+
 <script language="JavaScript">
- 	window.location = "#SESSION.root#/Staffing/Reporting/PostView/Staffing/PostViewLoop.cfm?acc=#SESSION.acc#&Mission=#URL.Mission#&Mandate=#URL.Mandate#&tree=#URL.Tree#&Unit=#URL.Unit#&filterid=#id#"
+ 	window.location = "#SESSION.root#/Staffing/Reporting/PostView/Staffing/PostViewLoop.cfm?acc=#SESSION.acc#&Mission=#URL.Mission#&Mandate=#URL.Mandate#&tree=#URL.Tree#&Unit=#URL.Unit#&filterid=#id#&mid=#mid#"
 </script>
 	
 </cfoutput>

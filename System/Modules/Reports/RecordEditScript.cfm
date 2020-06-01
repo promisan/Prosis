@@ -7,9 +7,8 @@
 function usage(id) {
 		w = #CLIENT.width# - 40;
 	    h = #CLIENT.height# - 70;
-	         window.open("Distribution.cfm?Controlid=" + id, "Usage");
-	}
-
+        ptoken.open("Distribution.cfm?Controlid=" + id, "Usage");
+}
 
 function toggleP(bx) {
      
@@ -22,8 +21,7 @@ function toggleP(bx) {
 	se.className = "";
 	se.className = "regular";
 	
-	}
-	
+	}	
 }
 
 function check() {
@@ -43,7 +41,7 @@ while (count<5) {
 }
 
 function secsave(fld,val) {
-    ColdFusion.navigate('RecordEditFieldsSecuritySave.cfm?id=#url.id#&field='+fld+'&value='+val,'securitysave')
+    ptoken.navigate('RecordEditFieldsSecuritySave.cfm?id=#url.id#&field='+fld+'&value='+val,'securitysave')
 }	
 
 function about(id) {
@@ -55,7 +53,7 @@ function about(id) {
 function schedule(id,ui) {
     w = #CLIENT.width# - 50;
     h = #CLIENT.height# - 30;
-	window.open("#SESSION.root#/tools/cfreport/SubmenuReportView.cfm?source=library&id=" + id + "&option=none&interface="+ui, id);
+	ptoken.open("#SESSION.root#/tools/cfreport/SubmenuReportView.cfm?source=library&id=" + id + "&option=none&interface="+ui, id);
 }
 
 function purge() {
@@ -72,33 +70,27 @@ function outputpurge(rl) {
 }
 		
 function outputedit(val) {	
-	    ColdFusion.Window.create('mydialog', 'Edit', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,center:true})    
-		ColdFusion.Window.show('mydialog') 				
-		ptoken.navigate('../ReportOutput/LayoutView.cfm?Status=#op#&ID=#URL.ID#&ID1='+val,'mydialog') 		
+	ColdFusion.Window.create('mydialog', 'Edit', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,center:true})    
+	ColdFusion.Window.show('mydialog') 				
+	ptoken.navigate('../ReportOutput/LayoutView.cfm?Status=#op#&ID=#URL.ID#&ID1='+val,'mydialog') 		
 } 
 								
-function extractadd() {		
-        
-		try { ColdFusion.Window.destroy('myexcel',true) } catch(e) {}
-		ColdFusion.Window.create('myexcel', 'Receipt', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,resizable:false,center:true})    			
-		ColdFusion.navigate('../ReportOutput/ExcelView.cfm?Mode=new&ID=#URL.ID#&ID1=','myexcel') 		
-
-	} 
+function extractadd() {		        
+	try { ColdFusion.Window.destroy('myexcel',true) } catch(e) {}
+	ColdFusion.Window.create('myexcel', 'Receipt', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,resizable:false,center:true})    			
+	ColdFusion.navigate('../ReportOutput/ExcelView.cfm?Mode=new&ID=#URL.ID#&ID1=','myexcel') 		
+} 
 			
 function extractedit(id1) {
-
-        try { ColdFusion.Window.destroy('myexcel',true) } catch(e) {}
-		ColdFusion.Window.create('myexcel', 'Receipt', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,resizable:false,center:true})    			
-		ColdFusion.navigate('../ReportOutput/ExcelView.cfm?Mode=edit&ID=#URL.ID#&ID1=' + id1,'myexcel') 		
-	
-	
-	} 	
+    try { ColdFusion.Window.destroy('myexcel',true) } catch(e) {}
+	ColdFusion.Window.create('myexcel', 'Receipt', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,resizable:false,center:true})    			
+	ColdFusion.navigate('../ReportOutput/ExcelView.cfm?Mode=edit&ID=#URL.ID#&ID1=' + id1,'myexcel') 				
+} 	
 	
 function outputrefresh() {		      
-        _cf_loadingtexthtml='';			
-     	ptoken.navigate('RecordEditFieldsLayout.cfm?id=#URL.ID#&status=#op#','contentbox6')	
+    _cf_loadingtexthtml='';			
+  	ptoken.navigate('RecordEditFieldsLayout.cfm?id=#URL.ID#&status=#op#','contentbox6')	
 }		
-					
 
 function showsql(opt) {
 	 se = document.getElementById("sql0")
@@ -110,16 +102,14 @@ function showsql(opt) {
 } 
 
 function sql(id) { 
-    window.open("SQLOpen.cfm?id="+id, "_blank", "status=yes, toolbar=no, menubar=yes, scrollbars=yes, resizable=yes") 
+    ptoken.open("SQLOpen.cfm?id="+id, "_blank", "status=yes, toolbar=no, menubar=yes, scrollbars=yes, resizable=yes") 
 }
 
 function syncreport(id) {
 
-	if (confirm("Do you want to synchronize this report with the local production sites ?")) {
-		
-	url = "ReportSync.cfm?controlid="+id
-	ColdFusion.navigate(url,'sync')	 
-	
+	if (confirm("Do you want to synchronize this report with the local production sites ?")) {		
+		url = "ReportSync.cfm?controlid="+id
+		ptoken.navigate(url,'sync')	 	
 	}
 }
 

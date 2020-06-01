@@ -5,7 +5,7 @@
 <cfelseif attributes.banner eq "yellow">
 	<cfset bg = "BGV7.jpg">
 <cfelseif attributes.banner eq "blue">
-	<cfset bg = "BGV6.jpg">
+	<cfset bg = "BGV6.jpg">	
 <cfelseif attributes.banner eq "bluedark">
 	<cfset bg = "BGV11.jpg">
 <cfelseif attributes.banner eq "gradient">

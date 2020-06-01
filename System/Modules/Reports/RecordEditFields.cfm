@@ -35,15 +35,15 @@
 <script language="JavaScript">
 
 	function dbscript() {
-	     window.open("DatabaseExport.cfm?id=<cfoutput>#URL.ID#</cfoutput>&mode=Export","sql","width=800, height=800, toolbar=no, scrollbars=no, resizable=no")
+	     ptoken.open("DatabaseExport.cfm?id=<cfoutput>#URL.ID#</cfoutput>&mode=Export","sql","width=800, height=800, toolbar=no, scrollbars=no, resizable=no")
 	}
 	
 	function dbreplica() {
-	     window.open("DatabaseExport.cfm?id=<cfoutput>#URL.ID#</cfoutput>&mode=Replica","sql","width=800, height=800, toolbar=no, scrollbars=no, resizable=no")
+	     ptoken.open("DatabaseExport.cfm?id=<cfoutput>#URL.ID#</cfoutput>&mode=Replica","sql","width=800, height=800, toolbar=no, scrollbars=no, resizable=no")
 	}	
 	
 	function emailrep() {
-		window.open("#SESSION.root#/Tools/Mail/Mail.cfm?ID1=Export files for: #Line.FunctionName#&Source=ReportConfig&Sourceid=#URL.ID#","blank", "width=800, height=600, status=yes, toolbar=no, scrollbars=no, resizable=no");
+		ptoken.open("#SESSION.root#/Tools/Mail/Mail.cfm?ID1=Export files for: #Line.FunctionName#&Source=ReportConfig&Sourceid=#URL.ID#","blank", "width=800, height=600, status=yes, toolbar=no, scrollbars=no, resizable=no");
 	}
 
 </script>
@@ -147,8 +147,10 @@
 	
 </td></tr>
  	
-<tr><tr><td align="center" height="100%" style="padding-left:10px;padding-right:10px">		
+<tr><tr><td align="center" height="100%" style="padding-left:10px;padding-right:10px">	
+    
 		<cfinclude template="RecordEditFieldsTab.cfm">			
+		
 	</td>
 </tr>		 
 	 		 

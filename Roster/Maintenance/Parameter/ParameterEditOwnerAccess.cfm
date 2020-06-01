@@ -161,7 +161,7 @@
 				<table cellspacing="0" class="formpadding">
 					<tr class="labelit">
 						<td><b>#accessLabel[level+1]#</b>&nbsp;&nbsp;&nbsp;[ From / To ]</td>
-						<td><cfdiv id="divLevel#level#" bind="url:ParameterEditOwnerAccessSubmit.cfm?checked="></td>
+						<td><cf_securediv id="divLevel#level#" bind="url:ParameterEditOwnerAccessSubmit.cfm?checked="></td>
 					</tr>
 				</table>	
 			</td>
@@ -224,7 +224,7 @@
 							</td>
 							<td width="33%" id="rule_#level#_#StatusesFrom.Status#_#StatusesTo.Status#">
 								<cfif validateLevelStatus.recordCount gt 0>
-									<cfdiv id="drule_#level#_#StatusesFrom.Status#_#StatusesTo.Status#" 
+									<cf_securediv id="drule_#level#_#StatusesFrom.Status#_#StatusesTo.Status#" 
 											bind="url:Rule.cfm?owner=#url.owner#&rule=#validateLevelStatus.RuleCode#&level=#level#&from=#StatusesFrom.Status#&to=#StatusesTo.Status#" bindOnLoad="Yes">
 								</cfif>
 							</td>

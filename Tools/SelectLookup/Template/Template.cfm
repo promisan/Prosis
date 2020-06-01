@@ -61,7 +61,7 @@
 	<cf_tl id="Search" var="1">
 	<input type="button" 
 	   value="<cfoutput>#lt_text#</cfoutput>" 
-	   onclick="ColdFusion.navigate('#nav#&page=1','searchresult','','','POST','searchselect')"
+	   onclick="ptoken.navigate('#nav#&page=1','searchresult','','','POST','searchselect')"
 	   class="button10g">
 </td></tr>
 

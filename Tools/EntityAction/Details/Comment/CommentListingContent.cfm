@@ -150,15 +150,37 @@ password="#SESSION.dbpw#">
 						 </td>
 						 </tr>
 						 
-						 <!--- attachment --->								
-						 					
+						 <cfquery name="Attachment" 
+							datasource="AppsOrganization" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+							SELECT    *
+						    FROM      System.dbo.Ref_Attachment
+							WHERE     DocumentPathName = '#Object.entitycode#'	
+						</cfquery>
+						 
+						 <!--- attachment --->			
+						 <cfif attachment.recordcount eq "1">
+						    <cfset DocumentHost = Attachment.DocumentFileServerRoot>							 
+						<cfelse>
+							<cfset DocumentHost = SESSION.rootDocumentPath>							
+						</cfif>		
+																		
+						<cfif right(DocumentHost,1) eq "\">
+							<cfset documentHost = left(DocumentHost,len(documentHost)-1)>
+						</cfif>
+						
+						<cfif right(DocumentHost,1) eq "\">
+							<cfset documentHost = left(DocumentHost,len(documentHost)-1)>
+						</cfif>
+						
 						<cfdirectory action="LIST"
-						             directory="#SESSION.rootDocumentPath#\#object.entitycode#\#attachmentid#"
-						             name="GetFiles"
-						             filter="*.*"
-						             sort="DateLastModified DESC"
-						             type="file"
-						             listinfo="name">
+				             directory="#documentHost#\#object.entitycode#\#attachmentid#"
+				             name="GetFiles"
+				             filter="*.*"
+				             sort="DateLastModified DESC"
+				             type="file"
+				             listinfo="name">
 							
 						<cfif getfiles.recordcount gte "1">
 																							
@@ -168,13 +190,54 @@ password="#SESSION.dbpw#">
 							       <table width="100%" cellspacing="0" cellpadding="0">
 								   <tr class="labelmedium">
 								   <td style="padding-left:10px;padding-right:3px"><cf_tl id="Attach">:</td>
-							       <cfloop query="getfiles">								   			
-									<td class="labelmedium">
-										<a href="#SESSION.rootDocument#/#object.entitycode#/#get.attachmentid#/#name#" target="_blank">#name#</a>
-										<cfif currentrow neq recordcount>;</cfif>
-									</td>										
+							       <cfloop query="getfiles">	
+								   
+								   <cfinvoke component = "Service.Document.Attachment"  
+									   method           = "VerifyDBAttachment" 
+									   server           = "#documentHost#"
+									   docpath          = "#object.entitycode#" 
+									   filename         = "#name#"
+									   returnvariable   = "Attachment">			
+								   
+								   <td class="labelmedium" style="padding-left:10px" 
+										   onclick="showfile('attachment','view','#attachment.attachmentid#')">												
+											<a href="##">#name#</a><cfif currentrow neq recordcount>;</cfif>												
+										   </td>							   																			
 								   </cfloop>
 								   </tr>
+								   </table>
+							   </td>
+							</tr>
+					
+					    </cfif>	
+																								
+						<cf_filelibraryCheck
+							DocumentHost="#DocumentHost#"
+							DocumentPath="#object.entitycode#"
+							SubDirectory="#attachmentid#" 
+							name="GetFiles"
+							filter="*.*"
+							listinfo="name">  
+													
+						<cfif files gte "1">
+																																									
+							<tr class="clsRow_#currentrow# line" style="border-top:1px solid silver">
+							  
+							   <td style="padding-left:10px">
+							       <table width="100%">
+								   								   
+								   <cf_filelibraryN
+								        DocumentHost="#DocumentHost#"
+										DocumentPath="#object.entitycode#"
+										SubDirectory="#attachmentid#" 
+										Filter=""
+										Presentation="name"
+										Insert="no"
+										Remove="no"
+										width="100%"	
+										Loadscript="no"				
+										border="1">	
+								  							  
 								   </table>
 							   </td>
 							</tr>

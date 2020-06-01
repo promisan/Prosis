@@ -25,14 +25,14 @@ function editLocation(location) {
 
 	try { parent.ColdFusion.Window.destroy('mylocation',true) } catch(e) {}
 	parent.ColdFusion.Window.create('mylocation', 'Location', '',{x:100,y:100,height:parent.document.body.clientHeight-80,width:parent.document.body.clientWidth-80,modal:true,resizable:false,center:true})    				
-	parent.ColdFusion.navigate(root + '/Warehouse/Maintenance/Location/Location.cfm?id=' + location,'mylocation') 	
+	parent.ptoken.navigate(root + '/Warehouse/Maintenance/Location/Location.cfm?id=' + location,'mylocation') 	
 
 }
 
 function editwarehouselocation(warehouse,location,access,idmenu) {		    
     try { ProsisUI.closeWindow('locationdetail',true) } catch(e) {}; 
 	ProsisUI.createWindow('locationdetail', 'Location Detail', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-80,resizable:true,modal:true,center:true})	
-	ColdFusion.navigate('#SESSION.root#/Warehouse/Maintenance/WarehouseLocation/LocationMain.cfm?systemfunctionid='+idmenu+'&access='+access+'&warehouse='+warehouse+'&location=' + location,'locationdetail')
+	ptoken.navigate('#SESSION.root#/Warehouse/Maintenance/WarehouseLocation/LocationMain.cfm?systemfunctionid='+idmenu+'&access='+access+'&warehouse='+warehouse+'&location=' + location,'locationdetail')
 }
 
 function selectloc(formname,fldlocation,fldlocationcode,fldlocationname,fldorgunit,fldorgunitname,fldpersonno,fldname,mission) {

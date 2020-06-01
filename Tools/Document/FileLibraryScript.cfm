@@ -43,8 +43,7 @@ function addfile(mode,host,dir,subdir,fil,box,ref,svr,window,pdf) {
 			ColdFusion.navigate('#SESSION.root#/Tools/Document/FileFormDialog.cfm?host='+host+'&mode='+mode+'&box='+box+'&dir=' + dir + '&ID=' + subdir + '&ID1=' + fil + '&reload='+ref+'&documentserver='+svr+'&pdfscript='+pdf,'attachdialog') 		
 		
 		} else {
-		
-		    		
+				    		
 			ProsisUI.createWindow('attachdialog', 'Attachment', '',{x:100,y:100,height:400,width:530,resizable:false,modal:true,center:true})    
 			// ColdFusion.Window.show('attachdialog') 					
 			ColdFusion.navigate('#SESSION.root#/Tools/Document/FileFormDialog.cfm?host='+host+'&mode='+mode+'&box='+box+'&dir=' + dir + '&ID=' + subdir + '&ID1=' + fil + '&reload='+ref+'&documentserver='+svr+'&pdfscript='+pdf,'attachdialog') 		
@@ -157,8 +156,8 @@ function logdocfile(id,box) {
 function showfile(mode,openas,id) {  
 		
 	<!--- record an audit trail the -open- action to be logged --->
-	ColdFusion.navigate('#SESSION.root#/Tools/Document/FileOpen.cfm?id='+id,'doclogaction')
-	 
+	ptoken.navigate('#SESSION.root#/Tools/Document/FileOpen.cfm?id='+id,'doclogaction')
+	
 	<!--- open the file ---> 
     if (mode == "attachment" || mode == "attachmentmultiple") {
 
@@ -170,12 +169,12 @@ function showfile(mode,openas,id) {
 			try	{			
 				var ret = dialogArguments.window.open("#SESSION.root#/Tools/Document/FileRead.cfm?scope=actual&id="+id,"_blank","width=975, height=820,status=yes,toolbar=no,menubar=1,scrollbars=yes,resizable=yes");
 				if (!ret)
-					window.open("#SESSION.root#/Tools/Document/FileRead.cfm?scope=actual&id="+id,"_blank","width=975, height=820,status=yes,toolbar=no,menubar=1,scrollbars=yes,resizable=yes");
+					ptoken.open("#SESSION.root#/Tools/Document/FileRead.cfm?scope=actual&id="+id,"_blank","width=975, height=820,status=yes,toolbar=no,menubar=1,scrollbars=yes,resizable=yes");
 			} catch(ex)	{
-				window.open("#SESSION.root#/Tools/Document/FileRead.cfm?scope=actual&id="+id,"_blank","width=975, height=820,status=yes,toolbar=no,menubar=1,scrollbars=yes,resizable=yes");			
+				ptoken.open("#SESSION.root#/Tools/Document/FileRead.cfm?scope=actual&id="+id,"_blank","width=975, height=820,status=yes,toolbar=no,menubar=1,scrollbars=yes,resizable=yes");			
 			}	
 		} else {
-    	   window.open("#SESSION.root#/Tools/Document/FileEdit.cfm?mode="+mode+"&ts="+new Date().getTime()+"&id="+id, 'FileLibrary', "unadorned:yes; edge:raised; status:no; dialogHeight:800px; dialogWidth:1000px; status:yes;help:no; scroll:no; center:yes; resizable:yes");						
+    	   ptoken.open("#SESSION.root#/Tools/Document/FileEdit.cfm?mode="+mode+"&ts="+new Date().getTime()+"&id="+id, 'FileLibrary', "unadorned:yes; edge:raised; status:no; dialogHeight:800px; dialogWidth:1000px; status:yes;help:no; scroll:no; center:yes; resizable:yes");						
 		}
 
     } else {
@@ -189,7 +188,7 @@ function showfile(mode,openas,id) {
 }
 
 function showfilelog(id,ser) {
-	window.open('#SESSION.root#/Tools/Document/FileRead.cfm?scope=logfile&id='+id+'&ser='+ser,'_blank','width=800, height=600,status=yes,toolbar=no,menubar=yes,scrollbars=yes,resizable=yes');	
+	ptoken.open('#SESSION.root#/Tools/Document/FileRead.cfm?scope=logfile&id='+id+'&ser='+ser,'_blank','width=800, height=600,status=yes,toolbar=no,menubar=yes,scrollbars=yes,resizable=yes');	
 }
 
 function embedfile(mode,box,action,id) {     

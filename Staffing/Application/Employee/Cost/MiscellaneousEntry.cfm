@@ -71,6 +71,8 @@ password="#SESSION.dbpw#">
 
 <cfset openmode = "show">
 
+<cf_divscroll>
+
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding">
 <tr><td>
 <cfinclude template="../PersonViewHeaderToggle.cfm">
@@ -264,3 +266,5 @@ password="#SESSION.dbpw#">
    </CFFORM>
 
 </table>
+
+</cf_divscroll>

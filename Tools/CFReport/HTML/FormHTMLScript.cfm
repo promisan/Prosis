@@ -42,15 +42,15 @@
 	}
 	
 	function resetmenu(ctr,rpt,cls) {
-	    ColdFusion.navigate('HTML/FormHTMLMenu.cfm?controlid='+ctr+'&reportid='+rpt,'reportmenu')   		
+	    ptoken.navigate('HTML/FormHTMLMenu.cfm?controlid='+ctr+'&reportid='+rpt,'reportmenu')   		
 	}
 
    function reload(id,portal)	{
-	 	window.location = "SubmenuReportView.cfm?Context=report&id=" + id + "&portal=" + portal
+	 	ptoken.location('SubmenuReportView.cfm?Context=report&id=' + id + '&portal=' + portal)
 	}
 	
    function newwindow() {
-      window.open(report.location,'_blank',"status=yes, toolbar=yes, menubar=yes, scrollbars=yes, resizable=yes")		
+      ptoken.open(report.location,'_blank',"status=yes, toolbar=yes, menubar=yes, scrollbars=yes, resizable=yes")		
    }	  
 	
    function printmenu() { 
@@ -76,7 +76,7 @@
 		se = document.getElementById("stopping").className 
 		if (se) { se.className = "hide"; }
 		document.getElementById("stop").className     = "regular";
-		ColdFusion.navigate('#SESSION.root#/Tools/Control/Abort.cfm?id=resume&id1=#controlid#&ts='+new Date().getTime(),'stopping')									
+		ptoken.navigate('#SESSION.root#/Tools/Control/Abort.cfm?id=resume&id1=#controlid#&ts='+new Date().getTime(),'stopping')									
 		}
 
    function abort() {
@@ -92,14 +92,14 @@
 		se  = report.document.getElementById("requestabort");
 		if (se)	{se.className = "regular";}
 				
-		ColdFusion.navigate('#SESSION.root#/Tools/Control/Abort.cfm?id=abort&id1=#controlid#&ts='+new Date().getTime(),'stopping')									
+		ptoken.navigate('#SESSION.root#/Tools/Control/Abort.cfm?id=abort&id1=#controlid#&ts='+new Date().getTime(),'stopping')									
 					
 	}
 	
 	function getclass(id,sel,ctr,rpt) {	  
 	    _cf_loadingtexthtml='';	 
-		ColdFusion.navigate('HTML/FormHTMLLayoutFormat.cfm?ts='+new Date().getTime()+'&layoutid='+id+'&sel='+sel,'fmode');	
-		ColdFusion.navigate('HTML/FormHTMLMenu.cfm?layoutid='+id+'&controlid='+ctr+'&reportid='+rpt,'reportmenu')   
+		ptoken.navigate('HTML/FormHTMLLayoutFormat.cfm?ts='+new Date().getTime()+'&layoutid='+id+'&sel='+sel,'fmode');	
+		ptoken.navigate('HTML/FormHTMLMenu.cfm?layoutid='+id+'&controlid='+ctr+'&reportid='+rpt,'reportmenu')   
 		
 	}	
 	 				
@@ -124,7 +124,7 @@
 	      if (option == "preview" || option == "email" || option == "sql")	{ 
 		  		    
 		  	<!--- save client variable for progress management --->
-		  	ColdFusion.navigate('#SESSION.root#/Tools/CFReport/HTML/FormHTMLSelect.cfm?id='+option,'gobox')	
+		  	ptoken.navigate('#SESSION.root#/Tools/CFReport/HTML/FormHTMLSelect.cfm?id='+option,'gobox')	
 			<!--- -------------------------------------------- --->
 			
 			document.forms['selection'].onsubmit();
@@ -164,7 +164,7 @@
 				if (rpt)
 					rpt.src = "about:blank";
 					
-				ColdFusion.navigate('#SESSION.root#/tools/CFreport/ReportSQL8.cfm?formselect='+option+'&mode=Form&controlId=#ControlId#&reportId=#ReportId#&GUI=HTML','report','',validation,'POST','selection');
+				ptoken.navigate('#SESSION.root#/tools/CFreport/ReportSQL8.cfm?formselect='+option+'&mode=Form&controlId=#ControlId#&reportId=#ReportId#&GUI=HTML','report','',validation,'POST','selection');
 								
 				<!--- show the report content box --->
 				toggle('reportbox','menu2')				
@@ -177,18 +177,18 @@
 		  		
 		    if (option == "sql") {	
 			
-			ColdFusion.navigate('#SESSION.root#/Tools/CFreport/ReportSQL8.cfm?mode=Form&controlId=#ControlId#&reportId=#ReportId#&GUI=HTML&formselect='+option,'reportselection','','','POST','selection')						
+			ptoken.navigate('#SESSION.root#/Tools/CFreport/ReportSQL8.cfm?mode=Form&controlId=#ControlId#&reportId=#ReportId#&GUI=HTML&formselect='+option,'reportselection','','','POST','selection')						
 			
 			} else {
 			
 				if (option == "insert") {				  
-					ColdFusion.navigate('#SESSION.root#/Tools/CFReport/ReportSQL8.cfm?mode=Form&controlId=#ControlId#&reportId=#ReportId#&GUI=HTML&formselect='+option,'subscriptions','','','POST','selection')											
+					ptoken.navigate('#SESSION.root#/Tools/CFReport/ReportSQL8.cfm?mode=Form&controlId=#ControlId#&reportId=#ReportId#&GUI=HTML&formselect='+option,'subscriptions','','','POST','selection')											
 				} else {
 				  
 					if (rep == "undefined")	{		
-	   				ColdFusion.navigate('#SESSION.root#/Tools/CFReport/ReportSQL8.cfm?mode=Form&controlId=#ControlId#&reportId=#ReportId#&GUI=HTML&formselect='+option,'subscriptions','','','POST','selection')						
+	   				ptoken.navigate('#SESSION.root#/Tools/CFReport/ReportSQL8.cfm?mode=Form&controlId=#ControlId#&reportId=#ReportId#&GUI=HTML&formselect='+option,'subscriptions','','','POST','selection')						
 					} else {					
-					ColdFusion.navigate('#SESSION.root#/Tools/CFReport/ReportSQL8.cfm?mode=Form&controlId=#ControlId#&reportId='+rep+'&GUI=HTML&formselect='+option,'subscriptions','','','POST','selection')															
+					ptoken.navigate('#SESSION.root#/Tools/CFReport/ReportSQL8.cfm?mode=Form&controlId=#ControlId#&reportId='+rep+'&GUI=HTML&formselect='+option,'subscriptions','','','POST','selection')															
 					}
 				}
 			}

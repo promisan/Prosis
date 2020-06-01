@@ -200,7 +200,7 @@ function fprint() {
 	   <table width="100%" height="100%" cellspacing="0" cellpadding="0">
 	   
 		<cf_menucontainer item="1" class="regular">
-			 <cfdiv bind="url:FunctionGradeMinimum.cfm?ID=#URL.ID#&ID1=#URL.ID1#&idMenu=#url.idmenu#"> 
+			 <cf_securediv bind="url:FunctionGradeMinimum.cfm?ID=#URL.ID#&ID1=#URL.ID1#&idMenu=#url.idmenu#"> 
 	 	<cf_menucontainer>	
 		
 	   </table>	

@@ -17,7 +17,7 @@
 	
 	<cfif check.SystemFunctionId eq "">
 	
-	 <tr><td class="labelmedium" style="font-weight:200;padding-left:17px">
+	 <tr><td class="labelmedium" style="padding-left:17px">
 	 
 			   <cf_selectlookup
 			    class    = "User"
@@ -36,9 +36,7 @@
 </cfif>
  
 <tr><td>
-
-<cfdiv bind="url:#link#" id="recipient"/>
- 
+<cf_securediv bind="url:#link#" id="recipient"> 
 </td></tr>
 
 </table>

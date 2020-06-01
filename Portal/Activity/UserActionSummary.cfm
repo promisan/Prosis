@@ -1,9 +1,9 @@
 
 <cfoutput>
 
-<table width="100%" height="100%">
+<table width="98%" height="100%" align="right">
 
-<tr><td valign="top" height="100%" style="min-width:350px;border-bottom:1px dotted silver;border-right:1px dotted silver">
+<tr><td valign="top" height="100%" style="min-width:350px;border-bottom:1px solid silver;border-right:1px solid silver">
 	
 	<cfquery name="Summary" 
 	datasource="AppsSystem" 
@@ -82,16 +82,15 @@
 	GROUP BY ApplicationServer
 	ORDER BY ApplicationServer	
 	</CFQUERY>
-	
-		
-	<table width="329" border="0" cellspacing="0" cellpadding="0" style="padding-top:8px" valign="top" class="navigation_table">
+			
+	<table width="329" border="0" cellspacing="0" cellpadding="0" valign="top" class="navigation_table">
 	
 	<tr class="line">
 	<td align="left" valign="top" colspan="8">
 		<table width="100%">
 		<tr>
-		<td style="height:35px;padding-top:4px;font-size:20px" class="labellarge"><cf_tl id="User activity"></td>		
-		<td style="font-weight:200;padding-top:9px" class="labelit" align="right">
+		<td style="height:35px;padding-top:4px;font-size:17px" class="labellarge"><cf_tl id="User activity"></td>		
+		<td style="padding-top:9px" class="labelit" align="right">
 		   <a href="javascript:refresh()"><cf_tl id="Refresh"></a>	  
 		</tr>   
 		</table>   

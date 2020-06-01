@@ -130,7 +130,6 @@
 	FROM    Parameter
 	WHERE   HostName           = '#CGI.http_host#'				
 </cfquery>		
-
 	
 <cfif param.URLProtectionMode eq "0" or attributes.force eq "1">	
 	<!--- code to bypass the token method and revert to regular openings --->
@@ -320,6 +319,7 @@
 					break;					
 									
 				case 'navigate':
+								   
 					if ($.trim(aresponse[3]) != '' && $.trim(aresponse[3]).toLowerCase() != 'null')	{
 						ColdFusion.navigate(aresponse[1], aresponse[2], function() { 
 							if ($.trim(aresponse[3]) != '' && $.trim(aresponse[3]).toLowerCase() != 'null') { 

@@ -28,7 +28,7 @@
 					  
 					  <!--- correction to prevent that you ignore internal transfers from this location --->
 					  
-					  (SELECT SUM(TransactionQuantity)
+					  (SELECT SUM(ROUND(TransactionQuantity,2))
 					   FROM   ItemTransaction
 					   WHERE  Warehouse      = '#URL.Warehouse#'
 					   AND    ItemNo         = T.ItemNo

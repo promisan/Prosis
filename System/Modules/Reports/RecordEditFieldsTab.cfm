@@ -145,12 +145,11 @@
 <tr><td height="1" colspan="1" class="linedotted"></td></tr>
 
 <tr><td height="100%">
+
+	<cf_divscroll>	
 	
-	<table width="100%" 
-	      border="0"
+	<table width="100%" 	     
 		  height="100%"
-		  cellspacing="0" 
-		  cellpadding="0" 
 		  align="center">
 	 		
 			<tr class="hide"><td valign="top" height="100%" id="result" name="result"></td></tr>
@@ -190,6 +189,8 @@
 			</cf_menucontainer>
 															
 	</table>
+	
+	</cf_divscroll>
 
 </td></tr>
 

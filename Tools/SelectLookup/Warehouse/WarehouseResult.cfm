@@ -97,7 +97,7 @@ ORDER BY HierarchyCode
 
 	<tr class="navigation_row">
 	  
-	    <td height="18" width="30" class="navigation_action" onclick="ColdFusion.navigate('#link#&action=insert&#url.des1#=#orgunit#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ColdFusion.Window.hide('dialog#url.box#')</cfif>">&nbsp;
+	    <td height="18" width="30" class="navigation_action" onclick="ptoken.navigate('#link#&action=insert&#url.des1#=#orgunit#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ColdFusion.Window.hide('dialog#url.box#')</cfif>">&nbsp;
 			  					   
 		   <img src="#SESSION.root#/Images/bullet.png" alt="Select"
 		     name="img98_#orgunit#" 

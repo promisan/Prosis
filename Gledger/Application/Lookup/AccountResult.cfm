@@ -145,6 +145,7 @@ password="#SESSION.dbpw#">
 		<tr><td colspan="2" height="40" class="noprint">
 						
 		   <cf_dialogLedger>
+		   <cf_annotationscript>
 		
 			<table width="100%">
 			<tr>

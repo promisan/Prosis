@@ -287,7 +287,7 @@
 					       	'#new#', 
 							 '#MyForm.submissionid#',
 				           	'#DateFormat(Now(),CLIENT.dateSQL)#',
-							<cfqueryparam value="#MyForm.reference#"    cfsqltype="CF_SQL_CHAR" maxlength="20">,
+							<cfqueryparam value="#MyForm.reference#"    cfsqltype="CF_SQL_CHAR" maxlength="10">,
 						  	'0',
 						  	'#Source#',				  	
 						  	<cfqueryparam value="#MyForm.eMailAddress#" cfsqltype="CF_SQL_CHAR" maxlength="50">,	

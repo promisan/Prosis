@@ -2,24 +2,20 @@
 <cf_screentop height="100%" html="no" jquery="Yes">
 
 <cfoutput>
-<script language="JavaScript">
-
-function criteria(id) {
-
-    window.open("CriteriaEdit.cfm?Status=#URL.Status#&ID=#URL.ID#&ID1="+id,"box"+id, "left=20, top=20, width=900, height=900, menubar=no, status=yes, toolbar=no, scrollbars=no, resizable=no");
-	// window.location = "Criteria.cfm?id=#URL.ID#&status=#url.status#"
 	
-}
-
-function purge(rl) {
-
-	if (confirm("Do you want to remove parameter: [" + rl + "] from this report ?")) {
-        window.location = "CriteriaPurge.cfm?time=#now()#&Status=#URL.Status#&ID=#URL.ID#&ID1="+rl	
+	<script language="JavaScript">
+	
+	function criteria(id) {
+	    ptoken.open('CriteriaEdit.cfm?Status=#URL.Status#&ID=#URL.ID#&ID1='+id,'box'+id, 'left=20, top=20, width=900, height=900, menubar=no, status=yes, toolbar=no, scrollbars=no, resizable=no');		
 	}
-  
-}
 	
-</script>
+	function purge(rl) {
+		if (confirm("Do you want to remove parameter: [" + rl + "] from this report ?")) {
+		  window.location = "CriteriaPurge.cfm?Status=#URL.Status#&ID=#URL.ID#&ID1="+rl	     
+		}  
+	}
+		
+	</script>
 
 </cfoutput>
 
@@ -46,7 +42,7 @@ password="#SESSION.dbpw#">
 	ORDER BY CriteriaClass, CriteriaOrder, CriteriaCluster 
 </cfquery>
 
-	<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+	<table width="100%" align="center">
 	    
 	  <tr>
 	    <td width="100%">
@@ -67,7 +63,7 @@ password="#SESSION.dbpw#">
 				
 		<cfif criteria.recordcount gt "0">
 		
-		    <TR class="labelmedium line">
+		    <TR class="labelmedium line fixrow">
 			   <td></td>
 			   <td>Parent</td>
 			   <td>Name</td>
@@ -83,7 +79,7 @@ password="#SESSION.dbpw#">
 						
 		<cfoutput query="Criteria" group="CriteriaClass">
 		
-		<tr class="labelmedium line"><td colspan="9">#CriteriaClass# <cf_tl id="input criteria">:</td></tr>
+		<tr class="labelmedium line"><td colspan="9">#CriteriaClass# <cf_tl id="criteria">:</td></tr>
 		
 		<cfset cnt = cnt + 36>
 		<cfoutput>

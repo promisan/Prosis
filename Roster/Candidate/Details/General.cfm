@@ -5,7 +5,6 @@
 <script language="JavaScript">
 
 function addorder(mission,customerid) {	
-
 	ptoken.open("#SESSION.root#/WorkOrder/Application/WorkOrder/Create/WorkOrderAdd.cfm?mission="+mission+"&customerid=" + customerid,"_blank");		
 }	
 
@@ -154,16 +153,16 @@ function openschedule(wla) {
 
 <tr><td height="30">
 
-
 <cfif CLIENT.submission eq "MANUAL">
-   
+  
+ 
 	<cfinclude template="Applicant/Applicant.cfm">	
 	
 <cfelseif URL.Topic eq "All">
 
     <script language="JavaScript">
 	<cfoutput>
-		window.location = "Summary/Skill.cfm?now=#now()#&ID1=#URL.ID#"
+		ptoken.location('Summary/Skill.cfm?now=#now()#&ID1=#URL.ID#')
 	</cfoutput>
 	</script>
 	
@@ -227,6 +226,8 @@ function openschedule(wla) {
 		</td></tr>	
 
 </cfif>
+
+
 
 <cfif URL.Topic eq "MedicalAction">
 
@@ -387,7 +388,6 @@ function openschedule(wla) {
 
 <cfif URL.Topic eq "All" or URL.Topic eq "Review">	
 
-
 		<cfquery name="Topic" 
 		datasource="AppsSelection" 
 		username="#SESSION.login#" 
@@ -421,9 +421,9 @@ function openschedule(wla) {
 			document.forms['formaddress'].onsubmit();
 			if( _CF_error_messages.length == 0 ) {   
 			    if (sc == "") {                
-					ColdFusion.navigate('Address/AddressEntrySubmit.cfm?id=#url.id#','addressprocess','','','POST','formaddress')
+					ptoken.navigate('Address/AddressEntrySubmit.cfm?id=#url.id#','addressprocess','','','POST','formaddress')
 				} else {
-					ColdFusion.navigate('Address/AddressEditSubmit.cfm?id=#url.id#&id1='+sc,'addressprocess','','','POST','formaddress')
+					ptoken.navigate('Address/AddressEditSubmit.cfm?id=#url.id#&id1='+sc,'addressprocess','','','POST','formaddress')
 				}
 			}   
 			
@@ -459,64 +459,7 @@ function openschedule(wla) {
 		
 </cfcase>	
 
-<cfcase value="Profile">
-
-    <cfif CLIENT.Submission eq "MANUAL">
-						
-	    <cfif URL.Topic eq "All">
-				
-			<cfif SESSION.isAdministrator eq "Yes" and SESSION.isOwnerAdministrator neq "No">
-		
-			<cfquery name="Own" 
-			datasource="AppsSelection" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-			   SELECT Owner
-			   FROM   Ref_ParameterOwner
-			   WHERE  Operational = 1
-			   <!---
-			   AND    Owner IN (SELECT Owner 
-			                    FROM   Ref_Assessment)
-								--->
-			   
-			</cfquery>
-						
-			<cfelse>
-		
-			<cfquery name="Own" 
-			datasource="AppsOrganization" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-				SELECT    DISTINCT ClassParameter as Owner
-				FROM      OrganizationAuthorization
-				WHERE     UserAccount = '#SESSION.acc#' 
-				AND       Role IN ('AdminRoster', 'RosterClear')
-				AND       ClassParameter IN (SELECT Owner 
-				                             FROM   Applicant.dbo.Ref_ParameterOwner 
-											 WHERE  Operational = 1)
-			</cfquery>
-		
-			</cfif>
-						
-			<cfloop query="Own">
-			
-			<tr><td valign="top">	
-			
-			<table width="#w#" align="center" border="0" cellpadding="0" cellspacing="0" class="show" id="attach" bgcolor="white">
-				<tr><td height="22">	
-						
-				    <cfset url.owner = owner>
-					<cfset url.memo  = 0>
-					<cfinclude template="Attachments/DocumentFileForm.cfm">			    
-				</td></tr>
-				</table>	
-			</td></tr>	
-				
-			</cfloop>									
-						
-		</cfif>	
-				
-	</cfif>	
+<cfcase value="Profile">   	
 	
 	<cfif Candidate.ApplicantClass eq "4">
 		
@@ -579,7 +522,7 @@ function openschedule(wla) {
 				
 			    <table width="#w#" align="center" border="0" cellpadding="0" cellspacing="0" class="show formpadding" id="attach" bgcolor="white">
 				
-				<tr><td class="labellarge" align="center" style="padding-top:25px;padding-bottom:20px"">
+				<tr><td class="labellarge" align="center" style="padding-top:25px;padding-bottom:20px">
 							     			
 					<cfif customer.recordcount eq 0>
 						<font color="red"><b><cf_tl id="Attention"></b>:<font color="gray"><cf_tl id="No customer profile found"></font>
@@ -617,7 +560,7 @@ function openschedule(wla) {
 						 
 					<table width="99%" height="100%" border="0" cellpadding="0" cellspacing="0" align="center">
 							
-					<tr><td class="labelmedium" style="height:1px;padding-left:5px">				
+					<tr><td class="labelmedium" style="height:1px;padding-left:5px">								
 						<cf_ProfileSource PersonNo = "#url.id#" showall="Yes">									
 						</td>
 					</tr>	
@@ -637,13 +580,13 @@ function openschedule(wla) {
 							<cfquery name="insert" 
 									datasource="AppsSelection">
 										INSERT INTO ApplicantInquiryLog 
-										(PersonNo, 
-										 NodeIP, 
-										 HostSessionNo, 
-										 PHPSection, 
-										 OfficerUserId,
-										 OfficerLastName,
-										 OfficerFirstName)
+											(PersonNo, 
+											 NodeIP, 
+											 HostSessionNo, 
+											 PHPSection, 
+											 OfficerUserId,
+											 OfficerLastName,
+											 OfficerFirstName)
 										VALUES 
 										('#URL.ID#',					 
 										 '#CGI.Remote_Addr#', 
@@ -658,7 +601,7 @@ function openschedule(wla) {
 								
 								</cftry>	
 												
-								<cfdiv bind="url:GeneralTab.cfm?id=#url.id#&topic=#url.topic#&source={source}" id="tabs">							
+								<cf_securediv bind="url:GeneralTab.cfm?id=#url.id#&topic=#url.topic#&source={source}" id="tabs">							
 												
 						</td></tr>
 					
@@ -685,6 +628,64 @@ function openschedule(wla) {
 				</cfif>
 				
 		</cfif>		
+		
+		<cfif CLIENT.Submission eq "MANUAL">
+						
+	    <cfif URL.Topic eq "All">
+				
+			<cfif SESSION.isAdministrator eq "Yes" and SESSION.isOwnerAdministrator neq "No">
+		
+			<cfquery name="Own" 
+			datasource="AppsSelection" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			   SELECT Owner
+			   FROM   Ref_ParameterOwner
+			   WHERE  Operational = 1
+			   <!---
+			   AND    Owner IN (SELECT Owner 
+			                    FROM   Ref_Assessment)
+								--->
+			   
+			</cfquery>
+						
+			<cfelse>
+		
+			<cfquery name="Own" 
+			datasource="AppsOrganization" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				SELECT    DISTINCT ClassParameter as Owner
+				FROM      OrganizationAuthorization
+				WHERE     UserAccount = '#SESSION.acc#' 
+				AND       Role IN ('AdminRoster', 'RosterClear')
+				AND       ClassParameter IN (SELECT Owner 
+				                             FROM   Applicant.dbo.Ref_ParameterOwner 
+											 WHERE  Operational = 1)
+			</cfquery>
+		
+			</cfif>
+						
+			<cfloop query="Own">
+			
+			<tr><td valign="top">	
+			
+			<table width="#w#" align="center" class="show" id="attach" bgcolor="white">
+				<tr><td height="22" style="padding-left:20px;padding-right:10px">	
+						
+				    <cfset url.owner = owner>
+					<cfset url.memo  = 0>					
+					<cfinclude template="Attachments/DocumentFileForm.cfm">			    
+					
+				</td></tr>
+				</table>	
+			</td></tr>	
+				
+			</cfloop>									
+						
+		</cfif>	
+				
+	</cfif>
 	
 </cfcase>		
 

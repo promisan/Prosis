@@ -85,7 +85,7 @@
 	       name="search" id="search"
 	       value="#lt_text#"
 	       class="button10g"
-	       onClick="javascript:ColdFusion.navigate('#SESSION.root#/tools/selectlookup/WorkorderLine/Result.cfm?page=1&close=#url.close#&box=#box#&link=#link#&des1=#des1#&filter1=#filter1#&filter1value=#filter1value#&filter2=#filter2#&filter2value=#filter2value#&filter3=#filter3#&filter3value=#filter3value#','resultworkorder#box#','','','POST','selectservice')">
+	       onClick="javascript:ptoken.navigate('#SESSION.root#/tools/selectlookup/WorkorderLine/Result.cfm?page=1&close=#url.close#&box=#box#&link=#link#&des1=#des1#&filter1=#filter1#&filter1value=#filter1value#&filter2=#filter2#&filter2value=#filter2value#&filter3=#filter3#&filter3value=#filter3value#','resultworkorder#box#','','','POST','selectservice')">
 	 </cfoutput>  
 	   
 </td></tr>

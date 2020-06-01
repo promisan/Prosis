@@ -78,7 +78,7 @@ password="#SESSION.dbpw#">
 				<td class="labelmedium" id="ltypesrecipients">Addressee Selection</b></td>
 				<cfset link = "#SESSION.root#/roster/maintenance/rosteredition/Recipient/RecipientAddressType.cfm?submissionedition=#url.submissionedition#">			
 				<TD  class="labelmedium" style="padding-right:40px" id="dTypesRecipients">
-				<cfdiv bind="url:#link#" id="types"/>
+				<cf_securediv bind="url:#link#" id="types"/>
 				</TD>
 			</tr>
 		</table>
@@ -108,7 +108,7 @@ password="#SESSION.dbpw#">
 	
 <TR>
 	<TD></TD>
-	<TD colspan="2" style="border:1px dotted silver" id="dRecipients"><cfdiv bind="url:#link#" id="recipients"/></TD>
+	<TD colspan="2" style="border:1px dotted silver" id="dRecipients"><cf_securediv bind="url:#link#" id="recipients"/></TD>
 </TR>
 
 </TABLE>

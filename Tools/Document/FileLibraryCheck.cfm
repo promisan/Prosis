@@ -30,7 +30,7 @@
    name="GetFiles"
    filter="#attributes.Filter#*.*"
    listinfo="name">  
-     
+      
 <cfif attributes.target neq "" and getfiles.recordcount eq "0">
 
 		<cfsavecontent variable="selectme">

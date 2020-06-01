@@ -25,18 +25,18 @@
 							</td>
 						</tr>
 						<tr>
-							<td style="z-index:3; position:absolute; top:25px; left:90px; color:45617d; font-family:calibri; font-size:25px; font-weight:bold;">
+							<td style="z-index:3; position:absolute; top:25px; left:100px; color:45617d; font-family:calibri; font-size:25px; font-weight:normal;">
 								<cf_tl id="Favorites">
 							</td>
 						</tr>
 						<tr>
-							<td style="position:absolute; top:5px; left:90px; color:e9f4ff; font-family:calibri; font-size:55px; font-weight:bold; z-index:2">
+							<td style="position:absolute; top:5px; left:100px; color:e9f4ff; font-family:calibri; font-size:45px; font-weight:normal; z-index:2">
 								<cf_tl id="Favorites">
 							</td>
 						</tr>
 						
 						<tr>
-							<td style="position:absolute; top:50px; left:90px; color:45617d; font-family:calibri; font-size:12px; font-weight:bold; z-index:4">
+							<td style="position:absolute; top:55px; left:105px; color:45617d; font-family:calibri; font-size:12px; font-weight:normal; z-index:4">
 								<cf_tl id="My Favorite Functions">
 							</td>
 						</tr>
@@ -48,6 +48,8 @@
 				</td>
 			</tr>
 			</table>
+</td>			
+</tr>			
 
 <tr><td height="4"></td></tr>
 

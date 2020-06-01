@@ -204,6 +204,7 @@ function reloadForm(page,view,layout,global) {
 					Pe.Reference, 
 					Pe.OrgUnitImplement, 
 					Pe.ProgramId,  		
+					Pe.RecordStatus,
 					    
 					(
 					

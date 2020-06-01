@@ -145,7 +145,7 @@ password="#SESSION.dbpw#">
 					
 					   <TR class="navigation_row" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('fbfbfb'))#">
 					  
-						   <td height="18" width="20" align="center" style="padding-top:1px" class="navigation_action" onclick="ColdFusion.navigate('#link#&action=insert&#url.des1#=#account#','#url.box#','','','POST','')">					   
+						   <td height="18" width="20" align="center" style="padding-top:1px" class="navigation_action" onclick="ptoken.navigate('#link#&action=insert&#url.des1#=#account#','#url.box#','','','POST','')">					   
 						       <cf_img icon="add">						   
 						   </td>							
 						  

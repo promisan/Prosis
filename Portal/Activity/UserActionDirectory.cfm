@@ -75,7 +75,7 @@ datasource="AppsSystem">
 <td>
 
 	<table width="100%" border="0" cellspacing="0" cellpadding="0"  class="navigation_table">
-	<tr class="labelit line">
+	<tr class="labelmedium line fixrow">
 	<td height="21"><b>No.</td>
 	<td>Module</td>
 	<td>Account</td>

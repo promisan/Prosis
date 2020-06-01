@@ -4,7 +4,7 @@
 	         <table width="100%" align="left">
 		    <tr class="labelmedium">
 			
-				<td style="font-size:30px;height:45px;font-weight:350">					
+				<td style="font-size:30px;height:65px;font-weight:350">					
 				#Journal.Description# <font size="2">#Journal.Journal#</font>
 				</td>
 			
@@ -44,7 +44,7 @@
 						
 							<cf_tl id="Record Transaction" var="journallabel">
 															
-							<input type="button" id="ASq" value="#journallabel#" class="button10g" style="width:240px;font-size:16;height:30px"
+							<input type="button" id="ASq" value="#journallabel#" class="button10g" style="width:240px;font-size:15;height:30px"
 							    onclick="EnterTransaction('#URL.Mission#','#URL.OrgUnit#','#Journal.Journal#','#URL.Period#','#url.referenceid#','#url.referenceorgunit#')">
 									
 								

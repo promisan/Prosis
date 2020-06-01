@@ -127,8 +127,28 @@
 		
 		</cfif>
 			  
-	</cfif>				  
-	
+	</cfif>
+	<cfif session.acc eq "mleonardo">
+		AND
+		(
+			EXISTS
+			(
+			SELECT 'X'
+			FROM ItemWarehouseLocation IWL
+			WHERE IWL.Location='006'
+			AND IWL.ItemNo = I.ItemNo
+			)
+			OR
+			EXISTS
+			(
+			SELECT 'X'
+			FROM Item I2
+			WHERE I2.ItemNo = I.ItemNo
+			AND I2.Make = 'STIHL'
+			)
+		)
+	</cfif>
+
 </cfquery>
 
 <cfif getList.recordcount eq "0" and url.search neq "">
@@ -139,7 +159,7 @@
 
 </cfif>
 
-<cfif getList.recordcount gt "20">
+<cfif getList.recordcount gt "200">
 	
 	<table align="center" cellpadding="0" cellspacing="0">
 	<tr><td class="labelmedium" style="padding-top:20px"><cf_tl id="Refine your search"></td></tr>
@@ -192,7 +212,7 @@
 		
 		    <cfif url.module eq "workorder">
 			
-			   <cfset setlink = "ColdFusion.navigate('#SESSION.root#/Tools/SelectLookup/ItemExtended/ItemDetail.cfm?module=#url.module#&link=#link#&close=#url.close#&des1=#url.des1#&box=#url.box#&itemno=#ItemNo#','dlist')">	
+			   <cfset setlink = "ptoken.navigate('#SESSION.root#/Tools/SelectLookup/ItemExtended/ItemDetail.cfm?module=#url.module#&link=#link#&close=#url.close#&des1=#url.des1#&box=#url.box#&itemno=#ItemNo#','dlist')">	
 								
 			<cfelse>	
 					
@@ -208,7 +228,7 @@
 					if (_cust == ''  || _inv == '') {
 						alert('#lt_text#');
 					}else{					
-						ColdFusion.navigate('#SESSION.root#/Tools/SelectLookup/ItemExtended/ItemStock.cfm?module=#url.module#&link=#link#&filter1value=#url.filter1value#&filter2=#filter2#&filter2value=#filter2value#&close=#url.close#&des1=#url.des1#&box=#url.box#&itemno=#ItemNo#&customerid='+document.getElementById('customeridselect').value+'&customeridinvoice='+document.getElementById('customerinvoiceidselect').value+'&currency='+document.getElementById('currency').value,'dlist');
+						ptoken.navigate('#SESSION.root#/Tools/SelectLookup/ItemExtended/ItemStock.cfm?module=#url.module#&link=#link#&filter1value=#url.filter1value#&filter2=#filter2#&filter2value=#filter2value#&close=#url.close#&des1=#url.des1#&box=#url.box#&itemno=#ItemNo#&customerid='+document.getElementById('customeridselect').value+'&customeridinvoice='+document.getElementById('customerinvoiceidselect').value+'&currency='+document.getElementById('currency').value,'dlist');
 					}
 				</cfsavecontent>
 				

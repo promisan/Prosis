@@ -50,9 +50,56 @@
 
 <table width="100%" height="100%">
 
-	<tr><td height="20" class="labelmedium" style="font-weight;200;font-size:35px;padding-top:10px;padding-left:40px"><cf_tl id="Launch Popular reports"></td></tr>
-	<tr><td height="10" style="font-weight:300;padding-left:50px" class="labelmedium">Quickly open your report variants you have set as favorite</td></tr>
+	<tr><td height="20" class="labelmedium" style="font-weight;200;font-size:35px;padding-top:10px;padding-left:40px">
+	
+	
+	<tr><td>
 
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="white">
+			<tr>
+				<td width="5%">
+				</td>
+
+				<td height="80" valign="middle" align="left" width="98%" style="top; padding-left:10px">
+					<table width="100%" cellpadding="0" cellspacing="0" border="0" >
+						<tr>
+							<td style="z-index:1; width:646px; height:78px; position:absolute; right:0px; top:0px; background-image:url(<cfoutput>#SESSION.root#</cfoutput>/images/logos/BGV2.png); background-repeat:no-repeat">
+							
+							</td>
+						</tr>
+						<tr>
+							<td style="z-index:5; position:absolute; top:23px; left:35px; ">
+								<img src="<cfoutput>#SESSION.root#</cfoutput>/images/logos/favorites/favorites_icon.png">
+							</td>
+						</tr>
+						<tr>
+							<td style="z-index:3; position:absolute; top:25px; left:100px; color:45617d; font-family:calibri; font-size:25px; font-weight:normal;">
+								<cf_tl id="Favorites">
+							</td>
+						</tr>
+						<tr>
+							<td style="position:absolute; top:5px; left:100px; color:e9f4ff; font-family:calibri; font-size:55px; font-weight:normal; z-index:2">
+								<cf_tl id="Favorites">
+							</td>
+						</tr>
+						
+						<tr>
+							<td style="position:absolute; top:55px; left:105px; color:45617d; font-family:calibri; font-size:12px; font-weight:normal; z-index:4">
+								<cf_tl id="Quickly open your report variants you have set as favorite">
+							</td>
+						</tr>
+						
+						<tr>
+							<td height="10"></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+	</table>
+</td>			
+</tr>			
+	
+	
 <!---
 
 <tr><td>

@@ -89,7 +89,7 @@ password="#SESSION.dbpw#">
 			<td bgcolor="ffffff" colspan="4" align="center" height="80" style="padding-right:10px">
 			<cf_textarea name="PositionMemo"
 				color   = "ffffff"
-				toolbar = "basic"	 
+				toolbar = "mini"	 
 				init    = "no"		
 				height  = "80"		 
 				style   = "font-size:14;padding:3px;width:97%;height:50">#positionMemo#</cf_textarea>
@@ -103,7 +103,7 @@ password="#SESSION.dbpw#">
 		  value="Save" 
 		  class="button10g" 
 		  style="width:100px" 
-		  onclick="updateTextArea();ColdFusion.navigate('../Position/PositionMemo.cfm?positionno=#url.PositionNo#&memoid=#memoid#','contentbox2','','','POST','memoform')">
+		  onclick="updateTextArea();ptoken.navigate('../Position/PositionMemo.cfm?positionno=#url.PositionNo#&memoid=#memoid#','contentbox2','','','POST','memoform')">
 		</td></tr>
 		<tr><td height="3"></td></tr>
 	
@@ -121,7 +121,7 @@ password="#SESSION.dbpw#">
 			<td>#dateformat(created,CLIENT.DateFormatShow)# #timeformat(created,"HH:MM")#</td>
 			<td align="center" style="padding-top:4px;padding-right:4px">		
 			<cfif SESSION.acc eq OfficerUserId>
-			<cf_img icon="edit" navigation="Yes" onclick="ColdFusion.navigate('../Position/PositionMemo.cfm?positionno=#url.PositionNo#&memoid=#memoid#','contentbox2')">
+			<cf_img icon="edit" navigation="Yes" onclick="ptoken.navigate('../Position/PositionMemo.cfm?positionno=#url.PositionNo#&memoid=#memoid#','contentbox2')">
 			</cfif>
 			</td>
 		</tr>
@@ -137,13 +137,13 @@ password="#SESSION.dbpw#">
 	
 	<tr><td height="5"></td></tr>
 	
-	<tr bgcolor="ffffff">
+	<tr bgcolor="ffffff" class="line">
 	<td valign="top" style="padding-left:3px;padding-top:5px"><cfoutput>#memo.recordcount+1#.</cfoutput></td>
 	<td colspan="4" align="center" style="padding-right:10px">
 		<cf_textarea 
 			name="PositionMemo"
 				color   = "ffffff"
-				toolbar = "basic"	 
+				toolbar = "mini"	 
 				init    = "no"
 				height  = "80" 				 
 				style="font-size:14;padding:3px;width:97%;"></cf_textarea>
@@ -158,7 +158,7 @@ password="#SESSION.dbpw#">
 				value="Save" 
 				style="width:160px;height:25" 
 				class="button10g" 
-				onclick="updateTextArea();ColdFusion.navigate('../Position/PositionMemo.cfm?positionno=#url.PositionNo#&memoid=#memoid#','contentbox2','','','POST','memoform')">
+				onclick="updateTextArea();ptoken.navigate('../Position/PositionMemo.cfm?positionno=#url.PositionNo#&memoid=#memoid#','contentbox2','','','POST','memoform')">
 		</cfoutput>
 	</td></tr>
 	

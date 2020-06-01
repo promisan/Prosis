@@ -1,13 +1,13 @@
 
 <!--- Hanno : we need a provision for the online user to process it, even if allowedit = 0 --->
 
-<cfparam name="URL.entryScope"    default="Backoffice"> 
-<cfparam name="URL.source"        default="Manual">  
-<cfparam name="URL.Topic"         default="Employment"> 
-<cfparam name="url.section" 	  default="">
-<cfparam name="url.applicantno"   default="">
-<cfparam name="url.owner"         default="">
-<cfparam name="client.ApplicantNo"         default="">
+<cfparam name="URL.entryScope"      default="Backoffice"> 
+<cfparam name="URL.source"          default="Manual">  
+<cfparam name="URL.Topic"           default="Employment"> 
+<cfparam name="url.section" 	    default="">
+<cfparam name="url.applicantno"     default="">
+<cfparam name="url.owner"           default="">
+<cfparam name="client.ApplicantNo"  default="">
 
 <cfquery name="Parameter" 
 datasource="AppsSelection" 
@@ -137,7 +137,7 @@ password="#SESSION.dbpw#">
 	AND      S.Source   = '#url.source#'	   	
 	AND      S.ApplicantNo = A.ApplicantNo
 	<cfif url.applicantno neq "">
- 	 AND      S.ApplicantNo = '#URL.ApplicantNo#'
+ 	 AND      S.ApplicantNo = '#URL.ApplicantNo#' 
 	</cfif>
 	AND      R.Source      = S.Source
 	AND      A.Status IN ('0','1')
@@ -149,30 +149,28 @@ password="#SESSION.dbpw#">
 			
 </cfquery>
 
-
-
 <cfif mode eq "edit" or client.applicantno eq applicantno>
 	
 	<cfoutput>
 	
 	  <script language="JavaScript">
 		  
-		function bgadd(cls) {		
-		  ptoken.location("#SESSION.root#/Roster/Candidate/Details/Background/BackgroundEntry.cfm?owner=#url.owner#&applicantno=#url.applicantno#&section=#url.section#&entryScope=#url.entryScope#&Source=#url.source#&Topic=#URL.Topic#&ID=&ID1=#URL.ID#&ID2="+cls)
+		function bgadd(appno,cls) {		
+		  ptoken.location("#SESSION.root#/Roster/Candidate/Details/Background/BackgroundEntry.cfm?owner=#url.owner#&applicantno=="+appno+"&section=#url.section#&entryScope=#url.entryScope#&Source=#url.source#&Topic=#URL.Topic#&ID=&ID1=#URL.ID#&ID2="+cls)
 		}  
 		
-		function bgedit(expno,cls,src) {
-		  ptoken.location("#SESSION.root#/Roster/Candidate/Details/Background/BackgroundEntry.cfm?owner=#url.owner#&applicantno=#url.applicantno#&section=#url.section#&entryScope=#url.entryScope#&Source=#url.source#&Topic=#URL.Topic#&ID=" + expno + "&ID1=#URL.ID#&ID2="+cls+"&mode=1")
+		function bgedit(appno,expno,cls,src) {
+		  ptoken.location("#SESSION.root#/Roster/Candidate/Details/Background/BackgroundEntry.cfm?owner=#url.owner#&applicantno="+appno+"&section=#url.section#&entryScope=#url.entryScope#&Source=#url.source#&Topic=#URL.Topic#&ID=" + expno + "&ID1=#URL.ID#&ID2="+cls+"&mode=1")
 		}
 		
-		function bgedit2(expno,cls,src) {
-		  ptoken.location("#SESSION.root#/Roster/Candidate/Details/Background/BackgroundEntry.cfm?owner=#url.owner#&applicantno=#url.applicantno#&section=#url.section#&entryScope=#url.entryScope#&Source=#url.source#&Topic=#URL.Topic#&ID=" + expno + "&ID1=#URL.ID#&ID2="+cls+"&mode=2")
+		function bgedit2(appno,expno,cls,src) {
+		  ptoken.location("#SESSION.root#/Roster/Candidate/Details/Background/BackgroundEntry.cfm?owner=#url.owner#&applicantno="+appno+"&section=#url.section#&entryScope=#url.entryScope#&Source=#url.source#&Topic=#URL.Topic#&ID=" + expno + "&ID1=#URL.ID#&ID2="+cls+"&mode=2")
 		}
 		
-		function bgpurge(expno,src) {
+		function bgpurge(appno,expno,src) {
 			<cf_tl id="Do you want to remove this record" var="1">
 		  if (confirm("#lt_text# ?")) {
-			  	ptoken.location("#SESSION.root#/Roster/Candidate/Details/Background/BackgroundPurge.cfm?owner=#url.owner#&applicantno=#url.applicantno#&section=#url.section#&entryScope=#url.entryScope#&Source="+src+"&ID=#URL.ID#&ID2=#URL.ID2#&Topic=#URL.Topic#&ID0=" + expno)
+			  	ptoken.location("#SESSION.root#/Roster/Candidate/Details/Background/BackgroundPurge.cfm?owner=#url.owner#&applicantno="+appno+"&section=#url.section#&entryScope=#url.entryScope#&Source="+src+"&ID=#URL.ID#&ID2=#URL.ID2#&Topic=#URL.Topic#&ID0=" + expno)
 			   	}	  
 		}
 	 
@@ -182,66 +180,65 @@ password="#SESSION.dbpw#">
 
 </cfif>
 
-
 <cfset cnt = 0>
 
 	<cfif URL.Topic neq "All">
 		
 		<cfoutput>
 			
-		<table width="97%" border="0" cellspacing="0" cellpadding="0" align="center">
+		<table width="97%" align="center">
 		
-		<tr><td height="4"></td></tr>		
 		
 		<cfif mode eq "edit">
 		
-		    <tr><td style="height:35;font-size:20px;padding-right:10px" class="labellarge">
+		    <tr><td style="height:35;font-size:20px;padding-right:10px" class="labellarge line">
 			
 				</td>
-			    <td align="right" style="height:35;padding-right:10px">
+			    <td align="right" style="height:25;padding-right:10px">
 													
 					   		<input class="button10g" 
 							style   = "width:210px;height:25;border-radius:5px"
 					   		type    = "button" 
-					   		onclick = "javascript:bgadd('#URL.Topic#')" 
+					   		onclick = "javascript:bgadd('#url.applicantno#','#URL.Topic#')" 
 					   		name    = "AddBackground" 
 					   		value   = "Add #URL.Topic# record">
 						
 				
 				</td>
 			</tr>
-			<tr><td colspan="2" class="linedotted"></td></tr>	
-		
+			
 		</cfif>
 		
 		</cfoutput>
 		
 	<cfelse>	
 	
-	    <table width="99%" border="0" cellspacing="0" align="center" cellpadding="0" class="formpadding">
-		<tr><td height="5"></td></tr>
-							
+	    <table width="99%" align="center" class="formpadding">
+								
 			<tr><td align="right" colspan="2">
 			
 				<cfif mode eq "edit">
 								
 			       <cfoutput>
+				   
 				   <input class="button10g" 
-				   type="button" 
-				   onclick="javascript:bgadd('#URL.ID2#')" 
-				   name="AddBackground" 
-				   style="width:240px;height:25px;border-radius:5px"
-				   value="Add #URL.ID2# record">
+					      type="button" 
+					      onclick="javascript:bgadd('#url.applicantno#','#URL.ID2#')" 
+					      name="AddBackground" 
+					      style="width:240px;height:25px;border-radius:5px"
+					      value="Add #URL.ID2# record">
+						  
 				   </cfoutput>
 				   
-				 </cfif>  
+				 </cfif> 
+				  
 			</td></tr>	
 				
 	</cfif>
 
 <tr><td colspan="2">
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<table width="100%" align="center" class="navigation_table">
 
 <cfset yr = 0>
 <cfset row = 0>
@@ -268,14 +265,14 @@ password="#SESSION.dbpw#">
    
    	  <cfset prioryear = yr>
 	 	 
-	  <tr><td height="20" colspan="8" style="font-size:27px;padding-top:5px" class="labellarge">#Yr#</td></tr>
+	  <tr><td height="20" colspan="8" style="font-size:27px" class="labelmedium">#Yr#</td></tr>
 	  
    </cfif>
 		
 	<cfif Status neq "9">
 	    <tr bgcolor="ffffff" class="navigation_row">
 	<cfelse>	
-	    <tr bgcolor="red" class="navigation_row">
+	    <tr bgcolor="red"    class="navigation_row">
 	</cfif>
 	
 	<cfset row = row + 1>
@@ -287,25 +284,29 @@ password="#SESSION.dbpw#">
 	   <tr><td class="labelit" valign="top" style="padding-top:4px">#Row#.</td>
 	   
 		   <td colspan="2">
-		   <table><tr>
-		
+		   
+		   <table>
+		   <tr>		
+		   
 	       <cfif mode eq "edit" or client.applicantno eq applicantno>  <!--- added by hanno to allow EAD portal access to edit --->
-		    <td style="padding-left:3px;padding-top:2px">
-		    <cf_img icon="edit" onclick="javascript:bgedit('#ExperienceId#','#ExperienceCategory#','#Source#')">
+		   <td style="padding-left:3px;padding-top:2px">
+		      <cf_img icon="edit" onclick="bgedit('#applicantno#','#ExperienceId#','#ExperienceCategory#','#Source#')">
 		    </td>	 					 
 		   </cfif>	  
 		 
 		   <cfif mode eq "edit">
-		    <td style="padding-left:2px;padding-top:3px">		  
-		   		<cf_img icon="delete" onclick="javascript:bgpurge('#ExperienceId#','#source#')">
+		   <td style="padding-left:2px;padding-top:3px">		  
+		      <cf_img icon="delete" onclick="bgpurge('#applicantno#','#ExperienceId#','#source#')">
 		    </td>
-		   </cfif>	
-	   
+		   </cfif>		   
+		   
 	        </tr>
      	   </table>
+		   
 	   </td>
 			  	   
-	   <td class="labelmedium" style="padding-left:10px">
+	   <td class="labelmedium" style="padding-left:10px;font-size:17px;font-weight:bold">
+	   
 		 #ExperienceDescription#
 		 
 		 <cfif ExperienceCategory eq "Employment">
@@ -322,11 +323,8 @@ password="#SESSION.dbpw#">
 						AND    R.Operational = 1
 					</cfquery>	
 					
-					<cfif moredetails.recordcount gte "1">
-					
-					<a href="javascript:maximizeit('#CurrentRow#','Exp')"><font color="0080C0"><cf_tl id="responsibilities">...</font></a>
-					
-					
+					<cfif moredetails.recordcount gte "1">					
+					<a href="javascript:maximizeit('#CurrentRow#','Exp')"><cf_tl id="responsibilities">...</a>					
 					</cfif>
 						      
 			</cfif>
@@ -349,12 +347,17 @@ password="#SESSION.dbpw#">
 	
 	<tr class="navigation_row_child labelmedium" style="height:20px">
 		<td width="5%" align="left"></td>	
-		<td colspan="4">#OrganizationName# - #OrganizationCity# (#OrganizationCountry#)	</td>
-		<td colspan="2" width="20%" style="padding-right:10px">
-		<cf_space spaces="50">
-		#DateFormat(ExperienceStart,CLIENT.DateFormatShow)#
-		- 
-		<cfif ExperienceEnd lt "01/01/40" or ExperienceEnd gt "01/01/2020" ><cf_tl id="Todate"><cfelse>#DateFormat(ExperienceEnd,CLIENT.DateFormatShow)#</cfif></td>
+		<td colspan="6">
+			<table>
+				<tr class="labelmedium">
+				<td style="font-size:16px">
+				#DateFormat(ExperienceStart,CLIENT.DateFormatShow)#
+				- <cfif ExperienceEnd lt "01/01/40" or ExperienceEnd gt "01/01/2020" ><cf_tl id="Todate"><cfelse>#DateFormat(ExperienceEnd,CLIENT.DateFormatShow)#</cfif>		
+				</td>
+				</tr>
+				<tr><td>#OrganizationName# - #OrganizationCity# (#OrganizationCountry#)</td></tr>		
+			</table>
+		</td>		
 		<td width="20%" align="right" style="padding-right:10px">#Source# <cfif updated neq ""><font size="2">&nbsp;(#dateformat(updated,CLIENT.DateFormatShow)#)</cfif></td>
 		
 	</tr>
@@ -377,9 +380,7 @@ password="#SESSION.dbpw#">
 		<td></td>
 		<td colspan="4">
 		<cf_tl id="Supervisor eMail">:<cfif OrganizationEMail neq "">
-		<a href="javascript:email('#OrganizationEMail#','#Candidate.FirstName# #Candidate.LastName#','','','','')">
-		<font color="0080C0"><u>#OrganizationEMail#</u></font>
-		</a>
+		<a href="javascript:email('#OrganizationEMail#','#Candidate.FirstName# #Candidate.LastName#','','','','')">#OrganizationEMail#</a>
 		<cfif OrganizationTelephone neq "">&nbsp;<cf_tl id="Tel">:&nbsp;#OrganizationTelephone# </b></cfif>
 		<cfelse> N/A</cfif></b></td>
 		<td colspan="3" align="right" style="padding-right:10px;height:21px;"><cfif StaffSupervised neq "0"><font size="1"><cf_tl id="Supervised">:</font> <cfif StaffSupervised eq "">n/a<cfelse>#StaffSupervised#</cfif></cfif></td>
@@ -434,7 +435,7 @@ password="#SESSION.dbpw#">
 									
 						<table width="90%" style="border:1px solid gray;border-radius:6px" align="center" class="formpadding" cellspacing="0" cellpadding="0" bgcolor="ffffcf">
 							
-							<tr class="linedotted labelit" bgcolor="ffffef">
+							<tr class="line labelmedium" bgcolor="ffffef">
 							    <td style="padding-left:4px"><cf_tl id="Review type"></td>
 								<td><cf_tl id="Owner"></td>
 								<td><cf_tl id="Priority"></td>
@@ -446,19 +447,19 @@ password="#SESSION.dbpw#">
 													
 							<cfloop query="checking">
 							
-								<tr>
-								<td class="labelit" style="padding-left:4px">#Description#</td>
-								<td class="labelit">#Owner#</td>
-								<td class="labelit">#PriorityCode#</td>
-								<td class="labelit">
+								<tr class="labelmedium">
+								<td style="padding-left:4px">#Description#</td>
+								<td>#Owner#</td>
+								<td>#PriorityCode#</td>
+								<td>
 										<cfswitch expression="#Status#">
 												<cfcase value="0"> <font color="blue">Pending</font></cfcase>
 												<cfcase value="9"><font color="FF0000">Denied</font></cfcase>
 												<cfcase value="1">Cleared</cfcase>
 										</cfswitch>
 								</td>
-								<td class="labelit">#OfficerLastName#</td>
-								<td class="labelit">#DateFormat(Created,CLIENT.DateFormatShow)#</td>
+								<td>#OfficerLastName#</td>
+								<td>#DateFormat(Created,CLIENT.DateFormatShow)#</td>
 								<td></td>
 								</tr>	
 																					
@@ -481,11 +482,11 @@ password="#SESSION.dbpw#">
 							
 		<td colspan="8" style="padding-top:2px;padding-left:37px;padding-right:10px">
 		
-		<table width="100%" style="border:0px dotted 0080C0" border="0" cellspacing="0" cellpadding="0" align="center">
+		<table width="100%" align="center">
 		
 		    <tr>
 				<td class="labelmedium" style="padding-left:14px">
-				<a href="javascript:minimize('#CurrentRow#','Min')"><font color="0080C0"><u><cf_tl id="Hide"></a>
+				<a href="javascript:minimize('#CurrentRow#','Min')"><cf_tl id="Hide"></a>
 				</td>
 			</tr>
 		
@@ -534,7 +535,7 @@ password="#SESSION.dbpw#">
 					
 						<cfif url.EntryScope eq "Backoffice">
 							<cfloop query = "key">
-								<tr class="linedotted navigation_row_child">		
+								<tr class="line navigation_row_child">		
 								    <td></td>
 									<cfif k neq ExperienceClassDescription>
 										<td class="labelit" style="height:20px;padding-left:20px" width="25%">&nbsp;<font color="gray">#ExperienceClassDescription#</td>
@@ -620,7 +621,10 @@ password="#SESSION.dbpw#">
 						
 		</cfoutput>
 		
-		<tr class="navigation_row_child" style="border-bottom:1px solid silver"><td colspan="10" height="10"></td></tr>
+		
+		<tr><td style="height:10px"></td></tr>
+		<tr class="line navigation_row_child"><td colspan="7"></td></tr>
+		<tr><td style="height:10px"></td></tr>
 				
 </cfoutput>
 

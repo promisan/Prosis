@@ -85,7 +85,7 @@
 			value="#get.Reference#"
 			required="true"
 			message="#lt_text#"
-			maxlength="20"			
+			maxlength="10"			
 			class="form-control enterastab">
 	</div>
 

@@ -43,7 +43,7 @@ function selectcombo(box,temget,temset,condition,val,mode) {
 		   case 9:    
 		    // user presses enter to select 
 	     	document.getElementById('select_'+box).className = "hide"																			
-			ColdFusion.navigate('<cfoutput>#SESSION.root#</cfoutput>/'+temset+'?box='+box+'&'+condition+'&keyvalue='+document.getElementById('field_'+box).value,'selectcontent_'+box)	
+			ptoken.navigate('<cfoutput>#SESSION.root#</cfoutput>/'+temset+'?box='+box+'&'+condition+'&keyvalue='+document.getElementById('field_'+box).value,'selectcontent_'+box)	
 			
 			if(window.event) {   
 			  event.keyCode=9   
@@ -59,7 +59,7 @@ function selectcombo(box,temget,temset,condition,val,mode) {
 		   case 13:    
 		    // user presses enter to select 
 	     	document.getElementById('select_'+box).className = "hide"																			
-			ColdFusion.navigate('<cfoutput>#SESSION.root#</cfoutput>/'+temset+'?box='+box+'&'+condition+'&keyvalue='+document.getElementById('field_'+box).value,'selectcontent_'+box)	
+			ptoken.navigate('<cfoutput>#SESSION.root#</cfoutput>/'+temset+'?box='+box+'&'+condition+'&keyvalue='+document.getElementById('field_'+box).value,'selectcontent_'+box)	
 			
 			if(window.event) {   
 			  event.keyCode=9   
@@ -117,7 +117,7 @@ function selectcombo(box,temget,temset,condition,val,mode) {
 		   
 		      // search more     
 			 		 
-			  ColdFusion.navigate('<cfoutput>#SESSION.root#</cfoutput>/'+temget+'?box='+box+'&'+condition+'&search='+val,'selectcontent_'+box)
+			  ptoken.navigate('<cfoutput>#SESSION.root#</cfoutput>/'+temget+'?box='+box+'&'+condition+'&search='+val,'selectcontent_'+box)
 			 
 		   }	
 	    }	 

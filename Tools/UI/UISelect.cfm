@@ -20,7 +20,6 @@
 
         <cfif attributes.multiple eq "No">
                 <input id="_#Attributes.Name#" <cfif attributes.style neq "">style="#attributes.style#"</cfif> <cfif attributes.class neq "">class="#attributes.class#"</cfif>/>
-                <input name="#Attributes.Name#"	id="#Attributes.Name#" 	type="hidden" value="#attributes.selected#" >
         <cfelse>
             <select
                 id="_#attributes.name#"
@@ -36,24 +35,46 @@
 
             <cfset vSelected = "">
             <cfloop list="#attributes.selected#" index="element"><cfset vSelected = "#vSelected#,'#Replace(element,"'","","ALL")#'"></cfloop>
+            <input name="#Attributes.Name#"	id="#Attributes.Name#" 	type="hidden" value="#vSelected#" >
 
-            <input name="#Attributes.Name#"	id="#Attributes.Name#" 	type="hidden" value="#attributes.selected#" >
 
         </cfif>
 
     </cfoutput>
 <cfelseif thisTag.ExecutionMode is 'end'>
-
     <cfif attributes.multiple eq "No">
             <cfset vReturn = ParseHTMLTag(thisTag.GeneratedContent)>
-            <cfset vValue = vReturn['Attributes']['value']>
-            <cfset vDisplay = vReturn['Attributes']['Inside']>
+                <cftry>
+                    <cfset vValue = vReturn['Attributes']['value']>
+                    <cfset vDisplay = vReturn['Attributes']['Inside']>
+                    <cfoutput>
+                     <cfif attributes.selected eq "">
+                          <cfset attributes.selected = vValue>
+                     </cfif>
+
+                    <input name="#Attributes.Name#"	id="#Attributes.Name#" 	type="hidden" value="#attributes.selected#" >
+                    </cfoutput>
+                <cfcatch>
+                    <cfset vValue = "--">
+                    <cfset vDisplay = "--">
+                    <cfloop query="attributes.query">
+                        <cfset valueField = Evaluate("#Attributes.Value#")>
+                        <cfbreak>
+                    </cfloop>
+
+                    <cfoutput>
+                        <input name="#Attributes.Name#"	id="#Attributes.Name#" 	type="hidden" value="#valueField#" >
+                    </cfoutput>
+                </cfcatch>
+                </cftry>
             <cfoutput>
             <cfsavecontent variable="kDropDown">
                 $("##_#Attributes.Name#").kendoDropDownList({
                 dataSource: {
                 data: [
-                { #Attributes.Value#: '#vValue#', #Attributes.Display#: '#vDisplay#'<cfif attributes.group neq "">,#attributes.group#:''</cfif> },
+                <cfif vValue neq "--" and vDisplay neq "--">
+                    { #Attributes.Value#: '#vValue#', #Attributes.Display#: '#vDisplay#'<cfif attributes.group neq "">,#attributes.group#:''</cfif> },
+                </cfif>
                 <cfloop query="attributes.query">
                     <cfset valueField = Evaluate("#Attributes.Value#")>
                     <cfset textField = Evaluate("#Attributes.Display#")>
@@ -89,8 +110,9 @@
                 </cfif>
                 animation:false,
                 select: function(e) {
-                var item = e.dataItem;
-                $('###Attributes.Name#').val(item.#Attributes.Value#);
+                    var item = e.dataItem;
+                    $('###Attributes.Name#').val(item.#Attributes.Value#);
+                    ColdFusion.Event.callBindHandlers('#Attributes.name#',null,'change');
                 }
                 });
 
@@ -98,8 +120,11 @@
 
                 function OnChange_#Attributes.name#()
                 {
-                #attributes.onchange#
+                    #attributes.onchange#
+
+                    ColdFusion.Event.callBindHandlers('#Attributes.name#',null,'change')
                 }
+
 
 
             </cfsavecontent>
@@ -114,6 +139,7 @@
                         autoClose: false,
                         change: function(e) {
                             $("###Attributes.Name#").val(this.value());
+                            ColdFusion.Event.callBindHandlers('#Attributes.name#',null,'change');
                             console.log(this.value());
                         },
                         <cfif attributes.selected neq "">

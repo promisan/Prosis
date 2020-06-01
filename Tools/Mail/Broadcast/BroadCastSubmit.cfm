@@ -11,7 +11,7 @@
 <cfif Check.recordcount eq "0">
 	<script>
 	alert("Broadcast was removed. Action aborted")
-	parent.ColdFusion.navigate('BroadCastHistory.cfm?mode=#url.mode#','contentbox2')
+	parent.ptoken.navigate('BroadCastHistory.cfm?mode=#url.mode#','contentbox2')
 	</script>
 	<cfabort>
 </cfif>

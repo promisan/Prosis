@@ -7,7 +7,7 @@
 		 SELECT *
 		 FROM   Ref_ReportControl
 		 WHERE  ControlId    = '#url.controlid#' 	
-	</cfquery>
+</cfquery>
 
 <cfif reportId eq "00000000-0000-0000-0000-000000000000">
 	
@@ -68,12 +68,14 @@
 <cfparam name="url.class" default="regular">
 
 <cfoutput>
+
 <cfif url.cl eq "regular">
 	 <script>
 	  try { document.getElementById('#url.CriteriaName#_radio').click();  }
 	  catch(e) { }
 	 </script>
 </cfif>
+
 </cfoutput>
 
 <cfloop query="Criteria">
@@ -81,7 +83,10 @@
 	<cfset ajax   = 1>
 	<cfset fldid  = "#url.fldid#">
 	<cfset cl     = "#url.cl#">
-	
+
 	<cfinclude template="SelectFormParameter.cfm"> 	
 
 </cfloop>
+
+
+

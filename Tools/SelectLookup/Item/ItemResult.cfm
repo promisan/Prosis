@@ -246,7 +246,7 @@ ORDER BY ItemNo
 
 		<tr class="navigation_row line labelmedium" style="height:22px">
 		
-		  <td width="30" class="navigation_action" style="padding-left:4px;padding-top:2px" onclick="ColdFusion.navigate('#link#&action=insert&#url.des1#=#itemNo#','#url.box#');<cfif url.close eq 'Yes'>ColdFusion.Window.hide('dialog#url.box#')</cfif>"><cf_img icon="select"></td>
+		  <td width="30" class="navigation_action" style="padding-left:4px;padding-top:2px" onclick="ptoken.navigate('#link#&action=insert&#url.des1#=#itemNo#','#url.box#');<cfif url.close eq 'Yes'>ColdFusion.Window.hide('dialog#url.box#')</cfif>"><cf_img icon="select"></td>
 			<td>#ItemNo#</td>
 			<td>#ItemNoExternal#</td>
 			<TD style="width:50%">#ItemDescription#</TD>

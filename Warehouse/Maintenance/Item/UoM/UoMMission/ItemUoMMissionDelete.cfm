@@ -10,6 +10,6 @@ password="#SESSION.dbpw#">
 
 <cfoutput>
 <script>
-	ColdFusion.navigate('UoMMission/ItemUoMMissionView.cfm?id=#url.id#&UoM=#URL.UoM#','itemUoMMissionlist')
+	ptoken.navigate('UoMMission/ItemUoMMissionView.cfm?id=#url.id#&UoM=#URL.UoM#','itemUoMMissionlist')
 </script> 
 </cfoutput> 

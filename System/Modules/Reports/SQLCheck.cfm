@@ -117,7 +117,7 @@
 			
 			<cfsavecontent variable="banner"> 
 			<table width="100%" cellspacing="0" cellpadding="0">
-			<tr><td align="center">
+			<tr><td align="center" style="height:35px">
 				<input type="button" class="button10g" value="Close" name="Close" id="Close" onClick="window.close()">
 			</td></tr>	
 			

@@ -26,7 +26,7 @@
 		   
 			<form name="selectorg" method="post">
 			
-				<table width="100%" class="formpadding" border="0" cellspacing="0" cellpadding="0" align="center" onkeyup="if (window.event.keyCode == '13') { document.getElementById('search').click() }">
+				<table width="100%" class="formpadding" align="center" onkeyup="if (window.event.keyCode == '13') { document.getElementById('search').click() }">
 				
 				<cfinvoke component = "Service.Language.Tools"  
 					   method           = "LookupOptions" 
@@ -44,7 +44,7 @@
 					<TD class="hide"><SELECT type="hidden" name="Crit1_Operator" id="Crit1_Operator" class="regularh">#SelectOptions#</SELECT>
 					</td>
 					<td style="padding-left:10px">	
-					<INPUT type="text" style="height:21px" name="Crit1_Value" id="Crit1_Value" class="regularh" size="25"> 			
+					<INPUT type="text" style="height:21px" name="Crit1_Value" id="Crit1_Value" class="regularxl" size="25"> 			
 					</TD>
 					</tr>
 					
@@ -56,7 +56,7 @@
 					
 					<TD style="padding-left:10px"><cf_tl id="Code">:</TD>
 					<TD class="hide">
-					<SELECT type="hidden" name="Crit2_Operator" id="Crit2_Operator" class="regularh">#SelectOptions#</SELECT>				
+					<SELECT type="hidden" name="Crit2_Operator" id="Crit2_Operator" class="regularxl">#SelectOptions#</SELECT>				
 					</td>
 					<td style="padding-left:10px">
 					<INPUT type="text" style="height:21px" name="Crit2_Value" id="Crit2_Value" size="25" class="regularh"> 			
@@ -100,7 +100,7 @@
 			<input type="button" 
 			   name="search" id="search"
 			   value="<cfoutput>#lt_text#</cfoutput>" 
-			   onclick="ColdFusion.navigate('#SESSION.root#/tools/selectlookup/Unit/OrganizationResult.cfm?height='+document.body.clientHeight+'&page=1&close=#url.close#&box=#box#&link=#link#&des1=#des1#&filter1=#filter1#&filter1value=#filter1value#&filter2=#filter2#&filter2value=#filter2value#','resultunit#box#','','','POST','selectorg')"
+			   onclick="ptoken.navigate('#SESSION.root#/tools/selectlookup/Unit/OrganizationResult.cfm?height='+document.body.clientHeight+'&page=1&close=#url.close#&box=#box#&link=#link#&des1=#des1#&filter1=#filter1#&filter1value=#filter1value#&filter2=#filter2#&filter2value=#filter2value#','resultunit#box#','','','POST','selectorg')"
 			   class="button10g">
 			   
 		</td></tr>

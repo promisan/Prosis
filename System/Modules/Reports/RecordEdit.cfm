@@ -114,16 +114,14 @@ password="#SESSION.dbpw#">
       
     <tr id="field">
 	<td colspan="3" height="100%" valign="top">
-	  
-	     <cf_divscroll>
-	  	  	  	 
+	   	  	  	  	 
 		  <cfif Line.FunctionClass neq "System">	    
 			  <cfinclude template="RecordEditFields.cfm">			
-		  <cfelse>	  		  
+		  <cfelse>	 
+		  	<cf_divscroll> 		  
 		      <cfinclude template="RecordEditFieldsSystem.cfm">			
+			 </cf_divscroll>  
 		  </cfif>
-		  
-		  </cf_divscroll>
 	 	 
 	  </td></tr>
 		  

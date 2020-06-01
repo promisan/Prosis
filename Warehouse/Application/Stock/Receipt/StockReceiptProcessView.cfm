@@ -156,16 +156,14 @@
 					</table>
 				</td>
 			</tr>
-			<tr><td colspan="6" class="linedotted"></td></tr>
-			<tr><td height="4"></td></tr>
+			
 			<tr>
 				<td colspan="6">
-					<cfdiv id="divReceiptProcessDetail"
+					<cf_securediv id="divReceiptProcessDetail"
 					  bind="url:#SESSION.root#/warehouse/application/stock/receipt/StockReceiptProcessViewDetail.cfm?mission=#url.mission#&warehouse=#url.warehouse#&fwarehouse=#getSelected.TransferWarehouse#&flocation=#getSelected.TransferLocation#">
 				</td>
 			</tr>
-			<tr><td height="5"></td></tr>
-			<tr><td colspan="7" class="linedotted"></td></tr>
+			
 			<tr><td height="5"></td></tr>
 			<tr>
 				<td colspan="6" align="center">

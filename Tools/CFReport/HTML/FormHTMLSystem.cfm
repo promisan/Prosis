@@ -31,7 +31,7 @@
 	    <table width="100%" border="0" align="center">
 			  <tr><td width="2%"></td>
 			  <td width="98%">
-			  <cfset class = "Selection">
+			  <cfset class = "'Selection'">
 			  <cfinclude template="FormHTMLCriteria.cfm"></td></tr>
 		 </table>
 	  </td></tr>
@@ -49,7 +49,7 @@
 					id="global"
 					text="Save"
 					type="button"
-					onclick     = "ColdFusion.navigate('#SESSION.root#/tools/CFreport/SelectReportSave.cfm?global=1&mode=Form&controlId=#ControlId#&reportId=#ReportId#&GUI=HTML','result','','','POST','selection')">
+					onclick     = "ptoken.navigate('#SESSION.root#/tools/CFreport/SelectReportSave.cfm?global=1&mode=Form&controlId=#ControlId#&reportId=#ReportId#&GUI=HTML','result','','','POST','selection')">
 					
 				</cfoutput>
 			

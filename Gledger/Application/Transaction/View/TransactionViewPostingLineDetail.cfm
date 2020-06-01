@@ -299,8 +299,8 @@
 								   <tr>
 								  	 <td  class="labelit">
 									  <cfif (access eq "EDIT" and checkdis.recordcount eq "0" and url.print neq 1 and ActionStatus eq "0") or access eq "ALL">			
-								      <a href="javascript:ColdFusion.navigate('TransactionViewPostingLineEdit.cfm?selected=#ObjectCode#&#link#&fld=objectcode','objectcode#box#')">
-									  <font color="0080FF">[<cf_tl id="edit">]</font>
+								      <a href="javascript:ptoken.navigate('TransactionViewPostingLineEdit.cfm?selected=#ObjectCode#&#link#&fld=objectcode','objectcode#box#')">
+									  [<cf_tl id="edit">]
 									  </a>
 									  </cfif>
 									 </td>

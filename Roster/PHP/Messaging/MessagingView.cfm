@@ -66,7 +66,7 @@
 		If you wish to exchange comments with respect to one of the below messages we sent, HIGHLIGHT the message and expand the RIGHT panel of this screen; You may send us comments and we will respond to you.</td></tr>
 		<tr><td valign="top" style="padding:10px">
 				
-			<cfdiv id="divListingContainer" style="height:100%" bind="url:#session.root#/Roster/PHP/Messaging/MessagingContent.cfm?applicantno=#url.applicantno#&id=#url.id#">        	
+			<cf_securediv id="divListingContainer" style="height:100%" bind="url:#session.root#/Roster/PHP/Messaging/MessagingContent.cfm?applicantno=#url.applicantno#&id=#url.id#">        	
 
 			
 		</td>

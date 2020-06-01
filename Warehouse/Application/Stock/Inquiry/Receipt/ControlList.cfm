@@ -213,7 +213,7 @@ password="#SESSION.dbpw#">
    <tr>
 
    <td colspan="1" height="100%" valign="top">
-		<cfdiv id="divListingContainer" style="height:100%" bind="url:../Inquiry/Receipt/ControlListContent.cfm?warehouse=#url.warehouse#&mission=#url.mission#&SystemFunctionId=#url.SystemFunctionId#">        	
+		<cf_securediv id="divListingContainer" style="height:100%" bind="url:../Inquiry/Receipt/ControlListContent.cfm?warehouse=#url.warehouse#&mission=#url.mission#&SystemFunctionId=#url.SystemFunctionId#">        	
 	</td>	
 	
    </tr>

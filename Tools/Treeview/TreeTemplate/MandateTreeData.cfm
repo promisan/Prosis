@@ -14,13 +14,18 @@ password="#SESSION.dbpw#">
 	AND MandateNo = '#Attributes.MandateDefault#'
 </cfquery>
 
-<cftree name="root"
-   font="Calibri"
-   fontsize="13"		
-   bold="No"   
-   style="color:green"
-   format="html"    
-   required="No">   	
+<cf_UItree
+	id="base"
+	title="<span style='font-size:16px;color:gray;padding-bottom:3px'>Filter and views</span>"	
+	expand="Yes"
+	Root="no">
+	
+	<cf_tl id="Filter" var="1">   
+	
+	<cf_UItreeitem value="Root"
+	        display="<span style='font-size:15px;padding-top:1px;;padding-bottom:1px;font-weight:500' class='labelit'>#lt_text#</span>"
+			parent="base"							
+	        expand="No">	
 	
   <cfquery name="Level01" 
   datasource="AppsEmployee" 
@@ -35,29 +40,32 @@ password="#SESSION.dbpw#">
     
  <cfif Level01.recordcount gte "1">
  
- <cftreeitem value="location"
-	        display="<span style='padding-bottom:3px;' class='labelmedium'>Geographical Location</span>"
-			parent="root"															
+	 <cf_tl id="location" var="1">     
+	
+	 <cf_UItreeitem value="location"
+	        display="<span style='font-size:14px;padding-top:1px;;padding-bottom:1px;font-weight:bold' class='labelit'>#lt_text#</span>"
+			parent="Root"							
 	        expand="No">	
-			
-  <cfloop query="level01">
-  
-  <cftreeitem value="#Level01.LocationCode#"
-        display="#Level01.LocationName#"
-		parent="location"	
-		target="right"					
-		href="MandateViewOpen.cfm?ID=Loc&ID1=#LocationCode#&ID2=#Attributes.Mission#&ID3=#MandateDefault#"
-        expand="No">	
-  
-  </cfloop>
+				
+	  <cfloop query="level01">
+		
+		<cf_UItreeitem value="#LocationCode#"
+	        display="<span style='font-size:13px' class='labelit'>#LocationName#</span>"
+			parent="location"						
+			target="right"
+			href="MandateViewOpen.cfm?ID=Loc&ID1=#LocationCode#&ID2=#Attributes.Mission#&ID3=#MandateDefault#">	
+	  	  
+	  </cfloop>
   
  </cfif> 
-  
- <cftreeitem value="function"
-	        display="<span style='padding-bottom:3px;' class='labelmedium'>Occupational Group</span>"
-			parent="root"														
-	        expand="No">	  
-  
+ 
+ <cf_tl id="Job Family" var="1">     
+	
+  <cf_UItreeitem value="function"
+	        display="<span style='font-size:14px;padding-top:1px;;padding-bottom:1px;font-weight:bold' class='labelit'>#lt_text#</span>"
+			parent="Root"							
+	        expand="No">	
+    
   <cfquery name="Level01" 
   datasource="AppsEmployee" 
   username="#SESSION.login#" 
@@ -69,39 +77,39 @@ password="#SESSION.dbpw#">
   
   <cfloop query="level01">
   
-  	<cftreeitem value="#OccupationalGroup#"
-        display="#Description#"
-		parent="Function"	
-		target="right"						
-		href="MandateViewOpen.cfm?ID=OCG&ID1=#Level01.OccupationalGroup#&ID2=#Attributes.Mission#&ID3=#MandateDefault#"
-        expand="No">	
-    
+    <cf_UItreeitem value="#OccupationalGroup#"
+	        display="<span style='font-size:13px' class='labelit'>#Description#</span>"
+			parent="function"						
+			target="right"
+			href="MandateViewOpen.cfm?ID=OCG&ID1=#OccupationalGroup#&ID2=#Attributes.Mission#&ID3=#MandateDefault#">	 
+      
   </cfloop>
-   
-  <cftreeitem value="grade"
-	        display="<span style='padding-bottom:3px;' class='labelmedium'>Post grade</span>"
-			parent="root"								
-	        expand="No">	 
-
+  
+  <cf_tl id="Post gade" var="1">     
+	
+  <cf_UItreeitem value="grade"
+        display="<span style='font-size:14px;padding-top:1px;;padding-bottom:1px;font-weight:bold' class='labelit'>#lt_text#</span>"
+		parent="Root"							
+        expand="No">	  
+ 
   <cfquery name="Level01" 
   datasource="AppsEmployee" 
   username="#SESSION.login#" 
   password="#SESSION.dbpw#">
-      SELECT DISTINCT ParentDescription, ViewOrder, PostGradeParent
-      FROM userQuery.dbo.#SESSION.acc#Post P
+      SELECT   DISTINCT ParentDescription, ViewOrder, PostGradeParent
+      FROM     userQuery.dbo.#SESSION.acc#Post P
 	  ORDER BY ViewOrder
   </cfquery>
 
   <cfloop query="level01">
   
-  	 <cftreeitem value="#PostGradeParent#"
-        display="#ParentDescription#"
-		parent="grade"	
-		target="right"					
-		href="MandateViewOpen.cfm?ID=GRP&ID1=#Level01.PostGradeParent#&ID2=#Attributes.Mission#&ID3=#MandateDefault#"
-        expand="No">	
+  	<cf_UItreeitem value="p#PostGradeParent#"
+	      display="<span style='font-size:13px' class='labelit'>#ParentDescription#</span>"
+		  parent="grade"						
+		  target="right"
+		  href="MandateViewOpen.cfm?ID=GRP&ID1=#PostGradeParent#&ID2=#Attributes.Mission#&ID3=#MandateDefault#">	 	 
   
-	       <cfquery name="Level02" 
+	    <cfquery name="Level02" 
 	      datasource="AppsEmployee" 
 	      username="#SESSION.login#" 
 	      password="#SESSION.dbpw#">
@@ -109,23 +117,22 @@ password="#SESSION.dbpw#">
 	      FROM userQuery.dbo.#SESSION.acc#Post P
 	   	  WHERE P.PostGradeParent = '#PostGradeParent#'
 	      ORDER BY PostOrder 
-		  </cfquery>
+		</cfquery>
 		  
-		  <cfset par = PostGradeParent>
+		<cfset par = "p#PostGradeParent#">
   
-      	<cfloop query="level02">	  
-	  
-	  <cftreeitem value="#PostGrade#"
-        display="#PostGrade#"
-		parent="#par#"	
-		target="right"					
-		href="MandateViewOpen.cfm?ID=GRD&ID1=#PostGrade#&ID2=#Attributes.Mission#&ID3=#MandateDefault#"
-        expand="No">	
-	       	   	  	  
-	  </cfloop>  
+      	<cfloop query="level02">	
+		
+			<cf_UItreeitem value="#PostGrade#"
+		      display="<span style='font-size:12px' class='labelit'>#PostGrade#</span>"
+			  parent="#par#"						
+			  target="right"
+			  href="MandateViewOpen.cfm?ID=GRD&ID1=#PostGrade#&ID2=#Attributes.Mission#&ID3=#MandateDefault#">	 	 
+				       	   	  	  
+		</cfloop>  
+		
   </cfloop>
-  
- 
+   
  <cfquery name="Level01" 
   datasource="AppsEmployee" 
   username="#SESSION.login#" 
@@ -138,30 +145,33 @@ password="#SESSION.dbpw#">
   </cfquery> 
   
  <cfif Level01.recordcount gte "1">
-	 
-	 <cftreeitem value="vacclass"
-		        display="<span style='padding-bottom:3px;' class='labelmedium'>Vacancy class</span>"
-				parent="root"																	
-		        expand="No">		
-		  
+ 
+	 <cf_tl id="Vacancy class" var="1">     
+	
+	  <cf_UItreeitem value="vacclass"
+        display="<span style='font-size:14px;padding-top:1px;;padding-bottom:1px;font-weight:bold' class='labelit'>#lt_text#</span>"
+		parent="Root"							
+        expand="No">	
+	
 	  <cfloop query="level01">
 	  
-	  <cftreeitem value="#Level01.Code#"
-	        display="#Level01.Description#"
-			parent="vacclass"	
-			target="right"						
-			href="MandateViewOpen.cfm?ID=vcl&ID1=#Code#&ID2=#Attributes.Mission#&ID3=#MandateDefault#"
-	        expand="No">	
-	  
+		  <cf_UItreeitem value="#Code#"
+		      display="<span style='font-size:13px' class='labelit'>#Description#</span>"
+			  parent="vacclass"						
+			  target="right"
+			  href="MandateViewOpen.cfm?ID=vcl&ID1=#Code#&ID2=#Attributes.Mission#&ID3=#MandateDefault#">	  
+		  
 	  </cfloop>
   
  </cfif>  
-    
- <cftreeitem value="posttype"
-	        display="<span style='padding-bottom:3px' class='labelmedium'>Post type</span>"
-			parent="root"												
-	        expand="No">	
-   
+ 
+ <cf_tl id="Post Type" var="1">     
+	
+ <cf_UItreeitem value="posttype"
+        display="<span style='font-size:14px;padding-top:1px;;padding-bottom:1px;font-weight:bold' class='labelit'>#lt_text#</span>"
+		parent="Root"							
+        expand="No">	
+     
   <cfquery name="Level01" 
   datasource="AppsEmployee" 
   username="#SESSION.login#" 
@@ -180,20 +190,16 @@ password="#SESSION.dbpw#">
   </cfquery>
 
   <cfloop query="level01">
-	  
-	  <cftreeitem value="#PostType#"
-	        display="#PostType#"
-			parent="PostType"	
-			target="right"						
-			href="MandateViewOpen.cfm?ID=PTP&ID1=#Posttype#&ID2=#Attributes.Mission#&ID3=#MandateDefault#"
-	        expand="No">			
-    
+  
+  	   <cf_UItreeitem value="#PostType#"
+		      display="<span style='font-size:13px' class='labelit'>#PostType#</span>"
+			  parent="posttype"						
+			  target="right"
+			  href="MandateViewOpen.cfm?ID=PTP&ID1=#Posttype#&ID2=#Attributes.Mission#&ID3=#MandateDefault#">	  
+	     
   </cfloop>
   
-   <cftreeitem value="group"
-	        display="<span style='padding-bottom:3px' class='labelmedium'>Classification</span>"			
-			parent="root"														
-	        expand="No">	
+    
 			
   <cfquery name="Level01" 
   datasource="AppsEmployee" 
@@ -208,7 +214,7 @@ password="#SESSION.dbpw#">
   </cfquery>
   
   <cfif Level01.recordcount eq "0">
-  
+    
   <cfquery name="Level01" 
   datasource="AppsEmployee" 
   username="#SESSION.login#" 
@@ -219,77 +225,88 @@ password="#SESSION.dbpw#">
   </cfquery>
     
   </cfif>
-
-  <cfloop query="level01">
   
-   <cftreeitem value="#GroupCode#"
-        display="#Description#"
-		parent="Group"	
-		target="right"					
-		href="MandateViewOpen.cfm?ID=PGP&ID1=#GroupCode#&ID2=#Attributes.Mission#&ID3=#MandateDefault#"
+  <cfif Level01.recordcount gte "1">
+ 
+	 <cf_tl id="Classification" var="1">     
+	
+	  <cf_UItreeitem value="group"
+        display="<span style='font-size:14px;padding-top:1px;;padding-bottom:1px;font-weight:bold' class='labelit'>#lt_text#</span>"
+		parent="Root"							
         expand="No">	
-   
-  </cfloop>
+
+	  <cfloop query="level01">
+	  
+	      <cf_UItreeitem value="#GroupCode#"
+		      display="<span style='font-size:13px' class='labelit'>#Description#</span>"
+			  parent="group"						
+			  target="right"
+			  href="MandateViewOpen.cfm?ID=PGP&ID1=#GroupCode#&ID2=#Attributes.Mission#&ID3=#MandateDefault#">	  
+	  	   
+	  </cfloop>
+	  
+  </cfif>
   
   <cfquery name="Loan" 
       datasource="AppsEmployee" 
       username="#SESSION.login#" 
       password="#SESSION.dbpw#">
 	  SELECT DISTINCT P.PostGrade, G.PostOrder
-      FROM Position P, PositionParent PP, Organization.dbo.Organization O, Ref_PostGrade G
-   	  WHERE P.Mission <> P.MissionOperational
-	  AND PP.PositionParentId = P.PositionParentId
-	  AND PP.OrgUnitOperational = O.OrgUnit
-	  AND O.Mission     = '#Attributes.Mission#'
-	  AND O.MandateNo   = '#MandateDefault#'
-	  AND G.PostGrade = P.PostGrade
+      FROM    Position P, PositionParent PP, Organization.dbo.Organization O, Ref_PostGrade G
+   	  WHERE   P.Mission <> P.MissionOperational
+	  AND     PP.PositionParentId = P.PositionParentId
+	  AND     PP.OrgUnitOperational = O.OrgUnit
+	  AND     O.Mission     = '#Attributes.Mission#'
+	  AND     O.MandateNo   = '#MandateDefault#'
+	  AND     G.PostGrade = P.PostGrade
 	  </cfquery>
    
    <cfif Loan.recordcount gt 0>
    
-    <cftreeitem value="loan"
-	        display="<span style='padding-bottom:3px' class='labelmedium'>Loaned postion</span>"
-			parent="root"											
-	        expand="No">	  
- 
-   <cfloop query="loan">
+   	   <cf_tl id="Interoffice Loan" var="1">     
+	
+	  <cf_UItreeitem value="group"
+        display="<span style='font-size:14px;padding-top:1px;;padding-bottom:1px;font-weight:bold' class='labelit'>#lt_text#</span>"
+		parent="Root"							
+        expand="No">	   
    
-   		<cfset pgrade = PostGrade>
-   
-	   <cftreeitem value="#PostGrade#"
-        display="#PostGrade#"
-		parent="loan"
-		expand="no">	
-          
-       <cfquery name="Mission" 
-	      datasource="AppsEmployee" 
-	      username="#SESSION.login#" 
-	      password="#SESSION.dbpw#">
-			  SELECT DISTINCT MissionOperational as Mission
-		      FROM Position P, PositionParent PP, Organization.dbo.Organization O
-		   	  WHERE P.Mission <> P.MissionOperational
-			  AND PP.PositionParentId = P.PositionParentId
-			  AND PP.OrgUnitOperational = O.OrgUnit
-			  AND O.Mission     = '#Attributes.Mission#'
-			  AND O.MandateNo   = '#MandateDefault#'
-			  AND P.Postgrade   = '#pgrade#'
-	   	   </cfquery>
-  
-	   <cfloop query="mission">
+	   <cfloop query="loan">
 	   
-		   <cftreeitem value="#Mission#"
-		        display="#Mission#"
-				parent="#pgrade#"	
-				target="right"						
-				href="MandateViewOpen.cfm?ID=GRD&ID1=#pgrade#&ID4=#Mission.Mission#&ID2=#Attributes.Mission#&ID3=#MandateDefault#"
+	   		<cfset pgrade = PostGrade>
+			
+			 <cf_UItreeitem value="io#PostGrade#"
+		        display="<span style='font-size:13px;padding-top:1px;;padding-bottom:1px;font-weight:bold' class='labelit'>#PostGrade#</span>"
+				parent="loan"							
 		        expand="No">	
-	    
+	   	          
+	       <cfquery name="Mission" 
+		      datasource="AppsEmployee" 
+		      username="#SESSION.login#" 
+		      password="#SESSION.dbpw#">
+				  SELECT DISTINCT MissionOperational as Mission
+			      FROM Position P, PositionParent PP, Organization.dbo.Organization O
+			   	  WHERE P.Mission <> P.MissionOperational
+				  AND PP.PositionParentId = P.PositionParentId
+				  AND PP.OrgUnitOperational = O.OrgUnit
+				  AND O.Mission     = '#Attributes.Mission#'
+				  AND O.MandateNo   = '#MandateDefault#'
+				  AND P.Postgrade   = '#pgrade#'
+		   	   </cfquery>
+	  
+		   <cfloop query="mission">
+		   
+		   		 <cf_UItreeitem value="#Mission#"
+			      display="<span style='font-size:13px' class='labelit'>#Mission#</span>"
+				  parent="io#pgrade#"					
+				  target="right"
+				  href="MandateViewOpen.cfm?ID=GRD&ID1=#pgrade#&ID4=#Mission.Mission#&ID2=#Attributes.Mission#&ID3=#MandateDefault#">	
+		   		    
+		   </cfloop>
+	
 	   </cfloop>
-
-   </cfloop>
   
   </cfif>
-  
+      
   <cfquery name="Borrow" 
       datasource="AppsEmployee" 
       username="#SESSION.login#" 
@@ -305,58 +322,58 @@ password="#SESSION.dbpw#">
         
    <cfif Borrow.recordcount gt 0>
    
-    <cftreeitem value="borrow"
-	        display="<span style='padding-bottom:3px' class='labelmedium'>Borrowed position</span>"
-			parent="root"				
-			target="right"													
-	        expand="No">	
-    
+   	 <cf_tl id="Borrowed position" var="1">     
+   
+     <cf_UItreeitem value="borrow"
+        display="<span style='font-size:14px;padding-top:1px;;padding-bottom:1px;font-weight:bold' class='labelit'>#lt_text#</span>"
+		parent="Root"							
+        expand="No">	   
+       
    <cfloop query="borrow">
    
-   <cfset pgrade = PostGrade>
+	  <cfset pgrade = PostGrade>
    
-   <cftreeitem value="#pgrade#"
-        display="#pgrade#"
-		parent="borrow"							
-		expand="no">	
-   
-      <cfquery name="Mission" 
-      datasource="AppsEmployee" 
-      username="#SESSION.login#" 
-      password="#SESSION.dbpw#">
-		  SELECT DISTINCT O.Mission
-	      FROM   Position P, PositionParent PP, Organization.dbo.Organization O
-	   	  WHERE  P.Mission != P.MissionOperational
-		  AND    P.Postgrade = '#pgrade#'
-		  AND    PP.PositionParentId = P.PositionParentId
-		  AND    PP.OrgUnitOperational = O.OrgUnit
-		  AND    P.MissionOperational = '#Attributes.Mission#'
-	      AND    P.DateEffective <= '#DateFormat(Mandate.DateExpiration,client.dateSQL)#'
-		  AND    P.DateExpiration >= '#DateFormat(Mandate.DateEffective,client.dateSQL)#'
-      </cfquery>
+      <cf_UItreeitem value="bo#PostGrade#"
+		        display="<span style='font-size:13px;padding-top:1px;;padding-bottom:1px;font-weight:bold' class='labelit'>#PostGrade#</span>"
+				parent="borrow"							
+	 	        expand="No">	   
+    
+	      <cfquery name="Mission" 
+	      datasource="AppsEmployee" 
+	      username="#SESSION.login#" 
+	      password="#SESSION.dbpw#">
+			  SELECT DISTINCT O.Mission
+		      FROM   Position P, PositionParent PP, Organization.dbo.Organization O
+		   	  WHERE  P.Mission != P.MissionOperational
+			  AND    P.Postgrade = '#pgrade#'
+			  AND    PP.PositionParentId = P.PositionParentId
+			  AND    PP.OrgUnitOperational = O.OrgUnit
+			  AND    P.MissionOperational = '#Attributes.Mission#'
+		      AND    P.DateEffective <= '#DateFormat(Mandate.DateExpiration,client.dateSQL)#'
+			  AND    P.DateExpiration >= '#DateFormat(Mandate.DateEffective,client.dateSQL)#'
+	      </cfquery>
    
 	   <cfloop query="mission">
 	   
-	   <cfquery name="BorrowDefault" 
-		datasource="AppsOrganization" 
-		maxrows=1 
-		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">
-			SELECT   *
-			FROM     Ref_Mandate
-			WHERE    Mission = '#Mission.Mission#'
-			AND      DateEffective <= '#DateFormat(Mandate.DateExpiration,client.dateSQL)#' 
-			AND      DateExpiration >= '#DateFormat(Mandate.DateEffective,client.dateSQL)#' 
-			ORDER BY MandateDefault DESC, MandateNo DESC
-		</cfquery>
-		
-		 <cftreeitem value="#Mission#"
-		        display="#Mission#"
-				parent="#pgrade#"	
-				target="right"									
-				href="MandateViewOpen.cfm?ID=BOR&ID1=#pgrade#&ID4=#Attributes.Mission#&ID2=#Mission.Mission#&ID3=#BorrowDefault.MandateNo#"
-		        expand="No">	
-	    
+		   <cfquery name="BorrowDefault" 
+			datasource="AppsOrganization" 
+			maxrows=1 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				SELECT   *
+				FROM     Ref_Mandate
+				WHERE    Mission = '#Mission.Mission#'
+				AND      DateEffective <= '#DateFormat(Mandate.DateExpiration,client.dateSQL)#' 
+				AND      DateExpiration >= '#DateFormat(Mandate.DateEffective,client.dateSQL)#' 
+				ORDER BY MandateDefault DESC, MandateNo DESC
+			</cfquery>
+			
+			 <cf_UItreeitem value="#Mission#"
+			      display="<span style='font-size:13px' class='labelit'>#Mission#</span>"
+				  parent="bo#pgrade#"					
+				  target="right"
+				  href="MandateViewOpen.cfm?ID=BOR&ID1=#pgrade#&ID4=#Attributes.Mission#&ID2=#Mission.Mission#&ID3=#BorrowDefault.MandateNo#">	
+			    
 	   </cfloop>
     
    </cfloop>
@@ -365,7 +382,9 @@ password="#SESSION.dbpw#">
     
  <!--- ------------------- --->
  <!--- AUTHORISED POSITION --->
- <!--- ------------------- --->  
+ <!--- -------------------   
+ 
+ Removed by Hanno
  
 <cftry>
 	
@@ -437,64 +456,88 @@ password="#SESSION.dbpw#">
 	 <cfcatch></cfcatch>
 	 
  </cftry>
+ 
+ --->
   
  <!--- ------- --->
  <!--- VACANCY --->
  <!--- ------- --->
+ 
+ 	
+	<cf_tl id="Views" var="1">   
+	
+	<cf_UItreeitem value="view"
+	        display="<span style='font-size:15px;padding-top:1px;;padding-bottom:1px;font-weight:500' class='labelit'>#lt_text#</span>"
+			parent="base"							
+	        expand="No">	
    
    <cfquery name="Status" 
 	datasource="AppsVacancy" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 	  SELECT DISTINCT R.*
-	  FROM Ref_Status R, Document D
-	  WHERE Class = 'Document'
-	  AND D.Status = R.Status
-	  AND D.Mission = '#Attributes.Mission#'
+	  FROM   Ref_Status R, Document D
+	  WHERE  Class     = 'Document'
+	  AND    D.Status  = R.Status
+	  AND    D.Mission = '#Attributes.Mission#'
 	</cfquery>
 
-  <cfif #Status.recordcount# gt 0>
+  <cfif Status.recordcount gt 0>
   
-    <cftreeitem value="vac"
-	        display="<span style='padding-bottom:3px' class='labelmedium'>Recruitment</span>"
-			parent="root"														
-	        expand="No">	
-  
+     <cf_tl id="Under Recruitment" var="1">     
+   
+     <cf_UItreeitem value="vac"
+        display="<span style='font-size:15px;padding-top:1px;;padding-bottom:1px;font-weight:bold' class='labelit'>#lt_text#</span>"
+		parent="view"							
+        expand="No">	    
+     
   <cfloop query="Status">
   
-  <cfset Sta = Status>
-  
-  <cfif Sta neq "0">
-  
-		  <cftreeitem value="#sta#"
-		        display="#Description#"
-				parent="vac"	
-				target="right"							
-				href="#SESSION.root#/Vactrack/Application/ControlView/ControlListing.cfm?ID=MIS&Mission=#Attributes.Mission#&ID2=#Sta#&IDArea="
-		        expand="No">	
- 
-  <cfelse>
-  
-  		 <cftreeitem value="#sta#"
-		        display="#Description#"
-				parent="vac"	
-				target="right"							
-				href="#SESSION.root#/Vactrack/Application/ControlView/ControlListing.cfm?ID=MIS&Mission=#Attributes.Mission#&ID2=#Sta#&IDArea="
-		        expand="No">		
-  
-  </cfif>
+	  <cfset Sta = Status>
+	  
+	   <cf_UItreeitem value="#sta#"
+			      display="<span style='font-size:13px' class='labelit'>#Description#</span>"
+				  parent="vac"					
+				  target="right"
+				  href="#SESSION.root#/Vactrack/Application/ControlView/ControlListing.cfm?ID=MIS&Mission=#Attributes.Mission#&ID2=#Sta#&IDArea=">	
+	 
+	 <!--- 
+	  <cfif Sta neq "0">
+	  
+			  <cftreeitem value="#sta#"
+			        display="#Description#"
+					parent="vac"	
+					target="right"							
+					href="#SESSION.root#/Vactrack/Application/ControlView/ControlListing.cfm?ID=MIS&Mission=#Attributes.Mission#&ID2=#Sta#&IDArea="
+			        expand="No">	
+	 
+	  <cfelse>
+	  
+	  		 <cftreeitem value="#sta#"
+			        display="#Description#"
+					parent="vac"	
+					target="right"							
+					href="#SESSION.root#/Vactrack/Application/ControlView/ControlListing.cfm?ID=MIS&Mission=#Attributes.Mission#&ID2=#Sta#&IDArea="
+			        expand="No">		
+	  
+	  </cfif>
+	  
+	  --->
       
   </cfloop>
-   
-  <cftreeitem value="arrival"
-	        display="<span style='padding-bottom:3px' class='labelmedium'>Arrivals</span>"
-			parent="root"	
-			target="right"			
-			href="../../VAArrival/ArrivalConfirmation.cfm?ID=ARR&ID1=#Attributes.Mission#&ID2=0&IDArea="		      														
-	        expand="No">	
-   
+  
+  <cf_tl id="Arrival conformation" var="1">
+  
+  <cf_UItreeitem value="arrival"
+			      display="<span style='font-size:13px' class='labelit'>#lt_text#</span>"
+				  parent="view"					
+				  target="right"
+				  href="../../VAArrival/ArrivalConfirmation.cfm?ID=ARR&ID1=#Attributes.Mission#&ID2=0&IDArea=">	
+  
+     
   </cfif> 
   
+    
   <!--- ---------- --->
   <!--- -CONTRACT- --->
   <!--- ---------- --->
@@ -505,107 +548,105 @@ password="#SESSION.dbpw#">
   
   --->
   
-  <cftreeitem value="contract"
-	        display="<span style='padding-bottom:3px' class='labelmedium'>Contractual status</span>"
-			parent="root"								
-	        expand="No">	
+  	<cf_tl id="Contractual status" var="1">
+  
+    <cf_UItreeitem value="contract"
+        display="<span style='font-size:15px;padding-top:1px;;padding-bottom:1px;font-weight:bold' class='labelit'>#lt_text#</span>"
+		parent="view"							
+        expand="No">	
+		
+	<cf_tl id="Category" var="1">	   
+		
+	 <cf_UItreeitem value="appcat"
+        display="<span style='font-size:13px;padding-top:1px;;padding-bottom:1px;' class='labelit'>#lt_text#</span>"
+		parent="contract"							
+        expand="No">		   
 			
- <cftreeitem value="appcat"
-	        display="<span style='padding-bottom:3px' class='labelmedium'>Category</span>"
-			parent="contract"									
-	        expand="No">		
-			
-   <cfquery name="Parent" 
-	datasource="AppsEmployee" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-	SELECT * 
-	FROM  Ref_Postgradeparent
-	WHERE Code IN (
-					SELECT DISTINCT R.PostGradeParent
-				    FROM         PersonContract AS P INNER JOIN
-				                      Ref_PostGrade AS R ON P.ContractLevel = R.PostGrade
-				    WHERE     (P.Mission = '#Attributes.Mission#')	
-					OR P.Personno IN (SELECT PersonNo 
-					                  FROM   PersonAssignment PA, Position P
-									  WHERE  PA.PositionNo = P.PositionNo
-									  AND    P.Mission = '#Attributes.Mission#')
-					)
-	 				
-	ORDER BY Vieworder
-   </cfquery>
-   
-   
+	   <cfquery name="Parent" 
+		datasource="AppsEmployee" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		SELECT * 
+		FROM  Ref_Postgradeparent
+		WHERE Code IN (
+						SELECT DISTINCT R.PostGradeParent
+					    FROM         PersonContract AS P INNER JOIN
+					                      Ref_PostGrade AS R ON P.ContractLevel = R.PostGrade
+					    WHERE     (P.Mission = '#Attributes.Mission#')	
+						OR P.Personno IN (SELECT PersonNo 
+						                  FROM   PersonAssignment PA, Position P
+										  WHERE  PA.PositionNo = P.PositionNo
+										  AND    P.Mission = '#Attributes.Mission#')
+						)
+		 				
+		ORDER BY Vieworder
+	   </cfquery>
+      
    <!--- adjustment to take mission based on the assignment records or adjust the DTS --->
    
    <cfloop query="Parent">
    
-		   <cftreeitem value="appcat#Code#"
-			        display="<span class='labelit'>#Description#</span>"
-					parent="appcat"	
-					target="right"
-					href="../../Contract/ContractListing.cfm?header=1&ID=PAR&ID1=#Code#&Mission=#Attributes.Mission#&MandateNo=#MandateDefault#"		      											
-			        expand="No">	
-   
+   		 <cf_UItreeitem value="appcat#Code#"
+			      display="<span style='font-size:13px' class='labelit'>#Description#</span>"
+				  parent="appcat"					
+				  target="right"
+				  href="../../Contract/ContractListing.cfm?header=1&ID=PAR&ID1=#Code#&Mission=#Attributes.Mission#&MandateNo=#MandateDefault#">	   
+		   
    </cfloop>
    
-   <cftreeitem value="appspec"
-	        display="<span class='labelmedium'>Special views</span>"
-			parent="contract"									
-	        expand="No">		
+   <cf_tl id="Other" var="1">	   
+		
+	 <cf_UItreeitem value="appspec"
+        display="<span style='font-size:13px;padding-top:1px;;padding-bottom:1px;' class='labelit'>#lt_text#</span>"
+		parent="contract"							
+        expand="No">	
+		
+		  <cf_UItreeitem value="appexp1"
+			      display="<span style='font-size:13px' class='labelit'>Contract Expiration</span>"
+				  parent="appspec"					
+				  target="right"
+				  href="../../Contract/ContractExpiration.cfm?ID=CTR&ID2=#Attributes.Mission#&ID3=#MandateDefault#">	   
+  						
+		  <cf_UItreeitem value="appexp1a"
+			      display="<span style='font-size:13px' class='labelit'>Assignment Expiration</span>"
+				  parent="appspec"					
+				  target="right"
+				  href="../../Contract/AssignmentExpiration.cfm?ID=ASS&ID2=#Attributes.Mission#&ID3=#MandateDefault#">	   	
+   	
+		  <cf_UItreeitem value="appexp2"
+			      display="<span style='font-size:13px' class='labelit'>Contract w/o Assignment</span>"
+				  parent="appspec"					
+				  target="right"
+				  href="../../Contract/ContractNoAssignment.cfm?ID=CNA&ID2=#Attributes.Mission#&ID3=#MandateDefault#">	
 				  
-	      <cftreeitem value="appexp1"
-		        display="<span class='labelit'>Contract Expiration</span>"
-				parent="appspec"	
-				target="right"
-				href="../../Contract/ContractExpiration.cfm?ID=CTR&ID2=#Attributes.Mission#&ID3=#MandateDefault#"	
-		        expand="No">	
-				
-		  <cftreeitem value="appexp1a"
-		        display="<span class='labelit'>Assignment Expiration</span>"
-				parent="appspec"	
-				target="right"
-				href="../../Contract/AssignmentExpiration.cfm?ID=ASS&ID2=#Attributes.Mission#&ID3=#MandateDefault#"	
-		        expand="No">			
-				
-		 <cftreeitem value="appexp2"
-		        display="<span class='labelit'>Contract w/o Assignment</span>"
-				parent="appspec"	
-				target="right"
-				href="../../Contract/ContractNoAssignment.cfm?ID=CNA&ID2=#Attributes.Mission#&ID3=#MandateDefault#"										
-		        expand="No">	
-				
-			 <cftreeitem value="appexp3"
-		        display="<span class='labelit'>Assignments w/o Contract</span>"
-				parent="appspec"	
-				target="right"
-				href="../../Contract/AssignmentNoContract.cfm?ID=ANC&ID2=#Attributes.Mission#&ID3=#MandateDefault#"	
-		        expand="No">	
-				
+		  <cf_UItreeitem value="appexp3"
+			      display="<span style='font-size:13px' class='labelit'>Assignments w/o Contract</span>"
+				  parent="appspec"					
+				  target="right"
+				  href="../../Contract/AssignmentNoContract.cfm?ID=ANC&ID2=#Attributes.Mission#&ID3=#MandateDefault#">			     		
+										
 				 <cfloop query="Parent">
-				 
-				    <cftreeitem value="appexp#Code#"
-			        display="#Description#"
-					parent="appexp3"	
-					target="right"
-					href="../../Contract/AssignmentNoContract.cfm?ID=ANC&ID1=#Code#&ID2=#Attributes.Mission#&ID3=#MandateDefault#"											
-			        expand="No">	
-				 
+				 				 
+				 	 <cf_UItreeitem value="appexp3#Code#"
+				      display="<span style='font-size:12px' class='labelit'>#Description#</span>"
+					  parent="appspec3"					
+					  target="right"
+					  href="../../Contract/AssignmentNoContract.cfm?ID=ANC&ID1=#Code#&ID2=#Attributes.Mission#&ID3=#MandateDefault#">				  
 				 
 				 </cfloop>					
 
-		 <cftreeitem value="appexp9"
-	        display="<span class='labelit'>Contract extensions files</span>"
-			parent="appspec"	
-			target="right"
-			href="../../Contract/Files.cfm?ID=#Attributes.Mission#&ID1=#MandateDefault#"										
-	        expand="No">	
+		 <cf_UItreeitem value="appexp9"
+			      display="<span style='font-size:13px' class='labelit'>Contract extensions files</span>"
+				  parent="appspec"					
+				  target="right"
+				  href="../../Contract/Files.cfm?ID=#Attributes.Mission#&ID1=#MandateDefault#">			   				  		 	
+		
   <!---			
   
   </cfif>
   
   --->
-
-  </cftree>
+   
+  </cf_UItree>
     
   </cfoutput>

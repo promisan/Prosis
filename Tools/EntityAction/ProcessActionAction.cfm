@@ -55,7 +55,7 @@
 
    <td style="cursor: pointer;" title="#vLblTTPending#">
 
-  		 <input style="cursor: pointer;" id="r0" class="radiol" type="radio" name="actionstatus" value="0"  <cfif Status eq "0">checked</cfif> onClick="_cf_loadingtexthtml='';updateTextArea();selectoption('d0','0');ColdFusion.navigate('ProcessActionButton.cfm?wfmode=#wfmode#&PublishNo=#ActionPublishNo#&ActionCode=#ActionCode#&Method=Pending','processnow');<cfif entityaccess eq 'EDIT'>ColdFusion.navigate('#SESSION.root#/tools/EntityAction/ActionListingFly.cfm?mode=regular&objectid=#object.Objectid#&ActionPublishNo=#ActionPublishNo#&ActionCode=#ActionCode#','stepflyaccess')</cfif>;">
+  		 <input style="cursor: pointer;" id="r0" class="radiol" type="radio" name="actionstatus" value="0"  <cfif Status eq "0">checked</cfif> onClick="_cf_loadingtexthtml='';updateTextArea();selectoption('d0','0');ptoken.navigate('ProcessActionButton.cfm?wfmode=#wfmode#&PublishNo=#ActionPublishNo#&ActionCode=#ActionCode#&Method=Pending','processnow');<cfif entityaccess eq 'EDIT'>ptoken.navigate('#SESSION.root#/tools/EntityAction/ActionListingFly.cfm?mode=regular&objectid=#object.Objectid#&ActionPublishNo=#ActionPublishNo#&ActionCode=#ActionCode#','stepflyaccess')</cfif>;">
   
    </td>
         <td class="labelmedium" style="padding-left:3px;padding-right:3px" title="#vLblTTPending#">
@@ -162,7 +162,7 @@
 				   <select style="width:250px" class="regularxl"				   
 				     name="ActionCodeOnHold" id="ActionCodeOnHold"
 					 style="background: ffffff;" 
-					 onchange="_cf_loadingtexthtml='';updateTextArea();ColdFusion.navigate('#SESSION.root#/tools/EntityAction/ActionListingFly.cfm?mode=revert&objectid=#object.Objectid#&ActionPublishNo=#ActionPublishNo#&ActionCode='+this.value,'stepflyaccess');">					 
+					 onchange="_cf_loadingtexthtml='';updateTextArea();ptoken.navigate('#SESSION.root#/tools/EntityAction/ActionListingFly.cfm?mode=revert&objectid=#object.Objectid#&ActionPublishNo=#ActionPublishNo#&ActionCode='+this.value,'stepflyaccess');">					 
 					<cfloop query="Revert">
 					   <option value="#ActionCode#" ><cfif ActionCompleted neq "">#ActionCompleted#<cfelse>#ActionCode# #ActionDescription#</cfif></option>
 					</cfloop>
@@ -206,11 +206,12 @@
 			 AND    Method          = 'Submission' 		
 			 AND    (MethodScript != '' or DocumentId is not NULL)	 
 	  </cfquery>
-      		  	  		   
+	        		  	  		   
 	  <cfif MethodEnabled.recordcount eq "1" or Methods.Recordcount eq "0">	   
-	  		 	    	
+	  
+	  	  		 	    	
 		  <td style="cursor: pointer;" id="d2"  onclick="document.getElementById('r2').click()">
-		  
+		  		  
 		     <table cellspacing="0" cellpadding="0">
 			
 			   <tr> 
@@ -219,7 +220,7 @@
 		   <input type="radio" id="r2" style="cursor: pointer;" class="radiol"
 		   <cfif URL.Process neq "">disabled</cfif>
 		   name="actionstatus" value="2"  <cfif Status eq "2">checked</cfif>
-		   onClick="_cf_loadingtexthtml='';selectoption('d2','2');updateTextArea();ptoken.navigate('ProcessActionButton.cfm?wfmode=#wfmode#&PublishNo=#ActionPublishNo#&ActionCode=#ActionCode#&Method=Submission','processnow'); ColdFusion.navigate('#SESSION.root#/tools/EntityAction/ActionListingFly.cfm?mode=regular&objectid=#object.Objectid#&ActionPublishNo=#ActionPublishNo#&ActionCode=#ActionCode#','stepflyaccess');">
+		   onClick="_cf_loadingtexthtml='';selectoption('d2','2');updateTextArea();ptoken.navigate('ProcessActionButton.cfm?wfmode=#wfmode#&PublishNo=#ActionPublishNo#&ActionCode=#ActionCode#&Method=Submission','processnow'); ptoken.navigate('#SESSION.root#/tools/EntityAction/ActionListingFly.cfm?mode=regular&objectid=#object.Objectid#&ActionPublishNo=#ActionPublishNo#&ActionCode=#ActionCode#','stepflyaccess');">
 		   
 		  </td>
 				  <td class="labelmedium" style="padding-right:3px" title="#vLblTTNext#">

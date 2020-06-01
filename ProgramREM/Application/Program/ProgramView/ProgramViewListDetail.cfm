@@ -66,14 +66,11 @@
 			
 	<tr><td height="2"></td></tr>		
 	<cfif url.view eq "Prg">
-	<tr id="box#programid#" style="border-bottom:1px solid silver" class="line fixrow2" onContextMenu="cmexpand('mymenu','#rowguid#','#menufile#')">
-	
+	<tr id="box#programid#" style="border-bottom:1px solid silver" class="line fixrow2" onContextMenu="cmexpand('mymenu','#rowguid#','#menufile#')">	
 	<cfelse>
 	
-		<cfif url.programgroup eq "">
-		
-			<tr class="hide line" style="border-bottom:1px solid silver" id="box#programid#" onContextMenu="cmexpand('mymenu','#rowguid#','#menufile#')">				
-					
+		<cfif url.programgroup eq "">		
+			<tr class="hide line" style="border-bottom:1px solid silver" id="box#programid#" onContextMenu="cmexpand('mymenu','#rowguid#','#menufile#')">									
 		<cfelse>
 					
 			<cfquery name="check" 
@@ -283,7 +280,7 @@
 																		
 							<table width="100%" cellspacing="0" cellpadding="0">
 							<tr>
-												
+																										
 								<cftry>
 							    
 									<cfif Status eq "0">
@@ -324,14 +321,19 @@
 				 
 					    </td>
 																
-					   	<td class="line labelmedium" style="border:1px solid gray;#ftstyle#;padding-left:5px;height:15px;" id="ref_#programid#" 
+					   	<td class="line labelmedium" style="min-width:130px;border:1px solid gray;padding-left:5px;height:15px;" id="ref_#programid#" 
 						onclick="javascript:cmexpand('mymenu','#rowguid#','#menufile#')" bgcolor="#cl#">
 						
-																												
-							<cfif row eq "1">							
-								<cf_space spaces="35">	
-							</cfif>			
-									
+						   <table width="100%">
+						
+							<cfif recordstatus eq "9">
+							<tr><td style="height:8px;background-color:red;border:1px solid gray"></td></tr>
+							<cfelseif recordstatus eq "8">
+							<tr><td style="height:8px;background-color:orange;border:1px solid gray"></td></tr>
+							</cfif>
+												
+						    <tr class="labelmedium"><td style="#ftstyle#">																										
+																
 							<cfif ProgramScope eq "Unit" and show eq "1">	  
 								
 								<cfif Reference neq "">#Reference#<cfelse>#ProgramCode#</cfif>
@@ -340,7 +342,11 @@
 							    			
 								<cfif Reference neq "">#Reference#<cfelse>#ProgramCode#</cfif>
 								
-								</cfif>
+							</cfif>
+							
+							</td></tr>
+							
+						   </table>								
 													
 						</td>
 						

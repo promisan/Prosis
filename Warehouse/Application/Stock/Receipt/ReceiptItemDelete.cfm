@@ -1,4 +1,3 @@
-<cf_compression>
 
 <cfquery name="removeItem"
 	datasource="AppsTransaction" 
@@ -19,6 +18,6 @@
 
 <cfoutput>
 	<script>
-		ColdFusion.navigate('#SESSION.root#/warehouse/application/stock/receipt/StockreceiptProcessView.cfm?mission=#url.mission#&warehouse=#url.warehouse#','contentbox1');
+		ptoken.navigate('#SESSION.root#/warehouse/application/stock/receipt/StockreceiptProcessView.cfm?mission=#url.mission#&warehouse=#url.warehouse#','contentbox1');
 	</script>
 </cfoutput>

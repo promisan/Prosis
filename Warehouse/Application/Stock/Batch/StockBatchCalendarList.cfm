@@ -7,7 +7,7 @@
 	          (SELECT count(*) FROM Materials.dbo.ItemTransaction WHERE TransactionBatchNo = B.Batchno) as Lines
 	FROM      StockBatch_#SESSION.acc# B
 	WHERE     TransactionDate = '#dateformat(url.selecteddate,client.dateSQL)#'		
-	ORDER BY  TransactionDate, Detail DESC
+	ORDER BY  Created DESC, Detail DESC
 </cfquery>
 
 <cfquery name="getWarehouse"
@@ -19,7 +19,7 @@
 	WHERE     Warehouse = '#url.warehouse#'	
 </cfquery>
 
-<table width="100%"	      
+<table width="98%"	      
        border="0"
 	   align="center"
        cellspacing="0"	   
@@ -44,7 +44,8 @@
 		
 		<tr class="line labelmedium fixrow">
 		    <td style="width:40"></td>
-		    <td height="17" style="padding-right:5px"><cf_tl id="Batch"></td>		
+		    <td height="17" style="padding-right:5px"><cf_tl id="Batch"></td>	
+			<TD><cf_tl id="Time"></TD>		
 			<TD><cf_tl id="Receipt"></TD>			
 			<TD><cf_tl id="Class"></TD>				   
 			<TD><cf_tl id="Location"></TD>							
@@ -96,6 +97,10 @@
 		                     <a href="javascript:batch('#BatchNo#','#url.mission#','process','#url.systemfunctionid#')">#BatchNo#</a>								
 							
 							</TD>
+							<TD style="min-width:90px">
+							<cfif dateformat(TransactionDate,client.dateformatshow) neq dateformat(created,dateformatshow)>
+							#dateformat(created,dateformatshow)#
+							</cfif>#timeformat(created,"HH:MM")#</TD>
 							<TD style="min-width:90px">#BatchReference#</TD>
 							<TD><cf_tl id="#BatchDescription#"></TD>
 							<td>#LocationDescription#</td>							
@@ -135,7 +140,7 @@
 									<cfloop query="getQuantity">
 									<tr class="labelmedium" style="height:10px">
 									<td>#ItemDescription#</td>
-									<td align="right">#numberformat(Quantity,"__._")#</td>
+									<td align="right">#numberformat(Quantity,"._")#</td>
 									</tr>
 									</cfloop>
 									</table>		
@@ -147,8 +152,7 @@
 						</TR>
 															
 					  
-				  <cfelse>			  
-				  		  
+				  <cfelse>					  		  
 				   				     												
 					<cfquery name="sum" 
 					     dbtype="query">
@@ -164,7 +168,7 @@
 						 onMouseOver="if (this.className=='regular') {this.className='highlight4'}" 
 						 onMouseOut="if (this.className=='highlight4') {this.className='regular'}">	
 											 
-						<td colspan="6" class="labelmedium" style="padding-left:4px;padding-top:4px;padding-bottom:4px">#Dateformat(TransactionDate, "DDDD DD MMMM YYYY")#</td>
+						<td colspan="7" class="labelmedium" style="padding-left:4px;padding-top:4px;padding-bottom:4px">#Dateformat(TransactionDate, "DDDD DD MMMM YYYY")#</td>
 						<td align="right" class="labelmedium" colspan="3" style="padding-top:4px;padding-bottom:4px;padding-right:3px;" class="labelmediumcl">
 						<b>#sum.counted#</b> <cfif sum.counted eq "1"><cf_tl id="transaction"><cfelse><cf_tl id="transactions"></cfif>					
 						</td>	

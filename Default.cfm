@@ -16,7 +16,7 @@
 <cfparam name="SESSION.last"              default="">
 <cfparam name="SESSION.first"             default="">
 
-<cf_setRelease version="8.50.00014" release="20200418">
+<cf_setRelease version="8.50.00106" release="20200530">
 
 <cfquery name="Get" 
 datasource="AppsSystem">
@@ -70,25 +70,24 @@ datasource="AppsSystem">
 <!--- ---------- check coldfusion version ----------- --->
 <!--- ----------------------------------------------- --->
 
-<!---
-<cfif Server.Coldfusion.ProductVersion lte "10.0.7">						
+<cfif Server.Coldfusion.ProductVersion lte "11.0.4">						
 		
 		<cfoutput>						
 		<table align="center"><tr><td class="labelmedium" align="center" style="font-size:25px;padding-top:40px">		
-                 #Parameter.SystemTitle# is no longer supported under Adobe ColdFusion 10.0.7 <br> Please contact your administrator
+                 #Parameter.SystemTitle# is no longer supported under Adobe ColdFusion 11.0.4 <br> Please contact your administrator
 		</td></tr></table>	
 		</cfoutput>
 			
 		<cfabort>
 			
 </cfif>				
---->						
+						
 
 <!--- ----------------------------------------------- --->
 <!--- ---------- check browser version -------------- --->
 <!--- ----------------------------------------------- --->
 	
-<cfset vMinChrome = 42>
+<cfset vMinChrome = 50>
 
 <cf_validateBrowser minIE="#get.MinIE#" minChrome="#vMinChrome#" minEdge="#get.MinEdge#" setDocumentMode="1">
 

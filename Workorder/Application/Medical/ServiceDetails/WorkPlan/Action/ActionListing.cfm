@@ -172,7 +172,7 @@ password="#SESSION.dbpw#">
    <tr>
 
    <td colspan="1" height="100%" valign="top" style="padding:5px">
-		<cfdiv id="divListingContainer" style="height:100%"
+		<cf_securediv id="divListingContainer" style="height:100%"
 		  bind="url:#session.root#/Workorder/Application/Medical/ServiceDetails/WorkPlan/Action/ActionListingContent.cfm?mission=#url.mission#&SystemFunctionId=#url.systemfunctionid#&personno=#url.personno#">        	
 	</td>	
 	

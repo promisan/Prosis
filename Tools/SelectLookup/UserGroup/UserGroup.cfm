@@ -93,7 +93,7 @@
 		<cf_tl id="Search" var="1">
 		<input type="button" 
 		   value="#lt_text#" 
-		   onclick="ColdFusion.navigate('#SESSION.root#/tools/selectlookup/UserGroup/UserGroupResult.cfm?close=#url.close#&box=#box#&link=#link#&des1=#des1#&filter1=#filter1#&filter1value=#filter1value#&filter2=#filter2#&filter2value=#filter2value#','resultuser#box#','','','POST','selectuser#box#')"
+		   onclick="ptoken.navigate('#SESSION.root#/tools/selectlookup/UserGroup/UserGroupResult.cfm?close=#url.close#&box=#box#&link=#link#&des1=#des1#&filter1=#filter1#&filter1value=#filter1value#&filter2=#filter2#&filter2value=#filter2value#','resultuser#box#','','','POST','selectuser#box#')"
 		   class="button10g">
 		</td>
 		</tr>

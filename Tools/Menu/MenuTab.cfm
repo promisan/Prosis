@@ -92,11 +92,11 @@
 	
 <cfelseif find("report:",source)>
     <cfset controlid = right(new,len(new)-7)>	
-	<cfset link = "window.open('#SESSION.root#/tools/cfreport/submenureportview.cfm?controlid=#controlid#&context=embed','_self')">
+	<cfset link = "ptoken.open('#SESSION.root#/tools/cfreport/submenureportview.cfm?controlid=#controlid#&context=embed','_self')">
 	
 <cfelseif find("iframe:",source)> 
     <cfset link = right(new,len(new)-7)>	  
-	<cfset link = "window.open('#link#&ts='+new Date().getTime(),'#attributes.iframe#')">	
+	<cfset link = "ptoken.open('#link#&ts='+new Date().getTime(),'#attributes.iframe#')">	
 	
 <cfelse>  	
     <cfif attributes.loadAlways eq "Yes">

@@ -3,6 +3,7 @@
 <cfparam name="attributes.reference"	default="##">
 <cfparam name="attributes.description"	default="--">
 <cfparam name="attributes.badge"		default="">
+<cfparam name="attributes.style"		default="">
 <cfparam name="attributes.badgeColor"	default="label-success">
 
 
@@ -15,7 +16,7 @@
 
 	<cfoutput>
 	
-		<li class="#vActive#">
+		<li class="#vActive#" style="#attributes.style#">
 		
 		<a href="#attributes.reference#">
 			<cfif trim(lcase(attributes.Parent)) eq "1" or trim(lcase(attributes.Parent)) eq "yes">

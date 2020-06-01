@@ -143,7 +143,7 @@
 	
 	<td colspan="1" id="account">
 		
-		<cfdiv bind="url:#session.root#/Gledger/Application/Transaction/Discount/getAccount.cfm?journal=#url.journal#&journalserialno=#url.journalserialno#&selected={journal}" 
+		<cf_securediv bind="url:#session.root#/Gledger/Application/Transaction/Discount/getAccount.cfm?journal=#url.journal#&journalserialno=#url.journalserialno#&selected={journal}" 
 		  id="accountbox">
 		  					   					   
 	    </td>

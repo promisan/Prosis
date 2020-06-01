@@ -167,10 +167,11 @@
 			  '#Form.MailBody#',
 			  '#form.Priority#',
 			  '1',
-			  '#form.attachid#',
+			  '#form.attachsubdir#',
 			  '#SESSION.acc#',
 			  '#SESSION.last#',
 			  '#SESSION.first#')
+			 
 	</cfquery>	
 	
 	
@@ -209,14 +210,28 @@
 	</cfquery>		
 		
 	<cfparam name="form.Mode" default="0">
-	
-		
+			
 	<cfset maillist = valuelist(getFlyActors.eMailAddress)>
 	<cfif isValid("email",Object.PersonEMail) and Form.MailScope neq "Support">
 		<cfset maillist = "#maillist#,#Object.PersoneMail#">
 	</cfif>	
 	
 	<cfif getFlyActors.recordcount gte "1">
+	
+		<cfquery name="Attachment" 
+			datasource="AppsOrganization" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			SELECT    *
+		    FROM      System.dbo.Ref_Attachment
+			WHERE     DocumentPathName = '#Object.entitycode#'	
+		</cfquery>
+		
+		<cfif attachment.recordcount eq "1">
+		    <cfset DocumentHost = Attachment.DocumentFileServerRoot>
+		<cfelse>
+			<cfset DocumentHost = SESSION.rootDocumentPath>
+		</cfif>
 		
 		<cfif form.Mode eq "Mail">			
 		
@@ -284,33 +299,33 @@
 				<tr><td>
 				
 				</table>
-				
+						
 				<cfdirectory action="LIST"
-		             directory="#SESSION.rootDocumentPath#\#Object.entitycode#\#Form.attachid#"
+		             directory="#documentHost#\#Object.entitycode#\#Form.attachsubdir#"
 		             name="GetFiles"
 		             sort="DateLastModified DESC"
 		             type="file"
 		             listinfo="name">
 				
 				<cfloop query="getfiles">
-					<cfmailparam file="#SESSION.rootDocumentPath#\#Object.entitycode#\#Form.attachid#\#name#">
+					<cfmailparam file="#documentHost#\#Object.entitycode#\#Form.attachsubdir#\#name#">
 				</cfloop>
 															
 			</cfmail>
 			
 			</cfoutput>
-					
-		</cfif>
-	
+								
+		</cfif>					
+			
 	</cfif>	
-	
-	
+				
 	<!--- we reset the attach id --->
 	<cf_assignid>
 	
 	<cfoutput>
 		<script>
-			document.getElementById('AttachId').value = '#rowguid#'
+			document.getElementById('attachsubdir').value = '#rowguid#'
+			document.getElementById('att_#url.attbox#_refresh').click()
 		</script>
 	</cfoutput>
 	
@@ -347,7 +362,7 @@
    // refresh view
    
  	_cf_loadingtexthtml='';	  
-   	ColdFusion.navigate('#session.root#/Tools/EntityAction/Details/Comment/CommentListingContent.cfm?objectid=#form.objectid#','communicatecomment_#vURLObjectId#')
+   	ptoken.navigate('#session.root#/Tools/EntityAction/Details/Comment/CommentListingContent.cfm?objectid=#form.objectid#','communicatecomment_#vURLObjectId#')
    
    // refresh document attachments
    

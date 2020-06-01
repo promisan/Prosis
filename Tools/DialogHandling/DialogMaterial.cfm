@@ -129,7 +129,7 @@
 	function selectitm(mission,itemmaster,field,script,scope,access) {
 				
 		ProsisUI.createWindow('mystock', 'Stock Item', '',{x:100,y:100,height:document.body.clientHeight-120,width:document.body.clientWidth-120,modal:true,resizable:false,center:true})    				
-		ColdFusion.navigate(root + '/Procurement/Application/Requisition/Item/ItemSearchView.cfm?access='+access+'&mission=' + mission + '&itemmaster=' + itemmaster + '&field=' + field + '&script=' + script + '&scope=' + scope,'mystock') 		
+		ptoken.navigate(root + '/Procurement/Application/Requisition/Item/ItemSearchView.cfm?access='+access+'&mission=' + mission + '&itemmaster=' + itemmaster + '&field=' + field + '&script=' + script + '&scope=' + scope,'mystock') 		
 		
 	  }	
 	

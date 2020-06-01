@@ -73,13 +73,13 @@
 		function refreshListing() {
 		
 			if (treeselect.value != "") {
-				
-				parent.right.document.location = "#session.root#/ProgramREM/Application/Program/ProgramView/ProgramViewGeneral.cfm?Period=" + document.getElementById("PeriodSelect").value + 
+										
+				parent.right.ptoken.location("#session.root#/ProgramREM/Application/Program/ProgramView/ProgramViewGeneral.cfm?Period=" + document.getElementById("PeriodSelect").value + 
 	                     "&Mode=" + document.getElementById("Mode").value +
 	                     "&ProgramGroup="   + document.getElementById("ProgramGroup").value +
 						 "&ReviewCycleId="  + document.getElementById("CycleId").value +
 						 "&ProgramClass="   + document.getElementById("ProgramClass").value +
-						 "&" + treeselect.value
+						 "&" + treeselect.value)
 						}						
 			}		
 				

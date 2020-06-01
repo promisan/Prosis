@@ -178,7 +178,7 @@ password="#SESSION.dbpw#">
 		<cfif currentrow gte first>
 		
 			<tr class="navigation_row line labelmedium" style="height:21px">	  
-			    <td height="18" width="35" style="padding-left:5px;padding-top:4px;padding-right:6px" class="navigation_action" onclick="_cf_loadingtexthtml='';ColdFusion.navigate('#link#&action=insert&#url.des1#=#customerid#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">			  
+			    <td height="18" width="35" style="padding-left:5px;padding-top:4px;padding-right:6px" class="navigation_action" onclick="_cf_loadingtexthtml='';ptoken.navigate('#link#&action=insert&#url.des1#=#customerid#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">			  
 				<cf_img icon="select">						
 				</td>
 				<td style="min-width:90px">#Reference#</td>

@@ -147,7 +147,7 @@ password="#SESSION.dbpw#">
 		   </tr>	
 			 
 		   <tr><td></td><td></td><td colspan="4">
-		       <cfdiv id="#code#_list" bind="url:List.cfm?code=#code#"/>			
+		       <cf_securediv id="#code#_list" bind="url:List.cfm?code=#code#"/>			
 			</td></tr>
 			 					
 		</cfif>

@@ -93,7 +93,7 @@
 										username="#SESSION.login#" 
 										password="#SESSION.dbpw#">
 											SELECT ControlId as ShowControlId, 
-											(CASE WHEN ReportLabel is not NULL THEN ReportLabel ELSE FunctionName END) as ShowFunctionName											
+											(CASE WHEN ReportLabel is not NULL and ReportLabel != '' THEN ReportLabel ELSE FunctionName END) as ShowFunctionName											
 											FROM   Ref_ReportControl C
 											WHERE  SystemModule = '#Control.SystemModule#' 
 											AND    Operational = '1' 
@@ -116,10 +116,11 @@
 										<cf_tl id="Select another report to which you have been granted access" Class="Message" var="1"> 
 										
 										<cf_UIToolTip tooltip="<table><tr><td>#lt_text#</td></tr></table>">
+										
 										<select name="myreport" 
 										    id="myreport"
 											class="regularxl" 
-											style="border-radius:4px;font-size:18px;height:33px;width:400px"
+											style="border-radius:4px;font-size:18px;height:36px;width:400px"
 											onChange="Prosis.busy('yes');reload(this.value,'#url.portal#')">	
 
 											<option value=""><cfif Control.ReportLabel neq "">#Control.ReportLabel#<cfelse>#Control.FunctionName#</cfif></option>	
@@ -132,10 +133,12 @@
 													returnvariable="access">	
 													
 												<cfif ShowControlId neq ReportMenu.ControlId>	
+												
 													<CFIF access is "GRANTED"> 
 														<option value="#ShowControlId#">#ShowFunctionName#</option>
 													</cfif>	
 												</cfif>	
+												
 											</cfloop>	
 										</select>	
 										
@@ -159,7 +162,7 @@
 			</td>	
 			
 			<cfset vBWidth = "170px">
-			<cfset vBHeight = "40px">
+			<cfset vBHeight = "36px">
 			<cfset vBTextSize = "16px">
 			<cfset vBBorderColor = "##C0C0C0">
 			<cfset vBMouseOverBorderColor = "##9BC9EE">
@@ -189,7 +192,7 @@
 						<td height="100%" id="buttons" valign="top">
 							<!--- <input type="hidden" name="start" id="start" onclick="init()"> --->
 							<input type = "submit" class="hide" name="load" id="load" value = "Load in Excel">		
-							<table height="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding">	
+							<table height="100%" border="0" cellspacing="0" cellpadding="0" class="formspacing">	
 								<tr>	
 									<td height="100%" valign="top">
 										<cf_tl id="Open Report" var="vOpenReport">

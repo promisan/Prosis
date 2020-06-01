@@ -159,7 +159,7 @@ password="#SESSION.dbpw#">
 		
 			<cfoutput group="Location">
 							 		
-				  <tr bgcolor="DAF9FC" class="line fixrow" style="height:25px">					   										
+				  <tr bgcolor="DAF9FC" class="line fixrow clsFilterRow" style="height:25px">					   										
 					  <td colspan="2" class="labelmedium" style="font-size:16px;padding-left:8px">#Location#</td>						 		 		 					 
 					  <td colspan="1" width="93%" style="padding-left:4px">					  
 						  <table width="100%" cellpadding="0">
@@ -186,9 +186,9 @@ password="#SESSION.dbpw#">
 					  
 					 <cfset apply = "locshow('#location#','#category#','#categoryitem#','box#currentrow#','#url.systemfunctionid#','','',document.getElementById('hidezero').checked,'#parentItemNo#',document.getElementById('ebox#currentrow#').checked,'1')">
 					  
-					  <tr class="navigation_row line fixrow2">
+					  <tr class="navigation_row line fixrow2 clsFilterRow">
 					  
-					     <td class="navigation_action" align="left" style="fix:40px;min-width:40px;padding-top:3px;padding-left:5px"  onClick="#apply#">
+					     <td class="navigation_action clsCategoryLine" data-value="#currentrow#" align="left" style="fix:40px;min-width:40px;padding-top:3px;padding-left:5px"  onClick="#apply#">
 						 						  						   
 						   <cfif recorded eq "0">
 						
@@ -259,7 +259,7 @@ password="#SESSION.dbpw#">
 					  					  					 									 									  
 					  <tr id="box#currentrow#" class="#cl#">
 					  							 							     
-						  <td colspan="3" id="cbox#currentrow#" sthle="height:100%">
+						  <td colspan="3" id="cbox#currentrow#" style="height:100%">
 						  
 						      <cfparam name="url.zero" default="false">
 							  											  									 										 								 									

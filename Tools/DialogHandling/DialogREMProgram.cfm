@@ -103,16 +103,15 @@ function contributionreallocate(tra,cli,sid,cid) {
 		}	
     	cnt++
 	}
-	
-	
+		
 	try { ColdFusion.Window.destroy('mycontribution',true) } catch(e) {}
 	ColdFusion.Window.create('mycontribution', 'Reallocation', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,resizable:false,center:true})    
-    ColdFusion.navigate(root + '/ProgramREM/Application/Budget/Contribution/Reallocation.cfm?contributionlineid='+cli+'&systemfunctionid='+sid+'&transactionids='+traids,'mycontribution') 
+    ptoken.navigate(root + '/ProgramREM/Application/Budget/Contribution/Reallocation.cfm?contributionlineid='+cli+'&systemfunctionid='+sid+'&transactionids='+traids,'mycontribution') 
 			   	
 }
 
 function contributionreallocatefresh(sid,cid,cli) {
-    ColdFusion.navigate('../Allocation/RequirementListing.cfm?systemfunctionid='+sid+'&contributionid='+cid+'&contributionlineid='+cli,'contentbox1')
+    ptoken.navigate('../Allocation/RequirementListing.cfm?systemfunctionid='+sid+'&contributionid='+cid+'&contributionlineid='+cli,'contentbox1')
 } 
 
 function WhatIf(edition,period) {

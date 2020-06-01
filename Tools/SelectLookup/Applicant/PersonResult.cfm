@@ -190,7 +190,7 @@ password="#SESSION.dbpw#">
 			<TR class="navigation_row labelmedium line">				
 				<TD width="30" align="center" style="height:18;padding-top:2px"
 				  class="navigation_action"
-				  onclick="ColdFusion.navigate('#link#&action=insert&#url.des1#=#personno#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">			
+				  onclick="ptoken.navigate('#link#&action=insert&#url.des1#=#personno#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">			
 					<cf_img icon="select">				  
 				</TD>						
 				<TD>#LastName#, #FirstName# #MiddleName#</TD>

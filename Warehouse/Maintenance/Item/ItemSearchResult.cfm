@@ -47,7 +47,6 @@
 <cf_dialogMaterial>
 <cf_presentationScript>
 
-
 <tr><td height="100%" style="padding:5px">
 
 	<table height="100%" width="100%">
@@ -135,7 +134,7 @@
 		<tr>
 			<td style="height:100%;padding:4px">
 			<cf_divscroll style="height:96%">		
-				<cfdiv id="divDetail" bind="url:ItemSearchResultDetail.cfm?idmenu=#url.idmenu#&used=#url.used#&fmission=#client.fmission#&programcode=#url.programcode#&sortedby=#client.sortedby#&ts=#GetTickCount()#">
+				<cf_securediv id="divDetail" bind="url:ItemSearchResultDetail.cfm?idmenu=#url.idmenu#&used=#url.used#&fmission=#client.fmission#&programcode=#url.programcode#&sortedby=#client.sortedby#&ts=#GetTickCount()#">
 			</cf_divscroll>	
 			</td>
 		</tr>

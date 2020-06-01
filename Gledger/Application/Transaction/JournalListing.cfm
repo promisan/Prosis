@@ -51,7 +51,7 @@
 					
 			<cfif Batch.recordcount gte "1">
 			
-				<select name="journalbatchno" id="journalbatchno" style="font-size:15px;height:27px;border:0px;" 
+				<select name="journalbatchno" id="journalbatchno" style="font-size:18px;height:35px;border:0px;" 
 				class="regularxl" onchange="reloadForm(page.value,document.getElementById('idstatus').value)">
 				<option value=""><cf_tl id="All Batch periods"></option>
 				<cfoutput query="Batch">
@@ -80,14 +80,14 @@
 			
 			<td style="border-right:1px solid right">
 			
-			<cfdiv bind="url:#session.root#/gledger/application/transaction/setMonth.cfm?journal=#url.journal#&period={period}">
+			<cf_securediv bind="url:#session.root#/gledger/application/transaction/setMonth.cfm?journal=#url.journal#&period={period}">
 						
 			</td>
 			
 			<td style="border-right:1px solid right">
 			
 			<select name="period" id="period"
-			    size="1" style="font-size:15px;height:27px;;border:0px"
+			    size="1" style="font-size:18px;height:35px;;border:0px"
 				class="regularxl"
 				onChange="reloadForm(page.value,document.getElementById('idstatus').value)">
 				<option value=""><cf_tl id="All"></option>

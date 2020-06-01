@@ -44,7 +44,7 @@ ORDER BY HierarchyCode
 				<img src="#SESSION.root#/Images/arrowright.gif" alt="Unit" 
 					id="#orgunitcode#Exp" border="0" class="show" 
 					align="middle" style="cursor: pointer;" 
-					onClick="document.getElementById('#orgunitcode#Min').className='regular';document.getElementById('#orgunitcode#Exp').className='hide';document.getElementById('box#orgunitcode#').className='regular';ColdFusion.navigate('#SESSION.root#/Tools/SelectLookup/Tree/TreeResult.cfm?close=#url.close#&box=#url.box#&des1=#url.des1#&link=#linkpass#&mission=#url.mission#&mandate=#url.mandate#&parent=#orgunitcode#','i#orgunitcode#')">
+					onClick="document.getElementById('#orgunitcode#Min').className='regular';document.getElementById('#orgunitcode#Exp').className='hide';document.getElementById('box#orgunitcode#').className='regular';ptoken.navigate('#SESSION.root#/Tools/SelectLookup/Tree/TreeResult.cfm?close=#url.close#&box=#url.box#&des1=#url.des1#&link=#linkpass#&mission=#url.mission#&mandate=#url.mandate#&parent=#orgunitcode#','i#orgunitcode#')">
 						
 				<img src="#SESSION.root#/Images/arrowdown.gif" 
 					id="#orgunitcode#Min" alt="Hide criteria" border="0" 
@@ -57,7 +57,7 @@ ORDER BY HierarchyCode
 		  
 		  <td  
 			width="30" 
-			onclick="javascript:ColdFusion.navigate('#link#&action=insert&#url.des1#=#orgunit#','#url.box#');<cfif url.close eq 'Yes'>ColdFusion.Window.hide('dialog#url.box#')</cfif>">&nbsp;
+			onclick="javascript:ptoken.navigate('#link#&action=insert&#url.des1#=#orgunit#','#url.box#');<cfif url.close eq 'Yes'>ColdFusion.Window.hide('dialog#url.box#')</cfif>">&nbsp;
 				 				   
 			   <img src="#SESSION.root#/Images/bullet.png" alt="Select"
 			     name="img98_#orgunit#" 

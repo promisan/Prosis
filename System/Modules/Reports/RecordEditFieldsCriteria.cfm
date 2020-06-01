@@ -116,8 +116,7 @@
 			  </cfif>
 		  		  
 		  </td>		   
-		   
-		  
+		   		  
 		  <cftry>
 		  
 			  <cfquery name="Source" 
@@ -170,7 +169,8 @@
 		  
 		  <TD class="labelit" style="cursor:pointer"><cf_UIToolTip tooltip="Define the datasource in which the SQL.cfm store the temp tables. The depends on the datasource used in the SQL.cfm">Query Datasource:</cf_UIToolTip></TD>
 			
-		  <td class="labelit">						
+		  <td class="labelit">	
+		  					
 		    <cfif Line.Operational eq "1">
 		   			
 					<b>#Line.TemplateUserQuery#</b>
@@ -318,7 +318,7 @@
 			        id="aboutreport1"
 			        type="button"
 			        class="button10g"
-					style="width:200px"			       
+					style="width:200px;height:30px"			       
 			        onClick="schedule('#Line.controlId#','HTML')">
 					<img src="#SESSION.root#/Images/status_overview.gif" align="absmiddle" alt="" border="0">
 					Test Interface
@@ -382,14 +382,14 @@
 			 			 		 
 			   <iframe id="icrit" name="icrit" width="100%" 
 			     height="100" marginwidth="0" marginheight="0" hspace="0" vspace="0" align="left" frameborder="0" scrolling="no"></iframe>
+				 
 			   <cf_loadpanel 
 				   id="icrit"
 				   template="Criteria.cfm?id=#URL.ID#&status=#op#">
 		
 			</td>
 		</TR>
-		
-		
+				
 		<tr><td height="4"></td></tr>	
 		<tr><td align="center" colspan="8">
 	 			  
@@ -424,7 +424,7 @@
 			
 		</td></tr>
 		<tr><td height="4"></td></tr>
-		<tr><td height="1" colspan="8" class="linedotted"></td></tr>	
+		<tr><td height="1" colspan="8" class="line"></td></tr>	
 		
 		</cfoutput>
 				

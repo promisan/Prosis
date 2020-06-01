@@ -36,7 +36,7 @@
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 		
-		SELECT      TOP 100 Mission, MandateNo, MissionOwner, OrgunitOperational, OrgunitName, OrgunitNameShort, 
+		SELECT      Mission, MandateNo, MissionOwner, OrgunitOperational, OrgunitName, OrgunitNameShort, 
 		            OrgUnitClass, HierarchyCode, OrgUnitCode, PositionNo, 
                     FunctionNo, FunctionDescription, OccGroupOrder, OccGroupAcronym, OccupationalGroup, OccGroupDescription, 
 					PostType, PostClass, PostClassGroup, 

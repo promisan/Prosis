@@ -249,7 +249,7 @@ ORDER BY ItemNo,AssetId
 	<tr id="#currentrow#" style="height:17px" class="navigation_row labelit">	  
 	    <td class="navigation_action" 
 			height="15" width="30" style="padding-left:7px;padding-top:3px;padding-right:2px"
-			onclick="ColdFusion.navigate('#link#&cfdebug=true&action=insert&#url.des1#=#assetid#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ColdFusion.Window.hide('dialog#url.box#')</cfif>">
+			onclick="ptoken.navigate('#link#&cfdebug=true&action=insert&#url.des1#=#assetid#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ColdFusion.Window.hide('dialog#url.box#')</cfif>">
 			<cf_img icon="select">
 		</td>		
 		<td width="10%">#Make#</td>

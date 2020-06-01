@@ -68,7 +68,7 @@
 	
 	<script>
 	
-	 ColdFusion.Window.hide('boxauth')
+	 ProsisUI.closeWindow('boxauth')
 	 saveforms('#url.wfmode#')
 	
 	</script>

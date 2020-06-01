@@ -74,7 +74,7 @@ password="#SESSION.dbpw#">
 	
     <tr><td>	
        
-	<table border="0" align="center" cellspacing="" cellpadding="0" bgcolor="ffffff" class="formpadding">
+	<table border="0" align="center" cellspacing="" cellpadding="0" bgcolor="ffffff" class="formspacing">
 			
     <TR>
 	

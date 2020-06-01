@@ -38,10 +38,10 @@ password="#SESSION.dbpw#">
 
 <!--- edit form --->
 
-<table width="91%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
-	
-	<cfform action="RecordSubmit.cfm?idmenu=#url.idmenu#" method="POST" enablecab="Yes" name="dialog">
+<cfform action="RecordSubmit.cfm?idmenu=#url.idmenu#" method="POST" name="dialog">
 
+<table width="91%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+		
 	<tr><td height="10"></td></tr>
 
     <cfoutput>
@@ -83,9 +83,7 @@ password="#SESSION.dbpw#">
 	</TR>
 	
 	</cfoutput>
-	
-	
-	
+		
 	<tr><td colspan="2" class="line"></td></tr>
 	
 	<tr><td height="6"></td></tr>
@@ -99,9 +97,9 @@ password="#SESSION.dbpw#">
     <input class="button10g" type="submit" name="Update" id="Update" value=" Update ">
 	</td>	
 	</tr>
-	
-	</CFFORM>
-	
+			
 </TABLE>
+
+</CFFORM>
 	
 <cf_screenbottom layout="innerbox">

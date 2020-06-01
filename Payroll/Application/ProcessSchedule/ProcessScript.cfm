@@ -37,21 +37,20 @@
 	    se = document.getElementById("cd"+id)
 		se.className = "regular"	
 		url = "CalculationCheck.cfm?id="+id
-		ColdFusion.navigate(url,'ci'+id ) 	
+		ptoken.navigate(url,'ci'+id ) 	
 	}
 
 	 function checkBalances(id){
 	  	se = document.getElementById("cd"+id)
 		se.className = "regular"
-	  	ColdFusion.navigate('ScheduleCheck.cfm?currentCalcId='+id,'ci'+id)
+	  	ptoken.navigate('ScheduleCheck.cfm?currentCalcId='+id,'ci'+id)
 	  }
 				
 	function del(id) {
 	
 	    if (confirm("Do you want to remove this calculation ?")) {  Prosis.busy('yes')
-	    ptoken.navigate('CalculationDelete.cfm?id='+id,'contentbox1') }
-			return false	
-	   
+	        ptoken.navigate('CalculationDelete.cfm?id='+id,'ci'+id) }
+			return false		   
 	}	
 			
 	function slip(box,pay,sch,mis,per) {
@@ -89,14 +88,14 @@
 	
 	<!--- batch --->
 	function calc() {   
-         ColdFusion.Window.create('executetask', 'Batch Processing', '',{x:100,y:100,height:570,width:560,closable:false,modal:true,center:true})	
-		 ColdFusion.navigate('../Calculation/CalculationProcessExecute.cfm?mission=#URL.mission#','executetask')
+         ProsisUI.createWindow('executetask', 'Payroll Calculation Batch', '',{x:100,y:100,height:570,width:560,closable:false,modal:true,center:true})	
+		 ptoken.navigate('../Calculation/CalculationProcessExecute.cfm?mission=#URL.mission#','executetask')
 	}
 	
 	<!--- final payment --->
 	function calcperson(selectedid,contractid,mis,mode) {	
          ColdFusion.Window.create('executetask', 'Final Payment Calculation', '',{x:100,y:100,height:570,width:560,closable:false,modal:true,center:true})	
-		 ColdFusion.navigate('../Calculation/CalculationProcessExecuteFinal.cfm?mode='+mode+'&selectedid='+selectedid+'&contractid='+contractid+'&mission=#URL.mission#','executetask')
+		 ptoken.navigate('../Calculation/CalculationProcessExecuteFinal.cfm?mode='+mode+'&selectedid='+selectedid+'&contractid='+contractid+'&mission=#URL.mission#','executetask')
 	}				
 	
 	<!--- manual process --->		
@@ -124,14 +123,14 @@
 		 <cfif getAdministrator("*") eq "1">	
 		 window.open('../Calculation/CalculationProcess.cfm?mode='+mde+'&processno='+processno+'&mission=#URL.mission#&persono='+personno+'&enforce='+enforce+'&selectedid='+selected,'_blank')			
 		 <cfelse>
-		 ColdFusion.navigate('../Calculation/CalculationProcess.cfm?mode='+mde+'&processno='+processno+'&mission=#URL.mission#&persono='+personno+'&enforce='+enforce+'&selectedid='+selected,'runbox') 		 										
+		 ptoken.navigate('../Calculation/CalculationProcess.cfm?mode='+mde+'&processno='+processno+'&mission=#URL.mission#&persono='+personno+'&enforce='+enforce+'&selectedid='+selected,'runbox') 		 										
 		 </cfif>
 		 showprogresscalculate(processno)		 
 				 
 	} 
 	
 	function showprogresscalculate(processno) {
-       ColdFusion.navigate('../Calculation/CalculationProcessProgress.cfm?processno='+processno,'progressbox')
+         ptoken.navigate('../Calculation/CalculationProcessProgress.cfm?processno='+processno,'progressbox')
     }
 
 	function stopprogress() {
@@ -140,11 +139,11 @@
 	
 	function lock(calculationid,st) {   
          ColdFusion.Window.create('executetask', 'Batch Processing', '',{x:100,y:100,height:570,width:560,closable:false,modal:true,center:true})	
-		 ColdFusion.navigate('../LockPayroll/CalculationLockExecute.cfm?mission=#URL.mission#&calculationid='+calculationid+'&actionstatus='+st,'executetask')
+		 ptoken.navigate('../LockPayroll/CalculationLockExecute.cfm?mission=#URL.mission#&calculationid='+calculationid+'&actionstatus='+st,'executetask')
 	}
 		
 	function showprogresslock(processno,processclass) {
-       ColdFusion.navigate('../LockPayroll/CalculationLockProgress.cfm?processno='+processno,'progressbox')
+         ptoken.navigate('../LockPayroll/CalculationLockProgress.cfm?processno='+processno,'progressbox')
     }
 	
 	function unlock(id) {
@@ -158,16 +157,16 @@
 	function payrolllock(processno,calculationid,st) {	
 		
 		 <cfif getAdministrator("*") eq '0'>		
-		 ColdFusion.navigate('../LockPayroll/CalculationLockGo.cfm?processno='+processno+'&calculationid='+calculationid+'&actionstatus='+st,'runbox') 		 							
+		 ptoken.navigate('../LockPayroll/CalculationLockGo.cfm?processno='+processno+'&calculationid='+calculationid+'&actionstatus='+st,'runbox') 		 							
 		 <cfelse>
-		 window.open('../LockPayroll/CalculationLockGo.cfm?processno='+processno+'&calculationid='+calculationid+'&actionstatus='+st,'_blank')
+		 ptoken.open('../LockPayroll/CalculationLockGo.cfm?processno='+processno+'&calculationid='+calculationid+'&actionstatus='+st,'_blank')
 		 </cfif>
 		 showprogresslock(processno)
 				 
 	} 	
 	
 	function scheduleedit(id1) {
-    	 window.open("../../Maintenance/SalarySchedule/ScheduleEdit.cfm?idmenu=&id1=" + id1, "_blank")
+    	 ptoken.open('../../Maintenance/SalarySchedule/ScheduleEdit.cfm?idmenu=&id1=' + id1, '_blank')
 	}		
 					
 </script>	

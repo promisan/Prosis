@@ -17,7 +17,7 @@
 		 
 	function selectemployee(table) {
 	    ColdFusion.Window.show("employee")
-		ColdFusion.navigate('#SESSION.root#/Staffing/Application/Employee/Lookup/LookupSearch.cfm?table=purchase.dbo.stJobReviewPanel','employee');			
+		ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Lookup/LookupSearch.cfm?table=purchase.dbo.stJobReviewPanel','employee');			
 	</script>	
 
 </cfoutput> 

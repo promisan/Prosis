@@ -11,7 +11,6 @@
 	WHERE  	  Mission = '#url.Mission#'							
 </cfquery>	
 
-
 <table width="100%" style="height:100%;" align="center"> 
 
     <!---
@@ -41,7 +40,7 @@
 	--->
 	
 	<tr>
-			<td id="mainlisting" valign="top" style="height:95%;">
+			<td id="mainlisting" valign="top" style="height:95%;">			
 				<cfdiv id="divListing" style="height:100%;" bind="url:#session.root#/Warehouse/Application/Stock/Inquiry/OnhandTransaction/ListingDataGet.cfm?location=#url.location#&filterwarehouse=#url.filterwarehouse#&warehouse=#url.warehouse#&mission=#url.mission#&SystemFunctionId=#url.SystemFunctionId#">        	
 			</td>
 		</tr>

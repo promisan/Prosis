@@ -55,8 +55,7 @@ password="#SESSION.dbpw#">
 		<cfdiv bind="url:UoM/ItemUoMList.cfm?id=#url.id#&uomselected=&mid=#mid#" id="uomlist"/>		
 				
 	</td></tr>
-	
-	
+		
 	<tr><td colspan="2">
 	<cfdiv id="uomedit"/>
 	</td></tr>

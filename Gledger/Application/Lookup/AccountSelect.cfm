@@ -165,7 +165,7 @@ function setvalue(acc) {
   <tr>
   <td height="100%" valign="top" colspan="2" style="padding:10px"> 
 	 <cf_divscroll>
-	     <cfdiv style="height:100%" bind="url:AccountSelectDetail.cfm?mode=#url.mode#&field=#url.field#&filter=#url.filter#&mission=#url.mission#&journal=#url.journal#" id="selection">   
+	     <cf_securediv style="height:100%" bind="url:AccountSelectDetail.cfm?mode=#url.mode#&field=#url.field#&filter=#url.filter#&mission=#url.mission#&journal=#url.journal#" id="selection">   
 	 </cf_divscroll>
   </td>
   </tr>

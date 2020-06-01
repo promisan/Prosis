@@ -217,11 +217,11 @@
 			<TD class="labelmedium">
 			     <table>
 					<tr>
-					<td style="padding-left:0px"><input type="radio" class="radiol enterastab" name="isEmployee" id="isEmployee" value="0" <cfif session.userselect[12] eq "0">checked></cfif>></td>
+					<td style="padding-left:0px"><input type="radio" class="radiol enterastab" name="isEmployee" id="isEmployee" value="0" <cfif session.userselect[12] eq "0">checked></cfif></td>
 					<td class="labelmedium" style="padding-left:3px">Not associated</td>
-					<td style="padding-left:3px"><input type="radio" class="radiol enterastab" name="isEmployee" id="isEmployee" value="1" <cfif session.userselect[12] eq "1">checked></cfif>></td>
+					<td style="padding-left:3px"><input type="radio" class="radiol enterastab" name="isEmployee" id="isEmployee" value="1" <cfif session.userselect[12] eq "1">checked></cfif></td>
 					<td class="labelmedium" style="padding-left:3px">Employee</td>
-				    <td style="padding-left:3px"><input type="radio" class="radiol enterastab" name="isEmployee" id="isEmployee" value="" <cfif session.userselect[12] eq "">checked></cfif>></td>
+				    <td style="padding-left:3px"><input type="radio" class="radiol enterastab" name="isEmployee" id="isEmployee" value="" <cfif session.userselect[12] eq "">checked></cfif></td>
 					<td class="labelmedium" style="padding-left:3px">Both</td>
 					</tr>
 				</table>
@@ -301,7 +301,7 @@
 			<TD class="labelmedium"><cf_tl id="Role assigned">:</TD>
 			<TD class="labelmedium">
 						
-			<cfdiv bind="url:getRole.cfm?selected=#session.userselect[11]#&systemmodule={SystemModule}">
+			<cf_securediv bind="url:getRole.cfm?selected=#session.userselect[11]#&systemmodule={SystemModule}">
 			
 			</TD>
 			</TR>				

@@ -94,7 +94,7 @@
 	<tr class="r_Bucket">
 		<td class="labelit" style="">Status To:</td>
 		<td>
-			 <cfdiv bind="url:getStatus.cfm?owner={Owner}" bindOnLoad="yes">
+			 <cf_securediv bind="url:getStatus.cfm?owner={Owner}" bindOnLoad="yes">
 		</td>
 	</tr>
 

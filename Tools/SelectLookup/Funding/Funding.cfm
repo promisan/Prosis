@@ -204,7 +204,7 @@
 	<cf_tl id="Search" var="1">
 	<input type="button" 
 	   value="<cfoutput>#lt_text#</cfoutput>" 
-	   onclick="ColdFusion.navigate('#nav#&page=1','searchresultfunding#box#','','','POST','searchselectfunding')"
+	   onclick="ptoken.navigate('#nav#&page=1','searchresultfunding#box#','','','POST','searchselectfunding')"
 	   class="button10g" style="width:100;height:25">
 </td></tr>
 <tr>

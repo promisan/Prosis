@@ -182,14 +182,14 @@
 		  <td style="height:30px" width="190"  class="labelmedium"><cf_UIToolTip tooltip="requires Key field">Enable Deletion on:</cf_UIToolTip></td>
 		  <td>
 	
-	   	  <cfdiv id="table" 
+	   	  <cf_securediv id="table" 
 	       bind="url:#SESSION.root#/System/Modules/InquiryBuilder/SubTable.cfm?systemfunctionid=#url.systemfunctionid#&functionserialno=#url.functionserialno#&datasource={querydatasource}">
 		   
 		   </td>
 		   
 		   <td style="padding-left:20px;height:30px" class="labelmedium">Show Annotation:</td>
 		   <td>
-			   <cfdiv id="annotation" 
+			   <cf_securediv id="annotation" 
 			       bind="url:#SESSION.root#/System/Modules/InquiryBuilder/Annotation.cfm?systemfunctionid=#url.systemfunctionid#&functionserialno=#url.functionserialno#&datasource={querydatasource}">
 		   </td>		   		   
 	     		   

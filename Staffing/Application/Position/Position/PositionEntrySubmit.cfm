@@ -1,12 +1,10 @@
 
-<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
-
 <cfquery name="Parameter"
-		datasource="AppsEmployee"
-		username="#SESSION.login#"
-		password="#SESSION.dbpw#">
-	SELECT *
-	FROM Parameter
+	datasource="AppsEmployee"
+	username="#SESSION.login#"
+	password="#SESSION.dbpw#">
+		SELECT *
+		FROM Parameter
 </cfquery>
 
 <cfparam name="Form.Remarks" default="">
@@ -38,10 +36,10 @@
 		datasource="AppsOrganization"
 		username="#SESSION.login#"
 		password="#SESSION.dbpw#">
-	SELECT *
-	FROM Ref_Mandate
-	WHERE Mission = '#Form.Mission#'
-AND   MandateNo = '#Form.MandateNo#'
+		SELECT *
+		FROM   Ref_Mandate
+		WHERE  Mission = '#Form.Mission#'
+		AND    MandateNo = '#Form.MandateNo#'
 </cfquery>
 
 <cfoutput>
@@ -75,10 +73,10 @@ AND   MandateNo = '#Form.MandateNo#'
 		datasource="AppsEmployee"
 		username="#SESSION.login#"
 		password="#SESSION.dbpw#">
-	SELECT     PostType
-	FROM         Ref_PostGrade G INNER JOIN
-	Ref_PostGradeParent GP ON G.PostGradeParent = GP.Code
-	WHERE G.PostGrade = '#Form.PostGrade#'
+		SELECT  PostType
+		FROM    Ref_PostGrade G INNER JOIN
+				Ref_PostGradeParent GP ON G.PostGradeParent = GP.Code
+		WHERE 	G.PostGrade = '#Form.PostGrade#'
 </cfquery>
 
 <!--- external linkage IMIS, SA-IT etc. --->
@@ -88,14 +86,14 @@ AND   MandateNo = '#Form.MandateNo#'
 	<cfif Form.SourcePostNumber neq "">
 
 		<cfquery name="Check"
-				datasource="AppsEmployee"
-				username="#SESSION.login#"
-				password="#SESSION.dbpw#">
+			datasource="AppsEmployee"
+			username="#SESSION.login#"
+			password="#SESSION.dbpw#">
 			SELECT *
 			FROM   PositionParent
 			WHERE  SourcePostNumber = '#Form.SourcePostNumber#'
-		AND    Mission          = '#Form.Mission#'
-		AND    MandateNo        = '#Form.MandateNo#'
+			AND    Mission          = '#Form.Mission#'
+			AND    MandateNo        = '#Form.MandateNo#'
 		</cfquery>
 
 		<cfif Check.recordcount gte "1">
@@ -117,13 +115,13 @@ AND   MandateNo = '#Form.MandateNo#'
 			SELECT *
 			FROM   Position
 			WHERE  SourcePostNumber = '#Form.SourcePostNumber#'
-		AND    Mission          = '#Form.Mission#'
-		AND    MandateNo        = '#Form.MandateNo#'
-		AND    (
-		(DateExpiration   <= #END# AND DateExpiration >= #STR#)
-		OR
-		(DateEffective    <= #END# AND DateEffective  >= #STR#)
-		)
+			AND    Mission          = '#Form.Mission#'
+			AND    MandateNo        = '#Form.MandateNo#'
+			AND    (
+					(DateExpiration   <= #END# AND DateExpiration >= #STR#)
+					OR
+					(DateEffective    <= #END# AND DateEffective  >= #STR#)
+					)
 		</cfquery>
 
 
@@ -139,83 +137,85 @@ AND   MandateNo = '#Form.MandateNo#'
 
 <cftransaction action="BEGIN">
 
+	<cfset PositionList = "">
+
 	<cfloop index="No" from="1" to="#Form.Number#" step="1">
 
 		<cfquery name="InsertParent"
-				datasource="AppsEmployee"
-				username="#SESSION.login#"
-				password="#SESSION.dbpw#">
+			datasource="AppsEmployee"
+			username="#SESSION.login#"
+			password="#SESSION.dbpw#">
 			INSERT INTO PositionParent
-			(Mission,
-			MandateNo,
-			OrgUnitOperational,
-			OrgUnitAdministrative,
-			FunctionNo,
-			FunctionDescription,
-			ApprovalPostgrade,
-			PostGrade,
-			PostType,
-			Fund,
-			DateEffective,
-			DateExpiration,
-			<cfif Parameter.SourcePostNumber eq "PositionParent">
-				SourcePostNumber,
-			</cfif>
-			OfficerUserId,
-			OfficerLastName,
-			OfficerFirstName,
-			Created)
+					(Mission,
+					MandateNo,
+					OrgUnitOperational,
+					OrgUnitAdministrative,
+					FunctionNo,
+					FunctionDescription,
+					ApprovalPostgrade,
+					PostGrade,
+					PostType,
+					Fund,
+					DateEffective,
+					DateExpiration,
+					<cfif Parameter.SourcePostNumber eq "PositionParent">
+						SourcePostNumber,
+					</cfif>
+					OfficerUserId,
+					OfficerLastName,
+					OfficerFirstName,
+					Created)
 			VALUES ('#Form.Mission#',
-		'#Form.MandateNo#',
-		'#Form.OrgUnit#',
-		'#Form.OrgUnit1#',
-		'#Form.FunctionNo#',
-		'#Form.FunctionDescription#',
-			<cfif #Form.Classified# eq "0">
-				'',
-			<cfelse>
-				'#Form.ApprovalPostGrade#',
-			</cfif>
-			'#Form.PostGrade#',
-		'#Form.PostType#',
-		'#Form.Fund#',
-			#STR#,
-			#END#,
-			<cfif #Parameter.SourcePostNumber# eq "PositionParent">
-				'#Form.SourcePostNumber#',
-			</cfif>
-			'#SESSION.acc#',
-		'#SESSION.last#',
-		'#SESSION.first#',
-		getDate())
+					'#Form.MandateNo#',
+					'#Form.OrgUnit#',
+					'#Form.OrgUnit1#',
+					'#Form.FunctionNo#',
+					'#Form.FunctionDescription#',
+						<cfif #Form.Classified# eq "0">
+							'',
+						<cfelse>
+							'#Form.ApprovalPostGrade#',
+						</cfif>
+						'#Form.PostGrade#',
+					'#Form.PostType#',
+					'#Form.Fund#',
+						#STR#,
+						#END#,
+						<cfif Parameter.SourcePostNumber eq "PositionParent">
+							'#Form.SourcePostNumber#',
+						</cfif>
+						'#SESSION.acc#',
+					'#SESSION.last#',
+					'#SESSION.first#',
+					getDate())
 		</cfquery>
 
 		<cfquery name="Last"
 				datasource="AppsEmployee"
 				username="#SESSION.login#"
 				password="#SESSION.dbpw#">
-			SELECT   TOP 1 PositionParentId
-			FROM     PositionParent
-			WHERE    Mission   = '#Form.Mission#'
-		AND      MandateNo = '#Form.MandateNo#'
-		ORDER BY PositionParentId DESC
+				SELECT   TOP 1 PositionParentId
+				FROM     PositionParent
+				WHERE    Mission   = '#Form.Mission#'
+				AND      MandateNo = '#Form.MandateNo#'
+				ORDER BY PositionParentId DESC
 		</cfquery>
 
-		<cfset LastId = "#Last.PositionParentId#">
+		<cfset LastId = Last.PositionParentId>
 
-<!--- position parent grouping --->
+		<!--- position parent grouping --->
 
 		<cfquery name="Topic"
-				datasource="AppsEmployee"
-				username="#SESSION.login#"
-				password="#SESSION.dbpw#">
-			SELECT  *
-			FROM  Ref_PositionParentGroup
-			WHERE Code IN (SELECT GroupCode
-			FROM   Ref_PositionParentGroupList)
-			AND    Code IN (SELECT GroupCode
-			FROM   Ref_PositionParentGroupMission
-			WHERE  Mission = '#Form.Mission#')
+			datasource="AppsEmployee"
+			username="#SESSION.login#"
+			password="#SESSION.dbpw#">
+				SELECT  *
+				FROM   Ref_PositionParentGroup
+				WHERE  Code IN (SELECT GroupCode
+								FROM   Ref_PositionParentGroupList)
+				AND    Code IN (SELECT GroupCode
+								FROM   Ref_PositionParentGroupMission
+								WHERE  Mission = '#Form.Mission#')
 		</cfquery>
 
 		<cfloop query="topic">
@@ -223,104 +223,110 @@ AND   MandateNo = '#Form.MandateNo#'
 			<cfset ListCode  = Evaluate("Form.ListCode_#Code#")>
 
 			<cfquery name="Insert"
-					datasource="AppsEmployee"
-					username="#SESSION.login#"
-					password="#SESSION.dbpw#">
+			datasource="AppsEmployee"
+			username="#SESSION.login#"
+			password="#SESSION.dbpw#">
 				INSERT INTO PositionParentGroup
 				(PositionParentId,
-				GroupCode,
-				GroupListCode,
-				OfficerUserId,
-				OfficerLastName,
-				OfficerFirstName)
+					GroupCode,
+					GroupListCode,
+					OfficerUserId,
+					OfficerLastName,
+					OfficerFirstName)
 				VALUES
-				('#LastId#', '#Code#', '#ListCode#', '#SESSION.acc#', '#SESSION.last#', '#SESSION.first#')
+				 ('#LastId#', '#Code#', '#ListCode#', '#SESSION.acc#', '#SESSION.last#', '#SESSION.first#')
 			</cfquery>
 
 		</cfloop>
 
-<!--- disabled
-<cfquery name="MandateUpdate"
-datasource="AppsEmployee"
-username="#SESSION.login#"
-password="#SESSION.dbpw#">
-UPDATE Organization.dbo.Ref_Mandate
-SET _tsLastModified = #now()#
-WHERE Mission = '#Form.Mission#'
-AND MandateNo = '#Form.MandateNo#'
-</cfquery>
---->
+		<!--- disabled
+		<cfquery name="MandateUpdate"
+		datasource="AppsEmployee"
+		username="#SESSION.login#"
+		password="#SESSION.dbpw#">
+		UPDATE Organization.dbo.Ref_Mandate
+		SET _tsLastModified = #now()#
+		WHERE Mission = '#Form.Mission#'
+		AND MandateNo = '#Form.MandateNo#'
+		</cfquery>
+		--->
 
 		<cfquery name="InsertPosition"
 				datasource="AppsEmployee"
 				username="#SESSION.login#"
 				password="#SESSION.dbpw#">
-			INSERT INTO Position
-			(PositionParentId,
-			Mission,
-			MandateNo,
-			MissionOperational,
-			OrgUnitOperational,
-			OrgUnitAdministrative,
-			<cfif loc neq "">
-				LocationCode,
-			</cfif>
-			FunctionNo,
-			FunctionDescription,
-			PostGrade,
-			PostType,
-			PostClass,
-			PositionStatus,
-			PostAuthorised,
-			VacancyActionClass,
-			DateEffective,
-			DateExpiration,
-			OfficerUserId,
-			OfficerLastName,
-			OfficerFirstName,
-			Remarks,
-			SourcePostNumber,
-			Created)
-			VALUES (#LastId#,
-		'#Form.Mission#',
-		'#Form.MandateNo#',
-		'#Form.Mission#',
-		'#Form.OrgUnit#',
-		'#Form.OrgUnit1#',
-			<cfif loc neq "">
-				'#loc#',
-			</cfif>
-			'#Form.FunctionNo#',
-		'#Form.FunctionDescription#',
-		'#Form.PostGrade#',
-		'#Form.PostType#',
-		'#Form.PostClass#',
-		'#Mandate.MandateStatus#',
-		'#Form.PostAuthorised#',
-		'#Form.VacancyActionClass#',
-			#STR#,
-			#END#,
-		'#SESSION.acc#',
-		'#SESSION.last#',
-		'#SESSION.first#',
-		'#Form.Remarks#',
-		'#Form.SourcePostNumber#',
-		getDate())
+				INSERT INTO Position
+						(PositionParentId,
+						Mission,
+						MandateNo,
+						MissionOperational,
+						OrgUnitOperational,
+						OrgUnitAdministrative,
+						<cfif loc neq "">
+							LocationCode,
+						</cfif>
+						FunctionNo,
+						FunctionDescription,
+						PostGrade,
+						PostType,
+						PostClass,
+						PositionStatus,
+						PostAuthorised,
+						VacancyActionClass,
+						DateEffective,
+						DateExpiration,
+						OfficerUserId,
+						OfficerLastName,
+						OfficerFirstName,
+						Remarks,
+						SourcePostNumber,
+						Created)
+				VALUES (#LastId#,
+						'#Form.Mission#',
+						'#Form.MandateNo#',
+						'#Form.Mission#',
+						'#Form.OrgUnit#',
+						'#Form.OrgUnit1#',
+							<cfif loc neq "">
+								'#loc#',
+							</cfif>
+							'#Form.FunctionNo#',
+						'#Form.FunctionDescription#',
+						'#Form.PostGrade#',
+						'#Form.PostType#',
+						'#Form.PostClass#',
+						'#Mandate.MandateStatus#',
+						'#Form.PostAuthorised#',
+						'#Form.VacancyActionClass#',
+							#STR#,
+							#END#,
+						'#SESSION.acc#',
+						'#SESSION.last#',
+						'#SESSION.first#',
+						'#Form.Remarks#',
+						'#Form.SourcePostNumber#',
+						getDate())
 		</cfquery>
 
 		<cfquery name="Last"
-				datasource="AppsEmployee"
-				username="#SESSION.login#"
-				password="#SESSION.dbpw#">
-			SELECT TOP 1 PositionNo as LastId
-			FROM      Position
-			WHERE     Mission       = '#Form.Mission#'
-		AND       MandateNo     = '#Form.MandateNo#'
-		AND       OfficerUserId = '#SESSION.acc#'
-		ORDER BY  PositionNo DESC
+			datasource="AppsEmployee"
+			username="#SESSION.login#"
+			password="#SESSION.dbpw#">
+				SELECT    TOP 1 PositionNo as LastId
+				FROM      Position
+				WHERE     Mission       = '#Form.Mission#'
+				AND       MandateNo     = '#Form.MandateNo#'
+				AND       OfficerUserId = '#SESSION.acc#'
+				ORDER BY  PositionNo DESC
 		</cfquery>
+		
+		<cfif PositionList eq "">
+			<cfset PositionList = "#Last.LastId#">
+		<cfelse>
+			<cfset PositionList = "#PositionList#,#Last.LastId#">
+		</cfif>
 
-<!--- update group --->
+		<!--- update group --->
 
 		<cfparam name="Form.PositionGroup" type="any" default="">
 
@@ -329,9 +335,9 @@ AND MandateNo = '#Form.MandateNo#'
 				delimiters="' ,">
 
 			<cfquery name="InsertGroup"
-					datasource="AppsEmployee"
-					username="#SESSION.login#"
-					password="#SESSION.dbpw#">
+				datasource="AppsEmployee"
+				username="#SESSION.login#"
+				password="#SESSION.dbpw#">
 				INSERT INTO PositionGroup
 				(PositionNo,
 				PositionGroup,
@@ -340,24 +346,120 @@ AND MandateNo = '#Form.MandateNo#'
 				OfficerLastName,
 				OfficerFirstName)
 				VALUES ('#Last.LastId#',
-			'#Item#',
-			'1',
-			'#SESSION.acc#',
-			'#SESSION.last#',
-			'#SESSION.first#')
+						'#Item#',
+						'1',
+						'#SESSION.acc#',
+						'#SESSION.last#',
+						'#SESSION.first#')
 			</cfquery>
 
 		</cfloop>
-
+		
 	</cfloop>
+	
+	<!--- create track for the 7 positions --->
+	
+	<cfparam name="form.entityclass"     default="">
+	<cfparam name="form.GradeDeployment" default="">
+	
+	<cfif form.entityclass neq "">
+	
+		<cfquery name="AssignNo" 
+		datasource="appsEmployee" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			UPDATE Vacancy.dbo.Parameter 
+			SET DocumentNo = DocumentNo+1
+		</cfquery>
+		
+		<cfquery name="LastNo" 
+		datasource="appsEmployee" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT *
+			FROM Vacancy.dbo.Parameter
+		</cfquery>
+		
+				
+		<cfquery name="InsertDocument" 
+		datasource="appsEmployee" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		INSERT INTO  Vacancy.dbo.Document
+		         (DocumentNo,
+				
+				 Status,
+				 FunctionNo, 
+				 FunctionalTitle, 
+				 OrganizationUnit,
+				 Mission,
+				 Owner,
+				 PostNumber,
+				 PositionNo,
+				 DueDate,
+				 PostGrade,
+				 GradeDeployment,
+				 EntityClass,
+				 Remarks,
+				 OfficerUserId,
+				 OfficerUserLastName,
+				 OfficerUserFirstName)
+				 
+		VALUES 	('#LastNo.DocumentNo#',	         
+		         '0',
+				 '#Form.FunctionNo#',
+		         '#Form.FunctionDescription#',
+				 '#Form.OrgUnit#',
+				 '#Form.Mission#',
+				 '#Form.Owner#',
+				 '#Form.SourcePostNumber#',
+				 '#Last.LastId#',
+				 #STR#,
+				 '#Form.PostGrade#',
+				 <cfif Form.GradeDeployment eq "">
+				 '#Form.PostGrade#',
+				 <cfelse>
+				 '#Form.GradeDeployment#',
+				 </cfif>
+				 '#Form.EntityClass#',
+				 '#Form.Remarks#',
+				 '#SESSION.acc#',
+		    	 '#SESSION.last#',		  
+			  	 '#SESSION.first#')
+		  </cfquery>		  	 
+		  
+		  <cfquery name="InsertDocumentPost" 
+			datasource="appsEmployee" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			INSERT INTO Vacancy.dbo.DocumentPost
+				         (DocumentNo,
+						 PositionNo,	
+						 PostNumber,				 
+						 OfficerUserId,
+						 OfficerLastName,
+						 OfficerFirstName)
+			SELECT '#LastNo.DocumentNo#', PositionNo, '', OfficerUserId, OfficerLastName, OfficerFirstName
+			FROM   Position
+			WHERE  PositionNo IN (#PositionList#)	   			 		
+		  </cfquery>	
+	
+	</cfif>
 
 </cftransaction>
 
+<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+<cfset mid = oSecurity.gethash()/>   
+
 <script>
-
-	returnValue = "1"
-	window.close()
+	
 	try {opener.document.getElementById("refresh").click() } catch(e) {   history.go() }
-
+	<cfoutput>
+	<cfif form.entityclass neq "">			
+		window.open('#session.root#/Vactrack/Application/Document/DocumentEdit.cfm?ID=#LastNo.DocumentNo#&mid=#mid#', 'Track#LastNo.DocumentNo#')		
+	</cfif>
+	</cfoutput>
+	window.close()
+		
 </script>
 

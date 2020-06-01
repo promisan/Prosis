@@ -1641,7 +1641,7 @@
   <tr>
   <td width="100%" colspan="2" id="postinglines" style="padding:0px;">  
      
-	     <cfdiv bind="url:TransactionViewPosting.cfm?journal=#url.journal#&JournalSerialno=#url.JournalSerialno#&mode=#url.mode#&summary=#url.summary#" id="content">	  	
+	     <cf_securediv bind="url:TransactionViewPosting.cfm?journal=#url.journal#&JournalSerialno=#url.JournalSerialno#&mode=#url.mode#&summary=#url.summary#" id="content">	  	
 	 
  </td>
  </tr>

@@ -42,9 +42,11 @@
 		
 <cf_layout attributeCollection="#attrib#">
 
-<cf_layoutarea position="header" size="50" name="controltop">		  
-	<cf_ViewTopMenu label="#ucase(url.mission)# #headerlabel#" menuaccess="context" background="blue">			
-</cf_layoutarea>		 
+<cfif url.context neq "embed">
+	<cf_layoutarea position="header" size="50" name="controltop">		  
+		<cf_ViewTopMenu label="#ucase(url.mission)# #headerlabel#" menuaccess="context" background="blue">			
+	</cf_layoutarea>	
+</cfif>		 
 
 <cf_layoutarea  position="center" name="box">
 			

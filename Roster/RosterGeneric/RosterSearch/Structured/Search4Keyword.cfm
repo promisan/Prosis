@@ -189,7 +189,7 @@ password="#SESSION.dbpw#">
 			<cfif show eq "0"> 
 			    <cfdiv id="i#ar#">				
 			<cfelse>
-			    <cfdiv id="i#ar#" bind="url:#SESSION.root#/roster/RosterGeneric/RosterSearch/Structured/Search4KeywordDetail.cfm?ID=#URL.ID#&AR=#AR#&row=#CurrentRow#">				
+			    <cf_securediv id="i#ar#" bind="url:#SESSION.root#/roster/RosterGeneric/RosterSearch/Structured/Search4KeywordDetail.cfm?ID=#URL.ID#&AR=#AR#&row=#CurrentRow#">				
 			</cfif>
 			</td></tr>
 			</table>

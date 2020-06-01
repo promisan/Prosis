@@ -38,7 +38,7 @@
 	
 		<table width="99%" height="100%" border="0" align="center" cellspacing="0" cellpadding="0">	
 		    <tr><td height="100%" valign="top">						
-				<cfdiv id="mysubtarget_#url.owner#" bind="url:ParameterEditOwnerPointer.cfm?owner=#url.owner#">
+				<cf_securediv id="mysubtarget_#url.owner#" bind="url:ParameterEditOwnerPointer.cfm?owner=#url.owner#">
 			</td></tr>
 		</table>
 	

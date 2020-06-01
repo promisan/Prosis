@@ -32,6 +32,7 @@
 	<cf_tl id="November"   var="nov">
 	<cf_tl id="December"   var="dec">
 
+<cfinclude template="Logon/ThirdParty/Google/gSigninExists.cfm">
 <cfinclude template="Logon/ThirdParty/Google/gScripts.cfm">
 
 <script language="JavaScript">
@@ -395,9 +396,13 @@
 	<cfoutput>
 								
 		function exit() {
-			googleLogout(function(){
+			<cfif vGoogleSigninKey neq "">
+				googleLogout(function(){
+					window.open("#SESSION.root#/Tools/Control/LogoutExit.cfm?time=#now()#", "_top");
+				});
+			<cfelse>
 				window.open("#SESSION.root#/Tools/Control/LogoutExit.cfm?time=#now()#", "_top");
-			});
+			</cfif>
 		}
 
 		function gohome() {

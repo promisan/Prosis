@@ -110,7 +110,7 @@
 	<table width="100%" height="100%" cellspacing="0" cellpadding="0" border="0">
 	<tr><td valign="top" height="100%" style="padding:5px">		
 		<cf_divScroll overflowx="yes">		
-			<cfdiv bind="url:InquiryListing.cfm?mode=#url.mode#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#" id="listbox" style="height:100%; width:100%;"/>				
+			<cf_securediv bind="url:InquiryListing.cfm?mode=#url.mode#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#" id="listbox" style="height:100%; width:100%;">				
 		</cf_divScroll>	
 	</td></tr>
 	</table>	

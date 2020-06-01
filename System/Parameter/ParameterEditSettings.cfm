@@ -159,7 +159,16 @@ datasource="AppsInit">
     <td width="160" class="labelmedium">Google MAP Id:</b></td>
     <TD>
     	<cfoutput query="get">
-			<cfinput tooltip="To be acquired for the domain for free on www.google.com" class="regularxl" type="Text" name="GoogleMAPId" value="#GoogleMAPId#" size="70" maxlength="100">
+			<cfinput title="To be acquired for the domain for free on www.google.com" class="regularxl" type="Text" name="GoogleMAPId" value="#GoogleMAPId#" size="70" maxlength="100">
+		</cfoutput>
+	</TD>
+	</TR>
+
+	<TR>
+    <td width="160" class="labelmedium">Google Signin Key:</b></td>
+    <TD>
+    	<cfoutput query="get">
+			<cfinput title="To be acquired for the domain for free on www.google.com" class="regularxl" type="Text" name="GoogleSigninKey" value="#GoogleSigninKey#" size="70" maxlength="100">
 		</cfoutput>
 	</TD>
 	</TR>

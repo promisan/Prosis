@@ -1218,7 +1218,7 @@ password="#SESSION.dbpw#">
 	
 	<cfif Access eq "Edit" or Access eq "Limited">		
 	 
-	    <TR>     
+	    <TR class="line">     
 		
 		<td valign="top" style="padding-top:5px" class="labelmedium"><cf_tl id="Remarks">:</td>
 				 				 
@@ -1228,7 +1228,7 @@ password="#SESSION.dbpw#">
 											
 						<cf_textarea name = "Remarks"                 				             
 						 height          = "100"																		 						 
-						 toolbar         = "basic"
+						 toolbar         = "mini"
 						 init            = "Yes"
 						 color           = "ffffff"><cfoutput>#Line.Remarks#</cfoutput></cf_textarea>
 							

@@ -1,9 +1,9 @@
 
-<cfparam name="visible"          default="yes">
-<cfparam name="boxw"             default="100%">
-<cfparam name="inputsize"        default="300">
-<cfparam name="presentation"     default="default">
-<CFParam name="Attributes.Label" default="attach">
+<cfparam name="visible"                 default="yes">
+<cfparam name="boxw"                    default="100%">
+<cfparam name="inputsize"               default="300">
+<cfparam name="presentation"            default="default">
+<CFParam name="Attributes.Label"        default="attach">
 <CFParam name="Attributes.ButtonHeight" default="20">
  
 <cf_param name="URL.mode"    		default="" type="String">
@@ -39,18 +39,14 @@
 		SELECT *
 	  	FROM Ref_Attachment
 		WHERE DocumentFileServerRoot = '#checkHost#'
-	</cfquery>
-	
+	</cfquery>	
 	
 	<cfquery name="qCheckParameter" 
 	datasource="AppsInit">
 		SELECT *
-	  	FROM Parameter
-		WHERE 
-			DocumentRootPath = '#checkHost#' OR
-			ReportRootPath   = '#checkHost#'
-	</cfquery>
-	
+	  	FROM  Parameter
+		WHERE DocumentRootPath = '#checkHost#' OR ReportRootPath   = '#checkHost#'
+	</cfquery>	
 	
 	<cfif qCheck.recordcount eq 0 AND  qCheckParameter.recordcount eq 0>
 	
@@ -93,8 +89,9 @@
 	
 		<cfset DocumentServerIsOp="0">	
 
-	</cfif>
+	</cfif>	
 	
+
 
 <table width="#boxw#" align="center" cellspacing="0" cellpadding="0">
 
@@ -104,11 +101,13 @@
 
 <cfif (insert eq "yes" or remove eq "yes") and listing eq "1">
 
+	 <input type="hidden" name="attachsubdir" id="attachsubdir" value="#Subdirectory#">		
+
 	 <!--- used to refresh data which can be called from others --->
 		
      <input type="button" 
 	     id="att_#attbox#_refresh" name="att_#attbox#_refresh" style="width:30"
-		 onclick="attrefresh('#mode#','#DocumentPath#','#host#','#Subdirectory#','#Filter#','#list#','#ShowSize#','#Listing#','#Insert#','#remove#','#color#','#attbox#','#rowheader#','#boxw#','#Align#','#Border#','#attachdialog#','#inputsize#','#pdfscript#','#embedgraphic#','#documentserver#','#presentation#','#maxfiles#')" 
+		 onclick="attrefresh('#mode#','#DocumentPath#','#host#',document.getElementById('attachsubdir').value,'#Filter#','#list#','#ShowSize#','#Listing#','#Insert#','#remove#','#color#','#attbox#','#rowheader#','#boxw#','#Align#','#Border#','#attachdialog#','#inputsize#','#pdfscript#','#embedgraphic#','#documentserver#','#presentation#','#maxfiles#')" 
 	     class="hide"> 
 	
 </cfif>
@@ -134,12 +133,11 @@
 	<cfset GetFiles = oDocumentServer
 				.SetMode("#DocumentServer#")
 				.ListSubDirectory("#SubDirectory#","#SESSION.rootDocumentPath#","#Filter#")/>
-												
-							
+									
 <cfelse>
 
-
 	<cftry>
+				
 	  <cfdirectory action="LIST" 
 		directory="#rt##DocPath#\#SubDirectory#" 
 		name="GetFileSource" 
@@ -281,6 +279,7 @@
 					<!--- -------------------------------------------- --->
 								
 					<cfif DocumentServerIsOp eq "0">
+					
 						<cfinvoke component = "Service.Document.Attachment"  
 							   method           = "VerifyDBAttachment" 
 							   server           = "#srv#"
@@ -289,6 +288,7 @@
 							   reference        = "#subdirectory#"
 							   attachmentid     = "#vAttachmentId#"
 							   returnvariable   = "Attachment">			
+							   
 					<cfelse>
 					
 					   <cfif vAttachmentId eq "">
@@ -494,8 +494,8 @@
 																																										
 										<cfif DocumentServerIsOp eq "0">			
 											<td width="50%" class="cellcontent" style="padding-left:10px" 
-											    onclick="showfile('#contextmode#','#openas#','#attachment.attachmentid#')">
-												<a href="##">#Nameshow#</a>
+											    onclick="showfile('#contextmode#','#openas#','#attachment.attachmentid#')">												
+												<a href="##">#Nameshow#</a>												
 											</td>
 										<cfelse>
 

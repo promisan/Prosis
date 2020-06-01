@@ -232,7 +232,7 @@ password="#SESSION.dbpw#">
 <cfform onSubmit="return false;" action="ApplicantEntrySubmit.cfm?idmenu=#url.idmenu#&Next=#URL.Next#&id=#URL.ID#&mission=#url.mission#&orgunit=#url.orgunit#&personno=#url.personno#&date=#url.date#" 
   method="POST" name="applicantentry" id="applicantentry">
 
-<table width="95%" border="0" cellspacing="0" align="center">
+<table width="95%" border="0" cellspacing="0" align="center" style="min-width:900px">
 
 	<tr><td style="padding-top:16px;padding-left:20px">
 	      
@@ -259,7 +259,7 @@ password="#SESSION.dbpw#">
 			
 			<TR>
 		    <TD class="labelmedium"><cf_tl id="Organization">:</TD>
-		    <TD>
+		    <TD colspan="3">
 			
 		     	<cfselect name="OrgUnit" required="Yes" class="regularxl enterastab">
 			      <cfoutput query="Org"><option value="#OrgUnit#">#OrgUnitName#</option></cfoutput>
@@ -302,7 +302,7 @@ password="#SESSION.dbpw#">
 		<tr id="entity">
 		<td class="labelmedium"><cf_tl id="Entity">:</td>
 		<td>
-		<cfdiv bind="url:getEntity.cfm?class={ApplicantClass}&mission=#url.mission#">
+		<cf_securediv bind="url:getEntity.cfm?class={ApplicantClass}&mission=#url.mission#">
 		</td>
 		</tr>
 		
@@ -461,7 +461,7 @@ password="#SESSION.dbpw#">
 			
 			<cfelse>
 			
-				<cfdiv id="Nationality_id" bind="url:getNationality.cfm?orgunit={OrgUnit}" bindOnLoad="Yes">
+				<cf_securediv id="Nationality_id" bind="url:getNationality.cfm?orgunit={OrgUnit}" bindOnLoad="Yes">
 
 			</cfif>
 			

@@ -240,7 +240,7 @@
 														INNER JOIN Ref_AccountMission Mx 
 															ON Rx.GLAccount = Mx.GLAccount
 												WHERE   Mx.Mission IN (#preserveSingleQuotes(Mission)#) 
-												AND     Rx.BankReconciliation = 1  
+												
 												AND     Rx.AccountClass       = 'Balance' <!--- balance --->
 												AND     Rx.AccountType        = 'Credit' 
 												AND     Rx.AccountCategory    = 'Customer'

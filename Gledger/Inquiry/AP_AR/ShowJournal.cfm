@@ -22,13 +22,13 @@ password="#SESSION.dbpw#">
 				   Ref_AccountMission M ON R.GLAccount = M.GLAccount
 							   
 		WHERE      M.Mission       = '#url.mission#' 
-		
-		AND        R.BankReconciliation = 1  
+				
 		AND        R.AccountClass       = 'Balance' <!--- balance --->
 			
 		<cfif url.mode eq "AR">  
-		AND        R.AccountType        = 'Debit'   
-		AND        (R.BankReconciliation = 1 OR R.AccountCategory = 'Vendor')
+		AND        (R.BankReconciliation = 1 AND R.AccountCategory IN ('Vendor','Neutral') 
+		            OR 
+				    R.AccountCategory = 'Vendor')
 		<cfelse>	
 		AND        R.AccountType        = 'Credit' 
 		AND        R.AccountCategory    = 'Customer'

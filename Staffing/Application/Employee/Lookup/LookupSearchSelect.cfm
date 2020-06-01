@@ -57,10 +57,10 @@ password="#SESSION.dbpw#">
 
 <tr><td>
   
-<table width="94%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="94%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding formspacing">
     	
 	<TR>
-	<td width="100" height="20" align="left" class="labelmedium"><cf_tl id="Entity">:</td>
+	<td style="min-width:130px" height="20" align="left" class="labelmedium"><cf_tl id="Entity">:</td>
 	<TD>
 	   <cfif Unit.Mission eq "">
 		   <cfif url.mission neq "" and url.mission neq "undefined">
@@ -75,7 +75,7 @@ password="#SESSION.dbpw#">
 	</TR>
 	 
 	<TR>
-	<td width="100" height="20" align="left" class="labelmedium"><cf_tl id="Unit class">:</td>
+	<td height="20" align="left" class="labelmedium"><cf_tl id="Unit class">:</td>
 	<TD>
 	   <cfif Unit.Mission eq "">
 	   	<INPUT type="text" name="OrgUnitClass" id="OrgUnitClass" size="30" class="regularxl">	
@@ -90,7 +90,7 @@ password="#SESSION.dbpw#">
 	<INPUT type="hidden" name="Crit2_FieldName" id="Crit2_FieldName" value="FullName">
 	<INPUT type="hidden" name="Crit2_FieldType" id="Crit2_FieldType" value="CHAR">
 	<TR>
-	<td width="100" class="labelmedium" align="left"><cf_tl id="Full Name">:<input type="hidden" name="Crit2_Operator" id="Crit2_Operator" value="CONTAINS"></td>
+	<td class="labelmedium" align="left"><cf_tl id="Full Name">:<input type="hidden" name="Crit2_Operator" id="Crit2_Operator" value="CONTAINS"></td>
 	<TD>
 		
 	<INPUT type="text" name="Crit2_Value" id="Crit2_Value" size="30" class="regularxl">
@@ -156,7 +156,7 @@ password="#SESSION.dbpw#">
 </td>
 </tr>
 
-<tr><td height="1" class="linedotted"></td></tr>
+<tr><td height="1" class="line"></td></tr>
 
 <tr><td colspan="2" align="center">
 		<cf_tl id="Search" var="1">

@@ -25,6 +25,9 @@
 	
 	    <tr>
 		<td align="center" height="100%">
+		
+		<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+		<cfset mid = oSecurity.gethash()/>   
 					
 		<cfset attrib = {type="Tab",name="wfcontain",tabstrip="false",width="926",height="870"}>
 	
@@ -32,7 +35,7 @@
 				
 			<cflayoutarea 
 		          name="#URL.ActionCode#"
-		          source="#SESSION.root#/system/entityAction/EntityFlow/ClassAction/ActionStepContainerItem.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&ActionCode=#URL.ActionCode#&PublishNo=#URL.PublishNo#"
+		          source="#SESSION.root#/system/entityAction/EntityFlow/ClassAction/ActionStepContainerItem.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&ActionCode=#URL.ActionCode#&PublishNo=#URL.PublishNo#&mid=#mid#"
 		          title="#URL.ActionCode#"		
 				  overflow="hidden"		  	 		   	 
 		          closable="true"/>

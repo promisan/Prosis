@@ -74,6 +74,7 @@ password="#SESSION.dbpw#">
 </cfif>
 
 
+
 <table width="99%" border="0" cellspacing="0" cellpadding="0" align="center">
 
 	    <tr><td height="4"></td></tr>
@@ -93,9 +94,9 @@ password="#SESSION.dbpw#">
 		
 		   <td style="padding-left:4px" width="10%">Code</td>
 		   <cfif url.type neq "Attach" and url.type neq "Field"> 
-		   <td width="40%">Description</td>
+		   <td width="40%"><cf_tl id="Description"></td>
 		   <cfelse>
-		   <td width="40%">Name</td>
+		   <td width="40%"><cf_tl id="Name"></td>
 		   </cfif>
 		   <td style="cursor:pointer">
 		   <cf_UIToolTip tooltip="Refer to Prosis Developer reference for instructions on how to define the mode based on the developed embedded form">Mode</cf_UIToolTip></td>
@@ -106,9 +107,9 @@ password="#SESSION.dbpw#">
 		   <td width="25%">
 		   	<table cellspacing="0" cellpadding="0">
 		   		<tr class="labelmedium">
-					<td width="40">Obl.</td>
+					<td width="40"><cf_tl id="Obl"></td>
 					<td>&nbsp;</td>
-					<td>Type</td>
+					<td><cf_tl id="Type"></td>
 				</tr>				
 		  	</table>
 		   </td>
@@ -122,7 +123,7 @@ password="#SESSION.dbpw#">
 		   <td colspan="2" align="right" width="70" style="padding-right:6px">
 	       <cfoutput>
 			 <cfif URL.ID2 neq "new">
-			     <A href="#ajaxLink('../../EntityObject/ObjectElement.cfm?EntityCode=#URL.EntityCode#&ID2=new&type=#URL.type#')#">add</a>
+			     <A href="#ajaxLink('../../EntityObject/ObjectElement.cfm?EntityCode=#URL.EntityCode#&ID2=new&type=#URL.type#')#"><cf_tl id="Add"></a>
 			 </cfif>
 			 </cfoutput>
 		   </td>		  
@@ -1442,8 +1443,7 @@ password="#SESSION.dbpw#">
 		</td>
 		</tr>	
 							
-</table>		
-
+</table>	
 
 <cfset AjaxOnLoad("doHighlight")>	
 <cfset AjaxOnLoad("doCalendar")>	

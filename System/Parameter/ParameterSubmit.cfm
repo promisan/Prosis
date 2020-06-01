@@ -140,6 +140,7 @@
 				   CFAdminPassword       = '#adminpw#',
 			       HostName              = '#Form.HostName#',
 				   GoogleMAPId           = '#Form.GoogleMAPId#',
+				   GoogleSigninKey       = <cfif trim(Form.GoogleSigninKey) neq "">'#trim(Form.GoogleSigninKey)#'<cfelse>NULL</cfif>,
 				   TreeAnimationPath	 = '#Form.TreeAnimationPath#',		
 				   
 			   <cfelseif item is "Location">    	

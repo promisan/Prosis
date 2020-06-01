@@ -9,10 +9,10 @@
 	<td align="right">
 
 	 <cfif URL.Page gt "1">	 
-	       <input type="button" name="Prior" id="Prior" value="<<" class="button3" onClick="ColdFusion.navigate('#SESSION.root#/tools/selectlookup/Workorder/Result.cfm?page=#url.page-1#&close=#url.close#&box=#box#&link=#url.link#&des1=#des1#&filter1=#filter1#&filter1value=#filter1value#&filter2=#filter2#&filter2value=#filter2value#&filter3=#filter3#&filter3value=#filter3value#','resultworkorder#url.box#','','','POST','selectservice')">
+	       <input type="button" name="Prior" id="Prior" value="<<" class="button3" onClick="ptoken.navigate('#SESSION.root#/tools/selectlookup/Workorder/Result.cfm?page=#url.page-1#&close=#url.close#&box=#box#&link=#url.link#&des1=#des1#&filter1=#filter1#&filter1value=#filter1value#&filter2=#filter2#&filter2value=#filter2value#&filter3=#filter3#&filter3value=#filter3value#','resultworkorder#url.box#','','','POST','selectservice')">
 	   </cfif>
 	  <cfif URL.Page lt "#Pages#">
-	       <input type="button" name="Next" id="Next" value=">>" class="button3" onClick="ColdFusion.navigate('#SESSION.root#/tools/selectlookup/Workorder/Result.cfm?page=#url.page+1#&close=#url.close#&box=#box#&link=#url.link#&des1=#des1#&filter1=#filter1#&filter1value=#filter1value#&filter2=#filter2#&filter2value=#filter2value#&filter3=#filter3#&filter3value=#filter3value#','resultworkorder#url.box#','','','POST','selectservice')">
+	       <input type="button" name="Next" id="Next" value=">>" class="button3" onClick="ptoken.navigate('#SESSION.root#/tools/selectlookup/Workorder/Result.cfm?page=#url.page+1#&close=#url.close#&box=#box#&link=#url.link#&des1=#des1#&filter1=#filter1#&filter1value=#filter1value#&filter2=#filter2#&filter2value=#filter2value#&filter3=#filter3#&filter3value=#filter3value#','resultworkorder#url.box#','','','POST','selectservice')">
 	   </cfif>
 	   &nbsp;
 	</td>	

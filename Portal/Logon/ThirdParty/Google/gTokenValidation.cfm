@@ -1,23 +1,29 @@
-<cf_tl id="Email address not verified, please verify it in Gmail and try again." var="msgEmailNotVerified">
+<cfinclude template="gSigninExists.cfm">
 
-<cfoutput>
-    <script>
-        function doGoogleTokenValidation() {
-            $.get("https://oauth2.googleapis.com/tokeninfo?id_token=#url.gTokenId#", function(data) {
-                doProsisValidation(data);
-            });
-        }
+<cfif vGoogleSigninKey neq "">
 
-        function doProsisValidation(user) {
-            if (user.email_verified) {
-                ptoken.navigate('#session.root#/Portal/Logon/ThirdParty/ProsisAuth.cfm?accountno='+user.email, 'tpAuthVal');
-            } else {
-                googleLogout(function(){
-                    alert('#msgEmailNotVerified#');
+    <cf_tl id="Email address not verified, please verify it in Gmail and try again." var="msgEmailNotVerified">
+
+    <cfoutput>
+        <script>
+            function doGoogleTokenValidation() {
+                $.get("https://oauth2.googleapis.com/tokeninfo?id_token=#url.gTokenId#", function(data) {
+                    doProsisValidation(data);
                 });
             }
-        }
 
-        doGoogleTokenValidation();
-    </script>
-</cfoutput>
+            function doProsisValidation(user) {
+                if (user.email_verified) {
+                    ptoken.navigate('#session.root#/Portal/Logon/ThirdParty/ProsisAuth.cfm?accountno='+user.email, 'tpAuthVal');
+                } else {
+                    googleLogout(function(){
+                        alert('#msgEmailNotVerified#');
+                    });
+                }
+            }
+
+            doGoogleTokenValidation();
+        </script>
+    </cfoutput>
+
+</cfif>

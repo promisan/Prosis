@@ -61,9 +61,9 @@ password="#SESSION.dbpw#">
 		</cfif>
 		<cfif url.pap neq "">
 		    <cfif GLaccount.accountclass eq "Result">
-			 AND  H.TransactionPeriod <= '#url.pap#'
+			 AND  L.TransactionPeriod = '#url.pap#'
 			<cfelse>
-			 AND  H.TransactionPeriod = '#url.pap#'
+			 AND  H.TransactionPeriod <= '#url.pap#'
 			</cfif> 
 	    </cfif>
 		<cfif url.class eq "Debit">

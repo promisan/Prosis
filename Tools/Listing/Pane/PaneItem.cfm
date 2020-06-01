@@ -30,6 +30,8 @@
 <cfparam name="attributes.transitionTime"	    default="1500">
 <cfparam name="attributes.transitionEase"	    default="swing"> <!--- http://api.jqueryui.com/easings/ --->
 
+<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+
 <cfset parentPane = getbasetagdata("CF_PANE")>
 <cfset parentId   = parentPane.attributes.id>
 
@@ -173,7 +175,7 @@
 						 						 
 						 <select id="#attributes.id#_#parentId#_period" 
 						    class="regularxl" 
-							onchange="ptoken.navigate('#linksave#&conditionvalueattribute2='+$('###attributes.id#_#parentId#_period').val(),'panesave_#parentId#_#attributes.id#');ColdFusion.navigate('#targeturl#period='+this.value+'&orgunit='+$('###attributes.id#_#parentId#_org').val()+'&mode='+$('###attributes.id#_#parentId#_selectmode').val(),'pane_#parentId#_#attributes.id#');#cus#">						
+							onchange="ptoken.navigate('#linksave#&conditionvalueattribute2='+$('###attributes.id#_#parentId#_period').val(),'panesave_#parentId#_#attributes.id#');ptoken.navigate('#targeturl#period='+this.value+'&orgunit='+$('###attributes.id#_#parentId#_org').val()+'&mode='+$('###attributes.id#_#parentId#_selectmode').val(),'pane_#parentId#_#attributes.id#');#cus#">						
 							 <cfloop index="per" list="#Attributes.Period#">
 							 
 							 	<cfif attributes.DefaultPeriod eq "">
@@ -386,7 +388,7 @@
 								  
 								  <td style="padding-left:10px">								 
 								  
-								  <input type="radio" name="#attributes.id#_#parentId#_selectmodename" <cfif row eq "1" or Attributes.DefaultList eq itm>checked</cfif> value="#itm#" onclick="ColdFusion.navigate('#linksave#&conditionvalueattribute3='+this.value,'panesave_#parentId#_#attributes.id#');$('###attributes.id#_#parentId#_selectmode').val(this.value);ColdFusion.navigate('#targeturl#period='+$('###attributes.id#_#parentId#_period').val()+'&orgunit='+#attributes.id#_#parentId#_org+'&mode=#itm#','pane_#parentId#_#attributes.id#');"></td>
+								  <input type="radio" name="#attributes.id#_#parentId#_selectmodename" <cfif row eq "1" or Attributes.DefaultList eq itm>checked</cfif> value="#itm#" onclick="ptoken.navigate('#linksave#&conditionvalueattribute3='+this.value,'panesave_#parentId#_#attributes.id#');$('###attributes.id#_#parentId#_selectmode').val(this.value);ptoken.navigate('#targeturl#period='+$('###attributes.id#_#parentId#_period').val()+'&orgunit='+#attributes.id#_#parentId#_org+'&mode=#itm#','pane_#parentId#_#attributes.id#');"></td>
 								  <td style="padding-left:4px" class="labelmedium">#itm#</td>
 								  
 							 </cfloop>
@@ -400,8 +402,9 @@
 					 </cfif>	
 					 
 					 <cfif attributes.customFilter neq "">
-						 <td style="padding-left:5px;">
-						 	<cfdiv id="paneCustomFilter_#parentId#_#attributes.id#" bind="url:#customFilterUrl#orgunit=#attributes.defaultorgunit#&period=#attributes.defaultPeriod#">
+						 <td style="padding-left:5px;">						 
+						 	<cfset mid = oSecurity.gethash()/> 						
+						 	<cfdiv id="paneCustomFilter_#parentId#_#attributes.id#" bind="url:#customFilterUrl#orgunit=#attributes.defaultorgunit#&period=#attributes.defaultPeriod#&mid=#mid#">
 						 </td>			
 					 </cfif>	
 				 
@@ -421,10 +424,11 @@
 			</td>		
 		 </tr>			 	
 		
-		 <tr><td colspan="2" style="padding-top:2px">		
-				
+		 <tr><td colspan="2" style="padding-top:2px">	
+		
+			<cfset mid = oSecurity.gethash()/>  						
 			<cfdiv id="pane_#parentId#_#attributes.id#" 
-			   bind="url:#targeturl#orgunit=#attributes.defaultorgunit#&period=#attributes.defaultPeriod#&mode=#attributes.DefaultList#">		
+			   bind="url:#targeturl#orgunit=#attributes.defaultorgunit#&period=#attributes.defaultPeriod#&mode=#attributes.DefaultList#&mid=#mid#">		
 			   
 			</td>
 		

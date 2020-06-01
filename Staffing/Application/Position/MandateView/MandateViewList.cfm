@@ -987,7 +987,7 @@
 	<!--- use to pass the new position no for a box to be presented --->
 	<input type="hidden" name="reloadpos" id="reloadpos" value="">
 	
-	<table width="99%" height="100%" cellspacing="0" cellpadding="0" style="padding-left:3px">
+	<table height="100%" style="width:100%;padding-left:3px">
 		
 		  <!--- ---- facility for moving/removing--- --->	 
 		  
@@ -1230,12 +1230,12 @@
 	     	  	 		   		  	    
 	  <tr>
 	  
-	  <td valign="top" colspan="2" style="min-width:1000px;height:100%;padding-left:7px;padding-right:7px;padding-bottom:9px" class="clsPrintContent">
+	  <td valign="top" colspan="2" style="min-width:1000px;height:100%;padding-left:7px;padding-right:7px;padding-bottom:4px" class="clsPrintContent">
 	  
 	  	<cf_divscroll overflowy="scroll">
 	        
-		<table width="100%" class="navigation_table">		
-				
+		<table style="width:97%" align="left" class="navigation_table">
+						
 			<cfif URL.Sort eq "OrgUnit">
 			  
 			   <cfif URL.ID eq "Org">

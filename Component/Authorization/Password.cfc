@@ -271,32 +271,33 @@
 						     AND 	   Disabled = 0	
 						</cfquery>  
 
-						<cfset vFilter   = "(mail=#vUserName#)">
-						<cfset vEmail    = acc>
+						<cfset vFilter  = "(mail=#vUserName#)">
+						<cfset vEmail   = acc>
 						
-						<cfldap action = "QUERY"
-						   name        = "GetUserInfo"
-						   attributes  = "samaccountname,givenName,sn,cn,name,dn"
-						   start       = "#vStart#"	
-						   scope       = "subtree"
-						   filter      = "#vFilter#"
-						   server      = "#qLDAP.LDAPServer#"
-						   username    = "#qAccount.MailServerAccount#"
-						   password    = "#vPassword#"
-						   port        = "#qLDAP.LDAPServerPort#"> 
+						<cfldap action  = "QUERY"
+						   name         = "GetUserInfo"
+						   attributes   = "samaccountname,givenName,sn,cn,name,dn"
+						   start        = "#vStart#"	
+						   scope        = "subtree"
+						   filter       = "#vFilter#"
+						   server       = "#qLDAP.LDAPServer#"
+						   username     = "#qAccount.MailServerAccount#"
+						   password     = "#vPassword#"
+						   port         = "#qLDAP.LDAPServerPort#"> 
 						
 					<cfelse>	
 					
-						<cfldap action = "QUERY"
-						   name        = "GetUserInfo"
-						   attributes  = "samaccountname,givenName,sn,cn,name,dn"
-						   start       = "#vStart#"	
-						   scope       = "subtree"
-						   filter      = "#vFilter#"
-						   server      = "#qLDAP.LDAPServer#"
-						   username    = "#vUserName#"
-						   password    = "#vPassword#"
-						   port        = "#qLDAP.LDAPServerPort#"> 
+						<cfldap action  = "QUERY"
+						   name         = "GetUserInfo"
+						   attributes   = "samaccountname,givenName,sn,cn,name,dn"
+						   start        = "#vStart#"	
+						   scope        = "subtree"
+						   filter       = "#vFilter#"
+						   server       = "#qLDAP.LDAPServer#"
+						   username     = "#vUserName#"
+						   password     = "#vPassword#"
+						   port         = "#qLDAP.LDAPServerPort#"> 
+						   
 					</cfif>	
 
 					   							         

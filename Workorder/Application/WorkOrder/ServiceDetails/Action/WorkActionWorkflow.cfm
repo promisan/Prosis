@@ -13,7 +13,8 @@
 	password="#SESSION.dbpw#">
 	    SELECT * 
 		FROM   OrganizationObject
-		WHERE  ObjectKeyValue4  = '#URL.AjaxId#'			
+		WHERE  ObjectKeyValue4  = '#URL.AjaxId#'	
+		AND    Operational = 1		
 </cfquery>
 
 <cfif WorkOrderLineAction.recordcount eq "0">
@@ -21,7 +22,7 @@
 	<table align="center"><tr><td align="center" class="labelmedium"><cf_tl id="Record is no longer in the database"></td></tr></table>
 
 <cfelse>
-	
+
 	<cfquery name="wfWorkorder" 
 		datasource="AppsWorkOrder" 
 		username="#SESSION.login#" 
@@ -77,6 +78,7 @@
 	</cfquery>	
 	
 	<cfset link = "WorkOrder/Application/WorkOrder/ServiceDetails/Action/WorkActionView.cfm?drillid=#url.ajaxid#">			
+	
 	
 	<cf_stringtoformat value="#wfworkorderline.reference#" format="#domain.DisplayFormat#">	
 					

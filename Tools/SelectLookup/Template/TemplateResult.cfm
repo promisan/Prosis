@@ -90,9 +90,9 @@ password="#SESSION.dbpw#">
 			<cfset path = replace(pathname,'\','\\','ALL')> 
 			
 			<cfif url.close eq "Yes">
-			<cf_img icon="open" navigation="Yes" onclick="ColdFusion.navigate('#link#&action=insert&#url.des1#=#path#&#url.des2#=#filename#','#url.box#');ColdFusion.Window.hide('dialog#url.box#')">		
+			<cf_img icon="open" navigation="Yes" onclick="ptoken.navigate('#link#&action=insert&#url.des1#=#path#&#url.des2#=#filename#','#url.box#');ColdFusion.Window.hide('dialog#url.box#')">		
 			<cfelse>
-			<cf_img icon="open" navigation="Yes" onclick="ColdFusion.navigate('#link#&action=insert&#url.des1#=#path#&#url.des2#=#filename#','#url.box#')">
+			<cf_img icon="open" navigation="Yes" onclick="ptoken.navigate('#link#&action=insert&#url.des1#=#path#&#url.des2#=#filename#','#url.box#')">
 			</cfif>
 						  
 			</TD>

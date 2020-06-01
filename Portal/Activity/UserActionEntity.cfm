@@ -73,19 +73,19 @@ ORDER BY U.Mission, N.LastName, U.NodeIp, U.HostName
 <tr>
 	<td>
 	<table width="100%" cellspacing="0" cellpadding="0" class="navigation_table formpadding">
-	<tr>
+	<tr class="fixrow line labelmedium">
 	<td height="21" class="label"></td>
-	<td class="labelit">Entity</td>
-	<td class="labelit">Account</td>
-	<td class="labelit">Owner</td>
-	<td class="labelit">Name</td>	
-	<td class="labelit">Ses.</td>
+	<td>Entity</td>
+	<td>Account</td>
+	<td>Owner</td>
+	<td>Name</td>	
+	<td>Ses.</td>
 	<td></td>
-	<td class="labelit"><cf_tl id="IP"></td>
-	<td class="labelit"><cf_tl id="Browser"></td>
-	<td class="labelit"><cf_tl id="Host"></td>
-	<td class="labelit"><cf_tl id="Last action"></td>
-	<td class="labelit"><cf_tl id="Active"></td>
+	<td><cf_tl id="IP"></td>
+	<td><cf_tl id="Browser"></td>
+	<td><cf_tl id="Host"></td>
+	<td><cf_tl id="Last action"></td>
+	<td><cf_tl id="Active"></td>
 	<td></td>
 </tr>
 

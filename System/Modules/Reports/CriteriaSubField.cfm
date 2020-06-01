@@ -45,9 +45,9 @@ username="#SESSION.login#"
 password="#SESSION.dbpw#">
     SELECT *
     FROM  Ref_ReportControlCriteriaField
-	WHERE ControlId = '#URL.ID#'
+	WHERE ControlId    = '#URL.ID#'
 	AND   CriteriaName = '#URL.ID1#'
-	AND   FieldOrder = '99'
+	AND   FieldOrder   = '99'
 </cfquery>
 
 <cfif Check.FieldName neq url.keyfld>
@@ -130,12 +130,12 @@ datasource="#url.ds#">
 
 <cfset submitlink = "CriteriaSubFieldSubmit.cfm?Status=#URL.Status#&ID=#URL.ID#&ID1=#URL.ID1#&ID2=#URL.ID2#&table=#URL.table#&multiple=#URL.Multiple#&ds=#url.ds#">
 
-	<table width="97%" border="0" cellspacing="0" cellpadding="0" align="left">
+	<table width="97%" align="left">
 	    
 	  <tr>
 	    <td width="100%">
 		
-	    <table width="100%" cellspacing="0" cellpadding="0" class="formpadding">
+	    <table width="100%" class="formpadding">
 			
 	    <TR>
 		   <td width="20"></td>
@@ -147,8 +147,8 @@ datasource="#url.ds#">
 		   
 		     <cfif (URL.Status eq "0" or SESSION.isAdministrator eq "Yes") and (URL.Multiple eq "1" or URL.Multiple eq "0" and detail.recordcount lte "2")>
 			 <cfoutput>
-			 <div onClick="ColdFusion.navigate('CriteriaSubField.cfm?Status=#URL.Status#&ID=#URL.ID#&ID1=#URL.ID1#&ID2=new&table=#URL.table#&Multiple=#URL.Multiple#&ds=#url.ds#&keyfld=#url.keyfld#','isubfield')">			 
-		     <A><font color="0080FF">Add</font></a>
+			 <div onClick="ptoken.navigate('CriteriaSubField.cfm?Status=#URL.Status#&ID=#URL.ID#&ID1=#URL.ID1#&ID2=new&table=#URL.table#&Multiple=#URL.Multiple#&ds=#url.ds#&keyfld=#url.keyfld#','isubfield')">			 
+		     <A>Add</a>
 			 </div>
 			 </cfoutput>
 			 </cfif>
@@ -182,8 +182,6 @@ datasource="#url.ds#">
 					 		
 								<table width="99%"
 							       border="1"
-							       cellspacing="0"
-							       cellpadding="0"
 							       align="center"
 							       bordercolor="C0C0C0"
 							       bgcolor="F4FBFD"
@@ -384,9 +382,10 @@ datasource="#url.ds#">
 								<tr>
 								<td>
 					
-								<cf_UIToolTip tooltip="Only for Presentation Web dialog the developer may define the a global variable field which values will limit the content of the select boxes.">
+								<cf_UIToolTip tooltip="So the developer may define a field as global which will limit the content of the select boxes.">
 								<img src="#SESSION.root#/Images/help2.gif" align="absmiddle" alt="" border="0">&nbsp;Filter global:
 								</cf_UIToolTip>
+								
 								</td>
 								
 								<td colspan="3">

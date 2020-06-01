@@ -10,7 +10,6 @@
 	  WHERE  ProgramCode = '#URL.ProgramCode#'
 </cfquery>	  
 
-
 <cfquery name="Review" 
 	  datasource="AppsProgram" 
 	  username="#SESSION.login#" 

@@ -174,7 +174,7 @@ password="#SESSION.dbpw#">
 				<td class="labellarge" style="padding-left:4px">#CustomerName#</td>
 				<td class="labellarge" style="padding-left:4px"><cfif CustomerName neq CustomerInvoice>#CustomerInvoice#<cfelse>..</cfif></td>
 				<td class="labellarge" style="padding-left:4px">#BatchMemo#</td>					
-				<td class="labellarge" style="padding-left:4px">#ActionOfficerLastName#</td>
+				<td class="labellarge" style="padding-left:4px">#ActionOfficerFirstName# #ActionOfficerLastName#</td>
 				<td class="labellarge" style="padding-left:4px">
 				<cfif datediff("d",TransactionDate,Created) eq "0">
 				#timeformat(Created,"HH:MM")#

@@ -20,12 +20,11 @@
 
 <cfset nme = replace(Item.ItemDescription,"'","","ALL")>
 
-<cfajaximport tags="cfwindow,cfdiv,cfform,cfinput-datefield">
+<cfajaximport tags="cfwindow,cfdiv,cfform">
 <cf_menuscript>
 <cf_TextareaScript>
 <cf_calendarscript>
 <cf_filelibraryscript>
-
 
 <cfif url.uom neq "">
 
@@ -51,31 +50,29 @@
 	
 </cfif>
 
+<!---
 <cf_PrinterQZTray>
+--->
 
 <cfoutput>
 
 <script language="JavaScript">
 
-function calculateVolume()
-{
+function calculateVolume() {
 		
 	var l =0;
 	var h =0;
 	var w =0;
 		
-	if ($('##ItemUoMHeight').val()!='')
-	{
+	if ($('##ItemUoMHeight').val()!='')	{
 		h=$('##ItemUoMHeight').val()		
 	}
 	
-	if ($('##ItemUoMLength').val()!='')
-	{
+	if ($('##ItemUoMLength').val()!='')	{
 		l=$('##ItemUoMLength').val()		
 	}
 	
-	if ($('##ItemUoMWidth').val()!='')
-	{
+	if ($('##ItemUoMWidth').val()!='') {
 		w=$('##ItemUoMWidth').val()		
 	}	
 	
@@ -84,8 +81,7 @@ function calculateVolume()
 }
 
 function uompriceedit(itm,uom,price,selectedmission) {     
-   ColdFusion.Window.create('mydialog', 'Price', '',{x:30,y:30,height:document.body.clientHeight-60,width:document.body.clientWidth-60,modal:true,center:true});    
-   ColdFusion.Window.show('mydialog'); 				
+   ProsisUI.createWindow('mydialog', 'Price', '',{x:30,y:30,height:document.body.clientHeight-60,width:document.body.clientWidth-60,modal:true,center:true});       				
    ptoken.navigate('UoMPrice/ItemUoMPrice.cfm?id='+itm+'&uom='+uom+'&price='+price,'mydialog') 		  
 }
 
@@ -98,8 +94,7 @@ function uompricedelete(itm,uom,price,selectedmission) {
 }
 
 function uommissionedit(itm,uom,mission) {  
-   ColdFusion.Window.create('mydialog', 'Entity', '',{x:30,y:30,height:document.body.clientHeight-60,width:document.body.clientWidth-60,modal:true,center:true});    
-   ColdFusion.Window.show('mydialog'); 				
+   ProsisUI.createWindow('mydialog', 'Entity', '',{x:30,y:30,height:document.body.clientHeight-60,width:document.body.clientWidth-60,modal:true,center:true});       	
    ptoken.navigate('UoMMission/ItemUoMMission.cfm?id='+itm+'&uom='+uom+'&mission='+mission,'mydialog') 		    
 }
 
@@ -195,7 +190,7 @@ function BOMInheritSubmit(frm,box,target) {
 	if (proceed_material) {
 		document.getElementById(frm).onsubmit()
 		if (_CF_error_messages.length == 0) {
-			ColdFusion.navigate(target, box, '', '', 'POST', frm)
+			ptoken.navigate(target, box, '', '', 'POST', frm)
 		}
 		
 	} else {
@@ -250,13 +245,11 @@ function printEPL(barcode,itemno,uom,desc) {
 	var x = 122;
 	var y = 120;
 	var str =""; 
-	
-	
+		
 	for (i = 0; i < aStr.length; i++) {
 		str = str+'A'+x+','+y+',0,3,1,1,N,"'+aStr[i]+'"\n';
 		y = y + 20;
 	}                                                             
-
 
     var data = [
       '\nN\n',
@@ -273,16 +266,19 @@ function printEPL(barcode,itemno,uom,desc) {
 
 </cfoutput>
 
-<table width="100%" height="100%" cellspacing="0" cellpadding="0" align="center">
+<table width="100%" height="100%" align="center">
 
 	<tr><td height="4" id="process2"></td></tr>	 
 	
-	<tr><td height="40" id="menubox" style="padding:4px">
+	<cfif url.uom neq "">
+	
+	<tr class="line"><td height="40" id="menubox" style="padding:4px">
 		<cfinclude template="ItemUoMTabMenu.cfm">			
 	</td>
 	</tr>	
-		
-	<tr><td height="1" colspan="2" class="line"></td></tr>						
+	
+	</cfif>
+			
 	<tr>
 	
 		<td colspan="2" height="100%" valign="top">

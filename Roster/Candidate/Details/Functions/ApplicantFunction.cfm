@@ -800,7 +800,7 @@ password="#SESSION.dbpw#">
 			</td></tr>
 			
 			<tr><td colspan="11">
-			    <cfdiv id="reason" bind="url:#SESSION.root#/Roster/RosterSpecial/RosterProcess/ApplicationFunctionEditReason.cfm?status=1&owner=#url.Owner#">			
+			    <cf_securediv id="reason" bind="url:#SESSION.root#/Roster/RosterSpecial/RosterProcess/ApplicationFunctionEditReason.cfm?status=1&owner=#url.Owner#">			
 			</td></tr>
 		
 		</cfif>

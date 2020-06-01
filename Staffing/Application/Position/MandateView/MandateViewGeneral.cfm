@@ -74,7 +74,7 @@
 		
 		<tr><td align"center" id="list" height="100%" style="padding-left:5px">		
 			
-		    <cfdiv style="height:100%" bind="url:MandateViewList.cfm?#cgi.query_string#&lay=listing">			
+		    <cf_securediv style="height:100%" bind="url:MandateViewList.cfm?#cgi.query_string#&lay=listing">			
 		
 		</td></tr></table> 			
 			

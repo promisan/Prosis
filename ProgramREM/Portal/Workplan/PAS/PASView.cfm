@@ -180,8 +180,12 @@ password="#SESSION.dbpw#">
 	 
 <cfoutput>
 
+<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+<cfset mid = oSecurity.gethash()/>  
+
 <cf_layout attributeCollection="#attrib#">
 
+    <!---
 	<cfif URL.scope neq "hyperlink">
     
 	<cf_layoutarea 
@@ -193,12 +197,14 @@ password="#SESSION.dbpw#">
 		size 	  = "15px">	
 	
 	   <table width="100%"  height="99%">	 
-	   <!--- <tr><td valign="top" height="10" style="padding-top:3px"><cfinclude template="PASBanner.cfm"></td></tr> --->	   
+	    <tr><td valign="top" height="10" style="padding-top:3px"><cfinclude template="PASBanner.cfm"></td></tr>    
 	   </table>
 		 			  
 	</cf_layoutarea>	
 	
 	</cfif>		
+	
+	--->	
 	
 	<cfparam name="url.owner" default="">
 				
@@ -217,7 +223,7 @@ password="#SESSION.dbpw#">
 				overflow    = "hidden"
 				splitter    = "true">
 				
-				<table width="100%" height="99%"><tr><td align="center">	
+				<table width="100%" height="100%"><tr><td align="center" style="padding-top:10px">	
 				
 				<iframe src="PASMenu.cfm?Section=#Check.code#&PersonNo=#URL.PersonNo#&Id=#URL.ContractId#"
 		        name="left" id="left" width="100%" height="100%" style="overflow:hidden"
@@ -233,18 +239,17 @@ password="#SESSION.dbpw#">
 		
 	<cf_layoutarea position="center" name="box" style = "border-right:1px solid 6688aa">
 				
-        <cf_divscroll>
-		
-`			<table width="100%" height="97%">
-			<tr><td>						
-				<iframe src="../#Check.TemplateURL#?Code=#URL.Code#&PersonNo=#URL.PersonNo#&Section=#Check.Code#&Topic=#Check.TemplateTopicId#&ContractId=#URL.ContractID##Check.TemplateCondition#"
-		        name="right" id="right" width="100%" height="99%" scrolling="no"
+`			<table width="100%" height="100%">
+			<tr><td valign="top" style="padding-bottom:10px">	
+			 			     					
+				<iframe src="../#Check.TemplateURL#?Code=#URL.Code#&PersonNo=#URL.PersonNo#&Section=#Check.Code#&Topic=#Check.TemplateTopicId#&ContractId=#URL.ContractID##Check.TemplateCondition#&mid=#mid#"
+		        name="right" id="right" width="100%" height="100%" scrolling="no"
 		        frameborder="0"></iframe>
+				
 				</td>
 			</tr>
 			</table>
-				
-		</cf_divscroll>			
+		
 	</cf_layoutarea>	
 	
 					

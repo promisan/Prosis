@@ -28,8 +28,7 @@
 		WHERE       CustomerId = '#url.Customerid#'			 
 </cfquery>	
 
-<cfif url.requestid neq "">
-	
+<cfif url.requestid neq "">	
 		
 	<cfquery name="Request" 
 	 datasource="AppsWorkOrder" 

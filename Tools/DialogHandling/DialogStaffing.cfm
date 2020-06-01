@@ -7,7 +7,6 @@
 <cfajaximport tags="cfwindow">
 
 <script>
-
  
 var root = "#root#";
 var myvar1 = ""
@@ -48,13 +47,13 @@ function AddPerson() {
 }
 
 function lookuppersonadd(box,link) {
-    ColdFusion.navigate('#session.root#/Staffing/Application/Employee/PersonEntryForm.cfm?link='+link+'&box='+box+'&mode=lookup','searchresult'+box)	
+    ptoken.navigate('#session.root#/Staffing/Application/Employee/PersonEntryForm.cfm?link='+link+'&box='+box+'&mode=lookup','searchresult'+box)	
 }		
 				
 function lookuppersonvalidate(mode,box,link) {   
 	document.formperson.onsubmit() 
 	if( _CF_error_messages.length == 0 ) {
-           	ColdFusion.navigate('#session.root#/Staffing/Application/Employee/PersonEntrySubmit.cfm?link='+link+'&box='+box+'&mode=lookup','personresult','','','POST','formperson')
+           	ptoken.navigate('#session.root#/Staffing/Application/Employee/PersonEntrySubmit.cfm?link='+link+'&box='+box+'&mode=lookup','personresult','','','POST','formperson')
     }   
 }
 
@@ -63,7 +62,7 @@ function lookuppersonvalidate(mode,box,link) {
 function personedit(id) {
 	parent.ProsisUI.createWindow('personedit', 'Amend Staff profile information', '',{x:100,y:100,height:parent.document.body.clientHeight-75,width:parent.document.body.clientWidth-75,modal:true,center:true,resizable:false})    
 	// parent.ColdFusion.Window.show('personedit')					
-	parent.ColdFusion.navigate(root + '/Staffing/Application/Employee/PersonEditView.cfm?ID=' + id,'personedit') 
+	parent.ptoken.navigate(root + '/Staffing/Application/Employee/PersonEditView.cfm?ID=' + id,'personedit') 
 }
 
 // this is the call back
@@ -71,7 +70,7 @@ function personrefresh(id) {
     history.go()
 	se = parent.document.getElementById("banner")	
 	if (se) {
-		parent.ColdFusion.navigate('PersonViewBanner.cfm?id='+id,'banner') 
+		parent.ptoken.navigate('PersonViewBanner.cfm?id='+id,'banner') 
  	} 
 }
 
@@ -208,18 +207,14 @@ function showdocumentcandidate(vacno,persno,status) {
 	  }  
 
 function selectfunction(formname,fldfunctionno,fldfunctiondescription,owner,param1,param2) {
-
      try { ProsisUI.closeWindow('myfunction',true) } catch(e) {}
 	 ProsisUI.createWindow('myfunction', 'Functional Titles', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,resizable:false,center:true})    					
-	 ptoken.navigate(root + "/Staffing/Application/Function/Lookup/FunctionView.cfm?FormName=" + formname + "&fldfunctionno=" + fldfunctionno + "&fldfunctiondescription=" + fldfunctiondescription + "&owner=" + owner + "&param1=" + param1 + "&param2=" + param2,'myfunction') 	
-	
+	 ptoken.navigate(root + "/Staffing/Application/Function/Lookup/FunctionView.cfm?FormName=" + formname + "&fldfunctionno=" + fldfunctionno + "&fldfunctiondescription=" + fldfunctiondescription + "&owner=" + owner + "&param1=" + param1 + "&param2=" + param2,'myfunction') 		
 }
  
 function EditApplicant(id) {
-
 	ProsisUI.createWindow('mydialog', 'Edit', '',{x:100,y:100,height:document.body.clientHeight-90,width:650,modal:true,center:true})  				
-	ptoken.navigate(root + '/Roster/Candidate/Details/Applicant/ApplicantView.cfm?id=' + id,'mydialog') 		
-      
+	ptoken.navigate(root + '/Roster/Candidate/Details/Applicant/ApplicantView.cfm?id=' + id,'mydialog') 		      
 }
 
 function refreshheader(id)  {
@@ -272,12 +267,12 @@ function selectzip(fldzip,fldcity,fldcountry,mode) {
 		 myvar3 = fldcountry
 				 
 		 ProsisUI.createWindow('myzip', 'ZIP', '',{x:100,y:100,height:560,width:560,modal:true,center:true})    		 				
-		 ColdFusion.navigate(root + '/Tools/Input/ZIP/ZIPView.cfm?country='+sCountry,'myzip') 						 
+		 ptoken.navigate(root + '/Tools/Input/ZIP/ZIPView.cfm?country='+sCountry,'myzip') 						 
 }
 
 function zipapply(zip,city,country) {
 		
-		ColdFusion.navigate('#SESSION.root#/Tools/Input/ZIP/ZIPFind.cfm?fld='+myvar1+'&code='+zip,'zipfind_'+myvar1)	
+		ptoken.navigate('#SESSION.root#/Tools/Input/ZIP/ZIPFind.cfm?fld='+myvar1+'&code='+zip,'zipfind_'+myvar1)	
   		
 		// populate screen values
 				
@@ -299,7 +294,6 @@ function zipapply(zip,city,country) {
 }		 
  
 </script>
-
 
 <cfinclude template="DialogMail.cfm">
 

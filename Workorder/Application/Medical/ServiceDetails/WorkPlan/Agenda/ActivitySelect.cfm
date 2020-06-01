@@ -130,8 +130,9 @@
 		<cfif match eq "0">	
 		    <cfset url.orgunit = unit.orgunit>			
 		</cfif>
-								
+												
 		<cfinclude template="ActivitySelectPerson.cfm">		
+		
 		
 			
 		</td></tr>

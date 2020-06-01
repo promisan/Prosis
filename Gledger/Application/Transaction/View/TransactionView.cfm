@@ -139,7 +139,7 @@ function applyprogram(prg,scope) {
 }  
 
 function view(sum) {
-	ptoken.open("TransactionViewDetail.cfm?embed=#url.embed#&journal=#url.journal#&journalserialNo=#url.journalserialno#&mode=regular&summary="+sum,"_self")
+	ptoken.open("TransactionView.cfm?embed=#url.embed#&journal=#url.journal#&journalserialNo=#url.journalserialno#&mode=regular&summary="+sum,"_self")
 }
 
 function more(bx) {
@@ -177,7 +177,7 @@ function present(mode) {
 	  docid = document.getElementById("printdocumentid").value
 	  		  
 	  if (docid != "") {			   
-		  window.open("#SESSION.root#/Tools/Mail/MailPrepare.cfm?docid="+docid+"&id="+mode+"&id1=#Transaction.transactionid#","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")
+		  ptoken.open("#SESSION.root#/Tools/Mail/MailPrepare.cfm?docid="+docid+"&id="+mode+"&id1=#Transaction.transactionid#","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")
 	  } else {
 	      alert("No format selected")
 	  }	  
@@ -185,7 +185,7 @@ function present(mode) {
   
 function del(jrn,ser) {
 	if (confirm("Do you want to delete this transaction ?")) {
-	   window.location = "TransactionPurge.cfm?jrn=#URL.Journal#&ser=#URL.JournalSerialNo#&journal="+jrn+"&journalserialno="+ser
+	   ptoken.location("TransactionPurge.cfm?jrn=#URL.Journal#&ser=#URL.JournalSerialNo#&journal="+jrn+"&journalserialno="+ser)
 	}
 }
     
@@ -254,8 +254,7 @@ password="#SESSION.dbpw#">
 	<cf_message message="#lt_text#" return="close">
 	<cfabort>
 
-</cfif>	   
-
+</cfif>	 
 
 <!--- ----------------------------------------------------- --->
 <!--- recalculated the balance outstanding of a transaction --->
@@ -268,7 +267,6 @@ password="#SESSION.dbpw#">
 	    journalserialNo="#url.journalserialNo#">
 								
 </cfif>
-
 
 <cfif Transaction.OrgUnitOwner eq "0">
 
@@ -419,7 +417,7 @@ password="#SESSION.dbpw#">
 <cfelse>
 
 		<cf_screentop height="100%" 
-              html="no" 
+              html="yes" 
 			  title="#title#" 
 			  layout="webapp" 			 
 			  line="no"			  
@@ -434,10 +432,7 @@ password="#SESSION.dbpw#">
 		<cfparam name="url.summary" default="1">	
 		
 		<cf_divscroll style="height:98%">		 
-			     <cfinclude template="TransactionViewDetail.cfm">
+			<cfinclude template="TransactionViewDetail.cfm">
 		</cf_divscroll>		  			  
 			  
-</cfif>			  
-
-
- 
+</cfif>	

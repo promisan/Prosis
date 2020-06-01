@@ -76,13 +76,13 @@ function hl(itm,fld){
 
 </cfif>
   
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<table width="100%">
 
 <tr>			
     
 		<td style="padding-left:0px">		
 		<cfset row = 0>		
-		<table border="0" cellspacing="0" cellpadding="0">
+		<table>
 			
 			<cfoutput query="GroupAll">		
 					
@@ -92,7 +92,7 @@ function hl(itm,fld){
 			
 			<td>
 			
-				<table cellspacing="0" cellpadding="0" bgcolor="white">
+				<table bgcolor="white">
 						
 				      <TR bgcolor="white">					
 					
@@ -101,9 +101,9 @@ function hl(itm,fld){
 							<TD style="height:14px;padding-right:4px">
 						
 							<cfif PositionNo eq "">
-							<input type="checkbox" name="positiongroup" value="#GroupCode#" onClick="hl(this,this.checked)">
+							<input type="checkbox" class="radiol" name="positiongroup" value="#GroupCode#" onClick="hl(this,this.checked)">
 							<cfelse>
-							<input type="checkbox" name="positiongroup" value="#GroupCode#" checked onClick="hl(this,this.checked)">
+							<input type="checkbox" class="radiol" name="positiongroup" value="#GroupCode#" checked onClick="hl(this,this.checked)">
 						    </cfif>
 							
 							</td>

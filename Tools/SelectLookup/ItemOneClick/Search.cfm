@@ -76,7 +76,7 @@
 	   name="search"
 	   id="search"
 	   value="<cfoutput>#lt_text#</cfoutput>" 
-	   onclick="ColdFusion.navigate('#SESSION.root#/tools/selectlookup/ItemOneClick/Result.cfm?page=1&close=#url.close#&box=#url.box#&link=#url.link#&des1=#url.des1#&filter1=#url.filter1#&filter1value=#url.filter1value#&filter2=#url.filter2#&filter2value=#url.filter2value#','result#url.box#','','','POST','select_#url.box#')"
+	   onclick="ptoken.navigate('#SESSION.root#/tools/selectlookup/ItemOneClick/Result.cfm?page=1&close=#url.close#&box=#url.box#&link=#url.link#&des1=#url.des1#&filter1=#url.filter1#&filter1value=#url.filter1value#&filter2=#url.filter2#&filter2value=#url.filter2value#','result#url.box#','','','POST','select_#url.box#')"
 	   class="button10g">
 	   
 </td></tr>

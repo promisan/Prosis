@@ -25,7 +25,7 @@
 				<input type="password" 
 				    style="width:220;height:40;font-size:25px" 
 					onKeydown="if (window.event.keyCode == '13') {return false}"
-					onKeyup="if (window.event.keyCode == '13') {ColdFusion.navigate('ProcessActionPasswordValidate.cfm?wfmode=#url.wfmode#','passwordvalidate','','','POST','formpwdvalidate');return false}"
+					onKeyup="if (window.event.keyCode == '13') {ptoken.navigate('ProcessActionPasswordValidate.cfm?wfmode=#url.wfmode#','passwordvalidate','','','POST','formpwdvalidate');return false}"
 					name="ProcessPassword" 		
 					id="ProcessPassword"							
 					class="regularxl">
@@ -56,7 +56,7 @@
 			    <input type = "button" 
 			      name    = "cancel" 
 				  id      = "cancel"
-			      onclick = "ColdFusion.Window.hide('boxauth');document.getElementById('r0').click()" 
+			      onclick = "ProsisUI.closeWindow('boxauth');document.getElementById('r0').click()" 
 				  value   = "#lt_text#" 
 				  class   = "button10g"
 				  style   = "width:120;height:20">
@@ -69,7 +69,7 @@
 				<input type = "button" 
 				      name    = "saveaction"
 					  id      = "saveaction" 
-				      onclick = "ColdFusion.navigate('ProcessActionPasswordValidate.cfm?wfmode=#url.wfmode#','passwordvalidate','','','POST','formpwdvalidate')" 
+				      onclick = "ptoken.navigate('ProcessActionPasswordValidate.cfm?wfmode=#url.wfmode#','passwordvalidate','','','POST','formpwdvalidate')" 
 					  value   = "#lt_text#" 
 					  class   = "button10g"
 					  style   = "width:120;height:20">

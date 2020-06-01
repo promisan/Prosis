@@ -8,8 +8,9 @@
 <script language="JavaScript">
 	
 	function reqedit(id,qty) {	
-		if (parseFloat(qty)) {
-		   ColdFusion.navigate('setLineQuantity.cfm?role=#role#&sorting=#URL.Sorting#&id='+id+'&quantity='+qty,'amount_'+id)
+		if (parseFloat(qty)) {		
+		   _cf_loadingtexthtml='';	
+		   ptoken.navigate('setLineQuantity.cfm?role=#role#&sorting=#URL.Sorting#&id='+id+'&quantity='+qty,'amount_'+id)
 		   } else  {
 			  alert("#vQuantity# "+qty+")")
 		}				
@@ -20,7 +21,7 @@
 	}	
 	
 	function reload(id,act,sid) {	 
-	    window.location = "ClearanceListingZoom.cfm?idmenu="+sid+"&ts="+new Date().getTime()+"&mission=#URL.Mission#&id=" + id + "&act=" + act
+	    ptoken.location('ClearanceListingZoom.cfm?idmenu='+sid+'&ts='+new Date().getTime()+'&mission=#URL.Mission#&id=' + id + '&act=' + act)
 	 }
 	 
 	function resort(sort) {
@@ -47,7 +48,7 @@
 			   se.className = "hide"			
 		} else {
 		se.className = "regular"		
-		ColdFusion.navigate(url,'i'+id)	
+		ptoken.navigate(url,'i'+id)	
 	    }	
 	}  
 
@@ -72,7 +73,7 @@
 			
 			<tr><td>
 			 
-		    <table width="95%" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+		    <table width="95%" align="center" class="navigation_table">
 		  
 		    <tr>
 		      <td colspan="6" style="height:40;padding-top:10px" class="labellarge"><cfoutput>#action#</cfoutput></td>		  
@@ -91,30 +92,28 @@
 				  
 		    </tr>
 			
-			<tr class="linedotted">
+			<tr class="line labelmedium">
 			    <TD height="20" width="20"></TD>
 				<TD width="20"></TD>
-				<TD width="12%" class="labelit"><cf_tl id="Reference"></TD>
-				<TD width="20%" class="labelit"><cf_tl id="Requester"></TD>
-				<TD width="40"  class="labelit"><cf_tl id="Item"></TD>
-				<TD width="30%" class="labelit"><cf_tl id="Description"></TD>
-			    <TD width="6%"  class="labelit"><cf_tl id="UoM"></TD>
-			    <TD width="6%"  class="labelit" align="right"><cf_tl id="Quantity"></TD>
-				<td width="8%"  class="labelit" align="right"><cf_tl id="Price"></td>
-				<td width="8%"  class="labelit" style="padding-right:10px" align="right"><cf_tl id="Total"></td>
+				<TD width="12%"><cf_tl id="Reference"></TD>
+				<TD width="20%"><cf_tl id="Requester"></TD>
+				<TD width="40"><cf_tl id="Item"></TD>
+				<TD width="30%"><cf_tl id="Description"></TD>
+			    <TD width="6%"><cf_tl id="UoM"></TD>
+			    <TD width="6%" align="right"><cf_tl id="Quantity"></TD>
+				<td width="8%" align="right"><cf_tl id="Price"></td>
+				<td width="8%" style="padding-right:10px" align="right"><cf_tl id="Total"></td>
 			</TR>
-			<tr><td colspan="10" class="linedotted"></td></tr>
-		
-		        <cfset amtT     = 0>	
-				<cfset subt     = 0>
+					
+		    <cfset amtT     = 0>	
+			<cfset subt     = 0>
 				
 	        <cfoutput query = "SearchResult" group="#URL.Sorting#">					
 
 		        <cfset amt      = 0>				
 				<cfset subt = subt+1>
-		    
-			<tr class="line"><td colspan="10"></td></tr>
-		    <tr>
+		    			
+		    <tr class="labelmedium">
 			
 		       <cfswitch expression="#URL.Sorting#">
 			        <cfcase value = "RequestDate">
@@ -123,8 +122,8 @@
 						SELECT sum(RequestedAmount) as RequestedAmount FROM SearchResult WHERE RequestDate = '#requestDate#'
 					</cfquery>
 					
-			        <td colspan="9" style="height:25" class="labelmedium">#Dateformat(RequestDate, "#CLIENT.DateFormatShow#")#</td>
-					<td class="labelmedium" align="right" id="subtotal_#subt#" style="padding-right:5px">#NumberFormat(subtotal.RequestedAmount,'_____,__.__')#</td>						
+			        <td colspan="9" style="height:25">#Dateformat(RequestDate, "#CLIENT.DateFormatShow#")#</td>
+					<td align="right" id="subtotal_#subt#" style="padding-right:5px">#NumberFormat(subtotal.RequestedAmount,',.__')#</td>						
 					</cfcase>
 					
 					<cfcase value = "ShipToWarehouse">
@@ -133,8 +132,8 @@
 						SELECT sum(RequestedAmount) as RequestedAmount FROM SearchResult WHERE ShipToWarehouseName = '#ShipToWarehouseName#'
 					</cfquery>
 					
-			        <td colspan="9" style="height:25" class="labelmedium">#ShipToWarehouseName#</td>
-					<td class="labelmedium" align="right" id="amount_#subt#" style="padding-right:5px">#NumberFormat(subtotal.RequestedAmount,'_____,__.__')#</td>									
+			        <td colspan="9" style="height:25">#ShipToWarehouseName#</td>
+					<td align="right" id="amount_#subt#" style="padding-right:5px">#NumberFormat(subtotal.RequestedAmount,',.__')#</td>									
 			        </cfcase>
 					
 			        <cfcase value = "HierarchyCode">
@@ -143,8 +142,8 @@
 						SELECT sum(RequestedAmount) as RequestedAmount FROM SearchResult WHERE OrgUnitName = '#OrgUnitName#'
 					</cfquery>
 					
-			        <td colspan="9" style="height:25" class="labelmedium">#Mission# #OrgUnitName#</td> 					
-					<td class="labelmedium" align="right" id="amount_#subt#" style="padding-right:5px">#NumberFormat(subtotal.RequestedAmount,'_____,__.__')#</td>								
+			        <td colspan="9" style="height:25">#Mission# #OrgUnitName#</td> 					
+					<td align="right" id="amount_#subt#" style="padding-right:5px">#NumberFormat(subtotal.RequestedAmount,',.__')#</td>								
 			        </cfcase>	 
 					
 			        <cfcase value = "ItemDescription">
@@ -153,8 +152,8 @@
 						SELECT sum(RequestedAmount) as RequestedAmount FROM SearchResult WHERE ItemNo = '#ItemNo#'
 					</cfquery>
 					
-			      	<td colspan="9" style="height:25" class="labelmedium">#ItemNo# #ItemDescription#</td>
-					<td class="labelmedium" align="right" id="amount_#subt#" style="padding-right:5px">#NumberFormat(subtotal.RequestedAmount,'_____,__.__')#</td>									
+			      	<td colspan="9" style="height:25">#ItemNo# #ItemDescription#</td>
+					<td align="right" id="amount_#subt#" style="padding-right:5px">#NumberFormat(subtotal.RequestedAmount,',.__')#</td>									
 			       </cfcase>
 				   
 		       </cfswitch>
@@ -164,12 +163,12 @@
 			    <cfoutput group="Category">
 				
 				<tr>
-				<td colspan="10" style="padding-left:2px;height:25" class="labelmedium">#Category#</td>
+				<td colspan="10" style="padding-left:2px;height:25">#Category#</td>
 				</tr>
 			   		     
 				   <CFOUTPUT>
 				
-				    <TR class="labelit linedotted navigation_row" bgcolor="#IIf(CurrentRow Mod 2, DE('ffffff'), DE('f6f6f6'))#">
+				    <TR class="labelit line navigation_row" bgcolor="#IIf(CurrentRow Mod 2, DE('ffffff'), DE('f6f6f6'))#">
 					
 						   <td align="center" style="cursor: pointer;height:27px;">				   	   
 						        <cf_img icon="expand" toggle="yes" onclick="more('#requestId#')">																	
@@ -235,9 +234,9 @@
 							   </cfif>			   
 						   
 				           </TD>
-				           <td align="right" style="padding-right:5px">#NumberFormat(StandardCost,'_____,__.__')#</td>	
+				           <td align="right" style="padding-right:5px">#NumberFormat(StandardCost,',.__')#</td>	
 					       <td align="right" 
-						        id="amount_#requestId#" style="padding-right:10px">#NumberFormat(RequestedAmount,'_____,__.__')#</td>	
+						        id="amount_#requestId#" style="padding-right:10px">#NumberFormat(RequestedAmount,',.__')#</td>	
 						   	   <cfset Amt  = Amt  + RequestedAmount>
 					           <cfset AmtT = AmtT + RequestedAmount>    		
 								
@@ -257,7 +256,7 @@
 				     
 		     <TR>
 		       <td colspan="9" class="labelmedium" height="20" align="right" style="padding-right:10px;padding-left:10px">Grand total:&nbsp;</b>			          
-			   <td align="right" class="labelmedium" bgcolor="BBE6F2" id="boxoverall" style="padding-right:10px">#NumberFormat(AmtT,'_____,__.__')#</b></td>	
+			   <td align="right" class="labelmedium" bgcolor="BBE6F2" id="boxoverall" style="padding-right:10px">#NumberFormat(AmtT,',.__')#</b></td>	
 		     </TR>
 			
 			</cfoutput>
@@ -282,13 +281,12 @@
 	  
 	  <cfoutput>
 	  <table width="98%" align="center" border="0" cellspacing="0" cellpadding="0" class="formpadding">
-	    <tr style="cursor: pointer;" onClick="reload('whs#IDStatus#','add','#url.idmenu#')">
+	    <tr style="cursor: pointer;" class="line" onClick="reload('whs#IDStatus#','add','#url.idmenu#')">
 	    <td colspan="9" height="25" style="padding-left:40px" class="labelmedium"><b>		
 			<font color="0080C0">#action#</font>
 	    </td>
 		<td width="30" align="right"></td> 
-		</tr>
-		<tr><td colspan="10" class="linedotted"></td></tr>
+		</tr>		
 	   </table>
 	   </cfoutput>
 	        

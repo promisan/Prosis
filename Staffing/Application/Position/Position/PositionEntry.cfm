@@ -2,12 +2,11 @@
 <cf_dialogPosition>
 <cf_dialogOrganization>
 <cf_calendarScript>
-<cfajaximport tags="cfform,cfwindow">
+<cfajaximport tags="cfform">
 
 <cfparam name="URL.Mode" default="Lookup">
 <cfparam name="URL.occ" default="">		
 <cfparam name="url.edition" default="">
-
 
 <cfoutput>
 	
@@ -29,7 +28,7 @@
 		}
 	
 		if( _CF_error_messages.length == 0 ) {            
-			ColdFusion.navigate('PositionEntrySubmit.cfm?Mission=#URL.ID#','result','','','POST','PositionEntry');        
+			ptoken.navigate('PositionEntrySubmit.cfm?Mission=#URL.ID#','process','','','POST','PositionEntry');        
 		}   
 							
 	}	
@@ -118,9 +117,7 @@ password="#SESSION.dbpw#">
   role     = "'HROfficer'"
   returnvariable="accessStaffing">  
   
-<cfif (Mandate.MandateStatus eq "0" and (AccessPosition eq "EDIT" or AccessStaffing eq "EDIT"))
-
-	or (AccessPosition eq "ALL" or AccessStaffing eq "ALL")>
+<cfif (Mandate.MandateStatus eq "0" and (AccessPosition eq "EDIT" or AccessStaffing eq "EDIT"))	or (AccessPosition eq "ALL" or AccessStaffing eq "ALL")>
 	
 	<cfquery name="OrgUnit" 
 	datasource="AppsOrganization" 
@@ -133,15 +130,16 @@ password="#SESSION.dbpw#">
 	
 	<cfif OrgUnit.recordcount eq "0">
 	
-	<cfquery name="OrgUnit" 
-	datasource="AppsOrganization" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-	    SELECT *
-	    FROM   Organization
-		WHERE  OrgUnitCode = '#URL.ID2#'
-		AND    Mission = '#URL.ID#' AND MandateNo = '#URL.ID1#'
-	</cfquery>
+		<cfquery name="OrgUnit" 
+		datasource="AppsOrganization" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		    SELECT *
+		    FROM   Organization
+			WHERE  OrgUnitCode = '#URL.ID2#'
+			AND    Mission = '#URL.ID#' 
+			AND    MandateNo = '#URL.ID1#'
+		</cfquery>
 	
 	</cfif>
 	
@@ -276,11 +274,7 @@ password="#SESSION.dbpw#">
 	<tr><td height="8"></td></tr>
 	
 	<tr class="hide"><td id="process"></td></tr>
-	
-	<tr class="hide"><td colspan="2">
-	   <iframe name="result" id="result" width="100%" height="100%"></iframe>
-	</td></tr>
-	  
+		  
 	  <tr class="hide"><td colspan="2" bgcolor="B9B9B9">
 	  
 	  	 <input type="hidden" id="missionselect" name="missionselect" value="<cfoutput>#URL.ID#</cfoutput>"  size="20" maxlength="20" readonly class="disabled">	
@@ -306,7 +300,6 @@ password="#SESSION.dbpw#">
 				<td>
 				<input type="text" id="orgunitname" name="orgunitname" value="#OrgUnit.orgunitname#" class="regularxl" size="60" maxlength="60" readonly>	
 				</td>
-				
 				
 				<td style="padding-left:4px">
 				
@@ -368,11 +361,12 @@ password="#SESSION.dbpw#">
 					WHERE   Mission = '#URL.ID#'
 			</cfquery>
 			
-			<tr><TD class="labelmedium"><cf_tl id="Administrative Unit">:</TD>
+			<tr>
+			<td class="labelmedium"><cf_uitooltip tooltip="Unit responsible for management of this position"><cf_tl id="Administrative Unit"><cf_uitooltip>:</TD>
 			
 				    <TD>
 					
-					<table cellspacing="0" cellpadding="0">
+					<table>
 						<tr><td>
 						<input type="text" name="mission1" id="mission1" value="#OrgUnitAdm.Mission#" class="regularxl" size="20" maxlength="20" readonly>
 						</td>
@@ -520,12 +514,12 @@ password="#SESSION.dbpw#">
 				 // callback function from the dialog to limit the selection of the title based on the selected function 
 				 
 				 function processfunction(funno) {
-				    ColdFusion.navigate('PositionGradeSelect.cfm?field=postgrade&presel=#url.id5#&mission=#url.id#&posttype='+document.getElementById('posttype').value+'&functionno='+funno,'gradeselect')
+				    ptoken.navigate('PositionGradeSelect.cfm?field=postgrade&presel=#url.id5#&mission=#url.id#&posttype='+document.getElementById('posttype').value+'&functionno='+funno,'gradeselect')
 				 }
 				 
 				</script>			
 			
-				<cfdiv id="gradeselect" bind="url:PositionGradeSelect.cfm?field=postgrade&presel=#url.id5#&mission=#url.id#&posttype={posttype}"/>
+				<cf_securediv id="gradeselect" bind="url:PositionGradeSelect.cfm?field=postgrade&presel=#url.id5#&mission=#url.id#&posttype={posttype}"/>
 				
 				
 			</TD>
@@ -544,8 +538,8 @@ password="#SESSION.dbpw#">
 				
 				<td style="padding-left:8px" class="hide" id="approvalpostgradebox">
 				
-				<cfdiv id="approvalpostgrade" 
-						  bind="url:PositionGradeSelect.cfm?field=ApprovalPostGrade&posttype={posttype}&presel=&mission=#url.id#"/>				
+				<cf_securediv id="approvalpostgrade" 
+						  bind="url:PositionGradeSelect.cfm?field=ApprovalPostGrade&posttype={posttype}&presel=&mission=#url.id#">				
 						
 				</td></tr>
 				
@@ -565,14 +559,11 @@ password="#SESSION.dbpw#">
 				</cfoutput>
 			    </select>
 			</TD>
-			</TR>
-			   
-			
+			</TR>			
 		   
 		    <TR>
 		    <TD class="labelmedium"><cf_tl id="Vacancy class">: <font color="FF0000">*</font></TD>
-		    <TD>
-					
+		    <TD>					
 						
 				<cfquery name="VacancyClass" 
 				datasource="AppsEmployee" 
@@ -597,8 +588,7 @@ password="#SESSION.dbpw#">
 			
 			<tr class="line"><td colspan="2"></td></tr>
 			
-			<cfif Current.MissionType neq "TEMPLATE">
-						
+			<cfif Current.MissionType neq "TEMPLATE">						
 			
 			<TR>
 		    <TD class="labelmedium" style="height:34px"><cf_tl id="Staffing Period"> :</TD>
@@ -677,13 +667,13 @@ password="#SESSION.dbpw#">
 			</cfif>
 			
 			<TR>
-		    <TD class="labelmedium"><cf_tl id="Postnumber">:</TD>
+		    <TD class="labelmedium"><cf_tl id="External Reference">:</TD>
 		    <TD>
 			<INPUT type="text" class="regularxl" name="SourcePostNumber" maxLength="20" size="20">
 			</TD>
 			</TR>
 			
-			<TR>
+			<TR style="height:30px">
 		        <td class="labelmedium"><cf_tl id="Classification">:</td>
 		        <td><cfinclude template="PositionEditGroup.cfm"></td>
 			</TR>
@@ -733,26 +723,32 @@ password="#SESSION.dbpw#">
 									   
 			<TR>
 		        <td class="labelmedium" valign="top" style="padding-top:4px"><cf_tl id="Remarks">:</td>
-		        <TD><textarea style="width:90%" rows="3" name="Remarks" class="regular"></textarea> </TD>
+		        <TD><textarea style="width:100%;font-size:14px;padding:3px" rows="3" name="Remarks" class="regular"></textarea> </TD>
 			</TR>
 			
-			<tr><td height="1" colspan="2"></td></tr>
-					   
-			<TR>
-		        <td class="labelmedium"><cf_tl id="Record">:</td>
+			<tr><td></td></tr>
+								   
+			<TR style="background-color:f4f4f4;border-top:1px solid silver">
+		        <td style="padding-left:10px" class="labelmedium"><cf_tl id="Record">:</td>
 		        <TD class="labelmedium"><cfinput class="regularxl" style="background-color:f4f4f4;text-align: center;" type="Text" name="Number" value="1" range="1,99" message="Please enter a valid no of positions to be created" validate="integer" required="Yes" size="2" maxlength="2">&nbsp;positions with the above specification</TD>
 			</TR>
 			
-			<TR><td height="5"></td></TR>	
-			
-			<tr><td height="1" colspan="2" class="line"></td></tr>
-			
+			<TR style="background-color:f4f4f4; border-bottom:1px solid silver">
+		        <td style="padding-left:10px" class="labelmedium"><cf_tl id="Initiate Recruitment">:</td>
+		        <TD class="labelmedium">
+				
+				<cf_securediv id="recruitment" 
+						  bind="url:PositionEntryTrack.cfm?posttype={posttype}&mission=#url.id#&mandate=#url.id1#&orgunit={orgunit}">
+				
+				</TD>
+			</TR>
+				
 			<TR><td height="3"></td></TR>
 			
 			<TR><td height="3" colspan="2" align="center">
 			<cf_tl id="Reset"  var="vReset">
 			<cf_tl id="Cancel" var="vCancel">
-			<cf_tl id="Save"   var="vSave">
+			<cf_tl id="Apply"   var="vSave">
 			<cfoutput>
 				<input class="button10g" type="reset"   name="Reset"  value="#vReset#">
 				<input class="button10g" type="button"  name="cancel" value="#vCancel#"  onClick="window.close()">

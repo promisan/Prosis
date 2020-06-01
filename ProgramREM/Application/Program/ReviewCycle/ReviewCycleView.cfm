@@ -86,7 +86,7 @@
 	<script language="JavaScript">
 	
 	    function reloadcycle(cycle) {
-		     window.location = "#session.root#/ProgramREM/Application/Program/ReviewCycle/ReviewCycleView.cfm?header=#url.header#&ProgramCode=#url.ProgramCode#&Period=#url.period#&cycleid="+cycle 			
+		     ptoken.location('#session.root#/ProgramREM/Application/Program/ReviewCycle/ReviewCycleView.cfm?header=#url.header#&ProgramCode=#url.ProgramCode#&Period=#url.period#&cycleid='+cycle) 			
 		}		
 		
 		function present(mode, id) {	     		  		  
@@ -96,7 +96,7 @@
 			docid = document.getElementById("printdocumentid").value;
 			
 			if (docid != "") {			   
-				window.open("#SESSION.root#/Tools/Mail/MailPrepare.cfm?docid="+docid+"&id="+mode+"&id1="+id,"_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes");
+				ptoken.open("#SESSION.root#/Tools/Mail/MailPrepare.cfm?docid="+docid+"&id="+mode+"&id1="+id,"_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes");
 			} else {
 				alert("No format selected");
 			}	  

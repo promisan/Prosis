@@ -1,17 +1,17 @@
+
   <cfif LookupMultiple eq "0">
 							
 		<cfif Default.DefaultValue eq "">
 		
 				<cfquery name="query#CriteriaName#" 
-					     datasource="appsSystem" 
-						 username="#SESSION.login#" 
-						 password="#SESSION.dbpw#">
+				     datasource="appsSystem" 
+					 username="#SESSION.login#" 
+					 password="#SESSION.dbpw#">
 					     SELECT   DISTINCT *
 						 FROM     Ref_ReportControlCriteriaList
 						 WHERE    ControlId = '#ControlId#'
 						 AND      CriteriaName = '#CriteriaName#' 
-						 ORDER BY ListOrder, ListDisplay
-						
+						 ORDER BY ListOrder, ListDisplay						
 				</cfquery> 	 
 		
 		<cfelse>
@@ -40,48 +40,37 @@
 		</cfif>
 		
 		<cfif CriteriaInterface neq "Checkbox">
-		
-			<cfif format eq "Flash">	 
-				
-				<!--- disabled --->
-			
-			<cfelse>
-			
+					
 			<cfoutput>
-				<table border="0" cellspacing="0" cellpadding="0" class="#cl#" id="#fldid#_box" class="formpadding">
+				<table style="width:100%" class="#cl#" id="#fldid#_box" class="formpadding">
 			</cfoutput>
 			
-			<tr><td>			
-																						
-			<cfselect name="#CriteriaName#" 
-						selected   = "#CriteriaDefault#"
-				    	size       = "1" 
-						multiple   = "No"
-					    message    = "#Error#" 
-					   	required   = "#ob#"
-						class      = "#cl#"
-						id         = "#fldid#"
-						width      = "#sizeU#"						
-						label      = "#CriteriaDescription#:"
-						style      = "width: #SizeU*8#;font-size:15px;height:25;border:1px solid silver;font-family:calibri;"	
-						query      = "query#CriteriaName#"
-						queryPosition="below"
-						value      = "ListValue"
-						display    = "ListDisplay"
-						onChange   = "SelectChange('#CriteriaName#');"
-						onKeyDown  = "KeyPress('#CriteriaName#');" 
-						onMouseDown= "KeyPressEnabled = false;">
-						<cfif LookupEnableAll eq "1">
-						  <option value="all">--- <cf_tl id="All"> ---</option>
-						</cfif>  
+			<tr><td>	
 						
-			</cfselect>	
+			<cfset qValues = evaluate("query#CriteriaName#")> 
 			
+			<cf_UIselect name = "#CriteriaName#"
+					selected       = "#CriteriaDefault#"
+					size           = "1"
+					class          = "#cl# regularXXL"
+					id             = "#fldid#"
+					message        = "#Error#"											
+					style          = "width:100%"
+					tooltip        = "#CriteriaMemo#"
+					label          = "#CriteriaDescription#:"							
+					query          = "#qValues#"
+					queryPosition  = "below"
+					value          = "ListValue"
+					display        = "ListDisplay">
+						<cfif LookupEnableAll eq "1">
+							  <option value="all">    --- <cf_tl id="All"> ---    </option>
+						</cfif>  
+				</cf_UIselect>
+						
 			</td></tr>
 			
 			</table>
-																		
-			</cfif>
+			
 											
 		<cfelse>
 		    				
@@ -103,7 +92,6 @@
 						   id="#fldid#"
 		                   maxlength="10" 
 				           label="#ListDisplay#"
-						   tooltip="#des#"
 						   checked/>
 						   
 						<cfelse>												
@@ -115,8 +103,7 @@
 						   class="#cls# radiol"
 						   id="#fldid#"
 		                   maxlength="10" 
-				           label="#ListDisplay#"
-						   tooltip="#des#"/>
+				           label="#ListDisplay#"/>
 						   
 						</cfif>
 						
@@ -169,17 +156,19 @@
 			     datasource="appsSystem" 
 				 username="#SESSION.login#" 
 				 password="#SESSION.dbpw#">
-				     SELECT DISTINCT *
-					 FROM   Ref_ReportControlCriteriaList
-					 WHERE  ControlId = '#ControlId#'
-					 AND    CriteriaName = '#CriteriaName#'
-					 AND ListValue IN (#preserveSingleQuotes(tmp)#) 
+				     SELECT   DISTINCT *
+					 FROM     Ref_ReportControlCriteriaList
+					 WHERE    ControlId = '#ControlId#'
+					 AND      CriteriaName = '#CriteriaName#'
+					 AND      ListValue IN (#preserveSingleQuotes(tmp)#) 
 					 ORDER BY ListOrder, ListDisplay
 				</cfquery> 	  
 			 						
 			</cfif>	
 			
 				<cfif CriteriaInterface neq "Checkbox">
+				
+				<!---
 				
 				<cfif s gt evaluate("query#CriteriaName#.recordcount")>
 					<cfset s = evaluate("query#CriteriaName#.recordcount")>
@@ -188,77 +177,77 @@
 					</cfif>
 				</cfif>
 				<cfset ht = s*22+3>		
-																				
-				<cfselect name        = "#CriteriaName#" 
-						selected      = "#CriteriaDefault#"
-				    	size          = "#s#" 
-						multiple      = "Yes"
-					    message       = "#Error#" 
-					   	required      = "#ob#"
-						class         = "regularxxl"
-						id            = "#fldid#"
-						width         = "#sizeU#"
-						style         = "width: #SizeU*8#;height:#ht#;border:1px solid silver;font-family:calibri;"							
-						tooltip       = "#CriteriaMemo#"
-						label         = "#CriteriaDescription#:"
-						query         = "query#CriteriaName#"
-						queryPosition = "below"
-						value         = "ListValue"
-						display       = "ListDisplay"/>	
+				
+				--->
+				
+				<cfset qValues = evaluate("query#CriteriaName#")> 
+								
+				<cf_UIselect name = "#CriteriaName#"
+					selected       = "#CriteriaDefault#"
+					multiple       = "Yes"
+					class          = "#cl# regularXXL"
+					id             = "#fldid#"
+					message        = "#Error#"											
+					style          = "width:100%"
+					tooltip        = "#CriteriaMemo#"
+					label          = "#CriteriaDescription#:"							
+					query          = "#qValues#"
+					queryPosition  = "below"
+					value          = "ListValue"
+					display        = "ListDisplay">  
+				</cf_UIselect>							
 			
 			<cfelse>
 			
-			<cfoutput>
-			<table border="0" cellspacing="0" cellpadding="0" class="#cl#" id="#fldid#_box" class="formpadding">
-			
-				 <tr><td class="labelmedium">
-			
-			      <cfset fld = "#Parameter.CriteriaName#">
-				  <cfset des = "#Parameter.CriteriaDescription#">
-			
-			      <cfloop query="query#CriteriaName#">
-				  
-				         <!---  class="#class#"  --->
-				  
-				        <cfif find(listvalue,Parameter.CriteriaDefault)>
-						
-						  <cfinput type   = "CheckBox" 
-				           name           = "#fld#_#currentrow#" 
-						   value          = "#ListValue#"
-		                   size           = "10"
-						   id             = "#fldid#"
-						   class          = "radiol"
-						   maxlength      = "10" 
-				           label          = "#ListDisplay#"
-						   tooltip        = "#des#"
-						   checked/>
-						   
-						<cfelse>
-						
-						 <cfinput type    = "CheckBox" 
-				           name           = "#fld#_#currentrow#" 
-						   value          = "#ListValue#"
-		                   size           = "10" 
-						   maxlength      = "10" 
-						   class          = "radiol"
-				           label          = "#ListDisplay#"
-						   tooltip        = "#des#"/>
-						   
-						</cfif>
-																						
-						<cfif format eq "HTML"><cfoutput><cf_tl id="#ListDisplay#">&nbsp;</cfoutput></cfif>
-						
-						<cfif evaluate("query#CriteriaName#.recordcount") gt "3">
-						  </td></tr><tr><td>
-						</cfif>
-						      										 
-				  </cfloop>	
-				  
-				 </td></tr>
-			</table>	
-			</cfoutput> 
-				  			 
+				<cfoutput>
+				<table border="0" cellspacing="0" cellpadding="0" class="#cl#" id="#fldid#_box" class="formpadding">
+				
+					 <tr><td class="labelmedium">
+				
+				      <cfset fld = "#Parameter.CriteriaName#">
+					  <cfset des = "#Parameter.CriteriaDescription#">
+				
+				      <cfloop query="query#CriteriaName#">
+					  
+					         <!---  class="#class#"  --->
+					  
+					        <cfif find(listvalue,Parameter.CriteriaDefault)>
+							
+							  <cfinput type   = "CheckBox" 
+					           name           = "#fld#_#currentrow#" 
+							   value          = "#ListValue#"
+			                   size           = "10"
+							   id             = "#fldid#"
+							   class          = "radiol"
+							   maxlength      = "10" 
+					           label          = "#ListDisplay#"
+							   checked/>
+							   
+							<cfelse>
+							
+							 <cfinput type    = "CheckBox" 
+					           name           = "#fld#_#currentrow#" 
+							   value          = "#ListValue#"
+			                   size           = "10" 
+							   maxlength      = "10" 
+							   class          = "radiol"
+					           label          = "#ListDisplay#"/>
+							   
+							</cfif>
+																							
+							<cfif format eq "HTML"><cfoutput><cf_tl id="#ListDisplay#">&nbsp;</cfoutput></cfif>
+							
+							<cfif evaluate("query#CriteriaName#.recordcount") gt "3">
+							  </td></tr><tr><td>
+							</cfif>
+							      										 
+					  </cfloop>	
+					  
+					 </td></tr>
+				</table>	
+				</cfoutput> 				  			 
 			
 			</cfif>
 				
 	</cfif>
+	
