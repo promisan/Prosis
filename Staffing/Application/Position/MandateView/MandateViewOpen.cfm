@@ -30,7 +30,7 @@
 	<cfif URL.ID eq "Locate">
 	
 		<script language="JavaScript">
-		   window.location = "MandateViewView.cfm?time=#now()#&ID=#URL.ID#&ID2=#URL.ID2#&ID3=#URL.ID3#"
+		   ptoken.location('MandateViewView.cfm?ID=#URL.ID#&ID2=#URL.ID2#&ID3=#URL.ID3#')
 		</script>
 		
 	<cfelse>
@@ -39,7 +39,7 @@
 	
 		<script language="JavaScript">	 
 		   unitcode = parent.YAHOO.widget.TreeView.getTree('idtree')._cf_node	   
-		   window.location = "MandateViewGeneral.cfm?org="+unitcode+"&ID=#URL.ID#&ID1=#URL.ID1#&ID2=#URL.ID2#&ID3=#URL.ID3#&ID4=#URL.ID4#&selectiondate=" + parent.document.getElementById('selectiondate').value					 	 
+		   ptoken.location('MandateViewGeneral.cfm?org='+unitcode+'&ID=#URL.ID#&ID1=#URL.ID1#&ID2=#URL.ID2#&ID3=#URL.ID3#&ID4=#URL.ID4#&selectiondate=' + parent.document.getElementById('selectiondate').value)					 	 
 		</script>
 	
 	</cfif>

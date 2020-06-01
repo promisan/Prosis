@@ -110,7 +110,7 @@ password="#SESSION.dbpw#">
 				  <cfif wfstatus neq "closed">
 					  <tr id="box_#applicantno#">
 						<td colspan="10" style="padding-left:25px;"  id="#applicantno#">								   
-							<cfdiv id="#applicantno#" bind="url:Applicant/ApplicantSubmissionWorkflow.cfm?ajaxid=#applicantno#"/>       															
+							<cf_securediv id="#applicantno#" bind="url:Applicant/ApplicantSubmissionWorkflow.cfm?ajaxid=#applicantno#">   
 						</td>
 					  </tr>	
 				  <cfelse>

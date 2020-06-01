@@ -25,6 +25,10 @@
 <cfparam name="URL.Section"      default="">  <!--- section of the navigation framework --->
 <cfparam name="URL.Mission"      default="">
 
+<cfif trim(url.ApplicantNo) eq "" AND isDefined("client.ApplicantNo")>
+	<cfset url.ApplicantNo = client.ApplicantNo>
+</cfif>
+
 <cfquery name="Section" 
 	datasource="appsSelection" 
 	username="#SESSION.login#" 

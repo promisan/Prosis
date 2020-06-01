@@ -130,7 +130,7 @@
 			</tr>
 			<tr><td colspan="2" style="padding-left:40px;padding-top:10px" valign="top">
 			<cf_divscroll style="width:100%">
-			<cfdiv bind="url:#session.root#/Roster/PHP/PHPEntry/Assignment/AssignmentTitle.cfm?applicantno=#url.applicantno#&submissionedition={submissionedition}&gradedeployment={gradedeployment}" 
+			<cf_securediv bind="url:#session.root#/Roster/PHP/PHPEntry/Assignment/AssignmentTitle.cfm?applicantno=#url.applicantno#&submissionedition={submissionedition}&gradedeployment={gradedeployment}" 
 			  id="functionaltitle">
 			</cf_divscroll>
 			</td></tr>

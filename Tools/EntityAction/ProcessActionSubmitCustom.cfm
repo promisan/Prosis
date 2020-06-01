@@ -203,7 +203,7 @@
 		<cfoutput>
 			
 			<script>
-			   ColdFusion.navigate('ProcessActionSubmit.cfm?windowmode=#url.windowmode#&submitaction=saveaction&wfmode=#url.wfmode#&process=#URL.Process#&ID=#URL.ID#&ajaxId=#url.ajaxid#','actionprocessbox','','','POST','processaction')				 
+			   ptoken.navigate('ProcessActionSubmit.cfm?windowmode=#url.windowmode#&submitaction=saveaction&wfmode=#url.wfmode#&process=#URL.Process#&ID=#URL.ID#&ajaxId=#url.ajaxid#','actionprocessbox','','','POST','processaction')				 
 			</script>
 			
 		</cfoutput>

@@ -66,7 +66,7 @@
 		<cfabort>
 	</cfif>
 	
-	<cfquery name="Check" 
+	<cfquery name="CheckAss" 
 	         datasource="AppsEmployee" 
 	         username="#SESSION.login#" 
 	         password="#SESSION.dbpw#">
@@ -79,7 +79,7 @@
 			 AND    Incumbency = 100		  
 	</cfquery>	
 	
-	<cfif check.recordcount gte "2" and AccessPosition neq "ALL">
+	<cfif checkAss.recordcount gte "2" and AccessPosition neq "ALL">
 		<cf_alert message="Problem, you are not allowed to change a parent position at this stage anymore.">
 		<cfabort>
 	</cfif>
@@ -169,7 +169,7 @@
 		
 	</cfif>
 	
-	<cfif Mandate.MandateStatus eq "1" and check.recordcount gte "1" and (STR gt checkPost.lowest or END lt checkPost.highest)>
+	<cfif Mandate.MandateStatus eq "1" and checkAss.recordcount gte "1" and (STR gt checkPost.lowest or END lt checkPost.highest)>
 		
 			<cf_alert message="Please adjust the position incumbency before to adjust the effective period.">
 			<cfabort>
@@ -180,7 +180,7 @@
 	
 		<cfif Form.SourcePostNumber neq "">
 		
-			<cfquery name="Check" 
+			<cfquery name="CheckSourcePost" 
 			     datasource="AppsEmployee" 
 			     username="#SESSION.login#" 
 			     password="#SESSION.dbpw#">
@@ -192,7 +192,7 @@
 				 AND    PositionParentId   != '#Form.PositionParentId#'
 			</cfquery>	
 			
-			<cfif Check.recordcount gte "1">
+			<cfif CheckSourcePost.recordcount gte "1">
 			  <cf_alert message = "You have registered an external post Number [#Form.SourcePostNumber#] which is already in use. Operation not allowed.">
 		      <cfabort>
 			</cfif>
@@ -246,6 +246,9 @@
 		  FROM  Ref_PositionParentGroup
 		  WHERE Code IN (SELECT GroupCode 
 		                 FROM   Ref_PositionParentGroupList)
+		  AND   Code IN (SELECT GroupCode 
+		                FROM   Ref_PositionParentGroupMission
+						WHERE  Mission = '#Form.Mission#')							 
 		</cfquery>
 		  
 		<cfloop query="topic">
@@ -282,7 +285,7 @@
 				    FunctionDescription   = '#Form.FunctionDescription#',					    
 			        OrgUnitAdministrative = '#Form.OrgUnit1#',
 	    		
-				    <cfif Mandate.MandateStatus eq "0" or (checkPost.Counted eq "1" and check.recordcount eq "0")>	
+				    <cfif Mandate.MandateStatus eq "0" or (checkPost.Counted eq "1" and checkAss.recordcount eq "0")>	
 				    DateEffective         = #STR#,
 				    DateExpiration        = #END#,
 				    </cfif>
@@ -298,6 +301,18 @@
 			 
 		</cfquery>	 
 		
+		<!--- only the last position will be adjusted here to match the updated parent--->
+		
+		<cfquery name="CheckLast" 
+	     datasource="AppsEmployee" 
+	     username="#SESSION.login#" 
+	     password="#SESSION.dbpw#">
+		   	 SELECT   TOP 1 *
+			 FROM     Position
+	    	 WHERE    PositionParentId = '#Form.PositionParentId#'
+			 ORDER BY DateEffective DESC
+		</cfquery>	
+		
 		 <cfquery name="UpdatePosition1" 
 	         datasource="AppsEmployee" 
 	         username="#SESSION.login#" 
@@ -308,7 +323,7 @@
 			        PostGrade             = '#Form.PostGrade#',				
 			        OrgUnitAdministrative = '#Form.OrgUnit1#',
 	    		
-				    <cfif Mandate.MandateStatus eq "0" or (checkPost.Counted eq "1" and check.recordcount eq "0")>	
+				    <cfif Mandate.MandateStatus eq "0" or (checkPost.Counted eq "1" and checkAss.recordcount eq "0")>	
 				    DateEffective         = #STR#,
 				    DateExpiration        = #END#,
 				    </cfif>
@@ -319,9 +334,10 @@
 				    </cfif>
 				   
 	    	 WHERE  PositionParentId = '#Form.PositionParentId#'
+			 AND    PositionNo       = '#CheckLast.PositionNo#'
 			 <!---  added to prevent reset of interloan mission 10/8/2014 --->
 			 AND    MissionOperational = Mission			
-			 AND    PositionStatus = '1'
+			 AND    PositionStatus   = '1'
 			 
 	    </cfquery>		
 		

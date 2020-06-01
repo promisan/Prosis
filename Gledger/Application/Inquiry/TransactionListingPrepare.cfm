@@ -138,7 +138,6 @@ password="#SESSION.dbpw#">
 
 <cfinclude template="TransactionListing.cfm">  
 
-
 <cfcatch>
 	<table width="100%"><tr><td valign="top" align="center"><font face="Calibri" size="3" color="FF0000"><b><cf_tl id="Please check your selection criteria"></td></tr></table>	
 </cfcatch>

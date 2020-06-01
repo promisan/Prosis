@@ -383,8 +383,8 @@ password="#SESSION.dbpw#">
 
 <tr><td height="1" class="line"></td></tr>
 
-<tr><td height="100%">
-	<cf_divscroll id="details"/>
+<tr><td height="100%" id="details">
+	
 </td></tr>
 
 </table>

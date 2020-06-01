@@ -84,8 +84,7 @@
 	    <TD width="20%"><cf_tl id="Entered"></TD>
 	    <td colspan="2" style="padding-right:5px"><cf_tl id="Date"></td>		
 	</TR>
-		
-	
+			
 	<cfset prior = "0">
 	<cfset value = "">
 	<cfoutput query="ResultListing">

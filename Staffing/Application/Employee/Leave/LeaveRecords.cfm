@@ -151,7 +151,7 @@ password="#SESSION.dbpw#">
 									printTitle	= "##printTitle"
 									printContent = ".clsPrintContent">
 				   			</td>
-				   			<td class="labelmedium" style="font-size:19px;padding-left:5px;padding-right:30px;">
+				   			<td class="labelmedium" style="font-size:19px;padding-left:5px;padding-right:30px;min-width:110px">
 				   				<cfif access eq "EDIT" or access eq "ALL" or timekeeper eq "EDIT" or timekeeper eq "ALL">		
 							    	<a href="javascript:leave('#URL.ID#')"><cf_tl id="Add Record"></a>	    	
 								</cfif>
@@ -249,7 +249,7 @@ password="#SESSION.dbpw#">
 			    </td>
 			  </tr>	
 			  
-			  <TR class="labelmedium line">
+			  <TR class="labelmedium line fixrow">
 			        <TD width="40" style="padding-left:4px"><cf_tl id="Type"></TD>	
 				    <td style="min-width:20px" align="center"></td>
 					<td style="min-width:10px" align="center"></td>
@@ -276,7 +276,7 @@ password="#SESSION.dbpw#">
 			
 			<cfset display="">
 			
-			<tr class="line labelit">
+			<tr class="line labelit fixrow2">
 						
 			    <td bgcolor="ffffff" style="height:43px;font-size:21px;padding-top:0px;padding-left:4px" colspan="10" align="left">
 				 

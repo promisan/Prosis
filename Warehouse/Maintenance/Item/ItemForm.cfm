@@ -265,8 +265,8 @@
 			
 			<td class="labelmedium" style="padding-left:10px" align="right"><cf_tl id="Item Category">:<font color="FF0000">*</font></td>
 			
-		    <td style="padding-left:10px">
-				<cfdiv id="divCategoryItem" bind="url:#SESSION.root#/Warehouse/Maintenance/Item/getCategoryItem.cfm?ItemNo=#Item.ItemNo#&Category={category}&CategoryItem=#Item.CategoryItem#">
+		    <td style="padding-left:10px">			
+				<cf_securediv id="divCategoryItem" bind="url:#SESSION.root#/Warehouse/Maintenance/Item/getCategoryItem.cfm?ItemNo=#Item.ItemNo#&Category={category}&CategoryItem=#Item.CategoryItem#">
 		    </td>
 			
 			</tr>
@@ -278,7 +278,7 @@
 		<TR>
 	    <td class="labelmedium" style="padding-left:5px"><cf_tl id="Procurement Master">: <font color="FF0000">*</font></b></td>   
 		    <td>
-				<cfdiv id="bItemMaster" bind="url:getItemMaster.cfm?itemmaster=#Item.ItemMaster#&mission={mission}">
+				<cf_securediv id="bItemMaster" bind="url:getItemMaster.cfm?itemmaster=#Item.ItemMaster#&mission={mission}">
 		    </td>
 	    </tr>
 		
@@ -289,7 +289,7 @@
 					<a href="javascript:" onclick="$('##warehouselist').toggle()"><cf_tl id="More">...</a>
 				</td>
 				<td id="warehouselist" class="hide" >
-					<cfdiv bind="url:getWarehouse.cfm?mission={mission}&itemclass={itemclass}" id="warehouse">	
+					<cf_securediv bind="url:getWarehouse.cfm?mission={mission}&itemclass={itemclass}" id="warehouse">	
 				</td>
 			</tr>
 		
@@ -318,9 +318,9 @@
 		    		
 			</cfif>
 			
-			</tr></table>
-			
-			
+			</tr>
+			</table>
+			</td>
 		</tr>
 		
 		<TR>
@@ -342,13 +342,11 @@
 				
 		    </TD>
 		</TR>	
-		
-		
-				
+			
 		<tr id="custombox">
 		<td width="140" height="21" valign="top" class="labelmedium" style="padding-top:3px;padding-left:5px"><cf_tl id="Information Element">:</td>
 		<td>
-		   <cfdiv bind="url:RecordEditCustom.cfm?id=#url.id#&class={itemclass}" id="custom">
+		   <cf_securediv bind="url:RecordEditCustom.cfm?id=#url.id#&class={itemclass}" id="custom">
 		</td>
 		</tr>
 					 
@@ -386,23 +384,21 @@
 				  	<cfset val = itemUoM.UoMCode>
 				  <cfelse>
 				   	<cfset val = "#Mis.DefaultUoM#">
-				  </cfif>
+				  </cfif>				  
 				  
-				  
-					<cfquery name="UoMDescription" 
+				  <cfquery name="UoMDescription" 
 					datasource="appsMaterials" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
 						SELECT *
 						FROM   Ref_UoM
 						WHERE Code = '#val#'		  
-					</cfquery>			  
+				  </cfquery>			  
 				  
 				  <cfselect name="UoMCode" queryposition="below" query="UoMList" value="Code" display="Code" selected="#val#" visible="Yes" enabled="Yes" class="regularxl">
 				  <option value="">n/a</option>
 				  </cfselect>
-		  
-		         				   
+		  		         				   
 		   </TD>
 		</TR>
 		
@@ -862,25 +858,64 @@
 		</cfif>	
 			
 				
-		<tr><td colspan="2" class="labellarge" style="height:45px;font-size:22px;padding-left:3px"><cf_tl id="Miscellaneous"> <cf_tl id="Workflow Settings"></td></tr>	
-			
+		<tr><td colspan="2" class="labellarge" style="height:45px;font-size:22px;padding-left:3px"><cf_tl id="Miscellaneous">& <cf_tl id="Workflow Settings"></td></tr>	
+		
 		<TR>
-		    <td class="labelmedium" style="padding-left:5px"><cf_tl id="Request Clearance">:</td>
-		    <TD class="labelmedium">
-			<input type="radio" class="radiol" name="InitialApproval" id="InitialApproval" <cfif Item.InitialApproval neq "1">checked</cfif> value="0"> <cf_tl id="Disabled">
-			<input type="radio" class="radiol" name="InitialApproval" id="InitialApproval" <cfif Item.InitialApproval eq "1">checked</cfif> value="1"> <cf_tl id="Enabled">
-		    </td>
+			    <td class="labelmedium" style="padding-left:5px"><cf_tl id="Destination">:</td>
+			    <TD class="labelmedium">
+				
+				<table>
+				<tr><td>
+				
+					<select name="Destination" id="Destination" class="regularxl" onchange="javascript:if(this.value == 'Internal') { document.getElementById('clearance').className='regular'} else {  document.getElementById('clearance').className='hide' }">
+						<option value="Sale" <cfif Item.Destination eq "Sale" or Item.Destination eq "">selected</cfif>><cf_tl id="Sale">/<cf_tl id="Customer">
+						<option value="Distribution" <cfif Item.Destination eq "Distribution">selected</cfif>><cf_tl id="Internal Issuance">
+						<option value="Internal" <cfif Item.Destination eq "Internal">selected</cfif>><cf_tl id="Internal Customer">						
+					</select>
+					
+				</td>
+				
+				<cfif Item.Destination neq "Internal">
+					<cfset cl = "hide">
+				<cfelse>
+					<cfset cl = "regular">
+				</cfif>	
+				
+				<td id="clearance" class="#cl#">
+				
+					<table>
+					
+					<TR class="labelmedium">
+					    <td class="labelmedium" style="padding-left:15px"><cf_tl id="Request Clearance">:</td>
+					    <TD>
+						<input type="radio" class="radiol" name="InitialApproval" id="InitialApproval" <cfif Item.InitialApproval neq "1">checked</cfif> value="0">
+						<td>
+						<td><cf_tl id="No">
+						<td>
+						<input type="radio" class="radiol" name="InitialApproval" id="InitialApproval" <cfif Item.InitialApproval eq "1">checked</cfif> value="1">
+						</td>
+						<td><cf_tl id="Yes"></td>
+						
+						<td class="labelmedium" style="padding-left:15px"><cf_tl id="Process Mode">:</td>
+						<td class="labelmedium">
+						<select name="ItemProcessMode" id="ItemProcessMode" class="regularxl">
+						<option value="TaskOrder" <cfif lcase(Item.ItemProcessMode) eq "TaskOrder">selected</cfif>><cf_tl id="Task Order">
+						<option value="PickTicket" <cfif lcase(Item.ItemProcessMode) eq "PickTicket" or url.id eq "">selected</cfif>><cf_tl id="Pick Ticket">
+						</select>
+						</td>
+						
+						
+				    </tr>
+					
+					</table>
+				
+				</td>
+				</tr>
+				</table>	
+				
+				</td>
 	    </tr>
 		
-		<tr>
-			<td class="labelmedium" style="padding-left:5px"><cf_tl id="Request Process Mode">: <font color="FF0000">*</font></td>
-			<td class="labelmedium">
-				<select name="ItemProcessMode" id="ItemProcessMode" class="regularxl">
-					<option value="TaskOrder" <cfif lcase(Item.ItemProcessMode) eq "TaskOrder" or url.id eq "">selected</cfif>><cf_tl id="Task Order">
-					<option value="PickTicket" <cfif lcase(Item.ItemProcessMode) eq "PickTicket">selected</cfif>><cf_tl id="Pick Ticket">
-				</select>
-			</td>
-		</tr>	
 		
 		<tr>
 			<td class="labelmedium" style="padding-left:5px"><cf_tl id="Item Shipment Mode">: <font color="FF0000">*</font></td>
@@ -892,19 +927,7 @@
 			</td>
 		</tr>		
 				
-		<TR>
-			    <td class="labelmedium" style="padding-left:5px"><cf_tl id="Destination">:</td>
-			    <TD class="labelmedium">
-				
-					<select name="Destination" id="Destination" class="regularxl">
-						<option value="Sale" <cfif Item.Destination eq "Sale" or Item.Destination eq "">selected</cfif>><cf_tl id="Sale">/<cf_tl id="Customer">
-						<option value="Distribution" <cfif Item.Destination eq "Distribution">selected</cfif>><cf_tl id="Internal Issuance">
-						<option value="Internal" <cfif Item.Destination eq "Internal">selected</cfif>><cf_tl id="Internal Customer">
-						
-					</select>
-				
-				</td>
-	    </tr>
+		
 					
 		<cfquery name="Val" 
 		datasource="AppsMaterials" 
@@ -1068,8 +1091,6 @@
 	</tr>
 
 </table>
-
-
 
 </cfform>
 

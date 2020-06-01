@@ -143,7 +143,7 @@ password="#SESSION.dbpw#">
 	
 		<tr class="navigation_row">
 		  
-		    <td style="padding-left:4px" width="25" class="navigation_action" onclick="ColdFusion.navigate('#link#&action=insert&#url.des1#=#workorderid#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ColdFusion.Window.hide('dialog#url.box#')</cfif>">				  	
+		    <td style="padding-left:4px" width="25" class="navigation_action" onclick="ptoken.navigate('#link#&action=insert&#url.des1#=#workorderid#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ColdFusion.Window.hide('dialog#url.box#')</cfif>">				  	
 				<cf_img icon="edit">				
 			</td>			
 			<TD class="labelit" width="30%" style="padding-left:3px;padding-right:3px">#CustomerName#</TD>

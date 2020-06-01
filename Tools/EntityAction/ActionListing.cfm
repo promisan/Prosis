@@ -18,7 +18,6 @@
 <cfparam name="Attributes.Mission"           default="">
 <cfparam name="Attributes.ProgramCode"       default="">
 
-
 <cf_validateBrowser minIE="11">
 
 <!--- ------------------------------- --->

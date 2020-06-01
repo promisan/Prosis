@@ -94,7 +94,7 @@ function updateoption(per,subperiod) {
 			<cfoutput>
 			
 			<tr class="line"><td class="labelmedium" style="font-size:16px;height:35px;padding-left:4px">			     
-				    <a href="JournalViewOpen.cfm?ID=LOC&Mission=#url.Mission#"	target="right"><cf_tl id="Extended Search"></a>				 							
+				    <a href="javascript:ptoken.open('JournalViewOpen.cfm?ID=LOC&Mission=#url.Mission#','right')"><cf_tl id="Extended Search"></a>				 							
 			</td></tr>			 
 			
 			 <cfquery name="Cat" 

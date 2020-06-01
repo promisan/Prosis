@@ -393,7 +393,7 @@
 					
 	<tr class="hide" id="d#OrgUnit#"><td colspan="#Resource.RecordCount+3#" id="i#OrgUnit#"></td></tr>		
 	<tr><td height="2"></td></tr>		
-	<tr><td colspan="#Resource.RecordCount+3#" id="detail_#OrgUnit#" style="padding-right:2px"></td></tr>	
+	<tr><td colspan="#Resource.RecordCount+3#" id="detail_#OrgUnit#" style="padding-right:0px"></td></tr>	
 	<tr><td style="height:15px"></td></tr>
 						
 	</CFOUTPUT>	

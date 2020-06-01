@@ -177,7 +177,7 @@
   	
 	<table width="100%">
 	
-	   <tr style="border-top:1px solid silver" class="labelmedium line navigation_table">
+	   <tr style="border-top:1px solid silver" class="labelmedium line navigation_table fixrow">
 	   	   <td></td>
 	       <td><cf_tl id="Position"></td>
 		   <td><cf_tl id="Grade"></td>	 

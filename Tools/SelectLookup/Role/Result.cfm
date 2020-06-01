@@ -86,7 +86,7 @@ SELECT TOP #last# *
 
 	<tr class="navigation_row">
 	  
-	    <td style="padding-left:6px" height="18" width="30" class="navigation_action" onclick="ColdFusion.navigate('#link#&action=insert&#url.des1#=#role#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ColdFusion.Window.hide('dialog#url.box#')</cfif>">&nbsp;
+	    <td style="padding-left:6px" height="18" width="30" class="navigation_action" onclick="ptoken.navigate('#link#&action=insert&#url.des1#=#role#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ColdFusion.Window.hide('dialog#url.box#')</cfif>">&nbsp;
 			  					   
 		   <img src="#SESSION.root#/Images/bullet.png" alt="Select"
 		     name="img98_#orgunit#" 

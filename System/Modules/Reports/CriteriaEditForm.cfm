@@ -168,7 +168,7 @@ password="#SESSION.dbpw#">
  </TR>
   
  <TR>
-    <TD class="labelmedium">Tooltip:</TD>
+    <TD class="labelmedium"><cf_tl id="Tooltip">:</TD>
     <TD> 
 		<cfif url.status eq "0">
 		
@@ -202,9 +202,11 @@ password="#SESSION.dbpw#">
     <TD> 
 	    <table><tr>
 		<td class="labelmedium"><input type="radio" class="radiol" name="criteriaclass" id="criteriaclass" <cfoutput>#dis#</cfoutput> value="Selection" <cfif Get.CriteriaClass eq "Selection" or #get.CriteriaClass# eq "">checked</cfif>></td>
-		<td class="labelmedium">Selection Criteria</td>
+		<td class="labelmedium">Filter</td>
+		<td class="labelmedium"><input type="radio" class="radiol" name="criteriaclass" id="criteriaclass" <cfoutput>#dis#</cfoutput> value="Layout" <cfif Get.CriteriaClass eq "Layout">checked</cfif>></td>
+		<td class="labelmedium">Presentational Setting</td>
 		<td><input type="radio" name="criteriaclass" class="radiol" id="criteriaclass" <cfoutput>#dis#</cfoutput> value="Condition" <cfif Get.CriteriaClass eq "Condition">checked</cfif>></td>
-		<td class="labelmedium">Condition Criteria</td>
+		<td class="labelmedium">Condition</td>
 		</tr>
 		</table>
 	</TD>

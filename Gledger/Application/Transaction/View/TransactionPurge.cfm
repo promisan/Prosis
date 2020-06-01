@@ -1,4 +1,6 @@
 
+<cf_systemscript>
+
 <cfquery name="Header"
 datasource="AppsLedger" 
 username="#SESSION.login#" 
@@ -106,7 +108,6 @@ password="#SESSION.dbpw#">
 		AND   ParentJournalSerialNo  = '#Header.JournalSerialNo#'   
 </cfquery>	
 
-
 <cfloop query="ParentLines">
 				
 		<!--- ------------------------------- --->
@@ -193,6 +194,6 @@ password="#SESSION.dbpw#">
 
 <cfoutput>
 <script>
-    window.location = "TransactionView.cfm?journal=#url.jrn#&journalserialno=#url.ser#&mode=1"
+    ptoken.location('TransactionView.cfm?journal=#url.jrn#&journalserialno=#url.ser#&mode=1')
 </script>
 </cfoutput>

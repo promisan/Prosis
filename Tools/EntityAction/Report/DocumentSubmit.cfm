@@ -31,11 +31,11 @@ password="#SESSION.dbpw#">
 		datasource="appsOrganization" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-			SELECT R.*
-		    FROM   Ref_EntityDocument R
-		    WHERE  DocumentId = '#Item#'
-			AND    DocumentType = 'Report'
-			AND    Operational = 1 
+			SELECT   R.*
+		    FROM     Ref_EntityDocument R
+		    WHERE    DocumentId   = '#Item#'
+			AND      DocumentType = 'Report'
+			AND      Operational  = 1 
 			ORDER BY DocumentOrder
 		</cfquery>
 		

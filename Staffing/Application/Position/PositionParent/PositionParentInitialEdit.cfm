@@ -297,11 +297,11 @@ password="#SESSION.dbpw#">
      username="#SESSION.login#" 
      password="#SESSION.dbpw#">
         SELECT O.*, O2.OrgUnitNameShort as ParentNameShort
-	    FROM Organization.dbo.Organization O, Organization.dbo.Organization O2
-	    WHERE (O.OrgUnit = '#Position.OrgUnitAdministrative#')
-	    AND Left(O.HierarchyCode,2)=O2.HierarchyCode
-	    AND O.MandateNo=O2.MandateNo
-	    AND O.Mission=O2.Mission   
+	    FROM   Organization.dbo.Organization O, Organization.dbo.Organization O2
+	    WHERE  O.OrgUnit = '#Position.OrgUnitAdministrative#'
+	    AND    Left(O.HierarchyCode,2)=O2.HierarchyCode
+	    AND    O.MandateNo=O2.MandateNo
+	    AND    O.Mission=O2.Mission   
     </cfquery>
 	
 	<TR>
@@ -333,12 +333,11 @@ password="#SESSION.dbpw#">
 	
 	function measuresource(cls) {
 		
-	se = document.getElementById("approvalpostgradebox")
-		
-	if (cls == "regular") {
-	    se.className = "regular"
-	} else {
-	    se.className = "hide"
+		se = document.getElementById("approvalpostgradebox")			
+		if (cls == "regular") {
+		    se.className = "regular"
+		} else {
+		    se.className = "hide"
 		}
 	}      
 		
@@ -399,7 +398,7 @@ password="#SESSION.dbpw#">
 		</td>
 		<td style="padding-left:8px">
 				
-			<cfdiv id="approvalpostgradebox" class="#cl#" bind="url:#session.root#/Staffing/Application/Position/Position/PositionGradeSelect.cfm?field=approvalpostgrade&posttype={posttype}&presel=#Position.ApprovalPostGrade#&mission=#url.id#&functionno=#Position.FunctionNo#"/>
+			<cf_securediv id="approvalpostgradebox" class="#cl#" bind="url:#session.root#/Staffing/Application/Position/Position/PositionGradeSelect.cfm?field=approvalpostgrade&posttype={posttype}&presel=#Position.ApprovalPostGrade#&mission=#url.id#&functionno=#Position.FunctionNo#">
 
 		</td>
 		</tr>
@@ -415,8 +414,7 @@ password="#SESSION.dbpw#">
 		--->
 					
 	</TD>
-	</TR>
-	
+	</TR>	
 	
 				 			
     <TR>
@@ -428,15 +426,14 @@ password="#SESSION.dbpw#">
 		<script language="JavaScript">
 
 		 function processfunction(funno) {			
-			 ColdFusion.navigate('#session.root#/Staffing/Application/Position/Position/PositionGradeSelect.cfm?field=postgrade&posttype='+document.getElementById('posttype').value+'&presel=#Position.PostGrade#&mission=#url.id#&functionno='+funno,'gradeselectbox')			
+			 ptoken.navigate('#session.root#/Staffing/Application/Position/Position/PositionGradeSelect.cfm?field=postgrade&posttype='+document.getElementById('posttype').value+'&presel=#Position.PostGrade#&mission=#url.id#&functionno='+funno,'gradeselectbox')			
 		 }
  
 		</script>
 		</cfoutput>
 
-		<cfdiv id="gradeselectbox" bind="url:#session.root#/Staffing/Application/Position/Position/PositionGradeSelect.cfm?field=postgrade&posttype={posttype}&presel=#Position.PostGrade#&mission=#url.id#&functionno=#Position.FunctionNo#"/>
-
-			
+		<cf_securediv id="gradeselectbox" bind="url:#session.root#/Staffing/Application/Position/Position/PositionGradeSelect.cfm?field=postgrade&posttype={posttype}&presel=#Position.PostGrade#&mission=#url.id#&functionno=#Position.FunctionNo#">
+		
 	</TD>
 	</TR>
 			 
@@ -445,15 +442,15 @@ password="#SESSION.dbpw#">
     <TD class="regular">
 		
 		<cf_intelliCalendarDate9
-		FieldName="ApprovalDate" 
-		class="regularxl"
-		DateFormat="#APPLICATION.DateFormat#"
-		Default="#Dateformat(Position.ApprovalDate, CLIENT.DateFormatShow)#">	
+			FieldName="ApprovalDate" 
+			class="regularxl"
+			DateFormat="#APPLICATION.DateFormat#"
+			Default="#Dateformat(Position.ApprovalDate, CLIENT.DateFormatShow)#">	
 			
 	</TD>
 	</TR>
 	
-	<tr><td class="labelmedium">Approval Reference:</td>
+	<tr><td class="labelmedium"><cf_tl id="Approval reference">:</td>
 	
 		<td>
 		<cfoutput>
@@ -462,8 +459,7 @@ password="#SESSION.dbpw#">
 		
 		</td>
 	</tr>
-		
-					 
+							 
     <TR>
     <TD class="labelmedium"><cf_tl id="Effective date">:</TD>
     <TD height="20">
@@ -557,9 +553,12 @@ password="#SESSION.dbpw#">
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 	  	 SELECT  *
-	     FROM  Ref_PositionParentGroup
+	     FROM  Ref_PositionParentGroup		 
 		 WHERE Code IN (SELECT GroupCode 
-		                FROM Ref_PositionParentGroupList)
+		                FROM   Ref_PositionParentGroupList)
+		 AND   Code IN (SELECT GroupCode 
+		                FROM   Ref_PositionParentGroupMission
+						WHERE  Mission = '#URL.ID#')				
 	</cfquery>
 	
 	<cfif Topic.recordcount gt "0">
@@ -574,20 +573,20 @@ password="#SESSION.dbpw#">
 				datasource="AppsEmployee" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
-				  SELECT  *
-				     FROM  Ref_PositionParentGroupList
-					 WHERE GroupCode = '#Topic.Code#'
-					 ORDER BY GroupListOrder, GroupListCode
+					  SELECT   *
+					  FROM     Ref_PositionParentGroupList
+					  WHERE    GroupCode = '#Topic.Code#'
+					  ORDER BY GroupListOrder, GroupListCode
 				</cfquery>
 				
 				<cfquery name="Group" 
 				datasource="AppsEmployee" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
-				  SELECT *
-				  FROM  PositionParentGroup
-				  WHERE PositionParentId  = '#Position.PositionParentID#'
-				  AND   GroupCode = '#Topic.Code#'
+					  SELECT *
+					  FROM  PositionParentGroup
+					  WHERE PositionParentId  = '#Position.PositionParentID#'
+					  AND   GroupCode = '#Topic.Code#'
 			    </cfquery>
 								
 				<select name="ListCode_#Topic.Code#" required="No" class="regularxl">
@@ -618,14 +617,14 @@ password="#SESSION.dbpw#">
 	<tr><td class="labelmedium"><cf_tl id="Attachments">:</td>
 	<td>
 	 	 <cf_filelibraryN
-			DocumentPath="#Parameter.DocumentLibrary#"
-			SubDirectory="#URL.ID2#" 
-			Filter="main"
-			Insert="yes"
-			Remove="yes"
-			width="100%"
-			Highlight="no"
-			Listing="yes">
+				DocumentPath="#Parameter.DocumentLibrary#"
+				SubDirectory="#URL.ID2#" 
+				Filter="main"
+				Insert="yes"
+				Remove="yes"
+				width="100%"
+				Highlight="no"
+				Listing="yes">
 	</td>
 	
 	</tr>
@@ -640,9 +639,9 @@ password="#SESSION.dbpw#">
          datasource="AppsEmployee" 
          username="#SESSION.login#" 
          password="#SESSION.dbpw#">
-    	 SELECT * 
-		 FROM  Position
-    	 WHERE PositionParentId = '#URL.ID2#'
+	    	 SELECT * 
+			 FROM  Position
+	    	 WHERE PositionParentId = '#URL.ID2#'
 	</cfquery>	
 
 	<!--- check if changes are allowed --->
@@ -651,12 +650,12 @@ password="#SESSION.dbpw#">
          datasource="AppsEmployee" 
          username="#SESSION.login#" 
          password="#SESSION.dbpw#">
-    	 SELECT * 
-		 FROM PersonAssignment
-    	 WHERE PositionNo IN (SELECT PositionNo 
-		                      FROM   Position 
-							  WHERE  PositionParentId = '#URL.ID2#')
-		 AND AssignmentStatus IN ('0','1')				  
+	    	 SELECT * 
+			 FROM   PersonAssignment
+	    	 WHERE  PositionNo IN (SELECT PositionNo 
+			                       FROM   Position 
+								   WHERE  PositionParentId = '#URL.ID2#')
+			 AND    AssignmentStatus IN ('0','1')				  
 	</cfquery>	
 	
 	<cfif AccessPosition eq "EDIT" or AccessPosition eq "ALL">
@@ -665,8 +664,8 @@ password="#SESSION.dbpw#">
 	   
 	   <cfif (pos.recordcount gte "2" or ass.recordcount gte "2") and AccessPosition eq "EDIT">
 	  
-	      <img src="<cfoutput>#SESSION.root#</cfoutput>/Images/finger.gif" align="absmiddle" alt="" border="0">
-		  <b>Parent can not be modified once position is loaned or there are several recorded assignments.</b>
+		      <img src="<cfoutput>#SESSION.root#</cfoutput>/Images/finger.gif" align="absmiddle" alt="" border="0">
+			  <b>Parent can not be modified once position is loaned or there are several recorded assignments.</b>
 	  
 	   <cfelse>	
 	   	  
@@ -680,8 +679,10 @@ password="#SESSION.dbpw#">
 		  
 		  <input class="button10g" type="submit" name="Submit" value="Save" style="height:25;width:100">	
 		  
-	   </cfif>	  
+	   </cfif>	 
+	    
 	   </td></tr>      
+	   
 	</cfif>	   
 
 	</TABLE>

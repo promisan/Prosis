@@ -75,7 +75,7 @@ password="#SESSION.dbpw#">
 	<tr class="labelmedium navigation_row">
 	  
 	    <td style="padding-top:3px" height="18" width="30">		
-		   <cf_img icon="select" onclick="ColdFusion.navigate('#link#&action=insert&#url.des1#=#code#','#url.box#','','','POST','')">					
+		   <cf_img icon="select" onclick="ptoken.navigate('#link#&action=insert&#url.des1#=#code#','#url.box#','','','POST','')">					
 		</td>
 		<td width="60">#Code#</td>
 		<TD width="80%">#Description#</TD>

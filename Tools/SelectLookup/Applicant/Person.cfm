@@ -215,7 +215,7 @@
 	<input type="button" 
 	   value="#lt_text#" 
 	   class="button10g"
-	   onclick="_cf_loadingtexthtml='';ColdFusion.navigate('#nav#&page=1','searchresult#url.box#','','','POST','select_#url.box#')"	  
+	   onclick="_cf_loadingtexthtml='';ptoken.navigate('#nav#&page=1','searchresult#url.box#','','','POST','select_#url.box#')"	  
 	   name="search"
 	   id="search">
 	   

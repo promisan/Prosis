@@ -178,8 +178,8 @@ password="#SESSION.dbpw#">
 				   <td class="labelmedium" style="padding-left:20px"><cfoutput>#SearchResult.recordcount#</cfoutput> <cf_tl id="employees listed"></td>
 				   <cfif form.showadd eq "1">
 					   <td>|</td>
-					   <td class="labelmedium">
-					      <a href="javascript:addrecord()"><font color="6688aa">Register a new person</font></a>
+					   <td class="labelmedium" align="right">
+					      <a href="javascript:addrecord()"><cf_tl id="Register a new person"></a>
 					   </td>
 				   </cfif>
 			   </tr>
@@ -207,15 +207,14 @@ password="#SESSION.dbpw#">
 		<cfset fname = Replace(rtrim(fname),",","",'ALL')>
 		<cfset fname = Replace(rtrim(fname),'"',"",'ALL')>
 					
-		<TR class="navigation_row line labelmedium" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('f7f7f7'))#">
-			
+		<TR class="navigation_row line labelmedium" style="height:20px" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('f7f7f7'))#">
+					
 			<cfset vSelected = "selected('#PersonNo#','#IndexNo#','#lname#','#fname#','#lname#, #fname#','#dateformat(birthdate,client.dateformatshow)#','#nationality#')">
 			<cfif form.fnselected neq "">
 				<cfset vSelected = "#form.fnselected#('#PersonNo#', parent)">
 			</cfif>
 			
-			<TD width="30" align="center" class="navigation_action" style="padding-left:10px;padding-top:4px"
-			   onclick="#vSelected#">		 
+			<TD width="30" align="center" class="navigation_action" style="padding-left:10px;padding-top:3px" onclick="#vSelected#">		 
 			   <cf_img icon="select">			    
 			</TD>
 			<TD>#LastName#, #FirstName# #MiddleName#</TD>

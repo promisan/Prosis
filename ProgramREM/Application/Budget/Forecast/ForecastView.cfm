@@ -19,12 +19,11 @@
   }
 
   function showPositionDetail(pp, pc, pe, gr) {
-  	ColdFusion.navigate('#session.root#/ProgramREM/Application/Budget/Forecast/PositionViewDetail.cfm?PositionParentId='+pp+'&period='+pe+'&programcode='+pc+'&group='+gr,'divPositionDetail');
+  	 ptoken.navigate('#session.root#/ProgramREM/Application/Budget/Forecast/PositionViewDetail.cfm?PositionParentId='+pp+'&period='+pe+'&programcode='+pc+'&group='+gr,'divPositionDetail');
   }
 
 </script>
 </cfoutput>
-
 
 <cf_screenTop height="100%" html="No" scroll="yes" jquery="Yes">
 
@@ -48,13 +47,11 @@
 
 <tr><td valign="top" style="height:100%;padding-left:22px;padding-right:22px">
 
-<form name="entry" id="entry" style="height:100%">
+<form name="entry" id="entry" style="height:97%">
 
 <table width="100%" height="100%">
 
-<tr><td class="labelmedium" style="font-weight:200;height:40px;font-size:19px">
-	Review calculated forecasts per month and adjust correction settings.
-</td></tr>
+<tr><td class="labelmedium" style="font-weight:200;height:40px;font-size:19px">Review calculated forecasts per month and adjust correction settings.</td></tr>
 
 <tr><td valign="top">
 

@@ -390,7 +390,7 @@
 					</cfselect>
 				
 				<cfelse>
-							
+
 					<select name  = "#CriteriaName#" 			
 			    	size          = "#s#" 
 					class         = "#cl#"

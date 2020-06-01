@@ -140,7 +140,7 @@
 
 <cfif ProgramPeriod.recordCount neq 0>	<!--- Program exists --->
 
-	<cfif ProgramPeriod.RecordStatus neq 9 >        <!--- not deleted so alert to error --->
+	<cfif ProgramPeriod.RecordStatus neq "9">        <!--- not deleted so alert to error --->
 		  
 	      <cf_alert message = "A program/component #Form.ProgramCode# : #Form.ProgramName# was already registered ! Operation not allowed." return = "back">
 		  

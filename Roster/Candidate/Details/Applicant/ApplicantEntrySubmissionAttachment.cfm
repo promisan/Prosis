@@ -11,7 +11,9 @@ password="#SESSION.dbpw#">
     WHERE    SubmissionEdition = '#url.submissionedition#'			  
 </cfquery>
 
+<!---
 <cfif GetEdition.EntityClass eq "">
+--->
 
 	<tr> 
     <TD colspan="4" style="padding-left:10px;padding-right:10px">
@@ -29,5 +31,6 @@ password="#SESSION.dbpw#">
      </TD>
     </TR>	
 	
-			
-</cfif>	
+<!---			
+</cfif>
+--->	

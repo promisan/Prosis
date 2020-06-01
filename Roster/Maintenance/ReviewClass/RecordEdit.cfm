@@ -99,7 +99,7 @@ WHERE Code = '#URL.ID1#'
 	<tr>
 		<td class="labelmedium" valign="top" style="padding-top:5px;">Owners:</td>
 		<td class="labelmedium" valign="top" style="padding-top:3px;">
-			<cfdiv id="divOwner" bind="url:Owner.cfm?code=#get.code#">
+			<cf_securediv id="divOwner" bind="url:Owner.cfm?code=#get.code#">
 		</td>
 	</tr>
 	

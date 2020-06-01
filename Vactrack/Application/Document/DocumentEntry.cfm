@@ -49,13 +49,13 @@ password="#SESSION.dbpw#">
 		mis = document.getElementById("mission").value
 		grd = document.getElementById("postgrade").value
 		url = "DocumentEntryFind.cfm?mission="+mis+"&postgrade="+grd
-		ColdFusion.navigate(url,'search')		  
+		ptoken.navigate(url,'search')		  
 	}
 	
 		
 	function selected(pos) {	
 	    ProsisUI.createWindow('mydialog', 'Recruitment Track', '',{x:100,y:100,height:600,width:640,modal:false,resizable:false,center:true})    					
-		ColdFusion.navigate('#SESSION.root#/Vactrack/Application/Document/DocumentEntryPosition.cfm?ID1=' + pos + '&Caller=entry','mydialog')	
+		ptoken.navigate('#SESSION.root#/Vactrack/Application/Document/DocumentEntryPosition.cfm?ID1=' + pos + '&Caller=entry','mydialog')	
 	}
 		
 	</script>
@@ -79,7 +79,7 @@ password="#SESSION.dbpw#">
 
 <cf_screentop html="#html#" height="100%" label="Recruitment Request" layout="innerbox" scroll="Yes" jQuery="Yes">
 
-<table width="94%"  border="0" cellspacing="0" cellpadding="0" align="center" bordercolor="silver" class="formpadding">
+<table width="94%"  align="center" class="formpadding">
   <tr><td height="10"></td></tr>
   <tr>
     <cfoutput>
@@ -96,7 +96,8 @@ password="#SESSION.dbpw#">
 		<TR>
 	    		
 	    <td class="labelit" width="120" height="20"><cf_tl id="Tree/Organization">:</td>
-		<td>		     
+		<td>	
+			     
 			 <select name="mission" id="mission" class="regularxl" style="font-size:20px;height:34px">
 			 
 				 <cfoutput query="Mis">
@@ -115,7 +116,7 @@ password="#SESSION.dbpw#">
 			
 	    <TD class="labelit" style="padding-left:30px" width="140"><cf_tl id="Grade/Level">:</TD>
 	    <TD width="100">		
-		<cfdiv bind="url:DocumentEntryGrade.cfm?mission={mission}" id="gradebox">				
+		<cf_securediv bind="url:DocumentEntryGrade.cfm?mission={mission}" id="gradebox">				
 		</TD>
 		
 		<td align="center" style="padding-left:20px">

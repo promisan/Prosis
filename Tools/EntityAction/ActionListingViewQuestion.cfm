@@ -70,7 +70,7 @@
 		
 		      <cfif InputMode eq "YesNo">			
 											
-					<cfswitch expression="#score#">
+					<cfswitch expression="#Questionscore#">
 					
 						<cfcase value="0">No</cfcase>
 						<cfcase value="1">Yes</cfcase>
@@ -79,7 +79,7 @@
 				
 				<cfelseif InputMode eq "YesNoNA">			
 				
-					<cfswitch expression="#score#">
+					<cfswitch expression="#Questionscore#">
 					
 						<cfcase value="0"><cf_tl id="No"></cfcase>
 						<cfcase value="1"><cf_tl id="Yes"></cfcase>

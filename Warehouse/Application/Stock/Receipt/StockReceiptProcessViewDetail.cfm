@@ -33,19 +33,18 @@
 
 <!-- <cfform name="frmProcessReceipt" id="frmProcessReceipt" onsubmit="return false;"> -->
 
-<table width="100%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="100%"align="center" class="formpadding">
 
-	<tr>
+	<tr class="line fixrow labelmedium">
 		<td width="3%"></td>
-		<td align="center" width="4%" height="20" class="labelit"><cf_tl id="No."></td>
-		<td width="8%" class="labelit"><cf_tl id="Item"></td>
-		<td width="10%" class="labelit"><cf_tl id="Barcode"></td>
-		<td class="labelit"><cf_tl id="Description"></td>
-		<td width="10%" class="labelit" align="center"><cf_tl id="Unit"></td>
-		<td width="10%" class="labelit" align="right" style="padding-right:10px;"><cf_tl id="Qty"></td>
+		<td align="center" width="4%" height="20"><cf_tl id="No."></td>
+		<td width="8%"><cf_tl id="Item"></td>
+		<td width="10%"><cf_tl id="Barcode"></td>
+		<td><cf_tl id="Description"></td>
+		<td width="10%" align="center"><cf_tl id="Unit"></td>
+		<td width="10%" align="right" style="padding-right:10px;"><cf_tl id="Qty"></td>
 	</tr>
-	<tr><td colspan="7" class="linedotted"></td></tr>
-	
+		
 	<cfset dirtyCount = 0>
 	<cfoutput query="getSelected" group="category">
 	
@@ -83,7 +82,7 @@
 				<cfset vShowQuantity = 1>
 			</cfif>			
 			
-			<tr onMouseOver="this.bgColor='FFFFCF'" onMouseOut="this.bgColor=''" bgcolor="" style="#vItemColor#" #vItemMessage#>
+			<tr class="line labelmedium" onMouseOver="this.bgColor='FFFFCF'" onMouseOut="this.bgColor=''" bgcolor="" style="#vItemColor#" #vItemMessage#>
 			
 				<td align="center" style="padding-top:1px; padding-left:5px;">
 					<cf_img icon="delete" onclick="removeReceiptTemp('#url.mission#','#url.warehouse#',#transactionId#)">
@@ -92,8 +91,8 @@
 				<td align="center" class="labelit">#currentrow#</td>
 				<td>
 					<table cellspacing="0" cellpadding="0">
-						<tr>
-							<td class="labelit">
+						<tr class="labelmedium">
+							<td>
 								<cf_tl id="view item detail" var="1">
 								<a href="javascript: itemopen('#ItemNo#','');" style="cursor:pointer; color:1E70D2;" title="#lt_text#" tabindex="9999">#ItemNo#</a>
 							</td>
@@ -115,10 +114,10 @@
 						</tr>
 					</table>
 				</td>
-				<td class="labelit">#ItemBarcode#</td>
-				<td class="labelit">#ItemDescription#</td>
-				<td align="center" class="labelit">#UoMDescription#</td>
-				<td align="right" class="labelit" style="padding-right:10px;">
+				<td>#ItemBarcode#</td>
+				<td>#ItemDescription#</td>
+				<td align="center">#UoMDescription#</td>
+				<td align="right" style="padding-right:10px;">
 				
 					<cfif vShowQuantity eq 1>
 						<cf_tl id="Enter a valid integer quantity between 1 and" var="1">
@@ -137,7 +136,7 @@
 							size="6" 
 							maxlength="8" 
 							class="regularxl enterastab" 
-							style="text-align:right; padding-right:2px;"
+							style="text-align:right; padding-right:2px;border:0px;background-color:f1f1f1"
 							onchange="saveChangeTmpReceipt('#url.mission#','#url.warehouse#','TransferQuantity',this.value, '#transactionId#', '#quantity#');">
 							
 					<cfelse>

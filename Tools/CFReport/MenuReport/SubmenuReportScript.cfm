@@ -45,7 +45,7 @@ function load(id,cls,ctx,scope) {
 	 //history.go()
 	 
 	 if ($.trim($('##tdSystemVars').html()) == '') {
-			ColdFusion.navigate('#SESSION.root#/Tools/CFReport/SubmenuReportView.cfm?ts='+new Date().getTime()+'&Context=report&controlid='+id+'&portal='+scope, 'tdSystemVars');
+			ptoken.navigate('#SESSION.root#/Tools/CFReport/SubmenuReportView.cfm?ts='+new Date().getTime()+'&Context=report&controlid='+id+'&portal='+scope, 'tdSystemVars');
 		}else {
 			$('##tdSystemVars').html('');
 		}
@@ -73,7 +73,7 @@ function verifycont(id,nme,add,del,nmeid) {
 	se = document.getElementsByName(nme)[0].value	
 	}				
 	url = "#SESSION.root#/Tools/CFReport/SelectInputVerify.cfm?del="+del+"&add="+add+"&Controlid="+id+"&CriteriaName="+nme+"&val="+se;		
-	ColdFusion.navigate(url,'verify'+nme)	
+	ptoken.navigate(url,'verify'+nme)	
 	try {   	
 	document.getElementById(nmeid).value = ''		
 	document.getElementById(nmeid).focus()		   			

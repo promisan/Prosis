@@ -472,21 +472,19 @@ password="#SESSION.dbpw#">
 
 <tr><td height="100%" style="padding-left:12px;padding-right:12px">
 
-<cf_divscroll overflowx="auto" id="mainDivCostContent">
+<cf_divscroll>
 
 <table width="99%" 
-      border="0"
-	  height="100%"
-	  cellspacing="0" 
-	  cellpadding="0" 
+      border="0"	 
 	  align="center">	  
 
-<tr><td>
-
+<tr><td style="height:20px">
 
 <cfset url.attach   = "1">
 <cfset url.titleedit = "1">
-<cfinclude template="../../Program/Header/ViewHeader.cfm"></td></tr>
+<cfinclude template="../../Program/Header/ViewHeader.cfm">
+
+</td></tr>
 
 <cfoutput>
 	<script>	
@@ -509,7 +507,7 @@ password="#SESSION.dbpw#">
 
 <tr class="hide"><td height="200" id="result"></td></tr>
 
-<cf_menucontainer item="1" class="regular">
+<cf_menucontainer item="1" class="regular" container="div">
 		 
 	<cfif Program.Status eq "0" and CheckMission.workflowEnabled eq "1" and Program.ProgramClass neq "Program">
 	

@@ -299,8 +299,8 @@ password="#SESSION.dbpw#">
 					  <cfloop query="Assignment">
 					  					  
 					  <tr class="labelmedium navigation_row" style="border-top:1px solid silver">
-					   <td height="18" width="10%" style="padding-left:4px"><a href="javascript:EditPerson('#PersonNo#')"><font color="0080FF">#IndexNo#</font></a></td>
-					   <td width="25%"><a href="javascript:EditPerson('#PersonNo#')"><font color="0080FF">#FirstName# #LastName#</font></a></td>
+					   <td height="18" width="10%" style="padding-left:4px"><a href="javascript:EditPerson('#PersonNo#')">#IndexNo#</a></td>
+					   <td width="25%"><a href="javascript:EditPerson('#PersonNo#')">#FirstName# #LastName#</a></td>
 					   <td width="4%">#Gender#</td>
 					   <td width="5%" style="padding-right:4px">#Nationality#</td>
 					   <td width="5%" style="padding-right:6px">#AssignmentClass#</td>
@@ -377,9 +377,4 @@ password="#SESSION.dbpw#">
 	<cf_screenBottom layout="webapp">
 </cfif>
 
-
 <cfset ajaxonload("doHighlight")>
-
-
-
-

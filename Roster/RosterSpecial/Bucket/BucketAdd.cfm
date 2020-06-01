@@ -310,7 +310,7 @@ password="#SESSION.dbpw#">
 	<tr> 
     <TD class="labelmedium"><cf_tl id="Location">:</TD>
     <TD>  	
-		<cfdiv bind="url:getLocation.cfm?mission={mission}"/>	
+		<cf_securediv bind="url:getLocation.cfm?mission={mission}">	
 	</TD>
 	</TR>
 

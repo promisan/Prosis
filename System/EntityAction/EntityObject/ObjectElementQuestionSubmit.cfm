@@ -76,7 +76,7 @@
 	<cf_LanguageInput
 		TableCode       = "Questionaire" 
 		Mode            = "Save"
-		Key1Value       = "#url.questionId#"
+		Key1Value       = "#Form.questionId#"
 		Lines           = "2"
 		Name1           = "questionLabel"
 		Name2           = "questionMemo">	

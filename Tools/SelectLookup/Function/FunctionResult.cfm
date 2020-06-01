@@ -81,7 +81,7 @@ ORDER BY FunctionDescription
 <cfif currentrow gte first>
 
 	<tr class="line navigation_row labelmedium" style="height:20px">	  
-	    <td width="30" style="padding-left:4px;padding-top:3px" class="navigation_action" onclick="javascript:ColdFusion.navigate('#link#&action=insert&#url.des1#=#functionno#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">
+	    <td width="30" style="padding-left:4px;padding-top:3px" class="navigation_action" onclick="javascript:ptoken.navigate('#link#&action=insert&#url.des1#=#functionno#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">
 		<cf_img icon="select">
 		</td>
 		<td width="60">#FunctionNo#</td>

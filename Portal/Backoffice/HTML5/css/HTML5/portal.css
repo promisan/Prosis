@@ -895,3 +895,32 @@ body {
     width: 250px;
     min-width: 250px;
 }
+
+/* Switch IT 2020 */
+
+@media only screen and (max-width: 700px) {
+    .clsMainMenuContainerText{
+         display: none!important;
+}
+    
+@media only screen and (max-width: 500px) {
+.clsNavigationBarTitle {
+	padding-top: 4px;
+}
+.clsHeaderLogoImage {
+    display: block!important;
+}
+}
+
+@media only screen and (max-width: 400px) {
+
+    .clsHeaderLogoImage {
+        display: none!important;
+    }
+}
+@media only screen and (max-width: 300px) {
+
+.clsHeaderLogoImage {
+    display: none!important;
+}
+}

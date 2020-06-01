@@ -127,7 +127,7 @@
 	<cfset fields[itm] = {label     = "#vOriginal#",                    
 	     				field       = "OnHand",							
 						align       = "right",																			
-						formatted   = "numberformat(TransactionQuantity,'__,__')",
+						formatted   = "numberformat(TransactionQuantity,',__')",
 						search      = "number"}>		
 	
 	<cfset itm = itm+1>
@@ -135,14 +135,14 @@
 	<cfset fields[itm] = {label     = "#vUsed#",                    
 	     				field       = "QuantityUsed",							
 						align       = "right",																			
-						formatted   = "numberformat(QuantityUsed,'__,__')"}>		
+						formatted   = "numberformat(QuantityUsed,',__')"}>		
 						
 	<cfset itm = itm+1>
 	
 	<cfset fields[itm] = {label     = "#vOnHand#",                    
 	     				field       = "QuantityOnHand",							
 						align       = "right",																			
-						formatted   = "numberformat(QuantityOnHand,'__,__')",
+						formatted   = "numberformat(QuantityOnHand,',__')",
 						search      = "number"}>													
 		
 				
@@ -154,7 +154,7 @@
 	    
 		h = #client.height-150#;
 		w = #client.width-150#;
-		window.open('#SESSION.root#/warehouse/maintenance/warehouselocation/LocationItemUoM/ItemUoMEdit.cfm?warehouse=#url.warehouse#&location=#url.location#','_blank', 'left=20, top=20, width=' + w + ',height=' + h + ',status=yes, toolbar=no, scrollbars=yes, resizable=yes');
+		ptoken.open('#SESSION.root#/warehouse/maintenance/warehouselocation/LocationItemUoM/ItemUoMEdit.cfm?warehouse=#url.warehouse#&location=#url.location#','_blank', 'left=20, top=20, width=' + w + ',height=' + h + ',status=yes, toolbar=no, scrollbars=yes, resizable=yes');
 		
 	</cfoutput>
 	

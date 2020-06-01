@@ -112,56 +112,56 @@
 			
 			<script language="JavaScript">
 			
-			function rolesubmit(md) {
-						
-			 if (md == "") {
-			     rl = document.getElementById("role").value
- 			 } else {
-		   	     rl = ""
-			 }
-			 
-			 dl = document.getElementById("roledelegation").checked
-			 op = document.getElementById("roleoperational").checked
-			 cl = document.getElementById("classparameter").value
-			 ColdFusion.navigate('RoleSubmit.cfm?id=#URL.ID#&id1='+md+'&status=#sec#&role='+rl+'&del='+dl+'&op='+op+'&param='+cl,'rolebox','','','POST','entry')			
-			 
-			}
-			
-			function groupsubmit(md) {
-						
-			 if (md == "") {
-			     gp = document.getElementById("group").value
- 			 } else {
-		   	     gp = ""
-			 }
-			 
-			 dl = document.getElementById("groupdelegation").checked
-			 op = document.getElementById("groupoperational").checked
-			 ColdFusion.navigate('GroupSubmit.cfm?id=#URL.ID#&id1='+md+'&status=#sec#&group='+gp+'&del='+dl+'&op='+op,'groupbox')			
-			}
-			
-			function show(val,btn)	 {
-			
-				 if (val == "") { 
-				  document.getElementById(btn).className = "hide" 
-				  } else {
-				  document.getElementById(btn).className = "button10s";	
+				function rolesubmit(md) {
+							
+				 if (md == "") {
+				     rl = document.getElementById("role").value
+	 			 } else {
+			   	     rl = ""
 				 }
-			 }
-			 
-			 function editrole(status, id, role) {
-			 
-			    
-				try { ColdFusion.Window.destroy('myrole',true) } catch(e) {}
-				ColdFusion.Window.create('myrole', 'Receipt', '',{x:100,y:100,height:document.body.clientHeight-100,width:document.body.clientWidth-100,modal:true,resizable:false,center:true})    								
-				ColdFusion.navigate('RoleView.cfm?status='+status+'&id='+id+'&role='+role,'myrole') 		
-			 }
-			 
-			 function rolerefresh(status,id) {
-			 
-				_cf_loadingtexthtml='';	
-			    ColdFusion.navigate('Role.cfm?status='+status+'&ID='+id+'&ID1=','rolebox');
-			 }
+				 
+				 dl = document.getElementById("roledelegation").checked
+				 op = document.getElementById("roleoperational").checked
+				 cl = document.getElementById("classparameter").value
+				 ptoken.navigate('RoleSubmit.cfm?id=#URL.ID#&id1='+md+'&status=#sec#&role='+rl+'&del='+dl+'&op='+op+'&param='+cl,'rolebox','','','POST','entry')			
+				 
+				}
+				
+				function groupsubmit(md) {
+							
+				 if (md == "") {
+				     gp = document.getElementById("group").value
+	 			 } else {
+			   	     gp = ""
+				 }
+				 
+				 dl = document.getElementById("groupdelegation").checked
+				 op = document.getElementById("groupoperational").checked
+				 ptoken.navigate('GroupSubmit.cfm?id=#URL.ID#&id1='+md+'&status=#sec#&group='+gp+'&del='+dl+'&op='+op,'groupbox')			
+				}
+				
+				function show(val,btn)	 {
+				
+					 if (val == "") { 
+					  document.getElementById(btn).className = "hide" 
+					  } else {
+					  document.getElementById(btn).className = "button10s";	
+					 }
+				 }
+				 
+				 function editrole(status, id, role) {
+				 
+				    
+					try { ColdFusion.Window.destroy('myrole',true) } catch(e) {}
+					ColdFusion.Window.create('myrole', 'Receipt', '',{x:100,y:100,height:document.body.clientHeight-100,width:document.body.clientWidth-100,modal:true,resizable:false,center:true})    								
+					ptoken.navigate('RoleView.cfm?status='+status+'&id='+id+'&role='+role,'myrole') 		
+				 }
+				 
+				 function rolerefresh(status,id) {
+				 
+					_cf_loadingtexthtml='';	
+				    ptoken.navigate('Role.cfm?status='+status+'&ID='+id+'&ID1=','rolebox');
+				 }
 					
 			</script>
 			
@@ -169,7 +169,7 @@
 			<TR>
 			    
 			   	<td colspan="2">						 
-				  <cfdiv bind="url:Role.cfm?id=#URL.ID#&status=#sec#" id="rolebox"/>
+				  <cf_securediv bind="url:Role.cfm?id=#URL.ID#&status=#sec#" id="rolebox">
 				</td>
 			</TR>
 			
@@ -179,7 +179,7 @@
 				   
 			<TR>
 		      	<TD colspan="2">
-				   <cfdiv bind="url:Group.cfm?id=#URL.ID#&status=#sec#" id="groupbox"/>
+				   <cf_securediv bind="url:Group.cfm?id=#URL.ID#&status=#sec#" id="groupbox"/>
 				</TD>
 			</TR>
 </table>		

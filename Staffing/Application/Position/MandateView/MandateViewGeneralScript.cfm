@@ -7,7 +7,7 @@
 		   se = document.getElementById("sumbox"+box)		   
 		   if (se.className == "hide") {
 			   se.className = "regular"			  
-			   ColdFusion.navigate('#SESSION.root#/Staffing/Application/Position/PositionStatus/PositionStatus.cfm?mde='+mde+'&orgunit='+org,'sum'+box)
+			   ptoken.navigate('#SESSION.root#/Staffing/Application/Position/PositionStatus/PositionStatus.cfm?mde='+mde+'&orgunit='+org,'sum'+box)
 		   } else {
 			   se.className = "hide"    			   
 		   }
@@ -25,13 +25,13 @@
 		
 		function reloadposition(pos,lay,cls) {           
 			  url = "#SESSION.root#/Staffing/Application/Position/MandateView/MandateViewPreparePosition.cfm?header=#url.header#&positionno="+pos+"&lay="+lay+"&class="+cls;	
-			  ColdFusion.navigate(url,'i'+pos)	
-			  }  
+			  ptoken.navigate(url,'i'+pos)	
+		}  
 		
 		function reloadassignment(box,lay) {	  
 		 	  url = "#SESSION.root#/Staffing/Application/Position/MandateView/MandateViewPrepareAssignment.cfm?header=#url.header#&positionno="+box+"&lay="+lay;	
-			  ColdFusion.navigate(url,'i'+box)		
-			  }  
+			  ptoken.navigate(url,'i'+box)		
+		}  
 		
 		function reloadForm(page,sort,mandate,layout,act,pdf,header,sel) {
 		
@@ -55,10 +55,8 @@
 			sel = parent.document.getElementById('selectiondate').value
 			} catch(e) {}		
 							
-			Prosis.busy('yes')			
-			
-			ptoken.navigate('#SESSION.root#/Staffing/Application/Position/MandateView/MandateViewList.cfm?header='+header+'&ID='+id+'&ID1='+orgcode+'&mission='+mission+'&mandate=' + mandate + '&ID4=#URL.ID4#&selectiondate=' + sel + '&page=' + vPage + '&sort=' + sort + '&lay=' + layout + '&act=1&pdf=' + pdf + '&showAllRecords=' + vShowAllRecords,'list')
-			
+			Prosis.busy('yes')				
+			ptoken.navigate('#SESSION.root#/Staffing/Application/Position/MandateView/MandateViewList.cfm?header='+header+'&ID='+id+'&ID1='+orgcode+'&mission='+mission+'&mandate=' + mandate + '&ID4=#URL.ID4#&selectiondate=' + sel + '&page=' + vPage + '&sort=' + sort + '&lay=' + layout + '&act=1&pdf=' + pdf + '&showAllRecords=' + vShowAllRecords,'list')			
 			
 		}
 		
@@ -66,17 +64,17 @@
 		
 		    try { ProsisUI.closeWindow('mybox'); } catch(e) {}
 			 ProsisUI.createWindow('mybox', 'Extend Assignments', '', {height:500,width:700,modal:false,closable:true,center:true});
-			 ColdFusion.navigate('#SESSION.root#/Staffing/Application/Position/MandateView/MandateExtend.cfm?Mission=#URL.Mission#&MandateNo=#URL.Mandate#','mybox')			    
+			 ptoken.navigate('#SESSION.root#/Staffing/Application/Position/MandateView/MandateExtend.cfm?Mission=#URL.Mission#&MandateNo=#URL.Mandate#','mybox')			    
 
 		}
 				
 		function extendnow(mis,man) {
-			ColdFusion.navigate('MandateExtendSubmit.cfm?mission='+mis+'&mandateno='+man,'processextension')
+			ptoken.navigate('MandateExtendSubmit.cfm?mission='+mis+'&mandateno='+man,'processextension')
 		}
 	
 		function AddVacancy(postno) {
 			ProsisUI.createWindow('mydialog', 'Record Recruitment Track', '',{x:100,y:100,height:600,width:640,modal:true,center:true});	
-			ColdFusion.navigate('#SESSION.root#/Vactrack/Application/Document/DocumentEntry.cfm?mission=#URL.Mission#&ID1='+postno+'&Caller=Listing','mydialog')	
+			ptoken.navigate('#SESSION.root#/Vactrack/Application/Document/DocumentEntry.cfm?mission=#URL.Mission#&ID1='+postno+'&Caller=Listing','mydialog')	
 		}
 		
 		function ShowCandidate(App) {

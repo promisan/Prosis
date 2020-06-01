@@ -417,6 +417,7 @@
 		</cfif>	
 								
  </cfquery>
+
  
  <cfsavecontent variable="vTheMainContent">
 
@@ -428,14 +429,14 @@
 	<table width="100%" height="99.9%" class="navigation_table">
 
 	<tr style="height:20px">	
-				
+					
 		<cfif url.size eq "small" or url.size eq "embed">
-		
+				
 			<td style="padding-left:5px;height:30px;font-size:20px;" colspan="4" class="labellarge clsNoPrint">	
 			
 			<cfoutput>
 			
-			<cfif url.orgunit neq "">
+			<cfif url.orgunit neq "0" and url.orgunit neq "">
 			
 				<cfquery name="Org" 
 				datasource="AppsOrganization" 
@@ -453,7 +454,7 @@
 			<cf_tl id="#dateformat(url.selecteddate,'MMMM')#" var="lblMonthTitle">
 			<cf_tl id="#dateformat(url.selecteddate,'DDDD')#" var="lblDayTitle">			
 			<font size="2">#lblDayTitle# #lblMonthTitle# #dateformat(url.selecteddate,"DD")#
-			
+						
 			</cfoutput>
 			
 		<cfelse>
@@ -803,7 +804,7 @@
 							<td align="center" style="border-right:1px solid silver;height:38px;font-size:16px"><cf_tl id="Time"></td>
 							
 							<cfoutput query="Position">
-								<td align="center" style="padding-left:4px;padding-right:4px;border-right:1px solid silver;height:38px;font-size:22px">#LastName#</td>
+								<td align="center" style="padding-left:4px;padding-right:4px;border-right:1px solid silver;height:38px;font-size:20px">#LastName#</td>
 							</cfoutput>														
 							
 						</tr>
@@ -860,7 +861,6 @@
 										   personno         = "#personno#"
 										   dateeffective    = "#url.selecteddate#"
 										   returnvariable   = "workplanid">
-																				
 																		
 										<cfif url.workactionid neq "">
 											<cfset link = "if (document.getElementById('workactionids')) { Prosis.busy('yes');_cf_loadingtexthtml='';ptoken.navigate('#session.root#/WorkOrder/Application/WorkOrder/WorkPlan/setSchedule.cfm?workschedule=#getSchedule.code#&matrix=yes&size=#url.size#&mode=medical&workactionid=#url.workactionid#&selecteddate=#URLencodedformat(url.selecteddate)#&mission=#url.mission#&orgunit=#url.orgunit#&positionno=#positionno#&personno=#personno#&hour=#hr#&minute=#min#','calendartarget','','','POST','scheduleform')}">
@@ -881,16 +881,12 @@
 																					
 										<cfif summary.PositionNo neq "">		
 																			
-											<td style="border-right:1px solid silver" valign="top" 
-											 width="<cfoutput>#wid#%</cfoutput>">	
-											 																																																																					
-												<table width="100%" height="100%">	
-																			 
+											<td style="border-right:1px solid gray;height:100%;<cfoutput>#wid#%</cfoutput>" valign="top">												 											 																																																																					
+												<table style="height:100%;width:100%">																																 
 													<cfoutput query="Summary">																
 														<cfinclude template="ActivityListDetail.cfm">				
-													</cfoutput>																							
-												
-												</table>		
+													</cfoutput>																		
+												</table>														
 											</td>	
 										
 										<cfelse>
@@ -909,18 +905,17 @@
 										
 											<cfoutput>									
 																					
-											 <td width="<cfoutput>#wid#%</cfoutput>" valign="top" 
-											     onMouseOver="this.bgColor='cacaca'" onMouseOut="this.bgColor='EfEfEf'"								 
-											     bgcolor="efefef">	
+											 <td width="<cfoutput>#wid#%</cfoutput>" valign="top" style="height:100%;border-right:1px solid gray;"
+											     onMouseOver="this.bgColor='cacaca'" onMouseOut="this.bgColor='EfEfEf'"	bgcolor="efefef">	
 												 
 												 <table height="100%" width="100%">
 												 <tr class="labelit">
 												 <td onclick="#link#" style="min-width:62px"></td>
-												 <td style="width:99%;height:40px">													 
+												 <td style="width:99%;height:100%">													 
 																	 											 
 												 <input type="text" name="Memo_#left(workplandetail.WorkPlanDetailId,8)#" value="#workplandetail.Memo#" 
-						onchange="ColdFusion.navigate('#SESSION.root#/WorkOrder/Application/Medical/ServiceDetails/WorkPlan/Agenda/setScheduleMemo.cfm?id=#workplandetail.WorkPlanDetailId#','process','','','POST','agenda')"
-						style="width:100%;border:0px;height:40px" class="amemo regularxl enterastab">	
+						onchange="ptoken.navigate('#SESSION.root#/WorkOrder/Application/Medical/ServiceDetails/WorkPlan/Agenda/setScheduleMemo.cfm?id=#workplandetail.WorkPlanDetailId#','process','','','POST','agenda')"
+						style="width:100%;padding-top:4px;border:0px;height:100%" class="amemo regularxl enterastab">	
 											
 												 </td></tr></table>												 
 											 </td>		

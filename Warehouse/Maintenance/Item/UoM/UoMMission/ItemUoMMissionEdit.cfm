@@ -22,9 +22,9 @@ password="#SESSION.dbpw#">
 </cfquery>
 
 <cfif url.mission neq "">
-	<cf_screentop height="100%" close="parent.ColdFusion.Window.destroy('mydialog',true)" scroll="Yes" layout="webapp" jquery="yes" label="Unit of Measure" option="UoM Entity [#Item.ItemDescription# - #Item.UoMDescription#]" banner="yellow">
+	<cf_screentop height="100%" close="parent.ColdFusion.Window.destroy('mydialog',true)" html="no" scroll="Yes" layout="webapp" jquery="yes" label="Unit of Measure" option="UoM Entity [#Item.ItemDescription# - #Item.UoMDescription#]" banner="yellow">
 <cfelse>
-	<cf_screentop height="100%" close="parent.ColdFusion.Window.destroy('mydialog',true)" scroll="Yes" layout="webapp" jquery="yes" label="Unit of Measure" option="UoM Entity [#Item.ItemDescription# - #Item.UoMDescription#]">
+	<cf_screentop height="100%" close="parent.ColdFusion.Window.destroy('mydialog',true)" html="no" scroll="Yes" layout="webapp" jquery="yes" label="Unit of Measure" option="UoM Entity [#Item.ItemDescription# - #Item.UoMDescription#]">
 </cfif>
 
 <script language="JavaScript">

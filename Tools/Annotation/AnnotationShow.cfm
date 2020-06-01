@@ -51,16 +51,16 @@
 
 <cfoutput>
 	
-<table>
+<table style="height:98%;min-width:20px">
 <tr onclick="editannotation('#ent#','#k1#','#k2#','#k3#','#k4#','#bx#')">
 	  
 	 <td class="hide"></td>
 	  	
 	<cfif color.recordcount eq "0">			
-		<td bgcolor="white" height="16" title="Click to annotate" style="min-width:20px;cursor:pointer;border: 1px solid gray;"></td>				
+		<td bgcolor="white" height="16" title="Click to annotate" style="min-width:20px;cursor:pointer;border-bottom: 1px solid silver;border-left: 1px solid silver;border-right: 1px solid silver"></td>				
 	<cfelse>		
 		<cfloop query="color">				    
-			<td bgcolor="#color#" height="16"  title="#Description#" width="4" style="min-width:20px;cursor:pointer;border: 1px solid gray;"></td>			
+			<td bgcolor="#color#" height="16"  title="#Description#" width="4" style="cursor:pointer;border-bottom: 1px solid silver;border-left: 1px solid gray;border-right: 1px solid silver"></td>			
 		</cfloop>	
 	</cfif>
 

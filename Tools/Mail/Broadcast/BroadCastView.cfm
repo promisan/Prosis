@@ -22,7 +22,7 @@
    
 <cf_ajaxRequest>
 <cf_textareascript>
-<cfajaximport tags="cfform,cfdiv,cfwindow">
+<cfajaximport tags="cfform,cfdiv">
 <cf_FileLibraryScript>
 <cf_calendarscript>
 
@@ -64,12 +64,12 @@
 <script language="JavaScript">
 
 function broadcastreload(id) {
-    window.location = "BroadCastView.cfm?mode=#url.mode#&id="+id
+    ptoken.location('BroadCastView.cfm?mode=#url.mode#&id='+id)
 }
 
 function preview(id,rid) {
-    ColdFusion.Window.create('preview', 'Mail Preview', 'BroadCastPreview.cfm?id='+id+'&recipientid='+rid,{x:100,y:100,height:620,width:620,modal:false,center:true})				
-	ColdFusion.navigate('BroadCastPreview.cfm?id='+id+'&recipientid='+rid,'preview')
+    ProsisUI.createWindow('preview', 'Mail Preview', 'BroadCastPreview.cfm?id='+id+'&recipientid='+rid,{x:100,y:100,height:620,width:620,modal:false,center:true})				
+	ptoken.navigate('BroadCastPreview.cfm?id='+id+'&recipientid='+rid,'preview')
 }
 
 function recipienttoggle(recid,val) {
@@ -79,14 +79,14 @@ function recipienttoggle(recid,val) {
 	} else {
 	  url = "BroadCastRecipientSelect.cfm?recid="+recid+"&val=0";
 	}	
-	ColdFusion.navigate(url,'selected')	
+	ptoken.navigate(url,'selected')	
 }	   	
 	   
 function saveSettings(){
 
 		document.formoption.onsubmit() 
 		if( _CF_error_messages.length == 0 ) {
-			ColdFusion.navigate('BroadcastSubmit.cfm?mode=#url.mode#&broadcastid=#url.id#&scope=option','contentbox2','','','POST','formoption')
+			ptoken.navigate('BroadcastSubmit.cfm?mode=#url.mode#&broadcastid=#url.id#&scope=option','contentbox2','','','POST','formoption')
 		 }
 	
 }
@@ -221,7 +221,7 @@ function saveSettings(){
 		<cfset ht = "64">
 		<cfset wd = "64">
 		
-		<cfset itm = "1">
+		<cfset itm = "0">
 		
 		  <cfif url.mode neq "modal">
 				 			   
@@ -236,10 +236,11 @@ function saveSettings(){
 				   name       = "Select Broadcast"
 				   source     = "BroadCastHistory.cfm?mode=#url.mode#&id=#url.id#">	  
 				   
-			 </cfif>	   
+		 </cfif>	   
 		
-		 <cfset itm = itm + 1>
-			  <cf_menutab item       = "1" 
+	     <cfset itm = itm + 1>
+
+		  <cf_menutab item       = "#itm#" 
 	           iconsrc    = "Logos/User/Mail-Subject-Body.png" 
 			   iconwidth  = "#wd#" 
 			   targetitem = "1"
@@ -247,8 +248,7 @@ function saveSettings(){
 			   source     = "BroadCastBodyView.cfm?mode=#url.mode#&id=#url.id#&readonly=#URL.readonly#&sourcepath=#URL.sourcepath#"
 			   iconheight = "#ht#" 
 			   name       = "Mail Subject and Body">		
-			   
-						
+			   						
 			<cfif BroadCast.SystemFunctionId neq "">
 			
 				  <cfset itm = itm + 1>

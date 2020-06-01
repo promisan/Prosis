@@ -13,7 +13,7 @@
 <cfif Check.recordcount eq "0">
 	<script>
 	alert("Broadcast was removed. Action aborted")
-	ColdFusion.navigate('BroadCastHistory.cfm?mode=#url.mode#','contentbox2')
+	ptoken.navigate('BroadCastHistory.cfm?mode=#url.mode#','contentbox2')
 	window.close()
 	</script>
 	<cfabort>
@@ -95,7 +95,6 @@
 		HAVING COUNT(*) > 1
 </cfquery>
 
-
 <cfset currrow = 0>
 
 <cfparam name="URL.page" default="1">
@@ -111,18 +110,18 @@
 
  <tr><td colspan="6"><cfinclude template="BroadCastNavigation.cfm"></td></tr>
  
- <tr height="20" class="line">
+ <tr height="20" class="line labelmedium">
  	 <cfif Group.RecordCount gt 0>
  	 <td></td>
 	 </cfif>
-     <td align="center" class="labelit">No.</td>
+     <td align="center">No.</td>
 	 <td></td>	
-     <td class="labelit">Name</td>
+     <td>Name</td>
 	  <cfif Group.RecordCount eq 0>
-	  	<td class="labelit">Code</td>
+	  	<td>Code</td>
 	  </cfif>
-	 <td class="labelit">Address</td>
-	 <td align="center" class="labelit"><cfif broadcast.BroadcastStatus eq "1">Sent<cfelse>Include</cfif></td>
+	 <td>Address</td>
+	 <td align="center"><cfif broadcast.BroadcastStatus eq "1">Sent<cfelse>Include</cfif></td>
  </tr>
   
 	<cfoutput query="recipient" group="RecipientCode">
@@ -140,27 +139,27 @@
 			<cfoutput>
 			
 				<cfif check.broadcastStatus eq "0"> 
-				<tr id="r#currentrow#" class="navigation_row navigation_action line">
+				<tr id="r#currentrow#" class="navigation_row navigation_action line labelmedium">
 				<cfelse>
-				<tr id="r#currentrow#" class="navigation_row line"> 
+				<tr id="r#currentrow#" class="navigation_row line labelmedium"> 
 				</cfif>
 					<cfif Group.RecordCount gt 0>
 						<td></td>
 					</cfif>
-				    <td height="20" align="center" class="labelit">#currentrow#</td>
+				    <td height="20" align="center">#currentrow#</td>
 					<cfif BroadCast.systemFunctionId neq "">
 					<td><img src="#SESSION.root#/Images/locate3.gif" height="12" WIDTH="12" alt="" style="cursor: pointer;" border="0" onclick="preview('#url.id#','#Recipient.recipientId#')"></td>
 					<cfelse>
 					<td></td>		 
 				    </cfif>
-					<TD class="labelit"><cfif RecipientLastName neq "">#RecipientLastName#, #RecipientFirstName#<cfelse>#RecipientName#</cfif></TD>
+					<TD><cfif RecipientLastName neq "">#RecipientLastName#, #RecipientFirstName#<cfelse>#RecipientName#</cfif></TD>
 					
 					<cfif Group.RecordCount eq 0>
-	  					<td class="labelit">#RecipientCode#</td>
+	  					<td>#RecipientCode#</td>
 	  				</cfif>
 					
-					<TD class="labelit">#EMailAddress#</TD>
-					<td align="center" class="labelit">
+					<TD>#EMailAddress#</TD>
+					<td align="center">
 					<cfif broadcast.BroadcastStatus eq "0">
 					  <input type="checkbox"
 					       name="select" id="select" class="radiol"

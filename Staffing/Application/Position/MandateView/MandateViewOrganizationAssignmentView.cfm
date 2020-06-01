@@ -79,7 +79,7 @@
 		   
 	   </td>
 	  
-	  <td style="min-width:70px;padding-left:2px">   
+	  <td style="min-width:90px;padding-left:2px">   
 		  
 		   <table>
 			<tr>			

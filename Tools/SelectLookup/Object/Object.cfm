@@ -90,7 +90,7 @@
 	   name="search"
 	   id="search"
 	   value="<cfoutput>#lt_text#</cfoutput>" 
-	   onclick="ColdFusion.navigate('#SESSION.root#/tools/selectlookup/Object/ObjectResult.cfm?page=1&close=#url.close#&box=#box#&link=#link#&des1=#des1#&filter1=#filter1#&filter1value=#filter1value#&filter2=#filter2#&filter2value=#filter2value#','objectresult','','','POST','selectobject')"
+	   onclick="ptoken.navigate('#SESSION.root#/tools/selectlookup/Object/ObjectResult.cfm?page=1&close=#url.close#&box=#box#&link=#link#&des1=#des1#&filter1=#filter1#&filter1value=#filter1value#&filter2=#filter2#&filter2value=#filter2value#','objectresult','','','POST','selectobject')"
 	   class="button10g">
 </td></tr>
 

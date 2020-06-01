@@ -236,7 +236,7 @@
 			<CFParam name="Attributes.height" default="640">
 			<CFParam name="Attributes.width" default="760">	
 			
-			<cfset jvlink = "try { ProsisUI.closeWindow('dialog#box#',true)} catch(e){};ProsisUI.createWindow('dialog#box#', 'Find Employee', '',{x:100,y:100,height:document.body.clientHeight-90,width:#Attributes.width#,resizable:false,modal:true,center:true});ColdFusion.navigate('#SESSION.root#/Tools/SelectLookup/Employee/Employee.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#&filter3=#fil3#&filter3value=#fval3#','dialog#box#')">		
+			<cfset jvlink = "try { ProsisUI.closeWindow('dialog#box#',true)} catch(e){};ProsisUI.createWindow('dialog#box#', 'Find Employee', '',{x:100,y:100,height:document.body.clientHeight-90,width:#Attributes.width#,resizable:false,modal:true,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/Employee/Employee.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#&filter3=#fil3#&filter3value=#fval3#','dialog#box#')">		
 				
 			<cfif attributes.button eq "No">
 			
@@ -274,7 +274,7 @@
 			<CFParam name="Attributes.height" default="640">
 			<CFParam name="Attributes.width" default="760">	
 			
-			<cfset jvlink = "try { ProsisUI.closeWindow('dialog#box#',true)} catch(e){};ProsisUI.createWindow('dialog#box#', 'Natural Person', '',{x:100,y:100,height:document.body.clientHeight-90,width:#Attributes.width#,resizable:false,modal:true,center:true});ColdFusion.navigate('#SESSION.root#/Tools/SelectLookup/Applicant/Person.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#&filter3=#fil3#&filter3value=#fval3#','dialog#box#')">		
+			<cfset jvlink = "try { ProsisUI.closeWindow('dialog#box#',true)} catch(e){};ProsisUI.createWindow('dialog#box#', 'Natural Person', '',{x:100,y:100,height:document.body.clientHeight-90,width:#Attributes.width#,resizable:false,modal:true,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/Applicant/Person.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#&filter3=#fil3#&filter3value=#fval3#','dialog#box#')">		
 				
 			<cfif attributes.button eq "No">
 			
@@ -312,7 +312,7 @@
 			<CFParam name="Attributes.height" default="625">
 			<CFParam name="Attributes.width"  default="620">			
 		
-			<cfset jvlink = "ColdFusion.Window.create('dialog#box#', 'Find Role', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,resizable:false,modal:true,center:true});ColdFusion.navigate('#SESSION.root#/Tools/SelectLookup/Role/Search.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#','dialog#box#')">		
+			<cfset jvlink = "ColdFusion.Window.create('dialog#box#', 'Find Role', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,resizable:false,modal:true,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/Role/Search.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#','dialog#box#')">		
 				    		
 		 	<a href="javascript:#preservesinglequotes(jvlink)#">#Attributes.title#</a>			
 				
@@ -323,7 +323,7 @@
 			<CFParam name="Attributes.height" default="625">
 			<CFParam name="Attributes.width"  default="620">	
 				
-			<cfset jvlink = "ProsisUI.createWindow('dialog#box#', 'Owner', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,resizable:false,modal:true,center:true});ColdFusion.navigate('#SESSION.root#/Tools/SelectLookup/Owner/Search.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#','dialog#box#')">		
+			<cfset jvlink = "ProsisUI.createWindow('dialog#box#', 'Owner', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,resizable:false,modal:true,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/Owner/Search.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#','dialog#box#')">		
 							   
 		 	<a href="javascript:#preservesinglequotes(jvlink)#">#Attributes.title#</a>			
 				
@@ -334,7 +334,7 @@
 			<CFParam name="Attributes.height" default="625">
 			<CFParam name="Attributes.width"  default="620">	
 		
-			<cfset jvlink = "ColdFusion.Window.create('dialog#box#', 'Find Template', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,resizable:false,modal:#attributes.modal#,center:true});ColdFusion.navigate('#SESSION.root#/Tools/SelectLookup/Template/Template.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&&des2=#des2#&filter1=#fil1#&filter1value=#fval1#&&filter2=#fil2#&filter1value=#fval2#','dialog#box#')">		
+			<cfset jvlink = "ColdFusion.Window.create('dialog#box#', 'Find Template', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,resizable:false,modal:#attributes.modal#,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/Template/Template.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&&des2=#des2#&filter1=#fil1#&filter1value=#fval1#&&filter2=#fil2#&filter1value=#fval2#','dialog#box#')">		
 				
 			<cfif attributes.button eq "No">
 				    		
@@ -357,7 +357,7 @@
 			<CFParam name="Attributes.height" default="625">
 			<CFParam name="Attributes.width"  default="680">		
 												
-			<cfset jvlink = "try {ProsisUI.closeWindow('dialog#box#')} catch(e) {};ProsisUI.createWindow('dialog#box#', 'Find User Account', '',{x:100,y:100,height:document.body.clientHeight-80,width:#Attributes.width#,modal:true,center:true});ColdFusion.navigate('#SESSION.root#/Tools/SelectLookup/User/User.cfm?form=#attributes.form#&close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=&filter2value=','dialog#box#')">		
+			<cfset jvlink = "try {ProsisUI.closeWindow('dialog#box#')} catch(e) {};ProsisUI.createWindow('dialog#box#', 'Find User Account', '',{x:100,y:100,height:document.body.clientHeight-80,width:#Attributes.width#,modal:true,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/User/User.cfm?form=#attributes.form#&close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=&filter2value=','dialog#box#')">		
 				
 			<cfif attributes.button eq "No">
 			
@@ -383,7 +383,7 @@
 			<CFParam name="Attributes.height" default="625">
 			<CFParam name="Attributes.width"  default="620">			
 				
-			<cfset jvlink = "ColdFusion.Window.create('dialog#box#', 'Find User Group', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,modal:true,center:true});ColdFusion.navigate('#SESSION.root#/Tools/SelectLookup/UserGroup/UserGroup.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=&filter2value=','dialog#box#')">		
+			<cfset jvlink = "ColdFusion.Window.create('dialog#box#', 'Find User Group', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,modal:true,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/UserGroup/UserGroup.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=&filter2value=','dialog#box#')">		
 				
 			<cfif attributes.button eq "No">
 			
@@ -410,7 +410,7 @@
 			<CFParam name="Attributes.height" default="625">
 			<CFParam name="Attributes.width"  default="620">			
 	
-			<cfset jvlink = "ColdFusion.Window.create('dialog#box#', 'General Ledger Account', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,modal:true,center:true});ColdFusion.navigate('#SESSION.root#/Tools/SelectLookup/GLAccount/GLAccount.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=&filter2value=','dialog#box#')">		
+			<cfset jvlink = "ColdFusion.Window.create('dialog#box#', 'General Ledger Account', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,modal:true,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/GLAccount/GLAccount.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=&filter2value=','dialog#box#')">		
 				
 			<cfif attributes.button eq "No">
 			
@@ -478,7 +478,7 @@
 			<CFParam name="Attributes.height" default="660">
 			<CFParam name="Attributes.width"  default="680">		
 		
-			<cfset jvlink = "ProsisUI.createWindow('dialog#box#', '#Attributes.title#', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,modal:#attributes.modal#,center:true});ColdFusion.navigate('#SESSION.root#/Tools/SelectLookup/Position/PositionSingle.cfm?datasource=#attributes.datasource#&close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#&filter3=#fil3#&filter3value=#fval3#','dialog#box#')">		
+			<cfset jvlink = "ProsisUI.createWindow('dialog#box#', '#Attributes.title#', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,modal:#attributes.modal#,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/Position/PositionSingle.cfm?datasource=#attributes.datasource#&close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#&filter3=#fil3#&filter3value=#fval3#','dialog#box#')">		
 							
 			<cfif attributes.button eq "No">
 						
@@ -512,7 +512,7 @@
 			<CFParam name="Attributes.height" default="600">
 			<CFParam name="Attributes.width"  default="540">			
 		
-			<cfset jvlink = "ProsisUI.createWindow('dialog#box#', '#Attributes.title#', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,modal:true,center:true});ColdFusion.navigate('#SESSION.root#/Tools/SelectLookup/Function/Function.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#','dialog#box#')">		
+			<cfset jvlink = "ProsisUI.createWindow('dialog#box#', '#Attributes.title#', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,modal:true,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/Function/Function.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#','dialog#box#')">		
 				
 			<cfif attributes.button eq "No">
 			
@@ -542,7 +542,7 @@
 			<CFParam name="Attributes.height" default="600">
 			<CFParam name="Attributes.width"  default="540">			
 			
-			<cfset jvlink = "ColdFusion.Window.create('dialog#box#', '#Attributes.title#', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,modal:true,center:true});ColdFusion.navigate('#SESSION.root#/Tools/SelectLookup/Standard/Standard.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#','dialog#box#')">		
+			<cfset jvlink = "ColdFusion.Window.create('dialog#box#', '#Attributes.title#', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,modal:true,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/Standard/Standard.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#','dialog#box#')">		
 				
 			<cfif attributes.button eq "No">
 			
@@ -570,7 +570,7 @@
 			<CFParam name="Attributes.height" default="600">
 			<CFParam name="Attributes.width"  default="540">			
 				
-			<cfset jvlink = "ColdFusion.Window.create('dialog#box#', '#Attributes.title#', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,modal:true,center:true});ColdFusion.navigate('#SESSION.root#/Tools/SelectLookup/Object/Object.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#','dialog#box#')">		
+			<cfset jvlink = "ColdFusion.Window.create('dialog#box#', '#Attributes.title#', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,modal:true,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/Object/Object.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#','dialog#box#')">		
 				
 			<cfif attributes.button eq "No">
 			
@@ -598,7 +598,7 @@
 			<CFParam name="Attributes.height" default="600">
 			<CFParam name="Attributes.width"  default="540">		
 				
-			<cfset jvlink = "ColdFusion.Window.create('dialog#box#','#Attributes.title#','',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,modal:false,center:true});ColdFusion.navigate('#SESSION.root#/Tools/SelectLookup/ItemMaster/Item.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#','dialog#box#')">		
+			<cfset jvlink = "ColdFusion.Window.create('dialog#box#','#Attributes.title#','',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,modal:false,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/ItemMaster/Item.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#','dialog#box#')">		
 				
 			<cfif attributes.button eq "No">
 			
@@ -625,7 +625,7 @@
 			<CFParam name="Attributes.height" default="620">
 			<CFParam name="Attributes.width"  default="700">		
 				
-			<cfset jvlink = "ProsisUI.createWindow('dialog#box#','#Attributes.title#','',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,modal:#attributes.modal#,center:true});ColdFusion.navigate('#SESSION.root#/Tools/SelectLookup/Item/Item.cfm?stock=1&close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#','dialog#box#')">		
+			<cfset jvlink = "ProsisUI.createWindow('dialog#box#','#Attributes.title#','',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,modal:#attributes.modal#,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/Item/Item.cfm?stock=1&close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#','dialog#box#')">		
 								
 			<cfif attributes.button eq "cfbutton">	
 					
@@ -678,7 +678,7 @@
 			<CFParam name="Attributes.height" default="620">
 			<CFParam name="Attributes.width"  default="800">		
 				
-			<cfset jvlink = "ProsisUI.createWindow('dialog#box#','#Attributes.title#','',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,modal:#attributes.modal#,center:true});ColdFusion.navigate('#SESSION.root#/Tools/SelectLookup/Item/Item.cfm?stock=0&close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#','dialog#box#')">		
+			<cfset jvlink = "ProsisUI.createWindow('dialog#box#','#Attributes.title#','',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,modal:#attributes.modal#,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/Item/Item.cfm?stock=0&close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#','dialog#box#')">		
 				
 			<cfif attributes.button eq "cfbutton">				
 				
@@ -734,7 +734,7 @@
 			<CFParam name="Attributes.width"     default="540">	
 			<CFParam name="Attributes.pFunction"  default="">	
 			
-			<cfset jvlink = "#pfunction#;ProsisUI.createWindow('dialog#box#','#Attributes.title#','',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-80,modal:#attributes.modal#,center:true});ColdFusion.navigate('#SESSION.root#/Tools/SelectLookup/ItemExtended/Item.cfm?getform=#attributes.formname#&module=#attributes.module#&width='+document.body.clientWidth+'&close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#','dialog#box#');">		
+			<cfset jvlink = "#pfunction#;ProsisUI.createWindow('dialog#box#','#Attributes.title#','',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-80,modal:#attributes.modal#,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/ItemExtended/Item.cfm?getform=#attributes.formname#&module=#attributes.module#&width='+document.body.clientWidth+'&close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#','dialog#box#');">		
 						
 			<cfif attributes.button eq "cfbutton">				
 					
@@ -791,7 +791,7 @@
 			<CFParam name="Attributes.width"      default="640">	
 			<CFParam name="Attributes.pFunction"   default="">		
 						
-			<cfset jvlink = "#pfunction#;try { ProsisUI.createWindow('dialog#box#') } catch(e) { ProsisUI.createWindow('dialog#box#','#Attributes.title#','',{x:100,y:100,height:document.body.clientHeight-70,width:document.body.clientWidth-90,modal:#attributes.modal#,center:true}) };ColdFusion.navigate('#SESSION.root#/Tools/SelectLookup/SalesOrder/Sale.cfm?module=#attributes.module#&width='+document.body.clientWidth+'&close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#','dialog#box#')">		
+			<cfset jvlink = "#pfunction#;try { ProsisUI.createWindow('dialog#box#') } catch(e) { ProsisUI.createWindow('dialog#box#','#Attributes.title#','',{x:100,y:100,height:document.body.clientHeight-70,width:document.body.clientWidth-90,modal:#attributes.modal#,center:true}) };ptoken.navigate('#SESSION.root#/Tools/SelectLookup/SalesOrder/Sale.cfm?module=#attributes.module#&width='+document.body.clientWidth+'&close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#','dialog#box#')">		
 						
 			<cfif attributes.button eq "cfbutton">
 								
@@ -843,7 +843,7 @@
 			<CFParam name="Attributes.height" default="600">
 			<CFParam name="Attributes.width"  default="740">		
 		
-			<cfset jvlink = "try { ColdFusion.Window.destroy('dialog#box#',true)} catch(e){};ColdFusion.Window.create('dialog#box#','#Attributes.title#','',{x:100,y:100,height:document.body.clientHeight-40,width:#Attributes.width#,modal:false,center:true});ColdFusion.navigate('#SESSION.root#/Tools/SelectLookup/Asset/Item.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#&filter3=#fil3#&filter3value=#fval3#&filter4=#fil4#&filter4value=#fval4#','dialog#box#')">		
+			<cfset jvlink = "try { ColdFusion.Window.destroy('dialog#box#',true)} catch(e){};ColdFusion.Window.create('dialog#box#','#Attributes.title#','',{x:100,y:100,height:document.body.clientHeight-40,width:#Attributes.width#,modal:false,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/Asset/Item.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#&filter3=#fil3#&filter3value=#fval3#&filter4=#fil4#&filter4value=#fval4#','dialog#box#')">		
 				
 			<cfif attributes.button eq "No">
 			
@@ -866,7 +866,7 @@
 			<CFParam name="Attributes.height" default="600">
 			<CFParam name="Attributes.width"  default="740">		
 		
-			<cfset jvlink = "ColdFusion.Window.create('dialog#box#','#Attributes.title#','',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,modal:false,center:true});ColdFusion.navigate('#SESSION.root#/Tools/SelectLookup/Warehouse/Warehouse.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#','dialog#box#')">		
+			<cfset jvlink = "ColdFusion.Window.create('dialog#box#','#Attributes.title#','',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,modal:false,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/Warehouse/Warehouse.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#','dialog#box#')">		
 				
 			<cfif attributes.button eq "No">
 			
@@ -888,7 +888,7 @@
 			<CFParam name="Attributes.height" default="630">
 			<CFParam name="Attributes.width"  default="625">		
 		
-			<cfset jvlink = "try { ProsisUI.closeWindow('dialog#box#',true)} catch(e){};ProsisUI.createWindow('dialog#box#', '#Attributes.title#', '',{x:100,y:100,height:document.body.clientHeight-90,width:#Attributes.width#,modal:#attributes.modal#,center:true});ColdFusion.navigate('#SESSION.root#/Tools/SelectLookup/Unit/Organization.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#','dialog#box#')">		
+			<cfset jvlink = "try { ProsisUI.closeWindow('dialog#box#',true)} catch(e){};ProsisUI.createWindow('dialog#box#', '#Attributes.title#', '',{x:100,y:100,height:document.body.clientHeight-90,width:#Attributes.width#,modal:#attributes.modal#,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/Unit/Organization.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#','dialog#box#')">		
 				
 			<cfif attributes.button eq "No">
 			
@@ -925,7 +925,7 @@
 			<CFParam name="Attributes.height" default="660">
 			<CFParam name="Attributes.width"  default="780">		
 							
-			<cfset jvlink = "ProsisUI.createWindow('dialog#box#', '#Attributes.title#', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,modal:#attributes.modal#,center:true});ColdFusion.navigate('#SESSION.root#/Tools/SelectLookup/Customer/Customer.cfm?datasource=#attributes.datasource#&close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#','dialog#box#')">		
+			<cfset jvlink = "ProsisUI.createWindow('dialog#box#', '#Attributes.title#', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,modal:#attributes.modal#,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/Customer/Customer.cfm?datasource=#attributes.datasource#&close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#','dialog#box#')">		
 							
 			<cfif attributes.button eq "No">
 			
@@ -959,7 +959,7 @@
 			<CFParam name="Attributes.height" default="660">
 			<CFParam name="Attributes.width"  default="780">		
 		
-			<cfset jvlink = "ProsisUI.createWindow('dialog#box#', '#Attributes.title#', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,modal:#attributes.modal#,center:true});ColdFusion.navigate('#SESSION.root#/Tools/SelectLookup/TaxCode/Tax.cfm?datasource=#attributes.datasource#&close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#','dialog#box#')">		
+			<cfset jvlink = "ProsisUI.createWindow('dialog#box#', '#Attributes.title#', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,modal:#attributes.modal#,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/TaxCode/Tax.cfm?datasource=#attributes.datasource#&close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#','dialog#box#')">		
 							
 			<cfif attributes.button eq "No">
 			
@@ -993,7 +993,7 @@
 			<CFParam name="Attributes.height" default="625">
 			<CFParam name="Attributes.width"  default="620">		
 		
-			<cfset jvlink = "ColdFusion.Window.create('dialog#box#', '#Attributes.title#', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,modal:#attributes.modal#,center:true});ColdFusion.navigate('#SESSION.root#/Tools/SelectLookup/WorkOrder/Search.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#&filter3=#fil3#&filter3value=#fval3#','dialog#box#')">		
+			<cfset jvlink = "ColdFusion.Window.create('dialog#box#', '#Attributes.title#', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,modal:#attributes.modal#,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/WorkOrder/Search.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#&filter3=#fil3#&filter3value=#fval3#','dialog#box#')">		
 					
 			<cfif attributes.button eq "No">
 					
@@ -1027,7 +1027,7 @@
 			<CFParam name="Attributes.height" default="625">
 			<CFParam name="Attributes.width"  default="620">		
 	
-			<cfset jvlink = "ColdFusion.Window.create('dialog#box#', '#Attributes.title#', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,modal:#attributes.modal#,center:true});ColdFusion.navigate('#SESSION.root#/Tools/SelectLookup/WorkOrderLine/Search.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#&filter3=#fil3#&filter3value=#fval3#','dialog#box#')">		
+			<cfset jvlink = "ColdFusion.Window.create('dialog#box#', '#Attributes.title#', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,modal:#attributes.modal#,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/WorkOrderLine/Search.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#&filter3=#fil3#&filter3value=#fval3#','dialog#box#')">		
 					
 			<cfif attributes.button eq "No">
 					
@@ -1065,7 +1065,7 @@
 			<CFParam name="Attributes.height" default="625">
 			<CFParam name="Attributes.width"  default="620">		
 		
-			<cfset jvlink = "ColdFusion.Window.create('dialog#box#', '#Attributes.title#', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,modal:#attributes.modal#,center:true});ColdFusion.navigate('#SESSION.root#/Tools/SelectLookup/Tree/Tree.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#','dialog#box#')">		
+			<cfset jvlink = "ColdFusion.Window.create('dialog#box#', '#Attributes.title#', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,modal:#attributes.modal#,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/Tree/Tree.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#','dialog#box#')">		
 				
 			<cfif attributes.button eq "No">
 			
@@ -1094,7 +1094,7 @@
 			<CFParam name="Attributes.height" default="625">
 			<CFParam name="Attributes.width"  default="620">			
 		
-			<cfset jvlink = "ColdFusion.Window.create('dialog#box#', 'Find Funding', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,resizable:false,modal:true,center:true});ColdFusion.navigate('#SESSION.root#/Tools/SelectLookup/Funding/Funding.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filtervalue=#fval1#','dialog#box#')">		
+			<cfset jvlink = "ColdFusion.Window.create('dialog#box#', 'Find Funding', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,resizable:false,modal:true,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/Funding/Funding.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filtervalue=#fval1#','dialog#box#')">		
 				
 			<cfif attributes.button eq "No">
 			
@@ -1126,7 +1126,7 @@
 			<CFParam name="Attributes.height" default="430">
 			<CFParam name="Attributes.width"  default="590">			
 				
-			<cfset jvlink = "ProsisUI.createWindow('dialog#box#', 'Search Entity', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,resizable:false,modal:true,center:true});ColdFusion.navigate('#SESSION.root#/Tools/SelectLookup/Mission/Search.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filtervalue1=#fval1#','dialog#box#')">
+			<cfset jvlink = "ProsisUI.createWindow('dialog#box#', 'Search Entity', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,resizable:false,modal:true,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/Mission/Search.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filtervalue1=#fval1#','dialog#box#')">
 				
 			<cfif attributes.button eq "No">
 					    		
@@ -1153,7 +1153,7 @@
 			<CFParam name="Attributes.height" default="620">
 			<CFParam name="Attributes.width"  default="550">			
 				
-			<cfset jvlink = "ColdFusion.Window.create('dialog#box#', 'Item Search', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,resizable:false,modal:true,center:true});ColdFusion.navigate('#SESSION.root#/Tools/SelectLookup/ItemOneClick/Search.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#','dialog#box#')">
+			<cfset jvlink = "ColdFusion.Window.create('dialog#box#', 'Item Search', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,resizable:false,modal:true,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/ItemOneClick/Search.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#','dialog#box#')">
 				
 			<cfif attributes.button eq "No">
 			

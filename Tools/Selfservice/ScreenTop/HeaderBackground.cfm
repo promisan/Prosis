@@ -25,7 +25,7 @@
 				WHERE	M.SystemModule IN (SELECT SystemModule FROM Ref_ModuleControl WHERE SystemFunctionId = '#SystemFunctionId#')
 				AND		A.Operational = '1'	AND M.Operational = '1'
 		</cfquery>
-		
+				
 		<cfif get.recordCount gt 0>
 									
 			<cfif get.code eq "AD">
@@ -96,6 +96,7 @@
 
 
 <cfif vTakeBackgroundColorCriteria eq 1>
+
 	
 	<cfif attributes.banner eq "blank">
 		<cfset bg = "">
@@ -126,14 +127,14 @@
 		<cfset attributes.textColorClose = "FFFFFF">
 		<cfset attributes.textColorOption = "FFFFFF">
 		
-	<cfelseif attributes.banner eq "blue" or attributes.background eq "linesBlue">	
+	<cfelseif attributes.banner eq "blue" or attributes.background eq "linesBlue">		
 		<cfset background = "Images/logos/Banners/OperationsBlue.jpg">
 		<cfset attributes.textColorLabel = "FFFFFF">
 		<cfset attributes.textColorName = "FFFFFF">
 		<cfset attributes.textColorClose = "FFFFFF">
 		<cfset attributes.textColorOption = "FFFFFF">		
 	<cfelse>	
-		<cfset background = "Images/logos/Banners/OperationsBlue.jpg">
+		<cfset background = "Images/logos/Banners/OperationsBlue.jpg">		
 		<cfset attributes.textColorLabel = "FFFFFF">
 		<cfset attributes.textColorName = "FFFFFF">
 		<cfset attributes.textColorClose = "ffffff">

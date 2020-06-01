@@ -507,9 +507,9 @@
 				</cfif>			
 																																		
 				if (qry == "undefined" || qry == "") {	
-				    ptoken.open("#SESSION.root#/component/analysis/CrossTabLaunch.cfm?ts="+new Date().getTime()+"&#QueryString#&fileno=#fileno#&controlid="+controlid+"&filter="+filter+"&data=#Data#&format="+format, "#target#");  				   		
+				    ptoken.open("#SESSION.root#/component/analysis/CrossTabLaunch.cfm?#QueryString#&fileno=#fileno#&controlid="+controlid+"&filter="+filter+"&data=#Data#&format="+format, "#target#");  				   		
 				} else {	
-				    ptoken.open("#SESSION.root#/component/analysis/CrossTabLaunch.cfm?ts="+new Date().getTime()+"&fileno=#fileno#&controlid="+controlid+"&"+qry+"&filter="+filter+"&data=#Data#&format="+format, "#target#"); 							    
+				    ptoken.open("#SESSION.root#/component/analysis/CrossTabLaunch.cfm?fileno=#fileno#&controlid="+controlid+"&"+qry+"&filter="+filter+"&data=#Data#&format="+format, "#target#"); 							    
 				}
 			
 			}

@@ -163,12 +163,13 @@ password="#SESSION.dbpw#">
 																						
 									</td>
 								</tr>
+																
 								
 								<cfif DocumentReference neq "" and ApplicantClass eq "4"> 	
 													
 								    <!--- special provision for patient file reference --->											
 									<tr class="labelmedium" style="height:22px">
-									<td width="19%"><font color="808080"><cf_tl id="Document Reference">:</td>	 													
+									<td width="19%" style="min-width:140px"><font color="808080"><cf_tl id="Document Reference">:</td>	 													
 									<td>#DocumentReference#</td>
 									</tr>
 								

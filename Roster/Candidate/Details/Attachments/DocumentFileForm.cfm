@@ -10,7 +10,7 @@
 				
 		<tr>
 		<td>		
-		<cfdiv bind="url:attachments/DocumentMemo.cfm?owner=#url.owner#&id=#url.id#" id="imemo"/>		
+		<cf_securediv bind="url:attachments/DocumentMemo.cfm?owner=#url.owner#&id=#url.id#" id="imemo">		
 		</td>
 		</tr>
 	
@@ -27,7 +27,7 @@
 				
 		<tr>
 		<td>		
-		<cfdiv bind="url:attachments/DocumentMemo.cfm?owner=#url.owner#&id=#url.id#" id="imemo"/>		
+		<cf_securediv bind="url:attachments/DocumentMemo.cfm?owner=#url.owner#&id=#url.id#" id="imemo">		
 		</td>
 		</tr>
 	

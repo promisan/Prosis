@@ -22,12 +22,12 @@ password="#SESSION.dbpw#">
  
 <!--- refresh button to be discussed with armin 5/9/2014 --->
 <tr class="hide"><td>   
-	<input type="button" id="refresh_uomlist" onclick="ColdFusion.navigate('UoM/ItemUoMList.cfm?id=#url.id#&uomselected=#url.uomselected#','uomlist');">	
+	<input type="button" id="refresh_uomlist" onclick="ptoken.navigate('UoM/ItemUoMList.cfm?id=#url.id#&uomselected=#url.uomselected#','uomlist');">	
     </td>
 </tr>
 
 <tr class="line labelmedium">
-    <td width="60" colspan="2"><a href="javascript:recorduomedit('#URL.ID#','')"><font color="0080FF">Add</font></a></td>		
+    <td width="60" colspan="2"><a href="javascript:recorduomedit('#URL.ID#','')">Add</a></td>		
 	<td><cf_tl id="Code"></td>
 	<td><cf_tl id="Label"></td>
 	<td><cf_tl id="Barcode"></td>

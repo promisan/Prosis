@@ -21,6 +21,7 @@ password="#SESSION.dbpw#">
 				
 		    SELECT 
 			       T.*, 
+				   J.TransactionId,
 			       J.TransactionPeriod as HeaderTransactionPeriod,
 			       J.TransactionCategory, 
 				   J.TransactionReference,
@@ -75,7 +76,7 @@ password="#SESSION.dbpw#">
 			<cfif url.pap neq "">
 			
 		    	<cfif GLaccount.accountclass eq "Result">
-				 AND  J.TransactionPeriod = '#url.pap#'
+				 AND  T.TransactionPeriod = '#url.pap#'
 				<cfelse>
 				 AND  J.TransactionPeriod <= '#url.pap#'
 				</cfif> 

@@ -52,9 +52,12 @@
 			<tr>	
 			
 			<cfoutput>
+			
+			<!---
 			<td style="width:1%;border:0px solid silver">
 				<img src="#SESSION.root#/images/logos/warehouse/distribution.png" height="75">
-			</td>			
+			</td>
+			--->			
 							
 			</cfoutput>				
 			
@@ -108,7 +111,7 @@
 		  align="center">
 		  	 					
 			<cf_menucontainer item="1" class="regular">		
-				<cfdiv style="height:100%" id="divMainMenuContainer" bind="url:../Receipt/StockReceiptViewPending.cfm?systemfunctionid=#url.systemfunctionid#&mission=#URL.Mission#&warehouse=#url.warehouse#">
+				<cf_securediv style="height:100%" id="divMainMenuContainer" bind="url:../Receipt/StockReceiptViewPending.cfm?systemfunctionid=#url.systemfunctionid#&mission=#URL.Mission#&warehouse=#url.warehouse#">
 			<cf_menucontainer>		
 					
 	 </table>	

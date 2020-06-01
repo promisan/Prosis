@@ -147,6 +147,7 @@
 													
 													<cf_intelliCalendarDate9
 													    class="regularxl"
+														style="border:0px"
 														FieldName="dateEffective_#url.id#_#ScheduleList.code#_#CurrencyList.currency#" 
 														Default="#dateformat(vDateEffective, '#CLIENT.DateFormatShow#')#"
 														AllowBlank="False">
@@ -159,7 +160,7 @@
 													<select 
 														name="taxCode_#url.id#_#ScheduleList.code#_#CurrencyList.currency#" 
 														id="taxCode_#url.id#_#ScheduleList.code#_#CurrencyList.currency#" 
-														class="regularxl" 
+														class="regularxl" style="border:0px"
 														onchange="submitReceiptItemPrice('#url.mission#','#url.warehouse#','#url.destinationWarehouse#','#url.id#','#ScheduleList.code#','#CurrencyList.currency#');">
 															<cfloop query="TaxList">
 																<option value="#TaxCode#" <cfif qPriceList.TaxCode eq taxcode>selected</cfif>>#Description#
@@ -186,7 +187,7 @@
 													size="8" 
 													maxlength="10" 
 													class="regularxl" 
-													style="text-align:right; padding-right:2px;"
+													style="text-align:right; padding-right:2px;border:0px;background-color:f1f1f1"
 													onblur="submitReceiptItemPrice('#url.mission#','#url.warehouse#','#url.destinationWarehouse#','#url.id#','#ScheduleList.code#','#CurrencyList.currency#');">
 													
 											</td>

@@ -117,7 +117,7 @@ password="#SESSION.dbpw#">
 			<td class="labelmedium"> Unit Class: </td>
 			<td class="labelmedium">
 			
-				<cfdiv bind="url:getOrgUnitClass.cfm?mission={TreePublish}&selected=#Get.OrgUnitClass#" id="div_OrgUnitClass"/>
+				<cf_securediv bind="url:getOrgUnitClass.cfm?mission={TreePublish}&selected=#Get.OrgUnitClass#" id="div_OrgUnitClass"/>
 			
 			</td>
 		</tr>

@@ -112,10 +112,11 @@
 			
 	    <td rowspan="2" align="center" class="fcell" style="background-color:#cl#;"></td> 							
 		<td rowspan="2" align="center" class="gcell" style="border-left:12px solid #clb#;border-right:0px solid <cfif hasBilling neq "">#cl#<cfelse>silver</cfif>;">#row#.</td> 				
-		<td rowspan="2" class="ccontent bcell hcell" style="background-color:#plancolor#;font-size:13px">
+		<td class="ccontent bcell hcell" style="background-color:#plancolor#;font-size:13px;width:100%">
 		   <a class="navigation_action" title="#LocationName#" href="javascript:openaction('#workorderlineid#')"><cfif documentReference neq "">#DocumentReference#<cfelse>#PersonNo#</cfif></a> 
-	    </td>					
-		<td class="ccontent bcell" style="width:100%;background-color:#plancolor#;font-size:14px"> #FirstName# <cfif MiddleName neq "">#MiddleName# </cfif>#LastName# <cfif LastName2 neq "">#LastName2#</cfif></td>			
+		   #FirstName# <cfif MiddleName neq "">#MiddleName# </cfif>#LastName# <cfif LastName2 neq "">#LastName2#</cfif>
+	    </td>	
+						
 		<td class="ccontent acell" style="color: #WorkOrderServiceColor#;background-color:#locationcolor#"><cfif locationname neq "">#UCASE(left(WorkOrderService,3))#<cfelse>#UCASE(left(WorkOrderService,3))#</cfif></td>	
 		<td class="ccontent acell" style="min-width:40px;background-color:#plancolor#">#tpe#</td>	
 		<td class="ccontent acell" style="background-color:#plancolor#"><cfif PlanOrder neq "">#left(PlanOrder,1)#</cfif></td>	
@@ -138,12 +139,12 @@
 		
 		<tr class="clsPatientRow">
 				
-		<td class="ccontent" colspan="7" style="height:20px;border-left:1px solid silver;border-top:1px solid silver">		
+		<td class="ccontent" colspan="7" style="height:30px;border-left:1px solid silver;border-top:1px solid silver">		
 			<span class="hide">#FirstName# #LastName# #Middlename#</span>	
 			   <cfif actionstatus lt "3">									
 				<input type="text" name="Memo_#left(WorkPlanDetailId,8)#" value="#Memo#" 
 					onchange="ColdFusion.navigate('Agenda/setScheduleMemo.cfm?id=#WorkPlanDetailId#','process','','','POST','agenda')"
-					class="regularxl enterastab atext" style="font-size:13px;height:94%;width:100%;min-width:100px;border:0px;">
+					class="regularxl enterastab atext" style="padding-top:4px;padding-left:5px;font-size:13px;height:94%;width:100%;min-width:100px;border:0px;">
 					
 				<cfelse>
 				<span style="padding-left:4px;color:gray">#Memo#</span>			

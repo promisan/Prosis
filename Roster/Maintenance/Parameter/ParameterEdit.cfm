@@ -160,7 +160,7 @@ password="#SESSION.dbpw#">
 <tr><td height="100%">
    
 	<cf_menucontainer item="1" class="regular">
-		<cfdiv id="main" bind="url:ParameterEditGlobal.cfm">
+		<cf_securediv id="main" bind="url:ParameterEditGlobal.cfm">
 	</cf_menucontainer>
 	
 </td></tr>

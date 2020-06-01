@@ -620,7 +620,7 @@
 			</cfif>
 			
 			<cfif id eq "DEF">			  
-				<cfset s.href      = "javascript:ColdFusion.navigate('#template#?#arg#&org=#orgunit#&ID1=#OrgUnitCode#&ID2=#mission#&ID3=#mandateno#&id4=#filter#','listresult')">				
+				<cfset s.href      = "javascript:ptoken.navigate('#template#?#arg#&org=#orgunit#&ID1=#OrgUnitCode#&ID2=#mission#&ID3=#mandateno#&id4=#filter#','listresult')">				
 			<cfelseif id eq "ATT">
 				<cfset s.href      = "#template#?id=#id#&ID0=#OrgUnit#&ID1=#OrgUnitCode#&ID2=#mission#&ID3=#mandateno#&id4=#filter#">
 				<cfset s.target    = "right">	
@@ -632,10 +632,10 @@
 					<cfset s.expand    = "false">	
 				</cfif>
 			<cfelseif id eq "ORG">
-				<cfset s.href      = "#template#?id=#id#&ID1=#OrgUnitCode#&ID2=#mission#&ID3=#mandateno#&id4=#filter#">
+				<cfset s.href      = "javascript:ptoken.open('#template#?id=#id#&ID1=#OrgUnitCode#&ID2=#mission#&ID3=#mandateno#&id4=#filter#','right')">
 				<cfset s.target    = "right">	
 			<cfelseif id eq "CUS">
-				<cfset s.href      = "javascript:ColdFusion.navigate('#template#?id=#id#&org=#orgunit#&ID1=#OrgUnitCode#&ID2=#mission#&ID3=#mandateno#&id4=#filter#&#arg#','listcustomer')">
+				<cfset s.href      = "javascript:ptoken.navigate('#template#?id=#id#&org=#orgunit#&ID1=#OrgUnitCode#&ID2=#mission#&ID3=#mandateno#&id4=#filter#&#arg#','listcustomer')">
 			<cfelseif id eq "DON">
 				<cfset s.href      = "#template#?#arg#&mode=DON&ID1=#OrgUnit#&ID2=#mission#&period=#filter##querystring#">
 				<cfset s.target    = "right">		
@@ -643,7 +643,7 @@
 				<cfset s.href      = "#template#?mode=PRG&ID1=#OrgUnit#&ID2=#mission#&ID3=#mandateno#&id4=#filter#">
 				<cfset s.target    = "right">		
 			<cfelseif id eq "PRA">
-				<cfset s.href      = "javascript:ColdFusion.navigate('#template#?mode=PRG&ID1=#OrgUnit#&ID2=#mission#&ID3=#mandateno#&id4=#filter#','right')">					
+				<cfset s.href      = "javascript:ptoken.navigate('#template#?mode=PRG&ID1=#OrgUnit#&ID2=#mission#&ID3=#mandateno#&id4=#filter#','right')">					
 			<cfelse>
 				<cfset s.href      = "#template#?id=#id#&ID1=#OrgUnit#&ID2=#mission#&ID3=#mandateno#&id4=#filter#">
 				<cfset s.target    = "right">	
@@ -1286,7 +1286,7 @@ AND    O.OrgUnit IN (SELECT Pe.OrgUnit
 				</cfif>
 
 				<cfif id eq "DEF">
-					<cfset s.href      = "javascript:ColdFusion.navigate('#template#?#arg#&org=#orgunit#&ID1=#OrgUnitCode#&ID2=#mission#&ID3=#mandateno#&id4=#filter#','listresult')">
+					<cfset s.href      = "javascript:ptoken.navigate('#template#?#arg#&org=#orgunit#&ID1=#OrgUnitCode#&ID2=#mission#&ID3=#mandateno#&id4=#filter#','listresult')">
 					<cfelseif id eq "ATT">
 					<cfset s.href      = "#template#?id=#id#&ID0=#OrgUnit#&ID1=#OrgUnitCode#&ID2=#mission#&ID3=#mandateno#&id4=#filter#">
 					<cfset s.target    = "right">
@@ -1301,7 +1301,7 @@ AND    O.OrgUnit IN (SELECT Pe.OrgUnit
 					<cfset s.href      = "#template#?id=#id#&ID1=#OrgUnitCode#&ID2=#mission#&ID3=#mandateno#&id4=#filter#">
 					<cfset s.target    = "right">
 					<cfelseif id eq "CUS">
-					<cfset s.href      = "javascript:ColdFusion.navigate('#template#?id=#id#&org=#orgunit#&ID1=#OrgUnitCode#&ID2=#mission#&ID3=#mandateno#&id4=#filter#&#arg#','listcustomer')">
+					<cfset s.href      = "javascript:ptoken.navigate('#template#?id=#id#&org=#orgunit#&ID1=#OrgUnitCode#&ID2=#mission#&ID3=#mandateno#&id4=#filter#&#arg#','listcustomer')">
 					<cfelseif id eq "DON">
 					<cfset s.href      = "#template#?#arg#&mode=DON&ID1=#OrgUnit#&ID2=#mission#&period=#filter##querystring#">
 					<cfset s.target    = "right">
@@ -1309,7 +1309,7 @@ AND    O.OrgUnit IN (SELECT Pe.OrgUnit
 					<cfset s.href      = "#template#?mode=PRG&ID1=#OrgUnit#&ID2=#mission#&ID3=#mandateno#&id4=#filter#">
 					<cfset s.target    = "right">
 					<cfelseif id eq "PRA">
-					<cfset s.href      = "javascript:ColdFusion.navigate('#template#?mode=PRG&ID1=#OrgUnit#&ID2=#mission#&ID3=#mandateno#&id4=#filter#','right')">
+					<cfset s.href      = "javascript:ptoken.navigate('#template#?mode=PRG&ID1=#OrgUnit#&ID2=#mission#&ID3=#mandateno#&id4=#filter#','right')">
 				<cfelse>
 					<cfset s.href      = "#template#?id=#id#&ID1=#OrgUnit#&ID2=#mission#&ID3=#mandateno#&id4=#filter#">
 					<cfset s.target    = "right">

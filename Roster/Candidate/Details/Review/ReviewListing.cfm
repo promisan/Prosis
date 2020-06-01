@@ -219,15 +219,15 @@
 			   
 		<cfif url.reviewid eq reviewid>
 					
-			  <cfdiv bind = "url:#wflink#?ajaxid=#reviewid#" id = "#reviewid#">	
+			  <cf_securediv bind = "url:#wflink#?ajaxid=#reviewid#" id = "#reviewid#">	
 			   
 		<cfelseif Status eq "1" or Status eq "9">
 		
-			  <cfdiv id = "#reviewid#">	
+			  <cf_securediv id = "#reviewid#">	
 		
 		<cfelse>   
 		
-			  <cfdiv bind = "url:#wflink#?ajaxid=#reviewid#" id = "#reviewid#">	
+			  <cf_securediv bind = "url:#wflink#?ajaxid=#reviewid#" id = "#reviewid#">	
 			   
 		</cfif>	   									
 			

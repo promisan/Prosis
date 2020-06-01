@@ -41,7 +41,7 @@ password="#SESSION.dbpw#">
 <cfif format.recordcount gte "1">
 
 
-<tr class="line"><td style="height:46px;padding-left:10px;padding-top:5px;font-size:19px" colspan="2" class="labellarge"><font color="804040"><cfoutput><cf_tl id="Generate preconfigured Documents or Forms for this action"></cfoutput>:</b></td></tr>
+<tr><td style="height:46px;padding-left:10px;padding-top:5px;font-size:19px" colspan="2" class="labellarge"><font color="804040"><cfoutput><cf_tl id="Generate preconfigured Documents or Forms for this action"></cfoutput>:</b></td></tr>
 	   
 <tr><td colspan="2" style="padding-top:4px">
 

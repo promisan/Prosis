@@ -135,7 +135,7 @@
 	<cfelse>
 		<script>
 			parent.parent.uompricerefresh('#Form.ItemNo#','#Form.UoM#','');
-			parent.parent.ColdFusion.Window.destroy('mydialog',true);
+			parent.parent.ProsisUI.closeWindow('mydialog',true);
 		</script>
 	</cfif>
 </cfoutput>

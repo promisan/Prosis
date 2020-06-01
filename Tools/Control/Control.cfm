@@ -146,6 +146,8 @@
 	<cfif Attributes.TrackUser eq "1">
 		<cf_trackUser>
 	</cfif>
+	
+	
 				
 	<cfif Attributes.VerifyCSRF eq "1">
 								
@@ -185,9 +187,11 @@
 
 				<cfset source = ListToArray(vReqClient,'.')>
 				<cfset destination = ListToArray(vValidServer,'.')>
+				<cfset ports = ListToArray(vReqClient,':')>
 
 				<cfset slen = ArrayLen(source)>
 				<cfset sdest = ArrayLen(destination)>
+				<cfset sports = ArrayLen(ports)>
 
 				<cfset vPass = 1>
 				<cfif slen gt 2>
@@ -199,17 +203,20 @@
 						<cfset vPass = 0>
 					</cfif>
 				</cfif>
-
-				<cfif vPass eq 0>
-					<cfheader statusCode="403" statusText="Forbidden">
-					<!--- generic error page --->
-					#vReqClient#-#vValidServer#
-					<cflocation url="#session.root#/CSRFGet.cfm" addtoken="No">
+				<cfif ports[sports] neq "3000">
+					<cfif vPass eq 0>
+						<cfheader statusCode="403" statusText="Forbidden">
+						<!--- generic error page --->
+						#vReqClient#-#vValidServer#
+						<cflocation url="#session.root#/CSRFGet.cfm?#ports[sports]#" addtoken="No">
+					</cfif>
 				</cfif>
 				
 			</cfif>		
 			
 		</cfif>
+		
+		
 		
 		<!--- we determine if we have reasons to believe this template is geared to
 		be opened as on CSRF controlled --->
@@ -255,6 +262,8 @@
 		
 		--->		
 		
+		
+				
 		<cfif mid eq "" and checkenabled.recordcount gte "1" and findNoCase("cf_clientid",CGI.QUERY_STRING) eq "1">
 		
 			<!--- ----------------------------------------------------------------- --->
@@ -269,16 +278,23 @@
 			<!--- we let this fail if MID does not exist -------------------------- --->
 			<!--- ----------------------------------------------------------------- --->
 			
-			<cfset mid = "9999999">			
+			<cfset mid = "9999999">	
+									
 														
-		</cfif>		
-		
+		</cfif>				
 		
 		<!--- we check if the template is launched by this user within a certain time frame based on an 
 		id created upon triggering the termplate --->		
-									
-		<cfif mid neq "" and not findNoCase("default.cfm",CGI.SCRIPT_NAME) and not findNoCase("mainmenuopen.cfm",CGI.SCRIPT_NAME)>
-																
+		
+													
+		<cfif mid neq "" 
+		     and not findNoCase("default.cfm",CGI.SCRIPT_NAME) 
+			 and not findNoCase("actionview.cfm",CGI.SCRIPT_NAME)
+			 and not findNoCase("errorrequest.cfm",CGI.SCRIPT_NAME)
+			 and not findNoCase("error.cfm",CGI.SCRIPT_NAME)
+			 and not findNoCase("selectFormContainer.cfm",CGI.SCRIPT_NAME)
+			 and not findNoCase("mainmenuopen.cfm",CGI.SCRIPT_NAME)>
+																									
 			<cfinvoke component   = "Service.Process.System.UserController"  
 				method            = "RecordSessionTemplate"  
 				Hash              = "#mid#"

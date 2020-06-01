@@ -12,6 +12,10 @@
 <cfparam name="URL.Height"  default="600">
 <cfparam name="URL.Owner"   default="">
 
+<cfoutput>
+
+<cf_dialogStaffing>   
+
 <script>
 
 function maxme(itm) {
@@ -40,8 +44,22 @@ function maxme(itm) {
 	 }	
 	 
  }		
+ 
+ function formvalidate() {
+	document.candidateform.onsubmit() 
+	if( _CF_error_messages.length == 0 ) {             
+		ptoken.navigate('#SESSION.root#/Roster/RosterGeneric/CandidateResult.cfm?mission=#url.mission#&height=#URL.height#&DocNo=#URL.DocNo#&Scope=#URL.Scope#&Mode=#URL.Mode#&Owner=#URL.Owner#','result','','','POST','candidateform')
+	 }   
+}	
+
+function list(page) {	       
+       ptoken.navigate('#SESSION.root#/roster/rostergeneric/CandidateResult.cfm?height='+document.body.offsetHeight+'&Owner=#URL.Owner#&DocNo=#URL.DocNo#&Scope=#URL.Scope#&Mode=#URL.Mode#&Page=' + page + '&ID=9','result');
+	   Prosis.busy('yes')
+	}
 
 </script>
+
+</cfoutput>
 
 	<cfif URL.Scope neq "Inquiry">
 	
@@ -87,8 +105,7 @@ function maxme(itm) {
 	
 	<td height="20" name="search">
 								
-		<CFFORM action="#SESSION.root#/Roster/RosterGeneric/CandidateResult.cfm?mission=#url.mission#&height=#URL.height#&DocNo=#URL.DocNo#&Scope=#URL.Scope#&Mode=#URL.Mode#&Owner=#URL.Owner#"
-	        method="post" target="result">		
+		<CFFORM onsubmit="return false"	name="candidateform">		
 					
 		<table width="98%" align="center" align="center" class="formpadding">
 		
@@ -159,7 +176,7 @@ function maxme(itm) {
 				
 				</SELECT>
 				
-			<INPUT type="text" name="Crit8_Value" class="regularxl" size="20"> 
+			<INPUT type="text" name="Crit8_Value" class="regularxl" size="20" onkeyup="if (event.keyCode == 13) { formvalidate() }"> 
 						
 			</TD>
 			
@@ -177,7 +194,7 @@ function maxme(itm) {
 				WHERE  Operational = 1
 			</cfquery>
 			
-			<select name="Roster" style="width: 250;" class="regularxl">
+			<select name="Roster" style="width: 250;" class="regularxl" onchange="formvalidate()">
 			   <option value="" selected>All</option>
 			   <option value="1">Candidates cleared for at least one bucket</option>
 			   
@@ -209,7 +226,7 @@ function maxme(itm) {
 					
 					</SELECT>
 						
-				<INPUT type="text" class="regularxl" name="Crit2a_Value" size="10"></TD>
+				<INPUT type="text" class="regularxl" name="Crit2a_Value" size="10" onkeyup="if (event.keyCode == 13) { formvalidate() }"></TD>
 			
 			
 			</cfif>
@@ -234,7 +251,7 @@ function maxme(itm) {
 				
 				</SELECT>
 					
-			<INPUT type="text" class="regularxl" name="Crit2_Value" size="20"></TD>
+			<INPUT type="text" class="regularxl" name="Crit2_Value" size="20" onkeyup="if (event.keyCode == 13) { formvalidate() }"></TD>
 			
 			<cfif url.class eq "">
 			
@@ -285,7 +302,7 @@ function maxme(itm) {
 				
 				</SELECT>
 				
-			<INPUT type="text" class="regularxl" name="Crit3_Value" size="20"> 
+			<INPUT type="text" class="regularxl" name="Crit3_Value" size="20" onkeyup="if (event.keyCode == 13) { formvalidate() }"> 
 			
 			</TD>
 			
@@ -323,7 +340,7 @@ function maxme(itm) {
 				
 				</SELECT>
 				
-			<INPUT type="text" class="regularxl" name="Crit7_Value" size="20"> 
+			<INPUT type="text" class="regularxl" name="Crit7_Value" size="20" onkeyup="if (event.keyCode == 13) { formvalidate() }"> 
 			
 			</TD>
 					
@@ -347,7 +364,7 @@ function maxme(itm) {
 				
 				</SELECT>
 				
-			<cfinput type="Text" class="regularxl" name="Crit6_Value" message="Enter an integer value" required="No" size="10"> </font>
+			<cfinput type="Text" class="regularxl" name="Crit6_Value" message="Enter an integer value" onkeyup="if (event.keyCode == 13) { formvalidate() }" required="No" size="10">
 			
 			</TD>
 								
@@ -364,9 +381,7 @@ function maxme(itm) {
 			</TD>
 			
 			<TD>
-			
-			<cf_space spaces="90">
-			
+						
 				<SELECT name="Crit5_Operator" class="regularxl">
 				
 					<OPTION value="CONTAINS">contains
@@ -379,7 +394,7 @@ function maxme(itm) {
 				
 				</SELECT>
 				
-				<INPUT type="text" class="regularxl" name="Crit5_Value" size="20"> 
+				<INPUT type="text" class="regularxl" name="Crit5_Value" size="20" onkeyup="if (event.keyCode == 13) { formvalidate() }"> 
 			
 			</TD>
 			
@@ -402,7 +417,7 @@ function maxme(itm) {
 				
 				</SELECT>
 				
-				<INPUT type="text" class="regularxl" name="Crit5a_Value" size="10"> 
+				<INPUT type="text" class="regularxl" name="Crit5a_Value" size="10" onkeyup="if (event.keyCode == 13) { formvalidate() }"> 
 			
 			</TD>
 			
@@ -455,11 +470,11 @@ function maxme(itm) {
 					
 				<cf_tl id="Search" var="qsearch">
 							
-				<input type="submit" class="button10g" 
+				<input type="button" class="button10g" 
 					mode        = "silver"
-					onclick     = "document.getElementById('toggle').className='regular'"
+					onclick     = "formvalidate();document.getElementById('toggle').className='regular';"
 					value       = "#qSearch#" 							
-					id          = "submit"					
+					id          = "submit"										
 					width       = "150px" 					
 					color       = "636334"
 					fontsize    = "11px">   
@@ -500,8 +515,7 @@ function maxme(itm) {
 	
 	<tr><td height="100%" width="100%">
 		<table width="100%" height="100%" align="center">
-			<tr><td valign="top" height="100%" style="padding-left:5px">		
-				<iframe width="100%" height="100%" name="result" id="result" frameborder="0"></iframe>
+			<tr><td valign="top" height="100%" style="padding-left:5px" id="result">						
 			</td></tr>
 		</table>
 	</td>
@@ -512,5 +526,3 @@ function maxme(itm) {
 <cfif URL.Scope eq "Inquiry">	
 	<cf_screenbottom html="No">
 </cfif>	
-
-

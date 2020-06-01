@@ -67,10 +67,9 @@ password="#SESSION.dbpw#">
 	
 	  <tr><td height="10"></td></tr>
 	  
-	  <tr><td style="font-size:20px"  class="labelmedium" align="center"><font color="FF0000"><cf_tl id="Old tracks are no longer supported"></td></tr>
+	  <tr><td style="font-size:20px"  class="labelmedium" align="center"><cf_tl id="Old tracks are no longer supported"></td></tr>
 	  
-	</table>
-	
+	</table>	
   
    <cfabort>
    <!---

@@ -175,7 +175,7 @@
 					
 					<tr>
 					    <td width="100%" colspan="2">						
-							<cfdiv bind="url:#link#" id="box#reportid#"/>						
+							<cf_securediv bind="url:#link#" id="box#reportid#"/>						
 						</td>
 					</tr>  
 				

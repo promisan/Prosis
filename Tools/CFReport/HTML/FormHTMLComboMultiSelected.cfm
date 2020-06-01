@@ -37,8 +37,7 @@
  
 	<cfif tmp eq "">
 	   <cfset tmp = "''">
-	</cfif>
-	
+	</cfif>	
 	 
 	<cfif Base.CriteriaType eq "Unit">	
 	
@@ -127,11 +126,14 @@
 	    <cfset border = "1">
 	</cfif>
 	
-	<table width="<cfif Mode eq 'Edit'>98%<cfelse>98%</cfif>" 
-	   style="height:25;border:#border#px solid silver" class="navigation_table"			   
-	   cellspacing="0" 
-	   cellpadding="0">
-		
+	<table width="<cfif Mode eq 'Edit'>98%<cfelse>98%</cfif>">
+	
+	   <tr>	
+	   
+	   <td style="height:30px;border:#border#px solid silver;border-radius:5px">
+	   
+	   <table width="100%" class="navigation_table">
+	      	   		
 	    <cfif mode eq "edit">
 		 <cfset col = "5">
 		<cfelse>
@@ -141,7 +143,7 @@
 		<cfif List.recordcount eq "0">
 		
 			<tr>
-			<td colspan="#col#" align="center" class="labelmedium" style="font-size:15px;padding-left:20px"><cf_tl id="No records selected"></font></td>
+			<td colspan="#col#" align="center" class="labelmedium" style="color:silver;font-size:14px;padding-left:20px"><cf_tl id="No records selected"></font></td>
 			</tr>
 		
 		<cfelse>
@@ -151,6 +153,7 @@
 				<tr class="line">
 				
 				<td align="right" style="width:20px">
+				
 			   		<img src="<cfoutput>#SESSION.root#</cfoutput>/Images/Delete.png"
 			     		title="Remove all"
 					     border="0"
@@ -159,6 +162,7 @@
 					     align="middle"
 					     style="cursor: pointer;"
 					     onClick="multivalue('deleteall','','#URL.criterianame#','#url.fly#','#url.page#')">		
+						 
 				</td>	
 				
 				<td colspan="#col-1#" align="left" class="labelmedium" style="font-size:18px;padding-left:20px">
@@ -185,12 +189,12 @@
 		</cfif>
 		
 		<cfif mode eq "edit">
-			<td style="padding:3px; font-size:14px;">			
+			<td style="padding:3px; font-size:14px;padding-left:5px">			
 			<cfif Base.CriteriaType eq "Unit">#Code#<cfelse>#PK#</cfif></td>
 			<td>&nbsp;</td>
 			<td style="padding:3px; font-size:14px;">#Display#</td>
 		<cfelse>
-			<td style="padding:3px; font-size:14px;">#Display#</td>
+			<td style="padding:3px; font-size:14px;padding-left:5px;">#Display#</td>
 		</cfif>	
 		
 		<cfif mode eq "edit">
@@ -207,6 +211,12 @@
 		</tr>
 				
 		</cfloop>
+	
+	</table>
+	
+	</td>
+	
+	</tr>
 	
 	</table>
 	

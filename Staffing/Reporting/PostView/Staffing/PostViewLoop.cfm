@@ -130,10 +130,10 @@
 
 	<cfif FileExists("#SESSION.rootPath#\CFReports\Cache\#link#.htm")> 
 	
-		<cf_screentop label="Workforce summary #URL.Mission#" banner="blue" bannerforce="Yes" systemmodule="Staffing"
+		<cf_screentop label="Workforce summary #URL.Mission#" banner="yellow" bannerforce="Yes" systemmodule="Staffing"
 			FunctionClass="Window"
 			FunctionName="Main Workforce Dialog" height="100%" layout="webapp" scroll="Yes" Jquery="Yes">
-		  
+		 
 			<cfinclude template="../../../../CFReports/Cache/#link#.htm">				
 			
 		<cf_screenBottom layout="webapp">
@@ -419,7 +419,7 @@
 <cf_tl id="Workforce Table" var="1">
 <cf_screentop 
     label="&nbsp;#lt_text# - #URL.Mission#&nbsp;&nbsp;" 
-	banner="blue" 
+	banner="yellow" 
 	bannerforce="Yes"
 	band="No" 
 	height="100%" 

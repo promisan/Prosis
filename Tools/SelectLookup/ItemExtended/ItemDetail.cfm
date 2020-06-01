@@ -137,7 +137,7 @@ and a select/uom/quantity mode if this is for supplies or other classes --->
 							
 			<tr><td align="center">
 			  			  
-			  <cfset setlink = "ColdFusion.navigate('#link#&action=insert&#url.des1#=#url.itemNo#','#url.box#')">
+			  <cfset setlink = "ptoken.navigate('#link#&action=insert&#url.des1#=#url.itemNo#','#url.box#')">
 			  
 			  <input type="button" 
 			         class="button10g" 
@@ -293,7 +293,7 @@ and a select/uom/quantity mode if this is for supplies or other classes --->
 						
 			<tr><td align="center">
 						  			  
-			  <cfset setlink = "ColdFusion.navigate('#link#&action=insert&#url.des1#=#url.itemNo#','#url.box#','','','POST','itemform')">
+			  <cfset setlink = "ptoken.navigate('#link#&action=insert&#url.des1#=#url.itemNo#','#url.box#','','','POST','itemform')">
 			  
 			  <cfif url.module eq "Workorder">
 			  

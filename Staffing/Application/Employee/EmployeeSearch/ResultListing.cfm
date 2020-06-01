@@ -1,5 +1,5 @@
 
-<cf_screentop height="100%" scroll="Yes" html="No" jQuery="Yes">
+<cf_screentop height="100%" scroll="no" html="No" jQuery="Yes">
 
 <cfparam name="CLIENT.Sort" default="Gender">
 
@@ -77,7 +77,6 @@ function hl(itm,fld){
 	 }
   }
 
-
 </script>	
 </cfoutput>
 
@@ -88,12 +87,12 @@ function hl(itm,fld){
 <cfswitch expression="#URL.ID#">
 
 <cfcase value="GEN">
- <cfif #URL.ID2# neq "B">
+ <cfif URL.ID2 neq "B">
      <cfset cond = "AND A.Gender = '#URL.ID2#'">
  </cfif>
 </cfcase>
 <cfcase value="CON">
-<cfif #URL.ID2# neq "All">
+<cfif URL.ID2 neq "All">
      <cfset cond = "AND N.Continent = '#URL.ID2#'">
  </cfif>
 </cfcase>
@@ -124,8 +123,8 @@ function hl(itm,fld){
 		#PreserveSingleQuotes(cond)#  
 	</cfquery>
 
-<cf_pagecountN show="25" 
-               count="#Total.Total#">
+<cf_pagecountN show="100" 
+    count="#Total.Total#">
 			     
    <cfquery name="SearchResult" 
 	datasource="AppsEmployee" 
@@ -134,17 +133,17 @@ function hl(itm,fld){
 	  SELECT    TOP #last# A.*, N.Continent
 	  FROM      PersonSearchResult R, Person A, System.dbo.Ref_Nation N
 	  WHERE     R.PersonNo = A.PersonNo
-	    AND     A.Nationality = N.Code
-	    AND     R.SearchId = #URL.ID1#
-		#PreserveSingleQuotes(cond)#
+	  AND       A.Nationality = N.Code
+	  AND       R.SearchId = #URL.ID1#
+	  #PreserveSingleQuotes(cond)#
 	  ORDER BY  #orderby#
 	</cfquery>			   
 				   
 <cfset counted  = total.total>		
 
-<form method="post" name="result">
+<form method="post" name="result" style="height:99%">
 
-<table width="99%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="99%" height="100%" align="center">
 
 <tr><td height="3"></td></tr>
 
@@ -217,8 +216,7 @@ function hl(itm,fld){
 	  </td></tr>
 	  
 	  </table>
-  
-  
+    
   </td>
    
   </tr>
@@ -230,7 +228,9 @@ function hl(itm,fld){
   
   <tr>
  
-  <td width="100%" colspan="2">
+  <td width="100%" height="100%" colspan="2">
+  
+<cf_divscroll>
 
 <table width="99%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
 	
@@ -251,14 +251,8 @@ function hl(itm,fld){
 	   
 	</cfif>
 	</td></tr>
-	
-	<tr><td height="3" colspan="9">
-	   <cfinclude template="ResultListingNavigation.cfm">
-	</td></tr>
-	
-	<tr><td height="3"></td></tr>
-	 
-	<tr class="line labelmedium">
+			 
+	<tr class="labelmedium fixrow">
        <td height="20"></td> 
        <td><cf_tl id="Last Name"></td>
 	   <td><cf_tl id="First Name"></td>
@@ -270,6 +264,10 @@ function hl(itm,fld){
 	   <td><cf_tl id="Created"></td>
 	   <td></td>
    </tr>
+   
+   <tr class="labelmedium fixrow2"><td height="3" colspan="9">
+	   <cfinclude template="ResultListingNavigation.cfm">
+	</td></tr>
       
    <tr><td colspan="9"></td></tr>
 	     
@@ -376,7 +374,15 @@ function hl(itm,fld){
 	    
 	</CFOUTPUT>
   
-	<tr>
+	
+
+</table>
+
+</cf_divscroll>
+
+</td></tr>
+
+<tr>
 	
 	<td colspan="10">
 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -415,10 +421,6 @@ function hl(itm,fld){
    
 	    </td>
 	</tr>
-
-</table>
-
-</td></tr>
 
 </table>
 

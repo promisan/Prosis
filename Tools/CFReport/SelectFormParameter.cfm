@@ -1,15 +1,15 @@
 
-<cfparam name="url.val" default="">
-<cfparam name="flash"   default="No">
-<cfparam name="format"  default="HTML">
-<cfparam name="class"   default="regular1">
-<cfparam name="cl"      default="regular1">
-<cfparam name="cls"     default="">
-<cfparam name="tpe"     default="Text">
-<cfparam name="fldid"   default="">
-<cfparam name="ajax"    default="0">
-<cfparam name="lookupmode"          default="view">
-<cfparam name="LookupViewScript"    default="">
+<cfparam name="url.val"          default="">
+<cfparam name="flash"            default="No">
+<cfparam name="format"           default="HTML">
+<cfparam name="class"            default="regular1">
+<cfparam name="cl"               default="regular1">
+<cfparam name="cls"              default="">
+<cfparam name="tpe"              default="Text">
+<cfparam name="fldid"            default="">
+<cfparam name="ajax"             default="0">
+<cfparam name="lookupmode"       default="view">
+<cfparam name="LookupViewScript" default="">
 
 <cfif LookupDataSource eq "">
 	<cfset ds = "AppsSystem">
@@ -57,8 +57,7 @@
 	  
 --->	
 
-<cfif LookupMode eq "View" and len(LookupViewScript) gt 20>
-			   
+<cfif LookupMode eq "View" and len(LookupViewScript) gt 20>			   
 	 	 
 	<cfset script = replaceNoCase(LookupViewScript,  "FROM ", " FROM ")> 
 	<cfset script = replaceNoCase(script,  "WHERE", " WHERE ")> 
@@ -107,7 +106,6 @@
      </cftry>
 	 			 
 </cfif>  
-
 
 <cfquery name="Default" 
  datasource="AppsSystem" 
@@ -221,11 +219,11 @@
 		
 		<cfcase value="TextArea">
 		 
-		 <cfif format eq "HTML">
-			<textarea cols="<cfoutput>#CriteriaWidth#</cfoutput>" rows="4" name="<cfoutput>#CriteriaName#</cfoutput>" class="regular" size="60"><cfoutput>#CriteriaDefault#</cfoutput></textarea> 
-		 <cfelse>
-		    <!--- not apllicable --->
-		 </cfif>	   
+			 <cfif format eq "HTML">
+				<textarea cols="<cfoutput>#CriteriaWidth#</cfoutput>" style="max-height:70px;min-height:40px;width:100%;padding:3px;font-size:15px" name="<cfoutput>#CriteriaName#</cfoutput>" class="regular" size="60"><cfoutput>#CriteriaDefault#</cfoutput></textarea> 
+			 <cfelse>
+			    <!--- not apllicable --->
+			 </cfif>	   
 	
 		</cfcase> 
 				
@@ -260,8 +258,7 @@
 			       maxlength = "800"
 				   style     = "text-align: center;"
 				   class     = "regular3"
-				   tooltip   = "#CriteriaMemo#">
-							
+				   tooltip   = "#CriteriaMemo#">							
 				  
 				   </td></tr>
 			   </table>
@@ -291,8 +288,9 @@
 		<!--- ------------------- --->
 														
 		<cfcase value="Lookup">
-				   								
+						
 		    <cfinclude template="InputParameter/SelectFormParameterLookup.cfm">	
+			
 				
 		</cfcase>
 		
@@ -392,4 +390,3 @@
 		</cfcase>
 								
 </cfswitch>
-

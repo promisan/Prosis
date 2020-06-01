@@ -136,7 +136,7 @@
 			
 </cfoutput>
 
-<cfajaximport tags="cfmap,cfdiv,cfwindow" params="#{googlemapkey='#client.googleMAPId#'}#">	 
+<cfajaximport tags="cfmap,cfdiv" params="#{googlemapkey='#client.googleMAPId#'}#">	 
 
 <cf_layoutscript>
 <cf_CalendarViewScript>
@@ -265,11 +265,10 @@
 										
 						<td class="labelmedium" 
 						    style="height:100%;padding-left:8px;padding-top:7px;padding-bottom:9px;padding-right:10px" 
-							align="center" 
-							id="calendartarget" valign="top">
+							align="center" valign="top">
 																		
 							<cfif url.workactionid neq "">						
-								<cfdiv style="height:100%" 
+								<cf_securediv style="height:100%" id="calendartarget"
 								bind="url:#session.root#/workorder/application/Medical/ServiceDetails/WorkPlan/Agenda/ActivityList.cfm?mode=medical&workactionid=#line.workactionid#&selecteddate=#dateformat(url.selecteddate,client.dateformatShow)#&mission=#url.mission#&orgunit=#line.orgunitimplementer#&positionno=#url.positionno#&personno=#url.personno#">																						
 							</cfif>
 							

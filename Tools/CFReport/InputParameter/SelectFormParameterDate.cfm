@@ -1,11 +1,7 @@
  	
 		<cfoutput>
 								
-		<table cellspacing="0"
-	       cellpadding="0"
-		   border="0"
-		   rules="none"	     
-	       class="#cl#"
+		<table class="#cl#"
 	       id="#fldid#_box">
 		
 		<tr>
@@ -37,7 +33,7 @@
 			       required="No"
 			       size="2"
 				   tooltip="#vRelDateErrMess#"
-				   style="text-align: center;height:25;border:1px solid silver"
+				   style="text-align: center;border:1px solid silver"
 			       maxlength="4"
 				   class="regularXXL">
 			   
@@ -70,7 +66,7 @@
 		       required="No"
 		       size="2"
 			   tooltip="#vRelDateErrMess#"
-			   style="text-align: center;height:25;border:1px solid silver"
+			   style="text-align: center;border:1px solid silver"
 		       maxlength="4"
 			   class="regularXXL">	
 			   
@@ -92,7 +88,7 @@
 					
 			<table cellspacing="0" cellpadding="0">
 			<tr>				
-			<td>	
+			<td style="min-width:150px">	
 			
 				<cfif CriteriaDatePeriod eq "1">
 				   <cfset sc = "updatedate('#criterianame#','#criterianame#_end')">			  
@@ -110,7 +106,7 @@
 					Default          = "#default#"
 					mask             = "false"
 					AllowBlank       = "#obd#"
-					style            = "text-align: center;font-size:14px;height:25;border:1px solid silver"		
+					style            = "text-align: center;font-size:14px;border:1px solid silver"		
 					class            = "regularXXL">	
 			
 			</td>
@@ -120,14 +116,14 @@
 				   <cfset default = "#DefaultValueEnd#">
 								   			
 					<td width="8" align="center" style="padding:0px">-</td>
-					<td valign="bottom">
+					<td valign="bottom" style="min-width:150px">
 				
 					   <cf_intelliCalendarDate9
 						FieldName        = "#criterianame#_end" 
 						FieldDescription = "#CriteriaDescription#"
 						Default          = "#default#"
 						mask             = "false"
-						style            = "text-align: center;font-size:14px;height:25;border:1px solid silver"	
+						style            = "text-align: center;font-size:14px;border:1px solid silver"	
 						AllowBlank       = "#obd#"
 						class            = "regularXXL">	
 										

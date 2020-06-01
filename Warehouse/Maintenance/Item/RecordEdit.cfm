@@ -88,7 +88,7 @@
    
 	   mis = $('##mission').val();
 	   if (ob.value!='') {
-	   		ColdFusion.navigate('getSuggestion.cfm?code='+ob.value+'&mission='+mis,'suggestion');
+	   		ptoken.navigate('getSuggestion.cfm?code='+ob.value+'&mission='+mis,'suggestion');
 	   }
    	
    }
@@ -97,7 +97,7 @@
    
 	   document.frmTopics.onsubmit() 
 	   if( _CF_error_messages.length == 0 ) {
-           ColdFusion.navigate('Classification/ItemClassificationSubmit.cfm?id=#url.id#&mode=#url.mode#&idmenu=#url.idmenu#','contentbox2','','','POST','frmTopics')
+           ptoken.navigate('Classification/ItemClassificationSubmit.cfm?id=#url.id#&mode=#url.mode#&idmenu=#url.idmenu#','contentbox2','','','POST','frmTopics')
 	   }   
    
    } 
@@ -109,7 +109,7 @@
    function validate() {      
 		document.itemform.onsubmit();
 		if( _CF_error_messages.length == 0 ) {        
-			ColdFusion.navigate('RecordSubmit.cfm?mode=#url.mode#&id=#url.id#&idmenu=#url.idmenu#&fmission=#url.fmission#','contentbox1','','','POST','itemform');
+			ptoken.navigate('RecordSubmit.cfm?mode=#url.mode#&id=#url.id#&idmenu=#url.idmenu#&fmission=#url.fmission#','contentbox1','','','POST','itemform');
 		 }   
 	}	
 
@@ -118,7 +118,7 @@
 	function selectmas(flditemmaster,mis,per,reqno) {        
 		
 		ProsisUI.createWindow('mymaster', 'Procurement Master', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:false,resizable:false,center:true})    							
-		ColdFusion.navigate('#SESSION.root#/Procurement/Application/Requisition/Item/ItemSearchView.cfm?mission='+mis+'&flditemmaster= ' + flditemmaster, 'mymaster');	       			
+		ptoken.navigate('#SESSION.root#/Procurement/Application/Requisition/Item/ItemSearchView.cfm?mission='+mis+'&flditemmaster= ' + flditemmaster, 'mymaster');	       			
 		
    }
    
@@ -136,7 +136,7 @@
    }
    
    function selectmasapply(val) {       
-        ColdFusion.navigate('#SESSION.root#/Warehouse/Maintenance/Item/setItemMaster.cfm?itemmaster='+val,'process')		
+        ptoken.navigate('#SESSION.root#/Warehouse/Maintenance/Item/setItemMaster.cfm?itemmaster='+val,'process')		
    }
   	
 	function ask() {	
@@ -153,9 +153,13 @@
 	}
 	
 	function recorduomedit(itm,uom) {	
-	    wd = document.body.offsetWidth-20
-	    ht = document.body.offsetHeight-20
-	 	ptoken.open("UoM/ItemUoMEditTab.cfm?id="+itm+"&uom="+uom+"&ts="+new Date().getTime(),itm, "left=20, top=20, width="+wd+", height="+ht+",menubar=no, toolbar=no, status=yes, scrollbars=no, resizable=yes");
+	    if (uom == '') {
+			wd = 1150
+		    ht = 680
+	 		ptoken.open("UoM/ItemUoMEditTab.cfm?id="+itm+"&uom="+uom,itm, "left=20, top=20, width="+wd+", height="+ht+",menubar=no, toolbar=no, status=yes, scrollbars=no, resizable=yes");
+		} else {
+		ptoken.open("UoM/ItemUoMEditTab.cfm?id="+itm+"&uom="+uom,itm);		
+		}
 	}
 	
 	function canceledit(){
@@ -172,7 +176,7 @@
 		var vHeight = 650;    				   
 		ColdFusion.Window.create('mydialog', 'Supply', '',{x:30,y:30,height:vHeight,width:vWidth,modal:true,center:true});    
 		ColdFusion.Window.show('mydialog'); 				
-		ColdFusion.navigate('Consumption/ItemSupplyEdit.cfm?type=Item&id='+itm+'&supply='+supply+'&uom='+uom+'&ts='+new Date().getTime(),'mydialog'); 
+		ptoken.navigate('Consumption/ItemSupplyEdit.cfm?type=Item&id='+itm+'&supply='+supply+'&uom='+uom+'&ts='+new Date().getTime(),'mydialog'); 
 	}
 	
 	function supplydelete(itm,supply,uom) {
@@ -260,7 +264,7 @@
 		var vHeight = 375;  				   
 		ColdFusion.Window.create('mydialog', 'Metric', '',{x:30,y:30,height:vHeight,width:vWidth,modal:true,center:true});    
 		ColdFusion.Window.show('mydialog'); 				
-		ColdFusion.navigate('Consumption/ItemSupplyMetricTargetEdit.cfm?id='+itemno+'&supplyitemno='+supplyitemno+'&supplyitemuom='+supplyitemuom+'&supplyitemuomdescription='+supplyitemuomdescription+'&mission='+mission+'&locationid='+location+'&metric='+metric+'&dateEffective='+dateEffective+'&action='+action+'&type='+type+'&ts='+new Date().getTime(),'mydialog'); 
+		ptoken.navigate('Consumption/ItemSupplyMetricTargetEdit.cfm?id='+itemno+'&supplyitemno='+supplyitemno+'&supplyitemuom='+supplyitemuom+'&supplyitemuomdescription='+supplyitemuomdescription+'&mission='+mission+'&locationid='+location+'&metric='+metric+'&dateEffective='+dateEffective+'&action='+action+'&type='+type+'&ts='+new Date().getTime(),'mydialog'); 
 	}
 	
 	function supplyeditwarehouse(itemno,supplyitemno,supplyitemuom) {
@@ -268,7 +272,7 @@
 		var vHeight = 600;  				   
 		ColdFusion.Window.create('mydialog', 'Metric', '',{x:30,y:30,height:vHeight,width:vWidth,modal:true,center:true});    
 		ColdFusion.Window.show('mydialog'); 				
-		ColdFusion.navigate('Consumption/AssetItem/AssetItemSupplyWarehouseEdit.cfm?itemno='+itemno+'&supply='+supplyitemno+'&uom='+supplyitemuom+'&ts='+new Date().getTime(),'mydialog'); 
+		ptoken.navigate('Consumption/AssetItem/AssetItemSupplyWarehouseEdit.cfm?itemno='+itemno+'&supply='+supplyitemno+'&uom='+supplyitemuom+'&ts='+new Date().getTime(),'mydialog'); 
 	}
 	
 	function selectitemlocal(itm,box) {	

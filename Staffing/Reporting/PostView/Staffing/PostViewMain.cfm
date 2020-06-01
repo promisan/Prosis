@@ -176,27 +176,26 @@
 							<td style="padding-left:2px">
 					
 							<cfinvoke component="Service.Analysis.CrossTab"  
-											  method      = "ShowInquiry"
-											  buttonName  = "Analysis"
-											  buttonClass = "variable"		  
-											  buttonIcon  = "#SESSION.root#/Images/dataset.png"					  
-											  buttonStyle = "height:29px;width:120px;"
-											  reportPath  = "Staffing\Reporting\PostView\Staffing\"
-											  SQLtemplate = "FactTableMission.cfm"
-											  queryString = "Mission=#URL.Mission#&Sel=#dt#"
-											  dataSource  = "appsQuery" 
-											  module      = "Staffing"
-											  reportName  = "Facttable: Staffing Table Inquiry"
-											  olap        = "1"
-											  target      = "analyse"
-											  table1Name  = "Positions"
-											  table2Name  = "Assignments"
-											  table3Name  = "Vacancy"
-											  filter      = "1"
-											  returnvariable = "script"> 	
-											  
-											  <cf_tl id="Dimensional Analysis" var="1">	
-							
+								  method      = "ShowInquiry"
+								  buttonName  = "Analysis"
+								  buttonClass = "variable"		  
+								  buttonIcon  = "#SESSION.root#/Images/dataset.png"					  
+								  buttonStyle = "height:29px;width:120px;"
+								  reportPath  = "Staffing\Reporting\PostView\Staffing\"
+								  SQLtemplate = "FactTableMission.cfm"
+								  queryString = "Mission=#URL.Mission#&Sel=#dt#"
+								  dataSource  = "appsQuery" 
+								  module      = "Staffing"
+								  reportName  = "Facttable: Staffing Table Inquiry"
+								  olap        = "1"
+								  target      = "analyse"
+								  table1Name  = "Positions"
+								  table2Name  = "Assignments"
+								  table3Name  = "Vacancy"
+								  filter      = "1"
+								  returnvariable = "script"> 	
+								  
+								  <cf_tl id="Dimensional Analysis" var="1">								
 							
 							<input type="button" onclick="#script#" name="olap" value="#lt_text#" class="button10g" style="height:28px;width:200px;font-size:14px">							
 					

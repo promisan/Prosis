@@ -37,7 +37,7 @@ password="#SESSION.dbpw#">
 	<tr>
 		<td id="ruleDetail">
 			
-			<cfdiv bind="url:RuleDetail.cfm?rule={rule}&owner=#url.owner#&level=#url.level#&from=#url.from#&to=#url.to#" bindOnLoad="Yes">
+			<cf_securediv bind="url:RuleDetail.cfm?rule={rule}&owner=#url.owner#&level=#url.level#&from=#url.from#&to=#url.to#" bindOnLoad="Yes">
 			
 		</td>
 	</tr>

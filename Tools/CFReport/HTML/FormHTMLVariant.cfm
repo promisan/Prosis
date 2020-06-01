@@ -158,10 +158,11 @@
 
 					<cfset initLayoutClass = Layout.LayoutClass>								
 										
-					<cfset class = "Selection">		  
+					<cfset class = "'Selection','Layout'">		  
 										
 					<tr>
-					   <td>					  
+					   <td>		
+					   			  
 			  		 <cfinclude template="FormHTMLCriteria.cfm"> 					  
 					   </td>					
 					</tr>

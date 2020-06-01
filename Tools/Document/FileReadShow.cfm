@@ -56,7 +56,7 @@
 			 
 			 <cfoutput>		
 				 <script> 		   
-						window.location = "#SESSION.root#/CFRStage/User/#SESSION.acc#/#att.fileName#"
+					window.location = "#SESSION.root#/CFRStage/User/#SESSION.acc#/#att.fileName#"
 				 </script>
 			 </cfoutput>
 		 </cfif>
@@ -82,8 +82,6 @@
 	<cf_screentop label="#Att.FileName#" height="100%" scroll="No" layout="webapp" banner="blue">
 		
 	<cfoutput>
-
-		
 	
 		<table width="100%" align="center" height="100%" cellspacing="0" cellpadding="0">
 		
@@ -126,9 +124,7 @@
 			</tr>
 			
 		</cfif>
-				
-		<tr><td colspan="2" class="linedotted"></td></tr>
-		
+					
 		<cfif Parameter.AttachModeOpen eq "0">
 		  
 		  
@@ -185,7 +181,7 @@
 							<cfset CLIENT.sd = "#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\">
 							<cfset CLIENT.sf = "#att.fileName#">
 						
-							<iframe src ="FileRender.cfm"
+							<iframe src ="FileRender.cfm?mid=#url.mid#"
 									name="ifWorkspace"
 							        id="ifWorkspace"
 							        width="100%"
@@ -246,7 +242,7 @@
 
 <cffunction name="Message">
 
-   <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+   <table width="100%" height="100%" align="center">
 	 <tr><td align="center" height="40">
 	   <font face="Verdana" color="FF0000">
 		   <cf_tl id="Detected a Problem with your function authorization"  class="Message">

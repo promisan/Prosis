@@ -62,12 +62,10 @@
 	<cfset vBroadCastFail = broadcast.broadcastFailTo>
 </cfif>	
 
-
-
 <cfif Broadcast.recordcount eq "0">
 	<script>
 	alert("Broadcast was removed. Action aborted")
-	ColdFusion.navigate('BroadCastHistory.cfm?mode=#url.mode#','contentbox2')
+	ptoken.navigate('BroadCastHistory.cfm?mode=#url.mode#','contentbox2')
 	window.close()
 	</script>
 	<cfabort>

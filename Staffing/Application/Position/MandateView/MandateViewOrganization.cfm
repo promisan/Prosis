@@ -164,7 +164,7 @@
 		   
 		   	</cfif>  
 	    	   
-		    <tr class="line labelmedium">			 
+		    <tr class="line labelmedium fixrow2">			 
 			   <td width="2%">&nbsp;</td>
 		       <td colspan="2" style="width:100%"></td>
 			   <td style="min-width:90px" align="center"><cf_tl id="Authorised"></td>
@@ -339,7 +339,7 @@
 		
 				<tr><td style="height:13px"></td></tr>
 								
-			    <tr class="labelmedium fixrow2" style="height:39px;border-top:1px solid silver">
+			    <tr class="labelmedium fixrow3" style="height:39px;border-top:1px solid silver">
 			    <td width="30" style="padding-left:3px;padding-top:5px">
 								
 					<cfif url.pdf eq "0">	 					     

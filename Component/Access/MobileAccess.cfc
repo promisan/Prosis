@@ -32,7 +32,7 @@
 				     FROM   UserNames
 				     WHERE (Account = '#Account#' 		 
 						   <cfif System.LogonIndexNo eq "1">					 
-						 	   <cfif findNoCase("@",enteredAccount)>		 
+						 	   <cfif findNoCase("@",Account)>		 
 							   OR eMailAddress = '#Account#'			   
 							   <cfelse>			   
 							   OR IndexNo      = '#Account#'			   			   
@@ -286,6 +286,146 @@
 		
 		<cfreturn data>		
 	
+	</cffunction>
+
+	<cffunction  
+		access      = "public"
+		name        = "PasswordChange"
+		returntype  = "numeric" 
+		displayname = "PasswordChange">
+
+		<cfargument name = "Account" 	type = "string" 	default = ""  	required = "Yes">
+		<cfargument name = "OldPwd" 	type = "string" 	default = ""  	required = "Yes">
+		<cfargument name = "Pwd1" 		type = "string" 	default = ""  	required = "Yes">
+		<cfargument name = "Pwd2" 		type = "string" 	default = ""  	required = "Yes">
+		<cfargument name = "MinLength"	type = "numeric" 	default = "8" 	required = "No">
+		<cfargument name = "SendMail"	type = "string" 	default = "Yes" required = "Yes">
+		<cfargument name = "Welcome"	type = "string" 	default = ""  	required = "No">
+		<cfargument name = "Root"		type = "string" 	default = ""  	required = "No">
+
+		<!--- 
+		all ok:  password changed 
+		<cfset vReturn = 1>
+
+		error: account does not exist
+		<cfset vReturn = 2>
+
+		error: old password does not match
+		<cfset vReturn = 3>
+
+		error: new/confirm not the same
+		<cfset vReturn = 4>
+
+		error: old password and new password are the same
+		<cfset vReturn = 5>
+
+		error: new password too short
+		<cfset vReturn = 6>
+		--->
+
+		<cfquery name="VerifyUser" 
+			datasource="AppsSystem">
+				SELECT   * 
+				FROM    UserNames
+				WHERE   Account = '#Account#' 
+		</cfquery>
+
+		<cfif VerifyUser.recordCount eq 0>
+
+			<!--- error: account does not exist --->
+			<cfset vReturn = 2>
+
+		<cfelse>
+
+			<cfif len(VerifyUser.Password) gt 20> 
+				<!--- encrypt password --->
+				<cf_encrypt text = "#OldPwd#">
+				<cfset vPassword  = EncryptedText>
+				<!--- end encryption --->
+			<cfelse>	  
+				<cfset vPassword  = OldPwd>
+			</cfif>	  
+
+			<cfquery name="VerifyPwd" 
+				datasource="AppsSystem">
+					SELECT   * 
+					FROM    UserNames
+					WHERE   Account = '#Account#'
+					AND     Password = '#vPassword#'
+			</cfquery> 
+
+			<cfif VerifyPwd.recordCount eq 0>
+		
+				<!--- error: old password does not match --->
+				<cfset vReturn = 3>
+
+			<cfelse>
+
+				<cfif Pwd1 neq Pwd2>
+
+					<!--- error: new/confirm not the same --->
+					<cfset vReturn = 4>
+
+				<cfelse>
+
+					<cfif Pwd1 eq OldPwd>
+						
+						<!--- error: old password and new password are the same --->
+						<cfset vReturn = 5>
+
+					<cfelse>
+
+						<cfif len(Pwd1) lt MinLength>
+
+							<!--- error: new password too short --->
+							<cfset vReturn = 6>
+
+						<cfelse>
+					
+							<!--- all good now --->
+
+							<cf_encrypt text = "#Pwd1#">
+							<cfset vNewPassword = EncryptedText>	
+				
+							<cfquery name="LogPassword" 
+								datasource="AppsSystem">
+									INSERT INTO UserPasswordLog 
+											(Account, Password, PasswordExpiration)
+									VALUES  ('#Account#', '#VerifyPwd.Password#', GETDATE())
+							</cfquery>  
+				
+							<cfquery name="UpdateUser" 
+								datasource="AppsSystem">
+									UPDATE	UserNames 
+									SET		Password           = '#vNewPassword#',
+											PasswordResetForce = '0',
+											PasswordModified   = GETDATE()
+									WHERE 	Account            = '#Account#'
+							</cfquery>		
+				
+							<cfif SendMail eq "Yes" OR SendMail eq "1">
+								<!--- send email notification --->			
+								<cf_MailPasswordChangeConfirmation 
+									acc="#Account#" 
+									welcome="#Welcome#"
+									root="#Root#">
+							</cfif>
+
+							<!--- all ok:  password changed --->
+							<cfset vReturn = 1>
+
+						</cfif>
+
+					</cfif>
+
+				</cfif>
+
+			</cfif>  
+
+		</cfif>
+
+		<cfreturn vReturn>
+
 	</cffunction>
 
 </cfcomponent>

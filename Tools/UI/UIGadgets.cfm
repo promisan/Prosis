@@ -58,6 +58,13 @@
 			background-color: ##1984c8  !important;
 		}
 
+		.k-button {
+			color: ##000000 !important;
+		}
+
+		.k-multiselect-wrap {
+			opacity : 100 !important;
+		}
 	</style>
 
 	<div id="_UIDialog" style="display:none">

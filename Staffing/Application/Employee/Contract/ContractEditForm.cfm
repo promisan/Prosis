@@ -12,6 +12,8 @@ otherwise no action
 
 <cfoutput>
 
+<cf_tl id="Do you want to completely remove this contract leg" var="1">
+
 <script>
 	
 	function verify(myvalue) { 
@@ -32,6 +34,14 @@ otherwise no action
 	function applyscale(scaleno,grd,lvl,cur,contractid) {	   
 	    ptoken.navigate('#session.root#/Staffing/Application/Employee/Contract/setScale.cfm?scaleno='+scaleno+'&grade='+grd+'&step='+lvl+'&currency='+cur+'&personno=#url.id#&contractid='+contractid+'&contracttype=','process')	  
 	}	
+	
+	function ask() {
+		if (confirm("#lt_text# ?")) {	
+		Prosis.busy('yes')
+		return true 	
+		}	
+		return false	
+	}	 
 		
 </script>
 
@@ -253,7 +263,7 @@ otherwise no action
 						
 				<cf_tl id="Purge" var="1">
 				<cfoutput>
-					<input class="button10g"  style="width:110" type="submit" name="Delete" value="<cfoutput>#lt_text#</cfoutput>">
+					<input class="button10g"  style="width:110" type="submit" name="Delete" onClick="return ask()" value="<cfoutput>#lt_text#</cfoutput>">
 				</cfoutput>
 						
 			</td>
@@ -1792,7 +1802,7 @@ otherwise no action
 									<td style="padding-left:2px">				
 									<!--- only for the administrator --->											   
 									   <cf_tl id="Remove" var="1">
-									   <input class="button10g"  style="width:110" onmouseover="this.focus()" type="submit" name="Delete" value="<cfoutput>#lt_text#</cfoutput>">													    
+									   <input class="button10g"  style="width:110" onmouseover="this.focus()" type="submit" onClick="return ask()" name="Delete" value="<cfoutput>#lt_text#</cfoutput>">													    
 									</td>								
 								
 								</cfif>
@@ -1819,7 +1829,7 @@ otherwise no action
 								<!--- only for the administrator --->
 								<cfif getAdministrator(ContractSel.mission) eq "1" and del eq "0">					   
 								   <cf_tl id="Delete" var="1">
-								   <input class="button10g"  style="width:150" onmouseover="this.focus()" type="submit" name="Delete" value="<cfoutput>#lt_text#</cfoutput> (Admin only)">						
+								   <input class="button10g"  style="width:150" onmouseover="this.focus()" type="submit" onClick="return ask()" name="Delete" value="<cfoutput>#lt_text#</cfoutput> (Admin only)">						
 								</td>								
 							    </cfif>
 								<td style="padding-left:2px">					

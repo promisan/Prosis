@@ -308,11 +308,12 @@
 			
 				<table width="100%" class="formpadding">
 				<tr><td class="line" colspan="3"></td></tr>
-				<tr><td>&nbsp;</td>
-				<td height="24" width="140" class="labelmedium"><cf_tl id="Program/Project">:</td>
-				<td>
 				
-					<cfif Parameter.EnforceProgramBudget gte "1">
+				<cfif Parameter.EnforceProgramBudget gte "1">
+				
+					<tr><td style="padding-left:5px"></td>
+					<td height="24" width="140" class="labelmedium"><cf_tl id="Program/Project">:</td>
+					<td>
 					 
 						  <cfquery name="Program" 
 							datasource="AppsProgram" 
@@ -340,16 +341,16 @@
 							</cfloop>						
 						  </select>	
 						  </cfoutput>
+						  
+						</td></tr>  
 					  
 					  <cfelse>
 					  
 						  <input type="hidden" name="programcode" id="programcode">
 						  
-					  </cfif>
-						
-				</td></tr>
+					  </cfif>									
 				
-				<tr><td>&nbsp;</td>
+				<tr><td style="padding-left:5px"></td>
 				    <td height="24" class="labelmedium"><cf_tl id="Annotation">:</td>
 				    <td>
 					
@@ -374,7 +375,8 @@
 				
 		<cf_divscroll>
 		
-			<table width="98%" class="navigation_table">		
+			<table width="98%" class="navigation_table">	
+				
 			<TR class="labelmedium line fixrow">
 			    <td height="20" style="width:40px"></td>
 			    <td width="40%" colspan="2"><cf_tl id="Classification"></td>		    
@@ -384,37 +386,32 @@
 				<td width="20%"><cfif URL.ID eq "STA"><cf_tl id="#url.lay#"><cfelse><cf_tl id="Status"></cfif></td>
 			    <td width="60"><cf_tl id="Quantity"></td>
 			    <td width="12%" align="right"><cf_tl id="Amount"><cfoutput>(#APPLICATION.BaseCurrency#)</cfoutput></td>
-				<td width="30"><cf_space spaces="7"></td>
+				<td width="30"></td>
 			</TR>
+											
+				<cfswitch expression="#URL.ID#">
 				
-			<tr><td colspan="10">			
-								
-			<cfswitch expression="#URL.ID#">
-			
-				<cfcase value="ORG">			
-					<cfinclude template="ListingOrganization.cfm">
-				</cfcase>			
-				<cfcase value="STA">				
-				    <cfinclude template="ListingStatus.cfm">
-				</cfcase>
-				<cfcase value="LOC">
-				    <cfinclude template="ListingStatus.cfm">				
-				</cfcase>
-				
-				<cfdefaultcase>
-				    <cfinclude template="ListingStatus.cfm">				
-				</cfdefaultcase>			
-				
-			</cfswitch>
+					<cfcase value="ORG">			
+						<cfinclude template="ListingOrganization.cfm">
+					</cfcase>			
+					<cfcase value="STA">				
+					    <cfinclude template="ListingStatus.cfm">
+					</cfcase>
+					<cfcase value="LOC">
+					    <cfinclude template="ListingStatus.cfm">				
+					</cfcase>
 					
-			  </td>
-			</tr>
-									
+					<cfdefaultcase>
+					    <cfinclude template="ListingStatus.cfm">				
+					</cfdefaultcase>			
+					
+				</cfswitch>
+													
 			</TABLE>
 		
 		</cf_divscroll>
 		
-</td></tr>
+		</td></tr>
 								
 		</TABLE>		
 		

@@ -11,17 +11,13 @@
     <cfset Attributes.expand = "true">
 </cfif>
 
-
 <cfif thisTag.ExecutionMode is 'start'>
     <cfscript>
         SESSION.tree = ArrayNew(1);
         SESSION.treeBind = "";
     </cfscript>
 
-
 <cfelseif thisTag.ExecutionMode is 'end'>
-
-
 
         <cfif SESSION.treeBind eq "">
             <cfoutput>

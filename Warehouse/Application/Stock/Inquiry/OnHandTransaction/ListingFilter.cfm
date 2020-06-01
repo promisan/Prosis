@@ -6,6 +6,7 @@
 
 <tr><td>
 
+
 <cfform method="POST" name="filterform" onsubmit="return false">
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -53,8 +54,7 @@
 	
 	<td>		
 	
-	<table width="99%" cellspacing="0" cellpadding="0" align="center">
-	
+	<table width="99%" cellspacing="0" cellpadding="0" align="center">	
 	
 		<TR>
 		<TD style="height:30;padding-left:20px" width="100" class="labelit"><cf_tl id="Storage Location">:</TD>

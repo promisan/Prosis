@@ -196,7 +196,7 @@
 		<input type="button" 
 		   value="#lt_text#" 
 		   class="button10g"
-		   onclick="ColdFusion.navigate('#nav#&page=1','searchresult#url.box#','','','POST','select_#url.box#')"	  
+		   onclick="ptoken.navigate('#nav#&page=1','searchresult#url.box#','','','POST','select_#url.box#')"	  
 		   name="search"
 		   id="search">
 	</td></tr>

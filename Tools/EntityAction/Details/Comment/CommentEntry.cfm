@@ -18,6 +18,8 @@ WHERE      ObjectId = '#URL.Objectid#'
 
 <cfelse>
 
+		<cf_assignid>   
+		<cfset att = rowguid>	
 	
 		<table align="center" style="height:100%;width:98%;pdding-left:4px;">
 			
@@ -63,7 +65,7 @@ WHERE      ObjectId = '#URL.Objectid#'
 				
 						<td align="right" style="padding-left:6px;padding-right:7px">			
 							<cfoutput>		
-								<input type="button" onclick="updateTextArea();ptoken.navigate('#session.root#/Tools/EntityAction/Details/Comment/CommentEntrySubmit.cfm?objectid=#url.objectid#','processchat','','','POST','entryform')" name="Submit" value="Submit" class="button10g" style="width:100px;height:25px;border-radius:0px">
+								<input type="button" onclick="updateTextArea();ptoken.navigate('#session.root#/Tools/EntityAction/Details/Comment/CommentEntrySubmit.cfm?objectid=#url.objectid#&attbox=#att#','processchat','','','POST','entryform')" name="Submit" value="Submit" class="button10g" style="width:100px;height:25px;border-radius:0px">
 							</cfoutput>			
 						</td>
 						</tr>
@@ -155,21 +157,16 @@ WHERE      ObjectId = '#URL.Objectid#'
 					</cfif>	 
 			
 				</td></tr>
-				
-				<tr><td style="border-top:1px solid silver;padding-left:4px;padding-right:5px">
-				
-				<cf_assignid>   
-				<cfset att = rowguid>	
-						  
-				<cfoutput>				
+							
+					  
+				<cfoutput>							
 					<input type="hidden" name="ObjectId" id="ObjectId"      value="#URL.ObjectId#">
 					<input type="hidden" name="ThreadId" id="ThreadId"      value="#URL.ThreadId#">
-					<input type="hidden" name="SerialNo" id="SerialNo"      value="#URL.SerialNo#">
-					<input type="hidden" name="AttachId" id="AttachId"      value="#att#">			
+					<input type="hidden" name="SerialNo" id="SerialNo"      value="#URL.SerialNo#">						
 				</cfoutput>      
 				
-				
-				
+				<tr><td style="border-top:1px solid silver;padding-left:4px;padding-right:5px">				
+								
 				<cf_filelibraryN
 					DocumentPath="#Object.EntityCode#"
 					SubDirectory="#att#" 

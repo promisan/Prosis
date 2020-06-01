@@ -1,6 +1,6 @@
 <cfparam name="URL.PersonNo" 	default="#CLIENT.PersonNo#">
 <cfparam name="URL.ApplicantNo" default="#CLIENT.ApplicantNo#">
-<cfparam name="URL.NameStyle" 	default="font-size:22px;">
+<cfparam name="URL.NameStyle" 	default="font-size:18px;">
 
 <cfoutput>
 	
@@ -26,9 +26,9 @@
 	<table width="100%" align="center" bgcolor="f1f1f1">
 		
 		<tr class="line">
-		   <td style="padding-top:4px;height:35px" width="100%">
+		   <td style="padding-top:4px;height:35px;min-width:900px">
 		   		   
-		   <table cellspacing="0" cellpadding="0" width="100%">
+		   <table width="100%">
 			   <tr class="labelmedium">
 			  		
 				   <cftry>				   	   
@@ -41,14 +41,17 @@
 				   </cfcatch>
 				   </cftry>			   
 				  
-				   <td style="padding-left:30px;color:gray"><cf_tl id="Index No">:</td>
+				   <td style="padding-left:30px;color:gray"><cf_tl id="Index No"></td>
 				   <td style="padding-left:5px"><cfif Applicant.IndexNo eq "">n/a<cfelse>#Applicant.IndexNo#</cfif></td>
-				   <td style="padding-left:20px;color:gray"><cf_tl id="DOB">:</td>
+				   <td style="padding-left:20px;color:gray"><cf_tl id="DOB"></td>
 				   <td style="padding-left:5px">#dateformat(Applicant.DOB,CLIENT.DateFormatShow)# <cfif Applicant.RecordCount gt 0>(#INT(dateDiff('m', Applicant.DOB, now())/12.0)#)</cfif></td>
-				   <td style="padding-left:20px;color:gray"><cf_tl id="Nationality">:</td>
-				   <td style="padding-left:5px">#Nation.Name#</td>				  				 	   
-				   <td style="padding-left:20px;color:gray"><cf_tl id="eMail">:</td>
+				   <td style="padding-left:20px;color:gray"><cf_tl id="Nationality"></td>
+				   <td style="padding-left:5px">#Nation.Name#</td>		
+				   <!---		  				 	   
+				   <td style="padding-left:20px;color:gray"><cf_tl id="eMail"></td>
 				   <td style="padding-left:5px" width="20%">#Applicant.eMailAddress#</td>				  
+				   --->
+
 			   </tr>
 		   </table>
 		   </td>

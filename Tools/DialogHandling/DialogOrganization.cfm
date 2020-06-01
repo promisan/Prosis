@@ -119,8 +119,7 @@
 	function selectorgmisn(mission,mandate,effective) {
 	
 		// 15/2/2015 newly added to replace modal dialog 	
-		try { ColdFusion.Window.destroy('orgunitselectwindow',true) } catch(e) {}
-		ColdFusion.Window.create('orgunitselectwindow', 'Unit', '',{x:100,y:100,height:document.body.clientHeight-60,width:850,modal:false,resizable:false,center:true})    					
+		ProsisUI.createWindow('orgunitselectwindow', 'Unit', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,resizable:false,center:true})    					
 		ptoken.navigate(root + '/System/Organization/Application/Lookup/Organization.cfm?mission=' + mission + '&mandate=' + mandate + '&effective=' + effective,'orgunitselectwindow') 				
 		
 	}	

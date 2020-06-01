@@ -38,7 +38,7 @@
 			
 	<tr>
 		<td colspan="2" align="center">
-		  <cfdiv id="paymentresult" 
+		  <cf_securediv id="paymentresult" 
 		      name="paymentresult" 
 			  bind="url:TransactionDetailPaymentResult.cfm?journal=#URL.journal#&period=#URL.Period#&find=#URL.find#&ID1={group}&search={search}" bindonload="true">			
 		</td>

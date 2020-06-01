@@ -70,19 +70,19 @@
 	}
 	
 	function summary(mis,man,mode) {
-	   	window.open("../../../Reporting/PostView/Staffing/PostView.cfm?SystemFunctionid=#url.systemfunctionid#&Mission=" + mis + "&Mandate=" + man + "&ID=" + mode, "_top", "left=20, top=20, width=" + w + ", height= " + h + ", toolbar=yes, status=yes, scrollbars=yes, resizable=yes");
+	   	ptoken.open("../../../Reporting/PostView/Staffing/PostView.cfm?SystemFunctionid=#url.systemfunctionid#&Mission=" + mis + "&Mandate=" + man + "&ID=" + mode, "_top", "left=20, top=20, width=" + w + ", height= " + h + ", toolbar=yes, status=yes, scrollbars=yes, resizable=yes");
 	}
 	
 	function actions() {
-	 	window.open("../../Authorization/Staffing/TransactionView.cfm?Mission=#URL.Mission#",  "assignmentapproval");
+	 	ptoken.open("../../Authorization/Staffing/TransactionView.cfm?Mission=#URL.Mission#",  "assignmentapproval");
 	}
 	
 	function employee() {
-	 	window.open("../../Employee/EmployeeSearch/InitView.cfm?Mission=#URL.Mission#&ID=Search3.cfm", "employeeinquiry");
+	 	ptoken.open("../../Employee/EmployeeSearch/InitView.cfm?Mission=#URL.Mission#&ID=Search3.cfm", "employeeinquiry");
 	}
 	
 	function orgaccess() {
-	 	window.open("#SESSION.root#/System/Organization/Access/OrganizationView.cfm?Mission=#URL.Mission#",  "accessscreen", "left=20, top=20, width=" + w + ", height= " + h + ", toolbar=yes, status=yes, scrollbars=yes, resizable=yes");
+	 	ptoken.open("#SESSION.root#/System/Organization/Access/OrganizationView.cfm?Mission=#URL.Mission#",  "accessscreen", "left=20, top=20, width=" + w + ", height= " + h + ", toolbar=yes, status=yes, scrollbars=yes, resizable=yes");
 	}
 	
 	function doChangeDate() {
@@ -334,7 +334,7 @@ password="#SESSION.dbpw#">
 					<cf_tl id="Operational Structure" var="1">							
 					<cftree name="idtree" font="calibri"  fontsize="11" bold="No" format="html" required="No">
 				     <cftreeitem 
-						  bind="cfc:service.Tree.OrganizationTree.getNodes({cftreeitempath},{cftreeitemvalue},'#url.mission#','#mandatedefault#','MandateViewOpen.cfm','ORG','#lt_text#','#url.mission#','#mandatedefault#','','','0','',{selectiondate})">  		 
+						  bind="cfc:service.Tree.OrganizationTree.getNodes({cftreeitempath},{cftreeitemvalue},'#url.mission#','#mandatedefault#','#session.root#/Staffing/Application/Position/MandateView/MandateViewOpen.cfm','ORG','#lt_text#','#url.mission#','#mandatedefault#','','','0','',{selectiondate})">  		 
 				    </cftree>	
 					
 				</td></tr>
@@ -366,7 +366,7 @@ password="#SESSION.dbpw#">
 							
 						<cftree name="idtree1" font="tahoma"  fontsize="11" bold="No" format="html" required="No">
 					     <cftreeitem 
-						  bind="cfc:service.Tree.OrganizationTree.getNodes({cftreeitempath},{cftreeitemvalue},'#url.mission#','#mandatedefault#','MandateViewOpen.cfm','ORA','#lt_text#','#admin.treeadministrative#','P001')">  		 
+						  bind="cfc:service.Tree.OrganizationTree.getNodes({cftreeitempath},{cftreeitemvalue},'#url.mission#','#mandatedefault#','../../Staffing/Application/Position/MandateView/MandateViewOpen.cfm','ORA','#lt_text#','#admin.treeadministrative#','P001')">  		 
 					    </cftree>	
 						
 					</td></tr>
@@ -388,8 +388,7 @@ password="#SESSION.dbpw#">
 			</cfquery> 				
 						
 			<cfif Funct.Recordcount eq "1">
-					
-				
+									
 				<tr><td height="1" colspan="2" class="line"></td></tr>
 						
 				<tr><td colspan="2" align="center">
@@ -399,7 +398,7 @@ password="#SESSION.dbpw#">
 						<cftree name="idtree2" font="tahoma"  fontsize="11" bold="No" format="html" required="No">
 						
 					     <cftreeitem 
-						  bind="cfc:service.Tree.OrganizationTree.getNodes({cftreeitempath},{cftreeitemvalue},'#url.mission#','#mandatedefault#','MandateViewOpen.cfm','ORF','Functional Structure','#funct.treefunctional#','P001')">  		 
+						  bind="cfc:service.Tree.OrganizationTree.getNodes({cftreeitempath},{cftreeitemvalue},'#url.mission#','#mandatedefault#','../../Staffing/Application/Position/MandateView/MandateViewOpen.cfm','ORF','Functional Structure','#funct.treefunctional#','P001')">  		 
 						  
 					    </cftree>	
 						
@@ -408,13 +407,13 @@ password="#SESSION.dbpw#">
 				</td></tr> 		
 			
 			</cfif>
-			
+						
 			<tr class="line"><td style="color:8365AB;font-size:16px;height:32;" ><cf_tl id="Views and Quick listings"></td></tr>				
 						
 						
-			<tr><td colspan="2" align="center">
+			<tr><td colspan="2" align="center" style="padding-top:4px">
 			
-				<table width="98%" align="right">
+				<table width="99%" align="right">
 					<tr><td id="mandatetree">
 					
 					<cf_MandateTreeData

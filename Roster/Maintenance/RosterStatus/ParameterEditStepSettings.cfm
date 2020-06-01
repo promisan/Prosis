@@ -38,7 +38,7 @@
 				</table>
 			</td>
 			<td class="labelmedium">
-				<cfdiv id="searchList" bind="url:ParameterEditStepSettingsSearch.cfm?owner=#url.owner#&status=#url.status#">
+				<cf_securediv id="searchList" bind="url:ParameterEditStepSettingsSearch.cfm?owner=#url.owner#&status=#url.status#">
 			</td>
 		</tr>
 		

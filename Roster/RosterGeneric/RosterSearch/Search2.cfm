@@ -213,7 +213,7 @@ onLoad="javascript: try {document.forms.functionselect.occupationalgroup.focus()
 	<tr><td colspan="2" height="97%" valign="top">
 	
 		<cf_divscroll style="height:99%">
-		   <cfdiv id="base" bind="url:Search2Detail.cfm?id=#url.id#&owner=#url.owner#&mode=#url.mode#&occ={occupationalgroup}">
+		   <cf_securediv id="base" bind="url:Search2Detail.cfm?id=#url.id#&owner=#url.owner#&mode=#url.mode#&occ={occupationalgroup}">
 		</cf_divscroll>
 	
 	</td></tr>

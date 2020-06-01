@@ -50,7 +50,7 @@
 	datasource="AppsOrganization" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	
+		
 		SELECT   DISTINCT L.*, 
 			     L.UoM as UnitOfMeasure, 
 				 U.UoMDescription,
@@ -106,9 +106,8 @@
 					)				 				
 		
 		</cfif>
-		
-		#ord#  
-	
+			
+			
 	</cfquery>
 	
    <cfset role = "reqclear">								
@@ -222,7 +221,7 @@
 <cfif act eq "0">
 
 	<table width="100%">
-	   <tr><td style="height:40px" align="center" class="labelmedium"><font color="gray"> There are no records pending for your clearance </td></tr>
+	   <tr><td style="height:40px" align="center" class="labelmedium">There are no records pending for your clearance </td></tr>
 	</table>
 
 </cfif>

@@ -65,6 +65,7 @@
  <cfif Attributes.Mode eq "view" and trim(Checked.TopicValue) eq "">
   
  	<!--- show nothing --->
+	<span style="color:##808080;">[ <cf_tl id="no entry"> ]</span>
  
  <cfelse>
  

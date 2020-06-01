@@ -154,7 +154,7 @@ ORDER BY ItemNo
 	<cfif currentrow gte first>
 	
 		<tr class="navigation_row" 
-		  onclick="ColdFusion.navigate('#link#&action=insert&#url.des1#=#itemNo#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ColdFusion.Window.hide('dialog#url.box#')</cfif>">
+		  onclick="ptoken.navigate('#link#&action=insert&#url.des1#=#itemNo#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ColdFusion.Window.hide('dialog#url.box#')</cfif>">
 		  
 		    <td height="18" width="30" style="padding-top:2px">
 			

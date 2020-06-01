@@ -522,23 +522,22 @@ instead of parameter exists --->
 		 		 
 		 <cfelse>
 		 						 		 				 		 		 					 		 			  
-				 <!--- record report seq actions ---> 			
-			 					 						 
-				 <cfinvoke component  = "Service.Audit.AuditReport"  
-				  method              = "LogReport"
-				  DistributionId      = "#rowguid#"
-				  SystemModule        = "#UserReport.SystemModule#"
-				  FunctionName        = "#UserReport.FunctionName#"
-				  LayoutClass         = "#UserReport.LayoutClass#"
-				  LayoutName          = "#UserReport.LayoutName#"
-				  FileFormat          = "#UserReport.FileFormat#"
-				  ControlId           = "#URL.ControlId#"
-				  ReportId            = "#URL.ReportId#"
-				  Category            = "#url.category#"
-				  StatusMode          = "#URL.Mode#"
-				  Status              = "0"
-				  UserId              = "#url.userid#">		
-				  
+			 <!--- record report seq actions ---> 			
+		 					 						 
+			 <cfinvoke component  = "Service.Audit.AuditReport"  
+			  method              = "LogReport"
+			  DistributionId      = "#rowguid#"
+			  SystemModule        = "#UserReport.SystemModule#"
+			  FunctionName        = "#UserReport.FunctionName#"
+			  LayoutClass         = "#UserReport.LayoutClass#"
+			  LayoutName          = "#UserReport.LayoutName#"
+			  FileFormat          = "#UserReport.FileFormat#"
+			  ControlId           = "#URL.ControlId#"
+			  ReportId            = "#URL.ReportId#"
+			  Category            = "#url.category#"
+			  StatusMode          = "#URL.Mode#"
+			  Status              = "0"
+			  UserId              = "#url.userid#">					  
 			 
 			 <cfset distributionid = rowguid> 	
 			 
@@ -548,8 +547,7 @@ instead of parameter exists --->
 				<!--- NOW run the query underlying the report to create answer and final tables --->	  
 				<!--- ------------------------------------------------------------------------- --->											  
 				<cftry>
-				
-				
+								
 					<cfif UserReport.TemplateSQLIsolation eq "1">
 												
 						<cftransaction isolation="READ_UNCOMMITTED">
@@ -557,14 +555,12 @@ instead of parameter exists --->
 							<cfinclude template="#reportSQL#">
 												
 						</cftransaction>
-						
-						
+												
 					<cfelse>
 										
 						<cfinclude template="#reportSQL#">
 							
-					</cfif>	
-					
+					</cfif>						
 														
 					<cfcatch>					
 					
@@ -573,7 +569,7 @@ instead of parameter exists --->
 						<cfoutput>
 							
 							<script>
-
+														
 								if (rpt)
 									rpt.src = "#SESSION.root#/Tools/CFReport/OutputMessage.cfm?msg=#errorMessage#"
 								else

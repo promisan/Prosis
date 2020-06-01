@@ -1,5 +1,6 @@
 
-<cfparam name="form.gender" default="M">
+<cfparam name="form.gender" 	default="M">
+<cfparam name="form.detected" 	default="">
 
 <cfif Len(Form.Remarks) gt 100>
    <cfset remarks = Left(Form.Remarks, 100)>
@@ -46,8 +47,11 @@
 <cfset account = Replace(account, "�", "", 'ALL')>
 <cfset account = Replace(account, "�", "", 'ALL')>
 
-<!--- Accepting only proper account match--->
+<!--- Accepting only proper account match
 <cfset _match = REMatch("[a-zA-Z][a-zA-Z0-9]*", account)>
+--->
+
+<cfset _match = REMatch("[a-zA-Z0-9]*", account)>
 <cftry>
 	<cfset account_check ="#_match[1]#">
 <cfcatch>

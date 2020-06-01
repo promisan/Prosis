@@ -46,7 +46,7 @@ password="#SESSION.dbpw#">
 	<cfparam name="url.header" default="0">
 	<cf_systemscript>
 		
-	<iframe src="#SESSION.root#/Tools/CFReport/Analysis/SelectSource.cfm?ControlId=#controlId#&header=#url.header#" width="100%" height="100%" marginwidth="0" marginheight="0" scrolling="no" frameborder="0"></iframe>
+	<iframe src="#SESSION.root#/Tools/CFReport/Analysis/SelectSource.cfm?ControlId=#controlId#&header=#url.header#&mid=#url.mid#" width="100%" height="100%" marginwidth="0" marginheight="0" scrolling="no" frameborder="0"></iframe>
 	
 	<!---
 	
@@ -66,8 +66,11 @@ password="#SESSION.dbpw#">
 		<cfinclude template="../../#Report.ReportPath#">			
 		
 	</cfif>		
+	
+	<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+	<cfset mid = oSecurity.gethash()/>   
 						
-	<iframe src="#SESSION.root#/Tools/CFReport/ExcelFormat/FormatExcel.cfm?ControlId=#controlId#&table1=#table1#&table2=#table2#&table3=#table3#&table4=#table4#&table5=#table5#" width="100%" height="100%" marginwidth="0" marginheight="0" scrolling="no" frameborder="0"></iframe>
+	<iframe src="#SESSION.root#/Tools/CFReport/ExcelFormat/FormatExcel.cfm?ControlId=#controlId#&table1=#table1#&table2=#table2#&table3=#table3#&table4=#table4#&table5=#table5#&mid=#mid#" width="100%" height="100%" marginwidth="0" marginheight="0" scrolling="no" frameborder="0"></iframe>
 	
 			
 <cfelse>

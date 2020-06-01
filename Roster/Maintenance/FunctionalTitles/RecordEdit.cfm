@@ -113,7 +113,7 @@ function Selected(no,description) {
 	<td height="100%" valign="top">
 	   <table width="100%" height="100%" cellspacing="0" cellpadding="0">
 		<cf_menucontainer item="1" class="regular">
-			 <cfdiv bind="url:RecordEditGeneral.cfm?id1=#url.id1#&idMenu=#url.idmenu#"> 
+			 <cf_securediv bind="url:RecordEditGeneral.cfm?id1=#url.id1#&idMenu=#url.idmenu#"> 
 	 	<cf_menucontainer>	
 	   </table>	
 	</td>

@@ -58,7 +58,7 @@
 				<cf_tl id="Do you want to upload the PDF submitted information" var="1">
 			  if (confirm("#lt_text#?")) {
 			  src = document.getElementById("sourcesel").value
-			  ColdFusion.navigate('Assessment/AssessmentDetail.cfm?source='+src+'&id2=edit&Owner=#URL.Owner#&ID=#URL.ID#&pdfform='+file,'assessment') 
+			  ptoken.navigate('Assessment/AssessmentDetail.cfm?source='+src+'&id2=edit&Owner=#URL.Owner#&ID=#URL.ID#&pdfform='+file,'assessment') 
 			  }
 			}
 		</script>
@@ -69,7 +69,7 @@
 	
 		<tr>
 			<td>
-			<cfdiv bind="url:Assessment/AssessmentDetail.cfm?source=#url.source#&id2=edit&Owner=#URL.Owner#&ID=#URL.ID#" id="assessment"/>	
+			<cf_securediv bind="url:Assessment/AssessmentDetail.cfm?source=#url.source#&id2=edit&Owner=#URL.Owner#&ID=#URL.ID#" id="assessment"/>	
 			</td>
 		</tr>
 	

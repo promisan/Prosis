@@ -94,20 +94,18 @@
 		</cfif>
 		
 		<cfif url.find neq "">
-		AND   (L.Reference LIKE '%#URL.find#%' OR 
-	       L.RequisitionNo LIKE '%#URL.find#%' OR 
-		   L.RequestDescription LIKE '%#URL.find#%' OR 
-		   <cfif url.od neq "Loc">
-		   I.Description LIKE '%#URL.find#%' OR 
+		AND (L.Reference        LIKE '%#URL.find#%'  OR 
+	       L.RequisitionNo      LIKE '%#URL.find#%'  OR 
+		   L.RequestDescription LIKE '%#URL.find#%'  OR 
+		   <cfif url.id neq "Loc">
+		   I.Description        LIKE '%#URL.find#%'  OR 
 		   </cfif>
-		   L.OfficerLastName LIKE '%#URL.find#%' OR
-		   L.OfficerFirstName LIKE '%#URL.find#%') OR
+		   L.OfficerLastName    LIKE '%#URL.find#%'  OR
+		   L.OfficerFirstName   LIKE '%#URL.find#%') OR
 		   L.RequisitionNo IN (SELECT RequisitionNo 
 		                       FROM RequisitionLineTopic
 							   WHERE RequisitionNo = L.RequisitionNo
 							   AND   (CAST(TopicValue AS varchar(100)) LIKE '%#URL.find#%'))
-							   
-							   
 							   
 	     </cfif>	   
 												

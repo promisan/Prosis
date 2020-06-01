@@ -1,9 +1,29 @@
 
   <table width="98%" border="0" cellspacing="0" align="center">
      
+	
+		<cfif SESSION.acc neq AnonymousUserId>
+		
+		    <!---
+			<tr class="line"><td style="height:45px;padding-left:5px;font-size:25px;font-weight:200" class="labelmedium" colspan="4">
+			<cf_tl id="Saved variants">			
+			</td></tr>																		
+			--->
+			<tr>
+				<td colspan="4" bgcolor="f4f4f4" id="subscriptions" style="padding-bottom:20px;border: 0px solid Silver">																
+				   <cfinclude template="FormHTMLSubscription.cfm">
+				</td>
+			</tr>				
+						
+		</cfif>	 	
+     
    <tr>
 
-		 <td width="157" class="labelmedium"><cf_tl id="Reference">:</td>	
+		 <td width="157" class="labelmedium">
+		 <cf_uitooltip tooltip="The envisioned recipient of this report.">		 
+		 <cf_tl id="Reference">:
+		 </cf_uitooltip>
+		 </td>	
 		 <td colspan="3" width="85%" style="padding: 2px;">
 				<cfinput type="Text" 
 		         name="DistributionName" 
@@ -15,14 +35,17 @@
 		         label="Name:"
 				 class="regularxl"
 				 message="Please enter your full name" 
-				 style="text-align: left;width:400px"
-				 tooltip="<table><tr><td>The envisioned recipient of this report.</td></tr></table>">	
+				 style="text-align: left;width:400px">	
 		 </td>		 
   </tr>
   
   <tr>	 	 
 				
-	 <td class="labelmedium"><cf_tl id="Managed by">:</td>	
+	 <td class="labelmedium">
+	  <cf_uitooltip tooltip="Send this report to mailing list.">		
+	  <cf_tl id="Managed by">:
+	  </cf_uitooltip>
+	 </td>	
 	  <td colspan="3" width="85%" style="padding: 2px;">
 	  
 	  		 <cfquery name="Current" 
@@ -58,8 +81,7 @@
 						    message="" 
 						   	required="No"
 							width="50"
-							style="width: 400;"
-							tooltip="Send this report to mailing list"
+							style="width: 400;"							
 							label="Managed:"
 							query="ManagedBy"
 							queryPosition="below"
@@ -74,7 +96,11 @@
 	
   <tr>
 		 
-		 <td class="labelmedium"><cf_tl id="Variant Name">:</td>	
+		 <td class="labelmedium">
+		  <cf_uitooltip tooltip="Subject of the eMail that will be sent to you.">		
+		  <cf_tl id="Variant Name">:
+		  </cf_uitooltip>
+		 </td>	
 		 <td style="padding: 2px;">						 
 				<cfinput type="Text" 
 		         name="DistributionSubject" 
@@ -86,8 +112,7 @@
 		         label="Subject:"
 				 class="regularxl"
 				 message="Please enter a subject" 
-				 style="text-align: left;;width:400px"
-				 tooltip="<table><tr><td>Subject of the eMail that will be sent to you.</td></tr></table>">	
+				 style="text-align: left;;width:400px">	
 				 
 		 </td>
 		 
@@ -479,6 +504,7 @@
 	 </td>	 
 	 
 	 </tr>	
+	  
 	 
 	 <tr><td height="5"></td></tr>		
 	 
@@ -499,7 +525,7 @@
 				 <tr><td height="2"></td></tr>	
 				 <tr><td bgcolor="e4e4e4"></td></tr>	
 			    	 
-				 <cfset class = "Condition">
+				 <cfset class = "'Condition'">
 				 <tr>
 					 <td>				
 					 <cfinclude template="FormHTMLCriteria.cfm">
@@ -557,19 +583,6 @@
    	 
 	 </td></tr>
 	 
-	 <tr><td height="9"></td></tr>		
 	
-		<cfif SESSION.acc neq AnonymousUserId>
-		
-			<tr class="line"><td style="height:45px;padding-left:5px;font-size:25px;font-weight:200" class="labelmedium" colspan="4">
-			<cf_tl id="Saved variants">			
-			</td></tr>																		
-			<tr>
-				<td colspan="4" bgcolor="f4f4f4" id="subscriptions" style="padding-bottom:20px;border: 0px solid Silver">																
-				   <cfinclude template="FormHTMLSubscription.cfm">
-				</td>
-			</tr>				
-						
-		</cfif>	 	
 		
 </table>		

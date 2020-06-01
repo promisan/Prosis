@@ -85,7 +85,7 @@
 		ExcelShow     = "Yes"
 		allowgrouping = "No"
 		listlayout    = "#fields#"
-		drillmode     = "window"
+		drillmode     = "tab"
 		drillargument = "960;1030;false;true"	
 		drilltemplate = "System/Access/User/Audit/ListingReportDetail.cfm?drillid="
 		drillkey      = "DistributionId"

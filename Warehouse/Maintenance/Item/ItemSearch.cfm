@@ -278,8 +278,7 @@ password="#SESSION.dbpw#">
 	<tr><td height="1" class="line"></td></tr>
 	<tr><td height="25" align="center" style="padding-bottom:30px;">
 		<cf_tl id="Search" var="vSearch">
-		<input class="button10g" type="button" style="width:190;height:29" name="Insert" id="Insert" value="#vAdd#" onClick="recordedit('','')">
-		
+		<input class="button10g" type="button" style="width:190;height:29" name="Insert" id="Insert" value="#vAdd#" onClick="recordedit('','')">		
 		<input class="button10g" type="submit" style="width:190;height:29" name"Search" id="Search" value="#vSearch#">
 		</td>
 		
@@ -291,5 +290,3 @@ password="#SESSION.dbpw#">
 </cfform>
 
 </cfoutput>
-
-</BODY></HTML>

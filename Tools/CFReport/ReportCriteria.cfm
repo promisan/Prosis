@@ -317,52 +317,55 @@
 				se = parent.document.getElementById("pBar")			
 				if (se) {
 			       parent.ColdFusion.ProgressBar.hide("pBar")
-			       parent.ColdFusion.ProgressBar.stop("pBar", "true")			   			
-				  
+			       parent.ColdFusion.ProgressBar.stop("pBar", "true")					  
 			    }				
+				
 			</script>
 		     		
 			<cf_waitend>
 			
 			<cfif CriteriaError eq "">
-						<script>
-						
-						    try {					
-								document.getElementById('myprogressbox').className   = "hide"
-								document.getElementById('myreportcontent').className = "regular"																						
-							} catch(e) {}
-							
-							if (rpt) {
-									alert('Please select : #CriteriaDescription#');
-							} else {	
-									window.location = "#SESSION.root#/Tools/CFReport/OutputMessage.cfm?msg=Please select : #CriteriaDescription#"
-							}							
-						</script>					
-					   <cfif url.formselect eq "Batch">
-					   	 <cfexit method="EXITTEMPLATE">
-					   <cfelse> 
-					     <CFABORT>
-					   </cfif>
+			
+				<script>
+				
+				    try {					
+						document.getElementById('myprogressbox').className   = "hide"
+						document.getElementById('myreportcontent').className = "regular"																						
+					} catch(e) {}
+					
+					if (rpt) {
+						alert('Required field selection is missing : #CriteriaDescription#');
+					} else {	
+						window.location = "#SESSION.root#/Tools/CFReport/OutputMessage.cfm?msg=Please select : #CriteriaDescription#"
+					}							
+				</script>		
+									
+				<cfif url.formselect eq "Batch">
+				   	 <cfexit method="EXITTEMPLATE">
+				<cfelse> 
+				     <CFABORT>
+				</cfif>
 					   
 			<cfelse>
 			
-						<script>
-						
-							try {					
-								document.getElementById('myprogressbox').className   = "hide"
-								document.getElementById('myreportcontent').className = "regular"																						
-							} catch(e) {}
-							
-							if (rpt)
-									rpt.src = "#SESSION.root#/Tools/CFReport/OutputMessage.cfm?msg=#CriteriaError#"
-							else	
-									window.location = "#SESSION.root#/Tools/CFReport/OutputMessage.cfm?msg=#CriteriaError#"							
-						</script>			
-				      <cfif url.formselect eq "Batch">
-					   	 <cfexit method="EXITTEMPLATE">
-					   <cfelse> 
-					     <CFABORT>
-					   </cfif>
+				<script>
+				
+					try {					
+						document.getElementById('myprogressbox').className   = "hide"
+						document.getElementById('myreportcontent').className = "regular"																						
+					} catch(e) {}
+					
+					if (rpt)
+						rpt.src = "#SESSION.root#/Tools/CFReport/OutputMessage.cfm?msg=#CriteriaError#"
+					else	
+						window.location = "#SESSION.root#/Tools/CFReport/OutputMessage.cfm?msg=#CriteriaError#"							
+				</script>	
+								
+			    <cfif url.formselect eq "Batch">
+				   	 <cfexit method="EXITTEMPLATE">
+				<cfelse> 
+				     <CFABORT>
+				</cfif>
 					   
 			</cfif>	 
 			
@@ -766,8 +769,7 @@
 		<!--- find clustered selection --->
 		
 		<cfif CriteriaCluster neq "">
-		
-				
+						
 		  <cfif not Find("#CriteriaCluster#", "#cluster#")>
 		
 			<cfset cluster =  "#Cluster#,#CriteriaCluster#">
@@ -787,7 +789,7 @@
 		   </cfif>  
 			
 		   <cfif cval eq CriteriaName>
-		   
+		   		   
 			   <cfsavecontent variable="parscript">
 				#parscript#
 				<tr class="labelmedium navigation_row" style="height:20px">
@@ -1035,7 +1037,7 @@
 					} catch(e) {}
 							
 					if (rpt)
-							rpt.src = "#SESSION.root#/Tools/CFReport/OutputMessage.cfm?msg=Please enter a #check.criteriaDescription#"
+						rpt.src = "#SESSION.root#/Tools/CFReport/OutputMessage.cfm?msg=Please enter a #check.criteriaDescription#"
 					else
 						window.location = "#SESSION.root#/Tools/CFReport/OutputMessage.cfm?msg=Please enter a #check.criteriaDescription#"							
 				</script>			
@@ -1050,7 +1052,7 @@
 					} catch(e) {}
 							
 					if (rpt)
-							rpt.src = "#SESSION.root#/Tools/CFReport/OutputMessage.cfm?msg=#check.criteriaError#"
+						rpt.src = "#SESSION.root#/Tools/CFReport/OutputMessage.cfm?msg=#check.criteriaError#"
 					else
 						window.location = "#SESSION.root#/Tools/CFReport/OutputMessage.cfm?msg=#check.criteriaError#"							
 				</script>			

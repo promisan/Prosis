@@ -39,7 +39,7 @@
 	
 	function CopyAccess(grp) {	    
 		ProsisUI.createWindow('mydialog', 'Copy access to other entities', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,resizable:false,center:true})    						
-		ColdFusion.navigate('#SESSION.root#/System/Access/User/CopyView.cfm?group='+grp,'mydialog') 	
+		ptoken.navigate('#SESSION.root#/System/Access/User/CopyView.cfm?group='+grp,'mydialog') 	
 	}
 	
 	function reloadForm(group,page) {
@@ -53,12 +53,12 @@
 	
 	function newuser(grp) { 
 	    ProsisUI.createWindow('newaccount', 'User account', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,resizable:false,center:true})
-		ColdFusion.navigate('#SESSION.root#/System/Access/User/UserEntryView.cfm?mode=entry&ID='+grp,'newaccount')
+		ptoken.navigate('#SESSION.root#/System/Access/User/UserEntryView.cfm?mode=entry&ID='+grp,'newaccount')
 	}	
 	
 	function UserEdit(Account) {
 		ProsisUI.createWindow('mydialog', 'User account', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,resizable:false,center:true})
-		ColdFusion.navigate('#SESSION.root#/System/Access/User/UserEntryView.cfm?mode=edit&ID=' + Account,'mydialog');		
+		ptoken.navigate('#SESSION.root#/System/Access/User/UserEntryView.cfm?mode=edit&ID=' + Account,'mydialog');		
 	}  	
 	 
 		
@@ -129,24 +129,34 @@
 			     U.PersonNo, 
 			     U.OfficerUserId,
 			     U.Created, 
-				 (   SELECT LastConnection 
-				    FROM   skUserLastLogon 
-					WHERE  Account = U.Account) as LastLogon,							
+				 (  SELECT  LastConnection 
+				    FROM    skUserLastLogon 
+					WHERE   Account = U.Account) as LastLogon,							
+					
 				 (	SELECT count(*) 
 				    FROM    Ref_Application
 					WHERE   OfficerManager = U.Account) as Manager,				
-				 <cfif AdminAccess eq "NONE">					
-					<!--- check if access to this person is granted --->
+					
+				 <cfif AdminAccess eq "NONE">	
+				 				
+					<!--- check if access to this user that connected is granted for user admin --->
+					
 					( SELECT count(*)
 					  FROM   Organization.dbo.OrganizationAuthorization
-					  WHERE  UserAccount = '#session.acc#'
-					  AND    Mission     = U.AccountMission
-					  AND    Role        = 'OrgUnitManager'
+					  WHERE  UserAccount  = '#session.acc#'
+					  AND    Mission      = U.AccountMission
+					  AND    Role         = 'OrgUnitManager'
 					  AND    AccessLevel IN ('2','3')
 					 ) as AccessCount, 					 
-				 <cfelse> 				   				    
+					 
+				 <cfelse> 
+				 
+				 	<!--- admin Access was granted so default = 1  --->				   				    
+				 
 					1 as AccessCount,						
+					
 				 </cfif>											  
+				 
 			     U.disabled				 
 		FROM     UserNames U
 		WHERE    1=1 
@@ -231,6 +241,7 @@
 					     U.Created, 
 					     (SELECT LastConnection FROM skUserLastLogon WHERE Account = U.Account) as LastLogon,
 					     U.disabled,
+						 U.OfficerUserId,
 					     U.OfficerLastName,
 					     U.OfficerFirstName,
 					     U.Created
@@ -496,8 +507,8 @@
 				   
 				   <td style="padding-right:8px">	
 				   
-				   <cfif AccessCount gte "1">
-						   
+				   		<cfif AccessCount gte "1">
+							   
 						    <cfif AccountType eq "Group">
 								 <img src="#client.virtualdir#/Images/copy4.gif"
 								  alt="" 
@@ -508,21 +519,21 @@
 								  onclick="CopyAccess('#URLEncodedFormat(Account)#')"
 							      onMouseOver="document.clc#currrow#.src='#CLIENT.virtualdir#/Images/button.jpg'"
 							      onMouseOut="document.clc#currrow#.src='#client.virtualdir#/Images/copy4.gif'">
-							</cfif>
+								</cfif>
 					
-					</cfif>
+						</cfif>
 						  
 				   </td>
 						 
 				   <td align="right" class="labelit" style="padding-right:6px">
-				     	
+				     							
 					   <cfif Anonymous.AnonymousUserId eq Account>
 					   
 					   		<cf_UIToolTip  tooltip="Anonymous User">Sys</cf_UIToolTip>
 					   	 
 					   <cfelseif Manager eq "0"> 
-					  
-						   <cfif AccessCount gte "1" and OfficerUserid neq SESSION.acc>
+					  					  				  
+						   <cfif AccessCount gte "1" and Account neq SESSION.acc>								  			   
 							   <input type="checkbox" name="Account" id="Account" value="'#Account#'" onClick="hl(this,this.checked)">				 
 						   </cfif>
 						   

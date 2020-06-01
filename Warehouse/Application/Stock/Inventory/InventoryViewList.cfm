@@ -113,7 +113,7 @@ password="#SESSION.dbpw#">
 		
 	<table width="100%" lign="center" class="navigation_table">
 
-		    <tr class="labelmedium fixrow3">
+		    <tr class="labelmedium fixrow3 clsFilterRow">
 			   <td style="min-width:26px;top:53px"></td>			  
 			   <td style="min-width:110px;top:53px"><cf_tl id="Roll"></td>	
 			   <td style="min-width:200px;top:53px"><cf_tl id="Earmarked"></td>   <!--- earmark --->			  		   		  			   
@@ -247,7 +247,7 @@ password="#SESSION.dbpw#">
 							
 			<cfoutput>
 			
-			<tr><td colspan="10" align="center">
+			<tr class="clsFilterRow"><td colspan="10" align="center">
 				
 				<table width="100%" cellspacing="0" cellpadding="0" align="center">
 												

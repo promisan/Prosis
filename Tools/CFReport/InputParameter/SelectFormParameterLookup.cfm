@@ -1,4 +1,4 @@
-	
+
 <!---  23/2/2012
 
 - If criteriarole = 1 AND name = 'mission' AND report has one or more roles defined
@@ -7,7 +7,6 @@
 --->	
 
 
-	
 <cfif SESSION.isAdministrator eq "Yes">
 
 	<cfset missionaccessfilter = "">	
@@ -46,7 +45,7 @@
 					 FROM      Ref_ReportControlUserGroup R INNER JOIN
 					           UserNames G ON R.Account = G.Account INNER JOIN
 					           UserNamesGroup U ON G.Account = U.AccountGroup
-					 WHERE     G.Account = '#SESSION.acc#'
+					 WHERE     U.Account = '#SESSION.acc#'
 					 AND       R.ControlId = '#url.controlid#'
 										 		
 				 </cfquery>
@@ -67,7 +66,7 @@
 						
 				<cfoutput>		
 				<script>
-					ColdFusion.navigate('#session.root#/Tools/CFReport/NoAccessGranted.cfm','reportcriteria')
+					ptoken.navigate('#session.root#/Tools/CFReport/NoAccessGranted.cfm','reportcriteria')
 				</script>
 				</cfoutput>
 				<cfabort>
@@ -83,9 +82,13 @@
 </cfif>	
 
 
+
+
 <cfparam name="flyfilter" default="">
+
+<cfset val = replaceNoCase(url.val,"'","","ALL")>
 				
-<cfloop index="itm" list="#url.val#" delimiters=",">
+<cfloop index="itm" list="#val#" delimiters=",">
     <cfif flyfilter eq "">
      <cfset flyfilter = "'#itm#'">
  <cfelse>
@@ -105,6 +108,7 @@
 <cfelse>
 	<cfset Crit = replaceNoCase("#Crit#", "IN (@parent)", "NOT IN ('')" , "ALL")>
 </cfif>	
+
 	
 <cfset orderby   = "">
 <!--- add field to the SELECT clause --->
@@ -230,8 +234,7 @@
 		 #orderby# 
 		 
 	</cfquery>			
-				
-					
+								
 	<cfif Default.DefaultValue neq "">
 				
 		 <cfset tmp  = "">
@@ -248,8 +251,7 @@
 				     </cfif>
 			  </cfif>
 			  
-         </cfloop>
-				 
+         </cfloop>				 
 				 
 		 <cfif tmp neq "">
 	 					
@@ -275,17 +277,17 @@
 		</cfif>
 	
     </cfif>		
-					
+	
+						
 	<cfif CriteriaInterface neq "Combo"> 		
 	
 		<cfoutput>
 				
-		<table cellspacing="0" border="0" cellpadding="0" class="#cl#" id="#fldid#_box" class="formpadding">
-		<tr><td>
-								
+		<table class="#cl#" id="#fldid#_box" style="width:100%" class="formpadding">
+		<tr><td style="width;100%">
+																
 		<cfif ajax eq "0">	
-		
-				
+						
 			<cfif CriteriaName eq "Mission">
 			
 				<!--- 10/10/214 : adding the mission type to the query object in order to group the dropdown --->
@@ -309,66 +311,74 @@
 						SELECT *
 						FROM   query#CriteriaName#
 						ORDER BY Grouping,Display		
-				</cfquery> 				
-							
-				<cfselect name = "#CriteriaName#" 
-				selected       = "#DefaultValue#"
-		    	size           = "1" 
-				class          = "#cl# regularXXL"
-				id             = "#fldid#"
-				multiple       = "No"
-				message        = "#Error#" 
-			   	required       = "#ob#"
-				width          = "#sizeU#"
-				style          = "width:#SizeU*8#;"
-				tooltip        = "#CriteriaMemo#"
-				label          = "#CriteriaDescription#:"
-				group          = "Grouping"
-				query          = "query#CriteriaName#"
-				queryPosition  = "below"
-				value          = "PK"
-				display        = "Display">
-					<cfif LookupEnableAll eq "1">
-					  <option value="all">--- #vall#---</option>
-					</cfif>  
-				</cfselect>		
+				</cfquery>
+				
+				<cfset qValues = evaluate("query#CriteriaName#")> 
+
+				<cf_UIselect name = "#CriteriaName#"
+							selected       = "#DefaultValue#"
+							size           = "1"
+							class          = "#cl# regularXXL"
+							id             = "#fldid#"
+							message        = "#Error#"
+							required       = "#ob#"
+							width          = "#sizeU#"
+							style          = "width:100%"
+							tooltip        = "#CriteriaMemo#"
+							label          = "#CriteriaDescription#:"
+							group          = "Grouping"
+							query          = "#qValues#"
+							queryPosition  = "below"
+							value          = "PK"
+							display        = "Display">
+								<cfif LookupEnableAll eq "1">
+								  <option value="all">--- #vall# ---</option>
+								</cfif>
+				</cf_UIselect>
 			
 			<cfelse>
-																															
-			<cfselect name = "#CriteriaName#" 
-				selected       = "#DefaultValue#"
-		    	size           = "1" 
-				class          = "#cl# regularXXL"
-				id             = "#fldid#"
-				multiple       = "No"
-				message        = "#Error#" 
-			   	required       = "#ob#"
-				width          = "#sizeU#"
-				style          = "width:#SizeU*8#;"
-				tooltip        = "#CriteriaMemo#"
-				label          = "#CriteriaDescription#:"
-				query          = "query#CriteriaName#"
-				queryPosition  = "below"
-				value          = "PK"
-				display        = "Display">
-					<cfif LookupEnableAll eq "1">
-					  <option value="all">--- #vall#---</option>
-					</cfif>  
-				</cfselect>		
+			
+				<cfset qValues = evaluate("query#CriteriaName#")> 
+	
+				<cf_UIselect name = "#CriteriaName#"
+					selected       = "#DefaultValue#"
+			    	size           = "1" 
+					class          = "#cl# regularXXL"
+					id             = "#fldid#"
+					multiple       = "No"
+					message        = "#Error#" 
+				   	required       = "#ob#"
+					width          = "#sizeU#"
+					style          = "width:100%"
+					tooltip        = "#CriteriaMemo#"
+					label          = "#CriteriaDescription#:"
+					query          = "#qValues#"
+					queryPosition  = "below"
+					value          = "PK"
+					display        = "Display">
+						<cfif LookupEnableAll eq "1">
+						  <option value="all">--- #vall# ---</option>
+						</cfif>  
+					</cf_UIselect>
 				
 			</cfif>		
 		
-		<cfelse>
-		
-						
-		   <cf_UIToolTip  tooltip="#CriteriaMemo#">
-		   					
-		   <select name="#CriteriaName#"
-		        size = "1"
-		        class= "regularx"
-				id   = "#fldid#"
-		        style= "width: #SizeU*8#;">
-				
+		<cfelse>		
+
+		   		   
+		   <cfset qValues = evaluate("query#CriteriaName#")> 
+		   		   					
+		   <CF_UIselect name   = "#CriteriaName#"
+		        size           = "1"
+		        class          = "regularxxl"
+				id             = "#fldid#"
+				selected       = "#DefaultValue#"
+		        style          = "width:100%"
+				query          = "#qValues#"
+				queryPosition  = "below"
+				value          = "PK"
+				display        = "Display">
+
 				<cfif LookupEnableAll eq "1">
 				  <option value="all">--- #vall# ---</option>
 				</cfif>  
@@ -376,10 +386,8 @@
 				 <option value="#PK#" <cfif DefaultValue eq PK>selected</cfif>>#Display#</option>
 				</cfloop>
 											
-			</select>
-						
-			</cf_UIToolTip>
-		
+			</CF_UIselect>
+					
 		</cfif>
 								
 		</td></tr>
@@ -393,17 +401,14 @@
 		<cfoutput>						
 								
 		<!--- new code 15/5/2006 --->
-				
-		<table border="0" cellspacing="0" cellpadding="0" class="formpadding">
+						
+		<table class="formpadding">
 		<tr><td>												
 				
-		<table cellspacing="0" 
-		    border="0" 			
-			class="#cl#" 
-			id="#fldid#_box">
+		<table class="#cl#" id="#fldid#_box">
 		 
 		<tr><td>
-				
+						
 			 <!--- correction in case default has more than one selected value --->			
 															
 			 <cfset display = "#evaluate('query#CriteriaName#.Display')#"> 
@@ -413,28 +418,28 @@
 			 			 									 
 			 <cfif ajax eq "0">
 										 							 							
-			  <cfinput type="Text" 
-			   name      = "#CriteriaName#_des" 
-			   value     = "#display#"
-			   message   = "#Error#" 
-			   maxlength = "800"
-			   size      = "#sizeU#"
-			   style     = "border:1px solid silver;width: #SizeU*8#;"
-			   class     = "regularXXL"
-			   readonly
-			   label     = "#CriteriaDescription#:">  								   
+				  <cfinput type="Text" 
+				   name      = "#CriteriaName#_des" 
+				   value     = "#display#"
+				   message   = "#Error#" 
+				   maxlength = "800"
+				   size      = "#sizeU#"
+				   style     = "border:1px solid silver;width: #SizeU*8#;"
+				   class     = "regularXXL"
+				   readonly
+				   label     = "#CriteriaDescription#:">  								   
 			   
 			 <cfelse>			 	
 						 
-			  <input type = "Text" 
-			   name       = "#CriteriaName#_des" 
-			   id         = "#CriteriaName#_des"
-			   value      = "#show#"
-			   maxlength  = "800"
-			   size       = "#sizeU#"
-			   style      = "border:1px solid silver;width: #SizeU*8#;"
-			   class      = "regularXXL"
-			   readonly>  				 
+				  <input type = "Text" 
+				   name       = "#CriteriaName#_des" 
+				   id         = "#CriteriaName#_des"
+				   value      = "#show#"
+				   maxlength  = "800"
+				   size       = "#sizeU#"
+				   style      = "border:1px solid silver;width: #SizeU*8#;"
+				   class      = "regularXXL"
+				   readonly>  				 
 			 
 			 </cfif>  
 	   
@@ -470,10 +475,9 @@
 		   
 		   <td width="26">
 		   		   		  	
-			    <!--- replace the value of the flyfilter with an ajax compatible structure --->	   
-				   
-		   
-		   		   <img src="#SESSION.root#/Images/OpenWindow.png"
+			   <!--- replace the value of the flyfilter with an ajax compatible structure --->	   
+				   		   
+	   		   <img src="#SESSION.root#/Images/OpenWindow.png"
 			     name="img0_#currentrow#"
 			     id="img0_#currentrow#"
 			     border="0"
@@ -487,7 +491,9 @@
 		   </td>
 		   </tr>
 		 </table>
+		 
 		 </td></tr>
+		 
 		 </table>
 																
 	</cfoutput>
@@ -496,8 +502,9 @@
 															
 <cfelse>	
 
+
 	<cfif CriteriaInterface neq "Combo">	
-						
+							
 			<CF_DropTable dbName="#LookupDataSource#" full="Yes" tblName="#SESSION.acc#_#criterianame#"> 
 																				      				
 			<cfquery name="tmp" 
@@ -515,15 +522,15 @@
 						<cfif addSelect neq "">
 						#addSelect#
 						</cfif>
+						
 				 INTO   #SESSION.acc#_#criterianame#
-				 <cfif not Find("FROM ", "#preserveSingleQuotes(CriteriaValues)#") or 
-				        Find("FROM ", "#preserveSingleQuotes(CriteriaValues)#") gte 20>
+				 <cfif not Find("FROM ", "#preserveSingleQuotes(CriteriaValues)#") or Find("FROM ", "#preserveSingleQuotes(CriteriaValues)#") gte 20>
 				 FROM   #LookupTable#
 				 </cfif>	
-				  #preserveSingleQuotes(Crit)#
-				  #orderby#				  
-			</cfquery>						
-			
+				        #preserveSingleQuotes(Crit)#
+				        #orderby#				  
+			</cfquery>	
+												
 			<cfif t eq "1">
 			
 			     <cftry>
@@ -539,16 +546,15 @@
 				 
 				 </cftry>
 			
-			</cfif>
-			
+			</cfif>			
 											 					 
 			 <cfset tmp = "">
 	         <cfloop index="itm" list="#CriteriaDefault#" delimiters=",">
-       	     <cfif tmp eq "">
-	    	    <cfset tmp = "'#itm#'">
-		     <cfelse>
-		        <cfset tmp = "#tmp#,'#itm#'">
-		     </cfif>
+	       	     <cfif tmp eq "">
+		    	    <cfset tmp = "'#itm#'">
+			     <cfelse>
+			        <cfset tmp = "#tmp#,'#itm#'">
+			     </cfif>
 	         </cfloop>
 			 
 			 <cfif tmp eq "">
@@ -556,50 +562,55 @@
 			 </cfif>
 			 
 			 <cfif Default.DefaultValue eq "">
+			 			 			 
 			 	<cftry>
 			 	
-						 <cfquery name="query#CriteriaName#" 
-					     datasource="#LookupDataSource#">
+					 <cfquery name="query#CriteriaName#" 
+				     datasource="#LookupDataSource#">
 						 SELECT *
-						 FROM #SESSION.acc#_#criterianame#
-						 WHERE PK IN (#preserveSingleQuotes(tmp)#)
+						 FROM   #SESSION.acc#_#criterianame#
+						 WHERE  PK IN (#preserveSingleQuotes(tmp)#)
 						 <cfif missionaccessfilter neq "">
-						 	AND    PK IN (#preserveSingleQuotes(missionaccessfilter)#)
+						 AND    PK IN (#preserveSingleQuotes(missionaccessfilter)#)
 						 </cfif>		
 						 UNION ALL
 						 SELECT *
-						 FROM #SESSION.acc#_#criterianame#
-						 WHERE PK NOT IN (#preserveSingleQuotes(tmp)#)	
+						 FROM   #SESSION.acc#_#criterianame#
+						 WHERE  PK NOT IN (#preserveSingleQuotes(tmp)#)	
 						 <cfif missionaccessfilter neq "">
-							AND    PK IN (#preserveSingleQuotes(missionaccessfilter)#)
+						 AND    PK IN (#preserveSingleQuotes(missionaccessfilter)#)
 						 </cfif>		
-						 </cfquery>
-				<cfcatch>
-						<cfoutput>
-						<script>
-							alert('#cfcatch.message#');
-							window.location.reload();
-						</script>
-						</cfoutput>
-						<cfabort>				
-				</cfcatch>		 
+					 </cfquery>							
+				
+				 <cfcatch>				
+				 
+					<cfoutput>
+					<script>
+						alert('#cfcatch.message#');
+						window.location.reload();
+					</script>
+					</cfoutput>
+					<cfabort>	
+									
+				 </cfcatch>		 
+				
 				</cftry>		  	
 							
 			<cfelse>
-								
+														
 				 <cfset def = "">
 				 <cfset rest = "0">
 		         <cfloop index="itm" list="#Default.DefaultValue#" delimiters=",">
 				 
-				         <cfif itm eq "*">
-							 <cfset rest = "1">
-						 <cfelse>	
-							 <cfif def eq "">
-					    	    <cfset def = "'#itm#'">
-						     <cfelse>
-						        <cfset def = "#def#,'#itm#'">
-						     </cfif>
-						 </cfif>
+			         <cfif itm eq "*">
+						 <cfset rest = "1">
+					 <cfelse>	
+						 <cfif def eq "">
+				    	    <cfset def = "'#itm#'">
+					     <cfelse>
+					        <cfset def = "#def#,'#itm#'">
+					     </cfif>
+					 </cfif>
 		        	    
 		         </cfloop>
 				
@@ -607,6 +618,7 @@
 						 					
 					 <cfquery name="query#CriteriaName#" 
 					     datasource="#LookupDataSource#">
+						 
 							 SELECT *
 							 FROM #SESSION.acc#_#criterianame#
 							 WHERE PK IN (#preserveSingleQuotes(tmp)#)
@@ -639,8 +651,8 @@
 								
 							 </cfif>									 							 
 							 
-					   </cfquery> 	
-					   
+					   </cfquery> 
+					 					   
 					   <cfcatch>
 					   
 						    <cfquery name="query#CriteriaName#" 
@@ -651,7 +663,7 @@
 								 	AND    PK IN (#preserveSingleQuotes(missionaccessfilter)#)
 								 </cfif>															 							 
 						    </cfquery> 	
-					   
+														
 					   </cfcatch>
 				   								   
 				   </cftry>
@@ -662,15 +674,15 @@
 						
 			<cfoutput>							
 			
-			<table cellspacing="0" border="0" rules="none" id="#fldid#_box" 
-			 class="#cl#">
+			<table style="width:100%" id="#fldid#_box" class="#cl#">
 			 
-		 	<tr><td>
-						
+		 	<tr><td style="width:100%">
+															
 			<cfif ajax eq "0">
 			
 			   <cfif Parent.recordcount gte "1" and defaultValue eq "">
 					
+					<!--- we presect the values from the query --->					
 					<cfset listsel = "">
 					<cfloop query="query#criterianame#">
 						<cfset listsel = "#listsel#,#pk#">
@@ -681,6 +693,8 @@
 					<cfset listsel = DefaultValue>						
 									
 				</cfif>		
+							
+				<!---
 												
 				<cfif s gt evaluate("query#CriteriaName#.recordcount")>
 					<cfset s = evaluate("query#CriteriaName#.recordcount")>
@@ -690,23 +704,33 @@
 				</cfif>
 				<cfset s = s+1>				
 				<cfset ht = s*20+10>
-																																																																									
-				<cfselect name  = "#CriteriaName#" 
-					selected        = "#listsel#"
-			    	size            = "#s#" 
-					class           = "regularx"							
+				
+				--->
+				
+				<cfset qValues = evaluate("query#CriteriaName#")> 
+								
+				<cf_UIselect name   = "#CriteriaName#"
+					selected        = "#listsel#"			    	
+					class           = "regularxxl"							
 					multiple        = "Yes"
 				    message         = "Please select #CriteriaDescription#" 
 				   	required        = "#ob#"
 					width           = "#sizeU#"
-					style           = "height:#ht#;width:#SizeU*8#;"
+					style           = "width:100%"
 					tooltip         = "#CriteriaMemo#"
 					label           = "#CriteriaDescription#:"
-					query           = "query#CriteriaName#" 							
+					query           = "#qValues#"
 					value           = "PK"
 					display         = "Display"/>
+					
+					<!---
+					size            = "#s#" 
+					style           = "height:#ht#;width:#SizeU*8#;"
+					--->
 									
-			<cfelse>		
+			<cfelse>	
+			
+				<!---	
 									
 				<cfif s gt evaluate("query#CriteriaName#.recordcount")>
 					<cfset s = evaluate("query#CriteriaName#.recordcount")>
@@ -714,23 +738,25 @@
 						<cfset s = 2>
 					</cfif>					
 				</cfif>		
-				<cfset ht = s*20+10>		
-												
-				 <cf_UIToolTip  tooltip="#CriteriaMemo#">
-			
-				   <select name = "#CriteriaName#" 
-				        id      = "#CriteriaName#"
-				        size    = "#s#"
-				        multiple
-				        class   = "regularXXL"
-				        style   = "height:#ht#;width:#SizeU*8#;">
 				
-						<cfloop query="query#CriteriaName#">
-						 <option value="#PK#" 
-						 <cfif findNoCase(PK,defaultValue)>selected</cfif>>#Display#</option>
-						</cfloop>
-											
-				   </select>
+				<cfset ht = s*20+10>	
+				
+				--->
+																				
+				 <cf_UIToolTip  tooltip="#CriteriaMemo#">
+				 
+				 		<cfset qValues = evaluate("query#CriteriaName#")> 
+																		
+						 <cf_UIselect
+							 name           = "#CriteriaName#"							 						 
+							 multiple       = "yes"
+							 query          = "#qValues#"
+							 style          = "min-width:100%"
+							 queryposition  = "below"
+							 class          = "regularXXL"
+							 selected       = "#defaultValue#"
+							 value          = "PK"
+							 display        = "Display"/>
 				
 				</cf_UIToolTip>
 										
@@ -740,31 +766,32 @@
 			</table>
 			</cfoutput>
 										
-<cfelse>
+		<cfelse>
 	
 		    <!--- Combo box new code 25/5/2006 --->
 									
 			<cfoutput>   
 			
-			<table cellspacing="0" cellpadding="0">
+			<table cellspacing="0" cellpadding="0" style="height:25px;width:100%;">
 			
 			<tr><td style="height:25px">
-																																		
-			<table cellspacing="0" cellpadding="0" class="#cl#" id="#fldid#_box" style="height:25px;width: #SizeU*8+1#;">
+																																					
+			<table class="#cl#" id="#fldid#_box" style="height:29px;width:100%;">
 																														  						
 			<tr>
 			
 			<cfset form.multivalue = defaultvalue>								
 			<cfset mode     = "view">		
 			
-			<td height="20" id="combo#CriteriaName#">																			
+			<td style="width:100%;height:100%" id="combo#CriteriaName#">																			
 				<cfinclude template="../HTML/FormHTMLComboMultiSelected.cfm">																																					
 	   	    </td>		
 			
-		    <td width="15" valign="top" style="padding-top:0px;padding-bottom:1px;cursor: pointer;combomulti('#CriteriaName#',document.getElementById('#CriteriaName#_listselect').value,'#fly#')">	
+		    <td valign="top" style="padding-top:0px;padding-bottom:1px;cursor: pointer;combomulti('#CriteriaName#',document.getElementById('#CriteriaName#_listselect').value,'#fly#')">	
 			
 				<cfset fly = replace(flyfilter, ",", '$', 'ALL')>  					
-				<cfset fly = replace(fly, "'", ';', 'ALL')>  						
+				<cfset fly = replace(fly, "'", ';', 'ALL')>  	
+						
 										   
 			    <img src="#SESSION.root#/Images/OpenWindow.png"
 				     name="img0_#currentrow#"

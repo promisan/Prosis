@@ -133,7 +133,8 @@ password="#SESSION.dbpw#">
 			<cfelse> 		 
 					
 				<TD style="padding-left:17px">
-					<cfselect name="missionselect" size="1" group="MissionType" query="Mission" value="Mission" display="MissionName" selected="#url.mission#" id="missionselect" class="regularxl"></cfselect>					
+					<cfselect name="missionselect" size="1" group="MissionType" query="Mission" value="Mission" 
+					display="MissionName" style="width:180px" selected="#url.mission#" id="missionselect" class="regularxl"></cfselect>					
 				</TD>
 					
 			</cfif>

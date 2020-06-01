@@ -87,16 +87,22 @@
 
 <!--- now we remove attachments that are not selected in the interface --->
 
-<cfset row = 1>
-<cfloop index="att" from="1" to="#ArrayLen(mailatt)#">
-		
-	<cfif not find(att,form.actionMailAttachment)>	
-		<cfset ArrayDeleteAt(mailatt, row)>			
-	<cfelse>
-		<cfset row = row+1>	
-	</cfif>
+<cfparam name="form.actionMailAttachment"  default="99999">
 
-</cfloop>
+<cfif form.actionMailAttachment neq "99999">
+	 
+	<cfset row = 1>
+	<cfloop index="att" from="1" to="#ArrayLen(mailatt)#">
+			
+		<cfif not find(att,form.actionMailAttachment)>	
+			<cfset ArrayDeleteAt(mailatt, row)>			
+		<cfelse>
+			<cfset row = row+1>	
+		</cfif>
+	
+	</cfloop>
+
+</cfif>
 
 <!--- we continue and complement whatever is needed here --->
 
@@ -901,7 +907,8 @@
 									#salutation# #RecipientName#<br>
 									#sendBody#
 								</cfoutput>
-							</cfsavecontent>					
+							</cfsavecontent>		
+								
 
 							<cfmail  FROM   = "#fromm#"
 										TO          = "#eMailAddress#"
@@ -1052,6 +1059,7 @@
 				
 				<cfelse>
 				
+								
 						<cfmail  FROM   = "#fromm#"
 								TO          = "#mailto#"
 								CC          = "#SendCC#"

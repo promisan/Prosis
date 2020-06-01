@@ -134,6 +134,8 @@ Armin 10/4/2013: Very important query as it combines child/parent transactions. 
 
 <cfif proc eq "1" and JournalList.TransactionCategory eq "Receivables" and Transaction.TransactionSource neq "WorkOrderSeries">
 
+    <cfif Transaction.TransactionSourceId neq "">
+
 		<cfquery name="presetCOGS"
 			datasource="AppsLedger"
 			username="#SESSION.login#"
@@ -147,6 +149,8 @@ Armin 10/4/2013: Very important query as it combines child/parent transactions. 
 		<cfif presetCOGS.recordcount gte "1">
 			<cfset lines = "#lines#,#quotedvaluelist(presetCOGS.TransactionLineId)#">
 		</cfif>
+		
+	</cfif>	
 
 </cfif>
 
@@ -260,7 +264,7 @@ Armin 10/4/2013: Very important query as it combines child/parent transactions. 
 			        INNER JOIN TransactionLine T   ON T.Journal = H.Journal AND T.JournalSerialNo = H.JournalSerialNo
 					INNER JOIN Ref_Account G       ON  T.GLAccount = G.GLAccount
 					INNER JOIN Ref_AccountGroup GP ON G.AccountGroup  = GP.AccountGroup
-					INNER JOIN Period P            ON H.AccountPeriod = P.AccountPeriod
+					INNER JOIN Period P            ON T.AccountPeriod = P.AccountPeriod
 					
 			WHERE   H.Mission = '#Transaction.mission#'		
 			<!---
@@ -842,7 +846,7 @@ a workflow created and also status = 0 is applies, then it will be picked up her
 							id="workflowlinkprocess_#wfid#"
 							onclick="processline('#wfid#')">
 
-						<cfdiv id="#wfid#"  bind="url:#wflnk#?ajaxid=#wfid#"/>
+						<cf_securediv id="#wfid#"  bind="url:#wflnk#?ajaxid=#wfid#"/>
 
 						</td>
 

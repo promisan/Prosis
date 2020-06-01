@@ -129,13 +129,13 @@ password="#SESSION.dbpw#">
 		<cfif currrow lte last and currrow gte first>		
 		
 			<TR class="labelit navigation_row linedotted">
-			<TD width="30" align="center" class="navigation_action" onClick="ColdFusion.navigate('#link#&action=insert&#url.des1#=#fundingid#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ColdFusion.Window.hide('dialog#url.box#')</cfif>">
+			<TD width="30" align="center" class="navigation_action" onClick="ptoken.navigate('#link#&action=insert&#url.des1#=#fundingid#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ColdFusion.Window.hide('dialog#url.box#')</cfif>">
 					
 			    <cf_img icon="edit">
 							 	
 			</TD>
 			<td><A title="Select" 
-			       HREF ="javascript:ColdFusion.navigate('#link#&action=insert&#url.des1#=#fundingid#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ColdFusion.Window.hide('dialog#url.box#')</cfif>">#FundingType#</a>
+			       HREF ="javascript:ptoken.navigate('#link#&action=insert&#url.des1#=#fundingid#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ColdFusion.Window.hide('dialog#url.box#')</cfif>">#FundingType#</a>
 		    </td>
 			<td>#Reference#</td>
 			<TD>#Fund#</TD>		

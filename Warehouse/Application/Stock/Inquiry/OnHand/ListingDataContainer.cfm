@@ -34,7 +34,7 @@
 	
 	<tr>
 			<td id="mainlisting" valign="top" style="height:95%;">
-				<cfdiv id="divListing" style="height:100%;" bind="url:#session.root#/Warehouse/Application/Stock/Inquiry/Onhand/ListingDataGet.cfm?location=#url.location#&filterwarehouse=#url.filterwarehouse#&warehouse=#url.warehouse#&mission=#url.mission#&SystemFunctionId=#url.SystemFunctionId#&mode=#url.mode#">        	
+				<cf_securediv id="divListing" style="height:100%;" bind="url:#session.root#/Warehouse/Application/Stock/Inquiry/Onhand/ListingDataGet.cfm?location=#url.location#&filterwarehouse=#url.filterwarehouse#&warehouse=#url.warehouse#&mission=#url.mission#&SystemFunctionId=#url.SystemFunctionId#&mode=#url.mode#">        	
 			</td>
 		</tr>
 	

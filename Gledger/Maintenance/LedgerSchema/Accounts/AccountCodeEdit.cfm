@@ -174,18 +174,27 @@ function ask() {
 		   
 		    <TD style="padding-left:7px" class="labelmedium"><cf_tl id="Class">:</TD>		
 		    <TD style="padding-left:7px" class="labelmedium">
-		  	   <select name="AccountClass" size"1" class="regularxl" onchange="monetary(this.value)">
+		  	   <select name="AccountClass" size"1" class="regularxl" onchange="monetary(this.value);">
 		          <option class="radiol" value="Balance" <cfif Get.AccountClass eq "Balance">selected</cfif>>Balance</option>
 				  <option class="radiol" value="Result" <cfif Get.AccountClass neq "Balance">selected</cfif>>Result</option>
 			   </select>
 		    </TD>
 			
+			<!---
 			<TD style="padding-left:7px" class="labelmedium"><cf_tl id="Usage">:</TD>		
-		    <TD style="padding-left:7px" class="labelmedium">
-		  	   <select name="AccountCategory" size"1" class="regularxl">
-		          <option class="radiol" value="Vendor" <cfif Get.AccountCategory eq "Vendor">selected</cfif>>Vendor</option>
-				  <option class="radiol" value="Customer" <cfif Get.AccountCategory eq "Customer">selected</cfif>>Customer</option>
-				  <option class="radiol" value="Neutral" <cfif Get.AccountCategory eq "Neutral">selected</cfif>>Neutral</option>
+			--->
+			
+			<cfif get.accountClass eq "Result">
+				<cfset cl = "hide">
+			<cfelse>
+				<cfset cl = "regular">	
+			</cfif>
+			
+		    <TD style="padding-left:3px" class="#cl#" id="accountcategory">
+		  	   <select name="AccountCategory" id="AccountCategory" size"1" class="regularxl">
+		          <option class="radiol" value="Vendor" <cfif Get.AccountCategory eq "Vendor">selected</cfif>>Accounts Receivable (Vendor)</option>
+				  <option class="radiol" value="Customer" <cfif Get.AccountCategory eq "Customer">selected</cfif>>Accounts Payable (Customer)</option>
+				  <option class="radiol" value="Neutral" <cfif Get.AccountCategory eq "Neutral">selected</cfif>>Other</option>
 			   </select>
 		    </TD>
 			
@@ -208,7 +217,7 @@ function ask() {
 			
 	
 	<script>
-	 
+		 	 
 	 function monetary(val) {
 		  f1 = document.getElementById("fund1")
 		  s1 = document.getElementById("monetary1")
@@ -216,6 +225,7 @@ function ask() {
 		  r1 = document.getElementById("recon1")
 		  r2 = document.getElementById("recon2")	 
 		  r3 = document.getElementById("recon3")	
+		  ca = document.getElementById('accountcategory');
 		 
 		  if (val == "Balance") {	
 		     f1.className = "regular"  
@@ -224,6 +234,7 @@ function ask() {
 			 r1.className = "regular"
 			 r2.className = "regular"
 			 r3.className = "regular"
+			 ca.className = "regular"
 		  } else {
 		     f1.className = "hide"  
 		     s1.className = "hide"
@@ -231,6 +242,7 @@ function ask() {
 			 r1.className = "hide"
 			 r2.className = "hide"
 			 r3.className = "hide"
+			 ca.className = "hide"
 		  }
 	 
 	 }

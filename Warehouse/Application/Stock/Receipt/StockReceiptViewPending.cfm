@@ -142,20 +142,25 @@
 			</td>
 		</tr>
 		
-		<tr style="height:10">
-		<td>
 		
-			<table width="98%" align="center" class="navigation_table">
-					<tr class="labelmedium line">
+		
+		<tr>
+		<td width="100%" style="height:100%;border:0px solid silver">
+		
+			<cf_divscroll overflowy="scroll">
+			
+			<table width="98%" border="0" align="center" class="navigation_table">
+			
+				<tr class="labelmedium line fixrow">
 						
 						<td style="min-width:20"></td>
 						<td style="min-width:40"></td>
-						<td style="min-width:100"><cf_tl id="Receipt"></td>
-						<td style="min-width:100"><cf_tl id="Date"></td>
-						<td style="min-width:60"><cf_tl id="Item"></td>					
-						<td style="min-width:80px"><cf_tl id="Bar code"></td>
+						<td style="min-width:80"><cf_tl id="Receipt"></td>
+						<td><cf_tl id="Date"></td>
+						<td style="min-width:80"><cf_tl id="Item"></td>					
+						<td><cf_tl id="Code"></td>
 						<cfif Param.LotManagement eq "1"><td style="min-width:80"><cf_tl id="Lot"></td></cfif>
-						<td style="width:100%"><cf_tl id="Description"></td>
+						<td><cf_tl id="Description"></td>
 						<td align="right" style="min-width:80px"><cf_tl id="UoM"></td>					
 						<td align="right" style="min-width:100px"><cf_tl id="Qty"></td>
 						<!---
@@ -175,45 +180,13 @@
 								<input type="Checkbox" id="selectAll" name="selectAll" onclick="selectAllItems('#url.mission#','#url.warehouse#',this);" title="#lt_text#" <cfif vSelectAll eq 1>checked</cfif>>
 							</cfoutput>
 						</td>
-						<td align="right" style="min-width:100px" title="<cfoutput>#lt_text#</cfoutput>" class="selectAll"><cf_tl id="Transfer"></td>
-						<td style="min-width:17px"></td>		
-					</tr>
-			</table>		
-		</td>
-		</tr>
-		
-		<tr>
-		<td width="100%" style="height:100%;border:0px solid silver">
-		
-			<cf_divscroll overflowy="scroll">
+						<td align="right" style="min-width:100px;padding-right:5px" title="<cfoutput>#lt_text#</cfoutput>" class="selectAll"><cf_tl id="Transfer"></td>
+				</TR>		
 			
-			<table width="98%" border="0" align="center" class="navigation_table">
-			
-				<tr style="height:0px">
-					
-					<td style="min-width:20"></td>
-					<td style="min-width:40"></td>
-					<td style="min-width:100"></td>
-					<td style="min-width:100"></td>
-					<td style="min-width:60"></td>					
-					<td style="min-width:80px"></td>
-					<cfif Param.LotManagement eq "1"><td style="min-width:80"></td></cfif>
-					<td style="width:100%"></td>
-					<td style="min-width:80px"></td>					
-					<td style="min-width:100px" align="right"></td>
-					<!---
-					<td align="right"><cf_tl id="Price"></td>
-					--->
-					<cfif accessright eq "GRANTED">
-					<td align="right" style="min-width:120px"></td>
-					</cfif>					
-					<td style="min-width:40px"></td>
-					<td style="min-width:100px"></td>							
-				</tr>
-							
+											
 				<cfoutput query="getListing" group="category">
 				
-					<tr class="clsHeader line">
+					<tr class="clsHeader line fixrow2">
 											
 						<td colspan="13" height="30" class="headerCategoryDescription" style="font-size:18px; font-family:Calibri;">
 							<cfquery name="qGetSelected" dbtype="query">
@@ -283,7 +256,8 @@
 							</cfif>
 							<td align="center" class="#category#">
 								<cfif quantity gt 0>
-								<input type="Checkbox" id="line_#TransactionId#" name="line_#TransactionId#" class="clsItem" value="#TransactionId#" onclick="selectItem('#url.mission#','#url.warehouse#',this);" <cfif selected eq 1>checked</cfif>>
+								<input type="Checkbox" id="line_#TransactionId#" name="line_#TransactionId#" class="clsItem" value="#TransactionId#" 
+								onclick="selectItem('#url.mission#','#url.warehouse#',this);" <cfif selected eq 1>checked</cfif>>
 								</cfif>
 							</td>
 							<td align="right" class="#category#">

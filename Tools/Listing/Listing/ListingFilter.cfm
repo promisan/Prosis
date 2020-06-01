@@ -271,8 +271,7 @@
 								  
 							</cfcase>		
 											
-							<cfcase value="text">	
-							
+							<cfcase value="text">								
 														
 								<cfif current.filtermode eq "0">									
 																
@@ -459,9 +458,9 @@
 									
 								   <cfset ope = evaluate("form.filter#current.field#_operator")>	
 								   								  									
-								   <table cellspacing="0" cellpadding="0"><tr><td>
+								   <table><tr><td>
 								   
-								   <select name="filter#current.field#_operator" class="regularxxl">
+								   <select name="filter#current.field#_operator" class="regularxl" style="height:28px">
 		
 										<OPTION value="CONTAINS" <cfif ope eq "CONTAINS">selected</cfif>><cfoutput>#vcontains#</cfoutput>
 										<OPTION value="BEGINS_WITH" <cfif ope eq "BEGINS_WITH">selected</cfif>><cfoutput>#vbegins#</cfoutput>
@@ -477,8 +476,8 @@
 								   
 								   </td>
 								   
-								     <td style="padding-left:1px">
-										
+								     <td style="padding-left:5px">
+									 										
 								     <cfinput type="text" 
 								      name="filter#current.field#" 
 									  value="#val#" 

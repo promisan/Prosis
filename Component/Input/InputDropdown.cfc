@@ -24,8 +24,8 @@
 			<cfargument name="Condition"       type="string" default="">
 			<cfargument name="FieldKeyReturn"  type="string" default="#FieldKey#" required="false">
 			<cfargument name="CodeInDisplay"   type="string" default="0">
-			
-									
+			<cfargument name="Multiple"        type="string" default="no">
+												
 			<cfset cond = replace(condition, ";", "'", "ALL")>  
 			<cfset cond = replace(cond, "$", ",", "ALL")> 
 			<cfset cond = replace(cond, "^", "=", "ALL")>  		
@@ -49,17 +49,18 @@
 					 
 			 <cfif select eq "">
 			      <cfset select = "''">
-			 </cfif>	 
-			
+			 </cfif>				
 										
 			<cfif Filter0Field eq "Parent">
 					
 				<cfset flyfilter = "">						
 				<cfloop index="itm" list="#Filter0Value#" delimiters=",">
+				
+					 <cfset sitm = replace(itm,"'","","ALL")>
 				     <cfif flyfilter eq "">
-					     <cfset flyfilter = "'#itm#'">
+					     <cfset flyfilter = "'#sitm#'">
 					 <cfelse>
-						 <cfset flyfilter = "#flyfilter#,'#itm#'">
+						 <cfset flyfilter = "#flyfilter#,'#sitm#'">
 					 </cfif>	 
 				</cfloop> 
 					 
@@ -75,8 +76,7 @@
 					<cfset cond = replaceNoCase("#cond#", "IN (@parent)", "NOT IN ('')" , "ALL")>
 				</cfif>	
 				
-			</cfif>			
-			 
+			</cfif>					 
 			
 			<!--- filter1 --->
 							
@@ -109,8 +109,7 @@
 			 <cfif filter2 eq "">
 			      <cfset filter2 = "''">
 			 </cfif>	
-			
-			
+						
 			<!--- ------- --->						
 			<!--- TESTING --->	
 			<!--- ------- --->	
@@ -284,7 +283,7 @@
 			 			  
 			  <cfset list = arraynew(2)>
 			  
-			  <cfif filter1field eq "">			
+			  <cfif filter1field eq "" and multiple eq "no">			
 			  			  		  
 				  <cfset list[1][1]= "">
 	       	      <cfset list[1][2]= "[select]">
@@ -300,12 +299,13 @@
 						  
 			<!--- Convert results to array --->
 	      	<cfloop index="i" from="1" to="#Values.RecordCount#">
+			
 			   	 <cfset list[i+s][1]= Values.PK[i]>
 	        	 <cfset list[i+s][2]= Values.Name[i]>
 				 <cfif Values.Type[i] eq "Selected">
-				 <cfset list[i+s][3]= true>	
+					 <cfset list[i+s][3]= true>	
 				 <cfelse>
-				 <cfset list[i+s][3]= false>	
+					 <cfset list[i+s][3]= false>	
 				 </cfif>
 								 
 	      	</cfloop>	

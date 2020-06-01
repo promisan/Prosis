@@ -1,26 +1,11 @@
 <!--- Create Criteria string for query from data entered thru search form --->
 
-<cf_screentop height="100%" scroll="Yes" html="No" jQuery="Yes" ValidateSession="Yes">
 
 <cfparam name="URL.Status"    default="0">
 <cfparam name="URL.Page"      default="1">
 <cfparam name="URL.Mission"   default="">
 <cfparam name="url.height"    default="#client.height#">
 <cfparam name="own"           default="DPKO">
-
-<cfoutput>
-
-	<script>
-	
-	function list(page) {
-	       
-	       ptoken.location("#SESSION.root#/roster/rostergeneric/CandidateResult.cfm?height="+document.body.offsetHeight+"&Owner=#URL.Owner#&DocNo=#URL.DocNo#&Scope=#URL.Scope#&Mode=#URL.Mode#&Page=" + page + "&ID=9");
-		   Prosis.busy('yes')
-	}
-	
-	</script>	
-	
-</cfoutput>
 
 <cfparam name="URL.ID" default="0">
 
@@ -431,7 +416,7 @@ password="#SESSION.dbpw#">
 			
 <cfelse>
 
-		<cf_dialogStaffing>   
+		
 		 
 		<table height="100%" width="100%" align="center">
 		  

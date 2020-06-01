@@ -82,7 +82,7 @@
 		<tr>
 		   <td></td><td colspan="5">
 			   <cfif candidacy gte "1">
-			  		 <cfdiv id="c#functionid#" bind="url:#SESSION.root#/roster/PHP/Apply/Candidacy.cfm?functionid=#functionid#">
+			  		 <cf_securediv id="c#functionid#" bind="url:#SESSION.root#/roster/PHP/Apply/Candidacy.cfm?functionid=#functionid#">
 			   <cfelse>
 					 <cfdiv id="c#functionid#">
 			   </cfif>		   

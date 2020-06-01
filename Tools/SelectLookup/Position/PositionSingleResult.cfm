@@ -133,7 +133,7 @@ SELECT TOP #last# *
 <cfif currentrow gte first>
 
 	<tr class="navigation_row line labelmedium" style="height:19px">	  
-	    <td width="35" style="padding-left:5px;padding-right:6px;padding-top:2px" class="navigation_action" onclick="ColdFusion.navigate('#link#&action=insert&#url.des1#=#positionNo#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">			  
+	    <td width="35" style="padding-left:5px;padding-right:6px;padding-top:2px" class="navigation_action" onclick="ptoken.navigate('#link#&action=insert&#url.des1#=#positionNo#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">			  
 			<cf_img icon="select">						
 		</td>
 		<td width="10%"><cfif SourcePostNumber eq "">#PositionParentId#<cfelse>#SourcePostNumber#</cfif></td>

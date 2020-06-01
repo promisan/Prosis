@@ -51,7 +51,7 @@ password="#SESSION.dbpw#">
 		    
 			try { ColdFusion.Window.destroy('mydialog',true) } catch(e) {}
 			parent.ColdFusion.Window.create('mydialog', 'Merge', '',{x:100,y:100,height:700,width:700,modal:true,resizable:false,center:true})    					
-			parent.ColdFusion.navigate('#SESSION.root#/Roster/Candidate/Tools/Person2Times.cfm?personno=#url.id#','mydialog') 		
+			parent.ptoken.navigate('#SESSION.root#/Roster/Candidate/Tools/Person2Times.cfm?personno=#url.id#','mydialog') 		
 
 		
 		}
@@ -280,11 +280,12 @@ password="#SESSION.dbpw#">
 	 
 	 </cfif> 
 	 
-	
+	<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+	<cfset mid = oSecurity.gethash()/>   
 			
 	 <cf_layoutarea position="center" name="box">									
 						
-			<iframe src="General.cfm?ID=#URL.ID#&topic=all" name="right" id="right" width="100%" height="100%" frameborder="0"></iframe>		
+			<iframe src="General.cfm?ID=#URL.ID#&topic=all&mid=#mid#" name="right" id="right" width="100%" height="100%" frameborder="0"></iframe>		
 										
 	 </cf_layoutarea>	
 	 

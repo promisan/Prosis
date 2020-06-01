@@ -61,7 +61,7 @@ password="#SESSION.dbpw#">
 							   <cfif url.mode eq "AR">  
 								AND        AccountClass       = 'Balance'
 								AND        AccountType        = 'Debit'   
-								AND        (BankReconciliation = 1 OR AccountCategory = 'Vendor')
+								AND        ((R.BankReconciliation = 1 AND R.AccountCategory IN ('Vendor','Neutral')) OR R.AccountCategory = 'Vendor')
 							  <cfelse>	
 								AND        AccountClass       = 'Balance'
 								AND        AccountType        = 'Credit' 

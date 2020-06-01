@@ -50,8 +50,7 @@ password="#SESSION.dbpw#">
 	<!--- AND   S.Source IN ('#CLIENT.Submission#','#Parameter.PHPSource#','Manual') --->
 	AND          A.Status != '9'
 	AND          A.ExperienceCategory = '#URL.ID2#'
-	ORDER BY     ExperienceCategory, ExperienceStart DESC
-	
+	ORDER BY     ExperienceCategory, ExperienceStart DESC	
 </cfquery>
 
 <cfoutput>
@@ -59,19 +58,19 @@ password="#SESSION.dbpw#">
   <script language="JavaScript">
 	  
 	function edadd(cls,src) {
-	  ptoken.location('#SESSION.root#/Roster/Candidate/Details/Background/BackgroundEntry.cfm?owner=#url.owner#&applicantno=#url.applicantno#&section=#url.section#&entryScope=#url.entryScope#&Topic='+cls+'&ID=&ID1=#URL.ID#&ID2='+cls+'&source='+src)
+		  ptoken.location('#SESSION.root#/Roster/Candidate/Details/Background/BackgroundEntry.cfm?owner=#url.owner#&applicantno=#url.applicantno#&section=#url.section#&entryScope=#url.entryScope#&Topic='+cls+'&ID=&ID1=#URL.ID#&ID2='+cls+'&source='+src)
 	}  
 	
 	function ededit(expno,cls,src) {
-	  ptoken.location('#SESSION.root#/Roster/Candidate/Details/Background/BackgroundEntry.cfm?owner=#url.owner#&applicantno=#url.applicantno#&section=#url.section#&entryScope=#url.entryScope#&Topic='+cls+'&ID=' + expno + '&ID1=#URL.ID#&ID2='+cls+'&source='+src)
+		  ptoken.location('#SESSION.root#/Roster/Candidate/Details/Background/BackgroundEntry.cfm?owner=#url.owner#&applicantno=#url.applicantno#&section=#url.section#&entryScope=#url.entryScope#&Topic='+cls+'&ID=' + expno + '&ID1=#URL.ID#&ID2='+cls+'&source='+src)
 	}
 	
 	function edpurge(expno,src) {
 	
 	  <cf_tl id="Do you want to remove this record" var="1">	
 	  if (confirm("#lt_text# ?")) {
-		  	window.location = "#SESSION.root#/Roster/Candidate/Details/Background/BackgroundPurge.cfm?owner=#url.owner#&applicantno=#url.applicantno#&section=#url.section#&entryScope=#url.entryScope#&ID=#URL.ID#&ID2=#URL.ID2#&Topic=#URL.Topic#&ID0=" + expno + "&source="+src
-	   	}	  
+		 ptoken.location('#SESSION.root#/Roster/Candidate/Details/Background/BackgroundPurge.cfm?owner=#url.owner#&applicantno=#url.applicantno#&section=#url.section#&entryScope=#url.entryScope#&ID=#URL.ID#&ID2=#URL.ID2#&Topic=#URL.Topic#&ID0=' + expno + '&source='+src)
+	  }			  
 	}
 
 </script>
@@ -90,7 +89,6 @@ password="#SESSION.dbpw#">
 	<cfset AccessRoster = "ALL">
 
 </cfif>  
-
 
 <cfquery name="getSource" 
 datasource="AppsSelection" 
@@ -140,7 +138,6 @@ in edit mode, here the source = Compendium --->
 
 </cfif>
 
-
 <table width="96%" bgcolor="white" align="center" class="navigation_table">
 
 <tr><td height="5"></td></tr>
@@ -149,23 +146,21 @@ in edit mode, here the source = Compendium --->
 	
 	<cfif URL.Topic neq "All">
 	
-		<tr><td height="30" colspan="9" align="right" class="labellarge" style="padding-right:8px;padding-bottom:4px">
+		<tr><td height="30" colspan="6" class="labellarge" style="padding-left:8px;padding-bottom:4px">
 				
-		  <cfif mode eq "edit">
-		  
+		  <cfif mode eq "edit">		 
 		
-		  
 	  		  <cf_tl id="Add record" var="1">
 		  
 			  <cfswitch expression="#URL.ID2#">
 			  <cfcase value="School">
-			   <A href="javascript:edadd('School','#url.source#')"><font color="0080C0"><cfoutput>#lt_text#</cfoutput></a>		   
+			   <A href="javascript:edadd('School','#url.source#')"><cfoutput>#lt_text#</cfoutput></a>		   
 			  </cfcase>
 			  <cfcase value="University">
-			   <A href="javascript:edadd('University','#url.source#')"><font color="0080C0"><cfoutput>#lt_text#</cfoutput></a>		  
+			   <A href="javascript:edadd('University','#url.source#')"><cfoutput>#lt_text#</cfoutput></a>		  
 			  </cfcase>
 			  <cfcase value="Training">
-			   <A href="javascript:edadd('Training','#url.source#')"><font color="0080C0"><cfoutput>#lt_text#</cfoutput></a>		 
+			   <A href="javascript:edadd('Training','#url.source#')"><cfoutput>#lt_text#</cfoutput></a>		 
 			  </cfcase>
 			  </cfswitch>
 			  
@@ -179,7 +174,7 @@ in edit mode, here the source = Compendium --->
 
 <cfif detail.recordcount eq "0">
 	<tr>	
-	<td colspan="8" class="labelmedium" style="height:30px" align="center"><cf_tl id="No records found"></td>
+	<td colspan="6" class="labelmedium" style="height:30px" align="center"><cf_tl id="No records found"></td>
 	</TR>
 </cfif>
   
@@ -198,7 +193,7 @@ in edit mode, here the source = Compendium --->
 			   <table>
 				   <tr>
 					   <td><cf_img icon="edit" navigation="yes" onclick="javascript:ededit('#ExperienceId#','#ExperienceCategory#','#Source#')"></td>					    
-					   <td style="padding-top:4px;padding-left:5px"><cf_img icon="delete" onclick="javascript:edpurge('#ExperienceId#','#Source#')"></td>				
+					   <td style="padding-top:3px;padding-left:5px"><cf_img icon="delete" onclick="javascript:edpurge('#ExperienceId#','#Source#')"></td>				
 				   </tr>	
 			   </table>
 				
@@ -207,36 +202,43 @@ in edit mode, here the source = Compendium --->
 	   </cfif>
 	   
 	</td>	
-	<td class="labellarge" style="font-size:25px" width="50%" colspan="3">#OrganizationName#</td>
-	<td class="labelmedium" colspan="2" style="padding-right:5px">#DateFormat(ExperienceStart,"YYYY/MM")#
-	- <cfif ExperienceEnd lt "01/01/40" or ExperienceEnd gt "01/01/2020">Current<cfelse>#DateFormat(ExperienceEnd,"YYYY/MM")#</cfif></b></td>
-	<td class="labelit" colspan="1">#OrganizationCity# #CountryName#</td>	
+	<td class="labelmedium" style="font-size:25px;width:70%" colspan="4">
 	
+		<table>
+		<tr class="labelmedium"><td style="font-size:21px">#OrganizationName#</td></tr>
+		<tr>
+			<td class="labelmedium" style="padding-left:5px">#DateFormat(ExperienceStart,"YYYY/MM")#
+			- <cfif ExperienceEnd lt "01/01/40" or ExperienceEnd gt "01/01/2020">Current<cfelse>#DateFormat(ExperienceEnd,"YYYY/MM")#</cfif>&nbsp;#OrganizationCity# #CountryName#</td>
+		</tr>
+		</table>
+	
+	</td>
+		
 	<cfif Parameter.PHPSource eq Source>
-		<td class="labelit" colspan="1" align="center">#Source# <cfif updated neq "">:#dateformat(updated,CLIENT.DateFormatShow)#</cfif></td>
+		<td class="labelit" align="center">#Source# <cfif updated neq "">:#dateformat(updated,CLIENT.DateFormatShow)#</cfif></td>
 	<cfelse>
-		<td class="labelit" colspan="1" align="right">#Source# (#dateformat(updated,CLIENT.DateFormatShow)#)</td>
+		<td class="labelit" align="right">#Source# (#dateformat(updated,CLIENT.DateFormatShow)#)</td>
 	</cfif>
 	</tr>
 
-	<cfif Remarks neq "">
+	<cfif Remarks neq ExperienceDescription and remarks neq "">
 		<tr class="labelit navigation_row_child">
 		<td></td>
-		<td class="labelit" colspan="7">#Remarks#</td>
+		<td class="labelit" colspan="6">#Remarks#</td>
 		</tr>
 	</cfif>
 	
 	<cfif OrganizationAddress neq "">
 		<tr class="labelit navigation_row_child">
 		<td></td>
-		<td class="labelit" colspan="7">#OrganizationAddress#</td>
+		<td class="labelit" colspan="6">#OrganizationAddress#</td>
 		</tr>
 	</cfif>
 	
 	<cfif OrganizationTelephone neq "">
 		<tr class="labelit navigation_row_child">
 		<td></td>
-		<td class="labelit" colspan="7"><cf_tl id="Tel">:#OrganizationTelephone#</td>
+		<td class="labelit" colspan="6"><cf_tl id="Tel">:#OrganizationTelephone#</td>
 		</tr>
 	</cfif>
 	
@@ -246,25 +248,22 @@ in edit mode, here the source = Compendium --->
 	    <tr bgcolor="FED7CF" class="labelit navigation_row_child">	
 	</cfif>
 		<td></td>
-		<td colspan="4" style="padding-left:20px">
-		 <cfif OrganizationClass neq ""><b>#OrganizationClass#</b></cfif>
-		 &nbsp;&nbsp;<cfif ExperienceDescription neq ""> - #ExperienceDescription#</cfif></b>
-		</td>
-		
-		<td colspan="3" align="right" class="labelit">
-		<cfif SalaryCurrency neq "">
-		    Salary: #SalaryCurrency# &nbsp;&nbsp;#NumberFormat(SalaryStart,'_,_')# - &nbsp;#NumberFormat(SalaryEnd,'_,_')#&nbsp;</b>
+		<td colspan="6" style="padding-left:10px">			
+		 <cfif OrganizationClass neq ""><b>#OrganizationClass#&nbsp;</b></cfif>
+		 <cfif ExperienceDescription neq ""> - #ExperienceDescription#</cfif>
+		 <cfif SalaryCurrency neq "">
+		    #SalaryCurrency# &nbsp;&nbsp;#NumberFormat(SalaryStart,'_,_')# - &nbsp;#NumberFormat(SalaryEnd,'_,_')#
 		</cfif>
 		</td>
+		
 	</tr>
 
     <cfif TopicStatus eq "1">
 		
 		<tr class="labelit navigation_row_child">
 	
-		    <td></td>
-		    <TD></TD>
-		    <td colspan="6" style="padding-left:4px">
+		    <td></td>		    
+		    <td colspan="6" style="padding-left:10px">
 			
 			<cfoutput>
 			#Description#
@@ -282,8 +281,9 @@ in edit mode, here the source = Compendium --->
 	
 	</cfif>	
 	
-	<tr><td></td></tr>
-	
+	<tr><td style="height:10px"></td></tr>
+	<tr class="line"><td colspan="6"></td></tr>	
+	<tr><td style="height:10px"></td></tr>
 
 </cfoutput>
 

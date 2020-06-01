@@ -238,32 +238,79 @@ password="#SESSION.dbpw#">
 	<tr>
 	
 	<td class="noprint clsNoPrint" id="recordstatus" style="padding:2px" align="right">
-	
-	<cfif (ProgramAccess eq "ALL" or ProgramAccess eq "EDIT") and CheckAllotment.recordCount eq "0">
+			
+	<cfif (ProgramAccess eq "ALL" or ProgramAccess eq "EDIT")>
 		
 		<cfoutput>
+		
+			<table class="formspacing"><tr>
 					
 		    <cfif Program.RecordStatus eq "1">
 			
 				<cf_tl id="Deactivate" var="vDeactivate">
-				
-				<button name="Delete" 
+				<td>
+					<cf_tl id="Stall" var="1">
+					<button name="Delete" 
+					 style="width:160;height:27" 
+					 value="Deactivate" 
+					 class="button10g"
+					 onClick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/ProgramRem/Application/Program/setProgramStatus.cfm?status=8&programcode=#url.programcode#&period=#URL.Period#','recordstatus')">#lt_text# : #url.period#</button>		
+				</td>
+				<cfif CheckAllotment.recordCount eq "0">
+					<td>
+					<button name="Delete" 
 					 style="width:160;height:27" 
 					 value="#vDeactivate#" 
 					 class="button10g"
-					 onClick="ptoken.navigate('#SESSION.root#/ProgramRem/Application/Program/ProgramDelete.cfm?programcode=#Program.ProgramCode#&period=#URL.Period#','recordstatus')">#vDeactivate# : #url.period#</button>
+					 onClick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/ProgramREM/Application/Program/setProgramStatus.cfm?status=9&programcode=#Program.ProgramCode#&period=#URL.Period#','recordstatus')">#vDeactivate# : #url.period#</button>
+					</td> 
+				</cfif>	 
 			
-			<cfelse>
+			<cfelseif Program.RecordStatus eq "8">
 			
 				<cf_tl id="Reinstate" var="vReinstate">
-				
-				<button name="Delete" 
+				<td>
+					<button name="Reinstate" 
 					 style="width:260;height:27" 
 					 value="#vReinstate#" 
 					 class="button10g" 
-					 onClick="ptoken.navigate('#SESSION.root#/ProgramRem/Application/Program/ProgramReinstate.cfm?programcode=#Program.ProgramCode#&period=#URL.Period#','recordstatus')">#vReinstate# : #url.period#</button>
-							
-			</cfif>			
+					 onClick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/ProgramREM/Application/Program/setProgramStatus.cfm?status=1&programcode=#Program.ProgramCode#&period=#URL.Period#','recordstatus')">#vReinstate# : #url.period#</button>
+				</td>
+				
+				<cfif CheckAllotment.recordCount eq "0">	 
+					<td>
+					<button name="Delete" 
+						 style="width:160;height:27" 
+						 value="#vDeactivate#" 
+						 class="button10g"
+						 onClick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/ProgramREM/Application/Program/setProgramStatus.cfm?status=9&programcode=#Program.ProgramCode#&period=#URL.Period#','recordstatus')">#vDeactivate# : #url.period#</button>
+					</td>	 
+				</cfif>	 				
+					 
+			<cfelse>
+				
+				<td>		
+				<cf_tl id="Reinstate" var="1">
+				<button name="Delete" 
+				 style="width:160;height:27" 
+				 value="Deactivate" 
+				 class="button10g"
+				 onClick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/ProgramRem/Application/Program/setProgramStatus.cfm?status=1&programcode=#url.programcode#&period=#URL.Period#','recordstatus')">#lt_text# : #url.period#</button>
+				</td>
+				
+				<td>				 
+				<cf_tl id="Stall" var="1">
+				<button name="Delete" 
+				 style="width:160;height:27" 
+				 value="Deactivate" 
+				 class="button10g"
+				 onClick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/ProgramRem/Application/Program/setProgramStatus.cfm?status=8&programcode=#url.programcode#&period=#URL.Period#','recordstatus')">#lt_text# : #url.period#</button>
+				</td> 
+			
+						
+			</cfif>		
+			
+			</table>	
 			
 		</cfoutput>
 		

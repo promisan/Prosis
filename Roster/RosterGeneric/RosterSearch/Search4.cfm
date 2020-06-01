@@ -1171,7 +1171,7 @@
 		
 		</cfoutput>
 			
-		<cfdiv bind="url:Search4Detail.cfm?ID=#URL.ID#" id="profile">
+		<cf_securediv bind="url:Search4Detail.cfm?ID=#URL.ID#" id="profile">
 					
 		</td></tr>			
 		
@@ -1265,7 +1265,7 @@
 		</script>
 		</cfoutput>
 		
-		<cfdiv bind="url:Topic/Topic.cfm?ID=#URL.ID#&owner=#search.owner#" id="topic">	
+		<cf_securediv bind="url:Topic/Topic.cfm?ID=#URL.ID#&owner=#search.owner#" id="topic">	
 				
 		</td></tr>	
 	  
@@ -1301,7 +1301,7 @@
 		</script>
 		</cfoutput>
 		
-		<cfdiv bind="url:Assessment/Assessment.cfm?ID=#URL.ID#" id="skill">	
+		<cf_securediv bind="url:Assessment/Assessment.cfm?ID=#URL.ID#" id="skill">	
 				
 		</td></tr>	
 		   

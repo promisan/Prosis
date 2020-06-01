@@ -40,7 +40,7 @@
 	</tr>
 	<tr>
 	<td colspan="2">
-		<cfdiv bind="url:Person2TimesSelect.cfm?sel=wrong&correct='+this.value+'&wrong=#url.personno#" id="incorrectbox"/>
+		<cf_securediv bind="url:Person2TimesSelect.cfm?sel=wrong&correct='+this.value+'&wrong=#url.personno#" id="incorrectbox"/>
 	</td>
 	</tr>
 	

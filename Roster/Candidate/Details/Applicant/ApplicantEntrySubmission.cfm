@@ -51,7 +51,7 @@
 				<select name="SubmissionEdition" id="SubmissionEdition" style="width:200" class="regularx enterastab">
 					<cfloop query="edition">
 						<option value="#SubmissionEdition#" <cfif submissionedition eq url.submissionedition>selected</cfif>
-						onclick="ColdFusion.navigate('ApplicantEntrySubmissionAttachment.cfm?rowguid=#rowguid#&submissionedition='+this.value,'submission_attachment')">#EditionDescription#</option>
+						onclick="ptoken.navigate('ApplicantEntrySubmissionAttachment.cfm?rowguid=#rowguid#&submissionedition='+this.value,'submission_attachment')">#EditionDescription#</option>
 					</cfloop>
 				</select>
 		     	 			 
@@ -67,9 +67,9 @@
 		<td colspan="2">
 				
 		<cfif url.source neq "">
-			<cfdiv bind="url:ApplicantEntrySubmissionTopic.cfm?rowguid=#rowguid#&source=#url.source#" id="submission_topic">
+			<cf_securediv bind="url:ApplicantEntrySubmissionTopic.cfm?rowguid=#rowguid#&source=#url.source#"    id="submission_topic">
 		<cfelse>
-			<cfdiv bind="url:ApplicantEntrySubmissionTopic.cfm?rowguid=#rowguid#&source=#source.source#" id="submission_topic">
+			<cf_securediv bind="url:ApplicantEntrySubmissionTopic.cfm?rowguid=#rowguid#&source=#source.source#" id="submission_topic">
 		</cfif>
 			
 		</td>
@@ -86,7 +86,7 @@
 		
 		<tr><td colspan="2" style="padding-left:0px">
 		 		 
-		<cfdiv id="submission_attachment" 
+		<cf_securediv id="submission_attachment" 
 			   name="submission_attachment" 
 			   bind="url:ApplicantEntrySubmissionAttachment.cfm?rowguid=#rowguid#&submissionedition=#url.submissionedition#"
 			   bindOnLoad="true">

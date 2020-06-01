@@ -14,7 +14,6 @@
 
 <cfoutput>
 
-
 <cf_tl id="The combination of item, uom and mission already exists.  Operation aborted." class="message" var = "vAlready">
 
 <cfif ParameterExists(Form.Save)>	
@@ -62,7 +61,7 @@
 		<script language="JavaScript">   
 		
 		  parent.parent.uommissionrefresh('#Form.ItemNo#','#Form.UoM#','')	 
-		  parent.parent.ColdFusion.Window.destroy('mydialog',true)	
+		  parent.parent.ProsisUI.closeWindow('mydialog',true)	
 	          
 		</script> 
 		
@@ -257,7 +256,7 @@
 		<script language="JavaScript">   
 		
 		  parent.parent.uommissionrefresh('#Form.ItemNo#','#Form.UoM#','')	 
-		  parent.parent.ColdFusion.Window.destroy('mydialog',true)	
+		  parent.parent.ProsisUI.closeWindow('mydialog',true)	
 	          
 		</script> 
 		
@@ -280,7 +279,7 @@
 	<script language="JavaScript">   
 		
 		  parent.parent.uommissionrefresh('#Form.ItemNo#','#Form.UoM#','')	 
-		  parent.parent.ColdFusion.Window.destroy('mydialog',true)	
+		  parent.parent.ProsisUI.closeWindow('mydialog',true)	
 	          
 	</script> 
 	

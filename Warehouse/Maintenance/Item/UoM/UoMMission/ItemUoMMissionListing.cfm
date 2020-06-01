@@ -15,7 +15,7 @@
 	
 	<cfoutput>
 	<tr class="line labelmedium">	    		
-		<td align="center" height="20"><a href="javascript:uommissionedit('#URL.ID#', '#URL.UoM#', '')"><font color="0080FF"><cf_tl id="New Entity"></font></a></td>		
+		<td align="center" height="20"><a href="javascript:uommissionedit('#URL.ID#', '#URL.UoM#', '')"><cf_tl id="New Entity"></a></td>		
 		<td><cf_tl id="Entity"></td>
 		<td><cf_tl id="Transaction UoM"></td>
 		<td align="center"><cf_tl id="Selfservice"></td>	

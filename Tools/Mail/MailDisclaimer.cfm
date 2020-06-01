@@ -1,8 +1,12 @@
 
-<cfparam name="Attributes.Language"  default="#client.languageid#">
+<cfparam name="Attributes.Language"  default="">
 <cfparam name="Attributes.Context"   default="">
 <cfparam name="Attributes.Id"        default="">
 <cfparam name="Attributes.Declaimer" default="">
+
+<cfif trim(Attributes.Language) eq "" AND isDefined("client.languageid")>
+	<cfset Attributes.Language = client.languageid>
+</cfif>
 
 <cfoutput>
 
@@ -21,7 +25,7 @@
 		 </font>
 		 <cfelseif attributes.language eq "ESP">
 		  <font size="1" color="808080">
-			 Éste mensaje, incluyendo cualquier adjunto, contiene información conficencial intencionada a un individuo y propósito específico, y está protegido por ley.  Si usted no es el destinatario, por favor contacte al remitente inmediatamente respondiendo éste correo electrónico y destruyendo todas las copias.  Está por lo tanto notificado que cualquier revelación, copia, o distribución de este mensaje, o tomar acción con base en el mismo, está estrictamente prohibido.
+			 Éste mensaje, incluyendo cualquier adjunto, contiene información confidencial intencionada a un individuo y propósito específico, y está protegido por ley.  Si usted no es el destinatario, por favor contacte al remitente inmediatamente respondiendo éste correo electrónico y destruyendo todas las copias.  Está por lo tanto notificado que cualquier revelación, copia, o distribución de este mensaje, o tomar acción con base en el mismo, está estrictamente prohibido.
 		 </font>
 		 <cfelse> 
 		  <font size="1" color="808080">

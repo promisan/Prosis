@@ -34,7 +34,7 @@
 	
 	<CFParam name="Attributes.DocumentServer"  default="No">		
 	<CFParam name="Attributes.DocumentHost"    default="#SESSION.rootDocumentPath#\"> <!--- default as defined in parameter.dbo.parameter --->	
-			
+				
 	<cfif Attributes.DocumentHost eq "">
 	   <cfset attributes.documenthost = "#SESSION.rootDocumentPath#\">	
 	</cfif>			
@@ -85,7 +85,7 @@
 				<cfset Attributes.Mode = "attachmentmultiple">			
 			</cfif>	
 		
-		</cfif>
+		</cfif>		
 	
 	</cfif>								
 	
@@ -155,7 +155,7 @@
 	<cfelse>
 		<cfset rt = "#documenthost#">
 	</cfif>	
-	
+			
 	<cfoutput>		
 		
 	<table width="#boxw#" border="0" cellspacing="0" cellpadding="0" style="#attributes.style#" bgcolor="#attributes.color#">

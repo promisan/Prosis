@@ -85,7 +85,7 @@
 	   id="search"
        value="#lt_text#"
        class="button10g"
-       onClick="javascript:ColdFusion.navigate('#SESSION.root#/tools/selectlookup/Mission/Result.cfm?page=1&close=#url.close#&box=#box#&link=#link#&des1=#des1#&filter1=#url.filter1#&filtervalue1=#url.filtervalue1#','resultmission#box#','','','POST','selectmission')">
+       onClick="javascript:ptoken.navigate('#SESSION.root#/tools/selectlookup/Mission/Result.cfm?page=1&close=#url.close#&box=#box#&link=#link#&des1=#des1#&filter1=#url.filter1#&filtervalue1=#url.filtervalue1#','resultmission#box#','','','POST','selectmission')">
 	 </cfoutput>  
 	   
 </td></tr>

@@ -1,6 +1,6 @@
 
 
-<table width="98%" cellspacing="0" cellpadding="0" class="formspacing">
+<table width="98%">
 
 		<!--- check access = program manager --->
 		
@@ -13,7 +13,7 @@
 		
 		<tr><td height="4"></td></tr>
 		
-		<tr><td colspan="6" style="height:37px" class="labellarge"><font color="black"><cf_tl id="Actors and Partners"></td></tr>	
+		<tr><td colspan="6" style="height:37px;font-weight:bold" class="labellarge"><cf_tl id="Actors and Partners"></td></tr>	
 				
 		<cfoutput>	
 			<INPUT type="hidden" name="orgunit" id="orgunit" value="#Org#">
@@ -34,7 +34,9 @@
 					</table>	
 				</td></tr>
 				
-				<tr><td class="linedotted" colspan="3"></td></tr>
+				<tr><td class="line" colspan="3"></td></tr>
+				
+				<tr><td height="4"></td></tr>
 												
 				<TR name="unitmove">
 				
@@ -272,8 +274,7 @@
 				</TD>
 			</TR>	
 		
-		</cfloop>
-		
+		</cfloop>		
 				
 		<!--- check access = budget manager --->
 		
@@ -296,7 +297,7 @@
 		    </cfquery>
 			
 			<tr><td colspan="6" height="5"></td></tr>	
-			<tr><td colspan="6" style="height:37px" class="labellarge"><font color="808080"><cf_tl id="Budget Settings [Budget Manager only]"></td></tr>	
+			<tr><td colspan="6" style="font-weight:bold;height:37px" class="labellarge"><cf_tl id="Budget Settings [Budget Manager only]"></td></tr>	
 							
 			<cfoutput>
 			
@@ -356,7 +357,7 @@
 		</cfif>
 										
 		
-		<tr><td colspan="6" style="height:33px" class="labellarge"><font color="808080"><cf_tl id="Miscellaneous"></td></tr>	
+		<tr><td colspan="6" style="height:33px;font-weight:bold" class="labellarge"><cf_tl id="Miscellaneous"></td></tr>	
 				
 		<TR>
 	
@@ -440,6 +441,7 @@
 			
 		<cfif ProgramAccess eq "EDIT" or ProgramAccess eq "ALL">	
 		
+		<tr><td height="4"></td></tr>
 		<tr>
 			<td class="labelmedium" style="padding-left:10px"><cf_tl id="Relative Sort">:</td>
 			<td colspan="5">
@@ -456,12 +458,12 @@
 		</cfoutput>
 		
 		</cfif>
-		
+		<tr><td height="4"></td></tr>
 		<TR>
 	        <TD class="labelmedium" valign="top" style="padding-top:3px;padding-left:10px" colspan="1"><cf_tl id="Memo">:</td>
 			<cfoutput>
 	        <TD colspan="5">
-			    <textarea rows="4" class="regular" style="width:95%;height:30;font-size:13px;padding:3px;" 
+			    <textarea class="regular" style="width:95%;height:30;font-size:13px;padding:3px;" 
 			    name="Memo">#EditProgram.ProgramMemo#</textarea> 
 			</TD>
 			</cfoutput>

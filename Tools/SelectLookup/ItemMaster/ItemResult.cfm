@@ -73,7 +73,7 @@ ORDER BY Code
 	
 		<tr class="labelit navigation_row">
 		  
-		    <td height="18" class="navigation_action" width="30" onclick="ColdFusion.navigate('#link#&action=insert&#url.des1#=#Code#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ColdFusion.Window.hide('dialog#url.box#')</cfif>">&nbsp;
+		    <td height="18" class="navigation_action" width="30" onclick="ptoken.navigate('#link#&action=insert&#url.des1#=#Code#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ColdFusion.Window.hide('dialog#url.box#')</cfif>">&nbsp;
 				  					   
 			   <img src="#SESSION.root#/Images/bullet.png" alt="Select"
 			     name="img97_#orgunit#" 

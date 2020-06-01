@@ -1777,7 +1777,29 @@ function locarcshow(whs,loc,itm,uom,lot,box,action) {
 				 rw.className  = "hide";	 	
 			 }
 		}
-  }	 
+  }
+
+function toggleLocations() {
+	var vState = '';
+
+	if ($('.clsLocToggler').hasClass('fa-folder')) {
+		$('.clsLocToggler').addClass('fa-folder-open').removeClass('fa-folder');
+		vState = 'open';
+	} else {
+		$('.clsLocToggler').addClass('fa-folder').removeClass('fa-folder-open');
+		vState = 'closed';
+	}
+
+	$('.clsCategoryLine').each(function() {
+		var vBox = 'box' + $(this).attr("data-value");
+		if ($('##'+vBox).is(':visible') && vState != 'open') {
+			$(this).trigger('click');
+		}
+		if (!$('##'+vBox).is(':visible') && vState != 'closed') {
+			$(this).trigger('click');
+		}
+	});
+}	 
 
 function locshow(loc,cat,catitm,box,sysid,enf,find,zero,pi,ear,ref) {
 		 		
@@ -1791,13 +1813,19 @@ function locshow(loc,cat,catitm,box,sysid,enf,find,zero,pi,ear,ref) {
 		minu = document.getElementById("transaction_minute").value
 						 		 
 		if (se.className == "hide" || enf == "1") {
+		
 		     Prosis.busy('yes');
 		   	 icM.className = "regular";
 		     icE.className = "hide";
 			 se.className  = "regular";
 			 _cf_loadingtexthtml='';				 
 			 url = "../Inventory/InventoryViewList.cfm?box="+box+"&warehouse="+whs+"&location="+loc+"&category="+cat+"&categoryitem="+catitm+"&systemfunctionid=" + sysid + "&find=" + find + "&zero=" + zero + "&transaction_date=" + dte + "&transaction_hour=" + hour	+ "&transaction_minute=" + minu + "&parentItemNo=" + pi + "&earmark=" + ear	 + "&refresh=" + ref
-			 ptoken.navigate(url,'c'+box)					
+			 window['fnLocShowCB'] = function(){
+				 if ($('##filtersearchsearch').length == 1) {
+					 $('##filtersearchsearch').trigger('keyup'); }
+			 }
+			 ptoken.navigate(url, 'c'+box, 'fnLocShowCB')	
+			 				
 		 } else {
 		     Prosis.busy('no')
 		   	 icM.className = "hide";

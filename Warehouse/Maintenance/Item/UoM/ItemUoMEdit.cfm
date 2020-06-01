@@ -94,7 +94,7 @@ password="#SESSION.dbpw#">
 					       size="8"
 					       maxlength="10"
 					       class="regularxl" 
-						   style="text-align:right;">	 #application.basecurrency#
+						   style="text-align:right;">#application.basecurrency#
 						   
 						   </td>
 						   <td style="padding-left:4px" class="labelit"><font color="0080C0">Applies if no entity cost set.</font></td>
@@ -139,8 +139,7 @@ password="#SESSION.dbpw#">
 					       class="regularxl" 
 						   style="text-align:right;padding-right:3px">
 					   	  
-				    </TD>
-					
+				    </TD>					
 					
 			</TR>
 					
@@ -252,26 +251,26 @@ password="#SESSION.dbpw#">
 				</td>
 		    </tr>	
 				
-			<tr>
+			<tr class="line">
 			<TD colspan="4" valign="top" style="padding-top:5px" class="labelmedium"><cf_tl id="Details">:</TD>
 			</tr>
-			<tr>
+			<tr class="line">
 			<td colspan="4" style="padding-top:1px">
 			
 			    <cf_textarea 
-					name="ItemUoMDetails" height="160" color="ffffff" skin="flat" toolbar="Basic" 			
+					name="ItemUoMDetails" height="125" color="ffffff" skin="flat" toolbar="mini" 			
 					style="height:105px;">#itemUoM.ItemUoMDetails#</cf_textarea>
 			</td>
 			</tr>
 			
-			<tr>
+			<tr class="line">
 			<TD colspan="4" valign="top" style="padding-top:5px" class="labelmedium"><cf_tl id="Portal specification">:</TD>
 			</tr>
-			<tr>
+			<tr class="line">
 			<td colspan="4" style="padding-top:1px">
 			
 				<cf_textarea 
-					name="ItemUoMSpecs" skin="flat" color="ffffff" toolbar="Basic" 
+					name="ItemUoMSpecs" skin="flat" color="ffffff" toolbar="mini" 
 					height="125">#itemUoM.ItemUoMSpecs#</cf_textarea>
 					
 			</td>

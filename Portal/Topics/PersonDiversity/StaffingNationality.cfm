@@ -53,12 +53,12 @@
 					<td style="border:1px solid silver;min-width:33;padding-right:2px" align="center">#ContractLevelParent#</td>
 					</cfoutput>		
 					<td style="border:1px solid silver;background-color:efefef;min-width:43px;padding-right:2px" align="center"><cf_tl id="Sum"></td>	
-					<td style="min-width:26px"></td> 
+					<td style="min-width:12px"></td> 
 				 </tr>
 				
-				<tr><td colspan="<cfoutput>#parent.recordcount+3#</cfoutput>" height="100%" width="100%" style="border-left:0px solid silver">		
+				<tr><td colspan="<cfoutput>#parent.recordcount+3#</cfoutput>" height="100%" width="100%" style="padding-right:4px;border-left:0px solid silver">		
 				
-					<cf_divscroll style="width:100%" overflowy="scroll">		
+					<cf_divscroll overflowy="scroll">		
 					<table width="98%" class="navigation_table">						
 						<cfoutput query="summary">		
 							<tr class="line labelmedium navigation_row" style="height:10px">
@@ -111,7 +111,7 @@
 					  #getContent.Total#	
 					</td>	
 					</cfoutput>
-					<td style="min-width:26px"></td> 
+					<td style="min-width:12px"></td> 
 				 </tr>
 			
 			</table>

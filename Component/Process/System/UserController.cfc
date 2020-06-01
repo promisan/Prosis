@@ -122,14 +122,53 @@
 					AND     HostName           = '#CGI.http_host#'
 					AND     HostSessionId      = '#SESSION.SessionId#'         				
 					AND     ActionTemplate     = '#tmp#'
-					AND     ActionQueryString  = '#str#'  									
+					AND     ActionQueryString  = '#str#'  							
 			</cfquery>	
+			
+			<cfif get.recordcount eq "0">
+			
+			    <!--- NEW additionally we check if the SAME user/session has this link 
+				  matched in length for the attributes which qualifies for now as well
+				  as we have in cfdiv the issue of the {mission} not to fire an MIP  
+				  : Hanno 19/5/2020 --->					
+			
+				<cfquery name="check" 
+					datasource="AppsSystem">				
+						SELECT  * 
+						FROM    UserStatusController
+						WHERE   Account                = '#SESSION.acc#'
+						AND     HostName               = '#CGI.http_host#'
+						AND     HostSessionId          = '#SESSION.SessionId#'         				
+						AND     ActionTemplate         = '#tmp#'
+						AND     left(ActionQueryString,20) = '#left(str,20)#'  <!--- same length --->									
+				</cfquery>	
+				
+				<!--- Hanno temp measure : 
+				an almost match qualifies for a fresh link to be given --->
+				
+				<cfif check.recordcount gte "1">
+				
+					<cfinvoke component        = "Service.Process.System.UserController"  
+					   	method             = "GetHash"
+						returnvariable     = "hash">	
+								
+				</cfif>
+				
+						
+			</cfif>
 		
 		</cftransaction>
-														
-		<cfif get.recordcount eq "0" or get.Operational eq "0">		
-								
-			<!--- validate the hash --->
+				
+		<!--- link NOT found for user / session or no longer valid --->
+															
+		<cfif get.recordcount eq "0" 		
+		      or get.Operational eq "0">			  
+			  
+			<!---	
+				 then we validate the passed Hash is authentic and valid			 
+				 then we record the link OR activate the link (operational)			 
+				 and THEN we check the link for access again 
+			--->				
 						
 			<cfset Match_USR = hashit(vInit,hash,VARIABLES.Instance.USR_MID)>			
 				
@@ -215,15 +254,13 @@
 								
 						<cfelse>
 						
+							<!--- we enable the link for this purpose again --->
+						
 							<cfquery name="get" 
 								datasource="AppsSystem">
 									UPDATE  UserStatusController
 									SET     Operational = 1
-									WHERE   Account            = '#SESSION.acc#'
-									AND     HostName           = '#CGI.http_host#'
-									AND     HostSessionId      = '#SESSION.SessionId#'         				
-									AND     ActionTemplate     = '#tmp#'
-									AND     ActionQueryString  = '#str#'  				
+									WHERE   ControllerLinkId = '#get.ControllerLinkId#'									
 							</cfquery>	
 												
 						</cfif>		
@@ -240,19 +277,19 @@
 			<cfif AccessValidate eq "Yes" and (session.acc neq "" or hash eq "999")>
 						
 				<cfif param.URLProtectionMode eq "2">						
-					    <!--- we enforce that access is revoked --->
-						<cfset AccessRevoke = "Yes">
+					 <!--- we enforce that access is revoked --->
+					 <cfset AccessRevoke = "Yes">
 				</cfif>		
-								
-				<cfinvoke component     = "Service.Process.System.UserController"  
-				   	method              = "ValidateFunctionAccess"  			
-					ActionTemplate      = "#CGI.SCRIPT_NAME#"
-					ActionQueryString   = "#CGI.QUERY_STRING#"
-					AccessRevoke        = "#AccessRevoke#"
-					AccessMessage       = "#AccessMessage#"
-					Redirect            = "#redirect#"
-					returnvariable      = "AccessRight">	
-															
+																
+				<cfinvoke component        = "Service.Process.System.UserController"  
+					   	method             = "ValidateFunctionAccess"  			
+						ActionTemplate     = "#CGI.SCRIPT_NAME#"
+						ActionQueryString  = "#CGI.QUERY_STRING#"
+						AccessRevoke       = "#AccessRevoke#"
+						AccessMessage      = "#AccessMessage#"
+						Redirect           = "#redirect#"
+						returnvariable     = "AccessRight">	
+																				
 			<cfelse>
 						
 				<cfset accessRight = "GRANTED">								
@@ -261,13 +298,25 @@
 			
 		<cfelse>
 		
-			<cfif AccessValidate eq "Yes">
-			
-				<cfif param.URLProtectionMode eq "2">						
-					    <!--- we enforce that access is revoked --->
-						<cfset AccessRevoke = "Yes">
+			<!--- A MATCH was found for this user  --->
+									
+				<cfif param.URLProtectionMode eq "2">		
+								
+				    <!--- we enforce that access is revoked 
+					so it can be accessed as hyperlink only with
+					MID  --->
+						
+					<cfquery name="get" 
+						datasource="AppsSystem">
+							UPDATE  UserStatusController
+							SET     Operational = 0
+							WHERE   ControllerLinkId = '#get.ControllerLinkId#'									
+					</cfquery>	
+					
 				</cfif>		
-													
+				
+				<!---
+																	
 				<cfinvoke component  = "Service.Process.System.UserController"  
 				   	method               = "ValidateFunctionAccess"  			
 					ActionTemplate       = "#CGI.SCRIPT_NAME#"
@@ -276,12 +325,11 @@
 					AccessMessage        = "#AccessMessage#"
 					returnvariable       = "AccessRight"
 					Redirect             = "#redirect#">	
-										
-			<cfelse>
+					
+					--->
+					
+				<cfset accessRight = "GRANTED">									
 			
-				<cfset accessRight = "GRANTED">						
-								
-			</cfif>
 									
 		</cfif>			
 		
@@ -311,7 +359,7 @@
 									
 		<cfelse>
 				   			
-			<!--- check if request is a trusted request --->
+			<!--- remove the MID --->
 		
 			<cfif len(ActionTemplate) gte 200>
 				 <cfset tmp = left(ActionTemplate,200)>
@@ -349,14 +397,14 @@
 				 AND    ActionTemplate     = '#tmp#'
 				 AND    ActionQueryString  = '#str#'  
 				 AND    Operational        = '1'   						 	
-			</cfquery>		
-																	
+			</cfquery>	
+																							
 			<cfif checkAccess.RecordCount eq "0">
-					          
+								          
 				  <CFSET AccessRight = "DENIED">
 				  				  
 		    <cfelse>
-			
+						
 				<!--- function to remove this access so it can not be reloaded --->
 							
 				<cfif AccessRevoke eq "Yes">
@@ -390,15 +438,15 @@
 					
 					<cfelse>
 									
-				   <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center">
-					 <tr><td align="center" height="40" class="labellarge">					 
-					   <font size="5" color="FF0000">					   
-						   <cf_tl id="Detected an issue with your Authorization to access this function" class="Message">.
-					   </font>
-						</td>
-					 </tr>
-				   </table>	
-				   <cfabort>
+					   <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+						 <tr><td align="center" height="40" class="labellarge">					 
+						   <font size="5" color="FF0000">					   
+							   <cf_tl id="Detected an issue with your Authorization to access this function" class="Message">.
+						   </font>
+							</td>
+						 </tr>
+					   </table>	
+					   <cfabort>
 				   
 				   </cfif>	
 						

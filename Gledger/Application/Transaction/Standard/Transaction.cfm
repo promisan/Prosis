@@ -1162,7 +1162,7 @@ function togglebox(val) {
 			
 			<tr>
 			
-					<td style="padding-left:35px;min-width:160px;width:160px;max-width:160px;border-right:1px solid silver" valign="top">
+					<td style="padding-left:35px;padding-right:15px;min-width:140px;width:140px;max-width:140px;border-right:1px solid silver" valign="top">
 					
 					<table align="center">					
 					    <cfinclude template="TransactionDetailMenu.cfm"> 					

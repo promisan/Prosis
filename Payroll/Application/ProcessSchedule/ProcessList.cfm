@@ -125,8 +125,6 @@ password="#SESSION.dbpw#">
 	ORDER BY S.ListingOrder, P.SalarySchedule, P.PayrollStart DESC 	
 </cfquery>		
 
-
-
 <tr>
 	<td height="20" colspan="1" align="left" style="padding-top:5px;padding-left:4px">
 	    <cf_tl id="Calculate Selected In-cycle periods" var="1">
@@ -504,8 +502,8 @@ password="#SESSION.dbpw#">
 												
 														<td>
 														<!--- initial mode not enabled --->
-													    <a href="javascript:lock('#CalculationId#','2')" title="Lock and Record Advance"><font color="0080C0">
-														<cf_tl id="Post Advance to Ledger"></font></a>
+													    <a href="javascript:lock('#CalculationId#','2')" title="Lock and Record Advance">
+														<cf_tl id="Post Advance to Ledger"></a>
 														<td>
 																							
 													</cfif>				
@@ -516,8 +514,8 @@ password="#SESSION.dbpw#">
 												
 														<td>
 														<!--- initial mode not enabled --->
-													    <a href="javascript:lock('#CalculationId#','3')" title="Lock and Record Final Settlement"><font color="0080C0">
-														<cf_tl id="Post to Ledger"></font></a>
+													    <a href="javascript:lock('#CalculationId#','3')" title="Lock and Record Final Settlement">
+														<cf_tl id="Post to Ledger"></a>
 														<td>
 																							
 													</cfif>		
@@ -582,7 +580,8 @@ password="#SESSION.dbpw#">
 													 <cfloop query="Header">	
 													 
 													 <tr style="height:20px">								
-													 	 <td style="min-width:165px" class="labelit"><a href="javascript:ShowTransaction('#Header.Journal#','#Header.JournalSerialNo#','1')">
+													 	 <td style="min-width:165px" class="labelit">
+														 <a href="javascript:ShowTransaction('#Header.Journal#','#Header.JournalSerialNo#','1')">
 														 #Header.Journal#-#Header.JournalSerialNo# #referenceno#</a>
 														 </td>
 													 </tr>
@@ -697,9 +696,7 @@ password="#SESSION.dbpw#">
 										</table>
 										
 										</td>
-														
-									  
-									   
+										 
 									   <td style="min-width:30px;padding-left:4px">
 									   
 									  

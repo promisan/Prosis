@@ -1,13 +1,12 @@
 
-
 <cfquery name="Max" 
 	 datasource="AppsSystem" 
 	 username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">
 	 SELECT Max(CriteriaWidth) as Width
-	 FROM Ref_ReportControlCriteria C
-	 WHERE ControlId = '#controlid#' 
-	 AND   Operational = 1
+	 FROM   Ref_ReportControlCriteria C
+	 WHERE  ControlId = '#controlid#' 
+	 AND    Operational = 1
 </cfquery>
 
 <cfif Max.Width lte "140">
@@ -39,14 +38,15 @@
 	 datasource="AppsSystem" 
 	 username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">
-		 SELECT   *
-		 FROM     Ref_ReportControlCriteria
-		 WHERE    ControlId = '#controlid#' 
-		 AND      CriteriaClass = '#class#'
-		 AND      Operational = 1
-		 ORDER BY CriteriaOrder 
+		 SELECT    *
+		 FROM      Ref_ReportControlCriteria
+		 WHERE     ControlId     = '#controlid#' 
+		 AND       CriteriaClass IN (#preservesingleQuotes(class)#)
+		 AND       Operational   = 1
+		 ORDER BY  CriteriaClass DESC,CriteriaOrder, CriteriaName  
+		 		 
 	</cfquery>
-
+	
 <cfelse>
 
 	<!--- take defaults from the user saved config --->
@@ -55,6 +55,7 @@
 	 datasource="AppsSystem" 
 	 username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">
+	 
 		 SELECT     R.CriteriaName, 
 		 			R.CriteriaNameParent,
 			        U.CriteriaValue as CriteriaDefault, 
@@ -64,6 +65,7 @@
 					R.CriteriaOrder,
 					R.CriteriaWidth, 
 					R.CriteriaMask,
+					R.CriteriaClass,
 					R.CriteriaValidation,
 					R.CriteriaPattern,
 					R.CriteriaRole,
@@ -89,49 +91,54 @@
 		   ON       R.CriteriaName = U.CriteriaName
 		   
 		 WHERE  	R.ControlId = '#ControlId#' 
-		 AND        R.CriteriaClass = '#class#'		
+		 AND        R.CriteriaClass IN (#preservesingleQuotes(class)#)	
 		 AND        R.Operational = 1
 		 
-		 ORDER BY   R.CriteriaOrder, R.CriteriaName 
+		 ORDER BY   R.CriteriaClass DESC, R.CriteriaOrder, R.CriteriaName 
+		 
 	</cfquery>
 			
 </cfif>	
     
 <cfset ele[1] = ""> 
-<cfset ord[1] = "">   
+<cfset ord[1] = "0">   
 
 <cfoutput query="BaseSet">
-	<cfset ele[#currentRow#+1] = "#CriteriaName#"> 
-	<cfset ord[#currentRow#+1] = "#CriteriaOrder#">   
+	<cfset ele[currentRow+1] = CriteriaName> 
+	<cfset ord[currentRow+1] = CriteriaOrder>   
 </cfoutput>
 
 <cfset bxcl = "ffffef">
 
-<table width="100%" cellspacing="0" cellpadding="0" >
+<table width="100%">
 	
 	<!--- regular fields --->
 	
 	<cfquery name="Criteria" 
 	   dbtype="query"> 
-		SELECT * 
-		FROM   BaseSet			
-		ORDER BY CriteriaOrder
+		SELECT   * 
+		FROM     BaseSet			
+		ORDER BY CriteriaClass DESC,CriteriaOrder, CriteriaName
 	</cfquery>
 	
-	<tr><td colspan="1" class="labelmedium" style="font-size:24px;height:40px">
-	<h1 style="padding-left:5px;font-size:25px;font-weight:200;">
-	<cf_tl id="Criteria"></h1>
+	<tr class="fixrow">
+	<td colspan="1" class="labelmedium" style="font-size:25px;height:40px;font-weight:200">
+		<cf_tl id="Criteria">
 	</td></tr>	
 		
 	<tr> 
-	   <td valign="top" style="padding:5px;border-top:1px solid silver">
+	   <td valign="top" style="padding:5px">
 	   	  		          
-	   <table width="100%" cellspacing="0" class="formpadding" style="border-top:0px solid silver;border-bottom:0px solid silver">
+	   <table width="99%" class="formspacing">
 	   
-	   <cfset row = 0>
-	   <cfset cluster = "">
+	    <cfoutput query="Criteria" group="CriteriaClass">
+		
+		<cfif CriteriaClass eq "Layout"><tr class="labelmedium"><td><cf_tl id="Other settings"></td></tr></cfif>
+		
+		 <cfset row = 0>
+	     <cfset cluster = "">
 	  	  	      						
-		<cfoutput query="Criteria" group="CriteriaOrder">
+		<cfoutput group="CriteriaOrder">
 		
 			<cfoutput group="CriteriaName">	
 			
@@ -140,20 +147,24 @@
 				<!--- special selection --->
 				
 			<cfelse>	
-		  					
-				<cfif Left(ord[currentRow+1],1) neq Left(ord[currentRow],1)
-				     or (row gt Report.TemplateBoxes) or report.functionclass is "System">
-					
-					<cfif row lt Report.TemplateBoxes and row neq "0"> 
-					   <td></td>
-					</cfif>
+								  					
+				<cfif LEFT(ord[currentRow+1],1) neq LEFT(ord[currentRow],1)
+				     or (row gt Report.TemplateBoxes) 
+					 or report.functionclass is "System">
 										
-					<cfif row+1 lt Report.TemplateBoxes and row neq "0"> 
-					   <td></td>
-					</cfif>
+						<cfif row lt Report.TemplateBoxes and row neq "0"> 
+						   <td></td>
+						</cfif>
+										
+						<cfif row+1 lt Report.TemplateBoxes and row neq "0"> 
+						   <td></td>
+						</cfif>
+						
 					</tr>
-					<cfset row = "1">				
-			    <tr>
+					<cfset row = "1">		
+					
+				    <tr>
+				
 				</cfif> 	
 															
 				<cfif CriteriaCluster neq "" and not Find("#CriteriaCluster#", "#cluster#")>
@@ -162,7 +173,7 @@
 													
 						<td>	
 								
-								<table border="0" cellspacing="0" cellpadding="0">
+								<table>
 								
 								<cfquery name="Parameter" 
 								    dbtype="query"> 
@@ -193,9 +204,9 @@
 								</cfif>
 													
 								<cfquery name="ClusterSelect" 
-										 datasource="AppsSystem" 
-										 username="#SESSION.login#" 
-										 password="#SESSION.dbpw#">
+									 datasource="AppsSystem" 
+									 username="#SESSION.login#" 
+									 password="#SESSION.dbpw#">
 										 SELECT *
 										 FROM   UserReportCriteria 
 										 WHERE  ReportId     = '#ReportId#' 
@@ -211,15 +222,14 @@
 								</cfif>
 																								
 								<cfloop query="Parameter">
+								
 								<tr>
 								   
-								  <td height="100%" valign="top" style="padding-left:2px;cursor: pointer;min-width:250px">	
+								  <td height="100%" valign="top" style="padding-left:2px;cursor:pointer;min-width:250px">									  								  
 								 								  									 			  								 				   
-										   <table height="100%" cellspacing="0" cellpadding="0" class="formspacing">
+										   <table height="100%" class="formspacing">
 										   					  					  					   
-										   <tr><td width="23" 
-										         align="center" 
-												 style="height;27;padding:3px;border: 0px solid silver;">
+										   <tr><td width="23" align="center" style="height;27;padding:3px">
 
 										 	<cfquery name="validateLayoutFilter" 
 											 datasource="AppsSystem" 
@@ -241,12 +251,13 @@
 																							 																																	
 											<cfif ClusterSelect.recordcount eq "1">
 																																					
-												<input type="radio" style="width:18;height:18" 
-												name="#CriteriaCluster#" 
-												id="#CriteriaName#_radio"
-												value="#CriteriaName#" <cfif ClusterSelect.CriteriaValue eq CriteriaName>checked</cfif> 
-												onClick="selcluster('#CriteriaCluster#','#currentRow#','#v#','#CriteriaName#','#vOnClickClusterRefreshLayout#')">
-												
+												<input type="radio" 
+												    style   =  "width:18;height:18" 
+													name    =  "#CriteriaCluster#" 
+													id      =  "#CriteriaName#_radio"
+													value   =  "#CriteriaName#" <cfif ClusterSelect.CriteriaValue eq CriteriaName>checked</cfif> 
+													onClick =  "selcluster('#CriteriaCluster#','#currentRow#','#v#','#CriteriaName#','#vOnClickClusterRefreshLayout#')">
+													
 												</td>		
 												
 												<cfset layoutfilter = CriteriaName>
@@ -255,17 +266,17 @@
 													<cfset layoutfilter = CriteriaName>
 												</cfif>					
 															
-												<td valign="top" bgcolor="E6F2FF" style="cursor:pointer;border: 1px solid silver;width:145" onClick="document.getElementById('#CriteriaName#_radio').click()">
+												<td valign="top" bgcolor="E6F2FF" style="cursor:pointer;border:1px solid silver;width:145px" 
+												  onClick="document.getElementById('#CriteriaName#_radio').click()">
 												
-												<cf_UIToolTip tooltip="<b>Cluster option</b> :#Parameter.CriteriaMemo#">
-												
-													<table cellspacing="0" cellpadding="0">													
-														<tr><td class="labelit" style="padding:2px">											
-														<cf_tl id="#CriteriaDescription#"> 
-														<cfif Obligatory.recordcount neq "0"><font color="FF0000">*</font></cfif>	
-														</td></tr>
-													</table>
-												</cf_UIToolTip>
+													<cf_UIToolTip tooltip="<b>Cluster option</b> :#Parameter.CriteriaMemo#">												
+														<table>													
+															<tr><td class="labelit" style="padding:2px;font-size:15px">											
+															<cf_tl id="#CriteriaDescription#"> 
+															<cfif Obligatory.recordcount neq "0"><font color="FF0000">*</font></cfif>	
+															</td></tr>
+														</table>
+													</cf_UIToolTip>
 												
 												</td>
 																				
@@ -275,28 +286,33 @@
 													<cfset layoutfilter = CriteriaName>
 												</cfif>		
 												
-											    <input type="radio" style="width:18;height:18"
-												name="#CriteriaCluster#" 							
-												id="#CriteriaName#_radio"
-												value="#CriteriaName#" <cfif CurrentRow eq "1">checked</cfif> 
-												onClick="selcluster('#CriteriaCluster#','#currentRow#','#v#','#CriteriaName#','#vOnClickClusterRefreshLayout#')">
+											    <input type = "radio" 
+												    style   = "width:18;height:18"
+													name    = "#CriteriaCluster#" 							
+													id      = "#CriteriaName#_radio"
+													value   = "#CriteriaName#" <cfif CurrentRow eq "1">checked</cfif> 
+													onClick = "selcluster('#CriteriaCluster#','#currentRow#','#v#','#CriteriaName#','#vOnClickClusterRefreshLayout#')">
+													
 												</td>																		
+												
 												<cfoutput>
+												
 												<cf_tl id="Cluster option" var="1">
 												
-												<td bgcolor="f1f1f1" style="cursor:pointer;padding-left:3px;height:27px;border: 1px solid silver;width:145" 
+												<td bgcolor="f1f1f1" style="cursor:pointer;padding-left:3px;height:100%;border:1px solid silver;width:225px" 
 												onclick="document.getElementById('#CriteriaName#_radio').click()" title="#lt_text# :#Parameter.CriteriaMemo#">
-																						
-												<table cellspacing="0" cellpadding="0">																					
-												<tr><td class="labelit" style="padding:2px">
-													<cf_tl id="#CriteriaDescription#"> 
-													<cfif Obligatory.recordcount neq "0"><font color="FF0000">*</font></cfif>	
-												</td></tr>	
-												</table>	
+																				
+													<table cellspacing="0" cellpadding="0">																					
+													<tr><td class="labelit" style="padding:2px;font-size:15px">
+														<cf_tl id="#CriteriaDescription#"> 
+														<cfif Obligatory.recordcount neq "0"><font color="FF0000">*</font></cfif>	
+													</td></tr>	
+													</table>	
 																																				
 												</td>												
 												
-												</cfoutput>					
+												</cfoutput>		
+															
 											</cfif>																
 																													
 											</tr>									
@@ -349,22 +365,21 @@
 												
 												</cfif>
 											
-										</cfif>		
-										
+										</cfif>												
 																														
 										<cfif parent eq "" or (criteriatype neq "Lookup" and criteriatype neq "Unit")>
 																																											   
 											<cfinclude template="../SelectFormParameter.cfm"> 				
 														
 										<cfelse>
-											
+																			
 											<cfdiv bind="url:SelectFormContainer.cfm?controlid=#controlid#&criterianame=#criterianame#&reportid=#url.reportid#&fldid=#fldid#&cl=#cl#&val={#parent#}">
 																										
 										</cfif>			
-																		
+																												
 									</td>
 							  	</tr>
-								
+																
 								<cfset v = v + 1>
 								
 								<cfif Parameter.CriteriaInterface eq "Combo">
@@ -392,68 +407,67 @@
 				
 					<cfquery name="Parameter" 
 					   dbtype="query"> 
-						SELECT * 
-						FROM   BaseSet
-						WHERE  CriteriaName = '#CriteriaName#' 				
+						SELECT  * 
+						FROM    BaseSet
+						WHERE   CriteriaName = '#CriteriaName#' 				
 					</cfquery>
 																							
-						<cfquery name="Span" datasource="appsSystem">
-						    SELECT * 
-							FROM   Ref_ReportControlCriteria
-							WHERE  ControlId = '#Report.ControlId#'
-							AND    CriteriaOrder LIKE '#Left(criteriaOrder,1)#%'
-						</cfquery>
+					<cfquery name="Span" datasource="appsSystem">
+					    SELECT * 
+						FROM   Ref_ReportControlCriteria
+						WHERE  ControlId = '#Report.ControlId#'
+						AND    CriteriaOrder LIKE '#Left(criteriaOrder,1)#%'
+					</cfquery>
 											
-						<cfif Span.recordcount eq "1" and Report.TemplateBoxes gte "2">
-						  <cfset span="2">
-						<cfelse>
-						  <cfset span="1">  
-						</cfif>
-						
+					<cfif Span.recordcount eq "1" and Report.TemplateBoxes gte "2">
+					  <cfset span="2">
+					<cfelse>
+					  <cfset span="1">  
+					</cfif>						
 																								
-						<td valign="top" colspan="#span#" style="padding-right:3px">			
-														
-							<table cellspacing="0" cellpadding="0" width="100%">
+					<td valign="top" colspan="#span#" style="padding-left:4px;padding-right:3px;border:0px solid silver">			
+													
+							<table align="center" width="100%" height="100%">
 							
 									<cfif Parameter.CriteriaMemo eq "">
-										     <cfset tt = "--">
+										     <cfset tt = Parameter.CriteriaDescription>
 										<cfelse>
 										     <cfset tt = Parameter.CriteriaMemo>
 										</cfif>
 							
 									<tr>	
-										<td valign="top" 
-										   style="cursor:pointer;padding-top:2px;border: 0px solid silver;" title="#tt#">										  
-										   					   										   
+																																																	 
+										<td valign="top" style="height:100%;height:30px;padding-top:2px;padding-left:4px;cursor:pointer;background-color:<cfif CriteriaClass eq 'Layout'>228ED7<cfelse>E17100</cfif>;border:0px solid silver">										  
 										
-										  
-																																						
-										    <table cellspacing="0" cellpadding="0">
+										<cf_uitooltip tooltip="#tt#">
+										 																											
+										    <table>
 											
 											<tr>
 											
-												<td valign="top">
-											 
+												<td valign="top">											   
+																							 
 													<table cellspacing="0" cellpadding="0">
 													<tr class="labelmedium">
-													<td style="min-width:260px">		
-																										
-													<cfif findNoCase("?",Parameter.CriteriaDescription)>
-													 <cfset sign = "">
-													<cfelse>
-													 <cfset sign = ":">	  													 
-													</cfif>		
-													<cf_tl id="#Parameter.CriteriaDescription#" var="1">
-													<cfif Parameter.CriteriaObligatory eq "1">
-														<cfset lbl = "#lt_text# #sign#&nbsp;<font color='800000'>*</font>">
-													<cfelse>
-													    <cfset lbl = "#lt_text# #sign#">
-													</cfif>
-													#lbl#																							
+													<td style="min-width:260px;font-size:15px;color:white">		
+																																																				
+														<cfif findNoCase("?",Parameter.CriteriaDescription)>
+														 <cfset sign = "">
+														<cfelse>
+														 <cfset sign = ":">	  													 
+														</cfif>		
+														<cf_tl id="#Parameter.CriteriaDescription#" var="1">
+														<cfif Parameter.CriteriaObligatory eq "1">
+															<cfset lbl = "#lt_text# #sign#&nbsp;<font color='800000'>*</font>">
+														<cfelse>
+														    <cfset lbl = "#lt_text# #sign#">
+														</cfif>
+														#lbl#														
+																																			
 													</td>
 													</tr>
 													</table>
-												
+																										
 												</td>
 												
 											</tr>
@@ -466,15 +480,17 @@
 												</tr>
 											</cfif>
 											
-											</table>
+											</table>	
 											
+										 </cf_uitooltip>											
 																				
-									</td>
+									   </td>								  
 									
-									<td width="2"></td>							
+									<td style="padding-left:4px"></td>							
 																													
 									<td width="100%">
-											<table border="0" cellspacing="0" cellpadding="0">
+									
+											<table style="width:100%">
 											<tr>		
 											
 											<!--- check criterianame parent --->
@@ -507,8 +523,8 @@
 											
 												<cf_UIToolTip tooltip="<table><tr><td>#Parameter.CriteriaMemo#</td></tr></table>">
 												
-													<td style="cursor:pointer">	
-													
+													<td style="cursor:pointer">
+																																							
 														<cfif parent eq "" or (criteriatype neq "Lookup" and criteriatype neq "Unit")>
 																										   
 															<cfset cl           = "regular">
@@ -516,7 +532,7 @@
 															<cfinclude template = "../SelectFormParameter.cfm"> 				
 															
 														<cfelse>
-														
+																													
 															<cfdiv bind="url:SelectFormContainer.cfm?controlid=#controlid#&criterianame=#criterianame#&reportid=#url.reportid#&fldid=box#CriteriaName#&cl=regular&val={#parent#}">
 																											
 														</cfif>	
@@ -527,7 +543,8 @@
 												
 											<cfelse>	
 											
-												<td>																							
+												<td>	
+																													
 																								
 													<cfif parent eq "" or (criteriatype neq "Lookup" and criteriatype neq "Unit")>
 																																						
@@ -538,8 +555,8 @@
 													
 													<cfelse>
 																										
-													    <!--- here --->
-											    		<cfdiv bind="url:SelectFormContainer.cfm?controlid=#controlid#&criterianame=#criterianame#&reportid=#url.reportid#&fldid=box#CriteriaName#&cl=regular&val={#parent#}">																									
+											    		<cfdiv bind="url:SelectFormContainer.cfm?controlid=#controlid#&criterianame=#criterianame#&reportid=#url.reportid#&fldid=box#CriteriaName#&cl=regular&val={#parent#}">
+														
 													</cfif>			
 													
 												</td>
@@ -554,14 +571,13 @@
 																					
 							</table>
 							
-						 </td>	
+					 </td>	
 												 
 						 <!---
-						 <cfcatch></cfcatch>
-						 
-					</cftry>	
-					
+						 <cfcatch></cfcatch>						 
+					</cftry>						
 					---> 				
+					
 					<cfset row = row + 1>	
 					 
 				</cfif> 
@@ -571,6 +587,8 @@
 			</cfoutput>		
 	
 		</cfoutput>	
+		
+		</cfoutput>
 		
 	   </table>
 	  	   	
@@ -598,17 +616,16 @@
 											
 			<td width="154">
 						
-					<table cellspacing="0" cellpadding="0">
+					<table style="width:100%">
 					<tr>					
 					
 					<cfif CriteriaMemo neq "">
 					
-					<cf_UIToolTip  tooltip="#CriteriaMemo#">
-						<td height="22" class="labelit">
-					</cf_UIToolTip>
+						<cf_UIToolTip  tooltip="#CriteriaMemo#">
+							<td height="22" class="labelit">
+						</cf_UIToolTip>
 					
-					<cfelse>
-					
+					<cfelse>					
 						<td height="22" class="labelit">
 					</cfif>
 					
@@ -627,14 +644,15 @@
 				  datasource="AppsSystem" 
 				  username="#SESSION.login#" 
 				  password="#SESSION.dbpw#">
-				  SELECT sum(FieldWidth) as FieldWidth
-				  FROM  Ref_ReportControlCriteriaField 
-				  WHERE ControlId = '#ControlId#'
-				  AND   CriteriaName = '#CriteriaName#'
-				  AND   Operational = '1' 
-				 </cfquery>
-				 <cfdiv id="i#currentrow#"						    	    
-				    bind="url:HTML/FormHTMLExtList.cfm?row=#currentrow#&width=#width.FieldWidth#&mult=#LookupMultiple#&init=1&controlid=#controlid#&reportid=#reportid#&CriteriaName=#criterianame#"/>
+					  SELECT SUM(FieldWidth) as FieldWidth
+					  FROM   Ref_ReportControlCriteriaField 
+					  WHERE  ControlId = '#ControlId#'
+					  AND    CriteriaName = '#CriteriaName#'
+					  AND    Operational = '1' 
+				</cfquery>
+				 
+				<cf_securediv id="i#currentrow#"						    	    
+				    bind="url:HTML/FormHTMLExtList.cfm?row=#currentrow#&width=#width.FieldWidth#&mult=#LookupMultiple#&init=1&controlid=#controlid#&reportid=#reportid#&CriteriaName=#criterianame#">
 													
 				</td>
 				<td></td>

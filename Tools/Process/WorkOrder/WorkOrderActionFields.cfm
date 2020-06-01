@@ -43,8 +43,8 @@
 
 	<cfloop index="row" from="1" to="#ActionLines#">
 	
-		<cfif attributes.mode neq "Save">
-			
+		<cfif attributes.mode neq "Save">													
+					
 				<!--- Action fields --->
 				<cfquery name="Action" 
 				 datasource="AppsWorkOrder" 
@@ -55,7 +55,7 @@
 					WHERE    WorkOrderId   = '#attributes.workorderid#'		  
 					AND      WorkOrderLine = '#attributes.workorderline#'	
 					AND      ActionClass   = '#Code#'					  
-					ORDER BY Created DESC
+					ORDER BY Created DESC					
 				</cfquery>		
 			
 				<!--- -------------------------- --->	
@@ -135,13 +135,12 @@
 				<!--- -------------------------- --->					   
 				
 				<cfelseif Attributes.actiondatemode eq "Planning">
-								
 										
 					<tr>
 							
 					<td colspan="2" style="z-index:#99-currentrow#; position:relative;padding-left:0px">
 				
-					<table style="width:100%" border="0">
+					<table border="0">
 					
 					<cfif row eq "1">
 					<tr>		
@@ -175,15 +174,16 @@
 												   																	
 							<cfset val = evaluate("Action.DateTimeRequested")>
 							
+														
 							<cfif attributes.mode eq "View">
 					
 								#dateformat(val,client.dateformatshow)#
 								
 							<cfelse>	
 							
-								<cfif Action.recordcount eq "1">				
+								<cfif Action.recordcount eq "1" and val neq "01/01/1900">																			
 								   <cfset st = dateformat(val,"#CLIENT.DateFormatShow#")>
-								<cfelse>
+								<cfelse>								
 								   <cfset st = dateformat(now(),"#CLIENT.DateFormatShow#")>   
 								</cfif>
 								
@@ -331,7 +331,7 @@
 							<cfelse>								
 							    
 								<cfif Action.recordcount eq "1">
-								   <cfset val = dateformat(val,"#CLIENT.DateFormatShow#")>
+								   <cfset val = dateformat(val,"#CLIENT.DateSQL#")>
 								   <cfset stDT = val>
 								<cfelse>	
 								   <cfset stDT = dateformat(attributes.date,"#CLIENT.DateFormatShow#")>   
@@ -364,6 +364,7 @@
 						
 						</td>
 						
+												
 						<!--- PlanOrder --->
 						<cfquery name="PlanOrder" 
 						 datasource="AppsWorkOrder" 

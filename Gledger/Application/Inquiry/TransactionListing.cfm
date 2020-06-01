@@ -2,11 +2,11 @@
 <cfparam name="URL.ID" default="Journal">
 <cfparam name="URL.ID2" default="All">
 
-<table width="100%" border="0" height="100%" cellspacing="0" cellpadding="0" align="center">
+<table width="100%" height="100%" align="center">
   
 <tr><td colspan="2" style="padding:5px">
 
-<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="100%" height="100%" align="center">
 
 <!--- Query returning search results --->
 <cfquery name="AccountGroup"
@@ -30,8 +30,8 @@ password="#SESSION.dbpw#">
 datasource="AppsQuery" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-    SELECT *
-	FROM #SESSION.acc#Gledger
+    SELECT   *
+	FROM     #SESSION.acc#Gledger
 	#PreserveSingleQuotes(cond)#
     ORDER BY Currency, #URL.ID# <cfif url.id eq "Posted">DESC</cfif>, JournalTransactionNo
 </cfquery>
@@ -42,17 +42,15 @@ password="#SESSION.dbpw#">
 
 <tr>
 <TD height="30">
-<select name="filter" id="filter" size"1" class="regularxl" onChange="javascript:reloadForm(this.value,document.getElementById('group').value,document.getElementById('page').value)">
-    
-    <option value="All" <cfif "All" is '#URL.ID2#'>selected</cfif>>All</option>
 
+<select name="filter" id="filter" size"1" class="regularxl" onChange="javascript:reloadForm(this.value,document.getElementById('group').value,document.getElementById('page').value)">    
+    <option value="All" <cfif "All" is '#URL.ID2#'>selected</cfif>>All</option>
     <cfoutput query="AccountGroup">
 	<option value="#AccountGroup#" <cfif AccountGroup is URL.ID2>selected</cfif>>
 	   #AccountGroup# #AccountGroupName#
 	</option>
-	</cfoutput>
-	
-    </select>
+	</cfoutput>	
+</select>
 
 <select name="group" id="group" size="1" class="regularxl" onChange="javascript:reloadForm(document.getElementById('filter').value,this.value,document.getElementById('page').value)">
      <option value="Journal" <cfif URL.ID eq "Journal">selected</cfif>><cf_tl id="by Journal">
@@ -60,6 +58,7 @@ password="#SESSION.dbpw#">
      <OPTION value="TransactionDate" <cfif URL.ID eq "TransactionDate">selected</cfif>><cf_tl id="by Transaction Date">
 	 <OPTION value="Posted" <cfif URL.ID eq "Posted">selected</cfif>><cf_tl id="by Posting Date">
 </SELECT> 
+
 </TD>
  
 <td align="right" style="padding-right:5px">

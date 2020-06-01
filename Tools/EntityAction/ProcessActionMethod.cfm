@@ -533,7 +533,7 @@
 								<cfparam name = "Form.ActionMailSubject"    default="">
 								<cfparam name = "Form.ActionMailPriority"   default="">	
 								<cfparam name = "Form.ActionMailBody"       default="">
-								<cfparam name = "Form.ActionMailAttachment" default="">	
+								<cfparam name = "Form.ActionMailAttachment" default="99999">	
 								
 								<!--- this method passes default mail settings and has enough
 								values to run a linked template to populate mail values

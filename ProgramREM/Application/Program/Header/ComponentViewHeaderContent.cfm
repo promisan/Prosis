@@ -145,6 +145,8 @@ password="#SESSION.dbpw#">
 		<td width="90%" style="cursor:pointer" id="nme_#programid#" class="labelmedium" onclick="EditProgram('#programcode#','#period#','#ProgramClass#','Resource')">		
 		<cfif Program.RecordStatus eq "1">
 		<font color="0080C0">
+		<cfelseif Program.RecordStatus eq "8">
+		<font color="FF8000"><cf_tl id="Stalled">:
 		<cfelse>
 		<font color="red">
 		<cf_tl id="Deactivated">:</b>

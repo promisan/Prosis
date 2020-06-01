@@ -22,10 +22,10 @@
 	    if (parent.parent.applyunit) {	
 			parent.parent.applyunit(orgunit)
 			///parent.parent.applyOrgUnit(orgunit,orgunitcode,mission,orgunitname,orgunitclass);
-			parent.parent.ColdFusion.Window.destroy('orgunitselectwindow',true);
+			parent.parent.ProsisUI.closeWindow('orgunitselectwindow',true);
 		} else {
 			parent.opener.applyunit(orgunit);
-			parent.opener.ColdFusion.Window.destroy('orgunitselectwindow',true);
+			parent.opener.ProsisUI.closeWindow('orgunitselectwindow',true);
 		}
 	
 	}				
