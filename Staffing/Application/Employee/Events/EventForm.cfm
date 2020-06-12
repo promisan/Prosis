@@ -1,7 +1,9 @@
 <cfparam name="URL.ID" 			default="">
 <cfparam name="URL.PersonNo" 	default="">
 <cfparam name="URL.PositionNo" 	default="">
-
+<cfparam name="URL.Portal" 	    default="0">
+<cfparam name="URL.box"			default="">
+<cfparam name="URL.Trigger" 	default="">
 
 <script>	
 	Prosis.busy('no');
@@ -113,7 +115,6 @@
 					</cfif>
 					
 				</cfquery>				
-														  	 	 
 				
 				 
 				 <cfif url.positionNo eq ""> 	
@@ -209,8 +210,30 @@
 			<tr class="labelmedium">
 				
 				<td  style="padding-left:3px" width="20%"><cf_tl id="Nature">:</td>
-			    <td style="padding-left:0px">						
-					<cfdiv bind="url:#session.root#/staffing/Application/Employee/Events/getTrigger.cfm?eventid=#URL.id#&mission={mission}&Positionno=#url.positionno#"></cfdiv>						
+			    <td style="padding-left:0px">	
+				
+				    <cfif url.trigger neq "">
+					
+						<cfquery name="get" 
+						 datasource="AppsEmployee" 
+						 username="#SESSION.login#" 
+						 password="#SESSION.dbpw#">
+							 SELECT * 
+							 FROM Ref_EventTrigger
+							 WHERE Code = '#url.trigger#'
+						</cfquery>	
+						
+						<input type="hidden" name="triggercode" id="triggercode" value="<cfoutput>#url.trigger#</cfoutput>"> 
+						
+						<cfoutput>#get.Description#</cfoutput>
+										
+					<cfelse>
+					
+					    <cfoutput>			
+						<cf_securediv id="mynaturebox" bind="url:#session.root#/staffing/Application/Employee/Events/getTrigger.cfm?eventid=#URL.id#&mission={mission}&Positionno=#url.positionno#&portal=#url.portal#"/>						
+						</cfoutput>		
+						
+					</cfif>
 				</td> 
 				
 			</tr>		
@@ -219,11 +242,8 @@
 				<td style="padding-left:3px" width="20%">
 					<cf_tl id="Recruitment JO No">:
 				</td>				
-				<td>
-				
-				<cfinput type="text" mask="999999" id="documentno" name="DocumentNo" value="#qEvent.DocumentNo#" 
-				style="width:90" class="regularxl">									
-		  
+				<td>				
+				<cfinput type="text" mask="999999" id="documentno" name="DocumentNo" value="#qEvent.DocumentNo#" style="width:90" class="regularxl">											  
 		  		</td>						
 			</tr>				
 
@@ -232,28 +252,19 @@
 				<td style="padding-left:3px" width="20%">
 					<cf_tl id="Requisition No">:
 				</td>				
-				<td>
-				
-				<cfinput type="text" mask="9999999999" id="requisitionNo" name="requisitionNo" value="#qEvent.RequisitionNo#" 
-				style="width:90" class="regularxl">									
-		  
+				<td>				
+				<cfinput type="text" mask="9999999999" id="requisitionNo" name="requisitionNo" value="#qEvent.RequisitionNo#" style="width:90" class="regularxl">											  
 		  		</td>						
 			</tr>				
 
-
-			<tr class="labelmedium">
-				
+			<tr class="labelmedium">				
 				<td  style="padding-left:3px" width="20%"><cf_tl id="Action">:</td>
-			    <td style="padding-left:0px" id="dEvent">				
-				</td> 				
-				
+			    <td style="padding-left:0px" id="dEvent"></td> 								
 			</tr>
 
-			<tr id="reasonbox" class="labelmedium">
-				
+			<tr id="reasonbox" class="labelmedium hide">				
 				<td style="padding-left:3px" width="20%"><cf_tl id="Reason">:</td>
-			    <td style="padding-left:0px" id="dReason"></td> 				
-				
+			    <td style="padding-left:0px" id="dReason"></td> 								
 			</tr>
 			
 			<tr class="labelmedium" id="unitbox">
@@ -261,9 +272,9 @@
 				<td width="20%" style="padding-left:3px"><cf_tl id="Unit">:</td>								
 				<td>	
 				<cfif url.positionNo eq "">			
-					<cfdiv bind="url:#session.root#/staffing/application/Employee/Events/getOrganization.cfm?selected=#qEvent.orgunit#&mission={mission}">							
+					<cf_securediv id="myunitbox" bind="url:#session.root#/staffing/application/Employee/Events/getOrganization.cfm?selected=#qEvent.orgunit#&mission={mission}"/>							
 				<cfelse>
-				   	<cfdiv bind="url:#session.root#/staffing/application/Employee/Events/getOrganization.cfm?selected=#Position.OrgUnitOperational#&mission={mission}">											
+				   	<cf_securediv id="myunitbox" bind="url:#session.root#/staffing/application/Employee/Events/getOrganization.cfm?selected=#Position.OrgUnitOperational#&mission={mission}"/>											
 				</cfif>	
 				</td>				
 			</tr>					
@@ -307,7 +318,7 @@
 							 class     = "regularxl"
 							 id        = "positionselect"	
 							 value     = "#trim(Position.SourcePostNumber)# #trim(Position.FunctionDescription)# #trim(Position.PostGrade)#"
-							 style     = "padding-left:3px;padding-top:1px;width:400;font-size:16px; z-index:3;">
+							 style     = "padding-left:3px;padding-top:1px;width:400;font-size:16px; z-index:3;"  readonly>
 							 
 					    <cfelse>
 						
@@ -327,31 +338,35 @@
 							 class     = "regularxl"
 							 id        = "positionselect"	
 							 value     = "#trim(Position.SourcePostNumber)# #trim(Position.FunctionDescription)# #trim(Position.PostGrade)#"
-							 style     = "padding-left:3px;padding-top:1px;width:400;font-size:16px; z-index:3;">
+							 style     = "padding-left:3px;padding-top:1px;width:400;font-size:16px; z-index:3;" readonly>
 												
 						</cfif>	 
 				
 					  </td>
+					  
+					  <cfif url.positionno eq "">
 					
-					  <td style="padding-left:2px;border:0px solid gray">
-											  
-				  		<cfset link = "#SESSION.root#/Staffing/Application/Employee/Events/getPosition.cfm?event=1">
-						
-				  		<cf_selectlookup
-						    box          = "positionbox_detail"
-							title        = "Position Search"
-							icon         = "search.png"
-							link		 = "#link#"
-							des1		 = "PositionNo"
-							filter1      = "Mission"
-							filter1Value = "{mission}"
-							button       = "No"
-							style        = "width:28;height:25"
-							close        = "Yes"			
-							datasource	 = "AppsEmployee"		
-							class        = "PositionSingle">	
-				
-					  </td>
+						  <td style="padding-left:2px;border:0px solid gray">
+												  
+					  		<cfset link = "#SESSION.root#/Staffing/Application/Employee/Events/getPosition.cfm?event=1">
+							
+					  		<cf_selectlookup
+							    box          = "positionbox_detail"
+								title        = "Position Search"
+								icon         = "search.png"
+								link		 = "#link#"
+								des1		 = "PositionNo"
+								filter1      = "Mission"
+								filter1Value = "{mission}"
+								button       = "No"
+								style        = "width:28;height:25"
+								close        = "Yes"			
+								datasource	 = "AppsEmployee"		
+								class        = "PositionSingle">	
+					
+						  </td>
+					  
+					  </cfif>
 					  
 					  <td id="positionbox_detail" name="positionbox_detail">						 
 						 
@@ -404,6 +419,7 @@
 						Default="#DateFormat(vDate,'#CLIENT.DateFormatShow#')#"
 						AllowBlank="True"
 						Class="regularxl">
+						
 				</td>
 				  
 			</tr>
@@ -453,14 +469,14 @@
 						<cfelse>
 							<cfset vDate = qEvent.DateEventDue>
 						</cfif>	
-					</cfif>		
-								
+					</cfif>										
 										
 					<cf_intelliCalendarDate9
 						FieldName="DateEventDue" 
 						Default="#DateFormat(vDate,'#CLIENT.DateFormatShow#')#"
 						AllowBlank="False"
 						Class="regularxl">
+						
 				</td>
 				  
 			</tr>
@@ -475,8 +491,7 @@
 		    
 			</tr>		
 										
-			<tr><td class="labelmedium" valign="top" style="padding-left:3px;padding-top:4px" width="20%"><cf_tl id="Attachment">:</td>
-			<td>
+			<tr><td colspan="2">
 		
 				<cfquery name="qCheck" 
 						 datasource="AppsSystem" 
@@ -539,7 +554,7 @@
 						   value="Save" 
 						   style="width:140;height:25px" 
 						   class="button10g" 
-						   onclick="javascript:eventsubmit('#URL.Id#')">						
+						   onclick="javascript:eventsubmit('#URL.Id#','#url.box#')">						
 					</td>	
 				  </table>
 				</td>
@@ -554,3 +569,4 @@
 </cfform>
 
 <cfset AjaxOnLoad("doCalendar")>
+<cfset AjaxOnLoad("checkevent")>

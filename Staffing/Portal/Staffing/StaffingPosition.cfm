@@ -2,76 +2,87 @@
 <!--- Position box --->
 
 <cfparam name="url.mission"    default="STL">
-<cfparam name="url.selection"  default="01/01/2020">
+<cfparam name="url.selection"  default="#dateformat(now(),client.dateSQL)#">
 
-<cf_screentop html="No" jquery="yes">
+<cf_tl id="Positions View" var="vMainLabel">
+<cfset vLayout = "webapp">
 
+<cf_screentop jquery="yes" bootstrap="yes" layout="#vLayout#" label="#vMainLabel#">
 
-<cfquery name="Position" 
-	datasource="AppsEmployee" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
+	<cf_staffingPositionScript>
+
+	<style>
+
+		.row {
+			margin-left: 0px;
+			margin-right: 0px;
+		}
+
+		.clsUnit {
+			font-size: 200%; 
+			padding-bottom: 5px; 
+			padding-left: 5px; 
+			background-color: #EDEDED;
+			position: sticky;
+			top: 0;
+			z-index:99;
+			border-top:10px solid #FFFFFF;
+		}
+
+		.clsUnitContainer {
+			padding: 10px; 
+			padding-top: 0px;
+		}
+
+		.clsFilterContainer {
+			position: sticky;			
+			top: 0;
+			z-index:100;
+			background-color:#FFFFFF;
+			padding-top:10px;
+			padding-bottom:10px;
+			overflow:auto;
+		}
+
+		.clsPosition {
+			height: 320px; 
+			overflow: auto;
+			border-bottom: 1px solid #EDEDED; 
+			border-right: 1px solid #EDEDED;
+		}
+
+		.clsPosition:hover {
+			background-color: #F1F1F1;
+		}
+
+		.clsMainContainer {
+			height: 100%;
+			overflow-y: auto;
+		}
+
+		.clsMain {
+			border-left: 1px solid #EDEDED;
+			height: auto;
+		}
+	</style>
+
+	<cf_mobileRow class="clsMainContainer">
+
+		<cf_mobileRow>
+
+			<cf_MobileCell id="filter" class="clsFilterContainer hidden-xs col-sm-2">
+				<cfinclude template="StaffingPositionFilter.cfm">
+			</cf_MobileCell>
+
+			<cf_MobileCell id="main" class="clsMain col-sm-10"></cf_MobileCell>
+			
+		<cf_mobileRow>
+
+	</cf_mobileRow>
+
+	<script>
+		doFilter();
+	</script>
 		
-		SELECT      Mission, MandateNo, MissionOwner, OrgunitOperational, OrgunitName, OrgunitNameShort, 
-		            OrgUnitClass, HierarchyCode, OrgUnitCode, PositionNo, 
-                    FunctionNo, FunctionDescription, OccGroupOrder, OccGroupAcronym, OccupationalGroup, OccGroupDescription, 
-					PostType, PostClass, PostClassGroup, 
-                    PostInBudget, 
-					VacancyActionClass, ShowVacancy, PostAuthorised, PositionParentId, SourcePostNumber, 
-					DateEffective, DateExpiration, PostGrade, PostOrder, 
-                    ApprovalPostGrade, LocationCode, PostGradeBudget, PostOrderBudget, PostGradeParent
-					
-		FROM        vwPosition
-		WHERE       Mission = '#URL.Mission#' 
-		AND         DateEffective  < '#url.selection#' 
-		AND         DateExpiration > '#url.selection#'
-		<!--- limit access to positions for which this person is HRA 
-		AND         OrgUnit = '#orgUnit#'
-		--->
-		ORDER BY    HierarchyCode, PostOrder
-		
-</cfquery>		
-
-<!--- clean the field to pass only the needed ones --->
-
-<cfquery name="Assignment" 
-	datasource="AppsEmployee" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-		
-		SELECT     Mission, MandateNo, MissionOperational, PersonNo, IndexNo, FullName, LastName, MiddleName, FirstName, Nationality, Gender, BirthDate, 
-                   eMailAddress, ParentOffice, ParentOfficeLocation, PersonReference, Operational, OrgUnit, OrgUnitName, OrgUnitNameShort, OrgUnitHierarchyCode, OrgUnitClass, 
-                   ParentOrgUnit, OrgUnitClassOrder, OrgUnitClassName, DateEffective, DateExpiration, FunctionDescriptionActual, FunctionNo, FunctionDescription, PositionNo, 
-                   PositionParentId, OrgUnitOperational, OrgUnitAdministrative, OrgUnitFunctional, PostType, PostClass, LocationCode, VacancyActionClass, PostGrade, PostOrder, 
-                   SourcePostNumber, PostOrderBudget, PostGradeBudget, PostGradeParent, OccGroup, OccGroupName, OccGroupOrder, PostGradeParentDescription, ViewOrder, 
-                   ContractId, AssignmentNo, AssignmentStatus, AssignmentClass, AssignmentType, Incumbency, Remarks, ExpirationCode, ExpirationListCode, AssignmentLocation
-		FROM       vwAssignment
-		WHERE      Mission = '#URL.Mission#' 
-		AND        DateEffective  < '#url.selection#' 
-		AND        DateExpiration > '#url.selection#'
-		AND        AssignmentStatus IN ('0','1') 
-		
-</cfquery>
-
-<table style="border:1px solid silver;width:100%">
-
-<cfoutput>
-<tr class="labelmedium"><td colspan="3" style="padding-left:4px;padding-top:10px;height:57px;font-size:29px">#Position.OrgUnitName#</td></tr>
-</cfoutput>
-
-<tr>
-
-<cfoutput query="Position" group="HierarchyCode" maxrows=3>
-
-	<td style="padding:6px;width:33%;min-width:300px">
-	
-		<cfinclude template="StaffingPositionDetail.cfm">	
-		
-	
-	</td>
-	
-</cfoutput>	
-
-</tr>
-</table>
+<cf_screenbottom layout="#vLayout#">
 

@@ -42,7 +42,7 @@ password="#SESSION.dbpw#">
 <cfif Verify.recordCount is 1 and URL.ID eq ""> 
 
 	<cfoutput>
-	    <cf_alert message = "Position #Form.PositionNo# (#Form.PostNumber#) has a registered and active track under #Verify.DocumentNo#. Operation not allowed.">	
+	    <cf_alert message = "Position #Form.PositionNo# (#Form.SourcePostNumber#) has a registered and active track under #Verify.DocumentNo#. Operation not allowed.">	
 		<script>
 			try {
 				parent.ProsisUI.closeWindow('mydialog')
@@ -94,51 +94,53 @@ password="#SESSION.dbpw#">
 	 <cfabort>
 	</cfif>
 	
+	<cftransaction>
+	
 	<cfquery name="InsertDocument" 
 	datasource="appsVacancy" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	INSERT INTO Document
-	         (DocumentNo,
-			 DocumentNoTrigger,
-			 Status,
-			 FunctionNo, 
-			 FunctionalTitle, 
-			 OrganizationUnit,
-			 Mission,
-			 Owner,
-			 PostNumber,
-			 PositionNo,
-			 DueDate,
-			 PostGrade,
-			 GradeDeployment,
-			 EntityClass,
-			 Remarks,
-			 OfficerUserId,
-			 OfficerUserLastName,
-			 OfficerUserFirstName)
-	  VALUES ('#LastNo.DocumentNo#',
-	          '#Form.DocumentNoTrigger#',
-	          '0',
-			  '#Form.FunctionNo#',
-	          '#Form.FunctionDescription#',
-			  '#Form.OrgUnit#',
-			  '#Form.Mission#',
-			  '#Form.Owner#',
-			  '#Form.SourcePostNumber#',
-			  '#Form.PositionNo#',
-			  #Due#,
-			  '#Form.PostGrade#',
-			  <cfif #Form.GradeDeployment# eq "">
-			  '#Form.PostGrade#',
-			  <cfelse>
-			  '#Form.GradeDeployment#',
-			  </cfif>
-			  '#Form.EntityClass#',
-			  '#Form.Remarks#',
-			  '#SESSION.acc#',
-	    	  '#SESSION.last#',		  
-		  	  '#SESSION.first#')
+		INSERT INTO Document
+		         (DocumentNo,
+				 DocumentNoTrigger,
+				 Status,
+				 FunctionNo, 
+				 FunctionalTitle, 
+				 OrganizationUnit,
+				 Mission,
+				 Owner,
+				 PostNumber,
+				 PositionNo,
+				 DueDate,
+				 PostGrade,
+				 GradeDeployment,
+				 EntityClass,
+				 Remarks,
+				 OfficerUserId,
+				 OfficerUserLastName,
+				 OfficerUserFirstName)
+		  VALUES ('#LastNo.DocumentNo#',
+		          '#Form.DocumentNoTrigger#',
+		          '0',
+				  '#Form.FunctionNo#',
+		          '#Form.FunctionDescription#',
+				  '#Form.OrgUnit#',
+				  '#Form.Mission#',
+				  '#Form.Owner#',
+				  '#Form.SourcePostNumber#',
+				  '#Form.PositionNo#',
+				  #Due#,
+				  '#Form.PostGrade#',
+				  <cfif #Form.GradeDeployment# eq "">
+				  '#Form.PostGrade#',
+				  <cfelse>
+				  '#Form.GradeDeployment#',
+				  </cfif>
+				  '#Form.EntityClass#',
+				  '#Form.Remarks#',
+				  '#SESSION.acc#',
+		    	  '#SESSION.last#',		  
+			  	  '#SESSION.first#')
 	  </cfquery>
 	  
 	  <!--- update functional title --->
@@ -148,15 +150,15 @@ password="#SESSION.dbpw#">
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
 		   UPDATE Document
-		   SET    FunctionalTitle = F.FunctionDescription,
+		   SET    FunctionalTitle   = F.FunctionDescription,
 	    	      OccupationalGroup = F.OccupationalGroup
-		   FROM   Document D, Applicant.dbo.FunctionTitle F
-		   WHERE  D.FunctionNo = F.FunctionNo
+				  
+		   FROM   Document D INNER JOIN Applicant.dbo.FunctionTitle F ON D.FunctionNo = F.FunctionNo
 		   AND    D.DocumentNo = #LastNo.DocumentNo#
 		   AND    D.FunctionNo > ''
 	  </cfquery>  
 	    
-		<cfquery name="InsertDocumentPost" 
+	  <cfquery name="InsertDocumentPost" 
 			datasource="appsVacancy" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
@@ -166,14 +168,19 @@ password="#SESSION.dbpw#">
 						 PostNumber,
 						 OfficerUserId,
 						 OfficerLastName,
-						 OfficerFirstName)
+						 OfficerFirstName,
+						 Created)
 			VALUES ('#LastNo.DocumentNo#',
 			        '#Form.PositionNo#',
-			        '#Form.PostNumber#',
+			        '#Form.SourcePostNumber#',
 			        '#SESSION.acc#',
 			    	'#SESSION.last#',		  
-				  	'#SESSION.first#')
-		  </cfquery>	   
+				  	'#SESSION.first#',
+					getDate())					
+					
+	    </cfquery>	
+		
+		</cftransaction>   
 		
 	<cfoutput>
 		
@@ -228,9 +235,12 @@ password="#SESSION.dbpw#">
 			}
 	    	<cfif url.box eq "isearch">
 	    		parent.document.getElementById("gosearch").click();
-	    	<cfelse>
+	    	<cfelseif left(url.box,7) eq "recruit">
+				parent.workflowreload('#url.box#');
+			<cfelse>
 		   		parent.document.getElementById("refresh_#url.box#").click();
 		   	</cfif>
+			ptoken.open("#session.root#/Vactrack/Application/Document/DocumentEdit.cfm?ID=#LastNo.DocumentNo#", "Track#LastNo.DocumentNo#");
 
 		</script>
 			

@@ -1,46 +1,5 @@
 <cfoutput>
 
-<style>
-      .Procets{
-          display: inline;
-		  line-height:18px;
-          background:##F4F4F4 url('#SESSION.root#/Images/Process.png') no-repeat 98% center;
-          background-size:16px 16px;
-          border: 1px solid ##cccccc;
-		  border-left: 0px solid ##cccccc;
-          border-radius: 0 8px 8px 0;
-          margin: 0 0 0 0px;
-          font-size: 11px;
-          font-weight: 600;
-          padding: 10px 18px 10px 10px;
-          text-align: left;
-          color: ##D35400;
-          text-transform: uppercase;
-          float: left;
-	      max-width: 158px;
-		  min-width:60px;
-      }
-      .Procets:hover{
-          background:rgba(174, 192, 108,1) url('#SESSION.root#/Images/Process-W.png') no-repeat 98% center;
-          background-size:16px 16px;
-          color: ##FFFFFF;
-          text-decoration: none;
-          cursor:pointer;
-          
-      }
-       @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
-	.Procets,.Procets:hover{
-              
-              background-size:16px 16px;
-              max-width: 158px;
-		      min-width: 70px;
-          }
-         
-      }
-	
-		
- </style>
-
 <cfparam name="CLIENT.LanPrefix" default="">
 	
 <cfsavecontent variable="myact">
@@ -103,7 +62,13 @@
 	  <cfif object_op eq "0">
 	  AND   OA.ActionStatus <> '0'
 	  </cfif>
-		  #preserveSingleQuotes(condition)#  
+	  #preserveSingleQuotes(condition)#  
+	  
+	  <!--- only interested in open actions --->
+	  <cfif Attributes.Show eq "Mini">
+	  AND   OA.ActionStatus = '0'
+	  </cfif>
+	 
 		  
 	</cfsavecontent>
 	
@@ -117,12 +82,16 @@
 	 password="#SESSION.dbpw#">
 	 #preservesinglequotes(myact)#
 	  ORDER BY OA.ActionFlowOrder DESC,  
-	           OA.OfficerDate DESC  
+	           OA.OfficerDate DESC 			   
 	</cfquery>
+		
 	
-			
+	<!--- 
+				
 	<link rel="stylesheet" type="text/css" href="#SESSION.root#/#client.style#">
 	<link rel="stylesheet" type="text/css" href="#SESSION.root#/print.css"  media="print">
+	
+	--->
 
 </cfoutput>
 
@@ -306,245 +275,214 @@
 
 <!---  28/3 reomoved this condition -- and Object_op eq "1" ---> 
 
-<cfif attributes.subflow eq "No">
-	
-	<cfset url.ownerid = actions.ownerid>
-	
-	<cfoutput>
-	
-	<cfif attributes.showattachment eq "Yes">
-	<tr><td id="external" colspan="#col#">
-		<cfinclude template="ActionListingViewExternal.cfm">
-	</td></tr>
-	</cfif>
-	
-	<cfif Attributes.Header neq "" and getAdministrator("#Object.Mission#") eq "0">
-		<tr><td colspan="#col#" height="16" align="center">#Attributes.Header#</td></tr>
-		<tr><td colspan="#col#" class="line" align="center"></td></tr>
-	</cfif>
-	
-	<cfif object_op is 0>
-	
-	    <tr><td height="4" colspan="9"></td></tr>		
-		<tr>
-			<td colspan="9" class="labelit"
-			    style="padding-left:4px;height:23;border:1px solid silver; background: dfdfdf;padding-left:20px">
-				
-				<table>
-				<tr>
-				<td><cf_tl id="Prior workflow">: <cf_tl id="Owner">: <b>#Actions.OwnerFirstName# #Actions.OwnerLastName#</b></td>								
-				<td style="padding-left:10px">
-				
-					<cfif Actions.recordcount gte "1">
-			   
-					   	<cfquery name="Org" 
-							datasource="AppsOrganization" 
-							username="#SESSION.login#" 
-							password="#SESSION.dbpw#">			
-								SELECT *
-								FROM   Organization
-								WHERE  OrgUnit = '#Object.OrgUnit#'				
-						</cfquery>
-							
-						<cfif Org.recordcount neq "0">	
-														   
-					    <cfoutput>#Org.OrgUnitName#</cfoutput>	
-				       
-					  </cfif>
-			
-					</cfif>
-				
-				</td>								
-				</tr>
-				</table>
-			
-		</tr>	
-		<tr><td height="9" colspan="9"></td></tr>					
+<cfif Attributes.Show eq "Yes">
+
+	<cfif attributes.subflow eq "No">
 		
-	<cfelse>
-	
-		<cfif   getAdministrator("#Object.Mission#") eq "1"
-				or
-			    (Actions.EnableTopMenu eq "1" and Actions.OwnerId eq SESSION.acc) 
-				or
-				(Actions.EnableTopMenu eq "3" and Attributes.toolbar neq "hide")>
+		<cfset url.ownerid = actions.ownerid>
 		
-		   <cfinclude template="ActionListingMenu.cfm">		
+		<cfoutput>
+		
+		<cfif attributes.showattachment eq "Yes">
+		<tr><td id="external" colspan="#col#">
+			<cfinclude template="ActionListingViewExternal.cfm">
+		</td></tr>
+		</cfif>
+		
+		<cfif Attributes.Header neq "" and getAdministrator("#Object.Mission#") eq "0">
+			<tr><td colspan="#col#" height="16" align="center">#Attributes.Header#</td></tr>
+			<tr><td colspan="#col#" class="line" align="center"></td></tr>
+		</cfif>
+		
+		<cfif object_op is 0>
+		
+		    <tr><td height="4" colspan="9"></td></tr>		
+			<tr>
+				<td colspan="9" class="labelit"
+				    style="padding-left:4px;height:23;border:1px solid silver; background: dfdfdf;padding-left:20px">
+					
+					<table>
+					<tr>
+					<td><cf_tl id="Prior workflow">: <cf_tl id="Owner">: <b>#Actions.OwnerFirstName# #Actions.OwnerLastName#</b></td>								
+					<td style="padding-left:10px">
+					
+						<cfif Actions.recordcount gte "1">
+				   
+						   	<cfquery name="Org" 
+								datasource="AppsOrganization" 
+								username="#SESSION.login#" 
+								password="#SESSION.dbpw#">			
+									SELECT *
+									FROM   Organization
+									WHERE  OrgUnit = '#Object.OrgUnit#'				
+							</cfquery>
+								
+							<cfif Org.recordcount neq "0">	
+															   
+						    <cfoutput>#Org.OrgUnitName#</cfoutput>	
+					       
+						  </cfif>
+				
+						</cfif>
+					
+					</td>								
+					</tr>
+					</table>
+				
+			</tr>	
+			<tr><td height="9" colspan="9"></td></tr>					
+			
+		<cfelse>
+		
+			<cfif   getAdministrator("#Object.Mission#") eq "1"
+					or
+				    (Actions.EnableTopMenu eq "1" and Actions.OwnerId eq SESSION.acc) 
+					or
+					(Actions.EnableTopMenu eq "3" and Attributes.toolbar neq "hide")>
+			
+			   <cfinclude template="ActionListingMenu.cfm">		
+			
+			</cfif>
 		
 		</cfif>
-	
-	</cfif>
-	
-	</cfoutput>
-	
-	<cfif attributes.rowlabel eq "Yes">
-	
-		<tr class="labelmedium fixrow">
-		   <td colspan="2" style="min-width:380px;padding-left:10px"><cf_tl id="Status"><cfif refr eq "1">##</cfif></td>		  
-		   <td style="min-width:60px"><cf_tl id="Action by"></td>
-		   <td style="width:70%"><cf_tl id="Actor"></td>	
-		   <!---	  
-		   <td width="120"><cf_tl id="Processed"></td>
-		   --->
-		   <td style="min-width:60px"><cf_tl id="Leadtime"></td>
-		   <td style="min-width:80px"><cf_tl id="Action Date"></td>
-		   <td width="10"></td>
-		   <td width="10"></td>
-		</tr>	
-	
-	<cfelse>
-	
-		<tr>
-		   <td colspan="2" style="min-width:380px;padding-left:10px"></td>		  
-		   <td style="min-width:60px"></td>
-		   <td style="min-width:120px"></td>		  		  
-		   <td style="min-width:60px"></td>
-		   <td style="min-width:80px"></td>
-		   <td width="10"></td>
-		   <td width="10"></td>
-		</tr>	
-	
-	</cfif>
-	
-	<tr><td colspan="<cfoutput>#col#</cfoutput>" class="line"></td></tr>
-	
-</cfif>	
-	
-	<!--- here start the records to be listed --->
-	
-	<cfset prior    = Object.Created>
-	<cfset keepdate = Object.Created>
-
-
-<cfoutput query="Actions">
-				
-	<cfset embed = "0">
-
-	<cfif EmbeddedClass neq "">
-
-		<cfquery name="EmbedFlow" 
-			datasource="AppsOrganization" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">			
-			SELECT *
-			FROM   Ref_EntityClass
-			WHERE  EntityCode  = '#Object.EntityCode#'
-			AND    EntityClass = '#EmbeddedClass#' 
-		</cfquery>
 		
-		<cfquery name="EmbedCompleted" 
-			datasource="AppsOrganization" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">			
-			SELECT   TOP 1 *
-			FROM     OrganizationObject O, OrganizationObjectAction A
-			WHERE    O.ObjectId = A.ObjectId
-			AND      O.ObjectKeyValue4 = '#ActionId#'		
-			ORDER BY A.ActionStatus
-		</cfquery>
-					
-		<cfquery name="Script" 
-		 	datasource="AppsOrganization"
-			 username="#SESSION.login#" 
-			 password="#SESSION.dbpw#">
-			 SELECT TOP 1 IsNull(MethodScript,'') as MethodScript
-			 FROM         Ref_EntityActionPublishScript R
-			 WHERE        R.ActionPublishNo = '#Actions.ActionPublishNo#' 
-			 AND          R.ActionCode      = '#Actions.ActionCode#' 
-			 AND          R.Method          = 'Embed'
-			 AND          MethodEnabled = 1 
-		</cfquery>
+		</cfoutput>
 		
-		<!--- define if condition for embedded workflow would work --->
+		<cfif attributes.rowlabel eq "Yes">
 		
-		<cfset conembed = "1">
+			<tr class="labelmedium fixrow">
+			   <td colspan="2" style="min-width:380px;padding-left:10px"><cf_tl id="Status"><cfif refr eq "1">##</cfif></td>		  
+			   <td style="min-width:60px"><cf_tl id="Action by"></td>
+			   <td style="width:70%"><cf_tl id="Actor"></td>	
+			   <!---	  
+			   <td width="120"><cf_tl id="Processed"></td>
+			   --->
+			   <td style="min-width:60px"><cf_tl id="Leadtime"></td>
+			   <td style="min-width:80px"><cf_tl id="Action Date"></td>
+			   <td width="10"></td>
+			   <td width="10"></td>
+			</tr>	
 		
-		<cfif Script.recordcount eq "1" 
-		      and TRIM(Script.MethodScript) neq "">
-				
-					<cfset val         = "#Script.MethodScript#">
-					<cfinclude template= "ProcessActionSubmitScript.cfm">
-					
-					<!--- runs the query --->
-					
-					<cfif SQL.recordcount eq "0">
-					
-						<!--- condition is not met --->
-						<cfset conembed = "0">							
-					
-					</cfif>
-								
+		<cfelse>
+		
+			<tr>
+			   <td colspan="2" style="min-width:380px;padding-left:10px"></td>		  
+			   <td style="min-width:60px"></td>
+			   <td style="min-width:120px"></td>		  		  
+			   <td style="min-width:60px"></td>
+			   <td style="min-width:80px"></td>
+			   <td width="10"></td>
+			   <td width="10"></td>
+			</tr>	
+		
 		</cfif>
-								
-		<!--- check if class exists and 
-		    object has NOT been completed --->
-
-		<cfif Embedflow.recordcount eq "1" and conembed eq "1" and 
-			(EmbedCompleted.recordcount eq "0" or
-			EmbedCompleted.ActionStatus eq "0")>
-							
-			<!--- embedded workflow is not completed --->
-	
-			<cfset embed = "2">
-			
-		<cfelseif Embedflow.recordcount eq "1" and conembed eq "1" and 
-			EmbedCompleted.recordcount eq "1" and
-			EmbedCompleted.ActionStatus gte "2">	
-			
-			<!--- embedded workflow is completed --->
-			
-			<cfset embed = "1">
-											
-		</cfif>	
+		
+		<tr><td colspan="<cfoutput>#col#</cfoutput>" class="line"></td></tr>
 		
 	</cfif>	
-				
-	<cfif embed eq "0">
+		
+	<!--- here start the records to be listed --->
+		
+	<cfset prior    = Object.Created>
+	<cfset keepdate = Object.Created>
 	
-		<cfset showaction = 1>
-		<cfinclude template="ActionListingViewLine.cfm">		 
+	<cfoutput query="Actions">
+					
+		<cfset embed = "0">
+	
+		<cfif EmbeddedClass neq "">
+	
+			<cfquery name="EmbedFlow" 
+				datasource="AppsOrganization" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">			
+				SELECT *
+				FROM   Ref_EntityClass
+				WHERE  EntityCode  = '#Object.EntityCode#'
+				AND    EntityClass = '#EmbeddedClass#' 
+			</cfquery>
+			
+			<cfquery name="EmbedCompleted" 
+				datasource="AppsOrganization" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">			
+				SELECT   TOP 1 *
+				FROM     OrganizationObject O, OrganizationObjectAction A
+				WHERE    O.ObjectId = A.ObjectId
+				AND      O.ObjectKeyValue4 = '#ActionId#'		
+				ORDER BY A.ActionStatus
+			</cfquery>
 						
-	<cfelseif embed eq "1">		
-	
-		<!--- embedded workflow is completed --->
-	
-		<cfset showaction = 1>
-		<cfinclude template="ActionListingViewLine.cfm">
+			<cfquery name="Script" 
+			 	datasource="AppsOrganization"
+				 username="#SESSION.login#" 
+				 password="#SESSION.dbpw#">
+				 SELECT TOP 1 IsNull(MethodScript,'') as MethodScript
+				 FROM         Ref_EntityActionPublishScript R
+				 WHERE        R.ActionPublishNo = '#Actions.ActionPublishNo#' 
+				 AND          R.ActionCode      = '#Actions.ActionCode#' 
+				 AND          R.Method          = 'Embed'
+				 AND          MethodEnabled = 1 
+			</cfquery>
+			
+			<!--- define if condition for embedded workflow would work --->
+			
+			<cfset conembed = "1">
+			
+			<cfif Script.recordcount eq "1" 
+			      and TRIM(Script.MethodScript) neq "">
+					
+						<cfset val         = "#Script.MethodScript#">
+						<cfinclude template= "ProcessActionSubmitScript.cfm">
+						
+						<!--- runs the query --->
+						
+						<cfif SQL.recordcount eq "0">
+						
+							<!--- condition is not met --->
+							<cfset conembed = "0">							
+						
+						</cfif>
 									
-		<cfset link = "#Object.ObjectURL#">
-								
-		<cf_ActionListing 
-			EntityCode       = "#Object.EntityCode#"
-			EntityClass      = "#EmbeddedClass#"
-			EntityGroup      = "#Object.EntityGroup#"
-			EntityStatus     = "#Object.EntityStatus#"
-			Mission          = "#Object.mission#"
-			OrgUnit          = "#Object.orgunit#"
-			PersonNo         = "#Object.PersonNo#" 
-			PersonEMail      = "#Object.PersonEMail#"
-			ObjectReference  = "#Object.ObjectReference#"
-			ObjectReference2 = "Embedded workflow"
-			ParentObjectId   = "#Object.ObjectId#"
-			ObjectKey4       = "#ActionId#"
-			AjaxId           = "#Attributes.AjaxId#"
-			ObjectURL        = "#link#"
-			SubFlow          = "Yes"											
-			CompleteFirst    = "No">		
-			
-			<tr><td colspan="#col#" class="line"></td></tr>	
+			</cfif>
+									
+			<!--- check if class exists and 
+			    object has NOT been completed --->
 	
-	<cfelse> 
-			
-		<!--- the embedded workflow is not completed --->
+			<cfif Embedflow.recordcount eq "1" and conembed eq "1" and 
+				(EmbedCompleted.recordcount eq "0" or
+				EmbedCompleted.ActionStatus eq "0")>
+								
+				<!--- embedded workflow is not completed --->
 		
-		<cfif Actions.ActionFlowOrder lte CheckNext.ActionFlowOrder or CheckNext.ActionFlowOrder eq "">		
-		
-			<cfset showaction = 0>
-			
-			<cfinclude template="ActionListingViewLine.cfm">				
+				<cfset embed = "2">
 				
+			<cfelseif Embedflow.recordcount eq "1" and conembed eq "1" and 
+				EmbedCompleted.recordcount eq "1" and
+				EmbedCompleted.ActionStatus gte "2">	
+				
+				<!--- embedded workflow is completed --->
+				
+				<cfset embed = "1">
+												
+			</cfif>	
+			
+		</cfif>	
+					
+		<cfif embed eq "0">
+		
+			<cfset showaction = 1>
+			<cfinclude template="ActionListingViewLine.cfm">		 
+							
+		<cfelseif embed eq "1">		
+		
+			<!--- embedded workflow is completed --->
+		
+			<cfset showaction = 1>
+			<cfinclude template="ActionListingViewLine.cfm">
+										
 			<cfset link = "#Object.ObjectURL#">
-															
+									
 			<cf_ActionListing 
 				EntityCode       = "#Object.EntityCode#"
 				EntityClass      = "#EmbeddedClass#"
@@ -558,18 +496,58 @@
 				ObjectReference2 = "Embedded workflow"
 				ParentObjectId   = "#Object.ObjectId#"
 				ObjectKey4       = "#ActionId#"
+				AjaxId           = "#Attributes.AjaxId#"
 				ObjectURL        = "#link#"
-				SubFlow          = "Yes"	
-				SubFlowName      = "#ActionDescription#"	
-				AjaxId           = "#Attributes.AjaxId#"	
-				CompleteFirst    = "No">						
-					
+				SubFlow          = "Yes"											
+				CompleteFirst    = "No">		
+				
+				<tr><td colspan="#col#" class="line"></td></tr>	
+		
+		<cfelse> 
+				
+			<!--- the embedded workflow is not completed --->
 			
-		 </cfif>	
-									
-	</cfif>	
-							
-</cfoutput>
-
-
+			<cfif Actions.ActionFlowOrder lte CheckNext.ActionFlowOrder or CheckNext.ActionFlowOrder eq "">		
+			
+				<cfset showaction = 0>
+				
+				<cfinclude template="ActionListingViewLine.cfm">				
+					
+				<cfset link = "#Object.ObjectURL#">
+																
+				<cf_ActionListing 
+					EntityCode       = "#Object.EntityCode#"
+					EntityClass      = "#EmbeddedClass#"
+					EntityGroup      = "#Object.EntityGroup#"
+					EntityStatus     = "#Object.EntityStatus#"
+					Mission          = "#Object.mission#"
+					OrgUnit          = "#Object.orgunit#"
+					PersonNo         = "#Object.PersonNo#" 
+					PersonEMail      = "#Object.PersonEMail#"
+					ObjectReference  = "#Object.ObjectReference#"
+					ObjectReference2 = "Embedded workflow"
+					ParentObjectId   = "#Object.ObjectId#"
+					ObjectKey4       = "#ActionId#"
+					ObjectURL        = "#link#"
+					SubFlow          = "Yes"	
+					SubFlowName      = "#ActionDescription#"	
+					AjaxId           = "#Attributes.AjaxId#"	
+					CompleteFirst    = "No">	
+				
+			 </cfif>	
+										
+		</cfif>	
+								
+	</cfoutput>
 	
+<cfelse>
+			
+	<cfoutput query="Actions">
+								
+			<cfset showaction = 1>
+			
+			<cfinclude template="ActionListingViewMini.cfm">			 
+											
+	</cfoutput>
+	
+</cfif>	

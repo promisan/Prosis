@@ -1,3 +1,5 @@
+
+
 <cfparam name="URL.triggercode"  default="">
 <cfparam name="URL.eventid"  default="">
 <cfparam name="URL.mission" default="">
@@ -50,7 +52,8 @@
 		</cfif>		
 		ORDER BY ListingOrder		
 </cfquery>
-	
+
+
 <select name="eventcode" id="eventcode" class="regularxl" style="width:300px" 
     onchange="_cf_loadingtexthtml='';ptoken.navigate('<cfoutput>#SESSION.root#</cfoutput>/Staffing/Application/Employee/Events/getReason.cfm?triggercode='+document.getElementById('triggercode').value+'&eventcode='+this.value+'&eventid=','dReason')">
 	<option value=""><cf_tl id="Please select">...</option>
@@ -58,6 +61,7 @@
 		<option value="#Code#" <cfif Code eq qEvent.EventCode>selected</cfif>>#Description#</option>
 	</cfoutput>
 <select>
+
 
 <cfoutput>		
 
@@ -98,4 +102,7 @@
 
 </cfoutput>	
 
+<!---
 <cfset AjaxOnLoad("checkreason")>
+--->
+

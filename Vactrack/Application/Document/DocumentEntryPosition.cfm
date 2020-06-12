@@ -38,7 +38,7 @@
    orgunitadministrative = "#Position.OrgUnitAdministrative#" 
    orgunit               = "#Position.OrgUnit#" 
    posttype              = "#Position.PostType#"
-   returnvariable        = "accessTrack">	   
+   returnvariable        = "accessTrack">	       
    
 <cfif accessTrack.status eq "0">
 
@@ -73,14 +73,14 @@
 				<TR>
 			    <TD class="labelmedium"><cf_tl id="PositionNo">:</TD>
 			    <TD>
-					<input class="regularxl" type="text" name="positionno" value="<cfoutput>#Position.PositionNo#</cfoutput>" size="8" maxlength="8" readonly style="text-align: center;">								
+					<input class="regularxl" style="background-color:f1f1f1" type="text" name="positionno" value="<cfoutput>#Position.PositionNo#</cfoutput>" size="8" maxlength="8" readonly style="text-align: center;">								
 				</td>
 				</TR>	
 			
 				<TR>
-			    <TD class="labelmedium"><cf_tl id="Position">:</TD>
+			    <TD style="min-width:120px" class="labelmedium"><cf_tl id="Position">:</TD>
 			    <TD>	
-				    <input class="regularxl" type="text" name="postnumber" size="20" maxlength="20" value="<cfoutput>#Position.SourcePostNumber#</cfoutput>" readonly>								
+				    <input class="regularxl" style="background-color:f1f1f1" type="text" name="SourcePostnumber" size="20" maxlength="20" value="<cfoutput>#Position.SourcePostNumber#</cfoutput>" readonly>								
 				</td>
 				</TR>			
 			
@@ -88,7 +88,7 @@
 			    <TD class="labelmedium" height="23"><cf_tl id="Owner"> :</TD>
 			    <TD class="labelmedium">
 				    <cfoutput>#accessTrack.Owner# / #Position.PostType# 
-					<input type="hidden" name="Owner" value="#accessTrack.Owner#">
+					<input type="hidden" name="Owner"    value="#accessTrack.Owner#">
 					<input type="hidden" name="PostType" value="#Position.PostType#">
 				    </cfoutput>
 				</td>
@@ -96,7 +96,7 @@
 									
 				<TR>
 			    <TD class="labelmedium"><cf_tl id="Post grade">:</TD>
-			    <TD><input type="text" class="regularxl" value="<cfoutput>#Position.PostGrade#</cfoutput>" name="postgrade" size="10" maxlength="10" readonly>
+			    <TD><input type="text" class="regularxl" style="background-color:f1f1f1" value="<cfoutput>#Position.PostGrade#</cfoutput>" name="postgrade" size="10" maxlength="10" readonly>
 				</TD>
 				</TR>	
 						
@@ -110,10 +110,10 @@
 					 <cfoutput>
 					 
 					  <input type="text" 
-					         name="functionaltitle" 
-							 id="functionaltitle"
-							 size="35" 
-							 style="border:0px"
+					         name="FunctionDescription" 
+							 id="FunctionDescription"
+							 size="50" 
+							 style="border:0px;width:98%"
 							 class="regularxl" 
 							 maxlength="60" 
 							 value="#Position.FunctionDescription#" readonly> 
@@ -148,7 +148,7 @@
 			    <TR>
 			    
 			    <td class="labelmedium"><cf_tl id="Unit">:</td>
-				<td><input type="text" name="organizationunit" value="<cfoutput>#Position.OrgUnitName#</cfoutput>" size="70" maxlength="80" class="regularxl">		
+				<td><input type="text" name="OrgUnit" style="background-color:f1f1f1" value="<cfoutput>#Position.OrgUnitName#</cfoutput>" readonly size="60" maxlength="80" class="regularxl">		
 				</td>
 				</TR>		
 				
@@ -225,7 +225,7 @@
 				</TR>			
 			    
 			    <TR>
-			    <TD class="labelmedium" valign="top" style="padding-top:3px"><cf_tl id="Workflow">:</TD>
+			    <TD class="labelmedium" valign="top" style="padding-top:5px"><cf_tl id="Recruitment modality">:</TD>
 			    <TD>   
 				
 					<cfset list = accesstrack.tracks>
@@ -290,6 +290,7 @@
 	</CFFORM>
 		
 </cfif>		
+
 
 <cfset ajaxonload("doCalendar")>
 

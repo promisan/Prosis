@@ -1,46 +1,35 @@
 
-<cfajaximport tags="cfform">
-
 <cfoutput>
 
+<cf_calendarscript>
+<cf_filelibraryscript>
+<cf_actionlistingscript>
+<cf_dialogposition>
+<cfajaximport tags="cfform,cfdiv">
+
 <script language="JavaScript">
+
+	function doFilter() {
+		var vUnits = $('.clsFilterUnit:checked').map(function() {return this.value;}).get().join(',');
+
+		ptoken.navigate('StaffingPositionListing.cfm?mission=#url.mission#&selection=#url.selection#&unit='+vUnits, 'main');
+	}
 	
-	function workflowdrill(key,box){
+	function AddVacancy(postno,box) {
+		ProsisUI.createWindow('mydialog', 'Record Recruitment Track', '',{x:100,y:100,height:600,width:640,modal:true,center:true});	
+		ptoken.navigate('#SESSION.root#/Vactrack/Application/Document/DocumentEntryPosition.cfm?box='+box+'&Mission=#URL.Mission#&ID1=' + postno + '&Caller=Listing','mydialog');	
+	}
 		
-		if (document.getElementById(box).className == "hide") {
-			document.getElementById(box).className = "regular";
-			_cf_loadingtexthtml='';
-			ptoken.navigate('#client.root#/Staffing/Application/Employee/Events/EventWorkflow.cfm?ajaxid='+key,key);	
-		}else{
-			document.getElementById(box).className = "hide";
-		}		
+	function AddEvent(per,pos,box,trg,cde) {    		   		   
+		ProsisUI.createWindow('evdialog', 'HR Event request', '',{x:100,y:100,height:600,width:680,modal:true,resizable:false,center:true})    					
+	   	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventForm.cfm?box='+box+'&portal=1&personNo='+per+'&positionno='+pos+'&trigger='+trg+'&code='+cde,'evdialog')		 	
 	}
 	
-	function eventedit(key) {
-    	Prosis.busy('yes');
-    	_cf_loadingtexthtml='';		
-		ProsisUI.createWindow('evdialog', 'HR Event request', '',{x:200,y:200,height:document.body.clientHeight-100,width:document.body.clientWidth-200,modal:true,resizable:false,center:true})    					
-    	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventForm.cfm?portal=0&id='+key,'evdialog')
-	}
-	
-	function setSelected() { 
-        $('a.selected').each(function() {
-             $(this).click();
-        });
-    } 
-    
-   function eventadd(personno) {    	
-    	Prosis.busy('yes');
-    	_cf_loadingtexthtml='';		
-		ProsisUI.createWindow('evdialog', 'HR Event request', '',{x:200,y:200,height:document.body.clientHeight-100,width:document.body.clientWidth-200,modal:true,resizable:false,center:true})    					
-    	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventForm.cfm?portal=0&personNo='+personno,'evdialog')		 	
-    }
-    
-    function checkevent() {
+	function checkevent() {
 		tc = document.getElementById('triggercode');
 		rid = document.getElementById('eventid');
-		mis = document.getElementById('mission');		
-    	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getEvent.cfm?triggercode='+tc.value+'&eventid='+rid.value+'&mission='+mis.value,'dEvent')
+		mis = document.getElementById('mission');				
+    	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getEvent.cfm?portal=1&triggercode='+tc.value+'&eventid='+rid.value+'&mission='+mis.value,'dEvent')
     }    
 
     function checkreason() {
@@ -49,16 +38,7 @@
 		rid = document.getElementById('eventid');		
     	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getReason.cfm?triggercode='+tc.value+'&eventcode='+ev.value+'&eventid='+rid.value,'dReason');
     }
-    
-    function eventdelete(event) {
-		Ext.MessageBox.confirm('Delete', 'Are you sure ?', function(btn){
-		   if(btn === 'yes'){
-		       ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventsDelete.cfm?eventid='+event,'eventdetail');
-		   }
-		 });
-    }
-
-		
+	
 	function eventsubmit(id,box) {
 	
 		tc  = document.getElementById('triggercode');
@@ -97,10 +77,10 @@
 			Ext.Msg.alert('Effective date', 'Please specify Action effective Date.');		
 		} 
 		else{
-    		ptoken.navigate('#SESSION.root#/Staffing/Application/employee/events/EventFormSubmit.cfm?scope=person&box='+box+'&eventid='+id,'process','','','POST','eventform')		
+    		ptoken.navigate('#SESSION.root#/Staffing/Application/employee/events/EventFormSubmit.cfm?box='+box+'&eventid='+id,'process','','','POST','eventform')		
 		}
 	}
-		
+
 </script>
 
 </cfoutput>

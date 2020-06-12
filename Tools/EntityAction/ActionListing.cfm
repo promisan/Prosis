@@ -358,17 +358,17 @@
 		
 </cfif>
 
-<cfif Attributes.Show eq "Yes" and attributes.subflow eq "No">
+<cfif Attributes.Show neq "No" and attributes.subflow eq "No">
 
 	<table width="<cfoutput>#attributes.Tablewidth#</cfoutput>" align="center">
 	<tr>
-	<td style="padding:1px">
+	<td>
 
-	<table width="100%" cellspacing="0" cellpadding="0" align="center" style="border:0px solid silver;padding:2px">			
-	<tr><td colspan="2" style="padding-top:4px">
+	<table width="100%" align="center" style="border:0px solid silver">			
+	<tr><td colspan="2">
 
 	<table width="100%" border="0">
-	
+			
 </cfif>
 
 <!--- current workflow --->
@@ -462,24 +462,23 @@
 			
 		</cfif>	
 				
-		<cfif Attributes.Show eq "Yes" and Check.recordcount eq "1"> 
+		<cfif (Attributes.Show eq "Yes" or Attributes.Show eq "Mini") and Check.recordcount eq "1"> 
 		
 		    <cfset objectcnt = 0>
-			<cfset object_op = 1>				
-						
+			<cfset object_op = 1>		
+																		
 			<cfinclude template="ActionListingView.cfm"> 
-					
+								
 		</cfif>
 
 </cfif>
 
 <!--- redefine entitygroup --->
 
-
-<cfif Attributes.Show eq "Yes"> 
+<cfif Attributes.Show neq "Yes"> 
 	
 	<cfif entity.showhistory gte "1">
-					
+						
 		<!--- Prior workflow --->
 		
 		<cfquery name="Object" 
@@ -496,10 +495,8 @@
 			
 		<cfoutput query="Object">
 		
-			<cfset ObjectId = "#Object.ObjectId#">
-			   
-			<cfif Attributes.Show eq "Yes"> 
-			
+			<cfset ObjectId = "#Object.ObjectId#">		
+									
 			    <cfset objectcnt = currentrow>
 		    	<cfset object_op = 0>
 				<cfset attributes.subflow = "No">
@@ -507,13 +504,14 @@
 						
 				 <cfinclude template="ActionListingView.cfm">	 
 				 			
-			</cfif>
-		
+					
 		</cfoutput>
 				
-	</cfif>
+	</cfif>	
 	
-	<cfif attributes.subflow eq "No">
+</cfif>
+
+<cfif Attributes.Show neq "No" and attributes.subflow eq "No">
 
 		</table>	
 		
@@ -526,11 +524,11 @@
 		</table>
 	
 	</cfif>
-	
-</cfif>
 
 <!---
 </cftransaction>
 --->
+
+
 
 
