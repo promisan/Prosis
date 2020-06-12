@@ -99,17 +99,19 @@
 	datasource="AppsOrganization" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-		SELECT * 
-		FROM OrganizationObjectActionMail
-		WHERE ObjectId = '#Form.Objectid#'
+		SELECT   * 
+		FROM     OrganizationObjectActionMail
+		WHERE    ObjectId = '#Form.Objectid#'
 		<cfif check.recordcount eq "1">
-		AND   ActionId = '#Check.actionId#'
+		AND      ActionId = '#Check.actionId#'
 		</cfif>
 		<cfif Form.MailScope eq "all">
-	    AND  MailScope = 'all'
+	    AND      MailScope = 'all'
 		</cfif>		
 		ORDER BY Created DESC
-	</cfquery>			
+	</cfquery>	
+	
+	<cfset att = evaluate("FORM.#attbox#_attachsubdir")>		
 		
 	<cfquery name="Insert" 
 	datasource="AppsOrganization" 
@@ -167,7 +169,7 @@
 			  '#Form.MailBody#',
 			  '#form.Priority#',
 			  '1',
-			  '#form.attachsubdir#',
+			  '#att#',
 			  '#SESSION.acc#',
 			  '#SESSION.last#',
 			  '#SESSION.first#')
@@ -324,7 +326,7 @@
 	
 	<cfoutput>
 		<script>
-			document.getElementById('attachsubdir').value = '#rowguid#'
+			document.getElementById('#url.attbox#_attachsubdir').value = '#rowguid#'
 			document.getElementById('att_#url.attbox#_refresh').click()
 		</script>
 	</cfoutput>

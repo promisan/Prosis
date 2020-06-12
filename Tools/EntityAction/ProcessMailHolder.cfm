@@ -917,6 +917,7 @@
 										SUBJECT     = "#sendSubject#"										
 										mailerID    = "#SESSION.welcome# Mail Engine"
 										TYPE        = "html"
+										replyto     = "#fromm#"
 										priority    = "#sendPriority#"
 										spoolEnable = "Yes"			
 										wraptext    = "100">											
@@ -1067,6 +1068,7 @@
 								SUBJECT     = "#sendSubject#"										
 								mailerID    = "#SESSION.welcome# Mail Engine"
 								TYPE        = "html"
+								replyto     = "#fromm#"
 								priority    = "#sendPriority#"
 								spoolEnable = "Yes"			
 								wraptext    = "100">											

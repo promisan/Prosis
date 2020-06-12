@@ -896,46 +896,46 @@
 										
 			<cfif len(ActionMemo) gt "15" or actionReferenceDate neq "">	
 			
-			<tr>
-				<td bgcolor="#cl#" colspan="#col#" style="padding-bottom:1px;">		
-					<table cellpadding="0" cellspacing="0" width="88%" align="center">
-						<tr>
-						     <td bgcolor="#cl#">			
-						     <cfif actionReferenceDate neq "">				    
-								#ActionReferenceNo#: #dateformat(actionReferenceDate,CLIENT.DateFormatShow)#								
-							 </cfif>		
-						     </td>							 
-							 
-							 <cfif find("stylesheet", ActionMemo)>
-							 
-							 <cfelse>
-												 	     
-							 <td colspan="#col-2#" align="left" bgcolor="#cl#">
-							 
-							 <table width="100%" border="0">
-							 									 
-								 <tr>
-								 <td class="labelit" bgcolor="#cl#" style="border:0px dotted silver;word-wrap: break-word; word-break: break-all;padding:5px">
+				<tr>
+					<td bgcolor="#cl#" colspan="#col#" style="padding-bottom:1px;">		
+						<table cellpadding="0" cellspacing="0" width="88%" align="center">
+							<tr>
+							     <td bgcolor="#cl#">			
+							     <cfif actionReferenceDate neq "">				    
+									#ActionReferenceNo#: #dateformat(actionReferenceDate,CLIENT.DateFormatShow)#								
+								 </cfif>		
+							     </td>							 
 								 
-									<cfif len(ActionMemo) lte 100>												 
-										#ParagraphFormat(ActionMemo)#										
-									<cfelse>										 
-										<cf_paragraph mode="cut">#ActionMemo#</cf_paragraph>																 
-									</cfif>
-									
+								 <cfif find("stylesheet", ActionMemo)>
+								 
+								 <cfelse>
+													 	     
+								 <td colspan="#col-2#" align="left" bgcolor="#cl#">
+								 
+								 <table width="100%" border="0">
+								 									 
+									 <tr>
+									 <td class="labelit" bgcolor="#cl#" style="border:0px dotted silver;word-wrap: break-word; word-break: break-all;padding:5px">
+									 
+										<cfif len(ActionMemo) lte 100>												 
+											#ParagraphFormat(ActionMemo)#										
+										<cfelse>										 
+											<cf_paragraph mode="cut">#ActionMemo#</cf_paragraph>																 
+										</cfif>
+										
+									 </td>
+									 </tr>
+																		 
+								 </table>
+								 
 								 </td>
-								 </tr>
-																	 
-							 </table>
-							 
-							 </td>
-							 
-							 </cfif>
-							 
-						</tr>	
-					</table>
-				</td>
-			</tr>	
+								 
+								 </cfif>
+								 
+							</tr>	
+						</table>
+					</td>
+				</tr>	
 										
 			</cfif>				
 								

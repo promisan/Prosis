@@ -22,7 +22,7 @@
    // refresh view
    
 	_cf_loadingtexthtml='';	  
-   ColdFusion.navigate('#session.root#/Tools/EntityAction/Details/Comment/CommentListingContent.cfm?objectid=#url.objectid#','communicatecomment_#vURLObjectId#')
+   ptoken.navigate('#session.root#/Tools/EntityAction/Details/Comment/CommentListingContent.cfm?objectid=#url.objectid#','communicatecomment_#vURLObjectId#')
    
 </script>
 </cfoutput>

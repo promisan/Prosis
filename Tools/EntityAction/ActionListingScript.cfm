@@ -1,6 +1,48 @@
 
 <cfoutput>
 
+
+<style>
+      .Procets{
+          display: inline;
+		  line-height:18px;
+          background:##F4F4F4 url('#SESSION.root#/Images/Process.png') no-repeat 98% center;
+          background-size:16px 16px;
+          border: 1px solid ##cccccc;
+		  border-left: 0px solid ##cccccc;
+          border-radius: 0 8px 8px 0;
+          margin: 0 0 0 0px;
+          font-size: 11px;
+          font-weight: 600;
+          padding: 10px 18px 10px 10px;
+          text-align: left;
+          color: ##D35400;
+          text-transform: uppercase;
+          float: left;
+	      max-width: 158px;
+		  min-width:60px;
+      }
+      .Procets:hover{
+          background:rgba(174, 192, 108,1) url('#SESSION.root#/Images/Process-W.png') no-repeat 98% center;
+          background-size:16px 16px;
+          color: ##FFFFFF;
+          text-decoration: none;
+          cursor:pointer;
+          
+      }
+       @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+	.Procets,.Procets:hover{
+              
+              background-size:16px 16px;
+              max-width: 158px;
+		      min-width: 70px;
+          }
+         
+      }
+	
+		
+ </style>
+
 <cfparam name="url.myclentity" default="">
 
 <!--- provision added 26/4/2010 for reload of a screen --->
@@ -77,13 +119,13 @@
 			try {			 
 				cd = document.getElementById("workflowcondition_"+ajaxid).value;
 				_cf_loadingtexthtml="";
-				ColdFusion.navigate(ln+cd,ajaxid)
+				ptoken.navigate(ln+cd,ajaxid)
 				_cf_loadingtexthtml="<div><img src='<cfoutput>#SESSION.root#</cfoutput>/images/busy11.gif'/>";	
 				
 			} catch(e) {	
 			
 			    _cf_loadingtexthtml="";											  	    
-			    ColdFusion.navigate(ln+'?ajaxid='+ajaxid,ajaxid)												
+			    ptoken.navigate(ln+'?ajaxid='+ajaxid,ajaxid)												
 				_cf_loadingtexthtml="<div><img src='<cfoutput>#SESSION.root#</cfoutput>/images/busy11.gif'/>";							
 				
 				}			

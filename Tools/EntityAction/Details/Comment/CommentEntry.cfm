@@ -65,7 +65,7 @@ WHERE      ObjectId = '#URL.Objectid#'
 				
 						<td align="right" style="padding-left:6px;padding-right:7px">			
 							<cfoutput>		
-								<input type="button" onclick="updateTextArea();ptoken.navigate('#session.root#/Tools/EntityAction/Details/Comment/CommentEntrySubmit.cfm?objectid=#url.objectid#&attbox=#att#','processchat','','','POST','entryform')" name="Submit" value="Submit" class="button10g" style="width:100px;height:25px;border-radius:0px">
+								<input type="button" onclick="updateTextArea();ptoken.navigate('#session.root#/Tools/EntityAction/Details/Comment/CommentEntrySubmit.cfm?objectid=#url.objectid#&attbox=mycomment','processchat','','','POST','entryform')" name="Submit" value="Submit" class="button10g" style="width:100px;height:25px;border-radius:0px">
 							</cfoutput>			
 						</td>
 						</tr>
@@ -174,7 +174,7 @@ WHERE      ObjectId = '#URL.Objectid#'
 					color="Transparent"		
 					Width="100%"
 					height="100%"
-					Box = "#att#"
+					Box = "mycomment"
 					attachdialog="cfwindow"
 					showsize="0"
 					Insert="yes"

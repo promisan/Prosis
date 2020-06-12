@@ -91,6 +91,38 @@
 			         '#SESSION.first#')
 	</cfquery>
 	
+	<cfquery name="Event" 
+	datasource="AppsEmployee" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT PE.*, P.FullName, RPE.EntityClass
+		FROM   PersonEvent PE
+			   INNER JOIN Person P ON PE.PersonNo = P.PersonNo
+			   LEFT OUTER JOIN Ref_PersonEvent RPE ON RPE.Code = PE.EventCode
+		WHERE  PE.EventId = '#Form.Eventid#'
+	</cfquery>
+	
+	<cfif Event.EntityClass neq "">
+		<cfset entityclass = Event.EntityClass>
+	<cfelse>
+		<cfset entityclass = "Standard">
+	</cfif>
+	
+	<cfset link = "Staffing/Application/Employee/Events/EventDialog.cfm?id=#Form.Eventid#">
+	
+	<cf_ActionListing 
+		    EntityCode       = "PersonEvent"
+			EntityClass      = "#entityclass#"
+			EntityStatus     = ""
+			Mission          = "#Event.Mission#"
+			PersonNo         = "#Event.PersonNo#" 
+			ObjectReference  = "#Event.FullName#"
+			ObjectReference2 = "#Event.Remarks#"			   
+			ObjectKey4       = "#Form.eventid#"					
+			Show             = "No"
+			HideCurrent      = "No"			
+			ObjectURL        = "#link#">
+	
 <cfelse>
 
 	<cfquery name="qUpdate" 
@@ -126,11 +158,21 @@
 
 </cfif>
 
-<cfif url.scope neq "matrix">
+<cfif url.box neq "">
+
+	<cfoutput>
+		<script>			
+			try { ProsisUI.closeWindow('evdialog',true) } catch(e) {}
+			// ptoken.open('#SESSION.root#/staffing/Application/Employee/Events/EventDialog.cfm?id=#form.EventId#','#form.eventid#')
+			workflowreload('#url.box#');	
+		</script>
+	</cfoutput>
+
+<cfelseif url.scope neq "matrix">
 	
 	<cfoutput>
 		<script>
-			ColdFusion.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventsListing.cfm?id=#FORM.PersonNo#','eventdetail');
+			ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventsListing.cfm?id=#FORM.PersonNo#','eventdetail');
 			try { ProsisUI.closeWindow('evdialog',true) } catch(e) {}
 		</script>
 	</cfoutput>
