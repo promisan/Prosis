@@ -474,6 +474,7 @@
 					 
 					 <td style="width:25%" style="width:25%;border-top:1px solid B0B0B0;border-bottom:1px solid B0B0B0;border-right:1px solid silver">
 
+					 
 					 	<cfif EnableAssignmentReview eq 1>
 					 
 							<cfif AccessStaffing eq "EDIT" or AccessStaffing eq "ALL" 
@@ -518,7 +519,7 @@
 						</td>
 												
 						<td style="padding-left:5px;width:25%" align="center">
-
+						
 						<cfif EnableAssignmentReview eq 1>
 						
 							<cfif AccessStaffing eq "EDIT" or AccessStaffing eq "ALL" 
@@ -757,6 +758,8 @@
 					
 					<tr class="">
 					    <td colspan="3"></td>
+						
+												
 					    <td height="22" colspan="9" align="center" bgcolor="FEBBAF" class="labelit" style="border-left:1px solid B0B0B0;padding-left:6px">
 						
 							<font color="black">

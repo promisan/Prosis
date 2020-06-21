@@ -42,6 +42,7 @@
 	WHERE  DocumentNo   = '#URL.ID#' 
 	AND    R.Class      = 'Candidate' 
 	AND    DC.Status IN ('2s','3')	
+
 </cfquery>
 
 <cfquery name="Mission" 
@@ -90,6 +91,7 @@ password="#SESSION.dbpw#">
 			WHERE  ObjectKeyValue1 = '#URL.ID#'
 			AND    ObjectKeyValue2 = '#PersonNo#'
 			AND    Operational  = 1
+			
 		</cfquery>
 	
 	    <cfif Check.recordcount eq "1">

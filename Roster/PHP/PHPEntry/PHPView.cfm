@@ -275,6 +275,7 @@ password="#SESSION.dbpw#">
 		size 	  = "10px">	
 									  
 		<cfinclude template="PHPIdentity.cfm">	
+				
 			 			  
 	</cf_layoutarea>			
 	
@@ -318,7 +319,7 @@ password="#SESSION.dbpw#">
 			maxsize     = "159" 		
 			size        = "150" 
 			minsize     = "150"			
-			collapsible = "false" 
+			collapsible = "true" 
 			splitter    = "true"
 			overflow    = "scroll">
 					

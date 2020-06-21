@@ -65,10 +65,12 @@ password="#SESSION.dbpw#">
 		  '#SESSION.first#')
 </cfquery>
 
+
+<cfif Session.Status lte 0> <!---- rfuentes because the ajax somehow it was calling it many times, June-17 2020 ------->
 	
 <cftransaction>
 	
-	<cfset Session.Message = "Gathering addressees">
+	<cfset Session.Message = "Gathering addresses">
 	<cfset Session.Status  = 0.1>
 	
 	<cfquery name="qSelect" 
@@ -294,8 +296,11 @@ password="#SESSION.dbpw#">
 		</cfif>   
 
 </cftransaction>
+
 		
 <cfset Session.Status = 1>
+
+</cfif>
 
 <cfoutput>
 

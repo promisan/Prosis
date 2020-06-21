@@ -25,6 +25,7 @@
 	         default="#SESSION.rootDocumentPath#\">
 </cfif>		
 
+
 <cfdirectory action="LIST"
    directory="#Attributes.DocumentHost#\#attributes.DocumentPath#\#attributes.SubDirectory#"
    name="GetFiles"

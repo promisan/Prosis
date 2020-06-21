@@ -157,7 +157,7 @@
 							   value      = "#Topic.documentItemValue#" 
 							   name       = "f_#documentcode#" 
 							   init       = "Yes"
-							   id         = "f_#DocumentCode#" toolbar="basic">#Topic.documentItemValue#</cf_textarea>													 						
+							   id         = "f_#DocumentCode#" toolbar="mini">#Topic.documentItemValue#</cf_textarea>													 						
 																				
 						  </cfcase>
 						

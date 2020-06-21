@@ -137,6 +137,7 @@ password="#SESSION.dbpw#">
 	ORDER BY WO.Created DESC
 </cfquery>
 
+
 <cfif Detail.recordcount eq "0" and (access eq "EDIT" or access eq "ALL")>
      <cfparam name="URL.ID2" default="new">
 <cfelse>

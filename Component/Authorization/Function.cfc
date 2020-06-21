@@ -35,7 +35,8 @@
 			   <cfif anonymous neq "">
 			   AND     EnableAnonymous = '#anonymous#' 
 			   </cfif>	
-			   ORDER BY MenuClass, MenuOrder  			   			   
+			   ORDER BY MenuClass, MenuOrder  		
+			      			   
 		</cfquery>				
 		
 	    <cfset listaccess = "">		
@@ -68,8 +69,8 @@
 				 mission            = "#mission#"
 				 orgunit            = "#orgunit#"
 				 SystemFunctionId   = "#SystemFunctionId#" 
-				 returnvariable     = "access">	 		 
-				  	  		  
+				 returnvariable     = "access">	 	
+								  	  		  
 			</cfif>		
 			
 			<cfif access is "GRANTED" or access is "ALL" or access is "EDIT"> 

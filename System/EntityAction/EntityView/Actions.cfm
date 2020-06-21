@@ -210,6 +210,7 @@
 			
                 <cf_mobilecell class="col-md-1 col-sm-12" style="width:40px; padding-top:5px;">
 
+				    <!---
                     <cf_UIToolTip
                         id         = "d#replace(left(objectid,8),"-","")#"
                         contentURL = "#SESSION.root#/system/entityaction/entityview/myclearancetooltip.cfm?objectid=#objectid#"
@@ -218,6 +219,7 @@
                         Width      = "250"
                         Height     = "100"
                         Duration   = "300">
+						--->
 
                             <cfif ActionStatus eq "2">        
 							
@@ -248,7 +250,9 @@
                                 
                             </cfif>
 
+					<!---				
                     </cf_UIToolTip>
+					--->
 
                 </cf_mobilecell>
 

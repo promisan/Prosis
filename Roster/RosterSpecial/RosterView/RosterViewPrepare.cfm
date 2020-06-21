@@ -94,6 +94,7 @@ password="#SESSION.dbpw#">
 		
 		AND Fo.Status != '9'
 		
+				
 		<cfif URL.Edition eq "All">
 		
 			<cfif Owner.HidePostSpecific eq "1">

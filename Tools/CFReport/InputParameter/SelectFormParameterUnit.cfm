@@ -2,6 +2,7 @@
 <cfset flyfilter = "">
 
 
+
 <cfif LookupMultiple eq "0">
 				
 	<cfif CriteriaInterface neq "Combo">		

@@ -16,6 +16,7 @@
 		WHERE  Source = '#url.source#'
 </cfquery>
 
+
 <cf_param name="heading"            default="0"          type="String"> 
 <cf_param name="url.section"		default=""           type="String">
 <cf_param name="URL.entryScope"     default="Backoffice" type="String">
@@ -265,13 +266,13 @@
 	datasource="AppsSelection" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	SELECT   F.*, 
-	         P.Parent AS Parent, 
-			 S.ExperienceFieldId AS Currently
-	FROM     #CLIENT.LanPrefix#Ref_ExperienceClass P INNER JOIN
-             #CLIENT.LanPrefix#Ref_Experience F ON P.ExperienceClass = F.ExperienceClass LEFT OUTER JOIN
-             ApplicantBackgroundField S ON F.ExperienceFieldId = S.ExperienceFieldId AND S.ExperienceId = '#URL.ID#'
-	WHERE    F.Status = 1 
+		SELECT   F.*, 
+		         P.Parent AS Parent, 
+				 S.ExperienceFieldId AS Currently
+		FROM     #CLIENT.LanPrefix#Ref_ExperienceClass P INNER JOIN
+	             #CLIENT.LanPrefix#Ref_Experience F ON P.ExperienceClass = F.ExperienceClass LEFT OUTER JOIN
+	             ApplicantBackgroundField S ON F.ExperienceFieldId = S.ExperienceFieldId AND S.ExperienceId = '#URL.ID#'
+		WHERE    F.Status = 1 
 	</cfquery>
 		
 <cfelse>	
@@ -282,31 +283,29 @@
 	datasource="AppsSelection" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-    SELECT    R.*, NULL as Currently, P.Parent
-    FROM      Ref_Experience R, 
-	          Ref_ExperienceClass P
-	WHERE     R.ExperienceClass = P.ExperienceClass
-	AND       P.Parent IN (#preserveSingleQuotes(lookup)#)
-	AND       R.Status = '1'
-	ORDER BY  P.Parent, R.ListingOrder, R.Description 
+	    SELECT    R.*, NULL as Currently, P.Parent
+	    FROM      Ref_Experience R, 
+		          Ref_ExperienceClass P
+		WHERE     R.ExperienceClass = P.ExperienceClass
+		AND       P.Parent IN (#preserveSingleQuotes(lookup)#)
+		AND       R.Status = '1'
+		ORDER BY  P.Parent, R.ListingOrder, R.Description 
 	</cfquery>
 
 </cfif>
 
 <cfoutput>
 
- <script language="JavaScript">
-
- function validateform() {   
- 		
-	document.getElementById('backgroundform').onsubmit();
+	 <script language="JavaScript">
+	
+		 function validateform() {   	 		
+			document.getElementById('backgroundform').onsubmit();		 
+			if(!_CF_error_exists) {    	    	 
+				ptoken.navigate('BackgroundEntrySubmit.cfm?owner=#url.owner#&applicantno=#url.applicantno#&section=#url.section#&entryScope=#url.entryScope#&source=#url.source#&ID=#URL.ID#&ID1=#URL.ID1#&ID2=#URL.ID2#&Topic=#URL.Topic#&Mode=#URL.Mode#','process','','','POST','backgroundform')
+			}   
+		  }	 
 	 
-	 if(!_CF_error_exists) {    	    	 
-		ptoken.navigate('BackgroundEntrySubmit.cfm?owner=#url.owner#&applicantno=#url.applicantno#&section=#url.section#&entryScope=#url.entryScope#&source=#url.source#&ID=#URL.ID#&ID1=#URL.ID1#&ID2=#URL.ID2#&Topic=#URL.Topic#&Mode=#URL.Mode#','process','','','POST','backgroundform')
-	 }   
- }	 
- 
- </script>
+	 </script>
   
 </cfoutput>
  
@@ -662,7 +661,7 @@
 				   </tr>
 				   
 				   --->
-				   
+				   				   				   
 				   <!--- text topics --->
 				  
 					<cfquery name="Detail" 
@@ -781,21 +780,21 @@
 				<cfset cnt = 0>		
 				<tr>	
 				<td colspan="2" width="99%" align="center">
-				
+																
 				<cfif source.PHPMode eq "Basic">
 				
 					<!--- no detailed keyword entry supported for basic mode  --->
 				
 				<cfelse>
-				
+								
 					<cf_param name="url.owner" default="" type="String">
 					<cf_param name="url.mode" default="1" type="String">
 												
-					<cfif URL.mode eq "1">
+					<cfif URL.mode eq "1">																
 					     <cfset URL.Parent = URL.ID2>
 					     <cfset URL.Id1    = URL.ID2>					
-					     <cfinclude template="../Keyword/KeywordEntry.cfm"> 
-					<cfelse>
+					     <cfinclude template="../Keyword/KeywordEntry.cfm"> 						
+					<cfelse>					
 						 <cfinclude template="TopicEntryDetail.cfm"> 
 					</cfif> 
 				
@@ -806,7 +805,7 @@
 				
 				<tr><td height="1" colspan="2" class="linedotted"></td></tr>
 				<tr><td colspan="2" align="center">
-				
+								
 					<table align="center" class="formspacing">
 					<tr>	
 					<cf_tl id="Back" var="1">

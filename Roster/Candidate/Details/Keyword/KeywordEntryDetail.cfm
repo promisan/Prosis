@@ -92,27 +92,28 @@
 										
 					<cfif url.owner eq "">
 					
+																										
 						<cfset suf = replaceNoCase(url.id,"-","","ALL")>
-																
+																																								
 						<cfif Selected eq "0">
-							<input type    = "checkbox" 
-						       name    = "fieldid_#suf#" 
-							   value   = "'#ExperienceFieldId#'" 
-							   onClick = "hl(this,this,this.checked,'#parent#','#x#','#vID#','#ExperienceClass#','#ClassMin#','#ClassMax#');"></TD>
+							<input type = "checkbox" 
+						       name     = "fieldid_#suf#" 
+							   value    = "'#ExperienceFieldId#'" 
+							   onClick  = "hl(this,this,this.checked,'#parent#','#x#','#vID#','#ExperienceClass#','#ClassMin#','#ClassMax#');"></TD>
 						<cfelse>
 						<cfset det = det&","&#ExperienceFieldId#>
-							<input type    = "checkbox" 
+							<input type = "checkbox" 
 						       	name    = "fieldid_#suf#"
 							   	value   = "'#ExperienceFieldId#'" 
 							   	checked onClick="hl(this,this,this.checked,'#parent#','#x#','#vID#','#ExperienceClass#','#ClassMin#','#ClassMax#');">
 						 </cfif>	 
 						 
 					<cfelse>
-															
+																									
 						<cfset suf = replaceNoCase(url.id,"-","","ALL")>
 														
 						<cfif Selected eq "0">
-							<input type    = "checkbox" 
+							<input type = "checkbox" 
 						       	name    = "fieldid_#suf#"
 							   	value   = "'#ExperienceFieldId#'" 
 							   	onClick = "hl(this,this,this.checked,'#parent#','#x#','#URL.ID#','#ExperienceClass#','#ClassMin#','#ClassMax#');">
@@ -127,7 +128,9 @@
 					</cfif>
 						   
 					</td>
+					
 					<td width="98%" class="labelit" style="padding-left:5px;padding-right:20px">#Description#</td>
+					
 					</tr>
 					
 				</table>

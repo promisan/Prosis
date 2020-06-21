@@ -584,10 +584,11 @@ function hl(itm,fld){
 							 align="absmiddle" style="cursor: pointer;">
 						
 		 				 </td>
-						 <td style="padding-top:40px;height:50px;font-size:25px;padding-left:10px" class="labellarge"><cf_tl id="Custom Fields"></td>
+						 
+						 <td style="padding-top:40px;height:50px;font-size:25px;padding-left:10px" class="labelmedium"><cf_tl id="Custom Fields"></td>
 						 <td style="padding-top:40px;height:50px;padding-left:10px" align="right" class="labelit">Linked to Workflow Steps or Workflow Objects</td>
-					 </tr>
-									 
+						 
+					 </tr>									 
 									 
 					 <tr><td colspan="3">  
 					 
