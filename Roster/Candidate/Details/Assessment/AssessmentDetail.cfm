@@ -145,7 +145,7 @@ password="#SESSION.dbpw#">
   SELECT *
   FROM   ApplicantAssessment
   WHERE  PersonNo  = '#URL.ID#'
-  AND    Owner = '#URL.Owner#'
+  AND    Owner     = '#URL.Owner#'
 </cfquery>
 
 <cfif check.recordcount eq "0">
@@ -159,8 +159,16 @@ password="#SESSION.dbpw#">
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 	  INSERT INTO ApplicantAssessment
-	  (PersonNo, Owner, AssessmentId,OfficeruserName,OfficerlastName,OfficerFirstName)
-	  VALUES ('#URL.ID#', '#URL.Owner#','#id#','#SESSION.acc#','#SESSION.last#', '#SESSION.first#')
+		         (PersonNo, 
+				  Owner, 
+				  AssessmentId,
+				  OfficerUserName,
+				  OfficerlastName,
+				  OfficerFirstName)
+	  VALUES ('#URL.ID#',
+	          '#URL.Owner#',
+			  '#id#',
+			  '#SESSION.acc#','#SESSION.last#', '#SESSION.first#')
 	</cfquery>
 	
 <cfelse>
@@ -178,8 +186,8 @@ username="#SESSION.login#"
                  Ref_Assessment R ON R1.Code = R.AssessmentCategory INNER JOIN
                  ApplicantAssessment P INNER JOIN
                  ApplicantAssessmentDetail A ON P.AssessmentId = A.AssessmentId ON R.Owner = A.Owner AND R.SkillCode = A.SkillCode AND P.Owner = '#URL.Owner#' AND 
-                 P.PersonNo = '#URL.ID#'
-		WHERE    R.Owner = '#URL.Owner#'	
+                 P.PersonNo    = '#URL.ID#'
+		WHERE    R.Owner       = '#URL.Owner#'	
 		AND      R.Operational = 1	  
 		ORDER BY A.Source, R.AssessmentCategory, R.ListingOrder			
 </cfquery>	
@@ -190,12 +198,12 @@ username="#SESSION.login#"
 		
 <cfelse>
   						
-	<table width="98%" border="0" cellspacing="0" cellpadding="0" align="center">
+	<table width="98%" align="center">
 	
 	<tr>
 	    <td width="100%" colspan="2">
 		
-	    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+	    <table width="100%" class="formpadding">
 		 
 		<tr>
 		<td class="labellarge" height="23"><cf_tl id="Job Assessment"> <cfoutput>#url.owner#</cfoutput></b></td>

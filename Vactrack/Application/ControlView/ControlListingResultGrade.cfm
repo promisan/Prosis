@@ -21,14 +21,14 @@ function listing(box,ent,code,act) {
   
 </script>  
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" class="navigation_table">
+<table width="100%" class="navigation_table">
 
 <cfoutput query = "Summary">
 	   
 	    <cfif counted gt "0">
 		
-		  <tr class="line"><td colspan="1" height="20" width="5%" align="center">
-		  
+		  <tr class="line fixrow"><td colspan="1" height="20" width="5%" align="center">
+		  		
 		    <cfif url.mode neq "Print">
 		   
 			<img src="#SESSION.root#/Images/arrowright.gif" alt="" 
@@ -58,7 +58,7 @@ function listing(box,ent,code,act) {
 		<td colspan="3" align="center" id="d#CurrentRow#">
 		
 			<cfset URL.EntityCode = "">
-			<cfset URL.Code       = PostOrderBudget>
+			<cfset URL.Code       = PostGradeBudget>			
 			<cfinclude template   = "ControlListingResultGradeDetail.cfm">
 	    </td>
 		

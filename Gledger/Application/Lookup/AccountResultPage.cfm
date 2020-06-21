@@ -10,7 +10,7 @@
 
 <cfif pages gte "2">
 
-<select name="page" id="page" size="1" style="border:0px" class="regularxl" onChange="reloadForm()">
+<select name="page" id="page" size="1" style="border:0px" class="regularxl" onChange="reloadForm('quick')">
     <cfloop index="Item" from="1" to="#pages#" step="1">
         <cfoutput><option value="#Item#"<cfif URL.page eq "#Item#">selected</cfif>>Page #Item# of #pages#</option></cfoutput>
    	</cfloop>	 

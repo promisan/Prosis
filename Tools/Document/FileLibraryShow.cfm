@@ -91,8 +91,6 @@
 
 	</cfif>	
 	
-
-
 <table width="#boxw#" align="center" cellspacing="0" cellpadding="0">
 
 <tr class="hide"><td class="labelit" id="doclogaction"></td></tr>
@@ -101,13 +99,13 @@
 
 <cfif (insert eq "yes" or remove eq "yes") and listing eq "1">
 
-	 <input type="hidden" name="attachsubdir" id="attachsubdir" value="#Subdirectory#">		
+	 <input type="hidden" name="#attbox#_attachsubdir" id="#attbox#_attachsubdir" value="#Subdirectory#">		
 
 	 <!--- used to refresh data which can be called from others --->
 		
      <input type="button" 
 	     id="att_#attbox#_refresh" name="att_#attbox#_refresh" style="width:30"
-		 onclick="attrefresh('#mode#','#DocumentPath#','#host#',document.getElementById('attachsubdir').value,'#Filter#','#list#','#ShowSize#','#Listing#','#Insert#','#remove#','#color#','#attbox#','#rowheader#','#boxw#','#Align#','#Border#','#attachdialog#','#inputsize#','#pdfscript#','#embedgraphic#','#documentserver#','#presentation#','#maxfiles#')" 
+		 onclick="attrefresh('#mode#','#DocumentPath#','#host#',document.getElementById('#attbox#_attachsubdir').value,'#Filter#','#list#','#ShowSize#','#Listing#','#Insert#','#remove#','#color#','#attbox#','#rowheader#','#boxw#','#Align#','#Border#','#attachdialog#','#inputsize#','#pdfscript#','#embedgraphic#','#documentserver#','#presentation#','#maxfiles#')" 
 	     class="hide"> 
 	
 </cfif>
@@ -137,7 +135,8 @@
 <cfelse>
 
 	<cftry>
-				
+	
+					
 	  <cfdirectory action="LIST" 
 		directory="#rt##DocPath#\#SubDirectory#" 
 		name="GetFileSource" 

@@ -3,6 +3,7 @@
 <cfparam name="orow"         default="0">
 <cfparam name="recruitmenttrack" default="0">
 <cfparam name="funding"      default="">
+<cfparam name="prior"        default="">
 
 <cf_tl id="Vacant" var="1">
 <cfset tVacant = lt_text>
@@ -23,15 +24,23 @@
 	<cf_assignid>	
 	
 	<cfset menufile = "#SESSION.root#/staffing/application/position/mandateview/MandateViewOrganizationPositionMenu.cfm?class=#class#&positionno=#positionno#&AjaxId=posmenu">		
-	   
-	<cfset orow = orow+1>
 	 
-	<tr bgcolor="#cl#" class="navigation_row labelmedium" style="height:22px;border-top:1px solid silver" onContextMenu="cmexpand('posmenu','#rowguid#','#menufile#')">
-			
+	<cfif prior neq PositionNo>  
+		<cfset orow = orow+1>
+	</cfif>	
+	 
+	<tr bgcolor="#cl#" class="navigation_row labelmedium" style="height:22px;border-top:1px solid silver">
+	
+		<cfif prior eq PositionNo>
+		
+		<td colspan="5" style="min-width:617px"></td>
+		
+		<cfelse>
+					
 		<td align="center" style="min-width:60px;height:19px">#orow#.</td>   
 	   
 	    <td style="min-width:40px">
-	
+			
 			<table>
 			<TR>		
 					    				
@@ -63,23 +72,25 @@
 				
 			</tr>
 			</table>
-		
+					
 	    </td>		    
                
 	    <td style="min-width:70px">#PostGrade#<td>
 	   
 	    <td style="min-width:280px">
-		  
+		 
+		 
 		   <cfset fun = rtrim(ltrim(FunctionDescription))>
 		  	   
 		   <cfif len(fun) gte "27">
 			   <cfset fun = "#left(fun,27)#..">	   
 		   </cfif>
 		   #fun#
-		   
+		 		   
 	   </td>
 	  
 	  <td style="min-width:90px;padding-left:2px">   
+		  
 		  
 		   <table>
 			<tr>			
@@ -97,13 +108,15 @@
 			   </td>		   		 		   
 			</tr>
 		   </table>
-		    
-	   </td>	 
+		 		    
+	   </td>	
 	   
 	   <td style="min-width:70px;padding-left:4px">
 		<!---- rfuetnes to show the name instead of the code ----->
-		   <cfif TRIM(LocationName) neq "">#LocationName#<cfelse>#LocationCode#</cfif>
-	   </td>	   
+		   <cfif TRIM(LocationName) neq "">#LocationName#<cfelse>#LocationCode#</cfif> 
+	   </td>	
+	   
+	    </cfif>    
 	   
 	   <td style="padding-left:10px;min-width:45px">
 	   
@@ -290,13 +303,13 @@
 								
 		<cfloop query="doc">	
 						
-			<tr bgcolor="yellow" class="labelmedium" style="height:22px;">
+			<tr bgcolor="yellow" class="labelmedium" style="height:22px;border-top:1px solid silver">
 			
 				<td align="center">
 					<img src="#SESSION.root#/Images/join.gif" alt="Recruitment action" border="0" align="middle" style="cursor: pointer;" onClick="showdocument('#DocumentNo#')">
 				</td>			
 				
-				<td colspan="13">
+				<td colspan="15">
 				    <table cellspacing="0" cellpadding="0">
 					<tr class="labelmedium" style="height:22px">
 					
@@ -345,7 +358,7 @@
 		</cfloop>								
 	 	
 	</cfif> 
-    
+	    
   <cfif funding neq "">
     
 	<cfquery name="FundingSel" 
@@ -368,14 +381,15 @@
 		AND      R.ActionStatus NOT IN ('0','0z','9')			
 		ORDER BY DateExpiration DESC, R.Created DESC
 	</cfquery>
+	
 		 
 	<cfif fundingsel.recordcount gte "1">
 	
 		<tr>
 			<td valign="top" align="center"><img src="#SESSION.root#/Images/join.gif" border="0" align="absmiddle"></td>						
-		    <td colspan="11">
+		    <td colspan="14">
 		   
-				<table border="0" align="center" width="100%" cellspacing="0" cellpadding="0">
+				<table align="center" width="100%">
 					    
 					  <tr>
 					  		    	    
@@ -400,7 +414,7 @@
 									   <td><a href="javascript:ProcReqEdit('#RequisitionNo#','dialog')"><font color="0080C0"><u>#Reference#</u></font></a></td>								   
 									   <td>#RequestDescription# </td>
 									   <td>#OfficerFirstName# #OfficerLastName# (#Dateformat(created,CLIENT.DateFormatShow)#)</td>	
-									   <td align="right">#Numberformat(requestAmountBase,"__,__.__")#</td>				  							   							 				   							   
+									   <td align="right">#Numberformat(requestAmountBase,",.__")#</td>				  							   							 				   							   
 								    </TR>											
 									
 								</cfloop>
@@ -418,8 +432,10 @@
 	</cfif>	 
 	
   </cfif>	
+  
+  <!--- this was just a wiggle for ruy to show the red line under the 2nd row of the position assignments --->
 	 
-  <cfif ParentOrgUnit neq OrgUnitOperational and Class eq "Used">
+  <cfif ParentOrgUnit neq OrgUnitOperational and Class eq "Used" and (occurence eq "1" or prior eq PositionNo)>
   
   		<cfquery name="LaterPosition" 
        datasource="AppsEmployee" 
@@ -430,8 +446,7 @@
 		 WHERE  PositionNo      != '#PositionNo#'
 		 AND    PositionParentId = '#PositionParentid#'
 		 AND    DateEffective  > '#DateFormat(DateExpiration,client.dateSQL)#'
-	   </cfquery>
-	  	  
+	   </cfquery>	  	  
 	   
 	   <cfif LaterPosition.recordcount eq "0">
 	
@@ -451,23 +466,24 @@
 			password="#SESSION.dbpw#">
 				SELECT OrgUnitName
 				FROM   Organization
-				WHERE  Mission   = '#Parent.Mission#'
+				WHERE  Mission     = '#Parent.Mission#'
 				AND    MandateNo   = '#Parent.MandateNo#'
 				AND    OrgUnitCode IN (SELECT ParentOrgUnit  
-				                       FROM Organization 
-									   WHERE OrgUnit = '#Parent.OrgUnit#')
+				                       FROM   Organization 
+									   WHERE  OrgUnit = '#Parent.OrgUnit#')
 			</cfquery>
 			
-			<tr style="height:25px" bgcolor="EAF4FF">
-				<td colspan="13" height="100%">
-				<table width="100%" border="0" cellspacing="0" cellpadding="0">
-					<tr bgcolor="EAF4FF"style="height:100%">
-					<td class="labelit" style="min-width:140px;padding-left:10px"><cf_tl id="Borrowed from">:</TD>	
-					<TD class="labelit" width="100%">
+			<tr>
+			   
+				<td colspan="16" height="100%" style="height:21px;border-left:1px solid silver;border-right:1px solid silver">
+				<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+					<tr bgcolor="FFBBBB" class="labelmedium" style="height:100%">
+					<td style="min-width:140px;padding-left:10px"><cf_tl id="Borrowed from">:</TD>	
+					<TD width="100%">
 					<cfif URL.PDF eq 0>
 						<A HREF ="javascript:EditPost('#PositionNo#')">
 					</cfif>
-					<b>#Parent.Mission# - 
+					#Parent.Mission# - 
 					<cfif ParentP.recordcount eq "1">#ParentP.OrgUnitName#/</cfif>#Parent.OrgUnitName#</b></A>
 					<cfparam name="ParentFunctionDescription" default="">
 					<b>#ParentFunctionDescription#</b>
@@ -480,8 +496,8 @@
 		</cfif>	
     
 	</cfif>
-		 		 
-	 <cfif Class eq "Loaned" and ParentOrgUnit neq OrgUnitOperational>
+							 
+	 <cfif Class eq "Loaned" and ParentOrgUnit neq OrgUnitOperational and incumbency neq "0">	 
 	 
 	 	<cfquery name="LaterPosition" 
     	   datasource="AppsEmployee" 
@@ -498,7 +514,7 @@
 		 
 			 <tr style="height:30px" bgcolor="EAF4FF">
 			 
-				 <td colspan="13" style="height:100%">
+				 <td colspan="16" style="height:100%">
 				 
 					 <table height="100%" width="100%">
 					 
@@ -508,7 +524,7 @@
 						password="#SESSION.dbpw#">
 							SELECT *
 							FROM   Organization.dbo.Organization Org
-							WHERE  Org.OrgUnit = #ParentOrgUnit#
+							WHERE  Org.OrgUnit = #OrgUnitOperational#
 						</cfquery>	
 					 
 					   <cfquery name="ParentP" 
@@ -522,13 +538,14 @@
 							AND    OrgUnitCode IN (SELECT ParentOrgUnit FROM Organization WHERE OrgUnit = '#Loaned.OrgUnit#')
 						</cfquery>
 											 
-						<tr>
-							<td class="labelit" colspan="1" height="30" style="min-width:130px;padding-left:10px">On loan from:</TD>	
-							<TD class="labelit" colspan="1" width="100%">
+						<tr class="labelmedium">
+							<td height="30" style="min-width:140px;padding-left:10px">Loaned to:</TD>	
+							<TD width="100%">
 							<cfif URL.PDF eq 0><A HREF ="javascript:EditPost('#PositionNo#')"></cfif><b>
 							#Loaned.Mission# - 
-							<cfif ParentP.recordcount eq "1">#ParentP.OrgUnitName#/</cfif>#Loaned.OrgUnitName#</b></A></TD>
-						</TR>	 
+							<cfif ParentP.recordcount eq "1">#ParentP.OrgUnitName#/</cfif>#Loaned.OrgUnitName#</A></TD>
+						</tr>	
+						 
 					 </table>
 					 
 				 </td>

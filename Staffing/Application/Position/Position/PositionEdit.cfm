@@ -950,6 +950,7 @@ password="#SESSION.dbpw#">
 			    		#Mission#
 					</option>
 					</cfoutput>
+					
 			    </select>
 			
 			</td>
@@ -1523,7 +1524,7 @@ password="#SESSION.dbpw#">
 									</script>	
 								</cfoutput>		
 													
-								<cfdiv id="gradeselect" 
+								<cf_securediv id="gradeselect" 
 								  bind="url:PositionGradeSelect.cfm?field=postgrade&posttype={posttype}&presel=#Position.PostGrade#&mission=#url.id#&functionno=#Position.FunctionNo#"/>
 																						
 					    <cfelse>
@@ -1677,7 +1678,7 @@ password="#SESSION.dbpw#">
 				
 				    <tr><td>as :</td><td style="padding-left:3px">
 				
-					<cfdiv id="approvalpostgrade" 
+					<cf_securediv id="approvalpostgrade" 
 					  bind="url:PositionGradeSelect.cfm?field=ApprovalPostGrade&posttype={posttype}&presel=#Position.PostGrade#&mission=#url.id#&functionno=#Position.FunctionNo#"/>				
 								  
 					</td>

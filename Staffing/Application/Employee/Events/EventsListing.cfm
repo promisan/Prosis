@@ -194,7 +194,7 @@
 							    </cfif>
 						   </td>
 						
-						   <td style="width:20px">
+						   <td style="width:20px;padding-top:4px">
 						   
 						   	<cfif EntityClass neq "">
 						   			
@@ -307,7 +307,7 @@
 						<tr id="box_#eventid#">
 						    <td></td>
 							<td colspan="9">								   
-								<cfdiv id="#eventid#" bind="url:#client.root#/Staffing/Application/Employee/Events/EventWorkflow.cfm?ajaxid=#eventid#"/>       															
+								<cf_securediv id="#eventid#" bind="url:#client.root#/Staffing/Application/Employee/Events/EventWorkflow.cfm?ajaxid=#eventid#">       															
 							</td>
 						</tr>				
 		

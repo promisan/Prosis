@@ -1,8 +1,6 @@
 
 <cftry>
-	
-	<cf_compression>
-	
+		
 	<!--- added by hanno to proactive end the session if this was done on the level of the data
 	base like expirate or multiple session --->
 	
@@ -138,19 +136,29 @@
 				
 				<!--- we ensure the session is lost and the script will stop reloading --->
 				
-				<cfset SESSION.authent = "0">				
-								
+				<cfset SESSION.authent = "0">		
+				
+				<cfoutput>
+				<script>
+				 ProsisUI.createWindow('relogonbox', 'Authentication Manager', '',{x:100,y:100,height:230,width:480,closable:false,modal:true,center:true,resizable:false})    	   									 
+	  		     ColdFusion.navigate('#session.root#/Portal/reLogon.cfm','relogonbox')
+				</script>	
+				</cfoutput>
+				
+				<cfset Session.relogon = "Yes">			
+				
+				<!---				
 				<cf_divscroll zindex    = "9100" 
 				              modal     = "yes" 
 							  float     = "yes" 
 							  width     = "480px" 
-							  height    = "270px" 
+							  height    = "280px" 
 							  id        = "relogonbox" 
 							  close     = "no"
 							  mode      = "#url.doctypemode#" 
 							  overflowy = "hidden">	
 										  
-					<cf_tableround mode="modal" totalwidth="460px" totalheight="215px">		
+					<cf_tableround mode="modal" totalwidth="460px" totalheight="245px">		
 					
 						<!--- relogon screen --->
 						<cfinclude template="../../Portal/reLogon.cfm">					
@@ -158,6 +166,8 @@
 					</cf_tableround>
 					
 				</cf_divscroll>	
+				--->
+				
 				
 				<!--- 5/3/2015
 				   need to tune a bit is we likely remove a bit too much here causing all to stop
@@ -297,9 +307,10 @@
 				<script language="JavaScript">		
 				   tmp_error = 0;		
 				   try {		     
-					 // sessionvalidatestart()	this is done by the callback handler to start the validation 			 
-					 document.getElementById('relogonbox').style.display  = "none"
-					 document.getElementById('modalbg').style.display     = "none"
+					 // sessionvalidatestart()	this is done by the callback handler to start the validation 	
+					 ProsisUI.closeWindow('relogonbox')    			 
+					// document.getElementById('relogonbox').style.display  = "none"
+					// document.getElementById('modalbg').style.display     = "none"
 					 } catch(e) {}		   		   
 				   try { sessioninitvalidatestop()  } catch(e) {}			 
 				</script>	

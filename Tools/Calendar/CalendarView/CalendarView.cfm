@@ -107,8 +107,7 @@
 		<input type="hidden"    id="showToday"           name="showToday"          value="#attributes.showToday#">		
 		<input type="hidden"    id="showPrint"           name="showPrint"          value="#attributes.showPrint#">		
 		<input type="hidden"    id="showRefresh"         name="showRefresh"        value="#attributes.showRefresh#">		
-		
-								
+										
 		<tr bgcolor="white" class="line">
 		
 		<td width="100%" style="padding:1px" align="left" valign="top">		
@@ -169,11 +168,9 @@
 			
 			<tr>						
 				<td colspan="2">	
-				
-								
-				    <cf_getMID>					
-					<cfdiv bind="url:#session.root#/tools/calendar/calendarView/CalendarViewMonthMenu.cfm?mid=#mid#&cellwidth=#attributes.cellwidth#&pdate=#dateFormat(dateob,client.dateFormatShow)#&showToday=#attributes.ShowToday#&showRefresh=#attributes.ShowRefresh#&ShowPrint=#attributes.ShowPrint#" id="divCalendarViewMonthMenu">
-					
+											
+				  		
+					<cf_securediv bind="url:#session.root#/tools/calendar/calendarView/CalendarViewMonthMenu.cfm?cellwidth=#attributes.cellwidth#&pdate=#dateFormat(dateob,client.dateFormatShow)#&showToday=#attributes.ShowToday#&showRefresh=#attributes.ShowRefresh#&ShowPrint=#attributes.ShowPrint#" id="divCalendarViewMonthMenu">					
 					
 				</td>
 			</tr>

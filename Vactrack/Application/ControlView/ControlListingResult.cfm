@@ -7,7 +7,7 @@
 
 <cfoutput>
 
-<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+<table width="98%">
 
 	<tr><td colspan="3">
 		    <table width="100%" border="0" cellspacing="0" cellpadding="0">		

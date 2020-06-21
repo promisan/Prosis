@@ -1,4 +1,5 @@
-<cf_screentop height="98%" label="Questionaire Maintenance" 
+<cf_screentop height="98%" label="Questionaire Maintenance"
+	jquery="Yes"
    close="parent.ProsisUI.closeWindow('myeditquestion',true)" option="Question Maintenance" html="no" scroll="Yes" layout="webapp" banner="gray">
 
     <cfoutput>  

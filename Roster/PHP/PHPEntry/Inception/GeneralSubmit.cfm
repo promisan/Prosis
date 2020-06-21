@@ -90,10 +90,33 @@
 				 
 				 <cfif checkName.recordcount gte "1">
 				
-					<cf_message message="Sorry but it appears you already have a record. Operation aborted." return="No">	
+					<cf_message message="Sorry but it appears you already have a record. Your request can not be executed." return="No">	
 					<cfabort>		
 				
 				</cfif>
+				
+				<cfset IndexNo = trim(MyForm.IndexNo)>
+				
+				<cfif indexNo neq "">
+				
+					<cfquery name="CheckIndexNo" 
+				     datasource="AppsSelection">
+					 				 
+				 	    SELECT *
+				     	FROM   Applicant
+					 	WHERE  IndexNo     = <cfqueryparam value="#IndexNo#"    cfsqltype="CF_SQL_CHAR" maxlength="20">		
+						AND    CandidateStatus != '9' 		
+						
+					 </cfquery>
+					 
+					 <cfif checkIndexno.recordcount gte "1">
+					
+						<cf_message message="Sorry but it appears you already have a record. Your request can not be executed." return="No">	
+						<cfabort>		
+					
+					 </cfif>
+				 
+				 </cfif>
 				 
 				 <cfquery name="CheckMail" 
 			     datasource="AppsSystem">
@@ -111,7 +134,7 @@
 								 
 				<cfif checkMail.recordcount gte "1">
 				
-					<cf_message message="Sorry but it appears your eMail address is already in use. Operation aborted." return="No">	
+					<cf_message message="Sorry but it appears your eMail address is already in use. Your request can not be executed." return="No">	
 					<cfabort>		
 				
 				</cfif>
@@ -166,7 +189,9 @@
 			
 				<cfset personNo = MyForm.PersonNo>
 			
-			</cfif>			
+			</cfif>		
+			
+			<cfset IndexNo = trim(MyForm.IndexNo)>	
 			
 		    <cfquery name="InsertApplicant" 
 			     datasource="AppsSelection">
@@ -216,7 +241,7 @@
 					    </cfif>	
 						 
 				  		<cfif ISDEFINED("MyForm.IndexNo")>
-				          <cfqueryparam value="#MyForm.IndexNo#"        cfsqltype="CF_SQL_CHAR" maxlength="20">,
+				          <cfqueryparam value="#IndexNo#"        cfsqltype="CF_SQL_CHAR" maxlength="20">,
 						 </cfif> 
 						
 						<!--- core fields --->
@@ -355,8 +380,7 @@
 								PhoneNumber,			 	
 						 	 	OfficerUserId,
 							 	OfficerLastName,
-							 	OfficerFirstName,	
-							 	Created)
+							 	OfficerFirstName)
 				      	VALUES ('#LastNo.PersonNo#',
 					       	'#MyForm.Mission#', 
 							<cfqueryparam value="#MyForm.Reference#"     cfsqltype="CF_SQL_CHAR" maxlength="20">,
@@ -367,8 +391,7 @@
 							<cfqueryparam value="#MyForm.PhoneNumber#"   cfsqltype="CF_SQL_CHAR" maxlength="50">,				
 						  	'#SESSION.acc#',
 				    	  	'#SESSION.last#',		  
-					  	  	'#SESSION.first#',
-						  	getDate())
+					  	  	'#SESSION.first#')
 				  </cfquery>
 			  		  
 			  </cfif>			 

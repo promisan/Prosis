@@ -227,7 +227,8 @@
 		 <cfif getJournal.recordcount gte "1">	 		 
 			 		 		 
 		 <tr><td colspan="7" style="background-color:f1f1f1;padding-left:21px;padding-right:30px;height:20px">
-		 		 		 		 		 
+		
+				 		 		 		 		 
 			  	<cf_LedgerTransaction
 				 mission             = "#receipt.mission#"
 				 journal             = "#valueList(getJournal.Journal)#" 

@@ -3,7 +3,7 @@
 
 <cfif url.header eq "1">
 	
-	<cf_screentop scroll="no" 
+	<cf_screentop 
 	    height="100%" 
 		html="Yes" 
 		layout="webapp"
@@ -11,15 +11,17 @@
 		bannerforce="Yes"
 		menuaccess="context"
 		jquery="Yes"	
+		Scroll="no"
 		busy="busy10.gif" 
 		label="Staffing Table Detail">
 	
 <cfelse>
 	
-	<cf_screentop scroll="no" 
-	    height="100%" 
-		html="No" 
+	<cf_screentop 
+	    height="99%" 		 
+		html="No"
 		jquery="Yes"	
+		scroll="no"
 		busy="busy10.gif" 
 		title="Staffing Table Detail">
 
@@ -69,14 +71,20 @@
 		FunctionName  = "stPosition"
 		Scroll        = "no"
 		Key           = "">       
-	
+		
 	    <table width="100%" height="100%" align="center">
 		
-		<tr><td align"center" id="list" height="100%" style="padding-left:5px">		
-			
-		    <cf_securediv style="height:100%" bind="url:MandateViewList.cfm?#cgi.query_string#&lay=listing">			
+		<tr><td align"center" id="list" style="height:99%;padding-left:5px">	
 		
-		</td></tr></table> 			
+		    <cf_divscroll>
+					
+		    <cf_securediv style="height:98.5%" bind="url:MandateViewList.cfm?#cgi.query_string#&lay=listing">	
+			
+			</cf_divscroll>			
+		
+		</td></tr>
+		
+		</table> 	
 			
 <cf_screenbottom html="No">
 

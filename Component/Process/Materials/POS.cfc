@@ -1797,6 +1797,9 @@
 				<cf_assignid>
 				<cfset setbatchid = rowguid>
 				
+				<!--- provision to correct --->
+						
+				
 				<cfif newbatch eq "1">
 								
 					<cfquery name="Insert" 

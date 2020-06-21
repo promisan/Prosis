@@ -5,6 +5,8 @@
 	<cf_screentop label="Please select one or more roster editions" jquery="yes" html="No" height="100%" scroll="Yes">
 </cfif>
 
+<cfajaximport tags="cfdiv">
+
 <cfparam name="URL.ID"      default="0">
 <cfparam name="URL.DocNo"   default="">
 <cfparam name="url.wparam"  default="ALL">
@@ -172,6 +174,8 @@ password="#SESSION.dbpw#">
 	<table width="98%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center">
 		
 	<tr><td valign="top">
+	
+
 	  
 	<cfif URL.mode eq "ssa" or url.mode eq "Vacancy">
 		
@@ -228,19 +232,21 @@ password="#SESSION.dbpw#">
 				
 				<cfif url.mode eq "Vacancy">
 				
+								
 					<cfquery name="Doc" 
 					datasource="AppsVacancy" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
 					    SELECT *
-					    FROM   Document D
-						WHERE  D.DocumentNo = #URL.DocNo# 
+					    FROM   Document
+						WHERE  DocumentNo = '#URL.DocNo#' 						
 					</cfquery>	
 					
+										
 					<cfset owner = "">
 	
 					<cfif doc.owner eq "">
-					
+										
 						<cfquery name="Owner" 
 						datasource="AppsSelection" 
 						username="#SESSION.login#" 
@@ -262,7 +268,7 @@ password="#SESSION.dbpw#">
 						password="#SESSION.dbpw#">
 						    SELECT *
 						    FROM   Ref_ParameterOwner D
-							WHERE  D.Owner = '#doc.owner#'
+							WHERE  D.Owner = '#doc.owner#' 
 						</cfquery>
 					
 					    <cfset own = owner.owner>
@@ -282,11 +288,15 @@ password="#SESSION.dbpw#">
 						AND      F.FunctionNo           = F1.FunctionNo
 						AND      R.EnableAsRoster       = 1
 						AND      (F1.GradeDeployment    = '#Doc.PostGrade#' OR F1.GradeDeployment = '#Doc.GradeDeployment#')
+						<cfif doc.Occupationalgroup neq "">
 						AND      F.OccupationalGroup    = '#Doc.OccupationalGroup#' 
-						AND      F.FunctionClass        = '#Owner.FunctionClassSelect#' 
-						AND      F2.FunctionId          = F1.FunctionId
+						</cfif>
+						AND      F.FunctionClass        = '#Owner.FunctionClassSelect#'  
+						AND      F2.FunctionId          = F1.FunctionId		
+																					
 					</cfquery>	
 					
+										
 					<cfif shortList.recordcount gte "1">
 					
 					<cfset tabNo = tabNo + 1>
@@ -375,8 +385,7 @@ password="#SESSION.dbpw#">
 	
 		<table width="100%" height="100%" cellspacing="0" cellpadding="0">
 		
-			 <tr><td colspan="2" height="100%" valign="top">	
-				 
+			 <tr><td colspan="2" height="100%" valign="top">					
 			 <cfinclude template="Search1Roster.cfm">			 
 			 </td></tr>
 			 

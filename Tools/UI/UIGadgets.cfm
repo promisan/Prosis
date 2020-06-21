@@ -97,7 +97,7 @@
 
 
 		if (params["closable"]==false) {
-			params["actions"].push("pin");
+			//params["actions"].push("pin");
 		}
 		else {
 			params["actions"].push("close");

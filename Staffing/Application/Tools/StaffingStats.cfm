@@ -59,7 +59,9 @@
 	        ActionExpiration = S.DateExpiration
 	 FROM   EmployeeAction A INNER JOIN PersonContract S ON A.ActionSourceid = S.ContractId
 	 WHERE  A.ActionSource = 'Contract'
-</cfquery>	 		
+</cfquery>	 	
+
+<cfif operational eq "1">
 
 <cfquery name="LoadingDate" 
 	 datasource="AppsEmployee"
@@ -71,6 +73,8 @@
 	 FROM   EmployeeAction A INNER JOIN Payroll.dbo.PersonEntitlement S ON A.ActionSourceid = S.ContractId
 	 WHERE  A.ActionSource = 'Entitlement'
 </cfquery>	 	
+
+</cfif>	
 
 <cfquery name="LoadingDate" 
 	 datasource="AppsEmployee"
@@ -206,6 +210,7 @@
 					 Po.Remarks,	
 					 G.PostOrder,
 					 PP.ApprovalPostGrade,
+					 PP.ApprovalReference,
 					 PP.Fund,
 					 Po.LocationCode, 
 					 G.PostGradeBudget, 

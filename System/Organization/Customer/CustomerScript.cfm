@@ -35,7 +35,7 @@
 		}			
 		
 		function find(mission,domain,val,mode,dsn,mid) {		    	    	
-			ColdFusion.navigate('#SESSION.root#/system/organization/customer/CustomerSearchResult.cfm?systemfunctionid='+mid+'&mission='+mission+'&domain='+domain+'&mode='+mode+'&dsn='+dsn+'&val='+val,'findme')	
+			ptoken.navigate('#SESSION.root#/system/organization/customer/CustomerSearchResult.cfm?systemfunctionid='+mid+'&mission='+mission+'&domain='+domain+'&mode='+mode+'&dsn='+dsn+'&val='+val,'findme')	
 		}		
 		
 		function printcharges(mis,id,yr) {	    

@@ -65,6 +65,10 @@
 		
 </cfoutput>
 
+<table cellpadding="0" cellspacing="0" height="100%" width="100%" align="center">
+
+<tr><td style="height:10px">
+
 <table cellpadding="0" cellspacing="0" width="100%" align="center">
 
 	<tr><td height="10" style="padding-top:3px;padding-left:7px">	
@@ -75,6 +79,8 @@
 	</tr>	
 	
 </table>
+
+</td></tr>
 
 <!--- provision only --->
 
@@ -149,12 +155,12 @@ password="#SESSION.dbpw#">
 	WHERE    L.PersonNo = '#URL.ID#' 
 	AND      L.ActionStatus != '9'
 </cfquery>	
-	
-<table width="97%" align="center" border="0" cellspacing="0">
 
-<tr><td>
+<tr><td style="height:100%">
 	
-<table width="100%">
+<cf_divscroll>
+	
+<table width="99%">
 
   <tr><td colspan="2"></td></tr>
   
@@ -195,7 +201,7 @@ password="#SESSION.dbpw#">
   <tr>
   <td width="100%" colspan="2" style="padding-left:10px;padding-right:10px">
   
-  <table cellpadding="0" cellspacing="0" width="100%" class="navigation_table">
+  <table width="100%" class="navigation_table">
   
   <cfquery name="Summary" 
 	datasource="AppsPayroll" 
@@ -215,7 +221,7 @@ password="#SESSION.dbpw#">
 	  ORDER BY  P.Mission, ESL.PayrollItem, R.PayrollItemName, ESL.Currency
 	</cfquery>
 	
-	<TR class="line labelmedium">
+	<TR class="line labelmedium fixrow">
 	    <td></td>
 	    <td height="20" width="5%" align="center"></td>
 		<td></td>		
@@ -659,6 +665,12 @@ password="#SESSION.dbpw#">
 	
 	</td>
 	</tr>
+
+</table>
+
+</cf_divscroll>
+
+</td></tr>
 
 </table>
 

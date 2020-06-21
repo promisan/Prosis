@@ -100,10 +100,11 @@ WHERE   Mission = '#URL.Mission#'
 	
 	    function setaccountperiod(mis) {
 		
-			per = document.getElementById('accountperiod').value
-			rep = document.getElementById('report').value	
+		    
+			per = document.getElementById('period').value
+    		rep = document.getElementById('report').value	
 			_cf_loadingtexthtml='';	
-			ptoken.navigate('getAccountPeriod.cfm?ts=#getTickCount()#&period='+per+'&mission='+mis+'&report='+rep,'periodselectbox') 
+			ptoken.navigate('getAccountPeriod.cfm?period='+per+'&mission='+mis+'&report='+rep,'periodselectbox') 
 		
 		}
 				
@@ -213,12 +214,12 @@ WHERE   Mission = '#URL.Mission#'
 			
 					<table width="99%" class="formpadding" align="center">
 						
-						<tr>
+						<tr class="line">
 						
 						<TD>
 							
 							<select name="mission" 
-							    style="width:200px;font-size:18px;height:30px" 
+							    style="width:200px;font-size:18px;height:30px;border:0px" 
 								id="mission" 
 								class="regularh" 
 								onChange="setaccountperiod(this.value)">
@@ -245,7 +246,7 @@ WHERE   Mission = '#URL.Mission#'
 						</tr>
 									
 						
-						<tr>
+						<tr class="line">
 						
 						<td id="periodselectbox">			
 								   
@@ -259,7 +260,7 @@ WHERE   Mission = '#URL.Mission#'
 								
 						<td>		
 													
-							<select name="report" id="report" style="width:200px;font-size:18px;height:30px" class="regularh" size="1" onChange="transactionperiod()">
+							<select name="report" id="report" style="border:0px;width:200px;font-size:18px;height:30px" class="regularh" size="1" onChange="transactionperiod()">
 							    
 								<OPTION value="pl"      <cfif URL.report is "pl">selected</cfif>> <cf_tl id="Income Statement">
 								<OPTION value="balance" <cfif URL.report is "balance">selected</cfif>> <cf_tl id="Balance Sheet">

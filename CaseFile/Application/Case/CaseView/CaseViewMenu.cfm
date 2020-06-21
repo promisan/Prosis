@@ -73,6 +73,8 @@
 			    image="#SESSION.root#/Images/activity.gif"/>			
 			
 		</cfif>	
+		
+		<!--- deprecated we now have the messaenger
 				  
 		<cf_tl Id="Mail and Notes" var="1">			  
 					  
@@ -81,6 +83,8 @@
 		     name="addnote"
 		     href="javascript:details('#Object.objectid#','mail')"
 		     image="#SESSION.root#/Images/broadcast.png"/>		 
+			 
+		 --->	 
 	
 	</cfmenu>
 

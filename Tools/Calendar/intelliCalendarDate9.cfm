@@ -160,11 +160,9 @@
 			
 		</cfif>
 					 
-	 </cfif>
-	
+	 </cfif>	
 		 		 	 
-	 </td>
-	 
+	 </td> 
 	 	 
 	 <td style="padding-top:3px" id="#Attributes.id#picker">
 	 			 			 	 	

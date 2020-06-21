@@ -11,6 +11,6 @@
    
 <cfoutput>
 	<script>
-		ColdFusion.navigate('#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/applyCustomer.cfm?warehouse=#url.warehouse#','customerbox');
+		ptoken.navigate('#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/applyCustomer.cfm?warehouse=#url.warehouse#','customerbox');
 	</script>
 </cfoutput>

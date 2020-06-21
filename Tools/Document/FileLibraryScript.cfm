@@ -67,11 +67,11 @@ function addfile(mode,host,dir,subdir,fil,box,ref,svr,window,pdf) {
 }
 
 function viewfiles(mode,host,dir,subdir,fil) {   
-   window.open("#SESSION.root#/Tools/Document/DocumentView.cfm?mode="+mode+"&ts="+new Date().getTime()+"&host="+host+"&dir="+dir+"&sub="+subdir+"&fil="+fil, "mail","width=800, height=620, status=yes, menubar=yes, toolbar=yes, scrollbars=no, resizable=yes");					
+   ptoken.open("#SESSION.root#/Tools/Document/DocumentView.cfm?mode="+mode+"&ts="+new Date().getTime()+"&host="+host+"&dir="+dir+"&sub="+subdir+"&fil="+fil, "mail","width=800, height=620, status=yes, menubar=yes, toolbar=yes, scrollbars=no, resizable=yes");					
 }  
 
-function mailfiles(mode,host,dir,subdir,fil) {
-	window.open("#SESSION.root#/Tools/Mail/Mail.cfm?contextmode="+mode+"&id1=Mail&host="+host+"&dir="+dir+"&sub="+subdir+"&fil="+fil+"&mode=dialog&GUI=HTML","mail","width=800, height=620, status=yes, toolbar=no, scrollbars=no, resizable=yes");						
+function mailfiles(mode,host,dir,subdir,fil) {      
+	ptoken.open("#SESSION.root#/Tools/Mail/Mail.cfm?contextmode="+mode+"&id1=Mail&host="+host+"&dir="+dir+"&sub="+subdir+"&fil="+fil+"&mode=dialog&GUI=HTML","mail","width=800, height=620, status=yes, toolbar=no, scrollbars=no, resizable=yes");						
 }
 
 function attrefresh(mode,path,host,subdir,filter,hl,size,list,insert,remove,color,box,rowh,w,align,border,dialog,input,pdf,embed,svr,present,maxfile) {
@@ -100,8 +100,9 @@ function attrefresh(mode,path,host,subdir,filter,hl,size,list,insert,remove,colo
 								"&presentation="+present+
 								"&inputsize="+input
 	
-	_cf_loadingtexthtml="";								
+	_cf_loadingtexthtml="";			
     ColdFusion.navigate(url,'att_'+box)		 
+	
 
 }
 

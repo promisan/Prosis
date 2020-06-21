@@ -215,7 +215,7 @@
 		
 		<cfif PostGrade.PostGradeSteps lte "1">
 		
-			<input type="hidden" name="contractstep" value="1">
+			<input type="hidden" name="contractstep" value="01">
 			<cf_tl id="N/A">
 			
 			<script>

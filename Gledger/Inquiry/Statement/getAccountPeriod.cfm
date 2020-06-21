@@ -1,4 +1,5 @@
 
+
 <cfif url.mission neq "">
 		
 	<cfquery name="PeriodSelect" 
@@ -22,7 +23,7 @@
 			<td style="pading-left:4px">			
 			 <cfoutput>
 			 				
-				 <select name="period" class="regularh" id="period" style="width:200px;font-size:18px;height:30px"
+				 <select name="period" class="regularh" id="period" style="border:0px;width:200px;font-size:18px;height:30px"
 				    onChange="transactionperiod()">
 					
 					<cfloop query="PeriodSelect">

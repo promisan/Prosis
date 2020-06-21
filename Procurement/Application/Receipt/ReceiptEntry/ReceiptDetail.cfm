@@ -332,8 +332,8 @@ password="#SESSION.dbpw#">
 							     onclick="ProcRcptLineDelete('#ReceiptId#','#Receipts.RequisitionNo#','#URL.Mode#','delete','#url.box#')">
 																		
 					<cfelse>
-					
-					     <cfif ActionStatus eq "0">
+										
+					     <cfif ActionStatus eq "0" or receipt.actionStatus eq "0">
 						 
 						      <cf_img icon="edit" 
 							     onclick="ProcRcptLineEdit('#ReceiptId#','#Receipts.RequisitionNo#','#URL.Mode#','edit','#url.box#','')">

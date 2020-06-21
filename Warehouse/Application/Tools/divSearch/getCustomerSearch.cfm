@@ -96,7 +96,6 @@
 	
 	</cfif>
 
-
 	<cfquery name="customerAddress" 
 	  datasource="AppsMaterials" 
 	  username="#SESSION.login#" 
@@ -130,7 +129,7 @@
 	
 	<tr><td id       = "customerline#currentrow#" 
 	    name         = "customerline#currentrow#" 
-		onclick      = "document.getElementById('#URL.context#').className='hide';ColdFusion.navigate('#SESSION.root#/warehouse/application/SalesOrder/POS/Sale/applyCustomer.cfm?warehouse=#url.warehouse#&customerid=#customerid#&addressid=#addressid#','customerbox');" 
+		onclick      = "document.getElementById('#URL.context#').className='hide';ptoken.navigate('#SESSION.root#/warehouse/application/SalesOrder/POS/Sale/applyCustomer.cfm?warehouse=#url.warehouse#&customerid=#customerid#&addressid=#addressid#','customerbox');" 
 	    class        = "regular" 
 		style        = "cursor:pointer"
 	    onmouseover  =  "if (this.className=='regular') { this.className='highlight2' }"
@@ -139,11 +138,8 @@
 		<input type="hidden" name="r_#currentrow#_customermeta" id="r_#currentrow#_customermeta" value="#get.Reference#">				
 		<input type="hidden" name="r_#currentrow#_customerid"   id="r_#currentrow#_customerid"     value="#CustomerId#">
 					
-		<table width="100%" cellspacing="0" cellpadding="0" class="formpadding">
-		
-            
-            
-            
+		<table width="100%" class="formpadding">
+		     
         <tbody>
             <tr style='height:20px;padding: 5px;'>
                 <td class="s0" style="width:50%;" dir="ltr"><p style="font-size: 15px;padding: 3px 0 0 10px;"><i class="fas fa-user-circle"></i> #get.CustomerName#</p></td>
@@ -159,12 +155,7 @@
                 </tr>
 			</cfif>
         </tbody>
-            
-            
-		
-							
-			
-		
+         		
 		</table>
 	
 	</td></tr>

@@ -47,41 +47,44 @@
 							<cfif layout neq "corporate">				
 						    H.TransactionPeriod, 	
 							</cfif>
-								G.GLAccount, 
-						       	G.Description, 
-								G.AccountLabel,
-							    G.AccountGroup, 
-							    G1.Description as AccountGroupDescription, 
-								G1.ListingOrder as AccountGroupOrder,
-								G1.AccountType  as AccountGroupType,
-							    G1.AccountParent, 
-							    G2.Description as AccountParentDescription, 
-							J.GLCategory,
-							C.Description as CategoryDescription,
+							G.GLAccount, 
+					       	G.Description, 
+							G.AccountLabel,
+						    G.AccountGroup, 
+						    G1.Description as AccountGroupDescription, 
+							G1.ListingOrder as AccountGroupOrder,
+							G1.AccountType  as AccountGroupType,
+						    G1.AccountParent, 
+						    G2.Description as AccountParentDescription, 							
+							
 					        SUM(T.AmountBaseDebit/#exc#)  as Debit, 
 						    SUM(T.AmountBaseCredit/#exc#) as Credit
 					
 					 FROM 	Accounting#Suffix#.dbo.TransactionHeader H
 							INNER JOIN Accounting#Suffix#.dbo.TransactionLine T
 								ON H.Journal = T.Journal 
-								AND H.JournalSerialNo = T.JournalSerialNo 
-							INNER JOIN Accounting#Suffix#.dbo.Journal J
-								ON T.Journal = J.Journal 
+								AND H.JournalSerialNo = T.JournalSerialNo 							
 							INNER JOIN Accounting#Suffix#.dbo.#Client.LanPrefix#Ref_Account G
 								ON T.GLAccount = G.GLAccount
 							INNER JOIN Accounting#Suffix#.dbo.#Client.LanPrefix#Ref_AccountGroup G1
 								ON G.AccountGroup = G1.AccountGroup
 							INNER JOIN Accounting#Suffix#.dbo.#Client.LanPrefix#Ref_AccountParent G2
 								ON G1.AccountParent = G2.AccountParent
-							INNER JOIN Accounting#Suffix#.dbo.Ref_GLCategory C 
-								ON C.GLCategory = J.GLCategory
 							
-					 WHERE   J.GLCategory      = 'Actuals'	
-					 AND     H.Mission         = '#Mission#'
-					 AND     H.RecordStatus    IN ( '1')
+					 WHERE   H.Mission         = '#Mission#'
+										 
+					 AND     H.Journal IN (SELECT Journal 
+					                       FROM   Journal
+					                       WHERE  Journal       = H.Journal
+										   AND    GLCategory    = 'Actuals'	
+										   AND    JournalType   = 'General')
+					    
+					 <!--- added to exclude supporting journal --->
+										 
+					 AND     H.RecordStatus    IN ('1')
 					 AND     H.ActionStatus    IN ('0','1')
-					 AND     G.AccountType    = '#itm#'	
-					 AND     G.AccountClass   = 'Balance'
+					 AND     G1.AccountType    = '#itm#'	<!--- define on the level of the group --->
+					 AND     G.AccountClass    = 'Balance'
 					 
 					 <cfif openingperiod neq "">	
 					 					 					 
@@ -105,7 +108,7 @@
 					 AND  H.AccountPeriod IN (#preserveSingleQuotes(AccountPeriod)#) 
 				 					
 					 <cfif TransactionPeriod neq ""> 						
-						AND   H.TransactionPeriod <= #preserveSingleQuotes(transactionperiod)# 
+					 AND   H.TransactionPeriod <= #preserveSingleQuotes(transactionperiod)# 
 					 </cfif>					  
 					 
 					GROUP BY H.OrgUnitOwner,
@@ -121,9 +124,7 @@
 							 G1.ListingOrder,
 							 G1.AccountType,
 							 G1.AccountParent, 
-							 G2.Description, 
-							 J.GLCategory, 
-							 C.Description
+							 G2.Description
 					
 					<cfif itm eq "Debit"> UNION ALL </cfif>
 					
@@ -131,16 +132,20 @@
 				</cfloop>
 				
 				) AS Data
-				
+								
 				ORDER BY OrgUnitOwner,
-						 AccountPeriod
+						 AccountPeriod		
 						 
-						 
+						
 						 
 			</cfquery>
+			
+			<!---
+			<cfoutput>#cfquery.executiontime#</cfoutput>
+			--->
+			
 		
-		</cftransaction>	
-				
+		</cftransaction>					
 						
 		<cfquery name="DebitCorrection"
 		datasource="AppsQuery" 
@@ -265,8 +270,7 @@
 						   CONVERT (varchar(10),'',1) as StatementCode,
 						   CONVERT (varchar(80),'',1) as StatementName,
 						   0 as StatementOrder,
-						   						
-						   GLCategory,
+						   
 						   SUM(Debit) as Debit,
 						   SUM(Credit) as Credit
 						   
@@ -307,10 +311,9 @@
 						   G1.AccountType  as AccountGroupType,
 						   G1.AccountParent, 
 						   G2.Description as AccountParentDescription, 						  
-						   J.GLCategory,	
-						   
+						   						   
 						   <cfif currency eq Application.BaseCurrency>
-						   
+						   						   
 						       ISNULL(SUM(T.AmountBaseDebit),0)  as Debit, 
 							   ISNULL(SUM(T.AmountBaseCredit),0) as Credit
 						   
@@ -321,25 +324,36 @@
 							  CASE WHEN T.Currency = '#currency#' THEN SUM(T.AmountCredit) ELSE SUM(T.AmountBaseCredit) 
 				                      * #exc# END AS Credit		  
 								   
-						   </cfif>		   
-					
-					FROM   Accounting#Suffix#.dbo.TransactionHeader H,
-					       Accounting#Suffix#.dbo.TransactionLine T, 
-					       Accounting#Suffix#.dbo.Journal J,
-					       Accounting#Suffix#.dbo.#Client.LanPrefix#Ref_Account G, 
-						   Accounting#Suffix#.dbo.#Client.LanPrefix#Ref_AccountGroup G1,
-						   Accounting#Suffix#.dbo.#Client.LanPrefix#Ref_AccountParent G2,						
-						   Accounting#Suffix#.dbo.Ref_GLCategory C
-					
-					WHERE  H.Mission         = '#Mission#'  
-					
+						   </cfif>	
+						   
+					 FROM 	Accounting#Suffix#.dbo.TransactionHeader H
+							INNER JOIN Accounting#Suffix#.dbo.TransactionLine T
+								ON H.Journal = T.Journal 
+								AND H.JournalSerialNo = T.JournalSerialNo 							
+							INNER JOIN Accounting#Suffix#.dbo.#Client.LanPrefix#Ref_Account G
+								ON T.GLAccount = G.GLAccount
+							INNER JOIN Accounting#Suffix#.dbo.#Client.LanPrefix#Ref_AccountGroup G1
+								ON G.AccountGroup = G1.AccountGroup
+							INNER JOIN Accounting#Suffix#.dbo.#Client.LanPrefix#Ref_AccountParent G2
+								ON G1.AccountParent = G2.AccountParent	 				
+											   
+					WHERE   H.Mission         = '#Mission#'
+										 
+					 AND    H.Journal IN (SELECT Journal 
+					                       FROM   Accounting#Suffix#.dbo.Journal
+					                       WHERE  Journal       = H.Journal
+										   AND    GLCategory    = 'Actuals'	
+										   AND    JournalType   = 'General')	
+										   
+					<cfif History eq "AccountPeriod">					 					 
+					 	AND   H.AccountPeriod IN (#preservesinglequotes(AccountPeriod)#)												  												 
+					<cfelse>					
+						AND   H.AccountPeriod  = #preserveSingleQuotes(AccountPeriod)#																				 
+					</cfif>					      
+										
 					AND    H.RecordStatus    IN ( '1')
 					AND    H.ActionStatus IN ('0','1')
-					
-				    AND    T.Journal         = J.Journal
-					AND    H.Journal         = T.Journal	
-				    AND    H.JournalSerialNo = T.JournalSerialNo 
-					
+											
 					<cfif Program neq "">
 					    AND   T.ProgramCode = '#Program#'
 					</cfif>
@@ -351,27 +365,12 @@
 					<cfif OrgUnitOwner neq "">
 					     AND   H.OrgUnitOwner IN (#preservesinglequotes(orgunitowner)#) 	 
 					</cfif>
-						
-					AND    J.GLCategory          = 'Actuals'	
-					AND    J.GLCategory          = C.GLCategory 		
-					AND    G.GLAccount           = T.GLAccount		
+					
 					AND    G1.AccountType        = '#itm#'
 					
 					<!--- PL accounts --->
-					AND    G.AccountClass   = 'Result'
-														
-					AND    G1.AccountGroup  = G.AccountGroup	
-					AND    G1.AccountParent = G2.AccountParent
+					AND    G.AccountClass        = 'Result'									
 					
-					<cfif History eq "AccountPeriod">
-					 					 
-					 	AND   H.AccountPeriod IN (#preservesinglequotes(AccountPeriod)#)	 						  
-												 
-					<cfelse>
-					
-						AND   H.AccountPeriod  = #preserveSingleQuotes(AccountPeriod)#		
-												 
-					</cfif>
 					
 					GROUP BY H.AccountPeriod,
  							 <cfif Mode eq "economic">
@@ -395,16 +394,17 @@
 							 G1.Listingorder,
 							 G1.AccountType,
 							 G1.AccountParent,
-							 G2.Description,							
-							 J.GLCategory,
-							 T.Currency	
+							 G2.Description
+							 <cfif currency neq Application.BaseCurrency>
+							 ,T.Currency		
+							 </cfif> 
+							 
 					
 					<cfif itm eq "Debit"> UNION ALL </cfif>
 					
 					</cfloop>
 					
-					) as Sub
-					
+					) as Sub					
 					
 					GROUP BY Panel,
 					         AccountPeriod,
@@ -427,15 +427,14 @@
 							 AccountGroupOrder,
 							 AccountGroupType,
 							 AccountParent,
-							 AccountParentDescription,												
-							 GLCategory								 
+							 AccountParentDescription			 
 								
 				</cfquery>				
 				
-				</cftransaction>
+				</cftransaction>				
 				
 				<!---
-				<CFOUTPUT>#CFQUERY.EXECUTIONTIME#</CFOUTPUT>
+				<cfoutput>#cfquery.executiontime#</cfoutput>		
 				--->
 				
 				<cfif History neq "AccountPeriod">
@@ -687,6 +686,7 @@
 					</cfif>
 						
 					AND    J.GLCategory          = 'Actuals'	
+					AND    J.JournalType         = 'General'
 					AND    J.GLCategory          = C.GLCategory 		
 					AND    G.GLAccount           = T.GLAccount		
 										

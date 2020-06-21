@@ -1225,7 +1225,8 @@ function searchcombo(mis,whs,cat,mde,val,mode,itm,valfield) {
    }
   
    if  (val.length < #param.AssetSearchChars#) {     	   	
-		document.getElementById(mde+'selectbox').className = "hide"				   
+		document.getElementById(mde+'selectbox').className = "hide"		
+				   
    } else {  
           	   	 
        document.getElementById(mde+'selectbox').className = "regular"   
@@ -1233,13 +1234,13 @@ function searchcombo(mis,whs,cat,mde,val,mode,itm,valfield) {
 		  keynum = window.event.keyCode;	  
 	   } else {   
 		  keynum = window.event.which;	  
-	   }		    	   
-	 		  
+	   }
+	  	 		  
 	   if (mode == "down") {
 	   
 	       switch(keynum) {
 		   case 13:   
-			
+		  			
 		    // we need to review if this can be made more generic like we do for the search div 
 	     	document.getElementById(mde+'selectbox').className = "hide"		   			 		  	 
 			
@@ -1250,10 +1251,12 @@ function searchcombo(mis,whs,cat,mde,val,mode,itm,valfield) {
 				} else {
 					addressId = "00000000-0000-0000-0000-000000000000";
 				}								
-				
+							
 				ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/sale/applyCustomer.cfm?mission='+mis+'&warehouse='+whs+'&category='+cat+'&itemno='+itm+'&search='+val+'&customerid='+document.getElementById('customeridselect').value+'&addressid='+addressId,mde+'box')	
 				
-			} else {							
+			} else {	
+			
+									
 				if (mde == 'customerinvoice') {		      					 
 				  ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/sale/applySaleHeader.cfm?field=billing&mission='+mis+'&warehouse='+whs+'&category='+cat+'&itemno='+itm+'&search='+val+'&customerid='+document.getElementById('customeridselect').value+'&customeridinvoice='+document.getElementById('customerinvoiceidselect').value,'salelines')					 					  
 			    } else {				
@@ -1309,6 +1312,7 @@ function searchcombo(mis,whs,cat,mde,val,mode,itm,valfield) {
 		   		} else {
 		   			template = mde;
 		   		}
+				
 			  	ptoken.navigate('#SESSION.root#/Warehouse/Application/Tools/divSearch/get'+template+'Search.cfm?mission='+mis+'&warehouse='+whs+'&category='+cat+'&itemno='+itm+'&search='+val+'&context='+mde+'selectbox',mde+'find')
 		   }	
 	    }	 
@@ -1782,6 +1786,9 @@ function locarcshow(whs,loc,itm,uom,lot,box,action) {
 function toggleLocations() {
 	var vState = '';
 
+	//reset dom filter
+	$('##filtersearchsearch').val('').trigger('keyup');
+
 	if ($('.clsLocToggler').hasClass('fa-folder')) {
 		$('.clsLocToggler').addClass('fa-folder-open').removeClass('fa-folder');
 		vState = 'open';
@@ -1820,11 +1827,14 @@ function locshow(loc,cat,catitm,box,sysid,enf,find,zero,pi,ear,ref) {
 			 se.className  = "regular";
 			 _cf_loadingtexthtml='';				 
 			 url = "../Inventory/InventoryViewList.cfm?box="+box+"&warehouse="+whs+"&location="+loc+"&category="+cat+"&categoryitem="+catitm+"&systemfunctionid=" + sysid + "&find=" + find + "&zero=" + zero + "&transaction_date=" + dte + "&transaction_hour=" + hour	+ "&transaction_minute=" + minu + "&parentItemNo=" + pi + "&earmark=" + ear	 + "&refresh=" + ref
+			 /*
 			 window['fnLocShowCB'] = function(){
 				 if ($('##filtersearchsearch').length == 1) {
 					 $('##filtersearchsearch').trigger('keyup'); }
 			 }
 			 ptoken.navigate(url, 'c'+box, 'fnLocShowCB')	
+			 */
+			 ptoken.navigate(url, 'c'+box);
 			 				
 		 } else {
 		     Prosis.busy('no')

@@ -70,7 +70,7 @@ There are three mode
 								WHERE   E.Owner = '#url.owner#'
 							</cfquery>		
 												
-							<select name="exerciseclass" id="exerciseclass" style="width:90%;height:46px;font-size:30px" class="regularxl" onChange="reloadroster()">
+							<select name="exerciseclass" id="exerciseclass" style="min-width:260px;width:90%;height:46px;font-size:30px" class="regularxl" onChange="reloadroster()">
 								 
 								<option value="">--<cf_tl id="Any">--</option>
 								<cfloop query="Class">

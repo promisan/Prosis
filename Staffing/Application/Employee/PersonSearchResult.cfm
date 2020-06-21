@@ -26,11 +26,11 @@
 	    	srt = document.getElementById("sort").value
 			lay = document.getElementById("layout").value
 			mde = document.getElementById("searchmode").value
-	    	window.location="PersonSearchResult.cfm?missionselect=#missionselect#&fileno=#fileno#&height="+document.body.offsetHeight+"&page=" + page + "&sort=" + srt + "&Lay=" + lay+ "&mode=" + mde;
+	    	ptoken.location('PersonSearchResult.cfm?missionselect=#missionselect#&fileno=#fileno#&height='+document.body.offsetHeight+'&page=' + page + '&sort=' + srt + '&Lay=' + lay+ '&mode=' + mde);
 		}
 	
-		function search() {  
-		    window.location="PersonSearch1.cfm?height="+document.body.offsetHeight 
+		function mysearch() {  			
+		    ptoken.location('PersonSearch1.cfm?height='+document.body.offsetHeight) 
 		}
 
 		function workflowaction(personno, mission) {
@@ -134,8 +134,8 @@ password="#SESSION.dbpw#">
 		<cfelse>
 		<td class="labellarge" style="font-weight:200;font-size:31px;padding-left:4px"><cf_tl id="Employee Search"></td>
 		</cfif>		
-		<td style="padding-left:14px;font-size:14px;padding-top:5px;font-weight:200;" class="labelit">
-			<a href="javascript:search()"><cf_tl id="New search">
+		<td style="padding-left:14px;font-size:14px;padding-top:5px" class="labelit">
+			<a href="javascript:mysearch()"><cf_tl id="New search">
 			</a>
 		</td>
 		

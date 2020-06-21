@@ -31,7 +31,6 @@
 	
 </cfif>	
 
-
 <cfswitch expression="#url.field#">		
 	
 	<cfcase value="billing">				
@@ -60,17 +59,16 @@
 			<cf_tl id="Customer not found. Do you want to record customer" var="1">
 			
 			 <cfoutput>
-			 
-			 if (!!Prosis) {
+			 			 
+			 // if (!!Prosis) {
 				 //Hide all notifications
-			     Prosis.notification.hide();
-			 }
+			 //    Prosis.notification.hide();
+			 // }
 			
 			 if (confirm("#lt_text#?")) {
 			 
-			  ref = document.getElementById("customerinvoiceidselect_val").value
-			  try { ColdFusion.Window.destroy('customeradd',true)} catch(e){};
-			  ColdFusion.Window.create('customeradd', 'Add Customer', '',{x:100,y:100,width:700,height:700,resizable:false,modal:true,center:true})			  
+			  ref = document.getElementById("customerinvoiceidselect_val").value			  
+			  ProsisUI.createWindow('customeradd', 'Add Customer', '',{x:100,y:100,width:700,height:700,resizable:false,modal:true,center:true})			  
 	  	      ptoken.navigate('#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/addCustomer.cfm?mission=#url.mission#&warehouse=#url.warehouse#&mode=invoice&reference='+ref,'customeradd');
 		  			  	
   			  } else {
@@ -164,13 +162,13 @@
 				<script language="JavaScript">
 		
 				 // show the customer billing information in the box
-				 ColdFusion.navigate('#SESSION.root#/warehouse/application/salesorder/POS/sale/getCustomerBilling.cfm?customerid=#url.customeridInvoice#&warehouse=#url.warehouse#','customerinvoicebox')	
+				 ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/sale/getCustomerBilling.cfm?customerid=#url.customeridInvoice#&warehouse=#url.warehouse#','customerinvoicebox')	
 				 
 				 document.getElementById('ItemSelect').focus()	// data entry of items
 				 
 				 <cfif url.customerid eq "" or url.customerid eq "00000000-0000-0000-0000-000000000000" or url.customerid eq "insert"> //In case they enter the customer invoice first.
 					 if (confirm('We noticed that you have not selected a customer yet.\nDo you want the customer to be the same as the customer billing you just entered?')){
-						 ColdFusion.navigate('#SESSION.root#/warehouse/application/SalesOrder/POS/Sale/applyCustomer.cfm?warehouse=#url.warehouse#&customerid=#url.customeridInvoice#&addressid=#url.addressid#','customerbox');
+						 ptoken.navigate('#SESSION.root#/warehouse/application/SalesOrder/POS/Sale/applyCustomer.cfm?warehouse=#url.warehouse#&customerid=#url.customeridInvoice#&addressid=#url.addressid#','customerbox');
 					 }
 				 </cfif>
 					 

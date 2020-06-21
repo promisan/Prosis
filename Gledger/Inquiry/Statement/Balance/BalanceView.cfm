@@ -167,7 +167,7 @@ password="#SESSION.dbpw#">
 <cfoutput>
 
 <script>
-  document.getElementById("screentoplabel").innerHTML = "<font face='Times New Roman' size='4'><b>Balance Sheet #URL.Mission#</b>"
+  document.getElementById("screentoplabel").innerHTML = "<font size='5'>Balance Sheet #URL.Mission#"
 </script>
 
 </cfoutput>

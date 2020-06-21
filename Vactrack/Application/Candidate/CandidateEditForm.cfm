@@ -326,7 +326,7 @@
 			
 			</td>
 		  
-			<td style="color:gray;padding-left:4px;background-color:f1f1f1;;border-right:1px solid silver"><cf_tl id="Through">:</b></td>
+			<td style="color:gray;padding-left:4px;background-color:f1f1f1;;border-right:1px solid silver"><cf_tl id="Through">:</td>
 			
 	    	<TD style="padding-left:3px">
 			
@@ -340,7 +340,21 @@
 			
 		<cfelse>
 		
-			<td colspan="4"></td>	
+			<td style="padding-left:4px" colspan="3"><cf_tl id="Expected Arrival"></td>
+			
+			<td colspan="1" style="color:gray;padding-left:4px;border-left:1px solid silver;border-right:1px solid silver">
+			
+				<cf_intelliCalendarDate9
+					FieldName="DateArrivalExpected" 
+					Manual="True"		
+					class="regularxl"	
+					style="border:0px"													
+					Default="#dateformat(GetCandidateStatus.DateArrivalExpected,client.dateformatshow)#"
+					AllowBlank="False">	
+						
+			</td>
+			
+				
 			
 		</cfif>	
 		</tr>
@@ -534,7 +548,7 @@
 				 name="Remarks" 
 				 style="width:100%;padding:5px;background-color:ffffcf;font-size:13px;height:40px"
 				 class="regular" 
-				 onchange="ColdFusion.navigate('CandidateEditSubmit.cfm','result','','','POST','candidateedit')"><cfoutput>#GetCandidateStatus.Remarks#</cfoutput></textarea>
+				 onchange="ptoken.navigate('CandidateEditSubmit.cfm','result','','','POST','candidateedit')"><cfoutput>#GetCandidateStatus.Remarks#</cfoutput></textarea>
 			<cfelse>
 			
 			    <cfoutput>

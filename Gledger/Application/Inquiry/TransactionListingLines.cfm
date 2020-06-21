@@ -26,33 +26,19 @@
 	
 	<table class="navigation_table" style="width:98.5%" height="100%">
 	
-	<cfif header eq "1">
-		<tr class="labelmedium line fixrow">
-		    <TD width="2%"></TD>
-			<TD width="90" style="padding-right:10px"><cf_tl id="TransNo"></TD>
-		    <TD colspan="2"><cf_tl id="Account"></TD>		
-			<TD><cf_tl id="Details"></TD>
-		    <TD width="90"><cf_tl id="Date"></TD>
-		    <TD style="padding-left:3px;padding-right:3px"><cf_tl id="Curr"></TD>
-			<td style="min-width:100px" align="right"><cf_tl id="Debit"></td>
-			<td style="min-width:100px" align="right"><cf_tl id="Credit"></td>
-		    <td style="min-width:100px" align="right" style="padding-right:4px"><cf_tl id="Base Debit"></td>
-			<td style="min-width:100px" align="right" style="padding-right:4px"><cf_tl id="Base Credit"></td>	
-		</TR>	
-	<cfelse>
-		<tr>
-		    <TD width="2%" height="1"></TD>
-			<TD width="90"></TD>
-		    <TD width="20%" colspan="2"></TD>	
-			<TD width="20%"></TD>
-		    <TD width="90"></TD>
-		    <TD width="40"></TD>
-			<td width="9%" align="right"></td>
-			<td width="9%" align="right"></td>
-		    <td width="9%" align="right"></td>
-			<td width="9%" align="right"></td>	
-		</TR>
-	</cfif>
+	<tr class="labelmedium line fixrow">
+	    <TD width="2%"></TD>
+		<TD width="90" style="padding-right:10px"><cf_tl id="TransNo"></TD>
+	    <TD colspan="2"><cf_tl id="Account"></TD>		
+		<TD><cf_tl id="Details"></TD>
+	    <TD width="90"><cf_tl id="Date"></TD>
+	    <TD style="padding-left:3px;padding-right:3px"><cf_tl id="Curr"></TD>
+		<td style="min-width:100px" align="right"><cf_tl id="Debit"></td>
+		<td style="min-width:100px" align="right"><cf_tl id="Credit"></td>
+	    <td style="min-width:100px" align="right" style="padding-right:4px"><cf_tl id="Base Debit"></td>
+		<td style="min-width:100px" align="right" style="padding-right:4px"><cf_tl id="Base Credit"></td>	
+	</TR>	
+	
 	
 	<cfoutput query="SearchResult" group="Currency">
 	

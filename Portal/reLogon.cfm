@@ -20,11 +20,11 @@
 
 <cfoutput>
 
-<form name="reloginform_#rowguid#" method="post" autocomplete="off">
+<form name="reloginform_#rowguid#" method="post" autocomplete="off" style="height:130px">
 
 	<cfset client.count = "1">
 	
-	<table style="background-color:white; width:100%; height:230px" align="center" cellpadding="0" cellspacing="0">
+	<table style="background-color:white; width:100%; height:130px" align="center">
 	
 		<tr>
 			<td width="1%" height="5px" style="line-height:5px">&nbsp;</td>
@@ -39,19 +39,23 @@
 				<table width="94%" align="center" style="margin:0 auto" cellpadding="0" cellspacing="0" onkeyUp="if (window.event.keyCode == '13') { document.getElementById('relogonSubmit_#rowguid#').click() }">
 				
 					<cfoutput>									
-					
+				
+					<!---	
 					<tr>
 						<td height="5px">
 						</td>
-					</tr>
+					</tr>				
+					
 					<tr>
 						<td style="font-family:Calibri, Helvetica; font-size:18px; color:gray; line-height:18px; text-align:left;padding-left:10px"><span style="color:black; font-size:22px"><cfoutput><b>#SESSION.welcome#</b></cfoutput></span> <cf_tl id="authentication manager"></td>
 					</tr>
+					
 					<tr>
 						<td style="line-height:21px">
 							<hr>
 						</td>
 					</tr>
+					--->
 					<tr>
 						<td style="font-family:Calibri,Helvetica; font-size:16px; line-height:18px; text-align:center">
 							<cf_tl id="Your session expired, please submit your credentials again. You may then proceed with your work" class="Message">.
@@ -132,15 +136,19 @@
 			<td></td>
 		</tr>
 				
-		<tr><td id="relogonresultbox_#rowguid#" style="padding-bottom:5px;padding-top:2px;height:21" colspan="3" class="labelit" align="center"></td></tr>
+		<tr><td id="relogonresultbox_#rowguid#" style="padding-bottom:5px;padding-top:2px" colspan="3" class="labelit" align="center"></td></tr>
 		
-</table>
+	 </table>
 
 </form>
+
+<!---
 
 <script>
 	document.getElementById('password').fics()
 	Prosis.busy('no')
 </script>
+
+--->
 
 </cfoutput>

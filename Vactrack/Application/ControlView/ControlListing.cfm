@@ -13,8 +13,6 @@
 	<<cfabort>
 </cfif>
 
-
-
 <cfparam name="URL.Status" default="0">
 
 <!--- correction hanno 24/10 as sometimes the widget has abother ' --->
@@ -42,14 +40,13 @@
 		 function printme() {
 		    w = 990;
 		    h = #CLIENT.height# - 180;
-			window.open("ControlListing.cfm?#cgi.query_string#&mode=print", "_blank", "left=30, top=30, width=" + w + ", height= " + h + ", menu=no,toolbar=no,status=no, scrollbars=no, resizable=yes"); 
+			ptoken.open('ControlListing.cfm?#cgi.query_string#&mode=print', '_blank', 'left=30, top=30, width=' + w + ', height= ' + h + ', menu=no,toolbar=no,status=no, scrollbars=no, resizable=yes'); 
 		 }
 		
 		 function show_box_search() {
 			element = document.getElementById('img_search');
 			element_row = document.getElementById('dBox');
-			if (element_row.className == 'hide')
-			{
+			if (element_row.className == 'hide') {
 				element_row.className = 'normal';
 				element.src = '#SESSION.root#/images/arrow-up.gif';
 			} else	{
@@ -98,14 +95,12 @@
 	
 <cfoutput>
 
-<table width="96%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table height="100%" width="96%" border="0" cellspacing="0" cellpadding="0" align="center">
 
-
-	<cfif url.mode neq "Portal">
-	
+	<cfif url.mode neq "Portal">	
 				
 		<tr>		
-		    <td>		
+		    <td style="height:10px">		
 			    <table width="100%" border="0" cellspacing="0" cellpadding="0">
 				
 					<tr>
@@ -127,7 +122,7 @@
 		</tr>	
 	
 		<tr id="dBox" class="hide">		
-			<td width="100%" colspan="3" id="dCriteria" style="padding:5px;border:0px solid silver">
+			<td width="100%" colspan="3" id="dCriteria" style="padding:5px;border:0px solid silver;height:10px">
 				<cfinclude template="ControlCriteria.cfm">
 			</td>			
 		</tr>			
@@ -141,13 +136,17 @@
 
 </cfoutput>
 
-
 <tr>
-	<td colspan="2" valign="top" id="dDetails">		
+	<td colspan="2" valign="top" id="dDetails" style="height:100%">		
+		<cfif url.mode neq "Portal">	
+	    <cf_divscroll>
 		<cfinclude template = "ControlListingResult.cfm">		
+		</cf_divscroll>
+		<cfelse>
+		<cfinclude template = "ControlListingResult.cfm">		
+		</cfif>
 	</td>
 </tr>
-
 
 </table>
 

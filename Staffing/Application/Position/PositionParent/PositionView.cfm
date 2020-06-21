@@ -479,11 +479,14 @@
 		  cellspacing="0" 
 		  cellpadding="0">	  
 		  
-		   <cf_menucontainer item="1" class="regular" iframe="position" template="../Position/PositionEdit.cfm?action=view&box=#url.box#&ID=#url.id#&ID1=#url.id1#&ID2=#url.id2#"/>
+		  <cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+		  <cfset mid = oSecurity.gethash()/>   
+		  
+		  <cf_menucontainer item="1" class="regular" iframe="position" template="../Position/PositionEdit.cfm?action=view&box=#url.box#&ID=#url.id#&ID1=#url.id1#&ID2=#url.id2#&mid=#mid#"/>
   
-		   <cf_menucontainer item="2" class="hide">
+		  <cf_menucontainer item="2" class="hide">
 		   
-	       <cf_menucontainer item="3" class="hide" iframe="assignments">
+	      <cf_menucontainer item="3" class="hide" iframe="assignments">
   	 		
 		</table>
 

@@ -75,6 +75,15 @@ if ordertype.receiptentry = 1 : enforce the entry of a receipt record, open cont
   
 </cfif>  
 
+<cfquery name="Receipt" 
+	datasource="AppsPurchase" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    SELECT *
+	    FROM   Receipt
+		WHERE  ReceiptNo = '#Line.ReceiptNo#' 
+	</cfquery>
+
 <!--- get PO --->
 
 <cfquery name="getPO" 
@@ -108,8 +117,7 @@ if ordertype.receiptentry = 1 : enforce the entry of a receipt record, open cont
 
 <!--- action="ReceiptLineEditSubmit.cfm?mode=#url.mode#&reqno=#url.reqno#&action=#URL.action#&ID=#url.rctid#&TBL=#url.tbl#&taskid=#url.taskid#" --->
 
-<cfform 
-    method="POST" 
+<cfform method="POST" 
 	onsubmit="return false"
     name="entry" 
 	id="entry"
@@ -138,7 +146,7 @@ if ordertype.receiptentry = 1 : enforce the entry of a receipt record, open cont
 			   	   	   
 				   <cfoutput>
 				   	   				   
-					   <cfif Line.Actionstatus eq "0" or Line.Actionstatus eq "">	
+					   <cfif Line.Actionstatus eq "0" or Line.Actionstatus eq "" or receipt.actionStatus eq "0">	
 					   		   						
 							<cfif url.mode neq "entry">	 					
 							<td>

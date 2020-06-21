@@ -39,12 +39,15 @@ username="#SESSION.login#"
 password="#SESSION.dbpw#">
     SELECT * 
     FROM Ref_AuthorizationRoleOwner
+	WHERE 1=1
 	<cfif SESSION.isAdministrator eq "No">
-	WHERE Code IN (SELECT ClassParameter 
+	AND  Code IN (SELECT ClassParameter 
 	               FROM   Organization.dbo.OrganizationAuthorization
                	   WHERE  Role        IN ('AdminUser','OrgUnitManager') 
 				   AND    UserAccount = '#SESSION.acc#')
-	</cfif>			   
+	</cfif>	
+	AND   Operational = 1
+	ORDER BY ListingOrder,Description		   
 </cfquery>
 
 <cfif Owner.recordcount eq "0">

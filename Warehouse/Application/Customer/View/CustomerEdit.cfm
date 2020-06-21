@@ -291,7 +291,8 @@ password="#SESSION.dbpw#">
 	<tr>
 		<td class="labelmedium"><cf_tl id="Date of Birth"></td>
 		<td>
-			<cf_intelliCalendarDate9 FieldName="CustomerDOB"  class="regularxl enterastab" Default="#dateformat(Customer.CustomerDOB,'#CLIENT.DateFormatShow#')#" AllowBlank="True">		
+			<cf_intelliCalendarDate9 FieldName="CustomerDOB"  class="regularxl enterastab" Message="Please check the birth date"
+			Default="#dateformat(Customer.CustomerDOB,'#CLIENT.DateFormatShow#')#" AllowBlank="True">		
 		</td>
 	</tr>
 	

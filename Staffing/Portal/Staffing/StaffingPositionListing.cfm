@@ -9,7 +9,7 @@
 
 <div id="process"></div>
 
-<cfset vCols = 4>
+<cfset vCols = 3>
 
 <cfoutput query="Position" group="HierarchyCode">
 
@@ -26,7 +26,7 @@
                 <cfset vLeftBorder = "border-left: 1px solid ##EDEDED;">
             </cfif>
 
-            <cf_MobileCell style="#vLeftBorder#" class="clsPosition col-xs-12 col-md-6 col-lg-#floor(12/vCols)#">
+            <cf_MobileCell style="#vLeftBorder#" class="clsPosition col-xs-12 col-md-6 col-lg-#INT(12/vCols)#">
                 <cfinclude template="StaffingPositionDetail.cfm">	
             </cf_MobileCell>
 

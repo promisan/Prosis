@@ -131,6 +131,8 @@
 
 <!--- determine if the user may edit this receipt : role and current status,
  if there is no workflow : determine --->
+ 
+	
 
 <cfquery name="Min" 
  datasource="AppsPurchase" 
@@ -148,13 +150,13 @@
 <cfif workflowenabled eq "1" 
      and Receipt.EntityClass neq "" 
 	 and ReceiptAccess eq "ALL" 
-	 and min.ActionStatus eq "0">
+	 and (min.ActionStatus eq "0" or receipt.actionStatus eq "0")>
 
 	<cfset editmode = "Edit">
 
 <cfelseif (workflowenabled eq "0" or (workflowenabled eq "1" and  Receipt.EntityClass eq ""))    
 	 and ReceiptAccess eq "ALL" 
-	 and min.ActionStatus eq "0">	
+	 and (min.ActionStatus eq "0" or receipt.actionStatus eq "0")>	
 	 
 	 <cfset editmode = "Edit">
 	

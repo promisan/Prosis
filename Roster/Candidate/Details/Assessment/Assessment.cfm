@@ -4,8 +4,8 @@
  returnvariable="AccessRoster"
  role="'AdminRoster','CandidateProfile'">
 
-<cfparam name="URL.ID2" default="">
-<cfparam name="URL.source" default="">
+<cfparam name="URL.ID2"     default="">
+<cfparam name="URL.source"  default="">
 
 <cfajaximport tags="cfform">
  
@@ -69,7 +69,7 @@
 	
 		<tr>
 			<td>
-			<cf_securediv bind="url:Assessment/AssessmentDetail.cfm?source=#url.source#&id2=edit&Owner=#URL.Owner#&ID=#URL.ID#" id="assessment"/>	
+			<cf_securediv bind="url:Assessment/AssessmentDetail.cfm?source=#url.source#&id2=edit&Owner=#URL.Owner#&ID=#URL.ID#" id="assessment">	
 			</td>
 		</tr>
 	

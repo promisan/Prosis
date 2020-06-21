@@ -29,7 +29,7 @@
 
 <table width="100%" class="navigation_table">
 
- <tr class="line labelmedium">
+ <tr class="line labelmedium fixrow">
    <td style="min-width:40"></td>
    <td><cf_tl id="Class"></td>
    <td><cf_tl id="Track"></td>

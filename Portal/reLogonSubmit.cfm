@@ -8,15 +8,18 @@
 	<cfset SESSION.isRelogon = "No">
 	
 	<script language="JavaScript">	
-		    
-		document.getElementById('relogonbox').style.display = "none"		
+		  
+		ProsisUI.closeWindow('relogonbox')    	   									 	  		       
+		// document.getElementById('relogonbox').style.display = "none"		
 		
 		// we try to also close additional information in the screen 
-		try {
-		document.getElementById('sessionexpirationbox').style.display = "none"	} catch(e) {}
-		try {
-		document.getElementById('sessionvalid').style.display = "none"	} catch(e) {}		
-		document.getElementById('modalbg').style.display    = "none"
+		
+		// try {
+		// document.getElementById('sessionexpirationbox').style.display = "none"	} catch(e) {}
+		// try {
+		// document.getElementById('sessionvalid').style.display = "none"	} catch(e) {}		
+		// document.getElementById('modalbg').style.display    = "none"
+		
 		sessionvalidatestart()
 		
 	</script>

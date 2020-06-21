@@ -102,8 +102,11 @@
 		WHERE  PE.EventId = '#Form.Eventid#'
 	</cfquery>
 	
-	<cfif Event.EntityClass neq "">
-		<cfset entityclass = Event.EntityClass>
+	<cfif url.box neq "">
+	    <!--- only temp, can be removed --->
+	    <cfset entityclass = "Contract">
+	<cfelseif Event.EntityClass neq "">
+		<cfset entityclass = Event.EntityClass>		
 	<cfelse>
 		<cfset entityclass = "Standard">
 	</cfif>

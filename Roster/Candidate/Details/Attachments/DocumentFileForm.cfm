@@ -45,16 +45,20 @@
 	<tr class="line"><td height="20" bgcolor="white" class="labelmedium"><cfoutput><cf_tl id="Profile documents"> for #url.owner#</cfoutput></td></tr>
 				
 	<tr>	
-	<td>		
+	<td>	
+		
 	<cf_filelibraryN
 		DocumentPath="#Parameter.DocumentLibrary#"
 		SubDirectory="#URL.ID#" 
 		Filter="#url.owner#"
 		Insert="yes"
+		loadscript="No"
 		Box="#url.owner#"
 		Remove="yes"
 		ShowSize="yes">	
 	</td>
 	</tr>
+	
+	
 
 </table>

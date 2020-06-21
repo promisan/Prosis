@@ -1,4 +1,5 @@
 
+
 <cfif not ParameterExists(Form.Crit0_FieldName)> 
       Search aborted.
 	  <cfabort>

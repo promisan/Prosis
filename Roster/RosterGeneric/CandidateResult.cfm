@@ -412,8 +412,14 @@ password="#SESSION.dbpw#">
 	<cfset height   = "#client.height-100#">
 	<cfset url.back = "0">	
 	
-	<cfinclude template="RosterSearch/ResultListing.cfm">
-			
+	<table height="100%" width="100%" align="center">
+	<tr><td style="height:100% width:100%">
+	<cfoutput>
+	<iframe width="100%" height="100%" src="#SESSION.root#/roster/rostergeneric/RosterSearch/ResultListing.cfm?mode=#url.mode#&docno=#url.docno#&id=GEN&id1=#LastNo#&id2=B&id3=GEN&height=#height#&back=0&mid=#url.mid#" 
+	scrolling="no" frameborder="0"></iframe>
+	</cfoutput>
+	</td></tr>
+				
 <cfelse>
 
 		
@@ -609,3 +615,7 @@ password="#SESSION.dbpw#">
 
 </cfif>
 <cfset ajaxonload("doHighlight")>
+
+<script>
+Prosis.busy('no')
+</script>

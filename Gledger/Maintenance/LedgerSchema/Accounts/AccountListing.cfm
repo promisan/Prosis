@@ -68,9 +68,9 @@ password="#SESSION.dbpw#">
 function reloadForm(mis,filter,op) {
     			
     if (op == true || op == "true") {		 
-     window.location="AccountListing.cfm?idmenu=#url.idmenu#&ts="+new Date().getTime()+"&op=true&Mission="+mis+"&Parent="+filter;
+     ptoken.location('AccountListing.cfm?idmenu=#url.idmenu#&op=true&Mission='+mis+'&Parent='+filter);
 	 } else {	 
-	 window.location="AccountListing.cfm?idmenu=#url.idmenu#&ts="+new Date().getTime()+"&op=false&Mission="+mis+"&Parent="+filter;
+	 ptoken.location('AccountListing.cfm?idmenu=#url.idmenu#&op=false&Mission='+mis+'&Parent='+filter);
 	 }	 
 }
 
@@ -220,19 +220,20 @@ function accounttoggle(mis,acc,act) {
 		<tr class="labelmedium line fixrow">
 		    <td height="18" width="40"></td>
 			<td width="60"></td>
-		    <td width="8%"><cf_tl id="Code"></td>
-			<td width="35%"><cf_tl id="Description"></td>
-			<td width="100"><cf_tl id="System"></td>
-			<td width="6%" ><cf_tl id="Type"></td>
-			<td width="6%" ><cf_tl id="Class"></td>
-			<td width="6%" ><cf_tl id="Usage"></td>
-		    <td width="6%" ><cf_tl id="Tax"></td>
-		    <td width="10%" ><cf_tl id="Bank"></td>
-			<td width="4%" style="cursor: pointer;"><cf_UItooltip  tooltip="Monetary Account"><cf_tl id="Mon"></cf_UItooltip></td>
-			<td width="4%" style="cursor: pointer;"><cf_UItooltip  tooltip="Enforce Program Entry"><cf_tl id="Prg"></cf_UItooltip></td>
-			<td width="4%" style="cursor: pointer;"><cf_UItooltip  tooltip="Tax Account"><cf_tl id="Tax"></cf_UItooltip></td>
-			<td width="4%" style="cursor: pointer;"><cf_UItooltip  tooltip="Stock"><cf_tl id="Stck"></cf_UItooltip></td>
-			<td width="7%" align="right" colspan="2" style="cursor: pointer;"><cf_UItooltip  tooltip="Used"><cf_tl id="Used"></cf_UItooltip></td>						
+		    <td style="min-width:120px"><cf_tl id="Code"></td>
+			<td width="60%"><cf_tl id="Description"></td>
+			<td style="width:80px"><cf_tl id="System"></td>
+			<td style="min-width:30px" align="center"><cf_tl id="T"></td>
+			<td style="min-width:30px" align="center"><cf_tl id="C"></td>
+			<td style="min-width:50px" align="center"><cf_UItooltip  tooltip="Usage: Neutral,Customer,Vendor"><cf_tl id="U"></cf_UItooltip></td>
+		    <td align="center" width="6%" ><cf_tl id="Tax"></td>
+		    <td style="min-width:100px"><cf_tl id="Bank"></td>
+			<td style="min-width:40px;cursor: pointer;"><cf_UItooltip  tooltip="Monetary Account"><cf_tl id="Mon"></cf_UItooltip></td>
+			<td style="min-width:40px;cursor: pointer;"><cf_UItooltip  tooltip="Enforce Program Entry"><cf_tl id="Prg"></cf_UItooltip></td>
+			<td style="min-width:40px;cursor: pointer;"><cf_UItooltip  tooltip="Tax Account"><cf_tl id="T"></cf_UItooltip></td>
+			<td style="min-width:40px;cursor: pointer;"><cf_UItooltip  tooltip="Stock"><cf_tl id="I"></cf_UItooltip></td>
+			<td align="right" style="min-width:40px;cursor: pointer;"><cf_UItooltip  tooltip="Used"><cf_tl id="U"></cf_UItooltip></td>						
+			<td style="width:50px"></td>
 		</tr>	
 	
 	<cfoutput query="SearchResult" group="AccountParent">
@@ -322,20 +323,20 @@ function accounttoggle(mis,acc,act) {
 				<td style="display:none;" class="ccontent">#AccountParent# #Parentdescription# #AccountGroup1# #GroupDescription# #GlAccount# #Description# #Mission.SystemAccount# #AccountType# #AccountClass# #TaxCode# #vBankAccountNo#</td>
 				<td></td>
 				<td></td>
-			    <td style="padding-left:30px"><a class="navigation_action" onClick="javascript:edit('#GLAccount#','#AccountParent#')"><font color="0080C0">#GlAccount#</td>
-				<td style="padding-left:30px">#Description#</td>
-				<td style="padding-left:2px;border-left:1px solid silver">#Mission.SystemAccount#</td>
-				<td align="center" style="padding-left:2px;border-left:1px solid silver">#AccountType#</td>
-				<td align="center" style="padding-left:2px;border-left:1px solid silver">#AccountClass#</td>
-				<td align="center" style="padding-left:2px;border-left:1px solid silver">#AccountCategory#</td>
+			    <td style="padding-left:1px"><a class="navigation_action" onClick="javascript:edit('#GLAccount#','#AccountParent#')">#GlAccount#</td>
+				<td style="padding-left:1px">#Description#</td>
+				<td align="center" style="border-left:1px solid silver">#Mission.SystemAccount#</td>
+				<td align="center" style="padding-left:2px;border-left:1px solid silver">#Left(AccountType,1)#</td>
+				<td align="center" style="padding-left:2px;border-left:1px solid silver">#Left(AccountClass,1)#</td>
+				<td align="center" style="padding-left:2px;border-left:1px solid silver">#Left(AccountCategory,3)#</td>
 				<td align="center" style="padding-left:2px;border-left:1px solid silver">#TaxCode#</td>
 			    <td align="center" style="padding-left:2px;border-left:1px solid silver">#vBankAccountNo#</td>
 				<td align="center" style="padding-left:2px;border-left:1px solid silver"><cfif MonetaryAccount eq "1" and ForceCurrency eq "">Yes<cfelseif MonetaryAccount eq "1" and ForceCurrency neq "">#ForceCurrency#<cfelse></cfif></td>
 				<td align="center" style="padding-left:2px;border-left:1px solid silver"><cfif forceProgram eq "1">Yes</cfif></td>
 			    <td align="center" style="padding-left:2px;border-left:1px solid silver"><cfif TaxAccount eq "1">Yes</cfif></td>
 				<td align="center" style="padding-left:2px;border-left:1px solid silver"><cfif StockAccount eq "1">Yes</cfif></td>
-				<td align="right" style="padding-right:6px">#used#</td>
-				<td align="left" style="padding-top:3px" id="i#glaccount#">
+				<td align="right" style="padding-right:2px;border-left:1px solid silver">#used#</td>
+				<td align="center" style="min-width:30px;padding-left:2px;border-left:1px solid silver" id="i#glaccount#">
 				
 				<cfif mission.recordcount eq "1">
 						 

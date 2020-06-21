@@ -5,13 +5,15 @@
 	<tr>
 	<td bgcolor="#ViewColor#">&nbsp;</td>
 	<td class="lcell" align="right">
+	<cfset vHoursStyle = "font-size:15px;">
+	<cfset vMinutesStyle = "font-size:11px;">
 	<cfswitch expression="#partVal#">				
-		<cfcase value="0"><font size="3">#int(CalendarHour)#<font size="2">:00</font></cfcase>
-		<cfcase value="25"><font size="2">:15</font></cfcase>
-		<cfcase value="33"><font size="2">:20</font></cfcase>
-		<cfcase value="50"><font size="2">:30</font></cfcase>
-		<cfcase value="66"><font size="2">:40</font></cfcase>
-		<cfcase value="75"><font size="2">:45</font></cfcase>				
+		<cfcase value="0"><span style="#vHoursStyle#">#int(CalendarHour)#<span style="#vMinutesStyle#">:00</span></cfcase>
+		<cfcase value="25"><span style="#vMinutesStyle#">:15</span></cfcase>
+		<cfcase value="33"><span style="#vMinutesStyle#">:20</span></cfcase>
+		<cfcase value="50"><span style="#vMinutesStyle#">:30</span></cfcase>
+		<cfcase value="66"><span style="#vMinutesStyle#">:40</span></cfcase>
+		<cfcase value="75"><span style="#vMinutesStyle#">:45</span></cfcase>				
 	</cfswitch>	
 	</td>	
 	</tr>

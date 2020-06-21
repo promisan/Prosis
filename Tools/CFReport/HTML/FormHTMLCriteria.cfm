@@ -137,7 +137,7 @@
 		
 		 <cfset row = 0>
 	     <cfset cluster = "">
-	  	  	      						
+		 	  	  	      						
 		<cfoutput group="CriteriaOrder">
 		
 			<cfoutput group="CriteriaName">	
@@ -299,9 +299,9 @@
 												
 												<cf_tl id="Cluster option" var="1">
 												
-												<td bgcolor="f1f1f1" style="cursor:pointer;padding-left:3px;height:100%;border:1px solid silver;width:225px" 
+												<td bgcolor="f1f1f1" style="cursor:pointer;padding-left:3px;height:30px;border:1px solid silver;width:235px" 
 												onclick="document.getElementById('#CriteriaName#_radio').click()" title="#lt_text# :#Parameter.CriteriaMemo#">
-																				
+																			
 													<table cellspacing="0" cellpadding="0">																					
 													<tr><td class="labelit" style="padding:2px;font-size:15px">
 														<cf_tl id="#CriteriaDescription#"> 
@@ -321,7 +321,7 @@
 									
 									</td>
 																		
-									<td style="padding-left:6px;padding-top:3px">
+									<td style="padding-left:20px;padding-top:3px;width:100%;padding-right:4px">
 									
 									   <cfif ClusterSelect.recordcount eq "1">
 										
@@ -372,7 +372,7 @@
 											<cfinclude template="../SelectFormParameter.cfm"> 				
 														
 										<cfelse>
-																			
+															
 											<cfdiv bind="url:SelectFormContainer.cfm?controlid=#controlid#&criterianame=#criterianame#&reportid=#url.reportid#&fldid=#fldid#&cl=#cl#&val={#parent#}">
 																										
 										</cfif>			
@@ -438,9 +438,9 @@
 									<tr>	
 																																																	 
 										<td valign="top" style="height:100%;height:30px;padding-top:2px;padding-left:4px;cursor:pointer;background-color:<cfif CriteriaClass eq 'Layout'>228ED7<cfelse>E17100</cfif>;border:0px solid silver">										  
-										
+																				
 										<cf_uitooltip tooltip="#tt#">
-										 																											
+																				 																											
 										    <table>
 											
 											<tr>
@@ -518,7 +518,7 @@
 											<!--- check if exists --->
 											
 											</cfif>
-																																						
+																																																	
 											<cfif Parameter.CriteriaMemo neq "">
 											
 												<cf_UIToolTip tooltip="<table><tr><td>#Parameter.CriteriaMemo#</td></tr></table>">
@@ -603,7 +603,7 @@
 	   <td valign="top" colspan="4" style="padding:2px">
 	   
 	   <table border="0" width="100%" cellspacing="0">
-	         						
+	 	         						
 		<cfoutput query="Criteria" group="CriteriaOrder">
 		
 		<cfoutput group="CriteriaName">	

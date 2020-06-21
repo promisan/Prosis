@@ -93,7 +93,7 @@
 				) as U LEFT OUTER JOIN Organization.dbo.Organization O ON U.OrgUnit = O.OrgUnit
 				
 		ORDER BY U.AccountOwner, U.AccountMission, O.HierarchyCode, U.AccountGroupName, U.LastName 
-		
+				
 	</cfquery>
 	
 <table width="97%" border="0" cellspacing="0" cellpadding="0" align="left" class="navigation_table">
@@ -111,7 +111,7 @@
 		
 	<cfif searchresult.recordcount eq "0">
 	
-	     <tr><td align="center" class="labelmedium" style="font-weight:200;padding-top:10px"><cf_tl id="There are no records to show in this view"></td></tr>
+	     <tr><td align="center" colspan="7" class="labelmedium" style="font-weight:200;padding-top:10px"><cf_tl id="There are no records to show in this view"></td></tr>
 	
 	</cfif>
 	

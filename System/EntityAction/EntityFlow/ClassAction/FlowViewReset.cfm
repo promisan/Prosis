@@ -309,8 +309,11 @@
 
 <cfoutput>
 
+<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+<cfset mid = oSecurity.gethash()/>   
+
 	<script language="JavaScript">
-	   window.location = "FlowView.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#"
+	   window.location = "FlowView.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&mid=#mid#"
 	</script>
 
 </cfoutput>

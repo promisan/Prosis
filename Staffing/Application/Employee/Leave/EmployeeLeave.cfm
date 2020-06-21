@@ -2,7 +2,7 @@
 <cf_screentop height="100%" html="No" scroll="Yes" jquery="Yes"  menuaccess="context" actionobject="Person"
 		actionobjectkeyvalue1="#url.id#">
 
-<cfajaximport tags="cfdiv,cfform,cfinput-datefield">
+<cfajaximport tags="cfdiv,cfform">
 <cf_calendarscript>
 <cf_actionListingScript>
 <cf_FileLibraryScript>
@@ -30,8 +30,9 @@
 			
 	function deduction(id) {
 	
-	       ProsisUI.createWindow('deduction', 'Amend deduction','', {height:document.body.clientHeight-80,width:500,modal:true,closable:true,center:true,minheight:200,minwidth:200 });
-		   ptoken.navigate('#SESSION.root#/staffing/application/Employee/Leave/Deduct/DeductionEdit.cfm?leaveid='+id,'deduction')	
+	    ProsisUI.createWindow('deduction', 'Amend deduction','', {height:document.body.clientHeight-80,width:500,modal:true,closable:true,center:true,minheight:200,minwidth:200 });
+		ptoken.navigate('#SESSION.root#/staffing/application/Employee/Leave/Deduct/DeductionEdit.cfm?leaveid='+id,'deduction')	
+		
 	}		
 	
 	function deductionsave(id) {
@@ -41,7 +42,9 @@
 	}
 	
 	function balancecorrection(id,bal) {
+	
 	    ptoken.open('#SESSION.root#/payroll/application/overtime/overtimeEntryCorrection.cfm?id='+id+'&balanceid='+bal)
+		
 	}
 	
 	</script>
@@ -61,11 +64,11 @@
 		</tr>	
 		
 		<tr><td height="100%" width="100%" align="center">
-		        <cf_divscroll>
+		        
 				<table width="100%" height="100%" cellspacing="0" cellpadding="0">
 				<tr><td style="padding-left:10px"><cfinclude template="EmployeeLeaveTab.cfm"></td></tr>
 				</table>	
-				</cf_divscroll>
+				
 			</td>
 		</tr>
 		

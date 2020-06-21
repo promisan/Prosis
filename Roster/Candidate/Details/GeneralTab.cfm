@@ -140,10 +140,10 @@ datasource="AppsSelection">
 	
 			 <cfif menu eq "1">
 			 
-				  <td width="30%" align="center" class="labelmedium"><i>
+				  <td width="30%" align="center" class="labelmedium">
 			   	  <cf_tl id="No Candidate profile information recorded" var="1" class="message">
 			  	  <cfset msg = lt_text>
-			 	  <font color="red">
+			 	  <font color="6688aa">
 				  <b><cf_tl id="Attention">:</b> <cfoutput>#msg#</cfoutput>.</font>
 				  </td>
 				  

@@ -84,8 +84,7 @@ function pasdialog(pasid) {
   	w = #CLIENT.width# - 60;
     h = #CLIENT.height# - 120;
      ptoken.open(root + "/Staffing/Application/Employee/PersonAction/ActionDialog.cfm?drillid="+docno,"pa"+docno);
- }
- 
+ } 
  
  function pasedit(pasid) {
   	w = 850;
@@ -106,7 +105,8 @@ function eventedit(key) {
       _cf_loadingtexthtml='';		
 	  ProsisUI.createWindow('evdialog', 'Event Dialog', '',{x:200,y:200,height:document.body.clientHeight-100,width:document.body.clientWidth-200,modal:true,resizable:false,center:true})    					
       ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventForm.cfm?portal=0&id='+key,'evdialog')
-	}
+}	
+	
 	
 function EditPerson(personno,sid,template) {
     w = #CLIENT.width# - 20;

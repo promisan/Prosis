@@ -372,6 +372,7 @@
 	password="#SESSION.dbpw#">
 	SELECT    D.*, 
 	          T.EntityClassName, 
+			  T.ActionCode,
 			  T.PostGradeBudget, 
 			  T.PostOrderBudget,
 			  F.ReferenceNo as VAReferenceNo,
@@ -381,9 +382,9 @@
 			  WHERE  P.OrgUnitOperational = O.OrgUnit
 			  AND    P.PositionNo = D.PositionNo) as OrgUnitNameShort 
 			
-	FROM      Vacancy.dbo.Document D INNER JOIN (#preservesingleQuotes(SelectedTracks)#) as T  
-			  ON D.DocumentNo = T.DocumentNo  LEFT OUTER JOIN 
-			  Applicant.dbo.FunctionOrganization F ON D.FunctionId = F.FunctionId 
+	FROM      Vacancy.dbo.Document D 
+	          INNER JOIN (#preservesingleQuotes(SelectedTracks)#) as T ON D.DocumentNo = T.DocumentNo 
+			  LEFT OUTER JOIN Applicant.dbo.FunctionOrganization F ON D.FunctionId = F.FunctionId 
 			<cfif vCondition2 neq "">
 				#PreserveSingleQuotes(vCondition2)#
 			</cfif>

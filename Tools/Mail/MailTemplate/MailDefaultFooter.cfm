@@ -1,3 +1,5 @@
+<cfparam name="attributes.displayLogo"    default="1">
+
 <div class="footer" style="clear: both; padding-top: 24px; text-align: center; width: 100%;">
     <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;" width="100%">
     <tr>
@@ -13,8 +15,9 @@
                 <a href="mailto:information@promisan.com" style="color: ##F7531B; font-size: 11px; font-weight: bold; text-align: center; text-decoration: none;">information@promisan.com</a><br>
             </span>
             --->
-            <br><br>
-            <img src="cid:logo-gray" width="126" height="35"><br><br>
+            <cfif attributes.displayLogo eq 1>
+                <img src="cid:logo-gray" width="80" height="25">
+            </cfif>
             <cf_assignid>
             <cfset vId = rowguid>
             <cf_MailDisclaimer id="#vId#">

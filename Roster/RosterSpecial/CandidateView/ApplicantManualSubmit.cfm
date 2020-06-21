@@ -1,4 +1,3 @@
-
  
 <!--- verify if Submission record submission exists --->
 
@@ -27,10 +26,68 @@ password="#SESSION.dbpw#">
 	SELECT ApplicantNo
 	FROM   ApplicantSubmission
 	WHERE  PersonNo = '#URL.PersonNo#'
-	<!--- limit creation
-	AND SubmissionEdition = '#Bucket.SubmissionEdition#' 
-	--->
+	AND    SubmissionEdition = '#Bucket.SubmissionEdition#' 	
 </cfquery>
+
+<cfif Verify.recordcount eq "0">
+
+	<!--- search for a profile to be used based on the setting of the parent --->
+
+	<cfquery name="getEdition" 
+		datasource="AppsSelection" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		SELECT    R.Owner,C.Source
+		FROM      Ref_SubmissionEdition AS R INNER JOIN
+	              Ref_ExerciseClass AS C ON R.ExerciseClass = C.ExcerciseClass
+		WHERE     R.SubmissionEdition = '#Bucket.SubmissionEdition#'
+	</cfquery>
+	
+	<cfif getEdition.Source eq "">
+	
+		<!--- we go deeper to the owner to select a default source --->
+		
+		<cfquery name="getEdition" 
+		datasource="AppsSelection" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT    DefaultPHPEntry
+			FROM      Ref_ParameterOwner
+			WHERE     Owner = '#Bucket.Owner#'		
+	   </cfquery>	
+	
+	</cfif>
+
+	<cfif getEdition.Source neq "">		
+
+		<cfquery name="Verify" 
+		datasource="AppsSelection" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT   ApplicantNo
+			FROM     ApplicantSubmission
+			WHERE    PersonNo = '#URL.PersonNo#'
+			AND      Source = '#getEdition.Source#' 	
+			ORDER BY Created DESC
+		</cfquery>
+	
+	<cfelse>
+	
+		<cfquery name="Verify" 
+		datasource="AppsSelection" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT   ApplicantNo
+			FROM     ApplicantSubmission
+			WHERE    PersonNo = '#URL.PersonNo#'
+			ORDER BY Created DESC	
+		</cfquery>
+	
+	</cfif>
+
+</cfif>
+
+<cfset Source = "Manual">
 
 <cfif Person.recordcount eq "1">
 	
@@ -46,7 +103,7 @@ password="#SESSION.dbpw#">
 	     </cfquery>
 		 
 		 <cfif Last.LastNo neq "">
-		    <cfset new = #Last.LastNo#+1>
+		    <cfset new = Last.LastNo+1>
 		 <cfelse>	
 		    <cfset new = "1">
 		 </cfif> 
@@ -67,6 +124,12 @@ password="#SESSION.dbpw#">
 		 </cfquery>
 	 
 	      <!--- Submit submission --->
+		  
+		  <cfif getEdition.Source neq "">
+		  	<cfset Source = getEdition.Source>
+		  <cfelse>
+		    <cfset Source = "Manual">
+		  </cfif>
 	
 	     <cfquery name="InsertApplicant" 
 	     datasource="AppsSelection" 
@@ -88,7 +151,7 @@ password="#SESSION.dbpw#">
 		       '#LastNo.ApplicantNo#', 
 	           '#DateFormat(Now(),CLIENT.DateSQL)#',
 			  '0',
-			  'Manual',
+			  '#Source#',
 			  '#Bucket.SubmissionEdition#',
 			  '',
 			  '001',
@@ -113,13 +176,21 @@ password="#SESSION.dbpw#">
 	datasource="AppsSelection" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	SELECT FunctionId
-	FROM   ApplicantFunction
-	WHERE  ApplicantNo = '#AppNo#' 
-	AND    FunctionId = '#URL.IDFunction#'
+		SELECT FunctionId
+		FROM   ApplicantFunction
+		WHERE  ApplicantNo = '#AppNo#' 
+		AND    FunctionId = '#URL.IDFunction#'
 	</cfquery>
 	
 	<CFIF Verify.recordCount is 1 > 
+	
+	<cf_tl id="Candidate was already recorded" var="1">
+		
+	<cfoutput>	
+		<script>
+			alert("#lt_text#")
+		</script>
+	</cfoutput>
 	
 	<!--- 
 	do nothing, already registered
@@ -179,7 +250,7 @@ password="#SESSION.dbpw#">
 </cfif>
 	
 <cfset url.box     = "manual">
-<cfset url.source  = "manual">
+<cfset url.source  = "#source#">
 <cfset url.filter  = "0">
 <cfset url.total   = "0">
 <cfinclude template="FunctionViewListing.cfm">
