@@ -464,8 +464,7 @@ password="#SESSION.dbpw#">
     <TD class="labelmedium"><cf_tl id="Effective date">:</TD>
     <TD height="20">
 	
-	<cfif Mandate.MandateStatus eq "0" or AccessPosition eq "ALL">
-	
+	<cfif Mandate.MandateStatus eq "0" or AccessPosition eq "ALL">	
 		
 		<cf_intelliCalendarDate9
 			FormName="PositionEdit"

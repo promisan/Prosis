@@ -138,7 +138,7 @@ password="#SESSION.dbpw#">
 			<cfif url.mode eq "customer">
 						  
 			 parent.document.getElementById('customeridselect').value = '#rowguid#'		 
-	         parent.ColdFusion.navigate('#SESSION.root#/warehouse/application/SalesOrder/POS/Sale/applyCustomer.cfm?mission=#url.mission#&warehouse=#url.warehouse#&customerid=#rowguid#','customerbox')					   	 
+	         parent.ptoken.navigate('#SESSION.root#/warehouse/application/SalesOrder/POS/Sale/applyCustomer.cfm?mission=#url.mission#&warehouse=#url.warehouse#&customerid=#rowguid#','customerbox')					   	 
 			 try { parent.ProsisUI.closeWindow('customeradd',true)} catch(e){};	
 			 parent.document.getElementById('customerselect').focus()				
 			 
@@ -149,7 +149,7 @@ password="#SESSION.dbpw#">
 			 
 			 if (cId){
 			 
-				     parent.ColdFusion.navigate('#SESSION.root#/warehouse/application/SalesOrder/POS/Sale/applySaleHeader.cfm?field=billing&warehouse=#url.warehouse#&customerid='+cId.value+'&customeridinvoice=#rowguid#','salelines')					   	 
+				     parent.ptoken.navigate('#SESSION.root#/warehouse/application/SalesOrder/POS/Sale/applySaleHeader.cfm?field=billing&warehouse=#url.warehouse#&customerid='+cId.value+'&customeridinvoice=#rowguid#','salelines')					   	 
 					 try { parent.ProsisUI.closeWindow('customeradd',true)} catch(e){};
 					 parent.document.getElementById('customerinvoiceselect').focus()			
 			 }

@@ -4,7 +4,7 @@
 
 	<script language="JavaScript">
 	
-	function __prosisPresentation_do_tablesearch(event,searchmode,searchvalue,row,content,displayValue,filterLabel) {
+	function __prosisPresentation_do_tablesearch(event, searchmode, searchcondition, searchvalue, row, content, displayValue, filterLabel) {
 				
 		var unicode = event.keyCode ? event.keyCode : event.charCode;
 		
@@ -33,18 +33,31 @@
 				cnt = 0;
 				
 				for (var i = 0; i < searchElements.length; ++i) {
-				
+					
+					var doThisSearch = 0;
 					testValue = searchElements[i].innerHTML.toLowerCase();
 					
-					if (testValue.indexOf(strValue) > -1) {
+					if ($.trim(searchcondition).toLowerCase() == 'contains') {
+						if (testValue.indexOf(strValue) > -1) {
+							doThisSearch = 1;				
+						}	
+					}
+
+					if ($.trim(searchcondition).toLowerCase() == 'equals') {
+						if (testValue == strValue) {
+							doThisSearch = 1;				
+						}	
+					}
+
+					if (doThisSearch == 1) {
 						cnt = cnt + 1;
 						vParent = searchElements[i].parentNode;
 						
 						while(!$(vParent).hasClass(row)) {
 							vParent = vParent.parentNode;
 						}	
-						vParent.style.display = displayValue;						
-					}					
+						vParent.style.display = displayValue;
+					}				
 				}					
 			}			
 			vhidden = total.length - cnt;
@@ -52,10 +65,10 @@
 		}							
 	}
 	
-	function __prosisPresentation_do_clearsearch(event, searchmode, searchvalue, row, content, displayValue){
+	function __prosisPresentation_do_clearsearch(event, searchmode, searchcondition, searchvalue, row, content, displayValue){
 		if ($('##'+searchvalue+'search').val() != '') {
 			$('##'+searchvalue+'search').val('');
-			__prosisPresentation_do_tablesearch(event, searchmode, searchvalue, row, content, displayValue);	
+			__prosisPresentation_do_tablesearch(event, searchmode, searchcondition, searchvalue, row, content, displayValue);	
 		}
 	}
 	

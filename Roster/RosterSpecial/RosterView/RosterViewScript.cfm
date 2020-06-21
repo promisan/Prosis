@@ -20,7 +20,7 @@ var P;
 
 function reloadroster() {       
     Prosis.busy('yes');
-	window.location = "RosterViewLoop.cfm?#qrystring##l#&exerciseclass="+document.getElementById('exerciseclass').value
+	ptoken.location('RosterViewLoop.cfm?#qrystring##l#&exerciseclass='+document.getElementById('exerciseclass').value)
 }	
 
 function reloadPosition(pos, edition){

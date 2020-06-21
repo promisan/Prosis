@@ -62,8 +62,6 @@
 <script>
 parent.Prosis.busy('no')
 </script>
-				
-
 
 </cfoutput>
 

@@ -14,8 +14,6 @@
 <cfset val = replace(val,".","/","ALL")>
 <cfset val = replace(val,"-","/","ALL")>
 
-
-
 <cfif val eq "">
   <cfset val = "01/01/1900">
 </cfif>
@@ -40,8 +38,6 @@
 	</script>
 
 </cfif>
-
-
 
 <cfif Attributes.DateFormat is "EU" and Attributes.DateFormatSQL eq "EU">
 
@@ -159,8 +155,6 @@
 		 	 
 </cfif>
 
-
-
 <cfset ValidDate = true>
 <cfset Numbers = Replace(dte,"'","","ALL")>
 <cfset Numbers = Replace(Numbers,"{","","ALL")>
@@ -169,8 +163,6 @@
 <cfset err = "">
 
 <cfset j = 1>
-
-
 
 <cfloop index="k" list="#Numbers#" delimiters="-">
 

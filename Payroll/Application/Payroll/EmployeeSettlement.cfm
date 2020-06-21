@@ -1,6 +1,7 @@
 
 <cfparam name="url.scope" default="">
 
+<cf_divscroll overflowy="scroll">
 
 <table width="93%" cellspacing="0" cellpadding="0" align="center" class="formpadding navigation_table">
 		
@@ -162,9 +163,8 @@
 			ORDER BY P.LastName, P.FirstName			
 	</cfquery>
 	
-	<tr><td height="4" colspan="11"></td></tr>	
-	
-	<tr class="line labelmedium">
+		
+	<tr class="line labelmedium fixrow" style="background-color:white">
 	 <td align="right" style="width:25px">C</td>
 	 <td width="3%"></td>
 	 <td style="min-width:70px"><cf_tl id="Period"></td>
@@ -199,7 +199,7 @@
 	<cfif Settlement.recordcount eq "0">
 	
 	<tr>
-	<td colspan="14" style="padding-top:10px" align="center" class="labelmedium" height="50"><cf_tl id="There are no records found to show in this view">.</td>
+	<td colspan="15" style="padding-top:10px" align="center" class="labelmedium" height="50"><cf_tl id="There are no records found to show in this view">.</td>
 	</tr>
 	
 	</cfif>
@@ -211,8 +211,8 @@
 		
 			<cfif year(PaymentDate) neq prior>
 			
-			<tr class="line">
-					<td colspan="14" style="padding-left:13px;height:35px;padding-top:8px" class="labellarge">
+			<tr class="line fixrow2">
+					<td colspan="15" style="padding-left:13px;height:35px;padding-top:8px" class="labellarge">
 					<cfif url.scope neq "portal">
 						<table width="100%" border="0">
 						    <tr>
@@ -461,5 +461,7 @@
 	<tr><td height="10"></td></tr>
 
 </table>
+
+<cf_screentop>
 
 <cfset ajaxonload("doHighlight")>

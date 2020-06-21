@@ -16,42 +16,41 @@ password="#SESSION.dbpw#">
 	
 	<input type="hidden" name="PersonNo" value = "<cfoutput>#URL.ID#</cfoutput>">
 		
-	<table width="98%" align="center" border="0" cellspacing="0" cellpadding="0" bordercolor="silver" frame="all">
+	<table width="98%" align="center">
 	
 	<tr><td height="23">
-	<table width="100%" cellspacing="0" cellpadding="0"><tr><td class="labellarge">
-	<cf_tl id="Job Assessment">
-	</td>
+	
+	<table width="100%">
+	<tr class="line"><td class="labellarge"><cf_tl id="Job Assessment"></td>
+	
 	<td align="right">
-	<table>
-	
-	<cfoutput query="Source">
-	
-		<td align="right" style="cursor: pointer;" class="labelit" onClick="reload('#source#')">
-		 <table>
-		     <tr>
-		       <td>
-				<input type="radio" id="source" name="source" value="#Description#" <cfif url.source eq "#source#">checked</cfif>> 
-			   </td>
-			   <td class="labelmedium" style="padding-left:3px;padding-right:6px">
-				 <cfif url.source eq source><b></cfif>#Description#</b>
-			   </td>	
-		     </tr>
-		 </table>	
-		</td>	
+		<table>
 		
-	</cfoutput>
-	</table>
+		<cfoutput query="Source">
+		
+			<td align="right" style="cursor: pointer;" class="labelit" onClick="reload('#source#')">
+			 <table>
+			     <tr>
+			       <td>
+					<input type="radio" id="source" name="source" value="#Description#" <cfif url.source eq "#source#">checked</cfif>> 
+				   </td>
+				   <td class="labelmedium" style="padding-left:3px;padding-right:6px">
+					 <cfif url.source eq source><b></cfif>#Description#</b>
+				   </td>	
+			     </tr>
+			 </table>	
+			</td>	
+			
+		</cfoutput>
+		</table>
 	</td>
 	</tr></table>
 	
 	</td></tr> 
 	
 	<input type="hidden" id="sourcesel" name="sourcesel" value="<cfoutput>#url.source#</cfoutput>">
-	
-	<tr><td height="1" class="linedotted"></td></tr>
-	
-	<tr><td height="30">
+		
+	<tr class="line"><td height="30">
 		
 	<cfquery name="Parameter" 
 	datasource="AppsSelection" 
@@ -73,8 +72,6 @@ password="#SESSION.dbpw#">
 		ShowSize="yes">	
 	
 	</td></tr>
-		
-	<tr><td height="1" class="linedotted"></td></tr>
 	
 	<tr><td height="4"></td></tr>
 		
@@ -134,7 +131,7 @@ password="#SESSION.dbpw#">
 					--->
 					<td width="100%">
 					
-					<table width="98%" border="0" cellspacing="0" cellpadding="0" align="left">
+					<table width="98%" align="left">
 				
 						</cfoutput>
 					
@@ -203,7 +200,7 @@ password="#SESSION.dbpw#">
 	<cfoutput>
 	 <INPUT class="button10g" style="width:170;height:26"
 	        type="button" 
-			onclick="ColdFusion.navigate('Assessment/AssessmentEntrySubmit.cfm?id2=edit&source=#url.source#&Owner=#url.owner#&ID=#url.id#','assessment','','','POST','formass')"
+			onclick="ptoken.navigate('Assessment/AssessmentEntrySubmit.cfm?id2=edit&source=#url.source#&Owner=#url.owner#&ID=#url.id#','assessment','','','POST','formass')"
 			value="Save">
 	</cfoutput>		
 			</td></tr>

@@ -244,10 +244,11 @@ password="#SESSION.dbpw#">
 		<cfoutput>
 		
 			<table class="formspacing"><tr>
-					
+
+			<cf_tl id="Deactivate" var="vDeactivate">
+
 		    <cfif Program.RecordStatus eq "1">
 			
-				<cf_tl id="Deactivate" var="vDeactivate">
 				<td>
 					<cf_tl id="Stall" var="1">
 					<button name="Delete" 

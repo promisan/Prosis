@@ -291,7 +291,7 @@ password="#SESSION.dbpw#">
 			<tr>
 			
 			<td style="padding-top:1px;padding-right:4px;width:10%;" rowspan="3" align="center" valign="top" class="clsNoPrint">				
-				<cfdiv id="divVoidDocument" bind="url:#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/SaleVoid.cfm?customerid=#url.customerid#&warehouse=#url.warehouse#&bbbb">						
+				<cf_securediv id="divVoidDocument" bind="url:#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/SaleVoid.cfm?customerid=#url.customerid#&warehouse=#url.warehouse#&bbbb">						
 		    </td>			
 			
 			<td colspan="1" valign="top" style="padding-right:15px;width:40%;height:80px;" id="customer_box">

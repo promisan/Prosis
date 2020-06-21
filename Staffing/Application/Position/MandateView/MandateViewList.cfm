@@ -1,5 +1,4 @@
 
-
 <cfparam name="URL.header"        		default="Yes">
 <cfparam name="client.org"        		default="">
 <cfparam name="URL.Org"           		default="#client.org#">
@@ -15,7 +14,6 @@
 <cfparam name="CLIENT.lay"        		default="Listing">
 <cfparam name="URL.ShowAllRecords"   	default="0">
 <cfparam name="CLIENT.OldPageRecords"   default="40">
-
 
 <cfif url.selectiondate eq "undefined">
 	<cfset url.selectiondate = "">
@@ -490,7 +488,7 @@
 		</cfquery>
 			
 	<cfelse>
-	
+		
 		  <!--- the first section can be cancelled at some point when UN is on supertrack --->
 		  	 				
 		  <cfquery name="CheckVacancy" 
@@ -551,17 +549,17 @@
 																						
 										<!--- also we get a first position in the next mandate --->			
 										
-										SELECT     D.DocumentNo 
+										SELECT    D.DocumentNo 
 										
-										FROM       Vacancy.dbo.DocumentPost as Track INNER JOIN
-							                       Position PM ON Track.PositionNo = PM.PositionNo INNER JOIN
-								                   Position SP ON PM.PositionParentId = SP.PositionParentId INNER JOIN
-								                   Vacancy.dbo.Document D ON Track.DocumentNo = D.DocumentNo INNER JOIN
-							                       Position PN ON SP.PositionNo = PN.SourcePositionNo
+										FROM      Vacancy.dbo.DocumentPost as Track INNER JOIN
+							                      Position PM ON Track.PositionNo = PM.PositionNo INNER JOIN
+								                  Position SP ON PM.PositionParentId = SP.PositionParentId INNER JOIN
+								                  Vacancy.dbo.Document D ON Track.DocumentNo = D.DocumentNo INNER JOIN
+							                      Position PN ON SP.PositionNo = PN.SourcePositionNo
 												   
-										WHERE      PN.PositionNo = P.PositionNo
-										AND        D.EntityClass IS NOT NULL 
-										AND        D.Status = '0' 
+										WHERE     PN.PositionNo = P.PositionNo
+										AND       D.EntityClass IS NOT NULL 
+										AND       D.Status = '0' 
 										
 										) as DerrivedTable 
 														
@@ -581,8 +579,8 @@
 						 
 				WHERE    P.PositionParentId = PP.PositionParentId 
 				AND      P.OrgUnitOperational = O.OrgUnit
-				AND      O.Mission   = '#URL.Mission#'
-				AND      O.MandateNo = '#URL.Mandate#' 
+				AND      O.Mission        = '#URL.Mission#'
+				AND      O.MandateNo      = '#URL.Mandate#' 
 				AND      P.DateExpiration >= #sel#  
 				AND      P.DateEffective  <= #selend# 
 				AND      O.HierarchyCode  >= '#HStart#' 
@@ -598,8 +596,8 @@
 				
 				UNION ALL
 				
-				SELECT   PP.Mission as MissionUsed,
-				         PP.MandateNo as MandateNoUsed,
+				SELECT   PP.Mission    as MissionUsed,
+				         PP.MandateNo  as MandateNoUsed,
 						 O.OrgUnit, 
 		                 O.OrgUnitName, 
 						 O.OrgUnitCode, 
@@ -680,13 +678,11 @@
 				ORDER BY PositionNo 
 							
 			</cfquery>		
-				
-			
+							
 			<!---
 			<cfoutput>1. #cfquery.executiontime#</cfoutput>
 			--->
-				
-							
+											
 			<!--- Now prepare base dataset with all relevant fields  --->		
 					
 			<cfquery name="SearchResultX" 
@@ -768,8 +764,7 @@
 			--->
 						
 	</cfif>
-	
-	
+		
 		<!--- remove positions that are on-demans and have no incumbecny today --->
 		
 		<cfquery name="DeleteOnDemand" 
@@ -789,7 +784,8 @@
 					AND    DateEffective <= #selend# 
 					AND    DateExpiration >= #sel#) 
 		</cfquery> 
-			
+		
+					
 		<!--- create assignment table for quicker listinng query later --->
 	
 		<cfquery name="Assignment" 
@@ -813,8 +809,8 @@
 				   P.IndexNo, 
 				   (SELECT OrgUnitName 
 				    FROM Organization.dbo.Organization
-					WHERE OrgUnit = A.OrgUnit) as OrgUnitName,			  
-				   A.OrgUnit, 
+					WHERE OrgUnit = A.OrgUnit) as AssignmentOrgUnitName,			  
+				   A.OrgUnit as AssignmentOrgUnit, 
 				   A.PositionNo, 
 				   A.AssignmentNo,
 				  				   
@@ -866,12 +862,12 @@
 					
 			INTO   userQuery.dbo.#SESSION.acc#Assignment#FileNo#	   
 			
-		    FROM   PersonAssignment A, 
-			       Person P
+		    FROM   PersonAssignment A INNER JOIN Person P ON A.PersonNo    = P.PersonNo
 				   
-			WHERE  A.PositionNo IN (SELECT PositionNo FROM userQuery.dbo.#SESSION.acc#Post#FileNo# WHERE PositionNo = A.PositionNo)
-			AND    A.PersonNo    = P.PersonNo
-					
+			WHERE  A.PositionNo IN (SELECT PositionNo 
+			                        FROM   userQuery.dbo.#SESSION.acc#Post#FileNo# 
+									WHERE  PositionNo = A.PositionNo)
+								
 			AND    A.AssignmentStatus IN ('0','1')
 			
 			<cfif URL.Lay eq "Listing">		
@@ -881,12 +877,13 @@
 			
 			ORDER BY A.DateExpiration DESC 
 		</cfquery>
-	
+		
 		<!---	
 		<cfoutput>3. #cfquery.executiontime#</cfoutput>
 		--->			
 	
 </cftransaction>	
+
 				
 <cfif URL.ID eq "Locate" and URL.Act eq "0">
 
@@ -913,8 +910,7 @@
 		</cfif>
 	
 </cfif>
-	
-		
+			
 <!--- reset condition for count query --->
 <cfset cond = ReplaceNoCase("#cond#", "Post.", "P.", "ALL")> 
 <cfset cond = ReplaceNoCase("#cond#", "F.", "P.", "ALL")> 
@@ -1244,6 +1240,7 @@
 			      <input type="hidden" name="unit" id="unit" value="">
 			    </cfif>			
 				
+				
 				<cfinclude template="MandateViewOrganization.cfm">
 					        
 			<cfelse>
@@ -1255,30 +1252,31 @@
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
 					
-					SELECT   DISTINCT Org.OrgUnit, 
-					         Org.OrgUnitName, 
-							 Org.OrgUnitCode, 
-							 Org.HierarchyCode, 
-							 Post.*,  
-						     A.FunctionDescription as ParentFunctionDescription,
-					         A.OrgUnitOperational as ParentOrgUnit, 
-							 Ass.*,
-							 R.PresentationColor,
-							   (SELECT count(*) 
-					  FROM   Employee.dbo.PositionGroup
-					  WHERE  PositionNo = Post.PositionNo 
-					  AND Status != '9') as PositionGroup
-							 
-							 
-					FROM     Employee.dbo.Ref_PostClass R INNER JOIN
-				             userQuery.dbo.#SESSION.acc#Post#FileNo# Post ON R.PostClass = Post.PostClass INNER JOIN
-				             Employee.dbo.PositionParent A ON Post.PositionParentId = A.PositionParentId INNER JOIN
-				             Organization Org ON Post.OrgUnitOperational = Org.OrgUnit LEFT OUTER JOIN
-				             userQuery.dbo.#SESSION.acc#Assignment#FileNo# Ass ON Post.PositionNo = Ass.PositionNo			
-					   	 
-				 	WHERE    Org.HierarchyCode >= '#HStart#' 
-			        AND      Org.HierarchyCode < '#HEnd#'		 
-					ORDER BY #orderby#, Post.ViewOrder, <cfif URL.Sort neq "PostOrder">Post.PostOrder,</cfif> Post.PositionNo
+						SELECT   DISTINCT Org.OrgUnit, 
+						         Org.OrgUnitName, 
+								 Org.OrgUnitCode, 
+								 Org.HierarchyCode, 
+								 Post.*,  
+							     A.FunctionDescription as ParentFunctionDescription,
+						         A.OrgUnitOperational as ParentOrgUnit, 
+								 Ass.*,
+								 R.PresentationColor,
+								 
+								 (  SELECT count(*) 
+									FROM   Employee.dbo.PositionGroup
+									WHERE  PositionNo = Post.PositionNo 
+									AND    Status != '9') as PositionGroup							 
+								 
+						FROM     Employee.dbo.Ref_PostClass R INNER JOIN
+					             userQuery.dbo.#SESSION.acc#Post#FileNo# Post ON R.PostClass = Post.PostClass INNER JOIN
+					             Employee.dbo.PositionParent A ON Post.PositionParentId = A.PositionParentId INNER JOIN
+					             Organization Org ON Post.OrgUnitOperational = Org.OrgUnit LEFT OUTER JOIN
+					             userQuery.dbo.#SESSION.acc#Assignment#FileNo# Ass ON Post.PositionNo = Ass.PositionNo			
+						   	 
+					 	WHERE    Org.HierarchyCode >= '#HStart#' 
+				        AND      Org.HierarchyCode < '#HEnd#'		 
+						ORDER BY #orderby#, Post.ViewOrder, <cfif URL.Sort neq "PostOrder">Post.PostOrder,</cfif> Post.PositionNo
+					
 					</cfquery>
 				
 				</cftransaction>

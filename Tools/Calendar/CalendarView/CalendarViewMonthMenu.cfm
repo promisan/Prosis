@@ -24,7 +24,7 @@
 				</cfif>
 				
 				<td align="center" class="#printClass#" width="#url.CellWidth#" 
-				style="#monthStyle#; min-width:35px;cursor:pointer; padding-left:3px; padding-right:3px;border:1px solid d4d4d4;border-bottom:0px;padding-left:4px;" onclick="calendarmonth('#dateFormat(curDate,client.dateFormatShow)#','jump','standard','seldate');">				
+				style="#monthStyle#; min-width:15px;cursor:pointer; padding-left:3px; padding-right:3px;border:1px solid d4d4d4;border-bottom:0px;padding-left:4px;" onclick="calendarmonth('#dateFormat(curDate,client.dateFormatShow)#','jump','standard','seldate');">				
 				    <cfif url.cellwidth lte 50>					    
 					    <cf_tl id="#Month(curdate)#">
 					<cfelse> 
@@ -38,16 +38,7 @@
 			<td align="center" width="25px" style="cursor:pointer;padding-left:3px" onclick="calendarmonth('#dateFormat(firstMonthNextYear,client.dateFormatShow)#','jump','standard','seldate');" title="#lt_text#" class="clsNoPrint">
 				<img src="#session.root#/images/Scroll-Right.png" width="32" height="32">
 			</td>
-			<!---
-			<cfset today = now()>
-			<cfif url.showToday eq 1>
-				<cf_tl id="Today" var="1">
-				<td class="labelmedium clsNoPrint" align="center" style="cursor:pointer; padding-left:10px; padding-right:5px;font-weight:200;" title="#lt_text#">
-					<a style="font-size:15px;" href="javascript:calendarmonth('#dateFormat(today,client.dateFormatShow)#','jump','standard','seldate');"><font color="0080C0">#lt_text#</font></a>
-				</td>			
-				<td class="clsNoPrint">|</td>
-			</cfif>
-			--->
+			
 			<cfif url.showRefresh eq 1>
 			<cf_tl id="Reload" var="1">
 			<td class="labelmedium clsNoPrint" align="center" style="cursor:pointer; padding-left:5px; padding-right:5px" title="#lt_text#">

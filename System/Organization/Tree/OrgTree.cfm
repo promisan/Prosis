@@ -158,10 +158,10 @@
 			 					 
 			 <tr class="hide"><td id="prepare"></td></tr>	    		 						  
 						 				 
-			 <tr id="selection" class="line">
+			 <tr id="selection">
 			 
 			 <td height="28" 
-			    style="height:220;padding-left:8px;padding-right:8px;padding-bottom:9px" 
+			    style="height:220;padding-left:8px;padding-right:18px;padding-bottom:9px" 
 				valign="top" 				
 				align="center">
 										 
@@ -171,8 +171,7 @@
 					<cfset vDefault = Mandate.DateEffective>
 				</cfif>
 												
-				<cfset URL.SelectionDate = vDefault>	
-				
+				<cfset URL.SelectionDate = vDefault>					
 								
 			 	<cf_calendarView 
 				   mode           = "picker"		
@@ -188,15 +187,11 @@
 				   showRefresh    = "0"
 				   showPrint      = "0"	  					    			  				      	   
 				   cellwidth      = "22"
-				   cellheight     = "22"> 		
-				   
-				  
-				  				   
+				   cellheight     = "22"> 						 				   
 								  								
 				</td>
 			 </tr>
-			 
-			 
+			 		 
 			
 			 <!--- filtering --->			 			
 					 
@@ -211,21 +206,18 @@
 				   style="cursor: pointer;" align="absmiddle" border="0">
 								  
 					</td>
-					<td class="labelmedium"><font color="0080C0"><cf_tl id="Settings and Filters"></font></td>
+					<td class="labelmedium"><cf_tl id="Settings and Filters"></td>
 					</tr>	
 						 
 				 </table>
 				 
 			 </td></tr>
 			 
-			
-			 
 			 <tr id="filter" class="hide">
 			 <td align="center" height="28" style="padding-left:10px">				
 				<cfinclude template="OrgTreeFilter.cfm">				
 			 </td>
 			 </tr>	
-			 
 			 
 			 		 
 			 <tr class="line"><td>
@@ -246,15 +238,13 @@
 				 
 			 </td></tr>		
 			 
-			  
-			 
+			  			 
 	 		 <tr id="columns" class="hide">
 			 <td align="center" height="28">			
 				<cfinclude template="OrgTreeColumns.cfm">			
 			 </td>
 			 </tr>	
-			 
-							  
+			 			  
 					 
 			 <!--- tree selection --->
 			 
@@ -284,7 +274,7 @@
 				 
 			 </td></tr>			 
 			 			 	 		 		 
-			 <tr><td align="center" id="tree" class="regular"  bgcolor="ffffff">			 
+			 <tr><td id="tree" class="regular"  bgcolor="ffffff" style="padding-left:20px">			 
 			 	<cfinclude template="OrgTreeShow.cfm">							
 			</td>							
 			</tr>				
@@ -350,7 +340,7 @@
 		  initcollapsed="true"
           collapsible="true">
 				  
-			<iframe name="treedetailcontent" id="treedetailcontent" width="100%" height="100%" frameborder="0"></iframe>
+			<iframe name="treedetailcontent" id="treedetailcontent" width="100%" height="100%" scrolling="no" frameborder="0"></iframe>
 				  
 	</cf_layoutarea>			  
 

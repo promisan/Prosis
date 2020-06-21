@@ -145,13 +145,17 @@
 								ORDER BY Created DESC
 							</cfquery>	
 							
-							<cfif Purchase.WarehousePrice eq "">
-							    <cfif currency neq purchase.currency>#purchase.Currency#</cfif> #numberformat(Purchase.ReceiptPrice/ReceiptMultiplier,'.,__')#																
-							<cfelseif Purchase.WarehouseCurrency eq Currency or Purchase.WarehouseCurrency eq "">											
-								#numberformat(Purchase.WarehousePrice,'.,__')#							
-							<cfelse>						
-								<cf_exchangeRate Currencyfrom="#Purchase.WarehouseCurrency#" CurrencyTo="#currency#">
-								#numberformat(Purchase.WarehousePrice/exc,'.,__')#																
+							<cfif Purchase.recordCount gt 0>
+								<cfif Purchase.WarehousePrice eq "">
+									<cfif currency neq purchase.currency>#purchase.Currency#</cfif> #numberformat(Purchase.ReceiptPrice/ReceiptMultiplier,'.,__')#																
+								<cfelseif Purchase.WarehouseCurrency eq Currency or Purchase.WarehouseCurrency eq "">											
+									#numberformat(Purchase.WarehousePrice,'.,__')#							
+								<cfelse>						
+									<cf_exchangeRate Currencyfrom="#Purchase.WarehouseCurrency#" CurrencyTo="#currency#">
+									#numberformat(Purchase.WarehousePrice/exc,'.,__')#																
+								</cfif>
+							<cfelse>
+								----
 							</cfif>
 						
 						</td>

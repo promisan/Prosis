@@ -13,10 +13,10 @@
 	   
 	     // we restart the validation interval		
 		 sessionvalidatestart()	
-		 
+		 ProsisUI.closeWindow('relogonbox')    	
 		 // hide the dialog screens
-		 document.getElementById('relogonbox').style.display  = "none"
-		 document.getElementById('modalbg').style.display     = "none"
+		 // document.getElementById('relogonbox').style.display  = "none"
+		 // document.getElementById('modalbg').style.display     = "none"
 		 } catch(e) {}
 		 
 		 // try {

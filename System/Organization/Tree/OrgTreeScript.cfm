@@ -13,7 +13,7 @@ function showtree(tree,mission,man) {
 	_cf_loadingtexthtml='';
     Prosis.busy('yes')
     url = "#SESSION.root#/System/Organization/Tree/OrgTreeShow.cfm?mandateno="+man+"&mission="+mission+"&tree="+tree	
-	ColdFusion.navigate(url,'tree')	
+	ptoken.navigate(url,'tree')	
 	collapseArea('lOrgTree','treedetail');
 
 }
@@ -34,7 +34,7 @@ function tree(parent,name) {
 	_cf_loadingtexthtml='';
     Prosis.busy('yes')
 	url = "OrgTreeLevel.cfm?direction=horizontal&parent="+parent+"&tree="+vTree.value+"&nme="+name+"&selectiondate="+vDate.value+"&fund="+vFund.value+"&postClass="+vPostClass.value+"&Layout="+vLayout.value+"&Summary="+vSummary.value+"&ShowColumns="+vShowColumns.value;
-	ColdFusion.navigate(url,'treeview')
+	ptoken.navigate(url,'treeview')
 }
 
 function refreshtree() {   
@@ -45,7 +45,7 @@ function refreshtree() {
     vOrgUnit  = document.getElementById('_OrgUnit');	
 	vName     = document.getElementById('_Name');	
     url       = "OrgTreeRefresh.cfm?parent="+vOrgUnit.value+"&nme="+vName.value
-	ColdFusion.navigate(url,'prepare')				   
+	ptoken.navigate(url,'prepare')				   
 }
 
 function details(id,org,act) {
@@ -66,7 +66,7 @@ function details(id,org,act) {
 	     icE.className = "hide";		
          se.className  = "regular";				
 		 // ColdFusion.navigate('OrgTreeAssignmentDetail.cfm?mode='+act+'&showcolumns='+vShowColumns.value+'&tree='+vTree.value+'&selectiondate='+selectiondate.value+'&unit='+org+'&postClass='+_PostClass.value+'&Fund='+_Fund.value+'&Summary='+_Summary.value,id)		
-		 ColdFusion.navigate('OrgTreePicture.cfm?tree='+vTree.value+'&selectiondate='+vDate+'&orgunit='+org,'picturebox')  
+		 ptoken.navigate('OrgTreePicture.cfm?tree='+vTree.value+'&selectiondate='+vDate+'&orgunit='+org,'picturebox')  
 		 
 	 } else {	    
 	 	 icM.className = "hide";
@@ -81,7 +81,8 @@ function maintainQuick(org,id,se,tree) {
     if (tree == "Operational") {
 		expandArea('lOrgTree','treedetail');
 		var iframe = document.getElementById('treedetailcontent');
-		iframe.src = "#SESSION.root#/Staffing/Application/Position/MandateView/MandateViewGeneral.cfm?header=no&ID=ORG&ID1="+org+"&ID2=#URL.Mission#&ID3=#URL.MandateNo#";
+		ptoken.open('#SESSION.root#/Staffing/Application/Position/MandateView/MandateViewGeneral.cfm?header=no&ID=ORG&ID1='+org+'&ID2=#URL.Mission#&ID3=#URL.MandateNo#','treedetailcontent')
+		// iframe.src = "#SESSION.root#/Staffing/Application/Position/MandateView/MandateViewGeneral.cfm?header=no&ID=ORG&ID1="+org+"&ID2=#URL.Mission#&ID3=#URL.MandateNo#";
 		//window.open("#SESSION.root#/Staffing/Application/Position/MandateView/MandateViewGeneral.cfm?header=no&ID=ORG&ID1="+org+"&ID2=#URL.Mission#&ID3=#URL.MandateNo#", "treedetailcontent", "left=30, top=30, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=no, resizable=yes")	
 	} else {
 		alert('Details not supported yet');
@@ -99,7 +100,7 @@ function maintainQuick(org,id,se,tree) {
 }  
 
 function returnmain() {   
-	 window.open("#SESSION.root#/Staffing/Reporting/PostView/Staffing/PostViewLoop.cfm?#link#","_self")
+	 ptoken.open("#SESSION.root#/Staffing/Reporting/PostView/Staffing/PostViewLoop.cfm?#link#","_self")
 }	
 
 
@@ -113,7 +114,7 @@ function printchart() {
 	vPrint=document.getElementById('_PrintDetails');
     vShowColumns=document.getElementById('_ShowColumns');		
 	
-	window.open("OrgTreePrint.cfm?Tree="+vTree.value+"&PrintDetails="+vPrint.value+"&Mission=#URL.Mission#&Mandate=#URL.MandateNo#&selectiondate="+vDate.value+"&OrgUnitCode="+vOrgUnit.value+"&fund="+vFund.value+"&postClass="+vPostClass.value+"&ShowColumns="+vShowColumns.value,"OrgChart", "menubar=yes,status=yes,scrollbars=yes,resizable=yes,width=900,height=800");
+	ptoken.open("OrgTreePrint.cfm?Tree="+vTree.value+"&PrintDetails="+vPrint.value+"&Mission=#URL.Mission#&Mandate=#URL.MandateNo#&selectiondate="+vDate.value+"&OrgUnitCode="+vOrgUnit.value+"&fund="+vFund.value+"&postClass="+vPostClass.value+"&ShowColumns="+vShowColumns.value,"OrgChart", "menubar=yes,status=yes,scrollbars=yes,resizable=yes,width=900,height=800");
 
 }	
 

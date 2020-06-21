@@ -25,6 +25,7 @@
 			 <cfargument name="PostType"              type="string"  required="true"   default="">
 			 
 			 <cfset result.status = "1">
+			 <cfset result.reason = "pass">
 			 
 			 <cfif PositionNo neq "">
 														 
@@ -63,8 +64,7 @@
 				</cfquery>
 								
 				<cfif Mandate.DateExpiration gte now() or Mandate.MandateDefault eq "1">
-				
-				
+								
 				<cfelse>
 				
 					<cfset result.status = "0">
@@ -95,13 +95,13 @@
 			 
 			 </cfif>
 			 			 							 
-			 <cfquery name="Mission" 
+			 <cfquery name="getMission" 
 				datasource="AppsOrganization" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
 				  SELECT DISTINCT M.Mission, M.MissionOwner
 				  FROM   Ref_Mission M, Ref_MissionModule R
-				  WHERE  M.Mission = R.Mission
+				  WHERE  M.Mission      = R.Mission
 				  AND    R.SystemModule = 'Vacancy'
 				  AND    M.Mission = '#mission#'
 				  AND    M.Mission IN (SELECT Mission 
@@ -127,10 +127,12 @@
 				 		
 			  </cfquery>
 				
-			  <cfif Mission.recordcount eq "0">
+			  <cfif getMission.recordcount eq "0">
 				
 					<cfset result.status = "0">
-					<cfset result.reason = "Problem, you are <b>NOT</b> authorised to register vactracks for entity">
+					<cfset result.reason = "Problem, you are <b>NOT</b> authorised to register recruitment tracks for #mission#">
+
+					<cfset owner = "">
 				
 			  <cfelseif OrgUnitAdministrative neq "0">
 				
@@ -160,8 +162,8 @@
 						     <cfset owner = Own.Owner>
 							 <cfset miss  = Own.Mission>
 						<cfelse>
-						     <cfset owner = Mission.MissionOwner>
-							 <cfset miss  = Mission.Mission>
+						     <cfset owner = getMission.MissionOwner>
+							 <cfset miss  = getMission.Mission>
 						</cfif>
 						
 					<cfelse>
@@ -182,8 +184,8 @@
 					
 				<cfelse>
 				
-					<cfset owner = Mission.MissionOwner>	
-					<cfset miss  = Mission.Mission>	
+					<cfset owner = getMission.MissionOwner>	
+					<cfset miss  = getMission.Mission>	
 					
 				</cfif>	
 				
@@ -207,13 +209,21 @@
 					datasource="AppsOrganization" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
-					    SELECT   DISTINCT R.*
-						FROM     Ref_EntityClass R, 
-						         Ref_EntityClassPublish P
+					    SELECT   R.*
+						FROM     Ref_EntityClass R
 						WHERE    R.Operational = '1'
-						AND      R.EntityCode   = P.EntityCode 
-						AND      R.EntityClass  = P.EntityClass
 						AND      R.EntityCode = 'VacDocument'	
+						AND      R.EmbeddedFlow = 0
+						
+						
+						<cfif session.acc eq "Administrator">
+						
+						<cfelse>
+						AND      R.EntityClass IN (SELECT EntityClass 
+						                           FROM   Ref_EntityClassPublish
+												   WHERE  EntityCode       = 'VacDocument'
+												   AND    EntityClass      = R.EntityClass)						
+						
 						AND     
 						         (
 								 
@@ -232,7 +242,12 @@
 												   
 								 )				   							   				   
 						
-						AND     (R.EntityParameter is NULL or R.EntityParameter = '' or R.EntityParameter = '#PostType#')			
+						AND     (R.EntityParameter is NULL 
+						           or R.EntityParameter = '' 
+								   or R.EntityParameter = '#PostType#')		
+						
+						</cfif>		   
+								   
 						
 						<cfif getMissionClass.recordcount gte "1">
 						
@@ -249,7 +264,7 @@
 					<cfif classList.recordcount eq "0">
 										
 						<cfset result.status = "0">
-						<cfset result.reason = "Problem, no recruitment workflows were published for this track owner #owner#">
+						<cfset result.reason = "Problem, no recruitment workflows were published for this track owner: #owner#">
 						
 					<cfelse>
 										

@@ -104,7 +104,7 @@
 	    <TD>			
 	    	<cfselect name="AccountOwner" id="AccountOwner" class="regularxl">
 		    <cfoutput query="Owner">
-			<option value="#Code#">#Code#</option>
+			<option value="#Code#">#Description#</option>
 			</cfoutput>
 		    </cfselect>	
 			</TD>

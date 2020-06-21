@@ -990,8 +990,8 @@
 										
 						<tr class="labelmedium line optional_#url.org#">
 							
-							<td></td> 
-							<td bgcolor="FAA0AE" colspan="2" style="padding-left:5px;border-right:1px solid silver"><cf_tl id="Borrowed from">:</td>
+							<td colspan="2"></td> 
+							<td bgcolor="FAA0AE" colspan="2" style="min-width:120px;padding-left:5px;border-right:1px solid silver"><cf_tl id="Borrowed from">:</td>
 							<td  bgcolor="FAA0AE" colspan="9" style="padding-left:4px;">
 							
 							 <cfquery name="Parent" 
@@ -1059,10 +1059,10 @@
 													
 					  </cfquery>	
 							  
-					<tr bgcolor="E1F8FF" class="optional_#url.org#">
+					<tr class="optional_#url.org#">
 						<td colspan="2"></td>
-						<td colspan="2" style="border-right:1px solid silver"><cf_tl id="Appraisal">:</td>
-						<td colspan="9" style="padding-left:4px">
+						<td colspan="2" bgcolor="E1F8FF" valign="top" style="padding-top:4px;padding-left:4px;border-right:1px solid silver"><cf_tl id="Appraisal">:</td>
+						<td colspan="9" bgcolor="E1F8FF" style="padding-left:4px">
 						
 							<table width="100%" cellspacing="0" cellpadding="0">
 										  
@@ -1206,10 +1206,10 @@
 				
 				<cfif Class eq "Loaned"> 
 								     					
-					 <tr class="labelmedium line optional_#url.org#">
+					 <tr class="labelmedium line optional_#url.org#" style="height:20px">
 					 
-					    <td colspan="1"></td>
-					    <td colspan="2" bgcolor="C6F2E2" style="padding-left:4px;border-right:1px solid silver"><cf_tl id="Loaned">:</td>
+					    <td colspan="2"></td>
+					    <td colspan="2" bgcolor="C6F2E2" style="padding-left:4px;border-right:1px solid silver"><cf_tl id="Loaned to">:</td>
 						<td bgcolor="C6F2E2" colspan="10" style="font-size:14px;padding-left:4px;background-color:##C6F2E280">
 											
 						    <cfquery name="Loaned" 

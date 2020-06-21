@@ -7,6 +7,7 @@
 --->	
 
 
+
 <cfif SESSION.isAdministrator eq "Yes">
 
 	<cfset missionaccessfilter = "">	
@@ -14,7 +15,7 @@
 <cfelse>	
 
 	<cfif CriteriaRole eq "1" and CriteriaName eq "mission">
-
+	
 			<cfquery name="getRoles"
 				datasource="AppsSystem" 
 				username="#SESSION.login#" 
@@ -314,7 +315,32 @@
 				</cfquery>
 				
 				<cfset qValues = evaluate("query#CriteriaName#")> 
-
+				
+				<cfif CriteriaName eq "mission">
+				
+					<cfselect name = "#CriteriaName#"
+							selected       = "#DefaultValue#"
+							size           = "1"
+							class          = "#cl# regularXXL"
+							id             = "#fldid#"
+							message        = "#Error#"
+							required       = "#ob#"
+							width          = "#sizeU#"
+							style          = "width:100%"
+							tooltip        = "#CriteriaMemo#"
+							label          = "#CriteriaDescription#:"
+							group          = "Grouping"
+							query          = "qValues"
+							queryPosition  = "below"
+							value          = "PK"
+							display        = "Display">
+								<cfif LookupEnableAll eq "1">
+								  <option value="all">--- #vall# ---</option>
+								</cfif>
+				</cfselect>
+				
+				<cfelse>
+				
 				<cf_UIselect name = "#CriteriaName#"
 							selected       = "#DefaultValue#"
 							size           = "1"
@@ -335,6 +361,8 @@
 								  <option value="all">--- #vall# ---</option>
 								</cfif>
 				</cf_UIselect>
+				
+				</cfif>
 			
 			<cfelse>
 			

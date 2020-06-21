@@ -193,7 +193,8 @@ password="#SESSION.dbpw#">
 											<td>
 												<cfinvoke component = "Service.Presentation.TableFilter"  
 													method           = "tablefilterfield" 
-													filtermode       = "direct"
+													filtermode       = "enter"
+													filtercondition  = "equals"
 													label            = "Quick find"
 													name             = "filtersearch"
 													style            = "font:14px;height:25;width:150px;"

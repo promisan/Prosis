@@ -192,9 +192,10 @@
 	 	 
 	 </cfif>		  	
 
-</cfquery>	
+</cfquery>
 
-<cfquery name="Parent" 
+
+<cfquery name="Parent"
 	datasource="AppsWorkOrder" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">

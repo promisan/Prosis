@@ -165,14 +165,22 @@
 			   AccessLevel      = "2"
 			   returnvariable   = "accesslevel">						
 							
-	 <cfif AccessLevel eq "GRANTED">							
+	 <cfif AccessLevel eq "GRANTED">	
+	 
+	 		<cfset itm = itm+1>
+			<cf_tl id="Price" var = "1"> 								
+			<cfset fields[itm] = {label     = "#lt_text#",                    
+			     				field       = "TransactionCostPrice",					
+								align       = "right",								
+								alias       = "",					
+								formatted   = "numberformat(TransactionCostPrice,',.__')",														
+								search      = ""}>								
 						
 			<cfset itm = itm+1>
 			<cf_tl id="Amount" var = "1"> 								
 			<cfset fields[itm] = {label     = "#lt_text#",                    
 			     				field       = "TransactionValue",					
-								align       = "right",
-								width       = "25",	
+								align       = "right",									
 								alias       = "",					
 								formatted   = "numberformat(TransactionValue,',.__')",														
 								search      = ""}>																														

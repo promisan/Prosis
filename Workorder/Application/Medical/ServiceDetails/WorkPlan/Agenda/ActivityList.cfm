@@ -738,7 +738,7 @@
 												<cfif summary.PositionNo neq "">															
 												
 													<td height="100%" style="padding:0px" colspan="4" class="line">															
-														<table width="100%" height="100%" style="border:2px solid white" cellspacing="0" cellpadding="0">																									
+														<table width="100%" height="100%" cellspacing="0" cellpadding="0">																									
 															<cfoutput query="Summary">																													
 																<cfinclude template="ActivityListDetail.cfm">				
 															</cfoutput>													

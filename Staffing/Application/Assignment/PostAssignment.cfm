@@ -17,17 +17,23 @@
     datasource="AppsEmployee" 
     username="#SESSION.login#" 
     password="#SESSION.dbpw#">
-    SELECT   A.*, P.*, Pos.SourcePositionNo, O.Mission, O.OrgUnitName, Pos.OrgUnitOperational,C.Description as AssignmentDescription 
+    SELECT   A.*, P.*, 
+	         Pos.SourcePositionNo,
+			 Pos.OrgUnitOperational,
+			 (SELECT LocationName FROM Location WHERE LocationCode = A.LocationCode) as LocationName,
+			 O.Mission, 
+			 O.OrgUnitName, 			 
+			 C.Description as AssignmentDescription 
     FROM     PersonAssignment A, 
 	         Person P, 
 		     Organization.dbo.Organization O, 
 		     Position Pos,
 		     Ref_AssignmentClass C		   
-	WHERE    A.PersonNo = P.PersonNo
-	AND      A.OrgUnit = O.OrgUnit
-	AND      A.PositionNo = '#URL.ID#'
+	WHERE    A.PersonNo        = P.PersonNo
+	AND      A.OrgUnit         = O.OrgUnit
+	AND      A.PositionNo      = '#URL.ID#'
 	AND      C.AssignmentClass = A.AssignmentClass
-	AND      A.PositionNo = Pos.PositionNo
+	AND      A.PositionNo      = Pos.PositionNo
 	AND      A.AssignmentStatus < '#Parameter.AssignmentShow#' 
 	ORDER BY A.DateExpiration DESC
 </cfquery>
@@ -54,8 +60,7 @@
    orgunit          = "#Position.OrgUnitOperational#" 
    posttype         = "#Position.PostType#"
    returnvariable   = "AccessStaffing">	  
-  
-  
+    
   <cfif url.caller eq "regular" or url.caller eq "postdialog"> 
   
   <tr class="line">
@@ -85,7 +90,7 @@
 	       <TD width="20%"><cf_tl id="Name"></TD>
 		   <TD width="20%"><cf_tl id="Function"></TD>
 		   <TD width="6%"><cf_tl id="Location"></TD>
-		   <TD colspan="2" width="20%"><cf_tl id="Class"></TD>
+		   <TD colspan="2" width="10%"><cf_tl id="Class"></TD>
 		   <!---		   
 	       <TD width="6%"><cf_tl id="Type"></TD>
 	       --->
@@ -110,7 +115,7 @@
 		       <td><A HREF="javascript:EditPerson('#PersonNo#','#IndexNo#')"><font color="6688aa">#IndexNo#</A></td>
 		       <td>#LastName#, #FirstName#</TD>
 		   	   <td>#FunctionDescription#</TD>
-			   <td>#LocationCode#</td>
+			   <td>#LocationName#</td>
 			   <td colspan="2">#AssignmentDescription#</TD>
 			   <!---	
 			   <td>#AssignmentType#</TD>
@@ -124,12 +129,12 @@
 			<cfif OrgUnit neq OrgUnitOperational>
 		     <TR class="navigation_row_child">
 		     	<td colspan="2"></td>
-				<td colspan="9" align="left" class="labelit"><b>#Mission# #OrgUnitName#</b></td>
+				<td colspan="9" align="left" class="labelit">#Mission# #OrgUnitName#</b></td>
 			 </tr>
 		    </cfif>
 			<cfif Remarks neq "">
-		     <TR class="navigation_row_child">
-		     <td colspan="2"></td><td colspan="9" align="left" class="labelit"><b>#Remarks#</b></td></tr>
+		     <TR class="navigation_row_child Line">
+		     <td colspan="2"></td><td colspan="9" align="left" class="labelit">#Remarks#</td></tr>
 		    </cfif>
 		    	
 			<cfquery name="GroupAll" 
@@ -175,7 +180,15 @@
 			    datasource="AppsEmployee" 
 			    username="#SESSION.login#" 
 			    password="#SESSION.dbpw#">
-			    SELECT   A.*, P.*, Pos.Mission, Pos.MandateNo, Pos.SourcePositionNo, O.Mission, O.OrgUnitName, Pos.OrgUnitOperational,C.Description as AssignmentDescription 
+			    SELECT   A.*, P.*, 
+				         Pos.Mission, 
+						 Pos.MandateNo, 
+						 Pos.SourcePositionNo, 
+						 (SELECT LocationName FROM Location WHERE LocationCode = A.LocationCode) as LocationName,
+						 O.Mission, 
+						 O.OrgUnitName, 
+						 Pos.OrgUnitOperational,
+						 C.Description as AssignmentDescription 
 			    FROM     PersonAssignment A, 
 				         Person P, 
 					     Organization.dbo.Organization O, 
@@ -201,7 +214,7 @@
 			       <td><A HREF="javascript:EditPerson('#PersonNo#','#IndexNo#')"><font color="6688aa">#IndexNo#</A></td>
 			       <td>#LastName#, #FirstName#</TD>
 			   	   <td>#Mission# #FunctionDescription#</TD>
-				   <td>#LocationCode#</td>
+				   <td>#LocationName#</td>
 				   <td colspan="2">#AssignmentDescription#</TD>
 				   <!---
 				   <td>#AssignmentType#</TD>

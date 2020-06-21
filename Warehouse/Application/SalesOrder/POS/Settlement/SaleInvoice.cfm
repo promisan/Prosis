@@ -131,7 +131,7 @@
 					    value    = "#Header.eMailAddress#" 
 						class    = "regular" 
 						style    = "width:200;height:28px;font-size:15px" 
-						onChange = "ColdFusion.navigate('#session.root#/Warehouse/Application/SalesOrder/POS/Settlement/setEMailAddress.cfm?email='+this.value+'&customeridInvoice=#Header.CustomerIdInvoice#&batchid=#url.batchid#','mailbox')">
+						onChange = "ptoken.navigate('#session.root#/Warehouse/Application/SalesOrder/POS/Settlement/setEMailAddress.cfm?email='+this.value+'&customeridInvoice=#Header.CustomerIdInvoice#&batchid=#url.batchid#','mailbox')">
 				
 			</td> 					
 			
@@ -143,7 +143,7 @@
 						
 					 <input type="button" 
 					      class="button10g" 
-					      onclick="ColdFusion.navigate('#session.root#/Warehouse/Application/SalesOrder/POS/Settlement/doInvoiceMail.cfm?batchid=#url.batchid#','mailbox')" 
+					      onclick="ptoken.navigate('#session.root#/Warehouse/Application/SalesOrder/POS/Settlement/doInvoiceMail.cfm?batchid=#url.batchid#','mailbox')" 
 					      style="height:28;width:120;font-size:13px" 
 						  class="regular" 
 						  name="save" 
@@ -238,7 +238,7 @@
 					    value    = "#Header.eMailAddress#" 
 						class    = "regular" 
 						style    = "width:216;height:28px;font-size:15px" 
-						onChange = "ColdFusion.navigate('#session.root#/Warehouse/Application/SalesOrder/POS/Settlement/setEMailAddress.cfm?email='+this.value+'&customeridInvoice=#Header.CustomerIdInvoice#&batchid=#url.batchid#','mailbox')">
+						onChange = "ptoken.navigate('#session.root#/Warehouse/Application/SalesOrder/POS/Settlement/setEMailAddress.cfm?email='+this.value+'&customeridInvoice=#Header.CustomerIdInvoice#&batchid=#url.batchid#','mailbox')">
 				
 			</td> 					
 			
@@ -250,7 +250,7 @@
 						
 					 <input type="button" 
 					      class="button10g" 
-					      onclick="ColdFusion.navigate('#session.root#/Warehouse/Application/SalesOrder/POS/Settlement/doInvoiceMail.cfm?batchid=#url.batchid#','mailbox')" 
+					      onclick="ptoken.navigate('#session.root#/Warehouse/Application/SalesOrder/POS/Settlement/doInvoiceMail.cfm?batchid=#url.batchid#','mailbox')" 
 					      style="height:28;width:130;font-size:13px" 
 						  class="regular" 
 						  name="save" 
@@ -270,7 +270,7 @@
 				
 				 <input type="button" 
 				      class="button10g" 
-				      onclick="ColdFusion.navigate('#SESSION.root#/warehouse/application/SalesOrder/POS/Settlement/SaleInvoiceSave.cfm?actionid=#url.actionid#&batchid=#batchid#&batchreference='+document.getElementById('batchreference').value,'process')" 
+				      onclick="ptoken.navigate('#SESSION.root#/warehouse/application/SalesOrder/POS/Settlement/SaleInvoiceSave.cfm?actionid=#url.actionid#&batchid=#batchid#&batchreference='+document.getElementById('batchreference').value,'process')" 
 				      style="height:28;width:130" 
 					  class="regular" 
 					  name="save" id="save"

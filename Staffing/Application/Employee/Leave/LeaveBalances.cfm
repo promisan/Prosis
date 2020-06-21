@@ -33,6 +33,8 @@
 	    FROM     Person
 		WHERE    PersonNo = '#URL.ID#'
 </cfquery>
+
+<cf_divscroll>
 	
 		<table width="98%" align="center" border="0" cellspacing="0" cellpadding="0" class="formpadding navigation_table">
 								
@@ -188,7 +190,7 @@
 		  <td width="100%" colspan="3" class="clsPrintBalance">
 		  <table border="0" cellpadding="0" cellspacing="0" width="99%" align="center" class="formpadding">
 		  		  				
-			<tr class="line labelmedium">			
+			<tr class="line labelmedium fixrow">			
 			<td height="18"></td>
 			<td><cf_tl id="Class"></td>
 			<td><cf_tl id="Contract"></td>
@@ -424,6 +426,8 @@
 </td></tr>
 	
 </table>
+
+</cf_divscroll>
 
 <cfoutput>
 

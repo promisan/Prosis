@@ -6,7 +6,7 @@
 	   <cfquery name="Details" dbtype="query">
 			SELECT  *
 			FROM     DetailsDocument
-			WHERE    PostOrderBudget = '#URL.Code#' 
+			WHERE    PostGradeBudget = '#URL.Code#' 
 			ORDER BY ActionCode, DocumentNo
 		</cfquery>					
 					
@@ -52,8 +52,9 @@
 							   username="#SESSION.login#" 
 							   password="#SESSION.dbpw#">
 								SELECT       DP.PostNumber, DP.PositionNo,P.Mission,P.Mandateno
-								FROM         DocumentPost DP INNER JOIN Employee.dbo.Position P ON DP.PositionNo = P.PositionNo
-								INNER JOIN   Employee.dbo.PositionParent PP ON PP.PositionParentId = P.PositionParentId
+								FROM         DocumentPost DP 
+								             INNER JOIN   Employee.dbo.Position P ON DP.PositionNo = P.PositionNo
+											 INNER JOIN   Employee.dbo.PositionParent PP ON PP.PositionParentId = P.PositionParentId
 								WHERE        DocumentNo = '#DocumentNo#'
 							</cfquery>	
 							
@@ -64,9 +65,9 @@
 									<tr>
 									<td valign="top">
 										<cfif PostNumber neq "">
-											<a href="javascript:EditPosition('#Mission#','#MandateNo#','#PositionNo#')"><font color="0080FF">#PostNumber#</a>
+											<a href="javascript:EditPosition('#Mission#','#MandateNo#','#PositionNo#')">#PostNumber#</a>
 										<cfelse>
-											<a href="javascript:EditPosition('#Mission#','#MandateNo#','#PositionNo#')"><font color="0080FF"><i>N/A</i></a>
+											<a href="javascript:EditPosition('#Mission#','#MandateNo#','#PositionNo#')">N/A</a>
 										</cfif>
 									</td>
 									</tr>					
@@ -100,7 +101,7 @@
 	<cfquery name="Details" dbtype="query">
 		SELECT  *
 		FROM    DetailsCandidate
-		WHERE   PostOrderBudget = '#URL.Code#' 
+		WHERE   PostGradeBudget = '#URL.Code#' 
 		</cfquery>
 									
 	   <cfoutput query="Details">

@@ -8,13 +8,13 @@
 	
 		function init(persno) {
 		    url = "Init/EmployeeBalanceInit.cfm?ID=" + persno +"&Src=Manual"
-			ColdFusion.navigate(url,'contentbox2')		    
+			ptoken.navigate(url,'contentbox2')		    
 		}
 		
 					
 		function leave(id) {		   
 			parent.ProsisUI.createWindow('leave', 'Leave', '',{x:100,y:100,height:parent.document.body.clientHeight-90,width:parent.document.body.clientWidth-90,modal:true,center:true,resizable:false})    					
-			parent.ColdFusion.navigate('#session.root#/Attendance/Application/LeaveRequest/RequestEdit.cfm?ID='+id+'&src=Manual','leave')			
+			parent.ptoken.navigate('#session.root#/Attendance/Application/LeaveRequest/RequestEdit.cfm?ID='+id+'&src=Manual','leave')			
 		}
 				
 		function records(persno) {
@@ -109,14 +109,14 @@
     }
 </style>
 
-<table width="100%" height="100%" cellspacing="0" cellpadding="0">
+<table width="100%" height="100%">
 	
 	<tr><td height="20" valign="top" style="padding-left:20px">
 	
 		<table width="100%" border="0" align="center" cellspacing="0" cellpadding="0">		
 								
-		<cfset ht = "52">
-		<cfset wd = "52">  		
+		<cfset ht = "48">
+		<cfset wd = "48">  		
 	
 		<tr>					
 							

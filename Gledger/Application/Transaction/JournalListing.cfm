@@ -80,7 +80,7 @@
 			
 			<td style="border-right:1px solid right">
 			
-			<cf_securediv bind="url:#session.root#/gledger/application/transaction/setMonth.cfm?journal=#url.journal#&period={period}">
+			<cf_securediv id="mybox" bind="url:#session.root#/gledger/application/transaction/setMonth.cfm?journal=#url.journal#&period={period}">
 						
 			</td>
 			

@@ -20,8 +20,7 @@
    WHERE Mission = '#URL.Mission#'
 </cfquery>
      
-
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table style="width:99%" class="formpadding">
 
 <tr><td valign="top">
 
@@ -82,13 +81,12 @@
 datasource="AppsSelection" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-	SELECT TOP 50 F.FunctionNo, 
-	        F.FunctionClass, 
-			F.FunctionDescription, 
-			FunctionOrganization.FunctionId AS Roster
-	FROM    FunctionTitle F LEFT OUTER JOIN
-	        FunctionOrganization ON F.FunctionNo = FunctionOrganization.FunctionNo
-	WHERE   #preserveSingleQuotes(cond)#
+	SELECT   TOP 200 F.FunctionNo, 
+	         F.FunctionClass, 
+			 F.FunctionDescription, 
+			 (SELECT count(*) FROM FunctionOrganization WHERE FunctionNo = F.FunctionNo) as Roster
+	FROM     FunctionTitle F 
+	WHERE    #preserveSingleQuotes(cond)#
 	<cfif fclass neq "">
 	AND      F.FunctionClass IN (#preserveSingleQuotes(fclass)#)
 	</cfif>
@@ -96,33 +94,33 @@ password="#SESSION.dbpw#">
 	ORDER BY F.FunctionDescription
 </cfquery>
 
-<table align="center" width="98%" class="navigation_table formpadding">
-
-<TR class="labelmedium line fixrow">
-    <td width="30" height="20"></td>
-    <TD><cf_tl id="Id"></TD>
-	<TD><cf_tl id="Description">"</TD>
-	<TD><cf_tl id="Status"></TD>
-	<TD><cf_tl id="Bucket"></TD>
-</TR>
-
-<cfoutput query="Level01" group="FunctionDescription">
+	<table align="center" style="width:97%" class="navigation_table formpadding">
 	
-	<CFSET des = Replace("#FunctionDescription#", "'", "", "ALL" )> 
-	
-	<TR class="navigation_row line labelmedium">
-		<td align="center" style="padding-top:3px">
-			<cf_img icon="select" navigation="Yes" onclick="javascript:Selected('#FunctionNo#','#des#','#url.fldfunctionno#','#url.fldfunctiondescription#')">
-		</td>
-		<TD>#FunctionNo#</TD>
-		<TD>#FunctionDescription#</TD>
-		<TD>#FunctionClass#</TD>
-		<td align="center" style="padding-right:4px"><cfif Roster neq "">*</cfif></td>
+	<TR class="labelmedium line fixrow">
+	    <td width="30" height="20"></td>
+	    <TD><cf_tl id="Id"></TD>
+		<TD><cf_tl id="Description">"</TD>
+		<TD><cf_tl id="Status"></TD>
+		<TD><cf_tl id="Bucket"></TD>
 	</TR>
-
-</CFOUTPUT>
-
-</TABLE>
+	
+	<cfoutput query="Level01" group="FunctionDescription">
+		
+		<CFSET des = Replace("#FunctionDescription#", "'", "", "ALL" )> 
+		
+		<TR class="navigation_row line labelmedium">
+			<td align="center" style="padding-top:3px">
+				<cf_img icon="select" navigation="Yes" onclick="javascript:Selected('#FunctionNo#','#des#','#url.fldfunctionno#','#url.fldfunctiondescription#')">
+			</td>
+			<TD>#FunctionNo#</TD>
+			<TD>#FunctionDescription#</TD>
+			<TD>#FunctionClass#</TD>
+			<td align="center" style="padding-right:4px"><cfif Roster neq "">*</cfif></td>
+		</TR>
+	
+	</CFOUTPUT>
+	
+	</TABLE>
 
 </td></tr>
    

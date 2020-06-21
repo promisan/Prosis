@@ -1,8 +1,11 @@
 <!--- control list data content --->
 
-<cf_wfpending entityCode="PersonEvent"  
-      table="#SESSION.acc#wfEvent" mailfields="No" IncludeCompleted="No">			
+<cfparam name="url.unit" default="">
+<cfparam name="url.selection" default="">
 
+<cf_wfpending entityCode="PersonEvent"  
+      table="#SESSION.acc#wfEvent" mailfields="No" IncludeCompleted="No">			  
+	
 <cfquery name="Param" 
 datasource="AppsMaterials" 
 username="#SESSION.login#" 
@@ -30,6 +33,27 @@ password="#SESSION.dbpw#">
     <cfset mis = "#quotedvalueList(getMission.Mission)#">
 </cfif>	
 
+<cfif url.unit neq "">
+
+<!--- we take only people that are currently in those units --->
+	
+	<cfoutput>
+		<cfsavecontent variable="mypeople">
+		SELECT    PA.PersonNo
+		FROM      PersonAssignment AS PA INNER JOIN
+		          Position AS P ON PA.PositionNo = P.PositionNo
+		WHERE     P.Mission = '#url.mission#' 
+		AND       P.OrgUnitOperational IN (#url.unit#)
+		AND       PA.DateEffective  < '#url.selection#' 
+		AND       PA.DateExpiration > '#url.selection#'
+		AND       PA.AssignmentStatus IN ('0','1')
+		</cfsavecontent>
+	</cfoutput>
+
+</cfif>	
+
+<!---
+
 <cfquery name="qItems" 
 datasource="AppsEmployee" 
 username="#SESSION.login#" 
@@ -44,6 +68,8 @@ password="#SESSION.dbpw#">
 	AND      DocumentType='field'	
 	AND      Operational = 1			   
 </cfquery>
+
+--->
 
 <cfsavecontent variable="myquery">
 
@@ -115,6 +141,7 @@ password="#SESSION.dbpw#">
 						   AND      Pa.DateEffective <= Pe.DateEvent					   
 						   AND      OP.Mission = Pe.Mission
 						   ORDER BY Pa.DateExpiration DESC
+						   
 					   ) as OrgUnitParent, 				   
 					   
 					   <!--- actors on the fly --->
@@ -125,7 +152,7 @@ password="#SESSION.dbpw#">
 						            System.dbo.UserNames U ON OOAA.UserAccount = U.Account INNER JOIN
 						            Organization.dbo.OrganizationObject OO ON OOAA.ObjectId = OO.ObjectId
 						   WHERE    OO.ObjectKeyValue4 = Pe.EventId 
-						   AND      OOAA.AccessLevel = 1
+						   AND      OOAA.AccessLevel   = 1
 						   ORDER BY OOAA.Created DESC) as Actor,						  
 					  
 					  Pe.EventTrigger,
@@ -157,8 +184,7 @@ password="#SESSION.dbpw#">
 					  Pe.ActionStatus,
 					  P.Nationality,
 					  
-					  CASE 
-						      WHEN Pe.ActionStatus = 0 THEN 'Pending' 
+					  CASE    WHEN Pe.ActionStatus = 0 THEN 'Pending' 
 							  WHEN Pe.ActionStatus = 1 THEN 'In Process' 
 						      WHEN Pe.ActionStatus = 3 THEN 'Completed'
 							  WHEN Pe.ActionStatus = 9 THEN 'Cancelled'
@@ -170,6 +196,12 @@ password="#SESSION.dbpw#">
 	                  Ref_EventTrigger T ON Pe.EventTrigger = T.Code
 					  <!--- INNER JOIN System.dbo.Ref_Nation N ON P.Nationality = N.Code --->
 	        WHERE     Pe.Mission IN (#preservesingleQuotes(mis)#)
+			
+			<cfif url.unit neq "">
+			AND       Pe.PersonNo IN (#preserveSingleQuotes(myPeople)#) 
+			
+			</cfif>
+			
 			AND       Pe.ActionStatus != '9'
 				
 		     ) as I 
@@ -217,6 +249,8 @@ password="#SESSION.dbpw#">
 						search        = "text",
 						filtermode    = "3"}>			
 	
+	<cfif url.unit eq "">
+	
 	<cfset itm = itm+1>	
 	<cf_tl id="Assigned to" var = "1">		
 	<cfset fields[itm] = {label       = "#lt_text#",                    
@@ -225,7 +259,8 @@ password="#SESSION.dbpw#">
 						display       = "1",																																					
 						displayfilter = "yes",
 						search        = "text",
-						filtermode    = "3"}>				
+						filtermode    = "3"}>	
+	</cfif>								
 													
 	
 	<cfset itm = itm+1>	
@@ -479,9 +514,9 @@ password="#SESSION.dbpw#">
 <cf_listing
 	    header              = "myevent"
 	    box                 = "myeventlisting"
-		link                = "#SESSION.root#/Staffing/Reporting/ActionLog/EventListingContent.cfm?mission=#url.mission#&systemfunctionid=#url.systemfunctionid#"
+		link                = "#SESSION.root#/Staffing/Reporting/ActionLog/EventListingContent.cfm?mission=#url.mission#&systemfunctionid=#url.systemfunctionid#&unit=#url.unit#&selection=#url.selection#"
 	    html                = "No"		
-		tableheight         = "100%"
+		tableheight         = "99%"
 		tablewidth          = "100%"
 		calendar            = "9" 
 		font                = "Calibri"

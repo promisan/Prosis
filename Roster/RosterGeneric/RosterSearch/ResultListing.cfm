@@ -817,3 +817,7 @@
 </form>
 
 </td></tr></table>
+
+<script>
+Prosis.busy('no')
+</script>

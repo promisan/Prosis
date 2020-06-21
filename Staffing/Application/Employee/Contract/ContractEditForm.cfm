@@ -1586,7 +1586,7 @@ otherwise no action
 						
 							<!--- determine via object the salary record table --->
 						
-							<select name="contractlevel" id="contractlevel" size="1" style="width:70" class="regularxlbl">
+							<select name="contractlevel" id="contractlevel" size="1" style="width:100px" class="regularxlbl">
 								<cfloop query="PostGrade">
 								<option value="#PostGrade#" <cfif PostGrade eq SalRec.recommendLevel>selected</cfif>>
 						    		#PostGrade#  
@@ -1596,7 +1596,7 @@ otherwise no action
 						
 						<cfelse>
 									
-							<select name="contractlevel" id="contractlevel" size="1" style="width:30" class="regularxlbl">
+							<select name="contractlevel" id="contractlevel" size="1" style="width:100px" class="regularxlbl">
 								<cfloop query="PostGrade">
 								<option value="#PostGrade#" <cfif PostGrade eq ContractSel.ContractLevel>selected</cfif>>
 						    		#PostGrade#  
@@ -1609,7 +1609,7 @@ otherwise no action
 						</td>
 						
 						<td>
-												
+																		
 						  <cfif url.wf eq "1">
 						  
 						  	  <!--- take from Salary recommendation 		--->

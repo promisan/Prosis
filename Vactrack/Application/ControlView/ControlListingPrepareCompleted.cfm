@@ -109,6 +109,7 @@
 	          T.EntityClassName, 
 			  T.PostGradeBudget, 
 			  T.PostOrderBudget,
+			  T.ActionCode,
 			  F.ReferenceNo as VAReferenceNo,
 			  
 			  (SELECT O.OrgUnitNameShort
@@ -116,12 +117,12 @@
 			  WHERE  P.OrgUnitOperational = O.OrgUnit
 			  AND    P.PositionNo = D.PositionNo) as OrgUnitNameShort 
 			
-	FROM      Vacancy.dbo.Document D INNER JOIN (#preservesingleQuotes(SelectedTracks)#) as T  
-			  ON D.DocumentNo = T.DocumentNo  LEFT OUTER JOIN 
-			  Applicant.dbo.FunctionOrganization F ON D.FunctionId = F.FunctionId 
-			<cfif vCondition2 neq "">
+	FROM      Vacancy.dbo.Document D 
+	          INNER JOIN (#preservesingleQuotes(SelectedTracks)#) as T ON D.DocumentNo = T.DocumentNo  
+			  LEFT OUTER JOIN Applicant.dbo.FunctionOrganization F ON D.FunctionId = F.FunctionId 
+			  <cfif vCondition2 neq "">
 				#PreserveSingleQuotes(vCondition2)#
-			</cfif>
+			  </cfif>
 	</cfquery>	
 		
 	<!--- details candidate --->

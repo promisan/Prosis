@@ -15,6 +15,7 @@
 <cfoutput>
 
 <cf_dialogStaffing>   
+<cfajaximport tags="cfdiv">
 
 <script>
 
@@ -52,7 +53,8 @@ function maxme(itm) {
 	 }   
 }	
 
-function list(page) {	       
+function list(page) {	
+      _cf_loadingtexthtml='';	       
        ptoken.navigate('#SESSION.root#/roster/rostergeneric/CandidateResult.cfm?height='+document.body.offsetHeight+'&Owner=#URL.Owner#&DocNo=#URL.DocNo#&Scope=#URL.Scope#&Mode=#URL.Mode#&Page=' + page + '&ID=9','result');
 	   Prosis.busy('yes')
 	}
@@ -135,10 +137,11 @@ function list(page) {
 				<td colspan="3">
 				
 				    <table>
-					<tr>
+					<tr class="labelmedium">
 					<td><input type="radio" name="Class" value="" checked></td><td><cf_tl id="Any"></td>
 					<cfoutput query="Class">
-					  <td style="padding-left:5px"><input type="radio" class="radiol" name="Class" value="#ApplicantClassId#"></td><td class="labelit"><cf_tl id="#Description#"></td>
+					  <td style="padding-left:5px"><input type="radio" class="radiol" name="Class" value="#ApplicantClassId#"></td>
+					  <td style="padding-left:3px"><cf_tl id="#Description#"></td>
 					</cfoutput>		
 					</tr>
 					</table>

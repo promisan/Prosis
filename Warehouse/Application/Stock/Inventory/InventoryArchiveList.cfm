@@ -81,7 +81,7 @@ password="#SESSION.dbpw#">
 		<td>#OfficerLastName#</td>
 		<td align="right">#numberformat(QuantityOnHand,"#pformat#")#</td>
 		<td align="right">#QuantityCounted#</td>
-		<td align="right">#numberformat(ValueMetric,"__._")#</td>
+		<td align="right">#numberformat(ValueMetric,"._")#</td>
 		<td align="right">#numberformat(QuantityVariance,"#pformat#")#</td>	
 	</tr>
 	

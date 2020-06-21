@@ -126,7 +126,7 @@
 		<cfif displayMode eq "2">
 		
 			<cfoutput>
-			<table cellspacing="0" cellpadding="0" border="0" class="formpadding"  width="400">		
+			<table cellspacing="0" cellpadding="0" border="0" class="formpadding"  width="320">		
 				<tr>		
 					
 					<cfif Parameter.ApplicationLogon neq "">
@@ -134,7 +134,7 @@
 							<table width="100%">
 								<tr>
 									<td>
-										<img style="vertical-align:middle" src="#Parameter.ApplicationLogon#" width="36px">
+										<img style="vertical-align:middle" src="#Parameter.ApplicationLogon#" width=24px">
 									</td>
 									<td class="labelit"  style="color:<cfoutput>#color#</cfoutput>; font-size:14px;" align="right">
 										<cfif Parameter.ApplicationLogonLabel neq "">
@@ -160,11 +160,11 @@
 					</cfif>
 						
 
-					<td style="padding-left:10px; padding-top:5px;" align="right">					
+					<td style="padding-top:5px;" align="right">					
 						<input name="account" 
 							   id="account" 
 							   class="regularxl enterastab" 
-							   style="width:260px; height:30px; font-size:18px; padding:0px; padding-left:6px; padding-right:10px; border:1px solid ##C0C0C0;" 
+							   style="width:200px; height:30px; font-size:18px; padding:0px; padding-left:6px; padding-right:10px; border:1px solid ##C0C0C0;" 
 							   type="text" 
 							   value="<cfoutput>#logon#</cfoutput>" 
 							   maxlength="30" 
@@ -177,25 +177,25 @@
 					<td class="labelit" style="color:<cfoutput>#color#</cfoutput>; font-size:14px" align="right">
 						<cf_tl id="Password">:
 					</td>			  
-					<td style="padding-left:10px; padding-top:5px;" align="right">
+					<td style="padding-top:5px;" align="right">
 					
 						<input type="password" 
 						  name="password" 
 						  id="password" 
 						  maxlength="50" 
-						  class="passwordxl" 
+						  class="regularxl passwordxl" 
 						  autocomplete="off" 
 						  onKeyUp="go(event)"
-						  style="width:260px; height:30px; font-size:18px; padding-left:6px; padding-right:10px; border:1px solid ##C0C0C0;" 
+						  style="width:200px; height:30px; font-size:18px; padding-left:6px; padding-right:10px; border:1px solid ##C0C0C0;" 
 						  onfocus="this.value=''; this.focus();">
 						  
 					</td>			             
 				</tr>
 				<tr><td height="3" colspan="2"></td></tr>
 				<tr>
-					<td style="padding-left:10px; padding-top:5px;" align="#submitAlign#" colspan="2">
+					<td style="padding-left:10px; padding-top:5px;" align="center" colspan="2">
 					
-						<input style="height:25px; width:100px; border:1px solid ##C0C0C0; font-size:14px; font-family: 'Montserrat', Verdana, Arial, sans-serif;" type="button" 
+						<input style="height: 36px; border:none; border-radius: 5px; padding: 5px; background: ##1a73e8; color: ##ffffff; text-transform: uppercase; font-weight: 600; font-size:14px; font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif,'Raleway', sans-serif !important" type="button" 
 						  class="button10g" name="Submit" id="Submit" value="Login"   onclick="openmenu('acc','pwd')">
 						
 						<!--- google sign-in --->

@@ -8,15 +8,16 @@
 	
 	<cffunction access="public" name="tablefilterfield" output="true" returntype="string" 	displayname="Table filter">
 					
-		<cfargument name="name"          default="filtersearch"   required="yes">
-		<cfargument name="filtermode"    default="enter"          required="yes">
-		<cfargument name="style"         default="font:10px"      required="no">
-		<cfargument name="rowclass"      default="row"            required="yes">
-		<cfargument name="rowfields"     default="field"          required="yes">
-		<cfargument name="icon"          default="finger.gif"     required="yes">
-		<cfargument name="label"         default="Search"         required="yes">
-		<cfargument name="displayValue"  default=""      		  required="no">
-		<cfargument name="filterLabel"   default="filtered"       required="no">
+		<cfargument name="name"          	default="filtersearch"   required="yes">
+		<cfargument name="filtermode"    	default="enter"          required="yes">
+		<cfargument name="filtercondition"  default="contains"       required="no">
+		<cfargument name="style"         	default="font:10px"      required="no">
+		<cfargument name="rowclass"      	default="row"            required="yes">
+		<cfargument name="rowfields"     	default="field"          required="yes">
+		<cfargument name="icon"          	default="finger.gif"     required="yes">
+		<cfargument name="label"         	default="Search"         required="yes">
+		<cfargument name="displayValue"  	default=""      		  required="no">
+		<cfargument name="filterLabel"   	default="filtered"       required="no">
 		
 		<cfset passtru = "">
 		<cf_tl id="#label#" var="vLabel">
@@ -45,7 +46,7 @@
 				<td align="right" style="padding-left:5px">
 					<cf_tl id="Search by any text" var="1">					
 					<input type="text" style="#style#" class="regularxl" id="#name#search" name="#name#search" size="30" 
-					 onkeyup="__prosisPresentation_do_tablesearch(event,'#filtermode#','#name#','#rowclass#','#passtru#','#displayValue#','#vFilterLabel#');" title="#lt_text#">
+					 onkeyup="__prosisPresentation_do_tablesearch(event,'#filtermode#','#filtercondition#','#name#','#rowclass#','#passtru#','#displayValue#','#vFilterLabel#');" title="#lt_text#">
 					 
 					 <!--- removes the 'X' from the input in IE10 --->
 					 <style>
@@ -57,7 +58,7 @@
 					 </style>
 					 
 				</td>
-				<td width="20" style="padding-left:1px;" align="center" class="labelit" onclick="__prosisPresentation_do_clearsearch(event,'#filtermode#','#name#','#rowclass#','#passtru#','#displayValue#','#vFilterLabel#');">
+				<td width="20" style="padding-left:1px;" align="center" class="labelit" onclick="__prosisPresentation_do_clearsearch(event,'#filtermode#','#filtercondition#','#name#','#rowclass#','#passtru#','#displayValue#','#vFilterLabel#');">
 					<cf_tl id="Clear search" var="1">
 					<img src="#session.root#/images/Clear.png" align="absmiddle" title="#lt_text#" height="36px" style="cursor:pointer;">
 				</td>		

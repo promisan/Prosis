@@ -303,10 +303,13 @@
 
 </cftransaction>
 
+<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+<cfset mid = oSecurity.gethash()/>   
+
 <cfoutput>
 	<script language="JavaScript">
 		alert("The Workflow configuration was successfully published.")
-		window.location = "FlowView.cfm?PublishNo=#pub#&EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#"
+		window.location = "FlowView.cfm?PublishNo=#pub#&EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&mid=#mid#"
 	</script>
 </cfoutput>
 

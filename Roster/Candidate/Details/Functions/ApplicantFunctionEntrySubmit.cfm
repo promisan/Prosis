@@ -34,7 +34,7 @@ password="#SESSION.dbpw#">
 
 <cfif verify.recordcount eq "0">
 
-<!--- we check for any entry with this source --->
+	<!--- we check for the last entry with this source --->
 	
 	<cfquery name="Verify" 
 	datasource="AppsSelection" 
@@ -43,7 +43,8 @@ password="#SESSION.dbpw#">
 		SELECT  ApplicantNo
 		FROM    ApplicantSubmission
 		WHERE   PersonNo          = '#FORM.PersonNo#'
-		AND     Source            = '#Form.Source#'    
+		AND     Source            = '#Form.Source#'   
+		ORDER BY Created DESC 
 	</cfquery>
 
 </cfif>

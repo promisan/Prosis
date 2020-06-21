@@ -153,6 +153,8 @@
 
 <cfparam name="url.status" default="valid">
 
+<cf_verifyOperational module="Payroll" Warning="No">
+
 <!--- Query returning search results --->
 
 <cfquery name="SearchResult" 
@@ -186,7 +188,9 @@ password="#SESSION.dbpw#">
 				  AND      EntityCode = 'PersonContract' 
 				  AND      Operational = 1) as WorkflowId,		
 				  
-			 <!--- obtain salary level --->	  
+			 <!--- obtain salary level --->	 
+			 
+			 <cfif operational eq "1">
 			 
 			 (SELECT     TOP 1 SCL.Amount
 			   FROM       Payroll.dbo.SalaryScale SC INNER JOIN
@@ -205,7 +209,15 @@ password="#SESSION.dbpw#">
 			   AND        SC.SalaryEffective <= L.DateEffective
 			   AND  	  SC.SalarySchedule   = L.SalarySchedule
 			   AND        SC.SalaryFirstApplied <= L.DateEffective 
-			   ORDER BY   SalaryFirstApplied DESC ) as BaseSalary						 		  			
+			   ORDER BY   SalaryFirstApplied DESC )
+			   
+			   <cfelse>
+			   
+			   0
+			   
+			   </cfif> 
+			   
+			   as BaseSalary						 		  			
 				  
     FROM     PersonContract L 
 	         INNER JOIN Ref_ContractType R ON L.ContractType = R.ContractType

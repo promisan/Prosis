@@ -94,9 +94,9 @@ password="#SESSION.dbpw#">
 			AND      I.Warehouse      =  WL.Warehouse
 			
 			<cfif url.loc neq "">
-			AND      I.Location IN (#preservesingleQuotes(url.loc)#)
-			
+			AND      I.Location IN (#preservesingleQuotes(url.loc)#)			
 			</cfif>
+			
 			AND      I.Location       =  WL.Location
 			AND      WL.LocationClass = R.Code							
 			AND      WL.Operational   = 1
@@ -118,16 +118,22 @@ password="#SESSION.dbpw#">
 			             WHERE  Warehouse      =  I.Warehouse
 						 AND    Location       =  I.Location
 						 AND    ItemNo         =  I.ItemNo)
+						 
 			<cfelse>
 			
-			<!--- we check if there is indeed any stock --->
+			<!--- we check if there is indeed any stock --->			
 			AND  EXISTS (SELECT 'x'
 			             FROM   ItemTransaction
 			             WHERE  Warehouse      =  I.Warehouse
 						 AND    Location       =  I.Location
 						 AND    ItemNo         =  I.ItemNo
-						 AND    TransactionUoM = I.UoM
-						 HAVING abs(SUM(TransactionQuantity)) > 0.05)
+						 AND    TransactionUoM = I.UoM						
+						<cfif findNoCase(get.LocationReceipt,url.loc)>
+						HAVING ABS(SUM(TransactionQuantity)) >= 1)	
+						<cfelse>
+						HAVING ABS(SUM(TransactionQuantity)) >= 0)	
+						</cfif>
+		
 						 
 			</cfif>			        
 						
@@ -176,7 +182,7 @@ password="#SESSION.dbpw#">
 				  				 					  
 				  <cfoutput group="CategoryName">
 				  
-				   <tr class="line">								     
+				   <tr class="line clsFilterRow">								     
 					  <td colspan="3" style="font-size:19px;padding-top:2px;padding-left:4px;height:38" class="labellarge">#CategoryName# <cfif ParentItemNo neq "">/ #ParentItemNo# #ParentItemName#</cfif></td>								  										 
 				   </tr>
 					 					 
@@ -217,7 +223,7 @@ password="#SESSION.dbpw#">
 					 	 <td width="100%" colspan="2" style="height:100%;fix:40px;">
 						 
 							 <table width="100%" style="height:100%">
-							 <tr>
+							 <tr class="clsFilterRow">
 								 <td onclick="#apply#" style="fix:40px;font-size:15px;height:23px;padding-top:3px;padding-left:4px">#CategoryItem# #CategoryItemName#</td>
 								 
 								 <!--- filter box --->

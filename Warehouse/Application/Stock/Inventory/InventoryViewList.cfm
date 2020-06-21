@@ -60,6 +60,12 @@ password="#SESSION.dbpw#">
 	WHERE    Warehouse = '#URL.Warehouse#'		
 </cfquery>
 
+<cfif warehouse.LocationReceipt eq url.location>
+	<cfset locationReceipt = "1">
+<cfelse>
+	<cfset locationReceipt = "0">	
+</cfif>
+
 <cfquery name="List"
 datasource="AppsMaterials" 
 username="#SESSION.login#" 
@@ -81,22 +87,27 @@ password="#SESSION.dbpw#">
 	<cfif url.find neq "" and url.find neq "undefined">
 	
 	AND     (
-	        	ItemDescription LIKE '%#url.find#%' OR
-				ItemNo LIKE '%#url.find#%' OR
+	        	ItemDescription      LIKE '%#url.find#%' OR
+				ItemNo               LIKE '%#url.find#%' OR
 				TransactionReference LIKE '%#url.find#%' OR
-				CategoryItemName LIKE '%#url.find#%' OR 
-				ItemBarCode LIKE '%#url.find#%' OR
-				UoMDescription LIKE '%#url.find#%' OR
-				TransactionLot LIKE '%#url.find#%'
+				CategoryItemName     LIKE '%#url.find#%' OR 
+				ItemBarCode          LIKE '%#url.find#%' OR
+				UoMDescription       LIKE '%#url.find#%' OR
+				TransactionLot       LIKE '%#url.find#%'
 			)	
 	</cfif>
-
+	
+	<!--- prevent adding stock to receipt location --->
+	<cfif LocationReceipt eq "1">
+	AND     OnHand <> 0
+	</cfif>
 	
 	ORDER BY Category,
 	         CategoryItemName,
 			 ItemDescription,
 			 TransactionLot,
 			 WorkOrderId  <!--- first the onhand option --->
+			 
 </cfquery>
 
 <!---
@@ -105,13 +116,14 @@ password="#SESSION.dbpw#">
 
 <form method="post"
       name="forminventory<cfoutput>_#url.box#</cfoutput>"
-      id="forminventory<cfoutput>_#url.box#</cfoutput>">
+      id="forminventory<cfoutput>_#url.box#</cfoutput>" 
+	  style="padding:0px; margin:0px;">
 
 <table width="100%" style="padding:6px;border:0px solid silver" bgcolor="fbfbfb">
 
 	<tr><td style="padding:0px">
 		
-	<table width="100%" lign="center" class="navigation_table">
+	<table width="100%" align="center" class="navigation_table">
 
 		    <tr class="labelmedium fixrow3 clsFilterRow">
 			   <td style="min-width:26px;top:53px"></td>			  
@@ -139,7 +151,7 @@ password="#SESSION.dbpw#">
 			
 			<td colspan="10"><table>
 				<tr class="labelmedium">
-					<td class="ccontent" style="font-size:15px;padding-left:40px;min-width:70px;"><a href="javascript:locationitem('#itemLocationId#')">#ItemNo#</a></td>
+					<td style="font-size:15px;padding-left:40px;min-width:70px;"><a href="javascript:locationitem('#itemLocationId#')" class="ccontent">#ItemNo#</a></td>
 					<td class="ccontent" style="height:26;font-size:15px">#ItemDescription#</td>
 					<td style="display:none;" class="ccontent">#ItemBarCode#</td>
 				</tr>
@@ -176,7 +188,8 @@ password="#SESSION.dbpw#">
 								   </tr>
 								   </table>						  
 								</td>
-								<td class="ccontent hide">#ItemNo# #ItemDescription#</td>						
+								<td class="ccontent hide">#ItemNo#</td>
+								<td class="ccontent hide">#ItemDescription#</td>						
 								</tr>
 							
 							</cfif>		
@@ -198,7 +211,8 @@ password="#SESSION.dbpw#">
 								
 							   <tr bgcolor="#color#" class="#cl# clsFilterRow navigation_row line <cfif abs(onhand) lte "0.02">zero<cfelse>standard</cfif>">											
 							       <cfinclude template="InventoryViewListLine.cfm"> 
-								   <td class="ccontent hide">#ItemNo# #ItemDescription#</td>
+								   <td class="ccontent hide">#ItemNo#</td>
+								   <td class="ccontent hide">#ItemDescription#</td>
 								</tr>	
 								
 								<tr id="locarc#url.box#_#currentrow#_box" class="hide">		
@@ -227,8 +241,9 @@ password="#SESSION.dbpw#">
 								</cfif>			   
 														
 								<tr bgcolor="#color#" class="#cl# clsFilterRow navigation_row line <cfif abs(onhand) lte "0.02">zero<cfelse>standard</cfif>">																		  				
-								   <cfinclude template="InventoryViewListLine.cfm">														   
-								   <td class="ccontent hide">#ItemNo# #ItemDescription#</td>
+								   <cfinclude template="InventoryViewListLine.cfm">	
+								   <td class="ccontent hide">#ItemNo#</td>													   
+								   <td class="ccontent hide">#ItemDescription#</td>
 								</tr>		
 								
 								<tr id="locarc#url.box#_#currentrow#_box" class="hide">		
@@ -248,8 +263,23 @@ password="#SESSION.dbpw#">
 			<cfoutput>
 			
 			<tr class="clsFilterRow"><td colspan="10" align="center">
-				
+
 				<table width="100%" cellspacing="0" cellpadding="0" align="center">
+
+				<!--- kherrera (10/06/2020): allows show the submit button when searching --->
+				<tr style="display:none;">
+					<td>
+						<cfloop query="list">
+							<div style="display:none;" class="ccontent">#ItemNo#</div>
+						</cfloop>	
+						<cfloop query="list">
+							<div style="display:none;" class="ccontent">#ItemDescription#</div>
+						</cfloop>
+						<cfloop query="list">
+							<div style="display:none;" class="ccontent">#ItemBarCode#</div>
+						</cfloop>
+					</td>	
+				</tr>
 												
 				<tr class="hide">
 				
@@ -279,12 +309,12 @@ password="#SESSION.dbpw#">
 				<tr>	
 			        <td colspan="2" align="left" width="97%" style="padding:2px;padding-left:2px">
 					  
-					    <textarea name="description_#url.location#" 
-							 id="description_#url.location#"				    
-							 class="regular enterastab" 
-							 totlength="400"
-							 onkeyup="return ismaxlength(this)"					
-							 style="padding:3px;font-size:13px;height:38;width:98%"></textarea>
+					    <textarea name  = "description_#url.location#" 
+							      id    = "description_#url.location#"				    
+							      class = "regular enterastab" 
+							      totlength="400"
+							      onkeyup="return ismaxlength(this)"					
+							      style="padding:3px;font-size:13px;height:38;width:98%"></textarea>
 	
 				  	</td>			  	   
 				</tr>

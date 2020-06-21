@@ -25,7 +25,7 @@
 		ORDER BY   CustomerName 
 </cfquery>
 
-<table width="500" style="border:1px solid silver" cellspacing="0" cellpadding="0" bgcolor="white" class="formpadding">
+<table style="width:100%;border:1px solid silver" bgcolor="white" class="formpadding">
 	
 	<input type = "hidden" 
 	    name    = "customerinvoiceselectrow" 
@@ -34,7 +34,7 @@
 	
 	<cfif get.recordcount eq "0">
 	
-		<tr><td height="50" align="center" class="labelmedium"><cf_tl id="No records found."> [<cf_tl id="Press enter to add">]</td></tr>
+		<tr><td height="50" align="center" class="labelmedium" style="padding-left:5px;padding-right:5px"><cf_tl id="No records found."><cf_tl id="Press enter to add"></td></tr>
 		
 		  <script>
 			document.getElementById('customerinvoiceidselect').value='insert' // this will prevent the message to appear
@@ -54,7 +54,7 @@
 	
 		<tr><td id       = "customerinvoiceline#currentrow#" 
 		    name         = "customerinvoiceline#currentrow#" 
-		    onclick      = "document.getElementById('customerinvoiceselectbox').className ='hide';ColdFusion.navigate('#SESSION.root#/warehouse/application/SalesOrder/POS/Sale/applySaleHeader.cfm?field=billing&warehouse=#url.warehouse#&customerid='+document.getElementById('customeridselect').value+'&customeridinvoice=#customerid#','salelines');" 														
+		    onclick      = "document.getElementById('customerinvoiceselectbox').className ='hide';ptoken.navigate('#SESSION.root#/warehouse/application/SalesOrder/POS/Sale/applySaleHeader.cfm?field=billing&warehouse=#url.warehouse#&customerid='+document.getElementById('customeridselect').value+'&customeridinvoice=#customerid#','salelines');" 														
 		    class        = "regular" 
 			style        = "cursor:pointer"
 		    onmouseover  =  "if (this.className=='regular') { this.className='highlight2' }"

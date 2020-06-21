@@ -6,9 +6,9 @@
 datasource="AppsEmployee" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-SELECT     *
+SELECT    *
 FROM       PositionParent
-WHERE      PositionParentId = '#Attributes.PositionParentId#'
+WHERE      PositionParentId = '#Attributes.PositionParentId#' 
 </cfquery>
 
 <cfset PStr = PositionParent.DateEffective>
@@ -21,17 +21,17 @@ password="#SESSION.dbpw#">
 SELECT     *
 FROM       Position
 WHERE      PositionParentId = '#Attributes.PositionParentId#'
-ORDER BY DateEffective, PositionNo
+ORDER BY   DateEffective, PositionNo
 </cfquery>
 
 <cfloop query="Position">
 
-	<cfif DateEffective lt PositionParent.DateEffective>
+	<cfif DateEffective lt PStr>
 
 	   <cf_AuditIncumbencyLog
 	    AuditSourceNo    = "#PositionNo#"
 		AuditElement     = "Position"
-		Observation      = "Position effective date lies before #dateformat(PositionParent.DateEffective,CLIENT.DateFormatShow)#">
+		Observation      = "Position effective date #dateformat(DateEffective,CLIENT.DateFormatShow)# lies before #dateformat(PStr,CLIENT.DateFormatShow)#">
 		<!--- write error message --->
 	</cfif>
 	
@@ -47,7 +47,7 @@ ORDER BY DateEffective, PositionNo
 	   <cf_AuditIncumbencyLog
 	    AuditSourceNo    = "#PositionNo#"
 		AuditElement     = "Position"
-		Observation      = "Expiration date exceeds Parent Expiration date">
+		Observation      = "Expiration date exceeds Parent Expiration date #dateformat(PEnd,CLIENT.DateFormatShow)#">
 		<!--- write error message --->
 	</cfif>
 	

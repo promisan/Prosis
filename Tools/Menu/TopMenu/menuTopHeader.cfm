@@ -118,10 +118,10 @@
 											
 		</cfmenuitem>
 		 
-		  
 	</cfloop>
 	
-</cfmenu>	
+</cfmenu>
+
 
 </td></tr></table>	
 

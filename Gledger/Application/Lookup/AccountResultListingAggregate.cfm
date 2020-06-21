@@ -1,11 +1,15 @@
 
-<CF_DropTable dbName="AppsQuery"  tblName="#SESSION.acc#GLedgerAggregate">
 
 <cfparam name="URL.CostCenter" default="All">
 <cfif URL.costcenter eq "undefined" or LEN(TRIM(URL.costcenter)) lte 0>
 	<cfset URL.costcenter  = "All">
 </cfif>
 
+<cfif url.prepare neq "quick">
+<CF_DropTable dbName="AppsQuery"  tblName="#SESSION.acc#GLedgerAggregate">	
+</cfif>
+
+<cftransaction isolation="READ_UNCOMMITTED">
 
 <cfquery name="GLAccount"
 datasource="AppsLedger" 
@@ -16,129 +20,196 @@ password="#SESSION.dbpw#">
 	WHERE  G.GLAccount = '#URL.Account#'
 </cfquery>
 
-<cfquery name="SearchResult"
-		datasource="AppsLedger" 
-		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">
-				
-		    SELECT newid() as TransactionLineId,
-			       J.TransactionPeriod as HeaderTransactionPeriod,
-			       J.TransactionCategory, 				   
-				   J.Description as DescriptionHeader,
-				   J.Journal,
-				   J.JournalTransactionNo,				    
-				   T.Currency, 
-				   J.DocumentDate,
-				   T.TransactionDate, 
-				   T.TransactionDate as Created,
-				   CONVERT(int, T.TransactionDate) AS CreatedInt,
-				   ROUND(SUM(AmountDebit), 2) AS AmountDebit, 
-				   ROUND(SUM(AmountCredit), 2) AS AmountCredit, 
-                   ROUND(SUM(AmountBaseDebit), 2) AS AmountBaseDebit, 
-				   ROUND(SUM(AmountBaseCredit), 2) AS AmountBaseCredit,
-				   				   
-				   <!--- get the valid exchange rate on the transaction date --->
-				   
-				   (SELECT   TOP 1 ExchangeRate
-				    FROM     CurrencyExchange
-				    WHERE    Currency       = '#curr#'
-					AND      EffectiveDate <= T.TransactionDate
-					ORDER BY EffectiveDate DESC) as DateExchangeRate
-					
-			INTO     userQuery.dbo.#SESSION.acc#GLedgerAggregate
-				   
-			FROM   TransactionLine T INNER JOIN TransactionHeader J ON T.Journal = J.Journal and T.JournalSerialNo = J.JournalSerialNo
-			
-			WHERE  T.GLAccount = '#URL.Account#'
-			
-			
-			<cfif Category.recordcount eq "1">
-			AND   J.Journal IN (SELECT Journal 
-			                    FROM   Journal 
-							    WHERE  GLCategory = '#URL.GLCategory#')
-			</cfif>
-			
-			<cfif URL.Period neq "All">
-				AND  J.AccountPeriod = '#URL.Period#' 
-			<cfelse>
-				AND  J.Journal NOT IN (SELECT Journal FROM Journal WHERE SystemJournal = 'Opening')
-			</cfif>
-			
-			<cfif url.find neq "">
-				AND    (J.JournalTransactionNo LIKE '%#url.find#%' 
-						OR J.JournalSerialNo LIKE '%#url.find#%'
-						OR J.TransactionReference  LIKE '%#url.find#%'
-						OR J.Description LIKE '%#url.find#%'
-						OR J.Journal LIKE '%#url.find#%'
-						OR J.ReferenceName LIKE '%#url.find#%' )
- 
-			</cfif>
-			
-			<cfif url.class eq "Debit">
-				AND  T.AmountDebit != 0
-			<cfelseif url.class eq "Credit">
-				AND  T.AmountCredit != 0
-			</cfif>
-			
-			<cfif url.pap neq "">
-			
-		    	<cfif GLaccount.accountclass eq "Result">
-				 AND  T.TransactionPeriod = '#url.pap#'
-				<cfelse>
-				 AND  J.TransactionPeriod <= '#url.pap#'
-				</cfif> 
-				
-	        </cfif>
-						
-			AND  J.Mission = '#URL.Mission#'
-			
-			<!---RFUENTES 21/5/2015 adding: CC for the accounts that are Result Class  ---->
-			<cfif url.costcenter neq "All">
-			AND	   T.OrgUnit IN ('#URL.costcenter#')			
-			</cfif>
+<cfif url.prepare neq "quick">
 
-			<cfif url.owner neq "All">
-			AND	   J.OrgUnitOwner IN ('#URL.owner#')			
-			</cfif>
-			
-			<!--- RFUENTES 12/10/2015 added: to filter only valid transactions ----->
-			AND J.RecordStatus    != '9'
-			AND J.ActionStatus 	  != '9'
-								
-			GROUP BY J.Journal,J.TransactionPeriod, J.TransactionCategory, J.Description, J.JournalTransactionNo, J.DocumentDate, T.Currency, T.TransactionDate 
-			
-			<cfif URL.ID eq "Created">
-			ORDER BY T.Created 
-			<cfelseif URL.ID eq "DocumentDate">
-			ORDER BY J.DocumentDate 
-			<cfelseif URL.ID eq "JournalTransactionNo">
-			ORDER BY J.JournalTransactionNo, T.ReferenceId
-			<cfelseif URL.ID eq "TransactionPeriod">			
-			ORDER BY J.TransactionPeriod
-			<cfelse>
-			ORDER BY T.#URL.ID# 
-			</cfif>		
+	<cfquery name="SearchResult"
+			datasource="AppsLedger" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+										
+			    SELECT newid() as TransactionLineId,
+				
+				       <cfif GLaccount.accountclass eq "Result">
+					   T.TransactionPeriod,
+					   T.TransactionDate, 
+					   T.TransactionDate as Created,
+					   CONVERT(int, T.TransactionDate) AS CreatedInt,
+					   <cfelse>
+					   J.TransactionPeriod,
+					   J.TransactionDate,
+					   J.TransactionDate as Created,
+					   CONVERT(int, J.TransactionDate) AS CreatedInt,
+					   </cfif>
+					 
+				       J.TransactionCategory, 				   
+					   J.Description as DescriptionHeader,
+					   J.Journal,
+					   J.JournalTransactionNo,				
+					   J.Reference,					 
+					   T.Currency, 
+					   J.DocumentDate,
+					  					  
+					   ROUND(SUM(AmountDebit), 2) AS AmountDebit, 
+					   ROUND(SUM(AmountCredit), 2) AS AmountCredit, 
+	                   ROUND(SUM(AmountBaseDebit), 2) AS AmountBaseDebit, 
+					   ROUND(SUM(AmountBaseCredit), 2) AS AmountBaseCredit,
+					   				   
+					   <!--- get the valid exchange rate on the transaction date --->
+					   
+					   <cfif application.BaseCurrency neq curr>
+					   
+					   (SELECT   TOP 1 ExchangeRate
+					    FROM     CurrencyExchange
+					    WHERE    Currency       = '#curr#'
+						AND      EffectiveDate <= T.TransactionDate
+						ORDER BY EffectiveDate DESC) as DateExchangeRate
 						
-		</cfquery>
+						<cfelse>
+						
+						1 as DateExchangeRate
+						
+						</cfif>
+						
+				INTO     userQuery.dbo.#SESSION.acc#GLedgerAggregate
+					   
+				FROM   TransactionLine T INNER JOIN TransactionHeader J ON T.Journal = J.Journal and T.JournalSerialNo = J.JournalSerialNo
+				
+				WHERE  T.GLAccount = '#URL.Account#'
+				
+				
+				<cfif Category.recordcount eq "1">
+				AND   J.Journal IN (SELECT Journal 
+				                    FROM   Journal 
+									WHERE  Journal = J.Journal
+									AND    JournalType = 'General' 
+								    AND    GLCategory = '#URL.GLCategory#')
+				</cfif>
+				
+				<cfif URL.Period neq "All">
+					AND  J.AccountPeriod = '#URL.Period#' 
+				<cfelse>
+					AND  J.Journal NOT IN (SELECT Journal FROM Journal WHERE Journal = J.Journal AND SystemJournal = 'Opening')
+				</cfif>
+				
+				<cfif url.find neq "">
+					AND    (J.JournalTransactionNo     LIKE '%#url.find#%' 
+							OR J.JournalSerialNo       LIKE '%#url.find#%'
+							OR J.TransactionReference  LIKE '%#url.find#%'
+							OR J.Description           LIKE '%#url.find#%'
+							OR J.Journal               LIKE '%#url.find#%'
+							OR J.ReferenceName         LIKE '%#url.find#%' )
+	 
+				</cfif>
+				
+				<cfif url.class eq "Debit">
+					AND  T.AmountDebit != 0
+				<cfelseif url.class eq "Credit">
+					AND  T.AmountCredit != 0
+				</cfif>
+				
+				<cfif url.pap neq "">
+				
+			    	<cfif GLaccount.accountclass eq "Result">
+					 AND  T.TransactionPeriod = '#url.pap#'
+					<cfelse>
+					 AND  J.TransactionPeriod = '#url.pap#'
+					</cfif> 
+					
+		        </cfif>
+							
+				AND  J.Mission = '#URL.Mission#'
+				
+				<!---RFUENTES 21/5/2015 adding: CC for the accounts that are Result Class  ---->
+				<cfif url.costcenter neq "All">
+				AND	   T.OrgUnit IN ('#URL.costcenter#')			
+				</cfif>
+	
+				<cfif url.owner neq "All">
+				AND	   J.OrgUnitOwner IN ('#URL.owner#')			
+				</cfif>
+				
+				<!--- RFUENTES 12/10/2015 added: to filter only valid transactions ----->
+				AND J.RecordStatus    != '9'
+				AND J.ActionStatus 	  != '9'
+									
+				GROUP BY J.Journal,
+						 <cfif GLaccount.accountclass eq "Result">
+				         T.TransactionPeriod, 
+						 T.TransactionDate,
+						 <cfelse>
+						 J.TransactionPeriod, 
+						 J.TransactionDate, 
+						 </cfif>
+						 J.TransactionCategory, 
+						 J.Reference,
+						 J.Description, 
+						 J.JournalTransactionNo, 
+						 J.DocumentDate, 
+						 T.Currency				
+											
+			</cfquery>
 			
+</cfif>			
+					
 <!--- now we pass --->
 
-<cfquery name="SearchResult" 
-		datasource="AppsLedger" 
-		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">	
-		SELECT     *
-		FROM       userQuery.dbo.#SESSION.acc#GLedgerAggregate		
-		<cfif URL.ID eq "Created">
-			ORDER BY Created 
-		<cfelseif URL.ID eq "DocumentDate">
-			ORDER BY DocumentDate 
-		<cfelseif URL.ID eq "JournalTransactionNo">
-			ORDER BY JournalTransactionNo, ReferenceId
-		<cfelseif URL.ID eq "TransactionPeriod">			
-			ORDER BY HeaderTransactionPeriod, TransactionDate
-		<cfelse>
+<cfif url.aggregate eq "0">
+	
+	<cfquery name="SearchResult" 
+			datasource="AppsLedger" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">	
+			SELECT     *
+			FROM       userQuery.dbo.#SESSION.acc#GLedgerAggregate	
+			<cfif URL.ID eq "Created">
+			ORDER BY CreatedInt, 
+			<cfelse>
 			ORDER BY #URL.ID# 
-		</cfif>				
-</cfquery>
+			</cfif> 	
+			
+	</cfquery>
+	
+<cfelse>
+
+	<cfquery name="SearchResult" 
+			datasource="AppsLedger" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">	
+			SELECT   Journal, 
+			         TransactionCategory, 
+					 Reference, 					 
+					 #URL.ID#, 
+					 <cfif URL.ID eq "Created">
+					 CreatedInt, 
+					 </cfif>
+					 DateExchangeRate,
+					 Currency,					   
+					 SUM(AmountDebit)      as AmountDebit, 
+		             SUM(AmountCredit)     as AmountCredit,		
+			         SUM(AmountBaseDebit)  as AmountBaseDebit,
+		             SUM(AmountBaseCredit) as AmountBaseCredit 			
+			
+			FROM     userQuery.dbo.#SESSION.acc#GLedgerAggregate
+			
+			GROUP BY Journal, 
+			   
+			         TransactionCategory, 
+					 Reference, 					 
+					 #URL.ID#,
+					 <cfif URL.ID eq "Created">
+					 CreatedInt, 
+					 </cfif> 
+					 DateExchangeRate,
+					 Currency 
+			
+			<cfif URL.ID eq "Created">
+				ORDER BY CreatedInt 			
+			<cfelse>
+				ORDER BY #URL.ID# 
+			</cfif>				
+	</cfquery>		
+
+</cfif>	
+
+</cftransaction>	
 		

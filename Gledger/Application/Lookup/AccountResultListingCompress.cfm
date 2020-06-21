@@ -31,10 +31,10 @@ password="#SESSION.dbpw#">
 				 H.TransactionReference,
 				 L.TransactionLineId,
 		         L.GLAccount, 
-		         L.Currency AS Currency, 
-		         L.AmountDebit AS AmountDebit, 
-		         L.AmountCredit AS AmountCredit, 
-		         L.AmountBaseDebit AS AmountBaseDebit, 
+		         L.Currency         AS Currency, 
+		         L.AmountDebit      AS AmountDebit, 
+		         L.AmountCredit     AS AmountCredit, 
+		         L.AmountBaseDebit  AS AmountBaseDebit, 
 		         L.AmountBaseCredit AS AmountBaseCredit
 		INTO     userQuery.dbo.#SESSION.acc#GLedgerCompress	 
 		FROM     TransactionHeader H INNER JOIN
@@ -126,10 +126,10 @@ password="#SESSION.dbpw#">
 			   L.TransactionLineId,
 		       L.GLAccount, 
 			   L.Currency AS Currency, 
-			   L.AmountDebit AS AmountDebit, 
-			   L.AmountCredit AS AmountCredit, 
-		       L.AmountBaseDebit AS AmountBaseDebit, 
-			   L.AmountBaseCredit AS AmountBaseCredit
+			   L.AmountDebit       AS AmountDebit, 
+			   L.AmountCredit      AS AmountCredit, 
+		       L.AmountBaseDebit   AS AmountBaseDebit, 
+			   L.AmountBaseCredit  AS AmountBaseCredit
 			   
 		FROM   TransactionHeader H INNER JOIN
 		       TransactionLine L ON H.Journal = L.Journal AND H.JournalSerialNo = L.JournalSerialNo INNER JOIN

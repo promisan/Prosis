@@ -124,7 +124,7 @@
 <cfif getSale.recordcount eq "0">
 	
 	<script>
-	  ColdFusion.navigate("#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/applyCustomer.cfm?warehouse=#url.warehouse#",'customerbox')		
+	  ptoken.navigate("#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/applyCustomer.cfm?warehouse=#url.warehouse#",'customerbox')		
 	 try { ColdFusion.Window.destroy('wsettle',true)} catch(e){};
 	</script>  
 

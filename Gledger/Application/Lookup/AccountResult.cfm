@@ -36,16 +36,19 @@ SELECT *
 <cfparam name="URL.Account"              default="000000">
 <cfparam name="URL.Class"                default="">
 <cfparam name="URL.Find"                 default="">
-<cfparam name="URL.Row"                  default="100">
+<cfparam name="URL.Row"                  default="500">
 <cfparam name="URL.Currency"             default="">
-<cfparam name="URL.ID"                   default="TransactionPeriod">
+<cfparam name="URL.ID"                   default="TransactionDate">
 <cfparam name="URL.Mde"                  default="JournalTransactionNo">
-<cfparam name="URL.GLCategory"           default="">
+<cfparam name="URL.GLCategory"           default="Actuals">
 <cfparam name="URL.Page"                 default="1">
 <cfparam name="SearchResult.recordCount" default="0">
 <cfparam name="url.Mode"                 default="">
+<cfparam name="URL.Aggregate"            default="0">
 <cfparam name="URL.CostCenter" 			 default="All">
-<cfparam name="URL.Owner" 			 	 default="All">
+<cfparam name="URL.OrgUnitOwner" 		 default="All">
+<cfparam name="URL.Owner" 			 	 default="#url.orgunitowner#">
+<cfparam name="URL.Prepare" 	     	 default="Yes">
 
 <cfif url.pap eq "undefined">
 	<cfset url.pap = "">
@@ -57,7 +60,7 @@ username="#SESSION.login#"
 password="#SESSION.dbpw#">
     SELECT *
     FROM   Ref_GLCategory
-	WHERE  GLCategory = '#URL.GLCategory#'
+	WHERE  GLCategory = '#URL.GLCategory#' 
 </cfquery>
 
 <cfquery name="Period" 
@@ -104,20 +107,23 @@ password="#SESSION.dbpw#">
 
 <!--- retrieve the data to be shown --->
 
-<cfif url.mde eq "Transaction">
+<cfif url.prepare neq "quick">
 	
-	<cfinclude template="AccountResultListingCompress.cfm">
+	<cfif url.mde eq "Transaction">
 		
-<cfelseif url.mde eq "JournalTransactionNo">	
-				
-	<cfinclude template="AccountResultListingAggregate.cfm">		
+		<cfinclude template="AccountResultListingCompress.cfm">
+			
+	<cfelseif url.mde eq "JournalTransactionNo">	
 					
-<cfelse>
-		
-	<cfinclude template="AccountResultListingStandard.cfm">
-				
-</cfif>
-
+		<cfinclude template="AccountResultListingAggregate.cfm">		
+						
+	<cfelse>
+			
+		<cfinclude template="AccountResultListingStandard.cfm">
+					
+	</cfif>
+	
+</cfif>	
 
 <cf_screentop band="No" 
      html="yes" 
@@ -159,8 +165,7 @@ password="#SESSION.dbpw#">
 
 				<tr>
 				
-				  <!--- capture the screen result to allow for identical excel export --->
-				  				  
+				<!--- capture the screen result to allow for identical excel export --->  				  
 								
 				<td style="padding-left:4px"></td>
 				
@@ -208,9 +213,10 @@ password="#SESSION.dbpw#">
 			  <table width="100%" cellspacing="0" cellpadding="0">
 			  <tr>
 			  <td class="labelit" style="padding-left:3px;padding-right:3px"><cf_tl id="Fiscal"></td>
-			  <td align="right">						
+			  <td align="right">	
+			  					
 			    <select name="period" id="period" size"1" class="regularxl" style="border:0px" 
-				    onChange="reloadForm();ptoken.navigate('getTransactionPeriod.cfm?mission=<cfoutput>#url.mission#</cfoutput>&period='+this.value,'boxtransactionperiod')">			
+				    onChange="reloadForm();ptoken.navigate('getTransactionPeriod.cfm?glcategory=<cfoutput>#url.glcategory#&account=#url.account#&mission=#url.mission#</cfoutput>&period='+this.value,'boxtransactionperiod')">			
 					
 			   		<option value="All" <cfif "all" is URL.Period>selected</cfif>>All
 				    <cfoutput query="Period">
@@ -297,22 +303,31 @@ password="#SESSION.dbpw#">
 					</SELECT> 
 			 	</td>	
 			 </cfif>
-
+			 
+			 <cfif curPeriod.AdministrationLevel eq "Tree">
+			 
+			 <td colspan="2"  style="background-color:f1f1f1;border:1px solid silver;padding-left:3px;border-right:0px">			 
+			 <input type="hidden" name="owner" id="owner" value="">
+			 </td>
+			 
+			 <cfelse>
+			 
 			 <td class="labelit" style="border:1px solid silver;padding-left:3px;border-right:0px"><cf_tl id="Owner"></td>
-			 <td style="border:1px solid silver;border-left:0px" align="right">	
-					<select style="width:100px;border:0px" name="owner" id="owner" class="regularxl" size="1" onChange="javascript:reloadForm()">
+			 <td style="border:1px solid silver;border-left:0px;padding-right:5px" align="right">	
+			 
+					<select style="width:250px;border:0px" name="owner" id="owner" class="regularxl" size="1" onChange="javascript:reloadForm()">
 						<option value="All">All </option>
 				    	<cfoutput query="getowners">
-							<option value="#orgUnitowner#" <cfif URl.owner eq orgUnit>selected</cfif>>				
-							#OrgUnitName#
-							</option>
+							<option value="#orgUnitowner#" <cfif URl.orgunitowner eq orgUnitOwner>selected</cfif>>#OrgUnitName#</option>
 						</cfoutput>
 					</SELECT> 
 			 </td>	
 			 
+			 </cfif>
+			 
 			<td style="width:50px;border:1px solid silver;padding-left:3px" width="100" align="right">
 			
-			<select name="rows" id="rows" size"1" class="regularxl" style="border:0px" onChange="reloadForm()">
+			<select name="rows" id="rows" size"1" class="regularxl" style="border:0px" onChange="reloadForm('quick')">
 			
 			    <option value="100">100</option>
 			    <option value="250" <cfif "250" is URL.row>selected</cfif>>250
@@ -349,15 +364,15 @@ password="#SESSION.dbpw#">
 						
 			<td class="labelit" style="padding-left:3px;border:1px solid silver" colspan="2">
 			
-			<table width="100%" cellspacing="0" cellpadding="0">
+			<table width="100%">
 			  <tr>
-			  <td class="labelit" style="padding-left:3px;padding-right:3px"><cf_tl id="Mode"></td>
-			  <td align="right">		
+			  <td class="labelit" style="background-color:f1f1f1;padding-left:3px;padding-right:3px"><cf_tl id="Mode"></td>
+			  <td align="right" style="border-left:1px solid silver;">		
 						
-				<select name="modality" id="modality" style="border:0px" class="regularxl" size="1" onChange="javascript:reloadForm()">
+				<select name="modality" id="modality" style="border:0px;width:100%" class="regularxl" size="1" onChange="javascript:reloadForm()">
 										 
 				     <OPTION value="JournalTransactionNo" <cfif URL.Mde eq "JournalTransactionNo">selected</cfif>><cf_tl id="Transaction (aggregated)">						 					 
-					  <OPTION value="Posting" <cfif URL.Mde eq "Posting">selected</cfif>><cf_tl id="Posting detail">	
+					  <OPTION value="Posting" <cfif URL.Mde eq "Posting">selected</cfif>><cf_tl id="Posting detail">
 					 <!--- aggregated --->
 					 <cfif GLAccount.BankReconciliation eq "1">
 					 <OPTION value="Transaction" <cfif URL.Mde eq "Transaction">selected</cfif>><cf_tl id="Parent Transaction">				  
@@ -375,10 +390,11 @@ password="#SESSION.dbpw#">
 			 
 				<table width="100%" cellspacing="0" cellpadding="0">
 				  <tr>
-				  <td class="labelit" style="padding-left:3px;padding-right:3px"><cf_tl id="Presention"></td>
-				  <td align="right">	
+				  
+				  <td class="labelit" style="background-color:f1f1f1;padding-left:3px;padding-right:3px"><cf_tl id="Grouping"></td>
+				  <td align="right" style="border-left:1px solid silver;">	
 						
-					<select name="group" id="group" class="regularxl" style="border:0px" size="1" onChange="javascript:reloadForm()">
+					<select name="group" id="group" class="regularxl" style="border:0px;width:100%" size="1" onChange="javascript:reloadForm()">
 					
 						 <OPTION value="TransactionPeriod" <cfif URL.ID eq "TransactionPeriod">selected</cfif>><cf_tl id="Transaction Period">	
 						 <OPTION value="TransactionDate"   <cfif URL.ID eq "TransactionDate">selected</cfif>><cf_tl id="Transaction Date">	
@@ -397,6 +413,19 @@ password="#SESSION.dbpw#">
 					</SELECT> 
 				
 				 </td>	
+				 
+				  <td class="labelit" style="background-color:f1f1f1;border-left:1px solid silver;padding-left:8px;padding-right:3px"><cf_tl id="Aggregate"></td>
+				  <td align="right" style="border-left:1px solid silver;padding-left:8px;padding-right:3px">	
+				  
+				  <select name="aggregate" id="aggregate" class="regularxl" style="border:0px;width:100%" size="1" onChange="javascript:reloadForm()">
+					
+						 <OPTION value="0" <cfif URL.aggregate eq "0">selected</cfif>><cf_tl id="No">	
+						 <OPTION value="1" <cfif URL.aggregate eq "1">selected</cfif>><cf_tl id="Yes">	
+						
+					</SELECT> 
+				  
+				  
+				  </td>
 				
 			   </tr>
 			  </table>		
@@ -422,7 +451,7 @@ password="#SESSION.dbpw#">
 		
 		var acc = "#URL.Account#";
 		
-		function reloadForm() {
+		function reloadForm(mode) {
 		    row = document.getElementById("rows").value
 		    per = document.getElementById("period").value
 			grp = document.getElementById("group").value
@@ -430,9 +459,15 @@ password="#SESSION.dbpw#">
 			cls = document.getElementById("class").value
 			fnd = document.getElementById("find").value
 			cur = document.getElementById("currency").value
-			mde = document.getElementById("modality").value			
+			mde = document.getElementById("modality").value		
+			agg = document.getElementById("aggregate").value	
 			cc	= document.getElementById("warehouse")
 			ow	= document.getElementById("owner").value
+			
+			if (mode != 'quick') {
+			   pag = 1
+			}
+												
 			if(cc!=null){
 				cc	= cc.value	
 			}else {
@@ -445,8 +480,7 @@ password="#SESSION.dbpw#">
 			}
 			
 			Prosis.busy('yes')
-			ptoken.navigate('AccountResultListing.cfm?mode=regular&pap='+pap+'&currency='+cur+'&mission=#URL.mission#&ID=' + grp + '&Find=' + fnd  + '&Class=' + cls + '&Period=' + per + '&Account=' + acc + '&Page=' + pag + '&GLCategory=#URL.GLCategory#'+'&CostCenter='+cc+'&owner='+ow+'&mde='+mde+'&row='+row,'resultlist')
-				
+			ptoken.navigate('AccountResultListing.cfm?prepare='+mode+'&pap='+pap+'&currency='+cur+'&mission=#URL.mission#&ID=' + grp + '&Find=' + fnd  + '&Class=' + cls + '&Period=' + per + '&Account=' + acc + '&Page=' + pag + '&GLCategory=#URL.GLCategory#'+'&CostCenter='+cc+'&owner='+ow+'&mde='+mde+'&aggregate='+agg+'&row='+row,'resultlist')				
 				
 		}
 						   
@@ -473,10 +507,10 @@ password="#SESSION.dbpw#">
 		
 	<tr>	
 			
-		<td colspan="2" valign="top" height="100%" style="padding-left:16px;padding-right:16px">			
-		    <cf_divscroll style="height:100%" ID="resultlist">								
-				<cfinclude template="AccountResultListing.cfm">											
-			</cf_divscroll>
+		<td colspan="2" valign="top" height="100%" style="padding-left:16px;padding-right:16px" id="resultlist">			
+		    						
+			<cfinclude template="AccountResultListing.cfm">											
+			
 		</td>
 						
 	</tr>

@@ -12,18 +12,25 @@
 
 <!--- header datetime --->
 
-
 <cfif url.td neq "">
+
 	<cfset dateValue = "">
 	<CF_DateConvert Value="#url.td#">
 	<cfset DTE = dateValue>
-
 	<cfset dte = DateAdd("h","#url.th#", dte)>
 	<cfset dte = DateAdd("n","#url.tm#", dte)>
+	
 <cfelse>
 	<cfset dateValue = "">
 	<CF_DateConvert Value="#FORM.SettlementDate#">
 	<cfset DTE = dateValue>
+</cfif>
+
+<CF_DateConvert Value="#dateformat(now(),client.dateformatshow)#">
+<cfset TDY = datevalue>
+
+<cfif DTE gte TDY>
+   <cfset DTE = TDY>
 </cfif>
 
 <cfoutput>
@@ -248,7 +255,7 @@
 	<script>
 		alert("<cf_tl id="Sale updated"> \n\n <cf_tl id="No Invoice was (re-)issued">.")
 		try { ColdFusion.Window.destroy('wsettle',true)} catch(e){};
-		ColdFusion.navigate("#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/applyCustomer.cfm?warehouse=#url.warehouse#",'customerbox')		
+		ptoken.navigate("#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/applyCustomer.cfm?warehouse=#url.warehouse#",'customerbox')		
 	</script>
 
 <cfelse>

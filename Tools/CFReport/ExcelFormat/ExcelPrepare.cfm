@@ -9,7 +9,7 @@
 <cfparam name="URL.Status"       default="1">
 <cfparam name="client.PvtRecord" default="8000">
 <cfset attach = "">
-<cfset vMaxRowsAllowed = 60000>
+<cfset vMaxRowsAllowed = 100000>
 
 <cfquery name="Output" 
 	datasource="appsSystem">

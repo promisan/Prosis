@@ -149,15 +149,25 @@
 	
 	
 				
-	<cfif Attributes.VerifyCSRF eq "1">
+	<cfif Attributes.VerifyCSRF eq "1a">
 								
 		<cfif (CGI.SCRIPT_NAME eq "/apps/Component/Process/Workorder/UploadPicture.cfm" AND 
 		       findNoCase("android", GetHttpRequestData().Headers["user-agent"]) neq 0) 
 			   AND 
 			   (StructKeyExists(GetHttpRequestData().Headers, "content-type") AND 
-			   findNoCase("multipart/form-data", GetHttpRequestData().Headers["content-type"]) neq 0)>
+			   findNoCase("multipart/form-data", GetHttpRequestData().Headers["content-type"]) neq 0)
+			   OR
+			   (findNoCase("Edge/", GetHttpRequestData().Headers["user-agent"]) neq 0
+			   OR findNoCase("EdgiOS/", GetHttpRequestData().Headers["user-agent"]) neq 0
+			   OR findNoCase("EdgA/", GetHttpRequestData().Headers["user-agent"]) neq 0
+			   OR findNoCase("Edg/", GetHttpRequestData().Headers["user-agent"]) neq 0
+			   OR findNoCase("rv:11.0", GetHttpRequestData().Headers["user-agent"]) neq 0
+			   OR findNoCase("Firefox", GetHttpRequestData().Headers["user-agent"]) neq 0
+			   OR findNoCase("FxiOS", GetHttpRequestData().Headers["user-agent"]) neq 0)>
 		
 			<!--- 2015-03-07 kherrera: if upload picture and android then exception or if it is an upload --->
+			<!--- 2020-06-02 kherrera: OR if it is Edge OR IE11 --->
+			<!--- 2020-06-02 kherrera: OR FF --->
 			
 		<cfelse>
 						
@@ -262,8 +272,6 @@
 		
 		--->		
 		
-		
-				
 		<cfif mid eq "" and checkenabled.recordcount gte "1" and findNoCase("cf_clientid",CGI.QUERY_STRING) eq "1">
 		
 			<!--- ----------------------------------------------------------------- --->

@@ -9,11 +9,20 @@
 
 <cfoutput>
 
-<select name="contractstep" class="regularxl" style="width:50px;border-top:0px;border-bottom:0px;border-right:0px;border-left:0px">
+<cfif grade.PostGradeSteps lte "1">
 
-	<cfloop index="st" from="1" to="#grade.PostGradeSteps#">
-		<option value="#st#" <cfif url.step eq st>selected</cfif>>#st#</option>
-	</cfloop>	
+<input type="hidden" name="contractstep" value="01">
+
+<cfelse>
 	
-</select>	
+	<select name="contractstep" class="regularxl" style="width:50px;border-top:0px;border-bottom:0px;border-right:0px;border-left:0px">
+	
+		<cfloop index="st" from="1" to="#grade.PostGradeSteps#">
+			<option value="#st#" <cfif url.step eq st>selected</cfif>>#st#</option>
+		</cfloop>	
+		
+	</select>	
+	
+</cfif>
+
 </cfoutput>

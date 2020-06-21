@@ -21,6 +21,7 @@ username="#SESSION.login#"
 password="#SESSION.dbpw#">
     SELECT * 
     FROM   Ref_AuthorizationRoleOwner
+	WHERE  Operational = 1
 </cfquery>
 
 <cfquery name="Get" 
@@ -44,7 +45,7 @@ password="#SESSION.dbpw#">
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 	    SELECT * 
-	    FROM Ref_Mission
+	    FROM   Ref_Mission
 		ORDER BY MissionOwner
 	</cfquery>
 

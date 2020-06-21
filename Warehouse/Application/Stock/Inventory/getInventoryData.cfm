@@ -38,7 +38,6 @@ password="#SESSION.dbpw#">
 
 <cfif Parameter.LotManagement eq "0">
 
-
 		<cfquery name="LocData"
 		datasource="AppsMaterials" 
 		username="#SESSION.login#" 
@@ -154,7 +153,6 @@ password="#SESSION.dbpw#">
 							
 		</cfquery>
 		
-
 <cfelse>
 
 		
@@ -247,12 +245,10 @@ password="#SESSION.dbpw#">
 			</cfoutput>
 			
 		</cfsavecontent>
-				
-
+			
 		<cfsavecontent variable="getStock">
 		
-			<cfoutput>
-			
+			<cfoutput>			
 			
 				   NULL as TransactionIdOrigin,
 				   L.Warehouse, 
@@ -429,8 +425,7 @@ password="#SESSION.dbpw#">
 			 </cfoutput>
 					
 		</cfsavecontent>
-		
-						
+								
 		<cfquery name="LocData"
 		datasource="AppsMaterials" 
 		username="#SESSION.login#" 
@@ -513,27 +508,32 @@ password="#SESSION.dbpw#">
 
 </cftransaction>
 
+<cftry>
 	
-<cfquery name="Clean"
-datasource="AppsMaterials" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-	DELETE FROM userTransaction.dbo.StockInventory#URL.Warehouse#_#SESSION.acc#
-	WHERE  Warehouse = '#URL.Warehouse#'
-	AND    Location  = '#URL.Location#'
-	AND    Status = '9'
-</cfquery>
+	<cfquery name="Clean"
+	datasource="AppsMaterials" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		DELETE FROM userTransaction.dbo.StockInventory#URL.Warehouse#_#SESSION.acc#
+		WHERE  Warehouse = '#URL.Warehouse#'
+		AND    Location  = '#URL.Location#'
+		AND    Status = '9'
+	</cfquery>
+	
+	<cfquery name="Clean"
+	datasource="AppsMaterials" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		DELETE FROM userTransaction.dbo.StockInventory#URL.Warehouse#_#SESSION.acc#
+		WHERE  Warehouse = '#URL.Warehouse#'
+		AND    Location  = '#URL.Location#'
+		AND    WorkOrderId is not NULL
+		AND    OnHand = 0
+	</cfquery>
 
-<cfquery name="Clean"
-datasource="AppsMaterials" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-	DELETE FROM userTransaction.dbo.StockInventory#URL.Warehouse#_#SESSION.acc#
-	WHERE  Warehouse = '#URL.Warehouse#'
-	AND    Location  = '#URL.Location#'
-	AND    WorkOrderId is not NULL
-	AND    OnHand = 0
-</cfquery>
+	<cfcatch></cfcatch>
+	
+</cftry>	
 
 <!---
 <cfoutput>query del: #cfquery.executiontime#</cfoutput>

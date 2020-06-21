@@ -589,7 +589,6 @@
 							</td>
 							
 							<input type="hidden" id="customerid" name="customerid" value="">
-							
 										
 							
 						</tr>

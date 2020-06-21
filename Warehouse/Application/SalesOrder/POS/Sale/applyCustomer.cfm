@@ -10,6 +10,7 @@
 <cfparam name="url.addressid"  default="00000000-0000-0000-0000-000000000000">
 
 
+
 <cfif url.customerid eq "00000000-0000-0000-0000-000000000000">
 
     <script>
@@ -73,24 +74,24 @@
 				<cf_tl id="Customer not found. Do you want to record this customer" var="1">
 				
 				<cfoutput>
-				
-				 if (!!Prosis) {
-					 //Hide all notifications
-				     Prosis.notification.hide();
-				 }
-				
+												
+				// if (!!Prosis) {
+				//	 //Hide all notifications
+				//     Prosis.notification.hide();
+				// }
+				 				
 				 if (confirm("#lt_text#?")) {
-				 
-				  ref = document.getElementById("customeridselect_val").value;
-									 
-				  ProsisUI.createWindow('customeradd', 'Add Customer', '',{x:100,y:100,width:700,height:document.body.clientHeight-80,resizable:false,modal:true,center:true})			  
-		  	      ptoken.navigate('#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/addCustomer.cfm?mission=#url.mission#&warehouse=#url.warehouse#&reference='+ref,'customeradd');
-				  
-			     // if (ret != 1 && ret) {					  
+				 				 
+					  ref = document.getElementById("customeridselect_val").value;
+										 
+					  ProsisUI.createWindow('customeradd', 'Add Customer', '',{x:100,y:100,width:700,height:document.body.clientHeight-80,resizable:false,modal:true,center:true})			  
+			  	      ptoken.navigate('#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/addCustomer.cfm?mission=#url.mission#&warehouse=#url.warehouse#&reference='+ref,'customeradd');
 					  
-				//	  document.getElementById('customeridselect').value = ret		 
-		         //     ColdFusion.navigate('#SESSION.root#/warehouse/application/SalesOrder/POS/Sale/applyCustomer.cfm?warehouse=#url.warehouse#&customerid='+ret,'customerbox')					   	 
-				//	  }
+				     // if (ret != 1 && ret) {					  
+						  
+					//	  document.getElementById('customeridselect').value = ret		 
+			         //     ColdFusion.navigate('#SESSION.root#/warehouse/application/SalesOrder/POS/Sale/applyCustomer.cfm?warehouse=#url.warehouse#&customerid='+ret,'customerbox')					   	 
+					//	  }
 				  	
 	  			  } else {
 				    document.getElementById('customerselect').focus()
@@ -111,8 +112,7 @@
 				    SELECT  *
 					FROM   Customer
 					WHERE  CustomerId = '#url.customerid#'	    							   
-			</cfquery>
-					
+			</cfquery>					
 					
 			<cfif url.batchid eq "">
 					
@@ -145,8 +145,7 @@
 							System.dbo.Ref_Address A 
 							ON CA.AddressId = A.AddressId
 					WHERE  CustomerId = '#url.customerid#'
-			</cfquery>
-			
+			</cfquery>			
 			
 			<cfquery name="qExisting"
 			datasource="AppsTransaction" 
@@ -154,9 +153,9 @@
 			password="#SESSION.dbpw#">
 				SELECT * 
 				FROM   Sale#URL.Warehouse#
-				WHERE CustomerId = '#url.customerid#'
-				AND AddressId IS NOT NULL
-				AND AddressId != '00000000-0000-0000-0000-000000000000'
+				WHERE  CustomerId = '#url.customerid#'
+				AND    AddressId IS NOT NULL
+				AND    AddressId != '00000000-0000-0000-0000-000000000000'
 			</cfquery> 						
 
 			<cfif url.batchid eq "">			
@@ -165,11 +164,11 @@
 					<cfif url.addressid eq "00000000-0000-0000-0000-000000000000" and qExisting.recordcount neq 0>
 						<cfset url.addressid = qExisting.AddressId>
 					</cfif>	
+					
 				</cfif>	
 			<cfelse>
 				<cfset url.addressid = Batch.AddressId>
 			</cfif>			
-		
 		
 
 		<script>

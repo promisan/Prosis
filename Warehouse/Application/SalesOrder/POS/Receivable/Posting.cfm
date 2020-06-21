@@ -25,9 +25,16 @@
 
 <cfset url.currency = getSale.SalesCurrency>
 
+<CF_DateConvert Value="#dateformat(now(),client.dateformatshow)#">
+<cfset TDY = datevalue>
+
 <cfset dateValue = "">
 <CF_DateConvert Value="#url.td#">
 <cfset DTE = dateValue>
+
+<cfif DTE gte TDY>
+   <cfset DTE = TDY>
+</cfif>
 	
 <cfset dte = DateAdd("h","#url.th#", dte)>
 <cfset dte = DateAdd("n","#url.tm#", dte)>

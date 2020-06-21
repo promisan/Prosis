@@ -67,7 +67,6 @@
 <cfif Client.googlemap eq "1">
      <cfajaximport tags="cfmap" params="#{googlemapkey='#client.googlemapid#'}#">
 </cfif>
-
 		
 <cfparam name="URL.ClaimId" default="00000000-0000-0000-0000-000000000000">
 		

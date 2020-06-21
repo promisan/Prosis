@@ -177,25 +177,23 @@ password="#SESSION.dbpw#">
 	   and CheckMission.WorkflowEnabled eq "1" 
 	   and CheckMission.recordcount eq "1">
 	  
-	<tr><td colspan="4" class="line labelmedium" style="font-size:17px;font-weight:200;padding-left:18px;height:30px"><cf_tl id="Classification"></td></tr> 
-		
-	<cfoutput> 
-		
-		<input type="hidden" 
-		   name="workflowlink_#url.id2#" 
-		   id="workflowlink_#url.id2#" 		   
-		   value="ParentClassificationWorkflow.cfm">	
-	
-		<tr>		
-		<td colspan="4" id="#url.id2#">
-		
-		   <cfset url.ajaxid = url.id2>
-		   <cfinclude template="ParentClassificationWorkflow.cfm"> 
+		<tr><td colspan="4" class="line labelmedium" style="font-size:17px;font-weight:200;padding-left:18px;height:30px"><cf_tl id="Classification"></td></tr> 
 			
-		</td>
-		</tr>
+		<cfoutput> 
 			
-	</cfoutput> 
+			<input type="hidden" 
+			   name="workflowlink_#url.id2#" id="workflowlink_#url.id2#" value="ParentClassificationWorkflow.cfm">	
+		
+			<tr>		
+			<td colspan="4" id="#url.id2#">
+			
+			   <cfset url.ajaxid = url.id2>
+			   <cfinclude template="ParentClassificationWorkflow.cfm"> 
+				
+			</td>
+			</tr>
+				
+		</cfoutput> 
 	
 	</cfif>
 				

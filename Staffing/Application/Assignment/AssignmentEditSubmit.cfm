@@ -92,8 +92,8 @@
 
 	    <!--- verify if transaction can be made for the requested period --->
 				
-		<cfif Len(Form.Remarks) gt 200>
-		 <cf_alert message = "You entered remarks which exceeded the allowed size of 200 characters."
+		<cfif Len(Form.Remarks) gt 400>
+		 <cf_alert message = "You entered remarks which exceeded the allowed size of 400 characters."
 		  return = "back">
 		  <cfabort>
 		</cfif>

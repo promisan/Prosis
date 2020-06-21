@@ -44,7 +44,7 @@ password="#SESSION.dbpw#">
     <!--- search option --->
         
     <cfselect id="location" name="location"
-            onchange="_cf_loadingtexthtml=''; stockinventoryload('n','#url.systemfunctionid#'); $('.clsLocToggler').addClass('fa-folder').removeClass('fa-folder-open');" 
+            onchange="_cf_loadingtexthtml=''; stockinventoryload('n','#url.systemfunctionid#'); $('##filtersearchsearch').val(''); $('.clsLocToggler').addClass('fa-folder').removeClass('fa-folder-open');" 
             query="LocationList" 
             value="Location" 
             queryposition="below"

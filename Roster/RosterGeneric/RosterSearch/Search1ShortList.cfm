@@ -2,7 +2,7 @@
 <cfparam name="url.mode"        default="vacancy">
 <cfparam name="url.wActionId"   default="">
 
-<cfajaximport tags="cfform">
+<cfajaximport tags="cfform,cfdiv">
 <cf_menuscript>
 
 <cfif url.wActionId neq "">

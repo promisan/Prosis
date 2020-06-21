@@ -88,6 +88,7 @@ password="#SESSION.dbpw#">
 	
 	FROM   PersonAssignment
 	WHERE  AssignmentStatus IN ('0','1')
+	AND    AssignmentType = 'Actual'
 	AND    PositionNo IN (
 		SELECT PositionNo
 		FROM   Position
@@ -150,14 +151,19 @@ password="#SESSION.dbpw#">
 	<cfoutput group="AuditElement" query="Error">
 	
 		<cfif AuditElement eq "Position">
-			<tr><td colspan="8" style="height:40px" align="left" class="labellarge">The following positions have one or more inconsistencies</td></tr>
+			<tr class="fixrow"><td colspan="8" style="height:40px" align="left" class="labellarge">The following positions have one or more inconsistencies</td></tr>
 		<cfelseif AuditElement eq "Person">
-			<tr><td colspan="8" style="height:40px" align="left" class="labellarge">The following persons have one or more inconsistencies</td></tr>
+			<tr class="fixrow"><td colspan="8" style="height:40px" align="left" class="labellarge">The following persons have one or more inconsistencies</td></tr>
 		</cfif>
 	
+	    <tr><td colspan="8">
+		<table width="100%">
+		
 		<cfoutput>
 	
 			<cfif AuditElement eq "Position">	
+			    
+			    
 				<tr style="height:22px;" class="labelmedium line navigation_row">
 				    <td style="padding-left:20px;">#currentrow#.</td>
 				    <td style="padding-left:4px">
@@ -171,8 +177,9 @@ password="#SESSION.dbpw#">
 					<td>#OrgUnitName#</td>
 					<td>#FunctionDescription#</td>
 					<td>#PostGrade#</td>
-					<td>#Observation#</td>
+					<td bgcolor="FDFEDE" style="padding-left:4px">#Observation#</td>
 				</tr>
+				
 			<cfelseif AuditElement eq "Person">
 				<tr style="height:22px;" class="labelmedium line navigation_row">
 				    <td style="padding-left:20px;">#currentrow#.</td>
@@ -182,11 +189,15 @@ password="#SESSION.dbpw#">
 					<td>#DateFormat(BirthDate, CLIENT.DateFormatShow)#</td>
 					<td>#Gender#</td>
 					<td>#Nationality#</td>
-					<td>#Observation#</td>
+					<td bgcolor="FDFEDE" style="padding-left:4px">#Observation#</td>
 				</tr>
 			</cfif>
-		
+					
 		</cfoutput>
+		
+		</table>
+		</td></tr>
+				
 	</cfoutput>
 
 </cfif>

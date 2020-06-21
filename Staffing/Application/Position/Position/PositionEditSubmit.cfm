@@ -260,15 +260,15 @@
 	<cfif Form.MissionOperational neq Form.MissionParent>
 	
 			<cfquery name="NewMission" 
-			  datasource="AppsOrganization" 
+			  datasource="AppsEmployee" 
 			  username="#SESSION.login#" 
 			  password="#SESSION.dbpw#">
 				      SELECT *
-				      FROM   Ref_Mandate
+				      FROM   Organization.dbo.Ref_Mandate
 				   	  WHERE  Mission = '#Form.MissionOperational#' 
 					  AND    DateEffective  <= #STR#
 					  AND    DateExpiration >= #STR# 
-					  AND    Operational = 1
+					  AND    Operational = 1  
 			 </cfquery> 
 			 
 			 <cfif NewMission.DateEffective gt STR>

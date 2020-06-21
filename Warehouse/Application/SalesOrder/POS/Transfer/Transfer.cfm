@@ -297,18 +297,29 @@ password="#SESSION.dbpw#">
 						WHERE  Warehouse = '#url.warehouse#'		
 				</cfquery>
 				
+				<!--- show relevant locations and if location has same order, the one with most stock first --->
+				
 				<cfquery name="LocationList"
 					datasource="AppsMaterials" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
-						SELECT * 
-						FROM   ItemWarehouseLocation IWL INNER JOIN WarehouseLocation WL ON IWL.Warehouse = WL.Warehouse and IWL.Location = WL.Location
-						WHERE  ItemNo         = '#get.ItemNo#'		
-						AND    UoM            = '#get.TransactionUoM#'
-						AND    WL.Warehouse   = '#url.warehouse#'
-						and    WL.Location   != '#warehouse.LocationReceipt#'
-						AND    WL.Operational = 1
-						ORDER BY IWL.PickingOrder, WL.ListingOrder
+						SELECT    Warehouse, Location, Description, PickingOrder, Quantity
+						FROM      (SELECT IWL.Warehouse, IWL.Location, WL.Description, IWL.PickingOrder, WL.ListingOrder,
+                                              (SELECT    SUM(TransactionQuantity) AS Expr1
+                                               FROM      ItemTransaction AS T
+                                               WHERE     Warehouse      = WL.Warehouse 
+											   AND       Location       = WL.Location 
+											   AND       ItemNo         = IWL.ItemNo 
+											   AND       TransactionUoM = IWL.UoM) AS Quantity				
+									  FROM   ItemWarehouseLocation IWL INNER JOIN WarehouseLocation WL ON IWL.Warehouse = WL.Warehouse and IWL.Location = WL.Location
+									  WHERE  ItemNo         = '#get.ItemNo#'		
+									  AND    UoM            = '#get.TransactionUoM#'
+									  AND    WL.Warehouse   = '#url.warehouse#'
+									  AND    WL.Location   != '#warehouse.LocationReceipt#'
+								   	  AND    WL.Operational = 1
+								  ) as B									 	
+						ORDER BY PickingOrder, Quantity DESC, ListingOrder
+						
 				</cfquery>
 				
 				<cfif getTransfer.TransactionLocation neq "">
@@ -338,8 +349,7 @@ password="#SESSION.dbpw#">
 					   	<option value="#Location#">#Location# #Description#</option>
 					   </cfloop>	
 					   <option value="#warehouse.LocationReceipt#">#warehouse.warehousename#<cf_tl id="Receipt location"></option>				   
-				   </select>
-				   
+				   </select>				   
 				   
 				<cfelse>		
 				

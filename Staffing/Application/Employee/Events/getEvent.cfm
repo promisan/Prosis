@@ -1,8 +1,9 @@
 
 
 <cfparam name="URL.triggercode"  default="">
-<cfparam name="URL.eventid"  default="">
-<cfparam name="URL.mission" default="">
+<cfparam name="URL.eventid"      default="">
+<cfparam name="URL.mission"      default="">
+<cfparam name="URL.portal"       default="0">
 
 <cfquery name="getTrigger" 
 		 datasource="AppsEmployee" 
@@ -25,6 +26,7 @@
 	</cfquery>		 
 
 <cfelse>
+
 	<cfquery name="qEvent" 
 		 datasource="AppsEmployee" 
 		 username="#SESSION.login#" 
@@ -33,6 +35,7 @@
 			 FROM   PersonEvent
 			 WHERE  1=0
 	</cfquery>		
+	
 </cfif>	
 
 <cfquery name="qEvents" 
@@ -46,13 +49,15 @@
 		                FROM   Ref_PersonEventTrigger 
 						WHERE  EventTrigger = '#url.triggercode#')
 		<cfif URL.mission neq "">
-			AND    Code IN (SELECT PersonEvent 
-			                FROM   Ref_PersonEventMission 
-							WHERE  Mission  = '#URL.mission#')
+		AND    Code IN (SELECT PersonEvent 
+			            FROM   Ref_PersonEventMission 
+						WHERE  Mission  = '#URL.mission#')
 		</cfif>		
+		<cfif url.portal eq "1">
+		AND   (EnablePortal = 1 or Code = '#qEvent.EventCode#')
+		</cfif>
 		ORDER BY ListingOrder		
 </cfquery>
-
 
 <select name="eventcode" id="eventcode" class="regularxl" style="width:300px" 
     onchange="_cf_loadingtexthtml='';ptoken.navigate('<cfoutput>#SESSION.root#</cfoutput>/Staffing/Application/Employee/Events/getReason.cfm?triggercode='+document.getElementById('triggercode').value+'&eventcode='+this.value+'&eventid=','dReason')">
@@ -61,7 +66,6 @@
 		<option value="#Code#" <cfif Code eq qEvent.EventCode>selected</cfif>>#Description#</option>
 	</cfoutput>
 <select>
-
 
 <cfoutput>		
 

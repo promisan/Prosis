@@ -208,7 +208,7 @@
 				<tr style="border-top:1px solid silver;height:30px">
 					<td colspan="2" align="center"><font size="1" color="silver"><cf_tl id="Paste link">: <br /> #SESSION.root#/ActionView.cfm?id=#qObject.Objectid#</td>
 				</tr>
-		        <tr height="40px"><td></td></tr>
+		        <tr height="20px"><td></td></tr>
 			</table>
 		    
 			<table><tr><td height="40"><cf_MailDefaultFooter></td></tr></table>
@@ -217,6 +217,7 @@
 		</html>
 
     	<cfmailparam file="#SESSION.root#/Images/SVG/alarm.png" contentid="alarm" disposition="inline"/>
+		<cfmailparam file="#SESSION.root#/Images/prosis-logo-gray.png" contentid="logo-gray" disposition="inline"/>
 												
 	</cfmail>
 		

@@ -71,8 +71,8 @@ password="#SESSION.dbpw#">
 			        		       
 	<cfelse>
 	
-		<tr><td class="labelmedium" style="padding-left:0px">#Parent#</b>
-	
+		<tr><td class="labelmedium" style="padding-left:0px">#Parent#
+			
 		<cfquery name="Count" 
 		datasource="AppsSelection" 
 		username="#SESSION.login#" 
@@ -152,8 +152,9 @@ password="#SESSION.dbpw#">
 		
 		<cfif total eq "">
 			<cfset total = 0>
-		</cfif>		
-					  
+		</cfif>	
+		
+									  
 		    <cfinput type="Text"
 			        name="clCount_#Parent#"
 		       		value="#total#"
@@ -209,7 +210,7 @@ password="#SESSION.dbpw#">
 			<!--- check if some fields are selected --->
 			
 			 <cfif url.php eq "Roster">
-						
+									
 				<cfquery name="Check"
 		         datasource="AppsSelection"
 		         username="#SESSION.login#"
@@ -225,7 +226,7 @@ password="#SESSION.dbpw#">
 				 </cfquery>
 				 			 
 			 <cfelse>
-			 			 
+			 			 			 
 				 <cfquery name="Check"
 		         datasource="AppsSelection"
 		         username="#SESSION.login#"
@@ -332,21 +333,25 @@ password="#SESSION.dbpw#">
 						
 						<cf_tl id="Attention: Choose at least #ClassMin#, but no more than #ClassMax# of #ClassDesc#" var="1">							
 						
-				    	<cfinput type="Text"
-							 name="dtCount_#vID#_#URL.AR#"
-							 value="#total_class#"
-							 range="#ClassMin#,#ClassMax#"
-							 message="#lt_text#"
-							 validate="range"
-							 width="2"
-							 required="Yes"
-							 visible="Yes"
-							 enabled="Yes"
-							 class="regular3"
-							 style="font-size:14px;text-align : center; width:20px"
-							 size="1"
-							 onError="show_error"
-							 maxlength="2">		
+						<cfif classmin neq "0" and classmax neq "0">
+																		
+					    	<cfinput type="Text"
+								 name="dtCount_#vID#_#URL.AR#"
+								 value="#total_class#"
+								 range="#ClassMin#,#ClassMax#"
+								 message="#lt_text#"
+								 validate="range"
+								 width="2"
+								 required="Yes"
+								 visible="Yes"
+								 enabled="Yes"
+								 class="regular3"
+								 style="font-size:14px;text-align : center; width:20px"
+								 size="1"
+								 onError="show_error"
+								 maxlength="2">		
+							 
+						</cfif>	 
 							 		   	
 				   </td>
 			   </tr>

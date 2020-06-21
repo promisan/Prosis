@@ -20,7 +20,10 @@ password="#SESSION.dbpw#">
 	WHERE    PersonNo = '#URL.ID#'
 </cfquery>
 
-<table width="100%" align="center"><tr><td class="clsPrintContent">
+<table width="100%" style="height:100%" align="center"><tr><td class="clsPrintContent">
+
+<cf_divscroll overflowy="scroll">
+
 <table width="98%" align="center" border="0" class="navigation_table">
 
 <cfif Years.recordcount eq "0">
@@ -54,38 +57,40 @@ password="#SESSION.dbpw#">
 		ORDER BY  ES.PayRollStart DESC
 	</cfquery>
 
-	<tr class="line labelmedium"><td style="height:35px;font-size:25px;font-weight:200;padding-left:2px" colspan="5" align="left">		
+	<tr class="line labelmedium fixrow">
+	<td style="background-color:white;height:35px;font-size:25px;font-weight:200;padding-left:2px" colspan="5" align="left">		
 	<b>#Mission# #EntitlementYear# <font size="2">(<cf_tl id="until">#dateformat(Last.PayrollStart,"MMMM")# )</font></b>	
 	</td>
 	
-		<td align="right" colspan="2" style="padding-top:8px;padding-right:2px;" class="clsNoPrint">
+		<td align="right" colspan="2" style="background-color:white;padding-top:8px;padding-right:2px;" class="clsNoPrint">
 		
 			<cfif currentrow eq "1">
 			
-		    <table width="100%">
-			
-			<tr>		
-			<td class="labellarge" style="min-width:80px;font-size:15px;padding-right:10px"><a href="javascript:ptoken.navigate('#session.root#/payroll/application/Payroll/EmployeeEntitlementEOD.cfm?id=#url.id#','contentbox1')"><cf_tl id="Show all years"> [#dateformat(EOD,client.dateformatshow)#]</a></td>		
-			<td>|</td>
-			<td align="right" style="padding-right:4px">
-			
-			<span id="printTitle" style="display:none;"><cf_tl id="Entitlements"> #EntitlementYear# : [#getPerson.indexNo#] #getPerson.fullName#</span>
-			<cf_tl id="Print" var="1">
-			<cf_button2 
-				mode		= "icon"
-				type		= "Print"
-				title       = "#lt_text#" 
-				id          = "Print"					
-				height		= "20px"
-				width		= "25px"
-				imageHeight = "20px"
-				printTitle	= "##printTitle"
-				printContent = ".clsPrintContent">
+			    <table width="100%">
 				
-			</td>
-			</tr>
+				<tr>		
+				<td class="labellarge" style="background-color:white;min-width:80px;font-size:15px;padding-right:10px">
+				<a href="javascript:ptoken.navigate('#session.root#/payroll/application/Payroll/EmployeeEntitlementEOD.cfm?id=#url.id#','contentbox1')"><cf_tl id="Show all years"> [#dateformat(EOD,client.dateformatshow)#]</a></td>		
+				<td>|</td>
+				<td align="right" style="background-color:white;padding-right:4px">
 				
-			</table>
+				<span id="printTitle" style="display:none;"><cf_tl id="Entitlements"> #EntitlementYear# : [#getPerson.indexNo#] #getPerson.fullName#</span>
+				<cf_tl id="Print" var="1">
+				<cf_button2 
+					mode		= "icon"
+					type		= "Print"
+					title       = "#lt_text#" 
+					id          = "Print"					
+					height		= "20px"
+					width		= "25px"
+					imageHeight = "20px"
+					printTitle	= "##printTitle"
+					printContent = ".clsPrintContent">
+					
+				</td>
+				</tr>
+					
+				</table>
 			
 			</cfif>
 			
@@ -93,13 +98,13 @@ password="#SESSION.dbpw#">
 		
 	</tr>	
 	
-	<tr class="line labelmedium">
-	 <td></td>
-	 <td style="min-width:90%" colspan="2"><cf_tl id="Item"></td>
-	 <td colspan="1"></td>
-	 <td colspan="1" width="50"></td>
-	 <td colspan="1" align="right" width="100"><cf_tl id="Entitlement"></td>
-	 <td colspan="1" align="right" width="140"><cf_tl id="Settled">#EntitlementYear#<cf_space spaces="40"></td>
+	<tr class="line labelmedium fixrow2">
+	 <td style="top:33px"></td>
+	 <td style="min-width:90%;top:33px" colspan="2"><cf_tl id="Item"></td>
+	 <td style="top:33px" colspan="1"></td>
+	 <td style="top:33px" colspan="1" width="50"></td>
+	 <td style="top:33px" colspan="1" align="right" width="100"><cf_tl id="Entitlement"></td>
+	 <td style="top:33px" colspan="1" align="right" width="140"><cf_tl id="Settled">#EntitlementYear#<cf_space spaces="40"></td>
 	</tr>
 	
 	<cfquery name="Item" 
@@ -290,6 +295,9 @@ password="#SESSION.dbpw#">
 </cfif>
 
 </table>
+
+</cf_divscroll>
+
 </td></tr></table>
 
 <cfset ajaxOnLoad("doHighlight")>

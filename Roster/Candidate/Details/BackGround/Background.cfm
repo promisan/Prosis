@@ -156,7 +156,7 @@ password="#SESSION.dbpw#">
 	  <script language="JavaScript">
 		  
 		function bgadd(appno,cls) {		
-		  ptoken.location("#SESSION.root#/Roster/Candidate/Details/Background/BackgroundEntry.cfm?owner=#url.owner#&applicantno=="+appno+"&section=#url.section#&entryScope=#url.entryScope#&Source=#url.source#&Topic=#URL.Topic#&ID=&ID1=#URL.ID#&ID2="+cls)
+		  ptoken.location("#SESSION.root#/Roster/Candidate/Details/Background/BackgroundEntry.cfm?owner=#url.owner#&applicantno="+appno+"&section=#url.section#&entryScope=#url.entryScope#&Source=#url.source#&Topic=#URL.Topic#&ID=&ID1=#URL.ID#&ID2="+cls)
 		}  
 		
 		function bgedit(appno,expno,cls,src) {

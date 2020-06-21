@@ -691,6 +691,9 @@
 			<td style="padding-left:6px"><INPUT type="radio" onclick="applyhours(this.value)" class="radiol" name="ContractTime" value="70" <cfif LastContract.ContractTime eq 70>checked</cfif>></td><td style="padding-left:4px">70%</td>
 			<td style="padding-left:6px"><INPUT type="radio" onclick="applyhours(this.value)" class="radiol" name="ContractTime" value="60" <cfif LastContract.ContractTime eq 60>checked</cfif>></td><td style="padding-left:4px">60%</td>
 			<td style="padding-left:6px"><INPUT type="radio" onclick="applyhours(this.value)" class="radiol" name="ContractTime" value="50" <cfif LastContract.ContractTime eq 50>checked</cfif>></td><td style="padding-left:4px">50%</td>		
+			<td style="padding-left:6px"><INPUT type="radio" onclick="applyhours(this.value)" class="radiol" name="ContractTime" value="40" <cfif LastContract.ContractTime eq 40>checked</cfif>></td><td style="padding-left:4px">40%</td>		
+			<td style="padding-left:6px"><INPUT type="radio" onclick="applyhours(this.value)" class="radiol" name="ContractTime" value="20" <cfif LastContract.ContractTime eq 20>checked</cfif>></td><td style="padding-left:4px">20%</td>					
+			
 			</tr>
 		</table>
 			

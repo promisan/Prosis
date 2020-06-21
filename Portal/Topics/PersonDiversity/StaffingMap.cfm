@@ -94,9 +94,8 @@ password="#SESSION.dbpw#">
 		_cf_loadingtexthtml='';	
 
 		function clickMap(e){
-			ColdFusion.navigate('#session.root#/Portal/Topics/PersonDiversity/StaffingDetail.cfm?systemFunctionId=#url.systemFunctionId#&mission=#url.mission#&orgunit=#url.orgunit#&cstf=#url.cstf#&postclass=#url.postclass#&category=#category#&authorised=#authorised#&period=#url.period#&nationality='+e.mapObject.id,'detailArea', function(){
-				expandArea('mainLayout', 'detailArea');
-			});
+		    expandArea('mainLayout', 'detailArea');
+			ptoken.navigate('#session.root#/Portal/Topics/PersonDiversity/StaffingDetail.cfm?systemFunctionId=#url.systemFunctionId#&mission=#url.mission#&orgunit=#url.orgunit#&cstf=#url.cstf#&postclass=#url.postclass#&category=#category#&authorised=#authorised#&period=#url.period#&nationality='+e.mapObject.id,'detailArea')
 		}
 
 		function clickHome(e){

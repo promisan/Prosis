@@ -20,41 +20,44 @@
 	datasource="AppsOrganization" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	
+		
 		SELECT   DISTINCT 
 		         Org.Mission           as OrganizationMission,
 				 Org.MandateNo         as OrganizationMandate,
-				 Org.OrgUnit, 
-		         Org.OrgUnitName,
-				 Org.OrgUnitCode, 
-				 Org.HierarchyCode, 
+				 Org.OrgUnit           as OrganizationOrgUnit, 
+		         Org.OrgUnitName       as OrganizationOrgUnitName,
+				 Org.OrgUnitCode       as OrganizationOrgUnitCode, 
+				 Org.HierarchyCode     as OrganizationHierarchyCode,				  
 				 Org.DateExpiration    as OrgExpiration,
+				 
 				 P.*, 
-			   	 A.FunctionDescription as ParentFunctionDescription,
-		         A.OrgUnitOperational  as ParentOrgUnit, 
+			   	 PP.FunctionDescription as ParentFunctionDescription,
+		         PP.OrgUnitOperational  as ParentOrgUnit, 
 				 Ass.*,
 				 R.PresentationColor,
 					  
 			     (SELECT count(*) 
 				  FROM   Employee.dbo.PositionGroup
 				  WHERE  PositionNo = P.PositionNo 
-				  AND Status != '9') as PositionGroup
+				  AND    Status != '9') as PositionGroup
 				 
 		FROM     userQuery.dbo.#SESSION.acc#Post#FileNo# P INNER JOIN
-	             Employee.dbo.PositionParent A ON P.PositionParentId = A.PositionParentId INNER JOIN
+	             Employee.dbo.PositionParent PP ON P.PositionParentId = PP.PositionParentId INNER JOIN
 	             Employee.dbo.Ref_PostClass R  ON P.PostClass        = R.PostClass INNER JOIN
+				 <!--- if this is an intermission loan we make this different and connect to P.OrgUnit = --->
 	             Organization Org ON  <cfif URL.ID4 neq ""> P.OrgUnit <cfelse> P.OrgUnitOperational </cfif> = Org.OrgUnit LEFT OUTER JOIN
 	             userQuery.dbo.#SESSION.acc#Assignment#FileNo# Ass ON P.PositionNo = Ass.PositionNo		 
 				 
-		WHERE    Org.HierarchyCode >= '#HStart#' 
-		     AND Org.HierarchyCode < '#HEnd#'				
+		WHERE    P.HierarchyCode >= '#HStart#' 
+		     AND P.HierarchyCode < '#HEnd#'				
 			 <cfif URL.ID neq "ORG" and URL.ID4 eq "">
 			 AND Org.OrgUnit IN (SELECT OrgUnit 
 			                     FROM   userQuery.dbo.#SESSION.acc#PositionSum#FileNo# 
 								 WHERE  Post > 0 or Staff > 0
 								)	
 			 </cfif>						 
-		ORDER BY Org.Mission, Org.MandateNo, Org.HierarchyCode, P.ViewOrder, P.PostOrder, P.PositionNo  
+		ORDER BY Org.Mission, Org.MandateNo, P.HierarchyCode, P.ViewOrder, P.PostOrder, P.PositionNo  
+			
 		
 	</cfquery>		
 	
@@ -84,7 +87,9 @@
 		WHERE   P.Mission   = '#URL.Mission#'
 		AND     P.MandateNo = '#URL.Mandate#'				
 	 ORDER BY   P.HierarchyCode, P.ViewOrder, P.PostOrder, P.PositionNo 
+	 	 
 	</cfquery>
+	
 	
 </cfif>
 
@@ -224,8 +229,7 @@
 									  <input type="button" name="Extend" id="Extend" style="height:25;width:200" value="#vBatch#" class="button10g clsNoPrint" onClick="extend('#URL.Mission#','#URL.Mandate#')">
 									  </td>
 									  
-									</cfif>  
-												
+									</cfif>  												
 													
 										<cfif ( Mandate.MandateStatus eq "0" or Mandate.MandateStatus eq "" or Mandate.MandateDefault eq 1) and counted gt 0 > 
 											
@@ -314,10 +318,10 @@
 	   <cfset currrowX = currrow + Check.Post>
    <cfelse>
        <cfset currrowX = currrow>
-   </cfif>	      
-       						
+   </cfif>	 
+      						
    <cfif currrowX gte first>
-     
+          
 	    <cfset Go = "0">
 	   
 	    <cfif Len(HierarchyCode) eq "2">
@@ -498,10 +502,11 @@
 				
 				</cfif>
 																				  			   
-			   <cfoutput group="PostOrder">			  
-			  			   			   
+			   <cfoutput group="PostOrder">		 
+			  			   					   			   
+				
 			   <cfoutput group="PositionNo">
-			   			   
+			   			   			   
 			        <cfset currrow = currrow + 1>
 					<cfif currrow gte first and currrow lte last>
 					
@@ -516,7 +521,7 @@
 															
 								<tr>																
 								<td colspan="8" id="i#positionno#">																
-								<cfoutput group="AssignmentNo">								
+								<cfoutput group="AssignmentNo">															
 									<input type="button" id="refresh_i#positionno#" class="hide" type="button" onclick="reloadassignment('#positionno#','#url.lay#')">								 							 										 							
 		 							<cfinclude template="MandateViewOrganizationAssignment.cfm">																
 								</cfoutput>								
@@ -532,9 +537,12 @@
 							    <button id="refresh_i#positionno#" type="button"
 						    	    class="hide"	
 									onclick="reloadposition('#positionno#','#url.lay#','#class#')"/>
-																 
-								 <cfoutput group="AssignmentNo">
+								
+								 <cfset prior = "">								 
+								 <cfoutput group="AssignmentNo">	
+								 							 								 
 								 <tr style="height:0px"><td colspan="8" id="i#positionno#" align="center"><cfinclude template="MandateViewOrganizationAssignmentView.cfm"></td></tr>	
+								 <cfset prior = PositionNo>
 								 </cfoutput>
 								 
 						       </cfif>						   

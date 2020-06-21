@@ -67,7 +67,6 @@
 		   clearInterval ( prg );
 		}	
 		
-		
 				
 		function payrollprocess(processno,personno,enforce,mission,mde) {
 	
@@ -320,13 +319,10 @@
 	
    <tr><td height="100%" style="padding-right:16px">
    
-   		<cf_divscroll overflowy="scroll">
+   		
 		
-		<table width="99%" 
-		      border="0"
+		<table width="99%" 		      
 			  height="100%"
-			  cellspacing="0" 
-			  cellpadding="0" 
 			  align="center">	  
 		 		
 				<tr class="hide"><td valign="top" height="1" id="result"></td></tr>							
@@ -334,7 +330,7 @@
 												
 		</table>
 		
-		</cf_divscroll>
+		
 	
 	</td></tr>
 	
