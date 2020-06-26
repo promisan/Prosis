@@ -2,6 +2,7 @@
 <cfparam name="URL.PersonNo" 	default="">
 <cfparam name="URL.PositionNo" 	default="">
 <cfparam name="URL.Portal" 	    default="0">
+<cfparam name="URL.Scope" 	    default="">
 <cfparam name="URL.box"			default="">
 <cfparam name="URL.Trigger" 	default="">
 
@@ -212,6 +213,8 @@
 				<td  style="padding-left:3px" width="20%"><cf_tl id="Nature">:</td>
 			    <td style="padding-left:0px">	
 				
+				
+				
 				    <cfif url.trigger neq "">
 					
 						<cfquery name="get" 
@@ -230,7 +233,7 @@
 					<cfelse>
 					
 					    <cfoutput>			
-						<cf_securediv id="mynaturebox" bind="url:#session.root#/staffing/Application/Employee/Events/getTrigger.cfm?eventid=#URL.id#&mission={mission}&Positionno=#url.positionno#&portal=#url.portal#"/>						
+						<cf_securediv id="mynaturebox" bind="url:#session.root#/staffing/Application/Employee/Events/getTrigger.cfm?eventid=#URL.id#&mission={mission}&Positionno=#url.positionno#&portal=#url.portal#">						
 						</cfoutput>		
 						
 					</cfif>
@@ -503,6 +506,7 @@
 				</cfquery>	
 
 				<cfif qCheck.DocumentServer neq "">
+								
 					<cfset CLIENT.DocumentServerPath = "">
 					<cf_filelibraryN
 						box = "documentserver"
@@ -514,6 +518,7 @@
 						Insert="yes"
 						Remove="yes"
 						Listing="yes">
+						
 				<cfelse>
 
 					<cf_filelibraryN

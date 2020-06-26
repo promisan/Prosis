@@ -135,6 +135,7 @@
 			$('##'+f).data("kendoWindow").center();
 			
 		_WINDOWS.push(f);
+
 }
 
 

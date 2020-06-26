@@ -44,6 +44,7 @@
  </style>
 
 <cfparam name="url.myclentity" default="">
+<cfparam name="Attributes.SecurityScript" default="YES">
 
 <!--- provision added 26/4/2010 for reload of a screen --->
 <cfset qstr = replace("#CGI.QUERY_STRING#","&","|","ALL")>
@@ -58,7 +59,9 @@
 <cf_tl id="More" var="vMoreMsg">
 <cf_tl id="Less" var="vLessMsg">
 
-<cf_systemscript>
+<cfif Attributes.SecurityScript eq "YES">
+	<cf_systemscript>
+</cfif>
 <cf_dialogorganization>
 <cf_ajaxRequest>
 <cf_mapscript>
@@ -104,10 +107,10 @@
 		
 	<!--- context sensitive for workflow process dialog embedded workflow only --->
 	
-	function workflowreload(ajaxid) {		   			
-						
+	function workflowreload(ajaxid) {		
+					
 		el = document.getElementById("workflowlink_"+ajaxid)		
-								
+														
 		if (el) {
 						    
 			ln = el.value	
@@ -122,15 +125,16 @@
 				ptoken.navigate(ln+cd,ajaxid)
 				_cf_loadingtexthtml="<div><img src='<cfoutput>#SESSION.root#</cfoutput>/images/busy11.gif'/>";	
 				
-			} catch(e) {	
+				} catch(e) {	
 			
 			    _cf_loadingtexthtml="";											  	    
 			    ptoken.navigate(ln+'?ajaxid='+ajaxid,ajaxid)												
 				_cf_loadingtexthtml="<div><img src='<cfoutput>#SESSION.root#</cfoutput>/images/busy11.gif'/>";							
 				
 				}			
-			}				
-	  }		
+		}		
+		
+    }		
 	  
 	  <!--- checks the comments status --->
 	  function commentstatus(last,id,ajaxid) {	       	  	    
@@ -138,7 +142,7 @@
 		if (se) {					
 		ptoken.navigate('#SESSION.root#/tools/EntityAction/getCommentStatus.cfm?last='+last+'&objectid='+id+'&ajaxid='+ajaxid,'communicatecomment_'+id,null,workflowerrorhandler)	 		 									
 		}		
-  }		
+    }		
 	  
 	function commentreload(ajaxid) {	
 		var vId = ajaxid.replace(/-/gi, '');	 
@@ -280,42 +284,53 @@
 			ptoken.open("#SESSION.root#/Tools/EntityAction/ProcessAction.cfm?windowmode=window&ajaxid="+ajaxid+"&process="+allow+"&id="+id+"&myentity=#url.myclentity#", "_blank", "left=30, top=30, width=" + w + ", height= " + h + ", toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes"); 								
 			}
 
-		} else {		
-		
-		    <cfif client.browser neq "Explorer">
-						
-			ptoken.open("#SESSION.root#/Tools/EntityAction/ProcessAction.cfm?windowmode=window&ajaxid="+ajaxid+"&process="+allow+"&id="+id+"&myentity=#url.myclentity#", "_blank", "left=30, top=30, width=" + w + ", height= " + h + ", toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes"); 					
-			
-			<cfelse>		 
-		 		 				
-			    <!--- processing through a modal dialog screen which can disabled or enabled just for IE ---> 
-		   	 		 	
-				ret = window.showModalDialog("#SESSION.root#/Tools/EntityAction/ProcessAction.cfm?windowmode=modal&ts="+new Date().getTime()+"&ajaxid="+ajaxid+"&process="+allow+"&id="+id,window, 
-				 "unadorned:yes; edge:raised; status:yes; dialogHeight:"+h+"px; dialogWidth:"+w+"px; help:no; scroll:no; center:yes; resizable:yes");
-		        if (ret) {
+		} else {	
 					
-				<!--- -------------------------------------------------------- --->	
+			// ptoken.open("#SESSION.root#/Tools/EntityAction/ProcessAction.cfm?windowmode=window&ajaxid="+ajaxid+"&process="+allow+"&id="+id+"&myentity=#url.myclentity#", "_blank", "left=30, top=30, width=" + w + ", height= " + h + ", toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes"); 					
+					
+			ProsisUI.createWindow('workflowstep', 'Process workflow step', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,center:true})    
+			ptoken.navigate('#SESSION.root#/Tools/EntityAction/ProcessActionView.cfm?windowmode=embed&ajaxid='+ajaxid+'&process='+allow+'&id='+id+'&myentity=#url.myclentity#','workflowstep')
+		 	 	
+		   
+		   // <cfif client.browser neq "Explorer">
+						
+		   //	ptoken.open("#SESSION.root#/Tools/EntityAction/ProcessAction.cfm?windowmode=window&ajaxid="+ajaxid+"&process="+allow+"&id="+id+"&myentity=#url.myclentity#", "_blank", "left=30, top=30, width=" + w + ", height= " + h + ", toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes"); 					
+			
+		   // 	<cfelse>	
+			
+		   //		ProsisUI.createWindow('workflowstep', 'Process workflow step', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientHeight-90,modal:true,center:true})    
+		   //		ptoken.navigate('#SESSION.root#/Tools/EntityAction/ProcessActionView.cfm?windowmode=window&ajaxid='+ajaxid+'&process='+allow+'&id='+id+'&myentity=#url.myclentity#')
+		 	 
+		 		 				
+		   //	    <!--- processing through a modal dialog screen which can disabled or enabled just for IE ---> 
+		   	 		 	
+		   //		ret = window.showModalDialog("#SESSION.root#/Tools/EntityAction/ProcessAction.cfm?windowmode=modal&ts="+new Date().getTime()+"&ajaxid="+ajaxid+"&process="+allow+"&id="+id,window, 
+		   //		 "unadorned:yes; edge:raised; status:yes; dialogHeight:"+h+"px; dialogWidth:"+w+"px; help:no; scroll:no; center:yes; resizable:yes");
+		   //        if (ret) {
+					
+		        <!--- -------------------------------------------------------- --->	
 				<!--- refresh of the [my clearances] in a none modal setup---- --->
 				<!--- -------------------------------------------------------- --->
 			
-			    <cfif url.myclentity neq "">
+		//	    <cfif url.myclentity neq "">
 				
-					if (parent.opener.document.getElementById('#url.myclentity#ref')) {
-						parent.opener.document.getElementById('#url.myclentity#ref').click()
-						<!--- does not work properly parent.close() --->
-					}	
+		//			if (parent.opener.document.getElementById('#url.myclentity#ref')) {
+		//				parent.opener.document.getElementById('#url.myclentity#ref').click()
+		//				<!--- does not work properly parent.close() --->
+		//			}	
 				
-				</cfif>
+		//		</cfif>
 				
 				<!--- -------------------- --->			
 				<!--- refresh the workflow --->
 				<!--- -------------------- --->
 				
-				try { workflowreload(ajaxid,'0') ; } catch(e) {}	
+		//		try { workflowreload(ajaxid,'0') ; } catch(e) {}	
 							
-				}
+		//	}
 			
-			</cfif>	
+		//	</cfif>	
+		
 		}					
 	}	
 	

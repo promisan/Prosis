@@ -200,7 +200,7 @@
 		</cfif>		 
 				 
 		FROM    Ref_Mission R INNER JOIN Ref_AuthorizationRoleOwner O ON R.MissionOwner = O.Code
-		WHERE   Operational = '#url.operational#'
+		WHERE   R.Operational = '#url.operational#'
 		<cfif Selection eq "Favorite">
 	    AND     Mission IN (SELECT Mission 
 			                FROM   System.dbo.UserFavorite 
@@ -224,7 +224,7 @@
 		</cfif>			
 		
 		ORDER BY MissionType, 
-		         Operational DESC, 
+		         R.Operational DESC,
 				 OrderSort, 
 				 Mission, 
 				 MissionParent				 

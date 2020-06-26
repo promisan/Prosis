@@ -216,6 +216,16 @@ WHERE  OvertimeId  = '#Form.OvertimeId#'
 		   
 		   <cfelse>
 		   
+		   		<cfinvoke component = "Service.Process.Employee.Attendance"
+						 method         = "LeaveBalance" 
+						 PersonNo       = "#Form.PersonNo#" 
+						 LeaveType      = "CTO" 
+						 Mission        = "#Form.mission#"
+						 Mode           = "batch"
+						 BalanceStatus  = "0"
+						 StartDate      = "01/01/2017"
+						 EndDate        = "12/31/#Year(now())#">	
+		   
 		   		<cftransaction>
 		   
 			   		<cfinclude template="OvertimeScheduleSubmit.cfm">   

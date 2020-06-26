@@ -16,20 +16,22 @@
 			
 	  <cfif ActionReferenceShow eq "1"> 
 				   
-		  <tr class="fixrow"><td colspan="2" valign="top">		
-		  <table width="100%" cellspacing="0" cellpadding="0" align="center">
+		  <tr class="fixrow"><td style="background-color:white" colspan="2" valign="top">		
+		  <table width="100%" align="center">
 			  
 		    <!--- Element 1b of 3 about --->	
 								   
-			    <tr class="labelmedium line">
-			    <td height="34" width="24%" style="font-size:16px;padding-left:10px">#Object.EntityDescription#:</td>
-				<td>
+			    <tr class="labelmedium line" style="background-color:white">
+			    <td height="34" width="24%" style="background-color:white;font-size:16px;padding-left:10px">#Object.EntityDescription#:</td>
+				<td style="background-color:white">
 				<table width="100%">
 					<tr class="labelmedium">
-					<td style="font-size:16px">
+					<td style="font-size:16px;background-color:white">
 					#Object.ObjectReference# <cfif Object.ObjectReference2 neq "">(#Object.ObjectReference2#)</cfif>
 					</td>					
-					<td align="right">
+					<td align="right" style="background-color:white">
+					
+						<cfif getAdministrator("#Object.Mission#") eq "1">
 					
 						<img src="#SESSION.root#/Images/Workflow-Methods.png"
 							 alt="Show Workflow"
@@ -40,6 +42,8 @@
 							 valign="center"
 							 style="cursor: pointer;"
 						     onClick="workflowshow('#Object.ActionPublishNo#','#Object.EntityCode#','#Object.EntityClass#','#ActionCode#','#Object.ObjectId#')">
+							 
+						</cfif>	 
 							 
 					 </td>
 					</tr>
@@ -80,3 +84,4 @@
 </td></tr>
 
 </table>
+

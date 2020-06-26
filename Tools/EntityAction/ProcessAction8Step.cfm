@@ -331,8 +331,7 @@
 		
 		<!--- Element 2 of 3 Embedded Custom dialog Functions --->		
 	 	<cfinclude template="ProcessActionFunction.cfm">		
-						
-						
+					
 		<!--- Element 3 of 3 GENERATE DOCUMENT --->
 		<cfinclude template="Report/Document.cfm">  	
 		

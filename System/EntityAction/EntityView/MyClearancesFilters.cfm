@@ -104,7 +104,6 @@
                         </cfloop>
                     </select>	
                 <cfelse>
-                    <cf_tl id="n/a">
                     <input type="hidden" id="sEntityGroup" name="" value="">	
                 </cfif>	
             </cf_mobilecell>

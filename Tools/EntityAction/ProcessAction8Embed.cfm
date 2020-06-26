@@ -2,8 +2,7 @@
  <cfif l eq 37 and mid(url.ajaxId,1,1) eq "c">
  	<cfset url.ajaxid = mid(url.ajaxid, 2, l-1)>	
  </cfif>	
- 
-	 
+ 	 
 <cfquery name="Action" 
  datasource="AppsOrganization"
  username="#SESSION.login#" 
@@ -168,21 +167,23 @@ insurance dialog.
 			 <cfoutput>	 
 			 
 				 <tr>
-					 <td align="right" height="25" style="padding-right:20px">	
+					 <td align="right" height="25" style="padding-top:3px;padding-right:20px">	
 					 					 
 					 <cfif url.ajaxid eq "">
 					   	   <cfset pr = url.id>
 					   <cfelse>
 					       <cfset pr = url.ajaxid> 		   
 					   </cfif>
-					   					   					   					   					 		 
+					   
+					   <cfset nextbox = boxno+1>
+					   					   					   					   					   					 		 
 					    <input type = "button" 
 						class       = "button10g" 
 						style       = "width:210px;height:29px;font-size:14px;"
 						name        = "EmbedSave" 
 						id          = "EmbedSave"
 						value       = "Next" 
-						onclick     = "document.getElementById('menu2').click()">	
+						onclick     = "document.getElementById('menu#nextbox#').click()">	
 										
 					 </td>
 				 </tr>
@@ -190,10 +191,7 @@ insurance dialog.
 			 </cfoutput>	
 			 
 		 </table>	 
-		
-				  
+						  
 	  </cfif>	 
-	  
-  
 	
 

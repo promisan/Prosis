@@ -254,7 +254,17 @@ password="#SESSION.dbpw#">
 		<cfset url.PersonNo = Form.PersonNo>
 		<cfinclude template="OvertimeDetailSubmit.cfm">
 			 		  
-	<cfelse>
+	<cfelse>	
+	
+		  <cfinvoke component = "Service.Process.Employee.Attendance"
+				 method         = "LeaveBalance" 
+			     PersonNo       = "#Form.PersonNo#" 
+				 LeaveType      = "CTO" 
+				 Mission        = "#Form.mission#"
+				 Mode           = "batch"
+				 BalanceStatus  = "0"
+				 StartDate      = "01/01/2017"
+				 EndDate        = "12/31/#Year(now())#">													
 	
 	       <cftransaction>
 	
@@ -321,8 +331,8 @@ password="#SESSION.dbpw#">
 					  '#SESSION.acc#',
 			    	  '#SESSION.last#',		  
 				  	  '#SESSION.first#')
-			  </cfquery>	  	
-			  
+			  </cfquery>	 
+						  
 			  <!--- insert lines --->	
 					
 			  <cfquery name="details" 
@@ -375,6 +385,16 @@ password="#SESSION.dbpw#">
 			  </cfloop>
 			  
 			  </cftransaction>
+			  
+			    <cfinvoke component = "Service.Process.Employee.Attendance"
+				 method         = "LeaveBalance" 
+			     PersonNo       = "#Form.PersonNo#" 
+				 LeaveType      = "CTO" 
+				 Mission        = "#Form.mission#"
+				 Mode           = "batch"
+				 BalanceStatus  = "0"
+				 StartDate      = "01/01/2017"
+				 EndDate        = "12/31/#Year(now())#">			
 								
 		</cfif>  
 	  

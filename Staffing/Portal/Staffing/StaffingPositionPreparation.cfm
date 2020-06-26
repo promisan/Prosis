@@ -13,7 +13,7 @@
 					PostInBudget, 
 					VacancyActionClass, ShowVacancy, PostAuthorised, PositionParentId, SourcePostNumber, 
 					DateEffective, DateExpiration, PostGrade, PostOrder, 
-					ApprovalPostGrade, LocationCode, PostGradeBudget, PostOrderBudget, PostGradeParent
+					ApprovalPostGrade, ApprovalReference, LocationCode, PostGradeBudget, PostOrderBudget, PostGradeParent
 					
 		FROM        vwPosition
 		WHERE       Mission = '#URL.Mission#' 

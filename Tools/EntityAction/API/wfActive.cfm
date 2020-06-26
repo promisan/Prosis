@@ -128,6 +128,7 @@
 
 <!--- ----  if the workflow exists -------------------- --->
 <CFSET Caller.wfExist    = exist>
+<CFSET Caller.wfObjectId = Check.ObjectId>
 <!--- ----- the status of the workflow open/closed ---- --->
 <CFSET Caller.wfStatus   = status>
 <CFSET Caller.wfStarted  = started>

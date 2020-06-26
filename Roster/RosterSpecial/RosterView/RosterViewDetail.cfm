@@ -81,6 +81,8 @@
 			</cfif>
 			
 	INTO    userQuery.dbo.#SESSION.acc#RosterSelect#FileNo# 
+	
+		
 	FROM 	vwFunctionOrganization F
 	
 			<cfif URL.Inquiry eq "No"  and SESSION.isAdministrator eq "No" and not findNoCase(url.owner,SESSION.isOwnerAdministrator)>
@@ -429,7 +431,7 @@
 		    <td height="18"></td>
 			<td></td>	
 			<td><cfif url.edition eq ""><cf_tl id="Edition"></cfif></td>
-			<td><cf_tl id="Grade"></td>	
+			<td><cf_tl id="Grade"> </td>	
 		    <td><cf_tl id="Function"></td>																
 		    <td><cf_tl id="JO"></td>
 			<TD><cf_space spaces="30"><cf_tl id="Track"></TD>			

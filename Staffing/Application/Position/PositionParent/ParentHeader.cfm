@@ -175,20 +175,39 @@ password="#SESSION.dbpw#">
 		
 	<cfif FlowDefined.recordcount neq "0" 
 	   and CheckMission.WorkflowEnabled eq "1" 
-	   and CheckMission.recordcount eq "1">
-	  
-		<tr><td colspan="4" class="line labelmedium" style="font-size:17px;font-weight:200;padding-left:18px;height:30px"><cf_tl id="Classification"></td></tr> 
-			
-		<cfoutput> 
-			
+	   and CheckMission.recordcount eq "1">	
+		  
+	<tr><td colspan="4" class="line labelmedium" style="font-size:17px;padding-left:18px;height:30px"><cf_tl id="Classification"></td></tr> 
+	
+	    <cfset url.ajaxid = url.id2>	
+		
+	    <cf_wfActive entityCode="PostClassification" objectkeyvalue1="#url.id2#">				  
+	   	
+		<cfoutput> 					  
+							 
+		    <cfif wfStatus eq "Closed">		
+					  
+			 <tr class="labelmedium">
+			   <td colspan="4" style="padding-left:18px">
+			   <a href="javascript:	ptoken.navigate('#SESSION.root#/Staffing/Application/Position/PositionParent/ParentClassificationWorkflow.cfm?positionparentid=#url.id2#&ajaxid=#url.ajaxid#','#url.ajaxid#')">
+			   <cf_tl id="Initiate post classification workflow">
+			   </a>	 
+			   </td>
+		     </tr>  				  
+			 
+		    </cfif>	
+						
 			<input type="hidden" 
-			   name="workflowlink_#url.id2#" id="workflowlink_#url.id2#" value="ParentClassificationWorkflow.cfm">	
+			   name="workflowlink_#url.ajaxid#" 
+			   id="workflowlink_#url.ajaxid#" 		   
+			   value="ParentClassificationWorkflow.cfm">	
 		
 			<tr>		
-			<td colspan="4" id="#url.id2#">
-			
-			   <cfset url.ajaxid = url.id2>
-			   <cfinclude template="ParentClassificationWorkflow.cfm"> 
+			<td colspan="4" id="#url.ajaxid#">
+											 
+			   <cfif wfStatus eq "Open" or wfExist eq "1">	
+				   <cfinclude template="ParentClassificationWorkflow.cfm"> 
+			   </cfif>
 				
 			</td>
 			</tr>

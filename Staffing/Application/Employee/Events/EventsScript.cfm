@@ -1,3 +1,6 @@
+<cfparam name="URL.portal" default="0">
+
+
 
 <cfajaximport tags="cfform">
 
@@ -33,7 +36,7 @@
     	Prosis.busy('yes');
     	_cf_loadingtexthtml='';		
 		ProsisUI.createWindow('evdialog', 'HR Event request', '',{x:200,y:200,height:document.body.clientHeight-100,width:document.body.clientWidth-200,modal:true,resizable:false,center:true})    					
-    	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventForm.cfm?portal=0&personNo='+personno,'evdialog')		 	
+    	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventForm.cfm?portal=#url.portal#&personNo='+personno,'evdialog')		 	
     }
     
     function checkevent() {

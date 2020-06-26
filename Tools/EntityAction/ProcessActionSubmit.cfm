@@ -3,6 +3,7 @@
 	<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>"> 
 </head>
 
+
 <cfquery name="Object" 
  datasource="AppsOrganization"
  username="#SESSION.login#" 
@@ -856,6 +857,10 @@
 	
 				
 	<cfif url.ajaxid neq "">		
+	
+		<cfoutput>
+		<script>alert('#windowmode#')</script>
+		</cfoutput>
 	
 		<cfif windowmode eq "modal">
 		

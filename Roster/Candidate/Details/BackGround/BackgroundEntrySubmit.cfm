@@ -413,6 +413,7 @@ password="#SESSION.dbpw#">
 					datasource="AppsSelection" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
+					
 					INSERT INTO ApplicantBackgroundField 
 					         (ApplicantNo,
 							 ExperienceId,

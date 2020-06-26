@@ -7,11 +7,10 @@
 <cfparam name="URL.mode" 			default="">
 <cfparam name="URL.search" 			default="">
 
-<!--- Start mobile application --->
-<cf_mobile 
-	appId="MyClearances" 
-	validateLogin="Yes"
-	bodyClass="toggleScroll-y">
+<cf_tl id="My Clearances" var="vMainLabel">
+<cfset vLayout = "webapp">
+
+<cf_screentop jquery="yes" bootstrap="yes" html="no" label="#vMainLabel#">
 
 	<cf_dialogStaffing>
 	<cf_systemscript>
@@ -30,6 +29,7 @@
 			font-size:125%;
 			border-bottom:1px solid #E1E1E1;
 			padding-top:5px;
+			height:30px;
 		}
 
 		.pullTextRight {
@@ -60,10 +60,18 @@
 		#head > div.animate-panel > div.animated-panel > div.hpanel {
 			margin-bottom:0px;
 		}
-	</style>
-	
-	<cfset vParameters = "mode=#url.mode#&EntityGroup=#URL.EntityGroup#&Mission=#URL.Mission#&Owner=#URL.Owner#&me=#url.me#&search=#url.search#">
-	<cfdiv style       = "position:sticky; top:0px; z-index:1; padding-bottom:0px;" bind="url:#SESSION.root#/system/entityaction/entityview/MyClearancesFilters.cfm?#vParameters#" id="head"/>
-	<cfdiv bind        = "url:#SESSION.root#/system/entityaction/entityview/MyClearancesDetail.cfm?#vParameters#" id="listing"/>
 
-</cf_mobile>
+		.x-border-box, .x-border-box * {
+		    box-sizing: border-box;
+		    -moz-box-sizing: border-box;
+		    -ms-box-sizing: border-box;
+		}
+	</style>
+
+	<div style="height:100%;" class="toggleScroll-y">
+		<cfset vParameters = "mode=#url.mode#&EntityGroup=#URL.EntityGroup#&Mission=#URL.Mission#&Owner=#URL.Owner#&me=#url.me#&search=#url.search#">
+		<cfdiv style       = "position:sticky; top:0px; z-index:1; background-color:##FFFFFF; padding-bottom:0px; back" bind="url:#SESSION.root#/system/entityaction/entityview/MyClearancesFilters.cfm?#vParameters#" id="head"/>
+		<cfdiv bind        = "url:#SESSION.root#/system/entityaction/entityview/MyClearancesDetail.cfm?#vParameters#" id="listing" />
+	</div>
+
+<cf_screenbottom layout="#vLayout#">

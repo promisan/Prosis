@@ -27,11 +27,17 @@
 	<cfset boxno = boxno+1>
 	
 	<cfif menumode eq "menu">
+	
+		<cfif boxno eq "1">
+		   <cfset cl = "highlight">
+	   <cfelse>
+	   	   <cfset cl = "regular">	   
+	   </cfif>
    
     	<cf_menutab item       = "#boxno#" 
 	       iconsrc    = "Logos/System/Questionaire.png" 
 		   iconwidth  = "#wd#" 
-		   class      = "regular"						
+		   class      = "#cl#"						
 		   iconheight = "#ht#" 
 		   name       = "Questionaire">		
 		   

@@ -45,6 +45,10 @@
 					        INNER JOIN Ref_PersonEvent PE         ON ET.EventCode=PE.Code 
 							INNER JOIN Ref_PersonEventMission REM ON REM.PersonEvent=ET.EventCode
 					WHERE   REM.Mission = '#url.mission#'
+					<cfif url.portal eq "1">
+						AND   (PE.EnablePortal = 1 or Code = '#qEvent.EventTrigger#')
+					</cfif>
+					
 		         )
 				 
 		<cfif url.PositionNo neq "">

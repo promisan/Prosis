@@ -5,24 +5,25 @@
 <CF_DateConvert Value="#Form.DOB#" SQLLimit="Yes">
 <cfset DOBdate = dateValue>
 
+
 <cfparam name="Form.Nationality" default="">
 
 <cfif form.dob eq "" or form.lastname eq "" or form.firstname eq "" or form.nationality eq "">
 	 <cfabort>
 </cfif>
 
-<!--- verify is candidate applicant record exist --->
+<!--- verify if candidate applicant record exist --->
 
 <cfquery name="Candidate" 
 datasource="AppsSelection" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-	SELECT *
-	FROM   Applicant 
-	WHERE  LastName          = '#form.LastName#' 
-	AND    LEFT(FirstName,1) = '#left(form.FirstName,1)#'
-	AND    DOB               = #DOBDate#
-	AND    Nationality       = '#form.Nationality#'
+	SELECT  *
+	FROM    Applicant 
+	WHERE   LastName          = '#form.LastName#' 
+	AND     LEFT(FirstName,1) = '#left(form.FirstName,1)#'
+	AND     DOB               = #DOBDate#
+	AND     Nationality       = '#form.Nationality#'
 </cfquery>
 
 <cfoutput>
@@ -78,7 +79,7 @@ password="#SESSION.dbpw#">
 				    WHERE  SubmissionEdition = '#Submission.SubmissionEdition#' 
 				</cfquery>
 
-				<table border="0" cellpadding="0" cellspacing="0" width="98%" align="center" class="formpadding">
+				<table width="98%" align="center" class="formpadding">
 				
 					<tr>
 					<td class="labellarge" style="height:50px;padding-left:4px">
@@ -88,7 +89,7 @@ password="#SESSION.dbpw#">
 						
 				    <tr><td style="padding-left:20px">
 							 
-							 <table border="0" cellpadding="0" cellspacing="0" width="100%">
+							 <table width="100%">
 							
 							  <TR class="labelmedium line">
 							      <td style="width:30px"></td>
@@ -101,10 +102,11 @@ password="#SESSION.dbpw#">
 							  	  <TD><cf_tl id="eMail"></TD>
 								  <TD><cf_tl id="Officer"></TD>
 								  <TD><cf_tl id="Entered"></TD>
-						      </TR>
+						      </TR>								  
 							  
 							  <cfloop query="Submission">
 							  
+							  						  
 							  <cfswitch expression="#URL.Next#"> 
 							  
 								  <cfcase value="Default">								  
@@ -193,7 +195,7 @@ password="#SESSION.dbpw#">
 							  </cfswitch>
 							  								  
 								  <tr class="labelmedium line">
-								      <td style="padding-top:4px"><cf_img icon="select" onclick="#link#"></td>
+								      <td style="padding-top:1px"><cf_img icon="select" onclick="#link#"></td>
 									  <TD>#DateFormat(SubmissionDate, CLIENT.DateFormatShow)#</TD>
 									  <TD>#ApplicantNo#</TD>
 									  <TD>#Source#</TD>
@@ -220,7 +222,7 @@ password="#SESSION.dbpw#">
 										
 										 <TR>
 									 
-										  <td colspan="8" style="padding-top:1px;padding-left:20px;padding-bottom:1px">		
+										 <td colspan="8" style="padding-top:1px;padding-left:20px;padding-bottom:1px">		
 										 
 										 <cf_filelibraryN
 											DocumentPath="Submission"
@@ -298,7 +300,7 @@ password="#SESSION.dbpw#">
 		
 		<table width="100%" cellspacing="0" cellpadding="0">
 				
-				<tr class="labelmedium"><td align="left" style="padding-left:38px"><font color="6688aa">New individual, set Profile source and edition</td></tr>					
+				<tr class="labelmedium"><td align="left" style="padding-left:38px">New individual, set Profile source and edition</td></tr>					
 				<tr>
 				<td align="center" class="labelmedium" style="padding-left:38px">										
 				<cfinclude template="ApplicantEntrySubmission.cfm">				

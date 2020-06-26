@@ -10,7 +10,7 @@
 	
 			<tr>	
 			
-			<cfif list eq "regular" and DocumentServer eq "No">
+			<cfif list eq "regular" and DocumentServer eq "No" and showsize eq "1">
 			
 			    <cfif mode neq "Report">
 			

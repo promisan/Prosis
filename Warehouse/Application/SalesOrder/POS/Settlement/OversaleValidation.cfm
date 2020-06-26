@@ -22,7 +22,7 @@
 					TransactionLot, 
 					SUM(TransactionQuantity) AS Quantity
 			FROM    userTransaction.dbo.Sale#url.warehouse# S
-					INNER JOIN WarehouseCategory WC	ON WC.Warehouse = S.Warehouse AND WC.Category = S.ItemCategory AND WC.Oversale = 0
+					INNER JOIN WarehouseCategory WC	ON WC.Warehouse = S.Warehouse AND WC.Category = S.ItemCategory AND (WC.Oversale = 0 OR WC.SelfService = 0)
 			WHERE   CustomerId  = '#url.customerid#'
 			AND     AddressId   = '#url.addressId#'
 			AND     ItemClass   = 'Supply'

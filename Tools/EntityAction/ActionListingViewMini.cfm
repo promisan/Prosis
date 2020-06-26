@@ -145,7 +145,7 @@
 				</cfif>
 									
 					<table style="width:100%">
-																									
+																														
 					<cfif Action eq "1" and (EntityAccess eq "EDIT" OR EntityAccess eq "READ")>
 					
 					 <cfset vSquareStyle     = "padding:0px 0 0;border-radius:8px 0 0 8px;max-width:100%">		  
@@ -251,7 +251,8 @@
 							<cfset boxend = "gray">
 						</cfif>							
 					
-						<tr><td style="max-width:360px;background-color:#boxend#;cursor: pointer;color:white;" align="center">																																
+						<tr><td style="max-width:360px;background-color:#boxend#;cursor: pointer;color:white;" align="center">		
+																																			
 																
 								<cfparam name="ActionCompleted" default="">
 								<cfparam name="ActionDenied" default="">

@@ -415,14 +415,17 @@ password="#SESSION.dbpw#">
 	<table height="100%" width="100%" align="center">
 	<tr><td style="height:100% width:100%">
 	<cfoutput>
-	<iframe width="100%" height="100%" src="#SESSION.root#/roster/rostergeneric/RosterSearch/ResultListing.cfm?mode=#url.mode#&docno=#url.docno#&id=GEN&id1=#LastNo#&id2=B&id3=GEN&height=#height#&back=0&mid=#url.mid#" 
+	
+	<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+	<cfset mid = oSecurity.gethash()/>   
+
+	<iframe width="100%" height="100%" src="#SESSION.root#/roster/rostergeneric/RosterSearch/ResultListing.cfm?mode=#url.mode#&docno=#url.docno#&id=GEN&id1=#LastNo#&id2=B&id3=GEN&height=#height#&back=0&mid=#mid#" 
 	scrolling="no" frameborder="0"></iframe>
+	
 	</cfoutput>
 	</td></tr>
 				
 <cfelse>
-
-		
 		 
 		<table height="100%" width="100%" align="center">
 		  

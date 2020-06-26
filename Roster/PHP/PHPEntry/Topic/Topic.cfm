@@ -197,7 +197,8 @@ password="#SESSION.dbpw#">
 
 <cf_layout attributeCollection="#attrib#">
 
-	<cf_layoutarea position="center" name="box">				   
+	<cf_layoutarea position="center" name="box">		
+	   
 						
 				<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center">
 					
@@ -547,8 +548,8 @@ password="#SESSION.dbpw#">
 							
     </cf_layoutarea>	
 					
-	<cfparam name="section.Templatecflayout" default="1">
-	  
+	<cfparam name="section.Templatecflayout" default="1">	
+		  
 	<cfif (section.Templatecflayout eq "1" or url.entryscope eq "Portal") and edit eq "edit">
 		
 		<cf_layoutarea 
@@ -560,7 +561,8 @@ password="#SESSION.dbpw#">
 				collapsible = "false" 
 				initcollapsed="true"
 				splitter    = "true"
-				overflow    = "scroll">
+				overflow    = "scroll">		
+				
 						   
 					<table width="99%" height="100%" align="center">
 																
@@ -582,8 +584,8 @@ password="#SESSION.dbpw#">
 				minsize     = "470"
 				collapsible = "true" 
 				splitter    = "true"
-				overflow    = "scroll">
-						   
+				overflow    = "scroll">			
+																		   
 					<table width="100%" height="100%" align="center">
 														
 						<tr>

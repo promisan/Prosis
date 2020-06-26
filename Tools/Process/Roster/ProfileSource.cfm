@@ -10,7 +10,7 @@
 	datasource="AppsSelection" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-		SELECT   Source
+		SELECT   DISTINCT Source
 		FROM     ApplicantSubmission S
 		WHERE    PersonNo = '#Attributes.PersonNo#'	
 		<cfif Attributes.showAll eq "No">					
@@ -25,7 +25,7 @@
 								 
 				)				 
 		</cfif>									 
-		ORDER BY Created DESC
+		ORDER BY Source
 	</cfquery>
 				
 	<cfquery name="getUser" 
@@ -139,11 +139,11 @@
 	<cfelseif getsource.recordcount eq "1">
 	
 		<input type="hidden" id="source" name="source" value="#src#">	
-	
+			
 	<cfelse>
 	
 		<input type="hidden" id="source" name="source" value="#src#">	
-	
+			
 	</cfif>
 		
 	</cfoutput>		

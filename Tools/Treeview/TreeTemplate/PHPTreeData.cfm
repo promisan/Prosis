@@ -751,7 +751,7 @@ password="#SESSION.dbpw#">
 	          Organization.dbo.Ref_AuthorizationRoleOwner O
 	  WHERE   Owner IN (SELECT Owner FROM Ref_SubmissionEdition)
 	  AND     M.Owner = O.Code
-	  AND     Operational = 1	
+	  AND     M.Operational = 1
 	  ORDER BY Description			  
 	</cfquery>
 	

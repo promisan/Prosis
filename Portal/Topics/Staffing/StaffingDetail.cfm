@@ -161,7 +161,7 @@
 					
 		           ELSE (1) END )   
 		
-	    ORDER BY   R.ViewOrder,G.PostOrderBudget
+	     ORDER BY   R.ViewOrder,G.PostOrderBudget, G.PostOrder
 				
 </cfquery>	
 

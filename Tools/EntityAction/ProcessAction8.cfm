@@ -1,12 +1,11 @@
-<head>
 	<cf_textareascript>
 	<cfajaximport tags="cfform,cfwindow,cfinput-autosuggest,cfdiv">
-	<cf_ActionListingScript>
+	<cf_ActionListingScript SecurityScript="NO">
 	<cf_FileLibraryScript>
 	<cf_DetailsScript>
-	<cf_MenuScript>	
-	<cf_LedgerTransactionScript>	
-</head>
+	<cf_MenuScript>
+	<cf_LedgerTransactionScript>
+
 
 <!--- disabled by hanno, maybe this was needed in the past to show
 <table class="hide"><tr><td><cf_textarea name="FieldDocument" height="2" init="Yes"></cf_textarea></td></tr></table>
@@ -96,8 +95,24 @@
 	--->
 
 <cfinclude template="ProcessActionScript.cfm">	
-	
-<cfif action.processmode eq "4">
+
+
+<cfif action.processmode eq "1">
+
+	<cf_screentop scroll="yes"	   	    
+	   band="No" 
+	   layout="webapp" 
+	   height="100%" 		   	  
+	   banner="gray" 	
+	   bannerforce="Yes"
+	   html="no"	   
+	   jquery="Yes"
+	   label="#Object.ObjectReference#: #Action.ActionDescription#">
+    	<cf_divscroll>
+		<cfinclude template="ProcessAction8Content.cfm">
+		</cf_divscroll>
+
+<cfelseif action.processmode eq "4">
 
 	<cf_screentop scroll="yes"	   	    
 	   band="No" 
@@ -163,9 +178,8 @@
 					
 			</cf_layoutarea>	
 							
-		</cf_layout>				
-
-
+		</cf_layout>	
+		
 <cfelse>
 
 	<cf_screentop scroll="yes"	   	    
@@ -179,7 +193,7 @@
 	   label="#Object.ObjectReference#: #Action.ActionDescription#">
 	   		
     	<cf_divscroll>	
-		<cfinclude template="ProcessAction8Content.cfm">		
+			<cfinclude template="ProcessAction8Content.cfm">		
 		</cf_divscroll>
 		
 </cfif>		

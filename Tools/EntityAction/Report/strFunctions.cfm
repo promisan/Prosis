@@ -35,8 +35,25 @@
         <cfelse>
             <cfreturn "her"/>
         </cfif>
-</cffunction> 
+</cffunction>
 
+<cffunction name="Subject" access="public" returntype="string">
+    <cfargument name="Gender" type="string" required="yes" />
+    <cfif Gender eq 'M'>
+        <cfreturn "he"/>
+    <cfelse>
+        <cfreturn "she"/>
+    </cfif>
+</cffunction>
+
+<cffunction name="Pronoun" access="public" returntype="string">
+    <cfargument name="Gender" type="string" required="yes" />
+    <cfif Gender eq 'M'>
+        <cfreturn "him"/>
+    <cfelse>
+        <cfreturn "her"/>
+    </cfif>
+</cffunction>
 
 <cffunction name="GetRelativePath" access="public" returntype="string"> 
      <cfset var vReturn = "" /> 

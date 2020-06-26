@@ -784,7 +784,7 @@
 				  AND (Staff.FunctionDescription LIKE '%#sp##URL.fld##sp#%'
 					    OR Staff.PositionNo       LIKE '%#sp##URL.fld##sp#%' 
 						OR Staff.PositionParentId LIKE '%#sp##URL.fld##sp#%' 
-					    OR Staff.SourcePostNumber LIKE '%#sp##URL.fld##sp#%'
+					    OR Staff.SourcePostNumber LIKE '%#sp##URL.fld##sp#%' 
 					    
 					    <!--- added by hanno to allow searching in the new mandate --->
 					    OR Staff.RecruitmentTrack IN (

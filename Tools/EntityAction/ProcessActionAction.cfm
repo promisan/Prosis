@@ -164,7 +164,7 @@
 					 style="background: ffffff;" 
 					 onchange="_cf_loadingtexthtml='';updateTextArea();ptoken.navigate('#SESSION.root#/tools/EntityAction/ActionListingFly.cfm?mode=revert&objectid=#object.Objectid#&ActionPublishNo=#ActionPublishNo#&ActionCode='+this.value,'stepflyaccess');">					 
 					<cfloop query="Revert">
-					   <option value="#ActionCode#" ><cfif ActionCompleted neq "">#ActionCompleted#<cfelse>#ActionCode# #ActionDescription#</cfif></option>
+					   <option value="#ActionCode#">#ActionCode# #ActionDescription#</option>
 					</cfloop>
 					</select>					
 				</td>
@@ -235,7 +235,7 @@
 				   <cfif URL.Process neq ""><font color="C0C0C0"></cfif>
 				   
 				   <cfif ActionGoToYesLabel eq "">
-					   <cf_tl id="Next Step">		
+					   <cf_tl id="Forward">		
 				   <cfelse>
 					   #ActionGoToYesLabel#
 				   </cfif>

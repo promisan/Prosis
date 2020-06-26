@@ -62,17 +62,17 @@
 </cfquery>	 	
 
 <cfif operational eq "1">
-
-<cfquery name="LoadingDate" 
-	 datasource="AppsEmployee"
-	 username="#SESSION.login#" 
-	 password="#SESSION.dbpw#">	
-	 UPDATE EmployeeAction
-	 SET    ActionDate       = S.DateEffective, 
-	        ActionExpiration = S.DateExpiration
-	 FROM   EmployeeAction A INNER JOIN Payroll.dbo.PersonEntitlement S ON A.ActionSourceid = S.ContractId
-	 WHERE  A.ActionSource = 'Entitlement'
-</cfquery>	 	
+	
+	<cfquery name="LoadingDate" 
+		 datasource="AppsEmployee"
+		 username="#SESSION.login#" 
+		 password="#SESSION.dbpw#">	
+		 UPDATE EmployeeAction
+		 SET    ActionDate       = S.DateEffective, 
+		        ActionExpiration = S.DateExpiration
+		 FROM   EmployeeAction A INNER JOIN Payroll.dbo.PersonEntitlement S ON A.ActionSourceid = S.ContractId
+		 WHERE  A.ActionSource = 'Entitlement'
+	</cfquery>	 	
 
 </cfif>	
 

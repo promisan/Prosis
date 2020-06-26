@@ -139,12 +139,11 @@
 				</cfquery>
 				
 				<cfif getBalance.Balance gte getthreshold.maximumBalance>				
-					<cfset paym = "1">						
+					<cfset paym = "1">								
 				<cfelse>				
 					<cfset paym = "0">					
 				</cfif>
-								
-				
+							
 				<cfquery name="get" 
 				  	datasource="AppsEmployee" 
 				  	username="#SESSION.login#" 
@@ -264,6 +263,7 @@
 							AND    CalendarDate = #pri# 
 							AND    ActionClass  = 'break'						  
 					</cfquery>	
+										
 									
 					<cfif left(PersonGrade,1) eq "P">	
 						<cfset mode = mde[1]>	<!--- always the same  --->							
@@ -273,7 +273,7 @@
 					<cfelseif days eq "5" or dayofweek(str) eq "7">	
 					    <cfset mode = mde[2]>   <!--- always 150%      ---> 
 					<cfelseif cnt eq "1" and days lte "4">				
-						<cfset mode = mde[1]>	<!--- first half hour  --->					
+						<cfset mode = mde[1]>	<!--- first half hour  --->									
 					<cfelse>			
 						<cfset mode = mde[2]>	<!--- 150%    		   --->
 					</cfif>
@@ -365,3 +365,4 @@
 	</cfif>		
 
 </cfloop>
+

@@ -3,6 +3,22 @@
 <!--- security scripts for context related opening --->
 <!--- -------------------------------------------- --->
 
+<cffunction name="getStackTrace" access="public" returntype="struct" output="false">
+	<cfset var functionTrace = StructNew() />
+	<cfset var traceList = "">
+	<cftry>
+		<cfthrow message="Prosis stack trace!" type="stackTrace" />
+		<cfcatch>
+			<cfset functionTrace.stackTrace = cfcatch.stackTrace />
+			<cfset functionTrace.tagContext = cfcatch.tagContext />
+			<cfset traceList = replace(functionTrace.stackTrace, "$func", "!", "all")>
+			<cfset functionTrace.TraceIDs = listToArray(traceList, "!")>
+			<cfset arrayDeleteAt(functionTrace.traceIDs, "1")>
+		</cfcatch>
+	</cftry>
+	<cfreturn functionTrace/>
+</cffunction>
+
 <CFParam name="Attributes.force"  default="0">
 
 <!--- -------------------------------------------- --->
@@ -251,11 +267,11 @@
 			
 	</script>	
 
-<cfelse>	
-		
+<cfelse>
 	<cfajaxproxy cfc="service.process.system.security" jsclassname="systemsecurity">
 
 	<script language="JavaScript">	
+			
 
 		var ptoken = new systemsecurity();
 				
@@ -319,6 +335,7 @@
 					break;					
 									
 				case 'navigate':
+										
 								   
 					if ($.trim(aresponse[3]) != '' && $.trim(aresponse[3]).toLowerCase() != 'null')	{
 						ColdFusion.navigate(aresponse[1], aresponse[2], function() { 
@@ -649,4 +666,6 @@
 	// End cf_button JS Functions	
 	
 </script>
+
+
 

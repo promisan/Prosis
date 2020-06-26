@@ -22,18 +22,17 @@
 	   <td width="20%" align="left">
 
 		<cfif IsValid("date",val)>
-		
 	  		<cf_intelliCalendarDate9
 				FieldName="datedefault"
 				Default="#val#"
 				Class="regularxl"
-				AllowBlank="True">
+				AllowBlank="True">	
 		<cfelse>
 	  		<cf_intelliCalendarDate9
 				FieldName="datedefault"
 				Default=""
 				Class="regularxl"
-				AllowBlank="True">
+				AllowBlank="True">						
 		</cfif>		
 											  
 	   	   

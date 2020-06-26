@@ -13,7 +13,11 @@
 <cfset boxno = 0>
 <cfset ht = "64">
 <cfset wd = "64">
-	           	  
+
+ <!--- tab for instructions --->			
+<cfinclude template="ProcessActionInstructions.cfm">	
+
+ <!--- tab for embedded document --->           	  
 <cfif Embed.DocumentTemplate neq "">
    	   	  
 	   <!--- preload code for dialog embedded workflow --->
@@ -35,14 +39,20 @@
 		      
 		   --->		
 		 		   
-		   <cfset boxno = boxno+1>		   
+		   <cfset boxno = boxno+1>		
+		   
+		   <cfif boxno eq "1">
+			   <cfset cl = "highlight">
+		   <cfelse>
+	   		   <cfset cl = "regular">	   
+		   </cfif>   
 		 		   
 		   <cfif menumode eq "menu">
 			
 			   <cf_menutab item       = "#boxno#" 
 				            iconsrc    = "Contract.png" 
 							iconwidth  = "#wd#" 
-							class      = "highlight1"						
+							class      = "#cl#"						
 							iconheight = "#ht#" 
 							name       = "#Embed.DocumentDescription#"
 							loadalways = "No"
@@ -50,7 +60,7 @@
 						
 		   <cfelse>
 		  	   		   
-			    <cf_menucontainer item="#boxno#" class="regular">					
+			    <cf_menucontainer item="#boxno#" class="regular">									
 				      <cfinclude template="ProcessAction8Embed.cfm">
 			    </cf_menucontainer>										
 							
@@ -59,20 +69,26 @@
 		<cfelse>
 		
 		   <cfset boxno = boxno+1>
+		   
+		    <cfif boxno eq "1">
+			   <cfset cl = "highlight">
+		   <cfelse>
+	   		   <cfset cl = "regular">	   
+		   </cfif>  
 		  
 		   <cfif menumode eq "menu">
 			
 		   <cf_menutab item       = "#boxno#" 
 			            iconsrc    = "Contract.png" 
 						iconwidth  = "#wd#" 
-						class      = "highlight1"						
+						class      = "#cl#"						
 						iconheight = "#ht#" 
 						loadalways = "No"
 						name       = "#Embed.DocumentDescription#">		
 			
 		   <cfelse>		   	   
 
-		   	  <cf_menucontainer item="#boxno#" class="regular">		
+		   	  <cf_menucontainer item="#boxno#" class="regular">					  
 				      <cfinclude template="ProcessAction8Embed.cfm">
 			  </cf_menucontainer>		
 		   		   
@@ -82,6 +98,9 @@
 				   		   		  	   
 </cfif> 	
 
+<!--- tab for questionaire --->	   
+<cfinclude template="ProcessActionQuestionaire.cfm">	
+
 <cfset boxno = boxno+1>
       
 <cfif menumode eq "menu">
@@ -90,12 +109,12 @@
 		 datasource="AppsOrganization"
 		 username="#SESSION.login#" 
 		 password="#SESSION.dbpw#">
-		   SELECT *
-		   FROM   OrganizationObjectAction OA, 
-		          Ref_EntityActionPublish P		
-		   WHERE  ActionId = '#URL.ID#' 
-		   AND OA.ActionPublishNo = P.ActionPublishNo
-		   AND OA.ActionCode = P.ActionCode 
+		   SELECT  *
+		   FROM    OrganizationObjectAction OA, 
+		           Ref_EntityActionPublish P		
+		   WHERE   ActionId = '#URL.ID#' 
+		   AND     OA.ActionPublishNo = P.ActionPublishNo
+		   AND     OA.ActionCode = P.ActionCode 
 		</cfquery>     	
    
 	   <cfquery name="Embed" 
@@ -144,15 +163,15 @@
 	   <cfelse>
 	   	   <cfset cl = "regular">	   
 	   </cfif>
-	  	   	   
-	   <cf_menutab item       = "#boxno#" 
-		       iconsrc    = "Process-Submission.png" 
-			   iconwidth  = "64" 
-			   class      = "#cl#"						
-			   iconheight = "64" 
-			   name       = "#lt_text#"
-			   loadalways = "No"
-			   source     = "ProcessAction8Step.cfm?process=#URL.process#&id=#url.id#&ajaxid=#url.ajaxid#">				
+	  	  	  	   	   
+	   <cf_menutab item  = "#boxno#" 
+	       iconsrc       = "Process-Submission.png" 
+		   iconwidth     = "64" 
+		   class         = "#cl#"						
+		   iconheight    = "64" 
+		   name          = "#lt_text#"
+		   loadalways    = "No"
+		   source        = "ProcessAction8Step.cfm?process=#URL.process#&id=#url.id#&ajaxid=#url.ajaxid#">				
 	
 <cfelse>
 
@@ -167,13 +186,14 @@
 		</cf_menucontainer>	  
    
 </cfif>
-  	   			 
-   <!--- tab for questionaire --->		
-   
-   <cfinclude template="ProcessActionQuestionaire.cfm">		 			  
-		  	
+
+   			 
+
+   <!--- tab for questionaire moved up   
+   <cfinclude template="ProcessActionQuestionaire.cfm">		 			  		  	
    <!--- tab for instructions --->			
-   <cfinclude template="ProcessActionInstructions.cfm">
+   <cfinclude template="ProcessActionInstructions.cfm">   
+   --->	
 					
    <!--- tab for prior documents to be shown --->		
    <cfinclude template="ProcessActionPrior.cfm">
@@ -255,9 +275,8 @@
 	        
    </cfif>   
    
-     
-   
-   
-	 
-   
-  
+   <cfif boxno gt "2">
+   <script>     
+	   document.getElementById('menu1').click()	  
+   </script>
+   </cfif>

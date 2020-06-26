@@ -87,7 +87,7 @@
 	    ptoken.location("PAS/EmployeePAS.cfm?ID=#URL.ID#&systemfunctionid="+idmenu,"parent.right");
 	}
 	
-	function ledger(s,idmenu) {	   
+	function ledger(s,idmenu) {		
 	    ptoken.location("Invoices/Ledger.cfm?Id=#URL.ID#&systemfunctionid="+idmenu,"parent.right")
 	}
 			

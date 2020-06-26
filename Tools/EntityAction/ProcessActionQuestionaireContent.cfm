@@ -64,13 +64,15 @@
 
         <tr>       
 	    <td valign="top" class="labelmedium" style="padding-top:3px;height:45px;font-size: 15px;font-weight:400;padding-left:4px">#currentrow#.</td>
-		<td><table>
-				<tr><td class="labelmedium" style="font-size: 18px;font-weight:400;padding-left:4px">#QuestionLabel#</td></tr>
-				<tr><td class="labelmedium" style="font-size: 13px;font-weight:300;padding-left:7px">#QuestionMemo#</td></tr>		
+		<td><table style="width:90%">
+				<tr><td class="labelmedium" style="font-size: 18px;padding-left:4px">#QuestionLabel#</td></tr>
+				<cfif questionmemo neq "">				
+				<tr><td class="labelmedium" style="color:white;background-color:400080;font-size: 13px;padding-left:7px">#QuestionMemo#</td></tr>		
+				</cfif>
 			</table>
 		</td>		
 				
-		<td align="right" valign="top" style="padding-top:5px;height:45px;font-size: 18px;font-weight: 300;padding-left:4px" class="labelmedium">
+		<td align="right" valign="top" style="padding-top:5px;height:45px;font-size: 18px;padding-left:4px" class="labelmedium">
 		
 			<table cellspacing="0" cellpadding="0">
 			<tr class="linedotted"><td style="height:30px">
@@ -84,7 +86,7 @@
 						
 							<cfswitch expression="#score#">
 							
-								<td style="padding-left:3px;font-size: 18px;font-weight: 300;" class="labelmedium">
+								<td style="padding-left:3px;font-size: 15px" class="labelmedium">
 								<cfcase value="9">No</cfcase>
 								<cfcase value="1">Yes</cfcase>
 								</td>
@@ -97,11 +99,11 @@
 								      name="score_#left(QuestionId,8)#" 
 									  id="score_#left(QuestionId,8)#" onclick="#lkt#" value="1" <cfif score eq "1">checked</cfif>>	
 								</td>
-								<td style="padding-left:3px;font-size: 18px;font-weight: 300;" class="labelmedium">Yes</td>
+								<td style="padding-left:3px;font-size: 15px" class="labelmedium">Yes</td>
 								
 								<td style="padding-left:7px"><input type="radio" class="radiol"
 								      name="score_#left(QuestionId,8)#" id="score_#left(QuestionId,8)#" onclick="#lkt#" value="9" <cfif score eq "9">checked</cfif>></td>
-								<td style="padding-left:3px;font-size: 18px;font-weight: 300;" class="labelmedium">No</td>					
+								<td style="padding-left:3px;font-size: 15px" class="labelmedium">No</td>					
 						
 						</cfif>
 						
@@ -111,7 +113,7 @@
 						
 							<cfswitch expression="#score#">
 							
-								<td style="padding-left:3px;font-size: 18px;font-weight: 300;" class="labelmedium">
+								<td style="padding-left:3px;font-size: 15px;" class="labelmedium">
 								<cfcase value="9"><cf_tl id="No"></cfcase>
 								<cfcase value="1"><cf_tl id="Yes"></cfcase>
 								<cfcase value="0"><cf_tl id="N/A"></cfcase>
@@ -123,15 +125,15 @@
 										
 								<td><input type="radio" class="radiol" name="score_#left(QuestionId,8)#" id="score_#left(QuestionId,8)#"
 								    onclick="#lkt#" value="1" <cfif score eq "1">checked</cfif>></td>
-								<td style="padding-left:3px;font-size: 18px;font-weight: 300;" class="labelmedium"><cf_tl id="Yes"></td>
+								<td style="padding-left:3px;font-size: 15px" class="labelmedium"><cf_tl id="Yes"></td>
 								
 								<td style="padding-left:9px"><input class="radiol" type="radio" name="score_#left(QuestionId,8)#" id="score_#left(QuestionId,8)#"
 								    onclick="#lkt#" value="9" <cfif score eq "9">checked</cfif>></td>
-								<td style="padding-left:3px;font-size: 18px;font-weight: 300;" class="labelmedium"><cf_tl id="No"></td>
+								<td style="padding-left:3px;font-size: 15px" class="labelmedium"><cf_tl id="No"></td>
 								
 								<td style="padding-left:9px"><input class="radiol" type="radio" name="score_#left(QuestionId,8)#" id="score_#left(QuestionId,8)#"
 								    onclick="#lkt#" value="0" <cfif score eq "0">checked</cfif>></td>
-								<td style="padding-left:3px;font-size: 18px;font-weight: 300;" class="labelmedium"><font color="gray"><cf_tl id="N/A"></font></td>
+								<td style="padding-left:3px;font-size: 15px" class="labelmedium"><font color="gray"><cf_tl id="N/A"></font></td>
 											
 						</cfif>
 						
@@ -141,7 +143,7 @@
 						
 							<cfswitch expression="#score#">
 							
-								<td style="padding-left:3px;font-size: 18px;font-weight: 300;" class="labelmedium">
+								<td style="padding-left:3px;font-size: 15px;" class="labelmedium">
 								<cfcase value="9"><cf_tl id="No"></cfcase>
 								<cfcase value="1"><cf_tl id="Yes"></cfcase>
 								<cfcase value="5"><cf_tl id="Partly"></cfcase>
@@ -153,15 +155,15 @@
 										
 								<td><input type="radio" class="radiol" name="score_#left(QuestionId,8)#" id="score_#left(QuestionId,8)#"
 								    onclick="#lkt#" value="1" <cfif score eq "1">checked</cfif>></td>
-								<td style="padding-left:3px;font-size: 18px;font-weight: 300;" class="labelmedium"><cf_tl id="Yes"></td>
+								<td style="padding-left:3px;font-size:15px" class="labelmedium"><cf_tl id="Yes"></td>
 								
 								<td style="padding-left:9px"><input class="radiol" type="radio" name="score_#left(QuestionId,8)#" id="score_#left(QuestionId,8)#"
 								    onclick="#lkt#" value="9" <cfif score eq "9">checked</cfif>></td>
-								<td style="padding-left:3px;font-size: 18px;font-weight: 300;" class="labelmedium"><cf_tl id="No"></td>
+								<td style="padding-left:3px;font-size:15px" class="labelmedium"><cf_tl id="No"></td>
 								
 								<td style="padding-left:9px"><input class="radiol" type="radio" name="score_#left(QuestionId,8)#" id="score_#left(QuestionId,8)#"
 								    onclick="#lkt#" value="5" <cfif score eq "5">checked</cfif>></td>
-								<td style="padding-left:3px;font-size: 18px;font-weight: 300;" class="labelmedium"><font color="gray"><cf_tl id="Partly"></font></td>
+								<td style="padding-left:3px;font-size:15px" class="labelmedium"><font color="gray"><cf_tl id="Partly"></font></td>
 											
 						</cfif>					
 									
@@ -277,7 +279,22 @@
 		</cfif>
 	
 	</cfloop>	
-	<tr height="50"></tr>	 
+		
+	 <tr>
+		 <td colspan="3" align="right" height="25" style="padding-top:3px;padding-right:20px">						 					 
+										   
+				   <cfset nextbox = boxno+1>
+					 <cfoutput>			   					   					   					   					 		 
+					    <input type = "button" 
+						class       = "button10g" 
+						style       = "width:210px;height:29px;font-size:14px;"						
+						value       = "Next" 
+						onclick     = "document.getElementById('menu#nextbox#').click()">
+					</cfoutput>  				
+										
+		 </td>
+	 </tr>
+	 
 </cfoutput>
   
 </table>

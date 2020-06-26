@@ -305,11 +305,7 @@ password="#SESSION.dbpw#">
 			  AND          Operational = 1
 			  ORDER BY     DateTimePlanning DESC) as DateTimePlanningWorkPlan,
 			  
-			  (SELECT TOP 1 LocationName
-			  FROM         WorkPlanDetail WPD INNER JOIN Location L ON WPD.LocationId = L.LocationId
-			  WHERE        WorkActionId = A.WorkActionid
-			  AND          WPD.Operational = 1
-			  ORDER BY     WPD.DateTimePlanning DESC) as LocationPlanningWorkPlan,
+			  ('') as LocationPlanningWorkPlan,
 			  
 			  (SELECT TOP 1 PlanOrderCode
 			  FROM         WorkPlanDetail

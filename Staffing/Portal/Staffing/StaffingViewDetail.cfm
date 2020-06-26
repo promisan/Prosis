@@ -23,11 +23,9 @@
 	<tr style="background-color:e1e1e1">
 	<td style="padding-top:20px;padding:10px;font-size:20px" class="labelmedium">#qPerson.FullName#</td>
 	</tr>
+
 	
-	<tr>
-	
-	<tr><td style="padding-left:10px" class="labelmedium">Contact Information</td></tr>
-	
+	<tr><td style="padding-left:10px" class="labelmedium">Contact Information</td></tr>	
 	<tr><td style="padding-left:10px;height:40px" class="labelmedium"></td></tr>
 	
 	<tr>
@@ -38,8 +36,7 @@
 			<CF_UITabStripItem name="Appointment" source="StaffingViewDetailContracts.cfm">
 			<CF_UITabStripItem name="Assigments"  source="StaffingViewDetailAssignments.cfm">
 		
-		</CF_UITabStrip>
-   	
+		</CF_UITabStrip>   	
 
 	</td>
 	

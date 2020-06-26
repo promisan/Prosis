@@ -5,14 +5,20 @@
 <cf_filelibraryscript>
 <cf_actionlistingscript>
 <cf_dialogposition>
+<cf_listingscript>
+
 <cfajaximport tags="cfform,cfdiv">
 
 <script language="JavaScript">
 
 	function doFilter() {
 		var vUnits = $('.clsFilterUnit:checked').map(function() {return this.value;}).get().join(',');
-
 		ptoken.navigate('StaffingPositionListing.cfm?mission=#url.mission#&selection=#url.selection#&unit='+vUnits, 'main');
+	}
+	
+	function doEvent() {
+		var vUnits = $('.clsFilterUnit:checked').map(function() {return this.value;}).get().join(',');
+		ptoken.navigate('#session.root#/Staffing/Reporting/ActionLog/EventListingContent.cfm?systemfunctionid=#url.systemfunctionid#&mission=#url.mission#&selection=#url.selection#&unit='+vUnits, 'main');
 	}
 	
 	function AddVacancy(postno,box) {
