@@ -105,65 +105,62 @@ password="#SESSION.dbpw#">
 	  						
 			<cfif url.mode eq "Actor">
 			
-			    <tr><td height="22" align="center" colspan="<cfoutput>#col#</cfoutput>">
+			    <tr class="line"><td height="22" align="center" colspan="<cfoutput>#col#</cfoutput>">
 				
-				<table width="100%" class="navigation_table"><tr>
-				
-					<td width="170"><!--- <b>Expenses</b> ---></td>			
-					<td align="right" width="100%">
-					<table cellspacing="0" cellpadding="0" align="right">
-					<tr><td>
-				
-					<cfmenu 
-				          name="costmenu#objectid#"
-				          font="verdana"
-				          fontsize="14"
-						  menustyle="height:10"
-				          type="horizontal"		
-						  bgcolor="transparent"	          
-				          selecteditemcolor="6688AA"
-				          selectedfontcolor="FFFFFF">					  							  					  	  	    
-							
-						 <cf_tl id="Expense Entry" var="1">
-						 <cfset tExpense = "#Lt_text#">							
-							
-						 <cfmenuitem 
-							     display="#tExpense#"
-							     name="Cost#Object.ObjectId#"
-							     href="javascript:costentry('#Object.ObjectId#','','cost','#url.mode#','#url.box#','#url.actioncode#')"
-							     image="#SESSION.root#/Images/calculate.gif"/>
-
-						 <cf_tl id="Work Entry" var="1">
-						 <cfset tWork = "#Lt_text#">
-									
-						 <cfmenuitem 
-							    display="#tWork#"
-							    name="Work#Object.ObjectId#"
-							    href="javascript:costentry('#Object.ObjectId#','','work','#url.mode#','#url.box#','#url.actioncode#')"
-							    image="#SESSION.root#/Images/activity.gif"/>
-													
-					</cfmenu>	
-					</td></tr>
-					</table>
-					</td></tr>
-				 </table>	
-				 <tr><td colspan="<cfoutput>#col#</cfoutput>" height="1" class="linedotted"></td></tr>
-				 
+					<table width="100%" class="navigation_table"><tr>
+					
+						<td width="170"><!--- <b>Expenses</b> ---></td>			
+						<td align="right" width="100%">
+						<table cellspacing="0" cellpadding="0" align="right">
+						<tr><td>
+					
+						<cfmenu name="costmenu#objectid#"
+					          font="verdana"
+					          fontsize="14"
+							  menustyle="height:10"
+					          type="horizontal"		
+							  bgcolor="transparent"	          
+					          selecteditemcolor="6688AA"
+					          selectedfontcolor="FFFFFF">					  							  					  	  	    
+								
+							 <cf_tl id="Expense Entry" var="1">
+							 <cfset tExpense = "#Lt_text#">							
+								
+							 <cfmenuitem 
+								     display="#tExpense#"
+								     name="Cost#Object.ObjectId#"
+								     href="javascript:costentry('#Object.ObjectId#','','cost','#url.mode#','#url.box#','#url.actioncode#')"
+								     image="#SESSION.root#/Images/calculate.gif"/>
+	
+							 <cf_tl id="Work Entry" var="1">
+							 <cfset tWork = "#Lt_text#">
+										
+							 <cfmenuitem 
+								    display="#tWork#"
+								    name="Work#Object.ObjectId#"
+								    href="javascript:costentry('#Object.ObjectId#','','work','#url.mode#','#url.box#','#url.actioncode#')"
+								    image="#SESSION.root#/Images/activity.gif"/>
+														
+						</cfmenu>	
+						</td></tr>
+						</table>
+						</td></tr>
+					 </table>	
+					 </td>
+				 </tr>	 
+								 
 			 <cfset cl = "top4n">
 			 
 			<!--- workflow embedding ---> 
 			 
 			<cfelseif url.mode eq "work"> 
-				<cfoutput>
-			   
-				<tr>					
+			
+				<cfoutput>			   
+				<tr class="line">					
 					<td width="100%" colspan="#col#" height="22" class="labelit">
-					    <a href="javascript:costentry('#Object.ObjectId#','','work','#url.mode#','#url.box#','#url.actioncode#')">
-						<font color="0080FF"><cf_tl id="Add Work Record"></font>
-						</a>
+				    <a href="javascript:costentry('#Object.ObjectId#','','work','#url.mode#','#url.box#','#url.actioncode#')"><cf_tl id="Add Work Record"></a>
 				    </td>
-				</tr>
-				<tr><td height="1" class="linedotted" colspan="#col#"></td></tr>
+				</tr>				
 				</cfoutput> 
 				
 			<!--- workflow embedding ---> 	 
@@ -172,14 +169,12 @@ password="#SESSION.dbpw#">
 			
 				<cfoutput>
 			   
-				<tr>
+				<tr class="line">
 					<td width="100%" colspan="#col#" height="22" class="labelit">
-				 	<a href="javascript:costentry('#Object.ObjectId#','','cost','#url.mode#','#url.box#','#url.actioncode#')">				
-					<font color="0080FF"><cf_tl id="Add Expense"></font>
-					</a>
+				 	<a href="javascript:costentry('#Object.ObjectId#','','cost','#url.mode#','#url.box#','#url.actioncode#')"><cf_tl id="Add Expense"></a>
 					</td>
 				</tr>
-				<tr><td height="1" class="linedotted" colspan="#col#"></td></tr>
+				
 				</cfoutput>
 				
 			<cfelse>

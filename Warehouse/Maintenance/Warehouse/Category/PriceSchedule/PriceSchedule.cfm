@@ -1,5 +1,4 @@
-<table width="95%" align="center">
-	<tr><td height="5"></td></tr>
+<table width="99%" align="center">	
 	<tr>
 		<td colspan="2">
 			<cfdiv id="divWHPriceSchedule" bind="url:Category/PriceSchedule/PriceScheduleForm.cfm?warehouse=#url.id1#&category=#url.id2#">

@@ -340,7 +340,7 @@
     try {
 	 parent.parent.document.getElementById('mybut').click()
 	 } catch(e) {}
-    parent.parent.ColdFusion.Window.destroy('myshipping',true)	
+    parent.parent.ProsisUI.closeWindow('myshipping',true)	
 	
 </script>
 

@@ -18,7 +18,7 @@
 	   <td><cf_tl id="DOB"></td>		   
 	   <td><cf_tl id="Passport"></td>					  
 	   
-	   <td align="right">
+	   <td align="right" style="min0width:70px">
 	   
 	    <cfoutput>
 		 <cfif url.access eq "Edit">

@@ -128,10 +128,10 @@ password="#SESSION.dbpw#">
 					</cfloop>										
 				  					
 					_cf_loadingtexthtml='';	
-					ColdFusion.navigate('#session.root#/Warehouse/Application/SalesOrder/POS/Sale/getOnHand.cfm?action=#url.action#&line=#url.line#&warehouse=#url.warehouse#&id=#get.TransactionId#','onhand_#url.line#');
+					ptoken.navigate('#session.root#/Warehouse/Application/SalesOrder/POS/Sale/getOnHand.cfm?action=#url.action#&line=#url.line#&warehouse=#url.warehouse#&id=#get.TransactionId#','onhand_#url.line#');
 						
 					<cfif qWarehouse.Beneficiary eq 1 and get.ItemClass eq "Service">
-						ColdFusion.navigate('#session.root#/Warehouse/Application/SalesOrder/POS/Sale/getBeneficiary.cfm?crow=#url.line#&warehouse=#url.warehouse#&id=#get.TransactionId#&clines=#url.value#','Beneficiary_#url.line#');
+						ptoken.navigate('#session.root#/Warehouse/Application/SalesOrder/POS/Sale/getBeneficiary.cfm?crow=#url.line#&warehouse=#url.warehouse#&id=#get.TransactionId#&clines=#url.value#','Beneficiary_#url.line#');
 					</cfif>
 					
 				</script>
@@ -233,9 +233,10 @@ password="#SESSION.dbpw#">
 					datasource="AppsMaterials" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
-						SELECT * FROM WarehouseCategory
-						WHERE Warehouse = '#get.Warehouse#' 
-						AND   Category = '#get.ItemCategory#'					
+						SELECT * 
+						FROM   WarehouseCategory
+						WHERE  Warehouse = '#get.Warehouse#' 
+						AND    Category = '#get.ItemCategory#'					
 					</cfquery>
 					
 					<!--- rounding --->

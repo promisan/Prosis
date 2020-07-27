@@ -16,7 +16,8 @@
   datasource="AppsPurchase" 
   username="#SESSION.login#" 
   password="#SESSION.dbpw#">
-  			  
+  
+   			  
   SELECT DISTINCT J.JobNo, 
                   J.OrderClass as JobType, 
 				  R.EntityClassName as JobName, 

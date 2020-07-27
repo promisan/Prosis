@@ -5,7 +5,6 @@
 <cf_filelibraryscript>
 <cf_actionlistingscript>
 <cf_dialogposition>
-<cf_listingscript>
 
 <cfajaximport tags="cfform,cfdiv">
 
@@ -15,10 +14,10 @@
 		var vUnits = $('.clsFilterUnit:checked').map(function() {return this.value;}).get().join(',');
 		ptoken.navigate('StaffingPositionListing.cfm?mission=#url.mission#&selection=#url.selection#&unit='+vUnits, 'main');
 	}
-	
-	function doEvent() {
-		var vUnits = $('.clsFilterUnit:checked').map(function() {return this.value;}).get().join(',');
-		ptoken.navigate('#session.root#/Staffing/Reporting/ActionLog/EventListingContent.cfm?systemfunctionid=#url.systemfunctionid#&mission=#url.mission#&selection=#url.selection#&unit='+vUnits, 'main');
+					
+	function AddClassification(pos,ajaxid) {
+		ProsisUI.createWindow('classify', 'Record Classification', '',{x:100,y:100,height:600,width:640,modal:true,center:true});	
+		ptoken.navigate('#SESSION.root#/Staffing/Portal/Staffing/StaffingPositionClassification.cfm?positionparentid='+pos+'&ajaxid='+ajaxid+'&portal=1&init=1','classify')		
 	}
 	
 	function AddVacancy(postno,box) {
@@ -27,15 +26,16 @@
 	}
 		
 	function AddEvent(per,pos,box,trg,cde) {    		   		   
-		ProsisUI.createWindow('evdialog', 'HR Event request', '',{x:100,y:100,height:600,width:680,modal:true,resizable:false,center:true})    					
+		ProsisUI.createWindow('evdialog', 'HR Event request', '',{x:100,y:100,height:430,width:680,modal:true,resizable:false,center:true})    					
 	   	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventForm.cfm?box='+box+'&portal=1&personNo='+per+'&positionno='+pos+'&trigger='+trg+'&code='+cde,'evdialog')		 	
 	}
 	
 	function checkevent() {
-		tc = document.getElementById('triggercode');
+		tc  = document.getElementById('triggercode');
 		rid = document.getElementById('eventid');
-		mis = document.getElementById('mission');				
-    	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getEvent.cfm?portal=1&triggercode='+tc.value+'&eventid='+rid.value+'&mission='+mis.value,'dEvent')
+		mis = document.getElementById('mission');	
+		per = document.getElementById('personno');			
+    	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getEvent.cfm?personno='+per.value+'&portal=1&triggercode='+tc.value+'&eventid='+rid.value+'&mission='+mis.value,'dEvent')
     }    
 
     function checkreason() {
@@ -43,6 +43,7 @@
 		ev = document.getElementById('eventcode');
 		rid = document.getElementById('eventid');		
     	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getReason.cfm?triggercode='+tc.value+'&eventcode='+ev.value+'&eventid='+rid.value,'dReason');
+		ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getCondition.cfm?triggercode='+tc.value+'&eventcode='+ev.value+'&eventid='+rid.value,'dCondition');  
     }
 	
 	function eventsubmit(id,box) {

@@ -17,7 +17,10 @@
 
 	FROM        PersonContract C
 	WHERE       PersonNo = '#url.id#' 
-	AND         ContractId IN (SELECT ActionSourceId FROM EmployeeAction WHERE ActionStatus = '1' AND ActionPersonNo = '#url.id#') 
+	AND         ContractId IN (SELECT ActionSourceId 
+	                           FROM   EmployeeAction 
+							   WHERE  ActionStatus = '1' 
+							   AND    ActionPersonNo = '#url.id#') 
 	
 	<!---
 	UNION
@@ -68,7 +71,7 @@
 		<cfset ar[row][8] = actiondescription>		
 	
 			
-	<cfelseif ActionCode eq "3005">	
+	<cfelseif ActionCode eq "3005">	<!--- promotion --->
 	
 		<cfset row = row+1>
 	    <cfset ar[row][1]   = mission>
@@ -76,7 +79,12 @@
 		
 		<cfset ar[row][3]   = dateformat(DateEffective,client.datesql)>
 		<cfset ar[row][4]   = dateformat(DateExpiration,client.datesql)>	
+		<cftry>
 		<cfset ar[row-1][4] = dateformat(DateEffective-1,client.datesql)>	
+		<cfcatch>
+		<cfset ar[row][4] = dateformat(DateEffective,client.datesql)>	
+		</cfcatch>
+		</cftry>
 		<cfset ar[row][5]   = contractlevel>
 		<cfset ar[row][6]   = contractTime>
 		<cfset ar[row][7]   = actionstatus>

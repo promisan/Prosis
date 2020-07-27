@@ -53,11 +53,13 @@
 
 <cf_tl id="Settlement" var="set">
 
+<!---
 <cf_screentop height="100%" label="#set#" banner="blue" layout="webapp" close="ColdFusion.Window.destroy('wsettle',true)" jquery="No">
+--->
 
-<cfform id="salesdetails" name="salesdetails" method="POST" style="height:100%;padding-right:6px">
+<cfform id="salesdetails" name="salesdetails" method="POST" style="height:98%;padding-right:6px">
 
-	<table width="100%" height="100%" cellspacing="0" cellpadding="0" bgcolor="FFFFFF">
+	<table width="100%" height="100%" bgcolor="FFFFFF">
 	
 	<tr>
 	

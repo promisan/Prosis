@@ -888,6 +888,9 @@ $.fn.kendoDataSource = function(options) {
     /// &#10;group - Array|Object 
     /// &#10;The grouping configuration of the data source. If set, the data items will be grouped when the data source is populated. By default, grouping is not applied.
     /// &#10;
+    /// &#10;groupPaging - Boolean (default: false)
+    /// &#10;When set to true, dataSource treats groups as items during pagination.
+    /// &#10;
     /// &#10;inPlaceSort - Boolean (default: false)
     /// &#10;If set to true, the original Array used as data will be sorted when sorting operation is performed. This setting supported only with local data, bound to a JavaScript array via the data option.
     /// &#10;
@@ -926,6 +929,97 @@ $.fn.kendoDataSource = function(options) {
     /// &#10;
     /// &#10;type - String 
     /// &#10;If set, the data source will use a predefined transport and/or schema.The supported values are: "odata" which supports the OData v.2 protocol; "odata-v4" which partially supports odata version 4 or "signalr".
+    /// &#10;
+    /// </summary>
+    /// <param name="options" type="Object">
+    /// The widget configuration options
+    /// </param>
+};
+
+
+kendo.data.FileEntry = function() { };
+
+kendo.data.FileEntry.prototype = {
+
+
+
+    bind: function(event, callback) {
+        /// <summary>
+        /// Binds to a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be executed when the event is triggered.</param>
+    },
+
+    unbind: function(event, callback) {
+        /// <summary>
+        /// Unbinds a callback from a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be removed.</param>
+    }
+
+};
+
+$.fn.getKendoFileEntry = function() {
+    /// <summary>
+    /// Returns a reference to the kendo.data.FileEntry widget, instantiated on the selector.
+    /// </summary>
+    /// <returns type="kendo.data.FileEntry">The kendo.data.FileEntry instance (if present).</returns>
+};
+
+$.fn.kendoFileEntry = function(options) {
+    /// <summary>
+    /// Instantiates a kendo.data.FileEntry widget based the DOM elements that match the selector.
+
+    /// &#10;Accepts an object with the following configuration options:
+    /// &#10;
+    /// </summary>
+    /// <param name="options" type="Object">
+    /// The widget configuration options
+    /// </param>
+};
+
+
+kendo.data.FileManagerDataSource = function() { };
+
+kendo.data.FileManagerDataSource.prototype = {
+
+
+
+    bind: function(event, callback) {
+        /// <summary>
+        /// Binds to a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be executed when the event is triggered.</param>
+    },
+
+    unbind: function(event, callback) {
+        /// <summary>
+        /// Unbinds a callback from a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be removed.</param>
+    }
+
+};
+
+$.fn.getKendoFileManagerDataSource = function() {
+    /// <summary>
+    /// Returns a reference to the kendo.data.FileManagerDataSource widget, instantiated on the selector.
+    /// </summary>
+    /// <returns type="kendo.data.FileManagerDataSource">The kendo.data.FileManagerDataSource instance (if present).</returns>
+};
+
+$.fn.kendoFileManagerDataSource = function(options) {
+    /// <summary>
+    /// Instantiates a kendo.data.FileManagerDataSource widget based the DOM elements that match the selector.
+
+    /// &#10;Accepts an object with the following configuration options:
+    /// &#10;
+    /// &#10;schema - Object 
+    /// &#10;The schema configuration. See the DataSource.schema configuration for all available options.
     /// &#10;
     /// </summary>
     /// <param name="options" type="Object">
@@ -2940,7 +3034,7 @@ kendo.dataviz.diagram.Connection.prototype = {
         /// Gets or sets the current source of the connection.This object can be a Point for a floating endpoint (i.e. not attached to a shape), a Shape or a Connector of a Shape. You can use the Shape.getConnector() method to fetch a Connector on the basis of its name. If a Shape is specified the Connection will attach to the "Auto" connector.
         /// </summary>
         /// <param name="source" type="Object" >Point: any Point on the canvas. This creates an unattached floating endpoint.; Shape: will bind the endpoint to the"Auto" Connector which will switch between the other connectors to minimize the length of the connection. or Connector: the connection's endpoint will remain fixed attached to the specified Connector.. If no source is specified the method will return the current object to which the Connection's endpoint is attached.</param>
-        /// <returns type="Object">the connection source.The following example shows how to change the source shape of a connection:```dojo     Change Connection Source     <div id="diagram"></div>            var Shape = kendo.dataviz.diagram.Shape;       $("#diagram").kendoDiagram();       var diagram = $("#diagram").data("kendoDiagram");       var shape1 = diagram.addShape( new Shape({ x: 100, y: 100 }));       var shape2 = diagram.addShape( new Shape({ x: 300, y: 180 }));       var shape3 = diagram.addShape( new Shape({ x: 300, y: 20 }));```</returns>
+        /// <returns type="Object">the connection source.The following example shows how to change the source shape of a connection:</returns>
 
     },
 
@@ -2949,7 +3043,7 @@ kendo.dataviz.diagram.Connection.prototype = {
         /// <summary>
         /// Gets the global coordinate of the connection's start (initial endpoint). The method returns a Point independently of the object to which the source is attached.
         /// </summary>
-        /// <returns type="kendo.dataviz.diagram.Point">the coordinates of the connection source.```dojo     Get Connection Source Point     <div id="diagram"></div>            var Shape = kendo.dataviz.diagram.Shape;       $("#diagram").kendoDiagram();       var diagram = $("#diagram").data("kendoDiagram");       var shape1 = diagram.addShape( new Shape({ x: 100, y: 100 }));       var shape2 = diagram.addShape( new Shape({ x: 300, y: 180 }));```</returns>
+        /// <returns type="kendo.dataviz.diagram.Point">the coordinates of the connection source.</returns>
 
     },
 
@@ -2958,7 +3052,7 @@ kendo.dataviz.diagram.Connection.prototype = {
         /// <summary>
         /// Gets or set the target of the Connection.This object can be a Point for a floating endpoint (i.e. not attached to a shape), a Shape or a Connector of a Shape. You can use the Shape.getConnector() method to fetch a Connector on the basis of its name. If a Shape is specified the Connection will attach to the "Auto" connector.
         /// </summary>
-        /// <param name="target" type="Object" >Point: any Point on the canvas. This creates an unattached floating endpoint.; Shape: will bind the endpoint to the"Auto" Connector which will switch between the other connectors to minimize the length of the connection. or Connector: the connection's endpoint will remain fixed attached to the specified Connector.. If no source is specified the method will return the current object to which the Connection's endpoint is attached.```dojo     Change Connection Target     <div id="diagram"></div>            var Shape = kendo.dataviz.diagram.Shape;       $("#diagram").kendoDiagram();       var diagram = $("#diagram").data("kendoDiagram");       var shape1 = diagram.addShape( new Shape({ x: 120, y: 180 }));       var shape2 = diagram.addShape( new Shape({ x: 120, y: 30 }));       var shape3 = diagram.addShape( new Shape({ x: 120, y: 330 }));```</param>
+        /// <param name="target" type="Object" >Point: any Point on the canvas. This creates an unattached floating endpoint.; Shape: will bind the endpoint to the"Auto" Connector which will switch between the other connectors to minimize the length of the connection. or Connector: the connection's endpoint will remain fixed attached to the specified Connector.. If no source is specified the method will return the current object to which the Connection's endpoint is attached.</param>
         /// <returns type="Object">the connection target.</returns>
 
     },
@@ -2968,7 +3062,7 @@ kendo.dataviz.diagram.Connection.prototype = {
         /// <summary>
         /// Similar to the sourcePoint, this gets the coordinates of the target of the Connection independently of its endpoint attachment.
         /// </summary>
-        /// <returns type="kendo.dataviz.diagram.Point">the coordinates of the connection target.```dojo     Get Connection Target Point     <div id="diagram"></div>            var Shape = kendo.dataviz.diagram.Shape;       $("#diagram").kendoDiagram();       var diagram = $("#diagram").data("kendoDiagram");       var shape1 = diagram.addShape( new Shape({ x: 100, y: 100 }));       var shape2 = diagram.addShape( new Shape({ x: 300, y: 180 }));```</returns>
+        /// <returns type="kendo.dataviz.diagram.Point">the coordinates of the connection target.</returns>
 
     },
 
@@ -2977,7 +3071,7 @@ kendo.dataviz.diagram.Connection.prototype = {
         /// <summary>
         /// Select or deselects the Connection.
         /// </summary>
-        /// <param name="value" type="Boolean" >True to select the Connection and false to deselect it.```dojo     Select Connection     <div id="diagram"></div>            var Shape = kendo.dataviz.diagram.Shape;       $("#diagram").kendoDiagram();       var diagram = $("#diagram").data("kendoDiagram");       var shape1 = diagram.addShape( new Shape({ x: 100, y: 100 }));       var shape2 = diagram.addShape( new Shape({ x: 300, y: 100 }));```</param>
+        /// <param name="value" type="Boolean" >True to select the Connection and false to deselect it.</param>
 
     },
 
@@ -2986,14 +3080,14 @@ kendo.dataviz.diagram.Connection.prototype = {
         /// <summary>
         /// Gets or sets the (sub-) type of the Connection which defines the way it routes.The routing of a connection is the way that intermediate points of a Connection defines a route. A route is usually defined on the basis of constraints or behaviors. Currently the framework defines a default polyline route (which simply connects the given intermediate points) and a simple rectangular (aka cascading) route. The cascading type is useful when using tree layout and hierarchies; the routed Connection will in this case enhance the representation of the hierarchy and thus reproduce a classic organization diagram.
         /// </summary>
-        /// <param name="value" type="String" >"polyline" - connects the defined intermediate points. See the points() method. or "cascading" - discards given points and defines a cascading path between the endpoints.. ```dojo     Change Connection Type     <div id="diagram"></div>            var Shape = kendo.dataviz.diagram.Shape;       $("#diagram").kendoDiagram();       var diagram = $("#diagram").data("kendoDiagram");       var shape1 = diagram.addShape( new Shape({ x: 100, y: 100 }));       var shape2 = diagram.addShape( new Shape({ x: 300, y: 180 }));```</param>
+        /// <param name="value" type="String" >"polyline" - connects the defined intermediate points. See the points() method. or "cascading" - discards given points and defines a cascading path between the endpoints..</param>
 
     },
 
 
     points: function() {
         /// <summary>
-        /// Gets the intermediate points of the connection.```dojo     Get Connection Points     <div id="diagram"></div>            var Shape = kendo.dataviz.diagram.Shape;       $("#diagram").kendoDiagram();       var diagram = $("#diagram").data("kendoDiagram");       var shape1 = diagram.addShape( new Shape({ x: 20, y: 180 }));       var shape2 = diagram.addShape( new Shape({ x: 300, y: 180 }));```
+        /// Gets the intermediate points of the connection.
         /// </summary>
         /// <returns type="Array">the intermediate points of the connection.</returns>
 
@@ -3004,7 +3098,7 @@ kendo.dataviz.diagram.Connection.prototype = {
         /// <summary>
         /// Gets all points of the Connection. This is the union of the endpoints and the intermediate points.
         /// </summary>
-        /// <returns type="Array">all points of the connection.```dojo     Get Connection Points     <div id="diagram"></div>            var Shape = kendo.dataviz.diagram.Shape;       $("#diagram").kendoDiagram();       var diagram = $("#diagram").data("kendoDiagram");       var shape1 = diagram.addShape( new Shape({ x: 20, y: 180 }));       var shape2 = diagram.addShape( new Shape({ x: 300, y: 180 }));```</returns>
+        /// <returns type="Array">all points of the connection.</returns>
 
     },
 
@@ -3013,7 +3107,7 @@ kendo.dataviz.diagram.Connection.prototype = {
         /// <summary>
         /// Redraws the Connection with the given options.
         /// </summary>
-        /// <param name="options" type="Object" >The new options for the connection. This object should follow the configuration structure.```dojo     Redraw Connection     <div id="diagram"></div>            var Shape = kendo.dataviz.diagram.Shape;       $("#diagram").kendoDiagram();       var diagram = $("#diagram").data("kendoDiagram");       var shape1 = diagram.addShape( new Shape({ x: 20, y: 100 }));       var shape2 = diagram.addShape( new Shape({ x: 300, y: 100 }));```</param>
+        /// <param name="options" type="Object" >The new options for the connection. This object should follow the configuration structure.</param>
 
     },
 
@@ -3022,7 +3116,7 @@ kendo.dataviz.diagram.Connection.prototype = {
         /// <summary>
         /// Gets or sets the connection visible state.
         /// </summary>
-        /// <param name="visible" type="Boolean" >Indicates whether the connection should be visible in the Diagram. If skipped, the method will return the current visible state of the connection.```dojo```</param>
+        /// <param name="visible" type="Boolean" >Indicates whether the connection should be visible in the Diagram. If skipped, the method will return the current visible state of the connection.</param>
 
     },
 
@@ -3058,10 +3152,10 @@ $.fn.kendoConnection = function(options) {
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
     /// &#10;content - Object 
-    /// &#10;Defines the options for the label displayed on the connection path.```dojo                 var Shape = kendo.dataviz.diagram.Shape;       $("#diagram").kendoDiagram();       var diagram = $("#diagram").data("kendoDiagram");       var shape1 = diagram.addShape( new Shape({x:100, y: 100}));       var shape2 = diagram.addShape( new Shape({x:300, y: 100}));```
+    /// &#10;Defines the options for the label displayed on the connection path.
     /// &#10;
     /// &#10;fromConnector - String (default: "Auto")
-    /// &#10;Specifies the name of the source shape connector that should be used by default.```dojo                 var Shape = kendo.dataviz.diagram.Shape;       $("#diagram").kendoDiagram();       var diagram = $("#diagram").data("kendoDiagram");       var shape1 = diagram.addShape( new Shape({ x: 100, y: 100 }));       var shape2 = diagram.addShape( new Shape({ x: 300, y: 180 }));```
+    /// &#10;Specifies the name of the source shape connector that should be used by default.
     /// &#10;
     /// &#10;fromX - Number 
     /// &#10;The absolute point (X-coordinate), if any, that the connection is originating from.
@@ -3070,7 +3164,7 @@ $.fn.kendoConnection = function(options) {
     /// &#10;The absolute point (Y-coordinate), if any, that the connection is originating from.
     /// &#10;
     /// &#10;stroke - Object 
-    /// &#10;Defines the stroke configuration.```dojo                 var Shape = kendo.dataviz.diagram.Shape;       $("#diagram").kendoDiagram();       var diagram = $("#diagram").data("kendoDiagram");       var shape1 = diagram.addShape( new Shape({x:100, y: 100}));       var shape2 = diagram.addShape( new Shape({x:300, y: 100}));```
+    /// &#10;Defines the stroke configuration.
     /// &#10;
     /// &#10;hover - Object 
     /// &#10;Defines the hover configuration.
@@ -3094,7 +3188,7 @@ $.fn.kendoConnection = function(options) {
     /// &#10;Specifies if the connection can be selected.
     /// &#10;
     /// &#10;toConnector - String (default: "Auto")
-    /// &#10;Specifies the name of the target shape connector that should be used by default.```dojo                 var Shape = kendo.dataviz.diagram.Shape;       $("#diagram").kendoDiagram();       var diagram = $("#diagram").data("kendoDiagram");       var shape1 = diagram.addShape( new Shape({x:100, y: 250}));       var shape2 = diagram.addShape( new Shape({x:300, y: 50}));```
+    /// &#10;Specifies the name of the target shape connector that should be used by default.
     /// &#10;
     /// &#10;toX - Number 
     /// &#10;The absolute point (X-coordinate), if any, that the connection is pointing to.
@@ -3103,7 +3197,7 @@ $.fn.kendoConnection = function(options) {
     /// &#10;The absolute point (Y-coordinate), if any, that the connection is pointing to.
     /// &#10;
     /// &#10;type - String 
-    /// &#10;Specifies the connection type. The supported values are "polyline" and "cascading".```dojo                 var Shape = kendo.dataviz.diagram.Shape;       $("#diagram").kendoDiagram();       var diagram = $("#diagram").data("kendoDiagram");       var shape1 = diagram.addShape( new Shape({x:100, y: 250}));       var shape2 = diagram.addShape( new Shape({x:300, y: 50}));```
+    /// &#10;Specifies the connection type. The supported values are "polyline" and "cascading".
     /// &#10;
     /// </summary>
     /// <param name="options" type="Object">
@@ -4096,7 +4190,7 @@ $.fn.kendoShape = function(options) {
     /// &#10;Defines the shape editable options.
     /// &#10;
     /// &#10;path - String 
-    /// &#10;The path option of a Shape is a description of a custom geometry. The format follows the standard SVG format (http://www.w3.org/TR/SVG/paths.html#PathData "SVG Path data.").
+    /// &#10;The path option of a Shape is a description of a custom geometry. The format follows the standard SVG format (https://www.w3.org/TR/SVG/paths.html#PathData "SVG Path data.").
     /// &#10;
     /// &#10;stroke - Object 
     /// &#10;Defines the stroke configuration.
@@ -5556,7 +5650,7 @@ $.fn.kendoChart = function(options) {
     /// &#10;The default options for all series.
     /// &#10;
     /// &#10;theme - String 
-    /// &#10;The chart theme. This can be either a built-in theme or "sass". When set to "sass" the chart will read the variables from the Sass-based themes.The supported values are: "sass" - special value, see notes; "black"; "blueopal"; "bootstrap"; "default"; "highcontrast"; "metro"; "metroblack"; "moonlight"; "silver" or "uniform".
+    /// &#10;The chart theme. This can be either a built-in theme or "sass". When set to "sass" the chart will read the variables from the Sass-based themes. More information on the built-in themes could be found in the Less-based themes article.The supported values are: "sass" - special value, see notes; "black"; "blueopal"; "bootstrap"; "default"; "highcontrast"; "metro"; "metroblack"; "moonlight"; "silver" or "uniform".
     /// &#10;
     /// &#10;title - String 
     /// &#10;The chart title configuration options or text.
@@ -5611,7 +5705,7 @@ kendo.dataviz.ui.Diagram.prototype = {
 
     addShape: function(obj,undoable) {
         /// <summary>
-        /// Adds a new shape to the diagram.
+        /// Adds a new shape to the diagram. If the diagram is bound to a data source, do not use addShae(newShape). Instead, use diagram.dataSource.add(newShape); and optionally .sync() the data source.
         /// </summary>
         /// <param name="obj" type="Object" >A Shape instance or a Point where the default shape type will be added.</param>
         /// <param name="undoable" type="Boolean" >Whether the addition should be recorded in the undo-redo stack.</param>
@@ -13100,6 +13194,16 @@ kendo.spreadsheet.Range.prototype = {
     },
 
 
+    html: function(value) {
+        /// <summary>
+        /// Gets or sets the html rendering of the cells in the range.
+        /// </summary>
+        /// <param name="value" type="Boolean" >True to make the cell render the value as HTML.  It is important to sanitize the value of the cell on the server for passing safe html because there is no client-side sanitizing. When editing a cell the new value can be checked and prevented in the client changing event.</param>
+        /// <returns type="Boolean">the current html state of the top-left cell of the range.</returns>
+
+    },
+
+
     fillFrom: function(srcRange,direction) {
         /// <summary>
         /// Fills a range with values inferred from a source range.  This method employs some heuristics similar to what Excel's auto-filling algorithm does when you select a range of cells and drag the bottom-right handle.  The range to be filled is the current object, and you must pass a source range containing data as first argument.
@@ -13410,11 +13514,12 @@ kendo.spreadsheet.Sheet.prototype = {
     },
 
 
-    deleteRow: function(index) {
+    deleteRow: function(index,skipDataSourceDelete) {
         /// <summary>
         /// Deletes the contents of the row at the provided index and shifts the remaining contents of the sheet up.
         /// </summary>
         /// <param name="index" type="Number" >The zero-based index of the row</param>
+        /// <param name="skipDataSourceDelete" type="Boolean" >If passed true, the method does not delete item from the DataSource.</param>
 
     },
 
@@ -13475,11 +13580,12 @@ kendo.spreadsheet.Sheet.prototype = {
     },
 
 
-    insertRow: function(index) {
+    insertRow: function(index,skipDataSourceInsert) {
         /// <summary>
         /// Inserts a new, empty row at the provided index. The contents of the spreadsheet (including the ones in the current row index) are shifted down.
         /// </summary>
         /// <param name="index" type="Number" >The zero-based index of the column</param>
+        /// <param name="skipDataSourceInsert" type="Boolean" >If passed true, the method does not insert item in the DataSource.</param>
 
     },
 
@@ -13705,6 +13811,84 @@ $.fn.getKendoValueFilter = function() {
 $.fn.kendoValueFilter = function(options) {
     /// <summary>
     /// Instantiates a kendo.spreadsheet.ValueFilter widget based the DOM elements that match the selector.
+
+    /// &#10;Accepts an object with the following configuration options:
+    /// &#10;
+    /// </summary>
+    /// <param name="options" type="Object">
+    /// The widget configuration options
+    /// </param>
+};
+
+
+kendo.stepper.Step = function() { };
+
+kendo.stepper.Step.prototype = {
+
+
+
+
+    deselect: function() {
+        /// <summary>
+        /// Deselects the Step.
+        /// </summary>
+
+    },
+
+
+    enable: function(value) {
+        /// <summary>
+        /// Enables or disables the Step.
+        /// </summary>
+        /// <param name="value" type="Boolean" >Specifies whether the step should be enabled (true) or disabled (false).</param>
+
+    },
+
+
+    select: function() {
+        /// <summary>
+        /// Selects the Step.
+        /// </summary>
+
+    },
+
+
+    setValid: function(value) {
+        /// <summary>
+        /// Sets the valid(error) state of the Step.
+        /// </summary>
+        /// <param name="value" type="Boolean" >Specifies whether the state should be valid (true) or not (false).</param>
+
+    },
+
+    bind: function(event, callback) {
+        /// <summary>
+        /// Binds to a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be executed when the event is triggered.</param>
+    },
+
+    unbind: function(event, callback) {
+        /// <summary>
+        /// Unbinds a callback from a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be removed.</param>
+    }
+
+};
+
+$.fn.getKendoStep = function() {
+    /// <summary>
+    /// Returns a reference to the kendo.stepper.Step widget, instantiated on the selector.
+    /// </summary>
+    /// <returns type="kendo.stepper.Step">The kendo.stepper.Step instance (if present).</returns>
+};
+
+$.fn.kendoStep = function(options) {
+    /// <summary>
+    /// Instantiates a kendo.stepper.Step widget based the DOM elements that match the selector.
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
@@ -14016,6 +14200,259 @@ $.fn.kendoAutoComplete = function(options) {
 };
 
 
+kendo.ui.Badge = function() { };
+
+kendo.ui.Badge.prototype = {
+
+
+
+
+    color: function(color) {
+        /// <summary>
+        /// Sets or gets the color of the badge.
+        /// </summary>
+        /// <param name="color" type="String" >See badge.options.color for valid options.</param>
+
+    },
+
+
+    hide: function() {
+        /// <summary>
+        /// Hides the badge.
+        /// </summary>
+
+    },
+
+
+    icon: function(icon) {
+        /// <summary>
+        /// Sets or gets the icon of the badge.
+        /// </summary>
+        /// <param name="icon" type="String" >See badge.options.icon for valid options.</param>
+
+    },
+
+
+    setOptions: function(options) {
+        /// <summary>
+        /// Modifies the initial configuration of the badge
+        /// </summary>
+        /// <param name="options" type="Object" >The new options.</param>
+
+    },
+
+
+    shape: function(shape) {
+        /// <summary>
+        /// Sets / gets the badge shape. See badge.options.shape for valid options.
+        /// </summary>
+        /// <param name="shape" type="String" >The new shape of the badge.</param>
+
+    },
+
+
+    show: function() {
+        /// <summary>
+        /// Shows the badge.
+        /// </summary>
+
+    },
+
+
+    text: function(text) {
+        /// <summary>
+        /// Sets / gets the text of the badge.
+        /// </summary>
+        /// <param name="text" type="Object" >The new text of the badge.</param>
+
+    },
+
+
+    value: function() {
+        /// <summary>
+        /// Deprecated! Use badge.text() instead.For compatibility badge.value() maps to badge.text().
+        /// </summary>
+
+    },
+
+    bind: function(event, callback) {
+        /// <summary>
+        /// Binds to a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be executed when the event is triggered.</param>
+    },
+
+    unbind: function(event, callback) {
+        /// <summary>
+        /// Unbinds a callback from a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be removed.</param>
+    }
+
+};
+
+$.fn.getKendoBadge = function() {
+    /// <summary>
+    /// Returns a reference to the kendo.ui.Badge widget, instantiated on the selector.
+    /// </summary>
+    /// <returns type="kendo.ui.Badge">The kendo.ui.Badge instance (if present).</returns>
+};
+
+$.fn.kendoBadge = function(options) {
+    /// <summary>
+    /// Instantiates a kendo.ui.Badge widget based the DOM elements that match the selector.
+
+    /// &#10;Accepts an object with the following configuration options:
+    /// &#10;
+    /// &#10;appearance - String (default: 'rounded')
+    /// &#10;Deprecated! Use badge.options.shape instead.For compatibility badge.options.appearance maps to badge.options.shape.
+    /// &#10;
+    /// &#10;badgeStyle - String (default: 'solid')
+    /// &#10;Specifies the structure of a badge. Valid options are solid (default) and outline.
+    /// &#10;
+    /// &#10;color - String (default: 'secondary')
+    /// &#10;Specifies the color of the component. Valid options are inherit: no coloring will be applied to the badge. Useful when the badge needs to blend-in with the surrounding elements.; default: apply coloring based on surface theme color.; primary:  apply coloring based on primary theme color.; secondary: apply coloring based on secondary theme color.; tertiary: apply coloring based on tertiary theme color.; info: apply coloring based on info theme color.; success: apply coloring based on success theme color.; warning:apply coloring based on warning theme color.; error: apply coloring based on error theme color.; dark: apply coloring based on dark theme color.; light: always coloring based on light theme color. or inverted: depending on the luminance of the theme, light or dark, inverted will be dark or light..
+    /// &#10;
+    /// &#10;cutoutBorder - Boolean (default: false)
+    /// &#10;Specifies wether or not to render additional "cutout" border around the badge.
+    /// &#10;
+    /// &#10;icon - String (default: '')
+    /// &#10;Defines the name for an existing icon in a Kendo UI theme or SVG content. The icon is rendered inside the badge by a span.k-icon or span.k-svg-icon element.See web font icons help article for more details on Kendo UI icons.
+    /// &#10;
+    /// &#10;look - String (default: 'solid')
+    /// &#10;Deprecated! Use badge.options.badgeStyle instead.For compatibility badge.options.look maps to badge.options.badgeStyle.
+    /// &#10;
+    /// &#10;max - Number (default: Infinity)
+    /// &#10;If text is a number, it will cap that number.
+    /// &#10;
+    /// &#10;overlay - Boolean (default: true)
+    /// &#10;Deprecated! Use position instead.There is no built in mapping between overlay and position: overlay: false can be achieved by setting position: "inline" or overlay: true can be achieved by setting position: "top end", or not setting it at all.. For compatibility overlay is kept, even though it has no effect on the badge.
+    /// &#10;
+    /// &#10;placement - String (default: 'edge')
+    /// &#10;Specifies position of the badge relative to the edge of the container. Valid placemnt options are: edge: the center of the badge is positioned on the edge of the container.; inside: the badge is entirely positioned inside the container. or outside: the badge is entirely positioned oustide the container.. Note: placement configuration requires the badge to be positioned. See position for more details.
+    /// &#10;
+    /// &#10;position - String (default: 'inline')
+    /// &#10;Specifies position of the badge relative to its container. Valid position options are: inline: positions the badge inside the container, next to the text.; top start: positions the badge at top left corner of the container; top right in RTL mode.; top end: positions the badge at top right corner of the container; top left in RTL mode.; bottom start: positions the badge at bottom left corner of the container; bottom right in RTL mode. or bottom end: positions the badge at bottom right corner of the container; bottom right in RTL mode..  works in conjunction with placement.Note: when using position other than inline, make sure the badge container has css position other than static and allows overflow content.
+    /// &#10;
+    /// &#10;shape - String (default: 'rounded')
+    /// &#10;Specifies the shape of the badge rectangle: applies no border radius on the badge.; rounded: applies default border radius on the badge. Note: rounded shape is theme specific and in some themes there might be no rounding of edges.; pill: applies border radius equal to half the height of the badge. Note: pill shape is not theme specific and is always applied when set.; circle: forces circular shape on the badge. Note: circle shape is not theme specific and is always applied when set. or dot: forces dot shape on the badge. Note: dot shape is not theme specific and is always applied when set..
+    /// &#10;
+    /// &#10;size - String (default: 'medium')
+    /// &#10;Specifies the size of the badge. Valid options are small, medium and large.
+    /// &#10;
+    /// &#10;template - String|Function 
+    /// &#10;The template which renders the content of the badge.
+    /// &#10;
+    /// &#10;text - String|Number (default: '')
+    /// &#10;The text of the badge. Valid input includes string, number or object with toString method. Default is empty string.
+    /// &#10;
+    /// &#10;type - String (default: 'secondary')
+    /// &#10;Deprecated! Use badge.options.color instead.For compatibility badge.options.type maps to badge.options.color.
+    /// &#10;
+    /// &#10;value - String|Number (default: '')
+    /// &#10;Deprecated! Use badge.options.text instead.For compatibility badge.options.value maps to badge.options.text.
+    /// &#10;
+    /// &#10;visible - Boolean (default: true)
+    /// &#10;If set to false the badge will not be displayed.
+    /// &#10;
+    /// </summary>
+    /// <param name="options" type="Object">
+    /// The widget configuration options
+    /// </param>
+};
+
+
+kendo.ui.Breadcrumb = function() { };
+
+kendo.ui.Breadcrumb.prototype = {
+
+
+
+
+    value: function(path) {
+        /// <summary>
+        /// A getter and setter for the value of the component.
+        /// </summary>
+        /// <param name="path" type="String" >The path segments separated by slash.</param>
+
+    },
+
+
+    items: function(items) {
+        /// <summary>
+        /// A getter and setter for the items rendered in the component.
+        /// </summary>
+        /// <param name="items" type="Array" >The path segments separated by slash.</param>
+
+    },
+
+    bind: function(event, callback) {
+        /// <summary>
+        /// Binds to a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be executed when the event is triggered.</param>
+    },
+
+    unbind: function(event, callback) {
+        /// <summary>
+        /// Unbinds a callback from a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be removed.</param>
+    }
+
+};
+
+$.fn.getKendoBreadcrumb = function() {
+    /// <summary>
+    /// Returns a reference to the kendo.ui.Breadcrumb widget, instantiated on the selector.
+    /// </summary>
+    /// <returns type="kendo.ui.Breadcrumb">The kendo.ui.Breadcrumb instance (if present).</returns>
+};
+
+$.fn.kendoBreadcrumb = function(options) {
+    /// <summary>
+    /// Instantiates a kendo.ui.Breadcrumb widget based the DOM elements that match the selector.
+
+    /// &#10;Accepts an object with the following configuration options:
+    /// &#10;
+    /// &#10;bindToLocation - Boolean (default: false)
+    /// &#10;Indicates whether the Breadcrumb will enable/disable the binding to the location object of the browser on initialization.
+    /// &#10;
+    /// &#10;delimiterIcon - String (default: "arrow-chevron-right")
+    /// &#10;Defines a name of an existing icon in the Kendo UI Web Font Icons. The icon will be applied as separator between the segments of the Breadcrumb path.
+    /// &#10;
+    /// &#10;editable - Boolean (default: false)
+    /// &#10;Indicates whether the editing functionality of the Breadcrumb will be enabled/disabled.If the option is enabled the path will be editable. Clicking in an empty area of the component will trigger editing mode. Editing mode shows an input showing the value of the component enabling the end user to type a new path.
+    /// &#10;
+    /// &#10;items - Array 
+    /// &#10;Array of items to be rendered in Breadcrumb.
+    /// &#10;
+    /// &#10;gap - Number (default: 0)
+    /// &#10;Defines the space in pixels after the last item to stay empty.The gap value is taken into account when items overflow and continues to remain empty.
+    /// &#10;
+    /// &#10;messages - Object 
+    /// &#10;Defines the text of the root icon title that is displayed within the Breadcrumb.
+    /// &#10;
+    /// &#10;navigational - Boolean (default: false)
+    /// &#10;Indicates whether the navigation functionality of the Breadcrumb will be enabled/disabled.When navigational is set to false, automatic navigation (changing url location) is disabled by default. In this state, the click event will be prevented and navigation will occur only if programmatic navigation is implemented.When navigational is set to true, the url (path) will be automatically added to the href attribute of the rendered links. In this state, the click event will trigger navigation.
+    /// &#10;
+    /// &#10;rootIcon - String (default: "home")
+    /// &#10;Defines a name of an existing icon in the Kendo UI Web Font Icons. The icon will be applied as the first item(root) of Breadcrumb path.The root icon is clickable and resets the value of the component.
+    /// &#10;
+    /// &#10;value - String (default: "")
+    /// &#10;Defines the value/path of the component. Each segments is separated by a slash.
+    /// &#10;
+    /// </summary>
+    /// <param name="options" type="Object">
+    /// The widget configuration options
+    /// </param>
+};
+
+
 kendo.ui.Button = function() { };
 
 kendo.ui.Button.prototype = {
@@ -14061,6 +14498,12 @@ $.fn.kendoButton = function(options) {
     /// Instantiates a kendo.ui.Button widget based the DOM elements that match the selector.
 
     /// &#10;Accepts an object with the following configuration options:
+    /// &#10;
+    /// &#10;badge - Boolean|String|Number 
+    /// &#10;If set to true a default overlay badge will be displayed. If set to a string, an ovelay with content set to the specified string will be displayed. Can be set to a JavaScript object which represents the configuration of the Badge widget.
+    /// &#10;
+    /// &#10;badge - Object 
+    /// &#10;If set to true a default overlay badge will be displayed. If set to a string, an ovelay with content set to the specified string will be displayed. Can be set to a JavaScript object which represents the configuration of the Badge widget.
     /// &#10;
     /// &#10;enable - Boolean (default: true)
     /// &#10;Indicates whether the Button should be enabled or disabled. By default, it is enabled, unless a disabled="disabled" attribute is detected.
@@ -14329,6 +14772,9 @@ $.fn.kendoCalendar = function(options) {
     /// Instantiates a kendo.ui.Calendar widget based the DOM elements that match the selector.
 
     /// &#10;Accepts an object with the following configuration options:
+    /// &#10;
+    /// &#10;componentType - String (default: "classic")
+    /// &#10;Specifies the component type of the widget. "classic" - Uses the standard rendering of the widget. or "modern" - Uses new rendering with a fresh and modern look and feel..
     /// &#10;
     /// &#10;culture - String (default: "en-US")
     /// &#10;Specifies the culture info used by the widget.
@@ -15525,6 +15971,9 @@ $.fn.kendoDatePicker = function(options) {
     /// &#10;ARIATemplate - String (default: "Current focused date is #=kendo.toString(data.current, 'D'#"))
     /// &#10;Specifies a template used to populate the value of the aria-label attribute of the currently focused cell of the calendar.
     /// &#10;
+    /// &#10;componentType - String (default: "classic")
+    /// &#10;Specifies the component type of the widget. "classic" - Uses the standard rendering of the widget. or "modern" - Uses new rendering with a fresh and modern look and feel..
+    /// &#10;
     /// &#10;culture - String (default: "en-US")
     /// &#10;Specifies the culture info used by the widget.
     /// &#10;
@@ -15540,7 +15989,7 @@ $.fn.kendoDatePicker = function(options) {
     /// &#10;disableDates - Array|Function (default: null)
     /// &#10;An array or function that will be used to determine which dates to be disabled for selection by the widget.
     /// &#10;
-    /// &#10;footer - String|Function 
+    /// &#10;footer - String|Function|Boolean 
     /// &#10;The template which renders the footer of the calendar. If false, the footer will not be rendered.
     /// &#10;
     /// &#10;format - String (default: "M/d/yyyy")
@@ -15891,6 +16340,9 @@ $.fn.kendoDateTimePicker = function(options) {
     /// &#10;ARIATemplate - String (default: "Current focused date is #=kendo.toString(data.current, 'G'#"))
     /// &#10;Specifies a template used to populate value of the aria-label attribute.
     /// &#10;
+    /// &#10;componentType - String (default: "classic")
+    /// &#10;Specifies the component type of the widget. "classic" - Uses the standard rendering of the widget. or "modern" - Uses new rendering with a fresh and modern look and feel..
+    /// &#10;
     /// &#10;culture - String (default: "en-US")
     /// &#10;Specifies the culture info used by the widget.
     /// &#10;
@@ -16051,7 +16503,7 @@ $.fn.kendoDialog = function(options) {
     /// &#10;A collection of {Animation} objects, used to change default animations. A value of false will disable all animations in the widget. is not a valid configuration.
     /// &#10;
     /// &#10;buttonLayout - String (default: "stretched")
-    /// &#10;Specifies the possible layout of the action buttons in the Dialog.Possible values are: normal or stretched.
+    /// &#10;Specifies the possible layout of the action buttons in the Dialog.Note: Stretched layout has no effect in browsers, like IE9, that do not support flexbox.Possible values are: normal or stretched.
     /// &#10;
     /// &#10;closable - Boolean (default: true)
     /// &#10;Specifies whether a close button should be rendered at the top corner of the dialog.
@@ -16517,7 +16969,7 @@ $.fn.kendoDropDownList = function(options) {
     /// &#10;Define the text of the default empty item. If the value is an object, then the widget will use it as a valid data item.  Note that the optionLabel will not be available if the widget is empty.
     /// &#10;
     /// &#10;optionLabelTemplate - String|Function 
-    /// &#10;The template used to render the option label.
+    /// &#10;The template used to render the option label. Use optionLabelTemplate if you want to customize the markup of the optionLabel.
     /// &#10;
     /// &#10;headerTemplate - String|Function 
     /// &#10;Specifies a static HTML content, which will be rendered as a header of the popup element.
@@ -16655,7 +17107,7 @@ kendo.ui.DropDownTree.prototype = {
         /// <summary>
         /// Gets or sets the value of the DropDownTree.
         /// </summary>
-        /// <param name="value" type="Object" >The value to set. A String value when checkboxes is 'false' and an Array of strings when checkboxes is true. To clear the value, pass an empty array.</param>
+        /// <param name="value" type="Object" >The value to set. A String value, when checkboxes is 'false', and an Array of items of the value field type (number or string), when checkboxes is true. To clear the value, pass an empty array.</param>
         /// <returns type="Array">The value of the DropDownTree.</returns>
 
     },
@@ -17124,13 +17576,189 @@ $.fn.kendoEditor = function(options) {
     /// &#10;Allows custom stylesheets to be included within the editing area. This setting is applicable only when the Editor is initialized from a textarea and a contenteditable iframe is generated.
     /// &#10;
     /// &#10;tools - Array 
-    /// &#10;A collection of tools that are used to interact with the Editor. Tools may be switched on by specifying their name. Custom tools and tools that require configuration are defined as objects.The available editor commands are: Basic text formatting     - bold, italic, underline, strikethrough, subscript, superscript; Font and color     - fontName, fontSize, foreColor, backColor; Alignment     - justifyLeft, justifyCenter, justifyRight, justifyFull; Lists     - insertUnorderedList, insertOrderedList, indent, outdent; Links, images and files     - createLink, unlink, insertImage, insertFile; Table editing     - tableWizard, createTable, addColumnLeft, addColumnRight, addRowAbove, addRowBelow, deleteRow, deleteColumn; Structural markup and styles     - formatting, cleanFormatting; Snippets     - insertHtml; HTML code view     - viewHtml; Print edited page     - print or Export to PDF     - pdf.
+    /// &#10;A collection of tools that are used to interact with the Editor. Tools may be switched on by specifying their name. Custom tools and tools that require configuration are defined as objects.The available editor commands are: Basic text formatting     - bold, italic, underline, strikethrough, subscript, superscript; Font and color     - fontName, fontSize, foreColor, backColor; Alignment     - justifyLeft, justifyCenter, justifyRight, justifyFull; Lists     - insertUnorderedList, insertOrderedList, indent, outdent; Links, images and files     - createLink, unlink, insertImage, insertFile; Table editing     - tableWizard, createTable, addColumnLeft, addColumnRight, addRowAbove, addRowBelow, deleteRow, deleteColumn; Structural markup and styles     - formatting, cleanFormatting; Snippets     - insertHtml; HTML code view     - viewHtml; Print edited page     - print; Export to PDF     - pdf or Format painter     - copyFormat, applyFormat.
     /// &#10;
     /// &#10;imageBrowser - Object 
     /// &#10;Configuration for image browser dialog.
     /// &#10;
     /// &#10;fileBrowser - Object 
     /// &#10;Configuration for file browser dialog.
+    /// &#10;
+    /// </summary>
+    /// <param name="options" type="Object">
+    /// The widget configuration options
+    /// </param>
+};
+
+
+kendo.ui.FileManager = function() { };
+
+kendo.ui.FileManager.prototype = {
+
+
+
+
+    path: function() {
+        /// <summary>
+        /// Gets the path that teh FileManager is navigated to
+        /// </summary>
+
+    },
+
+
+    view: function(view) {
+        /// <summary>
+        /// Gets or sets the view of the FileManager.
+        /// </summary>
+        /// <param name="view" type="String" >The name of the view.</param>
+        /// <returns type="String">The current view.</returns>
+
+    },
+
+
+    navigate: function(path) {
+        /// <summary>
+        /// Navigates to the specified path.
+        /// </summary>
+        /// <param name="path" type="String" >The path to navigate.</param>
+
+    },
+
+
+    refresh: function() {
+        /// <summary>
+        /// Refreshes the current view of the FileManager. Rebinds the data.
+        /// </summary>
+
+    },
+
+
+    executeCommand: function(command,args) {
+        /// <summary>
+        /// Executes a command.
+        /// </summary>
+        /// <param name="command" type="String" >The command to execute.</param>
+        /// <param name="args" type="Object" >The command arguments.</param>
+
+    },
+
+
+    getSelected: function() {
+        /// <summary>
+        /// Gets the selected files (the JSON representation of the files).
+        /// </summary>
+
+    },
+
+
+    getSize: function() {
+        /// <summary>
+        /// Gets the size of the FileManager wrapper.
+        /// </summary>
+
+    },
+
+
+    setDataSource: function(dataSource) {
+        /// <summary>
+        /// Sets the dataSource of an existing FileManager and rebinds it.
+        /// </summary>
+        /// <param name="dataSource" type="kendo.data.FileManagerDataSource" ></param>
+
+    },
+
+
+    destroy: function() {
+        /// <summary>
+        /// Destroys the FileManagers.
+        /// </summary>
+
+    },
+
+    bind: function(event, callback) {
+        /// <summary>
+        /// Binds to a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be executed when the event is triggered.</param>
+    },
+
+    unbind: function(event, callback) {
+        /// <summary>
+        /// Unbinds a callback from a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be removed.</param>
+    }
+
+};
+
+$.fn.getKendoFileManager = function() {
+    /// <summary>
+    /// Returns a reference to the kendo.ui.FileManager widget, instantiated on the selector.
+    /// </summary>
+    /// <returns type="kendo.ui.FileManager">The kendo.ui.FileManager instance (if present).</returns>
+};
+
+$.fn.kendoFileManager = function(options) {
+    /// <summary>
+    /// Instantiates a kendo.ui.FileManager widget based the DOM elements that match the selector.
+
+    /// &#10;Accepts an object with the following configuration options:
+    /// &#10;
+    /// &#10;width - Number|String 
+    /// &#10;Configures the width of the FileManager.
+    /// &#10;
+    /// &#10;height - Number|String 
+    /// &#10;Configures the height of the FileManager.
+    /// &#10;
+    /// &#10;initialView - String 
+    /// &#10;Configures the initial view of the FileManager.
+    /// &#10;
+    /// &#10;resizable - Boolean 
+    /// &#10;Configures the resizable features of the FileManager.
+    /// &#10;
+    /// &#10;draggable - Boolean (default: true)
+    /// &#10;Enables or disables the drag and drop features of the FileManager.
+    /// &#10;
+    /// &#10;dataSource - Object|Array|kendo.data.FileManagerDataSource 
+    /// &#10;Sets the FileManagerDataSource of the FileManager. Can be bound to a remote service or local data.
+    /// &#10;
+    /// &#10;upload - Object 
+    /// &#10;Configures the composite Upload widget of the FileManager. Accepts the same options as the kendoUpload widget.
+    /// &#10;
+    /// &#10;uploadUrl - String 
+    /// &#10;Sets the upload url for the Upload widget.
+    /// &#10;
+    /// &#10;toolbar - Boolean (default: true)
+    /// &#10;Configures the Toolbar of the FileManager
+    /// &#10;
+    /// &#10;toolbar - Object (default: true)
+    /// &#10;Configures the Toolbar of the FileManager
+    /// &#10;
+    /// &#10;dialogs - Object 
+    /// &#10;Specifies the composite Dialog widgets of the FileManager.
+    /// &#10;
+    /// &#10;contextMenu - Boolean (default: true)
+    /// &#10;Configures the ContextMenu of the FileManager.
+    /// &#10;
+    /// &#10;contextMenu - Object (default: true)
+    /// &#10;Configures the ContextMenu of the FileManager.
+    /// &#10;
+    /// &#10;views - Object 
+    /// &#10;Configures every view registered for the FileManager.
+    /// &#10;
+    /// &#10;previewPane - Object 
+    /// &#10;Configures the Preview Pane of the FileManager.
+    /// &#10;
+    /// &#10;breadcrumb - Boolean (default: true)
+    /// &#10;Configures or disables the Breadcrumb component.
+    /// &#10;
+    /// &#10;breadcrumb - Object (default: true)
+    /// &#10;Configures or disables the Breadcrumb component.
+    /// &#10;
+    /// &#10;messages - Object 
+    /// &#10;Defines the text of the localizable UI parts of the FileManager.
     /// &#10;
     /// </summary>
     /// <param name="options" type="Object">
@@ -17373,6 +18001,110 @@ $.fn.kendoFlatColorPicker = function(options) {
     /// &#10;
     /// &#10;messages - Object 
     /// &#10;Allows customization of "Apply" / "Cancel" labels.
+    /// &#10;
+    /// </summary>
+    /// <param name="options" type="Object">
+    /// The widget configuration options
+    /// </param>
+};
+
+
+kendo.ui.Form = function() { };
+
+kendo.ui.Form.prototype = {
+
+
+
+
+    validate: function() {
+        /// <summary>
+        /// Validates the form by executing the Form Validator validate() method.
+        /// </summary>
+
+    },
+
+
+    clear: function() {
+        /// <summary>
+        /// Clears the form fields. Sets all model fields to null.
+        /// </summary>
+
+    },
+
+
+    setOptions: function(options) {
+        /// <summary>
+        /// Sets the options of the Form. Use this method if you want to enable/disable a particular option dynamically.
+        /// </summary>
+        /// <param name="options" type="Object" >The configuration options to be set.</param>
+
+    },
+
+
+    destroy: function() {
+        /// <summary>
+        /// Prepares the widget for safe removal from DOM. Detaches all event handlers and removes jQuery.data attributes to avoid memory leaks. Calls destroy method of any child Kendo widgets.
+        /// </summary>
+
+    },
+
+    bind: function(event, callback) {
+        /// <summary>
+        /// Binds to a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be executed when the event is triggered.</param>
+    },
+
+    unbind: function(event, callback) {
+        /// <summary>
+        /// Unbinds a callback from a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be removed.</param>
+    }
+
+};
+
+$.fn.getKendoForm = function() {
+    /// <summary>
+    /// Returns a reference to the kendo.ui.Form widget, instantiated on the selector.
+    /// </summary>
+    /// <returns type="kendo.ui.Form">The kendo.ui.Form instance (if present).</returns>
+};
+
+$.fn.kendoForm = function(options) {
+    /// <summary>
+    /// Instantiates a kendo.ui.Form widget based the DOM elements that match the selector.
+
+    /// &#10;Accepts an object with the following configuration options:
+    /// &#10;
+    /// &#10;buttonsTemplate - String|Function 
+    /// &#10;Specifies the template which is used for rendering the From buttons.
+    /// &#10;
+    /// &#10;focusFirst - Boolean (default: false)
+    /// &#10;Specifies if the first editor of the form will be focused on initialization.
+    /// &#10;
+    /// &#10;formatLabel - Function 
+    /// &#10;Callback function that could be used to change the default format of the automatically generated labels.
+    /// &#10;
+    /// &#10;formData - Object 
+    /// &#10;Provides the data model of the Form.The widget renders the form fields based on their data type, unless the items option is specified.
+    /// &#10;
+    /// &#10;items - Array 
+    /// &#10;A JavaScript array that contains the Form's items configuration.
+    /// &#10;
+    /// &#10;orientation - String 
+    /// &#10;Configures the Form orientation. Available options are "horizontal" and "vertical".By default, the Form is rendered with vertical orientation.
+    /// &#10;
+    /// &#10;validatable - Object 
+    /// &#10;Configures the built-in Validator options.
+    /// &#10;
+    /// &#10;layout - String (default: '')
+    /// &#10;Specify the layout of Form content. Valid options are: grid: This is equivalent to display: grid. It defines the form element as a grid container and establishes a new grid formatting context for its contents..
+    /// &#10;
+    /// &#10;grid - Object 
+    /// &#10;Grid layout settings.
     /// &#10;
     /// </summary>
     /// <param name="options" type="Object">
@@ -18117,6 +18849,9 @@ $.fn.kendoGrid = function(options) {
     /// &#10;toolbar - Array 
     /// &#10;If a String value is assigned to the toolbar configuration option, it will be treated as a single string template for the whole grid Toolbar, and the string value will be passed as an argument to a kendo.template() function.If a Function value is assigned (it may be a kendo.template() function call or a generic function reference), then the return value of the function will be used to render the Grid Toolbar contents.If an Array value is assigned, it will be treated as the list of commands displayed in the grid's Toolbar. Commands can be custom or built-in ("cancel", "create", "save", "excel", "pdf").The "cancel" built-in command reverts any data changes done by the end user.The "create" command adds an empty data item to the grid.The "save" command persists any data changes done by the end user.The "excel" command exports the grid data in MS Excel format.The "pdf" command exports the grid data in PDF format.The "search" built-in search panel for the grid.
     /// &#10;
+    /// &#10;width - Number|String 
+    /// &#10;The width of the grid. Numeric values are treated as pixels.
+    /// &#10;
     /// </summary>
     /// <param name="options" type="Object">
     /// The widget configuration options
@@ -18460,6 +19195,12 @@ $.fn.kendoListView = function(options) {
     /// &#10;autoBind - Boolean (default: true)
     /// &#10;If set to false the widget will not bind to the data source during initialization. In this case data binding will occur when the change event of the data source is fired. By default the widget will bind to the data source specified in the configuration.
     /// &#10;
+    /// &#10;bordered - Boolean (default: true)
+    /// &#10;Renders border around the listview element.
+    /// &#10;
+    /// &#10;borders - String (default: '')
+    /// &#10;Renders border around the listview items. Valid values are: all: renders borders around listview items.; horizontal: renders top border of listview items. Useful when setting layout: "flex" and flex.direction: column. or vertical: renders top border of listview items. Useful when setting layout: "flex" and flex.direction: row..
+    /// &#10;
     /// &#10;dataSource - Object|Array|kendo.data.DataSource 
     /// &#10;The data source of the widget which is used render table rows. Can be a JavaScript object which represents a valid kendo.data.DataSource configuration, a JavaScript array or an existing kendo.data.DataSource instance.If the dataSource option is set to a JavaScript object or array the widget will initialize a new kendo.data.DataSource instance using that value as data source configuration.If the dataSource option is an existing kendo.data.DataSource instance the widget will use that instance and will not initialize a new one.
     /// &#10;
@@ -18468,6 +19209,15 @@ $.fn.kendoListView = function(options) {
     /// &#10;
     /// &#10;height - Number|String 
     /// &#10;The height of the listview. Numeric values are treated as pixels.
+    /// &#10;
+    /// &#10;layout - String (default: '')
+    /// &#10;Specify the layout of listview content. Valid options are: flex: This is equivalent to display: flex. It defines a flex container and enables a flex context for all its direct children. Think of flex items as primarily laying out either in horizontal rows or vertical columns. or grid: This is equivalent to display: grid. It defines the element as a grid container and establishes a new grid formatting context for its contents..
+    /// &#10;
+    /// &#10;flex - Object 
+    /// &#10;Flex layout settings
+    /// &#10;
+    /// &#10;grid - Object 
+    /// &#10;Grid layout settings.
     /// &#10;
     /// &#10;scrollable - Boolean|String (default: false)
     /// &#10;If set to true the listview will display a scrollbar when the content exceeds the listview height value. By default scrolling is disabled.It could be also set to endless in order to enable the endless scrolling functionality. In endless scrolling mode the height should be configured to display a scrollbar. Scrolling to the end of the scrollbar will load more items (equal to the pageSize number) and append them to the listview DOM element utill all items are loaded and displayed.
@@ -18578,6 +19328,12 @@ $.fn.kendoMaskedTextBox = function(options) {
     /// &#10;
     /// &#10;culture - String (default: "en-US")
     /// &#10;Specifies the culture info used by the widget.
+    /// &#10;
+    /// &#10;label - String|Function (default: null)
+    /// &#10;Adds a label before the input. If the input has no id attribute, a generated id will be assigned. The string and the function parameters are setting the inner HTML of the label.
+    /// &#10;
+    /// &#10;label - Object (default: null)
+    /// &#10;Adds a label before the input. If the input has no id attribute, a generated id will be assigned. The string and the function parameters are setting the inner HTML of the label.
     /// &#10;
     /// &#10;mask - String (default: "")
     /// &#10;Specifies the input mask. The following mask rules are supported: 0 - Digit. Accepts any digit between 0 and 9.; 9 - Digit or space. Accepts any digit between 0 and 9, plus space.; # - Digit or space. Like 9 rule, but allows also (+) and (-) signs.; L - Letter. Restricts input to letters a-z and A-Z. This rule is equivalent to [a-zA-Z] in regular expressions.; ? - Letter or space. Restricts input to letters a-z and A-Z. This rule is equivalent to [a-zA-Z] in regular expressions.; & - Character. Accepts any character. The rule is equivalent to \S in regular expressions.; C - Character or space. Accepts any character. The rule is equivalent to . in regular expressions.; A - Alphanumeric. Accepts letters and digits only.; a - Alphanumeric or space. Accepts letters, digits and space only.; . - Decimal placeholder. The decimal separator will be gotten from the current culture used by Kendo.; , - Thousands placeholder. The display character will be gotten from the current culture used by Kendo. or $ - Currency symbol. The display character will be gotten from the current culture used by Kendo..
@@ -20022,6 +20778,12 @@ $.fn.kendoNumericTextBox = function(options) {
     /// &#10;format - String (default: "n")
     /// &#10;Specifies the number format used when the widget is not focused. Any valid number format is allowed.Compare with the decimals property.
     /// &#10;
+    /// &#10;label - String|Function (default: null)
+    /// &#10;Adds a label before the input. If the input has no id attribute, a generated id will be assigned. The string and the function parameters are setting the inner HTML of the label.
+    /// &#10;
+    /// &#10;label - Object (default: null)
+    /// &#10;Adds a label before the input. If the input has no id attribute, a generated id will be assigned. The string and the function parameters are setting the inner HTML of the label.
+    /// &#10;
     /// &#10;max - Number (default: null)
     /// &#10;Specifies the largest value the user can enter.
     /// &#10;
@@ -20081,7 +20843,7 @@ kendo.ui.PDFViewer.prototype = {
 
     loadPage: function() {
         /// <summary>
-        /// Loads the page by number.
+        /// Renders page canvas by number
         /// </summary>
 
     },
@@ -20796,6 +21558,15 @@ kendo.ui.Popup.prototype = {
         /// Changes the initial Popup configuration.
         /// </summary>
         /// <param name="options" type="Object" >The new configuration options.</param>
+
+    },
+
+
+    toggle: function(toggle) {
+        /// <summary>
+        /// Opens or closes the Popup component.
+        /// </summary>
+        /// <param name="toggle" type="Boolean" >Defines the whether to open/close the Popup.</param>
 
     },
 
@@ -21630,7 +22401,7 @@ $.fn.kendoScheduler = function(options) {
     /// &#10;If set to true the scheduler will display a slot for "all day" events.
     /// &#10;
     /// &#10;autoBind - Boolean (default: true)
-    /// &#10;If set to false the widget will not bind to the data source during initialization. In this case data binding will occur when the change event of the data source is fired. By default the widget will bind to the data source specified in the configuration.
+    /// &#10;If set to false the widget will not bind to the data source during initialization. In this case data binding will occur when the change event of the data source is fired. That will also apply for data sources for the resources used in the widget. By default the widget will bind to the data source specified in the configuration.
     /// &#10;
     /// &#10;currentTimeMarker - Boolean (default: true)
     /// &#10;If set to false the "current time" marker of the scheduler would not be displayed.
@@ -21696,7 +22467,7 @@ $.fn.kendoScheduler = function(options) {
     /// &#10;The template used to render the minor ticks.By default the scheduler renders a "&nbsp;".The fields which can be used in the template are: date - represents the major tick date..
     /// &#10;
     /// &#10;mobile - Boolean|String (default: false)
-    /// &#10;If set to true and the scheduler is viewed on mobile browser it will use adaptive rendering.Can be set to a string phone or tablet which will force the widget to use adaptive rendering regardless of browser type.
+    /// &#10;If set to true and the scheduler is viewed on mobile browser it will use adaptive rendering.Can be set to a string phone which will force the widget to use adaptive rendering regardless of browser type.
     /// &#10;
     /// &#10;pdf - Object 
     /// &#10;Configures the Kendo UI Scheduler PDF export settings.
@@ -21730,6 +22501,9 @@ $.fn.kendoScheduler = function(options) {
     /// &#10;
     /// &#10;workDayStart - Date 
     /// &#10;Sets the start of the work day when the  "Show business hours" button is clicked.
+    /// &#10;
+    /// &#10;workDays - Array 
+    /// &#10;Sets the working days (index based).
     /// &#10;
     /// &#10;workDayEnd - Date 
     /// &#10;Sets the end of the work day when the  "Show business hours" button is clicked.
@@ -22605,6 +23379,147 @@ $.fn.kendoSpreadsheet = function(options) {
 };
 
 
+kendo.ui.Stepper = function() { };
+
+kendo.ui.Stepper.prototype = {
+
+
+
+
+    enable: function(value) {
+        /// <summary>
+        /// Enables or disables all steps in the Stepper.
+        /// </summary>
+        /// <param name="value" type="Boolean" >Specifies whether the steps should be enabled (true) or disabled (false).</param>
+
+    },
+
+
+    insertAt: function(index,step) {
+        /// <summary>
+        /// Inserts a new Step at a given index.
+        /// </summary>
+        /// <param name="index" type="Number" >The index at which the Step should be inserted.</param>
+        /// <param name="step" type="Object" >A Step configuration object to be inserted at the specified index.</param>
+
+    },
+
+
+    next: function() {
+        /// <summary>
+        /// Selects the step which is immediately after the currently selected step.
+        /// </summary>
+
+    },
+
+
+    previous: function() {
+        /// <summary>
+        /// Selects the step which is immediately before the currently selected step.
+        /// </summary>
+
+    },
+
+
+    removeAt: function(index) {
+        /// <summary>
+        /// Removes a Step that is present at a given index.
+        /// </summary>
+        /// <param name="index" type="Number" >The index of the Step that should be removed.</param>
+
+    },
+
+
+    resize: function() {
+        /// <summary>
+        /// Recalculates the dimensions of the underlying PrgressBar indicating the Stepper progress. Should be used when changing width/height of the widget element, its parent, or when removing a "display: none;" style from one of those elements. Should always be called if the Stepper is initialized in a hidden container right after the container was made visible.
+        /// </summary>
+
+    },
+
+
+    select: function(index) {
+        /// <summary>
+        /// Selects a Step that is present at a given index. If used without parameter returns the currently selected [Step](/api/javascript/stepper/step) instance.
+        /// </summary>
+        /// <param name="index" type="Number" >The index of the Step which should be selected.</param>
+
+    },
+
+
+    setOptions: function(options) {
+        /// <summary>
+        /// Modifies the initial configuration of the Stepper widget.
+        /// </summary>
+        /// <param name="options" type="Object" >The new Stepper options.</param>
+
+    },
+
+
+    steps: function(steps) {
+        /// <summary>
+        /// Returns the Step Array configured in the Stepper. If used with an Array parameter, alters the steps in the widget according to the passed configuration of the steps.
+        /// </summary>
+        /// <param name="steps" type="Array" >Array of steps to be rendered in the Stepper.</param>
+
+    },
+
+    bind: function(event, callback) {
+        /// <summary>
+        /// Binds to a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be executed when the event is triggered.</param>
+    },
+
+    unbind: function(event, callback) {
+        /// <summary>
+        /// Unbinds a callback from a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be removed.</param>
+    }
+
+};
+
+$.fn.getKendoStepper = function() {
+    /// <summary>
+    /// Returns a reference to the kendo.ui.Stepper widget, instantiated on the selector.
+    /// </summary>
+    /// <returns type="kendo.ui.Stepper">The kendo.ui.Stepper instance (if present).</returns>
+};
+
+$.fn.kendoStepper = function(options) {
+    /// <summary>
+    /// Instantiates a kendo.ui.Stepper widget based the DOM elements that match the selector.
+
+    /// &#10;Accepts an object with the following configuration options:
+    /// &#10;
+    /// &#10;indicator - Boolean (default: true)
+    /// &#10;Indicates whether the Steps in the Stepper will render their indicator element (the icon or number placed in a circle above the Step label).
+    /// &#10;
+    /// &#10;label - Boolean (default: true)
+    /// &#10;Indicates whether the Steps in the Stepper will render their label element (the text placed below the Step indicator circle).
+    /// &#10;
+    /// &#10;linear - Boolean (default: true)
+    /// &#10;Indicates whether the Stepper will force the user to follow the Steps sequence or not. If set to "false" it will allow the user to select any step. If in its default state ("true") the user will be able to select the step immediately after the currently selected step or any previous step.
+    /// &#10;
+    /// &#10;orientation - String (default: "horizontal")
+    /// &#10;Indicates whether the Stepper will be rendered vertically or horizontally (default).
+    /// &#10;
+    /// &#10;selectOnFocus - Boolean (default: false)
+    /// &#10;Applicable for scenarios when keyboard is used for navigation. Indicates whether the selection will change upon focus change or it will require additional action (Enter or Spacebar key press) in order to select the focused step.
+    /// &#10;
+    /// &#10;steps - Array 
+    /// &#10;Array of steps to be rendered in the Stepper. If the array contains objects, their fields will be used for each Step. If the array contains strings, those will be used as Step labels.
+    /// &#10;
+    /// </summary>
+    /// <param name="options" type="Object">
+    /// The widget configuration options
+    /// </param>
+};
+
+
 kendo.ui.Switch = function() { };
 
 kendo.ui.Switch.prototype = {
@@ -22947,6 +23862,183 @@ $.fn.kendoTabStrip = function(options) {
 };
 
 
+kendo.ui.TextBox = function() { };
+
+kendo.ui.TextBox.prototype = {
+
+
+
+
+    destroy: function() {
+        /// <summary>
+        /// Prepares the widget for safe removal from DOM. Detaches all event handlers and removes jQuery.data attributes to avoid memory leaks. Calls destroy method of any child Kendo widgets.
+        /// </summary>
+
+    },
+
+
+    enable: function(enable) {
+        /// <summary>
+        /// Enables or disables the widget.
+        /// </summary>
+        /// <param name="enable" type="Boolean" >If set to true, the widget will be enabled. If set to false, the widget will be disabled.</param>
+
+    },
+
+
+    focus: function() {
+        /// <summary>
+        /// Focuses the widget.
+        /// </summary>
+
+    },
+
+
+    readonly: function(readonly) {
+        /// <summary>
+        /// Toggles the readonly state of the widget. When the widget is readonly it doesn't allow user input.
+        /// </summary>
+        /// <param name="readonly" type="Boolean" >If set to true, the widget will not allow user input. If set to false, the widget will allow user input.</param>
+
+    },
+
+
+    value: function(value) {
+        /// <summary>
+        /// Gets or sets the value of the widget.
+        /// </summary>
+        /// <param name="value" type="String" >The value to set.</param>
+        /// <returns type="String">the value of the widget.</returns>
+
+    },
+
+    bind: function(event, callback) {
+        /// <summary>
+        /// Binds to a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be executed when the event is triggered.</param>
+    },
+
+    unbind: function(event, callback) {
+        /// <summary>
+        /// Unbinds a callback from a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be removed.</param>
+    }
+
+};
+
+$.fn.getKendoTextBox = function() {
+    /// <summary>
+    /// Returns a reference to the kendo.ui.TextBox widget, instantiated on the selector.
+    /// </summary>
+    /// <returns type="kendo.ui.TextBox">The kendo.ui.TextBox instance (if present).</returns>
+};
+
+$.fn.kendoTextBox = function(options) {
+    /// <summary>
+    /// Instantiates a kendo.ui.TextBox widget based the DOM elements that match the selector.
+
+    /// &#10;Accepts an object with the following configuration options:
+    /// &#10;
+    /// &#10;enable - Boolean (default: true)
+    /// &#10;If set to false, the widget will be disabled and will not allow user input. The widget is enabled by default and allows user input.
+    /// &#10;
+    /// &#10;label - String|Function (default: null)
+    /// &#10;Adds a label before the input. If the input has no id attribute, a generated id will be assigned. The string and the function parameters are setting the inner HTML of the label.
+    /// &#10;
+    /// &#10;label - Object (default: null)
+    /// &#10;Adds a label before the input. If the input has no id attribute, a generated id will be assigned. The string and the function parameters are setting the inner HTML of the label.
+    /// &#10;
+    /// &#10;placeholder - String (default: "")
+    /// &#10;The hint displayed by the widget when it is empty. Not set by default.
+    /// &#10;
+    /// &#10;readonly - Boolean (default: false)
+    /// &#10;If set to true, the widget will be readonly and will not allow user input. The widget is not readonly by default and allows user input.
+    /// &#10;
+    /// &#10;value - String (default: "")
+    /// &#10;The value of the widget.
+    /// &#10;
+    /// </summary>
+    /// <param name="options" type="Object">
+    /// The widget configuration options
+    /// </param>
+};
+
+
+kendo.ui.TileLayout = function() { };
+
+kendo.ui.TileLayout.prototype = {
+
+
+
+    bind: function(event, callback) {
+        /// <summary>
+        /// Binds to a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be executed when the event is triggered.</param>
+    },
+
+    unbind: function(event, callback) {
+        /// <summary>
+        /// Unbinds a callback from a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be removed.</param>
+    }
+
+};
+
+$.fn.getKendoTileLayout = function() {
+    /// <summary>
+    /// Returns a reference to the kendo.ui.TileLayout widget, instantiated on the selector.
+    /// </summary>
+    /// <returns type="kendo.ui.TileLayout">The kendo.ui.TileLayout instance (if present).</returns>
+};
+
+$.fn.kendoTileLayout = function(options) {
+    /// <summary>
+    /// Instantiates a kendo.ui.TileLayout widget based the DOM elements that match the selector.
+
+    /// &#10;Accepts an object with the following configuration options:
+    /// &#10;
+    /// &#10;columns - Number 
+    /// &#10;Defines the number of columns.
+    /// &#10;
+    /// &#10;columnsWidth - String|Number (default: '1fr')
+    /// &#10;Determines the width of the columns. Numeric values are treated as pixels.
+    /// &#10;
+    /// &#10;containers - Array 
+    /// &#10;An array with objects representing the settings of the layout items.
+    /// &#10;
+    /// &#10;gap - Object 
+    /// &#10;An object holding values that determine the spacing between the layout items horizontally and vertically.
+    /// &#10;
+    /// &#10;height - String|Number 
+    /// &#10;Determines the height of the layout. Numeric values are treated as pixels.
+    /// &#10;
+    /// &#10;reorderable - Boolean (default: false)
+    /// &#10;Determines whether the reordering functionality will be enabled.
+    /// &#10;
+    /// &#10;resizable - Boolean (default: false)
+    /// &#10;Determines whether the reordering functionality will be enabled.
+    /// &#10;
+    /// &#10;rowsHeight - String|Number (default: '1fr')
+    /// &#10;Determines the height of the rows. Numeric values are treated as pixels.
+    /// &#10;
+    /// &#10;width - String|Number 
+    /// &#10;Determines the height of the rows. Numeric values are treated as pixels.
+    /// &#10;
+    /// </summary>
+    /// <param name="options" type="Object">
+    /// The widget configuration options
+    /// </param>
+};
+
+
 kendo.ui.TimePicker = function() { };
 
 kendo.ui.TimePicker.prototype = {
@@ -23070,6 +24162,9 @@ $.fn.kendoTimePicker = function(options) {
     /// &#10;
     /// &#10;animation - Object 
     /// &#10;Configures the opening and closing animations of the popup. Setting the animation option to false will disable the opening and closing animations. As a result the popup will open and close instantly. is not a valid configuration.
+    /// &#10;
+    /// &#10;componentType - String (default: "classic")
+    /// &#10;Specifies the component type of the widget. "classic" - Uses the standard rendering of the widget. or "modern" - Uses new rendering with a fresh and modern look and feel..
     /// &#10;
     /// &#10;culture - String (default: "en-US")
     /// &#10;Specifies the culture info used by the widget.
@@ -23212,6 +24307,9 @@ $.fn.kendoTimeline = function(options) {
     /// Instantiates a kendo.ui.Timeline widget based the DOM elements that match the selector.
 
     /// &#10;Accepts an object with the following configuration options:
+    /// &#10;
+    /// &#10;autoBind - Boolean (default: true)
+    /// &#10;If set to false, the Timeline will not bind to the data source during initialization, i.e. it will not call the fetch method of the dataSource instance. In such scenarios data binding will occur when the change event of the dataSource instance is fired. By default, autoBind is set to true and the widget will bind to the data source specified in the configuration.
     /// &#10;
     /// &#10;alternatingMode - Boolean (default: false)
     /// &#10;Indicates whether events should be positioned on both sides of the timeline axis. By default all events are displayed on the right side of the timeline axis.
@@ -23933,6 +25031,9 @@ $.fn.kendoTreeList = function(options) {
     /// &#10;scrollable - Boolean|Object (default: true)
     /// &#10;If set to true, the TreeList will display a scrollbar when the total row height or width exceeds the TreeList height or width. By default, scrolling is enabled. Scrolling renders separate tables for the header and data area. For accessibility-conscious applications, disable scrolling.
     /// &#10;
+    /// &#10;search - Object 
+    /// &#10;Configures the Kendo UI TreeList search bar settings.
+    /// &#10;
     /// &#10;selectable - Boolean|String (default: false)
     /// &#10;If set to true, the user will be able to select TreeList rows. By default, selection is disabled.Can also be set to the following string values: row - The user can select a single row.; cell - The user can select a single cell.; multiple, row - The user can select multiple rows. or multiple, cell - The user can select multiple cells..
     /// &#10;
@@ -23943,10 +25044,10 @@ $.fn.kendoTreeList = function(options) {
     /// &#10;If set to true, the user is able to sort the TreeList by clicking the column header cells. By default, sorting is disabled. Can be set to a JavaScript object which represents the sorting configuration.
     /// &#10;
     /// &#10;toolbar - String|Function 
-    /// &#10;If a String value is assigned to the toolbar configuration option, it will be treated as a single string template for the whole TreeList toolbar and the string value will be passed as an argument to a kendo.template() function.; If a Function value is assigned (it may be a kendo.template() function call or a generic function reference), then the return value of the function will be used to render the contents of the TreeList toolbar. or If an Array value is assigned, it will be treated as the list of commands which are displayed in the TreeList toolbar. Commands can be custom or built-in. The supported built-in commands are:create - Adds an empty data item to the treelist.excel - Exports the TreeList data in MS Excel format.pdf - Exports the TreeList data in PDF format..
+    /// &#10;If a String value is assigned to the toolbar configuration option, it will be treated as a single string template for the whole TreeList toolbar and the string value will be passed as an argument to a kendo.template() function.; If a Function value is assigned (it may be a kendo.template() function call or a generic function reference), then the return value of the function will be used to render the contents of the TreeList toolbar. or If an Array value is assigned, it will be treated as the list of commands which are displayed in the TreeList toolbar. Commands can be custom or built-in. The supported built-in commands are:create - Adds an empty data item to the treelist.excel - Exports the TreeList data in MS Excel format.pdf - Exports the TreeList data in PDF format.search - built-in search panel for the TreeList..
     /// &#10;
     /// &#10;toolbar - Array 
-    /// &#10;If a String value is assigned to the toolbar configuration option, it will be treated as a single string template for the whole TreeList toolbar and the string value will be passed as an argument to a kendo.template() function.; If a Function value is assigned (it may be a kendo.template() function call or a generic function reference), then the return value of the function will be used to render the contents of the TreeList toolbar. or If an Array value is assigned, it will be treated as the list of commands which are displayed in the TreeList toolbar. Commands can be custom or built-in. The supported built-in commands are:create - Adds an empty data item to the treelist.excel - Exports the TreeList data in MS Excel format.pdf - Exports the TreeList data in PDF format..
+    /// &#10;If a String value is assigned to the toolbar configuration option, it will be treated as a single string template for the whole TreeList toolbar and the string value will be passed as an argument to a kendo.template() function.; If a Function value is assigned (it may be a kendo.template() function call or a generic function reference), then the return value of the function will be used to render the contents of the TreeList toolbar. or If an Array value is assigned, it will be treated as the list of commands which are displayed in the TreeList toolbar. Commands can be custom or built-in. The supported built-in commands are:create - Adds an empty data item to the treelist.excel - Exports the TreeList data in MS Excel format.pdf - Exports the TreeList data in PDF format.search - built-in search panel for the TreeList..
     /// &#10;
     /// </summary>
     /// <param name="options" type="Object">
@@ -24487,6 +25588,22 @@ kendo.ui.Validator.prototype = {
     },
 
 
+    hideValidationSummary: function() {
+        /// <summary>
+        /// Hides the validation summary.
+        /// </summary>
+
+    },
+
+
+    showValidationSummary: function() {
+        /// <summary>
+        /// Shows the validation summary.
+        /// </summary>
+
+    },
+
+
     validate: function() {
         /// <summary>
         /// Validates the input element(s) against the declared validation rules.
@@ -24502,6 +25619,23 @@ kendo.ui.Validator.prototype = {
         /// </summary>
         /// <param name="input" type="Object" >Input element to be validated.</param>
         /// <returns type="Boolean">true if all validation rules passed successfully.</returns>
+
+    },
+
+
+    reset: function() {
+        /// <summary>
+        /// Clears the registered errors and hides the validation messages and validation summary.
+        /// </summary>
+
+    },
+
+
+    setOptions: function(options) {
+        /// <summary>
+        /// Sets the options of the Validator. Use this method if you want to enable/disable a particular option dynamically.When setOptions is called, the Validator widget will be destroyed and recreated with the new options.
+        /// </summary>
+        /// <param name="options" type="Object" >The configuration options to be set.</param>
 
     },
 
@@ -24544,6 +25678,12 @@ $.fn.kendoValidator = function(options) {
     /// &#10;
     /// &#10;rules - Object 
     /// &#10;Set of custom validation rules. Those rules will extend the built-in ones.
+    /// &#10;
+    /// &#10;validationSummary - Boolean (default: false)
+    /// &#10;Determines if validation summary will be displayed. Default value is false.
+    /// &#10;
+    /// &#10;validationSummary - Object (default: false)
+    /// &#10;Determines if validation summary will be displayed. Default value is false.
     /// &#10;
     /// &#10;validateOnBlur - Boolean 
     /// &#10;Determines if validation will be triggered when element loses focus. Default value is true.
@@ -24910,6 +26050,215 @@ $.fn.kendoWindow = function(options) {
     /// &#10;
     /// &#10;size - String (default: "auto")
     /// &#10;Sets a predefined size to the Window. The width and height configuration options override the predefined size.The supported values are: auto; small; medium or large.
+    /// &#10;
+    /// </summary>
+    /// <param name="options" type="Object">
+    /// The widget configuration options
+    /// </param>
+};
+
+
+kendo.ui.Wizard = function() { };
+
+kendo.ui.Wizard.prototype = {
+
+
+
+
+    activeStep: function() {
+        /// <summary>
+        /// Returns the currently active in the Wizard [Step](/api/javascript/wizard/step) instance.
+        /// </summary>
+
+    },
+
+
+    enableStep: function(index,enable) {
+        /// <summary>
+        /// Enables or disables the step at the specified index.
+        /// </summary>
+        /// <param name="index" type="Number" >Specifies the index of the step to be enabled/disabled.</param>
+        /// <param name="enable" type="Boolean" >Specifies whether the step should be enabled (true) or disabled (false).</param>
+
+    },
+
+
+    insertAt: function(index,step) {
+        /// <summary>
+        /// Inserts a new step at a given index.
+        /// </summary>
+        /// <param name="index" type="Number" >The index at which the step should be inserted.</param>
+        /// <param name="step" type="Object" >A step configuration object to be inserted at the specified index.</param>
+
+    },
+
+
+    next: function() {
+        /// <summary>
+        /// Selects the step which is immediately after the currently selected step. Does not select the next step, if it is disabled.
+        /// </summary>
+
+    },
+
+
+    previous: function() {
+        /// <summary>
+        /// Selects the step which is immediately before the currently selected step. Does not select the previous step, if it is disabled.
+        /// </summary>
+
+    },
+
+
+    removeAt: function(index) {
+        /// <summary>
+        /// Removes a step that is present at a given index.
+        /// </summary>
+        /// <param name="index" type="Number" >The index of the step that should be removed.</param>
+
+    },
+
+
+    select: function(index) {
+        /// <summary>
+        /// Selects a step that is present at a given index. Does not select the step, if it is disabled.
+        /// </summary>
+        /// <param name="index" type="Number" >The index of the step which should be selected.</param>
+
+    },
+
+
+    steps: function() {
+        /// <summary>
+        /// Returns the Step Array configured in the Wizard.
+        /// </summary>
+
+    },
+
+    bind: function(event, callback) {
+        /// <summary>
+        /// Binds to a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be executed when the event is triggered.</param>
+    },
+
+    unbind: function(event, callback) {
+        /// <summary>
+        /// Unbinds a callback from a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be removed.</param>
+    }
+
+};
+
+$.fn.getKendoWizard = function() {
+    /// <summary>
+    /// Returns a reference to the kendo.ui.Wizard widget, instantiated on the selector.
+    /// </summary>
+    /// <returns type="kendo.ui.Wizard">The kendo.ui.Wizard instance (if present).</returns>
+};
+
+$.fn.kendoWizard = function(options) {
+    /// <summary>
+    /// Instantiates a kendo.ui.Wizard widget based the DOM elements that match the selector.
+
+    /// &#10;Accepts an object with the following configuration options:
+    /// &#10;
+    /// &#10;actionBar - Boolean (default: true)
+    /// &#10;Indicates whether the Steps in the Wizard will render their Buttons and Pager element.
+    /// &#10;
+    /// &#10;contentPosition - String (default: "bottom")
+    /// &#10;Indicates the position of the step content element according to the Stepper. WIth the default configuration ("bottom"), the Stepper will be horizontal and wil be rendered above the content. With the "left" configuration, the Stepper will be vertical and the step content will be rendered to the left from it. With the "right" configuration, the Stepper will be vertical and the step content will be rendered to the right from it.
+    /// &#10;
+    /// &#10;loadOnDemand - Boolean (default: false)
+    /// &#10;Indicates whether the step content will be loaded on demand when a given step is selected. Applicable when the step configuration has "contentUrl" set.
+    /// &#10;
+    /// &#10;messages - Object 
+    /// &#10;Provides configuration options for the messages present in the Wizard widget.
+    /// &#10;
+    /// &#10;pager - Boolean (default: true)
+    /// &#10;Indicates whether the Steps in the Wizard will render their Pager element.
+    /// &#10;
+    /// &#10;reloadOnSelect - Boolean (default: "false")
+    /// &#10;Indicates whether the step content will be reloaded on each navigation to given step. Applicable when the step configuration has "contentUrl" set.
+    /// &#10;
+    /// &#10;stepper - Object 
+    /// &#10;Provides configuration options for the Stepper instance of the Wizard widget.
+    /// &#10;
+    /// &#10;validateForms - Boolean (default: true)
+    /// &#10;Indicates whether the Wizard will automatically validate any Kendo Form configured for a Step.
+    /// &#10;
+    /// &#10;steps - Array 
+    /// &#10;Array of steps to be rendered in the Wizard.
+    /// &#10;
+    /// </summary>
+    /// <param name="options" type="Object">
+    /// The widget configuration options
+    /// </param>
+};
+
+
+kendo.wizard.Step = function() { };
+
+kendo.wizard.Step.prototype = {
+
+
+
+
+    buttons: function() {
+        /// <summary>
+        /// Returns a collection of Buttons present in the Step.
+        /// </summary>
+
+    },
+
+
+    load: function() {
+        /// <summary>
+        /// If contentUrl is set for the step, loads the Step content from remote.
+        /// </summary>
+
+    },
+
+
+    resetButtons: function() {
+        /// <summary>
+        /// Regenerates the Buttons present in the Step instance.
+        /// </summary>
+
+    },
+
+    bind: function(event, callback) {
+        /// <summary>
+        /// Binds to a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be executed when the event is triggered.</param>
+    },
+
+    unbind: function(event, callback) {
+        /// <summary>
+        /// Unbinds a callback from a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be removed.</param>
+    }
+
+};
+
+$.fn.getKendoStep = function() {
+    /// <summary>
+    /// Returns a reference to the kendo.wizard.Step widget, instantiated on the selector.
+    /// </summary>
+    /// <returns type="kendo.wizard.Step">The kendo.wizard.Step instance (if present).</returns>
+};
+
+$.fn.kendoStep = function(options) {
+    /// <summary>
+    /// Instantiates a kendo.wizard.Step widget based the DOM elements that match the selector.
+
+    /// &#10;Accepts an object with the following configuration options:
     /// &#10;
     /// </summary>
     /// <param name="options" type="Object">

@@ -31,20 +31,19 @@
 			
 </cfloop>	
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<table width="100%" align="center" class="navigation_table">
 
 <tr><td height="8"></td></tr>
-<tr><td colspan="7" class="linedotted"></td></tr>
-<tr>
-	<TD class="labelit" width="5%">&nbsp;</TD>
-    <TD class="labelit">Code</TD>
-	<TD class="labelit">Description</TD>
-	<TD class="labelit" align="center">Order</TD>	
-	<td class="labelit">Interface</td>
-	<TD class="labelit">Officer</TD>
-    <TD class="labelit">Entered</TD>
+<tr class="line labelmedium">
+	<TD width="5%">&nbsp;</TD>
+    <TD><cf_tl id="Code"></TD>
+	<TD><cf_tl id="Description"></TD>
+	<TD align="center"><cf_tl id="Sort"></TD>	
+	<td><cf_tl id="Interface"></td>
+	<TD><cf_tl id="Officer"></TD>
+    <TD><cf_tl id="Entered"></TD>
 </TR>
-<tr><td colspan="7" class="linedotted"></td></tr>
+
 <cfif SearchResult.recordCount eq 0>
 	<tr>
 		<td height="35" colspan="8" align="center">
@@ -56,7 +55,7 @@
 
 <cfoutput query="SearchResult">
 	
-    <TR class="navigation_row labelmedium linedotted"> 
+    <TR class="navigation_row labelmedium line"> 
 		<TD height="18" align="center" style="padding-top:2px">
 		    <cf_img icon="select" navigation="yes" onclick="recordedit('#Code#','#url.fmission#')">
 		</TD>

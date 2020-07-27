@@ -137,8 +137,7 @@
 	}
 	
 	function ProcReqAdd(job) {	
-		ColdFusion.Window.create('myshipping', 'Shipping and Handling', '',{x:100,y:100,height:document.body.clientHeight-80,width:800,modal:false,center:true})    
-		ColdFusion.Window.show('myshipping')				
+		ProsisUI.createWindow('myshipping', 'Shipping and Handling', '',{x:100,y:100,height:document.body.clientHeight-80,width:800,modal:true,center:true})    				
 		ptoken.navigate(root + '/Procurement/Application/Quote/Create/AddView.cfm?ID=' + job,'myshipping') 		
 	}
 	
@@ -260,10 +259,9 @@
 		ptoken.open(root + "/Procurement/Application/Quote/Create/JobCreateView.cfm?mission="+mis+"&period="+per, "ProcReqEntry");
 	}
 	
-	function ProcOrder(tree) {
-	    w = #CLIENT.width# - 80;
-	    h = #CLIENT.height# - 120;
-		ptoken.open(root + "/Procurement/Application/PurchaseOrder/Create/PurchaseCreateView.cfm?mission="+tree, "ProcOrderEntry", "left=10, top=10, width=" + w + ", height= " + h + ", status=yes, scrollbars=yes, resizable=yes");
+	function ProcOrder(tree) {	   
+	   	ProsisUI.createWindow('mydialog','Record Obligation','',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,resizable:false,center:true})
+		ptoken.navigate(root + '/Procurement/Application/PurchaseOrder/Create/PurchaseCreateView.cfm?mission='+tree, 'mydialog');
 	}
 	
 	function ProcReqClear(mis,per,role,systemfunctionid) {

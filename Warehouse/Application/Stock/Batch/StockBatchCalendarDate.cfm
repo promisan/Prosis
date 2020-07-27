@@ -9,8 +9,7 @@
 		password="#SESSION.dbpw#">
 		SELECT    BatchDescription, count(*) as Counted
 		FROM      StockBatch_#SESSION.acc#
-		WHERE     TransactionDate = '#dateformat(url.calendardate,client.dateSQL)#'	
-		AND       Detail = '0'
+		WHERE     TransactionDate = '#dateformat(url.calendardate,client.dateSQL)#'			
 		GROUP BY BatchDescription
 	</cfquery>
 	
@@ -34,11 +33,7 @@
 			</cfoutput>
 	
 	</table>	
-	
-	<cfelse>
-	
-		<cf_compression>
-	
+		
 	</cfif>
 	
 	<cfcatch>

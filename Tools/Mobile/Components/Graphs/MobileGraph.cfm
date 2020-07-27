@@ -11,10 +11,11 @@
 <cfparam name="attributes.legendFont"			default="12">
 <cfparam name="attributes.legendPosition"		default="bottom">
 <cfparam name="attributes.dataPoints"			default="no">
-<cfparam name="attributes.labelDecimals"		default="0">
+<cfparam name="attributes.labelDecimals"		default="1">
 <cfparam name="attributes.labelThousands"		default="no">
 <cfparam name="attributes.labelPrepend"			default="">
 <cfparam name="attributes.labelAppend"			default="">
+<cfparam name="attributes.nullValueLabel"		default="0">
 <cfparam name="attributes.onclick"				default="">
 <cfparam name="attributes.engine"				default="chartjs">
 <cfparam name="attributes.color"				default="#ArrayNew(1)#"  type="array">
@@ -246,7 +247,7 @@
 			                    
 			                    var vValue = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
 			                    if ($.trim(vValue) == '') { 
-			                    	vValue =  tooltipItem.yLabel; 
+			                    	vValue = '#attributes.nullValueLabel#'; 
 			                    }
 
 			                    label += formatLabels(vValue, #attributes.labelDecimals#, #vThousands#, '#attributes.labelPrepend#', '#attributes.labelAppend#')
@@ -303,17 +304,17 @@
 
 										var fontSize = #attributes.legendFont*0.9#;
 										var fontStyle = 'normal';
-										var fontFamily = 'Times New Roman';
+										var fontFamily = 'Verdana';
 										ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
 
 										// Just naively convert to string for now
 										var dataString = formatLabels(dataset.data[index], #attributes.labelDecimals#, #vThousands#, '#attributes.labelPrepend#', '#attributes.labelAppend#').toString();
 
 										// Make sure alignment settings are correct
-										ctx.textAlign = 'center';
-										ctx.textBaseline = 'middle';
+										ctx.textAlign = 'left';
+										ctx.textBaseline = 'left';
 
-										var padding = 5;
+										var padding = -5;
 										var position = element.tooltipPosition();
 
 										var xPosition = position.x;

@@ -4,7 +4,7 @@
 <cfparam name="url.mode" default="modal">
 
 <cfoutput>
-	<input type="text" class="hide" id="mode" value="#url.mode#">
+	<input type="hidden" id="mode" value="#url.mode#" class="hide">
 </cfoutput>
 
 <cf_screenTop height="100%" 
@@ -25,7 +25,7 @@
 	<cf_layout attributeCollection="#attrib#">
 				  
 		<cf_layoutarea 
-		    position="left" name="treeOrganizationView" size="260" overflow="hidden" collapsible="true" splitter="true">
+		    position="left" name="treeOrganizationView" size="290" overflow="hidden" collapsible="true" splitter="true">
 			
 				<iframe name="leftOrganizationView"
 				        id="leftOrganizationView"

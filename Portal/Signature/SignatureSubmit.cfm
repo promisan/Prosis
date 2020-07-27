@@ -1,7 +1,7 @@
  
 <cfajaximport>
 
-<cf_screentop html="no" menuaccess="context">
+<cf_screentop html="no" menuaccess="context" jquery="Yes">
 
 <cftry>
 	<cfdirectory action="CREATE" directory="#SESSION.rootDocumentPath#\User\Signature">
@@ -15,7 +15,7 @@
 			<!--- upload file with unique name --->
 			<cffile action="UPLOAD"
 	        	filefield="UploadedFile"
-		        destination="#SESSION.rootDocumentPath#\User\Signature\#account#.jpg"
+		        destination="#SESSION.rootDocumentPath#\User\Signature\#account#.png"
 	    	    nameconflict="OVERWRITE">
 		
 	</cfif>
@@ -23,7 +23,7 @@
 	<cfif ParameterExists(Form.Delete)> 
 	
 		<cffile action="DELETE" 
-	        file="#SESSION.rootDocumentPath#\User\Signature\#account#.jpg">
+	        file="#SESSION.rootDocumentPath#\User\Signature\#account#.png">
 	
 	</cfif>
 	

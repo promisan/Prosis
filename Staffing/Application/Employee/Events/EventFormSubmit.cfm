@@ -1,6 +1,11 @@
-<cfparam name="URL.EventId"  default="">
-<cfparam name="URL.scope"    default="">
-<cfparam name="FORM.OrgUnit" default="">
+<cfparam name="URL.EventId"             default="">
+<cfparam name="URL.Box"                 default="">
+<cfparam name="URL.Scope"               default="">
+<cfparam name="FORM.OrgUnit"            default="">
+<cfparam name="FORM.GroupCode"          default="">
+<cfparam name="FORM.GroupConditionCode" default="">
+<cfparam name="FORM.Remarks"            default="">
+<cfparam name="FORM.DateEventDue"       default="#Form.ActionDateEffective#">
 
 <cfset date        = Evaluate("FORM.DateEvent")>
 <cfset dateDue     = Evaluate("FORM.DateEventDue")>
@@ -40,6 +45,11 @@
 			           		ReasonCode,
 			           		ReasonListCode,
 			           </cfif>	
+					   <cfif FORM.GroupConditionCode neq "">
+			           		ConditionCode,
+			           		ConditionListCode,
+			           </cfif>	
+					   
 					   <cfif FORM.OrgUnit neq "">
 					   OrgUnit,
 					   </cfif>
@@ -49,8 +59,7 @@
 					   <cfif FORM.RequisitionNo neq "">
 					   RequisitionNo,
 					   </cfif>
-			           DocumentNo,
-					   ContractNo,
+			           DocumentNo,					   
 			           DateEvent,
 			           DateEventDue,
 					   ActionDateEffective,
@@ -69,6 +78,10 @@
 			         '#FORM.GroupCode#',
 			         '#FORM.ReasonCode#',
 			         </cfif>	
+					 <cfif FORM.GroupConditionCode neq "">
+					 '#FORM.GroupConditionCode#',
+			         '#FORM.ConditionCode#',
+					 </cfif>
 					 <cfif FORM.OrgUnit neq "">
 					     '#FORM.OrgUnit#',
 					 </cfif>	
@@ -78,8 +91,7 @@
 					 <cfif FORM.RequisitionNo neq "">
 				         '#FORM.RequisitionNo#',
 					 </cfif>	 
-			         '#Form.DocumentNo#',
-					 '#FORM.ContractNo#',
+			         '#Form.DocumentNo#',					 
 			         #dte#,
 			         #dted#,
 					 #eff#,
@@ -118,6 +130,7 @@
 			EntityClass      = "#entityclass#"
 			EntityStatus     = ""
 			Mission          = "#Event.Mission#"
+			OrgUnit          = "#Event.OrgUnit#" 
 			PersonNo         = "#Event.PersonNo#" 
 			ObjectReference  = "#Event.FullName#"
 			ObjectReference2 = "#Event.Remarks#"			   
@@ -136,8 +149,7 @@
 				SET EventTrigger        = '#FORM.TriggerCode#',
 					EventCode           = '#FORM.EventCode#',
 					Mission             = '#FORM.Mission#',
-					DocumentNo          = '#Form.DocumentNo#',
-					ContractNo          = '#Form.ContractNo#',
+					DocumentNo          = '#Form.DocumentNo#',					
 		            <cfif FORM.PositionNo neq "">
 					PositionNo          = '#FORM.PositionNo#',
 					</cfif>
@@ -151,6 +163,10 @@
 		           		ReasonCode      = '#FORM.GroupCode#',
 		           		ReasonListCode  = '#FORM.ReasonCode#',
 		            </cfif>
+					<cfif FORM.ConditionGroupCode neq "">
+		           		ConditionCode      = '#FORM.GroupConditionCode#',
+		           		ConditionListCode  = '#FORM.ConditionCode#',
+		            </cfif>
 		            DateEvent            = #dte#,
 		            DateEventDue         = #dted#,
 				    ActionDateEffective  = #eff#,
@@ -161,6 +177,14 @@
 
 </cfif>
 
+<!---
+<cfoutput>
+<script>
+  alert('#url.scope#')
+</script>
+</cfoutput>
+--->
+
 <cfif url.box neq "">
 
 	<cfoutput>
@@ -168,6 +192,15 @@
 			try { ProsisUI.closeWindow('evdialog',true) } catch(e) {}
 			// ptoken.open('#SESSION.root#/staffing/Application/Employee/Events/EventDialog.cfm?id=#form.EventId#','#form.eventid#')
 			workflowreload('#url.box#');	
+		</script>
+	</cfoutput>
+	
+<cfelseif url.scope eq "portal">	
+
+	<cfoutput>
+		<script>
+			ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/Selfservice.cfm?id=#FORM.PersonNo#','eventdetail');
+			try { ProsisUI.closeWindow('evdialog',true) } catch(e) {}
 		</script>
 	</cfoutput>
 

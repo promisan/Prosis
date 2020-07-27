@@ -140,10 +140,10 @@
 	
 		<table border="0" cellpadding="0" cellspacing="0" width="100%">
 		
-		<TR class="linedotted">
+		<TR class="line fixrow labelmedium">
 		    <td height="20"></td>
-		    <TD class="labelit">Unit code</TD>
-			<TD class="labelit">Unit name</TD>
+		    <TD>Unit code</TD>
+			<TD>Unit name</TD>
 			<td></td>
 			<!--- <TD class="top4N">Class</TD> --->
 			<!--- <TD class="top4N">Expiration&nbsp;</TD> --->
@@ -236,7 +236,7 @@
 			   </cfif>	   
 		   
 		  	
-			<TR bgcolor="#cl#" class="navigation_row linedotted">
+			<TR bgcolor="#cl#" class="navigation_row line labelmedium">
 			<td width="30" height="18" style="padding-left:6px;padding-top:1px">
 			
 		    <cfif enabled eq "1">
@@ -247,15 +247,15 @@
 			 
 		    </td>
 		    	
-			<td width="15%" class="labelit" style="padding-left:4px;padding-right:4px"><font color="gray">#OrgUnitCode#</font></td>
+			<td style="min-width:90px;padding-left:4px;padding-right:4px"><font color="gray">#OrgUnitCode#</font></td>
 				   
 			<cfif enabled eq "1">
-			    <TD width="60%" class="labelit"><cfif enabled eq "0"><font color="gray"></cfif><b>#OrgUnitName#</b></TD>
+			    <TD width="60%"><cfif enabled eq "0"><font color="gray"></cfif><b>#OrgUnitName#</b></TD>
 			<cfelse>
-				<TD width="60%" class="labelit"><font color="gray"><b>#OrgUnitName#</font></b></TD>
+				<TD width="60%"><font color="gray"><b>#OrgUnitName#</font></b></TD>
 			</cfif>	
 				
-			 <td class="labelit" style="padding-right:10px">#HierarchyCode#</td>
+			 <td style="padding-right:10px">#HierarchyCode#</td>
 			 
 		   </TR>
 		   

@@ -94,7 +94,7 @@
 						username="#SESSION.login#" 
 						password="#SESSION.dbpw#">		
 						
-						   <cfif ScopeMode eq "Default">
+						   <cfif ScopeMode neq "Monitor">
 						   
 						         SELECT  TOP (1) Created as Updated
 								 FROM    Materials.dbo.WarehouseBatch							
@@ -108,8 +108,7 @@
 								 WHERE   BatchNo IN (#quotedValueList(ObjectContent.BatchNo)#)					 					 			 
 								 ORDER BY Created DESC 		
 						   
-						   </cfif>
-												
+						   </cfif>												
 									 
 						</cfquery> 
 					
@@ -581,7 +580,7 @@
 							</cfquery>		
 							
 						<cfset vObjectRefreshFunctionId = replace(getObjects.ObjectRefreshFunction, "-", "", "ALL")>
-					  										  
+																				  
 						<script>
 												
 								if  (document.getElementById('#getObjects.ObjectRefreshFunction#')) {										
@@ -594,8 +593,8 @@
 									} 
 								} 
 										
-						</script>					
-					
+						</script>		
+											
 					</cfif>							
 																								  				  
 				  </cfcase>				  		  
@@ -708,7 +707,8 @@
 						datasource="AppsSystem" 
 						username="#SESSION.login#" 
 						password="#SESSION.dbpw#">
-												
+						
+																			
 							<cfif getHeader.recordcount eq "1">
 						
 							<!--- header --->
@@ -722,14 +722,17 @@
 										WHERE    #preservesingleQuotes(getHeader.ScopeFilter)#		
 										AND      A.ActionCode = 'Monitor'
 				                        AND      A.ActionStatus = '1'
-										ORDER BY Updated DESC		
-										
+										ORDER BY Updated DESC	
+																				
 								<cfelse>	
+								
+									<!--- trigger a full refresh --->
 								
 										SELECT   TOP (1) Created as Updated
 										FROM     Materials.dbo.WarehouseBatch B								
 										WHERE    #preservesingleQuotes(getHeader.ScopeFilter)# 
-										ORDER BY Updated DESC				
+										ORDER BY Updated DESC		
+												
 								
 								</cfif>
 								
@@ -757,7 +760,8 @@
 							WHERE  SessionId = '#SESSION.SessionId#'
 							AND    ScopeId   = '#scopeid#'	
 																					
-					  </cfquery>							  		  
+					  </cfquery>	
+					  	  		  
 				  
 				  </cfcase>
 				  
@@ -878,21 +882,33 @@
 							
 							<cfoutput>
 							
-								<cfset vObjectRefreshFunctionId = replace(ObjectRefreshFunction, "-", "", "ALL")>							
+								<cfif getObjects.ScopeMode eq "Listing">
+								
+									<!--- listing --->	
+						
+									<script>																	
+										applyfilter('1','','#ObjectId#')								
+									</script>
+						
+								<cfelse>
 							
-								<script language="JavaScript">
-																																																										   
-									if  (document.getElementById('#ObjectRefreshFunction#')) {																			
-									     document.getElementById('#ObjectRefreshFunction#').click()
-									} else {
-									   if  (document.getElementById('#vObjectRefreshFunctionId#')) {										
-										     document.getElementById('#vObjectRefreshFunctionId#').click()
+									<cfset vObjectRefreshFunctionId = replace(ObjectRefreshFunction, "-", "", "ALL")>							
+								
+									<script language="JavaScript">
+																																																											   
+										if  (document.getElementById('#ObjectRefreshFunction#')) {																			
+										     document.getElementById('#ObjectRefreshFunction#').click()
 										} else {
-										   //alert("#vObjectRefreshFunctionId# not found2")
+										   if  (document.getElementById('#vObjectRefreshFunctionId#')) {										
+											     document.getElementById('#vObjectRefreshFunctionId#').click()
+											} else {
+											   //alert("#vObjectRefreshFunctionId# not found2")
+											} 
 										} 
-									} 
-														
-								</script>								
+															
+									</script>	
+									
+								</cfif>								
 							
 							</cfoutput>
 						

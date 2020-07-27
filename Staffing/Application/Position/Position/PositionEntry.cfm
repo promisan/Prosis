@@ -7,12 +7,13 @@
 <cfparam name="URL.Mode" default="Lookup">
 <cfparam name="URL.occ" default="">		
 <cfparam name="url.edition" default="">
+<cfparam name="url.scope" default="backoffice">
 
 <cfoutput>
 	
 	<script>
 	
-	function verify(org,fun) { 	
+	function verify(org,fun,scope) { 	
 	
 		if (org == "") { 
 	
@@ -28,7 +29,7 @@
 		}
 	
 		if( _CF_error_messages.length == 0 ) {            
-			ptoken.navigate('PositionEntrySubmit.cfm?Mission=#URL.ID#','process','','','POST','PositionEntry');        
+			ptoken.navigate('PositionEntrySubmit.cfm?Mission=#URL.ID#&scope=#url.scope#','process','','','POST','PositionEntry');        
 		}   
 							
 	}	
@@ -80,7 +81,26 @@ username="#SESSION.login#"
 password="#SESSION.dbpw#">
     SELECT *
     FROM Ref_Fund
+	<cfif Param.ShowPositionFund eq "2">
+	WHERE Code IN (SELECT EF.Fund
+				   FROM   Ref_AllotmentEditionFund AS EF INNER JOIN
+                          Ref_AllotmentEdition AS E ON EF.EditionId = E.EditionId
+				   WHERE  E.Mission = '#url.Id#'
+				   )
+	</cfif>			   
 </cfquery>
+
+<cfif FundTable.recordcount eq "0">
+	
+	<cfquery name="FundTable" 
+	datasource="AppsProgram" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    SELECT *
+	    FROM Ref_Fund	
+	</cfquery>
+
+</cfif>
 
 <cfquery name="Mission" 
 datasource="AppsOrganization" 
@@ -263,7 +283,7 @@ password="#SESSION.dbpw#">
 	
 	</cfif>
 			
-	<cf_screentop label="Position - Entry (#URL.ID# #URL.ID1#)" layout="webapp" banner="gray" line="no" jquery="yes" height="100%" scroll="no">
+	<cf_screentop label="Position - Entry (#URL.ID# #URL.ID1#)" layout="webapp" banner="gray" line="no" html="No" jquery="yes" height="100%" scroll="no">
 					
 	<cf_divscroll>
 	
@@ -361,45 +381,56 @@ password="#SESSION.dbpw#">
 					WHERE   Mission = '#URL.ID#'
 			</cfquery>
 			
-			<tr>
-			<td class="labelmedium"><cf_uitooltip tooltip="Unit responsible for management of this position"><cf_tl id="Administrative Unit"><cf_uitooltip>:</TD>
+			<cfif Tree.TreeAdministrative neq "">
 			
-				    <TD>
-					
-					<table>
-						<tr><td>
-						<input type="text" name="mission1" id="mission1" value="#OrgUnitAdm.Mission#" class="regularxl" size="20" maxlength="20" readonly>
-						</td>
-						<td style="padding-left:4px">
-						<button name="btnFunction" type="button" class="button10g" style="height:25;width:40" onClick="selectorgN('#URL.ID#','Administrative','orgunit','applyorgunit','1')"> 
-						  <img src="#SESSION.root#/Images/locate.gif" alt="" name="img3" height="15" width="15"
-							  style="cursor: pointer;" alt="" border="0" align="top">
-						</button>	
-						</td>
-						<td style="padding-left:4px">
-						<cfif Tree.TreeAdministrative eq "">
-						<button name="btnFunction" type="button" class="button10g" style="height:25;width:40" onClick="javascript:admblank()"> 
-						  <img src="#SESSION.root#/Images/delete5.gif" height="15" width="15" alt="" name="img1" 
-							  style="cursor: pointer;" alt="" border="0" align="top">
-						</button>	
-						</cfif>				
-						</td>
-						</tr>
-					</table>
-					</TD> 
-			</tr>
-			
-			<tr><TD class="labelmedium"></TD>
-							
-				    <TD>
-					
-					<input type="text" name="orgunitname1" id="orgunitname1" value="#OrgUnitAdm.orgunitName#" class="regularxl" size="60" maxlength="60" readonly>
-					<input type="hidden" name="orgunit1" id="orgunit1" value="#OrgUnitAdm.orgunit#">
-					<input type="hidden" name="orgunitcode1" id="orgunitcode1" value="#OrgUnitAdm.orgunitcode#"></TD> 
-				</tr>
-				<input type="hidden" name="orgunitclass1" id="orgunitclass1" value="#OrgUnitAdm.orgunitclass#" class="regularxl" size="20" maxlength="20" readonly></TD> 
+				<tr>
+				<td class="labelmedium"><cf_uitooltip tooltip="Unit responsible for management of this position"><cf_tl id="Administrative Unit"><cf_uitooltip>:</TD>
 				
+					    <TD>
 						
+						<table>
+							<tr><td>
+							<input type="text" name="mission1" id="mission1" value="#OrgUnitAdm.Mission#" class="regularxl" size="20" maxlength="20" readonly>
+							</td>
+							<td style="padding-left:4px">
+							<button name="btnFunction" type="button" class="button10g" style="height:25;width:40" onClick="selectorgN('#URL.ID#','Administrative','orgunit','applyorgunit','1')"> 
+							  <img src="#SESSION.root#/Images/locate.gif" alt="" name="img3" height="15" width="15"
+								  style="cursor: pointer;" alt="" border="0" align="top">
+							</button>	
+							</td>
+							<td style="padding-left:4px">
+							<cfif Tree.TreeAdministrative eq "">
+							<button name="btnFunction" type="button" class="button10g" style="height:25;width:40" onClick="javascript:admblank()"> 
+							  <img src="#SESSION.root#/Images/delete5.gif" height="15" width="15" alt="" name="img1" 
+								  style="cursor: pointer;" alt="" border="0" align="top">
+							</button>	
+							</cfif>				
+							</td>
+							</tr>
+						</table>
+						</TD> 
+				</tr>
+				
+				<tr><TD class="labelmedium"></TD>
+								
+					    <TD>
+						
+						<input type="text"   name="orgunitname1" id = "orgunitname1" value="#OrgUnitAdm.orgunitName#" class="regularxl" size="60" maxlength="60" readonly>
+						<input type="hidden" name="orgunit1"     id = "orgunit1"     value="#OrgUnitAdm.orgunit#">
+						<input type="hidden" name="orgunitcode1" id = "orgunitcode1" value="#OrgUnitAdm.orgunitcode#">
+						
+						</TD> 
+						
+				</tr>
+
+				
+			</cfif>		
+			
+			<input type="hidden" name="orgunit1"     id = "orgunit1"     value="#OrgUnitAdm.orgunit#">
+			<input type="hidden" name="orgunitcode1" id = "orgunitcode1" value="#OrgUnitAdm.orgunitcode#">		
+			<input type="hidden" name="orgunitclass1" id="orgunitclass1" value="#OrgUnitAdm.orgunitclass#">
+				
+										
 			</cfoutput>
 			
 			<cfif Location.recordcount eq "0">
@@ -461,7 +492,7 @@ password="#SESSION.dbpw#">
 				
 			</script>
 			
-			<cfif Param.ShowPositionFund eq "1">
+			<cfif Param.ShowPositionFund neq "0">
 					
 			<TR>
 	        <TD height="22" class="labelmedium"><cf_tl id="Fund">: <font color="FF0000">*</font></TD>
@@ -672,11 +703,33 @@ password="#SESSION.dbpw#">
 			<INPUT type="text" class="regularxl" name="SourcePostNumber" maxLength="20" size="20">
 			</TD>
 			</TR>
+			<cfparam name="URL.Domain" default="Position">
+						
+			<cfquery name="GroupAll" 
+			    datasource="AppsEmployee" 
+			    username="#SESSION.login#" 
+			    password="#SESSION.dbpw#">
+				SELECT   F.*, S.PositionNo, S.Status AS Status
+				FROM     PositionGroup S RIGHT OUTER JOIN
+			             Ref_Group F ON S.PositionGroup = F.GroupCode AND S.Status <> '9' AND S.PositionNo = '#URL.ID2#'
+				WHERE    F.GroupCode IN
+			                    (SELECT   GroupCode
+			                     FROM     Ref_Group
+			                     WHERE    GroupDomain = '#URL.Domain#'
+								 AND      GroupCode IN (SELECT GroupCode 
+								                        FROM   Ref_GroupMission 
+														WHERE  Mission = '#url.id#')
+								)					 
+			</cfquery>
+			
+			<cfif GroupAll.recordcount gte "1">
 			
 			<TR style="height:30px">
 		        <td class="labelmedium"><cf_tl id="Classification">:</td>
 		        <td><cfinclude template="PositionEditGroup.cfm"></td>
 			</TR>
+			
+			</cfif>
 			
 			<cfquery name="Topic" 
 			datasource="AppsEmployee" 
@@ -752,7 +805,7 @@ password="#SESSION.dbpw#">
 			<cfoutput>
 				<input class="button10g" type="reset"   name="Reset"  value="#vReset#">
 				<input class="button10g" type="button"  name="cancel" value="#vCancel#"  onClick="window.close()">
-		    	<input class="button10g" type="submit"  name="Submit" value="#vSave#"    onClick="verify(PositionEntry.orgunit.value,PositionEntry.functionno.value)">
+		    	<input class="button10g" type="submit"  name="Submit" value="#vSave#"    onClick="verify(document.getElementById('orgunit').value,document.getElementById('functionno').value,'#url.scope#')">
 			</cfoutput>
 		    </td></TR>
 				

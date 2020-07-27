@@ -18,7 +18,7 @@
 	FunctionName  = "Receipt Document">
 	
 	<table width="100%" height="100%"><tr><td>
-	
+		
 	<cfoutput>
 	<iframe src="ReceiptEditContent.cfm?#cgi.query_string#&header=0" width="100%" height="100%" frameborder="0"></iframe> 
 	</cfoutput>

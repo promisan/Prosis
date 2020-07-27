@@ -236,16 +236,14 @@
 					  datasource="AppsMaterials" 
 					  username="#SESSION.login#" 
 					  password="#SESSION.dbpw#">	  
-					      UPDATE  ItemTransactionShipping
-						  
+					      UPDATE  ItemTransactionShipping						  
 						  SET     SalesPrice         = '#getPrice.ItemPrice#',
 						  		  SalesPriceFixed    = '#getPrice.ItemPriceFixed#',
 								  SalesPriceVariable = '#getPrice.ItemPriceVariable#',
 								  SalesAmount        = '#getPrice.ItemPrice#'*TransactionQuantity*-1,
 								  SalesTax           = '0'
-					      FROM    ItemTransactionShipping S, ItemTransaction T
-						  WHERE   S.TransactionId = T.TransactionId						  
-						  AND     T.TransactionBatchNo = '#BatchNo#'
+					      FROM    ItemTransactionShipping S INNER JOIN ItemTransaction T ON S.TransactionId = T.TransactionId						  
+						  WHERE   T.TransactionBatchNo = '#BatchNo#'
 					</cfquery>
 					
 					<cfset prcFix = getPrice.ItemPriceFixed>

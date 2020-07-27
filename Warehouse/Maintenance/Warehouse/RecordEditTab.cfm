@@ -25,7 +25,7 @@
 </cfif>
 
 <cf_textareascript>
-<cfajaximport tags="cfdiv,cfwindow,cfform">
+<cfajaximport tags="cfdiv,cfform">
 
 <style type="text/css">
 
@@ -57,9 +57,8 @@
 			var vWidth = 670;
 		   	var vHeight = 500;    
 		   
-		   	ColdFusion.Window.create('mydialog', 'Category', '',{x:30,y:30,height:vHeight,width:vWidth,modal:true,center:true});    
-		   	ColdFusion.Window.show('mydialog'); 				
-		   	ColdFusion.navigate("Category/CategoryEditTab.cfm?idmenu=#url.idmenu#&id1=" + wh + "&id2=" + cat,'mydialog'); 
+		   	ProsisUI.createWindow('mydialog', 'Category', '',{x:30,y:30,height:vHeight,width:vWidth,modal:true,center:true});    		   	
+		   	ptoken.navigate("Category/CategoryEditTab.cfm?idmenu=#url.idmenu#&id1=" + wh + "&id2=" + cat,'mydialog'); 
 			
 		}
 		

@@ -4,6 +4,7 @@
 <cf_screentop height="100%" 
              scroll="Yes" 
 			 html="Yes" 
+			 jquery="Yes"
 			 layout="webapp" 
 			 label="#vWarehouse#" 
 			 banner="gray" 

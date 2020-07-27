@@ -80,48 +80,7 @@ password="#SESSION.dbpw#">
 		<INPUT type="hidden" name="Crit5_FieldName" id="Crit5_FieldName" value="ItemClass">		
 		<INPUT type="hidden" name="Crit5_FieldType" id="Crit5_FieldType" value="CHAR">
 		
-		<TR>
 		
-		<TD valign="top" style="padding-top:6px" class="labelmedium"><cf_tl id="Class">:</td>
-		<TD colspan="2">
-			
-			<INPUT type="hidden" name="Crit5_Operator" id="Crit5_Operator" value="EQUAL">
-			
-				<cfquery name="lookup" 
-				datasource="appsMaterials" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-					SELECT 	*
-					FROM 	Ref_ItemClass
-					WHERE   Code != 'Other'
-				</cfquery>
-				
-				<table>
-							
-				<cfloop query="lookup">
-				<tr>
-				<td style="height:20px;"><input type="checkbox" style="height:14px;width:14px" name="Crit5_Value" id="Crit5_Value" checked value="'#Code#'" class="regularxl"></td>
-				<td class="labelmedium" style="height:20px;padding-left:4px">#Description# (#code#)</td>
-				</tr>
-				</cfloop>
-				</table>
-			
-			
-			<!---
-			<select name="Crit5_Value"
-	        id="Crit5_Value"
-	        multiple
-			class="regularxl"
-	        style="height: 60px;">
-			<cfloop query="lookup">
-				<option value="'#Code#'" selected>#Code# - #Description#</option>
-			</cfloop>
-			</SELECT>		
-			
-			--->
-			
-		</TD>	
-		</TR>
 		
 		<!--- Field: Item.ItemColor=CHAR;20;FALSE --->
 		<INPUT type="hidden" name="Crit6_FieldName" id="Crit6_FieldName" value="Mission">
@@ -157,7 +116,7 @@ password="#SESSION.dbpw#">
 									WHERE  Mission = M.Mission
 									AND    SystemModule = 'Warehouse')					
 			</cfquery>
-			<select name="Crit6_Value" id="Crit6_Value"  class="regularxl">
+			<select name="Crit6_Value" id="Crit6_Value"  class="regularxxl">
 			<option value="">--<cf_tl id="Any">--</option>
 			<cfloop query="getMission">
 				<option value="#Mission#">#Mission#</option>
@@ -176,6 +135,49 @@ password="#SESSION.dbpw#">
 		</TD>	
 		</TR>
 		
+		<TR>
+		
+		<TD valign="top" style="padding-top:6px" class="labelmedium"><cf_tl id="Class">:</td>
+		<TD colspan="2">
+			
+			<INPUT type="hidden" name="Crit5_Operator" id="Crit5_Operator" value="EQUAL">
+			
+				<cfquery name="lookup" 
+				datasource="appsMaterials" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					SELECT 	*
+					FROM 	Ref_ItemClass
+					WHERE   Code != 'Other'
+				</cfquery>
+				
+				<table>
+							
+				<cfloop query="lookup">
+				<tr>
+				<td style="height:24px;"><input type="checkbox" style="height:16px;width:16px" name="Crit5_Value" id="Crit5_Value" checked value="#Code#" class="regularxl"></td>
+				<td class="labelmedium" style="height:20px;padding-left:4px">#Description# (#code#)</td>
+				</tr>
+				</cfloop>
+				</table>
+			
+			
+			<!---
+			<select name="Crit5_Value"
+	        id="Crit5_Value"
+	        multiple
+			class="regularxl"
+	        style="height: 60px;">
+			<cfloop query="lookup">
+				<option value="'#Code#'" selected>#Code# - #Description#</option>
+			</cfloop>
+			</SELECT>		
+			
+			--->
+			
+		</TD>	
+		</TR>
+		
 			
 		<!--- Field: Item.Category=CHAR;20;FALSE --->
 		<INPUT type="hidden" name="Crit3_FieldName" id="Crit3_FieldName" value="C.Category">	
@@ -191,13 +193,9 @@ password="#SESSION.dbpw#">
 			password="#SESSION.dbpw#">
 				SELECT 	*
 				FROM 	#CLIENT.LanPrefix#Ref_Category
+				ORDER BY Description
 			</cfquery>
-			<SELECT class="regularxl"  name="Crit3_Value" id="Crit3_Value" style="width:300px;border:0px;height:250px" multiple>
-			<!--- <option value="">-- All --</option> --->
-			<cfloop query="lookup">
-				<option value="'#Category#'">#Category# - #Description#</option>
-			</cfloop>
-			</SELECT>
+			<cf_uiSELECT class="regularxxl" query="#lookup#" value="Category" Display="Description" name="Crit3_Value" id="Crit3_Value" style="border:1px solid silver;width:90%" multiple/>
 		</TD>	
 		</TR>		
 		
@@ -210,23 +208,20 @@ password="#SESSION.dbpw#">
 		<TD colspan="2">
 			
 			<INPUT type="hidden" name="Crit9_Operator" id="Crit9_Operator" value="EQUAL">			
-			<input type="checkbox" style="height:14px;width:14px" name="Crit9_Value" id="Crit9_Value" checked value="1" class="regularxl"></td>
+			<input type="checkbox" style="height:19px;width:19px" name="Crit9_Value" id="Crit9_Value" checked value="1" class="regularxl"></td>
 							
 		</TD>	
 		</TR>
-		
 				
-		
-		
 		<!--- Field: Item.ItemDescription=CHAR;100;FALSE --->
 		<INPUT type="hidden" name="Crit1_FieldName" id="Crit1_FieldName" value="ItemDescription">	
 		<INPUT type="hidden" name="Crit1_FieldType" id="Crit1_FieldType" value="CHAR">
 		<TR>
 		
 		<TD class="labelmedium" width="20%"><cf_tl id="Description">:</TD>
-		<TD><SELECT class="regularxl" name="Crit1_Operator" id="Crit1_Operator">#SelectOptions#</SELECT></TD>		
-		<TD width="80%">
-	    <INPUT type="text" class="regularxl"  name="Crit1_Value" id="Crit1_Value" size="20">	
+		<TD><SELECT class="regularxxl" name="Crit1_Operator" id="Crit1_Operator">#SelectOptions#</SELECT></TD>		
+		<TD width="80%" style="padding-left:2px">
+	    <INPUT type="text" class="regularxxl" style="height:30px" name="Crit1_Value" id="Crit1_Value" size="20">	
 		</TD>
 		</TR>
 	
@@ -236,10 +231,10 @@ password="#SESSION.dbpw#">
 		<INPUT type="hidden" name="Crit2_FieldType" id="Crit2_FieldType" value="CHAR">
 		<TR class="hide">		
 		<TD class="labelmedium"><cf_tl id="Description External">:</TD>
-		<TD><SELECT class="regularxl"  name="Crit2_Operator" id="Crit2_Operator">#SelectOptions#</SELECT> 
+		<TD><SELECT class="regularxxl"  name="Crit2_Operator" id="Crit2_Operator">#SelectOptions#</SELECT> 
 		</TD>
-		<TD>		
-		<INPUT type="text" class="regularxl" name="Crit2_Value" id="Crit2_Value" size="20" > 	
+		<TD style="padding-left:2px">		
+		<INPUT type="text" class="regularxxl" style="height:30px" name="Crit2_Value" id="Crit2_Value" size="20" > 	
 		</TD>
 		</TR>
 	
@@ -248,10 +243,10 @@ password="#SESSION.dbpw#">
 		<INPUT type="hidden" name="Crit4_FieldType" id="Crit4_FieldType" value="CHAR">		
 		<TR>		
 		<TD class="labelmedium"><cf_tl id="ItemNo">:</td>
-		<TD><SELECT class="regularxl" name="Crit4_Operator" id="Crit4_Operator">#SelectOptions#</SELECT> 
+		<TD><SELECT class="regularxxl" name="Crit4_Operator" id="Crit4_Operator">#SelectOptions#</SELECT> 
 		</TD>
-		<TD>			
-		<INPUT class="regularxl" type="text" name="Crit4_Value" id="Crit4_Value" size="20">		
+		<TD style="padding-left:2px">			
+		<INPUT class="regularxxl" type="text" style="height:30px" name="Crit4_Value" id="Crit4_Value" size="20">		
 		</TD>
 		</TR>
 				
@@ -259,11 +254,11 @@ password="#SESSION.dbpw#">
 		<INPUT type="hidden" name="Crit7_FieldName" id="Crit7_FieldName" value="ItemNoExternal">	
 		<INPUT type="hidden" name="Crit7_FieldType" id="Crit7_FieldType" value="CHAR">		
 		<TR>		
-		<TD style="width:160px" class="labelmedium"><cf_tl id="Code">/<cf_tl id="BarCode">:</td>
-		<TD><SELECT class="regularxl" name="Crit7_Operator" id="Crit7_Operator">#SelectOptions#</SELECT> 
+		<TD style="min-width:190px" class="labelmedium"><cf_tl id="Code">/<cf_tl id="BarCode">:</td>
+		<TD><SELECT class="regularxxl" name="Crit7_Operator" id="Crit7_Operator">#SelectOptions#</SELECT> 
 		</TD>
-		<TD>			
-		<INPUT class="regularxl" type="text" name="Crit7_Value" id="Crit7_Value" size="20">		
+		<TD style="padding-left:2px">			
+		<INPUT class="regularxxl" type="text" style="height:30px" name="Crit7_Value" id="Crit7_Value" size="20">		
 		</TD>
 		</TR>
 

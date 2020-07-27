@@ -112,11 +112,11 @@
 				    SELECT  *
 					FROM   Customer
 					WHERE  CustomerId = '#url.customerid#'	    							   
-			</cfquery>					
-					
+			</cfquery>			
+			
+								
 			<cfif url.batchid eq "">
-					
-				 #customer.CustomerName#			
+				<span style="padding-left:5px;padding-right:5px">#customer.CustomerName#</span>
 				 <input type="hidden" name="batchid" id="batchid" value="">
 				 		
 			<cfelse>

@@ -255,7 +255,7 @@
 							 <cfif SearchResult.recordcount gte "1">
 							 		
 								 <tr><td></td>
-								     <td height="20" colspan="11" class="labelit" style="padding-left:14px">Receipt Postings</td>
+								     <td height="20" colspan="11" class="labelit" style="padding-left:14px"><cf_tl id="Receipt Postings"></td>
 								 </tr>	
 								 				 
 								 <tr><td></td><td colspan="11" height="100%" style="padding-left:10px">

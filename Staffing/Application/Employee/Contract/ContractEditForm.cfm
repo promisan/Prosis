@@ -1395,6 +1395,12 @@ otherwise no action
 							<td style="padding-left:8px;padding-right:5px">							
 								<INPUT type="radio" name="ContractTime" value="50" <cfif ContractSel.ContractTime eq "50">checked</cfif>>
 								</td><td style="padding-left:2px">50%</td>
+							<td style="padding-left:8px;padding-right:5px">							
+								<INPUT type="radio" name="ContractTime" value="40" <cfif ContractSel.ContractTime eq "40">checked</cfif>>
+								</td><td style="padding-left:2px">40%</td>
+							<td style="padding-left:8px;padding-right:5px">							
+								<INPUT type="radio" name="ContractTime" value="20" <cfif ContractSel.ContractTime eq "20">checked</cfif>>
+								</td><td style="padding-left:2px">20%</td>		
 							</tr>
 						</table>
 						</td>	

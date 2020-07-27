@@ -76,6 +76,10 @@ password="#SESSION.dbpw#">
 	<cfif Jrn.BankId neq "">
 	AND   BankId = '#jrn.BankId#' 
 	</cfif>
+	AND  BankId IN
+            (SELECT     BankId
+             FROM       Ref_Account
+             WHERE      GLAccount IN (SELECT GLAccount FROM Ref_AccountMission WHERE Mission = '#jrn.mission#'))
 </cfquery>
 
 <cf_NumberToText lang="ESP" amount="#amt#" showcurrency="0">

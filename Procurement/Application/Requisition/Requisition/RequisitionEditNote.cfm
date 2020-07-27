@@ -69,14 +69,13 @@ password="#SESSION.dbpw#">
 	ORDER BY Created DESC
 </cfquery>
 
+<cf_divscroll>
 
 <cfform name="memoform" id="memoform">
 	
-	<table width="95%" align="center" cellspacing="0" cellpadding="0" class="navigation_table">
-	  
-	<tr><td height="5"></td></tr> 
-	
-	<tr>
+	<table width="95%" align="center" class="navigation_table">
+	 	
+	<tr  class="line fixrow">
 	    <td width="16"></td>
 		<td class="labelit" width="70%"><cf_tl id="Memo"></td>
 		<td class="labelit"><cf_tl id="Officer"></td>
@@ -84,19 +83,17 @@ password="#SESSION.dbpw#">
 		<td align="center"></td>
 	
 	</tr>
-	
-	<tr><td colspan="5" class="linedotted"></td></tr>
-	
+		
 	<cfoutput query="Memo">
 	
 	<cfif url.memoid eq memoid and form.RequisitionMemo eq "" and SESSION.acc eq OfficerUserId>
 	
-		<tr bgcolor="ffffff">
-		    <td height="20" class="labelit">#currentrow#.</td>
+		<tr bgcolor="ffffff" class="line">
+		    <td height="20" valign="top" style="padding-top:4px" class="labelit">#currentrow#.</td>
 			<td colspan="4" align="center" height="80" style="padding-top:4px">
 			<cf_textarea name="RequisitionMemo" 
 				color   = "ffffff"
-				toolbar = "basic"	 
+				toolbar = "mini"	 
 				init    = "no"				 
 				style=";font-size:14;padding:3px;width: 100%;height:120">#RequisitionMemo#</cf_textarea>
 			</td>
@@ -107,7 +104,7 @@ password="#SESSION.dbpw#">
 		  name="Save" 
           id="Save"
 		  value="Save" 
-		  class="button10s" 
+		  class="button10g" 
 		  style="width:100px" 
 		  onclick="updateTextArea();ColdFusion.navigate('RequisitionEditNote.cfm?Requisitionno=#url.requisitionno#&memoid=#memoid#','contentbox2','','','POST','memoform')">
 		</td></tr>
@@ -115,7 +112,7 @@ password="#SESSION.dbpw#">
 	
 	<cfelse>
 			
-		<tr class="navigation_row">
+		<tr class="navigation_row line labelmedium">
 			
 		    <td height="20" class="labelit" style="padding-left:3px">#currentrow#.</td>
 			<td width="70%" class="labelit">#paragraphformat(RequisitionMemo)#</td>
@@ -130,9 +127,7 @@ password="#SESSION.dbpw#">
 		</tr>
 	
 	</cfif>
-	
-	<tr><td colspan="5" height="1" class="linedotted"></td></tr>
-	
+		
 	</cfoutput>
 	
 	<cfif url.memoid eq "">
@@ -142,13 +137,13 @@ password="#SESSION.dbpw#">
 		
 		<tr><td height="4"></td></tr>
 		
-		<tr bgcolor="ffffff">
-		<td> <cfoutput>#memo.recordcount+1#.</cfoutput></td>
+		<tr bgcolor="ffffff" class="line">
+		<td valign="top" style="padding-left:3px;padding-top:10px"> <cfoutput>#memo.recordcount+1#.</cfoutput></td>
 		<td colspan="4" align="center">
 		
 			<cf_textarea name="RequisitionMemo" 
 			   style="width: 100%;height:120;font-size:14;padding:3px" 
-				toolbar = "basic"	 
+				toolbar = "mini"	 
 				init    = "no"				 
 			   class="regular"></cf_textarea>
 		</td>
@@ -165,7 +160,7 @@ password="#SESSION.dbpw#">
 	                id="Save"
 					value="Save" 
 					style="width:120px" 
-					class="button10s" 
+					class="button10g" 
 					onclick="updateTextArea();ColdFusion.navigate('RequisitionEditNote.cfm?requisitionno=#url.RequisitionNo#&memoid=#memoid#','contentbox2','','','POST','memoform')">
 					
 			</cfoutput>
@@ -175,10 +170,14 @@ password="#SESSION.dbpw#">
 		<tr><td height="3"></td></tr>
 
 	</cfif>
+	
+	</table>
 
 	</cfform>
 
-</table>
+</cf_divscroll>
+
+
 
 
 <cfset AjaxOnLoad("doHighlight")>	

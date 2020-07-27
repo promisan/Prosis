@@ -123,7 +123,7 @@
 
 </cfif>
 
-	<table width="94%" border="0" cellspacing="0" cellpadding="0" align="center">
+	<table width="94%" align="center">
 		    
 	  <tr><td height="10"></td></tr>	
 	  
@@ -134,8 +134,7 @@
 		<cfif detail.recordcount eq "0">
 		<tr><td colspan="6" align="center" height="80" class="labelmedium" style="font-weight:200">There were no custom fields configured for this action.</td></tr>
 		</cfif>
-		
-				
+						
 		<!--- upon creation of the object we can pass a filter to the organizationObject, this will then 
 		allow to show the custom fields/templates only if that object at runtime has indeed the filtered value
 		as defined below --->
@@ -173,7 +172,7 @@
 		   <td width="40%"><cf_tl id="Description"></td>
 		   <td width="30%"><cf_tl id="Apply"></td>
 		   <td width="6%"><cf_tl id="Sort"></td>
-		   <td width="10%" align="center"><cfif DocumentType eq "Field">Type</cfif></td>		  
+		   <td width="10%" align="center"><cfif DocumentType eq "Field"><cf_tl id="Type"></cfif></td>		  
 		  	  
 	    </TR>	
 				
@@ -193,7 +192,7 @@
 					   id="operational#currentrow#"
 					   value="1" 
 					   style="height:16;width:16"
-					   onclick="ColdFusion.navigate('#SESSION.root#/System/EntityAction/EntityObject/WorkflowElement/ClassDocumentSubmit.cfm?EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&entitycode=#URL.EntityCode#&actionCode=#URL.ActionCode#&ID2=#documentid#&fil='+document.getElementById('objectfilter#currentrow#').value+'&lo='+document.getElementById('listingorder#currentrow#').value+'&op='+this.checked,'savedoc')"
+					   onclick="ptoken.navigate('#SESSION.root#/System/EntityAction/EntityObject/WorkflowElement/ClassDocumentSubmit.cfm?EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&entitycode=#URL.EntityCode#&actionCode=#URL.ActionCode#&ID2=#documentid#&fil='+document.getElementById('objectfilter#currentrow#').value+'&lo='+document.getElementById('listingorder#currentrow#').value+'&op='+this.checked,'savedoc')"
 				    <cfif valid eq "1">checked</cfif>>
 				   </td>
 				   

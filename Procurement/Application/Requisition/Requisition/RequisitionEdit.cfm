@@ -131,8 +131,7 @@ password="#SESSION.dbpw#">
 	
 <table width="100%" height="100%">
 					
-	<cfoutput>	
-	
+	<cfoutput>		
 					
 	<cfif URL.Mode eq "Listing" or url.mode eq "Budget" or URL.mode eq "Dialog" or URL.Mode eq "View" or URL.Mode eq "Portal" or URL.refer eq "Workflow">
 		
@@ -397,7 +396,7 @@ password="#SESSION.dbpw#">
 			  
 				  <tr>
 					  <td valign="top" style="padding-left:10px;">
-										 					  
+					  										 					  
 					  <cfform action= "RequisitionEditSubmit.cfm?ID=#URL.ID#&Mode=#URL.Mode#" 
 				    	  method= "POST" 		
 						  style="height:98%"		
@@ -432,12 +431,12 @@ password="#SESSION.dbpw#">
 						
 			<!--- top menu --->
 					
-			<table width="100%" style="height:1px;border-bottom:1px solid silver"  align="center">		
+			<table width="100%" style="min-width:970px;height:1px;border-bottom:1px solid silver"  align="center">		
 										
 				<cf_menuscript>
 							
-				<cfset ht = "58">
-				<cfset wd = "58">
+				<cfset ht = "52">
+				<cfset wd = "52">
 				<cfset pad = "2">		
 				
 				<cfset add = 1>

@@ -869,9 +869,13 @@
 
 <cfoutput>	
 
+<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+<cfset mid = oSecurity.gethash()/>   
+
 <script language="JavaScript">    
     parent.Prosis.busy('no')	
-	ptoken.open("../Purchase/POViewGeneral.cfm?header=#url.header#&ID=PO&ID1=#PoNo#&Mode=Edit","_top")	
+	parent.history.go()
+	ptoken.open("../Purchase/POViewGeneral.cfm?header=#url.header#&ID=PO&ID1=#PoNo#&Mode=Edit&mid=#mid#","_blank")	
 </script>
 
 </cfoutput>	

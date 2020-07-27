@@ -619,7 +619,7 @@ password="#SESSION.dbpw#">
 			       name="Close"
 			       id="Close"
 			       value="#lt_text#" class="button10g"	 
-				   onclick="parent.ColdFusion.Window.destroy('mydialog',true)"  
+				   onclick="parent.ProsisUI.closeWindow('mydialog',true)"  
 			       style="width: 170px; font-size:12px;height: 30px;">	
 				   
 				<cf_tl id="Submit Obligation" var="1">

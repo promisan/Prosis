@@ -51,13 +51,11 @@
 						   onblur  = "this.style.border='1px solid silver'"	
 						   name    = "Search" 
 						   id      = "Search" 
-						   style   = "border:1px inset gray;width:300px; height:33px;font-size:20px"
-						   onkeyup = "#setlink#"						  
-						   class   = "regularxl">
+						   style   = "border:1px inset gray;width:300px; height:33px;font-size:25px;!important"
+						   onkeyup = "if (window.event.keyCode == '13') {#setlink#;};if (window.event.keyCode == '8') {#setlink#};"						  
+						   class   = "regularxxl">
 						   
-						    <!---
-						   onkeyup = "if (window.event.keyCode == '13') {#setlink#;};if (window.event.keyCode == '8') {#setlink#};" 
-						   --->
+						  
 					   
 					   </cfoutput>
 					   

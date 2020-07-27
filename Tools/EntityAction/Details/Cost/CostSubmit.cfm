@@ -170,7 +170,7 @@
 	
 	<cfoutput>
 	<script>
-	    ColdFusion.Window.hide('costdialog') 		
+	    ProsisUI.closeWindow('costdialog') 		
    		ColdFusion.navigate('#SESSION.root#/tools/entityaction/details/cost/CostList.cfm?box=#url.box#&mode=#form.Mode#&objectid=#Form.ObjectId#&actioncode=#url.actioncode#','#url.box#') 						
 	</script>	
 	</cfoutput>		

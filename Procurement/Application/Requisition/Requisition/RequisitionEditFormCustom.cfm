@@ -66,14 +66,14 @@
 					       enabled="Yes"		     
 					       size="60"
 					       maxlength="60"
-					       class="regularxl"
+					       class="regularxxl"
 					       readonly  
 						   style="text-align: left;">
 					   
 					</td>
 					
 					<td style="padding-left:2px">   
-				   		<input type="text" name="indexno"   id="indexno"   class="regularxl" readonly value="#Person.IndexNo#" size="8" maxlength="10" style="text-align: center;">	
+				   		<input type="text" name="indexno"   id="indexno"   class="regularxxl" readonly value="#Person.IndexNo#" size="8" maxlength="10" style="text-align: center;">	
 					</td>
 					
 					<td style="padding-left:2px">
@@ -316,7 +316,7 @@
 					<cfset def = Def.ListCode>				
 				</cfif>			
 				
-			    <select class="regularxl" name="Topic_#GetTopics.Code#" id="Topic_#GetTopics.Code#">
+			    <select class="regularxxl" name="Topic_#GetTopics.Code#" id="Topic_#GetTopics.Code#">
 				
 					<cfif ValueObligatory eq "0">
 					<option value=""></option>
@@ -343,7 +343,7 @@
 					  ORDER BY #ListOrder#
 				</cfquery>
 
-			    <select class="regularxl" name="Topic_#GetTopics.Code#" id="Topic_#GetTopics.Code#">
+			    <select class="regularxxl" name="Topic_#GetTopics.Code#" id="Topic_#GetTopics.Code#">
 					<cfif ValueObligatory eq "0">
 					<option value=""></option>
 					</cfif>
@@ -359,7 +359,7 @@
 	                   id="Topic_#GetTopics.Code#"
 				       required="#ValueObligatory#"					     
 				       size="#valueLength#"
-					   class="regularxl"
+					   class="regularxxl"
 					   message="Please Enter a #GetTopics.Description#"
 					   value="#GetValue.TopicValue#"
 				       maxlength="#ValueLength#">
@@ -369,7 +369,7 @@
 				   <cf_intelliCalendarDate9
 						FieldName="Topic_#GetTopics.Code#" 
 						Default="#dateformat(GetValue.TopicValue,CLIENT.DateFormatShow)#"
-						class="regularxl"
+						class="regularxxl"
 						AllowBlank="#ValueObligatory#">	
 								
 			<cfelseif ValueClass eq "Boolean">	

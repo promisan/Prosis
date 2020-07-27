@@ -79,7 +79,7 @@ password="#SESSION.dbpw#">
 			UPPER(Mission) as gMission,
 			CASE 
 				WHEN (parentOrgUnit = '' or parentOrgUnit is null) THEN (OrgUnitCode + ' ' + OrgUnitName)
-				ELSE ('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + OrgUnitCode + ' ' + OrgUnitName)
+				ELSE (OrgUnitCode + ' ' + OrgUnitName)
 			END AS Display
 	FROM    Organization
 	WHERE   Mission IN 
@@ -105,20 +105,17 @@ password="#SESSION.dbpw#">
    
   <tr>
     <td width="100%">
-    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+    <table width="100%">
 			   
 	<cfset p = 0>
 	
-	<tr class="labelmedium">
+	<tr class="labelmedium line">
 		<td></td>
-		<td>Code</td>
-	    <td>Name</td>
-		<td>Officer</td>
+		<td><cf_tl id="Code"></td>
+	    <td><cf_tl id="Name"></td>
+		<td><cf_tl id="Officer"></td>
 		<td></td>
 	</tr>
-	
-	<tr><td colspan="5" class="linedotted"></td></tr>
-	<tr><td height="5"></td></tr>
 	
 	<cfoutput query="Vendors" group="Mission">
 		
@@ -127,11 +124,10 @@ password="#SESSION.dbpw#">
 			
 		<cfoutput>
 		
-			<TR bgcolor="" class="labelit">
+			<TR class="labelmedium line">
 			<td width="10"></td>
-			<td width="70" height="18">
-				<cfif parentOrgUnit neq "">&nbsp;</cfif>
-				#OrgUnitCode#
+			<td style="min-width:100px" height="18">
+				<cfif parentOrgUnit neq "">&nbsp;</cfif>#OrgUnitCode#
 			</td>
 			<td width="70%">#OrgUnitName#</td>
 			<td>#OfficerLastName#</td>				
@@ -158,9 +154,9 @@ password="#SESSION.dbpw#">
                <tr>
                    <td>
 
-                    <cfselect name="VendorCode" id="VendorCode" query="VendorList" class="regularxl" group="gMission" display="display" value="OrgUnit">
-                    </cfselect> 
-
+                    <cf_UIselect style="width:500px;" name="VendorCode" id="VendorCode" filter = "contains" 
+					 query="#VendorList#" class="regularxl" group="gMission" display="display" value="OrgUnit"/>
+                    
                    </td>
                </tr>
                <tr>

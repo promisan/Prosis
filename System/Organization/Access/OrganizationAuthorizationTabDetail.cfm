@@ -4,6 +4,7 @@
 	method          = "useradmin" 
 	role            = "'AdminUser'"
 	returnvariable  = "access">	
+	
 
 <cfif url.scope eq "global">
 						
@@ -38,11 +39,13 @@
 	
 	<cf_divscroll>
 	
-	<table width="97%" border="0" cellspacing="0" cellpadding="0" align="center">
+	<table width="97%" align="center">
 	
 	<tr><td height="100%">
 	
+	
 	<cfinclude template="OrganizationRolesDetail.cfm">
+	
 	
 	</td></tr>
 	
@@ -102,8 +105,8 @@
 	datasource="AppsOrganization" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	SELECT  *
-	FROM    Ref_Mission
+	SELECT  M.*, O.Description
+	FROM    Ref_Mission M INNER JOIN Ref_AuthorizationRoleOwner O ON M.MissionOwner = O.Code
 	<!--- only mission for modules/roles for which the mission is enabled --->
 	WHERE  Mission IN (SELECT Mission 
 	                   FROM Ref_MissionModule 
@@ -149,7 +152,7 @@
 					  
 					  <cfselect name="mission"
 					     class    = "regularxl"
-				         group    = "MissionOwner"
+				         group    = "Description"
 						 onchange = "reloadform(this.value)"
 				         query    = "Mission"
 					     selected = "#url.mission#"

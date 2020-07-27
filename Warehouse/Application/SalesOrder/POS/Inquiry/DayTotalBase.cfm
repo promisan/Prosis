@@ -76,6 +76,7 @@
 		<cfcatch></cfcatch>	  
 		</cftry>
 				
+				
 		<cfif url.warehouse neq "">
 			
 			<cfset linksave = "#linksave#&conditionfield=warehouse&conditionvalue=#url.warehouse#">			
@@ -94,9 +95,10 @@
 				  ConditionField, 
 				  ConditionValue,
 				  ConditionValueAttribute1,
-				  ConditionValueAttribute2)
+				  ConditionValueAttribute2,
+				  ConditionValueAttribute3)
 				VALUES
-				('#url.systemfunctionid#', '#SESSION.acc#','warehouse', '#url.warehouse#','#application.basecurrency#','current')
+				('#url.systemfunctionid#', '#SESSION.acc#','warehouse', '#url.warehouse#','#application.basecurrency#','current','sale')
 			  </cfquery>
 		 
 		  	  <cfcatch></cfcatch>
@@ -117,9 +119,10 @@
 				  ConditionField, 
 				  ConditionValue,
 				  ConditionValueAttribute1,
-				  ConditionValueAttribute2)
+				  ConditionValueAttribute2,
+				  ConditionValueAttribute3)
 				VALUES
-				('#url.systemfunctionid#', '#SESSION.acc#','mission', '#url.mission#','#application.basecurrency#','current')
+				('#url.systemfunctionid#', '#SESSION.acc#','mission', '#url.mission#','#application.basecurrency#','current','sale')
 			  </cfquery>
 		 
 		  	  <cfcatch></cfcatch>
@@ -131,7 +134,8 @@
 			<cfset condition = url.mission> 
 							 
 		</cfif>
-				
+		
+						
 		<cfquery name="getCondition" 
 			datasource="AppsSystem" 
 			username="#SESSION.login#" 
@@ -144,23 +148,40 @@
 				AND     ConditionValue   = '#condition#'
 		</cfquery>		
 		
-		<cfif currency.recordcount gte "1">
-		
+		<cfif currency.recordcount gte "1">		
  
 			<table cellspacing="0" cellpadding="0">
 				<tr class="labelmedium">
 				<cfoutput>
-					<td style="padding-left:0px"><input type="radio" onclick="ColdFusion.navigate('#linksave#&conditionvalueattribute1=#application.basecurrency#&conditionvalueattribute2='+$('input[name=mode_#condition#]:checked').val(),'salecontent_#condition#')" class="radiol" name="currency_#condition#" id="currency_#condition#" value="#application.basecurrency#" <cfif getCondition.ConditionValueAttribute1 eq application.basecurrency>checked</cfif>></td>
+					<td style="padding-left:0px"><input type="radio" onclick="ptoken.navigate('#linksave#&conditionvalueattribute1=#application.basecurrency#&conditionvalueattribute2='+$('input[name=mode_#condition#]:checked').val()+'&conditionvalueattribute3='+$('input[name=date_#condition#]:checked').val(),'salecontent_#condition#')" class="radiol" name="currency_#condition#" id="currency_#condition#" value="#application.basecurrency#" <cfif getCondition.ConditionValueAttribute1 eq application.basecurrency>checked</cfif>></td>
 					<td class="labelmedium" style="padding-left:7px">#application.basecurrency#</td>		
 				</cfoutput>
 				<cfoutput query="Currency">
-					<td style="padding-left:9px"><input type="radio" onclick="ColdFusion.navigate('#linksave#&conditionvalueattribute1=#currency#&conditionvalueattribute2='+$('input[name=mode_#condition#]:checked').val(),'salecontent_#condition#')" class="radiol" name="currency_#condition#"  id="currency_#condition#" value="#currency#" <cfif getCondition.ConditionValueAttribute1 eq currency>checked</cfif>></td>
+					<td style="padding-left:9px"><input type="radio" onclick="ptoken.navigate('#linksave#&conditionvalueattribute1=#currency#&conditionvalueattribute2='+$('input[name=mode_#condition#]:checked').val()+'&conditionvalueattribute3='+$('input[name=date_#condition#]:checked').val(),'salecontent_#condition#')" class="radiol" name="currency_#condition#"  id="currency_#condition#" value="#currency#" <cfif getCondition.ConditionValueAttribute1 eq currency>checked</cfif>></td>
 					<td class="labelmedium" style="padding-left:7px">#currency# [#exchangerate#]</td>																
 				</cfoutput>
 				</tr>
 			</table> 	
 		
 		</cfif>						 			 
+	 
+	 </td>
+	 
+	 <td>
+	 
+	       <table cellspacing="0" cellpadding="0">
+				<tr class="labelmedium">
+				<cfoutput>
+					<td style="padding-left:0px"><input type="radio" onclick="ptoken.navigate('#linksave#&conditionvalueattribute1='+$('input[name=currency_#condition#]:checked').val()+'&conditionvalueattribute2='+$('input[name=mode_#condition#]:checked').val()+'&conditionvalueattribute3=sale','salecontent_#condition#')" class="radiol" name="date_#condition#" id="date_#condition#" value="Sale" <cfif getCondition.ConditionValueAttribute3 eq "Sale">checked</cfif>></td>
+					<td class="labelmedium" style="padding-left:7px"><cf_tl id="Sale date"></td>		
+				</cfoutput>
+				<cfoutput>
+					<td style="padding-left:0px"><input type="radio" onclick="ptoken.navigate('#linksave#&conditionvalueattribute1='+$('input[name=currency_#condition#]:checked').val()+'&conditionvalueattribute2='+$('input[name=mode_#condition#]:checked').val()+'&conditionvalueattribute3=recorded','salecontent_#condition#')" class="radiol" name="date_#condition#" id="date_#condition#" value="Recorded" <cfif getCondition.ConditionValueAttribute3 eq "Recorded">checked</cfif>></td>
+					<td class="labelmedium" style="padding-left:7px"><cf_tl id="Recorded"></td>		
+				</cfoutput>
+				
+				</tr>
+			</table> 	
 	 
 	 </td>
 	 
@@ -174,13 +195,13 @@
 				
 					<cfif access eq "GRANTED">
 				
-					<td><input type="radio" onclick="ptoken.navigate('#linksave#&conditionvalueattribute1='+$('input[name=currency_#condition#]:checked').val()+'&conditionvalueattribute2=closing','salecontent_#condition#');" class="radiol" name="mode_#condition#" id="mode_#condition#" value="Closing" <cfif getCondition.ConditionValueAttribute2 eq "closing">checked</cfif>></td>
+					<td><input type="radio" onclick="ptoken.navigate('#linksave#&conditionvalueattribute1='+$('input[name=currency_#condition#]:checked').val()+'&conditionvalueattribute2=closing&conditionvalueattribute3='+$('input[name=date_#condition#]:checked').val(),'salecontent_#condition#');" class="radiol" name="mode_#condition#" id="mode_#condition#" value="Closing" <cfif getCondition.ConditionValueAttribute2 eq "closing">checked</cfif>></td>
 					<td class="labelmedium" style="padding-left:4px;padding-right:10px"><cf_tl id="Closing"></td>	
 					
-					<td><input type="radio" onclick="ptoken.navigate('#linksave#&conditionvalueattribute1='+$('input[name=currency_#condition#]:checked').val()+'&conditionvalueattribute2=current','salecontent_#condition#');" class="radiol" name="mode_#condition#" id="mode_#condition#" value="Current" <cfif getCondition.ConditionValueAttribute2 eq "current" or getCondition.ConditionValueAttribute2 eq "">checked</cfif>></td>
+					<td><input type="radio" onclick="ptoken.navigate('#linksave#&conditionvalueattribute1='+$('input[name=currency_#condition#]:checked').val()+'&conditionvalueattribute2=current&conditionvalueattribute3='+$('input[name=date_#condition#]:checked').val(),'salecontent_#condition#');" class="radiol" name="mode_#condition#" id="mode_#condition#" value="Current" <cfif getCondition.ConditionValueAttribute2 eq "current" or getCondition.ConditionValueAttribute2 eq "">checked</cfif>></td>
 					<td class="labelmedium" style="padding-left:4px;padding-right:10px"><cf_tl id="This month"></td>							
 				
-					<td><input type="radio" onclick="ptoken.navigate('#linksave#&conditionvalueattribute1='+$('input[name=currency_#condition#]:checked').val()+'&conditionvalueattribute2=historic','salecontent_#condition#');" class="radiol" name="mode_#condition#" id="mode_#condition#" value="Historic" <cfif getCondition.ConditionValueAttribute2 eq "historic">checked</cfif>></td>
+					<td><input type="radio" onclick="ptoken.navigate('#linksave#&conditionvalueattribute1='+$('input[name=currency_#condition#]:checked').val()+'&conditionvalueattribute2=historic&conditionvalueattribute3='+$('input[name=date_#condition#]:checked').val(),'salecontent_#condition#');" class="radiol" name="mode_#condition#" id="mode_#condition#" value="Historic" <cfif getCondition.ConditionValueAttribute2 eq "historic">checked</cfif>></td>
 					<td class="labelmedium" style="padding-left:4px;padding-right:4"><cf_tl id="Last 2 years"></td>	
 					
 					<cfelse>									
@@ -203,7 +224,7 @@
 							</cfif>
 					</cfquery>		
 																			
-					<td style="padding-left:0px"><input type="radio" onclick="ptoken.navigate('#linksave#&conditionvalueattribute1='+$('input[name=currency_#condition#]:checked').val()+'&conditionvalueattribute2=closing','salecontent_#condition#');" class="radiol" name="mode_#condition#" id="mode_#condition#" value="Closing" checked></td>
+					<td style="padding-left:0px"><input type="radio" onclick="ptoken.navigate('#linksave#&conditionvalueattribute1='+$('input[name=currency_#condition#]:checked').val()+'&conditionvalueattribute2=closing&conditionvalueattribute3='+$('input[name=date_#condition#]:checked').val(),'salecontent_#condition#');" class="radiol" name="mode_#condition#" id="mode_#condition#" value="Closing" checked></td>
 					<td class="labelmedium" style="padding-left:4px;padding-right:15px"><cf_tl id="Closing view"></td>																
 					
 					</cfif>
@@ -217,7 +238,7 @@
 </tr>
 			
 <tr>
-	<td colspan="2" valign="top" height="100%" style="padding:5px">		
+	<td colspan="3" valign="top" height="100%" style="padding:5px">		
 	
 		<cfoutput>
 		

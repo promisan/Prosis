@@ -224,12 +224,12 @@
 		} catch(e) { }
 		base2('#url.id#','#Total.Total#','1')	
 		tagging() 
-		ColdFusion.navigate('#SESSION.root#/procurement/application/requisition/Service/ServiceItem.cfm?ID=#URL.ID#&access=edit&mode=#url.mode#','iservice') 
+		ptoken.navigate('#SESSION.root#/procurement/application/requisition/Service/ServiceItem.cfm?ID=#URL.ID#&access=edit&mode=#url.mode#','iservice') 
 
 		<cfif url.id2 eq "new">
-			ColdFusion.navigate('../Service/ServiceItemDialog.cfm?ID=#URL.ID#&ID2=new&access=edit&mode=#url.mode#','dialogservice')		
+			ptoken.navigate('../Service/ServiceItemDialog.cfm?ID=#URL.ID#&ID2=new&access=edit&mode=#url.mode#','dialogservice')		
 		<cfelse>
-			ColdFusion.Window.hide('dialogservice')		
+			ProsisUI.closeWindow('dialogservice')		
 		</cfif>
 		
 	</script>		

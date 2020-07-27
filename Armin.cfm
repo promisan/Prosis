@@ -7,7 +7,7 @@
 <cfoutput>--#client.googlemapid#-</cfoutput>
 <cfajaximport tags="cfmap" params="#{googlemapkey='#client.googlemapid#'}#">
 
-<input type="button" name="Kendo open" value="Kendor open" onclick="openkendo()">
+<input type="button" name="Kendo open new" value="Kendor open" onclick="openkendo()">
 
 <script>
 function openkendo() {		

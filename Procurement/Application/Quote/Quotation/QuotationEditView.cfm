@@ -5,8 +5,7 @@
 	      bannerheight="50" 
 		  band="no" 
 		  scroll="no" 
-		  layout="webapp" 
-   	      option="View and update quoted lines"
+		  layout="webapp"    	      
 	      banner="blue">
 		  
 <cfoutput>

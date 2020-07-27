@@ -31,9 +31,7 @@ password="#SESSION.dbpw#">
 
 	document.getElementById('itemmaster').value            = "#get.Code#"
 	document.getElementById('itemmasterdescription').value = "#des#"	
-	
-	
-					
+						
 	<cfif url.mode neq "single">
 	
 	try {	
@@ -47,8 +45,8 @@ password="#SESSION.dbpw#">
 				
 	}	
 	
-	</cfif>
-			
+	</cfif>		
+
 		
 </script>	
 

@@ -150,20 +150,20 @@
 <cfset url.role = "ProcReqEntry">
 <cfinclude template="../RequisitionView/RequisitionViewTreeRefresh.cfm">
 		
-	<table width="97%" border="0" cellspacing="0" cellpadding="0" align="center">
+	<table width="97%" align="center">
 	
 	  <tr><td height="3" bgcolor="ffffff"></td></tr>
 	  
 	  <tr>
 	    <td>
 		
-		<table border="0" cellpadding="0" cellspacing="0" width="100%" align="center" class="navigation_table">
+		<table width="100%" align="center" class="navigation_table">
 			
 			<tr class="line">		
-			<td colspan="4" style="height:50;font-size:28px;font-weight:200" class="labelmedium"><cf_tl id="Draft requirements"></td>
+			<td colspan="4" style="min-width:300px;height:50;font-size:28px;font-weight:200" class="labelmedium"><cf_tl id="Draft requirements"></td>
 			<td class="labelit">
 				<cfif url.print eq "0">
-				<a href="javascript:printme()"><font color="0080C0">Print</font></a>
+				<a href="javascript:printme()"><cf_tl id="Print"></a>
 				</cfif>
 			</td>			
 			<td colspan="4" align="right" style="padding:2px">

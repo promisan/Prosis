@@ -191,7 +191,10 @@ insurance dialog.
 			 </cfoutput>	
 			 
 		 </table>	 
-						  
+		
+				  
 	  </cfif>	 
+	  
+  
 	
 

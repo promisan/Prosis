@@ -17,7 +17,13 @@
 </cfquery>
 	
 <cfoutput>
-<script>
-	ColdFusion.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventsListing.cfm?id=#qEvent.PersonNo#','eventdetail');
-</script>
+<cfif url.scope neq "portal">
+	<script>
+		ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventsListing.cfm?id=#qEvent.PersonNo#','eventdetail');
+	</script>
+<cfelse>
+	<script>
+		ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/Selfservice.cfm?id=#qEvent.PersonNo#','eventdetail');
+	</script>
+</cfif>
 </cfoutput>

@@ -1,3 +1,4 @@
+<cf_screentop html="No" jquery="Yes">
 <cf_divscroll>
 
 <cfquery name="SearchResult"

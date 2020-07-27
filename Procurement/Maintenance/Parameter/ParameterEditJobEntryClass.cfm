@@ -62,10 +62,9 @@ password="#SESSION.dbpw#">
 
 <cfoutput query="Class">
 
-<tr>
+<tr class="labelmedium">
 
-<td class="labelit">#Description#:</td>
-
+<td>#Description#:</td>
 <td>
 
 	<table cellspacing="0" cellpadding="0" class="formspacing">
@@ -111,7 +110,7 @@ password="#SESSION.dbpw#">
 <TD  style="padding-left:8px">
 
 	<table cellspacing="0" cellpadding="0" class="formspacing">
-	<tr><td>			  
+	<tr class="labelmedium" style="height:20px"><td>			  
 			<cfset link="ParameterEditJobEntryClassBuyer.cfm?serialno=1&entryclass=#entryClass#&defaultbuyer=#BuyerDefaultBackup#">
 			<cf_selectlookup
 			    box          = "sBuyerDefaultBackup_#entryClass#"
@@ -135,7 +134,7 @@ password="#SESSION.dbpw#">
 	 	<td style="padding-left:4px">
 	 		<img height="17" width="17" style="cursor:pointer" onclick="document.getElementById('BuyerDefaultBackup_#entryClass#').value='@requester';;document.getElementById('name1_#entryClass#').value='@requester'" src="#session.root#/images/request.jpg" alt="Requester" border="0">
 	    </td>
-	 	<td style="padding-left:8px" class="labelit">#application.basecurrency#</td>	 
+	 	<td style="padding-left:8px">#application.basecurrency#</td>	 
 	 	<td style="padding-left:4px">
 			 <cfinput validate="float" style="text-align:right"  class="regularxl" type="Text" id="BuyerDefaultBackupThreshold_#entryClass#" name="BuyerDefaultBackupThreshold_#entryClass#" value="#BuyerDefaultBackupThreshold#" required="No" size="4" maxlength="10">				 
 		 </td>	 

@@ -502,11 +502,13 @@
 		  </cfquery>				
 				 	
 		  <!--- returning search results with relevant positions --->
-				 		
+		  				 		
 		  <cfquery name="Position" 
 			datasource="AppsEmployee" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
+			
+			
 				
 				SELECT   O.Mission              as MissionUsed, 
 				         O.MandateNo            as MandateNoUsed,
@@ -667,7 +669,8 @@
 		        AND      O.HierarchyCode      < '#HEnd#'  	
 				AND      P.DisableLoan         = 0			
 				
-				<cfif url.header eq "requisition"> 	  
+				<cfif url.header eq "requisition"> 	 
+				
 				AND      PP.PostType IN (SELECT PostType FROM   Ref_PostType WHERE  Procurement = 1)	  
 				</cfif>
 				
@@ -676,6 +679,7 @@
 				</cfif>	  
 				
 				ORDER BY PositionNo 
+				
 							
 			</cfquery>		
 							

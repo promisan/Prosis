@@ -5,6 +5,7 @@
 
 <cf_actionListingScript>
 <cf_FileLibraryScript>		
+<cfajaximport tags="cfdiv">
 
 <cfparam name="URL.Status" default="">
 
@@ -118,13 +119,13 @@ password="#SESSION.dbpw#">
 		
 	<TR class="line labelmedium fixrow">
 	    <td colspan="2" style="width:60px" align="center"></td>
-	    <td width="10%"><cf_tl id="Effective"></td>
+	    <td width="10%"><cf_tl id="Date"></td>
 		<TD width="10%"><cf_tl id="Status"></TD>
 		<TD width="20%"><cf_tl id="Reference"></TD>
 		<TD width="15%"><cf_tl id="Officer"></TD>
 		<TD width="10%"><cf_tl id="Source"></TD>
 		<TD width="10%"><cf_tl id="Category"></TD>
-		<TD width="10%"><cf_tl id="Date"></TD>
+		<TD width="10%"><cf_tl id="Due"></TD>
 		<TD width="5%"><cf_tl id="Qty"></TD>
 		<TD width="5%"><cf_tl id="Curr."></TD>
 		<TD width="10%" align="right" style="padding-right:4px"><cf_tl id="Amount"></TD>
@@ -240,13 +241,13 @@ password="#SESSION.dbpw#">
 	
 		</td>	
 		
-		<td>#Dateformat(DateEffective, CLIENT.DateFormatShow)#</td>
+		<td>#Dateformat(DocumentDate, CLIENT.DateFormatShow)#</td>
 		<td id="status_#workflow#"><cfif Status eq "2"><font color="008000">Cleared<cfelseif Status eq "3"><font color="008000">Cleared<cfelseif Status eq "5"><font color="008000">In Payroll</font><cfelse>Pending</cfif></td>
 		<td>#DocumentReference#</TD>
 		<td>#OfficerLastName#</TD>
 		<td>#Source#</TD>
 		<TD>#EntitlementClass#</TD>
-		<TD>#Dateformat(DocumentDate, CLIENT.DateFormatShow)#</TD>
+		<TD>#Dateformat(DateEffective, CLIENT.DateFormatShow)#</TD>
 		<TD>#Quantity#</TD>
 		<TD>#Currency#</TD>
 		<TD style="padding-right:5px" align="right">#NumberFormat(Amount, ",.__")#</TD>	

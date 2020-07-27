@@ -76,7 +76,7 @@
 										
 					   <cfchartseries type="cylinder"
 				             query="Location"
-			    	         itemcolumn="LocationCode"
+			    	         itemcolumn="LocationName"
 			        	     valuecolumn="Total"							 					 
 				             serieslabel=""
 						     colorlist="##5DB7E8,##E8875D,##E8BC5D,##CCCA6A,##339AFA,##66AC6A,##999A9A,##FFFA9A,##996AFA"

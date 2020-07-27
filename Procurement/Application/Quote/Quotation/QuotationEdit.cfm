@@ -7,12 +7,7 @@
 </cfsilent>
 <!--- End Prosis template framework --->
 
-<cf_screentop html="no" height="100%" jquery="Yes">
-
-<HTML><HEAD>
-<TITLE>Quotation - Edit Form</TITLE>
-</HEAD><body leftmargin="1" topmargin="1" rightmargin="1" bottommargin="1" onLoad="window.focus()">
-<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>"> 
+<cf_screentop label="Quotation Edit form" html="no" height="100%" jquery="Yes">
 
 <cfparam name="URL.Mode" default="view">
 
@@ -241,6 +236,8 @@ password="#SESSION.dbpw#">
 </cfquery>
 
 <cfparam name="Status" default="1">
+
+<cf_divscroll>
 
 <cfform action="QuotationEditSubmit.cfm?ID=#URL.ID#&mode=#url.mode#" method="POST" name="entry">
 
@@ -827,7 +824,7 @@ password="#SESSION.dbpw#">
 		
 			<cfif (Req.Actionstatus lte "2k" or Req.Actionstatus lte "2q") and url.mode neq "View">	
 		
-			 	<textarea style="width:97%;font-size:14px;padding:3px" rows="4" id="AwardRemarks" name="AwardRemarks" class="regular"><cfoutput>#Line.AwardRemarks#</cfoutput></textarea> 
+			 	<textarea style="width:97%;font-size:14px;padding:3px;" rows="2" id="AwardRemarks" name="AwardRemarks" class="regular"><cfoutput>#Line.AwardRemarks#</cfoutput></textarea> 
 				
 			<cfelse>
 			
@@ -849,7 +846,7 @@ password="#SESSION.dbpw#">
 		
 		<cfif (Req.Actionstatus lte "2k" or Req.Actionstatus lte "2q") and url.mode neq "View">	
 		
-			<textarea style="width:97%;font-size:14px;padding:3px" rows="6" id="Remarks" name="Remarks" class="regular"><cfoutput>#Line.Remarks#</cfoutput></textarea> 
+			<textarea style="width:97%;font-size:14px;padding:3px" rows="4" id="Remarks" name="Remarks" class="regular"><cfoutput>#Line.Remarks#</cfoutput></textarea> 
 		
 		<cfelse>
 		
@@ -930,4 +927,4 @@ password="#SESSION.dbpw#">
 		
 </CFFORM>
 
-</BODY></HTML>
+<cf_divscroll>

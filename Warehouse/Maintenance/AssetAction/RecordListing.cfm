@@ -1,5 +1,5 @@
 <!--- Create Criteria string for query from data entered thru search form --->
-
+<cf_screentop height="100%" scroll="Yes" html="No" jquery="Yes">
 <cf_divscroll>
 
 <cfquery name="SearchResult"

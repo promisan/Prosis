@@ -30,12 +30,12 @@
 
 </cfoutput>
 
-<table width="95%" align="center" style="height:100%">
+<table width="97%" align="center" style="height:100%">
 
-	<tr><td style="height:10px"><cfinclude template = "../HeaderMaintain.cfm"></td></tr>
+	<tr><td><cfinclude template = "../HeaderMaintain.cfm"></td></tr>
     
 	<tr>
-		<td align="left" style="height:10px">
+		<td align="left" style="height:10px;padding-left:20px">
 			<table>
 				<tr>
 					<td class="labelit"><cf_tl id="Entity">:</td>
@@ -95,7 +95,7 @@
 	</tr>
 	<tr><td height="5"></td></tr>
 	<tr>
-		<td style="height:100%">
+		<td style="height:100%;padding-left:20px">
 		  <cf_divscroll>
 			<cfdiv id="divDetail" bind="url:RecordListingDetail.cfm?fmission=#client.fmission#">
 		  </cf_divscroll>	

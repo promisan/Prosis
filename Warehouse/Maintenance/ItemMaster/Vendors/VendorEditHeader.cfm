@@ -98,7 +98,7 @@
 	<tr>	
 		<td height="23" class="labelmedium"><cf_tl id="Description">:</td>
 		<td>
-			<cfinput type="Text" name="vendoritemdescription" class="regularxl" value="#get.vendoritemdescription#" required="No" message="Please, enter a vendor item description." size="40" maxlength="100">
+			<cfinput style="width:90%" type="Text" name="vendoritemdescription" class="regularxl" value="#get.vendoritemdescription#" required="No" message="Please, enter a vendor item description." size="60" maxlength="100">
 		</td>
 	</tr>
 	<tr>

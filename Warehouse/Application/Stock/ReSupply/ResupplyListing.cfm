@@ -166,11 +166,11 @@ password="#SESSION.dbpw#">
 						<td align="center" style="min-width:50px;border-left:1px solid silver;padding-right:4px"><cf_tl id="No"></td>
 						<td align="center" style="min-width:120px;border-left:1px solid silver;padding-right:4px"><cf_tl id="Barcode"></td>
 						<td align="center" style="width:89%;border-left:1px solid silver;padding-right:4px"><cf_tl id="Item"></td>	
-						<td align="center" style="min-width:100px;border-left:1px solid silver;padding-right:4px"><cf_tl id="MinOrder"></td>			
-						<td align="center" style="min-width:100px;border-left:1px solid silver;padding-right:4px"><cf_tl id="Price"></td>			
-						<td align="center" style="min-width:60;border-left:1px solid silver;padding-right:4px" align="right"><cf_tl id="Min"></td>
-						<td align="center" style="min-width:60;border-left:1px solid silver;padding-right:4px" align="right"><cf_tl id="Max"></td>
-						<td align="center" style="min-width:90;border-left:1px solid silver;padding-right:4px" align="right"><cf_tl id="OnHand"></td>
+						<td align="center" style="min-width:80px;border-left:1px solid silver;padding-right:4px"><cf_tl id="MinOrder"></td>			
+						<td align="center" style="min-width:80px;border-left:1px solid silver;padding-right:4px"><cf_tl id="Price"></td>			
+						<td align="center" style="min-width:50px;border-left:1px solid silver;padding-right:4px" align="right"><cf_tl id="Min"></td>
+						<td align="center" style="min-width:50px;border-left:1px solid silver;padding-right:4px" align="right"><cf_tl id="Max"></td>
+						<td align="center" style="min-width:70px;border-left:1px solid silver;padding-right:4px" align="right"><cf_tl id="OnHand"></td>
 						<td style="border-left:1px solid silver;padding-right:4px" align="center" colspan="2"><cf_tl id="Procurement"></td>				
 						<td style="border-left:1px solid silver;padding-right:4px" align="center" colspan="2"><cf_tl id="Reserved"></td>				
 						<td style="border-left:1px solid silver;padding-right:4px" align="center"><cf_tl id="Economic"></td>				
@@ -198,12 +198,12 @@ password="#SESSION.dbpw#">
 									
 						</td>
 					   
-						<td style="border-left:1px solid silver;min-width:60;padding-right:2px" align="center"><cf_tl id="Request"></td>
-						<td style="border-left:1px solid silver;min-width:60;padding-right:2px" align="center"><cf_tl id="Purchase"></td>				
-						<td style="border-left:1px solid silver;min-width:60;padding-right:2px" align="center"><cf_tl id="Request"></td>		
-						<td style="border-left:1px solid silver;min-width:60;padding-right:2px" align="center"><cf_tl id="Order"></td>					
-						<td style="border-left:1px solid silver;min-width:100;padding-right:4px" align="right"></td>				
-						<td colspan="2" style="min-width:100px;border-left:1px solid silver;padding-left:12px;padding-right:10px;border-right:1px solid silver;" align="right">
+						<td style="border-left:1px solid silver;min-width:55px;padding-right:2px" align="center"><cf_tl id="Request"></td>
+						<td style="border-left:1px solid silver;min-width:55px;padding-right:2px" align="center"><cf_tl id="Purchase"></td>				
+						<td style="border-left:1px solid silver;min-width:55px;padding-right:2px" align="center"><cf_tl id="Request"></td>		
+						<td style="border-left:1px solid silver;min-width:55px;padding-right:2px" align="center"><cf_tl id="Order"></td>					
+						<td style="border-left:1px solid silver;min-width:70px;padding-right:4px" align="right"></td>				
+						<td colspan="2" style="min-width:90px;border-left:1px solid silver;padding-left:12px;padding-right:10px;border-right:1px solid silver;" align="right">
 																	
 					     <!---
 						 <cfset cnt = 0>
@@ -270,17 +270,17 @@ password="#SESSION.dbpw#">
 							</cfif>
 							
 							</td>																
-							<td style="min-width:100px"></td>				
-							<td style="min-width:100px;padding-right:4px"></td>
-							<td style="min-width:60px;padding-right:4px"></td>				
-							<td style="min-width:60px;padding-right:4px"></td>		
-							<td style="min-width:90px;padding-right:4px"></td>							
-							<td style="min-width:60px;padding-right:4px"></td>		
-							<td style="min-width:60px;padding-right:4px"></td>		
-							<td style="min-width:60px;padding-right:4px"></td>	
-							<td style="min-width:60px;padding-right:4px"></td>				
-							<td style="min-width:100px;padding-right:4px"></td>	
-							<td colspan="2" style="padding-left:0px;min-width:110px;"></td>				
+							<td></td>				
+							<td></td>
+							<td></td>				
+							<td></td>		
+							<td></td>							
+							<td></td>		
+							<td></td>		
+							<td></td>	
+							<td></td>				
+							<td></td>	
+							<td colspan="2"></td>				
 									
 						</tr>									
 								
@@ -381,10 +381,32 @@ password="#SESSION.dbpw#">
 															
 						<td align="right" style="border-left:1px solid silver;padding-right:4px" bgcolor="ffffaf">#numberFormat(MinimumStock,"#pformat#")#</td>
 						<td align="right" style="border-left:1px solid silver;padding-right:4px" bgcolor="CCFFCC">#numberFormat(MaximumStock,"#pformat#")#</td>	
-						<td align="right" bgcolor="EAFBFD" style="border-left:1px solid silver;padding-right:4px">#numberFormat(OnHand,"#pformat#")#</td>	
-						<td align="right" style="border-left:1px solid silver;padding-right:4px">#numberFormat(InternalRequested,"#pformat#")#</td>				
-						<td align="right" style="border-left:1px solid silver;padding-right:4px">#numberFormat(Requested+OnOrder,"#pformat#")#</td>			
-						<td align="right" style="border-left:1px solid silver;padding-right:4px">#numberFormat(Reserved-Fulfilled,"#pformat#")#</td>		
+						 
+						<td align="right" bgcolor="EAFBFD" style="border-left:1px solid silver;padding-right:4px">		
+						
+						<cfif OnHandMission neq "0">
+						
+							<cf_UITooltip
+								id         = "drill#currentrow#"
+								ContentURL = "#session.root#/warehouse/application/Stock/Resupply/GetStockLevel.cfm?mission=#url.mission#&itemno=#ItemNo#&uom=#UoM#"
+								CallOut    = "true"
+								Position   = "right"
+								Width      = "320"							
+								Height     = "200"
+								Duration   = "300">#numberFormat(OnHand,"#pformat#")#</cf_uitooltip>						
+							
+						</cfif>
+							
+						</td>	
+						
+						<td align="right" style="border-left:1px solid silver;padding-right:4px">
+						<cfif InternalRequested neq "0">#numberFormat(InternalRequested,"#pformat#")#</cfif></td>				
+						<td align="right" style="border-left:1px solid silver;padding-right:4px">
+						<cfset val = requested + onorder>
+						<cfif val neq "0">#numberFormat(val,"#pformat#")#</cfif></td>			
+						<td align="right" style="border-left:1px solid silver;padding-right:4px">
+						<cfset val = Reserved-Fulfilled>
+						<cfif val neq "0">#numberFormat(Reserved-Fulfilled,"#pformat#")#</cfif></td>		
 						<td align="right" style="border-left:1px solid silver;padding-right:4px">---</td>				
 						<td align="right" bgcolor="<cfif EconomicStock lt MinimumStock>FF8080</cfif>" style="border-left:1px solid silver;padding-right:4px">
 							<cfif EconomicStock lt MinimumStock><font color="FFFFFF"></cfif>#numberFormat(EconomicStock,"#pformat#")#

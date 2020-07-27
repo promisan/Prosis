@@ -1,4 +1,5 @@
 
+
 <cfparam name="URL.id"                default="0000">
 <cfparam name="URL.mission"           default="">
 
@@ -18,21 +19,19 @@
      <cfset suff = "">  
 </cfif>
 
-<cfif URL.Page eq "1" and url.transactiontype eq "" and url.fnd eq "">
-    <!--- prepare dataset : ItemReceipt_#SESSION.acc# --->
-	<cfinclude template="StockBatchPrepare.cfm">
-</cfif>
+<cfinclude template="StockBatchPrepare.cfm">
 
-<!--- ensure a refresh of the id on line 210 "b#BatchNo#" --->
+<cfoutput>
+<cfsavecontent variable="myquery">
 
-<cfquery name="Warehouse"
-	datasource="AppsMaterials" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
 	SELECT    *
-	FROM      Warehouse
-	WHERE     Warehouse = '#url.warehouse#'
-</cfquery>
+	FROM      StockBatch_#SESSION.acc# B
+	WHERE     1=1
+	
+</cfsavecontent>
+</cfoutput>
+
+<!--- old query 
 
 <cfquery name="SearchResult"
 	datasource="AppsQuery" 
@@ -59,138 +58,139 @@
 	ORDER BY  #URL.Group# DESC, Detail DESC, Created DESC
 </cfquery>
 
-  
-<cfset rows = ceiling((url.height-230)/35)>
-<cfset first   = ((URL.Page-1)*rows)+1>
-<cfset pages   = Ceiling(SearchResult.recordCount/rows)>
-<cfif pages lt '1'>
-      <cfset pages = '1'>
-</cfif>
-	
-<cf_LanguageInput
-	TableCode       = "Ref_ModuleControl" 
-	Mode            = "get"
-	Name            = "FunctionName"
-	Key1Value       = "#url.SystemFunctionId#"
-	Key2Value       = "#url.mission#"				
-	Label           = "Yes">
+--->
 
-<table width="100%" height="100%" align="center">
+<cfset fields=ArrayNew(1)>
 
-<tr><td valign="top">
-	
-	<table width="99%"
-	       height="100%"
-	       border="0"
-		   align="center"
-	       cellspacing="0"	   
-		   cellpadding="0">
-		
-	  <cfinvoke component   = "Service.Access"  
-		   method          = "RoleAccess" 
-		   Role            = "'WhsPick'"
-		   Parameter       = "#url.systemfunctionid#"
-		   Mission         = "#url.mission#"  	  
-		   AccessLevel     = "2"
-		   returnvariable  = "FullAccess">				 
-	 	   
-	  <tr class="line"><td height="5"></td></tr>
-	  	 	  	   
-	  <tr>
-	
-		  <td valign="top">
-						
-				<cfoutput>	
-				
-				<table width="98%" border="0" cellspacing="0" cellpadding="0" align="center">
-				<tr class="line">
-				<td width="190px">
-				
-					<table>
-					<tr><td class="labelmedium" style="min-width:80px;padding-left:5px;padding-right:4px"><cf_tl id="Search">:</td>
-					<td>
-				
-						<table cellspacing="0" cellpadding="0" border="0">
-						<tr><td>
-						
-						   <input type="text" name="find" id="find" value="#URL.fnd#" style="border-top:0px;border-bottom:0px;" class="regularxl" size="14" maxlength="25" class="regular3"				   
-						     onKeyUp="stockbatchgo('x','#url.systemfunctionid#')">
-						   						   
-						   <td style="border:0px solid silver;width:50px;padding-left:2px">
-						   						   					   
-						     <img src="#SESSION.root#/Images/search.png" 
-							  alt    = "Search" 
-							  name   = "locate" 
-							  onMouseOver= "document.locate.src='#SESSION.root#/Images/contract.gif'" 
-							  onMouseOut = "document.locate.src='#SESSION.root#/Images/search.png'"
-							  style  = "cursor: pointer" 
-							  border = "0" 		
-							  height = "25"				  
-							  align  = "absmiddle" 
-							  onclick="Prosis.busy('yes');_cf_loadingtexthtml='';stockbatch('x','#url.systemfunctionid#')">						  
-							  
-						</td></tr>
-						</table>
-									
-					</td>						
-										
-					<td class="labelmedium" style="min-width:70px;padding-left:15px;padding-right:4px"><cf_tl id="Type">:</td>
+<cfset itm = 0>
 					
-					<td>
-					
-						<cfquery name="ListType"
-							datasource="AppsMaterials" 
-							username="#SESSION.login#" 
-								password="#SESSION.dbpw#">
-								SELECT   *
-								FROM     Ref_TransactionType
-								WHERE TransactionType IN (SELECT TransactionType FROM UserQuery.dbo.StockBatch_#SESSION.acc#)
-						</cfquery>
-					
-						<select name="TransactionType" id="transactiontype" size="1" class="regularxl" style="border-top:0px;border-bottom:0px;" onChange="Prosis.busy('yes');_cf_loadingtexthtml='';stockbatch('x','#url.systemfunctionid#')">
-							<option value=""><cf_tl id="Any"></option>
-						    <cfloop query="ListType">
-						        <option <cfif url.transactiontype eq transactiontype>selected</cfif> value="#TransactionType#">#Description#</option>
-					    	</cfloop>	 
-						</select>   			
-						
-						</td>
-						</tr>
-					
-					</table>
-				
-				</td>	
-				
-				<td align="right" style="padding-left:5px">
-					
-					<cfif pages lte "1">
-					
-						<input type="hidden" name="page" id="page" value="1">
-					
-					<cfelse>
-								
-					   	<select name="page" id="page" size="1" class="regularxl" style="border-top:0px;border-bottom:0px;" onChange="Prosis.busy('yes');_cf_loadingtexthtml='';stockbatch('x','#url.systemfunctionid#')">
-						    <cfloop index="Item" from="1" to="#pages#" step="1">
-						        <cfoutput><option value="#Item#"<cfif URL.page eq "#Item#">selected</cfif>><cf_tl id="Page"> #Item# <cf_tl id="of"> #pages#</option></cfoutput>
-					    	</cfloop>	 
-						</select>   				
-						
-					</cfif>	
-					
-					</td>			
-				
-				</tr>
-				</table>	
-				
-				</cfoutput>
-		  </td>			
-	  </tr>
-	 	  	 						
-	  <TR onKeyUp="navigate()">
-	  
-		<td height="100%" colspan="2" valign="top" style="padding:1px">		
-		
-		<cf_divscroll>
+<cfset itm = itm+1>		
+<cf_tl id="BatchNo" var="vBatchNo">
+<cfset fields[itm] = {label         = "#vBatchNo#", 
+					  field         = "BatchNo",
+				      searchfield   = "BatchNo",
+					  filtermode    = "0",
+					  search        = "text"}>		
+					  
+<cfset itm = itm+1>		
+<cf_tl id="Class" var="vBatchClass">
+<cfset fields[itm] = {label         = "#vBatchClass#", 
+					  field         = "BatchDescription",
+				      searchfield   = "BatchDescription",
+					  filtermode    = "2",
+					  search        = "text"}>		
+					  
+<cfset itm = itm+1>		
+<cf_tl id="Warehouse" var="vDestination">
+<cfset fields[itm] = {label         = "#vDestination#", 
+					  field         = "ContraWarehouse",
+				      searchfield   = "ContraWarehouse",
+					  filtermode    = "2",
+					  search        = "text"}>							  					  	
+
+<cfset itm = itm+1>		
+<cf_tl id="Customer Name" var="vCustomer">
+<cfset fields[itm] = {label         = "#vCustomer#", 
+					  field         = "CustomerName",
+					  searchfield	= "CustomerName",
+  					  filtermode    = "0",
+					  search		= "text"}>		
+					  
+<cfset itm = itm+1>		
+<cf_tl id="Invoice" var="vInvoice">
+<cfset fields[itm] = {label         = "#vInvoice#", 
+					  field         = "BatchReference",
+					  searchfield	= "BatchReference",
+  					  filtermode    = "0",
+					  search		= "text"}>							  
+					  
+<cfset itm = itm+1>		
+<cf_tl id="Location" var="vLocation">
+<cfset fields[itm] = {label         = "#vLocation#", 
+					  field         = "LocationDescription",
+					  searchfield	= "LocationDescription",
+  					  filtermode    = "2",
+					  search		= "text"}>	
+					  
+<cfset itm = itm+1>		
+<cf_tl id="Del" var="vDelivery">
+<cfset fields[itm] = {label         = "#vDelivery#", 
+					  field         = "DeliveryMode",
+					  searchfield	= "DeliveryMode",
+  					  filtermode    = "2",
+					  search		= "text"}>		
+					  
+				  					  						  
+
+<cfset itm = itm+1>		
+<cf_tl id="Name" var="vFirst">
+<cfset fields[itm] = {label         = "#vFirst#", 
+					  field         = "OfficerFirstName",
+				      searchfield   = "OfficerFirstName",
+					  filtermode    = "2",
+					  search        = "text"}>	
+					  
+<cfset itm = itm+1>		
+<cf_tl id="Date" var="vDate">
+<cfset fields[itm] = {label         = "#vDate#", 
+					  field         = "TransactionDate",
+				      searchfield   = "TransactionDate",
+					  filtermode    = "0",
+					  formatted     = "dateformat(TransactionDate,client.dateformatshow)",
+					  search        = "date"}>	
+					  
+<cfset itm = itm+1>		
+<cf_tl id="Time" var="vTime">
+<cfset fields[itm] = {label         = "#vTime#", 
+					  field         = "Created",
+				      searchfield   = "Created",
+					  filtermode    = "0",
+					  formatted     = "timeformat(Created,'HH:MM')",
+					  search        = "text"}>	
+					  
+
+<cfset itm = itm+1>			
+<cf_tl id="Status" var="vStatus">			
+<cfset fields[itm] = {label       = "S", 	
+                    LabelFilter   = "#vStatus#",				
+					field         = "ProcessStatus",					
+					filtermode    = "3",    
+					search        = "text",
+					align         = "center",
+					formatted     = "Rating",
+					ratinglist    = "0=Yellow,1=Green,9=Red"}>	
+										  
+						  				  
+				  					  					  
+
+<cfif url.status eq "0">
+	<cfset sl = "Hide">
+<cfelse>
+	<cfset sl = "Yes">
+</cfif>					  
+					  
+<cf_listing
+    header         = "BatchListing"
+    box            = "batch"
+	link           = "#session.root#/warehouse/application/stock/batch/stockbatchlisting.cfm?status=#url.status#&warehouse=#url.warehouse#&systemfunctionid=#url.systemfunctionid#"
+    html           = "Yes"
+	show           = "40"
+	datasource     = "AppsQuery"
+	listquery      = "#myquery#"		
+	listorderalias = ""	
+	listorder      = "BatchNo"
+	listorderdir   = "DESC"
+	headercolor    = "ffffff"
+	listlayout     = "#fields#"
+	filterShow     = "#sl#"
+	excelShow      = "Yes"
+	drillmode      = "tab"	
+	drillstring    = "mission=#url.mission#&systemfunctionid=#url.systemfunctionid#&mode=process"
+	drilltemplate  = "warehouse/application/stock/batch/BatchView.cfm?batchno="
+	drillkey       = "BatchNo">	
+
+<!---
+   
 						
 		<table width="98%" style="min-width:1000px" align="center" class="formpadding navigation_table">	
 		
@@ -207,13 +207,7 @@
 			</TR>						
 			</cfoutput>
 												
-			<cfoutput>
-				<input type="hidden" name="pages" id="pages" value="#pages#">
-				<input type="hidden" name="total" id="total" value="#rows#">
-				<input type="hidden" name="row" id="row"  value="0">
-				<input type="hidden" name="topic" id="topic" value="#SearchResult.BatchNo#" onClick="batch('#SearchResult.BatchNo#','#url.Mission#','process','#url.systemfunctionid#')">
-			</cfoutput>
-				
+							
 			<cfset row   = 0>
 			<cfset grp   = 1>
 			
@@ -289,96 +283,39 @@
 							   
 							</td>																
 						</TR>																		
-					  
-				  <cfelse>
-				     
-					<!---
-					  												
-					<cfquery name="sum" 
-					     dbtype="query">
-							SELECT SUM(lines) as Lines,
-							       SUM(Amount) as Amount
-							FROM   SearchResult	
-							WHERE  TransactionDate >= '#Dateformat(TransactionDate, CLIENT.dateSQL)#'	AND TransactionDate < '#Dateformat(TransactionDate+1, CLIENT.dateSQL)#'							
-					</cfquery>		
-					
-					--->
-																					 				
-					<tr bgcolor="ffffff" class="regular line" height="23">	
-											 
-						<td colspan="8" valign="bottom" class="labelmedium" style="height:50px;padding-left:6px;font-size:26px;padding-top:3px;padding-bottom:5px">#Dateformat(TransactionDate, "DD/MM/YY DDDDD")#</td>
-						<td align="right" valign="bottom" style="padding-top:14px" class="labelit">
-						
-						<!---																			
-						<cfif sum.Amount eq "0" or sum.Amount eq "">							
-							<!--- nada --->							
-						<cfelse>						
-							#NumberFormat(abs(sum.Amount),',.__')#
-						</cfif>
-						--->
-						
-						</td>	
-						
-					</TR>
-												
+																
 				  </cfif>
 				  
 	 			</cfif>	
-										 									
-			</CFOUTPUT>
-				
-			<cfquery name="sum" dbtype="query">
-				SELECT SUM(lines) as Lines,SUM(Amount) as Amount
-				FROM   SearchResult								
-			</cfquery>
-				
-			<cfoutput>
-				
-			<cfif searchresult.recordcount eq "0">
-				
-				<tr>
-				<td colspan="9" style="height:50px" align="center" height="50" class="labelmedium">
-				<font color="gray"><cf_tl id="There are no transaction to show in this view"></font>
-				</td>
-				</tr>
-				
-			<cfelse>
-								
-				<tr class="labelmedium">	
-							  	
-					<td height="20" colspan="8"><cf_tl id="Total"> :</td>
-				    <td align="right">
-					<cfif sum.Amount eq "0" or sum.Amount eq "">							
-										
-					<cfelse>
-					#NumberFormat(abs(sum.Amount),',.__')#
-					</cfif>
-					</td>
-					
-				</tr>
-								
-			</cfif>
-				
-			</cfoutput>
-				
-			</TABLE>
-			
-			</cf_divscroll>	
-					
-		</td>
-	</tr>
-	
-	</table>		
-	
-</td></tr>
+		
+		--->
 
-</table>
+<!--- rework the refresh --->
 
-<cfif url.status eq "0" and URL.Page eq "1" and url.transactiontype eq "" and url.fnd eq "">
+<cfif url.status eq "0">
+
+	<cfquery name="searchresult"
+		datasource="AppsQuery" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+
+		SELECT    *
+		FROM      StockBatch_#SESSION.acc# B
+		WHERE     1=1
+	
+	</cfquery>
+	
+	<cfquery name="warehouse"
+		datasource="AppsMaterials" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		SELECT * FROM Warehouse WHERE Warehouse = '#url.warehouse#'
+	</cfquery>		
 
 	<cfinvoke component = "Service.Connection.Connection"  
 		   method           = "setconnection"    
 		   object           = "WarehouseBatchCenter" 
+		   ScopeMode        = "listing"
 		   ScopeId          = "#warehouse.MissionOrgUnitId#"		   
 		   ScopeFilter      = "B.Warehouse=''#url.warehouse#'' AND B.BatchClass=''WhsSale'' AND B.ActionStatus=''0''"
 		   ControllerNo     = "992"
@@ -388,8 +325,7 @@
 		   
 </cfif>		   
 
-<cfset ajaxonload("doHighlight")>
 
-<script>
- parent.Prosis.busy('no')
-</script>
+
+
+

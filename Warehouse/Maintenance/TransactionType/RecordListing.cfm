@@ -22,11 +22,11 @@ password="#SESSION.dbpw#">
 <script>
 
 function recordadd(grp) {
-     window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "AddTransactionType", "left=80, top=80, width= 490, height= 285, toolbar=no, status=no, scrollbars=no, resizable=yes");
+     ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "AddTransactionType", "left=80, top=80, width= 590, height= 285, toolbar=no, status=no, scrollbars=no, resizable=yes");
 }
 
 function recordedit(id1) {
-     window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "EditTransactionType", "left=80, top=80, width= 490, height= 285, toolbar=no, status=no, scrollbars=no, resizable=yes");
+     ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "EditTransactionType", "left=80, top=80, width= 590, height= 285, toolbar=no, status=no, scrollbars=no, resizable=yes");
 }
 
 </script>	
@@ -35,7 +35,7 @@ function recordedit(id1) {
 	
 <tr><td colspan="2">
 	
-	<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding navigation_table">
+	<table width="100%" align="center" class="formpadding navigation_table">
 	
 	<tr class="labelmedium fixrow">
 	    <TD></TD> 

@@ -20,18 +20,17 @@
 		document.getElementById('itemno').value             = '#get.ItemNo#'
 		document.getElementById('itemdescription').value    = '#get.ItemDescription#'
 		document.getElementById('requestdescription').value = '#get.ItemDescription#'
-		document.getElementById('requestcostprice').value   = '#numberformat(get.StandardCost,'__.__')#'
+		document.getElementById('requestcostprice').value   = '#numberformat(get.StandardCost,'.__')#'
 		 
 	 	try {
-			document.getElementById("requestcurrencyprice").value = '#numberformat(get.StandardCost,'__.__')#'		
-		} catch(e) {}
+			document.getElementById("requestcurrencyprice").value = '#numberformat(get.StandardCost,'.__')#'		
+		} catch(e) {}		
 		
+	//	document.getElementById('quantityuom').value      = '#get.UoMDescription#'		
+	//	document.getElementById('warehouseuom').value     = '#get.UoM#'
+		// set the UoM stuff
 		
-		document.getElementById('quantityuom').value      = '#get.UoMDescription#'		
-		document.getElementById('warehouseuom').value   = '#get.UoM#'
-			// set the UoM stuff
-		
-		ColdFusion.navigate('#SESSION.root#/Procurement/Application/Requisition/Requisition/RequisitionEntryWarehouseUoM.cfm?itemno=#get.ItemNo#&uom=#get.UoM#','setuom')
+		ptoken.navigate('#SESSION.root#/Procurement/Application/Requisition/Requisition/RequisitionEntryWarehouseUoM.cfm?itemno=#get.ItemNo#&uom=#get.UoM#','setuom')
 				
 		// adjust the pricing of the requisition 
 																						

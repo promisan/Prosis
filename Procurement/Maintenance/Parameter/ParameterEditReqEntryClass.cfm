@@ -159,13 +159,13 @@ password="#SESSION.dbpw#">
 
 <cfoutput query="Class">
 
-	<tr class="labelmedium line" style="height:29px">
+	<tr class="labelmedium line" style="height:23px">
 	
 	<td style="padding-left:4px">#Description#:</td>
 	<td style="padding-left:1px">
 	
-	 <select name="Operational_#entryclass#" id="Operational_#entryclass#" class="regularxl"
-	    onChange="ColdFusion.navigate('ParameterEditReqEntryClassSave.cfm?mission=#url.mission#&period=#url.period#&class=#entryclass#&field=operational&value='+this.value,'saveclass')">
+	 <select name="Operational_#entryclass#" id="Operational_#entryclass#" class="regularxl" style="border:0px;border-left:1px solid silver;border-right:1px solid silver"
+	    onChange="ptoken.navigate('ParameterEditReqEntryClassSave.cfm?mission=#url.mission#&period=#url.period#&class=#entryclass#&field=operational&value='+this.value,'saveclass')">
 		 <option value="0">--</option>
 		 <option value="1" <cfif 1 eq Class.Operational>selected</cfif>>Yes</option>	
 	 </select>	
@@ -173,8 +173,8 @@ password="#SESSION.dbpw#">
 	</td>
 	<td style="padding-left:1px">
 	
-	 <select name="Collaboration_#entryclass#" id="Collaboration_#entryclass#" class="regularxl"
-	     onChange="ColdFusion.navigate('ParameterEditReqEntryClassSave.cfm?mission=#url.mission#&period=#url.period#&class=#entryclass#&field=collaboration&value='+this.value,'saveclass')">
+	 <select name="Collaboration_#entryclass#" id="Collaboration_#entryclass#" class="regularxl" style="border:0px;border-left:1px solid silver;border-right:1px solid silver"
+	     onChange="ptoken.navigate('ParameterEditReqEntryClassSave.cfm?mission=#url.mission#&period=#url.period#&class=#entryclass#&field=collaboration&value='+this.value,'saveclass')">
 		  <option value="0">--</option>
 		 <option value="1" <cfif 1 eq Class.Collaboration>selected</cfif>>Yes</option>		
 	 </select>	
@@ -182,8 +182,8 @@ password="#SESSION.dbpw#">
 	</td>
 	<td style="padding-left:1px">
 	
-	 <select name="EntityClass_#entryclass#" id="EntityClass_#entryclass#" class="regularxl"
-	     onChange="ColdFusion.navigate('ParameterEditReqEntryClassSave.cfm?mission=#url.mission#&period=#url.period#&class=#entryclass#&field=entityclass&value='+this.value,'saveclass')">
+	 <select name="EntityClass_#entryclass#" id="EntityClass_#entryclass#" class="regularxl" style="border:0px;border-left:1px solid silver;border-right:1px solid silver"
+	     onChange="ptoken.navigate('ParameterEditReqEntryClassSave.cfm?mission=#url.mission#&period=#url.period#&class=#entryclass#&field=entityclass&value='+this.value,'saveclass')">
 		 <option value="">Default (Batch Approval)</option>
 		 <cfloop query="Workflow">
 			   <option value="#EntityClass#" <cfif EntityClass eq Class.EntityClass>selected</cfif>>#EntityClassName#</option>
@@ -193,8 +193,8 @@ password="#SESSION.dbpw#">
 	</td>
 	<td style="padding-left:1px">
 	
-	 <select name="EditionId_#entryclass#" id="EditionId_#entryclass#" class="regularxl"
-	    onChange="ColdFusion.navigate('ParameterEditReqEntryClassSave.cfm?mission=#url.mission#&period=#url.period#&class=#entryclass#&field=editionid&value='+this.value,'saveclass');se=document.getElementById('EnforceBudget_#entryclass#');if (this.value=='') {se.disabled=true} else {se.disabled=false}">
+	 <select name="EditionId_#entryclass#" id="EditionId_#entryclass#" class="regularxl" style="border:0px;border-left:1px solid silver;border-right:1px solid silver"
+	    onChange="ptoken.navigate('ParameterEditReqEntryClassSave.cfm?mission=#url.mission#&period=#url.period#&class=#entryclass#&field=editionid&value='+this.value,'saveclass');se=document.getElementById('EnforceBudget_#entryclass#');if (this.value=='') {se.disabled=true} else {se.disabled=false}">
 		 <option value="">N/A</option>
 		 <cfloop query="Edition">
 			   <option value="#EditionId#" <cfif editionId eq Class.EditionId>selected</cfif>><cfif Period neq ""> - #Period#</cfif> - #Version#</option>
@@ -205,8 +205,8 @@ password="#SESSION.dbpw#">
 	
 	<td style="padding-left:1px">
 	
-	 <select name="EnforceBudget_#entryclass#" id="EnforceBudget_#entryclass#" class="regularxl" <cfif editionId eq "">disabled</cfif>
-	    onChange="ColdFusion.navigate('ParameterEditReqEntryClassSave.cfm?mission=#url.mission#&period=#url.period#&class=#entryclass#&field=enforcebudget&value='+this.value,'saveclass')">
+	 <select name="EnforceBudget_#entryclass#" style="border:0px;border-left:1px solid silver;border-right:1px solid silver" id="EnforceBudget_#entryclass#" class="regularxl" <cfif editionId eq "">disabled</cfif>
+	    onChange="ptoken.navigate('ParameterEditReqEntryClassSave.cfm?mission=#url.mission#&period=#url.period#&class=#entryclass#&field=enforcebudget&value='+this.value,'saveclass')">
 		 <option value="0">--</option>
 		 <option value="1" <cfif 1 eq Class.EnforceBudget>selected</cfif>>Yes</option>		 
 	 </select>	
@@ -215,8 +215,8 @@ password="#SESSION.dbpw#">
 	
 	<td style="padding-left:1px">
 	
-	 <select name="EnableClearance_#entryclass#" id="EnableClearance_#entryclass#" class="regularxl"
-	    onChange="ColdFusion.navigate('ParameterEditReqEntryClassSave.cfm?mission=#url.mission#&period=#url.period#&class=#entryclass#&field=EnableClearance&value='+this.value,'saveclass')">
+	 <select name="EnableClearance_#entryclass#" id="EnableClearance_#entryclass#" class="regularxl" style="border:0px;border-left:1px solid silver;border-right:1px solid silver"
+	    onChange="ptoken.navigate('ParameterEditReqEntryClassSave.cfm?mission=#url.mission#&period=#url.period#&class=#entryclass#&field=EnableClearance&value='+this.value,'saveclass')">
 		 <option value="0">--</option>
 		 <option value="1" <cfif 1 eq Class.EnableClearance>selected</cfif>>Yes</option>	
 	 </select>	 
@@ -224,8 +224,8 @@ password="#SESSION.dbpw#">
 	</td>
 	
 	<td style="padding-left:1px">
-	 <select name="EnableBudgetReview_#entryclass#" id="EnableBudgetReview_#entryclass#" class="regularxl"
-	    onChange="ColdFusion.navigate('ParameterEditReqEntryClassSave.cfm?mission=#url.mission#&period=#url.period#&class=#entryclass#&field=EnableBudgetReview&value='+this.value,'saveclass')">
+	 <select name="EnableBudgetReview_#entryclass#" id="EnableBudgetReview_#entryclass#" class="regularxl" style="border:0px;border-left:1px solid silver;border-right:1px solid silver"
+	    onChange="ptoken.navigate('ParameterEditReqEntryClassSave.cfm?mission=#url.mission#&period=#url.period#&class=#entryclass#&field=EnableBudgetReview&value='+this.value,'saveclass')">
 		 <option value="0">--</option>
 		 <option value="1" <cfif 1 eq Class.EnableBudgetReview>selected</cfif>>Yes</option>	
 	 </select>	 
@@ -233,8 +233,8 @@ password="#SESSION.dbpw#">
 	
 	<td style="padding-left:1px">
 	
-	 <select name="EnableFundingClear_#entryclass#" id="EnableFundingClear_#entryclass#" class="regularxl"
-	    onChange="ColdFusion.navigate('ParameterEditReqEntryClassSave.cfm?mission=#url.mission#&period=#url.period#&class=#entryclass#&field=EnableFundingClear&value='+this.value,'saveclass')">
+	 <select name="EnableFundingClear_#entryclass#" id="EnableFundingClear_#entryclass#" class="regularxl" style="border:0px;border-left:1px solid silver;border-right:1px solid silver"
+	    onChange="ptoken.navigate('ParameterEditReqEntryClassSave.cfm?mission=#url.mission#&period=#url.period#&class=#entryclass#&field=EnableFundingClear&value='+this.value,'saveclass')">
 		 <option value="0">--</option>
 		 <option value="1" <cfif 1 eq Class.EnableFundingClear>selected</cfif>>Yes</option>	
 	 </select>	
@@ -243,8 +243,8 @@ password="#SESSION.dbpw#">
 	
 	<td style="padding-left:1px">
 	
-	 <select name="EnableCertification_#entryclass#" id="EnableCertification_#entryclass#" class="regularxl"
-	    onChange="ColdFusion.navigate('ParameterEditReqEntryClassSave.cfm?mission=#url.mission#&period=#url.period#&class=#entryclass#&field=EnableCertification&value='+this.value,'saveclass')">
+	 <select name="EnableCertification_#entryclass#" id="EnableCertification_#entryclass#" class="regularxl" style="border:0px;border-left:1px solid silver;border-right:1px solid silver"
+	    onChange="ptoken.navigate('ParameterEditReqEntryClassSave.cfm?mission=#url.mission#&period=#url.period#&class=#entryclass#&field=EnableCertification&value='+this.value,'saveclass')">
 		 <option value="0">--</option>
 		 <option value="1" <cfif 1 eq Class.EnableCertification>selected</cfif>>Yes</option>	
 	 </select>	 
@@ -258,10 +258,10 @@ password="#SESSION.dbpw#">
 	       id       = "certificationthreshold_#entryclass#"
 	       value    = "#Class.CertificationThreshold#"
 	       validate = "integer"	      
-		   onChange = "ColdFusion.navigate('ParameterEditReqEntryClassSave.cfm?mission=#url.mission#&period=#url.period#&class=#entryclass#&field=certificationthreshold&value='+this.value,'saveclass')"   
+		   onChange = "ptoken.navigate('ParameterEditReqEntryClassSave.cfm?mission=#url.mission#&period=#url.period#&class=#entryclass#&field=certificationthreshold&value='+this.value,'saveclass')"   
 		   size     = "4"
 		   class    = "regularxl"
-		   style    = "text-align:center"		  
+		   style    = "text-align:center;border:0px;border-left:1px solid silver;border-right:1px solid silver"		  
 	       visible  = "Yes">
 	
 	</td>

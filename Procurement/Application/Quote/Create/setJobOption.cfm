@@ -163,7 +163,7 @@
 	
 	<cfif Job.recordcount gte "1">
 	
-		<script>			
+		<script>				
 		    try { document.getElementById('menutravel').disabled = false } catch(e) {}	
 			set_style();		
 		</script>	

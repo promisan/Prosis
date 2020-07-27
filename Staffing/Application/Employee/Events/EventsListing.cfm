@@ -8,6 +8,7 @@
 		SELECT *
 		FROM   Ref_PersonEventMission				
 </cfquery>
+
  <cfquery name="OnBoard" 
  datasource="AppsEmployee"
  username="#SESSION.login#" 
@@ -31,10 +32,10 @@
 	 ORDER BY Incumbency DESC						
  </cfquery>  
 		
-<table align="center" width="98%" border="0">
+<table align="center" style="height:100%;width:99%" border="0">
 
 	<tr>
-	<td>
+	<td style="height:10px">
 		<table width="100%">
 			<tr>
 			
@@ -57,7 +58,7 @@
 									value="#lt_text#" 
 									class="button10g" 
 									style="width:190;height:25px" 
-									onclick="javascript:eventadd('#URL.id#');">
+									onclick="javascript:eventadd('#URL.id#','person');">
 							</cfoutput>
 							
 						</cfif>
@@ -67,13 +68,13 @@
 	</td>
 	</tr>
 
-	<tr><td style="padding-left:10px;padding-right:10px">
+	<tr><td style="padding-left:10px;padding-right:10px;height:100%">
+	
+		<cf_divscroll>	
 
-		<table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="formpadding navigation_table"">
-
-		<tr><td height="10" colspan="7" ></td></tr>
-			
-		<TR class="line labelmedium">
+		<table width="100%" align="center" class="formpadding navigation_table"">
+					
+		<TR class="line labelmedium fixrow">
 			<td></td>
 			<td></td>
   		    <td><cf_tl id="Entity"></td>
@@ -175,7 +176,7 @@
 								
 							   		<cf_img icon="edit" 
 			   							navigation="Yes" 
-			   							onClick="eventedit('#eventid#')">
+			   							onClick="eventedit('#eventid#','person')">
 										
 								<cfelseif ActionStatus eq "3">
 																
@@ -183,7 +184,7 @@
 									
 									<cf_img icon="open" 
 			   							navigation="Yes" 
-			   							onClick="eventedit('#eventid#')">
+			   							onClick="eventedit('#eventid#','person')">
 										
 									<cfelse>
 									
@@ -194,7 +195,7 @@
 							    </cfif>
 						   </td>
 						
-						   <td style="width:20px;padding-top:4px">
+						   <td style="width:20px;padding-top:8px">
 						   
 						   	<cfif EntityClass neq "">
 						   			
@@ -224,7 +225,7 @@
 								<a href="javascript:showdocument('#documentno#')">(#DocumentNo#)</a></font>
 								</cfif>
 			               	</TD>
-							<td>#officerfirstName# #officerLastName#</td>		               	
+							<td>#officerLastName#</td>		               	
 							<td width="5%">
 			
 								<cfinvoke component="Service.Access"  
@@ -241,7 +242,7 @@
 											
 								   				<td style="padding-left:5px">
 								   					<cf_img icon="delete" 					   						
-								   						onClick="javascript:eventdelete('#eventid#')">
+								   						onClick="javascript:eventdelete('#eventid#','person')">
 								   				</td>
 												
 								   			</cfif>
@@ -307,7 +308,7 @@
 						<tr id="box_#eventid#">
 						    <td></td>
 							<td colspan="9">								   
-								<cf_securediv id="#eventid#" bind="url:#client.root#/Staffing/Application/Employee/Events/EventWorkflow.cfm?ajaxid=#eventid#">       															
+								<cfdiv id="#eventid#" bind="url:#client.root#/Staffing/Application/Employee/Events/EventWorkflow.cfm?ajaxid=#eventid#"/>       															
 							</td>
 						</tr>				
 		
@@ -330,7 +331,9 @@
 			
 		</CFOUTPUT>
 									
-		</table>		
+		</table>	
+		
+		</cf_divscroll>	
 
 </td></tr>
 
@@ -341,4 +344,4 @@
 </script>
 
 <cfset ajaxonload("doHighlight")>
-<cfset AjaxOnLoad("setSelected")>
+<cfset ajaxOnLoad("setSelected")>

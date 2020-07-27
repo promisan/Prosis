@@ -9,10 +9,10 @@
 		<tr>
 		<td style="font-size:15px;padding-top:2px;padding-left:15px">
 									
-		<table width="100%" class="gray formpadding">
+		<table width="100%" class="gray formpadding navigation_table">
 		    <cfloop query="Last">
-			<tr style="height:20px" class="labelmedium line">
-			<td style="width:100%">#dateformat(Created,"DDDD MMM YY")# @ #timeformat(Created,"HH:MM")#</td>	
+			<tr style="height:20px" class="labelmedium line  navigation_row">
+			<td style="width:100%">#dateformat(Created,"DD/MM/YY")# #timeformat(Created,"HH:MM")#</td>	
 			<td width="30"></td>				
 			<td style="min-width:50px;padding-right:6px">#DocumentCurrency#</td>
 			<td style="min-width:80px;padding-right:6px" align="right">#numberformat(DocumentAmount,',.__')#</td>
@@ -42,18 +42,19 @@
 					WHERE    ReferenceId = '#url.customerid#'	
 					-- AND      TransactionDate >= getDate()-1200  
 					AND      TransactionSource = 'SalesSeries' 	
-					AND      ActionStatus != '9' AND RecordStatus !='9'	
+					AND      ActionStatus = '1' AND RecordStatus !='9'	
 					AND      TransactionCategory = 'Receivables'			
 					GROUP BY DocumentCurrency,Year(TransactionDate)
-					ORDER BY Year DESC  							
+					ORDER BY Year DESC  	
+											
 			</cfquery>
 		
 		<td style="font-size:15px;padding-top:2px;padding-left:15px">
 		
-			<table width="100%" class="formpadding">
+			<table width="100%" class="formpadding navigation_table">
 			
 			<cfloop query="cum" startrow="1" endrow="3">	
-			<tr style="height:20px" class="labelmedium line">
+			<tr style="height:20px" class="labelmedium line navigation_row">
 			<td style="width:100%">#year#</td>				
 			<td style="min-width:50px;padding-right:6px">#DocumentCurrency#</td>
 			<td style="min-width:80px;padding-right:6px" align="right">#numberformat(DocumentAmount,',.__')#</td>							
@@ -68,4 +69,5 @@
 	</table>		
 	
 </cfoutput>			
+<cfset ajaxOnLoad("doHighlight")>
 					

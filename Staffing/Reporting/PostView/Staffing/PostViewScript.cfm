@@ -224,24 +224,24 @@ function AddReview(postno,box) {
 
 // event scripts taken from EventsScripts.cfm
 
-	function eventadd(personno,positionno) {     	
-		try { ColdFusion.Window.destroy('evdialog',true) } catch(e) {}
-		ColdFusion.Window.create('evdialog', 'Event Dialog', '',{x:200,y:200,height:document.body.clientHeight-100,width:document.body.clientWidth-200,modal:true,resizable:false,center:true})    					
-    	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventForm.cfm?portal=0&personNo='+personno+'&positionno='+positionno,'evdialog')		 	
+	function eventaddperson(personno,positionno) {     				
+		ProsisUI.createWindow('evdialog', 'Event Dialog', '',{x:200,y:200,height:document.body.clientHeight-100,width:document.body.clientWidth-200,modal:true,resizable:false,center:true})    					
+    	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventForm.cfm?scope=matrix&portal=0&personNo='+personno+'&positionno='+positionno,'evdialog')		 	
 	}
 
-	function checkevent() {
-		tc = document.getElementById('triggercode');
+	function checkevent() {				
 		rid = document.getElementById('eventid');
-		mis = document.getElementById('mission');		
-	   	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getEvent.cfm?triggercode='+tc.value+'&eventid='+rid.value+'&mission='+mis.value,'dEvent')
-	}  
+		mis = document.getElementById('mission');	
+		per = document.getElementById('personno');			
+    	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getEvent.cfm?personno='+per.value+'&eventid='+rid.value+'&mission='+mis.value,'dEvent')
+	  }    
 
 	function checkreason() {
 		tc = document.getElementById('triggercode');
 		ev = document.getElementById('eventcode');
 		rid = document.getElementById('eventid');		
 	    ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getReason.cfm?triggercode='+tc.value+'&eventcode='+ev.value+'&eventid='+rid.value,'dReason');
+		ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getCondition.cfm?triggercode='+tc.value+'&eventcode='+ev.value+'&eventid='+rid.value,'dCondition');    
     }
 	
 	function eventsubmit(id) {

@@ -49,24 +49,24 @@ password="#SESSION.dbpw#">
 
 <cfoutput>	
 
-	<TR>
-	 <TD class="labelit" height="18">&nbsp;&nbsp;<cf_tl id="JobTrigger">:</TD>
-	 <TD class="labelit"><font color="0080FF"><cfif qry_001.value eq "">--<cfelse>#qry_001.value#</cfif></TD>
+	<TR class="labelmedium">
+	 <TD height="18"><cf_tl id="JobTrigger">:</TD>
+	 <TD><font color="0080FF"><cfif qry_001.value eq "">--<cfelse>#qry_001.value#</cfif></TD>
 	</TR>
 	
-	<TR>
-    <TD height="18" class="labelit">&nbsp;&nbsp;<cf_tl id="Event">:</TD>
+	<TR class="labelmedium">
+    <TD height="18"><cf_tl id="Event">:</TD>
     <TD class="labelit"><font color="0080FF">#JobEvent.Description#</TD>
 	</TR>
 	
-	<TR>
-    <TD class="labelit" height="18">&nbsp;&nbsp;<cf_tl id="Contract No">:</TD>	
-	<TD class="labelit"><font color="0080FF"><cfif qry_ND014.value eq "">--<cfelse>#qry_ND014.value#</cfif></td>
+	<TR class="labelmedium">
+    <TD height="18"><cf_tl id="Contract No">:</TD>	
+	<TD><font color="0080FF"><cfif qry_ND014.value eq "">--<cfelse>#qry_ND014.value#</cfif></td>
 	</TR>
 	
-	<TR>
-    <TD height="18" class="labelit">&nbsp;&nbsp;<cf_tl id="Subscription date">:</TD>	
-	<TD class="labelit"><font color="0080FF"><cfif qry_FC014.value eq "">--<cfelse>#qry_FC014.value#</cfif></td>
+	<TR class="labelmedium">
+    <TD height="18"><cf_tl id="Subscription date">:</TD>	
+	<TD><font color="0080FF"><cfif qry_FC014.value eq "">--<cfelse>#qry_FC014.value#</cfif></td>
 	</TR>	
 	
 </cfoutput>		

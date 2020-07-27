@@ -1,12 +1,13 @@
 <cfparam name="URL.portal" default="0">
-
-
+<cfparam name="URL.personno" default="">
 
 <cfajaximport tags="cfform">
 
 <cfoutput>
 
 <script language="JavaScript">
+
+	_cf_loadingtexthtml='';	
 	
 	function workflowdrill(key,box){
 		
@@ -18,51 +19,53 @@
 			document.getElementById(box).className = "hide";
 		}		
 	}
-	
-	function eventedit(key) {
-    	Prosis.busy('yes');
-    	_cf_loadingtexthtml='';		
-		ProsisUI.createWindow('evdialog', 'HR Event request', '',{x:200,y:200,height:document.body.clientHeight-100,width:document.body.clientWidth-200,modal:true,resizable:false,center:true})    					
-    	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventForm.cfm?portal=0&id='+key,'evdialog')
-	}
-	
+			
 	function setSelected() { 
         $('a.selected').each(function() {
              $(this).click();
         });
     } 
     
-   function eventadd(personno) {    	
+   function eventadd(personno,scope) {    	
     	Prosis.busy('yes');
     	_cf_loadingtexthtml='';		
 		ProsisUI.createWindow('evdialog', 'HR Event request', '',{x:200,y:200,height:document.body.clientHeight-100,width:document.body.clientWidth-200,modal:true,resizable:false,center:true})    					
-    	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventForm.cfm?portal=#url.portal#&personNo='+personno,'evdialog')		 	
+    	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventForm.cfm?scope='+scope+'&portal=#url.portal#&personNo='+personno,'evdialog')		 	
     }
+	
+	function eventedit(key,scope) {
+    	Prosis.busy('yes');
+    	_cf_loadingtexthtml='';		
+		ProsisUI.createWindow('evdialog', 'HR Event request', '',{x:200,y:200,height:document.body.clientHeight-100,width:document.body.clientWidth-200,modal:true,resizable:false,center:true})    					
+    	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventForm.cfm?scope='+scope+'&portal=0&id='+key,'evdialog')
+	}
     
     function checkevent() {
-		tc = document.getElementById('triggercode');
+		
+		tc  = document.getElementById('triggercode');
 		rid = document.getElementById('eventid');
-		mis = document.getElementById('mission');		
-    	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getEvent.cfm?triggercode='+tc.value+'&eventid='+rid.value+'&mission='+mis.value,'dEvent')
+		mis = document.getElementById('mission');	
+		per = document.getElementById('personno');			
+    	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getEvent.cfm?personno='+per.value+'&triggercode='+tc.value+'&eventid='+rid.value+'&mission='+mis.value,'dEvent')
     }    
 
     function checkreason() {
 		tc = document.getElementById('triggercode');
 		ev = document.getElementById('eventcode');
 		rid = document.getElementById('eventid');		
-    	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getReason.cfm?triggercode='+tc.value+'&eventcode='+ev.value+'&eventid='+rid.value,'dReason');
+    	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getReason.cfm?triggercode='+tc.value+'&eventcode='+ev.value+'&eventid='+rid.value,'dReason');		
+		ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getCondition.cfm?triggercode='+tc.value+'&eventcode='+ev.value+'&eventid='+rid.value,'dCondition');
     }
-    
-    function eventdelete(event) {
+	    
+    function eventdelete(event,scope) {
 		Ext.MessageBox.confirm('Delete', 'Are you sure ?', function(btn){
 		   if(btn === 'yes'){
-		       ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventsDelete.cfm?eventid='+event,'eventdetail');
+		       ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventsDelete.cfm?scope='+scope+'&eventid='+event,'eventdetail');
 		   }
 		 });
     }
-
 		
-	function eventsubmit(id,box) {
+	function eventsubmit(id,box,scope) {
 	
 		tc  = document.getElementById('triggercode');
 		ev  = document.getElementById('eventcode');
@@ -95,12 +98,12 @@
 		} else if (ded.value == '')  {
 			Ext.Msg.alert('Expiration date', 'Please specify Due Date.');
 		} else if (eff.value == '')  {
-			Ext.Msg.alert('Effective date', 'Please specify Action effective Date.');	
+			Ext.Msg.alert('Effective date', 'Please specify an effective Date.');	
 		} else if (exp.value == '' && ebx.className!= 'hide') {
-			Ext.Msg.alert('Effective date', 'Please specify Action effective Date.');		
+			Ext.Msg.alert('Effective date', 'Please specify an expiration Date.');		
 		} 
 		else{
-    		ptoken.navigate('#SESSION.root#/Staffing/Application/employee/events/EventFormSubmit.cfm?scope=person&box='+box+'&eventid='+id,'process','','','POST','eventform')		
+    		ptoken.navigate('#SESSION.root#/Staffing/Application/employee/events/EventFormSubmit.cfm?scope='+scope+'&box='+box+'&eventid='+id,'process','','','POST','eventform')		
 		}
 	}
 		

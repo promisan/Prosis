@@ -36,7 +36,7 @@
 				</TD>
 				 <TD style="padding-left:1px">
 				  
-					<select name="ActionAccess" id="ActionAccess" class="regularxl" style="width: 100%;" onchange="toggleall('ugselect',this.value)">
+					<select name="ActionAccess" id="ActionAccess" class="regularxxl" style="width: 100%;" onchange="toggleall('ugselect',this.value)">
 					    <option value="" selected></option>
 						<cfloop query="Access">
 						       <option value="#Access.ActionCode#" <cfif Access.ActionCode eq Get.ActionAccess>selected</cfif>>#Access.ActionCode# #Access.ActionDescription#</option>
@@ -61,15 +61,25 @@
 					password="#SESSION.dbpw#">
 						SELECT *
 						FROM   Usernames
-						WHERE  AccountType = 'Group'					
+						WHERE  AccountType = 'Group'	
+						AND    AccountMission IN (SELECT Mission FROM Organization.dbo.Ref_Mission WHERE Operational = 1)
+						ORDER BY AccountMission				
 					</cfquery>
 					
-					<select name="ActionAccessUserGroup" id="ActionAccessUserGroup" class="regularxl" style="width: 100%;">					    
+					
+					<cf_uiselect name="ActionAccessUserGroup" id="ActionAccessUserGroup" class="regularxl"
+						 style="width: 100%;" 
+						    group          = "AccountMission"
+							query          = "#Group#"
+							queryPosition  = "below"
+							filter         = "contains"
+							value          = "Account"
+							display        = "Account"
+							selected       = "#Get.ActionAccessUserGroup#">		
+								    
 					    <option value="" class="regularxl" selected>[all users]</option>
-						<cfloop query="Group">
-						       <option value="#Group.Account#" <cfif Account eq Get.ActionAccessUserGroup>selected</cfif>>#Account#</option>
-						</cfloop>
-					</select>
+						
+					</cf_uiselect>
 					
 					</td>
 										
@@ -83,18 +93,25 @@
 					datasource="AppsSystem" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
-					SELECT *
-					FROM Usernames
-					WHERE AccountType = 'Group'					
+					SELECT  *
+					FROM    Usernames
+					WHERE   AccountType = 'Group'	
+					AND    AccountMission IN (SELECT Mission FROM Organization.dbo.Ref_Mission WHERE Operational = 1)
+					ORDER BY AccountMission				
 					</cfquery>
 					
-					<select name="ActionAccessUGCollaborate" id="ActionAccessUGCollaborate" class="regularxl" style="width: 100%;">
+					<cf_uiselect name="ActionAccessUGCollaborate" id="ActionAccessUGCollaborate" class="regularxl"
+						 style="width: 100%;" 
+						    group          = "AccountMission"
+							query          = "#Group#"
+							queryPosition  = "below"
+							filter         = "contains"
+							value          = "Account"
+							display        = "Account"
+							selected       = "#Get.ActionAccessUGCollaborate#">						 						 
 					    <option value="DISABLED" selected>n/a</option>
-					    <option>[all users]</option>
-						<cfloop query="Group">
-						       <option value="#Group.Account#" <cfif Account eq Get.ActionAccessUGCollaborate>selected</cfif>>#Account#</option>
-						</cfloop>
-					</select>
+					    <option>[all users]</option>						
+					</cf_uiselect>
 					
 					</td>
 										

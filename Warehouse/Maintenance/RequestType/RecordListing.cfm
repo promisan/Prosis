@@ -23,11 +23,11 @@ password="#SESSION.dbpw#">
 <script>
 
 function recordadd(grp) {
-          window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "AddRequestType", "left=80, top=80, width= 800, height= 400, toolbar=no, status=yes, scrollbars=no, resizable=yes");
+      ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "AddRequestType", "left=80, top=80, width= 800, height= 400, toolbar=no, status=yes, scrollbars=no, resizable=yes");
 }
 
 function recordedit(id1) {
-          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "EditRequestType", "left=80, top=80, width=1200, height=800, toolbar=no, status=yes, scrollbars=no, resizable=yes");
+      ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "EditRequestType", "left=80, top=80, width=1200, height=800, toolbar=no, status=yes, scrollbars=no, resizable=yes");
 }
 
 </script>	

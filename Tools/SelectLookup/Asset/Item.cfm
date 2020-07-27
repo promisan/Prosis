@@ -1,4 +1,8 @@
 
+xxxxxxxxxxxxxxxxx
+
+<cfabort>
+
 <cf_screentop label="Search"  
    height  = "100%" 
    scroll  = "no" 

@@ -186,9 +186,7 @@ password="#SESSION.dbpw#">
 	</td></tr>
 					
 	</table>	
-	
-	--->
-		
+			
 	</cfform>	
 		
 </cfoutput>

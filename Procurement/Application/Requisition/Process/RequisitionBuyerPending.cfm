@@ -235,8 +235,8 @@
 		   <td>
 		   <table cellspacing="0" cellpadding="0" class="formspacing">
 			   <tr>
-			   <td style="padding-left:10px;padding-right:20px" class="labelmedium">
-			   <b>Select a #Parameter.BuyerDescription#:</b></td>
+			   <td style="padding-left:10px;padding-right:20px" class="labellarge">
+			   #Parameter.BuyerDescription#:</td>
 			   <td>
 			   
 			  <cfparam name="url.buyer" default="0">
@@ -250,25 +250,25 @@
 				 WHERE  Account = '#url.buyer#'
 			  </cfquery>				   
 
-						<cfset link="RequisitionBuyerUser.cfm?">
-		
-						<cf_selectlookup
-						    box          = "sBuyerSelection"
-						    link         = "#link#"
-							button       = "yes"
-							icon         = "contract.gif"
-							iconwidth    = "13"
-							iconheight   = "14"
-							close        = "Yes"
-							class        = "user"
-							des1         = "account">	
+				<cfset link="RequisitionBuyerUser.cfm?">
+
+				<cf_selectlookup
+				    box          = "sBuyerSelection"
+				    link         = "#link#"
+					button       = "yes"
+					icon         = "contract.gif"
+					iconwidth    = "13"
+					iconheight   = "14"
+					close        = "Yes"
+					class        = "user"
+					des1         = "account">	
 								  
 				</td>
 				<td>	   
 			    	<table width="100%">
 							    		
 			    		<tr>
-			    			<td>
+			    			<td style="padding-left:5px">
 								<cfdiv id="sBuyerSelection" bind="url:RequisitionBuyerUser.cfm">
 							</td>
 						</tr>
@@ -328,7 +328,7 @@
 		<tr><td colspan="2" class="line"></td></tr>
 		
 		<tr>
-			<td colspan="2" height="100%">
+			<td colspan="2" height="100%" style="padding-left:15px">
 			
 				<cfinclude template="RequisitionListing.cfm">
 			</td>

@@ -52,14 +52,12 @@ function validate(){
 </script>
 
 <cf_screentop height="100%" 
-			  label="Transaction Type" 
-			  option="Transaction Type Maintenance" 
+			  label="Transaction Type" 			 
 			  scroll="Yes" 
 			  layout="webapp" 
 			  banner="yellow" 
 			  menuAccess="Yes" 
 			  systemfunctionid="#url.idmenu#">
-
 <!--- edit form --->
 
 <cfform action="RecordSubmit.cfm?idmenu=#url.idmenu#" method="POST" enablecab="Yes" name="dialog" onSubmit="return validate();">
@@ -140,8 +138,8 @@ function validate(){
     </TD>
 	</TR>
 	
-	<tr class="labelit">
-		<td valign="top" style="padding-top:4px;padding-right:9px">Report&nbsp;Template:</td>
+	<tr>
+		<td  class="labelit" valign="top" style="padding-top:4px;padding-right:9px">Report&nbsp;Template:</td>
 		<td>
 			<table>
 				<tr>

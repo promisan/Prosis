@@ -1,12 +1,16 @@
 
 <cfset criteria = ''>
 
-<cfif isDefined("Form.Crit5_Value")>	
-	<cfset criteria = " I.ItemClass IN (" & PreserveSingleQuotes(Form.Crit5_Value) & ") ">
+<cfif isDefined("Form.Crit5_Value")>
+	<cfif Form.Crit5_Value neq "">
+		<cfset criteria = " I.ItemClass IN (" & ListQualify(Form.Crit5_Value,"'") & ") ">
+	</cfif>
 </cfif>
 
-<cfif isDefined("Form.Crit3_Value")>	
-	<cfset criteria = " C.Category IN (" & PreserveSingleQuotes(Form.Crit3_Value) & ") ">
+<cfif isDefined("Form.Crit3_Value")>
+	<cfif Form.Crit3_Value neq "">
+		<cfset criteria = " C.Category IN (" &  ListQualify(Form.Crit3_Value,"'") & ") ">
+	</cfif>
 </cfif>
 
 <CF_Search_AppendCriteria

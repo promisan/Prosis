@@ -89,10 +89,8 @@ password="#SESSION.dbpw#">
 	
 	<tr id="log">
 	    <td width="100%" height="100%" valign="top" colspan="7">
-		
-		
 				
-		<table width="98%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center">	
+		<table width="98%" height="100%" align="center">	
 		<tr><td height="1" class="line"></td></tr>	
 		<tr><td width="100%" height="28">#client.header#</td></tr>
 		<tr><td height="1" style="border-top:1px solid silver"></td></tr>	
@@ -113,13 +111,9 @@ password="#SESSION.dbpw#">
 		   
 		   </table>
 		   
-		  </td></tr> 
-		  
+		  </td></tr> 	  
 								
-		</table>
-		
-		
-		
+		</table>	
 		
 		</td>
 	</tr>

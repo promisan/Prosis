@@ -64,7 +64,7 @@ password="#SESSION.dbpw#">
 			
 			<td style="padding-left:10px">
 			<input type="radio" class="radiol" name="toggle" value="0" onclick="Prosis.busy('yes');window.location='menu1.cfm?#cls#'" <cfif url.operational eq "0">checked</cfif>>
-			</td><td>&nbsp;</td><td class="labellarge" style="cursor: pointer;" onclick="Prosis.busy('yes');window.location='menu1.cfm?#cls#'"><font color="FF0000"><cfif url.operational eq "0"><b></cfif><cf_tl id="Closed"></td>
+			</td><td>&nbsp;</td><td class="labellarge" style="cursor: pointer;" onclick="Prosis.busy('yes');window.location='menu1.cfm?#cls#'"><font color="blue"><cfif url.operational eq "0"><b></cfif><cf_tl id="Archive"></td>
 						
 			</tr>
 		

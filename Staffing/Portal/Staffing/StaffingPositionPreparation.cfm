@@ -44,8 +44,9 @@
 					ParentOrgUnit, OrgUnitClassOrder, OrgUnitClassName, DateEffective, DateExpiration, FunctionDescriptionActual, FunctionNo, FunctionDescription, PositionNo, 
 					PositionParentId, OrgUnitOperational, OrgUnitAdministrative, OrgUnitFunctional, PostType, PostClass, LocationCode, VacancyActionClass, PostGrade, PostOrder, 
 					SourcePostNumber, PostOrderBudget, PostGradeBudget, PostGradeParent, OccGroup, OccGroupName, OccGroupOrder, PostGradeParentDescription, ViewOrder, 
-					ContractId, AssignmentNo, AssignmentStatus, AssignmentClass, AssignmentType, Incumbency, Remarks, ExpirationCode, ExpirationListCode, AssignmentLocation
-		FROM       vwAssignment
+					ContractId, AssignmentNo, AssignmentStatus, AssignmentClass, AssignmentType, Incumbency, Remarks, ExpirationCode, ExpirationListCode, AssignmentLocation,
+					(SELECT Name FROM System.dbo.Ref_Nation WHERE Code = A.Nationality) as NationalityName
+		FROM       vwAssignment A
 		WHERE      Mission = '#URL.Mission#' 
 		AND        DateEffective  < '#url.selection#' 
 		AND        DateExpiration > '#url.selection#'

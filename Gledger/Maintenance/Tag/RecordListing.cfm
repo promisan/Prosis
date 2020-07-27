@@ -9,6 +9,7 @@
 	Order by T.CategoryClass, ListingOrder, T.EntityCode, T.Description
 </cfquery>
 
+<cf_screentop html="No" jquery="Yes">
 <cf_divscroll>
 
 <cfset add          = "1">

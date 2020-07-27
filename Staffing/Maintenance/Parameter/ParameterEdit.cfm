@@ -20,8 +20,11 @@ password="#SESSION.dbpw#">
 	SELECT *
 	FROM   Ref_ParameterMission
 	WHERE  Mission IN (SELECT Mission 
-    	               FROM Organization.dbo.Ref_MissionModule 
-					   WHERE SystemModule = 'Staffing')
+    	               FROM   Organization.dbo.Ref_MissionModule 
+					   WHERE  SystemModule = 'Staffing')
+	AND    Mission IN (SELECT Mission
+	                   FROM   Organization.dbo.Ref_Mission
+					   WHERE  Operational = 1)					   
 </cfquery>
 
 <cfajaximport tags="cfform,cfwindow,cfdiv">

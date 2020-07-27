@@ -58,6 +58,10 @@
 		 if (topic == "fnts") {
 			 ColdFusion.navigate('#SESSION.root#/tools/entityaction/details/notes/NoteList.cfm?box='+itm+'_'+object+'&mode=note&objectid='+object+'&actioncode='+action,itm+'_'+object)
 		 }	
+		 
+		  if (topic == "fact") {
+			 ColdFusion.navigate('#SESSION.root#/tools/entityaction/details/actor/ActorView.cfm?box='+itm+'_'+object+'&mode=actor&objectid='+object+'&actioncode='+action,itm+'_'+object)
+		 }	
 	 
 		 if (topic == "fexp") {
 			 ColdFusion.navigate('#SESSION.root#/tools/entityaction/details/cost/CostList.cfm?box='+itm+'_'+object+'&mode=cost&objectid='+object+'&actioncode='+action,itm+'_'+object)
@@ -81,21 +85,20 @@
 	 }
 	 	
 	 function costentry(objectid,id,tpe,mode,box,action) {	
-	 	    ColdFusion.Window.create('costdialog', 'Costs', '',{x:100,y:100,height:540,width:600,modal:true,center:true})    		
-	  		ColdFusion.Window.show('costdialog')					
-			ColdFusion.navigate('#SESSION.root#/tools/entityaction/Details/Cost/CostEntry.cfm?box='+box+'&mode='+mode+'&objectid='+objectid+'&recordid='+id+'&type='+tpe+'&actioncode='+action,'costdialog') 					
+	 	    ProsisUI.createWindow('costdialog', 'Costs', '',{x:100,y:100,height:540,width:600,modal:true,center:true})    			  			
+			ptoken.navigate('#SESSION.root#/tools/entityaction/Details/Cost/CostEntry.cfm?box='+box+'&mode='+mode+'&objectid='+objectid+'&recordid='+id+'&type='+tpe+'&actioncode='+action,'costdialog') 					
 	 }
 		
 	 function costask(objectid,id,mode,box,action) {
-	   		ColdFusion.navigate('#SESSION.root#/tools/entityaction/Details/Cost/CostDelete.cfm?box='+box+'&mode='+mode+'&objectid='+objectid+'&objectcostid='+id+'&actioncode='+action,'costdialog') 				
+	   		ptoken.navigate('#SESSION.root#/tools/entityaction/Details/Cost/CostDelete.cfm?box='+box+'&mode='+mode+'&objectid='+objectid+'&objectcostid='+id+'&actioncode='+action,'costdialog') 				
 	 }
 			 	
 	 function costhidedialog(tpe) {
-	        ColdFusion.Window.hide('costdialog')	
+	        ProsisUI.closeWindow('costdialog')	
 	 }  
 		
 	 function costtoggle(id,row) {
-	        ColdFusion.navigate('#SESSION.root#/tools/entityaction/Details/Cost/CostStatus.cfm?objectcostid='+id+'&row='+row+'&toggle=1','coststatus'+row);
+	        ptoken.navigate('#SESSION.root#/tools/entityaction/Details/Cost/CostStatus.cfm?objectcostid='+id+'&row='+row+'&toggle=1','coststatus'+row);
 	 }	
 			 
 	 function noteentry(objectid,threadid,ser,type,to,mode,box,action) {	

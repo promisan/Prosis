@@ -1,5 +1,6 @@
-<cfparam name="url.threshold" default="0">
-<cfparam name="url.ordering" default="ASC">
+<cfparam name="url.threshold"   default="0">
+<cfparam name="url.ordering"    default="ASC">
+<cfparam name="url.showDays"    default="1">
 	
 <cf_mobile appId="picking" toastr="yes">
 
@@ -147,6 +148,18 @@
             .threshold-button {
                 position:fixed; 
                 top:80px; 
+                right:20px; 
+                z-index:99; 
+                color:##033F5D; 
+                background-color:##EEEEEE;
+                border:1px solid ##C0C0C0; 
+                padding:8px; 
+                cursor:pointer;
+            }
+
+            .days-button {
+                position:fixed; 
+                top:170px; 
                 right:20px; 
                 z-index:99; 
                 color:##033F5D; 
@@ -491,7 +504,6 @@
         username="#SESSION.login#" 
         password="#SESSION.dbpw#">
 		
-		
 		SELECT  *,
                 CONVERT(VARCHAR(8), CollectionDate, 112) as CollectionDateString
 		FROM (
@@ -593,7 +605,11 @@
 					 
 			) as C		
 			
-			WHERE  CollectionDate < '#dateformat(now()+1,client.datesql)#'
+			WHERE  1=1
+            
+            <cfif trim(url.showDays) neq "">
+                AND CollectionDate < '#dateformat(now()+url.showDays,client.datesql)#'
+            </cfif>
 
             <cfif url.threshold eq "0">
                 AND ABS(TotalQuantity) >= '#getWarehouse.PickingThreshold#'
@@ -630,26 +646,42 @@
         <div 
             class="refresh-button" 
             title="#lblRefresh#"
-            onclick="parent.pickingThreshold('', 'D7171BFE-F173-D956-A207-C52639C8E980', document.getElementById('btnThreshold'), '#url.ordering#');">
+            onclick="parent.pickingThreshold('', 'D7171BFE-F173-D956-A207-C52639C8E980', document.getElementById('btnThreshold'), '#url.ordering#', '#url.showDays#');">
                 <i class="fas fa-sync-alt fa-3x"></i>
         </div>
 
         <div class="threshold-button">
             <input 	type="checkbox" id="btnThreshold" 
-                    onchange="parent.pickingThreshold('', 'D7171BFE-F173-D956-A207-C52639C8E980', this, '#url.ordering#');" 
+                    onchange="parent.pickingThreshold('', 'D7171BFE-F173-D956-A207-C52639C8E980', this, '#url.ordering#', '#url.showDays#');" 
                     value="1" <cfif url.threshold eq 1>checked</cfif>> <label for="btnThreshold" style="cursor:pointer;"><cf_tl id="Threshold"> <&nbsp;#getWarehouse.PickingThreshold#</label>
         </div>  
 
         <cfif url.ordering eq "ASC">
-            <div class="ordering-button" onclick="parent.pickingThreshold('', 'D7171BFE-F173-D956-A207-C52639C8E980', document.getElementById('btnThreshold'), 'DESC');">
+            <div class="ordering-button" onclick="parent.pickingThreshold('', 'D7171BFE-F173-D956-A207-C52639C8E980', document.getElementById('btnThreshold'), 'DESC', '#url.showDays#');">
                 <i class="fas fa-arrow-up" style="font-size:115%;"></i> ASC
             </div>
         </cfif>
         <cfif url.ordering eq "DESC">
-            <div class="ordering-button" onclick="parent.pickingThreshold('', 'D7171BFE-F173-D956-A207-C52639C8E980', document.getElementById('btnThreshold'), 'ASC');">
+            <div class="ordering-button" onclick="parent.pickingThreshold('', 'D7171BFE-F173-D956-A207-C52639C8E980', document.getElementById('btnThreshold'), 'ASC', '#url.showDays#');">
                 <i class="fas fa-arrow-down" style="font-size:115%;"></i> DESC
             </div>
         </cfif> 
+
+        <div class="days-button">
+            &lt; &nbsp;
+            <select onchange="parent.pickingThreshold('', 'D7171BFE-F173-D956-A207-C52639C8E980', document.getElementById('btnThreshold'), '#url.ordering#', this.value);">
+                <option value="" <cfif url.showDays eq "">selected</cfif>><cf_tl id="Ever"></option>
+                <option value="1" <cfif url.showDays eq 1>selected</cfif>>+1d</option>
+                <option value="2" <cfif url.showDays eq 2>selected</cfif>>+2d</option>
+                <option value="3" <cfif url.showDays eq 3>selected</cfif>>+3d</option>
+                <option value="5" <cfif url.showDays eq 5>selected</cfif>>+5d</option>
+                <option value="10" <cfif url.showDays eq 10>selected</cfif>>+10d</option>
+                <option value="15" <cfif url.showDays eq 15>selected</cfif>>+15d</option>
+                <option value="30" <cfif url.showDays eq 30>selected</cfif>>+30d</option>
+                <option value="60" <cfif url.showDays eq 60>selected</cfif>>+60d</option>
+                <option value="90" <cfif url.showDays eq 90>selected</cfif>>+90d</option>
+            </select>
+        </div>
        
         <aside id="menu" style="top:0; border-right:1px solid ##C0C0C0; position:fixed; overflow-y:auto; padding:8px; width:160px;">
             <cfset vAccountSelected = "">
@@ -796,7 +828,8 @@
          
         <cfinvoke component = "Service.Connection.Connection"  
             method           = "setconnection"    
-            object           = "WarehouseBatchCenter" 
+            object           = "WarehouseBatchCenter" 	
+			ScopeMode        = "Picking"		
             ScopeId          = "#getWarehouse.MissionOrgUnitId#"
             ScopeFilter      = "B.Warehouse=''#url.warehouse#'' AND B.BatchClass=''WhsSale'' AND B.ActionStatus=''0''"
             ControllerNo     = "992"

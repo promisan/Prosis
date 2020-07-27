@@ -40,6 +40,10 @@
 					 	<cfset sc = "#SESSION.root#/tools/entityaction/details/notes/NoteList.cfm?box=#DocumentCode#_#Object.ObjectId#&mode=note&objectid=#Object.ObjectId#&actioncode=#Action.ActionCode#">
 						<cfdiv bind="url:#sc#" id="#DocumentCode#_#Object.ObjectId#">		
 					 </cfcase>
+					 <cfcase value="fact">
+			  		 	<cfset sc = "#SESSION.root#/tools/entityaction/details/actor/ActorView.cfm?box=#DocumentCode#_#Object.ObjectId#&mode=cost&objectid=#Object.ObjectId#&actioncode=#Action.ActionCode#">
+						<cfdiv bind="url:#sc#" id="#DocumentCode#_#Object.ObjectId#">		
+					 </cfcase>		  
 					 <cfcase value="fexp">
 			  		 	<cfset sc = "#SESSION.root#/tools/entityaction/details/cost/CostList.cfm?box=#DocumentCode#_#Object.ObjectId#&mode=cost&objectid=#Object.ObjectId#&actioncode=#Action.ActionCode#">
 						<cfdiv bind="url:#sc#" id="#DocumentCode#_#Object.ObjectId#">		

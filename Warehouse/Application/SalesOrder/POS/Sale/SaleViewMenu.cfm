@@ -2,7 +2,7 @@
 
 <cfset vCellStyle    = "width:50%;min-width:114px;margin-bottom:10px;line-height:24px;padding:1px">
 <cfset vWidth        = "170px">
-<cfset vHeight       = "85px">
+<cfset vHeight       = "75px">
 <cfset vFontSize     = "22px">
 <cfset vBorderRadius = "5px">
 <cfset vBGColor     = "darkGray">
@@ -22,14 +22,13 @@
 				id            = "buttonday",
 				subtext       = "#lt_text#",
 				height        = "#vHeight#",
-				image	      = "Inventory-W.png",
+				image	      = "",
 				width         = "#vWidth#",
 				textsize      = "#vFontSize#", 	
-				bgColor	      = "0080C0",
-				textcolor     = "##FFFFFF",
-				borderColor   = "##FFFFFF",
-				borderRadius  = "3px",
-				bgColor		  = "##033f5d",
+				bgColor	      = "e4e4e4",
+				textcolor     = "##000000",
+				borderColor   = "##000000",
+				borderRadius  = "3px",				
                 imageHeight   = "48px",
                 imagepos      = "right"}>
                 
@@ -101,12 +100,12 @@
 		<cf_button2
                     text         = "#vSaleLbl#" 
                     subText      = "#lt_text#"
-                    image        = "Financial-W.png"  
+                    image        = "Financial.png"  
                     onclick		= "salesdaytotal()" 	
                     width        = "#vWidth#" 
                     height       = "#vHeight#"
-				    bgColor		= "##0080C0"
-                    textColor    = "##FFFFFF"
+				    bgColor		 = "##f1f1f1"
+                    textColor    = "##000000"
                     textSize     = "#vFontSize#"
                     imageHeight  = "42px"
                     imagepos     = "right"
@@ -127,11 +126,11 @@
 					<cfset buttonlayout = {
 						subtext      = "#lt_text#",
 						id         	 = "buttonday",
-						image        = "Logos/Search-W.png",
+						image        = "Logos/Search.png",
 						height		 = "#vHeight#",
-						textcolor  	 = "##ffffff",
+						textcolor  	 = "##000000",
 						width        = "#vWidth#",
-						bgColor		 = "##0080C0",
+						bgColor		 = "##f1f1f1",
 						textsize     = "#vFontSize#",
 						borderColor  = "##FFFFFF",
 						borderRadius = "#vBorderRadius#",
@@ -169,14 +168,14 @@
 						textsize	= "#vFontSize#" 
 						height		= "#vHeight#"
 						width		= "#vWidth#"
-						image		= "New-Request-W.png"
+						textcolor   = "##000000"
+						image		= "New-Request.png"
 						borderColor = "##FFFFFF"
 						borderRadius= "#vBorderRadius#" 
                         imageHeight  = "38px"
-						bgColor		 = "##033f5d"
+						bgColor		 = "##e4e4e4"
                         imagepos     = "right"
-						onclick		= "ColdFusion.navigate('#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/applyCustomer.cfm?warehouse=#url.warehouse#','customerbox')"
-						textcolor	= "##FFFFFF">
+						onclick		= "ptoken.navigate('#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/applyCustomer.cfm?warehouse=#url.warehouse#','customerbox')">
 									   
      	</td>
                         </cfoutput>	

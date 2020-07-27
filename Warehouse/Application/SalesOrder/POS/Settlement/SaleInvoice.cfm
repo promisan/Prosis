@@ -22,7 +22,7 @@
 </script>
 
 <cfif url.scope neq "workflow" and url.scope neq "standalone">
-	<cf_screentop height="100%" scroll="No" layout="webapp" label="#lt_text#" user="no" banner="gray">
+	<cf_screentop height="100%" html="no" scroll="No" layout="webapp" label="#lt_text#" user="no" banner="gray">
 </cfif>		
 
 <cfoutput>
@@ -180,9 +180,13 @@
 	
 	<tr><td height="100%" style="padding:15px;">
 		<cfif session.acc eq "administrator">
+		
+		 <!---
 		 <cfoutput>
 		 	#SESSION.root#/#getWarehouseJournal.TransactionTemplateMode1#?batchid=#url.batchid#&terminal=#url.terminal#
 		 </cfoutput>	 	
+		 --->
+		 
 		</cfif> 
 		 
 		<cfif getWarehouseJournal.recordCount eq 1 and trim(getWarehouseJournal.TransactionTemplateMode1) neq "">

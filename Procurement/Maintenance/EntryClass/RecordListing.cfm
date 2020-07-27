@@ -26,11 +26,11 @@ password="#SESSION.dbpw#">
 <script>
 
 function recordadd() {
-     ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#&fmission=", "Add", "left=80, top=80, width= 600, height=340, toolbar=no, status=yes, scrollbars=no, resizable=yes");
+     ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#&fmission=", "Add", "left=80, top=80, width= 600, height=540, toolbar=no, status=yes, scrollbars=no, resizable=yes");
 }
 
 function recordedit(id1,mis) {
-     ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1 + "&fmission=" + mis, "Edit", "left=80, top=80, width=600, height=500, toolbar=no, status=yes, scrollbars=no, resizable=yes");
+     ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1 + "&fmission=" + mis, "Edit", "left=80, top=80, width=700, height=600, toolbar=no, status=yes, scrollbars=no, resizable=yes");
 }
 
 </script>	

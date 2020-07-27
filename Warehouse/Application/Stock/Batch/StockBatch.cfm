@@ -128,7 +128,7 @@
 						
 				<cfoutput>	
 				
-				<table width="98%" align="center">
+				<table width="99%">
 				<tr>
 				<td width="190px">
 								

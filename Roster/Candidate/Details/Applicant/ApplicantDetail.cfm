@@ -461,7 +461,7 @@ password="#SESSION.dbpw#">
 				
 		<cfset url.ajaxid = URL.ID>
 													
-		<cfif Candidate.CandidateStatus eq "0" and check.operational is "1">
+		<cfif check.operational is "1">
 								
 			<cfoutput>		
 			
@@ -469,12 +469,26 @@ password="#SESSION.dbpw#">
 				   name="workflowlink_#URL.ajaxid#" 
 				   id="workflowlink_#URL.ajaxid#" 				   
 				   value="#session.root#/Roster/Candidate/Details/Applicant/ApplicantDetailWorkflow.cfm">					
-				   								
+				 
+			   <cfif Candidate.CandidateStatus eq "0">
+			   	   								
 			   <tr>
 				  <td id="#URL.ajaxid#" colspan="3">										  					 
 				    <cfinclude template="ApplicantDetailWorkflow.cfm">					    				 
 				  </td>
 			   </tr>
+			   
+			   <cfelse>
+			   
+			   <tr><td colspan="3" style="padding-left:6px">
+			   <a href="javascript:workflowdrill('#url.ajaxid#','workflow')">Click here to view the Clearance Flow</a>
+			   </td></tr>
+			   
+			   <tr>
+				  <td class="hide" id="#URL.ajaxid#" colspan="3"></td>
+			   </tr>
+			   
+			   </cfif>
 
 			</cfoutput>
 											

@@ -222,18 +222,18 @@
 	
 	<cfif entryclass.recordcount gte "5">	
 	
-	<td style="padding-left:5px">
-	
-	<select class="regularxl" name="EntryClass"
-	  onchange="_cf_loadingtexthtml='';Prosis.busy('yes');ptoken.navigate('ItemSearchMasterResult.cfm?<cfoutput>mission=#url.mission#&period=#url.period#</cfoutput>','result','','','POST','locform')">
-	  
-		<cfoutput query="EntryClass">	
-		<option value="#code#"  <cfif SelectedItem.recordcount neq 0>	<cfif Code eq SelectedItem.EntryClass> selected </cfif></cfif>>#description#</option>
-		</cfoutput>	
+		<td style="padding-left:5px">
 		
-	</select>
-	
-	</td>
+			<select class="regularxl" name="EntryClass"
+			  onchange="_cf_loadingtexthtml='';Prosis.busy('yes');ptoken.navigate('ItemSearchMasterResult.cfm?<cfoutput>mission=#url.mission#&period=#url.period#</cfoutput>','result','','','POST','locform')">
+			  
+				<cfoutput query="EntryClass">	
+				<option value="#code#"  <cfif SelectedItem.recordcount neq 0>	<cfif Code eq SelectedItem.EntryClass> selected </cfif></cfif>>#description#</option>
+				</cfoutput>	
+				
+			</select>
+		
+		</td>
 	
 	<cfelse>
 	   

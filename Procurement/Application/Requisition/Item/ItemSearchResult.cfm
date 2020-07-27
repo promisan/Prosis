@@ -30,6 +30,11 @@
     FieldType="#Form.Crit4_FieldType#"
     Operator="#Form.Crit4_Operator#"
     Value="#Form.Crit4_Value#">	
+<CF_Search_AppendCriteria
+    FieldName="#Form.Crit5_FieldName#"
+    FieldType="#Form.Crit5_FieldType#"
+    Operator="#Form.Crit5_Operator#"
+    Value="#Form.Crit5_Value#">		
 	
 </cfif>	
 	
@@ -82,9 +87,11 @@ password="#SESSION.dbpw#">
 	  <td></td>
 	  <td></td>
 	  <td><cf_tl id="Description"></td>
+	  <td><cf_tl id="Barcode"></td>	  
+	  <td><cf_tl id="Cat"></td>
+	  <!---
 	  <td><cf_tl id="Classification"></td>
-	  <td><cf_tl id="Category"></td>
-	  <td><cf_tl id="Barcode"></td>
+	  --->
 	  <td><cf_tl id="UoM"></td>
 	  <td align="right" style="padding-right:3px"><cf_tl id="Cost"></td>
   </tr>	
@@ -100,9 +107,11 @@ password="#SESSION.dbpw#">
 		</td>
 		<td style="padding-left:4px"></td>
 		<TD style="padding-right:3px"><A HREF ="javascript:item('#ItemNo#','#URL.Mission#','')">#ItemDescription#</A></TD>
-		<TD style="padding-right:3px">#Classification#</TD>
+		<TD style="padding-right:3px">#ItemBarCode#</TD>		
 		<TD style="padding-right:3px">#Category#</TD>
-		<TD style="padding-right:3px">#ItemBarCode#</TD>
+		<!---
+		<TD style="padding-right:3px">#Classification#</TD>
+		--->
 		<TD style="padding-right:3px">#UoMDescription#</TD>
 		<td align="right" style="padding-right:3px">#NumberFormat(StandardCost,',.__')#</td>		
 	</TR>

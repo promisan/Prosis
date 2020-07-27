@@ -129,11 +129,11 @@
 				<cfset dw = "#(wd[col]*100)/total#">
 				<cfset dw = "#round(dw)#%">
 			</cfif>	
-			
+						
 			<cfif current.formatted eq "class">
 			
 				<td style="min-width:20px;#stl#">
-													
+																	
 			<cfelseif current.sort eq "No">
 						
 				    <cfif current.width eq "0">
@@ -197,9 +197,8 @@
 				  </cfif>
 			      
 				  <tr>
-					  <td class="#attributes.classheader# labelnormal" align="#vThisAlign#" 
-					  style="#vThisAlignStyle# #stl#">#current.label#</td>
-					 
+					  <td class="#attributes.classheader#" align="#vThisAlign#" style="#vThisAlignStyle# #stl#">#current.label#</td>
+					
 					  <cfif url.listorder eq current.fieldsort>
 					  <td align="right" style="padding-right:3px;">							  
 						    <cfif url.listorderdir is "ASC">

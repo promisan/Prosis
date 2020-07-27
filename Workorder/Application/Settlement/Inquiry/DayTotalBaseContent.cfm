@@ -18,14 +18,15 @@
 	
 	<cfset Today        = DateAdd("d",0,now())>	
 	<cfset Yesterday    = DateAdd("d",-1,now())>
+	<cfset LastMonth    = DateAdd("m",-1,now())>	
 	<cfset TodayMinus2  = DateAdd("d",-2,now())>	
 	<cfset TodayMinus3  = DateAdd("d",-3,now())>	
 	<cfset TodayMinus7  = DateAdd("d",-7,now())>	
 	<cfset TodayMinus30 = DateAdd("d",-30,now())>
 	
-	<cfset dayNo = DayOfWeek(Yesterday)>
-	<cfset yearAgoDate     = DateAdd("yyyy", -1, Yesterday)>		
-	<cfset twoYearsAgoDate = DateAdd("yyyy", -2, Yesterday)>
+	<cfset dayNo = DayOfWeek(Yesterday)>	
+	<cfset yearAgoDate     = DateAdd("yyyy", -1, LastMonth)>		
+	<cfset twoYearsAgoDate = DateAdd("yyyy", -2, LastMonth)>
 		
     <CF_DateConvert Value="#DateFormat(TodayMinus30,CLIENT.DateFormatShow)#">
     <cfset SQL_TODAYMINUS30 = dateValue>
@@ -45,20 +46,27 @@
 	<!--- historic view --->
 	
 	<!--- month --->		
-	<CF_DateConvert Value="#DateFormat(Yesterday,CLIENT.DateFormatShow)#">		
+	<CF_DateConvert Value="#DateFormat(today,CLIENT.DateFormatShow)#">		
+	<cfset str = createDate(year(dateValue),  month(dateValue),  1)>
+	<cfset end = createDate(year(dateValue),  month(dateValue),  daysinmonth(datevalue))>	
+	<cfset end = dateadd("d",1,end)>
+    <cfset SQL_MONTH      = "BETWEEN #str# AND #end#">	
+	
+	<!--- last month --->		
+	<CF_DateConvert Value="#DateFormat(LastMonth,CLIENT.DateFormatShow)#">		
 	<cfset str = createDate(year(dateValue),  month(dateValue),  1)>
 	<cfset end = createDate(year(dateValue),  month(dateValue),  daysinmonth(datevalue))>	
 	<cfset end = dateadd("d",1,end)>
     <cfset SQL_YEAR         = "BETWEEN #str# AND #end#">	
 	
-	<!--- month prior year --->		
+	<!--- last month prior year --->		
 	<CF_DateConvert Value="#DateFormat(yearAgoDate,CLIENT.DateFormatShow)#">		
 	<cfset str = createDate(year(dateValue),  month(dateValue),  1)>
 	<cfset end = createDate(year(dateValue),  month(dateValue),  daysinmonth(datevalue))>	
 	<cfset end = dateadd("d",1,end)>
     <cfset SQL_YEARAGO      = "BETWEEN #str# AND #end#">	
 	
-	<!--- month 2 years ago --->											
+	<!--- last month 2 years ago --->											
 	<CF_DateConvert Value="#DateFormat(twoYearsAgoDate,CLIENT.DateFormatShow)#">		
 	<cfset str = createDate(year(dateValue),  month(dateValue),  1)>
 	<cfset end = createDate(year(dateValue),  month(dateValue),  daysinmonth(datevalue))>	
@@ -90,6 +98,8 @@
 	</cfquery>
 	
 	<cftransaction isolation="READ_UNCOMMITTED">
+	
+	
 				
 	<cfquery name="getSales"
 		datasource="AppsWorkOrder" 
@@ -155,7 +165,8 @@
 			AND      H.#datefield# BETWEEN #SQL_TODAYMINUS3# AND #SQL_TODAY# 
 			<cfelseif lng eq "Historic">
 			AND      (
-					  H.#datefield# #preservesingleQuotes(SQL_YEAR)# 
+				  H.#datefield# #preservesingleQuotes(SQL_MONTH)# 
+				  OR  H.#datefield# #preservesingleQuotes(SQL_YEAR)# 
 			       OR H.#datefield# #preservesingleQuotes(SQL_YEARAGO)# 
 				   OR H.#dateField# #preservesingleQuotes(SQL_YEARAGO2)#
 				      ) 	
@@ -216,6 +227,8 @@
 											   
 			AND      LH.RecordStatus    = '1'
 	 		AND      LH.ActionStatus IN ('0','1')	
+			
+			WHERE 	 H.TransactionSource   = 'WorkOrderSeries'
 											   
 			AND  
         			(
@@ -233,7 +246,8 @@
 			AND      H.#datefield# BETWEEN #SQL_TODAYMINUS3# AND #SQL_TODAY# 		
 			<cfelseif lng eq "Historic">
 			AND      (
-					  H.#datefield# #preservesingleQuotes(SQL_YEAR)# 
+					  H.#datefield# #preservesingleQuotes(SQL_MONTH)# 
+				   OR H.#datefield# #preservesingleQuotes(SQL_YEAR)# 
 			       OR H.#datefield# #preservesingleQuotes(SQL_YEARAGO)# 
 				   OR H.#dateField# #preservesingleQuotes(SQL_YEARAGO2)#
 				      ) 						   
@@ -316,7 +330,8 @@
 				AND      H.#datefield# BETWEEN #SQL_TODAYMINUS3# AND #SQL_TODAY# 									   
 				<cfelseif lng eq "Historic">
 				AND      (
-					  H.#datefield# #preservesingleQuotes(SQL_YEAR)# 
+				  H.#datefield# #preservesingleQuotes(SQL_MONTH)# 
+				  OR  H.#datefield# #preservesingleQuotes(SQL_YEAR)# 
 			       OR H.#datefield# #preservesingleQuotes(SQL_YEARAGO)# 
 				   OR H.#dateField# #preservesingleQuotes(SQL_YEARAGO2)#
 				      ) 	
@@ -505,8 +520,8 @@
 				
 					<tr class="line" style="border-top:1px solid silver" bgcolor="<cfif url.conditionfield eq 'mission'>f1f1f1<cfelse>white</cfif>">
 					    <td align="center" class="labelit"><cf_tl id="Item"></td>
-						<td align="center" style="border-left:1px solid gray" class="labelit"><cf_tl id="Today"> <font size="2">(#cur#)</font></td>
-						<td align="center" style="border-left:1px solid gray" class="labelit">#DateFormat(yesterday,"MMM YYYY ")#</td>
+						<td align="center" style="border-left:1px solid gray" class="labelit">#DateFormat(today,"MMM YYYY ")#</font></td>
+						<td align="center" style="border-left:1px solid gray" class="labelit">#DateFormat(lastMonth,"MMM YYYY ")#</td>
 						<td align="center" style="border-left:1px solid gray" class="labelit">#DateFormat(yearAgoDate,"MMM YYYY ")#</td>	
 						<td align="center" style="border-left:1px solid gray" class="labelit">#DateFormat(twoyearsAgoDate,"MMM YYYY")#</td>	
 					</tr>				
@@ -528,7 +543,7 @@
 				<cfelseif lng eq "Closing">				
 					<cfset mlist = "item,day,yesterday,dayminus2,dayminus3">	
 				<cfelseif lng eq "Historic">	
-				    <cfset mlist = "item,day,year,yearago,yearago2">			
+				    <cfset mlist = "item,month,year,yearago,yearago2">			
 				<cfelse>
 					<cfset mlist = "item,day,yesterday,yearago,yearago2">	
 				</cfif>
@@ -572,6 +587,8 @@
 											AND     #datefield# = #SQL_TODAYMINUS2#
 											<cfelseif per eq "dayminus3">											   											
 											AND     #datefield# = #SQL_TODAYMINUS3#		
+											<cfelseif per eq "month">											   											
+											AND     #datefield# #preserveSingleQuotes(SQL_MONTH)#		
 											<cfelseif per eq "year">
 											AND     #datefield#  #preserveSingleQuotes(SQL_YEAR)#								
 											<cfelseif per eq "yearago">
@@ -601,6 +618,8 @@
 												AND     #datefield# = #SQL_TODAYMINUS2#
 												<cfelseif per eq "dayminus3">											   
 												AND     #datefield# = #SQL_TODAYMINUS3#		
+												<cfelseif per eq "month">											   											
+												AND     #datefield# #preserveSingleQuotes(SQL_MONTH)#	
 												<cfelseif per eq "year">
 												AND     #datefield#  #preserveSingleQuotes(SQL_YEAR)#								
 												<cfelseif per eq "yearago">
@@ -699,6 +718,8 @@
 											AND    #datefield# = #SQL_TODAYMINUS2#
 											<cfelseif per eq "dayminus3">											   
 											AND    #datefield# = #SQL_TODAYMINUS3#		
+											<cfelseif per eq "month">
+											AND     #datefield# #preserveSingleQuotes(SQL_MONTH)#	
 											<cfelseif per eq "year">
 											AND     #datefield#  #preserveSingleQuotes(SQL_YEAR)#								
 											<cfelseif per eq "yearago">

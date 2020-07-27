@@ -14,6 +14,8 @@
 	</cfif>
 </cfif>
 
+<cf_divscroll>
+
 <cfform 
 	name="frmPriceSchedule" 
 	action="../PriceSchedule/RecordSubmit.cfm?customerId=#url.customerId#&mission=#url.mission#" 
@@ -45,15 +47,15 @@
 			</td>
 		</tr>
 		
-		<tr><td height="10"></td></tr>
+		<tr><td height="4"></td></tr>
 		<tr><td colspan="2" class="line"></td></tr>
-		<tr><td height="10"></td></tr>
+		<tr><td height="4"></td></tr>
 		
 		<tr>
 			<td colspan="2" align="center">
 				<cf_tl id="Save" var="1">
 				<cfoutput>
-				<input type="Submit" onclick="Prosis.busy('yes')" id="btnSubmit" name="btnSubmit" class="button10g" value="#lt_text#">
+				<input type="Submit" style="width:150px;height:30px" onclick="Prosis.busy('yes')" id="btnSubmit" name="btnSubmit" class="button10g" value="#lt_text#">
 				</cfoutput>
 			</td>
 		</tr>
@@ -61,5 +63,7 @@
 	</table>
 
 </cfform>
+
+</cf_divscroll>
 
 <cfset ajaxonload("doCalendar")>

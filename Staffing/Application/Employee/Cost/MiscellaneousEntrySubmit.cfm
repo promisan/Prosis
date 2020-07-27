@@ -26,10 +26,6 @@ function editEntitlement(persno, no) {
 </cfif>
 
 <cfset dateValue = "">
-<CF_DateConvert Value="#Form.DateEffective#">
-<cfset STR = dateValue>
-
-<cfset dateValue = "">
 <cfif Form.DocumentDate neq ''>
     <CF_DateConvert Value="#Form.DocumentDate#">
     <cfset END = dateValue>
@@ -39,135 +35,150 @@ function editEntitlement(persno, no) {
 
 <!--- verify if record exist --->
 
-<cfquery name="Entitlement" 
-datasource="AppsPayroll" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-	SELECT *
-	FROM   PersonMiscellaneous
-	WHERE  PersonNo       = '#Form.PersonNo#' 
-	AND    PayrollItem    = '#Form.Entitlement#' 
-	AND    DateEffective  = #STR#
-</cfquery>
 
-<cfparam name="Entitlement.RecordCount" default="0">
-
-<cfif Entitlement.recordCount gte 1> 
-	
-	<cfoutput>
-	
-	<cfparam name="URL.ID" default="#Entitlement.PersonNo#">
-	<cfinclude template="../PersonViewHeader.cfm">
-	
-	<table align="center">
-	<tr class="labelmedium">
-	    <td height="50">
-		<cf_tl id="An entry with this effective date was already registered">
-	    </td>
-	</tr>
-	<tr><td align="center">
-		<cf_tl id="Edit Entitlement" var="1">
-		<input type="button" class="button10g" value="#lt_text#" onClick="javascript:editEntitlement('#Entitlement.PersonNo#','#Entitlement.CostId#');">
-	</td></tr>
-	</table>
-	
-	</cfoutput>
-
-<cfelse>
-
-	 <cfquery name="PayrollItem" 
-     datasource="AppsPayroll" 
-     username="#SESSION.login#" 
-     password="#SESSION.dbpw#">
-	 	SELECT * 
-		FROM   Ref_PayrollItem
-		WHERE  PayrollItem = '#Form.Entitlement#'
-	 </cfquery>
-
-      <cfquery name="InsertEntitlement" 
-     datasource="AppsPayroll" 
-     username="#SESSION.login#" 
-     password="#SESSION.dbpw#">
+ <cfquery name="PayrollItem" 
+    datasource="AppsPayroll" 
+    username="#SESSION.login#" 
+    password="#SESSION.dbpw#">
+ 	SELECT * 
+	FROM   Ref_PayrollItem
+	WHERE  PayrollItem = '#Form.Entitlement#'
+ </cfquery>
+ 
+ <cfloop index="itm" from="1" to="10">	
+	  
+	 <cfset dte = evaluate("Form.DateEffective_#itm#")>
+	 <cfset cur = evaluate("Form.Currency_#itm#")>
+	 <cfset amt = evaluate("Form.Amount_#itm#")>
 	 
-     INSERT INTO PersonMiscellaneous 
-         
-			 (PersonNo,
-			  CostId,
-			  Mission,
-			  DateEffective,
-			  DocumentReference,
-			  DocumentDate,
-			  EntitlementClass,
-			  PayrollItem,
-			  Currency,
-			  Status,
-			  Amount,
-			  Remarks,
-			  OfficerUserId,
-			  OfficerLastName,
-			  OfficerFirstName)
-		 
-      VALUES 
-	  
-		     ('#Form.PersonNo#',
-		      '#Form.CostId#',
-			  '#Form.Mission#',
-		      #STR#,
-			  '#Form.DocumentReference#',
-			  #END#,
-			  '#Form.EntitlementClass#',
-			  '#Form.Entitlement#',
-			  '#Form.Currency#',
-			  <cfif form.entityclass neq "">
-			  '0',
-			  <cfelse>
-			  '2',
-			  </cfif> 
-			  '#Form.Amount#',
-			  '#Remarks#',
-			  '#SESSION.acc#',
-	    	  '#SESSION.last#',		  
-		  	  '#SESSION.first#')
-		  
-	  </cfquery>	  		    
-	  
-   	 
-		<cfquery name="Person" 
-		datasource="AppsEmployee" 
-		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">
-			SELECT *
-			FROM   Person
-			WHERE  PersonNo = '#Form.PersonNo#' 
-		</cfquery>
-		
-		<cfif form.entityclass neq "">
-							 	
-			<cfset link = "Staffing/Application/Employee/Cost/MiscellaneousEdit.cfm?id=#form.personno#&id1=#form.costid#">
-			
-			<cf_ActionListing 
-			    EntityCode       = "EntCost"
-				EntityClass      = "#form.entityclass#"
-				EntityGroup      = ""
-				EntityStatus     = ""
-				Mission 		 = "#form.Mission#"
-				PersonNo         = "#Person.PersonNo#"
-				ObjectReference  = "#Entitlement.PayrollItem#"
-				ObjectReference2 = "#Person.FirstName# #Person.LastName#" 
-				ObjectKey1       = "#Form.PersonNo#"
-				ObjectKey4       = "#Form.CostId#"
-				ObjectURL        = "#link#"
-				Show             = "No"
-				CompleteFirst    = "No">
-			
-		</cfif>	
-		
-		<cfoutput>>
-		
-	     <script language = "JavaScript">
-		 	   ptoken.location ("EmployeeMiscellaneous.cfm?ID=#Form.PersonNo#&ID1=#Form.IndexNo#");
-	     </script>	
-
-        </cfoutput>	   
+	 <cfif dte neq "" and amt neq "">
+	 
+	 		 <cfset dateValue = "">
+			 <CF_DateConvert Value="#dte#">
+			 <cfset STR = dateValue>
+	 		 	
+			<cfquery name="Entitlement" 
+			datasource="AppsPayroll" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				SELECT *
+				FROM   PersonMiscellaneous
+				WHERE  PersonNo       = '#Form.PersonNo#' 
+				AND    PayrollItem    = '#Form.Entitlement#' 
+				AND    DateEffective  = #str#
+			</cfquery>
 	
-</cfif>	
+			<cfif Entitlement.recordCount gte 1> 
+			
+				<cfoutput>
+				
+				<cfparam name="URL.ID" default="#Entitlement.PersonNo#">
+				<cfinclude template="../PersonViewHeader.cfm">
+				
+				<table align="center">
+				<tr class="labelmedium">
+				    <td height="50">
+					<cf_tl id="An entry with the following effective date was already registered">#dateformat(str,client.dateformatshow)#
+				    </td>
+				</tr>
+				<tr><td align="center">
+					<cf_tl id="Edit Entitlement" var="1">
+					<input type="button" class="button10g" value="#lt_text#" onClick="javascript:editEntitlement('#Entitlement.PersonNo#','#Entitlement.CostId#');">
+				</td></tr>
+				</table>
+				
+				</cfoutput>
+			 
+			<cfelse>	 
+			
+				 <cf_assignid>	
+	  	 	
+			     <cfquery name="InsertEntitlement" 
+				     datasource="AppsPayroll" 
+				     username="#SESSION.login#" 
+				     password="#SESSION.dbpw#">		 
+				     INSERT INTO PersonMiscellaneous 
+				         
+							 (PersonNo,
+							  CostId,
+							  Mission,				  
+							  DocumentReference,
+							  DocumentDate,
+							  EntitlementClass,
+							  PayrollItem,
+							  DateEffective,
+							  Currency,				  
+							  Amount,
+							  Status,
+							  Remarks,
+							  OfficerUserId,
+							  OfficerLastName,
+							  OfficerFirstName)
+						 
+				      VALUES 
+					  
+						     ('#Form.PersonNo#',
+						      '#rowguid#',
+							  '#Form.Mission#',							  			      
+							  '#Form.DocumentReference#',				  
+							  #END#,
+							  '#Form.EntitlementClass#',
+							  '#Form.Entitlement#',
+							  #STR#,
+							  '#Cur#',
+							  '#amt#',
+							  <cfif form.entityclass neq "">
+							  '0',
+							  <cfelse>
+							  '2',
+							  </cfif> 				  
+							  '#Remarks#',
+							  '#SESSION.acc#',
+					    	  '#SESSION.last#',		  
+						  	  '#SESSION.first#')
+						  
+					  </cfquery>	
+					  
+					  <cfquery name="Person" 
+						datasource="AppsEmployee" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+							SELECT *
+							FROM   Person
+							WHERE  PersonNo = '#Form.PersonNo#' 
+					  </cfquery>
+						
+					  <cfif form.entityclass neq "">
+											 	
+							<cfset link = "Staffing/Application/Employee/Cost/MiscellaneousEdit.cfm?id=#form.personno#&id1=#form.costid#">
+							
+							<cf_ActionListing 
+							    EntityCode       = "EntCost"
+								EntityClass      = "#form.entityclass#"
+								EntityGroup      = ""
+								EntityStatus     = ""
+								Mission 		 = "#form.Mission#"
+								PersonNo         = "#Person.PersonNo#"
+								ObjectReference  = "#Entitlement.PayrollItem#"
+								ObjectReference2 = "#Person.FirstName# #Person.LastName#" 
+								ObjectKey1       = "#Form.PersonNo#"
+								ObjectKey4       = "#Form.CostId#"
+								ObjectURL        = "#link#"
+								Show             = "No"
+								CompleteFirst    = "No">
+							
+					  </cfif>	
+					  
+				</cfif>	  
+		  
+		  </cfif> 
+	  
+</cfloop> 		  
+		
+<cfoutput>
+		
+	  <script language = "JavaScript">
+		   ptoken.location ("EmployeeMiscellaneous.cfm?ID=#Form.PersonNo#&ID1=#Form.IndexNo#");
+	  </script>	
+
+</cfoutput>	   

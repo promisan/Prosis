@@ -1,9 +1,9 @@
 
 <cfparam name="URL.ObjectId" default="">
-<cfparam name="URL.Box" default="">
-<cfparam name="URL.Group" default="">
-<cfparam name="URL.Assist" default="">
-<cfparam name="URL.Mode" default="View">
+<cfparam name="URL.Box"      default="">
+<cfparam name="URL.Group"    default="">
+<cfparam name="URL.Assist"   default="">
+<cfparam name="URL.Mode"     default="View">
 
 <!--- check if a prior setting was found to be inherited --->
 
@@ -120,13 +120,12 @@
 			<td height="25" valign="top" class="labelmedium" width="150" style="padding-top:5px;padding-left:10px"><cf_tl id="Delegation">:</b></td>	
 			<td height="15">
 			
-			<table border="0" cellspacing="0" cellpadding="0" class="formpadding">
+			<table class="formpadding">
 						
-			<tr>
-			
+			<tr>			
 			<td>															
 				
-				<table border="0" cellspacing="0" cellpadding="0"><tr>
+				<table><tr>
 				
 				<td colspan="2" class="labelmedium" style="padding-left:80px">
 				
@@ -156,6 +155,7 @@
 							des1         = "account"			
 							filter1      = "usergroup"
 							filter1value = "#URL.group#">
+							
 				 <cfelse>
 				 
 					    <cf_selectlookup
@@ -166,7 +166,9 @@
 							button       = "No"
 							close        = "No"
 							class        = "user"
-							des1         = "account">			
+							des1         = "account"
+							filter3      = "accounttype"
+							filter3value = "all">			
 							
 				</cfif>		
 				
@@ -264,6 +266,7 @@
 		datasource="AppsOrganization" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">	
+		
 			SELECT DISTINCT U.Account, 
 			                U.PersonNo, 
 							U.FirstName, 
@@ -294,9 +297,9 @@
 			AND     (A.Mission = '#Object.Mission#' OR A.Mission is NULL)		
 			</cfif>
 			
-			<cfif URL.OrgUnit neq "">
+			<cfif Object.OrgUnit neq "">
 			AND  (
-			       (A.OrgUnit     = '#URL.OrgUnit#') 
+			       (A.OrgUnit     = '#Object.OrgUnit#') 
 					OR (A.OrgUnit is NULL and A.Mission = '#Mission.Mission#')
 					OR (A.OrgUnit is NULL and A.Mission = '#Object.Mission#')
 					OR (A.OrgUnit is NULL and A.Mission is NULL)

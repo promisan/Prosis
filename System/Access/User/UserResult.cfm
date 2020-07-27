@@ -366,7 +366,7 @@
 					<td width="25%"><cf_tl id="Name"></td>
 					<td width="100"><cf_tl id="Account"></td>
 					<td width="130"><cf_tl id="Network"></td>
-					<td width="100"><cf_tl id="IndexNo"></td>
+					<td style="min-width:120px"><cf_tl id="IndexNo"></td>
 					<td width="100"><cf_tl id="Managed"></td>
 					<td width="20%"><cf_tl id="eMail"></td>
 					<td width="100"><cf_tl id="Group"></td>
@@ -408,7 +408,7 @@
 				   
 				   <cfif currrow lte No>
 				   
-				   <TR bgcolor="#IIf(disabled eq '1', DE('d6d6d6'), DE('FFFFFF'))#" class="labelmedium navigation_row line">
+				   <TR bgcolor="#IIf(disabled eq '1', DE('d6d6d6'), DE('FFFFFF'))#" class="labelmedium navigation_row line" style="height:20px">
 				        
 				   <td width="60" align="center">
 				   

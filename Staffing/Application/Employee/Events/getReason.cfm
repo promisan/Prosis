@@ -1,24 +1,27 @@
 <cfparam name="URL.eventid" default="">
 
 <cfif URL.eventId neq "">
-	<cfquery name="qCurrentEvent" 
-			 datasource="AppsEmployee" 
-			 username="#SESSION.login#" 
-			 password="#SESSION.dbpw#">
-			 SELECT * 
-			 FROM PersonEvent
-			 WHERE EventId='#URL.eventId#'
-	</cfquery>		 
 
-<cfelse>
 	<cfquery name="qCurrentEvent" 
 		 datasource="AppsEmployee" 
 		 username="#SESSION.login#" 
 		 password="#SESSION.dbpw#">
 			 SELECT * 
-			 FROM PersonEvent
-			 WHERE 1=0
-	</cfquery>		
+			 FROM   PersonEvent
+			 WHERE  EventId = '#URL.eventId#'
+	</cfquery>		 
+
+<cfelse>
+
+	<cfquery name="qCurrentEvent" 
+		 datasource="AppsEmployee" 
+		 username="#SESSION.login#" 
+		 password="#SESSION.dbpw#">
+			 SELECT * 
+			 FROM   PersonEvent
+			 WHERE  1=0
+	</cfquery>	
+		
 </cfif>	
 
 <cfquery name="Event" 
@@ -44,20 +47,19 @@
 	datasource="AppsEmployee" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-		SELECT  GroupCode, 
-				GroupListCode, 
-				Description, 
-				GroupListOrder, 
-				Operational, 
-				Created
-		FROM    Ref_PersonGroupList
-		WHERE 	GroupCode = '#qEvent.ReasonCode#' AND Operational = '1'
+		SELECT   GroupCode, 
+				 GroupListCode, 
+				 Description, 
+				 GroupListOrder, 
+				 Operational, 
+				 Created
+		FROM     Ref_PersonGroupList
+		WHERE 	 GroupCode   = '#qEvent.ReasonCode#' 
+		AND      Operational = '1'
 		ORDER BY GroupListOrder
 </cfquery>		
 
-
 <script language="JavaScript">
-
 	
 	<cfif Event.ActionPeriod eq "1">
 	   		document.getElementById("expirybox").className = "labelmedium"   
@@ -86,12 +88,11 @@
     
 	<cfoutput>
 			
-		<select name="reasoncode" id="reasoncode" class="regularxl">
+		<select name="reasoncode" id="reasoncode" class="regularxl" style="width:95%">
 			<cfloop query="qReasons">
 				<option value="#GroupListCode#" <cfif qCurrentEvent.ReasonListCode eq GroupListCode>selected</cfif>>#GroupListCode#-#Description#</option>
 			</cfloop>
-		<select>		
-		
+		<select>			
 		<input type="hidden" id="GroupCode" name="GroupCode" value="#qEvent.ReasonCode#">
 		
 	</cfoutput>
@@ -104,6 +105,6 @@
    
 	N/A
 	<input type="hidden" id="reasoncode" name="reasoncode" value="">
-	<input type="hidden" id="GroupCode" name="GroupCode" value="">
+	<input type="hidden" id="GroupCode"  name="GroupCode"  value="">
 
 </cfif>	

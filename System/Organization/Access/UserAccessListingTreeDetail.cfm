@@ -349,17 +349,17 @@ ORDER BY A.Mission, O.MandateNo, R.SystemModule, R.ListingOrder, A.Role, A.Class
 			  
 			<cfoutput group="OrgUnitName">
 				
-				<tr class="linedotted">
+				<tr class="line labelmedium">
 				<td></td>
-				<td class="labelit" width="200" style="padding-left:10px">#Description#</td>
-				<td class="labelit" width="100">#Role#</td>
+				<td width="200" style="padding-left:10px">#Description#</td>
+				<td width="100">#Role#</td>
 				<cfif HierarchyCode neq "Mission">
-				<td class="labelit">#OrgUnitCode#</td>
-				<td class="labelit" width="30%"><cfif HierarchyCode neq "Mission">#OrgUnitName#</cfif></td>
+				<td>#OrgUnitCode#</td>
+				<td width="30%"><cfif HierarchyCode neq "Mission">#OrgUnitName#</cfif></td>
 				<cfelse>
 				<td colspan="2"></td>
 				</cfif>
-				<td class="labelit" align="right">#accesslevel#
+				<td align="right">#accesslevel#
 					<cfif AccessLevel eq "0">Read
 				    <cfelseif AccessLevel eq "1">Edit
 					<cfelse>All

@@ -9,11 +9,17 @@ password="#SESSION.dbpw#">
 	AND		Category  = '#URL.ID2#'
 </cfquery>
 
+<!--- no needed 
+
 <cfif url.id2 eq "">
+	
 	<cf_screentop height="100%" scroll="Yes" html="Yes" layout="webapp" label="Add Category" user="no">
+	
 <cfelse>
-	<cf_screentop height="100%" scroll="Yes" html="Yes" layout="webapp" label="Maintain Warehouse Category - #get.categoryDescription#" banner="gray" user="no">
+	<cf_screentop height="100%" scroll="Yes" html="no" layout="webapp" label="Maintain Warehouse Category - #get.categoryDescription#" banner="gray" user="no">
 </cfif>
+
+--->
 
 <cf_tl id = "Do you want to remove this record?" var = "msg1">
 
@@ -44,12 +50,13 @@ password="#SESSION.dbpw#">
 	</script>
 </cfoutput>
 
-<table width="100%" height="100%" align="center">
+<table style="width:100%;height:100%" align="center">
+
 	<tr class="hide"><td height="1" id="process2"></td></tr>	 
 	
-	<tr><td colspan="2" style="padding:3px">
+	<tr><td colspan="2">
 	
-		<table width="98%" align="center" cellspacing="0" cellpadding="0">
+		<table width="98%" align="center">
 		<tr>
 		
 				<cfset wd = "48">
@@ -64,8 +71,7 @@ password="#SESSION.dbpw#">
 							iconheight = "#ht#" 
 							target	   = "subbox"
 							base	   = "submenu"	
-							targetitem = "1"
-							padding    = "2"
+							targetitem = "1"							
 							class      = "highlight1"
 							name       = "#vName1#"
 							source     = "Category/CategoryEdit.cfm?idmenu=#url.idmenu#&id1=#url.id1#&id2=#url.id2#">
@@ -80,8 +86,7 @@ password="#SESSION.dbpw#">
 								iconheight = "#ht#"
 								target	   = "subbox"
 								base	   = "submenu"	
-								targetitem = "1"
-								padding    = "2"
+								targetitem = "1"								
 								name       = "#vName2#"
 								source     = "Category/PriceSchedule/PriceSchedule.cfm?idmenu=#url.idmenu#&id1=#url.id1#&id2=#url.id2#">
 								
@@ -93,18 +98,22 @@ password="#SESSION.dbpw#">
 		</table>	
 	</td>
 	</tr>
-		
-	<tr><td height="1" colspan="2" class="line"></td></tr>						
+						
 	<tr>
 	
-		<td colspan="2" height="100%" valign="top">
+		<td colspan="2" height="100%" valign="top" style="padding-top:4px">
 			
-		<table width="100%" height="100%">
-						
+		<table width="96%" height="96%" align="center">
+										
 				<cf_menucontainer item="1" class="regular" name="subbox">
-					<cfdiv id="divMenu" bind="url:Category/CategoryEdit.cfm?idmenu=#url.idmenu#&id1=#url.id1#&id2=#url.id2#">				
+									
+					<cfinclude template="CategoryEdit.cfm">			
+					<!---				 				
+					<cfdiv id="contentdivMenu1" bind="url:Category/CategoryEdit.cfm?idmenu=#url.idmenu#&id1=#url.id1#&id2=#url.id2#">									
+					--->
+				
 				</cf_menucontainer>
-							
+				
 		</table>
 		</td>
 	</tr>	

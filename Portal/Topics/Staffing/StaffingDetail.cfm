@@ -51,6 +51,9 @@
 				  P.PostClass,
 				  P.PostType,
 				  P.LocationCode,
+				  (SELECT LocationNameShort
+				  FROM Location
+				  WHERE LocationCode = P.LocationCode) as LocationName,
 		          PA.PersonNo,					
 				  R.Description, 
 				  R.ViewOrder,
@@ -216,7 +219,7 @@
 			   </a>
 			   </td>
 			   <td>#PostGrade#</td>
-			   <td>#LocationCode#</td>
+			   <td>#LocationName#</td>
 			   <td>#PostClass#</td>
 			   <cfif Person.PersonNo neq "">
 			   <td style="padding-right:7px">

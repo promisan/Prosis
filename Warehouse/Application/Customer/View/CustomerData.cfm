@@ -15,48 +15,60 @@
 	
 	<cfoutput>
 			
-	<table width="95%" align="right" class="clsNoPrint" style="table-layout: fixed;" >
+	<table class="clsNoPrint" style="width:100%">
 	
 		<tr class="hide"><td height="5" id="inputvalidation"></td></tr>
 					
 		<tr class="labelmedium" style="padding-right:2px">
 		
-			<td width="70" style="padding-left:30px"><cf_tl id="Mobile">:</td>	
+			<td style="padding-left:30px"><cf_tl id="Mobile"></td>	
 			<td width="110"> <input type="text" 
 					   id="mobilenumber_#url.customerid#"
-					   size="8" style="align:center"
+					   size="8" style="align:center;background-color:##efefef50"
 					   onKeyUp="applyCustomerData('#url.customerid#','mobilenumber',this.value)"
 					   maxlength="15" 
 					   class="regularxl enterastab"
 					   value = "#customer.MobileNumber#">	
 			</td>
-			<td width="40"><cf_tl id="DOB">:</td>	
-			<td width="120" class="CustDOB">
+			<!---
+			<td width="40"><cf_tl id="DOB"></td>	
+			--->
+			
+			
+			<td style="min-width:120px" class="CustDOB">
+			
+				<cf_uiTooltip Tooltip="Date of birth">
 			
 				<cf_intelliCalendarDate9
 					FieldName="CustomerDOB_#left(url.customerid,4)#" 
 					id="CustomerDOB_#left(url.customerid,4)#" 
 					Manual="True"		
 					class="regularxl"		
+					style="background-color:eaeaea"
+					onfocus="this.background-color='##eaeaea50'"
 					onChange="applyCustomerData('#url.customerid#','customerdob',this.value,'CustomerDOB_#left(url.customerid,4)#')"								
 					DateValidEnd="#dateformat(now(),'YYYYMMDD')#"
 					Default="#dateformat(customer.CustomerDOB,client.dateformatshow)#"
 					AllowBlank="True">	
-					
+				</cf_uitooltip>
 			
 			</td>
 			
-			<td width="50"><cf_tl id="Mail">:</td>	
-			<td width="170">
+						
+			<td style="min-width:160px;width:100%">
+			
+				<cf_uiTooltip Tooltip="eMail address">
 			
 				  <input type="text" 				  
 					   id  ="emailaddress_#url.customerid#"
 					   size="15"
 					   onKeyUp="applyCustomerData('#url.customerid#','emailaddress',this.value)"
 					   maxlength="50" 
-					   style="width:100%;font-size: 12px!important;"
+					   style="width:100%;background-color:##efefef50"
 					   class="regularxl enterastab"
 					   value = "#customer.emailAddress#">
+					   
+					</cf_uitooltip>   
 			</td>
 			
 		</tr>	
@@ -66,7 +78,7 @@
 		<tr class="labelmedium">
 			
 			<td style="min-width:60px;padding-right:4px;padding-left:30px"><cf_tl id="Postal">:</td>	
-			<td colspan="2">		
+			<td colspan="4">		
 						
 				 <cf_textInput
 						  form      = "customerform"
@@ -141,9 +153,9 @@
 					<cfset url.addressid = qExisting.AddressId>
 				</cfif>	
 					
-				<td width="170">
+				<td width="170" colspan="3">
 					<select id	="addressidselect" 
-						style="font-size:16px" class="regularxl enterastab"
+						style="background-color:##efefef50" class="regularxl enterastab"
 						onchange="ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/sale/applyCustomer.cfm?mission=#qExisting.Mission#&warehouse=#url.warehouse#&category=&itemno=&search=&customerid='+document.getElementById('customeridselect').value+'&addressid='+this.value,'customerbox')">
 						
 						<cfloop query="customerAddress">

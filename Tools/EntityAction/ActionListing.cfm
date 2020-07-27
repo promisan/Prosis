@@ -163,7 +163,6 @@
 	 <cfset attributes.Questionaire = "No">
 </cfif>
 
-
 <cfparam name="Attributes.TableWidth"       default="100%">
 
 <!--- newly added attributes --->
@@ -363,7 +362,7 @@
 	<table width="<cfoutput>#attributes.Tablewidth#</cfoutput>" align="center">
 	<tr>
 	<td>
-
+			
 	<table width="100%" align="center" style="border:0px solid silver">			
 	<tr><td colspan="2">
 
@@ -475,10 +474,11 @@
 
 <!--- redefine entitygroup --->
 
-<cfif Attributes.Show neq "Yes"> 
+
+<cfif Attributes.Show eq "Yes"> 
 	
 	<cfif entity.showhistory gte "1">
-						
+								
 		<!--- Prior workflow --->
 		
 		<cfquery name="Object" 
@@ -492,9 +492,9 @@
 			 ORDER BY   Created DESC	
 			 
 		</cfquery>
-			
+					
 		<cfoutput query="Object">
-		
+						
 			<cfset ObjectId = "#Object.ObjectId#">		
 									
 			    <cfset objectcnt = currentrow>

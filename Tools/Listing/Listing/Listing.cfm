@@ -59,7 +59,7 @@
 <cfparam name="attributes.tableborder"        default="1">
 <cfparam name="attributes.font"               default="">
 
-<cfparam name="attributes.classheader"        default="labelnormal line">
+<cfparam name="attributes.classheader"        default="labelnormal">
 <cfparam name="attributes.classsub"           default="labelnormal line">
 <cfparam name="attributes.classline"          default="">
 

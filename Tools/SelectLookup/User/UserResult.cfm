@@ -1,11 +1,11 @@
 
-<cfparam name="Form.Page"     default="1">
-<cfparam name="Form.Group"    default="LastName">
-<cfparam name="URL.Page"      default="#Form.Page#">
-<cfparam name="URL.ID4"       default="">
-<cfparam name="URL.IDSorting" default="#Form.Group#">
-<cfparam name="URL.Search"    default="">
-<cfparam name="No"            default="999">
+<cfparam name="Form.Page"         default="1">
+<cfparam name="Form.Group"        default="LastName">
+<cfparam name="URL.Page"          default="#Form.Page#">
+<cfparam name="URL.ID4"           default="">
+<cfparam name="URL.IDSorting"     default="#Form.Group#">
+<cfparam name="URL.Search"        default="">
+<cfparam name="No"                default="999">
 
 <CFSET Criteria = ''>
 
@@ -69,7 +69,6 @@
 	
 <cfset CLIENT.search = Criteria>
 
-
 <cfset link    = replace(url.link,"||","&","ALL")>
 
 <cfquery name="Total" 
@@ -79,7 +78,13 @@ password="#SESSION.dbpw#">
 	SELECT count(*) as Total
 	FROM  UserNames U
 	WHERE #PreserveSingleQuotes(CLIENT.search)# 
-	AND   AccountType = 'Individual'
+	<cfif url.filter3 eq "accounttype">	
+		<cfif #url.filter3value# neq "all">
+		AND   AccountType = '#url.filter3value#'
+		</cfif>
+	<cfelse>
+		AND   AccountType = 'Individual'	
+	</cfif>
 	<cfif url.filter1 neq "">
 	AND   Account IN (SELECT Account 
 	                  FROM   UserNamesGroup 
@@ -110,7 +115,13 @@ password="#SESSION.dbpw#">
 	SELECT TOP #last# *
 	FROM   UserNames U
 	WHERE #PreserveSingleQuotes(CLIENT.search)# 
-	AND    AccountType = 'Individual'
+	<cfif url.filter3 eq "accounttype">	
+		<cfif #url.filter3value# neq "all">
+		AND   AccountType = '#url.filter3value#'
+		</cfif>
+	<cfelse>
+		AND   AccountType = 'Individual'	
+	</cfif>
 	<cfif url.filter1 neq "">
 	AND    Account IN (SELECT Account 
 	                   FROM   UserNamesGroup 
@@ -143,9 +154,9 @@ password="#SESSION.dbpw#">
 
 	<td width="100%" colspan="2">
 						
-			<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+			<table width="100%" align="center" class="navigation_table">
 			
-			<TR class="line labelmedium">
+			<TR class="line labelmedium fixrow">
 			    <td></td>			   
 			    <TD><cf_tl id="Name"></TD>
 				<TD style="padding-left:1px"><cf_tl id="IndexNo"></TD>
@@ -201,11 +212,16 @@ password="#SESSION.dbpw#">
 						        <cf_img icon="select">					   
 						   </td>
 						   
-						   <td width="40%" style="padding-left:1px">#LastName#, #FirstName#</td>						   						   						   
-						   <td style="min-width:100px;padding-left:1px">#IndexNo#</td>						   
+						   <cfif accounttype eq "Individual">
+						   <td width="40%" style="padding-left:1px">#LastName# <cfif firstname neq "">, #FirstName#</cfif></td>						   						   						   
+						   <td style="min-width:100px;padding-left:1px">#IndexNo#</td>	
 						   <td width="30%" style="padding-left:1px">
-						      <cfif eMailAddress neq ""><a href="javascript:email('#eMailAddress#','','','','User','#Account#')"></cfif>#eMailAddress#
-						   </td>						   
+						   <cfif eMailAddress neq ""><a href="javascript:email('#eMailAddress#','','','','User','#Account#')"></cfif>#eMailAddress#					   
+						   </td>
+						   <cfelse>
+						   <td colspan="3" width="70%" style="padding-left:1px"><font color="FF0080">ug:&nbsp;</font>#LastName#</td>		
+						   </cfif>
+						  					   
 						    <td style="min-width:30px;padding-left:1px;padding-top:3px">
 							   <cfif Access eq "EDIT" or Access eq "ALL">
 							   <cf_img icon="edit" onclick="javascript:ShowUser('#URLEncodedFormat(Account)#')">

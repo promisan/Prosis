@@ -15,7 +15,7 @@
 	AND        D.DocumentId IN (SELECT DocumentId
 	                           FROM   Ref_EntityActionPublishDocument 
 							   WHERE  ActionPublishNo = '#Object.ActionPublishNo#' 
-							   AND    ActionCode = '#action.actionCode#' 
+							   AND    ActionCode = '#action.actionCode#'
 							   AND    Operational = 1)
     ORDER BY   D.DocumentOrder 
 </cfquery>	

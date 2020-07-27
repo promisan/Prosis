@@ -86,7 +86,6 @@
 			FROM 	 Ref_ParameterMission
 			WHERE 	 Mission = '#get.mission#'		
 	</cfquery>	
-
 		
 	<cfquery name="ListBilling" 
 		datasource="AppsLedger" 
@@ -210,6 +209,47 @@
 			
 			</cfif>		
 			
+			<!--- cluster by class, accountcode --->
+							
+			<cfquery name="Lines" 
+				datasource="AppsLedger" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+			
+				SELECT     WC.UnitClass, 
+				           R.Description, 
+						   WC.GLAccountCredit, 
+						   WC.OrgUnit,
+						   WC.TransactionDate,
+						   WC.TaxCode,
+						   WC.BillingReference,
+						   WC.BillingName,
+						   SUM(WC.SaleAmountIncome) AS Income, 
+						   SUM(WC.SaleAmountTax) AS Tax
+				FROM       Workorder.dbo.WorkOrderLineCharge WC INNER JOIN
+	                       WorkOrder.dbo.Ref_UnitClass R ON WC.UnitClass = R.Code
+				WHERE      WorkOrderid        = '#get.WorkOrderid#' 
+				AND        WorkOrderLine      = '#get.WorkOrderLine#'				   
+				AND        Currency           = '#currency#'									   
+				AND        WC.OrgUnitCustomer = '#orgunitcustomer#' 		
+				AND        WC.OrgUnitOwner    = '#orgunitowner#' 	
+				AND        WC.TransactionDate = '#transactiondate#'	
+				AND        WC.Journal is NULL
+												
+	            GROUP BY   WC.UnitClass, 
+				           WC.GLAccountCredit, 
+						   WC.TransactionDate,
+						   R.Description,
+						   WC.TaxCode,
+						   WC.BillingReference,
+						   WC.BillingName,
+						   WC.OrgUnit		
+						   
+						  
+			</cfquery>		
+			
+			<cfif lines.recordcount gt "0">  
+			
 			<cfif action eq "addheader">
 												
 				<cfif Posting.EntityClass neq "">
@@ -313,43 +353,6 @@
 				TransactionType1      = "Standard"
 				Amount1               = "#total#">		
 	
-				<!--- cluster by class, accountcode --->
-							
-				<cfquery name="Lines" 
-					datasource="AppsLedger" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-				
-					SELECT     WC.UnitClass, 
-					           R.Description, 
-							   WC.GLAccountCredit, 
-							   WC.OrgUnit,
-							   WC.TransactionDate,
-							   WC.TaxCode,
-							   WC.BillingReference,
-							   WC.BillingName,
-							   SUM(WC.SaleAmountIncome) AS Income, 
-							   SUM(WC.SaleAmountTax) AS Tax
-					FROM       Workorder.dbo.WorkOrderLineCharge WC INNER JOIN
-		                       WorkOrder.dbo.Ref_UnitClass R ON WC.UnitClass = R.Code
-					WHERE      WorkOrderid        = '#get.WorkOrderid#' 
-					AND        WorkOrderLine      = '#get.WorkOrderLine#'				   
-					AND        Currency           = '#currency#'									   
-					AND        WC.OrgUnitCustomer = '#orgunitcustomer#' 		
-					AND        WC.OrgUnitOwner    = '#orgunitowner#' 	
-					AND        WC.TransactionDate = '#transactiondate#'	
-					AND        WC.Journal is NULL
-													
-		            GROUP BY   WC.UnitClass, 
-					           WC.GLAccountCredit, 
-							   WC.TransactionDate,
-							   R.Description,
-							   WC.TaxCode,
-							   WC.BillingReference,
-							   WC.BillingName,
-							   WC.OrgUnit		
-				</cfquery>			   	
-				
 				<cfloop query="Lines">
 	
 					<!--- Lines for each Unit clas.--->
@@ -443,7 +446,6 @@
 					
 				</cfquery>	
 
-				
 				
 				<!--- ------------------------------------------- --->
 				<!--- get the settlements of the client per owner --->
@@ -604,7 +606,9 @@
 					<cf_TransactionOutstanding Journal="#getJournal.journal#" 
 					                           JournalSerialNo = "#parentJournalSerialNo#">
 										
-				</cfif>										
+				</cfif>		
+				
+			</cfif>									
 				
 	</cfloop>
 		

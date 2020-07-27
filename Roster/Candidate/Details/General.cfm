@@ -86,6 +86,18 @@ function openschedule(wla) {
 	workplan(wla,'dialog')
 }	
 
+function workflowdrill(key) {
+		    
+    se = document.getElementById(key)		
+				
+	if (se.className == "hide") {		
+	   se.className = "regular" 		   		  	  		  
+	   ptoken.navigate('#client.root#/Roster/Candidate/Details/Applicant/ApplicantDetailWorkflow.cfm?ajaxid='+key,key)	
+  		  
+	} else {  se.className = "hide" } 	
+	
+	}		
+
 </script> 
 
 </cfoutput>

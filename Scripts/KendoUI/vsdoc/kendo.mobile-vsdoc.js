@@ -888,6 +888,9 @@ $.fn.kendoDataSource = function(options) {
     /// &#10;group - Array|Object 
     /// &#10;The grouping configuration of the data source. If set, the data items will be grouped when the data source is populated. By default, grouping is not applied.
     /// &#10;
+    /// &#10;groupPaging - Boolean (default: false)
+    /// &#10;When set to true, dataSource treats groups as items during pagination.
+    /// &#10;
     /// &#10;inPlaceSort - Boolean (default: false)
     /// &#10;If set to true, the original Array used as data will be sorted when sorting operation is performed. This setting supported only with local data, bound to a JavaScript array via the data option.
     /// &#10;
@@ -926,6 +929,97 @@ $.fn.kendoDataSource = function(options) {
     /// &#10;
     /// &#10;type - String 
     /// &#10;If set, the data source will use a predefined transport and/or schema.The supported values are: "odata" which supports the OData v.2 protocol; "odata-v4" which partially supports odata version 4 or "signalr".
+    /// &#10;
+    /// </summary>
+    /// <param name="options" type="Object">
+    /// The widget configuration options
+    /// </param>
+};
+
+
+kendo.data.FileEntry = function() { };
+
+kendo.data.FileEntry.prototype = {
+
+
+
+    bind: function(event, callback) {
+        /// <summary>
+        /// Binds to a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be executed when the event is triggered.</param>
+    },
+
+    unbind: function(event, callback) {
+        /// <summary>
+        /// Unbinds a callback from a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be removed.</param>
+    }
+
+};
+
+$.fn.getKendoFileEntry = function() {
+    /// <summary>
+    /// Returns a reference to the kendo.data.FileEntry widget, instantiated on the selector.
+    /// </summary>
+    /// <returns type="kendo.data.FileEntry">The kendo.data.FileEntry instance (if present).</returns>
+};
+
+$.fn.kendoFileEntry = function(options) {
+    /// <summary>
+    /// Instantiates a kendo.data.FileEntry widget based the DOM elements that match the selector.
+
+    /// &#10;Accepts an object with the following configuration options:
+    /// &#10;
+    /// </summary>
+    /// <param name="options" type="Object">
+    /// The widget configuration options
+    /// </param>
+};
+
+
+kendo.data.FileManagerDataSource = function() { };
+
+kendo.data.FileManagerDataSource.prototype = {
+
+
+
+    bind: function(event, callback) {
+        /// <summary>
+        /// Binds to a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be executed when the event is triggered.</param>
+    },
+
+    unbind: function(event, callback) {
+        /// <summary>
+        /// Unbinds a callback from a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be removed.</param>
+    }
+
+};
+
+$.fn.getKendoFileManagerDataSource = function() {
+    /// <summary>
+    /// Returns a reference to the kendo.data.FileManagerDataSource widget, instantiated on the selector.
+    /// </summary>
+    /// <returns type="kendo.data.FileManagerDataSource">The kendo.data.FileManagerDataSource instance (if present).</returns>
+};
+
+$.fn.kendoFileManagerDataSource = function(options) {
+    /// <summary>
+    /// Instantiates a kendo.data.FileManagerDataSource widget based the DOM elements that match the selector.
+
+    /// &#10;Accepts an object with the following configuration options:
+    /// &#10;
+    /// &#10;schema - Object 
+    /// &#10;The schema configuration. See the DataSource.schema configuration for all available options.
     /// &#10;
     /// </summary>
     /// <param name="options" type="Object">

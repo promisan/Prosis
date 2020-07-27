@@ -177,7 +177,7 @@
 			<cfparam name="session.userselect[2]" default="">	
 			
 			<TR>
-			<TD width="200" class="labelmedium"><cf_tl id="Account Class">:</TD>
+			<TD width="200" class="labelmedium"><cf_tl id="Account Type">:</TD>
 			<TD>
 			    <table>
 					<tr>
@@ -191,6 +191,30 @@
 					--->
 					</tr>
 				</table>
+			</TD>
+			</TR>	
+			
+			<cfparam name="session.userselect[13]" default="">	
+			
+			<TR>
+			<TD width="200" class="labelmedium"><cf_tl id="Source">:</TD>
+			<TD>
+						
+				<cfquery name="SourceList" 
+			    datasource="AppsSystem" 
+			    username="#SESSION.login#" 
+		    	password="#SESSION.dbpw#">
+				SELECT DISTINCT Source
+				FROM            UserNames
+				</cfquery>
+				
+				<select name="Source" class="regularxl enterastab">			
+					<cfloop query="SourceList">
+					<option value="#Source#" <cfif session.userselect[13] eq "#Source#">selected</cfif>>#Source#</option>
+					</cfloop>			
+				</select>
+			
+				
 			</TD>
 			</TR>	
 						

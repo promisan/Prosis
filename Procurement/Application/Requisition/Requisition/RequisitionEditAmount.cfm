@@ -177,12 +177,12 @@
 		  
 		    <tr>
 			
-				<td align="right" class="labellarge" bgcolor="ffffaf" style="padding-left:25px;padding-right:5px;border:1px solid silver;">														   
+				<td align="right" class="labellarge" bgcolor="ffffaf" style="height:27px;padding-left:25px;padding-right:5px;border:1px solid silver;">														   
 				#numberFormat(Line.RequestAmountBase,",.__")#</font> 				
 				</td>		
 				<cfif Line.RequestCurrency neq APPLICATION.BaseCurrency> 	
 					<td align="right" class="labellarge" bgcolor="f4f4f4" style="padding-left:15px;padding-right:5px;border:1px solid silver;">
-					<font size="1">#url.currency#</font> #numberformat(Price*quantity,"_,__.__")#		
+					<font size="1">#url.currency#</font> #numberformat(Price*quantity,",.__")#		
 					</td>	
 				</cfif>		
 					 

@@ -8,6 +8,25 @@ password="#SESSION.dbpw#">
 	WHERE ItemNo = '#URL.ID#'
 </cfquery>
 
+<cfquery name="Cat" 
+datasource="appsMaterials" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT *
+	FROM Ref_Category
+	WHERE Category = '#Item.Category#'
+</cfquery>
+
+<cfquery name="Sub" 
+datasource="appsMaterials" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT *
+	FROM Ref_CategoryItem
+	WHERE Category = '#Item.Category#'
+	AND   CategoryItem = '#Item.CategoryItem#'
+</cfquery>
+
 <table width="100%" border="0" height="99%" align="center"  
    cellspacing="0" cellpadding="0" bordercolor="C0C0C0" class="formpadding">
   
@@ -23,7 +42,7 @@ password="#SESSION.dbpw#">
         <td width="15%" class="labelmedium"><cf_tl id="No">:</td>
         <td width="35%" class="labelmedium">#ItemNo#</td>
 		<td width="15%" class="labelmedium"><cf_tl id="Category">:</td>
-        <td width="35%" class="labelmedium">#Category#</td>
+        <td width="35%" class="labelmedium">#Category# #Cat.Description# #sub.CategoryItemName#</td>
 	 </tr>		
 	 	 	
 	 <tr class="line">

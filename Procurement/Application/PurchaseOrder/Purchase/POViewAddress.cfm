@@ -222,36 +222,31 @@
 		
 		</cfif>
 					
-		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="formspacing">
+		<table width="100%" class="formspacing">
 		
 		<cfloop query="Address">
 		<cfif currentrow neq "1">
 		<tr><td colspan="5" class="line"></td></tr>
 		</cfif>
 		<tr class="labelmedium">
-		   <td align="center" bgcolor="white">
+		   <td align="center">
 		   
 		  <cfif URL.Mode eq "Edit">
 		  
 		  	<cf_img icon="edit" onClick="javascript:addressEdit('#URL.ID1#','edit');">
 		  						 
 		  <cfelse>
-		  
-		   <img src="#SESSION.root#/Images/address.gif"
-		     name="img2_#addresstype#"
-		     border="0"			 
-			 bordercolor="silver"
-		     align="absmiddle">
-			 
+		 
+		 			 
 		  </cfif>			  
 		  
 		  
 		  </td>
 		  
-		  <td bgcolor="white">#AddressType#</td>
-		  <td bgcolor="white">#Address1#</td>
-		  <td bgcolor="white">#City# #Country#</td>
-		  <td bgcolor="white">#Contact#</td>
+		  <td>#AddressType#</td>
+		  <td>#Address1#</td>
+		  <td>#City# #Country#</td>
+		  <td>#Contact#</td>
 		</tr>
 		<cfif postalcode neq "" or address2 neq "" or state neq "">
 		<tr class="labelmedium">

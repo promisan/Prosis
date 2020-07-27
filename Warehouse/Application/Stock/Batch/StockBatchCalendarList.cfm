@@ -7,7 +7,7 @@
 	          (SELECT count(*) FROM Materials.dbo.ItemTransaction WHERE TransactionBatchNo = B.Batchno) as Lines
 	FROM      StockBatch_#SESSION.acc# B
 	WHERE     TransactionDate = '#dateformat(url.selecteddate,client.dateSQL)#'		
-	ORDER BY  Created DESC, Detail DESC
+	ORDER BY  Created DESC
 </cfquery>
 
 <cfquery name="getWarehouse"
@@ -75,8 +75,7 @@
 			
 				<cfif currentrow-first lt rows>
 								 							   
-				  <cfif detail eq "0">
-				  					  					  
+				 				  					  					  
 				   		<cfset row = row+1>
 						
 						<cfif ContraWarehouse neq "" and ContraWarehouse neq getWarehouse.WarehouseName>
@@ -152,30 +151,7 @@
 						</TR>
 															
 					  
-				  <cfelse>					  		  
-				   				     												
-					<cfquery name="sum" 
-					     dbtype="query">
-							SELECT count(*) as counted,
-							       SUM(lines) as Lines,
-							       SUM(Amount) as Amount
-							FROM   SearchResult	
-							WHERE  TransactionDate = '#Dateformat(TransactionDate, CLIENT.dateSQL)#'	
-							AND    Detail = '0'						
-					</cfquery>					
-											 				
-					<tr bgcolor="ffffff" class="regular line" height="20"					 					 
-						 onMouseOver="if (this.className=='regular') {this.className='highlight4'}" 
-						 onMouseOut="if (this.className=='highlight4') {this.className='regular'}">	
-											 
-						<td colspan="7" class="labelmedium" style="padding-left:4px;padding-top:4px;padding-bottom:4px">#Dateformat(TransactionDate, "DDDD DD MMMM YYYY")#</td>
-						<td align="right" class="labelmedium" colspan="3" style="padding-top:4px;padding-bottom:4px;padding-right:3px;" class="labelmediumcl">
-						<b>#sum.counted#</b> <cfif sum.counted eq "1"><cf_tl id="transaction"><cfelse><cf_tl id="transactions"></cfif>					
-						</td>	
-						
-					</TR>
-																
-				  </cfif>
+				 
 				  
 	 			</cfif>	
 										 									

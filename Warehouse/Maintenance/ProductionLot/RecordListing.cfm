@@ -1,5 +1,4 @@
 <!--- Create Criteria string for query from data entered thru search form --->
-
 <cf_screentop html="No" jquery="Yes">
 
 <cfquery name="SearchResult"

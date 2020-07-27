@@ -1,6 +1,4 @@
 
-<cf_compression>
-
 <cfquery name="List" 
 datasource="AppsSystem" 
 username="#SESSION.login#" 
@@ -19,16 +17,16 @@ password="#SESSION.dbpw#">
 
 <cfset client.queryscript = urldecode(Form.QueryScript)>
 
-<cfset script = urldecode(Form.QueryScript)>
+<cfset myscript = urldecode(Form.QueryScript)>
 
-<cfif findNoCase("UPDATE",script) or findNoCase("DELETE",script)>
+<cfif findNoCase("UPDATE",myscript) or findNoCase("DELETE",myscript)>
 	 <script>
 	 alert("Problem, you may not process an UPDATE/DELETE query")
 	 </script>
 	 <cfabort>
 </cfif> 
 
-<cfif FindNoCase("ORDER BY",script)>
+<cfif FindNoCase("ORDER BY",myscript)>
 
 	<script>
 	alert("ORDER BY may not be used in the query")
@@ -37,14 +35,14 @@ password="#SESSION.dbpw#">
 
 </cfif>
 
-<cfif script eq "">
+<cfif myscript eq "">
 	 <cfabort>
 </cfif>
 
 <cftry>
 
-    <cfset sc = replace(script, "SELECT",  "SELECT TOP 1")> 
-	
+    <cfset sc = replaceNocase(myscript, "SELECT",  "SELECT TOP 1")> 
+		
 	<!--- -------------------------- --->
 	<!--- preparation of the listing --->
 	<!--- -------------------------- --->
@@ -63,7 +61,7 @@ password="#SESSION.dbpw#">
 	password="#SESSION.dbpw#">
 	   #preservesinglequotes(sc)#
 	</cfquery>
-		
+			
 	<cfcatch>
 			
 		<cfif len(sc) gte 10>
@@ -101,21 +99,21 @@ password="#SESSION.dbpw#">
 	ORDER  BY ListingOrder
 </cfquery>
 
-<cfset script = replaceNoCase(script, "FROM"," FROM","ALL")>
-<cfset script = replaceNoCase(script, "WHERE"," WHERE","ALL")>
-<cfset script = replace(script, "ON"," ON","ALL")>   <!--- otherwise AddressZone would be incorrectly split --->
-<cfset script = replaceNoCase(script, "INNER JOIN"," INNER JOIN","ALL")>
-<cfset script = replaceNoCase(script, "LEFT OUTER JOIN"," LEFT OUTER JOIN","ALL")>
+<cfset myscript = replaceNoCase(myscript, "FROM"," FROM","ALL")>
+<cfset myscript = replaceNoCase(myscript, "WHERE"," WHERE","ALL")>
+<cfset myscript = replace(myscript, "ON"," ON","ALL")>   <!--- otherwise AddressZone would be incorrectly split --->
+<cfset myscript = replaceNoCase(myscript, "INNER JOIN"," INNER JOIN","ALL")>
+<cfset myscript = replaceNoCase(myscript, "LEFT OUTER JOIN"," LEFT OUTER JOIN","ALL")>
 
-<cfset s = FindNoCase("FROM", script)>
+<cfset s = FindNoCase("FROM", myscript)>
  
-<cfif Find("WHERE", script)>
-   <cfset e = FindNoCase("WHERE", script)>
+<cfif Find("WHERE", myscript)>
+   <cfset e = FindNoCase("WHERE", myscript)>
 <cfelse>
-   <cfset e = len(script)>
+   <cfset e = len(myscript)>
 </cfif>
 
-<cfset fr = mid(script,s+4,e-(s+3))>
+<cfset fr = mid(myscript,s+4,e-(s+3))>
 	
 <cfset submitlink = "#SESSION.root#/System/Modules/InquiryBuilder/InquiryEditFieldsSubmit.cfm?Datasource=#Form.querydatasource#&SystemFunctionId=#URL.SystemFunctionId#&functionSerialNo=#url.functionSerialNo#">
 
@@ -127,14 +125,9 @@ password="#SESSION.dbpw#">
 <tr><td class="linedotted"></td></tr>
 
 --->
-<tr><td style="border:0px dotted silver">
-
-	<table width="100%" border="0" cellspacing="0" cellpadding="0" align="CENTER">
-			 	  
-	  <tr>
-	    <td width="100%" colspan="2">
-		
-	    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="navigation_table formpadding">
+<tr><td>
+			
+	    <table width="100%" class="navigation_table formpadding">
 		
 		<cfset alias = 0>	
 						 
@@ -146,26 +139,26 @@ password="#SESSION.dbpw#">
 				
 		</cfloop>
 			
-	    <TR class="labelmedium line">
+	    <TR class="labelmedium line fixrow">
 		   <td height="22" style="padding-left:1px"></td>
 		   <td><cfif alias eq "1">Alias</cfif></td>
-	   	   <td width="20%">Field</td>
+	   	   <td>Field</td>
 		   <td>isKey</td>
 		   <td>Show</td>
-		   <td width="7%">Align</td>
-		   <td width="20%">Label</td>
+		   <td>Align</td>
+		   <td>Label</td>
 		   <td>Format</td>
-		   <td style="cursor:pointer"><cf_UIToolTip tooltip="Enforce Size, leave as 0 to let system define the presentation">Size&nbsp;&nbsp;</cf_UIToolTip></td>
+		   <td style="cursor:pointer;padding-right:3px"><cf_UIToolTip tooltip="Enforce With, leave as 0 to let system define the presentation">Width</cf_UIToolTip></td>
 		   <td style="cursor:pointer"><cf_UIToolTip tooltip="Initial Grouping/Sorting of the listing">Mode</cf_UIToolTip></td>
 		   <td>Filter</td>
-		   <td width="40" style="cursor:pointer"><cf_UIToolTip tooltip="Filter selection mode">Mode</cf_UIToolTip></td>
+		   <td style="cursor:pointer"><cf_UIToolTip tooltip="Filter selection mode">Filter</cf_UIToolTip></td>
 		   <td><cf_UIToolTip tooltip="Show option in the tree">Tree</cf_UIToolTip></td>
-		   <td width="50" align="center">
+		   <td align="center">
 		   
 	 	   <cfoutput>
 			
 			 <div onClick="ColdFusion.navigate('#SESSION.root#/System/Modules/InquiryBuilder/InquiryEditFields.cfm?SystemFunctionId=#URL.SystemFunctionId#&functionSerialNo=#url.functionSerialNo#&ID2=new','fields')">			 
-			     <A href="##"><font color="6688AA">[Add]</font></a>
+			     <A href="##">Add</a>
 			 </div>
 			
 		   </cfoutput>
@@ -185,14 +178,14 @@ password="#SESSION.dbpw#">
 															
 			<cfif URL.ID2 eq fieldid>
 																					
-				<TR class="line">
+				<TR class="line" style="background-color:f1f1f1">
 				     <td align="center" style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
 					 
 					  <input type="Text" 
 							  name="listingorder" 
 	                          id="listingorder"
 							  value="#ListingOrder#" 
-							  style="width:23;text-align: center;border:0px" 
+							  style="width:23;text-align: center;border:0px;background-color:transparent" 
 							  class="regularxl"
 							  maxlength="2">
 														 
@@ -206,7 +199,7 @@ password="#SESSION.dbpw#">
 						
 						<cfelse>			
 												
-						<select name="fieldqueryalias" id="fieldqueryalias" class="regularxl" style="border:0px">
+						<select name="fieldqueryalias" id="fieldqueryalias" class="regularxl" style="border:0px;width:100%;background-color:transparent">
 						
 							<cfloop index="itm" list="#fr#" delimiters=", ">							
 						
@@ -224,7 +217,7 @@ password="#SESSION.dbpw#">
 					 
 					 <td style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
 					 
-					 <select name="fieldname" id="fieldname" class="regularxl" style="border:0px">
+					 <select name="fieldname" id="fieldname" class="regularxl" style="border:0px;width:100%;background-color:transparent">
 									 
 					  <cfloop index="col" list="#SelectQuery.columnList#" delimiters=",">
 					  	  <option value="#col#"  <cfif col eq fieldname>selected</cfif>>#col#</option> 
@@ -236,7 +229,7 @@ password="#SESSION.dbpw#">
 					 
 					 <td style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
 					 
-					  <select name="fieldiskey" id="fieldiskey" class="regularxl" style="border:0px">
+					  <select name="fieldiskey" id="fieldiskey" class="regularxl" style="border:0px;width:100%;background-color:transparent">
 							
 					  	 <option value="1" <cfif fieldiskey eq "1">selected</cfif>>Yes</option> 
 						 <option value="0" <cfif fieldiskey eq "0">selected</cfif>>No</option> 
@@ -247,7 +240,7 @@ password="#SESSION.dbpw#">
 					 
 					 <td style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
 					 
-					  <select name="fieldingrid" id="fieldingrid" class="regularxl" style="border:0px">
+					  <select name="fieldingrid" id="fieldingrid" class="regularxl" style="border:0px;width:100%;background-color:transparent">
 							
 					  	 <option value="1" <cfif fieldingrid eq "1">selected</cfif>>Yes</option> 
 						  <option value="0" <cfif fieldingrid eq "0">selected</cfif>>No</option> 
@@ -258,7 +251,7 @@ password="#SESSION.dbpw#">
 					 
 					 <td style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
 					 
-					  <select name="fieldalignment" id="fieldalignment" class="regularxl" style="border:0px">
+					  <select name="fieldalignment" id="fieldalignment" class="regularxl" style="border:0px;width:100%;background-color:transparent">
 							
 					  	 <option value="Left" <cfif fieldalignment eq "Left">selected</cfif>>Left</option> 
 						 <option value="Center" <cfif fieldalignment eq "Center">selected</cfif>>Center</option> 
@@ -282,10 +275,11 @@ password="#SESSION.dbpw#">
 					 
 					 <td style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
 					 
-					 <select name="fieldoutputformat" id="fieldoutputformat" style="width:80px;border:0px" class="regularxl">
+					 <select name="fieldoutputformat" id="fieldoutputformat" style="width:100%;border:0px;background-color:transparent" class="regularxl">
 											 
 					 	  <option value=""  <cfif fieldoutputformat eq "">selected</cfif>>Default</option> 
 					 	  <option value="Date"  <cfif fieldoutputformat eq "Date">selected</cfif>>Date</option> 
+						  <option value="DateTime"  <cfif fieldoutputformat eq "DateTime">selected</cfif>>Date/Time</option> 
 					   	  <option value="Time"  <cfif fieldoutputformat eq "Time">selected</cfif>>Time</option> 
 					   	  <option value="Amount" <cfif fieldoutputformat eq "Amount">selected</cfif>>Amount</option> 
 						  <option value="eMail" <cfif fieldoutputformat eq "eMail">selected</cfif>>eMail</option> 											
@@ -308,7 +302,7 @@ password="#SESSION.dbpw#">
 					 
 					 <td style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
 					 
-					   <select name="fieldsort" id="fieldsort" class="regularxl" style="border:0px">
+					   <select name="fieldsort" id="fieldsort" class="regularxl" style="width:100%;border:0px;background-color:transparent">
 							
 					  	 <option value="1" <cfif fieldsort eq "1">selected</cfif>>Sort</option> 
 						 <option value="2" <cfif fieldsort eq "2">selected</cfif>>Group</option> 
@@ -322,7 +316,7 @@ password="#SESSION.dbpw#">
 					 
 					 <td style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
 					 
-						 <select name="fieldfilterclass" id="fieldfilterclass" style="width:50;border:0px" class="regularxl" onchange="toggle('FieldFilterClassMode',this.value)">
+						 <select name="fieldfilterclass" id="fieldfilterclass" style="width:100%;border:0px;background-color:transparent" class="regularxl" onchange="toggle('FieldFilterClassMode',this.value)">
 								
 							  <option value=""       <cfif FieldFilterClass eq "">selected</cfif>>N/A</option>					 
 						 	  <option value="Text"   <cfif FieldFilterClass eq "Text">selected</cfif>>Text</option> 
@@ -335,7 +329,7 @@ password="#SESSION.dbpw#">
 					 
 					 <td style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
 					 
-						 <select name="FieldFilterClassMode" id="FieldFilterClassMode" style="width:45;border:0px" class="regularxl" <cfif fieldfilterclass eq "">disabled</cfif>>	
+						 <select name="FieldFilterClassMode" id="FieldFilterClassMode" style="border:0px;width:100%;background-color:transparent" class="regularxl" <cfif fieldfilterclass eq "">disabled</cfif>>	
 						 							
 							  <option value="0"  <cfif FieldFilterClassMode eq "0">selected</cfif>>Default</option> 
 						 	  <option value="1"  <cfif FieldFilterClassMode eq "1">selected</cfif>>Combo</option> 
@@ -349,7 +343,7 @@ password="#SESSION.dbpw#">
 					 
 					 <td style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
 					 
-					  <select name="fieldtree" id="fieldtree" class="regularxl" style="border:0px">
+					  <select name="fieldtree" id="fieldtree" class="regularxl" style="border:0px;width:100%;background-color:transparent">
 							
 					  	  <option value="1" <cfif fieldtree eq "1">selected</cfif>>Yes</option> 
 						  <option value="0" <cfif fieldtree eq "0">selected</cfif>>No</option> 
@@ -375,7 +369,7 @@ password="#SESSION.dbpw#">
 				<cfoutput>
 				<cfsavecontent variable="edit">
 				_cf_loadingtexthtml='';
-				ColdFusion.navigate('#SESSION.root#/System/Modules/InquiryBuilder/InquiryEditFields.cfm?Datasource=#Form.querydatasource#&SystemFunctionId=#URL.SystemFunctionId#&FunctionSerialNo=#URL.FunctionSerialNo#&ID2=#FieldId#','fields');				
+				ptoken.navigate('#SESSION.root#/System/Modules/InquiryBuilder/InquiryEditFields.cfm?Datasource=#Form.querydatasource#&SystemFunctionId=#URL.SystemFunctionId#&FunctionSerialNo=#URL.FunctionSerialNo#&ID2=#FieldId#','fields');				
 				</cfsavecontent>
 				</cfoutput>
 		
@@ -384,7 +378,8 @@ password="#SESSION.dbpw#">
 				<cfelse>
 					<cfset color = "ffffff">
 				</cfif>			
-						
+				
+										
 				<TR class="navigation_row labelmedium line" bgcolor="#color#" style="height:18px">
 				
 				   <td align="center" class="navigation_action" style="border-left:1px solid silver;padding;3px" onclick="#edit#">#ListingOrder#.</td>
@@ -423,7 +418,7 @@ password="#SESSION.dbpw#">
 						   <td style="padding-left:4px">	   
 						   
 							   	<cf_img icon="delete"
-								     onclick="_cf_loadingtexthtml='';ColdFusion.navigate('#SESSION.root#/System/Modules/InquiryBuilder/InquiryEditFieldsPurge.cfm?Datasource=#Form.querydatasource#&SystemFunctionId=#URL.SystemFunctionId#&FunctionSerialNo=#URL.FunctionSerialNo#&fieldid=#fieldid#','fields')">										
+								     onclick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/System/Modules/InquiryBuilder/InquiryEditFieldsPurge.cfm?Datasource=#Form.querydatasource#&SystemFunctionId=#URL.SystemFunctionId#&FunctionSerialNo=#URL.FunctionSerialNo#&fieldid=#fieldid#','fields')">										
 									 
 						   </td>
 						   </tr>
@@ -432,8 +427,7 @@ password="#SESSION.dbpw#">
 				  </td>
 				   
 			    </TR>	
-				
-											
+																			
 			</cfif>
 												
 		</cfloop>		
@@ -480,7 +474,7 @@ password="#SESSION.dbpw#">
 					
 					<cfelse>
 						
-						<select name="fieldqueryalias" id="fieldqueryalias" class="regularxl" style=";border:0px">
+						<select name="fieldqueryalias" id="fieldqueryalias" class="regularxl" style="border:0px;width:100%">
 							
 							<cfloop index="itm" list="#fr#" delimiters=", ">
 		
@@ -509,7 +503,7 @@ password="#SESSION.dbpw#">
 				
 				<td style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
 				
-				 <select name="fieldiskey" id="fieldiskey" class="regularxl" style=";border:0px">							
+				 <select name="fieldiskey" id="fieldiskey" class="regularxl" style="border:0px;width:100%">							
 					<option value="1">Yes</option> 
 					<option value="0" selected>No</option> 												
 				 </select>
@@ -518,7 +512,7 @@ password="#SESSION.dbpw#">
 				 
 				<td style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
 				 
-				 <select name="fieldingrid" id="fieldingrid" class="regularxl" style=";border:0px">							
+				 <select name="fieldingrid" id="fieldingrid" class="regularxl" style="border:0px;width:100%">							
 				  	  <option value="1" selected>Yes</option> 
 					  <option value="0">No</option> 												
 				 </select>
@@ -527,7 +521,7 @@ password="#SESSION.dbpw#">
 				
 				<td style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
 				
-				  <select name="fieldalignment" id="fieldalignment" class="regularxl" style=";border:0px">							
+				  <select name="fieldalignment" id="fieldalignment" class="regularxl" style="border:0px;width:100%">							
 					  	 <option value="Left" selected>Left</option> 
 						 <option value="Center">Center</option> 
 						 <option value="Right">Right</option>												
@@ -547,11 +541,12 @@ password="#SESSION.dbpw#">
 													 
 				</td>
 				 
-				<td style="border-left:1px solid silver;padding-left:2px;padding-right:2px;">
+				<td style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
 				 
-					 <select name="fieldoutputformat" id="fieldoutputformat" class="regularxl" style="border:0px">											 
+					 <select name="fieldoutputformat" id="fieldoutputformat" class="regularxl" style="border:0px;width:100%">											 
 					 	  <option value="" selected>Default</option> 
 					 	  <option value="Date">Date</option> 
+						  <option value="DateTime">DateTime</option> 
 					   	  <option value="Time">Time</option> 
 					   	  <option value="Amount">Amount</option> 
 						  <option value="eMail">eMail</option> 																	
@@ -571,9 +566,9 @@ password="#SESSION.dbpw#">
 													 
 				</td>
 				
-				<td style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
+				<td style="border-left:1px solid silver;padding-left:2px;padding-right:2px;">
 					 
-					   <select name="fieldsort" id="fieldsort" class="regularxl" style="border:0px">							
+					   <select name="fieldsort" id="fieldsort" class="regularxl" style="border:0px;width:100%">							
 					   
 					     <option value="1">Sort</option> 
 						 <option value="2">Group</option> 
@@ -586,7 +581,7 @@ password="#SESSION.dbpw#">
 								 
 				<td align="center" style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
 				 
-					 <select name="fieldfilterclass" id="fieldfilterclass" style="width:50;border:0px" class="regularxl" onchange="toggle('FieldFilterClassMode',this.value)">
+					 <select name="fieldfilterclass" id="fieldfilterclass" style=";width:100%;border:0px" class="regularxl" onchange="toggle('FieldFilterClassMode',this.value)">
 							
 						  <option value="" selected>No</option>					 
 					 	  <option value="Text">Text</option> 
@@ -598,7 +593,7 @@ password="#SESSION.dbpw#">
 				
 				<td align="center" style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
 				 
-					 <select name="FieldFilterClassMode" id="FieldFilterClassMode" style="width:45;border:0px"  class="regularxl"disabled>							
+					 <select name="FieldFilterClassMode" id="FieldFilterClassMode" style=";width:100%;border:0px"  class="regularxl"disabled>							
 						  <option value="0" selected>Default</option> 
 					 	  <option value="1">Combo</option> 
 						  <option value="2">List</option> 		
@@ -610,7 +605,7 @@ password="#SESSION.dbpw#">
 				
 				<td style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
 					 
-					  <select name="fieldtree" id="fieldtree" class="regularxl" style="border:0px">							
+					  <select name="fieldtree" id="fieldtree" class="regularxl" style="border:0px;width:100%">							
 					  	 <option value="1">Yes</option> 
 						 <option value="0" selected>No</option> 												
 				 	  </select>
@@ -633,12 +628,7 @@ password="#SESSION.dbpw#">
 		</cfoutput>
 			
 		</table>
-		
-		</td>
-		</tr>
-											
-	</table>	
-	
+			
 </td>
 </tr>
 											

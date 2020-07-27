@@ -99,7 +99,7 @@
 </cfif> 	
 
 <!--- tab for questionaire --->	   
-<cfinclude template="ProcessActionQuestionaire.cfm">	
+
 
 <cfset boxno = boxno+1>
       
@@ -110,11 +110,8 @@
 		 username="#SESSION.login#" 
 		 password="#SESSION.dbpw#">
 		   SELECT  *
-		   FROM    OrganizationObjectAction OA, 
-		           Ref_EntityActionPublish P		
-		   WHERE   ActionId = '#URL.ID#' 
-		   AND     OA.ActionPublishNo = P.ActionPublishNo
-		   AND     OA.ActionCode = P.ActionCode 
+		   FROM    OrganizationObjectAction OA INNER JOIN Ref_EntityActionPublish P	ON OA.ActionPublishNo = P.ActionPublishNo AND  OA.ActionCode = P.ActionCode 	
+		   WHERE   ActionId = '#URL.ID#' 		   
 		</cfquery>     	
    
 	   <cfquery name="Embed" 
@@ -187,13 +184,19 @@
    
 </cfif>
 
-   			 
+   <cfquery name="Action" 
+	 datasource="AppsOrganization"
+	 username="#SESSION.login#" 
+	 password="#SESSION.dbpw#">
+	   SELECT  *
+	   FROM    OrganizationObjectAction OA INNER JOIN Ref_EntityActionPublish P	ON OA.ActionPublishNo = P.ActionPublishNo AND  OA.ActionCode = P.ActionCode 	
+	   WHERE   ActionId = '#URL.ID#' 		   
+   </cfquery>  
+   		 
 
-   <!--- tab for questionaire moved up   
+   <!--- tab for questionaire moved up ---> 
    <cfinclude template="ProcessActionQuestionaire.cfm">		 			  		  	
-   <!--- tab for instructions --->			
-   <cfinclude template="ProcessActionInstructions.cfm">   
-   --->	
+     
 					
    <!--- tab for prior documents to be shown --->		
    <cfinclude template="ProcessActionPrior.cfm">
@@ -275,7 +278,7 @@
 	        
    </cfif>   
    
-   <cfif boxno gt "2">
+   <cfif boxno gte "2">
    <script>     
 	   document.getElementById('menu1').click()	  
    </script>

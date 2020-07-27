@@ -17,7 +17,8 @@ datasource="AppsPayroll"
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
     SELECT *
-    FROM Ref_ParameterMission
+    FROM   Ref_ParameterMission
+	WHERE  Mission IN (SELECT Mission FROM Organization.dbo.Ref_Mission WHERE Operational = 1)
 </cfquery>
 
 <cfquery name="SalarySchedule" 
@@ -26,10 +27,10 @@ username="#SESSION.login#"
 password="#SESSION.dbpw#">
     SELECT *
     FROM  SalarySchedule
-	WHERE SalarySchedule IN (SELECT TOP 1 SalarySchedule 
-						     FROM   Employee.dbo.PersonContract
-							 WHERE  ActionStatus = '1'
-							 AND    PersonNo = '#URL.ID#'
+	WHERE SalarySchedule IN (SELECT   TOP 1 SalarySchedule 
+						     FROM     Employee.dbo.PersonContract
+							 WHERE    ActionStatus = '1'
+							 AND      PersonNo = '#URL.ID#'
 							 ORDER BY Created DESC)
 </cfquery>
 
@@ -166,62 +167,110 @@ password="#SESSION.dbpw#">
 		
 	</TD>
 	</TR>
+	
+	
 		
     <TR class="labelmedium">
-    <TD><cf_tl id="Effective date">:</TD>
+    <TD valign="top" style="padding-top:5px"><cf_tl id="Transactions">:</TD>
     <TD>	
-		  <cf_intelliCalendarDate9
-		FormName="MiscellaneousEntry"
-		FieldName="DateEffective"
-		class="regularxl" 
-		DateFormat="#APPLICATION.DateFormat#"
-		Default="#Dateformat(now(), CLIENT.DateFormatShow)#"
-		AllowBlank="False">	
-		
-	</TD>
-	</TR>	
+	
+	    <table style="width:340px">
+		   <tr class="line labelmedium">
+		       <td></td>
+		       <td><cf_tl id="Due"></td>
+			   <td><cf_tl id="Currency"></td>
+			   <td><cf_tl id="Amount"></td> 
+		  </tr>
+		  
+		  <cfloop index="itm" from="1" to="10">
+		  
+		  	<cfoutput>
+		  
+			   <tr class="labelmedium line">
+			   
+			   	   <td style="padding-left:4px;padding-right:4px"><cfoutput>#itm#.</cfoutput></td>
+				   
+				   <td style="padding-top:2px;padding-left:10px;border-left:1px solid silver;border-right:1px solid silver"> 
+				   
+				   		<cfif itm eq "1">
+				   
+				   		<cf_intelliCalendarDate9
+							FormName="MiscellaneousEntry"
+							FieldName="DateEffective_#itm#"
+							style="width:120px;width:110px;border:0px"
+							class="regularxl enterastab" 
+							DateFormat="#APPLICATION.DateFormat#"
+							Default="#Dateformat(now(), CLIENT.DateFormatShow)#"
+							AllowBlank="False">	
+							
+						<cfelse>
+						
+							<cf_intelliCalendarDate9
+							FormName="MiscellaneousEntry"
+							FieldName="DateEffective_#itm#"
+							style="width:120px;width:110px;border:0px"
+							class="regularxl enterastab" 
+							DateFormat="#APPLICATION.DateFormat#"
+							Default=""
+							AllowBlank="True">	
+						
+						
+						</cfif>	
+						
+			       </td>
+				   
+				   <td style="border-left:1px solid silver;border-right:1px solid silver;padding-right:4px">
+				   
+						<cfif salaryschedule.paymentCurrency neq "">
+				           <cfset cur = salaryschedule.paymentCurrency>
+						<cfelse>
+						   <cfset cur = APPLICATION.BaseCurrency>
+						</cfif>
 					
-	<TR class="labelmedium">
-    <TD><cf_tl id="Currency">:</TD>
-    <TD>	
-		<cfif salaryschedule.paymentCurrency neq "">
-           <cfset cur = salaryschedule.paymentCurrency>
-		<cfelse>
-		   <cfset cur = APPLICATION.BaseCurrency>
-		</cfif>
-	
-	  	<select name="Currency" size="1" class="regularxl">
-		<cfoutput query="Currency">
-		<option value="#Currency#" <cfif cur eq Currency>selected</cfif>>
-    		#Currency#
-		</option>
-		</cfoutput>
-	    </select>
+					  	<select name="Currency_#itm#" size="1" class="regularxl enterastab" style="border:0px;width:100%">
+						<cfloop query="Currency">
+						<option value="#Currency#" <cfif cur eq Currency>selected</cfif>>
+				    		#Currency#
+						</option>
+						</cfloop>
+					    </select>
+						
+				   </td>
+				   <td style="border-left:1px solid silver;border-right:1px solid silver;text-align">
+				   
+				   		<cfif itm eq "1">
+				   
+				       <cfinput type="Text" style="border:0px;text-align:right;padding-right:4px;width:100%" name="Amount_#itm#" 
+					    message="Please enter a correct amount" validate="float" required="Yes" size="12" maxlength="16" class="regularxl enterastab">
+						
+						<cfelse>
+						
+					   <cfinput type="Text" style="border:0px;text-align:right;padding-right:4px;width:100%" name="Amount_#itm#" 
+					    message="Please enter a correct amount" validate="float" required="No" size="12" maxlength="16" class="regularxl enterastab">
+											
+						</cfif>
+		
+				   </td> 
+			  </tr>
+		  
+		  	</cfoutput>
 			
+		  </cfloop>
+		   
+		 </table>
+	
+		 
+		
 	</TD>
 	</TR>	
 		
-	<TR class="labelmedium">
-    <TD><cf_tl id="Amount">:</TD>
-    <TD>		  	
-	    <cfinput type="Text" style="text-align:right;padding-right:3px" name="Amount" message="Please enter a correct amount" validate="float" required="Yes" size="12" maxlength="16" class="regularxl">
-			
-	</TD>
-	</TR>	
-	
 	<TR class="labelmedium">
     <TD width="120"><cf_tl id="Approval flow">:</TD>
     <TD width="90%">
 	   <cfdiv id="entityclass" bind="url:getEntityClass.cfm?mission={mission}&entitlement={entitlement}">	  		
 	</TD>
 	</TR>
-	
-	<cf_assignid>
-	
-	<cfoutput>
-	<input type="hidden" name="form.costid" value="#rowguid#">
-	</cfoutput>
-		   
+				   
 	<TR class="labelmedium">
         <td valign="top" style="padding-top:5px"><cf_tl id="Remarks">:</td>
         <TD><textarea style="width:99%;padding:3px;font-size:13px" class="regular" rows="4" name="Remarks"></textarea> </TD>

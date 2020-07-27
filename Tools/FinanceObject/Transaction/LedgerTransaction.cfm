@@ -126,7 +126,7 @@
 		 			
 		   <tr class="line">
 		   
-		   <td colspan="7">
+		   <td colspan="8">
 		   <table cellspacing="0" cellpadding="0">
 		   <tr>
 		   <td class="labelmedium" style="font-size:16px">#getJournal.Description#</td>
@@ -206,6 +206,7 @@
 		 <td class="labelsmall" align="right">Debit</td>
 		 <td class="labelsmall" align="right">Credit</td>
 		 --->
+		 <td align="right" style="padding-right:0px"><cfoutput>#application.BaseCurrency# Tax</cfoutput></td>
 		 <td align="right" style="padding-right:0px"><cfoutput>#application.BaseCurrency# #url.label#</cfoutput></td>
 		
 	   </tr>
@@ -221,7 +222,9 @@
 			           R.Description, 
 					   H.Description AS TransactionDescription, 
 					   H.JournalTransactionNo, 
+					   H.TransactionSourceId,
 					   L.Currency, 
+					   R.TaxAccount,
 					   L.TransactionAmount, 
 					   L.AmountDebit, 
 					   L.AmountCredit, 
@@ -244,7 +247,11 @@
 			AND        H.ActionStatus  <> '9' 		
 			AND        H.RecordStatus  = '1' <!--- excludedvoided --->
 			AND        L.TransactionSerialNo != '0'  
+			<!--- exclude tax bookings 
 			AND        R.TaxAccount    = '0'
+			--->
+			ORDER BY   JournalTransactionNo,Taxaccount
+			
 					
 	   </cfquery>	
 	   
@@ -253,32 +260,58 @@
 	   		<tr><td class="labelit" style="padding-top:5px" align="center" colspan="8"><font color="808080"><cf_tl id="There are no records to show in this view"></td></tr>
 	   
 	   <cfelse>
+	   
+	  		<cfset prior = "">
 	       										 
 		   <cfoutput query="LedgerTransactionData">	
-			
+		   		 			
 			 <tr class="navigation_row labelmedium line">
-			   <td style="height:20;padding-left:20px">
+			 
+					  			   
+			   <cfif prior eq journaltransactionNo>
+			     <td colspan="3"></td>
+			   <cfelse>	 
+			   
+			    <td style="height:20;padding-left:20px">
 			   <cfif attributes.editmode eq "view">
-			   <cf_img icon="view" class="navigation_action" onclick="ShowTransaction('#journal#','#journalserialno#','source')">
+			   <cf_img icon="select" class="navigation_action" onclick="ShowTransaction('#journal#','#journalserialno#','source')">
 			     <!--- ensure that the transaction is closed --->
 			   <cfelse>
-			   <cf_img icon="edit" class="navigation_action" onclick="ShowTransaction('#journal#','#journalserialno#','source')">
+			   <cf_img icon="edit" class="navigation_action" onclick="ShowTransaction('#journal#','#journalserialno#','source')">			   
 			   </cfif>
 			   
 			   </td>
 			   <td>#JournalTransactionNo#</td>
 			   <td>#TransactionDescription#</td>
+			   </cfif>
+			   
 			   <td>#Description#</td>
 			   <td>#Currency#</td>
-			   <td align="right" style="padding-right:0px">#numberformat(TransactionAmount,',.__')#</td>
+			   <td align="right" style="padding-right:0px"><cfif taxaccount eq "0">#numberformat(TransactionAmount,',.__')#</cfif></td>
 			   
-			   <cfif url.debitcredit eq "Debit">
-			     <td align="right" style="padding-right:4px;border-left:0px solid silver">#numberformat(AmountBaseDebit-AmountBaseCredit,',.__')#</td>
+			   <cfif taxaccount eq "1">
+			   
+			    <cfif url.debitcredit eq "Debit">
+			     <td align="right" style="<cfif transactionSourceId neq ''>background-color:FFCAFF</cfif>;padding-right:4px;border-left:0px solid silver">#numberformat(AmountBaseDebit-AmountBaseCredit,',.__')#</td>
 			   <cfelse>
-			     <td align="right" style="padding-right:4px;border-left:0px solid silver">#numberformat(AmountBaseCredit-AmountBaseCredit,',.__')#</td>
+			     <td align="right" style="<cfif transactionSourceId neq ''>background-color:FFCAFF</cfif>;padding-right:4px;border-left:0px solid silver">#numberformat(AmountBaseCredit-AmountBaseCredit,',.__')#</td>
+			   </cfif>
+			   <td></td>
+			   
+			   <cfelse>
+			   
+			   <td></td>
+			   <cfif url.debitcredit eq "Debit">
+			     <td align="right" style="<cfif transactionSourceId neq ''>background-color:FFCAFF</cfif>;padding-right:4px;border-left:0px solid silver">#numberformat(AmountBaseDebit-AmountBaseCredit,',.__')#</td>
+			   <cfelse>
+			     <td align="right" style="<cfif transactionSourceId neq ''>background-color:FFCAFF</cfif>;padding-right:4px;border-left:0px solid silver">#numberformat(AmountBaseCredit-AmountBaseCredit,',.__')#</td>
+			   </cfif>
+			   
 			   </cfif>
 			  
-			 </tr>			
+			 </tr>	
+			 
+			 <cfset prior = journaltransactionno>		
 			 		 		 
 		   </cfoutput>	 
 		   

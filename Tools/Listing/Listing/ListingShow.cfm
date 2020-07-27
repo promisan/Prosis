@@ -58,12 +58,11 @@
 <cfif url.content eq "1">
 
 	<table width="100%" height="100%">		
-	  <tr><td height="100%">	 
+	  <tr><td height="100%">
 	  <cfinclude template="ListingContent.cfm"></td></tr>
 	</table> 
 	
 <cfelse>
-
 
   <cfoutput>
 
@@ -147,7 +146,7 @@
 			</cfif>			
 													
 			<table width="#attributes.tablewidth#" 
-			    height="100%" 				
+			    height="#attributes.tableheight#" 				
 				align="center" 				
 				onKeyUp="listnavigateRow()">
 														 
@@ -181,6 +180,12 @@
 			   		</td>
 				</tr>	
 						
+				<input type="hidden" name="treefield"      id="treefield"       value="">
+				<input type="hidden" name="treevalue"      id="treevalue"       value="">
+				<input type="hidden" name="listorder"      id="listorder"       value="#url.listorder#">	
+				<input type="hidden" name="listorderfield" id="listorderfield"  value="#url.listorderfield#">	
+				<input type="hidden" name="listorderalias" id="listorderalias"  value="#url.listorderalias#">	
+				<input type="hidden" name="listorderdir"   id="listorderdir"    value="#url.listorderdir#">	
 								
 				<cfif attributes.filtershow neq "No">
 				

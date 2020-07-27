@@ -557,7 +557,7 @@
 			</cfoutput>
 			
 			</td>
-			<td class="labellarge" style="font-weight:200;height:31px;padding-left:3px;font-size:24px;;height:42px;"><cf_tl id="Funding"></td>
+			<td class="labellarge" style="font-weight:200;height:31px;padding-left:3px;font-size:20px;;height:42px;"><cf_tl id="Funding"></td>
 			</tr>
 		  </table>
 	  	</td></tr>
@@ -647,7 +647,7 @@
 						<img src="#SESSION.root#/Images/arrowdown.gif"  alt="" id="linesMin" border="0" class="regular" align="absmiddle">				
 					
 					</td>					
-					<td onClick="more('lines','show')" class="labellarge" style="font-weight:200;height:31px;padding-left:3px;font-size:24px;;height:42px;"><cf_tl id="Purchase details and Receipts"></td>					
+					<td onClick="more('lines','show')" class="labellarge" style="font-weight:200;height:31px;padding-left:3px;font-size:20px;;height:42px;"><cf_tl id="Purchase details and Receipts"></td>					
 					<td width="80">
 				
 						<cf_tl id="Export data to Excel" var="vExport">
@@ -741,7 +741,7 @@
 			</cfoutput>
 			
 			</td>
-			<td class="labellarge" style="font-weight:200;height:31px;padding-left:3px;font-size:24px;;height:42px;"><cf_tl id="Distribution"></td>
+			<td class="labellarge" style="font-weight:200;height:31px;padding-left:3px;font-size:20px;;height:42px;"><cf_tl id="Distribution"></td>
 			</tr>
 		  </table>
 	  	</td></tr>
@@ -827,7 +827,7 @@
 					
 				</cfoutput>	
 				</td>
-				<td class="labellarge" style="font-weight:200;padding-left:3px;font-size:24px;;height:42px;"><cf_tl id="Advances"></td>
+				<td class="labellarge" style="font-weight:200;padding-left:3px;font-size:20px;;height:42px;"><cf_tl id="Advances"></td>
 				</tr>
 		  </table>
 		  </td></tr>
@@ -891,7 +891,7 @@
 				</td>
 				<td onClick="more('inv','show','inv2')" 
 				    class="labellarge" 
-					style="font-weight:200;height:31px;padding-left:3px;font-size:24px;;height:42px;"><cfoutput>#vReceived#</cfoutput></td>
+					style="font-weight:200;height:31px;padding-left:3px;font-size:20px;;height:42px;"><cfoutput>#vReceived#</cfoutput></td>
 								
 				<cfif (Lines.recordcount gte "0" and (ApprovalAccess eq "EDIT" or ApprovalAccess eq "ALL")) 
 				    or getAdministrator(Lines.mission) eq "1">
@@ -940,7 +940,7 @@
 						   width="25"
 						   id="refreshinvoiceline"
 						   align="absmiddle"
-						   onclick="_cf_loadingtexthtml='';	ColdFusion.navigate('POViewInvoice.cfm?sort=#url.sort#&mode=#url.mode#&id1=#url.id1#&filter='+inputinvoice.value,'invoicecontent')">
+						   onclick="_cf_loadingtexthtml='';	ptoken.navigate('POViewInvoice.cfm?sort=#url.sort#&mode=#url.mode#&id1=#url.id1#&filter='+inputinvoice.value,'invoicecontent')">
 						</td>
 					</tr>
 				  </table>
@@ -1055,7 +1055,7 @@
 				
 			</cfoutput>
 			</td>
-			<td class="labellarge" style="font-weight:200;height:31px;padding-left:3px;font-size:24px;;height:42px;"><cf_tl id="Responsible officers"></td>
+			<td class="labellarge" style="font-weight:200;height:31px;padding-left:3px;font-size:20px;;height:42px;"><cf_tl id="Responsible officers"></td>
 			</tr>
 	  </table>
 	  </td></tr>
@@ -1107,7 +1107,7 @@
 				
 			</cfoutput>
 			</td>
-			<td class="labellarge" style="font-weight:200;height:31px;font-size:24px;;padding-left:3px;height:40"><font color="0080C0"><cfoutput>#vHistory#</cfoutput></td>
+			<td class="labellarge" style="font-weight:200;height:31px;font-size:20px;;padding-left:3px;height:40"><font color="0080C0"><cfoutput>#vHistory#</cfoutput></td>
 			</tr>
 	  </table>
 	  </td></tr>

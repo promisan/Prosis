@@ -16,6 +16,7 @@
 <cf_actionListingScript>
 <cf_dialogPosition>
 <cf_filelibraryscript>
+<cf_calendarscript>
 
 <cfinclude template="EventsScript.cfm">
 
@@ -38,17 +39,25 @@
 
 <table height="100%" width="99%" align="center" border="0">		
       
-        <cfset vShowHeader = "">
-      	<cfif url.scope neq "backoffice">
-			<cfset vShowHeader = "display:none;">
-		</cfif>
-        <tr style="height:10px"><td style="<cfoutput>#vShowHeader#</cfoutput>">		
-		    <cfset ctr = "1">
-			<cfset openmode = "show">
-			<cfinclude template="../PersonViewHeaderToggle.cfm">
-		</td></tr>
+       	<cfif url.scope eq "backoffice">
 		
-		<tr><td valign="top" style="padding-left:10px;padding-right:10px;height:100%">
-			<cf_securediv id="eventdetail" bind="url:EventsListing.cfm?id=#url.id#" style="height:100%">
-		</td></tr>   		
+			<tr style="height:10px"><td>		
+			    <cfset ctr = "1">
+				<cfset openmode = "show">
+				<cfinclude template="../PersonViewHeaderToggle.cfm">
+			</td></tr>
+			
+			<tr><td valign="top" style="padding-left:10px;padding-right:10px;height:100%">
+				<cf_securediv id="eventdetail" bind="url:EventsListing.cfm?scope=#url.scope#&id=#url.id#" style="height:100%">
+			</td></tr>   
+			
+		<cfelse>	
+		
+			<tr><td valign="top" style="padding-left:10px;padding-right:10px;height:100%">
+			<cf_securediv id="eventdetail" bind="url:SelfService.cfm?scope=#url.scope#&id=#url.id#" style="height:100%">
+		</td></tr>   			
+		
+		</cfif>
+		
+     	
 </table>	

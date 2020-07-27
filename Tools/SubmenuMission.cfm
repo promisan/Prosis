@@ -209,6 +209,7 @@
 		<cfelse>	
 		
 		    <cfif Module neq "">
+			
 			AND    Mission IN (SELECT  Mission 
 			                     FROM  Ref_MissionModule 
 								 WHERE SystemModule = #preserveSingleQuotes(Module)#)
@@ -224,7 +225,7 @@
 		</cfif>			
 		
 		ORDER BY MissionType, 
-		         R.Operational DESC,
+		         R.Operational DESC, 
 				 OrderSort, 
 				 Mission, 
 				 MissionParent				 
@@ -263,6 +264,13 @@
 		 WHERE    Operational = '#Operational#' 
 			AND   MissionType = '#MissionType#' 	
 			AND   Mission IN (#QuotedValueList(SearchResultA.Mission)#) 
+			
+			<cfif Module neq "">
+			
+			AND    Mission IN (SELECT  Mission 
+			                     FROM  Ref_MissionModule 
+								 WHERE SystemModule = #preserveSingleQuotes(Module)#)
+			</cfif>		
 		
 		 <cfif SESSION.isLocalAdministrator neq "No">
 		 	
@@ -274,16 +282,26 @@
 			 FROM     Ref_Mission
 			 
 			 WHERE    Mission IN (#preserveSingleQuotes(SESSION.isLocalAdministrator)#) 	
-			 AND      MissionType = '#MissionType#' 		
+			 AND      MissionType = '#MissionType#' 	
+			 AND      Operational = '#Operational#'	
+			 
+			 <cfif Module neq "">
+			
+			 AND      Mission IN (SELECT  Mission 
+			                     FROM  Ref_MissionModule 
+								 WHERE SystemModule = #preserveSingleQuotes(Module)#)
+			</cfif>		
 		 
 		 </cfif>
 		 	 
 		</cfquery>		
-									
+											
 		<cfset Group = GroupMission.recordCount>	
+		
 					
 	<cfelseif VerifyArea neq "">	
-			
+	
+				
 		<!--- roles under an area --->
 			
 		<cfquery name="GroupMission" 
@@ -391,12 +409,12 @@
 								
 			  <table width="100%">	
 			  			  			 			  			   			   			   		   
-			   <TR id="#MissionType#1" class="cSearch">
+			   <TR id="#MissionType#1" class="cSearch line">
 				   <td colspan="6" width="10%">
 				   	  <table width="100%" border="0">
 					    <tr>
-						  <td colspan="1" style="height:45px;font-size:26px;padding-top:5px;padding-left:11px" class="labelmedium">
-					   		#MissionType# : #groupmission.recordcount#
+						  <td colspan="1" style="height:55px;font-size:32px;padding-top:5px;padding-left:11px" class="labelmedium">
+					   		#MissionType# <font size="3">## #groupmission.recordcount#</font>
 						  </td>
 						</TR>
 					  </table> 

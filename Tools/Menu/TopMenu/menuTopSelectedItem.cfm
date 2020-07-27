@@ -13,18 +13,40 @@
 
 <cfoutput>
 
-<table width="#Attributes.Width#"
-       border="0"
-	   height="28"
-	   align="center"
-       cellspacing="0"
-       cellpadding="0">
+<table width="#Attributes.Width#" align="center">
 	   
-<tr><td height="20"></td></tr>	   
-	    
+<tr><td height="20"></td></tr>
+
 <tr id="menu" class="regular">
 
-	<td align="left" style="padding-left:50px" valign="bottom">
+	<td style="padding-left:10px;padding-top:5px;">
+		<cfquery name="Item"
+				datasource="AppsSystem"
+				username="#SESSION.login#"
+				password="#SESSION.dbpw#">
+				SELECT   *
+				FROM     xl#Client.LanguageId#_Ref_ModuleControl
+				WHERE    SystemFunctionId = '#URL.IDMenu#'
+		</cfquery>
+
+		<cfset vFunction = "">
+
+		<cfif URL.IDrefer neq "undefined" and URL.IDRefer neq "">
+			<cfset vText = URL.IDrefer>
+			<cfset vFunction = "javascript:history.back()">
+		<cfelse>
+			<cfset vText = Item.FunctionClass>
+		</cfif>
+		
+		<cf_tl id="#vText#" var ="lbl">
+
+		<cf_UIBreadCrumb id="maintenance" text = "#lbl#" href="#vFunction#">
+				<cf_UIBreadCrumbItem text = "#Item.FunctionName#"/>
+		</cf_UIBreadCrumb>
+				
+	</td>
+
+	<td align="right" style="padding-right:15px;width:100%">
 	
 		<cfif attributes.showmenu eq "1">
 		
@@ -61,27 +83,6 @@
 										  
 	</td>
 	
-	<td align="right" style="padding-top:5px">
-		
-		<cfquery name="Item" 
-			datasource="AppsSystem" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-			SELECT   *
-			FROM     Ref_ModuleControl
-			WHERE    SystemFunctionId = '#URL.IDMenu#'
-		</cfquery>	
-		
-		<font face="Verdana" size="1">&nbsp;
-		<cfif URL.IDrefer neq "undefined" and URL.IDRefer neq "">
-		<a href="javascript:history.back()" title="Menu">
-		<font color="0080C0">#URL.IDrefer#</font></a>->
-		<cfelse>
-		#Item.FunctionClass# -> 
-		</cfif>
-		<b><font color="gray">#Item.FunctionName#</font></b>
-		&nbsp;	  
-	</td>
 	
  </tr> 
  

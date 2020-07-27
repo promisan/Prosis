@@ -6,8 +6,6 @@
 	<proCom></proCom>
 </cfsilent>
 
-<head></head>
-
 <cfoutput>
 
 <cfquery name="Parameter" 
@@ -194,11 +192,11 @@ function reqsearch() {
 
 <cfsavecontent variable="option">
 
-<table class="formpadding">
+<table>
 
 <tr>
-   <td class="labelit" style="padding-top:1px;padding-right:5px"><cf_tl id="REQ004">:</td>
-   <td align="right" style="padding-top:2px">
+   <td class="labelit" style="padding-right:5px"><cf_tl id="REQ004">:</td>
+   <td align="right">
    
      <table cellspacing="0" cellpadding="0">
 		<tr>
@@ -209,7 +207,7 @@ function reqsearch() {
 	    <cfloop query="PeriodList">
 		  <td>
 		  <input type="radio" 
-		    onclick="document.getElementById('periodsel').value='#period#';ColdFusion.navigate('RequisitionBuyerPrepare.cfm?period='+this.value+'&mission=#url.mission#','box')" 
+		    onclick="Prosis.busy('yes');_cf_loadingtexthtml='';document.getElementById('periodsel').value='#period#';ptoken.navigate('RequisitionBuyerPrepare.cfm?period='+this.value+'&mission=#url.mission#','box')" 
 			name="Period" 
 			id="box#Period#"
 			value="#Period#" <cfif url.period eq period>checked</cfif>>		
@@ -238,7 +236,7 @@ function reqsearch() {
 
 </cfoutput>
 
-<cf_screentop jQuery="Yes" height="100%" layout="webapp" banner="gray" option="#option#" label="Requisition Assignment" band="no" scroll="yes">
+<cf_screentop jQuery="Yes" height="100%" layout="webapp" banner="yellow" bannerforce="Yes" option="#option#" label="Requisition Assignment" band="no" scroll="yes">
 
 <table width="99%" height="99%" border="0" align="center">
 

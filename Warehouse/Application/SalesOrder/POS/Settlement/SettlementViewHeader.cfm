@@ -151,6 +151,7 @@
 		 	GROUP BY ITS.SalesCurrency	
 		</cfquery>		
 		
+				
 		
 		<cfif getSettlement.sTotal lt getSale.sTotal >
 		

@@ -48,24 +48,23 @@
 
 <cfform name="insuranceinputform" onsubmit="return false">
 
-	<table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+	<table width="100%" align="center" class="formspacing">
 	
 		<cfoutput>
-		
-			
-		
+				
 		<!--- ---------------------------- --->
 		<!--- ------custom information---- --->
 		<!--- ---------------------------- --->
 		
 		<cfinclude template="Event.cfm">	
 		
-		<tr>
-		<td height="18" class="labelit" width="200">&nbsp;&nbsp;<cf_tl id="Contract Description"></td>
-		<td class="labelit"><font color="0080FF">#Job.Description#</td>
+		<tr class="labelmedium">
+		<td height="18" width="200"><cf_tl id="Contract Description"></td>
+		<td><font color="0080FF">#Job.Description#</td>
 		</tr>
 		
-		<tr><td class="labelit" height="18">&nbsp;&nbsp;<cf_tl id="Amount"></td>
+		<tr class="labelmedium">
+		<td height="18"><cf_tl id="Amount"></td>
 		
 		<cfquery name="Amount" 
 		datasource="AppsPurchase" 
@@ -82,15 +81,15 @@
 		<td>
 		<table cellspacing="0" cellpadding="0">
 		<cfloop query="Amount">
-		<tr><td class="labelit"><font color="0080FF">#Currency# <cfif tax neq "">#numberformat(cost+tax,"__,__.__")#<cfelse>#numberformat(cost,"__,__.__")#</cfif></td></tr>
+		<tr><td class="labelit"><font color="0080FF">#Currency# <cfif tax neq "">#numberformat(cost+tax,",.__")#<cfelse>#numberformat(cost,",.__")#</cfif></td></tr>
 		</cfloop>
 		</table>
 		</td>
 		
 		</tr>
 				
-		<tr>
-		<td class="labelit" height="18">&nbsp;&nbsp;<cf_tl id="Object of Expenditure"></td>
+		<tr class="labelmedium">
+		<td height="18"><cf_tl id="Object of Expenditure"></td>
 		<td>
 		
 		<cfquery name="Object" 
@@ -175,9 +174,9 @@
 				</td>
 			
 			<td>
-			<td class="labelit">&nbsp;&nbsp;<cf_tl id="Number">:&nbsp;</td>
+			<td class="labelit">&nbsp;<cf_tl id="Number"></td>
 			<td><input type="text" name="InsuranceNo" id="InsuranceNo" size="10" maxlength="20" value="#JobVendor.InsuranceNo#" class="regularxl"></td>
-			<td class="labelit">&nbsp;&nbsp;<cf_tl id="Amount">:</td>
+			<td class="labelit">&nbsp;<cf_tl id="Amount"></td>
 			<td><cfinput type="Text"
 		       name="InsuranceAmount" 
 			   size="10"

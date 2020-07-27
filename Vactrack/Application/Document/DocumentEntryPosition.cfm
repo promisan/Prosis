@@ -59,41 +59,58 @@
 				
 			<cf_divscroll style="height:100%">
 			
-			    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="formpadding formspacing">
-						
-				<TR>
-			    
-			    <td height="20" class="labelmedium"><cf_tl id="Entity">:</td>
-				<td class="labelmedium">
-					<cfoutput>#Position.Mission#</cfoutput>
-					<input type="hidden" name="Mission" value="<cfoutput>#Position.Mission#</cfoutput>">						 
-			    </td>
-				</TR>		
+			    <table border="0" width="100%" class="formpadding formspacing">
 				
-				<TR>
-			    <TD class="labelmedium"><cf_tl id="PositionNo">:</TD>
-			    <TD>
-					<input class="regularxl" style="background-color:f1f1f1" type="text" name="positionno" value="<cfoutput>#Position.PositionNo#</cfoutput>" size="8" maxlength="8" readonly style="text-align: center;">								
-				</td>
-				</TR>	
+				<cfquery name="Owner" 
+					datasource="AppsOrganization" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+					  SELECT *
+					  FROM   Ref_AuthorizationRoleOwner M
+					  WHERE  Code = '#accessTrack.Owner#'	 		
+				</cfquery>				
 			
-				<TR>
-			    <TD style="min-width:120px" class="labelmedium"><cf_tl id="Position">:</TD>
-			    <TD>	
-				    <input class="regularxl" style="background-color:f1f1f1" type="text" name="SourcePostnumber" size="20" maxlength="20" value="<cfoutput>#Position.SourcePostNumber#</cfoutput>" readonly>								
-				</td>
-				</TR>			
-			
-				<TR>
+				<TR class="xhide">
 			    <TD class="labelmedium" height="23"><cf_tl id="Owner"> :</TD>
 			    <TD class="labelmedium">
-				    <cfoutput>#accessTrack.Owner# / #Position.PostType# 
+				    <cfoutput>#Owner.Description# / #Position.PostType# 
 					<input type="hidden" name="Owner"    value="#accessTrack.Owner#">
 					<input type="hidden" name="PostType" value="#Position.PostType#">
 				    </cfoutput>
 				</td>
 				</TR>		
-									
+						
+				<TR>			    
+			    <td height="20" class="labelmedium"><cf_tl id="Entity">:</td>
+				<td class="labelmedium">
+					<cfoutput>#Position.Mission#</cfoutput>
+					<input type="hidden" name="Mission" value="<cfoutput>#Position.Mission#</cfoutput>">						 
+			    </td>
+				</TR>	
+				
+				<cfif Position.SourcePostNumber eq "">	
+				
+					<TR>
+				    <TD class="labelmedium"><cf_tl id="PositionNo">:</TD>
+				    <TD>
+						<input class="regularxl" style="background-color:f1f1f1" type="text" name="positionno" value="<cfoutput>#Position.PositionNo#</cfoutput>" size="8" maxlength="8" readonly style="text-align: center;">								
+					    <input type="hidden" name="SourcePostnumber" value="<cfoutput>#Position.SourcePostNumber#</cfoutput>">								
+		
+					</td>
+					</TR>	
+				
+				<cfelse>
+			
+					<TR>
+				    <TD style="min-width:120px" class="labelmedium"><cf_tl id="Position">:</TD>
+				    <TD>	
+					    <input class="regularxl" style="background-color:f1f1f1" type="text" name="SourcePostnumber" size="20" maxlength="20" value="<cfoutput>#Position.SourcePostNumber#</cfoutput>" readonly>								
+						<input type="hidden" name="positionno" value="<cfoutput>#Position.PositionNo#</cfoutput>">	
+					</td>
+					</TR>	
+				
+				</cfif>		
+								
 				<TR>
 			    <TD class="labelmedium"><cf_tl id="Post grade">:</TD>
 			    <TD><input type="text" class="regularxl" style="background-color:f1f1f1" value="<cfoutput>#Position.PostGrade#</cfoutput>" name="postgrade" size="10" maxlength="10" readonly>
@@ -104,7 +121,7 @@
 			    <TD class="labelmedium"><cf_tl id="Functional title">:</TD>
 			    <TD>
 				
-					<table style="border:1px solid silver" cellspacing="0" cellpadding="0">
+					<table style="border:1px solid silver">
 					<tr><td style="height:15px;padding:0px">
 				
 					 <cfoutput>
@@ -291,6 +308,4 @@
 		
 </cfif>		
 
-
 <cfset ajaxonload("doCalendar")>
-

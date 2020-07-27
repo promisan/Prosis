@@ -1,5 +1,7 @@
 
-<cf_screentop height="100%" scroll="No" label="Receivable" html="Yes" close="ProsisUI.closeWindow('wsettle')" banner="gray" layout="webapp">
+<!---
+<cf_screentop height="100%" scroll="No" label="Receivable" html="no" close="ProsisUI.closeWindow('wsettle')" banner="gray" layout="webapp">
+--->
 
 <table cellspacing="0" cellpadding="0" bgcolor="FFFFFF" style="height:100%;width:100%">
 
@@ -25,19 +27,19 @@
 
 <cfset url.currency = getSale.SalesCurrency>
 
-<CF_DateConvert Value="#dateformat(now(),client.dateformatshow)#">
-<cfset TDY = datevalue>
-
 <cfset dateValue = "">
 <CF_DateConvert Value="#url.td#">
 <cfset DTE = dateValue>
 
-<cfif DTE gte TDY>
-   <cfset DTE = TDY>
+
+<!--- provision for carlos as dates went wild --->
+
+<!---
+<cfset diff = abs(dateDiff("d",now(),dte))>
+<cfif diff gte "1">
+   <cfset DTE = now()>
 </cfif>
-	
-<cfset dte = DateAdd("h","#url.th#", dte)>
-<cfset dte = DateAdd("n","#url.tm#", dte)>
+--->
 
 <cfinclude template="ZeroPriceValidation.cfm">
 <cfinclude template="../Settlement/OversaleValidation.cfm">
@@ -50,7 +52,9 @@
 	   customeridinvoice  = "#url.customeridinvoice#"
 	   addressid	      = "#url.addressid#"
 	   currency           = "#url.Currency#"
-	   transactiondate    = "#dte#"
+	   transactiondate    = "#dateformat(dte,client.dateformatshow)#"
+	   transactionhour    = "#url.th#"
+	   transactionminute  = "#url.tm#"
 	   Settlement         = "0"
 	   Workflow           = "Yes"
 	   cleanup            = "Yes"

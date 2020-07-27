@@ -550,7 +550,7 @@ password="#SESSION.dbpw#">
 							<cfif URL.type eq "report">
 															
 								<tr>
-								<td class="labelmedium" style="padding-top:6px;padding-right:5px;padding-left:23px;cursor:pointer">
+								<td class="labelmedium" style="min-width:200px;padding-right:5px;padding-left:23px;cursor:pointer">
 								<cf_UIToolTip
 								tooltip="Select the type of layout the document will have">
 								Layout:</cf_UIToolTip>
@@ -564,7 +564,7 @@ password="#SESSION.dbpw#">
 								</tr>
 
 								<tr>
-								<td class="labelmedium" style="cursor:pointer">
+								<td class="labelmedium" style="min-width:200px;padding-right:5px;padding-left:23px;cursor:pointer">
 								<cf_UIToolTip tooltip="Select the type of layout the document will have">Orientation:</cf_UIToolTip>
 								</td>
 								<td  style="padding:3px">
@@ -576,19 +576,19 @@ password="#SESSION.dbpw#">
 								</tr>	
 								
 								<tr>							
-								<td class="labelmedium" style="padding-top:6px;padding-right:5px;padding-left:23px;cursor:pointer">
+								<td class="labelmedium" style="padding-right:5px;padding-left:23px;cursor:pointer">
 									<cf_UIToolTip tooltip="Select the type of layout the document will have">Editor:</cf_UIToolTip>
 								</td>							
 								<td  style="padding:3px">
 								  <select name="DocumentEditor" id="DocumentEditor" class="regularxl">
 								 	  <option value="CK" selected>CK editor</option>
-									  <option value="FCK">FCK Editor</option>
+									  <option value="FCK">FCK Editor [deprecated CF11]</option>
 								  </select>
 								</td>								
 								</tr>													
 								
 								<tr>
-									<td class="labelmedium" style="padding-top:6px;padding-right:5px;padding-left:23px;cursor:pointer">
+									<td class="labelmedium" style="padding-right:5px;padding-left:23px;cursor:pointer">
 									<cf_UIToolTip tooltip="Pointer to define if the template uses the standard framework for document generation which requires the user to select a language and formatting (letter, memo, fax)">
 									Framework:</cf_UIToolTip>
 									</td>
@@ -597,7 +597,7 @@ password="#SESSION.dbpw#">
 								</tr>
 								
 								<tr>
-									<td class="labelmedium" style="padding-top:6px;padding-right:5px;padding-left:23px;cursor:pointer">
+									<td class="labelmedium" style="padding-right:5px;padding-left:23px;cursor:pointer">
 										<cf_UIToolTip tooltip="Pointer to define if this report will be presented under a custom portal">Portal:</cf_UIToolTip>
 									</td>
 									<td style="padding:3px"><input type="checkbox" class="radiol" name="PortalShow" id="PortalShow" value="1" checked>
@@ -605,8 +605,8 @@ password="#SESSION.dbpw#">
 								</tr>
 								
 								<tr>
-									 <td class="labelmedium" style="padding-top:6px;padding-right:5px;padding-left:23px;cursor:pointer">
-									 <cf_UIToolTip	tooltip="A context senstive value to be used for filtering at runtime valid reports.  Example: 'norefresh' makes this document not being refreshed upon form submission.">
+									 <td class="labelmedium" style="padding-right:5px;padding-left:23px;cursor:pointer">
+									 <cf_UIToolTip tooltip="A context senstive value to be used for filtering at runtime valid reports.  Example: [norefresh] makes this document not being refreshed upon form submission.">
 									 Usage Criteria:</cf_UIToolTip>
 									 </td>
 									 <td style="padding:3px">								 
@@ -620,11 +620,8 @@ password="#SESSION.dbpw#">
 								</tr>								
 								
 								<tr>
-									<td class="labelmedium" style="padding-top:6px;padding-right:5px;padding-left:23px;cursor:pointer">
-									<cf_UIToolTip
-										 tooltip="Add this password to the generate PDF of this report">
-									PDF Password:&nbsp;
-									</cf_UIToolTip>
+									<td class="labelmedium" style="padding-right:5px;padding-left:23px;cursor:pointer">
+									<cf_UIToolTip tooltip="Add this password to the generate PDF of this report">PDF Password:</cf_UIToolTip>
 									</td>
 									<td style="padding:3px">								
 										<input type="Text" 
@@ -639,7 +636,7 @@ password="#SESSION.dbpw#">
 							<cfelseif URL.type eq "document">
 								
 								<tr>							
-								<td class="labelmedium" style="padding-top:6px;padding-right:5px;padding-left:23px;cursor:pointer">
+								<td class="labelmedium" style="padding-right:5px;padding-left:23px;cursor:pointer">
 								<cf_UIToolTip
 									 tooltip="Add this password to the generate PDF of this document">
 								Password:&nbsp;
@@ -656,9 +653,7 @@ password="#SESSION.dbpw#">
 								
 								</tr>
 							
-							</cfif>	
-							
-															
+							</cfif>															
 			
 			</cfif>
 			

@@ -20,13 +20,13 @@ WHERE    I.TransactionId  = '#URL.TransactionId#'
 		
 		   <cfcase value="quantity">
 		 
-			<td width="90%" align="right">
+			<td width="95%" align="right">
 				
 				<input type="text" 
 				    name="#url.field##url.transactionid#" 
 					id="#url.field##url.transactionid#"
 					value="#-1*get.TransactionQuantity#" 
-					style="text-align:right;width:80"
+					style="text-align:right;width:80;border:0px;border-left:1px solid silver;border-right:1px solid silver"
 					class="regularxl">
 										
 			</td>
@@ -50,7 +50,7 @@ WHERE    I.TransactionId  = '#URL.TransactionId#'
 				
 				</td>
 				
-				<td style="padding-left:2px">
+				<td style="padding-left:2px;padding-top:2px">
 				
 			   <img src="#SESSION.root#/images/delete5.gif" height="20" width="20" alt="" border="0" 
 			    onclick="if (confirm('Are you sure to void this transaction permanently ?')) { ptoken.navigate('#SESSION.root#/warehouse/application/stock/batch/setTransactionEditSubmit.cfm?systemfunctionid=#url.systemfunctionid#&batchno=#get.TransactionBatchNo#&transactionid=#transactionid#&field=#url.field#&value=void','#url.field#_#url.transactionid#') }">							

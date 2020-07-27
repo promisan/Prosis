@@ -141,7 +141,7 @@ password="#SESSION.dbpw#">
 							   
 							   <td>
 							   
-							      <select name="languagecode#documentcode#" id="languagecode#documentcode#" size="1" class="regularxl">
+							      <select name="languagecode#documentcode#" id="languagecode#documentcode#" size="1" class="regularxl" style="border:0px;border-left:1px solid silver;border-right:1px solid silver">
 									  <cfloop query="Language">
 										  <option value="#code#" <cfif presetlan eq Code>selected</cfif>>#Code#</option>
 									  </cfloop>
@@ -181,7 +181,7 @@ password="#SESSION.dbpw#">
 									
 									<cfelse>																	
 																												
-							        <select name="format#documentcode#" id="format#documentcode#" style="width:90px" size="1" class="regularxl">
+							        <select name="format#documentcode#" id="format#documentcode#" style="border:0px;border-left:1px solid silver;border-right:1px solid silver" size="1" class="regularxl">
 										<cfloop list="#vListFinal#" index="vItem">
 											<option value="#vItem#" <cfif Format.DocumentFormat eq "#vItem#">selected</cfif>>#vItem#</option>
 										</cfloop>
@@ -232,7 +232,7 @@ password="#SESSION.dbpw#">
 						   	
 							<cfif signature.recordcount gte "1">
 						   
-						   		<select name="signatureblock#documentcode#" id="signatureblock#documentcode#" size="1" class="regularxl">
+						   		<select name="signatureblock#documentcode#" id="signatureblock#documentcode#" style="border:0px;border-left:1px solid silver;border-right:1px solid silver" size="1" class="regularxl">
 								<cfloop query="Signature">
 								    <option value="#code#" <cfif Format.SignatureBlock eq "#Code#">selected</cfif>>#Code# #BlockLine1#</option>
 								</cfloop>

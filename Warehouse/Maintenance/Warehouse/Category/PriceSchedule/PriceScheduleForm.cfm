@@ -28,7 +28,8 @@
 		AND		Category = '#url.category#'
 </cfquery>
 
-<cfform name="frmItemPriceSchedule" method="POST" action="Category/PriceSchedule/PriceScheduleSubmit.cfm?warehouse=#url.warehouse#&category=#url.category#">
+<cfform name="frmItemPriceSchedule" 
+    method="POST" action="Category/PriceSchedule/PriceScheduleSubmit.cfm?warehouse=#url.warehouse#&category=#url.category#">
 
 <table width="98%" align="center" cellpadding="0" class="formpadding">
 	
@@ -45,7 +46,7 @@
 	</tr>
 	
 	<cfloop query="Schedule">
-		<tr class="labelmedium"> 
+		<tr class="labelmedium line"> 
 		
 			<cfoutput>
 				<td bgcolor="D9FFDC" style="border:1px solid C0C0C0;padding-left:4px">#Description#</td>
@@ -76,7 +77,7 @@
 						<table>
 							<tr>
 								<td valign="middle">
-									<input 	type="Checkbox" 
+									<input 	type="Checkbox" class="radiol"
 										name="cb_#Schedule.code#_#Currency.Currency#" 
 										id="cb_#Schedule.code#_#Currency.Currency#" 
 										onclick="javascript: hlChecked('#Schedule.code#','#Currency.Currency#');"
@@ -88,7 +89,7 @@
 									<cfset vClass = "hide">
 								</cfif>
 								<td id="td_details_#Schedule.code#_#Currency.Currency#" style="padding-left:5px;" class="#vClass#">
-									<table>
+									<table class="formspacing">
 										<tr>
 											<td style="font-size:10px;"><cf_tl id="Multiplier">:</td>
 											<td>
@@ -150,8 +151,7 @@
 	
 	<cfif url.isReadOnly eq 0>
 	
-		<tr><td height="10"></td></tr>
-		<tr><td class="line" colspan="<cfoutput>#totalCols#</cfoutput>"></td></tr>
+		
 		<tr><td height="5"></td></tr>	
 		<tr>
 			<td colspan="<cfoutput>#totalCols#</cfoutput>" align="center">				

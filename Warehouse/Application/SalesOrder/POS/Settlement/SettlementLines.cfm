@@ -1,6 +1,10 @@
 <cfparam name="url.addressid"  default="00000000-0000-0000-0000-000000000000">
 <cfparam name="url.scope"  default="settlement">
 
+<cfif URL.addressid eq "">
+	<cfset URL.addressid = "00000000-0000-0000-0000-000000000000">
+</cfif>
+
 <cfquery name="getSettle"
  datasource="AppsTransaction" 
  username="#SESSION.login#" 

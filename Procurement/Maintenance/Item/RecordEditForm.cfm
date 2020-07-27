@@ -49,11 +49,10 @@ password="#SESSION.dbpw#">
 		
 	<tr><td style="padding-top:5px;padding-left:20px">
 	
-	<table width="96%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+	<table width="96%" align="center" class="formpadding">
 	
-	<tr><td class="labellarge" style="height:39px;font-size:26px"><cf_tl id="Identification"></td>
-	
-	
+	<tr class="line"><td class="labellarge" style="height:39px;font-size:26px"><cf_tl id="Identification"></td>
+		
 	<td align="right" style="padding-right:4px">
 		<table cellspacing="1" cellpadding="1">
 		<tr>
@@ -67,7 +66,7 @@ password="#SESSION.dbpw#">
 	</td>
 	
 	</tr>	
-	<tr><td colspan="2" class="linedotted"></td></tr>	
+	
 	
 	<cfoutput>
 				 
@@ -153,8 +152,7 @@ password="#SESSION.dbpw#">
 		    
 		    <cfset cnt = 1>
 			
-			<cfloop query="Mis">	
-			
+			<cfloop query="Mis">				
 				
 				<cfif cnt eq "1"><tr></cfif>		    
 			
@@ -169,8 +167,6 @@ password="#SESSION.dbpw#">
 				</cfif>
 				
 			</cfloop>
-						
-			
 			
 			</table>
 		</td>
@@ -198,7 +194,7 @@ password="#SESSION.dbpw#">
 			</cfquery>		
 			
 			<select name="EntryClass" id="EntryClass" class="regularxl" 
-			   onchange="ColdFusion.navigate('getEntryClass.cfm?code='+this.value,'result')">		
+			   onchange="ptoken.navigate('getEntryClass.cfm?code='+this.value,'result')">		
 				<cfloop query="entry">
 					<option value="#code#"  <cfif get.EntryClass eq "#code#">selected</cfif>>#Description#</option>
 				</cfloop>
@@ -278,7 +274,7 @@ password="#SESSION.dbpw#">
 	
   	  	<cfinput type = "Text"
 	       name       = "CostPrice"
-	       value      = "#numberformat(get.CostPrice,'__,__.__')#"
+	       value      = "#numberformat(get.CostPrice,',.__')#"
 	       message    = "Please enter a price"
 	       validate   = "float"
 	       required   = "No"    	

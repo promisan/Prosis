@@ -331,7 +331,7 @@
 				    <td style="height:30;padding-left:7px" class="labelmedium"><cf_tl id="Issue from">:<cf_space spaces="48"></td>						
 					<td colspan="1" style="padding-left:0px" class="label" id="locationbox"><cfinclude template="getLocationSelect.cfm"></td>				
 													
-					<td style="height:30;padding-left:10px"  class="labelmedium"><cf_tl id="Product">:</td>			
+					<td style="height:30;padding-left:10px;min-width:70px"  class="labelmedium"><cf_tl id="Product">:</td>			
 					<td id="itembox" style="padding-left:6px"><cfinclude template="getItemSelect.cfm"></td>				
 					<!---
 					<td height="25" style="padding-left:5px;padding-right:5px"><cf_tl id="UoM">:</td>
@@ -390,7 +390,7 @@
 								<cfelse>
 								
 								<select name="tratpe" id="tratpe" class="regularxl" 
-								  onchange="ColdFusion.navigate('../Transaction/setTransactionType.cfm?warehouse='+document.getElementById('warehouse').value+'&location='+document.getElementById('location').value+'&transactiontype='+this.value,'transactionbox')">
+								  onchange="ptoken.navigate('../Transaction/setTransactionType.cfm?warehouse='+document.getElementById('warehouse').value+'&location='+document.getElementById('location').value+'&transactiontype='+this.value,'transactionbox')">
 									<cfloop query="TransactionType">
 										<option value="#TransactionType#">#Description# to</option>
 									</cfloop>
@@ -454,7 +454,7 @@
 					    <table class="formpadding" style="height:10">
 						<tr>
 						<td id="entrymode1">	
-						<input type="radio" name="entrymode" id="entrymode" class="enterastab" value="Direct Entry" checked onclick="javascript:transactiontoggle('manual')"> <font face="Verdana" size="2"><cf_tl id="Manual">
+						<input type="radio" name="entrymode" id="entrymode" class="enterastab" value="Direct Entry" checked onclick="javascript:transactiontoggle('manual')"><font face="Verdana" size="2"><cf_tl id="Manual">
 						</td>
 						<td id="entrymode2" class="<cfif sourcemode.source neq '2' and sourcemode.source neq '9'>hide</cfif>">	
 						<input type="radio" name="entrymode" id="entrymode" class="enterastab" value="Device" onclick="javascript:transactiontoggle('device')"> <font face="Verdana" size="2"><cf_tl id="Device">				

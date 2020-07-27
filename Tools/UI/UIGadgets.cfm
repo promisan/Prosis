@@ -7,7 +7,7 @@
 
 	<link rel="stylesheet" href="#Session.root#/scripts/kendoui/styles/kendo.common.min.css" />
 	<link rel="stylesheet" href="#Session.root#/scripts/kendoui/styles/kendo.#attributes.style#.min.css" />
-	<link rel="stylesheet" href="#Session.root#/scripts/kendoui/styles/kendo.#attributes.style#.mobile.min.css" />
+	<link rel="stylesheet" href="#Session.root#/scripts/kendoui/styles/kendo.default.mobile.min.css" />
 
     <link rel="stylesheet" href="#Session.root#/scripts/kendoui/styles/kendo.rtl.min.css"/>
     <link rel="stylesheet" href="#Session.root#/scripts/kendoui/styles/kendo.silver.min.css"/>
@@ -64,6 +64,10 @@
 
 		.k-multiselect-wrap {
 			opacity : 100 !important;
+		}
+
+		.k-menu:not(.k-context-menu)>.k-item {
+			color: ##033f5d;
 		}
 	</style>
 
@@ -394,14 +398,10 @@ function _expand_to()
  _UIObject.prototype.doToolTip = function(id,title,content,contentURL,w,h,position,duration,callout,showOn)
 {
 
-	if (content =='')
-	{
-		if (contentURL == '')
-		{
+	if (content =='') {
+		if (contentURL == '') {
 			tooltip = $("##cf_tip_"+id).kendoTooltip({}).data("kendoTooltip");
-		}
-		else
-		{
+		} else {
 			tooltip = $("##cf_tip_"+id).kendoTooltip(
 				{
 					'content': {
@@ -412,6 +412,7 @@ function _expand_to()
 					'height': h,
 					'showOn': showOn,
 					'position': position,
+					'iframe' : false,
 					show: function() {
 						this.refresh();
 					},
@@ -425,9 +426,7 @@ function _expand_to()
 				).data("kendoTooltip");
 
 		}
-	}
-	else
-	{
+	} else {
 		tooltip = $("##cf_tip_"+id).kendoTooltip(
 				{
 					'content': content,
@@ -436,6 +435,7 @@ function _expand_to()
 					'height': h,
 					'showOn': showOn,
 					'position': position,
+					'iframe' : false,
 					animation: {
 						open: {
 							effects: "zoom:in",
@@ -514,6 +514,27 @@ _UIObject.prototype.doTabStrip = function(id,content)
 }
 
 
+_UIObject.prototype.doMenu = function(id)
+{
+	var ts = $("##Menu_"+id).kendoMenu(
+		{animation: { open: {
+			effects: "zoomIn",
+			duration: 100
+			}
+		}
+		});
+	$("##Menu_"+id).show();
+
+}
+
+
+_UIObject.prototype.doBreadCrumb = function(id,content)
+{
+	console.log("id",id);
+	console.log(content);
+	var ts = $("##BreadCrumb_"+id).kendoBreadcrumb({navigational: true, items:content});
+
+}
 
 _UIObject.prototype.doTreeBinder = function(id,serviceRoot,serviceMethod,serviceData)
 {
@@ -560,6 +581,26 @@ _UIObject.prototype.doTreeBinder = function(id,serviceRoot,serviceMethod,service
 		});
 
 	}
+}
+
+_UIObject.prototype.doOpenTree = function(id,node)
+{
+	_treeview = $('##'+id).data("kendoTreeView");
+
+	var bar = _treeview.findByText(node);
+	//_treeview.select(bar);
+	console.log(bar);
+	_treeview.select(bar);
+/***
+	data = _treeview.items();
+
+	for (var i = 0; i < data.length; i++) {
+		var dataitem = data[i];
+		var element = _treeview.dataItem(dataitem);
+		console.log(element);
+
+	}
+***/
 
 
 

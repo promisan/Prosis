@@ -32,7 +32,7 @@ color:#666666;
 				<td style="height:32px;padding-top:9px">
 					<table class="gray">
 						<tr>						
-							<td style="padding-left:5px;font-weight:200;font-size:18px" class="labelmedium">														
+							<td style="padding-left:5px;font-size:18px" class="labelmedium">														
 								<cfif url.customerid neq "00000000-0000-0000-0000-000000000000">
 									<a href="javascript:editCustomer('#url.customerid#')">#Customer.CustomerName#</a>
 								<cfelse>
@@ -53,14 +53,16 @@ color:#666666;
 						FROM      TransactionHeader
 						WHERE     ReferenceId = '#url.customerid#'	  
 						AND       TransactionSource = 'SalesSeries' 	
-						AND       ActionStatus != '9' and RecordStatus != '9'						   
+						AND      TransactionCategory = 'Receivables'	
+						AND       ActionStatus IN ('1') and RecordStatus != '9'						   
 						ORDER BY  Created DESC
+						
 				</cfquery>
 				
 			<cfif last.recordcount eq "0">
 			
 				<tr class="labelmedium">
-					<td style="font-weight:200;padding-top:82px;font-size:16px" align="center">
+					<td style="padding-top:42px;font-size:16px" align="center">
 						<cf_tl id="First time Customer">
 					</td>
 				</tr>

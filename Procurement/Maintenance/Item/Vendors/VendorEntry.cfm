@@ -23,26 +23,24 @@ password="#SESSION.dbpw#">
 			   
 	<cfset p = 0>
 	
-	<tr>
+	<tr class="labelmedium line">
 		<td></td>
-		<td class="labelit"><cf_tl id="Code"></td>
-	    <td class="labelit"><cf_tl id="Name"></td>
-		<td class="labelit"><cf_tl id="Prefer"></td>
-		<td class="labelit" align="center"><cf_tl id="Operational"></td>
-		<td class="labelit"><cf_tl id="Source"></td>
-		<td class="labelit" align="center"><cf_tl id="Action"></td>
+		<td><cf_tl id="Code"></td>
+	    <td><cf_tl id="Name"></td>
+		<td><cf_tl id="Prefer"></td>
+		<td align="center"><cf_tl id="Operational"></td>
+		<td><cf_tl id="Source"></td>
+		<td align="center"><cf_tl id="Action"></td>
 	
 	</tr>
 	
-	<tr><td colspan="7" class="linedotted"></td></tr>
 	<tr><td height="5"></td></tr>
 						
 	<cfloop query="get">
 	
 			<cfoutput>
 			
-			<tr><td colspan="7" class="labelmedium"><b>#get.Mission#</td></tr>
-			<tr><td colspan="7" class="linedotted"></td></tr>
+			<tr class="line"><td colspan="7" class="labelmedium"><b>#get.Mission#</td></tr>
 						
 			</cfoutput>
 	
@@ -103,7 +101,7 @@ password="#SESSION.dbpw#">
 						UPPER(Mission) as gMission,
 						CASE 
 							WHEN (parentOrgUnit = '' or parentOrgUnit is null) THEN (OrgUnitCode + ' ' + OrgUnitName)
-							ELSE ('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + OrgUnitCode + ' ' + OrgUnitName)
+							ELSE (OrgUnitCode + ' ' + OrgUnitName)
 						END AS Display
 				FROM    Organization
 				WHERE   Mission = '#parameters.treevendor#' 
@@ -117,54 +115,52 @@ password="#SESSION.dbpw#">
 				
 			<cfoutput>
 			
-			<TR class="navigation_row">
+			<TR class="navigation_row labelmedium line">
 				<td width="10"></td>
-				<td class="labelit" width="70" height="18">#OrgUnitCode#</td>			
-				<td width="60%" class="labelit">#OrgUnitName#</td>
-				<td width="20" class="labelit"><cfif Preferred eq "1">
+				<td height="18">#OrgUnitCode#</td>			
+				<td width="60%">#OrgUnitName#</td>
+				<td width="20"><cfif Preferred eq "1">
 				<b>Yes</b><cfelse>				
-				 <a href="javascript:ColdFusion.navigate('Vendors/setPreferred.cfm?action=delete&mission=#mission#&ID=#URL.ID#&ID1=#OrgUnitVendor#','contentbox1');"><font color="gray">
+				 <a href="javascript:ptoken.navigate('Vendors/setPreferred.cfm?action=delete&mission=#mission#&ID=#URL.ID#&ID1=#OrgUnitVendor#','contentbox1');"><font color="gray">
 				 <img src="#client.root#/images/favorite.png" alt="" border="0"></a>
 				
 				</cfif></td>
-				<td align="center" class="labelit">
+				<td align="center">
 					<cfif operational eq 1>
 						<cf_tl id="Yes">
 					<cfelse>
 						<b><cf_tl id="No"></b>
 					</cfif>
 				</td>
-				<td class="labelit">#Source#</td>				
+				<td>#Source#</td>				
 				<td align="center" style="padding-top:3px;padding-right:10px">
-				  <cf_img icon="delete" onclick="ColdFusion.navigate('Vendors/VendorEntryPurge.cfm?action=delete&mission=#mission#&ID=#URL.ID#&ID1=#OrgUnitVendor#','contentbox1');">
+				  <cf_img icon="delete" onclick="ptoken.navigate('Vendors/VendorEntryPurge.cfm?action=delete&mission=#mission#&ID=#URL.ID#&ID1=#OrgUnitVendor#','contentbox1');">
 				</td>			
 			</TR>
 			
 			</cfoutput>
-			
-			<tr><td height="5"></td></tr>
-	  
+				  
 		    </cfoutput>	   
 		  	 
 			<cfif url.id1 eq "">
 			  		
-			  		<TR>	
+			  		<TR style="height:30px;padding-top:3px">	
 					   <td colspan="7" height="30" style="padding-left:30px">
 					   					   
 					   <cfform name="frmItemVendorEntry">
 					   
-					   	<table><tr><td>
+					   	<table><tr><td style="padding-top:2px">
 				   
-					  		<cfselect name="VendorCode" style="width:300px" class="regularxl" id="VendorCode" query="VendorList" group="gMission" display="display" value="OrgUnit"></cfselect> 
+					  		<cf_UIselect name="VendorCode_#mission#" filter="contains" style="width:300px" class="regularxl" id="VendorCode_#Mission#" query="#VendorList#" group="gMission" display="display" value="OrgUnit"></cf_UIselect> 
 							
 							</td>
 						   				   
 						   <cfoutput>
 						   
-						    <td>
+						    <td style="padding-left:3px;padding-top:2px">
 						   		<cf_tl id="Save" var="vSave">						
-							   <input type="button" value="#vSave#" style="height:25;width:100" class="button10s" 
-							   onclick="ColdFusion.navigate('Vendors/VendorEntrySubmit.cfm?mission=#mission#&id=#url.id#&vendorcode='+VendorCode.value,'contentbox1')">
+							   <input type="button" value="#vSave#" style="height:30;width:100" class="button10s" 
+							   onclick="ptoken.navigate('Vendors/VendorEntrySubmit.cfm?mission=#mission#&id=#url.id#&vendorcode='+document.getElementById('VendorCode_#mission#').value,'contentbox1')">
 							</td>  
 						   </cfoutput>
 					       </tr>

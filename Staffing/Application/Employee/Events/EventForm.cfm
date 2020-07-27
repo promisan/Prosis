@@ -6,6 +6,7 @@
 <cfparam name="URL.box"			default="">
 <cfparam name="URL.Trigger" 	default="">
 
+
 <script>	
 	Prosis.busy('no');
 </script>
@@ -13,25 +14,26 @@
 <cfif URL.ID neq "">
 
 	<cfquery name="qEvent" 
-			 datasource="AppsEmployee" 
-			 username="#SESSION.login#" 
-			 password="#SESSION.dbpw#">
+		 datasource="AppsEmployee" 
+		 username="#SESSION.login#" 
+		 password="#SESSION.dbpw#">
 			 SELECT * 
-			 FROM PersonEvent
-			 WHERE EventId='#URL.Id#'
+			 FROM   PersonEvent
+			 WHERE  EventId='#URL.Id#'
 	</cfquery>		 
 
 <cfelse>
 
 	<cfquery name="qEvent" 
-			 datasource="AppsEmployee" 
-			 username="#SESSION.login#" 
-			 password="#SESSION.dbpw#">
+		 datasource="AppsEmployee" 
+		 username="#SESSION.login#" 
+		 password="#SESSION.dbpw#">
 			 SELECT * 
-			 FROM PersonEvent
-			 WHERE 1=0
+			 FROM   PersonEvent
+			 WHERE  1=0
 	</cfquery>		
 </cfif>	
+
 
 <cfform method="POST" name="eventform">
 
@@ -43,12 +45,12 @@
 			<cf_assignid>
 			<cfset eventid   = rowguid>
 			<cfset personno  = url.personno>
-			<input type="hidden" id="personNo" 	name="personNo" 	value="#URL.PersonNo#">
+			<input type="hidden" id="personno" 	name="personno" 	value="#URL.PersonNo#">
 			<input type="hidden" id="eventid" 	name="eventid" 		value="#rowguid#">						
 		<cfelse>
 		    <cfset eventid   = url.id>
 			<cfset personno  = qEvent.PersonNo>
-			<input type="hidden" id="personNo" 	name="personNo" 	value="#qEvent.PersonNo#">
+			<input type="hidden" id="personno" 	name="personno" 	value="#qEvent.PersonNo#">
 			<input type="hidden" id="eventid" 	name="eventid" 		value="#URL.Id#">
 		</cfif>
 		
@@ -67,25 +69,25 @@
 				password="#SESSION.dbpw#">
 					
 					<cfif getAdministrator('*') eq "1">
-					
+										
 						SELECT Mission 
-						FROM  Organization.dbo.Ref_Mission
-						WHERE Mission IN (SELECT Mission 
-						                  FROM  Organization.dbo.Ref_EntityMission  
-										  WHERE EntityCode='PersonEvent' 
-										  AND   WorkflowEnabled=1)
+						FROM   Organization.dbo.Ref_Mission
+						WHERE  Mission IN (SELECT Mission 
+						                   FROM  Organization.dbo.Ref_EntityMission  
+										   WHERE EntityCode='PersonEvent' 
+										   AND   WorkflowEnabled=1)
 					
 					<cfelse>
 					
 						<!--- Officer has access to mission --->
-						SELECT DISTINCT Mission 
-						FROM   Organization.dbo.OrganizationAuthorization
-						WHERE  UserAccount = '#SESSION.acc#' 
-						AND    Mission IS NOT NULL
-						AND    Mission IN (SELECT Mission 
-						                   FROM   Organization.dbo.Ref_EntityMission  
-						                   WHERE  EntityCode='PersonEvent' 
-										   AND    WorkflowEnabled=1)
+						SELECT  DISTINCT Mission 
+						FROM    Organization.dbo.OrganizationAuthorization
+						WHERE   UserAccount = '#SESSION.acc#' 
+						AND     Mission IS NOT NULL
+						AND     Mission IN (SELECT Mission 
+						                    FROM   Organization.dbo.Ref_EntityMission  
+						                    WHERE  EntityCode='PersonEvent' 
+										    AND    WorkflowEnabled=1)
 						UNION
 						
 						<!--- Employee has had assignments or contracts in missions... --->
@@ -129,13 +131,31 @@
 						 WHERE    PersonNo           = '#URL.PersonNo#'
 						 AND      PA.PositionNo      = P.PositionNo
 						 AND      PA.DateEffective   < getdate()
-						 <!---
+						
 						 AND      PA.DateExpiration  > getDate()
-						 --->
+											 
 						 AND      PA.AssignmentStatus IN ('0','1')					 
 						 AND      PA.AssignmentType  = 'Actual'
-						 ORDER BY Incumbency DESC						
-					 </cfquery>    
+						 ORDER BY DateExpiration DESC, Incumbency DESC						
+					 </cfquery>  
+					 
+					 <cfif Onboard.recordcount eq "0">					 
+					 
+						  <cfquery name="OnBoard" 
+						 datasource="AppsEmployee"
+						 username="#SESSION.login#" 
+						 password="#SESSION.dbpw#">
+							 SELECT   P.*
+							 FROM     PersonAssignment PA, Position P
+							 WHERE    PersonNo           = '#URL.PersonNo#'
+							 AND      PA.PositionNo      = P.PositionNo
+							 AND      PA.DateEffective   < getdate()																	 
+							 AND      PA.AssignmentStatus IN ('0','1')					 
+							 AND      PA.AssignmentType  = 'Actual'
+							 ORDER BY DateExpiration DESC, Incumbency DESC						
+						 </cfquery>    
+					 
+					 </cfif>  
 					 
 					<select name="mission" id="mission" class="regularxl">
 					
@@ -178,6 +198,8 @@
 				</cfif>
 				
 				</td>
+				
+				
 								
 				<td style="padding-left:5px" align="right">
 				
@@ -198,7 +220,7 @@
 				
 				</tr>
 				</table>
-								
+												
 				
 			</td>
 			
@@ -211,9 +233,7 @@
 			<tr class="labelmedium">
 				
 				<td  style="padding-left:3px" width="20%"><cf_tl id="Nature">:</td>
-			    <td style="padding-left:0px">	
-				
-				
+			    <td style="padding-left:0px">					
 				
 				    <cfif url.trigger neq "">
 					
@@ -224,6 +244,7 @@
 							 SELECT * 
 							 FROM Ref_EventTrigger
 							 WHERE Code = '#url.trigger#'
+							
 						</cfquery>	
 						
 						<input type="hidden" name="triggercode" id="triggercode" value="<cfoutput>#url.trigger#</cfoutput>"> 
@@ -231,11 +252,9 @@
 						<cfoutput>#get.Description#</cfoutput>
 										
 					<cfelse>
-					
-					    <cfoutput>			
-						<cf_securediv id="mynaturebox" bind="url:#session.root#/staffing/Application/Employee/Events/getTrigger.cfm?eventid=#URL.id#&mission={mission}&Positionno=#url.positionno#&portal=#url.portal#">						
-						</cfoutput>		
-						
+									    			
+						<cf_securediv id="mynaturebox" bind="url:#session.root#/staffing/Application/Employee/Events/getTrigger.cfm?personno=#url.personno#&eventid=#URL.id#&mission={mission}&Positionno=#url.positionno#&scope=#url.scope#&portal=#url.portal#">						
+												
 					</cfif>
 				</td> 
 				
@@ -261,7 +280,7 @@
 			</tr>				
 
 			<tr class="labelmedium">				
-				<td  style="padding-left:3px" width="20%"><cf_tl id="Action">:</td>
+				<td  style="padding-left:3px" width="20%"><cf_tl id="Requirement">:</td>
 			    <td style="padding-left:0px" id="dEvent"></td> 								
 			</tr>
 
@@ -341,7 +360,7 @@
 							 class     = "regularxl"
 							 id        = "positionselect"	
 							 value     = "#trim(Position.SourcePostNumber)# #trim(Position.FunctionDescription)# #trim(Position.PostGrade)#"
-							 style     = "padding-left:3px;padding-top:1px;width:400;font-size:16px; z-index:3;" readonly>
+							 style     = "padding-left:3px;padding-top:2px;width:400;font-size:16px; z-index:3; <cfif url.positionno neq ''>background-color:eaeaea</cfif>" readonly>
 												
 						</cfif>	 
 				
@@ -386,24 +405,12 @@
 				<cfdiv bind="url:#session.root#/staffing/Application/Employee/Events/getAssignment.cfm?positionno=#qEvent.PositionNo#"></cfdiv>															
 			</td></tr>
 			
-			<tr name="PersonContract" class="hide">
-				
-				<td  style="padding-left:3px" width="20%" style="padding-left:3px"><cf_tl id="ePas">:</td>
-			    <td style="padding-left:0px">		
-				
-				<select type="text" id="ContractNo" name="ContractNo"
-				style="width:90" class="regularxl">		
-				
-					<option value="N/A" <cfif qEvent.ContractNo eq "N/A" or qEvent.ContractNo eq "">selected</cfif>>N/A</option>				
-					<option value="YES" <cfif qEvent.ContractNo eq "YES">selected</cfif>><cf_tl id="Yes"></option>
-					<option value="NO"  <cfif qEvent.ContractNo eq "NO">selected</cfif>><cf_tl id="No"></option>
-					
-				</select>
-						
-				</td> 				
-				
+			<tr id="conditionbox" class="labelmedium xxxxxxxhide">				
+				<td style="padding-left:3px" width="20%"><cf_tl id="ePerformance">:</td>
+			    <td style="padding-left:0px" id="dCondition"></td> 								
 			</tr>
-						
+			
+									
 			<tr class="labelmedium">
 				
 				<td style="padding-left:3px" width="20%"><cf_tl id="Action Effective">:</td>
@@ -451,6 +458,8 @@
 			</tr>
 			
 			<tr><td height="4"></td></tr>
+			
+			<cfif url.portal eq "0">
 						
 			<tr><td colspan="2" class="labellarge" style="padding-left:3px;font-size:18px"><font color="0080C0"><cf_tl id="Instructions"></td></tr>
 						
@@ -482,62 +491,69 @@
 						
 				</td>
 				  
-			</tr>
+			</tr>		
 			
 			<tr class="labelmedium">
 			
 			<td valign="top" style="padding-left:3px;padding-top:4px" width="20%"><cf_tl id="Remarks">:</td>
-		    <td class="labelmedium" colspan="5" style="padding-left:0px;height:20px">			  
-			
-			<textarea type="text" name="Remarks" totlength="400" onkeyup="return ismaxlength(this)" style="width:100%;height:50px;font-size:14px;padding:3px" class="regular">#qEvent.Remarks#</textarea> 
+		    <td class="labelmedium" colspan="5" style="padding-left:0px;height:20px">	
+					<textarea type="text" name="Remarks" totlength="400" onkeyup="return ismaxlength(this)" style="width:100%;height:50px;font-size:14px;padding:3px" class="regular">#qEvent.Remarks#</textarea> 
 		    </td>
 		    
-			</tr>		
+			</tr>				
 										
-			<tr><td colspan="2">
-		
-				<cfquery name="qCheck" 
-						 datasource="AppsSystem" 
-						 username="#SESSION.login#" 
-						 password="#SESSION.dbpw#">
-						 SELECT *
-						 FROM  Ref_Attachment
-						 WHERE  DocumentPathName = 'PersonEvent'
-				</cfquery>	
-
-				<cfif qCheck.DocumentServer neq "">
-								
-					<cfset CLIENT.DocumentServerPath = "">
-					<cf_filelibraryN
-						box = "documentserver"
-						DocumentPath="PersonEvent"
-						SubDirectory="#PersonNo#" 
-						Filter="#left(eventid,8)#"
-						attachdialog = "cfwindow"
-						DocumentServer = "Anonymous"	
-						Insert="yes"
-						Remove="yes"
-						Listing="yes">
+				<tr><td colspan="2">
+			
+					<cfquery name="qCheck" 
+							 datasource="AppsSystem" 
+							 username="#SESSION.login#" 
+							 password="#SESSION.dbpw#">
+							 SELECT *
+							 FROM  Ref_Attachment
+							 WHERE  DocumentPathName = 'PersonEvent'
+					</cfquery>	
+	
+					<cfif qCheck.DocumentServer neq "">
+									
+						<cfset CLIENT.DocumentServerPath = "">
 						
-				<cfelse>
-
-					<cf_filelibraryN
-						DocumentPath="PersonEvent"
-						SubDirectory="#PersonNo#" 
-						Filter="#left(eventid,8)#"
-						attachdialog = "cfwindow"
-						Insert="yes"
-						Remove="yes"
-						Listing="yes">
-
-				</cfif>	
-			</td>		
-			</tr>		
+						<cf_filelibraryN
+							box = "documentserver"
+							DocumentPath="PersonEvent"
+							SubDirectory="#PersonNo#" 
+							Filter="#left(eventid,8)#"
+							attachdialog = "cfwindow"
+							DocumentServer = "Anonymous"	
+							Insert="yes"
+							Remove="yes"
+							Listing="yes">
+							
+					<cfelse>
+	
+						<cf_filelibraryN
+							DocumentPath="PersonEvent"
+							SubDirectory="#PersonNo#" 
+							Filter="#left(eventid,8)#"
+							attachdialog = "cfwindow"
+							Insert="yes"
+							Remove="yes"
+							Listing="yes">
+	
+					</cfif>	
+				</td>		
+				</tr>		
+				
+			<cfelse>
 			
-			<tr><td></td></tr>	
+				<cfset vDate = "#now()#">
+				 <tr><td class="hide">			
+				<input type="hidden" name="DateEventDue" id="DateEventDue" value="#DateFormat(vDate,CLIENT.DateFormatShow)#">	
+				</td></tr>			
+							
+			</cfif>
 			
-			<tr><td colspan="2" class="line"></td></tr>
 			
+			<tr><td colspan="2" class="line"></td></tr>			
 			<tr><td></td></tr>		
 
 			<tr>				
@@ -559,7 +575,7 @@
 						   value="Save" 
 						   style="width:140;height:25px" 
 						   class="button10g" 
-						   onclick="javascript:eventsubmit('#URL.Id#','#url.box#')">						
+						   onclick="javascript:eventsubmit('#URL.Id#','#url.box#','#url.scope#')">						
 					</td>	
 				  </table>
 				</td>
@@ -574,4 +590,7 @@
 </cfform>
 
 <cfset AjaxOnLoad("doCalendar")>
+
+<!--- disabled by hanno 2/7/2020
 <cfset AjaxOnLoad("checkevent")>
+--->

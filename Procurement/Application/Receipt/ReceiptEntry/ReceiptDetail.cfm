@@ -35,8 +35,20 @@
        </cfquery>
 	
 	 <cfset url.purchase = get.PurchaseNo>
+	 
+	 <cfquery name="Receipt" 
+	 datasource="AppsPurchase" 
+	 username="#SESSION.login#" 
+	 password="#SESSION.dbpw#">
+		 SELECT *
+		 FROM   Receipt
+		 WHERE  ReceiptNo = '#URL.rctid#'
+	</cfquery>
 
-</cfif>
+</cfif>  
+
+<cfparam name="Receipt.ActionStatus" default="1">
+
 
 <cfif URL.Mode eq "Entry">
   <!--- save the info in a temp table --->
@@ -561,8 +573,10 @@ password="#SESSION.dbpw#">
 	   
 	   <td align="center" style="#stl#;padding-left:8px;padding-right:4px;padding-top:1px;width:10">
 	   
-		   <cfif (ActionStatus eq "0" and url.mode eq "Edit") or (ReceiptAccess eq "ALL" and ActionStatus eq "1")>
-		   
+	   		<cfparam name="editmode" default="view">
+	   					
+		   <cfif (ActionStatus eq "0" and editmode eq "Edit") or (ReceiptAccess eq "ALL" and ActionStatus eq "1")>		   
+			   
 		     <!--- do not allow to remove if receipt has been processed already --->
 		  						 	 
 			 <cfif posted eq "0">		

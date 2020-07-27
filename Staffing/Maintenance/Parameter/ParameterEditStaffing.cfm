@@ -103,7 +103,20 @@ password="#SESSION.dbpw#">
     <td style="padding-left:10px;cursor: pointer;">Enforce Position Grade:</b></td>
 	</cf_UIToolTip>
     <TD>	
-	<input class="radiol" type="checkbox" name="EnfoceGrade" <cfif EnforceGrade eq "1">checked</cfif> value="1">
+	<input class="radiol" type="checkbox" name="EnforceGrade" <cfif EnforceGrade eq "1">checked</cfif> value="1">
+    </td>
+    </tr>
+	
+	<TR class="labelmedium" style="height:22px">
+    <td style="padding-left:10px;cursor: pointer;">Fund registration:</b></td>
+    <TD>	
+	<table cellspacing="0" cellpadding="0">
+		<tr>
+			<td><input type="radio" class="radiol" name="ShowPositionFund" <cfif ShowPositionFund eq "0">checked</cfif> value="0"></td><td class="labelmedium" style="padding-left:5px;padding-right:10px">Disabled</td>
+			<td><input type="radio" class="radiol" name="ShowPositionFund" <cfif ShowPositionFund eq "1">checked</cfif> value="1"></td><td class="labelmedium" style="padding-left:5px;padding-right:10px">Show all funding</td>	
+			<td><input type="radio" class="radiol" name="ShowPositionFund" <cfif ShowPositionFund eq "2">checked</cfif> value="1"></td><td class="labelmedium" style="padding-left:5px;padding-right:10px">Show edition funds only</td>	
+    	</tr>
+	</table>		
     </td>
     </tr>
 	

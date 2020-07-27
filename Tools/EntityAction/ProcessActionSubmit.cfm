@@ -3,7 +3,6 @@
 	<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>"> 
 </head>
 
-
 <cfquery name="Object" 
  datasource="AppsOrganization"
  username="#SESSION.login#" 
@@ -854,20 +853,18 @@
 		   </cfif>
 		
 	</cfif>		
-	
-				
+					
 	<cfif url.ajaxid neq "">		
-	
-		<cfoutput>
-		<script>alert('#windowmode#')</script>
-		</cfoutput>
-	
-		<cfif windowmode eq "modal">
 		
-		  	<script language="JavaScript">				    
-			   	window.close()
-				self.returnValue = 1
+		<cfif windowmode eq "embed">
+		
+		  <cfoutput>
+		  	<script language="JavaScript">		
+				try { parent.workflowreload('#url.ajaxid#','0') } 
+			    catch(e) {}			      
+			   	parent.ProsisUI.closeWindow('workflowstep')
 			</script>	
+			 </cfoutput>	
 		
 		<cfelse>
 		

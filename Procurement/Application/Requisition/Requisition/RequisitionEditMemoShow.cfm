@@ -28,10 +28,8 @@ password="#SESSION.dbpw#">
 
 	<cfif Line.Remarks neq "">
 		
-	  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding">
-	        					
-			<tr><td class="labelmedium" style="border:1px solid d6d6d6;padding:4px;cursor: pointer;">#ParagraphFormat(text)#</td></tr>			
-						
+	  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding">	        					
+			<tr><td class="labelmedium" style="border:1px solid d6d6d6;padding:4px;cursor: pointer;">#ParagraphFormat(text)#</td></tr>									
 	  </table>
 	       
 	<cfelse>
@@ -68,8 +66,7 @@ password="#SESSION.dbpw#">
 				<font color="808080"><cf_tl id="REQ023"></font></a>
 			</td>
 		</tr>
-	  </table>	
-	
+	</table>		
 				
 	</cfif>
 

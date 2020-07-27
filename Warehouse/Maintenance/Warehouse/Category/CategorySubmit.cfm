@@ -1,3 +1,4 @@
+
 <cf_tl id = "Sorry, this category already exists." var = "msg">
 
 <cfquery name="Exist" 
@@ -45,8 +46,8 @@
 		
 		<cfoutput>
 			<script language="JavaScript">   
-	     		ColdFusion.navigate('RecordEdit.cfm?idmenu=#url.idmenu#&id1=#url.id1#','contentbox1');
-				ColdFusion.Window.hide('mydialog');
+	     		ptoken.navigate('RecordEdit.cfm?idmenu=#url.idmenu#&id1=#url.id1#','contentbox1');
+				ProsisUI.closeWindow('mydialog');
 			</script>
 		</cfoutput>
 			
@@ -88,10 +89,12 @@
 		</cfquery>
 		
 		<cfoutput>
-			<script language="JavaScript">   
-	     		ColdFusion.navigate('Category/CategoryEdit.cfm?idmenu=#url.idmenu#&id1=#url.id1#&id2=#url.id2#','contentsubbox1');
-				ColdFusion.navigate('RecordEdit.cfm?idmenu=#url.idmenu#&id1=#url.id1#','contentbox1');
-			</script>
+			<script language="JavaScript">   			  
+	     		// ptoken.navigate('Category/CategoryEdit.cfm?idmenu=#url.idmenu#&id1=#url.id1#&id2=#url.id2#','contentsubbox1');
+				ptoken.navigate('Category/CategoryListing.cfm?ID1=#url.id1#','#url.id1#_list');
+			</script>	
+			<cfinclude template="CategoryEdit.cfm">		
+			<cfoutput><cf_tl id="Updated #timeformat(now(),'HH:MM:SS')#"></cfoutput>
 		</cfoutput>
 				
 	</cfif>	

@@ -50,14 +50,27 @@
 			<td class="labelmedium">
 				<cf_tl id="Price Schedule">
 			</td>
+			<td class="labelmedium" width="25%">
+				<cf_tl id="Category">
+			</td>
+			<td class="labelmedium">
+				<cf_tl id="Price Schedule">
+			</td>
 		</tr>
 		
 		<tr><td height="5"></td></tr>
 		<tr><td colspan="2" class="linedotted"></td></tr>
 		<tr><td height="5"></td></tr>
 		
+		<cfset row = "0">
+		
 		<cfoutput query="categories">
+		
+			<cfset row = row + 1>
+			<cfif row eq "1">
 			<tr class="navigation_row">
+			</cfif>
+						
 				<td class="labelmedium">#Description#</td>
 				<td class="labelmedium" style="padding:2px;">
 					<cfselect 
@@ -77,7 +90,9 @@
 						<a style="color:##369CF5; padding-left:15px;" href="javascript:$('.selPriceSchedule').val($('##PriceSchedule_#trim(Category)#').val());">[ <cf_tl id="Same for all"> ]</a>
 					</cfif>
 				</td>
-			</tr>
+			<cfif row eq "2">	
+			</tr><cfset row = "0">
+			</cfif>
 		</cfoutput>
 	</table>
 <!-- </cfform> -->

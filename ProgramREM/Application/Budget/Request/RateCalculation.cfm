@@ -89,7 +89,7 @@
 
 <cfif URL.Operation eq "Calculate">
 
-	<cfset final = value>
+	<cfset qfinal = value>
 	
 	<cfloop list="#vList#" index="element">
 			
@@ -111,17 +111,17 @@
 					
 		<cfif mode eq "1">
 		    <!--- the percentages will be applied in a cumulative manner --->
-			<cfset final = final + (final*number)/100>
+			<cfset qfinal = qfinal + (qfinal*number)/100>
 		</cfif>		
 					
 		<cfif mode eq "3">
-		    <cfset final = final + number>
+		    <cfset qfinal = qfinal + number>
 		</cfif>
 
 	</cfloop>
 				
 	<script language="JavaScript">				
-		document.getElementById('requestPrice_#URL.row#').value = '#numberformat(final,",.__")#'				
+		document.getElementById('requestPrice_#URL.row#').value = '#numberformat(qfinal,",.__")#'				
 		ptoken.navigate('RequestDialogFormMatrixScript.cfm?row=#url.row#&col=0&rows=20&cols=12','ctotal')							
 	</script>
 	

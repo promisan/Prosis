@@ -453,13 +453,14 @@
 
 <script>
 	
-	try {opener.document.getElementById("refresh").click() } catch(e) {   history.go() }
+	try {parent.document.getElementById("refresh").click() } catch(e) {   parent.history.go() }
+	
 	<cfoutput>
 	<cfif form.entityclass neq "">			
 		window.open('#session.root#/Vactrack/Application/Document/DocumentEdit.cfm?ID=#LastNo.DocumentNo#&mid=#mid#', 'Track#LastNo.DocumentNo#')		
 	</cfif>
 	</cfoutput>
-	window.close()
+	parent.ProsisUI.closeWindow('addposition')
 		
 </script>
 

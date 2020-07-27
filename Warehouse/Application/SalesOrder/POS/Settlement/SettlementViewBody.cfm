@@ -120,10 +120,10 @@
 		</cfquery>
 		<cfif url.td eq "">
 		<tr>
-			<td colspan="2">
+			<td colspan="2" style="padding-top:4px">
 				<cf_intelliCalendarDate9
 				FieldName="SettlementDate"
-				class="regularxl"
+				class="regularxl" style="font-size:20px"
 				DateFormat="#APPLICATION.DateFormat#"
 				Default="#dateformat(now(), CLIENT.DateFormatShow)#">
 			</td>

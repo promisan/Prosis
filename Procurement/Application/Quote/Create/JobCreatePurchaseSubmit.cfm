@@ -394,7 +394,32 @@ the requisition orgunit, parent --->
 				 ORDER BY DateEffective DESC					 	
 			 </cfquery>
 			 
-			 <cf_exchangeRate CurrencyFrom="#getPrice.currency#" CurrencyTo="#curr#" datasource="AppsPurchase">
+			 <cfif getPrice.recordcount eq "0">
+			 
+			 	<cfquery name="getPrice" 
+			     datasource="AppsPurchase" 
+			     username="#SESSION.login#" 
+			     password="#SESSION.dbpw#">
+					 SELECT   TOP 1 *
+					 FROM     Materials.dbo.ItemVendorOffer
+					 WHERE    ItemNo        = '#WarehouseItemNo#' 
+					 AND      UoM           = '#WarehouseUoM#' 
+					 AND      OrgUnitVendor = '#Form.vendororgunit#' 					 	 
+					 <cfif Warehouse neq "">
+					 AND      LocationId = (SELECT LocationId 
+					                        FROM   Materials.dbo.Warehouse 
+											WHERE  Warehouse = '#Warehouse#')
+					 </cfif>
+					 ORDER BY DateEffective DESC					 	
+				 </cfquery>
+				 
+				 <cf_exchangeRate CurrencyFrom="#getPrice.currency#" CurrencyTo="#curr#" datasource="AppsPurchase">
+			 			 
+			 <cfelse>
+			 
+				 <cf_exchangeRate CurrencyFrom="#getPrice.currency#" CurrencyTo="#curr#" datasource="AppsPurchase">
+			 
+			 </cfif>
 			 			 
 		 <cfelse>
 		 

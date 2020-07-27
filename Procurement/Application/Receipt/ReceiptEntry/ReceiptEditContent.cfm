@@ -751,12 +751,17 @@
 				 <td style="padding-left:15px;padding-right:15px" colspan="2">		
 				     <cfdiv bind="url:ReceiptEditCosting.cfm?#cgi.query_string#&editmode=#editmode#" id="receiptcosts">			 	 							 
 				 </td>	
-				 </tr>  	
+				 </tr>  
 				 
-			    <tr class="hide"><td>
+				 <!---	
+				 
+			    <tr class="hide">
+				     <td>
 						<cfdiv bind="url:setReceiptTotal.cfm?mission=#receipt.mission#&receiptno=#receipt.receiptno#" id="settotal">	
-						 </td>
-				 </tr>			
+					 </td>
+				 </tr>
+				 
+				 --->			
 		
 			</cfif>
 				 		 
@@ -843,13 +848,14 @@
 							 </td>	
 							 </tr>  
 							 
+							<!--- 
 						    <tr class="hide"><td>
 								<cfdiv bind="url:setReceiptTotal.cfm?mission=#receipt.mission#&receiptno=#receipt.receiptno#" id="settotal">	
 							 </td>
 							 </tr>		
+							 --->
 												 
-						  </cfif>	 
-						  
+						  </cfif>	 			  
 						
 				
 				 </table>
@@ -908,7 +914,7 @@
 										<cf_button2 
 											mode        = "silver"
 											label       = "Purge" 
-											onClick     = "ColdFusion.navigate('ReceiptDelete.cfm?receiptno=#Receipt.ReceiptNo#','purgebox')"
+											onClick     = "ptoken.navigate('ReceiptDelete.cfm?receiptno=#Receipt.ReceiptNo#','purgebox')"
 											id          = "Purge"
 											width       = "110px" 
 											color       = "636334"
@@ -938,6 +944,41 @@
 	</cf_divscroll>
 
 </td></tr>
+
+<tr>
+	 <td colspan="2" align="right" style="padding-top:5px;padding-right:40px" class="labelmedium">
+	
+		     <table align="right">
+				 <tr>
+				 <td class="labelmedium" align="right"
+				     bgcolor="white" 
+					 style="color:black;font-size:15px;padding-top:8px;width:200px;padding-right:7px"><cf_tl id="Total in"><cfoutput><font size="+1">#application.basecurrency#</cfoutput>
+				 </td>
+				 
+				 <td align="right" bgcolor="FFFFFF"
+				        style="border:1px solid silver;padding-top: 2px; width:100px; font-size:15px;padding-right:4px">
+					 
+					  <table width="100%">
+							 <tr><td style="padding-left:4px;font-size:10px"><cf_tl id="Tax value"></td></tr>
+							 <tr><td align="right" class="labellarge" id="totaltax"></td></tr>								 	 
+						 </table>		
+					 </td>
+				 					 
+				 <td bgcolor="FFFFFF" 
+			         style="border:1px solid silver;padding-top: 2px; width:120px; font-size:20px;padding-right:4px">
+						 <table width="100%">
+							 <tr><td style="padding-left:4px;font-size:10px"><cf_tl id="Activation value"></td></tr>
+							 <tr><td align="right" class="labellarge" id="totalsum"></td></tr>								 	 
+						 </table>					 
+				</td>	 
+					 	 
+					 
+				 </tr>
+			 </table>
+			 
+	</td>				 			
+</tr>
+
 </table>
 	 
  </cfform>

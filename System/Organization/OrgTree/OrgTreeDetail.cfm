@@ -6,6 +6,7 @@
 <cfparam name="url.flat" 				default="0">
 <cfparam name="url.showDirectoryView"	default="1">
 
+
 <cfif trim(url.functions) neq "">
 
 	<cfset vFunctionsKeywords = lcase(trim(url.functions))>
@@ -59,6 +60,15 @@
 		FROM 	Ref_Mission
 		WHERE	Mission = '#url.mission#'
 </cfquery>
+
+<cfif url.orgunit neq "all" and url.orgunit neq "none">
+
+	<cfquery name="getUnit" 
+	datasource="AppsOrganization">
+	SELECT HierarchyCode FROM Organization.dbo.Organization WHERE OrgUnit = '#url.orgUnit#'
+	</cfquery>
+
+</cfif>
 
 <cfquery name="getDirectory" 
 	datasource="AppsEmployee">
@@ -160,12 +170,12 @@
 							ON A.LocationCode = L.LocationCode
 							
 				WHERE	A.MissionOperational = '#url.mission#'
-				AND		A.DateEffective <= '#url.referencedate#'
-				AND		A.DateExpiration >= '#url.referencedate#'
+				AND		A.DateEffective     <= '#url.referencedate#'
+				AND		A.DateExpiration    >= '#url.referencedate#'
 				AND		A.AssignmentStatus IN ('0', '1')
-				AND		A.Incumbency > 0
-				AND 	A.Operational = 1  <!--- hide people --->
-				AND		O.MandateNo = '#url.mandateno#'		
+				AND		A.Incumbency        > 0
+				AND 	A.Operational       = 1  <!--- hide people --->
+				AND		O.MandateNo         = '#url.mandateno#'		
 				AND    	(O.DateExpiration <= '#getMandate.DateExpiration#' OR O.DateExpiration >= '#url.referencedate#')	
 				--- AND    	O.OrgUnitCode NOT LIKE '0000%'
 				
@@ -174,16 +184,12 @@
 				<cfelseif url.orgUnit eq "none">
 					AND		1=0
 				<cfelse>
-					AND		(
-								O.OrgUnit = '#url.orgUnit#'
-								OR
-								O.OrgUnit IN 
-									(
-										SELECT 	OrgUnit 
-										FROM 	Organization.dbo.Organization 
-										WHERE 	ParentOrgUnit = (SELECT OrgUnitCode FROM Organization.dbo.Organization WHERE OrgUnit = '#url.orgUnit#')
-									)
-							)
+					AND		O.OrgUnit IN ( SELECT 	OrgUnit 
+										   FROM 	Organization.dbo.Organization 
+										   WHERE    Mission        = '#url.mission#'
+										   AND		MandateNo      = '#url.mandateno#'		
+										   AND    	HierarchyCode LIKE ('#getUnit.HierarchyCode#%')
+							)							
 				</cfif>
 				<cfif url.nationality neq "">
 					AND	A.Nationality = '#url.nationality#'
@@ -193,13 +199,9 @@
 				</cfif>
 				<cfif trim(url.employee) neq "">
 					AND	
-						(
-							A.FullName LIKE '%#vEmployeeKeywords#%'
-							OR
-							A.IndexNo LIKE '%#vEmployeeKeywords#%'
-							OR
-							A.PersonNo LIKE '%#vEmployeeKeywords#%'
-						)
+						(	A.FullName    LIKE '%#vEmployeeKeywords#%'
+							OR A.IndexNo  LIKE '%#vEmployeeKeywords#%'
+							OR A.PersonNo LIKE '%#vEmployeeKeywords#%' )
 				</cfif>
 				<cfif trim(url.functions) neq "">
 					AND	

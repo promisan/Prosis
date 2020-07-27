@@ -99,7 +99,7 @@
 				
 					<table width="100%" height="100%">
 						<tr class="line" style="height:20px">
-						    <td colspan="2" style="font-weight:300" class="labelmedium" align="center"><cf_tl id="Newly appointed staff"><cfoutput>#url.mission#</cfoutput></td>
+						    <td colspan="2" class="labelmedium" align="center"><cf_tl id="Newly appointed staff"><cfoutput>#url.mission#</cfoutput></td>
 						</tr>
 						<tr>
 							<td colspan="2" valign="top" align="center" style="height:160px">
@@ -165,7 +165,7 @@
 				
 				<table width="100%" height="100%">
 					<tr class="line" style="height:20px">
-					    <td colspan="2" style="font-weight:300" class="labelmedium" align="center"><cf_tl id="Staff with Separation action"><cfoutput>#url.mission#</cfoutput></td>
+					    <td colspan="2" class="labelmedium" align="center"><cf_tl id="Staff with Separation action"><cfoutput>#url.mission#</cfoutput></td>
 					</tr>
 					<tr>
 						<td colspan="2" valign="top" align="center" style="height:160px">
@@ -196,7 +196,7 @@
 				<cfset vSeparation     = ListQualify(valueList(getSeparation.PersonNo), "'")>
 				
 				<cfquery name="getOutgoing" dbtype="query">
-					SELECT 	PersonNo,
+					SELECT 	DISTINCT PersonNo,
 							IndexNo,
 							FullName,
 							OrgUnitName,
@@ -217,7 +217,7 @@
 				
 					<table width="98%" height="100%">
 						<tr class="line" style="height:20px">
-						    <td colspan="2" style="font-weight:300" class="labelmedium" align="center"><cf_tl id="Other Staff Expiring"><cfoutput>#url.mission#</cfoutput></td>
+						    <td colspan="2" class="labelmedium" align="center"><cf_tl id="Other Staff Expiring"><cfoutput>#url.mission#</cfoutput></td>
 						</tr>
 						<tr>
 							<td colspan="2" valign="top" align="center" style="height:160px">

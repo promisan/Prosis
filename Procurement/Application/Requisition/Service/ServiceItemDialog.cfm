@@ -40,9 +40,9 @@ password="#SESSION.dbpw#">
 <cfif url.mode eq "default">
 
    <!--- if default determine if to be shown ---> 
- 
+       
    <cfif Parameter.RequestDescriptionMode eq "1">
-   
+      
    		<cfset url.mode = "extended">
    		
    </cfif>
@@ -63,6 +63,8 @@ password="#SESSION.dbpw#">
 	</cfif>
 </cfquery>
 
+<!---
+
 <cf_screentop 
     label   = "Service detail" 
     height  = "100%" 
@@ -73,6 +75,8 @@ password="#SESSION.dbpw#">
 	user    = "no"
 	banner  = "gray" 
 	close   = "ColdFusion.Window.hide('dialogservice')">
+	
+	--->
 
 <table width="100%" height="100%" cellspacing="0" cellpadding="0" bgcolor="white">
 
@@ -309,7 +313,7 @@ password="#SESSION.dbpw#">
 					   style="text-align: right;width:80;" 
 				       value="#detail.UoMRate#"
 				       validate="float"
-					   onchange="_cf_loadingtexthtml='';ColdFusion.navigate('../Service/ServiceItemDialogTotal.cfm?sqty='+document.getElementById('svcservicequantity').value+'&qty=1&rate='+this.value,'svctotal')"				    						   				      						      			    			      			      
+					   onchange="_cf_loadingtexthtml='';ptoken.navigate('../Service/ServiceItemDialogTotal.cfm?sqty='+document.getElementById('svcservicequantity').value+'&qty=1&rate='+this.value,'svctotal')"				    						   				      						      			    			      			      
 				       maxlength="10"
 				       class="regularxl enterastab">
 		           </td>	
@@ -345,7 +349,7 @@ password="#SESSION.dbpw#">
 					   	    value   = "#lt_text#" 
 							style   = "width:120;height:26px"
 					    	class   = "button10g"
-						    onclick = "ColdFusion.navigate('../Service/ServiceItemSubmit.cfm?ID=#URL.ID#&ID2=#url.id2#&mode=#url.mode#','iservicesave','','','POST','serviceform')">
+						    onclick = "ptoken.navigate('../Service/ServiceItemSubmit.cfm?ID=#URL.ID#&ID2=#url.id2#&mode=#url.mode#','iservicesave','','','POST','serviceform')">
 					
 					</td>
 			    </TR>	

@@ -410,7 +410,7 @@ password="#SESSION.dbpw#">
 		<cfelseif url.close eq "1">
 		
 			<script>
-				ColdFusion.Window.destroy('wsettle',true)
+				ProsisUI.closeWindow('wsettle',true)
 			</script>	
 			
 		</cfif>	

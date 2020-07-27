@@ -331,18 +331,22 @@
 			<cfinclude template="../../../Workflow/ReqMail.cfm">	
 						  
 			<cf_tl id="Request has been cancelled and an eMail has been sent to notify the requester" var="vMessage">
-				
+			
+			<cfoutput>
 		    <script>
 		     	alert("#vMessage#.")				
 		    </script>
+			</cfoutput>	
 		   
 		<cfelse>
 			
 			 <cf_tl id="Request has been cancelled and will appear under the tree node: Cancelled" var="vMessage">
-			 	
+			 
+			 <cfoutput>		
 			 <script>
 		    	alert("#vMessage#.")				
-		    </script>		   
+		    </script>		
+			</cfoutput>	   
 		
 		</cfif>			
 			

@@ -5,6 +5,8 @@
 <cfparam name="form.HostAccess"    default="">
 <cfparam name="form.SystemModule"  default="">
 
+
+
 <cfif Form.Status eq "">
     <cfset crit = "">
 <cfelse>	
@@ -16,6 +18,14 @@
     FieldType="#Form.Crit1_FieldType#"
     Operator="#Form.Crit1_Operator#"
     Value="#Form.Crit1_Value#">
+	
+<cfif Form.Source neq ""> 
+    <cfif crit eq "">
+		<cfset crit = "Source = '#Form.Source#'">	
+	<cfelse>  
+		<cfset crit = "#crit# AND Source = '#Form.Source#'">	
+	</cfif>
+</cfif>		
 	
 <cfif Form.AccountType neq ""> 
     <cfif crit eq "">
@@ -130,7 +140,7 @@
 <cfset session.userselect[10] = Form.SystemModule>
 <cfset session.userselect[11] = Form.Role>
 <cfset session.userselect[12] = Form.isEmployee>
-	
+<cfset session.userselect[13] = Form.Source>	
 <!--- Query returning search results --->
 
 <cfset client.userquerystring = criteria>

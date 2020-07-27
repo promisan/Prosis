@@ -26,11 +26,7 @@
          </cfquery>	
 									 
 		 <img src="#SESSION.root#/Images/button.jpg"
-	     border="0"
-		 onclick="setlinestatus('#transactionid#','1')"
-		 height="14" width="14"
-		 align="absmiddle"
-	     style="cursor: pointer;">
+	     border="0" onclick="setlinestatus('#transactionid#','1')" height="14" width="14" align="absmiddle" style="cursor: pointer;">
 				 
 	<cfelse>
 	

@@ -87,11 +87,11 @@ password="#SESSION.dbpw#">
 		<cfset vLast = getLines.recordCount>
 	</cfif>	
 
-	<table width="100%" class="navigation_table clsPOSDetailLines" border="0">		
+	<table width="98%" class="navigation_table clsPOSDetailLines" border="0">		
 										
 		<!--- ajax box for processing --->
 		
-		<tr class="xxxxhide"><td colspan="7" id="processline"></td></tr>
+		<tr class="hide"><td colspan="7" id="processline"></td></tr>
 				
 		<cfset tcounter = 1>
 			
@@ -273,7 +273,7 @@ password="#SESSION.dbpw#">
 					 value = "#TransactionQuantity#"
 					 name  = "TransactionQuantity_#currentrow#"
 					 <cfif currentrow eq 1>autofocus</cfif>
-					 onchange="ptoken.navigate('#client.virtualdir#/warehouse/Application/SalesOrder/POS/Sale/setLine.cfm?warehouse=#url.warehouse#&line=#currentrow#&id=#transactionid#&action=quantity&addressId=#url.AddressId#&value='+this.value,'processline')">
+					 onkeyup="ptoken.navigate('#client.virtualdir#/warehouse/Application/SalesOrder/POS/Sale/setLine.cfm?warehouse=#url.warehouse#&line=#currentrow#&id=#transactionid#&action=quantity&addressId=#url.AddressId#&value='+this.value,'processline')">
 					 
 				   <cfelse>
 				   

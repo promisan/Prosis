@@ -1911,14 +1911,14 @@
 					  password="#SESSION.dbpw#">
 					   SELECT    TOP 1 *
 					   FROM      PersonContract
-					   WHERE     PersonNo = '#URL.ID#'
+					   WHERE     PersonNo = '#PersonNo#'
 					   AND       Mission  = '#Mission#'
 					   AND       ActionStatus IN ('0','1')
 					   <cfif cutoffdate neq "">
 					   AND       DateExpiration < #cutoff#					   
-					   </cfif>
-					   
-					   ORDER BY  DateEffective DESC								   
+					   </cfif>					   
+					   ORDER BY  DateEffective DESC		
+					   					   
 				</cfquery>	
 				
 				<cfif getContract.dateExpiration gt now()>				
@@ -1939,7 +1939,8 @@
 					   AND      ContractType = '#getContract.contractType#'
 					   AND      ContractDuration <= #mth#
 					   ORDER BY ContractDuration DESC
-					   -- AND      DateEffective <= getdate()							  				   							   
+					   -- AND      DateEffective <= getdate()	
+					   					  				   							   
 				</cfquery>	
 								  
 				<cfif getEntitlement.recordcount gte "1">
@@ -1951,7 +1952,8 @@
 				  	  <cfset days = "0">	
 					 
 				</cfif>		
-												  
+							
+															  
 				<cfif EOD neq "" and days neq "0">
 															  
 					   <!--- use this date to set the entitlement record in table PersonLeaveBalanceInit --->
@@ -1961,7 +1963,7 @@
 						  username="#SESSION.login#" 
 						  password="#SESSION.dbpw#">
 							  DELETE FROM PersonLeaveBalanceInit
-							  WHERE  Personno = '#URL.ID#'
+							  WHERE  Personno = '#PersonNo#'
 							  AND    LeaveType = '#leavetype#'
 					  </cfquery>
 					  
@@ -1970,7 +1972,7 @@
 						  username="#SESSION.login#" 
 						  password="#SESSION.dbpw#">
 							  DELETE FROM PersonLeaveBalance
-							  WHERE  Personno      = '#URL.ID#'
+							  WHERE  Personno      = '#PersonNo#'
 							  AND    LeaveType     = '#leavetype#'									  
 							  AND    BalanceStatus = '#BalanceStatus#' <!--- we remove only from the same status --->
 					  </cfquery>
@@ -1988,7 +1990,7 @@
 								   Memo,
 								   OfficerUserId, OfficerLastName, OfficerFirstName)
 						   
-						   VALUES  ('#URL.ID#',
+						   VALUES  ('#PersonNo#',
 								    '#leavetype#',
 									'#dateformat(balancestartDate,client.dateSQL)#',
 									'#days#',
@@ -2044,7 +2046,9 @@
 			
 				<cfset class = "LeaveType">
 			
-			</cfif>							
+			</cfif>	
+			
+			
 						
 			<cfloop index="itm" list="#class#">						
 			
@@ -2054,7 +2058,7 @@
 				     datasource="AppsEmployee" 
 				     username="#SESSION.login#" 
 				     password="#SESSION.dbpw#">
-					    SELECT MAX(DateExpiration) as DateExpiration
+					    SELECT MAX(DateExpiration)+100 as DateExpiration
 						FROM   PersonLeaveBalance 
 				        WHERE  PersonNo       = '#PersonNo#'
 						AND    LeaveType      = '#LeaveType#' 
@@ -2073,7 +2077,7 @@
 				<cfif dateob lt now()>
 				   <cfset dateob=CreateDate(Year(now()),Month(now()),DaysInMonth(now()))>
 				</cfif>
-												
+																				
 				<!--- what if a person changes from contract contract --->
 				<!--- 
 				
@@ -2262,7 +2266,8 @@
 						AND    DateEffective < #date#  
 				</cfquery>
 				
-				<!--- update contract end period to today if blank or bigger than today --->				
+				<!--- update contract end period to today if blank or bigger than today --->	
+							
 				<cfquery name="update" 
 				     datasource="AppsTransaction" 
 				     username="#SESSION.login#" 
@@ -2408,9 +2413,10 @@
 					<cftransaction>
 						
 						<cfset ctr = "">			
-						
+																		
 						<cfloop query="Contract"> 
-												
+						
+																		
 							<cfquery name="hasSchedule" 
 					         datasource="AppsEmployee" 
 					         username="#SESSION.login#" 
@@ -2503,10 +2509,11 @@
 							     <cfset date  = CreateDate(Year(START),Month(START),DaysInMonth(START))>
 										  
 							  </cfif>
-							    							  	   				   	
-							  <cfif date gt DateExpiration>  
+
+							  							  						    							  	   				   	
+							  <cfif date gt DateExpiration>  							  
 								  <cfset END = DateExpiration>	 
-							  <cfelse>      
+							  <cfelse>      							  
 								  <cfset END = date>   	 	 
 							  </cfif>  
 							  
@@ -2515,11 +2522,12 @@
 							   
 							  <cfset START  = CreateDate(Year(START),Month(START),Day(START))>
 							  <cfset END    = CreateDate(Year(END),Month(END),Day(END))>
-							  
+							 							 							  
 							  <cfif end gt CONTRACT.DateExpiration>
 							     <cfset END    = CreateDate(Year(CONTRACT.DateExpiration),Month(CONTRACT.DateExpiration),Day(CONTRACT.DateExpiration))>
 							  </cfif> 	
-							  						  
+							  
+							  							  						  
 							  <!--- ------------------------------------ --->
 							  <!--- ------ RECORD THE BALANCES---------- --->
 							  <!--- ------------------------------------ ---> 									 
@@ -2772,12 +2780,12 @@
 										FROM  Ref_LeaveTypeMission
 										WHERE LeaveType = '#leavetype#'
 										AND   Mission   = '#Mission#'												
-									</cfquery>	
+									</cfquery>		
 									
 									<cfif getPeriod.EntitlementDuration neq "">
-																
-										<cfset hdate = dateadd("m",getPeriod.EntitlementDuration*-1,start)>
-										
+								
+									<cfset hdate = dateadd("m",getPeriod.EntitlementDuration*-1,start)>
+									
 										<cfquery name="get" 
 										  datasource="AppsEmployee" 	 
 										  username="#SESSION.login#" 
@@ -2788,7 +2796,7 @@
 											AND         LeaveType     = '#leaveType#'
 											AND         Mission       = '#Mission#'
 											AND         BalanceStatus = '0'
-											AND         DateEffective = #hdate#		
+											AND         DateEffective = CONVERT("date", #hdate#)
 										</cfquery>
 										
 										<cfif get.taken neq "">
@@ -2816,7 +2824,7 @@
 										INNER JOIN Ref_LeaveType T ON L.LeaveType = T.LeaveType 
 								WHERE   L.PersonNo       = '#PersonNo#'
 								<!--- overlaps the period of balance calculation --->
-								AND     Status          = '2'  <!--- approved --->					
+								AND     Status          in ('0','1','2')  <!--- approved --->					
 								AND     DateExpiration  >= #START#
 								AND     DateEffective   <= #END#					
 								AND     R.StopAccrual    = '1'   <!--- this Leave type class is meant to stop the accrual calculation --->			
@@ -3144,14 +3152,13 @@
 								
 							</cfif>	
 											
-						 <cfelseif getLeave.leaveAccrual eq "1">								
-						 			 
+						 <cfelseif getLeave.leaveAccrual eq "1">				
 						 	  <!--- ANNUAL LEAVE records and part-timers (STL) --->	 
 								 				 
 							 <cfif Credit.Calculation eq "Formula" or contractTime lt "60">		
 							 					 			 			
 							 	<cfif leavetype eq "Annual">	
-																								
+																							
 									<cfif month(START) eq priormonth 
 									  and personno eq priorperson 
 									  and DS eq DayLast>
@@ -3170,12 +3177,12 @@
 											<!--- overlaps the period of balance calculation --->
 											AND     DateExpiration  >= #DP#
 											AND     DateEffective   <= #DP#			
-											AND     Status = '2'  <!--- approved --->		
+											AND     Status in ('0','1','2') <!--- approved or not --Muserref Aki --->		
 											AND     R.StopAccrual    = '1'   <!--- this Leave type class is meant to stop the accrual calculation --->			
 									     </cfquery>
 										 
 										 <cfset totaldays =  slwop.DateExpiration - slwop.DateEffective + 1>
-			
+							
 										 <cfif check.recordcount eq "0" or totaldays lt slwop.ThresholdSLWOP>						  											
 											<cf_LeaveAccrual DS="#DayFirst#"  DE="#DE#" End="#End#" Credit="#credit.CreditFull#" mode="Standard">									
 										 <cfelse>
@@ -3189,9 +3196,10 @@
 										 </cfif>
 																	
 									<cfelse>
-															
+										<!---<cfoutput>Testing... CRD=#CRD# DS=#DS#  DE=#DE# End=#End#" Credit=#credit.CreditFull#<br></cfoutput>--->										
 										<!--- we have a break, so we reset this --->
-										<cf_LeaveAccrual DS="#DS#"  DE="#DE#" End="#End#" Credit="#credit.CreditFull#" mode="Standard">										
+										<cf_LeaveAccrual DS="#DS#"  DE="#DE#" End="#End#" Credit="#credit.CreditFull#" mode="Standard">
+										<!---<cfoutput>Testing... CRD=#CRD# DS=#DS#  DE=#DE# End=#End#" Credit=#credit.CreditFull#<br></cfoutput>--->										
 																			
 										<cfset DayFirst = day(START)>	
 										
@@ -3200,7 +3208,8 @@
 									<cfset DaysLast = dateAdd("D","1",DE)>																
 								 							 
 								 </cfif>
-																		 					 
+															
+									 					 
 								 <cfset crd  = crd * (contractTime/100)>
 								 
 								 <cfset full = credit.CreditFull * (contractTime/100)>
@@ -3247,7 +3256,7 @@
 							 	 <cfset mul = ((END - START + 1) - corr)/(daysInMonth(END))>
 							     <cfset crd = mul * credit.CreditFull>
 															 						 
-								 <cfif crd lt 0.25>
+								 <cfif crd lt 0.24>
 								           <cfset crd = 0>						  
 								 <cfelseif crd lt 0.75>
 								           <cfset crd = 0.5>
@@ -3274,7 +3283,7 @@
 							 	<!--- define the number of working days between END and START and 
 									devide this by the total number of working days in that month  					
 								--->	
-													
+															
 								<cfset BT  = 0>  <!--- Base time --->
 								<cfset ST  = 0>  <!--- schedule time --->
 								<cfset AT  = 0>  <!--- actual time counter as the record may have portions different from the month --->
@@ -3327,6 +3336,11 @@
 								 	<!--- corr is correction based on SLWOP --->														
 									<cfset crd = ((AT-corr)/ST) * M>						
 								 </cfif>		
+									
+																			
+									<!---<cfoutput>
+										Testing... #END#  crd=#CRD#<br>
+									</cfoutput>	--->
 												 
 								 <!---
 								 <cfoutput>#str#:#AT#--#corr# #crd#-#m#-#factor#<br></cfoutput>									
@@ -3334,7 +3348,7 @@
 																											
 								 <cfif ST EQ BT>	
 														
-									 <cfif crd lt 0.25>
+									 <cfif crd lt 0.24>
 									           <cfset crd = 0>		
 									 <cfelseif crd lt 0.75>
 									           <cfset crd = 0.5>		   				  
@@ -3358,7 +3372,7 @@
 									 
 								<cfelse>
 																												
-									  <cfif crd lt 0.25>
+									  <cfif crd lt 0.24>
 									           <cfset crd = 0>		
 									 <cfelseif crd lt 0.75>
 									           <cfset crd = 0.5>		   				  
@@ -3898,7 +3912,7 @@
 										
 								   </cfquery>  	 
 								   							    
-							  	   <cfcatch>xxxxxx</cfcatch>
+							  	   <cfcatch></cfcatch>
 							   
 							   </cftry>	   	
 						   

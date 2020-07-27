@@ -21,7 +21,7 @@
 	<!--- this is the process to be run inside the final payment workflow in the portal that has to generate
 	an off cycle after the incycle portion was processed --->
 	<cfset processmodality = "WorkflowFinal">	
-	
+		
 	<cfset dateValue = "">
 	<CF_DateConvert Value="#url.dateEff#">
 	<cfset DEFF = createDate(year(dateValue),month(dateValue),"1")>
@@ -305,7 +305,7 @@ but was disabled for STL on 7/22/2019. It can be re-enabled, but for now we keep
 		ORDER BY P.PayrollStart,P.SalarySchedule	
 											
 	</cfif>	
-				
+					
 </cfquery>	
 
 <cfif Calculation.recordcount eq 0>

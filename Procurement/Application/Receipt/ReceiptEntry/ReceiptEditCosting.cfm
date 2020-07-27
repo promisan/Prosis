@@ -10,6 +10,7 @@
 	 WHERE  ReceiptNo = '#URL.ID#'
 </cfquery>
 
+
 <table width="100%" align="center" style="padding:2px">
 								 					 
 		 <!--- -------------------------- --->
@@ -221,14 +222,15 @@
 			 SELECT * 
 			 FROM   Journal 
 			 WHERE  Mission = '#receipt.mission#' 
-			 AND    SystemJournal = 'Receipt'			
+			 AND    SystemJournal = 'Receipt'		
+			
 		 </cfquery>		
-		 
+		
+				 
 		 <cfif getJournal.recordcount gte "1">	 		 
 			 		 		 
 		 <tr><td colspan="7" style="background-color:f1f1f1;padding-left:21px;padding-right:30px;height:20px">
-		
-				 		 		 		 		 
+		 		 		 		 		 		 
 			  	<cf_LedgerTransaction
 				 mission             = "#receipt.mission#"
 				 journal             = "#valueList(getJournal.Journal)#" 
@@ -253,36 +255,52 @@
 			
 			</td>		 
 			
-		    <td align="right" style="padding-right:7px">
+		    <td align="right" style="padding-right:30px">
 				 <table>
-				  <tr class="labelmedium" style="height:20px"><td align="right" bgcolor="FFFFFF" style="height:20px;width:140;" id="totalother"></td></tr></table>		
+				  <tr class="labelmedium"><td align="right" style="height:20px;width:140;" id="totalother"></td></tr>
+				  </table>		
 			</td>		
 		 
 		 </tr>
 		 
 		 </cfif>	
-		 		 
+		 
+		 <!---	this has been moved outside	 		 
 			 	
-	   	 <tr  class="line">
-		 <td colspan="6" style="padding-left:8px" class="labelmedium">
-		     <table width="100%">
+	   	 <tr>
+		 <td colspan="7" align="right" style="padding-top:5px;padding-right:18px" class="labelmedium">
+		     <table align="right">
 				 <tr>
-				 <td class="labelmedium" 
+				 <td class="labelmedium" align="right"
 				     bgcolor="white" 
-					 style="color:8000FF;font-size:18px;width:200px;padding-left:7px"><cf_tl id="Total stock value">(<cfoutput>#application.basecurrency#</cfoutput>)</td>
+					 style="color:black;font-size:15px;padding-top:8px;width:200px;padding-right:7px"><cf_tl id="Total in"><cfoutput><font size="+1">#application.basecurrency#</cfoutput>
+				 </td>
+				 
+				 <td align="right" bgcolor="FFFFFF"
+				        style="border:1px solid silver;padding-top: 2px; width:100px; font-size:15px;padding-right:4px">
+					 
+					  <table width="100%">
+							 <tr><td style="padding-left:4px;font-size:10px"><cf_tl id="Tax value"></td></tr>
+							 <tr><td align="right" class="labellarge" id="totaltax"></td></tr>								 	 
+						 </table>		
+					 </td>
+				 					 
+				 <td bgcolor="FFFFFF" 
+			         style="border:1px solid silver;padding-top: 2px; width:120px; font-size:20px;padding-right:4px">
+						 <table width="100%">
+							 <tr><td style="padding-left:4px;font-size:10px"><cf_tl id="Activation value"></td></tr>
+							 <tr><td align="right" class="labellarge" id="totalsum"></td></tr>								 	 
+						 </table>					 
+				</td>	 
+					 	 
+					 
 				 </tr>
 			 </table>
-		 </td>
-		 </td>		 
-			 <td align="right" style="padding-right:7px;">
-			     <table><tr><td align="right"
-			                    bgcolor="#FFFFFF"
-			                    class="labellarge"
-			                    id="totalsum"
-			                    style="padding-top: 2px; width: 140; font-size:20px;"></td></tr>
-				</table>		 
-			 </td>		 
+		 </td>				 
+			
 		 </tr>
+		 
+		 --->
 				
 </table>
 

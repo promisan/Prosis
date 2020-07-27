@@ -604,7 +604,7 @@ function customerview(s,modid) {
 	ptoken.Navigate('../../SalesOrder/Picking/Monitor/Customer.cfm?systemfunctionid='+modid+'&height='+document.body.offsetHeight+'&warehouse='+whs+'&mission='+mis,'main')		
 }
 	
-function pickingThreshold(s,modid,el,ord) {		
+function pickingThreshold(s,modid,el,ord,days) {		
 	document.getElementById("optionselect").value = "stockcol('','"+modid+"')"	
 	whs  = document.getElementById("warehouse").value	
 	mis  = document.getElementById("mission").value	
@@ -612,8 +612,8 @@ function pickingThreshold(s,modid,el,ord) {
 		threshold = 1;
 	} else {
 	   	threshold = 0;
-	}	
-	ptoken.navigate('../../SalesOrder/Picking/PickingView.cfm?systemfunctionid='+modid+'&height='+document.body.offsetHeight+'&warehouse='+whs+'&mission='+mis+'&threshold='+threshold+'&ordering='+ord,'main')		
+	}
+	ptoken.navigate('../../SalesOrder/Picking/PickingView.cfm?systemfunctionid='+modid+'&height='+document.body.offsetHeight+'&warehouse='+whs+'&mission='+mis+'&threshold='+threshold+'&ordering='+ord+'&showDays='+days,'main')		
  }
 
 
@@ -772,11 +772,9 @@ function stockbatch(s,modid,mde,whs) {
 	
 	document.getElementById("optionselect").value = "stockbatch('','"+modid+"')"	
 	mis  = document.getElementById("mission").value	
-		
+			
 	// selection from the menu	
-	if (whs) {
-	
-		} else {		
+	if (whs) {} else {		
 		whs  = document.getElementById("warehouse").value		
 	}
 					
@@ -800,13 +798,13 @@ function stockbatch(s,modid,mde,whs) {
 	} else {	
 				
 		mde  = document.getElementById("batchmode").value			
-		sta  = document.getElementById("status").value				
-	
+		sta  = document.getElementById("status").value		
+			
 	    if (mde == "listing") {
 			
-			pge  = document.getElementById("page").value		
+			pge  = 1		
 			grp  = "transactiondate" // document.getElementById("group").value			
-			fnd  = document.getElementById("find").value	
+			fnd  = ""	
 			
 		} else {
 		
@@ -814,22 +812,13 @@ function stockbatch(s,modid,mde,whs) {
 			grp  = "transactiondate"			
 			fnd  = ""		
 		}
-
-		tpe="";
-		if (document.getElementById("transactiontype")) {
-			tpe = document.getElementById("transactiontype").value
-		}
-
+		
 		_cf_loadingtexthtml="";	
-		ptoken.navigate('../Batch/StockBatch'+mde+'.cfm?height='+document.body.offsetHeight+'&systemfunctionid='+modid+'&warehouse='+whs+'&mission='+mis+'&page='+pge+'&status='+sta+'&group='+grp+'&fnd='+fnd+'&transactiontype='+tpe,'batchmain')
+		ptoken.navigate('../Batch/StockBatch'+mde+'.cfm?systemfunctionid='+modid+'&warehouse='+whs+'&mission='+mis+'&status='+sta,'batchmain')
 		_cf_loadingtexthtml="<div><img src='<cfoutput>#SESSION.root#</cfoutput>/images/busy11.gif'/>";
 		
 	}	
-		
-	try {		
-	document.getElementById("page").focus()				
-	} catch(e) {}
-
+	
 	}	
 	
 function stockbatchsummary(modid) {

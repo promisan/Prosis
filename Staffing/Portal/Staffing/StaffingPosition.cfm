@@ -11,6 +11,7 @@
 
 	<cf_staffingPositionScript>
 	
+	<cfoutput>
 	<script>
 	
 		function toggleActions(unit) {
@@ -20,13 +21,40 @@
 			if ($(vIcon).hasClass('fa-plus-circle')) {
 				$(vIcon).removeClass('fa-plus-circle');
 				$(vIcon).addClass('fa-minus-circle');
+				// var vUnits = $('.clsFilterUnit:checked').map(function() {return this.value;}).get().join(',');				
+				ptoken.navigate('#session.root#/Staffing/Portal/Staffing/StaffingEventListing.cfm?systemfunctionid=#url.systemfunctionid#&mission=#url.mission#&selection=#url.selection#&unit='+unit, 'events_'+unit);
+	
 			} else {
 				$(vIcon).removeClass('fa-minus-circle');
 				$(vIcon).addClass('fa-plus-circle');
 			}
 		}
 		
+		function doSearch(v) {
+			var vVal = $.trim(v).toLowerCase();
+			
+			//hide all actions
+			$('.actionsIcon').removeClass('fa-minus-circle').addClass('fa-plus-circle');
+			$('.actionsContainer').hide();
+			
+			if (vVal == '') {
+				$('.clsUnitContainer').removeClass('clsRemovePadding');
+				$('.clsSearchable').show();
+			} else {
+				$('.clsUnitContainer').addClass('clsRemovePadding');
+				$('.clsSearchable').hide();
+				$('.clsSearchCriteria').each(function(){
+					var vCriteria = $.trim($(this).html()).toLowerCase();
+					if (vCriteria.includes(vVal)) {
+						$(this).parent().show();
+					}
+				});
+			}
+		}
+		
 	</script>
+	
+	</cfoutput>
 
 	<style>
 
@@ -41,7 +69,7 @@
 			padding-left: 15px; 
 			background-color: #ffffff;
 			position: sticky;
-			top: 0;
+			top: 40px;
 			z-index:99;
 			border-top:10px solid #FFFFFF;
 		}
@@ -49,6 +77,19 @@
 		.clsUnitContainer {
 			padding: 10px; 
 			padding-top: 0px;
+		}
+
+		.clsRemovePadding {
+			padding:0px!important;
+		}
+		
+		.clsSearchContainer {
+			height:40px;
+			position: sticky;
+			top: 0;
+			z-index:100;
+			background-color: #ffffff;
+			padding:7px;
 		}
 
 		.clsFilterContainer {
@@ -63,7 +104,7 @@
 		}
 
 		.clsPosition {
-			height: 360px; 
+			height: 355px; 
 			overflow: auto;
 			border-bottom: 1px solid #EAEAEA; 
 			border-right: 1px solid #EAEAEA;
@@ -98,9 +139,13 @@
 		}
 		
 		.actionsContainer {
-			border: 1px solid #EAEAEA;
-			background-color:#FAF7D4;
+			border: 0px solid #EAEAEA;
+			background-color:#ffffff;
 			padding:5px;
+		}
+		
+		.clsSearchCriteria {
+			display:none;
 		}
 		
 	</style>

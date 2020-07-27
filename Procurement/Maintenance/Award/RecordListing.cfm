@@ -1,5 +1,12 @@
 
-<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
+<cf_screentop height="100%" 
+ 			  scroll="Yes" 
+			  layout="webapp" 
+			  title="Award" 
+			  html="No"
+			  label="Edit" 
+			  jquery="Yes"
+			  systemfunctionid="#url.idmenu#">
 
 <cfquery name="SearchResult" 
 datasource="AppsPurchase" 
@@ -27,11 +34,11 @@ function reloadForm(page) {
 }
 
 function recordadd(grp) {
-          window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=460, height= 200, toolbar=no, status=yes, scrollbars=no, resizable=no");
+          ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=460, height= 200, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 function recordedit(id1) {
-          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=460, height= 200, toolbar=no, status=yes, scrollbars=no, resizable=no");
+          ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=460, height= 200, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 </script>	
@@ -41,31 +48,27 @@ function recordedit(id1) {
 <tr><td colspan="2">
 	
 	<table width="96%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
-		
-		<tr><td height="1" colspan="5" class="linedotted"></td></tr>
-		    
-		<tr>   
+				   
+		<tr class="line labelmedium">   
 		    <TD width="5%"></TD>
-		    <TD width="70" class="labelit">Code</TD>
-			<TD class="labelit">Description</TD>
-			<TD class="labelit">Officer</TD>
-		    <TD class="labelit">Entered</TD>  
+		    <TD width="70">Code</TD>
+			<TD>Description</TD>
+			<TD>Officer</TD>
+		    <TD>Entered</TD>  
 		</TR>
-		<tr><td height="1" colspan="5" class="linedotted"></td></tr>
 		
 		<cfoutput query="SearchResult">
 			 
-		    <TR class="navigation_row">
+		    <TR class="navigation_row line labelmedium">
 			<TD HEIGHT="20" align="center" style="padding-top:1px;">
 					<cf_img icon="select" navigation="yes" onclick="recordedit('#Code#');">
 			</TD>	
 			<TD><a href="javascript:recordedit('#Code#')">#Code#</a></TD>
-			<TD class="labelit">#Description#</TD>
-			<TD class="labelit">#OfficerFirstName# #OfficerLastName#</TD>
-			<TD class="labelit">#Dateformat(Created, "#CLIENT.DateFormatShow#")#</TD>
+			<TD>#Description#</TD>
+			<TD>#OfficerFirstName# #OfficerLastName#</TD>
+			<TD>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</TD>
 		    </TR>	
-			<tr><td height="1" colspan="5" class="linedotted"></td></tr> 
-		
+			
 		</CFOUTPUT>
 		    
 		</TABLE>
@@ -75,3 +78,5 @@ function recordedit(id1) {
 	</TABLE>
 
 </cf_divscroll>
+
+<cfset ajaxonload("doHighlight")>

@@ -31,14 +31,14 @@ password="#SESSION.dbpw#">
 	
 <cfoutput>	
 
-<table width="100%" height="100%" align="center" cellspacing="0" cellpadding="0" bgcolor="white" class="formpadding">
+<table width="100%" height="100%" align="center" class="formpadding">
 
-<tr><td align="center" bgcolor="white" valign="top" style="padding-left:15px;padding-right:15px;padding-top:10px">
+<tr><td align="center" bgcolor="white" valign="top">
 
 <cfform action="#SESSION.root#/tools/entityaction/Details/Cost/CostSubmit.cfm?box=#url.box#&type=#url.type#&actioncode=#url.actionCode#"  
    name="costentryform">
    
-<table width="97%" height="99%" align="center" cellpadding="0" cellspacing="0" class="formpadding formspacing">
+<table width="97%" height="100%" align="center" class="formpadding formspacing">
    
 	<tr><td colspan="2" class="labelit">
 		
@@ -520,16 +520,17 @@ password="#SESSION.dbpw#">
    <td width="80%" id="#id#">
    
 	<cf_filelibraryN
-			DocumentPath="#Object.EntityCode#"
-			SubDirectory="#id#" 
-			Filter=""				
-			Width="100%"
-			loadscript="No"
-			attachDialog="Yes"
-			inputsize = "340"
-			Box = "#id#"
-			Insert="yes"
-			Remove="yes">	
+			DocumentPath  = "#Object.EntityCode#"
+			SubDirectory  = "#id#" 
+			Filter        = ""	
+			ShowSize      = "0"			
+			Width         = "100%"
+			loadscript    = "No"
+			attachDialog  = "Yes"
+			inputsize     = "340"
+			Box           = "#id#"
+			Insert        = "yes"
+			Remove        = "yes">	
 							
 	</td>
 </tr>				
@@ -538,9 +539,7 @@ password="#SESSION.dbpw#">
   <td class="labelit" width="120"><cf_tl id="Memo">:</td>
   <td valign="top" height="100%">
        
-        <textarea name="DocumentMemo"            
-			 style="width:95%;height:95%;font-size;14px;padding:3px" 
-			 class="regular">#Get.DocumentMemo#</textarea>
+        <textarea name="DocumentMemo" style="width:95%;height:95%;font-size;14px;padding:3px" class="regular">#Get.DocumentMemo#</textarea>
 	 
 	</td>
 </tr>		
@@ -557,7 +556,7 @@ password="#SESSION.dbpw#">
 	 <cfset tSave = "#Lt_text#">
 	 
 	<input class="button10g" type="button" name="Update" id="Update" value="#tSave#" 
-	onclick="ColdFusion.navigate('#SESSION.root#/tools/entityaction/Details/Cost/CostSubmit.cfm?box=#url.box#&type=#url.type#&actioncode=#url.actionCode#','#url.box#','','','POST','costentryform')">
+	onclick="ptoken.navigate('#SESSION.root#/tools/entityaction/Details/Cost/CostSubmit.cfm?box=#url.box#&type=#url.type#&actioncode=#url.actionCode#','#url.box#','','','POST','costentryform')">
 	
 <cfelse>
 
@@ -575,7 +574,7 @@ password="#SESSION.dbpw#">
 	 <cfset tSave = "#Lt_text#">
 	 	
     <input class="button10g" type="button" name="Update" id="Update" value="#tSave#" 
-	onclick="ColdFusion.navigate('#SESSION.root#/tools/entityaction/Details/Cost/CostSubmit.cfm?box=#url.box#&type=#url.type#&actioncode=#url.actionCode#','#url.box#','','','POST','costentryform')">
+	onclick="ptoken.navigate('#SESSION.root#/tools/entityaction/Details/Cost/CostSubmit.cfm?box=#url.box#&type=#url.type#&actioncode=#url.actionCode#','#url.box#','','','POST','costentryform')">
 	
 	
 </cfif>

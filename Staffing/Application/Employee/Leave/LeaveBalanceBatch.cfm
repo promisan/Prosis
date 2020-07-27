@@ -14,6 +14,15 @@ password="#SESSION.dbpw#">
 	WHERE    BatchLeaveBalance = '1'	
 </cfquery>
 
+<cfquery name="LeaveType" 
+datasource="AppsEmployee" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT  *
+	FROM     Ref_LeaveType
+	WHERE    LeaveType = '#url.leaveType#'	
+</cfquery>
+
 <cfloop query="mission">
 
 	<cf_ScheduleLogInsert   
@@ -29,24 +38,25 @@ password="#SESSION.dbpw#">
 	 maxrows="#url.rows#"
 	 username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">
-	 	 
+	 
+		 	 
 	 SELECT        PersonNo, LastUpdated, Onboard
 	 FROM (
 		 SELECT   DISTINCT PA.PersonNo, 
 		 
-		  (SELECT   TOP (1) ISNULL(Created, 01 / 01 / 1900) AS Expr1
+		  (SELECT   TOP (1) Created
            FROM     PersonLeaveBalance
-           WHERE    LeaveType = '#url.leavetype#' 
+           WHERE    LeaveType     = '#url.leavetype#' 
 		   AND      BalanceStatus = '0' 
-		   AND      PersonNo = PA.PersonNo
+		   AND      PersonNo      = PA.PersonNo
            ORDER BY Created DESC) AS LastUpdated,
 		 
-		  (SELECT COUNT(*) AS Expr1
-           FROM   PersonContract
-           WHERE  PersonNo = PA.PersonNo 
-		   AND    Mission = '#mission#' 
-		   AND    ActionStatus IN ('0', '1') 
-		   AND    DateExpiration > GETDATE()-20) AS Onboard   <!--- has active contract --->
+		  (SELECT   COUNT(*) AS Expr1
+           FROM     PersonContract
+           WHERE    PersonNo = PA.PersonNo 
+		   AND      Mission = '#mission#' 
+		   AND      ActionStatus IN ('0', '1') 
+		   AND      DateExpiration > GETDATE()-20) AS Onboard   <!--- has active contract --->
 
 		 FROM     PersonAssignment PA INNER JOIN 
 		          Position PO ON PO.PositionNo = PA.PositionNo INNER JOIN
@@ -54,24 +64,62 @@ password="#SESSION.dbpw#">
 		 
 		 AND      PO.MissionOperational = '#mission#'		 
 		 AND      PA.DateEffective     < getdate()
-		 AND      PA.DateExpiration    > getDate()-600   <!--- only fooks on board within the last year --->
+		 AND      PA.DateExpiration    > getDate() - 365   <!--- only fooks on board within the last year --->
 		 AND      PA.AssignmentStatus IN ('0','1')
 		 AND      PA.AssignmentClass   = 'Regular'
 		 AND      PA.AssignmentType    = 'Actual'
 		 AND      PA.Incumbency        = '100' 
+		 <!--- hardcoded for STL as interns have no SL balances --->
+		 <cfif LeaveType.LeaveBalanceMode eq "Relative">
+		 AND      PO.PostType != 'INTR'
+		 </cfif>
 		 
-		 <!--- has not been touched for last 2 days or does not exist --->
-		 
-		 AND      NOT EXISTS  (SELECT 'X'
+				 
+		 AND    (  NOT EXISTS (SELECT 'X'
 		                       FROM   PersonLeaveBalance
 							   WHERE  LeaveType     = '#url.leaveType#'
 							   AND    BalanceStatus = '0'
-							   AND    PersonNo      = PA.PersonNo							   				  
-							   AND    Created > getDate()-#url.latency#
-							 )
-		 
-
-		 
+							   AND    PersonNo      = PA.PersonNo )
+							   	
+				   OR
+					
+				   <!--- has records not touched for a latency period --->
+					
+				   EXISTS     (SELECT 'X'
+		                       FROM   PersonLeaveBalance
+							   WHERE  LeaveType     = '#url.leaveType#'
+							   AND    BalanceStatus = '0'
+							   AND    LeaveTypeClass is NULL
+							   AND    PersonNo      = PA.PersonNo  			   						   				  
+							   AND    Created < getDate() - #url.latency# )
+							   
+				<cfif LeaveType.LeaveBalanceMode eq "Relative">
+				
+				<!--- has taken which is falling free likely as time progresses --->
+							   
+				 OR
+					
+				 EXISTS (SELECT 'X'
+                         FROM   PersonLeaveBalance AS PB
+						 WHERE  PersonNo      = PA.PersonNo
+						 AND    LeaveType     = '#url.leaveType#'
+						 AND    LeaveTypeClass is NULL
+						 AND    BalanceStatus = '0'
+						 AND    Taken > 0 
+						 AND    DateEffective <= (SELECT  MIN(DateEffective)+63
+							                      FROM    PersonLeaveBalance
+						                          WHERE   PersonNo      = P.PersonNo 
+												  AND     BalanceStatus = '0'
+												  AND     LeaveTypeClass is NULL
+												  AND     LeaveType      = '#url.leaveType#'))	
+												  
+												 	
+													   
+				</cfif>		
+				
+				)							   	 
+				 			 
+		
 		 <!--- only fooks with a contract for that mission --->
 		 AND    PA.PersonNo IN (SELECT PersonNo
 								FROM   PersonContract L
@@ -81,9 +129,10 @@ password="#SESSION.dbpw#">
 		 								
 		 ) as D
 		 WHERE    Onboard > 0
-		 ORDER BY Onboard DESC, LastUpdated		
-		 
-		 							
+		 <!--- if it was calculated very recently we do not update yet --->
+		 AND      (LastUpdated < getDate()-1 or LastUpdated is NULL)
+		 ORDER BY Onboard DESC, LastUpdated			 
+							
 		 
 	</cfquery>	
 	
@@ -145,7 +194,8 @@ password="#SESSION.dbpw#">
 			--->
 																		
 				<!--- check how the system makes a start date here --->
-						
+				
+										
 				<cfinvoke component   = "Service.Process.Employee.Attendance"  
 					    method        = "LeaveBalance" 			
 				        PersonNo      = "#per#" 

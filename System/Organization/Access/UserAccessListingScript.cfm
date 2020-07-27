@@ -72,8 +72,8 @@
 			tbox = box
 			tsrc = src
 								         
-			ProsisUI.createWindow('myaccess', 'Access', '',{x:100,y:100,height:document.body.clientHeight-110,width:document.body.clientWidth-110,modal:true,center:true})    							
-			ColdFusion.navigate(root + '/System/Organization/Access/UserAccessView.cfm?box='+box+'&ID2='+org+'&Mission='+mis+'&ACC=#URL.ID#&ID='+role+'&ID1='+con,'myaccess') 		
+			ProsisUI.createWindow('myaccess', 'Access', '',{x:100,y:100,height:document.body.clientHeight-110,width:document.body.clientWidth-110,maxWidth:800,modal:true,center:true})    							
+			ptoken.navigate(root + '/System/Organization/Access/UserAccessView.cfm?box='+box+'&ID2='+org+'&Mission='+mis+'&ACC=#URL.ID#&ID='+role+'&ID1='+con,'myaccess') 		
 		}  
 		
 		function refreshaccess() {			   		   

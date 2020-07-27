@@ -53,10 +53,11 @@ password="#SESSION.dbpw#">
 	   				        WHERE    CW.CustomerId     =  W.CustomerId
               			    AND      CWL.ActionClass   = 'Contact'
               			    AND      CWL.ActionStatus NOT IN ('9','8')
+							ORDER BY ISNULL(wpd1.DateTimePlanning, CWL.DateTimePlanning) ASC),WLA.WorkActionid) 
+							
               			    /*AND      ISNULL(wpd1.DateTimePlanning,CWL.DateTimePlanning) <= ISNULL(wpd.DateTimePlanning,wla.DateTimePlanning)*/
         				    /*ORDER BY CASE WHEN CWL.DateTimeActual is NULL THEN CWL.DateTimePlanning ELSE CWL.DateTimeActual END ASC*/
-        			         ORDER BY ISNULL(wpd1.DateTimePlanning, CWL.DateTimePlanning) ASC),WLA.WorkActionid) 
-							
+														
 							as firstWorkActionId /*to get the current one*/,
 					
 					( SELECT TOP 1 R1.DescriptionShort
@@ -75,7 +76,7 @@ password="#SESSION.dbpw#">
 		              AND         R1.DescriptionShort = R.DescriptionShort
 		              AND         wla1.WorkActionId != wla.WorkActionId
 				      AND         ISNULL(wpd1.DateTimePlanning,wla1.DateTimePlanning) <= ISNULL(wpd.DateTimePlanning,wla.DateTimePlanning)
-					 ORDER BY ISNULL(wpd1.DateTimePlanning, wla1.DateTimePlanning) DESC
+					  ORDER BY    ISNULL(wpd1.DateTimePlanning, wla1.DateTimePlanning) DESC
 				    ) as lastServiceDomainClass, 
 											   	
 				   (  SELECT  LEFT(Description,1) 

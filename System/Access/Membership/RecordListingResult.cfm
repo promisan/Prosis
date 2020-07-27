@@ -17,6 +17,9 @@
 	   
 	   FROM (
 				SELECT AccountOwner, 
+				       (SELECT Description
+					    FROM   Organization.dbo.Ref_AuthorizationRoleOwner
+						WHERE  Code = AccountOwner) as AccountOwnerName,
 				       AccountMission, 		  
 					   U.Account, 
 					   U.LastName, 					  
@@ -28,26 +31,26 @@
 					   
 					   <cfif entities.recordcount gte "10">
 					   
-					   '0' as OrgUnit,
+					  	   '0' as OrgUnit,
 					   
 					   <cfelse>
-					   <!--- we check if the usergroup is connected to a single branch within an enity to provide
-					   better information as to what the usergroup is intended --->				   
-					  					   
-					   (SELECT    TOP 1 P.OrgUnit
-					    FROM      Organization.dbo.Organization AS O INNER JOIN
-		                          Organization.dbo.Organization AS P ON O.HierarchyRootUnit = P.OrgUnitCode 
-								                                   AND O.Mission = P.Mission 
-																   AND O.MandateNo = P.MandateNo
-								  
-						WHERE     O.OrgUnit IN  (SELECT   OrgUnit
-						                  FROM     Organization.dbo.OrganizationAuthorization F
-					                      WHERE    F.OrgUnit     = O.OrgUnit										  
-										  AND      F.UserAccount = U.Account)
-						GROUP BY  P.OrgUnit
-						HAVING    COUNT(DISTINCT P.OrgUnit) = 1) as OrgUnit,
-						
-												
+					   
+						   <!--- we check if the usergroup is connected to a single branch within an enity to provide
+						   better information as to what the usergroup is intended --->				   
+						  					   
+						   (SELECT    TOP 1 P.OrgUnit
+						    FROM      Organization.dbo.Organization AS O INNER JOIN
+			                          Organization.dbo.Organization AS P ON O.HierarchyRootUnit = P.OrgUnitCode 
+									                                   AND O.Mission = P.Mission 
+																	   AND O.MandateNo = P.MandateNo
+									  
+							WHERE     O.OrgUnit IN  (SELECT   OrgUnit
+							                  FROM     Organization.dbo.OrganizationAuthorization F
+						                      WHERE    F.OrgUnit     = O.OrgUnit										  
+											  AND      F.UserAccount = U.Account)
+							GROUP BY  P.OrgUnit
+							HAVING    COUNT(DISTINCT P.OrgUnit) = 1) as OrgUnit,
+											
 						</cfif>
 											   			   
 					   U.Created, 
@@ -126,9 +129,9 @@
 			colspan="8">
 			
 			 <cfif url.search neq "">
-				<cfset ref = replaceNoCase(AccountOwner, url.search,"<u><font color='red'>#url.search#</font></u>", "ALL")> 
+				<cfset ref = replaceNoCase(AccountOwnerName, url.search,"<u><font color='red'>#url.search#</font></u>", "ALL")> 
 			<cfelse>
-			    <cfset ref = AccountOwner>	
+			    <cfset ref = AccountOwnerName>	
 			</cfif>
 			#ref#
 			

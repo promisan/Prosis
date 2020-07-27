@@ -144,7 +144,7 @@ to this group. If a group is no roles, no membership is allowed --->
 
 	<table height="100%" class="formpadding">
 		
-		<tr style="height:30px">
+		<tr style="height:36px">
 		 <td></td>
 		 <td bgcolor="white" style="height:37px;padding-left:10px">	
 

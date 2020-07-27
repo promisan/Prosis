@@ -73,8 +73,9 @@
 	
 	function purchase(action,actionid) {
 		    
-		try { parent.ColdFusion.Window.destroy('mydialog',true) } catch(e) {}
-		parent.ColdFusion.Window.create('mydialog', 'Obligation', '',{x:100,y:100,height:parent.document.body.clientHeight-40,width:parent.document.body.clientWidth-40,modal:true,resizable:false,center:true})    						
+		try { parent.ProsisUI.closeWindow('mydialog',true) } catch(e) {}
+		
+		parent.ProsisUI.createWindow('mydialog', 'Obligation', '',{x:100,y:100,height:parent.document.body.clientHeight-90,width:parent.document.body.clientWidth-90,modal:true,resizable:false,center:true})    						
 		parent.ColdFusion.navigate('#SESSION.root#/Procurement/Application/PurchaseOrder/Create/PurchaseCreateView.cfm?actionid='+actionid+'&jobno=#url.id1#&mission=#Job.mission#','mydialog') 					
 			
 	}
@@ -269,10 +270,12 @@
 
 <cf_divscroll style="height:100%">
      
-	<table width="98%" border="0" cellspacing="0" cellpadding="0">
+	<table width="98%" border="0">
 	
 	  <tr class="linedotted"><td colspan="4" style="padding-left:20px">
-		  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		  
+		  <table width="100%">
+		  
 		  
 		  <tr>
 		  
@@ -309,7 +312,7 @@
 				
 				    <cfoutput>
 					
-					    <a href="javascript: reloadJob('view','#url.sort#')"><font color="6688aa"><u><cf_tl id="view"></font></a>
+					    <a href="javascript: reloadJob('view','#url.sort#')"><cf_tl id="view"></a>
 						
 					</cfoutput>
 				
@@ -365,15 +368,15 @@
 	  
 	  <tr><td colspan="4" style="padding-left:20px">
 	  
-	  <cfoutput query="Job" maxrows=1>
+	  <cfform style="height:80%" action="JobUpdateSubmit.cfm?Role=#URL.Role#&Period=#URL.Period#&ID=#URL.ID#&ID1=#URL.ID1#&Sort=#URL.Sort#" method="post">
+			  
+	  <cfoutput query="Job" maxrows="1">
 	  
 	  <table width="99%" align="center">
 
-		<tr><td colspan="2">
-				
-		<cfform action="JobUpdateSubmit.cfm?Role=#URL.Role#&Period=#URL.Period#&ID=#URL.ID#&ID1=#URL.ID1#&Sort=#URL.Sort#" method="post">
+		<tr><td colspan="2">				
 										
-		<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formspacing">
+		<table width="100%">
 											
 		<tr>
 		   
@@ -399,7 +402,7 @@
 		<tr>
 		   <td class="labelmedium" style="height:25px"><cf_tl id="#Parameter.JobReferenceName#">:</td>
 		   <td width="30%" style="height:20px">
-		   <table cellspacing="0" cellpadding="0" class="formpadding">
+		   <table class="formpadding">
 		   <tr>
 		   	   <cfif URL.Mode eq "view">
 			       <td style="height:20px" class="labelmedium">#CaseNo# </td>
@@ -423,7 +426,8 @@
 					   id="casenocheck"/>				   
 				   </td>
 			   </cfif>
-			   </tr></table>   
+			   </tr>
+		   </table>   
 		   </td>
 		   <td width="130" style="height:20px" class="labelmedium"><cf_tl id="Submission">:</td>
 		   <td width="30%">
@@ -456,18 +460,14 @@
 				<cfif URL.Mode eq "view">
 				
 				    <cfif deadline neq "">
-					<cfif len(deadlinehour) eq "1">0</cfif>#deadlinehour#
-					<cfelse>
-					--
-					</cfif>
+					<cfif len(deadlinehour) eq "1">0</cfif>#deadlinehour#<cfelse>--</cfif>
 				 
 				<cfelse>
 				 
 					<select name="deadlinehour" id="deadlinehour" class="regularxl">
 						<cfloop index="hr" from="1" to="24">
 							<option value="#hr#" <cfif hr eq deadlinehour>selected</cfif>><cfif len(hr) eq 1>0</cfif>#hr#</option>
-						</cfloop>
-					<option
+						</cfloop>					
 					</select> 
 				
 				</cfif>
@@ -627,8 +627,6 @@
 		</tr>
 		
 		</cfif>
-		
-		
 				  			   
 		<cfquery name="Requisition" 
 			datasource="AppsPurchase" 
@@ -650,16 +648,16 @@
 			   <td style="height:25px;padding-top:4px" valign="top" class="labelmedium"><cf_tl id="Ceiling for Purchase">:</td>
 			   <td style="height:25px;font-size:20px" class="labelmedium">
 			   <cfset tot = Requisition.RequestAmount+Parameter.PurchaseExceed/100*Requisition.RequestAmount>			   
-			   <font color="black"><font size="2">#APPLICATION.BaseCurrency#</font> #NumberFormat(tot, "__,__.__")# 			   
+			   <font color="black"><font size="2">#APPLICATION.BaseCurrency#</font> #NumberFormat(tot, ",__.__")# 			   
 			   <cfif Parameter.TaxExemption eq "0">(<cf_tl id="without tax">)</cfif>	   
 			   </td>
 			</tr>			
 		
 		</cfif>		
 		
-		<tr class="line">
-		   <td class="labelmedium" style="height:20px"><cf_tl id="Attachments">:</td>
-		   <td class="labelmedium" colspan="3" style="padding-bottom:3px">
+		<tr class="line labelmedium">
+		   <td style="height:20px"><cf_tl id="Attachments">:</td>
+		   <td colspan="3" style="padding-bottom:3px">
 		   		   
 			 <cfif URL.Mode eq "view">
 			 
@@ -704,11 +702,9 @@
 				FROM      RequisitionLine 
 	            WHERE     ActionStatus = '3' <!--- procured --->
 				AND       JobNo    = '#URL.ID1#' 			
-			</cfquery>	
+			</cfquery>						
 			
-			<tr><td colspan="4" class="linedotted"></td></tr>					
-			
-			<tr><td height="30" colspan="4" align="center">
+			<tr><td colspan="4" align="center">
 			
 				<cfif check.recordcount eq "0">
 				
@@ -731,28 +727,26 @@
 				
 				</td>
 			</tr>
-			<tr><td height="1" colspan="4" class="linedotted"></td></tr>		
-					
+											
 			<tr><td colspan="4">
+			
 				<cfinclude template="BuyerListing.cfm">
+							
 			</td></tr>	
 			
-			<tr><td height="1" colspan="4" class="linedotted"></td></tr>				
-		
-		</cfif>
-				
+		</cfif>			
 											
 	  </table>
-	  </cfform>
 	  					  		  
-	  </td></tr> 	 
+	  </td></tr> 	
+	  
+	  </table> 
 	  
     </cfoutput>
-	  
-	</table>
 	
-	</td></tr>		
+	</cfform>
 	
+	</td></tr>			
 	
 	<cfquery name="Parameter" 
 	  datasource="AppsPurchase" 
@@ -771,6 +765,7 @@
 	      FROM   Ref_OrderClass
 		  WHERE  Code = '#Job.OrderClass#' 
 	</cfquery>
+	
 		
 	<cfif WorkflowEnabled eq "1" and flowdefined.recordcount gte "1" and Job.JobCategory neq "" and Class.PreparationMode neq "Direct">
 	  <cfset trigwf = "1">	  
@@ -781,7 +776,7 @@
 	<!--- show vendor and quotes --->
     <cfinclude template="JobViewVendorScript.cfm">		
 	
-	<tr><td height="0" colspan="4" style="padding-left:20px" id="fundingstatus">	
+	<tr><td colspan="4" style="padding-left:20px" id="fundingstatus">		
 	    <cfinclude template="JobFundingSufficient.cfm">		
 	</td></tr>
 	
@@ -810,14 +805,14 @@
 	     class   = "hide"
 	     name    = "workflowlinkprocess_#job.JobNo#" 
          id      = "workflowlinkprocess_#job.JobNo#"
-	     onclick = "ColdFusion.navigate('JobViewLines.cfm?id1=#url.id1#','dialog');ptoken.navigate('JobFundingSufficient.cfm?id1=#url.id1#&period=#url.period#','fundingstatus')">		   				   
+	     onclick = "ptoken.navigate('JobViewLines.cfm?id1=#url.id1#','dialog');ptoken.navigate('JobFundingSufficient.cfm?id1=#url.id1#&period=#url.period#','fundingstatus')">		   				   
 				
-	
+		
 	<cfif trigwf eq "1">	
 			
 		<cfoutput>
 		
-			<cfajaximport tags="cfmenu,cfdiv,cfwindow">
+			<cfajaximport tags="cfdiv,cfwindow">
 			<cf_ActionListingScript>
 						
 			<cfset wflnk = "JobViewWorkflow.cfm">
@@ -827,9 +822,8 @@
                    id      = "workflowlink_#job.JobNo#"
 				   value   = "#wflnk#">		
 						   
-			<input id="workflowbutton_#job.JobNo#" type="hidden" onclick="ColdFusion.navigate('#wflnk#?ajaxid=#job.JobNo#','#job.JobNo#')">	   
-		   		   
-			    			
+			<input id="workflowbutton_#job.JobNo#" type="hidden" onclick="ptoken.navigate('#wflnk#?ajaxid=#job.JobNo#','#job.JobNo#')">	   
+		   		   			    			
 			<tr><td id="#job.JobNo#" style="padding-left:20px">
 			
 			    <cfset url.ajaxid = "#job.JobNo#">

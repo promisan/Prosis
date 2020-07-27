@@ -1,3 +1,5 @@
+
+
 <cftransaction>
   
   <!--- 1 of 3 create a settlement header record --->
@@ -49,8 +51,10 @@
 					<!--- only if the person is in the organization at this moment of settlement --->
 					AND     D.PersonNo IN (SELECT PersonNo FROM userTransaction.dbo.sal#SESSION.thisprocess#Payable WHERE PersonNo = D.PersonNo)	
 			 <cfelseif processmodality eq "WorkflowFinal">		
-			        <!--- if you do a final payment process there is always a portion that falls inside the contract period and will create a record --->
-					AND     D.PersonNo IN (SELECT PersonNo FROM userTransaction.dbo.sal#SESSION.thisprocess#OnBoard WHERE PersonNo = D.PersonNo)		        
+			        <!--- if you do a final payment process there is always a portion that falls inside the contract period and will create a record 
+					sisabled to allow calculation
+					AND     D.PersonNo IN (SELECT PersonNo FROM userTransaction.dbo.sal#SESSION.thisprocess#OnBoard WHERE PersonNo = D.PersonNo)	
+					--->	        
 					
 			 <cfelseif processmodality eq "PersonalForce">
 					<!--- no condition --->
@@ -255,20 +259,117 @@
 			AND     E.Mission        = '#Form.Mission#'		
 			ORDER BY E.PaymentStatus
 		</cfquery>
-				
+		
 		<cfif checkflow.recordcount gte "1">
-						
-			<cfquery name="UpdateSettlement" 
-			datasource="AppsOrganization" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-				UPDATE  Payroll.dbo.EmployeeSettlement
-				SET     PaymentFinal = '1'
-				FROM    Payroll.dbo.EmployeeSettlement
-				WHERE   SettlementId   = '#checkflow.settlementid#'				
-			</cfquery>
-
-		</cfif>	
+		
+			<cfif checkflow.paymentstatus eq "0">
+			
+				<cfquery name="checkPeriod" 
+					datasource="AppsOrganization" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">	
+						SELECT  *
+						FROM    Payroll.dbo.SalarySchedulePeriod
+						WHERE   Mission = '#Form.Mission#' 
+						AND     SalarySchedule = '#Form.Schedule#' 
+						AND     PayrollEnd = #SALEND#        
+				</cfquery>
+				
+				<cfif checkPeriod.calculationStatus eq "3">
+				
+					<cfquery name="checkPeriod" 
+					datasource="AppsOrganization" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">	
+						SELECT   *
+						FROM     Payroll.dbo.SalarySchedulePeriod
+						WHERE    Mission = '#Form.Mission#' 
+						AND      SalarySchedule = '#Form.Schedule#' 
+						AND      CalculationStatus < '3'
+						ORDER BY PayrollEnd       
+				   </cfquery>
+				   
+				   <cfquery name="checkEntry" 
+						datasource="AppsOrganization" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">			
+						SELECT *						
+						FROM    Payroll.dbo.EmployeeSettlement E 			
+						WHERE   E.PersonNo       = '#PersonNo#'	 			
+						AND     E.SalarySchedule = '#Form.Schedule#'
+						AND     E.PaymentDate    = '#checkPeriod.PayrollEnd#'
+						AND     E.Mission        = '#Form.Mission#'		
+						ORDER BY E.PaymentStatus
+					</cfquery>
+					
+					<cfif checkEntry.recordcount eq "0">				   
+				
+					    <!--- we create them as off-cycle in the future --->
+				
+						<cfquery name="Insert" 
+							datasource="AppsOrganization" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+													
+								INSERT INTO Payroll.dbo.EmployeeSettlement
+										(PersonNo, 
+										 SalarySchedule, 
+										 SettlementSchedule,
+										 Mission,	
+										 PaymentDate,
+										 PaymentStatus,	
+										 ActionStatus,		
+										 PaymentFinal,							 				 
+										 OfficerUserId, 
+										 OfficerLastName, 
+										 OfficerFirstName)
+										 
+								SELECT   '#PersonNo#',
+								         '#Form.Schedule#',
+										 '#Form.Schedule#',
+										 '#Form.Mission#',
+										 '#checkPeriod.PayrollEnd#',
+										 '1', <!--- by default as OFF cycle as cost would need to be added --->
+										 '0', <!--- no amount : in the workflow we set those as release --->
+										 '1', <!--- to trigger the workflow --->						
+										 '#SESSION.acc#',
+										 '#SESSION.last#',
+										 '#SESSION.first#' 
+										
+							</cfquery>		
+							
+						</cfif>						
+								
+				<cfelse>
+				
+				<cfquery name="UpdateSettlement" 
+					datasource="AppsOrganization" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+						UPDATE  Payroll.dbo.EmployeeSettlement
+						SET     PaymentFinal = '1'
+						FROM    Payroll.dbo.EmployeeSettlement
+						WHERE   SettlementId   = '#checkflow.settlementid#'				
+				</cfquery>
+				
+				</cfif>
+			
+			<cfelse>
+												
+				<cfquery name="UpdateSettlement" 
+					datasource="AppsOrganization" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+						UPDATE  Payroll.dbo.EmployeeSettlement
+						SET     PaymentFinal = '1'
+						FROM    Payroll.dbo.EmployeeSettlement
+						WHERE   SettlementId   = '#checkflow.settlementid#'				
+				</cfquery>
+		
+			</cfif>
+			
+		</cfif>		
+		
 				
 	</cfloop>
 	
@@ -585,8 +686,9 @@
 				AND     D.PersonNo IN (SELECT PersonNo FROM userTransaction.dbo.sal#SESSION.thisprocess#Payable WHERE PersonNo = D.PersonNo)	
 		 <cfelseif processmodality eq "WorkflowFinal">			 
 		        <!--- if you do a final payment process there is always a portion that falls inside the contract period and will create a record 
-				 but we may remove this --->		 
-				AND     D.PersonNo IN (SELECT PersonNo FROM userTransaction.dbo.sal#SESSION.thisprocess#OnBoard WHERE PersonNo = D.PersonNo) 			        
+				 but we may remove this		 
+				AND     D.PersonNo IN (SELECT PersonNo FROM userTransaction.dbo.sal#SESSION.thisprocess#OnBoard WHERE PersonNo = D.PersonNo) 		
+				 --->	        
 				
 		 <cfelseif processmodality eq "PersonalForce">
 				<!--- no condition --->

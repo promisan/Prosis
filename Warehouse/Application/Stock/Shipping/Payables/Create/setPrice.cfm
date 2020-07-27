@@ -31,9 +31,8 @@
 				  TaxIncluded         = '0',
 				  SalesTax            = '0'
 	      
-		  FROM    ItemTransactionShipping S, ItemTransaction T
-		  WHERE   S.TransactionId = T.TransactionId						  
- 		  AND     T.TransactionBatchNo = '#BatchNo#'	
+		  FROM    ItemTransactionShipping S INNER JOIN ItemTransaction ON S.TransactionId = T.TransactionId						  
+ 		  WHERE   T.TransactionBatchNo = '#BatchNo#'	
 		  		  		  
 		</cfquery>	  
 	
@@ -85,9 +84,8 @@
 				  	  SalesTax            = ROUND(-(T.TransactionQuantity*#price#)*(#taxperc#/(1+#taxperc#),2)
 				  </cfif>
 	      
-		  FROM    ItemTransactionShipping S, ItemTransaction T
-		  WHERE   S.TransactionId = T.TransactionId						  
- 		  AND     T.TransactionBatchNo = '#BatchNo#'			  		  
+		  FROM    ItemTransactionShipping S INNER JOIN ItemTransaction T ON S.TransactionId = T.TransactionId						  
+ 		  WHERE   T.TransactionBatchNo = '#BatchNo#'			  		  
 		</cfquery>	  
 		
 			
@@ -107,12 +105,11 @@
 		  username="#SESSION.login#" 
 		  password="#SESSION.dbpw#">	  
 		  SELECT  SUM(SalesTotal) as SalesTotal 
-		  FROM    ItemTransactionShipping S, ItemTransaction T
-		  WHERE   S.TransactionId = T.TransactionId						  
- 		  AND     T.TransactionBatchNo = '#BatchNo#'		     
+		  FROM    ItemTransactionShipping S INNER JOIN ItemTransaction T ON S.TransactionId = T.TransactionId						  
+ 		  WHERE   T.TransactionBatchNo = '#BatchNo#'		     
 	</cfquery>	  
 	
-	<cfoutput>#numberformat(getSales.SalesTotal,',__.__')#</cfoutput>
+	<cfoutput>#numberformat(getSales.SalesTotal,',.__')#</cfoutput>
 	
 	<!--- overall total --->
 	

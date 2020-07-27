@@ -107,6 +107,14 @@ password="#SESSION.dbpw#">
 		FROM     PersonEvent 
 		WHERE    Mission = '#mission#' 	
 		AND      DateEvent >= '01/01/2015'
+
+		<!--- added by rfuentes because year 2021 was not showing in dppadpo --->
+		UNION
+		SELECT   DISTINCT Year(ActionDateEffective) as Year
+		FROM     PersonEvent 
+		WHERE    Mission = '#mission#' 	
+		AND      ActionDateEffective >= '01/01/2015'				
+
 		ORDER BY Year(DateEvent) DESC	
 	</cfquery>	
 				

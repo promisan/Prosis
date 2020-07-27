@@ -13,31 +13,36 @@
 		target="signaturebox" 
 		enctype="multipart/form-data">
 		  
-<table width="100%" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="100%" class="formpadding">
 
     <cfoutput>
 		
 	<tr>
-	<td width="100" class="labelit"><cf_tl id="Signature Image" var="1">#trim(lt_text)#:</td>
+	<td style="min-width:200px" class="labelit"><cf_tl id="Signature Image" var="1">#trim(lt_text)#:</td>
 	<td width="90%">
 							
 		<table cellspacing="0" cellpadding="0">
 		
 		<tr>
-			<td>
+						
+			<cfif FileExists("#SESSION.rootDocumentPath#/User/Signature/#account#.png")>
+						
+			<td style="padding-right:3px;padding-bottom:1px">
 			
-			<input type="file" class="button10g" style="width:500px;height:32px;font-size:15px;border:0px solid silver" name="uploadedfile" size="40" accept="image/jpeg"></td>
-			
-			<cfif FileExists("#SESSION.rootDocumentPath#User/Signature/#account#.jpg")>
-			
-			<td style="padding-left:3px">
-				<cf_button width="85px" style="height: 25; width: 85; border: 1px solid silver; padding-top:3px;font-size:13px;background-color: ButtonFace; color: Black;"
-				type="submit" name="Delete" value="Remove">		
+				<input 				
+				style="height: 23; width: 155; border: 1px solid silver;font-size:15px;background-color: ButtonFace; color: Black;"
+				type="submit" 
+				name="Delete" 
+				value="Remove Image">		
 			</td>		
 			
 			</cfif>
-						
-			<td style="padding-left:2px"><input type="submit" name="Load" value="Load..." class="button10g" style="font-size:15px;height: 32; width: 89; border: 1px inset gray; background-color: ButtonFace; color: Black;">
+			
+			<td>			
+			<input type="file" name="uploadedfile" size="40" accept="image/x-png" class="button10g" style="width:300px;height:24px;font-size:15px;">
+			</td>
+									
+			<td style="padding-left:2px"><input type="submit" name="Load" value="Load..." class="button10g" style="font-size:15px;height:25px; width:89px; background-color: ButtonFace; color: Black;">
 			</td>
 			
 		</tr>
@@ -60,7 +65,7 @@
 		
 	</td></tr>
 	
-	<tr><td colspan="2"><i><font color="808080"><cf_tl id="Images should be in JPG format in the size of width 200 * height 80"></font></i></td></tr>
+	<tr><td colspan="2"><font color="808080"><cf_tl id="Images should be in PNG format in the size of width 200 * height 80"></font></td></tr>
 	
 	<tr><td colspan="2">
 		<cfdiv id="signatureshow">

@@ -151,11 +151,11 @@ password="#SESSION.dbpw#">
 		
 		 <!--- 24/5/2018 we only compare entitlements that start with the determined EOD date for this mission/person --->
 		 
-		<cfif processmodality eq "PersonalForce"> 
+		<cfif processmodality eq "PersonalForce" or processmodality eq "WorkflowFinal"> 
 				
 		AND     ES.PersonNo     = '#Form.PersonNo#'
 		AND     ES.PayrollStart >= #DEFF#  <!--- pass this field value --->
-				
+						
 		<cfelse> 
 		 
 	    AND      ES.PayrollStart >= ( SELECT TOP 1 EntitlementEffective
@@ -238,7 +238,7 @@ password="#SESSION.dbpw#">
 	  
 	  AND    H.SalarySchedule       = '#Form.Schedule#'
 	  
-	  <cfif processmodality eq "PersonalForce"> 
+	  <cfif processmodality eq "PersonalForce" or processmodality eq "WorkflowFinal"> 
 	  		
 		AND     H.PersonNo     = '#Form.PersonNo#'
 		AND     H.PayrollStart >= #DEFF#  <!--- pass this field value --->
@@ -314,6 +314,8 @@ password="#SESSION.dbpw#">
 			 
 			 			 		 
 </cfquery>
+
+
 
 <!--- ----------------------------------------------------------------------------------------- --->
 <!--- added a provision to catch removed / vanished entitlement but with existing settlements
@@ -424,7 +426,7 @@ password="#SESSION.dbpw#">
 	<!--- -------------------------------------------------------------------------------------- --->
 	<!--- 24/5/2018 we ONLY compare for the period since this person started his continuous work --->
 	
-	<cfif processmodality eq "PersonalForce"> 		
+	<cfif processmodality eq "PersonalForce" or processmodality eq "WorkflowFinal"> 		
 		
 	AND     (
 	

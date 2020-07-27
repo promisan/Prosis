@@ -107,7 +107,7 @@
 	function selectorgmis(formname,fldorgunit,fldorgunitcode,fldmission,fldorgunitname,fldorgunitclass,mission,mandate,effective) {
 	
 		if (formname == "webdialog") {
-			ColdFusion.Window.create('orgunitselectwindow', 'Select', '',{x:0,y:0,height:document.body.clientHeight-100,width:document.body.clientWidth-50,modal:true,center:true})
+			ProsisUI.createWindow('orgunitselectwindow', 'Select', '',{x:0,y:0,height:document.body.clientHeight-100,width:document.body.clientWidth-50,modal:true,center:true})
 			ptoken.navigate(root + "/System/Organization/Application/Lookup/OrganizationViewView.cfm?FormName=" + formname + "&fldorgunit=" + fldorgunit + "&fldorgunitcode=" + fldorgunitcode + "&fldmission=" + fldmission + "&fldorgunitname=" + fldorgunitname + "&fldorgunitclass=" + fldorgunitclass + "&mission=" + mission + "&mandate=" + mandate + "&effective=" + effective + "&ts="+new Date().getTime(),'orgunitselectwindow');
 		 } else {	
 		 	ptoken.open(root + "/System/Organization/Application/Lookup/OrganizationView.cfm?FormName=" + formname + "&fldorgunit=" + fldorgunit + "&fldorgunitcode=" + fldorgunitcode + "&fldmission=" + fldmission + "&fldorgunitname=" + fldorgunitname + "&fldorgunitclass=" + fldorgunitclass + "&mission=" + mission + "&mandate=" + mandate + "&effective=" + effective , "IndexWindow", "width=850, height=660, status=yes, toolbar=no, scrollbars=yes, resizable=yes");

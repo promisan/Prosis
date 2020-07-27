@@ -27,6 +27,8 @@ password="#SESSION.dbpw#">
 	}
 </script>
 
+<cf_divscroll>
+
 <cfform method="POST"  name="customerform" onsubmit="return false">
 
 <table width="95%" class="formpadding formspacing" align="center">
@@ -499,6 +501,8 @@ password="#SESSION.dbpw#">
 </table>
 
 </cfform>
+
+</cf_divscroll>
 
 <cfset ajaxonload("doCalendar")>
 

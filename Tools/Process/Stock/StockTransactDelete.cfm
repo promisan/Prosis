@@ -21,8 +21,7 @@
 		</cfquery>
 				
 	</cfif>
-		
-	
+			
 	<cfquery name="Move"
 		datasource="#attributes.Alias#" 
 		username="#SESSION.login#" 
@@ -66,6 +65,7 @@
 			FROM      Materials.dbo.ItemTransaction WITH (NOLOCK)
 			WHERE     TransactionId = '#Attributes.TransactionId#'
 	</cfquery>
+	
 
 	<cfquery name="MoveTransactionShipping"
 		datasource="#attributes.Alias#" 
@@ -176,29 +176,34 @@
 		password="#SESSION.dbpw#">		
 			INSERT INTO Materials.dbo.ItemTransactionDeny
 			
-				( TransactionId,
-				  Mission, 
-				  Warehouse,
-				  TransactionidOrigin,
-				  TransactionLot, 
-				  TransactionType, 
-				  TransactionTimeZone, TransactionDate, 
-				  ItemNo, ItemDescription, ItemCategory, ItemPrecision, ItemTrackingNo, 
-		          Location, 
-				  BillingMode, 
-				  TransactionReference, 
-				  TransactionMetric, 
-				  TransactionQuantity, TransactionUoM, TransactionUoMMultiplier,  
-	              TransactionCostPrice, TransactionValue, 
-				  TransactionBatchNo, ReceiptId, ReceiptCostPrice, ReceiptPrice, 
-				  RequestId, TaskSerialNo, 
-				  CustomerId, AssetId, WorkOrderId, WorkOrderLine, RequirementId, BillingUnit, ProgramCode, 
-				  PersonNo, OrgUnit, OrgUnitCode, OrgUnitName, 
-				  Remarks, ActionStatus, 
-				  GLAccountDebit, GLAccountCredit, 
-		          ParentTransactionId, Source, TransactionSerialNo, 
-				  OfficerUserId, OfficerLastName, OfficerFirstName, Created)
-					  
+			   	    (TransactionId,
+	                Mission, 
+					Warehouse, 
+					TransactionIdOrigin,
+					TransactionLot,
+					TransactionType, 
+					TransactionTimeZone, TransactionDate, 
+					ItemNo, ItemDescription, ItemCategory, ItemPrecision, ItemTrackingNo, 
+                    Location, 
+					BillingMode, 
+					TransactionReference, TransactionMetric, TransactionQuantity, 
+					TransactionUoM, TransactionUoMMultiplier, 
+                    TransactionCostPrice, TransactionValue, 
+					TransactionBatchNo, 
+					ReceiptId, ReceiptCostPrice, ReceiptPrice, 
+					RequestId, TaskSerialNo, 
+					CustomerId, AssetId, WorkOrderId, WorkOrderLine, RequirementId, BillingUnit, ProgramCode, 
+					PersonNo, OrgUnit, OrgUnitCode, OrgUnitName, 
+					Remarks,ActionStatus, 
+					GLAccountDebit, GLAccountCredit, 
+                    ParentTransactionId, 
+					Source,
+					TransactionSerialNo, 
+					OfficerUserId, 
+					OfficerLastName, 
+					OfficerFirstName, 
+					Created)
+			  					  
 			SELECT  '#rowguid#', 
 	                Mission, 
 					Warehouse, 
@@ -230,5 +235,77 @@
 			FROM    Materials.dbo.ItemTransaction WITH (NOLOCK)
 			WHERE   TransactionId = '#Attributes.TransactionId#'
 		</cfquery>
+				
+		<cfquery name="MoveTransactionShipping"
+			datasource="#attributes.Alias#" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">	
+			
+			INSERT INTO Materials.dbo.ItemTransactionShippingDeny
+			           (TransactionId
+			           ,ActionStatus
+			           ,PriceSchedule
+					   ,SalesPersonNo
+			           ,SalesCurrency
+			           ,SchedulePrice
+			           ,SalesPriceFixed
+			           ,SalesPriceVariable
+			           ,SalesPrice
+			           ,TaxCode
+			           ,TaxPercentage
+			           ,TaxExemption
+			           ,TaxIncluded
+			           ,SalesAmount
+			           ,SalesTax
+			           ,ExchangeRate
+			           ,SalesBaseAmount
+			           ,SalesBaseTax
+			           ,ShippingBatchNo
+			           ,ConfirmationDate
+			           ,ConfirmationUserId
+			           ,ConfirmationLastName
+			           ,ConfirmationFirstName
+			           ,ConfirmationMemo
+			           ,QuantityReturned
+			           ,InvoiceId
+			           ,OfficerUserId
+			           ,OfficerLastName
+			           ,OfficerFirstName
+			           ,Created)
+		           
+			 SELECT    '#rowguid#'
+			           ,ActionStatus
+			           ,PriceSchedule
+					   ,SalesPersonNo				   
+			           ,SalesCurrency
+			           ,SchedulePrice
+			           ,SalesPriceFixed
+			           ,SalesPriceVariable
+			           ,SalesPrice
+			           ,TaxCode
+			           ,TaxPercentage
+			           ,TaxExemption
+			           ,TaxIncluded
+			           ,SalesAmount
+			           ,SalesTax
+			           ,ExchangeRate
+			           ,SalesBaseAmount
+			           ,SalesBaseTax
+			           ,ShippingBatchNo
+			           ,ConfirmationDate
+			           ,ConfirmationUserId
+			           ,ConfirmationLastName
+			           ,ConfirmationFirstName
+			           ,ConfirmationMemo
+			           ,QuantityReturned
+			           ,InvoiceId
+			           ,OfficerUserId
+			           ,OfficerLastName
+			           ,OfficerFirstName
+			           ,Created
+			FROM    Materials.dbo.ItemTransactionShipping WITH (NOLOCK)
+			WHERE   TransactionId = '#Attributes.TransactionId#'	
+	</cfquery>		
+	
 		
 </cfif>

@@ -1,19 +1,19 @@
 
 <!--- container for topic maintenance object --->
-<cf_divscroll>
+<cf_divscroll style="height:100%">
 
 <cfset Page         = "0">
 <cfset add          = "1">
-<cfinclude template = "../HeaderMaintain.cfm"> 		
 	
-<table width="96%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+	<table height="100%" width="96%" align="center" class="formpadding">
 
+     <tr><td height="4"><cfinclude template = "../HeaderMaintain.cfm"> 	</td></tr>		
 	
     <tr><td height="4"></td></tr>				
 	<tr>
 	
-	    <td width="100%" id="listing">
-		
+	    <td style="height:100%" width="100%" id="listing">
+				
 		   <cf_TopicListingView 
 		       systemmodule       = "Warehouse"
 		       alias              = "appsMaterials"
@@ -22,23 +22,23 @@
 			   topictable1        = "AssetItemTopic"
 			   topictable1name    = "Asset"			     			   
    			   topicfield1        = "Topic"
-			   topicscope1       = "Item"
-			   topicscope1table  = "ItemTopic"
-			   topicscope1field  = "ItemNo"
+			   topicscope1        = "Item"
+			   topicscope1table   = "ItemTopic"
+			   topicscope1field   = "ItemNo"
 			   
    			   topictable2        = "ItemClassification"
 			   topictable2name    = "EntryClass"					  
    			   topicfield2        = "Code"
-			   topicscope2       = "EntryClass"
-			   topicscope2table  = "Ref_TopicEntryClass"
-			   topicscope2field  = "EntryClass"		
+			   topicscope2        = "EntryClass"
+			   topicscope2table   = "Ref_TopicEntryClass"
+			   topicscope2field   = "EntryClass"		
    			   			   
 			   topictable3        = "AssetItemDetailTopic"
 			   topictable3name    = "Details"				  
    			   topicfield3        = "Topic"
-			   topicscope3       = "Item"
-			   topicscope3table  = "ItemTopic"
-			   topicscope3field  = "ItemNo">		
+			   topicscope3        = "Item"
+			   topicscope3table   = "ItemTopic"
+			   topicscope3field   = "ItemNo">		
 			   
 		</td>
 		

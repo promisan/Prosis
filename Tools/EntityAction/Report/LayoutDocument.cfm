@@ -176,6 +176,7 @@
 		<body>
 
 		<table width="99%" cellspacing="0" cellpadding="0" id="tmain">
+		
 		<cfif Attributes.TitleLine1 neq "" or
 		  Attributes.Logo neq "" or
 		  Attributes.TitleLine2 neq "" or 
@@ -183,7 +184,7 @@
 		  Attributes.TitleLine4 neq "" or
 		  Attributes.TitleLine5 neq "">		
 		  <tr align="center" valign="top">
-				<td colspan="3" height="60" width="100%">
+				<td colspan="3" height="60" width="100%" style="padding-top:20px">
 				
 					<table width="100%" cellspacing="0" cellpadding="0">
 

@@ -189,14 +189,13 @@ password="#SESSION.dbpw#">
 										from a location which has BillingMode eq "Internal" 
 										see also cf_getWarehouseBilling --->
 									   )
-									   
+									   									   
 									   >
-							
-																						
+																													
 									<cfif fullaccess eq "GRANTED" and sid neq "" and url.stockorderid eq "">
 									
 										<td class="labelmedium">
-											<a href="javascript:batchtosale('confirm','#Batch.BatchNo#','#Customer.DistributionCustomerId#')"><font color="blue">[<cf_tl id="Initiate Sales Order">]</a>
+											<a href="javascript:batchtosale('confirm','#Batch.BatchNo#','#Customer.DistributionCustomerId#')">[<cf_tl id="Initiate Sales Order">]</a>
 										</td>
 								
 									</cfif>
@@ -233,7 +232,6 @@ password="#SESSION.dbpw#">
 	</table>
 
 </cfif>
-
 
 <!--- check if the process box can now be shown which applies only to mode <> 3 --->
 

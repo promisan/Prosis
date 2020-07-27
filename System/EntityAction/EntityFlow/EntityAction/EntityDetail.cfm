@@ -457,7 +457,7 @@ function hl(itm,fld){
 			 
 			  <cfcase value="question">	
 			 
-			  <table width="95%" border="0" align="center" cellspacing="0" cellpadding="0" class="formpadding">
+			  <table width="95%" border="0" align="center" class="formpadding">
 			 
 				 <tr><td height="8"></td></tr>
 			 

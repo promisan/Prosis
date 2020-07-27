@@ -2,7 +2,7 @@
 <cf_tl id="Shipping and Handling" var="vShipping">
 
 <cf_screentop height="100%" 
-   scroll="Yes" jquery="Yes" layout="webapp" bannerheight="50" line="no" banner="blue" user="No" label="#vShipping#" option="<br>Add lines to cover shipping and handling">
+   scroll="Yes" jquery="Yes" layout="webapp" html="no" line="no" banner="blue" user="No" label="#vShipping#" option="<br>Add lines to cover shipping and handling">
 
 <cfset URL.Job = "#URL.ID#">
 
@@ -131,7 +131,7 @@ password="#SESSION.dbpw#">
     FROM Ref_UoM
 </cfquery>
 
-<table align="center" width="100%" border="0" cellspacing="0" cellpadding="0" bordercolor="e4e4e4" bgcolor="ffffff" class="formpadding formspacing">
+<table align="center" width="100%">
 
 <tr><td height="4"></td></tr>
 
@@ -152,23 +152,23 @@ password="#SESSION.dbpw#">
         method="post" 
 		name="processaction" target="result">	
 				
-<table cellspacing="0" cellpadding="0" class="formspacing formpadding">
+<table style="width:98%" align="center" class="formspacing formpadding">
 
 <tr class="hide"><td  colspan="6"><iframe name="result" id="result" width="100%" height="60"></iframe></td></tr>		
 
 <tr><td colspan="6">
 
-	<table cellspacing="0" cellpadding="0">
+	<table style="width:100%" class="formpadding">
 	
-	<TR>
-	    <TD width="150" height="22" class="labelmedium">
+	<TR height="22" class="labelmedium">
+	    <TD width="150">
 			<cf_tl id="Requesting Unit">:
 		</TD>
 		
 		<TD>	
 		
 		<cfoutput>	
-		<table class="formspacing formpadding">
+		<table>
 			<tr>
 				<td>				
 			
@@ -197,15 +197,15 @@ password="#SESSION.dbpw#">
 		</TD>
 		</TR>	
 				
-		<TR>
-	    <TD class="labelmedium">
+		<TR height="22" class="labelmedium">
+	    <TD>
 			<cf_tl id="Request Class">:
 		</TD>
 	    
 		<TD>
 				
 			<cfoutput>
-			<table class="formspacing formpadding">
+			<table>
 			<tr>
 				<td>
 				
@@ -239,23 +239,23 @@ password="#SESSION.dbpw#">
 </td>
 </tr>
 	
-<tr>
+<tr class="labelmedium">
    <td width="20"></td>
-   <td class="labelmedium"><cf_tl id="Description"></td>
-   <td class="labelmedium"><cf_tl id="Qty"></td>
-   <td class="labelmedium"><cf_tl id="Uom"></td>
-   <td class="labelmedium"><cf_tl id="Price"> <cfoutput>#APPLICATION.BaseCurrency#</cfoutput></td>
-   <td class="labelmedium"><cf_tl id="Total"> <cfoutput>#APPLICATION.BaseCurrency#</cfoutput></td>
+   <td><cf_tl id="Description"></td>
+   <td><cf_tl id="Qty"></td>
+   <td><cf_tl id="Uom"></td>
+   <td><cf_tl id="Price"> <cfoutput>#APPLICATION.BaseCurrency#</cfoutput></td>
+   <td><cf_tl id="Total"> <cfoutput>#APPLICATION.BaseCurrency#</cfoutput></td>
 </tr>
 
 <cfoutput query="Line">
 	
 	<input type="hidden" name="RequisitionNo_#CurrentRow#" id="RequisitionNo_#CurrentRow#" value="#RequisitionNo#">
 	
-	<tr>
+	<tr class="labelmedium">
 	
 	   <td align="center" class="labelit" style="padding-right:4px">#currentRow#.</td>
-	   <td>	<input type="text" class="enterastab regularxl" value="#RequestDescription#" name="requestdescription_#currentRow#" id="requestdescription_#currentRow#" size="40" maxlength="80"></td>
+	   <td>	<input type="text" style="width:95%" class="enterastab regularxl" value="#RequestDescription#" name="requestdescription_#currentRow#" id="requestdescription_#currentRow#" size="40" maxlength="80"></td>
 	   <td><cfinput type="Text" 
 	       name="requestquantity_#currentrow#" 
 		   value="#RequestQuantity#" 
@@ -267,13 +267,13 @@ password="#SESSION.dbpw#">
 		   style="text-align: right;" 
 		   onChange="calcul('#currentrow#')">
 	   </td>
-	   <td><select name="requestuom_#currentRow#" style="width:60px" id="requestuom_#currentRow#" size="1" class="enterastab regularxl">
+	   <td><select name="requestuom_#currentRow#" style="min-width:90px" id="requestuom_#currentRow#" size="1" class="enterastab regularxl">
 		    <cfloop query="UoM">
 				<option value="#Code#" <cfif Line.QuantityUoM eq "#Code#">selected</cfif>>#Description#</option>
 			</cfloop>
 		    </select></td>
 	   <td>
-	     <cfinput type="Text" class="enterastab regularxl" name="requestcostprice_#currentrow#" value="#NumberFormat(RequestCostPrice,"_,_.__")#" message="Enter a valid price" validate="float" required="No" size="10" style="text-align: right;" 
+	     <cfinput type="Text" class="enterastab regularxl" name="requestcostprice_#currentrow#" value="#NumberFormat(RequestCostPrice,",.__")#" message="Enter a valid price" validate="float" required="No" size="10" style="text-align: right;" 
 		  onChange="calcul('#currentrow#')">
 	   </td>
 	   <td>
@@ -291,13 +291,13 @@ password="#SESSION.dbpw#">
 	<tr>
 	   <td align="center" class="labelit" style="padding-right:4px">#ln#
 	   <td>
-	   	<input type="text" class="regularxl enterastab" name="requestdescription_#ln#" id="requestdescription_#ln#" size="40" maxlength="80">
+	   	<input type="text" style="width:95%" class="regularxl enterastab" name="requestdescription_#ln#" id="requestdescription_#ln#" size="40" maxlength="80">
 	   </td>
 	   <td>
 	     <cfinput type="Text" class="regularxl enterastab" name="requestquantity_#ln#" value="" message="Enter a valid quantity" validate="float" required="No" size="4" style="text-align: right;" onChange="calcul('#ln#')">
 	   </td>
 	   <td>
-		   <select name="requestuom_#ln#" style="width:60px" class="enterastab regularxl" id="requestuom_#ln#" size="1">
+		   <select name="requestuom_#ln#" style="width:90px" class="enterastab regularxl" id="requestuom_#ln#" size="1">
 		    <cfloop query="UoM">
 				<option value="#Code#">#Description#</option>
 			</cfloop>
@@ -330,7 +330,7 @@ password="#SESSION.dbpw#">
 	</TR>	
 		
 	<tr><td height="2" colspan="6"></td></tr>
-	<tr><td height="1" colspan="6" class="linedotted"></td></tr>
+	<tr><td height="1" colspan="6" class="line"></td></tr>
 	<tr><td height="2" colspan="6"></td></tr>
 
 	<cf_tl id="Reset" var="1">
@@ -346,7 +346,7 @@ password="#SESSION.dbpw#">
 	<tr><td height="1" colspan="6" align="center">
 	<input type="hidden"  name="row"    id="row"    value="10">
 	<input type="reset"   name="Reset"  id="Reset"  value=" #vReset# "  class="button10g" >
-	<input type="button"  name="Close"  id="Close"  value=" #vClose# "  class="button10g" onClick="parent.ColdFusion.Window.destroy('myshipping',true)">
+	<input type="button"  name="Close"  id="Close"  value=" #vClose# "  class="button10g" onClick="parent.ProsisUI.closeWindow('myshipping',true)">
 	<input type="submit"  name="Submit" id="Submit" value=" #vSubmit# " class="button10g">
 	</td></tr>
 	</cfoutput>	

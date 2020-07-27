@@ -248,6 +248,7 @@
 			   Longitude            = '#Form.cLongitude#', 
 			   SaleMode             = '#Form.SaleMode#',
 			   SaleCurrency         = '#Form.SaleCurrency#',
+			   SaleDiscount         = '#Form.SaleDiscount#',
 			   SaleBackground		= <cfif trim('Form.SaleBackground') neq "">'#Form.SaleBackground#'<cfelse>NULL</cfif>,
 			   TimeZone             = '#Form.TimeZone#',
 			   Operational          = '#Form.Operational#',

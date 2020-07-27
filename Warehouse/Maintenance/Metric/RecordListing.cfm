@@ -1,3 +1,5 @@
+<cf_screentop height="100%" scroll="Yes" html="No" jquery="Yes">
+
 <cf_divscroll>
 
 <cfquery name="SearchResult"

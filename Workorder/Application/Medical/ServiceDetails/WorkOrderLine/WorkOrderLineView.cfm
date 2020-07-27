@@ -94,6 +94,8 @@
 <cf_tl id="Print" var="vLabelPrint">
 <cf_tl id="Edit"  var="vLabelForm">
 
+<cf_tl id="Settlement" var="set">
+
 <cf_screentop 
 	label="#dateformat(getHeader.DateTimePlanning,client.dateformatshow)# #get.CustomerName# #get.mission#" 
 	height="100%" 
@@ -102,6 +104,8 @@
 	layout="webapp" 	
 	scroll="No" 
 	html="no">
+	
+	
 		
 	<cf_layoutscript>	
 	<cf_CalendarScript>
@@ -117,7 +121,9 @@
 	<cf_DialogSystem>
 	<cf_DialogLedger>
 	<cf_DialogStaffing>
-	
+
+
+
 	<cfajaximport tags="cfform,cfdiv,cfwindow">
 	<cf_textareascript>
 		
@@ -169,9 +175,8 @@
 		 ptoken.navigate('<cfoutput>#SESSION.root#</cfoutput>/WorkOrder/Application/Medical/ServiceDetails/WorkOrderLine/WorkOrderLineSettlement.cfm?workorderlineid='+wol+'&transactiondate='+dte+'&orgunitowner='+org,box+'_settlement');					
 	 }		
 		
-	 function dosettlement(wol,own,dte,stme) {	 
-	     try { ColdFusion.Window.destroy('wsettle',true)} catch(e){};
-	     ColdFusion.Window.create('wsettle', 'Settlement', '',{x:100,y:100,width:870,height:670,resizable:false,modal:false,center:true})		
+	 function dosettlement(wol,own,dte,stme) {	 	     
+	     ProsisUI.createWindow('wsettle', '<cfoutput>#set#</cfoutput>', '',{x:100,y:100,width:870,height:670,resizable:false,modal:true,center:true})		
 		 ptoken.navigate('<cfoutput>#SESSION.root#</cfoutput>/WorkOrder/Application/Settlement/SettleView.cfm?workorderlineid='+wol+'&orgunitowner='+own+'&transactiondate='+dte+'&transactiontime='+stme,'wsettle');	
 	 }		 
 	 

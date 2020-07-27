@@ -1,5 +1,4 @@
-
-<cf_screentop height="100%" scroll="Yes" html="No">
+<cf_screentop html="No" jquery="Yes">
  
 <cfquery name="MissionList" 
 datasource="AppsMaterials" 

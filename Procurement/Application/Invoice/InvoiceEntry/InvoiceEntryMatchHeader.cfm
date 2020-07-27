@@ -523,23 +523,29 @@
 									ORDER BY P.PurchaseNo 
 							  </cfquery>
 							  
-							   <cfif PO.ObligationStatus eq "1">
-							   							   
-							  		<cf_tl id="Record Incoming invoice" var="1">
-									
-									 <img src="#SESSION.root#/Images/insert.gif" 
-										  alt="#lt_text#" 
-										  name="img4" 
-										  onMouseOver="document.img4.src='#SESSION.root#/Images/button.jpg'" 
-										  onMouseOut="document.img4.src='#SESSION.root#/Images/insert.gif'"
-										  height="13" 
-										  width="13"
-										  style="cursor: pointer;" 
-										  border="0" 
-										  align="absmiddle" 
-										  onClick="invadd('#PO.orgunitvendor#','#PO.PurchaseNo#','#PO.PersonNo#')"> 
-								  
-							   </cfif>  
+							   <cfinvoke component = "Service.Access"  
+								   method           = "createwfobject" 
+								   entitycode       = "ProcInvoice"
+								   mission          = "#PO.mission#"
+								   returnvariable   = "accesscreate">   
+							   
+							   <cfif (accesscreate eq "EDIT" or accesscreate eq "ALL") and PO.ObligationStatus eq "1">	   
+								  						   							   
+								  		<cf_tl id="Record Incoming invoice" var="1">
+										
+										 <img src="#SESSION.root#/Images/insert.gif" 
+											  alt="#lt_text#" 
+											  name="img4" 
+											  onMouseOver="document.img4.src='#SESSION.root#/Images/button.jpg'" 
+											  onMouseOut="document.img4.src='#SESSION.root#/Images/insert.gif'"
+											  height="13" 
+											  width="13"
+											  style="cursor: pointer;" 
+											  border="0" 
+											  align="absmiddle" 
+											  onClick="invadd('#PO.orgunitvendor#','#PO.PurchaseNo#','#PO.PersonNo#')"> 
+									  
+								</cfif>  
 							   
 						  </cfif> 
 						  

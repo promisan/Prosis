@@ -190,9 +190,9 @@ password="#SESSION.dbpw#">
    
    <td>
     
-		<table width="100%" border="0" cellspacing="0" cellpadding="0">   
+		<table width="100%">   
 							
-				<TR class="labelmedium line">				
+				<TR class="labelmedium line fixrow">				
 				<td width="20"></td>			    				
 				<td width="60"><cf_tl id="Code"></td>				
 			    <TD><cf_tl id="Description"></TD>				
@@ -221,10 +221,10 @@ password="#SESSION.dbpw#">
 			--->
 								
 		    <tr style="height:20px" class="navigation_row line labelmedium">							
-				<td width="20" style="padding-top:4px;padding-left:3px"><cf_img icon="select" navigation="Yes" onclick="setvalue('#Code#')"></td>
+				<td width="20" style="padding-top:3px;padding-left:3px"><cf_img icon="select" navigation="Yes" onclick="setvalue('#Code#')"></td>
 				<td>#Code#</td>								
-				<td width="50%" style="font-size:15px;height:27px"><a href="javascript:recordedit('#code#')">#Description#</a></td>
-				<TD style="padding-top:6px" align="center"><cf_img icon="expand" toggle="yes" onclick="GetObjects('#currentrow#','#Code#','#url.Mission#','#url.Period#')"></TD>					
+				<td width="50%"><a href="javascript:recordedit('#code#')">#Description#</a></td>
+				<TD style="padding-top:8px" align="center"><cf_img icon="expand" toggle="yes" onclick="GetObjects('#currentrow#','#Code#','#url.Mission#','#url.Period#')"></TD>					
 				<td width="140">#EntryClass#<cfif customDialogOverwrite neq "">:#CustomDialogOverwrite#<cfelseif customdialog neq "">:#CustomDialog#</cfif></td>
 				<td width="60" align="right" style="padding-right:4px">#numberformat(CostPrice,".__")#</td>			
 			</TR>				

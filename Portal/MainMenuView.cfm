@@ -133,8 +133,9 @@
 		
 		<!--- brought to local folder and loaded manually because cfajaximport gives issues in ie9, for compatibility mode meta tag --->
 		<script src="../Scripts/cfmessage.js" type="text/javascript"></script>
-		<script src="../Scripts/cfajax.js" type="text/javascript"></script>	
-		
+		<script src="../Scripts/cfajax.js" type="text/javascript"></script>
+
+
 		<!--- ADDED BY HANNO TO PREVENT RIGHT-CLICK --->
 		<cfif getAdministrator("*") eq "0">		
 			<script>
@@ -151,11 +152,14 @@
 		</cfif>
 		
 		<cf_pictureProfileStyle>
-	
-		<cfinclude template="MainMenuViewScript.cfm">		
-			
-		<cf_SessionValidateScript doctypemode="doctype">			
-								
+
+
+
+		<cfinclude template="MainMenuViewScript.cfm">
+
+		<cf_SessionValidateScript doctypemode="doctype">
+
+
 	</head>			
 			
 	<body <cfif SESSION.authent lte "4">onLoad="sessionvalidatestart()"</cfif>>		
@@ -211,13 +215,14 @@
 			</cfoutput>				
 			
 			<cfif stylePath eq "BackOffice/Standard">
-				
+
 				<cfif FileExists("#SESSION.rootpath#\custom\logon\#Parameter.ApplicationServer#\header.cfm")>
 					<cfset logo = "../custom/logon/#Parameter.ApplicationServer#/header.cfm">
 				<cfelse>
 					<cfset logo = "#stylePath#/Images/Header.png">		
 				</cfif>
-							
+
+
 				<cfif find(".cfm",logo)>
 					<iframe marginheight="0px" marginwidth="0px" 
 						src="<cfoutput>#logo#</cfoutput>" style="height:505px; width:100%; position:absolute; top:0px; left:0px; display:block; background-color:transparent " 
@@ -251,7 +256,7 @@
 			</cfquery>		
 						
 			<cfinclude template="MainMenuUser.cfm">
-			
+
 			<!--- main menu column  --->		
 								
 			<div id="wrapper">	
@@ -272,8 +277,8 @@
 							
 						</cfif>
 
-						<cfinclude template="MainMenuContent.cfm">		
-									
+						<cfinclude template="MainMenuContent.cfm">
+
 					</div>											
                     
 					<div id="quicklinks">
@@ -369,8 +374,8 @@
 					
 					</cfif>
 
-				</div>															
-				
+				</div>
+
 	
 				<div id="dtopics" style="margin-top:0%">
 				
@@ -383,8 +388,8 @@
 						<div class="portalrightmask" id="itopicsviewmask" style="display:block"></div>
 					</cfif>							
 					
-					<cf_getMID>					
-											
+					<cf_getMID>
+
 					<iframe
 						name="itopics"
 						id="itopics"
@@ -396,7 +401,8 @@
 					</iframe>
 					
 				</div>
-										
+
+
 				<div id="contentviewmaximize">
 					<cfoutput>
 						<img src="#stylePath#/images/Maximize_maincontent.png">

@@ -148,7 +148,16 @@
 		
 	    <div class="media-body">
 	        <h1 style="font-weight:400; color:##333333;font-size:32px;letter-spacing:1px;margin-bottom:4px;">#ucase(getPerson.FirstName)# #ucase(getPerson.LastName)#</h1>
-	        <h4 style="color:##265F8E; margin-top:4px;font-size:16px;text-transform:uppercase;">
+	        <cfif isUserLoggedIn and vAllowEdit and url.personno eq client.personno>
+				<cf_tl id="set/change my signature" var="1">
+				<div 
+					title="#lt_text#" 
+					style="font-weight:400; cursor:pointer; color:##265F8E; font-size:10px; padding-bottom:3px;" 
+					onclick="event.preventDefault(); if (parent.showOptions) { parent.showOptions(); }">
+						[#trim(lt_text)#]
+				</div>
+			</cfif>
+			<h4 style="color:##265F8E; margin-top:4px;font-size:16px;text-transform:uppercase;">
 			<cfif getContract.ContractFunctionDescription neq "">#getContract.ContractFunctionDescription#<cfelse>#getPerson.FunctionDescription#</cfif>
 			
 			<cfif trim(getPerson.ContractLevel) neq "" and (FindNoCase('GRD',vAuthorizedElements) neq 0 OR vAuthorizedElements eq 'SHOWALL')>(#getPerson.ContractLevel#)</cfif> [<cfif getPerson.SourcePostNumber neq "">#getPerson.SourcePostNumber#<cfelse>#getPerson.PositionParentId#</cfif>]</h4>

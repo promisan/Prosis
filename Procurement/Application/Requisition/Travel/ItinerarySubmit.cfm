@@ -61,6 +61,7 @@
 			     datasource="AppsPurchase" 
 			     username="#SESSION.login#" 
 			     password="#SESSION.dbpw#">
+				 
 			     INSERT INTO RequisitionLineItinerary
 				         (RequisitionNo,
 						 ItineraryLineNo,						
@@ -89,15 +90,13 @@
 						  '#SESSION.last#',
 						  '#SESSION.first#')
 			</cfquery>
-			
-			
-		
+					
 		</cfif>
 				
 	</cfloop>
 		
 	<script>
-		  
+				
 		<cfif url.scope eq "requisition">   
 		ptoken.navigate('#SESSION.root#/Procurement/Application/Requisition/Travel/TravelItem.cfm?ID=#URL.ID#','iservice')
 		<cfelse>

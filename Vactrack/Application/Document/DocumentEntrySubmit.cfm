@@ -206,8 +206,7 @@ password="#SESSION.dbpw#">
  
    <!--- ---------------------- --->	
    <!--- create workflow object --->
-   <!--- ---------------------- --->
-   
+   <!--- ---------------------- --->  
 
    					
    <cf_ActionListing 
@@ -234,11 +233,13 @@ password="#SESSION.dbpw#">
 				ProsisUI.closeWindow('mydialog')
 			}
 	    	<cfif url.box eq "isearch">
-	    		parent.document.getElementById("gosearch").click();
-	    	<cfelseif left(url.box,7) eq "recruit">
-				parent.workflowreload('#url.box#');
+	    		parent.document.getElementById("gosearch").click();	    	
 			<cfelse>
-		   		parent.document.getElementById("refresh_#url.box#").click();
+				try {
+		   	   		parent.document.getElementById("refresh_#url.box#").click();
+				} catch(e) {
+					document.getElementById("refresh_#url.box#").click();
+				}
 		   	</cfif>
 			ptoken.open("#session.root#/Vactrack/Application/Document/DocumentEdit.cfm?ID=#LastNo.DocumentNo#", "Track#LastNo.DocumentNo#");
 

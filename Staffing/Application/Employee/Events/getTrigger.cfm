@@ -54,6 +54,9 @@
 		<cfif url.PositionNo neq "">
 		AND      (EntityCode != 'VacCandidate' OR EntityCode is NULL)
 		</cfif>		
+		<cfif url.scope eq "portal">
+		AND      Selfservice = 1
+		</cfif>
 		 
 		ORDER BY ListingOrder
 		
@@ -61,10 +64,12 @@
 	
 <select name="triggercode"
         id="triggercode" 
-		style="width:300px" 
+		style="width:95%" 
 		class="regularxl" 
-		onchange="_cf_loadingtexthtml='';ptoken.navigate('<cfoutput>#SESSION.root#</cfoutput>/Staffing/Application/Employee/Events/getEvent.cfm?triggercode='+this.value+'&eventid=&mission='+document.getElementById('mission').value+'&portal=#url.portal#','dEvent');">		
-		<option value="">Please select...</option>
+		onchange="_cf_loadingtexthtml='';ptoken.navigate('<cfoutput>#SESSION.root#</cfoutput>/Staffing/Application/Employee/Events/getEvent.cfm?personno=<cfoutput>#url.personno#</cfoutput>&triggercode='+this.value+'&eventid=&mission='+document.getElementById('mission').value+'&portal=<cfoutput>#url.portal#</cfoutput>','dEvent');">		
+		<cfif qTriggers.recordcount gt "1">
+			<option value="">Please select...</option>
+		</cfif>
 		<cfoutput query="qTriggers">
 			<option value="#Code#" <cfif Code eq qEvent.EventTrigger>selected</cfif>>#Description#</option>
 		</cfoutput>

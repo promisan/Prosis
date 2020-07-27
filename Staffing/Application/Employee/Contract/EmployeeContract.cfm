@@ -435,17 +435,17 @@ password="#SESSION.dbpw#">
 			<TD width="50"><cf_tl id="Entity"></TD>	
 			<TD colspan="2" style="min-width:160"><cf_tl id="Action"></TD>	
 			
-			<TD width="96"><cf_tl id="Ref"></TD>					    
-			<TD width="15%"><cf_tl id="Type"></TD>
-			<TD width="90"><cf_tl id="Schedule"></TD>
-			<TD width="50"></TD>
+			<TD style="min-width:100px"><cf_tl id="Ref"></TD>					    
+			<TD style="min-width:100px"><cf_tl id="Type"></TD>
+			<TD><cf_tl id="Schedule"></TD>
+			<TD></TD>
 						
-			<TD width="8%"><cf_tl id="Gr">/<cf_tl id="St"></TD>	
-			<TD width="90"><cf_tl id="Increment"></TD>				
-			<TD align="right" width="90" style="padding-right:5px"><cf_tl id="Base"></TD>						
+			<TD style="min-width:90px"><cf_tl id="Gr">/<cf_tl id="St"></TD>	
+			<TD style="min-width:90px"><cf_tl id="Increment"></TD>				
+			<TD align="right" style="min-width:80px;padding-right:5px"><cf_tl id="Base"></TD>						
 			<TD style="min-width:40px"><cf_tl id="Status"></TD>		
-			<td width="90"><cf_tl id="Effective"></td>
-			<TD width="90"><cf_tl id="Expiration"></TD>		
+			<td style="min-width:90px"><cf_tl id="Effective"></td>
+			<TD style="min-width:90px"><cf_tl id="Expiration"></TD>		
 		</TR>
 		
 		<cfset last = '1'>
@@ -563,7 +563,7 @@ password="#SESSION.dbpw#">
 			
 			</cfif>
 		
-		<tr bgcolor="f1f1f1" style="border-top:1px solid silver;" class="navigation_row labelmedium">
+		<tr bgcolor="f1f1f1" style="border-top:0px solid silver;" class="navigation_row labelmedium">
 		
 		<cfelseif HistoricContract eq "1">
 		
@@ -573,7 +573,7 @@ password="#SESSION.dbpw#">
 		<cfelseif dateeffective lte now() and (dateExpiration is "" or dateExpiration gte now())>
 		
 		<!--- active contract --->
-		<tr bgcolor="DAF9FC" class="navigation_row labelmedium" style="border-top:0px solid silver">
+		<tr bgcolor="DAF9FC" class="navigation_row labelmedium" style="border-top:1px solid silver">
 		
 		<cfelse>
 		
@@ -698,9 +698,10 @@ password="#SESSION.dbpw#">
 			<TD style="background-color:#cl#" style="padding-left:3px">#Description#</TD>
 			<TD style="background-color:#cl#">#ServiceLocation#&nbsp;#SalarySchedule#</TD>
 			
-			<td style="background-color:#cl#">
+			<td style="background-color:#cl#;padding-left:7px;padding-right:7px">
 
-			
+				<cfif operational eq "1">
+				
 				<cfquery name="Trigger" 
 					datasource="AppsPayroll" 
 					username="#SESSION.login#" 
@@ -740,6 +741,8 @@ password="#SESSION.dbpw#">
 				    </cfloop>
 					</tr>
 				</table>
+				
+				</cfif>
 						
 			</td>
 			
@@ -798,17 +801,17 @@ password="#SESSION.dbpw#">
 				
 			</td>
 
-			<cfset vDatesColor = "background-color:##E0E0E0;">
+			<cfset vDatesColor = "background-color:##E0E0E080;">
 			<cfif now() GTE DateEffective AND (now() LTE DateExpiration OR DateExpiration eq "")>
-				<cfset vDatesColor = "background-color:##95EDA3;">
+				<cfset vDatesColor = "background-color:##95EDA380;">
 			</cfif>
 			
 			<cfif ActionStatus eq "8" or actionStatus eq "9">
 			<td align="center" style="border:1px solid silver;border-top:0px;border-bottom:0px; #vDatesColor#">#Dateformat(DateEffective, CLIENT.DateFormatShow)#</td>
-			<td style="border:1px solid silver;border-bottom:0px;border-top:0px; #vDatesColor#" align="center">#Dateformat(DateExpiration, CLIENT.DateFormatShow)#</td>
+			<td style="border-left:1px solid silver;#vDatesColor#" align="center">#Dateformat(DateExpiration, CLIENT.DateFormatShow)#</td>
 			<cfelse>
 			<td align="center" style="border:1px solid silver;border-bottom:0px;border-top:0px; #vDatesColor#">#Dateformat(DateEffective, CLIENT.DateFormatShow)#</td>
-			<td style="border:1px solid silver;border-bottom:0px;border-top:0px; #vDatesColor#" align="center">#Dateformat(DateExpiration, CLIENT.DateFormatShow)#</td>
+			<td style="border-left:1px solid silver;#vDatesColor#" align="center">#Dateformat(DateExpiration, CLIENT.DateFormatShow)#</td>
 			</cfif>
 		</TR>
 		
@@ -1091,14 +1094,14 @@ password="#SESSION.dbpw#">
 												
 				    <cfset jvlink = "ProsisUI.createWindow('spa', 'Contract Post Adjustment','',{x:100,y:100,height:630,width:630,resizable:false,modal:true,center:true});ColdFusion.navigate('#session.root#/Staffing/Application/Employee/Contract/Adjustment/ContractSPA.cfm?contractid=#contractid#&postadjustmentid=#rowguid#&spabox=spa#row#','spa')">				
 					
+					<cfif (access eq "ALL" or access eq "EDIT") and SPAcount lte "2">
+					
 					<tr style="border-top:1px solid silver">
 					
 						<td colspan="1"></td>					
 						<td colspan="14" id="spa#row#">
 						
 							<table width="100%" align="center">
-							
-							<cfif (access eq "ALL" or access eq "EDIT") and SPAcount lte "2">
 							
 								<cfset SPACount = SPACount + 1>
 							
@@ -1113,12 +1116,14 @@ password="#SESSION.dbpw#">
 								
 								</tr>
 							
-							</cfif>
+							
 							
 							</table>	
 							
 						</td>		
 					</tr>	
+					
+					</cfif>
 							
 				</cfif>
 				

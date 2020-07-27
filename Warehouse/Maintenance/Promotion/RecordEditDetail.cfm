@@ -99,6 +99,36 @@
 	    </TD>
 	</TR>
 	
+	<cfquery name="Schedule" 
+	datasource="appsMaterials" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT 	*, 
+			    <cfif url.id1 neq "">
+		        (SELECT count(*) 
+				 FROM   PromotionSchedule 
+				 WHERE  PromotionId = '#URL.ID1#' AND PriceSchedule = P.Code) as hasSchedule				
+				<cfelse>
+				0 as hasSchedule
+				</cfif>
+		FROM 	Ref_PriceSchedule P		
+	</cfquery>
+	
+	<TR class="labelmedium">
+	    <TD><cf_tl id="Schedule">:</TD>
+	    <TD>
+	  	   <table cellspacing="0" cellpadding="0" class="formspacing">
+		   <tr class="labelmedium">
+		   
+		   <cfloop query="Schedule">
+		   <td><input class="radiol" type="checkbox" name="PriceSchedule" <cfif hasSchedule eq "1">checked</cfif> value="#Code#"></td><td>#Description#</td>		   
+		   </cfloop>
+		 
+		   </tr>
+		   </table>
+	    </TD>
+	</TR>
+	
 	<tr class="labelmedium">
 		<td><cf_tl id="Effective">:</td>
 		<td>

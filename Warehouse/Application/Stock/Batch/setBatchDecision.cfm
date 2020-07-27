@@ -148,7 +148,7 @@
 				
 				<cfif checkDeny.recordcount eq "1">
 				
-					<!--- it is likely something has change --->
+					<!--- it is extremely likely something has changed so we repost --->
 																
 					<cfinvoke component = "Service.Process.Materials.POS"  
 					   method           = "repostFromIssuance" 

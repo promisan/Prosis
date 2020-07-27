@@ -203,7 +203,7 @@
 			
 			<td class="labelmedium">#RequestPriority# <cfif ParentRequisitionNo neq ""><font color="gray">#vSplitted#</font></cfif> 	
 			
-			<td colspan="2" align="right" style="padding-right:4px" class="labelmedium">	
+			<td colspan="1" align="right" style="padding-right:4px" class="labelmedium">	
 			
 			    <cfif ParentRequisitionNo eq "">
 																		   	
@@ -275,9 +275,10 @@
 				</cfquery>
 				
 				<td align="right" class="labelit">
+				
 				<cfif check.recordcount eq "1">			
 				   <a href="javascript:ProcPOEdit('#Check.PurchaseNo#','view')" title="View Purchase Order">
-					   <font color="2F97FF">#Check.PurchaseNo#</font>
+					   #Check.PurchaseNo#
 				   </a>			
 		   		</cfif>		
 				</td>
@@ -417,7 +418,7 @@
 					<tr bgcolor="EAFBFF" class="labelit">
 						<td colspan="9" align="right" style="height:30">			
 							<cf_tl id="Assigned Purchase Order"> :
-							<a href="javascript:ProcPOEdit('#PurNo#','view')" title="View Purchase Order"><font color="2F97FF">#PurNo#</font></a>
+							<a href="javascript:ProcPOEdit('#PurNo#','view')" title="View Purchase Order">#PurNo#</a>
 						</td>
 					</tr>					
 					</cfif>

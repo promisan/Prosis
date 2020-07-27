@@ -71,14 +71,14 @@ password="#SESSION.dbpw#">
 		function asksendback(target) {
 		
 		if (confirm("Do you want to return this requisition to the requester for adjustment ?")) {		   
-			ColdFusion.navigate('RequisitionEditSubmit.cfm?mode=dialog&id=#url.id#&action=revert',target,'','','POST','processaction')
+			ptoken.navigate('RequisitionEditSubmit.cfm?mode=dialog&id=#url.id#&action=revert',target,'','','POST','processaction')
 			}			
 		}
 		
 		function askcancel(target) {
 		
 		if (confirm("Do you want to cancel this requisition ?")) {
-			ColdFusion.navigate('RequisitionEditSubmit.cfm?mode=dialog&id=#url.id#&action=cancel',target,'','','POST','processaction')
+			ptoken.navigate('RequisitionEditSubmit.cfm?mode=dialog&id=#url.id#&action=cancel',target,'','','POST','processaction')
 			}			
 		}
 		

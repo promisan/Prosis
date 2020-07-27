@@ -24,8 +24,7 @@
 	datasource="appsMaterials" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-		INSERT INTO Promotion
-			(
+		INSERT INTO Promotion (
 				Mission,
 				PromotionId,
 				Description,
@@ -36,11 +35,8 @@
 				Priority,
 				OfficerUserId,
 				OfficerLastName,
-				OfficerFirstName
-			)	
-		VALUES
-			(
-				'#Form.mission#',
+				OfficerFirstName )	
+		VALUES	('#Form.mission#',
 				'#vId#',
 				'#Form.Description#',
 				<cfif Form.CustomerLabel neq "">'#Form.CustomerLabel#',</cfif>
@@ -50,9 +46,37 @@
 				'#form.Priority#',
 				'#SESSION.acc#',
 				'#SESSION.last#',
-				'#SESSION.first#'
-			)
+				'#SESSION.first#' )
 	</cfquery>
+	
+	<!--- insert schedules --->
+	
+	<cfparam name="Form.PriceSchedule" default="">
+	
+	<cfif form.PriceSchedule neq "">
+	
+		<cfloop index="itm" list="#Form.PriceSchedule#">
+		
+			<cfquery name="Insert" 
+			datasource="appsMaterials" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				INSERT INTO PromotionSchedule (				
+						PromotionId,
+						PriceSchedule,				
+						OfficerUserId,
+						OfficerLastName,
+						OfficerFirstName )	
+				VALUES	('#vId#',
+						'#itm#',				
+						'#SESSION.acc#',
+						'#SESSION.last#',
+						'#SESSION.first#' )
+			</cfquery>
+		
+		</cfloop>	
+	
+	</cfif>
 	
 	<cf_ModuleControlLog systemfunctionid="#url.idmenu#" 
 	                     action="Insert" 
@@ -67,17 +91,48 @@
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 		UPDATE Promotion
-		SET
-			Mission			= '#Form.mission#',
-			Description		= '#Form.description#',
-			Priority        = '#Form.Priority#',
-			CustomerLabel   = <cfif Form.CustomerLabel neq "">'#Form.CustomerLabel#'<cfelse>null</cfif>,
-			DateEffective 	= #vEffective#,
-			DateExpiration 	= <cfif Form.DateExpiration neq "">#vExpiration#<cfelse>null</cfif>,
-			Operational		= #Form.operational#
-		WHERE
-			PromotionId		= '#vId#'
+		SET    Mission			= '#Form.mission#',
+			   Description		= '#Form.description#',
+			   Priority         = '#Form.Priority#',
+			   CustomerLabel    = <cfif Form.CustomerLabel neq "">'#Form.CustomerLabel#'<cfelse>null</cfif>,
+			   DateEffective 	= #vEffective#,
+			   DateExpiration 	= <cfif Form.DateExpiration neq "">#vExpiration#<cfelse>null</cfif>,
+			   Operational		= #Form.operational#
+		WHERE  PromotionId		= '#vId#'
 	</cfquery>
+	
+	<cfif form.PriceSchedule neq "">
+	
+		<cfquery name="Insert" 
+			datasource="appsMaterials" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				DELETE FROM PromotionSchedule
+				WHERE  PromotionId = '#vId#' 
+		</cfquery>
+	
+		<cfloop index="itm" list="#Form.PriceSchedule#">
+		
+			<cfquery name="Insert" 
+			datasource="appsMaterials" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				INSERT INTO PromotionSchedule (				
+						PromotionId,
+						PriceSchedule,				
+						OfficerUserId,
+						OfficerLastName,
+						OfficerFirstName )	
+				VALUES	('#vId#',
+						'#itm#',				
+						'#SESSION.acc#',
+						'#SESSION.last#',
+						'#SESSION.first#' )
+			</cfquery>
+		
+		</cfloop>	
+	
+	</cfif>
 	
 	<cf_ModuleControlLog systemfunctionid="#url.idmenu#" 
 	                     action="Update" 
@@ -88,6 +143,6 @@
 <cfoutput>
 	<script>
 		window.location = 'RecordEdit.cfm?idmenu=#url.idmenu#&id1=#vId#&fmission=#url.fmission#';
-		window.opener.ColdFusion.navigate('RecordListingDetail.cfm?idmenu=#url.idmenu#&fmission=#url.fmission#','divListing');
+		window.opener.ptoken.navigate('RecordListingDetail.cfm?idmenu=#url.idmenu#&fmission=#url.fmission#','divListing');
 	</script>
 </cfoutput>

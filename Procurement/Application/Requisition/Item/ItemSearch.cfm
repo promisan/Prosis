@@ -14,7 +14,8 @@
 <script LANGUAGE = "JavaScript">
 
 	function selected(itemuomid) {
-			
+	
+	    			
 		<cfif url.script neq "">
 					
 			try {
@@ -32,6 +33,8 @@
 
 </cfoutput>
 
+
+
 <cf_tl id="Item search" var="1">
 
 <cf_screentop label="#lt_text#" close="parent.ColdFusion.Window.destroy('mystock',true)" jquery="Yes" height="100%" line="no" html="no" scroll="yes" layout="webapp" banner="gray">
@@ -47,9 +50,7 @@
 		<input type="hidden" name="itemmaster" value="#trim(url.itemmaster)#">
 	
 	    <table height="98%" class="formspacing" width="97%" border="0" align="center">
-			
-		<tr><td height="5"></td></tr>	
-		
+					
 		<!--- Field: Item.ItemColor=CHAR;20;FALSE --->
 	
 		<cf_tl id="contains" var="1">
@@ -119,14 +120,14 @@
 		
 		</TD>
 		</TR>
-	
-		<!--- Field: Item.ItemDescriptionExternal=CHAR;100;FALSE --->
-		<INPUT type="hidden" name="Crit2_FieldName" id="Crit2_FieldName" value="I.ItemDescriptionExternal">
 		
-		<INPUT type="hidden" name="Crit2_FieldType" id="Crit2_FieldType" value="CHAR">
+		<!--- Field: Item.ItemDescriptionExternal=CHAR;100;FALSE --->
+		<INPUT type="hidden" name="Crit5_FieldName" id="Crit5_FieldName" value="U.ItemBarCode">
+		
+		<INPUT type="hidden" name="Crit5_FieldType" id="Crit5_FieldType" value="CHAR">
 		<TR height="10">
-		<TD class="labelmedium"><cf_tl id="Description External">:</TD>
-		<TD><SELECT name="Crit2_Operator" id="Crit2_Operator" class="regularxl">
+		<TD class="labelmedium"><cf_tl id="Barcode">:</TD>
+		<TD><SELECT name="Crit5_Operator" id="Crit5_Operator" class="regularxl">
 			
 				<OPTION value="CONTAINS"><cfoutput>#vcontains#</cfoutput>
 				<OPTION value="BEGINS_WITH"><cfoutput>#vbegins#</cfoutput>
@@ -136,12 +137,11 @@
 						
 			</SELECT> 
 		</TD>
-		<TD>
-		
-		<INPUT type="text" name="Crit2_Value" id="Crit2_Value" size="20" class="regularxl"> 	
+		<TD>		
+		<INPUT type="text" name="Crit5_Value" id="Crit5_Value" size="20" class="regularxl"> 	
 		</TD>
 		</TR>
-	
+		
 		<!--- Field: Item.Category=CHAR;20;FALSE --->
 		<INPUT type="hidden" name="Crit3_FieldName" id="Crit3_FieldName" value="I.Category">
 		
@@ -162,6 +162,28 @@
 		
 		<INPUT type="text" name="Crit3_Value" id="Crit3_Value" size="20" class="regularxl"> 
 		
+		</TD>
+		</TR>
+		
+		
+		<!--- Field: Item.ItemDescriptionExternal=CHAR;100;FALSE --->
+		<INPUT type="hidden" name="Crit2_FieldName" id="Crit2_FieldName" value="I.ItemDescriptionExternal">
+		
+		<INPUT type="hidden" name="Crit2_FieldType" id="Crit2_FieldType" value="CHAR">
+		<TR height="10">
+		<TD class="labelmedium"><cf_tl id="Description External">:</TD>
+		<TD><SELECT name="Crit2_Operator" id="Crit2_Operator" class="regularxl">
+			
+				<OPTION value="CONTAINS"><cfoutput>#vcontains#</cfoutput>
+				<OPTION value="BEGINS_WITH"><cfoutput>#vbegins#</cfoutput>
+				<OPTION value="ENDS_WITH"><cfoutput>#vends#</cfoutput>
+				<OPTION value="EQUAL"><cfoutput>#vis#</cfoutput>		
+				<OPTION value="NOT_EQUAL"><cfoutput>#visnot#</cfoutput>
+						
+			</SELECT> 
+		</TD>
+		<TD>		
+		<INPUT type="text" name="Crit2_Value" id="Crit2_Value" size="20" class="regularxl"> 	
 		</TD>
 		</TR>
 		

@@ -15,6 +15,7 @@ password="#SESSION.dbpw#">
 	WHERE   Mission IN (SELECT Mission 
                         FROM Organization.dbo.Ref_MissionModule 
 					    WHERE SystemModule = 'Staffing')
+	AND     M.Operational = 1						
 	<!--- has access somehow to procurement --->		
 	
 	<cfif session.isAdministrator neq "Yes">

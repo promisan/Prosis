@@ -44,7 +44,6 @@
  </style>
 
 <cfparam name="url.myclentity" default="">
-<cfparam name="Attributes.SecurityScript" default="YES">
 
 <!--- provision added 26/4/2010 for reload of a screen --->
 <cfset qstr = replace("#CGI.QUERY_STRING#","&","|","ALL")>
@@ -59,9 +58,7 @@
 <cf_tl id="More" var="vMoreMsg">
 <cf_tl id="Less" var="vLessMsg">
 
-<cfif Attributes.SecurityScript eq "YES">
-	<cf_systemscript>
-</cfif>
+<cf_systemscript>
 <cf_dialogorganization>
 <cf_ajaxRequest>
 <cf_mapscript>
@@ -290,47 +287,7 @@
 					
 			ProsisUI.createWindow('workflowstep', 'Process workflow step', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,center:true})    
 			ptoken.navigate('#SESSION.root#/Tools/EntityAction/ProcessActionView.cfm?windowmode=embed&ajaxid='+ajaxid+'&process='+allow+'&id='+id+'&myentity=#url.myclentity#','workflowstep')
-		 	 	
-		   
-		   // <cfif client.browser neq "Explorer">
-						
-		   //	ptoken.open("#SESSION.root#/Tools/EntityAction/ProcessAction.cfm?windowmode=window&ajaxid="+ajaxid+"&process="+allow+"&id="+id+"&myentity=#url.myclentity#", "_blank", "left=30, top=30, width=" + w + ", height= " + h + ", toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes"); 					
-			
-		   // 	<cfelse>	
-			
-		   //		ProsisUI.createWindow('workflowstep', 'Process workflow step', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientHeight-90,modal:true,center:true})    
-		   //		ptoken.navigate('#SESSION.root#/Tools/EntityAction/ProcessActionView.cfm?windowmode=window&ajaxid='+ajaxid+'&process='+allow+'&id='+id+'&myentity=#url.myclentity#')
-		 	 
-		 		 				
-		   //	    <!--- processing through a modal dialog screen which can disabled or enabled just for IE ---> 
-		   	 		 	
-		   //		ret = window.showModalDialog("#SESSION.root#/Tools/EntityAction/ProcessAction.cfm?windowmode=modal&ts="+new Date().getTime()+"&ajaxid="+ajaxid+"&process="+allow+"&id="+id,window, 
-		   //		 "unadorned:yes; edge:raised; status:yes; dialogHeight:"+h+"px; dialogWidth:"+w+"px; help:no; scroll:no; center:yes; resizable:yes");
-		   //        if (ret) {
-					
-		        <!--- -------------------------------------------------------- --->	
-				<!--- refresh of the [my clearances] in a none modal setup---- --->
-				<!--- -------------------------------------------------------- --->
-			
-		//	    <cfif url.myclentity neq "">
 				
-		//			if (parent.opener.document.getElementById('#url.myclentity#ref')) {
-		//				parent.opener.document.getElementById('#url.myclentity#ref').click()
-		//				<!--- does not work properly parent.close() --->
-		//			}	
-				
-		//		</cfif>
-				
-				<!--- -------------------- --->			
-				<!--- refresh the workflow --->
-				<!--- -------------------- --->
-				
-		//		try { workflowreload(ajaxid,'0') ; } catch(e) {}	
-							
-		//	}
-			
-		//	</cfif>	
-		
 		}					
 	}	
 	
@@ -552,9 +509,8 @@
 			}			
 	 }
 	 		 
-	function accessedit(id,id1,id2,acc,box,mode,orgunit,actionpublishno,actioncode,group,assist) {		   
-	   	ret = window.showModalDialog("#SESSION.root#/System/Organization/Access/UserAccess.cfm?ID="+id+"&ID1="+id1+"&ID2="+id2+"&acc="+acc+"&ts="+new Date().getTime(), window, "unadorned:yes; edge:raised; status:no; dialogHeight:710px; dialogWidth:710px; help:no; scroll:no; center:yes; resizable:no");		
-		ptoken.navigate('#SESSION.root#/tools/entityAction/ActionListingActor.cfm?role='+id+'&box='+box+'&mode='+mode+'&ObjectId='+id2+'&OrgUnit='+orgunit+'&ActionPublishNo='+actionpublishno+'&ActionCode='+actioncode+'&Group='+group+'&Assist='+assist,box)						 
+	function accessedit(id,id1,id2,acc,box,mode,orgunit,actionpublishno,actioncode,group,assist) {				        
+		ptoken.navigate('#SESSION.root#/tools/entityAction/ActionListingActor.cfm?role='+id+'&box='+box+'&mode='+mode+'&ObjectId='+id2+'&OrgUnit='+orgunit+'&ActionPublishNo='+actionpublishno+'&ActionCode='+actioncode+'&Group='+group+'&Assist='+assist,box)			
 	} 
 			
 	function accessremove(id ,id1, acc)	{

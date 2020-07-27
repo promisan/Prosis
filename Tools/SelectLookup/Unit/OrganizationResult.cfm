@@ -54,6 +54,7 @@
    AND     #url.filter2# = '#url.filter2value#'
    </cfif>   
    ORDER BY MandateDefault DESC
+   
 </cfquery>
 
 <cfset mis = url.filter1value>
@@ -95,6 +96,7 @@ password="#SESSION.dbpw#">
 	<cfif url.filter2 eq "Substantive">
 	AND    OrgUnitClass != 'Administrative' 
 	</cfif>
+	
 	
 </cfquery>
 

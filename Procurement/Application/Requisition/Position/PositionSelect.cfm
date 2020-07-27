@@ -10,7 +10,7 @@
 		
 <cfoutput>
 
-	<table width="100%" align="center" border="0" style="padding:2px;border:0px dotted silver" cellspacing="0" cellpadding="0">
+	<table width="100%" align="center" style="padding:2px;border:0px dotted silver">
 			
 		<cfset link = "#SESSION.root#/Procurement/Application/Requisition/Position/PositionFunding.cfm?access=#url.access#&reqid=#url.id#">
 		
@@ -46,7 +46,7 @@
 			</tr> 
 			
 			<tr><td height="1"></td></tr>
-			<tr><td colspan="6" class="linedotted"></td></tr>
+			<tr><td colspan="6" class="line"></td></tr>
 			<tr><td height="1"></td></tr>
 		
 		</cfif>

@@ -52,9 +52,9 @@ password="#SESSION.dbpw#">
     WHERE  SourceId = '#Object.ObjectKeyValue4#'	
 </cfquery>	
 
-<cfset cell = "padding:3px;border-right:1px solid silver">
-<cfset cont = "padding:3px;border-right:1px solid silver;text-align:center;font-size:15px">
-<cfset con2 = "padding:3px;border-right:1px solid silver;text-align:center;font-size:12px">
+<cfset cell = "padding:0px;border-right:1px solid silver">
+<cfset cont = "padding:0px;border-right:1px solid silver;text-align:center;font-size:15px">
+<cfset con2 = "padding:0px;border-right:1px solid silver;text-align:center;font-size:12px">
 <cfset head = "height:24px;color:gray;padding-left:10px;font-size:14px;font-weight:200;background-color:eaeaea">
 <cfset lbl  = "padding-left:10px;background-color:fafafa">
 
@@ -303,6 +303,7 @@ password="#SESSION.dbpw#">
 					<cfset amtD        = amt/(12*21.75)> 					
 					<cfset amtH        = amt/(12*21.75*8)> 
 					
+					<cfset rateM = amtM>
 					<cfset rateW = amtW>
 					<cfset rateD = amtD>
 					
@@ -378,6 +379,7 @@ password="#SESSION.dbpw#">
 																		
 						<cfset amtH = amt/(12*21.75*8)> 
 						
+						<cfset rateM = rateM + amtM>
 						<cfset rateW = rateW + amtW>
 						<cfset rateD = rateD + amtD>
 										
@@ -746,8 +748,8 @@ password="#SESSION.dbpw#">
 				
 				<table width="100%" class="formpadding">
 				
-					<tr class="labelit line" style="height:16px;border-top:1px solid silver;border-left:1px solid silver">
-						<td style="#cell#;width:1%;padding-left:10px"><cf_tl id="Description"></td>
+					<tr class="line" style="background-color:f1f1f1;height:14px;border-top:1px solid silver;border-left:1px solid silver">
+						<td style="#cell#;min-width:400px;padding-left:10px"><cf_tl id="Description"></td>
 						<td style="#cell#;width:60%"><cf_tl id="Memo"></td>
 						<td style="#cell#;min-width:70"></td>						
 						<td style="#cell#;min-width:180px"><cf_tl id="Amount"></td>
@@ -774,7 +776,7 @@ password="#SESSION.dbpw#">
 							<td style="#cell#;background-color:DAF9FC;">
 							<input name="Memo_#PayrollItem#"   type="text" class="regularxl enterastab" value="#exist.remarks#"  style="width:98%;background-color:transparent;border:0px;padding-left:5px">
 							</td>		
-							<td style="#cell#;background-color:DAF9FC;">
+							<td style="#cell#;background-color:DAF9FC;min-width:50px">
 							<select name="Currency_#PayrollItem#" class="regularxl enterastab" style="width:94%;background-color:transparent;border:0px;;font-size:14px">
 							<cfloop query="Currency">
 							    <cfif exist.recordcount eq "0">
@@ -785,15 +787,15 @@ password="#SESSION.dbpw#">
 							</cfloop>
 							</select>
 							</td>				
-							<td style="#cell#;background-color:DAF9FC;">
+							<td style="#cell#;background-color:DAF9FC;min-width:392px">
 							<cfif exist.amount eq "">
 							<input name="Amount_#PayrollItem#" type="text" class="regularxl amount enterastab" 
 								value="#numberformat(0,',.__')#" onchange="applyfinalpayment()"
-								style="border:0px;background-color:transparent;padding-right:3px">
+								style="border:0px;background-color:transparent;padding-right:3px;width:100%">
 							<cfelse>
 							<input name="Amount_#PayrollItem#" type="text" class="regularxl amount enterastab" 
 								value="#numberformat(exist.amount,',.__')#" onchange="applyfinalpayment()"
-								style="border:0px;background-color:transparent;padding-right:3px">
+								style="border:0px;background-color:transparent;padding-right:3pxwidth:100px">
 							</cfif>	
 							</td>
 						</tr>		
@@ -840,8 +842,8 @@ password="#SESSION.dbpw#">
 					
 					<table width="100%" class="formpadding">
 					
-						<tr class="labelit line" style="height:16px;border-top:1px solid silver;border-left:1px solid silver">
-							<td style="#cell#;width:1%;padding-left:10px"><cf_tl id="Description"></td>
+						<tr class="labelit line" style="background-color:f1f1f1;height:14px;border-top:1px solid silver;border-left:1px solid silver">
+							<td style="#cell#;width:1%;min-width:400px;padding-left:10px"><cf_tl id="Description"></td>
 							<td style="#cell#;width:60%"><cf_tl id="Memo"></td>
 							<td style="#cell#;min-width:70"></td>						
 							<td style="#cell#;min-width:180px"><cf_tl id="Amount"></td>
@@ -868,7 +870,7 @@ password="#SESSION.dbpw#">
 								<td style="#cell#;background-color:DAF9FC;">
 								<input name="Memo_#PayrollItem#"   type="text" class="regularxl enterastab" value="#exist.remarks#"  style="width:98%;background-color:transparent;border:0px;padding-left:5px">
 								</td>		
-								<td style="#cell#;background-color:DAF9FC;">
+								<td style="#cell#;background-color:DAF9FC;min-width:50px">
 								<select name="Currency_#PayrollItem#" class="regularxl enterastab" style="width:94%;background-color:transparent;border:0px;;font-size:14px">
 								<cfloop query="Currency">
 								    <cfif exist.recordcount eq "0">
@@ -879,16 +881,18 @@ password="#SESSION.dbpw#">
 								</cfloop>
 								</select>
 								</td>				
-								<td style="#cell#;background-color:DAF9FC;">
+								<td style="#cell#;background-color:DAF9FC;min-width:392px">
 								<cfif exist.amount eq "">
 								<input name="Amount_#PayrollItem#" type="text" class="regularxl amount enterastab" 
 									value="#numberformat(0,',.__')#" onchange="applyfinalpayment()"
-									style="border:0px;background-color:transparent;padding-right:3px">
+									style="border:0px;background-color:transparent;padding-right:3px;width:100%">
+									
 								<cfelse>
 								
 								<input name="Amount_#PayrollItem#" type="text" class="regularxl amount enterastab" 
 									value="#numberformat(exist.amount,',.__')#" onchange="applyfinalpayment()"
-									style="border:0px;background-color:transparent;padding-right:3px">
+									style="border:0px;background-color:transparent;padding-right:3px;width:100%">
+									
 								</cfif>	
 								</td>
 							</tr>		
@@ -970,8 +974,8 @@ password="#SESSION.dbpw#">
 					
 					<table width="100%" class="formpadding">
 					
-						<tr class="labelit line" style="height:16px;border-top:1px solid silver;border-left:1px solid silver">
-							<td style="#cell#;width:1%;min-width:260;padding-left:10px"><cf_tl id="Description"></td>
+						<tr class="labelit line" style="background-color:f1f1f1;height:14px;border-top:1px solid silver;border-left:1px solid silver">
+							<td style="#cell#;width:1%;min-width:400px;padding-left:10px"><cf_tl id="Description"></td>
 							<td style="#cell#;width:80%"><cf_tl id="Memo"></td>						
 							<td style="#cell#;min-width:60"></td>
 							<td style="#cell#;width:1%;min-width:100"><cf_tl id="Rate"></td>
@@ -984,6 +988,10 @@ password="#SESSION.dbpw#">
 							<cfif pointer eq "Day">
 							
 								<cfset rate = rateD>
+								
+							<cfelseif pointer eq "Month">
+							
+								<cfset rate = rateM>	
 								
 							<cfelse>
 							
@@ -1010,7 +1018,7 @@ password="#SESSION.dbpw#">
 								<input name="Memo_#PayrollItem#" type="text" value="#exist.remarks#" class="regularxl enterastab" style="width:98%;background-color:transparent;border:0px;padding-left:5px">
 								</td>													
 								
-								<td style="#cell#;background-color:DAF9FC;">
+								<td style="#cell#;background-color:DAF9FC;min-width:50px">
 									<select name="Currency_#PayrollItem#" onchange="applyfinalpayment()" class="regularxl enterastab" style="width:100%;background-color:transparent;border:0px;;font-size:14px">
 									<cfloop query="Currency">
 									   <cfif exist.recordcount eq "0">
@@ -1041,7 +1049,7 @@ password="#SESSION.dbpw#">
 										<cfelse>
 										
 											<cfif pointer eq "day">
-											 	 <cfset rt = dayrate>
+											 	 <cfset rt = dayrate>											
 											 <cfelse>
 											     <cfset rt = rate>								 
 											 </cfif>	
@@ -1109,7 +1117,7 @@ password="#SESSION.dbpw#">
 		   <td style="padding:0px" id="result">
 		   
 		   <table width="100%"><tr>
-		          <td style="padding-right:19px;width:100%;border-right:1px solid silver;font-size:17px;padding-bottom:4px" valign="bottom" align="right" class="labellarge">Final payment corrections:</td>
+		          <td style="padding-right:19px;width:100%;border-right:1px solid silver;font-size:15px;padding-bottom:4px" valign="bottom" align="right" class="labellarge">Final payment corrections:</td>
 				  <td style="padding:1px;height:100%">
 					  <table height="100%">
 					  <tr>
@@ -1155,5 +1163,7 @@ password="#SESSION.dbpw#">
 <input name="Key4"       type="hidden"  value="#Object.ObjectKeyValue4#">
 
 </cfoutput>
+
+<script>applyfinalpayment()</script>
  
  

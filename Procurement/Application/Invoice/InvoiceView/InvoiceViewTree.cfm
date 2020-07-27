@@ -46,18 +46,19 @@
 	   mission          = "#url.mission#"
 	   returnvariable   = "accesscreate">   
 	   
-	  <cfif accesscreate eq "EDIT" or accesscreate eq "ALL" >	   
+	  <cfif accesscreate eq "EDIT" or accesscreate eq "ALL">	   
 	 	  
 			<cfoutput>
 			 <tr>
 			  <td>
 			    <table width="100%">		
-				<tr>			     
-			        <td width="45%" class="labelmedium" style="font-size:18px;padding-left:5px">
-				 <a href="javascript:newinvoice()"><cf_tl id="Record Incoming Invoice"></a></td>
-			    </tr>
-				<tr><td height="6"></td></tr>
-				<tr><td height="1" colspan="2" class="linedotted"></td></tr>
+					<tr>			     
+				        <td width="45%" class="labelmedium" style="font-size:18px;padding-left:5px">
+					    <a href="javascript:newinvoice()"><cf_tl id="Record Incoming Invoice"></a>
+						</td>
+				    </tr>
+					<tr><td height="6"></td></tr>
+					<tr><td height="1" colspan="2" class="line"></td></tr>
 				</table>
 			  </td>
 			 </tr>

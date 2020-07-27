@@ -66,9 +66,9 @@ password="#SESSION.dbpw#">
 	
 		<table cellspacing="0" cellpadding="0" align="right">
 	
-	    <tr>	
-		<td style="padding-left:10px" class="labelit"><cf_tl id="Meter"></td>
-		<td class="labelit" height="20" style="padding-left:5px"><cf_tl id="Opening">:</td>	
+	    <tr class="labelmedium">	
+		<td style="padding-left:10px"><cf_tl id="Meter"></td>
+		<td height="20" style="padding-left:5px;min-width:70px"><cf_tl id="Opening"></td>	
 		
 		<td style="padding-left:6px">	   
 			<input type="Text"
@@ -82,7 +82,7 @@ password="#SESSION.dbpw#">
 			</td>
 			<td class="hide" id="openingset"></td>		
 				
-			<td style="padding-left:6px" class="labelit"><cf_tl id="Closing">:</td>			
+			<td style="padding-left:6px;min-width:70px"><cf_tl id="Closing"></td>			
 			
 			<td style="padding-left:6px;padding-right:4px">
 			<input type="Text"

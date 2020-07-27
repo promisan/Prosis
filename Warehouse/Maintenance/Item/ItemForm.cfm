@@ -99,15 +99,23 @@
 		 </TR>
 		 
 		 </cfif>
-			
-		<cfif check.recordcount eq "1">
+						
+		 
+		 <TR>
+			 <TD class="labelmedium" style="padding-left:5px" width="150"><cf_tl id="Last Project"> :<font color="FF0000">*</font></TD>  
+			 <TD>		 
+			 <cfdiv id="bProgram" bind="url:getProgram.cfm?mission={mission}&itemNo=#URL.Id#">		 	
+			 </TD>
+		 </TR>		
+		 
+		 <cfif check.recordcount eq "1">
 		
 			<tr>
-		    <td class="labelmedium" style="padding-left:5px" height="21" width="140"><cf_tl id="Class">:</td>
+		    <td class="labelmedium" style="padding-left:5px" height="21" width="140"><cf_tl id="Class"> / <cf_tl id="Originated"> :</td>
 		    <td class="labelmedium">#Item.ItemClass# / #Item.mission#
 				<input type="hidden" name="mission" id="mission" value="#Item.mission#">
 				<input type="hidden" name="itemclass" id="itemclass" value="#Item.ItemClass#">
-				&nbsp;&nbsp;&nbsp;<font size="2" color="808080"><cfoutput>#item.OfficerFirstName# #Item.OfficerLastName# : #dateformat(item.created,CLIENT.DateFormatShow)#</cfoutput></font>
+				&nbsp;&nbsp;&nbsp;<font size="2" color="808080"><cfoutput>#item.OfficerFirstName# #Item.OfficerLastName# [#dateformat(item.created,CLIENT.DateFormatShow)#]</cfoutput></font>
 		    </td>
 		    </tr>
 		
@@ -123,7 +131,7 @@
 			</cfquery>
 			
 	        <tr>
-		    <td class="labelmedium" style="padding-left:5px" width="140"><cf_tl id="Class">:</td>
+		    <td class="labelmedium" style="padding-left:5px" width="140"><cf_tl id="Class"> / <cf_tl id="Originated"> :</td>
 		    <td>
 				<select name="itemclass" id="itemclass" class="regularxl">		
 				<cfloop query="Cls">
@@ -136,15 +144,7 @@
 		    </td>
 		    </tr>
 		
-		</cfif>	
-			
-		 
-		 <TR>
-			 <TD class="labelmedium" style="padding-left:5px" width="150"><cf_tl id="Project"> :<font color="FF0000">*</font></TD>  
-			 <TD>		 
-			 <cfdiv id="bProgram" bind="url:getProgram.cfm?mission={mission}&itemNo=#URL.Id#">		 	
-			 </TD>
-		 </TR>		 
+		</cfif>	 
 		 
 		<cf_verifyOperational 
 	         datasource= "AppsMaterials"
@@ -248,9 +248,9 @@
 			<cfelse>
 			
 			--->
-				<cfselect name="category" 
+				<cf_uiselect name="category" 
 					class    = "regularxl"
-					query    = "Cat" 
+					query    = "#Cat#" 
 					required = "Yes" 
 					value    = "Category" 
 					message  = "Please, select a valid asset category." 

@@ -3,6 +3,8 @@
 
 <cfparam name="URL.ID2" default="0">
 
+
+
 <script>
 
 ie = document.all?1:0
@@ -57,6 +59,8 @@ function hl(itm,fld){
 					)					 
 </cfquery>
 
+<!---
+
 <cfif groupAll.recordcount eq "0">	
 	
 	<cfquery name="GroupAll" 
@@ -74,6 +78,12 @@ function hl(itm,fld){
 						)					 
 	</cfquery>
 
+</cfif>
+
+--->
+
+<cfif GroupAll.recordcount eq "0">
+<font style="color:gray">No position categorizations  enabled for entity</font>
 </cfif>
   
 <table width="100%">

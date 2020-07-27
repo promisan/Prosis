@@ -67,6 +67,7 @@ password="#SESSION.dbpw#">
 	</cfif>
 		 		 
 <cfelse>
+
 	
 	<cfif check.clearancemode eq "1" or check.clearancemode eq "">
 	
@@ -88,7 +89,7 @@ password="#SESSION.dbpw#">
 <cfif url.batchcheck eq "yes">
 
 	<script>
-		ColdFusion.navigate('setBatchStatus.cfm?batchno=#get.transactionBatchNo#','status')
+		ptoken.navigate('setBatchStatus.cfm?batchno=#get.transactionBatchNo#','status')
 	</script>
 	
 </cfif>

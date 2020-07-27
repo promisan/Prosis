@@ -30,6 +30,7 @@
 
 </cfif>
 
+<cf_droptable dbname="AppsQuery" tblname="tmp#SESSION.acc#ItemOnHandMission">
 <cf_droptable dbname="AppsQuery" tblname="tmp#SESSION.acc#ItemOnHand">
 <cf_droptable dbname="AppsQuery" tblname="tmp#SESSION.acc#ItemOnOrder">
 <cf_droptable dbname="AppsQuery" tblname="tmp#SESSION.acc#ItemReceipt">
@@ -100,6 +101,8 @@
 			[MinimumStock]       [float] NULL ,
 			[MaximumStock]       [float] NULL ,
 			[MinReorderQuantity] [float] NULL ,
+			
+			[OnHandMission]      [float] NULL CONSTRAINT [DF_.StockResupply#URL.Warehouse#_#SESSION.acc#_9a] DEFAULT (0) ,	
 					
 			[OnHand]             [float] NULL CONSTRAINT [DF_.StockResupply#URL.Warehouse#_#SESSION.acc#_1] DEFAULT (0) ,	
 			
@@ -260,7 +263,7 @@
 			AND       W.Restocking    = '#URL.Restocking#'  
 			
 			AND       I.ItemClass     = 'Supply' <!--- only supply items --->	
-															
+																		
 	</cfquery>
 		
 </cfif>		
@@ -355,6 +358,41 @@
 
 <cfif get.recordcount gt "0" and url.mode neq "filter">
 
+
+<!--- ON HAND GLOBAL --->
+
+<cfquery name="OnHand" 
+datasource="AppsMaterials" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT    ItemNo,
+	          TransactionUoM as UoM, 			 
+			  SUM(TransactionQuantity) AS Total
+	INTO      userQuery.dbo.tmp#SESSION.acc#ItemOnHandMission
+	FROM      ItemTransaction
+	WHERE     Mission = '#URL.Mission#' 
+	AND       ItemNo IN (SELECT ItemNo FROM #dest#)
+	GROUP BY  ItemNo, TransactionUoM
+</cfquery>
+
+<!---
+<cfoutput>#cfquery.executiontime#</cfoutput>
+--->
+
+<cfquery name="UpdateBalance" 
+datasource="AppsQuery" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	UPDATE    #dest#
+	SET       OnHandMission   = R.Total
+	FROM      #dest# I INNER JOIN tmp#SESSION.acc#ItemOnHandMission R 
+	          ON I.ItemNo = R.ItemNo  AND I.UoM = R.UoM	
+</cfquery>
+
+<!---
+<cfoutput>#cfquery.executiontime#</cfoutput>
+--->
+
 <!--- ON HAND --->
 
 <cfquery name="OnHand" 
@@ -368,10 +406,13 @@ password="#SESSION.dbpw#">
 	INTO      userQuery.dbo.tmp#SESSION.acc#ItemOnHand
 	FROM      ItemTransaction
 	WHERE     Warehouse = '#URL.Warehouse#' 
-	AND       ItemNo IN (SELECT    ItemNo
-						 FROM      #dest#)
+	AND       ItemNo IN (SELECT ItemNo FROM #dest#)
 	GROUP BY  ItemNo, TransactionUoM, Warehouse
 </cfquery>
+
+<!---
+<cfoutput>#cfquery.executiontime#</cfoutput>
+--->
 
 <cfquery name="UpdateBalance" 
 datasource="AppsQuery" 
@@ -379,12 +420,13 @@ username="#SESSION.login#"
 password="#SESSION.dbpw#">
 	UPDATE    #dest#
 	SET       OnHand      = R.Total
-	FROM      #dest# I, tmp#SESSION.acc#ItemOnHand R
-	WHERE     I.ItemNo    = R.ItemNo
-	AND       I.UoM       = R.UoM
-	AND       I.Warehouse = R.Warehouse
+	FROM      #dest# I INNER JOIN tmp#SESSION.acc#ItemOnHand R 
+	          ON I.ItemNo = R.ItemNo AND I.UoM = R.UoM AND I.Warehouse = R.Warehouse
 </cfquery>
 
+<!---
+<cfoutput>#cfquery.executiontime#</cfoutput>
+--->
 <!--- 2. TO RECEIVE --->
 
 <!--- 2.1 on replenish order to main warehouse --->
@@ -681,7 +723,7 @@ password="#SESSION.dbpw#">
 <cf_droptable dbname="AppsQuery" tblname="tmp#SESSION.acc#ItemReserve">
 <cf_droptable dbname="AppsQuery" tblname="tmp#SESSION.acc#ItemFulfilled">
 <cf_droptable dbname="AppsQuery" tblname="tmp#SESSION.acc#ItemOnHand">
-
+<cf_droptable dbname="AppsQuery" tblname="tmp#SESSION.acc#ItemOnHandMission">
 
 <cfinclude template="ResupplyListing.cfm">
 

@@ -41,7 +41,7 @@
 		   
 		   <TR id="box2"> 
 		   
-		      <TD style="height:27;padding-right:12px" class="labelmedium"><cf_tl id="Equipment">:<cf_space spaces="45"></TD>
+		      <TD style="height:27;padding-right:12px;min-width:160px" class="labelmedium"><cf_tl id="Equipment">:</TD>
 			  <td>
 				  <table cellspacing="0" cellpadding="0">
 				  <tr>
@@ -68,11 +68,10 @@
 					
 			  	  </td>		
 				  
-				  <td width="30" style="padding-left:5px">
+				  <td width="30" style="padding-left:5px" id="selectassetitem">
 								  				
 				       <cfset link = "#SESSION.root#/warehouse/application/stock/Transaction/getAsset.cfm?">			
-					     					   
-						
+					  
 					   <cf_selectlookup
 							    box          = "assetbox"
 								link         = "#link#"
@@ -112,7 +111,7 @@
 			
 		        <td valign="top" align="left">
 				
-			    <table width="100%" height="100%" cellspacing="0" cellpadding="0">
+			    <table width="100%" height="100%">
 				
 					<tr>
 					
@@ -205,7 +204,7 @@
 				
 		        <td colspan="1" align="left" valign="top">
 				
-			    <table width="100%" height="100%" cellspacing="0" cellpadding="0">
+			    <table width="100%" height="100%">
 				
 					<tr>
 						
@@ -373,7 +372,7 @@
    
    <tr><td height="2"></td></tr>
   	  		
-   <tr id="submitbox0" class="xxhide"><td class="linedotted" colspan="2"></td></tr>
+   <tr id="submitbox0" class="xxhide"><td class="line" colspan="2"></td></tr>
 	
    <TR id="submitbox1" class="xxhide"> 
 	
@@ -395,4 +394,10 @@
    
    </table>
    
-</cfoutput>   
+</cfoutput>  
+
+<cfif CategoryList.recordcount eq "0">
+<script>
+   try { document.getElementById('selectassetitem').className = 'hide' } catch(e) { }
+</script>   
+</cfif> 

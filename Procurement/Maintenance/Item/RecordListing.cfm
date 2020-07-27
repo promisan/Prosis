@@ -123,7 +123,7 @@ function refreshlisting(obj) {
     Prosis.busy('yes')
 	se = document.getElementById("view").value
 	_cf_loadingtexthtml='';	
-	ptoken.navigate('RecordListingResult.cfm?view='+se+'&object='+ret,'mylistings','','','POST','searchform')	
+	ptoken.navigate('RecordListingResult.cfm?view='+se+'&object='+obj,'mylistings','','','POST','searchform')	
 }		
 
 function recordedit(id1) {  

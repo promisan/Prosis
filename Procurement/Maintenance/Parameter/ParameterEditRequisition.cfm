@@ -273,10 +273,10 @@ password="#SESSION.dbpw#">
 			   <td class="labelmedium" style="padding-left:4px">Default (disabled)</td>			
 			<td  style="padding-left:4px"><input type="radio" class="radiol" onclick="document.getElementById('casecheck').className='hide'"
 			     name="RequestDescriptionMode" id="RequestDescriptionMode" <cfif RequestDescriptionMode eq "1">checked</cfif> value="1"></td>
-				 <td class="labelmedium" style="padding-left:4px"><cf_UIToolTip tooltip="Allow entry of detailed services and amounts for a single requisition line">Service Mode</cf_UIToolTip></td>
+				 <td class="labelmedium" style="padding-left:4px"><cf_UIToolTip tooltip="Allow entry of detailed services, dates and amounts for a single requisition line">Service Line Item</cf_UIToolTip></td>
 			<td  style="padding-left:4px"><input type="radio" class="radiol" onclick="document.getElementById('casecheck').className='regular'"
 			name="RequestDescriptionMode" id="RequestDescriptionMode" <cfif RequestDescriptionMode eq "2">checked</cfif> value="2"></td>
-			<td class="labelmedium" style="padding-left:4px"><cf_UIToolTip tooltip="Allow entry of more detailed listed specficiations and amounts for a single requisition line and allow for entry of a caseNo">Specification Mode</cf_UIToolTip></td>
+			<td class="labelmedium" style="padding-left:4px"><cf_UIToolTip tooltip="Allow entry of more detailed listed specifications and amounts for a single requisition line and allow for entry of a caseNo">Specification Line Item</cf_UIToolTip></td>
 						
 			<cfif RequestDescriptionMode eq "2">
 			   <cfset cl = "regular">

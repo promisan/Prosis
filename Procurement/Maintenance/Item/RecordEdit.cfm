@@ -43,7 +43,7 @@ password="#SESSION.dbpw#">
 
 	function ask() {
 		if (confirm("Do you want to remove this record ?")) {
-			ColdFusion.navigate('RecordSubmit.cfm?action=delete&code=#url.id1#','process');
+			ptoken.navigate('RecordSubmit.cfm?action=delete&code=#url.id1#','process');
 		}	
 	}
 	

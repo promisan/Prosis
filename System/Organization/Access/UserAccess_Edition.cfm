@@ -46,22 +46,25 @@
 	</cfif>	
 	
 	<table width="100%" class="formpadding">
-	<tr  class="labelmedium line">
-	<td height="20">Edition</td>
+	<tr  class="labelmedium line fixrow">
+	<td height="20"><cf_tl id="Period"></td>
+	<td height="20"><cf_tl id="Edition"></td>
 	<cfinclude template="UserAccessSelectLabel.cfm">
 	</tr>
 	
+	<cfset pr = "">
+	
 	<cfoutput query="AccessList" group="period">
-	<tr  class="labelmedium line">
-	<td style="padding-left:3px" height="20"><cfif period neq "">#Period#<cfelse>(all)</cfif></td>
-	</tr>
+	
 	<cfoutput>
 	<input type="hidden" name="#ms#_classparameter_#CurrentRow#" id="#ms#_classparameter_#CurrentRow#" value="#Code#">
-	<tr>
-	  <td style="padding-left:16px" class="labelit">#Code# #Description#</td>
+	<tr class="line labelmedium">
+	  <td style="padding-left:3px" height="20"><cfif pr neq period><cfif period neq "">#Period#<cfelse>(all)</cfif></cfif></td>
+	  <td style="padding-left:3px" class="labelit">#Code# #Description#</td>
 	  <cfset row = currentrow>		
 	   <cfinclude template="UserAccessSelect.cfm">	 
 	</tr>
+	<cfset pr = period>
 	</cfoutput>
 	</cfoutput>
     </table>

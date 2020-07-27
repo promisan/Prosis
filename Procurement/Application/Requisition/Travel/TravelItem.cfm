@@ -25,27 +25,27 @@ password="#SESSION.dbpw#">
    <cfparam name="URL.ID2" default="">   
 </cfif>
 	
-<table width="100%" border="0"  bgcolor="ffffff" cellspacing="0">
+<table width="100%">
   
 	<cfquery name="Itin" 
 	datasource="AppsPurchase" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	    SELECT *
-	    FROM  RequisitionLineItinerary I, 
-		      TravelClaim.dbo.Ref_CountryCity C, 
-			  System.dbo.Ref_Nation R
-		WHERE I.CountryCityId = C.CountryCityId
-		AND   I.RequisitionNo = '#URL.ID#'
-		AND   R.Code = C.LocationCountry
+	    SELECT  *
+	    FROM    RequisitionLineItinerary I 
+		        LEFT OUTER JOIN TravelClaim.dbo.Ref_CountryCity C ON I.CountryCityId = C.CountryCityId 
+			    LEFT OUTER JOIN System.dbo.Ref_Nation R ON R.Code = C.LocationCountry
+		WHERE   I.RequisitionNo = '#URL.ID#'		
 	</cfquery>
+	
+	
 	    
    <tr>	
     <td colspan="2" width="100%" align="center">
 	
     <table width="100%" class="navigation_table">
 	
-		<cfset jvlink = "ProsisUI.createWindow('dialogitin', 'Maintain Travel Itinerary', '',{x:100,y:100,height:600,width:720,scrollable:false,resizable:true,modal:true,center:true})">		
+		<cfset jvlink = "ProsisUI.createWindow('dialogitin', 'Maintain Travel Itinerary', '',{x:100,y:100,height:600,width:820,scrollable:false,resizable:true,modal:true,center:true})">		
 	  	
 		<cfif url.access eq "Edit">
 		
@@ -55,7 +55,7 @@ password="#SESSION.dbpw#">
 				  <A href="javascript:#jvlink#;ptoken.navigate('#SESSION.root#/Procurement/Application/Requisition/Travel/ItineraryEdit.cfm?ID=#URL.ID#&ID2=new','dialogitin')"><cf_tl id="Maintain Itinerary"></a>			
 				  
 				  <cfif Itin.recordcount gte "1" and Itin.recordcount lte "2">
-				  	<font color="FF0000">Incomplete</font>
+				  	<font color="FF0000"><cf_tl id="Incomplete"></font>
 				  </cfif>
 				  
 			</td></tr>
@@ -69,7 +69,7 @@ password="#SESSION.dbpw#">
 				 <cf_tl id="Itinerary">			
 				  
 				  <cfif Itin.recordcount gte "1" and Itin.recordcount lte "2">
-				  	<font color="FF0000">Incomplete</font>
+				  	<font color="FF0000"><cf_tl id="Incomplete"></font>
 				  </cfif>
 				  
 			</td></tr>
@@ -89,19 +89,16 @@ password="#SESSION.dbpw#">
 		  
 	    </TR>	
 									
-		<cfoutput query="Itin">	
-		
-			<cfset jv = "ColdFusion.Window.create('dialogitin', 'Maintain Travel Itinerary', '',{x:100,y:100,height:600,width:720,resizable:true,modal:true,center:true})">		
-	        				
-			<TR class="linedotted navigation_row labelmedium" style="height:20px">
+		<cfoutput query="Itin">			
+		     				
+			<TR class="line navigation_row labelmedium" style="height:20px">
 			    <td style="padding-left:4px">#Name#</td>
 			    <td>#LocationCity#</td>		
 				<td><cfif dateArrival neq "">a: #dateformat(dateArrival,CLIENT.DateFormatShow)#<cfelseif dateDeparture neq "">d: #dateformat(dateDeparture,CLIENT.DateFormatShow)#</cfif></td>				
 				<td>#TransportMode#</td>			
 				<td>#TransportClass#</td>						    	
 				<td>#Memo#</td>			
-				<td></td>		  	    				
-			   		   
+				<td></td>				   		   
 		    </TR>	
 			
 		</cfoutput>
@@ -141,13 +138,13 @@ password="#SESSION.dbpw#">
 	    <table width="100%" class="formpadding">
 				
 		    <tr class="line labelmedium">
-			   <td width="80" style="padding-left:3px"><cf_tl id="Updated"></td>	
-			   <td width="60"><cf_tl id="Category"></td>	
+			   <td style="min-width:90px;padding-left:3px"><cf_tl id="Updated"></td>	
+			   <td style="min-width:100px"><cf_tl id="Category"></td>	
 			   <td style="min-width:100px"><cf_tl id="Location"></td>
 			   <td style="min-width:150px"><cf_tl id="Memo"></td>
-			   <td style="min-width:100px"><cf_tl id="From"></td>		   
-			   <td style="min-width:100px"><cf_tl id="Until"></td>
-			   <td width="60" align="right"><cf_tl id="Quantity"></td>	
+			   <td style="min-width:90px"><cf_tl id="From"></td>		   
+			   <td style="min-width:90px"><cf_tl id="Until"></td>
+			   <td width="50" align="right"><cf_tl id="Qty"></td>	
 			   <td align="right">
 			   
 			   <cfquery name="Parameter" 
@@ -159,7 +156,7 @@ password="#SESSION.dbpw#">
 				  WHERE  Mission = '#Line.Mission#'	 
 			   </cfquery>	
 		   
-		   <table cellspacing="0" cellpadding="0"  class="navigation_table">
+		   <table class="navigation_table">
 		   
 		   <cfif parameter.EnableCurrency eq "0">
 		   
@@ -168,7 +165,7 @@ password="#SESSION.dbpw#">
 		  
 		   <cfelse>
 		   
-		   <td><cf_tl id="Costing"></td>
+		   <td></td>
 		  
 		  		   		   			
 				<cfquery name="Currency" 
@@ -211,15 +208,15 @@ password="#SESSION.dbpw#">
 			
 			</td>	
 			
-		   <td align="right"><cf_tl id="Percent"></td>		   
+		   <td align="right">%</td>		   
 		   <td align="right"><cf_tl id="Amount"></td>
 		     		  
-			   <td width="7%" align="right">
+			   <td style="min-width:70px" align="right">
 			   
-			     <cfset jvlink = "ProsisUI.createWindow('dialogtravel', 'Maintain DSA and Travel Costs', '',{x:100,y:100,height:425,width:720,resizable:false,modal:true,center:true})">		
+			     <cfset jvlink = "ProsisUI.createWindow('dialogtravel', 'Maintain DSA and Travel Costs', '',{x:100,y:100,height:485,width:820,resizable:false,modal:true,center:true})">		
 		         <cfoutput>
 				 <cfif url.access eq "Edit">				 	
-				     <A href="javascript:#jvlink#;ColdFusion.navigate('../Travel/TravelItemEdit.cfm?ID=#URL.ID#&ID2=new','dialogtravel')">[<cf_tl id="add">]</a>
+				     <A href="javascript:#jvlink#;ptoken.navigate('../Travel/TravelItemEdit.cfm?ID=#URL.ID#&ID2=new','dialogtravel')">[<cf_tl id="add">]</a>
 				 </cfif>
 				 </cfoutput>
 			   </td>
@@ -230,7 +227,7 @@ password="#SESSION.dbpw#">
 			
 			<cfoutput>
 			<tr><td colspan="8" height="20">
-				 <A href="javascript:#jvlink#;ColdFusion.navigate('../Travel/TravelItemEdit.cfm?ID=#URL.ID#&ID2=new','dialogtravel')"><cf_tl id="Record Travel Expenses"></a>			
+				 <A href="javascript:#jvlink#;ptoken.navigate('../Travel/TravelItemEdit.cfm?ID=#URL.ID#&ID2=new','dialogtravel')"><cf_tl id="Record Travel Expenses"></a>			
 			</td></tr>
 			</cfoutput>
 			
@@ -238,7 +235,7 @@ password="#SESSION.dbpw#">
 						
 			<cfoutput query="Detail">	
 			
-				<cfset jv = "ProsisUI.createWindow('dialogtravel', 'Maintain DSA and Travel Costs', '',{x:100,y:100,height:425,width:620,resizable:false,modal:true,center:true})">		
+				<cfset jv = "ProsisUI.createWindow('dialogtravel', 'Maintain DSA and Travel Costs', '',{x:100,y:100,height:485,width:820,resizable:false,modal:true,center:true})">		
 		        				
 				<TR class="linedotted labelmedium navigation_row" style="height:20px">
 				    <td style="padding-left:4px">#dateformat(created,CLIENT.DateFormatShow)#</td>
@@ -259,10 +256,10 @@ password="#SESSION.dbpw#">
 						
 							<tr>
 							<td>
-							<cf_img icon="edit" onclick="_cf_loadingtexthtml='';#jv#;ColdFusion.navigate('../Travel/TravelItemEdit.cfm?ID=#URL.ID#&ID2=#detailid#','dialogtravel')">
+							<cf_img icon="edit" onclick="_cf_loadingtexthtml='';#jv#;ptoken.navigate('../Travel/TravelItemEdit.cfm?ID=#URL.ID#&ID2=#detailid#','dialogtravel')">
 							</td>					
 							<td style="padding-left:3px">
-							<cf_img icon="delete" onclick="_cf_loadingtexthtml='';	ColdFusion.navigate('../Travel/TravelItemPurge.cfm?ID=#URL.ID#&ID2=#detailid#','iservice')">				 
+							<cf_img icon="delete" onclick="_cf_loadingtexthtml='';	ptoken.navigate('../Travel/TravelItemPurge.cfm?ID=#URL.ID#&ID2=#detailid#','iservice')">				 
 							</td>
 							</tr>
 						

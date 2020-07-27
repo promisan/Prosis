@@ -35,12 +35,7 @@
 	
 	<tr class="hide">
 	<td colspan="2">
-		<!---	
-		<input type="text" value=""
-		name="positionparentselect" id="positionparentselect"
-		onclick="returnValue= this.value+':'+document.getElementById('fundeduntil').value ; window.close();">	
-		--->
-		
+				
 		<cfoutput>
 		<input type="text" value=""
 		name="positionparentselect" id="positionparentselect"
@@ -54,7 +49,7 @@
 		<td colspan="2" align="center" height="100%" valign="top" style="border:0px solid silver">		
 			
 		 <cfoutput>	
-		 	 					 		 
+				 	 					 		 
 		  <iframe width="100%"
 		      height="100%" 
 			  frameborder="0" 

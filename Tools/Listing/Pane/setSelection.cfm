@@ -24,7 +24,7 @@
 			WHERE    Account            = '#SESSION.acc#'
 			AND      SystemFunctionId   = '#url.SystemFunctionId#' 
 			AND      ConditionField     = '#url.conditionfield#' 	
-			AND      ConditionValue     = '#url.conditionvalue#'  		
+			AND      ConditionValue     = '#url.conditionvalue#'  	
 			    
 		</cfquery>
 	

@@ -10,7 +10,6 @@
 	
 --->
 
-
 <cfcomponent>
 
     <cfproperty name="name" type="string">
@@ -497,33 +496,33 @@
 			 
 			 <cftry>
 			 
+			 <!--- we need to make a provision for the moment no longer a promotion would apply and then the old price should come back --->
+			 
 			 <cfquery name="resetPrices" 
 				datasource="AppsTransaction" 
 				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">							
+				password="#SESSION.dbpw#">		
+																	
 					UPDATE   Sale#Warehouse# 	
 					SET      SalesPrice      = SchedulePrice * ((100 - salesDiscount)/100), 					 
 					         SalesAmount     = SchedulePrice * ((100 - salesDiscount)/100) * TransactionQuantity * (1-taxpercentage/1),				 		
-							 SalesTax        = SchedulePrice * ((100 - salesDiscount)/100) * TransactionQuantity * (taxpercentage/1)
+							 SalesTax        = SchedulePrice * ((100 - salesDiscount)/100) * TransactionQuantity * (taxpercentage/1),
+							 PromotionId        = NULL,
+							 PromotionDiscount = 0		
 					WHERE    CustomerId = '#Customerid#' 	
-					AND      TaxIncluded = '1' and SchedulePrice is not NULL	
+					AND      TaxIncluded = '1' and SchedulePrice is not NULL and PromotionId is not NULL	
 					AND      BatchId is NULL		
 					
 					UPDATE   Sale#Warehouse# 	
 					SET      SalesPrice      = SchedulePrice * ((100 - salesDiscount)/100), 					 
 					         SalesAmount     = SchedulePrice * ((100 - salesDiscount)/100) * TransactionQuantity,				 		
-							 SalesTax        = SchedulePrice * ((100 - salesDiscount)/100) * TransactionQuantity * taxpercentage
+							 SalesTax        = SchedulePrice * ((100 - salesDiscount)/100) * TransactionQuantity * taxpercentage,
+							 PromotionId        = NULL,
+							 PromotionDiscount = 0		
 					WHERE    CustomerId = '#Customerid#' 	
-					AND      TaxIncluded = '0' and SchedulePrice is not NULL			
+					AND      TaxIncluded = '0' and SchedulePrice is not NULL and PromotionId is not NULL		
 					AND      BatchId is NULL	
-					
-					UPDATE   Sale#Warehouse# 	
-					SET      PromotionId        = NULL,
-							 PromotionDiscount = 0							 		
-					WHERE    CustomerId = '#Customerid#' 	
-					AND      PromotionId is not NULL	
-					AND      BatchId is NULL	
-								
+																
 			 </cfquery>	
 			 
 			 <cfcatch></cfcatch>	
@@ -538,6 +537,20 @@
 				FROM      Warehouse
 				WHERE     Warehouse = '#Warehouse#' 
 			</cfquery>	
+			
+			<!--- this method does not discriminate on the category --->
+			
+			 <cfquery name="getschedule" 
+				datasource="AppsMaterials" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+				SELECT DISTINCT PriceSchedule
+			    FROM   CustomerSchedule
+			    WHERE  CustomerId     = '#CustomerId#'
+				AND    DateEffective <= getDate()
+			</cfquery>	
+			
+			<!--- if no schedules are found for customer we do not filter by schedule --->
 						
 			<cfquery name="promotion" 
 				datasource="AppsMaterials" 
@@ -549,10 +562,19 @@
 				AND       DateEffective  <= GETDATE()
 				AND       (DateExpiration >= GETDATE() or DateExpiration is NULL)
 				AND       Operational = 1
+				
+				<cfif getschedule.recordcount gte "1">
+				AND       EXISTS (SELECT 'X'
+				                  FROM   PromotionSchedule
+								  WHERE  PromotionId = T.PromotionId								  
+								  AND    PriceSchedule IN (#quotedvalueList(getschedule.priceSchedule)#))
+				</cfif>				  
+				<!--- elements --->
 				AND       EXISTS (SELECT 'X' 
 						          FROM   PromotionElementItem 
 								  WHERE  PromotionId = T.PromotionId ) 				
-				ORDER BY  Priority
+				ORDER BY  Priority  <!--- highest priority first --->
+				
 			</cfquery>	
 			
 			<cfset serno = 0>			
@@ -568,7 +590,8 @@
 						SELECT    *
 						FROM      PromotionElement
 						WHERE     PromotionId = '#promotionid#' 						
-						ORDER BY  ElementOrder				
+						ORDER BY  ElementOrder		
+						
 				</cfquery>				
 						   				
 				<cfset serno = serno+1>						
@@ -1087,7 +1110,6 @@
 							
 	</cffunction>						
 	
-	
 
 	<!--- -------------------------------------------------------- --->		
 	<!--- --------------POSTING SETTLEMENT ONLY ------------------ --->
@@ -1108,7 +1130,7 @@
 			<cfargument name="Currency"           type="string"  required="true"   default="">
 			<cfargument name="Workflow"           type="string"  required="true"   default="No">		
 			<cfargument name="Settlement"         type="string"  required="true"   default="1">						
-			<cfargument name="TransactionDate"    type="string"  required="true"   default="">			
+			<cfargument name="TransactionDate"    type="string"  required="true"   default="">	<!--- euro format --->		
 			<cfargument name="cleanup"            type="string"  required="true"   default="Yes">
 			<cfargument name="mail"               type="string"  required="true"   default="No">
 				
@@ -1162,7 +1184,7 @@
 											
 			</cfif>				
 				
-			<CF_DateConvert Value="#dateformat(ARGUMENTS.TransactionDate,CLIENT.DateFormatShow)#">
+			<CF_DateConvert Value="#TransactionDate#">
 			<cfset dte = dateValue>
 								
 			<cfif month(dte) gte "10">
@@ -1419,8 +1441,8 @@
 								OrgUnitOwner          = "#OrgUnitOwner#"
 								Journal               = "#getJournal.Journal#" 
 								Description           = "Tender from #Customer.CustomerName#"
-								DocumentDate       	  = "#dateformat(ARGUMENTS.TransactionDate,CLIENT.DateFormatShow)#"	
-								TransactionDate       = "#dateformat(ARGUMENTS.TransactionDate,CLIENT.DateFormatShow)#"	
+								DocumentDate       	  = "#TransactionDate#"	
+								TransactionDate       = "#TransactionDate#"	
 								TransactionPeriod     = "#transactionperiod#"    
 								TransactionSource     = "SalesSeries"
 								TransactionSourceId   = "#setbatchid#"					
@@ -1447,8 +1469,8 @@
 									Journal               = "#getJournal.Journal#"
 									JournalNo             = "#JournalTransactionNo#"
 									JournalTransactionNo  = "#batchno#"			
-									DocumentDate       	  = "#dateformat(ARGUMENTS.TransactionDate,CLIENT.DateFormatShow)#"	
-									TransactionDate       = "#dateformat(ARGUMENTS.TransactionDate,CLIENT.DateFormatShow)#"	
+									DocumentDate       	  = "#TransactionDate#"	
+									TransactionDate       = "#TransactionDate#"	
 									TransactionPeriod     = "#transactionperiod#" 
 									ParentJournal         = "#parentJournal#"
 									ParentJournalSerialNo =	"#parentJournalSerialNo#"			
@@ -1531,10 +1553,18 @@
 			<cfargument name="Currency"           type="string"  required="true"   default="">
 			<cfargument name="Workflow"           type="string"  required="true"   default="No">		
 			<cfargument name="Settlement"         type="string"  required="true"   default="1">						
-			<cfargument name="TransactionDate"    type="string"  required="true"   default="">			
+			<cfargument name="TransactionDate"    type="string"  required="true"   default="#dateformat(now(),client.dateformatshow)#">		
+			<cfargument name="TransactionHour"    type="string"  required="true"   default="0">		
+			<cfargument name="TransactionMinute"  type="string"  required="true"   default="0">			
 			<cfargument name="cleanup"            type="string"  required="true"   default="Yes">
 			<cfargument name="mail"               type="string"  required="true"   default="No">
 			
+			<CF_DateConvert Value="#TransactionDate#">
+			<cfset TraDate = dateValue>
+			
+			<cfset TraDate = DateAdd("h","#TransactionHour#", TraDate)>
+			<cfset TraDate = DateAdd("n","#TransactionMinute#", TraDate)>
+									
 			<cfquery name="Parameter" 
 			   datasource="AppsMaterials" 
 			   username="#SESSION.login#" 
@@ -1843,7 +1873,7 @@
 								'#customerid#',		
 								'#customeridinvoice#',
 								'#AddressId#',		
-								#TransactionDate#,
+								#TraDate#,
 								'2',
 								'#act#',
 								 <cfif act eq "1">
@@ -1987,9 +2017,8 @@
 							 AND       Location   != '#getMission.LocationReceipt#'
 							 AND       Operational = 1 				 
 							 ORDER BY  PickingOrder <!--- sorts locations by required order --->								 
-						</cfquery>								
-																			
-																													
+						</cfquery>
+
 						<cfif tra gt "0" or itemLocation.recordcount eq "0">  <!--- negative, not found in any location except the default --->
 						
 							<cfif GetSaleUoM.recordCount gt 0 and GetSaleUoM.TransactionUoM neq "">
@@ -2027,8 +2056,8 @@
 								TransactionLocalTime  = "Yes"
 								ActionStatus          = "#act#"
 								TransactionReference  = "#TransactionReference#"
-								TransactionDate       = "#dateformat(TransactionDate,CLIENT.DateFormatShow)#" <!--- attention we take the header here instead --->
-								TransactionTime       = "#timeformat(TransactionDate,'HH:MM')#"               <!--- this can be overwritten in the interface --->
+								TransactionDate       = "#dateformat(TraDate,CLIENT.DateFormatShow)#" <!--- attention we take the header here instead --->
+								TransactionTime       = "#timeformat(TraDate,'HH:MM')#"               <!--- this can be overwritten in the interface --->
 								TransactionTimeZone   = "No"
 								TransactionBatchNo    = "#batchno#"		
 								PersonNo              = "#PersonNo#"														
@@ -2149,13 +2178,13 @@
 										TransactionCurrency   = "#APPLICATION.BaseCurrency#"  <!--- stock transaction are always in base currency --->		
 										TransactionCategory   = "Inventory"		
 										TransactionQuantity   = "#locqty#"
-										TransactionUoM        = "#trauom#"					
-										TransactionLocalTime  = "Yes"
+										TransactionUoM        = "#trauom#"															
 										ActionStatus          = "#act#"
 										TransactionReference  = "#TransactionReference#"
-										TransactionDate       = "#dateformat(TransactionDate,CLIENT.DateFormatShow)#" <!--- attention we take the header here instead --->
-										TransactionTime       = "#timeformat(TransactionDate,'HH:MM')#"               <!--- this can be overwritten in the interface --->
-										TransactionTimeZone   = "No"
+										TransactionLocalTime  = "Yes"
+										TransactionDate       = "#dateformat(TraDate,CLIENT.DateFormatShow)#" <!--- attention we take the header here instead --->
+										TransactionTime       = "#timeformat(TraDate,'HH:MM')#"               <!--- this can be overwritten in the interface --->
+										TransactionTimeZone   = "No"										
 										TransactionBatchNo    = "#batchno#"		
 										PersonNo              = "#PersonNo#"														
 										SalesPersonNo         = "#SalesPersonNo#"
@@ -2294,15 +2323,14 @@
 					<cfset mem = "Sale #Customer.CustomerName#">
 				</cfif>
 				
-				<CF_DateConvert Value="#dateformat(ARGUMENTS.TransactionDate,CLIENT.DateFormatShow)#">
+				<CF_DateConvert Value="#dateformat(TraDate,CLIENT.DateFormatShow)#">
 				<cfset dte = dateValue>
 								
 				<cfif month(dte) gte "10">
 					<cfset TransactionPeriod = "#year(dte)##month(dte)#">
 				<cfelse>
 					<cfset TransactionPeriod = "#year(dte)#0#month(dte)#">
-				</cfif>	
-				
+				</cfif>					
 						
 				<cf_GledgerEntryHeader
 					    DataSource            = "AppsMaterials"
@@ -2311,7 +2339,7 @@
 						OrgUnitTax            = "#getTerminal.TaxOrgUnitEDI#"
 						Journal               = "#getJournal.Journal#" 
 						Description           = "#mem#"
-						DocumentDate          = "#dateformat(ARGUMENTS.TransactionDate,CLIENT.DateFormatShow)#"	
+						DocumentDate          = "#dateformat(TraDate,CLIENT.DateFormatShow)#"	
 						TransactionPeriod     = "#transactionperiod#"
 						TransactionSource     = "SalesSeries"
 						TransactionSourceId   = "#setbatchid#"					
@@ -2328,7 +2356,7 @@
 						ReferencePersonNo     = "#getLines.SalesPersonNo#"
 						DocumentCurrency      = "#Currency#"					
 						DocumentAmount        = "#tot#"
-						ActionBefore          = "#dateformat(ARGUMENTS.TransactionDate,CLIENT.DateFormatShow)#"	
+						ActionBefore          = "#dateformat(TraDate,CLIENT.DateFormatShow)#"	
 						AmountOutstanding     = "#tot#">	
 						
 						<!--- contra account for receivables --->
@@ -2340,7 +2368,7 @@
 							Lines                 = "1"
 							Journal               = "#getJournal.Journal#"
 							JournalNo             = "#JournalTransactionNo#"
-							TransactionDate       = "#dateformat(ARGUMENTS.TransactionDate,CLIENT.DateFormatShow)#" 
+							TransactionDate       = "#dateformat(TraDate,CLIENT.DateFormatShow)#" 
 							TransactionPeriod     = "#transactionperiod#"    
 							JournalTransactionNo  = "#batchno#"							
 							Currency              = "#Currency#"
@@ -2395,7 +2423,7 @@
 								<cf_GledgerEntryLine
 								    DataSource            = "AppsMaterials"
 									Lines                 = "2"
-									TransactionDate       = "#dateformat(ARGUMENTS.TransactionDate,CLIENT.DateFormatShow)#"		
+									TransactionDate       = "#dateformat(TraDate,CLIENT.DateFormatShow)#"		
 									TransactionPeriod     = "#transactionperiod#" 								
 									Journal               = "#getJournal.Journal#"
 									JournalNo             = "#JournalTransactionNo#"
@@ -2575,7 +2603,7 @@
 									WHERE    MissionOrgUnitId IN (SELECT MissionOrgUnitId 
 									                              FROM   Warehouse 
 																  WHERE  Warehouse = '#warehouse#')
-									AND      DateEffective <= '#dateformat(TransactionDate,CLIENT.DateSQL)#'  
+									AND      DateEffective <= '#dateformat(TraDate,CLIENT.DateSQL)#'  
 									ORDER BY DateEffective
 							</cfquery>
 						
@@ -2585,8 +2613,8 @@
 								OrgUnitOwner          = "#OrgUnitOwner#"
 								Journal               = "#getJournal.Journal#" 
 								Description           = "Tender from #Customer.CustomerName#"
-								DocumentDate       	  = "#dateformat(ARGUMENTS.TransactionDate,CLIENT.DateFormatShow)#"	
-								TransactionDate       = "#dateformat(ARGUMENTS.TransactionDate,CLIENT.DateFormatShow)#"	
+								DocumentDate       	  = "#dateformat(TraDate,CLIENT.DateFormatShow)#"	
+								TransactionDate       = "#dateformat(TraDate,CLIENT.DateFormatShow)#"	
 								TransactionPeriod     = "#transactionperiod#"    
 								TransactionSource     = "SalesSeries"
 								TransactionSourceId   = "#setbatchid#"					
@@ -2613,8 +2641,8 @@
 									Journal               = "#getJournal.Journal#"
 									JournalNo             = "#JournalTransactionNo#"
 									JournalTransactionNo  = "#batchno#"			
-									DocumentDate       	  = "#dateformat(ARGUMENTS.TransactionDate,CLIENT.DateFormatShow)#"	
-									TransactionDate       = "#dateformat(ARGUMENTS.TransactionDate,CLIENT.DateFormatShow)#"	
+									DocumentDate       	  = "#dateformat(TraDate,CLIENT.DateFormatShow)#"	
+									TransactionDate       = "#dateformat(TraDate,CLIENT.DateFormatShow)#"	
 									TransactionPeriod     = "#transactionperiod#" 
 									ParentJournal         = "#parentJournal#"
 									ParentJournalSerialNo =	"#parentJournalSerialNo#"			
@@ -2762,7 +2790,7 @@
 							 ROUND(ITS.SalesAmount, 2)     AS SalesAmount, 
 							 ROUND(ITS.SalesTax, 2)        AS SalesTax, 
 	                         ROUND(ITS.SalesTotal, 2)      AS SalesTotal, 
-							 ROUND(T.TransactionValue, 3) AS Value 
+							 ROUND(T.TransactionValue, 3)  AS Value 
 							
 				  FROM       ItemTransaction AS T INNER JOIN ItemTransactionShipping AS ITS ON T.TransactionId = ITS.TransactionId
 				  WHERE      T.TransactionBatchNo = '#get.BatchNo#'
@@ -2851,20 +2879,60 @@
 			  
 			  <cfif getHeader.recordcount eq "1">
 			  
-				<!--- update header --->	
-				
-				<cfquery name="update"
-				 datasource="AppsMaterials" 
-				 username="#SESSION.login#" 
-				 password="#SESSION.dbpw#">			  
-				  	  UPDATE Accounting.dbo.TransactionHeader
-					  SET    DocumentAmount  = '#gettotal.salesTotal#',
-					         Amount          = '#gettotal.salesTotal#'
-					  WHERE  Journal         = '#getHeader.Journal#'
-					  AND    JournalSerialNo = '#getHeader.JournalSerialNo#'				  
-				</cfquery>					  
-				  
-				  
+					<!--- update header --->	
+					
+					<cfquery name="update"
+					 datasource="AppsMaterials" 
+					 username="#SESSION.login#" 
+					 password="#SESSION.dbpw#">			  
+					  	  UPDATE Accounting.dbo.TransactionHeader
+						  SET    DocumentAmount  = '#gettotal.salesTotal#',
+						         Amount          = '#gettotal.salesTotal#'
+						  WHERE  Journal         = '#getHeader.Journal#'
+						  AND    JournalSerialNo = '#getHeader.JournalSerialNo#'				  
+					</cfquery>					  
+								
+					<!--- record the action of amendment TransactionHeaderAction --->
+					
+					<cfquery name="check"
+					 datasource="AppsMaterials" 
+					 username="#SESSION.login#" 
+					 password="#SESSION.dbpw#">			  
+					  	  SELECT *
+						  FROM  Accounting.dbo.Ref_Action
+						  WHERE Code = 'Repost'					  
+					</cfquery>		
+					
+					<cfif check.recordcount eq "1">
+					
+						<cfquery name="TransactionAction" 
+							datasource="AppsMaterials" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">	
+						
+							INSERT INTO Accounting.dbo.TransactionHeaderAction (
+									Journal,
+									JournalSerialNo,							
+									ActionCode,
+									ActionMemo,
+									ActionDate,
+									OfficerUserId,
+									OfficerLastName,
+									OfficerFirstName)
+							VALUES ('#getHeader.Journal#',
+									'#getHeader.JournalSerialNo#',
+									'#check.Code#',
+									'Change AR from #numberformat(getHeader.DocumentAmount,',.__')# to #numberformat(gettotal.salesTotal,',.__')#',
+									getDate(),
+									'#SESSION.acc#',
+									'#SESSION.last#',					
+									'#SESSION.first#')
+											
+						</cfquery>
+						
+					</cfif>	
+							
+				  				  
 				<!--- remove lines --->
 				  
 				<cfquery name="clear"
@@ -2970,12 +3038,10 @@
 						<cfset ln = ln+2>
 						
 					</cfloop>				 			  
-			  
-			  
+			  			  
 				</cfif>
 			
-			</cftransaction> 
-			 			 
+			</cftransaction> 			 			 
 			 
 	</cffunction>		 
 	
@@ -3533,6 +3599,7 @@
 
 					
 					<cfloop query="List">	
+					
 						<!---checking if is the first time or the 2nd, 3rd, etc.--->
 						<cfquery name="Deny"
 						datasource="AppsMaterials" 

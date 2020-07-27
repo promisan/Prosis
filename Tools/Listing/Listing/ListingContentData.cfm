@@ -137,7 +137,7 @@
 					<cfif showrows eq "1">								   
 					   <tr class="#attributes.classsub#" id="r#row#" keyvalue="#s#" name="f#box#_#dkey#">					
 					<cfelse>
-					  <tr class="#attributes.classsub#" id="r#row#" keyvalue="#s#" name="f#box#_#dkey#">
+					   <tr class="#attributes.classsub#" id="r#row#" keyvalue="#s#" name="f#box#_#dkey#">
 					</cfif>
 															
 					<cfif rowspan eq "1">																	   

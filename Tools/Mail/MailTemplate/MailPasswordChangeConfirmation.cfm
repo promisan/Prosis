@@ -2,6 +2,8 @@
 <cfparam name="Attributes.acc" 		default="">
 <cfparam name="Attributes.welcome"	default="">
 <cfparam name="Attributes.root"		default="">
+<cfparam name="Attributes.newPwd"	default="">
+<cfparam name="Attributes.refEmail"	default="">
 
 <cfif trim(Attributes.acc) eq "" AND isDefined("SESSION.acc")>
 	<cfset Attributes.acc = SESSION.acc>
@@ -50,8 +52,18 @@ WHERE HostName = '#CGI.HTTP_HOST#'
                     <tr>
                       <td style="font-family: Helvetica, sans-serif; font-size: 14px; vertical-align: top;" valign="top">
                         <p style="font-family: Helvetica, sans-serif; font-size: 24px; font-weight: normal; margin: 0; margin-bottom: 16px;text-align: center;"><strong>Prosis</strong> Password reset</p>
-                          <p style="color:##3c4043;font-family: Helvetica, sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 18px;text-align: center;">Hello #Check.FirstName# #Check.LastName#,<br><br>
-                              The pasword for your <strong>Prosis</strong> Account with <strong>#Attributes.welcome#</strong> (#Check.Account#) has been reset. You're getting this email to make sure it was you. <cf_tl id="In case you have <b>NOT</b> changed this password yourself" var="1">#trim(lt_text)#, <cf_tl id="you must contact"> <b>#System.Systemcontact#</b> <cf_tl id="immediately" var="1">#trim(lt_text)#.</p><br>
+                          <p style="color:##3c4043;font-family: Helvetica, sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 18px;text-align: center;">
+						  	Hello #Check.FirstName# #Check.LastName#,<br><br>
+                            The pasword for your <strong>Prosis</strong> Account with <strong>#Attributes.welcome#</strong> (#Check.Account#) has been reset. You're getting this email to make sure it was you. <cf_tl id="In case you have <b>NOT</b> changed this password yourself" var="1">#trim(lt_text)#, <cf_tl id="you must contact"> <b>#System.Systemcontact#</b> <cf_tl id="immediately" var="1">#trim(lt_text)#.
+						  </p><br>
+						  <cfif trim(attributes.newPwd) neq "">
+							<p style="color:##3c4043;font-family: Helvetica, sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 18px;text-align: center;">
+                              Your new password for #trim(Attributes.refEmail)# is: <span style="font-weight:bold; font-size:125%;">#attributes.newPwd#</span>.
+						  	</p><br>
+							<p style="color:##3c4043;font-family: Helvetica, sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 18px;text-align: center;">
+                              We recommend you to change your password on your next login.
+						  	</p><br>
+						  </cfif>
                           <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; box-sizing: border-box; min-width: 100% !important;" width="100%">
                           <tbody>
                             <tr>

@@ -197,7 +197,8 @@
 						filter1Value = "#Parameter.TreeVendor#"
 						filter2      = "Substantive"
 						filter2Value = "">
-					
+						
+											
 					</td>
 					
 					<td class="labelmedium" style="padding-left:5px"><font color="0080C0">#vRecord#</td>
@@ -219,14 +220,14 @@
 						<cf_tl id="Shipping and Handling" var="vShipping">
 						
 						<cf_UIToolTip  tooltip="#vShipping# #vCosts#">
-						<a href="javascript:ProcReqAdd('#Job.JobNo#');"><font color="6688aa">#vShipping#</font></a>											   
+						<a href="javascript:ProcReqAdd('#Job.JobNo#');">#vShipping#</a>											   
 						</cf_UIToolTip>
 						
 					</cfoutput>
 												
 				</td></tr>
 				
-				<tr><td height="1" class="linedotted" colspan="6"></td></tr>
+				<tr><td height="1" class="line" colspan="6"></td></tr>
 				
 			</cfif>
 					
@@ -234,7 +235,6 @@
 				
 		<cfif Vendor.recordcount eq "0">
 			
-			<tr><td colspan="6" class="linedotted" height="1"></td></tr>			
 			<tr>
 			   <td height="20" colspan="6" align="center" class="labelmedium">
 			    <font color="FF0000"><cf_tl id="Attention">: <cf_tl id="REQ067">
@@ -263,7 +263,7 @@
 			   				 					   
 				   </td>
 				   <td height="17" class="labelmedium">			   
-				   		<a href="javascript:viewOrgUnit('#OrgUnit#')">#OrgUnitName#</font></a>			   		   
+				   		<a href="javascript:viewOrgUnit('#OrgUnit#')">#OrgUnitName#</a>			   		   
 				   </td>
 				   </tr>
 			   </table>
@@ -291,7 +291,7 @@
 			 
 			     <font color="FF0000"><cf_tl id="Pending submission">
 				  
-		   <cfelse>#NumberFormat(check.Total,"__,__.__")#
+		   <cfelse>#NumberFormat(check.Total,",.__")#
 		   </cfif>
 		   </td>
 		   
@@ -391,7 +391,7 @@
 					<cfset wflnk = "#SESSION.root#/procurement/application/quote/quotationview/JobViewVendorWorkflow.cfm">
 										   
 				    <cfdiv id="#url.id1#_#orgunit#" 
-					       bind="url:#wflnk#?ajaxid=#job.JobNo#_#orgunit#"/>
+					       bind="url:#wflnk#?ajaxid=#job.JobNo#_#orgunit#">
 					
 					<input type    = "hidden" 
 				   	       name    = "workflowlink_#url.id1#_#orgunit#" 
@@ -426,7 +426,7 @@
 							
 	  </table>
 	  
-	<tr><td colspan="6" class="linedotted"></td></tr>
+	<tr><td colspan="6" class="line"></td></tr>
 	  
 	<tr><td height="4"></td></tr>				
 	<tr>
@@ -434,10 +434,8 @@
 	      <table width="100%" cellspacing="0" cellpadding="0">
 		  <tr>
 		  
-	      <td class="labelmedium" style="height:35;padding-left:12px;font-size:23px">
-		  
-			  <cf_tl id="Goods/Services quoted">
-			  
+	      <td class="labelmedium" style="height:35;padding-left:12px;font-size:23px">		  
+			  <cf_tl id="Goods/Services quoted">			  
 		  </td>
 		  
 		  <cfif Vendor.recordcount neq "0"> 
@@ -446,8 +444,8 @@
 				
 				<td align="right" style="padding-right:8px" class="labelit">				 
 								  
-				 <cfif URL.Sort neq "Line"><cfelse><a href="javascript:Prosis.busy('yes');reloadvendorform('#URL.Mode#','#workflow#','#url.period#','#url.id1#','Vendor')"> <font color="0080C0"></cfif>[<cf_tl id="Sort by Vendor">]</b></font></a>		   	 
-				 <cfif URL.Sort eq "Line"><cfelse><a href="javascript:Prosis.busy('yes');reloadvendorform('#URL.Mode#','#workflow#','#url.period#','#url.id1#','Line')"> <font color="0080C0"></cfif>[<cf_tl id="Sort by Request">]</b></font></a>
+				 <cfif URL.Sort neq "Line"><cfelse><a href="javascript:Prosis.busy('yes');reloadvendorform('#URL.Mode#','#workflow#','#url.period#','#url.id1#','Vendor')"></cfif>[<cf_tl id="Sort by Vendor">]</b></font></a>		   	 
+				 <cfif URL.Sort eq "Line"><cfelse><a href="javascript:Prosis.busy('yes');reloadvendorform('#URL.Mode#','#workflow#','#url.period#','#url.id1#','Line')"></cfif>[<cf_tl id="Sort by Request">]</b></font></a>
 				  		  
 				</td>
 				

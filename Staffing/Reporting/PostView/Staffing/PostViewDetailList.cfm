@@ -1,6 +1,4 @@
 
-
-
 <!--- presentation order
 
 	1.	Post and incumbent
@@ -588,7 +586,7 @@
 								 height="18" width="21"
 							     align="absmiddle"
 							     style="cursor: pointer;"
-							     onClick="eventadd('#PersonNo#','#PositionNo#')">
+							     onClick="eventaddperson('#PersonNo#','#PositionNo#')">
 														  
 						</cfif>		
 						

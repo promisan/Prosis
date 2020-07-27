@@ -28,8 +28,7 @@
 
 <cfoutput>
 
-
-<table width="93%" align="center" style="border:1px dotted silver" bgcolor="ffffef" border="0" cellspacing="0" cellpadding="0">	
+<table width="93%" align="center" bgcolor="ffffef" style="border:1px solid silver;border-top:0px">	
 	
 	<tr> 
 	<td height="25"  bgcolor="ffffcf">
@@ -37,7 +36,7 @@
 				<table cellspacing="0" cellpadding="0" class="formpadding">	   
 				
 				<tr>			   
-			       <TD width="500" class="labelit" colspan="2" style="padding-left:4px">Object of Expenditure</TD>			   	  
+			       <TD width="500" class="labelit" colspan="2" style="padding-left:4px"><cf_tl id="Object of Expenditure"></TD>			   	  
 				   <td width="80"></td>
 				</tr>
 				 

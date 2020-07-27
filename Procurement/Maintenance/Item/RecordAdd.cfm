@@ -1,6 +1,6 @@
 <cf_textareascript>
 
-<cf_screentop  layout="webapp" html="No" JQuery="Yes" height="100%" scroll="Yes" >
+<cf_screentop layout="webapp" html="Yes" JQuery="Yes" height="100%" scroll="Yes" >
   
 <cfparam name="URL.Mode"     default="entry">
 <cfparam name="URL.Mission"  default="">

@@ -73,7 +73,7 @@
 	           <cfset y      = '0'&mid(val,len(val),1)>
 		   </cfif>	 
 		   
-		   <cfif y gte 30>
+		   <cfif y gte 35>
 	     		 <cfset y = "19#y#"> 
 		   <cfelse>
 	   			 <cfset y = "20#y#"> 
@@ -88,7 +88,7 @@
 		   <cfset dte = Replace("#dte#", "#year(dte)#", "#yr#")>
 	   </cfif>
 
-<cfelseif Attributes.DateFormat is "EU" and Attributes.DateFormatSQL eq "US">
+<cfelseif Attributes.DateFormat is "EU" and Attributes.DateFormatSQL eq "xxxUS">
 
 	  <cfif mid(val,2,1) eq "/">
           
@@ -125,7 +125,7 @@
 			   <cfif st eq 1>
 		           <cfset y      = '0'&mid(val,len(val),1)>
 			   </cfif>	 
-			   <cfif y gte 30>
+			   <cfif y gte 35>
 		     		<cfset y = "19#y#"> 
 			   <cfelse>
 		   			<cfset y = "20#y#"> 
@@ -146,12 +146,64 @@
 
 <cfelse> 
 
-     <cfset dte   = "{d '"&#Dateformat(val, "yyyy-mm-dd")#&"'}">
-	  <cfif attributes.year neq "">
-		   <cfset yr = year(dte)-Attributes.Year-1>
+	<!--- default euro, with American server --->
+
+	<cfif mid(Attributes.Value,2,1) eq "/">
+      
+	       <cfset d      = '0'&left(val,1)>
+           <cfif mid(Attributes.Value,4,1) eq "/">
+                <cfset m      = '0'&mid(Attributes.Value,3,1)>
+           <cfelse>
+                <cfset m      = mid(val,3,2)>
+           </cfif>
+	
+	   <cfelse>
+	
+	       <cfset d      = left(val,2)>
+	       <cfif mid(val,5,1) eq "/">
+	            <cfset m      = '0'&mid(val,4,1)>
+	       <cfelse>
+	            <cfset m      = mid(val,4,2)>
+	       </cfif>
+			
+	   </cfif>
+	  	       
+	   <cfset y      = mid(val,len(val)-3,4)>
+
+	   <cfif IsNumeric(y) is not "TRUE">
+	   
+	       <cfset y  = mid(val,len(val)-1,2)>
+		   
+		   <cfset st = FindOneOf("./-", y, 1)>
+		   
+		   <cfif st eq 1>
+	           <cfset y      = '0'&mid(val,len(val),1)>
+		   </cfif>	 
+		   
+		   <cfif y gte 35>
+	     		 <cfset y = "19#y#"> 
+		   <cfelse>
+	   			 <cfset y = "20#y#"> 
+		   </cfif>  
+		   
+	   </cfif>
+	     
+	   <cfset dte   = "{d '"&#y#&"-"&#m#&"-"&#d#&"'}">
+	   
+	   <cfif attributes.year neq "">
+		   <cfset yr = #year(dte)#-#Attributes.Year#-1>
 		   <cfset dte = Replace("#dte#", "#year(dte)#", "#yr#")>
 	   </cfif>
-	
+
+	<!---
+
+     <cfset dte   = "{d '"&#Dateformat(val, "yyyy-mm-dd")#&"'}">
+	 <cfif attributes.year neq "">
+		  <cfset yr = year(dte)-Attributes.Year-1>
+		  <cfset dte = Replace("#dte#", "#year(dte)#", "#yr#")>
+	 </cfif>	
+	 
+	 --->
 		 	 
 </cfif>
 

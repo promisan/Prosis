@@ -53,8 +53,7 @@
 	    <tr>
 		<td class="labelmedium" style="height:40px">
 				
-		<a href="javascript:ProcOrder('#Job.Mission#')">
-		<font color="0080FF">
+		<a href="javascript:ProcOrder('#Job.Mission#')">		
 		<cf_tl id="You may issue one or more obligations" class="message"></a>:</td>
 		   	<td colspan="1" align="right" height="27">
 				<cf_tl id="Create" var="1">
@@ -71,9 +70,7 @@
 					
 			</td>
 		</tr>
-		
-		<TR><TD colspan="2" class="linedotted"></TD></TR>
-		
+						
 	</table>	
 	</cfoutput>						
 				

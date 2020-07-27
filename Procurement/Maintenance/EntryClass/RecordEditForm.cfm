@@ -26,7 +26,7 @@ password="#SESSION.dbpw#">
     <tr><td height="8"></td></tr>
 
 	<cfoutput>
-	<TR class="labelit">
+	<TR class="labelmedium">
 	 <TD>Code:</TD>  
 	 <TD>
 	 	<input type="Text" name="Code" id="Code" value="#get.Code#" size="20" maxlength="10" class="regularxl">
@@ -35,7 +35,7 @@ password="#SESSION.dbpw#">
 	</TR>
 	 
 	 <!--- Field: Description --->
-    <TR class="labelit">
+    <TR class="labelmedium">
     <TD>Description:</TD>
     <TD>
   	  	<input type="Text" name="Description" id="Description" value="#get.Description#" message="Please enter a description" required="Yes" size="40" maxlength="50" class="regularxl">				
@@ -43,7 +43,7 @@ password="#SESSION.dbpw#">
 	</TR>
 	
 	 <!--- Field: Listing Order --->
-    <TR class="labelit">
+    <TR class="labelmedium">
     <TD>Listing Order:</TD>
     <TD>
   	  	<input type="Text" name="ListingOrder" id="ListingOrder" style="text-align:center" value="#get.ListingOrder#" message="Please enter a Listing Order" required="Yes" size="2" maxlength="2" class="regularxl">				
@@ -51,21 +51,21 @@ password="#SESSION.dbpw#">
 	</TR>	
 	
 	 <!--- Field: Listing Order --->
-    <tr>
-    <TD valign="top" class="labelit" style="padding-top:6px">Mode:</TD>
+    <tr class="labelmedium">
+    <TD valign="top"  style="padding-top:6px">Mode:</TD>
     <TD>
 	   <table width="100%" cellspacing="0" cellpadding="0">
 	   <tr><td class="labelmedium">
-		<input type="radio" class="radiol" name="CustomDialog" id="CustomDialog" value="Materials" <cfif get.customdialog eq "Materials">checked</cfif>>Warehouse/Asset to be received as Stock
+		<input type="radio" class="radiol" name="CustomDialog" id="CustomDialog" value="Materials" <cfif get.customdialog eq "Materials">checked</cfif>></td><td style="padding-left:4px">Warehouse/Asset to be received as Stock
 		</td></tr>
 		<tr><td class="labelmedium">
-		<input type="radio" class="radiol" name="CustomDialog" id="CustomDialog" value="Contract" <cfif get.customdialog eq "Contract">checked</cfif>>Staffing Position to be funded
+		<input type="radio" class="radiol" name="CustomDialog" id="CustomDialog" value="Contract" <cfif get.customdialog eq "Contract">checked</cfif>></td><td style="padding-left:4px">Staffing Position to be funded
 		</td></tr>
 		<tr><td class="labelmedium">
-		<input type="radio" class="radiol" name="CustomDialog" id="CustomDialog" value="Travel" <cfif get.customdialog eq "Travel">checked</cfif>>Travel and/or SSA initiation
+		<input type="radio" class="radiol" name="CustomDialog" id="CustomDialog" value="Travel" <cfif get.customdialog eq "Travel">checked</cfif>></td><td style="padding-left:4px">Consultant and/or Travel initiation
 		</td></tr>
 		<tr><td class="labelmedium">
-		<input type="radio" class="radiol" name="CustomDialog" id="CustomDialog" value="" <cfif get.customdialog eq "">checked</cfif>>Other services and/or goods
+		<input type="radio" class="radiol" name="CustomDialog" id="CustomDialog" value="" <cfif get.customdialog eq "">checked</cfif>></td><td style="padding-left:4px">Other services and/or goods
 		</td>
 		</tr>
 		</table>
@@ -76,7 +76,7 @@ password="#SESSION.dbpw#">
     <TR>
     <TD class="labelit"><cf_UIToolTip  tooltip="Path/File name for the print template">Template:</cf_UIToolTip>&nbsp;</TD>
     <TD>
-  	  	<input type="Text" name="RequisitionTemplate" id="RequisitionTemplate" value="#get.RequisitionTemplate#" message="Please enter a template name" required="Yes" size="40" maxlength="60" class="regularxl">				
+  	  	<input type="Text" name="RequisitionTemplate" id="RequisitionTemplate" value="#get.RequisitionTemplate#" message="Please enter a template name" size="40" maxlength="60" class="regularxl">				
     </TD>
 	</TR>	
 	

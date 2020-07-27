@@ -37,8 +37,8 @@
 	
 		<font face="Calibri" size="2" color="FF0000"><cf_tl id="No assets consume this item" class="message"></font>
 		
-		<script language="JavaScript">
-		 try { document.getElementById('addbutton').className = 'hide' } catch(e) {}
+		<script language="JavaScript">		
+		 try { document.getElementById('addbutton').className = 'hide' } catch(e) {}		 
 		</script>
 	
 	<cfelse>
@@ -50,7 +50,7 @@
 		</select>	
 		
 		<script language="JavaScript">
-		  try {  document.getElementById('addbutton').className = 'regular' } catch(e) {}
+		  try {  document.getElementById('addbutton').className = 'regular' } catch(e) {}		  
 		</script>
 	
 	</cfif>	

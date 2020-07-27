@@ -1,5 +1,6 @@
 
 <cfoutput>
+
 <cf_dialogStaffing>
 <cf_mapscript>
 
@@ -12,10 +13,9 @@
 	
     function validateform(frm,target,prc,id,ajax) {	
 		   				    	
-	    try {
-			console.log('====ERRR===1');
-			document.getElementById(frm).onsubmit()
-			console.log('====ERRR===2');
+	    try {			    
+				   
+			document.getElementById(frm).onsubmit()					
 			if( _CF_error_messages.length == 0 ) {	  			   
 	    	    <!--- [it passed Passed the CFFORM JS validation, now run a Ajax script to save] --->
 				ptoken.navigate('ProcessActionSubmit.cfm?myentity=#url.myentity#&windowmode=#url.windowmode#&submitaction=embedsave&process='+prc+'&wfmode=8&ID='+id+'&ajaxId='+ajax,target,'','','POST',frm)				  
@@ -25,7 +25,6 @@
 			}   		
 		} catch(e) {		
 		    <!--- [it passed Passed the CFFORM JS validation, now run a Ajax script to save] --->
-			console.log('====ERRR===',e);
 			ptoken.navigate('ProcessActionSubmit.cfm?myentity=#url.myentity#&windowmode=#url.windowmode#&submitaction=embedsave&process='+prc+'&wfmode=8&ID='+id+'&ajaxId='+ajax,target,'','','POST',frm)															
 		}	 
 	}
@@ -70,7 +69,7 @@
 	}
 
     function saveforms(mode) {		
-			   
+		   
 		if (mode == "7") {
 		
 		    <!--- this will mimic the old mode of 7 screens --->
@@ -86,16 +85,16 @@
 			       <!--- -------------------------------------------------------------- --->
 				   <!--- IMPORTANT to keep this in the order of form embeded, custom and normal submit  (Jorge Mazariegos) --->
 				   <!--- -------------------------------------------------------------- --->
-				   				   				   
+				   				   
 				   embed  = document.getElementById("formembed")	
-				  
-				  				   				   	
+				   				   	
 				   <!--- ---------------------- ---> 	
 				   <!--- save the embedded form --->
 				   <!--- ---------------------- --->		
-				   				  				   								   				  
+				   
+				  				   								   				  
 				   if ( (document.getElementById('r0').checked == false) && (embed) ) {							           			  
-				   				   							  												   					   					      				      				      		   				       				      						       						   						     
+					  												   					   					      				      				      		   				       				      						       						   						     
 					       // saving the custom non ajax form, if this does not succeed we need to stop it THOUGH 1/9/2015						   						   
 						   try {
 						 						        		    				   
@@ -105,13 +104,9 @@
 						    	    <!--- [it passed Passed the CFFORM JS validation, now run a Ajax script to save] --->
 									ptoken.navigate('ProcessActionSubmit.cfm?myentity=#url.myentity#&windowmode=#url.windowmode#&submitaction=process&process=#url.process#&wfmode=8&ID=#url.id#&ajaxId=#url.ajaxid#','actionprocessbox','','','POST','formembed')				  																																									
 								}   							
-							} catch(e) {
-							
-							}					   
+							} catch(e) {}					   
 														   	   						   			   
-				   } else { 	
-				   
-					   alert('b')			   				
+				   } else { 				   				
 				   				   
 						   <!--- ---------------------- --->
 						   <!--- save the custom fields ---> 	
@@ -121,9 +116,12 @@
 						   
 						   // if ((document.getElementById('r0').checked == false) && (custo)) {				  				   
 						   
-						   if (custo) {						   	  
+						   if (custo) {
+						   	  
 							
 						      document.formcustomfield.onsubmit()
+							  
+							  
 							  							  							  
 							   if( _CF_error_messages.length == 0 ) {
 								
@@ -135,7 +133,7 @@
 							   }
 							   							    	
 						   } else {  
-						   						   						       
+						   						       
 							     <!--- save the action directly --->								
 							     try { 	
 							  

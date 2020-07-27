@@ -33,7 +33,6 @@
 
 <script language="JavaScript">
 
-
 function recordedit(id1) {
 	ptoken.open("#SESSION.root#/System/Modules/Functions/RecordEdit.cfm?ID=" + id1 + "&ts="+new Date().getTime(), "configure");
 	//	if (ret) {	history.go() }	  
@@ -98,8 +97,8 @@ function gofilter(e) {
 
 function applyfilter(md,mypage,ajaxid,callback) {	
 
-		_cf_loadingtexthtml='';				
-										
+		_cf_loadingtexthtml='';		
+												
 		try { document.getElementById("treerefresh").click();} catch(e) {}
 		
 	    try {	
@@ -108,13 +107,11 @@ function applyfilter(md,mypage,ajaxid,callback) {
 		   pg = document.getElementById('page').value 		   
 	    } else {   		 
 		   pg = mypage
-		}	
+		}		
 																						 					  	
 		document.listfilter.onsubmit() 	
 									
-		if( _CF_error_messages.length == 0 ) {
-							
-		   Prosis.busy('yes')	
+		if( _CF_error_messages.length == 0 ) {						   
 		   		 						  		   		  	  
 		   lk    = document.getElementById('mylink').value			  
 		   lkf   = document.getElementById('mylinkform').value   		     		  		  
@@ -123,7 +120,9 @@ function applyfilter(md,mypage,ajaxid,callback) {
 		   ordir = document.getElementById('listorderdir').value  		       
 		   orala = document.getElementById('listorderalias').value 		
 		   			  		   				  		   		   
-		   if (ajaxid == "content") {		  		   		  
+		   if (ajaxid == "content") {	
+		   
+    		   Prosis.busy('yes')		  		   		  
 			   <!--- redirect if the action if to refresh a line itself --->
 			   target   = document.getElementById('gridbox').value  
 		   } else {				   
@@ -131,7 +130,7 @@ function applyfilter(md,mypage,ajaxid,callback) {
 			   se = document.getElementById(ajaxid)		  		 
 		   		   		  		   
 			   if (se) {} else { 		   
-				   alert("View could not be updated : "+ajaxid); target="" 
+				  // alert("View could not be updated : "+ajaxid); target="" 
 				  }		   
 			   }		  
 			  		   		   
@@ -562,22 +561,10 @@ function toggledrill(mode,box,template,key,arg,drillbox,str) {
 		alert('Pending deployment')
 		}  
 	  	  	
-	if (mode == "dialog") {	  
-		
-		alert('Dialog mode no longer support. Check your administrator')
-		// discontinued
-		    	 
-		// val = arg.split(";");		
-				
-		// if 	(val[2] == "true") {					   	
-		//	 ret = window.showModalDialog("#SESSION.root#/"+template+"?drillid="+key+str+"&ts="+new Date().getTime(),window,"unadorned:yes; edge:raised; status:no; dialogHeight:"+val[0]+"px; dialogWidth:"+val[1]+"px; help:no; scroll:no; center:"+val[3]+"; resizable:yes");									
-		//	 // feature to refresh a tree value upon return of the focus			 
-		//	 try { document.getElementById("treerefresh").click(); } catch(e) {}				 
-		//	 if (ret) {	applyfilter('1','',key) }					 
-		//} else {		   
- 		//  ret = window.showModalDialog("#SESSION.root#/"+template+"?drillid="+key+str+"&ts="+new Date().getTime(),window,"unadorned:yes; edge:raised; status:no; dialogHeight:"+val[0]+"px; dialogWidth:"+val[1]+"px; help:no; scroll:no; center:"+val[3]+"; resizable:yes");		    
-		// }		
-	}
+	if (mode == "dialog") {	  		
+		alert('Modal IE Dialog mode no longer support. Check your administrator')
+		// discontinued	
+		}
 	
 	if (mode == "securewindow") {
 		val = arg.split(";");	
@@ -610,7 +597,7 @@ function toggledrill(mode,box,template,key,arg,drillbox,str) {
         h = #CLIENT.height# - 120;			
 		ptoken.open('#SESSION.root#/'+template+key+str+'&idmenu='+idmenu+'&ts='+new Date().getTime(),'_top')				
 		}		
-			
+					
 	}	
 
 	function facttablexls2(controlid,format,filter,qry,dsn) {	

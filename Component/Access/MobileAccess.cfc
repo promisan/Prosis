@@ -290,6 +290,67 @@
 
 	<cffunction  
 		access      = "public"
+		name        = "PasswordReset"
+		returntype  = "numeric" 
+		displayname = "PasswordReset">
+
+		<cfargument name = "Email" 		type = "string" 	default = ""  	required = "Yes">
+		<cfargument name = "Welcome"	type = "string" 	default = ""  	required = "No">
+		<cfargument name = "Root"		type = "string" 	default = ""  	required = "No">
+
+		<!---
+		Return 0:  Email is not associated to any account
+		Return 1:  Password reset, email sent
+		--->
+
+		<cfset vReturn = 0>
+
+		<cfquery name="VerifyUser" 
+			datasource="AppsSystem">
+				SELECT  * 
+				FROM    UserNames
+				WHERE 	eMailAddress = '#trim(arguments.Email)#'
+		</cfquery>
+
+		<cfif VerifyUser.recordCount eq 1>
+
+			<cfset vGeneratedPwd = randRange(10000000, 99999999)>
+			<cf_encrypt text = "#vGeneratedPwd#">
+			<cfset vNewPassword = EncryptedText>	
+
+			<cfquery name="LogPassword" datasource="AppsSystem">
+				INSERT INTO UserPasswordLog 
+						(Account, Password, PasswordExpiration)
+				VALUES  ('#VerifyUser.Account#', '#VerifyUser.Password#', GETDATE())
+			</cfquery>  
+
+			<cfquery name="UpdateUser" datasource="AppsSystem">
+				UPDATE	UserNames 
+				SET		Password           = '#vNewPassword#',
+						PasswordResetForce = '0',
+						PasswordModified   = GETDATE()
+				WHERE 	Account            = '#VerifyUser.Account#'
+			</cfquery>		
+
+			<!--- send email notification --->		
+			<cf_MailPasswordChangeConfirmation 
+				acc="#VerifyUser.Account#" 
+				refEmail="#trim(arguments.Email)#"
+				newPwd="#vGeneratedPwd#"
+				welcome="#Welcome#"
+				root="#Root#">	
+
+			<!--- all ok:  password reset --->
+			<cfset vReturn = 1>
+
+		</cfif>
+
+		<cfreturn vReturn>
+
+	</cffunction>
+
+	<cffunction  
+		access      = "public"
 		name        = "PasswordChange"
 		returntype  = "numeric" 
 		displayname = "PasswordChange">

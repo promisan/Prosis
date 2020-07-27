@@ -106,10 +106,10 @@
 			<table class="formspacing">
 				                
             <tr>
-				<td>			
+				<td>							
 				
-                <button type="button" class="btn btn-lg btn-light" onclick="#jvlink#" style="height: 40px;width: 180px;padding: 0 0 0 9px!important;text-align: left; margin-bottom:0px!important;">                                                       
-				<img src="#SESSION.root#/Images/Search-R-Blue.png" width="36"><cf_tl id="Find Customer"></button>
+                <button type="button" class="btn btn-lg btn-light" onclick="#jvlink#" style="height: 38px;width: 180px;padding: 0 0 0 9px!important;text-align: left; margin-bottom:0px!important;">                                                       
+				<img src="#SESSION.root#/Images/Search-R-Blue.png" width="26"><span style="top:-4px;left: -2px;"><cf_tl id="Find Customer"></button>
 				
 				</td>
 			</tr>
@@ -118,9 +118,9 @@
 			<tr>
 				<td>
 				
-                 <button type="button" class="btn btn-lg btn-light" style="height: 40px;width: 180px;padding: 0 0 0 9px!important;text-align: left; margin-bottom:0px!important;"
+                 <button type="button" class="btn btn-lg btn-light" style="height: 38px;width: 180px;padding: 0 0 0 9px!important;text-align: left; margin-bottom:0px!important;"
 					  onclick="searchcombo('#getCustomer.mission#','#url.warehouse#','','switch','inmemory','up','','##customeridselect_val')">
-					  <img src="#SESSION.root#/Images/SwitchUser-Blue.png" width="36"><cf_tl id="Switch Sale"></button>
+					  <img src="#SESSION.root#/Images/SwitchUser-Blue.png" width="26"><span style="top:-4px;left: -2px;"><cf_tl id="Switch Sale"></button>
 				
 				</td>
 			</tr>                
@@ -150,12 +150,12 @@
 			
 	<cfoutput>
 		
-		<table class="formspacing">
+		<table  class="formspacing">
 		            
             <tr>
 				<td>					
-                <button type="button" class="btn btn-lg btn-light" onclick="#jvlink#" style="height: 40px;width: 180px;padding: 0 0 0 9px!important;text-align: left; margin-bottom:0px!important;">                                                       
-				<img src="#SESSION.root#/Images/Search-R-Blue.png" width="36"><span style="top:-12px;left: -2px;"><cf_tl id="Find Customer"></span>
+                <button type="button" class="btn btn-lg btn-light" onclick="#jvlink#" style="height: 38px;width: 180px;padding: 0 0 0 9px!important;text-align: left; margin-bottom:0px!important;">                                                       
+				<img src="#SESSION.root#/Images/Search-R-Blue.png" width="26"><span style="top:-4px;left: -2px;"><cf_tl id="Find Customer"></span>
 				</button>
 				</td>
 			</tr>
@@ -165,10 +165,10 @@
 				<tr>
 					<td>
 					
-	                <button type="button" class="btn btn-lg btn-light" style="height: 40px;width: 180px;padding: 0 0 0 9px!important;text-align: left; margin-bottom:0px!important;"
+	                <button type="button" class="btn btn-lg btn-light" style="height: 38px;width: 180px;padding: 0 0 0 9px!important;text-align: left; margin-bottom:0px!important;"
 					  onclick="searchcombo('#getCustomer.mission#','#url.warehouse#','','switch','inmemory','up','','##customeridselect_val')">
-					  <img src="#SESSION.root#/Images/SwitchUser-Blue.png" width="36">
-					  <span style="top:-12px;left: -2px;"><cf_tl id="Switch Sale"></span>
+					  <img src="#SESSION.root#/Images/SwitchUser-Blue.png" width="26">
+					  <span style="top:-4px;left: -2px;"><cf_tl id="Switch Sale"></span>
 					</button>
 					
 					</td>

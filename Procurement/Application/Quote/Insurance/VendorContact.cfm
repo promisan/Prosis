@@ -77,45 +77,45 @@ password="#SESSION.dbpw#">
 
 	
 <cfoutput>	
-	<TR>
-    <TD class="labelit">&nbsp;&nbsp;<cf_tl id="Address">:</TD>
-    <TD class="labelit">
-	   	<cfinput class="regularxl" type="Text" name="Address1" value="#Address.Address1#" message="Please enter an address" required="Yes" size="60" maxlength="100">	   
+	<TR class="labelmedium">
+    <TD><cf_tl id="Address">:</TD>
+    <TD>
+	   	<cfinput class="regularxl" style="90%" type="Text" name="Address1" value="#Address.Address1#" message="Please enter an address" required="Yes" size="60" maxlength="100">	   
 	</TD>
 	</TR>
 	
 	<TR class="hide">
-    <TD class="labelit">&nbsp;&nbsp;<cf_tl id="Address 2">:</TD>
-    <TD class="labelit">
+    <TD><cf_tl id="Address 2">:</TD>
+    <TD>
 	   	<input class="regularxl" type="Text" name="Address2" id="Address2" value="#Address.Address2#" size="60" maxlength="100">
 	</TD>
 	</TR>
 	
-	<TR>
-    <TD class="labelit">&nbsp;&nbsp;<cf_tl id="Postal code">:</TD>	
-    <TD class="labelit">		
+	<TR class="labelmedium">
+    <TD><cf_tl id="Postal code">:</TD>	
+    <TD>		
 		   	<input class="regularxl" type="Text" value="#Address.PostalCode#" name="PostalCode" id="PostalCode" size="15" maxlength="10">
 	 	</td>
 	</tr>
 	
-	<tr>	
-		<TD class="labelit">&nbsp;&nbsp;<cf_tl id="City">:</TD>
-		<td class="labelit">
+	<tr class="labelmedium">	
+		<TD><cf_tl id="City">:</TD>
+		<td>
 		   	<cfinput class="regularxl" type="Text" name="City" value="#Address.City#" message="Please enter an city" required="Yes" size="30" maxlength="40">
 		</td>	
 		
 	</TR>
 	
-	<TR>
-    <TD class="labelit">&nbsp;&nbsp;<cf_tl id="State">/<cf_tl id="Province">:</TD>
-    <TD class="labelit">
+	<TR class="labelmedium">
+    <TD>&nbsp;&nbsp;<cf_tl id="State">/<cf_tl id="Province">:</TD>
+    <TD>
 	<table border="0" cellspacing="0" cellpadding="0">
 		<tr><td>		   	
 		 	<input class="regularxl" type="Text" value="#Address.State#" name="State" id="State" size="20" maxlength="20">
  		</td>
-		<TD class="labelit" width="90" style="padding-left:14px;padding-right:4px"><cf_tl id="Country">:</TD>
+		<TD class="labelit" width="90" style="padding-left:14px;padding-right:4px"><cf_tl id="Country"></TD>
 		<td>
-		 	<select name="Country" required="No" class="regularxl">
+		 	<select name="Country" style="width:200px"required="No" class="regularxl">
 		    <cfloop query="Nation" >
 			<option value="#Code#" <cfif Address.Country eq Code>selected</cfif>>#Name#</option>
 			</cfloop>
@@ -124,19 +124,19 @@ password="#SESSION.dbpw#">
 	</TD>
 	</TR>	
 		
-    <TR>
-    <TD class="labelit">&nbsp;&nbsp;<cf_tl id="Representative">:</TD>
-    <TD class="labelit">
+    <TR class="labelmedium">
+    <TD><cf_tl id="Representative">:</TD>
+    <TD>
 		<table cellspacing="0" cellpadding="0">
 		
 		<tr><td>
 		 <input type="Text" name="Contact" id="Contact" value="#Address.Contact#" size="30" maxlength="40" class="regularxl">
 		</td>
-		<td class="labelit">&nbsp;&nbsp;<cf_tl id="DOB">:&nbsp;</td>
+		<td class="labelit">&nbsp;&nbsp;<cf_tl id="DOB">:</td>
 		
 		<td>
 		
-			<cf_intelliCalendarDate8
+			<cf_intelliCalendarDate9
 				FieldName="ContactDOB" 
 				Default="#DateFormat(Address.ContactDOB, '#CLIENT.DateFormatShow#')#"
 				AllowBlank="True"
@@ -150,8 +150,8 @@ password="#SESSION.dbpw#">
 	</TD>
 	</TR>
 	
-	<TR>
-    <TD class="labelit">&nbsp;&nbsp;<cf_tl id="Id">:</TD>
+	<TR class="labelmedium">
+    <TD><cf_tl id="Id">:</TD>
     <TD>
 	<table cellspacing="0" cellpadding="0">
 	<tr><td>
@@ -164,15 +164,15 @@ password="#SESSION.dbpw#">
 	</table>
 	</td>
 	
-	<TR>
-    <TD class="labelit">&nbsp;&nbsp;&nbsp;&nbsp;- <cf_tl id="Fiscal No">:</TD>
-    <TD class="labelit"><input type="Text" name="FiscalNo" id="FiscalNo" size="20" maxlength="20" class="regularxl" value="#Address.FiscalNo#"> 
+	<TR class="labelmedium">
+    <TD>- <cf_tl id="Fiscal No">:</TD>
+    <TD><input type="Text" name="FiscalNo" id="FiscalNo" size="20" maxlength="20" class="regularxl" value="#Address.FiscalNo#"> 
 	</TD>
 	</TR>
 	
-    <TR>
-    <TD class="labelit">&nbsp;&nbsp;&nbsp;&nbsp;- <cf_tl id="Telephone">:</TD>
-    <TD class="labelit"><table cellspacing="0" cellpadding="0">
+    <TR class="labelmedium">
+    <TD>- <cf_tl id="Telephone">:</TD>
+    <TD><table cellspacing="0" cellpadding="0">
 	    <tr><td>
 		 		<input type="Text" name="TelephoneNo" id="TelephoneNo" value="#Address.TelephoneNo#" size="10" maxlength="20" class="regularxl"> 
 			</td>
@@ -189,8 +189,8 @@ password="#SESSION.dbpw#">
 	</TD>
 	</TR>
 	
-	<TR>
-    <TD class="labelit">&nbsp;&nbsp;&nbsp;&nbsp;- <cf_tl id="eMail">:</TD>
+	<TR class="labelmedium">
+    <TD>- <cf_tl id="eMail">:</TD>
     <TD class="labelit">
 		<cf_tl id="Please enter a valid eMail address" class="text" var="1">
 		<cfset vMsg=#lt_text#>		

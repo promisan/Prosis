@@ -25,17 +25,17 @@
 		   name="content#attributes.name##attributes.item#">	
 		   
 	<cfelse>	
-	
+		
 	<tr class="#attributes.class#"
 	    id="#attributes.name##attributes.item#" 
 		name="#attributes.name##attributes.item#">
 								
 		<!--- align="center" is giving issues in IE7-9 --->
 							
-	   <td height="100%" width="100%" valign="top" style="overflow:hidden"
+	   <td height="90%" width="90%" valign="top" style="overflow:hidden"
 	       id="content#attributes.name##attributes.item#" 
-		   name="content#attributes.name##attributes.item#">	  
-		   
+		   name="content#attributes.name##attributes.item#">	
+		   		   		   
 	</cfif>	   
 		
 			   		   											

@@ -2610,6 +2610,14 @@
 </cfquery>	
 	
 <cfloop query="Entity">
+
+	<cf_insertEntityDocument
+	      Code="#EntityCode#"   
+          DocumentType="function" 
+		  DocumentCode="fact"
+		  DocumentDescription="Actor decision"
+		  DocumentTemplate="actor"
+		  DocumentMode="Embed">		
 		
 	<cf_insertEntityDocument
 	      Code="#EntityCode#"   

@@ -70,18 +70,17 @@ password="#SESSION.dbpw#">
 	
 	<tr><td height="5"></td></tr>
 	  
-    <TR>
-    <TD class="labelmedium"><cf_tl id="Effective date">:</TD>
+    <TR class="labelmedium">
+    <TD><cf_tl id="Document date">:</TD>
     <TD>
-  
+	
 		  <cf_intelliCalendarDate9
 		FormName="MiscellaneousEdit"
-		FieldName="DateEffective" 
+		FieldName="DocumentDate" 
 		class="regularxl"
 		DateFormat="#APPLICATION.DateFormat#"
-		Default="#Dateformat(Entitlement.DateEffective, CLIENT.DateFormatShow)#"
+		Default="#Dateformat(Entitlement.DocumentDate, CLIENT.DateFormatShow)#"
 		AllowBlank="False">	
- 
 		
 	</TD>
 	</TR>
@@ -121,21 +120,24 @@ password="#SESSION.dbpw#">
     <input type="text" name="documentReference" value="#Entitlement.DocumentReference#" class="regularxl" size="30" maxlength="30">		
 	</TD>
 	</TR>
-		
-	<TR class="labelmedium">
-    <TD><cf_tl id="Document date">:</TD>
-    <TD>
 	
+	<TR>
+    <TD class="labelmedium"><cf_tl id="Effective date">:</TD>
+    <TD>
+  
 		  <cf_intelliCalendarDate9
 		FormName="MiscellaneousEdit"
-		FieldName="DocumentDate" 
+		FieldName="DateEffective" 
 		class="regularxl"
 		DateFormat="#APPLICATION.DateFormat#"
-		Default="#Dateformat(Entitlement.DocumentDate, CLIENT.DateFormatShow)#"
+		Default="#Dateformat(Entitlement.DateEffective, CLIENT.DateFormatShow)#"
 		AllowBlank="False">	
+ 
 		
 	</TD>
 	</TR>
+		
+	
 		
 	<TR class="labelmedium">
     <TD><cf_tl id="Category">:</TD>

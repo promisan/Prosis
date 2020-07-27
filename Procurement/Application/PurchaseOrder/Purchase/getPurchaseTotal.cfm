@@ -19,7 +19,7 @@
 
  <cfif Parameter.EnablePurchaseClass eq "0">
 	  
- <table width="99%">
+ <table width="100%">
  
  	 <cfquery name="Total" 
 	     datasource="AppsPurchase" 
@@ -33,12 +33,13 @@
 		 GROUP BY Currency           
 	 </cfquery>
 	 
+	 <tr style="height:20px;background-color:f1f1f1" class="labelmedium">
+	 
 	 <cfoutput query="Total">
 	  	
-		  <tr style="height:20px" class="line labelmedium"><td>#Currency#</td>
-		  <td>#numberFormat(Total.Total/Total.TotalBase,".____")#</td>
-		  <td align="right" style="padding-right:5px;color:008000">#numberFormat(Total.Total,",.__")#</td>		  
-		  </tr>		  
+		  <td style="padding-left:9px">#Currency#</td>
+		  <td style="width:60px"><cfif get.currency neq APPLICATION.BaseCurrency>#numberFormat(Total.Total/Total.TotalBase,"._____")#</cfif></td>
+		  <td align="right" style="padding-right:5px;color:008000">#numberFormat(Total.Total,",.__")#</td>	 
 			  	  
 	 </cfoutput>
 	 
@@ -61,26 +62,35 @@
 		        CurrencyFrom = "#Total.Currency#" 
 		        CurrencyTo   = "#Currency#"
 				EffectiveDate = "#dateformat(get.OrderDate,CLIENT.DateFormatShow)#">	 	 	
-		 
-			 <tr style="height:20px" class="line labelmedium">
-			      <td>#Currency#</td>
-				  <td>#numberFormat(exc,".____")#</td>
+		 			
+				  <td style="padding-left:9px">#Currency#</td>	
+				  <td style="width:60px">#numberformat(exc,'._____')#</td>	    			  
 				  <td align="right" style="padding-right:5px">#numberFormat(Total.Total/exc,",.__")#</td>
-			  </tr>
 		  
 		 </cfoutput>
 	 	 
-		 <cfoutput>		 
+		 <cfoutput>		
+		 
+		 </tr> 
 		 
 		  <cfif get.currency neq APPLICATION.BaseCurrency>
-			  <tr style="height:20px" class="labelmedium">
-				  <td>#APPLICATION.BaseCurrency#</td>
-				  <td></td>
-				  <td align="right" <td align="right" style="padding-right:5px;color:6688aa">#numberFormat(Total.TotalBase,",.__")#</td>
+			  <tr style="height:25px;border-top:1px solid silver" class="labelmedium">
+				  <td style="padding-left:9px">#APPLICATION.BaseCurrency#</td>				  
+				  <td align="right" colspan="#cur.recordcount*3+2#" style="font-size:16px;padding-right:5px;color:6688aa">#numberFormat(Total.TotalBase,",.__")#</td>
 			  </tr>
 		  </cfif>
 		  
 		 </cfoutput>
+		 
+	   <cfelse>
+	   
+	   <cfif get.currency neq APPLICATION.BaseCurrency>
+			  <tr style="height:25px;border-top:1px solid silver" class="labelmedium">
+				  <td style="padding-left:9px">#APPLICATION.BaseCurrency#</td>				  
+				  <td align="right" colspan="2" style="font-size:16px;padding-right:5px;color:6688aa">#numberFormat(Total.TotalBase,",.__")#</td>
+			  </tr>
+		  </cfif>
+	   	 
 	  
 	   </cfif>
   

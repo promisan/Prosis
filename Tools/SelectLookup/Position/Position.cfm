@@ -1,5 +1,5 @@
 
-<cf_screentop label="Associate a position" bannerheight="50" line="no" scroll="Yes" layout="webapp" banner="gray">
+<cf_screentop label="Associate a position" line="no" scroll="No" layout="webapp" banner="gray">
 
 <cfquery name="Line" 
 	datasource="AppsPurchase" 

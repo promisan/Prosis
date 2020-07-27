@@ -282,6 +282,8 @@ password="#SESSION.dbpw#">
 			
 			<cfoutput>
 			
+			<cfparam name="getTransfer.TransactionLocation" default="">
+			
 			<tr class="labelmedium" style="padding-top:5px;border-top:1px solid silver;border-bottom:1px solid silver">
 			    <td style="padding-left:20px;">
 				<cf_tl id="Requested Location for item to be transferred to">:

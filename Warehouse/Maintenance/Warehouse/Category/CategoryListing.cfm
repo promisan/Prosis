@@ -34,14 +34,13 @@ password="#SESSION.dbpw#">
 	<td align="center"><label title="Request Mode"><cf_tl id="Req"></label></td>
 	<td height="23" align="right" style="padding-left:20px">
 		<cfoutput>
-		<A href="javascript:editCategory('#url.id1#','')">
-		[<cf_tl id="add">]</a>
+		<A href="javascript:editCategory('#url.id1#','')"><cf_tl id="add"></a>
 		</cfoutput>
 	</td>
 </tr>
 
 <cfif List.recordCount eq 0>
-	<tr><td align="center" class="labelit line" height="25" colspan="5" style="color:red;">[<cf_tl id="No categories recorded">]</td></tr>	
+	<tr><td align="center" class="labelit line" height="25" colspan="7" style="color:red;">[<cf_tl id="No categories recorded">]</td></tr>	
 </cfif>
 
 <cfoutput query="List">

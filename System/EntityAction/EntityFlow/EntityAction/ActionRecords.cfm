@@ -183,7 +183,7 @@ password="#SESSION.dbpw#">
 			
 			<td style="padding-left:3px">
 						 
-				<select name="ActionType" id="ActionType" class="regularxl" style="width:99%;border:0px;border-right:1px solid silver;border-left:1px solid silver">
+				<select name="ActionType" id="ActionType" class="regularxl" style="width:200px;border:0px;border-right:1px solid silver;border-left:1px solid silver">
 				<cfif Check.recordcount eq "0" and Entity.EnableCreate eq "1">
 				<option value="Create">Create</option>
 				</cfif>
@@ -283,7 +283,7 @@ password="#SESSION.dbpw#">
 				</cfif>
 			   </td>
 			   <td align="center" style="padding-left:3px">
-			   	<select name="ProcessMode" id="ProcessMode" style="width:99%;border:0px;border-right:1px solid silver;border-left:1px solid silver" class="regularxl">				
+			   	<select name="ProcessMode" id="ProcessMode" style="min-width:200px;border:0px;border-right:1px solid silver;border-left:1px solid silver" class="regularxl">				
 					<option value="0" <cfif "0" eq ProcessMode>selected</cfif>>Single Dialog</option>									
 					<option value="2" <cfif "2" eq ProcessMode>selected</cfif>>Window</option>						
 					<option value="3" <cfif "3" eq ProcessMode>selected</cfif>>Browser tab</option>			

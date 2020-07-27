@@ -28,45 +28,80 @@
 </cfif>	
 	
 <cfloop query="Action">
-		
+
 	<!--- remove role --->
-	<cfquery name="Check" 
+	<cfquery name="user" 
 	datasource="AppsOrganization" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-		SELECT *
-		FROM  OrganizationObjectActionAccess 
-		WHERE UserAccount = '#URL.Account#'
-		 AND  ObjectId    = '#URL.ObjectId#'
-		 AND  ActionCode  = '#ActionCode#'
+		SELECT  *
+		FROM    System.dbo.UserNames
+		WHERE   Account = '#URL.Account#'
 	</cfquery>
 	
-	<cfif check.recordcount eq "0">
-		
-		<cfquery name="Insert" 
+	<cfif user.accounttype eq "Individual">
+	
+		<cfset acclist = "#url.account#">
+	
+	<cfelse>
+	
+		<!--- remove role --->
+		<cfquery name="users" 
 		datasource="AppsOrganization" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-		INSERT INTO OrganizationObjectActionAccess 
-			         (UserAccount,
-					  ObjectId,
-					  ActionCode,
-					  AccessLevel,
-					  OfficerUserId,
-					  OfficerLastName,
-					  OfficerFirstName,
-					  Created)
-			  VALUES ('#URL.Account#',
-					  '#URL.ObjectId#',
-			          '#ActionCode#',  
-					  '#url.accesslevel#',
-					  '#SESSION.acc#',
-					  '#SESSION.last#',
-					  '#SESSION.first#',
-					  getDate())
+			SELECT *
+			FROM  System.dbo.UserNamesGroup
+			WHERE AccountGroup = '#URL.Account#'
+			AND   Account IN (SELECT Account 
+			                  FROM   System.dbo.UserNames 
+							  WHERE  Disabled = 0)
 		</cfquery>	
+		
+		<cfset acclist = "#valueList(users.account)#">
 	
-	</cfif>	
+	</cfif>
+	
+	<cfloop index="itm" list="#acclist#">
+		
+			<!--- remove role --->
+			<cfquery name="Check" 
+			datasource="AppsOrganization" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				SELECT *
+				FROM  OrganizationObjectActionAccess 
+				WHERE UserAccount = '#itm#'
+				 AND  ObjectId    = '#URL.ObjectId#'
+				 AND  ActionCode  = '#ActionCode#'
+			</cfquery>
+			
+			<cfif check.recordcount eq "0">
+				
+				<cfquery name="Insert" 
+				datasource="AppsOrganization" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+				INSERT INTO OrganizationObjectActionAccess 
+					         (UserAccount,
+							  ObjectId,
+							  ActionCode,
+							  AccessLevel,
+							  OfficerUserId,
+							  OfficerLastName,
+							  OfficerFirstName)
+					  VALUES ('#itm#',
+							  '#URL.ObjectId#',
+					          '#ActionCode#',  
+							  '#url.accesslevel#',
+							  '#SESSION.acc#',
+							  '#SESSION.last#',
+							  '#SESSION.first#')
+				</cfquery>	
+			
+			</cfif>	
+	
+	</cfloop>
 	
 </cfloop>	
 

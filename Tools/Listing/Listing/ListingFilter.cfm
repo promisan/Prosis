@@ -56,12 +56,7 @@
 	
 	      <tr><td height="3"></td></tr>			
 						
-			<input type="hidden" name="treefield"      id="treefield"       value="">
-			<input type="hidden" name="treevalue"      id="treevalue"       value="">
-			<input type="hidden" name="listorder"      id="listorder"       value="#url.listorder#">	
-			<input type="hidden" name="listorderfield" id="listorderfield"  value="#url.listorderfield#">	
-			<input type="hidden" name="listorderalias" id="listorderalias"  value="#url.listorderalias#">	
-			<input type="hidden" name="listorderdir"   id="listorderdir"    value="#url.listorderdir#">	
+			
 					
 			<cfset cnt  = 0>
 			<cfset show = "0">

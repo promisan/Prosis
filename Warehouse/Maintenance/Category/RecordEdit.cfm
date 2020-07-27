@@ -209,9 +209,9 @@ password="#SESSION.dbpw#">
 		 </TD>
 	 </TR>
 	 
-	 <!--- Field: tabIcon --->
+	 <!--- Field: icon --->
 	 <TR>
-		 <TD class="labelmedium" style="padding-left:10px;"><cf_tl id="Icon">:</TD>  
+		 <TD class="labelmedium" style="padding-left:10px;"><cf_tl id="Image">:</TD>  
 		 <TD class="labelmedium">
 		   <table cellspacing="0" cellpadding="0"><tr><td class="labelmedium">
 		    #SESSION.root#/Custom/
@@ -221,6 +221,31 @@ password="#SESSION.dbpw#">
 		 	<cfinput type="Text" 
 				name="tabIcon" 
 				value="#Item.tabIcon#" 
+				message="Please enter a Tab Icon" 
+				onblur= "ColdFusion.navigate('CollectionTemplate.cfm?template=#iconDirectory#'+this.value+'&container=iconValidationDiv&resultField=validateIcon','iconValidationDiv')"
+				required="No" 
+				size="30" 
+				maxlength="60" 
+				class="regularxl">										
+			</td>
+			<td style="padding-left:4px">
+		 	<cfdiv id="iconValidationDiv" bind="url:CollectionTemplate.cfm?template=#iconDirectory##Item.tabIcon#&container=iconValidationDiv&resultField=validateIcon">				
+			</td></tr></table>
+		 </td>
+	</TR>
+	
+	<!--- Field: icon --->
+	 <TR>
+		 <TD class="labelmedium" style="padding-left:10px;"><cf_tl id="Image">:</TD>  
+		 <TD class="labelmedium">
+		   <table cellspacing="0" cellpadding="0"><tr><td class="labelmedium">
+		    #SESSION.root#/Custom/
+			</td>
+		 	<cfset iconDirectory = "Custom/">
+			<td style="padding-left:4px">
+		 	<cfinput type="Text" 
+				name="Image" 
+				value="#Item.Image#" 
 				message="Please enter a Tab Icon" 
 				onblur= "ColdFusion.navigate('CollectionTemplate.cfm?template=#iconDirectory#'+this.value+'&container=iconValidationDiv&resultField=validateIcon','iconValidationDiv')"
 				required="No" 

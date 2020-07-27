@@ -715,7 +715,7 @@
 				
 		<cfelse>
 		
-			<cfset hours = "#LastContract.SalaryBasePeriod#">
+			<cfset hours = LastContract.SalaryBasePeriod>
 			
 			<cfif hours eq "">
 			   <cfset hours = Param.HoursInDay * 5>

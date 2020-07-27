@@ -11,9 +11,9 @@ password="#SESSION.dbpw#">
 			AND C.Account          = '#SESSION.acc#'
 			AND C.ConditionField   = 'Warehouse'
 	WHERE   M.Mission IN (SELECT Mission 
-                        FROM Organization.dbo.Ref_MissionModule 
-					    WHERE SystemModule = 'Warehouse')
-	AND SaleMode IN ('1','2','3')					
+                          FROM Organization.dbo.Ref_MissionModule 
+					      WHERE SystemModule = 'Warehouse')
+	AND    SaleMode IN ('1','2','3')				
 	<!--- has access somehow to procurement --->	
 	
 	<cfif session.isAdministrator neq "Yes">

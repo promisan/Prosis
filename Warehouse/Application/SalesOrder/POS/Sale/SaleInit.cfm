@@ -55,99 +55,100 @@
 
 </cfoutput>
 
-<cftry>
+<cfif URL.Warehouse neq "BAM03">
+	<cftry>
 
-	<cfquery name="Test"
-			datasource="AppsTransaction"
-			username="#SESSION.login#"
-			password="#SESSION.dbpw#">
-		SELECT *
-		FROM   Sale#URL.Warehouse#
-	</cfquery>
-
-	<cfcatch>
-
-		<CF_DropTable dbName="AppsTransaction"
-				tblName="Sale#URL.Warehouse#">
-
-		<cfquery name="CreateTable"
+		<cfquery name="Test"
 				datasource="AppsTransaction"
 				username="#SESSION.login#"
 				password="#SESSION.dbpw#">
-			CREATE TABLE dbo.Sale#URL.Warehouse# (
-		[TransactionId] [uniqueidentifier] ROWGUIDCOL  NOT NULL CONSTRAINT [DF_Sale#URL.Warehouse#] DEFAULT (newid()),
-		[SourceBatchNo] [varchar] (20) NULL ,
-		[BatchId] [uniqueidentifier],
-		[TransactionType] [varchar] (2) NOT NULL ,
-		[TransactionDate] [datetime] NOT NULL ,
-		[TransactionReference] [varchar] (50) NULL ,
-		[ItemNo] [varchar] (20) NOT NULL ,
-		[ItemClass] [varchar] (10) NOT NULL ,
-		[ItemDescription] [varchar] (200) NOT NULL ,
-		[ItemCategory] [varchar] (20) NOT NULL ,
-		[Mission] [varchar] (30) NOT NULL ,
-		[Warehouse] [varchar] (20) NULL ,
-		[Location] [varchar] (20) NULL ,
-		[TransactionUoM] [varchar] (30) NOT NULL ,
-		[TransactionQuantity] [float] NOT NULL ,
-		[AddressId] [uniqueidentifier] NULL,
-		[TransactionLot] [varchar] (20) NULL ,
-		[PersonNo] [varchar] (20) NULL ,
-		[CustomerId] [uniqueidentifier] NULL,
-		[CustomerIdInvoice] [uniqueidentifier] NULL,
-		[SalesPersonNo] [varchar] (20) NULL,
-		[ProgramCode] [varchar] (20) NULL ,
-		[PriceSchedule] [varchar] (10) NULL ,
-		[SalesCurrency] [varchar] (4) NOT NULL ,
-		[SchedulePrice] [float] NULL ,
-		[PromotionId] [uniqueidentifier] NULL,
-		[PromotionRun] [int] NULL ,
-		[PromotionType] [varchar] (10) NULL ,
-		[PromotionDiscount] [float] NULL ,
-		[SalesDiscount] [float] NULL ,
-		[SalesPrice] [float] NOT NULL ,
-		[TaxCode] [varchar] (10) NULL ,
-		[TaxPercentage] [float] NULL CONSTRAINT [DF_Sale_TaxPercetage#URL.Warehouse#] DEFAULT (0),
-		[TaxExemption] [bit] NOT NULL CONSTRAINT [DF_Sale_TaxExemption#URL.Warehouse#] DEFAULT (0),
-		[TaxIncluded] [bit] NOT NULL CONSTRAINT [DF_Sale__TaxIncluded#URL.Warehouse#] DEFAULT (0),
-		[SalesAmount] [float] NULL ,
-		[SalesTax] [float] NULL ,
-		[SalesTotal] AS ([SalesAmount] + [SalesTax]) ,
-		[Source] [varchar] (10) NULL CONSTRAINT [DF_Sale_Source#URL.Warehouse#] DEFAULT ('Manual'),
-		[OrgUnit] [int] NULL ,
-		[OrgUnitCode] [varchar] (20) NULL ,
-		[OrgUnitName] [varchar] (100) NULL ,
-		[OfficerUserId] [varchar] (20) NULL ,
-		[OfficerLastName] [varchar] (40) NULL ,
-		[OfficerFirstName] [varchar] (30) NULL ,
-		[Created] [datetime] NOT NULL CONSTRAINT [DF_Sale_Created#URL.Warehouse#] DEFAULT (getdate()),)
+			SELECT *
+			FROM   Sale#URL.Warehouse#
 		</cfquery>
 
-		<cfquery name="CreateTableIndexes"
-				datasource="AppsTransaction"
-				username="#SESSION.login#"
-				password="#SESSION.dbpw#">
+		<cfcatch>
 
-			ALTER TABLE [dbo].[Sale#URL.Warehouse#] ADD  CONSTRAINT [PK_Sale#URL.Warehouse#] PRIMARY KEY CLUSTERED
-		(
-		[TransactionId] ASC
-		) ON [PRIMARY];
+			<CF_DropTable dbName="AppsTransaction"
+					tblName="Sale#URL.Warehouse#">
 
-		CREATE NONCLUSTERED INDEX [_dta_index_CustomerId_Warehouse_ItemNo_TransactionUoM] ON [dbo].[Sale#URL.Warehouse#]
-		(
-		[CustomerId] ASC,
-		[Warehouse] ASC,
-		[ItemNo] ASC,
-		[TransactionUoM] ASC
-		)
-		ON [PRIMARY];
+			<cfquery name="CreateTable"
+					datasource="AppsTransaction"
+					username="#SESSION.login#"
+					password="#SESSION.dbpw#">
+				CREATE TABLE dbo.Sale#URL.Warehouse# (
+			[TransactionId] [uniqueidentifier] ROWGUIDCOL  NOT NULL CONSTRAINT [DF_Sale#URL.Warehouse#] DEFAULT (newid()),
+			[SourceBatchNo] [varchar] (20) NULL ,
+			[BatchId] [uniqueidentifier],
+			[TransactionType] [varchar] (2) NOT NULL ,
+			[TransactionDate] [datetime] NOT NULL ,
+			[TransactionReference] [varchar] (50) NULL ,
+			[ItemNo] [varchar] (20) NOT NULL ,
+			[ItemClass] [varchar] (10) NOT NULL ,
+			[ItemDescription] [varchar] (200) NOT NULL ,
+			[ItemCategory] [varchar] (20) NOT NULL ,
+			[Mission] [varchar] (30) NOT NULL ,
+			[Warehouse] [varchar] (20) NULL ,
+			[Location] [varchar] (20) NULL ,
+			[TransactionUoM] [varchar] (30) NOT NULL ,
+			[TransactionQuantity] [float] NOT NULL ,
+			[AddressId] [uniqueidentifier] NULL,
+			[TransactionLot] [varchar] (20) NULL ,
+			[PersonNo] [varchar] (20) NULL ,
+			[CustomerId] [uniqueidentifier] NULL,
+			[CustomerIdInvoice] [uniqueidentifier] NULL,
+			[SalesPersonNo] [varchar] (20) NULL,
+			[ProgramCode] [varchar] (20) NULL ,
+			[PriceSchedule] [varchar] (10) NULL ,
+			[SalesCurrency] [varchar] (4) NOT NULL ,
+			[SchedulePrice] [float] NULL ,
+			[PromotionId] [uniqueidentifier] NULL,
+			[PromotionRun] [int] NULL ,
+			[PromotionType] [varchar] (10) NULL ,
+			[PromotionDiscount] [float] NULL ,
+			[SalesDiscount] [float] NULL CONSTRAINT [DF_Sale_SalesDiscount#URL.Warehouse#] DEFAULT (0),
+			[SalesPrice] [float] NOT NULL ,
+			[TaxCode] [varchar] (10) NULL ,
+			[TaxPercentage] [float] NULL CONSTRAINT [DF_Sale_TaxPercetage#URL.Warehouse#] DEFAULT (0),
+			[TaxExemption] [bit] NOT NULL CONSTRAINT [DF_Sale_TaxExemption#URL.Warehouse#] DEFAULT (0),
+			[TaxIncluded] [bit] NOT NULL CONSTRAINT [DF_Sale__TaxIncluded#URL.Warehouse#] DEFAULT (0),
+			[SalesAmount] [float] NULL ,
+			[SalesTax] [float] NULL ,
+			[SalesTotal] AS ([SalesAmount] + [SalesTax]) ,
+			[Source] [varchar] (10) NULL CONSTRAINT [DF_Sale_Source#URL.Warehouse#] DEFAULT ('Manual'),
+			[OrgUnit] [int] NULL ,
+			[OrgUnitCode] [varchar] (20) NULL ,
+			[OrgUnitName] [varchar] (100) NULL ,
+			[OfficerUserId] [varchar] (20) NULL ,
+			[OfficerLastName] [varchar] (40) NULL ,
+			[OfficerFirstName] [varchar] (30) NULL ,
+			[Created] [datetime] NOT NULL CONSTRAINT [DF_Sale_Created#URL.Warehouse#] DEFAULT (getdate()),)
+			</cfquery>
 
-		</cfquery>
+			<cfquery name="CreateTableIndexes"
+					datasource="AppsTransaction"
+					username="#SESSION.login#"
+					password="#SESSION.dbpw#">
 
-	</cfcatch>
+				ALTER TABLE [dbo].[Sale#URL.Warehouse#] ADD  CONSTRAINT [PK_Sale#URL.Warehouse#] PRIMARY KEY CLUSTERED
+			(
+			[TransactionId] ASC
+			) ON [PRIMARY];
 
-</cftry>
+			CREATE NONCLUSTERED INDEX [_dta_index_CustomerId_Warehouse_ItemNo_TransactionUoM] ON [dbo].[Sale#URL.Warehouse#]
+			(
+			[CustomerId] ASC,
+			[Warehouse] ASC,
+			[ItemNo] ASC,
+			[TransactionUoM] ASC
+			)
+			ON [PRIMARY];
 
+			</cfquery>
+
+		</cfcatch>
+
+	</cftry>
+</cfif>
 
 <cftry>
 

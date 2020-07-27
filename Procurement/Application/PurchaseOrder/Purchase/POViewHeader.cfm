@@ -14,7 +14,7 @@
 
 	<tr><td colspan="4" style="padding:15px">
 	
-	<table width="100%" cellspacing="0" cellpadding="0" class="formpadding">	
+	<table width="100%" cellspacing="0" cellpadding="0">	
 	
 	     <tr>   
 							
@@ -52,7 +52,7 @@
 			<cfelse>
 			
 				   <td class="labelmedium"><cf_tl id="Vendor">:</td>
-				   <td class="labelmedium" style="border:1px solid gray;height:30px;padding-left:5px" colspan="3">
+				   <td class="labelmedium" style="border:1px solid gray;height:30px;padding-left:1px" colspan="3">
 	      				   
 				    <cfquery name="Org" 
 			          datasource="AppsOrganization" 
@@ -543,7 +543,7 @@
 		   </td>	  
 		
 		   <td class="labelmedium" style="padding-left:10px"><font color="808080"><cf_tl id="Total">:</td>
-		   <td class="labelmedium" id="total" style="border:1px solid gray;height:30px;padding-left:5px">		   
+		   <td class="labelmedium" id="total" style="border:1px solid gray;height:30px;">		   
 		      <cfinclude template="getPurchaseTotal.cfm">		   			    						
 			</td>
 				
@@ -640,7 +640,7 @@
 		
 		<td width="90" class="labelmedium" valign="top" style="height:25px;padding-top:4px">
 		
-				<a href="javascript:more('address')"><font color="808080"><cf_tl id="Address">:&nbsp;</a>
+				<a href="javascript:more('address')"><cf_tl id="Address">:</a>
 	
 				<img src="#SESSION.root#/Images/icon_expand.gif" alt="" 
 					id="addressExp" border="0" class="regular" 
@@ -654,9 +654,9 @@
 							
 							
 		</td>
-		   <td colspan="3" style="border:0px solid gray;height:30px;padding-left:5px">	
+		   <td colspan="3" style="border:1px solid gray;height:30px;padding-left:5px">	
 			
-				  <table width="500" cellspacing="0" class="hide" cellpadding="0" align="left" id="address">
+				  <table style="width:100%" class="hide" align="left" id="address">
 				      <tr><td>
 					   <cfinclude template="POViewAddress.cfm"> 
 					  </td></tr>	 
@@ -896,13 +896,13 @@
 					</cfoutput>	
 					
 					</td>
-					<td style="padding-left:3px" class="labelmedium"><b><cf_tl id="Memo"></b></td>
+					<td style="padding-left:3px" class="labelmedium"><cf_tl id="Memo"></td>
 								
 					</tr>
 			  	</table>
 				</td>
 			 </tr>	
-			 <tr id="memo" class="regular">		 
+			 <tr id="memo" class="regular line">		 
 				  <td>
 				  <table width="100%" cellspacing="0" cellpadding="0" align="center">
 				      <tr><td colspan="2" class="line"></td></tr>

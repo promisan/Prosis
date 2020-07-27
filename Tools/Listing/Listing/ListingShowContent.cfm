@@ -1,6 +1,13 @@
 <cfoutput>
 	
-	<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" onkeyup="listnavigateRow()">    
+	<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" onkeyup="listnavigateRow()">   
+		
+	<input type="hidden" name="treefield"      id="treefield"       value="">
+	<input type="hidden" name="treevalue"      id="treevalue"       value="">
+	<input type="hidden" name="listorder"      id="listorder"       value="#url.listorder#">	
+	<input type="hidden" name="listorderfield" id="listorderfield"  value="#url.listorderfield#">	
+	<input type="hidden" name="listorderalias" id="listorderalias"  value="#url.listorderalias#">	
+	<input type="hidden" name="listorderdir"   id="listorderdir"    value="#url.listorderdir#">		 
 	
 	<cfif attributes.filtershow neq "No"> 
 	   
@@ -59,6 +66,8 @@
 				</table>
 			</td>
 		</tr>   
+		
+	
 		
 	</cfif>  
 	  

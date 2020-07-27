@@ -287,11 +287,11 @@
 				
 				<cfif PO.ObligationStatus eq "1">
 				<a href="javascript:ColdFusion.navigate('ObligationStatus.cfm?id1=#url.id1#&setstatus=0','obligation')">
-				<u><font color="6688aa">[<cf_tl id="Press to close">]</font></u>
+				[<cf_tl id="Press to close">]
 				</a>
 				<cfelse>
 				<a href="javascript:ColdFusion.navigate('ObligationStatus.cfm?id1=#url.id1#&setstatus=1','obligation')">
-				<u><font color="6688aa">[<cf_tl id="Press to re-open">]</font></u>
+				[<cf_tl id="Press to re-open">]
 				</a>
 				</cfif>
 								

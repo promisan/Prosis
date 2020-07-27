@@ -622,13 +622,12 @@ password="#SESSION.dbpw#">
 	</TD>
 	</TR>	
 	
-	
 	<TR>
-	    <TD class="labelmedium" style="padding-left:33px"><cf_UIToolTip tooltip="Default Sale Currency"><cf_tl id="Sale Mode">:</cf_UIToolTip></TD>
+	    <TD class="labelmedium" style="padding-left:33px"><cf_UIToolTip tooltip="Default Sale Currency"><cf_tl id="POS Sale Mode">:</cf_UIToolTip></TD>
 	    <TD>
 		
 			<table cellspacing="0" cellpadding="0">
-			<tr>
+			<tr class="labelmedium">
 			
 			<td>
 			
@@ -642,6 +641,11 @@ password="#SESSION.dbpw#">
 			</select>
 			
 			</td>
+			
+			<TD style="padding-left:8px"><cf_tl id="Maximum POS discount">:</TD>
+			<td style="padding-left:8px">
+				<cfinput class="regularxl" style="padding-left:3px;text-align:right" type="Text" name="SaleDiscount" id="SaleDiscount" value="#Get.SaleDiscount#" size="3" maxlength="3">%
+		    </td>
 			
 			<td style="padding-left:4px">
 		

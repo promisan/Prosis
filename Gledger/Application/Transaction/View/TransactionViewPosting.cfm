@@ -101,6 +101,7 @@ Armin 10/4/2013: Very important query as it combines child/parent transactions. 
 			AND     L.JournalSerialNo = '#Transaction.JournalSerialNo#'
 			AND     L.Reference = 'Receipt'
 			AND     D.Reference = 'Warehouse'
+			
 	</cfquery>
 	
 	<cfif presetsupply.recordcount gte "1">

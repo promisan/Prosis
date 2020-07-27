@@ -3,19 +3,19 @@
  
     <input type="hidden" name="ReviewReset" id="ReviewReset"  value="0">	
 	<cfset filter = "'0','1','2','2s'">
-	<cfset final = "1">
+	<cfset wfinal = "1">
 	
 <cfelseif url.wparam eq "INTERVIEW">
 		
 	<input type="hidden" name="ReviewReset" id="ReviewReset"  value="1">	
 	<cfset filter = "'1','2','2s'">
-	<cfset final = "2">
+	<cfset wfinal = "2">
 
 <cfelse>
 	
 	<input type="hidden" name="ReviewReset" id="ReviewReset" value="2">	
 	<cfset filter = "'2','2s'">
-	<cfset final = "2s">
+	<cfset wfinal = "2s">
 
 </cfif>
 
@@ -81,11 +81,11 @@ function interview(row) {
 
 <cfoutput>
 
-<input name="Key1" id="Key1"        type="hidden"  value="#Object.ObjectKeyValue1#">
-<input name="ActionCode" id="ActionCode"  type="hidden"  value="#Action.ActionCode#">
-<input name="Dialog" id="Dialog"       type="hidden"  value="#url.wparam#">
-<input name="ReviewStatus" id="ReviewStatus" type="Hidden"  value="#final#">
-<input name="savecustom" id="savecustom"   type="hidden"  value="Procurement/Application/Quote/Candidates/CandidateReviewSubmit.cfm">
+<input name="Key1" id="Key1"                 type="hidden"  value="#Object.ObjectKeyValue1#">
+<input name="ActionCode" id="ActionCode"     type="hidden"  value="#Action.ActionCode#">
+<input name="Dialog" id="Dialog"             type="hidden"  value="#url.wparam#">
+<input name="ReviewStatus" id="ReviewStatus" type="Hidden"  value="#wfinal#">
+<input name="savecustom" id="savecustom"     type="hidden"  value="Procurement/Application/Quote/Candidates/CandidateReviewSubmit.cfm">
 
 </cfoutput>
 
@@ -308,7 +308,7 @@ password="#SESSION.dbpw#">
 	
 	<tr><td colspan="10" height="1" bgcolor="#IIf(CurrentRow Mod 2, DE('ffffff'), DE('f5f5f5'))#"></td></tr>
 		
-	<cfif Status lt final>
+	<cfif Status lt wfinal>
          <TR bgcolor="#IIf(CurrentRow Mod 2, DE('ffffff'), DE('f5f5f5'))#">
     <cfelse> 
 	      <TR class="highlight3">
@@ -359,14 +359,14 @@ password="#SESSION.dbpw#">
 				
 				<input onClick="hl(this,this.checked)" 
 				   type="checkbox" 
-				   name="ReviewStatus_#currentrow#" id="ReviewStatus_#currentrow#" value="#Final#" <cfif Status eq Final>checked</cfif>>
+				   name="ReviewStatus_#currentrow#" id="ReviewStatus_#currentrow#" value="#wFinal#" <cfif Status eq wFinal>checked</cfif>>
 				   
 				 								 
 				<cfelse>
 				
 					<input onClick="hl(this,this.checked)" 
 					   type="radio" 
-					   name="Selected" id="Selected" value="#currentrow#" <cfif Status eq Final>checked</cfif>>					   
+					   name="Selected" id="Selected" value="#currentrow#" <cfif Status eq wFinal>checked</cfif>>					   
 					 				 
 				</cfif>
 								
@@ -385,7 +385,7 @@ password="#SESSION.dbpw#">
 	<td class="labelit" align="center"><cfif Gender eq "F"><cf_tl id="Female"><cfelse><cf_tl id="Male"></cfif></td>
 	<td class="labelit" align="center">
 	
-	      <cfif Final gt "2">
+	      <cfif wFinal gt "2">
 		  
 			<img src="#SESSION.root#/Images/profile.gif" alt="See interview notes" 
 			name="a#CurrentRow#" border="0" class="regular" 
@@ -437,7 +437,7 @@ password="#SESSION.dbpw#">
 	
 </cfif>
 
-<cfif final gt "2">
+<cfif wFinal gt "2">
 	
 	<tr id="interview#currentrow#" class="hide">
 	<td colspan="10">

@@ -1,5 +1,4 @@
 
-
 <cfparam name="Object.ObjectKeyValue1"  default="">
 
 <!--- set url.id values based on the context --->
@@ -142,18 +141,18 @@ password="#SESSION.dbpw#">
 		</script>
 	</cfoutput>
 
-
 <cf_divscroll>	
+
 						
 <table width="100%" height="100%">
 
 <tr><td height="100%" valign="top" style="padding-top:4px;padding-right:20px">
    		
-	<table width="98%" class="formspacing">
+	<table width="98%" class="formspacing" border="0">
 		
 	<tr><td style="min-width:170px"></td><td width="100%"></td></tr>
 	
-	<tr class="hide"><td id="process"></td></tr>
+	<tr class="xhide"><td id="process"></td></tr>
 
 	<!--- --------------------------------- --->
 	<!--- --- 1 - 4 Standard Fields-------- --->
@@ -242,7 +241,7 @@ password="#SESSION.dbpw#">
 		  
 		  <cfelse>
 		  
-			  <select name="period" id="period" class="regularxl enterastab" 
+			  <select name="period" id="period" class="regularxxl enterastab" 
 				  onChange="changeperiod('#URL.ID#',this.value,'#access#')">
 			  	  <cfloop query="PeriodList">
 			    	 <option value="#Period#" <cfif url.Period eq Period> SELECTED</cfif>>#Period#</option>
@@ -291,7 +290,7 @@ password="#SESSION.dbpw#">
 			 	
 			 <td>
             
-				 <input type="text"   name="orgunitname1"  id="orgunitname1" class="regularxl enterastab" value="#Org.orgunitName#" size="65" maxlength="80" readonly>					  
+				 <input type="text"   name="orgunitname1"  id="orgunitname1" class="regularxxl enterastab" value="#Org.orgunitName#" size="65" maxlength="80" readonly>					  
 				 <input type="hidden" name="mission1"      id="mission1"      value="#Org.Mission#"> 
 				 <input type="hidden" name="orgunitcode1"  id="orgunitcode1"  value="#Org.orgunitcode#">
 			   	 <input type="hidden" name="orgunitclass1" id="orgunitclass1" value="#Org.orgunitclass#"> 
@@ -365,7 +364,7 @@ password="#SESSION.dbpw#">
 						 
 			 <td>
             
-				 <input type="text"   name="orgunitname2"  id="orgunitname2" class="regularxl" value="#Org.orgunitName#" size="65" maxlength="80" readonly>					  
+				 <input type="text"   name="orgunitname2"  id="orgunitname2" class="regularxxl" value="#Org.orgunitName#" size="65" maxlength="80" readonly>					  
 				 <input type="hidden" name="mission2"      id="mission2"      value="#Org.Mission#"> 
 				 <input type="hidden" name="orgunitcode2"  id="orgunitcode2"  value="#Org.orgunitcode#">
 			   	 <input type="hidden" name="orgunitclass2" id="orgunitclass2" value="#Org.orgunitclass#"> 
@@ -394,7 +393,7 @@ password="#SESSION.dbpw#">
 	
 	</TD>
 	</tr>	
-	
+		
 	<cfif Parameter.enableCaseNo eq "1">
 				
 		<cfif Access eq "View" or Access eq "Limited">
@@ -427,7 +426,7 @@ password="#SESSION.dbpw#">
 						<td>
 					
 							<cfif Parameter.ExecutionRequestReferenceCheck eq "1">
-						    	<cfset sc = "ColdFusion.navigate('#SESSION.root#/procurement/application/requisition/requisition/RequisitionCaseNoCheck.cfm?caseno='+this.value+'&requisitionno=#url.id#','casenocheck')">		 
+						    	<cfset sc = "ptoken.navigate('#SESSION.root#/procurement/application/requisition/requisition/RequisitionCaseNoCheck.cfm?caseno='+this.value+'&requisitionno=#url.id#','casenocheck')">		 
 							<cfelse>		
 							    <cfset sc = "">		 
 							</cfif>
@@ -484,7 +483,7 @@ password="#SESSION.dbpw#">
 			
 	  	<cf_intelliCalendarDate9
 				FieldName="RequestDate" 
-				Class="regularxl"
+				Class="regularxxl"
 				Default="#def#"
 				AllowBlank="False">	
 			
@@ -519,7 +518,7 @@ password="#SESSION.dbpw#">
 					
 						 <cf_intelliCalendarDate9
 							FieldName="RequestDue"
-							Class="regularxl" 
+							Class="regularxxl" 
 							Default="#Dateformat(client.duedate, CLIENT.DateFormatShow)#"
 							AllowBlank="True">	
 					
@@ -527,7 +526,7 @@ password="#SESSION.dbpw#">
 					
 					 <cf_intelliCalendarDate9
 							FieldName="RequestDue"
-							Class="regularxl" 
+							Class="regularxxl" 
 							Default="#Dateformat(Line.RequestDue, CLIENT.DateFormatShow)#"
 							AllowBlank="True">	
 						
@@ -540,6 +539,10 @@ password="#SESSION.dbpw#">
 			
 	</cfif>
 	
+	<tr><td></td></tr>
+	<tr class="line"><td colspan="2"></td></tr>
+	<tr><td></td></tr>
+	
 	<TR class="labelmedium <cfif access neq 'edit'>line</cfif>">
     <TD>
 	<cfif Master.Description eq "" and Line.ActionStatus gte "1">
@@ -549,7 +552,7 @@ password="#SESSION.dbpw#">
 	</cfif>
 	</TD>
    
-    <TD>
+    <TD colspan="2">
 
 	<cfoutput>
 			
@@ -566,44 +569,45 @@ password="#SESSION.dbpw#">
  		          <cfset fldcostprice = "requestcurrencyprice">
 			  </cfif>
 		
-			  <table>
+			  <table style="min-width:400px;width:99%;border:1px solid silver">
 			  <tr>
-			  			 
-				 <TD> 							  
-				   <input type="text" 
-				      name="itemmaster" 
-					  id="itemmaster" 
-					  value="#Master.Code#" 
-					  size="10"  
-					  maxlength="12"  
-					  class="regularxl" 
-					  readonly 
-					  style="text-align: center;"> 			  
-				 </TD>
 			  
-				 <TD style="padding-left:2px;width:72%">
-				 
-				   <input type="text" 
-				      name="itemmasterdescription" 
-					  id="itemmasterdescription" 
-					  value="#Master.Description#" 
-					  style="width:100%"  
-					  maxlength="80"  
-					  class="regularxl" readonly> 
-					  
-				 </TD>
-				 
-				 <td style="padding-left:1px">
+			   <td style="padding-left:8px;padding-right:8px;border-right:1px solid silver" align="right">
 		
 				 <img src="#SESSION.root#/Images/search.png" 
 				      alt="Select item master" 
 					  name="img3" 					 
 					  style="cursor: pointer" 
-					  width="28" height="29" border="1"
+					  width="28" height="29" border="0"
 					  align="absmiddle" 
-					  onClick="document.getElementById('regulartype').click();selectmas('itemmaster','#url.mission#',document.getElementById('period').value,'#URL.id#')">
+					  onClick="selectmas('itemmaster','#url.mission#',document.getElementById('period').value,'#URL.id#')">
 					  					  
 				 </TD>
+			  					  
+				 <TD style="padding-left:2px;width:72%;background-color:e8e8e8">
+				 
+				   <input type  = "text" 
+				      name      = "itemmasterdescription" 
+					  id        = "itemmasterdescription" 
+					  value     = "#Master.Description#" 
+					  style     = "width:100%;border:0px;background-color:transparent"  
+					  maxlength = "80"  
+					  class     = "regularxxl" readonly> 
+					  
+				 </TD>
+				 
+				 <TD style="border-left:1px solid silver;;background-color:e8e8e8"> 							  
+				   <input type="text" 
+				      name="itemmaster" 
+					  id="itemmaster" 
+					  value="#Master.Code#" 
+					  size="10"  
+					  maxlength="12"  					 
+					  class="regularxxl" 
+					  readonly 
+					  style="text-align: right;min-width:60px;border:0px;background-color:transparent"> 			  
+				 </TD>		 
+				
 								 			  
 			  <cfif Master.code eq "">
 			  			  
@@ -622,19 +626,18 @@ password="#SESSION.dbpw#">
 				  
 				  <cfif last.recordcount eq "1">
 				  
-				     <TD style="padding-left:0px;padding-right:5px">				 					
+				     <TD style="padding-left:0px;padding-right:5px;background-color:e8e8e8">				 					
 				 
-					 <button name="Take last" 
-					    id      = "Take last"
-				        value   = "inherit"
-				        type    = "button"
-				        class   = "button10g"
-				        style   = "width:130;height:25"
-				        onClick = "processmas('#last.code#','#fldcostprice#','0','#last.customdialog#','#last.enforcewarehouse#')"> 
+					 <button name = "Take last" 
+					    id        = "Take last"
+				        value     = "inherit"
+				        type      = "button"
+				        class     = "button10g"
+				        style     = "width:50;height:25"
+				        onClick   = "processmas('#last.code#','#fldcostprice#','0','#last.customdialog#','#last.enforcewarehouse#')"> 
 						    <table align="center">
 							<tr>
-							<td><img src="#SESSION.root#/images/revert.png" height="13" width="13" alt="Inherit the prior selections"></td>
-							<td style="padding-left:4px"><cf_tl id="Last selected"></td>
+							<td><img src="#SESSION.root#/images/revert.png" height="13" width="13" alt="Inherit the prior selections"></td>							
 							</tr>
 							</table>
 					</button>	
@@ -653,8 +656,7 @@ password="#SESSION.dbpw#">
 	</cfoutput>
 	</TD>
 	</TR>
-	
-			
+				
 	<cfif entryclass.customdialog eq "Materials">
 	     <cfset cl = "regular">
 	<cfelse>
@@ -694,25 +696,21 @@ password="#SESSION.dbpw#">
 			
 		</td>
 	</tr>
-		
+	
+	
 	<!--- --------------------------------- --->
 	<!--- --2 of 4 - Materials selection -- --->
 	<!--- --------------------------------- --->
 	
 	<cfoutput>
-	
-	<tr style="height:0px" id="itemtype1" class="#cl#">
-	    <td height="0" colspan="2"></td>
-	</tr>	
-							
-	<TR id="itemtype2" class="#cl#">
+						
+	<TR id="itemtypeselect" class="#cl#">
 	    <TD style="height:34px;;" class="labelmedium"><cf_tl id="Item Type">:</TD>
 	    <TD>
 		
 			<table>
 			<tr class="labelmedium">
-			<td id="requesttypereg" class="labelmedium">	
-						
+									
 			<cfif Access eq "View" or operational eq "0">
 			         
 					 <cfif "Regular" eq Line.RequestType>
@@ -729,49 +727,58 @@ password="#SESSION.dbpw#">
 			
 					<cfset description = HtmlEditFormat(line.RequestDescription)>
 					<cfset description = replace(description,"'","\'","ALL")>
-				    <table><tr><td class="labelmedium">
+					
+					<cfif Master.enforceWarehouse eq "1">
+						<cfset cl = "hide">
+					<cfelse>
+						<cfset cl = "regular">
+					</cfif>
+					
+					<td id="requesttypereg" class="#cl#">	
+				    <table><tr class="labelmedium"><td>
 					 <input type="radio" 
-				           onclick="reqclass('regular','#access#','#description#'); requom('regular','#access#','#line.RequestQuantity#','#line.QuantityUom#','#line.WarehouseUom#')" 
+				           onclick="reqclass('regular','#access#','#description#',document.getElementById('itemmaster').value); requom('regular','#access#','#line.RequestQuantity#','#line.QuantityUom#','#line.WarehouseUom#')" 
 					       name="requesttype" 
 						    class="radiol"
 						   id="regulartype"
-					       value="Regular" <cfif "Regular" eq Line.RequestType or Line.RequestType eq "">checked</cfif>><cf_tl id="REQ018">
+					       value="Regular" <cfif "Regular" eq Line.RequestType or Line.RequestType eq "">checked</cfif>></td><td style="padding-left:4px"><cf_tl id="REQ018">
 						   
-						 </td></tr></table>  
+						 </td></tr>
+					 </table>  
 					   
 					 </td>
 				
 				<cfif Operational eq "1">
 				
 					<td id="requesttypewhs" style="padding-left:9px" class="labelmedium">
-				
+					 <table><tr class="labelmedium"><td>
 					   <input type="radio" 
 					       name="requesttype" 
                            id="requesttype"
 						   class="radiol"
-						   onclick="try {enterservice('hide')} catch(e) {};reqclass('warehouse','#access#','#line.WarehouseItemNo#');requom('warehouse','#access#','#line.RequestQuantity#','#line.QuantityUom#','#line.WarehouseUom#');"
+						   onclick="reqclass('warehouse','#access#','#line.WarehouseItemNo#',document.getElementById('itemmaster').value);requom('warehouse','#access#',document.getElementById('requestquantity').value,'#line.QuantityUom#','#line.WarehouseUom#');"
 						   value="Warehouse" 
 						   <cfif "Warehouse" eq Line.RequestType>checked</cfif>>
-						   
+						  </td><td style="padding-left:4px"> 
 					   <cf_tl id="REQ019">
+					    </td></tr>
+					 </table>  
+					   
+					 </td>
 					   
 				</cfif>
 				
 			</cfif>
-			
-			</td>		
+							
 			</tr>
 			</table>		
 		</TD>
 	</TR>	
 	
 	</cfoutput>	
-	
-	<cfparam name="session.hidestandard" default="0">
-	
-	<tr><td></td></tr>
-	
-							
+		
+	<tr><td></td></tr>		
+								
 	<TR>
 	
 	    <cfif access eq "View">
@@ -780,11 +787,11 @@ password="#SESSION.dbpw#">
 	    <TD valign="top" style="padding-top:3px" class="labelmedium"><cf_tl id="Request">: <font color="FF0000">*</font></TD>
 		</cfif>
 	    <TD class="labelmedium">	
-							
+								
 			<cfoutput>	
 			
-				<cfdiv id="reqcls1">			
-										
+				<cfdiv id="reqcls1">	
+																					
 				 <cfset url.itemmaster = line.itemmaster>
 				 <cfset url.reqid      = url.id> 
 				 <cfset url.mis        = line.mission> 
@@ -792,11 +799,11 @@ password="#SESSION.dbpw#">
 				 <cfset url.access     = access>
 				 <cfset url.des        = line.requestdescription>
 				 <cfset url.item       = line.WarehouseItemNo>
-						   		
+				 						   		
 					<cfif Line.RequestType eq "regular">	
 					     <!--- this template will show a variety of possible interfaces for services 
 						 throiugh RequisitionEditDetail.cfm --->			
-						 <cfinclude template="RequisitionEntryRegular.cfm">												  			
+						 <cfinclude template="RequisitionEntryInterface.cfm">												  			
 					<cfelse>									
 					     <!--- this template is geared for request stock items --->
 						 <cfinclude template="RequisitionEntryWarehouse.cfm">						 										
@@ -808,17 +815,14 @@ password="#SESSION.dbpw#">
 		
 		</TD>
 	</TR>
-		
-	<cfif session.hidestandard eq "1">
-	     <cfset cl = "hide">
+	
+					
+	<cfif Line.RequestType eq "warehouse" or (parameter.RequestDescriptionMode eq "0" and (entryclass.customdialog eq "" or entryclass.customdialog eq "contract"))>
+	     <cfset cl = "regular"> 	    
 	<cfelse>
-		 <cfset cl = "regular"> 
-	</cfif>
-							
-	<tr id="uomboxa" class="hide">
-	    <td height="1" colspan="2"></td>
-	</tr>	
-					 	 
+		 <cfset cl = "hide"> 
+	</cfif>		
+						 	 
 	<TR id="uombox" class="<cfoutput>#cl#</cfoutput>">
     <TD class="labelmedium"><cf_tl id="UoM">:</TD>
    	<td id="reqcls2"  class="labelmedium">
@@ -830,7 +834,7 @@ password="#SESSION.dbpw#">
 					requom('regular','#access#','#line.RequestQuantity#','#line.QuantityUom#','#line.WarehouseUom#')
 				</script>
 			<cfelse>	
-				<script>
+				<script>				
 					requom('warehouse','#access#','#line.RequestQuantity#','#line.QuantityUom#','#line.WarehouseUoM#')
 				</script>
 			</cfif>
@@ -838,10 +842,8 @@ password="#SESSION.dbpw#">
 		</cfoutput>
 						
 	</td>
-	</tr>
-	
-	
-	
+	</tr>	
+		
 	<cfif Line.JobNo neq "" and line.actionStatus lt "3">
 		<cfset acc = "Edit">
 	<cfelse>   
@@ -858,13 +860,9 @@ password="#SESSION.dbpw#">
     </cfquery>
 						
 	<cfif parameter.EnableBeneficiary eq "0" or check.recordcount gte "1">
-					
-		<tr id="quantityboxa" class="hide">
-		    <td colspan="2" style="border-bottom: 0px solid dadada;"></td>
-		</tr>	
-								
+										
 		<TR id="quantitybox" class="<cfoutput>#cl#</cfoutput>">
-		    <TD style="height:34px;;" class="labelmedium"><cf_tl id="Quantity">:</TD>
+		    <TD style="height:30px;" class="labelmedium"><cf_tl id="Quantity">:</TD>
 		    <TD class="labelmedium">
 										
 				<cfoutput>
@@ -882,7 +880,7 @@ password="#SESSION.dbpw#">
 					    name     = "requestquantity" 
                         id       = "requestquantity"
 					    value    = "#Line.RequestQuantity#" 
-						class    = "regularxl" 
+						class    = "regularxxl" 
 						size     = "4" 
 						style    = "text-align: right;" 
 						onChange = "base2('#url.id#',document.getElementById('requestcostprice').value,this.value);"> 
@@ -893,7 +891,7 @@ password="#SESSION.dbpw#">
 					    name     = "requestquantity" 
                         id       = "requestquantity"
 					    value    = "#Line.RequestQuantity#" 
-						class    = "regularxl" 
+						class    = "regularxxl" 
 						size     = "4" 
 						style    = "text-align: right;" 
 						onChange = "base2('#url.id#',document.getElementById('requestcurrencyprice').value,this.value);"> 
@@ -908,9 +906,7 @@ password="#SESSION.dbpw#">
 		</tr>
 	
 	<cfelse>
-	
-	  <tr id="quantityboxa" class="hide"><td height="1" colspan="2"></td></tr>
-		
+			
 	  <tr id="quantitybox" class="<cfoutput>#cl#</cfoutput>">
 	  <td class="labelmedium" style=";"><cf_tl id="Quantity">:</td>
 	  <td class="labelmedium">
@@ -920,11 +916,7 @@ password="#SESSION.dbpw#">
 	  </tr>
 		  
 	</cfif>
-	
-	
-				
-	<tr id="priceboxa" class="hide"><td height="1" colspan="2" style="border-bottom: 0px solid dadada;"></td></tr>
-	
+			
 	<!--- base currency only --->
 		
 	<cfif Parameter.enableCurrency eq "0">	
@@ -966,7 +958,7 @@ password="#SESSION.dbpw#">
                    id     = "requestcostprice"
 			       value  = "#prc#"
 			       size   = "15"
-			       class  = "regularxl"
+			       class  = "regularxxl"
 			       style  = "text-align: right;padding-right:5px"
 			       onChange="base2('#url.id#',this.value,requestquantity.value);"> 
 							
@@ -1041,7 +1033,7 @@ password="#SESSION.dbpw#">
 						    <cfset cur = Line.RequestCurrency>
 						</cfif>				
 								
-						<select name="requestcurrency" id="requestcurrency" class="regularxl" size="1" onChange="base2('#url.id#',requestcurrencyprice.value,requestquantity.value);">
+						<select name="requestcurrency" id="requestcurrency" class="regularxxl" size="1" onChange="base2('#url.id#',requestcurrencyprice.value,requestquantity.value);">
 				   			<cfloop query="currency">
 								<option value="#Currency#" <cfif Currency eq cur>selected</cfif>>#Currency#</option>
 							</cfloop>
@@ -1063,9 +1055,9 @@ password="#SESSION.dbpw#">
 							message="Enter a valid amount" 
 							validate="float" 
 							required="Yes" 
-							class="regularxl"
+							class="regularxxl"
 							size="10" 
-							style="text-align: right;" 
+							style="text-align: right;height:30px" 
 							onFocus = "this.select();"
 							onChange="base2('#url.id#',this.value,document.getElementById('requestquantity').value);"> 
 					
@@ -1082,9 +1074,7 @@ password="#SESSION.dbpw#">
 		</tr>		
 		
 	</cfif>	
-	
-	
-			
+		
 	<tr><td class="labelmedium" style="height:30px">	
 		<cf_tl id="REQ021"> in <cfoutput>#APPLICATION.BaseCurrency#&nbsp;:</cfoutput>
 		</td>
@@ -1097,15 +1087,14 @@ password="#SESSION.dbpw#">
 		
 		  <cfoutput>
 		  
-		  	<td align="right" class="labellarge" bgcolor="ffffaf" style="height:24px;padding-left:25px;padding-right:5px;border:1px solid silver;">
-		     
+		  	<td align="right" class="labellarge" bgcolor="ffffaf" style="height:27px;padding-left:25px;padding-right:5px;border:1px solid silver;">		     
 			<input type="hidden" name="requestcostprice" id="requestcostprice" value="#Line.RequestCurrencyPrice#"> 
 			<input type="hidden" name="requesttotal"     id="requesttotal"     value="#Line.RequestAmountBase#"> 	
-			<b>#numberFormat(Line.RequestAmountBase,",.__")#</b> 			
+			#numberFormat(Line.RequestAmountBase,",.__")# 			
 			</td>
 			
 			<td align="right" class="labellarge" bgcolor="f4f4f4" style="padding-left:15px;padding-right:5px;border:1px solid silver;">
-			<cfif Parameter.EnableCurrency eq "1" and Line.RequestCurrency neq APPLICATION.BaseCurrency><font size="1">#Line.RequestCurrency#</font> #numberformat(Line.RequestCurrencyPrice*Line.RequestQuantity,"_,__.__")#</cfif>
+			<cfif Parameter.EnableCurrency eq "1" and Line.RequestCurrency neq APPLICATION.BaseCurrency><font size="1">#Line.RequestCurrency#</font> #numberformat(Line.RequestCurrencyPrice*Line.RequestQuantity,",.__")#</cfif>
 			</td>			
 		
 		 </cfoutput>
@@ -1153,9 +1142,7 @@ password="#SESSION.dbpw#">
 	    </TD>
 			
 	</TR>	
-	
-	
-		
+			
 	<cfif parameter.EnableReqTag eq "1">
 	
 	    <!--- embed the labeling script --->
@@ -1192,7 +1179,7 @@ password="#SESSION.dbpw#">
 				
 	<TR id="funding2" class="labelmedium  <cfif access neq 'edit'>line</cfif>">
 	
-	        <td id="fundingrefresh" valign="top" style=";cursor:pointer;font-size:14px;padding-top:1px" onclick="funding('')">			
+	        <td id="fundingrefresh" valign="top" style=";cursor:pointer;font-size:14px;padding-top:4px" onclick="funding('')">			
 			<cf_tl id="Funding">:								
 	    	</td>
 			
@@ -1220,15 +1207,15 @@ password="#SESSION.dbpw#">
 	 
 	    <TR class="line">     
 		
-		<td valign="top" style="padding-top:5px" class="labelmedium"><cf_tl id="Remarks">:</td>
-				 				 
-			 <td id="memo" colspan="1" style="padding-top:7px;padding-right:20px">
+						 				 
+			 <td id="memo" colspan="2" style="padding-right:20px">
 			 
 				<cfif Parameter.RequisitionTextMode eq "1">
 											
 						<cf_textarea name = "Remarks"                 				             
 						 height          = "100"																		 						 
 						 toolbar         = "mini"
+						 width           = "100%"
 						 init            = "Yes"
 						 color           = "ffffff"><cfoutput>#Line.Remarks#</cfoutput></cf_textarea>
 							

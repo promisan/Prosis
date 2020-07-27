@@ -34,7 +34,9 @@
               IO.ObjectCode AS ObjectCode, 
 		      R.ObjectUsage AS ObjectUsage, 
               R.Description AS ObjectDescription,
-			  
+			  C.Description as EntryClassName,
+			  C.CustomDialog,
+			  I.CustomDialogOverwrite,
 			  <cfif getAdministrator("*") eq "0">
 				  (SELECT count(*)
 				   FROM   Organization.dbo.OrganizationAuthorization
@@ -47,7 +49,8 @@
 			  
 	FROM      Program.dbo.Ref_Object R INNER JOIN
               ItemMasterObject IO ON R.Code = IO.ObjectCode RIGHT OUTER JOIN
-              ItemMaster I ON IO.ItemMaster = I.Code
+              ItemMaster I ON IO.ItemMaster = I.Code INNER JOIN 
+			  Ref_EntryClass C ON I.EntryClass = C.Code 
 	WHERE     1=1
 	<cfif Form.Usage neq "">
 	AND   I.Code IN (SELECT ItemMaster 
@@ -101,17 +104,19 @@
 
 	<cf_divscroll>
 		
-		<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+		<table width="100%" align="center">
 		
 			<tr class="line fixrow labelmedium">
-			<TD  style="min-width:20"></TD>
-		    <TD  style="min-width:30"></TD>    
-			<TD  width="80%">Description</TD>
-			<TD  style="min-width:80" align="left">Code</TD>
-			<TD  style="min-width:30">Op</TD>
-			<TD  style="min-width:80">Class</TD>
-			<td  style="min-width:80">Usage</td>
-			<TD  style="min-width:60">Object</TD>			
+			<TD  style="min-width:20"></TD>			
+		    <TD  style="min-width:30"></TD>   
+			<TD  style="width:15%"><cf_tl id="Class"></TD> 
+			<TD  width="width:50%"><cf_tl id="Description"></TD>
+			<TD  style="min-width:80"><cf_tl id="Code"></TD>
+			<TD  style="min-width:30">Op</TD>			
+			
+			<TD  style="min-width:120"><cf_tl id="Interface"></TD>			
+			<td  style="min-width:80"><cf_tl id="Usage"></td>
+			<TD  style="min-width:60"><cf_tl id="Object"></TD>			
 			<td  style="min-width:200">Name</td>
 		  </TR>
 							
@@ -123,7 +128,8 @@
 			    	
 				<TR style="height:21px" class="labelmedium navigation_row line"> 
 				
-					<td style="min-width:20" height="18">&nbsp;#row#.</td>
+					<td style="min-width:20" height="18" style="padding-left:3px">#row#.</td>
+					
 					<TD style="min-width:30" align="center" style="padding-top:2px;">
 					
 					     <cfif access eq "0">
@@ -134,11 +140,27 @@
 							  
 						 </cfif>	  
 								  
-					</TD>					
-					<TD width="80%" id="#code#_desc">#Description#</TD>
-					<TD style="min-width:80;padding-left:4px" id="#code#_code"><a href="javascript:recordedit('#Code#')">#Code#</a></TD>
-					<td style="min-width:30" id="#code#_oper"><cfif operational eq "1"><cfelse><font color="FF0000">No</cfif></td>
-					<TD style="min-width:80" id="#code#_clss">#entryClass#</TD>	 
+					</TD>		
+					<TD style="min-width:80" id="#code#_clss">#EntryClassName#</TD>				
+					<TD style="width:50%" id="#code#_desc">#Description#</TD>
+					<TD style="min-width:80;padding-left:4px" id="#code#_code">#Code#</TD>
+					<td style="min-width:30" id="#code#_oper"><cfif operational eq "1">Yes<cfelse><font color="FF0000">No</cfif></td>
+					 
+					<TD style="min-width:80" id="#code#_inte">
+					<cfif CustomDialogOverwrite neq "">
+					    <cfif customDialogOverwrite eq "Contract">Position<cfelse>#CustomDialogOverwrite#</cfif>
+				    <cfelseif CustomDialog neq "">
+					    <cfif customDialog eq "Contract">Position<cfelse>#CustomDialog#</cfif>
+					<cfelse>Common</cfif>					
+					<cfif customdialog eq "Materials">
+					<cfif enforceWarehouse eq "0">:&nbsp;No<cfelseif enforceWarehouse eq "1">:&nbsp;Req<cfelse>:&nbsp;Rct</cfif>
+					</cfif>					
+					<cfif EmployeeLookup eq "1">
+					:&nbsp;Per
+					</cfif>
+					
+					</TD>	 					
+					
 					<td style="min-width:80"><font color="808080">#ObjectUsage#</td> 
 					<td style="min-width:60" id="#code#_objc"><font color="808080">#ObjectCode#</td>		
 					<td style="min-width:200"><font color="808080">
@@ -157,7 +179,7 @@
 					<cfif r gt "1">
 							
 					<tr style="height:15px" class="labelit navigation_row">
-					<td colspan="6" height="16"></td>
+					<td colspan="7" height="16"></td>
 					<td style="border-bottom:1px solid silver"><font color="808080">#ObjectUsage#</td>
 					<td style="border-bottom:1px solid silver"><font color="808080">#ObjectCode#</td>		
 					<td style="border-bottom:1px solid silver"><font color="808080">

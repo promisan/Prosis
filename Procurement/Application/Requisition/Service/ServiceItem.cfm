@@ -33,23 +33,16 @@ password="#SESSION.dbpw#">
 
    <!--- if default determine if to be shown ---> 
  
-   <cfif Parameter.RequestDescriptionMode eq "1">
-   
-   		<cfset url.mode = "extended">
-   		
+   <cfif Parameter.RequestDescriptionMode eq "1">   
+   		<cfset url.mode = "extended">   		
    </cfif>
   
 </cfif>
 
 <cfparam name="URL.ID2" default="">
 	
-<table width="100%" class="formpadding">
-
-    
-  <tr>
-    <td width="100%" align="center">
-	
-    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="navigation_table">
+		
+    <table width="100%" class="navigation_table">
 	
 		<cfif url.mode eq "Listing">
 			
@@ -70,20 +63,16 @@ password="#SESSION.dbpw#">
 		 <td width="80"><cf_tl id="Item"></td>		
 	     <td width="30%"><cf_tl id="Description"></td>    		 
 	    
-	     <cfif url.mode eq "extended">
-		 
+	     <cfif url.mode eq "extended">		 
 		     <td height="20" width="70"><cf_tl id="Qty"></td>  
-		     <td width="20%" colspan="2"><cf_tl id="UoM"></td>  
-			 
-		 <cfelse>
-		 
+		     <td width="20%" colspan="2"><cf_tl id="UoM"></td> 			 
+		 <cfelse>		 
 		     <td height="20" width="70"><cf_tl id="Qty"></td> 
 		 	 <td width="10%"><cf_tl id="Start"></td>	 
-			 <td width="10%"><cf_tl id="End"></td>
-			 
+			 <td width="10%"><cf_tl id="End"></td>			 
 	     </cfif>
 		 
-	     <td align="right" class="labelsmall">
+	     <td align="right">
 		   		   		   
 		   <cfif parameter.EnableCurrency eq "0">
 		   
@@ -112,7 +101,7 @@ password="#SESSION.dbpw#">
 				
 					<select name="ratecurrency" id="ratecurrency"
 				        size="1"
-				        style="font-size: 11px"
+				        style="height:25px;font-size:12px;border-bottom:0px"
 				        onChange="document.getElementById('requestcurrency').value=this.value;base2('#url.id#',requestcurrencyprice.value,requestquantity.value);">
 						
 							<cfloop query="currency">
@@ -130,14 +119,15 @@ password="#SESSION.dbpw#">
 			</cfif>	
 		   
 		   </td>	
-		   <td align="right" class="labelit"><cf_tl id="Total"></td>  		  
+		   <td align="right"><cf_tl id="Total"></td>  		  
 		   
-		   <td width="7%" align="center" class="labelmedium">
+		   <td width="7%" align="center" class="labelmedium" style="padding-left:3px">
+		   
 		   
 	         <cfoutput>
 			 <cfif url.access eq "Edit" or url.access eq "Limited">			 
-				 <cfset jvlink = "ColdFusion.Window.create('dialogservice', 'Service Detail', '',{x:100,y:100,height:400,width:520,resizable:false,modal:true,center:true});ColdFusion.navigate('../Service/ServiceItemDialog.cfm?ID=#URL.ID#&ID2=new&mode=#url.mode#','dialogservice')">							 
-			     <A href="javascript:#jvlink#">[<cf_tl id="add">]</a>
+				 <cfset jvlink = "ProsisUI.createWindow('dialogservice', 'Service Detail', '',{x:100,y:100,height:400,width:520,resizable:false,modal:true,center:true});ptoken.navigate('../Service/ServiceItemDialog.cfm?ID=#URL.ID#&ID2=new&mode=#url.mode#','dialogservice')">							 
+			     <A href="javascript:#jvlink#"><cf_tl id="add"></a>
 			 </cfif>
 			 </cfoutput>
 			 
@@ -153,7 +143,7 @@ password="#SESSION.dbpw#">
 		
 			<cfoutput query="Detail">		
 			
-			  	<cfset jvlink = "ColdFusion.Window.create('dialogservice', 'Service Detail', '',{x:100,y:100,height:375,width:520,resizable:false,modal:true,center:true});ColdFusion.navigate('../Service/ServiceItemDialog.cfm?ID=#URL.ID#&ID2=#serviceid#&mode=#url.mode#','dialogservice')">							 
+			  	<cfset jvlink = "ProsisUI.createWindow('dialogservice', 'Service Detail', '',{x:100,y:100,height:375,width:520,resizable:false,modal:true,center:true});ptoken.navigate('../Service/ServiceItemDialog.cfm?ID=#URL.ID#&ID2=#serviceid#&mode=#url.mode#','dialogservice')">							 
 								 	
 				<TR class="navigation_row">
 				    
@@ -189,7 +179,7 @@ password="#SESSION.dbpw#">
 					
 						<cfif url.access eq "Edit">
 						
-							<td style="padding-left:4px">
+							<td style="padding-left:4px;padding-top:2px">
 							   <cf_img icon="delete" onclick="deletedetail('#URL.ID#','#serviceid#')">											   				 					
 							</td>
 							  
@@ -248,9 +238,6 @@ password="#SESSION.dbpw#">
 		</cfif>	
 							
 	</table>
-	</td>
-	</tr>
-							
-</table>
+	
 
 <cfset ajaxonload("doHighlight")>

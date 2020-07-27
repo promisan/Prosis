@@ -4,10 +4,13 @@
 <cfparam name="url.mde" default="spa">
 
 <cfif mde eq "spa">
-    <cfset url.trigger = "T03">
+    <cfset url.trigger = "POSTEVT">
 	<cfset url.code    = "06">	
+<cfelseif mde eq "ass">
+    <cfset url.trigger = "MOVEMN">
+	<cfset url.code    = "06">		
 <cfelse>
-	<cfset url.trigger = "T01">
+	<cfset url.trigger = "CONTRA">
 	<cfset url.code    = "07">	
 </cfif>
 
@@ -29,10 +32,22 @@ password="#SESSION.dbpw#">
 	FROM     PersonEvent
 	WHERE    PersonNo   = '#personno#' 
 	AND      Mission    = '#Parent.Mission#' 
-	AND      (PositionNo IS NULL OR PositionNo = '#Parent.PositionNo#') 
+	
+	AND      ( PositionNo IS NULL 
+	           OR PositionNo IN (SELECT PositionNo FROM Position         WHERE PositionParentId = '#positionparentid#')
+			   <!--- adjusted as otherwise in case of 0 incumbency it would not show --->
+			   OR PositionNo IN (SELECT PositionNo 
+			   				     FROM   PersonAssignment 
+								 WHERE  PersonNo         = '#PersonNo#' 
+								 AND    AssignmentStatus IN ('0', '1')								
+								 AND    DateEffective   < getDate() 
+								 AND    DateExpiration  > getDate() 
+								 )
+			   ) 
 	AND      EventTrigger = '#url.trigger#' 
-	AND      EventCode    = '#url.code#'
-	AND      ActionStatus < '3'			
+	-- AND      EventCode    = '#url.code#'
+	AND      ActionStatus < '3'		
+	ORDER BY Created DESC	
 </cfquery>
 
 <!--- check if the workflow is open --->
@@ -56,13 +71,14 @@ password="#SESSION.dbpw#">
 <cfif status eq "0">
 
 	<cfoutput>
-	<a href="javascript:AddEvent('#PersonNo#','#Parent.PositionNo#','#url.ajaxid#','#url.trigger#','#url.code#')">
+	<a style="width:100%;font-size:12px" href="javascript:AddEvent('#PersonNo#','#Parent.PositionNo#','#url.ajaxid#','#url.trigger#','#url.code#')">
 	<cfif mde eq "spa">
 		<cf_tl id="Request SPA">
+	<cfelseif mde eq "ass">
+		<cf_tl id="Request Assignment Extension">	
 	<cfelse>
-		<cf_tl id="Contract Extension">
-	</cfif>	
-	
+		<cf_tl id="Request Appointment Extension">
+	</cfif>		
 	</a> 
 	</cfoutput>
 
@@ -92,6 +108,7 @@ password="#SESSION.dbpw#">
 			EntityClass      = "#entityclass#"
 			EntityStatus     = ""
 			Mission          = "#Event.Mission#"
+			OrgUnit          = "#Event.OrgUnit#" 
 			PersonNo         = "#Event.PersonNo#" 
 			ObjectReference  = "#Event.FullName#"
 			ObjectReference2 = "#Event.Remarks#"			   

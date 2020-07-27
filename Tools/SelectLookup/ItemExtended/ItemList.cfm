@@ -14,49 +14,40 @@
    
     SELECT TOP 25 I.* 
 	
-	<cfif url.module eq "materials" and  filter2 eq "imageclass">
-	
+	<cfif url.module eq "materials" and  filter2 eq "imageclass">	
 		,II.ImagePathThumbnail, 
 		 II.ImageClass,
 		 R.ResolutionWidthThumbnail, 
-		 R.ResolutionHeightThumbnail
-		 
+		 R.ResolutionHeightThumbnail		 
 	<cfelse>
 		, 
 		 '' as ImagePathThumbnail, 
 		 '' as ImageClass	
 	</cfif>
 	
-    FROM   Item	I
+    FROM  #CLIENT.LanPrefix#Item I
 	
-	<cfif url.module eq "materials" and filter2 eq "imageclass">
 	
-		LEFT JOIN ItemImage II
-			ON 	 II.ItemNo = I.ItemNo
-			AND  II.ImageClass = '#filter2value#'
-			AND  II.Mission = I.Mission
-			
-		LEFT JOIN Ref_ImageClass R
-			ON  II.ImageClass = R.Code
-	
+	<cfif url.module eq "materials" and filter2 eq "imageclass">	
+		LEFT JOIN ItemImage II ON II.ItemNo = I.ItemNo AND II.ImageClass = '#filter2value#'	AND II.Mission = I.Mission			
+		LEFT JOIN Ref_ImageClass R ON II.ImageClass = R.Code	
 	</cfif>
 	
 	WHERE  1 = 1	
 		
 	<cfif itemlist neq "">
-	AND    ItemNo IN (
-	              <cfqueryparam value="#itemlist#" cfsqltype="cf_sql_char" list="true"/>
-		   )
+	AND    ItemNo IN (<cfqueryparam value="#itemlist#" cfsqltype="cf_sql_char" list="true"/>)
 	</cfif>		
 	
 	<cfif url.module eq "workorder">
 	
 		<cfif url.search neq "">
 		AND  (
-		     ItemDescription LIKE '%#URL.search#%' OR
+		     <cf_softlike left="I.ItemDescription" right="#URL.search#" language="#client.languageId#">
+			 OR
 			 ItemNo IN (SELECT ItemNo 
-			            FROM   ItemUoM 
-						WHERE  ItemBarCode LIKE '%#URL.search#%')
+			            FROM   ItemUoM S
+						WHERE  <cf_softlike left="S.ItemBarCode" right="#URL.search#" language="#client.languageId#">)
 			 )
 		</cfif>
 		
@@ -69,27 +60,26 @@
 	    AND   #url.filter2# = '#url.filter2value#'
     	</cfif> 					  
 					  			  
-	<cfelseif url.module eq "materials">		
+	<cfelseif url.module eq "materials">	
 	
 		<cfif url.search neq "">
 		
 		AND  (
 		
-	    	 I.ItemDescription LIKE '%#URL.search#%' 
+	    	 <cf_softlike left="I.ItemDescription" right="#URL.search#" language="#client.languageId#">
 			 OR I.ItemNo IN (SELECT ItemNo 
-			                 FROM   ItemUoM 
-						     WHERE  ItemBarCode LIKE '%#URL.search#%')
+			                 FROM   ItemUoM S
+						     WHERE  <cf_softlike left="S.ItemBarCode" right="#URL.search#" language="#client.languageId#">)
 			 OR I.ItemNo = '#url.search#'
 
 			 )
 			 
 		AND (
-				I.ItemClass IN ('Service')
-				OR  
+				I.ItemClass IN ('Service') OR  
 				I.ItemNo IN (SELECT ItemNo 
 			                   FROM   ItemWarehouse
-							   WHERE  Warehouse = '#url.filter1value#'
-							   AND    ItemNo = I.ItemNo
+							   WHERE  Warehouse   = '#url.filter1value#'
+							   AND    ItemNo      = I.ItemNo
 							   AND    Operational = 1) 	  
 			)
 						 
@@ -110,43 +100,30 @@
 								 GROUP BY   ItemNo
 								 HAVING     SUM(TransactionQuantity) > 0)
 				   )			 
-			  )		
-			 	
+			  )			 	
 
-		<cfelse> 
-	  
-		AND    I.ItemClass IN ('Supply','Service')
-		
-		</cfif>
-		
-		AND    I.Destination = 'Sale'
-		
-		<cfelse>
-		
-		AND    1 = 0
-		
+		<cfelse>  
+		AND    I.ItemClass IN ('Supply','Service')		
+		</cfif>		
+		AND    I.Destination = 'Sale'		
+		<cfelse>		
+		AND    1 = 0		
 		</cfif>
 			  
 	</cfif>
+	
+	<!--- special mode to be adjusted --->
 	<cfif session.acc eq "mleonardo">
-		AND
-		(
-			EXISTS
-			(
-			SELECT 'X'
-			FROM ItemWarehouseLocation IWL
-			WHERE IWL.Location='006'
-			AND IWL.ItemNo = I.ItemNo
-			)
-			OR
-			EXISTS
-			(
-			SELECT 'X'
-			FROM Item I2
-			WHERE I2.ItemNo = I.ItemNo
-			AND I2.Make = 'STIHL'
-			)
-		)
+		AND	(
+			EXISTS ( SELECT 'X'
+					 FROM   ItemWarehouseLocation IWL
+					 WHERE  IWL.Location='006'
+					 AND    IWL.ItemNo = I.ItemNo )
+			OR EXISTS (  SELECT 'X'
+					     FROM   Item I2
+				  	     WHERE  I2.ItemNo = I.ItemNo
+					     AND    I2.Make = 'STIHL' )
+		     )
 	</cfif>
 
 </cfquery>

@@ -51,6 +51,10 @@ password="#SESSION.dbpw#">
 			<cfset formatted = "dateformat(#fieldname#,CLIENT.DateFormatShow)">	
 		</cfcase>
 		
+		<cfcase value="DateTime">	
+			<cfset formatted = "datetimeformat(#fieldname#,'#CLIENT.DateFormatShow# HH:NN')">	
+		</cfcase>
+		
 		<cfcase value="Time">	
 			<cfset formatted = "timeformat(#fieldname#,'HH:MM')">	
 		</cfcase>

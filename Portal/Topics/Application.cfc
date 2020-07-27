@@ -26,8 +26,8 @@ hint="Handle the application.">
 				
 		<!--- code to allow template to call if a user is an administrator for a function --->
 		<cfset structAppend(url,createObject("component","Service.Authorization.Broker"))/>
-		 		
-		<cf_Control 
+
+		<cf_Control
 			verifyMultipleLogon  = "1"
 		    verifyAuthentication = "1"
 			verifyCSRF           = "1"

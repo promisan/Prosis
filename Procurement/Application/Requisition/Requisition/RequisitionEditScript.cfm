@@ -47,8 +47,7 @@ function staccountfunding(reqno,fdid) {
 	
 	 if (ret == 3) {			 
 	 ptoken.navigate('../FundingDetail/FundingDetail.cfm?id='+reqno+'&fundingid='+fdid,'i'+fdid)		 	 
-	 }	
-	 
+	 }		 
 }
 
 function detailactivity(reqno,fdid) {
@@ -62,9 +61,8 @@ function verifystatus(id) {
 }
 
 function AddVacancy(pos,req) {
-
-    try { ColdFusion.Window.destroy('mydialog',true) } catch(e) {}
-    ColdFusion.Window.create('mydialog', 'Receipt', '',{x:100,y:100,height:660,width:700,modal:false,resizable:false,center:true})    
+    
+    ProsisUI.createWindow('mydialog', 'Receipt', '',{x:100,y:100,height:660,width:700,modal:false,resizable:false,center:true})    
     ptoken.navigate('#SESSION.root#/Vactrack/Application/Document/DocumentEntryPosition.cfm?Mission=#URL.Mission#&ID1=' + pos + '&box=' + req,'mydialog') 	
 		 		   			 	 	
 }
@@ -89,112 +87,49 @@ function processorg(org) {
 	  ptoken.navigate('RequisitionUnitInfo.cfm?ID=#URL.ID#&orgunit='+org,'unitinfolist')  
 }
 
-function selectmas(flditemmaster,mis,per,reqno) {
-         
+function selectmas(flditemmaster,mis,per,reqno) {         
 		try { ProsisUI.closeWindow('mymaster',true) } catch(e) {}
 		ProsisUI.createWindow('mymaster', 'Procurement Master', '',{x:100,y:100,height:document.body.clientHeight-120,width:document.body.clientWidth-120,modal:true,resizable:false,center:true})    					
 		ptoken.navigate('#SESSION.root#/Procurement/Application/Requisition/Item/ItemSearchView.cfm?id='+reqno+'&mission='+mis+'&period='+per+'&flditemmaster='+flditemmaster, 'mymaster');	       			
 }
 
-function selectmasapply(val,mode) {       
+function selectmasapply(val,mode) {      
         ptoken.navigate('#SESSION.root#/Procurement/Application/Requisition/Requisition/setItemMaster.cfm?itemmaster='+val+'&mode='+mode,'process')		
 }
 
+function hidedescription() {
+    document.getElementById('requestmemo').className = "hide"
+	document.getElementById('requesttype').click()
+}
+
 function processmas(val,fldcostprice,price,dialog,enforce,mode) {
-													
-			<cfif Line.RequestType neq "Warehouse">
-						
-				if (price != "") {					
-				    pr = document.getElementById(fldcostprice).value					
-					if (pr != '0.00') {					   				
-						document.getElementById(fldcostprice).value = price	
-						base2('#url.id#',price,document.getElementById('requestquantity').value)				
-					}
+																			
+		<cfif Line.RequestType neq "Warehouse">
+					
+			if (price != "") {					
+			    pr = document.getElementById(fldcostprice).value					
+				if (pr != '0.00') {					   				
+					document.getElementById(fldcostprice).value = price	
+					base2('#url.id#',price,document.getElementById('requestquantity').value)				
 				}
-				
-			</cfif>		
-																								
-			<!--- hide option to define service or warehouse items --->									
-						
-			if (dialog == "Contract" || dialog == "Travel") {
-										   			
-				document.getElementById("itemtype1").className = "hide"         
-				document.getElementById("itemtype2").className = "hide"		
-			
-				try { 
-			    se = document.getElementsByName("requesttype")
-			    se[0].checked = 1 
-				document.getElementById("viewmorebutton").className  = "hide"	
-				} catch(e) {}					
-																				   
-				enterservice('force')	
-																									
-				if (dialog == "Contract") {
-												  
-			       document.getElementById("requestquantity").value  = "1"  
-				   document.getElementById("uombox").className       = "regular"         
-				   document.getElementById("uomboxa").className      = "regular"			
-				   document.getElementById("quantitybox").className  = "regular"         
-				   document.getElementById("quantityboxa").className = "regular"					  
-				   document.getElementById("pricebox").className     = "regular"         
-				   document.getElementById("priceboxa").className    = "regular"				  
-				   	
-				}
-				
-			} else {			
-			
-			
-			    enterservice('force')	
-				try {
-				document.getElementById("viewmorebutton").className  = "regular"									
-				} catch(e) {}
-								
 			}
 			
-																		
-			if (dialog == "Materials") {		
-			    				
-				document.getElementById("itemtype1").className = "regular"
-				document.getElementById("itemtype2").className = "regular"
-				
-				<cfif operational eq "1">
-				
-					<!--- force option to select warehouse only if warehouse module is enabled --->				
-					se = document.getElementsByName("requesttype")
-					se.className = "regular"															
-					if (enforce == "1") {							 			 	
-					 	document.getElementById("requesttypereg").className = "hide"
-						se[1].click()
-					 } else {
-					 document.getElementById("requesttypereg").className = "regular"
-					}
+		</cfif>		
 								
-    			</cfif>
-				
-			} else {		
-							
-				document.getElementById("itemtype1").className = "hide"
-				document.getElementById("itemtype2").className = "hide"				
-				se = document.getElementsByName("requesttype")
-				try {
-				se[0].click() } catch(e) {}
-								
-			}							
-						
-			try {			   
-				budgetcheck()
-				} catch(e) {}				
-						
-			try { 		
-				
-			 <!--- load custom entry field --->			
-			 ptoken.navigate('#SESSION.root#/Procurement/Application/Requisition/Requisition/RequisitionEditFormCustom.cfm?mode=edit&id=#url.id#&mission=#line.mission#&master='+val,'custom')	
-			 funding('item')					 			 			
-			 selectmasapply(val,mode) 			 
-			 
-			 } 
-			 catch(e) {}  			 
-			 verifystatus('#url.id#')	
+		ptoken.navigate('RequisitionEntryInterface.cfm?option=itm&access=#access#&reqid=#url.id#&itemmaster='+val,'reqcls1')												
+					
+		try { budgetcheck()	} catch(e) {}				
+					
+		try { 		
+			
+		 <!--- load custom entry field --->			
+		 ptoken.navigate('#SESSION.root#/Procurement/Application/Requisition/Requisition/RequisitionEditFormCustom.cfm?mode=edit&id=#url.id#&mission=#line.mission#&master='+val,'custom')	
+		 funding('item')					 			 			
+		 selectmasapply(val,mode) 			 
+		 
+		 } 
+		 catch(e) {}  			 
+		 verifystatus('#url.id#')	
 			
 			 			
 }
@@ -221,73 +156,24 @@ function flowload(cl) {
 	ptoken.navigate(url,'prepare_#URL.ID#')	 
 }
 
-function reqclass(clss,acc,des,item,mis) {
+function reqclass(clss,acc,des,mas) {   
 	if (clss == "warehouse") {
-	    url = "#SESSION.root#/Procurement/Application/Requisition/Requisition/RequisitionEntryWarehouse.cfm?reqid=#URL.ID#&mis=#URL.mission#&option=itm&access="+acc+"&des="+des+"&item="+item;
+	    url = "#SESSION.root#/Procurement/Application/Requisition/Requisition/setInterface.cfm?id=#URL.ID#&mis=#URL.mission#&option=itm&access="+acc+"&item="+des+"&itemmaster="+mas;
 	} else {
-	    url = "#SESSION.root#/Procurement/Application/Requisition/Requisition/RequisitionEntryRegular.cfm?reqid=#URL.ID#&mis=#URL.mission#&option=itm&access="+acc+"&des="+des+"&item="+item; 
-	}	
-	ptoken.navigate(url,'reqcls1') 	
+	    url = "#SESSION.root#/Procurement/Application/Requisition/Requisition/RequisitionEntryInterface.cfm?init=0&reqid=#URL.ID#&mis=#URL.mission#&option=itm&access="+acc+"&des="+des+"&itemmaster="+mas; 
+	}				
+	ptoken.navigate(url,'reqcls1') 			
 }
 
-function enterservice(act) {
-
-   se  = document.getElementById("servicecontentbox")   
-   s2  = document.getElementById("uombox")
-   s3  = document.getElementById("quantitybox")  
-   s4  = document.getElementById("pricebox")         
-   s2a = document.getElementById("uomboxa")
-   s3a = document.getElementById("quantityboxa")  
-   s4a = document.getElementById("priceboxa")     
-   mas = document.getElementById("itemmaster").value
-                 
-   if  (act == "hide") {
-   
-   	   s2.className  = "regular"
-	   s2a.className = "regular"
-	   s3.className  = "regular"
-	   s3a.className = "regular"
-	   s4.className  = "regular"
-	   s4a.className = "regular"
-	   document.getElementById("serviceinput").value = "No"	   
-	   se.className  = "hide"    
-   
-   } else {
-            		   			 	
-	   if (se.className == "hide" || act == "force") {	   		
-		   se.className  = "regular"	   
-	       document.getElementById("serviceinput").value = "Yes"		   
-		   s2.className  = "hide"
-		   s2a.className = "hide"
-		   s3.className  = "hide"
-		   s3a.className = "hide"	  
-		   s4.className  = "hide"
-		   s4a.className = "hide"
-		   ptoken.navigate('#SESSION.root#/Procurement/Application/Requisition/Requisition/RequisitionEditDetail.cfm?access=#access#&id=#URL.ID#&itemmaster='+mas,'iservice') 
-		  		   
-	   } else {
-	   
-	       s2.className  = "regular"
-		   s2a.className = "regular"
-		   s3a.className = "regular"
-		   document.getElementById("serviceinput").value = "No"
-		   s3.className  = "regular"
-		   s4.className  = "regular"
-		   s4a.className = "regular"
-		   se.className  = "hide" }
-	   
-	  } 
-	  
-  }
-
-function requom(clss,acc,qty,uom,uomwhs) {
-			
+function requom(clss,acc,qty,uom,uomwhs) {	
+	
 	if (clss == "warehouse") {
-	     url = "#SESSION.root#/Procurement/Application/Requisition/Requisition/RequisitionEntryWarehouse.cfm?reqid=#URL.ID#&mis=#URL.mission#&id=uom&access="+acc+"&qty="+qty+"&uom="+uom+"&uomwhs="+uomwhs;
+	     url = "#SESSION.root#/Procurement/Application/Requisition/Requisition/RequisitionEntryWarehouse.cfm?reqid=#URL.ID#&mis=#URL.mission#&option=uom&access="+acc+"&qty="+qty+"&uom="+uom+"&uomwhs="+uomwhs
 	} else {
-	     url = "#SESSION.root#/Procurement/Application/Requisition/Requisition/RequisitionEntryRegular.cfm?reqid=#URL.ID#&mis=#URL.mission#&id=uom&access="+acc+"&qty="+qty+"&uom="+uom; 
+	     url = "#SESSION.root#/Procurement/Application/Requisition/Requisition/RequisitionEntryInterface.cfm?reqid=#URL.ID#&mis=#URL.mission#&option=uom&access="+acc+"&qty="+qty+"&uom="+uom 
 	}	
 	ptoken.navigate(url,'reqcls2')	 
+	
 }
 
 function budgetcheck() {    

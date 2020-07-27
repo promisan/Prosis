@@ -9,6 +9,8 @@
 <cfparam name="url.scope"             default="settlement">
 <cfparam name="FORM.SettlementDate"	  default="">
 <cfparam name="url.td"	  			  default="">
+<cfparam name="url.th"	  			  default="0">
+<cfparam name="url.tm"	  			  default="0">
 
 <!--- header datetime --->
 
@@ -17,20 +19,13 @@
 	<cfset dateValue = "">
 	<CF_DateConvert Value="#url.td#">
 	<cfset DTE = dateValue>
-	<cfset dte = DateAdd("h","#url.th#", dte)>
-	<cfset dte = DateAdd("n","#url.tm#", dte)>
-	
+		
 <cfelse>
+
 	<cfset dateValue = "">
 	<CF_DateConvert Value="#FORM.SettlementDate#">
 	<cfset DTE = dateValue>
-</cfif>
-
-<CF_DateConvert Value="#dateformat(now(),client.dateformatshow)#">
-<cfset TDY = datevalue>
-
-<cfif DTE gte TDY>
-   <cfset DTE = TDY>
+	
 </cfif>
 
 <cfoutput>
@@ -40,6 +35,7 @@
 </cfif>	
 
 <cfif url.scope neq "workflow" and url.scope neq "standalone">
+
 	<cfinclude template="OversaleValidation.cfm">
 
 	<cfinvoke  component = "Service.Process.Materials.POS"  
@@ -52,7 +48,9 @@
 		   customeridinvoice  = "#url.customeridinvoice#"
 		   addressid		  = "#url.addressid#"
 		   currency           = "#url.Currency#"
-		   transactiondate    = "#dte#"		  
+		   transactiondate    = "#dateformat(dte,client.dateformatshow)#"		
+		   transactionhour    = "#url.th#"
+	       transactionminute  = "#url.tm#"  
 		   cleanup            = "Yes"
 		   returnvariable     = "vBatchId">			   
 		   	
@@ -68,7 +66,9 @@
 		   customeridinvoice  = "#url.customeridinvoice#"
 		   addressid		  = "#url.addressid#"
 		   currency           = "#url.Currency#"
-		   transactiondate    = "#dte#"		  
+		   transactiondate    = "#dateformat(dte,client.dateformatshow)#"		
+		   transactionhour    = "#url.th#"
+	       transactionminute  = "#url.tm#"   
 		   cleanup            = "Yes"
 		   returnvariable     = "vBatchId">
 		   		   
@@ -197,11 +197,11 @@
 	
 	</cfif>
 
-
 <cfelse>
-	<cfset issueinv = "1">
-</cfif>
 
+	<cfset issueinv = "1">
+	
+</cfif>
 
 <cfif issueinv eq "0">
 
@@ -250,7 +250,6 @@
 		AND     ActionCode      = 'Invoice'
 	
 	</cfquery>
-
 	
 	<script>
 		alert("<cf_tl id="Sale updated"> \n\n <cf_tl id="No Invoice was (re-)issued">.")
@@ -259,14 +258,14 @@
 	</script>
 
 <cfelse>
-			   
-	
+			
 	<!--- checking if we need to revert through EDI manager 
 	Do note that url.batchid is different from vBatchId
 	URL.batchId : is the batchId for retrieving purposes
 	vBatchId : is the generated Id that was given after calling postTransaction
 	11/13/2014 	Armin 
 	--->
+	
 	<cfif url.batchid neq "">
 	
 			<!--- post the tax action --->
@@ -279,8 +278,7 @@
 						INNER JOIN Accounting.dbo.TransactionHeaderAction A ON H.Journal = A.Journal AND H.JournalSerialNo=A.JournalSerialNo
 				WHERE  TransactionSourceId = '#URL.batchid#'
 				AND   TransactionCategory  = 'Receivables'										
-		   	</cfquery>		
-		   	
+		   	</cfquery>		   	
 		   
 		    <cfif url.scope neq "standalone">
 		    	<cfif getAction.recordcount gt "0">
@@ -323,10 +321,10 @@
 			WHERE Journal	    ='#getAction.Journal#'
 			AND JournalSerialNo ='#getAction.JournalSerialNo#'
 			AND ActionCode      = 'Invoice'			
-		</cfquery>
-		
+		</cfquery>		
 		
 		<cfif qCheck.recordcount eq 0>
+		
 			<cfinvoke  component = "Service.Process.Materials.POS"  
 			   method             = "initiateInvoice" 
 			   batchid            = "#url.batchId#"
@@ -337,7 +335,6 @@
 			   currency           = "#url.Currency#"	
 			   Mode               = "#url.mode#"	   
 			   returnvariable     = "vInvoice">
-
 			
 			<cfset vActionId = vInvoice.ActionId>
 		<cfelse>
@@ -345,6 +342,7 @@
 		</cfif>			
 	
 	<cfelse>
+	
 		<cfinvoke  component = "Service.Process.Materials.POS"  
 			   method             = "initiateInvoice" 
 			   batchid            = "#vBatchId#"
@@ -355,11 +353,11 @@
 			   currency           = "#url.Currency#"	
 			   Mode               = "#url.mode#"	   
 			   returnvariable     = "vInvoice">		
-		<cfset vActionId = vInvoice.ActionId>
-	</cfif>	
-	   
 			   
-				
+		<cfset vActionId = vInvoice.ActionId>
+		
+	</cfif>	
+			
 	<cfif url.scope eq "settlement" or url.scope eq "standard" >
 		<script>
 			ptoken.navigate("#SESSION.root#/Warehouse/Application/Salesorder/POS/Settlement/SaleInvoice.cfm?actionid=#vActionId#&batchid=#vBatchId#&warehouse=#url.warehouse#&currency=#url.currency#&terminal=#url.terminal#"+"&ts="+new Date().getTime(), 'wsettle');		
@@ -387,9 +385,4 @@
 
 <!--- refresh the screen and sets the new customer --->
 
-</cfoutput>	   
-
-	
-	
-	
-	
+</cfoutput>	 

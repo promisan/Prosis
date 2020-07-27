@@ -83,11 +83,12 @@ Resetting the workflow will result in loosing process information you might have
 				 AND   EntityClass IN (SELECT #entity.EntityClassField# FROM #Entity.EntityTableName#)
 				 </cfif>
 				 
-				 AND R.EntityClass IN (SELECT   EntityClass
+				 AND    EntityClass IN (SELECT   EntityClass
 				              		    FROM     Ref_EntityClassPublish S
 										WHERE    S.EntityCode     = '#Object.entityCode#')
 				 				 
 				 AND    Operational = 1
+				
 		</cfquery>				
 				
 		<cfif Object.EntityClass neq "">

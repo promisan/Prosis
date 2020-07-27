@@ -26,8 +26,9 @@
 	<tr>
 		<td colspan="<cfoutput>#dColumns - 1#</cfoutput>" class="labelmedium"><cf_tl id="Offers"></td>
 		<td colspan="1" align="right">
+		<cf_tl id="Record Offer" var="1">
 		<cfoutput>
-			<input value    = "Record Offer" 
+			<input value    = "#lt_text#" 
 				class       = "button10g"
 				type        = "Button"
 				style       = "width:130px"

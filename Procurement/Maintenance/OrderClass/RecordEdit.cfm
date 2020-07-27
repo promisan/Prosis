@@ -100,14 +100,14 @@ function ask() {
 	<tr><td height="3"></td></tr>
 		
 	<TR>
-    <td valign="top" style="padding-top:3px" class="labelmedium">Group:</b></td>
-    <TD class="labelit">
-	<table class="fpormpadding">
-	<tr class="labelit"><td><input type="radio" class="radiol" name="PreparationMode" id="PreparationMode" value="Job"      <cfif get.PreparationMode eq "Job">checked</cfif>></td><td colspan="3">Standard Procurement (Vendor)</td></tr>
-	<tr class="labelit"><td><input type="radio" class="radiol" name="PreparationMode" id="PreparationMode" value="Position" <cfif get.PreparationMode eq "Position">checked</cfif>></td><td colspan="3">Outsourced Position (New and Extension)</td></tr>
-	<tr class="labelit"><td><input type="radio" class="radiol" name="PreparationMode" id="PreparationMode" value="SSA"      <cfif get.PreparationMode eq "SSA">checked</cfif>></td><td colspan="3">Personal Service Agreement (Person)</td></tr>
-	<tr class="labelit"><td><input type="radio" class="radiol" name="PreparationMode" id="PreparationMode" value="Direct"   <cfif get.PreparationMode eq "Direct">checked</cfif>></td><td>Direct Purchase</td><td><input type="checkbox" class="radiol" name="PreparationModeCreate" id="PreparationModeCreate" value="1"  <cfif get.PreparationModeCreate eq "1">checked</cfif>></td><td>Auto approve </td></tr>
-	<tr class="labelit"><td><input type="radio" class="radiol" name="PreparationMode" id="PreparationMode" value="Travel"   <cfif get.PreparationMode eq "Travel">checked</cfif>></td><td colspan="3">Travel / Special Service Extension</td></tr>
+    <td valign="top" style="padding-top:3px" class="labelmedium">Modality:</td>
+    <TD>
+	<table class="formpadding">
+	<tr class="labelmedium"><td><input type="radio" class="radiol" name="PreparationMode" id="PreparationMode" value="Job"      <cfif get.PreparationMode eq "Job">checked</cfif>></td><td colspan="3">Standard Procurement (Vendor)</td></tr>
+	<tr class="labelmedium"><td><input type="radio" class="radiol" name="PreparationMode" id="PreparationMode" value="Position" <cfif get.PreparationMode eq "Position">checked</cfif>></td><td colspan="3">Outsourced Position (New and Extension)</td></tr>
+	<tr class="labelmedium"><td><input type="radio" class="radiol" name="PreparationMode" id="PreparationMode" value="SSA"      <cfif get.PreparationMode eq "SSA">checked</cfif>></td><td colspan="3">Personal Service Agreement (Person)</td></tr>
+	<tr class="labelmedium"><td><input type="radio" class="radiol" name="PreparationMode" id="PreparationMode" value="Direct"   <cfif get.PreparationMode eq "Direct">checked</cfif>></td><td>Direct Purchase</td><td><input type="checkbox" class="radiol" name="PreparationModeCreate" id="PreparationModeCreate" value="1"  <cfif get.PreparationModeCreate eq "1">checked</cfif>></td><td>Auto approve </td></tr>
+	<tr class="labelmedium"><td><input type="radio" class="radiol" name="PreparationMode" id="PreparationMode" value="Travel"   <cfif get.PreparationMode eq "Travel">checked</cfif>></td><td colspan="3">Travel / Special Service Extension</td></tr>
 	</table>
     </td>
     </tr>	
@@ -116,28 +116,31 @@ function ask() {
 	
 	<tr><td class="labelmedium" height="3">Print Templates</td></tr>
 	
-	<tr><td colspan="2"><table cellspacing="0" cellpadding="0">
+	<tr><td colspan="2">
+	<table cellspacing="0" cellpadding="0" style="width:100%">
 	
 	   <!--- Field: Description --->
     <TR style="height:27px" class="labelmedium">
-    <TD class="labelmedium" style="padding-left:40px">Purchase Order:</TD>
-    <TD class="labelmedium">
-		<cfinput type="Text" name="PurchaseTemplate" value="#get.PurchaseTemplate#" message="Please enter a template path" required="No" size="40" maxlength="100"
+    <TD style="width:140px;padding-left:15px">Purchase Order:</TD>
+    <TD>
+		<cfinput type="Text" style="width:90%" name="PurchaseTemplate" value="#get.PurchaseTemplate#" message="Please enter a template path" required="No" maxlength="100"
 		class="regularxl">
 	</TD>
 	</TR>
 	
 	<TR style="height:27px" class="labelmedium">
-    <TD class="labelmedium" style="padding-left:40px">Execution&nbsp;Request:&nbsp;</TD>
-    <TD class="labelmedium">
-		<cfinput type="Text" name="ExecutionTemplate" value="#get.ExecutionTemplate#" message="Please enter a template path" required="No" size="40" maxlength="100"
+    <TD style="padding-left:15px">Execution&nbsp;Request:&nbsp;</TD>
+    <TD>
+		<cfinput type="Text" style="width:90%" name="ExecutionTemplate" value="#get.ExecutionTemplate#" message="Please enter a template path" required="No" maxlength="100"
 		class="regularxl">
 	</TD>
 	</TR>	
 	
-	</table></td></tr>	
+	</table>
+	</td>
+	</tr>	
 	
-	<tr><td colspan="2" class="linedotted"></td></tr>
+	<tr><td colspan="2" class="line"></td></tr>
 	<tr><td colspan="2" align="center" height="30">
 		<input class="button10g" type="button" name="Cancel" id="Cancel" value=" Cancel " onClick="window.close()">
 		<input class="button10g" type="submit" name="Delete" id="Delete" value=" Delete " onclick="return ask()">

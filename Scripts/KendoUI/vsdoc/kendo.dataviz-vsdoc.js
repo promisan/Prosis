@@ -888,6 +888,9 @@ $.fn.kendoDataSource = function(options) {
     /// &#10;group - Array|Object 
     /// &#10;The grouping configuration of the data source. If set, the data items will be grouped when the data source is populated. By default, grouping is not applied.
     /// &#10;
+    /// &#10;groupPaging - Boolean (default: false)
+    /// &#10;When set to true, dataSource treats groups as items during pagination.
+    /// &#10;
     /// &#10;inPlaceSort - Boolean (default: false)
     /// &#10;If set to true, the original Array used as data will be sorted when sorting operation is performed. This setting supported only with local data, bound to a JavaScript array via the data option.
     /// &#10;
@@ -926,6 +929,97 @@ $.fn.kendoDataSource = function(options) {
     /// &#10;
     /// &#10;type - String 
     /// &#10;If set, the data source will use a predefined transport and/or schema.The supported values are: "odata" which supports the OData v.2 protocol; "odata-v4" which partially supports odata version 4 or "signalr".
+    /// &#10;
+    /// </summary>
+    /// <param name="options" type="Object">
+    /// The widget configuration options
+    /// </param>
+};
+
+
+kendo.data.FileEntry = function() { };
+
+kendo.data.FileEntry.prototype = {
+
+
+
+    bind: function(event, callback) {
+        /// <summary>
+        /// Binds to a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be executed when the event is triggered.</param>
+    },
+
+    unbind: function(event, callback) {
+        /// <summary>
+        /// Unbinds a callback from a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be removed.</param>
+    }
+
+};
+
+$.fn.getKendoFileEntry = function() {
+    /// <summary>
+    /// Returns a reference to the kendo.data.FileEntry widget, instantiated on the selector.
+    /// </summary>
+    /// <returns type="kendo.data.FileEntry">The kendo.data.FileEntry instance (if present).</returns>
+};
+
+$.fn.kendoFileEntry = function(options) {
+    /// <summary>
+    /// Instantiates a kendo.data.FileEntry widget based the DOM elements that match the selector.
+
+    /// &#10;Accepts an object with the following configuration options:
+    /// &#10;
+    /// </summary>
+    /// <param name="options" type="Object">
+    /// The widget configuration options
+    /// </param>
+};
+
+
+kendo.data.FileManagerDataSource = function() { };
+
+kendo.data.FileManagerDataSource.prototype = {
+
+
+
+    bind: function(event, callback) {
+        /// <summary>
+        /// Binds to a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be executed when the event is triggered.</param>
+    },
+
+    unbind: function(event, callback) {
+        /// <summary>
+        /// Unbinds a callback from a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be removed.</param>
+    }
+
+};
+
+$.fn.getKendoFileManagerDataSource = function() {
+    /// <summary>
+    /// Returns a reference to the kendo.data.FileManagerDataSource widget, instantiated on the selector.
+    /// </summary>
+    /// <returns type="kendo.data.FileManagerDataSource">The kendo.data.FileManagerDataSource instance (if present).</returns>
+};
+
+$.fn.kendoFileManagerDataSource = function(options) {
+    /// <summary>
+    /// Instantiates a kendo.data.FileManagerDataSource widget based the DOM elements that match the selector.
+
+    /// &#10;Accepts an object with the following configuration options:
+    /// &#10;
+    /// &#10;schema - Object 
+    /// &#10;The schema configuration. See the DataSource.schema configuration for all available options.
     /// &#10;
     /// </summary>
     /// <param name="options" type="Object">
@@ -2940,7 +3034,7 @@ kendo.dataviz.diagram.Connection.prototype = {
         /// Gets or sets the current source of the connection.This object can be a Point for a floating endpoint (i.e. not attached to a shape), a Shape or a Connector of a Shape. You can use the Shape.getConnector() method to fetch a Connector on the basis of its name. If a Shape is specified the Connection will attach to the "Auto" connector.
         /// </summary>
         /// <param name="source" type="Object" >Point: any Point on the canvas. This creates an unattached floating endpoint.; Shape: will bind the endpoint to the"Auto" Connector which will switch between the other connectors to minimize the length of the connection. or Connector: the connection's endpoint will remain fixed attached to the specified Connector.. If no source is specified the method will return the current object to which the Connection's endpoint is attached.</param>
-        /// <returns type="Object">the connection source.The following example shows how to change the source shape of a connection:```dojo     Change Connection Source     <div id="diagram"></div>            var Shape = kendo.dataviz.diagram.Shape;       $("#diagram").kendoDiagram();       var diagram = $("#diagram").data("kendoDiagram");       var shape1 = diagram.addShape( new Shape({ x: 100, y: 100 }));       var shape2 = diagram.addShape( new Shape({ x: 300, y: 180 }));       var shape3 = diagram.addShape( new Shape({ x: 300, y: 20 }));```</returns>
+        /// <returns type="Object">the connection source.The following example shows how to change the source shape of a connection:</returns>
 
     },
 
@@ -2949,7 +3043,7 @@ kendo.dataviz.diagram.Connection.prototype = {
         /// <summary>
         /// Gets the global coordinate of the connection's start (initial endpoint). The method returns a Point independently of the object to which the source is attached.
         /// </summary>
-        /// <returns type="kendo.dataviz.diagram.Point">the coordinates of the connection source.```dojo     Get Connection Source Point     <div id="diagram"></div>            var Shape = kendo.dataviz.diagram.Shape;       $("#diagram").kendoDiagram();       var diagram = $("#diagram").data("kendoDiagram");       var shape1 = diagram.addShape( new Shape({ x: 100, y: 100 }));       var shape2 = diagram.addShape( new Shape({ x: 300, y: 180 }));```</returns>
+        /// <returns type="kendo.dataviz.diagram.Point">the coordinates of the connection source.</returns>
 
     },
 
@@ -2958,7 +3052,7 @@ kendo.dataviz.diagram.Connection.prototype = {
         /// <summary>
         /// Gets or set the target of the Connection.This object can be a Point for a floating endpoint (i.e. not attached to a shape), a Shape or a Connector of a Shape. You can use the Shape.getConnector() method to fetch a Connector on the basis of its name. If a Shape is specified the Connection will attach to the "Auto" connector.
         /// </summary>
-        /// <param name="target" type="Object" >Point: any Point on the canvas. This creates an unattached floating endpoint.; Shape: will bind the endpoint to the"Auto" Connector which will switch between the other connectors to minimize the length of the connection. or Connector: the connection's endpoint will remain fixed attached to the specified Connector.. If no source is specified the method will return the current object to which the Connection's endpoint is attached.```dojo     Change Connection Target     <div id="diagram"></div>            var Shape = kendo.dataviz.diagram.Shape;       $("#diagram").kendoDiagram();       var diagram = $("#diagram").data("kendoDiagram");       var shape1 = diagram.addShape( new Shape({ x: 120, y: 180 }));       var shape2 = diagram.addShape( new Shape({ x: 120, y: 30 }));       var shape3 = diagram.addShape( new Shape({ x: 120, y: 330 }));```</param>
+        /// <param name="target" type="Object" >Point: any Point on the canvas. This creates an unattached floating endpoint.; Shape: will bind the endpoint to the"Auto" Connector which will switch between the other connectors to minimize the length of the connection. or Connector: the connection's endpoint will remain fixed attached to the specified Connector.. If no source is specified the method will return the current object to which the Connection's endpoint is attached.</param>
         /// <returns type="Object">the connection target.</returns>
 
     },
@@ -2968,7 +3062,7 @@ kendo.dataviz.diagram.Connection.prototype = {
         /// <summary>
         /// Similar to the sourcePoint, this gets the coordinates of the target of the Connection independently of its endpoint attachment.
         /// </summary>
-        /// <returns type="kendo.dataviz.diagram.Point">the coordinates of the connection target.```dojo     Get Connection Target Point     <div id="diagram"></div>            var Shape = kendo.dataviz.diagram.Shape;       $("#diagram").kendoDiagram();       var diagram = $("#diagram").data("kendoDiagram");       var shape1 = diagram.addShape( new Shape({ x: 100, y: 100 }));       var shape2 = diagram.addShape( new Shape({ x: 300, y: 180 }));```</returns>
+        /// <returns type="kendo.dataviz.diagram.Point">the coordinates of the connection target.</returns>
 
     },
 
@@ -2977,7 +3071,7 @@ kendo.dataviz.diagram.Connection.prototype = {
         /// <summary>
         /// Select or deselects the Connection.
         /// </summary>
-        /// <param name="value" type="Boolean" >True to select the Connection and false to deselect it.```dojo     Select Connection     <div id="diagram"></div>            var Shape = kendo.dataviz.diagram.Shape;       $("#diagram").kendoDiagram();       var diagram = $("#diagram").data("kendoDiagram");       var shape1 = diagram.addShape( new Shape({ x: 100, y: 100 }));       var shape2 = diagram.addShape( new Shape({ x: 300, y: 100 }));```</param>
+        /// <param name="value" type="Boolean" >True to select the Connection and false to deselect it.</param>
 
     },
 
@@ -2986,14 +3080,14 @@ kendo.dataviz.diagram.Connection.prototype = {
         /// <summary>
         /// Gets or sets the (sub-) type of the Connection which defines the way it routes.The routing of a connection is the way that intermediate points of a Connection defines a route. A route is usually defined on the basis of constraints or behaviors. Currently the framework defines a default polyline route (which simply connects the given intermediate points) and a simple rectangular (aka cascading) route. The cascading type is useful when using tree layout and hierarchies; the routed Connection will in this case enhance the representation of the hierarchy and thus reproduce a classic organization diagram.
         /// </summary>
-        /// <param name="value" type="String" >"polyline" - connects the defined intermediate points. See the points() method. or "cascading" - discards given points and defines a cascading path between the endpoints.. ```dojo     Change Connection Type     <div id="diagram"></div>            var Shape = kendo.dataviz.diagram.Shape;       $("#diagram").kendoDiagram();       var diagram = $("#diagram").data("kendoDiagram");       var shape1 = diagram.addShape( new Shape({ x: 100, y: 100 }));       var shape2 = diagram.addShape( new Shape({ x: 300, y: 180 }));```</param>
+        /// <param name="value" type="String" >"polyline" - connects the defined intermediate points. See the points() method. or "cascading" - discards given points and defines a cascading path between the endpoints..</param>
 
     },
 
 
     points: function() {
         /// <summary>
-        /// Gets the intermediate points of the connection.```dojo     Get Connection Points     <div id="diagram"></div>            var Shape = kendo.dataviz.diagram.Shape;       $("#diagram").kendoDiagram();       var diagram = $("#diagram").data("kendoDiagram");       var shape1 = diagram.addShape( new Shape({ x: 20, y: 180 }));       var shape2 = diagram.addShape( new Shape({ x: 300, y: 180 }));```
+        /// Gets the intermediate points of the connection.
         /// </summary>
         /// <returns type="Array">the intermediate points of the connection.</returns>
 
@@ -3004,7 +3098,7 @@ kendo.dataviz.diagram.Connection.prototype = {
         /// <summary>
         /// Gets all points of the Connection. This is the union of the endpoints and the intermediate points.
         /// </summary>
-        /// <returns type="Array">all points of the connection.```dojo     Get Connection Points     <div id="diagram"></div>            var Shape = kendo.dataviz.diagram.Shape;       $("#diagram").kendoDiagram();       var diagram = $("#diagram").data("kendoDiagram");       var shape1 = diagram.addShape( new Shape({ x: 20, y: 180 }));       var shape2 = diagram.addShape( new Shape({ x: 300, y: 180 }));```</returns>
+        /// <returns type="Array">all points of the connection.</returns>
 
     },
 
@@ -3013,7 +3107,7 @@ kendo.dataviz.diagram.Connection.prototype = {
         /// <summary>
         /// Redraws the Connection with the given options.
         /// </summary>
-        /// <param name="options" type="Object" >The new options for the connection. This object should follow the configuration structure.```dojo     Redraw Connection     <div id="diagram"></div>            var Shape = kendo.dataviz.diagram.Shape;       $("#diagram").kendoDiagram();       var diagram = $("#diagram").data("kendoDiagram");       var shape1 = diagram.addShape( new Shape({ x: 20, y: 100 }));       var shape2 = diagram.addShape( new Shape({ x: 300, y: 100 }));```</param>
+        /// <param name="options" type="Object" >The new options for the connection. This object should follow the configuration structure.</param>
 
     },
 
@@ -3022,7 +3116,7 @@ kendo.dataviz.diagram.Connection.prototype = {
         /// <summary>
         /// Gets or sets the connection visible state.
         /// </summary>
-        /// <param name="visible" type="Boolean" >Indicates whether the connection should be visible in the Diagram. If skipped, the method will return the current visible state of the connection.```dojo```</param>
+        /// <param name="visible" type="Boolean" >Indicates whether the connection should be visible in the Diagram. If skipped, the method will return the current visible state of the connection.</param>
 
     },
 
@@ -3058,10 +3152,10 @@ $.fn.kendoConnection = function(options) {
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
     /// &#10;content - Object 
-    /// &#10;Defines the options for the label displayed on the connection path.```dojo                 var Shape = kendo.dataviz.diagram.Shape;       $("#diagram").kendoDiagram();       var diagram = $("#diagram").data("kendoDiagram");       var shape1 = diagram.addShape( new Shape({x:100, y: 100}));       var shape2 = diagram.addShape( new Shape({x:300, y: 100}));```
+    /// &#10;Defines the options for the label displayed on the connection path.
     /// &#10;
     /// &#10;fromConnector - String (default: "Auto")
-    /// &#10;Specifies the name of the source shape connector that should be used by default.```dojo                 var Shape = kendo.dataviz.diagram.Shape;       $("#diagram").kendoDiagram();       var diagram = $("#diagram").data("kendoDiagram");       var shape1 = diagram.addShape( new Shape({ x: 100, y: 100 }));       var shape2 = diagram.addShape( new Shape({ x: 300, y: 180 }));```
+    /// &#10;Specifies the name of the source shape connector that should be used by default.
     /// &#10;
     /// &#10;fromX - Number 
     /// &#10;The absolute point (X-coordinate), if any, that the connection is originating from.
@@ -3070,7 +3164,7 @@ $.fn.kendoConnection = function(options) {
     /// &#10;The absolute point (Y-coordinate), if any, that the connection is originating from.
     /// &#10;
     /// &#10;stroke - Object 
-    /// &#10;Defines the stroke configuration.```dojo                 var Shape = kendo.dataviz.diagram.Shape;       $("#diagram").kendoDiagram();       var diagram = $("#diagram").data("kendoDiagram");       var shape1 = diagram.addShape( new Shape({x:100, y: 100}));       var shape2 = diagram.addShape( new Shape({x:300, y: 100}));```
+    /// &#10;Defines the stroke configuration.
     /// &#10;
     /// &#10;hover - Object 
     /// &#10;Defines the hover configuration.
@@ -3094,7 +3188,7 @@ $.fn.kendoConnection = function(options) {
     /// &#10;Specifies if the connection can be selected.
     /// &#10;
     /// &#10;toConnector - String (default: "Auto")
-    /// &#10;Specifies the name of the target shape connector that should be used by default.```dojo                 var Shape = kendo.dataviz.diagram.Shape;       $("#diagram").kendoDiagram();       var diagram = $("#diagram").data("kendoDiagram");       var shape1 = diagram.addShape( new Shape({x:100, y: 250}));       var shape2 = diagram.addShape( new Shape({x:300, y: 50}));```
+    /// &#10;Specifies the name of the target shape connector that should be used by default.
     /// &#10;
     /// &#10;toX - Number 
     /// &#10;The absolute point (X-coordinate), if any, that the connection is pointing to.
@@ -3103,7 +3197,7 @@ $.fn.kendoConnection = function(options) {
     /// &#10;The absolute point (Y-coordinate), if any, that the connection is pointing to.
     /// &#10;
     /// &#10;type - String 
-    /// &#10;Specifies the connection type. The supported values are "polyline" and "cascading".```dojo                 var Shape = kendo.dataviz.diagram.Shape;       $("#diagram").kendoDiagram();       var diagram = $("#diagram").data("kendoDiagram");       var shape1 = diagram.addShape( new Shape({x:100, y: 250}));       var shape2 = diagram.addShape( new Shape({x:300, y: 50}));```
+    /// &#10;Specifies the connection type. The supported values are "polyline" and "cascading".
     /// &#10;
     /// </summary>
     /// <param name="options" type="Object">
@@ -4096,7 +4190,7 @@ $.fn.kendoShape = function(options) {
     /// &#10;Defines the shape editable options.
     /// &#10;
     /// &#10;path - String 
-    /// &#10;The path option of a Shape is a description of a custom geometry. The format follows the standard SVG format (http://www.w3.org/TR/SVG/paths.html#PathData "SVG Path data.").
+    /// &#10;The path option of a Shape is a description of a custom geometry. The format follows the standard SVG format (https://www.w3.org/TR/SVG/paths.html#PathData "SVG Path data.").
     /// &#10;
     /// &#10;stroke - Object 
     /// &#10;Defines the stroke configuration.
@@ -5556,7 +5650,7 @@ $.fn.kendoChart = function(options) {
     /// &#10;The default options for all series.
     /// &#10;
     /// &#10;theme - String 
-    /// &#10;The chart theme. This can be either a built-in theme or "sass". When set to "sass" the chart will read the variables from the Sass-based themes.The supported values are: "sass" - special value, see notes; "black"; "blueopal"; "bootstrap"; "default"; "highcontrast"; "metro"; "metroblack"; "moonlight"; "silver" or "uniform".
+    /// &#10;The chart theme. This can be either a built-in theme or "sass". When set to "sass" the chart will read the variables from the Sass-based themes. More information on the built-in themes could be found in the Less-based themes article.The supported values are: "sass" - special value, see notes; "black"; "blueopal"; "bootstrap"; "default"; "highcontrast"; "metro"; "metroblack"; "moonlight"; "silver" or "uniform".
     /// &#10;
     /// &#10;title - String 
     /// &#10;The chart title configuration options or text.
@@ -5611,7 +5705,7 @@ kendo.dataviz.ui.Diagram.prototype = {
 
     addShape: function(obj,undoable) {
         /// <summary>
-        /// Adds a new shape to the diagram.
+        /// Adds a new shape to the diagram. If the diagram is bound to a data source, do not use addShae(newShape). Instead, use diagram.dataSource.add(newShape); and optionally .sync() the data source.
         /// </summary>
         /// <param name="obj" type="Object" >A Shape instance or a Point where the default shape type will be added.</param>
         /// <param name="undoable" type="Boolean" >Whether the addition should be recorded in the undo-redo stack.</param>

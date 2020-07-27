@@ -70,11 +70,7 @@
 		
 		$(document).ready(function() {				
 			
-			setTimeout("dotimeout()",2000);			
-			
-			updateClock(); 
-			setInterval('updateClock()', 1000 );
-			
+
 			//Removes the CF loading image and text
 			_cf_loadingtexthtml="<div style='display:none'></div>";
 

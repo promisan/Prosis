@@ -3,6 +3,10 @@
 
 <cfoutput>
 
+<!--- ----------------------- --->
+<!--- ----- Item amounts ---- --->
+<!--- ----------------------- --->
+
 <cfquery name="ItemTotal" 
 	 datasource="AppsPurchase" 
 	 username="#SESSION.login#" 
@@ -18,6 +22,8 @@
 <cfelse>
 	<cfset itm = ItemTotal.total>
 </cfif>
+
+<!--- additionally entered costs like DAI --->
 
 <cfquery name="CostTotal" 
 	 datasource="AppsPurchase" 
@@ -37,7 +43,63 @@
 	<cfset cst = CostTotal.total>
 </cfif>
 
-<cfquery name="TransactionTotal" 
+<!--- --------------------- --->
+<!--- other billing related --->
+<!--- --------------------- --->
+
+<cfquery name="AdditionalCost" 
+	 datasource="AppsLedger" 
+	 username="#SESSION.login#" 
+	 password="#SESSION.dbpw#">
+	 	 
+	    SELECT    SUM(L.AmountBaseDebit) as AmountBaseDebit, 
+                  SUM(L.AmountBaseCredit) as AmountBaseCredit
+	    FROM      TransactionHeader H INNER JOIN
+                  TransactionLine L ON H.Journal = L.Journal AND H.JournalSerialNo = L.JournalSerialNo INNER JOIN
+                  Ref_Account R ON L.GLAccount = R.GLAccount
+				   
+		WHERE     H.Mission              = '#url.mission#'	
+	    AND       H.TransactionSource    = 'ReceiptSeries'
+	    AND       H.TransactionSourceNo  = '#url.receiptno#'	
+		AND       H.TransactionSourceId IS NULL <!--- cost reflected on the lines as per above as cst --->
+	    AND       H.ActionStatus         <> '9' 	
+		AND       L.TransactionSerialNo != '0'  
+		AND       R.TaxAccount           = '0'		
+		
+</cfquery>
+
+<cfif AdditionalCost.AmountBaseDebit eq "">
+	<cfset amt = 0>
+	<cfset prc = "">
+<cfelse>
+    <cfset amt = AdditionalCost.AmountBaseDebit - AdditionalCost.AmountBaseCredit>
+	<cfif itm gte "1">
+		<cfset prc = "(#numberformat(((amt/itm)*100),"__._")#%)&nbsp;">
+	</cfif>
+</cfif>   
+      
+<script> 	
+    try { document.getElementById('totaldirect').innerHTML  = '#numberformat(itm,',.__')#' }         catch(e) {}
+	try { document.getElementById('totalother').innerHTML   = '#prc# #numberformat(amt,',.__')#' }   catch(e) {}
+	try { document.getElementById('totalsum').innerHTML     = '#numberformat(itm+cst+amt,',.__')#' } catch(e) {}	
+</script>
+
+<!--- ----------------------- --->
+<!--- ----- TAX amounts ----- --->
+<!--- ----------------------- --->
+
+<cfquery name="ItemTax" 
+	 datasource="AppsPurchase" 
+	 username="#SESSION.login#" 
+	 password="#SESSION.dbpw#">
+	 SELECT SUM(ReceiptAmountBaseTax) as Total
+	 FROM   PurchaseLineReceipt 
+	 WHERE  ReceiptNo    = '#url.ReceiptNo#'
+	 AND    ActionStatus <> '9'
+</cfquery>
+
+
+<cfquery name="AdditionalTax" 
 	 datasource="AppsLedger" 
 	 username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">
@@ -54,24 +116,24 @@
 		AND       H.TransactionSourceId IS NULL <!--- cost reflected on the lines --->
 	    AND       H.ActionStatus         <> '9' 	
 		AND       L.TransactionSerialNo != '0'  
-		AND       R.TaxAccount           = '0'
+		AND       R.TaxAccount           = '1'		
+		
 </cfquery>
 
-
-<cfif TransactionTotal.AmountBaseDebit eq "">
-	<cfset amt = 0>
-	<cfset prc = "">
+<cfif ItemTax.total eq "">
+	<cfset itm = 0>
 <cfelse>
-    <cfset amt = TransactionTotal.AmountBaseDebit - TransactionTotal.AmountBaseCredit>
-	<cfif itm gte "1">
-		<cfset prc = "(#numberformat(((amt/itm)*100),"__._")#%)&nbsp;">
-	</cfif>
+	<cfset itm = ItemTax.total>
+</cfif>
+
+<cfif AdditionalTax.AmountBaseDebit eq "">
+	<cfset amt = 0>	
+<cfelse>
+    <cfset amt = AdditionalTax.AmountBaseDebit - AdditionalTax.AmountBaseCredit>	
 </cfif>   
-      
+
 <script> 
-    try { document.getElementById('totaldirect').innerHTML  = '#numberformat(itm,',.__')#' }     catch(e) {}
-	try { document.getElementById('totalother').innerHTML   = '#prc# #numberformat(amt,',.__')#' }     catch(e) {}
-	try { document.getElementById('totalsum').innerHTML     = '#numberformat(itm+cst+amt,',.__')#' } catch(e) {}
+    try { document.getElementById('totaltax').innerHTML  = '#numberformat(itm+amt,',.__')#' } catch(e) {}
 </script>
    
 </cfoutput>   

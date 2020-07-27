@@ -1,5 +1,7 @@
 
 <cfparam name="URL.reqid"  default="">
+<cfparam name="URL.uom"    default="">
+<cfparam name="URL.itemno" default="">
 
 <cfif url.reqid neq "">
 	
@@ -11,14 +13,9 @@
 			FROM     RequisitionLine
 			WHERE    RequisitionNo = '#url.ReqId#'					
 	</cfquery>
-	
+		
 	<cfset url.uom    = get.WarehouseUoM>
 	<cfset url.itemno = get.WarehouseItemNo>
-
-<cfelse>
-	
-	<cfparam name="URL.uom"    default="">
-	<cfparam name="URL.itemno" default="">
 
 </cfif>
 
@@ -43,9 +40,9 @@
 
 <cfoutput>
 
-	<input type="hidden" name="quantityuom" id="quantityuom" value="#UoM.UoMDescription#" size="10" maxlength="20" class="regularxl" readonly> 
+	<input type="hidden" name="quantityuom" id="quantityuom" value="#UoM.UoMDescription#" size="10" maxlength="20" readonly> 
 
-	<select name="warehouseuom" id="warehouseuom" class="enterastab regularxl" onchange="document.getElementById('quantityuom').value=this.options[this.selectedIndex].text">
+	<select name="warehouseuom" id="warehouseuom" class="enterastab regularxxl" onchange="document.getElementById('quantityuom').value=this.options[this.selectedIndex].text">
 	<cfloop query="get">
 		<option value="#UoM#" <cfif url.uom eq UoM>selected</cfif>>#UoMDescription#</option>
 	</cfloop>

@@ -208,7 +208,11 @@
 			       SUM(CreditBase)           as CreditBase,		
 				   SUM(DebitBase-CreditBase) as Balance 
 			FROM   Totals
-			WHERE  Journal IN (#quotedvalueList(OpeningJournal.Journal)#)		
+			<cfif OpeningJournal.recordcount gte "1">
+			WHERE  Journal IN (#quotedvalueList(OpeningJournal.Journal)#)	
+			<cfelse>
+			WHERE 1=0
+			</cfif>	
 		</cfquery>	
 		
 	</cfif>

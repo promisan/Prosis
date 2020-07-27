@@ -137,6 +137,11 @@ password="#SESSION.dbpw#">
 				    FROM   ItemTransactionShipping 
 					WHERE  TransactionId = T.TransactionId) as Shipping,
 					
+				   (SELECT SalesTotal 
+				    FROM   ItemTransactionShipping 
+					WHERE  TransactionId = T.TransactionId) as Sales,
+						
+					
 				   (SELECT Journal 
 				    FROM   ItemTransactionShipping 
 					WHERE  TransactionId = T.TransactionId) as Journal,
@@ -1420,6 +1425,7 @@ password="#SESSION.dbpw#">
 							    <cf_tl id="Count">:
 								</td>
 								<td style="padding-left:5px;padding:4px">#searchresult.recordcount#</td>
+								
 								<td style="padding-left:5px;padding:4px">								    						        								
 								<cfif searchresult.transactiontype eq "2">
 									#NumberFormat(-tot,'#pformat#')#
@@ -1429,7 +1435,17 @@ password="#SESSION.dbpw#">
 								<cfelse>
 									#NumberFormat(tot,'#pformat#')#
 								</cfif>
-								</td></tr></table>
+								</td>
+								<cfif url.modality eq "1">
+								
+								 <cfquery name="getTotal" dbtype="query">
+								 		SELECT sum(Sales) as Total
+										FROM   SearchResult</cfquery>		
+								
+								<td><cf_tl id="Sale"></td>
+								<td style="padding-left:5px;padding:4px">#numberformat(getTotal.total,",.__")#</td>
+								</cfif>
+								</tr></table>
 																
 							</td>									
 							<td></td>								

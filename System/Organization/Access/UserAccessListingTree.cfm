@@ -1,14 +1,14 @@
 
-<table width="100%" border="0" align="center" bordercolor="silver">
+<table width="100%" height="100%" border="0" align="center">
 <tr><td height="5"></td></tr>
 
-<tr><td height="25">
+<tr><td height="35">
 
 <table width="99%" align="center">
 <tr>
 
 	<cfoutput>
-	  <td width="100" class="labelmedium">Search for:</td>
+	 
 	  <td width="175" height="20" bgcolor="white" style="border: 1px solid Silver;">	
 	  
 	  <table><tr><td>
@@ -51,8 +51,10 @@
 </td></tr>
 
 <tr>	
-   	<td id="treedet">		   
+   	<td id="treedet" style="height:100%" valign="top">	
+	   <cf_divscroll>	   
 	   <cfinclude template="UserAccessListingTreeDetail.cfm">		
+	   </cf_divscroll>
 	</td>	   
 </TR>
 

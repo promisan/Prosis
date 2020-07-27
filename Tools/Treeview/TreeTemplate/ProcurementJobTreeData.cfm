@@ -9,88 +9,79 @@
 	SELECT TOP 1 JobNo
     FROM      UserQuery.dbo.#SESSION.acc#RequisitionSet
 	WHERE     JobStatus = 'Active'
-	ORDER BY  Created DESC
+	ORDER BY  Created DESC	
 </cfquery>
-    
-<cftree name="root"
-   font="calibri"
-   fontsize="13"		
-   bold="No"   
-   format="html"    
-   required="No">  
-   
+
+<cfset openReference = "">
+<cf_tl id="Procurement Jobs" var="vJob">
+
+	<cf_UItree id="root" title="<span style='font-size:16px;padding-bottom:3px'>#vJob#</span>" expand="Yes">
+       
     <cfoutput>
 	
 	<cf_tl id="Outstanding Jobs" var="vOutstanding">
-		
-	<cftreeitem value="Job"
-        display="<span style='padding-bottom:4px' class='labelmedium'>#vOutstanding#</span>"
-		parent="Root"					
-        expand="Yes">
-		
+	
+	   <cf_UItreeitem value="Job"
+	        display="<span class='labelit' style='padding-bottom:4px;padding-top:4px;font-size:17px;font-weight:bold'>#vOutstanding#</span>"
+			parent="root"									
+	        expand="Yes">			
+			
 	</cfoutput>  	   	
 	  		
 	  <cfquery name="JobType" 
 		  datasource="AppsPurchase" 
 		  username="#SESSION.login#" 
 		  password="#SESSION.dbpw#">
-			SELECT *
-		    FROM  UserQuery.dbo.#SESSION.acc#RequisitionSet
-			WHERE JobStatus = 'Active'
+			SELECT   *
+		    FROM     UserQuery.dbo.#SESSION.acc#RequisitionSet
+			WHERE    JobStatus = 'Active'
 			ORDER BY JobType, Created
 		  </cfquery>
 	  	  
 	  <cfoutput query="JobType" group="JobType">
 	  
 	  		<cfquery name="Class" 
-		  datasource="AppsPurchase" 
-		  username="#SESSION.login#" 
-		  password="#SESSION.dbpw#">
-			SELECT *
-		    FROM  Ref_OrderClass
-			WHERE Code = '#JobType#'			
+			  datasource="AppsPurchase" 
+			  username="#SESSION.login#" 
+			  password="#SESSION.dbpw#">
+				SELECT *
+			    FROM   Ref_OrderClass
+				WHERE  Code = '#JobType#'			
 		  </cfquery>
-  		  
-		  <cftreeitem value="#jobType#_regular"
-	        display="<span style='padding-top:3px;padding-bottom:3px;color: gray;' class='labelmedium'>#class.description# (#jobType#)</span>"
-			parent="Job"				
-			expand="No">	
-								
+		  
+		  <cf_UItreeitem value="#jobType#_regular"
+		        display="<span class='labelit' style='font-size:14px'>#class.description# #jobType#</span>"
+				parent="Job"
+				target="right" expand="Yes">	
+									
 			<cfoutput>		
-			
-			<cfif last.jobNo eq jobNo>
-				<cfset cl = "<b>">
-			<cfelse>
-			    <cfset cl = "">
-			</cfif>		
-			
-			       <cfif caseno neq "">			   
-				   
-				   <cftreeitem value="#JobNo#"
-	        display="<span style='padding-top:3px;padding-bottom:3px;color: 6688aa;' class='labelit'>#cl##CaseNo#</span>"
-			parent="#JobType#_regular"	
-			img="#SESSION.root#/Images/select.png"
-			href="#Attributes.destination1#?ID=JOB&ID1=#JobNo#&ID2=#Period#"
-			target="right">	
-				  
-				   <cfelse>
-				   
-				   <cftreeitem value="#JobNo#"
-	        display="<span style='padding-top:3px;padding-bottom:3px;color: 6688aa;' class='labelit'>#cl##JobNo#</span>"
-			parent="#JobType#"	
-			img="#SESSION.root#/Images/select.png"
-			href="#Attributes.destination1#?ID=JOB&ID1=#JobNo#&ID2=#Period#"
-			target="right">	
-							   
-				   </cfif>
-				   
-				  <cfif last.jobNo eq jobNo>
-				  
-				  <script>
-				     ptoken.open("#Attributes.destination1#?ID=JOB&ID1=#JobNo#&ID2=#Period#","right")										
-				  </script>
-				  
-				  </cfif>
+							
+				       <cfif caseno neq "">		
+					   
+					     <cf_UItreeitem value="#jobNo#" id="#JobNo#"
+		        display="<span class='labelit' style='font-size:13px;'>#CaseNo#</span>"
+				parent="#JobType#_regular"
+				href="#Attributes.destination1#?ID=JOB&ID1=#JobNo#&ID2=#Period#"
+				target="right">		   
+					 				  
+					   <cfelse>
+					   
+					   <cf_UItreeitem value="#jobNo#" id="#JobNo#"
+		        display="<span class='labelit' style='font-size:13px;'>#JobNo#</span>"
+				parent="#JobType#_regular"
+				href="#Attributes.destination1#?ID=JOB&ID1=#JobNo#&ID2=#Period#"
+				target="right">		  				   
+												   
+					   </cfif>
+					   					 					   
+					  <cfif last.jobNo eq jobNo>
+						  <cfif caseno neq "">
+					  	  	<cfset openReference = CaseNo>
+					      <cfelse>
+							 <cfset openReference = JobNo>
+						  </cfif>
+						  <cfset OpenJobNo = JobNo>
+					  </cfif>					  
 			  	    
 			</cfoutput> 
 							  
@@ -112,70 +103,52 @@
 
 <cfif JobCancel.recordcount gte "1"> 		
 
-<cftreeitem value="dummy"
-	        display=""
-			parent="Root">		  
-
-		<cf_tl id="Cancelled Jobs" var="vCancelled">
-			
-<cftreeitem value="Job"
-        display="<span style='padding-bottom:4px' class='labelmedium'><font color='FF0000'>#vCancelled#</span>"
-		parent="Root"					
-        expand="Yes">	
-				
+		<cf_tl id="Stalled Jobs" var="vStalled">
+		
+	    <cf_UItreeitem value="JobS"
+	        display="<span class='labelit' style='padding-bottom:4px;padding-top:4px;font-size:17px;font-weight:bold'>#vStalled#</span>"
+			parent="root"									
+	        expand="Yes">					
+					
 		 <cfoutput query="JobCancel" group="JobType">
 	  
 	  		<cfquery name="Class" 
-		  datasource="AppsPurchase" 
-		  username="#SESSION.login#" 
-		  password="#SESSION.dbpw#">
-			SELECT *
-		    FROM  Ref_OrderClass
-			WHERE Code = '#JobType#'			
-		  </cfquery>
-  		  
-		  <cftreeitem value="#jobType#_cancel"
-	        display="#class.description# (#jobType#)"
-			parent="Job"	
-			img="#SESSION.root#/Images/folder_close.png"
-			imgopen="#SESSION.root#/Images/folder_open.png"			
-			expand="No">	
-								
+			  datasource="AppsPurchase" 
+			  username="#SESSION.login#" 
+			  password="#SESSION.dbpw#">
+				SELECT *
+			    FROM   Ref_OrderClass
+				WHERE  Code = '#JobType#'			
+		    </cfquery>
+			
+			 <cf_UItreeitem value="#jobType#_stall"
+		        display="<span class='labelit' style='font-size:14px'>#class.description# #jobType#</span>"
+				parent="JobS"
+				target="right" expand="No">	
+  										
 			<cfoutput>		
-			
-			<cfif last.jobNo eq jobNo>
-				<cfset cl = "<b>">
-			<cfelse>
-			    <cfset cl = "">
-			</cfif>		
-			
-			       <cfif caseno neq "">			   
-				   
-				   <cftreeitem value="#JobNo#"
-	        display="<font color='red'>#cl##CaseNo#</font>"
-			parent="#JobType#_cancel"	
-			img="#SESSION.root#/Images/select.png"
-			href="#Attributes.destination1#?ID=JOB&ID1=#JobNo#&ID2=#Period#"
-			target="right">	
-				  
-				   <cfelse>
-				   
-				   <cftreeitem value="#JobNo#"
-	        display="<font color='red'>#cl##JobNo#</font>"
-			parent="#JobTpe#_cancel"	
-			img="#SESSION.root#/Images/select.png"
-			href="#Attributes.destination1#?ID=JOB&ID1=#JobNo#&ID2=#Period#"
-			target="right">	
-							   
-				   </cfif>
-				   
-				  <cfif last.jobNo eq jobNo>
-				  
-				  <script>
-				     window.open("#Attributes.destination1#?ID=JOB&ID1=#JobNo#&ID2=#Period#","right")										
-				  </script>
-				  
-				  </cfif>
+						
+			    <cfif caseno neq "">		
+					   
+					  <cf_UItreeitem value="#jobNo#" id="#JobNo#"
+		        display="<span class='labelit' style='color:red;font-size:13px'>#CaseNo#</span>"
+				parent="#JobType#_stall"
+				href="#Attributes.destination1#?ID=JOB&ID1=#JobNo#&ID2=#Period#"
+				target="right">		   
+					 				  
+				<cfelse>
+					   
+					  <cf_UItreeitem value="#jobNo#" id="#JobNo#"
+		        display="<span class='labelit' style='color:red;font-size:13px'>#JobNo#</span>"
+				parent="#JobType#_stall"
+				href="#Attributes.destination1#?ID=JOB&ID1=#JobNo#&ID2=#Period#"
+				target="right">		  				   
+												   
+				</cfif>
+						       				   
+				<cfif last.jobNo eq jobNo>					  
+				 	  <cfset openJobNo = JobNo>					  
+				</cfif>		
 			  	    
 			</cfoutput> 
 							  
@@ -183,6 +156,7 @@
 		
 		
 </cfif>		 
+
 	   
 <!--- -------------- --->	  
 <!--- cancelled jobs --->
@@ -192,24 +166,20 @@
   datasource="AppsPurchase" 
   username="#SESSION.login#" 
   password="#SESSION.dbpw#">
-	SELECT *
-    FROM  UserQuery.dbo.#SESSION.acc#RequisitionSet
-	WHERE JobStatus = 'Cancelled'
-	ORDER BY JobType, Created
+	SELECT    *
+    FROM      UserQuery.dbo.#SESSION.acc#RequisitionSet
+	WHERE     JobStatus = 'Cancelled'
+	ORDER BY  JobType, Created
 </cfquery>	  	
 
 <cfif JobCancel.recordcount gte "1"> 	
 
-	<cftreeitem value="dummy"
-	        display=""
-			parent="Root">						 
-
-			<cf_tl id="Cancelled Jobs" var="vCancelled">
-			
-<cftreeitem value="Job"
-        display="<span class='labelmedium' style='padding-bottom:4px'><font color='FF0000'>#vCancelled#</b></span>"
-		parent="Root"					
-        expand="Yes">				
+	<cf_tl id="Cancelled Jobs" var="vCancelled">
+		
+	<cf_UItreeitem value="JobC"
+	       display="<span class='labelit' style='padding-bottom:4px;padding-top:4px;font-size:17px;font-weight:bold'>#vCancelled#</span>"
+			parent="root"									
+	        expand="Yes">		
 		
 		 <cfoutput query="JobCancel" group="JobType">
 	  
@@ -221,56 +191,42 @@
 		    FROM  Ref_OrderClass
 			WHERE Code = '#JobType#'			
 		  </cfquery>
-  		  
-		  <cftreeitem value="#jobType#"
-	        display="#class.description# (#jobType#)"
-			parent="Job"	
-			img="#SESSION.root#/Images/folder_close.png"
-			imgopen="#SESSION.root#/Images/folder_open.png"			
-			expand="No">	
-								
+		  
+		   <cf_UItreeitem value="#jobType#_cancel"
+		        display="<span class='labelit' style='font-size:14px'>#class.description# #jobType#</span>"
+				parent="JobC"
+				target="right" expand="no">	  		  
+		 								
 			<cfoutput>		
-			
-			<cfif last.jobNo eq jobNo>
-				<cfset cl = "<b>">
+									
+			<cfif caseno neq "">		
+					   
+					  <cf_UItreeitem value="#jobNo#" id="#JobNo#"
+		        display="<span class='labelit' style='color:red;font-size:13px;'>#CaseNo#</span>"
+				parent="#JobType#_cancel"
+				href="#Attributes.destination1#?ID=JOB&ID1=#JobNo#&ID2=#Period#"
+				target="right">		   
+					 				  
 			<cfelse>
-			    <cfset cl = "">
-			</cfif>		
-			
-			       <cfif caseno neq "">			   
-				   
-				   <cftreeitem value="#JobNo#"
-	        display="<font color='red'>#cl##CaseNo#</font>"
-			parent="#JobType#"	
-			img="#SESSION.root#/Images/select.png"
-			href="#Attributes.destination1#?ID=JOB&ID1=#JobNo#&ID2=#Period#"
-			target="right">	
-				  
-				   <cfelse>
-				   
-				   <cftreeitem value="#JobNo#"
-	        display="<font color='red'>#cl##JobNo#</font>"
-			parent="#JobTpe#"	
-			img="#SESSION.root#/Images/select.png"
-			href="#Attributes.destination1#?ID=JOB&ID1=#JobNo#&ID2=#Period#"
-			target="right">	
-							   
-				   </cfif>
-				   
-				  <cfif last.jobNo eq jobNo>
-				  
-				  <script>
-				     window.open("#Attributes.destination1#?ID=JOB&ID1=#JobNo#&ID2=#Period#","right")										
-				  </script>
-				  
-				  </cfif>
+					   
+					  <cf_UItreeitem value="#jobNo#" id="#JobNo#"
+		        display="<span class='labelit' style='color:red;font-size:13px;'>#JobNo#</span>"
+				parent="#JobType#_cancel"
+				href="#Attributes.destination1#?ID=JOB&ID1=#JobNo#&ID2=#Period#"
+				target="right">		  				   
+												   
+			</cfif>			
+			       				  
+			<cfif last.jobNo eq jobNo>					  
+			  <cfset openJobNo = JobNo>
+			</cfif>					
 			  	    
 			</cfoutput> 
 							  
 	  </cfoutput>		 
 		
 		
-</cfif>		 
+</cfif>		
 		  
 <cfquery name="PO" 
 	 datasource="AppsPurchase" 
@@ -284,26 +240,37 @@
 </cfquery>
 		 
 <cfif PO.recordcount gte "1"> 
-	  
-	<cf_tl id="Purchase To Issue" var="vPending">
+
+	<cf_tl id="Pending Purchase" var="vPen">
 	
-	<cftreeitem value="Purchase"
-	        display="<span style='color:black;font-size:16px;padding-bottom:4px'>#vPending#</span>"
-			parent="Root"						
-	        expand="No">	
-										
+	<cf_UItreeitem value="JobP"
+	       display="<span class='labelit' style='padding-bottom:4px;padding-top:4px;font-size:17px;font-weight:bold'>#vPen#</span>"
+			parent="root"									
+	        expand="Yes">	
+												
 		  <cfoutput query="PO">
-              		  
-		    <cftreeitem value = "#PurchaseNo#"
-		        display       = "<span style='font-size:12px;padding-bottom:4px'>#PurchaseNo#</span>"
-				parent        = "Purchase"	
-				img           = "#SESSION.root#/Images/po.png"
-				href          = "../../Requisition/RequisitionView/#Attributes.destination2#?ID=PO&ID1=#PurchaseNo#"
-				target        = "right">	
 		  
-		  </cfoutput> 
+		  	  <cf_UItreeitem 
+			    value        = "#PurchaseNo#"
+		        display      = "<span class='labelit' style='font-size:13px'>#PurchaseNo#</span>"
+				parent       = "JobP"
+				href         = "../../Requisition/RequisitionView/#Attributes.destination2#?ID=PO&ID1=#PurchaseNo#"
+				target       = "right">	  
+		  
+		  </cfoutput> 	  
 	  
-</cfif>		  
+</cfif>		 
 	 
-</cftree>
+</cf_UItree>
+
+<cfparam name="openJobNo" default="">
+
+<cfoutput>
+
+  <script>
+	<cfset AjaxOnLoad("function(){ProsisUI.doOpenTree('root','#openReference#');}")>
+     ptoken.open("#Attributes.destination1#?ID=JOB&ID1=#OpenJobNo#&ID2=#Period#","right")
+  </script>
+  
+</cfoutput>  
 

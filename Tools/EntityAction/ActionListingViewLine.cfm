@@ -319,7 +319,7 @@
 								<table align="center" class="Procets-L" style="height:100%;width:100%;height:40px;max-width:360px;background-color:#box#;#vSquareStyle#;">								
 									<tr>									
 									<td style="min-width:10px"></td>	
-									<cfif Dialog.DocumentMode eq "Popup">								
+									<cfif Dialog.DocumentMode eq "Popup">																
 									<td align="center" class="labelmedium" style="width:100%;cursor: pointer;font-size:14px;line-height:14px;color:rgba(255,255,255,1);font-weight:400;height:25px;"
 										  onClick="<cfif Object_op eq 1>#Dialog.DocumentTemplate#('#actioncode#','#actionId#','#url.ajaxid#')</cfif>">#ActionDescription#</td>										  
 									<cfelse>

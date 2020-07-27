@@ -142,7 +142,7 @@ that carry this item and that are enabled --->
 				</cfquery>	
 							
 				<tr onMouseOver="this.style.backgroundColor='f1f1f1'" onMouseOut="this.style.backgroundColor=''">
-					<td valign="top" width="15%" style="padding-top:10px;padding-left:6px; padding-right:6px;border-right:1px solid gray;">#UoMDescription# (#UoM#)</u></font></td>
+					<td valign="top" width="15%" style="padding-top:12px;padding-left:6px; padding-right:6px;border-right:1px solid gray;">#UoMDescription# (#UoM#)</u></font></td>
 					<td>
 						<table class="formpadding" width="100%" align="center">
 							<tr><td height="5"></td></tr>

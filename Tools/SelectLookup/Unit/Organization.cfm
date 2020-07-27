@@ -1,19 +1,6 @@
 <cf_tl id = "Unit" var = "vTitle">
-
-<!---
-<cf_screentop 
-   label="#vTitle#"    
-   height="100%" 
-   scroll="no" 
-   line="no"
-   html="Yes"
-   user="yes"
-   layout="webapp" 
-   banner="gray" 
-   close="ColdFusion.Window.hide('dialog#url.box#')">
-   --->
    
-<table align="center" bgcolor="FFFFFF" width="100%" height="100%">
+<table align="center" width="100%" height="100%">
 
 <tr><td valign="top" height="100%">
 
@@ -100,7 +87,7 @@
 			<input type="button" 
 			   name="search" id="search"
 			   value="<cfoutput>#lt_text#</cfoutput>" 
-			   onclick="ptoken.navigate('#SESSION.root#/tools/selectlookup/Unit/OrganizationResult.cfm?height='+document.body.clientHeight+'&page=1&close=#url.close#&box=#box#&link=#link#&des1=#des1#&filter1=#filter1#&filter1value=#filter1value#&filter2=#filter2#&filter2value=#filter2value#','resultunit#box#','','','POST','selectorg')"
+			   onclick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/tools/selectlookup/Unit/OrganizationResult.cfm?height='+document.body.clientHeight+'&page=1&close=#url.close#&box=#box#&link=#link#&des1=#des1#&filter1=#filter1#&filter1value=#filter1value#&filter2=#filter2#&filter2value=#filter2value#','resultunit#box#','','','POST','selectorg')"
 			   class="button10g">
 			   
 		</td></tr>

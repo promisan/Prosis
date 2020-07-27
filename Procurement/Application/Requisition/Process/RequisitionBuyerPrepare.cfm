@@ -41,7 +41,7 @@
 					
 					<cf_tl id="Pending for" var="vPending">
 					<cf_tl id="Assignment" var="vAssignment">
-					<cf_tl id="Assignned Requests by" var="vAssignedRequests">
+					<cf_tl id="Assigned Requests" var="vAssignedRequests">
 					
 					<cf_menutab item       = "1" 
 					            iconsrc    = "Logos/Procurement/Submit.png" 
