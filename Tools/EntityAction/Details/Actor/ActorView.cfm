@@ -11,15 +11,19 @@
 	AND         ActionCode = '#ActionCode#'
 </cfquery>
 
+<form method="post" name="actorform" id="actorform">
+
 <table style="width:100%" class="navigation_table">
 
 	<tr><td style="height:1px"></td></tr>
 	
+	<tr><td id="process"></td></tr>
+	
 	<tr class="line labelmedium">
 	   <td style="min-width:150px"><cf_tl id="Officer"></td>
-	   <td style="min-width:200px"><cf_tl id="Input"></td>
+	   <td style="min-width:160px"><cf_tl id="Decision"></td>
 	   <td style="width:100%"><cf_tl id="Memo"></td>
-	   <td  style="min-width:90px"><cf_tl id="Stamp"></td>
+	   <td style="min-width:90px"><cf_tl id="Stamp"></td>
 	</tr>
 
 	<cfoutput query="Actor">
@@ -40,10 +44,10 @@
 	
 	    <cfif useraccount eq session.acc or getAdministrator("*") eq "1"> 
 		
-			<tr class="line labelmedium" style="background-color:f4f4f4">
-			   <td style="padding-left:4px">#FirstName# #LastName#</td>
+			<tr class="line labelmedium">
+			   <td style="padding-left:5px;background-color:f4f4f4;padding-right:5px">#FirstName# #LastName#</td>
 			   <td valign="top">
-				   <table style="padding:0px">
+				   <table style="padding-top:2px">
 				   <tr>
 				   <td style="padding-left:4px"><input type="radio" class="radiol" name="#userAccount#_Decision" value="0" <cfif Process.decision eq "0" or Process.decision eq "">checked</cfif>></td><td style="padding-top:3px;padding-left:4px"><cf_tl id="N/A"></td>
 				   <td style="padding-left:8px"><input type="radio" class="radiol" name="#userAccount#_Decision" value="3" <cfif Process.decision eq "3">checked</cfif>></td><td style="padding-top:3px;padding-left:4px"><cf_tl id="Yes"></td>
@@ -54,7 +58,11 @@
 			   <td style="border-left:1px solid silver;border-right:1px solid silver">
 			     <input name="#userAccount#_DecisionMemo" style="width:99%;border:0px" class="regularxl" type="text" value="#Process.DecisionMemo#">
 			   </td>
-			   <td align="center">[save]</td>
+			   <td align="center">
+			   <cf_tl id="Submit" var="1">
+			   <input type="button" value="#lt_text#" style="width:100%"
+			    onclick="ptoken.navigate('#session.root#/Tools/EntityAction/Details/Actor/ActorViewSubmit.cfm?objectid=#objectid#&actionCode=#actionCode#&useraccount=#useraccount#','process','','','POST','actorform')">
+				</td>
 			</tr>
 			
 		<cfelse>
@@ -73,6 +81,8 @@
 	</cfoutput>
 
 </table>	
+
+</form>
 
 <cfset ajaxonload("doHighlight")>
 

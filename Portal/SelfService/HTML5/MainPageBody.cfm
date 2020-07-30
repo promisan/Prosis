@@ -318,6 +318,43 @@
 			</div>
 		</div>
 	</div>
+
+	<!--- CLEARANCES MENU CONTAINER --->
+	<div class="clsMainMenuOverlay" id="MainMenuClearances">
+		<div class="clsMainMenuOverlayContainer">
+			<div class="clsMainMenuOverlayClose">
+				<cfoutput><img src="#imageDirectory#/x.png" id="btnMainMenuClearancesHide"></cfoutput>
+			</div>
+			
+			<div class="clsMainMenuOverlayItemContainer clsMainMenuOverlayItemContainerFull">
+				<cfset vClearancesURL = URLEncodedFormat("#session.root#/System/EntityAction/EntityView/MyClearances.cfm?height=80&ts=#getTickCount()#")>
+				<div class="clsMainMenuURL" id="PortalViewSrc_Clearances" style="display:none;"><cfoutput>#vClearancesURL#</cfoutput></div>
+				<!--- Clearances Item --->
+				<div class="clsMainMenuOverlayClearances">
+					
+					<cfif vPortalMode eq "default">
+						<div class="clsDataContainerFrameBusy" id="busy_Clearances">
+							<cfoutput><img src="#imageDirectory#/busyW8.gif"></cfoutput>
+						</div>
+						<cfoutput>
+							<iframe marginheight="0" 
+								marginwidth="0" 
+								frameborder="0" 
+								allowTransparency="true"
+								id="PortalView_Clearances" 
+								class="clsIframeContent"
+								scrolling="no"
+								style="height:125%; width:98%; background-color:white; display:block; margin-top:10px; margin-left:15px;" 
+								src="">
+							</iframe>
+						</cfoutput>
+					</cfif>
+					
+				</div>
+			
+			</div>
+		</div>
+	</div>
 	
 	<!--- SITE HEADER --->
     <div class="clsHeader clsTopColor" id="pageHeader">
@@ -507,7 +544,6 @@
 			</cfif>
 			
 			<cfif vShowPreferences eq 1>
-			
 				<cfif (qShowPublicPreferences.recordCount eq 1 and vPortalMode eq "login") or vPortalMode eq "default">
 					<div class="clsMainMenuContainer" id="mainMenuPreferences">
 						<img src="#imageDirectory#/preferences.png" class="clsAnimate">
@@ -516,6 +552,24 @@
 						</div>
 					</div>
 				</cfif>
+			</cfif>
+
+			<cfset vShowClearances = 0>
+			<cfif qClearances.recordCount eq 0>
+				<cfset vShowClearances = 0>
+			<cfelseif qClearances.recordCount eq 1>
+				<cfif qClearances.Operational eq 1>
+					<cfset vShowClearances = 1>
+				</cfif>
+			</cfif>
+			
+			<cfif vShowClearances eq 1 and vPortalMode eq "default">
+				<div class="clsMainMenuContainer" id="mainMenuClearances">
+					<img src="#imageDirectory#/clearances.png" class="clsAnimate">
+					<div class="clsMainMenuContainerText">
+						<cf_tl id="Clearances">
+					</div>
+				</div>
 			</cfif>
                 
             <cfif vPortalMode eq "default" and qGetSupport.recordCount gt 0 and vShowConfigurations eq 1>
@@ -528,7 +582,6 @@
 			</cfif>
 			
 			<cfif vPortalMode eq "default">
-			
 				<div class="clsMainMenuContainer" 
 					onclick="_logout('#url.id#');">
 					<img src="#imageDirectory#/logout.png" class="clsAnimate">
@@ -844,7 +897,7 @@
 		carousel.showPane(0);
 		
 		//Hide menus
-		toggleMenuOverlay(false, '#MainMenu, #MainMenuOptions, #MainMenuLogin', '0px', function(){ 
+		toggleMenuOverlay(false, '#MainMenu, #MainMenuOptions, #MainMenuClearances, #MainMenuLogin', '0px', function(){ 
 			//Show main menu
 			<cfif vPortalMode eq "default">
 				<cfset vInitShowMenu = 0>

@@ -52,7 +52,7 @@
 		</tr>
 		
 		<tr class="labelmedium">
-			<TD><cf_tl id="Program">:</TD>
+			<TD style="width:190px"><cf_tl id="Program">:</TD>
 	        <td align="left" style="padding-top:3px">
 			   			
 			    <select name="programcode" id="programcode" style="width:300px;" class="regularxl">

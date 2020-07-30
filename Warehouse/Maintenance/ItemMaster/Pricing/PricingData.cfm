@@ -100,6 +100,15 @@ password="#SESSION.dbpw#">
 	WHERE 	ItemNo = '#URL.ID#'
 </cfquery>
 
+<cfquery name="Category" 
+datasource="appsMaterials" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT 	*
+	FROM 	Ref_Category
+	WHERE 	Category = '#Item.Category#'
+</cfquery>
+
 <cfquery name="ItemUoM"
 	datasource="AppsMaterials" 
 	username="#SESSION.login#" 
@@ -138,13 +147,13 @@ password="#SESSION.dbpw#">
 	
 	<tr><td colspan="3" height="2"></td></tr>
 	
-	<tr><td colspan="3" class="line">
+	<tr class="line"><td colspan="3">
 	
 		<table width="100%" class="formpadding">
 		
 			<TR class="labelmedium">
 		    <td height="14" width="140"><cf_tl id="Item">:</td>
-		    <TD width="80%">#item.ItemNo#
+		    <TD width="80%">#item.ItemNo# #Category.Description#
 		    </td>
 		    </tr>
 		
@@ -232,7 +241,7 @@ password="#SESSION.dbpw#">
 		
 	</cfoutput>
 		
-	<tr><td colspan="11" height="34" align="center">
+	<tr><td colspan="12" height="34" align="center">
 	<input type="submit" class="button10g" style="width:150" name="Save" id="Save" value="Save">
 	</td></tr>
 	

@@ -6,6 +6,7 @@
 <cfparam name="URL.Me" 				default="false">
 <cfparam name="URL.mode" 			default="">
 <cfparam name="URL.search" 			default="">
+<cfparam name="URL.height" 			default="100">
 
 <cf_tl id="My Clearances" var="vMainLabel">
 <cfset vLayout = "webapp">
@@ -68,10 +69,12 @@
 		}
 	</style>
 
-	<div style="height:100%;" class="toggleScroll-y">
-		<cfset vParameters = "mode=#url.mode#&EntityGroup=#URL.EntityGroup#&Mission=#URL.Mission#&Owner=#URL.Owner#&me=#url.me#&search=#url.search#">
-		<cfdiv style       = "position:sticky; top:0px; z-index:1; background-color:##FFFFFF; padding-bottom:0px; back" bind="url:#SESSION.root#/system/entityaction/entityview/MyClearancesFilters.cfm?#vParameters#" id="head"/>
-		<cfdiv bind        = "url:#SESSION.root#/system/entityaction/entityview/MyClearancesDetail.cfm?#vParameters#" id="listing" />
-	</div>
+	<cfoutput>
+		<div style="height:#URL.height#%;" class="toggleScroll-y">
+			<cfset vParameters = "mode=#url.mode#&EntityGroup=#URL.EntityGroup#&Mission=#URL.Mission#&Owner=#URL.Owner#&me=#url.me#&search=#url.search#">
+			<cfdiv style       = "position:sticky; top:0px; z-index:1; background-color:##FFFFFF; padding-bottom:0px; back" bind="url:#SESSION.root#/system/entityaction/entityview/MyClearancesFilters.cfm?#vParameters#" id="head"/>
+			<cfdiv bind        = "url:#SESSION.root#/system/entityaction/entityview/MyClearancesDetail.cfm?#vParameters#" id="listing" />
+		</div>
+	</cfoutput>
 
 <cf_screenbottom layout="#vLayout#">

@@ -370,8 +370,7 @@
 
 </cfoutput>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table formpadding"
-    style="background-color:white; padding:5px">
+<table width="100%" align="center" class="navigation_table formpadding" style="background-color:white; padding:3px">
 	
 <cfset Fun = "new">
 <cfset Org = "new">
@@ -424,17 +423,15 @@
 			</cfif>
 		
 		</cfif>
-		
-		
-
-		<tr class="pleft labelmedium fixrow" style="border-top:1px solid silver">
-		    <td height="18"></td>
-			<td></td>	
-			<td><cfif url.edition eq ""><cf_tl id="Edition"></cfif></td>
-			<td><cf_tl id="Grade"> </td>	
-		    <td><cf_tl id="Function"></td>																
-		    <td><cf_tl id="JO"></td>
-			<TD><cf_space spaces="30"><cf_tl id="Track"></TD>			
+	
+		<tr class="pleft labelmedium fixrow">
+		    <td style="border-top:1px solid silver" height="18"></td>
+			<td style="border-top:1px solid silver"></td>	
+			<td style="border-top:1px solid silver"><cfif url.edition eq ""><cf_tl id="Edition"></cfif></td>
+			<td style="border-top:1px solid silver"><cf_tl id="Grade"> </td>	
+		    <td style="border-top:1px solid silver"><cf_tl id="Function"></td>																
+		    <td style="border-top:1px solid silver"><cf_tl id="JO"></td>
+			<TD style="border-top:1px solid silver"><cf_space spaces="30"><cf_tl id="Track"></TD>			
 			
 			<cfset priorEdition = "">
 			
@@ -453,7 +450,7 @@
 					</cfquery>	
 					
 					<cfoutput>
-					    <TD width="1%" style="background-color:f1f1f1;border:1px solid silver" class="cellcontent" align="center"><a style="cursor: pointer;" title="#text.meaning#">#text.TextHeader#</a>&nbsp;</TD>
+					    <TD style="min-width:45px;background-color:f1f1f1;border:1px solid silver" class="cellcontent" align="center"><a style="cursor: pointer;" title="#text.meaning#">#text.TextHeader#</a></TD>
 					</cfoutput> 
 					
 			</cfloop>					
@@ -467,16 +464,14 @@
 				
 		<cfoutput query="FunctionAll" group="SubmissionEdition">		
 		
-		    <cfif url.edition eq "All">
-		    <tr><td colspan="#col#" class="line"></td></tr>
-			<tr class="line fixrow2"><td colspan="#col#" class="labelmedium" style="font-weight:250;height:45px;font-size:26px;padding-left:10px">#EditionDescription#</td></tr>			
+		    <cfif url.edition eq "All">		    
+			<tr class="line fixrow2" style="border-top:1px solid silver"><td colspan="#col#" class="labelmedium" style="font-weight:250;height:45px;font-size:26px;padding-left:10px">#EditionDescription#</td></tr>			
 			</cfif>
 								
 		<cfoutput group="OrganizationDescription">			
 		
-			<cfif OrganizationDescription neq "[All]">		
-		    <tr><td colspan="#col#" class="line"></td></tr>
-			<tr><td></td><td colspan="#col-1#" class="labelmedium" style="height:20px;padding-left:18px"><font size="2"><cf_tl id="Area">:</font>&nbsp;<font color="gray">#OrganizationDescription#</b></td></tr>			
+			<cfif OrganizationDescription neq "[All]">				    
+			<tr class="line" style="border-top:1px solid silver"><td></td><td colspan="#col-1#" class="labelmedium" style="height:20px;padding-left:18px"><font size="2"><cf_tl id="Area">:</font>&nbsp;<font color="gray">#OrganizationDescription#</b></td></tr>			
 			</cfif>
 				
 		<cfset prior = "">
@@ -484,9 +479,8 @@
 		<cfoutput group="FunctionDescription">
 				
 		<cfif URL.search eq "1">
-		
-			<tr><td height="1" colspan="#col#" class="line"></td></tr>
-			<tr>
+					
+			<tr class="line" style="border-top:1px solid silver">
 			  <td width="100%" height="1" colspan="#col#">
 			   <table width="100%" border="0" cellspacing="0" cellpadding="0">
 			   <tr>
@@ -507,28 +501,29 @@
 		<cfset row = row + 1>
 							
 			<cfif total eq ""> 		
-			   <tr bgcolor="f4f4f4" id="line_#functionId#" class="navigation_row" style="height:25px">
+			   <tr bgcolor="f4f4f4" id="line_#functionId#" class="navigation_row line labelmedium" style="height:21px">
 			<cfelseif Status eq "9">  
-			   <tr bgcolor="FCFBE0" id="line_#functionId#" class="navigation_row" style="height:25px"> 
+			   <tr bgcolor="FCFBE0" id="line_#functionId#" class="navigation_row line labelmedium" style="height:21px"> 
 			<cfelse> 
-			   <TR bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('FFFFFF'))#" id="line_#functionId#" class="navigation_row" style="height:25px">
+			   <TR bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('FFFFFF'))#" id="line_#functionId#" class="navigation_row line labelmedium" style="height:21px">
 			</cfif>
 		
 		   	<td width="30" class="cellcontent" bgcolor="white" style="padding-left:20px;padding-right:3px">#row#.</td>													  
-			<td class="line" style="min-width:100px"> 
+									
+			<td style="min-width:100px"> 
 						    				 
-				  <table><tr>
+				  <table><tr style="height:20px">
 					
 				   <td style="min-width:40px;padding-left:4px">	   				  
 				   <cfif Status eq "9">				      
 				   	   <img src="#SESSION.root#/Images/na.gif" alt="Vacancy has been cancelled" width="12" height="12" border="0">					   
 				   </cfif>
-				   </td>	
+				   </td>					  		  
 				   
 				    <td style="min-width:40px;padding-left:6px;padding-right:1px;padding-top:1px">					
 					  <cf_img icon="edit" navigation="Yes" onClick="details('#functionId#');">														 
-				    </td>
-																	
+				    </td>					
+																						
 					<cfif Total gt 0 and Access eq "1"> 
 					
 					<td width="20" style="min-width:40px;padding-right:1px;padding-top:2px">					
@@ -608,7 +603,7 @@
 						<cfcatch></cfcatch>
 					
 					</cftry>
-									
+														
 				    <!---
 					<cfif Access eq "0">
 					  <img src="#SESSION.root#/Images/readonly.jpg" alt="Read only" border="0">
@@ -619,8 +614,8 @@
 				</table>
 			
 			</td>	
-			
-			<td width="1%" class="cellcontent line" style="padding-right:6px">
+									
+			<td width="1%" class="cellcontent" style="padding-right:6px">
 			    <!---
 				<cfif url.edition eq "All">
 					<cfif SubmissionEdition neq priorEdition>
@@ -633,10 +628,10 @@
 				--->
 			</td>
 			
-			<td width="6%" class="cellcontent line" style="min-width:80px"> 
+			<td width="6%" class="cellcontent" style="min-width:80px"> 
 				#left(GradeDeployment,12)#</td>		
 			
-			<td width="45%" class="cellcontent line" style="min-width:200px">
+			<td width="45%" class="cellcontent" style="min-width:200px">
 							
 			    <cfif URL.search eq "0">
 				    
@@ -657,7 +652,7 @@
 				
 			</td>							
 			
-			<td width="14%" class="line cellcontent" style="padding-right:4px">
+			<td width="14%" class="cellcontent" style="padding-right:4px">
 			    <cfif ReferenceNo neq "Direct">
 			    <A href="javascript:va('#functionId#')">#ReferenceNo#</a>
 				<cfelse>
@@ -665,7 +660,7 @@
 				</cfif>
 			</td>
 			
-			<td width="16%" class="cellcontent line" style="border-right:1px solid silver;">
+			<td width="16%" class="cellcontent" style="border-right:1px solid silver;">
 			
 			<cfif PostSpecific eq "0">			
 				<font color="gray">Generic</font>			
@@ -712,14 +707,14 @@
 					WHERE    Status = '#st#'
 				</cfquery>	
 				
-				<TD class="cellcontent line" align="right" bgcolor="<cfif Access eq '2' and #evaluate('Status_#st#')# gt "0">E9E9D1</cfif>"
-				style="background-color:#color.showrostercolor#;padding-right:2;border-right: solid 1px silver;min-width:60px">			
+				<TD class="cellcontent" align="right" bgcolor="<cfif Access eq '2' and #evaluate('Status_#st#')# gt "0">E9E9D1</cfif>"
+				style="background-color:###color.showrostercolor#80;padding-right:2;border-right: solid 1px silver">			
 				#evaluate('Status_#st#')#
 				</TD>
 			</cfloop>
-									
-			<TD class="cellcontent line" align="right" style="min-width:80px;padding-right:2px;border-right:solid 1px gray;background-color:##e1e1e150">#Total#</TD>
-						 
+												
+			<TD class="cellcontent" align="right" style="min-width:60px;padding-right:2px;border-right:solid 1px gray;background-color:##e1e1e150">#Total#</TD>
+									 
 		</TR>		
 		
 		<cfset prior = FunctionDescription>					
@@ -728,7 +723,6 @@
 	
 	</CFOUTPUT>
 	
-	<tr><td class="line" colspan="18"></td></tr>
 	
 	</CFOUTPUT>
 	

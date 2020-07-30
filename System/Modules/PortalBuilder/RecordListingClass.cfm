@@ -72,7 +72,8 @@
 					or functionName eq "ShowLanguageFlag"
 					or functionName eq "ForgotUsername"
 					or functionName eq "IconSet"
-					or functionName eq "ShowLoginOnInit">
+					or functionName eq "ShowLoginOnInit"
+					or functionName eq "Clearances">
 						<cfset vShowThisRow = true>
 				</cfif>
 				<cfif functionName eq "CustomLogin" and systemModule eq "PMobile">

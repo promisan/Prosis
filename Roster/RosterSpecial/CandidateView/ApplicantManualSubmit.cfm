@@ -5,28 +5,29 @@
 datasource="AppsSelection" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-	SELECT *
-	FROM   FunctionOrganization
-	WHERE  FunctionId = '#URL.IDFunction#'
+    SELECT  FO.*, R.Owner
+	FROM    FunctionOrganization AS FO INNER JOIN
+            Ref_SubmissionEdition AS R ON FO.SubmissionEdition = R.SubmissionEdition	
+	WHERE   FunctionId = '#URL.IDFunction#'
 </cfquery>
 
 <cfquery name="Person" 
 datasource="AppsSelection" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-	SELECT *
-	FROM   Applicant
-	WHERE  PersonNo = '#URL.PersonNo#'
+	 SELECT *
+	 FROM   Applicant
+	 WHERE  PersonNo = '#URL.PersonNo#'
 </cfquery>
 
 <cfquery name="Verify" 
 datasource="AppsSelection" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-	SELECT ApplicantNo
-	FROM   ApplicantSubmission
-	WHERE  PersonNo = '#URL.PersonNo#'
-	AND    SubmissionEdition = '#Bucket.SubmissionEdition#' 	
+	 SELECT ApplicantNo
+	 FROM   ApplicantSubmission
+	 WHERE  PersonNo          = '#URL.PersonNo#'
+	 AND    SubmissionEdition = '#Bucket.SubmissionEdition#' 	
 </cfquery>
 
 <cfif Verify.recordcount eq "0">
@@ -51,7 +52,7 @@ password="#SESSION.dbpw#">
 		datasource="AppsSelection" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-			SELECT    DefaultPHPEntry
+			SELECT    DefaultPHPSource as Source
 			FROM      Ref_ParameterOwner
 			WHERE     Owner = '#Bucket.Owner#'		
 	   </cfquery>	
@@ -87,7 +88,6 @@ password="#SESSION.dbpw#">
 
 </cfif>
 
-<cfset Source = "Manual">
 
 <cfif Person.recordcount eq "1">
 	

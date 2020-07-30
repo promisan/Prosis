@@ -120,6 +120,17 @@ function showOptions() {
 		toggleMenuOverlay(false, '#MainMenuOptions', '0px', function() { });
 	}
 }
+//Show Clearances
+function showClearances() {
+	if ($('#MainMenuClearances .clsMainMenuOverlayClose img').css('visibility') == 'hidden') {
+		hideMenus();
+		toggleMenuOverlay(true, '#MainMenuClearances', '0px', function() {
+			refreshIframeOnDemand('Clearances', true, function() {});
+		});
+	}else{
+		toggleMenuOverlay(false, '#MainMenuClearances', '0px', function() { });
+	}
+}
 
 //Show Portal Configurations
 function showConfigurations(rt,id) {
@@ -339,9 +350,18 @@ $('#mainMenuPreferences').on('click', function(){
 	showOptions();
 });
 
+$('#mainMenuClearances').on('click', function(){ 
+	showClearances();
+});
+
 $('#btnMainMenuOptionsHide').on('click', function(){
 	$('#PortalView_Options').attr('src', '');
 	toggleMenuOverlay(false, '#MainMenuOptions', '0px', function() {});
+});
+
+$('#btnMainMenuClearancesHide').on('click', function(){
+	$('#PortalView_Clearances').attr('src', '');
+	toggleMenuOverlay(false, '#MainMenuClearances', '0px', function() {});
 });
 
 $('#mainMenuLogin').on('click', function(){ 

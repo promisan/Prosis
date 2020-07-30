@@ -23,7 +23,7 @@
 		
 	<cfelseif vMenuClass eq "Function">
 	
-		<cfset defaultOptions = "Logout,Login,ToggleHeader,Preferences,BeforeLogout,CustomCSS,AutohideMenu,Preferences,InitShowMenu,AutoIE8,CustomInformation,RequestAccess,ForgotPassword,LanguageTopMenu,ShowPublicPreferences,ShowPublicInformation,PreferencesPassword,Configurations,PreferencesFeatures,PreferencesAnnotations,PreferencesLDAPMailbox,InformationEntity,ShowPrivateInformation,ShowMenuInfo,ShowSupportMenu,OnLogin,OnFinishPreparation,ShowLanguageFlag,ForgotUsername,IconSet,ShowLoginOnInit">
+		<cfset defaultOptions = "Logout,Login,ToggleHeader,Preferences,BeforeLogout,CustomCSS,AutohideMenu,Preferences,InitShowMenu,AutoIE8,CustomInformation,RequestAccess,ForgotPassword,LanguageTopMenu,ShowPublicPreferences,ShowPublicInformation,PreferencesPassword,Configurations,PreferencesFeatures,PreferencesAnnotations,PreferencesLDAPMailbox,InformationEntity,ShowPrivateInformation,ShowMenuInfo,ShowSupportMenu,OnLogin,OnFinishPreparation,ShowLanguageFlag,ForgotUsername,IconSet,ShowLoginOnInit,Clearances">
 		<cfif url.systemModule eq "PMobile">
 			<cfset defaultOptions = "CustomLogin">
 		</cfif>
@@ -60,6 +60,7 @@
 				or (vMenuClass eq "Function" and defaultOption eq "LanguageTopMenu")
 				or (vMenuClass eq "Function" and defaultOption eq "ShowSupportMenu")
 				or (vMenuClass eq "Function" and defaultOption eq "ShowLoginOnInit")
+				or (vMenuClass eq "Function" and defaultOption eq "Clearances")
 				or (vMenuClass eq "Menu" and defaultOption eq "FAQ")>
 				
 					<cfset vOperational = 0>

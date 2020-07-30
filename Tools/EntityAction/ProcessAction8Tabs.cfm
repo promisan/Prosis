@@ -278,8 +278,14 @@
 	        
    </cfif>   
    
+   
    <cfif boxno gte "2">
-   <script>     
-	   document.getElementById('menu1').click()	  
+   
+   <script>  
+       
+	   if document.getElementById('content1box') {
+		   document.getElementById('menu1').click()
+	   }
    </script>
+   
    </cfif>

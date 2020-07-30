@@ -195,18 +195,18 @@
 	 		AND     H.ActionStatus IN ('0','1')	
 			
 			<cfif lng eq "Current">								   
-			AND      H.#datefield# BETWEEN #SQL_TODAYMINUS30# AND #SQL_TODAY# 	
+			AND      LH.#datefield# BETWEEN #SQL_TODAYMINUS30# AND #SQL_TODAY# 	
 			<cfelseif lng eq "Closing">											   
-			AND      H.#datefield# BETWEEN #SQL_TODAYMINUS3# AND #SQL_TODAY# 		
+			AND      LH.#datefield# BETWEEN #SQL_TODAYMINUS3# AND #SQL_TODAY# 		
 			<cfelseif lng eq "Historic">
 			AND      (
-				     H.#datefield# #preservesingleQuotes(SQL_MONTH)# 
-				     OR H.#datefield# #preservesingleQuotes(SQL_YEAR)# 
-			         OR H.#datefield# #preservesingleQuotes(SQL_YEARAGO)# 
-				     OR H.#dateField# #preservesingleQuotes(SQL_YEARAGO2)#
+				     LH.#datefield# #preservesingleQuotes(SQL_MONTH)# 
+				     OR LH.#datefield# #preservesingleQuotes(SQL_YEAR)# 
+			         OR LH.#datefield# #preservesingleQuotes(SQL_YEARAGO)# 
+				     OR LH.#dateField# #preservesingleQuotes(SQL_YEARAGO2)#
 				      )					   
 			<cfelse>
-			AND      H.#datefield# IN (#SQL_TODAY#,#SQL_YESTERDAY#)  
+			AND      LH.#datefield# IN (#SQL_TODAY#,#SQL_YESTERDAY#)  
 			</cfif> 				
 													   
 			GROUP BY L.GlAccount, 

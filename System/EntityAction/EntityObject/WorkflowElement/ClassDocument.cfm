@@ -123,10 +123,10 @@
 
 </cfif>
 
+	<cf_divscroll>
+		
 	<table width="94%" align="center">
-		    
-	  <tr><td height="10"></td></tr>	
-	  
+		  
 	  <tr>
 	    <td width="100%">
 	    <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -149,32 +149,33 @@
 			AND      ObjectFilter > ''
 		    ORDER BY ObjectFilter
 		</cfquery>	  		
-			
-		<cfoutput query="Detail" group="DocumentType">
 		
-		<tr><td height="16"></td></tr>
-		
-		<cfif DocumentType eq "Attach">
-		<tr><td colspan="6" style="font-size:20px;font-weight:200" class="labelmedium">Attachment</td></tr>
-		<cfelseif DocumentType eq "Field">
-		<tr><td colspan="6" style="font-size:20px;font-weight:200" class="labelmedium">Custom Fields</td></tr>
-		<cfelseif DocumentType eq "dialog">
-		<tr><td colspan="6" style="font-size:20px;font-weight:200" class="labelmedium">Custom Dialogs (not enabled yet, please use custom dialog on the standard setting tab)</td></tr>
-		<cfelse>		
-		<tr><td colspan="6" style="font-size:20px;font-weight:200" class="labelmedium">Standard workflow-only dialogs</td></tr>
-		</cfif>
-				
-		<tr><td height="4"></td></tr>
-		
-		 <TR class="line labelmedium">
+		 <TR class="line labelmedium fixrow">
 		   <td style="min-width:40px;padding-left:5px"></td>	
 		   <td style="min-width:40px;padding-left:4px"><cf_tl id="Code"></td>
 		   <td width="40%"><cf_tl id="Description"></td>
 		   <td width="30%"><cf_tl id="Apply"></td>
 		   <td width="6%"><cf_tl id="Sort"></td>
-		   <td width="10%" align="center"><cfif DocumentType eq "Field"><cf_tl id="Type"></cfif></td>		  
+		   <td width="10%" align="center"><cf_tl id="Type"></td>		  
 		  	  
 	    </TR>	
+			
+		<cfoutput query="Detail" group="DocumentType">	
+		
+		<tr><td style="height:3px"></td></tr>		
+		
+		<cfif DocumentType eq "Attach">
+		<tr><td colspan="6" style="font-size:20px" class="labelmedium">Attachments</td></tr>
+		<cfelseif DocumentType eq "Field">
+		<tr><td colspan="6" style="font-size:20px" class="labelmedium">Custom Fields</td></tr>
+		<cfelseif DocumentType eq "dialog">
+		<tr><td colspan="6" style="font-size:20px" class="labelmedium">Custom Dialogs <font size="1">(not enabled yet, please use custom dialog on the standard setting tab)</td></tr>
+		<cfelse>		
+		<tr><td colspan="6" style="font-size:20px" class="labelmedium">Standard workflow-only dialogs</td></tr>
+		</cfif>
+		
+		<tr><td style="height:3px"></td></tr>	
+		
 				
 		<cfoutput>			
 										
@@ -280,3 +281,5 @@
 		<tr><td id="savedoc"></td></tr>
 							
 	</table>	
+	
+	</cf_divscroll>

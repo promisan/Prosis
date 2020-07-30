@@ -12,7 +12,7 @@
 				           Pe.Mission,
 						   Pe.PositionNo,
 						   Pe.DocumentNo,
-						   Pe.ContractNo,
+						  <!--- Pe.ContractNo, --->
 				           R.Description, 
 						   Pe.DateEvent, 
 						   Pe.DateEventDue,

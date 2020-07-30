@@ -98,8 +98,7 @@
 	</cfquery>
 	
 	<cftransaction isolation="READ_UNCOMMITTED">
-	
-	
+		
 				
 	<cfquery name="getSales"
 		datasource="AppsWorkOrder" 
@@ -127,37 +126,62 @@
 	 		AND      H.ActionStatus IN ('0','1')	
 			
 			<cfif url.conditionfield eq "mission">
-			AND      H.Mission = '#url.conditionvalue#'	
+			AND      H.Mission = '#url.conditionvalue#'							
 			<cfelse>	
 			
-			<!--- valid for the select unit --->
+			AND      H.OrgUnitOwner IN (SELECT OrgUnit 
+								        FROM   Organization.dbo.Organization
+										WHERE  MissionorgUnitId ='#url.conditionvalue#')	
 			
-			AND     ( EXISTS  (	
-								<!--- WorkOrderLineCharge : service mode --->
-								
-								SELECT   WL.WorkOrderLineId
+			</cfif>
+			
+			<!--- valid for a workorder --->
+			
+			AND      EXISTS  (	SELECT   'X'
 								FROM     WorkOrder.dbo.WorkOrderLine AS WL INNER JOIN
 				                         WorkOrder.dbo.WorkOrder AS W ON WL.WorkOrderId = W.WorkOrderId 
 								WHERE    WL.WorkOrderLineId = H.TransactionSourceId								
 								AND      OrgUnitImplementer IN (SELECT OrgUnit 
 								                                FROM   Organization.dbo.Organization
-															    WHERE  MissionorgUnitId ='#url.conditionvalue#')
-								)
+															    <cfif url.conditionfield eq "mission">
+																WHERE   Mission = '#url.conditionvalue#'
+																<cfelse>
+															    WHERE  MissionorgUnitId ='#url.conditionvalue#'
+																</cfif>)
 								
-						OR 
-					EXISTS
-							(
+								UNION
+								
+								SELECT   'X'
+								FROM     WorkOrder.dbo.WorkOrderLine AS WL INNER JOIN
+				                         WorkOrder.dbo.WorkOrder AS W ON WL.WorkOrderId = W.WorkOrderId INNER JOIN
+				                         WorkOrder.dbo.WorkOrderLineCharge WC ON WC.WorkOrderId = WL.WorkOrderId AND WC.WorkOrderLine = Wl.WorkOrderLine
+								WHERE    WL.WorkOrderLineId = H.TransactionSourceId								
+								AND      WC.OrgUnit IN (SELECT OrgUnit 
+								                        FROM   Organization.dbo.Organization
+													    <cfif url.conditionfield eq "mission">
+														WHERE   Mission = '#url.conditionvalue#'
+														<cfelse>
+													    WHERE  MissionorgUnitId ='#url.conditionvalue#'
+														</cfif>)	
+																
+								UNION
+								
 								<!--- workorder item mode : workorder mode --->
-								SELECT   WL.WorkOrderId
+								
+								SELECT   'X'
 								FROM     WorkOrder.dbo.WorkOrderLine AS WL INNER JOIN
 				                         WorkOrder.dbo.WorkOrder AS W ON WL.WorkOrderId = W.WorkOrderId 
 								WHERE    WL.WorkOrderId = H.TransactionSourceId								
 								AND      OrgUnitImplementer IN (SELECT OrgUnit 
 								                                FROM   Organization.dbo.Organization
-															    WHERE  MissionorgUnitId ='#url.conditionvalue#') 
-							)			
-					)			
-			</cfif>
+															    <cfif url.conditionfield eq "mission">
+																WHERE   Mission = '#url.conditionvalue#'
+																<cfelse>
+															    WHERE  MissionorgUnitId ='#url.conditionvalue#'
+																</cfif>)								
+								 
+							)		
+						
 						
 			<cfif lng eq "Current">								   
 			AND      H.#datefield# BETWEEN #SQL_TODAYMINUS30# AND #SQL_TODAY# 		
@@ -178,7 +202,8 @@
 			         A.Description, 
 					 H.#datefield#
 					 
-			UNION			
+			UNION	
+			
 			
 			SELECT 'Settlement' AS Mode,
 			        L.GLAccount,
@@ -196,8 +221,16 @@
 					INNER JOIN Accounting.dbo.Ref_Account A ON L.GlAccount = A.GlAccount
 					
 			<cfif url.conditionfield eq "mission">
-			AND      H.Mission = '#url.conditionvalue#'	
-			<cfelse>			
+			AND      LH.Mission = '#url.conditionvalue#'	
+			<cfelse>	
+			
+			AND      LH.OrgUnitOwner IN (SELECT OrgUnit 
+						  		         FROM   Organization.dbo.Organization
+										 WHERE  MissionorgUnitId ='#url.conditionvalue#')		
+										 
+			</cfif>
+			
+			<!--- valid for a workorder --->							 	
 						
 			AND      EXISTS  (	SELECT   'X'
 								FROM     WorkOrder.dbo.WorkOrderLine AS WL INNER JOIN
@@ -205,8 +238,26 @@
 								WHERE    WL.WorkOrderLineId = LH.TransactionSourceId								
 								AND      OrgUnitImplementer IN (SELECT OrgUnit 
 								                                FROM   Organization.dbo.Organization
-															    WHERE  MissionorgUnitId ='#url.conditionvalue#')
+															    <cfif url.conditionfield eq "mission">
+																WHERE   Mission = '#url.conditionvalue#'
+																<cfelse>
+															    WHERE  MissionorgUnitId ='#url.conditionvalue#'
+																</cfif>)
 								
+								UNION
+								
+								SELECT   'X'
+								FROM     WorkOrder.dbo.WorkOrderLine AS WL INNER JOIN
+				                         WorkOrder.dbo.WorkOrder AS W ON WL.WorkOrderId = W.WorkOrderId INNER JOIN
+				                         WorkOrder.dbo.WorkOrderLineCharge WC ON WC.WorkOrderId = WL.WorkOrderId AND WC.WorkOrderLine = Wl.WorkOrderLine
+								WHERE    WL.WorkOrderLineId = LH.TransactionSourceId								
+								AND      WC.OrgUnit IN (SELECT OrgUnit 
+								                        FROM   Organization.dbo.Organization
+													    <cfif url.conditionfield eq "mission">
+														WHERE   Mission = '#url.conditionvalue#'
+														<cfelse>
+													    WHERE  MissionorgUnitId ='#url.conditionvalue#'
+														</cfif>)	
 																
 								UNION
 								
@@ -218,17 +269,20 @@
 								WHERE    WL.WorkOrderId = H.TransactionSourceId								
 								AND      OrgUnitImplementer IN (SELECT OrgUnit 
 								                                FROM   Organization.dbo.Organization
-															    WHERE  MissionorgUnitId ='#url.conditionvalue#')								
+															    <cfif url.conditionfield eq "mission">
+																WHERE   Mission = '#url.conditionvalue#'
+																<cfelse>
+															    WHERE  MissionorgUnitId ='#url.conditionvalue#'
+																</cfif>)								
 								 
 							)		
 							
 			
-			</cfif>
-											   
+														   
 			AND      LH.RecordStatus    = '1'
 	 		AND      LH.ActionStatus IN ('0','1')	
 			
-			WHERE 	 H.TransactionSource   = 'WorkOrderSeries'
+			WHERE 	 LH.TransactionSource   IN ('WorkOrderSeries','AccountSeries')
 											   
 			AND  
         			(
@@ -241,25 +295,27 @@
 	 		AND     H.ActionStatus IN ('0','1')	
 			
 			<cfif lng eq "Current">								   
-			AND      H.#datefield# BETWEEN #SQL_TODAYMINUS30# AND #SQL_TODAY# 	
+			AND      LH.#datefield# BETWEEN #SQL_TODAYMINUS30# AND #SQL_TODAY# 	
 			<cfelseif lng eq "Closing">											   
-			AND      H.#datefield# BETWEEN #SQL_TODAYMINUS3# AND #SQL_TODAY# 		
+			AND      LH.#datefield# BETWEEN #SQL_TODAYMINUS3# AND #SQL_TODAY# 		
 			<cfelseif lng eq "Historic">
 			AND      (
-					  H.#datefield# #preservesingleQuotes(SQL_MONTH)# 
-				   OR H.#datefield# #preservesingleQuotes(SQL_YEAR)# 
-			       OR H.#datefield# #preservesingleQuotes(SQL_YEARAGO)# 
-				   OR H.#dateField# #preservesingleQuotes(SQL_YEARAGO2)#
+					  LH.#datefield# #preservesingleQuotes(SQL_MONTH)# 
+				   OR LH.#datefield# #preservesingleQuotes(SQL_YEAR)# 
+			       OR LH.#datefield# #preservesingleQuotes(SQL_YEARAGO)# 
+				   OR LH.#dateField# #preservesingleQuotes(SQL_YEARAGO2)#
 				      ) 						   
 			<cfelse>
-			AND      H.#datefield# IN (#SQL_TODAY#,#SQL_YESTERDAY#)  
-			</cfif> 				
+			AND      LH.#datefield# IN (#SQL_TODAY#,#SQL_YESTERDAY#)  
+			</cfif> 	
+			
 													   
 			GROUP BY L.GlAccount, 
 			         L.Currency,
 			         A.Description, 
-					 LH.#datefield#					
-					 					
+					 LH.#datefield#		
+					 
+		 					
 	</cfquery>	
 	
 	<!---
@@ -302,18 +358,60 @@
 				
 				<cfif url.conditionfield eq "mission">
 				AND      H.Mission = '#url.conditionvalue#'	
-				<cfelse>					
+				<cfelse>	
 				
-				AND      EXISTS  (	SELECT   'X'
-									FROM     WorkOrder.dbo.WorkOrderLine AS WL INNER JOIN
-				                    	     WorkOrder.dbo.WorkOrder AS W ON WL.WorkOrderId = W.WorkOrderId 
-									WHERE    WL.WorkOrderLineId = H.TransactionSourceId								
-									AND      OrgUnitImplementer IN (SELECT OrgUnit 
-									                                FROM   Organization.dbo.Organization
-																    WHERE  MissionorgUnitId ='#url.conditionvalue#')														 
-								)								
+				AND      H.OrgUnitOwner IN (SELECT OrgUnit 
+						  		         FROM   Organization.dbo.Organization
+										 WHERE  MissionorgUnitId ='#url.conditionvalue#')							
 				
 				</cfif>
+				
+				AND      EXISTS  (	SELECT   'X'
+								FROM     WorkOrder.dbo.WorkOrderLine AS WL INNER JOIN
+				                         WorkOrder.dbo.WorkOrder AS W ON WL.WorkOrderId = W.WorkOrderId 
+								WHERE    WL.WorkOrderLineId = H.TransactionSourceId								
+								AND      OrgUnitImplementer IN (SELECT OrgUnit 
+								                                FROM   Organization.dbo.Organization
+															    <cfif url.conditionfield eq "mission">
+																WHERE   Mission = '#url.conditionvalue#'
+																<cfelse>
+															    WHERE  MissionorgUnitId ='#url.conditionvalue#'
+																</cfif>)
+								
+								UNION
+								
+								SELECT   'X'
+								FROM     WorkOrder.dbo.WorkOrderLine AS WL INNER JOIN
+				                         WorkOrder.dbo.WorkOrder AS W ON WL.WorkOrderId = W.WorkOrderId INNER JOIN
+				                         WorkOrder.dbo.WorkOrderLineCharge WC ON WC.WorkOrderId = WL.WorkOrderId AND WC.WorkOrderLine = Wl.WorkOrderLine
+								WHERE    WL.WorkOrderLineId = H.TransactionSourceId								
+								AND      WC.OrgUnit IN (SELECT OrgUnit 
+								                        FROM   Organization.dbo.Organization
+													    <cfif url.conditionfield eq "mission">
+														WHERE   Mission = '#url.conditionvalue#'
+														<cfelse>
+													    WHERE  MissionorgUnitId ='#url.conditionvalue#'
+														</cfif>)	
+																
+								UNION
+								
+								<!--- workorder item mode : workorder mode --->
+								
+								SELECT   'X'
+								FROM     WorkOrder.dbo.WorkOrderLine AS WL INNER JOIN
+				                         WorkOrder.dbo.WorkOrder AS W ON WL.WorkOrderId = W.WorkOrderId 
+								WHERE    WL.WorkOrderId = H.TransactionSourceId								
+								AND      OrgUnitImplementer IN (SELECT OrgUnit 
+								                                FROM   Organization.dbo.Organization
+															    <cfif url.conditionfield eq "mission">
+																WHERE   Mission = '#url.conditionvalue#'
+																<cfelse>
+															    WHERE  MissionorgUnitId ='#url.conditionvalue#'
+																</cfif>)								
+								 
+							)						
+				
+				
 				
 				AND EXISTS (
 						SELECT 'X'
@@ -698,17 +796,59 @@
 											AND      H.Mission = '#url.conditionvalue#'	
 											<cfelse>
 											
+											AND      H.OrgUnitOwner IN (SELECT OrgUnit 
+														  		        FROM   Organization.dbo.Organization
+																		WHERE  MissionorgUnitId ='#url.conditionvalue#')			
+											</cfif>
+											
+											<!--- valid for a workorder --->
+											
 											AND      EXISTS  (	SELECT   'X'
 																FROM     WorkOrder.dbo.WorkOrderLine AS WL INNER JOIN
-												                         WorkOrder.dbo.WorkOrder AS W ON WL.WorkOrderId = W.WorkOrderId INNER JOIN
-												                         WorkOrder.dbo.ServiceItem S ON W.ServiceItem = S.Code
-																WHERE    WL.WorkOrderLineId = H.TransactionSourceId																
+												                         WorkOrder.dbo.WorkOrder AS W ON WL.WorkOrderId = W.WorkOrderId 
+																WHERE    WL.WorkOrderLineId = H.TransactionSourceId								
 																AND      OrgUnitImplementer IN (SELECT OrgUnit 
 																                                FROM   Organization.dbo.Organization
-																							    WHERE  MissionorgUnitId ='#url.conditionvalue#')																
+																								<cfif url.conditionfield eq "mission">
+																								WHERE   Mission = '#url.conditionvalue#'
+																								<cfelse>
+																							    WHERE  MissionorgUnitId ='#url.conditionvalue#'
+																								</cfif>)
+																
+																UNION
+																
+																SELECT   'X'
+																FROM     WorkOrder.dbo.WorkOrderLine AS WL INNER JOIN
+												                         WorkOrder.dbo.WorkOrder AS W ON WL.WorkOrderId = W.WorkOrderId INNER JOIN
+												                         WorkOrder.dbo.WorkOrderLineCharge WC ON WC.WorkOrderId = WL.WorkOrderId AND WC.WorkOrderLine = Wl.WorkOrderLine
+																WHERE    WL.WorkOrderLineId = H.TransactionSourceId								
+																AND      WC.OrgUnit IN (SELECT OrgUnit 
+																                        FROM   Organization.dbo.Organization
+																					   <cfif url.conditionfield eq "mission">
+																								WHERE   Mission = '#url.conditionvalue#'
+																								<cfelse>
+																							    WHERE  MissionorgUnitId ='#url.conditionvalue#'
+																								</cfif>)	
+																								
+																UNION
+																
+																<!--- workorder item mode : workorder mode --->
+																
+																SELECT   'X'
+																FROM     WorkOrder.dbo.WorkOrderLine AS WL INNER JOIN
+												                         WorkOrder.dbo.WorkOrder AS W ON WL.WorkOrderId = W.WorkOrderId 
+																WHERE    WL.WorkOrderId     = H.TransactionSourceId								
+																AND      OrgUnitImplementer IN (SELECT OrgUnit 
+																                                FROM   Organization.dbo.Organization
+																							    <cfif url.conditionfield eq "mission">
+																								WHERE   Mission = '#url.conditionvalue#'
+																								<cfelse>
+																							    WHERE  MissionorgUnitId ='#url.conditionvalue#'
+																								</cfif>)								
+																 
 															)							
 											
-											</cfif>
+											
 											
 											<cfif per eq "day">
 											AND    #datefield# >= #SQL_TODAY#

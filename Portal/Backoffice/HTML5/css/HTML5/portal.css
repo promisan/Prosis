@@ -207,8 +207,8 @@ body {
     transition: 					all 1s;
 }
 
-.clsMainMenuOverlayOptions {
-	height:							95%;
+.clsMainMenuOverlayOptions, .clsMainMenuOverlayClearances {
+	height:							90%;
 	min-height:						500px; 
 	width:							96%; 
 	margin:							2%;

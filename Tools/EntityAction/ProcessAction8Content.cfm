@@ -23,7 +23,6 @@
 														   
 			    <tr class="labelmedium line" style="background-color:white">
 				
-				
 				<cfquery name="Person" 
 					datasource="appsEmployee" 
 					username="#SESSION.login#" 
@@ -49,10 +48,10 @@
 						  <cfset size = "60px">
 						  <cfset pict = "">    
 						  				  
-						  <cfif FileExists("#SESSION.rootDocumentPath#\EmployeePhoto\#Person.IndexNo#.jpg") and indexNo gt "0">                           		
-								<cfset pict = IndexNo>     				    
+						<cfif FileExists("#SESSION.rootDocumentPath#\EmployeePhoto\#Person.IndexNo#.jpg") and indexNo gt "0">                           		
+								<cfset pict = Person.IndexNo>     				    
 						  <cfelseif FileExists("#SESSION.rootDocumentPath#\EmployeePhoto\#Person.Personno#.jpg")>   
-								<cfset pict = Personno>	   				  						   
+								<cfset pict = Person.Personno>	   				  						   
 						  </cfif>
 						  
 						  <cfif pict neq "">				  

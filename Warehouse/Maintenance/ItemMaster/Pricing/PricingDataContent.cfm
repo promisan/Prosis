@@ -23,9 +23,10 @@
 								
 			<tr class="labelmedium line fixrow">
 				<td height="25" style="padding-left:3px">UoM:</td>
-				<td style="background-color:ffffaf">#UoMDescription# [#UoM#]</td>
+				<td style="background-color:ffffaf">#UoMDescription# [#ItemBarCode#]</td>
 				<td style="padding-left:4px"><cf_tl id="Effective"></td>
 				<td></td>
+				<td><cf_tl id="Promo"></td>
 				<td><cf_tl id="Currency"></td>
 				<td style="width:100px" align="right"><cf_tl id="Last Order"></td>
 				<td style="width:100px" align="right"><cf_tl id="Last Cost"></td>
@@ -95,8 +96,7 @@
 							AND        Currency      = '#currency#'			
 							ORDER BY   DateEffective DESC
 						</cfquery>
-								
-						
+													
 						<td style="min-width:100px">
 													
 						<cfif line.dateeffective eq "">
@@ -105,7 +105,7 @@
 							    class="regularxl"
 								FieldName="#w#_#measure#_#Schedule.code#_#currency#_DateEffective" 
 								Default="#dateformat("01/01/2008",CLIENT.DateFormatShow)#"
-								message="Enter a valid price"
+								message="Enter a valid price"								
 								Tooltip="Effective Date"
 								Style="border:0px;border-left:1px solid silver;border-right:1px solid silver;text-align:center"
 								AllowBlank="False">	
@@ -117,6 +117,7 @@
 								Default="#dateformat(line.dateeffective,CLIENT.DateFormatShow)#"
 								message="Enter a valid price"
 								class="regularxl"
+								DateValidStart="#Dateformat(line.dateeffective, 'YYYYMMDD')#"
 								Tooltip="Effective Date"
 								Style="border:0px;border-left:1px solid silver;border-right:1px solid silver;text-align:center"
 								AllowBlank="False">	
@@ -126,6 +127,12 @@
 						</td>	
 						
 						<td><cfif line.recordcount gt "1">H</cfif></td>	
+						
+						<td>
+						
+						<input type="checkbox" name="#w#_#measure#_#Schedule.code#_#currency#_Promotion" class="Radiol" <cfif line.promotion eq "1">checked</cfif> value="1">
+						
+						</td>	
 						
 						<td style="padding-left:3px;padding-right:3px">#Currency#</td>
 						

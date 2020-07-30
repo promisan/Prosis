@@ -59,10 +59,12 @@ password="#SESSION.dbpw#">
 			<cfloop query="Currency">
 			
 				<cfparam name="Form._#itemuom.uom#_#schedule.code#_#currency#_dateeffective" default="">
-				<cfparam name="Form._#itemuom.uom#_#schedule.code#_#currency#_salesprice" default="">
-				<cfparam name="Form._#itemuom.uom#_#schedule.code#_#currency#_taxcode" default="">
+				<cfparam name="Form._#itemuom.uom#_#schedule.code#_#currency#_promotion"     default="0">
+				<cfparam name="Form._#itemuom.uom#_#schedule.code#_#currency#_salesprice"    default="">
+				<cfparam name="Form._#itemuom.uom#_#schedule.code#_#currency#_taxcode"       default="">
 			
 				<cfset dte = evaluate("Form._#itemuom.uom#_#schedule.code#_#currency#_dateeffective")>
+				<cfset pro = evaluate("Form._#itemuom.uom#_#schedule.code#_#currency#_promotion")>
 				<cfset prc = evaluate("Form._#itemuom.uom#_#schedule.code#_#currency#_salesprice")>
 				<cfset tax = evaluate("Form._#itemuom.uom#_#schedule.code#_#currency#_taxcode")>						
 				
@@ -95,7 +97,8 @@ password="#SESSION.dbpw#">
 						password="#SESSION.dbpw#">
 							UPDATE     ItemUoMPrice
 							SET        SalesPrice    = '#prc#', 
-							           TaxCode       = '#tax#'						
+							           TaxCode       = '#tax#',
+									   Promotion     = '#pro#'						
 							WHERE      ItemNo        = '#url.id#'
 							AND        Mission       = '#URL.Mission#' 
 							AND        UoM           = '#itemuom.uom#'
@@ -118,6 +121,7 @@ password="#SESSION.dbpw#">
 							 Mission, 							
 							 Currency, 
 							 DateEffective, 
+							 Promotion,
 							 SalesPrice, 
 							 TaxCode, 
 							 OfficerUserId, 
@@ -131,6 +135,7 @@ password="#SESSION.dbpw#">
 							'#url.mission#', 							
 							'#currency#', 
 							#eff#, 
+							'#pro#',
 							'#prc#', 
 							'#tax#', 
 							'#SESSION.acc#', 
@@ -202,10 +207,12 @@ password="#SESSION.dbpw#">
 			<cfloop query="Currency">
 			
 				<cfparam name="Form.#warehouse.warehouse#_#itemuom.uom#_#schedule.code#_#currency#_dateeffective" default="">
+				<cfparam name="Form.#warehouse.warehouse#_#itemuom.uom#_#schedule.code#_#currency#_promotion" default="">
 				<cfparam name="Form.#warehouse.warehouse#_#itemuom.uom#_#schedule.code#_#currency#_salesprice" default="">
 				<cfparam name="Form.#warehouse.warehouse#_#itemuom.uom#_#schedule.code#_#currency#_taxcode" default="">
 			
 				<cfset dte = evaluate("Form.#warehouse.warehouse#_#itemuom.uom#_#schedule.code#_#currency#_dateeffective")>
+				<cfset pro = evaluate("Form.#warehouse.warehouse#_#itemuom.uom#_#schedule.code#_#currency#_promotion")>
 				<cfset prc = evaluate("Form.#warehouse.warehouse#_#itemuom.uom#_#schedule.code#_#currency#_salesprice")>
 				<cfset tax = evaluate("Form.#warehouse.warehouse#_#itemuom.uom#_#schedule.code#_#currency#_taxcode")>	
 				
@@ -240,7 +247,8 @@ password="#SESSION.dbpw#">
 						password="#SESSION.dbpw#">
 							UPDATE     ItemUoMPrice
 							SET        SalesPrice = '#prc#', 
-							           TaxCode = '#tax#'						
+							           TaxCode    = '#tax#',
+									   Promotion  = '#pro#'						
 							WHERE      ItemNo        = '#url.id#'
 							AND        Mission       = '#URL.Mission#' 
 							AND        UoM           = '#itemuom.uom#'
@@ -264,6 +272,7 @@ password="#SESSION.dbpw#">
 							 Warehouse, 
 							 Currency, 
 							 DateEffective, 
+							 Promotion,
 							 SalesPrice, 
 							 TaxCode, 
 							 OfficerUserId, 
@@ -278,6 +287,7 @@ password="#SESSION.dbpw#">
 							'#warehouse.warehouse#', 
 							'#currency#', 
 							#eff#, 
+							'#pro#',
 							'#prc#', 
 							'#tax#', 
 							'#SESSION.acc#', 

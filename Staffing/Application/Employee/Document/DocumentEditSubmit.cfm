@@ -1,14 +1,6 @@
 
-<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
-<cf_systemscript>
-
 <cfparam name="form.DependentId" default="">
 
-<script language="JavaScript">
-	function editDocument(persno, no) {
-		ptoken.location = "DocumentEdit.cfm?ID=" + persno + "&ID1=" + no ;
-	}
-</script>
 
 <cfif Len(Form.Remarks) gt 100>
   <cfset remarks = left(Form.Remarks,100)>
@@ -88,7 +80,7 @@
 		
 		<table width="100%" align="center"><tr><td align="center" height="30">
 			
-		<font face="Verdana" size="2" color="FF0000"><cf_tl id="A document with No">: #Form.DocumentReference# <cf_tl id="is already registered"></font></b>
+		<font size="2" color="FF0000"><cf_tl id="A document with No">: #Form.DocumentReference# <cf_tl id="is already registered"></font></b>
 		
 		</td>
 		</tr>
@@ -96,7 +88,7 @@
 		
 		<cf_tl id="Edit Document" var="1">
 		
-		<input type="button" class="button10s" value="#lt_text#" onClick="javascript:editDocument('#Document.PersonNo#','#Document.DocumentId#');">
+		<input type="button" class="button10s" value="#lt_text#" onClick="javascript:edit('#Document.PersonNo#','#Document.DocumentId#');">
 		
 		</td></tr></table>
 	
@@ -166,7 +158,7 @@
 <cfoutput>
 		
 	<script>	
-		 ptoken.location("EmployeeDocument.cfm?ID=#Form.PersonNo#")    
+		 ptoken.navigate('EmployeeDocumentContent.cfm?ID=#Form.PersonNo#','detail')    
 	</script>	
 
 </cfoutput>	   

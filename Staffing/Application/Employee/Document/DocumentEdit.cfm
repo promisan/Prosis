@@ -1,7 +1,4 @@
 
-<cf_screentop height="100%" scroll="No" html="No" jquery="Yes" menuaccess="context">
-
-<cf_CalendarScript>
 
 <!--- Query returning search results --->
 <cfquery name="Parameter" 
@@ -25,21 +22,6 @@ password="#SESSION.dbpw#">
 
 <cfform action="DocumentEditSubmit.cfm" method="POST" name="DocumentEdit">
 
-<cfajaximport tags="cfdiv">
-
-<table cellpadding="0" cellspacing="0" width="99%" align="center">
-		
-	<tr><td height="10" style="padding-left:7px">	
-		  <cfset ctr      = "0">		
-	      <cfset openmode = "open"> 
-		  <cfinclude template="../PersonViewHeaderToggle.cfm">		  
-		 </td>
-	</tr>	
-	
-</table>
-
-<table><tr><td height="1"></td></tr></table>	
-
 <table width="99%" align="center"  border="0" cellspacing="0" cellpadding="0">
   <tr><td>
 
@@ -48,19 +30,19 @@ password="#SESSION.dbpw#">
 <input type="hidden" name="PersonNo" value="#PersonNo#" class="regular">
 <input type="hidden" name="DocumentId" value="#DocumentId#" class="regular">
 
-<table width="96%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="96%" align="center">
 
    <tr>
-		    <td width="100%" align="left" valign="middle" style="border:0px solid silver;font-size:25px" class="labellarge">
-			<table><tr><td>
-			<cfoutput>
-			<img src="#session.root#/images/document.png" alt="" width="68" height="68" border="0">
-			</td>
-			<td class="labellarge" style="padding-top:10px;font-size:25px;padding-left:10px"><cf_tl id="Edit issued document">
-			</cfoutput>
-			</td></tr></table>
-		    </td>
-		  </tr> 	
+    <td width="100%" align="left" valign="middle" style="border:0px solid silver;font-size:25px" class="labellarge">
+	<table><tr><td>
+	<cfoutput>
+	<img src="#session.root#/images/document.png" alt="" width="68" height="68" border="0">
+	</td>
+	<td class="labellarge" style="padding-top:10px;font-size:25px;padding-left:10px"><cf_tl id="Edit issued document">
+	</cfoutput>
+	</td></tr></table>
+    </td>
+  </tr> 	
   
   <tr><td colspan="2" class="line"></td></tr>
   
@@ -68,7 +50,7 @@ password="#SESSION.dbpw#">
   	
 	<td width="92%" align="center">
    
-	    <table border="0" class="formpadding" cellpadding="0" cellspacing="0" width="97%" align="right">
+	    <table border="0" class="formpadding" width="97%" align="right">
 
 		<tr><td height="5"></td></tr>		
 							
@@ -114,26 +96,26 @@ password="#SESSION.dbpw#">
 	    <TD class="labelmedium"><cf_tl id="Date Effective">:</TD>
 	    <TD>
 		
-			  <cf_intelliCalendarDate9
-			FormName="DocumentEdit"
-			FieldName="DateEffective" 
-			Class="regularxl enterastab"
-			DateFormat="#APPLICATION.DateFormat#"
-			Default="#Dateformat(Document.DateEffective, CLIENT.DateFormatShow)#">	
+			<cf_intelliCalendarDate9
+				FormName="DocumentEdit"
+				FieldName="DateEffective" 
+				Class="regularxl enterastab"
+				DateFormat="#APPLICATION.DateFormat#"
+				Default="#Dateformat(Document.DateEffective, CLIENT.DateFormatShow)#">	
 		
 		</TD>
 		</TR>
 			
 		<TR>
 	    <TD class="labelmedium"><cf_tl id="Date Expiration">:</TD>
-	    <TD>
-		
-			  <cf_intelliCalendarDate9
-			FormName="DocumentEdit"
-			FieldName="DateExpiration" 		
-			Class="regularxl enterastab"
-			DateFormat="#APPLICATION.DateFormat#"
-			Default="#Dateformat(Document.DateExpiration, CLIENT.DateFormatShow)#">	
+	    <TD>	
+			
+			<cf_intelliCalendarDate9
+				FormName="DocumentEdit"
+				FieldName="DateExpiration" 		
+				Class="regularxl enterastab"
+				DateFormat="#APPLICATION.DateFormat#"
+				Default="#Dateformat(Document.DateExpiration, CLIENT.DateFormatShow)#">	
 				
 		</TD>
 		</TR>
@@ -151,7 +133,7 @@ password="#SESSION.dbpw#">
 		<TR>
 	    <TD class="labelmedium"><cf_tl id="Country">:</TD>
 	    <TD>
-		   	<select name="Country" required="No" class="regularxl enterastab">
+		   	<select name="Country" class="regularxl enterastab">
 			<option value=""></option>
 		    <cfloop query="Nation" >
 			<option value="#Code#" <cfif Document.IssuedCountry eq Code>selected</cfif>>
@@ -161,12 +143,10 @@ password="#SESSION.dbpw#">
 		    
 	   	</select>		
 		</TD>
-		</TR>
-					
+		</TR>					
 			
 		<tr><td class="labelmedium" valign="top" style="padding-top:5px"><cf_tl id="Attachment">:</td>
-		<td>
-		
+		<td>		
 				<cf_filelibraryN
 					DocumentPath="#Parameter.DocumentLibrary#"
 					SubDirectory="#URL.ID#" 
@@ -175,8 +155,7 @@ password="#SESSION.dbpw#">
 					Insert="yes"
 					Remove="yes"
 					Listing="yes">
-		</td>
-		
+		</td>		
 		</tr>
 		
 		<TR>
@@ -193,39 +172,39 @@ password="#SESSION.dbpw#">
 	  <tr><td colspan="2" class="line"></td></tr>
 	  <tr><td height="5"></td></tr>		
 	  
-	   <tr><td align="center" colspan="2" height="30">
-	   <input type="button"  name="cancel" value="Back" class="button10g" onClick="ptoken.location('EmployeeDocument.cfm?ID=#url.id#')">
-	   
-	   <cfif Document.enableRemove eq "1">
-		   <cf_tl id="Delete" var="1">
-		   <input class="button10g" type="submit"  name="Delete" value=" #lt_text# ">
-	   </cfif>
+	  <tr><td align="center" colspan="2" height="30">
 	  
-	  
-	   
-	   <cfif Document.enableEdit eq "1">
-	   
-		   <cf_tl id="Submit" var="1">
-		   <input class="button10g" type="submit" name="Submit" value=" #lt_text#">
+		   <input type="button"  name="cancel" value="Back" class="button10g" onClick="ptoken.navigate('#session.root#/Staffing/Application/Employee/Document/EmployeeDocumentContent.cfm?ID=#url.id#','detail')">
 		   
-	   <cfelse>	   
-	   
-	       <cfinvoke component  = "Service.Access" 
-		      method     = "contract"
-			  personno   = "#URL.ID#"	
-			  role       = "'ContractManager','PayrollOfficer'"		
-			  returnvariable = "access">
-			
-			<cfif access eq "ALL" or access eq "EDIT">		
-			
+		   <cfif Document.enableRemove eq "1">
+			   <cf_tl id="Delete" var="1">
+			   <input class="button10g" type="submit"  name="Delete" value=" #lt_text# ">
+		   </cfif>
+		  	   
+		   <cfif Document.enableEdit eq "1">
+		   
 			   <cf_tl id="Submit" var="1">
-			   <input class="button10g" type="submit" name="Submit" value="#lt_text# ">
-			
-			</cfif>	
+			   <input class="button10g" type="submit" name="Submit" value=" #lt_text#">
+			   
+		   <cfelse>	   
+		   
+		       <cfinvoke component  = "Service.Access" 
+			      method     = "contract"
+				  personno   = "#URL.ID#"	
+				  role       = "'ContractManager','PayrollOfficer'"		
+				  returnvariable = "access">
+				
+				<cfif access eq "ALL" or access eq "EDIT">		
+				
+				   <cf_tl id="Submit" var="1">
+				   <input class="button10g" type="submit" name="Submit" value="#lt_text#">
+				
+				</cfif>		   
+		   
+		   </cfif>
 	   
-	   
-	   </cfif>
-	   </td></tr>
+	   </td>
+	   </tr>
 	</table>   
       
 </cfoutput>
@@ -236,3 +215,5 @@ password="#SESSION.dbpw#">
 </table>
 
 </CFFORM>
+
+<cfset ajaxOnLoad("doCalendar")>

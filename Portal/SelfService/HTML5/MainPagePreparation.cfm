@@ -248,6 +248,16 @@ the first 9random) value of the enabled scope languages for the portal instead a
 		AND		FunctionName	= 'Preferences'
 </cfquery>
 
+<cfquery name="qClearances" 
+	datasource="AppsSystem">
+		SELECT 	*
+		FROM	Ref_ModuleControl
+		WHERE	SystemModule	= 'SelfService'
+		AND		FunctionClass	= '#url.id#'
+		AND		MenuClass		= 'Function'
+		AND		FunctionName	= 'Clearances'
+</cfquery>
+
 <cfquery name="qShowSupportMenu" 
 	datasource="AppsSystem">
 		SELECT 	*
