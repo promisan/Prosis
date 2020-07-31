@@ -20,7 +20,7 @@ password="#SESSION.dbpw#">
 	AND DocumentId = '#URL.ID1#'
 </cfquery>
 
-<cfform action="DocumentEditSubmit.cfm" method="POST" name="DocumentEdit">
+<cfform action="#session.root#/Staffing/Application/Employee/Document/DocumentEditSubmit.cfm" method="POST" name="DocumentEdit">
 
 <table width="99%" align="center"  border="0" cellspacing="0" cellpadding="0">
   <tr><td>
@@ -174,7 +174,7 @@ password="#SESSION.dbpw#">
 	  
 	  <tr><td align="center" colspan="2" height="30">
 	  
-		   <input type="button"  name="cancel" value="Back" class="button10g" onClick="ptoken.navigate('#session.root#/Staffing/Application/Employee/Document/EmployeeDocumentContent.cfm?ID=#url.id#','detail')">
+		   <input type="button"  name="cancel" value="Back" class="button10g" onClick="ptoken.navigate('#session.root#/Staffing/Application/Employee/Document/EmployeeDocumentContent.cfm?ID=#url.id#','dialog')">
 		   
 		   <cfif Document.enableRemove eq "1">
 			   <cf_tl id="Delete" var="1">

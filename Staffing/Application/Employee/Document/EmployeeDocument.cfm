@@ -56,7 +56,7 @@
 </td>
 </tr>
 	
-<tr><td id="detail">
+<tr><td id="dialog">
 	<cfinclude template="EmployeeDocumentContent.cfm">
 	</td>
 </tr>

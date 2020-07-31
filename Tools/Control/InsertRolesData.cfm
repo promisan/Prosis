@@ -1447,6 +1447,14 @@
 			  DocumentTemplate="Vactrack/Application/Workflow/Withdraw/Document.cfm"
 			  DocumentMode="Embed">		
 			  
+	  <cf_insertEntityDocument
+		      Code="VacCandidate"   
+	          DocumentType="dialog" 
+			  DocumentCode="CDO"
+			  DocumentDescription="Candidate documents"
+			  DocumentTemplate="Staffing/Application/Employee/Document/EmployeeDocumentContent.cfm"			  
+			  DocumentMode="Embed">					  
+			  
 	 <cf_insertEntityDocument
 		      Code="VacCandidate"   
 	          DocumentType="dialog" 

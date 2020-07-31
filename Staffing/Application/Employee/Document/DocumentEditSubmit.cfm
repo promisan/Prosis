@@ -158,7 +158,7 @@
 <cfoutput>
 		
 	<script>	
-		 ptoken.navigate('EmployeeDocumentContent.cfm?ID=#Form.PersonNo#','detail')    
+		 ptoken.navigate('#session.root#/Staffing/Application/Employee/Document/EmployeeDocumentContent.cfm?ID=#Form.PersonNo#','dialog')    
 	</script>	
 
 </cfoutput>	   

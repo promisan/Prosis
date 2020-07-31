@@ -8,16 +8,16 @@
 	<script language="JavaScript">
 		
 		function issuedocument(persno) {
-		    ptoken.navigate('#session.root#/Staffing/Application/Employee/Document/DocumentEntry.cfm?ID=' + persno,'detail');
+		    ptoken.navigate('#session.root#/Staffing/Application/Employee/Document/DocumentEntry.cfm?ID=' + persno,'dialog');
 		}
 		
 		function edit(persno,doc) {
-		    ptoken.navigate('#session.root#/Staffing/Application/Employee/Document/DocumentEdit.cfm?ID=' + persno + '&id1=' + doc,'detail');
+		    ptoken.navigate('#session.root#/Staffing/Application/Employee/Document/DocumentEdit.cfm?ID=' + persno + '&id1=' + doc,'dialog');
 		}
 						
 		function reloadDocument(id,st) {
 		    _cf_loadingtexthtml='';			
-		    ptoken.navigate('#session.root#/Staffing/Application/Employee/Document/EmployeeDocumentContent.cfm?ID='+id+'&Status=' + st,'detail');
+		    ptoken.navigate('#session.root#/Staffing/Application/Employee/Document/EmployeeDocumentContent.cfm?ID='+id+'&Status=' + st,'dialog');
 		}
 	
 	</script>

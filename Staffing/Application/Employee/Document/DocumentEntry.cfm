@@ -9,7 +9,7 @@ password="#SESSION.dbpw#">
 
 <cf_assignId>  
 
-<cfform action="DocumentEntrySubmit.cfm?documentid=#rowguid#" method="POST" name="documententry">
+<cfform action="#session.root#/Staffing/Application/Employee/Document/DocumentEntrySubmit.cfm?documentid=#rowguid#" method="POST" name="documententry">
 
 <table width="98%" align="center">	
   
@@ -142,7 +142,7 @@ password="#SESSION.dbpw#">
 					
 					<tr>
 						<td class="labelmedium"><cf_tl id="Attachment">:</td>
-						<td><cfdiv bind="url:DocumentEntryAttachment.cfm?id=#url.id#&documentid=#rowguid#&documenttype={documenttype}" id="att"></td>			
+						<td><cfdiv bind="url:#session.root#/Staffing/Application/Employee/Document/DocumentEntryAttachment.cfm?id=#url.id#&documentid=#rowguid#&documenttype={documenttype}" id="att"></td>			
 					</tr>			
 					
 					<tr><td height="5"></td></tr>		
@@ -153,7 +153,7 @@ password="#SESSION.dbpw#">
 					<tr><td align="center" colspan="2" height="30">
 					<cfoutput>
 						<cf_tl id="Back" var="1">
-				   	   <input type="button" name="cancel" value="#lt_text#" class="button10g" onClick="ptoken.navigate('#session.root#/Staffing/Application/Employee/Document/EmployeeDocumentContent.cfm?ID=#url.id#','detail')">
+				   	   <input type="button" name="cancel" value="#lt_text#" class="button10g" onClick="ptoken.navigate('#session.root#/Staffing/Application/Employee/Document/EmployeeDocumentContent.cfm?ID=#url.id#','dialog')">
 				   		<cf_tl id="Reset" var="1">
 					   <input class="button10g" type="reset"  name="Reset" value="#lt_text#">
 				   		<cf_tl id="Save" var="1">   

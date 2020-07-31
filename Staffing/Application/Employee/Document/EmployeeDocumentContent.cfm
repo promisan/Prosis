@@ -1,9 +1,37 @@
 
 <cfparam name="url.status" default="0">
 <cfparam name="url.id"    default="">
+<cfparam name="Object.ObjectId"    default="">
 
-<cfinclude template="EmployeeDocumentDetailScript.cfm">
+<cfif Object.ObjectId neq "">
+	
+	<cfquery name="get" 
+		datasource="AppsEmployee" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		SELECT    A.EmployeeNo, A.IndexNo, DC.PersonNo
+		FROM      Vacancy.dbo.DocumentCandidate AS DC INNER JOIN
+		          Applicant.dbo.Applicant AS A ON DC.PersonNo = A.PersonNo
+		WHERE     DC.DocumentNo = '#Object.ObjectKeyValue1#' 
+		AND 	  DC.PersonNo = '#Object.ObjectKeyValue2#'
+	</cfquery>
+	
+	<cfif get.EmployeeNo neq "">
+	
+		<cfset url.id = get.EmployeeNo>
+		
+	<cfelse>
+	
+		<table><tr class="labelmedium"><td style="padding-top:10px">Candidate does not have a staff profile yet.</td></tr></table>	
+	
+	</cfif>
+	
+<cfelse>
 
+	<cfinclude template="EmployeeDocumentContentScript.cfm">	
+	
+</cfif>	
+	
 <!--- Query returning search results --->
 <cfquery name="Parameter" 
 	datasource="AppsEmployee" 

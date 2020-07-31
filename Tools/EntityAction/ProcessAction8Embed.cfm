@@ -175,6 +175,8 @@ insurance dialog.
 					       <cfset pr = url.ajaxid> 		   
 					   </cfif>
 					   
+					   <cfparam name="boxno" default="1">
+						
 					   <cfset nextbox = boxno+1>
 					   					   					   					   					   					 		 
 					    <input type = "button" 
