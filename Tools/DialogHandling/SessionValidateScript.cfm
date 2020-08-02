@@ -42,7 +42,7 @@
 		try { clearInterval ( sessioninitcheck ); } catch(e) {}												
 	}		
 	
-	function sessioninitvalidatestart() {			   			    			    		     
+	function sessioninitvalidatestart() {					     			    			    		     
 		try { clearInterval ( sessioninitcheck ); } catch(e) {}	  
 		<cfif interval gte "1000">							 
 	    try { sessioninitcheck = setInterval('validationcheck()', 3000) } catch(e) { }											
@@ -69,9 +69,9 @@
 	 
 	
 	function sessionvalidatestart() {		
-	    								
-		try { clearInterval ( sessioncheck ); } catch(e) {}	  		
-		<cfif interval gte "1000">				 
+	    											
+		try { clearInterval ( sessioncheck ); } catch(e) {}	  						
+		<cfif interval gte "1000">				 			
 	    try { sessioncheck = setInterval('validationgo()', <cfoutput>#interval#</cfoutput>) } catch(e) {}											
 		</cfif>	
 								

@@ -114,6 +114,19 @@
 		HAVING    ROUND(SUM(SalePayable),2) != 0	
 		 	 	
 	</cfquery>	
+	
+	<cfquery name="crossBilling" 
+		datasource="AppsLedger" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			
+		UPDATE    WorkOrder.dbo.WorkOrderLineCharge						
+		SET       Journal         = 'InProcess'								  
+		WHERE     WorkOrderid     = '#get.WorkOrderid#' 
+		AND       WorkOrderLine   = '#get.WorkOrderLine#' 				
+		AND       Journal is NULL		
+					
+	</cfquery>	
 
 	<cfif month(now()) gte "10">
 		<cfset ThisTransactionPeriod = "#year(now())##month(now())#">
@@ -243,8 +256,7 @@
 						   WC.TaxCode,
 						   WC.BillingReference,
 						   WC.BillingName,
-						   WC.OrgUnit		
-						   
+						   WC.OrgUnit							   
 						  
 			</cfquery>		
 			

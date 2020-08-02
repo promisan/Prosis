@@ -34,7 +34,7 @@
 					  title="Allow users that have access to the selected step to delegate/grant access to this step : [#get.ActionDescription#]">
 					  Step may be granted FLY access to FROM step:</a></b>
 				</TD>
-				 <TD style="padding-left:1px">
+				 <TD style="padding-left:5px">
 				  
 					<select name="ActionAccess" id="ActionAccess" class="regularxxl" style="width: 100%;" onchange="toggleall('ugselect',this.value)">
 					    <option value="" selected></option>
@@ -66,7 +66,6 @@
 						ORDER BY AccountMission				
 					</cfquery>
 					
-					
 					<cf_uiselect name="ActionAccessUserGroup" id="ActionAccessUserGroup" class="regularxl"
 						 style="width: 100%;" 
 						    group          = "AccountMission"
@@ -76,8 +75,8 @@
 							value          = "Account"
 							display        = "Account"
 							selected       = "#Get.ActionAccessUserGroup#">		
-								    
-					    <option value="" class="regularxl" selected>[all users]</option>
+						
+						 <option value="" selected>[select any user]</option>
 						
 					</cf_uiselect>
 					
@@ -109,8 +108,8 @@
 							value          = "Account"
 							display        = "Account"
 							selected       = "#Get.ActionAccessUGCollaborate#">						 						 
-					    <option value="DISABLED" selected>n/a</option>
-					    <option>[all users]</option>						
+					    <option value="DISABLED" selected>Not applicable</option>						
+					    <option value="">[select any user]</option>						
 					</cf_uiselect>
 					
 					</td>

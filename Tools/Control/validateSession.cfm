@@ -5,8 +5,7 @@
 	base like expirate or multiple session --->
 	
 	<cfparam name="SESSION.acc"       default="">
-	<cfparam name="SESSION.SessionId" default="">	
-	
+	<cfparam name="SESSION.SessionId" default="">		
 
 	<cfif session.acc neq "Anonymous">
 	
@@ -92,24 +91,22 @@
 	
 	<!--- This is an idea to prevent opening the relogon screen if it is already shown on another screen, to prevent double reload
 	another options is to run a separete script in a loop to determine if the SESSION.authent has changed into (1), which then restarts the
-	checking resulting in  the logon page to disappear again --->		
-		
+	checking resulting in  the logon page to disappear again --->	
+			
 	<cfif Parameter.Operational eq "0">
 	
-			<!--- 15/2/2015 Skipping --->
+		<!--- 15/2/2015 Skipping --->
 	
 	<cfelse>
-		 		
+							 		
 		<cfif SESSION.authent eq "0"     or 	     
 			  SESSION.root eq ""         or 					   		  
 			  CLIENT.browser eq ""       or 
 			  CLIENT.width eq ""         or 			  
-			  CLIENT.dateformatshow eq "">		
-						  			  
-			  <!---
-			  <cfoutput>#session.authent# #session.root# #client.browser# #client.width# #client.dateformatshow#</cfoutput>
-			  --->
-			  	
+			  CLIENT.dateformatshow eq "">			
+			  
+				  			  
+						  	
 			<!--- if the scope is not ajax it is just a matter of waiting for the ajax to pick it up --->
 			
 			<cfif attributes.scope eq "ajax">
@@ -124,14 +121,10 @@
 					// start checking on ultra level that will validate if the validation to be restarted again
 					sessioninitvalidatestart()
 					
-					try {
-						document.getElementById("div_container_screen").style.overflow = 'hidden';
-						}
-					catch(e){};		
-					try {
-						document.getElementById("sessionvalid").style.display = 'block'
-						}
-					catch(e){};											
+					try { document.getElementById("div_container_screen").style.overflow = 'hidden';
+						} catch(e){};		
+					try { document.getElementById("sessionvalid").style.display = 'block'
+						} catch(e){};											
 				</script>	
 				
 				<!--- we ensure the session is lost and the script will stop reloading --->
@@ -146,47 +139,7 @@
 				</cfoutput>
 				
 				<cfset Session.relogon = "Yes">			
-				
-				<!---				
-				<cf_divscroll zindex    = "9100" 
-				              modal     = "yes" 
-							  float     = "yes" 
-							  width     = "480px" 
-							  height    = "280px" 
-							  id        = "relogonbox" 
-							  close     = "no"
-							  mode      = "#url.doctypemode#" 
-							  overflowy = "hidden">	
-										  
-					<cf_tableround mode="modal" totalwidth="460px" totalheight="245px">		
-					
-						<!--- relogon screen --->
-						<cfinclude template="../../Portal/reLogon.cfm">					
-						<cfset Session.relogon = "Yes">								
-					</cf_tableround>
-					
-				</cf_divscroll>	
-				--->
-				
-				
-				<!--- 5/3/2015
-				   need to tune a bit is we likely remove a bit too much here causing all to stop
 												
-				<cfloop list="#getClientVariablesList()#" index="var">
-				
-					<cfif var neq "acc" and 
-					      var neq "sessionno" and 			  
-						  var neq "logoncredential" and
-						  var neq "root" and 
-						  var neq "LanPrefix" and
-						  var neq "LanguageId">
-					    <cfset deleteClientVariable(var)>
-					</cfif>
-					
-				</cfloop>		
-				
-				--->		
-				
 				<cfset SESSION.sessionTimeout = createTimeSpan( 0, 0, 0, 1 ) />
 				
 				<!--- Revised logout routine by Armin on 7/30/2014 --->
@@ -209,24 +162,7 @@
 					<table width="200" height="100%" align="center">
 						<tr><td align="center" class="labellarge" style="font-size: 20px; font-family: 'Calibri Light';"><cf_tl id="Your session has expired"></td></tr>
 					</table>
-					
-					<!--- 5/3/2015
-				   need to tune a bit is we likely remove a bit too much here causing all to stop
-														
-					<cfloop list="#getClientVariablesList()#" index="var">
-				
-						<cfif var neq "sessionno" and 			  
-							  var neq "logoncredential" and
-							  var neq "root" and 
-							  var neq "LanPrefix" and
-							  var neq "LanguageId">
-						    <cfset deleteClientVariable(var)>
-						</cfif>
-						
-					</cfloop>		
-					
-					--->	
-					
+										
 					<cfset SESSION.sessionTimeout = createTimeSpan( 0, 0, 0, 1 ) />
 					
 					<!--- Revised logout routine by Armin on 7/30/2014 --->
@@ -249,9 +185,7 @@
 						SELECT *  
 						FROM   Parameter
 					</cfquery>
-					
-					<!--- provision to link to https Armin 8/10/2011--->
-					
+															
 					<cfif CGI.HTTPS eq "off">
 						<cfset tpe = "http">
 					<cfelse>	
@@ -273,9 +207,8 @@
 				<cfabort>	
 			
 			</cfif>
-			
-			<!--- we ask for the logon again --->
-		
+					
+					
 		<cfelseif SESSION.authent eq "1" 
 		    	 and SESSION.acc neq url.passacc 
 				 and SESSION.ProtectionMode eq "1">		
@@ -299,7 +232,7 @@
 				</script>	
 			
 		<cfelseif SESSION.Authent eq "1">	
-				
+						
 				<cfset SESSION.isRelogon = "No">
 				
 				<!--- we close the divscroll and we reinit the event handlers to listen and check --->
@@ -308,20 +241,18 @@
 				   tmp_error = 0;		
 				   try {		     
 					 // sessionvalidatestart()	this is done by the callback handler to start the validation 	
-					 ProsisUI.closeWindow('relogonbox')    			 
-					// document.getElementById('relogonbox').style.display  = "none"
-					// document.getElementById('modalbg').style.display     = "none"
+					 ProsisUI.closeWindow('relogonbox')    			 					
 					 } catch(e) {}		   		   
 				   try { sessioninitvalidatestop()  } catch(e) {}			 
 				</script>	
-		
+						
 		</cfif>
+		
 		
 	</cfif>	
 
 	<cfcatch></cfcatch>
 
 </cftry>
-
 
 

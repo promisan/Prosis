@@ -156,9 +156,9 @@ function searchme() {
 	  document.getElementById("locateme").click() }				  
 	}  
 	
-function searching(cde,val)  {
-    _cf_loadingtexthtml='';	
-	ptoken.navigate('ActionRecords.cfm?entitycode='+cde+'&search='+val,'actionrecords')
+function searching(cde,val,cls)  {
+    _cf_loadingtexthtml='';		
+	ptoken.navigate('ActionRecords.cfm?entitycode='+cde+'&entityclass='+cls+'&search='+val,'actionrecords')
 	}		 
 	
 function search(e) {	  

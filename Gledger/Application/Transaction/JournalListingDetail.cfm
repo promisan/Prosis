@@ -70,28 +70,28 @@
 										
 			    </td>
 				
-				<td colspan="2" style="min-width:250"><cf_tl id="Reference"></td>
-				<td style="min-width:95"><cf_tl id="Batch"></TD>
-				<td style="min-width:95"><cf_tl id="Document"></TD>		
-				<td style="min-width:95"><cf_tl id="Series"></TD>
+				<td colspan="2" style="min-width:350px"><cf_tl id="Reference"></td>
+				<td style="min-width:95px"><cf_tl id="Batch"></TD>
+				<td style="min-width:95px"><cf_tl id="Document"></TD>		
+				<td style="min-width:95px"><cf_tl id="Series"></TD>
 				<td style="width:100%" colspan="2"><cf_tl id="Description"></TD>	
-				<td style="min-width:95"><cf_tl id="Posted"></TD>
-			    <td style="min-width:30" align="center"><cf_tl id="Curr"></TD>							
+				<td style="min-width:95px"><cf_tl id="Posted"></TD>
+			    <td style="min-width:30px" align="center"><cf_tl id="Curr"></TD>							
 				<cfif outst eq "1">			
-					<td style="min-width:110" align="right"><cf_tl id="Amount"></td>
-					<td style="min-width:110" align="right"><cf_tl id="Outstanding"></td>			
+					<td style="min-width:110px" align="right"><cf_tl id="Amount"></td>
+					<td style="min-width:110px" align="right"><cf_tl id="Outstanding"></td>			
 					<cfset col = 9>			
 				<cfelse>			
-				    <td style="min-width:110" align="right"><cf_tl id="Document"></td>
+				    <td style="min-width:110px" align="right"><cf_tl id="Document"></td>
 					<cfif journal.glaccount gte "1" and Journal.TransactionCategory neq "Memorial">
-						<td style="min-width:110" align="right"><cf_tl id="Debit"></td>
-						<td style="min-width:110" align="right"><cf_tl id="Credit"></td>
+						<td style="min-width:110px" align="right"><cf_tl id="Debit"></td>
+						<td style="min-width:110px" align="right"><cf_tl id="Credit"></td>
 						<cfset col = 11>
 					<cfelse>
 						<cfset col = 9>
 					</cfif>				
 				</cfif>				
-				<td><cf_space spaces="10"></td>								
+				<td style="width:20px"></td>								
 			</tr>
 		   		
 		<cfset amtT     = 0>
@@ -227,8 +227,8 @@
 							<div class="clsNoPrint"><cf_img icon="open"></div>								
 						</td>
 						
-						<TD class="clsSearchField" style="padding-right:3px">
-						
+						<TD class="clsSearchField" style="min-width:120px;padding-right:3px">
+												
 							<cfif url.find neq "">
 								<cfset ref = replaceNoCase(JournalTransactionNo, url.find,"<u><font color='red'>#url.find#</font></u>", "ALL")> 
 							<cfelse>
@@ -239,7 +239,7 @@
 						
 						</TD>
 						
-						<td class="clsSearchField" style="padding-right:3px">
+						<td class="clsSearchField" style="min-width:130px;padding-right:3px">
 						 
 						 <cfif ReferenceNo neq ref>
 						 

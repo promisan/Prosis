@@ -49,7 +49,7 @@
 			
 </cfif> 
 
-<cfif url.template eq "undefined"  or url.template eq "">
+<cfif url.template eq "undefined"  or url.template eq "" or url.template eq "regular">
 
 	<cfinvoke component = "Service.Authorization.Function"  
 	 method           = "AuthorisedFunctions" 
@@ -57,7 +57,7 @@
 	 SystemModule     = "'Staffing'"
 	 FunctionClass    = "'Employee'"
 	 MenuClass        = "'History'"
-	 returnvariable   = "searchresult">	 
+	 returnvariable   = "searchresult">	  
 	 
 	 <cfif searchresult.recordcount gte "1">
 	 
@@ -71,12 +71,14 @@
 		</cfquery>
 						
 		<cfset url.template = getFunction.ScriptName>	
-		
+				
 	</cfif>
 
 </cfif>
 	
 <cfif URL.Template eq "Contract">
+   <cfset URL.Template = "#SESSION.root#/Staffing/Application/Employee/Contract/EmployeeContract.cfm">
+<cfelseif URL.Template eq "Appointment">
    <cfset URL.Template = "#SESSION.root#/Staffing/Application/Employee/Contract/EmployeeContract.cfm">
 <cfelseif URL.Template eq "Assignment">
    <cfset URL.Template = "#SESSION.root#/Staffing/Application/Assignment/AssignmentEdit.cfm">

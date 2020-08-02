@@ -298,11 +298,19 @@
 												
 						<td style="border-left:1px solid rgba(255,255,255,0.2);border-right:1px solid rgba(255,255,255,0.2);padding:12px 12px;color:#attributes.textColorClose#;">
 								    <cfif systemfunctionid neq "">
-									<img src="#session.root#/images/logos/menu/time.png" style="cursor:pointer" height="12" width="12" title="Time" border="0">
+										<CF_uitooltip tooltip="This function is controlled by the menu framework">
+										<img src="#session.root#/images/logos/menu/time.png" style="cursor:pointer" height="12" width="12" border="0">
+										</cf_uitooltip>	
 									<cfelseif Attributes.MenuAccess eq "Context">
-									<img src="#session.root#/images/logos/menu/context.png" style="cursor:pointer" height="12" width="12" title="Context" border="0">
+										<CF_uitooltip tooltip="Access to this screen is granted contextual">
+										<img src="#session.root#/images/logos/menu/context.png" style="cursor:pointer" height="12" width="12" border="0">
+										</cf_uitooltip>	
 									</cfif>
-									<cfif Attributes.ValidateSession eq "Yes"><img src="#session.root#/images/logos/menu/connected.png" style="cursor:pointer" height="12" width="12" title="Connected" border="0"></cfif>
+									<cfif Attributes.ValidateSession eq "Yes">
+										<CF_uitooltip tooltip="Session validation is turned on and will alert you once the session is lost">
+										<img src="#session.root#/images/logos/menu/connected.png" style="cursor:pointer" height="12" width="12" border="0">
+										</cf_uitooltip>									
+									</cfif>
                             </td>
 															
 						</td>		

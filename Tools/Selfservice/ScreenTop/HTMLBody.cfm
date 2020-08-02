@@ -1,5 +1,5 @@
 <cfoutput>
-	
+
 	<cfif attributes.html eq "No">		
 										
 		<cfif attributes.bgimage eq "">		
@@ -42,8 +42,7 @@
 				  bottommargin="0"		
 				  onBlur="<cfif attributes.blur eq 'yes'>parent.window.close()</cfif>"			   														
 				  style="<cfif attributes.overflow eq 'hidden'>overflow: hidden;</cfif>" 
-				  onLoad="<cfif attributes.validateSession eq 'Yes'>sessionvalidatestart();</cfif><cfif attributes.focuson eq 'window'>window.focus()<cfelseif attributes.focuson neq 'none'>document.getElementById('#attributes.focuson#').focus()</cfif>">					 
-					  
+				  onLoad="<cfif attributes.validateSession eq 'Yes'>sessionvalidatestart();</cfif><cfif attributes.focuson eq 'window'>window.focus()<cfelseif attributes.focuson neq 'none'>document.getElementById('#attributes.focuson#').focus()</cfif>">					 				  
 				 
 	</cfif>
 	

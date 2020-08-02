@@ -66,7 +66,7 @@
 	 username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">
 	   SELECT  *
-	   FROM    OrganizationObjectAction OA,
+	   FROM    OrganizationObjectAction OA, 
 	           Ref_EntityActionPublish P,
 			   Ref_EntityAction A				
 	   WHERE   ActionId = '#URL.ID#' 
@@ -186,6 +186,12 @@
 		
 <cfelse>
 
+	<cfif url.windowmode eq "embed">
+		<cfset html = "No">
+	<cfelse>
+		<cfset html = "Yes">	
+	</cfif>
+
 	<cf_screentop scroll="yes"	   	    
 	   band="No" 
 	   layout="webapp" 
@@ -193,7 +199,8 @@
 	   bootstrap="yes"	   	  
 	   banner="gray" 	
 	   bannerforce="Yes"
-	   line="no" 	  
+	   line="no" 	
+	   html="#html#"  
 	   jquery="Yes"	   
 	   label="#Object.ObjectReference#: #Action.ActionDescription#">
 	   		

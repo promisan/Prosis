@@ -69,13 +69,12 @@
 		   </cfquery> 	
 	   
 	   	   <cfset unit = "#OrgUnit#">
-	   
+		   	   
 	   	   <cfif GrantBatch.ActionAccessPointer eq "0">						
 		   
 		        <cfloop query="GrantAccess">
 									
-					<tr class="line"><td colspan="2"></td></tr>
-			
+					
 					<tr>
 					<td colspan="2" id="stepflyaccess">
 																																
@@ -89,8 +88,7 @@
 			
 			<cfelse>
 
-					<tr class="line"><td colspan="2" bgcolor="E0E0E0"></td></tr>
-			
+				
 					<tr>
 					<td colspan="2" id="stepflyaccess">					
 																									

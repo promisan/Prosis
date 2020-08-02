@@ -18,15 +18,15 @@
 	
 </cfif>	
 
-<cfparam name="Form.Flow"         default="All">		
-<cfparam name="Form.Mission"      default="All">
-<cfparam name="Form.Function"     default="All">
-<cfparam name="Form.PostGrade"    default="All">
-<cfparam name="Form.Class"        default="All">
-<cfparam name="Form.CandidateStatus" default="All">
-<cfparam name="Form.Name"         default="">
-<cfparam name="Form.ReferenceNo"	default="">
-<cfparam name="Form.Operational"  default="">
+<cfparam name="Form.Flow"            default="All">		
+<cfparam name="Form.Mission"         default="All">
+<cfparam name="Form.Function"        default="All">
+<cfparam name="Form.PostGrade"       default="All">
+<cfparam name="Form.Class"           default="All">
+<cfparam name="Form.CandidateStatus" default="">
+<cfparam name="Form.Name"            default="">
+<cfparam name="Form.ReferenceNo"  	 default="">
+<cfparam name="Form.Operational"     default="">
 
 <cfoutput>
 
@@ -73,7 +73,7 @@
      <CFSET Criteria = "#Criteria# AND V.PostGrade IN ( #PreserveSingleQuotes(Form.PostGrade)# )">
 </cfif>  
 
-<cfif Form.CandidateStatus IS NOT 'All'>
+<cfif Form.CandidateStatus IS NOT ''>
      <CFSET Criteria = "#Criteria# AND C.Status IN ( #PreserveSingleQuotes(Form.CandidateStatus)# )">
 </cfif>  
 

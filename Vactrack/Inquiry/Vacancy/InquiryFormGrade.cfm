@@ -13,7 +13,7 @@ AND      D.Status != '9'
 ORDER BY P.PostOrder
 </cfquery>
 
-<select name="PostGrade" class="regularxl">
+<select name="PostGrade" class="regularxxl">
     <option value="All" selected><cf_tl id="All"></option>
     <cfoutput query="Grade">
 	<option value="'#PostGrade#'">

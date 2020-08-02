@@ -82,11 +82,11 @@ datasource="AppsInit">
 	<!--- ---------------------------- --->
 	
 	<cfif attributes.HTML eq "Yes">
-		<cfparam name="Attributes.ValidateSession"   default="Yes">	
+		<cfparam name="Attributes.ValidateSession"   default="Yes">			
 	<cfelse>
-	    <cfparam name="Attributes.ValidateSession"   default="No">	
+	    <cfparam name="Attributes.ValidateSession"   default="No">			
 	</cfif>	
-	
+			
 	<cfparam name="Attributes.MenuAccess"            default="No">		
 	<cfparam name="url.IdMenu"                       default="">
 	<cfparam name="url.SystemFunctionId"             default="#url.idmenu#">
@@ -300,7 +300,7 @@ datasource="AppsInit">
 			<cfset bg = background>		
 			<cf_assignId>
 			<cfset vScreenId = rowGuid>
-																					
+																								
 			<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
 	
 				<tr bgcolor="white">
@@ -548,7 +548,7 @@ datasource="AppsInit">
 																 
 																 <td style="border-left:1px solid rgba(255,255,255,0.2);border-right:1px solid rgba(255,255,255,0.2);padding:12px 12px;color:#attributes.textColorClose#;">	
 																	<cfif Attributes.MenuAccess      eq "Context"><img src="#session.root#/images/logos/menu/context.png" style="cursor:pointer" height="12" width="12" title="Context" border="0"></cfif>
-																	<cfif Attributes.ValidateSession eq "Yes"><img src="#session.root#/images/logos/menu/connected.png" style="cursor:pointer" height="12" width="12" title="Connected" border="0"></cfif>
+																	
 																</td>
 																
 																<td align="center" class="labelmedium drk-hover" style="width:32px;border-left:1px solid rgba(255,255,255,0.2);border-right:1px solid rgba(255,255,255,0.2);padding:12px 12px;">

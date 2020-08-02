@@ -146,10 +146,8 @@
 	<cfif Attributes.TrackUser eq "1">
 		<cf_trackUser>
 	</cfif>
-	
-	
-				
-	<cfif Attributes.VerifyCSRF eq "1a">
+					
+	<cfif Attributes.VerifyCSRF eq "ccccc">
 								
 		<cfif (CGI.SCRIPT_NAME eq "/apps/Component/Process/Workorder/UploadPicture.cfm" AND 
 		       findNoCase("android", GetHttpRequestData().Headers["user-agent"]) neq 0) 
@@ -225,9 +223,7 @@
 			</cfif>		
 			
 		</cfif>
-		
-		
-		
+				
 		<!--- we determine if we have reasons to believe this template is geared to
 		be opened as on CSRF controlled --->
 		
@@ -317,15 +313,15 @@
 		</cfif>	
 		
 	</cfif>	
-
+		
 	<cfif findNoCase("cf_clientid",CGI.QUERY_STRING)>
 
 	   <!--- added 26/8/2011. An ajax request is not considered as a visit and for check to prevent cramped messages --->
    
 	<cfelse>
-			
+						
 		<cfif Attributes.VerifyAuthentication eq "1"> 	
-					
+				
 			<!--- esnure the application.cfm does not check for authentixation otherwise we have a double
 			check of the template as well 
 			because submitting it will trigger a validate which is then subject for its own validation as well --->				
@@ -352,18 +348,11 @@
 	</cfquery>		 
 			 
 	<cfif Parameter.EnableError neq "0">
-		      						  
-			<!---  was not a good idea 
-			 		 		  			
-		    <cferror type="REQUEST"
-    	     	  template="/#System.VirtualDirectory#/ErrorRequest.cfm"
-				  mailto="jmazariegos@promisan.com"> 				  				  
-			--->
-				      
-			<cferror type = "exception"
-			  template = "/#System.VirtualDirectory#/Error.cfm"
-			  exception = "any"> 			   			   
-			  				
+						      
+		<cferror type = "exception"
+		  template = "/#System.VirtualDirectory#/Error.cfm"
+		  exception = "any"> 			   			   
+		  				
 	<cfelse>
 	
 		<!--- default behavior --->

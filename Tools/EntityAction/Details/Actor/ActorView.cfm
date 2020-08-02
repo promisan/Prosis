@@ -20,7 +20,7 @@
 	<tr><td id="process"></td></tr>
 	
 	<tr class="line labelmedium">
-	   <td style="min-width:150px"><cf_tl id="Officer"></td>
+	   <td style="min-width:250px"><cf_tl id="Officer"></td>
 	   <td style="min-width:160px"><cf_tl id="Decision"></td>
 	   <td style="width:100%"><cf_tl id="Memo"></td>
 	   <td style="min-width:90px"><cf_tl id="Stamp"></td>
@@ -45,9 +45,9 @@
 	    <cfif useraccount eq session.acc or getAdministrator("*") eq "1"> 
 		
 			<tr class="line labelmedium">
-			   <td style="padding-left:5px;background-color:f4f4f4;padding-right:5px">#FirstName# #LastName#</td>
-			   <td valign="top">
-				   <table style="padding-top:2px">
+			   <td style="padding-left:9px;background-color:f4f4f4;padding-right:5px">#FirstName# #LastName#</td>
+			   <td valign="top" style="padding-top:1px">
+				   <table>
 				   <tr>
 				   <td style="padding-left:4px"><input type="radio" class="radiol" name="#userAccount#_Decision" value="0" <cfif Process.decision eq "0" or Process.decision eq "">checked</cfif>></td><td style="padding-top:3px;padding-left:4px"><cf_tl id="N/A"></td>
 				   <td style="padding-left:8px"><input type="radio" class="radiol" name="#userAccount#_Decision" value="3" <cfif Process.decision eq "3">checked</cfif>></td><td style="padding-top:3px;padding-left:4px"><cf_tl id="Yes"></td>
@@ -56,9 +56,9 @@
 				   </table>
 			   </td>   
 			   <td style="border-left:1px solid silver;border-right:1px solid silver">
-			     <input name="#userAccount#_DecisionMemo" style="width:99%;border:0px" class="regularxl" type="text" value="#Process.DecisionMemo#">
+			     <input name="#userAccount#_DecisionMemo" style="background-color:ffffcf;width:99%;border:0px" class="regularxl" type="text" value="#Process.DecisionMemo#">
 			   </td>
-			   <td align="center">
+			   <td align="center" style="padding-left:4px;padding-right:4px">
 			   <cf_tl id="Submit" var="1">
 			   <input type="button" value="#lt_text#" style="width:100%"
 			    onclick="ptoken.navigate('#session.root#/Tools/EntityAction/Details/Actor/ActorViewSubmit.cfm?objectid=#objectid#&actionCode=#actionCode#&useraccount=#useraccount#','process','','','POST','actorform')">
@@ -68,9 +68,9 @@
 		<cfelse>
 		
 			<tr class="line labelmedium navigation_row">
-			   <td>#FirstName# #LastName#</td>
+			   <td style="padding-left:9px">#FirstName# #LastName#</td>
 			   <td>
-			   <cfif Process.decision eq "1"><cf_tl id="Yes"><cfelse><cf_tl id="No"></cfif>		  
+			    <cfif Process.decision eq "0">--<cfelseif Process.decision eq "">--<cfelseif Process.decision eq "3"><cf_tl id="Yes"><cfelse><cf_tl id="No"></cfif>		  
 			   </td>   
 			   <td style="border-left:1px solid silver">#Process.DecisionMemo#</td>
 			   <td style="border-left:1px solid silver">#dateformat(Process.Created,'#client.dateformatshow# HH:MM')#</td>

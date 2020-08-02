@@ -1,5 +1,6 @@
 
-<cfparam name="URL.search" default="">
+<cfparam name="URL.search"      default="">
+<cfparam name="URL.entityclass" default="">
 <cfparam name="Box"        default="">
 
 <cfset val = "">
@@ -27,6 +28,13 @@ password="#SESSION.dbpw#">
 	WHERE   E.EntityCode = '#URL.EntityCode#'	   
 	<cfif url.search neq "">
 	AND     (E.ActionDescription LIKE '%#URL.search#%' OR E.ActionCode LIKE '%#URL.search#%') 
+	</cfif>
+	<cfif url.entityclass neq "">
+	AND    E.ActionCode IN (SELECT EAP.ActionCode
+				 		    FROM   Ref_EntityActionPublish AS EAP INNER JOIN
+	                               Ref_EntityClassPublish AS ECP ON EAP.ActionPublishNo = ECP.ActionPublishNo 
+						    WHERE  ECP.EntityCode = '#URL.EntityCode#' 
+						    AND    ECP.EntityClass = '#URL.EntityClass#')
 	</cfif>
 	ORDER BY E.ListingOrder
 </cfquery>
@@ -59,14 +67,51 @@ password="#SESSION.dbpw#">
    <cfparam name="URL.ID2" default="">   
 </cfif>
 	
-	<table width="100%" cellspacing="0" cellpadding="0" align="center">
+	<table width="100%" align="center">
 	
 	<tr>
 	
-	 <td width="100" style="height:40;padding-left:8px" class="labelit"><cf_tl id="Locate"></td>
+	 <td colspan="4">	
+	 
+	 <table><tr>
+	 
+	  <td width="100" style="height:35;padding-left:6px" class="labelit"><cf_tl id="Used in class"></td>
+	  
+	 <td>
+	 
+	 <cfquery name="Class" 
+		datasource="AppsOrganization" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT       ECP.EntityClass, R.EntityClassName
+			FROM         Ref_EntityActionPublish AS EAP INNER JOIN
+                         Ref_EntityClassPublish AS ECP ON EAP.ActionPublishNo = ECP.ActionPublishNo INNER JOIN
+                         Ref_EntityClass AS R ON ECP.EntityCode = R.EntityCode AND ECP.EntityClass = R.EntityClass
+			WHERE        EAP.ActionCode IN
+                             (SELECT      ActionCode
+                               FROM       Ref_EntityAction
+                               WHERE      EntityCode = '#URL.EntityCode#')
+			GROUP BY ECP.EntityClass, R.EntityClassName
+		</cfquery>
+					
+		<cfoutput>
+		<select name="entityclass" id="entityclass" class="regularxl" onchange="searching('#url.entitycode#',document.getElementById('find').value,this.value)">
+		
+			<option value=""><cf_tl id="Any"></option>
+			<cfloop query="Class">
+			   <option value="#EntityClass#" <cfif entityclass eq url.entityclass>selected</cfif>>#EntityClassName#</option>
+			</cfloop>
+		
+		</select>	
+		</cfoutput>
+		 	     
+			   
+		</td>
+	
+	 <td style="height:35;padding-left:6px;padding-right:5px" class="labelit"><cf_tl id="Find"></td>
 	 
 	 <cfoutput>
-	 
+	 	 
 		 <td width="100">	
 		 
 		      <input type    = "text" 
@@ -93,13 +138,15 @@ password="#SESSION.dbpw#">
 				 border      = "0" 
 				 height      = "14" width="14"
 				 align       = "absmiddle" 
-				 onclick     = "searching('#url.entitycode#',document.getElementById('find').value)">
+				 onclick     = "searching('#url.entitycode#',document.getElementById('find').value,document.getElementById('entityclass').value)">
 			
 		  </td> 
-	  
-	      <td width="90%"></td>
-	  
+	      	  
 	  </cfoutput>	   
+	  
+	  </table>
+	  
+	  </td>
 		      
 	</tr>
 		      
@@ -119,7 +166,7 @@ password="#SESSION.dbpw#">
 		   <td style="padding-left:2px" width="50%"><cf_tl id="Description"></td>
 		   <td style="padding-left:2px" width="40">S</td>
 		   <td style="padding-left:2px" width="10%"><cf_tl id="Class"></td>
-		   <td style="padding-left:6px"><cf_UIToolTip tooltip="Uses Tabbed form and presents the action dialog as modal dialog"><cf_tl id="Dialog"></cf_UIToolTip></td>
+		   <td style="padding-left:2px"><cf_UIToolTip tooltip="The presentation of the action in the browser"><cf_tl id="Window"></cf_UIToolTip></td>
 		   <td style="padding-left:2px" width="40" align="center"><cf_UIToolTip tooltip="Allow Object Owner to grant access to users for this step on the object level">Fly.</cf_UIToolTip></td>
 		   <td style="padding-left:2px" width="40" align="center"><cf_UIToolTip tooltip="Enabled for embediding in new worflows">Op.</cf_UIToolTip></td>
 		   <td align="right" style="padding-right:10px" colspan="4">
@@ -149,7 +196,7 @@ password="#SESSION.dbpw#">
 				</table> 
 	        </td>
 			
-			<td style="padding-left:3px">
+			<td style="padding-left:3px;border-left:1px solid silver">
 			  					
 				<cf_LanguageInput
 					TableCode       = "Ref_EntityAction" 
@@ -167,7 +214,7 @@ password="#SESSION.dbpw#">
 					
 			</td>
 			
-			<td style="padding-left:1px">
+			<td style="padding-left:1px;border-left:1px solid silver">
 						
 				   <cfinput type="text" 
 			         name="ListingOrder" 
@@ -181,9 +228,9 @@ password="#SESSION.dbpw#">
 					 
 			</td>
 			
-			<td style="padding-left:3px">
+			<td style="padding-left:3px;border-left:1px solid silver">
 						 
-				<select name="ActionType" id="ActionType" class="regularxl" style="width:200px;border:0px;border-right:1px solid silver;border-left:1px solid silver">
+				<select name="ActionType" id="ActionType" class="regularxl" style="width:95%;border:0px">
 				<cfif Check.recordcount eq "0" and Entity.EnableCreate eq "1">
 				<option value="Create">Create</option>
 				</cfif>
@@ -192,8 +239,8 @@ password="#SESSION.dbpw#">
 				</select>
 			</td>
 			
-			<td align="center" style="padding-left:3px">
-				<select name="ProcessMode" id="ProcessMode" class="regularxl" style="width:99%;border:0px;border-right:1px solid silver;border-left:1px solid silver">				
+			<td align="center" style="padding-left:3px;border-left:1px solid silver">
+				<select name="ProcessMode" id="ProcessMode" class="regularxl" style="width:99%;border:0px">				
 					<option value="0">Single Dialog (legacy)</option>									
 					<option value="2">Window</option>		
 					<option value="3">Browser Tab</option>		
@@ -250,7 +297,7 @@ password="#SESSION.dbpw#">
 			   
 			   <td width="2"></td>
 			   <td class="labelit" height="26" style="padding-left:2px">#nm#</td>			  
-			   <td style="padding-left:3px">
+			   <td style="padding-left:3px;border-left:1px solid silver">
 			   
 			   	<cf_LanguageInput
 						TableCode       = "Ref_EntityAction" 
@@ -263,27 +310,28 @@ password="#SESSION.dbpw#">
 						Message         = "Please enter a description"
 						MaxLength       = "80"
 						Size            = "40"
-						style           = "width:99%;border:0px;border-left:1px solid silver"
+						style           = "width:99%;border:0px"
 						Class           = "regularxl">				
 
 	           </td>
-			   <td style="padding-left:3px">
-			      <cfinput type="Text" value="#ListingOrder#" style="text-align:center;height:25;width:30;border:0px;border-right:1px solid silver;border-left:1px solid silver" name="ListingOrder" validate="integer" required="No" visible="Yes" enabled="Yes" size="1" maxlength="2" class="regularxl">
+			   <td style="padding-left:3px;border-left:1px solid silver">
+			      <cfinput type="Text" value="#ListingOrder#" style="text-align:center;height:25;width:30;border:0px" name="ListingOrder" validate="integer" required="No" visible="Yes" enabled="Yes" size="1" maxlength="2" class="regularxl">
 			   </td>			   
-			   <td style="padding-left:3px">
+			   <td style="padding-left:3px;border-left:1px solid silver">
+			   
 			    <cfif ActionType neq "Create">
-				<select name="ActionType" id="ActionType" class="regularxl" tyle="width:99%;border:0px;border-right:1px solid silver;border-left:1px solid silver">
+				<select name="ActionType" id="ActionType" class="regularxl" style="width:96%;border:0px">
 				   <option value="Action" <cfif ActionType eq "Action">selected</cfif>>Action</option>
 				   <option value="Decision" <cfif ActionType eq "Decision">selected</cfif>>Decision</option>
 				</select>
 				<cfelse>
-				<select name="ActionType" id="ActionType" class="regularxl" tyle="width:99%;border:0px;border-right:1px solid silver;border-left:1px solid silver">
+				<select name="ActionType" id="ActionType" class="regularxl" style="width:96%;border:0px">
 				   <option value="Action" <cfif ActionType eq "Create">selected</cfif>>Create</option>
 				</select>
 				</cfif>
 			   </td>
-			   <td align="center" style="padding-left:3px">
-			   	<select name="ProcessMode" id="ProcessMode" style="min-width:200px;border:0px;border-right:1px solid silver;border-left:1px solid silver" class="regularxl">				
+			   <td align="center" style="padding-left:3px;border-left:1px solid silver">
+			   	<select name="ProcessMode" id="ProcessMode" style="min-width:200px;border:0px" class="regularxl">				
 					<option value="0" <cfif "0" eq ProcessMode>selected</cfif>>Single Dialog</option>									
 					<option value="2" <cfif "2" eq ProcessMode>selected</cfif>>Window</option>						
 					<option value="3" <cfif "3" eq ProcessMode>selected</cfif>>Browser tab</option>			
@@ -291,13 +339,13 @@ password="#SESSION.dbpw#">
 					<option value="1" <cfif "1" eq ProcessMode>selected</cfif>>Modal Dialog (Kendo)</option>
 				</select>			  
 			   </td>
-			   <td align="center" style="padding-left:3px">
+			   <td align="center" style="padding-left:3px;border-left:1px solid silver">
 			   	<input type="checkbox" class="radiol" name="EnableAccessFly" id="EnableAccessFly" value="1" <cfif "1" eq EnableAccessFly>checked</cfif>>
 			   </td>
-			   <td class="regular" align="center" style="padding-left:3px">
+			   <td class="regular" align="center" style="padding-left:3px;border-left:1px solid silver">
 			      <input type="checkbox" class="radiol" name="Operational" id="Operational" value="1" <cfif "1" eq op>checked</cfif>>
 				</td>
-			   <td colspan="4" align="right" style="padding-left:3px">
+			   <td colspan="4" align="right" style="padding-left:3px;border-left:1px solid silver">
 			   <input type="submit" style="width:50" value="Save" class="button10s">
 			   </td>
 		    </TR>	
@@ -326,18 +374,18 @@ password="#SESSION.dbpw#">
 			   <td style="padding-left:3px">#de#</td>
 			   <td>#ListingOrder#</td>
 			   <td><cfif ActionType eq "Create"><b><font color="6688aa"></cfif>#ActionType#</td>
-			   <td>
+			   <td style="min-width:140px">
 				<cfif "0" eq ProcessMode>Window
 				<cfelseif ProcessMode eq "2">Tabbed&nbsp;Window
 				<cfelseif ProcessMode eq "3">Browser&nbsp;tab
 				<cfelseif ProcessMode eq "4">Browser&nbsp;panel&nbsp;tab
-				<cfelse>Tabbed&nbsp;Modal
+				<cfelse>Tabbed&nbsp;Modal (Kendo)
 				</cfif>
 			   </td>
 			   <td align="center"><cfif EnableAccessFly eq "0"><b>N</b><cfelse>Y</cfif></td>
 			   <td align="center"><cfif op eq "0"><b>N</b><cfelse>Y</cfif></td>
 			   <td align="center" style="padding-top:1px">				   	   
-			     <cf_img icon="edit" navigation="Yes" onclick="#ajaxLink('ActionRecords.cfm?EntityCode=#URL.EntityCode#&ID2=#nm#&search=#url.search#')#">	   											 
+			     <cf_img icon="edit" navigation="Yes" onclick="#ajaxLink('ActionRecords.cfm?EntityCode=#URL.EntityCode#&ID2=#nm#&search=#url.search#&entityclass=#url.entityclass#')#">	   											 
 			   </td>
 			   <td align="center" style="padding-left:2px;padding-right:2px">
 			

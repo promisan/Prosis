@@ -153,23 +153,22 @@
 		
 		<cf_pictureProfileStyle>
 
-
-
 		<cfinclude template="MainMenuViewScript.cfm">
-
+		
 		<cf_SessionValidateScript doctypemode="doctype">
 
 
 	</head>			
-			
-	<body <cfif SESSION.authent lte "4">onLoad="sessionvalidatestart()"</cfif>>		
 		
+	<body onLoad="<cfif SESSION.authent lte "4">sessionvalidatestart()</cfif>">		
+	
+				
 		<!--- main container to be controlled for the look and feel --->
 				
 		<div id="mainwrapper">		
 		
 			<div id="sessionvalidcheck" style="width:0px; height:0px; line-height:0px; font:0px; position:absolute; top:0px left:0px"></div>	
-			<div id="sessionvalid" style="width:100%; height:100%; position:absolute; z-index:99999; display:none"></div>
+			<div id="sessionvalid"      style="width:100%; height:100%; position:absolute; z-index:99999; display:none"></div>
 					
 			<!---Hidden dialog until fileShelf Upload is clicked --->
 			<div id="fileuploaddialog"></div>					

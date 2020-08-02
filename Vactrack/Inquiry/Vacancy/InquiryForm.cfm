@@ -45,12 +45,12 @@ password="#SESSION.dbpw#">
 datasource="AppsVacancy" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-SELECT Mission, count(*) as Total
-FROM   Document
-WHERE  Mission IN (SELECT Mission
-                   FROM   Vacancy.dbo.Document 
-				   WHERE   Status != '9')
-AND    Mission > ''
+SELECT   Mission, count(*) as Total
+FROM     Document
+WHERE    Mission IN (SELECT Mission
+                    FROM   Vacancy.dbo.Document 				   
+				    WHERE   Status != '9')
+AND      Mission IN (SELECT Mission FROM Organization.dbo.Ref_Mission WHERE Operational = 1)			   		
 GROUP BY Mission
 ORDER BY Mission
 </cfquery>
@@ -140,7 +140,7 @@ ORDER BY Mission
 		</SELECT>
 		--->
 		
-	<INPUT class="regularxl" type="text" name="Crit3_Value" size="10">
+	<INPUT class="regularxxl" type="text" name="Crit3_Value" size="10">
    	
 	</TD>
 	</tr>
@@ -148,16 +148,18 @@ ORDER BY Mission
 	<tr>	
 	<td colspan="1" class="labelmedium"><cf_tl id="Track Reference No">:</td>	    
 	<td colspan="3">		
-	<INPUT class="regularxl" type="text" name="ReferenceNo" size="28">   	
+	<INPUT class="regularxxl" type="text" name="ReferenceNo" size="28">   	
 	</TD>
 	</tr>
 			
 	<tr>	
-	<td colspan="1" class="labelmedium"><cf_tl id="Entity">:</td>	
+	<td style="min-width:180px" colspan="1" class="labelmedium"><cf_tl id="Entity">:</td>	
 	<td colspan="3">
 	
-	    <select value="All" name="mission" size="1" class="regularxl">
-		<option value="All" selected>Any</option>
+	    <select value="All" name="mission" size="1" class="regularxxl">
+		
+		<option value="All" selected><cf_tl id="Any"></option>
+		
 		
 	    <cfoutput query="Mission">
 		
@@ -167,11 +169,11 @@ ORDER BY Mission
 			      returnvariable="accessTree">
 	   			
 	 			 <cfif AccessTree neq "NONE">
-				    <option value="'#Mission#'">#Mission# [###total#]</option>	
+				    <option value="'#Mission#'">#Mission# (#total#)</option>	
 				 </cfif>	
 				 
 		</cfoutput>
-		
+				
 	    </select>
 				
 	</td>	
@@ -181,7 +183,7 @@ ORDER BY Mission
 	<td colspan="1" class="labelmedium"><cf_tl id="Roster Edition">:</td>	
 	<td colspan="3">
 	
-	    <select name="submissionedition" class="regularxl">
+	    <select name="submissionedition" class="regularxxl">
 		
 		<option value="" selected>Any</option>
 		
@@ -216,7 +218,7 @@ ORDER BY Mission
 	
 	  <table cellspacing="0" cellpadding="0"><tr>
 	   <td>	
-	   <input type="text"   id="functionaltitle" name="functionaltitle" class="regularxl" size="50" maxlength="80" value="" readonly>				    
+	   <input type="text"   id="functionaltitle" name="functionaltitle" class="regularxxl" size="50" maxlength="80" value="" readonly>				    
 	   <input type="hidden" id="functionno" name="functionno" class="disabled" size="6" maxlength="6" value="" readonly>	
 	   <input type="hidden" id="documentnotrigger" name="documentnotrigger" class="disabled" size="6" maxlength="6" readonly>	
 	   
@@ -239,7 +241,7 @@ ORDER BY Mission
 			    
 	<td colspan="3">
 	 
-	<INPUT class="regularxl" type="text" name="Post" size="10">
+	<INPUT class="regularxxl" type="text" name="Post" size="10">
     	
 	</TD>
 	</tr>
@@ -255,7 +257,7 @@ ORDER BY Mission
 			 <cf_intelliCalendarDate9
 				FieldName="Start" 
 				Default="#Dateformat(Now()-300, CLIENT.DateFormatShow)#"
-				Class="regularxl">
+				Class="regularxxl">
 			
 			</td>
 			
@@ -265,7 +267,7 @@ ORDER BY Mission
     	  <cf_intelliCalendarDate9
 				FieldName="End" 
 				Default="#Dateformat(Now()+90, CLIENT.DateFormatShow)#"
-				Class="regularxl">	
+				Class="regularxxl">	
 		
 		</td></tr>
 		</table>
@@ -278,7 +280,7 @@ ORDER BY Mission
 	
 	<td colspan="1" class="labelmedium"><cf_tl id="Candidate name">:</td>	    
 	<td colspan="3">    			
-	<INPUT class="regularxl" type="text" name="Name" size="30">	
+	<INPUT class="regularxxl" type="text" name="Name" size="30">	
 	</TD>
 	</tr>
 		
@@ -287,14 +289,9 @@ ORDER BY Mission
 	<td valign="top" style="padding-top:5px" colspan="1" class="labelmedium"><cf_tl id="Candidate status">:</td>
 	
 	<td colspan="3">
-	   <select name="CandidateStatus" multiple class="regularxl" style="height:140px">
-	    <cfoutput query="CandidateStatus">
-		<option value="'#Status#'">
-		<font face="Tahoma" size="1">
-		#Description#
-		</font></option>
-		</cfoutput>
-	    </select>
+	   <cf_uiselect name="CandidateStatus" class="regularxxl"
+	      multiple = "Yes" query="#CandidateStatus#" value="Status" Display="Description">
+	   </cf_uiselect>
 	</td>
 	
 	</tr>

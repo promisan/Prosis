@@ -51,8 +51,7 @@ password="#SESSION.dbpw#">
 			<tr class="labelmedium fixrow">
 			    <td></td>
 			    <td>Bank</td>
-				<td>Currency</td>
-				<td>Name</td>
+				<td>Currency</td>				
 				<td>AccountNo</td>
 				<td>Bank Address</td>
 			    <td>GL Account</td>
@@ -66,7 +65,9 @@ password="#SESSION.dbpw#">
 						<td><a href="javascript:recordedit('#BankId#')">#BankName#</a></td>
 						<td>#Currency#</td>
 						<td>#AccountNo#</td>
+						<!---
 						<td>#AccountName#</td>
+						--->
 						<td>#BankAddress#</td>
 						<td>#GLAccount# #Description#</td>
 				    </tr>

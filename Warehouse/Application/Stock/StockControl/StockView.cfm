@@ -14,6 +14,7 @@
 		  banner="blue"	 
 		  bannerforce="Yes"
 		  jQuery="Yes"
+		  validateSession="Yes"
 		  busy="busy10.gif"
 		  MenuAccess="No"
 		  bannerheight="50"		
@@ -29,6 +30,7 @@
 		  html="no"
 		  layout="webapp"	
 		  banner="blue"
+		  validatesession="Yes"
 		  bannerforce="Yes"
 		  jQuery="Yes"
 		  busy="busy10.gif"		  
@@ -40,9 +42,8 @@
   
 </cfif> 
 
-<cfajaximport tags="cftree,cfchart,cfform,cfwindow,cfdiv">
+<cfajaximport tags="cfchart,cfform,cfwindow,cfdiv">
 <cf_presentationScript>
-
 	
 <cfparam name="client.warehouseselected" default="">
 

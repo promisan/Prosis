@@ -19,7 +19,7 @@ password="#SESSION.dbpw#">
 						)					   
 </cfquery>
 
-<select name="Flow" class="regularxl">
+<select name="Flow" class="regularxxl">
     <option value="All" selected>All</option>
     <cfoutput query="Flow">
 	<option value="#EntityClass#">

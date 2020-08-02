@@ -66,7 +66,7 @@
 
 <cfif URL.Mode eq "Insert" or URL.Mode eq "BatchInsert">
 
-	<table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+	<table width="100%" align="center">
 	
 	<cfif url.mode eq "Insert">
 	
@@ -115,10 +115,12 @@
 	<cfoutput>
 	<tr>
 	<td colspan="2">
-	<table cellspacing="0" cellpadding="0">
+	<table>
 		<tr>
-			<td height="25" valign="top" class="labelmedium" width="150" style="padding-top:5px;padding-left:10px"><cf_tl id="Delegation">:</b></td>	
-			<td height="15">
+		  <!---
+			<td height="25" valign="top" class="labelmedium" width="150" style="padding-top:5px;padding-left:10px"><cf_tl id="Delegation">:</td>	
+			--->
+			<td height="15" colspan="2">
 			
 			<table class="formpadding">
 						
@@ -127,7 +129,7 @@
 				
 				<table><tr>
 				
-				<td colspan="2" class="labelmedium" style="padding-left:80px">
+				<td colspan="2" class="labelmedium" style="padding-left:10px">
 				
 				<cfset link = "ProcessActionAccess.cfm?accesslevel=1||box=#url.box#||Mode=#url.mode#||ObjectId=#url.ObjectId#||OrgUnit=#url.OrgUnit#||Role=#url.Role#||ActionPublishNo=#url.ActionPublishNo#||ActionCode=#url.ActionCode#||Group=#url.group#||Assist=#url.assist#">
 														 
@@ -198,8 +200,7 @@
 				<td>&nbsp;</td>
 				<td colspan="2" class="labelit" style="padding-left:4px">
 				<cfloop query="Action">
-				     <font color="C0C0C0">	
-				   - #ActionDescription#<br>
+				     <font color="C0C0C0">- #ActionDescription#<br>
 				</cfloop>	
 				</td>
 					
@@ -221,24 +222,15 @@
 <cfelse>
 
 <table width="100%"
-   height="100%"
-   border="0"	   
-   cellspacing="0"
-   cellpadding="0"
-   align="center">
+   height="100%" align="center">
 	   
-	<tr class="line"><td colspan="3"
-	        class="labelmedium" 
-			style="padding-left:30px" 
-			bgcolor="F5FBFE" 
-			height="20"><cf_tl id="Access granted to">:</td></tr>	
-
+	<tr class="line"><td colspan="3" class="labelmedium" style="padding-left:30px" bgcolor="F5FBFE" height="20"><cf_tl id="Access granted to">:</td></tr>	
 	
 </cfif>
 
 <tr style="margin-bottom:10px;"><td colspan="3" bgcolor="ffffff" valign="top">
 
-	<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+	<table width="100%" height="100%">
 	
 	   <cfif URL.OrgUnit neq "NULL">
 	   
@@ -368,15 +360,15 @@
 			
 			<tr>
 			<td colspan="2" class="labelmedium" valign="top"
-			    style="cursor: pointer;padding:4px;padding-left:30px;height:30px;" 
+			    style="cursor: pointer;padding:4px;padding-left:20px;height:30px;" 
 			    onClick="javascript:document.getElementById('#URL.ActionCode#_#type#').className='regular';">
 	
-			<a>CLICK HERE <cf_tl id="view Inherited access through ROLE granted authorization"></a><br>
+			<a>CLICK HERE <cf_tl id="view Inherited access through ROLE granted authorization"></a>
 	
 			<table width="100%" align="center" id="#URL.ActionCode#_#type#" class="hide formpadding">
 			</cfif>		
 			
-			<tr>		
+			<tr style="height:6px">		
 			 	<td width="4%"></td>
 				<td width="28%"></td>
 				<td width="1%"></td>
@@ -401,7 +393,7 @@
 			<cfif r eq "0">
 				
 				<cfif currentRow neq "1">
-				<tr><td height="1" colspan="9" class="line"></td></tr>
+				<tr class="line"><td height="1" colspan="9"></td></tr>
 				</cfif>
 				
 			</cfif>	
@@ -409,8 +401,7 @@
 			    <td style="padding-left:20px;padding-right:10px"><b>#C#.</b></td>
 				<td>
 				
-					<table cellspacing="0" cellpadding="0">
-					<tr><td class="labelit">
+					<table><tr><td>
 					
 					<!--- I changed this line JM on 02/02/2010 : from type neq Document to type eq Document ---->		
 					
@@ -428,7 +419,7 @@
 						 <td style="padding-left:4px;padding-top:2px;padding-right:5px">			
 						 
 						   <cf_img icon="delete"							  
-						   onClick="_cf_loadingtexthtml='';ColdFusion.navigate('#SESSION.root#/tools/entityAction/ProcessActionAccessDelete.cfm?box=#url.box#&Mode=#url.Mode#&ObjectId=#url.ObjectId#&OrgUnit=#url.OrgUnit#&Role=#url.Role#&ActionPublishNo=#url.actionPublishNo#&ActionCode=#url.ActionCode#&Group=#url.group#&account=#Account#&assist=#url.assist#','#url.box#')">
+						   onClick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/tools/entityAction/ProcessActionAccessDelete.cfm?box=#url.box#&Mode=#url.Mode#&ObjectId=#url.ObjectId#&OrgUnit=#url.OrgUnit#&Role=#url.Role#&ActionPublishNo=#url.actionPublishNo#&ActionCode=#url.ActionCode#&Group=#url.group#&account=#Account#&assist=#url.assist#','#url.box#')">
 						   
 						 </td>
 						 
@@ -565,7 +556,7 @@
 			
 			<cfif r eq "0">
 				</tr>
-				<tr class="line"><td height="1" colspan="9"></td></tr>
+				
 			</cfif>	
 			
 			</cfoutput>

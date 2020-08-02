@@ -26,6 +26,7 @@
 		</cfquery>	
 		
 		<cfset url.id = event.PersonNo>	
+		<cfset url.mode = "workflow">
 		<cfinclude template="../PersonViewHeaderToggle.cfm">
 	
 	</td></tr>

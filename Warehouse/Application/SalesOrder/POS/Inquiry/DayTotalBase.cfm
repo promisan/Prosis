@@ -12,6 +12,12 @@
 	WHERE   Warehouse= '#url.warehouse#'			
 </cfquery>
 
+<cfif url.mission eq "">
+	<cfset mis = get.mission>	
+<cfelse>
+	<cfset mis = url.mission>		
+</cfif>
+
 <!--- define access --->
 	
 <cfif url.systemfunctionid eq "">
@@ -60,7 +66,7 @@
 			 AND Currency <> '#application.basecurrency#'		 
 		</cfquery>					
 		
-		<cfset linksave = "#session.root#/Tools/Listing/Pane/setSelection.cfm?systemfunctionid=#url.systemfunctionid#&passtru=../../../Warehouse/Application/SalesOrder/POS/Inquiry/DayTotalBaseContent.cfm">
+		<cfset linksave = "#session.root#/Tools/Listing/Pane/setSelection.cfm?systemfunctionid=#url.systemfunctionid#&mission=#mis#&passtru=../../../Warehouse/Application/SalesOrder/POS/Inquiry/DayTotalBaseContent.cfm">
 		
 		<cftry>
 		<cfquery name="Insert" 
@@ -241,13 +247,13 @@
 	<td colspan="3" valign="top" height="100%" style="padding:5px">		
 	
 		<cfoutput>
-		
-		    <cfset init = "#session.root#/Warehouse/Application/SalesOrder/POS/Inquiry/DayTotalBaseContent.cfm?systemfunctionid=#url.systemfunctionid#">
+								
+		    <cfset init = "#session.root#/Warehouse/Application/SalesOrder/POS/Inquiry/DayTotalBaseContent.cfm?systemfunctionid=#url.systemfunctionid#&mission=#mis#">
 		
 			<cfif url.warehouse neq "">			
-				<cfdiv bind="url:#init#&conditionfield=warehouse&conditionvalue=#url.warehouse#" id="salecontent_#url.warehouse#">							
-			<cfelse>			
-				<cfdiv bind="url:#init#&conditionfield=mission&conditionvalue=#url.mission#" id="salecontent_#url.mission#">										
+				<cfdiv bind="url:#init#&conditionfield=warehouse&conditionvalue=#url.warehouse#&ts=1" id="salecontent_#url.warehouse#">							
+			<cfelse>						
+				<cfdiv bind="url:#init#&conditionfield=mission&conditionvalue=#url.mission#&ts=1" id="salecontent_#url.mission#">										
 			</cfif>
 				
 		</cfoutput>

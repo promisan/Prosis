@@ -1,4 +1,6 @@
 
+<cfparam name="url.mission" default="">
+
 <cfquery name="getCondition" 
 	datasource="AppsSystem" 
 	username="#SESSION.login#" 
@@ -31,9 +33,8 @@
 	
 	<cfset dayNo = DayOfWeek(Yesterday)>
 	
-	<cfset yearAgoDate     = DateAdd("yyyy", -1, LastMonth)>		
-	<cfset twoYearsAgoDate = DateAdd("yyyy", -2, LastMonth)>
-	
+	<cfset yearAgoDate     = DateAdd("yyyy", -1, Today)>		
+	<cfset twoYearsAgoDate = DateAdd("yyyy", -2, Today)>	
 		
     <CF_DateConvert Value="#DateFormat(TodayMinus30,CLIENT.DateFormatShow)#">
     <cfset SQL_TODAYMINUS30 = dateValue>
@@ -103,6 +104,9 @@
 		FROM      Currency
 		WHERE     Currency = '#cur#'								
 	</cfquery>
+	
+			
+	<cftransaction isolation="READ_UNCOMMITTED">	
 
 	<cfquery name="getSales"
 		datasource="AppsMaterials" 
@@ -125,7 +129,9 @@
 					 INNER JOIN Item I ON I.ItemNo = L.ReferenceNo
 					 INNER JOIN Ref_Category C ON C.Category = I.Category
 			
-			WHERE 	 H.TransactionSource   = 'SalesSeries' AND H.TransactionCategory = 'Receivables' 
+			WHERE    H.Mission = '#url.mission#'	
+			AND      H.TransactionSource   = 'SalesSeries' 
+			AND      H.TransactionCategory = 'Receivables' 
 			AND      L.TransactionSerialNo != '0'
 			
 			AND      H.RecordStatus    = '1'
@@ -175,6 +181,7 @@
 					INNER JOIN Accounting.dbo.TransactionLine L ON H.Journal = L.Journal AND H.JournalSerialNo = L.JournalSerialNo 
 					INNER JOIN Accounting.dbo.TransactionHeader LH ON LH.Journal = L.ParentJournal AND LH.JournalSerialNo = L.ParentJournalSerialNo
 					INNER JOIN Accounting.dbo.Ref_Account A ON L.GlAccount = A.GlAccount
+			WHERE   H.Mission = '#url.mission#'		
 			
 			AND     EXISTS (SELECT 'X' 
                             FROM   WarehouseBatch 
@@ -216,16 +223,20 @@
 					 H.TransactionCategory		
 					 		 					
 	</cfquery>	
+	
+	<!---
+	
+	<cfoutput>#cfquery.executiontime#</cfoutput>
+	
+	--->
+	
 				
 	<cfif getSales.recordcount eq "0">
-	
-	
+		
 	<tr><td align="center" class="labelmedium"><cf_tl id="No sales recorded"></td></tr>
 	
 	<cfelse>
 	
-		
-	<cftransaction isolation="READ_UNCOMMITTED">	
 								
 		<cfquery name="getCOGS"
 			datasource="AppsMaterials" 
@@ -245,30 +256,31 @@
 						 INNER JOIN Accounting.dbo.TransactionLine L ON H.Journal = L.Journal AND H.JournalSerialNo = L.JournalSerialNo
 						 INNER JOIN Item I ON I.ItemNo = L.ReferenceNo
 						 INNER JOIN Ref_Category C ON C.Category = I.Category
-				WHERE 	 H.TransactionSource   = 'WarehouseSeries' 
-				AND  	 H.TransactionCategory = 'Inventory' 
-				AND  	 L.JournalSerialNo    != '0'	
-				AND      H.RecordStatus    = '1'
-		 		AND      H.ActionStatus IN ('0','1')
-				
+						 
+				WHERE    H.Mission = '#url.mission#'	
 				<!--- valid batch no --->
 				
-				AND 	 H.TransactionSourceId IN (SELECT BatchId 
-				                                   FROM   WarehouseBatch 
-										           WHERE  #url.conditionfield# = '#url.conditionvalue#' 
-										           AND    BatchId   = H.TransactionSourceId)
-
+				AND      EXISTS (SELECT 'X' 
+                                 FROM   WarehouseBatch 
+					             WHERE  BatchId   = H.TransactionSourceId
+							     AND    #url.conditionfield# = '#url.conditionvalue#')	
+									 
+				AND  	 H.TransactionSource   = 'WarehouseSeries' 
+				AND  	 H.TransactionCategory = 'Inventory' 				
+				AND      H.RecordStatus        = '1'
+		 		AND      H.ActionStatus IN ('0','1')
+				
 				<!--- 12/7/2020 added condition as in case of Charlie a disposal was also shown--->
 				AND		 H.Reference = 'Sale'
+				
+				AND  	 L.JournalSerialNo    != '0'	
 												   
-				AND EXISTS
-					(
-						SELECT 'X'
-						FROM   Ref_CategoryGledger
-						WHERE  Category  = I.Category
-						AND    Area      = 'COGS'
-						AND    Mission  IS NULL
-						AND    GlAccount = L.GLAccount
+				AND EXISTS ( SELECT 'X'
+							 FROM   Ref_CategoryGledger
+						     WHERE  Category  = I.Category
+						     AND    Area      = 'COGS'
+						     AND    Mission IS NULL
+						     AND    GlAccount = L.GLAccount
 	  				)	
 					
 				<cfif lng eq "Current">								   
@@ -292,8 +304,11 @@
 						 H.#datefield#			
 		
 		</cfquery>	
-	
-	</cftransaction>
+		
+		<!---
+		<cfoutput>#cfquery.executiontime#</cfoutput>
+		--->
+		
 		
 	<tr>
 		<td valign="top" colspan="2" id="statcontent" style="padding-right:0px" height="100%">
@@ -523,7 +538,7 @@
 										
 					<td width="<cfif per eq 'item'>36<cfelse>16</cfif>%" align="center" valign="top">
 					
-						<table width="100%" align="center" cellspacing="0" cellpadding="0">
+						<table width="100%" align="center">
 						
 							<cfoutput query="list" group="mode">
 							
@@ -534,10 +549,10 @@
 								<cfif per eq "Item">	
 								<tr><td style="padding-left:2px" class="labelit">&nbsp;</td></tr>								
 								<cfelseif Mode eq "Sale">								   
-								<tr>
-									<td colspan="2" align="right" style="padding-right:4px" class="labelit"><cf_tl id="#Mode#"></td>
+								<tr class="line labelmedium" style="height:15px">
+									<td colspan="2" align="right" style="padding-right:4px"><cf_tl id="#Mode#"></td>
 									 <cfif per neq "Item">
-									<td colspan="2" align="right" bgcolor="f4f4f4" style="padding-right:4px" class="labelit"><cf_tl id="COGS"></td>
+									<td colspan="2" align="right" bgcolor="f4f4f4" style="padding-right:4px"><cf_tl id="COGS"></td>
 									</cfif>
 								</tr>
 								<cfelse>
@@ -615,9 +630,29 @@
 									<cfif transactionCategory eq "Advances"><cf_tl id="Advances"><cfelse>#Description#</cfif></td>								 
 								 <cfelse>										
 									<cfif Mode eq "Sale">	
-									<td width="48%" align="right" style="border-top:1px solid e1e1e1;height:21px;padding-left:3px" class="labelmedium">#Numberformat(qSALE.Total,",.__")#</td>
-									<td width="2%"></td>													
-									<td width="48%" align="right" style="border-top:1px solid e1e1e1;height:21px" bgcolor="f4f4f4" class="labelmedium">#Numberformat(qCOGS.Total,",.__")#</td>									
+									
+									<cfif qSale.Total neq "">
+										<cfset dgt = (qSALE.Total-floor(qSale.Total))*100>
+										<cfif dgt lt "10">
+											<cfset dgt = "0#dgt#">																					
+										</cfif>
+									<cfelse>
+										<cfset dgt = "">	
+									</cfif>
+									
+									<td width="48%" align="right" style="border-top:1px solid e1e1e1;height:21px;padding-left:3px" class="labelmedium">#Numberformat(qSALE.Total,",.")#<font size="1">#left(dgt,2)#</font></td>
+									<td width="2%"></td>	
+									
+									<cfif qCOGS.Total neq "">
+										<cfset dgt = (qCOGS.Total-floor(qCOGS.Total))*100>
+										<cfif dgt lt "10">
+											<cfset dgt = "0#dgt#">																					
+										</cfif>
+									<cfelse>
+										<cfset dgt = "">	
+									</cfif>
+																					
+									<td width="48%" align="right" style="border-top:1px solid e1e1e1;height:21px;background-color:##d4d4d450" class="labelmedium">#Numberformat(qCOGS.Total,",.")#<font size="1">#left(dgt,2)#</font></td>									
 									<td width="2%"></td>	
 									
 									<cfif qSALE.Total neq "">
@@ -631,7 +666,18 @@
 									
 									<td colspan="1" align="right" style="height:21px;border-top:1px solid e1e1e1;padding-right:4px"  class="labelmedium"><cfif qSale.Transactions neq "0">#qSale.Transactions#</cfif></td>
 									<td></td>		
-									<td width="48%" colspan="1" style="height:21px;border-top:1px solid e1e1e1;" align="right"  class="labelmedium">#Numberformat(qSALE.Total,",.__")#</td>
+									<td width="48%" colspan="1" style="height:21px;border-top:1px solid e1e1e1;" align="right"  class="labelmedium">
+									
+									<cfif qSale.Total neq "">
+										<cfset dgt = (qSALE.Total-floor(qSale.Total))*100>
+										<cfif dgt lt "10">
+											<cfset dgt = "0#dgt#">																					
+										</cfif>
+									<cfelse>
+										<cfset dgt = "">	
+									</cfif>
+									
+									#Numberformat(qSALE.Total,",.")#<font size="1">#left(dgt,2)#</font></td>
 									<td></td>	
 																		
 									<cfif qSALE.Total neq "">
@@ -654,35 +700,33 @@
 							    </cfoutput>
 								
 								<cfif mode neq "Sale">
-								
-																								
+																							
 								    <!--- obtain pendings by currency --->
-									
-									<cftransaction isolation="READ_UNCOMMITTED">
-									
+																		
 										<cfquery name="getPending"
-										datasource="AppsLedger" 
+										datasource="AppsMaterials" 
 										username="#SESSION.login#" 
 										password="#SESSION.dbpw#">									
 											SELECT   Currency, SUM(AmountOutstanding) AS Outstanding
-											FROM     TransactionHeader AS H
-											WHERE    TransactionSource = 'SalesSeries' 
+											FROM     Accounting.dbo.TransactionHeader AS H
+											WHERE    Mission = '#url.mission#'
+											AND      EXISTS  (SELECT   'X'
+									                          FROM     Materials.dbo.WarehouseBatch
+		                            						  WHERE    #url.conditionfield# = '#url.conditionvalue#' 
+															  AND      BatchId = H.TransactionSourceId) 
+											AND      TransactionSource   = 'SalesSeries' 
 											AND      TransactionCategory = 'Receivables' 
 											AND 	 RecordStatus IN ('0','1')
 											AND		 ActionStatus !=  '9' 
-											AND      TransactionSourceId IN
-									                          (SELECT    BatchId
-									                            FROM     Materials.dbo.WarehouseBatch
-		                            							WHERE  #url.conditionfield# = '#url.conditionvalue#' 
-																AND      BatchId = H.TransactionSourceId) 
+											
 											<cfif per eq "day">
-											AND    #datefield# >= #SQL_TODAY#
+											AND     #datefield# >= #SQL_TODAY#
 											<cfelseif per eq "yesterday">
-											AND    #datefield# = #SQL_YESTERDAY#
+											AND     #datefield# = #SQL_YESTERDAY#
 											<cfelseif per eq "dayminus2">											   
-											AND    #datefield# = #SQL_TODAYMINUS2#
+											AND     #datefield# = #SQL_TODAYMINUS2#
 											<cfelseif per eq "dayminus3">											   
-											AND    #datefield# = #SQL_TODAYMINUS3#		
+											AND     #datefield# = #SQL_TODAYMINUS3#		
 											<cfelseif per eq "month">											   											
 											AND     #datefield# #preserveSingleQuotes(SQL_MONTH)#		
 											<cfelseif per eq "year">
@@ -699,8 +743,10 @@
 											GROUP BY Currency
 											HAVING SUM(AmountOutstanding) > 1
 										</cfquery>
-										
-									</cftransaction>	
+									
+									<!---									
+									#cfquery.executiontime#									
+									--->
 									
 																		
 									<cfset total = "0">
@@ -728,8 +774,18 @@
 									<tr bgcolor="E6F2FF">								
 										<cfif per eq "Item">	
 										<td width="100%" align="left" style="border-top:1px solid e1e1e1;height:21px;padding-left:3px" class="line labelmedium"><cf_tl id="Accounts Receivable"></td>									
-										<cfelse>										
-										<td width="48%" colspan="3" align="right"  style="border-top:1px solid e1e1e1;height:21px"class="line labelmedium">#Numberformat(Total,",.__")#</td>
+										<cfelse>		
+										
+										<cfif Total neq "">
+										<cfset dgt = (Total-floor(Total))*100>
+										<cfif dgt lt "10">
+											<cfset dgt = "0#dgt#">																					
+										</cfif>
+										<cfelse>
+											<cfset dgt = "">	
+										</cfif>
+																		
+										<td width="48%" colspan="3" align="right"  style="border-top:1px solid e1e1e1;height:21px"class="line labelmedium">#Numberformat(Total,",.")#<font size="1">#left(dgt,2)#</font></td>
 										<td></td>								
 										</cfif>
 									</tr>
@@ -740,15 +796,45 @@
 								<cfif per eq "Item">									
 									<td  width="100%" align="left" style="padding-left:23px" class="line labelmedium"><cf_tl id="Total"></td>
 								<cfelse>		
-									<cfif Mode eq "Sale">											
-									<td align="right"  style="padding-left:3px" class="line labelmedium"><b>#Numberformat(vTotalAmount,",.__")#</td>
-									<td></td>																								
-									<td align="right"  bgcolor="f4f4f4" class="line labelmedium"><b>#Numberformat(vTotalCOGS,",.__")#</td>									
+									<cfif Mode eq "Sale">	
+									
+									<cfif vTotalAmount neq "">
+										<cfset dgt = (vTotalAmount-floor(vTotalAmount))*100>
+										<cfif dgt lt "10">
+											<cfset dgt = "0#dgt#">																					
+										</cfif>
+									<cfelse>
+										<cfset dgt = "">	
+									</cfif>
+																			
+									<td align="right"  style="padding-left:3px" class="line labelmedium"><b>#Numberformat(vTotalAmount,",.")#<font size="1">#left(dgt,2)#</font></td>
+									<td></td>			
+									
+									<cfif vTotalCOGS neq "">
+										<cfset dgt = (vTotalCOGS-floor(vTotalCOGS))*100>
+										<cfif dgt lt "10">
+											<cfset dgt = "0#dgt#">																					
+										</cfif>
+									<cfelse>
+										<cfset dgt = "">	
+									</cfif>
+																														
+									<td align="right"  bgcolor="f4f4f4" class="line labelmedium"><b>#Numberformat(vTotalCOGS,",.")#<font size="1">#left(dgt,2)#</font></td>									
 									<td></td>	
 									<cfelse>	
 									<td colspan="1" align="right"  style="padding-right:4px" class="line labelit"><cfif vTotalTransactions neq "0">#vTotalTransactions#</cfif></td>
-									<td></td>		
-									<td colspan="1" align="right"  class="line labelmedium"><b>#Numberformat(vTotalAmount,",.__")#</td>
+									<td></td>	
+									
+									<cfif vTotalAmount neq "">
+										<cfset dgt = (vTotalAmount-floor(vTotalAmount))*100>
+										<cfif dgt lt "10">
+											<cfset dgt = "0#dgt#">																					
+										</cfif>
+									<cfelse>
+										<cfset dgt = "">	
+									</cfif>
+										
+									<td colspan="1" align="right"  class="line labelmedium"><b>#Numberformat(vTotalAmount,",.")#<font size="1">#left(dgt,2)#</font></td>
 									<td></td>			
 									</cfif>	
 								</cfif>	
@@ -768,6 +854,10 @@
 	</tr>
 	
 	</cfif>
+	
+	</cftransaction>
 			
 </table>
+
+<cfset ajaxonload("doHighlight")>
 
