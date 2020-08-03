@@ -41,12 +41,14 @@
  FROM      OrganizationObjectAction OA
  WHERE     Objectid IN (SELECT Objectid 
                         FROM   OrganizationObject
-						WHERE  EntityStatus != '9' or EntityStatus is NULL)
+						WHERE  Operational = 1
+						AND  (EntityStatus != '9' or EntityStatus is NULL))
  AND       ActionStatus = '0' 
  AND       ObjectId IN (SELECT ObjectId 
                         FROM   OrganizationObject 
 						WHERE  ObjectId = OA.ObjectId
 						AND    ObjectStatus = '0'
+						AND    Operational = 1
 						<!--- ----------------------- --->
 						<!--- filter by object entity --->
 						<!--- ----------------------- --->
@@ -140,7 +142,7 @@
 				 
 	<cfif SESSION.isAdministrator eq "Yes">
 			
-		<cfif attributes.role eq "1">
+		<cfif attributes.role eq "1">		
 			
 			<cfquery name="Action" 
 			 datasource="AppsOrganization"
@@ -165,17 +167,18 @@
 						#preservesinglequotes(lastaction)#	
 				FROM    OrganizationObjectActionAccess AA INNER JOIN
 			            userQuery.dbo.#SESSION.acc#Current_#FileNo# OA ON AA.ObjectId = OA.ObjectId and AA.ActionCode = OA.ActionCode
-				WHERE   AA.AccessLevel >= '0'  	  	 
-								
+				WHERE   AA.AccessLevel >= '0'  	  
+				 								
 			</cfquery>	
-			
+						
 		<cfelse>
+				
 		
 			<cfquery name="Action" 
 			 datasource="AppsOrganization"
 			 username="#SESSION.login#" 
 			 password="#SESSION.dbpw#">
-			 					
+			 			 					
 				SELECT  DISTINCT OA.ObjectId, 
 				        OA.ActionId, 				
 						#preservesinglequotes(lastaction)#	
@@ -185,13 +188,12 @@
 				</cfif>						
 				FROM    OrganizationObjectActionAccess AA INNER JOIN
 			            userQuery.dbo.#SESSION.acc#Current_#FileNo# OA ON AA.ObjectId = OA.ObjectId and AA.ActionCode = OA.ActionCode
-				WHERE   AA.AccessLevel >= '0'  	
-				
+				WHERE   AA.AccessLevel >= '0'  					
 											
 			</cfquery>	
-		
+					
 		</cfif>	
-			
+					
 		<!---
 		<cfoutput>e.#cfquery.executiontime#</cfoutput>
 		--->
@@ -324,11 +326,15 @@
 			CREATE UNIQUE CLUSTERED INDEX [ActionId] 
 			    ON userQuery.dbo.#SESSION.acc#Action([ActionId]) ON [PRIMARY]
 	</cfquery>		
-		
+			
 <cfelse>
 
 	<cfif attributes.entity neq "">	
+		<cfif Action.ActionId neq "">
 		<CFSET Caller.actions = quotedValueList(Action.ActionId)>				
+		<cfelse>		
+		<CFSET Caller.actions = "'00000000-0000-0000-0000-000000000000'">		
+		</cfif>
 	</cfif>	
 	
 </cfif>	

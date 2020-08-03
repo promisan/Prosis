@@ -20,7 +20,9 @@
 
 <cftransaction isolation="READ_UNCOMMITTED">
 	
-	<cfquery name="ResultListing" 
+		<!--- 
+		
+		<cfquery name="ResultListing" 
 		 datasource="AppsOrganization"
 		 username="#SESSION.login#" 
 		 password="#SESSION.dbpw#">
@@ -28,6 +30,8 @@
 			 FROM       userQuery.dbo.#SESSION.acc#Action  			 
 		</cfquery>
 		
+		--->
+				
 		<cfquery name="ResultListing" 
 		 datasource="AppsOrganization"
 		 username="#SESSION.login#" 
@@ -59,12 +63,14 @@
 						INNER JOIN    System.dbo.Ref_ApplicationModule AM ON AM.SystemModule = M.SystemModule
 						INNER JOIN    System.dbo.Ref_Application A ON A.Code = AM.Code AND Usage = 'System'
 			 WHERE      P.EnableMyClearances = 1 
-			  AND       O.ObjectStatus = 0
-			  AND       O.Operational = 1  
-			  AND       E.ProcessMode != '9'		
-			  <!--- hide concurrent actions that were completed --->
-			  AND       OA.ActionStatus != '2'
+			  AND       O.ObjectStatus       = 0
+			  AND       O.Operational        = 1  
+			  
 			 
+			  
+			  AND       E.ProcessMode       != '9'		
+			  <!--- hide concurrent actions that were completed --->
+			  AND       OA.ActionStatus     != '2'			 
 		</cfquery>
-				
+						
 </cftransaction>		

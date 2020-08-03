@@ -43,38 +43,68 @@
     </cfoutput>
 <cfelseif thisTag.ExecutionMode is 'end'>
     <cfif attributes.multiple eq "No">
-            <cfset vReturn = ParseHTMLTag(thisTag.GeneratedContent)>
-                <cftry>
-                    <cfset vValue = vReturn['Attributes']['value']>
-                    <cfset vDisplay = vReturn['Attributes']['Inside']>
-                    <cfoutput>
-                     <cfif attributes.selected eq "">
-                          <cfset attributes.selected = vValue>
-                     </cfif>
+            <cfset vHtml = thisTag.generatedContent>
+            <cfset thisTag.generatedContent = "">
+            <cfscript>
+                matches = rematch("<option[^>]*>[^<]*</option>", vHtml);
+                results = [];
+                for (match in matches) {
+                    arrayAppend(results, rereplace(match, "<option>(.*)</option>", "\1"));
+                }
 
-                    <input name="#Attributes.Name#"	id="#Attributes.Name#" 	type="hidden" value="#attributes.selected#" >
-                    </cfoutput>
-                <cfcatch>
-                    <cfset vValue = "--">
-                    <cfset vDisplay = "--">
-                    <cfloop query="attributes.query">
-                        <cfset valueField = Evaluate("#Attributes.Value#")>
-                        <cfbreak>
-                    </cfloop>
+            </cfscript>
+            <cfset vDefault = 0>
+            <cfset aDefault = []>
+            <cfloop array="#results#" item="eHtml">
+                    <cfset vReturn = ParseHTMLTag(eHtml)>
+                    <cftry>
+                        <cfset vValue = vReturn['Attributes']['value']>
+                        <cfset vDisplay = vReturn['Attributes']['Inside']>
+                        <cfset vTag = StructNew() />
+                        <cfset vTag.Value = vValue>
+                        <cfset vTag.Display = vDisplay>
+                        <cfset arrayAppend(aDefault,vTag)>
+                        <cfif vDefault eq  0>
+                            <cfoutput>
+                            <cfif attributes.selected eq "">
+                                <cfset attributes.selected = vValue>
+                            </cfif>
+                            <input name="#Attributes.Name#"	id="#Attributes.Name#" 	type="hidden" value="#attributes.selected#" >
+                            <cfset vDefault = 1>
+                            </cfoutput>
+                        </cfif>
+                        <cfcatch>
+                            <cfif vDefault eq  0>
+                                <cfset vValue = "--">
+                                <cfset vDisplay = "--">
+                                <cfset vTag = StructNew() />
+                                <cfset vTag.Value = vValue>
+                                <cfset vTag.Display = vDisplay>
+                                <cfset arrayAppend(aDefault,vTag)>
+                                <cfloop query="attributes.query">
+                                    <cfset valueField = Evaluate("#Attributes.Value#")>
+                                    <cfbreak>
+                                </cfloop>
 
-                    <cfoutput>
-                        <input name="#Attributes.Name#"	id="#Attributes.Name#" 	type="hidden" value="#valueField#" >
-                    </cfoutput>
-                </cfcatch>
-                </cftry>
+                                <cfoutput>
+                                    <input name="#Attributes.Name#"	id="#Attributes.Name#" 	type="hidden" value="#valueField#" >
+                                    <cfset vDefault = 1>
+                                </cfoutput>
+                            </cfif>
+                        </cfcatch>
+                    </cftry>
+            </cfloop>
+
             <cfoutput>
             <cfsavecontent variable="kDropDown">
                 $("##_#Attributes.Name#").kendoDropDownList({
                 dataSource: {
                 data: [
-                <cfif vValue neq "--" and vDisplay neq "--">
-                    { #Attributes.Value#: '#vValue#', #Attributes.Display#: '#vDisplay#'<cfif attributes.group neq "">,#attributes.group#:''</cfif> },
-                </cfif>
+                <cfloop array="#aDefault#" item="vTag">
+                    <cfif vTag.Value neq "--" and vTag.Display neq "--">
+                        { #Attributes.Value#: '#vTag.Value#', #Attributes.Display#: '#vTag.Display#'<cfif attributes.group neq "">,#attributes.group#:''</cfif> },
+                    </cfif>
+                </cfloop>
                 <cfloop query="attributes.query">
                     <cfset valueField = Evaluate("#Attributes.Value#")>
                     <cfset textField = Evaluate("#Attributes.Display#")>

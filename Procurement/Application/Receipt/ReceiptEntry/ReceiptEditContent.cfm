@@ -16,15 +16,8 @@
 	 layout="webapp" 
 	 jquery="yes"
 	 line="no"
-	 user="yes">	 
+	 user="yes">	
 	 
-<cf_dialogOrganization>
-<cf_dialogProcurement>
-<cf_dialogWorkOrder>
-<cf_dialogMaterial>
-<cf_calendarScript>
-
-<cf_LedgerTransactionScript>
 
 <cfparam name="URL.Id" default="#URL.Id#">
   
@@ -41,14 +34,14 @@
 
 	 <table align="center">
 	 <tr class="line">
-	 	<td align="center" style="padding:10px" colspan="2" class="labellarge"><font color="FF0000"><cf_tl id="This receipt document was cancelled"></td>
+	 	<td align="center" style="padding-top:20px;height:42;font-size:28px;font-weight:200" class="labellarge"><font color="FF0000"><cf_tl id="This receipt document was cancelled"></td>
 	 </tr>
-	 </table>		
+	 </table>	
 
 	<cfabort>
 
 </cfif>
-
+	
 <cfset pen = "0">
 
 <cfquery name="Parameter" 
@@ -103,6 +96,13 @@
 	<cfabort>
 
 </cfif>
+  	 
+<cf_dialogOrganization>
+<cf_dialogProcurement>
+<cf_dialogWorkOrder>
+<cf_dialogMaterial>
+<cf_calendarScript>
+<cf_LedgerTransactionScript>
 
 <cfquery name="PO" 
  datasource="AppsPurchase" 

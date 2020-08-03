@@ -115,7 +115,7 @@
 	<cfoutput>
 	<tr>
 	<td colspan="2">
-	<table>
+	<table border="0">
 		<tr>
 		  <!---
 			<td height="25" valign="top" class="labelmedium" width="150" style="padding-top:5px;padding-left:10px"><cf_tl id="Delegation">:</td>	
@@ -150,7 +150,7 @@
 						    box          = "#url.box#"
 							link         = "#link#"
 							icon         = "delegate.png"
-							title        = "<font size='3' color='0080C0'><b>#qUserGroup.LastName#</b></u></font>"
+							title        = "<font size='3' color='0080C0'>#qUserGroup.LastName#</font>"
 							button       = "No"
 							close        = "No"
 							class        = "user"
@@ -162,7 +162,7 @@
 				 
 					    <cf_selectlookup
 						    box          = "#url.box#"
-							title        = "<font size='3' color='0080C0'><u>Select Processor</u></b></font>"
+							title        = "<font size='3' color='0080C0'>Select Processor</font>"
 							link         = "#link#"
 							icon         = "delegate.png"
 							button       = "No"
@@ -173,25 +173,58 @@
 							filter3value = "all">			
 							
 				</cfif>		
-				
-				<cfif url.assist neq "DISABLED">				
-				| 				
+				 				
 				<cfset link = "ProcessActionAccess.cfm?accesslevel=0||box=#url.box#||Mode=#url.mode#||ObjectId=#url.ObjectId#||OrgUnit=#url.OrgUnit#||Role=#url.Role#||ActionPublishNo=#url.ActionPublishNo#||ActionCode=#url.ActionCode#||Group=#url.group#||Assist=#url.assist#">
-								
-				<cf_selectlookup
-					    box          = "#url.box#"
-						title        = "<font color='0080C0'>Select Assistant</font>"
-						link         = "#link#"
-						icon         = "delegate.png"
-						button       = "No"
-						close        = "No"
-						class        = "user"
-						des1         = "account">		
-						
-				</cfif>		
+				
+				<cfif url.assist neq "" and url.assist neq "DISABLED">	
+				
+				    or		
+				
+					<cfif url.assist neq "[all users]">
+					  
+						<cfquery name="qUserGroup" 
+							 datasource="AppsOrganization"
+							 username="#SESSION.login#" 
+							 password="#SESSION.dbpw#">
+									SELECT  * 
+									FROM system.dbo.UserNames
+									WHERE Account ='#URL.assist#'
+					   </cfquery>
+					
+					   <cf_tl id = "Select">
+					
+					   <cf_selectlookup
+						    box          = "#url.box#"
+							link         = "#link#"
+							icon         = "delegate.png"
+							title        = "<font size='3' color='green'>#qUserGroup.LastName#</font>"
+							button       = "No"
+							close        = "No"
+							class        = "user"
+							des1         = "account"			
+							filter1      = "usergroup"
+							filter1value = "#URL.assist#">
+							
+				    <cfelse>						
+									
+					<cf_selectlookup
+						    box          = "#url.box#"
+							title        = "<font font size='3' color='green'>Select Assistant</font>"
+							link         = "#link#"
+							icon         = "delegate.png"
+							button       = "No"
+							close        = "No"
+							class        = "user"
+							des1         = "account"						
+							filter3      = "accounttype"
+							filter3value = "all">		
+							
+				     </cfif>	
+				
+				</cfif>	
 				
 				<cfif url.mode eq "Insert">
-				<font color="gray"><cf_tl id="for"><cf_tl id="step">#Action.ActionDescription#</font>								
+				<font color="purple"><cf_tl id="for">[#Action.ActionDescription#]</font>								
 				<cfelse>
 				</td>
 				</tr>									
@@ -200,7 +233,7 @@
 				<td>&nbsp;</td>
 				<td colspan="2" class="labelit" style="padding-left:4px">
 				<cfloop query="Action">
-				     <font color="C0C0C0">- #ActionDescription#<br>
+				     <font color="purple">- #ActionDescription#<br>
 				</cfloop>	
 				</td>
 					
@@ -221,14 +254,13 @@
 
 <cfelse>
 
-<table width="100%"
-   height="100%" align="center">
+<table width="100%" height="100%" align="center">
 	   
 	<tr class="line"><td colspan="3" class="labelmedium" style="padding-left:30px" bgcolor="F5FBFE" height="20"><cf_tl id="Access granted to">:</td></tr>	
 	
 </cfif>
 
-<tr style="margin-bottom:10px;"><td colspan="3" bgcolor="ffffff" valign="top">
+<tr style="margin-bottom:10px;"><td colspan="3" valign="top">
 
 	<table width="100%" height="100%">
 	
@@ -330,14 +362,14 @@
 	
 		<cfif Actor.recordCount eq "0">
 			
-		<tr class="line" style="border-top:1px solid silver">
-		<td colspan="3" align="center" style="padding-left:80px" class="labelmedium">
-		
-			<cfoutput>				
-				<font color="FF0000"><b>Attention:</b></font><font color="gray"> No Actors were predefined for the above step. Please do select an actor</font>
-			</cfoutput>
-		
-		</td></tr>
+			<tr class="line" style="border-top:1px solid silver">
+			<td colspan="3" align="center" style="padding-left:80px" class="labelmedium">
+			
+				<cfoutput>				
+					<font color="FF0000">Attention:</font><font color="gray"> No Actors were set for this action. Please do select an actor</font>
+				</cfoutput>
+			
+			</td></tr>
 			
 		<cfelse>
 				
@@ -352,23 +384,23 @@
 			
 			<td colspan="2" height="100%" valign="top">
 			
-			<table width="100%" height="100%"			      
-			   class="formpadding"
-			   id="#URL.ActionCode#_#type#">
+			<table width="100%" height="100%" id="#URL.ActionCode#_#type#">
 			
-			<cfelse><b>
+			<cfelse>
+			
+			<tr><td align="left" style="height:20px;padding-left:20px;font-size:12px;cursor:pointer" colspan="2" onClick="javascript:document.getElementById('#URL.ActionCode#_#type#').className='regular';">
+			   <a><font color="808080">CLICK HERE <cf_tl id="view Inherited access through ROLE granted authorization"></font></a>
+			</td></tr>
 			
 			<tr>
-			<td colspan="2" class="labelmedium" valign="top"
-			    style="cursor: pointer;padding:4px;padding-left:20px;height:30px;" 
-			    onClick="javascript:document.getElementById('#URL.ActionCode#_#type#').className='regular';">
-	
-			<a>CLICK HERE <cf_tl id="view Inherited access through ROLE granted authorization"></a>
-	
-			<table width="100%" align="center" id="#URL.ActionCode#_#type#" class="hide formpadding">
+			
+			<td colspan="2" valign="top">	
+			
+			<table width="96%" border="0" align="center" id="#URL.ActionCode#_#type#" class="hide formpadding">	
+			
 			</cfif>		
 			
-			<tr style="height:6px">		
+			<tr style="height:1px">		
 			 	<td width="4%"></td>
 				<td width="28%"></td>
 				<td width="1%"></td>
@@ -398,7 +430,7 @@
 				
 			</cfif>	
 			
-			    <td style="padding-left:20px;padding-right:10px"><b>#C#.</b></td>
+			    <td style="padding-left:20px;padding-right:10px">#C#.</td>
 				<td>
 				
 					<table><tr><td>

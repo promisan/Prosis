@@ -361,31 +361,35 @@
 											
 										</td>
 										
-										<!--- if transaction has no offset postings we allow to remove it --->
+										<cfif header.transactionSourceId neq "">
 										
-										 <cfquery name="checkOffset" 
-											datasource="AppsLedger" 
-											username="#SESSION.login#" 
-											password="#SESSION.dbpw#">
-												SELECT   *
-												FROM     TransactionLine L, TransactionHeader H
-												WHERE    L.Journal             = H.Journal
-												AND      L.JournalSerialNo     = H.JournalSerialNo
-												AND      ParentJournal         = '#journal#' 
-												AND      ParentJournalSerialNo = '#journalserialno#' 		
-												AND      TransactionSourceId != '#header.transactionsourceid#'  
-												AND      H.ActionStatus IN ('0','1') 
-												AND      H.RecordStatus != '9'
-										</cfquery>	
-																														
-										<cfif checkOffset.recordcount eq "0" and listBilling.recordcount gte "1">
-										
-										<td style="padding-top:2px">
-																														
-										 <cf_img icon="delete" 
-										     onclick="Prosis.busy('yes');ptoken.navigate('undoPosting.cfm?workorderlineid=#get.workorderlineid#&journal=#journal#&journalserialno=#journalserialno#','posting')">
-										 
-										</td>
+											<!--- if transaction has no offset postings we allow to remove it --->
+											
+											 <cfquery name="checkOffset" 
+												datasource="AppsLedger" 
+												username="#SESSION.login#" 
+												password="#SESSION.dbpw#">
+													SELECT   *
+													FROM     TransactionLine L, TransactionHeader H
+													WHERE    L.Journal             = H.Journal
+													AND      L.JournalSerialNo     = H.JournalSerialNo
+													AND      ParentJournal         = '#journal#' 
+													AND      ParentJournalSerialNo = '#journalserialno#' 		
+													AND      TransactionSourceId != '#header.transactionsourceid#'  
+													AND      H.ActionStatus IN ('0','1') 
+													AND      H.RecordStatus != '9'
+											</cfquery>	
+																															
+											<cfif checkOffset.recordcount eq "0" and listBilling.recordcount gte "1">
+											
+											<td style="padding-top:2px">
+																															
+											 <cf_img icon="delete" 
+											     onclick="Prosis.busy('yes');ptoken.navigate('undoPosting.cfm?workorderlineid=#get.workorderlineid#&journal=#journal#&journalserialno=#journalserialno#','posting')">
+											 
+											</td>
+											
+											</cfif>
 										
 										</cfif>
 										

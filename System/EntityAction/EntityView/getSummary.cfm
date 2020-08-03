@@ -57,10 +57,19 @@
 <cfoutput>
 
 	<div style="color:#cl#">
+	
+	 <table style="border:1px solid silver">
+		<tr>
+		<td><cf_tl id="Status"></td>
+		<td>
 		<cfif getAction.recordcount eq "0"><cf_tl id="No"> <cfelse>#getAction.recordcount#</cfif>
 		<cfif getAction.recordcount eq "1"><cf_tl id="action"><cfelse><cf_tl id="actions"></cfif><cf_tl id="and">
 		<cfif tot eq "0"><cf_tl id="No"><cfelse>#tot#</cfif>
 		<cfif tot eq "1"><cf_tl id="Batch clearance"><cfelse><cf_tl id="Batch clerances"></cfif>
+		</td>
+	</tr>	
+	</table>
+	
 	</div>
 	<div style="color=##0080C0;">
 		<cf_tl id="Refresh your view to reflect recent updates"> (#timeformat(now(),"HH:MM:SS")#)

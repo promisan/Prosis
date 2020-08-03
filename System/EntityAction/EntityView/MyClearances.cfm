@@ -21,13 +21,11 @@
 
 	<style>
 		.mainGroupTitle {
-			font-size:175%;
-			padding-top:10px;
+			font-size:175%;		
 		}
 
-		.subGroupTitle {
-			color:#808080;
-			font-size:125%;
+		.subGroupTitle {			
+			font-size:145%;
 			border-bottom:1px solid #E1E1E1;
 			padding-top:5px;
 			height:30px;
@@ -47,7 +45,7 @@
 		}
 
 		.subGroupSubTitle {
-			font-size:80%;
+			font-size:90%;
 		}
 
 		.form-control {
@@ -70,7 +68,7 @@
 	</style>
 
 	<cfoutput>
-		<div style="height:#URL.height#%;" class="toggleScroll-y">
+		<div style="height:#URL.height#%;padding-left:15px;padding-right:15px" class="toggleScroll-y">
 			<cfset vParameters = "mode=#url.mode#&EntityGroup=#URL.EntityGroup#&Mission=#URL.Mission#&Owner=#URL.Owner#&me=#url.me#&search=#url.search#">
 			<cfdiv style       = "position:sticky; top:0px; z-index:1; background-color:##FFFFFF; padding-bottom:0px; back" bind="url:#SESSION.root#/system/entityaction/entityview/MyClearancesFilters.cfm?#vParameters#" id="head"/>
 			<cfdiv bind        = "url:#SESSION.root#/system/entityaction/entityview/MyClearancesDetail.cfm?#vParameters#" id="listing" />

@@ -7,7 +7,7 @@
 		 datasource="AppsOrganization"
 		 username="#SESSION.login#" 
 		 password="#SESSION.dbpw#">
-          SELECT   ActionOrder
+         SELECT    ActionOrder
 		 FROM      Ref_EntityActionPublish
 		 WHERE     ActionCode      = '#ActionCode#'
 		 AND       ActionPublishNo = '#ActionPublishNo#' 
@@ -17,11 +17,11 @@
 		 datasource="AppsOrganization"
 		 username="#SESSION.login#" 
 		 password="#SESSION.dbpw#">
-		 SELECT TOP 1 * 
-		 FROM    Ref_EntityActionPublish
-		 WHERE   ActionPublishNo = '#ActionPublishNo#' 
-		 AND     ActionOrder < '#getCurrent.actionOrder#' 		
-		 ORDER By ActionOrder DESC				 
+			 SELECT   TOP 1 * 
+			 FROM     Ref_EntityActionPublish
+			 WHERE    ActionPublishNo = '#ActionPublishNo#' 
+			 AND      ActionOrder < '#getCurrent.actionOrder#' 		
+			 ORDER By ActionOrder DESC				 
 	   </cfquery> 			
 	   
 	   <cfif getprior.recordcount eq "1">
@@ -30,77 +30,86 @@
 
 </cfif>
 
-<cfquery name="Object" 
- datasource="AppsOrganization"
- username="#SESSION.login#" 
- password="#SESSION.dbpw#">
-   SELECT *
-   FROM   OrganizationObject O, Ref_Entity R		
-   WHERE  ObjectId = '#url.ObjectId#' 
-   AND    O.EntityCode = R.EntityCode
-   AND    O.Operational  = 1
-</cfquery>
+<!--- only processor will see this option --->
 
-<table width="100%">
-	   	   	   	   
-	   <!--- element 1b of 3 GRANT FLY ACCESS --->   
-	  			   
-	   <cfquery name="GrantAccess" 
-		 datasource="AppsOrganization"
-		 username="#SESSION.login#" 
-		 password="#SESSION.dbpw#">
-	     SELECT    *
-		 FROM      Ref_EntityActionPublish
-		 WHERE     ActionAccess    = '#ActionCode#'
-		 AND       ActionPublishNo = '#ActionPublishNo#' 
-		 AND       ActionCode      != '#ActionCode#'
-	   </cfquery> 			  			 				  		  			  
-	   							   
-	   <cfif GrantAccess.recordcount gte "1">
-	   	   
-	   	   <cfquery name="GrantBatch" 
+<cfparam name="entityaccess" default="edit">
+
+<cfif entityaccess eq "EDIT">
+	
+	<cfquery name="Object" 
+	 datasource="AppsOrganization"
+	 username="#SESSION.login#" 
+	 password="#SESSION.dbpw#">
+	   SELECT *
+	   FROM   OrganizationObject O, Ref_Entity R		
+	   WHERE  ObjectId       = '#url.ObjectId#' 
+	   AND    O.EntityCode   = R.EntityCode
+	   AND    O.Operational  = 1
+	</cfquery>
+
+	<table width="100%">
+		   	   	   	   
+		   <!--- element 1b of 3 GRANT FLY ACCESS --->   
+		  			   
+		   <cfquery name="GrantAccess" 
 			 datasource="AppsOrganization"
 			 username="#SESSION.login#" 
 			 password="#SESSION.dbpw#">
-		     SELECT    *
-			 FROM      Ref_EntityActionPublish
-			 WHERE     ActionCode      = '#ActionCode#'
-			 AND       ActionPublishNo = '#ActionPublishNo#' 
-		   </cfquery> 	
-	   
-	   	   <cfset unit = "#OrgUnit#">
-		   	   
-	   	   <cfif GrantBatch.ActionAccessPointer eq "0">						
+			     SELECT    *
+				 FROM      Ref_EntityActionPublish
+				 WHERE     ActionAccess    = '#ActionCode#'
+				 AND       ActionPublishNo = '#ActionPublishNo#' 
+				 AND       ActionCode      != '#ActionCode#'
+				 ORDER BY ActionOrder
+		   </cfquery> 			  			 				  		  			  
+		   							   
+		   <cfif GrantAccess.recordcount gte "1">
 		   
-		        <cfloop query="GrantAccess">
-									
-					
-					<tr>
-					<td colspan="2" id="stepflyaccess">
-																																
-					    <cfdiv id="actor#currentRow#" 
-						bind="url:#SESSION.root#/tools/EntityAction/ActionListingActor.cfm?label=#ActionCode#Delegated&accesslevel=1&box=actor#currentrow#&Mode=Insert&ObjectId=#Object.ObjectId#&OrgUnit=#Unit#&Role=#Object.Role#&ActionPublishNo=#ActionPublishNo#&ActionCode=#ActionCode#&Group=#ActionAccessUserGroup#&Assist=#ActionAccessUGCollaborate#">
-												
-				    </td>
-					</tr>						
-									
-				</cfloop>
-			
-			<cfelse>
-
+		   		<tr class="labelmedium line"><td style="padding-left:10px;height:35px;font-size:20px" colspan"2"><cf_tl id="Identify processors for workflow steps"></td></tr>
+		   	   
+		   	   <cfquery name="GrantBatch" 
+				 datasource="AppsOrganization"
+				 username="#SESSION.login#" 
+				 password="#SESSION.dbpw#">
+				     SELECT    *
+					 FROM      Ref_EntityActionPublish
+					 WHERE     ActionCode      = '#ActionCode#'
+					 AND       ActionPublishNo = '#ActionPublishNo#' 
+					 ORDER BY ActionOrder
+			   </cfquery> 	
+		   
+		   	   <cfset unit = "#OrgUnit#">
+			   	   
+		   	   <cfif GrantBatch.ActionAccessPointer eq "0">						
+			   
+			        <cfloop query="GrantAccess">									
+						
+						<tr>
+						<td colspan="2" id="stepflyaccess">
+																																	
+						    <cfdiv id="actor#currentRow#" 
+							bind="url:#SESSION.root#/tools/EntityAction/ActionListingActor.cfm?label=#ActionCode#Delegated&accesslevel=1&box=actor#currentrow#&Mode=Insert&ObjectId=#Object.ObjectId#&OrgUnit=#Unit#&Role=#Object.Role#&ActionPublishNo=#ActionPublishNo#&ActionCode=#ActionCode#&Group=#ActionAccessUserGroup#&Assist=#ActionAccessUGCollaborate#">
+													
+					    </td>
+						</tr>						
+										
+					</cfloop>
 				
-					<tr>
-					<td colspan="2" id="stepflyaccess">					
-																									
-					    <cfdiv id="actor0" 
-						bind="url:#SESSION.root#/tools/EntityAction/ActionListingActor.cfm?box=actor0&Mode=BatchInsert&ObjectId=#Object.ObjectId#&OrgUnit=#Unit#&Role=#Object.Role#&ActionPublishNo=#ActionPublishNo#&ActionCode=#ActionCode#&Group=#GrantAccess.ActionAccessUserGroup#&Assist=#GrantAccess.ActionAccessUGCollaborate#">
-												
-				    </td>
-					</tr>				
-			
-			</cfif>
-			
-	   	   
-	   </cfif> 	
-   		   		   
-</table>
+				<cfelse>				
+						<tr>
+						<td colspan="2" id="stepflyaccess">					
+																										
+						    <cfdiv id="actor0" 
+							bind="url:#SESSION.root#/tools/EntityAction/ActionListingActor.cfm?box=actor0&Mode=BatchInsert&ObjectId=#Object.ObjectId#&OrgUnit=#Unit#&Role=#Object.Role#&ActionPublishNo=#ActionPublishNo#&ActionCode=#ActionCode#&Group=#GrantAccess.ActionAccessUserGroup#&Assist=#GrantAccess.ActionAccessUGCollaborate#">
+													
+					    </td>
+						</tr>				
+				
+				</cfif>
+				
+		   	   
+		   </cfif> 	
+	   		   		   
+	</table>
+	
+</cfif>	

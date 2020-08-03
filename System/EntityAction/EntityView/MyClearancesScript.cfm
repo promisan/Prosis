@@ -17,8 +17,8 @@
     // w = #CLIENT.width# - 58;
 	// h = #CLIENT.height# - 115;
 	
-	function doRefresh(eg,miss,owner,me) {	
-		ptoken.navigate('#SESSION.root#/System/EntityAction/EntityView/MyClearancesDetail.cfm?EntityGroup='+eg+'&Mission='+miss+'&Owner='+owner+'&me='+me,'listing');					
+	function doRefresh(eg,miss,owner,me,mode) {	
+		ptoken.navigate('#SESSION.root#/System/EntityAction/EntityView/MyClearancesDetail.cfm?refresh='+mode+'&EntityGroup='+eg+'&Mission='+miss+'&Owner='+owner+'&me='+me,'listing');					
 	}
 	
 	// function more(bx,act,me) {

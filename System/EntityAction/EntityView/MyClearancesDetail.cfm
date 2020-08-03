@@ -1,16 +1,22 @@
 
+<cfparam name="url.refresh" default="0">
+
+<cfif url.refresh eq "1">
+	<cfinclude template="MyClearancesDataPrepare.cfm">
+</cfif>
+
 <cfquery name = "ResultListing" datasource="AppsQuery">
     SELECT  * 
     FROM    #Session.acc#_ActionResultDataset
     WHERE   1=1
     <cfif URL.EntityGroup neq "">
-        AND EntityGroup = '#URL.EntityGroup#'
+    AND     EntityGroup = '#URL.EntityGroup#'
     </cfif>
     <cfif URL.Mission neq "">
-        AND Mission = '#URL.Mission#'
+    AND     Mission = '#URL.Mission#'
     </cfif>
     <cfif URL.Owner neq "">
-        AND Owner = '#URL.Owner#'
+    AND    Owner = '#URL.Owner#'
     </cfif>		
     ORDER BY ListingOrder, SystemModule, EntityOrder, EntityCode 	
 </cfquery>
@@ -18,14 +24,17 @@
 <cf_mobilepanel bodystyle="border:0px; padding-top:0px; padding-bottom:0px;">
     <cfoutput query="ResultListing" group="application">
         <cf_mobilerow>
-            <cf_mobilecell class="col-lg-12 mainGroupTitle">
-                #Application#
+            <cf_mobilecell class="col-lg-12">
+				<table style="width:100%" align="right">
+				<tr>
+				<td align="right" style="border-top:0px solid silver;padding-right:10px;font-size:17px;height:35px;background-color:e4e4e4">#Application#</td>
+				</tr>
+				</table>                
             </cf_mobilecell>
         </cf_mobilerow>
         <cfoutput group="entitycode">
             <cf_mobilerow class="rowHighlight" onclick="toggleGroup('#entityCode#', '#url.entitygroup#', '#url.mission#', '#url.owner#', '#url.me#');" style="cursor:pointer; padding-left:20px;">
                 <cf_mobilecell class="col-xs-8 subGroupTitle clsHeader clsHeader_#entityCode#">
-                    <i class="fal fa-plus entityIcon entityIcon_#entityCode#"></i>
                     #EntityDescription#
                 </cf_mobilecell>	
 
@@ -43,7 +52,9 @@
                         AND    due > ActionLeadTime+5 
                     </cfquery>	
 
-                    <span class="subGroupSubTitle">#Total.Recordcount# (&nbsp;#Overdue.recordcount#&nbsp;|&nbsp;<span style="color:##FF0000;">#Total.Recordcount-Overdue.recordcount#</span>&nbsp;)</span>
+                    <span class="subGroupSubTitle">
+							#Total.Recordcount# (&nbsp;#Overdue.recordcount#&nbsp;|&nbsp;<span style="color:##FF0000;">#Total.Recordcount-Overdue.recordcount#</span>&nbsp;)					
+					</span>
                 </cf_mobilecell>
 			
             </cf_mobilerow>

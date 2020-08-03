@@ -52,32 +52,36 @@
 				</cfif>
 					
 				<tr name="ugselect" id="ugselect" class="#cl#">
-					<td class="labelmedium" style="padding-left:20px"><a href="##" title="Limit access granting to a member of a specific user group">Limit <u>Processor</u> to members of usergroup:</td>		
+					<td class="labelmedium" style="padding-left:20px">
+					<cf_uitooltip tooltip="Limit access granting to a member of a specific user group">
+					Limit <u>Processor</u> to members of usergroup:
+					</cf_uitooltip>
+					</td>		
 					<td style="padding-left:5px">
 					
 					<cfquery name="Group" 
 					datasource="AppsSystem" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
-						SELECT *
-						FROM   Usernames
-						WHERE  AccountType = 'Group'	
-						AND    AccountMission IN (SELECT Mission FROM Organization.dbo.Ref_Mission WHERE Operational = 1)
+						SELECT   *
+						FROM     UserNames
+						WHERE    AccountType = 'Group'	
+						AND      AccountMission IN (SELECT Mission
+						                            FROM   Organization.dbo.Ref_Mission 
+													WHERE  Operational = 1)
 						ORDER BY AccountMission				
+						    
 					</cfquery>
 					
-					<cf_uiselect name="ActionAccessUserGroup" id="ActionAccessUserGroup" class="regularxl"
-						 style="width: 100%;" 
+					<cf_uiselect name="ActionAccessUserGroup" id="ActionAccessUserGroup" class="regularxl" style="width: 100%;" 
 						    group          = "AccountMission"
 							query          = "#Group#"
 							queryPosition  = "below"
 							filter         = "contains"
 							value          = "Account"
 							display        = "Account"
-							selected       = "#Get.ActionAccessUserGroup#">		
-						
-						 <option value="" selected>[select any user]</option>
-						
+							selected       = "#Get.ActionAccessUserGroup#">																		    
+					    <option value="[all users]" selected>[all users]</option>						
 					</cf_uiselect>
 					
 					</td>
@@ -85,18 +89,23 @@
 				</tr>
 				
 				<tr name="ugselect" id="ugselect" class="#cl#">
-					<td class="labelmedium" style="padding-left:20px"><a href="##" title="Limit access granting to a member of a specific user group">Limit <u>Collaborator</u> to members of usergroup:</td>		
+					<td class="labelmedium" style="padding-left:20px">
+					<cf_uitooltip tooltip="Limit access granting to a member of a specific user group">
+					Limit <u>Collaborator</u> to members of usergroup:
+					</cf_uitooltip>
+					</td>		
 					<td style="padding-left:5px">
 					
 					<cfquery name="Group" 
 					datasource="AppsSystem" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
-					SELECT  *
-					FROM    Usernames
-					WHERE   AccountType = 'Group'	
-					AND    AccountMission IN (SELECT Mission FROM Organization.dbo.Ref_Mission WHERE Operational = 1)
+					SELECT   *
+					FROM     Usernames
+					WHERE    AccountType = 'Group'	
+					AND      AccountMission IN (SELECT Mission FROM Organization.dbo.Ref_Mission WHERE Operational = 1)					
 					ORDER BY AccountMission				
+					
 					</cfquery>
 					
 					<cf_uiselect name="ActionAccessUGCollaborate" id="ActionAccessUGCollaborate" class="regularxl"
@@ -107,9 +116,11 @@
 							filter         = "contains"
 							value          = "Account"
 							display        = "Account"
-							selected       = "#Get.ActionAccessUGCollaborate#">						 						 
+							selected       = "#Get.ActionAccessUGCollaborate#">		
+						<!---					 						 
 					    <option value="DISABLED" selected>Not applicable</option>						
-					    <option value="">[select any user]</option>						
+						--->
+					    <option value="[all users]">[all users]</option>						
 					</cf_uiselect>
 					
 					</td>

@@ -44,8 +44,7 @@ WHERE        M.Mission = '#url.mission#'
 	<cfset fields[itm] = {label           = "#lt_text#",                    
 	     				field             = "IndexNo",					
 						alias             = "",		
-						filtermode        = "3",						
-						width             = "20",																	
+						filtermode        = "3",																											
 						search            = "text"}>		
 				
 	<cfset itm = itm+1>
@@ -63,17 +62,26 @@ WHERE        M.Mission = '#url.mission#'
 	<cf_tl id="Document" var = "1">		
 	<cfset fields[itm] = {label       = "#lt_text#",                    
 	     				field         = "DocumentReference",								
-						display       = "1",	
-						width         = "13",																																									
+						display       = "1",																																														
 						displayfilter = "yes",																																									
 						search        = "text"}>	
+						
+	<cfset itm = itm+1>	
+	<cf_tl id="Recorded" var = "1">		
+	<cfset fields[itm] = {label       = "#lt_text#",                    
+	     				field         = "Created",								
+						display       = "1",	
+						width         = "18",																																									
+						displayfilter = "yes",																																									
+						search        = "date",		
+						formatted     = "dateformat(Created,client.dateformatshow)"}>							
 						
 	<cfset itm = itm+1>	
 	<cf_tl id="Date" var = "1">		
 	<cfset fields[itm] = {label       = "#lt_text#",                    
 	     				field         = "DocumentDate",								
 						display       = "1",	
-						width         = "13",																																									
+						width         = "18",																																									
 						displayfilter = "yes",																																									
 						search        = "date",		
 						formatted     = "dateformat(DocumentDate,client.dateformatshow)"}>												
@@ -84,7 +92,7 @@ WHERE        M.Mission = '#url.mission#'
 	     				field       = "DateEffective",																																												
 						search      = "date",
 						display       = "1",	
-						width         = "20",
+						width         = "18",
 						displayfilter = "Yes",		
 						formatted   = "dateformat(DateEffective,client.dateformatshow)"}>		
 						
@@ -110,7 +118,8 @@ WHERE        M.Mission = '#url.mission#'
 	<cf_tl id="Cur" var = "1">		
 	<cfset fields[itm] = {label       = "#lt_text#",                    
 	     				field         = "Currency",								
-						display       = "1",																																										
+						display       = "1",		
+						width         = "6",																																									
 						displayfilter = "yes",																																									
 						search        = "text",
 						filtermode    = "3"}>	
@@ -121,6 +130,7 @@ WHERE        M.Mission = '#url.mission#'
 	     				field         = "Amount",								
 						display       = "1",																																										
 						displayfilter = "yes",	
+						width         = "18",	
 						align         = "right",																																								
 						search        = "amount",
 						filtermode    = "3",

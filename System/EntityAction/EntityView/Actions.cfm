@@ -63,6 +63,7 @@
 
 </cfquery>	
 
+
 <!--- show detailed actions of this entity --->
 
 <CF_DropTable dbName="AppsQuery"  tblName="#SESSION.acc#Action">	
@@ -182,6 +183,7 @@
 
 <!--- lines --->
 
+
 <cfoutput query="Search">	
 	
 	<cfif ObjectDue neq "">	
@@ -206,21 +208,10 @@
 
         <cf_mobilecell class="col-xs-11">
 		
-            <cf_mobileRow onclick="process('#ObjectId#')" style="cursor:pointer;">
+            <cf_mobileRow style="cursor:pointer;">
 			
                 <cf_mobilecell class="col-md-1 col-sm-12" style="width:40px; padding-top:5px;">
-
-				    <!---
-                    <cf_UIToolTip
-                        id         = "d#replace(left(objectid,8),"-","")#"
-                        contentURL = "#SESSION.root#/system/entityaction/entityview/myclearancetooltip.cfm?objectid=#objectid#"
-                        CallOut    = "false"
-                        Position   = "left"
-                        Width      = "250"
-                        Height     = "100"
-                        Duration   = "300">
-						--->
-
+				    
                             <cfif ActionStatus eq "2">        
 							
                                 <cf_tl id="Document action has been completed" var="1">
@@ -233,32 +224,28 @@
                                     <cfif x gt ActionLeadTime+5>
 
                                         <cf_tl id="Process this action" var="1">
-                                        <i class="fas fa-exclamation-triangle" title="#lt_text#" style="font-size:150%; color:#vWarningColor#;"></i>
+                                        <i class="fas fa-exclamation-triangle" onclick="process('#ObjectId#')" title="#lt_text#" style="font-size:150%; color:#vWarningColor#;"></i>
                                         
                                     <cfelseif at gt ActionTakeAction and ActionTakeAction gt "0">
 
                                         <cf_tl id="Action overdue" var="1">
-                                        <i class="fas fa-exclamation-triangle" title="#lt_text#" style="font-size:150%; color:#vWarningColor#;"></i>
+                                        <i class="fas fa-exclamation-triangle" onclick="process('#ObjectId#')" title="#lt_text#" style="font-size:150%; color:#vWarningColor#;"></i>
                                                         
                                     <cfelse>  						
-                                        <cf_img mode="open">																					
+                                        <cf_img mode="open" onclick="process('#ObjectId#')">																					
                                     </cfif>
                                     
                                 <cfelse>						
-                                    <cf_img mode="open">				 																
+                                    <cf_img mode="open" onclick="process('#ObjectId#')">				 																
                                 </cfif>
                                 
-                            </cfif>
-
-					<!---				
-                    </cf_UIToolTip>
-					--->
+                            </cfif>					
 
                 </cf_mobilecell>
 
                 <cf_mobilecell class="col-md-8 col-sm-12">
                     
-					<div>
+					<div style="font-size:17px">
                         <cfif PersonNo neq "">
                             <cf_tl id="Click to view person details" var="1">
                             <span style="color:##0080C0;" onclick="localShowPerson(event,'#PersonNo#')" title="#lt_text#">
@@ -270,7 +257,7 @@
                         </cfif>
                     </div>
 					
-                    <div>
+                    <div style="font-size:14px">
                         <span style="color:##808080;">
                         <cfif Mission neq "">
                             #Mission# : #OrgUnitName#
@@ -302,18 +289,45 @@
                                             
                         </cfif>
                     </div>
-                    
-                    <div style="color:##808080">
-                        #InceptionFirstName# #InceptionLastName# (#dateformat(InceptionDate,CLIENT.DateFormatShow)#)
-                        <cfif missionowner neq "">[#MissionOwner#]</cfif>
-                    </div>
-					
+                  	
+                      <div style="color:##808080;font-size:13px">
+					  
+					  	<table><tr>
+						<cfif getAdministrator("#Mission#") eq "1">			
+							<td style="padding-right:4px" id="process_#objectid#">		
+							<cf_tl id="Disable" var="1">	
+						    <input type="button" name="Disable" value="#lt_text#" class="button10g" 
+							  onclick="_cf_loadingtexthtml='';ptoken.navigate('setObjectOperational.cfm?objectid=#objectid#','process_#objectid#')" style="height:20px;width:76px">
+							</td>
+						</cfif>
+						
+						<td>
+						
+						<cf_UIToolTip
+                        id         = "d#replace(left(objectid,8),"-","")#"
+                        contentURL = "#SESSION.root#/system/entityaction/entityview/myclearancetooltip.cfm?objectid=#objectid#"
+                        CallOut    = "true"
+                        Position   = "right"
+						ShowOn     = "click"
+                        Width      = "200"
+                        Height     = "100"
+                        Duration   = "300">
+						 #InceptionFirstName# #InceptionLastName# (#dateformat(InceptionDate,CLIENT.DateFormatShow)#)
+                        <cfif missionowner neq "">[#MissionOwner#]</cfif>						
+						</cf_UIToolTip>
+						
+						</td>
+						
+						</tr></table>
+						
+						 </div>
+										
                 </cf_mobileCell>
 
                 <cf_mobilecell class="col-md-1 col-sm-12 hidden-xs hidden-sm text-center">
                     <cfif DateLast neq "">							
                         <cfif at gt ActionTakeAction AND ActionTakeAction gt "0">
-                            <span style="color:#vWarningColor#;">#numberformat(at-ActionTakeAction, ',')#</span>
+                            <span style="color:#vWarningColor#;font-size:20px">#numberformat(at-ActionTakeAction, ',')#</span>
                         </cfif>				
                     </cfif>	
                 </cf_mobileCell>
@@ -321,7 +335,7 @@
                 <cf_mobilecell class="col-md-1 col-sm-12 visible-xs visible-sm">
                     <cfif DateLast neq "">							
                         <cfif at gt ActionTakeAction AND ActionTakeAction gt "0">
-                            <cf_tl id="Action Overdue (h)">: <span style="color:#vWarningColor#;">#numberformat(at-ActionTakeAction, ',')#</span>
+                            <cf_tl id="Action Overdue (h)">: <span style="color:#vWarningColor#;font-size:16px">#numberformat(at-ActionTakeAction, ',')#</span>
                         </cfif>				
                     </cfif>	
                 </cf_mobileCell>
@@ -333,7 +347,7 @@
                         <cfif DateLast neq "">               
                             <cfset x = DateDiff("d", "#DateLast#", "#now()#")>
                             <cfif x gt ActionLeadTime>
-                                <span style="color:#vWarningColor#;">#numberformat(x-ActionLeadTime, ',')#</span>
+                                <span style="color:#vWarningColor#;;font-size:16px">#numberformat(x-ActionLeadTime, ',')#</span>
                             </cfif>
                         </cfif>
                     </cfif>
@@ -346,7 +360,7 @@
                         <cfif DateLast neq "">               
                             <cfset x = DateDiff("d", "#DateLast#", "#now()#")>
                             <cfif x gt ActionLeadTime>
-                                <cf_tl id="Workflow Overdue (d)">: <span style="color:#vWarningColor#;">#numberformat(x-ActionLeadTime, ',')#</span>
+                                <cf_tl id="Workflow Overdue (d)">: <span style="color:#vWarningColor#;;font-size:16px">#numberformat(x-ActionLeadTime, ',')#</span>
                             </cfif>
                         </cfif>
                     </cfif>
@@ -355,7 +369,9 @@
                 <cf_mobilecell class="col-md-1 col-sm-12 hidden-xs hidden-sm text-center">
                     <cfif ObjectDue neq "">				
                         <cfif due gt 0>
+							<span style="color:#vWarningColor#;;font-size:16px">
                             #numberformat(due, ',')#
+							</span>
                         </cfif>
                     </cfif>
                 </cf_mobileCell>
@@ -363,7 +379,9 @@
                 <cf_mobilecell class="col-md-1 col-sm-12 visible-xs visible-sm">
                     <cfif ObjectDue neq "">				
                         <cfif due gt 0>
+							<span style="color:#vWarningColor#;;font-size:16px">
                             <cf_tl id="Document Overdue (d)">: #numberformat(due, ',')#
+							</span>
                         </cfif>
                     </cfif>
                 </cf_mobileCell>
