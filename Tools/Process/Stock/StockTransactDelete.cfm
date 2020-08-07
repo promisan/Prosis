@@ -248,6 +248,9 @@
 					   ,SalesPersonNo
 			           ,SalesCurrency
 			           ,SchedulePrice
+					   ,SalesUom
+					   ,SalesQuantity
+					   ,SalesPersonNo
 			           ,SalesPriceFixed
 			           ,SalesPriceVariable
 			           ,SalesPrice
@@ -279,6 +282,9 @@
 					   ,SalesPersonNo				   
 			           ,SalesCurrency
 			           ,SchedulePrice
+					   ,SalesUom
+					   ,SalesQuantity
+					   ,SalesPersonNo
 			           ,SalesPriceFixed
 			           ,SalesPriceVariable
 			           ,SalesPrice

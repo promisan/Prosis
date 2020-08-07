@@ -135,7 +135,7 @@
 	</cfif>	
 
 	<cfloop query="ListBilling">
-					
+						
 			<cfquery name="getJournal" 
 				datasource="AppsLedger" 
 				username="#SESSION.login#" 
@@ -247,7 +247,7 @@
 				AND        WC.OrgUnitCustomer = '#orgunitcustomer#' 		
 				AND        WC.OrgUnitOwner    = '#orgunitowner#' 	
 				AND        WC.TransactionDate = '#transactiondate#'	
-				AND        WC.Journal is NULL
+				AND        WC.Journal = 'InProcess'
 												
 	            GROUP BY   WC.UnitClass, 
 				           WC.GLAccountCredit, 
@@ -292,6 +292,7 @@
 					<cfset trano = "#inv#">
 				</cfif>		
 				
+								
 				<cf_GledgerEntryHeader
 				    DataSource            = "AppsLedger"
 					Mission               = "#get.Mission#"
@@ -454,7 +455,7 @@
 						AND       OrgUnitCustomer = '#OrgUnitCustomer#'
 						AND       TransactionDate = '#TransactionDate#'
 						AND       Currency        = '#Currency#'		
-						AND       Journal is NULL		
+						AND       Journal = 'InProcess'		
 					
 				</cfquery>	
 

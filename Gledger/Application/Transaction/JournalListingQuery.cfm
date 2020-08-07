@@ -109,11 +109,9 @@
 			   T.Description       LIKE '%#URL.Find#%' OR
 			   T.JournalSerialNo   LIKE '%#URL.Find#%' OR
 			   T.TransactionReference LIKE '%#URL.Find#%' OR
-			   T.JournalSerialNo IN (SELECT JournalSerialNo 
-			                         FROM   TransactionLine P WITH (NOLOCK)
-									 WHERE  Journal         = T.Journal 
-									 AND    JournalSerialNo = T.JournalSerialNo 
-									 AND    (Fund LIKE '#URL.Find#%' OR ProgramCode LIKE '#URL.Find#%' OR ProgramCode IN (SELECT ProgramCode FROM Program.dbo.ProgramPeriod WHERE ProgramCode = P.ProgramCode and Reference LIKE '#URL.Find#%')))
+			   L.Fund              LIKE '#URL.Find#%' OR
+			   L.ProgramCode       LIKE '#URL.Find#%' OR
+			   EXISTS (SELECT 'X' FROM Program.dbo.ProgramPeriod Pe WHERE ProgramCode = L.ProgramCode AND Reference LIKE '#URL.Find#%')			  
 			   <cfif num eq "1">  OR  T.DocumentAmount   LIKE '%#URL.Find#%' </cfif>
 			   )
 				
@@ -124,9 +122,9 @@
 		<cfelse>
 						
 		AND    T.OrgUnitOwner IN (SELECT OrgUnit 
-	                          FROM    Organization.dbo.Organization
-	                          WHERE   Mission          = '#OrgUnit.Mission#'
-							  AND     MissionOrgUnitId = '#OrgUnit.MissionOrgUnitId#')
+	                              FROM    Organization.dbo.Organization
+	                              WHERE   Mission          = '#OrgUnit.Mission#'
+							      AND     MissionOrgUnitId = '#OrgUnit.MissionOrgUnitId#')
 					
 		</cfif>
 		

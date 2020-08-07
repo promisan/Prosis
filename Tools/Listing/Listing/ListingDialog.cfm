@@ -37,10 +37,14 @@
 		EntityGroup      = "#Doc.EntityGroup#"
 		Mission          = "#Doc.Mission#"
 		OrgUnit          = "#Doc.OrgUnit#"
+		PersonNo         = "#Doc.PersonNo#" 
 		Communicator     = "Yes"
 		Annotation       = "No"
 		ObjectReference  = "#Doc.ObjectReference#"
-		ObjectKey4       = "#id#"
+		ObjectReference2 = "#Doc.ObjectReference2#" 
+		ObjectKey1       = "#doc.ObjectKeyValue1#"
+		ObjectKey4       = "#doc.ObjectKeyValue4#"
+		ObjectURL        = "#doc.ObjectURL#"
 		AjaxId           = "#url.ajaxid#">		
 		
 	</cfif>	

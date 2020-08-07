@@ -721,12 +721,12 @@ otherwise no action
 		 
 	    <cfif operational eq "0"> 
 		
-		<TR>
-		    <TD style="padding-left:5px" class="labelmedium bcell" height="<cfif mode eq 'edit' or last eq '1'>25</cfif>"><cf_tl id="Service Location">:</TD>
+		<TR class="line">
+		    <TD style="padding-left:5px;" class="labelmedium bcell" height="<cfif mode eq 'edit' or last eq '1'>25</cfif>"><cf_tl id="Service Location">:</TD>
 		    			
 				<cfif mode eq "view">
 				
-					<TD bgcolor="#pclr#" class="labelmedium ccell">
+					<TD bgcolor="#pclr#" class="labelmedium ccell" style="border-right:1px solid silver">
 					
 					 <cfquery name="Location" 
 						datasource="AppsPayroll" 
@@ -745,11 +745,8 @@ otherwise no action
 							
 				<cfif mode eq "edit" or last eq "1"> 
 				
-					<td bgcolor="#color#" width="80%" id="editfield" name="editfield">
-								   		
-					<table cellspacing="0" cellpadding="0" class="formpadding">
-						<tr><td class="labelmedium ccell">	
-						
+					<td bgcolor="#color#" style="padding-left:3px;width:100%;border-right:1px solid silver" id="editfield" name="editfield">
+											
 						<cfif url.wf eq "1">
 							<cfset mis = Object.Mission>
 						<cfelse>
@@ -789,7 +786,7 @@ otherwise no action
 					
 						 <select name="ServiceLocation" 
 						   class="regularxlbl" 
-						   style="border-top:0px;border-bottom:0px;border-right:1px solid silver;width:99%">
+						   style="border:0px;width:99%">
 						
 						    <option value="">-- select --</option>
 							<cfloop query="Location">
@@ -797,10 +794,7 @@ otherwise no action
 							</cfloop>		
 							
 						</select>
-					
-						</td></tr>
-					</table>
-					
+										
 					</td>
 					
 				</cfif>
@@ -1044,7 +1038,7 @@ otherwise no action
 												
 				<td bgcolor="#color#" id="effectivefield" name="editfield" class="ccell">		
 											
-				<table ccellspacing="0" ccellpadding="0">
+				<table cellspacing="0" cellpadding="0">
 				<tr>
 				<td style="height:28" class="labelmedium" id="boxdateeffective">	
 				
@@ -1330,7 +1324,7 @@ otherwise no action
 		</TR>
 						
 		<TR id="editfield" name="editfield">
-	    <TD style="padding-left:5px;height:28px" class="labelmedium bcell"><cf_tl id="Review Panel">:</TD>
+	    <TD style="padding-left:5px;height:28px" class="labelmedium bcell"><cf_tl id="Recruitment Review Panel">:</TD>
 	   		
 			<cfif mode eq "view">
 			
@@ -1621,12 +1615,12 @@ otherwise no action
 						  	  <!--- take from Salary recommendation 		--->
 						  
 						  	<cfdiv bind="url:#SESSION.root#/staffing/Application/Employee/Contract/ContractEditFormStep.cfm?grade={contractlevel}&step=#SalRec.recommendstep#" 
-							    id="gradestep">						  
+							    id="boxcontractstep">						  
 						      								 
 							 <cfelse>
 							 
 							 <cfdiv bind="url:#SESSION.root#/staffing/Application/Employee/Contract/ContractEditFormStep.cfm?grade={contractlevel}&step=#ContractSel.ContractStep#" 
-							    id="gradestep">
+							    id="boxcontractstep">
 						  							 						 
 							 </cfif>
 							 

@@ -9,7 +9,7 @@ password="#SESSION.dbpw#">
 	AND    Operational = 1
 	AND    EntityClass IN (SELECT EntityClass 
 	                       FROM   Ref_EntityClassMission 
-						   WHERE  Mission = '#url.mission#'	
+						   WHERE  Mission    = '#url.mission#'	
 						   AND    EntityCode = 'EntCost')
 </cfquery>
 
@@ -21,13 +21,13 @@ password="#SESSION.dbpw#">
 	password="#SESSION.dbpw#">
 	    SELECT *
 	    FROM   Ref_EntityClass
-		WHERE  EntityCode = 'EntCost'
+		WHERE  EntityCode  = 'EntCost'
 		AND    Operational = 1	
 	</cfquery>
 
 </cfif>
 
-<select name="entityClass" class="regularxl">
+<select name="entityClass_<cfoutput>#url.itm#</cfoutput>" class="regularxl" style="border:0px">
 	<option value=""><cf_tl id="NA"></option>
 	<cfoutput query="EntityClass">
 	    <option value="#entityClass#">#entityClassName#</option>

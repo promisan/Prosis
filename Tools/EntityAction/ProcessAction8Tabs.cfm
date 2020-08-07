@@ -100,6 +100,7 @@
 
 <!--- tab for questionaire --->	   
 
+<cfinclude template="ProcessActionQuestionaire.cfm">		 	
 
 <cfset boxno = boxno+1>
       
@@ -191,13 +192,8 @@
 	   SELECT  *
 	   FROM    OrganizationObjectAction OA INNER JOIN Ref_EntityActionPublish P	ON OA.ActionPublishNo = P.ActionPublishNo AND  OA.ActionCode = P.ActionCode 	
 	   WHERE   ActionId = '#URL.ID#' 		   
-   </cfquery>  
-   		 
-
-   <!--- tab for questionaire moved up ---> 
-   <cfinclude template="ProcessActionQuestionaire.cfm">		 			  		  	
-     
-					
+   </cfquery>  	
+     					
    <!--- tab for prior documents to be shown --->		
    <cfinclude template="ProcessActionPrior.cfm">
      
@@ -279,13 +275,12 @@
    </cfif>   
    
    
-   <cfif boxno gte "2">
-   
-   <script>  
-       
-	   if document.getElementById('content1box') {
-		   document.getElementById('menu1').click()
-	   }
-   </script>
+  
+   <cfif menumode eq "content" and boxno gte "2">
+      	 	  
+	   <script>  	   	          
+		   try { document.getElementById('menu1').click() } 
+		   catch(e) { }		  
+	   </script>
    
    </cfif>

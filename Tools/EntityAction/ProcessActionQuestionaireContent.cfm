@@ -1,13 +1,6 @@
 
 <table style="width:95%" align="center">
 
-<cfif entrymode eq "workflow">
-
-	<tr class="hide"><td colspan="3" id="processquestion"></td></tr>
-	<tr><td style="padding-top:4px" class="labelmedium" align="center" height="24" colspan="3">Attention: Edits are automatically saved.</font></td></tr>
-	
-</cfif>
-
 <cfoutput query="Questionaire">
 	
 	<cfquery name="Content" 
@@ -36,16 +29,12 @@
 	<cfif content.recordcount gte "1">
 		
 		<tr><td height="4"</td></tr>
-		<tr class="line" ><td colspan="3" style="padding:3px;font-size:20px;font-weight:300" class="labelmedium">#DocumentDescription#</td></tr>		
+		<tr class="line" ><td colspan="3" style="padding:3px;font-size:20px;" class="labelmedium">#DocumentDescription# <span style="font-size:10px"><cfif entrymode eq "workflow">Attention: Edits are automatically saved</cfif></span></td></tr>		
 			
 	</cfif>
-	
-	
-				
+					
 	<cfloop query="content">	
-	
-	<tr><td style="height:5px"></td></tr>
-			
+					
 		<cfif entrymode eq "workflow">
 		
 			<cfset lkt = "savequestionaire('#object.Objectid#','#Questionaire.actioncode#','#questionid#','score_#left(QuestionId,8)#','score')">
@@ -63,7 +52,7 @@
 		<input type="hidden" name="process_#left(QuestionId,8)#" id="process_#left(QuestionId,8)#" value="<cfif score neq "">processed</cfif>">
 
         <tr>       
-	    <td valign="top" class="labelmedium" style="padding-top:3px;height:45px;font-size: 15px;font-weight:400;padding-left:4px">#currentrow#.</td>
+	    <td valign="top" class="labelmedium" style="padding-top:3px;height:35px;font-size: 15px;font-weight:400;padding-left:4px">#currentrow#.</td>
 		<td><table style="width:90%">
 				<tr><td class="labelmedium" style="font-size: 18px;padding-left:4px">#QuestionLabel#</td></tr>
 				<cfif questionmemo neq "">				
@@ -72,12 +61,12 @@
 			</table>
 		</td>		
 				
-		<td align="right" valign="top" style="padding-top:5px;height:45px;font-size: 18px;padding-left:4px" class="labelmedium">
+		<td align="right" valign="top" style="padding-top:5px;height:35px;font-size: 18px;padding-left:4px" class="labelmedium">
 		
 			<table cellspacing="0" cellpadding="0">
-			<tr class="linedotted"><td style="height:30px">
+			<tr class="line"><td style="height:30px">
 		
-					<table cellspacing="0" cellpadding="0">
+					<table>
 					<tr>	
 				
 					<cfif InputMode eq "YesNo">			
@@ -114,9 +103,9 @@
 							<cfswitch expression="#score#">
 							
 								<td style="padding-left:3px;font-size: 15px;" class="labelmedium">
-								<cfcase value="9"><cf_tl id="No"></cfcase>
-								<cfcase value="1"><cf_tl id="Yes"></cfcase>
-								<cfcase value="0"><cf_tl id="N/A"></cfcase>
+								 <cfcase value="9"><cf_tl id="No"></cfcase>
+								 <cfcase value="1"><cf_tl id="Yes"></cfcase>
+								 <cfcase value="0"><cf_tl id="N/A"></cfcase>
 								</td>
 							
 							</cfswitch>
@@ -125,15 +114,15 @@
 										
 								<td><input type="radio" class="radiol" name="score_#left(QuestionId,8)#" id="score_#left(QuestionId,8)#"
 								    onclick="#lkt#" value="1" <cfif score eq "1">checked</cfif>></td>
-								<td style="padding-left:3px;font-size: 15px" class="labelmedium"><cf_tl id="Yes"></td>
+								<td style="padding-top:3px;padding-left:3px;font-size: 15px" class="labelmedium"><cf_tl id="Yes"></td>
 								
 								<td style="padding-left:9px"><input class="radiol" type="radio" name="score_#left(QuestionId,8)#" id="score_#left(QuestionId,8)#"
 								    onclick="#lkt#" value="9" <cfif score eq "9">checked</cfif>></td>
-								<td style="padding-left:3px;font-size: 15px" class="labelmedium"><cf_tl id="No"></td>
+								<td style="padding-top:3px;padding-left:3px;font-size: 15px" class="labelmedium"><cf_tl id="No"></td>
 								
 								<td style="padding-left:9px"><input class="radiol" type="radio" name="score_#left(QuestionId,8)#" id="score_#left(QuestionId,8)#"
 								    onclick="#lkt#" value="0" <cfif score eq "0">checked</cfif>></td>
-								<td style="padding-left:3px;font-size: 15px" class="labelmedium"><font color="gray"><cf_tl id="N/A"></font></td>
+								<td style="padding-top:3px;padding-left:3px;font-size: 15px" class="labelmedium"><font color="gray"><cf_tl id="N/A"></font></td>
 											
 						</cfif>
 						
@@ -155,15 +144,15 @@
 										
 								<td><input type="radio" class="radiol" name="score_#left(QuestionId,8)#" id="score_#left(QuestionId,8)#"
 								    onclick="#lkt#" value="1" <cfif score eq "1">checked</cfif>></td>
-								<td style="padding-left:3px;font-size:15px" class="labelmedium"><cf_tl id="Yes"></td>
+								<td style="padding-top:3px;padding-left:3px;font-size:15px" class="labelmedium"><cf_tl id="Yes"></td>
 								
 								<td style="padding-left:9px"><input class="radiol" type="radio" name="score_#left(QuestionId,8)#" id="score_#left(QuestionId,8)#"
 								    onclick="#lkt#" value="9" <cfif score eq "9">checked</cfif>></td>
-								<td style="padding-left:3px;font-size:15px" class="labelmedium"><cf_tl id="No"></td>
+								<td style="padding-top:3px;padding-left:3px;font-size:15px" class="labelmedium"><cf_tl id="No"></td>
 								
 								<td style="padding-left:9px"><input class="radiol" type="radio" name="score_#left(QuestionId,8)#" id="score_#left(QuestionId,8)#"
 								    onclick="#lkt#" value="5" <cfif score eq "5">checked</cfif>></td>
-								<td style="padding-left:3px;font-size:15px" class="labelmedium"><font color="gray"><cf_tl id="Partly"></font></td>
+								<td style="padding-top:3px;padding-left:3px;font-size:15px" class="labelmedium"><font color="gray"><cf_tl id="Partly"></font></td>
 											
 						</cfif>					
 									
@@ -278,9 +267,11 @@
 	        <tr><td colspan="3" class="line" height="1"></td></tr>				
 		</cfif>
 	
-	</cfloop>	
-		
-	 <tr>
+	</cfloop>			
+	 
+</cfoutput>
+
+ <tr>
 		 <td colspan="3" align="right" height="25" style="padding-top:3px;padding-right:20px">						 					 
 										   
 				   <cfset nextbox = boxno+1>
@@ -294,7 +285,5 @@
 										
 		 </td>
 	 </tr>
-	 
-</cfoutput>
   
 </table>

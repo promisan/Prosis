@@ -3,6 +3,8 @@
 <cfparam name="attributes.jquery" 		default="no"> <!--- possible values: silver, flat --->
 <cfparam name="attributes.treeTemplate"	default="no"> <!--- possible values: silver, flat --->
 
+
+
 <cfoutput>
 
 	<link rel="stylesheet" href="#Session.root#/scripts/kendoui/styles/kendo.common.min.css" />
@@ -69,7 +71,24 @@
 		.k-menu:not(.k-context-menu)>.k-item {
 			color: ##033f5d;
 		}
+
+		.k-loading-image {
+			background-image: none !important;
+		}
+		.k-loading-image::before
+		{
+			display:none !important;
+		}
+
+		.k-loading-image::after
+		{
+			display:none !important;
+		}
 	</style>
+
+
+
+
 
 	<div id="_UIDialog" style="display:none">
 	</div>
@@ -687,3 +706,6 @@ _UIObject.prototype.doCalendarRange = function(id)
 	var ProsisUI = new _UIObject;
 
 </script>
+
+
+

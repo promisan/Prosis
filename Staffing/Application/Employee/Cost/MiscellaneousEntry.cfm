@@ -168,36 +168,35 @@ password="#SESSION.dbpw#">
 	</TD>
 	</TR>
 	
-	
-		
     <TR class="labelmedium">
     <TD valign="top" style="padding-top:5px"><cf_tl id="Transactions">:</TD>
     <TD>	
 	
-	    <table style="width:340px">
+	    <table style="width:490px">
 		   <tr class="line labelmedium">
 		       <td></td>
 		       <td><cf_tl id="Due"></td>
+			   <td><cf_tl id="Flow"></td>
 			   <td><cf_tl id="Currency"></td>
-			   <td><cf_tl id="Amount"></td> 
+			   <td align="right"><cf_tl id="Amount"></td> 
 		  </tr>
 		  
 		  <cfloop index="itm" from="1" to="10">
 		  
 		  	<cfoutput>
-		  
+					  
 			   <tr class="labelmedium line">
 			   
 			   	   <td style="padding-left:4px;padding-right:4px"><cfoutput>#itm#.</cfoutput></td>
 				   
-				   <td style="padding-top:2px;padding-left:10px;border-left:1px solid silver;border-right:1px solid silver"> 
+				   <td style="min-width:140px;padding-top:2px;padding-left:6px;border-left:1px solid silver;border-right:1px solid silver"> 
 				   
 				   		<cfif itm eq "1">
 				   
 				   		<cf_intelliCalendarDate9
 							FormName="MiscellaneousEntry"
 							FieldName="DateEffective_#itm#"
-							style="width:120px;width:110px;border:0px"
+							style="border:0px"
 							class="regularxl enterastab" 
 							DateFormat="#APPLICATION.DateFormat#"
 							Default="#Dateformat(now(), CLIENT.DateFormatShow)#"
@@ -205,19 +204,25 @@ password="#SESSION.dbpw#">
 							
 						<cfelse>
 						
+							<cfset dte = dateAdd("m",itm-1,now())>
+													
 							<cf_intelliCalendarDate9
 							FormName="MiscellaneousEntry"
 							FieldName="DateEffective_#itm#"
-							style="width:120px;width:110px;border:0px"
+							style="border:0px"
 							class="regularxl enterastab" 
 							DateFormat="#APPLICATION.DateFormat#"
-							Default=""
+							Default="#Dateformat(dte, CLIENT.DateFormatShow)#"
 							AllowBlank="True">	
 						
 						
 						</cfif>	
 						
 			       </td>
+				   
+				   <TD style="min-width:150px">
+					   <cfdiv id="entityclass_#itm#" bind="url:getEntityClass.cfm?mission={mission}&entitlement={entitlement}&itm=#itm#">	  		
+				   </TD>
 				   
 				   <td style="border-left:1px solid silver;border-right:1px solid silver;padding-right:4px">
 				   
@@ -240,37 +245,30 @@ password="#SESSION.dbpw#">
 				   
 				   		<cfif itm eq "1">
 				   
-				       <cfinput type="Text" style="border:0px;text-align:right;padding-right:4px;width:100%" name="Amount_#itm#" 
+				       <cfinput type="Text" style="border:0px;text-align:right;padding-right:4px;width:90%" name="Amount_#itm#" 
 					    message="Please enter a correct amount" validate="float" required="Yes" size="12" maxlength="16" class="regularxl enterastab">
 						
 						<cfelse>
 						
-					   <cfinput type="Text" style="border:0px;text-align:right;padding-right:4px;width:100%" name="Amount_#itm#" 
+					   <cfinput type="Text" style="border:0px;text-align:right;padding-right:4px;width:90%" name="Amount_#itm#" 
 					    message="Please enter a correct amount" validate="float" required="No" size="12" maxlength="16" class="regularxl enterastab">
 											
 						</cfif>
 		
 				   </td> 
+				   
+				   
 			  </tr>
 		  
 		  	</cfoutput>
 			
 		  </cfloop>
 		   
-		 </table>
-	
-		 
+		 </table>	
 		
 	</TD>
 	</TR>	
-		
-	<TR class="labelmedium">
-    <TD width="120"><cf_tl id="Approval flow">:</TD>
-    <TD width="90%">
-	   <cfdiv id="entityclass" bind="url:getEntityClass.cfm?mission={mission}&entitlement={entitlement}">	  		
-	</TD>
-	</TR>
-				   
+					   
 	<TR class="labelmedium">
         <td valign="top" style="padding-top:5px"><cf_tl id="Remarks">:</td>
         <TD><textarea style="width:99%;padding:3px;font-size:13px" class="regular" rows="4" name="Remarks"></textarea> </TD>

@@ -50,6 +50,7 @@ function editEntitlement(persno, no) {
 	 <cfset dte = evaluate("Form.DateEffective_#itm#")>
 	 <cfset cur = evaluate("Form.Currency_#itm#")>
 	 <cfset amt = evaluate("Form.Amount_#itm#")>
+	 <cfset ecl = evaluate("Form.EntityClass_#itm#")>
 	 
 	 <cfif dte neq "" and amt neq "">
 	 
@@ -66,6 +67,7 @@ function editEntitlement(persno, no) {
 				WHERE  PersonNo       = '#Form.PersonNo#' 
 				AND    PayrollItem    = '#Form.Entitlement#' 
 				AND    DateEffective  = #str#
+				AND    Status != '9'
 			</cfquery>
 	
 			<cfif Entitlement.recordCount gte 1> 
@@ -75,19 +77,21 @@ function editEntitlement(persno, no) {
 				<cfparam name="URL.ID" default="#Entitlement.PersonNo#">
 				<cfinclude template="../PersonViewHeader.cfm">
 				
-				<table align="center">
-				<tr class="labelmedium">
+				<table align="center" class="formpadding">
+				<tr class="labelmedium" style="font-size:20px">
 				    <td height="50">
 					<cf_tl id="An entry with the following effective date was already registered">#dateformat(str,client.dateformatshow)#
 				    </td>
 				</tr>
-				<tr><td align="center">
-					<cf_tl id="Edit Entitlement" var="1">
+				<tr  class="labelmedium"><td align="center" style="padding-top:5px">
+					<cf_tl id="View Entitlement" var="1">
 					<input type="button" class="button10g" value="#lt_text#" onClick="javascript:editEntitlement('#Entitlement.PersonNo#','#Entitlement.CostId#');">
 				</td></tr>
 				</table>
 				
 				</cfoutput>
+				
+				<cfabort>
 			 
 			<cfelse>	 
 			
@@ -127,7 +131,7 @@ function editEntitlement(persno, no) {
 							  #STR#,
 							  '#Cur#',
 							  '#amt#',
-							  <cfif form.entityclass neq "">
+							  <cfif ecl neq "">
 							  '0',
 							  <cfelse>
 							  '2',
@@ -148,13 +152,13 @@ function editEntitlement(persno, no) {
 							WHERE  PersonNo = '#Form.PersonNo#' 
 					  </cfquery>
 						
-					  <cfif form.entityclass neq "">
+					  <cfif ecl neq "">
 											 	
-							<cfset link = "Staffing/Application/Employee/Cost/MiscellaneousEdit.cfm?id=#form.personno#&id1=#form.costid#">
+							<cfset link = "Staffing/Application/Employee/Cost/MiscellaneousEdit.cfm?id=#form.personno#&id1=#rowguid#">
 							
 							<cf_ActionListing 
 							    EntityCode       = "EntCost"
-								EntityClass      = "#form.entityclass#"
+								EntityClass      = "#ecl#"
 								EntityGroup      = ""
 								EntityStatus     = ""
 								Mission 		 = "#form.Mission#"
@@ -162,7 +166,7 @@ function editEntitlement(persno, no) {
 								ObjectReference  = "#Entitlement.PayrollItem#"
 								ObjectReference2 = "#Person.FirstName# #Person.LastName#" 
 								ObjectKey1       = "#Form.PersonNo#"
-								ObjectKey4       = "#Form.CostId#"
+								ObjectKey4       = "#rowguid#"
 								ObjectURL        = "#link#"
 								Show             = "No"
 								CompleteFirst    = "No">

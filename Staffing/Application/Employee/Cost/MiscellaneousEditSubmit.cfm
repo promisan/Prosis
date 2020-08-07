@@ -1,6 +1,4 @@
 
-<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
-
 <cfif Len(Form.Remarks) gt 100>
   <cfset remarks = left(Form.Remarks,100)>
 <cfelse>
@@ -82,9 +80,12 @@ AND    CostId   = '#Form.CostId#'
 	  </cfif>
 	  
 <cfoutput>
+
+<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+<cfset mid = oSecurity.gethash()/>  
 	
  <script>
-	 ptoken.location("EmployeeMiscellaneous.cfm?ID=#Form.PersonNo#&Status=#URL.Status#");
+	 ptoken.location("EmployeeMiscellaneous.cfm?ID=#Form.PersonNo#&Status=#URL.Status#&mid=#mid#");
  </script>	
  
 </cfoutput>	   

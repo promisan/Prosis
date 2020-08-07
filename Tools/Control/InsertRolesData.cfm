@@ -961,6 +961,14 @@
 					  TemplateSearch=""
 					  TemplateListing="">	
 					  
+			<cf_insertEntityDocument
+	          Code="EntCost"   
+			  DocumentType="dialog" 
+			  DocumentCode="F001"
+			  DocumentDescription="Set transactionamount and reason"
+			  DocumentTemplate="Staffing/Application/Employee/Workflow/Cost/Document.cfm"
+			  DocumentMode="Embed">			  
+					  
 			<cfquery name="Class" 
 			datasource="AppsPayroll" 
 			username="#SESSION.login#" 

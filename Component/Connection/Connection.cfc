@@ -488,20 +488,20 @@
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
 				  
-					  	SELECT    TOP 1 OA.OfficerActionDate
+					  	SELECT    TOP 1 OA.OfficerDate
 						FROM      OrganizationObjectAction AS OA INNER JOIN
 				                  OrganizationObject AS O ON OA.ObjectId = O.ObjectId
-						WHERE     OA.OfficerActionDate <= #now()#			  
+						WHERE     OA.OfficerDate <= #now()#			  
 						<cfif getAdministrator("*") eq "1">		 
-						AND       Operational = 1
+						AND       O.Operational = 1
 						<cfelse>
 						AND       O.Mission IN (#preserveSingleQuotes(mis)#)
-						AND       Operational = 1
+						AND       O.Operational = 1
 						</cfif>
-						ORDER BY  OA.OfficerActionDate DESC
-						
+						ORDER BY  OA.OfficerDate DESC
+												
 				   </cfquery>		
-				   							
+				   				   							
 				  <!--- action was added --->
 				  
 				  <cfquery name="LastDocumentAdd" 
@@ -538,7 +538,7 @@
 						ORDER BY  LA.ActionDate DESC
 				   </cfquery>	 
 				   
-				   <cfset newDate = LastDocumentAction.OfficerActionDate>
+				   <cfset newDate = LastDocumentAction.OfficerDate>
 				   
 				   <cfif LastDocumentAdd.Created gt newDate>
 				   	   <cfset newDate = LastDocumentAdd.Created>

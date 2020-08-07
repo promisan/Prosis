@@ -1,5 +1,6 @@
 
 <cfparam name="client.contractreason" default="">
+<cfparam name="url.scope" default="add">
 
 <cfquery name="Reason" 
 	datasource="AppsEmployee" 
@@ -24,6 +25,7 @@
 
 <cfoutput>
 
+
 <cfif getList.recordcount eq "0">
 
 	<input type="hidden" name="GroupCode"     id="GroupCode" value="">
@@ -33,7 +35,7 @@
 	
 	<input type="hidden" id="GroupCode" name="GroupCode" value="#getList.GroupCode#">
 	
-	<select id="GroupListCode" name="GroupListCode" class="regularxl enterastab" style="width:99%">	
+	<select id="GroupListCode" name="GroupListCode" class="regularxl enterastab" style="width:99%;<cfif url.scope neq 'add'>border:0px</cfif>">	
 		<cfloop query="getlist">
 			<option value="#grouplistcode#" <cfif client.contractreason eq grouplistcode>selected</cfif>>#Description#</option>
 		</cfloop>

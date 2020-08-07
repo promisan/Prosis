@@ -94,7 +94,7 @@
 
 <script>	
 	_cf_loadingtexthtml='';	
-	ptoken.navigate('getReason.cfm?mission=#contract.mission#&actioncode=#url.actioncode#','groupfield')
+	ptoken.navigate('getReason.cfm?scope=edit&mission=#contract.mission#&actioncode=#url.actioncode#','groupfield')
 </script>
 
 </cfoutput>

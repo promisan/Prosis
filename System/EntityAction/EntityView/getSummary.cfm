@@ -1,4 +1,7 @@
 
+<!--- full summary --->
+<cf_myClearancesPrepare mode="table" role="1">
+
 <cfquery name="getAction" 
  datasource="AppsOrganization"
  username="#SESSION.login#" 
@@ -58,10 +61,9 @@
 
 	<div style="color:#cl#">
 	
-	 <table style="border:1px solid silver">
-		<tr>
-		<td><cf_tl id="Status"></td>
-		<td>
+	 <table style="border:0px solid silver;font-size:20px">
+		<tr>		
+		<td style="color:#cl#;font-size:20px">
 		<cfif getAction.recordcount eq "0"><cf_tl id="No"> <cfelse>#getAction.recordcount#</cfif>
 		<cfif getAction.recordcount eq "1"><cf_tl id="action"><cfelse><cf_tl id="actions"></cfif><cf_tl id="and">
 		<cfif tot eq "0"><cf_tl id="No"><cfelse>#tot#</cfif>
@@ -71,8 +73,14 @@
 	</table>
 	
 	</div>
-	<div style="color=##0080C0;">
+	<div>
+	    <table style="border:0px solid silver;font-size:18px">
+		<tr>		
+		<td>
 		<cf_tl id="Refresh your view to reflect recent updates"> (#timeformat(now(),"HH:MM:SS")#)
+		</td>
+		</tr>	
+		</table>
 	</div>
 
 </cfoutput>

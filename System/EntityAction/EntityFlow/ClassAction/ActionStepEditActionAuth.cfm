@@ -80,8 +80,10 @@
 							filter         = "contains"
 							value          = "Account"
 							display        = "Account"
-							selected       = "#Get.ActionAccessUserGroup#">																		    
-					    <option value="[all users]" selected>[all users]</option>						
+							selected       = "#Get.ActionAccessUserGroup#">		
+							
+						 <option value="DISABLED" selected>Not applicable</option>																		    
+					    <option value="[all users]">[all users]</option>						
 					</cf_uiselect>
 					
 					</td>
@@ -117,9 +119,8 @@
 							value          = "Account"
 							display        = "Account"
 							selected       = "#Get.ActionAccessUGCollaborate#">		
-						<!---					 						 
-					    <option value="DISABLED" selected>Not applicable</option>						
-						--->
+										 						 
+					    <option value="DISABLED" selected>Not applicable</option>												
 					    <option value="[all users]">[all users]</option>						
 					</cf_uiselect>
 					

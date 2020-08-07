@@ -34,7 +34,7 @@
 
 	
 	qz.security.setCertificatePromise(function(resolve, reject) {
-		$.ajax(root+'/tools/input/printer/promisan2019.txt').then(resolve, reject);
+		$.ajax(root+'/tools/input/printer/promisan2020.txt').then(resolve, reject);
 	});
 	
 	

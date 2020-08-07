@@ -208,7 +208,7 @@
 
 <cfoutput>   
 
-<input type="hidden" id="actioncenter_refresh" onclick="_cf_loadingtexthtml='';ColdFusion.navigate('#SESSION.root#/System/EntityAction/EntityView/getSummary.cfm','summary')">  
+<input type="hidden" id="actioncenter_refresh" onclick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/System/EntityAction/EntityView/getSummary.cfm','summary')">  
 
 </cfoutput> 
 

@@ -36,7 +36,7 @@
 			  function getreason() {					      
 					_cf_loadingtexthtml='';		
 					if (document.getElementById('groupfield')) {					
-					ptoken.navigate('getReason.cfm?mission=#contractsel.mission#&actioncode=#selact#','groupfield') 
+					ptoken.navigate('getReason.cfm?scope=edit&mission=#contractsel.mission#&actioncode=#selact#','groupfield') 
 					}
 			  }
 					

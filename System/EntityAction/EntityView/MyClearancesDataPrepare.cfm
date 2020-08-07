@@ -19,19 +19,7 @@
 <cf_dropTable tblname="#Session.acc#_ActionResultDataset" dbname="AppsQuery">
 
 <cftransaction isolation="READ_UNCOMMITTED">
-	
-		<!--- 
-		
-		<cfquery name="ResultListing" 
-		 datasource="AppsOrganization"
-		 username="#SESSION.login#" 
-		 password="#SESSION.dbpw#">
-			 SELECT     *
-			 FROM       userQuery.dbo.#SESSION.acc#Action  			 
-		</cfquery>
-		
-		--->
-				
+					
 		<cfquery name="ResultListing" 
 		 datasource="AppsOrganization"
 		 username="#SESSION.login#" 
@@ -65,8 +53,6 @@
 			 WHERE      P.EnableMyClearances = 1 
 			  AND       O.ObjectStatus       = 0
 			  AND       O.Operational        = 1  
-			  
-			 
 			  
 			  AND       E.ProcessMode       != '9'		
 			  <!--- hide concurrent actions that were completed --->

@@ -29,10 +29,10 @@
 		    FROM  Ref_AppointmentStatus
 			WHERE Code = '#url.appointment#'	
 			<cfif scope.recordcount neq "0">
-				OR ( Code IN ( 
+				OR Code IN ( 
 					    SELECT AppointmentStatus
 					    FROM   Ref_AppointmentStatusMission
-						WHERE  Mission = '#url.mission#' ) OR Operational = 1)
+						WHERE  Mission = '#url.mission#' OR Operational = 1)
 					 
 			</cfif>
 		</cfquery>							
