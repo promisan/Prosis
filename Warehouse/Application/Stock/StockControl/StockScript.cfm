@@ -18,14 +18,11 @@
 
 <!--- used for process transaction and receipts --->
 <cf_listingscript     mode="limited">
-
 <cf_FileLibraryScript mode="limited">
-<cf_ActionListingScript>
 
+<cf_ActionListingScript>
 <cf_KeyPadScript>
 
-<!--- To show notifications --->
-<cf_windowNotification>
 
 <!--- ------------------------------------------- --->
 
@@ -2526,12 +2523,13 @@ function clearStockIssueEndFocus() {
 	<!--- -------------------- --->
 		
 	function salesdaytotal()	{	  
-		   
+		 
+		mis = document.getElementById('mission').value   
+		whs = document.getElementById('warehouse').value
 		try { ProsisUI.closeWindow('daytotal',true)} catch(e){};
    		ProsisUI.createWindow('daytotal', 'Day totals', '',{x:100,y:100,width:1080,height:650,resizable:true,modal:true,center:true});
    		ptoken.navigate('#SESSION.root#/Warehouse/Application/Salesorder/POS/Inquiry/daytotal.cfm?systemfunctionid=#url.systemfunctionid#&mission='+mis+'&warehouse='+whs,'daytotal');				
 	}			
-
 	
 	function doTransferStock(w)	{
 		ptoken.navigate('#SESSION.root#/warehouse/Application/SalesOrder/POS/Transfer/TransferSubmit.cfm?warehouse='+w,'wtransfer','','','POST','fTransfer');

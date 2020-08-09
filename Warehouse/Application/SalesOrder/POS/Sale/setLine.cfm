@@ -4,11 +4,11 @@
 <!--- --------------------------------------------------------- --->
 
 <cfquery name="get"
-datasource="AppsTransaction" 
+datasource="AppsMaterials" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
 	SELECT * 
-	FROM   Sale#URL.Warehouse# 
+	FROM   vwCustomerRequest 
 	WHERE  TransactionId = '#url.id#'		
 </cfquery>
 
@@ -24,6 +24,7 @@ password="#SESSION.dbpw#">
 <cfparam name="url.action"     default="">
 <cfparam name="url.customerid" default="#get.Customerid#">
 <cfparam name="url.addressid"  default="#get.AddressId#">
+<cfparam name="url.requestno"  default="#get.RequestNo#">
 
 <cfoutput>
 
@@ -32,10 +33,10 @@ password="#SESSION.dbpw#">
 		<cfcase value="delete">
 			
 			<cfquery name="getTotal"
-				datasource="AppsTransaction" 
+				datasource="AppsMaterials" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
-					DELETE FROM Sale#URL.Warehouse# 
+					DELETE FROM CustomerRequestLine 
 					WHERE  TransactionId = '#url.id#'		
 			</cfquery>
 			
@@ -85,10 +86,10 @@ password="#SESSION.dbpw#">
 				<cfset amounttax  = round(amounttax*100)/100>				
 			
 			    <cfquery name="setLine"
-					datasource="AppsTransaction" 
+					datasource="AppsMaterials" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
-						UPDATE Sale#URL.Warehouse# 
+						UPDATE CustomerRequestLine 
 						SET    TransactionQuantity = '#url.value#',
 						       SalesAmount         = '#amountsle#',
 							   SalesTax            = '#amounttax#'
@@ -103,21 +104,21 @@ password="#SESSION.dbpw#">
 				      customerid    = "#url.customerid#">						  
 												
 				<cfquery name="get"
-				datasource="AppsTransaction" 
+				datasource="AppsMaterials" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
 					SELECT * 
-					FROM   Sale#URL.Warehouse# 
+					FROM   CustomerRequestLine
 					WHERE  TransactionId = '#url.id#'		
 				</cfquery>
 				
 				<cfquery name="linelist"
-				datasource="AppsTransaction" 
+				datasource="AppsMaterials" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
 					SELECT * 
-					FROM   Sale#URL.Warehouse# 
-					WHERE  CustomerId = '#get.CustomerId#'						
+					FROM   CustomerRequestLine
+					WHERE  Requestno = '#get.RequestNo#'						
 				</cfquery>	
 				
 				<script language="JavaScript">	
@@ -150,10 +151,10 @@ password="#SESSION.dbpw#">
 			<cfset dte = DateAdd("n", url.minute, dte)>
 			
 			 <cfquery name="setLine"
-					datasource="AppsTransaction" 
+					datasource="AppsMaterials" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
-						UPDATE Sale#URL.Warehouse# 
+						UPDATE CustomerRequestLine
 						SET    TransactionDate = #dte#
 						WHERE  TransactionId = '#url.id#'		
 				</cfquery>		
@@ -163,10 +164,10 @@ password="#SESSION.dbpw#">
 		<cfcase value="reference">
 		
 		 <cfquery name="setLine"
-					datasource="AppsTransaction" 
+					datasource="AppsMaterials" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
-						UPDATE Sale#URL.Warehouse# 
+						UPDATE CustomerRequestLine
 						SET    TransactionReference = '#url.value#'
 						WHERE  TransactionId = '#url.id#'		
 				</cfquery>	
@@ -215,10 +216,10 @@ password="#SESSION.dbpw#">
 				 <cfif changePriceRole eq "GRANTED">
 				 
 				 	  <cfquery name="setLine"
-							datasource="AppsTransaction" 
+							datasource="AppsMaterials" 
 							username="#SESSION.login#" 
 							password="#SESSION.dbpw#">
-							UPDATE Sale#URL.Warehouse# 
+							UPDATE CustomerRequestLine
 							SET    SalesPrice    = '#url.value#',
 							       SalesAmount   = '#amountsle#',
 								   SalesTax      = '#amounttax#'
@@ -258,10 +259,10 @@ password="#SESSION.dbpw#">
 					<cfelse>
 							
 					    <cfquery name="setLine"
-							datasource="AppsTransaction" 
+							datasource="AppsMaterials" 
 							username="#SESSION.login#" 
 							password="#SESSION.dbpw#">
-							UPDATE Sale#URL.Warehouse# 
+							UPDATE CustomerRequestLine
 							SET    SalesPrice    = '#url.value#',
 							       SalesAmount   = '#amountsle#',
 								   SalesTax      = '#amounttax#'
@@ -273,11 +274,11 @@ password="#SESSION.dbpw#">
 				</cfif>
 							
 				<cfquery name="get"
-					datasource="AppsTransaction" 
+					datasource="AppsMaterials" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
 						SELECT * 
-						FROM   Sale#URL.Warehouse# 
+						FROM   CustomerRequestLine
 						WHERE  TransactionId = '#url.id#'		
 					</cfquery>
 				

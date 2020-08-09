@@ -2,8 +2,20 @@
 	<cfset url.customerId = "00000000-0000-0000-0000-000000000000">
 </cfif>
 
-<cfparam name="url.AddressId" default="00000000-0000-0000-0000-000000000000">
+<cfparam name="url.AddressId"  default="00000000-0000-0000-0000-000000000000">
 <cfparam name="url.mode"       default="embed">
+<cfparam name="url.requestno"  default="">
+
+<cfif url.requestNo eq "">
+
+	<cf_getCustomerRequest>
+	<cfset url.requestNo  = thisrequestNo>
+	
+</cfif>
+
+<cfoutput>
+<input type="hidden" id="RequestNo" name="RequestNo" value="#url.requestno#">
+</cfoutput>
 
 <!--- apply the promotions --->
 			
@@ -36,7 +48,7 @@ password="#SESSION.dbpw#">
 <cf_tl id="transfer from" var="transferFrom">
       
 <cfquery name="getLines"
-	datasource="AppsTransaction" 
+	datasource="AppsMaterials" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 		SELECT   W.WarehouseName,
@@ -61,7 +73,7 @@ password="#SESSION.dbpw#">
 			     	AND       TransactionUoM  = I.UoM   							   		      
 				 ) as OnHandAll								 				
 				 				 
-		FROM     Sale#URL.Warehouse# T
+		FROM     vwCustomerRequest T
 				 INNER JOIN  Materials.dbo.ItemUoM I
 					ON  T.ItemNo = I.ItemNo	AND T.TransactionUoM  = I.UoM	
 				 INNER JOIN Materials.dbo.Warehouse W
@@ -70,15 +82,20 @@ password="#SESSION.dbpw#">
 				 	ON  C.Category = T.ItemCategory
 				 LEFT JOIN Materials.dbo.ItemUoMMission UoMMission
 					ON UoMMission.ItemNo = T.ItemNo AND UoMMission.UoM = I.UoM AND UoMMission.Mission = W.Mission
-		WHERE    T.CustomerId      = '#url.customerid#'		
-			
-				
+					
+		WHERE    T.RequestNo = '#url.requestNo#' 			
+		
+		<!---
+		WHERE    T.Warehouse    = '#URL.Warehouse#'		
+		AND      T.CustomerId   = '#url.customerid#'		
+		AND      T.ActionStatus != '9' <!--- not processed yet into a batch later--->							
 		<cfif URL.AddressId neq "00000000-0000-0000-0000-000000000000" AND URL.AddressId neq "">
-			AND T.AddressId = '#URL.AddressId#'
+		AND      T.AddressId = '#URL.AddressId#'
 		</cfif>	 
+		--->
+		
 		ORDER BY T.Created #WParameter.SaleLinesOrder#
-		
-		
+				
 </cfquery>
 
 	<cfif WParameter.SaleLinesOrder eq "DESC">
@@ -91,7 +108,7 @@ password="#SESSION.dbpw#">
 										
 		<!--- ajax box for processing --->
 		
-		<tr class="hide"><td colspan="7" id="processline"></td></tr>
+		<tr class="xhide"><td colspan="7" id="processline"></td></tr>
 				
 		<cfset tcounter = 1>
 			
@@ -99,12 +116,12 @@ password="#SESSION.dbpw#">
 			
 			<tr style="border-bottom:1px solid silver;height:25px;font-size:12px" class="navigation_row labelmedium" <cfif ItemClass neq 'Service' and TransactionQuantity gt 0 and TransactionQuantity gt OnHand>bgcolor="FFC1C1"<cfelse><cfif getLines.currentrow MOD 2>bgcolor="fefefe"</cfif></cfif> id="line_#currentrow#">
 			
-			    <td style="padding-left:14px;padding-top:7px;padding-right:3px; width:2%;" valign="top"><p style="font-size:15px;padding-top:3.5px;">#currentrow#.</p></td>
+			    <td style="padding-left:14px;padding-top:7px;padding-right:3px; min-width:25px" valign="top"><p style="font-size:15px;padding-top:3.5px;">#currentrow#.</p></td>
 			    <td style="padding-left:4px;padding-top:7px;padding-right:4px; width:3%;" align="center" valign="top">
 				
 				<cfif SourceBatchNo eq "">
 				
-					<i class="fas fa-minus-circle" style="cursor:pointer;color:##033F5D;font-size:18px;padding-top:4.5px;" class="clsNoPrint" 
+					<i class="fas fa-minus-circle" style="cursor:pointer;color:##033F5D;font-size:18px;padding-top:4.5px;;min-width:25px" class="clsNoPrint" 
 					     onclick="_cf_loadingtexthtml='';ptoken.navigate('#client.virtualdir#/warehouse/Application/SalesOrder/POS/Sale/setLine.cfm?warehouse=#url.warehouse#&line=#currentrow#&id=#transactionid#&action=delete','salelines')"></i>
 					
 				</cfif>	 
@@ -113,7 +130,7 @@ password="#SESSION.dbpw#">
 				<style>
 				.clsDetailLineCell {height: 25px; <cfif WParameter.SingleLine eq 1>display:none</cfif>}
 				</style>
-				<td style="width:60%;padding:4px 0;">
+				<td style="width:90%;padding:4px 0;">
 					<div style="height:25px;">
 						<cfif WParameter.SingleLine eq 1>
 							(#ItemBarCode#) #ItemDescription# - #UoMDescription# 
@@ -186,7 +203,7 @@ password="#SESSION.dbpw#">
 											</div>
 				</td>	
 
-				<td style="min-width:220px;padding-top:10px;" align="center" valign="top">
+				<td style="min-width:100px;padding-top:10px;" valign="top">
 					
 					<span id="onhand_#currentrow#" style="min-width:200px">
 					
@@ -256,7 +273,7 @@ password="#SESSION.dbpw#">
 					
 				</td>
 								
-				<td align="right" style="width:10%;padding-top:5px;" valign="top">
+				<td align="right" style="min-width:50px;padding-top:5px;" valign="top">
 				
 				   <cfif sourceBatchNo eq "0" or sourceBatchNo eq "">
 				
@@ -283,10 +300,10 @@ password="#SESSION.dbpw#">
 
 				</td>						
 				
-				<td align="right" style="width:10%;padding-top:5px;" valign="top">
+				<td align="right" style="min-width:100px;padding-top:5px;" valign="top">
 					
 					<input type="text" 
-					 style = "background-color:fff;width:100px;text-align:center;border:1px solid ##CCCCCC;border-radius:4px;" 
+					 style = "background-color:fff;width:85px;text-align:right;border:1px solid ##CCCCCC;" 
 					 id    = "SalesPrice_#currentrow#"
 					 class = "regularxxl enterastab SalesPrice_#transactionid#"
 					 <cfif vLast eq currentrow>
@@ -305,7 +322,7 @@ password="#SESSION.dbpw#">
 
 				</td>				
 	
-				<td valign="top" align="right" style="padding:8px 0;padding-right:4px; width:10%;" id="total_#currentrow#" class="labelmedium total_#transactionid#">
+				<td valign="top" align="right" style="min-width:100px;padding:8px 0;padding-right:4px; width:10%;" id="total_#currentrow#" class="labelmedium total_#transactionid#">
 					<div style="height:25px;" class="labelmedium">
 						#numberformat(SalesTotal,',.__')#
 					</div>

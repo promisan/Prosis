@@ -2,13 +2,11 @@
 <link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
 
 <!--- ------------------------------------------- --->
-<!--- overtime transaction have 4 status supported
-	 
+<!--- overtime transaction have 4 status supported	 
 	 0 pending
 	 2 cleared
 	 5 paid
-	 9 cancelled
-	 
+	 9 cancelled	 
 --->
 
 <cfparam name="Form.FirstReviewerUserId" default="">
@@ -56,22 +54,21 @@
 datasource="AppsEmployee" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-	SELECT *
-	FROM Person
-	WHERE PersonNo = '#Form.PersonNo#' 
+	SELECT   *
+	FROM     Person
+	WHERE    PersonNo = '#Form.PersonNo#' 
 </cfquery>
 
 <cfquery name="Overtime" 
 datasource="AppsEmployee" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-	SELECT *
-	FROM  Payroll.dbo.PersonOvertime
-	WHERE PersonNo = '#Form.PersonNo#' 
-	AND   OvertimeId = '#url.OvertimeId#'
+	SELECT   *
+	FROM     Payroll.dbo.PersonOvertime
+	WHERE    OvertimeId = '#url.OvertimeId#'
 </cfquery>
 
-<cfif Overtime.recordCount gte 1> 
+<cfif Overtime.recordCount gte "1"> 
 	
 	<cfoutput>
 	
@@ -81,9 +78,8 @@ password="#SESSION.dbpw#">
 	<script language="JavaScript">
 	
 	function edit() {
-	window.location = "#session.root#/Payroll/Application/Overtime/OvertimeEdit.cfm?ID=#URL.ID#&ID1=#Overtime.OvertimeId#"
-	}
-	
+		window.location = "#session.root#/Payroll/Application/Overtime/OvertimeEdit.cfm?ID=#URL.ID#&ID1=#Overtime.OvertimeId#"
+	}	
 	</script>
 	<p align="center">
 	
@@ -95,7 +91,6 @@ password="#SESSION.dbpw#">
 	</cfoutput>
 
 <CFELSE>
-
 
 	<cf_verifyOnboard personNo = "#form.PersonNo#">
 	
@@ -168,7 +163,6 @@ password="#SESSION.dbpw#">
 						'#session.last#',
 						'#session.first#')
 			</cfquery>
-
 
 		</cfif>
 		
@@ -268,125 +262,124 @@ password="#SESSION.dbpw#">
 	
 	       <cftransaction>
 	
-	       <cfinclude template="OvertimeScheduleSubmit.cfm">   
-					
-		   <cfquery name="totalovertime" 
-		  	datasource="AppsEmployee" 
-		  	username="#SESSION.login#" 
-		  	password="#SESSION.dbpw#">
-				SELECT    SUM(HourSlotMinutes) AS Minutes
-				FROM      PersonWorkDetail 
-				WHERE     PersonNo        = '#form.PersonNo#' 
-				AND       CalendarDate    = #str# 
-				AND       TransactionType = '1'
-				AND       BillingMode    != 'Contract'
-				AND       Source          = 'Overtime'
-				AND       SourceId        = '#url.overtimeid#'				
-			</cfquery>
+		       <cfinclude template="OvertimeScheduleSubmit.cfm">   
 						
-			<cfif totalovertime.minutes eq "0" or totalovertime.minutes eq "">
-			   <cf_message message = "You must record some overtime. Please resubmit!" return = "back">
-			   <cfabort>
-			<cfelse>
-			    <cfset vHour = int(totalovertime.minutes/60)>
-				<cfset vMinu = totalovertime.minutes - (vHour*60)>
-			</cfif>
-			
-			<!--- insert header --->		
-			
-			<cfquery name="InsertOvertime" 
-		     datasource="AppsEmployee" 
-		     username="#SESSION.login#" 
-		     password="#SESSION.dbpw#">
-		     INSERT INTO Payroll.dbo.PersonOvertime 
-		            (PersonNo,
-					 OvertimeId,
-					 Mission,
-					 OvertimePeriodStart,
-					 OvertimePeriodEnd,
-					 OvertimeDate,			 
-					 DocumentReference,
-					 OvertimeHours,
-					 OvertimeMinutes,					
-					 Remarks,
-					 TransactionType,
-					 FirstReviewerUserId,
-					 SecondReviewerUserId,
-					 OfficerUserId,
-					 OfficerLastName,
-					 OfficerFirstName)
-		      VALUES ('#Form.PersonNo#',	
-			          '#url.overtimeid#',   
-					  '#Form.Mission#',  
-			    	  #STR#,
-					  #END#,
-					  #DTE#,
-					  '#Form.DocumentReference#',
-					  '#vHour#',
-					  '#vMinu#',					  
-					  '#Remarks#',
-					  'Schedule',
-					  '#Form.FirstReviewerUserId#',
-					  '#Form.SecondReviewerUserId#',
-					  '#SESSION.acc#',
-			    	  '#SESSION.last#',		  
-				  	  '#SESSION.first#')
-			  </cfquery>	 
-						  
-			  <!--- insert lines --->	
-					
-			  <cfquery name="details" 
-		  	  datasource="AppsEmployee" 
-		  	  username="#SESSION.login#" 
-		  	  password="#SESSION.dbpw#">
-					SELECT    BillingMode, BillingPayment, SUM(HourSlotMinutes) AS Minutes
-					FROM      PersonWorkDetail AS P
+			   <cfquery name="totalovertime" 
+			  	datasource="AppsEmployee" 
+			  	username="#SESSION.login#" 
+			  	password="#SESSION.dbpw#">
+					SELECT    SUM(HourSlotMinutes) AS Minutes
+					FROM      PersonWorkDetail 
 					WHERE     PersonNo        = '#form.PersonNo#' 
 					AND       CalendarDate    = #str# 
 					AND       TransactionType = '1'
-					AND       Source          = 'Overtime'
-					AND       SourceId        = '#url.overtimeid#'
 					AND       BillingMode    != 'Contract'
-					GROUP BY  BillingMode, BillingPayment
-			  </cfquery>
-			  
-			  <cfloop query="details">
-			  
-			  	   <cfset vHour = int(minutes/60)>
-				   <cfset vMinu = minutes - (vHour*60)>
-			  
-				  <cfquery name="insertDetail" 
-					datasource="AppsEmployee" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-		
-						INSERT INTO Payroll.dbo.PersonOvertimeDetail
-						           (PersonNo,
-								    OvertimeId,
-									SalaryTrigger,
-									OvertimeHours,
-									OvertimeMinutes,
-									BillingPayment,
-						            OfficerUserId,
-						            OfficerLastName,
-						            OfficerFirstName)
-						VALUES    ('#form.PersonNo#',
-						           '#url.overtimeId#',
-						           '#BillingMode#',
-						           '#vHour#',
-						           '#vMinu#',
-								   '#BillingPayment#',
-						           '#session.acc#',
-						           '#session.last#',
-						           '#session.first#')		
-								   
-					</cfquery>	  
-			  
-			  </cfloop>
+					AND       Source          = 'Overtime'
+					AND       SourceId        = '#url.overtimeid#'				
+				</cfquery>
+							
+				<cfif totalovertime.minutes eq "0" or totalovertime.minutes eq "">
+				   <cf_message message = "You must record some overtime. Please resubmit!" return = "back">
+				   <cfabort>
+				<cfelse>
+				    <cfset vHour = int(totalovertime.minutes/60)>
+					<cfset vMinu = totalovertime.minutes - (vHour*60)>
+				</cfif>
+				
+				<!--- insert header --->		
+				
+				<cfquery name="InsertOvertime" 
+			     datasource="AppsEmployee" 
+			     username="#SESSION.login#" 
+			     password="#SESSION.dbpw#">
+			     INSERT INTO Payroll.dbo.PersonOvertime 
+				            (PersonNo,
+							 OvertimeId,
+							 Mission,
+							 OvertimePeriodStart,
+							 OvertimePeriodEnd,
+							 OvertimeDate,			 
+							 DocumentReference,
+							 OvertimeHours,
+							 OvertimeMinutes,					
+							 Remarks,
+							 TransactionType,
+							 FirstReviewerUserId,
+							 SecondReviewerUserId,
+							 OfficerUserId,
+							 OfficerLastName,
+							 OfficerFirstName)
+			      VALUES ('#Form.PersonNo#',	
+				          '#url.overtimeid#',   
+						  '#Form.Mission#',  
+				    	  #STR#,
+						  #END#,
+						  #DTE#,
+						  '#Form.DocumentReference#',
+						  '#vHour#',
+						  '#vMinu#',					  
+						  '#Remarks#',
+						  'Schedule',
+						  '#Form.FirstReviewerUserId#',
+						  '#Form.SecondReviewerUserId#',
+						  '#SESSION.acc#',
+				    	  '#SESSION.last#',		  
+					  	  '#SESSION.first#')
+				  </cfquery>	 
+							  
+				  <!--- insert lines --->	
+						
+				  <cfquery name="details" 
+			  	  datasource="AppsEmployee" 
+			  	  username="#SESSION.login#" 
+			  	  password="#SESSION.dbpw#">
+						SELECT    BillingMode, BillingPayment, SUM(HourSlotMinutes) AS Minutes
+						FROM      PersonWorkDetail AS P
+						WHERE     PersonNo        = '#form.PersonNo#' 
+						AND       CalendarDate    = #str# 
+						AND       TransactionType = '1'
+						AND       Source          = 'Overtime'
+						AND       SourceId        = '#url.overtimeid#'
+						AND       BillingMode    != 'Contract'
+						GROUP BY  BillingMode, BillingPayment
+				  </cfquery>
+				  
+				  <cfloop query="details">
+				  
+				  	   <cfset vHour = int(minutes/60)>
+					   <cfset vMinu = minutes - (vHour*60)>
+				  
+					  <cfquery name="insertDetail" 
+						datasource="AppsEmployee" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+			
+							INSERT INTO Payroll.dbo.PersonOvertimeDetail
+							           (PersonNo,
+									    OvertimeId,
+										SalaryTrigger,
+										OvertimeHours,
+										OvertimeMinutes,
+										BillingPayment,
+							            OfficerUserId,
+							            OfficerLastName,
+							            OfficerFirstName)
+							VALUES    ('#form.PersonNo#',
+							           '#url.overtimeId#',
+							           '#BillingMode#',
+							           '#vHour#',
+							           '#vMinu#',
+									   '#BillingPayment#',
+							           '#session.acc#',
+							           '#session.last#',
+							           '#session.first#')								   
+						</cfquery>	  
+				  
+				  </cfloop>
 			  
 			  </cftransaction>
 			  
-			    <cfinvoke component = "Service.Process.Employee.Attendance"
+			  <cfinvoke component = "Service.Process.Employee.Attendance"
 				 method         = "LeaveBalance" 
 			     PersonNo       = "#Form.PersonNo#" 
 				 LeaveType      = "CTO" 
@@ -488,10 +481,9 @@ password="#SESSION.dbpw#">
 		FlyActor2        = "#Form.SecondReviewerUserid#"
 		FlyActor2Action  = "#Trigger.ReviewerActionCodeTwo#"		
 		Show             = "No">		
-		
-		
+				
 	<cf_SystemScript>
-	
+		
 	<!--- save costom fields --->
 	
 	<cf_embedHeaderFieldsSubmit entitycode="EntOvertime" entityid="#url.Overtimeid#">

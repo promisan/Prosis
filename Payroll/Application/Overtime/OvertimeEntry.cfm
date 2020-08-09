@@ -62,10 +62,8 @@
 						
 	</cfquery>
 	
-	<cfif check.recordcount gte "1">
-	
-	    <cfinclude template="OvertimeEntrySchedule.cfm">
-				
+	<cfif check.recordcount gte "1">	
+	    <cfinclude template="OvertimeEntrySchedule.cfm">				
 	<cfelse>
 		<cfinclude template="OvertimeEntryStandard.cfm">
 	</cfif>

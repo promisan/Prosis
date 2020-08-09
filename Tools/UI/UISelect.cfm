@@ -55,7 +55,7 @@
             </cfscript>
             <cfset vDefault = 0>
             <cfset aDefault = []>
-            <cfloop array="#results#" item="eHtml">
+            <cfloop array="#results#" index="eHtml">
                     <cfset vReturn = ParseHTMLTag(eHtml)>
                     <cftry>
                         <cfset vValue = vReturn['Attributes']['value']>
@@ -100,7 +100,7 @@
                 $("##_#Attributes.Name#").kendoDropDownList({
                 dataSource: {
                 data: [
-                <cfloop array="#aDefault#" item="vTag">
+                <cfloop array="#aDefault#" index="vTag">
                     <cfif vTag.Value neq "--" and vTag.Display neq "--">
                         { #Attributes.Value#: '#vTag.Value#', #Attributes.Display#: '#vTag.Display#'<cfif attributes.group neq "">,#attributes.group#:''</cfif> },
                     </cfif>
@@ -246,22 +246,6 @@
     <cfset LOCAL.NameMatcher = LOCAL.NamePattern.Matcher(
         ARGUMENTS.HTML
         ) />
-
-<!---
-    Check to see if we found the tag. We know there
-    can only be ONE tag name, so using an IF statement
-    rather than a conditional loop will help save us
-    processing time.
---->
-    <cfif LOCAL.NameMatcher.Find()>
-
-<!--- Store the tag name in all upper case. --->
-        <cfset LOCAL.Tag.Name = UCase(
-            LOCAL.NameMatcher.Group( 1 )
-            ) />
-
-    </cfif>
-
 
 
 <!---

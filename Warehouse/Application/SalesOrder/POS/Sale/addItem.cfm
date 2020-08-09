@@ -6,6 +6,7 @@
 <cfset dte = DateAdd("h","#url.hour#", dte)>
 <cfset dte = DateAdd("n","#url.minu#", dte)>
 
+<cfparam name="url.requestno" 			default="">
 <cfparam name="url.customerId" 			default="00000000-0000-0000-0000-000000000000">
 <cfparam name="url.CustomerIdInvoice" 	default="00000000-0000-0000-0000-000000000000">
 <cfparam name="url.AddressId" 			default="00000000-0000-0000-0000-000000000000">
@@ -17,6 +18,14 @@
 2. refreshes the listing 
 --->
 
+<!--- lets add an option to select a quote no as well --->
+
+<cfif url.requestNo eq "">
+
+	<cf_getCustomerRequest>
+	<cfset url.requestNo = thisrequestNo>
+
+</cfif>
 
 <!--- defined price --->
 
@@ -25,16 +34,6 @@
 		<cfset url.CustomerIdInvoice ="00000000-0000-0000-0000-000000000000">
 	</cfif>
 </cfif>
-
-
-<cfquery name="warehouse" 
-	datasource="AppsMaterials" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-	SELECT    *
-	FROM      Warehouse  
-	WHERE     Warehouse = '#url.Warehouse#' 
-</cfquery>	
 
 <cfquery name="getUoM" 
 	datasource="AppsMaterials" 
@@ -120,17 +119,15 @@
 	<!--- transaction id --->
 	<cf_assignid>
 	
-	<!--- check if item is already requested by the same customer --->
+	<!--- check if item is already requested by the same customer, in that case we add  --->
 		
 	<cfquery name="get"
-	datasource="AppsTransaction" 
+	datasource="AppsMaterials" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 		SELECT * 
-		FROM   Sale#URL.Warehouse# WITH (NOLOCK)
-		WHERE  CustomerId      = '#url.Customerid#'
-		AND    AddressId       = '#url.addressid#'
-		AND    Warehouse       = '#url.warehouse#'
+		FROM   vwCustomerRequest
+		WHERE  RequestNo       = '#Requestno#'		
 		AND    ItemNo          = '#getUoM.itemno#'
 		AND    TransactionUoM  = '#getUoM.uom#'	
 	</cfquery>
@@ -161,10 +158,10 @@
 		</cfif>
 	
 		<cfquery name="setLine"
-			datasource="AppsTransaction" 
+			datasource="AppsMaterials" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
-			UPDATE Sale#URL.Warehouse# 
+			UPDATE CustomerRequestLine 
 			SET    TransactionQuantity = #qty#,
 			       SalesAmount         = '#amountsle#',
 				   SalesTax            = '#amounttax#',
@@ -174,19 +171,28 @@
 		
 	<cfelse>	
 	
+		<cfquery name="warehouse" 
+			datasource="AppsMaterials" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			SELECT    *
+			FROM      Warehouse  
+			WHERE     Warehouse = '#url.Warehouse#' 
+		</cfquery>	
+
+	
 	    <cfquery name="getLines" 
-			datasource="AppsTransaction" 
+			datasource="AppsMaterials" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">			
-				SELECT   *
-				FROM     Sale#URL.Warehouse# T
-				WHERE    T.CustomerId      = '#url.customerid#'		
-				AND      T.AddressId       = '#url.addressid#'		
+				SELECT   *				
+				FROM     CustomerRequestLine
+				WHERE    RequestNo       = '#url.RequestNo#'				
 		</cfquery>
 		
 		<cfif getLines.recordcount gte warehouse.salelines>
 		
-			<cf_tl id="Maximum sales lines reached">
+			<cf_tl id="Maximum sale request lines reached">
 			<cfoutput>
 			<script>
 			alert("#lt_text#")
@@ -194,13 +200,15 @@
 			</cfoutput>
 		
 		<cfelse>	
-	
-			<cfquery name="Insert" 
-				datasource="AppsTransaction" 
+												 
+					
+			<cfquery name="InsertLine" 
+				datasource="AppsMaterials" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
 				
-				INSERT INTO dbo.Sale#url.Warehouse# ( 				   
+				INSERT INTO dbo.CustomerRequestLine ( 				   
+						RequestNo,
 						TransactionId, 
 						TransactionType, 
 						TransactionDate, 
@@ -208,15 +216,18 @@
 						ItemClass,
 						ItemDescription, 
 						ItemCategory, 
+						<!---
 						Mission, 
 						Warehouse, 
-						Location, 			
+						--->							
 			            TransactionUoM, 
 						TransactionLot,
-						TransactionQuantity,            
+						TransactionQuantity,  
+						<!---          
 						CustomerId, 
-						CustomerIdInvoice,
 						AddressId,
+						--->
+						CustomerIdInvoice,						
 						PriceSchedule,
 						SalesCurrency, 
 						SchedulePrice, 
@@ -233,22 +244,26 @@
 						OfficerLastName,
 						OfficerFirstName )  
 								
-				VALUES ('#rowguid#',
+				VALUES ('#url.requestNo#',
+				        '#rowguid#',
 					    '2',
 					    #dte#,
 					    '#getUoM.itemno#', 
 						'#sale.ItemClass#',
 						'#sale.ItemDescription#', 
 						'#sale.Category#',
+						<!---
 						'#sale.Mission#', 
 						'#url.warehouse#', 
-						'',
+						--->						
 						'#getUoM.uom#',     
 						'#url.transactionlot#',       
-						'#qty#',			           
+						'#qty#',			
+						<!---           
 						'#url.Customerid#', 
-						'#url.CustomerIdInvoice#', 
 						'#url.addressId#',
+						--->
+						'#url.CustomerIdInvoice#', 						
 						'#sale.priceschedule#',
 						'#url.currency#', 
 						'#sale.price#', 

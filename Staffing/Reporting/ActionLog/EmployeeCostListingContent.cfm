@@ -21,8 +21,7 @@ password="#SESSION.dbpw#">
 SELECT       M.CostId, P.PersonNo, P.IndexNo, P.LastName, P.FullName, M.Mission, M.DateEffective, 
              M.DocumentDate, M.DocumentReference, M.PayrollItem, Ref_PayrollItem.PayrollItemName, 
              M.EntitlementClass, M.Currency, M.Amount, 
-			 M.Status as ActionStatus, 
-			 M.Source, 
+			 M.Status, M.Source, 
 			 M.OfficerLastName, M.OfficerFirstName, M.Created
 FROM         PersonMiscellaneous AS M INNER JOIN
              Employee.dbo.Person AS P ON M.PersonNo = P.PersonNo INNER JOIN
@@ -142,9 +141,11 @@ WHERE        M.Mission = '#url.mission#'
 	<cf_tl id="Status" var = "1">		
 	<cfset fields[itm] = {label       = "S",      
 						LabelFilter = "#lt_text#", 
-						field       = "ActionStatus",  
+						field       = "Status",  
 						width       = "4",    											
 						formatted   = "Rating",
+						search        = "text",
+						filtermode  = "3",
 						ratinglist  = "9=Red,0=white,1=Yellow,3=Green,5=black"}>																								
 																
 <cfset menu=ArrayNew(1)>	

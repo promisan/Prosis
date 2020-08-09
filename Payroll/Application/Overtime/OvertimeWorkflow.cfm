@@ -42,10 +42,9 @@ password="#SESSION.dbpw#">
 	 username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">
 		 SELECT   P.*
-		 FROM     PersonAssignment PA, Position P
+		 FROM     PersonAssignment PA INNER JOIN Position P ON PA.PositionNo       = P.PositionNo
 		 WHERE    PersonNo            = '#Get.PersonNo#'
-		 AND      Mission             = '#Object.Mission#'
-		 AND      PA.PositionNo       = P.PositionNo
+		 AND      Mission             = '#Object.Mission#'		 
 		 AND      PA.DateEffective    < getdate()
 		 AND      PA.DateExpiration   > getDate()
 		 AND      PA.AssignmentStatus IN ('0','1')
@@ -63,7 +62,6 @@ password="#SESSION.dbpw#">
 <cfelse>
 	<cfset class="Compensation">
 </cfif>
-
 
 <cfset vHours = Get.OvertimeHours>
 <cfset vMin = Get.OvertimeMinutes>

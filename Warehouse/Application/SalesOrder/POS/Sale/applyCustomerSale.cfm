@@ -31,13 +31,13 @@ This template is called from many spots and thus below query is deleting too muc
 <cfif url.batchid eq ""> <!--- if so, it means that user is typing/loading customer from scratch, not loading a historical sale --->
 
 	<cfquery name="remove" 
-		 datasource="AppsTransaction" 
+		 datasource="AppsMaterials" 
 		 username="#SESSION.login#" 
 		 password="#SESSION.dbpw#">
 		    DELETE
-			FROM 	Sale#URL.Warehouse#
+			FROM 	CustomerRequestLine
 			WHERE  	BatchId IS NOT NULL
-			AND		CustomerId = '#url.customerid#'
+			AND		RequestNo = '#url.requestNo#'
 	</cfquery>
 	
 	 <cfquery name="remove"

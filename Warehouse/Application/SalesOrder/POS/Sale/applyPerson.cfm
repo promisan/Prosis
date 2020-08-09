@@ -7,15 +7,15 @@
 <!--- defined price --->
 
 <cfquery name="setPersonNo" 
-	datasource="AppsTransaction" 
+	datasource="AppsMaterials" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 	
-	UPDATE  Sale#URL.Warehouse# 
+	UPDATE  CustomerRequestLine 
 	SET     SalesPersonNo = '#url.PersonNo#'
 	WHERE   TransactionId IN (SELECT   TOP 1 TransactionId
-			  				  FROM     Sale#URL.Warehouse# 
-							  WHERE    CustomerId = '#url.customerid#'
+			  				  FROM     CustomerRequestLine 
+							  WHERE    RequestNo = '#url.RequestNo#'
 							  ORDER BY Created DESC)	
 	
 </cfquery>	

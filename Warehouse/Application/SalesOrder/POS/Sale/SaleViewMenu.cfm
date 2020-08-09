@@ -101,7 +101,7 @@
                     text         = "#vSaleLbl#" 
                     subText      = "#lt_text#"
                     image        = "Financial.png"  
-                    onclick		= "salesdaytotal()" 	
+                    onclick		 = "salesdaytotal()" 	
                     width        = "#vWidth#" 
                     height       = "#vHeight#"
 				    bgColor		 = "##f1f1f1"
@@ -115,6 +115,8 @@
      </td>     									
 	 
 	</tr>
+	
+	<cfif url.scope eq "POS">
     
 	<tr>
           <td style="#vCellStyle#" align="center">	
@@ -178,9 +180,18 @@
 						onclick		= "ptoken.navigate('#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/applyCustomer.cfm?warehouse=#url.warehouse#','customerbox')">
 									   
      	</td>
-                        </cfoutput>	
-					
-</tr>
+		</tr>
+		
+		<cfelse>
+		
+		<tr><td colspan="2" style="padding:6px"><cf_tl id="Comments">:</td></tr>
+		<tr><td colspan="2" style="padding:6px">
+		<textarea name="memo" style="width:100%;font-size:14px;height:80px;background-color:C1E0FF"></textarea>
+		
+		</td></tr>
+		
+		</cfif>
 
-          
+       </cfoutput>	
+	             
 </table>

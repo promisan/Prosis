@@ -244,7 +244,8 @@
 <cfif condition eq "">
 
 	<cf_message message="Problem, workflow cannot be initiated as API does not contain a valid reference." return="No">
-	<cfexit method="EXITTEMPLATE">
+	<cfabort>
+	<!--- <cfexit method="EXITTEMPLATE"> --->
 
 </cfif>
 
@@ -269,8 +270,11 @@
 
 	<cfif Check.recordcount eq "0">
 	
-		<cf_message message="Problem, workflow cannot be initiated as the orgunit (<cfoutput>#Attributes.OrgUnit#</cfoutput>) no longer exists.">
+		<cf_message message="Problem, workflow cannot be initiated as the organizational unit can not be determined (<cfoutput>#Attributes.OrgUnit#</cfoutput>).">
+		<cfabort>
+		<!---
 		<cfexit method="EXITTEMPLATE">
+		--->
 	
 	</cfif>
 	

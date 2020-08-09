@@ -1,6 +1,16 @@
 
 <cf_screentop height="100%" jquery="Yes" scroll="No" html="No" menuaccess="context">
 
+<cfoutput>
+	
+	<script>
+	
+		_cf_loadingtexthtml='';	
+				
+	</script>
+
+</cfoutput>
+
 <cf_CalendarScript>
 <cf_dialogPosition>
 
@@ -93,7 +103,7 @@ password="#SESSION.dbpw#">
   <tr>
     <td width="100%" style="font-size:30px;height:50px;font-weight:200" align="left" valign="middle" class="labellarge">
 	<cfoutput>	   
-    	&nbsp;<cf_tl id="Miscellaneous Payroll correction"></b>
+    	&nbsp;<cf_tl id="Miscellaneous Payroll entry"></b>
 	</cfoutput>	
     </td>
   </tr> 	
@@ -108,33 +118,39 @@ password="#SESSION.dbpw#">
     <TD width="120"><cf_tl id="Entity">:</TD>
     <TD width="90%">
 	
-	    <cfselect name="mission" id="mission"
-		  size="1" 
-		  message="Select a cost category" 
-		  query="MissionList"		 
-		  value="Mission" 
-		  display="Mission" 
-		  selected="#currentcontract.mission#"
-		  visible="Yes" enabled="Yes" required="Yes" class="regularxl"/>
+		<table><tr class="labelmedium">
+		
+		   <td>
+	
+		    <cfselect name="mission" id="mission"
+			  size="1" 
+			  message="Select a cost category" 
+			  query="MissionList"		 
+			  value="Mission" 
+			  display="Mission" 
+			  selected="#currentcontract.mission#"
+			  visible="Yes" enabled="Yes" required="Yes" class="regularxl"/>
+		  		  
+		  </td>
+		  
+		  <TD style="padding-left:10px;min-width:120px"><cf_tl id="Cost Category">:</TD>
+		  <TD>
+			    <cfselect name="entitlement" id="entitlement"
+				  size="1" 
+				  message="Select a cost category" 
+				  query="Entitlement"
+				  group="Source" 
+				  value="PayrollItem" 
+				  display="PayrollItemName" 
+				  visible="Yes" enabled="Yes" required="Yes" class="regularxl"/>				
+		  </TD>
+		  
+		  </tr>
+		  </table>
 				
 	</TD>
 	</TR>
-	
-	<TR class="labelmedium">
-    <TD width="120"><cf_tl id="Cost Category">:</TD>
-    <TD width="90%">
-	    <cfselect name="entitlement" id="entitlement"
-		  size="1" 
-		  message="Select a cost category" 
-		  query="Entitlement"
-		  group="Source" 
-		  value="PayrollItem" 
-		  display="PayrollItemName" 
-		  visible="Yes" enabled="Yes" required="Yes" class="regularxl"/>				
-	</TD>
-	</TR>
-	
-	
+		
 	
 	<TR class="labelmedium">
     <TD><cf_tl id="Reference">:</TD>
@@ -169,7 +185,7 @@ password="#SESSION.dbpw#">
 	</TR>
 	
     <TR class="labelmedium">
-    <TD valign="top" style="padding-top:5px"><cf_tl id="Transactions">:</TD>
+    <TD valign="top" style="padding-top:5px"></TD>
     <TD>	
 	
 	    <table style="width:490px">
@@ -207,13 +223,13 @@ password="#SESSION.dbpw#">
 							<cfset dte = dateAdd("m",itm-1,now())>
 													
 							<cf_intelliCalendarDate9
-							FormName="MiscellaneousEntry"
-							FieldName="DateEffective_#itm#"
-							style="border:0px"
-							class="regularxl enterastab" 
-							DateFormat="#APPLICATION.DateFormat#"
-							Default="#Dateformat(dte, CLIENT.DateFormatShow)#"
-							AllowBlank="True">	
+								FormName="MiscellaneousEntry"
+								FieldName="DateEffective_#itm#"
+								style="border:0px"
+								class="regularxl enterastab" 
+								DateFormat="#APPLICATION.DateFormat#"
+								Default="#Dateformat(dte, CLIENT.DateFormatShow)#"
+								AllowBlank="True">	
 						
 						
 						</cfif>	
@@ -221,7 +237,8 @@ password="#SESSION.dbpw#">
 			       </td>
 				   
 				   <TD style="min-width:150px">
-					   <cfdiv id="entityclass_#itm#" bind="url:getEntityClass.cfm?mission={mission}&entitlement={entitlement}&itm=#itm#">	  		
+					   <cfdiv id="entityclass_#itm#"
+					    bind="url:getEntityClass.cfm?personno=#url.id#&mission={mission}&entitlement={entitlement}&itm=#itm#">	  		
 				   </TD>
 				   
 				   <td style="border-left:1px solid silver;border-right:1px solid silver;padding-right:4px">
@@ -233,6 +250,7 @@ password="#SESSION.dbpw#">
 						</cfif>
 					
 					  	<select name="Currency_#itm#" size="1" class="regularxl enterastab" style="border:0px;width:100%">
+						<option value=""></option>
 						<cfloop query="Currency">
 						<option value="#Currency#" <cfif cur eq Currency>selected</cfif>>
 				    		#Currency#
@@ -246,11 +264,13 @@ password="#SESSION.dbpw#">
 				   		<cfif itm eq "1">
 				   
 				       <cfinput type="Text" style="border:0px;text-align:right;padding-right:4px;width:90%" name="Amount_#itm#" 
+					    onchange="ptoken.navigate('getActors.cfm?personno=#url.personno#','actor','','','POST','MiscellaneousEntry')"
 					    message="Please enter a correct amount" validate="float" required="Yes" size="12" maxlength="16" class="regularxl enterastab">
 						
 						<cfelse>
 						
 					   <cfinput type="Text" style="border:0px;text-align:right;padding-right:4px;width:90%" name="Amount_#itm#" 
+					   onchange="ptoken.navigate('getActors.cfm?personno=#url.personno#','actor','','','POST','MiscellaneousEntry')"
 					    message="Please enter a correct amount" validate="float" required="No" size="12" maxlength="16" class="regularxl enterastab">
 											
 						</cfif>
@@ -268,10 +288,15 @@ password="#SESSION.dbpw#">
 		
 	</TD>
 	</TR>	
+	
+	<tr id="actors" class="hide">
+	   <td valign="top" style="padding-top:8px"><cf_tl id="Authorization by">:</td>
+	   <td id="actor"></td>
+    </tr>
 					   
 	<TR class="labelmedium">
         <td valign="top" style="padding-top:5px"><cf_tl id="Remarks">:</td>
-        <TD><textarea style="width:99%;padding:3px;font-size:13px" class="regular" rows="4" name="Remarks"></textarea> </TD>
+        <TD><textarea style="width:99%;padding:3px;font-size:13px" class="regular" rows="2" name="Remarks"></textarea> </TD>
 	</TR>
 		
 	<TR class="labelmedium">
@@ -315,3 +340,5 @@ password="#SESSION.dbpw#">
 </table>
 
 </cf_divscroll>
+
+

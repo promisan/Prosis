@@ -176,9 +176,9 @@
 				 				
 				<cfset link = "ProcessActionAccess.cfm?accesslevel=0||box=#url.box#||Mode=#url.mode#||ObjectId=#url.ObjectId#||OrgUnit=#url.OrgUnit#||Role=#url.Role#||ActionPublishNo=#url.ActionPublishNo#||ActionCode=#url.ActionCode#||Group=#url.group#||Assist=#url.assist#">
 				
-				<cfif url.assist neq "" and url.assist neq "DISABLED">	
-				
-				    or		
+				<cfif url.assist neq "" and url.assist neq "DISABLED" and url.assist neq "Not applicable">	
+							
+				    or						
 				
 					<cfif url.assist neq "[all users]">
 					  

@@ -48,8 +48,12 @@
 		<cfelse>
 		WHERE     CustomerId IN
                           (SELECT   CustomerId
-                            FROM    UserTransaction.dbo.Sale#url.warehouse#
-							WHERE   BatchId is NULL)
+                            FROM    vwCustomerRequest
+							WHERE   Mission     = '#url.mission#'
+							AND     Warehouse   = '#url.warehouse#'
+							AND     ActionStatus ! = '9'
+							<!--- not loaded from existing --->
+							AND     BatchId is NULL)
 		</cfif>
 		AND        Mission = '#url.mission#'
 		AND        Operational = 1

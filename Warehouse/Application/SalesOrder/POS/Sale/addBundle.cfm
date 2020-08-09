@@ -4,10 +4,10 @@
 	  datasource="AppsMaterials" 
 	  username="#SESSION.login#" 
 	  password="#SESSION.dbpw#">
-		    SELECT  *
-			FROM    ItemBOM
-			WHERE   ItemNo = '#url.BundleItemNo#'
-			AND 	DateEffective <= getdate()
+		    SELECT   *
+			FROM     ItemBOM
+			WHERE    ItemNo = '#url.BundleItemNo#'
+			AND 	 DateEffective <= getdate()
 			ORDER BY DateEffective DESC
 	</cfquery>
 				
@@ -26,11 +26,10 @@
 		  datasource="AppsMaterials" 
 		  username="#SESSION.login#" 
 		  password="#SESSION.dbpw#">
-			    SELECT    *
-				FROM      Item I INNER JOIN ItemUoM U
-						ON I.ItemNo = U.ItemNo
-				WHERE     I.ItemNo = '#qGetBundleDetails.MaterialItemNo#'
-				AND U.UoM = '#qGetBundleDetails.MaterialUoM#'
+			    SELECT   *
+				FROM     Item I INNER JOIN ItemUoM U ON I.ItemNo = U.ItemNo
+				WHERE    I.ItemNo = '#qGetBundleDetails.MaterialItemNo#'
+				AND      U.UoM    = '#qGetBundleDetails.MaterialUoM#'
 		</cfquery>		
 		
 		<cfset url.ItemUomId = qGet.ItemUoMid>

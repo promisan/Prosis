@@ -1,8 +1,22 @@
 		
 <!--- apply changes in the context of the sale, like customer billing, currency, sales person, schedule --->
-<cfparam name="url.customerid"        default="00000000-0000-0000-0000-000000000000">
+
+<!--- request details --->
+
+<cfquery name="get" 
+	datasource="AppsMaterials" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	SELECT        *
+	FROM         CustomerRequest
+	WHERE        RequestNo = '#url.requestNo#'
+</cfquery>	
+
+<cfparam name="url.warehouse"  		  default="#get.Warehouse#">
+<cfparam name="url.customerid" 		  default="#get.CustomerId#">
+<cfparam name="url.addressid"  		  default="#get.AddressId#">
 <cfparam name="url.customeridinvoice" default="00000000-0000-0000-0000-000000000000">
-<cfparam name="url.addressid"  		  default="00000000-0000-0000-0000-000000000000">
+
 <cfparam name="form.discount"		  default="0">
 
 <cfif url.field neq "billing">
@@ -99,56 +113,53 @@
 		
 			</cfif>				
 		
-			<cfif url.customerid neq "" and url.customerid neq "00000000-0000-0000-0000-000000000000" and url.customerid neq "insert">
+			<cfif url.requestno neq "">
 			
 				<cfquery name="getLines"
-					datasource="AppsTransaction" 
+					datasource="AppsMaterials" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
-						SELECT   T.*
-						FROM     Sale#URL.Warehouse# T
-						WHERE    T.CustomerId      = '#url.customerid#'		
-						<cfif url.addressid neq "" and url.addressid neq "00000000-0000-0000-0000-000000000000">
-							AND AddressId = '#URL.addressId#'
-						</cfif>	 
+						SELECT   *
+						FROM     vwCustomerRequest
+						WHERE    RequestNo = '#url.RequestNo#'						
 				</cfquery>
 				
 				<!--- apply the customer invoice id as for the lines --->
 				
 				<cfloop query="getLines"> 	
 										
-						<cfinvoke component = "Service.Process.Materials.POS"  
-						   method           = "getPrice" 
-						   warehouse        = "#url.warehouse#" 
-						   priceschedule    = "#priceschedule#"
-						   discount         = "#form.discount#"
-						   customerid       = "#url.customerid#"
-						   customeridtax    = "#url.customeridInvoice#"
-						   currency         = "#SalesCurrency#"
-						   ItemNo           = "#itemno#"
-						   UoM              = "#TransactionUoM#"
-						   quantity         = "#TransactionQuantity#"
-						   returnvariable   = "sale">			   
-						   
-						<cfquery name="setLine"
-							datasource="AppsTransaction" 
-							username="#SESSION.login#" 
-							password="#SESSION.dbpw#">
-								UPDATE   Sale#URL.Warehouse# 
-								SET      CustomerIdInvoice = '#url.customeridInvoice#',
-								         PriceSchedule     = '#Priceschedule#',		
-								         SchedulePrice     = '#sale.price#', 
-										 SalesCurrency     = '#SalesCurrency#', 
-										 SalesPrice        = '#sale.price#',
-										 TaxCode           = '#Sale.TaxCode#',
-										 TaxPercentage     = '#Sale.Tax#', 
-										 TaxExemption      = '#Sale.TaxExemption#', 						
-										 TaxIncluded       = '#sale.inclusive#',  
-										 SalesAmount       = '#sale.amount#', 
-										 SalesTax          = '#sale.amounttax#' 
-										 	 
-								WHERE    TransactionId = '#TransactionId#'		
-						</cfquery>
+					<cfinvoke component = "Service.Process.Materials.POS"  
+					   method           = "getPrice" 
+					   warehouse        = "#warehouse#" 
+					   priceschedule    = "#priceschedule#"
+					   discount         = "#form.discount#"
+					   customerid       = "#customerid#"
+					   customeridtax    = "#url.customeridInvoice#"
+					   currency         = "#SalesCurrency#"
+					   ItemNo           = "#itemno#"
+					   UoM              = "#TransactionUoM#"
+					   quantity         = "#TransactionQuantity#"
+					   returnvariable   = "sale">			   
+					   
+					<cfquery name="setLine"
+						datasource="AppsMaterials" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+							UPDATE   CustomerRequestLine 
+							SET      CustomerIdInvoice = '#url.customeridInvoice#',
+							         PriceSchedule     = '#Priceschedule#',		
+							         SchedulePrice     = '#sale.price#', 
+									 SalesCurrency     = '#SalesCurrency#', 
+									 SalesPrice        = '#sale.price#',
+									 TaxCode           = '#Sale.TaxCode#',
+									 TaxPercentage     = '#Sale.Tax#', 
+									 TaxExemption      = '#Sale.TaxExemption#', 						
+									 TaxIncluded       = '#sale.inclusive#',  
+									 SalesAmount       = '#sale.amount#', 
+									 SalesTax          = '#sale.amounttax#' 
+									 	 
+							WHERE    TransactionId = '#TransactionId#'		
+					</cfquery>
 										
 				</cfloop>
 				
@@ -177,9 +188,7 @@
 			</cfoutput>
 							
 		</cfif>	
-	
-	
-	
+		
 	</cfcase>	
 	
 	<cfcase value="currency">
@@ -205,17 +214,13 @@
 		</cfif>
 		
 		<cfquery name="getLines"
-			datasource="AppsTransaction" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-				SELECT   T.*
-				FROM     Sale#URL.Warehouse# T
-				WHERE    T.CustomerId      = '#url.customerid#'		
-				<cfif url.addressid neq "" and url.addressid neq "00000000-0000-0000-0000-000000000000">
-					AND AddressId = '#URL.addressId#'
-				</cfif>	 
-				
-		</cfquery>
+					datasource="AppsMaterials" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+						SELECT   *
+						FROM     vwCustomerRequest
+						WHERE    RequestNo = '#url.RequestNo#'						
+				</cfquery>
 		
 		<!--- apply the rate using a different currency : pending tuning --->
 		
@@ -223,10 +228,10 @@
 		
 			<cfinvoke component = "Service.Process.Materials.POS"  
 					   method           = "getPrice" 
-					   warehouse        = "#url.warehouse#" 
+					   warehouse        = "#warehouse#" 
 					   priceschedule    = "#priceschedule#"
 					   discount         = "#form.discount#"
-					   customerid       = "#url.customerid#"
+					   customerid       = "#customerid#"
 					   customeridTax    = "#url.customeridInvoice#"
 					   currency         = "#url.Currency#"
 					   ItemNo           = "#itemno#"
@@ -235,10 +240,10 @@
 					   returnvariable   = "sale">			   
 				   
 				<cfquery name="setLine"
-					datasource="AppsTransaction" 
+					datasource="AppsMaterials" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
-						UPDATE   Sale#URL.Warehouse# 
+						UPDATE   CustomerRequestline 
 						SET      PriceSchedule  = '#Sale.priceschedule#',	
 						         SalesCurrency  = '#url.Currency#', 	
 						         SchedulePrice  = '#Sale.price#', 
@@ -266,27 +271,23 @@
 		<!--- --------------------------------------------------------- --->
 				
 		<cfquery name="getLines"
-			datasource="AppsTransaction" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-				SELECT   T.*
-				FROM     Sale#URL.Warehouse# T
-				WHERE    T.CustomerId      = '#url.customerid#'		
-				<cfif url.addressid neq "" and url.addressid neq "00000000-0000-0000-0000-000000000000">
-					AND AddressId = '#URL.addressId#'
-				</cfif>	 
-				
-		</cfquery>
+					datasource="AppsMaterials" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+						SELECT   *
+						FROM     vwCustomerRequest
+						WHERE    RequestNo = '#url.RequestNo#'						
+				</cfquery>
 		
 		<!--- apply the rate using a different currency : pending tuning --->
 		
 		<cfloop query="getLines">
 				   
 				<cfquery name="setLine"
-					datasource="AppsTransaction" 
+					datasource="AppsMaterials" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
-						UPDATE   Sale#URL.Warehouse# 
+						UPDATE   CustomerRequestline 
 						SET      SalesPersonNo = '#url.personno#'
 						WHERE    TransactionId = '#getLines.TransactionId#'		
 				</cfquery>
@@ -297,31 +298,26 @@
 		<cfinclude template="setTotal.cfm">
 			
 	</cfcase>
-	
-	
+		
 	<cfcase value="schedule">
 		
 		<cfquery name="getLines"
-			datasource="AppsTransaction" 
+			datasource="AppsMaterials" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
-				SELECT   T.*
-				FROM     Sale#URL.Warehouse# T
-				WHERE    T.CustomerId      = '#url.customerid#'	
-				<cfif url.addressid neq "" and url.addressid neq "00000000-0000-0000-0000-000000000000">
-					AND AddressId = '#URL.addressId#'
-				</cfif>	 
-					
+				SELECT   *
+				FROM     vwCustomerRequest
+				WHERE    RequestNo = '#url.RequestNo#'						
 		</cfquery>
 		
 		<cfloop query="getLines">
 			
 			<cfinvoke component = "Service.Process.Materials.POS"  
 					   method           = "getPrice" 
-					   warehouse        = "#url.warehouse#" 
+					   warehouse        = "#warehouse#" 
 					   priceschedule    = "#url.priceschedule#"
 					   discount         = "#form.discount#"
-					   customerid       = "#url.customerid#"
+					   customerid       = "#customerid#"
 					   customeridtax    = "#url.customeridInvoice#"
 					   currency         = "#form.Currency#"
 					   ItemNo           = "#itemno#"
@@ -330,71 +326,13 @@
 					   returnvariable   = "sale">			   
 					   
 					<cfquery name="setLine"
-						datasource="AppsTransaction" 
+						datasource="AppsMaterials" 
 						username="#SESSION.login#" 
 						password="#SESSION.dbpw#">
-							UPDATE   Sale#URL.Warehouse# 
-							SET      PriceSchedule = '#url.priceschedule#',		
-							         SchedulePrice = '#sale.price#', 
+							UPDATE   CustomerRequestline 
+							SET      PriceSchedule  = '#url.priceschedule#',		
+							         SchedulePrice  = '#sale.price#', 
 									 SalesCurrency  = '#form.Currency#', 
-									 SalesPrice    = '#sale.price#',
-									 TaxCode       = '#Sale.TaxCode#',
-									 TaxPercentage = '#Sale.Tax#', 
-									 TaxExemption  = '#Sale.TaxExemption#', 						
-									 TaxIncluded   = '#sale.inclusive#',  
-									 SalesAmount   = '#sale.amount#', 
-									 SalesTax      = '#sale.amounttax#' 	 
-							WHERE    TransactionId = '#TransactionId#'		
-					</cfquery>
-		
-		</cfloop>
-	
-		<cfinclude template="SaleViewLines.cfm">
-		<cfinclude template="setTotal.cfm">
-		
-	</cfcase>
-	
-	<cfcase value="discount">
-		
-		<cfquery name="getLines"
-			datasource="AppsTransaction" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-				SELECT   T.*
-				FROM     Sale#URL.Warehouse# T  
-				WHERE    T.CustomerId      = '#url.customerid#'	
-				<cfif url.addressid neq "" and url.addressid neq "00000000-0000-0000-0000-000000000000">
-					AND AddressId = '#URL.addressId#'
-				</cfif>	 
-					
-		</cfquery>
-		
-		<cfloop query="getLines">
-			
-			<cfinvoke component = "Service.Process.Materials.POS"  
-					   method           = "getPrice" 
-					   warehouse        = "#url.warehouse#" 
-					   priceschedule    = "#form.priceschedule#"
-					   discount         = "#form.discount#"
-					   customerid       = "#url.customerid#"
-					   customeridtax    = "#url.customeridInvoice#"
-					   currency         = "#form.Currency#"
-					   ItemNo           = "#itemno#"
-					   UoM              = "#TransactionUoM#"
-					   quantity         = "#TransactionQuantity#"
-					   returnvariable   = "sale">						 		  
-					  
-					<cfquery name="setLine"
-						datasource="AppsTransaction" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">						
-							UPDATE   Sale#URL.Warehouse# 
-							SET      PriceSchedule = '#form.priceschedule#',	
-									 <!---	corrected 30/8/2016
-							         SchedulePrice = '#sale.price#', 									 
-									 --->
-									 SalesCurrency  = '#form.Currency#', 
-									 SalesDiscount  = '#form.Discount#',
 									 SalesPrice     = '#sale.price#',
 									 TaxCode        = '#Sale.TaxCode#',
 									 TaxPercentage  = '#Sale.Tax#', 
@@ -412,30 +350,79 @@
 		
 	</cfcase>
 	
+	<cfcase value="discount">
+		
+		<cfquery name="getLines"
+			datasource="AppsMaterials" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				SELECT   *
+				FROM     vwCustomerRequest
+				WHERE    RequestNo = '#url.RequestNo#'						
+		</cfquery>
+		
+		<cfloop query="getLines">
+			
+			<cfinvoke component = "Service.Process.Materials.POS"  
+				   method           = "getPrice" 
+				   warehouse        = "#warehouse#" 
+				   priceschedule    = "#form.priceschedule#"
+				   discount         = "#form.discount#"
+				   customerid       = "#customerid#"
+				   customeridtax    = "#url.customeridInvoice#"
+				   currency         = "#form.Currency#"
+				   ItemNo           = "#itemno#"
+				   UoM              = "#TransactionUoM#"
+				   quantity         = "#TransactionQuantity#"
+				   returnvariable   = "sale">						 		  
+				  
+				<cfquery name="setLine"
+					datasource="AppsMaterials" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">						
+						UPDATE   CustomerRequestLine 
+						SET      PriceSchedule = '#form.priceschedule#',	
+								 <!---	corrected 30/8/2016
+						         SchedulePrice = '#sale.price#', 									 
+								 --->
+								 SalesCurrency  = '#form.Currency#', 
+								 SalesDiscount  = '#form.Discount#',
+								 SalesPrice     = '#sale.price#',
+								 TaxCode        = '#Sale.TaxCode#',
+								 TaxPercentage  = '#Sale.Tax#', 
+								 TaxExemption   = '#Sale.TaxExemption#', 						
+								 TaxIncluded    = '#sale.inclusive#',  
+								 SalesAmount    = '#sale.amount#', 
+								 SalesTax       = '#sale.amounttax#' 	 
+						WHERE    TransactionId  = '#TransactionId#'		
+				</cfquery>
+		
+		</cfloop>
 	
+		<cfinclude template="SaleViewLines.cfm">
+		<cfinclude template="setTotal.cfm">
+		
+	</cfcase>
+		
 
 	<cfcase value="salepersonline">		
 		
 		<!--- --------------------------------------------------------- --->
 		<!--- ------ Apply change in the sales person to the sale ----- --->
 		<!--- --------------------------------------------------------- --->
-
 				   
 		<cfquery name="setLine"
-			datasource="AppsTransaction" 
+			datasource="AppsMaterials" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
-				UPDATE   Sale#URL.Warehouse# 
+				UPDATE   CustomerRequestLine  
 				SET      SalesPersonNo = '#url.personno#'
 				WHERE    TransactionId = '#URL.TransactionId#'		
-		</cfquery>
-		
+		</cfquery>		
 		
 		<cfinclude template="SaleViewLines.cfm">
 		<cfinclude template="setTotal.cfm">
-		
-	
-	</cfcase>
-		
+			
+	</cfcase>		
 		
 </cfswitch>

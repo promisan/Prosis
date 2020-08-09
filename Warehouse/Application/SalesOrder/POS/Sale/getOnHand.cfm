@@ -4,11 +4,11 @@
 <cfparam name="url.action" default="">
 
 <cfquery name="get"
-datasource="AppsTransaction" 
+datasource="AppsMaterials" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
 	SELECT * 
-	FROM   Sale#URL.Warehouse# 
+	FROM   vwCustomerRequest
 	WHERE  TransactionId = '#url.id#'		
 </cfquery>
 
@@ -35,13 +35,12 @@ password="#SESSION.dbpw#">
 	  password="#SESSION.dbpw#">
 		    SELECT    SUM(TransactionQuantity) as OnHand
 			FROM      ItemTransaction
-			WHERE     ItemNo          = '#get.ItemNo#'
-			AND       TransactionUoM  = '#get.TransactionUoM#'
+			WHERE     Mission         = '#get.Mission#'
+			AND       ItemNo          = '#get.ItemNo#'
+			AND       TransactionUoM  = '#get.TransactionUoM#'			
 	</cfquery>
-
 	
 	<cfset itemEntityStock = getStockEntity.onHand>
-	
 
 <cfelse>
 
@@ -67,11 +66,11 @@ password="#SESSION.dbpw#">
 	<cfif url.action eq "quantity">
 	
 	<cfquery name="clearTransfer" 
-	  datasource="AppsTransaction" 
+	  datasource="AppsMaterials" 
 	  username="#SESSION.login#" 
 	  password="#SESSION.dbpw#">
 		    DELETE    
-			FROM      Sale#URL.Warehouse#Transfer
+			FROM      CustomerRequestLineTransfer
 			WHERE     TransactionId  = '#get.TransactionId#'
 	  </cfquery>
 	  
@@ -102,11 +101,11 @@ password="#SESSION.dbpw#">
 		<cfif url.action eq "quantity">
 		
 			<cfquery name="clearTransfer" 
-			  datasource="AppsTransaction" 
+			  datasource="AppsMaterials" 
 			  username="#SESSION.login#" 
 			  password="#SESSION.dbpw#">
 				    DELETE    
-					FROM      Sale#URL.Warehouse#Transfer
+					FROM      CustomerRequestLineTransfer
 					WHERE     TransactionId  = '#get.TransactionId#'
 			  </cfquery>
 		  

@@ -90,7 +90,7 @@
 <cfoutput>
 
 <select name="#URL.saleid#" id="#URL.saleid#" class="regularxl enterastab" style="border:0px"
-	onchange="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/applySaleHeader.cfm?TransactionId=#URL.TransactionId#&field=#URL.field#&personno='+this.value+'&warehouse=#url.warehouse#&customerid='+document.getElementById('customeridselect').value+'&addressid=#url.addressId#','salelines')">	
+	onchange="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/applySaleHeader.cfm?TransactionId=#URL.TransactionId#&field=#URL.field#&personno='+this.value+'&requestno='+document.getElementById('RequestNo').value,'salelines')">	
 	<option value="">--<cf_tl id="Unassigned">--</option>
 	<cfloop query="personlist">
 		<option value="#PersonNo#" <cfif URL.SalesPersonNo eq PersonNo>selected</cfif>>#FirstName# #LastName#</option>

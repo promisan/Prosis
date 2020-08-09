@@ -125,7 +125,7 @@ password="#SESSION.dbpw#">
 	
 	<script>	
 		   _cf_loadingtexthtml='';			   
-			ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/Sale/applyPerson.cfm?warehouse=#url.warehouse#&customerid=#form.customeridselect#&customeridinvoice=#form.customerinvoiceidselect#&currency=#form.currency#&PersonNo=#getPerson.PersonNo#','salelines');
+			ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/Sale/applyPerson.cfm?warehouse=#url.warehouse#&requestNo=#form.requestNo#&customerid=#form.customeridselect#&customeridinvoice=#form.customerinvoiceidselect#&currency=#form.currency#&PersonNo=#getPerson.PersonNo#','salelines');
 	</script>
 	
 	<table><tr><td class="labelmedium">#getPerson.FirstName# #getPerson.LastName#</td></tr></table>
@@ -178,7 +178,7 @@ password="#SESSION.dbpw#">
 					disc   = document.getElementById('Discount');
 					sche   = document.getElementById('PriceSchedule');
 																			   
-					ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/Sale/addBundle.cfm?warehouse=#url.warehouse#&customerid=#form.customeridselect#&customeridinvoice=#form.customerinvoiceidselect#&currency=#form.currency#&SalesPersonNo=#form.SalesPersonNo#&BOMId=#getBundle.BOMId#&bundleItemNo=#get.itemNo#&lot=#lot#&priceschedule='+sche.value+'&discount='+disc.value+'&date='+date.value+'&hour='+hour.value+'&minu='+minu.value,'salelines');
+					ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/Sale/addBundle.cfm?warehouse=#url.warehouse#&RequestNo=#form.requestNo#&customerid=#form.customeridselect#&customeridinvoice=#form.customerinvoiceidselect#&currency=#form.currency#&SalesPersonNo=#form.SalesPersonNo#&BOMId=#getBundle.BOMId#&bundleItemNo=#get.itemNo#&lot=#lot#&priceschedule='+sche.value+'&discount='+disc.value+'&date='+date.value+'&hour='+hour.value+'&minu='+minu.value,'salelines');
 				</script>
 			</cfoutput>						
 

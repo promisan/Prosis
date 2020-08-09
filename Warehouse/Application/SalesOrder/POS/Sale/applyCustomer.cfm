@@ -4,12 +4,11 @@
 <!--- ------------------------------------------------------------------------------- --->
 
 <cfparam name="url.init"       default="0">
+<cfparam name="url.requestno"  default="0">
 <cfparam name="url.batchid"    default="">
 <cfparam name="url.mission"    default="">
 <cfparam name="url.customerid" default="00000000-0000-0000-0000-000000000000">
 <cfparam name="url.addressid"  default="00000000-0000-0000-0000-000000000000">
-
-
 
 <cfif url.customerid eq "00000000-0000-0000-0000-000000000000">
 
@@ -74,12 +73,7 @@
 				<cf_tl id="Customer not found. Do you want to record this customer" var="1">
 				
 				<cfoutput>
-												
-				// if (!!Prosis) {
-				//	 //Hide all notifications
-				//     Prosis.notification.hide();
-				// }
-				 				
+									 				
 				 if (confirm("#lt_text#?")) {
 				 				 
 					  ref = document.getElementById("customeridselect_val").value;
@@ -112,14 +106,16 @@
 				    SELECT  *
 					FROM   Customer
 					WHERE  CustomerId = '#url.customerid#'	    							   
-			</cfquery>			
-			
-								
+			</cfquery>		
+														
 			<cfif url.batchid eq "">
+			
 				<span style="padding-left:5px;padding-right:5px">#customer.CustomerName#</span>
 				 <input type="hidden" name="batchid" id="batchid" value="">
 				 		
 			<cfelse>
+			
+				<!--- correction on an already save batch --->
 			
 				<cfquery name="Batch" 
 				  datasource="AppsMaterials" 
@@ -134,31 +130,31 @@
 				<font face="Calibri" size="2" color="808080">&nbsp;<u>#Batch.BatchReference#/#Batch.BatchNo#</u></font>		
 				<input type="hidden" name="batchid" id="batchid" value="#url.batchid#">
 				
-			</cfif>					
-					
+			</cfif>		
+								
 			<cfquery name="customerAddress" 
 			  datasource="AppsMaterials" 
 			  username="#SESSION.login#" 
 			  password="#SESSION.dbpw#">
 				    SELECT  A.*
-					FROM   CustomerAddress CA INNER JOIN
-							System.dbo.Ref_Address A 
-							ON CA.AddressId = A.AddressId
+					FROM   CustomerAddress CA INNER JOIN  System.dbo.Ref_Address A ON CA.AddressId = A.AddressId
 					WHERE  CustomerId = '#url.customerid#'
 			</cfquery>			
 			
 			<cfquery name="qExisting"
-			datasource="AppsTransaction" 
+			datasource="AppsMaterials" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
 				SELECT * 
-				FROM   Sale#URL.Warehouse#
+				FROM   CustomerRequest
 				WHERE  CustomerId = '#url.customerid#'
 				AND    AddressId IS NOT NULL
 				AND    AddressId != '00000000-0000-0000-0000-000000000000'
+				AND    ActionStatus = '0'
 			</cfquery> 						
 
-			<cfif url.batchid eq "">			
+			<cfif url.batchid eq "">	
+					
 				<cfif customerAddress.recordcount neq 0>
 				
 					<cfif url.addressid eq "00000000-0000-0000-0000-000000000000" and qExisting.recordcount neq 0>
@@ -169,60 +165,72 @@
 			<cfelse>
 				<cfset url.addressid = Batch.AddressId>
 			</cfif>			
-		
-
-		<script>
-			$(document).ready(function() {
-			    try {
-			 	document.getElementById('customerselect').value = '#customer.reference#' 			
-				customertoggle('customerdata','#url.customerid#','open','#url.warehouse#','#url.addressid#');	
-				document.getElementById('customerdata_toggle').className = 'regular'
-						 	
-			 	} catch(e){console.log(e)}
-			});			
-
-		</script>
 				
-		<!--- important, we associated the pending lines to the current customer --->
-		
-		<cfquery name="associate" 
-			 datasource="AppsTransaction" 
-			 username="#SESSION.login#" 
-			 password="#SESSION.dbpw#">
-			    UPDATE Sale#URL.Warehouse#
-				SET    CustomerId = '#url.customerid#'
-				WHERE  CustomerId = '00000000-0000-0000-0000-000000000000'					
-		</cfquery>
-		
-		<cfquery name="associate" 
-			 datasource="AppsTransaction" 
-			 username="#SESSION.login#" 
-			 password="#SESSION.dbpw#">
-			    UPDATE Sale#URL.Warehouse#
-				SET    CustomerIdInvoice = '#url.customerid#'
-				WHERE  CustomerIdInvoice = '00000000-0000-0000-0000-000000000000'					
-		</cfquery>
-				
-		<cfquery name="associate" 
-			 datasource="AppsTransaction" 
-			 username="#SESSION.login#" 
-			 password="#SESSION.dbpw#">
-			    UPDATE Sale#URL.Warehouse#
-				SET    AddressId = '00000000-0000-0000-0000-000000000000'
-				WHERE  AddressId IS NULL				
-				AND CustomerId = '#url.customerid#'	
-		</cfquery>
-	
-		
-		<!--- ---------------------------------------- --->	
-		<!--- populate additional customer information --->
-		<!--- ---------------------------------------- --->
-		
-		<cfif url.init eq "0">
-		
-			<cfinclude template="applyCustomerSale.cfm">
+			<script>
 			
-		</cfif>
+				$(document).ready(function() {
+				    try {																			
+				 	document.getElementById('customerselect').value = '#customer.reference#' 											
+					customertoggle('customerdata','#url.customerid#','open','#url.warehouse#','#url.addressid#');									
+					document.getElementById('customerdata_toggle').className = 'regular'										 	
+				 	} catch(e){console.log(e)}
+				});			
+	
+			</script>
+				
+			<!--- important, we associated the pending lines to the current customer as a special case
+			we might disable this and require custom selectio first --->
+			
+			<cfquery name="getSale" 
+				 datasource="AppsMaterials" 
+				 username="#SESSION.login#" 
+				 password="#SESSION.dbpw#">
+				    SELECT * FROM CustomerRequest
+					WHERE  Warehouse = '#url.warehouse#'
+					AND    CustomerId = '00000000-0000-0000-0000-000000000000'					
+			</cfquery>
+			
+			<cfif getSale.recordcount eq "1">
+			
+				<cfquery name="associate" 
+					 datasource="AppsMaterials" 
+					 username="#SESSION.login#" 
+					 password="#SESSION.dbpw#">
+					    UPDATE CustomerRequest
+						SET    CustomerId = '#url.customerid#'
+						WHERE  Requestno = '#getSale.RequestNo#'					
+				</cfquery>
+			
+				<cfquery name="associate" 
+					 datasource="AppsMaterials" 
+					 username="#SESSION.login#" 
+					 password="#SESSION.dbpw#">
+					    UPDATE CustomerRequestLine
+						SET    CustomerIdInvoice = '#url.customerid#'
+						WHERE  RequestNo = '#getSale.RequestNo#'					
+				</cfquery>
+					
+				<cfquery name="associate" 
+					 datasource="AppsMaterials" 
+					 username="#SESSION.login#" 
+					 password="#SESSION.dbpw#">
+					    UPDATE CustomerRequest
+						SET    AddressId = '00000000-0000-0000-0000-000000000000'
+						WHERE  Requestno = '#getSale.RequestNo#'
+						AND    AddressId IS NULL									
+				</cfquery>
+		
+			</cfif>
+				
+			<!--- ---------------------------------------- --->	
+			<!--- populate additional customer information --->
+			<!--- ---------------------------------------- --->
+			
+			<cfif url.init eq "0">
+			
+				<cfinclude template="applyCustomerSale.cfm">
+				
+			</cfif>
 	
 	</cfif>
 

@@ -156,7 +156,7 @@ password="#SESSION.dbpw#">
 					
 				<cf_wfActive entitycode="EntCost" objectkeyvalue4="#costid#">	
 				 
-					<cfif wfStatus eq "Open">
+					<cfif wfStatus eq "Open" and DateDiff("D",dateEffective,now()) gte -14>
 					
 						  <img id="exp#Workflow#" 
 					     class="hide" 
@@ -247,8 +247,13 @@ password="#SESSION.dbpw#">
 		<td>#OfficerLastName#</TD>
 		<td>#Source#</TD>
 		<TD>#EntitlementClass#</TD>
-		<TD>#Dateformat(DateEffective, CLIENT.DateFormatShow)#</TD>
-		<TD>#Quantity#</TD>
+		
+		<cfif workflow neq "" and wfStatus eq "Open" and DateDiff("D",dateEffective,now()) gte -14>
+		<TD align="center" style="background-color:red;color:white">#Dateformat(DateEffective, CLIENT.DateFormatShow)#</td>
+		<cfelse>
+		<td align="center">#Dateformat(DateEffective, CLIENT.DateFormatShow)#</td>
+		</cfif>		
+		<TD style="padding-left:3px">#Quantity#</TD>
 		<TD>#Currency#</TD>
 		<TD style="padding-right:5px" align="right">#NumberFormat(Amount, ",.__")#</TD>	
 	</tr>
@@ -311,7 +316,7 @@ password="#SESSION.dbpw#">
 						<td></td>		   				 
 					    <td colspan="11" id="#workflow#" style="padding-left:20px">
 						
-						<cfif wfstatus eq "open">
+						<cfif wfStatus eq "Open" and DateDiff("D",dateEffective,now()) gte -14>
 						
 							<cfset url.ajaxid = workflow>					
 							<cfinclude template="MiscellaneousWorkflow.cfm">

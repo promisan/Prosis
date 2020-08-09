@@ -262,8 +262,7 @@
 						 	WHERE  PersonNo     = '#Form.PersonNo#' 
 							AND    CalendarDate = #pri# 
 							AND    ActionClass  = 'break'						  
-					</cfquery>	
-										
+					</cfquery>											
 									
 					<cfif left(PersonGrade,1) eq "P">	
 						<cfset mode = mde[1]>	<!--- always the same  --->							
@@ -315,7 +314,7 @@
 							   '#session.first#')				  
 				    </cfquery>
 					
-					<!--- we check if the overtime is exceeded the threshold, if it does then we set as payment  --->
+					<!--- we check if the overtime exceeded the threshold, if it does then we set as payment  --->
 					
 					<cfquery name="checkovertime" 
 					  	datasource="AppsEmployee" 
@@ -336,8 +335,7 @@
 						<cfset bal = 0>
 					<cfelse>
 						<cfset bal = getBalance.Balance>	
-					</cfif>
-				     
+					</cfif>				     
 															
 					<cfif (bal + vHour) gt getthreshold.maximumBalance>		
 					

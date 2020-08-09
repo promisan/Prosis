@@ -12,12 +12,19 @@
 <cfset dte = DateAdd("n","#url.minu#", dte)>
 
 <!--- refresh the lines view --->
+<cfparam name="url.requestno" 		   default="">
 <cfparam name="url.customerid"         default="">
 <cfparam name="url.customerinvoiceid"  default="">
 <cfparam name="url.salespersonno"      default="">
 <cfparam name="url.currency"           default="USD">
 <cfparam name="url.addressid" 		   default="00000000-0000-0000-0000-000000000000">
 
+<cfif url.requestNo eq "">
+
+	<cf_getCustomerRequest>
+	<cfset url.requestNo = thisrequestNo>
+
+</cfif>
 
 <cfif url.customerid eq "">
 
@@ -137,28 +144,33 @@
 		  <cfelse>
 			
 		   <cfquery name="Insert" 
-				datasource="AppsTransaction" 
+				datasource="AppsMaterials" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
 				
-				INSERT INTO dbo.Sale#url.Warehouse# 
+				INSERT INTO dbo.CustomerRequestLine  	
 				
-				         (	TransactionId, 
+				         (	RequestNo,
+						    TransactionId, 
 							TransactionType, 
 							TransactionDate, 
 							ItemNo, 
 							ItemClass,
 							ItemDescription, 
-							ItemCategory, 						
+							ItemCategory, 	
+							<!---					
 							Mission, 
 							Warehouse, 
-							Location, 			
+							--->
+								
 				            TransactionUoM, 
 							TransactionLot,
-							TransactionQuantity,            
+							TransactionQuantity, 
+							<!---           
 							CustomerId, 
-							CustomerIdInvoice,
 							AddressId,
+							--->
+							CustomerIdInvoice,							
 							PriceSchedule,
 							SalesCurrency, 
 							SchedulePrice, 
@@ -175,26 +187,32 @@
 							OfficerLastName,
 							OfficerFirstName )  
 								
-				VALUES ('#rowguid#',
+				VALUES ('#url.RequestNo#',
+				        '#rowguid#',
 					    '2',
 					    #dte#,
 					    '#url.itemno#', 
 						'#sale.ItemClass#',
 						'#sale.ItemDescription#', 
 						'#sale.Category#',
+						<!---
 						'#sale.Mission#', 
 						'#url.warehouse#', 
-						'',
+						--->
+						
 						'#uom#',    
 						'#TransactionLot#',        
-						'#qty#',			           
+						'#qty#',			
+						<!---           
 						'#url.CustomerId#', 
+						'#url.addressId#',	
+						--->
 						<cfif url.CustomerIdInvoice neq "">
 							'#url.customerIdinvoice#', 
 						<cfelse>
 							'#url.CustomerId#',
 						</cfif>				
-						'#url.addressId#',	
+						
 						'#sale.priceschedule#',
 						'#url.currency#', 
 						'#sale.price#', 

@@ -4,12 +4,11 @@
 <CF_DropTable dbName="AppsQuery" tblName="#SESSION.acc#_Quote"> 
 
 <cfquery name="Get" 
-		datasource="AppsTransaction" 
+		datasource="AppsMaterials" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
 	 	
-		SELECT   DISTINCT
-				 CAST(C.CustomerId AS VARCHAR(50))+'|'+CAST(S.AddressId AS VARCHAR(50)) as QuoteId, 
+		SELECT   S.RequestNo,
 				 C.CustomerId,
 		         C.CustomerName,
 		         S.AddressId,
@@ -29,12 +28,14 @@
 				 SUM(S.SalesTax)        AS SalesTax, 
 				 SUM(S.SalesTotal)      AS SalesTotal 
 		INTO     userQuery.dbo.#session.acc#_Quote				  
-		FROM     Sale#url.warehouse# S INNER JOIN
+		FROM     vwCustomerRequest S INNER JOIN
 	             Materials.dbo.Customer C ON S.CustomerId = C.CustomerId LEFT OUTER JOIN
 	             Employee.dbo.Person P ON S.SalesPersonNo = P.PersonNo LEFT OUTER JOIN
 	             System.dbo.Ref_Address AD ON AD.AddressId = S.AddressId
-		WHERE    BatchId is NULL <!--- not transformed into a real sale which is posted yet --->		 
-	    GROUP BY C.CustomerName,
+		WHERE    Warehouse = '#url.warehouse#'
+		AND      BatchId is NULL AND ActionStatus != '9' <!--- not transformed into a real sale which is posted yet --->		 
+	    GROUP BY S.RequestNo,
+		         C.CustomerName,
 	    		 S.AddressId,	
 				 C.PersonNo,			
 		         AD.Address,
@@ -51,7 +52,6 @@
 <cfsavecontent variable="myquery">
 	
 	<cfoutput>	 
-	
 	SELECT  *
 	FROM    #session.acc#_Quote C				
 	</cfoutput>	
@@ -60,6 +60,13 @@
 
 <cfset itm = 0>
 <cfset fields=ArrayNew(1)>
+
+	<cfset itm = itm+1>
+	<cf_tl id="QuoteNo" var = "1">
+	<cfset fields[itm] = {label     = "#lt_text#",                    
+	     				field       = "Requestno",											
+						alias       = "C",																								
+						search      = "text"}>		
 
 	<cfset itm = itm+1>
 	<cf_tl id="Customer" var = "1">
@@ -105,6 +112,9 @@
 						alias       = "C",																			
 						search      = "text",
 						filtermode  = "2"}>		
+						
+	
+					
 						
 	
 	<cfset itm = itm+1>
@@ -208,7 +218,7 @@
 		listlayout          = "#fields#"
 		drillmode           = "tab" 
 		drillargument       = "#client.height-90#;#client.width-100#;false;false"	
-		drilltemplate       = "Warehouse/Application/SalesOrder/POS/Sale/SaleInit.cfm?mission=#url.mission#&warehouse=#url.warehouse#&mode=dialog&QuoteId="
-		drillkey            = "QuoteId"
+		drilltemplate       = "Warehouse/Application/SalesOrder/Quote/QuoteView.cfm?systemfunctionid=#url.systemfunctionid#&scope=quote&mission=#url.mission#&warehouse=#url.warehouse#&mode=dialog&RequestNo="
+		drillkey            = "RequestNo"
 		drillbox            = "addlisting">	
 		
