@@ -119,7 +119,7 @@ password="#SESSION.dbpw#">
 			    <td style="padding-left:14px;padding-top:7px;padding-right:3px; min-width:25px" valign="top"><p style="font-size:15px;padding-top:3.5px;">#currentrow#.</p></td>
 			    <td style="padding-left:4px;padding-top:7px;padding-right:4px; width:3%;" align="center" valign="top">
 				
-				<cfif SourceBatchNo eq "">
+				<cfif BatchNo eq "">
 				
 					<i class="fas fa-minus-circle" style="cursor:pointer;color:##033F5D;font-size:18px;padding-top:4.5px;;min-width:25px" class="clsNoPrint" 
 					     onclick="_cf_loadingtexthtml='';ptoken.navigate('#client.virtualdir#/warehouse/Application/SalesOrder/POS/Sale/setLine.cfm?warehouse=#url.warehouse#&line=#currentrow#&id=#transactionid#&action=delete','salelines')"></i>
@@ -275,7 +275,7 @@ password="#SESSION.dbpw#">
 								
 				<td align="right" style="min-width:50px;padding-top:5px;" valign="top">
 				
-				   <cfif sourceBatchNo eq "0" or sourceBatchNo eq "">
+				   <cfif BatchNo eq "">
 				
 				    <input type="text" 
 					 style = "background-color:fff;width:45px;text-align:center;border:1px solid ##CCCCCC;border-radius:4px;" 

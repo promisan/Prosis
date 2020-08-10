@@ -96,7 +96,8 @@ password="#SESSION.dbpw#">
 			<td colspan="2">
 			
 			<table height="100%" width="100%" border="0">
-						
+			
+			
 			<tr id="header" style="border-bottom:1px solid gray">
 																		
 			    <td width="100%" style="height:59px;border-bottom-left-radius:0px;background-image: linear-gradient(to bottom,##FFFF00,##FFFF00);">
@@ -178,7 +179,7 @@ password="#SESSION.dbpw#">
 												
 						</td>
 						
-						<td valign="top" style="width:100px" align="right" class="clsNoPrint">		
+						<td style="padding-top:19px;width:100px" align="right" class="clsNoPrint">		
 															  
 			                  <table align="center" width="100%">
 							 										    				  		   											
@@ -190,12 +191,12 @@ password="#SESSION.dbpw#">
 							  	  <table width="100%">
 							  
 								  <tr>
-								  <td style="padding-top:6px;padding-left:15px;padding-right:10px">
+								  <td style="padding-top:8px;padding-left:15px;padding-right:10px">
 						  			  <cf_space spaces="5">
 									  <input type="checkbox" class="radiol" name="arefresh" id="arefresh" checked onclick = "datetimemode('#URL.warehouse#')">
 								  </td>	  
 								  		
-								  <td style="position: relative; top: -3px;">						  
+								  <td>						  
 									<input type="hidden" name="itoday" id="itoday" value="#dateformat(now(),CLIENT.DateFormatShow)#">							
 									<div id="dtoday" class="labellarge">#dateformat(now(),CLIENT.DateFormatShow)#</div>							
 									
@@ -215,11 +216,11 @@ password="#SESSION.dbpw#">
 									</div>		
 														
 							      </td>
-								  <td align="right" width="50" style="padding-left:6px;position: relative; top: -3px;">
+								  <td align="right" width="50" style="padding-left:4px">
 								  
 								    <div id="dhour" class="labellarge" style="width:20px;" align="right">#hr#</div>					
 								
-									<select name="Transaction_hour" id="Transaction_hour"  style="height:27;font-size:14px" class="hide">
+									<select name="Transaction_hour" id="Transaction_hour"  style="height:28px;font-size:14px" class="hide">
 									
 										<cfloop index="it" from="0" to="23" step="1">
 										
@@ -234,10 +235,10 @@ password="#SESSION.dbpw#">
 									</select>					
 						
 								  </td>						  
-								  <td style="width:1px;" class="labellarge" align="center">:</td>						
-								  <td style="position: relative; top: -3px;"><div class="labellarge" id="dminute">#mn#&nbsp;</div>		
+								  <td style="padding-top:10px;width:1px;" class="labellarge" align="center">:</td>						
+								  <td style="padding-left:2px"><div class="labellarge" id="dminute">#mn#&nbsp;</div>		
 								    
-									<select name="Transaction_minute" id="Transaction_minute"  style="height:27;font-size:14px" class="hide">
+									<select name="Transaction_minute" id="Transaction_minute"  style="height:28px;font-size:14px" class="hide">
 										
 											<cfloop index="it" from="0" to="59" step="1">
 											
@@ -420,8 +421,8 @@ password="#SESSION.dbpw#">
 				   </table>
 			   
 			   </td>
-			   	  			  			 			   	  			  
-			   <td valign="top" style="border:1px solid gray;border-top-right-radius:0px;border-bottom-right-radius:0px;min-width:200px;padding-left:5px;background-image:linear-gradient(to bottom,##ffffef,##ffffef)" class="#full#">
+			   			   	  			  			 			   	  			  
+			   <td valign="top" style="border:1px solid gray;border-top-right-radius:0px;border-bottom-right-radius:0px;min-width:200px;padding-left:5px;background-image:linear-gradient(to bottom,##FAFCA7,##FAFCA7)" class="#full#">
 			   
 				   <table width="100%" border="0"> 
 					
