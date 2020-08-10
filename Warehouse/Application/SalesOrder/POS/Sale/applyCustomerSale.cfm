@@ -4,7 +4,6 @@
 <!--- Ajax template to trigger updates in the screen upon customer set --->
 <!--- ---------------------------------------------------------------- --->
 
-
 <!---
 
 This template is called from many spots and thus below query is deleting too much. Examples: 
@@ -49,26 +48,6 @@ This template is called from many spots and thus below query is deleting too muc
 	 </cfquery>
 
 </cfif>
-
-
-<!---
-
-<cfquery name="billing" 
-	 datasource="AppsMaterials" 
-	 username="#SESSION.login#" 
-	 password="#SESSION.dbpw#">
-	    SELECT *
-		FROM 	WarehouseBatch
-		WHERE   Warehouse = '#url.warehouse#'
-		AND     CustomerId = '#url.customerid#'
-		ORDER BY Created DESC		
-</cfquery>
-
-<cfif billing.CustomerIdInvoice neq "">
-	 <cfset billingid = billing.CustomerIdInvoice>
-<cfelse>
-     <cfset billingid = url.customerid>
-</cfif> --->
 
 <cfset billingid = url.customerid>
 
@@ -134,17 +113,17 @@ This template is called from many spots and thus below query is deleting too muc
 	  </cfif>
 	  
 	  // refresh the customer billing
-	  ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/sale/getCustomerBilling.cfm?customerid=#billingid#&warehouse=#url.warehouse#','customerinvoicebox')		 	  
+	  ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/sale/getCustomerBilling.cfm?requestno=#url.requestno#&customerid=#billingid#&warehouse=#url.warehouse#','customerinvoicebox')		 	  
 	   // refresh the customer schedule	  
-	  ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/sale/getSchedule.cfm?customerid=#url.customerid#&warehouse=#url.warehouse#','schedulebox')		  	  		 
+	  ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/sale/getSchedule.cfm?requestno=#url.requestno#&customerid=#url.customerid#&warehouse=#url.warehouse#','schedulebox')		  	  		 
 	   // refresh lines for this sales person
-	  ptoken.navigate('#SESSION.root#/Warehouse/Application/salesOrder/POS/Sale/getSalesPerson.cfm?customerid=#url.customerid#&warehouse=#url.warehouse#&field=salesperson&mission=#getLines.Mission#&MissionOrgUnitId=#getLines.MissionOrgUnitId#&saleid=salespersonno','personbox')		
+	  ptoken.navigate('#SESSION.root#/Warehouse/Application/salesOrder/POS/Sale/getSalesPerson.cfm?requestno=#url.requestno#&customerid=#url.customerid#&warehouse=#url.warehouse#&field=salesperson&mission=#getLines.Mission#&MissionOrgUnitId=#getLines.MissionOrgUnitId#&saleid=salespersonno','personbox')		
 	   // refresh lines for this customer
-	  ptoken.navigate('#SESSION.root#/Warehouse/Application/salesOrder/POS/Sale/SaleViewLines.cfm?customerid=#url.customerid#&warehouse=#url.warehouse#&addressid=#URL.addressid#','salelines')		
+	  ptoken.navigate('#SESSION.root#/Warehouse/Application/salesOrder/POS/Sale/SaleViewLines.cfm?requestno=#url.requestno#&customerid=#url.customerid#&warehouse=#url.warehouse#&addressid=#URL.addressid#','salelines')		
 	  // refresh additional box
-	  ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/sale/getCustomerInfo.cfm?customerid=#url.customerid#&warehouse=#url.warehouse#','customeradditional')					
+	  ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/sale/getCustomerInfo.cfm?requestno=#url.requestno#&customerid=#url.customerid#&warehouse=#url.warehouse#','customeradditional')					
 	  // refresh void button	  
-	  ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/sale/SaleVoid.cfm?customerid=#url.customerid#&warehouse=#url.warehouse#','divVoidDocument')				
+	  ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/sale/SaleVoid.cfm?requestno=#url.requestno#&customerid=#url.customerid#&warehouse=#url.warehouse#','divVoidDocument')				
 		  
   	</script>
 	

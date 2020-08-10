@@ -32,8 +32,6 @@
 	<cfset sch = default.Code>
 </cfif>
 	
-
-
 <cfif url.customerid neq "">
 	
 	<cfquery name="getSchedule" 

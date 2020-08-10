@@ -4,7 +4,7 @@
 <!--- ------------------------------------------------------------------------------- --->
 
 <cfparam name="url.init"       default="0">
-<cfparam name="url.requestno"  default="0">
+<cfparam name="url.requestno"  default="">
 <cfparam name="url.batchid"    default="">
 <cfparam name="url.mission"    default="">
 <cfparam name="url.customerid" default="00000000-0000-0000-0000-000000000000">
@@ -98,6 +98,8 @@
 			<cfabort>
 		
 	<cfelse>	
+	
+
 		
 			<cfquery name="customer" 
 			  datasource="AppsMaterials" 
@@ -165,17 +167,26 @@
 			<cfelse>
 				<cfset url.addressid = Batch.AddressId>
 			</cfif>			
-				
-			<script>
 			
-				$(document).ready(function() {
-				    try {																			
-				 	document.getElementById('customerselect').value = '#customer.reference#' 											
+			<cfif url.requestNo eq "">
+			
+				<!--- we assign a request no --->
+
+				<cf_getCustomerRequest>
+				<cfset url.requestNo  = thisrequestNo>
+	
+			</cfif>
+				
+			<script language="JavaScript">
+							
+			    try {	
+				
+				   	document.getElementById('trarequestno').innerHTML  = '#url.requestno#' 																						
+				 	document.getElementById('customerselect').value    = '#customer.reference#' 											
 					customertoggle('customerdata','#url.customerid#','open','#url.warehouse#','#url.addressid#');									
 					document.getElementById('customerdata_toggle').className = 'regular'										 	
-				 	} catch(e){console.log(e)}
-				});			
-	
+				} catch(e){console.log(e)}
+					
 			</script>
 				
 			<!--- important, we associated the pending lines to the current customer as a special case

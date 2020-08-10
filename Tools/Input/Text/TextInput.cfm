@@ -257,7 +257,7 @@
 			   message    = "#Attributes.Message#"
 		       class      = "#attributes.class# enterastab"
 		       style      = "#Attributes.Style#; padding-left:4px;border:0px:important!"
-		       onChange   = "ColdFusion.navigate('#SESSION.root#/Tools/Input/ZIP/ZIPFind.cfm?code='+this.value,'zipfind_#Attributes.Id#')"
+		       onChange   = "ptoken.navigate('#SESSION.root#/Tools/Input/ZIP/ZIPFind.cfm?code='+this.value,'zipfind_#Attributes.Id#')"
 			   onKeyUp    = "#attributes.onKeyUp#">
 			   			 			   
 			   </td>			   

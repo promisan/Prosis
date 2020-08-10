@@ -1,14 +1,10 @@
 
-<!---
-<cf_screentop height="100%" scroll="no" label="Transfer" banner="blue" layout="webapp" close="ProsisUI.closeWindow('wtransfer')">
---->
-
 <cfquery name="get"
-datasource="AppsTransaction" 
+datasource="AppsMaterials" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
 	SELECT * 
-	FROM   Sale#URL.Warehouse# 
+	FROM   vwCustomerRequest 
 	WHERE  TransactionId = '#url.id#'		
 </cfquery>
 
@@ -187,14 +183,15 @@ password="#SESSION.dbpw#">
 							<cfelse>
 							
 								<cfquery name="getTransfer" 
-									datasource="AppsTransaction" 
+									datasource="AppsMaterials" 
 									username="#SESSION.login#" 
 									password="#SESSION.dbpw#">
-									SELECT * FROM dbo.Sale#url.Warehouse#Transfer 
-									WHERE Transactionid = '#get.TransactionId#' 				   			
-									AND  Warehouse = '#Warehouse#'
-									AND  Location = '#Location#'
-									AND  TransactionUoM = '#UoM#'
+									SELECT * 
+									FROM   CustomerRequestLineTransfer 
+									WHERE  Transactionid = '#get.TransactionId#' 				   			
+									AND    Warehouse     = '#Warehouse#'
+									AND    Location      = '#Location#'
+									AND    TransactionUoM = '#UoM#'
 								</cfquery>
 								
 								<cfif OnHand gt remaining>

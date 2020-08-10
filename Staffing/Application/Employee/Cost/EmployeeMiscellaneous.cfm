@@ -1,7 +1,6 @@
 <!--- Create Criteria string for query from data entered thru search form --->
 
-<cf_screentop height="100%" html="No" jquery="Yes" scroll="Yes" menuaccess="context" actionobject="Person"
-		actionobjectkeyvalue1="#url.id#">
+<cf_screentop height="100%" html="No" jquery="Yes" scroll="Yes" menuaccess="context" actionobject="Person" actionobjectkeyvalue1="#url.id#">
 
 <cf_actionListingScript>
 <cf_FileLibraryScript>		
@@ -51,7 +50,6 @@ function workflowdrill(key,box,mode) {
           <cfset condition = "AND Status != '9'">
 <cfelse>  <cfset condition = "AND Status = '#URL.Status#'">
 </cfif>
-
 
 <cfquery name="SearchResult" 
 datasource="AppsPayroll" 
@@ -225,17 +223,17 @@ password="#SESSION.dbpw#">
 		password="#SESSION.dbpw#">
 			SELECT     *
 			FROM       SalarySchedulePeriod
-			WHERE      Mission = '#Payroll.Mission#' 
+			WHERE      Mission        = '#Payroll.Mission#' 
 			AND        SalarySchedule = '#Payroll.SalarySchedule#' 
-			AND        PayrollStart = '#Payroll.PayrollStart#'
+			AND        PayrollStart   = '#Payroll.PayrollStart#'
 		</cfquery>	
 		
 		<td align="center" style="min-width:30;padding-right:10px">
 	
-			<cfif getAdministrator("#Payroll.Mission#") eq "1" or
-			      Status eq "0" 
+			<cfif getAdministrator("#Payroll.Mission#") eq "1" 
+			      or  Status eq "0" 
 				  or (Status eq "2" and EntityClass eq "") 
-				  or Schedule.CalculationStatus lt '3'>
+				  or Schedule.CalculationStatus lt "3">
 			  <cf_img icon="edit" onClick="recordedit('#CostId#')" navigation="Yes">   	  
 			</cfif>
 	

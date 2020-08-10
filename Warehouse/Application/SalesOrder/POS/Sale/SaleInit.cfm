@@ -10,11 +10,12 @@
 		time_refresh('#URL.warehouse#');}, 60000 );});	
 	</script>
 
-
 <cfif url.scope eq "Quote">
 
 	<input type="hidden" id="mission"   name="mission"   value="#url.mission#">
 	<input type="hidden" id="warehouse" name="warehouse" value="#url.warehouse#">	
+	
+	<cfset ajaxonload("setSaleQuote")>	
 
 </cfif>
 

@@ -1,9 +1,9 @@
 <cfquery name="get"
-datasource="AppsTransaction" 
+datasource="AppsMaterials" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
 	SELECT * 
-	FROM   Sale#URL.Warehouse# 
+	FROM   vwCustomerRequest  
 	WHERE  TransactionId = '#form.transactionid#'		
 </cfquery>
 
@@ -24,10 +24,10 @@ password="#SESSION.dbpw#">
 </cfquery>
 
 <cfquery name="clear" 
-	datasource="AppsTransaction" 
+	datasource="AppsMaterials" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	DELETE FROM dbo.Sale#url.Warehouse#Transfer 
+	DELETE FROM CustomerRequestLineTransfer
 	WHERE Transactionid = '#get.TransactionId#' 				   			
 </cfquery>
 
@@ -49,10 +49,10 @@ password="#SESSION.dbpw#">
 	<cfif valueTransfer neq "" and valueTransaction neq "0">
 				
 		<cfquery name="Insert" 
-			datasource="AppsTransaction" 
+			datasource="AppsMaterials" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
-			INSERT INTO dbo.Sale#url.Warehouse#Transfer ( 				   
+			INSERT INTO CustomerRequestLineTransfer ( 				   
 						TransactionId, 
 						Warehouse,
 						Location,

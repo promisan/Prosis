@@ -95,8 +95,7 @@ password="#SESSION.dbpw#">
 			<tr>
 			<td colspan="2">
 			
-			<table height="100%" width="100%" border="0">
-			
+			<table height="100%" width="100%" border="0">			
 			
 			<tr id="header" style="border-bottom:1px solid gray">
 																		
@@ -555,13 +554,19 @@ password="#SESSION.dbpw#">
 			<td style="height:40px;padding-left:14px;padding-right:10px" colspan="5">
 						
 			<table width="100%" height="100%" align="center" style="background-color:e1e1e1">
-			
-			<!--- --------------- --->
-			<!--- CURRENCY SELECT --->
-			<!--- --------------- --->		
+						
 			
 			<tr style="height:32px;" class="labelmedium">
-					<td style="height:20px;padding-right:4px;min-width:100px;padding-left:34px; color:##000000;"><cf_tl id="currency"></td>
+			
+					<td style="height:20px;padding-right:4px;min-width:80px;padding-left:14px; color:##000000;"><cf_tl id="Transaction"></td>
+					<td style="border-left:1px solid gray;min-width:60px;font-size:20px;border-right:1px solid gray" 
+					id="trarequestno" align="center"></td>			
+												
+					<!--- --------------- --->
+					<!--- CURRENCY SELECT --->
+					<!--- --------------- --->		
+			
+					<td style="height:20px;padding-right:4px;min-width:80px;padding-left:24px; color:##000000;"><cf_tl id="currency"></td>
 					<td style="padding-right:10px;border-right:1px solid gray">				
 									
 					<cfquery name="currencylist" 
@@ -593,7 +598,7 @@ password="#SESSION.dbpw#">
 						<table cellspacing="0" cellpadding="0">
 						<tr class="labelmedium">
 						
-						<td style="padding-right:10px; color:000000;min-width:100px"><cf_tl id="Sale by"></td>
+						<td style="padding-right:10px; color:000000;min-width:80px"><cf_tl id="Sale by"></td>
 						<td style="padding-right:10px;r" id="personbox">
 						
 						<!--- get people that have an active assignment in the mission and in the orgunit of the warehouse --->
@@ -682,7 +687,7 @@ password="#SESSION.dbpw#">
 									</div>
 									
 								</td>	
-								<td style="min-width:100px"><cf_tl id="Stock"></td>						
+								<td style="min-width:200px"><cf_tl id="Stock"></td>						
 								<td style="min-width:50px;" align="right"><cf_tl id="Qty"></td>	
 								<td style="min-width:100px" align="right">								
 									<b><cf_tl id="Your Price"></b>
@@ -904,7 +909,6 @@ password="#SESSION.dbpw#">
 	
 	</table>
 	
-
 				
 <style>
 

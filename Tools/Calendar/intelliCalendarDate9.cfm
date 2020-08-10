@@ -1,4 +1,5 @@
 
+
 <cfparam name="Attributes.Message"          default="Error in Date">
 <cfparam name="Attributes.AllowBlank"       default="True">
 <cfparam name="Attributes.DateValidStart"   default="19500101">	
@@ -50,7 +51,7 @@
 	
 	<table cellspacing="0" cellpadding="0">
 	<tr><td>
-	
+		
 	<cfif attributes.inline eq "true">
 	
 	<input type="hidden" 	 
@@ -222,8 +223,7 @@
 	      </script>
 		 		 		 	  
 	  </td>
-	  
-	  
+	  	  
 	  <!--- ----------------------------------------------- --->
 	  <!--- box for ajax scripting processing of the result --->
 	  <!--- ----------------------------------------------- --->

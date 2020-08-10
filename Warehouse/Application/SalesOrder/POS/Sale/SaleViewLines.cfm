@@ -6,13 +6,6 @@
 <cfparam name="url.mode"       default="embed">
 <cfparam name="url.requestno"  default="">
 
-<cfif url.requestNo eq "">
-
-	<cf_getCustomerRequest>
-	<cfset url.requestNo  = thisrequestNo>
-	
-</cfif>
-
 <cfoutput>
 <input type="hidden" id="RequestNo" name="RequestNo" value="#url.requestno#">
 </cfoutput>
@@ -84,16 +77,7 @@ password="#SESSION.dbpw#">
 					ON UoMMission.ItemNo = T.ItemNo AND UoMMission.UoM = I.UoM AND UoMMission.Mission = W.Mission
 					
 		WHERE    T.RequestNo = '#url.requestNo#' 			
-		
-		<!---
-		WHERE    T.Warehouse    = '#URL.Warehouse#'		
-		AND      T.CustomerId   = '#url.customerid#'		
-		AND      T.ActionStatus != '9' <!--- not processed yet into a batch later--->							
-		<cfif URL.AddressId neq "00000000-0000-0000-0000-000000000000" AND URL.AddressId neq "">
-		AND      T.AddressId = '#URL.AddressId#'
-		</cfif>	 
-		--->
-		
+			
 		ORDER BY T.Created #WParameter.SaleLinesOrder#
 				
 </cfquery>
@@ -203,9 +187,9 @@ password="#SESSION.dbpw#">
 											</div>
 				</td>	
 
-				<td style="min-width:100px;padding-top:10px;" valign="top">
+				<td style="min-width:200px;padding-top:5px;padding-bottom:5px" valign="top">
 					
-					<span id="onhand_#currentrow#" style="min-width:200px">
+					<span id="onhand_#currentrow#" style="min-width:100px">
 					
 						<cfif ItemClass eq "Service">
 						
@@ -244,12 +228,12 @@ password="#SESSION.dbpw#">
 									password="#SESSION.dbpw#">		
 										SELECT SUM(TransactionQuantity) as TransactionTransfer,
 										       SUM(TransactionTransfer) as QuantityTransfer 
-										FROM   usertransaction.dbo.Sale#Warehouse#Transfer
+										FROM   CustomerRequestLineTransfer
 										WHERE  TransactionId='#TransactionId#'
 								</cfquery>														
 								
-								<span class="clsNoPrint clsDetailLineCell" id="transfer_#transactionid#" style="padding-bottom:2px;min-width:200px">
-									<cfif qExistingTransfer.recordcount neq 0>									
+								<span class="clsNoPrint clsDetailLineCell" id="transfer_#transactionid#" style="padding-bottom:2px;min-width:100px">
+									<cfif qExistingTransfer.recordcount neq 0>																
 										| #qExistingTransfer.TransactionTransfer# [#qExistingTransfer.QuantityTransfer#]
 									</cfif>	
 								</span>									
@@ -344,15 +328,18 @@ password="#SESSION.dbpw#">
 			</tr>
 			
 			<cfquery name="qOverlap" 
-					datasource="AppsTransaction" 
+					datasource="AppsMaterials" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
-						SELECT T.CustomerId,COUNT(1)
-						FROM   Sale#URL.Warehouse# T
-						WHERE  T.ItemNo = '#ItemNo#'
-						AND    T.CustomerId != '#URL.CustomerId#'
-				        AND    T.BatchId IS NULL 
-					    AND    T.ItemClass = 'Supply'						
+						SELECT   T.CustomerId,COUNT(1)
+						FROM     vwCustomerRequest T
+						WHERE    T.Warehouse      = '#url.warehouse#'
+						AND      T.ItemNo         = '#ItemNo#'
+						AND      T.TransactionUoM = '#TransactionUoM#'
+						AND      T.CustomerId != '#URL.CustomerId#'
+						AND      T.ActionStatus  != '9'
+						AND      T.BatchNo IS NULL <!--- not converted into a sale transaction --->
+					    AND      T.ItemClass      = 'Supply'						
 						GROUP BY T.CustomerId
 			</cfquery>
 			
@@ -436,9 +423,9 @@ password="#SESSION.dbpw#">
 					<tr>
 						<td colspan="2"></td>
 						<td colspan="5" id="Beneficiary_#currentrow#" name="Beneficiary_#currentrow#">
-							<cfset url.crow = currentrow>
+							<cfset url.crow   = currentrow>
 							<cfset url.clines = TransactionQuantity>
-							<cfset url.Id = TransactionId>
+							<cfset url.Id     = TransactionId>
 							<cfinclude template="getBeneficiary.cfm">	
 						</td>
 					</tr>

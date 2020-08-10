@@ -27,6 +27,7 @@
 					   size="8" style="align:center;background-color:##efefef50"
 					   onKeyUp="applyCustomerData('#url.customerid#','mobilenumber',this.value)"
 					   maxlength="15" 
+					   onchange="this.background-color:ffffff"
 					   class="regularxl enterastab"
 					   value = "#customer.MobileNumber#">	
 			</td>
@@ -44,7 +45,7 @@
 					id="CustomerDOB_#left(url.customerid,4)#" 
 					Manual="True"		
 					class="regularxl"		
-					style="background-color:eaeaea"
+					style="background-color:##efefef50;text-align:center"
 					onfocus="this.background-color='##eaeaea50'"
 					onChange="applyCustomerData('#url.customerid#','customerdob',this.value,'CustomerDOB_#left(url.customerid,4)#')"								
 					DateValidEnd="#dateformat(now(),'YYYYMMDD')#"
@@ -64,6 +65,7 @@
 					   size="15"
 					   onKeyUp="applyCustomerData('#url.customerid#','emailaddress',this.value)"
 					   maxlength="50" 
+					   onchange="this.background-color:ffffff"
 					   style="width:100%;background-color:##efefef50"
 					   class="regularxl enterastab"
 					   value = "#customer.emailAddress#">
@@ -92,7 +94,7 @@
 						  maxlength = "8"
 						  label     = "find"
 						  onKeyUp   = "applyCustomerData('#url.customerid#','postalcode',this.value)"
-						  style     = "">		
+						  style     = "background-color:##efefef50">		
 				 
 			</td>
 		</tr>
@@ -108,8 +110,6 @@
 				WHERE  CustomerId = '#url.customerid#'
 		</cfquery>
 		
-
-
 		<cftry>
 			<cfquery name="qCheck"
 			datasource="AppsTransaction" 
@@ -153,14 +153,15 @@
 					<cfset url.addressid = qExisting.AddressId>
 				</cfif>	
 					
-				<td width="170" colspan="3">
+				<td width="170" colspan="3">	
+							
 					<select id	="addressidselect" 
 						style="background-color:##efefef50" class="regularxl enterastab"
-						onchange="ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/sale/applyCustomer.cfm?mission=#qExisting.Mission#&warehouse=#url.warehouse#&category=&itemno=&search=&customerid='+document.getElementById('customeridselect').value+'&addressid='+this.value,'customerbox')">
-						
+						onkeyup="this.background-color:ffffff"
+						onchange="ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/sale/applyCustomer.cfm?mission=#qExisting.Mission#&warehouse=#url.warehouse#&category=&itemno=&search=&customerid='+document.getElementById('customeridselect').value+'&addressid='+this.value,'customerbox')">						
 						<cfloop query="customerAddress">
 							<option value="#customerAddress.AddressId#" <cfif URL.addressId eq customerAddress.AddressId>selected</cfif>>#customerAddress.Address# #customerAddress.AddressCity#</option>
-						</cfloop>
+						</cfloop>						
 					</select>
 					
 				</td>	
@@ -171,8 +172,7 @@
 			
 	</table>
 	
-	</cfoutput>
-	
+	</cfoutput>	
 	
 	<!-- </cfform> -->
 

@@ -25,6 +25,20 @@ password="#SESSION.dbpw#">
 	AND     CostId   = '#URL.ID1#'
 </cfquery>
 
+<!--- adjust to check also for the role of contract manager create --->
+
+<cfif getAdministrator("#Entitlement.Mission#") eq "1" 
+      or  Entitlement.Status eq "0" 
+	  or (Status eq "2" and EntityClass eq "")>
+	  
+	  <cfset edit = "1">
+	  
+<cfelse>
+
+	  <cfset edit = "0">	  
+	  
+</cfif>	
+
 <cfquery name="PayrollItem" 
    datasource="AppsPayroll" 
    username="#SESSION.login#" 
@@ -42,8 +56,8 @@ password="#SESSION.dbpw#">
 <cfset openmode = "show">
 
 <cfoutput>
-<input type="hidden" name="PersonNo" value="#URL.ID#" class="regular">
-<input type="hidden" name="CostId"   value="#URL.ID1#" class="regular">
+	<input type="hidden" name="PersonNo" value="#URL.ID#"   class="regular">
+	<input type="hidden" name="CostId"   value="#URL.ID1#"  class="regular">
 </cfoutput>
 
 <table width="98%" align="center">
@@ -74,6 +88,8 @@ password="#SESSION.dbpw#">
     <TD><cf_tl id="Document date">:</TD>
     <TD>
 	
+		<cfif edit eq "1">
+	
 		  <cf_intelliCalendarDate9
 		FormName="MiscellaneousEdit"
 		FieldName="DocumentDate" 
@@ -82,6 +98,12 @@ password="#SESSION.dbpw#">
 		Default="#Dateformat(Entitlement.DocumentDate, CLIENT.DateFormatShow)#"
 		AllowBlank="False">	
 		
+		<cfelse>
+		
+		<cfoutput>#Dateformat(Entitlement.DocumentDate, CLIENT.DateFormatShow)#</cfoutput>
+		
+		</cfif>
+		
 	</TD>
 	</TR>
 		
@@ -89,7 +111,7 @@ password="#SESSION.dbpw#">
     <TD width="140"><cf_tl id="Category">:</TD>
     <TD>
 	
-		<cfif Entitlement.Status lte "2">
+		<cfif edit eq "1">
 		
 		  	<select name="Entitlement" size="1" class="regularxl">
 			<cfoutput query="PayrollItem">
@@ -117,32 +139,45 @@ password="#SESSION.dbpw#">
 	<TR class="labelmedium">
     <TD><cf_tl id="Reference">:</TD>
     <TD>
-    <input type="text" name="documentReference" value="#Entitlement.DocumentReference#" class="regularxl" size="30" maxlength="30">		
+	<cfif edit eq "1">
+	    <input type="text" name="documentReference" value="#Entitlement.DocumentReference#" class="regularxl" size="30" maxlength="30">		
+	<cfelse>
+	     <cfoutput>#Entitlement.DocumentReference#</cfoutput>
+	</cfif>
 	</TD>
 	</TR>
 	
 	<TR>
     <TD class="labelmedium"><cf_tl id="Effective date">:</TD>
     <TD>
+	
+		<cfif edit eq "1">
   
 		  <cf_intelliCalendarDate9
-		FormName="MiscellaneousEdit"
-		FieldName="DateEffective" 
-		class="regularxl"
-		DateFormat="#APPLICATION.DateFormat#"
-		Default="#Dateformat(Entitlement.DateEffective, CLIENT.DateFormatShow)#"
-		AllowBlank="False">	
+			FormName="MiscellaneousEdit"
+			FieldName="DateEffective" 
+			class="regularxl"
+			DateFormat="#APPLICATION.DateFormat#"
+			Default="#Dateformat(Entitlement.DateEffective, CLIENT.DateFormatShow)#"
+			AllowBlank="False">	
+		
+		<cfelse>
+		
+		<cfoutput>#Dateformat(Entitlement.DateEffective, CLIENT.DateFormatShow)#</cfoutput>
+		
+		</cfif>
  
 		
 	</TD>
-	</TR>
-		
-	
+	</TR>	
 		
 	<TR class="labelmedium">
     <TD><cf_tl id="Category">:</TD>
     <TD>
-	<table>
+	
+	<cfif edit eq "1">
+
+		<table>
 		<tr class="labelmedium">
 		<td><INPUT type="radio" name="EntitlementClass" value="Deduction" <cfif Entitlement.EntitlementClass eq "Deduction">checked</cfif>></td>
 		<td class="labelmedium" style="padding-left:5px;padding-right:10px">Deduction</td>
@@ -151,7 +186,13 @@ password="#SESSION.dbpw#">
 		<td><INPUT type="radio" name="EntitlementClass" value="Contribution" <cfif Entitlement.EntitlementClass eq "Contribution">checked</cfif>></td>
 		<td class="labelmedium" style="padding-left:5px;padding-right:10px">Contribution</td>
 		</tr>
-	</table>
+		</table>
+		
+	<cfelse>
+	
+		<cfoutput>#Entitlement.EntitlementClass#</cfoutput>
+	
+	</cfif>	
 		
 	</TD>
 	</TR>
@@ -163,15 +204,26 @@ password="#SESSION.dbpw#">
     <TD>
 	
 		<table><tr><td>
-	  	<select name="Currency" size="1" class="regularxl">
-		<cfoutput query="Currency">
-		<option value="#Currency#" <cfif Entitlement.Currency eq Currency>selected</cfif>>
-    		#Currency#
-		</option>
-		</cfoutput>
-	    </select>
+		
+		<cfif edit eq "1">
+		
+		  	<select name="Currency" size="1" class="regularxl">
+			<cfoutput query="Currency">
+			<option value="#Currency#" <cfif Entitlement.Currency eq Currency>selected</cfif>>
+	    		#Currency#
+			</option>
+			</cfoutput>
+		    </select>
+			
+		<cfelse>
+		
+			<cfoutput>#Entitlement.Currency#</cfoutput>
+		
+		</cfif>	
 		</td>
 		<td style="padding-left:3px">
+		
+		<cfif edit eq "1">
 		
 		<cfinput type="Text" name="Amount" value="#NumberFormat(Entitlement.Amount, ".__")#"
 		    message="Please enter a correct amount" 
@@ -182,6 +234,12 @@ password="#SESSION.dbpw#">
 			class="regularxl"
 			style="text-align: center">		
 			
+		<cfelse>
+		
+			<cfoutput>#NumberFormat(Entitlement.Amount, ".__")#</cfoutput>
+		
+		</cfif>	
+			
 		</td></tr></table>	
 			
 	</TD>
@@ -190,40 +248,70 @@ password="#SESSION.dbpw#">
 	<TR class="labelmedium">
     <TD><cf_tl id="Attachment">:</TD>
     <TD>		
+	
+		<cfif edit eq "1">
 			   	   
-		<cf_filelibraryN
-			DocumentPath="PersonalCost"
-			SubDirectory="#entitlement.costid#" 
-			Filter=""
-			LoadScript="Yes"
-			Insert="yes"
-			Remove="yes"
-			Listing="yes">
+			<cf_filelibraryN
+				DocumentPath="PersonalCost"
+				SubDirectory="#entitlement.costid#" 
+				Filter=""
+				LoadScript="Yes"
+				Insert="yes"
+				Remove="yes"
+				Listing="yes">
+			
+		<cfelse>
+		
+			<cf_filelibraryN
+				DocumentPath="PersonalCost"
+				SubDirectory="#entitlement.costid#" 
+				Filter=""
+				LoadScript="Yes"
+				Insert="no"
+				Remove="no"
+				Listing="yes">
+		
+		</cfif>	
 			
 	</TD>
 	</TR>	
 	   
 	<TR class="labelmedium">
         <td valign="top" style="padding-top:5px"><cf_tl id="Remarks">:</td>
-        <TD><textarea style="width:99%;padding:3px;font-size:14px" class="regular" rows="2" name="Remarks"><cfoutput>#Entitlement.Remarks#</cfoutput></textarea> </TD>
+        <TD>
+		
+		<cfif edit eq "1">
+		
+		<textarea style="width:99%;padding:3px;font-size:14px" class="regular" rows="2" name="Remarks"><cfoutput>#Entitlement.Remarks#</cfoutput></textarea> 
+		
+		<cfelse>
+		
+		<cfoutput>#Entitlement.Remarks#</cfoutput>
+		
+		</cfif>
+		
+		</TD>
+				
 	</TR>
 	
-	<tr><td colspan="2" class="line"></td></tr> 
-	 	 
+	<cfif edit eq "1">
 	
-	<tr><td colspan="2" align="center" height="35">
-	  <cfoutput>
-   	   <cf_tl id="Back" var="1">
-	   <input type="button" name="cancel" value="#lt_text#" class="button10g" onClick="history.back()">
-	   <cf_tl id="Delete" var="1">	  	  
-	   <input class="button10g" type="submit" name="Delete" value="#lt_text#">
-   	   <cf_tl id="Save" var="1">	  	  
-	   <input class="button10g" type="submit" name="Submit" value="#lt_text#">
-	   
-	  </cfoutput>
-	  
-   </td>
-   </tr>
+		<tr><td colspan="2" class="line"></td></tr> 
+		 	 	
+		<tr><td colspan="2" align="center" height="35">
+		  <cfoutput>
+	   	   <cf_tl id="Back" var="1">
+		   <input type="button" name="cancel" value="#lt_text#" class="button10g" onClick="history.back()">
+		   <cf_tl id="Delete" var="1">	  	  
+		   <input class="button10g" type="submit" name="Delete" value="#lt_text#">
+	   	   <cf_tl id="Save" var="1">	  	  
+		   <input class="button10g" type="submit" name="Submit" value="#lt_text#">	   
+		  </cfoutput>
+		  
+	   </td>
+	   </tr>
+   
+   </cfif>
       		
 	<cfif Entitlement.entityClass neq "" and Entitlement.source eq "Manual">
 		
