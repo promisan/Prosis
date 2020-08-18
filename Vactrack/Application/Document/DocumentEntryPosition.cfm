@@ -266,7 +266,7 @@
 				</TR>	
 				   
 				<TR>
-					<td class="labelmedium" valign="top" style="padding-top:4px"><cf_tl id="Remarks">:<p></td>
+					<td class="labelmedium" valign="top" style="padding-top:4px"><cf_tl id="Remarks">:</td>
 					 <TD>
 					 <textarea style="width:95%;padding:3px;font-size:14px" rows="2" name="Remarks" class="regular" maxlength="200"  onkeyup="return ismaxlength(this)"></textarea>
 					</TD>

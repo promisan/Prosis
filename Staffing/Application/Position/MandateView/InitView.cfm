@@ -5,7 +5,7 @@
 
 <cf_submenuleftscript>
 <cfajaximport tags="cftree,cfform">
-<cf_screenTop height="100%" jquery="Yes"order="0" html="No" title="#lt_text# #URL.Mission#" scroll="no">
+<cf_screenTop height="100%" jquery="Yes"order="0" html="No" title="#lt_text# #URL.Mission#" scroll="no" TreeTemplate="Yes">
 <cf_layoutscript>
 <cf_calendarscript>
 	 

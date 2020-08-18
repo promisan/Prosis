@@ -45,18 +45,17 @@ password="#SESSION.dbpw#">
 
 	<script LANGUAGE = "JavaScript">
 
-	function search() {		
-		mis = document.getElementById("mission").value
-		grd = document.getElementById("postgrade").value
-		url = "DocumentEntryFind.cfm?mission="+mis+"&postgrade="+grd
-		ptoken.navigate(url,'search')		  
-	}
-	
-		
-	function selected(pos) {	
-	    ProsisUI.createWindow('mydialog', 'Recruitment Track', '',{x:100,y:100,height:600,width:640,modal:false,resizable:false,center:true})    					
-		ptoken.navigate('#SESSION.root#/Vactrack/Application/Document/DocumentEntryPosition.cfm?ID1=' + pos + '&Caller=entry','mydialog')	
-	}
+		function search() {		
+			mis = document.getElementById("mission").value
+			grd = document.getElementById("postgrade").value
+			url = "DocumentEntryFind.cfm?mission="+mis+"&postgrade="+grd
+			ptoken.navigate(url,'search')		  
+		}
+				
+		function selected(pos) {	
+		    ProsisUI.createWindow('mydialog', 'Recruitment Track', '',{x:100,y:100,height:600,width:640,modal:true,resizable:false,center:true})    					
+			ptoken.navigate('#SESSION.root#/Vactrack/Application/Document/DocumentEntryPosition.cfm?ID1=' + pos + '&Caller=entry','mydialog')	
+		}
 		
 	</script>
 
@@ -79,19 +78,20 @@ password="#SESSION.dbpw#">
 
 <cf_screentop html="#html#" height="100%" label="Recruitment Request" layout="innerbox" scroll="Yes" jQuery="Yes">
 
-<table width="94%"  align="center" class="formpadding">
+<table width="94%" height="100%" align="center">
+
   <tr><td height="10"></td></tr>
   <tr>
     <cfoutput>
     <td class="labelit" width="100%" height="46" align="left" valign="middle" style="height:54px;font-size:28px">
-	 <cf_tl id="Initiate Recruitment Request" class="Message"></b></font>
+	 <cf_tl id="Initiate Recruitment Request" class="Message">
 	</td>
 	</cfoutput>
   </tr> 	
      
-  <tr>
+  <tr style="height:50px">
     <td>
-	    <table border="0" cellpadding="0" cellspacing="0">
+	    <table>
 					
 		<TR>
 	    		
@@ -120,10 +120,10 @@ password="#SESSION.dbpw#">
 		</TD>
 		
 		<td align="center" style="padding-left:20px">
-	  		  <cf_tl id="List" var="1">
+	  		  <cf_tl id="View Positions" var="1">
 			  <input class="button10g"
 				     type="button" 
-				     style="width:120px;font-size:20px;height:34px"
+				     style="width:220px;font-size:18px;height:34px"
 					 name="Submit" 
 					 value="<cfoutput>#lt_text#</cfoutput>" 
 					 onclick="search()">
@@ -136,7 +136,11 @@ password="#SESSION.dbpw#">
 	</tr>
 				
 	<tr>
-		<td class="linedotted" style="padding-top:5px"><cfdiv id="search"></td>
+		<td class="line" style="height:100%">
+		<cf_divscroll>
+		<cfdiv id="search">
+		</cf_divscroll>
+		</td>
 	</tr>
 		
 </TABLE>

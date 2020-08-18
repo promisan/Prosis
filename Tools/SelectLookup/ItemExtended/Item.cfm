@@ -19,11 +19,9 @@
    
 </cfif>	
 
-<cfset cnt = 0>
 
-<!---
-<cf_screentop html="no" label="Asset/Device Request" layout="webapp" busy="busy10.gif" banner="blue" scroll="no" user="no">
---->
+
+<cfset cnt = 0>
 
 		<table width="100%" height="100%" bgcolor="white">
 		

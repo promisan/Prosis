@@ -515,7 +515,7 @@ function workflowdrill(key) {
 			<cfif customer.recordcount eq "1">
 				
 			    <tr><td height="100%" valign="top">	
-			    <table height="100%" width="#w#" align="center" border="0" cellpadding="0" cellspacing="0" class="show formpadding" id="attach" bgcolor="white">
+			    <table height="100%" width="#w#" align="center" class="show formpadding" id="attach" bgcolor="white">
 				
 				<tr><td height="100%">
 				
@@ -628,7 +628,7 @@ function workflowdrill(key) {
 						<cfloop query="skill">						
 									
 						<tr><td valign="top">	    						
-							<table width="99%" height="100%" border="0" cellpadding="0" cellspacing="0" align="center">
+							<table width="99%" height="100%" align="center">
 							<tr><td id="#lcase(code)#box" valign="top" style="padding-left:4px">				
 							<cfinclude template="#template#"></td>
 							</tr>

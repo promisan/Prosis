@@ -183,6 +183,7 @@ The output of the reports has 3 variations
 		FROM Parameter
 		WHERE HostName = '#CGI.HTTP_HOST#' 
 	</cfquery>	
+	
 
 	<!--- KHERRERA Oct 08, 2012:  Added to get the client's timestamp --->
 	<cfset vClientTimeStamp = createDateTime(url.tscYear,url.tscMonth,url.tscDay,url.tscHours,url.tscMinutes,url.tscSeconds)>

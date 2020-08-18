@@ -82,6 +82,8 @@
 	
 </cfif>
 
+<cf_divscroll>
+
 <cfform name="transactionform" id="transactionform" method="post">
 
   <table width="98%" border="0" class="formpadding" cellspacing="0" cellpadding="0" align="center" align="center">		
@@ -285,12 +287,12 @@
 	
 	<tr><td>	
 		
-		<table width="100%" border="0" class="formspacing" cellspacing="0" cellpadding="0" align="center">
+		<table width="100%" border="0" class="formspacing" align="center">
 		  
 		  <tr>
 		    <td> 	 
 					
-			  <table width="98%" border="0" class="formpadding formspacing" cellpadding="0" align="center">
+			  <table width="98%" class="formpadding"  align="center">
 			  		
 				<tr><td colspan="2" height="1"></td></tr>
 				
@@ -300,9 +302,9 @@
 						
 				<cfif url.warehouse neq "">
 				
-			        <TR> 
-			          <TD height="20" width="100" class="labelmedium"><cf_space spaces="60"><cf_tl id="Facility">:</TD>
-			          <td width="80%" align="left" class="labelmedium">
+			        <TR class="labelmedium"> 
+			          <TD height="20" width="100"><cf_space spaces="60"><cf_tl id="Facility">:</TD>
+			          <td width="80%" align="left">
 					  
 					  <cfquery name="whs" 
 							datasource="AppsMaterials" 
@@ -321,8 +323,8 @@
 				
 				<cfelse>
 				
-					 <TR> 
-			          <TD height="22" width="120" class="labelmedium"><cf_tl id="Facility">:</TD>
+					 <TR class="labelmedium"> 
+			          <TD height="22" width="120"><cf_tl id="Warehouse">:</TD>
 			          <td width="80%" align="left" >
 					 						
 						<cfquery name="whs" 
@@ -523,13 +525,14 @@
 					  <cfelse>
 					    <cf_tl id="Responsible">:
 					  </cfif>
+					  
 					  <font color="FF0000">*</font></TD>
 					  
 			          <td align="left">
 					    <table width="99%" cellspacing="0" cellpadding="0">
 						<tr>
 						
-						    <td width="98%" style="padding:2px;height:30;border:1px solid silver" id="personbox"></td>	
+						    <td width="98%" style="height:30" id="personbox"></td>	
 							
 							<td width="30" style="padding-left:3px" valign="top">
 													
@@ -693,7 +696,7 @@
 		        </TR>			
 							
 				<TR> 
-		          <TD height="22" valign="top" style="padding-top:4px" class="labelmedium"><cf_tl id="Item">: <font color="FF0000">*</font></TD>
+		          <TD height="22" valign="top" style="padding-top:4px" class="labelmedium"><cf_tl id="Stock Item">: <font color="FF0000">*</font></TD>
 		          <td align="left" width="80%">
 				  
 				    <table width="99%" cellspacing="0" cellpadding="0">
@@ -853,7 +856,7 @@
 		          <TD colspan="2" align="center" height="28">
 				  <cf_tl id="Add Line" var="1">			  
 				  <input type="button" 
-				      class="button10g" style="height:22;width:190" 
+				      class="button10g" style="height:24px;width:190" 
 					  value="#lt_text#" 
 					  onclick="ptoken.navigate('../Transaction/TransactionEntrySubmit.cfm?systemfunctionid=#url.systemfunctionid#&mode=#url.mode#&warehouse=#url.warehouse#','detail','','','POST','transactionform')" 
 					  name="addline" id="addline">
@@ -880,6 +883,8 @@
  </table>
  
 </cfform>
+
+</cf_divscroll>
 
 </cfoutput>		
 

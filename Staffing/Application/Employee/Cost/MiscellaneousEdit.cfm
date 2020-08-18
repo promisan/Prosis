@@ -1,10 +1,13 @@
 
-<cf_screentop height="100%" scroll="No" html="No" jquery="Yes" menuaccess="context">
+<cfparam name="URL.Status" default="9">
+<cfparam name="URL.Header" default="1">
+
+<cfif url.header eq "1">
+	<cf_screentop height="100%" scroll="No" html="No" jquery="Yes" title="Miscellaneous entry" menuaccess="context">
+</cfif>
 
 <cf_dialogPosition>
-<cf_CalendarScript>
-
-<cfparam name="URL.Status" default="9">
+<cf_ActionListingScript>
 
 <cfquery name="Currency" 
 datasource="AppsLedger"
@@ -33,6 +36,8 @@ password="#SESSION.dbpw#">
 	  
 	  <cfset edit = "1">
 	  
+	  <cf_CalendarScript>
+	  
 <cfelse>
 
 	  <cfset edit = "0">	  
@@ -53,7 +58,7 @@ password="#SESSION.dbpw#">
 
 <cfform action="MiscellaneousEditSubmit.cfm?Status=#URL.Status#" method="POST" name="MiscellaneousEdit">
 
-<cfset openmode = "show">
+<cfset openmode = "hide">
 
 <cfoutput>
 	<input type="hidden" name="PersonNo" value="#URL.ID#"   class="regular">
@@ -70,7 +75,7 @@ password="#SESSION.dbpw#">
   
    <tr class="line">
     
-	<td style="padding:5px 10px 10px;font-size:30px;height:45px" class="labelit">
+	<td style="padding:5px 2px 2px;font-size:30px;height:40px" class="labelit">
 		    <img src="<cfoutput>#SESSION.root#</cfoutput>/Images/Logos/Payroll/Miscellaneous.png" height="64" alt=""  border="0" align="absmiddle">
 			
     	&nbsp;<cf_tl id="Edit Miscellaneous entry"> : <cfoutput>#entitlement.source#</cfoutput>
@@ -179,11 +184,11 @@ password="#SESSION.dbpw#">
 
 		<table>
 		<tr class="labelmedium">
-		<td><INPUT type="radio" name="EntitlementClass" value="Deduction" <cfif Entitlement.EntitlementClass eq "Deduction">checked</cfif>></td>
-		<td class="labelmedium" style="padding-left:5px;padding-right:10px">Deduction</td>
-		<td><INPUT type="radio" name="EntitlementClass" value="Payment" <cfif Entitlement.EntitlementClass eq "Payment">checked</cfif>></td>
+		<td><INPUT type="radio" class="radiol" name="EntitlementClass" value="Payment" <cfif Entitlement.EntitlementClass eq "Payment">checked</cfif>></td>
 		<td class="labelmedium" style="padding-left:5px;padding-right:10px">Payment</td>
-		<td><INPUT type="radio" name="EntitlementClass" value="Contribution" <cfif Entitlement.EntitlementClass eq "Contribution">checked</cfif>></td>
+		<td><INPUT type="radio" class="radiol" name="EntitlementClass" value="Deduction" <cfif Entitlement.EntitlementClass eq "Deduction">checked</cfif>></td>
+		<td class="labelmedium" style="padding-left:5px;padding-right:10px">Deduction</td>		
+		<td><INPUT type="radio" class="radiol" name="EntitlementClass" value="Contribution" <cfif Entitlement.EntitlementClass eq "Contribution">checked</cfif>></td>
 		<td class="labelmedium" style="padding-left:5px;padding-right:10px">Contribution</td>
 		</tr>
 		</table>
@@ -277,7 +282,7 @@ password="#SESSION.dbpw#">
 	</TR>	
 	   
 	<TR class="labelmedium">
-        <td valign="top" style="padding-top:5px"><cf_tl id="Remarks">:</td>
+        <td valign="top" style="padding-top:7px"><cf_tl id="Remarks">:</td>
         <TD>
 		
 		<cfif edit eq "1">
@@ -316,50 +321,24 @@ password="#SESSION.dbpw#">
 	<cfif Entitlement.entityClass neq "" and Entitlement.source eq "Manual">
 		
 			<tr><td height="1" colspan="2" class="line">
+			
+			<cfset url.ajaxid = Entitlement.CostId>
+			
+			<cfoutput>
+			
+			<cfset wflnk = "#session.root#/Staffing/Application/Employee/Cost/MiscellaneousWorkFlow.cfm">
+			
+			
+			<input type="hidden" 
+		          id="workflowlink_#url.ajaxid#" 
+        		  value="#wflnk#">  
+			  
+			<table width="99%" align="center">
+				<tr><td style="padding-left:1px;padding-right:1px" id="#url.ajaxid#"><cfinclude template="MiscellaneousWorkFlow.cfm"></td></tr>			
+			</table>
+			
+			</cfoutput>
 		
-			<cfquery name="Person" 
-			datasource="AppsEmployee" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-				SELECT *
-				FROM   Person
-				WHERE  PersonNo = '#URL.ID#' 
-			</cfquery>
-	
-			<cfquery name="currentContract" 
-				datasource="AppsEmployee" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-			    SELECT   TOP 1 L.*, 
-			             R.Description as ContractDescription, 
-				         A.Description as AppointmentDescription
-			    FROM     PersonContract L, 
-				         Ref_ContractType R,
-					     Ref_AppointmentStatus A
-				WHERE    L.PersonNo = '#URL.ID#'
-				AND      L.ContractType = R.ContractType
-				AND      L.AppointmentStatus = A.Code
-				AND      L.ActionStatus != '9'
-				ORDER BY L.DateEffective DESC 
-		 	</cfquery>	
-			
-			<cfset link = "Staffing/Application/Employee/Cost/MiscellaneousEdit.cfm?id=#url.id#&id1=#Entitlement.CostId#">
-			
-			<cf_ActionListing 
-			    EntityCode       = "EntCost"
-				EntityClass      = "#PayrollItem.EntityClass#"
-				EntityGroup      = "Individual"
-				EntityStatus     = ""
-				Mission 		 = "#currentContract.Mission#"
-				PersonNo         = "#Person.PersonNo#"
-				ObjectReference  = "#Entitlement.PayrollItem#"
-				ObjectReference2 = "#Person.FirstName# #Person.LastName#" 
-				ObjectKey1       = "#URL.ID#"
-				ObjectKey4       = "#Entitlement.CostId#"
-				ObjectURL        = "#link#"
-				Show             = "Yes"
-				CompleteFirst    = "No">
-						
 			 </td></tr>
 		 
 	 </cfif>

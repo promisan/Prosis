@@ -76,10 +76,8 @@ password="#SESSION.dbpw#">
 
 function facttablexls1(control,format,box) {  
     // here I could capture the client variable if this is better for large selections 
-	ColdFusion.navigate('RequisitionViewSelected.cfm','process','','','POST','req')
-  	w = #CLIENT.width# - 80;
-    h = #CLIENT.height# - 110;		
-	window.open("#SESSION.root#/component/analysis/CrossTabLaunch.cfm?ts="+new Date().getTime()+"&box="+box+"&data=1&controlid="+control+"&format="+format, "facttable", "unadorned:yes; edge:raised; status:yes; dialogHeight:"+h+"px; dialogWidth:"+w+"px; help:no; scroll:no; center:yes; resizable:yes");
+	ColdFusion.navigate('RequisitionViewSelected.cfm','process','','','POST','req') 
+	ptoken.open("#SESSION.root#/component/analysis/CrossTabLaunch.cfm?ts="+new Date().getTime()+"&box="+box+"&data=1&controlid="+control+"&format="+format, "facttable");
 }	
 
 // function AddVacancy(pos,req) {

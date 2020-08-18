@@ -1,16 +1,16 @@
 	<table border="0" width="100%" height="100%">
 	
 	<cfquery name="qType" 
-				  datasource="AppsMaterials" 
-				  username="#SESSION.login#" 
-				  password="#SESSION.dbpw#">
-				    SELECT   SM.Code, S.Description, S.Mode, SM.GLAccount
-					FROM     Ref_SettlementMission SM INNER JOIN  Ref_Settlement S 
-					ON       SM.Code        = S.Code
-					WHERE    S.Operational  = '1'
-					AND      SM.Mission     = '#qWarehouse.Mission#'
-					ORDER BY ListingOrder Asc
-				</cfquery>
+	  datasource="AppsMaterials" 
+	  username="#SESSION.login#" 
+	  password="#SESSION.dbpw#">
+	    SELECT   SM.Code, S.Description, S.Mode, SM.GLAccount
+		FROM     Ref_SettlementMission SM INNER JOIN  Ref_Settlement S 
+		ON       SM.Code        = S.Code
+		WHERE    S.Operational  = '1'
+		AND      SM.Mission     = '#qWarehouse.Mission#'
+		ORDER BY ListingOrder Asc
+	</cfquery>
 	
 	<tr class="line">	
 			
@@ -52,17 +52,16 @@
                                 color:##333333!important;
                             }
                         </style>
-						<td onmouseover="mouseover(this)" 
-							onmouseout="mouseout(this)" 
-							onclick="setmode('#mode#','#code#')" 
-							id="tdm#code#" 
-							name="tdm#code#" 
-							class="tdmmenu #vClass#" 
-							style="width:140px !important; height:70px; border:1px solid ##cccccc;">
-								<div style="display:table-cell; vertical-align:middle; text-align:center; height:30px; width:140px;">
-									<i class="fas stlmnt-md#lcase(mode)# stlmnt"></i>
-                                    <p style="font-size: 14px;font-weight: 400; margin-top: 4px;"><cf_tl id="#Description#"></p>
-								</div>
+												
+						<td onmouseover="mouseover(this)" onmouseout="mouseout(this)" 
+							onclick="setmode('#mode#','#code#')" style="width:140px !important; height:80px; border:1px solid ##cccccc;">
+								
+								<table width="100%" height="100%" align="center">
+								<tr><td align="center"><i class="fas stlmnt-md#lcase(mode)# stlmnt"></i></td></tr>
+								<tr class="labelmedium">
+								<td id="tdm#code#" name="tdm#code#" class="tdmmenu #vClass#" style="padding-bottom:4px;font-size:14px" valign="bottom"><cf_tl id="#Description#"></td></tr>
+								</table>									
+								
 						</td>		
 						
 					</cfif>										
@@ -93,7 +92,7 @@
 						  id="additional" 
 						  name="additional" 
 						  class="settlement_details" 
-						  style="border:1px outset gray;height:115px;padding-right:10px;padding-left:10px">			  
+						  style="background-color:f4f4f4;border:0px outset gray;height:115px;padding-right:10px;padding-left:10px">			  
 						    <cfset url.mode = qType.mode>	
 														
 							<cfinclude template="SettlementDetails.cfm">	
@@ -130,7 +129,6 @@
 		</tr>
 		</cfif>
 		<tr>
-
 		
 			<td colspan="2" style="padding-right:0px"> 
 			
@@ -156,7 +154,7 @@
 									<tr>
 										<td align="center"id="tdc#Currency#" name="tdc#Currency#" class="labelit #vclass#" 									 
 									     onmouseover="javascript:mouseover(this)" onmouseout="javascript:mouseout(this)"
-										   valign="center" style="cursor:pointer;border-radius:3px;border:1px solid gray">#Currency#</td>
+										   valign="center" style="cursor:pointer;border:1px solid gray">#Currency#</td>
 									</tr>
 								</table>
 							
@@ -202,7 +200,7 @@
 								   name="Update" 
 								   id="Update" 
 								   value="#lt_text#" 							   
-								   onClick="saveline('#url.warehouse#','#url.customerid#','#url.batchid#','#url.terminal#','#url.td#','#url.th#','#url.tm#','#url.addressid#')">	
+								   onClick="saveline('#url.warehouse#','#url.customerid#','#url.batchid#','#url.terminal#','#url.td#','#url.th#','#url.tm#','#url.addressid#','#url.requestno#')">	
 							</cfoutput>	
 						</td>
 					</tr>

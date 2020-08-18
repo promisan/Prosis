@@ -77,7 +77,7 @@ password="#SESSION.dbpw#">
 	
 </cfquery>
 
-<cf_pagecountN show="20" 
+<cf_pagecountN show="70" 
                count="#Total.Total#">
 			   
 <cfset counted  = total.total>			   
@@ -106,13 +106,19 @@ password="#SESSION.dbpw#">
 
 </cfquery>
 
-<table border="0" height="100%" width="100%">
+<table height="100%" width="100%">
 
-<tr class="line"><td height="14" colspan="11">						 
+<tr class="line"><td height="14">						 
 	 <cfinclude template="SaleNavigation.cfm">	 				 
 </td></tr>
 
-<tr class="labelmedium line" style="height:20">	  
+<tr><td height="100%">
+
+<cf_divscroll style="height:100%" overflowy="scroll">
+
+	<table width="99%" class="navigation_table">
+				   
+		<tr class="labelmedium line fixrow" style="height:20">	  
 	    <td style="min-width:40"></td>
 		<td style="min-width:60"><cf_tl id="Sale"></td>
 		<TD style="min-width:90"><cf_tl id="Date"></TD>		
@@ -122,28 +128,8 @@ password="#SESSION.dbpw#">
 		<TD style="min-width:100"><cf_tl id="Reference"></TD>			
 		<TD style="min-width:120"><cf_tl id="Sales Person"></TD>		
 		<TD style="min-width:150"><cf_tl id="Posted"></TD>
-		<TD style="min-width:50"><cf_tl id="Status"></TD>	
-		<td style="min-width:55px"></td>
-	</tr>
-
-<tr><td height="100%" colspan="11">
-
-<cf_divscroll style="height:100%" overflowy="scroll">
-
-	<table border="0" cellpadding="0" cellspacing="0" width="99%" class="navigation_table">
-				   
-		<tr style="font-size:1px;height:1px">	  
-		    <td style="min-width:40"></td>
-			<td style="min-width:60"></td>
-			<TD style="min-width:90"></TD>		
-			<td style="min-width:70"></td>
-			<td style="width:25%"></td>
-			<td style="min-width:100"></td>
-			<TD style="min-width:100"></TD>			
-			<TD style="min-width:120"></TD>		
-			<TD style="min-width:150"></TD>
-			<TD style="min-width:50"></TD>		
-		</tr>
+		<TD style="min-width:50"><cf_tl id="Status"></TD>			
+		</tr>  		 
 		
 		<cfoutput query="SearchResult">
 				

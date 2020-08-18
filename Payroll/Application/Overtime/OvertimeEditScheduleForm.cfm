@@ -73,10 +73,10 @@ password="#SESSION.dbpw#">
   <tr>
     <td width="100%">
     
-	<table border="0" cellpadding="0" cellspacing="0" class="formpadding formspacing" width="97%" align="right">
+	<table class="formpadding formspacing" width="97%" align="right">
 	
 	<cfoutput>	
-							
+						
 			
 	<!--- you can edit the date at this point, you have to remove the record --->
 				
@@ -167,8 +167,19 @@ password="#SESSION.dbpw#">
 <tr><td></td></tr>
 
 <tr><td class="line"></td></tr>  
+
+<cfinvoke component  = "Service.Access" 
+      method         = "RoleAccess"				  	
+	  role           = "'LeaveClearer'"		
+	  returnvariable = "manager">		   
+		  
+<cfif manager eq "Granted">
+	<cfset access = "ALL">
+<cfelse>
+	<cfset access = "NONE">	
+</cfif>	  		
 	
- <cfif Get.Status lte "1" and URL.Mode neq "">
+ <cfif (Get.Status lte "1" and URL.Mode neq "") or access eq "all">
  
 	  <cfoutput>	  
 	  
@@ -185,8 +196,13 @@ password="#SESSION.dbpw#">
 		   	 
 		   <cf_tl id="Delete" var="1">      
 		     <input class="button10g" type="button" name="Delete" value="#lt_text#" onclick="check('delete')">
-		   <cf_tl id="Save" var="1">      
-		     <input class="button10g" type="button" name="Submit" value=" #lt_text# "  onclick="check('edit')">	              
+			 
+		   <cfif get.status lte "1"> 
+			 
+			     <cf_tl id="Save" var="1">      
+			     <input class="button10g" type="button" name="Submit" value=" #lt_text# "  onclick="check('edit')">	              
+			 
+		   </cfif>	 
 	   
 	   </td>	
 	   

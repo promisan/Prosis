@@ -9,7 +9,6 @@
 <cfparam name="url.requestno" 			default="">
 <cfparam name="url.customerId" 			default="00000000-0000-0000-0000-000000000000">
 <cfparam name="url.CustomerIdInvoice" 	default="00000000-0000-0000-0000-000000000000">
-<cfparam name="url.AddressId" 			default="00000000-0000-0000-0000-000000000000">
 <cfparam name="url.refreshContent" 		default="1">
 
 
@@ -22,7 +21,7 @@
 
 <cfif url.requestNo eq "">
 
-	<cf_getCustomerRequest>
+	<cf_setCustomerRequest>
 	<cfset url.requestNo = thisrequestNo>
 
 </cfif>
@@ -215,18 +214,10 @@
 						ItemNo, 
 						ItemClass,
 						ItemDescription, 
-						ItemCategory, 
-						<!---
-						Mission, 
-						Warehouse, 
-						--->							
+						ItemCategory, 											
 			            TransactionUoM, 
 						TransactionLot,
-						TransactionQuantity,  
-						<!---          
-						CustomerId, 
-						AddressId,
-						--->
+						TransactionQuantity,  					
 						CustomerIdInvoice,						
 						PriceSchedule,
 						SalesCurrency, 
@@ -251,18 +242,10 @@
 					    '#getUoM.itemno#', 
 						'#sale.ItemClass#',
 						'#sale.ItemDescription#', 
-						'#sale.Category#',
-						<!---
-						'#sale.Mission#', 
-						'#url.warehouse#', 
-						--->						
+						'#sale.Category#',										
 						'#getUoM.uom#',     
 						'#url.transactionlot#',       
-						'#qty#',			
-						<!---           
-						'#url.Customerid#', 
-						'#url.addressId#',
-						--->
+						'#qty#',									
 						'#url.CustomerIdInvoice#', 						
 						'#sale.priceschedule#',
 						'#url.currency#', 

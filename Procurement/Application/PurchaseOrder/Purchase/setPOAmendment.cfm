@@ -60,7 +60,7 @@
 <cfoutput>
 <script>
     Prosis.busy('no')
-	ptoken.location("POViewGeneral.cfm?header=#url.header#&Mode=edit&role=#URL.Role#&ID1=#URL.Purchaseno#")
+	ptoken.location("POView.cfm?header=#url.header#&Mode=edit&role=#URL.Role#&ID1=#URL.Purchaseno#")
 </script>
 </cfoutput>
  

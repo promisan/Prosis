@@ -161,19 +161,15 @@ function showfile(mode,openas,id) {
 	
 	<!--- open the file ---> 
     if (mode == "attachment" || mode == "attachmentmultiple") {
+		  
 
 	    if (openas == "view") {		
 		    <!--- ------------------------------------------------------------- --->
 		    <!--- perform the read action which copies the file to a save place --->
-			<!--- ------------------------------------------------------------- --->	
-			<!---Armin added the following try statement dialogArguments on 10/7/2013--->
-			try	{			
-				var ret = dialogArguments.window.open("#SESSION.root#/Tools/Document/FileRead.cfm?scope=actual&id="+id,"_blank","width=975, height=820,status=yes,toolbar=no,menubar=1,scrollbars=yes,resizable=yes");
-				if (!ret)
-					ptoken.open("#SESSION.root#/Tools/Document/FileRead.cfm?scope=actual&id="+id,"_blank","width=975, height=820,status=yes,toolbar=no,menubar=1,scrollbars=yes,resizable=yes");
-			} catch(ex)	{
-				ptoken.open("#SESSION.root#/Tools/Document/FileRead.cfm?scope=actual&id="+id,"_blank","width=975, height=820,status=yes,toolbar=no,menubar=1,scrollbars=yes,resizable=yes");			
-			}	
+			<!--- ------------------------------------------------------------- --->				
+			// window.open("#SESSION.root#/Tools/Document/FileRead.cfm?scope=actual&id="+id,"_blank","width=975, height=820,status=yes,toolbar=no,menubar=1,scrollbars=yes,resizable=yes");					
+			ptoken.open("#SESSION.root#/Tools/Document/FileRead.cfm?scope=actual&id="+id,"_blank");					
+		
 		} else {
     	   ptoken.open("#SESSION.root#/Tools/Document/FileEdit.cfm?mode="+mode+"&ts="+new Date().getTime()+"&id="+id, 'FileLibrary', "unadorned:yes; edge:raised; status:no; dialogHeight:800px; dialogWidth:1000px; status:yes;help:no; scroll:no; center:yes; resizable:yes");						
 		}

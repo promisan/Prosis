@@ -31,16 +31,14 @@ password="#SESSION.dbpw#">
 <cf_tl id="Compensation CTO"	var="1">
 <cfset vNo= "#lt_text#">
 
-
 <cfform method="POST" name="overtimeedit">
 
-<table><td height="1"></td></table>
 
 <cfoutput>
 
-		<input type="hidden" name="PersonNo"   value="#URL.ID#">
-        <input type="hidden" name="OvertimeId" value="#get.OvertimeId#">
-		<input type="hidden" name="status" id="status"   value="#get.status#">
+	<input type="hidden" name="PersonNo"           value="#URL.ID#">
+       <input type="hidden" name="OvertimeId"         value="#get.OvertimeId#">
+	<input type="hidden" name="status" id="status" value="#get.status#">
 		  
 </cfoutput>
 
@@ -147,9 +145,7 @@ password="#SESSION.dbpw#">
 	</TD>
 	</TR>
 
-
 	<cf_embedHeaderFields entitycode="EntOvertime" entityid="#get.Overtimeid#" style="height:26px">
-
 
     <TR class="labelmedium">
     <TD><cf_tl id="Mode">:</TD>
@@ -190,21 +186,9 @@ password="#SESSION.dbpw#">
 		</TR>
 		
 	<cfelse>
-
-	 <!---
-		  <cf_intelliCalendarDate9
-			FieldName="OvertimeDate" 
-			class="hide"
-			AllowBlank="No"
-			Default="#Dateformat(now()-7, CLIENT.DateFormatShow)#"
-			Message="Please record a currency date"			
-			DateValidEnd="#dateformat(now()+1,'YYYYMMDD')#">
-			---->
-
-			<input type="hidden" id="OvertimeDate" name="OvertimeDate" value="#Dateformat(now()-7, CLIENT.DateFormatShow)#">
-
-	<!---- <div id="overTimeDateMY" class="regularxl"><cfoutput>#Dateformat(Get.OvertimeDate, 'MM-YYYY')#</cfoutput></div>	 --->
-	
+		
+		<input type="hidden" id="OvertimeDate" name="OvertimeDate" value="#Dateformat(now()-7, CLIENT.DateFormatShow)#">
+		
 	</cfif>
 	
 	<cfif get.TransactionType eq "Correction">
@@ -328,8 +312,20 @@ password="#SESSION.dbpw#">
 <tr><td></td></tr>
 
 <tr><td class="line"></td></tr>  
+
+<cfinvoke component  = "Service.Access" 
+      method         = "RoleAccess"				  	
+	  role           = "'LeaveClearer'"		
+	  returnvariable = "manager">		   
+		  
+  
+<cfif manager eq "Granted">
+	<cfset access = "ALL">
+<cfelse>
+	<cfset access = "NONE">	
+</cfif>	  			
 	
- <cfif Get.Status lte "1" and URL.Mode neq "">
+ <cfif (Get.Status lte "1" and URL.Mode neq "") or access eq "all">
  
 	  <cfoutput>	  
 	  
@@ -346,8 +342,13 @@ password="#SESSION.dbpw#">
 		   	 
 		   <cf_tl id="Delete" var="1">      
 		     <input class="button10g" type="button" name="Delete" value="#lt_text#" onclick="check('delete')">
+			 
+		   <cfif get.status lte "1"> 
+		   	 
 		   <cf_tl id="Save" var="1">      
 		     <input class="button10g" type="button" name="Submit" value=" #lt_text# "  onclick="check('edit')">	              
+			 
+		   </cfif>	 
 	   
 	   </td>	
 	   

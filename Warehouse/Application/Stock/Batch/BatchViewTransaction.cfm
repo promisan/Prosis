@@ -177,15 +177,15 @@ function openreference(id) {
 				
 			</td>	
 					    
-			<td width="80" style="border-left:0px dotted silver;padding-left:20px"><font color="808080"><cf_tl id="Facility">:</td>
-			<td colspan="3" style="font-size:16px;border:1px solid silver;padding:4px">#Warehouse.WarehouseName# #Warehouse.City# #Warehouse.Address#</td>
-			<td style="min-width:100px;border-left:0px dotted silver;padding-left:20px;"><font color="808080"><cf_tl id="Document date">:</td>
+			<td width="80" style="border-left:0px dotted silver;padding-left:20px"><font color="808080"><cf_tl id="Warehouse"></td>
+			<td colspan="3" style="font-size:16px;border:1px solid silver;padding-left:4px;">#Warehouse.WarehouseName#<br><font size="1">#Warehouse.City# #Warehouse.Address#</td>
+			<td style="min-width:100px;border-left:0px dotted silver;padding-left:20px;"><font color="808080"><cf_tl id="Document date"></td>
 			<td style="font-size:16px;border:1px solid silver;padding:4px">#dateformat(Batch.TransactionDate,CLIENT.DateFormatShow)#</td>	
 			
 			<cfif batch.transactiontype eq "2" or batch.transactiontype eq "8">
 			
-				<td style="min-width:100px;border-left:0px dotted silver;padding-left:20px;"><font color="808080"><cf_tl id="Collection">:</td>
-				<td style="font-size:16px;max-width:96px;min-width:96px;border:1px solid silver;padding:4px" id="collection">
+				<td style="padding-left:5px;"><font color="808080"><cf_tl id="Collection"></td>
+				<td style="font-size:16px;max-width:96px;min-width:86px;border:1px solid silver;padding:4px" id="collection">
 				
 					<table width="100%">
 					<tr class="labelmedium">
@@ -409,7 +409,7 @@ function openreference(id) {
 		
 		<cfif Batch.BatchReference neq "" or actors.recordcount gte "1">				
 			
-			<tr  class="labelmedium"><td width="10" style="border-left:0px dotted silver;padding:4px"><font color="808080"></td>
+			<tr  class="labelmedium"><td width="10" style="padding:4px"><font color="808080"></td>
 				<td style="font-size:16px;border:1px solid silver;padding:4px">#Batch.BatchReference#</td>
 				<td style="border:0px solid silver;padding-left:20px"><cf_tl id="Action">:</td>
 				

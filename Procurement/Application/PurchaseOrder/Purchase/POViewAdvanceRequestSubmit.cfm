@@ -281,7 +281,7 @@
 	
 <cfoutput>	
 <script language="JavaScript">
-    parent.parent.ColdFusion.Window.hide('myadvance',true)
+    parent.parent.ProsisUI.closeWindow('myadvance',true)
 	parent.parent.requestadvancerefresh('#URL.ID#')
 </script>	
 </cfoutput>	

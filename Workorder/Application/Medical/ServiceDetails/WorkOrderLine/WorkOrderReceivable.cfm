@@ -29,7 +29,7 @@
 				<td>#ReferenceName#</td>
 				<td>#Currency#</td>
 				<td>
-				<a style="color:black;" href="#SESSION.root#/Gledger/Application/Transaction/View/TransactionViewDetail.cfm?id=#TransactionId#" target="_blank" >#TransactionReference#</a>
+				<a style="color:black;" href="#SESSION.root#/Gledger/Application/Transaction/View/TransactionView.cfm?id=#TransactionId#" target="_blank" >#TransactionReference#</a>
 				</td>
 				<td>#TransactionSource#</td>
 				<td>

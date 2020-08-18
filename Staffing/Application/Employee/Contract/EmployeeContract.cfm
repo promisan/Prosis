@@ -465,6 +465,8 @@ password="#SESSION.dbpw#">
 		
 		<cfoutput query="SearchResult">
 		
+	
+		
 		<cfif recruitmentid neq "">	
 	    	 <cfset workflow = recruitmentid>
 		<cfelse>
@@ -666,7 +668,7 @@ password="#SESSION.dbpw#">
 			<td style="background-color:#cl#;padding-left:3px;padding-right:5px">#Mission#</td>		
 			<td style="background-color:#cl#;padding-right:2px" colspan="2">#ActionDescription#</td>
 			<TD style="background-color:#cl#">
-			
+						
 			<cfquery name = "Action"
 			datasource = "AppsEmployee"
 			username="#SESSION.login#" 
@@ -678,17 +680,22 @@ password="#SESSION.dbpw#">
 				AND    EA.ActionSource = 'Contract'
 						
 		    </cfquery>
+									
+			<cfif Action.RecordCount eq "1">
 			
+				<cfloop query="Action">
+				<a href="javascript:padialog('#Actiondocumentno#')"><cfif actionStatus eq "9"><font color="FF0000"></cfif><cfif SearchResult.PersonnelActionNo neq "">#SearchResult.PersonnelActionNo#<cfelse>#ActionDocumentNo#</cfif></font></a><cfif recordcount neq currentrow>|</cfif>
+				</cfloop>	
+					
+			<cfelseif Action.RecordCount gt "1">
 						
-			<cfif Action.RecordCount gte "1">
-			
 				<cfloop query="Action">
 					<a href="javascript:padialog('#Actiondocumentno#')"><cfif actionStatus eq "9"><font color="FF0000"></cfif>#ActionDocumentNo#</font></a><cfif recordcount neq currentrow>|</cfif>
 				</cfloop>			
 			
 			<cfelse>
 			
-				#PersonnelActionNo#
+				<cfif PersonnelActionNo neq "">#PersonnelActionNo#</cfif>
 			
 			</cfif>
 					

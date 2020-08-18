@@ -62,11 +62,7 @@
 
 		   <iframe src="#SESSION.root#/Tools/Treeview/TreeViewInit.cfm" name="right" id="right" width="100%" height="100%" scrolling="0" frameborder="0"></iframe>
 			
-			<!---
-		   <cf_loadpanel 
-			   id="right"
-			   template="#SESSION.root#/Tools/Treeview/TreeViewInit.cfm">	
-			   --->
+			<!--- <cf_loadpanel id="right" template="#SESSION.root#/Tools/Treeview/TreeViewInit.cfm"> --->
 						
 	</cf_layoutarea>			
 		

@@ -141,7 +141,7 @@
 <cfoutput>
 <script language="JavaScript">
  
-   window.location="POViewGeneral.cfm?Period=#URL.Period#&ID=#URL.ID#&ID1=#URL.ID1#&Role=#URL.Role#"
+   window.location="POView.cfm?Period=#URL.Period#&ID=#URL.ID#&ID1=#URL.ID1#&Role=#URL.Role#"
 					 
 </script>
 </cfoutput> 

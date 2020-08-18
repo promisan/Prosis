@@ -295,7 +295,7 @@
 																																					
 								<tr id="myreportcontent" height="100%">
 									<td  style="border:0px solid silver">	
-										
+																																					
 										<cfif client.browser eq "Chrome">
 												
 											<cf_divscroll overflowy="hidden">
@@ -319,13 +319,10 @@
 														</td>
 													</tr>
 												</table>	
+												
 										<cfelse>
 																									
-												<iframe name="report" 
-												id="report" 																								
-												scrolling="auto" 
-												style="border:0px;height:100%; width:100%" 
-												frameborder="1"></iframe>													
+												<iframe name="report" id="report" scrolling="auto" style="border:0px;height:100%; width:100%" frameborder="1"></iframe>													
 																			
 										</cfif>
 							

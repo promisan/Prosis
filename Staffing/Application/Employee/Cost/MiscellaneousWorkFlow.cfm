@@ -56,7 +56,7 @@ password="#SESSION.dbpw#">
 	WHERE  PayrollItem = '#get.PayrollItem#'
 </cfquery>
 
-<cfset link = "Staffing/Application/Employee/Cost/MiscellaneousEdit.cfm?id=#Person.personno#&id1=#url.ajaxid#">
+<cfset link = "Staffing/Application/Employee/Cost/MiscellaneousView.cfm?id=#Person.personno#&id1=#url.ajaxid#">
 			
 <cf_ActionListing 
     EntityCode       = "EntCost"

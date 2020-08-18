@@ -29,7 +29,7 @@ password="#SESSION.dbpw#">
 	 AND  Org.MandateNo   = '#URL.MandateNo#'  
 </cfquery>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" class="navigation_table">
+<table width="99%" align="left" class="navigation_table">
 
 <cfif Position.recordcount eq "0">
 	<tr><td align="center" class="labelit"><font color="FF0000">No positions found for this grade</font></td></tr>
@@ -37,7 +37,7 @@ password="#SESSION.dbpw#">
 	
 <cfoutput query="Position">
 	
-	<tr class="navigation_row labelmedium line">
+	<tr style="height:20px" class="navigation_row labelmedium">
 	
 		<td width="6%" align="center" height="35">		
 		  <cf_img icon="open" navigation="Yes" onclick="selected('#positionno#')">		 		
@@ -51,9 +51,9 @@ password="#SESSION.dbpw#">
 		
 	</tr> 
 		
-	<tr class="navigation_row_child">
+	<tr style="height:20px" class="navigation_row_child line labelmedium">
 	    <td></td>
-		<td colspan="6" class="labelit">#OrgUnitName#</td>
+		<td colspan="6">#OrgUnitName#</td>
 	</tr>
 	
 	<cfquery name="Assignment" 
@@ -76,22 +76,22 @@ password="#SESSION.dbpw#">
 	</cfquery>
 	
 	<cfif Assignment.recordcount eq "0">
-		<tr bgcolor="f9f9f9" class="navigation_row_child linedotted labelmedium">
-		   <td colspan="7" align="center"><font color="FF0000">Vacant</font></td>	  
+		<tr class="navigation_row_child line labelmedium">
+		   <td colspan="7" align="center"><font color="FF0000"><cf_tl id="Vacant"></font></td>	  
 		</tr>		
 	</cfif>
 	
 	<cfloop query="assignment">
 	
-	<tr class="navigation_row_child line labelmedium">
-	   <td></td>
-	   <td>#FullName#</td>
-	   <td>#Gender#</td>
-	   <td></td>
-	   <td></td>
-	   <td>#DateFormat(DateEffective,CLIENT.DateFormatShow)#</td>
-	   <td>#DateFormat(DateExpiration,CLIENT.DateFormatShow)#</td>	   
-	</tr>
+		<tr style="background-color:f1f1f1" class="line labelmedium">
+		   <td></td>
+		   <td>#FullName#</td>
+		   <td>#Gender#</td>
+		   <td></td>
+		   <td></td>
+		   <td>#DateFormat(DateEffective,CLIENT.DateFormatShow)#</td>
+		   <td>#DateFormat(DateExpiration,CLIENT.DateFormatShow)#</td>	   
+		</tr>
 		
 	</cfloop>	
 				

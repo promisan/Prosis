@@ -156,8 +156,7 @@
 	}  
 
 	function editFunding(pos, fund) {
-		try { ColdFusion.Window.destroy('wFundingEdit',true) } catch(e) {}
-		ColdFusion.Window.create('wFundingEdit', 'Funding Edit', '',{x:100,y:100,height:document.body.clientHeight-40,width:document.body.clientWidth-40,modal:false,resizable:false,center:true})    				
+		ProsisUI.createWindow('wFundingEdit', 'Funding Edit', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,resizable:false,center:true})    				
 		ptoken.navigate('#SESSION.root#/Staffing/Application/Position/Funding/PositionFundingPercentageEdit.cfm?PositionParentId='+pos+'&fundingid='+fund, 'wFundingEdit');
 	}
 
@@ -168,10 +167,9 @@
 	function addFundingLine(pos, fund) {
 		vFundPercentageLineId = vFundPercentageLineId + 1;
 		$('##fundingList').append('<tr class="navigation_row clsFundingLine" id="fundingLine_'+vFundPercentageLineId+'"><td id="fundingLineTD_'+vFundPercentageLineId+'"></td></tr>');
-		$('##btnFundSave').hide();
-		ptoken.navigate('#session.root#/staffing/application/position/funding/setFundPercentageLine.cfm?lineId='+vFundPercentageLineId+'&positionparentid='+pos+'&FundingId='+fund, 'fundingLineTD_'+vFundPercentageLineId, function(){
-			$('##btnFundSave').show();
-		});
+		$('##btnFundSave').hide();		
+		ptoken.navigate('#session.root#/staffing/application/position/funding/setFundPercentageLine.cfm?lineId='+vFundPercentageLineId+'&positionparentid='+pos+'&FundingId='+fund, 'fundingLineTD_'+vFundPercentageLineId)
+		$('##btnFundSave').show();		
 	}
 
 	function removeFundingLine(id) {

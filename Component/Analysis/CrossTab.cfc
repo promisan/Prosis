@@ -595,13 +595,17 @@
 	        <cfif buttonClass eq "td">
 							
 				<cfsavecontent variable="selectme">
-				        style="cursor: pointer;padding:2px"
-						onMouseOver="this.className='labelit highlight1'"
-						onMouseOut="this.className='labelit'"
+				        style="cursor: pointer;padding:4px;background-color:white"
+						onMouseOver="this.className='highlight1'"
+						onMouseOut="this.className='regular'"
 				</cfsavecontent>
 								
-				<td class="labelit" onclick="#scriptfunction##ajax#('#controlid#','excel','#filter#','#querystring#','#datasource#')" #selectme#>
-				   <img align="absmiddle" height="14" width="14" src="#SESSION.root#/images/excel.png" border="0">&nbsp;#ButtonText#							   				   
+				<td style="background-color:white" align="right" onclick="#scriptfunction##ajax#('#controlid#','excel','#filter#','#querystring#','#datasource#')">
+				    <table><tr class="labelmedium">
+					<td>
+				   <img align="absmiddle" height="16" width="16" src="#SESSION.root#/images/excel.png" border="0">
+				   </td>
+				   <td #selectme#>#ButtonText#</td></tr></table>
 				</td>
 			
 			<cfelse>

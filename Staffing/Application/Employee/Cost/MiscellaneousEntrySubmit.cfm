@@ -151,44 +151,45 @@ function editEntitlement(persno, no) {
 							FROM   Person
 							WHERE  PersonNo = '#Form.PersonNo#' 
 					  </cfquery>
-					  
-					  <!--- obtain the actors --->
-					  					  					  
-					  <cfset Paction = ArrayNew(1)>
-					  <cfset Pactor  = ArrayNew(1)>
-					  
-					  <cfloop index="itm" from="1" to="3">
-					     <cfset Pactor[itm] = "">
-						 <cfset Paction[itm] = "">
-					  </cfloop>
-					  
-					  <cfif form.actions neq "">
-					  
-					  	  <!-- take 3 actions --->	
-					  
-						  <cfquery name="Actions" 
-							datasource="AppsOrganization" 
-							username="#SESSION.login#" 
-							password="#SESSION.dbpw#">
-								SELECT TOP 3 *
-								FROM   Ref_EntityAction
-								WHERE  ActionCode IN (#preserveSingleQuotes(form.actions)#) 
-								ORDER BY ListingOrder
-						  </cfquery>
-					  
-						  <cfloop query="actions">
-						  
-						  	<cfset Paction[currentrow]  = ActionCode> 							  
-							<cfset Pactor[currentrow]   = evaluate("Form.#ActionCode#")>
-						  					  
-						  </cfloop>
-					  
-					  </cfif>			 
-					  
-						
+					  						
 					  <cfif ecl neq "">
+					  
+					  		<cfparam name="form.actions" default="">
+					  
+					  		 <!--- obtain the actors --->
+					  					  					  
+							 <cfset Paction = ArrayNew(1)>
+							 <cfset Pactor  = ArrayNew(1)>
+							  
+							 <cfloop index="itm" from="1" to="3">
+							     <cfset Pactor[itm]  = "">
+								 <cfset Paction[itm] = "">
+							 </cfloop>
+					  
+							 <cfif form.actions neq "">
+							  
+							  	  <!-- take 3 actions --->	
+							  
+								  <cfquery name="Actions" 
+									datasource="AppsOrganization" 
+									username="#SESSION.login#" 
+									password="#SESSION.dbpw#">
+										SELECT TOP 3 *
+										FROM   Ref_EntityAction
+										WHERE  ActionCode IN (#preserveSingleQuotes(form.actions)#) 
+										ORDER BY ListingOrder
+								  </cfquery>
+							  
+								  <cfloop query="actions">
+								  
+								  	<cfset Paction[currentrow]  = ActionCode> 							  
+									<cfset Pactor[currentrow]   = evaluate("Form.#ActionCode#")>
+								  					  
+								  </cfloop>
+							  
+							 </cfif>				
 											 	
-							<cfset link = "Staffing/Application/Employee/Cost/MiscellaneousEdit.cfm?id=#form.personno#&id1=#rowguid#">
+							<cfset link = "Staffing/Application/Employee/Cost/MiscellaneousView.cfm?id=#form.personno#&id1=#rowguid#">
 							
 							<cf_ActionListing 
 							    EntityCode       = "EntCost"

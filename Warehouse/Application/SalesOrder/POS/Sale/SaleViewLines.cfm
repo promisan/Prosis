@@ -6,10 +6,6 @@
 <cfparam name="url.mode"       default="embed">
 <cfparam name="url.requestno"  default="">
 
-<cfoutput>
-<input type="hidden" id="RequestNo" name="RequestNo" value="#url.requestno#">
-</cfoutput>
-
 <!--- apply the promotions --->
 			
 <cfinvoke component = "Service.Process.Materials.POS"  

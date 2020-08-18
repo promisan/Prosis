@@ -7,7 +7,6 @@ password="#SESSION.dbpw#">
 		WHERE  BatchId = '#batchid#'
 </cfquery>	
 
-
 <cfquery name="qWarehouse" 
   datasource="AppsMaterials" 
   username="#SESSION.login#" 
@@ -17,26 +16,20 @@ password="#SESSION.dbpw#">
 	WHERE  Warehouse = '#qBatch.Warehouse#' 	
 </cfquery>	
 
-
 <cfif qWarehouse.emailAddress neq "">
 
 	<cfquery name="Parameter" 
 	datasource="AppsInit">
 		SELECT * 
-		FROM Parameter
-		WHERE HostName = '#CGI.HTTP_HOST#'  
+		FROM   Parameter
+		WHERE  HostName = '#CGI.HTTP_HOST#'  
 	</cfquery>
 	
-	<cfif not DirectoryExists("#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\")>
-	
-		   <cfdirectory 
-		     action="CREATE" 
-	            directory="#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\">
-	
+	<cfif not DirectoryExists("#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\")>	
+		   <cfdirectory action="CREATE" directory="#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\">	
 	</cfif>
 	
-	<cfset url.templatepath = "/warehouse/inquiry/print/BatchDistribution/Batch.cfr">
-	
+	<cfset url.templatepath = "/warehouse/inquiry/print/BatchDistribution/Batch.cfr">	
 		
 	<cfset rep=replace(url.templatepath,"/","\","ALL")>
 			
@@ -44,14 +37,12 @@ password="#SESSION.dbpw#">
 	<cfset attach = "ORDER_#qBatch.BatchNo#_#FileNo#.pdf">
 	
 	<cfset vpath="#SESSION.rootPath#CFRStage\User\#SESSION.acc#\#attach#">		
-	
-			
-	<cfreport 
-		   template     = "#SESSION.rootPath##rep#" 
-		   format       = "PDF" 
-		   overwrite    = "yes" 
-		   encryption   = "none"
-		   filename     = "#vPath#">
+				
+	<cfreport template    = "#SESSION.rootPath##rep#" 
+			   format     = "PDF" 
+			   overwrite  = "yes" 
+			   encryption = "none"
+			   filename   = "#vPath#">
 			
 			<!--- other variables --->					
 			<cfreportparam name = "root"            value="#SESSION.root#">
@@ -64,8 +55,8 @@ password="#SESSION.dbpw#">
 	</cfreport>	
 	
 	<cfif Parameter.SystemContactEmail neq "">
-		<cfmail
-				FROM        = "#Parameter.SystemContactEmail#"
+	
+		<cfmail FROM        = "#Parameter.SystemContactEmail#"
 				TO          = "#qWarehouse.emailAddress#"			
 				subject     = "BatchNo : #qBatch.BatchNo#" 
 				replyto     = "#Parameter.SystemContactEmail#"
@@ -78,6 +69,7 @@ password="#SESSION.dbpw#">
 		 			<cfmailparam file = "#vpath#">
 			
 		</cfmail>	
+		
 	</cfif>
 
 </cfif>

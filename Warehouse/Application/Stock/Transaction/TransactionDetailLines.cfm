@@ -155,13 +155,13 @@ password="#SESSION.dbpw#">
 	ORDER BY T.OfficerUserId, T.Created DESC
 </cfquery>		
 
-<table width="100%" height="100%" cellspacing="0" border="0" class="navigation_table formpadding">
+<table width="100%" height="100%" class="navigation_table formpadding">
 
 <tr><td valign="top">
 
 <cfif Line.recordcount gte "0">
 
-<table width="99%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="99%" align="center">
 
     <cfif URL.tratpe eq "2" or URL.tratpe eq "9">
 	   <cfset cols = "15">
@@ -169,9 +169,9 @@ password="#SESSION.dbpw#">
 	   <cfset cols = "13">
 	</cfif> 
 	
-	<tr class="hide"><td height="4" id="processlines"></td></tr>
+	<tr class="xxxhide"><td height="4" id="processlines"></td></tr>
 	
-	<tr class="labelmedium line">
+	<tr class="labelmedium fixrow line">
 	  <td width="1"></td>
 	  <td></td>
       <TD></TD>	 
@@ -192,19 +192,14 @@ password="#SESSION.dbpw#">
 	  <cfelse>
 	  	  <TD><cf_tl id="Location"></TD>
 	  	  <td colspan="2"><cf_tl id="Product"></td>		         
-	      <td><cf_tl id="Category"></td>	
-		 
-	  </cfif>
-	 	 
-	  <td width="120" colspan="3"><cf_tl id="Quantity"></td>
-	 	  
+	      <td><cf_tl id="Category"></td>			 
+	  </cfif>	 	 
+	  <td width="120" colspan="3"><cf_tl id="Quantity"></td>	 	  
 	  <cfif presentation eq "price">	 
-
 	    <TD align="right"><cf_tl id="Cost"></TD>   
     	<TD align="right" style="padding-right:4px"><cf_tl id="Total"></TD>	 	   
 	    <TD align="right"><cf_tl id="Charge"></TD>
-	  	<TD align="right" style="padding-right:2px"><cf_tl id="Total"></TD>
-		
+	  	<TD align="right" style="padding-right:2px"><cf_tl id="Total"></TD>		
 	  </cfif>   	  
 	</tr>  
 	
@@ -222,7 +217,7 @@ password="#SESSION.dbpw#">
 	
     <cfoutput query="Line" group="OfficerUserid">
 	
-	<tr class="line"><td colspan="#cols#" style="height:20;padding-top:4px;padding-left:4px" class="labelmedium"><b>#OfficerName# (#OfficerUserid#)</b></td></tr>
+	<tr class="line"><td colspan="#cols#" style="height:25;padding-top:4px;padding-left:4px" class="labelmedium">#OfficerName# (#OfficerUserid#)</td></tr>
 	
 	<cfoutput>
 				
@@ -278,7 +273,7 @@ password="#SESSION.dbpw#">
 				 
 				    <cfif url.mode neq "workorder" and mode neq "sale" and URL.mode neq "ExternalSale"> 
 												 
-					 	<td style="width:20px;">
+					 	<td style="width:20px;padding-top:1px">
 						
 						<cfset vTemplate = "Warehouse/Inquiry/Print/Issue/Issue.cfr">
 						<cfset vTable = "#tableName#"> 
@@ -315,9 +310,10 @@ password="#SESSION.dbpw#">
 			   		    <cfset link = "../Transaction/TransactionDetailDelete.cfm?systemfunctionid=#url.systemfunctionid#&mode=#url.mode#&id=#transactionid#&warehouse=#url.warehouse#&location=#url.location#&itemno=#url.itemno#&uom=#url.uom#">
 				   </cfif>
 				   
-				   <cfif (transactionClass eq "Transfer" and TransactionQuantity gt 0) or (transactionType eq "2" and mode neq "sale" and mode neq "workorder" and mode neq "disposal" and URL.mode neq "ExternalSale")>
+				   <cfif (transactionClass eq "Transfer" and TransactionQuantity gt 0) 
+				        or (transactionType eq "2" and mode neq "sale" and mode neq "workorder" and URL.mode neq "ExternalSale")>
 				
-					   <cf_img icon="delete" onclick="ColdFusion.navigate('#link#','processlines')">
+					   <cf_img icon="delete" onclick="ptoken.navigate('#link#','processlines')">
 				   
 				   </cfif>
 			    				   

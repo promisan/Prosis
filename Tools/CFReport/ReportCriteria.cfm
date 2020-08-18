@@ -526,7 +526,11 @@
 			<cfset Form[CriteriaName] = "#tmp#">
 			
 		<cfelseif CriteriaType eq "date" and (CriteriaDateRelative eq "1" or val eq "today")>		
-				
+			
+			<cfif val eq "">
+				<cfset val = "0">
+			</cfif>	
+								
 		    <cfif val eq "today">
 			   <cfset tmp = "#DateFormat(now(),client.DateSQL)#">
 		    <cfelseif val gte "0">
@@ -542,6 +546,10 @@
 				
 					<cfset val = Evaluate("FORM.#CriteriaName#_end")>
 					
+					<cfif val eq "">
+						<cfset val = "0">
+					</cfif>	
+					
 					<cfif val eq "today">
 			   			<cfset tmp = "#DateFormat(now(),client.DateSQL)#">
 				    <cfelseif val gte "0">
@@ -555,25 +563,23 @@
 					
 			</cfif>		
 					
-		<cfelseif CriteriaType eq "date" and len(val) gte "6" and len(val) lte "10">		
-										  														
-				<cfquery name="Dformat" 
-			   	 datasource="AppsSystem" 
-				 maxrows=1>
+		<cfelseif CriteriaType eq "date" and len(val) gte "6" and len(val) lte "10">	
+												  														
+				<cfquery name="Dformat" datasource="AppsSystem" maxrows=1>
 				 SELECT *
-				 FROM Parameter
+				 FROM   Parameter
 				</cfquery>	
 																		
 				<cfif dformat.DateFormat eq dFormat.DateFormatSQL>
 					
 					   <!--- do nothing, SQL will understand --->
 					   
-					   <cfset tmp   = "#val#">
-					   
+					   <cfset tmp   = val>
+					  					   
 				<cfelseif url.mode neq "Form">
 				
-					   <cfset tmp   = "#val#">
-							
+					   <cfset tmp   = val>
+					  							
 				<cfelse>							
 																			
 						<!--- reverse --->
@@ -600,7 +606,7 @@
 					         <cfset y      = '0'&mid(#val#,len(#val#),1)>
 					    </cfif>
 					   
-						<cfif y gte 40>
+						<cfif y gte 50>
 						    <cfset y = "19"&#y#> 
 						<cfelse>
 						  	<cfset y = "20"&#y#> 
@@ -609,6 +615,7 @@
 						<cfset tmp   = "#m#/#d#/#y#">
 													
 				</cfif>
+							
 				
 				<cfset Form[CriteriaName] = "'#tmp#'">
 								
@@ -629,11 +636,11 @@
 						
 						   <!--- do nothing, SQL will understand --->
 						   
-						   <cfset end   = "#val#">
+						   <cfset end   = val>
 						   
 					<cfelseif url.mode neq "Form">
 					
-						   <cfset end   = "#val#">
+						   <cfset end   = val>
 								
 					<cfelse>							
 																				
@@ -661,7 +668,7 @@
 						         <cfset y      = '0'&mid(#val#,len(#val#),1)>
 						    </cfif>
 						   
-							<cfif y gte 40>
+							<cfif y gte 50>
 							    <cfset y = "19"&#y#> 
 							<cfelse>
 							  	<cfset y = "20"&#y#> 

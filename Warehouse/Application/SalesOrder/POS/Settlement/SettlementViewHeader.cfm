@@ -1,12 +1,13 @@
 <cfparam name="Object.ObjectId" 	default="">	
+<cfparam name="url.requestNo"  		default="">
 <cfparam name="url.addressid"  		default="00000000-0000-0000-0000-000000000000">
 <cfparam name="url.batchId"  		default="00000000-0000-0000-0000-000000000000">
 <cfparam name="url.journal" 		default="">
 <cfparam name="url.journalSerialNo" default="">
 <cf_tl id="Settlement" var="set">
 
-
 <cfif Object.ObjectId neq "">
+
 	<cfset url.scope = "workflow">
 	<cfset url.formName = "formembed">
 	<script>
@@ -20,20 +21,21 @@
   	datasource="AppsMaterials" 
   	username="#SESSION.login#" 
   	password="#SESSION.dbpw#">	
-	SELECT *
-	 FROM Accounting.dbo.TransactionHeader TH 
- 		WHERE TransactionId='#Object.ObjectId#'
- 		AND TransactionSource='SalesSeries'
+		SELECT  *
+		FROM    Accounting.dbo.TransactionHeader TH 
+ 		WHERE   TransactionId     = '#Object.ObjectId#'
+ 		AND     TransactionSource = 'SalesSeries'
 	</cfquery>
  	
  	<cfif qHeader.recordcount eq 1>
+	
 		<cfquery name="qBatch" 
 	  	datasource="AppsMaterials" 
 	  	username="#SESSION.login#" 
 	  	password="#SESSION.dbpw#">	
 		SELECT *
-		FROM Materials.dbo.WarehouseBatch B 
-	 	WHERE B.BatchId = '#qHeader.TransactionSourceId#'
+		FROM   Materials.dbo.WarehouseBatch B 
+	 	WHERE  B.BatchId = '#qHeader.TransactionSourceId#'
 		</cfquery>
 		
 		<cfquery name="qExistingSettlement" 
@@ -41,11 +43,10 @@
 	  	username="#SESSION.login#" 
 	  	password="#SESSION.dbpw#">	
 			SELECT * 
-			FROM WarehouseBatchSettlement
-			WHERE BatchNo = '#qBatch.BatchNo#' 
+			FROM   WarehouseBatchSettlement
+			WHERE  BatchNo = '#qBatch.BatchNo#' 
 		</cfquery>	
-		
-		
+				
 		<cfif qExistingSettlement.recordCount eq 0>
 		
 			<cfset url.batchId = qBatch.BatchId>
@@ -106,6 +107,7 @@
 	</script>
 	
 <cfelseif url.journal neq "">
+
 	<cfset url.scope = "standalone">
 		
 	<cfquery name="qHeader" 
@@ -113,13 +115,14 @@
   	username="#SESSION.login#" 
   	password="#SESSION.dbpw#">	
 		SELECT *
-		FROM Accounting.dbo.TransactionHeader TH 
- 		WHERE Journal		='#URL.Journal#'
- 		AND JournalSerialNo ='#URL.JournalSerialNo#'
- 		AND TransactionSource='SalesSeries'
+		FROM   Accounting.dbo.TransactionHeader TH 
+ 		WHERE  Journal		='#URL.Journal#'
+ 		AND    JournalSerialNo ='#URL.JournalSerialNo#'
+ 		AND    TransactionSource='SalesSeries'
 	</cfquery>
 	
  	<cfif qHeader.recordcount eq 1>
+	
 		<cfquery name="qBatch" 
 	  	datasource="AppsMaterials" 
 	  	username="#SESSION.login#" 
@@ -133,9 +136,9 @@
 	  	datasource="AppsMaterials" 
 	  	username="#SESSION.login#" 
 	  	password="#SESSION.dbpw#">	
-			SELECT SettleCurrency, SUM(SettleAmount) as sTotal
-			FROM WarehouseBatchSettlement
-			WHERE BatchNo = '#qBatch.BatchNo#' 
+			SELECT   SettleCurrency, SUM(SettleAmount) as sTotal
+			FROM     WarehouseBatchSettlement
+			WHERE    BatchNo = '#qBatch.BatchNo#' 
 			GROUP BY SettleCurrency
 		</cfquery>	
 		
@@ -144,31 +147,26 @@
 	 	username="#SESSION.login#" 
 	 	password="#SESSION.dbpw#">
 		 	SELECT   ITS.SalesCurrency, 
-			  		SUM(ITS.SalesTotal) as sTotal
-		 	FROM   ItemTransaction IT INNER JOIN ItemTransactionShipping ITS ON
-			 	IT.TransactionId = ITS.TransactionId
-		 	WHERE  IT.TransactionBatchNo = '#qBatch.BatchNo#'
+			  		 SUM(ITS.SalesTotal) as sTotal
+		 	FROM     ItemTransaction IT INNER JOIN ItemTransactionShipping ITS ON	IT.TransactionId = ITS.TransactionId
+		 	WHERE    IT.TransactionBatchNo = '#qBatch.BatchNo#'
 		 	GROUP BY ITS.SalesCurrency	
-		</cfquery>		
+		</cfquery>	
 		
-				
+		<cfif getSettlement.sTotal lt getSale.sTotal>
 		
-		<cfif getSettlement.sTotal lt getSale.sTotal >
-		
-			<cfset url.batchId = qBatch.BatchId>
-			<cfset url.addressId = qBatch.AddressId>
-			<cfset url.warehouse = qBatch.Warehouse>
-			<cfset url.customerId = qBatch.CustomerId>
+			<cfset url.batchId           = qBatch.BatchId>
+			<cfset url.addressId         = qBatch.AddressId>
+			<cfset url.warehouse         = qBatch.Warehouse>
+			<cfset url.customerId        = qBatch.CustomerId>
 			<cfset url.customerIdInvoice = qBatch.CustomerIdInvoice>
 			<cfset url.terminal = "">
 			
 			<cfset url.td = "">
 			<cfset url.th = "">
 			<cfset url.tm = "">
-			
-			
-			<cfinclude template = "SettlementInit.cfm">
-			
+						
+			<cfinclude template = "SettlementInit.cfm">			
 			
 			<cfquery name="qWarehouse" 
 			  datasource="AppsMaterials" 
@@ -187,6 +185,7 @@
 				 FROM   ItemTransaction 
 				 WHERE  TransactionBatchNo = '#qBatch.BatchNo#'	
 			</cfquery> 	
+			
 		<cfelse>
 			Already settled	
 			<cfabort>
@@ -196,9 +195,13 @@
 		<cfset AjaxOnLoad("initPOS")>
 	
 	</cfif>
+	
 <cfelse>
+
 	<cfset url.scope = "settlement">
+	
 	<cfif URL.batchId neq "00000000-0000-0000-0000-000000000000" AND URL.batchId neq "">
+	
 		<cfquery name="qBatch" 
 	  	datasource="AppsMaterials" 
 	  	username="#SESSION.login#" 
@@ -209,9 +212,9 @@
 		</cfquery>
 		
 		<cfset URL.AddressId = qBatch.AddressId>		
+		
 	</cfif>	
-	
-	
+		
 	<cfquery name="qWarehouse" 
 	  datasource="AppsMaterials" 
 	  username="#SESSION.login#" 
@@ -222,12 +225,12 @@
 	</cfquery>	
 	
 	<cfquery name="Sale"
-	 datasource="AppsTransaction" 
+	 datasource="AppsMaterials" 
 	 username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">
 		 SELECT  *
-		 FROM    Sale#URL.Warehouse#
-		 WHERE   CustomerId = '#url.customerid#'	
+		 FROM    CustomerRequest
+		 WHERE   RequestNo = '#url.RequestNo#'	
 	</cfquery> 
 	
 	<cf_screentop jquery="yes" html="no">

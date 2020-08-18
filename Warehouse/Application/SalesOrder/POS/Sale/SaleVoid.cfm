@@ -1,5 +1,5 @@
-<cf_compression>
 
+<cfparam name="url.requestNo" default="">
 
 <cfquery name="getWarehouse"
 	datasource="AppsMaterials" 
@@ -11,13 +11,18 @@
 </cfquery>
 
 <cfquery name="getBatch"
-	datasource="AppsTransaction" 
+	datasource="AppsMaterials" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 		SELECT DISTINCT BatchId
-		FROM   Sale#URL.Warehouse#
-		WHERE  CustomerId      = '#url.customerid#'
+		FROM   CustomerRequestLine
+		WHERE  RequestNo = '#url.requestNo#'
+		AND    BatchId is not NULL
 </cfquery>
+
+<!--- ---------------------------------------------------------------------------------------- --->
+<!--- this is hardcoded voiders, need to be part of the structure of ALL for this POS function --->
+<!--- ---------------------------------------------------------------------------------------- --->
 
 <cfquery name="getValidVoider"
 	datasource="AppsSystem" 
@@ -54,13 +59,12 @@
 	
 				<cf_tl id="Void this sale" var="1">
 				<cfoutput>
-					<img 
-						src="#SESSION.root#/images/logos/menu/delete.png" 
-						title="#lt_text#" 
-						align="absmiddle" 
-						height="40" 
-						style="cursor:pointer;" 
-						onclick="voidSale('#url.customerid#','#URL.Warehouse#','#getBatch.BatchId#',document.getElementById('terminal').value);">
+					<img src="#SESSION.root#/images/logos/menu/delete.png" 
+						 title="#lt_text#" 
+						 align="absmiddle" 
+						 height="40" 
+						 style="cursor:pointer;" 
+						 onclick="voidSale('#url.customerid#','#URL.Warehouse#','#getBatch.BatchId#',document.getElementById('terminal').value,'#url.requestno#')">
 				</cfoutput>		
 			
 			</cfif>
@@ -87,18 +91,19 @@
 		
 	<cfelse>			
 		
-		<!--- button to select other customer in memory --->
+		<!--- button to select other active waiting customer in memory --->
 		
 		<cfquery name="getCustomer"
-		datasource="AppsTransaction" 
+		datasource="AppsMaterials" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-		SELECT    Mission,CustomerId, CustomerName, Reference
-		FROM      Materials.dbo.Customer
-		WHERE     CustomerId IN
-	                          (SELECT     CustomerId
-	                            FROM      Sale#URL.Warehouse#)
-		AND       CustomerId != '#url.customerid#'						
+			SELECT    Mission,CustomerId, CustomerName, Reference
+			FROM      Customer
+			WHERE     CustomerId IN (SELECT  CustomerId
+		                             FROM    vwCustomerRequest
+									 WHERE   Warehouse = '#url.warehouse#'
+									 AND     ActionStatus != '9')
+			AND       CustomerId != '#url.customerid#'						
 		</cfquery>
 			
 		<cfoutput>	
@@ -137,20 +142,21 @@
 	<!--- button to select other customer in memory --->
 	
 	<cfquery name="getCustomer"
-	datasource="AppsTransaction" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-	SELECT    Mission,CustomerId, CustomerName, Reference
-	FROM      Materials.dbo.Customer
-	WHERE     CustomerId IN
-                          (SELECT     CustomerId
-                            FROM      Sale#URL.Warehouse#)
-	AND       CustomerId != '#url.customerid#'						
+		datasource="AppsMaterials" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT    Mission,CustomerId, CustomerName, Reference
+			FROM      Customer
+			WHERE     CustomerId IN (SELECT  CustomerId
+		                             FROM    vwCustomerRequest
+									 WHERE   Warehouse = '#url.warehouse#'
+									 AND     ActionStatus != '9')
+			AND       CustomerId != '#url.customerid#'						
 	</cfquery>
 			
 	<cfoutput>
 		
-		<table  class="formspacing">
+		<table class="formspacing">
 		            
             <tr>
 				<td>					

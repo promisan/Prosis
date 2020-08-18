@@ -39,7 +39,7 @@
 
 </cfif>
 
-<cfset link = "Procurement/Application/PurchaseOrder/Purchase/POViewGeneral.cfm?id1=#Purchase.PurchaseNo#">
+<cfset link = "Procurement/Application/PurchaseOrder/Purchase/POView.cfm?id1=#Purchase.PurchaseNo#">
 
 <!--- if status eq "9", do not initiate a workflow --->
 

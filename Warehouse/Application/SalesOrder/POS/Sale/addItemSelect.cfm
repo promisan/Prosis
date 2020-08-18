@@ -21,7 +21,7 @@
 
 <cfif url.requestNo eq "">
 
-	<cf_getCustomerRequest>
+	<cf_setCustomerRequest>
 	<cfset url.requestNo = thisrequestNo>
 
 </cfif>

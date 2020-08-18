@@ -1,26 +1,18 @@
-		
-<cf_screentop height="99%" label="Quotation" jquery="Yes" html="No" scroll="No">
+
 	
-	<cfquery name="Parameter"
-		datasource="AppsPurchase"
-		username="#SESSION.login#"
-		password="#SESSION.dbpw#">
-		SELECT *
-		FROM   Ref_ParameterMission
-		WHERE  Mission = '#URL.Mission#'
-	</cfquery>
+<cf_screentop height="99%" label="Quotation #URL.RequestNo#" html="No" layout="webapp" jquery="Yes" scroll="No">
+
+	<cfset url.scope = "Quote">
 	
-	<cfquery name="Param"
+	<cfquery name="Clear"
 		datasource="AppsMaterials"
 		username="#SESSION.login#"
 		password="#SESSION.dbpw#">
-		SELECT *
-		FROM   Ref_ParameterMission
-		WHERE  Mission = '#URL.Mission#'
+		DELETE FROM CustomerRequest
+		WHERE RequestNo NOT IN (SELECT RequestNO FROM CustomerRequestLine)
+		AND  Created < getDate()-1		
 	</cfquery>
-	
-	<cfinclude template="../../Stock/StockControl/StockScript.cfm">
-	
+			
 	<cfquery name="Request"
 		datasource="AppsMaterials"
 		username="#SESSION.login#"
@@ -30,95 +22,209 @@
 		WHERE  Requestno = '#URL.Requestno#'
 	</cfquery>
 	
-	<cfquery name="Customer"
-		datasource="AppsMaterials"
-		username="#SESSION.login#"
+	<cfif Request.recordcount gte "1">
+	
+		<cfquery name="Parameter"
+			datasource="AppsPurchase"
+			username="#SESSION.login#"
+			password="#SESSION.dbpw#">
+			SELECT *
+			FROM   Ref_ParameterMission
+			WHERE  Mission = '#Request.Mission#'
+		</cfquery>
+		
+		<cfquery name="Param"
+			datasource="AppsMaterials"
+			username="#SESSION.login#"
+			password="#SESSION.dbpw#">
+			SELECT *
+			FROM   Ref_ParameterMission
+			WHERE  Mission = '#Request.Mission#'
+		</cfquery>
+		
+		<cfinclude template="../../Stock/StockControl/StockScript.cfm">
+	
+		<cfquery name="Customer"
+			datasource="AppsMaterials"
+			username="#SESSION.login#"
+			password="#SESSION.dbpw#">
+			SELECT *
+			FROM   Customer
+			WHERE  CustomerId = '#Request.CustomerId#'
+		</cfquery>
+					
+		<cfquery name="CustomerAddress"
+			datasource="AppsSystem"
+			username="#SESSION.login#"
+			password="#SESSION.dbpw#">
+			SELECT *
+			FROM   Ref_Address
+			WHERE  AddressId = '#Request.AddressId#'
+		</cfquery>
+		
+		<cfoutput>
+		
+			<script>		
+				function setSaleQuote() {			    			
+				 	document.getElementById('customerselect').value          = '#customer.reference#' 											
+					customertoggle('customerdata','#Request.customerid#','open','#Request.warehouse#','#Request.addressid#');									
+					document.getElementById('customerdata_toggle').className = 'regular'		
+					Prosis.busy('no')								 			
+				}
+			
+			</script>
+			
+		</cfoutput>
+						
+		<cfquery name="Object" 
+		datasource="AppsOrganization" 
+		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-		SELECT *
-		FROM   Customer
-		WHERE  CustomerId = '#Request.CustomerId#'
-	</cfquery>
+			SELECT * 
+			FROM   OrganizationObject
+			WHERE  ObjectKeyValue1 = '#Request.RequestNo#'
+			AND    Operational = 1
+		</cfquery>
+		
+		<cf_textareascript>		
+		<cf_layoutscript>
 				
-	<cfquery name="CustomerAddress"
-		datasource="AppsSystem"
-		username="#SESSION.login#"
-		password="#SESSION.dbpw#">
-		SELECT *
-		FROM   Ref_Address
-		WHERE  AddressId = '#Request.AddressId#'
-	</cfquery>
-	
-	<cfoutput>
-	
-		<script>		
-			function setSaleQuote() {
-			    document.getElementById('trarequestno').innerHTML        = '#Request.requestno#'				
-			 	document.getElementById('customerselect').value          = '#customer.reference#' 											
-				customertoggle('customerdata','#Request.customerid#','open','#Request.warehouse#','#Request.addressid#');									
-				document.getElementById('customerdata_toggle').className = 'regular'		
-				Prosis.busy('no')								 			
-			}
+		<cfset attrib = {type="Border",name="mybox",fitToWindow="Yes"}>	  
 		
-		</script>
-		
-	</cfoutput>
-		
-	<cfoutput>		
-	
-	<table style="width:100%;height:100%">
-	
-	<tr>
-	<td style="background-color:ffffff;min-width:230px;padding:7px" valign="top">
+		<cfoutput>
+				
+		<cf_layout attributeCollection="#attrib#">
 
-	<table style="width:100%">
-	<tr class="line labelmedium">
-	   <td style="font-size:20px"><cf_tl id="Quotation"></td>
-	   <td align="right" style="padding-right:4px;font-size:25px">#url.requestNo#</td>
-    </tr>
-	<tr class="labelmedium">
-	      <td><cf_tl id="Warehouse">:</td>
-	      <td>#Request.Warehouse#</td>
-	</tr>
-	<tr class="labelmedium">
-	      <td><cf_tl id="Requester">:</td>
-	      <td>#Request.OfficerLastName#</td>
-	</tr>
-	<tr class="labelmedium">
-	      <td><cf_tl id="Address">:</td>
-	      <td>#CustomerAddress.Address#</td>
-	</tr>
-	<tr class="labelmedium">
-	      <td><cf_tl id="Source">:</td>
-	      <td>#Request.Source#</td>
-	</tr>
-	<tr class="labelmedium">
-	      <td><cf_tl id="Recorded">:</td>
-	      <td>#Request.OfficerFirstName#</td>
-	</tr>
-	<tr class="labelmedium">
-	      <td><cf_tl id="Time">:</td>
-	      <td>#dateformat(Request.Created,client.dateformatshow)# #timeformat(Request.Created,"HH:MM")#</td>
-	</tr>
-	<tr class="labelmedium">
-	      <td><cf_tl id="Load">:</td>
-	      <td><input type="button" name="Load" value="Load" class="button10g" 
-		  onclick="Prosis.busy('yes');ptoken.navigate('#session.root#/warehouse/application/salesOrder/POS/Sale/SaleInit.cfm?systemfunctionid=#url.systemfunctionid#&scope=#url.scope#&mission=#url.mission#&warehouse=#url.warehouse#&requestNo=#url.requestNo#','quote')">
-		  </td>
-	</tr>
-	</table>
+			<cf_layoutarea 
+		          position="header"
+				  size="50"
+		          name="controltop">	
+				  
+				<cf_ViewTopMenu label="Quotation #URL.RequestNo#" menuaccess="context" background="blue">
+						
+			</cf_layoutarea>		 
+		
+			<cf_layoutarea  position="left" name="box" collapsible="true" size="250" 
+						splitter="true">
+			
+				<form name="quote" id="quote" style="width:100%;height:98%;padding-left:5px;padding-right:3px">
+			
+				<table style="width:96%" align="center">
+				
+				<tr class="line labelmedium" style="height:40px">
+				   <td style="font-size:20px"><cf_tl id="Quotation"></td>
+				   <td align="right" style="padding-right:4px;font-size:25px">#url.requestNo#</td>
+			    </tr>
+				
+				<tr><td style="height:10px"></td></tr>
+				<tr class="labelmedium" style="height:20px">
+				      <td><cf_tl id="Warehouse">:</td>
+				      <td>#Request.Warehouse#</td>
+				</tr>
+				<tr class="labelmedium" style="height:20px">
+				      <td><cf_tl id="Customer">:</td>
+				      <td>#Customer.CustomerName#</td>
+				</tr>
+				<tr class="labelmedium" style="height:20px">
+				      <td><cf_tl id="Address">:</td>
+				      <td><cfif customerAddress.Address eq "">N/A<cfelse>#CustomerAddress.Address#</cfif></td>
+				</tr>
+				<tr class="labelmedium" style="height:20px">
+				      <td><cf_tl id="Source">:</td>
+				      <td>#Request.Source#</td>
+				</tr>
+				<tr class="labelmedium" style="height:20px">
+				      <td><cf_tl id="Recorded">:</td>
+				      <td>#Request.OfficerFirstName#</td>
+				</tr>
+				<tr class="labelmedium" style="height:20px">
+				      <td><cf_tl id="Status">:</td>
+				      <td><cfif Request.BatchNo neq ""><cf_tl id="Sold"><cfelse><cf_tl id="Pending"></cfif></td>
+				</tr>
+				<tr class="labelmedium" style="height:20px">
+				      <td><cf_tl id="Time">:</td>
+				      <td>#dateformat(Request.Created,client.dateformatshow)# #timeformat(Request.Created,"HH:MM")#</td>
+				</tr>
+				<tr class="labelmedium" style="height:20px">
+				      <td colspan="2"><cf_tl id="About this request">:</td>				    
+				</tr>
+				<tr class="labelmedium" style="height:20px">
+				      <td colspan="2">
+					  <textarea name="remarks" 
+					  onchange="ptoken.navigate('#session.root#/warehouse/application/salesOrder/Quote/setQuote.cfm?requestNo=#request.RequestNo#','process','','','POST','quote')"
+					  style="padding:5px;width:100%;font-size:14px;height:80px;background-color:C1E0FF">#Request.Remarks#</textarea>
+					  </td>
+				</tr>
+				<tr><td id="process"></td></tr>
+				
+				<cfif Request.BatchNo eq "">
+						
+				<tr class="labelmedium">
+				      <td style="height:40px"><cf_tl id="Load">:</td>
+				      <td><input type="button" name="Load" value="Load" class="button10g" 
+					  onclick="Prosis.busy('yes');ptoken.navigate('#session.root#/warehouse/application/salesOrder/POS/Sale/SaleInit.cfm?systemfunctionid=#url.systemfunctionid#&scope=#url.scope#&mission=#request.mission#&warehouse=#request.warehouse#&requestNo=#url.requestNo#','contentquote')">
+					  </td>
+				</tr>
+				
+				</cfif>
+				
+				</table>
+				
+				</form>		     
+				 		
+			</cf_layoutarea>	
+			
+			<cf_layoutarea  position="center" name="content">
+			
+				<cf_divscroll style="height:98%">		
+			
+				<cfif Request.BatchNo eq "">
+						
+						<cf_securediv style="height:99.0%" id="contentquote"
+						  bind="url:#session.root#/warehouse/application/salesOrder/POS/Sale/SaleInit.cfm?systemfunctionid=#url.systemfunctionid#&scope=#url.scope#&mission=#Request.mission#&warehouse=#Request.warehouse#&requestNo=#url.requestNo#">
+								  
+				<cfelse>
+		
+					<cfset url.batchno = request.BatchNo>
+					<cfset url.mode    = "embed">		
+									
+					<cfinclude template="../../Stock/Batch/BatchView.cfm">
+											
+				</cfif>	  
+				
+				</cf_divscroll>
+			
+			
+			</cf_layoutarea>	
+			
+			<cfif Object.recordcount gte "1">
+						
+				<cf_layoutarea 
+					    position="right" 
+						name="commentbox" 
+						minsize="200" 
+						maxsize="300" 
+						size="380" 
+						overflow="yes" 
+						initcollapsed="yes"
+						collapsible="true" 
+						splitter="true">
+					
+						<cf_divscroll style="height:100%" minsize="20%" maxsize="30%" size="380" overflow="yes">
+							<cf_commentlisting objectid="#Object.ObjectId#" ajax="No">		
+						</cf_divscroll>
+						
+				</cf_layoutarea>	
+			
+			</cfif>
+							
+		</cf_layout>				
+		
+		</cfoutput>
+		
+	<cfelse>
 	
-	</td>
-	<td style="width:100%;padding:8px;padding-bottom:0px;height:100%" valign="top">
+		<table><tr><td>Not found</td></tr></table>		
 	
-	<cf_divscroll style="width:100%">
-		<cf_securediv style="height:99.0%;border:1px solid gray" id="quote"
-		  bind="url:#session.root#/warehouse/application/salesOrder/POS/Sale/SaleInit.cfm?systemfunctionid=#url.systemfunctionid#&scope=#url.scope#&mission=#url.mission#&warehouse=#url.warehouse#&requestNo=#url.requestNo#">
-		  
-	</cf_divscroll>
-	
-	</td>
-	</tr>
-	</table>
-	
-	</cfoutput>
+	</cfif>
 	

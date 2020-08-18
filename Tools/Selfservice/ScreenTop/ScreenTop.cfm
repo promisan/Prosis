@@ -88,7 +88,7 @@ datasource="AppsInit">
 	</cfif>	
 			
 	<cfparam name="Attributes.MenuAccess"            default="No">		
-	<cfparam name="url.IdMenu"                       default="">
+	<cfparam name="url.IdMenu"                       default="00000000-0000-0000-0000-000000000000">
 	<cfparam name="url.SystemFunctionId"             default="#url.idmenu#">
 	<cfparam name="Attributes.SystemFunctionId"      default="#url.systemfunctionid#">	
 	<cfparam name="Attributes.Mission"           	 default="">	

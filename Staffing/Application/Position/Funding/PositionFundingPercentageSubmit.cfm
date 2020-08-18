@@ -44,7 +44,6 @@
 	</cfoutput>
 </cfif>
 
-
 <cfif vPass eq 1>
 
 	<cftransaction>
@@ -66,11 +65,14 @@
 				DELETE
 				FROM 	PositionParentFunding
 				WHERE 	PositionParentId = '#url.PositionParentId#'
-				AND 	DateEffective = '#getBase.DateEffective#'
-				AND 	DateExpiration = '#getBase.DateExpiration#'
+				AND 	DateEffective    = '#getBase.DateEffective#'
+				<cfif getBase.DateExpiration neq "">
+				AND 	DateExpiration   = '#getBase.DateExpiration#'
+				</cfif>
 		</cfquery>
 
 		<cfloop list="#form.lines#" index="vLine">
+		
 			<cfset vFund = trim(evaluate("form.fund_#vLine#"))>
 			<cfset vProgramCode  = trim(evaluate("form.programcode_#vLine#"))>
 			<cfset vPercentage   = trim(evaluate("form.percentage_#vLine#"))>
@@ -80,8 +82,7 @@
 				datasource="AppsEmployee" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
-					INSERT INTO PositionParentFunding
-						(
+					INSERT INTO PositionParentFunding (
 							PositionParentId,
 							DateEffective,
 							DateExpiration,
@@ -91,21 +92,21 @@
 							Percentage,
 							OfficerUserId,
 							OfficerLastName,
-							OfficerFirstName
-						)
-					VALUES
-						(
-							'#url.PositionParentId#',
+							OfficerFirstName )
+					VALUES ('#url.PositionParentId#',
 							'#getBase.DateEffective#',
+							<cfif getBase.DateExpiration neq "">
 							'#getBase.DateExpiration#',
+							<cfelse>
+							NULL,
+							</cfif>
 							'#getBase.FundClass#',
 							'#vFund#',
 							'#vProgramCode#',
 							#vPercentage#,
 							'#session.acc#',
 							'#session.last#',
-							'#session.first#'
-						)
+							'#session.first#' )
 			</cfquery>
 
 		</cfloop>
@@ -115,7 +116,7 @@
 	<cfoutput>
 		<script>
 			ptoken.navigate('#session.root#/staffing/application/position/Funding/PositionFunding.cfm?ID=#url.positionparentid#','fundbox');
-			ColdFusion.Window.hide('wFundingEdit');
+			ProsisUI.closeWindow('wFundingEdit');
 		</script>
 	</cfoutput>
 

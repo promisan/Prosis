@@ -12,7 +12,7 @@
 
 <table width="98%" height="100%" align="center">
 
-	<tr class="line"><td style="padding-top:5px">
+	<tr class="line"><td>
 		
 		<form name="selectsale" id="selectsale">
 		

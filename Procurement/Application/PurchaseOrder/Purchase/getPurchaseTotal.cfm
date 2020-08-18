@@ -33,7 +33,7 @@
 		 GROUP BY Currency           
 	 </cfquery>
 	 
-	 <tr style="height:20px;background-color:f1f1f1" class="labelmedium">
+	 <tr style="height:20px;" class="labelmedium">
 	 
 	 <cfoutput query="Total">
 	  	
@@ -64,8 +64,8 @@
 				EffectiveDate = "#dateformat(get.OrderDate,CLIENT.DateFormatShow)#">	 	 	
 		 			
 				  <td style="padding-left:9px">#Currency#</td>	
-				  <td style="width:60px">#numberformat(exc,'._____')#</td>	    			  
-				  <td align="right" style="padding-right:5px">#numberFormat(Total.Total/exc,",.__")#</td>
+				  <td style="padding-left:3px;width:60px">#numberformat(exc,'._____')#</td>	    			  
+				  <td align="right" style="padding-left:3px;padding-right:5px">#numberFormat(Total.Total/exc,",.__")#</td>
 		  
 		 </cfoutput>
 	 	 

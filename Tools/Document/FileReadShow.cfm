@@ -55,8 +55,8 @@
 			 <!--- condition made for Marano to load the word document in the full screen allowing to print it --->
 			 
 			 <cfoutput>		
-				 <script> 		   
-					window.location = "#SESSION.root#/CFRStage/User/#SESSION.acc#/#att.fileName#"
+				 <script> 		   				
+					window.open("#SESSION.root#/CFRStage/User/#SESSION.acc#/#att.fileName#")
 				 </script>
 			 </cfoutput>
 		 </cfif>
@@ -180,7 +180,7 @@
 							
 							<cfset CLIENT.sd = "#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\">
 							<cfset CLIENT.sf = "#att.fileName#">
-						
+																
 							<iframe src ="FileRender.cfm?mid=#url.mid#"
 									name="ifWorkspace"
 							        id="ifWorkspace"

@@ -242,8 +242,6 @@ password="#SESSION.dbpw#">
 		<cfoutput>
 				
 		<tr class="hide"><td height="1" id="process"></td></tr>
-				
-		
 					
 		</cfoutput>
 					
@@ -395,16 +393,15 @@ password="#SESSION.dbpw#">
 						<cf_tl id="Metric">
 					</cfif>
 				</td>		
-				<TD style="min-width:150px"><cf_tl id="Request"></TD>			
+				<TD style="min-width:100px"><cf_tl id="Request"></TD>			
 				<cfelse>
 				<TD style="min-width:100px" colspan="2"><cf_tl id="Stock amendment"></TD>					
 				</cfif>
-				<TD style="min-width:100px"><cf_tl id="Date"></TD>				
-					
+				<TD style="min-width:90px"><cf_tl id="Date"></TD>						
 				<TD align="right" style="min-width:70px;padding-left:3px"><cf_tl id="UoM"></TD>
 			    <TD align="right" style="padding-right:3px;min-width:100px"><cf_tl id="Quantity"></TD>				
-				<TD style="padding-left:3px;padding-right:23px;min-width:36px">
-					<cf_UIToolTip tooltip="Accounts Payable for outsourced transaction"><font color="0080C0"><cf_tl id="AP"></font></cf_UIToolTip>
+				<TD style="padding-left:3px;min-width:36px">
+					<cf_UIToolTip tooltip="Accounts Payable for outsourced transaction"><cf_tl id="AP"></cf_UIToolTip>
 				</TD>	
 			
 			</tr>
@@ -594,7 +591,7 @@ password="#SESSION.dbpw#">
 									    <!--- defined the process mode to be shown --->
 										<!--- ------------------------------------ --->
 										
-										<cfif url.mode eq "process">
+										<cfif url.mode eq "process" and Batch.ActionStatus neq "9">
 										
 											 <cfif itemno neq priorItemno or workflowcheck eq "1">
 											 																																																																																
@@ -654,9 +651,11 @@ password="#SESSION.dbpw#">
 											</cfif>								
 																		
 											<cfif clearmode eq "2" or (enforcelines eq "1" and clearmode neq "3")>
+											
+											    
 																																	 
 												<cfif ActionStatus eq "0">
-														 
+																										 
 												  <img src="#SESSION.root#/Images/button.jpg"
 												      border="0" 
 												 	  onclick="setlinestatus('#transactionid#','1')" height="12" width="14"

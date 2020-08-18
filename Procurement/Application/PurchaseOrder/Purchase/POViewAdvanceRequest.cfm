@@ -1,13 +1,13 @@
 
 <cf_screentop height="100%" 
-    scroll="Yes" html="Yes" jquery="Yes" close="parent.ColdFusion.Window.destroy('myadvance',true)" layout="webapp" banner="gray" line="no"
+    scroll="Yes" html="No" jquery="Yes" close="parent.ColdFusion.Window.destroy('myadvance',true)" layout="webapp" banner="gray" line="no"
 	label="Purchase Advance" option="record a advance request for this purchase order">
 
 <cf_dialogLedger>
 
 <cfform method="POST" name="entry">
 
-<table width="92%" align="center" height="100%" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="92%" align="center" class="formpadding">
 
 <cfquery name="PO"
 	datasource="AppsPurchase" 
@@ -169,23 +169,21 @@
 </tr>		  
 
 <tr>
-	<td class="labelmedium" height="20">Description:</td>
+	<td class="labelmedium" height="20"><cf_tl id="Description">:</td>
 	<td><input type="text" class="regularxl" name="ReferenceName" id="ReferenceName" size="40" maxlength="80"></td>
 </tr>
 
 <tr>
-	<td class="labelmedium" height="20">Memo:</td>
+	<td class="labelmedium" height="20"><cf_tl id="Memo">:</td>
 	<td><input type="text" class="regularxl" name="Memo" id="Memo" size="40" maxlength="80"></td>
 </tr>
 
-<tr><td colspan="2" class="line"></td></tr>
-
 <tr><td colspan="2" id="result"></td></tr>
 
-<tr><td height="45" valign="bottom" colspan="2" align="center">
+<tr><td colspan="2" align="center">
 
   <cfoutput>
-	<input type="button" name="Submit" id="Submit" value="Close" class="button10g" style="width:120;height:24" onclick="parent.ColdFusion.Window.destroy('myadvance',true)">
+	<input type="button" name="Submit" id="Submit" value="Close" class="button10g" style="width:120;height:24" onclick="parent.ProsisUI.closeWindow('myadvance',true)">
 	<input type="button" name="Submit" id="Submit" value="Submit" class="button10g" style="width:120;height:24"
 			 onclick="ptoken.navigate('POViewAdvanceRequestSubmit.cfm?id=#url.id#','result','','','POST','entry')">
   </cfoutput>

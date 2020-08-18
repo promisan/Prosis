@@ -128,6 +128,7 @@
 	<cfset thisCurr = getLines.Currency>
 		
 	<cfif TransactionSerialNo eq 0>
+	
 			<cf_GledgerEntryLine
 				Lines                    = "1"
 				DataSource               = "AppsOrganization"
@@ -155,7 +156,9 @@
 				ParentJournalSerialNo    = "#url.JournalSerialNo#"			
 				TransactionType1         = "#TransactionType#"
 				Amount1                  = "#amt#">
+				
 			<cfelse>
+			
 				<cf_GledgerEntryLine
 					Lines                    = "1"
 					DataSource               = "AppsOrganization"

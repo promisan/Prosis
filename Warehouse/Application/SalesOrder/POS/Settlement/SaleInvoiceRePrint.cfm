@@ -4,8 +4,11 @@
 <cfparam name="url.terminal"          default="">
 
 <cf_tl id="Print Invoice" var="1">
-	
+
+
+<!---	
 <cf_screentop height="100%" scroll="No" layout="webapp" label="#lt_text#" user="no" banner="gray">
+--->
 
 <cfoutput>
 
@@ -105,7 +108,7 @@
 		<cfelse>
 			<table width="100%">
 				<tr>
-|					<td class="labellarge" align="center" style="color:red;">
+					<td class="labellarge" align="center" style="color:red;">
 						<cfif getInvoice.Recordcount eq 0>
 							<cf_tl id="Collect Sale process has not finished. This invoice cannot be printed">
 						<cfelse>
@@ -128,16 +131,14 @@
 		<tr>
 		
 			<td class="hide" id="process"></td>
-				  					
-
 										  					
 			<td align="center">
 			
 				<cf_tl id="Close" var="1">
-				
+								
 				 <input type  = "button" 
-				      class   = "button10s"  
-					  onclick = "ColdFusion.Window.destroy('wsettle',true)"
+				      class   = "button10g"  
+					  onclick = "ProsisUI.closeWindow('wreprint',true)"
 				      style   = "height:28;width:150;font-size:13px" 
 					  class   = "regular" 
 					  name    = "save" id="save"

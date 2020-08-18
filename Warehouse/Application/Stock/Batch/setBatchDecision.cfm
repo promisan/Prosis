@@ -2,8 +2,6 @@
 <cfparam name="url.action" default="Confirm">
 <!--- conform batch --->
 
-<cf_compression>	
-
 <cfquery name="Batch"
 	datasource="AppsMaterials" 
 	username="#SESSION.login#" 

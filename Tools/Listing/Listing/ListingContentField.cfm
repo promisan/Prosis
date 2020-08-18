@@ -68,7 +68,12 @@
 					
 						<cfif url.ajaxid eq "content">	
 																			
-						<input type="input" style="width:#current.width*10#" id="#current.field#_#dkey#" value="#evaluate(current.field)#" class="regular" onchange="processrow('#current.processtemplate#','#dkey#','#current.processstring#',this.value)">				 
+							<input type="input" 
+							   style="width:#current.width*10#" 
+							   id="#current.field#_#dkey#" 
+							   value="#evaluate(current.field)#" 
+							   class="regular" 
+							   onchange="processrow('#current.processtemplate#','#dkey#','#current.processstring#',this.value)">				 
 						
 						<cfelse>
 						

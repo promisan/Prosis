@@ -83,7 +83,7 @@ password="#SESSION.dbpw#">
 
 <cfloop index="hr" from="#parameter.hourstart#" to="#parameter.hourend#" step="1">
 		
-	<cfif hr gte "6"> <!--- starting from 4 oclick in the morning until 11-00 at night --->		
+	<cfif hr gte "4"> <!--- starting from 4 oclick in the morning until 11-00 at night --->		
 		 		
 		<tr class="labelmedium navigation_row line">
 													

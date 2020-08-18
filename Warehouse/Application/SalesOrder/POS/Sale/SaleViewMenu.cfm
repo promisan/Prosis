@@ -14,7 +14,6 @@
 					
 	<td style="#vCellStyle#" align="center" valign="middle">
 	
-			<cfset link = "#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/addItemSelect.cfm?warehouse=#url.warehouse#&customerid={customeridselect}&customeridinvoice={customerinvoiceidselect}&discount={Discount}&PriceSchedule={PriceSchedule}&currency={currency}&salespersonno={salespersonno}&date={transaction_date}&hour={Transaction_hour}&minu={Transaction_minute}&addressid={addressidselect}">	
 			
 			<cf_tl id="Store Items" var="1">								  
 			
@@ -40,7 +39,11 @@
             	SELECT *                  			
 				FROM Ref_ImageClass
 				WHERE Target = 1
-			</cfquery>	                                                    
+			</cfquery>	 
+			
+						
+			<cfset link = "#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/addItemSelect.cfm?warehouse=#url.warehouse#&customerid={customeridselect}&customeridinvoice={customerinvoiceidselect}&discount={Discount}&PriceSchedule={PriceSchedule}&currency={currency}&salespersonno={salespersonno}&date={transaction_date}&hour={Transaction_hour}&minu={Transaction_minute}&addressid={addressidselect}&requestNo={RequestNo}">	
+			                                                 
                               						
 			<cfif get.SaleMode eq "1"> 	
 					
@@ -184,11 +187,13 @@
 		
 		<cfelse>
 		
+		<!---
 		<tr><td colspan="2" style="padding:6px"><cf_tl id="Comments">:</td></tr>
 		<tr><td colspan="2" style="padding:6px">
 		<textarea name="memo" style="width:100%;font-size:14px;height:80px;background-color:C1E0FF"></textarea>
 		
 		</td></tr>
+		--->
 		
 		</cfif>
 

@@ -47,10 +47,8 @@ username="#SESSION.login#"
 password="#SESSION.dbpw#">
 SELECT   Mission, count(*) as Total
 FROM     Document
-WHERE    Mission IN (SELECT Mission
-                    FROM   Vacancy.dbo.Document 				   
-				    WHERE   Status != '9')
-AND      Mission IN (SELECT Mission FROM Organization.dbo.Ref_Mission WHERE Operational = 1)			   		
+WHERE    Mission IN (SELECT Mission FROM Organization.dbo.Ref_Mission WHERE Operational = 1)	
+AND      Status != '9'		   		
 GROUP BY Mission
 ORDER BY Mission
 </cfquery>

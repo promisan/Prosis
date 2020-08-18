@@ -19,8 +19,7 @@
     ORDER BY   D.DocumentOrder 
 </cfquery>	
 
-
-<table width="99%" cellspacing="0" cellpadding="0" align="center">
+<table width="99%" class="navigation_table" align="center">
 
 <cfoutput query="Questionaire">
 	
@@ -50,16 +49,15 @@
 	<cfif content.recordcount gte "1">
 		
 		<tr><td height="4"</td></tr>
-		<tr><td colspan="3" style="padding-left:10px" class="labellarge">#DocumentDescription#</td></tr>		
-		<tr><td colspan="3" class="linedotted"></td></tr>
-	
+		<tr class="line"><td colspan="3" style="padding-left:10px" class="labellarge">#DocumentDescription#</td></tr>		
+		
 	</cfif>
 			
 	<cfloop query="content">	
 				
-    	<tr>
+    	<tr style="<cfif currentrow neq '1'>border-top:1px solid silver</cfif>" class="navigation_row">
 		<td style="padding-left:20px" width="5%" class="labelit">#currentrow#.</td>					
-		<td width="80%" style="padding-left:10px" class="labelmedium">#QuestionLabel#</font></td>				
+		<td width="80%" style="padding-left:10px" class="labelmedium">#QuestionLabel#</td>				
 		<td width="15%" align="right" style="padding-right:20px" class="labelit">
 						
 			<table cellspacing="0" cellpadding="0">
@@ -120,23 +118,27 @@
 				
 		</tr>
 		
+		<!---				
 		<cfif QuestionMemo neq "">		
-			<tr><td></td><td class="labelit" style="padding-left:10px"><font color="808080">#QuestionMemo#</td></tr>		
+			<tr><td></td><td class="labelit" style="padding-left:10px"><font color="808080"><i>#QuestionMemo#</td></tr>		
 		</cfif>
+		--->
 		
-		<cfif EnableInputMemo eq "1">
+		<cfif EnableInputMemo eq "1" and len(memo) gt "4">
 		
 			<tr><td></td>
-			    <td colspan="2" class="labelmedium" style="padding-top:2px;padding-right:10px;padding-left:10px">
-															
-				     <font color="808080">#Memo#</font>									 
-								
+			    <td colspan="2" style="padding-top:2px;padding-right:10px;padding-left:10px">															
+				  <font color="808080">#Memo#</font>									 								
 				</td>
 			</tr>
 		
 		</cfif>
+		
+		<cf_fileExist DocumentPath="Questionnaire"
+					SubDirectory="#url.objectid#" 
+					Filter = "#left(questionid,8)#">						
 				
-		<cfif EnableInputAttachment eq "1">
+		<cfif EnableInputAttachment eq "1" and files gt "0">
 		
 			<tr><td></td>
 			    <td colspan="1" class="labelit" style="padding-top:2px;padding-left:10px;padding-right:3px">
@@ -162,3 +164,5 @@
 </cfoutput>
   
 </table>
+
+<cfset ajaxonload("doHighlight")>

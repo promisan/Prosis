@@ -6,22 +6,22 @@
 <table cellspacing="0" cellpadding="0" bgcolor="FFFFFF" style="height:100%;width:100%">
 
 <tr><td style="height:100%;overflow:hidden">
-		
+
+<cfparam name="url.warehouse"         default="BCN000">		
+<cfparam name="url.RequestNo"         default="">		
 <cfparam name="url.batchid"           default="">
 <cfparam name="url.customerid"        default="00000000-0000-0000-0000-000000000000">
 <cfparam name="url.customeridinvoice" default="00000000-0000-0000-0000-000000000000">
 <cfparam name="url.addressid" 		  default="00000000-0000-0000-0000-000000000000">
-<cfparam name="url.warehouse"         default="BCN000">
 
 <cfquery name="getSale"
- datasource="AppsTransaction" 
+ datasource="AppsMaterials" 
  username="#SESSION.login#" 
  password="#SESSION.dbpw#">
  	SELECT    SalesCurrency, 
 			  SUM(SalesTotal) as sTotal
-	FROM      Sale#url.warehouse#
-	WHERE     CustomerId = '#url.customerid#'
-	AND       AddressId  = '#url.addressid#'
+	FROM      CustomerRequestLine
+	WHERE     RequestNo = '#url.requestNo#'	
 	GROUP BY  SalesCurrency
 </cfquery> 
 
@@ -46,11 +46,14 @@
 
 <cfinvoke component = "Service.Process.Materials.POS"  
 	   method             = "postTransaction" 
+	   requestno          = "#url.requestno#" 
 	   batchid            = "#url.batchid#"
-	   warehouse          = "#url.warehouse#" 
+	   
+	   warehouse          = "#url.warehouse#" 	  
 	   customerid         = "#url.customerid#"
-	   customeridinvoice  = "#url.customeridinvoice#"
 	   addressid	      = "#url.addressid#"
+	   
+	   customeridinvoice  = "#url.customeridinvoice#"	   
 	   currency           = "#url.Currency#"
 	   transactiondate    = "#dateformat(dte,client.dateformatshow)#"
 	   transactionhour    = "#url.th#"
@@ -105,15 +108,18 @@
 	
 		<table width="100%" height="100%" cellspacing="0" cellpadding="0">
 			<tr>
-				<td width="100%" align="center" style="font-family: Calibri; color: 808080; font-size:23px">
+				<td width="100%" align="center" style="font-family: Calibri; color: 808080; font-size:29px">
 					#getBatch.BatchNo# <cf_tl id="has been created">
 				</td>
 			</tr>	
 		</table>	
+		
+		<!--- parameterize this to give quicker resolve --->
+		
 		<cfsilent>
 		<cfinclude template="PostingNotification.cfm">
 		</cfsilent>
-		
+				
 	</cfif>		
 	
 	<script>

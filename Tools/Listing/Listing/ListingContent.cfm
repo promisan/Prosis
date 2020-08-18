@@ -6,7 +6,8 @@
 <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
 
 <tr><td width="100%" height="100%" class="clsListingContent">			
-	<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+
+	<table width="100%" height="100%">
 	   
 	   <!--- ------------ --->	
 	   <!--- -navigation- --->

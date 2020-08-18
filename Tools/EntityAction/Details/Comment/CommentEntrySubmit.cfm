@@ -303,14 +303,14 @@
 				</table>
 						
 				<cfdirectory action="LIST"
-		             directory="#documentHost#\#Object.entitycode#\#Form.attachsubdir#"
+		             directory="#documentHost#\#Object.entitycode#\#att#"
 		             name="GetFiles"
 		             sort="DateLastModified DESC"
 		             type="file"
 		             listinfo="name">
 				
 				<cfloop query="getfiles">
-					<cfmailparam file="#documentHost#\#Object.entitycode#\#Form.attachsubdir#\#name#">
+					<cfmailparam file="#documentHost#\#Object.entitycode#\#att#\#name#">
 				</cfloop>
 															
 			</cfmail>

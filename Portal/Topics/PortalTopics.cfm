@@ -187,7 +187,7 @@ password="#SESSION.dbpw#">
 			   	   <img class="hoverEffect" src="#SESSION.root#/Images/portal_max.png" height="20" id="toggle_#currentrow#" alt="Toggle topic" border="0" align="absmiddle" style="cursor: pointer;" onClick="action('#SystemFunctionId#','#currentrow#')">
 			    </cfif>			
 				</td>
-				<td width="97%" onClick="action('#SystemFunctionId#','#currentrow#')" style="cursor:pointer;color:F24F00;font-weight:340;padding-left:10px;font-size:22" class="labelmedium">#FunctionMemo#</td>
+				<td width="97%" onClick="action('#SystemFunctionId#','#currentrow#')" style="cursor:pointer;color:F24F00;padding-left:10px;font-size:20px" class="labelmedium">#FunctionMemo#</td>
 				</tr>
 				
 				

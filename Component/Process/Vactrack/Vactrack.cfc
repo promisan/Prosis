@@ -213,8 +213,7 @@
 						FROM     Ref_EntityClass R
 						WHERE    R.Operational = '1'
 						AND      R.EntityCode = 'VacDocument'	
-						AND      R.EmbeddedFlow = 0
-						
+						AND      R.EmbeddedFlow = 0						
 						
 						<cfif session.acc eq "Administrator">
 						

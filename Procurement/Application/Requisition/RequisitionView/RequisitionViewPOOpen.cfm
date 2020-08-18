@@ -9,7 +9,7 @@
 
 <script language="JavaScript">
   
-  window.location="../../PurchaseOrder/Purchase/POViewGeneral.cfm?Header=No&Period=&ID=#URL.ID#&ID1=#URL.ID1#&mid=#mid#&Role="
+  window.location="../../PurchaseOrder/Purchase/POView.cfm?Header=No&Period=&ID=#URL.ID#&ID1=#URL.ID1#&mid=#mid#&Role="
 					 
 </script>
 

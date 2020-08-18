@@ -90,18 +90,18 @@
 		document.getElementById('personno').value = "#url.personno#"										
 	</script>		
 		
-	<table width="100%" cellspacing="0" class="formspacing">
+	<table width="100%" cellspacing="0">
 	
 		<tr><!--- <td class="labelmedium" style="padding-left:3px;width:150"><cf_space spaces="20"><cf_tl id="Name">:</td> --->
-		    <td width="40%" class="labelmedium" style="border:1px dotted silver;padding-left:4px"><cf_space spaces="60">#Person.FirstName# #Person.LastName#</td>
+		    <td width="40%" class="labelmedium" style="border:1px solid silver;padding-left:4px"><cf_space spaces="60">#Person.FirstName# #Person.LastName#</td>
 			<!---  <td class="labelmedium" style="padding-left:8px;padding-right:5px;" width="10%"><cf_space spaces="20"><cf_tl id="Nationality">:</td> --->
-		    <td style="border:1px dotted silver;padding-left:4px" class="labelmedium" width="40%">#Person.Nationality#</td>		
+		    <td style="border:1px solid silver;padding-left:4px" class="labelmedium" width="40%">#Person.Nationality#</td>		
 		</tr>		
 		
 		<tr><!--- <td class="labelmedium" style="padding-left:3px"><cf_tl id="ExternalReference">:</td> --->
-		    <td style="border:1px dotted silver;padding-left:4px" class="labelmedium">#Person.Reference# <cfif Person.ReferenceDate neq ""><font size="1">[#dateformat(Person.ReferenceDate,CLIENT.DateFormatShow)#]</font></cfif></td>
+		    <td style="border:1px solid silver;padding-left:4px" class="labelmedium">#Person.Reference# <cfif Person.ReferenceDate neq ""><font size="1">[#dateformat(Person.ReferenceDate,CLIENT.DateFormatShow)#]</font></cfif></td>
 			<!--- <td class="labelmedium" style="padding-left:8px;padding-right:5px;"><cf_tl id="Gender">:</td> --->
-		    <td style="border:1px dotted silver;padding-left:4px" class="labelmedium">#Person.Gender#</td>		
+		    <td style="border:1px solid silver;padding-left:4px" class="labelmedium">#Person.Gender#</td>		
 		</tr>	
 		
 		<cfif Assignment.recordcount eq "0" and Person.recordcount gte "1">

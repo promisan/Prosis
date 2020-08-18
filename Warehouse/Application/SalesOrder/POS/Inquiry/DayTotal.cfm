@@ -5,8 +5,7 @@
 	   cellspacing="0" 
 	   width="100%" 
 	   height="100%" 
-	   bgcolor="FFFFFF" 
-	   style="background-image:url('<cfoutput>#SESSION.root#</cfoutput>/Images/Logos/BGV2.png'); background-position:top right; background-repeat:no-repeat">
+	   bgcolor="FFFFFF">
 
 	<tr>
 	
@@ -18,7 +17,7 @@
 			   width="98%" 
 			   height="100%">
 			   	<tr>
-					<td valign="top" style="padding-top:10px">
+					<td valign="top">
 					
 		<CF_DropTable dbName="AppsQuery" tblName="#SESSION.acc#_DayTotal"> 
 		<CF_DropTable dbName="AppsQuery" tblName="#SESSION.acc#_COGS"> 			
@@ -36,17 +35,14 @@
 		<cfoutput>#cfquery.executiontime#</cfoutput>	
 		--->
 		
-			<table width="96%" height="100%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
-			<tr height="20px">
+			<table width="96%" height="100%" cellspacing="0" cellpadding="0" align="center">
+			<tr>
 					<td>
 						 
 						  <table cellspacing="0" cellpadding="0">
-						    <tr>
-							<td>
-							<img src="<cfoutput>#SESSION.root#</cfoutput>/Images/Invoice.png" style="width:64px;height:64px" border="0" alt="" align="absmiddle">
-							</td>
-							<td style="padding-left:9px;padding-top:15px">							
-                                <span id="printTitle"><h1 style="font-size:24px;font-weight: 200;position: relative;top:-8px;"><cfoutput>#get.Mission# #get.warehouseName# #url.warehouse#</cfoutput></h1></span>
+						    <tr>							
+							<td style="padding-top:5px">							
+                                <span id="printTitle"><h1 style="font-size:24px;"><cfoutput>#get.Mission# #get.warehouseName# #url.warehouse#</cfoutput></h1></span>
 							</td>
 							</tr>							
 												
@@ -60,24 +56,21 @@
 						   
 						<cf_button2
 							type		= "Print"
-							text		= "<span style='color:##eeeeee;'>&nbsp;&nbsp;&nbsp;&nbsp;#vPrint#</span>" 
-							subtext		= "<span style='color:##eeeeee;position: relative;top:-3px;'>&nbsp;&nbsp;&nbsp;&nbsp;#vDayTotal#</span>"
-							bgColor		= "033F5D"
-							height		= "48px"
+							text		= "<span style='color:##000000;'>&nbsp;&nbsp;&nbsp;&nbsp;#vPrint#</span>" 							
+							bgColor		= "ffffff"
+							height		= "32px"
 							width		= "150px"
-							textSize	= "19px"
+							textSize	= "13px"
 							printTitle	= "##printTitle"
 							printContent= "##salecontent_#url.warehouse#">
 						
 						</td>
 			</tr>
-			
-			<tr><td height="10"></td></tr>
-			
+						
 			<tr>
-			<td valign="top" colspan="4" height="100%" style="padding:5px">					
+			<td valign="top" colspan="4" height="100%">					
 			    <cf_divscroll id="printContent_#url.warehouse#" style="height:100%">					
-					<cfdiv bind="url:../../SalesOrder/POS/Inquiry/DayTotalBase.cfm?systemfunctionid=#url.systemfunctionid#&warehouse=#url.warehouse#">				
+					<cfdiv style="width:98%" bind="url:../../SalesOrder/POS/Inquiry/DayTotalBase.cfm?systemfunctionid=#url.systemfunctionid#&warehouse=#url.warehouse#">				
 				</cf_divscroll>
 			</td>
 			</tr>

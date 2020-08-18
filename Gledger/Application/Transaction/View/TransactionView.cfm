@@ -1,8 +1,6 @@
 
 <!--- standard transaction view --->
 
-<cf_systemscript>
-
 <cfparam name="url.embed"   default="0">
 <cfparam name="url.id"      default="">
 <cfparam name="url.role"    default="">
@@ -116,8 +114,8 @@ function PosSettlement() {
 }
 
 function PrintReceivable() {	
-	 try { ColdFusion.Window.destroy('wsettle',true)} catch(e){};
-     ColdFusion.Window.create('wsettle', 'Settlement', '',{x:100,y:100,width:870,height:670,resizable:false,modal:false,center:true})		
+	 // try { ColdFusion.Window.destroy('wsettle',true)} catch(e){};
+     ProsisUI.createWindow('wsettle', 'Settlement', '',{x:100,y:100,width:870,height:670,resizable:false,modal:true,center:true})		
 	 ptoken.navigate("TransactionInvoice.cfm?journal=#url.journal#&journalSerialNo=#url.journalSerialNo#", "wsettle");		
 }
 
@@ -346,7 +344,7 @@ password="#SESSION.dbpw#">
 </cfquery>
 
 <cf_verifyOperational        
-         module    = "Procurement" 
+         module    = "Accounting" 
 		 Warning   = "No">		
 		
 <cfif url.embed eq "0" and Object.recordcount gte "1">

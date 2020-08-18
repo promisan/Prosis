@@ -1,56 +1,4 @@
-<!--- Prosis template framework --->
-<cfsilent>
-	<proUsr>jmazariegos</proUsr>
-	<proOwn>Jorge Mazariegos</proOwn>
-	<proDes>Translated</proDes>
-	<proCom></proCom>
-</cfsilent>
 
-<cfparam name="URL.Mode"   default="view">
-<cfparam name="URL.Header" default="Yes">
-
-<cfif url.mode eq "" or (url.mode neq "edit" and url.mode neq "add")>
-   <cfset url.mode = "view">   
-</cfif>
-
-<cf_tl id="Procurement" var="1"> 
-
-<cfif url.header eq "Yes">
-
-<cf_screentop  
-    layout        = "webapp" 
-	html          = "#url.header#" 
-	label         = "#lt_text# #URL.Id1#" 		
-	banner        = "green" 
-	bannerforce   = "Yes"
-	scroll        = "No"	
-	line          = "no"
-	jQuery        = "Yes"
-	systemmodule  = "Procurement"
-	FunctionClass = "Window"
-	FunctionName  = "PurchaseOrder"
-	menuAccess    = "context"
-	height        = "100%">
-	
-<cfelse>
-
-<cf_screentop  
-    layout        = "webapp" 
-	html          = "#url.header#" 
-	label         = "#lt_text# #URL.Id1#" 		
-	banner        = "green" 
-	bannerforce   = "Yes"
-	scroll        = "No"	
-	line          = "no"
-	jQuery        = "Yes"
-	systemmodule  = "Procurement"
-	FunctionClass = "Window"
-	FunctionName  = "PurchaseOrder"	
-	height        = "100%">
-	
-</cfif>	
-
-<!--- End Prosis template framework --->
 
  <cfquery name="PO" 
 	  datasource="AppsPurchase" 
@@ -72,7 +20,6 @@
 	    FROM   Ref_OrderClass
 		WHERE  Code = '#PO.OrderClass#' 
 </cfquery>
-
 
 <cfquery name="PurchaseType" 
 	datasource="AppsPurchase" 
@@ -120,213 +67,39 @@
 <cfelse>
 	<cfset tmp = "Procurement/Application/Purchaseorder/Purchase/POViewPrint.cfm">  
 </cfif>
-		
-<cfparam name="CLIENT.Sort" default="OrgUnit">
-<cfparam name="URL.Sort"    default="line">
-<cfparam name="URL.View"    default="Hide">
-<cfparam name="URL.Lay"     default="Reference">
-<cfif url.mode eq "undefined">
-  <cfset url.mode = "view">
-</cfif>
-<cfparam name="URL.Role"    default="">
-
-<cf_tl id="Memo" var="1">
-<cfset vMemo="#lt_text#">
-
-<cf_tl id="Approval History" var="1">
-<cfset vHistory="#lt_text#">
-
-<cf_tl id="Received Invoices" var="1">
-<cfset vReceived="#lt_text#">
-
-<cfoutput>
-
-	<script>
 	
-	  function executionrequest(po,exe) {
-			
-		 se = document.getElementById('box'+exe);
-		 if (se.className == 'hide') {
-		    se.className = 'regular';
-			ptoken.navigate('../ExecutionRequest/ViewDrill.cfm?mode=drill&purchaseno='+po+'&executionid='+exe,'c'+exe);
-		 } else {
-		   se.className = 'hide'; 
-		 }
-	 }
-	 
-	 function ask(status) {
-	       
-		de = document.getElementById("destination")					
-	    if (status <= "1") { 
-		    sel = "return this Obligation ?" 
-		} else { 	     
-		    sel = "Approve this Obligation ?" }		
-		
-		if (confirm("Do you want to "+sel))	{
-			document.getElementById("fStatus").submit();		 
-		}
-			
-	}	
-	
-	function validate(frm,box,target) {	  
-	   document.getElementById(frm).onsubmit() 
-	   if( _CF_error_messages.length == 0 ) {	           
-		    ptoken.navigate(target,box,'','','POST',frm)
-	     }   
-    }	
-		
-	function reloadForm(mode,sort) {	    
-		ptoken.location("POViewGeneral.cfm?header=#url.header#&Mode=" + mode + "&role=#URL.Role#&ID1=#URL.ID1#&Sort="+sort) 
-	}
-	
-	function amendpurchase() {	
-		if (confirm("Do you want to amend and reset the status of this purchase order"))	{
-		    Prosis.busy('yes')
-			ptoken.navigate('setPOAmendment.cfm?header=#url.header#&role=#URL.Role#&Purchaseno=#URL.ID1#','amendbox')		 
-		}	
-	}
-	
-	function clonepurchase(po) {	
-	if (confirm("Do you want to clone the lines of this purchase ?"))	{
-		ptoken.navigate('#session.root#/Procurement/Application/PurchaseOrder/Purchase/applyCopyRequisition.cfm?purchaseNo='+po,'processrequisition')
-	} 	
-	}	
-	
-	function gettimesheet(po) {
-   	    try { ColdFusion.Window.destroy('timesheet',true); } catch(e){};			
-		w = document.body.clientWidth-50										
-		ColdFusion.Window.create('timesheet', 'Timesheet', '#session.root#/Procurement/Application/PurchaseOrder/Timesheet/TimeSheet.cfm?purchaseno='+po,{x:30,y:30,height:document.body.clientHeight-50,width:w,resizable:false,modal:true,center:true});	
-	}
-			
-	function more(bx,act,bx2) {
-	
-	    icM  = document.getElementById(bx+"Min")
-	    icE  = document.getElementById(bx+"Exp")
-		se   = document.getElementById(bx)
-		se2   = document.getElementById(bx2)
-			
-		if (se.className=="hide") {
-			se.className  = "regular";
-			if (se2) { se2.className  = "regular"; }
-			icM.className = "regular";
-		    icE.className = "hide";
-		} else	{
-			se.className  = "hide";
-			if (se2) { se2.className  = "hide"; }
-		    icM.className = "hide";
-		    icE.className = "regular";
-		}
-		}
-			
-		function clause(cl) {
-		 	 w = #CLIENT.width# - 100;
-			 h = #CLIENT.height# - 140;
-		     ptoken.open("#session.root#/Procurement/Application/PurchaseOrder/Purchase/POViewClausePrint.cfm?PurchaseNo=#URL.ID1#&ClauseCode="+cl,"_blank", "left=30, top=30, width=" + w + ", height= " + h + ", toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=no")
-	  	}
-										  
-		function invadd(orgunit,po,personno) {	
-		     ptoken.open("#SESSION.root#/Procurement/Application/Invoice/InvoiceEntry/InvoiceEntryView.cfm?html=yes&Mission=#PO.Mission#&Period=#PO.Period#&OrgUnit="+orgunit+"&PersonNo="+personno+"&PurchaseNo="+po,"_blank","width=1050, height=960, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes");							   						 
-		 }	
-		 
-		function present(mode) {
-			     		  		  
-			  w = #CLIENT.width# - 100;
-			  h = #CLIENT.height# - 140;
-			  
-			  docid = document.getElementById("printdocumentid").value
-			  		  
-			  if (docid != "") {			   
-				  window.open("#SESSION.root#/Tools/Mail/MailPrepare.cfm?docid="+docid+"&id="+mode+"&id1=#URL.ID1#","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")
-			  } else {
-			      window.open("#SESSION.root#/Tools/Mail/MailPrepare.cfm?templatepath=#tmp#&id="+mode+"&id1=#URL.ID1#","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")		 
-			  }	  
-	  	} 			
-		
-			
-	</script>
-
-</cfoutput>
-
-<!--- check if the person has edit rights to the purchase order --->
-
-<cfajaximport tags="cfwindow,cfform">
-
-<cf_DialogProcurement>
-<cf_DialogWorkOrder>
-<cf_dialogOrganization>
-<cf_dialogLedger>
-<cf_timesheetscript>
-          		
-	<cfquery name="Access" 
-	  datasource="AppsPurchase" 
-	  username="#SESSION.login#" 
-	  password="#SESSION.dbpw#">
-	  SELECT    *
-	  FROM    PurchaseActor
-	  WHERE   PurchaseNo = '#URL.ID1#'
-	  AND     ActorUserId = '#SESSION.acc#'
-	</cfquery>
-	
-	<cfif url.mode eq "View">	
-				
-		<cfif (Access.recordcount gte "1" or getAdministrator("#PO.Mission#") eq "1") and PO.ActionStatus lte "2">		
-			<cfset url.mode = "Edit">			
-		</cfif>	
-		
-	</cfif>
-		
-	<cfinvoke component="Service.Access"
-	   Method         = "procApprover"
-	   OrgUnit        = "#PO.OrgUnit#"
-	   OrderClass     = "#PO.OrderClass#"
-	   ReturnVariable = "ApprovalAccess">	
-		   
-	<cfif (ApprovalAccess eq "NONE" or ApprovalAccess eq "READ") and Access.recordcount eq "0">
-
-		<cfset url.access = "View">
-
-	</cfif>	   
-	
-	<cfif PO.recordcount eq "0">	
-	  	   	
-	   <cf_message message = "Order [#URL.ID1#] does not have any lines associated." return="no">
-	    
-	   <cfabort>
-	   	
-	</cfif>
-	
-<cf_divscroll>		
-	
-<table style="width:98.5%" align="center">
+<table style="width:98.5%;min-width:1000px" align="center">
 
 	<tr class="fixrow">
 	
-	<td>
+	<td style="background-color:white">
+	
 	<cfoutput>
 		
 	<table width="99%" align="center" class="formpadding">
-	   <tr class="fixrow">
-	    <td height="32" style="padding-left:5px">
+	
+	   <tr>
+	    <td height="32" style="background-color:white;padding-left:5px;font-size:17px">
 						
-		 <font face="Calibri" size="4" color="gray"><cf_tl id="#PurchaseType.Description#">:</font>		 
-		 <cfoutput><font face="Calibri" size="4" color="black"><b>#PO.PurchaseNo#<cfif PO.ModificationNo neq "">/#PO.ModificationNo#</cfif></font></cfoutput>			
+		 <cf_tl id="#PurchaseType.Description#">: 
+		 <cfoutput><b>#PO.PurchaseNo#<cfif PO.ModificationNo neq "">/#PO.ModificationNo#</cfif></cfoutput>			
 						
 		</td>
 
-	    <td align="right">
+	    <td align="right" style="background-color:white">
 		  	<select name="sort" id="sort" size="1" class="regularxl" onChange="reloadForm('<cfoutput>#URL.Mode#</cfoutput>',this.value)">
    	  		    <option value="Line" <cfif URL.Sort eq "Line">selected</cfif>><cf_tl id="Default">
 			    <option value="GL"   <cfif URL.Sort eq "GL">selected</cfif>><cf_tl id="Show Ledger Transaction">
 		 	</select>
 	     </td>
 		 
-		 <td width="170" align="right">
+		 <td width="170" align="right" style="background-color:white">
 		 
 		 	<cfoutput>
 		 
 			 	<script>				
 					function refresh() {
-					    window.location = "POViewGeneral.cfm?#CGI.QUERY_STRING#"
+					    window.location = "POView.cfm?#CGI.QUERY_STRING#"
 					}				
 				</script>
 				
@@ -335,23 +108,23 @@
 			     <tr>
 				 <td>|</td>
 				 <td>
-			 	 <button onClick="refresh()" type="button" class="button3">
-				     <img src="#SESSION.root#/Images/refresh.gif" alt="Refresh" border="0" align="absmiddle" style="height:20px;width:24px" >
+			 	 <button onClick="Prosis.busy('yes');refresh()" type="button" class="button3">
+				     <img src="#SESSION.root#/Images/refresh.gif" alt="Refresh" border="0" align="absmiddle" style="height:15px;width:18px" >
 				 </button>
 				 </td>
 				 <td>|</td>
 				 <td>
 				 <button onClick="present('mail')" type="button" class="button3">
-				     <img src="#SESSION.root#/Images/mail.png" alt="Send eMail" border="0" align="absmiddle" width="32px" height="32px">
+				     <img src="#SESSION.root#/Images/mail.png" alt="Send eMail" border="0" align="absmiddle" style="height:20px;width:20px">
 				 </button>
 				 </td>
 				 <td>|</td>
 				 <td>
 				 <button onClick="present('pdf')" type="button" class="button3">
-				    <img src="#SESSION.root#/Images/pdf.png" alt="Print" border="0" style="height:23px;width:28px" align="absmiddle">
+				    <img src="#SESSION.root#/Images/pdf.png" alt="Print" border="0" style="height:15px;width:17px" align="absmiddle">
 				 </button>
 				 </td>
-				 <td>|</td>		
+				
 				 
 				 </table>				
 			 </cfoutput>	
@@ -362,7 +135,10 @@
 	  </table>
 	
 	</td>
-	<td colspan="1" height="26" align="right"></td></tr>
+	
+	<td colspan="1" height="26" align="right"></td>
+	
+  </tr>
 	
   </cfoutput>
       
@@ -486,7 +262,7 @@
 					name="fPurchaseOrder"
 					onsubmit="return true">	
 						
-				  <table width="100%" cellspacing="0" cellpadding="0" align="center">
+				  <table width="100%">
 				     
 					  <cfoutput query="PO" maxrows=1>		
 					  
@@ -542,7 +318,7 @@
 		   <table width="100%">
 		   
 		    <tr class="line">
-			<td width="24" align="center">
+			<td width="24" align="center" style="background-color:white">
 			
 		    <cfoutput>
 			
@@ -557,13 +333,13 @@
 			</cfoutput>
 			
 			</td>
-			<td class="labellarge" style="font-weight:200;height:31px;padding-left:3px;font-size:20px;;height:42px;"><cf_tl id="Funding"></td>
+			<td class="labellarge" style="background-color:white;padding-left:3px;font-size:20px;font-weight:bold;;height:32px;"><cf_tl id="Funding"></td>
 			</tr>
 		  </table>
 	  	</td></tr>
 			
 	    <tr id="fun" class="hide">		 
-		  <td>
+		  <td style="padding-left:20px">
 		  <table width="100%" align="center">
 		    
 		      <tr><td>
@@ -628,28 +404,280 @@
 	 
 </cfoutput>	 	
 
-<table width="100%" align="center">				
-
-<tr><td>
-		
-	<table width="99%" align="center">
-  	
-       <tr class="fixrow"><td height="24" style="cursor: pointer;">
-	   	  
-		   <table width="100%">
-		   
-		   		<cfoutput>
-				
-				    <tr class="line">
-					<td width="24" align="center" onClick="more('lines','show')" >		
-										
-						<img src="#SESSION.root#/Images/arrowright.gif" alt="" id="linesExp" border="0" class="hide"    align="absmiddle">
-						<img src="#SESSION.root#/Images/arrowdown.gif"  alt="" id="linesMin" border="0" class="regular" align="absmiddle">				
+	<table width="100%" align="center">				
+	
+	<tr><td>
+			
+		<table width="99%" align="center">
+	  	
+	       <tr class="fixrow"><td height="24" style="cursor: pointer;">
+		   	  
+			   <table width="100%" border="0">
+			   
+			   		<cfoutput>
 					
-					</td>					
-					<td onClick="more('lines','show')" class="labellarge" style="font-weight:200;height:31px;padding-left:3px;font-size:20px;;height:42px;"><cf_tl id="Purchase details and Receipts"></td>					
-					<td width="80">
+					    <tr class="line">
+						<td width="24" align="center" style="background-color:white" onClick="more('lines','show')" >		
+											
+							<img src="#SESSION.root#/Images/arrowright.gif" alt="" id="linesExp" border="0" class="hide"    align="absmiddle">
+							<img src="#SESSION.root#/Images/arrowdown.gif"  alt="" id="linesMin" border="0" class="regular" align="absmiddle">				
+						
+						</td>					
+						<td onClick="more('lines','show')" class="labellarge" style="background-color:white;padding-left:3px;font-size:20px;font-weight:bold;;height:32px;"><cf_tl id="Purchase details and Receipts"></td>					
+						
+							<cf_tl id="Export data to Excel" var="vExport">
+							
+							<cfinvoke component="Service.Analysis.CrossTab"  
+									  method         = "ShowInquiry"
+									  buttonName     = "Excel"
+									  buttonText     = "#vExport#"
+									  buttonClass    = "td"
+									  buttonIcon     = "#SESSION.root#/Images/excel.gif"							
+									  reportPath     = "Procurement\Application\PurchaseOrder\Purchase\"
+									  SQLtemplate    = "POViewGeneralLinesExcel.cfm"
+									  queryString    = "purchaseno=#URL.id1#"
+									  dataSource     = "appsQuery" 
+									  module         = "Procurement"
+									  reportName     = "Facttable: Purchase Lines Detail"
+									  table1Name     = "Export file"
+									  data           = "1"							 
+									  ajax           = "0"
+									  olap           = "0" 
+									  excel          = "1"> 				
+						
+						
+						
+						<td align="right" style="padding-left:4px;width:150px;padding-right:4px;background-color:white">
+						
+						    <table style="border:1px solid gray;background-color:white"><tr><td>
+							<input class="regularxl" style="border:0px" id="inputline" name="inputline">
+							</td>
+							<td style="border-left:1px solid gray;background-color:white">						
+							<img src="#SESSION.root#/Images/search.png" 
+							   alt="Find line" 
+							   style="cursor: pointer;border:0px solid gray" 
+							   border="0" 
+							   height="25"
+							   width="25"
+							   id="refreshpurchasline"
+							   align="absmiddle"
+							   onclick="_cf_loadingtexthtml='';ptoken.navigate('POViewGeneralLines.cfm?sort=#url.sort#&mode=#url.mode#&id1=#url.id1#&filter='+document.getElementById('inputline').value,'linescontent');ColdFusion.navigate('getPurchaseTotal.cfm?id1=#url.id1#','total')">
+							   
+							   </td></tr></table>
+							   
+						</td>					
+						</tr>
+					
+					</cfoutput>	
+					
+			   </table>
+		      </td>
+		  </tr>
+		  
+		  <tr id="lines">
+		     <td style="padding-left:20px">		
+			
+				<cfdiv id="linescontent">				
+					<cfinclude template="POViewGeneralLines.cfm">
+				</cfdiv>	 						 
+			 
+			 </td>
+		  </tr>
+		  
+		</table>
+			  	  	  	  
+	</td></tr>
+	
+	
+	<!--- ------------------------------------------- --->
+	<!--- ----------Distribution subtab ------------- --->
+	<!--- ------------------------------------------- --->
+	
+	<cfif Parameter.EnableExecutionRequest eq "1">  <!--- POType.InvoiceWorkflow eq "1" this condition which was before invoice-only was removed --->
+	
+	<tr><td>
+	
+		<table width="99%" align="center">
+		  
+	       <tr><td height="20" onClick="more('dis','show')" style="cursor: pointer;">
+			   <table width="100%">
+			    <tr class="line"><td width="24" align="center">
+			    
+				<cfoutput>
 				
+					<img src="#SESSION.root#/Images/arrowright.gif" alt="" 
+					id="disExp" border="0" class="regular" 
+					align="absmiddle">
+					
+					<img src="#SESSION.root#/Images/arrowdown.gif" 
+					id="disMin" alt="" border="0" 
+					align="absmiddle" class="hide">
+					
+				</cfoutput>
+				
+				</td>
+				<td class="labellarge" style="padding-left:3px;font-size:20px;font-weight:bold;height:32px;"><cf_tl id="Distribution"></td>
+				</tr>
+			  </table>
+		  	</td></tr>
+				
+		    <tr id="dis" class="hide">		 
+			  <td style="padding-left:20px">
+			 
+				  <table width="100%" align="center">		     
+				      <tr><td>		
+					       <cfdiv id="boxdistribution">    
+						   <cfinclude template="POViewDistribution.cfm"> 
+						   </cfdiv>			  				   
+					       </td>
+				      </tr>	 
+				  </table>
+			  
+			  </td>
+		   </tr>
+		   
+		</table>
+		
+	</td></tr>
+	
+	</cfif>
+	
+	<!--- --------------------------------------- --->
+	<!--- ----------Advances subtab ------------- --->
+	<!--- --------------------------------------- --->
+	
+	<cfif Parameter.InvoiceAdvance eq "1">
+		
+		<cfquery name="Lines" 
+			datasource="AppsLedger" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">			
+			SELECT   H.Journal,
+			         H.JournalSerialNo,
+					 H.JournalTransactionNo, 
+			         H.Description, 
+					 H.Reference, 
+					 H.TransactionId,
+					 H.TransactionDate, 
+					 TL.Currency, 
+					 TL.AmountDebit, 
+					 TL.AmountCredit, 
+					 TL.GLAccount,
+					 H.ReferenceName, 
+					 H.ReferenceNo,
+					 H.ActionStatus,
+					 H.OfficerFirstName,
+					 H.OfficerLastName
+			FROM     TransactionHeader H INNER JOIN
+			         TransactionLine TL ON H.Journal = TL.Journal AND H.JournalSerialNo = TL.JournalSerialNo
+			WHERE    H.Reference   = 'Advance' 
+			AND      H.ReferenceNo = '#URL.ID1#' 
+			AND      TL.TransactionSerialNo != '0'
+			ORDER BY H.TransactionDate
+		</cfquery>
+		
+		<cf_verifyOperational module="Accounting" Warning="No">
+				
+		<cfif operational eq "1">
+		
+		<!--- -------- --->
+		<!--- advances --->
+		<!--- -------- --->
+						
+		<tr><td>
+		
+			<table width="99%" align="center">
+		  	
+		       <tr class="fixrow"><td height="20" onClick="more('adv','show')" style="cursor: pointer;">
+			   <table width="100%">
+				    <tr class="line"><td width="24" align="center" style="background-color:white">
+				    <cfoutput>
+					<img src="#SESSION.root#/Images/arrowright.gif" alt="" 
+						id="advExp" border="0" class="hide" 
+						align="absmiddle" style="cursor: pointer;">
+						
+						<img src="#SESSION.root#/Images/arrowdown.gif" 
+						id="advMin" alt="" border="0" 
+						align="absmiddle" class="regular" style="cursor: pointer;">
+						
+					</cfoutput>	
+					</td>
+					<td class="labellarge" style="background-color:white;padding-left:3px;font-size:20px;font-weight:bold;;height:32px;"><cf_tl id="Advances"></td>
+					</tr>
+			  </table>
+			  </td></tr>
+			  
+			
+			  <tr id="adv"><td>
+				  <table width="100%" cellspacing="0" cellpadding="0" align="center">			  	
+				      <tr><td style="padding-left:20px"><cfinclude template="POViewAdvance.cfm"></td></tr>	 							  
+				  </table>
+			  </td></tr>
+			  </table>
+			
+		</td></tr>
+		
+		</cfif>
+		
+	</cfif>	
+	
+	
+	
+	<!--- to be moved --->
+	<!--- --------------------------------------- --->
+	<!--- ----------Invoice tab --- ------------- --->
+	<!--- --------------------------------------- --->
+	
+	<cfquery name="Lines" 
+			datasource="AppsPurchase" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			SELECT    TOP 1 * 
+	        FROM      Invoice
+			WHERE     InvoiceId IN (SELECT InvoiceId 
+			                        FROM InvoicePurchase 
+									WHERE PurchaseNO = '#URL.ID1#') 		
+	</cfquery>  
+			
+	<cfif lines.recordcount gte "0" and PO.Payroll eq "0">	
+	
+		<tr><td>
+		
+			<table width="99%" align="center" border="0" cellspacing="0">
+			 
+		       <tr class="fixrow"><td height="20" style="cursor: pointer;">
+			   
+			   <table width="100%" cellspacing="0" cellpadding="0">
+				  
+				    <tr class="line">
+					<td style="background-color:white" width="24" align="center" onClick="more('inv','show','inv2')">
+				   
+				    <cfoutput>
+					
+						<img src="#SESSION.root#/Images/arrowright.gif" alt="" 
+						id="invExp" border="0" class="hide" 
+						align="absmiddle" style="cursor: pointer;">
+						
+						<img src="#SESSION.root#/Images/arrowdown.gif" 
+						id="invMin" alt="" border="0" 
+						align="absmiddle" class="regular" style="cursor: pointer;">
+						
+					
+					</td>
+					<td onClick="more('inv','show','inv2')" 
+					    class="labellarge" 
+						style="background-color:white;padding-left:3px;font-size:20px;font-weight:bold;height:32px;"><cfoutput>#vReceived#</cfoutput></td>
+									
+					<cfif (Lines.recordcount gte "0" and (ApprovalAccess eq "EDIT" or ApprovalAccess eq "ALL")) 
+					    or getAdministrator(Lines.mission) eq "1">
+						
+					<td style="background-color:white"><cfdiv bind="url:ObligationStatus.cfm?id1=#url.id1#" id="obligation"></td>
+					
+					</cfif>
+		
+					</td>
+								
+										
 						<cf_tl id="Export data to Excel" var="vExport">
 						
 						<cfinvoke component="Service.Analysis.CrossTab"  
@@ -659,479 +687,222 @@
 								  buttonClass    = "td"
 								  buttonIcon     = "#SESSION.root#/Images/excel.gif"							
 								  reportPath     = "Procurement\Application\PurchaseOrder\Purchase\"
-								  SQLtemplate    = "POViewGeneralLinesExcel.cfm"
+								  SQLtemplate    = "POViewInvoiceExcel.cfm"
 								  queryString    = "purchaseno=#URL.id1#"
 								  dataSource     = "appsQuery" 
 								  module         = "Procurement"
-								  reportName     = "Facttable: Purchase Lines Detail"
+								  reportName     = "Facttable: Purchase Invoices"
 								  table1Name     = "Export file"
 								  data           = "1"							 
 								  ajax           = "0"
 								  olap           = "0" 
 								  excel          = "1"> 				
 					
+					
+					
+					<td align="right" style="padding-left:4px;width:150px;padding-right:4px;background-color:white">					
+					
+					  <table style="border:1px solid gray">
+					   <tr><td><input class="regularxl" onkeyup="document.getElementById('refreshinvoiceline').click()" style="border:0px" name="inputinvoice" id="inputinvoice"></td>
+						   <td style="border-left:1px solid gray">						
+							<img src="#SESSION.root#/Images/search.png" 
+							   alt="Find line" 
+							   style="cursor: pointer;border:0px solid gray" 
+							   border="0" 
+							   height="25"
+							   width="25"
+							   id="refreshinvoiceline"
+							   align="absmiddle"
+							   onclick="_cf_loadingtexthtml='';	ptoken.navigate('POViewInvoice.cfm?sort=#url.sort#&mode=#url.mode#&id1=#url.id1#&filter='+inputinvoice.value,'invoicecontent')">
+							</td>
+						</tr>
+					  </table>
+									 
 					</td>
 					
-					<td align="right" style="padding-right:4px">
-					
-					    <table style="border:1px solid gray"><tr><td>
-						<input class="regularxl" style="border:0px" id="inputline" name="inputline">
-						</td>
-						<td style="border-left:1px solid gray">						
-						<img src="#SESSION.root#/Images/search.png" 
-						   alt="Find line" 
-						   style="cursor: pointer;border:0px solid gray" 
-						   border="0" 
-						   height="25"
-						   width="25"
-						   id="refreshpurchasline"
-						   align="absmiddle"
-						   onclick="_cf_loadingtexthtml='';ptoken.navigate('POViewGeneralLines.cfm?sort=#url.sort#&mode=#url.mode#&id1=#url.id1#&filter='+document.getElementById('inputline').value,'linescontent');ColdFusion.navigate('getPurchaseTotal.cfm?id1=#url.id1#','total')">
-						   
-						   </td></tr></table>
-						   
-					</td>					
+					</cfoutput>
 					</tr>
-				
-				</cfoutput>	
-				
-		   </table>
-	      </td>
-	  </tr>
-	  
-	  <tr id="lines">
-	     <td>		
-		
-			<cfdiv id="linescontent">				
-				<cfinclude template="POViewGeneralLines.cfm">
-			</cfdiv>	 						 
-		 
-		 </td>
-	  </tr>
-	  
-	</table>
-		  	  	  	  
-</td></tr>
-
-
-<!--- ------------------------------------------- --->
-<!--- ----------Distribution subtab ------------- --->
-<!--- ------------------------------------------- --->
-
-<cfif Parameter.EnableExecutionRequest eq "1">  <!--- POType.InvoiceWorkflow eq "1" this condition which was before invoice-only was removed --->
-
-<tr><td>
-
-	<table width="99%" align="center">
-	  
-       <tr><td height="20" onClick="more('dis','show')" style="cursor: pointer;">
-		   <table width="100%">
-		    <tr class="line"><td width="24" align="center">
-		    
-			<cfoutput>
-			
-				<img src="#SESSION.root#/Images/arrowright.gif" alt="" 
-				id="disExp" border="0" class="regular" 
-				align="absmiddle">
-				
-				<img src="#SESSION.root#/Images/arrowdown.gif" 
-				id="disMin" alt="" border="0" 
-				align="absmiddle" class="hide">
-				
-			</cfoutput>
-			
-			</td>
-			<td class="labellarge" style="font-weight:200;height:31px;padding-left:3px;font-size:20px;;height:42px;"><cf_tl id="Distribution"></td>
-			</tr>
-		  </table>
-	  	</td></tr>
-			
-	    <tr id="dis" class="hide">		 
-		  <td>
-		 
-			  <table width="100%" align="center">		     
-			      <tr><td>		
-				       <cfdiv id="boxdistribution">    
-					   <cfinclude template="POViewDistribution.cfm"> 
-					   </cfdiv>			  				   
-				       </td>
-			      </tr>	 
 			  </table>
-		  
-		  </td>
-	   </tr>
-	   
-	</table>
-	
-</td></tr>
-
-</cfif>
-
-<!--- --------------------------------------- --->
-<!--- ----------Advances subtab ------------- --->
-<!--- --------------------------------------- --->
-
-<cfif Parameter.InvoiceAdvance eq "1">
-	
-	<cfquery name="Lines" 
-		datasource="AppsLedger" 
-		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">			
-		SELECT   H.Journal,
-		         H.JournalSerialNo,
-				 H.JournalTransactionNo, 
-		         H.Description, 
-				 H.Reference, 
-				 H.TransactionId,
-				 H.TransactionDate, 
-				 TL.Currency, 
-				 TL.AmountDebit, 
-				 TL.AmountCredit, 
-				 TL.GLAccount,
-				 H.ReferenceName, 
-				 H.ReferenceNo,
-				 H.ActionStatus,
-				 H.OfficerFirstName,
-				 H.OfficerLastName
-		FROM     TransactionHeader H INNER JOIN
-		         TransactionLine TL ON H.Journal = TL.Journal AND H.JournalSerialNo = TL.JournalSerialNo
-		WHERE    H.Reference   = 'Advance' 
-		AND      H.ReferenceNo = '#URL.ID1#' 
-		AND      TL.TransactionSerialNo != '0'
-		ORDER BY H.TransactionDate
-	</cfquery>
-	
-	<cf_verifyOperational module="Accounting" Warning="No">
-			
-	<cfif operational eq "1">
-	
-	<!--- -------- --->
-	<!--- advances --->
-	<!--- -------- --->
-					
-	<tr><td>
-	
-		<table width="99%" align="center">
-	  	
-	       <tr class="fixrow"><td height="20" onClick="more('adv','show')" style="cursor: pointer;">
-		   <table width="100%">
-			    <tr class="line"><td width="24" align="center">
-			    <cfoutput>
-				<img src="#SESSION.root#/Images/arrowright.gif" alt="" 
-					id="advExp" border="0" class="hide" 
-					align="absmiddle" style="cursor: pointer;">
-					
-					<img src="#SESSION.root#/Images/arrowdown.gif" 
-					id="advMin" alt="" border="0" 
-					align="absmiddle" class="regular" style="cursor: pointer;">
-					
-				</cfoutput>	
-				</td>
-				<td class="labellarge" style="font-weight:200;padding-left:3px;font-size:20px;;height:42px;"><cf_tl id="Advances"></td>
-				</tr>
-		  </table>
-		  </td></tr>
-		  
-		
-		  <tr id="adv"><td>
-			  <table width="100%" cellspacing="0" cellpadding="0" align="center">			  	
-			      <tr><td><cfinclude template="POViewAdvance.cfm"></td></tr>	 							  
-			  </table>
-		  </td></tr>
-		  </table>
-		
-	</td></tr>
-	
-	</cfif>
-	
-</cfif>	
-
-
-
-<!--- to be moved --->
-<!--- --------------------------------------- --->
-<!--- ----------Invoice tab --- ------------- --->
-<!--- --------------------------------------- --->
-
-<cfquery name="Lines" 
-		datasource="AppsPurchase" 
-		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">
-		SELECT    TOP 1 * 
-        FROM      Invoice
-		WHERE     InvoiceId IN (SELECT InvoiceId 
-		                        FROM InvoicePurchase 
-								WHERE PurchaseNO = '#URL.ID1#') 		
-</cfquery>  
-		
-<cfif lines.recordcount gte "0" and PO.Payroll eq "0">	
-
-	<tr><td>
-	
-		<table width="99%" align="center" border="0" cellspacing="0">
-		 
-	       <tr class="fixrow"><td height="20" style="cursor: pointer;">
-		   
-		   <table width="100%" cellspacing="0" cellpadding="0">
+			  </td></tr>		  
 			  
-			    <tr class="line">
-				<td width="24" align="center" onClick="more('inv','show','inv2')">
-			   
-			    <cfoutput>
+			  <cfquery name="Total" 
+				datasource="AppsPurchase" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					SELECT    COUNT(*) As Docs,
+							  DocumentCurrency,
+							  SUM(DocumentAmount) as Total 
+			        FROM      Invoice I				
+					WHERE     InvoiceId IN (SELECT InvoiceId FROM InvoicePurchase WHERE PurchaseNO = '#URL.ID1#')				
+					AND       ActionStatus != '9'  
+				    AND   (
+							EXISTS
+							(SELECT 'X'
+								FROM   Organization.dbo.OrganizationObject
+								WHERE  EntityCode    = 'ProcInvoice'
+								AND ObjectKeyValue4 = I.InvoiceId 
+							) 
+							OR HistoricInvoice = 1
+					)
+					GROUP BY  DocumentCurrency
+				</cfquery>  
 				
-					<img src="#SESSION.root#/Images/arrowright.gif" alt="" 
-					id="invExp" border="0" class="hide" 
+				<cf_tl id="REQ046" var="1">
+				<cfset vReq046=#lt_text#>		
+						
+				<cfif total.docs gt "1">
+					
+					<tr>
+					
+						<td id="inv2">
+						
+							 <table align="center" id="lines">						 
+							 <tr><td>
+								 <table width="100%" border="0" class="formpadding formspacing"align="center">
+								     <cfoutput query="total">
+								      <tr style="height:20px" class="labelmedium">
+										  <td align="right">#vReq046#:</td>
+										  <td style="padding-left:4px" class="labelmedium"><b>#Docs#</td>
+										  <td style="padding-left:10px" align="right"><cf_tl id="Currency">:</td>
+										  <td style="padding-left:4px"><b>#DocumentCurrency#</td>
+										  <td style="padding-left:10px" align="right"><cf_tl id="Amount">:</td>
+										  <td style="padding-left:4px"><b>#NumberFormat(Total,",.__")#</td>
+									  </tr>
+									  </cfoutput>
+									
+								</table>
+							    </td>
+							 </tr>	
+													
+							</table>
+							
+						</td>
+					
+					</tr>  
+							
+				</cfif>				  
+			
+			  <tr id="inv">
+			  <td id="invoicecontent" class="labelmedium" align="center" style="padding-left:20px;padding-top:4px;height:30px">
+			  
+			  	 <cfif total.docs lt "10">
+				 		    
+				    <cfinclude template="POViewInvoice.cfm"> 
+										
+				<cfelse>
+				
+					<cfoutput>
+					<a href="javascript:_cf_loadingtexthtml='';	ColdFusion.navigate('POViewInvoice.cfm?filter=&sort=#url.sort#&mode=#url.mode#&id1=#url.id1#','invoicecontent')">
+					<cf_tl id="Press here to view Payables/Invoices">
+					</a>		
+					</cfoutput>		 		  
+			    				 
+				 </cfif> 	 
+				  		
+			  </td></tr>
+			  
+			  </table>
+			
+		</td></tr>
+	
+	</cfif>	
+	
+	<!--- --------------------------------------- --->
+	<!--- ----------Officers subtab ------------- --->
+	<!--- --------------------------------------- --->
+	
+	<tr><td>
+	
+		<table width="99%" align="center" border="0" cellspacing="0" cellpadding="0">
+		   <tr><td height="20" onClick="more('act','show')" style="cursor: pointer;">
+		   <table width="100%">
+			    <tr class="line fixrow"><td width="24" align="center" style="background-color:white">
+			    <cfoutput>
+				<img src="#SESSION.root#/Images/arrowright.gif" alt="" 
+					id="actExp" border="0" class="regular" 
 					align="absmiddle" style="cursor: pointer;">
 					
 					<img src="#SESSION.root#/Images/arrowdown.gif" 
-					id="invMin" alt="" border="0" 
-					align="absmiddle" class="regular" style="cursor: pointer;">
+					id="actMin" alt="" border="0" 
+					align="absmiddle" class="hide" style="cursor: pointer;">
 					
-				
-				</td>
-				<td onClick="more('inv','show','inv2')" 
-				    class="labellarge" 
-					style="font-weight:200;height:31px;padding-left:3px;font-size:20px;;height:42px;"><cfoutput>#vReceived#</cfoutput></td>
-								
-				<cfif (Lines.recordcount gte "0" and (ApprovalAccess eq "EDIT" or ApprovalAccess eq "ALL")) 
-				    or getAdministrator(Lines.mission) eq "1">
-					
-				<td><cfdiv bind="url:ObligationStatus.cfm?id1=#url.id1#" id="obligation"></td>
-				
-				</cfif>
-	
-				</td>
-								
-				<td width="80">
-				
-					<cf_tl id="Export data to Excel" var="vExport">
-					
-					<cfinvoke component="Service.Analysis.CrossTab"  
-							  method         = "ShowInquiry"
-							  buttonName     = "Excel"
-							  buttonText     = "#vExport#"
-							  buttonClass    = "td"
-							  buttonIcon     = "#SESSION.root#/Images/excel.gif"							
-							  reportPath     = "Procurement\Application\PurchaseOrder\Purchase\"
-							  SQLtemplate    = "POViewInvoiceExcel.cfm"
-							  queryString    = "purchaseno=#URL.id1#"
-							  dataSource     = "appsQuery" 
-							  module         = "Procurement"
-							  reportName     = "Facttable: Purchase Invoices"
-							  table1Name     = "Export file"
-							  data           = "1"							 
-							  ajax           = "0"
-							  olap           = "0" 
-							  excel          = "1"> 				
-				
-				</td>
-				
-				<td align="right" style="padding-right:4px">
-				
-				
-				  <table style="border:1px solid gray">
-				   <tr><td><input class="regularxl" onkeyup="document.getElementById('refreshinvoiceline').click()" style="border:0px" name="inputinvoice" id="inputinvoice"></td>
-					   <td style="border-left:1px solid gray">						
-						<img src="#SESSION.root#/Images/search.png" 
-						   alt="Find line" 
-						   style="cursor: pointer;border:0px solid gray" 
-						   border="0" 
-						   height="25"
-						   width="25"
-						   id="refreshinvoiceline"
-						   align="absmiddle"
-						   onclick="_cf_loadingtexthtml='';	ptoken.navigate('POViewInvoice.cfm?sort=#url.sort#&mode=#url.mode#&id1=#url.id1#&filter='+inputinvoice.value,'invoicecontent')">
-						</td>
-					</tr>
-				  </table>
-								 
-				</td>
-				
 				</cfoutput>
+				</td>
+				<td class="labellarge" style="background-color:white;padding-left:3px;font-size:20px;font-weight:bold;height:32px;"><cf_tl id="Responsible officers"></td>
 				</tr>
 		  </table>
-		  </td></tr>		  
-		  
-		  <cfquery name="Total" 
-			datasource="AppsPurchase" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-				SELECT    COUNT(*) As Docs,
-						  DocumentCurrency,
-						  SUM(DocumentAmount) as Total 
-		        FROM      Invoice I				
-				WHERE     InvoiceId IN (SELECT InvoiceId FROM InvoicePurchase WHERE PurchaseNO = '#URL.ID1#')				
-				AND       ActionStatus != '9'  
-			    AND   (
-						EXISTS
-						(SELECT 'X'
-							FROM   Organization.dbo.OrganizationObject
-							WHERE  EntityCode    = 'ProcInvoice'
-							AND ObjectKeyValue4 = I.InvoiceId 
-						) 
-						OR HistoricInvoice = 1
-				)
-				GROUP BY  DocumentCurrency
-			</cfquery>  
-			
-			<cf_tl id="REQ046" var="1">
-			<cfset vReq046=#lt_text#>		
-					
-			<cfif total.docs gt "1">
-				
-				<tr>
-				
-					<td id="inv2">
-					
-						 <table cellspacing="0" cellpadding="0" border="0" align="center" id="lines">						 
-						 <tr><td>
-							 <table width="100%" border="0" class="formpadding formspacing"align="center">
-							     <cfoutput query="total">
-							      <tr style="height:20px" class="labelmedium">
-									  <td align="right">#vReq046#:</td>
-									  <td style="padding-left:4px" class="labelmedium"><b>#Docs#</td>
-									  <td style="padding-left:10px" align="right"><cf_tl id="Currency">:</td>
-									  <td style="padding-left:4px"><b>#DocumentCurrency#</td>
-									  <td style="padding-left:10px" align="right"><cf_tl id="Amount">:</td>
-									  <td style="padding-left:4px"><b>#NumberFormat(Total,",.__")#</td>
-								  </tr>
-								  </cfoutput>
-								
-							</table>
-						    </td>
-						 </tr>	
-												
-						</table>
-						
-					</td>
-				
-				</tr>  
-						
-			</cfif>				  
-		
-		  <tr id="inv">
-		  <td id="invoicecontent" class="labelmedium" align="center" style="padding-top:4px;height:30px">
-		  
-		  	 <cfif total.docs lt "10">
-			 		    
-			    <cfinclude template="POViewInvoice.cfm"> 
-									
-			<cfelse>
-			
-				<cfoutput>
-				<a href="javascript:_cf_loadingtexthtml='';	ColdFusion.navigate('POViewInvoice.cfm?filter=&sort=#url.sort#&mode=#url.mode#&id1=#url.id1#','invoicecontent')">
-				<cf_tl id="Press here to view Payables/Invoices">
-				</a>		
-				</cfoutput>		 		  
-		    				 
-			 </cfif> 	 
-			  		
 		  </td></tr>
-		  
+		  <tr class="hide" id="act"><td>
+		  <table width="100%" cellspacing="0" cellpadding="0" align="center">	     
+			  
+		      <tr><td id="actor" style="height:120;padding-left:20px" valign="top">		  
+			   <cfinclude template="POViewActor.cfm"> 
+			  </td></tr>	 
+		  </table>
+		  </td></tr>
 		  </table>
 		
 	</td></tr>
-
-</cfif>	
-
-<!--- --------------------------------------- --->
-<!--- ----------Officers subtab ------------- --->
-<!--- --------------------------------------- --->
-
-<tr><td>
-
-	<table width="99%" align="center" border="0" cellspacing="0" cellpadding="0">
-	   <tr><td height="20" onClick="more('act','show')" style="cursor: pointer;">
-	   <table width="100%">
-		    <tr class="line fixrow"><td width="24" align="center">
-		    <cfoutput>
-			<img src="#SESSION.root#/Images/arrowright.gif" alt="" 
-				id="actExp" border="0" class="regular" 
-				align="absmiddle" style="cursor: pointer;">
-				
-				<img src="#SESSION.root#/Images/arrowdown.gif" 
-				id="actMin" alt="" border="0" 
-				align="absmiddle" class="hide" style="cursor: pointer;">
-				
-			</cfoutput>
-			</td>
-			<td class="labellarge" style="font-weight:200;height:31px;padding-left:3px;font-size:20px;;height:42px;"><cf_tl id="Responsible officers"></td>
-			</tr>
-	  </table>
-	  </td></tr>
-	  <tr class="hide" id="act"><td>
-	  <table width="100%" cellspacing="0" cellpadding="0" align="center">	     
-		  
-	      <tr><td id="actor" style="height:120" valign="top">		  
-		   <cfinclude template="POViewActor.cfm"> 
-		  </td></tr>	 
-	  </table>
-	  </td></tr>
-	  </table>
 	
-</td></tr>
-
-<!--- --------------------------------------- --->
-<!--- ------------Log subtab ---------------- --->
-<!--- --------------------------------------- --->
-
-<cfquery name="Log" 
-     datasource="AppsPurchase" 
-     username="#SESSION.login#" 
-     password="#SESSION.dbpw#">
-     SELECT   * 
-	 FROM     PurchaseAction P, Status S
-	 WHERE    PurchaseNo = '#URL.ID1#'
-	 AND      S.Status = P.ActionStatus
-	 AND      S.StatusClass = 'Purchase'
-	 ORDER BY ActionDate DESC
-</cfquery>
+	<!--- --------------------------------------- --->
+	<!--- ------------Log subtab ---------------- --->
+	<!--- --------------------------------------- --->
 	
-<cfif Log.recordcount gt "0">
-
-<tr><td>
-
-	<table width="99%" cellspacing="0" cellpadding="0" align="center">
-       <tr><td height="20" onClick="more('log','show')" style="cursor: pointer;">
-	   <table width="100%">
-		    <tr><td width="24" align="center">
-		    <cfoutput>
-			
-			<img src="#SESSION.root#/Images/arrowright.gif" alt="" 
-				id="logExp" border="0" class="regular" 
-				align="absmiddle">
-				
-				<img src="#SESSION.root#/Images/arrowdown.gif" 
-				id="logMin" alt="" border="0" 
-				align="absmiddle" class="hide">
-				
-			</cfoutput>
-			</td>
-			<td class="labellarge" style="font-weight:200;height:31px;font-size:20px;;padding-left:3px;height:40"><font color="0080C0"><cfoutput>#vHistory#</cfoutput></td>
-			</tr>
-	  </table>
-	  </td></tr>
-	  <tr class="hide" id="log"><td>
-	  <table width="100%" cellspacing="0" cellpadding="0" align="center">	  
-		  <tr><td colspan="2" class="line"></td></tr>   
-	      <tr><td>
-		   <cfinclude template="POViewLog.cfm"> 
-		  </td></tr>	 
-	  </table>
-	  </td></tr>
-	  </table>
+	<cfquery name="Log" 
+	     datasource="AppsPurchase" 
+	     username="#SESSION.login#" 
+	     password="#SESSION.dbpw#">
+	     SELECT   * 
+		 FROM     PurchaseAction P, Status S
+		 WHERE    PurchaseNo = '#URL.ID1#'
+		 AND      S.Status = P.ActionStatus
+		 AND      S.StatusClass = 'Purchase'
+		 ORDER BY ActionDate DESC
+	</cfquery>
+		
+	<cfif Log.recordcount gt "0">
 	
-</td></tr>
-
-</cfif>	
-
-<tr><td height="5"></td></tr>
-			
-</TABLE>
+	<tr><td>
+	
+		<table width="99%" cellspacing="0" cellpadding="0" align="center">
+	       <tr><td height="20" onClick="more('log','show')" style="cursor: pointer;">
+		   <table width="100%">
+			    <tr><td width="24" align="center">
+			    <cfoutput>
+				
+				<img src="#SESSION.root#/Images/arrowright.gif" alt="" 
+					id="logExp" border="0" class="regular" 
+					align="absmiddle">
+					
+					<img src="#SESSION.root#/Images/arrowdown.gif" 
+					id="logMin" alt="" border="0" 
+					align="absmiddle" class="hide">
+					
+				</cfoutput>
+				</td>
+				<td class="labellarge" style="font-weight:200;height:31px;font-size:20px;;padding-left:3px;height:40"><font color="0080C0"><cfoutput>#vHistory#</cfoutput></td>
+				</tr>
+		  </table>
+		  </td></tr>
+		  <tr class="hide" id="log"><td>
+		  <table width="100%" cellspacing="0" cellpadding="0" align="center">	  
+			  <tr><td colspan="2" class="line"></td></tr>   
+		      <tr><td>
+			   <cfinclude template="POViewLog.cfm"> 
+			  </td></tr>	 
+		  </table>
+		  </td></tr>
+		  </table>
+		
+	</td></tr>
+	
+	</cfif>	
+	
+	<tr><td height="5"></td></tr>
+				
+	</TABLE>
 
 </td></tr>		
 
 </table>	
-
-</cf_divscroll>
 

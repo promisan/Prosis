@@ -709,8 +709,7 @@
 					<cfset val = replace(val,",","")>					
 										
 					<cfif val neq "" and LSIsNumeric(val)>													
-					     <cfset condition   = "#condition# AND #fld# <= #val#">	
-						 zz
+					     <cfset condition   = "#condition# AND #fld# <= #val#">							 
 						 <cfset attributes.isfiltered = "Yes">					
 					</cfif>  
 					
@@ -760,6 +759,7 @@
 					<cfif val neq "">	
 						 <cfset dateValue = "">
 						 <CF_DateConvert Value="#val#">
+						 <cfset datevalue = dateAdd("d",  0,  datevalue)>
 						 <cfset condition = "#condition# AND #fld# >= #dateValue#">
 						 <cfset attributes.isfiltered = "Yes">						
 					</cfif>	 
@@ -790,7 +790,9 @@
 						        field="#current.field#_to" 
 								value="#val#">
 					</cfif>	
-											
+					<!---
+					<cfoutput>#condition#</cfoutput>									
+					--->
 				</cfcase>
 						
 			</cfswitch>		
@@ -963,11 +965,10 @@
 			
 				</cfif>					
 			
-			</cfsavecontent>	
-												
+			</cfsavecontent>													
 				
-		<cfelseif findnocase("--Condition",attributes.listquery)>			
-				
+		<cfelseif findnocase("--Condition",attributes.listquery)>	
+						
 			<!--- 16/6/2014 recompose the query that contains a --condition indicator to 
 			
 			 determine where the listing condition should go  --->
@@ -1003,8 +1004,8 @@
 				AND #qdrillkey# = '#url.ajaxid#'		
 				</cfif>	  			
 										 
-				</cfsavecontent>		
-				
+				</cfsavecontent>	
+								
 			<cfelse>
 			
 				<cfsavecontent variable="ann">
@@ -1017,7 +1018,7 @@
 				</cfsavecontent>								 
 				
 			</cfif>
-			
+						
 			<cfif not findnocase("WHERE ",attributes.listquery)>
 				<cfset strwhr = "WHERE 1=1">
 			<cfelse>
@@ -1029,7 +1030,7 @@
 			<cfset strqry = "#strleft# #strwhr# #condition# #ann# #strright#">			
 		
 			<cfsavecontent variable="querylist">
-			
+						
 			    #preserveSingleQuotes(strqry)# 	
 				
 				<!--- grouping --->
@@ -1079,8 +1080,7 @@
 				</cfif>													
 			
 			</cfsavecontent>
-					
-					
+								
 		<cfelse>
 				
 		    <!--- recompose the query that contains a group --->
@@ -1139,7 +1139,6 @@
 						
 			<cfset strqry = "#strleft# #strwhr# #condition# #ann# #strright#">
 			
-		
 			<cfsavecontent variable="querylist">
 			
 			    #preserveSingleQuotes(strqry)# 	
@@ -1192,8 +1191,6 @@
 			
 			</cfsavecontent>
 			
-			
-		
 		</cfif>
 			
 	</cfoutput>
@@ -1226,7 +1223,7 @@
 			<cfinclude template="../../../System/Modules/InquiryBuilder/QueryValidateReserved.cfm">				
 						
 			<cftry>
-			
+						
 				<cftransaction isolation="read_uncommitted">									
 			
 					<cfquery name="SearchResult" 
@@ -1249,7 +1246,7 @@
 				
 				</cfcatch>
 			</cftry>	
-											
+														
 		<cfelse>		
 						
 		    <cfif url.content eq "0">			
@@ -1262,7 +1259,6 @@
 					
 				<cfinclude template="../../../System/Modules/InquiryBuilder/QueryPreparation.cfm">	
 				
-								
 				<cftry>
 				
 					<cftransaction isolation="read_uncommitted">						
@@ -1310,7 +1306,7 @@
 								password="#SESSION.dbpw#"> 			
 								#preserveSingleQuotes(sc)# 
 							</cfquery>	
-						
+													
 						</cftransaction>
 					
 						<cfcatch>
@@ -1334,7 +1330,7 @@
 						<cfinclude template="../../../System/Modules/InquiryBuilder/QueryPreparation.cfm">		
 						
 						<cftry>
-						
+												
 							<cftransaction isolation="read_uncommitted">
 																
 								<cfquery name="SearchResult" 
@@ -1345,10 +1341,9 @@
 								</cfquery>		
 							
 							</cftransaction>
-						
-						
+												
 							<cfcatch>
-							
+														
 								<cfquery name="SearchResult" 
 									datasource="#attributes.datasource#" 
 									username="#SESSION.login#" 
@@ -1369,19 +1364,17 @@
 		</cfif>	
 		
 	<cfelse>
-		
+			
 		<!--- outputting of an on-the-fly embedded listing --->	
 		
 						
 		<cftry>
 		
-			<cfset fileNo = "0">		
-		
+			<cfset fileNo = "0">			
 		    <!--- prepare temp variables, is not really needed for this mode --->
 			<cfinclude template="../../../System/Modules/InquiryBuilder/QueryPreparationVars.cfm">	
 						
-			<cfset sc = querylist>
-			
+			<cfset sc = querylist>			
 			<!--- convert reserved words in the query string like @user --->
 		    <cfinclude template="../../../System/Modules/InquiryBuilder/QueryValidateReserved.cfm">		
 									
@@ -1395,7 +1388,7 @@
 						password="#SESSION.dbpw#"> 										
 						#preserveSingleQuotes(sc)# 					
 					</cfquery>	
-										
+															
 				</cftransaction>
 			
 				<cfcatch>
@@ -1408,20 +1401,21 @@
 					</cfquery>	
 				
 				</cfcatch>
+				
 			</cftry>
 																																							
 			<cfcatch>
 				
 				<CFIF url.systemfunctionid neq "">
 				
-				<cfquery name="set" 
-				datasource="AppsSystem" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-					DELETE FROM UserModuleCondition				
-					WHERE Account          = '#SESSION.acc#'
-					AND   SystemFunctionId = '#url.systemfunctionid#'								
-				</cfquery>		
+					<cfquery name="set" 
+					datasource="AppsSystem" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+						DELETE FROM UserModuleCondition				
+						WHERE Account          = '#SESSION.acc#'
+						AND   SystemFunctionId = '#url.systemfunctionid#'								
+					</cfquery>		
 				
 				</cfif>
 			

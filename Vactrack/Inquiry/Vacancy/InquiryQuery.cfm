@@ -89,10 +89,12 @@
 
 </cfoutput>
 
-<cfif Form.Name neq "" or form.class neq "All" or Form.CandidateStatus neq "All">
+<cfif Form.Name neq "" or form.class neq "All" or Form.CandidateStatus neq "">
      <cfset join1 = "INNER JOIN">
+	 
 <cfelse>
 	 <cfset join1 = "LEFT OUTER JOIN">
+	 
 </cfif>
 
 <cfif Form.Post neq "">
@@ -108,7 +110,6 @@
 <CF_DropTable dbName="AppsQuery" tblName="#SESSION.acc#DocumentT#FileNo#">
 <CF_DropTable dbName="AppsQuery" tblName="#SESSION.acc#Document#FileNo#">
 <CF_DropTable dbName="AppsQuery" tblName="#SESSION.acc#DocumentPost#FileNo#">
-
 
 <cfif Form.Flow IS NOT "All">
 				
@@ -145,7 +146,7 @@
 							 )							 
 		</cfif>
 		#PreserveSingleQuotes(CriteriaList)# 	
-				
+						
 		</cfquery>
 
 		<cfquery name="SearchResult"
@@ -168,7 +169,8 @@
 	<cfquery name="SearchResult"
 	datasource="appsVacancy" 
 	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">		
+	password="#SESSION.dbpw#">	
+	
 	
 		SELECT      DISTINCT V.DocumentNo, 
 		            V.Mission, 
@@ -200,7 +202,8 @@
 							)
 								 
 		</cfif>
-		#PreserveSingleQuotes(CriteriaList)# 		
+		#PreserveSingleQuotes(CriteriaList)# 	
+		
 	
 	</cfquery>
 		

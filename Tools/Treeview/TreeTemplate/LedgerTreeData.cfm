@@ -8,6 +8,7 @@ password="#SESSION.dbpw#">
 	WHERE  Mission = '#Attributes.Mission#'
 </cfquery>
 
+
 <cf_tl id="#Attributes.Mission#" var="mis">
 
 <cf_UItree
@@ -94,7 +95,11 @@ password="#SESSION.dbpw#">
 						 AND    Mission    = '#Attributes.Mission#'
 						 AND    GLCategory = '#Attributes.GLCategory#'
 						 AND    Currency   = '#Category.Currency#'
-						 AND    Operational = '1'
+						 AND    (
+						        	Operational = '1' 
+							        OR 
+									Journal IN (SELECT Journal FROM TransactionHeader WHERE Mission = '#Attributes.Mission#' AND AccountPeriod = '#URL.Period#')
+								)
 						 <cfif getAdministrator(url.mission) eq "0">
 						 AND    Journal IN (SELECT ClassParameter 
 						                    FROM   Organization.dbo.OrganizationAuthorization
@@ -105,8 +110,7 @@ password="#SESSION.dbpw#">
 						 ORDER BY Currency, Journal								
 					 </cfquery>
 					 
-					 <cfset cat = LEFT(description,5)>		
-					 
+					 <cfset cat = LEFT(description,5)>							 
 					 					 	 			 					 			   
 		             <cfloop query="Journal">
 					 
@@ -470,10 +474,16 @@ password="#SESSION.dbpw#">
 		             password="#SESSION.dbpw#">
 		             SELECT *
 		             FROM   Journal
-		      	     WHERE  TransactionCategory = '#Category.TransactionCategory#'
-					 AND    Operational = 1
+		      	     WHERE  TransactionCategory = '#Category.TransactionCategory#'					
 					 AND    GLCategory = '#Attributes.GLCategory#'
 					 AND    Mission = '#Attributes.Mission#'
+					 
+					  AND    (
+						        	Operational = '1' 
+							        OR 
+									Journal IN (SELECT Journal FROM TransactionHeader WHERE Mission = '#Attributes.Mission#' AND AccountPeriod = '#URL.Period#')
+								)
+					 
 					 <cfif getAdministrator(attributes.mission) eq "0">
 					 AND  Journal IN (SELECT ClassParameter 
 					                  FROM   Organization.dbo.OrganizationAuthorization

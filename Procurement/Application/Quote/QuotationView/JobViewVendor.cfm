@@ -170,9 +170,7 @@
 				<tr><td height="28" colspan="5" style="padding-left:4px">
 				
 				<cfoutput>
-				
-				
-				
+								
 				<table>
 				
 				<tr><td colspan="4" style="padding-left:20px" id="fundingstatus"></td></tr>

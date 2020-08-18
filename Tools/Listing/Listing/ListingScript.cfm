@@ -201,20 +201,21 @@ function applyfilter(md,mypage,ajaxid,callback) {
 }
 
 function processrow(template,key,string,val) {   
-	   ColdFusion.navigate('#SESSION.root#/'+template+key+'&'+string+'&value='+val,'listingaction')	;  
+	   ptoken.navigate('#SESSION.root#/'+template+key+'&'+string+'&value='+val,'listingaction')	;  
 } 
 
-function deleterow(row,dsn,table,field,value) {   
-     
-	   ptoken.navigate('#SESSION.root#/tools/listing/listing/ListingDelete.cfm?row='+row+'&dsn='+dsn+'&table='+table+'&key='+field+'&val='+value,'listingaction')
+function deleterow(row,dsn,table,field,value) {        
 
-	   // applynav()
-	   // hide the line as it was removed
-	     
-	   document.getElementById('r'+row).className = "hide"
-	   try {
-	    document.getElementById('l'+row).className = "hide"  
-	   } catch(e) {}
+	   if (confirm("Do you want to remove this record ?")) {		
+
+		   ptoken.navigate('#SESSION.root#/tools/listing/listing/ListingDelete.cfm?row='+row+'&dsn='+dsn+'&table='+table+'&key='+field+'&val='+value,'listingaction')
+		   // applynav()
+		   // hide the line as it was removed	     
+		   document.getElementById('r'+row).remove()
+		   try {
+		   document.getElementById('l'+row).remove()  
+		   } catch(e) {}
+		   }
 }
 
 function listnavigateRow()	{

@@ -1,34 +1,38 @@
 
 <link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
 
-<cfif Len(Form.Remarks) gt 300>
-   <cfset remarks = Left(Form.Remarks, 300)>
-<cfelse>
-   <cfset remarks = Form.Remarks> 
+<cfif url.action neq "delete"> 
+	
+	<cfif Len(Form.Remarks) gt 300>
+	   <cfset remarks = Left(Form.Remarks, 300)>
+	<cfelse>
+	   <cfset remarks = Form.Remarks> 
+	</cfif>
+	
+	<cfparam name="Form.OvertimePeriodStart" default="#Form.OvertimePeriodEnd#">
+	<cfparam name="Form.OvertimeDate"        default="#Form.OvertimePeriodEnd#">
+	
+	<cfset dateValue = "">
+	<CF_DateConvert Value="#Form.OvertimePeriodStart#">
+	<cfset STR = dateValue>
+	
+	<cfset dateValue = "">
+	<CF_DateConvert Value="#Form.OvertimeDate#">
+	<cfset DTE = dateValue>
+	
+	<cfset dateValue = "">
+	<CF_DateConvert Value="#Form.OvertimePeriodEnd#">
+	<cfset END = dateValue>
+	
+	<cfif STR gt END>
+									
+		<cf_message message = "Invalid Period [#DateFormat(STR,CLIENT.DateFormatShow)#-#DateFormat(END,CLIENT.DateFormatShow)#].  Operation not allowed!"
+		        return = "back">
+	    <cfabort>
+				 
+	</cfif>   
+
 </cfif>
-
-<cfparam name="Form.OvertimePeriodStart" default="#Form.OvertimePeriodEnd#">
-<cfparam name="Form.OvertimeDate"        default="#Form.OvertimePeriodEnd#">
-
-<cfset dateValue = "">
-<CF_DateConvert Value="#Form.OvertimePeriodStart#">
-<cfset STR = dateValue>
-
-<cfset dateValue = "">
-<CF_DateConvert Value="#Form.OvertimeDate#">
-<cfset DTE = dateValue>
-
-<cfset dateValue = "">
-<CF_DateConvert Value="#Form.OvertimePeriodEnd#">
-<cfset END = dateValue>
-
-<cfif STR gt END>
-								
-	<cf_message message = "Invalid Period [#DateFormat(STR,CLIENT.DateFormatShow)#-#DateFormat(END,CLIENT.DateFormatShow)#].  Operation not allowed!"
-	        return = "back">
-    <cfabort>
-			 
-</cfif>   
 
 <!--- verify if record exist --->
 
@@ -250,22 +254,21 @@ WHERE  OvertimeId  = '#Form.OvertimeId#'
 					<cfelse>
 					    <cfset vHour = int(totalovertime.minutes/60)>
 						<cfset vMinu = totalovertime.minutes - (vHour*60)>
-					</cfif>				
-					
+					</cfif>						
 			   
 				    <cfquery name="Update" 
 					   datasource="AppsEmployee" 
 					   username="#SESSION.login#" 
 					   password="#SESSION.dbpw#">
 					   UPDATE Payroll.dbo.PersonOvertime 
-					   SET   OvertimeDate         = #DTE#,
-					   		 OvertimePeriodStart  = #STR#,
-						     OvertimePeriodEnd    = #END#,
-							 DocumentReference    = '#Form.DocumentReference#',
-							 OvertimeHours        = '#vHour#',
-							 OvertimeMinutes      = '#vMinu#',				
-							 Remarks              = '#Form.Remarks#'
-					   WHERE OvertimeId  = '#Form.OvertimeId#' 
+					   SET    OvertimeDate         = #DTE#,
+					   		  OvertimePeriodStart  = #STR#,
+						      OvertimePeriodEnd    = #END#,
+							  DocumentReference    = '#Form.DocumentReference#',
+							  OvertimeHours        = '#vHour#',
+							  OvertimeMinutes      = '#vMinu#',				
+							  Remarks              = '#Form.Remarks#'
+					   WHERE  OvertimeId  = '#Form.OvertimeId#' 
 					  </cfquery>
 					  
 					  <cfquery name="purgeDetail" 

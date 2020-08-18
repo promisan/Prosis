@@ -155,7 +155,7 @@
 		<td>
 		
 		   <cfoutput>
-		    <input type="text" name="Reference" class="regularxl enterastab" value="#get.Reference#" style="width:120" maxlength="20">	
+		    <input type="text" name="Reference" class="regularxl enterastab" value="#get.Reference#" style="width:160" maxlength="20">	
 		   </cfoutput>	
 		   
 		</td>	
@@ -238,7 +238,7 @@
 		<td>
 		
 		  <cfoutput>
-		    <input type="text" name="ActionReference1" class="regularxl enterastab" style="width:30" maxlength="2">	
+		    <input type="text" name="ActionReference1" class="regularxl enterastab" style="width:40"  maxlength="5">	
 		    <input type="text" name="ActionReference2" class="regularxl enterastab" style="width:100" maxlength="20">	
 		   </cfoutput>	
 		

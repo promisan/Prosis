@@ -4,7 +4,7 @@
  username="#SESSION.login#" 
  password="#SESSION.dbpw#">
 	 SELECT	* 
-	 FROM	Settle#URL.Warehouse#_#SESSION.acc#
+	 FROM	Settle#URL.Warehouse#
 	 WHERE 	TransactionId  = '#url.transactionid#'
 </cfquery>
 
@@ -18,7 +18,7 @@
 			 datasource="AppsTransaction" 
 			 username="#SESSION.login#" 
 			 password="#SESSION.dbpw#">
-				 DELETE Settle#URL.Warehouse#_#SESSION.acc#
+				 DELETE Settle#URL.Warehouse#
 				 WHERE TransactionId  = '#url.transactionid#'
 			</cfquery>
 			
@@ -27,8 +27,8 @@
 			 username="#SESSION.login#" 
 			 password="#SESSION.dbpw#">
 				 SELECT	  * 
-				 FROM	  Settle#URL.Warehouse#_#SESSION.acc#
-				 WHERE 	  CustomerId  = '#getCustomer.CustomerId#'
+				 FROM	  Settle#URL.Warehouse#
+				 WHERE 	  RequestNo = '#getCustomer.RequestNo#'
 				 AND	  SettleAmount > 0
 			</cfquery>
 			
@@ -38,13 +38,12 @@
 				 datasource="AppsTransaction" 
 				 username="#SESSION.login#" 
 				 password="#SESSION.dbpw#">
-					 DELETE Settle#URL.Warehouse#_#SESSION.acc#
-					 WHERE  CustomerId    = '#getCustomer.CustomerId#'
+					 DELETE Settle#URL.Warehouse#
+					 WHERE  RequestNo = '#getCustomer.RequestNo#'
 					 AND    SettleAmount <= 0
 				</cfquery>
 				
-			</cfif>
-			
+			</cfif>			
 		
 		</cftransaction>
 	
@@ -71,8 +70,7 @@
 	</cfoutput>
 
 </cfif>
- 
- 
- <cfinclude template="SettlementLines.cfm">
- 
+
+<cfset url.requestNo = getCustomer.RequestNo> 
+<cfinclude template="SettlementLines.cfm">
  

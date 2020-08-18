@@ -12,18 +12,21 @@
 
 <cfif url.customerid eq "00000000-0000-0000-0000-000000000000">
 
+	<cfoutput>
     <script>
 		$(document).ready(function() {
 			try {
-				document.getElementById('customerselect').value = ''
-				document.getElementById('customerselect').focus()
-				document.getElementById('customerinvoiceselect').value = ''
-				customertoggle('customerdata','#url.customerid#','open','#url.warehouse#','#url.addressid#');	
-				document.getElementById('customerdata_toggle').className = 'hidden'
-				
+				document.getElementById('customerselect').value          = ''
+				document.getElementById('customerselect').focus()				
+				document.getElementById('customerinvoiceselect').value   = ''	
+				document.getElementById('customerdata_toggle').className = 'hide'
+											
+				customertoggle('customerdata','#url.customerid#','hide','#url.warehouse#','#url.addressid#');	
+											
 				} catch(e) {}
 		});	 
 	</script>
+	</cfoutput>
 	
 <cfelseif isvalid("GUID",url.customerid)>
 		
@@ -99,8 +102,6 @@
 		
 	<cfelse>	
 	
-
-		
 			<cfquery name="customer" 
 			  datasource="AppsMaterials" 
 			  username="#SESSION.login#" 
@@ -138,9 +139,9 @@
 			  datasource="AppsMaterials" 
 			  username="#SESSION.login#" 
 			  password="#SESSION.dbpw#">
-				    SELECT  A.*
-					FROM   CustomerAddress CA INNER JOIN  System.dbo.Ref_Address A ON CA.AddressId = A.AddressId
-					WHERE  CustomerId = '#url.customerid#'
+				  SELECT  A.*
+				  FROM   CustomerAddress CA INNER JOIN  System.dbo.Ref_Address A ON CA.AddressId = A.AddressId
+				  WHERE  CustomerId = '#url.customerid#'
 			</cfquery>			
 			
 			<cfquery name="qExisting"
@@ -168,20 +169,10 @@
 				<cfset url.addressid = Batch.AddressId>
 			</cfif>			
 			
-			<cfif url.requestNo eq "">
-			
-				<!--- we assign a request no --->
-
-				<cf_getCustomerRequest>
-				<cfset url.requestNo  = thisrequestNo>
-	
-			</cfif>
-				
 			<script language="JavaScript">
 							
 			    try {	
-				
-				   	document.getElementById('trarequestno').innerHTML  = '#url.requestno#' 																						
+								   																			
 				 	document.getElementById('customerselect').value    = '#customer.reference#' 											
 					customertoggle('customerdata','#url.customerid#','open','#url.warehouse#','#url.addressid#');									
 					document.getElementById('customerdata_toggle').className = 'regular'										 	
@@ -191,48 +182,155 @@
 				
 			<!--- important, we associated the pending lines to the current customer as a special case
 			we might disable this and require custom selectio first --->
-			
-			<cfquery name="getSale" 
+						
+			<cfparam name="url.quote" default="">
+												
+			<cfquery name="getNULLSale" 
 				 datasource="AppsMaterials" 
 				 username="#SESSION.login#" 
 				 password="#SESSION.dbpw#">
-				    SELECT * FROM CustomerRequest
+				    SELECT * 
+					FROM   CustomerRequest
 					WHERE  Warehouse = '#url.warehouse#'
 					AND    CustomerId = '00000000-0000-0000-0000-000000000000'					
+					AND    ActionStatus != '9'
+			</cfquery>
+						
+			<cfif url.quote eq "add">
+			
+				<!--- we make sure the system will generate a new quote --->
+			
+				<cfquery name="setPrior" 
+					 datasource="AppsMaterials" 
+					 username="#SESSION.login#" 
+					 password="#SESSION.dbpw#">
+					    UPDATE CustomerRequest
+						SET    ActionStatus = '1'
+						WHERE  Warehouse  = '#url.warehouse#'
+						AND    CustomerId = '#url.customerid#'		
+						AND    AddressId  = '#url.addressid#'			
+						AND    ActionStatus != '9'
+				</cfquery>							
+			
+			</cfif>
+			
+			<cfif url.quote eq "delete">
+			
+				<!--- we make sure the system will generate a new quote --->
+			
+				<cfquery name="removeQuote" 
+					 datasource="AppsMaterials" 
+					 username="#SESSION.login#" 
+					 password="#SESSION.dbpw#">
+					    DELETE FROM CustomerRequest
+						WHERE  RequestNo = '#url.requestNo#'				
+				</cfquery>		
+				
+				<cfquery name="getPrior" 
+				 datasource="AppsMaterials" 
+				 username="#SESSION.login#" 
+				 password="#SESSION.dbpw#">
+				    SELECT   * 
+					FROM     CustomerRequest
+					WHERE    Warehouse  = '#url.warehouse#'
+					AND      CustomerId = '#url.customerid#'		
+					AND      AddressId  = '#url.addressid#'		
+					AND      BatchNo is NULL	
+					AND      ActionStatus != '9'					
+					ORDER BY RequestNo DESC
+				</cfquery>
+				
+				<cfif getPrior.recordcount eq "0">
+				
+					<script>
+					    document.getElementById('buttonnew').click()					    
+					</script>
+					
+								
+				<cfelse>
+				
+				     <cfset url.requestNo = getPrior.RequestNo>
+				
+				</cfif>
+			
+			</cfif>
+			
+			<cfquery name="getPrior" 
+				 datasource="AppsMaterials" 
+				 username="#SESSION.login#" 
+				 password="#SESSION.dbpw#">
+				    SELECT * 
+					FROM   CustomerRequest
+					WHERE  Warehouse  = '#url.warehouse#'
+					AND    CustomerId = '#url.customerid#'		
+					AND    AddressId  = '#url.addressid#'			
+					AND    ActionStatus = '0'					
 			</cfquery>
 			
-			<cfif getSale.recordcount eq "1">
+			<cfif getPrior.recordcount gte "1">
 			
-				<cfquery name="associate" 
-					 datasource="AppsMaterials" 
-					 username="#SESSION.login#" 
-					 password="#SESSION.dbpw#">
-					    UPDATE CustomerRequest
-						SET    CustomerId = '#url.customerid#'
-						WHERE  Requestno = '#getSale.RequestNo#'					
+				<cfquery name="clean" 
+				 datasource="AppsMaterials" 
+				 username="#SESSION.login#" 
+				 password="#SESSION.dbpw#">
+				    DELETE FROM   CustomerRequest
+					WHERE  Warehouse = '#url.warehouse#'
+					AND    CustomerId = '00000000-0000-0000-0000-000000000000'								
 				</cfquery>
-			
-				<cfquery name="associate" 
-					 datasource="AppsMaterials" 
-					 username="#SESSION.login#" 
-					 password="#SESSION.dbpw#">
-					    UPDATE CustomerRequestLine
-						SET    CustomerIdInvoice = '#url.customerid#'
-						WHERE  RequestNo = '#getSale.RequestNo#'					
-				</cfquery>
-					
-				<cfquery name="associate" 
-					 datasource="AppsMaterials" 
-					 username="#SESSION.login#" 
-					 password="#SESSION.dbpw#">
-					    UPDATE CustomerRequest
-						SET    AddressId = '00000000-0000-0000-0000-000000000000'
-						WHERE  Requestno = '#getSale.RequestNo#'
-						AND    AddressId IS NULL									
-				</cfquery>
-		
-			</cfif>
 				
+				<cfif url.requestno eq "">								
+					<cfset url.requestNo = getPrior.Requestno>
+				</cfif>
+							
+			<cfelse>
+						
+				<cfif getNULLSale.recordcount eq "1">
+				
+					<cfquery name="associate" 
+						 datasource="AppsMaterials" 
+						 username="#SESSION.login#" 
+						 password="#SESSION.dbpw#">
+						    UPDATE CustomerRequest
+							SET    CustomerId = '#url.customerid#', 
+							       AddressId = '#url.addressid#'
+							WHERE  Requestno = '#getNULLSale.RequestNo#'					
+					</cfquery>
+				
+					<cfquery name="associate" 
+						 datasource="AppsMaterials" 
+						 username="#SESSION.login#" 
+						 password="#SESSION.dbpw#">
+						    UPDATE CustomerRequestLine
+							SET    CustomerIdInvoice = '#url.customerid#'
+							WHERE  RequestNo = '#getNULLSale.RequestNo#'					
+					</cfquery>
+						
+					<cfquery name="associate" 
+						 datasource="AppsMaterials" 
+						 username="#SESSION.login#" 
+						 password="#SESSION.dbpw#">
+						    UPDATE CustomerRequest
+							SET    AddressId = '00000000-0000-0000-0000-000000000000'
+							WHERE  Requestno = '#getNULLSale.RequestNo#'
+							AND    AddressId IS NULL									
+					</cfquery>
+					
+					<cfset url.requestNo = getNULLSale.RequestNo>
+			
+				</cfif>					
+				
+				
+			</cfif>	
+						
+			<cfif url.requestNo eq "">
+			
+				<!--- we assign a new request no --->
+
+				<cf_setCustomerRequest>
+				<cfset url.requestNo  = thisrequestNo>
+	
+			</cfif>
+							
 			<!--- ---------------------------------------- --->	
 			<!--- populate additional customer information --->
 			<!--- ---------------------------------------- --->

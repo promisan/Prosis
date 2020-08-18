@@ -32,7 +32,7 @@ and a select/uom/quantity mode if this is for supplies or other classes --->
  
  <cfset link = replace(link,"||","&","ALL")> 
 
- 
+  
  <form name="itemform" id="itemform">
 
  <cfoutput>
@@ -307,8 +307,10 @@ and a select/uom/quantity mode if this is for supplies or other classes --->
 			  
 			  <cfif show eq "1">				 	 	  
 			  
+			  	<cf_tl id="Save" var="1">
+											  
 				  <input type="button" class="button10s" style="width:165;height:35"
-				    onclick="#setlink#;<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>" name="Select" value="Save">			  
+				    onclick="#setlink#;<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>" name="Select" value="#lt_text#">			  
 				
 			  </cfif>
 			  			 						

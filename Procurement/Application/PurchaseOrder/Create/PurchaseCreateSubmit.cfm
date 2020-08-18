@@ -875,7 +875,7 @@
 <script language="JavaScript">    
     parent.Prosis.busy('no')	
 	parent.history.go()
-	ptoken.open("../Purchase/POViewGeneral.cfm?header=#url.header#&ID=PO&ID1=#PoNo#&Mode=Edit&mid=#mid#","_blank")	
+	ptoken.open("../Purchase/POView.cfm?header=#url.header#&ID=PO&ID1=#PoNo#&Mode=Edit&mid=#mid#","_blank")	
 </script>
 
 </cfoutput>	

@@ -18,27 +18,26 @@
 	WHERE    Warehouse = '#url.warehouse#'
 </cfquery> 
 
-
 <cfif url.scope neq "workflow" and url.scope neq "standalone">
+
 	<cfquery name="Sale"
- 	datasource="AppsTransaction" 
+ 	datasource="AppsMaterials" 
  	username="#SESSION.login#" 
  	password="#SESSION.dbpw#">
 	 	SELECT  *
-	 	FROM    Sale#URL.Warehouse#
-	 	WHERE   CustomerId = '#url.customerid#'
-	 	<cfif URL.addressid neq "00000000-0000-0000-0000-000000000000"  AND URL.addressId neq "">
-	 		AND AddressId = '#URL.addressid#'
- 		</cfif>
+	 	FROM    CustomerRequest
+		WHERE   RequestNo = '#url.RequestNo#'	 	
 	</cfquery>	
+	
 <cfelse>	
+
 	<cfquery name="qBatch" 
   	datasource="AppsMaterials" 
   	username="#SESSION.login#" 
   	password="#SESSION.dbpw#">	
-	SELECT *
-	FROM Materials.dbo.WarehouseBatch B 
- 	WHERE B.BatchId = '#URL.BatchId#'
+		SELECT *
+		FROM    Materials.dbo.WarehouseBatch B 
+	 	WHERE   B.BatchId = '#URL.BatchId#'
 	</cfquery> 	
 
 	<cfquery name="Sale"
@@ -49,6 +48,7 @@
 		 FROM   ItemTransaction 
 		 WHERE  TransactionBatchNo = '#qBatch.BatchNo#'	
 	</cfquery> 	
+	
 </cfif>
 
 <cfquery name="Mission" 
@@ -95,24 +95,17 @@
 	
 </cfif>
 
-
-
 <cfif post eq "1">
-	
-	
 	
 	<cfquery name="getSettle"
 	 datasource="AppsTransaction" 
 	 username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">
 		 SELECT  SE.*, S.Mode
-		 FROM    Settle#URL.Warehouse#_#SESSION.acc# SE INNER JOIN Materials.dbo.Ref_Settlement S ON SE.SettleCode = S.Code
-		 WHERE   CustomerId = '#url.customerid#'
+		 FROM    Settle#URL.Warehouse# SE INNER JOIN Materials.dbo.Ref_Settlement S ON SE.SettleCode = S.Code
+		 WHERE   RequestNo  = '#url.RequestNo#'
 		 AND     SettleCode = '#url.mode#'
-	 	 <cfif URL.addressid neq "00000000-0000-0000-0000-000000000000"   AND URL.addressId neq "">
-	 		AND AddressId = '#URL.addressid#'
-	 	 </cfif>		
-	
+	 	 	
 		<cfswitch expression="#Settlement.mode#">
 			<cfcase value="Gift">
 				AND PromotionCardNo= '#FORM.Gift_number#'	
@@ -126,12 +119,9 @@
 				AND	ApprovalReference = '#FORM.reference_number#'
 				AND ApprovalCode = '#FORM.approval_number#'
 			</cfcase>
-		</cfswitch>
-				  
+		</cfswitch>				  
 		 AND     SettleCurrency = '#url.currency#'
 	</cfquery> 
-	
-	
 	
 	<cfif getSettle.recordcount eq 0>
 	
@@ -140,11 +130,11 @@
 		 username="#SESSION.login#" 
 		 password="#SESSION.dbpw#">
 		 
-			 INSERT INTO Settle#URL.Warehouse#_#SESSION.acc# (
+			 INSERT INTO Settle#URL.Warehouse# (
 			
-				  CustomerId,
-				
+				  CustomerId,				
 				  AddressId,
+				  RequestNo,
 			   
 			      SettleCode,
 				  <cfswitch expression="#Settlement.mode#">
@@ -168,6 +158,7 @@
 			      SettleAmount )
 	
 			 VALUES (
+			 
 				'#url.customerid#',
 
 				<cfif url.addressid neq "">
@@ -175,6 +166,7 @@
 				<cfelse>
 					NULL,
 				</cfif>	
+				'#url.RequestNo#',
 				
 				'#url.mode#',
 				
@@ -209,14 +201,11 @@
 			 datasource="AppsTransaction" 
 			 username="#SESSION.login#" 
 			 password="#SESSION.dbpw#">
-				 UPDATE Settle#URL.Warehouse#_#SESSION.acc#
+				 UPDATE Settle#URL.Warehouse#
 				 SET    SettleAmount    = '#getSettle.SettleAmount + FORM.line_amount_number#' 
-				 WHERE  CustomerId      = '#url.customerid#'
+				 WHERE  RequestNo       = '#url.RequestNo#'
 				 AND    SettleCode      = '#url.mode#'
-				 AND    SettleCurrency  = '#url.currency#'
-	 	 		<cfif URL.addressid neq "00000000-0000-0000-0000-000000000000"  AND URL.addressId neq "">
-	 				AND AddressId = '#URL.addressid#'
-	 	 		</cfif>		
+				 AND    SettleCurrency  = '#url.currency#'	 	 		
 			</cfquery> 	
 		
 		<cfelse>

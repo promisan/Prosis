@@ -186,9 +186,9 @@
 	    w = #CLIENT.width# - 120;
 	    h = #CLIENT.height# - 160;
 		if (dialog == "tab") {
-		ptoken.open(root + "/Procurement/Application/PurchaseOrder/Purchase/POViewGeneral.cfm?ID1=" + po + "&mode=" + dialog, "Purchase"+po);		 
+		ptoken.open(root + "/Procurement/Application/PurchaseOrder/Purchase/POView.cfm?ID1=" + po + "&mode=" + dialog, "Purchase"+po);		 
 		} else {
-		ptoken.open(root + "/Procurement/Application/PurchaseOrder/Purchase/POViewGeneral.cfm?ID1=" + po + "&mode=" + dialog, "Purchase", "left=40, top=40, width=" + w + ", height= " + h + ", status=yes, scrollbars=no, resizable=yes");
+		ptoken.open(root + "/Procurement/Application/PurchaseOrder/Purchase/POView.cfm?ID1=" + po + "&mode=" + dialog, "Purchase", "left=40, top=40, width=" + w + ", height= " + h + ", status=yes, scrollbars=no, resizable=yes");
 		}
 	}
 	

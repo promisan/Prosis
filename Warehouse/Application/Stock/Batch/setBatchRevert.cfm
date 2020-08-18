@@ -207,8 +207,7 @@ password="#SESSION.dbpw#">
 				
 				GLCurrency            = "#APPLICATION.BaseCurrency#"
 				GLAccountDebit        = "#GLAccountDebit#"
-				GLAccountCredit       = "#GLAccountCredit#">				
-				
+				GLAccountCredit       = "#GLAccountCredit#">					
 			
 			<cfelse>
 			    
@@ -277,12 +276,29 @@ password="#SESSION.dbpw#">
 				   ActionMemo             = 'Reverted'
 			WHERE  BatchNo                = '#URL.BatchNo#'
 		</cfquery>
+		
+		<!--- we alread reset related sales transactions to become active again --->
+		
+		<!--- terchnically we should check if there 
+		     is a settlement done as well (very unlikely) and 
+			 see if the workflow is closed to reset to the correct stage 0 or 1 --->
+		
+		<cfquery name="getHeader"
+		 datasource="AppsMaterials" 
+		 username="#SESSION.login#" 
+		 password="#SESSION.dbpw#">			  
+			  UPDATE    Accounting.dbo.TransactionHeader
+			  SET       RecordStatus = '1', ActionStatus = '0'
+			  WHERE     TransactionSourceId = '#Batch.BatchId#' 
+	    </cfquery>
+		
+		
 	
 	</cftransaction>
 		
 	<cfoutput>	
 	<script>
-		ptoken.open('BatchView.cfm?systemfunctionid=#url.systemfunctionid#&mode=process&BatchNo=#url.batchno#','_self')
+		ptoken.open('#session.root#/Warehouse/Application/Stock/Batch/BatchView.cfm?systemfunctionid=#url.systemfunctionid#&mode=process&BatchNo=#url.batchno#','_self')
 	</script>	
 	</cfoutput>
 

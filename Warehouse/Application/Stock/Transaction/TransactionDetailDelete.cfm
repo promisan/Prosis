@@ -1,5 +1,8 @@
 
 <cfparam name="url.warehouse" default="">
+<cfparam name="url.location" default="">
+<cfparam name="url.itemno" default="">
+<cfparam name="url.uom" default="">
 
 <cfset tableName = "StockTransaction#URL.Warehouse#_#url.mode#"> 
 <cf_getPreparationTable warehouse="#url.warehouse#" mode="#url.mode#"> <!--- adjusts #tableName# i.e. preparation can be per user or per warehouse --->
@@ -19,8 +22,8 @@ password="#SESSION.dbpw#">
 datasource="AppsTransaction" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-DELETE FROM #tableName#
-WHERE  TransactionId = '#URL.ID#'
+	DELETE FROM #tableName#
+	WHERE  TransactionId = '#URL.ID#'
 </cfquery>
 
 <cfoutput>
@@ -34,7 +37,7 @@ WHERE  TransactionId = '#URL.ID#'
 	 }
 	 
 	 if (document.getElementById("logtotals")) {
-	     ColdFusion.navigate('../Transaction/TransactionLogSheetTotal.cfm?systemfunctionid=#url.systemfunctionid#&tratpe=#url.tratpe#&mode=#url.mode#&warehouse=#url.warehouse#&location=#url.location#&itemNo=#url.itemno#&UoM=#url.uom#','logtotals')		
+	     ptoken.navigate('../Transaction/TransactionLogSheetTotal.cfm?systemfunctionid=#url.systemfunctionid#&tratpe=#url.tratpe#&mode=#url.mode#&warehouse=#url.warehouse#&location=#url.location#&itemNo=#url.itemno#&UoM=#url.uom#','logtotals')		
 	 }
 	 	 
 	</script>

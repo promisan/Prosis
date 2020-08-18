@@ -6,7 +6,7 @@
 <cfoutput>
 <table height="100%" width="100%">
 <tr><td valign="top">
-	<iframe src="../../PurchaseOrder/Purchase/POViewGeneral.cfm?#CGI.QUERY_STRING#" 
+	<iframe src="../../PurchaseOrder/Purchase/POView.cfm?#CGI.QUERY_STRING#" 
 	  name="base" 
 	  id="base" 
 	  width="100%" 

@@ -72,11 +72,12 @@
 	<cfset mde[currentrow] = SalaryTrigger>
 </cfloop>
 
-<cfset cnt = "0">
+<cfset cnt  = "0">
+<cfset time = "0">
 
 <cfloop index="hr" from="#parameter.hourstart#" to="#parameter.hourend#" step="1">
 
-    <cfif hr gte "6">
+    <cfif hr gte "4">
 
 		<cfloop index="slot" from="1" to="#schedule.hourslots#">					
 		
@@ -262,19 +263,24 @@
 						 	WHERE  PersonNo     = '#Form.PersonNo#' 
 							AND    CalendarDate = #pri# 
 							AND    ActionClass  = 'break'						  
-					</cfquery>											
+					</cfquery>	
+										
+					<cfset mul = "1">
 									
 					<cfif left(PersonGrade,1) eq "P">	
 						<cfset mode = mde[1]>	<!--- always the same  --->							
-					<!--- <cfelseif days eq "6" or getHoliday.recordcount eq "1" or dayofweek(str) eq "1">	--->										
+					<!--- <cfelseif days eq "6" or getHoliday.recordcount eq "1" or dayofweek(str) eq "1">	--->						    								
 					<cfelseif getHoliday.recordcount eq "1" or dayofweek(str) eq "1">	
 						<cfset mode = mde[3]>	<!--- 200%             --->
+						<cfset mul = "2">
 					<cfelseif days eq "5" or dayofweek(str) eq "7">	
 					    <cfset mode = mde[2]>   <!--- always 150%      ---> 
+						<cfset mul = "1.5">
 					<cfelseif cnt eq "1" and days lte "4">				
 						<cfset mode = mde[1]>	<!--- first half hour  --->									
 					<cfelse>			
 						<cfset mode = mde[2]>	<!--- 150%    		   --->
+						<cfset mul = "1.5">
 					</cfif>
 				
 					<cfquery name="addline" 
@@ -314,7 +320,9 @@
 							   '#session.first#')				  
 				    </cfquery>
 					
-					<!--- we check if the overtime exceeded the threshold, if it does then we set as payment  --->
+					<cfset time = time + (60/schedule.hourslots)*mul>
+					
+					<!--- we check if the overtime is exceeded the threshold, if it does then we set as payment  --->
 					
 					<cfquery name="checkovertime" 
 					  	datasource="AppsEmployee" 
@@ -329,14 +337,15 @@
 							AND       Source          = 'Overtime'
 							AND       SourceId        = '#url.overtimeid#'											
 					</cfquery>
-						
-					<cfset vHour = int(checkovertime.minutes/60)>
+																
+					<cfset vHour = int(time/60)>
+					
 					<cfif getBalance.Balance eq "">
 						<cfset bal = 0>
 					<cfelse>
 						<cfset bal = getBalance.Balance>	
-					</cfif>				     
-															
+					</cfif>
+				    															
 					<cfif (bal + vHour) gt getthreshold.maximumBalance>		
 					
 						<cfquery name="checkovertime" 

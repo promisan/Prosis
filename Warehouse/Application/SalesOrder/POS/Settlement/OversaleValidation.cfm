@@ -15,17 +15,16 @@
 		datasource="AppsMaterials" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-			SELECT  S.Mission,
-			        S.Warehouse,
-			        ItemNo, 
-					TransactionUoM, 
-					TransactionLot, 
-					SUM(TransactionQuantity) AS Quantity
-			FROM    userTransaction.dbo.Sale#url.warehouse# S
-					INNER JOIN WarehouseCategory WC	ON WC.Warehouse = S.Warehouse AND WC.Category = S.ItemCategory AND (WC.Oversale = 0 OR WC.SelfService = 0)
-			WHERE   CustomerId  = '#url.customerid#'
-			AND     AddressId   = '#url.addressId#'
-			AND     ItemClass   = 'Supply'
+			SELECT   S.Mission,
+			         S.Warehouse,
+			         ItemNo, 
+					 TransactionUoM, 
+					 TransactionLot, 
+					 SUM(TransactionQuantity) AS Quantity
+			FROM     vwCustomerRequest S
+					 INNER JOIN WarehouseCategory WC	ON WC.Warehouse = S.Warehouse AND WC.Category = S.ItemCategory AND (WC.Oversale = 0 OR WC.SelfService = 0)
+			WHERE    S.RequestNo = '#url.RequestNo#'			
+			AND      S.ItemClass   = 'Supply'
 			GROUP BY S.Warehouse,Mission,ItemNo, TransactionUoM, TransactionLot
 	</cfquery>	
 	

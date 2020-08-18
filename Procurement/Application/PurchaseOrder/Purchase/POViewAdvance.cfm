@@ -40,15 +40,15 @@
 <script>
 		
 	function requestadvance(po)	{			
-			
-		try { ColdFusion.Window.destroy('myadvance',true) } catch(e) {}
-		ColdFusion.Window.create('myadvance', 'Advance', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,resizable:false,center:true})    
-		ColdFusion.navigate('#SESSION.root#/Procurement/Application/PurchaseOrder/Purchase/POViewAdvanceView.cfm?id=' + po,'myadvance') 																		
+		
+		
+		ProsisUI.createWindow('myadvance', 'Advance', '',{x:100,y:100,height:document.body.clientHeight-120,width:document.body.clientWidth-120,modal:true,resizable:false,center:true})    
+		ptoken.navigate('#SESSION.root#/Procurement/Application/PurchaseOrder/Purchase/POViewAdvanceView.cfm?id=' + po,'myadvance') 																		
 				
 	}
 	
 	function requestadvancerefresh(po) {
-	    ColdFusion.navigate('#SESSION.root#/Procurement/Application/PurchaseOrder/Purchase/POViewAdvance.cfm?id1='+po,'advances')		
+	    ptoken.navigate('#SESSION.root#/Procurement/Application/PurchaseOrder/Purchase/POViewAdvance.cfm?id1='+po,'advances')		
 	}
 	
 	

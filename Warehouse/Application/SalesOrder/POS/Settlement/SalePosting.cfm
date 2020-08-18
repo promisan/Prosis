@@ -44,6 +44,7 @@
 		   batchid            = "#url.batchid#"
 		   warehouse          = "#url.warehouse#" 
 		   terminal           = "#url.terminal#"
+		   requestNo          = "#url.requestNo#"  
 		   customerid         = "#url.customerid#"
 		   customeridinvoice  = "#url.customeridinvoice#"
 		   addressid		  = "#url.addressid#"
@@ -62,6 +63,7 @@
 		   batchid            = "#url.batchid#"
 		   warehouse          = "#url.warehouse#" 
 		   terminal           = "#url.terminal#"
+		   requestNo          = "#url.requestNo#"
 		   customerid         = "#url.customerid#"
 		   customeridinvoice  = "#url.customeridinvoice#"
 		   addressid		  = "#url.addressid#"
@@ -184,8 +186,7 @@
 					UPDATE WarehouseBatch
 					SET    BatchReference = '#getParent.BatchReference#'
 					WHERE  BatchId = '#vBatchId#'				
-			</cfquery>
-		
+			</cfquery>		
 	
 			<cfset issueinv = "0">		
 			
@@ -275,12 +276,13 @@
 				password="#SESSION.dbpw#">					
 				SELECT A.*
 				FROM   Accounting.dbo.TransactionHeader H
-						INNER JOIN Accounting.dbo.TransactionHeaderAction A ON H.Journal = A.Journal AND H.JournalSerialNo=A.JournalSerialNo
+					   INNER JOIN Accounting.dbo.TransactionHeaderAction A ON H.Journal = A.Journal AND H.JournalSerialNo=A.JournalSerialNo
 				WHERE  TransactionSourceId = '#URL.batchid#'
-				AND   TransactionCategory  = 'Receivables'										
+				AND    TransactionCategory  = 'Receivables'										
 		   	</cfquery>		   	
 		   
 		    <cfif url.scope neq "standalone">
+			
 		    	<cfif getAction.recordcount gt "0">
 			
 			   		<cfif getAction.ActionMode eq "2">
@@ -300,10 +302,12 @@
 						   Mission          = "#getBatch.Mission#"
 						   Terminal			= "#url.terminal#"	
 						   BatchId			= "#URL.BatchId#"
-						   returnvariable	= "stResponse">		 				
+						   returnvariable	= "stResponse">		
+						    				
 					</cfif>			
 				
 				</cfif>
+				
 			</cfif>			
 		 	
 	</cfif>
@@ -312,15 +316,16 @@
 	transactionHeaderAction --->		
 	
 	<cfif url.scope eq "standalone">
+	
 		<cfquery name="qCheck" 
 	  	datasource="AppsMaterials" 
 	  	username="#SESSION.login#" 
 	  	password="#SESSION.dbpw#">				
 			SELECT * 
-			FROM Accounting.dbo.TransactionHeaderAction
-			WHERE Journal	    ='#getAction.Journal#'
-			AND JournalSerialNo ='#getAction.JournalSerialNo#'
-			AND ActionCode      = 'Invoice'			
+			FROM   Accounting.dbo.TransactionHeaderAction
+			WHERE  Journal	    ='#getAction.Journal#'
+			AND    JournalSerialNo ='#getAction.JournalSerialNo#'
+			AND    ActionCode      = 'Invoice'			
 		</cfquery>		
 		
 		<cfif qCheck.recordcount eq 0>
@@ -337,8 +342,11 @@
 			   returnvariable     = "vInvoice">
 			
 			<cfset vActionId = vInvoice.ActionId>
+			
 		<cfelse>
+		
 			<cfset vActionId = qCheck.ActionId>		
+			
 		</cfif>			
 	
 	<cfelse>
@@ -371,7 +379,7 @@
 			</script>
 		<cfelse>
 			<script>
-				try { ColdFusion.Window.destroy('wsettle',true)} catch(e){};
+				try { ProsisUI.closeWindow('wsettle',true)} catch(e){};
 				try { window.location.reload();} catch(e){};				
 			</script>		
 		</cfif>

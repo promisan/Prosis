@@ -166,7 +166,7 @@
 		<cfoutput>
 		
 			<script language="JavaScript">	 
-	   			ptoken.location("POViewGeneral.cfm?ID1=#URL.ID1#&Role=#URL.Role#&mode=view")					 
+	   			ptoken.location("POView.cfm?ID1=#URL.ID1#&Role=#URL.Role#&mode=view")					 
 			</script>
 		
 		</cfoutput>

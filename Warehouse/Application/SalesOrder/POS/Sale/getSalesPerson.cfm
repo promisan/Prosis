@@ -4,13 +4,12 @@
 <cfparam name="URL.Warehouse"  default="">
 <cfparam name="url.addressid"  default="00000000-0000-0000-0000-000000000000">
 
-
 <cfquery name="getTransaction" 
-  datasource="AppsTransaction" 
+  datasource="AppsMaterials" 
   username="#SESSION.login#" 
   password="#SESSION.dbpw#">
 		SELECT   *
-		FROM     Sale#URL.Warehouse# 
+		FROM     CustomerRequestLine 
 		<cfif url.transactionid neq "">
 		WHERE    TransactionId = '#url.transactionid#'			
 		<cfelse>
@@ -26,11 +25,11 @@
 <cfif URL.CustomerId neq "" and URL.Warehouse neq "" and URL.TransactionId eq "" and URL.SalesPersonNo eq "">
 
 		<cfquery name="getDefault" 
-		  datasource="AppsTransaction" 
+		  datasource="AppsMaterials" 
 		  username="#SESSION.login#" 
 		  password="#SESSION.dbpw#">
 			SELECT   SalesPersonNo,COUNT(1) as Total 
-			FROM     Sale#URL.Warehouse# 
+			FROM     vwCustomerRequest
 			WHERE    Warehouse  = '#URL.Warehouse#'
 			AND      CustomerId = '#URL.CustomerId#'
 			GROUP BY SalesPersonNo
@@ -83,13 +82,12 @@
 							
 		OR PersonNo = '#CLIENT.PersonNo#'  <!--- the person that has logged in --->		
 		OR PersonNo = '#getTransaction.SalesPersonNo#'  <!--- the person that was selected in --->
-		
-																 	   							   
+																		 	   							   
 </cfquery>
 
 <cfoutput>
 
-<select name="#URL.saleid#" id="#URL.saleid#" class="regularxl enterastab" style="border:0px"
+<select name="#URL.saleid#" id="#URL.saleid#" style="font-size:17px;height:100%;width:100%;border:0px;" class="regularXXL"
 	onchange="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/applySaleHeader.cfm?TransactionId=#URL.TransactionId#&field=#URL.field#&personno='+this.value+'&requestno='+document.getElementById('RequestNo').value,'salelines')">	
 	<option value="">--<cf_tl id="Unassigned">--</option>
 	<cfloop query="personlist">

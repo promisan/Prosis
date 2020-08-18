@@ -147,12 +147,13 @@
 					
 					</cfif>
 					
+					
 					<cfif fileexists("#SESSION.rootdocumentpath#/CFReports/#report.account#/#report.distributionId#.#suf#")>
 					
 						<tr><td height="100%" width="100%">
 						
 						<cfoutput>
-						
+												
 							<iframe name="reportembed"
 							width="100%"
 							height="100%"
@@ -160,11 +161,11 @@
 							marginheight="1"
 							frameborder="0">
 							</iframe>		
-							
-							<cf_loadpanel id="reportembed" template="#SESSION.rootdocument#/CFReports/#report.account#/#report.distributionId#.#suf#">				
-						
+																					
+							<cf_loadpanel id="reportembed" template="#SESSION.rootdocument#/CFReports/#report.account#/#report.distributionId#.#suf#">	
+													
 						</cfoutput>
-						
+												
 						</td></tr>
 					
 					<cfelse>	

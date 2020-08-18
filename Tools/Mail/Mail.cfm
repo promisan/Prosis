@@ -420,12 +420,13 @@
 			<cfoutput>
 							
 				<script LANGUAGE = "JavaScript">
-					function openreport(att) {
-						window.open("#SESSION.root#/CFRStage/User/#SESSION.acc#/"+att, "Attachment", "width=850, height=660, menubar=yes, status=yes, toolbar=no, scrollbars=yes, resizable=yes"); }
+					function openreport(att) {					
+					      ptoken.open("#SESSION.root#/CFRStage/User/#SESSION.acc#/"+att, "Attachment")
+					}
 				</script>
 				
 				<tr><td height="4" colspan="2"></td></tr>
-				<tr><td height="1" colspan="2" class="linedotted"></td></tr>
+				<tr><td height="1" colspan="2" class="line"></td></tr>
 			   
 			    <TR>
 			    <TD class="labelmedium" style="height:30px;padding-left:16px"><cf_tl id="Associated Report">:</font></TD>

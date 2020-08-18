@@ -27,22 +27,24 @@
 		</cfif>	
 				
 		<cfif StructKeyExists(Application[attributes.languagecode], "#Attributes.Id#") and attributes.languagecode eq client.languageId>			
+			
 			<cfset tLabel = Application[attributes.languagecode]["#Attributes.Id#"]>
-									
-		<cfelse>
+			
+		<cfelse>	
+		
 			<!--- --- get from database the value -- --->
 			<cfset url.languageCodeDB = Attributes.LanguageCode>
 			<cftry>
 				<cfinclude template="TL_database.cfm">	
 				<cfset tLabel = qSelect.Label>	
-				<cfcatch>
+				<cfcatch>				
 			       <cfset tLabel = "undefined">	
 				</cfcatch>
 			</cftry>		
 			
 			<!--- add entry in struct --->
 			<cfset Application[attributes.languagecode]["#Attributes.Id#"] = "#tLabel#"> 
-							
+										
 		</cfif>	
 		
 	<cfelse>		

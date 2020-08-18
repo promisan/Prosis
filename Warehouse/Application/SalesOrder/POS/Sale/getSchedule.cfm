@@ -2,11 +2,11 @@
 <cfparam name="url.customerid" default="">
 
 <cfquery name="qThisSale" 
-	 datasource="AppsTransaction" 
+	 datasource="AppsMaterials" 
 	 username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">
 	    SELECT *
-	    FROM Sale#URL.Warehouse#
+	    FROM  CustomerRequestLine
 	    WHERE 
 	    <cfif url.customerId neq "">
 			CustomerIdInvoice = '#url.customerid#'
@@ -69,7 +69,7 @@
 
 <cfoutput>
 
-<select name="PriceSchedule" id="PriceSchedule" class="enterastab regularxl" style="border:0px"
+<select name="PriceSchedule" id="PriceSchedule" style="font-size:17px;height:100%;width:100%;border:0px;" class="regularXXL"
 	onchange="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/applySaleHeader.cfm?field=schedule&priceschedule='+this.value+'&requestno='+document.getElementById('RequestNo').value+'&customeridinvoice='+document.getElementById('customerinvoiceidselect').value,'salelines','','','POST','saleform')">
 	
 	<!--- <option value="">&nbsp;&nbsp;&nbsp;--- <cf_tl id="default"> ---</option> --->

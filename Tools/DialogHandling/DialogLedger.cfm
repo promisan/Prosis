@@ -115,9 +115,8 @@ function selectbank(hform, bnk, acc, cur) {
 }
 
 function selectprogram(mis,per,script,scope)	{
-   
-    try { ColdFusion.Window.destroy('myprogram',true) } catch(e) {}
-	ColdFusion.Window.create('myprogram', 'Program Selection', '',{x:100,y:100,height:document.body.clientHeight-80,width:750,modal:true,center:true})    				
+       
+	ProsisUI.createWindow('myprogram', 'Program Selection', '',{x:100,y:100,height:document.body.clientHeight-90,width:750,modal:true,center:true})    				
 	ptoken.navigate(root + '/Gledger/Application/Lookup/ProgramView.cfm?period='+per+'&mission='+mis+'&script='+script+'&scope='+scope,'myprogram') 		
 }
 	

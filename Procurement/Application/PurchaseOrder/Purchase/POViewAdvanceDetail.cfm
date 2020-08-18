@@ -45,10 +45,9 @@
 				
 <cfif Lines.recordcount eq "0" and Invoice.recordcount eq "0">		
 	
-	<tr style="background: white;">
-	 	<td></td><td colspan="9" class="labelmedium" height="26" align="center">
-		<img src="#SESSION.root#/Images/finger.gif" alt="" border="0" align="absmiddle">&nbsp;
-		 <a href="javascript:requestadvance('#url.id1#')"><font color="6688aa"><cf_tl id="Press Here to request an Advance Payment"></font></a>
+	<tr class="line  labelmedium" style="background: white;">
+	 	<td></td><td colspan="9" style="height:40px;font-size:17px" align="center">		
+		 <a href="javascript:requestadvance('#url.id1#')"><cf_tl id="Press Here to request an Advance Payment"></a>
 		</td>
 	</tr>
 

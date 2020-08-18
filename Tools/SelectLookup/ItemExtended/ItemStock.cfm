@@ -488,14 +488,16 @@ and a select/uom/quantity mode if this is for supplies or other classes --->
 						  			  
 			  <cfset setlink = "ptoken.navigate('#link#&action=insert&#url.des1#=#url.itemNo#','#url.box#','','','POST','itemform')">
 			 	
-			  <cfif show eq "1">				 	 	  
+			  <cfif show eq "1">	
+						  
+			  <cf_tl id="Add" var="1">			 	 	  
 			  
 				  <input type    = "button" 
 				         class   = "button10g" 
 				         style   = "font-size:19;width:165;height:35"
 				   		 onclick = "#setlink#;<cfif url.close eq 'Yes'>Prosis.closeWindow('dialog#url.box#')</cfif>" 
 						 name    = "Select" 
-						 value   = "Add">			  
+						 value   = "#lt_text#">			  
 				
 			  </cfif>
 			  			 						

@@ -118,9 +118,8 @@ function setCursor(){
 }
 
 function printSale(cus,whs,bat,ter) {	
-    try { ColdFusion.Window.destroy('wreprint',true)} catch(e){};    
-    ColdFusion.Window.create('wreprint', 'Re-Print', '',{x:100,y:100,width:870,height:620,resizable:false,modal:true,center:true})		
-	ptoken.navigate("#SESSION.root#/Warehouse/Application/Salesorder/POS/Settlement/SaleInvoiceRePrint.cfm?warehouse="+whs+"&terminal="+ter+"&customerid="+cus+"&batchid="+bat+"&ts="+new Date().getTime(),'wreprint');	
+    ProsisUI.createWindow('wreprint', 'Re-Print', '',{x:100,y:100,width:870,height:620,resizable:false,modal:true,center:true})		
+	ptoken.navigate('#SESSION.root#/Warehouse/Application/Salesorder/POS/Settlement/SaleInvoiceRePrint.cfm?warehouse='+whs+'&terminal='+ter+'&customerid='+cus+'&batchid='+bat,'wreprint');	
 }
 
 function stockfullview() {
@@ -598,7 +597,7 @@ function customerview(s,modid) {
 	document.getElementById("optionselect").value = "customerview('','"+modid+"')"	
 	whs  = document.getElementById("warehouse").value	
 	mis  = document.getElementById("mission").value	
-	ptoken.Navigate('../../SalesOrder/Picking/Monitor/Customer.cfm?systemfunctionid='+modid+'&height='+document.body.offsetHeight+'&warehouse='+whs+'&mission='+mis,'main')		
+	ptoken.navigate('../../SalesOrder/Picking/Monitor/Customer.cfm?systemfunctionid='+modid+'&height='+document.body.offsetHeight+'&warehouse='+whs+'&mission='+mis,'main')		
 }
 	
 function pickingThreshold(s,modid,el,ord,days) {		
@@ -618,6 +617,7 @@ function posreceivable(s,modid) {
 
 	whs   = document.getElementById("warehouse").value	
 	mis   = document.getElementById("mission").value	
+	req   = document.getElementById("RequestNo").value
 	cus   = document.getElementById("customeridselect").value
 	inv   = document.getElementById("customerinvoiceidselect").value
 	ter   = document.getElementById("terminal").value
@@ -625,7 +625,7 @@ function posreceivable(s,modid) {
 	tr_d  = document.getElementById("transaction_date").value
 	tr_h  = document.getElementById("Transaction_hour").value	
 	tr_m  = document.getElementById("Transaction_minute").value
-	
+		
 	if (document.getElementById("addressidselect")) {
 		addr = document.getElementById("addressidselect").value;
 	} else {
@@ -636,9 +636,8 @@ function posreceivable(s,modid) {
 	
 	   try { ProsisUI.closeWindow('wsettle',true)} catch(e){};
 	   ProsisUI.createWindow('wsettle', 'Receivable', '',{x:100,y:100,width:document.body.offsetWidth-85,height:document.body.offsetHeight-85,resizable:false,modal:true,center:true})			  	  	
-	   ptoken.navigate("#SESSION.root#/Warehouse/Application/Salesorder/POS/Receivable/Posting.cfm?width="+document.body.offsetWidth+"&height="+document.body.offsetHeight+"&warehouse="+whs+"&terminal="+ter+"&customerid="+cus+"&customeridinvoice="+inv+"&batchid="+bat+"&td="+tr_d+"&th="+tr_h+"&tm="+tr_m+"&addressid="+addr,'wsettle');
-	  
-	  
+	   ptoken.navigate("#SESSION.root#/Warehouse/Application/Salesorder/POS/Receivable/Posting.cfm?RequestNo="+req+"&width="+document.body.offsetWidth+"&height="+document.body.offsetHeight+"&warehouse="+whs+"&terminal="+ter+"&customerid="+cus+"&customeridinvoice="+inv+"&batchid="+bat+"&td="+tr_d+"&th="+tr_h+"&tm="+tr_m+"&addressid="+addr,'wsettle');
+	 	  
 	} else {  Ext.MessageBox.alert('Information', '#vValidCustomerMessage#'); }
 	 
   }		
@@ -647,20 +646,20 @@ function possettlement(s,modid) {
 
 	whs   = document.getElementById("warehouse").value	
 	mis   = document.getElementById("mission").value	
+	req   = document.getElementById("RequestNo").value
 	cus   = document.getElementById("customeridselect").value
 	bat   = document.getElementById("batchid").value		
 	ter   = document.getElementById("terminal").value
 	tr_d  = document.getElementById("transaction_date").value	
 	tr_h  = document.getElementById("Transaction_hour").value	
 	tr_m  = document.getElementById("Transaction_minute").value	
-	addr  = document.getElementById("addressidselect").value
-					
+	addr  = document.getElementById("addressidselect").value					
 	
     if (cus != '00000000-0000-0000-0000-000000000000' && $.trim(cus) != '') {
 		    
 	    try { ProsisUI.closeWindow('wsettle',true)} catch(e){};
 	    ProsisUI.createWindow('wsettle', 'Settlement', '',{x:100,y:100,width:1080,height:670,resizable:false,modal:true,center:true})		
-		ptoken.navigate("#SESSION.root#/Warehouse/Application/SalesOrder/POS/Settlement/SettleView.cfm?warehouse="+whs+"&terminal="+ter+"&customerid="+cus+"&batchid="+bat+"&td="+tr_d+"&th="+tr_h+"&tm="+tr_m+"&addressid="+addr+"&ts="+new Date().getTime(),'wsettle');
+		ptoken.navigate("#SESSION.root#/Warehouse/Application/SalesOrder/POS/Settlement/SettleView.cfm?RequestNo="+req+"&warehouse="+whs+"&terminal="+ter+"&customerid="+cus+"&batchid="+bat+"&td="+tr_d+"&th="+tr_h+"&tm="+tr_m+"&addressid="+addr,'wsettle');
 		
 	} else {  Ext.MessageBox.alert('Information', '#vValidCustomerMessage#'); }
 	 
@@ -1157,7 +1156,13 @@ function stockinitial(s,modid) {
 function customertoggle(target,cid,action,w,adr) {
 	
 	_cf_loadingtexthtml='';	
+	
 	if (cid == '00000000-0000-0000-0000-000000000000') {
+	
+		    document.getElementById(target+'_main').className = "hide"			
+			document.getElementById(target+'_box').className = "hide"; 			
+			document.getElementById(target+'_exp').className = "show"; 
+			document.getElementById(target+'_col').className = "hide"; 	
 	
 	} else {	
 		if (document.getElementById(target+'_box').className == "hide" || action == "open")	{	
@@ -1169,8 +1174,7 @@ function customertoggle(target,cid,action,w,adr) {
 			document.getElementById(target+'_col').className = "show"; 		
 			
 		} else {	
-		
-		
+				
 		    document.getElementById(target+'_main').className = "regular"
 			document.getElementById(target+'_box').className = "hide"; 
 			document.getElementById(target+'_exp').className = "show"; 
@@ -1225,26 +1229,20 @@ function searchcombo(mis,whs,cat,mde,val,mode,itm,valfield) {
 	   if (mode == "down") {
 	   
 	       switch(keynum) {
-		   case 13:   
-		  			
+		   case 13: 		  			
 		    // we need to review if this can be made more generic like we do for the search div 
-	     	document.getElementById(mde+'selectbox').className = "hide"		   			 		  	 
-			
-			if (mde == 'customer') {	
-				
+	     	document.getElementById(mde+'selectbox').className = "hide"		   			 		  	 			
+			if (mde == 'customer') {					
 				if (document.getElementById('addressidselect'))	{
 					addressId = document.getElementById('addressidselect').value;
 				} else {
 					addressId = "00000000-0000-0000-0000-000000000000";
 				}								
-							
 				ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/sale/applyCustomer.cfm?mission='+mis+'&warehouse='+whs+'&category='+cat+'&itemno='+itm+'&search='+val+'&customerid='+document.getElementById('customeridselect').value+'&addressid='+addressId,mde+'box')	
 				
-			} else {	
-			
-									
-				if (mde == 'customerinvoice') {		      					 
-				  ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/sale/applySaleHeader.cfm?field=billing&mission='+mis+'&warehouse='+whs+'&category='+cat+'&itemno='+itm+'&search='+val+'&customerid='+document.getElementById('customeridselect').value+'&customeridinvoice='+document.getElementById('customerinvoiceidselect').value,'salelines')					 					  
+			} else {											
+				if (mde == 'customerinvoice') {						       					 				
+				  ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/sale/applySaleHeader.cfm?field=billing&mission='+mis+'&warehouse='+whs+'&category='+cat+'&itemno='+itm+'&search='+val+'&customerid='+document.getElementById('customeridselect').value+'&customeridinvoice='+document.getElementById('customerinvoiceidselect').value+'&requestno='+document.getElementById('RequestNo').value,'salelines')					 					  
 			    } else {				
 				  ptoken.navigate('#SESSION.root#/warehouse/application/stock/Transaction/get'+mde+'.cfm?mission='+mis+'&warehouse='+whs+'&category='+cat+'&itemno='+itm+'&search='+val+'&assetid='+document.getElementById('assetidselect').value,mde+'box')									
 				}				
@@ -1297,8 +1295,7 @@ function searchcombo(mis,whs,cat,mde,val,mode,itm,valfield) {
 		   			template = 'customer';
 		   		} else {
 		   			template = mde;
-		   		}
-				
+		   		}								
 			  	ptoken.navigate('#SESSION.root#/Warehouse/Application/Tools/divSearch/get'+template+'Search.cfm?mission='+mis+'&warehouse='+whs+'&category='+cat+'&itemno='+itm+'&search='+val+'&context='+mde+'selectbox',mde+'find')
 		   }	
 	    }	 
@@ -2557,9 +2554,9 @@ function clearStockIssueEndFocus() {
 		$('##customerselect').focus();  
 	}
 	
-	function voidSale(c,w,id,trm) {
+	function voidSale(c,w,id,trm,req) {
 		if (confirm('This action will remove the whole sale transaction.\nDo you really want to void this sale ?')) {
-			ptoken.navigate('#SESSION.root#/warehouse/application/salesOrder/POS/Sale/SaleVoidPerform.cfm?terminal='+trm+'&customerid='+c+'&warehouse='+w+'&id='+id,'divVoidDocument');
+			ptoken.navigate('#SESSION.root#/warehouse/application/salesOrder/POS/Sale/SaleVoidPerform.cfm?requestno='+req+'&terminal='+trm+'&customerid='+c+'&warehouse='+w+'&id='+id,'divVoidDocument');
 		}
 	}
 		

@@ -1,6 +1,7 @@
 <cf_tl id="Edit Fund Distribution" var="vPositionFund">
 <cf_tl id="Split into different project/funds" var="vOptionFund">
 
+<!---
 <cf_screentop height="100%"
 	   scroll="yes" 
 	   bannerheight="60" 
@@ -11,6 +12,8 @@
 	   layout="webapp" 
 	   banner="gray"
 	   user="no">
+	   
+	   --->
 
 <cfajaximport tags="cfform">
 <cf_dialogLedger>
@@ -32,9 +35,9 @@
 		SELECT 	*
 		FROM   	PositionParentFunding
 		WHERE	PositionParentId = '#url.PositionParentId#'
-		AND 	DateEffective = '#getPosFund.DateEffective#'
-		AND  	DateExpiration = '#getPosFund.DateExpiration#'
-		ORDER BY DateEffective, DateExpiration, Percentage DESC
+		AND 	DateEffective    = '#getPosFund.DateEffective#'
+		-- AND  	DateExpiration   = '#getPosFund.DateExpiration#'
+		ORDER BY DateEffective, DateExpiration, Percentage DESC		
 </cfquery>
 
 <cfform name="frmFundingEdit" onsubmit="return false;">
@@ -53,23 +56,27 @@
 			<td class="labellarge"><cf_tl id="Expiration">:</td>
 			<td class="labellarge">
 				<cfoutput>
+				    <cfif getPosFund.DateExpiration neq "">
 					#dateformat(getPosFund.DateExpiration, client.dateformatShow)#
+					<cfelse>
+					Until next effective record
+					</cfif>
 				</cfoutput>
 			</td>
 		</tr>
 
 		<tr><td height="5"></td></tr>
-		<tr><td colspan="2" class="linedotted"></td></tr>
+		<tr><td colspan="2" class="line"></td></tr>
 		<tr><td height="5"></td></tr>
 
 		<tr>
 			<td colspan="2">
 				<table width="95%" align="center" class="formpadding">
-					<tr>
-						<td class="labelmedium" width="20px"></td>
-						<td class="labelmedium" style="padding-left:13px;" width="10%"><cf_tl id="Fund"></td>
-						<td class="labelmedium" style="padding-left:13px;" width="75%"><cf_tl id="Program / Project"></td>
-					    <td class="labelmedium" style="padding-left:10px;" width="5%" align="right">%</td>
+					<tr class="labelmedium" >
+						<td width="20px"></td>
+						<td style="padding-left:13px;" width="10%"><cf_tl id="Fund"></td>
+						<td style="padding-left:13px;" width="75%"><cf_tl id="Program / Project"></td>
+					    <td style="padding-left:10px;" width="5%" align="right">%</td>
 						<td style="padding-left:20px; width:100px;">
 							<cfoutput>
 								<cf_tl id="Distribute funding evenly" var="1">
@@ -89,7 +96,7 @@
 				<table id="fundingList" width="100%" class="navigation_table">
 					<cfoutput query="getPosFundLines">
 						<tr class="clsFundingLine navigation_row" id="fundingLine_#currentrow#">
-							<td>
+							<td>							
 								<cfdiv bind="url:#session.root#/staffing/application/position/funding/setFundPercentageLine.cfm?lineId=#currentrow#&PositionParentId=#PositionParentId#&FundingId=#FundingId#">
 							</td>
 						</tr>
@@ -106,11 +113,7 @@
 			<td colspan="2" align="center">
 				<cf_tl id="Save" var="1">
 				<cfoutput>
-					<input 
-						type="button" 
-						id="btnFundSave" 
-						class="button10g" 
-						value="#lt_text#" 
+					<input type="button" id="btnFundSave" class="button10g" value="#lt_text#" 
 						onclick="ptoken.navigate('#session.root#/staffing/application/position/funding/PositionFundingPercentageSubmit.cfm?positionparentid=#url.positionparentid#&FundingId=#url.FundingId#','process',null,null,'POST','frmFundingEdit');">
 				</cfoutput>
 			</td>

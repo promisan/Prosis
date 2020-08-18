@@ -222,11 +222,17 @@
 								</cfif>											
 							</td>									
 							
-						</cfif>										
-						
-						<cfif deletetable neq "">				
-							<td align="right" style="padding-top:2px;padding-right:5px;padding-left:3px">					
+						</cfif>			
+												
+						<cfif deletetable neq "">							
+								
+							<td align="right" style="padding-top:2px;padding-right:5px;padding-left:3px">	
+							     <img src="#session.root#/images/delete.png" 
+								   id="del#row#" style="height:17px;cursor:pointer" alt="Remove record" border="0" 
+								   onclick="deleterow('#row#','#attributes.datasource#','#deletetable#','#drillkey#','#dkey#')">	
+								 <!---								
 							     <cf_img icon="delete" id="del#row#" onclick="deleterow('#row#','#attributes.datasource#','#deletetable#','#drillkey#','#dkey#')">		
+								 --->
 							</td>											
 						</cfif>					
 						

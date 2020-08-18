@@ -160,7 +160,7 @@
 				
 				 <input type  = "button" 
 				      class   = "button10g" 
-				      onclick = "ColdFusion.Window.destroy('wsettle',true)" 
+				      onclick = "ProsisUI.closeWindow('wsettle',true)" 
 				      style   = "height:28;width:120;font-size:13px" 
 					  class   = "regular" 
 					  name    = "save" id="save"

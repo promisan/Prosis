@@ -231,7 +231,7 @@ password="#SESSION.dbpw#">
 	  <tr>
 	  		    	    
 	    <td>		
-		    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		    <table width="100%" border="0">
 		
 			<tr><td height="4"></td></tr>
 		
@@ -523,14 +523,14 @@ password="#SESSION.dbpw#">
 					  					  
 				   </td>	
 				   
-				   <td align="right" style="padding-left:4px;padding-right:5px">
+				   <td align="right" style="padding-left:4px">
 				  					   
 					   <table>
-					   	   <tr>				   
-						   <td>#numberformat(percentage*100, ",")#</td>
+					   	   <tr>		
 						   <cfif url.access eq "edit">
-						   <td><cf_img icon="edit" onclick="editFunding('#PositionParentId#','#fundingid#');"></td>
-						   </cfif>
+						   <td><cf_img icon="edit" onclick="editFunding('#PositionParentId#','#fundingid#');"></td>						 
+						   </cfif>		   
+						   <td>#numberformat(percentage*100, ",")#</td>						   
 						   </tr>
 					   </table>			   
 				   
@@ -615,7 +615,7 @@ password="#SESSION.dbpw#">
 						<td style="padding-left:8px;"></td>
 						<td style="padding-left:8px;">#Fund#</td>
 						<td style="padding-left:8px;"><cfif isDefined("prg.reference")>#Prg.Reference#<cfelse>#Prg.ProgramCode#</cfif> #Prg.ProgramName#</td>
-						<td align="right" style="padding-left:8px;">#percentage*100#</td>
+						<td align="right" style="width:40px">#percentage*100#</td>
 						<td style="padding-left:12px;"></td>
 						<td></td>
 						<td></td>
@@ -643,7 +643,7 @@ password="#SESSION.dbpw#">
 															
 			<tr><td height="3"></td></tr>
 							
-			<TR class="clsAddNewPositionFunding" style="display:none;">		
+			<TR class="clsAddNewPositionFunding line" style="display:none;">		
 				   <td style="padding-left:8px;min-width:150px">
 				   	
 					   	<cf_intelliCalendarDate9
@@ -652,6 +652,7 @@ password="#SESSION.dbpw#">
 							DateValidStart="#Dateformat(vInitialDate, 'YYYYMMDD')#"
 							DateValidEnd="#Dateformat(PositionParent.DateExpiration, 'YYYYMMDD')#"		
 							class="regularxl"
+							style="border:0px"
 							AllowBlank="False">	
 				   
 				   </td>
@@ -668,7 +669,7 @@ password="#SESSION.dbpw#">
 				   
 				     <td style="padding-left:8px;">
 				   		
-					   	   <select name="fundclass" id="fundclass" class="regularxl" style="width:99%">	
+					   	   <select name="fundclass" id="fundclass" class="regularxl" style="border:0px;width:99%">	
 							 			   				   
 					           <cfoutput query="ClassList">
 							     <option value="#PostClass#">#PostClass#</option>
@@ -679,7 +680,7 @@ password="#SESSION.dbpw#">
 					
 				   <td style="padding-left:8px;">
 				  				   
-					   <select name="fund" id="fund" class="regularxl" style="width:99%">
+					   <select name="fund" id="fund" class="regularxl" style="border:0px;width:99%">
 				           <cfoutput query="FundList">						   
 						     <option value="#Code#">#Code#</option>
 						   </cfoutput>
@@ -714,7 +715,7 @@ password="#SESSION.dbpw#">
 						
 						<td style="padding-left:2px">   
 								  
-						<input type="text"    id="programdescription" name="programdescription" value="" class="regularxl" size="25" maxlength="60" readonly style="width:99%">
+						<input type="text"    id="programdescription" name="programdescription" value="" class="regularxl" size="25" maxlength="60" readonly style="border:0px;width:99%">
 						<input type="hidden"  id="programcode"        name="programcode"        value="" maxlength="20" readonly>
 						
 						</td></tr></table>
@@ -724,7 +725,7 @@ password="#SESSION.dbpw#">
 				   <td style="padding-left:8px;">100</td>
 					   
 				   <td style="padding-left:15px;">
-					   <select name="objectcde" id="objectcode" class="regularxl" style="width:99%">
+					   <select name="objectcde" id="objectcode" class="regularxl" style="width:99%;border:0px">
 					        <option value=""><cf_tl id="Payroll item [recommended]"></option>
 				           <cfoutput query="ObjectList">
 						     <option value="#Code#">#Code# #Description#</option>

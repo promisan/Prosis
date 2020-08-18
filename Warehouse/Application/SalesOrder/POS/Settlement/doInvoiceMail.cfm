@@ -6,12 +6,11 @@
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">	
 	SELECT * 
-	FROM WarehouseJournal 
-	WHERE Area = 'SETTLE'
-	AND Warehouse = (
-		SELECT Warehouse
-		FROM WarehouseBatch
-		WHERE BatchId='#URL.batchid#')
+	FROM   WarehouseJournal 
+	WHERE  Area = 'SETTLE'
+	AND    Warehouse = ( SELECT Warehouse
+						 FROM WarehouseBatch
+				         WHERE BatchId='#URL.batchid#')
 </cfquery>	
 
 <cfif GetWarehouse.eMailTemplate neq "">

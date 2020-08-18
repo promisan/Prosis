@@ -48,12 +48,11 @@
 				  AND   Operational = 1
 				  AND   TransactionType = '#url.tpe#') as ItemEntityClass						 			  					
 				 
-		FROM     userTransaction.dbo.Sale#url.warehouse#Transfer S
+		FROM     CustomerRequestLineTransfer S
 		
 		WHERE    TransactionId IN (SELECT TransactionId 
-		                           FROM   userTransaction.dbo.Sale#url.warehouse# 
-								   WHERE  CustomerId = '#url.customerid#'
-								   AND    AddressId  = '#url.addressId#')		
+		                           FROM   CustomerRequestLine
+								   WHERE  RequestNo  = '#url.requestNo#')		
 		ORDER BY Warehouse						   		
 	</cfquery>		
 			
@@ -192,7 +191,7 @@
 							username="#SESSION.login#" 
 							password="#SESSION.dbpw#">
 						    SELECT   *
-							FROM     userTransaction.dbo.Sale#url.warehouse#
+							FROM     CustomerRequestLine
 							WHERE    Transactionid = '#transactionid#'							
 						</cfquery>	
 				  						  
@@ -362,15 +361,16 @@
 						
 			</cfoutput>	
 				
-</cfoutput>			
+</cfoutput>		
+
+<!--- we can keep this info, but for now we remove like before --->	
 
 <cfquery name="CleanTransfer"
 	datasource="AppsMaterials" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">	    
-	   DELETE FROM userTransaction.dbo.Sale#url.warehouse#Transfer 
+	   DELETE FROM CustomerRequestLineTransfer 
 	   WHERE    TransactionId IN (SELECT TransactionId 
-		                           FROM   userTransaction.dbo.Sale#url.warehouse# 
-								   WHERE  CustomerId = '#url.customerid#'
-								   AND    AddressId  = '#url.addressId#')							   		
+		                          FROM   CustomerRequestLine
+								  WHERE  RequestNo = '#url.RequestNo#')							   		
 </cfquery>			

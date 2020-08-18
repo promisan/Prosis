@@ -15,7 +15,7 @@
 
 <cfoutput>
 <script>
-	ptoken.location("POViewGeneral.cfm?header=#url.header#&Mode=view&role=#URL.Role#&ID1=#URL.Purchaseno#")
+	ptoken.location("POView.cfm?header=#url.header#&Mode=view&role=#URL.Role#&ID1=#URL.Purchaseno#")
 </script>
 </cfoutput>
 

@@ -90,6 +90,7 @@ password="#SESSION.dbpw#">
 
 <cfset url.mission = batch.mission>
 
+<cfif url.mode neq "embed">
 
 <cf_screentop height="100%"     
 	title="#lt_text# : #URL.BatchNo# (#Batch.Mission#)" 
@@ -101,7 +102,7 @@ password="#SESSION.dbpw#">
 	bannerforce="Yes"
 	scroll="no">
 
-	<cfajaximport tags="cfwindow">
+</cfif>
 	
 	<cf_tl id="Do you want to deny this batch" var="1">
 	<cfset tCancel="#lt_text#">
@@ -114,7 +115,7 @@ password="#SESSION.dbpw#">
 	<script language="JavaScript">
 	
 		function pickticket(bat) {					
-			window.open("../Pickticket/PickticketPrint.cfm?batchNo="+bat+"&ts="+new Date().getTime(), "_blank", "left=30, top=30, width=850, height=850, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")			
+			window.open("#session.root#/Warehouse/Application/Stock/Pickticket/PickticketPrint.cfm?batchNo="+bat+"&ts="+new Date().getTime(), "_blank", "left=30, top=30, width=850, height=850, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")			
 		}	  
 		
 		function printbatch(batchno, template) {
@@ -131,11 +132,11 @@ password="#SESSION.dbpw#">
 		function batchdecision(action) {
 		    if (action == "confirm") {
 				if (confirm("#tConfirm#")) {
-					ptoken.navigate('setBatchDecision.cfm?action='+action+'&systemfunctionid=#url.systemfunctionid#&trigger=#url.trigger#&batchno=#url.batchNo#&stockorderid=#url.stockorderid#','iconfirm','','','POST','batchform')			
+					ptoken.navigate('#session.root#/Warehouse/Application/Stock/Batch/setBatchDecision.cfm?action='+action+'&systemfunctionid=#url.systemfunctionid#&trigger=#url.trigger#&batchno=#url.batchNo#&stockorderid=#url.stockorderid#','iconfirm','','','POST','batchform')			
 				}		 
 			} else {
 				if (confirm("#tCancel#")) {
-					ptoken.navigate('setBatchDecision.cfm?action='+action+'&systemfunctionid=#url.systemfunctionid#&trigger=#url.trigger#&batchno=#url.batchNo#&stockorderid=#url.stockorderid#','iconfirm','','','POST','batchform')			
+					ptoken.navigate('#session.root#/Warehouse/Application/Stock/Batch/setBatchDecision.cfm?action='+action+'&systemfunctionid=#url.systemfunctionid#&trigger=#url.trigger#&batchno=#url.batchNo#&stockorderid=#url.stockorderid#','iconfirm','','','POST','batchform')			
 				}	
 			}	
 		}
@@ -148,9 +149,9 @@ password="#SESSION.dbpw#">
 			if (confirm("Do you want to revert this transaction batch ?")) {		   		   
 			    Prosis.busy('yes')
 			    if (action == "confirm") {
-				    ptoken.navigate('setBatchRevert.cfm?systemfunctionid=#url.systemfunctionid#&trigger=#url.trigger#&batchno='+bat,'status')							
+				    ptoken.navigate('#session.root#/Warehouse/Application/Stock/Batch/setBatchRevert.cfm?systemfunctionid=#url.systemfunctionid#&trigger=#url.trigger#&batchno='+bat,'status')							
 				} else {
-				    ptoken.navigate('setBatchRevert.cfm?systemfunctionid=#url.systemfunctionid#&trigger=#url.trigger#&batchno='+bat,'status')	
+				    ptoken.navigate('#session.root#/Warehouse/Application/Stock/Batch/setBatchRevert.cfm?systemfunctionid=#url.systemfunctionid#&trigger=#url.trigger#&batchno='+bat,'status')	
 				}	
 			}		
 		}		
@@ -159,14 +160,14 @@ password="#SESSION.dbpw#">
 		
 			if (confirm("Do you want to issue a Sales transaction ?")) {	
 		     Prosis.busy('yes')
-			 ptoken.navigate('setBatchToSale.cfm?systemfunctionid=#url.systemfunctionid#&trigger=#url.trigger#&batchno='+bat,'status')			 
+			 ptoken.navigate('#session.root#/Warehouse/Application/Stock/Batch/setBatchToSale.cfm?systemfunctionid=#url.systemfunctionid#&trigger=#url.trigger#&batchno='+bat,'status')			 
 		    }
 		
 		}
 		
 		function setlinestatus(id,st) {
 		    _cf_loadingtexthtml='';
-			ptoken.navigate('setLineStatus.cfm?&transactionid='+id+'&act='+st,'status_'+id)		 	
+			ptoken.navigate('#session.root#/Warehouse/Application/Stock/Batch/setLineStatus.cfm?&transactionid='+id+'&act='+st,'status_'+id)		 	
 				 		 
 		}
 		
@@ -209,7 +210,7 @@ password="#SESSION.dbpw#">
 
 </cfif>
 
-<table width="98%" height="100%" align="center">
+<table width="99%" style="min-width:1000px" height="100%" align="center">
 
 	<tr><td align="right" height="100%" valign="top">	  
 	
@@ -240,7 +241,7 @@ password="#SESSION.dbpw#">
 			<cfset cl = "regular">		
 		</cfif>		
 			
-		<tr><td height="30" id="actionbox" class="<cfoutput>#cl#</cfoutput>" align="center" style="padding-left:4px;padding-right:4px">
+		<tr><td id="actionbox" class="<cfoutput>#cl#</cfoutput>" align="center" style="padding-left:4px;padding-right:4px">
 								
 			<cfif batch.actionStatus eq "0" and url.mode eq "Process">				
 															
@@ -387,13 +388,14 @@ password="#SESSION.dbpw#">
 									
 			<cfelse>
 			
-			<table width="100%" class="formpadding">
-						
+			<table width="100%" class="formpadding">						
 							
-				<tr><td colspan="3" class="labelmedium">	
+				<tr><td colspan="3" class="labelmedium" style="font-size:16px">	
 				    <cfif Batch.actionStatus eq "1"> 
-					 <cf_tl id="Confirmed by"><cfelseif Batch.actionstatus eq "9"><cf_tl id="Denied by"></cfif>&nbsp;:&nbsp;					
-					#Batch.ActionOfficerFirstName# #Batch.ActionOfficerLastName# on #dateformat(Batch.ActionOfficerDate,CLIENT.DateFormatShow)# #timeformat(Batch.ActionOfficerDate,"HH:MM")#
+					<font color="2BBD86"><cf_tl id="Confirmed by"><cfelseif Batch.actionstatus eq "9"><font color="FF0000"><cf_tl id="Denied by"></cfif>	
+					<cfif Batch.actionStatus eq "1" or  Batch.actionStatus eq "9"> 			
+					&nbsp;:&nbsp;#Batch.ActionOfficerFirstName# #Batch.ActionOfficerLastName# on #dateformat(Batch.ActionOfficerDate,CLIENT.DateFormatShow)# #timeformat(Batch.ActionOfficerDate,"HH:MM")#
+					</cfif>
 					</td>
 					
 					<cfif Batch.actionstatus neq "9">		
@@ -430,22 +432,31 @@ password="#SESSION.dbpw#">
 					<tr class="line"><td class="labelit" colspan="5">#Batch.ActionMemo#</td></tr>							
 									
 				</cfif>
-					
-				<tr><td colspan="5">	
-									
-					<cf_filelibraryN
+				
+				<cf_FileLibraryCheck
 						DocumentPath="StockBatch"
-						SubDirectory="#URL.BatchNo#" 
-						Filter=""
-						Presentation="all"
-						Insert="no"
-						Remove="no"
-						width="100%"	
-						Loadscript="yes"				
-						border="1">	
-						
-					</td>
-				</tr>
+						SubDirectory="#URL.BatchNo#"
+						Filter="">
+				
+				<cfif files gte "1">				
+					
+					<tr><td colspan="5" style="border-top:1px solid silver">	
+										
+						<cf_filelibraryN
+							DocumentPath="StockBatch"
+							SubDirectory="#URL.BatchNo#" 
+							Filter=""
+							Presentation="all"
+							Insert="no"
+							Remove="no"
+							width="100%"	
+							Loadscript="yes"				
+							border="1">	
+							
+						</td>
+					</tr>
+				
+				</cfif>
 							
 			</table>
 												

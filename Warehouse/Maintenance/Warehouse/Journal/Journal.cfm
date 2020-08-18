@@ -64,7 +64,7 @@
 			<cfelse>
 			<tr>
 				<td>
-					<table width="100%" align="center">
+					<table width="100%" align="center" class="formspacing">
 						<tr>
 							<td width="2%"></td>
 							<td width="200" class="labelmedium" valign="top"><cf_space spaces="50">#Currency# #Description#:</td>

@@ -5,20 +5,21 @@
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
 			SELECT * 
-			FROM   Settle#URL.Warehouse#_#SESSION.acc#
+			FROM   Settle#URL.Warehouse#
 		</cfquery>
 		
 		<cfcatch>
 		
 			<CF_DropTable dbName="AppsTransaction" 
-			              tblName="Settle#URL.Warehouse#_#SESSION.acc#"> 
+			              tblName="Settle#URL.Warehouse#"> 
 						  
 			<cfquery name="CreateTable"
 			datasource="AppsTransaction" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
-			CREATE TABLE dbo.Settle#URL.Warehouse#_#SESSION.acc# (		   
-			    [TransactionId] [uniqueidentifier] ROWGUIDCOL  NOT NULL CONSTRAINT [DF_Settle#URL.Warehouse#_#SESSION.acc#] DEFAULT (newid()),		
+			CREATE TABLE dbo.Settle#URL.Warehouse# (		   
+			    [TransactionId] [uniqueidentifier] ROWGUIDCOL  NOT NULL CONSTRAINT [DF_Settle#URL.Warehouse#] DEFAULT (newid()),		
+				[RequestNo] [int] NULL,
 				[CustomerId] [uniqueidentifier] NOT NULL,							
 				[AddressId]  [uniqueidentifier] NULL,
 				[SettleCode] [varchar] (20) NULL ,		
@@ -31,7 +32,7 @@
 				[ApprovalReference] [varchar] (20) NULL ,																	
 				[SettleCurrency] [varchar] (4) NULL ,			
 				[SettleAmount] [float] NULL ,			
-				[Created] [datetime] NULL CONSTRAINT [DF_Settle_Created#URL.Warehouse#_#SESSION.acc#] DEFAULT (getdate()),)
+				[Created] [datetime] NULL CONSTRAINT [DF_Settle_Created#URL.Warehouse#] DEFAULT (getdate()),)
 			</cfquery>			  
 					
 		</cfcatch>

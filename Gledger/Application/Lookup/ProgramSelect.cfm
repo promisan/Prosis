@@ -1,5 +1,5 @@
 
-<cf_screentop height="100%" close="parent.ColdFusion.Window.destroy('myprogram',true)" label="Program/Project select" banner="gray" jQuery="yes" scroll="Yes" layout="webapp">
+<cf_screentop height="100%" html="No" label="Program/Project select" banner="gray" jQuery="yes" scroll="Yes" layout="webapp">
 
 <cfquery name="Parent" 
 datasource="AppsLedger" 
@@ -51,7 +51,7 @@ password="#SESSION.dbpw#">
 	
     </cfif>	
 	
-	parent.ColdFusion.Window.destroy('myprogram',true);	
+	parent.ProsisUI.closeWindow('myprogram',true);	
 	
 	}			
 	
@@ -70,13 +70,13 @@ password="#SESSION.dbpw#">
 	
 </CFOUTPUT>
 
-<table width="100%" border="0" height="100%" style="padding-left:3px;padding-bottom:3px;padding-right:3px" cellspacing="0" cellpadding="0" align="center">
+<table width="100%" border="0" height="100%" style="padding-left:3px;padding-bottom:3px;padding-right:3px" align="center">
 
    <tr bgcolor="e4e4e4" class="line">
 
 	  <td height="35">
 	  
-	  <table cellspacing="0" cellpadding="0">
+	  <table>
 	  
 	  <tr>
 	  <td style="padding-left:10px"></td>

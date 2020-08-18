@@ -670,6 +670,9 @@
 													      <!--- tuning 10/01/2012 to honor the ability not to select a funding by requester/reviewer --->
 													  
 														  <td style="padding:3px" height="50" bgcolor="00FF00">
+														  
+														  xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+														  
 														   <!--- inclomplete funding --->
 														   <cfif fullyfunded neq "1" AND url.role eq "ProcReqReview"  AND parameter.FundingByReviewer eq "2">
 														      
@@ -689,7 +692,7 @@
 														   	  <!--- inclomplete funding and funding required --->
 															  
 															  <!--- not enabled --->
-															 														  
+															  															 														  
 															     <cf_UIToolTip tooltip="#vForward#">
 																	<input type="radio" 
 																       name="f#currentrow#"

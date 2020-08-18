@@ -1,53 +1,67 @@
 
 <!--- control list data content --->
 
-<CF_DropTable dbName="AppsQuery" tblName="#SESSION.acc#_Quote"> 
+<cfoutput>
+<cfsavecontent variable="myquery">
+		
+		SELECT *
+		FROM (
+		
+		
+		    SELECT        CR.Mission, 
+			              CR.RequestNo,
+						  CR.CustomerId, 
+						  CR.AddressId, 
+						  CR.Warehouse, 
+						  CR.BatchNo, 
+						  CR.Remarks, 
+						  CR.ActionStatus, 
+						  CR.Source, 
+						  C.CustomerName,
+						  C.Reference, 
+						  C.PhoneNumber, 
+						  C.MobileNumber,
+						  C.eMailAddress, 
+						  (CASE WHEN BatchNo is NULL THEN 'Pending' ELSE 'Sold' END) as QuoteStatus,
+						  CR.OfficerLastName as Officer,
+						  
+                          (SELECT     AddressCity
+                           FROM       System.dbo.Ref_Address
+                           WHERE      AddressId = CR.AddressId) AS AddressCity,
+						  
+						  (SELECT     TOP 1 SalesCurrency AS Expr1
+                           FROM       CustomerRequestLine AS S
+                           WHERE      RequestNo = CR.RequestNo 
+						   AND        BatchId IS NULL) AS SalesCurrency,  
+						   
+                          (SELECT     SUM(SalesTotal) AS Expr1
+                           FROM       CustomerRequestLine AS S
+                           WHERE      RequestNo = CR.RequestNo 
+						   AND        BatchId IS NULL) AS SalesTotal, 
+						   
+						   CR.OfficerUserId, 
+						   CR.OfficerLastName, 
+						   CR.OfficerFirstName, 
+						   CR.Created
+						   
+			FROM           CustomerRequest AS CR INNER JOIN Customer AS C ON CR.CustomerId = C.CustomerId
+			WHERE          CR.Warehouse = '#url.warehouse#' 
+			-- AND            CR.BatchNo IS NULL 
+			AND            CR.ActionStatus <> '9' 
+			AND            EXISTS (SELECT    'X'
+                                   FROM      CustomerRequestLine AS S
+                                   WHERE     RequestNo = CR.RequestNo 
+							       AND       BatchId IS NULL)
+						
+		) as C WHERE 1=1
+		
+		 --Condition
+														
+</cfsavecontent>	
 
-<cfquery name="Get" 
-		datasource="AppsMaterials" 
-		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">
-	 	
-		SELECT   S.RequestNo,
-				 C.CustomerId,
-		         C.CustomerName,
-		         S.AddressId,
-				 C.PersonNo,
-		         AD.Address,
-		         AD.Address2,
-		         AD.AddressCity,
-		         C.Reference, 
-				 C.PhoneNumber, 
-				 C.MobileNumber,
-				 C.eMailAddress, 
-				 MAX(P.LastName)        as Officer, 
-				 MAX(S.SalesCurrency)   as SalesCurrency,
-				 MAX(S.Source)          as Source,
-				 MAX(S.TransactionDate) AS TransactionDate, 
-				 SUM(S.SalesAmount)     AS SalesAmount, 
-				 SUM(S.SalesTax)        AS SalesTax, 
-				 SUM(S.SalesTotal)      AS SalesTotal 
-		INTO     userQuery.dbo.#session.acc#_Quote				  
-		FROM     vwCustomerRequest S INNER JOIN
-	             Materials.dbo.Customer C ON S.CustomerId = C.CustomerId LEFT OUTER JOIN
-	             Employee.dbo.Person P ON S.SalesPersonNo = P.PersonNo LEFT OUTER JOIN
-	             System.dbo.Ref_Address AD ON AD.AddressId = S.AddressId
-		WHERE    Warehouse = '#url.warehouse#'
-		AND      BatchId is NULL AND ActionStatus != '9' <!--- not transformed into a real sale which is posted yet --->		 
-	    GROUP BY S.RequestNo,
-		         C.CustomerName,
-	    		 S.AddressId,	
-				 C.PersonNo,			
-		         AD.Address,
-		         AD.Address2,
-		         AD.AddressCity,
-		         C.Reference, 				 
-				 C.MobileNumber,
-				 C.PhoneNumber, 
-				 C.eMailAddress, 
-				 C.CustomerId
-										
-</cfquery>		
+</cfoutput>
+
+<!---
 
 <cfsavecontent variable="myquery">
 	
@@ -58,15 +72,25 @@
 	
 </cfsavecontent>
 
+--->
+
 <cfset itm = 0>
 <cfset fields=ArrayNew(1)>
 
 	<cfset itm = itm+1>
-	<cf_tl id="QuoteNo" var = "1">
+	<cf_tl id="No" var = "1">
 	<cfset fields[itm] = {label     = "#lt_text#",                    
 	     				field       = "Requestno",											
 						alias       = "C",																								
 						search      = "text"}>		
+						
+	<cfset itm = itm+1>
+	<cf_tl id="Status" var = "1">
+	<cfset fields[itm] = {label     = "#lt_text#",                    
+	     				field       = "QuoteStatus",											
+						alias       = "C",	
+						filtermode  = "3",																							
+						search      = "text"}>							
 
 	<cfset itm = itm+1>
 	<cf_tl id="Customer" var = "1">
@@ -78,32 +102,14 @@
 						filtermode  = "2"}>		
 						
 	<cfset itm = itm+1>
-	<cf_tl id="Date" var = "1">			
+	<cf_tl id="Reference" var = "1">
 	<cfset fields[itm] = {label     = "#lt_text#",                    
-	     				field       = "TransactionDate",	
-						formatted   = "dateformat(TransactionDate,client.dateformatshow)",					
-						alias       = "",																			
-						search      = "date"}>		
-						
-	<cfset itm = itm+1>
-	<cf_tl id="Time" var = "1">			
-	<cfset fields[itm] = {label     = "#lt_text#",                    
-	     				field       = "TransactionDate",	
-						formatted   = "timeformat(TransactionDate,'HH:MM')",					
-						alias       = ""}>											
-						
-						
-	<cfset itm = itm+1>
-	<cf_tl id="Source" var = "1">
-	<cfset fields[itm] = {label     = "#lt_text#",                    
-	     				field       = "Source",		
-						formatted   = "Source",										
-						alias       = "S",																			
+	     				field       = "Reference",											
+						alias       = "C",																								
 						search      = "text",
-						filtermode  = "2"}>		
-											
-
-
+						searchalias = "C",
+						filtermode  = "2"}>							
+						
 	<cfset itm = itm+1>
 	<cf_tl id="Address" var = "1">
 	<cfset fields[itm] = {label     = "#lt_text#",                    
@@ -111,36 +117,35 @@
 						formatted   = "AddressCity",										
 						alias       = "C",																			
 						search      = "text",
-						filtermode  = "2"}>		
+						filtermode  = "2"}>								
+											
 						
-	
-					
-						
-	
 	<cfset itm = itm+1>
-	<cf_tl id="Reference" var = "1">
+	<cf_tl id="Date" var = "1">			
 	<cfset fields[itm] = {label     = "#lt_text#",                    
-	     				field       = "Reference",											
-						alias       = "C",																								
+	     				field       = "Created",	
+						formatted   = "dateformat(Created,client.dateformatshow)",					
+						alias       = "C",																			
+						search      = "date"}>		
+						
+	<cfset itm = itm+1>
+	<cf_tl id="Time" var = "1">			
+	<cfset fields[itm] = {label     = "#lt_text#",                    
+	     				field       = "Created",	
+						formatted   = "timeformat(Created,'HH:MM')",					
+						alias       = "C"}>											
+						
+						
+	<cfset itm = itm+1>
+	<cf_tl id="Source" var = "1">
+	<cfset fields[itm] = {label     = "#lt_text#",                    
+	     				field       = "Source",		
+						formatted   = "Source",										
+						alias       = "C",																			
 						search      = "text",
-						searchalias = "C",
 						filtermode  = "2"}>		
-
-	<cfset itm = itm+1>
 		
-	<cf_tl id="Phone" var = "1">		
-	<cfset fields[itm] = {label     = "#lt_text#",                    
-	     				field       = "MobileNumber",																	
-						alias       = "C",																			
-						search      = "text"}>		
-						
-	<cfset itm = itm+1>
-		
-	<cf_tl id="Fixed" var = "1">		
-	<cfset fields[itm] = {label     = "#lt_text#",                    
-	     				field       = "PhoneNumber",																	
-						alias       = "C",																			
-						search      = "text"}>									
+					
 	
 	<!---						
 	<cfset itm = itm+1>
@@ -153,8 +158,7 @@
 						
 						--->
 						
-	<cfset itm = itm+1>
-		
+	<cfset itm = itm+1>		
 	<cf_tl id="Officer" var = "1">		
 	<cfset fields[itm] = {label     = "#lt_text#",                    
 	     				field       = "Officer",																	
@@ -162,14 +166,14 @@
 						search      = "text",
 						filtermode  = "2"}>									
 						
-		
-						
+								
 	<cfset itm = itm+1>
 	<cf_tl id="Curr" var = "1">			
 	<cfset fields[itm] = {label     = "#lt_text#",                    
 	     				field       = "SalesCurrency",					
 						alias       = ""}>		
 						
+	
 	<cfset itm = itm+1>
 	<cf_tl id="Amount" var = "1">			
 	<cfset fields[itm] = {label     = "#lt_text#",                    
@@ -177,7 +181,33 @@
 						formatted   = "numberformat(SalesTotal,',.__')",	
 						align       = "right",										
 						alias       = "",
-						search      = "amount"}>																										
+						search      = "amount"}>		
+						
+	<cfset itm = itm+1>		
+	<cf_tl id="Phone" var = "1">		
+	<cfset fields[itm] = {label     = "#lt_text#",                    
+	     				field       = "MobileNumber",																	
+						alias       = "C",		
+						rowlevel      = "2",																	
+						search      = "text"}>		
+						
+	<cfset itm = itm+1>		
+	<cf_tl id="Fixed" var = "1">		
+	<cfset fields[itm] = {label     = "#lt_text#",                    
+	     				field       = "PhoneNumber",																	
+						alias       = "C",	
+						rowlevel      = "2",																		
+						search      = "text"}>			
+											
+	<cfset itm = itm+1>	
+	<cf_tl id="Remarks" var = "1">		
+	<cfset fields[itm] = {label       = "#lt_text#",                    
+	     				labelfilter   = "#lt_text#",
+						field         = "Remarks",	
+						display       = "1",								
+						rowlevel      = "2",
+						Colspan       = "11",																																													
+						search        = "text"}>																																
 							
 		
 	<cfset itm = itm+1>	
@@ -187,26 +217,30 @@
 	     				field       = "CustomerId",					
 						display     = "No",
 						alias       = ""}>		
-						
+	
+	<!---					
 	<cfset itm = itm+1>
 	<cf_tl id="PersonNo" var = "1">
 	<cfset fields[itm] = {label     = "#lt_text#",                    
 	     				field       = "PersonNo",		
 						formatted   = "PersonNo",		
 						display     = "No",								
-						alias       = "C"}>																																					
+						alias       = "C"}>		
+						
+						--->																																			
 		
 <cfset menu=ArrayNew(1)>	
 	
 <!--- embed|window|dialogajax|dialog|standard --->
 
 <!--- prevent the method to see this as an embedded listing --->
+
 	
 <cf_listing
-	    header              = "PriceListing"
+	    header              = "CustomerQuote"
 	    box                 = "mybox"
 		link                = "#SESSION.root#/Warehouse/Application/SalesOrder/Quote/ControlListDataContent.cfm?warehouse=#url.warehouse#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#"	   			
-		datasource          = "AppsQuery"
+		datasource          = "AppsMaterials"
 		listquery           = "#myquery#"					
 		listorderfield      = "CustomerName"
 		listorder           = "CustomerName"
@@ -219,6 +253,7 @@
 		drillmode           = "tab" 
 		drillargument       = "#client.height-90#;#client.width-100#;false;false"	
 		drilltemplate       = "Warehouse/Application/SalesOrder/Quote/QuoteView.cfm?systemfunctionid=#url.systemfunctionid#&scope=quote&mission=#url.mission#&warehouse=#url.warehouse#&mode=dialog&RequestNo="
-		drillkey            = "RequestNo"
-		drillbox            = "addlisting">	
+		drillkey            = "RequestNo"		
+		deletetable         = "Materials.dbo.CustomerRequest"
+		annotation          = "WhsQuote">	
 		

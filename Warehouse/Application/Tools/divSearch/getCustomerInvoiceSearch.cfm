@@ -1,4 +1,5 @@
 
+
 <cfif url.search eq "">
 
 	<script>
@@ -54,7 +55,7 @@
 	
 		<tr><td id       = "customerinvoiceline#currentrow#" 
 		    name         = "customerinvoiceline#currentrow#" 
-		    onclick      = "document.getElementById('customerinvoiceselectbox').className ='hide';ptoken.navigate('#SESSION.root#/warehouse/application/SalesOrder/POS/Sale/applySaleHeader.cfm?field=billing&warehouse=#url.warehouse#&customerid='+document.getElementById('customeridselect').value+'&customeridinvoice=#customerid#','salelines');" 														
+		    onclick      = "document.getElementById('customerinvoiceselectbox').className ='hide';ptoken.navigate('#SESSION.root#/warehouse/application/SalesOrder/POS/Sale/applySaleHeader.cfm?field=billing&warehouse=#url.warehouse#&customerid='+document.getElementById('customeridselect').value+'&customeridinvoice=#customerid#&requestno='+document.getElementById('RequestNo').value,'salelines');" 														
 		    class        = "regular" 
 			style        = "cursor:pointer"
 		    onmouseover  =  "if (this.className=='regular') { this.className='highlight2' }"

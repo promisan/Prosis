@@ -618,15 +618,17 @@
 					<cfset mapped = "0">				
 												
 					<cfquery name="getSaleLines" 
-					datasource="AppsTransaction" 
+					datasource="AppsMaterials" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">							
 						SELECT   T.TransactionId, 
 						         I.Category+'-'+I.CategoryItem AS Item, 
 								 T.TransactionQuantity
-						FROM     Sale#Warehouse# T INNER JOIN Materials.dbo.Item I ON T.ItemNo = I.ItemNo					
+						FROM     vwCustomerRequest T INNER JOIN Materials.dbo.Item I ON T.ItemNo = I.ItemNo					
 						WHERE    PromotionId IS NULL <!--- no double promotions --->
 						AND      CustomerId = '#url.customerid#' <!--- this applies to all addresses of the customer --->	
+						AND      ActionStatus != '9'
+						AND      BatchNo is NULL
 						ORDER BY SchedulePrice DESC						
 					</cfquery>											
 				
@@ -648,10 +650,10 @@
 					<cfif qty gte element.Quantity>
 					
 				           <cfquery name="taglines" 
-							datasource="AppsTransaction" 
+							datasource="AppsMaterials" 
 							username="#SESSION.login#" 
 							password="#SESSION.dbpw#">							
-								UPDATE   Sale#Warehouse#  	
+								UPDATE   CustomerRequestLine  	
 								SET      PromotionId       = '#element.PromotionId#',
 										 PromotionDiscount = '#element.Discount#',		
 										 PromotionType     = '#element.DiscountType#',												 
@@ -740,10 +742,10 @@
 					
 											
 					<cfquery name="applyDiscount" 
-					datasource="AppsTransaction" 
+					datasource="AppsMaterials" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">							
-						UPDATE   Sale#Warehouse# 	
+						UPDATE   CustomerRequestLine 	
 						SET      SalesPrice  = '#price#', 
 						         SalesAmount = '#amount#', 
 								 SalesTax    = '#amounttax#'						
@@ -808,66 +810,7 @@
 							   (TransactionType = '8' and TransactionQuantity < 0)
 								)
 						ORDER BY CustomerId		
-			  </cfquery>		
-			  
-			   <cftry>
-			   
-				   <cfquery name="CreateTable"
-					datasource="AppsTransaction" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-					CREATE TABLE dbo.Sale#URL.Warehouse# (
-					    [TransactionId] [uniqueidentifier] ROWGUIDCOL  NOT NULL CONSTRAINT [DF_Sale#URL.Warehouse#] DEFAULT (newid()),
-						[SourceBatchNo] [varchar] (20) NULL ,
-						[BatchId] [uniqueidentifier],
-						[TransactionType] [varchar] (2) NOT NULL ,
-						[TransactionDate] [datetime] NOT NULL ,
-						[TransactionReference] [varchar] (50) NULL ,
-						[ItemNo] [varchar] (20) NOT NULL ,
-						[ItemClass] [varchar] (10) NOT NULL ,
-						[ItemDescription] [varchar] (200) NOT NULL ,
-						[ItemCategory] [varchar] (20) NOT NULL ,
-						[Mission] [varchar] (30) NOT NULL ,
-						[Warehouse] [varchar] (20) NULL ,
-						[Location] [varchar] (20) NULL ,								
-						[TransactionUoM] [varchar] (30) NOT NULL ,
-						[TransactionQuantity] [float] NOT NULL ,			
-						[AddressId] [uniqueidentifier] NULL, 	
-						[TransactionLot] [varchar] (20) NULL ,
-						[PersonNo] [varchar] (20) NULL ,			
-						[CustomerId] [uniqueidentifier] NULL,		
-						[CustomerIdInvoice] [uniqueidentifier] NULL,
-						[SalesPersonNo] [varchar] (20) NULL,	
-						[ProgramCode] [varchar] (20) NULL ,		
-						[PriceSchedule] [varchar] (10) NULL ,		
-						[SalesCurrency] [varchar] (4) NOT NULL ,			
-						[SchedulePrice] [float] NULL ,
-						[PromotionId] [uniqueidentifier] NULL,
-						[PromotionRun] [int] NULL ,
-						[PromotionType] [varchar] (10) NULL ,
-						[PromotionDiscount] [float] NULL ,
-						[SalesDiscount] [float] NULL ,
-						[SalesPrice] [float] NOT NULL ,
-						[TaxCode] [varchar] (10) NULL ,
-						[TaxPercentage] [float] NULL CONSTRAINT [DF_Sale_TaxPercetage#URL.Warehouse#] DEFAULT (0),
-						[TaxExemption] [bit] NOT NULL CONSTRAINT [DF_Sale_TaxExemption#URL.Warehouse#] DEFAULT (0),
-						[TaxIncluded] [bit] NOT NULL CONSTRAINT [DF_Sale__TaxIncluded#URL.Warehouse#] DEFAULT (0),			
-						[SalesAmount] [float] NULL ,										
-						[SalesTax] [float] NULL ,
-						[SalesTotal] AS ([SalesAmount] + [SalesTax]) ,			
-						[OrgUnit] [int] NULL ,
-						[OrgUnitCode] [varchar] (20) NULL ,
-						[OrgUnitName] [varchar] (100) NULL ,					
-						[OfficerUserId] [varchar] (20) NULL ,	
-						[OfficerLastName] [varchar] (40) NULL ,	
-						[OfficerFirstName] [varchar] (30) NULL ,				
-						[Created] [datetime] NOT NULL CONSTRAINT [DF_Sale_Created#URL.Warehouse#] DEFAULT (getdate()),)
-					</cfquery>		
-					   
-			  					
-					<cfcatch></cfcatch>
-			   
-			   </cftry>
+			  </cfquery>					  
 			  	 			 
 			  <cfoutput query="getTransaction" group="customerid">	
 			  
@@ -1122,6 +1065,7 @@
 			 
 			<cfargument name="Warehouse"          type="string"  required="true"   default="">
 			<cfargument name="Terminal"           type="string"  required="true"   default="0">
+			<cfargument name="RequestNo"          type="string"  required="true"   default="">
 			<cfargument name="Memo"               type="string"  required="true"   default="">
 			<cfargument name="BatchId"            type="string"  required="true"   default="">
 			<cfargument name="Customerid"         type="GUID"    required="true"   default="">
@@ -1143,6 +1087,7 @@
 				SELECT  *
 				FROM   Warehouse
 				WHERE  Warehouse = '#warehouse#'	   							   
+				
 			</cfquery>						
 				
 			<cfset OrgUnitOwner = "0">
@@ -1198,9 +1143,9 @@
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
 				SELECT  *
-				FROM    UserTransaction.dbo.Settle#warehouse#_#SESSION.acc#
+				FROM    UserTransaction.dbo.Settle#warehouse#
 				WHERE   CustomerId = '#customerid#'
-				AND     AddressId = '#addressid#'	
+				AND     AddressId  = '#addressid#'	
 				AND     ABS(SettleAmount) >= '0.01'
 				AND     SettleCode IN (SELECT Code FROM Materials.dbo.Ref_Settlement)	 	 		 	 				
 			</cfquery>	
@@ -1248,8 +1193,7 @@
 						SELECT  *
 						FROM    Customer
 						WHERE   CustomerId = '#getBatch.customerid#'
-					</cfquery>		
-								
+					</cfquery>										
 						
 					<cfquery name="qHeader" 
   						datasource="AppsMaterials" 
@@ -1284,8 +1228,7 @@
 					  	return = "no">
 					  	<cfabort>
 						
-					</cfif>	
-					
+					</cfif>						
 					
 					<cfset receivable = getParentJournal.GLAccount>						
 							
@@ -1343,8 +1286,8 @@
                       username="#SESSION.login#"
                       password="#SESSION.dbpw#">
 						SELECT MAX(SettleSerialNo) AS SettleSerialNo 
-						FROM Materials.dbo.WarehouseBatchSettlement
-						WHERE BatchNo = '#BatchNo#'
+						FROM   Materials.dbo.WarehouseBatchSettlement
+						WHERE  BatchNo = '#BatchNo#'
 					</cfquery>		
 					
 					<cfif qCheckSettlement.SettleSerialNo eq "">
@@ -1521,9 +1464,9 @@
 						datasource="AppsMaterials" 
 						username="#SESSION.login#" 
 						password="#SESSION.dbpw#">
-						DELETE  FROM  UserTransaction.dbo.Settle#warehouse#_#SESSION.acc#
+						DELETE  FROM  UserTransaction.dbo.Settle#warehouse#
 						WHERE   CustomerId = '#customerid#'
-	 	 				AND     AddressId = '#addressid#'	 	 						
+	 	 				AND     AddressId = '#addressid#'	 	 											
 					</cfquery>					
 				
 				</cfif>	
@@ -1543,13 +1486,19 @@
              returntype="any"
              displayname="Post a sales transaction">			 			 
 			 
-			<cfargument name="Warehouse"          type="string"  required="true"   default="">
+			<cfargument name="Warehouse"          type="string"  required="true"   default="">			
 			<cfargument name="Terminal"           type="string"  required="true"   default="0">
+			<cfargument name="RequestNo"          type="string"  required="true"   default="">
 			<cfargument name="Memo"               type="string"  required="true"   default="">
+			
+			<!--- transaction to be replaced --->
 			<cfargument name="BatchId"            type="string"  required="true"   default="">
+			
+			<!-- the below 3 fields can be derrived now --->
 			<cfargument name="Customerid"         type="GUID"    required="true"   default="">
 			<cfargument name="CustomeridInvoice"  type="GUID"    required="true"   default="">
 			<cfargument name="AddressId"  		  type="GUID"    required="true"   default="00000000-0000-0000-0000-000000000000">
+						
 			<cfargument name="Currency"           type="string"  required="true"   default="">
 			<cfargument name="Workflow"           type="string"  required="true"   default="No">		
 			<cfargument name="Settlement"         type="string"  required="true"   default="1">						
@@ -1563,7 +1512,7 @@
 			<cfset TraDate = dateValue>
 			
 			<cfset TraDate = DateAdd("h","#TransactionHour#", TraDate)>
-			<cfset TraDate = DateAdd("n","#TransactionMinute#", TraDate)>
+			<cfset TraDate = DateAdd("n","#TransactionMinute#", TraDate)>						
 									
 			<cfquery name="Parameter" 
 			   datasource="AppsMaterials" 
@@ -1665,7 +1614,7 @@
 			  password="#SESSION.dbpw#">
 				SELECT  *
 				FROM   WarehouseTerminal
-				WHERE  Warehouse = '#warehouse#'	   							   
+				WHERE  Warehouse     = '#warehouse#'	   							   
 				AND    TerminalName  = '#terminal#' 
 			</cfquery>
 			
@@ -1689,76 +1638,34 @@
 			</cfquery>	
 			
 			<cfquery name="getLines"
-				datasource="AppsTransaction" 
+				datasource="AppsMaterials" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
 				SELECT *
-				FROM   Sale#warehouse#
-				WHERE  CustomerId = '#customerid#'
-	 	 		AND    AddressId = '#addressid#'	 	 				
-				AND    TransactionQuantity <> 0
-				
+				FROM   CustomerRequestLine
+				WHERE  RequestNo = '#url.requestNo#'				
+				AND    TransactionQuantity <> 0				
 			</cfquery>	
-			
-			<cfquery name="help"
-				datasource="AppsTransaction" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-				SELECT  TransactionDate
-				FROM    Sale#warehouse#
-				WHERE   CustomerId = '#customerid#'
-	 	 		AND     AddressId = '#addressid#'				
-			</cfquery>	
-			
+									
 			<cfset tot = "0">
+						
+			<cfset currency = getLines.SalesCurrency>
 			
-			<cfset BatchNo = "">
-			
-			<cfloop query="getLines">
-			    <cfif sourceBatchNo neq "">
-					<cfset BatchNo = sourceBatchNo>
-				</cfif>
+			<cfloop query="getLines">		   
 				<cfset tot = tot + SalesTotal>
 			</cfloop>
-			
-			<cfif BatchNo eq "">
-			
-				<cfset newBatch = "1">
-			
-				<cfquery name="Parameter" 
-				   datasource="AppsMaterials" 
-				   username="#SESSION.login#" 
-				   password="#SESSION.dbpw#">
-				   SELECT   TOP 1 *
-				   FROM     WarehouseBatch
-				   ORDER BY BatchNo DESC
-				</cfquery>
-				
-				<cfif Parameter.recordcount eq "0">
-					<cfset batchNo = 10000>
-				<cfelse>
-					<cfset BatchNo = Parameter.BatchNo+1>
-					<cfif BatchNo lt 10000>
-					     <cfset BatchNo = 10000+BatchNo>
-					</cfif>
-				</cfif>
-				
-			<cfelse>
-			
-				<cfset newBatch = "0">	
-			
-			</cfif>
+									
+			<!--- better to adjust this to have also the requestNo --->
 			
 			<cfquery name="getSettle"
 				datasource="AppsTransaction" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
 				SELECT  *
-				FROM    Settle#warehouse#_#SESSION.acc#
-				WHERE   CustomerId = '#customerid#'
+				FROM    Settle#warehouse#
+				WHERE   RequestNo = '#requestNo#'				
 				AND     ABS(SettleAmount) >= '0.01'
-				AND     SettleCode IN (SELECT Code FROM Materials.dbo.Ref_Settlement)
-	 	 		AND     AddressId = '#addressid#'
+				AND     SettleCode IN (SELECT Code FROM Materials.dbo.Ref_Settlement)	 	 		
 			</cfquery>	
 			
 			<cfset settle = "0">
@@ -1810,14 +1717,10 @@
 				   AND      TransactionType = '2'
 				</cfquery>
 				
-				<cfif getTransaction.ClearanceMode eq "2" and getTransaction.Operational eq "1">
-				 
-					 <cfset act = "0">
-						
-				<cfelse>
-				
-					<cfset act = "1">
-				
+				<cfif getTransaction.ClearanceMode eq "2" and getTransaction.Operational eq "1">				 
+					 <cfset act = "0">						
+				<cfelse>				
+					<cfset act = "1">				
 				</cfif>
 				
 				<cfset mission = getmission.mission>
@@ -1827,10 +1730,11 @@
 				<cf_assignid>
 				<cfset setbatchid = rowguid>
 				
-				<!--- provision to correct --->
-						
-				
+				<!--- provision to correct 
+										
 				<cfif newbatch eq "1">
+				
+				--->
 								
 					<cfquery name="Insert" 
 						datasource="AppsMaterials" 
@@ -1886,6 +1790,8 @@
 								'#SESSION.last#',
 								'#SESSION.first#')
 					</cfquery>						
+					
+					<!---
 
 				<cfelse>
 				
@@ -1919,7 +1825,9 @@
 								getDate())
 					 </cfquery>		
 					 			
-				</cfif>							
+				</cfif>		
+				
+				--->					
 			
 				<!--- ------------ --->
 				<!--- POSTING COGS --->
@@ -2701,18 +2609,18 @@
 					datasource="AppsMaterials" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
-						DELETE 	FROM  UserTransaction.dbo.Sale#warehouse#
-						WHERE   CustomerId = '#customerid#'
-	 	 				AND     AddressId = '#addressid#'	 	 					
+						UPDATE CustomerRequest
+						SET    BatchNo      = '#batchno#', 
+						       ActionStatus = '1'
+						WHERE  RequestNo    = '#RequestNo#'	 	 					 					
 					</cfquery>	
 					
 					<cfquery name="cleanSettle"
 						datasource="AppsMaterials" 
 						username="#SESSION.login#" 
 						password="#SESSION.dbpw#">
-						DELETE  FROM  UserTransaction.dbo.Settle#warehouse#_#SESSION.acc#
-						WHERE   CustomerId = '#customerid#'
-	 	 				AND     AddressId = '#addressid#'	 	 						
+						DELETE FROM  UserTransaction.dbo.Settle#warehouse#
+						WHERE  RequestNo = '#RequestNo#'	 	 					 						
 					</cfquery>					
 				
 				</cfif>					
@@ -3351,7 +3259,8 @@
 
 			 <cfargument name="Warehouse" type="string"  required="true"   default="">			 
 			 <cfargument name="BatchId"   type="string"  required="true"   default="">	
-			 			   
+			 <cfargument name="RequestNo" type="string"  required="true"   default="">		
+			 		   
 			   <cfquery name="getBatch"
 					datasource="AppsMaterials" 
 					username="#SESSION.login#" 
@@ -3365,22 +3274,16 @@
 		     <cfset aReturn.addressId = getBatch.addressId>
 
 			 <cftransaction>
-			 
-					 <cfquery name="deleteTmp"
-						datasource="AppsTransaction" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">
-						DELETE  Sale#Warehouse#
-						WHERE   CustomerId = '#aReturn.customerId#'
-					 </cfquery>				 
-					 
-					 <cfquery name="insertBatch"
-						datasource="AppsTransaction" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">												
-						
-						INSERT INTO Sale#Warehouse#
+		 			 							 
+				 <cfquery name="insertBatch"
+					datasource="AppsTransaction" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">												
+					
+					INSERT INTO Materials.dbo.CustomerRequestLine
+					
 				           (TransactionId
+						   ,RequestNo
 						   ,BatchId
 				           ,TransactionType
 				           ,TransactionDate
@@ -3388,17 +3291,12 @@
 				           ,ItemNo
 				           ,ItemClass
 				           ,ItemDescription
-				           ,ItemCategory
-				           ,Mission
-				           ,Warehouse
-				          <!--- ,Location --->
+				           ,ItemCategory				         		         
 				           ,TransactionUoM
 				           ,TransactionQuantity
 				           ,TransactionLot
-				           ,PersonNo
-				           ,CustomerId
-						   ,CustomerIdInvoice
-						   ,AddressId
+				           ,PersonNo				          
+						   ,CustomerIdInvoice						  
 				           ,ProgramCode
 				           ,PriceSchedule
 				           ,SalesCurrency
@@ -3414,134 +3312,125 @@
 				           ,OrgUnit
 				           ,OrgUnitCode
 				           ,OrgUnitName )
-								   
-					   SELECT    NEWID() AS TransactionId, 
-			 				     '#batchid#',
-					             IT.TransactionType, 
-								 IT.TransactionDate,
-								 IT.TransactionReference, 
-								 IT.ItemNo, 
-								 I.ItemClass, 
-								 IT.ItemDescription, 
-								 IT.ItemCategory, 
-								 IT.Mission, IT.Warehouse, 
-								 ITS.SalesUoM,
-								 SUM(ITS.SalesQuantity) AS SalesQuantity,
-								 IT.TransactionLot, 
-								 IT.PersonNo, 
-								   <cfif getBatch.CustomerId neq "">
-									  '#getBatch.CustomerId#',
-								   <cfelse>
-									  '#getBatch.CustomerIdInvoice#',
-								   </cfif>				
-								   <cfif getBatch.CustomerIdInvoice eq "">
-									  NULL,
-								   <cfelse>
-									  '#getBatch.CustomerIdInvoice#',
-								   </cfif>
-								   <cfif getBatch.AddressId neq "">
-									  	'#getBatch.AddressId#',
-								   <cfelse>
-									  	NULL,
-								   </cfif>	
-								   IT.ProgramCode, 
-								   ITS.PriceSchedule, ITS.SalesCurrency, ITS.SchedulePrice, ITS.SalesPrice, ITS.SalesPersonNo, 
-                                   ITS.TaxCode, ITS.TaxPercentage, ITS.TaxExemption, ITS.TaxIncluded, 
-								   <!--- aggregate by removing the location of the transaction --->
-								   SUM(ITS.SalesAmount) AS SalesAmount, 
-								   SUM(ITS.SalesTax) AS SalesTax, 
-								   IT.OrgUnit, IT.OrgUnitCode, IT.OrgUnitName
-								  
-						FROM  Materials.dbo.ItemTransaction IT 
-						      INNER JOIN Materials.dbo.ItemTransactionShipping ITS ON IT.TransactionId = ITS.TransactionId
-						      INNER JOIN Materials.dbo.Item I ON IT.ItemNo = I.ItemNo 
-						WHERE TransactionBatchNo = '#getBatch.BatchNo#'
-						
-						GROUP BY IT.Mission, 
-						         IT.TransactionType, 
-								 IT.TransactionDate, IT.TransactionReference, IT.ItemNo, I.ItemClass, IT.ItemDescription, IT.ItemCategory, 
-								 IT.Warehouse, 
-		                         IT.TransactionLot, IT.PersonNo, IT.ProgramCode, ITS.PriceSchedule, ITS.SalesCurrency, ITS.SchedulePrice, ITS.SalesPrice, ITS.SalesPersonNo, ITS.TaxCode, 
-           			             ITS.TaxPercentage, ITS.TaxExemption, ITS.TaxIncluded, IT.OrgUnit, IT.OrgUnitCode, IT.OrgUnitName, IT.TransactionUoM, ITS.SalesUoM
-									 							
-					 </cfquery>
-					 					 
-					<cftry>
-						<cfquery name="qCheck"
-						datasource="AppsTransaction" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">
-							SELECT AddressId 
-							FROM   Settle#URL.Warehouse#_#SESSION.acc#
-							WHERE CustomerId = '#aReturn.customerId#'
-							<cfif getBatch.AddressId neq "">
-								AND AddressId = '#aReturn.AddressId#'
-							</cfif>	
-						</cfquery> 							
+							   
+				   SELECT    NEWID() AS TransactionId, 
+				             '#RequestNo#',
+		 				     '#batchid#',
+				             IT.TransactionType, 
+							 IT.TransactionDate,
+							 IT.TransactionReference, 
+							 IT.ItemNo, 
+							 I.ItemClass, 
+							 IT.ItemDescription, 
+							 IT.ItemCategory, 								
+							 ITS.SalesUoM,
+							 SUM(ITS.SalesQuantity) AS SalesQuantity,
+							 IT.TransactionLot, 
+							 IT.PersonNo, 								   		
+						     <cfif getBatch.CustomerIdInvoice eq "">
+							  NULL,
+						     <cfelse>
+							  '#getBatch.CustomerIdInvoice#',
+						     </cfif>								   
+							 IT.ProgramCode, 
+							 ITS.PriceSchedule, ITS.SalesCurrency, ITS.SchedulePrice, ITS.SalesPrice, ITS.SalesPersonNo, 
+                                ITS.TaxCode, ITS.TaxPercentage, ITS.TaxExemption, ITS.TaxIncluded, 
+							 <!--- aggregate by removing the location of the transaction --->
+							 SUM(ITS.SalesAmount) AS SalesAmount, 
+							 SUM(ITS.SalesTax) AS SalesTax, 
+							 IT.OrgUnit, IT.OrgUnitCode, IT.OrgUnitName
+							  
+					FROM     Materials.dbo.ItemTransaction IT 
+					         INNER JOIN Materials.dbo.ItemTransactionShipping ITS ON IT.TransactionId = ITS.TransactionId
+					         INNER JOIN Materials.dbo.Item I ON IT.ItemNo = I.ItemNo 
+					WHERE    TransactionBatchNo = '#getBatch.BatchNo#'
 					
-					<cfcatch>
-						
-						<cfquery name="qAlterTable"
-						datasource="AppsTransaction" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">
-							ALTER TABLE Settle#URL.Warehouse#_#SESSION.acc# ADD AddressId uniqueidentifier NULL  
-						</cfquery> 							
-						
-					</cfcatch>
-					
-					</cftry>					 
-
-					 <cfquery name="deleteTmp"
-						datasource="AppsTransaction" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">
-						DELETE Settle#Warehouse#_#SESSION.acc#
+					GROUP BY IT.Mission, 
+					         IT.TransactionType, 
+							 IT.TransactionDate, IT.TransactionReference, IT.ItemNo, I.ItemClass, IT.ItemDescription, IT.ItemCategory, 
+							 IT.Warehouse, 
+	                         IT.TransactionLot, IT.PersonNo, IT.ProgramCode, ITS.PriceSchedule, ITS.SalesCurrency, ITS.SchedulePrice, ITS.SalesPrice, ITS.SalesPersonNo, ITS.TaxCode, 
+          			             ITS.TaxPercentage, ITS.TaxExemption, ITS.TaxIncluded, IT.OrgUnit, IT.OrgUnitCode, IT.OrgUnitName, IT.TransactionUoM, ITS.SalesUoM
+								 							
+				 </cfquery>
+				 					 
+				<cftry>
+				
+					<cfquery name="qCheck"
+					datasource="AppsTransaction" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+						SELECT AddressId 
+						FROM   Settle#URL.Warehouse#_#SESSION.acc#
 						WHERE CustomerId = '#aReturn.customerId#'
 						<cfif getBatch.AddressId neq "">
 							AND AddressId = '#aReturn.AddressId#'
 						</cfif>	
-					 </cfquery>							 
-					 
-					 <cfquery name="insertBatch"
-						datasource="AppsTransaction" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">			 
-						INSERT INTO Settle#Warehouse#_#SESSION.acc# 
-						           (CustomerId
-						           ,AddressId
-						           ,SettleCode
-						           ,PromotionCardNo
-						           ,CreditCardNo
-						           ,ExpirationMonth
-						           ,ExpirationYear
-						           ,ApprovalCode
-						           ,ApprovalReference
-						           ,SettleCurrency
-						           ,SettleAmount)
-							SELECT 
-							  '#aReturn.customerId#'
-							  <cfif getBatch.AddressId neq "">
-							  	,'#getBatch.AddressId#'
-							  <cfelse>
-							  	,NULL
-							  </cfif>	
-						      ,SettleCode
-						      ,PromotionCardNo
-						      ,CreditCardNo
-						      ,ExpirationMonth
-						      ,ExpirationYear
-						      ,ApprovalCode
-						      ,ApprovalReference
-						      ,SettleCurrency
-						      ,SettleAmount
-						  FROM Materials.dbo.WarehouseBatchSettlement
-						  WHERE BatchNo = '#getBatch.BatchNo#'
-					 </cfquery>		 
+					</cfquery> 							
+				
+				<cfcatch>
+					
+					<cfquery name="qAlterTable"
+					datasource="AppsTransaction" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+						ALTER TABLE Settle#URL.Warehouse#_#SESSION.acc# ADD AddressId uniqueidentifier NULL  
+					</cfquery> 							
+					
+				</cfcatch>
+				
+				</cftry>					 
+
+				 <cfquery name="deleteTmp"
+					datasource="AppsTransaction" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+					DELETE Settle#Warehouse#_#SESSION.acc#
+					WHERE CustomerId = '#aReturn.customerId#'
+					<cfif getBatch.AddressId neq "">
+						AND AddressId = '#aReturn.AddressId#'
+					</cfif>	
+				 </cfquery>							 
+				 
+				 <cfquery name="insertBatch"
+					datasource="AppsTransaction" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">			 
+					INSERT INTO Settle#Warehouse#_#SESSION.acc# 
+					           (CustomerId
+					           ,AddressId
+					           ,SettleCode
+					           ,PromotionCardNo
+					           ,CreditCardNo
+					           ,ExpirationMonth
+					           ,ExpirationYear
+					           ,ApprovalCode
+					           ,ApprovalReference
+					           ,SettleCurrency
+					           ,SettleAmount)
+						SELECT 
+						  '#aReturn.customerId#'
+						  <cfif getBatch.AddressId neq "">
+						  	,'#getBatch.AddressId#'
+						  <cfelse>
+						  	,NULL
+						  </cfif>	
+					      ,SettleCode
+					      ,PromotionCardNo
+					      ,CreditCardNo
+					      ,ExpirationMonth
+					      ,ExpirationYear
+					      ,ApprovalCode
+					      ,ApprovalReference
+					      ,SettleCurrency
+					      ,SettleAmount
+					  FROM Materials.dbo.WarehouseBatchSettlement
+					  WHERE BatchNo = '#getBatch.BatchNo#'
+				 </cfquery>		 
+		 
+		 	</cftransaction>	
 			 
-			 </cftransaction>	
-			 
-			 <cfreturn aReturn>
+			<cfreturn aReturn>
 			 
 	</cffunction>		
 	
@@ -3561,216 +3450,212 @@
 			   
  			   <cftransaction> 
 			   			 
-			   <cfquery name="getBatch"
-					datasource="AppsMaterials" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-					SELECT * 
-					FROM    WarehouseBatch						
-					WHERE   BatchId = '#batchid#'
-					AND     ActionStatus <> '9'
-			   </cfquery>	
-			   
-			   <cfif getBatch.recordcount eq "0">
-			   
-			    <cfquery name="getBatch"
-					datasource="AppsMaterials" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-					SELECT * 
-					FROM    WarehouseBatch						
-					WHERE   BatchId = '#batchid#'					
-			   </cfquery>	
-			   
-			   </cfif>
-				
-			   <cfif status eq "9">
-				
-			        <!--- we remove also the COGS transactions / COGS and financial --->
-
-					<cfquery name="List"
-					datasource="AppsMaterials" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-				  	SELECT  TransactionId 
-					FROM    ItemTransaction
-					WHERE   TransactionBatchNo = '#getBatch.BatchNo#'
-					</cfquery>
-
-					
-					<cfloop query="List">	
-					
-						<!---checking if is the first time or the 2nd, 3rd, etc.--->
-						<cfquery name="Deny"
+				   <cfquery name="getBatch"
 						datasource="AppsMaterials" 
 						username="#SESSION.login#" 
 						password="#SESSION.dbpw#">
-				  			SELECT  TOP 1 TransactionId 
-							FROM    ItemTransactionDeny
-							WHERE   TransactionId = '#List.TransactionId#'
-						</cfquery>
-						 	    						
-						<cfif Deny.recordCount gt 0 >  
-							<cf_stockTransactDelete transactionid="#List.TransactionId#" Mode="Purge" Parenttransactionid = "#Deny.TransactionId#">
-						<cfelse>
-							<cf_stockTransactDelete transactionid="#List.TransactionId#" Mode="Purge">
-						</cfif>
-					</cfloop>
-					
-				</cfif>		
-								
-			   <!--- delete sale + settlements ---> 	
-			   			   
-			   <cfif Mode eq "Void">
-			   		   					   
-				   	 <cfquery name="voidBatch"
-						datasource="AppsMaterials" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">
-						UPDATE WarehouseBatch						
-						SET    ActionStatus = '#status#', 
-						       ActionOfficerUserId    = '#SESSION.acc#',
-							   ActionOfficerLastName  = '#SESSION.last#',
-							   ActionOfficerFirstName = '#SESSION.first#',
-							   ActionOfficerDate      = getDate()
-						WHERE  BatchId = '#batchid#'
-					</cfquery>	
-					
-					<!--- Hanno 20/7/2015 
-					is this needed still ?, i think this is no longer needed as the transaction is excluded 
-											
-					<cfquery name="deleteBatchLines"
+						SELECT * 
+						FROM    WarehouseBatch						
+						WHERE   BatchId = '#batchid#'
+						AND     ActionStatus <> '9'
+				   </cfquery>	
+				   
+				   <cfif getBatch.recordcount eq "0">
+				   
+					    <cfquery name="getBatch"
 							datasource="AppsMaterials" 
 							username="#SESSION.login#" 
 							password="#SESSION.dbpw#">
-								DELETE Accounting.dbo.TransactionLine 
-								FROM Accounting.dbo.TransactionLine TL 
-								WHERE EXISTS
-								(
-									SELECT 'X' 
-									FROM   Accounting.dbo.TransactionHeader TH
-									WHERE  TransactionSourceId = '#batchid#'
-									AND    TH.Journal          = TL.Journal
-									AND    TH.JournalSerialNo  = TL.JournalSerialNo
-								)
-					</cfquery>		
+								SELECT * 
+								FROM    WarehouseBatch						
+								WHERE   BatchId = '#batchid#'					
+					   </cfquery>	
+				   
+				   </cfif>
 					
-					--->
+				   <cfif status eq "9">
 					
-					<!--- we no longer remove the sale / settlement but we deactivate it --->
-					
-					<!--- check if we can indeed void this by checking if we have transactions related --->
-					
-					<cfquery name="getDependentLine"
+				        <!--- we remove also the COGS transactions / COGS and financial --->
+	
+						<cfquery name="List"
 						datasource="AppsMaterials" 
 						username="#SESSION.login#" 
 						password="#SESSION.dbpw#">
-						SELECT *
-						FROM   Accounting.dbo.TransactionLine V
-						WHERE NOT EXISTS (						
-										SELECT 'X'
-										FROM   Accounting.dbo.TransactionLine L
-										WHERE  EXISTS (SELECT 'X' 
-										               FROM   Accounting.dbo.TransactionHeader													
-										               WHERE  TransactionSourceId  = '#batchid#'
-													   AND    Journal = L.Journal
-													   AND    JournalSerialNo = L.JournalSerialNo) 
-										AND    Journal = V.Journal
-										AND    JournalSerialNo = V.JournalSerialNo	)				  
-						AND   EXISTS  (
-										SELECT 'X'
-										FROM   Accounting.dbo.TransactionLine L
-										WHERE  EXISTS (SELECT 'X' 
-										               FROM   Accounting.dbo.TransactionHeader													
-										               WHERE  TransactionSourceId  = '#batchid#'
-													   AND    Journal = L.Journal
-													   AND    JournalSerialNo = L.JournalSerialNo) 
-										AND    Journal         = V.ParentJournal
-										AND    JournalSerialNo = V.ParentJournalSerialNo								  
-										)	
-						<cfif Journal neq "" AND JournalSNo neq "">
-							AND v.Journal 			= '#Journal#'
-							AND v.JournalSerialNo 	= '#JournalSNo#'
-						</cfif>
+						  	SELECT  TransactionId 
+							FROM    ItemTransaction
+							WHERE   TransactionBatchNo = '#getBatch.BatchNo#'
+						</cfquery>
 						
+						<cfloop query="List">	
 						
-																				    
-					</cfquery>	
-					
-					<cfif getDependentLine.recordcount gte "1">
-					
-						<cf_alert message="You may no longer remove this transaction as settlements have been recorded.">					
-						<cfabort>
-					
-					</cfif>
-										
-						
-					<cfquery name="deleteBatch"
-						datasource="AppsMaterials" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">
-							UPDATE Accounting.dbo.TransactionHeader						
-							SET    RecordStatus         = '9',
-								   RecordStatusOfficer  = '#SESSION.acc#',							  
-							       RecordStatusDate     = getDate()
-							WHERE  TransactionSourceId  = '#batchid#'
-							<cfif Journal neq "" AND JournalSNo neq "">
-								AND Journal 			= '#Journal#'
-								AND JournalSerialNo 	= '#JournalSNo#'
+							<!---checking if is the first time or the 2nd, 3rd, etc.--->
+							<cfquery name="Deny"
+							datasource="AppsMaterials" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+					  			SELECT  TOP 1 TransactionId 
+								FROM    ItemTransactionDeny
+								WHERE   TransactionId = '#List.TransactionId#'
+							</cfquery>
+							 	    						
+							<cfif Deny.recordCount gt 0 >  
+								<cf_stockTransactDelete transactionid="#List.TransactionId#" Mode="Purge" Parenttransactionid = "#Deny.TransactionId#">
+							<cfelse>
+								<cf_stockTransactDelete transactionid="#List.TransactionId#" Mode="Purge">
 							</cfif>
-					</cfquery>	
-					
-					<!--- post the tax action --->
-					
-					<cfif triggerEDI eq  "Yes">
-					
-						 	<cfquery name="getAction"
+						</cfloop>
+						
+				   </cfif>		
+									
+				   <!--- delete sale + settlements ---> 	
+				   			   
+				   <cfif Mode eq "Void">
+				   		   					   
+					   	 <cfquery name="voidBatch"
+							datasource="AppsMaterials" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+							UPDATE WarehouseBatch						
+							SET    ActionStatus = '#status#', 
+							       ActionOfficerUserId    = '#SESSION.acc#',
+								   ActionOfficerLastName  = '#SESSION.last#',
+								   ActionOfficerFirstName = '#SESSION.first#',
+								   ActionOfficerDate      = getDate()
+							WHERE  BatchId = '#batchid#'
+						</cfquery>	
+						
+						<!--- Hanno 20/7/2015 
+						is this needed still ?, i think this is no longer needed as the transaction is excluded 
+												
+						<cfquery name="deleteBatchLines"
 								datasource="AppsMaterials" 
 								username="#SESSION.login#" 
-								password="#SESSION.dbpw#">					
-								SELECT A.*
-								FROM   Accounting.dbo.TransactionHeader H
-										INNER JOIN Accounting.dbo.TransactionHeaderAction A ON H.Journal = A.Journal AND H.JournalSerialNo=A.JournalSerialNo
-								WHERE  TransactionSourceId = '#batchid#'
-								AND   TransactionCategory  = 'Receivables'										
-						   	</cfquery>		
-						   
-						    <cfif getAction.recordcount gt "0">
-							
-							   	<cfif getAction.ActionMode eq "2">
-										
-									<cfinvoke component = "Service.Process.EDI.Manager"  
-										   method           = "SaleVoid" 
-										   Datasource       = "AppsMaterials"
-										   Mission          = "#getBatch.Mission#"
-										   Terminal			= "#Terminal#"	
-										   BatchId			= "#BatchId#"
-										   returnvariable	= "stResponse">		 				
-								</cfif>			
-								
+								password="#SESSION.dbpw#">
+									DELETE Accounting.dbo.TransactionLine 
+									FROM Accounting.dbo.TransactionLine TL 
+									WHERE EXISTS
+									(
+										SELECT 'X' 
+										FROM   Accounting.dbo.TransactionHeader TH
+										WHERE  TransactionSourceId = '#batchid#'
+										AND    TH.Journal          = TL.Journal
+										AND    TH.JournalSerialNo  = TL.JournalSerialNo
+									)
+						</cfquery>		
+						
+						--->
+						
+						<!--- we no longer remove the sale / settlement but we deactivate it --->
+						
+						<!--- check if we can indeed void this by checking if we have transactions related --->
+						
+						<cfquery name="getDependentLine"
+							datasource="AppsMaterials" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+							SELECT *
+							FROM   Accounting.dbo.TransactionLine V
+							WHERE NOT EXISTS (						
+											SELECT 'X'
+											FROM   Accounting.dbo.TransactionLine L
+											WHERE  EXISTS (SELECT 'X' 
+											               FROM   Accounting.dbo.TransactionHeader													
+											               WHERE  TransactionSourceId  = '#batchid#'
+														   AND    Journal = L.Journal
+														   AND    JournalSerialNo = L.JournalSerialNo) 
+											AND    Journal = V.Journal
+											AND    JournalSerialNo = V.JournalSerialNo	)				  
+							AND   EXISTS  (
+											SELECT 'X'
+											FROM   Accounting.dbo.TransactionLine L
+											WHERE  EXISTS (SELECT 'X' 
+											               FROM   Accounting.dbo.TransactionHeader													
+											               WHERE  TransactionSourceId  = '#batchid#'
+														   AND    Journal = L.Journal
+														   AND    JournalSerialNo = L.JournalSerialNo) 
+											AND    Journal         = V.ParentJournal
+											AND    JournalSerialNo = V.ParentJournalSerialNo								  
+											)	
+							<cfif Journal neq "" AND JournalSNo neq "">
+								AND v.Journal 			= '#Journal#'
+								AND v.JournalSerialNo 	= '#JournalSNo#'
 							</cfif>
-					</cfif>
-								   
-			   <cfelse>
-				
-				   <cfquery name="deleteBatch"
-						datasource="AppsMaterials" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">
-						DELETE FROM WarehouseBatch						
-						WHERE  BatchId = '#batchid#'
-					</cfquery>	
+																											    
+						</cfquery>	
+						
+						<cfif getDependentLine.recordcount gte "1">
+						
+							<cf_alert message="You may no longer remove this transaction as settlements were recorded.">					
+							<cfabort>
+						
+						</cfif>									
+							
+						<cfquery name="deleteBatch"
+							datasource="AppsMaterials" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+								UPDATE Accounting.dbo.TransactionHeader						
+								SET    RecordStatus         = '9',
+									   RecordStatusOfficer  = '#SESSION.acc#',							  
+								       RecordStatusDate     = getDate()
+								WHERE  TransactionSourceId  = '#batchid#'
+								<cfif Journal neq "" AND JournalSNo neq "">
+									AND Journal 			= '#Journal#'
+									AND JournalSerialNo 	= '#JournalSNo#'
+								</cfif>
+						</cfquery>	
+						
+						<!--- post the tax action --->
+						
+						<cfif triggerEDI eq "Yes">
+						
+							 	<cfquery name="getAction"
+									datasource="AppsMaterials" 
+									username="#SESSION.login#" 
+									password="#SESSION.dbpw#">					
+									SELECT  A.*
+									FROM    Accounting.dbo.TransactionHeader H
+											INNER JOIN Accounting.dbo.TransactionHeaderAction A ON H.Journal = A.Journal AND H.JournalSerialNo=A.JournalSerialNo
+									WHERE   TransactionSourceId = '#batchid#'
+									AND     TransactionCategory  = 'Receivables'										
+							   	</cfquery>		
+							   
+							    <cfif getAction.recordcount gt "0">
+								
+								   	<cfif getAction.ActionMode eq "2">
+											
+										<cfinvoke component = "Service.Process.EDI.Manager"  
+											   method           = "SaleVoid" 
+											   Datasource       = "AppsMaterials"
+											   Mission          = "#getBatch.Mission#"
+											   Terminal			= "#Terminal#"	
+											   BatchId			= "#BatchId#"
+											   returnvariable	= "stResponse">		 				
+									</cfif>			
+									
+								</cfif>
+						</cfif>
+									   
+				   <cfelse>
 					
-					<cfquery name="deleteBatch"
-						datasource="AppsMaterials" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">
-						DELETE FROM  Accounting.dbo.TransactionHeader						
-						WHERE  TransactionSourceId = '#batchid#'
-					</cfquery>	
-				
-				</cfif>
-				
+					   <cfquery name="deleteBatch"
+							datasource="AppsMaterials" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+							DELETE FROM WarehouseBatch						
+							WHERE  BatchId = '#batchid#'
+						</cfquery>	
+						
+						<cfquery name="deleteBatch"
+							datasource="AppsMaterials" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+							DELETE FROM  Accounting.dbo.TransactionHeader						
+							WHERE  TransactionSourceId = '#batchid#'
+						</cfquery>	
+					
+					</cfif>
+					
 			   </cftransaction>
 						 
 	</cffunction>
@@ -3779,64 +3664,43 @@
              access="public"
              displayname="get the Sales Price and Tax into a struct variable">
 						
-		<cfargument name="Mission"       type="string"  required="true"   default="">				
-		<cfargument name="DateStart"     type="date"    required="true"   default="now()">				
-		<cfargument name="DateEnd"     	 type="date"    required="true"   default="now()">
-		<cfargument name="TableName"     type="string"  required="true"   default="">
+		<cfargument name="Mission"       type="string"  required="true"    default="">				
+		<cfargument name="DateStart"     type="date"    required="true"    default="now()">				
+		<cfargument name="DateEnd"     	 type="date"    required="true"    default="now()">		
 		<cfargument name="Warehouse"     type="string"  required="false"   default="">				
 		<cfargument name="Currency"      type="string"  required="false"   default="">
 		<cfargument name="Category"      type="string"  required="false"   default="">
 		<cfargument name="ItemNo"      	 type="string"  required="false"   default="">		
 		<cfargument name="BaseAmounts"   type="string"  required="false"   default="Yes">	
 		<cfargument name="Voided"    	 type="string"  required="false"   default="No">	
-		<cfargument name="COGS"    	 	 type="string"  required="false"   default="Yes">				
+		<cfargument name="COGS"    	 	 type="string"  required="false"   default="Yes">	
+		<cfargument name="TableName"     type="string"  required="true"    default="">			
 	
 		<cf_droptable dbname="AppsQuery" tblname="#TableName#">	
 		<cf_droptable dbname="AppsQuery" tblname="#TableName#_AmountDebit">	
 		
-		<cfif COGS eq "Yes">
-			<cfquery name="createAmountDebitTempTable"
-				datasource="AppsQuery" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-					CREATE TABLE [dbo].[#TableName#_AmountDebit](
-						[ReferenceId] [uniqueidentifier] NOT NULL,
-						[AmountBaseDebit] [float] NOT NULL,
-						[AmountDebit] [float] NOT NULL,
-						PRIMARY KEY CLUSTERED 
-						(
-							[ReferenceId] ASC
-						)
-					)
-		   </cfquery>
+		<cfif COGS eq "Yes">		
 			
-			<cfquery name="getAmountDebit"
-				datasource="AppsMaterials" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-				
-					INSERT INTO UserQuery.dbo.#TableName#_AmountDebit
-					
-					SELECT DISTINCT	
-							L.ReferenceId,
-							L.AmountBaseDebit,
-							L.AmountDebit
-					FROM    Accounting.dbo.TransactionHeader H 
-							INNER JOIN Accounting.dbo.TransactionLine L 
-								ON H.Journal = L.Journal 
-								AND H.JournalSerialNo = L.JournalSerialNo									
-					WHERE   H.TransactionSource  = 'WarehouseSeries'						
+			<cfoutput>
+			<cfsavecontent variable="getCOGS">
+						        
+					        Accounting.dbo.TransactionHeader H 
+							INNER JOIN Accounting.dbo.TransactionLine L ON H.Journal = L.Journal AND H.JournalSerialNo = L.JournalSerialNo									
+					WHERE   H.Mission = '#Mission#'
+					AND     H.TransactionSource    = 'WarehouseSeries'						
 					AND     H.TransactionCategory  = 'Inventory'
-					AND     L.Reference            = 'COGS'
-					
-			</cfquery>
+					AND     L.Reference            = 'COGS'			
+			
+			</cfsavecontent>
+			</cfoutput>
+			
 		</cfif>
 
 	   <cfquery name="getBatch"
 			datasource="AppsMaterials" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">	
-			
+						
 			SELECT  I.Category,
 					C.Description as CategoryDescription,
 					I.ItemNo,
@@ -3865,16 +3729,16 @@
 						<cfif Voided eq "Yes">-</cfif> 1 * (S.SalesBaseTax)    as SalesTax,
 						
 						<cfif COGS eq "Yes">
-							<cfif Voided eq "Yes">-</cfif>1 * ((SELECT AmountBaseDebit
-								FROM       Userquery.dbo.#TableName#_AmountDebit
-								WHERE    		ReferenceId          = T.TransactionId)) as COGS,
+							<cfif Voided eq "Yes">-</cfif>1 * ( SELECT AmountBaseDebit
+								                                FROM   #preserveSingleQuotes(getCOGS)# 
+																AND    H.ReferenceId = T.TransactionId) as COGS,
 									
 							<cfif Voided eq "Yes">-</cfif> 1 * (S.SalesBaseAmount - (SELECT AmountBaseDebit
-								FROM       Userquery.dbo.#TableName#_AmountDebit
-								WHERE    		ReferenceId          = T.TransactionId)) AS GrossMargin,
+								                                FROM   #preserveSingleQuotes(getCOGS)# 
+																AND    H.ReferenceId = T.TransactionId)) AS GrossMargin,
 						</cfif>
 						
-						<cfif Voided eq "Yes">-</cfif> 1 * (S.SalesBaseAmount) AS TransactionTotal,
+						<cfif Voided eq "Yes">-</cfif> 1 * S.SalesBaseAmount AS TransactionTotal,
 					
 					<cfelse>
 					
@@ -3884,15 +3748,15 @@
 						
 						<cfif COGS eq "Yes">
 							<cfif Voided eq "Yes">-</cfif> 1 * (SELECT AmountDebit
-								FROM       Userquery.dbo.#TableName#_AmountDebit
-								WHERE    		ReferenceId          = T.TransactionId) as COGS,
+																FROM   #preserveSingleQuotes(getCOGS)# 
+																AND    H.ReferenceId = T.TransactionId) as COGS,
 		
 							<cfif Voided eq "Yes">-</cfif> 1 * (ROUND((S.SalesAmount - (SELECT AmountDebit
-								FROM       Userquery.dbo.#TableName#_AmountDebit
-								WHERE    		ReferenceId          = T.TransactionId)),2)) AS GrossMargin,
+								                                 FROM   #preserveSingleQuotes(getCOGS)#
+																 AND     H.ReferenceId = T.TransactionId)),2)) AS GrossMargin,
 						</cfif>	
 									
-						<cfif Voided eq "Yes">-</cfif> 1 * (ROUND(S.SalesAmount,2)) AS TransactionTotal,
+						<cfif Voided eq "Yes">-</cfif> 1 * ROUND(S.SalesAmount,2) AS TransactionTotal,
 						
 					</cfif>
 
@@ -3906,13 +3770,11 @@
 
 			INTO    Userquery.dbo.#TableName#	
 												
-			<cfif Voided eq "Yes">
-				FROM    ItemTransactionDeny T 			
-				INNER JOIN ItemTransactionShippingDeny S ON T.TransactionId = S.TransactionId
-			<cfelse>
-				FROM    ItemTransaction T 			
-				INNER JOIN ItemTransactionShipping S ON T.TransactionId = S.TransactionId
-			</cfif>		
+				<cfif Voided eq "Yes">
+					FROM    ItemTransactionDeny T INNER JOIN ItemTransactionShippingDeny S ON T.TransactionId = S.TransactionId
+				<cfelse>
+					FROM    ItemTransaction T INNER JOIN ItemTransactionShipping S ON T.TransactionId = S.TransactionId
+				</cfif>		
 								
 				INNER JOIN WarehouseBatch WB ON T.TransactionBatchNo = WB.BatchNo AND WB.Mission ='#mission#'
 				INNER JOIN Item I            ON I.ItemNo = T.ItemNo
@@ -3922,7 +3784,7 @@
 				INNER JOIN Warehouse W       ON WB.Warehouse = W.Warehouse	
 				LEFT OUTER JOIN Employee.dbo.Person P ON P.PersonNo = S.SalesPersonNo					
 					
-			WHERE 	 WB.TransactionDate BETWEEN #DateStart# AND #DateEnd#			
+			WHERE 	WB.Mission = '#mission#' 		
 																		
 			<cfif warehouse neq "">
 				AND    WB.Warehouse = '#warehouse#'			
@@ -3935,6 +3797,10 @@
 			<cfif ItemNo neq "">
 				AND    I.ItemNo = '#ItemNo#'			
 			</cfif>	
+			
+			AND  WB.TransactionDate BETWEEN #DateStart# AND #DateEnd#	
+			
+			AND  T.TransactionQuantity <> 0
 			
 		</cfquery>		
 

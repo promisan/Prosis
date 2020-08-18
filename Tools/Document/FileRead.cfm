@@ -114,8 +114,6 @@
 					  structname="imginfo">
 					  
 			<cftry>		
-								
-				
 					 					  
 					<cfinvoke component="Service.Image.CFImageEffects" 
 							  method="init" 

@@ -258,7 +258,31 @@ password="#SESSION.dbpw#">
 			 WHERE   PersonNo = '#LastNo.PersonNo#'
 			 </cfquery>
 		 
-		 </cfloop>		 
+		 </cfloop>		
+		 
+		 <cfquery name="Check" 
+			datasource="AppsOrganization" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+		   		SELECT *
+				FROM   Ref_Entity
+		   		WHERE  EntityCode = 'Candidate'
+		</cfquery>
+		
+		<cfquery name="Source" 
+			datasource="AppsSelection" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+		   		SELECT   *
+		   		FROM     Ref_Source
+				WHERE    Source = '#Form.source#'	
+		</cfquery>	 
+		
+		<cfif check.operational is "1" and source.entityClass neq "">		
+			  <cfset st = "0">		
+		<cfelse>		
+			  <cfset st = "1">	<!--- no workflow --->	
+		</cfif>		
 		 	
 	     <cfquery name="InsertApplicant" 
 	     datasource="AppsSelection" 
@@ -303,7 +327,7 @@ password="#SESSION.dbpw#">
 				  '#Form.Gender#',
 				  '#Form.Nationality#',
 				  '#Form.NationalityAdditional#',				 
-				  '0', 
+				  '#st#', <!--- if no workflow it is cleared directly with status = 1 --->
 				  '#Form.ApplicantClass#',
 				  '#SESSION.acc#',
 		    	  '#SESSION.last#',		  
@@ -323,9 +347,7 @@ password="#SESSION.dbpw#">
 	     <cfquery name="InsertApplicant" 
 	     datasource="AppsSelection" 
 	     username="#SESSION.login#" 
-	     password="#SESSION.dbpw#">
-		
-		
+	     password="#SESSION.dbpw#">		
 	     	INSERT INTO ApplicantSubmission
 		         (PersonNo,
 				 ApplicantNo,

@@ -124,7 +124,7 @@
 <cfoutput>
 
 	<script language="JavaScript">	 
-	   window.location = "POViewGeneral.cfm?mid=#mid#&header=#url.header#&ID1=#URL.ID1#&Mode=view"						 
+	   window.location = "POView.cfm?mid=#mid#&header=#url.header#&ID1=#URL.ID1#&Mode=view"						 
 	</script>
 
 </cfoutput>

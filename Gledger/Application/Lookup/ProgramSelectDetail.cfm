@@ -112,7 +112,7 @@
 		 
 		 <TR class="<cfif nav eq '1'>navigation_row</cfif> line labelmedium" bgcolor="#cl#" style="height:22px">		 
 				 
-			 <td height="18" align="center" style="padding-top:4px;padding-left:10px" class="<cfif nav eq '1'>navigation_action</cfif>" onclick="setvalue('#ProgramCode#')">		  
+			 <td height="18" align="center" style="padding-top:2px;padding-left:10px" class="<cfif nav eq '1'>navigation_action</cfif>" onclick="setvalue('#ProgramCode#')">		  
 				 <cf_img icon="select">		 				      		 
 			 </TD>			 	 
 			 <TD style="min-width:100px" onclick="setvalue('#ProgramCode#')">		

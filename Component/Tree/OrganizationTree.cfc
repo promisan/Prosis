@@ -686,11 +686,11 @@
 
 <!--- if filter is passed as ID4 to the link string --->
 		<cfargument name="filter"    type="String" required="false" default=""/>
-
-<!--- values for level field
-         : parent show only parent level of the tree
-         : full show all nodes, no matter the role limitation
---->
+		
+		<!--- values for level field
+		         : parent show only parent level of the tree
+		         : full show all nodes, no matter the role limitation
+		--->
 		<cfargument name="level"         type="String"   required="false" default="">
 		<cfargument name="selectedunit"  type="numeric"  required="false" default="0">
 		<cfargument name="querystring"   type="string"   required="false" default="none">
@@ -702,7 +702,7 @@
 
 		<cfset querystring = replace(querystring,"!","=","ALL")>
 
-<!--- set up return array --->
+		<!--- set up return array --->
 
 		<cfset var result= arrayNew(1)/>
 		<cfset var s =""/>
@@ -769,7 +769,6 @@
 			<cfset s.value     = "tree">
 			<cfset s.img       = "">
 
-
 			<cfif id eq "PRG">
 				<cfset s.href      = "#template#?id=#id#&ID2=#mission#&ID3=#mandateno#&id4=#filter#">
 				<cfset s.target    = "right">
@@ -781,10 +780,10 @@
 						datasource="AppsOrganization"
 						username="#SESSION.login#"
 						password="#SESSION.dbpw#">
-					SELECT *
-					FROM   Ref_Mandate
-					WHERE  Mission   = '#Mission#'
-				AND    mandateNo = '#MandateNo#'
+						SELECT *
+						FROM   Ref_Mandate
+						WHERE  Mission   = '#Mission#'
+						AND    mandateNo = '#MandateNo#'
 				</cfquery>
 
 				<cfset s.display   = "<span style='height:30px;font-size:18px' class='labellarge'>Expiry:#dateformat(mandate.dateexpiration,CLIENT.DateFormatShow)#</span>">
@@ -793,7 +792,7 @@
 
 			<cfelse>
 
-<!--- static tree --->
+				<!--- static tree --->
 				<cfset s.display   = "<span class='labelmedium'>#treelabel#</span>">
 
 				<cfif id eq "DON">
@@ -811,16 +810,14 @@
 			</cfif>
 
 			<cfif id is "MAN" and Mandate.dateExpiration lt now()>
-
 				<cfset s.expand = "false">
-
 			</cfif>
 
 			<cfset arrayAppend(result,s)/>
 
 		<cfelse>
 
-			<cfset l = len(value)>
+			<cfset l   = len(value)>
 			<cfset val = mid(value,5,l-4)>
 
 <!--- staffing table listing only --->
@@ -843,17 +840,17 @@
 						FROM   Organization O
 						WHERE  O.Mission     = '#Mission#'
 					AND    O.MandateNo   = '#MandateNo#'
-
-<!--- 1/7/2012 : not sure what this is about
-
-<cfif Vendor.recordcount gt "0">
-
-      AND    O.OrgUnit IN (SELECT Pe.OrgUnit
-                           FROM   Program.dbo.ProgramPeriod Pe
-                           WHERE  Pe.OrgUnit = O.OrgUnit)
-</cfif>
-
---->
+						
+						<!--- 1/7/2012 : not sure what this is about
+						
+						<cfif Vendor.recordcount gt "0">
+						
+						      AND    O.OrgUnit IN (SELECT Pe.OrgUnit
+						                           FROM   Program.dbo.ProgramPeriod Pe
+						                           WHERE  Pe.OrgUnit = O.OrgUnit)
+						</cfif>
+						
+						--->
 
 						<cfif value eq "tree">
 							AND (ParentOrgUnit IS NULL or ParentOrgUnit = '')
@@ -869,7 +866,7 @@
 
 				<cfelse>
 
-<!--- check global --->
+				<!--- check global --->
 
 					<cf_TickLog Init = "#vInit#" step=3>
 
@@ -911,14 +908,14 @@
 							FROM   Organization O
 							WHERE  O.Mission     = '#Mission#'
 						AND    O.MandateNo   = '#MandateNo#'
-
-<!--- removed for FMS as it was hiding too much for buyer
-<cfif Vendor.recordcount gt "0">
-AND    O.OrgUnit IN (SELECT Pe.OrgUnit
-                     FROM   Program.dbo.ProgramPeriod Pe
-                     WHERE  Pe.OrgUnit = O.OrgUnit)
-</cfif>
---->
+								
+								<!--- removed for FMS as it was hiding too much for buyer
+								<cfif Vendor.recordcount gt "0">
+								AND    O.OrgUnit IN (SELECT Pe.OrgUnit
+								                     FROM   Program.dbo.ProgramPeriod Pe
+								                     WHERE  Pe.OrgUnit = O.OrgUnit)
+								</cfif>
+								--->
 
 							<cfif selectiondate neq "">
 								AND DateEffective <= #sdte# AND DateExpiration >= #sdte#
@@ -933,32 +930,30 @@ AND    O.OrgUnit IN (SELECT Pe.OrgUnit
 								username="#SESSION.login#"
 								password="#SESSION.dbpw#">
 							SELECT DISTINCT A.OrgUnit,
-							O.OrgUnitCode,
-							O.ParentOrgUnit,
-							O.Mission,
-							O.MandateNo
-							FROM   OrganizationAuthorization A,
-							Organization O
+									O.OrgUnitCode,
+									O.ParentOrgUnit,
+									O.Mission,
+									O.MandateNo
+							FROM   OrganizationAuthorization A INNER JOIN Organization O ON O.OrgUnit     = A.OrgUnit
 							WHERE  A.UserAccount = '#SESSION.acc#'
-						AND    A.Mission     = '#Mission#'
-						AND    O.OrgUnit     = A.OrgUnit
-						AND    O.Mission     = '#Mission#'
-
-							<cfif id eq "ORG">
-								AND    A.Role IN ('HROfficer','HRAssistant','HRPosition', 'HRLoaner', 'HRLocator','HRInquiry')
-								<cfelseif id is "ATT">
-								AND    Role IN ('Timekeeper', 'HROfficer')
-								<cfelseif id is "DON">
-								AND    Role IN ('ContributionOfficer','ContributionManager')
-								<cfelseif id eq "PRG">
-								AND    A.Role IN ('ProgressOfficer','BudgetOfficer','BudgetManager','ProgramOfficer','ProgramManager','ProgramAuditor')
-								<cfelseif id eq "CUS">
-								AND    A.Role IN ('WorkOrderProcessor')
-							</cfif>
-
-							<cfif selectiondate neq "">
-								AND DateEffective <= #sdte# AND DateExpiration >= #sdte#
-							</cfif>
+							AND    A.Mission     = '#Mission#'							
+							AND    O.Mission     = '#Mission#'
+	
+								<cfif id eq "ORG">
+									AND    A.Role IN ('HROfficer','HRAssistant','HRPosition', 'HRLoaner', 'HRLocator','HRInquiry')
+									<cfelseif id is "ATT">
+									AND    Role IN ('Timekeeper', 'HROfficer')
+									<cfelseif id is "DON">
+									AND    Role IN ('ContributionOfficer','ContributionManager')
+									<cfelseif id eq "PRG">
+									AND    A.Role IN ('ProgressOfficer','BudgetOfficer','BudgetManager','ProgramOfficer','ProgramManager','ProgramAuditor')
+									<cfelseif id eq "CUS">
+									AND    A.Role IN ('WorkOrderProcessor')
+								</cfif>
+	
+								<cfif selectiondate neq "">
+									AND DateEffective <= #sdte# AND DateExpiration >= #sdte#
+								</cfif>
 
 						</cfquery>
 
@@ -970,7 +965,7 @@ AND    O.OrgUnit IN (SELECT Pe.OrgUnit
 				<cfset i = 0>
 				<cfset j = 0>
 
-<!--- 8/8/2013 get also the parents as otherwise the tree is orphaned --->
+				<!--- 8/8/2013 get also the parents as otherwise the tree is orphaned --->
 
 				<cfloop query="Access">
 
@@ -1040,91 +1035,89 @@ AND    O.OrgUnit IN (SELECT Pe.OrgUnit
 
 			</cfif>
 
-<!--- if arguments.value is empty the tree is being built for the first time --->
+			<!--- if arguments.value is empty the tree is being built for the first time --->
 
 			<cfquery name="Node"
 					datasource="AppsOrganization"
 					username="#SESSION.login#"
 					password="#SESSION.dbpw#">
-				SELECT TreeOrder,
-				OrgUnitName,
-				OrgUnitNameShort,
-				OrgUnit,
-				( SELECT DateExpiration
-				FROM   Ref_Mandate
-				WHERE  Mission   = P.Mission
-				AND    MandateNo = P.MandateNo
-				) as MandateExpiration,
-
-				( SELECT count(*)
-				FROM   OrganizationName
-				WHERE  OrgUnit = P.OrgUnit
-				-- AND    LanguageCode = '#client.languageId#'
-			) as hasLabels,
-
-				<cfif id eq "DON">
-
-					(SELECT  count(*)
-					FROM    Program.dbo.Contribution C INNER JOIN Organization.dbo.Organization CO ON C.OrgUnitDonor = CO.OrgUnit
-					WHERE 	CO.Mission     = '#TreeMis#'
-				AND  	CO.MandateNo   = '#TreeMan#'
-				AND      CO.HierarchyCode LIKE P.HierarchyCode+'%'
-				AND      C.Mission = '#mission#'
-
-					<cfif filter neq "">
-						AND     EXISTS (SELECT 'X'
-						FROM   Program.dbo.ContributionLine CL,
-						Program.dbo.ContributionLinePeriod CLP
-						WHERE  CLP.ContributionLineId = CL.ContributionLineId
-						AND    CL.ContributionId      = C.ContributionId
-						AND    Period = '#filter#')
-					</cfif>
-
-					AND     C.ActionStatus <> '9') as Counted,
-
-				<cfelse>
-
-					0 as Counted,
-
-				</cfif>
-
-				OrgUnitCode,
-				OrgUnitClass,
-				Mission,
-				MandateNo,
-				DateEffective,
-				DateExpiration,
-				ParentOrgUnit,
-				HierarchyCode
+					
+						SELECT TreeOrder,
+							   OrgUnitName,
+							   OrgUnitNameShort,
+							   OrgUnit,
+							   
+								(   SELECT DateExpiration
+									FROM   Ref_Mandate
+									WHERE  Mission   = P.Mission
+									AND    MandateNo = P.MandateNo ) as MandateExpiration,				
+								( SELECT count(*) FROM   OrganizationName WHERE  OrgUnit = P.OrgUnit
+								-- AND    LanguageCode = '#client.languageId#'
+								) as hasLabels,
+		
+						<cfif id eq "DON">
+		
+							(SELECT  count(*)
+							FROM    Program.dbo.Contribution C INNER JOIN Organization.dbo.Organization CO ON C.OrgUnitDonor = CO.OrgUnit
+							WHERE 	CO.Mission     = '#TreeMis#'
+							AND  	CO.MandateNo   = '#TreeMan#'
+							AND     CO.HierarchyCode LIKE P.HierarchyCode+'%'
+							AND     C.Mission = '#mission#'
+		
+							<cfif filter neq "">
+								AND     EXISTS (SELECT 'X'
+								FROM   Program.dbo.ContributionLine CL,
+								Program.dbo.ContributionLinePeriod CLP
+								WHERE  CLP.ContributionLineId = CL.ContributionLineId
+								AND    CL.ContributionId      = C.ContributionId
+								AND    Period = '#filter#')
+							</cfif>
+		
+							AND     C.ActionStatus <> '9') as Counted,
+		
+						<cfelse>
+		
+							0 as Counted,
+		
+						</cfif>
+		
+						OrgUnitCode,
+						OrgUnitClass,
+						Mission,
+						MandateNo,
+						DateEffective,
+						DateExpiration,
+						ParentOrgUnit,
+						HierarchyCode
 
 				FROM 	#Client.LanPrefix#Organization P
 
-			WHERE 	Mission     = '#TreeMis#'
-			AND  	MandateNo   = '#TreeMan#'
-
-				<cfif value is "tree">
-					<cfif level eq "Parent">
-<!--- we show also the units defined as autonomouse 11/7/2013 --->
-						AND  	(ParentOrgUnit is NULL OR ParentOrgUnit = '' or Autonomous = 1)
+				WHERE 	Mission     = '#TreeMis#'
+				AND  	MandateNo   = '#TreeMan#'
+	
+					<cfif value is "tree">
+						<cfif level eq "Parent">
+							<!--- we show also the units defined as autonomouse 11/7/2013 --->
+							AND  	(ParentOrgUnit is NULL OR ParentOrgUnit = '' or Autonomous = 1)
+						<cfelse>
+							AND  	(ParentOrgUnit is NULL OR ParentOrgUnit = '')
+						</cfif>
 					<cfelse>
-						AND  	(ParentOrgUnit is NULL OR ParentOrgUnit = '')
+						AND  	ParentOrgUnit = '#val#'
 					</cfif>
-				<cfelse>
-					AND  	ParentOrgUnit = '#val#'
-				</cfif>
-
-				<cfif (level neq "Full" and (id eq "ORG" or id eq "DON" or id eq "PRG" or id eq "ATT" or id eq "CUS") OR vendor.recordcount gte 1)>
-
-					<cfif accesslist neq "" and (id eq "ORG" or id eq "CUS" or id eq "ATT" or id eq "DON" or id eq "PRG")>
-						AND OrgUnit IN (#PreserveSingleQuotes(AccessList)#)
+	
+					<cfif (level neq "Full" and (id eq "ORG" or id eq "DON" or id eq "PRG" or id eq "ATT" or id eq "CUS") OR vendor.recordcount gte 1)>
+	
+						<cfif accesslist neq "" and (id eq "ORG" or id eq "CUS" or id eq "ATT" or id eq "DON" or id eq "PRG")>
+							AND OrgUnit IN (#PreserveSingleQuotes(AccessList)#)
+						</cfif>
+	
 					</cfif>
-
-				</cfif>
 
 				<cfif selectiondate neq "">
 					AND DateEffective <= #sdte# AND DateExpiration >= #sdte#
 				</cfif>
-
+				
 				ORDER BY TreeOrder, OrgUnitName, HierarchyCode
 			</cfquery>
 
@@ -1132,9 +1125,9 @@ AND    O.OrgUnit IN (SELECT Pe.OrgUnit
 					datasource="AppsOrganization"
 					username="#SESSION.login#"
 					password="#SESSION.dbpw#">
-				SELECT   *
-				FROM     Organization O
-				WHERE    OrgUnit = '#selectedunit#'
+					SELECT   *
+					FROM     Organization O
+					WHERE    OrgUnit = '#selectedunit#'
 			</cfquery>
 
 			<cf_TickLog Init = "#vInit#" step=13>
@@ -1142,9 +1135,15 @@ AND    O.OrgUnit IN (SELECT Pe.OrgUnit
 			<cfset expandhierarchy = select.hierarchycode>
 
 			<cfoutput query="Node">
-
+			
+				<cfset reduce = len(hierarchycode)-2> 
+				<cfif reduce gt "0">
+					<cfset reduce = reduce/3>
+				</cfif>
+				
 				<cfset orglabel = orgunitname>
 				<cfset orgshort = orgunitnameshort>
+				<cfset orgsize  = "#15-reduce#">
 
 				<cfif hasLabels gte "1" and selectiondate neq "">
 
@@ -1152,12 +1151,12 @@ AND    O.OrgUnit IN (SELECT Pe.OrgUnit
 							datasource="AppsOrganization"
 							username="#SESSION.login#"
 							password="#SESSION.dbpw#">
-						SELECT   TOP 1 *
-						FROM     OrganizationName
-						WHERE    OrgUnit      = '#OrgUnit#'
-					AND      LanguageCode = '#client.languageid#'
-					AND      DateExpiration >= #sdte#
-						ORDER BY DateExpiration DESC
+							SELECT   TOP 1 *
+							FROM     OrganizationName
+							WHERE    OrgUnit      = '#OrgUnit#'
+							AND      LanguageCode = '#client.languageid#'
+							AND      DateExpiration >= #sdte#
+							ORDER BY DateExpiration DESC
 					</cfquery>
 
 					<cfif Log.recordcount gte "1">
@@ -1173,20 +1172,20 @@ AND    O.OrgUnit IN (SELECT Pe.OrgUnit
 						datasource="AppsOrganization"
 						username="#SESSION.login#"
 						password="#SESSION.dbpw#">
-					SELECT   TOP 1 OrgUnit
-					FROM     Organization
-					WHERE    Mission    = '#treemis#'
-				AND      MandateNo  = '#treeman#'
-				AND      ParentOrgUnit = '#orgUnitCode#'
+						SELECT   TOP 1 OrgUnit
+						FROM     Organization
+						WHERE    Mission    = '#treemis#'
+						AND      MandateNo  = '#treeman#'
+						AND      ParentOrgUnit = '#orgUnitCode#'
 				</cfquery>
 
 				<cfquery name="Class"
 						datasource="AppsOrganization"
 						username="#SESSION.login#"
 						password="#SESSION.dbpw#">
-					SELECT   *
-					FROM     Ref_OrgUnitClass
-					WHERE    OrgUnitClass = '#OrgUnitClass#'
+						SELECT   *
+						FROM     Ref_OrgUnitClass
+						WHERE    OrgUnitClass = '#OrgUnitClass#'
 				</cfquery>
 
 				<cfset s = structNew()/>
@@ -1203,7 +1202,7 @@ AND    O.OrgUnit IN (SELECT Pe.OrgUnit
 					<cfset s.leafnode=true/>
 				</cfif>
 
-<!--- default --->
+				<!--- default --->
 				<cfset cl = "black">
 
 				<cfif entity.missionstatus eq "0">
@@ -1221,17 +1220,17 @@ AND    O.OrgUnit IN (SELECT Pe.OrgUnit
 					<cfif orgshort eq "">
 
 						<cfif len(orgLabel) gt "29">
-							<cfset s.display   = "<span style='padding-top:3px;padding-bottom:3px;color: #cl#;' class='labelit' title='#orglabel#'>#left(orgLabel,29)#..</span>">
+							<cfset s.display   = "<span style='font-size:#orgsize#;color: #cl#;' title='#orglabel#'>#left(orgLabel,29)#..</span>">
 						<cfelse>
-							<cfset s.display   = "<span style='padding-top:3px;padding-bottom:3px;color: #cl#;' class='labelit' title='#orgLabel#'>#orgLabel#</span>">
+							<cfset s.display   = "<span style='font-size:#orgsize#;color: #cl#;' title='#orgLabel#'>#orgLabel#</span>">
 						</cfif>
 
 					<cfelse>
 
 						<cfif len(orgshort) gt "29">
-							<cfset s.display   = "<span style='padding-top:3px;padding-bottom:3px;color: #cl#;' class='labelit' title='#orgLabel#'>#left(orgshort,29)#..</span>">
+							<cfset s.display   = "<span style='font-size:#orgsize#;color: #cl#;' title='#orgLabel#'>#left(orgshort,29)#..</span>">
 						<cfelse>
-							<cfset s.display   = "<span style='padding-top:3px;padding-bottom:3px;color: #cl#;' class='labelit' title='#orgLabel#'>#orgshort#</span>">
+							<cfset s.display   = "<span style='font-size:#orgsize#;color: #cl#;' title='#orgLabel#'>#orgshort#</span>">
 						</cfif>
 
 					</cfif>
@@ -1239,25 +1238,25 @@ AND    O.OrgUnit IN (SELECT Pe.OrgUnit
 					<cfelseif id eq "ATT">
 
 					<cfif len(orgLabel) gt "40">
-						<cfset s.display   = "<span style='padding-top:3px;padding-bottom:3px;color: 6688aa;' class='labelit' title='#orgLabel#'>#left(orgLabel,40)#..</span>">
+						<cfset s.display   = "<span style='font-size:#orgsize#;color: 6688aa;' title='#orgLabel#'>#left(orgLabel,40)#..</span>">
 					<cfelse>
-						<cfset s.display   = "<span style='padding-top:3px;padding-bottom:3px;color: 6688aa;' class='labelit' title='#orgLabel#'>#orgLabel#</span>">
+						<cfset s.display   = "<span style='font-size:#orgsize#;color: 6688aa;' title='#orgLabel#'>#orgLabel#</span>">
 					</cfif>
 
 					<cfelseif id eq "DON">
 
 					<cfif len(orgLabel) gt "34">
-						<cfset s.display   = "<span style='padding-top:3px;padding-bottom:3px;color: 6688aa;' class='labelit' title='#orgLabel#'>#left(orgLabel,34)#.. <cfif counted gt 0>[#counted#]</cfif></span>">
+						<cfset s.display   = "<span style='font-size:#orgsize#;color: 6688aa;' title='#orgLabel#'>#left(orgLabel,34)#.. <cfif counted gt 0>[#counted#]</cfif></span>">
 					<cfelse>
-						<cfset s.display   = "<span style='padding-top:3px;padding-bottom:3px;color: 6688aa;' class='labelit' title='#orgLabel#'>#orgLabel# <cfif counted gt 0>[#counted#]</cfif></span>">
+						<cfset s.display   = "<span style='font-size:#orgsize#;color: 6688aa;' title='#orgLabel#'>#orgLabel# <cfif counted gt 0>[#counted#]</cfif></span>">
 					</cfif>
 
 				<cfelse>
 
 					<cfif len(orgLabel) gt "34">
-						<cfset s.display   = "<span style='padding-top:3px;padding-bottom:3px;color: #cl#;' class='labelit' title='#orgLabel#'>#left(orgLabel,34)#..</span>">
+						<cfset s.display   = "<span style='font-size:#orgsize#;color: #cl#;' title='#orgLabel#'>#left(orgLabel,34)#..</span>">
 					<cfelse>
-						<cfset s.display   = "<span style='padding-top:3px;padding-bottom:3px;color: #cl#;' class='labelit' title='#orgLabel#'>#orgLabel#</span>">
+						<cfset s.display   = "<span style='font-size:#orgsize#;color: #cl#;' title='#orgLabel#'>#orgLabel#</span>">
 					</cfif>
 
 				</cfif>
@@ -1265,11 +1264,9 @@ AND    O.OrgUnit IN (SELECT Pe.OrgUnit
 				<cfset arg = replace(querystring,"|","&","ALL")>
 				<cfset arg = replace(arg,"!","=","ALL")>
 
-<!--- check hierarchy --->
+				<!--- check hierarchy --->
 
-				<cfif len(hierarchycode) gte len(expandhierarchy) or
-				select.mission neq mission or
-				select.mandateno neq mandateno>
+				<cfif len(hierarchycode) gte len(expandhierarchy) or select.mission neq mission or	select.mandateno neq mandateno>
 
 					<cfset s.expand    = "false">
 

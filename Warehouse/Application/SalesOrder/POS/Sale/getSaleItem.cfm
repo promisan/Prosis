@@ -215,30 +215,27 @@ password="#SESSION.dbpw#">
 		        <cfparam name="Form.SalesPersonNo" default="">	    
 				
 				<table width="100%">
-					<tr class="labelmedium">
-					<td><font color="green">
+					<tr>
+					<td style="color:green" class="labellarge">
 					<cfif len(getItem.ItemDescription) gt "44">
 					#left(getItem.ItemDescription,44)#<cfelse>
 					#getItem.ItemDescription#
 					</cfif>
 					</td>
-					<td align="right" style="padding-left:4px"><img height="20" width="20" src="#SESSION.root#/images/checkmark.png" alt="" border="0"></td>		
+										
 					<td class="hide">	
 					    <cf_tl id="Add Item" var="1">			
-					    <input type="button" id= "posadditem" Value = "#lt_text#" class = "button10s">			
+					    <input type="button" id= "posadditem" Value = "#lt_text#" class="button10s">			
 						<script>	
+						    try {
 							date   = document.getElementById('transaction_date');
 							hour   = document.getElementById('Transaction_hour');
 							minu   = document.getElementById('Transaction_minute');
 							disc   = document.getElementById('Discount');
-							sche   = document.getElementById('PriceSchedule');
-							
-							if (document.getElementById('addressidselect'))	{
-								addressid = document.getElementById('addressidselect').value;
-							} else {								
-							    addressid='00000000-0000-0000-0000-000000000000';
-							}																			
-							ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/Sale/addItem.cfm?warehouse=#url.warehouse#&customerid=#form.customeridselect#&customeridinvoice=#form.customerinvoiceidselect#&currency=#form.currency#&SalesPersonNo=#form.SalesPersonNo#&ItemUomId=#get.ItemUoMid#&Transactionlot=#lot#&priceschedule='+sche.value+'&discount='+disc.value+'&date='+date.value+'&hour='+hour.value+'&minu='+minu.value+'&addressid='+addressid,'salelines');
+							sche   = document.getElementById('PriceSchedule');		
+							reqn   = document.getElementById('RequestNo');																													
+							ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/Sale/addItem.cfm?RequestNo='+reqn.value+'&warehouse=#url.warehouse#&customerid=#form.customeridselect#&customeridinvoice=#form.customerinvoiceidselect#&currency=#form.currency#&SalesPersonNo=#form.SalesPersonNo#&ItemUomId=#get.ItemUoMid#&Transactionlot=#lot#&priceschedule='+sche.value+'&discount='+disc.value+'&date='+date.value+'&hour='+hour.value+'&minu='+minu.value,'salelines');
+							} catch(e) { alert('select a customer')}
 						</script>
 					</td>					
 					</tr>

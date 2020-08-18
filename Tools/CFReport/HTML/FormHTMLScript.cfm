@@ -120,7 +120,8 @@
 	}
 	
 	function perform(option,rep) {
-
+	
+	
 	      if (option == "preview" || option == "email" || option == "sql")	{ 
 		  		    
 		  	<!--- save client variable for progress management --->
@@ -162,23 +163,18 @@
 				var rpt = document.getElementById ('report');
 								
 				if (rpt)
-					rpt.src = "about:blank";
-					
+					rpt.src = "about:blank";															
 				ptoken.navigate('#SESSION.root#/tools/CFreport/ReportSQL8.cfm?formselect='+option+'&mode=Form&controlId=#ControlId#&reportId=#ReportId#&GUI=HTML','report','',validation,'POST','selection');
-								
+										
 				<!--- show the report content box --->
-				toggle('reportbox','menu2')				
-								
+				toggle('reportbox','menu2')												
 														
 				}  
 				  		 	 		  
 		  } else {
-
 		  		
-		    if (option == "sql") {	
-			
-			ptoken.navigate('#SESSION.root#/Tools/CFreport/ReportSQL8.cfm?mode=Form&controlId=#ControlId#&reportId=#ReportId#&GUI=HTML&formselect='+option,'reportselection','','','POST','selection')						
-			
+		    if (option == "sql") {				
+				ptoken.navigate('#SESSION.root#/Tools/CFreport/ReportSQL8.cfm?mode=Form&controlId=#ControlId#&reportId=#ReportId#&GUI=HTML&formselect='+option,'reportselection','','','POST','selection')									
 			} else {
 			
 				if (option == "insert") {				  

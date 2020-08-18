@@ -1930,6 +1930,14 @@
 					  EntityKeyField4="RequirementId"
 					  EntityAcronym="WRQ">	
 	
+	<cf_insertEntity  Code="WhsQuote"   
+	                  Description="Request for Sale" 
+					  Role="WhsRequester"
+					  ConditionAlias="appsMaterials"					  
+					  EntityTableName="Materials.dbo.CustomerRequest"
+					  EntityKeyField1="RequestNo"
+					  EntityAcronym="WQT">	
+					  
 	<!--- do not reset if we have a stockorder for one of the lines --->	  	
 			  
 	<cfsavecontent variable="script">
@@ -1939,7 +1947,7 @@
                      RequestTask RT ON R.RequestId = RT.RequestId INNER JOIN
                      TaskOrder S ON RT.StockOrderId = S.StockOrderId
 			 WHERE   H.RequestHeaderId = '@key4'
-	</cfsavecontent>
+	</cfsavecontent>				  
 		
 	<cf_insertEntity  Code="WhsRequest"   
 	                  Description="Request for Stock" 

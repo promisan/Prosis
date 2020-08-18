@@ -10,7 +10,7 @@
 
 <cfoutput>
   
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="100%" align="center">
 
 	<tr><td colspan="4" style="padding:15px">
 	
@@ -23,7 +23,7 @@
 	        <cf_DialogStaffing>
 		
 			 <td width="80" class="labelmedium"><font color="808080"><cf_tl id="Employee">:</td>
-			 <td height="20" class="labelmedium" colspan="3" style="border:1px solid gray;height:30px;padding-left:5px">
+			 <td height="20" class="labelmedium" colspan="3" style="border:1px solid gray;height:27px;padding-left:5px">
 			      				   
 				      <cfquery name="Person" 
 			          datasource="AppsEmployee" 
@@ -52,7 +52,7 @@
 			<cfelse>
 			
 				   <td class="labelmedium"><cf_tl id="Vendor">:</td>
-				   <td class="labelmedium" style="border:1px solid gray;height:30px;padding-left:1px" colspan="3">
+				   <td class="labelmedium" style="border:1px solid gray;height:27px;padding-left:1px" colspan="3">
 	      				   
 				    <cfquery name="Org" 
 			          datasource="AppsOrganization" 
@@ -128,7 +128,7 @@
 		<tr>
 		
 		   <td height="20" width="10%" class="labelmedium"><font color="808080"><cf_tl id="Print Format"> :</td>
-		   <td width="40%" class="labelmedium" style="border:1px solid gray;height:30px;padding-left:5px">
+		   <td width="40%" class="labelmedium" style="border:1px solid gray;height:27px;padding-left:5px">
 		  	  	   		   
 		    <cfif URL.Mode eq "view">
 		   
@@ -197,7 +197,7 @@
 			 <cfelse>
 			 
 			   <td width="10%" style="padding-left:10px" class="labelmedium"><font color="808080"><cf_tl id="IncoTerms">:</td>
-			   <td width="40%" class="labelmedium" style="border:1px solid gray;height:30px;padding-left:5px">
+			   <td width="40%" class="labelmedium" style="border:1px solid gray;height:27px;padding-left:5px">
 		  		   
 			    <cfif URL.Mode eq "view">
 			   
@@ -241,7 +241,7 @@
 							
 	<tr>
 	   <td class="labelmedium"><font color="808080"><cf_tl id="Order class">:</td>
-	   <td class="labelmedium" style="border:1px solid gray;height:30px;padding-left:5px">
+	   <td class="labelmedium" style="border:1px solid gray;height:27px;padding-left:5px">
 	   			   			   
 	       <cfif URL.Mode eq "view">
 		   
@@ -283,7 +283,7 @@
 	   </td>
 	
 	   <td class="labelmedium" style="padding-left:10px" height="20"><font color="808080"><cf_tl id="Order Type">:</td>
-	   <td class="labelmedium" style="border:1px solid gray;height:30px;padding-left:5px">
+	   <td class="labelmedium" style="border:1px solid gray;height:27px;padding-left:5px">
 	   			   			   
 	       <cfif URL.Mode eq "view">
 		   
@@ -342,7 +342,7 @@
 	   
 	   <tr>
 	   <td class="labelmedium" height="20"><font color="808080"><cf_tl id="Standard">:</td>
-	   <td class="labelmedium" style="border:1px solid gray;height:30px;padding-left:5px">
+	   <td class="labelmedium" style="border:1px solid gray;height:27px;padding-left:5px">
 	   
 	       <cfif URL.Mode eq "view">
 		   
@@ -384,8 +384,8 @@
 	   
 	   </td>
 	   	   	   
-	   <td class="labelmedium" style="padding-left:10px" height="20"><font color="808080"><cf_tl id="Systems Contract">:<cf_space spaces="20"></td>
-	   <td class="labelmedium" style="border:1px solid gray;height:30px;padding-left:5px">
+	   <td class="labelmedium" style="min-width:130px;padding-left:10px" height="20"><font color="808080"><cf_tl id="Systems Contract">:</td>
+	   <td class="labelmedium" style="border:1px solid gray;height:27px;padding-left:5px">
 	   
 	    <cfif URL.Mode eq "view">
 		   
@@ -503,7 +503,7 @@
 	   
 	   <tr>
 		   <td class="labelmedium" width="90"><font color="808080"><cf_tl id="Condition">:</td>
-		   <td class="labelmedium" style="border:1px solid gray;height:30px;padding-left:5px">
+		   <td class="labelmedium" style="border:1px solid gray;height:27px;padding-left:5px">
 		   			   			   
 		       <cfif URL.Mode eq "view">
 			   
@@ -543,7 +543,7 @@
 		   </td>	  
 		
 		   <td class="labelmedium" style="padding-left:10px"><font color="808080"><cf_tl id="Total">:</td>
-		   <td class="labelmedium" id="total" style="border:1px solid gray;height:30px;">		   
+		   <td class="labelmedium" id="total" style="border:1px solid gray;height:27px;">		   
 		      <cfinclude template="getPurchaseTotal.cfm">		   			    						
 			</td>
 				
@@ -569,7 +569,7 @@
 			   
 			   <cfif getCustom.PurchaseReference1 neq "">
 			   <td class="labelmedium" width="125"><font color="808080">#getCustom.PurchaseReference1#:</td>
-			   <td colspan="1" class="labelmedium" style="border:1px solid gray;height:30px;padding-left:5px">
+			   <td colspan="1" class="labelmedium" style="border:1px solid gray;height:27px;padding-left:5px">
 			   			   			   
 			       <cfif URL.Mode eq "view">	
 				       <cfif UserDefined1 eq "">--<cfelse>#Userdefined1#</cfif>			       		   
@@ -584,7 +584,7 @@
 			   <cfif getCustom.PurchaseReference2 neq "">
 				
 				   <td width="125" style="padding-left:10px" class="labelmedium"><font color="808080">#getCustom.PurchaseReference2#:</td>
-				   <td class="labelmedium" style="border:1px solid gray;height:30px;padding-left:5px">
+				   <td class="labelmedium" style="border:1px solid gray;height:27px;padding-left:5px">
 				   	
 					  <cfif URL.Mode eq "view">		   		      			  
 					      <cfif UserDefined2 eq "">--<cfelse>#Userdefined2#</cfif>	  		   
@@ -610,7 +610,7 @@
 			 
 			   <cfif getCustom.PurchaseReference3 neq "">	
 			   <td class="labelmedium" width="125"><font color="808080">#getCustom.PurchaseReference3#:</td>
-			   <td colspan="1" style="border:1px solid gray;height:30px;padding-left:5px" class="labelmedium">	   			   			   
+			   <td colspan="1" style="border:1px solid gray;height:27px;padding-left:5px" class="labelmedium">	   			   			   
 			       <cfif URL.Mode eq "view">		   		      			  
 				       <cfif UserDefined3 eq "">--<cfelse>#Userdefined3#</cfif>	  		   
 				   <cfelse>		   			
@@ -621,7 +621,7 @@
 			
 			   <cfif getCustom.PurchaseReference4 neq "">	
 			   <td class="labelmedium" style="padding-left:10px"><font color="808080">#getCustom.PurchaseReference4#:</td>
-			   <td class="labelmedium" style="border:1px solid gray;height:30px;padding-left:5px">
+			   <td class="labelmedium" style="border:1px solid gray;height:27px;padding-left:5px">
 			   
 				  <cfif URL.Mode eq "view">		   		      			  
 				       <cfif UserDefined4 eq "">--<cfelse>#Userdefined4#</cfif>	  			   
@@ -654,7 +654,7 @@
 							
 							
 		</td>
-		   <td colspan="3" style="border:1px solid gray;height:30px;padding-left:5px">	
+		   <td colspan="3" style="border:1px solid gray;height:27px;padding-left:5px">	
 			
 				  <table style="width:100%" class="hide" align="left" id="address">
 				      <tr><td>
@@ -670,7 +670,7 @@
 			   						
 		<tr>
 		   <td height="21" class="labelmedium" width="90"><font color="808080"><cf_tl id="Shipping date">:</td>
-		   <td style="border:1px solid gray;height:30px;padding-left:5px">
+		   <td style="border:1px solid gray;height:27px;padding-left:5px">
 		   
 		   <table cellspacing="0" cellpadding="0"><tr><td class="labelmedium">
 		   			   			   
@@ -742,7 +742,7 @@
 		   </td>
 		
 		   <td style="padding-left:10px" class="labelmedium"><font color="808080"><cf_tl id="Delivery date">:</td>
-		   <td style="border:1px solid gray;height:30px;padding-left:5px">
+		   <td style="border:1px solid gray;height:27px;padding-left:5px">
 		   			   			   
 		       <cfif URL.Mode eq "view">
 			   
@@ -770,7 +770,7 @@
 	<tr>
 					   				
 		 <td valign="top" style="padding-top:4px" class="labelmedium"><font color="808080"><cf_tl id="Memo">:</td>							
-	     <td colspan="3" align="left"  style="border:1px solid gray;height:30px;padding-left:0px">
+	     <td colspan="3" align="left"  style="border:1px solid gray;height:27px;padding-left:0px">
 		 		 					 
 		      <textarea style="width:100%;height:44;padding:3px;font-size:12px;border:0px" 
 			      class="regular" 
@@ -786,7 +786,7 @@
 			
 	<tr id="custom" class="line">
 		<td class="labelmedium" height="21" valign="top" style="width;200px;padding-top:7px"><cf_space spaces="50"><cf_tl id="Custom Fields">:</td>
-		<td colspan="3" style="padding-right:30px" style="border:1px solid gray;height:30px;padding-left:5px">
+		<td colspan="3" style="padding-right:30px" style="border:1px solid gray;height:27px;padding-left:5px">
 		
 			<cfif url.mode eq "Edit">
 		

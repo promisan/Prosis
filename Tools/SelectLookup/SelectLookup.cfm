@@ -737,8 +737,8 @@
 			
 			<cfset jvlink = "#pfunction#;ProsisUI.createWindow('dialog#box#','#Attributes.title#','',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-80,modal:#attributes.modal#,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/ItemExtended/Item.cfm?getform=#attributes.formname#&module=#attributes.module#&width='+document.body.clientWidth+'&close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#','dialog#box#');">		
 						
-			<cfif attributes.button eq "cfbutton">				
-					
+			<cfif attributes.button eq "cfbutton">	
+							
 				<cf_button2
 					text        = "#Attributes.title#" 
                     subText     = "#Attributes.buttonlayout.subText#"

@@ -250,21 +250,43 @@ password="#SESSION.dbpw#">
 								
 								</cfif>
 								
-								<tr class="labelmedium" style="height:22px">
-										<td><font color="808080"><cf_tl id="Status">:</td>
-										<td>
-																																		
-										<cfif CandidateStatus eq "0">
-										<font color="FF0000"><cf_tl id="Pending"></font>
-										<cfelse>
-										<cf_tl id="Cleared">
-										</cfif>
+								<cfquery name="Check" 
+									datasource="AppsOrganization" 
+									username="#SESSION.login#" 
+									password="#SESSION.dbpw#">
+								   		SELECT *
+										FROM   Ref_Entity
+								   		WHERE  EntityCode = 'Candidate'
+								</cfquery>
+								
+								<cfquery name="Source" 
+									datasource="AppsSelection" 
+									username="#SESSION.login#" 
+									password="#SESSION.dbpw#">
+								   		SELECT   *
+								   		FROM     Ref_Source
+										WHERE    Source = '#candidate.source#'	
+								</cfquery>	
+																																					
+								<cfif check.operational is "1" and source.entityClass neq "">
+								
+									<tr class="labelmedium" style="height:22px">
+											<td><font color="808080"><cf_tl id="Status">:</td>
+											<td>
+																																			
+											<cfif CandidateStatus eq "0">
+											<font color="FF0000"><cf_tl id="Pending"></font>
+											<cfelse>
+											<cf_tl id="Cleared">
+											</cfif>
+										
+									</tr>
 									
-								</tr>
+								</cfif>	
 									
-									<!--- deactiveate 6/2/2016
+								<!--- deactiveate 6/2/2016
 									    													
-									<cfif CLIENT.Submission neq "Skill">
+								<cfif CLIENT.Submission neq "Skill">
 									
 									<cfelse>
 										<td class="labelmedium"><cf_tl id="Profile">:</td>
@@ -273,7 +295,7 @@ password="#SESSION.dbpw#">
 										</td>
 									</cfif>
 									
-									--->
+								--->
 									
  							</table>
  						</td>
@@ -291,9 +313,7 @@ password="#SESSION.dbpw#">
  									<td class="labelmedium"><font color="808080"><cf_tl id="eMail">:</td>
  									<td class="labelmedium"><cfif Candidate.EMailAddress eq ""><cf_tl id="N/A">
 								  	<cfelse>
-										<a href="javascript:email('#Candidate.EMailAddress#','','','','Applicant','#Candidate.PersonNo#')">
-											<font color="0080C0">#Candidate.EMailAddress#</font>
-										</a>
+										<a href="javascript:email('#Candidate.EMailAddress#','','','','Applicant','#Candidate.PersonNo#')">#Candidate.EMailAddress#</a>
 									</cfif>
  									</td>
  							</tr>

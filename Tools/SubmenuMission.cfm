@@ -409,7 +409,7 @@
 								
 			  <table width="100%">	
 			  			  			 			  			   			   			   		   
-			   <TR id="#MissionType#1" class="cSearch line">
+			   <TR id="#MissionType#1" class="cSearch">
 				   <td colspan="6" width="10%">
 				   	  <table width="100%" border="0">
 					    <tr>
@@ -456,13 +456,13 @@
 								
 				<cfset missel = Mis>
 				
-				<td width="100%">
+				<td width="100%" style="padding-top:5px">
 				
 				<cfset show = "1">
 																
-				<table border="0" width="100%" class="formpadding">
+				<table width="100%" class="formpadding">
 													
-				<tr style="border-bottom:1px solid silver" onMouseOver="hlmenu(this,true,'#Mission#')"  onMouseOut="hlmenu(this,false,'')">	
+				<tr onMouseOver="hlmenu(this,true,'#Mission#')"  onMouseOut="hlmenu(this,false,'')">	
 									
 				<cfset sel=Replace(missel,'-','','ALL')>	
 						
@@ -515,13 +515,15 @@
 						 
 						 </td>
 						 
-						 <td width="30" align="left" style="padding-top:20px;height:100%;min-width:50px">
-						 						 						 								 					    							 						 
-							 <table style="height:100%;border-top:1px solid silver">
+						 <td width="30" align="left">
+						 
+						     <table><tr><td style="padding-left:6px;padding-right:6px;height:27px;border-radius:10px;background-color:D5E9FF;min-width:50px">
+						 						 																		 								 					    							 						 
+							 <table style="height:100%;">
 							 <tr>
 							 							 
 								 <cfif getAdministrator("#Missel#") eq "1">
-									 <td>								 
+									 <td style="padding-top:1px">								 
 									  <button class="button3" type="button" onClick="editentity('#missel#')">     
 									  <img src="#SESSION.root#/Images/configure.gif" alt="Remove as Favorite" height="14" width="14" style="cursor: pointer;" border="0" align="absmiddle">
 									  </button> 								
@@ -620,7 +622,9 @@
 							 						  					
 							</tr>							 
 														
-							</table>			
+							</table>	
+							
+							</td></tr></table>		
 						
 					   	</td>
 							 
