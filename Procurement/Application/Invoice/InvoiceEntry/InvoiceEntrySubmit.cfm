@@ -519,16 +519,16 @@ b. in case of Enforce Currency = 1 on purchase amount
 	password="#SESSION.dbpw#">
 	    INSERT INTO InvoiceLine
 				( InvoiceId,InvoiceLineId,OfficerUserId,OfficerLastName, OfficerFirstName)
-	    SELECT '#URL.Guid#',
-			   InvoiceLineId,				 
-			   '#SESSION.acc#',
-			   '#SESSION.last#',
-			   '#SESSION.first#'
-		FROM   InvoiceIncomingLine
-		WHERE  Mission       = '#Form.Mission#'
-		AND    OrgUnitOwner  = '#Form.OrgUnitOwner#'
-		AND    OrgUnitVendor = '#Form.orgunit#'
-		AND    InvoiceNo     = '#Form.invoiceNo#'			
+	    SELECT   '#URL.Guid#',
+			     InvoiceLineId,				 
+			     '#SESSION.acc#',
+			     '#SESSION.last#',
+			     '#SESSION.first#'
+		FROM     InvoiceIncomingLine
+		WHERE    Mission       = '#Form.Mission#'
+		AND      OrgUnitOwner  = '#Form.OrgUnitOwner#'
+		AND      OrgUnitVendor = '#Form.orgunit#'
+		AND      InvoiceNo     = '#Form.invoiceNo#'			
 	</cfquery>		
 	
 	<cfif url.InvoiceClass eq "warehouse" and url.warehouse neq "">
@@ -644,7 +644,8 @@ b. in case of Enforce Currency = 1 on purchase amount
 						
 					  	<cf_ExchangeRate DataSource="AppsPurchase" 
 						                 CurrencyFrom="#getInv.DocumentCurrency#"
-										 CurrencyTo="#getPO.Currency#">
+										 CurrencyTo="#getPO.Currency#"
+										 EffectiveDate="#dateformat(dteDoc,client.dateformatshow)#">
 					  
 					  	 <cfset pod   =  Round((doc/exc)*100)/100>
 						 
@@ -708,7 +709,7 @@ b. in case of Enforce Currency = 1 on purchase amount
 			  				 
 				<cfif (line-all lte -0.5) >
 				 	<cfif line gt 0>			 	 
-					  <cf_alert message = "It is not permitted to overspend (amount : #currency# #numberformat(all,'__,__.__')#) the line: #RequisitionNo# with an obligation amount of #currency# #numberformat(line,'__,__.__')#. \n\n #OrderItem# \n\n Please contact your administrator if this problem persists."
+					  <cf_alert message = "It is not permitted to overspend (amount : #currency# #numberformat(all,',.__')#) the line: #RequisitionNo# with an obligation amount of #currency# #numberformat(line,'__,__.__')#. \n\n #OrderItem# \n\n Please contact your administrator if this problem persists."
 						return = "back">
 					  <cfabort>
 					 </cfif>
@@ -808,7 +809,8 @@ b. in case of Enforce Currency = 1 on purchase amount
 						
 					  	<cf_ExchangeRate DataSource="AppsPurchase" 
 						                 CurrencyFrom="#getInv.DocumentCurrency#"
-										 CurrencyTo="#getPO.Currency#">
+										 CurrencyTo="#getPO.Currency#"										 
+										 EffectiveDate="#dateformat(dteDoc,client.dateformatshow)#">
 					  
 					  	 <cfset pod   =  Round((doc/exc)*100)/100>						 
 					  
@@ -856,7 +858,8 @@ b. in case of Enforce Currency = 1 on purchase amount
 						
 					  	<cf_ExchangeRate DataSource="AppsPurchase" 
 						                 CurrencyFrom="#getInv.DocumentCurrency#"
-										 CurrencyTo="#getPO.Currency#">
+										 CurrencyTo="#getPO.Currency#"										 
+										 EffectiveDate="#dateformat(dteDoc,client.dateformatshow)#">
 					  
 					  	 <cfset pod   =  Round((doc/exc)*100)/100>						 
 					  
@@ -964,10 +967,10 @@ b. in case of Enforce Currency = 1 on purchase amount
 						</cfif>	
 						
 						<cf_exchangeRate 
-									DataSource   = "AppsPurchase"
-							        CurrencyFrom = "#currency#" 
-							        CurrencyTo   = "#Curr#"
-									EffectiveDate = "#dateformat(TransactionDate,CLIENT.DateFormatShow)#">
+									DataSource    = "AppsPurchase"
+							        CurrencyFrom  = "#currency#" 
+							        CurrencyTo    = "#Curr#"									
+								    EffectiveDate = "#dateformat(dteDoc,client.dateformatshow)#">
 									
 						<cfif Exc eq "0" or Exc eq "">
 							<cfset exc = 1>
@@ -1000,9 +1003,10 @@ b. in case of Enforce Currency = 1 on purchase amount
 				<cfloop query="Pending">
 						
 					<cf_exchangeRate 
-					        DataSource="AppsPurchase"
-					        CurrencyFrom = "#DocumentCurrency#" 
-					        CurrencyTo   = "#Curr#">
+					        DataSource    = "AppsPurchase"
+					        CurrencyFrom  = "#DocumentCurrency#" 
+					        CurrencyTo    = "#Curr#"							
+							EffectiveDate = "#dateformat(dteDoc,client.dateformatshow)#">
 									
 						<cfif Exc eq "0" or Exc eq "">
 							<cfset exc = 1>
@@ -1017,7 +1021,7 @@ b. in case of Enforce Currency = 1 on purchase amount
 				 					  
 				<cfif amt lt tot>
 							
-				 <cf_alert message = "You are about to exceed the obligated Purchase Order Amount (#numberformat(amt,"__,__.__")#) with a total amount of #numberformat(tot,",.__")#. The difference exceeds the threshold of #parameter1.InvoiceMatchDifference#%."
+				 <cf_alert message = "You are about to exceed the obligated Purchase Order Amount (#numberformat(amt,",.__")#) with a total amount of #numberformat(tot,",.__")#. The difference exceeds the threshold of #parameter1.InvoiceMatchDifference#%."
 					return = "back">
 					
 					<cfquery name="RemoveInvoice" 

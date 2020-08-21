@@ -713,7 +713,6 @@ otherwise no action
 			
 		</tr>			
 		
-		
 		<cf_verifyOperational 
          datasource= "appsSystem"
          module    = "Payroll" 
@@ -723,81 +722,142 @@ otherwise no action
 		
 		<TR class="line">
 		    <TD style="padding-left:5px;" class="labelmedium bcell" height="<cfif mode eq 'edit' or last eq '1'>25</cfif>"><cf_tl id="Service Location">:</TD>
-		    			
-				<cfif mode eq "view">
+			
+			    <cftry>
 				
-					<TD bgcolor="#pclr#" class="labelmedium ccell" style="border-right:1px solid silver">
-					
 					 <cfquery name="Location" 
-						datasource="AppsPayroll" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">
-							SELECT    *
-							FROM      Ref_PayrollLocation
-							WHERE     LocationCode = '#ContractSel.ServiceLocation#'							     
-					 </cfquery>	
+							datasource="AppsPayroll" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+								SELECT    *
+								FROM      Ref_PayrollLocation
+								WHERE     LocationCode = '#ContractSel.ServiceLocation#'							     
+						 </cfquery>	
+		    			
+					<cfif mode eq "view">
 					
-					#Location.Description#
-					
-					</td>
-						
-				</cfif>	 
+						<TD bgcolor="#pclr#" class="labelmedium ccell" style="border-right:1px solid silver">												
+						#Location.Description#						
+						</td>
 							
-				<cfif mode eq "edit" or last eq "1"> 
-				
-					<td bgcolor="#color#" style="padding-left:3px;width:100%;border-right:1px solid silver" id="editfield" name="editfield">
-											
-						<cfif url.wf eq "1">
-							<cfset mis = Object.Mission>
-						<cfelse>
-							<cfset mis = ContractSel.Mission>
-						</cfif>		
-														
-					    <cfset loc = ContractSel.ServiceLocation>
-						
-						<cfif loc eq "">
-						
-							<cfquery name="Default" 
+					</cfif>	 
+								
+					<cfif mode eq "edit" or last eq "1"> 
+					
+						<td bgcolor="#color#" style="padding-left:3px;width:100%;border-right:1px solid silver" id="editfield" name="editfield">
+												
+							<cfif url.wf eq "1">
+								<cfset mis = Object.Mission>
+							<cfelse>
+								<cfset mis = ContractSel.Mission>
+							</cfif>		
+															
+						    <cfset loc = ContractSel.ServiceLocation>
+							
+							<cfif loc eq "">
+							
+								<cfquery name="Default" 
+								datasource="AppsPayroll" 
+								username="#SESSION.login#" 
+								password="#SESSION.dbpw#">
+									SELECT   *
+									FROM     Ref_PayrollLocationMission							
+									WHERE    Mission = '#mis#'				
+									AND      LocationDefault = 1
+								</cfquery>	
+								
+								<cfset loc = Default.LocationCode>						
+							
+							</cfif>
+							
+							<cfquery name="Location" 
 							datasource="AppsPayroll" 
 							username="#SESSION.login#" 
 							password="#SESSION.dbpw#">
 								SELECT   *
-								FROM     Ref_PayrollLocationMission							
-								WHERE    Mission = '#mis#'				
-								AND      LocationDefault = 1
+								FROM     Ref_PayrollLocation							
+								WHERE    LocationCode IN (SELECT LocationCode 
+								                          FROM   Ref_PayrollLocationMission 													 
+														  WHERE  Mission = '#mis#'
+														
+														  )									
 							</cfquery>	
+						
+							 <select name="ServiceLocation" 
+							   class="regularxlbl" 
+							   style="border:0px;width:99%">
 							
-							<cfset loc = Default.LocationCode>						
+							    <option value="">-- select --</option>
+								<cfloop query="Location">
+								 <option value="#LocationCode#" <cfif LocationCode eq loc>selected</cfif>>#LocationCode# #Description#
+								</cfloop>		
+								
+							</select>
+											
+						</td>
 						
-						</cfif>
-						
-						<cfquery name="Location" 
-						datasource="AppsPayroll" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">
-							SELECT   *
-							FROM     Ref_PayrollLocation							
-							WHERE    LocationCode IN (SELECT LocationCode 
-							                          FROM   Ref_PayrollLocationMission 													 
-													  WHERE  Mission = '#mis#'
-													
-													  )									
-						</cfquery>	
+					</cfif>
 					
-						 <select name="ServiceLocation" 
-						   class="regularxlbl" 
-						   style="border:0px;width:99%">
+				<cfcatch>
+				
+					<cfif mode eq "view">
+					
+						<TD bgcolor="#pclr#" class="labelmedium ccell" style="border-right:1px solid silver">
+												
+						 <cfquery name="Location" 
+							datasource="AppsEmployee" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+								SELECT    *
+								FROM      Location
+								WHERE     LocationCode = '#ContractSel.ServiceLocation#'							     
+						 </cfquery>	
 						
-						    <option value="">-- select --</option>
-							<cfloop query="Location">
-							 <option value="#LocationCode#" <cfif LocationCode eq loc>selected</cfif>>#LocationCode# #Description#
-							</cfloop>		
+						#Location.LocationName#
+						
+						</td>
 							
-						</select>
-										
-					</td>
+					</cfif>	 
+								
+					<cfif mode eq "edit" or last eq "1"> 
 					
-				</cfif>
+						<td bgcolor="#color#" style="padding-left:3px;width:100%;border-right:1px solid silver" id="editfield" name="editfield">
+																	
+							<cfif url.wf eq "1">
+								<cfset mis = Object.Mission>
+							<cfelse>
+								<cfset mis = ContractSel.Mission>
+							</cfif>		
+															
+						    <cfset loc = ContractSel.ServiceLocation>
+																					
+							<cfquery name="Location" 
+							datasource="AppsEmployee" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+								SELECT   *
+								FROM     Location							
+								WHERE    Mission = '#mis#'									
+							</cfquery>	
+						
+							 <select name="ServiceLocation" 
+							   class="regularxlbl" 
+							   style="border:0px;width:99%">
+							
+							    <option value="">-- select --</option>
+								<cfloop query="Location">
+								 <option value="#LocationCode#" <cfif LocationCode eq loc>selected</cfif>>#LocationCode# #LocationName#
+								</cfloop>		
+								
+							</select>
+											
+						</td>
+						
+					</cfif>
+								
+				</cfcatch>			
+			
+				</cftry>	
 				
 		</TR>
 		

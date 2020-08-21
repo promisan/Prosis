@@ -261,11 +261,11 @@ password="#SESSION.dbpw#">
 		 </cfloop>		
 		 
 		 <cfquery name="Check" 
-			datasource="AppsOrganization" 
+			datasource="AppsSelection" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
 		   		SELECT *
-				FROM   Ref_Entity
+				FROM   Organization.dbo.Ref_Entity
 		   		WHERE  EntityCode = 'Candidate'
 		</cfquery>
 		

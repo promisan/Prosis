@@ -1,4 +1,5 @@
 
+<cf_screentop html="No" jquery="Yes">
 
 <cfquery name="SearchResult"
 datasource="AppsEmployee" 

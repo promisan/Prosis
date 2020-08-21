@@ -44,11 +44,11 @@
 		  
 		  <cfoutput>	
 		  		
-		  <table width="100%" cellspacing="0" border="0" cellpadding="0">
+		  <table width="100%">
 		  
 		  <tr>
-			  <td height="25" class="labelmedium" width="15%"><cf_space spaces="33"><cf_tl id="Person">:</td>
-			  <td width="20" style="padding-left:1px">
+			  
+			  <td style="width:20px;padding-left:1px">
 		  	
 			   <cf_selectlookup
 					    box        = "employeebox"
@@ -63,7 +63,7 @@
 						
 				</td>	
 				
-				<td width="90%" style="padding-left:3px">
+				<td width="99%" style="padding-left:3px">
 					<cfdiv bind="url:#link#&personno=#get.PersonNo#&dependentid=#get.Dependentid#&mode=#type.claimant#" id="employeebox"/>
 				</td>
 			</tr>	
@@ -90,8 +90,8 @@
 		  <table width="100%" cellspacing="0" border="0" cellpadding="0">
 		  
 		  <tr>
-			  <td height="25" class="labelmedium"><cf_space spaces="33"><cf_tl id="Person">:</td>
-			  <td width="20" style="padding-left:2px">
+			  
+			  <td style="padding-left:2px">
 		  	
 			   <cf_selectlookup
 					    box        = "employeebox"
@@ -105,14 +105,16 @@
 						
 				</td>	
 				
-				<td width="90%" style="padding-left:3px">
+				<td width="99%" style="padding-left:3px">
 				<cfdiv bind="url:#link#&personno=#get.PersonNo#&dependentid=#get.Dependentid#&mode=#type.claimant#" id="employeebox"/>
 				</td>
 			</tr>	
-						
+									
 			<tr>
-				<td height="25" class="labelmedium"><cf_tl id="Dependent">:</td>
-				<td colspan="3" style="padding-left:2px">
+				<td colspan="2" height="25" class="labelmedium"><cf_tl id="Dependent">:</td>
+			</tr>
+			<tr>	
+				<td colspan="2" style="padding-left:2px">
 												
 				<cfdiv bind="url:../Header/getDependent.cfm?personno=#get.personno#&dependentid=#get.Dependentid#" 
 			       id="dependent"/>
@@ -126,10 +128,10 @@
 				
 	<cfelse>	
 	
-		<table width="100%" cellspacing="0" border="0" cellpadding="0">
+		<table width="100%">
 		  
 		<tr>
-		  <td height="25" class="labelmedium"><cf_space spaces="33"><cf_tl id="Customer">:</td>
+		 
 		  <td width="20">	
 
 			<cfquery name="OrgUnit" 

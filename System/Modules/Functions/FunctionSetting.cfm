@@ -568,7 +568,7 @@ password="#SESSION.dbpw#">
 			</td>
 			<td style="padding-left:3px">
 			
-			<img src="#SESSION.root#/Images/explorer_icon.gif" height="21" width="19" alt="Internet Explorer" border="0" align="absmiddle"> only 8/9/10/11
+			<img src="#SESSION.root#/Images/explorer_icon.gif" height="21" width="19" alt="Internet Explorer" border="0" align="absmiddle"> only IE 11
 			</td>
 			<td width="40" align="center"></td>			
 			<td>
@@ -577,10 +577,10 @@ password="#SESSION.dbpw#">
 			<td> 
 			    <table cellspacing="0" cellpadding="0" class="formpadding">
 				<tr>
-				<td><img src="#SESSION.root#/Images/explorer_icon.gif" height="21" width="19" alt="Internet Explorer 8+" border="0" align="absmiddle"></td>
-				<td><img src="#SESSION.root#/Images/firefox_icon.gif"  height="17" width="16" alt="Firefox (Mozilla) 3+" border="0" align="absmiddle"></td>
-				<td><img src="#SESSION.root#/Images/chrome_icon.jpg"   height="17" width="16" alt="Chrome 10+" border="0" align="absmiddle"></td>
-				<td><img src="#SESSION.root#/Images/safari_icon.png"   height="17" width="16" alt="Safari 5+" border="0" align="absmiddle"></td>
+				<td><img src="#SESSION.root#/Images/edge.png" height="17" width="16" alt="Edge" border="0" align="absmiddle"></td>				
+				<td style="padding-left:2px"><img src="#SESSION.root#/Images/chrome_icon.jpg"   height="18" width="17" alt="Chrome 60+" border="0" align="absmiddle"></td>
+				<td style="padding-left:2px"><img src="#SESSION.root#/Images/safari_icon.png"   height="19" width="17" alt="Safari 5+" border="0" align="absmiddle"></td>
+				<td style="padding-left:2px"><img src="#SESSION.root#/Images/firefox_icon.gif"  height="18" width="17" alt="Firefox (Mozilla) 60+" border="0" align="absmiddle"></td>
 				</tr>
 				</table>
 			</td>		

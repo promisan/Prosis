@@ -46,7 +46,7 @@ password="#SESSION.dbpw#">
 			   <td align="right" style="padding-right:4px">
 			   		<cfoutput>
 						<cfif url.action neq 'new'>
-							<a title="Link new mission" href="javascript:addMission('#url.code#')">[Add]</a>
+							<a title="Link new mission" href="javascript:_cf_loadingtexthtml='';addMission('#url.code#')"><cf_tl id="Add"></a>
 						</cfif>
 					</cfoutput>
 			   </td>  
@@ -157,7 +157,7 @@ password="#SESSION.dbpw#">
 				   <td>#OfficerFirstName# #OfficerLastName#</td>
 				   <td>#dateFormat(Created,"dd/mm/yyyy")#</td>
 				   <td align="right" style="padding-right:4px">
-					  <cf_img icon="edit" navigation="Yes" onclick="ptoken.navigate('List.cfm?code=#URL.code#&mission=#mission#','#url.code#_list')">
+					  <cf_img icon="edit" navigation="Yes" onclick="_cf_loadingtexthtml='';ptoken.navigate('List.cfm?code=#URL.code#&mission=#mission#','#url.code#_list')">
 				   </td>					
 				 </TR>					 
 										

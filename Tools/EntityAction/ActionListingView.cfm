@@ -226,6 +226,10 @@
 			<td colspan="<cfoutput>#col#</cfoutput>" id="communicate_#objectid#"></td>
 		</tr>
 		
+		<tr class="hide">
+			<td colspan="<cfoutput>#col#</cfoutput>" id="process"></td>
+		</tr>
+		
 		<cfquery name="CheckStatus" 
 		 datasource="AppsOrganization"
 		 username="#SESSION.login#" 

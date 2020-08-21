@@ -1,11 +1,4 @@
 
-<!---
-
-<cfajaximport tags="cfwindow">
-<cf_getMid>
-
---->
-
 
 <cfoutput>
 
@@ -372,11 +365,11 @@
 	</tr>
 	
 	<tr>
-		<td class="labelmedium" height="25" width="100"><cf_tl id="File Type">:</td>		
+		<td class="labelmedium" style="min-width:175px;max-width:175px" height="25"><cf_tl id="File Type">:</td>		
 				
 			<cfif get.recordcount eq "0">
 			
-				<td>
+				<td style="width:40%">
 			
 				<cfquery name="check" 
 				datasource="AppsCaseFile" 
@@ -422,8 +415,8 @@
 				
 			</td>
 			
-			<td class="labelmedium"><cf_tl id="File Class">:</td>			
-			<td>	
+			<td style="min-width:120px" class="labelmedium"><cf_tl id="File Class">:</td>			
+			<td style="width:40%">	
 				
 				<cfselect name="claimtypeclass"
 				   class="regularxl" 
@@ -434,7 +427,7 @@
 			
 			<cfelse>
 			
-				<td class="labelmedium">
+				<td class="labelmedium" style="width:40%">
 			
 			    <input type="hidden" name="claimtype" value="#get.claimtype#">
 			
@@ -452,7 +445,7 @@
 				</td>
 				
 				<td class="labelmedium"><cf_tl id="File Class">:</td>			
-				<td>
+				<td style="width:40%">
 				
 				<cfselect name="claimtypeclass" class="regularxl" bindOnLoad="yes" selected="#get.claimtypeclass#"
     			    bind = "cfc:service.Input.Input.DropdownSelect('AppsCaseFile','Ref_ClaimTypeClass','Code','Description','ClaimType','#get.claimtype#','','','#get.claimtypeclass#')">				
@@ -466,7 +459,8 @@
 	
 	<tr>
 			
-		<td colspan="2" width="400">		
+		<td height="25" class="labelmedium"><cf_tl id="Person">:</td>			
+		<td>		
 			<cf_getMid>                         			
 			<cfdiv bind="url:../Header/ClaimantSelect.cfm?tree=#parameter.customertree#&claimid=#URL.ClaimId#&claimtype={claimtype}&mid=#mid#" 
 			       id="claimant"/>
@@ -506,9 +500,9 @@
 		           bindonload     = "No" 	      			 			 				          		            
 				   init           = "yes"  
 				   resize         = "No" 
-				   height         = "220"    
+				   height         = "80%"    
 				   color          = "ffffff" 
-		           toolbar        = "full">#get.ClaimMemo#</cf_textarea>
+		           toolbar        = "mini">#get.ClaimMemo#</cf_textarea>
 				 
 		</td>
 		</tr>
@@ -522,7 +516,7 @@
 		           resize         = "No"             				
 				   height         = "220"
 				   init           = "yes"  
-		           toolbar        = "basic"
+		           toolbar        = "mini"
 				   color          = "ffffff">#get.ClaimMemo#</cf_textarea>
 		
 		</td>

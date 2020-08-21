@@ -38,92 +38,45 @@ password="#SESSION.dbpw#">
 	ORDER BY R.ListingOrder
 </cfquery>
 
+<cfif Class.recordcount eq "0">
+
+<table align="center"><tr class="labelmedium"><td style="padding-top:20px">You have not been granted Function administration rights</td></table>
+
+<cfelse>
+
 <!--- Search form --->
 
-<cf_divscroll>
-
-<table width="96%" align="center" class="formpadding">
+	<cf_divscroll>
 	
-	<tr><td style="padding-top:25px">
-	
-	<CFFORM action="RecordSearchQuery.cfm?idmenu=#url.idmenu#" method="post">
-	
-	<table width="99%" align="center" class="formpadding">
+	<table width="96%" align="center" class="formpadding">
 		
-		<tr class="line">
-		<TD colspan="2" class="labellarge">
-		<table><tr>
-		   <td style="font-size:29px" class="labellarge"><cf_tl id="Select functional titles"></b></td>
-		   <td><cf_helpfile systemfunctionid = "#url.idmenu#"></td>
-			</tr>
-		</table>
-		</TD>	
-	    </tr>
+		<tr><td style="padding-top:25px">
 		
-		<tr><td height="6"></td></tr>
-	 	
-		<TR>
-			<TD style="min-width:200px;padding-left:20px" class="labelmedium"><cf_tl id="Search for a Title">:</TD>
-			<TD><INPUT type="text" name="FunctionDescription" size="30" class="regularxl"></TD>
-		</TR>
+		<CFFORM action="RecordSearchQuery.cfm?idmenu=#url.idmenu#" method="post">
 		
-		
-		<TR>
-		<td style="padding-left:20px" class="labelmedium"><cf_tl id="Function class">:</td>
-		<TD>
-		
-		<table>
-		
-		  <cfset row = 1>	  
-	      <cfoutput query="class">
-		 
-	  	  <cfif row eq 1><tr></cfif> 
-		
-		  <td class="labelmedium" style="padding-right:5px">
-		      <input class="radiol" type="checkbox" name="FunctionClass" value="'#FunctionClass#'" <cfif FunctionClass eq "Standard">checked</cfif>>
-			  </td>
-			  <td class="labelmedium" style="width:100px;padding-left:2px;padding-right:10px">#FunctionClassName#</option>
-		  </td>
-		  <cfset row = row + 1>
-		  <cfif row eq "5">
+		<table width="99%" align="center" class="formpadding">
+			
+			<tr class="line">
+			<TD colspan="2" class="labellarge">
+			<table><tr>
+			   <td style="font-size:29px" class="labellarge"><cf_tl id="Select functional titles"></b></td>
+			   <td><cf_helpfile systemfunctionid = "#url.idmenu#"></td>
+				</tr>
+			</table>
+			</TD>	
 		    </tr>
-		    <cfset row = 1>
-		  </cfif>
-		  
-		  </cfoutput>
-		  
-		</table>
 			
-		</TD>
-		</TR>
-		
-		<TR>
-			<td style="padding-left:20px;width:200px" class="labelmedium"><cf_tl id="Edition">:</td>
-			<td style="width:80%">
-					
-			<cfquery name="Edition"
-			datasource="AppsSelection" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-				SELECT    R.Owner, E.Description, R.SubmissionEdition, R.EditionDescription
-				FROM      Ref_SubmissionEdition R INNER JOIN
-			              Ref_ExerciseClass E ON R.ExerciseClass = E.ExcerciseClass
-				WHERE     R.Operational = 1
-				<cfif SESSION.isAdministrator eq "No">
-				AND R.Owner IN (  SELECT ClassParameter 
-	        			          FROM   Organization.dbo.OrganizationAuthorization 
-							  	  WHERE  Role = 'FunctionAdmin' 
-								  AND    UserAccount = '#SESSION.acc#')
-					
-				</cfif>		
-				ORDER BY  R.Owner, R.EditionDescription
-			</cfquery>
+			<tr><td height="6"></td></tr>
+		 	
+			<TR>
+				<TD style="min-width:200px;padding-left:20px" class="labelmedium"><cf_tl id="Search for a Title">:</TD>
+				<TD><INPUT type="text" name="FunctionDescription" size="30" class="regularxl"></TD>
+			</TR>
 			
-			<cfselect name="submissionedition" group="Owner" queryposition="below" query="edition" value="submissionedition" display="editiondescription" visible="Yes" enabled="Yes" class="regularxl">				
-				<option value="">Any</option>		
-			</cfselect>
 			
-			<!---
+			<TR>
+			<td style="padding-left:20px" class="labelmedium"><cf_tl id="Function class">:</td>
+			<TD>
 			
 			<table>
 			
@@ -133,12 +86,12 @@ password="#SESSION.dbpw#">
 		  	  <cfif row eq 1><tr></cfif> 
 			
 			  <td class="labelmedium" style="padding-right:5px">
-			      <input class="radiol" type="checkbox" name="FunctionClass" value="'#FunctionClass#'" <cfif #FunctionClass# eq "Standard">checked</cfif>>
+			      <input class="radiol" type="checkbox" name="FunctionClass" value="'#FunctionClass#'" <cfif FunctionClass eq "Standard">checked</cfif>>
 				  </td>
-				  <td class="labelmedium" style="padding-left:2px;padding-right:5px">#FunctionClass#</option>
+				  <td class="labelmedium" style="width:100px;padding-left:2px;padding-right:10px">#FunctionClassName#</option>
 			  </td>
 			  <cfset row = row + 1>
-			  <cfif row eq "10">
+			  <cfif row eq "5">
 			    </tr>
 			    <cfset row = 1>
 			  </cfif>
@@ -146,113 +99,168 @@ password="#SESSION.dbpw#">
 			  </cfoutput>
 			  
 			</table>
-			
-			--->
 				
-			</td>
-		</tr>
-		
-		<TR>
-		<td style="padding-left:20px" class="labelmedium"><cf_tl id="Status">:</td>
-		<TD>
-		
-		<table>
-		
-		</tr>
-		
-	    <tr> 
-		
-		  <td class="labelmedium">
-		      <table><tr>
-			  <td style="padding-left:0px"><input class="radiol" type="checkbox" name="FunctionOperational" value="'1'" checked></td>
-			  <td class="labelmedium" style="padding-left:4px"><cf_tl id="Operational"></td>
-			  <td style="padding-left:10px"><input class="radiol" type="checkbox" name="FunctionOperational" value="'0'"></td>
-			  <td class="labelmedium" style="padding-left:4px"><cf_tl id="Deactivated"></td>
-			  </tr></table>
-		  </td>
-		 
-	    </tr>
-				 	  
-		</table>
+			</TD>
+			</TR>
 			
-		</TD>
-		</TR>
-		
-		<TR>
-			<td style="padding-left:20px;padding-top:5px" class="labelmedium"><cf_tl id="Function Network">:</td>
-			<td>
-		</tr>	
-	  
-		<TR>
-		
-		<!---
-		<td style="padding-left:20px;padding-top:4px" class="labelmedium" width="140" valign="top"><cf_tl id="Job Family">:</td>
-		--->
-		
-		<TD width="90%" colspan="2" align="center" style="padding-left:40px">
-		
-		<table width="100%" cellspacing="0" cellpadding="0" align="center">
-		  	  
-		  <cfset row = 0>	
-		    
-	      <cfoutput query="occgroup" group="parentgroup">
-		  
-		      <tr><td colspan="9" style="padding-top:4px;height:28px;font-size:16px"><font color="0080C0">
-			  							  
-				<cfquery name="get"
+			<TR>
+				<td style="padding-left:20px;width:200px" class="labelmedium"><cf_tl id="Edition">:</td>
+				<td style="width:80%">
+						
+				<cfquery name="Edition"
 				datasource="AppsSelection" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
-				    SELECT   *
-					FROM     OccGroup
-					WHERE    OccupationalGroup = '#parentgroup#'	
+					SELECT    R.Owner, E.Description, R.SubmissionEdition, R.EditionDescription
+					FROM      Ref_SubmissionEdition R INNER JOIN
+				              Ref_ExerciseClass E ON R.ExerciseClass = E.ExcerciseClass
+					WHERE     R.Operational = 1
+					<cfif SESSION.isAdministrator eq "No">
+					AND R.Owner IN (  SELECT ClassParameter 
+		        			          FROM   Organization.dbo.OrganizationAuthorization 
+								  	  WHERE  Role = 'FunctionAdmin' 
+									  AND    UserAccount = '#SESSION.acc#')
+						
+					</cfif>		
+					ORDER BY  R.Owner, R.EditionDescription
 				</cfquery>
-			  
-			  #get.DescriptionFull#</td></tr> 
-			  
-			   <cfset row = 0>
-		  
-			  <cfoutput>
-			 
-			  <cfset row = row + 1>
-		  	  <cfif row eq 1><tr></cfif> 
-			
-			  <td width="20" style="padding-left:5px">
-			    <input type="checkbox"  name="OccupationalGroup" value="'#OccupationalGroup#'">
+				
+				<cfselect name="submissionedition" group="Owner" queryposition="below" query="edition" value="submissionedition" display="editiondescription" visible="Yes" enabled="Yes" class="regularxl">				
+					<option value="">Any</option>		
+				</cfselect>
+				
+				<!---
+				
+				<table>
+				
+				  <cfset row = 1>	  
+			      <cfoutput query="class">
+				 
+			  	  <cfif row eq 1><tr></cfif> 
+				
+				  <td class="labelmedium" style="padding-right:5px">
+				      <input class="radiol" type="checkbox" name="FunctionClass" value="'#FunctionClass#'" <cfif #FunctionClass# eq "Standard">checked</cfif>>
+					  </td>
+					  <td class="labelmedium" style="padding-left:2px;padding-right:5px">#FunctionClass#</option>
+				  </td>
+				  <cfset row = row + 1>
+				  <cfif row eq "10">
+				    </tr>
+				    <cfset row = 1>
+				  </cfif>
+				  
+				  </cfoutput>
+				  
+				</table>
+				
+				--->
+					
 				</td>
-				<td class="labelit" style="height:15px;padding-left:10px">#Acronym#</td>
-				<td class="labelit" style="height:15px;padding-left:10px">#Description#</td>
+			</tr>
+			
+			<TR>
+			<td style="padding-left:20px" class="labelmedium"><cf_tl id="Status">:</td>
+			<TD>
+			
+			<table>
+			
+			</tr>
+			
+		    <tr> 
+			
+			  <td class="labelmedium">
+			      <table><tr>
+				  <td style="padding-left:0px"><input class="radiol" type="checkbox" name="FunctionOperational" value="'1'" checked></td>
+				  <td class="labelmedium" style="padding-left:4px"><cf_tl id="Operational"></td>
+				  <td style="padding-left:10px"><input class="radiol" type="checkbox" name="FunctionOperational" value="'0'"></td>
+				  <td class="labelmedium" style="padding-left:4px"><cf_tl id="Deactivated"></td>
+				  </tr></table>
+			  </td>
+			 
+		    </tr>
+					 	  
+			</table>
+				
+			</TD>
+			</TR>
+			
+			<TR>
+				<td style="padding-left:20px;padding-top:5px" class="labelmedium"><cf_tl id="Function Network">:</td>
+				<td>
+			</tr>	
+		  
+			<TR>
+			
+			<!---
+			<td style="padding-left:20px;padding-top:4px" class="labelmedium" width="140" valign="top"><cf_tl id="Job Family">:</td>
+			--->
+			
+			<TD width="90%" colspan="2" align="center" style="padding-left:40px">
+			
+			<table width="100%" cellspacing="0" cellpadding="0" align="center">
+			  	  
+			  <cfset row = 0>	
+			    
+		      <cfoutput query="occgroup" group="parentgroup">
 			  
-			  <cfif row eq "3">
-			    </tr>
-			    <cfset row = 0>
-			  </cfif>
+			      <tr><td colspan="9" style="padding-top:4px;height:28px;font-size:16px"><font color="0080C0">
+				  							  
+					<cfquery name="get"
+					datasource="AppsSelection" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+					    SELECT   *
+						FROM     OccGroup
+						WHERE    OccupationalGroup = '#parentgroup#'	
+					</cfquery>
+				  
+				  #get.DescriptionFull#</td></tr> 
+				  
+				   <cfset row = 0>
+			  
+				  <cfoutput>
+				 
+				  <cfset row = row + 1>
+			  	  <cfif row eq 1><tr></cfif> 
+				
+				  <td width="20" style="padding-left:5px">
+				    <input type="checkbox"  name="OccupationalGroup" value="'#OccupationalGroup#'">
+					</td>
+					<td class="labelit" style="height:15px;padding-left:10px">#Acronym#</td>
+					<td class="labelit" style="height:15px;padding-left:10px">#Description#</td>
+				  
+				  <cfif row eq "3">
+				    </tr>
+				    <cfset row = 0>
+				  </cfif>
+				  
+				  </cfoutput>
 			  
 			  </cfoutput>
-		  
-		  </cfoutput>
-		  
-		</table>
+			  
+			</table>
+			
+			</TD>
+			</TR>
+					
+			<tr><td class="linedotted" height="1" colspan="2"></td></tr>
+			
+			<tr><td colspan="2" align="center">
+			
+				<input type="submit" value="Search" class="button10g">
+			
+			</td></tr>
+			
+		</TABLE>
 		
-		</TD>
-		</TR>
-				
-		<tr><td class="linedotted" height="1" colspan="2"></td></tr>
-		
-		<tr><td colspan="2" align="center">
-		
-			<input type="submit" value="Search" class="button10g">
+		</CFFORM>
 		
 		</td></tr>
 		
-	</TABLE>
+	</table>
 	
-	</CFFORM>
-	
-	</td></tr>
-	
-</table>
+	</cf_divscroll>
 
-</cf_divscroll>
+</cfif>
 
 

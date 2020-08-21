@@ -37,6 +37,7 @@ password="#SESSION.dbpw#">
 		se = document.getElementById(cde)	
 		if (se.className == "hide") {
 			se.className  = "labelmedium" 
+			_cf_loadingtexthtml='';	
 			ptoken.navigate('List.cfm?code='+cde,cde+'_list')
 		} else {
 			se.className  = "hide"		
@@ -51,6 +52,7 @@ password="#SESSION.dbpw#">
 		 form_id = 'settlement_'+code;		
 		 document.forms[form_id].onsubmit() 
 		 if( _CF_error_messages.length == 0 ) {
+		        _cf_loadingtexthtml='';	
 		       	ptoken.navigate('ListSubmit.cfm',code+'_list','','','POST',form_id);
 		 }  
 			 

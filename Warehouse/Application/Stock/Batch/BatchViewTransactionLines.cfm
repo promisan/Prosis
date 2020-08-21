@@ -887,10 +887,10 @@ password="#SESSION.dbpw#">
 											 #numberformat(MetricValue,",._")#									 
 										  </cfif>									 
 										</td>																				
-										<td id="person_#transactionid#">
+										<td id="person_#transactionid#" style="min-width:120px">
 										
 											<cfif RequestReference neq "">
-											<a href="javascript:mail2('print','#RequestReference#')"><font color="0080C0">#RequestReference#</font></a>
+											<a href="javascript:mail2('print','#RequestReference#')">#RequestReference#</a>
 											<cfelseif Personno neq "">										
 											#LastName# <cfif reference neq "">(#Reference#)</cfif>																		
 											<cfelseif workorderid neq "">
@@ -1345,7 +1345,7 @@ password="#SESSION.dbpw#">
 									   <td></td>											      
 									   <td height="20" class="labelit" style="padding:4px" colspan="11" align="center" bgcolor="ffffaf">		
 									     <font color="FFFFFF">
-											 <b>Alert</b> : this Item was issued already #numberformat(abs(TransactionQuantity),"__,__")# for this day.  
+											 <b>Alert</b> : this Item was issued already #numberformat(abs(TransactionQuantity),",__")# for this day.  
 										 </font>
 									   </td>
 								   </tr>

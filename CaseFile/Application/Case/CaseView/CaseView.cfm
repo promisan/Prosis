@@ -1,5 +1,5 @@
 
-<cfajaximport tags="cfform,cfmenu,cfdiv,cfinput-autosuggest,cfwindow">
+<cfajaximport tags="cfform,cfdiv,cfinput-autosuggest">
 
 <cf_ActionListingScript>
 <cf_FileLibraryScript>
@@ -64,9 +64,13 @@
 
 </cfif>
 
+<cfparam name="Client.googlemapid" default="">
+
+<!--- disalbed googlemap as it conflicts with Kendo
 <cfif Client.googlemap eq "1">
      <cfajaximport tags="cfmap" params="#{googlemapkey='#client.googlemapid#'}#">
 </cfif>
+--->
 		
 <cfparam name="URL.ClaimId" default="00000000-0000-0000-0000-000000000000">
 		
@@ -77,8 +81,6 @@
 <cfelse>
     <cfset init = 0>	
 </cfif>	
-
-<cfparam name="Client.googlemapid" default="">
 	
 <cfoutput>	
 	
@@ -147,7 +149,7 @@ function validateincident(id,box) {
 	
 </cfif>	
 
-<table width="99%" height="100%" border="0" align="center" cellspacing="0" cellpadding="0">		
+<table width="99%" height="100%" align="center">		
 		
 	<cfif init eq "1">
 	

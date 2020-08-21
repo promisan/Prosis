@@ -11,7 +11,7 @@
 		datasource="AppsOrganization" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-			SELECT   TOP 19 *
+			SELECT   *
 			FROM     Organization AS O 
 			WHERE    O.Mission = '#url.mission#' 			
 			AND      O.DateEffective  < '#url.selection#' 

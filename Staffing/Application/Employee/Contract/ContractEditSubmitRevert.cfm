@@ -167,26 +167,35 @@
 			<!--- ------------------------------------------------------------- --->			
 			<!--- sync the entitlement payroll for each reverted action as well --->
 			<!--- ------------------------------------------------------------- --->
+			
+			<cf_verifyOperational 
+		         datasource= "appsOrganization"
+		         module    = "Payroll" 
+				 Warning   = "No">
+			 
+				<cfif operational eq "1">
 						
-			<cfquery name="RevertPayroll" 
-			     datasource="AppsOrganization" 
-			     username="#SESSION.login#" 
-			     password="#SESSION.dbpw#">
-			      UPDATE Payroll.dbo.PersonEntitlement 
-				  SET    DateEffective  = '#Contract.DateEffective#',
-				         <cfif contract.dateExpiration neq "">
-					     DateExpiration = '#Contract.DateExpiration#',
-						 </cfif>						 
-						 <cfif Contract.SalarySchedule neq "">
-					     SalarySchedule = '#Contract.SalarySchedule#',
-						 </cfif>
-						 Status         = '#status#'
-				  WHERE  ContractId     = '#ActionSourceId#'	
-				   <!--- if we revert we only revert the record of action --->
-				  <cfif contractstatus eq "0"> 
-				  AND    ContractId     = '#getAction.ActionSourceId#'				  
-				  </cfif>				    
-			</cfquery>	
+				<cfquery name="RevertPayroll" 
+				     datasource="AppsOrganization" 
+				     username="#SESSION.login#" 
+				     password="#SESSION.dbpw#">
+				      UPDATE Payroll.dbo.PersonEntitlement 
+					  SET    DateEffective  = '#Contract.DateEffective#',
+					         <cfif contract.dateExpiration neq "">
+						     DateExpiration = '#Contract.DateExpiration#',
+							 </cfif>						 
+							 <cfif Contract.SalarySchedule neq "">
+						     SalarySchedule = '#Contract.SalarySchedule#',
+							 </cfif>
+							 Status         = '#status#'
+					  WHERE  ContractId     = '#ActionSourceId#'	
+					   <!--- if we revert we only revert the record of action --->
+					  <cfif contractstatus eq "0"> 
+					  AND    ContractId     = '#getAction.ActionSourceId#'				  
+					  </cfif>				    
+				</cfquery>	
+				
+			</cfif>	
 			
 			<!--- ----------------------------------------------------- --->			
 			<!--- sync the dep payroll for each reverted action as well --->
@@ -207,6 +216,13 @@
 			</cfquery>
 			
 			<cfif status neq "0">
+			
+				<cf_verifyOperational 
+		         datasource= "appsOrganization"
+		         module    = "Payroll" 
+				 Warning   = "No">
+			 
+				<cfif operational eq "1">
 																
 				<cfquery name="RevertPayroll" 
 				     datasource="AppsOrganization" 
@@ -217,6 +233,8 @@
 					  WHERE  PersonNo    = '#PersonNo#'
 					  AND    DependentId = '#ActionSourceId#'					    
 				</cfquery>		
+				
+				</cfif>
 			
 			</cfif>
 						
@@ -263,14 +281,23 @@
 				<!--- contract --->
 				
 				<cfif contractstatus eq "9">
+				
+					<cf_verifyOperational 
+			         datasource= "appsOrganization"
+			         module    = "Payroll" 
+					 Warning   = "No">
+					 
+					<cfif operational eq "1">
 					
-					<cfquery name="RevertContractPayroll" 
-					 datasource="AppsOrganization" 
-					 username="#SESSION.login#" 
-					 password="#SESSION.dbpw#">
-					      DELETE FROM Payroll.dbo.PersonEntitlement 
-						  WHERE  ContractId  = '#ActionSourceId#'	
-					</cfquery>		
+						<cfquery name="RevertContractPayroll" 
+						 datasource="AppsOrganization" 
+						 username="#SESSION.login#" 
+						 password="#SESSION.dbpw#">
+						      DELETE FROM Payroll.dbo.PersonEntitlement 
+							  WHERE  ContractId  = '#ActionSourceId#'	
+						</cfquery>		
+					
+					</cfif>
 					
 					<cfquery name="DeleteRecord" 
 					   datasource="AppsOrganization" 
@@ -323,14 +350,23 @@
 					
 						<!--- dependent --->	
 						
-						<cfquery name="RevertDependentPayroll" 
-						     datasource="AppsOrganization" 
-						     username="#SESSION.login#" 
-						     password="#SESSION.dbpw#">
-						      DELETE FROM Payroll.dbo.PersonDependentEntitlement 
-							  WHERE  PersonNo    = '#PersonNo#'
-							  AND    DependentId = '#ActionSourceId#'					    
-						</cfquery>		
+						<cf_verifyOperational 
+				         datasource= "appsOrganization"
+				         module    = "Payroll" 
+						 Warning   = "No">
+						 
+						<cfif operational eq "1">
+						
+							<cfquery name="RevertDependentPayroll" 
+							     datasource="AppsOrganization" 
+							     username="#SESSION.login#" 
+							     password="#SESSION.dbpw#">
+							      DELETE FROM Payroll.dbo.PersonDependentEntitlement 
+								  WHERE  PersonNo    = '#PersonNo#'
+								  AND    DependentId = '#ActionSourceId#'					    
+							</cfquery>	
+						
+						</cfif>	
 									
 						<cfquery name="RevokeDependent" 
 						   datasource="AppsOrganization" 
@@ -367,6 +403,13 @@
 			      WHERE  ContractId  = '#Attributes.ContractId#'  
 			</cfquery>		
 			
+			<cf_verifyOperational 
+	         datasource= "appsOrganization"
+	         module    = "Payroll" 
+			 Warning   = "No">
+			 
+			<cfif operational eq "1">
+			
 			<cfquery name="RevertPayroll" 
 			     datasource="AppsOrganization" 
 			     username="#SESSION.login#" 
@@ -375,6 +418,8 @@
 				  SET  	 Status      = '9'						   
 				  WHERE  ContractId  = '#Attributes.ContractId#'  			    
 			</cfquery>		
+			
+			</cfif>
 			
 		<cfelseif qAction eq "Revert">
 		
@@ -385,7 +430,14 @@
 		    	  UPDATE Employee.dbo.PersonContract 
 			      SET    ActionStatus = '0'
 			      WHERE  ContractId  = '#Attributes.ContractId#'  
-			</cfquery>		
+			</cfquery>	
+			
+			<cf_verifyOperational 
+	         datasource= "appsOrganization"
+	         module    = "Payroll" 
+			 Warning   = "No">
+			 
+			<cfif operational eq "1">	
 			
 			<cfquery name="RevertPayroll" 
 			     datasource="AppsOrganization" 
@@ -394,7 +446,9 @@
 			      UPDATE Payroll.dbo.PersonEntitlement 
 				  SET  	 Status      = '0'						   
 				  WHERE  ContractId  = '#Attributes.ContractId#'  			   
-			</cfquery>				
+			</cfquery>		
+			
+			</cfif>		
 		
 		<cfelse>
 						
@@ -406,13 +460,22 @@
 				  WHERE  ContractId  = '#Attributes.ContractId#'  
 			</cfquery>
 			
-			<cfquery name="RevertPayroll" 
-			     datasource="AppsOrganization" 
-			     username="#SESSION.login#" 
-			     password="#SESSION.dbpw#">
-			      DELETE Payroll.dbo.PersonEntitlement 							   
-				  WHERE  ContractId  = '#Attributes.ContractId#'  			    
-			</cfquery>		
+			<cf_verifyOperational 
+	         datasource= "appsOrganization"
+	         module    = "Payroll" 
+			 Warning   = "No">
+			 
+			<cfif operational eq "1">
+			
+				<cfquery name="RevertPayroll" 
+				     datasource="AppsOrganization" 
+				     username="#SESSION.login#" 
+				     password="#SESSION.dbpw#">
+				      DELETE Payroll.dbo.PersonEntitlement 							   
+					  WHERE  ContractId  = '#Attributes.ContractId#'  			    
+				</cfquery>		
+			
+			</cfif>
 		
 			<cfquery name="DeleteContract" 
 			   datasource="AppsOrganization" 

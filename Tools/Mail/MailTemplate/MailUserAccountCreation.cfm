@@ -15,15 +15,20 @@ FROM    Parameter
 WHERE HostName = '#CGI.HTTP_HOST#'  
 </cfquery>
 
-<cfif System.AccountNotification eq "1">
+<cfif System.SystemContactEMail neq "">
+	<cfset eMail = System.SystemContactEMail>
+<cfelse>
+    <cfset eMail = Client.eMail>
+</cfif>	
 
+<cfif System.AccountNotification eq "1">
 
 	<cfif FileExists ("#SESSION.rootPATH#Custom\#System.ApplicationServer#\AccountCreationNotification.cfm")>
 
 		<cfinclude template="../../../Custom/#System.ApplicationServer#/AccountCreationNotification.cfm">
 
-
 	<cfelse>
+	
 		<cfoutput>
 		<cfset vTitle ="Prosis | User Account Creation">
 		<cfset vPreHeader = "You have a new Prosis account for #session.welcome#">
@@ -31,7 +36,7 @@ WHERE HostName = '#CGI.HTTP_HOST#'
                   <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;" width="100%">
                     <tr>
                       <td style="font-family: Helvetica, sans-serif; font-size: 14px; vertical-align: top;" valign="top">
-                        <p style="font-family: Helvetica, sans-serif; font-size: 24px; font-weight: normal; margin: 0; margin-bottom: 16px;">Welcome to Prosis</p>
+                        <p style="font-family: Helvetica, sans-serif; font-size: 24px; font-weight: normal; margin: 0; margin-bottom: 16px;">Welcome to #session.Welcome#</p>
                           <p style="color:##3c4043;font-family: Helvetica, sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 18px;">You have a new <strong>Prosis</strong> Account with <strong>#session.welcome#</strong>.<br><br>Please sign in to your account to access the Prosis services your organization provides using the following credentials:</p>
                           <p style="font-family: Helvetica, sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 18px;"><strong>Username:</strong> #Check.account#</p>
                             <p style="font-family: Helvetica, sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 18px;"><strong>Temporary Password:</strong> #attributes.password#</p><br>
@@ -73,7 +78,7 @@ WHERE HostName = '#CGI.HTTP_HOST#'
 	<cfset vSubject = "#SESSION.welcome# #lt_text#">
 
 	<cfmail TO  = "#Check.eMailAddress#"
-    	FROM        = "#SESSION.first# #SESSION.last# <#Client.eMail#>"
+    	FROM        = "#email##"
 		SUBJECT     = "#vSubject#"
 		FAILTO      = "#CLIENT.eMail#"
 		mailerID    = "#SESSION.welcome# CFMX 7"

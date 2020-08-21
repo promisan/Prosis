@@ -1,8 +1,6 @@
 		
 <cfparam name="url.id2" default="">	
 
-<cfajaximport tags="cfdiv">
-
 <cfparam name="form.operational" default="0">	
 	
 <cfquery name="Listing" 
@@ -31,7 +29,7 @@ password="#SESSION.dbpw#">
 	WHERE ActionSource IN ('Person')	
 </cfquery>
 
-<table width="95%" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<table width="95%" align="center" class="navigation_table">
 			
     <tr class="labelmedium line">
 	   <td width="20"></td>
@@ -48,10 +46,11 @@ password="#SESSION.dbpw#">
 
 	<cfif URL.ID2 eq "new">
 		<TR><TD colspan="10" style="height:35px">	
-		<cfform method="POST" name="mytopic" onsubmit="return false">
-		<TABLE width="100%">		
-		<tr height="20" bgcolor="f4f4f4">
 		
+		<cfform method="POST" name="mytopic" onsubmit="return false">
+		
+		<TABLE width="100%">		
+		<tr class="line" height="20" bgcolor="f4f4f4">		
 		<td></td>
 		<td height="25">
 		
@@ -62,7 +61,8 @@ password="#SESSION.dbpw#">
 					 required="Yes" 
 					 size="2" 
 					 maxlength="20" 
-					 class="regularH">
+					 style="border:0px;border-left:1px solid silver;border-right:1px solid silver"
+					 class="regularxl">
         </td>	
 							   
 		<td>
@@ -72,11 +72,12 @@ password="#SESSION.dbpw#">
 					 required="Yes" 
 					 size="50" 						 
 					 maxlength="60" 
-					 class="regularH">
+					 style="border:0px;border-left:1px solid silver;border-right:1px solid silver"
+					 class="regularxl">
 		</td>
 		
 		<td>
-			<select name="ActionCode" style="font:10px">
+			<select name="ActionCode" class="regularxl" style="border:0px;border-left:1px solid silver;border-right:1px solid silver">
 			    <option value="">N/A</option>
 				<cfoutput query="Action">
 					<option value="#ActionCode#">#ActionCode# #Description#</option>
@@ -86,7 +87,7 @@ password="#SESSION.dbpw#">
 				
 		<td>
 		
-		 <select name="Context" class="regularxl">							
+		 <select name="Context" class="regularxl" style="border:0px;border-left:1px solid silver;border-right:1px solid silver">							
 							<cfloop query="ContextList">
 								<option value="#context#">#Context#</option>
 							</cfloop>		
@@ -97,8 +98,8 @@ password="#SESSION.dbpw#">
 		<td></td>
 		
 		<td>
-		      <input type="Checkbox"
-		       name="Operational"
+		      <input type="Checkbox" 
+		       name="Operational" class="radiol"
 		       value="1" checked>   
 		</td>
 										   
@@ -106,14 +107,15 @@ password="#SESSION.dbpw#">
 			<cfoutput>
 				<input type="submit" 
 					value="Save" 
+					style="border:0px;border-left:1px solid silver;border-right:1px solid silver"
 					onclick="save('new')"
 					class="button10g">
 			</cfoutput>		
 		</td>			    
 		</tr>	
-		
-		<tr><td height="1" colspan="8" class="line"></td></tr>
+			
 		</TABLE>		
+		
 		</cfform>
 		</TD>
 		</TR>				
@@ -145,12 +147,13 @@ password="#SESSION.dbpw#">
 						required     = "Yes" 
 						size         = "30" 
 						maxlength    = "60" 
+						style="border:0px;border-left:1px solid silver;border-right:1px solid silver"
 						class        = "regularxl">			  
 		           </td>
 							   
 				   <td width="20%">
 			
-						<select name="ActionCode" class="regularxl">
+						<select name="ActionCode" class="regularxl" style="border:0px;border-left:1px solid silver;border-right:1px solid silver">
 							<option value="">N/A</option>
 							<cfloop query="Action">
 								<option value="#ActionCode#" <cfif listing.actioncode eq actioncode>selected</cfif>>#ActionCode# #Description#</option>
@@ -162,7 +165,7 @@ password="#SESSION.dbpw#">
 				   
 				   <td width="20%" class="labelit">
 				   
-				   	   <select name="Context" class="regularxl">							
+				   	   <select name="Context" class="regularxl" style="border:0px;border-left:1px solid silver;border-right:1px solid silver">							
 							<cfloop query="ContextList">
 								<option value="#context#" <cfif listing.context eq context>selected</cfif>>#Context#</option>
 							</cfloop>		
@@ -177,7 +180,7 @@ password="#SESSION.dbpw#">
 				    <td width="5%">
 				 
 					     <input type="Checkbox"
-					       name="Operational"
+					       name="Operational" class="radiol"
 					       value="1"
 						   <cfif operational eq "1">checked</cfif>>
 						   
@@ -187,6 +190,7 @@ password="#SESSION.dbpw#">
 				   
 				   <input type="submit" 
 				        value="Save" 
+						style="border:0px;border-left:1px solid silver;border-right:1px solid silver"
 						onclick="save('#code#')"
 						class="button10g">
 	

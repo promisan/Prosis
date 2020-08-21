@@ -48,6 +48,8 @@
 	
 	<td align="right" width="350">
 	
+	<!--- disabled hanno 18/8/2020 
+	
 	<cfmenu 
 	    name="claimmenu"
 	    font="verdana"
@@ -87,6 +89,8 @@
 		 --->	 
 	
 	</cfmenu>
+	
+	--->
 
 </td></tr>
 

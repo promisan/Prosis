@@ -215,7 +215,7 @@
 		
 	</cfif>	
 	
-	<cfset show = "11">
+	<cfset show = "10">
 	
 	<cfset No = URL.Page*show>
 	
@@ -306,27 +306,20 @@
 	
 </cfif>	
 
-<tr><td height="97%" valign="top" style="padding-left:20px;padding-right:18px">
+<tr><td height="97%" valign="top" style="padding-left:15px;padding-right:14px">
 
         <cf_divscroll>
     
-		<table width="98%" class="navigation_table">   
-				
-			<!---
-				
-				<tr><td colspan="4" class="linedotted"></td></tr>						
-				<TR bgcolor="f4f4f4" class="labelmedium">
-				   	
-				    <td height="15" width="8%"></td>
-				    <TD><cf_tl id="Code"></TD>
-					<td width="4">&nbsp;</td>
-					<TD width="70%"><cf_tl id="Display"></TD>
-					<td></td>
-					
-				</TR>
-				
-				--->
-			
+		<table style="width:99%" class="navigation_table">   
+																	
+			<TR bgcolor="f4f4f4" class="labelmedium fixrow">
+			   	
+			    <td height="15" width="8%"></td>
+			    <TD><cf_tl id="Code"></TD>				
+				<TD><cf_tl id="Display"></TD>
+								
+			</TR>
+							
 			<cfset Start = (show)*(URL.Page-1)+1> 
 							
 			<cfoutput query="SearchResult" startrow="#start#" maxrows="#show#">
@@ -341,17 +334,17 @@
 			
 			</cfif>
 				
-			<td align="center" style="min-width:30px">			
+			<td style="min-width:30px">			
 			  <cf_img icon="open" onClick="multivalue('add','#PK#','#url.par#','#url.fly#','#URL.Page#')" navigation="Yes">						   
 			</td>
 						
 			<cfif base.Lookupfieldshow eq "1">	
-			  <TD style="width:10%">		 
+			  <TD style="min-width:90px">		 
 			  <cfif Base.CriteriaType eq "Unit">#Code#<cfelse>#PK#</cfif>
 			  </td>
 			</cfif>			
 			
-			<td style="padding-left:10px;width:70%;padding-right:10px">
+			<td style="padding-left:5px;width:70%;padding-right:20px">
 			
 			  <cfif len(display) gt "65">
 			    <a href="##" title="#Display#">#left(Display,65)#...</a>

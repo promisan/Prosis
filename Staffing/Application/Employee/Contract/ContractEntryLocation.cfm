@@ -1,3 +1,4 @@
+<cftry>
 
 	<cfquery name="Location" 
 	datasource="AppsPayroll" 
@@ -33,3 +34,28 @@
 		</cfoutput>		
 		
 	</select>
+		
+	<cfcatch>
+	
+	<cfquery name="Location" 
+		datasource="AppsEmployee" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">	
+			SELECT   *
+			FROM     Location
+			WHERE    Mission = '#url.mission#'		
+		</cfquery>	
+		
+		<select name="ServiceLocation" class="regularxl">
+		
+		    <option value="">-- select --</option>
+			<cfoutput query="Location">
+			     <option value="#LocationCode#">#LocationCode# #LocationName#</option> 
+			</cfoutput>		
+			
+		</select>
+	
+	
+	</cfcatch>	
+	
+</cftry>	

@@ -119,6 +119,7 @@
 						AND    AccessLevel IN ('2','3')
 						AND    UserAccount = '#SESSION.acc#')
 	</cfif>
+	AND    M.Operational = 1
 	ORDER BY MissionOwner					
 	</cfquery>
 		

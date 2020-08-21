@@ -36,7 +36,7 @@
 		<cfif day eq "0">
 		   <td class="line" align="center" style="height:35px;min-width:100;border-bottom:1px solid silver"><cf_tl id="Time"></td>
 		<cfelse>					
-		   <td colspan="1" class="line" style="border-left:1px solid silver;border-bottom:1px solid silver" align="center">#left(DayOfWeekAsString(day),3)#</td>
+		   <td colspan="1" class="line" style="height:35px;border-left:1px solid silver;border-bottom:1px solid silver" align="center">#left(DayOfWeekAsString(day),3)#</td>
 		</cfif>
 		</tr>
 		
@@ -45,7 +45,7 @@
 		<tr class="labelmedium">
 		
 		<cfif day eq "0">
-		   <td class="line" align="right" style="min-width:100;border-bottom:1px solid silver;">
+		   <td class="line" align="right" style="height:34px;min-width:100;border-bottom:1px solid silver;">
 		   	<table>
 				<td style="padding-top:2px;padding-right:10px;">
 					<input class="button10g" style="width:100px;height:17" type="button" onclick="clearWSSelection();" name="btnClear" id="btnClear" value="Clear">
@@ -59,7 +59,7 @@
 		   <td colspan="1" align="center">
 		   <table style="width:100%;height:100%"><tr>
 		   <cfloop index="itm" from="1" to="#url.slots#">
-		   <td class="line" style="height:34px;border-left:1px solid silver;border-bottom:1px solid silver" align="center">
+		   <td class="line" style="height:32px;border-left:1px solid silver;border-bottom:1px solid silver" align="center">
 		   <cfif itm eq "1">00<cfelse>30</cfif>
 		   </td>
 		   </cfloop>
@@ -70,7 +70,7 @@
 		
 		</cfif>
 						
-		<cfloop index="hr" from="0" to="23" step="1">
+		<cfloop index="hr" from="5" to="20" step="1">
 									
 			<tr class="line labelmedium navigation_row" style="height:23px">
 			
@@ -88,11 +88,11 @@
 					
 			  <cfelse>  				
 									
-				<td align="center" width="12%">
+				<td align="center" style="width:12%" valign="top">
 				
-					<table style="width:100%">
+					<table cellspacing="0" cellpadding="0" style="width:100%">
 					
-					<tr style="height:20px">
+					<tr>
 					
 					<cfloop index="slt" from="1" to="#url.slots#">
 					
@@ -145,7 +145,7 @@
 						</cfif>
 					  </cfif>
 							
-					  <td align="center" style="padding-left:3px;background-color:#color#;min-width:35px;border-left:1px solid silver;" class="clsWSHrSlot #v9To5#">
+					  <td align="center" style="padding-top:2px;padding-bottom:2px;height:20px;padding-left:3px;background-color:#color#;min-width:35px;border-left:1px solid silver;" class="clsWSHrSlot #v9To5#">
 							
 				      <input type="checkbox" 
 					      name="selecthour" 

@@ -1,7 +1,7 @@
 
 <cf_screentop height="100%" scroll="No" html="No" jquery="Yes" title="Miscellaneous entry" menuaccess="context">
 
-<cfquery name="Object" 
+<cfquery name="vwObject" 
 	datasource="AppsOrganization" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">	
@@ -14,7 +14,7 @@
 	
 <cf_layoutscript>
 
-<cfif Object.recordcount eq "1">
+<cfif vwObject.recordcount eq "1">
 	<cf_textareascript>
 </cfif>
 
@@ -40,10 +40,10 @@
 
 	</cf_layoutarea>	
 	
-	<cfif Object.recordcount eq "1">
-	
+	<cfif vwObject.recordcount eq "1">
+		
 		<cf_layoutarea 
-		    position="right" name="commentbox" minsize="20%" maxsize="30%" size="380" overflow="yes" collapsible="true" splitter="true">
+		    position="right" name="commentbox" minsize="20%" maxsize="30%" size="380" initcollapsed="Yes" overflow="yes" collapsible="true" splitter="true">
 		
 			<cf_divscroll style="height:100%">
 				<cf_commentlisting objectid="#Object.ObjectId#"  ajax="No">		

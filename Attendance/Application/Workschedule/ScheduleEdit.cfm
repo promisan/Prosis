@@ -222,8 +222,8 @@
 		</tr>
 
 						<tr>
-							<td align="center" width="100%">
-								<table width="100">
+							<td align="center" width="100%" style="padding-top:5px">
+								<table width="100" class="formspacing">
 									<tr>
 										<td>
 											<button onclick="javascript:ProsisUI.closeWindow('myschedule')" class="button-2019-a">Close</button>

@@ -16,8 +16,13 @@
 		WHERE   HostName = '#CGI.HTTP_HOST#' 
 </cfquery>
 
+<cfif System.SystemContactEMail neq "">
+	<cfset eMail = System.SystemContactEMail>
+<cfelse>
+    <cfset eMail = Client.eMail>
+</cfif>	
 
-<cfif Check.eMailAddress neq "">   <!--- and Check.DisableNotification eq "0" --->
+<cfif email neq "">   <!--- and Check.DisableNotification eq "0" --->
 	
    <cfoutput>
    
@@ -91,7 +96,7 @@
 	<cfset vSubject = "#SESSION.welcome# ** #lt_text# **">
 			
 	<cfmail TO          = "#Check.eMailAddress#"	       	
-   			FROM        = "#System.Systemcontact#  <#System.SystemContactEMail#>"
+   			FROM        = "#eMail#"
 			SUBJECT     = "#vSubject#"
 			FAILTO      = "#System.SystemContactEMail#"
 			mailerID    = "#SESSION.welcome#"

@@ -208,10 +208,7 @@
 				  </cfquery>	
 					  
 				  <cfset sendto = "#Address.eMailAddress#">   
-				  <cfif sendto eq "">
-				     <cfset sendto = "#Address.eMailAddress2#">
-				  </cfif>
-				  
+				 				  
 			   <cfelse>
 			   		
 					<!--- should never occur --->	   

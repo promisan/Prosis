@@ -2,6 +2,7 @@
 <cfset add          = "1">
 <cfset save         = "0"> 
 
+<cf_screentop html="No" jquery="Yes">
 
 <cfquery name="SearchResult"
 datasource="AppsEmployee" 

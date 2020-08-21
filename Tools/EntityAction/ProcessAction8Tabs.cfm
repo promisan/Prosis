@@ -116,6 +116,21 @@
 
 <!--- tab for questionaire --->	   
 
+
+<cfquery name="Action" 
+	 datasource="AppsOrganization"
+	 username="#SESSION.login#" 
+	 password="#SESSION.dbpw#">
+	   SELECT  *
+	   FROM    OrganizationObjectAction OA, 
+	           Ref_EntityActionPublish P,
+			   Ref_EntityAction A				
+	   WHERE   ActionId = '#URL.ID#' 
+	   AND     OA.ActionPublishNo = P.ActionPublishNo
+	   AND     OA.ActionCode = P.ActionCode 
+	   AND     A.ActionCode = P.ActionCode
+	</cfquery>
+
 <cfinclude template="ProcessActionQuestionaire.cfm">		 	
 
 <cfset boxno = boxno+1>

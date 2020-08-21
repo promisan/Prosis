@@ -10,20 +10,19 @@ password="#SESSION.dbpw#">
 </cfquery>
 
 <cfif Error.EnableProcess eq 1>
-
-	<cfquery name="Parameter" 
-		datasource="AppsInit">
-		SELECT * 
-		FROM   Parameter
-		WHERE  HostName = '#CGI.HTTP_HOST#'
-	</cfquery>
-	
+		
 	<cfquery name="System" 
 	datasource="AppsInit">
 		SELECT  *
 		FROM    Parameter
 		WHERE HostName = '#CGI.HTTP_HOST#' 
 	</cfquery>
+		
+	<cfif System.SystemContactEMail neq "">
+		<cfset eMail = System.SystemContactEMail>
+	<cfelse>
+	    <cfset eMail = Client.eMail>
+	</cfif>	
 
 	<cfoutput>
 
@@ -106,7 +105,7 @@ password="#SESSION.dbpw#">
 						<tr>
 							<td width="100%" colspan="2" align="center">
 								<font size="3" color="black">
-									<cfif Parameter.ErrorMailToOwner neq "9">
+									<cfif System.ErrorMailToOwner neq "9">
 										<cf_tl id="You can check the status of the ticket in the following link">:  
 										<a name="Support Portal"
                                         id="Support Portal"
@@ -132,7 +131,7 @@ password="#SESSION.dbpw#">
 	<cfset vSubject = "#SESSION.welcome# #lt_text# #Error.ErrorNo#">
 
 	<cfmail TO  = "#Error.eMailAddress#"
-    	FROM        = "#SESSION.first# #SESSION.last# <#Client.eMail#>"
+    	FROM        = "#eMail#"
 		SUBJECT     = "#vSubject#"
 		FAILTO      = "#System.Systemcontact#"
 		mailerID    = "#SESSION.welcome#"

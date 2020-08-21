@@ -1,17 +1,19 @@
 
-<cfajaximport tags="cfform,cfwindow">
+<cf_screentop html="No" jquery="Yes">
+
+<cfajaximport tags="cfform,cfdiv">
 
 <script>
 
 function recordadd() {
-   ColdFusion.navigate('RecordListingDetail.cfm?id2=new','listing')
+   ptoken.navigate('RecordListingDetail.cfm?id2=new','listing')
 }
 
 function save(code) {
 
    document.mytopic.onsubmit() 
 	if( _CF_error_messages.length == 0 ) {
-       ColdFusion.navigate('RecordListingSubmit.cfm?id2='+code,'listing','','','POST','mytopic')
+       ptoken.navigate('RecordListingSubmit.cfm?id2='+code,'listing','','','POST','mytopic')
 	 }   
  }
 

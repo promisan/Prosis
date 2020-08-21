@@ -279,7 +279,7 @@
 							INNER JOIN (
 									SELECT    PersonNo, Mission, MAX(Created) as Created
 									FROM      PersonContract
-									WHERE     Mission         = '#url.mission#'
+									WHERE     Mission  IN ('#url.mission#','UNDEF')
 									AND       DateEffective  <= #prior# 
 									AND       DateExpiration >= #prior# 												
 									AND       ActionStatus IN ('0','1') 

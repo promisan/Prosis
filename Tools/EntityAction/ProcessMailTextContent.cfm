@@ -128,7 +128,7 @@
 		<body style="background:##f1f1f1;">
 		
 		    <table><tr><td height="40"></td></tr></table>
-			<table width="600" align="center" border="0" cellspacing="0" cellpadding="0" style="margin:auto;background: ##ffffff;font-family:Helvetica,sans-serif;color:##555555;font-size:15px;">	  
+			<table width="700" align="center" border="0" cellspacing="0" cellpadding="0" style="margin:auto;background: ##ffffff;font-family:Helvetica,sans-serif;color:##555555;font-size:15px;">	  
 				<tr>
 					<td colspan="2" style="padding-top:8px">
 						<table width="100%" height="50px" style="border-bottom:1px solid ##cccccc;padding:10px 20px 20px;">								
@@ -137,7 +137,7 @@
 								<td style="padding-left:10px;">
 									<h1 style="margin:0;color:##555555;font-weight:400;">
 									<cfif attributes.accesslevel eq "1">
-		                                            #SESSION.welcome# <cf_tl id="Alert"><br> 
+		                                            #SESSION.welcome# <cf_tl id="Action"><br> 
 		                                            <cfelse>
 		                                            #SESSION.welcome# <cf_tl id="Notification"><br>
 		                                            </cfif>
@@ -145,7 +145,7 @@
 		                                        </h1>
 		
 								</td>
-		                                    <td width="70px">						
+		                                    <td style="height:70px;height:70px">						
 									<img src="cid:alarm" width="60" height="60" border="0" align="absmiddle" style="display:block">
 								</td>
 							</tr>
@@ -170,9 +170,9 @@
 							<tr><td height="20" colspan="2" align="center"><h3><cf_tl id="Action details"></h3></td></tr>
 							<tr><td class="line" colspan="2"></td></tr>							
 							<tr><td height="20" align="right"><b><cf_tl id="Subject">: </b></td><td height="20" align="left">&nbsp; #qObject.EntityDescription#</td></tr>					
-							<tr><td height="20" align="right"><b><cf_tl id="Action">: </b></td><td height="20" align="left">&nbsp; #Action.ActionDescription#</td></tr>
+							<tr><td height="20" align="right"><b><cf_tl id="Action">: </b></td><td height="20" align="left">&nbsp; #ucase(Action.ActionDescription)#</td></tr>
 							<tr><td height="20" align="right"><b><cf_tl id="Reference">: </b></td><td height="20" align="left">&nbsp; #qObject.ObjectReference#</td></tr>
-							<tr><td height="20" align="right"><b><cf_tl id="Memo">: </b></td><td height="20" align="left">&nbsp; #qObject.ObjectReference2#</td></tr>
+							<tr><td height="20" align="right"><b><cf_tl id="Subject">: </b></td><td height="20" align="left">&nbsp; #qObject.ObjectReference2#</td></tr>
 		                    <tr height="40px"><td></td></tr>
 							
 							<!---

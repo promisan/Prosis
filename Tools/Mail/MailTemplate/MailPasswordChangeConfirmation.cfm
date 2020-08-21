@@ -19,42 +19,43 @@
 
 <cfquery name="Check" 
 datasource="AppsSystem">
-SELECT  *
-FROM    UserNames 
-WHERE   Account = '#Attributes.acc#'
+	SELECT  *
+	FROM    UserNames 
+	WHERE   Account = '#Attributes.acc#'
 </cfquery>
 
 <cfquery name="System" 
 datasource="AppsInit">
-SELECT  *
-FROM    Parameter
-WHERE HostName = '#CGI.HTTP_HOST#' 
+	SELECT  *
+	FROM    Parameter
+	WHERE   HostName = '#CGI.HTTP_HOST#' 
 </cfquery>
 
-<cfquery name="Parameter" 
-	datasource="AppsInit">
-		SELECT * FROM Parameter
-		WHERE HostName = '#CGI.HTTP_HOST#'
-</cfquery>
+<cfif System.SystemContactEMail neq "">
+	<cfset eMail = System.SystemContactEMail>
+<cfelse>
+    <cfset eMail = Client.eMail>
+</cfif>	
+
 
 <cfif System.AccountNotification eq "1">
 
-	<cfif Check.eMailAddress neq "" and #Check.DisableNotification# eq "0">
-	
+	<cfif Check.eMailAddress neq "" and Check.DisableNotification eq "0">
+		
 	   <cfoutput>
 	   	
-	<cfset vTitle ="Prosis Password reset">
-	<cfset vPreHeader = "The pasword for your Prosis Account has been reset.">
-	
-	
+	<cfset vTitle     = "#session.welcome# Password reset">
+	<cfset vPreHeader = "The pasword for your User Account has been reset.">
+					
 	<cfsavecontent variable="vBody">
-    <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;" width="100%">
+    
+	        <table style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;" width="100%">
                     <tr>
                       <td style="font-family: Helvetica, sans-serif; font-size: 14px; vertical-align: top;" valign="top">
-                        <p style="font-family: Helvetica, sans-serif; font-size: 24px; font-weight: normal; margin: 0; margin-bottom: 16px;text-align: center;"><strong>Prosis</strong> Password reset</p>
+                        <p style="font-family: Helvetica, sans-serif; font-size: 24px; font-weight: normal; margin: 0; margin-bottom: 16px;text-align: center;"><strong>#session.welcome#</strong> Password reset</p>
                           <p style="color:##3c4043;font-family: Helvetica, sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 18px;text-align: center;">
 						  	Hello #Check.FirstName# #Check.LastName#,<br><br>
-                            The pasword for your <strong>Prosis</strong> Account with <strong>#Attributes.welcome#</strong> (#Check.Account#) has been reset. You're getting this email to make sure it was you. <cf_tl id="In case you have <b>NOT</b> changed this password yourself" var="1">#trim(lt_text)#, <cf_tl id="you must contact"> <b>#System.Systemcontact#</b> <cf_tl id="immediately" var="1">#trim(lt_text)#.
+                            The pasword for your User Account with <strong>#Attributes.welcome#</strong> (#Check.Account#) was reset. You're getting this email to make sure it was you. <cf_tl id="In case you have <b>NOT</b> changed this password yourself" var="1">#trim(lt_text)#, <cf_tl id="you must contact"> <b>#System.Systemcontact#</b> <cf_tl id="immediately" var="1">#trim(lt_text)#.
 						  </p><br>
 						  <cfif trim(attributes.newPwd) neq "">
 							<p style="color:##3c4043;font-family: Helvetica, sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 18px;text-align: center;">
@@ -71,7 +72,8 @@ WHERE HostName = '#CGI.HTTP_HOST#'
                                 <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: auto;">
                                   <tbody>
                                     <tr>
-                                      <td style="font-family: Helvetica, sans-serif; font-size: 14px; vertical-align: top; background-color: ##3498db; border-radius: 4px; text-align: center;" valign="top" bgcolor="##3498db" align="center"> <a href="mailto:#Parameter.SystemContactEMail#" target="_blank" style="display: inline-block; color: ##ffffff; background-color: ##3498db; border: solid 2px ##3498db; border-radius: 4px; box-sizing: border-box; cursor: pointer; text-decoration: none; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 24px; text-transform: capitalize; border-color: ##3498db;">Contact Administrator &raquo;</a> </td>
+                                      <td style="font-family: Helvetica, sans-serif; font-size: 14px; vertical-align: top; background-color: ##3498db; border-radius: 4px; text-align: center;" valign="top" bgcolor="##3498db" align="center"> 
+									  <a href="mailto:#System.SystemContactEMail#" target="_blank" style="display: inline-block; color: ##ffffff; background-color: ##3498db; border: solid 2px ##3498db; border-radius: 4px; box-sizing: border-box; cursor: pointer; text-decoration: none; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 24px; text-transform: capitalize; border-color: ##3498db;">Contact Administrator &raquo;</a> </td>
                                     </tr>
                                   </tbody>
                                 </table>
@@ -82,10 +84,10 @@ WHERE HostName = '#CGI.HTTP_HOST#'
                         <br>
                       </td>
                     </tr>
-                  </table>
+            </table>
 		
 	</cfsavecontent>
-	
+			
 	<cfsavecontent variable="body">
 		<cfinclude template="MailContent.cfm">		
 	</cfsavecontent>
@@ -97,8 +99,11 @@ WHERE HostName = '#CGI.HTTP_HOST#'
 		<cf_tl id="password change" var="1">
 		<cfset vSubject = "#Attributes.welcome# #lt_text#">
 		
-		<cfmail TO  = "#Check.eMailAddress#"
-	   			FROM        = "#System.Systemcontact#  <#System.SystemContactEMail#>"
+		<!--- #System.Systemcontact#  <#System.SystemContactEMail#> --->
+		
+		
+		<cfmail TO  = "vanpelt@promisan.com"
+	   			FROM        = "#eMail#"
 				SUBJECT     = "#vSubject#"
 				FAILTO      = "#System.SystemContactEMail#"
 				mailerID    = "#Attributes.welcome#"
@@ -112,8 +117,10 @@ WHERE HostName = '#CGI.HTTP_HOST#'
 				<!--- disclaimer --->
 				<cf_maildisclaimer context="password" id="mailid:#rowguid#">
 				
-			<cfmailparam file="#Attributes.root#/Images/prosis-logo-300.png" contentid="logo" disposition="inline"/>
-            <cfmailparam file="#Attributes.root#/Images/prosis-logo-gray.png" contentid="logo-gray" disposition="inline"/>
+				<!---
+				<cfmailparam file="#Attributes.root#/Images/prosis-logo-300.png" contentid="logo" disposition="inline"/>
+				--->
+	            <cfmailparam file="#Attributes.root#/Images/prosis-logo-gray.png" contentid="logo-gray" disposition="inline"/>
 											
 				<!--- log mail --->
 			

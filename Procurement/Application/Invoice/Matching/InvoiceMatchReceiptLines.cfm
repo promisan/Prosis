@@ -76,7 +76,7 @@
 			   <td style="width:50px;padding-left:4px;border:1px solid silver"><cf_tl id="Item"></td>
 			   <td style="width:50px;padding-left:4px;border:1px solid silver"></td>
 			   <td align="center" style="width:50px;border:1px solid silver"></td>
-			   <td align="right" style="width:100px;border:1px solid silver"><cf_tl id="Price"></td>
+			   <td align="right" style="width:100px;border:1px solid silver;padding-right:2px;"><cf_tl id="Price"></td>
 			   <td align="right" style="width:90px;border:1px solid silver;padding-right:2px"><cf_tl id="Amount"></td>
 			   <cfif Parameter1.InvoiceMatchPriceActual neq "0">
 			   <td align="right" style="width:90px;border:1px solid silver;padding-right:2px"><cf_tl id="Price"></td>
@@ -271,7 +271,8 @@
 						AND     EffectiveDate <= '#Invoice.DocumentDate#'
 						ORDER BY EffectiveDate DESC
 					</cfquery>
-															
+					
+																				
 					<!--- show receipt amount expressed in the invoice currency --->
 																							
 					<cfset amt = ReceiptAmountBase*CheckCurrency.ExchangeRate>
@@ -339,7 +340,9 @@
 					    	</cfcatch>		
 					    	</cftry>	
 					    </td>
-						<td align="right" style="border-left:1px solid silver;padding-right:4px">#NumberFormat(amt,",.__")#</td>
+						<td align="right" style="border-left:1px solid silver;padding-right:4px">
+						
+						#NumberFormat(amt,",.__")#</td>
 													
 						<cfif Parameter1.InvoiceMatchPriceActual eq "1">								
 						
@@ -354,10 +357,8 @@
 								 style="padding-right:2px;height:19px;border:0px solid silver;background-color:ffffff;font-size:13px;text-align:right;width:100%" 
 								 value="#NumberFormat(InvoicePrice,"_.__")#">
 								 
-								 <cfelse>
-								 								 								 
-								 #NumberFormat(InvoicePrice,",.__")#
-								 
+								 <cfelse>								 								 								 
+								 #NumberFormat(InvoicePrice,",.__")#								 
 								 </cfif>
 															
 							</td>

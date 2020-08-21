@@ -1,3 +1,4 @@
+<cfparam name="Action.ActionCode" default="">
 
 <!--- questionaire input from a workflow perspective --->
 <cfquery name="Questionaire" 

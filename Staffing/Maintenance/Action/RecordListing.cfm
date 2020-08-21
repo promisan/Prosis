@@ -20,18 +20,18 @@ password="#SESSION.dbpw#">
 	<script>
 		
 		function recordadd(grp) {
-		    window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 490, height= 330, toolbar=no, status=yes, scrollbars=no, resizable=no");
+		    window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 490, height= 430, toolbar=no, status=yes, scrollbars=no, resizable=no");
 		}
 		
 		function recordedit(id1) {
-		    window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width= 490, height= 330, toolbar=no, status=yes, scrollbars=no, resizable=no");
+		    window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width= 490, height= 430, toolbar=no, status=yes, scrollbars=no, resizable=no");
 		}
 	
 	</script>	
 
 </cfoutput>	
 
-<table width="94%" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<table width="94%" align="center" class="navigation_table">
 
 <tr class="labelheader linedotted">
     <td>Area</td>   

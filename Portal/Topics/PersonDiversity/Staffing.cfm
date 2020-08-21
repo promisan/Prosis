@@ -89,7 +89,7 @@
 	
 		<!--- we do a global view --->
 		
-		<tr><td colspan="2" class="line" style="font-weight:300;height:40px;font-size:24px" align="left"><cf_tl id="Staff contract"></td></tr>
+		<tr><td colspan="2" class="line" style="font-weight:300;height:40px;font-size:24px" align="left"><cf_tl id="Person contract"></td></tr>
 		
 		<tr><td colspan="2"><table width="100%">
 			
@@ -228,7 +228,7 @@
 									<cfoutput query="getOutgoing">
 										<tr class="navigation_row labelmedium line" style="height:15px">
 										     <td>#currentrow#</td>
-											<td style="padding-left:4px;min-width:70"><a href="javascript:EditPerson(#PersonNo#,'','');" style="color:##0695C4;" title="#lblViewPerson#">#IndexNo#</a></td>
+											<td style="padding-left:4px;min-width:70"><a href="javascript:EditPerson('#PersonNo#','','');" style="color:##0695C4;" title="#lblViewPerson#">#IndexNo#</a></td>
 											<td>#FullName#</td>
 											<td style="min-width:50;padding-right:4px"><cfif SalarySchedule eq "NoPay"><font color="red"><cf_tl id="Unfunded"><cfelse>#ContractLevel#</cfif></td>										
 											<td>#dateFormat(DateEffective, client.dateFormatShow)#</td>											
@@ -309,7 +309,7 @@
 							
 								<tr class="navigation_row labelmedium line" style="height:15px">
 								    <td style="min-width:30">#currentrow#</td>
-									<td style="min-width:70"><a href="javascript:EditPerson(#PersonNo#,'','');" style="color:##0695C4;" title="#lblViewPerson#">#IndexNo#</a></td>
+									<td style="min-width:70"><a href="javascript:EditPerson('#PersonNo#','','');" style="color:##0695C4;" title="#lblViewPerson#">#IndexNo#</a></td>
 									<td>#FullName#</td>
 									<td><cfif getFrom.recordcount eq "0"><i><font color="808080"><cf_tl id="external"><cfelse>#getFrom.ParentOrgUnitName#</cfif></td>
 									<td style="min-width:50" style="padding-right:4px"><cfif SalarySchedule eq "NoPay"><font color="red"><cf_tl id="Unfunded"><cfelse>#ContractLevel#</cfif></td>
@@ -363,7 +363,7 @@
 							
 								<tr class="navigation_row labelmedium line" style="height:15px">
 									 <td>#currentrow#</td>
-									<td><a href="javascript:EditPerson(#PersonNo#,'','');" style="color:##0695C4;" title="#lblViewPerson#">#IndexNo#</a></td>
+									<td><a href="javascript:EditPerson('#PersonNo#','','');" style="color:##0695C4;" title="#lblViewPerson#">#IndexNo#</a></td>
 									<td>#FullName# / #ParentOrgUnitName#</td>
 									<td></td>
 									<td style="min-width:50" style="padding-right:4px"><cfif SalarySchedule eq "NoPay"><font color="red"><cf_tl id="Unfunded"><cfelse>#ContractLevel#</cfif></td>

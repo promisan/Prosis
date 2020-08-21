@@ -185,11 +185,11 @@
 		<tr class="navigation_row line">
 		
 		<cfif mode eq "edit">
-			<td width="8%" align="center"></td>
+			<td width="3%" align="center"></td>
 		</cfif>
 		
 		<cfif mode eq "edit">
-			<td style="padding:3px; font-size:14px;padding-left:5px">			
+			<td style="padding:3px; font-size:14px;padding-left:5px;min-width:110px">			
 			<cfif Base.CriteriaType eq "Unit">#Code#<cfelse>#PK#</cfif></td>
 			<td>&nbsp;</td>
 			<td style="padding:3px; font-size:14px;">#Display#</td>

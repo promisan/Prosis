@@ -11,7 +11,7 @@
 
 </cfif>
 
-<cfif session.acc neq "">
+<cfif session.acc neq "" and attributes.systemfunctionid neq "00000000-0000-0000-0000-000000000000">
 	
 	<cfloop index="itm" list="#mlist#">
 	

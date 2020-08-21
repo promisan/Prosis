@@ -18,6 +18,13 @@ datasource="AppsSystem">
 	FROM   Parameter
 	WHERE  Hostname = '#CGI.HTTP_HOST#' 
 </cfquery>
+
+
+<cfif System.SystemContactEMail neq "">
+	<cfset eMail = System.SystemContactEMail>
+<cfelse>
+    <cfset eMail = Client.eMail>
+</cfif>	
 	
 <cfif System.PasswordReset eq "0">
 	<cfset act = "Request">
@@ -79,13 +86,11 @@ datasource="AppsSystem">
 	   <cfoutput>
 	   
 	   	<cfif System.PasswordReset eq "1">
-		
-			
-	<cfset vTitle ="Prosis | User Account Creation">
-	<cfset vPreHeader = "You have a new Prosis account for #session.welcome#">
+					
+		<cfset vTitle ="User Account Creation">
+		<cfset vPreHeader = "You have a new Prosis account for #session.welcome#">	
 	
-	
-	<cfsavecontent variable="vBody">
+		<cfsavecontent variable="vBody">
                   <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;" width="100%">
                     <tr>
                       <td style="font-family: Helvetica, sans-serif; font-size: 14px; vertical-align: top;" valign="top">
@@ -120,15 +125,11 @@ datasource="AppsSystem">
 		<cfinclude template="MailContent.cfm">		
 	</cfsavecontent>
 		
-		<cfelse>
-		
-
-	   
+		<cfelse>	  
 	     	
 	<cfset vTitle ="Prosis | User Account Creation">
 	<cfset vPreHeader = "You have a new Prosis account for #session.welcome#">
-	
-	
+		
 	<cfsavecontent variable="vBody">
                   <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;" width="100%">
                     <tr>
@@ -177,8 +178,7 @@ datasource="AppsSystem">
               </td>
             </tr>
             </table>
-	</cfsavecontent>
-	
+	</cfsavecontent>	
 
 	<cfsavecontent variable="body">
 		<cfinclude template="MailContent.cfm">
@@ -186,8 +186,7 @@ datasource="AppsSystem">
 	</cfsavecontent>
 		  
 		</cfif>  
-			
-		  
+					  
 		</cfoutput>
 		
 		<cf_assignid>
@@ -196,7 +195,7 @@ datasource="AppsSystem">
 		<cfset vSubject = "#session.welcome# ** #lt_text# **">
 		
 		<cfmail TO          = "#Check.eMailAddress#"	       	
-	   			FROM        = "#System.Systemcontact#  <#System.SystemContactEMail#>"
+	   			FROM        = "#email#"
 				SUBJECT     = "#vSubject#"
 				FAILTO      = "#System.SystemContactEMail#"
 				mailerID    = "#SESSION.welcome#"
@@ -210,8 +209,8 @@ datasource="AppsSystem">
 				<!--- disclaimer --->
 				<cf_maildisclaimer context="password" id="mailid:#rowguid#">
 				
-			<cfmailparam file="#SESSION.root#/Images/prosis-logo-300.png" contentid="logo" disposition="inline"/>
-            <cfmailparam file="#SESSION.root#/Images/prosis-logo-gray.png" contentid="logo-gray" disposition="inline"/>
+				<cfmailparam file="#SESSION.root#/Images/prosis-logo-300.png" contentid="logo" disposition="inline"/>
+            	<cfmailparam file="#SESSION.root#/Images/prosis-logo-gray.png" contentid="logo-gray" disposition="inline"/>
 		
 				<!--- log mail --->
 			

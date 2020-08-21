@@ -164,6 +164,7 @@ password="#SESSION.dbpw#">
 	SELECT   L.*, 
 			 R.Description,
 			 A.Description as AppointmentName,
+			 T.ContractAdjustment,
 	
          	 (SELECT  Description 
 				  FROM    Ref_Action 
@@ -221,6 +222,7 @@ password="#SESSION.dbpw#">
 				  
     FROM     PersonContract L 
 	         INNER JOIN Ref_ContractType R ON L.ContractType = R.ContractType
+			 INNER JOIN Ref_AppointmentType T ON T.AppointmentType = R.AppointmentType
 			 INNER JOIN Ref_AppointmentStatus A ON L.AppointmentStatus = A.Code
 	AND      L.PersonNo = '#URL.ID#' 
 	<cfif url.status eq "valid">
@@ -1080,6 +1082,7 @@ password="#SESSION.dbpw#">
 			<cfif actionStatus eq "1" 
 			    and Parameter.disableSPA eq "0" 
 				and HistoricContract eq "0" 
+				and ContractAdjustment eq "1"
 				and dependentshow eq "0" 
 				and SalarySchedule neq "NoPay"
 				and url.status eq "valid" 

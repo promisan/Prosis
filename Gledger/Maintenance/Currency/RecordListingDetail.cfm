@@ -57,7 +57,7 @@
 	<td width="80" style="padding-left:4px">#Dateformat(History.EffectiveDate, "#CLIENT.DateFormatShow#")#</td>
 	<td style="padding-top:4px;width:20px">	
 	<cf_img icon="delete" onclick="_cf_loadingtexthtml='';ptoken.navigate('RecordListingDetail.cfm?action=delete&id=#url.id#&effective=#dateformat(EffectiveDate,client.dateSQL)#','detail#url.id#')"></td>	
-	<td width="100" style="padding-right:3px" align="right">#NumberFormat(History.ExchangeRate,'____,___.____')#</td>	
+	<td width="100" style="padding-right:3px" align="right">#NumberFormat(History.ExchangeRate,',._______')#</td>	
 	</tr>	
 </cfoutput>
 

@@ -16,7 +16,7 @@
 <cfparam name="SESSION.last"              default="">
 <cfparam name="SESSION.first"             default="">
 
-<cf_setRelease version="8.53.00209" release="20200719">
+<cf_setRelease version="8.54.00223" release="20200818">
 
 <cfquery name="Get" 
 datasource="AppsSystem">
@@ -185,7 +185,11 @@ datasource="AppsSystem">
 		javascript:window.history.forward(1);		
 		</script>
 
+		<cfif findNoCase(".com",session.root)> 	
 		<TITLE><cfoutput>#SESSION.welcome#</cfoutput>&#8482 || |   |      |    |      ||  |</TITLE>
+		<cfelse>
+		<TITLE><cfoutput>#SESSION.welcome#</cfoutput>  || |   |      |    |      ||  |</TITLE>
+		</cfif>
 		<base target="main">
 		
 		<style>
