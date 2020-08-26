@@ -38,7 +38,7 @@
 			   icE.className = "regular";
 			 } else {
 			    while (se[count]) {
-			    se[count].className = "regular"; 
+			    se[count].className = "regular line"; 
 			    count++
 			 }	
 			 icM.className = "regular";

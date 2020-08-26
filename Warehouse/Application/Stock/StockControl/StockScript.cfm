@@ -7,6 +7,7 @@
 <cf_menuscript>  <!--- the top banner menu --->
 <cf_calendarscript>
 <cf_calendarviewscript>
+<cf_textareascript>
 
 <!---
 <cf_presentationscript>
@@ -510,7 +511,12 @@ function stockquote(s,modid) {
 				"&fnd="+fnd;	
 							
 	ptoken.navigate(url,'main')					 
-}		
+}	
+
+function stockquotedialog(id) {		
+      ProsisUI.createWindow('salerequest', 'Request for Sale', '',{x:100,y:100,width:document.body.offsetWidth-130,height:document.body.offsetHeight-130,resizable:false,modal:true,center:true})			  	  	
+	  ptoken.navigate('../../salesorder/Quote/QuoteDialog.cfm?requestNo='+id,'salerequest');
+ }
 
 function saledispatch(s,modid) {		
 
@@ -633,7 +639,7 @@ function posreceivable(s,modid) {
 	}
 	
     if (cus != '00000000-0000-0000-0000-000000000000' && inv != '00000000-0000-0000-0000-000000000000' && $.trim(cus) != '' && $.trim(inv) != '') {
-	
+
 	   try { ProsisUI.closeWindow('wsettle',true)} catch(e){};
 	   ProsisUI.createWindow('wsettle', 'Receivable', '',{x:100,y:100,width:document.body.offsetWidth-85,height:document.body.offsetHeight-85,resizable:false,modal:true,center:true})			  	  	
 	   ptoken.navigate("#SESSION.root#/Warehouse/Application/Salesorder/POS/Receivable/Posting.cfm?RequestNo="+req+"&width="+document.body.offsetWidth+"&height="+document.body.offsetHeight+"&warehouse="+whs+"&terminal="+ter+"&customerid="+cus+"&customeridinvoice="+inv+"&batchid="+bat+"&td="+tr_d+"&th="+tr_h+"&tm="+tr_m+"&addressid="+addr,'wsettle');
@@ -1210,6 +1216,8 @@ function doHideSelectBox() {
 
 function searchcombo(mis,whs,cat,mde,val,mode,itm,valfield) {
 
+
+
    if ($.trim(val) != '' && $.trim(valfield) != '') {
 	   $(valfield).val(val);
    }
@@ -1243,7 +1251,7 @@ function searchcombo(mis,whs,cat,mde,val,mode,itm,valfield) {
 			} else {											
 				if (mde == 'customerinvoice') {						       					 				
 				  ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/sale/applySaleHeader.cfm?field=billing&mission='+mis+'&warehouse='+whs+'&category='+cat+'&itemno='+itm+'&search='+val+'&customerid='+document.getElementById('customeridselect').value+'&customeridinvoice='+document.getElementById('customerinvoiceidselect').value+'&requestno='+document.getElementById('RequestNo').value,'salelines')					 					  
-			    } else {				
+			    } else {								
 				  ptoken.navigate('#SESSION.root#/warehouse/application/stock/Transaction/get'+mde+'.cfm?mission='+mis+'&warehouse='+whs+'&category='+cat+'&itemno='+itm+'&search='+val+'&assetid='+document.getElementById('assetidselect').value,mde+'box')									
 				}				
 			}

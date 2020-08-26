@@ -191,10 +191,10 @@ WHERE      ObjectId = '#URL.Objectid#'
 				
 			</td></tr>
 					
-		</table>
-	
-	
-	
+		</table>	
+		
 </cfif>	
+
+
 
 

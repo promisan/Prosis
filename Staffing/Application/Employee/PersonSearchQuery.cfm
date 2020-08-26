@@ -76,7 +76,7 @@
 		
 	<CFSET Value = Replace( Value, "'", "''", "ALL" )>
 
-	<CFIF Form.Crit2_Operator is 'EQUAL'>       <CFSET name = " = '#Value#' #CLIENT.Collation# ">
+	<CFIF Form.Crit2_Operator is 'EQUAL'>               <CFSET name = " = '#Value#' #CLIENT.Collation# ">
 		<CFELSEIF Form.Crit2_Operator is 'NOT_EQUAL'>   <CFSET name = " <> '#Value#' #CLIENT.Collation# ">
 		<CFELSEIF Form.Crit2_Operator is 'GREATER_THAN'><CFSET name = " > '#Value#' #CLIENT.Collation# ">
 		<CFELSEIF Form.Crit2_Operator is 'SMALLER_THAN'><CFSET name = " < '#Value#' #CLIENT.Collation# ">
@@ -95,15 +95,25 @@
 	
 </cfif>
 
-<cfif Form.Nation IS "0">
-     <cfif Form.Nationality IS NOT "">
-	     <cfif Criteria eq "">
-	          <CFSET Criteria = "Nationality IN ( #PreserveSingleQuotes(Form.Nationality)# )">
-	      <cfelse>
-		      <CFSET Criteria = "#Criteria# AND Nationality IN ( #PreserveSingleQuotes(Form.Nationality)# )">	
-	     </cfif>
-	</cfif>
-</cfif>	
+<cfif Form.Nationality IS NOT "">
+
+	<cfset nat = ""> 	
+
+	<cfloop index="itm" list="#Form.Nationality#">
+             <cfif nat eq "">
+			 	<cfset nat = "'#itm#'">
+			 <cfelse>
+			   	<cfset nat = "#nat#,'#itm#'">
+			 </cfif>
+	</cfloop>
+
+    <cfif Criteria eq "">
+          <CFSET Criteria = "Nationality IN ( #PreserveSingleQuotes(Nat)# )">
+    <cfelse>
+	      <CFSET Criteria = "#Criteria# AND Nationality IN ( #PreserveSingleQuotes(Nat)# )">	
+    </cfif>
+	
+</cfif>
 
 <cfoutput>
 
@@ -148,8 +158,7 @@
 	WHERE  1=1
 	<cfif criteria neq ""> 
 	
-	AND #PreserveSingleQuotes(Criteria)# 	
-	
+	AND #PreserveSingleQuotes(Criteria)# 		
 		
 	</cfif>
 	
@@ -336,23 +345,35 @@
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 		SELECT count(*) as Result 
-		#preservesinglequotes(qry)#
-		
+		#preservesinglequotes(qry)#		
 	</cfquery>
 	
 </cftransaction>
 
 <cfif Searchresult.result gt "5000">
 
-	 <cf_message message = "Your search resulted in more than 5000 matches. Operation aborted. "
-	  return = "back">
-	  <cfabort>
+	 <cf_message message = "Your search resulted in more than 5000 matches. Operation aborted." return = "back">
+	 <cfabort>
 
 </cfif>
 
 <cfset FileNo = round(Rand()*10)>
 
 <CF_DropTable dbName="AppsQuery" tblName="#SESSION.acc#Person_#fileNo#">
+
+<cfif Form.PersonStatus neq "">
+
+	<cfset status = "">
+
+	<cfloop index="itm" list="#Form.PersonStatus#">
+             <cfif status eq "">
+			 	<cfset status = "'#itm#'">
+			 <cfelse>
+			   	<cfset status = "#status#,'#itm#'">
+			 </cfif>
+	</cfloop>
+	
+</cfif>
 
 <!---
 <cftry>
@@ -382,8 +403,7 @@
 				AND          OO.Mission = '#missionselect#'
 				</cfif>
 				AND          OA.ActionStatus = '0') as PendingAction,
-		
-				
+						
 			    <!--- last contract / title --->
 			   (SELECT       ContractLevel
 				FROM         PersonContract AS PS
@@ -449,7 +469,7 @@
 			) as B
 			
 			<cfif Form.PersonStatus neq "">
-			WHERE ContractLevel IN (SELECT PostGrade FROM Ref_PostGrade WHERE PostGradeParent IN (#preservesinglequotes(Form.PersonStatus)#))
+			WHERE ContractLevel IN (SELECT PostGrade FROM Ref_PostGrade WHERE PostGradeParent IN (#preservesinglequotes(Status)#))			
 			</cfif>
 			
 			

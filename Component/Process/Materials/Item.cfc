@@ -1097,7 +1097,7 @@
 						<cfset vTaxCode = ChecktaxCode.TaxCode>
 					<cfelse>
 						
-						<!----last chance to determine the tax code ---->
+						<!--- last chance to determine the tax code --->
 						<cfquery name="CheckTaxCode" 
 						datasource="#datasource#" 
 						username="#SESSION.login#" 

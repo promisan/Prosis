@@ -48,10 +48,10 @@
 		   <td class="line" align="right" style="height:34px;min-width:100;border-bottom:1px solid silver;">
 		   	<table>
 				<td style="padding-top:2px;padding-right:10px;">
-					<input class="button10g" style="width:100px;height:17" type="button" onclick="clearWSSelection();" name="btnClear" id="btnClear" value="Clear">
+					<input class="button10g" style="width:100px;height:25" type="button" onclick="clearWSSelection();" name="btnClear" id="btnClear" value="Clear">
 				</td>
 				<td style="padding-top:2px;padding-right:10px;">
-					<input class="button10g" style="width:100px;height:17" type="button" onclick="selectWS9To5();" name="btn9To5" id="btn9To5" value="Set 9 To 5">
+					<input class="button10g" style="width:100px;height:25" type="button" onclick="selectWS9To5();" name="btn9To5" id="btn9To5" value="Set 9 To 5">
 				</td>
 			</table>
 		   </td>

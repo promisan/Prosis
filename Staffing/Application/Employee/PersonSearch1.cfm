@@ -1,6 +1,6 @@
 
 <cf_screentop height="100%" 
-     scroll="Vertical" 
+     scroll="Vertical" jquery="Yes"
 	 html="No" title="Employee Inquiry" 
 	 validateSession="Yes">
 
@@ -350,13 +350,32 @@ password="#SESSION.dbpw#">
 				
 		<!--- Field: Staff.Nationality=CHAR;40;FALSE --->
 		
+		 <!--- Field: Staff.Gender=CHAR;40;FALSE --->
+		<INPUT type="hidden" name="Crit4_FieldName" value="Gender">
+		
+		<INPUT type="hidden" name="Crit4_FieldType" value="CHAR">
+		<INPUT type="hidden" name="Crit4_Operator" value="CONTAINS">
+			<TR>
+		<TD class="labelmedium"><cf_tl id="Gender">:</TD>
+		
+		<TD class="labelmedium">
+		
+			<table class="formpadding">
+			<tr>
+				<td><input type="radio" class="radiol" name="Crit4_Value" value="M"></td><td class="labelmedium"><cf_tl id="Male"></td>
+				<td style="padding-left:4px"><input type="radio" class="radiol" name="Crit4_Value" value="F"></td><td class="labelmedium"><cf_tl id="Female"></td>
+				<td style="padding-left:4px"><input type="radio" class="radiol" name="Crit4_Value" value="" checked></td><td class="labelmedium"><cf_tl id="Any"></td>
+			</tr>
+			</table>
+	   
+		</TD>
+		</TR>
+		
 		<TR>
 		<TD class="labelmedium" valign="top" style="padding-top:4px"><cf_tl id="Modality">:</TD>
 		
 		<TD>
-		
-			<table><tr><td>
-			
+								
 			<cfquery name="Category" 
 			datasource="AppsEmployee" 
 			username="#SESSION.login#" 
@@ -366,12 +385,25 @@ password="#SESSION.dbpw#">
 				ORDER BY ViewOrder
 			</cfquery>
 			
+			<cf_UIselect name = "PersonStatus"					
+					size           = "1"
+					class          = "regularXXL"
+					id             = "PersonStatus"		
+					multiple       = "Yes"													
+					style          = "width:100%"											
+					query          = "#Category#"
+					queryPosition  = "below"
+					value          = "Code"
+					display        = "Description"/>
+			
+			<!---
 			<select name="PersonStatus" size="2" multiple class="regularxl" style="height:105px;min-width:200">		
 			<option value="" selected><cf_tl id="All"></option>
 			    <cfoutput query="Category">			
 				<option value="'#Code#'">#Description#</option>
 				</cfoutput>
 		    </select>
+			--->
 			
 			<!---
 			
@@ -392,48 +424,36 @@ password="#SESSION.dbpw#">
 		    </select>
 			--->
 			
-			</td>
 			
-			
-			</tr></table>
 			
 		</TD>
 		</TR>
 		
-	   <!--- Field: Staff.Gender=CHAR;40;FALSE --->
-		<INPUT type="hidden" name="Crit4_FieldName" value="Gender">
-		
-		<INPUT type="hidden" name="Crit4_FieldType" value="CHAR">
-		<INPUT type="hidden" name="Crit4_Operator" value="CONTAINS">
-			<TR>
-		<TD class="labelmedium"><cf_tl id="Gender">:</b></TD>
-		
-		<TD class="labelmedium">
-		
-			<table class="formpadding">
-			<tr>
-				<td><input type="radio" class="radiol" name="Crit4_Value" value="M"></td><td class="labelmedium"><cf_tl id="Male"></td>
-				<td><input type="radio" class="radiol" name="Crit4_Value" value="F"></td><td class="labelmedium"><cf_tl id="Female"></td>
-				<td><input type="radio" class="radiol" name="Crit4_Value" value="" checked></td><td class="labelmedium"><cf_tl id="Any"></td>
-			</tr>
-			</table>
-	   
-		</TD>
-		</TR>
+	  
 					
 		<TR>
-		<TD class="labelmedium" valign="top" style="padding-top:4px"><cf_tl id="Nationality">:</b><br><br>
-		<input type="radio" class="radiol" name="Nation" value="0" onclick="document.getElementById('Nationality').disabled=false"><cf_tl id="Include">
-		<input type="radio" class="radiol" name="Nation" value="1" onclick="document.getElementById('Nationality').disabled=true" checked><cf_tl id="Exclude">
-	 	
-		</TD>
+		<TD class="labelmedium" valign="top" style="padding-top:4px"><cf_tl id="Nationality">:</TD>
 		
 		<TD>
+		
+		<cf_UIselect name = "Nationality"					
+					size           = "1"
+					class          = "regularXXL"
+					id             = "Nationality"		
+					multiple       = "Yes"													
+					style          = "width:100%"											
+					query          = "#Nation#"
+					queryPosition  = "below"
+					value          = "Code"
+					display        = "Name"/>
+		
+		<!---
 	    	<select name="Nationality" id="Nationality" size="10" multiple disabled class="regularxl" style="height:150px;min-width:200">
 			    <cfoutput query="Nation">		
 				<option value="'#Code#'"selected>#Name#</option>
 				</cfoutput>
 		    </select>
+			--->
 			
 		</TD>
 		</TR>

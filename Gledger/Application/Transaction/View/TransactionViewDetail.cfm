@@ -1327,6 +1327,12 @@
 					    	<cf_tl id="Invoice">
 							</a>				   		
 						</td>
+						<td style="padding-left:10px;padding-right:10px">|</td>
+						<td class="labelmedium">
+								<a href="javascript:PrintTaxReceivable('#url.id#')">
+								<cf_tl id="Electronic Invoice">
+								</a>
+						</td>
 						<td style="padding-left:10px;padding-right:10px">|</td>						
 						</cfoutput>		
 						

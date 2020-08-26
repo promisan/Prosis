@@ -135,6 +135,8 @@
 						
 						<td colspan="8" valign="top">
 						
+							<cfform style="height:30px">
+						
 							<table width="100%">
 									
 							<tr class="labelmedium" style="height:45px">			
@@ -151,7 +153,7 @@
 								<td style="min-width:100px;padding-left:7px;padding-right:7px"><cf_tl id="effective">:</td>
 								<td style="min-width:140px;">
 							
-								<cfform>
+								
 							
 							     <cf_intelliCalendarDate9
 									FieldName="DateEffective" 
@@ -162,7 +164,7 @@
 									Default="#url.dateeffective#"
 									AllowBlank="False">	
 									
-								</cfform>
+								
 							
 								</td>
 											
@@ -187,6 +189,8 @@
 							</tr>
 							
 							</table>
+							
+							</cfform>
 									
 						</td>
 						
@@ -220,23 +224,26 @@
 		</td>
 			
 		</tr>
+		
+		<cfif url.contractId neq "">
 
-						<tr>
-							<td align="center" width="100%" style="padding-top:5px">
-								<table width="100" class="formspacing">
-									<tr>
-										<td>
-											<button onclick="javascript:ProsisUI.closeWindow('myschedule')" class="button-2019-a">Close</button>
-										</td>
-										<td>
-											<button onclick="javascript:ProsisUI.minimizeWindow('myschedule')" class="button-2019-a">Save</button>
-										</td>
-									</tr>
-								</table>
-							</td>
+		<tr>
+			<td align="center" width="100%" style="padding-top:5px">
+				<table width="100" class="formspacing">
+					<tr>
+						<td>
+							<button onclick="javascript:ProsisUI.closeWindow('myschedule')" class="button-2019-a">Close</button>
+						</td>
+						<td>
+							<button onclick="javascript:ProsisUI.minimizeWindow('myschedule')" class="button-2019-a">Save</button>
+						</td>
+					</tr>
+				</table>
+			</td>
 
-						</tr>
-
+		</tr>
+		
+		</cfif>
 		
 		</table>
 		

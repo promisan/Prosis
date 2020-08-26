@@ -97,8 +97,8 @@ password="#SESSION.dbpw#">
 			Type            = "Input"
 			Required        = "Yes"
 			Message         = "Please enter a description"
-			MaxLength       = "80"
-			Size            = "60"
+			MaxLength       = "100"
+			Size            = "90"
 			Class           = "regularxl">
 		
    	</TD>
@@ -111,20 +111,20 @@ password="#SESSION.dbpw#">
 		<TR class="labelit">
 		<TD><cf_uitooltip tooltip="Functional Title Prefix like : <b>Chief">Prefix:</cf_uitooltip></TD>
 	    <TD>
-	  	   <cfinput type="Text" name="FunctionPrefix" value="" required="No" size="15" maxlength="20" class="regularxl">
+	  	   <cfinput type="Text" name="FunctionPrefix" value="" required="No" size="30" maxlength="30" class="regularxl">
 	    </TD>
 		</tr>
 		
 		<tr class="labelit">
 		<TD><cf_uitooltip tooltip="Functional Title Prefix like : <b>Finance">Keyword:</cf_uitooltip></TD>
 		<TD>
-	  	   <cfinput type="Text" name="FunctionKeyword" value="" required="No" size="25" maxlength="60" class="regularxl">
+	  	   <cfinput type="Text" name="FunctionKeyword" value="" required="No" size="60" maxlength="100" class="regularxl">
 	    </TD>
 		</tr>
 		<tr class="labelit">
 		<TD><cf_uitooltip tooltip="Functional Title Prefix like : <b>Officer">Suffix:</cf_uitooltip></TD>
 		<TD>
-	  	   <cfinput type="Text" name="FunctionSuffix" value="" required="No" size="15" maxlength="20" class="regularxl">
+	  	   <cfinput type="Text" name="FunctionSuffix" value="" required="No" size="30" maxlength="30" class="regularxl">
 	    </TD>
 		</TR>
 	

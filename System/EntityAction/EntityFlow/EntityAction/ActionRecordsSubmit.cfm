@@ -6,6 +6,7 @@
 <cfparam name="Form.FieldName" default="">
 <cfparam name="Form.ProcessMode" default="0">
 <cfparam name="Form.ParentCode" default="">
+<cfparam name="url.entityclass" default="">
 
 <cfif url.search eq ",">
 	<cfset url.search = "">

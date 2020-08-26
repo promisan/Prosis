@@ -1,6 +1,5 @@
 
-
-<cf_screentop html="no" height="100%" layout="webapp" banner="gray" line="no" label="Associate - Position to recruitment request" band="No" scroll="Yes">
+<cf_screentop html="no" height="100%" layout="webapp" banner="gray" line="no" label="Associate - Position to recruitment request" band="No">
 
 <cfoutput>
 
@@ -29,7 +28,7 @@ function hl(itm,fld){
 function EditPost(posno) {
      w = #CLIENT.width# - 60;
      h = #CLIENT.height# - 130;
-     window.open("#SESSION.root#/Staffing/Application/Position/Position/PositionView.cfm?ID=" + posno, "_blank", "left=20, top=20, width=" + w + ", height= " + h + ", status=yes, toolbar=no, scrollbars=no, resizable=yes");
+     ptoken.open("#SESSION.root#/Staffing/Application/Position/Position/PositionView.cfm?ID=" + posno, posno);
 }	 
 
 </script>
@@ -154,7 +153,7 @@ password="#SESSION.dbpw#">
 
 <cf_droptable dbname="AppsQuery" tblname="#SESSION.acc#Assign">
 
-<form action="AssociatePostSubmit.cfm" method="post" target="result">
+<form action="AssociatePostSubmit.cfm" style="height:95%" method="post" target="result">
 	  
 <table width="95%" height="100%" align="center">
 
@@ -166,7 +165,7 @@ password="#SESSION.dbpw#">
      <input type="hidden" name="DocumentNo" value="#URL.ID#">
   </cfoutput>
   
-  <tr><td style="height:100%">
+  <tr><td style="height:95%">
   
   <cf_divscroll>
 
@@ -198,9 +197,9 @@ password="#SESSION.dbpw#">
 	    <input type="checkbox" name="Selected" class="radiol" value="#PositionNo#" checked onClick="hl(this,this.checked)">
 	  </cfif>
 	  </TD>
-	    <TD>#SourcePostNumber#</TD>
-		<TD><a href="javascript:EditPost('#PositionNo#')"><font color="0080C0">#FunctionDescription#</a></TD>
-		<TD><a href="javascript:EditPost('#PositionNo#')">#PostGrade#</a></TD>
+	    <TD><a href="javascript:EditPost('#PositionNo#')"><cfif SourcePostNumber neq "">#SourcePostNumber#<cfelse>#PosistionParentId#</cfif></a></TD>
+		<TD>#FunctionDescription#</TD>
+		<TD>#PostGrade#</TD>
 	    <TD>#Dateformat(DateExpiration, CLIENT.DateFormatShow)#</TD>
 		<TD><a href="javascript:EditPerson('#PersonNo#')">#IndexNo#</a></TD>
 		<TD>#FirstName# #LastName#</TD>
@@ -208,8 +207,6 @@ password="#SESSION.dbpw#">
 	</TR>
 
 	</CFOUTPUT>
-
-	
 
 </TABLE>
 

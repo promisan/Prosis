@@ -3,7 +3,7 @@
    	
 	<cfoutput query="Color">
 		
-		<tr>
+		<tr  class="labelmedium">
 		
 			<cfquery name="Check" 
 			 datasource="AppsSystem" 
@@ -30,16 +30,16 @@
 		    </cfquery>	
 					
 			<td height="20" width="30">
-			<input type="checkbox" onclick="annotationtoggle(this.checked,'box#currentrow#_shared')" name="an#currentrow#_shared" id="an#currentrow#_shared" value="1" <cfif check.recordcount gte "1">checked</cfif>></td>
+			<input type="checkbox" class="radiol" onclick="annotationtoggle(this.checked,'box#currentrow#_shared')" name="an#currentrow#_shared" id="an#currentrow#_shared" value="1" <cfif check.recordcount gte "1">checked</cfif>></td>
 			<td width="85%">#Description#</td>	
 			<td align="right" width="20">
-				<table><tr><td  bgcolor="#color#" height="13" width="7" style="border: 1px solid gray;"></td></tr></table>
+				<table><tr><td  bgcolor="#color#" style="width:15px;height:15px;border: 1px solid gray;"></td></tr></table>
 			</td>
 		
 		</tr>
 		
 		<cfif check.recordcount gte "1">
-			<cfset cl = "regular">		
+			<cfset cl = "regular line">		
 		<cfelse>		
 			<cfset cl = "hide">
 		</cfif>

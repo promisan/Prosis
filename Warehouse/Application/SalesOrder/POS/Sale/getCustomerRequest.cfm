@@ -45,18 +45,8 @@
 				
 	</td>	
 			
-	<td align="center" style="font-size:17px;padding-top:2px;background-color:white;padding-left:6px;padding-right:6px;cursor:pointer;border-left:1px solid gray">
-	 <cf_UITooltip
-		id         = "dialog#url.requestno#"
-		ContentURL = "#SESSION.root#/warehouse/application/salesorder/Quote/QuoteDialog.cfm?requestNo=#url.requestNo#"
-		CallOut    = "false"
-		Position   = "right"
-		ShowOn     = "click"
-		Width      = "300"		
-		Height     = "200">	
-		<font color="gray">
-		#getRequest.Source#		
-		</cf_uiTooltip>			
+	<td align="center" onclick="stockquotedialog('#url.requestNo#')" style="cursor:pointer;font-size:17px;padding-top:2px;background-color:white;padding-left:6px;padding-right:6px;cursor:pointer;border-left:1px solid gray">
+		#getRequest.Source#				
 	</td>		
 		
 	<td style="min-width:70px;border-right:1px solid gray">	

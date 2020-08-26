@@ -141,7 +141,7 @@
                 animation:false,
                 select: function(e) {
                     var item = e.dataItem;
-                    $('###Attributes.Name#').val(item.#Attributes.Value#);
+                    $('###Attributes.Name#').val(item.#Attributes.Value#).change();
                     ColdFusion.Event.callBindHandlers('#Attributes.name#',null,'change');
                 }
                 });

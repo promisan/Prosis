@@ -258,13 +258,13 @@
 			
 				  <tr class="line">
 				  
-					  <td>
+					  <td style="width:100%">
 					  
-						  <table width="100%" border="0">
+						  <table width="100%">
 						 
-						  <tr><td width="50%" style="padding-left:4px">
+						  <tr><td style="width:100%;padding-left:4px">
 						  					  
-						  		<table>		
+						  		<table style="width:100%">		
 								
 								<tr class="labelmedium" style="height:30px">
 								
@@ -273,103 +273,106 @@
 								</cfoutput>
 								
 								<td style="padding-right:4px"><cf_tl id="Destination"></td>
+								
 								<td>
 								
-								<table><tr><td>
-						  				  										
-								<cfquery name="Warehouse"
-									datasource="AppsMaterials" 
-									username="#SESSION.login#" 
-									password="#SESSION.dbpw#">
-									    SELECT 	*
-										FROM   	Warehouse W
-										WHERE  	Mission   = '#url.Mission#'	
-										AND     (
+									<table><tr><td>
+							  				  										
+									<cfquery name="Warehouse"
+										datasource="AppsMaterials" 
+										username="#SESSION.login#" 
+										password="#SESSION.dbpw#">
+										    SELECT 	*
+											FROM   	Warehouse W
+											WHERE  	1=1
+											AND     (
+											
+											         (Mission   = '#url.Mission#' AND Warehouse = '#URL.Warehouse#')
+													 OR 
+													 Warehouse IN (SELECT AssociationWarehouse
+											                       FROM   WarehouseAssociation 
+																   WHERE  Warehouse           = '#URL.Warehouse#'
+																   AND    AssociationType     = 'Transfer'
+																   AND    AssociationWarehouse = W.Warehouse
+																   )
+																									
+													)												
+											
+																									
+									 </cfquery>	
+										 
+									 <cfoutput>
+														
+									  <select name  = "warehouseto"
+									    id         = "warehouseto" 
+										class      = "regularxl"
+										style      = "width:auto;"
+									    onchange   = "ptoken.navigate('#SESSION.root#/warehouse/application/stock/Transfer/setLocation.cfm?systemfunctionid=#url.systemfunctionid#&whs=#url.warehouse#&warehouseto='+this.value,'locationbox')">
 										
-										         Warehouse = '#URL.Warehouse#' 
-												 OR 
-												 Warehouse IN (SELECT AssociationWarehouse
-										                       FROM   WarehouseAssociation 
-															   WHERE  Warehouse           = '#URL.Warehouse#'
-															   AND    AssociationType     = 'Transfer'
-															   AND    AssociationWarehouse = W.Warehouse
-															   )
-																								
-												)												
-										
-																								
-								 </cfquery>	
-									 
-								 <cfoutput>
-													
-								  <select name  = "warehouseto"
-								    id         = "warehouseto" 
-									class      = "regularxl"
-									style      = "width:auto;"
-								    onchange   = "ptoken.navigate('#SESSION.root#/warehouse/application/stock/Transfer/setLocation.cfm?systemfunctionid=#url.systemfunctionid#&whs=#url.warehouse#&warehouseto='+this.value,'locationbox')">
+										<option value=""><cf_tl id="Select"></option>
+									   
+									   <cfloop query="Warehouse">
+									   						   										
+											<option value="#Warehouse#"><cfif mission neq url.mission><cf_tl id="Interoffice">:</cfif> #warehouse# #WarehouseName#</option>
+																	
+										</cfloop>
 									
-									<option value=""><cf_tl id="Select"></option>
-								   
-								   <cfloop query="Warehouse">
-								   						   										
-										<option value="#Warehouse#">#warehouse# #WarehouseName#</option>
-																
-									</cfloop>
+									 </select>		
+									 
+									 </cfoutput>
+									 
+									 </td>
+									 
+									 <td class="labelmedium hide" style="padding-left:3px" id="locationrow">
+									 <!--- <cf_tl id="Location">: --->
+									 </td>
+									 							 
+									 <td id="locationbox" style="padding-left:4px;width:200px">							 							 		
+											<input type="hidden" name="locationto" id="locationto" value="">																		
+									 </td>									 
+																						 
+									 <td id="setvalue"></td>
+									 
+									 </tr>
+									 </table>
+								 
+								 </td>
+								 
+								 <td align="right">
 								
-								 </select>		
-								 
-								 </cfoutput>
-								 
-								 </td>
-								 
-								 <td class="labelmedium hide" style="padding-left:3px" id="locationrow">
-								 <!--- <cf_tl id="Location">: --->
-								 </td>
-								 							 
-								 <td id="locationbox" style="padding-left:4px">							 							 		
-										<input type="hidden" name="locationto" id="locationto" value="">																		
-								 </td>									 
-																					 
-								 <td id="setvalue"></td>
-								 
-								 </tr>
-								 </table>
-								 
-								 </td>
-														
-										<td style="padding-left:20px;padding-right:20px;min-width:60px"><cf_tl id="Date/Time"></td>
-										<td>
-										
-										 <cf_getWarehouseTime warehouse="#url.warehouse#">
-										
-										 <cf_setCalendarDate
-										      name     = "transaction"     
-											  id       = "transaction"   
-										      timeZone = "#tzcorrection#"     
-										      font     = "13"
-											  edit     = "Yes"
-											  class    = "regular"				  
-										      mode     = "datetime"> 
-											  
-										</td>										
-										
-										<td width="50%" rowspan="3" align="right" style="padding-bottom:2px;padding-right:15px">																  									
-														
-								  </td>			  
-											  
-								</tr>	
-													 						 
-								 </table>
+									 <table style="width:100%" border="0" align="right">
+									 <tr>														
+									 <td style="padding-left:20px;padding-right:20px;min-width:60px"><cf_tl id="Date/Time"></td>
+									 <td align="right">
+											
+											 <cf_getWarehouseTime warehouse="#url.warehouse#">
+											
+											 <cf_setCalendarDate
+											      name     = "transaction"     
+												  id       = "transaction"   
+											      timeZone = "#tzcorrection#"     
+											      font     = "13"
+												  edit     = "Yes"
+												  class    = "regular"				  
+											      mode     = "datetime"> 
+												  
+											</td>										
+																																					  									
+															
+									 </td>			  											  
+									 </tr>																				 
+									 </table>
+									  
+								  </td>
+								  </tr>
+								  </table>
 																				
-								</td>
-							
-							</tr>
-							
+							</td>							
+							</tr>							
 							</table>
 							
 						</td>
-						
-									
+														
 				  </tr>		  
 				  
 		  <cfelse>

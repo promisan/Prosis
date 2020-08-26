@@ -51,6 +51,7 @@
 <cf_insertAreaGLedger Area="Variance"       AccountClass="Result"  Description="Variances"            Order="10">
 <cf_insertAreaGLedger Area="PriceChange"    AccountClass="Result"  Description="Standard Cost Change" Order="11">
 <cf_insertAreaGLedger Area="Provision"      AccountClass="Balance" Description="Service Provision"    Order="12">
+<cf_insertAreaGLedger Area="Interoffice"    AccountClass="Balance" Description="Interoffice Provision" Order="13">
 
 <cf_insertRequirementMode  Code="Active"   Description="Active">
 <cf_insertRequirementMode  Code="Blocked"  Description="Blocked">

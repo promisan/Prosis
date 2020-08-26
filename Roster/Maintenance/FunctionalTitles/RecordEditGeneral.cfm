@@ -35,7 +35,7 @@ datasource="AppsSelection"
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
     SELECT   OccupationalGroup, Description
-	FROM     OccGroup
+	FROM     OccGroup O
 	WHERE    Status = '1'
 	<cfif SESSION.isAdministrator eq "No">
 		AND (EXISTS  (SELECT 'X'
@@ -115,8 +115,8 @@ password="#SESSION.dbpw#">
 					Type            = "Input"
 					Required        = "Yes"
 					Message         = "Please enter a description"
-					MaxLength       = "80"
-					Size            = "70"
+					MaxLength       = "100"
+					Size            = "90"
 					Class           = "regularxl">	
 				  
 	       	</TD>
@@ -134,9 +134,9 @@ password="#SESSION.dbpw#">
 		    </tr>
 				
 			<TR>
-			    <TD><cfinput type="Text" name="FunctionPrefix" value="#Get.FunctionPrefix#" required="No" size="20" maxlength="20" class="regularxl"></TD>
-				<TD style="padding-left:3px"><cfinput type="Text" name="FunctionKeyword" value="#Get.FunctionKeyword#" required="No" size="30" maxlength="60" class="regularxl"></TD>
-				<TD style="padding-left:3px"><cfinput type="Text" name="FunctionSuffix" value="#Get.FunctionSuffix#" required="No" size="15" maxlength="20" class="regularxl"></TD>
+			    <TD><cfinput type="Text" name="FunctionPrefix" value="#Get.FunctionPrefix#" required="No" size="30" maxlength="30" class="regularxl"></TD>
+				<TD style="padding-left:3px"><cfinput type="Text" name="FunctionKeyword" value="#Get.FunctionKeyword#" required="No" size="80" maxlength="100" class="regularxl"></TD>
+				<TD style="padding-left:3px"><cfinput type="Text" name="FunctionSuffix" value="#Get.FunctionSuffix#" required="No" size="30" maxlength="30" class="regularxl"></TD>
 			</TR>
 		
 		</table>
@@ -209,8 +209,8 @@ password="#SESSION.dbpw#">
 					 value="#Parent.FunctionDescription#" 
 					 ondblclick="this.value='';document.getElementById('functionno').value=''" 				 
 					 class="regularxl" 
-					 size="50" 
-					 maxlength="60" readonly> 
+					 size="60" 
+					 maxlength="100" readonly> 
 		   
 		   </td>
 		   

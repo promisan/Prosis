@@ -37,7 +37,7 @@
 	AND     C.ContributionClass = R.Code
 </cfquery>
 
-<cfajaximport tags="cfwindow,cfchart,cfform,cfinput-datefield">
+<cfajaximport tags="cfwindow,cfchart,cfform">
 <cf_textareascript>	
 
 <cf_screentop scroll="no" html="no" label="Donor Pledge, Planning and Usage" jQuery="Yes" line="no" layout="webapp">
@@ -218,9 +218,9 @@
 			collapsible = "true" 
 			splitter    = "true"
 			overflow    = "scroll">
-						
+									
 			<cf_divscroll style="height:98%">
-				<cf_commentlisting objectid="#url.id#"  ajax="No">		
+				<cf_commentlisting objectid="#wfObjectId#"  ajax="No">		
 			</cf_divscroll>
 								
 		</cf_layoutarea>	

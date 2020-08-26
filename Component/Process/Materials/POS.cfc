@@ -47,7 +47,7 @@
 			password="#SESSION.dbpw#">
 			SELECT    *   
 			FROM      Warehouse
-			WHERE     Warehouse = '#Warehouse#' 
+			WHERE     Warehouse = '#Warehouse#' 			
 		</cfquery>	
 		
 		<cfif getWarehouse.recordcount eq "1">
@@ -188,6 +188,7 @@
 			datasource="AppsMaterials" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
+			
 			    SELECT    TOP 1 *
 			    FROM      ItemUoMPrice
 			    WHERE     ItemNo       = '#itemno#' 
@@ -198,7 +199,7 @@
 				<cfif lowest neq "">
 				AND       DateEffective >= #lowest#
 				</cfif>
-				
+								
 				<cfif PriceSchedule neq "">
 					<!--- price schedule found, take last schedule --->
 					AND       PriceSchedule = '#PriceSchedule#'		
@@ -209,6 +210,7 @@
 				</cfif>			
 		</cfquery>
 		
+			
 		
 		<cfif getPrice.recordcount eq "1">
 		
@@ -289,7 +291,9 @@
 					
 					 <!--- we take the blank warehouse first --->
 																
-				</cfquery>										
+				</cfquery>		
+				
+							
 				
 				<cfif getPrice.recordcount eq "1">
 				
@@ -398,7 +402,7 @@
 			password="#SESSION.dbpw#">
 			    SELECT    *
 			    FROM      Accounting.dbo.Ref_Tax
-			    WHERE     TaxCode         = '#sale.taxcode#' 	
+			    WHERE     TaxCode         = '#sale.taxcode#' 					
 		</cfquery>
 		
 		<cfif getTax.recordcount eq "0">
@@ -451,13 +455,15 @@
 
 			<cfif getCustomerTax.taxExemption eq "1">
 				<cfset sale.amounttax  = 0>
+				
 			</cfif>		
-							
+										
 		</cfif>		
 		
 		<!--- rounding --->
 		<cfset sale.amount    = round(sale.amount*100)/100>
 		<cfset sale.amounttax = round(sale.amounttax*100)/100>
+		
 		<cfif quantity eq "0">
 			<cfset sale.pricenet = "0">
 		<cfelse>
@@ -3008,16 +3014,24 @@
 				 	SELECT *
 					FROM   WarehouseTerminal
 					WHERE  Warehouse     = '#warehouse#'
-					AND    TerminalName	 = '#Terminal#'
-					AND    TaxOrgUnitEDI = '#get.OrgUnitTax#'
+					<cfif Terminal neq "">
+						AND    TerminalName	 = '#Terminal#'
+					</cfif>
+					<cfif get.OrgUnitTax neq 0>
+						AND    TaxOrgUnitEDI = '#get.OrgUnitTax#'
+					</cfif>
+					AND    TaxOrgUnitEDI IS NOT NULL
 				</cfquery>
-				
+
+
+
 				<cfif getSeriesType.RecordCount eq "0">
 				
 					<!--- No valid tree defined for EDI --->
 					<cfset Invoice.Mode = "1"> <!--- manual --->
 					<cfset Invoice.ErrorDescription = "No valid tree defined">
-					
+
+
 				<cfelse>
 				
 					<cfquery name="getSeries"
@@ -3026,22 +3040,30 @@
 					 password="#SESSION.dbpw#">
 					 	SELECT  *
 						FROM    OrganizationTaxSeries
-						WHERE   Orgunit 	= '#get.OrgUnitTax#'
+						WHERE   1 = 1
+						<cfif get.OrgUnitTax neq 0>
+							AND Orgunit 	= '#get.OrgUnitTax#'
+						</cfif>
 						AND		Operational = 1
 						AND     SeriesType = 'Invoice'
-						AND		InvoiceCurrent < InvoiceEnd						
+						AND		((InvoiceCurrent < InvoiceEnd) OR (UserKey IS NOT NULL))
 					</cfquery> 	
 
 					<cfif getSeries.RecordCount eq "0">
 						<!--- No valid series defined for EDI --->
 						<cfset Invoice.Mode = "1"> <!--- manual --->
 						<cfset Invoice.ErrorDescription = "No valid series is defined">
+
+
 					<cfelse>
 						<cfset Invoice.Mode = "2"> <!--- EDI --->
-					
+
+							<cfif Terminal eq "">
+								<cfset Terminal = getSeriesType.TerminalName>
+
+							</cfif>
 						<!--- initiate EDI once it fails after 2 attempts Invoice.Mode = "1" --->	
-															
-							<cfinvoke component = "Service.Process.EDI.Manager"  
+							<cfinvoke component = "Service.Process.EDI.Manager"
 									   method           = "SaleIssue" 
 									   Datasource       = "AppsOrganization"
 									   Mission          = "#get.Mission#"
@@ -3084,31 +3106,47 @@
 			</cfif>			
 			
 			<cfif Invoice.Mode eq "2" and stResponse.DocumentNo neq  "">
-				<!--- update the current electronic invoice generated --->		
-				<cfset curInvoice = "0">
-				<cfset curInvoice = LSParseNumber(right(stResponse.DocumentNo,10))>
-				
-				<cfquery name="UpdateInvoice"
-				 datasource="AppsOrganization" 
-				 username="#SESSION.login#" 
-				 password="#SESSION.dbpw#">
-				 	UPDATE  OrganizationTaxSeries
-					SET 	InvoiceCurrent = #curInvoice#
-					WHERE   Orgunit 	= '#get.OrgUnitTax#'
-					AND		Operational = 1
-					AND		SeriesNo = '#getSeries.SeriesNo#'						
-				</cfquery>
-				
-				<!--- update warehousebatch reference with electronic invoice --->
-				<cfquery name="UpdateReference"
-				 datasource="AppsMaterials" 
-				 username="#SESSION.login#" 
-				 password="#SESSION.dbpw#">
-				 	UPDATE  WarehouseBatch
-					SET 	BatchReference = '#stResponse.Dte#'
+				<!--- update the current electronic invoice generated --->
+				<cfif getSeries.UserKey eq "">
+					<cfset curInvoice = "0">
+					<cfset curInvoice = LSParseNumber(right(stResponse.DocumentNo,10))>
+
+					<cfquery name="UpdateInvoice"
+					 datasource="AppsOrganization"
+					 username="#SESSION.login#"
+					 password="#SESSION.dbpw#">
+						UPDATE  OrganizationTaxSeries
+						SET 	InvoiceCurrent = #curInvoice#
+						WHERE   Orgunit 	= '#get.OrgUnitTax#'
+						AND		Operational = 1
+						AND		SeriesNo = '#getSeries.SeriesNo#'
+					</cfquery>
+
+					<!--- update warehousebatch reference with electronic invoice --->
+					<cfquery name="UpdateReference"
+							datasource="AppsMaterials"
+							username="#SESSION.login#"
+							password="#SESSION.dbpw#">
+						UPDATE  WarehouseBatch
+						SET 	BatchReference = '#stResponse.Dte#'
 					WHERE   BatchId 	= '#BatchId#'
 					AND		BatchReference  IS NULL
-				</cfquery>				
+					</cfquery>
+				<cfelse>
+		<!--- update warehousebatch reference with electronic invoice --->
+						<cfquery name="UpdateReference"
+								datasource="AppsMaterials"
+								username="#SESSION.login#"
+								password="#SESSION.dbpw#">
+							UPDATE  WarehouseBatch
+							SET 	BatchReference = '#stResponse.Cae#'
+							WHERE   BatchId 	= '#BatchId#'
+							AND		BatchReference  IS NULL
+						</cfquery>
+
+				</cfif>
+
+
 				
 				<cfquery name="GetSer"
 				 datasource="AppsOrganization" 
@@ -3213,6 +3251,7 @@
 						   ActionReference2,
 						   ActionReference3,						                       								
 					       ActionReference4,
+						   ActionReference5,
 						  <cfelseif getWarehouseJournal.TransactionMode eq "2">  <!--- Mode was 2 but no connection to the GFACE --->
 						   ActionReference4,
 						  </cfif>
@@ -3234,6 +3273,11 @@
 								'#stResponse.DocumentNo#',
 								'#stResponse.Dte#',
 								'#getSeries.SeriesNo#',
+								<cfif StructKeyExists(stResponse,"Series")>
+								'#stResponse.Series#',
+								<cfelse>
+									NULL,
+								</cfif>
 						  <cfelseif getWarehouseJournal.TransactionMode eq "2">
 						  		'#GetManualSeries.SeriesNo#',
 						  </cfif> 

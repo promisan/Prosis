@@ -1,14 +1,10 @@
 
 <cfoutput>
 
+<cf_dialogPosition>
+
 <script>
   
-function EditPost(posno) {
-     w = #CLIENT.width# - 60;
-     h = #CLIENT.height# - 130;
-     window.open("#SESSION.root#/Staffing/Application/Position/Position/PositionView.cfm?ID=" + posno, "_blank", "left=20, top=20, width=" + w + ", height= " + h + ", status=yes, toolbar=no, scrollbars=no, resizable=yes");
-}	 
-
 function maintain(org,mis,man) {
     w = #CLIENT.width# - 85;
     h = #CLIENT.height# - 110;

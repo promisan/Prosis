@@ -37,7 +37,7 @@
 	datasource="AppsMaterials" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-		SELECT     TOP 10 A.*			
+		SELECT     TOP 20 A.*			
 		FROM       Customer A 	
 		
 		<cfif url.search neq "inmemory">				
@@ -52,6 +52,7 @@
 							WHERE   Mission     = '#url.mission#'
 							AND     Warehouse   = '#url.warehouse#'
 							AND     ActionStatus ! = '9'
+							AND     BatchNo is NULL
 							<!--- not loaded from existing --->
 							AND     BatchId is NULL)
 		</cfif>

@@ -1,5 +1,5 @@
 
-<cfajaximport tags="cfform,cfwindow,cfinput-datefield">
+<cfajaximport tags="cfform,cfwindow">
 
 <cf_calendarScript>
 
@@ -284,9 +284,10 @@
 
 <div name="processing" id="processing" class="hide"></div>
      
-<cfform target="_self" action="Search4Submit.cfm?docno=#url.docno#&ID=#URL.ID#&Owner=#Search.Owner#&mode=#url.mode#&status=#search.status#" method="POST" name="searchform" id="searchform" style="height:100%">
+<cfform target="_self"
+ action="Search4Submit.cfm?docno=#url.docno#&ID=#URL.ID#&Owner=#Search.Owner#&mode=#url.mode#&status=#search.status#" method="POST" name="searchform" id="searchform" style="height:98.5%">
 
-<table style="height:99.5%" width="100%">
+<table style="height:100%" width="100%">
 
  <tr>
 	    <td height="40" style="padding-left:15px;padding-right:15px">	
@@ -1722,7 +1723,7 @@
 		
 	</td></tr>	
 	
-	<tr><td height="1" class="linedotted" valign="bottom"></td></tr>
+	<tr><td height="1" class="line" valign="bottom"></td></tr>
 	
 	<cfoutput>
 		<script language="JavaScript1.1">
@@ -1739,10 +1740,10 @@
 	</td>
 	</tr>
 
-<tr class="line" style="border-top:1px solid silver">
+<tr>
 
 	<td align="center" height="35">
-	<button name="Prior" class="button10g" style="width:160;height:27"
+	<button name="Prior" class="button10g" style="width:160;height:27px"
 	 value="Next" type="button" onClick="revert()">
 	<img src="<cfoutput>#SESSION.root#</cfoutput>/Images/prev.gif" align="absmiddle" alt="" border="0">&nbsp;Back</b>
 	</button>
@@ -1751,7 +1752,7 @@
 	        class="button10g" 
 			value="Prior" 
 			type="submit" 
-			style="width:160;height:27">&nbsp;Search</b>
+			style="width:160;height:27px">&nbsp;Search</b>
 	<img src="<cfoutput>#SESSION.root#</cfoutput>/Images/next.gif" border="0" align="absmiddle"> 
 	</button>
 	
@@ -1762,4 +1763,3 @@
 
 </CFFORM>
 
-<cf_screenBottom html="No">

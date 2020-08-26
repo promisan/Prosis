@@ -41,7 +41,7 @@
                 </cfif>
                 <cfloop array="#Session.Tree#" index="itm">
                     <cfif itm.parent eq "#attributes.id#">
-                        <li data-expanded="#itm.expand#" data-url="#itm.href#" data-target="#itm.target#">
+                        <li data-expanded="#itm.expand#" data-url="#itm.href#" data-target="#itm.target#" data-value="#itm.value#">
                         <cfif itm.img neq "">
                                 <img src="#itm.img#" style="width:16px;height:16px;padding:0px">
                         </cfif>#itm.display#
@@ -156,7 +156,7 @@
                 <cfset j = j + 1>
                 <ul>
             </cfif>
-                <li data-expanded="#child.expand#"  data-url="#child.href#" data-target="#child.target#">
+                <li data-expanded="#child.expand#"  data-url="#child.href#" data-target="#child.target#" data-value="#child.value#">
                 <cfif child.img neq "">
                         <img src="#child.img#" style="width:16px;height:16px;padding:0px">
                 </cfif>#child.display#

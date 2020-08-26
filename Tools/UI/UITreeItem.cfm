@@ -16,7 +16,7 @@
     <cfif Attributes.bind eq "">
     <cfoutput>
         <cfscript>
-                ArrayAppend(SESSION.Tree,{parent:"#attributes.parent#", value:"#attributes.value#", value:"#attributes.value#", expand:"#attributes.expand#", display:"#attributes.display#",img:"#attributes.img#",href:"#attributes.href#",target:"#attributes.target#" });
+                ArrayAppend(SESSION.Tree,{parent:"#attributes.parent#", value:"#attributes.value#", expand:"#attributes.expand#", display:"#attributes.display#",img:"#attributes.img#",href:"#attributes.href#",target:"#attributes.target#" });
         </cfscript>
     </cfoutput>
 

@@ -3,10 +3,6 @@
 
 <cf_screentop height="100%" scroll="Yes" html="No" menuaccess="context" jquery="Yes">	
 
-<!---
-<cfajaximport tags="cfwindow">
---->
-
 <cf_dialogPosition>
 <cf_calendarScript>
 
@@ -62,7 +58,7 @@
 				try {
 					ProsisUI.closeWindow('myschedule')
 				} catch(e) {
-					ProsisUI.createWindow('myschedule', 'Week schedule', '',{x:100,y:100,height:730,width:890,closable:false,minimize:true,maximize:false,modal:false,resizable:false,center:true});
+					ProsisUI.createWindow('myschedule', 'Week schedule', '',{x:60,y:60,height:530,width:890,closable:false,minimize:true,maximize:false,modal:false,resizable:false,center:false});
 					ptoken.navigate('#SESSION.root#/attendance/application/workschedule/ScheduleView.cfm?id=#url.id#&contractid='+id+'&mission='+mis,'myschedule')
 				}
 			}
@@ -105,7 +101,7 @@
 	<input type="hidden" name="dayhour"         id="dayhour">	
 </cfoutput>
 
-<table width="97%" border="0" ccellspacing="0" ccellpadding="0" align="center" class="formpadding">
+<table width="97%" align="center" class="formpadding">
 
   <cfif url.wf eq "0">	
 
@@ -120,7 +116,7 @@
 	 <tr class="line">
 	    <td width="100%" style="padding-left:15px;height:45;font-size:21px;font-weight:200" align="left" valign="middle" class="labelmedium">
 		<cfoutput>
-			<cf_tl id="Initial Appointment"> / <cf_tl id="Re-appointment"></b></font>
+			<cf_tl id="Initial Appointment"> / <cf_tl id="Re-appointment">
 		</cfoutput>
 	    </td>
 	 </tr> 	
@@ -136,7 +132,7 @@
   
   <tr>
     <td width="100%" class="header">
-    <table border="0" ccellpadding="0" ccellspacing="0" width="97%" align="center" class="formpadding formspacing">
+    <table border="0" width="97%" align="center" class="formpadding formspacing">
 			
 	<cfquery name="Last" 
 	datasource="AppsEmployee" 
@@ -197,10 +193,11 @@
 	
 	</cfif>
 		
-	<cfset trackpositionno     = "">
+	<cfset trackpositionno     = "">	
 	<cfset trackpositionname   = "">
 	<cfset functiondescription = "">
 	<cfset functionno          = "">
+	<cfset candidateid         = "">
 	
 	<cfif url.wf eq "0">	
 	 
@@ -229,6 +226,28 @@
 		    FROM   OrganizationObject
 			WHERE  ObjectId   = '#url.objectid#'		
 		</cfquery>
+		
+		<cfif Object.EntityCode eq "VacCandidate">
+		
+			<!--- linkage to track that initiates this --->
+			
+			<cfquery name="Candidate" 
+			datasource="AppsOrganization" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			    SELECT *
+			    FROM   Vacancy.dbo.DocumentCandidate
+				WHERE  DocumentNo = '#Object.ObjectKeyValue1#'		
+				AND    PersonNo   = '#Object.ObjectKeyValue2#'
+			</cfquery>
+			
+			<cfif Candidate.recordcount eq "1">
+			
+				<input type="hidden" name="CandidateId"      value="<cfoutput>#candidate.CandidateId#</cfoutput>">	
+								
+			</cfif>				
+		
+		</cfif>
 		
 		<cfif url.positionno neq "">
 	
@@ -566,21 +585,18 @@
 					
 		<tr>		
 		  	<TD class="labelmedium"><cf_tl id="Grade">:</TD>
-			<TD>
-			
-			   <cfdiv bind="url:#SESSION.root#/staffing/Application/Employee/Contract/ContractField.cfm?field=contractlevel&mission={mission}&default=#LastContract.contractlevel#" 
-        		 id="fldcontractlevel">
-				
-			</TD> 
-		</tr>
-		
-		<tr><TD class="labelmedium"><cf_tl id="Step">:</TD>
-		    <td id="fldcontractstep">
-			
-				<cfdiv bind="url:#SESSION.root#/staffing/Application/Employee/Contract/ContractField.cfm?field=contractstep&grade=#LastContract.contractlevel#&default=#LastContract.contractstep#">
-							
-				</TD> 
-					
+			<td>
+				<table>
+				<tr class="labelmedium">
+				<td><cfdiv bind="url:#SESSION.root#/staffing/Application/Employee/Contract/ContractField.cfm?field=contractlevel&mission={mission}&default=#LastContract.contractlevel#" 
+	        		 id="fldcontractlevel">				
+				</td> 
+				<td style="padding-left:5px" class="labelmedium"><cf_tl id="Step">:</TD>
+			    <td id="fldcontractstep" style="padding-left:5px">			
+					<cfdiv bind="url:#SESSION.root#/staffing/Application/Employee/Contract/ContractField.cfm?field=contractstep&grade=#LastContract.contractlevel#&default=#LastContract.contractstep#">										 					
+				</td>
+				</tr>
+				</table>
 			</td>
 		</tr>
 		
@@ -596,7 +612,7 @@
 					
 		<cfoutput>				
 		<tr>			
-	  	<TD class="labelmedium"><a id="contractselect" href="javascript:selectscale('#url.id#','#lastcontract.contractType#','#url.id1#')"><cf_tl id="Grade">:</font></TD>
+	  	<TD class="labelmedium"><a id="contractselect" href="javascript:selectscale('#url.id#','#lastcontract.contractType#','#url.id1#')"><cf_tl id="Grade">:</TD>
 		    <TD><input type="text" name="contractlevel" id="contractlevel" value="#lastcontract.contractlevel#" size="20" maxlength="20" readonly class="regularxl" style="background-color: f4f4f4;"></TD> 
 		</tr>
 		<tr>
@@ -680,12 +696,12 @@
 	</cfoutput>
 		
 	<TR>
-    <TD class="labelmedium"><cf_tl id="Part-time">:</TD>
+    <TD class="labelmedium"><cf_tl id="Modality">:</TD>
     <TD class="labelmedium">
 	  
 	    <table>
 			<tr class="labelmedium">
-			<td><INPUT type="radio" class="radiol" onclick="applyhours(this.value)" name="ContractTime" value="100" checked></td><td style="padding-left:4px"><cf_tl id="No"></td>
+			<td><INPUT type="radio" class="radiol" onclick="applyhours(this.value)" name="ContractTime" value="100" checked></td><td style="padding-left:4px"><cf_tl id="Fulltime"></td>
 			<td style="padding-left:6px"><INPUT type="radio" onclick="applyhours(this.value)" class="radiol" name="ContractTime" value="90" <cfif LastContract.ContractTime eq 90>checked</cfif>></td><td style="padding-left:4px">90%</td>
 			<td style="padding-left:6px"><INPUT type="radio" onclick="applyhours(this.value)" class="radiol" name="ContractTime" value="80" <cfif LastContract.ContractTime eq 80>checked</cfif>></td><td style="padding-left:4px">80%</td>
 			<td style="padding-left:6px"><INPUT type="radio" onclick="applyhours(this.value)" class="radiol" name="ContractTime" value="70" <cfif LastContract.ContractTime eq 70>checked</cfif>></td><td style="padding-left:4px">70%</td>
@@ -702,7 +718,7 @@
 	
 	<tr>	
 	
-    <TD class="labelmedium"><cf_tl id="Workhours">:</TD>
+    <TD class="labelmedium"><cf_tl id="Weekly hours">:</TD>
     <TD class="labelmedium">
 	
 		<table>
@@ -733,7 +749,7 @@
 		   validate   = "float"
 		   required   = "No" 
 		   size       = "3" 
-		   maxlength  = "10"> <cf_tl id="weekly">
+		   maxlength  = "10"> 
 		   
 		   </td>	   
 		   
@@ -805,7 +821,7 @@
 	<TR>
         <td valign="top" style="padding-top:5px" class="labelmedium"><cf_tl id="Remarks">:</td>
         <TD>		
-		<textarea id="Remarks" name="Remarks" class="regular" style="font-size:12px;padding:3px;width:95%;height:78" totLength="600" onkeypress="return ismaxlength(this);"></textarea> </TD>
+		<textarea id="Remarks" name="Remarks" class="regular" style="font-size:13px;padding:3px;width:95%;height:58px" totLength="600" onkeypress="return ismaxlength(this);"></textarea> </TD>
 	</TR>
 	
 	<tr><td height="4"></td></tr>

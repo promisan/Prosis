@@ -248,9 +248,9 @@
 			<cfelse>
 			
 			--->
-				<cf_uiselect name="category" 
+				<cfselect name="category" id="category"
 					class    = "regularxl"
-					query    = "#Cat#" 
+					query    = "Cat" 
 					required = "Yes" 
 					value    = "Category" 
 					message  = "Please, select a valid asset category." 
@@ -263,7 +263,7 @@
 					
 			</td>
 			
-			<td class="labelmedium" style="padding-left:10px" align="right"><cf_tl id="Item Category">:<font color="FF0000">*</font></td>
+			<td class="labelmedium" style="padding-left:10px" align="right"><cf_tl id="Sub Category">:<font color="FF0000">*</font></td>
 			
 		    <td style="padding-left:10px">			
 				<cf_securediv id="divCategoryItem" bind="url:#SESSION.root#/Warehouse/Maintenance/Item/getCategoryItem.cfm?ItemNo=#Item.ItemNo#&Category={category}&CategoryItem=#Item.CategoryItem#">

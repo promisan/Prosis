@@ -204,14 +204,14 @@ password="#SESSION.dbpw#">
 					<cfif ItemUoM.ItemBarCode neq "">
 					
 						<td class="labelmedium">
-						
+												
 							<cfinput type="Text"
 						       name="ItemBarCode"
 						       value="#ItemUoM.ItemBarCode#"				      
 						       required="No"					   
 							   visible="Yes"
 						       enabled="Yes"
-						       size="10"
+						       size="20"
 						       maxlength="20"
 						       class="regularxl">
 						   

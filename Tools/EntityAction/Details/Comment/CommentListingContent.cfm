@@ -39,7 +39,11 @@ username="#SESSION.login#"
 password="#SESSION.dbpw#">
 	SELECT     *
 	FROM       OrganizationObjectActionMail M
+	<cfif Related.recordcount gte "1">
 	WHERE      ObjectId IN (#quotedvalueList(Related.ObjectId)#)
+	<cfelse>
+	WHERE      1=0
+	</cfif>
 	AND        MailType = 'Comment'
 	<cfif getAdministrator("*") eq "0">
 	AND        MailScope = 'All'

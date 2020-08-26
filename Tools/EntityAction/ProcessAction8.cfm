@@ -42,6 +42,7 @@
 		 AND      R.DocumentType = 'field'
 		 AND      R.Operational = 1
 		 AND      R.DocumentMode = 'Step' 
+		 AND      R.FieldType = 'map'
 </cfquery>		 
  
 <cfif checkCustom.recordcount gte "1">

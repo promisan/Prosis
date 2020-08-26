@@ -121,7 +121,7 @@
 	    position    = "right" 
 		name        = "treebox" 
 		maxsize     = "370" 		
-		size        = "170" 
+		size        = "270" 
 		collapsible = "true" 
 		splitter    = "true"
 		overflow    = "hidden">

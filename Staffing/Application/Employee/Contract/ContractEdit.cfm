@@ -79,7 +79,7 @@
 				try {
 					ProsisUI.closeWindow('myschedule')
 				} catch(e) {
-					ProsisUI.createWindow('myschedule', 'Week schedule', '',{x:100,y:100,height:730,width:890,closable:false,minimize:true,maximize:false,modal:false,resizable:false,center:true});
+					ProsisUI.createWindow('myschedule', 'Week schedule', '',{x:60,y:60,height:530,width:890,closable:false,minimize:true,maximize:false,modal:false,resizable:false,center:false});
 					ptoken.navigate('#SESSION.root#/attendance/application/workschedule/ScheduleView.cfm?id=#url.id#&contractid='+id+'&mission='+mis,'myschedule')
 				}
 			}

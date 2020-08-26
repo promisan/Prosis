@@ -258,14 +258,7 @@ function details(id) {
 	   ptoken.open("#SESSION.root#/Roster/RosterSpecial/CandidateView/FunctionViewLoop.cfm?DocumentNo=#URL.ID#&IDFunction=" + id + "&status=1", id);
 	}
 	
-function EditPost(posno) {
-        if (posno != "") {
-        w = #CLIENT.width# - 60;
-        h = #CLIENT.height# - 130;
-		ptoken.open("#SESSION.root#/Staffing/Application/Position/Position/PositionView.cfm?ID=" + posno, "_blank", "left=20, top=20, width=" + w + ", height= " + h + ", status=yes, toolbar=no, scrollbars=no, resizable=yes");
-		}
-}	
-	
+
 function revoke(st) {
 
 	if (confirm("Do you want to withdraw this vacancy track ?")) {
@@ -387,6 +380,7 @@ password="#SESSION.dbpw#">
     SELECT   *
     FROM     Ref_PostGrade R, Applicant.dbo.Ref_GradeDeployment D
 	WHERE    R.PostGrade = D.GradeDeployment
+	AND      PostGradeVactrack = 1
 	ORDER BY R.Postorder
 </cfquery>
 

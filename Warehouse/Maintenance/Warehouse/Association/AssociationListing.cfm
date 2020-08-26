@@ -8,7 +8,7 @@
 				<tr>
 					<td class="labelit"><cf_tl id="Type">:</td>
 					<td style="padding-left:10px;">
-						<select name="associationType" id="associationType" class="regularxl">
+						<select name="associationType" id="associationType" class="regularxxl">
 							<option value="Transfer"> <cf_tl id="Transfer">
 						</select>
 					</td>

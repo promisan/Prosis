@@ -166,6 +166,11 @@
 	    window.open("#SESSION.root#/DWarehouse/Detail/EmployeeGeneral.cfm?ID=#URL.ID1#&systemfunctionid="+idmenu+"&section=history&topic=assignment", "right");
 	}
 	
+	function incumbency0(s,idmenu) {
+		window.open("#SESSION.root#/DWarehouse/Detail/EmployeeRouting.cfm?ID=#URL.ID1#&systemfunctionid="+idmenu+"&section=history&topic=assignment", "right");
+	   
+	}
+	
 	function grade(s,idmenu) {
 	    window.open("#SESSION.root#/DWarehouse/Detail/EmployeeGeneral.cfm?ts="+new Date().getTime()+"&ID=#URL.ID1#&systemfunctionid="+idmenu+"&section=history&topic=grade", "right");
 	}

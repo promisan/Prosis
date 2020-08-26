@@ -75,16 +75,60 @@
 					WHERE  Mission = '#Mission#'	    							   
 			</cfquery>
 
-			<cfif qmission.EDIMethod neq "">			
-					
-				<cfinvoke component = "Service.Process.EDI.#qmission.EDIMethod#"  
-			      method           = "SaleIssue" 
-				  datasource       = "#ARGUMENTS.Datasource#"
-   				  mission          = "#Mission#" 
-			      Terminal         = "#Terminal#" 
-			      Batchid          = "#BatchId#"
-				  RetryNo		   = "#RetryNo#"
-			      returnvariable   = "EDIResult">	 
+			<cfif qmission.EDIMethod neq "">
+
+					<cfquery name="GetInvoice"
+						datasource="#datasource#"
+						username="#SESSION.login#"
+						password="#SESSION.dbpw#">
+						SELECT *
+						FROM Materials.dbo.WarehouseBatch WB
+						WHERE WB.BatchId='#Batchid#'
+					</cfquery>
+					<!--- Get Warehouse device information --->
+					<cfquery name="GetWarehouseDevice"
+							datasource="#datasource#"
+							username="#SESSION.login#"
+							password="#SESSION.dbpw#">
+						SELECT *
+						FROM   Materials.dbo.WarehouseTerminal
+						WHERE  Warehouse = '#GetInvoice.Warehouse#'
+						AND    TerminalName = '#terminal#'
+						AND    Operational=1
+					</cfquery>
+
+					<!--- Get Warehouse and Series Information --->
+					<cfquery name="GetWarehouseSeries"
+							datasource="#datasource#"
+							username="#SESSION.login#"
+							password="#SESSION.dbpw#">
+							SELECT *
+							FROM   Organization.dbo.OrganizationTaxSeries
+							WHERE  OrgUnit = '#GetWarehouseDevice.TaxOrgUnitEDI#'
+							AND    SeriesType = 'Invoice'
+							AND    Operational=1
+					</cfquery>
+
+					<cfif GetWarehouseSeries.UserKey eq "">
+							<cfinvoke component = "Service.Process.EDI.#qmission.EDIMethod#"
+			      				method           = "SaleIssue"
+				  				datasource       = "#ARGUMENTS.Datasource#"
+   				  				mission          = "#Mission#"
+			      				Terminal         = "#Terminal#"
+			      				Batchid          = "#BatchId#"
+				  				RetryNo		   = "#RetryNo#"
+			      				returnvariable   = "EDIResult">
+					<cfelse>
+
+							<cfinvoke component = "Service.Process.EDI.#qmission.EDIMethod#"
+									method           = "SaleIssueV2"
+									datasource       = "#ARGUMENTS.Datasource#"
+									mission          = "#Mission#"
+									Terminal         = "#Terminal#"
+									Batchid          = "#BatchId#"
+									RetryNo		     = "#RetryNo#"
+									returnvariable   = "EDIResult">
+					</cfif>
 			
 			<cfelse>
 			

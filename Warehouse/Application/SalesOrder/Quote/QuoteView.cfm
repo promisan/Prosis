@@ -82,7 +82,8 @@
 		password="#SESSION.dbpw#">
 			SELECT * 
 			FROM   OrganizationObject
-			WHERE  ObjectKeyValue1 = '#Request.RequestNo#'
+			WHERE  EntityCode = 'WhsQuote'
+			AND    ObjectKeyValue1 = '#Request.RequestNo#'
 			AND    Operational = 1
 		</cfquery>
 		

@@ -153,7 +153,7 @@ password="#SESSION.dbpw#">
 	  <tr>
 	    <td width="100%" colspan="4">
 						
-		<cfform action="ActionRecordsSubmit.cfm?Search=#url.search#&EntityCode=#URL.EntityCode#&ID2=#URL.ID2#&search=#url.search#" 
+		<cfform action="ActionRecordsSubmit.cfm?Search=#url.search#&EntityClass=#url.entityclass#&EntityCode=#URL.EntityCode#&ID2=#URL.ID2#&search=#url.search#" 
 		    method="POST" 
 			name="action">
 		
@@ -173,7 +173,7 @@ password="#SESSION.dbpw#">
 	         
 			 <cfoutput>			 
 			 <cfif URL.ID2 neq "new">
-			     <A href="javascript:#ajaxLink('ActionRecords.cfm?EntityCode=#URL.EntityCode#&search=#url.search#&ID2=new')#">add</a>
+			     <A href="javascript:#ajaxLink('ActionRecords.cfm?EntityCode=#URL.EntityCode#&search=#url.search#&ID2=new')#"><cf_tl id="add"></a>
 			 </cfif>			
 			 </cfoutput>
 			 
@@ -346,18 +346,18 @@ password="#SESSION.dbpw#">
 			      <input type="checkbox" class="radiol" name="Operational" id="Operational" value="1" <cfif "1" eq op>checked</cfif>>
 				</td>
 			   <td colspan="4" align="right" style="padding-left:3px;border-left:1px solid silver">
-			   <input type="submit" style="width:50" value="Save" class="button10s">
+			   <input type="submit" style="width:50" value="Save" class="button10g">
 			   </td>
 		    </TR>	
 			
 			<cfif parent.recordcount gt "0">
 			
 			<tr><td></td>
-			    <td style="padding-left:8px;height;30px" class="labelmedium">Parent:</td>
+			    <td style="padding-left:8px;height;30px" class="labelmedium"><cf_tl id="Parent">:</td>
 			    <td>
 			    <select name="ParentCode" id="ParentCode" class="regularxl" style="border:0px">
 			       <cfloop query="Parent">
-				   <option value="#Code#" <cfif #Code# eq "#par#">selected</cfif>>#Code#</option>
+				   <option value="#Code#" <cfif Code eq "#par#">selected</cfif>>#Code#</option>
 				   </cfloop>
 				</select>
 			    </td>

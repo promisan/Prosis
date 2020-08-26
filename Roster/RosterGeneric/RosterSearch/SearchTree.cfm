@@ -28,7 +28,7 @@
 
 <cfform>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="100%" align="center" class="formpadding">
 
 <tr><td height="10"></td></tr>
 <tr><td style="padding-left:9px">
@@ -45,7 +45,7 @@
 	<tr><td class="labelit">
 	<img src="<cfoutput>#SESSION.root#</cfoutput>/Images/point.jpg" alt="" border="0">&nbsp;
 	<a id="newsearch" href="Search1.cfm?Mode=<cfoutput>#URL.Mode#&Owner=#URL.Owner#&Status=#URL.Status#&DocNo=#URL.DocNo#</cfoutput>" target="main"> 
-	    <font color="0080C0"><cf_tl id="New search"></font></a>
+	    <cf_tl id="New search"></a>
 	</td></tr>
 	
 	<tr><td height="5" class="Show"></td></tr>	
@@ -56,32 +56,34 @@
 	
 	<cfparam name="URL.ID" default="1">	
 		
-	<tr><td class="labelit">
-	<img src="<cfoutput>#SESSION.root#</cfoutput>/Images/point.jpg" alt="Archive result set" border="0">&nbsp;
+	<tr><td class="labelmedium" style="padding-left:4px">
+	<table><tr><td>
+	<img src="<cfoutput>#SESSION.root#</cfoutput>/Images/point.jpg" alt="Archive result set" border="0">
+	</td><td class="labelmedium" style="padding-left:7px">
 	<a href="ResultArchive.cfm?id=<cfoutput>#url.id1#&Mode=#URL.Mode#&Owner=#URL.Owner#&Status=#URL.Status#&DocNo=#URL.DocNo#</cfoutput>" target="center"> 
-	     Archive this result</a>
+	     <cf_tl id="Archive this result"></a>
 	</tr></td>
-	<tr><td height="5" class="Show"></td></tr>		
-	<tr><td height="1" class="linedotted"></td></tr>
-	<tr><td height="5" class="Show"></td></tr>	
+	</table> 
+		 </td></tr>
+	
+	<tr><td height="1" class="line"></td></tr>
+		
 	<cfoutput>
 	<tr><td class="labelmedium">
 	<table><tr><td>
 	<img src="<cfoutput>#SESSION.root#</cfoutput>/Images/overview.gif" alt="" border="0"></td><td class="labelmedium" style="padding-left:7px">
-	<a href="Summary/Index.cfm?mode=#url.mode#&docno=#url.docno#&ID1=#URL.ID1#" title="graphical summary" target="center"> 
-	     <font color="0080C0"><u>Summary</b></a>
+	<a href="Summary/Index.cfm?mode=#url.mode#&docno=#url.docno#&ID1=#URL.ID1#" title="graphical summary" target="center">Summary</a>
 		</td></tr></table> 
 		 </td></tr>
 	</cfoutput>	
 	
-	<tr><td height="1" class="linedotted"></td></tr>
-	
-	
+	<tr><td height="1" class="line"></td></tr>
+		
 	</cfif>
 	
 <cfelse>
 
-    <tr><td align="left" class="labelmedium">Reference: <cfoutput>:<b>#URL.docNo#</cfoutput></b></td></tr>		
+    <tr><td align="left" class="labelmedium">Reference <cfoutput><cfif len(url.docno) lte 6>:#URL.docNo#</cfif></cfoutput></td></tr>		
 	<tr><td height="1" class="line"></td></tr>	
 	
 	<cfif URL.ID eq "1"> 
@@ -89,9 +91,8 @@
 	<cfoutput>
 	<tr><td class="labelmedium">
 	<table><tr><td>
-	<img src="<cfoutput>#SESSION.root#</cfoutput>/Images/overview.gif" alt="" border="0"></td><td class="labelmedium" style="padding-left:7px">
-	<a href="Summary/Index.cfm?mode=#url.mode#&docno=#url.docno#&ID1=#URL.ID1#" title="graphical summary" target="center"> 
-	     <font color="0080C0"><u>Summary</b></a>
+	<img src="<cfoutput>#SESSION.root#</cfoutput>/Images/overview.gif" alt="" border="0"></td><td class="labelmedium" style="font-size:16px;padding-left:7px">
+	<a href="Summary/Index.cfm?mode=#url.mode#&docno=#url.docno#&ID1=#URL.ID1#" title="graphical summary" target="center">Summary</a>
 		</td></tr></table> 
 		 </td></tr>
 	</cfoutput>	
@@ -114,7 +115,7 @@
 	<script>
 	
 	function more(box,val,doc,mode) {
-	   ColdFusion.navigate('SearchTreeList.cfm?mode='+mode+'&docno='+doc+'&val='+val,box)  
+	   ptoken.navigate('SearchTreeList.cfm?mode='+mode+'&docno='+doc+'&val='+val,box)  
 	}	
 			
 	</script>
@@ -183,7 +184,7 @@
 				<td>
 				<table width="100%" cellspacing="0" cellpadding="0">
 					<tr>
-					<td class="labelit" style="padding-left:10px">				
+					<td class="labelit" style="padding-left:10px">			
 						
 						  #Dateformat(created,"HH:MM")# <a href="ResultView.cfm?mode=#url.mode#&docno=#url.docno#&ID=#SearchId#" target="#tg#"><font color="0080CO">#left(FunctionalTitle,20)#.. </a></font> 
 					</td>

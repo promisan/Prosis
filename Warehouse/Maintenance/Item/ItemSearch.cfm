@@ -79,9 +79,7 @@ password="#SESSION.dbpw#">
 			
 		<INPUT type="hidden" name="Crit5_FieldName" id="Crit5_FieldName" value="ItemClass">		
 		<INPUT type="hidden" name="Crit5_FieldType" id="Crit5_FieldType" value="CHAR">
-		
-		
-		
+				
 		<!--- Field: Item.ItemColor=CHAR;20;FALSE --->
 		<INPUT type="hidden" name="Crit6_FieldName" id="Crit6_FieldName" value="Mission">
 		

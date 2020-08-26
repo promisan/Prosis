@@ -29,7 +29,7 @@
 	
 	<tr class="line">
 	
-		<td height="16" style="padding-top:14px">
+		<td height="16" style="padding-top:2px">
 		
 			<cfinvoke component = "Service.Presentation.TableFilter"  
 			   method           = "tablefilterfield" 

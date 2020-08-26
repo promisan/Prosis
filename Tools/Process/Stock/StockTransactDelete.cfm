@@ -75,6 +75,7 @@
 		INSERT INTO Materials.dbo.ItemTransactionShippingDeny
 		           (TransactionId
 		           ,ActionStatus
+				   ,SalesQuantity
 		           ,PriceSchedule
 				   ,SalesPersonNo
 		           ,SalesCurrency
@@ -106,6 +107,7 @@
 		           
 		 SELECT     <cfif Attributes.Parenttransactionid neq "">'#rowguid#'<cfelse>TransactionId</cfif>
 		           ,ActionStatus
+				   ,SalesQuantity
 		           ,PriceSchedule
 				   ,SalesPersonNo				   
 		           ,SalesCurrency
@@ -249,8 +251,7 @@
 			           ,SalesCurrency
 			           ,SchedulePrice
 					   ,SalesUom
-					   ,SalesQuantity
-					   ,SalesPersonNo
+					   ,SalesQuantity					  
 			           ,SalesPriceFixed
 			           ,SalesPriceVariable
 			           ,SalesPrice
@@ -283,8 +284,7 @@
 			           ,SalesCurrency
 			           ,SchedulePrice
 					   ,SalesUom
-					   ,SalesQuantity
-					   ,SalesPersonNo
+					   ,SalesQuantity					  
 			           ,SalesPriceFixed
 			           ,SalesPriceVariable
 			           ,SalesPrice

@@ -15,13 +15,16 @@ password="#SESSION.dbpw#">
 	ORDER BY Owner,ListingOrder
 </cfquery>
 
-<cfquery name="Owner" 
+<cfquery name="OwnerList" 
 datasource="AppsOrganization" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
     SELECT *
     FROM  Ref_AuthorizationRoleOwner	
+	WHERE Operational = 1
 </cfquery>
+
+<cfset cnt = cnt + 20>
 
 <cfif Detail.recordcount eq "0">
    <cfparam name="URL.ID2" default="new">
@@ -31,11 +34,11 @@ password="#SESSION.dbpw#">
 
 <cfparam name="URL.owner" default="">  
 	
-<cfform action="ActionParentSubmit.cfm?EntityCode=#URL.EntityCode#&ID2=#URL.ID2#" method="POST" enablecab="Yes" name="action">
+<cfform action="ActionParentSubmit.cfm?EntityCode=#URL.EntityCode#&ID2=#URL.ID2#" method="POST" name="action">
 
 <div style="position:absolute;top:0; overflow: auto; width:100%; height:100%; scrollbar-face-color: F4f4f4; clip: auto;">
 
-	<table width="97%" class="formspacing"	align="center">
+	<table width="100%" class="formspacing"	align="center">
    
 	  <tr>
 	    <td width="100%">		
@@ -50,46 +53,59 @@ password="#SESSION.dbpw#">
 		   <td width="7%"></td>
 	    </TR>	
 				
-		<cfset cnt = cnt + 30>
-			
-		<cfoutput query="Detail" group="Owner">				
+					
+		<cfoutput query="OwnerList">				
 		
-		<tr class="labelmedium line"><td height="1" colspan="5" style="padding-left:3px">#Owner#</td>
+		<tr class="labelmedium line"><td height="1" colspan="5" style="padding-left:3px;font-size:17px;">#Description#</td>
 		     <td class="labelit">
 		     <cfif URL.ID2 neq "new">
-			     <A href="ActionParent.cfm?EntityCode=#URL.EntityCode#&ID2=new&owner=#owner#"><font color="0080FF">[add]</a>
+			     <A href="ActionParent.cfm?EntityCode=#URL.EntityCode#&ID2=new&owner=#code#">[add]</a>
 			 </cfif>
 			 </td>
 		</tr>
-				
-		<cfif URL.ID2 eq "new" and url.owner eq Owner>
-				   
+		
+		<cfset cnt = cnt + 32>
+		
+		<cfquery name="Detail" 
+		datasource="AppsOrganization" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		    SELECT   *
+		    FROM     Ref_EntityActionParent
+			WHERE    EntityCode = '#URL.EntityCode#' 
+			AND      Owner = '#code#'
+			ORDER BY ListingOrder
+		</cfquery>
+		
+								
+		<cfif URL.ID2 eq "new" and url.owner eq Code>
+						   
 		   <input type="hidden" name="Owner" id="Owner" value="#owner#">
 					
 			<TR bgcolor="ffffdf" class="labelmedium line" style="height:20px">
 			<td style="padding-left:3px">
-			  <cfinput type="Text" value="" name="Code" message="You must enter a code" required="Yes" size="4" maxlength="6" class="regularxl">
+			  <cfinput type="Text" value="" name="Code" style="border-top:0px;border-bottom:0px" message="You must enter a code" required="Yes" size="4" maxlength="6" class="regularxl">
 	        </td>			
 			<td>
-			   <cfinput type="Text" name="Description" message="You must enter a description" required="Yes" size="40" maxlength="50" class="regularxl">
+			   <cfinput type="Text" name="Description" style="border-top:0px;border-bottom:0px" message="You must enter a description" required="Yes" size="40" maxlength="50" class="regularxl">
 			</td>			
 			<td>
-			   <cfinput type="Text" name="ListingOrder" validate="integer" required="No" visible="Yes" enabled="Yes" size="1" maxlength="2" class="regularxl">
+			   <cfinput type="Text" name="ListingOrder" style="border-top:0px;border-bottom:0px" validate="integer" required="No" visible="Yes" enabled="Yes" size="2" maxlength="2" class="regularxl">
 			</td>			
 			<td align="center">
 				<input type="checkbox" name="Operational" id="Operational" value="1" checked>
 			</td>											   
-			<td align="right" colspan="2" style="padding-right:4px"><input type="submit" value="Add" class="button10g" style="height:25;width:60"></td>
+			<td align="right" colspan="2" style="padding-right:4px"><input type="submit" value="Add" class="button10g" style="height:25;width:60;border-top:0px;border-bottom:0px"></td>
 			    
 			</TR>	
 						 			
-			<cfset cnt = cnt + 25>
+			<cfset cnt = cnt + 28>
 																	
 		</cfif>	
 		
-		<cfoutput>
-				
-		<cfset cnt = cnt + 25>
+		<cfloop query="Detail">
+								
+		<cfset cnt = cnt + 28>
 								
 		<cfset cd   = Code>
 		<cfset de   = Description>
@@ -107,7 +123,7 @@ password="#SESSION.dbpw#">
 			   	   <cfinput type="Text" value="#de#" name="Description" message="You must enter a description" required="Yes" size="40" maxlength="50" class="regularxl">
 	           </td>
 			   <td>
-			      <cfinput type="Text" value="#ord#" name="ListingOrder" validate="integer" style="text-align:center;min-width:30" required="No" visible="Yes" maxlength="2" class="regularxl">&nbsp;
+			      <cfinput type="Text" value="#ord#" name="ListingOrder" validate="integer" style="text-align:center;min-width:30" required="No" visible="Yes" size="2" maxlength="2" class="regularxl">
 			   </td>
 			   <td align="center">
 			      <input type="checkbox" class="radiol" name="Operational" id="Operational" value="1" <cfif "1" eq op>checked</cfif>>
@@ -124,7 +140,7 @@ password="#SESSION.dbpw#">
 			   <td>#ord#</td>					   
 			   <td align="center"><cfif op eq "0"><b>No</b><cfelse>Yes</cfif></td>
 			   <td align="center" style="padding-right:4px">
-			     <a href="ActionParent.cfm?EntityCode=#URL.EntityCode#&ID2=#cd#&owner=#owner#"><font color="0080C0">[edit]</font></a>
+			     <a href="ActionParent.cfm?EntityCode=#URL.EntityCode#&ID2=#cd#&owner=#owner#">[edit]</a>
 			   </td>
 			   <td width="30" align="center" style="padding-top:4px">
 		
@@ -149,9 +165,9 @@ password="#SESSION.dbpw#">
 		    </TR>				
 					
 		</cfif>
-						
-		</cfoutput>
 		
+		</cfloop>
+				
 		</cfoutput>
 					
 		</table>

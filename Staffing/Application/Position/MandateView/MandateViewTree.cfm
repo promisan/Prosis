@@ -395,12 +395,12 @@ password="#SESSION.dbpw#">
 					<table width="99%" align="right">
 					<tr><td>
 								
-						<cftree name="idtree2" font="tahoma"  fontsize="11" bold="No" format="html" required="No">
+						<cf_UITree name="idtree2" font="tahoma"  fontsize="11" bold="No" format="html" required="No">
 						
-					     <cftreeitem 
-						  bind="cfc:service.Tree.OrganizationTree.getNodes({cftreeitempath},{cftreeitemvalue},'#url.mission#','#mandatedefault#','../../Staffing/Application/Position/MandateView/MandateViewOpen.cfm','ORF','Functional Structure','#funct.treefunctional#','P001')">  		 
+					     <cf_UITreeitem
+						  bind="cfc:service.Tree.OrganizationTree.getNodesV2({cftreeitempath},{cftreeitemvalue},'#url.mission#','#mandatedefault#','../../Staffing/Application/Position/MandateView/MandateViewOpen.cfm','ORF','Functional Structure','#funct.treefunctional#','P001')">
 						  
-					    </cftree>	
+					    </cf_UITree>
 						
 					</td></tr>
 					</table>

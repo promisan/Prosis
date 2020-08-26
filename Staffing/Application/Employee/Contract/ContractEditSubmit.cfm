@@ -52,7 +52,7 @@
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
 				
-				SELECT    ES.SalarySchedule, ES.PayrollStart, ES.PersonNo, ES.PayrollCalcNo, SSP.CalculationStatus
+				SELECT    ES.SalarySchedule, ES.PayrollStart, ES.PersonNo, ES.PayrollCalcNo, SSP.CalculationStatus, SSP.PayrollEnd
 				FROM      EmployeeSalary AS ES INNER JOIN
 		                  SalarySchedulePeriod AS SSP ON ES.Mission = SSP.Mission AND ES.SalarySchedule = SSP.SalarySchedule AND ES.PayrollStart = SSP.PayrollStart
 				WHERE     ES.PersonNo           = '#Contract.PersonNo#'
@@ -167,6 +167,7 @@
 	  <cfset remarks = Form.Remarks>
 	</cfif>  
 	
+	<cfparam name="Fprm.CandidateId"             default="">
 	<cfparam name="Form.SalaryBasePeriod"        default="0">
 	<cfparam name="Form.EnforceFinalPay"         default="0">
 	<cfparam name="Form.StepIncreaseDate"        default="">
@@ -815,6 +816,7 @@
 							 PersonnelActionNo,		
 							 StepIncreaseDate,
 							 Remarks,
+							 CandidateId,
 							 ActionStatus,
 							 OfficerUserId,
 							 OfficerLastName,
@@ -869,6 +871,11 @@
 							  #STEP#,
 							  </cfif>		 
 							 '#Remarks#',
+							 <cfif Form.CandidateId neq "">
+							 '#Form.CandidateId#',
+							 <cfelse>
+							 NULL,
+							 </cfif>
 							 '0',
 							 '#SESSION.acc#',
 					    	 '#SESSION.last#',		  

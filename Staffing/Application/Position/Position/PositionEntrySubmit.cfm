@@ -380,6 +380,14 @@
 			FROM Vacancy.dbo.Parameter
 		</cfquery>
 		
+		<cfquery name="OrgUnit" 
+		datasource="appsEmployee" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT *
+			FROM  Organization.dbo.Organization
+			WHERE OrgUnit = '#Form.OrgUnit#'
+		</cfquery>		
 				
 		<cfquery name="InsertDocument" 
 		datasource="appsEmployee" 
@@ -409,7 +417,7 @@
 		         '0',
 				 '#Form.FunctionNo#',
 		         '#Form.FunctionDescription#',
-				 '#Form.OrgUnit#',
+				 '#OrgUnit.OrgUnitName#',
 				 '#Form.Mission#',
 				 '#Form.Owner#',
 				 '#Form.SourcePostNumber#',

@@ -19,7 +19,7 @@
 	    	FROM 	Warehouse
 			WHERE	Operational = 1
 			AND		Warehouse != '#url.warehouse#'
-			AND		Mission = '#getMission.mission#'
+			-- AND		Mission = '#getMission.mission#'
 	</cfquery>
 	
 	<cfquery name="clean" 
@@ -33,23 +33,22 @@
 	</cfquery>
 	
 	<cfloop query="listing">
+		
 		<cfif isDefined("Form.cb_#warehouse#")>
+		
 			<cfset vWA = evaluate("Form.cb_#warehouse#")>
 			<cfquery name="insert" 
 				datasource="AppsMaterials" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
-			    	INSERT INTO WarehouseAssociation
-						(
+			    	INSERT INTO WarehouseAssociation (
 							Warehouse,
 							AssociationType,
 							AssociationWarehouse,
 							OfficerUserId,
 							OfficerLastName,
 							OfficerFirstName
-						)
-					VALUES
-						(
+						) VALUES (
 							'#url.warehouse#',
 							'#url.type#',
 							'#warehouse#',
@@ -58,13 +57,15 @@
 							'#session.first#'
 						)
 			</cfquery>
+			
 		</cfif>
+		
 	</cfloop>
 
 </cftransaction>
 
 <cfoutput>
 	<script>
-		ColdFusion.navigate('Association/AssociationListingDetail.cfm?warehouse=#url.warehouse#&type=#url.type#','divAssociation');
+		ptoken.navigate('Association/AssociationListingDetail.cfm?warehouse=#url.warehouse#&type=#url.type#','divAssociation');
 	</script>
 </cfoutput>

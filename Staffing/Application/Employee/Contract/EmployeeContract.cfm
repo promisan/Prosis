@@ -437,7 +437,7 @@ password="#SESSION.dbpw#">
 			<TD width="50"><cf_tl id="Entity"></TD>	
 			<TD colspan="2" style="min-width:160"><cf_tl id="Action"></TD>	
 			
-			<TD style="min-width:100px"><cf_tl id="Ref"></TD>					    
+			<TD style="min-width:100px"><cf_tl id="Reference"></TD>					    
 			<TD style="min-width:100px"><cf_tl id="Type"></TD>
 			<TD><cf_tl id="Schedule"></TD>
 			<TD></TD>
@@ -682,6 +682,22 @@ password="#SESSION.dbpw#">
 				AND    EA.ActionSource = 'Contract'
 						
 		    </cfquery>
+			
+			<cfquery name = "Recruitment"
+			datasource = "AppsEmployee"
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">			
+				SELECT      D.DocumentNo,
+	                        (SELECT    ReferenceNo
+	                         FROM      Applicant.dbo.FunctionOrganization AS FO
+	                         WHERE     FunctionId = D.FunctionId) AS Reference
+				FROM         Vacancy.dbo.DocumentCandidate AS DC INNER JOIN Vacancy.dbo.Document AS D ON DC.DocumentNo = D.DocumentNo
+				<cfif candidateid neq "">
+				WHERE        DC.CandidateId = '#CandidateId#'
+				<cfelse>
+				WHERE 1=0
+				</cfif>
+			</cfquery>
 									
 			<cfif Action.RecordCount eq "1">
 			
@@ -694,6 +710,12 @@ password="#SESSION.dbpw#">
 				<cfloop query="Action">
 					<a href="javascript:padialog('#Actiondocumentno#')"><cfif actionStatus eq "9"><font color="FF0000"></cfif>#ActionDocumentNo#</font></a><cfif recordcount neq currentrow>|</cfif>
 				</cfloop>			
+			
+			<cfelseif Recruitment.recordcount gte "1">
+			
+				<a href="javascript:showdocument('#Recruitment.documentNo#')">
+				<cfif Recruitment.Reference neq "">#Recruitment.Reference#<cfelse>#Recruitment.DocumentNo#</cfif>
+				</a>
 			
 			<cfelse>
 			

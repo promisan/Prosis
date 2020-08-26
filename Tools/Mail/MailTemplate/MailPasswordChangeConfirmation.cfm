@@ -102,7 +102,7 @@ datasource="AppsInit">
 		<!--- #System.Systemcontact#  <#System.SystemContactEMail#> --->
 		
 		
-		<cfmail TO  = "vanpelt@promisan.com"
+		<cfmail TO          = "#Check.eMailAddress#"
 	   			FROM        = "#eMail#"
 				SUBJECT     = "#vSubject#"
 				FAILTO      = "#System.SystemContactEMail#"

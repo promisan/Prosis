@@ -499,6 +499,15 @@
       which we don't want to revert here to 1                                                 --->
 	  
 <cfif checkassignment.recordcount gte "1">
+
+	<cfquery name="Contract" 
+	   datasource="AppsOrganization" 
+	   username="#SESSION.login#" 
+	   password="#SESSION.dbpw#">
+	   	  SELECT * 
+		  FROM   Employee.dbo.PersonContract 			    
+	      WHERE  ContractId  = '#attributes.ContractId#'  
+		</cfquery>
 	   
 	<cfquery name="CheckLater" 
 	   datasource="AppsOrganization" 

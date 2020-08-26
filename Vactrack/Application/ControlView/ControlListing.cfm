@@ -95,7 +95,7 @@
 	
 <cfoutput>
 
-<table height="100%" width="96%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table height="100%" width="96%" align="center">
 
 	<cfif url.mode neq "Portal">	
 				
@@ -107,7 +107,7 @@
 				    <td align="left" class="labellarge" style="font-weight:200;padding-left:20px;height:46px;font-size:34px;padding-top:4px">
 						<cfif url.mode eq "Print">#SESSION.welcome# Recruitment manager</cfif>				
 						    <cfif url.mode neq "Print">
-							<a href="javascript:show_box_search()"><font color="0080C0">#URL.Mission#</font> <img id="img_search" src="#SESSION.root#/images/arrow-down.gif" alt="" border="0" align="top"></a>													
+							<a href="javascript:show_box_search()">#URL.Mission# <img id="img_search" src="#SESSION.root#/images/arrow-down.gif" alt="" border="0" align="top"></a>													
 							<cfelse>
 							#URL.Mission#
 							</cfif>

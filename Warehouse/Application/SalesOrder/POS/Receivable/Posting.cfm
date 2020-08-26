@@ -10,6 +10,7 @@
 <cfparam name="url.warehouse"         default="BCN000">		
 <cfparam name="url.RequestNo"         default="">		
 <cfparam name="url.batchid"           default="">
+<cfparam name="url.terminal"          default="">
 <cfparam name="url.customerid"        default="00000000-0000-0000-0000-000000000000">
 <cfparam name="url.customeridinvoice" default="00000000-0000-0000-0000-000000000000">
 <cfparam name="url.addressid" 		  default="00000000-0000-0000-0000-000000000000">
@@ -48,7 +49,7 @@
 	   method             = "postTransaction" 
 	   requestno          = "#url.requestno#" 
 	   batchid            = "#url.batchid#"
-	   
+	   terminal           = "#url.terminal#"
 	   warehouse          = "#url.warehouse#" 	  
 	   customerid         = "#url.customerid#"
 	   addressid	      = "#url.addressid#"

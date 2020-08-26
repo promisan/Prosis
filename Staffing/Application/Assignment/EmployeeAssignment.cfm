@@ -675,10 +675,12 @@
                              WHERE   PA.AssignmentNo IN (#assignlist#) ) AS B
 			    GROUP BY Mission, PostGrade, PostOrder
 				ORDER BY Mission,PostOrder DESC
+				
 			</cfquery>	
+						
 			
 			<tr><td style="padding-top:10px"></td></tr>
-			<tr class="labelmedium"><td style="padding-left:5px;font-size:20px"><b><cf_tl id="Work assignment summary"></td></tr>
+			<tr class="labelmedium"><td style="padding-left:5px;font-size:20px"><cf_tl id="Work assignment summary"></td></tr>
 			<tr><td style="padding-left:30px;padding-top:6px">
 			<table style="width:300px">
 			<cfoutput query="Experience">

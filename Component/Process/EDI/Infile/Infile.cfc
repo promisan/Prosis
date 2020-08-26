@@ -1021,8 +1021,487 @@
 			
 			<cfreturn EFACEResponse>
 			
-	</cffunction>		
-	
+	</cffunction>
+
+
+
+	<cffunction name="SaleIssueV2"
+			access="public"
+			returntype="any"
+			displayname="GetFACE">
+
+		<cfargument name="Datasource"      type="string"  required="true"   default="appsOrganization">
+		<cfargument name="Mission"         type="string"  required="true"   default="">
+		<cfargument name="Terminal"        type="string"  required="true"   default="1">
+		<cfargument name="BatchId"         type="string"  required="true"   default="">
+		<cfargument name="RetryNo"         type="string"  required="false"  default="0">
+		<cfargument name="catDesc"			type="string"  required="false"  default="DSC">
+		<cfargument name="catProd"			type="string"  required="false"  default="PRD">
+		<cfargument name="AddrType"		type="string"  required="false"  default="Home">
+
+		<cfset vCatDesc						= CatDesc>
+		<cfset vCatProd						= CatProd>
+		<cfset vAddrType					= AddrType>
+
+		<cfquery name="GetBatch"
+				datasource="AppsMaterials"
+				username="#SESSION.login#"
+				password="#SESSION.dbpw#">
+			SELECT *
+			FROM WarehouseBatch
+			WHERE BatchId = '#batchid#'
+		</cfquery>
+
+		<cfquery name="GetInvoice"
+				datasource="#datasource#"
+				username="#SESSION.login#"
+				password="#SESSION.dbpw#">
+
+			SELECT	C.FirstName,
+			C.LastName,
+<!---Infile utf 8 encoding testing  --->
+<!---C.CustomerName collate SQL_Latin1_General_Cp1251_CS_AS AS CustomerName,--->
+			C.CustomerName,
+			C.FullName,
+			UPPER(C.Reference) AS NIT,
+			C.eMailAddress,
+			C.TaxExemption,
+			WB.TransactionDate,
+			WB.BatchNo,
+			WB.BatchReference,
+			W.Warehouse,
+			W.WarehouseName,
+			W.Address,
+			W.Telephone,
+			W.Mission,
+			I.ItemNo,
+<!---Infile utf 8 encoding testing  --->
+<!---I.ItemDescription collate SQL_Latin1_General_Cp1251_CS_AS AS ItemDescription,--->
+			I.ItemDescription,
+			I.Category,
+			IU.ItemBarCode,
+			--U.Description AS UoM,
+			IU.UoM AS UoM,
+			T.TransactionQuantity * -1 as TransactionQuantity,
+			ROUND((S.SalesAmount * S.TaxPercentage),2) + S.SalesAmount AS SalesAmountExemption,
+			ROUND((S.SalesAmount * S.TaxPercentage),2) AS SalesTaxExemption,
+			S.SalesCurrency,
+			S.SchedulePrice,
+			S.SalesPrice,
+			S.SalesAmount,
+			S.SalesTax,
+			S.SalesTotal,
+<!---Infile utf 8 encoding testing  --->
+<!---
+(
+    SELECT TOP 1 ltrim(rtrim(isnull(R.Address,'') + ' ' + isnull(R.Address2,'') + ' ' + isnull(R.AddressCity,'')))
+    FROM Materials.dbo.CustomerAddress A
+    INNER JOIN System.dbo.Ref_Address R ON R.AddressId = A.AddressId
+    WHERE A.CustomerId = C.CustomerId
+    AND A.AddressType = 'Home'
+    ORDER BY DateEffective DESC
+) collate SQL_Latin1_General_Cp1251_CS_AS as Customeraddress,
+--->
+
+			(
+			SELECT TOP 1 ltrim(rtrim(isnull(R.Address,'') + ' ' + isnull(R.Address2,'') + ' ' + isnull(R.AddressCity,'')))
+			FROM Materials.dbo.CustomerAddress A
+			INNER JOIN System.dbo.Ref_Address R ON R.AddressId = A.AddressId
+			WHERE A.CustomerId = C.CustomerId
+			AND A.AddressType = '#vAddrType#'
+		ORDER BY DateEffective DESC
+		) Customeraddress,
+
+
+		ISNULL((
+		SELECT SUM(S1.SalesTotal)
+		FROM Materials.dbo.ItemTransaction T1
+		INNER JOIN Materials.dbo.ItemTransactionShipping S1 ON S1.TransactionId = T1.TransactionId
+		INNER JOIN Materials.dbo.Item I1 ON I1.ItemNo = T1.ItemNo
+		WHERE T1.TransactionBatchNo = WB.BatchNo
+		/*AND I1.Category IN ('#vCatDesc#')*/
+		AND S1.SchedulePrice <0 /*this should act as a discount*/
+		),0) AS TotalDiscounts,
+
+		ISNULL((
+		SELECT SUM(S1.SalesTax)
+		FROM Materials.dbo.ItemTransaction T1
+		INNER JOIN Materials.dbo.ItemTransactionShipping S1 ON S1.TransactionId = T1.TransactionId
+		INNER JOIN Materials.dbo.Item I1 ON I1.ItemNo = T1.ItemNo
+		WHERE T1.TransactionBatchNo = WB.BatchNo
+		/*AND I1.Category IN('#vCatDesc#')*/
+		AND S1.SchedulePrice <0 /*this should act as a discount*/
+		),0) AS TotalTaxDiscounts,
+
+<!---Infile utf 8 encoding testing  --->
+<!---
+(
+    SELECT TOP 1 T2.ItemDescription
+    FROM Materials.dbo.ItemTransaction T2
+    INNER JOIN Materials.dbo.ItemTransactionShipping S2 ON S2.TransactionId = T2.TransactionId
+    INNER JOIN Materials.dbo.Item I2 ON I2.ItemNo = T2.ItemNo
+    WHERE T2.TransactionBatchNo = WB.BatchNo
+    AND I2.Category = 'DSC'
+) collate SQL_Latin1_General_Cp1251_CS_AS AS DiscountDescription
+--->
+
+			(
+			SELECT TOP 1 T2.ItemDescription
+			FROM Materials.dbo.ItemTransaction T2
+			INNER JOIN Materials.dbo.ItemTransactionShipping S2 ON S2.TransactionId = T2.TransactionId
+			INNER JOIN Materials.dbo.Item I2 ON I2.ItemNo = T2.ItemNo
+			WHERE T2.TransactionBatchNo = WB.BatchNo
+			/*AND I2.Category IN ('#vCatDesc#')*/
+		AND S2.SchedulePrice <0 /*this should act as a discount*/
+		) DiscountDescription,
+		IM.isServiceItem
+
+
+		FROM Materials.dbo.WarehouseBatch WB
+		INNER JOIN Materials.dbo.ItemTransaction T ON T.TransactionBatchNo = WB.BatchNo
+		INNER JOIN Materials.dbo.ItemTransactionShipping S ON T.TransactionId = S.TransactionId
+		INNER JOIN Materials.dbo.Customer C ON
+			<cfif getBatch.CustomerIdInvoice neq "">
+				C.CustomerId = WB.CustomerIdInvoice
+			<cfelse>
+				C.CustomerId = WB.CustomerId
+			</cfif>
+			INNER JOIN Materials.dbo.Item I ON I.ItemNo = T.ItemNo
+			INNER JOIN Materials.dbo.ItemUoM IU ON IU.ItemNo = I.ItemNo AND IU.UoM = T.TransactionUoM
+			--INNER JOIN Materials.dbo.Ref_UoM U ON U.Code = T.TransactionUoM
+			LEFT OUTER JOIN Materials.dbo.Ref_UoM U ON U.Code = IU.UoMCode
+			INNER JOIN Materials.dbo.Warehouse W ON W.Warehouse = WB.Warehouse
+			INNER JOIN Purchase.dbo.ItemMaster IM ON IM.Code = I.ItemMaster
+			WHERE WB.BatchId='#batchid#'
+
+		ORDER BY S.SalesTotal DESC
+
+		</cfquery>
+
+
+
+<!--- Get Mission Information --->
+		<cfquery name="GetMission"
+				datasource="#datasource#"
+				username="#SESSION.login#"
+				password="#SESSION.dbpw#">
+			SELECT *
+			FROM  Organization.dbo.Ref_Mission
+			WHERE Mission = '#mission#'
+		</cfquery>
+
+<!--- Get Warehouse device information --->
+		<cfquery name="GetWarehouseDevice"
+				datasource="#datasource#"
+				username="#SESSION.login#"
+				password="#SESSION.dbpw#">
+			SELECT *
+			FROM   Materials.dbo.WarehouseTerminal
+			WHERE  Warehouse = '#GetInvoice.Warehouse#'
+		AND    TerminalName = '#terminal#'
+		AND    Operational=1
+		</cfquery>
+
+<!--- Get Warehouse and Series Information --->
+		<cfquery name="GetWarehouseSeries"
+				datasource="#datasource#"
+				username="#SESSION.login#"
+				password="#SESSION.dbpw#">
+			SELECT *
+			FROM   Organization.dbo.OrganizationTaxSeries
+			WHERE  OrgUnit = '#GetWarehouseDevice.TaxOrgUnitEDI#'
+		AND    SeriesType = 'Invoice'
+		AND    Operational=1
+		</cfquery>
+
+
+<!--- Get Config --->
+		<cfquery name="GetMissionConfig"
+				datasource="#datasource#"
+				username="#SESSION.login#"
+				password="#SESSION.dbpw#">
+			SELECT *
+			FROM   Organization.dbo.Ref_MissionExchange
+			WHERE  Mission = '#mission#'
+		AND    ClassExchange = 'FACE'
+		</cfquery>
+
+<!---- STORE THIS IN A CONFIG TABLE !! ---->
+		<cfset vUser = GetMissionConfig.ExchangeUserId>
+		<cfset vPwd = GetMissionConfig.ExchangePassword>
+		<cfset vNitGFACE = GetWarehouseSeries.GFACEId>
+
+<!--- NIT from Seller --->
+		<cfset vNitEFACE = GetWarehouseSeries.EFACEId>
+		<cfset DocumentType = GetWarehouseSeries.TaxDocumentType>  <!--- SAT Document Type: Regular Invoice --->
+
+<!----initializing.....------->
+		<cfset vExchangeRate = "1">
+		<cfset vCurrency = "GTQ">
+
+		<cfif GetInvoice.SalesCurrency eq "QTZ">
+			<cfset vExchangeRate = "1">
+			<cfset vCurrency = "GTQ">
+		<cfelse>
+<!---get the exchangeRate ------>
+			<cfquery name="getExchange"
+					datasource="AppsOrganization"
+					username="#SESSION.login#"
+					password="#SESSION.dbpw#">
+				SELECT *
+				FROM   Accounting.dbo.Currency
+				WHERE  Currency = '#GetInvoice.SalesCurrency#'
+			</cfquery>
+			<cfset vExchangeRate = GetExchange.ExchangeRate>
+			<cfset vCurrency	 = GetExchange.Currency>
+		</cfif>
+
+<!------
+<cfif GetInvoice.UoM eq "each">
+    <cfset vUoM = "UND">
+<cfelse>
+    <cfset vUoM = GetInvoice.UoM>
+</cfif>
+----->
+		<cfset vUoM = "UND">
+
+		<cfset vNIT = GetInvoice.NIT>
+		<cfif vNIT eq "CF" OR vNIT eq "C-F">
+			<cfset vNIT = "C/F">
+		</cfif>
+
+		<cfset vInvoiceTotalAmount = "0">
+		<cfset vInvoiceTotalExempt = "0">
+		<cfset vInvoiceTotalDiscount = "0">
+		<cfset vInvoiceTotalTax = "0">
+		<cfset vInvoiceTotalDiscount = GetInvoice.TotalDiscounts+0>
+		<cfset vInvoiceTotalTaxDiscount = GetInvoice.TotalTaxDiscounts+0>
+		<cfif GetInvoice.DiscountDescription neq "">
+			<cfset vDiscountDescription = GetInvoice.DiscountDescription>
+		<cfelse>
+			<cfset vDiscountDescription = "Descuento">
+		</cfif>
+
+		<cfset vreccount = "1">
+		<cfset EFACEResponse = structnew()>
+
+		<cfquery name		="getEDIConfig"
+				datasource	="#datasource#"
+				username  	="#SESSION.login#"
+				password  	="#SESSION.dbpw#">
+			SELECT 		*
+			FROM 		System.dbo.Parameter
+		</cfquery>
+
+		<cfset vEDIDirectory = getEDIConfig.EDIDirectory>
+		<cfset vLogsDirectory = vEDIDirectory & "Logs\#GetMission.Mission#\POSSale">
+
+		<cfif not directoryExists(vLogsDirectory)>
+			<cfdirectory action="create" directory="#vLogsDirectory#">
+		</cfif>
+
+<!--- ISO 8601 --->
+
+		<cfset vNormalizedNit = Replace(vNIT,"-","","ALL")>
+		<cfset vNormalizedNit = Replace(vNormalizedNit,"C/F","CF","ALL")>
+		<cfxml variable="XmlDTE">
+			<cfoutput>
+				<?xml version="1.0" encoding="utf-8"?>
+						<dte:GTDocumento xmlns:ds="http://www.w3.org/2000/09/xmldsig##"
+					xmlns:dte="http://www.sat.gob.gt/dte/fel/0.2.0"
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					Version="0.1" xsi:schemaLocation="http://www.sat.gob.gt/dte/fel/0.2.0">
+			<dte:SAT ClaseDocumento="dte">
+			<dte:DTE ID="DatosCertificados">
+			<dte:DatosEmision ID="DatosEmision">
+					<dte:DatosGenerales CodigoMoneda="#vCurrency#" FechaHoraEmision="#DateFormat(GetInvoice.TransactionDate,"YYYY-MM-DD")#T#TimeFormat(GetInvoice.TransactionDate,"hh:mm:ssXXX")#" Tipo="FACT"></dte:DatosGenerales>
+					<dte:Emisor AfiliacionIVA="GEN" CodigoEstablecimiento="#GetWarehouseDevice.Reference#" CorreoEmisor="#GetWarehouseSeries.UserEmail#" NITEmisor="#vNitEFACE#" NombreComercial="#GetMission.MissionName#" NombreEmisor="#GetMission.MissionName#">
+			<dte:DireccionEmisor>
+			<dte:Direccion>#GetInvoice.Address#</dte:Direccion>
+				<dte:CodigoPostal>01010</dte:CodigoPostal>
+				<dte:Municipio>GUATEMALA</dte:Municipio>
+				<dte:Departamento>GUATEMALA</dte:Departamento>
+				<dte:Pais>GT</dte:Pais>
+			</dte:DireccionEmisor>
+			</dte:Emisor>
+					<dte:Receptor CorreoReceptor="#GetInvoice.eMailAddress#" IDReceptor="#vNormalizedNIT#" NombreReceptor="#Replace(GetInvoice.CustomerName,"&","")#">
+				<cfif GetInvoice.CustomerAddress neq "">
+						<dte:DireccionReceptor>
+						<dte:Direccion>#GetInvoice.Customeraddress#</dte:Direccion>
+						<dte:CodigoPostal>01001</dte:CodigoPostal>
+						<dte:Municipio>GUATEMALA</dte:Municipio>
+						<dte:Departamento>GUATEMALA</dte:Departamento>
+						<dte:Pais>GT</dte:Pais>
+					</dte:DireccionReceptor>
+				</cfif>
+				</dte:Receptor>
+					<dte:Frases>
+						<dte:Frase CodigoEscenario="1" TipoFrase="1"></dte:Frase>
+					</dte:Frases>
+				<dte:Items>
+				<cfloop query="GetInvoice">
+					<cfif SalesPrice gt 0>
+						<cfset v_TipoItem = "B">
+						<cfif GetInvoice.isServiceItem eq "1">
+							<cfset v_TipoItem = "S">
+						</cfif>
+							<dte:Item BienOServicio="#v_TipoItem#" NumeroLinea="#vreccount#">
+						<dte:Cantidad>#TransactionQuantity#</dte:Cantidad>
+						<dte:UnidadMedida>#vUoM#</dte:UnidadMedida>
+							<cfset v_ItemDescription = ItemDescription>
+							<cfset v_ItemDescription = replace(v_ItemDescription,"&","&amp;","all")>
+							<cfset v_ItemDescription = replace(v_ItemDescription,"'","&apos;","all")>
+							<dte:Descripcion>#v_ItemDescription#</dte:Descripcion>
+						<dte:PrecioUnitario>#trim(numberformat(ABS(SchedulePrice),"__.__"))#</dte:PrecioUnitario>
+							<cfif TaxExemption eq "1">
+								<cfset vSaleAmount = SalesAmountExemption>
+							<cfelse>
+								<cfset vSaleAmount = SalesTotal>
+							</cfif>
+							<cfset vSaleAmountWithoutDiscount = SchedulePrice*TransactionQuantity>
+								<dte:Precio>#trim(numberformat(vSaleAmountWithoutDiscount,"__.__"))#</dte:Precio>
+							<cfif (vreccount eq "1" and ABS(TotalDiscounts) gt "0")>
+								<cfset vTaxLine = numberformat(SalesTax + TotalTaxDiscounts ,"__.__")>
+								<cfset vDiscountLine = trim(numberformat(ABS(vInvoiceTotalDiscount),"__.__"))>
+								<cfelseif (Abs(SchedulePrice*TransactionQuantity-vSaleAmount) gt 0.05)>
+								<cfset vOriginal = SchedulePrice*TransactionQuantity>
+								<cfset vTotalDiscounts = abs(vOriginal-vSaleAmount)>
+								<cfset vInvoiceTotalDiscount = vTotalDiscounts + vInvoiceTotalDiscount>
+								<cfset vTaxLine = numberformat(SalesTax,"__.__")>
+								<cfset vDiscountLine = trim(numberformat(ABS(vTotalDiscounts),"__.__"))>
+							<cfelse>
+								<cfset vTaxLine = numberformat(SalesTax,"__.__")>
+								<cfset vDiscountLine = 0>
+							</cfif>
+							<dte:Descuento>#vDiscountLine#</dte:Descuento>
+						<dte:Impuestos>
+						<dte:Impuesto>
+							<dte:NombreCorto>IVA</dte:NombreCorto>
+							<dte:CodigoUnidadGravable>1</dte:CodigoUnidadGravable>
+						<dte:MontoGravable>#trim(numberformat(ABS(SalesTotal)-(SalesTax + TotalTaxDiscounts),"__.__"))#</dte:MontoGravable>
+							<cfif vreccount eq "1" and ABS(TotalDiscounts) gt "0">
+									<dte:MontoImpuesto>#numberformat(SalesTax + TotalTaxDiscounts ,"__.__")#</dte:MontoImpuesto>
+							<cfelse>
+									<dte:MontoImpuesto>#numberformat(SalesTax,"__.__")#</dte:MontoImpuesto>
+							</cfif>
+							</dte:Impuesto>
+							</dte:Impuestos>
+							<dte:Total>#trim(numberformat(ABS(SalesTotal),"__.__"))#</dte:Total>
+						</dte:Item>
+						<cfset vreccount = vreccount + 1>
+					</cfif>
+					<cfif TaxExemption eq "1">
+						<cfset vInvoiceTotalAmount = vInvoiceTotalAmount + SalesAmountExemption>
+						<cfset vInvoiceTotalTax = vInvoiceTotalTax + SalesTaxExemption>
+					<cfelse>
+						<cfset vInvoiceTotalAmount = vInvoiceTotalAmount + SalesTotal>
+						<cfset vInvoiceTotalTax = vInvoiceTotalTax + SalesTax>
+					</cfif>
+				</cfloop>
+				</dte:Items>
+				<dte:Totales>
+				<dte:TotalImpuestos>
+						<dte:TotalImpuesto NombreCorto="IVA" TotalMontoImpuesto="#numberformat(vInvoiceTotalTax,"__.__")#"></dte:TotalImpuesto>
+			</dte:TotalImpuestos>
+			<dte:GranTotal>#vInvoiceTotalAmount#</dte:GranTotal>
+			</dte:Totales>
+			</dte:DatosEmision>
+			</dte:DTE>
+			</dte:SAT>
+			</dte:GTDocumento>
+			</cfoutput>
+		</cfxml>
+
+		<cfset StringDTE = toString(XmlDTE)>
+
+		<cffile action="WRITE" file="#vLogsDirectory#\FEL_#GetInvoice.BatchNo#.txt" output="#StringDTE#">
+
+		<cfset Base64DTE = ToBase64(StringDTE) />
+
+
+		<cfset stToSign =
+		{ "llave": "#GetWarehouseSeries.PrivateKey#",
+			"archivo": "#Base64DTE#",
+			"codigo": "#GetBatch.BatchNo#",
+			"alias": "#GetWarehouseSeries.Alias#",
+			"es_anulacion": "N"
+		}
+				>
+
+		<cffile action="WRITE" file="#vLogsDirectory#\FEL_#GetInvoice.BatchNo#_To_Sign.txt" output="#serializeJSON(stToSign)#">
+
+		<cfhttp url="https://signer-emisores.feel.com.gt/sign_solicitud_firmas/firma_xml" method="post" result="httpResponse" timeout="60">
+			<cfhttpparam type="header" name="Content-Type" value="application/json" />
+			<cfhttpparam type="body" value="#serializeJSON(stToSign)#">
+		</cfhttp>
+
+		<cffile action="WRITE" file="#vLogsDirectory#\FEL_#GetInvoice.BatchNo#_Response_Signature.txt" output="#httpResponse.fileContent#">
+
+
+		<cfset jSonDTE = deserializeJSON(httpResponse.fileContent)>
+		<cfif jsonDTE.resultado neq "NO">
+			<cfset revBase64DTE =  ToString(ToBinary(jSONDTE.archivo)) />
+
+			<cffile action="WRITE" file="#vLogsDirectory#\FEL_#GetInvoice.BatchNo#_Response_Signature_decoded.txt" output="#revBase64DTE#">
+			<cfsavecontent variable="SignedXml"><?xml version="1.0" encoding="utf-8"?>
+				<cfoutput>#revBase64DTE#</cfoutput></cfsavecontent>
+
+			<cfset Base64SignedXML = ToBase64(toString(SignedXml)) />
+
+			<cfset stToCertify =
+			{ "nit_emisor":"#vNitEFACE#",
+				"correo_copia":"#GetWarehouseSeries.UserEmail#",
+				"xml_dte":"#Base64SignedXml#"
+			}>
+
+			<cffile action="WRITE" file="#vLogsDirectory#\FEL_#GetInvoice.BatchNo#_To_Certify.txt" output="#serializeJSON(stToCertify)#">
+			<cfset vSerialNo = GetBatch.BatchNo>
+
+
+			<cfhttp url="https://certificador.feel.com.gt/fel/certificacion/v2/dte/" method="post" result="httpResponse" timeout="60">
+				<cfhttpparam type="header" name="usuario" value="#GetWarehouseSeries.UserName#" />
+				<cfhttpparam type="header" name="llave" value="#GetWarehouseSeries.UserKey#" />
+				<cfhttpparam type="header" name="identificador" value="#vSerialNo#" />
+				<cfhttpparam type="header" name="Content-Type" value="application/json" />
+				<cfhttpparam type="body" value="#serializeJSON(stToCertify)#">
+			</cfhttp>
+
+			<cfset jSonCertification = deserializeJSON(httpResponse.fileContent)>
+
+			<cffile action="WRITE" file="#vLogsDirectory#\FEL_#GetInvoice.BatchNo#_Response_Certifier.txt" output="#httpResponse.fileContent#">
+
+			<Cfif jSonCertification.resultado neq "NO">
+				<cfset EFACEResponse.Status = "OK">
+				<cfset EFACEResponse.Cae = jSonCertification.uuid>
+				<cfset EFACEResponse.Series = jSonCertification.serie>
+				<cfset EFACEResponse.DocumentNo = jSonCertification.numero>
+				<cfset EFACEResponse.Dte = jSonCertification.fecha>
+				<cfset EFACEResponse.ErrorDescription = "">
+			<cfelse>
+				<cfset EFACEResponse.Status = "false">
+				<cfset EFACEResponse.Cae = "">
+				<cfset EFACEResponse.DocumentNo = "">
+				<cfset EFACEResponse.Dte = "">
+				<cfset EFACEResponse.ErrorDescription = "">
+			</cfif>
+
+
+
+		<cfelse>
+			<cfset EFACEResponse.Status = "false">
+			<cfset EFACEResponse.Cae = "">
+			<cfset EFACEResponse.DocumentNo = "">
+			<cfset EFACEResponse.Dte = "">
+			<cfset EFACEResponse.ErrorDescription = "">
+		</cfif>
+
+		<cfreturn EFACEResponse>
+
+
+	</cffunction>
+
+
+
 
 	<cffunction name="ManualSaleBatch"
             access="public"

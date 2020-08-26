@@ -58,25 +58,25 @@
 				 ORDER BY U.OfficerUserId	 		
 	    </cfquery>	
 		
-		<table width="98%" cellspacing="0" cellpadding="0" class="formpadding">
+		<table width="100%" cellspacing="0" cellpadding="0" class="formpadding">
 		
-		<tr><td colspan="3"><font face="Verdana" size="2"><b>Shared Notes</font></td></tr>
+		<tr class="line labelmedium"><td colspan="4" style="font-size:20px">Shared Notes</td></tr>
 		
 		<cfloop query="other">
 		
-			<tr>
-				<td height="20">
+			<tr class="labelmedium">
+				<td height="20" style="padding-right:4px">
 					<table>
-					 <tr><td bgcolor="#color#" height="13" width="7" style="border: 1px solid gray;"></td></tr>
+					 <tr><td bgcolor="#color#" style="width:15px;height:15px;border: 1px solid gray;"></td></tr>
 					</table>
 				</td>
-				<td class="labelmedium" width="60%">#Description#</td>
-				<td class="labelmedium">#OfficerFirstName# #OfficerLastName#</td>				
-				<td align="right" class="labelmedium">#dateformat(created,CLIENT.DateFormatShow)# #timeformat(created,"HH:MM")#</td>				
+				<td width="60%">#Description#</td>
+				<td>#OfficerFirstName# #OfficerLastName#</td>				
+				<td align="right">#dateformat(created,CLIENT.DateFormatShow)# #timeformat(created,"HH:MM")#</td>				
 			</tr>
 			
 			<cfif Annotation neq "">
-				<tr><td></td><td colspan="3" class="labelit">#Annotation#</td></tr>		
+				<tr class="labelmedium line"><td></td><td colspan="3">#Annotation#</td></tr>		
 			</cfif>
 		
 		</cfloop>
@@ -124,29 +124,20 @@
 		
 	</tr>							
 	
-	<tr><td height="1" colspan="1" class="linedotted"></td></tr>
+	<tr><td height="1" colspan="1" class="line"></td></tr>
 
 	<tr><td height="100%">	
 	
 			<cf_divscroll style="height:100%"> 		
 	
-			<table width="100%" 
-		      border="0"
-			  height="100%"
-			  cellspacing="0" 
-			  cellpadding="0" 
-			  align="center">	 
+			<table width="100%" height="100%" align="center">	 
 					  
-				<cf_menucontainer item="1" class="regular">
-				
-					<cfinclude template="AnnotationDialogPersonal.cfm">
-				
+				<cf_menucontainer item="1" class="regular">				
+					<cfinclude template="AnnotationDialogPersonal.cfm">				
 				</cf_menucontainer>
 				
-				<cf_menucontainer item="2" class="hide">
-				
-					<cfinclude template="AnnotationDialogShared.cfm">
-				
+				<cf_menucontainer item="2" class="hide">				
+					<cfinclude template="AnnotationDialogShared.cfm">				
 				</cf_menucontainer>
 						
 			</table>

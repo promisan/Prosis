@@ -34,19 +34,19 @@
 			<td width="90%">#Description#</td>	
 			<td align="right" WIDTH="20">
 				<table>
-				 <tr><td bgcolor="#color#" height="13" width="7" style="border: 1px solid gray;"></td></tr>
+				 <tr><td bgcolor="#color#" style="width:15px;height:15px;border: 1px solid gray;"></td></tr>
 				</table>
 			</td>		
 		</tr>
 		
 		<cfif check.recordcount gte "1">
-			<cfset cl = "regular">		
+			<cfset cl = "regular line">		
 		<cfelse>		
 			<cfset cl = "hide">
 		</cfif>
 		
 		<tr id="box#currentrow#_personal" class="#cl#"><td></td><td height="100%" colspan="1" align="center">
-			<textarea class="regular" name="memo#currentrow#_personal" style="font-size:13px;padding:3px;width:100%;height:55">#check.annotation#</textarea>	
+			<textarea class="regular" name="memo#currentrow#_personal" style="font-size:13px;padding:3px;width:100%;height:55px">#check.annotation#</textarea>	
 		   </td>
 		</tr>
 						

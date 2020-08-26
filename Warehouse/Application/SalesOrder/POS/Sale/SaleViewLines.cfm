@@ -307,16 +307,20 @@ password="#SESSION.dbpw#">
 						#numberformat(SalesTotal,',.__')#
 					</div>
 					<div class="clsNoPrint clsDetailLineCell">
-					
+
+						<!---						
 						<cfif MParameter.EarmarkManagement eq "0">	
+						--->
 					
 							<cfif TaxExemption eq "0">
 								#numberformat(TaxPercentage*100,'._')#%
 							<cfelse>
 								<font color="b0b0b0">(#numberformat(TaxPercentage*100,'._')#%)</font>
 							</cfif>
-										
+						
+						<!---				
 						</cfif>
+						--->
 
 					</div>
 				</td>

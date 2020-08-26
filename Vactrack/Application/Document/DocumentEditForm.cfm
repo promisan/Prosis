@@ -141,7 +141,7 @@
 			<tr><td height="1" colspan="4"></td></tr>
 			<tr class="labelmedium">
 		    <td><cf_tl id="Unit">:</td>
-			<td>
+			<td style="padding-right:5px">
 			
 			<cfif Doc.Status is "1" or Doc.Status is "9" or AccessHeader neq "ALL">
 				<cfoutput><b>#Doc.OrganizationUnit#
@@ -149,7 +149,7 @@
 				</cfoutput>
 			<cfelse>
 			   	<cfoutput>
-		    	 <input type="text" name="organizationunit" value="#Doc.OrganizationUnit#" size="50" maxlength="80" class="regularxl">
+		    	 <input type="text" name="organizationunit" value="#Doc.OrganizationUnit#" style="width:90%" size="50" maxlength="80" class="regularxl">
 			    </cfoutput>
 			</cfif>	
 			</td>
@@ -182,16 +182,16 @@
 					</cfoutput>
 				<cfelse>
 			       <cfoutput>
-				   <table cellspacing="0" cellpadding="0">
+				   <table style="width:100%" cellspacing="0" cellpadding="0">
 				   <tr class="labelmedium">
 				   <td> 
-				   <input type="text" name="functionaltitle" id="functionaltitle" value="#Doc.FunctionalTitle#" class="regularxl" size="50" maxlength="60" readonly> 
+				   <input type="text" name="functionaltitle" id="functionaltitle" value="#Doc.FunctionalTitle#" class="regularxl" style="width:100%;background-color:f1f1f1" readonly> 
 	               </td>
 				   <td style="padding-left:2px">						   			      
 				   
 				    <button name="btnFunction"
 				        type="button"			      
-				        style="height:23;width:20"
+				        style="height:25px;width:25px"
 				        onClick="selectfunction('webdialog','functionno','functionaltitle','#Mission.MissionOwner#','','','')"> 
 															  
 					</button>	
@@ -230,7 +230,7 @@
 							<input type="hidden" name="remarks" value="#Doc.Remarks#">					
 						</cfoutput>
 				<cfelse>
-					<textarea style="padding:4px;font-size:13px;width:100%;height:25" 				          
+					<textarea style="padding:4px;font-size:13px;width:90%;height:25" 				          
 							  class="regular" 
 							  maxlength="250"
 							  onkeyup="return ismaxlength(this)"	

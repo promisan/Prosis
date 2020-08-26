@@ -227,13 +227,9 @@ password="#SESSION.dbpw#">
 				
 				<tr>
 				
-					<td align="center" valign="top">
-					<!---
-					<img src="#SESSION.root#/Images/join.gif" alt="" border="0" align="middle">
-					--->
-					</td>
 					<td></td>
-					<td colspan="4">
+									
+					<td colspan="5">
 											  
 					  <cf_filelibraryN
 							DocumentPath="#Parameter.DocumentLibrary#"

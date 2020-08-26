@@ -37,42 +37,43 @@ password="#SESSION.dbpw#">
 </cfquery>
 
 <cfquery name="getPersons" 
-		  datasource="AppsEmployee" 
-		  username="#SESSION.login#" 
-		  password="#SESSION.dbpw#">
-		  SELECT 	DISTINCT P.PersonNo, 
-					        P.LastName, 
-							P.ListingOrder,
-							P.FirstName, 
-							A.FunctionDescription, 
-							A.LocationCode,
-							P.IndexNo, 
-							A.AssignmentNo, 
-							A.DateEffective, 
-							A.DateExpiration,
-							(SELECT   TOP 1 ContractLevel
-							 FROM     PersonContract
-							 WHERE    PersonNo     = P.PersonNo
-							 AND      Mission      = Pos.Mission
-							 AND      ActionStatus IN ('0','1')
-							 AND      DateEffective <= '#get.CalendarDateEnd#'
-							 ORDER BY DateEffective DESC) as PersonGrade
-							 
-					FROM 	Person P 
-					        INNER JOIN PersonAssignment A ON P.PersonNo = A.PersonNo
-							INNER JOIN Position Pos ON A.PositionNo = Pos.PositionNo
-							
-					WHERE   P.PersonNo = A.PersonNo
-					<!--- the unit of the operational assignment --->
-					AND     A.OrgUnit = '#get.Orgunit#'
-					-- AND     A.Incumbency       > '0'
-					AND     A.AssignmentStatus IN ('0','1')
-					-- AND     A.AssignmentClass  = 'Regular'	<!--- not needed anymore as loaned people have leave as well --->		
-					AND     A.AssignmentType   = 'Actual'
-					AND     A.DateEffective   <= '#get.CalendarDateEnd#'
-					AND     A.DateExpiration  >= '#get.CalendarDateStart#'			
-						
-	  </cfquery>	
+	  datasource="AppsEmployee" 
+	  username="#SESSION.login#" 
+	  password="#SESSION.dbpw#">
+	  SELECT 	DISTINCT P.PersonNo, 
+				        P.LastName, 
+						P.ListingOrder,
+						P.FirstName, 
+						A.FunctionDescription, 
+						A.LocationCode,
+						P.IndexNo, 
+						A.AssignmentNo, 
+						A.DateEffective, 
+						A.DateExpiration,
+						(SELECT   TOP 1 ContractLevel
+						 FROM     PersonContract
+						 WHERE    PersonNo     = P.PersonNo
+						 AND      Mission      = Pos.Mission
+						 AND      ActionStatus IN ('0','1')
+						 AND      DateEffective <= '#get.CalendarDateEnd#'
+						 ORDER BY DateEffective DESC) as PersonGrade
+						 
+	  FROM 	Person P 
+	        INNER JOIN PersonAssignment A ON P.PersonNo = A.PersonNo
+			INNER JOIN Position Pos ON A.PositionNo = Pos.PositionNo
+				
+	  WHERE   P.PersonNo = A.PersonNo
+	  <!--- the unit of the operational assignment --->
+	  AND     A.OrgUnit = '#get.Orgunit#'
+	  -- AND     A.Incumbency       > '0'
+	  AND     A.AssignmentStatus IN ('0','1')
+	  -- AND     A.AssignmentClass  = 'Regular'	<!--- not needed anymore as loaned people have leave as well --->		
+	  AND     A.AssignmentType   = 'Actual'
+	  AND     A.DateEffective   <= '#get.CalendarDateEnd#'
+	  AND     A.DateExpiration  >= '#get.CalendarDateStart#'							
+ </cfquery>	
+ 
+
 
 <cfoutput>
 
@@ -130,7 +131,11 @@ password="#SESSION.dbpw#">
 								AND        WD.CalendarDate >= '#get.CalendarDateStart#' 
 								AND        WD.CalendarDate <= '#get.CalendarDateEnd#' 
 								AND        WD.TransactionType = '1'
+								<cfif getPerson.recordcount gte "1">
 								AND        WD.PersonNo IN (#quotedvalueList(getPersons.PersonNo)#)
+								<cfelse>
+								AND        1=0
+								</cfif>
 						        GROUP BY   W.PersonNo,
 								           W.CalendarDate,
 										   WD.BillingMode, 

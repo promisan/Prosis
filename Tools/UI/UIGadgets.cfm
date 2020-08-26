@@ -97,6 +97,8 @@
 	<script type="text/javascript">
 
 	var _WINDOWS=[];
+	var _TREES=[];
+	var _SELECTED_ITEMS=[];
 	var _DEFAULT_LEVEL_ = 0;
 	
 	function _UIObject(){}
@@ -270,33 +272,6 @@ _UIObject.prototype.doAlert = function(tlt,msg,color)
 } //end doAlert
 
 
-function _tree_action(e) {
-	console.log("select..", e.node);
-	var url = $(e.node).attr('data-url');
-	var target = $(e.node).attr('data-target');
-
-	console.log(url);
-	console.log(target);
-
-	if (url) {
-		if (url != '') {
-			if (url.search("javascript")!=-1) {
-				eval(url);
-			}
-			else
-			{
-				if (target != '') {
-					ptoken.open(url, target);
-				}
-			}
-		}
-	}
-
-
-
-
-	
-}
 
 function saveExpanded(id) {
 
@@ -337,6 +312,33 @@ function _tree_collapse(e)
 
 }
 
+function _tree_action(e) {
+	console.log("select..", e.node);
+	var url = $(e.node).attr('data-url');
+	var target = $(e.node).attr('data-target');
+
+	console.log(url);
+	console.log(target);
+
+	_SELECTED_ITEMS.push({id:this.element.context.id,value:$(e.node).attr('data-value')})
+
+	if (url) {
+		if (url != '') {
+			if (url.search("javascript")!=-1) {
+				eval(url);
+			}
+			else
+			{
+				if (target != '') {
+					ptoken.open(url, target);
+				}
+			}
+		}
+	}
+
+
+}
+
 function _tree_action_binder(e) {
 
 	var id = this.element.context.id;
@@ -345,6 +347,9 @@ function _tree_action_binder(e) {
 	var target = item.TARGET;
 	console.log(url);
 	console.log(target);
+
+	_SELECTED_ITEMS.push({id:this.element.context.id,value:item.VALUE})
+
 	saveExpanded(id,e.node);
 	if (url) {
 		if (url != '') {
@@ -362,13 +367,13 @@ function _tree_action_binder(e) {
 
 }
 
-
 function _tree_action_binder_single(item) {
 	console.log(item);
 	var url = item.HREF;
 	var target = item.TARGET;
 	console.log(url);
 	console.log(target);
+
 
 	if (url) {
 		if (url != '') {
@@ -504,24 +509,6 @@ _UIObject.prototype.doTooltipPositioning = function(h)
 
 }
 
-_UIObject.prototype.doTree = function(id)
-{
-	$("##_"+id).show();
-	$("##"+id).kendoTreeView();
-	_tree_view = $("##"+id).data("kendoTreeView");
-	if (_tree_view) {
-		_tree_view.bind("select", _tree_action);
-
-		//provision for subscribing on a clicking event on an already selected item
-		$("##"+id).on("click", "li .k-state-selected", function(e) {
-			node = $(this).closest("li")[0];
-			console.log(node);
-			_tree_action({ node: node });
-		});
-
-	}
-
-}
 
 _UIObject.prototype.doTabStrip = function(id,content)
 {
@@ -555,6 +542,27 @@ _UIObject.prototype.doBreadCrumb = function(id,content)
 
 }
 
+
+_UIObject.prototype.doTree = function(id)
+{
+	_TREES.push(id);
+
+	$("##_"+id).show();
+	$("##"+id).kendoTreeView();
+	_tree_view = $("##"+id).data("kendoTreeView");
+	if (_tree_view) {
+		_tree_view.bind("select", _tree_action);
+			//provision for subscribing on a clicking event on an already selected item
+		$("##"+id).on("click", "li .k-state-selected", function(e) {
+			node = $(this).closest("li")[0];
+			console.log(node);
+			_tree_action({ node: node });
+		});
+
+	}
+
+}
+
 _UIObject.prototype.doTreeBinder = function(id,serviceRoot,serviceMethod,serviceData)
 {
 		binder = new kendo.data.HierarchicalDataSource({
@@ -574,32 +582,32 @@ _UIObject.prototype.doTreeBinder = function(id,serviceRoot,serviceMethod,service
 				}
 			}
 		});
+		console.log('id',id);
+		_TREES.push(id);
 
-	console.log('id',id);
-	var _html = $("##_prosis-tree-template").html();
-	$("##"+id).kendoTreeView({
-		dataSource: binder,
-		template: kendo.template(_html),
-		dataBound: _expand_to
-	});
-
-	_tree_view = $("##"+id).data("kendoTreeView");
-	if (_tree_view) {
-
-		_tree_view.bind("select", _tree_action_binder);
-		_tree_view.bind("collapse", _tree_collapse);
-
-		//provision for subscribing on a clicking event on an already selected item
-		$("##"+id).on("click", "li .k-state-selected", function(e) {
-			node = $(this).closest("li")[0];
-			dtree = $(this).closest("div .k-treeview")[0];
-			var id = $(dtree).attr('id');
-			_tree_view = $("##"+id).data("kendoTreeView");
-			var item=_tree_view.dataItem(node);
-			_tree_action_binder_single(item);
+		var _html = $("##_prosis-tree-template").html();
+		$("##"+id).kendoTreeView({
+			dataSource: binder,
+			template: kendo.template(_html),
+			dataBound: _expand_to
 		});
 
-	}
+		_tree_view = $("##"+id).data("kendoTreeView");
+		if (_tree_view) {
+
+			_tree_view.bind("select", _tree_action_binder);
+			_tree_view.bind("collapse", _tree_collapse);
+
+			//provision for subscribing on a clicking event on an already selected item
+			$("##"+id).on("click", "li .k-state-selected", function(e) {
+				node = $(this).closest("li")[0];
+				dtree = $(this).closest("div .k-treeview")[0];
+				var id = $(dtree).attr('id');
+				_tree_view = $("##"+id).data("kendoTreeView");
+				var item=_tree_view.dataItem(node);
+				_tree_action_binder_single(item);
+			});
+		}
 }
 
 _UIObject.prototype.doOpenTree = function(id,node)

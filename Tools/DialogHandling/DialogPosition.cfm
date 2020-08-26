@@ -95,7 +95,7 @@ function ViewPosition(posno) {
 function EditPost(posno) {
     	w = #CLIENT.width# - 60;
 	    h = #CLIENT.height# - 130;
-		ptoken.open(root + "/Staffing/Application/Position/Position/PositionView.cfm?ID=" + posno, "_blank", "left=20, top=20, width=" + w + ", height= " + h + ", status=yes, toolbar=no, scrollbars=no, resizable=yes");
+		ptoken.open(root + "/Staffing/Application/Position/Position/PositionView.cfm?ID=" + posno, posno);
 }
 
 function EditPerson(personno,index,template) {
