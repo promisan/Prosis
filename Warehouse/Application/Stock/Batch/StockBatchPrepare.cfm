@@ -7,30 +7,30 @@
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 		CREATE TABLE dbo.StockBatch_#SESSION.acc# (
-			[BatchNo] [int] NULL ,
-			[BatchReference] [varchar] (30) NULL ,
-			[TransactionType] [varchar] (2) NULL ,
-			[Description] [varchar] (100) NULL ,
-			[DeliveryMode] [bit] NULL,
-			[Category] [varchar] (100) NULL ,
+			[BatchNo]             [int] NULL ,
+			[BatchReference]      [varchar] (50) NULL ,
+			[TransactionType]     [varchar] (2) NULL ,
+			[Description]         [varchar] (100) NULL ,
+			[DeliveryMode]        [bit] NULL,
+			[Category]            [varchar] (100) NULL ,
 			[LocationDescription] [varchar] (100) NULL ,
-			[BatchDescription] [varchar] (80)  NULL ,
-			[TransactionDate] [datetime] NULL ,
-			[ActionStatus] [varchar] (2) NULL ,
-			[ContraWarehouse] [varchar] (60)  NULL ,
-			[CustomerId] [uniqueidentifier] NULL ,
-			[CustomerName] [varchar] (100) NULL ,
-			[Quantity] [int] NULL ,
-			[Lines]    [int] NULL ,
-			[Cleared]  [int] NULL ,
-			[Amount]   [float] NULL ,
-			[OfficerUserId] [varchar] (20) NULL ,
-			[OfficerLastName] [varchar] (40) NULL ,
-			[OfficerFirstName] [varchar] (30) NULL ,
-			[Created] [datetime] NULL ,			
-			[ProcessStatus] [varchar] (20) NULL )
+			[BatchDescription]    [varchar] (80)  NULL ,
+			[TransactionDate]     [datetime] NULL ,
+			[ActionStatus]        [varchar] (2) NULL ,
+			[ContraWarehouse]     [varchar] (60)  NULL ,
+			[CustomerId]          [uniqueidentifier] NULL ,
+			[CustomerName]        [varchar] (100) NULL ,
+			[Quantity]            [int] NULL ,
+			[Lines]               [int] NULL ,
+			[Cleared]             [int] NULL ,
+			[Amount]              [float] NULL ,
+			[OfficerUserId]       [varchar] (20) NULL ,
+			[OfficerLastName]     [varchar] (40) NULL ,
+			[OfficerFirstName]    [varchar] (30) NULL ,
+			[Created]             [datetime] NULL ,			
+			[ProcessStatus]       [varchar] (20) NULL )
 	</cfquery>
-	
+		
 	<!--- main records --->
 	
 	<cfif url.status eq "9">
@@ -100,5 +100,7 @@
 	 
 	 WHERE 1=1 	 
 	</cfquery>
+		
+	
 	
 	

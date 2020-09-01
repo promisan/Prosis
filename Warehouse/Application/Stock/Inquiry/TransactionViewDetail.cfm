@@ -67,13 +67,13 @@ password="#SESSION.dbpw#">
 			<cfif url.accessmode eq "View">
 					
 					<td class="labellarge">					
-					<a href="javascript:_cf_loadingtexthtml='';ptoken.navigate('TransactionViewDetail.cfm?drillid=#url.drillid#&systemfunctionid=#url.systemfunctionid#&accessmode=edit','main')"><font color="0080FF"><cf_tl id="Amend transaction"></font></a>				
+					<a href="javascript:_cf_loadingtexthtml='';ptoken.navigate('TransactionViewDetail.cfm?drillid=#url.drillid#&systemfunctionid=#url.systemfunctionid#&accessmode=edit','main')"><cf_tl id="Amend transaction"></a>				
 					</td>
 				
 			<cfelse>
 			
 					<td class="labellarge">
-					<a href="javascript:_cf_loadingtexthtml='';ptoken.navigate('TransactionViewDetail.cfm?drillid=#url.drillid#&systemfunctionid=#url.systemfunctionid#&accessmode=view','main')"><font color="0080FF"><cf_tl id="View"></font></a>				
+					<a href="javascript:_cf_loadingtexthtml='';ptoken.navigate('TransactionViewDetail.cfm?drillid=#url.drillid#&systemfunctionid=#url.systemfunctionid#&accessmode=view','main')"><cf_tl id="View"></a>				
 					</td>
 						
 			</cfif>			
@@ -84,7 +84,7 @@ password="#SESSION.dbpw#">
 	
 	<td style="padding-left:5px" align="right" class="labelmedium" style="padding-top:3px">	
 	<cfif url.print eq "0">
-		<a href="javascript:printme('#url.drillid#')"><font color="0080FF"><cf_tl id="Printer Friendly Version"></font></a>
+		<a href="javascript:printme('#url.drillid#')"><cf_tl id="Printer Friendly Version"></a>
 	<cfelse>
 		<font face="Verdana" size="4"><b><cf_tl id="Stock Transaction"></font>
 	</cfif>
@@ -238,7 +238,7 @@ password="#SESSION.dbpw#">
 
 <tr class="labelmedium linedotted">
    <td class="labelmedium" style="padding-left:10px"><cf_tl id="Item">:</td>
-   <td><a href="javascript:item('#get.itemNo#','#get.mission#')">#get.ItemNo#</a></td>
+   <td><a href="javascript:item('#get.itemNo#','','#get.mission#')">#get.ItemNo#</a></td>
    <td class="labelmedium"><cf_tl id="Name">:</td>
    <td>#get.ItemDescription#</td>
 </tr>
@@ -309,9 +309,9 @@ password="#SESSION.dbpw#">
 		   returnvariable   = "Access">
 	   
 	    <cfif findNoCase(get.Warehouse,Access) or getAdministrator(url.mission) eq "1">
-		   <a href="javascript:batch('#get.TransactionBatchNo#','#get.Mission#','process','#url.systemfunctionid#')"><font size="3" color="0080FF">#get.TransactionBatchNo#</font></a>
+		   <a href="javascript:batch('#get.TransactionBatchNo#','#get.Mission#','process','#url.systemfunctionid#')"><font size="3">#get.TransactionBatchNo#</font></a>
 	   <cfelse>
-		   <a href="javascript:batch('#get.TransactionBatchNo#','#get.Mission#','view','#url.systemfunctionid#')"><font size="3" color="0080FF">#get.TransactionBatchNo#</font></a>	 
+		   <a href="javascript:batch('#get.TransactionBatchNo#','#get.Mission#','view','#url.systemfunctionid#')"><font size="3">#get.TransactionBatchNo#</font></a>	 
 	   </cfif>
 	   
 	    <cfquery name="bat" 
@@ -455,9 +455,9 @@ password="#SESSION.dbpw#">
    <td><cf_tl id="Transaction Value">:</td>   
    <td>
 	   <cfif transactiontype eq "2">
-	   #numberformat(-get.TransactionValue,"__,__.__")#
+	   #numberformat(-get.TransactionValue,",.__")#
 	   <cfelse>
-	   #numberformat(get.TransactionValue,"__,__.__")#
+	   #numberformat(get.TransactionValue,",.__")#
 	   </cfif>
    </td>
 </tr>
@@ -506,12 +506,12 @@ password="#SESSION.dbpw#">
 			   <td class="labelmedium" style="padding-left:10px"><cf_tl id="Vendor">:</td>
 			   <td>#rct.Vendor#</td>
 			   <td class="labelmedium"><cf_tl id="PurchaseNo">:</td>
-			   <td><a href="javascript:ProcPOEdit('#rct.PurchaseNo#')"><font color="0080FF">#rct.PurchaseNo#</a></td>
+			   <td><a href="javascript:ProcPOEdit('#rct.PurchaseNo#')">#rct.PurchaseNo#</a></td>
 			</tr>
 			
 			<tr class="labelmedium">
 			   <td class="labelmedium" style="padding-left:10px"><cf_tl id="ReceiptNo">:</td>
-			   <td><a href="javascript:receipt('#rct.receiptno#')"><font color="0080FF">#rct.ReceiptNo#</a></td>
+			   <td><a href="javascript:receipt('#rct.receiptno#')">#rct.ReceiptNo#</a></td>
 			   <td class="labelmedium"><cf_tl id="Delivery">:</td>
 			   <td>#dateformat(rct.DeliveryDate,client.dateformatshow)#</td>
 			</tr>
@@ -567,7 +567,7 @@ password="#SESSION.dbpw#">
 			
 			<tr class="labelmedium linedotted">
 			   <td style="padding-left:10px"><cf_tl id="WorkOrder">:</td>
-			   <td><a href="javascript:workorderview('#getLine.WorkOrderLineId#','medical')"><font color="0080FF">#wrk.Description#</a></td>
+			   <td><a href="javascript:workorderview('#getLine.WorkOrderLineId#','medical')">#wrk.Description#</a></td>
 			   <td><cf_tl id="Customer">:</td>
 			   <td>#wrk.CustomerName#</td>
 			</tr>
@@ -576,7 +576,7 @@ password="#SESSION.dbpw#">
 			
 			<tr class="labelmedium linedotted">
 			   <td style="padding-left:10px"><cf_tl id="WorkOrder">:</td>
-			   <td><a href="javascript:workorderview('#get.workorderid#')"><font color="0080FF">#wrk.Description#</a></td>
+			   <td><a href="javascript:workorderview('#get.workorderid#')">#wrk.Description#</a></td>
 			   <td><cf_tl id="Customer">:</td>
 			   <td>#wrk.CustomerName#</td>
 			</tr>
@@ -609,7 +609,7 @@ password="#SESSION.dbpw#">
 			   <td class="labelmedium" style="padding-left:10px"><cf_tl id="BarCode">:</td>
 			   <td><font size="2">#ass.AssetBarCode#</td>	
 			   <td class="labelmedium"><cf_tl id="Name"></td>   
-			   <td><a href="javascript:AssetDialog('#get.assetid#')"><font size="2" color="0080FF">#ass.Description#</a></font></td>
+			   <td><a href="javascript:AssetDialog('#get.assetid#')">#ass.Description#</a></td>
 			</tr>
 			<tr>
 			   <td class="labelmedium" style="padding-left:10px"><cf_tl id="Item Generic">:</td>
@@ -640,7 +640,7 @@ password="#SESSION.dbpw#">
 			   <td>#Description#</td>
 			   <td class="labelmedium"><cf_tl id="#Metric#">:</td>   
 			   <td>  
-			   <b>#numberformat(MetricValue,"__,__")# 
+			   <b>#numberformat(MetricValue,",__")# 
 			   </td>
 			</tr>
 			</cfloop>
@@ -673,7 +673,7 @@ password="#SESSION.dbpw#">
 			   <td class="labelmedium" style="padding-left:10px"><cf_tl id="Officer">:</td>
 
 			   <cfif getAdministrator(get.mission) eq "1">
-			   <td><a href="javascript:EditPerson('#PersonNo#')"><font size="2" color="0080FF">#per.firstName# #per.LastName#</a></td>
+			   <td><a href="javascript:EditPerson('#PersonNo#')"><font size="2">#per.firstName# #per.LastName#</a></td>
 			   <cfelse>
 			   <td><font size="2">#per.firstName# #per.LastName#</td>	  
 			   </cfif>
@@ -752,7 +752,7 @@ password="#SESSION.dbpw#">
 		   returnvariable   = "access">	   
 	   
 	    <cfif access neq "NONE">
-			   <td><a href="javascript:ShowTransaction('#hea.Journal#','#hea.JournalSerialNo#')"><font color="0080FF">#hea.Journal#-#hea.JournalSerialNo#</a></td>
+			   <td><a href="javascript:ShowTransaction('#hea.Journal#','#hea.JournalSerialNo#')">#hea.Journal#-#hea.JournalSerialNo#</a></td>
 	    <cfelse>   
 		      <td>#hea.Journal#-#hea.JournalSerialNo#</td>
 	    </cfif>

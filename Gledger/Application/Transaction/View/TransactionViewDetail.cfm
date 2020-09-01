@@ -1,10 +1,10 @@
 
 <table width="95%" align="center" class="printContent">
+
+  	  <tr><td id="process"></td></tr>
   
 	  <tr class="noprint clsNoPrint">
 	  <td colspan="2" align="center" height="20">
-	  
-	  <div id="printTitle" style="display:none;"><cf_tl id="HARDCOPY General Ledger Transaction"></div>
 	  
 	  <cfset url.mode = "view">
 	  
@@ -14,7 +14,18 @@
 				
 			<tr>				
 			    <td>
+
+				<cfquery name="getMissionName" 
+					datasource="AppsOrganization" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+						SELECT   *
+						FROM     Ref_Mission
+						WHERE    Mission = '#Transaction.Mission#'	
+				</cfquery>
 				
+				<div id="printTitle" style="display:none;">#trim(getMissionName.MissionName)# - <cf_tl id="HARDCOPY General Ledger Transaction"></div>
+
 				<cf_tl id="Print" var="1">
 				<cf_button2 
 	                id="printButton"

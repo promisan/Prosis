@@ -137,6 +137,8 @@ will be put into different batches as they could have different process flows as
 				ORDER BY TransactionDate DESC		
 			</cfquery>		
 			
+			
+			
 			<cfif Lines.ItemClearanceMode eq "">
 			
 				<cfset clearance = Lines.ParentClearanceMode>
@@ -178,6 +180,25 @@ will be put into different batches as they could have different process flows as
 					<cfelse>
 					   <cfset batches = "#batches#,#batchno#">
 					</cfif>
+					
+					<cfquery name="getWarehouse"
+						datasource="AppsMaterials" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+					    SELECT  *	 
+						FROM    Warehouse
+						WHERE   Warehouse =  '#Lines.TransferWarehouse#'						
+					</cfquery>	
+					
+					<cfif getWarehouse.mission neq url.mis>
+					
+						<cfset area = "interoffice">
+						
+					<cfelse>
+					
+						<cfset area = "variance">
+					
+					</cfif>
 				
 					<cfquery name="Insert" 
 					datasource="AppsMaterials" 
@@ -185,9 +206,9 @@ will be put into different batches as they could have different process flows as
 					password="#SESSION.dbpw#">
 					INSERT INTO  WarehouseBatch
 						   ( Mission,
-						     Warehouse, 
-							 BatchWarehouse,
+						     Warehouse, 							 
 							 Location,
+							 BatchWarehouse,
 						     BatchNo, 
 							 <cfif url.stockorderid neq "">
 							 StockOrderId,
@@ -207,10 +228,10 @@ will be put into different batches as they could have different process flows as
 						     OfficerUserId, 
 						     OfficerLastName, 
 						     OfficerFirstName )
-					VALUES ('#url.mis#',
-					        '#Lines.TransferWarehouse#', <!--- processing warehouse --->
-							'#URL.Whs#',                 <!--- originating warehouse --->
+					VALUES ('#getWarehouse.mission#',    <!--- url.mis#', interoffice support --->
+					        '#getWarehouse.Warehouse#',  <!--- processing receiving warehouse --->							
 							'#Lines.TransferLocation#',
+							'#URL.Whs#',                 <!--- originating distributing warehouse --->
 					        '#batchNo#',
 							 <cfif url.stockorderid neq "">
 							 '#url.stockorderid#',
@@ -426,28 +447,31 @@ will be put into different batches as they could have different process flows as
 									WHERE   Category = '#Category#' 
 									AND     Area     = 'Stock'
 								</cfquery>	
-										
+								
+								<!---
+								<cfparam name="AccountTask.GLAccount" default="30103">
+								--->
+																								
 								<cfquery name="AccountTask"
-									datasource="AppsMaterials" 
-									username="#SESSION.login#" 
-									password="#SESSION.dbpw#">
-								    SELECT  GLAccount
-									FROM    Ref_CategoryGLedger
-									WHERE   Category = '#Category#' 
-									AND     Area     = 'Variance'
-								</cfquery>													
-															
-								<cfif AccountStock.recordcount lt "0" or AccountTask.Recordcount lt "0">
+										datasource="AppsMaterials" 
+										username="#SESSION.login#" 
+										password="#SESSION.dbpw#">
+									    SELECT  GLAccount
+										FROM    Ref_CategoryGLedger
+										WHERE   Category = '#Category#' 
+										AND     Area     = '#area#'  <!--- variance | interoffice --->
+								</cfquery>		
+																																																						
+								<cfif AccountStock.glaccount eq "0" or AccountTask.glaccount eq "0">
 												
 									<cf_alert message = "#msg1# #msg2#"
 									  return = "no">
 									  
 									<cfabort>		
 										 				
-								</cfif>				
-												
-						   <cfset debit  = "#AccountStock.GLAccount#">
-						   <cfset credit = "#AccountTask.GLAccount#">			 
+								</cfif>		
+								
+							
 						   
 						   <cfset qty = -1*TransferQuantity>			   
 						   
@@ -526,8 +550,8 @@ will be put into different batches as they could have different process flows as
 							    TransactionType      = "#url.tpe#"
 								TransactionSource    = "WarehouseSeries"
 								ItemNo               = "#ToItemNo#" 
-								Mission              = "#url.mis#" 
-								Warehouse            = "#TransferWarehouse#" 
+								Mission              = "#getWarehouse.Mission#" 
+								Warehouse            = "#getWarehouse.Warehouse#" 
 								TransactionLot       = "#TransactionLot#"
 								BillingMode          = "#billingmode#"
 								Location             = "#TransferLocation#"
@@ -550,23 +574,23 @@ will be put into different batches as they could have different process flows as
 								GLAccountCredit      = "#AccountTask.GLAccount#">	
 								
 								<cfquery name="getLocationTo"
-								datasource="AppsMaterials" 
-								username="#SESSION.login#" 
-								password="#SESSION.dbpw#">
-							    SELECT   *				 
-								FROM     WarehouseLocation
-								WHERE    Warehouse = '#transferWarehouse#'
-								AND      Location  = '#transferLocation#'
+									datasource="AppsMaterials" 
+									username="#SESSION.login#" 
+									password="#SESSION.dbpw#">
+									    SELECT   *				 
+										FROM     WarehouseLocation
+										WHERE    Warehouse = '#getWarehouse.Warehouse#'
+										AND      Location  = '#transferLocation#'
 								</cfquery>		
 								
 								<cfquery name="AccountCOGS"
 									datasource="AppsMaterials" 
 									username="#SESSION.login#" 
 									password="#SESSION.dbpw#">
-								    SELECT  GLAccount
-									FROM    Ref_CategoryGLedger
-									WHERE   Category = '#Category#' 
-									AND     Area     = 'COGS'
+									    SELECT  GLAccount
+										FROM    Ref_CategoryGLedger
+										WHERE   Category = '#Category#' 
+										AND     Area     = 'COGS'
 								</cfquery>	
 															
 								<cfif getLocationTo.Distribution eq "8" and AccountCOGS.recordcount eq "1">
@@ -606,13 +630,16 @@ will be put into different batches as they could have different process flows as
 									GLTransactionNo      = "#batchNo#"
 									GLCurrency           = "#APPLICATION.BaseCurrency#"
 									GLAccountDebit       = "#AccountCOGS.GLAccount#"
-									GLAccountCredit      = "#debit#">	
+									GLAccountCredit      = "#AccountStock.GLAccount#">	
 									
 								</cfif>								
 								
 								<!--- removed ReceiptId  = "#ReceiptId#" --->		
 								
 						  <cfelse>
+						  
+						  
+						  <!--- no really supported without accounting anymore !!!!!!! --->
 						  						        						  
 						  		<cfif clearance eq "0">	
 								     <cfset actionStatus = "1">

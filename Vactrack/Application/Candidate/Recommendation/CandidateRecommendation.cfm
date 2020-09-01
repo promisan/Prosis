@@ -33,19 +33,19 @@
 
 <cfoutput>
 
-<form name="recommendation" id="recommendation">
+<form name="recommendation" id="recommendation" style="height:98%">
 	
 	<table width="96%" height="100%" align="center">
 	
 	<tr><td id="myprocess"></td></tr>
 	
 	<tr class="labelmedium line">
-	<td style="height:40px;font-size:18px"><cf_tl id="Candidate"></td>
+	<td style="height:40px;font-size:18px"><cf_tl id="Candidate">:</td>
 	<td style="width:80%;;font-size:18px"><cfoutput>#get.LastName#, #get.FirstName#</cfoutput></td>
 	</tr>
 	
 	<tr class="labelmedium line">
-	<td style="height:40px;font-size:18px"><cf_tl id="Recommend for Job"></td>
+	<td style="height:40px;font-size:18px"><cf_tl id="Recommend for Job">:</td>
 	<td style="width:80%">
 		<input class = "Radiol" 
 		       style = "height:21px;width:21px" 
@@ -72,8 +72,8 @@
 		
 	<tr><td style="height:2px"></td></tr>
 	
-	<tr class="labelmedium" style="height:80%">
-	<td colspan="2" valign="top">
+	<tr class="labelmedium">
+	<td colspan="2" valign="top" style="height:80%">
 	
 	 <cfquery name="Check" 
 	 datasource="AppsVacancy" 
@@ -92,7 +92,7 @@
 				 resize="false"		
 				 border="0" 
 				 toolbar="Mini"
-				 height="150"
+				 height="70%"
 				 width="100%">#Check.ReviewMemo#</cf_textarea>
 	</td>
 	</tr>
@@ -103,7 +103,7 @@
 		<td><input type="button" value="Close" name="Close"   class="button10g" 
 		     onclick="ProsisUI.closeWindow('decisionbox')"></td>
 		<td><input type="button" value="Submit" name="Submit" class="button10g" 
-		     onclick="updateTextArea();ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/CandidateRecommendationSubmit.cfm?wparam=#url.wparam#&documentno=#url.documentNo#&personno=#url.personno#&actioncode=#url.actioncode#&wfinal=#url.wfinal#','myprocess','','','POST','recommendation')"></td>
+		     onclick="updateTextArea();ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/Recommendation/CandidateRecommendationSubmit.cfm?wparam=#url.wparam#&documentno=#url.documentNo#&personno=#url.personno#&actioncode=#url.actioncode#&wfinal=#url.wfinal#','myprocess','','','POST','recommendation')"></td>
 		</tr>
 		</table>
 	</td></tr>

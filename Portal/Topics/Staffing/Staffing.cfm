@@ -316,10 +316,9 @@
 			</td>
 								
 			<td style="height:100%;width:100%;padding-top:3px">
-												
-				<cf_divscroll overflowx="auto">										
+										
 																										
-					<table width="100%">
+					<table width="100%" height="98%">
 					<tr>
 								
 					<cfquery name="getCols" dbtype="query">
@@ -333,7 +332,7 @@
 						<cfset vac = 0>
 						<cfset inc = 0>
 					
-						<td width="#48/getCols.recordcount#%" valign="top" style="border:1px solid silver;height:99%;padding:2px">
+						<td width="#48/getCols.recordcount#%" valign="top" style="border:1px solid silver;height:98%">
 						
 							<table width="100%" height="100%">	
 							  
@@ -342,7 +341,7 @@
 							<cfelse>	
 								<tr><td colspan="5" height="4"></td></tr>
 							</cfif>
-							<tr class="line labelmedium">
+							<tr class="line labelmedium" style="height:20px">
 								<td width="100%" style="min-width:40px;padding-left:6px"><cf_tl id="Grade"></td>				
 								<td align="center" style="min-width:25px;padding-right:2px!important;border-left:1px solid silver">P</td>
 												
@@ -358,25 +357,27 @@
 								<cfset vac = vac + (posts - incumbency)>
 								<cfset per = (posts - incumbency)*100 / posts>
 								
-								<tr class="navigation_row labelmedium line" style="height:22px">
+								<tr class="navigation_row labelmedium linedotted" style="height:18px">
 								  <td style="padding-left:6px;border-left:0px solid silver"><a href="javascript:doStaffing('#url.mission#','#url.orgunit#','#url.period#','#url.fund#','#url.postclass#','#url.authorised#','#code#','#postGradebudget#', '')">#PostGradeBudget#</a></td>
-								  <td align="right" style="padding-right:2px!important;border-left:1px solid silver"><a href="javascript:doStaffing('#url.mission#','#url.orgunit#','#url.period#','#url.fund#','#url.postclass#','#url.authorised#','#code#','#postGradebudget#', '')"><font color="008000">#Posts#</a></td>
-								  <td align="right" style="padding-right:2px!important;border-left:1px solid silver"><a href="javascript:doStaffing('#url.mission#','#url.orgunit#','#url.period#','#url.fund#','#url.postclass#','#url.authorised#','#code#','#postGradebudget#', 'I')">#Incumbency#</a></td>
-	  							  <td align="right" style="padding-right:2px!important;border-left:1px solid silver"><cfif posts-incumbency neq "0"><a href="javascript:doStaffing('#url.mission#','#url.orgunit#','#url.period#','#url.fund#','#url.postclass#','#url.authorised#','#code#','#postGradebudget#', 'V')"><font color="FF0000">#Posts-Incumbency#</a></font></cfif></td>				  	
-								  <td align="right" style="padding-right:3px!important;border-right:0px solid silver;border-left:1px solid silver">
+								  <td align="right" style="padding-right:2px!important;border-left:1px dotted silver"><a href="javascript:doStaffing('#url.mission#','#url.orgunit#','#url.period#','#url.fund#','#url.postclass#','#url.authorised#','#code#','#postGradebudget#', '')"><font color="008000">#Posts#</a></td>
+								  <td align="right" style="padding-right:2px!important;border-left:1px dotted silver"><a href="javascript:doStaffing('#url.mission#','#url.orgunit#','#url.period#','#url.fund#','#url.postclass#','#url.authorised#','#code#','#postGradebudget#', 'I')">#Incumbency#</a></td>
+	  							  <td align="right" style="padding-right:2px!important;border-left:1px dotted silver"><cfif posts-incumbency neq "0"><a href="javascript:doStaffing('#url.mission#','#url.orgunit#','#url.period#','#url.fund#','#url.postclass#','#url.authorised#','#code#','#postGradebudget#', 'V')"><font color="FF0000">#Posts-Incumbency#</a></font></cfif></td>				  	
+								  <td align="right" style="padding-right:3px!important;border-right:0px dotted silver;border-left:1px dotted silver">
 								  <cfif per eq "0">--<cfelseif per eq "100">#numberformat(per,',')#<cfelse>#numberformat(per,'._')#</cfif></td>
 								</tr>		
 										
 							</cfoutput>					
 										
 							<cfset per = (pos - inc)*100 / pos>
+							
+							<tr><td style="height:100%"></td></tr>
 										
-							<tr class="labelmedium line" style="background-color:eaeaea;border-top:1px solid silver" style="height:12px">
+							<tr class="labelmedium" style="background-color:efefef;border-top:1px dotted silver" style="height:12px">
 								  <td style="padding-left:6px;border-left:0px solid silver"></td>				  
-								  <td align="right" style="padding-right:2px!important;border-left:1px solid silver"><a href="javascript:doStaffing('#url.mission#','#url.orgunit#','#url.period#','#url.fund#','#url.postclass#','#url.authorised#','#code#','', '')"><font color="008000">#pos#</a></td>
-								  <td align="right" style="padding-right:2px!important;border-left:1px solid silver"><a href="javascript:doStaffing('#url.mission#','#url.orgunit#','#url.period#','#url.fund#','#url.postclass#','#url.authorised#','#code#','', 'I')">#inc#</a></td>
-	  							  <td align="right" style="padding-right:2px!important;border-left:1px solid silver"><a href="javascript:doStaffing('#url.mission#','#url.orgunit#','#url.period#','#url.fund#','#url.postclass#','#url.authorised#','#code#','', 'V')"><font color="FF0000">#vac#</a></td>				  	
-								  <td style="padding-right:4px;border-right:0px solid silver;border-left:1px solid silver" align="right"><cfif per eq "0">--<cfelseif per eq "100">#numberformat(per,',')#<cfelse>#numberformat(per,'._')#</cfif></td>
+								  <td align="right" style="padding-right:2px!important;border-left:1px dotted silver"><a href="javascript:doStaffing('#url.mission#','#url.orgunit#','#url.period#','#url.fund#','#url.postclass#','#url.authorised#','#code#','', '')"><font color="008000">#pos#</a></td>
+								  <td align="right" style="padding-right:2px!important;border-left:1px dotted silver"><a href="javascript:doStaffing('#url.mission#','#url.orgunit#','#url.period#','#url.fund#','#url.postclass#','#url.authorised#','#code#','', 'I')">#inc#</a></td>
+	  							  <td align="right" style="padding-right:2px!important;border-left:1px dotted silver"><a href="javascript:doStaffing('#url.mission#','#url.orgunit#','#url.period#','#url.fund#','#url.postclass#','#url.authorised#','#code#','', 'V')"><font color="FF0000">#vac#</a></td>				  	
+								  <td style="padding-right:4px;border-right:0px solid silver;border-left:1px dotted silver" align="right"><cfif per eq "0">--<cfelseif per eq "100">#numberformat(per,',')#<cfelse>#numberformat(per,'._')#</cfif></td>
 							</tr>			
 									
 							</table>
@@ -387,8 +388,7 @@
 					
 					</tr>
 					</table>
-										
-				</cf_divscroll>	
+					
 										
 		  </td>
 		  

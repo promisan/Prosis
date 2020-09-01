@@ -12,7 +12,9 @@
 	   		   
 		<table style="width:98.5%">
 							
-			<cfif searchresult.recordcount eq "0">					
+			<cfif searchresult.recordcount eq "0">	
+			
+				<cfinclude template="ListingHeader.cfm">		
 							    								
 				<tr><td style="height:50" align="center" colspan="#cols#" class="labelmedium"><cf_tl id="NoRecords" var="tlNoRecords">#tlNoRecords#.</td></tr>							
 			

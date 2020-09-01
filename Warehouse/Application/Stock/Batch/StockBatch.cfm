@@ -135,10 +135,10 @@
 					<table>					
 					<input type="hidden" name="batchmode" id="batchmode" value="calendar">					
 					<tr>
-					<td><input type="radio" class="radiol" name="mde" id="mde" value="calendar" checked onclick="document.getElementById('batchmode').value='calendar';Prosis.busy('yes');stockbatch('','#url.systemfunctionid#','calendar',document.getElementById('warehouseselected').value)"></td>
+					<td><input type="radio" class="radiol" name="mde" id="mde" value="calendar" checked onclick="document.getElementById('batchmode').value='calendar';Prosis.busy('yes');_cf_loadingtexthtml='';stockbatch('','#url.systemfunctionid#','calendar',document.getElementById('warehouseselected').value)"></td>
 					<td class="labelmedium" style="font-size:20px;padding-left:3px"><cf_tl id="Calendar"></td>
 					<td style="padding-left:5px">
-					<input type="radio" class="radiol" name="mde" id="mde" value="listing" onclick="document.getElementById('batchmode').value='listing';Prosis.busy('yes');stockbatch('','#url.systemfunctionid#','listing',document.getElementById('warehouseselected').value)">					
+					<input type="radio" class="radiol" name="mde" id="mde" value="listing" onclick="document.getElementById('batchmode').value='listing';Prosis.busy('yes');_cf_loadingtexthtml='';stockbatch('','#url.systemfunctionid#','listing',document.getElementById('warehouseselected').value)">					
 					</td>
 					<td class="labelmedium" style="font-size:20px;padding-left:3px"><cf_tl id="Listing"></td>															
 					</tr>					

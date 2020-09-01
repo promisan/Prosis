@@ -60,10 +60,9 @@ password="#SESSION.dbpw#">
 					AND    Area      = '#Area#'
 				</cfquery>
 				
-				<cfif area eq "Stock" or area eq "Receipt">
+				<cfif area eq "Stock" or area eq "Receipt" or area eq "Interoffice" or area eq "shipped">
 				   <cfset filter = "balance">
-				   <cfset field = "AccountClass">		   
-				   
+				   <cfset field = "AccountClass">						   
 				<cfelseif area neq "receipt">  
 				   <cfset filter = "result">
 				   <cfset field = "AccountClass">
@@ -102,7 +101,7 @@ password="#SESSION.dbpw#">
 					</cfif>		
 				
 				<cfelse>
-			
+							
 			    <img src="#SESSION.root#/Images/contract.gif" alt="Select GL Account" name="img3#area#" 
 					onMouseOver="document.img3#area#.src='#SESSION.root#/Images/button.jpg'" 
 					onMouseOut="document.img3#area#.src='#SESSION.root#/Images/contract.gif'"

@@ -26,6 +26,9 @@ password="#SESSION.dbpw#">
 	                   FROM   Organization.dbo.OrganizationAuthorization 
 					   WHERE  UserAccount = '#session.acc#')
 	</cfif>				   
+	AND    Mission IN (SELECT Mission 
+	                   FROM   Organization.dbo.Mission 
+					   WHERE  Operational = 1)
 </cfquery>
 
 <cf_tl id="contains" var="1">

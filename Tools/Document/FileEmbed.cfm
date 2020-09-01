@@ -26,14 +26,19 @@
 
 <table width="100%" height="100%" align="center">
 
+<!---
 <tr>
 <td colspna="2"style="padding-left:15px"><img src="#SESSION.root#/Images/line.gif" alt="" border="0"></td>
 </tr>
+--->
 
 <tr>
+
+<!---
 <td width="20" valign="top" style="padding-left:15px">
     <img src="#SESSION.root#/Images/join.gif" alt="" border="0">
 </td>
+--->
 
 <cfparam name="client.width" default="800">
 

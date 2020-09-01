@@ -11,9 +11,8 @@
 		cc  = document.getElementById("sendCC").value
 		bcc = document.getElementById("sendBCC").value
 			
-		ColdFusion.Window.create('addressdialog', 'Address book', '',{x:100,y:100,height:document.body.clientHeight-40,width:document.body.clientWidth-40,modal:true,center:true})    
-		ColdFusion.Window.show('addressdialog') 					
-		ColdFusion.navigate('#SESSION.root#/tools/mail/AddressBook.cfm?to='+to+'&cc='+cc+'&bcc='+bcc,'addressdialog') 	
+		ProsisUI.createWindow('addressdialog', 'Address book', '',{x:100,y:100,height:document.body.clientHeight-140,width:document.body.clientWidth-140,modal:true,center:true})    
+		ptoken.navigate('#SESSION.root#/tools/mail/AddressBook.cfm?to='+to+'&cc='+cc+'&bcc='+bcc,'addressdialog') 	
 	
 	}	
 	 
@@ -56,7 +55,7 @@
 		 document.getElementById(itm).className = "regular"	
 										 
 		 if (topic == "fnts") {
-			 ColdFusion.navigate('#SESSION.root#/tools/entityaction/details/notes/NoteList.cfm?box='+itm+'_'+object+'&mode=note&objectid='+object+'&actioncode='+action,itm+'_'+object)
+			 ptoken.navigate('#SESSION.root#/tools/entityaction/details/notes/NoteList.cfm?box='+itm+'_'+object+'&mode=note&objectid='+object+'&actioncode='+action,itm+'_'+object)
 		 }	
 		 
 		  if (topic == "fact") {

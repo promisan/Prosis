@@ -709,7 +709,7 @@ password="#SESSION.dbpw#">
 									<cfif Batch.BatchDescription eq "Receipt Distribution">
 									
 									<TD colspan="3" style="padding-right:3px">
-										<a class="navigation_action" href="javascript:item('#itemno#','#mission#')">																				
+										<a class="navigation_action" href="javascript:item('#itemno#','','#mission#')">																				
 										#LocationDescription# #ItemDescription#								
 										</a>																												
 									</TD>			
@@ -720,7 +720,7 @@ password="#SESSION.dbpw#">
 									<cfif batch.transactiontype eq "9">
 									
 											<TD colspan="3" style="padding-right:3px">
-												<a class="navigation_action" href="javascript:item('#itemno#','#mission#')">																						
+												<a class="navigation_action" href="javascript:item('#itemno#','','#mission#')">																						
 												#LocationDescription# #ItemNo# #ItemDescription#												
 												</a>
 																				
@@ -736,7 +736,7 @@ password="#SESSION.dbpw#">
 													<tr class="labelmedium" style="height:20px">
 													    <td style="border-left:1px solid silver;padding-left:3px;min-width:90px;width:90px">#LocationDescription#</td>
 														<td style="border-left:1px solid silver;padding-left:3px" align="left">
-														   <a class="navigation_action" href="javascript:item('#itemno#','#mission#')">															
+														   <a class="navigation_action" href="javascript:item('#itemno#','','#mission#')">															
 															#ItemDescription# <cfif itembarcode neq "">-&nbsp;#ItemBarCode#</cfif>															
 														   </a>
 														</td>

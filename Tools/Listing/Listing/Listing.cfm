@@ -315,8 +315,6 @@
 					
 </cfif>
 
-
-
 <cfparam name="URL.listorderformat"        default="">
 <cfparam name="URL.listgroupformat"        default="">
 
@@ -581,18 +579,18 @@
 						</cfif>	
 					
 					<cfelseif current.filtermode neq "3">	
-																												
+																																	
 						<cfif val neq "">					
 							<cfset length   = len(val)>                                                            
 							<cfset condition   = "#condition# AND CONVERT(VARCHAR(100),#fld#) LIKE ('%#val#%') #CLIENT.Collation#">												
 						</cfif>    
-						
+																		
 						<cfif form.savefilter eq "1" and savefilter eq "Yes">
 						
 							<cf_setUserFilter systemfunctionid="#url.systemfunctionid#" 
 							         field="#current.field#" 
 									 value="#val#">
-									 
+									 									 
 						</cfif>	
 					
 					<cfelse>

@@ -100,31 +100,53 @@
 
 </cfif>
 	
-<table width="94%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
   
-  <tr><td style="height:40px" class="labellarge">Documents to be generated through this workflow step</b></td></tr>	
   <tr>
-    <td width="100%" style="padding:15px">
-    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+    <td width="100%" style="padding:3px">
+	
+	<cfoutput>
+	    <table width="100%" class="formpadding">
 		
-    <TR>
-	   <td height="17" class="labelit" width="15%">Code</td>
-	   <td width="20%" class="labelit">Name</td>
-	   <td width="6%" class="labelit">Mode</td>
-	   <td width="40%" class="labelit">Template</td>
-	   <td width="10%" class="labelit">Language</td>
-	   <td width="10%" class="labelit" align="center" style="padding-left:4px">Passtru</td>
-	   <td width="10%" class="labelit" align="center" style="padding-left:4px">Force</td>
-	   <td width="7%" class="labelit" align="center" style="padding-left:4px">Sort</td>
-	   <td width="10%" class="labelit" style="padding-left:4px">Enabled</td>
+			<TR class="labelmedium line"><td>Tab label questionaire:</td>
+			     <td><input type="text" name="LabelQuestionaire" size="50" maxlength="50" class="regularxxl"
+				 onchange="_cf_loadingtexthtml='';Prosis.busy('yes');ptoken.navigate('#SESSION.root#/System/EntityAction/EntityFlow/ClassAction/ClassActionSubmit.cfm?EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&entitycode=#URL.EntityCode#&actionCode=#URL.ActionCode#&field=questionaire&value='+this.value,'saverep')">
+				 </td></tr>
+			<TR class="labelmedium line"><td>Tab label document:</td>
+				 <td><input type="text" name="LabelDocument" size="50" maxlength="50" class="regularxxl"
+				 onchange="_cf_loadingtexthtml='';Prosis.busy('yes');ptoken.navigate('#SESSION.root#/System/EntityAction/EntityFlow/ClassAction/ClassActionSubmit.cfm?EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&entitycode=#URL.EntityCode#&actionCode=#URL.ActionCode#&field=document&value='+this.value,'saverep')"></td>
+			</tr>
+		
+		</table>
+	</cfoutput>	
+	</td>
+  </tr>
+  
+  <tr><td style="height:40px" class="labellarge">Documents and/or Questionaires to be generated through this workflow step</td></tr>	
+ 
+  
+  <tr>	
+	<td width="100%" style="padding:3px">
+	
+	<table width="100%" class="formpadding">
+		
+    <TR class="labelmedium line">
+	   <td height="17" width="15%">Code</td>
+	   <td width="20%">Name</td>
+	   <td width="6%">Mode</td>
+	   <td width="40%">Template</td>
+	   <td width="10%">Language</td>
+	   <td width="10%" align="center" style="padding-left:4px">Passtru</td>
+	   <td width="10%" align="center" style="padding-left:4px">Force</td>
+	   <td width="7%"  align="center" style="padding-left:4px">Sort</td>
+	   <td width="10%" style="padding-left:4px">Enabled</td>
     </TR>	
-	<tr><td height="1" colspan="9" class="line"></td></tr>
-		
+			
 	<cfif detail.recordcount eq "0">
 		<tr><td colspan="9" 
 		        height="30" class="labelit"
 				align="center">There are no output documents configured for this action.</td></tr>
-	</cfif>
+	</cfif>	
 		
 	<cfoutput query="Detail">
 	
@@ -151,7 +173,7 @@
 			   	</td>					   	
 			   <td>
 			   
-			   	  <table cellspacing="0" cellpadding="0"><tr><td class="#cl#">
+			   	  <table><tr><td class="#cl#">
 			   
 			      <cfquery name="Language" 
 						datasource="appsSystem" 
@@ -166,7 +188,7 @@
 					   					   					   
 					      <select name="languagecode#currentrow#" id="languagecode#currentrow#" size="1" 
 						     class="regularxl"
-							 onchange="ColdFusion.navigate('#SESSION.root#/System/EntityAction/EntityObject/WorkflowElement/ClassDocumentSubmit.cfm?EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&entitycode=#URL.EntityCode#&actionCode=#URL.ActionCode#&ID2=#documentid#&frc='+document.getElementById('forcedocument#currentrow#').checked+'&lan='+this.value+'&lo='+document.getElementById('listingorder#currentrow#').value+'&op='+this.checked,'saverep')">
+							 onchange="ptoken.navigate('#SESSION.root#/System/EntityAction/EntityObject/WorkflowElement/ClassDocumentSubmit.cfm?EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&entitycode=#URL.EntityCode#&actionCode=#URL.ActionCode#&ID2=#documentid#&frc='+document.getElementById('forcedocument#currentrow#').checked+'&lan='+this.value+'&lo='+document.getElementById('listingorder#currentrow#').value+'&op='+this.checked,'saverep')">
 							  <cfloop query="Language">
 								  <option value="#code#" <cfif detail.DocumentLanguageCode eq Code>selected</cfif>>#Code#</option>
 							  </cfloop>
@@ -196,7 +218,7 @@
 				        name="forcedocument#currentrow#" 
 						id="forcedocument#currentrow#"
 						value="1" 
-					    onclick="ColdFusion.navigate('#SESSION.root#/System/EntityAction/EntityObject/WorkflowElement/ClassDocumentSubmit.cfm?EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&entitycode=#URL.EntityCode#&actionCode=#URL.ActionCode#&ID2=#documentid#&frc='+this.checked+'&lan='+document.getElementById('languagecode#currentrow#').value+'&lo='+document.getElementById('listingorder#currentrow#').value+'&op='+this.checked,'saverep')"
+					    onclick="ptoken.navigate('#SESSION.root#/System/EntityAction/EntityObject/WorkflowElement/ClassDocumentSubmit.cfm?EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&entitycode=#URL.EntityCode#&actionCode=#URL.ActionCode#&ID2=#documentid#&frc='+this.checked+'&lan='+document.getElementById('languagecode#currentrow#').value+'&lo='+document.getElementById('listingorder#currentrow#').value+'&op='+this.checked,'saverep')"
 				        <cfif forcedocument eq "1">checked</cfif>>
 						
 					</td></tr></table>	
@@ -218,7 +240,7 @@
 						enabled="Yes" 
 						style="text-align:center;width:20"
 						size="1" 
-						onchange="ColdFusion.navigate('#SESSION.root#/System/EntityAction/EntityObject/WorkflowElement/ClassDocumentSubmit.cfm?EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&entitycode=#URL.EntityCode#&actionCode=#URL.ActionCode#&ID2=#documentid#&frc='+document.getElementById('forcedocument#currentrow#').checked+'&lan='+document.getElementById('languagecode#currentrow#').value+'&lo='+this.value+'&op='+document.getElementById('operational#currentrow#').checked,'saverep')"
+						onchange="ptoken.navigate('#SESSION.root#/System/EntityAction/EntityObject/WorkflowElement/ClassDocumentSubmit.cfm?EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&entitycode=#URL.EntityCode#&actionCode=#URL.ActionCode#&ID2=#documentid#&frc='+document.getElementById('forcedocument#currentrow#').checked+'&lan='+document.getElementById('languagecode#currentrow#').value+'&lo='+this.value+'&op='+document.getElementById('operational#currentrow#').checked,'saverep')"
 						maxlength="2" 
 						class="regularxl">
 						
@@ -236,7 +258,7 @@
 					   name    = "operational#currentrow#"
 					   id="operational#currentrow#" 
 					   value   = "1" 
-					   onclick = "ColdFusion.navigate('#SESSION.root#/System/EntityAction/EntityObject/WorkflowElement/ClassDocumentSubmit.cfm?EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&entitycode=#URL.EntityCode#&actionCode=#URL.ActionCode#&ID2=#documentid#&frc='+document.getElementById('forcedocument#currentrow#').checked+'&lan='+document.getElementById('languagecode#currentrow#').value+'&lo='+document.getElementById('listingorder#currentrow#').value+'&op='+this.checked,'saverep')"
+					   onclick = "ptoken.navigate('#SESSION.root#/System/EntityAction/EntityObject/WorkflowElement/ClassDocumentSubmit.cfm?EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&entitycode=#URL.EntityCode#&actionCode=#URL.ActionCode#&ID2=#documentid#&frc='+document.getElementById('forcedocument#currentrow#').checked+'&lan='+document.getElementById('languagecode#currentrow#').value+'&lo='+document.getElementById('listingorder#currentrow#').value+'&op='+this.checked,'saverep')"
 				       <cfif valid eq "1">checked</cfif>>					
 			 
 			   </td>	
@@ -244,14 +266,13 @@
 		    </TR>	
 				
 		</cfif>
-		
-		<tr><td height="1" colspan="9" class="linedotted"></td></tr>
-					
+							
 	</cfoutput>
 						
 	</table>
 	</td>
 	</tr>
+	
 	<tr><td id="saverep"></td></tr>
 						
 </table>	

@@ -382,13 +382,13 @@
 					
 					function LocatePerson(last,dob,nat,pers) {												
 						ProsisUI.createWindow('myperson', 'Pick Staff profile record', '',{x:100,y:100,height:document.body.clientHeight-90,width:800,modal:true,resizable:false,center:true})    
-						ptoken.navigate('#session.root#/Vactrack/Application/Candidate/CandidateIndexNo.cfm?mission=#doc.mission#&personno='+pers+'&ID2=' + last + '&ID3=' + dob + '&ID4=' + nat,'myperson') 		
+						ptoken.navigate('#session.root#/Vactrack/Application/Candidate/getIndexNo.cfm?mission=#doc.mission#&personno='+pers+'&ID2=' + last + '&ID3=' + dob + '&ID4=' + nat,'myperson') 		
 					 
 					}
 					
 					function applyperson(ind,emp,pers) {
 						document.getElementById("indexno").value = ind
-						ptoken.navigate('CandidateEditEmployee.cfm?indexNo='+ind+'&employeeno='+emp+'&PersonNo='+pers,'result')		
+						ptoken.navigate('setCandidateEmployee.cfm?indexNo='+ind+'&employeeno='+emp+'&PersonNo='+pers,'result')		
 						ProsisUI.closeWindow('myperson',true) 		
 					}
 		

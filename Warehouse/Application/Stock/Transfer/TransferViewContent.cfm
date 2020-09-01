@@ -270,7 +270,7 @@
 			<cfif url.stockorderid eq "">					
 			
 				<TD><cfif prior neq itemno>
-				     <a href="javascript:item('#ItemNo#','#url.mission#','#url.systemfunctionid#')">#ItemDescription#</a>
+				     <a href="javascript:item('#ItemNo#','#url.systemfunctionid#','#url.mission#',)">#ItemDescription#</a>
 					<cfelse>#ItemDescription#</cfif>
 				</TD>
 	

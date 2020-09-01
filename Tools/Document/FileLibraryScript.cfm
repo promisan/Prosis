@@ -157,30 +157,29 @@ function logdocfile(id,box) {
 function showfile(mode,openas,id) {  
 		
 	<!--- record an audit trail the -open- action to be logged --->
-	ptoken.navigate('#SESSION.root#/Tools/Document/FileOpen.cfm?id='+id,'doclogaction')
+		
+	ptoken.navigate('#SESSION.root#/Tools/Document/FileOpen.cfm?id='+id,'doclogaction')	
 	
 	<!--- open the file ---> 
-    if (mode == "attachment" || mode == "attachmentmultiple") {
-		  
+    if (mode == "attachment" || mode == "attachmentmultiple") {		  
 
 	    if (openas == "view") {		
 		    <!--- ------------------------------------------------------------- --->
 		    <!--- perform the read action which copies the file to a save place --->
-			<!--- ------------------------------------------------------------- --->				
-			// window.open("#SESSION.root#/Tools/Document/FileRead.cfm?scope=actual&id="+id,"_blank","width=975, height=820,status=yes,toolbar=no,menubar=1,scrollbars=yes,resizable=yes");					
-			ptoken.open("#SESSION.root#/Tools/Document/FileRead.cfm?scope=actual&id="+id,"_blank");					
-		
+			<!--- ------------------------------------------------------------- --->						
+			ptoken.open("#SESSION.root#/Tools/Document/FileRead.cfm?scope=actual&id="+id,"_blank");							
 		} else {
     	   ptoken.open("#SESSION.root#/Tools/Document/FileEdit.cfm?mode="+mode+"&ts="+new Date().getTime()+"&id="+id, 'FileLibrary', "unadorned:yes; edge:raised; status:no; dialogHeight:800px; dialogWidth:1000px; status:yes;help:no; scroll:no; center:yes; resizable:yes");						
 		}
 
-    } else {
+   // } else {
 	
-	  if (openas == "view") {
-    		alert("Not Supported")
-		} else {
-    	window.showModelessDialog("#SESSION.root#/Tools/Document/FileEdit.cfm?openas="+openas+"&mode="+mode+"&ts="+new Date().getTime()+"&id="+id, 'FileLibrary', "unadorned:yes; edge:raised; status:no; dialogHeight:800px; dialogWidth:1000px; status:yes;help:no; scroll:no; center:yes; resizable:yes");						
-	    }
+//	  if (openas == "view") {
+ //   		alert("Not Supported")
+//		} else {
+//    	window.showModelessDialog("#SESSION.root#/Tools/Document/FileEdit.cfm?openas="+openas+"&mode="+mode+"&ts="+new Date().getTime()+"&id="+id, 'FileLibrary', "unadorned:yes; edge:raised; status:no; dialogHeight:800px; dialogWidth:1000px; status:yes;help:no; scroll:no; center:yes; resizable:yes");						
+//	    }
+
 	}
 }
 

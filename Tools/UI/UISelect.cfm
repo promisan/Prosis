@@ -17,7 +17,6 @@
 
 <cfif thisTag.executionmode is 'start'>
     <cfoutput>
-
         <cfif attributes.multiple eq "No">
                 <input id="_#Attributes.Name#" <cfif attributes.style neq "">style="#attributes.style#"</cfif> <cfif attributes.class neq "">class="#attributes.class#"</cfif>/>
         <cfelse>
@@ -36,14 +35,13 @@
             <cfset vSelected = "">
             <cfloop list="#attributes.selected#" index="element"><cfset vSelected = "#vSelected#,'#Replace(element,"'","","ALL")#'"></cfloop>
             <input name="#Attributes.Name#"	id="#Attributes.Name#" 	type="hidden" value="#vSelected#" >
-
-
         </cfif>
 
     </cfoutput>
 <cfelseif thisTag.ExecutionMode is 'end'>
     <cfif attributes.multiple eq "No">
             <cfset vHtml = thisTag.generatedContent>
+
             <cfset thisTag.generatedContent = "">
             <cfscript>
                 matches = rematch("<option[^>]*>[^<]*</option>", vHtml);
@@ -95,7 +93,9 @@
                     </cftry>
             </cfloop>
 
+
             <cfoutput>
+
             <cfsavecontent variable="kDropDown">
                 $("##_#Attributes.Name#").kendoDropDownList({
                 dataSource: {
@@ -107,6 +107,9 @@
                 </cfloop>
                 <cfloop query="attributes.query">
                     <cfset valueField = Evaluate("#Attributes.Value#")>
+                    <cfif vDefault eq 0 and Attributes.selected eq "">
+                        <cfset Attributes.Selected = "#Replace(valueField,"'","\'","ALL")#">
+                    </cfif>
                     <cfset textField = Evaluate("#Attributes.Display#")>
                     <cfif Attributes.group neq "">
                         <cfset vGroup = Evaluate("#Attributes.group#")>
@@ -141,7 +144,8 @@
                 animation:false,
                 select: function(e) {
                     var item = e.dataItem;
-                    $('###Attributes.Name#').val(item.#Attributes.Value#).change();
+                    $('###Attributes.Name#').val(item.#Attributes.Value#)
+                    $('###Attributes.Name#').change();
                     ColdFusion.Event.callBindHandlers('#Attributes.name#',null,'change');
                 }
                 });
@@ -158,6 +162,12 @@
 
 
             </cfsavecontent>
+
+                <cfif vDefault eq 0>
+                    <input name="#Attributes.Name#"	id="#Attributes.Name#" 	type="hidden" value="#attributes.selected#" >
+                    <cfset vDefault = 1>
+                </cfif>
+
 
             <cfset AjaxOnLoad("function(){#kDropDown#}")>
             </cfoutput>

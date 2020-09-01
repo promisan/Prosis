@@ -1,4 +1,5 @@
 <cfparam name="Form.CustomDialog" default="">
+<cfparam name="Form.InputMemoHTML" default="">
 		
 <cfif url.questionid eq "">	
 
@@ -19,6 +20,8 @@
 			InputValuePass,
             EnableInputMemo,
 			InputMemoInstruction,
+			InputMemoHTML,
+			InputMemoSize,
             EnableInputAttachment,
             OfficerUserId,
             OfficerLastName,
@@ -36,6 +39,12 @@
 		    '#Form.inputValuePass#',
             '#Form.EnableInputMemo#',
 			'#Form.InputMemoInstruction#',
+			'#Form.InputMemoHTML#',
+			<cfif Form.InputMemoSize eq "">
+			NULL,
+			<cfelse>
+			'#Form.InputMemoSize#',
+			</cfif>
              #Form.EnableInputAttachment#,
             '#SESSION.acc#',
 		    '#SESSION.last#',
@@ -58,19 +67,25 @@
 	datasource="AppsOrganization" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	UPDATE 	Ref_EntityDocumentQuestion
-	SET    	ListingOrder           	=  #Form.listingOrder#,
-           	QuestionCode           	= '#Form.questionCode#',
-           	QuestionLabel   		= '#Form.questionLabel#',
-          	QuestionMemo 			= <cfif trim(Form.questionMemo) eq "">null<cfelse>'#Form.QuestionMemo#'</cfif>,
-           	InputMode       		= '#Form.inputMode#',
-			InputModeStringList     = '#Form.inputModeStringList#',
-			InputValuePass          = '#Form.InputValuePass#',
-           	EnableInputMemo 		=  #Form.EnableInputMemo#,
-			InputMemoInstruction    = '#Form.InputMemoInstruction#',
-           	EnableInputAttachment 	=  #Form.EnableInputAttachment#
-	WHERE 	DocumentId  			= '#Form.documentId#'
-	AND 	QuestionId  			= '#Form.questionId#'
+		UPDATE 	Ref_EntityDocumentQuestion
+		SET    	ListingOrder           	=  #Form.listingOrder#,
+	           	QuestionCode           	= '#Form.questionCode#',
+	           	QuestionLabel   		= '#Form.questionLabel#',
+	          	QuestionMemo 			= <cfif trim(Form.questionMemo) eq "">null<cfelse>'#Form.QuestionMemo#'</cfif>,
+	           	InputMode       		= '#Form.inputMode#',
+				InputModeStringList     = '#Form.inputModeStringList#',
+				InputValuePass          = '#Form.InputValuePass#',
+				InputMemoHTML           = '#Form.InputMemoHTML#',
+				<cfif Form.InputMemoSize eq "">
+				InputMemoSize           = NULL,
+				<cfelse>
+				InputMemoSize           = '#Form.InputMemoSize#',
+				</cfif>
+	           	EnableInputMemo 		=  #Form.EnableInputMemo#,
+				InputMemoInstruction    = '#Form.InputMemoInstruction#',
+	           	EnableInputAttachment 	=  #Form.EnableInputAttachment#
+		WHERE 	DocumentId  			= '#Form.documentId#'
+		AND 	QuestionId  			= '#Form.questionId#'
 	</cfquery>
 	
 	<cf_LanguageInput

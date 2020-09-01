@@ -40,7 +40,7 @@
     
 	<tr>
         <td colspan="2" align="center" valign="top" style="padding-top:3px;height:100%;border: 0px solid silver;">									   
-	     <cf_textarea name = "ActionSpecification" toolbar="mini"  color="ffffff" height="100%">#Line.ActionSpecification#</cf_textarea>		   				
+	     <cf_textarea name = "ActionSpecification" color="ffffff" height="100%">#Line.ActionSpecification#</cf_textarea>		   				
 	</TR>	
 	
 	

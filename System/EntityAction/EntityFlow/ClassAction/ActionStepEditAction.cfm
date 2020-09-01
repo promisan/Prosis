@@ -8,14 +8,15 @@
 <cfoutput>
 
 
-<table width="97%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="100%" height="98%" border="0" cellspacing="0" cellpadding="0" align="center">
+
 <tr><td>	  
 	 
 <cfform action="ActionStepEditActionSubmit.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&save=2" 
-		 method="POST" style="height:99%"
+		 method="POST" style="height:100%"
 		 name="actionform">
 		 
-	<table width="97%" height="99%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+	<table width="99%" height="100%" align="center" class="formpadding">
 			  
 			<input type="Hidden" name="ActionCode" id="ActionCode" value="#Get.ActionCode#">
 			<input type="Hidden" name="ActionCodeOld" id="ActionCodeOld" value="#Get.ActionCode#">
@@ -225,7 +226,7 @@
 						</TR>
 												
 					   																						
-					<tr><td height="5"></td></tr>
+					<tr class="line"><td height="5"></td></tr>
 															
 					<tr>
 					<td colspan="3" height="100%" style="padding-bottom:1px" valign="top">
@@ -266,8 +267,7 @@
 						</cfquery>
 										
 					</cfif>		
-					
-								
+												
 															
 					<table height="100%" width="100%">
 					
@@ -391,7 +391,7 @@
 											target     = "subbox"
 											targetitem = "#itm#"
 											type       = "vertical"
-											name       = "Documents">	
+											name       = "Document / Questionaire">	
 												
 							</tr>
 							

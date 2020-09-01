@@ -785,16 +785,14 @@ function stockbatch(s,modid,mde,whs) {
 		if (mde) {
 		
 			sta  = document.getElementById("status").value;						
-			_cf_loadingtexthtml="";	
+			_cf_loadingtexthtml='';		
 		    ptoken.navigate('../Batch/StockBatch'+mde+'.cfm?height='+document.body.offsetHeight+'&width='+document.body.offsetWidth+'&systemfunctionid='+modid+'&warehouse='+whs+'&mission='+mis+'&status='+sta,'batchmain');
-			_cf_loadingtexthtml="<div><img src='<cfoutput>#SESSION.root#</cfoutput>/images/busy11.gif'/>";
-		 
+					 
 		} else {
-						
-			_cf_loadingtexthtml="";	
+									
+			_cf_loadingtexthtml='';	
 		    ptoken.navigate('../Batch/StockBatch.cfm?height='+document.body.offsetHeight+'&width='+document.body.offsetWidth+'&systemfunctionid='+modid+'&warehouse='+whs+'&mission='+mis,'main');
-			_cf_loadingtexthtml="<div><img src='<cfoutput>#SESSION.root#</cfoutput>/images/busy11.gif'/>";
-		
+			
 		}
 				
 	} else {	
@@ -1486,7 +1484,7 @@ function stockonhand(s,modid) {
 }
 
 function stockOnHandItem(fld, fsys, fmis) {
-	item(fld,fmis,fsys);
+	item(fld,fsys,fmis);
 }
 	
 <!--------- INQUIRY------- --->

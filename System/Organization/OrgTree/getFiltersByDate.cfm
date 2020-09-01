@@ -242,7 +242,7 @@
 
 <cfquery name="getClasses" 
 	datasource="AppsEmployee">
-		SELECT DISTINCT PC.PostClass, PC.ListingOrder
+		SELECT DISTINCT PC.PostClass, PC.Description, PC.ListingOrder
 		FROM
 			(
 				SELECT 	A.PostClass		
@@ -267,7 +267,7 @@
 			<select class="form-control m-b" name="postclass" id="postclass">
 				<option value=""> - <cf_tl id="ALL"> -
 				<cfoutput query="getClasses">
-					<option value="#PostClass#">#PostClass#
+					<option value="#PostClass#">#Description#
 				</cfoutput>
 			</select>
 		</div>

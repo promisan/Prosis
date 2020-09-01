@@ -21,16 +21,16 @@
 			
 	   <cf_menucontainer item="#boxno#">	
 	   
-	   	   <table width="100%" align="center" class="formpadding">
+	   	   <table width="100%" height="98%" border="0" align="center" class="formpadding">
 		   <tr><td style="padding:5px">
 	   	   
-		   <table width="100%" align="center" class="formpadding">
+		   <table height="100%" width="100%" align="center" class="formpadding">
 			    				
-				   <tr><td bgcolor="DF7000" align="left" style="color:white;border:1px solid gray;height:33px;font-size:16px;padding-left:10px" class="labelmedium">				  
+				   <tr><td align="left" bgcolor="0080FF" class="labelmedium" style="color:white;height:37px;font-size:18px;padding-left:10px">				  
 				   				   
 	   		   	   <cfswitch expression="#Client.LanguageId#">
 					 <cfcase value="ENG">			   
-				        The following action(s) will need to be performed before you Decide/Forward
+				        The following action(s) will need to be considered or performed by you before you go to Process Step
 					 </cfcase>
 					 <cfcase value="ESP">		
 						Las siguiente(s) accion(es) necesitan ser realizadas antes de que usted procese el paso.
@@ -40,12 +40,17 @@
 				   </td></tr>
 				   <tr><td height="1" class="line"></td></tr>
 				  
-				   <tr><td style="padding:10px">
-				   <table width="100%" border="0" align="center" class="formpadding">
-				      <td class="labelmedium" style="padding:14px">
-				      <cfoutput>#Action.ActionSpecification#</cfoutput>
+				  
+				   <tr><td style="padding:10px;height:100%" valign="top">
+				   <table width="100%" height="100%" border="0" align="center" class="formpadding">
+				      <td class="labelmedium" style="height:100%;padding:14px">					  
+					  <cfoutput>
+					  <iframe src="#session.root#/tools/entityaction/getInstruction.cfm?actionid=#action.actionid#" name="instructions" id="instructions" frameborder="0" style="height:100%;width:100%"></iframe>
+					  </cfoutput>
+				     
 					  </td>
 				   </table>
+				   
 				   </td></tr>
 				   <tr><td height="1" class="line"></td></tr>
 				   <tr><td height="5"></td></tr>

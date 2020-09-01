@@ -90,7 +90,7 @@ password="#SESSION.dbpw#">
 
 <!--- we load this only once --->
     
-<cfajaximport tags="cfform,cfdiv,cfwindow">	
+<cfajaximport tags="cfform,cfdiv">	
 <cf_dialogProcurement>
 <cf_dialogLedger>
 <cf_dialogAsset>

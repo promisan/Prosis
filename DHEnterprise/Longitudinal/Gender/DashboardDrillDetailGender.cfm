@@ -1,7 +1,8 @@
 <cfparam name="url.personGrade"		default="">
+<cfparam name="thisPeriodicity"   default="0">
 
 <cfset thisTemplate = "DashboardRetirement.cfm">
-<cfinclude template = "determineMission.cfm">
+<cfinclude template = "getMenu.cfm">
 
 <cfif url.level eq "null">
 	<cfset url.level = "">
@@ -77,11 +78,15 @@
 <table class="detailContent table table-striped table-bordered table-hover clsNoPrint" style="width:100%">
 	<thead>
 		<tr>
-			<th><cf_tl id="IndexNo"></th>
+			<th><cf_tl id="Index"></th>
 			<th><cf_tl id="Name"></th>
-			<th><cf_tl id="Gender"></th>
+			
+			<th><cf_tl id="S"></th>
+						<!---
 			<th><cf_tl id="Parent"></th>
+			--->
 			<th><cf_tl id="Grade"></th>
+
 			<th><cf_tl id="Order"></th>
 			<th><cf_tl id="Function"></th>
 		</tr>
@@ -96,9 +101,11 @@
 						#IndexNo#
 					</cfif>
 				</td>
-				<td>#Lastname#, #FirstName#</td>
-				<td>#Gender#</td>
+				<td>#Lastname#, #FirstName#</td>				
+				<td>#Gender#</td>				
+				<!---
 				<td>#GradeParentField#</td>
+				--->
 				<td>#GradeField#</td>
 				<td>#GradeOrderField#</td>
 				<td>#JobCodeName#</td>

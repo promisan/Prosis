@@ -62,7 +62,7 @@
 						search          = "text",
 						filtermode      = "2"}>		
 															
-								
+	<!---							
 	<cfif checkLocation.recordcount gte "1">		
 				
 		<cfset itm = itm+1>
@@ -72,7 +72,8 @@
 							alias       = "",																			
 							search      = "text",
 							filtermode  = "2"}>	
-	</cfif>					
+	</cfif>		
+	--->			
 						
 	<cfset itm = itm+1>
 	<cf_tl id="Type" var = "1"> 			
@@ -212,11 +213,11 @@
 		listquery           = "#myquery#"				
 		listorderfield      = "Created"
 		listorder           = "Created"
-		listorderdir        = "ASC"
+		listorderdir        = "DESC"
 		headercolor         = "ffffff"
-		show                = "35"		
+		show                = "100"		
 		menu                = "#menu#"
-		filtershow          = "Show"
+		filtershow          = "Hide"
 		excelshow           = "Yes" 		
 		listlayout          = "#fields#"
 		drillmode           = "window" 

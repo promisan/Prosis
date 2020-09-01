@@ -959,23 +959,23 @@ AND S.FieldDefault='1'
 		<cfheader name="Access-Control-Allow-Origin" value="*">
 
 		<cfquery name="qQuotes" datasource="AppsMaterials">
-			SELECT 	S.*, 
-					'Pendiente' as Tag, 
+			SELECT 	L.*, 
 					U.UoMDescription, 
 					I.ItemNoExternal,
-					C.Description as CategoryDescription,
-					S.TransactionDate
-			FROM 	UserTransaction.dbo.Sale#arguments.warehouse# S 
+					C.Description as CategoryDescription
+			FROM 	CustomerRequest R
+					INNER JOIN CustomerRequestLine L
+						ON R.RequestNo = L.RequestNo 
 					INNER JOIN ItemUoM U 
-						ON U.ItemNo = S.ItemNo 
-						AND U.UoM = S.TransactionUoM 
+						ON U.ItemNo = L.ItemNo 
+						AND U.UoM = L.TransactionUoM 
 					INNER JOIN Item I 
 						ON I.ItemNo = U.ItemNo
 					INNER JOIN Ref_Category C
 						ON I.Category = C.Category
-			WHERE 	S.CustomerId = '#arguments.customerId#'
-			AND 	S.BatchId IS NULL
-			AND 	S.Source = 'Website'
+			WHERE 	R.CustomerId = '#arguments.customerId#'
+			AND 	R.BatchNo IS NULL
+			AND 	R.ActionStatus != '9'
 		</cfquery>
 
 		<cfset result = QueryToArray(qQuotes)>
@@ -1021,25 +1021,8 @@ AND S.FieldDefault='1'
 
 		<cfinvoke component = "Service.Process.EDI.website.materials.Request"
 			method           = "addCart"
-			cart             = "#Cart#">
-
-		<cfset arrayCart       = deserializeJSON(Cart)>
-		<cfset vStore          = arrayCart['store']>
-		<cfset vCustomer       = arrayCart['customer']>
-
-		<cfquery name="getSales" datasource="AppsTransaction">
-			SELECT 	COUNT(*) AS Total
-			FROM  	Sale#vStore.Warehouse#
-			WHERE  	BatchId IS NULL 
-			AND 	CustomerId = '#vCustomer.CustomerId#' 
-			AND 	Source = 'Website'
-		</cfquery>
-		<cfset vTotalRecords = 0>
-		<cfif getSales.RecordCount eq 1>
-			<cfif getSales.Total neq "">
-				<cfset vTotalRecords = getSales.Total>
-			</cfif>
-		</cfif>
+			cart             = "#Cart#"
+			returnvariable   = "postResult">
 
 		<cfset SESSION.login = "">
 		<cfset SESSION.dbpw = "">
@@ -1049,12 +1032,12 @@ AND S.FieldDefault='1'
 		<cfset session.first = "admin">
 		<cfset session.authent = "0">
 
-		<cfset qResponse = QueryNew("Status,Description,PendingRecords", "Varchar,Varchar,Varchar")>
+		<cfset qResponse = QueryNew("Status,Description,PostResult", "Varchar,Varchar,Varchar")>
 
 		<cfset temp = QueryAddRow(qResponse)>
 		<cfset Temp = QuerySetCell(qResponse, "Status", "OK")>
 		<cfset Temp = QuerySetCell(qResponse, "Description", "OK")>
-		<cfset Temp = QuerySetCell(qResponse, "PendingRecords", vTotalRecords)>
+		<cfset Temp = QuerySetCell(qResponse, "PostResult", postResult)>
 
 		<cfset result = QueryToArray(qResponse)>
 

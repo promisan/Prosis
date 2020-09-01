@@ -35,7 +35,7 @@
 		
 			<tr>
 				<td width="10%" style="border-bottom:1px solid silver;padding-right:3px" class="labelit"><cf_tl id="Id"></td>
-			    <td width="40%" style="padding-left:5px;padding-right:3px" class="labelmedium"><a href="javascript:item('#get.ItemNo#','#warehouse.mission#')">#get.ItemNo#</a></td>
+			    <td width="40%" style="padding-left:5px;padding-right:3px" class="labelmedium"><a href="javascript:item('#get.ItemNo#','','#warehouse.mission#')">#get.ItemNo#</a></td>
 				<td width="10%" style="border-bottom:1px solid silver;padding-right:3px" class="labelit"><cf_tl id="Name"></td>
 			    <td style="padding-left:5px"  width="40%" class="labelmedium">#get.ItemDescription#</td>		
 			</tr>

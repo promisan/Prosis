@@ -172,7 +172,8 @@
 					<option value="6" <cfif get.inputMode eq "6">selected</cfif>>Score 1-6</option>
 					<option value="5" <cfif get.inputMode eq "5">selected</cfif>>Score 1-5</option>
 					<option value="4" <cfif get.inputMode eq "4">selected</cfif>>Score 1-4</option>
-					<option value="3" <cfif get.inputMode eq "3">selected</cfif>>Score 1-3</option>					
+					<option value="3" <cfif get.inputMode eq "3">selected</cfif>>Score 1-3</option>		
+					<option value="2" <cfif get.inputMode eq "2">selected</cfif>>Score 1-2</option>					
 				</select>
 			 </TD>
 			 <td style="padding-left:4px"><cfdiv bind="url:#session.root#/system/entityaction/EntityObject/getQuestionTarget.cfm?field=inputmodelabel&documentid=#URL.ID1#&questionid=#URL.ID2#&inputmode={inputMode}"></td>
@@ -208,7 +209,30 @@
 				</tr>
 				</table>
 				 </TD>
-		 </TR>		
+		 </TR>	
+		 
+		 <cfif get.InputMemoHTML eq "1">
+			 <cfset cl = "hide">
+		 <cfelse>
+			 <cfset cl = "regular">
+		 </cfif>		 
+		 	 		 
+		 <TR class="labelmedium" id="memo">
+			 <TD>Memo:</TD>  
+			 <TD>	
+			 <table>
+			 <tr><td>
+			 <input type="radio" class="radiol" 
+			     name="InputMemoHTML" id="InputMemoHTML" 
+				 value="1" onclick="if (document.getElementById('memosize').className == 'regular') { alert('a') } else { alert('b') }" <cfif get.InputMemoHTML eq "1" or get.InputMemoHTML eq "">checked</cfif>> 	 				 						
+			 </TD>
+			 <td class="#cl#" id="memosize">
+			 <input type="text" name="InputMemoSize" id="InputMemoSize" value="#get.InputMemoSize#" style="width:40px" class="regularxl">
+			 </td>
+			 </tr>
+			 </table>
+		 </TR>
+		 
 		 
 		 <TR  class="labelmedium">
 			 <TD>Memo instruction:</TD>  

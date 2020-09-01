@@ -95,14 +95,14 @@ ORDER BY Mission
 <!--- Search form --->
 <cfform action="InquiryQuery.cfm" method="POST" enablecab="No" name="documententry">
 
-<table height="80%" border="0" cellspacing="0" cellpadding="0" valign="center" class="formpadding">
+<table border="0" cellspacing="0" cellpadding="0" valign="center" class="formpadding">
 
 <tr><td style="padding-left:60px">
 
 <table width="750" border="0" cellspacing="0" cellpadding="0" valign="center"  class="formpadding">
 
  <tr>
-    <td height="26" class="labelmedium" style="font-weight:200;padding-left:10px">
+    <td height="26" class="labelmedium" style="padding-left:10px">
 	  <cf_tl id="Search by any or all of the criteria below">:
 	</td>
 	<td align="right">

@@ -9,7 +9,7 @@ username="#SESSION.login#"
 password="#SESSION.dbpw#">
     SELECT *
 	FROM   Ref_SystemLanguage
-	WHERE  LanguageCode != ''
+	WHERE  LanguageCode != '' AND Operational != '0'
 	ORDER BY LanguageCode	
 </cfquery>
 

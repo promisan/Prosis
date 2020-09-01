@@ -6,6 +6,7 @@
 <cfparam name="Form.GroupListCode"    default="">
 <cfparam name="Form.Scoped"           default="edit">
 <cfparam name="Form.Remarks"          default="0">
+<cfparam name="Form.CandidateId"      default="">
 
 <cfparam name="url.action"            default="0">
 <cfparam name="url.wf"                default="0">

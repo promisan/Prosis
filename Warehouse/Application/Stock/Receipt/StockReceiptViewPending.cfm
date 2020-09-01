@@ -232,7 +232,7 @@
 									 
 								<cfelse>
 								
-								<cf_img icon="select" onclick="item('#ItemNo#','#url.mission#','#url.systemfunctionid#');">	 
+								<cf_img icon="select" onclick="item('#ItemNo#','#url.systemfunctionid#','#url.mission#');">	 
 									 
 								</cfif>	 
 									 
@@ -241,7 +241,7 @@
 							<td class="creceiptno" onclick="receipt('#receiptno#','receipt');" style="padding-left:4px;cursor:pointer; color:0080C0;" title="#lt_text#">#ReceiptNo#</td>							
 							<td>#dateFormat(ReceiptDeliveryDateEnd,'#CLIENT.DateFormatShow#')#</td>							
 							<cf_tl id="view item detail" var="1">							
-							<td class="citemno" onclick="item('#ItemNo#','#url.mission#','#url.systemfunctionid#');" style="cursor:pointer;color:0080C0" title="#lt_text#">#ItemNo#</td>							
+							<td class="citemno" onclick="item('#ItemNo#','#url.systemfunctionid#','#url.mission#');" style="cursor:pointer;color:0080C0" title="#lt_text#">#ItemNo#</td>							
 							<td class="citembarcode">#ItemBarcode#</td>
 							<cfif Param.LotManagement eq "1"><td class="clot"><cfif TransactionLot neq "0">#TransactionLot#</cfif></td></cfif>
 							<td class="citemdescription">#ItemDescription#</td>

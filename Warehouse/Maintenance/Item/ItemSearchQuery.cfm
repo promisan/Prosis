@@ -42,5 +42,6 @@
 
 
 <cfset client.search = criteria>
+<cfset client.fmission = URLEncodedFormat(form.Crit6_Value)>
 	
 <cflocation url="ItemSearchResult.cfm?idmenu=#url.idmenu#&used=#URLEncodedFormat(form.Crit9_Value)#&fmission=#URLEncodedFormat(form.Crit6_Value)#&programcode=#URLEncodedFormat(form.Crit10_Value)#" addtoken="No">	

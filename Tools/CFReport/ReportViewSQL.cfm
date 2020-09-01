@@ -32,9 +32,10 @@
 	<tr>
 		<td valign="top" height="30" style="padding-left:4px" align="center">
 	    <table width="100%" align="center" class="navigation_table">
-	    <tr class="line labelmedium fixrow" style="height:30px">
-	      <td style="font-size:16px"><cf_tl id="Type"></td>
-	      <td style="padding-right:4px;font-size:16px"><cf_tl id="Name"></td>
+	    <tr class="line labelmedium fixrow">
+	      <td style="font-size:16px;padding-left:3px"><cf_tl id="Type"></td>
+		  <td style="padding-right:4px;font-size:16px"><cf_tl id="Name"></td>
+	      <td style="padding-right:4px;font-size:16px"><cf_tl id="Variable"></td>
 		  <td style="font-size:16px"><cf_tl id="Value passed"></td>
 	    </tr>			
 	    #session.parscript#		

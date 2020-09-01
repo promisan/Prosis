@@ -37,7 +37,7 @@
 						OfficerUserId, 
 						OfficerLastName, 
 						OfficerFirstName )
-					VALUES ('#sale.Mission#', 
+					VALUES ('#Mission#', 
 						'#warehouse#', 
 						'#Customerid#', 
 						'#addressId#',
@@ -192,6 +192,10 @@
 					</cfquery> 
 					
 			</cfloop>
+			
+			<cfset requestNo = "#getQuote.RequestNo#">
+			
+			<cfreturn requestno>		
 				
 			<!--- finished --->			
 								

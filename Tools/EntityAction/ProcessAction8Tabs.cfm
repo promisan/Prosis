@@ -272,9 +272,13 @@
 	   <cfelse>
 	     <cfset in ="false">
 	   </cfif>	   
-	  	
-	   <cf_tl id="Embedded Documents" var="1">   
 	   
+	   <cfif Action.labelDocument neq "">
+	   	<cf_tl id = "#Action.LabelDocument#" var="1">	   
+	   <cfelse>
+	   	<cf_tl id = "Embedded Documents" var="1">
+	   </cfif>
+	  	   
 	   <cfset boxno = boxno+1>	   
 	  	  	     
 	   <cfif menumode eq "menu">	

@@ -34,13 +34,19 @@
 	   <cfelse>
 	   	   <cfset cl = "regular">	   
 	   </cfif>
+	   
+	   <cfif Action.labelQuestionaire neq "">
+	   	<cf_tl id = "#Action.LabelQuestionaire#" var="1">	   
+	   <cfelse>
+	   	<cf_tl id = "Questionaire" var="1">
+	   </cfif>
    
     	<cf_menutab item       = "#boxno#" 
 	       iconsrc    = "Logos/System/Questionaire.png" 
 		   iconwidth  = "#wd#" 
 		   class      = "#cl#"						
 		   iconheight = "#ht#" 
-		   name       = "Questionaire">		
+		   name       = "#lt_text#">		
 		   
 	<cfelse>
 	

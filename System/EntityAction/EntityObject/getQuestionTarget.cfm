@@ -41,7 +41,7 @@
 
 <cfcase value="inputmodelabel">
 	
-	<cfif url.inputmode eq "3" or url.inputmode eq "4" or url.inputmode eq "5" or url.inputmode eq "6">
+	<cfif url.inputmode eq "2" or url.inputmode eq "3" or url.inputmode eq "4" or url.inputmode eq "5" or url.inputmode eq "6">
 	
 		<cfquery name="get" 
 		datasource="AppsOrganization" 
@@ -50,7 +50,11 @@
 			SELECT  * 
 			FROM 	Ref_EntityDocumentQuestion		
 			WHERE 	DocumentId  			= '#url.documentId#'
+			<cfif url.questionid eq "">
+			AND     1=0
+			<cfelse>
 			AND 	QuestionId  			= '#url.questionId#'
+			</cfif>
 		</cfquery>
 	   
 	   <cfoutput>
@@ -70,4 +74,3 @@
 </cfcase>
 
 </cfswitch>
-<!--- get questionaire target --->

@@ -559,6 +559,47 @@
 
 </cfif>
 
+
+<!--- ------------------------------------- --->
+<!--- --1/4 check if item exists mission--- --->
+<!--- ------------------------------------- --->
+
+<cfquery name="Check" 
+   datasource="#Attributes.DataSource#" 
+   username="#SESSION.login#" 
+   password="#SESSION.dbpw#">
+   SELECT * 
+   FROM   Materials.dbo.ItemUoMMission 
+   WHERE  ItemNo    = '#Attributes.ItemNo#'
+   AND    UoM       = '#Attributes.TransactionUoM#'
+   AND    Mission   = '#Attributes.Mission#'
+</cfquery>
+
+<cfif Check.recordCount is 0>
+
+   <cfquery name="Insert" 
+   datasource="#Attributes.DataSource#" 
+   username="#SESSION.login#" 
+   password="#SESSION.dbpw#">
+	   INSERT INTO    Materials.dbo.ItemUoMMission 
+	          (ItemNo,
+			   UoM,
+			   Mission,
+			   StandardCost,			   
+			   OfficerUserId,
+			   OfficerLastName,
+			   OfficerFirstName)
+	   VALUES ('#Attributes.ItemNo#', 
+	           '#Attributes.TransactionUoM#',
+	           '#Attributes.Mission#', 
+	           '#ItemUoM.StandardCost#', 			  
+			   '#SESSION.acc#', 
+			   '#SESSION.last#', 
+			   '#SESSION.first#')
+   </cfquery>
+
+</cfif>
+
 <!--- ------------------------------------- --->
 <!--- --1/4 check if item exists warehouse- --->
 <!--- ------------------------------------- --->

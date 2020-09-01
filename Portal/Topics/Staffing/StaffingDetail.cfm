@@ -211,7 +211,7 @@
 					 WHERE  Code = '#Person.Nationality#' 		 
 			</cfquery>
 	   	  	   
-		   <tr class="labelmedium navigation_row line" style="height:20px;border-top:1px solid silver">
+		   <tr class="labelmedium navigation_row linedotted" style="height:20px">
 		   	   <td style="padding-left:4px">#currentrow#.</td>
 		       <td style="padding-left:4px">
 			   <a href="javascript:EditPosition('','','#PositionNo#')">

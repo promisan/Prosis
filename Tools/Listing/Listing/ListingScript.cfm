@@ -197,8 +197,7 @@ function applyfilter(md,mypage,ajaxid,callback) {
 		      ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&listorder='+or+'&listorderfield='+orfld+'&selfld='+sfld+'&listorderalias='+orala+'&listorderdir='+ordir+'&content=1',target,'','','POST',lkf)
 		   	}
 	   } else { Prosis.busy('no') } }
-	   Prosis.busy('no')
-}
+	   }
 
 function processrow(template,key,string,val) {   
 	   ptoken.navigate('#SESSION.root#/'+template+key+'&'+string+'&value='+val,'listingaction')	;  

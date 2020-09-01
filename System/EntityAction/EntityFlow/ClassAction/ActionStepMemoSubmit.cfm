@@ -5,8 +5,9 @@
 		<cfset tbl = "Ref_EntityActionPublish">
 	</cfif>
 	
-	<cfif len(Form.ActionSpecification) gt 3000>
-	 <cfset spec = left(Form.ActionSpecification,3000)>
+	
+	<cfif len(Form.ActionSpecification) gt 8000>
+	 <cfset spec = left(Form.ActionSpecification,8000)>
 	<cfelse>
 	 <cfset spec = Form.ActionSpecification>
 	</cfif>

@@ -686,12 +686,12 @@ password="#SESSION.dbpw#">
 		
 		<!--- hanno added 9/3/2016 --->
 		
-		<cfif findNoCase("nucleus",session.root) or findNoCase("nova",session.root)>
+		<cfif findNoCase("nucleus.un.org",session.root) or findNoCase("nova.un.org",session.root)>
 		
 			<cf_tl id= "Inspira/Galaxy" var = "1">
 			
 			<cf_UItreeitem value="Inspira"
-		        display="<span class='labelit' style='font-size:14px'>>#lt_text#</span>"
+		        display="<span class='labelit' style='font-size:14px'>#lt_text#</span>"
 				parent="Candidacy"
 				target="right"			
 				href="General.cfm?ID=#URL.ID#&section=vacancy&topic=inspira">	

@@ -55,9 +55,7 @@
 	<table width="98%" align="center">
 	
 	      <tr><td height="3"></td></tr>			
-						
-			
-					
+								
 			<cfset cnt  = 0>
 			<cfset show = "0">
 			<cfset row  = 0>
@@ -335,6 +333,13 @@
 												<cfelse>
 													<cfset vFilter ="">
 												</cfif>
+												
+												<cfquery name="checkDropdown" 
+												  dbtype="query">
+													 SELECT * 
+													 FROM   lookupdata
+													 WHERE Code = '#val#'
+												 </cfquery>		
 
 												<cf_UIselect name   = "filter#current.field#"
 												    class           = "regularxxl" 
@@ -353,9 +358,20 @@
 													<cfelse>
 													  <option value="" style="background: White;font:10px">--<cf_tl id="Select">--</option>
 													</cfif>
+													<cfif checkdropdown.recordcount eq "0">
+													  <option value="#val#" selected>#val#</option>
+													</cfif>
+													
 												</cf_UIselect>
 											
 											<cfelse>
+											
+												<cfquery name="checkDropdown" 
+												  dbtype="query">
+													 SELECT * 
+													 FROM   lookupdata
+													 WHERE Code = '#val#'
+												 </cfquery>		
 
 												<cf_UISelect name   = "filter#current.field#"
 												    class           = "regularxxl" 
@@ -374,7 +390,10 @@
 												    <option value="" style="background: White;font:10px"><cf_tl id="Any"></option>		
 													<cfelse>
 													 <option value="" style="background: White;font:10px">--<cf_tl id="Select">--</option>		
-													</cfif>																								
+													</cfif>		
+													<cfif checkdropdown.recordcount eq "0">
+													  <option value="#val#" selected>#val#</option>
+													</cfif>																						
 												</cf_UIselect>
 											
 											</cfif>

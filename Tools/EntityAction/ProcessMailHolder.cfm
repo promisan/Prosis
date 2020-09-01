@@ -1045,9 +1045,7 @@
 												
 										</cfif>
 																		   				  			   
-								    </cfloop>
-									
-									
+								    </cfloop>									
 						    
 						    </cfif>				   
 											 
@@ -1055,8 +1053,7 @@
 					  
 					</cfloop>				
 				
-				<cfelse>
-				
+				<cfelse>		
 								
 						<cfmail  FROM   = "#fromm#"
 								TO          = "#mailto#"

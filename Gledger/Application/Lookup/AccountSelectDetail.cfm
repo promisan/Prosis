@@ -66,6 +66,7 @@
 				AND G.AccountParent IN (#preservesingleQuotes(fil)#)
 			<cfelse>
 				AND A.#url.field# IN (#preservesingleQuotes(fil)#)
+				
 			</cfif>
 			
 		</cfif>

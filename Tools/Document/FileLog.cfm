@@ -20,23 +20,20 @@
 
 <cfparam name="client.logattachment" default="0">
 			
-<table width="93%" border="0" cellspacing="0" align="right">
-
-	<tr><td height="1"></td></tr>
-	
-	<tr>
+<table width="93%" align="right" class="navigation_table">
+		
+	<tr class="labelmedium line">
 	  <td width="30"></td> 
-	  <td width="120" class="labelsmall"><cf_tl id="Timestamp"></td>
-	  <td width="160" class="labelsmall"><cf_tl id="Name"></td>
-	  <td width="130" class="labelsmall"><cf_tl id="Action"></td>
-	  <td width="45%" class="labelsmall"><cf_tl id="Memo"></td>	 
+	  <td width="120"><cf_tl id="Timestamp"></td>
+	  <td width="160"><cf_tl id="Name"></td>
+	  <td width="130"><cf_tl id="Action"></td>
+	  <td width="45%"><cf_tl id="Memo"></td>	 
 	</tr>	
-	<tr><td colspan="5" class="linedotted"></td></tr>
 		
 	<cfoutput query="Action">
 		
-		<tr>
-		  <td height="18" class="labelit">#currentRow#.&nbsp;</td> 
+		<tr class="labelmedium line navigation_row" style="height:20px">
+		  <td style="padding-left:4px">#currentRow#.</td> 
 		  <cfif (FileAction eq "Insert" or FileAction eq "update")>
 		  
 		  <cfif att.server eq "document">
@@ -47,21 +44,23 @@
 		  			  	
 		  <td class="labelit" onclick="showfilelog('#attachmentid#','#serialno#')">
 		      <cfif FileExists("#svr#\#att.serverpath#\Logging\#att.attachmentid#\[#serialno#]_#att.fileName#")>	    
-			  <a href="##"><font color="0080FF">#DateFormat(Created,CLIENT.DateFormatShow)# #TimeFormat(Created,"HH:MM")#</font></a>
+			  <a href="##">#DateFormat(Created,CLIENT.DateFormatShow)# #TimeFormat(Created,"HH:MM")#</a>
 			  <cfelse>
 			  #DateFormat(Created,CLIENT.DateFormatShow)# #TimeFormat(Created,"HH:MM")#	  	
 			  </cfif>		  	
 		  </td>
 		  <cfelse>
-		  <td class="labelit">
+		  <td>
 		 	#DateFormat(Created,CLIENT.DateFormatShow)# #TimeFormat(Created,"HH:MM")#	  	
 		  </td>
 		  </cfif>
-		  <td class="labelit">#OfficerFirstName# #OfficerLastName#</td>
-		  <td class="labelit">#FileAction#</td>
-		  <td class="labelit">#FileActionMemo#</td>		
+		  <td>#OfficerFirstName# #OfficerLastName#</td>
+		  <td>#FileAction#</td>
+		  <td>#FileActionMemo#</td>		
 		</tr> 
 				
 	</cfoutput>		
 		
 </table>
+
+<cfset ajaxonload("doHighlight")>

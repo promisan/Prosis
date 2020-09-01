@@ -192,7 +192,7 @@
 
 <tr><td colspan="2" style="padding-bottom:1px;border-bottom: 0px solid d4d4d4;">
 
-	<table width="100%" border="0" cellspacing="0" cellpadding="0" align="#align#"> 
+	<table width="100%" align="#align#"> 
 		
 		<tr>
 						
@@ -214,7 +214,7 @@
 		
 		<td width="100%">
 				
-			<table width="<cfif list eq 'regular'>100%</cfif>" border="0" cellspacing="0" cellpadding="0" 
+			<table width="<cfif list eq 'regular'>100%</cfif>" 
 			    class="<cfif list eq 'regular'>navigation_table</cfif>" 
 				navigationhover="e4e4e4" 
 				navigationselected="D3F5F8">
@@ -298,10 +298,10 @@
 								 datasource="AppsSystem"
 								 username="#SESSION.login#" 
 								 password="#SESSION.dbpw#">
-							     SELECT   *
-								 FROM     Attachment
-								 WHERE    AttachmentId = '#vAttachmentId#'
-								 ORDER BY Created DESC
+								     SELECT   *
+									 FROM     Attachment
+									 WHERE    AttachmentId = '#vAttachmentId#'
+									 ORDER BY Created DESC
 						</cfquery>						
 
 					</cfif>
@@ -356,8 +356,8 @@
 										WHERE  AttachmentId = '#attachment.attachmentid#'															
 									</cfquery>							
 								
-								<cfelse>			
-																	
+								<cfelse>	
+																																	
 									<cfif attachment.filestatus eq "9">									
 										
 										<td colspan="2" class="labelheader">#NameShow#</td>						
@@ -369,13 +369,14 @@
 										<button type="button" class="button10g" onClick="#pdfscript#('#name#')">
 											<img src="#SESSION.root#/Images/pdf_small1.gif" alt="Upload file" border="0" align="absmiddle">&nbsp;<font color="gray">#NameShow#
 										</button>
+										
 										</td>
 										
 									<cfelseif (FindNoCase(".jpg", "#NameShow#") or FindNoCase(".png", "#NameShow#") or FindNoCase(".flv", "#NameShow#") or FindNoCase(".gif", "#NameShow#")) and embedgraphic eq "yes">  
 									  									  
 									    <cfif list eq "regular">	
 																					
-						                    <td width="10%" height="22" style="padding-left:1px" 
+						                    <td width="10%" style="padding-left:1px" valign="top"
 											 onclick="showfile('#contextmode#','view','#attachment.attachmentid#')" align="center">		
 											  								  		
 												<cfif FindNoCase(".flv", "#NameShow#") or DocumentServerIsOp eq "1">						
@@ -412,11 +413,11 @@
 															source="#vServerPathDocFull#" 
 										    		    	destination="#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\tn_#name#" 
 															nameconflict="OVERWRITE">
-																												
+																											
 														<img src="#SESSION.root#/CFRStage/User/#SESSION.acc#/tn_#name#" 
-														    style="cursor:pointer;border:1px solid ##cccccc;padding:1px;margin-top:5px;" 
+														    style="cursor:pointer;border:1px solid ##cccccc;" 
 															align="absmiddle" 
-															alt="Open Image" height="22" width="auto" border="0" align="center">	
+															alt="Open Image" height="42" border="0" align="center">	
 															
 															<cfcatch></cfcatch>																							
 															
@@ -428,8 +429,18 @@
 																							
 											</td>																											  
 											
-											<td width="50%" style="padding-left:10px" 
-											   onclick="embedfile('#contextmode#','#attachment.attachmentid#','show','#attachment.attachmentid#')" class="cellcontent"><a href="##">#Nameshow#</a></td>    	               
+											<td width="50%" style="padding-left:10px;cursor:pointer" 
+											   onclick="embedfile('#contextmode#','#attachment.attachmentid#','show','#attachment.attachmentid#')" class="cellcontent">
+											   
+											   <table>											   
+											   <tr class="labelmedium"><td style="color:0080FF">#Nameshow#</td></tr>											   
+											   <cfif len(Attachment.attachmentMemo) gte "5" and attachment.attachmentmemo neq "Detected">									 	
+													<tr class="labelmedium" style="height:15px">													    
+														<td>#Attachment.AttachmentMemo#</td>
+													</tr>													
+												</cfif>										   
+											   </table>											  
+										   </td>    	               
 										
 										<cfelse>
 										
@@ -486,7 +497,7 @@
 										<CFELSE>
 											<CFSET FileExt = Right(Name, SeparatorPos - 1)>
 										</CFIF>		
-															
+																										
 										<cfinclude template="FileLibraryShowIcon.cfm">	
 																	
 										</td>	
@@ -531,8 +542,7 @@
 								    	<cfif DocumentServerIsOp eq "0">
 									    	<TD width="10%" class="cellcontent" nowrap>#DateFormat(DateLastModified, CLIENT.DateFormatShow)#&nbsp;#TimeFormat(DateLastModified, "HH:MM")#&nbsp;</TD>
 								    		<TD width="10%" class="cellcontent" style="padding-right:10px" align="right"><cfset kb = (Size/1024)/1024> #numberFormat(kb, "_____._" )#mb&nbsp;</TD>	
-								    	</cfif>
-															
+								    	</cfif>															
 																	
 										<td width="20">
 										
@@ -557,7 +567,7 @@
 												align="absmiddle" 
 												style="cursor: pointer;"
 												tooltip="Remove document" 
-											 onClick="delfile('#contextmode#','Remove attachment #Name#','#attachment.attachmentid#','#DocumentPath#','#host#','#Subdirectory#','#Filter#','#Name#','#list#','#ShowSize#','#Listing#','#Insert#','#remove#','#color#','#attbox#','#rowheader#','#boxw#','#Align#','#Border#','#attachdialog#','#inputsize#','#pdfscript#','#embedgraphic#','#documentserver#','#presentation#','#maxfiles#')"> 
+											    onClick="delfile('#contextmode#','Remove attachment #Name#','#attachment.attachmentid#','#DocumentPath#','#host#','#Subdirectory#','#Filter#','#Name#','#list#','#ShowSize#','#Listing#','#Insert#','#remove#','#color#','#attbox#','#rowheader#','#boxw#','#Align#','#Border#','#attachdialog#','#inputsize#','#pdfscript#','#embedgraphic#','#documentserver#','#presentation#','#maxfiles#')"> 
 										
 										 </td>
 									 
@@ -567,13 +577,13 @@
 									 
 									 <td align="left" valign="top" style="padding-left:3px;padding-top:6px;padding-right:5px">
 																		
-										 <<img src="#SESSION.root#/Images/Close.png" alt="Log" 
+										 <<img src="#SESSION.root#/Images/Close.png" alt="Delete" 
 												border="0" 
 												height="24" width="24"
 												align="absmiddle" 
 												style="cursor: pointer;"
 												tooltip="Remove document" 
-											 onClick="delfile('#contextmode#','Remove attachment #Name#','#attachment.attachmentid#','#DocumentPath#','#host#','#Subdirectory#','#Filter#','#Name#','#list#','#ShowSize#','#Listing#','#Insert#','#remove#','#color#','#attbox#','#rowheader#','#boxw#','#Align#','#Border#','#attachdialog#','#inputsize#','#pdfscript#','#embedgraphic#','#documentserver#','#presentation#','#maxfiles#')"> 
+											    onClick="delfile('#contextmode#','Remove attachment #Name#','#attachment.attachmentid#','#DocumentPath#','#host#','#Subdirectory#','#Filter#','#Name#','#list#','#ShowSize#','#Listing#','#Insert#','#remove#','#color#','#attbox#','#rowheader#','#boxw#','#Align#','#Border#','#attachdialog#','#inputsize#','#pdfscript#','#embedgraphic#','#documentserver#','#presentation#','#maxfiles#')"> 
 										
 									 </td>									 
 									 
@@ -581,16 +591,7 @@
 								
 								</cfif>																		
 								
-								<cfif list eq "regular">				 
-								 
-									 <cfif len(Attachment.attachmentMemo) gte "5" and attachment.attachmentmemo neq "Detected">
-									 	
-										<tr>
-										    <td></td>
-											<td colspan="4" class="cellcontent">#Attachment.AttachmentMemo#</td>
-										</tr>
-										
-									 </cfif>
+								<cfif list eq "regular">									 
 									 
 									 <cfif (FindNoCase(".jpg", "#NameShow#") or FindNoCase(".png", "#NameShow#") or FindNoCase(".flv", "#NameShow#") or FindNoCase(".gif", "#NameShow#")) and EmbedGraphic is "yes">    
 								
@@ -603,7 +604,7 @@
 									<tr class="hide" id="logbox#attbox#_#currentrow#"><td colspan="8" id="logboxcontent#attbox#_#currentrow#"></td></tr>
 									
 									<cfif currentrow neq recordcount>		
-										<tr><td colspan="8" class="linedotted"></td></tr>
+										<tr class="line"><td colspan="8"></td></tr>
 									</cfif>
 									 
 								</cfif>	 							
@@ -709,7 +710,7 @@
 						   </tr>
 									
 						   <cfif currentrow neq recordcount>		
-							<tr><td colspan="9" class="linedotted"></td></tr>
+							<tr class="line"><td colspan="9"></td></tr>
 						   </cfif>
 							
 						  </cfloop>

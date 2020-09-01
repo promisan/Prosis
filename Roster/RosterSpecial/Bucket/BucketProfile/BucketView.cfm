@@ -17,7 +17,7 @@ username="#SESSION.login#"
 password="#SESSION.dbpw#">
     SELECT   *
 	FROM     Ref_SystemLanguage
-	WHERE    LanguageCode != ''
+	WHERE    LanguageCode != '' AND Operational != '0'
 	ORDER BY LanguageCode	
 </cfquery>
 
@@ -27,7 +27,7 @@ password="#SESSION.dbpw#">
 
 	<tr><td height="40">
 					
-		<table width="100%" height="100%" border="0" align="center" cellspacing="0" cellpadding="0">		  		
+		<table width="100%" height="100%" align="center">		  		
 						
 			<cfset ht = "30">
 			<cfset wd = "40">
@@ -46,22 +46,22 @@ password="#SESSION.dbpw#">
 											
 				<cfoutput query="language">		
 							
-				<cfset itm = itm+1>	
-				
-				<cfif itm eq "1">
-				    <cfset cl = "highlight">
-				<cfelse>
-					<cfset cl = "regular">
-				</cfif>
-							
-			    <cf_menutab item       = "#itm#" 
-				            iconsrc    = "Flag/#code#.gif" 
-							iconwidth  = "#wd#" 								
-							iconheight = "#ht#" 		
-							class      = "#cl#"						
-							name       = "Job Profile"
-							source     = "../Bucket/BucketProfile/BucketProfile.cfm?accessmode=view&idfunction=#url.idfunction#&languagecode=#languagecode#">
-							
+					<cfset itm = itm+1>	
+					
+					<cfif itm eq "1">
+					    <cfset cl = "highlight">
+					<cfelse>
+						<cfset cl = "regular">
+					</cfif>
+								
+				    <cf_menutab item       = "#itm#" 
+					            iconsrc    = "Flag/#code#.gif" 
+								iconwidth  = "#wd#" 								
+								iconheight = "#ht#" 		
+								class      = "#cl#"						
+								name       = "Job Profile"
+								source     = "../Bucket/BucketProfile/BucketProfile.cfm?accessmode=view&idfunction=#url.idfunction#&languagecode=#languagecode#">
+								
 				</cfoutput>																								
 																	 		
 			</tr>

@@ -12,7 +12,7 @@
 		ptoken.open(root + "/Warehouse/Maintenance/Item/RecordEdit.cfm?idmenu="+mid+"&ID=" + itm, "dlg_"+itm, "left=20, top=20, width=" + w + ", height= " + h + ", status=yes, toolbar=no, scrollbars=no, resizable=yes");	
 	}
 	
-	function item(itm,mis,mid) {	  
+	function item(itm,mid,mis) {	  
 	   var mission = mis
 	      
 	   if (!mid || mid=='undefined'){

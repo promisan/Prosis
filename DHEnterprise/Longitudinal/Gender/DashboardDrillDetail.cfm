@@ -21,4 +21,4 @@
 	<cfinclude template="DashboardDrillDetailRecruitment.cfm">
 </cfif>
 
-<cfset ajaxOnLoad("function(){ $('.detailContent').DataTable({ 'pageLength':25, 'dom':'<\'dataTableWrapper\'f><\'dataTableWrapper\'ip>t<\'dataTableWrapper\'lr>', 'order': [[4, 'asc']], 'columnDefs':[{'orderData':[5], 'targets':[4]},{'targets':[5],'visible':false,'searchable':false}] }); }")>
+<cfset ajaxOnLoad("function(){ $('.detailContent').DataTable({ 'pageLength':25, 'dom':'<\'dataTableWrapper\'f><\'dataTableWrapper\'ip>t<\'dataTableWrapper\'lr>', 'order': [[3, 'asc']], 'columnDefs':[{'orderData':[4], 'targets':[3]},{'targets':[4],'visible':false,'searchable':false}] }); }")>

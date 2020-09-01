@@ -786,8 +786,9 @@
 						
 			<cfsavecontent variable="parscript">
 				#parscript#
-				<tr class="labelmedium navigation_row" style="height:20px">
-					<td width="100"><cf_tl id="Cluster"></td>
+				<tr class="labelmedium navigation_row line" style="height:20px">
+					<td style="padding-left:3px" width="100"><cf_tl id="Cluster"></td>
+					<td>#CriteriaDescription#</td>
 					<td>Form.#CriteriaCluster#</td>
 					<td style="word-wrap: break-word; word-break: break-all;">#cval#</td>
 				</tr>
@@ -799,8 +800,9 @@
 		   		   
 			   <cfsavecontent variable="parscript">
 				#parscript#
-				<tr class="labelmedium navigation_row" style="height:20px">
-					<td width="100">#UCase(CriteriaType)#</td>
+				<tr class="labelmedium navigation_row line" style="height:20px">
+					<td style="padding-left:3px" width="100">#UCase(CriteriaType)#</td>
+					<td>#CriteriaDescription#</td>
 					<td>Form.#CriteriaName#</td>
 					<td style="word-wrap: break-word; word-break: break-all;">#evaluate("form.#criterianame#")#</td>
 				</tr>
@@ -810,8 +812,9 @@
 				  
 					   <cfsavecontent variable="parscript">			 
 						  #parscript#
-						  <tr class="labelmedium navigation_row" style="height:20px">
-							<td width="100">#UCase(CriteriaType)#</td>
+						  <tr class="labelmedium navigation_row line" style="height:20px">
+							<td style="padding-left:3px" width="100">#UCase(CriteriaType)#</td>
+							<td>#CriteriaDescription#</td>
 							<td>Form.#CriteriaName#_end</td>
 							<td style="word-wrap: break-word; word-break: break-all;">#evaluate("form.#criterianame#_end")#</td>
 						  </tr>
@@ -855,8 +858,9 @@
 																
 							<cfsavecontent variable="parscript">
 							  #parscript#
-							  <tr class="labelmedium navigation_row" style="height:20px">
-								<td width="100">#UCase(FieldDisplay)#</td>
+							  <tr class="labelmedium navigation_row line" style="height:20px">
+								<td style="padding-left:3px" width="100">#UCase(FieldDisplay)#</td>
+								<td>#Parameter.CriteriaDescription#</td>
 								<td>Form.#CriteriaName#_#FieldName#</td>
 								<td style="word-wrap: break-word; word-break: break-all;">#evaluate("form.#CriteriaName#_#FieldName#")#</td>
 							  </tr>
@@ -876,8 +880,9 @@
 			  			 
 			  <cfsavecontent variable="parscript">
 				  #parscript#
-				  <tr class="labelmedium navigation_row" style="height:20px">
-					<td width="100">#UCase(CriteriaType)#</td>
+				  <tr class="labelmedium navigation_row line" style="height:20px">
+					<td style="padding-left:3px" width="100">#UCase(CriteriaType)#</td>
+					<td>#CriteriaDescription#</td>
 					<td>Form.#CriteriaName#</td>
 					<td style="word-wrap: break-word; word-break: break-all;">#evaluate("form.#criterianame#")#</td>
 				  </tr>
@@ -890,8 +895,9 @@
 		 
 		      <cfsavecontent variable="parscript">			 
 				  #parscript#
-				  <tr class="labelmedium navigation_row" style="height:20px">
-					<td width="100">#UCase(CriteriaType)#</td>
+				  <tr class="labelmedium navigation_row line" style="height:20px">
+					<td style="padding-left:3px" width="100">#UCase(CriteriaType)#</td>
+					<td>#CriteriaDescription#</td>
 					<td>Form.#CriteriaName#</td>
 					<td style="word-wrap: break-word; word-break: break-all;"><b>#evaluate("form.#criterianame#")#</td>
 				  </tr>
@@ -901,8 +907,9 @@
 			  
 				   <cfsavecontent variable="parscript">			 
 					  #parscript# 
-					  <tr class="labelmedium navigation_row" style="height:20px">
-						<td width="100">#UCase(CriteriaType)#</td>
+					  <tr class="labelmedium navigation_row line" style="height:20px">
+						<td style="padding-left:3px" width="100">#UCase(CriteriaType)#</td>
+						<td>#CriteriaDescription#</td>
 						<td>Form.#CriteriaName#_end</td>
 						<td style="word-wrap: break-word; word-break: break-all;">#evaluate("form.#criterianame#_end")#</td>
 					  </tr>
@@ -945,8 +952,9 @@
 																
 							<cfsavecontent variable="parscript">
 							  #parscript#
-							  <tr class="labelmedium navigation_row" style="height:20px">
-								<td width="100">#UCase(FieldDisplay)#</td>
+							  <tr class="labelmedium navigation_row line" style="height:20px">
+								<td style="padding-left:3px" width="100">#UCase(FieldDisplay)#</td>
+								<td>#CriteriaDescription#</td>
 								<td>Form.#CriteriaName#_#FieldName#</td>
 								<td style="word-wrap: break-word; word-break: break-all;">#evaluate("form.#CriteriaName#_#FieldName#")#</td>
 							  </tr>
