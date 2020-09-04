@@ -3,6 +3,15 @@
       save and submit the eMail
 	  and refresh listing --->
 	  
+<cfquery name="Action" 
+datasource="AppsOrganization" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT      *				
+	FROM        Ref_EntityAction
+	WHERE       ActionCode = '#url.actionCode#'	
+</cfquery>	  
+	  
 <cfif url.actionid eq "00000000-0000-0000-0000-000000000000">
 
 	<cf_assignId>
@@ -64,67 +73,63 @@
 	
 </cfif>	 
 
+<cfquery name="Entity" 
+datasource="AppsOrganization" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT      *				
+	FROM        Ref_Entity
+	WHERE       EntityCode = '#Action.EntityCode#'	
+</cfquery>
 
 <cfquery name="Object" 
 datasource="AppsOrganization" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-
-	SELECT      *
-				
+	SELECT      *				
 	FROM        OrganizationObject
-	WHERE       EntityCode = 'VacDocument'
+	WHERE       EntityCode      = '#Action.EntityCode#'
 	AND         ObjectkeyValue1 = '#url.documentno#'
 	AND         Operational = 1	
-
 </cfquery>
 
 <cfparam name="Form.MailTo" default="">
+<cfparam name="Form.MailAttachment" default="">
 
 	<cfif Object.recordcount eq "1" and Form.MailTo neq "">
 
-				<cfmail  FROM   = "vanpelt@promisan.com"
+				<cfmail  FROM   = "#Entity.MailFromAddress#"
 					TO          = "#Form.MailTo#"
 					CC          = ""
 					BCC         = ""								
 					SUBJECT     = "#Form.MailSubject#"										
 					mailerID    = "#SESSION.welcome# Mail Engine"
 					TYPE        = "html"
-					replyto     = "vanpelt@promisan.com"
+					replyto     = "#client.eMail#"
 					priority    = "1"
 					spoolEnable = "Yes"			
 					wraptext    = "100">											
-					#Form.MailBody#																												
+					#Form.MailBody#		
 					
-					<!--- try to attach possible documents 
-								
-								<cftry>
-									 		
-									<cfloop index="att" from="1" to="10" step="1">
-											   
-									   <cfparam name="mailatt[#Att#][1]" default="none">
-									   <cfparam name="mailatt[#Att#][2]" default="none">									   
-									   <cfparam name="mailatt[#Att#][3]" default="none">											   
-									   
-									   <cfif mailatt[att][1] neq "none">	
-									   	
-								            <cfif mailatt[att][2] eq "inline">
-											    <cfmailparam file = "#mailatt[att][1]#" contentid="#mailatt[att][3]#" disposition="inline">
-											<cfelse>									 
-										        <cfmailparam file = "#mailatt[att][1]#">
-											</cfif>	
-												
-										   </cfif>
-																   				  			   
-									    </cfloop>
-										
-									<cfcatch>
-									</cfcatch>
-									
-								</cftry>
-								
-					--->			
-																									
+					<cfif form.Mailattachment neq "">
+					
+						<cfquery name="Att" 
+						datasource="appsSystem" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">			
+							SELECT      *
+							FROM        Attachment
+							WHERE       DocumentPathName = 'VacDocument' 
+							AND         Reference = '#Object.objectid#'	
+							AND         AttachmentId IN (#preserveSingleQuotes(form.MailAttachment)#)		
+						</cfquery>																										
+						
+						<cfloop query="Att">						
+							<cfmailparam file = "#session.rootdocumentpath##att.ServerPath#\#att.FileName#">						
+						</cfloop>		
+						
+					</cfif>				
+																														
 					</cfmail>							
 							
 					<cfquery name="checked" 

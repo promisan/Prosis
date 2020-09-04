@@ -188,11 +188,12 @@ password="#SESSION.dbpw#">
     <TD valign="top" style="padding-top:5px"></TD>
     <TD>	
 	
-	    <table style="width:490px">
+	    <table style="width:610px">
 		   <tr class="line labelmedium">
 		       <td></td>
-		       <td><cf_tl id="Due"></td>
+		       <td><cf_tl id="Due"></td>			   
 			   <td><cf_tl id="Flow"></td>
+			   <td><cf_tl id="Payroll"></td>
 			   <td><cf_tl id="Currency"></td>
 			   <td align="right"><cf_tl id="Amount"></td> 
 		  </tr>
@@ -241,7 +242,38 @@ password="#SESSION.dbpw#">
 					    bind="url:getEntityClass.cfm?personno=#url.id#&mission={mission}&entitlement={entitlement}&itm=#itm#">	  		
 				   </TD>
 				   
-				   <td style="border-left:1px solid silver;border-right:1px solid silver;padding-right:4px">
+				   <td style="min-width:140px;padding-top:2px;padding-left:6px;border-left:1px solid silver;border-right:1px solid silver"> 
+				   
+				   		<cfif itm eq "1">
+				   
+				   		<cf_intelliCalendarDate9
+							FormName="MiscellaneousEntry"
+							FieldName="PayrollStart_#itm#"
+							style="border:0px"
+							class="regularxl enterastab" 
+							DateFormat="#APPLICATION.DateFormat#"
+							Default="#Dateformat(now(), CLIENT.DateFormatShow)#"
+							AllowBlank="False">	
+							
+						<cfelse>
+						
+							<cfset dte = dateAdd("m",itm-1,now())>
+													
+							<cf_intelliCalendarDate9
+								FormName="MiscellaneousEntry"
+								FieldName="PayrollStart_#itm#"
+								style="border:0px"
+								class="regularxl enterastab" 
+								DateFormat="#APPLICATION.DateFormat#"
+								Default="#Dateformat(dte, CLIENT.DateFormatShow)#"
+								AllowBlank="True">	
+						
+						
+						</cfif>	
+						
+			       </td>
+				   
+				   <td style="min-width:60px;border-left:1px solid silver;border-right:1px solid silver;padding-right:4px">
 				   
 						<cfif salaryschedule.paymentCurrency neq "">
 				           <cfset cur = salaryschedule.paymentCurrency>
@@ -259,7 +291,7 @@ password="#SESSION.dbpw#">
 					    </select>
 						
 				   </td>
-				   <td style="border-left:1px solid silver;border-right:1px solid silver;text-align">
+				   <td style="border-left:1px solid silver;border-right:1px solid silver;text-align;min-width:90px">
 				   
 				   		<cfif itm eq "1">
 				   

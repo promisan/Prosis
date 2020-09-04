@@ -1,5 +1,4 @@
 
-
   <cfparam name="mailto" default="">
   <cfparam name="mailpriority" default="2">
   <cfparam name="mailtoDocumentId" default="">
@@ -26,6 +25,7 @@
 	    SELECT *
 		FROM   #CLIENT.lanPrefix#Ref_EntityDocument E
 		WHERE  DocumentId = '#URL.documentId#'
+		   
     </cfquery>
 
 <script>
@@ -52,8 +52,7 @@ function toggleBody(control){
 	option="Mail content edition [#MailCustom.documentCode# - #MailCustom.documentDescription#]" 
 	scroll="No" 
 	html="no"
-	jquery="Yes"
-	close="parent.parent.ColdFusion.Window.destroy('mydialog',true)"
+	jquery="Yes"	
 	layout="webapp" 
 	bannerheight="60" 
 	bannerforce="yes"	
@@ -92,10 +91,13 @@ function toggleBody(control){
 					  </cfif>					  
 										  
 					  <option value="list" <cfif MailCustom.mailto eq "List">selected</cfif>>List</option>																  
-					  <option value="manual" <cfif MailCustom.mailto eq "Manual">selected</cfif>>Manual</option>					
+					  <option value="manual" <cfif MailCustom.mailto eq "Manual">selected</cfif>>Manual</option>	
+					  <!---				
 					  <cfif MailCustom.recordcount gte "1">
-					  	<option value="custom" <cfif MailCustom.mailto eq "Custom">selected</cfif>>Custom Field</option>
+					  	<option value="custom" <cfif MailCustom.mailto eq "Custom">selected</cfif>>Custom Field</option>						
 					  </cfif>
+					  --->
+					  <option value="custom"  <cfif MailCustom.mailto eq "Custom">selected</cfif>>Custom Entry</option>
 					  <option value="script" <cfif MailCustom.mailto eq "Script">selected</cfif>>Scripted</option>
 					</select>
 					
@@ -134,6 +136,14 @@ function toggleBody(control){
 								
 				<td id="boxmailtocustom" class="#cl#" width="20">
 				
+					 <input type="text" class="regularxl enterastab"
+				       name="MailToCustom"
+					   id="MailToCustom"
+				       value="#MailCustom.MailToCustom#"
+				       size="80"
+				       maxlength="100">		
+				
+				    <!---
 					<cfif MailCustom.recordcount gte "1">
 						<select name="MailToDocumentId" class="regularxl enterastab" id="MailToDocumentId" style="width:230">
 							<cfloop query="MailCustom">
@@ -141,8 +151,11 @@ function toggleBody(control){
 							</cfloop>
 						</select>		
 					</cfif>
+					--->
 				
 				</td>
+				
+				
 				
 				</tr>
 				

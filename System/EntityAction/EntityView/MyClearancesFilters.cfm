@@ -70,9 +70,12 @@
 
     <cf_mobilepanel bodystyle="border:0px; padding-top:10px; padding-bottom:10px;">      
 		
+        <cf_mobilerow style="padding-bottom:10px;">
 		    <table style="background-color:eaeaea;width:100%;border:0px solid silver">
 			<tr class="labelmedium">
-			<td valign="top" style="padding-top:4px;background-color:e1e1e1;border-right:1px solid silver;font-size:14px;padding-left:6px;min-width:100px;"><cf_tl id="Summary">:</td>
+			<td valign="middle" style="background-color:e1e1e1;border-right:1px solid silver;font-size:14px;padding-left:6px;min-width:100px;">
+                <cf_tl id="Summary">:
+            </td>
 			<td style="height:45px;font-weight:280;font-size:23px;padding:9px;width:100%" id="summary">
             <cfif ResultListing.recordcount eq "0">
                 <cfset cl = "##59C25B">
@@ -89,7 +92,7 @@
             <cf_tl id="and"> <span id="batch"></span>
 			</td></tr>			
 			</table>
-			<br>
+		</cf_mobilerow>
         
         <cf_mobilerow>
             <cf_mobilecell class="#vColClass#">
@@ -101,38 +104,32 @@
                 </select>
             </cf_mobilecell>
 
-            <cf_mobilecell class="#vColClass#">
-                <cfif qEntityGroup.recordcount gt 1>
+            
+            <cfif qEntityGroup.recordcount gt 1>
+                <cf_mobilecell class="#vColClass#">
                     <select id="sEntityGroup" name="sEntityGroup" class="form-control" onchange="doRefresh(this.value,document.getElementById('sMission').value,document.getElementById('sOwner').value,document.getElementById('sUser').checked,'1')">
                         <option value="" <cfif url.EntityGroup eq "">selected</cfif>><cf_tl id="All Groups"></option>
                         <cfloop query="qEntityGroup">
                             <option value="#qEntityGroup.EntityGroup#" <cfif url.EntityGroup eq qEntityGroup.EntityGroup>selected</cfif>>#qEntityGroup.EntityGroup#</option>
                         </cfloop>
                     </select>	
-                <cfelse>
-                    <input type="hidden" id="sEntityGroup" name="" value="">	
-                </cfif>	
-            </cf_mobilecell>
+                </cf_mobilecell>
+            <cfelse>
+                <input type="hidden" id="sEntityGroup" name="" value="">	
+            </cfif>	
 
-            <cf_mobilecell class="#vColClass#">
-                <cfif qOwner.recordcount gt 1>
-
+            <cfif qOwner.recordcount gt 1>
+                <cf_mobilecell class="#vColClass#">
                     <select id="sOwner" name="sOwner" class="form-control" onchange="doRefresh(document.getElementById('sEntityGroup').value,document.getElementById('sMission').value,this.value,'1')">
                         <option value="" <cfif url.Owner eq "">selected</cfif>><cf_tl id="All Owners"></option>
                         <cfloop query="qOwner">
                             <option value="#qOwner.Owner#" <cfif url.Owner eq qOwner.Owner>selected</cfif>>#qOwner.Owner#</option>
                         </cfloop>
                     </select>				
-
-                <cfelse>
-                    <input type="hidden" id="sOwner" name="sOwner" value="">					
-                </cfif>	
-            </cf_mobilecell>
-			
-			
-            <cf_mobilecell class="#vColClass# clsSearchContent" style="display:none;">
-                <button class="form-control" onclick="collapseAll()"><cf_tl id="Collapse All"></button>
-            </cf_mobilecell>
+                </cf_mobilecell>
+            <cfelse>
+                <input type="hidden" id="sOwner" name="sOwner" value="">					
+            </cfif>	
 
             <cf_mobilecell class="#vColClass#" style="align:right;min-width:260px;padding-top:2px">
 			
@@ -166,16 +163,17 @@
 
         </cf_mobilerow>
                 
-        <cf_mobilerow>
-			           
-             <cf_mobilecell class="col-xs-5 mainGroupTitle">
-                 <cf_tl id="Search for action" var="1">
-				<form class="form-inline clsSearchContent" style="height:10px;display:none;">				
-                 <input class="form-control" type="text" placeholder="#lt_text#" id="fltSearchTextbox" onkeyup="doTextSearch($.trim(this.value));">
-				  <i class="fas fa-search" style="padding-top:9px"></i>
-				</form>
+        <cf_mobilerow class="clsSearchContent"  style="display:none; padding-top:5px;">   
+             <cf_mobilecell class="col-xs-12 col-md-6 mainGroupTitle">
+                <cf_tl id="Search for action" var="1">
+                <form class="form-inline" style="height:10px;">				
+                    <input class="form-control" type="text" style="max-width:95%; width:95%;float:left;display:inline;" placeholder="#lt_text#" id="fltSearchTextbox" onkeyup="doTextSearch($.trim(this.value));">
+                    <i class="fas fa-search" style="padding-top:9px; padding-left:5px; float:left;"></i>
+                </form>
              </cf_mobilecell>
-				
+             <cf_mobilecell class="col-xs-12 col-md-6">
+                <button class="form-control" onclick="collapseAll()"><cf_tl id="Collapse All"></button>
+            </cf_mobilecell>
         </cf_mobilerow>
         
 

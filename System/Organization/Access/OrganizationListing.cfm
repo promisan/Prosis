@@ -13,14 +13,16 @@ This is not how it intended, solution prevent check box if this was inherited by
 
 --->
 
-<!--- Query returning search results --->
-
 <cfparam name="URL.ID1" default=""> <!--- orgunit --->
 <cfparam name="URL.ID2" default=""> <!--- mission --->
 <cfparam name="URL.Mission" default="#URL.ID2#">
 <cfparam name="URL.ID3" default=""> <!--- mandate --->
 <cfparam name="URL.ID4" default=""> <!--- role    --->
 <cfparam name="URL.ID5" default="">
+
+<cfif url.mission eq "">
+	<cfset url.mission = url.id2>
+</cfif>
 
 <!--- provision for mandate selection --->
 
@@ -46,9 +48,6 @@ This is not how it intended, solution prevent check box if this was inherited by
 </cfif>
 
 <cfinclude template="OrganizationListingScript.cfm">
-
-<cfajaximport tags="cfwindow">
-
  
 <input type="hidden" name="mission" id="mission" value="<cfoutput>#URL.Mission#</cfoutput>">
 
@@ -269,7 +268,7 @@ This is not how it intended, solution prevent check box if this was inherited by
   <tr><td colspan="2"  class="line"></td></tr>  
   
   <tr class="labelmedium"><td colspan="2" align="center">
-      <font color="gray">The highest granted access level will dominate, unless user group access is reverted</font>
+      <font color="blue">The highest granted access level will dominate, unless user group access is reverted</font>
 	  </td>
   </tr>
    
@@ -324,6 +323,7 @@ This is not how it intended, solution prevent check box if this was inherited by
    
 	<td colspan="2" style="width:20px;padding-left:1px;padding-right:4px">
 	   <cfoutput>
+	   
 	      <cfif URL.Mission neq "">
 		  
 	       <input type  = "button"  

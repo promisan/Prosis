@@ -47,6 +47,7 @@
 	<cfif url.mde eq "">
 		
 		<cfinclude template="AuthentProcess.cfm">		
+		
 		<cfset CLIENT.acc  = SESSION.acc>		
 		
 	</cfif>	

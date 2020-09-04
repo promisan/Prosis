@@ -1,3 +1,7 @@
+
+<cfparam name="form.MailToDocumentId" default="">
+<cfparam name="form.MailToCustom"     default="">
+
 <cfquery name="Update" 
   datasource="AppsOrganization" 
   username="#SESSION.login#" 
@@ -5,12 +9,13 @@
   UPDATE 	Ref_EntityDocument
   SET       MailTo              = '#Form.MailTo#',
 			<cfif form.MailToDocumentId neq "">MailToDocumentId = '#Form.MailToDocumentId#',</cfif>
+			<cfif form.MailToCustom     neq "">MailToCustom = '#Form.MailToCustom#',</cfif>
 			MailPriority        = '#Form.MailPriority#', 
 			MailSubject         = '#Form.MailSubject#',
 			MailSubjectCustom   = '#Form.MailSubjectCustom#',
 			MailBody            = '#Form.MailBody#',
 			MailBodyCustom      = '#Form.MailBodyCustom#'
-  WHERE  	DocumentId = '#Form.DocumentId#'
+  WHERE  	DocumentId          = '#Form.DocumentId#'
 </cfquery>
 
 <cfif ParameterExists(Form.Save)>

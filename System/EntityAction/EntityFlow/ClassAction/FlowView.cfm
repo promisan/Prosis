@@ -42,11 +42,18 @@
 	<cf_screenbottom layout="webapp">
 
 <cfelse>
+
+	 <cf_screentop height="100%"    
+        scroll="no" 
+		layout="webapp" 
+	    jquery="Yes" 
+		html="No"		
+		label="Workflow for #Class.EntityDescription#">
 	
 	<HTML><HEAD>
 		<TITLE>Workflow Preview</TITLE>
 	</HEAD>
-	
+		
 	<body leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" onLoad="window.focus()">
 	<link href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" type="text/css" href="../../../../print.css" media="print">

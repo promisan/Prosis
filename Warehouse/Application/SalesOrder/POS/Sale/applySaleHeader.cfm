@@ -139,7 +139,9 @@
 					   ItemNo           = "#itemno#"
 					   UoM              = "#TransactionUoM#"
 					   quantity         = "#TransactionQuantity#"
-					   returnvariable   = "sale">			   
+					   returnvariable   = "sale">	
+					  
+					   		   
 					   
 					<cfquery name="setLine"
 						datasource="AppsMaterials" 
@@ -148,15 +150,17 @@
 							UPDATE   CustomerRequestLine 
 							SET      CustomerIdInvoice = '#url.customeridInvoice#',
 							         PriceSchedule     = '#Priceschedule#',		
-							         SchedulePrice     = '#sale.price#', 
+							         SchedulePrice     = '#sale.scheduleprice#', 
 									 SalesCurrency     = '#SalesCurrency#', 
 									 SalesPrice        = '#sale.price#',
 									 TaxCode           = '#Sale.TaxCode#',
 									 TaxPercentage     = '#Sale.Tax#', 
 									 TaxExemption      = '#Sale.TaxExemption#', 						
-									 TaxIncluded       = '#sale.inclusive#',  
+									 TaxIncluded       = '#sale.inclusive#', 
+									 SalesUnitPrice    = '#sale.PriceNet#', 
 									 SalesAmount       = '#sale.amount#', 
 									 SalesTax          = '#sale.amounttax#' 
+									
 									 	 
 							WHERE    TransactionId = '#TransactionId#'		
 					</cfquery>
@@ -246,12 +250,13 @@
 						UPDATE   CustomerRequestline 
 						SET      PriceSchedule  = '#Sale.priceschedule#',	
 						         SalesCurrency  = '#url.Currency#', 	
-						         SchedulePrice  = '#Sale.price#', 
+						         SchedulePrice  = '#Sale.scheduleprice#', 
 								 SalesPrice     = '#Sale.price#',
 								 TaxCode        = '#Sale.TaxCode#',
 								 TaxPercentage  = '#Sale.Tax#', 
 								 TaxExemption   = '#Sale.TaxExemption#', 
 								 TaxIncluded    = '#Sale.inclusive#',  
+								 SalesUnitPrice = '#sale.PriceNet#',
 								 SalesAmount    = '#Sale.amount#', 
 								 SalesTax       = '#Sale.amounttax#' 	 
 						WHERE    TransactionId  = '#TransactionId#'		
@@ -331,13 +336,14 @@
 						password="#SESSION.dbpw#">
 							UPDATE   CustomerRequestline 
 							SET      PriceSchedule  = '#url.priceschedule#',		
-							         SchedulePrice  = '#sale.price#', 
+							         SchedulePrice  = '#sale.scheduleprice#', 
 									 SalesCurrency  = '#form.Currency#', 
 									 SalesPrice     = '#sale.price#',
 									 TaxCode        = '#Sale.TaxCode#',
 									 TaxPercentage  = '#Sale.Tax#', 
 									 TaxExemption   = '#Sale.TaxExemption#', 						
-									 TaxIncluded    = '#sale.inclusive#',  
+									 TaxIncluded    = '#sale.inclusive#',
+									 SalesUnitPrice = '#sale.PriceNet#',  
 									 SalesAmount    = '#sale.amount#', 
 									 SalesTax       = '#sale.amounttax#' 	 
 							WHERE    TransactionId  = '#TransactionId#'		
@@ -381,10 +387,8 @@
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">						
 						UPDATE   CustomerRequestLine 
-						SET      PriceSchedule = '#form.priceschedule#',	
-								 <!---	corrected 30/8/2016
-						         SchedulePrice = '#sale.price#', 									 
-								 --->
+						SET      PriceSchedule = '#form.priceschedule#',									 
+						         SchedulePrice = '#sale.Scheduleprice#', 									 								
 								 SalesCurrency  = '#form.Currency#', 
 								 SalesDiscount  = '#form.Discount#',
 								 SalesPrice     = '#sale.price#',
@@ -392,6 +396,7 @@
 								 TaxPercentage  = '#Sale.Tax#', 
 								 TaxExemption   = '#Sale.TaxExemption#', 						
 								 TaxIncluded    = '#sale.inclusive#',  
+								 SalesUnitPrice = '#sale.PriceNet#',
 								 SalesAmount    = '#sale.amount#', 
 								 SalesTax       = '#sale.amounttax#' 	 
 						WHERE    TransactionId  = '#TransactionId#'		

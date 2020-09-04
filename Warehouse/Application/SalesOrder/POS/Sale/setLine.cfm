@@ -83,25 +83,25 @@ password="#SESSION.dbpw#">
 							
 				<!--- rounding --->
 				<cfset amountsle  = round(amountsle*100)/100>
-				<cfset amounttax  = round(amounttax*100)/100>				
-			
+				<cfset amounttax  = round(amounttax*100)/100>	
+				
+				<cfif qty neq "0">
+					<cfset unitprice = amountsle / qty>			
+				<cfelse>
+				    <cfset unitprice = 0>	
+				</cfif>	
+							
 			    <cfquery name="setLine"
 					datasource="AppsMaterials" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
 						UPDATE CustomerRequestLine 
 						SET    TransactionQuantity = '#url.value#',
+						       SalesUnitPrice      = '#unitprice#',
 						       SalesAmount         = '#amountsle#',
 							   SalesTax            = '#amounttax#'
-						WHERE  TransactionId       = '#url.id#'		
-				</cfquery>
-				
-				<!--- apply quantity promotions --->
-									
-				<cfinvoke component = "Service.Process.Materials.POS"  
-				      method        = "applyPromotion" 
-				      warehouse     = "#url.warehouse#" 
-				      customerid    = "#url.customerid#">						  
+						WHERE  TransactionId       = '#url.id#'								
+				</cfquery>						  
 												
 				<cfquery name="get"
 				datasource="AppsMaterials" 
@@ -112,14 +112,38 @@ password="#SESSION.dbpw#">
 					WHERE  TransactionId = '#url.id#'		
 				</cfquery>
 				
-				<cfquery name="linelist"
-				datasource="AppsMaterials" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-					SELECT * 
-					FROM   CustomerRequestLine
-					WHERE  Requestno = '#get.RequestNo#'						
-				</cfquery>	
+				<!--- apply quantity promotions --->
+									
+				<cfinvoke component = "Service.Process.Materials.POS"  
+				      method        = "applyPromotion" 
+				      warehouse     = "#url.warehouse#" 
+					  requestNo     = "#get.RequestNo#"
+				      customerid    = "#url.customerid#"
+					  returnvariable="hasPromotion">	
+					  
+				<cfif hasPromotion eq "1">	  	
+								
+					<cfquery name="linelist"
+					datasource="AppsMaterials" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+						SELECT * 
+						FROM   CustomerRequestLine
+						WHERE  Requestno = '#get.RequestNo#'						
+					</cfquery>	
+				
+				<cfelse>
+								
+					<cfquery name="linelist"
+					datasource="AppsMaterials" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+						SELECT * 
+						FROM   CustomerRequestLine
+						WHERE  TransactionId       = '#url.id#'							
+					</cfquery>	
+								
+				</cfif>
 				
 				<script language="JavaScript">	
 				
@@ -202,6 +226,12 @@ password="#SESSION.dbpw#">
 					
 				</cfif>
 				
+				<cfif qty neq "0">
+					<cfset unitprice = amountsle / qty>			
+				<cfelse>
+				    <cfset unitprice = 0>	
+				</cfif>	
+												
 				<cfif get.taxExemption eq "1">
 					<cfset amounttax = 0>
 				</cfif>				
@@ -220,10 +250,11 @@ password="#SESSION.dbpw#">
 							username="#SESSION.login#" 
 							password="#SESSION.dbpw#">
 							UPDATE CustomerRequestLine
-							SET    SalesPrice    = '#url.value#',
-							       SalesAmount   = '#amountsle#',
-								   SalesTax      = '#amounttax#'
-							WHERE  TransactionId = '#url.id#'		
+							SET    SalesUnitPrice = '#unitprice#',							
+								   SalesPrice     = '#url.value#',
+							       SalesAmount    = '#amountsle#',
+								   SalesTax       = '#amounttax#'
+							WHERE  TransactionId  = '#url.id#'		
 						</cfquery>			
 				
 				<!--- Otherwise, check if access is within the threshold --->		
@@ -263,7 +294,8 @@ password="#SESSION.dbpw#">
 							username="#SESSION.login#" 
 							password="#SESSION.dbpw#">
 							UPDATE CustomerRequestLine
-							SET    SalesPrice    = '#url.value#',
+							SET    SalesUnitPrice = '#unitprice#',
+							       SalesPrice    = '#url.value#',
 							       SalesAmount   = '#amountsle#',
 								   SalesTax      = '#amounttax#'
 							WHERE  TransactionId = '#url.id#'		

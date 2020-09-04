@@ -209,12 +209,11 @@
 					ORDER BY  SalesPrice DESC		
 				</cfif>			
 		</cfquery>
-		
-			
-		
+				
 		<cfif getPrice.recordcount eq "1">
 		
 			<cfset sale.priceschedule = getPrice.PriceSchedule>
+			<cfset sale.scheduleprice = getPrice.SalesPrice>
 			<cfset sale.price         = getPrice.SalesPrice>
 			<cfset sale.taxcode       = getPrice.TaxCode>
 			
@@ -246,8 +245,7 @@
 						<!--- no schedule take highest price found in rates for this currency --->
 						ORDER BY  SalesPrice DESC		
 					</cfif>
-			</cfquery>		
-					
+			</cfquery>						
 			
 			<cfif getPrice.recordcount eq "1">
 						
@@ -256,6 +254,7 @@
 				     currencyTo="#Currency#">
 					 
 					 <cfset sale.priceschedule = getPrice.PriceSchedule>
+					 <cfset sale.scheduleprice = getPrice.SalesPrice>
 					 <cfset sale.price         = getPrice.SalesPrice/exc>
 					 <cfset sale.taxcode       = getPrice.TaxCode>
 					 					 
@@ -273,8 +272,7 @@
 				    WHERE     ItemNo        = '#itemno#' 
 					AND       UoM           = '#uom#' 		
 					AND       Currency      = '#Currency#' 					
-					AND       Mission       = '#Mission#'		
-														
+					AND       Mission       = '#Mission#'															
 					AND       DateEffective <= GETDATE() 
 					
 					<cfif lowest neq "">
@@ -291,9 +289,7 @@
 					
 					 <!--- we take the blank warehouse first --->
 																
-				</cfquery>		
-				
-							
+				</cfquery>							
 				
 				<cfif getPrice.recordcount eq "1">
 				
@@ -302,6 +298,7 @@
 				     currencyTo="#Currency#">				
 				
 					 <cfset sale.priceschedule = getPrice.PriceSchedule>
+					 <cfset sale.scheduleprice = getPrice.SalesPrice>
 					 <cfset sale.price         = getPrice.SalesPrice/exc>
 					 <cfset sale.taxcode       = getPrice.TaxCode>
 					 					 
@@ -330,6 +327,7 @@
 					<cfif getPrice.recordcount eq "1">									
 									 
 					 <cfset sale.price         = getPrice.ItemPrice>
+					 <cfset sale.scheduleprice = getPrice.ItemPrice>
 					 
 					 <cfquery name="getWarehouse" 
 						datasource="AppsMaterials" 
@@ -369,7 +367,7 @@
 						</cfquery>	
 						
 						<cfset sale.taxcode  = getWarehouse.TaxCode>	
-						
+												
 						<cfif getPrice.recordcount eq "1">		
 					
 						<cf_exchangeRate datasource="AppsMaterials" 
@@ -377,10 +375,12 @@
 						    currencyTo="#Currency#">
 						 					 					 
 						   <cfset sale.price         = getPrice.StandardCost/exc>
+						   <cfset sale.scheduleprice = sale.price>
 						 
 						<cfelse>
 											
-						   <cfset sale.price         = "0.00">					
+						   <cfset sale.price         = "0.00">		
+						   <cfset sale.scheduleprice = sale.price>			
 						
 						</cfif> 
 					
@@ -485,6 +485,7 @@
 			 
 			 <cfargument name="Warehouse"     type="string"  required="true"   default="">		
 			 <cfargument name="Customerid"    type="GUID"    required="true"   default="">
+			 <cfargument name="RequestNo"     type="string"  required="true"   default="">
 			 							 
 			 <!--- meta code 
 				
@@ -505,27 +506,28 @@
 			 <!--- we need to make a provision for the moment no longer a promotion would apply and then the old price should come back --->
 			 
 			 <cfquery name="resetPrices" 
-				datasource="AppsTransaction" 
+				datasource="AppsMaterials" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">		
 																	
-					UPDATE   Sale#Warehouse# 	
+					UPDATE   CustomerRequestLine 	
 					SET      SalesPrice      = SchedulePrice * ((100 - salesDiscount)/100), 					 
 					         SalesAmount     = SchedulePrice * ((100 - salesDiscount)/100) * TransactionQuantity * (1-taxpercentage/1),				 		
 							 SalesTax        = SchedulePrice * ((100 - salesDiscount)/100) * TransactionQuantity * (taxpercentage/1),
 							 PromotionId        = NULL,
 							 PromotionDiscount = 0		
-					WHERE    CustomerId = '#Customerid#' 	
+					WHERE    RequestNo = '#RequestNo#' 	
 					AND      TaxIncluded = '1' and SchedulePrice is not NULL and PromotionId is not NULL	
+					<!--- reloaded for change --->
 					AND      BatchId is NULL		
 					
-					UPDATE   Sale#Warehouse# 	
+					UPDATE   CustomerRequestLine 
 					SET      SalesPrice      = SchedulePrice * ((100 - salesDiscount)/100), 					 
 					         SalesAmount     = SchedulePrice * ((100 - salesDiscount)/100) * TransactionQuantity,				 		
 							 SalesTax        = SchedulePrice * ((100 - salesDiscount)/100) * TransactionQuantity * taxpercentage,
 							 PromotionId        = NULL,
 							 PromotionDiscount = 0		
-					WHERE    CustomerId = '#Customerid#' 	
+					WHERE    RequestNo = '#RequestNo#'
 					AND      TaxIncluded = '0' and SchedulePrice is not NULL and PromotionId is not NULL		
 					AND      BatchId is NULL	
 																
@@ -534,6 +536,8 @@
 			 <cfcatch></cfcatch>	
 			 
 			 </cftry>
+			 
+			 <cfset hasPromotion = "0">
 							 						 
 			 <cfquery name="get" 
 				datasource="AppsMaterials" 
@@ -580,6 +584,7 @@
 						          FROM   PromotionElementItem 
 								  WHERE  PromotionId = T.PromotionId ) 				
 				ORDER BY  Priority  <!--- highest priority first --->
+				
 				
 			</cfquery>	
 			
@@ -655,6 +660,8 @@
 					
 					<cfif qty gte element.Quantity>
 					
+							<cfset hasPromotion = "1">
+					
 				           <cfquery name="taglines" 
 							datasource="AppsMaterials" 
 							username="#SESSION.login#" 
@@ -676,12 +683,12 @@
 			<!--- Apply the discounts AND also review the existing lines who might have lost the discount --->
 			
 			<cfquery name="lines" 
-				datasource="AppsTransaction" 
+				datasource="AppsMaterials" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">							
 					SELECT  * 
-					FROM    Sale#Warehouse#  							
-					WHERE   CustomerId = '#customerid#'							
+					FROM    CustomerRequestLine   							
+					WHERE   RequestNo = '#RequestNo#'							
 			</cfquery>		
 				
 			<cfloop query="lines">	
@@ -744,23 +751,31 @@
 					</cfif>		
 				
 					<cfset amount  = round(amount*100)/100>
-					<cfset amounttax     = round(amounttax*100)/100>
+					<cfset amounttax     = round(amounttax*100)/100>		
 					
+					<cfif transactionquantity neq "0">
+						<cfset unitprice = amount /  transactionquantity>
+					<cfelse>
+					    <cfset unitprice = 0>
+					</cfif>									
 											
 					<cfquery name="applyDiscount" 
 					datasource="AppsMaterials" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">							
 						UPDATE   CustomerRequestLine 	
-						SET      SalesPrice  = '#price#', 
-						         SalesAmount = '#amount#', 
-								 SalesTax    = '#amounttax#'						
-						WHERE    TransactionId = '#TransactionId#' 												
+						SET      SalesPrice     = '#price#', 
+								 SalesUnitPrice = '#unitprice#',
+						         SalesAmount    = '#amount#', 
+								 SalesTax       = '#amounttax#'						
+						WHERE    TransactionId  = '#TransactionId#' 												
 					</cfquery>		
 				
 				</cfif>			
 				
 			</cfloop>	
+			
+			<cfreturn hasPromotion>
 				
 	</cffunction>
 	
@@ -3351,6 +3366,7 @@
 				           ,TaxPercentage
 				           ,TaxExemption
 				           ,TaxIncluded
+						   ,SalesUnitPrice
 				           ,SalesAmount
 				           ,SalesTax
 				           ,OrgUnit
@@ -3380,6 +3396,7 @@
 							 ITS.PriceSchedule, ITS.SalesCurrency, ITS.SchedulePrice, ITS.SalesPrice, ITS.SalesPersonNo, 
                                 ITS.TaxCode, ITS.TaxPercentage, ITS.TaxExemption, ITS.TaxIncluded, 
 							 <!--- aggregate by removing the location of the transaction --->
+							 SUM(ITS.SalesAmount)/SUM(ITS.SalesQuantity) AS SalesUnitPrice,
 							 SUM(ITS.SalesAmount) AS SalesAmount, 
 							 SUM(ITS.SalesTax) AS SalesTax, 
 							 IT.OrgUnit, IT.OrgUnitCode, IT.OrgUnitName
@@ -3388,6 +3405,7 @@
 					         INNER JOIN Materials.dbo.ItemTransactionShipping ITS ON IT.TransactionId = ITS.TransactionId
 					         INNER JOIN Materials.dbo.Item I ON IT.ItemNo = I.ItemNo 
 					WHERE    TransactionBatchNo = '#getBatch.BatchNo#'
+					AND      SalesQuantity <> 0
 					
 					GROUP BY IT.Mission, 
 					         IT.TransactionType, 

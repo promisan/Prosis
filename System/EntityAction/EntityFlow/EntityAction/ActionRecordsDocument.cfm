@@ -8,11 +8,11 @@
 
 <cfset box = replace(url.actioncode,"-","","ALL")> 
 		
-<table cellspacing="0" width="98%"  align="right" border="0" cellpadding="0">
+<table width="98%" align="right" class="navigation_table">
 
 <cfset show = 0>
 
-<cfloop index="itm" list="Report,Attach,Field,Question" delimiters=",">
+<cfloop index="itm" list="Report,Attach,Field,Question,Activity" delimiters=",">
 	
 	<cfquery name="GroupAll" 
 	datasource="AppsOrganization" 
@@ -31,8 +31,8 @@
 
 	 <cfif GroupAll.recordcount neq "0">
 	 
-	 <tr  class="labelmedium line">
-		 <td colspan="4" style="font-size:15px;font-weight:200;height:29px"><cfoutput><cf_tl id="#itm#"></cfoutput>:</td>
+	 <tr class="labelmedium line">
+		 <td colspan="4" style="font-size:15px"><b><cfoutput><cf_tl id="#itm#"></cfoutput>:</td>
 	 </tr>
 	 
 	 <cfset show = 1>
@@ -51,10 +51,10 @@
 			 AND   R.DocumentId = '#DocumentId#'				
 		</cfquery>   
 									
-	    <cfif r eq "0"><TR style="height:15px"></cfif>
+	    <cfif r eq "0"><TR style="height:15px" class="navigation_row"></cfif>
 					
 			<td width="33%">
-				<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<table width="100%">
 				<cfif check.recordcount eq "0">
 					      <TR class="regular" style="height:16px">
 				<cfelse>  <TR class="highlight2" style="height:16px">
@@ -70,18 +70,18 @@
 				</table>
 			</td>
 			<cfif GroupAll.recordCount eq "1">
-					<td width="33%"></td>
+				<td width="33%"></td>
 			</cfif>
 	  			<cfif r neq 2>
 				   <cfset r = r+1>
 				<cfelse>
 				   <cfset r = 0>
-				</TR></cfif> 	
+				</TR>
+				</cfif> 	
 				
 	    </CFOUTPUT>
 	
 	</cfif>
-	
 
 </cfloop>
 
@@ -117,5 +117,4 @@
 	
 </table>
 		
-	
-
+<cfset ajaxonload("doHighlight")>	

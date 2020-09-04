@@ -263,34 +263,46 @@
 						
 					 <tr>	
 				
-					 <td class="labelmedium"><cf_tl id="Associated Bucket">:</td>
+					 <td class="labelmedium"><cf_tl id="Recruitment bucket">:</td>
 				     <TD> 
-					 <table cellspacing="0" cellpadding="0"><tr><td width="200" align="center" style="border: 1px solid silver;" class="labelmedium">
+					 <table><tr class="labelmedium">
 					 				 
 					  <cfif Doc.Status is "1" or Doc.Status is "9" or AccessHeader neq "ALL">
 			
-						<cfif VAtext.VacancyNo neq "">
-							<cfoutput><b><A href="javascript:va('#JO.FunctionId#');">#JO.ReferenceNo#</font></a></cfoutput>
-						</cfif>
+							<cfif VAtext.VacancyNo neq "">
+								<td class="labelmedium">
+								<cfoutput><A href="javascript:va('#JO.FunctionId#');">#JO.ReferenceNo#</a></cfoutput>
+								</td>
+							</cfif>
 						
 					  <cfelse>
 					  			   
 							<cfoutput>
 							
+							<td style="padding-right:2px">
+								
+							 <button name="btnFunction"  type="button" style="width:18px;height:18px" onClick="details('#JO.FunctionId#')"> 						
+								
+							</td>
+							<td class="labelmedium" style="padding-left:3px;font-size:15px">
 								<cfif JO.recordcount neq "0">
-									<A href="javascript:va('#JO.FunctionId#');">#JO.ReferenceNo#</font></a>
+									<A href="javascript:va('#JO.FunctionId#');">#JO.ReferenceNo#</a>
 								<cfelse>
-								   Undefined
+								   <cf_tl id="undefined">
 								</cfif>
-								</td>
-								<td style="padding-left:2px">
+							</td>
+							<cfif JO.DateEffective gt "01/01/2000">
+							<td class="labelmedium" style="padding-left:4px">
+								#dateformat(JO.DateEffective,client.dateformatshow)# - #dateformat(JO.DateExpiration,client.dateformatshow)#
+							</td>	
+							</cfif>							
+							<td class="labelmedium" style="padding-left:4px">	
+							   #JO.OfficerLastName#
+							</td>
 								
-							 <button name="btnFunction"  type="button" style="width:30px;height:26" onClick="details('#JO.FunctionId#')"> 						
-								
-							  </td>
 						    </cfoutput>
 							 					 
-							<!--- to be replace with new VA document --->
+							<!--- to be replace with new VA document 
 							<cfquery name="VAtext" 
 							datasource="AppsVacancy" 
 							username="#SESSION.login#" 
@@ -299,6 +311,7 @@
 							    FROM stAnnouncement
 								WHERE VacancyNo = '#JO.ReferenceNo#'
 							</cfquery>
+							--->
 										     											
 					   </cfif>	
 					   

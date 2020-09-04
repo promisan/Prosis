@@ -46,7 +46,7 @@
 	<table>
 	
 	<cfoutput>
-	<input type="text" name="Actions" value="#quotedvalueList(getAction.ActionCode)#">
+	<input type="hidden" name="Actions" value="#quotedvalueList(getAction.ActionCode)#">
 	</cfoutput>
 	
 	<cfoutput query="getAction">

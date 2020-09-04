@@ -5,13 +5,8 @@
 		<cfset tbl = "Ref_EntityActionPublish">
 	</cfif>
 	
-	
-	<cfif len(Form.ActionSpecification) gt 8000>
-	 <cfset spec = left(Form.ActionSpecification,8000)>
-	<cfelse>
-	 <cfset spec = Form.ActionSpecification>
-	</cfif>
-		
+	<cfset spec = Form.ActionSpecification>
+				
 	<cfquery name="Update" 
 	datasource="AppsOrganization" 
 	username="#SESSION.login#" 

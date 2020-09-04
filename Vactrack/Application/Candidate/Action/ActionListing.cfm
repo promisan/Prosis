@@ -12,16 +12,12 @@ password="#SESSION.dbpw#">
 				DCRA.ActionDateStart, 
 				DCRA.ActionMemo, 
 				DCRA.ActionStatus,
-				OM.MailTo, 
-				OM.MailSubject, 
-				OM.Created as MailCreated,
-				R.OfficerLastName,
-				R.Created
+				(SELECT count(*) FROM Organization.dbo.OrganizationObjectActionMail WHERE DCRA.ActionId = ActionId) as MailCount,				
+				DCRA.OfficerLastName,
+				DCRA.Created
 				
 	FROM        DocumentCandidateReviewAction AS DCRA 
 	            INNER JOIN      Organization.dbo.Ref_EntityDocument AS R ON DCRA.DocumentId = R.DocumentId 
-				LEFT OUTER JOIN Organization.dbo.OrganizationObjectActionMail AS OM ON DCRA.ActionId = OM.ActionId
-				
 	WHERE       DCRA.DocumentNo = '#url.documentNo#'
 	AND         DCRA.PersonNo   = '#url.personno#'
 	AND         DCRA.ActionCode = '#url.actioncode#'
@@ -47,9 +43,37 @@ password="#SESSION.dbpw#">
 <cfoutput query="SearchResult">
 	
 	<tr class="labelmedium <cfif actionmemo eq "">line</cfif> navigation_row" style="height:15px">
-	   <td style="padding-left:2px"><a href="javascript:editactivity('#ActionId#','#url.documentNo#','#url.personno#','#url.actioncode#')">#DocumentDescription#</a></td>
-	   <td>#dateformat(ActionDateStart,client.dateformatshow)# #timeformat(ActionDateStart,"HH:MM")#</td>	   
-	   <td style="background-color:f1f1f1;padding-left:3px;padding-right:3px">#MailTo# #MailSubject#</td>
+	   <td style="padding-left:4px"><a href="javascript:editactivity('#ActionId#','#url.documentNo#','#url.personno#','#url.actioncode#')">#DocumentDescription#</a></td>
+	   <td>#dateformat(ActionDateStart,client.dateformatshow)# #timeformat(ActionDateStart,"HH:MM")#</td>	
+	   	 
+	   <td style="background-color:##f1f1f180;padding-left:3px;padding-right:3px">
+	   
+	   <cfif mailcount gte "1">
+	   
+		    <cfquery name="Mail" 
+			datasource="AppsVacancy" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				SELECT      *				
+				FROM       Organization.dbo.OrganizationObjectActionMail AS OM 
+				WHERE      ActionId = '#actionid#'			
+				ORDER BY   Created DESC 			
+		   </cfquery>	
+	   
+		  
+		   <table>
+		   <cfloop query="Mail">
+		     <tr class="<cfif currentrow neq Mail.recordcount>line</cfif> labelmedium" style="height:10px">
+			         <td style="padding-left:2px;min-width:30px">#serialno#.</td>
+			         <td style="min-width:90px;padding-right:5px">#dateformat(Created,client.dateformatshow)# #timeformat(Created,"HH:MM")#</td>
+					 <td>#MailTo# : #MailSubject#</td>
+			 </tr>
+		   </cfloop>
+		   </table>
+	   
+	   </cfif>
+	   
+	   </td>
 	   <td>#OfficerLastName#</td>
 	   <td>#dateformat(Created,client.dateformatshow)# #timeformat(Created,"HH:MM")#</td>
 	   <td style="padding-top:2px">

@@ -1,6 +1,8 @@
 
+<!---
 <cf_screentop height="100%" 
   user="No" html="Yes" label="Configuration Documenter" layout="webapp">
+  --->
 
 <cfoutput>
 <!--- edit form --->
@@ -35,7 +37,7 @@
 	    <table><tr>
 		<td>
 	    <INPUT type="checkbox"  class="radiol" name="ptdocuments" id="ptdocuments" checked></td>
-		<td class="labelmedium" style="padding-left:5px">Step Documents/td>
+		<td class="labelmedium" style="padding-left:5px">Step Documents</td>
 		</tr></table>
 	</TD>
 	</TR>
@@ -61,7 +63,7 @@
 
 	<tr>	
 	<td align="center" colspan="2" height="30">
-	<input class="button10g" type="button" name="Cancel" id="Cancel" value=" Cancel " onClick="ColdFusion.Window.hide('mydialog');">
+	<input class="button10g" type="button" name="Cancel" id="Cancel" value=" Cancel " onClick="ProsisUI.closeWindow('mydialog');">
     <input class="button10g" type="button" name="Print" id="Print" value=" OK " onClick="printWFDetails()">
 	</td>	
 	</tr>

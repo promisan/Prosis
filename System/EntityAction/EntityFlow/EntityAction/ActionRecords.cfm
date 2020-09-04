@@ -384,7 +384,7 @@ password="#SESSION.dbpw#">
 			   </td>
 			   <td align="center"><cfif EnableAccessFly eq "0"><b>N</b><cfelse>Y</cfif></td>
 			   <td align="center"><cfif op eq "0"><b>N</b><cfelse>Y</cfif></td>
-			   <td align="center" style="padding-top:1px">				   	   
+			   <td align="center" style="padding-top:1px;padding-left:2px;padding-right:2px">				   	   
 			     <cf_img icon="edit" navigation="Yes" onclick="#ajaxLink('ActionRecords.cfm?EntityCode=#URL.EntityCode#&ID2=#nm#&search=#url.search#&entityclass=#url.entityclass#')#">	   											 
 			   </td>
 			   <td align="center" style="padding-left:2px;padding-right:2px">
@@ -398,32 +398,41 @@ password="#SESSION.dbpw#">
 			  </td>
 			  
 			  <td align="center">
+			  
+			  	<table>
+				<tr>
+				<td>
 			   			   
 				 <img src="#SESSION.root#/Images/workflow_manager.gif"
-			     alt="Workflows"
-			     id="i#currentrow#_min"
-			     border="0"
-				 height="12"
-				 width="12"
-				 align="absmiddle"
-			     class="regular"
-			     style="cursor:pointer"
-			     onClick="detail('#currentrow#','#actioncode#')">
-				 
+				     alt="Workflows"
+				     id="i#currentrow#_min"
+				     border="0"
+					 height="12"
+					 width="12"
+					 align="absmiddle"
+				     class="regular"
+				     style="cursor:pointer"
+				     onClick="detail('#currentrow#','#actioncode#')">
+				
+								 
 				<img src="#SESSION.root#/Images/icon_collapse.gif"
-			     alt="Hide"
-			     id="i#currentrow#_max"
-			     border="0"
-				 height="12"
-				 width="12"
-				 align="absmiddle"
-			     class="hide"
-			     style="cursor:pointer"
-			     onClick="detail('#currentrow#','#actioncode#')">
+				     alt="Hide"
+				     id="i#currentrow#_max"
+				     border="0"
+					 height="12"
+					 width="12"
+					 align="absmiddle"
+				     class="hide"
+				     style="cursor:pointer"
+				     onClick="detail('#currentrow#','#actioncode#')">
+				 
+				 </td>
+				 </tr>
+				 </table>
 			   
 			   </td>
 			   
-			    <td align="center" style="padding-right:4px">
+			    <td align="center" style="padding-left:3px;padding-right:4px">
 
 				<cfset box = replace(actioncode,"-","","ALL")> 
 				<cfdiv id="embed#box#">									

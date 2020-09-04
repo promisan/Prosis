@@ -11,6 +11,7 @@
 <cfinvoke component = "Service.Process.Materials.POS"  
    method           = "applyPromotion" 
    warehouse        = "#url.warehouse#" 
+   requestNo        = "#url.requestNo#"
    customerid       = "#url.customerid#">
 
 <cfquery name="WParameter" 
@@ -88,7 +89,7 @@ password="#SESSION.dbpw#">
 										
 		<!--- ajax box for processing --->
 		
-		<tr class="xhide"><td colspan="7" id="processline"></td></tr>
+		<tr class="hide"><td colspan="7" id="processline"></td></tr>
 				
 		<cfset tcounter = 1>
 			
@@ -96,12 +97,13 @@ password="#SESSION.dbpw#">
 			
 			<tr style="border-bottom:1px solid silver;height:25px;font-size:12px" class="navigation_row labelmedium" <cfif ItemClass neq 'Service' and TransactionQuantity gt 0 and TransactionQuantity gt OnHand>bgcolor="FFC1C1"<cfelse><cfif getLines.currentrow MOD 2>bgcolor="fefefe"</cfif></cfif> id="line_#currentrow#">
 			
-			    <td style="padding-left:14px;padding-top:7px;padding-right:3px; min-width:25px" valign="top"><p style="font-size:15px;padding-top:3.5px;">#currentrow#.</p></td>
-			    <td style="padding-left:4px;padding-top:7px;padding-right:4px; width:3%;" align="center" valign="top">
+			    <td style="padding-left:14px;padding-top:0px;padding-right:3px; min-width:25px" valign="top"><p style="font-size:15px;padding-top:3.5px;">#currentrow#.</p></td>
+			    
+				<td style="padding-left:4px;padding-top:0px;padding-right:4px; width:3%;" align="center" valign="top">
 				
 				<cfif BatchNo eq "">
 				
-					<i class="fas fa-minus-circle" style="cursor:pointer;color:##033F5D;font-size:18px;padding-top:4.5px;;min-width:25px" class="clsNoPrint" 
+					<i class="fas fa-minus-circle" style="cursor:pointer;color:##033F5D;font-size:18px;padding-top:5px;;min-width:25px" class="clsNoPrint" 
 					     onclick="_cf_loadingtexthtml='';ptoken.navigate('#client.virtualdir#/warehouse/Application/SalesOrder/POS/Sale/setLine.cfm?warehouse=#url.warehouse#&line=#currentrow#&id=#transactionid#&action=delete','salelines')"></i>
 					
 				</cfif>	 
@@ -110,7 +112,9 @@ password="#SESSION.dbpw#">
 				<style>
 				.clsDetailLineCell {height: 25px; <cfif WParameter.SingleLine eq 1>display:none</cfif>}
 				</style>
-				<td style="width:90%;padding:4px 0;">
+				
+				<td style="width:90%">
+				
 					<div style="height:25px;">
 						<cfif WParameter.SingleLine eq 1>
 							(#ItemBarCode#) #ItemDescription# - #UoMDescription# 
@@ -123,13 +127,14 @@ password="#SESSION.dbpw#">
 						</cfif>	
 						</p>
 					</div>
+					
 					<div class="clsDetailLineCell">
 											
 						<input type="text" 
 							style 	   = "background-color:ffffaf;width:160;"
 							maxlength  = "50" 
 							id    	   = "TransactionReference_#currentrow#"
-							class 	   = "regularxl enterastab"
+							class 	   = "regularh enterastab"
 							<cfif vLast eq currentrow>
 							tabindex   = "#tcounter#"
 								<cfset tcounter = tcounter + 1>
@@ -183,10 +188,10 @@ password="#SESSION.dbpw#">
 											</div>
 				</td>	
 
-				<td style="min-width:200px;padding-top:5px;padding-bottom:5px" valign="top">
+				<td style="min-width:200px;padding-top:4px" valign="top">
 					
-					<span id="onhand_#currentrow#" style="min-width:100px">
-					
+					<span id="onhand_#currentrow#" style="min-width:100px;font-size:15px">
+										
 						<cfif ItemClass eq "Service">
 						
 						--
@@ -212,7 +217,7 @@ password="#SESSION.dbpw#">
 					
 							<cfif TransactionQuantity gt OnHand>
 								<font color="FF0000">#numberformat(vStock,'_')#</font>
-							<cfelse>
+							<cfelse>							
 								#numberformat(vStock,'_')# 
 							</cfif>		
 
@@ -253,12 +258,12 @@ password="#SESSION.dbpw#">
 					
 				</td>
 								
-				<td align="right" style="min-width:50px;padding-top:5px;" valign="top">
+				<td align="right" style="min-width:50px;padding-top:0px;" valign="top">
 				
 				   <cfif BatchNo eq "">
 				
 				    <input type="text" 
-					 style = "background-color:fff;width:45px;text-align:center;border:1px solid ##CCCCCC;border-radius:4px;" 
+					 style = "background-color:fff;width:45px;text-align:center;border:1px solid silver;border-top:0px;border-radius:0px;" 
 					 id    = "TransactionQuantity_#currentrow#"
 					 <cfif vLast eq currentrow>
 					 	tabindex = "#tcounter#"
@@ -280,10 +285,10 @@ password="#SESSION.dbpw#">
 
 				</td>						
 				
-				<td align="right" style="min-width:100px;padding-top:5px;" valign="top">
+				<td align="right" style="min-width:100px;padding-top:0px;" valign="top">
 					
 					<input type="text" 
-					 style = "background-color:fff;width:85px;text-align:right;border:1px solid ##CCCCCC;" 
+					 style = "background-color:fff;width:85px;text-align:right;border:1px solid silver;border-top:0px;" 
 					 id    = "SalesPrice_#currentrow#"
 					 class = "regularxxl enterastab SalesPrice_#transactionid#"
 					 <cfif vLast eq currentrow>
@@ -302,8 +307,9 @@ password="#SESSION.dbpw#">
 
 				</td>				
 	
-				<td valign="top" align="right" style="min-width:100px;padding:8px 0;padding-right:4px; width:10%;" id="total_#currentrow#" class="labelmedium total_#transactionid#">
-					<div style="height:25px;" class="labelmedium">
+				<td valign="top" align="right" style="min-width:100px;padding-top:7px 0;padding-right:4px; width:10%;">
+					 
+					<div style="padding-top:2px;height:27px;" id="total_#currentrow#" class="labelmedium total_#transactionid#">					
 						#numberformat(SalesTotal,',.__')#
 					</div>
 					<div class="clsNoPrint clsDetailLineCell">

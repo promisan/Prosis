@@ -36,6 +36,15 @@
 		WHERE  ObjectId  = '#Form.ObjectId#'		
 </cfquery>
 
+<cfquery name="Entity" 
+datasource="AppsOrganization" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT      *				
+	FROM        Ref_Entity
+	WHERE       EntityCode = '#Object.EntityCode#'	
+</cfquery>
+
 <cfquery name="Check" 
 	datasource="AppsOrganization" 
 	username="#SESSION.login#" 
@@ -107,7 +116,8 @@
 		</cfif>
 		<cfif Form.MailScope eq "all">
 	    AND      MailScope = 'all'
-		</cfif>		
+		</cfif>	
+		AND      MailType = 'Comment'	
 		ORDER BY Created DESC
 	</cfquery>	
 	
@@ -235,13 +245,14 @@
 			<cfset DocumentHost = SESSION.rootDocumentPath>
 		</cfif>
 		
-		<cfif form.Mode eq "Mail">			
+		<cfif form.Mode eq "Mail">		
 		
+				
 			<cfoutput>
 				
 			 <cfmail to    = "#maillist#"
-		        from       = "#SESSION.first# #SESSION.last# <#Client.eMail#>"
-				FailTo     = "#client.eMail#" 
+		        from       = "#Entity.MailFromAddress#"											
+				replyto    = "NOREPLY"
 		        subject    = "RESPONSE on #Object.ObjectReference#"	       			
 				bcc        = "#client.eMail#"
 		        type       = "HTML"
@@ -255,15 +266,21 @@
 					<cf_mailworkflowobject context="comment" objectid="#url.ObjectId#">				
 				</td></tr>
 				
-				<tr><td height="5" border="0"></td></tr>				
-				<tr>
-					<td style="padding-left:10px"><font face="Verdana" size="2" color="808080"><B>#get.RequestName#</td>
-				</tr>
-				<tr><td style="border-top:1px solid silver;"></td></tr>
-				<tr>
-					<td style="padding-left:10px"><font face="Verdana" size="2" color="808080">#get.ObservationOutline#</td>
-				</tr>								
-				<tr><td style="border-top:1px solid silver;"></td></tr>		
+				<cfif get.RequestName neq "">				
+				
+					<tr><td height="5" border="0"></td></tr>				
+					<tr>
+						<td style="padding-left:10px"><font face="Verdana" size="2" color="808080"><B>#get.RequestName#</td>
+					</tr>
+					<tr><td style="border-top:1px solid silver;"></td></tr>
+					<tr>
+						<td style="padding-left:10px"><font face="Verdana" size="2" color="808080">#get.ObservationOutline#</td>
+					</tr>								
+					
+				
+				</cfif>
+				
+				<tr><td style="border:1px solid silver" border="1"></td></tr>
 				<tr>
 					<td style="padding-top:5px;padding-bottom:5px;padding-left:10px"><font face="Verdana" size="3" color="6688AA">#Form.MailBody#</td>
 				</tr>
@@ -272,7 +289,7 @@
 				
 				<cfloop query="getPrior">
 				
-					<tr><td style="border-top:1px solid silver;"></td></tr>
+					<tr><td style="border-top:1px solid silver" border="1"></td></tr>
 					<tr>
 						<td style="padding-left:10px"><font face="Verdana" size="2"><b>From:</b> #officerfirstname# #officerlastname#</td>
 					</tr>
@@ -280,28 +297,28 @@
 						<td style="padding-left:10px"><font face="Verdana" size="2"><b>Sent:</b> #dateformat(created,"DDDD")#, #dateformat(created,"MMM DD YYYY")# #timeformat(created,"HH:MM")#</td>
 					</tr>
 					<tr>
-						<td style="padding-top:5px;padding-bottom:5px;padding-left:10px"><font face="Verdana" size="2">#ParagraphFormat(MailBody)#</td>
+						<td style="background-color:eaeaea;padding-top:5px;padding-bottom:5px;padding-left:10px"><font face="Verdana" size="2">#ParagraphFormat(MailBody)#</td>
 					</tr>			
 				
-				</cfloop>				
-				
-				<tr><td style="border:1px solid silver" border="1"></td></tr>
+				</cfloop>	
+												
+				<tr><td style="border-top:1px solid silver" border="1"></td></tr>
 				
 				<tr><td height="6"></td></tr>
 				<tr>
-					<td align="center"><b><font face="Verdana" size="2" color="808080">DO NOT REPLY TO THIS EMAIL INSTEAD OPEN THE TICKET</b></td>
+					<td align="center"><b><font face="Verdana" size="2" color="808080">DO NOT REPLY TO THIS EMAIL INSTEAD OPEN THE LINK</b></td>
 				</tr>				
 				<tr><td height="6"></td></tr>
-				
-				<tr><td style="border:1px solid silver" border="1"></td></tr>
-								
+																
 				<tr><td>				
 					<!--- disclaimer --->
 					<cf_maildisclaimer context="wfthread" id="#id#">				
 				<tr><td>
 				
 				</table>
-						
+				
+				
+										
 				<cfdirectory action="LIST"
 		             directory="#documentHost#\#Object.entitycode#\#att#"
 		             name="GetFiles"
@@ -314,7 +331,7 @@
 				</cfloop>
 															
 			</cfmail>
-			
+									
 			</cfoutput>
 								
 		</cfif>					

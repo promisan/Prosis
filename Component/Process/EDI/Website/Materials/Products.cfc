@@ -30,7 +30,10 @@
 					PriorPrice, 
 					PriorDate,
 					ISNULL((SalesPrice-PriorPrice), 0) as PriceOff,
-					FLOOR(ISNULL((100*(PriorPrice - SalesPrice))/PriorPrice, 0)*-1) as PriceOffPercentage
+					CASE
+						WHEN (PriorPrice = 0 OR PriorPrice IS NULL) THEN 0
+						ELSE FLOOR(ISNULL((100*(PriorPrice - SalesPrice))/PriorPrice, 0)*-1) 
+					END AS PriceOffPercentage
 				FROM
 				(
 					SELECT MP.ItemNo, 

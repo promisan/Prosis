@@ -378,9 +378,9 @@ function more(bx) {
 					<cfif Role.GrantAllTrees eq "0">
 						
 						<cfif URL.Access eq "">
-						    <a href="javascript:showaccess('1','#url.mission##row#')"><font color="0080C0">Grant all steps</font></a>
+						    <a href="javascript:showaccess('1','#url.mission##row#')">Grant all steps</a>
 						<cfelse>
-							<a href="javascript:showaccess('0','#url.mission##row#')"><font color="0080C0">Revoke all steps</font></a>
+							<a href="javascript:showaccess('0','#url.mission##row#')">Revoke all steps</a>
 						</cfif>
 						
 					</cfif>

@@ -30,6 +30,8 @@
 				ActionCompleted,
 				ActionCompletedColor,
 				ActionDenied,
+				LabelQuestionaire,
+				LabelDocument,
 				ActionReference,
 				ActionType,
 				ActionTrigger,
@@ -93,6 +95,8 @@
 				ActionCompleted,
 				ActionCompletedColor,
 				ActionDenied,
+				LabelQuestionaire,
+				LabelDocument,
 				ActionReference,
 				ActionType,
 				ActionTrigger,
@@ -178,6 +182,7 @@
 					  Operational
 			FROM      Ref_EntityActionPublishDocument	
 			WHERE     ActionPublishNo = '#Url.PublishNo#'
+			
 		</cfquery>
 		
 	<cfquery name="InsertProcess" 
@@ -229,12 +234,14 @@
 					
 		FROM   Ref_EntityActionPublishProcess	
 		WHERE  ActionPublishNo = '#Url.PublishNo#'
+		
 	</cfquery>
 		
 	<cfquery name="InsertDocument" 
 		datasource="AppsOrganization" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
+		
 		INSERT INTO Ref_EntityClassActionScript
 			   (EntityCode, 
 			    EntityClass,
@@ -262,6 +269,7 @@
 				 '#SESSION.first#'	
 		FROM     Ref_EntityActionPublishScript
 		WHERE    ActionPublishNo = '#Url.PublishNo#'
+		
 		</cfquery>
 		
 </cftransaction>

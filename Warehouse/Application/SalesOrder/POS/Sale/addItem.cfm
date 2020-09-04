@@ -152,6 +152,8 @@
 			
 		</cfif>
 		
+		<cfset unitprice = amountsle / qty>
+		
 		<cfif get.TaxExemption eq "1">
 		  <cfset amounttax = 0>
 		</cfif>
@@ -162,6 +164,7 @@
 			password="#SESSION.dbpw#">
 			UPDATE CustomerRequestLine 
 			SET    TransactionQuantity = #qty#,
+				   SalesUnitPrice      = '#unitprice#',	
 			       SalesAmount         = '#amountsle#',
 				   SalesTax            = '#amounttax#',
 				   SalesPersonNo       = '#url.salespersonno#'
@@ -227,6 +230,7 @@
 						TaxPercentage, 
 						TaxExemption, 
 						TaxIncluded, 
+						SalesUnitPrice,
 						SalesAmount, 
 						SalesTax, 			           
 						PersonNo,
@@ -249,12 +253,13 @@
 						'#url.CustomerIdInvoice#', 						
 						'#sale.priceschedule#',
 						'#url.currency#', 
-						'#sale.price#', 
+						'#sale.scheduleprice#', 
 						'#sale.price#', 
 						'#sale.TaxCode#',
 						'#sale.tax#', 
 						'#sale.taxexemption#', 
 						'#sale.inclusive#', 
+						'#sale.pricenet#',
 						'#sale.amount#', 
 						'#sale.amounttax#', 			           
 						'#client.PersonNo#',

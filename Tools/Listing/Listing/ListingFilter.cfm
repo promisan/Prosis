@@ -334,12 +334,16 @@
 													<cfset vFilter ="">
 												</cfif>
 												
-												<cfquery name="checkDropdown" 
-												  dbtype="query">
-													 SELECT * 
-													 FROM   lookupdata
-													 WHERE Code = '#val#'
-												 </cfquery>		
+												<cfif val neq "">
+												
+													<cfquery name="checkDropdown" 
+													  dbtype="query">
+														 SELECT * 
+														 FROM   lookupdata
+														 WHERE Code = '#val#'
+													 </cfquery>		
+												 
+												 </cfif>
 
 												<cf_UIselect name   = "filter#current.field#"
 												    class           = "regularxxl" 
@@ -358,7 +362,7 @@
 													<cfelse>
 													  <option value="" style="background: White;font:10px">--<cf_tl id="Select">--</option>
 													</cfif>
-													<cfif checkdropdown.recordcount eq "0">
+													<cfif val neq "" and checkdropdown.recordcount eq "0">
 													  <option value="#val#" selected>#val#</option>
 													</cfif>
 													

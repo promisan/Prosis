@@ -245,12 +245,14 @@
 					<cfif showrows gte "2"> 	
 					
 						<cfset hascontent = "No">														
-						<tr onclick="listshowRow('#row#');" name="f#box#_#dkey#" id="s#row#" class="<cfif showrows eq "2">#attributes.classheader#<cfelse>#attributes.classsub#</cfif>">	  
+						<tr onclick="listshowRow('#row#');" style="border-bottom:1px solid ##C0C0C0; background-color:##FCFFE0;" name="f#box#_#dkey#" id="s#row#" class="<cfif showrows eq "2">#attributes.classheader#<cfelse>#attributes.classsub#</cfif>">	  
 						    <td colspan="2"></td>							
 						   	<cfset rowshow = "2">								
 							<cfinclude template="ListingContentField.cfm">
 							<cfif hascontent eq "No">
 								<cfset ajaxOnLoad("function(){ $('##s#row#').removeClass('#attributes.classheader#').addClass('hide'); }")>
+							<cfelse>
+								<cfset ajaxOnLoad("function(){ $('##r#row# td').css('border-bottom-color','##E3E3E3'); }")>
 							</cfif>		
 						</tr>					
 					</cfif>							
@@ -260,12 +262,14 @@
 					<cfif showrows eq "3">		
 					
 					    <cfset hascontent = "No">					    				
-						<tr onclick="listshowRow('#row#')" name="f#box#_#dkey#" id="t#row#" class="<cfif showrows eq "3">#attributes.classheader#<cfelse>#attributes.classsub#</cfif>">
+						<tr onclick="listshowRow('#row#')" style="border-bottom:1px solid ##C0C0C0; background-color:##FCFFE0;" name="f#box#_#dkey#" id="t#row#" class="<cfif showrows eq "3">#attributes.classheader#<cfelse>#attributes.classsub#</cfif>">
 							<td colspan="2"></td>								  		
 						    <cfset rowshow = "3">
 							<cfinclude template="ListingContentField.cfm">	
 							<cfif hascontent eq "No">
 								<cfset ajaxOnLoad("function(){ $('##t#row#').removeClass('#attributes.classheader#').addClass('hide'); }")>
+							<cfelse>
+								<cfset ajaxOnLoad("function(){ $('##r#row# td, ##s#row# td').css('border-bottom-color','##E3E3E3'); }")>
 							</cfif>			
 						</tr>		
 												

@@ -46,8 +46,6 @@ password="#SESSION.dbpw#">
    <cfparam name="URL.ID2" default="new">   
 </cfif>
 
-
-
 <cfif url.type neq "mail">
 
 	<cfset ret = "return false">
@@ -129,7 +127,7 @@ password="#SESSION.dbpw#">
 		   </td>		  
 	    </TR>	
 					
-		<cfif url.type eq "Attach"  or url.type eq "Field"> 
+		<cfif url.type eq "Attach" or url.type eq "Field" or url.type eq "Activity"> 
 			<cfset dew = 60>
 		<cfelse>
 			<cfset dew = 25> 
@@ -340,10 +338,13 @@ password="#SESSION.dbpw#">
 			</td>			    
 			</TR>
 
-			<cfif url.type neq "Attach" and url.type neq "Field" and url.type neq "Question"> 		
+			<cfif url.type neq "Attach" and url.type neq "Activity" and url.type neq "Field" and url.type neq "Question"> 		
 				 
 				<tr>
 					<td class="labelmedium" style="padding-left:20px;padding-right:5px">
+					
+							
+					
 					  <cf_UIToolTip tooltip="The relative path and file name under the root directory. Click on template name top view content.">
 					   &nbsp;<cfif url.type eq "Mail">Script&nbsp;file<cfelse>Path/File:</cfif>
 		   			</cf_UIToolTip>
@@ -867,11 +868,12 @@ password="#SESSION.dbpw#">
 					</td>
 			    </TR>	
 				
-				<cfif url.type neq "Attach" and url.type neq "Field" and url.type neq "Question"> 		
+				<cfif url.type neq "Attach" and url.type neq "Activity" and url.type neq "Field" and url.type neq "Question"> 		
 								 
 				<tr bgcolor="ffffef">
 				   
 				    <td class="labelmedium" style="padding-left:20px">
+					
 					<cf_UIToolTip  tooltip="The relative path and file name under the root directory. Click on template name top view content.">
 					   <cfif url.type eq "Mail">Script&nbsp;file<cfelse>Path/File:</cfif>
 		   			</cf_UIToolTip>
@@ -994,7 +996,7 @@ password="#SESSION.dbpw#">
 									
 				</cfif>	
 				
-				<cfif url.type neq "Field" and url.type neq "question">
+				<cfif url.type neq "Field" and url.type neq "Activity" and url.type neq "question">
 				
 				<tr bgcolor="ffffff">			
 			    <td valign="top" style="padding-left:15px;padding-top:7px;padding-right:30px" height="25" class="labelmedium">&nbsp;Settings</td>
@@ -1284,8 +1286,8 @@ password="#SESSION.dbpw#">
 						  <cfif DocumentType eq "mail">
 						  <td width="20" style="padding:2px">
 						    <img src="#SESSION.root#/Images/email-icon.gif" 
-							   height="12" 
-							   width="12" 
+							   height="15" 
+							   width="15" 
 							   alt="mail content"
 							   style="cursor:pointer" 
 							   onclick="javascript:showMailContentEdit('#documentId#')" 
@@ -1307,8 +1309,8 @@ password="#SESSION.dbpw#">
 						  <td width="20" style="padding-left:2px">
 						  
 						    <img src="#SESSION.root#/Images/form.gif" 
-							   height="11" 
-							   width="11" 
+							   height="15" 
+							   width="15" 
 							   alt="questions"
 							   style="cursor:pointer" 
 							   onclick="javascript:objectdialog('#URL.EntityCode#','#nm#','#URL.Type#')" 

@@ -50,6 +50,8 @@
 		ActionCompleted,
 		ActionCompletedColor,
 		ActionDenied,
+		LabelQuestionaire,
+		LabelDocument,
 		ActionReference,
 		ActionType,
 		ActionTrigger,
@@ -112,6 +114,8 @@
 		ActionCompleted,
 		ActionCompletedColor,
 		ActionDenied,
+		LabelQuestionaire,
+		LabelDocument,
 		ActionReference,
 		ActionType,
 		ActionTrigger,
@@ -196,19 +200,19 @@
 	datasource="AppsOrganization" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	INSERT INTO Ref_EntityActionPublishDocument
-	           (ActionPublishNo, ActionCode, DocumentId,ObjectFilter,ForceDocument,ListingOrder)
-	SELECT      DISTINCT #pub#, ActionCode, DocumentId,ObjectFilter,ForceDocument,ListingOrder
-	FROM        Ref_EntityClassActionDocument
-	WHERE       EntityCode  = '#URL.EntityCode#'
-	AND         EntityClass = '#URL.EntityClass#'
-	AND         Operational = 1
-	AND         ActionCode IN (SELECT ActionCode 
-	                           FROM  Ref_EntityActionPublish
-							   WHERE  ActionPublishNo = '#pub#')	                            
-	AND         DocumentId NOT IN (SELECT DocumentId 
-	                           FROM   Ref_EntityActionPublishDocument
-							   WHERE  ActionPublishNo = '#pub#')
+		INSERT INTO Ref_EntityActionPublishDocument
+		           (ActionPublishNo, ActionCode, DocumentId,ObjectFilter,ForceDocument,ListingOrder)
+		SELECT      DISTINCT #pub#, ActionCode, DocumentId,ObjectFilter,ForceDocument,ListingOrder
+		FROM        Ref_EntityClassActionDocument
+		WHERE       EntityCode  = '#URL.EntityCode#'
+		AND         EntityClass = '#URL.EntityClass#'
+		AND         Operational = 1
+		AND         ActionCode IN (SELECT ActionCode 
+		                           FROM   Ref_EntityActionPublish
+								   WHERE  ActionPublishNo = '#pub#')	                            
+		AND         DocumentId NOT IN (SELECT DocumentId 
+		                           FROM   Ref_EntityActionPublishDocument
+								   WHERE  ActionPublishNo = '#pub#')
 	</cfquery>
 	
 	
@@ -218,15 +222,13 @@
 	datasource="AppsOrganization" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	INSERT INTO Ref_EntityActionPublish_Language
-	(ActionPublishNo,ActionCode,LanguageCode,ActionCompleted,ActionDescription,ActionGoToLabel,ActionReference,OfficerUserId)
-	SELECT '#pub#', ActionCode, LanguageCode, ActionCompleted, ActionDescription, ActionGoToLabel, ActionReference, OfficerUserId
-	FROM Ref_EntityClassAction_Language
-	WHERE       EntityCode  = '#URL.EntityCode#'
-	AND         EntityClass = '#URL.EntityClass#'
+		INSERT INTO Ref_EntityActionPublish_Language
+					(ActionPublishNo,ActionCode,LanguageCode,ActionCompleted,ActionDescription,ActionGoToLabel,ActionReference,OfficerUserId)
+		SELECT 		'#pub#', ActionCode, LanguageCode, ActionCompleted, ActionDescription, ActionGoToLabel, ActionReference, OfficerUserId
+		FROM 		Ref_EntityClassAction_Language
+		WHERE       EntityCode  = '#URL.EntityCode#'
+		AND         EntityClass = '#URL.EntityClass#'
 	</cfquery>
-		
-	
 	
 	<!--- methods --->
 	

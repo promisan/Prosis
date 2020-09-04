@@ -71,6 +71,8 @@
 	  ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/sale/getCustomerRequest.cfm?requestno=#url.requestno#&customerid=#billingid#&warehouse=#url.warehouse#','trarequestno')		 	  
 	  // refresh the customer schedule	  
 	  ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/sale/getSchedule.cfm?requestno=#url.requestno#&customerid=#url.customerid#&warehouse=#url.warehouse#','schedulebox')		  	  		 
+	   // refresh the customer discount  
+	  ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/sale/getDiscount.cfm?requestno=#url.requestno#&customerid=#url.customerid#&warehouse=#url.warehouse#','discountbox')		  	  		 	
 	   // refresh lines for this sales person
 	  ptoken.navigate('#SESSION.root#/Warehouse/Application/salesOrder/POS/Sale/getSalesPerson.cfm?requestno=#url.requestno#&customerid=#url.customerid#&warehouse=#url.warehouse#&field=salesperson&mission=#getLines.Mission#&MissionOrgUnitId=#getLines.MissionOrgUnitId#&saleid=salespersonno','personbox')		
 	   // refresh lines for this customer

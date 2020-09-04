@@ -497,6 +497,15 @@ div.toggleScroll-y:hover, table.toggleScroll-y:hover, td.toggleScroll-y:hover, b
 	}
 }
 
+@-moz-document url-prefix() {
+	div.toggleScroll-x, table.toggleScroll-x, td.toggleScroll-x {
+		overflow-x: auto;
+	}
+	div.toggleScroll-y, table.toggleScroll-y, td.toggleScroll-y {
+		overflow-y: auto;
+	}
+}
+
 TABLE {
 	border-collapse:collapse;
 	border-spacing: 0px;

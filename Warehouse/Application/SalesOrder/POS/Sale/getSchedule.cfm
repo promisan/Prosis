@@ -14,8 +14,7 @@
 			1=0	
 	    </cfif>
 	    AND PriceSchedule IS NOT NULL
-</cfquery>
-		
+</cfquery>		
 
 <cfquery name="default" 
   datasource="AppsMaterials" 

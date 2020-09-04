@@ -48,6 +48,7 @@ function editEntitlement(persno, no) {
  <cfloop index="itm" from="1" to="10">	
 	  
 	 <cfset dte = evaluate("Form.DateEffective_#itm#")>
+	 <cfset pay = evaluate("Form.PayrollStart_#itm#")>
 	 <cfset cur = evaluate("Form.Currency_#itm#")>
 	 <cfset amt = evaluate("Form.Amount_#itm#")>
 	 <cfset ecl = evaluate("Form.EntityClass_#itm#")>
@@ -111,6 +112,7 @@ function editEntitlement(persno, no) {
 							  EntitlementClass,
 							  PayrollItem,
 							  DateEffective,
+							  PayrollStart,
 							  Currency,				  
 							  Amount,
 							  Status,
@@ -129,6 +131,7 @@ function editEntitlement(persno, no) {
 							  '#Form.EntitlementClass#',
 							  '#Form.Entitlement#',
 							  #STR#,
+							  #PAY#,
 							  '#Cur#',
 							  '#amt#',
 							  <cfif ecl neq "">

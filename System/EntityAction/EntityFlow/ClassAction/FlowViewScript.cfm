@@ -191,7 +191,7 @@ function publish() {
 
 function log() {
 		
-	 ColdFusion.navigate('WorkflowLog.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#','noRefresh');
+	 ptoken.navigate('WorkflowLog.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#','noRefresh');
      alert("The Workflow configuration was successfully logged.");
 	 
 	}
@@ -201,12 +201,12 @@ function restore() {
 	}
 
 function copyto() {
+	
 	var vWidth = 450;
-   	var vHeight = 375;    
-   
-   	ColdFusion.Window.create('mydialog', 'Copy To', '',{x:30,y:30,height:vHeight,width:vWidth,modal:true,center:true});    
-   	ColdFusion.Window.show('mydialog'); 				
-   	ColdFusion.navigate("#SESSION.root#/system/entityAction/EntityFlow/ClassAction/WorkflowCopyDialog.cfm?ts="+new Date().getTime()+"&EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#",'mydialog'); 
+   	var vHeight = 375;       
+   	ProsisUI.createWindow('mydialog', 'Copy Workflow Settings', '',{x:30,y:30,height:vHeight,width:vWidth,modal:true,center:true});       					
+   	ptoken.navigate("#SESSION.root#/system/entityAction/EntityFlow/ClassAction/WorkflowCopyDialog.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#",'mydialog'); 
+	
 }
 
 function copytoreturn() {
@@ -220,7 +220,7 @@ function copytoreturn() {
 	}	
 	
 	if (x != '') {
-		ColdFusion.navigate("WorkflowRestoreTo.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&TargetEntityClass="+x+"&PublishNo=#URL.PublishNo#",'mydialog');
+		ptoken.navigate("WorkflowRestoreTo.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&TargetEntityClass="+x+"&PublishNo=#URL.PublishNo#",'mydialog');
 	}
 }
 
@@ -292,12 +292,11 @@ function stepedit(id,pub) {
 }
 	
 function PrintWFX() {
+
 	var vWidth = 500;
-   	var vHeight = 400;    
-   
-   	ColdFusion.Window.create('mydialog', 'Print', '',{x:30,y:30,height:vHeight,width:vWidth,modal:true,center:true});    
-   	ColdFusion.Window.show('mydialog'); 				
-   	ColdFusion.navigate("#SESSION.root#/system/entityAction/EntityFlow/EntityPrint/EntityPrint.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&ts="+new Date().getTime(),'mydialog'); 
+   	var vHeight = 400;       
+   	ProsisUI.createWindow('mydialog', 'Print', '',{x:30,y:30,height:vHeight,width:vWidth,modal:true,center:true});       				
+   	ptoken.navigate('#SESSION.root#/system/entityAction/EntityFlow/EntityPrint/EntityPrint.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#','mydialog'); 
 }
 
 function printWFDetails() {
@@ -307,7 +306,7 @@ function printWFDetails() {
     pnt[3] = document.getElementById("ptconfig").checked
 
 	ptoken.open("#SESSION.root#/system/entityAction/EntityFlow/EntityPrint/EntityPrintWebPDF.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&Print=1&PrintWF="+pnt[1]+"&PrintDocs="+pnt[2]+"&PrintConfig="+pnt[3], "WFX", "left=10, top=10, width=930, height=823, toolbar=no, status=yes, scrollbars=yes, resizable=yes");
-	ColdFusion.Window.hide('mydialog');
+	ProsisUI.closeWindow('mydialog');
 }
 
 function PrintWF() {

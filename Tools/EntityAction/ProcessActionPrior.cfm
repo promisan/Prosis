@@ -115,12 +115,18 @@
 	<cfset boxno = boxno+1>
 	
 	<cfif menumode eq "menu">
+	
+		 <cfif Action.labelQuestionaire neq "">
+		   	<cf_tl id = "Logged #Action.LabelQuestionaire#" var="1">	   
+		   <cfelse>
+		   	<cf_tl id = "Logged Questionaire" var="1">
+		   </cfif>
    
     		<cf_menutab item       = "#boxno#" 
 	    	   iconsrc    = "Logos/System/Log.png" 
 			   iconwidth  = "#wd#" 		  					
 			   iconheight = "#ht#" 
-			   name       = "Logged Questionaire">	
+			   name       = "#lt_text#">	
 			   
 	<cfelse>
 	

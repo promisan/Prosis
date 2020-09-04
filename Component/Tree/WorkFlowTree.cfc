@@ -444,7 +444,7 @@
 				<cfset s.value     = "#value#^dialog">
 				<cfset s.img       = "#SESSION.root#/images/Incoming.png">			
 				<cfset s.parent    = "element">  		
-				<cfset s.display   = "<span class='labelit' style='color:black;'>Entry Forms</span>">
+				<cfset s.display   = "<span class='labelmedium' style='color:black;'>Entry Forms</span>">
 				<cfset s.leafnode=true/>	
 				<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=dialog">
 				<cfset s.target    = "right">
@@ -454,9 +454,19 @@
 				<cfset s.value     = "#value#^field">
 				<cfset s.img       = "#SESSION.root#/images/Incoming.png">			
 				<cfset s.parent    = "element">  		
-				<cfset s.display   = "<span class='labelit' style='color:black;'>Entry Fields</span>">
+				<cfset s.display   = "<span class='labelmedium' style='color:black;'>Entry Fields</span>">
 				<cfset s.leafnode=true/>	
 				<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=field">
+				<cfset s.target    = "right">
+	            <cfset arrayAppend(result,s)/>	
+				
+				<cfset s = structNew()/>
+				<cfset s.value     = "#value#^activity">
+				<cfset s.img       = "#SESSION.root#/images/Incoming.png">			
+				<cfset s.parent    = "element">  		
+				<cfset s.display   = "<span class='labelmedium' style='color:black;'>Activities</span>">
+				<cfset s.leafnode=true/>	
+				<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=activity">
 				<cfset s.target    = "right">
 	            <cfset arrayAppend(result,s)/>	
 				
@@ -464,7 +474,7 @@
 				<cfset s.value     = "#value#^mail">
 				<cfset s.img       = "#SESSION.root#/images/Incoming.png">			
 				<cfset s.parent    = "element">  		
-				<cfset s.display   = "<span class='labelit' style='color:black;'>Outgoing Mails</span>">
+				<cfset s.display   = "<span class='labelmedium' style='color:black;'>Outgoing Mails</span>">
 				<cfset s.leafnode=true/>	
 				<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=mail">
 				<cfset s.target    = "right">
@@ -474,7 +484,7 @@
 				<cfset s.value     = "#value#^attach">
 				<cfset s.img       = "#SESSION.root#/images/Incoming.png">			
 				<cfset s.parent    = "element">  		
-				<cfset s.display   = "<span class='labelit' style='color:black;'>Attachments</span>">
+				<cfset s.display   = "<span class='labelmedium' style='color:black;'>Attachments</span>">
 				<cfset s.leafnode=true/>	
 				<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=attach">
 				<cfset s.target    = "right">
@@ -484,7 +494,7 @@
 				<cfset s.value     = "#value#^document">
 				<cfset s.img       = "#SESSION.root#/images/Incoming.png">			
 				<cfset s.parent    = "element">  		
-				<cfset s.display   = "<span class='labelit' style='color:black;'>Master Documents</span>">
+				<cfset s.display   = "<span class='labelmedium' style='color:black;'>Master Documents</span>">
 				<cfset s.leafnode=true/>	
 				<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=document">
 				<cfset s.target    = "right">
@@ -494,7 +504,7 @@
 				<cfset s.value     = "#value#^report">
 				<cfset s.img       = "#SESSION.root#/images/Incoming.png">			
 				<cfset s.parent    = "element">  		
-				<cfset s.display   = "<span class='labelit' style='color:black;'>Embedded Reports</span>">
+				<cfset s.display   = "<span class='labelmedium' style='color:black;'>Embedded Reports</span>">
 				<cfset s.leafnode=true/>	
 				<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=report">
 				<cfset s.target    = "right">
@@ -504,7 +514,7 @@
 				<cfset s.value     = "#value#^question">
 				<cfset s.img       = "#SESSION.root#/images/Incoming.png">			
 				<cfset s.parent    = "element">  		
-				<cfset s.display   = "<span class='labelit' style='color:black;'>Questionaire</span>">
+				<cfset s.display   = "<span class='labelmedium' style='color:black;'>111111Questionaire</span>">
 				<cfset s.leafnode=true/>	
 				<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=question">
 				<cfset s.target    = "right">
@@ -514,7 +524,7 @@
 				<cfset s.value     = "#value#^method">
 				<cfset s.img       = "#SESSION.root#/images/Incoming.png">			
 				<cfset s.parent    = "element">  		
-				<cfset s.display   = "<span class='labelit' style='color:black;'>SQL Action Scripts</span>">
+				<cfset s.display   = "<span class='labelmedium' style='color:black;'>SQL Action Scripts</span>">
 				<cfset s.leafnode=true/>	
 				<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=method">
 				<cfset s.target    = "right">
@@ -683,7 +693,7 @@ this role defined
 				<cfset s.img       = "">
 				<cfset s.parent    =  "tree">
 				<cfset s.expand    =  "true">
-				<cfset s.display   = "<span style='font-weight:200;font-size:18px;text-decoration: underline;' class='labelmedium'>#Application#</span>">
+				<cfset s.display   = "<span style='font-weight:bold;font-size:18px;text-decoration: underline;' class='labelmedium'>#Application#</span>">
 
 				<cfset arrayAppend(result,s)/>
 
@@ -765,8 +775,8 @@ through the entity class defined for it --->
 				<cfset s.value     = "#SystemModule#">
 				<cfset s.img       = "">
 				<cfset s.parent    =  "#Code#">
-				<cfset s.display   = "<span style='font-size:14px' class='labelmedium'>#Description#</span>">
-
+				<cfset s.display   = "<span class='labelmedium' style='font-size:16px;height:15px'><font color='0A72AF'>#Description#</span>">
+				
 				<cfset arrayAppend(result,s)/>
 
 			</cfoutput>
@@ -827,7 +837,7 @@ through the entity class defined for it --->
 				<cfset s.value     = "#value#@Configuration">
 				<cfset s.img       = "#SESSION.root#/images/Configuration.png">
 				<cfset s.parent    = "element">
-				<cfset s.display   = "<span class='labelit' style=''>Configuration</span>">
+				<cfset s.display   = "<span class='labelmedium' style='font-size:15px;height:15px'>Configuration</span>">
 <!---
 <cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#">
 <cfset s.target    = "right">
@@ -850,7 +860,7 @@ through the entity class defined for it --->
 			<cfset s.img       = "#SESSION.root#/images/Authorization.png">
 			<cfset s.parent    =  "element">
 			<cfset s.leafnode=true/>
-			<cfset s.display   = "<span class='labelit' style='color:black;'>Authorization">
+			<cfset s.display   = "<span class='labelmedium' style='font-size:16px;height:15px'>Authorization">
 			<cfset s.href      = "../../Access/Global/OrganizationListing.cfm?context=0&ID4=#entity.role#">
 			<cfset s.target    = "right">
 			<cfset arrayAppend(result,s)/>
@@ -930,7 +940,7 @@ through the entity class defined for it --->
 				<cfset s.href      = "ClassAction/FlowView.cfm?connector=init&EntityCode=#ent#&EntityClass=#entityClass#">
 				<cfset s.target    = "right">
 				<cfset s.alt       = "#EntityClassName#">
-				<cfset s.display   = "<span class='labelit'>#EntityClass#</span>">
+				<cfset s.display   = "<span class='labelmedium' style='font-size:15px;height:15px'>#EntityClass#</span>">
 				<cfset arrayAppend(result,s)/>
 
 			</cfoutput>
@@ -949,7 +959,7 @@ through the entity class defined for it --->
 			<cfset s.value     = "#value#^step">
 			<cfset s.img       = "#SESSION.root#/images/Settings-3.png">
 			<cfset s.parent    = "element">
-			<cfset s.display   = "<span class='labelit' style='color:black;'>General Settings</span>">
+			<cfset s.display   = "<span class='labelmedium' style='font-size:14px;height:15px'>General Settings</span>">
 			<cfset s.leafnode=true/>
 			<cfset s.href      = "EntityAction/EntityEdit.cfm?mode=default&mission=&id=#ent#">
 			<cfset s.target    = "right">
@@ -959,7 +969,7 @@ through the entity class defined for it --->
 			<cfset s.value     = "#value#^step">
 			<cfset s.img       = "#SESSION.root#/images/Check.png">
 			<cfset s.parent    = "element">
-			<cfset s.display   = "<span class='labelit' style='color:black;'>Object Validation Rules</span>">
+			<cfset s.display   = "<span class='labelmedium' style='font-size:14px;height:15px'>Validation Rules</span>">
 			<cfset s.leafnode=true/>
 			<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=rule">
 			<cfset s.target    = "right">
@@ -969,7 +979,7 @@ through the entity class defined for it --->
 			<cfset s.value     = "#value#^step">
 			<cfset s.img       = "#SESSION.root#/images/Logos/System/WorkflowStep.png">
 			<cfset s.parent    = "element">
-			<cfset s.display   = "<span class='labelit' style='color:black;'>Action Steps</span>">
+			<cfset s.display   = "<span class='labelmedium' style='font-size:14px;height:15px'>Action Steps</span>">
 			<cfset s.leafnode=true/>
 			<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=step">
 			<cfset s.target    = "right">
@@ -979,7 +989,7 @@ through the entity class defined for it --->
 			<cfset s.value     = "#value#^class">
 			<cfset s.img       = "#SESSION.root#/images/Workflow-Classes.png">
 			<cfset s.parent    = "element">
-			<cfset s.display   = "<span class='labelit' style='color:black;'>Workflow Class</span>">
+			<cfset s.display   = "<span class='labelmedium' style='font-size:14px;height:15px'>Workflow Class</span>">
 			<cfset s.leafnode=true/>
 			<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=class">
 			<cfset s.target    = "right">
@@ -989,7 +999,7 @@ through the entity class defined for it --->
 			<cfset s.value     = "#value#^group">
 			<cfset s.img       = "#SESSION.root#/images/User-Group.png">
 			<cfset s.parent    = "element">
-			<cfset s.display   = "<span class='labelit' style='color:black;'>Action Group</span>">
+			<cfset s.display   = "<span class='labelmedium' style='font-size:14px;height:15px'>Action Group</span>">
 			<cfset s.leafnode=true/>
 			<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=group">
 			<cfset s.target    = "right">
@@ -999,7 +1009,7 @@ through the entity class defined for it --->
 			<cfset s.value     = "#value#^object">
 			<cfset s.img       = "#SESSION.root#/images/Logos/Modules.png">
 			<cfset s.parent    = "element">
-			<cfset s.display   = "<span class='labelit'>Reusable Objects</span>">
+			<cfset s.display   = "<span class='labelmedium' style='font-size:14px;height:15px'>Reusable Objects</span>">
 			<cfset s.leafnode=false/>
 			<cfset arrayAppend(result,s)/>
 
@@ -1017,7 +1027,7 @@ through the entity class defined for it --->
 			<cfset s.value     = "#value#^dialog">
 			<cfset s.img       = "#SESSION.root#/images/Incoming.png">
 			<cfset s.parent    = "element">
-			<cfset s.display   = "<span class='labelit' style='color:black;'>Entry Forms</span>">
+			<cfset s.display   = "<span class='labelmedium' style='font-size:13px;height:15px;color:black;'>Entry Forms</span>">
 			<cfset s.leafnode=true/>
 			<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=dialog">
 			<cfset s.target    = "right">
@@ -1027,9 +1037,19 @@ through the entity class defined for it --->
 			<cfset s.value     = "#value#^field">
 			<cfset s.img       = "#SESSION.root#/images/Incoming.png">
 			<cfset s.parent    = "element">
-			<cfset s.display   = "<span class='labelit' style='color:black;'>Entry Fields</span>">
+			<cfset s.display   = "<span class='labelmedium' style='font-size:13px;height:15px;color:black;'>Entry Fields</span>">
 			<cfset s.leafnode=true/>
 			<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=field">
+			<cfset s.target    = "right">
+			<cfset arrayAppend(result,s)/>
+			
+			<cfset s = structNew()/>
+			<cfset s.value     = "#value#^activity">
+			<cfset s.img       = "#SESSION.root#/images/Incoming.png">
+			<cfset s.parent    = "element">
+			<cfset s.display   = "<span class='labelmedium' style='font-size:13px;height:15px;color:black;'>Activities</span>">
+			<cfset s.leafnode=true/>
+			<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=activity">
 			<cfset s.target    = "right">
 			<cfset arrayAppend(result,s)/>
 
@@ -1037,7 +1057,7 @@ through the entity class defined for it --->
 			<cfset s.value     = "#value#^mail">
 			<cfset s.img       = "#SESSION.root#/images/Incoming.png">
 			<cfset s.parent    = "element">
-			<cfset s.display   = "<span class='labelit' style='color:black;'>Outgoing Mails</span>">
+			<cfset s.display   = "<span class='labelmedium' style='font-size:13px;height:15px;color:black;'>Outgoing Mails</span>">
 			<cfset s.leafnode=true/>
 			<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=mail">
 			<cfset s.target    = "right">
@@ -1047,7 +1067,7 @@ through the entity class defined for it --->
 			<cfset s.value     = "#value#^attach">
 			<cfset s.img       = "#SESSION.root#/images/Incoming.png">
 			<cfset s.parent    = "element">
-			<cfset s.display   = "<span class='labelit' style='color:black;'>Attachments</span>">
+			<cfset s.display   = "<span class='labelmedium' style='font-size:13px;height:15px;color:black;'>Attachments</span>">
 			<cfset s.leafnode=true/>
 			<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=attach">
 			<cfset s.target    = "right">
@@ -1057,7 +1077,7 @@ through the entity class defined for it --->
 			<cfset s.value     = "#value#^document">
 			<cfset s.img       = "#SESSION.root#/images/Incoming.png">
 			<cfset s.parent    = "element">
-			<cfset s.display   = "<span class='labelit' style='color:black;'>Master Documents</span>">
+			<cfset s.display   = "<span class='labelmedium' style='font-size:13px;height:15px;color:black;'>Master Documents</span>">
 			<cfset s.leafnode=true/>
 			<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=document">
 			<cfset s.target    = "right">
@@ -1067,7 +1087,7 @@ through the entity class defined for it --->
 			<cfset s.value     = "#value#^report">
 			<cfset s.img       = "#SESSION.root#/images/Incoming.png">
 			<cfset s.parent    = "element">
-			<cfset s.display   = "<span class='labelit' style='color:black;'>Embedded Reports</span>">
+			<cfset s.display   = "<span class='labelmedium' style='font-size:13px;height:15px;color:black;'>Embedded Reports</span>">
 			<cfset s.leafnode=true/>
 			<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=report">
 			<cfset s.target    = "right">
@@ -1077,7 +1097,7 @@ through the entity class defined for it --->
 			<cfset s.value     = "#value#^question">
 			<cfset s.img       = "#SESSION.root#/images/Incoming.png">
 			<cfset s.parent    = "element">
-			<cfset s.display   = "<span class='labelit' style='color:black;'>Questionaire</span>">
+			<cfset s.display   = "<span class='labelmedium' style='font-size:13px;height:15px;color:black;'>Questionaire</span>">
 			<cfset s.leafnode=true/>
 			<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=question">
 			<cfset s.target    = "right">
@@ -1087,7 +1107,7 @@ through the entity class defined for it --->
 			<cfset s.value     = "#value#^method">
 			<cfset s.img       = "#SESSION.root#/images/Incoming.png">
 			<cfset s.parent    = "element">
-			<cfset s.display   = "<span class='labelit' style='color:black;'>SQL Action Scripts</span>">
+			<cfset s.display   = "<span class='labelmedium' style='font-size:13px;height:15px;color:black;'>SQL Action Scripts</span>">
 			<cfset s.leafnode=true/>
 			<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=method">
 			<cfset s.target    = "right">

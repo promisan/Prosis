@@ -7,13 +7,14 @@
 	datasource="AppsOrganization" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	UPDATE R
-	SET ActionParent = L.ActionParent,
-	ActionGoToYes = L.ActionGoToYes,
-	ActionGoToNo = L.ActionGoToNo
-	From Ref_EntityClassAction R Inner Join Ref_EntityClassActionLog L
-		ON R.ActionCode = L.ActionCode AND R.EntityCode = L.EntityCode AND R.EntityClass = L.EntityClass 
-	WHERE R.EntityCode = '#URL.EntityCode#' AND R.EntityClass = '#URL.EntityClass#' 
+		UPDATE R
+		SET 	ActionParent  = L.ActionParent,
+				ActionGoToYes = L.ActionGoToYes,
+				ActionGoToNo  = L.ActionGoToNo
+		FROM 	Ref_EntityClassAction R 
+		        INNER JOIN Ref_EntityClassActionLog L ON R.ActionCode = L.ActionCode AND R.EntityCode = L.EntityCode AND R.EntityClass = L.EntityClass 
+		WHERE   R.EntityCode = '#URL.EntityCode#' 
+		AND     R.EntityClass = '#URL.EntityClass#' 
 	</cfquery>
 
 </cfoutput>			

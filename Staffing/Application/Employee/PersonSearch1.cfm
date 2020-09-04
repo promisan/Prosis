@@ -21,13 +21,14 @@ username="#SESSION.login#"
 password="#SESSION.dbpw#">
     SELECT *
     FROM   Ref_ParameterMission	
+	WHERE 1=1
 	<cfif getAdministrator("*") eq "0">
-	WHERE  Mission IN (SELECT DISTINCT Mission 
+	AND    Mission IN (SELECT DISTINCT Mission 
 	                   FROM   Organization.dbo.OrganizationAuthorization 
 					   WHERE  UserAccount = '#session.acc#')
 	</cfif>				   
 	AND    Mission IN (SELECT Mission 
-	                   FROM   Organization.dbo.Mission 
+	                   FROM   Organization.dbo.Ref_Mission 
 					   WHERE  Operational = 1)
 </cfquery>
 

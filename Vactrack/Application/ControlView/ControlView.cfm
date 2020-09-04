@@ -29,17 +29,16 @@
 					  
 			<cf_ViewTopMenu label="#lt_text#">
 					 
-	</cf_layoutarea>		 		
-	
-	<cf_layoutarea 
-	          position="left"
-	          name="tree"
-	          source="ControlTree.cfm"         
-	          size="250"			 
-			  collapsible="true"
-	          splitter="true"
-	          maxsize="250"/>
-	
+	</cf_layoutarea>
+
+
+	<cf_layoutarea  position="left" name="tree" maxsize="300" size="290" collapsible="true" splitter="true">
+		<cf_divScroll>
+			<cfinclude template="ControlTree.cfm">
+		</cf_divScroll>
+	</cf_layoutarea>
+
+
 	<cf_layoutarea  position="center" name="box">
 				
 		<iframe src="../../../Tools/Treeview/TreeViewInit.cfm"

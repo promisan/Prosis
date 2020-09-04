@@ -183,13 +183,9 @@
 	
 	<cfelse>
 
-	 <table width="96%"
-       border="0"
-       cellspacing="0"
-       cellpadding="0"
+	 <table width="96%"      
 	   class="formpadding"
        align="center"
-       bordercolor="C0C0C0"
        bgcolor="FFFFFF">
 	 
 	   <cfparam name="Form.ActionStatus" default="0">

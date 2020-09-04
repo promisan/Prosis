@@ -522,7 +522,8 @@ password="#SESSION.dbpw#">
 	    </cfif> 
 				
 		<cfset cla = "hide">
-		<cfset clb = "regular">					 
+		<cfset clb = "hide">					 
+		
 		
 		<cfset stop = "0">
 				
@@ -857,7 +858,7 @@ password="#SESSION.dbpw#">
 				 bind="url:#session.root#/Vactrack/Application/Candidate/Action/ActionListing.cfm?documentNo=#Object.ObjectKeyValue1#&PersonNo=#PersonNo#&actioncode=#action.actioncode#">				
 			</td>
 			</tr>	
-			
+						
 			<tr id="detail#currentrow#" class="#clb#">
 				<td colspan="2"></td>			
 				<td colspan="8" style="padding-top:1px;padding-bottom:4px">

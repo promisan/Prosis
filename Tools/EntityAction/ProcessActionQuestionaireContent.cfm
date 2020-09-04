@@ -1,8 +1,59 @@
 
-
 <table style="width:95%" align="center">
 
+<!--- we initially populate the questionaire if it has already a value for the questionId --->
+
 <cfoutput query="Questionaire">
+
+	<cfquery name="getCurrent" 
+	datasource="AppsOrganization" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">	
+	  SELECT  *
+	  FROM    OrganizationObjectQuestion 
+	  WHERE   ObjectId   = '#Object.ObjectId#'
+	  AND     ActionCode = '#actionCode#' 
+	  AND     QuestionId IN (SELECT QuestionId FROM Ref_EntityDocumentQuestion WHERE DocumentId = '#documentid#')	
+    </cfquery>
+	 
+	<cfquery name="getPrior" 
+		datasource="AppsOrganization" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">	
+		  SELECT  TOP 1 *
+		  FROM    OrganizationObjectQuestion 
+		  WHERE   ObjectId   = '#Object.ObjectId#'
+		  AND     ActionCode != '#actionCode#' 
+		  AND     QuestionId IN (SELECT QuestionId FROM Ref_EntityDocumentQuestion WHERE DocumentId = '#documentid#')	
+		  ORDER BY Created DESC
+	</cfquery>
+		 
+	<cfif getCurrent.recordcount eq "0" and getPrior.recordcount gte "1">
+	
+	  <!---	option 1 we create a new
+ 
+	  <cfquery name="Insert" 
+		datasource="AppsOrganization" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">	 
+		INSERT INTO OrganizationObjectQuestion
+				 (ObjectId, ActionCode, QuestionId, QuestionScore, QuestionMemo, QuestionAttachment,
+				  OfficerUserId, OfficerLastName, OfficerFirstName)
+		SELECT    ObjectId, '#actionCode#', QuestionId, QuestionScore, QuestionMemo, QuestionAttachment, 
+		          '#session.acc#', '#session.last#', '#session.first#'
+		FROM      OrganizationObjectQuestion
+		WHERE     ActionCode = '#getPrior.ActionCode#' 
+		AND       ObjectId   = '#Object.ObjectId#'
+		AND       QuestionId IN (SELECT QuestionId FROM Ref_EntityDocumentQuestion WHERE DocumentId = '#documentid#')	   
+	  </cfquery>	
+	  
+	  --->
+	  
+	  <!--- option 2 we apply the prior entries for changes --->
+	  
+	  <cfset actionCode = getPrior.actionCode>
+  
+    </cfif>
 	
 	<cfquery name="Content" 
 	datasource="AppsOrganization" 

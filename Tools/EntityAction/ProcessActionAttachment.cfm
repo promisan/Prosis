@@ -1,5 +1,5 @@
 
-<table width="100%" height="100%" align="center" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="100%" height="100%" align="center" class="formpadding">
 <tr><td>
 	
 	<cfparam name="box" default="1">

@@ -592,7 +592,16 @@
 				</cfcase>
 				
 				<cfcase value="Custom">
-				   <cfset sendSubject = Mail.MailSubjectCustom>
+				
+				 <cfinvoke component = "Service.Process.System.Mail"  
+				   method           = "MailContentConversion" 
+				   objectId         = "#Object.ObjectId#" 	
+				   actionId         = "#Object.ActionId#"
+				   content          = "#Mail.MailSubjectCustom#"			  
+				   returnvariable   = "subject">	  				
+				
+				   <cfset sendSubject = subject>
+				   
 				</cfcase>
 				
 				<cfcase value="Script">
@@ -618,32 +627,22 @@
 			<cfswitch expression="#Mail.MailBody#">
 					
 				<cfcase value="Custom">
-
-				  <cfset mailtext = Mail.MailBodyCustom>	
-							   
-				  <cfset htmllink = "<a href='#SESSION.root#/ActionView.cfm?id=#Object.Objectid#'><font color='0080FF'>Click here to process</font></a>">			  
-				  
-				  <cfset mailtext = replaceNoCase( "#mailtext#", "@link",     "#htmllink#",                                "ALL")>				
-				  <cfset mailtext = replaceNoCase( "#mailtext#", "@user",     "#SESSION.first# #SESSION.last#",              "ALL")>
-				  <cfset mailtext = replaceNoCase( "#mailtext#", "@ref1",     "#Object.ObjectReference#",                  "ALL")>
-				  <cfset mailtext = replaceNoCase( "#mailtext#", "@ref2",     "#Object.ObjectReference2#",                 "ALL")>
-				  <cfset mailtext = replaceNoCase( "#mailtext#", "@action",   "#Object.ActionDescription#",                "ALL")>
-				  <cfset mailtext = replaceNoCase( "#mailtext#", "@mission",  "#Object.Mission#",                          "ALL")>
-				  <cfset mailtext = replaceNoCase( "#mailtext#", "@owner",    "#Object.Owner#",                            "ALL")>
-				  <cfset mailtext = replaceNoCase( "#mailtext#", "@holder",   "#Object.OfficerFirstName# #Object.OfficerLastName#",       "ALL")>	
-				  <cfset mailtext = replaceNoCase( "#mailtext#", "@ipaddress","#Object.OfficerNodeIP#",                    "ALL")>
-				  <cfset mailtext = replaceNoCase( "#mailtext#", "@today",    "#dateformat(now(),CLIENT.DateFormatShow)#", "ALL")>
-				  <cfset mailtext = replaceNoCase( "#mailtext#", "@time",     "#timeformat(now(),'HH:MM')#",               "ALL")>
-  				  <cfset mailtext = replaceNoCase( "#mailtext#", "@entity",   "#Object.EntityDescription#",                "ALL")>
-  				  <cfset mailtext = replaceNoCase( "#mailtext#", "@class",    "#Object.EntityClassName#",                  "ALL")>
+				
+				  <cfinvoke component = "Service.Process.System.Mail"  
+				   method           = "MailContentConversion" 
+				   objectId         = "#Object.ObjectId#" 	
+				   content          = "#Mail.MailBodyCustom#"			  
+				   returnvariable   = "mailtext">	  				 
 
 				  <cfset sendBody = mailtext>
 					
 				</cfcase>
 				
 				<cfcase value="Script">
+				
 				   <!--- obtain from the script --->
 				   <cfset sendBody = MailText>
+				   
 				</cfcase>
 				
 			</cfswitch>	

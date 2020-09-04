@@ -41,48 +41,41 @@
   			<div id="mymap" style="height:200px; width:100%;"></div>
 		</td>
 		
-		<td width="30%" style="height:200px;min-width:400px;padding:7px">
+		<td width="30%" style="height:200px;min-width:420px;padding:7px">
 		    
-			<table width="99%" height="100%">
+			<cf_divscroll overflowy="scroll">	
 			
-				<tr class="labelmedium">
+			<table style="width:97%" align="left" height="100%">
+			
+				<tr class="labelmedium fixrow">
 					<cfoutput>
 				 	<td colspan="1" style="border:1px solid silver;width:100%;padding-left:3px;"><cf_tl id="Nationality"></td>
 				 	</cfoutput>
 					<cfoutput query="Parent">
 					<td style="border:1px solid silver;min-width:33;padding-right:2px" align="center">#ContractLevelParent#</td>
 					</cfoutput>		
-					<td style="border:1px solid silver;background-color:efefef;min-width:43px;padding-right:2px" align="center"><cf_tl id="Sum"></td>	
-					<td style="min-width:12px"></td> 
-				 </tr>
+					<td style="border:1px solid silver;background-color:efefef;min-width:43px;padding-right:2px" align="center"><cf_tl id="Sum"></td>						
+					<td style="min-width:20px"></td>
+				</tr>												
 				
-				<tr><td colspan="<cfoutput>#parent.recordcount+3#</cfoutput>" height="100%" width="100%" style="padding-right:4px;border-left:0px solid silver">		
-				
-					<cf_divscroll overflowy="scroll">		
-					<table width="98%" class="navigation_table">						
-						<cfoutput query="summary">		
-							<tr class="line labelmedium navigation_row" style="height:10px">
-							    <td style="padding-left:4px;width:100%">#currentrow# #NationalityName# (#Nationality#)</td>														
-								<cfloop query="Parent">
-									<td align="right" style="min-width:33;border-left:1px solid silver;border-bottom:1px solid silver;padding-right:2px">						
-									  <cfquery name="getContent" dbtype="query">
-									  	 SELECT  *
-									 	 FROM    CellContent
-										 WHERE   ContractLevelParent = '#ContractLevelParent#' 
-										 AND     Nationality  = '#summary.Nationality#'						  	
-								  	  </cfquery>	
-									  #getContent.Total#						
-									</td>
-								</cfloop>																			
-								<td align="right" style="padding-right:2px;background-color:eaeaea;min-width:43px;border-right:1px solid silver;border-left:1px solid silver;">#Total#</td>
-							</tr>		
-						</cfoutput>
-					</table>
-					</cf_divscroll>
-				
-				</td>
-				</tr>
-																
+				<cfoutput query="summary">		
+					<tr class="line labelmedium navigation_row" style="height:10px">
+					    <td style="padding-left:4px;width:100%;min-width:175px;">#currentrow# #NationalityName#</td>														
+						<cfloop query="Parent">
+							<td align="right" style="min-width:33;border-left:1px solid silver;border-bottom:1px solid silver;padding-right:2px">						
+							  <cfquery name="getContent" dbtype="query">
+							  	 SELECT  *
+							 	 FROM    CellContent
+								 WHERE   ContractLevelParent = '#ContractLevelParent#' 
+								 AND     Nationality  = '#summary.Nationality#'						  	
+						  	  </cfquery>	
+							  #getContent.Total#						
+							</td>
+						</cfloop>																			
+						<td align="right" style="padding-right:2px;background-color:eaeaea;min-width:43px;border-right:1px solid silver;border-left:1px solid silver;">#Total#</td>
+					</tr>		
+				</cfoutput>
+																								
 				<tr class="labelmedium">
 					<cfoutput>
 				 	<td colspan="1" style="border:1px solid silver;width:100%;padding-left:3px;"><cf_tl id="Total"></td>
@@ -95,15 +88,12 @@
 						 	 FROM    CellContent
 							 WHERE   ContractLevelParent = '#ContractLevelParent#' 										 					  	
 					  </cfquery>	
-					  #getContent.Total#	
-					
-					
+					  #getContent.Total#					
 					</td>
 					</cfoutput>	
 					
 					<cfoutput>	
-					<td style="border:1px solid silver;background-color:efefef;min-width:43px;padding-right:2px" align="right">
-					
+					<td style="border:1px solid silver;background-color:efefef;min-width:43px;padding-right:2px" align="right">					
 					 <cfquery name="getContent" dbtype="query">
 						  	 SELECT  SUM(Total) as Total
 						 	 FROM    CellContent																 					  	
@@ -111,7 +101,7 @@
 					  #getContent.Total#	
 					</td>	
 					</cfoutput>
-					<td style="min-width:12px"></td> 
+					
 				 </tr>
 			
 			</table>

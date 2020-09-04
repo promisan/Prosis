@@ -1,6 +1,9 @@
 
 <cfparam name="url.refresh" default="0">
 
+<cfset vThresholdGroupNumber = 1>
+<cfset vThresholdRowsNumber = 50>
+
 <cfif url.refresh eq "1">
 	<cfinclude template="MyClearancesDataPrepare.cfm">
 </cfif>
@@ -21,6 +24,8 @@
     ORDER BY ListingOrder, SystemModule, EntityOrder, EntityCode 	
 </cfquery>
 
+<cfset vGroups = 0>
+
 <cf_mobilepanel bodystyle="border:0px; padding-top:0px; padding-bottom:0px;">
     <cfoutput query="ResultListing" group="application">
         <cf_mobilerow>
@@ -33,7 +38,8 @@
             </cf_mobilecell>
         </cf_mobilerow>
         <cfoutput group="entitycode">
-            <cf_mobilerow class="rowHighlight" onclick="toggleGroup('#entityCode#', '#url.entitygroup#', '#url.mission#', '#url.owner#', '#url.me#');" style="cursor:pointer; padding-left:20px;">
+            <cfset vGroups = vGroups + 1>
+            <cf_mobilerow class="rowHighlight clsActionGroup" onclick="toggleGroup('#entityCode#', '#url.entitygroup#', '#url.mission#', '#url.owner#', '#url.me#');" style="cursor:pointer; padding-left:20px;">
                 <cf_mobilecell class="col-xs-8 subGroupTitle clsHeader clsHeader_#entityCode#">
                     #EntityDescription#
                 </cf_mobilecell>	
@@ -62,3 +68,7 @@
         </cfoutput>
     </cfoutput>
 </cf_mobilepanel>
+
+<cfif vGroups lte vThresholdGroupNumber AND ResultListing.recordCount lte vThresholdRowsNumber>
+    <cfset ajaxOnLoad("function(){ $('.clsActionGroup').trigger('click'); }")>
+</cfif>

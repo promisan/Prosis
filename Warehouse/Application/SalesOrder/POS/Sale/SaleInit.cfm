@@ -19,6 +19,22 @@
 
 </cfif>
 
+<!--- clean quotes that were only reloaded for potential reposting but were never done so --->
+
+<cfquery name="qWarehouse"
+	datasource="AppsMaterials"
+	username="#SESSION.login#"
+	password="#SESSION.dbpw#">
+	DELETE FROM   CustomerRequest
+	WHERE        RequestNo IN (SELECT   RequestNo
+	                           FROM     CustomerRequestLine
+	                           WHERE    BatchId IS NOT NULL) 
+	AND   BatchNo IS NOT NULL 
+	AND   Created < GETDATE() - 1
+</cfquery>
+
+
+
 </cfoutput>
 
 <cfquery name="qWarehouse"

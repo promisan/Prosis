@@ -300,7 +300,7 @@ password="#SESSION.dbpw#">
 			   
 			   </cfif>
 																		
-			<td colspan="1" valign="top" style="border:1px solid silver;min-width:65%;border-top-left-radius:0px;border-bottom-left-radius:1px;background-image:linear-gradient(to bottom,##dadada,##dadada);padding-right:15px;height:80px;" id="customer_box">
+			<td colspan="1" valign="top" style="border:1px solid gray;min-width:65%;border-top-left-radius:0px;border-bottom-left-radius:1px;background-image:linear-gradient(to bottom,##dadada,##dadada);padding-right:15px;height:80px;" id="customer_box">
 						
 				<table width="100%" align="left" style="min-width:360px">
 				
@@ -333,8 +333,7 @@ password="#SESSION.dbpw#">
 						</table>	
 							
 					</td>
-					
-											                				
+																                				
 					<td valign="top" colspan="1" align="left" style="width:100%;padding-top:6px">
 									
 						<table style="width:100%">
@@ -373,8 +372,7 @@ password="#SESSION.dbpw#">
 										 
 								</cfif>		 
 								 
-							  	<cfset ajaxOnload('salesfocus')>
-								 	
+							  	<cfset ajaxOnload('salesfocus')>								 	
 							  
 							  </td>							
 							
@@ -419,7 +417,9 @@ password="#SESSION.dbpw#">
 			   
 			   </td>			   
 			  			   			   	  			  			 			   	  			  
-			   <td valign="top" style="border:1px solid silver;min-width:200px;padding-left:5px;background-image:linear-gradient(to bottom,##FCFDC6,##FAFCA7)" class="#full#">
+			   <td valign="top" 
+			       style="border:1px solid gray;min-width:200px;padding-left:5px;background-image:linear-gradient(to bottom,##c1c1c1,##c1c1c1)" 
+				   class="#full#">
 			   
 				   <table width="100%" border="0"> 
 					
@@ -549,7 +549,7 @@ password="#SESSION.dbpw#">
 			</tr>	
 										
 			<tr>
-			<td style="height:34px;padding-left:14px;padding-right:10px" colspan="5">
+			<td style="padding-top:5px;height:34px;padding-left:14px;padding-right:10px" colspan="5">
 						
 			<table height="100%" align="left" style="background-color:e1e1e1">
 									
@@ -642,18 +642,10 @@ password="#SESSION.dbpw#">
 						<tr class="labelmedium">
 						
 						<td style="padding-left:15px;padding-right:10px; color:##000000;"><cf_tl id="Discount"></td>
-						<td style="border-left:1px solid gray;border-right:1px solid gray;" id="schedulebox">
-												
-						<select name="Discount" id="Discount" style="font-size:17px;height:100%;width:100%;min-width:80px;border:0px;" class="regularXXL"
-							onchange="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/applySaleHeader.cfm?field=discount&discount='+this.value+'&requestno='+document.getElementById('RequestNo').value+'&customeridinvoice='+document.getElementById('customerinvoiceidselect').value,'salelines','','','POST','saleform')">
-							
-							<!--- <option value="">&nbsp;&nbsp;&nbsp;--- <cf_tl id="default"> ---</option> --->
-							<cfloop index="dis" from="0" to="#get.SaleDiscount#" step="1">
-								<option value="#dis#">#dis# %</option>
-							</cfloop>
-							
-						</select>	
-												
+						<td style="border-left:1px solid gray;border-right:1px solid gray;" id="discountbox">
+						
+						<cfinclude template="getDiscount.cfm">
+																		
 						</td>
 						</tr>
 						</table>				
@@ -972,7 +964,7 @@ a.date-picker-control:link, a.date-picker-control:visited {
 }
 
 .clsDetailLineCell {
-	font-size:90% !important; 
+	font-size:100% !important; 
 	color:##808080;
 }
 
