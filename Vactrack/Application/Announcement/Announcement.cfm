@@ -7,11 +7,6 @@
 
 <cf_tl id="Job Description" var="label">
 
-<!--- temp bypass for UN for template : DWarehouse/Galaxy/VacancyListing.cfm--->
-<cfif len(url.id) lte "6">
-	<cflocation url="../../../Custom/DPKO/VA/Announcement.cfm?id1=#url.id#&header=yes" addtoken="No">
-</cfif>
-
 <cfif url.header eq "Yes">
 	
 	<cf_screentop 
@@ -23,10 +18,11 @@
 		scroll    = "Yes"		
 		menuPrint = "Yes"
 		menuClose = "Yes">
-		
+				
 		<cf_textareascript>
 	
 </cfif>
+
 
 <cfif url.id eq "">
 
@@ -84,22 +80,21 @@
          password="#SESSION.dbpw#">
          SELECT *
          FROM   Ref_ParameterOwner
-		 WHERE  Owner = '#VA.Owner#'
+		 WHERE  Owner = '#VA.Owner#' 
 </cfquery>
+
 
 <cfif FileExists("#SESSION.rootPath#\Custom\#Owner.PathVacancyText#") and url.apply neq "1">
 
-	   <table border="0" cellpadding="0" cellspacing="0" bgcolor="ffffff" height="100%" width="95%" align="center">
+	   <table border="0" bgcolor="ffffff" height="100%" width="95%" align="center">
 	   <tr><td height="100%" width="100%" style="padding:20px">	  
-	  
-	      <!--- uustom path --->
-		  	   
-	       <cf_divscroll>
-			<cfset URL.ID1 = VA.ReferenceNo>
-			<cfset URL.Header = "No">
+   	   	  
+		      <!--- custom path --->			  
+				  	   	      
+			<cfset URL.ID1 = VA.ReferenceNo>						
 		  	<cfinclude template="../../../Custom/#Owner.PathVacancyText#">
-			</cf_divscroll>
 			
+						
 		</td></tr>
 	  </table>	
 		
@@ -151,8 +146,7 @@
 			 <tr><td height="1" colspan="3" class="linedotted"></td></tr>
 			 <tr><td height="2"></td></tr>
 			 
-		 </cfif>	
-		
+		 </cfif>			
 		 
 		 <cfif url.applicantNo neq "undefined">
 		  

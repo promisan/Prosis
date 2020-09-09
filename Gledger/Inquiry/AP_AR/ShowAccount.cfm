@@ -33,6 +33,27 @@ password="#SESSION.dbpw#">
     <cfset journalfilter = "'Receivables'">	
 </cfif>	
 
+<cfquery name="getAccounts"
+datasource="AppsLedger" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT *
+	FROM   Ref_Account
+	WHERE  Operational = 1
+	AND    AccountClass       = 'Balance'
+	<cfif url.mode eq "AR"> 	
+	AND    AccountType        = 'Debit'   
+	AND    ((BankReconciliation = 1 AND AccountCategory IN ('Vendor','Neutral')) OR AccountCategory = 'Vendor')
+	<cfelse>	
+	AND     AccountType        = 'Credit' 
+	AND     AccountCategory    = 'Customer'
+	</cfif>
+	
+</cfquery>
+
+<!---
+<cfoutput>#cfquery.executiontime#</cfoutput>
+--->
 
 <cfquery name="Accounts"
 datasource="AppsLedger" 
@@ -55,19 +76,7 @@ password="#SESSION.dbpw#">
 	AND        H.RecordStatus != '9'		
 	AND        J.GLCategory    = 'Actuals'	
 	AND        H.AccountPeriod = '#last.AccountPeriod#'	
-	AND        L.GLAccount IN (SELECT GLAccount
-	                           FROM   Ref_Account WITH(NOLOCK)
-							   WHERE  Operational = 1
-							   <cfif url.mode eq "AR">  
-								AND        AccountClass       = 'Balance'
-								AND        AccountType        = 'Debit'   
-								AND        ((R.BankReconciliation = 1 AND R.AccountCategory IN ('Vendor','Neutral')) OR R.AccountCategory = 'Vendor')
-							  <cfelse>	
-								AND        AccountClass       = 'Balance'
-								AND        AccountType        = 'Credit' 
-								AND        AccountCategory    = 'Customer'
-							  </cfif>)	
-							   		
+	AND        R.GLAccount IN (#quotedvalueList(getAccounts.glaccount)#)  <!--- better performance to separate --->								   		
 	GROUP BY   L.GLAccount,R.Description, R.AccountType				   
 	ORDER BY   L.GLAccount,R.Description		
 					 		   
@@ -76,6 +85,7 @@ password="#SESSION.dbpw#">
 <!---
 <cfoutput>#cfquery.executiontime#</cfoutput>
 --->
+
 
 <table width="97%" cellspacing="0" cellpadding="0" align="center" bgcolor="fafafa" class="navigation_table formpadding">
 

@@ -161,10 +161,11 @@
 				   </table>
 						   
 			</td>
+					
 			
 			<cfif url.journal eq "">
 			
-				<td>	
+				<td>					
 				
 					<table>
 					<tr class="labelmedium">
@@ -206,18 +207,13 @@
 					
 						<tr class="labelmedium">
 						
-						<td style="padding-left:4px;cursor: pointer;" onclick="reloadForm(document.getElementById('page').value,'All')">
-						<input type="radio" style="height:18px;width:18px" class="radiol" name="Status" value="All" <cfif URL.IDStatus eq "All" or URL.IDStatus eq "">Checked</cfif>>
-						</td>
-						<td style="padding-left:5px;padding-right:10px">
-						<cf_tl id="All Valid">
-						</td>
+						
 						
 						<td style="padding-left:7px;cursor: pointer;" onclick="reloadForm(document.getElementById('page').value,'Pending')">  				
 						<input type="radio" style="height:18px;width:18px" class="radiol" name="Status" value="Pending" <cfif URL.IDStatus eq "Pending">checked</cfif>>
 						</td>
 						<td style="padding-left:5px;padding-right:10px">
-						<cf_tl id="Pending">
+						<cf_tl id="Pending for Clearance">
 						</td>
 						
 						<cfif Journal.TransactionCategory neq "Memorial">
@@ -235,6 +231,13 @@
 						<input type="radio" style="height:18px;width:18px" class="radiol" class="radiol" name="Status" value="Voided" <cfif URL.IDStatus eq "Voided">Checked</cfif>>
 						</td>
 						<td style="padding-left:5px;padding-right:10px"><font color="FF0000"><cf_tl id="Voided"></font></td>
+						
+						<td style="padding-left:4px;cursor: pointer;" onclick="reloadForm(document.getElementById('page').value,'All')">
+						<input type="radio" style="height:18px;width:18px" class="radiol" name="Status" value="All" <cfif URL.IDStatus eq "All" or URL.IDStatus eq "">Checked</cfif>>
+						</td>
+						<td style="padding-left:5px;padding-right:10px">
+						<cf_tl id="All Valid">
+						</td>
 						
 						</tr>
 					
@@ -304,7 +307,7 @@
 					
 				<cfoutput>
 										  
-				<tr class="line labelmedium" style="background-color:e3e3e3">  
+				<tr class="line labelmedium">  
 				  
 				   <td colspan="10" height="24" style="width:100%;font-size:14px;padding-left:20px"><cf_tl id="Journal totals">:</td> 				   
 				   <cfif outst eq "1">			   	   				
@@ -317,7 +320,7 @@
 						<td class="clsSearchField" style="min-width:107px;padding-right:3px" align="right">#NumberFormat(getTotal.AmountTriggerCredit,',.__')#</td>	
 						</cfif>		   								
 				   </cfif>
-				   <td style="min-width:50px"></td>			   
+				   <td style="min-width:40px"></td>			   
 				</tr>
 						  
 				</cfoutput>	

@@ -42,6 +42,13 @@
 	
 	<tr>
 		<td id="printContent" style="width:100%;">
+		
+			<style>
+				td, div {
+					font-size: 14px!important;
+				}
+			</style>
+
 			<cfif URL.PrintWF eq "true">
 				<cfinclude template="EntityFlowPrint\FlowViewPrint.cfm">
 				<table style="page-break-after: always;"><tr><td></td></tr></table>	

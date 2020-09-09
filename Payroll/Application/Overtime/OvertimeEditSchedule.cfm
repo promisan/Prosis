@@ -110,7 +110,7 @@ password="#SESSION.dbpw#">
 				</td>
 			</tr>
 			
-			<tr class="xhide"><td id="process"></td></tr>
+			<tr class="hide"><td id="process"></td></tr>
 			<tr><td height="15"></td></tr> 
 			<cfif getOvertime.Status eq "5" and Object.recordcount eq "0">
 				<!--- nada --->

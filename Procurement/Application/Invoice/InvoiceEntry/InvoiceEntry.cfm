@@ -331,7 +331,7 @@ password="#SESSION.dbpw#">
 	
 	function showassociatedtotal() {
 	     _cf_loadingtexthtml='';
-		ColdFusion.navigate('#session.root#/procurement/application/invoice/InvoiceEntry/setTotal.cfm','invoicetotalselect','','','POST','forminvoice')	
+		ptoken.navigate('#session.root#/procurement/application/invoice/InvoiceEntry/setTotal.cfm','invoicetotalselect','','','POST','forminvoice')	
 	
 	}
 	

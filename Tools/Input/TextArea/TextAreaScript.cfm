@@ -256,6 +256,11 @@
 					
 					CKEDITOR.replace( 'editor1' );
 				}
+
+				function toggleReadOnly(id,isReadOnly) {
+					var veditor = CKEDITOR.instances[id];
+					veditor.setReadOnly(isReadOnly);
+				}
 				
 			</script>			
 		</cfoutput>

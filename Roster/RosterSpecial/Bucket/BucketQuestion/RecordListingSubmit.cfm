@@ -12,6 +12,7 @@
 		  UPDATE FunctionOrganizationTopic
 		  SET    Operational         = '#Form.Operational#',
  		         TopicPhrase         = '#Form.TopicPhrase#',
+				 TopicSubJect        = '#Form.TopicSubject#',
 				 TopicOrder          = '#Form.TopicOrder#',
 				 Parent              = '#Form.Parent#'
 		  WHERE  TopicId    = '#URL.topicid#'
@@ -30,6 +31,7 @@
 			         (FunctionId,TopicId,
 				     TopicPhrase,
 					 TopicOrder,
+					 TopicSubject,
 					 Parent,
 					 Operational,
 					 OfficerUserId,
@@ -39,6 +41,7 @@
 				      '#rowguid#',
 					  '#Form.TopicPhrase#',
 					  '#Form.TopicOrder#',
+					  '#Form.TopicSubject#',
 					  '#Form.Parent#',
 			      	  '#Form.Operational#',
 					  '#SESSION.acc#',

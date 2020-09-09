@@ -10,7 +10,7 @@
 
 
 <cfoutput>
-	<input type="text" name="name" value="#Get.OrgUnitName#" size="40" maxlength="40" class="regularxl" readonly style="padding-left:4px">				
+	<input type="text" id="orgname" name="orgname" value="#Get.OrgUnitName#" size="40" maxlength="40" class="regularxl" readonly style="padding-left:4px">				
 	<input type="hidden" name="orgunit" id="orgunit" value="#Get.OrgUnit#" size="10" maxlength="10" readonly>
 </cfoutput>
 			

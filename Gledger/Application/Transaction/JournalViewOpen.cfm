@@ -22,6 +22,18 @@
 	     ptoken.open('Journal.cfm?Mission=#URL.Mission#&OrgUnit=#URL.ID1#&Journal=#URL.ID2#&Period=' + parent.Period.value,'_self') 		
 	  </script>
 	  
+<cfelseif URL.ID eq "PEN">
+		
+	  <script language="JavaScript">	  
+	     ptoken.open('Journal.cfm?Mission=#URL.Mission#&OrgUnit=#URL.ID1#&Journal=#URL.ID2#&idstatus=Pending&Period=' + parent.Period.value,'_self') 		
+	  </script>	  
+	  
+<cfelseif URL.ID eq "OPE">
+		
+	  <script language="JavaScript">	  
+	     ptoken.open('Journal.cfm?Mission=#URL.Mission#&OrgUnit=#URL.ID1#&Journal=#URL.ID2#&idstatus=Outstanding&Period=' + parent.Period.value,'_self') 		
+	  </script>	  	  
+	  
 <cfelseif URL.ID eq "TRA">	
 
 	 <script language="JavaScript">

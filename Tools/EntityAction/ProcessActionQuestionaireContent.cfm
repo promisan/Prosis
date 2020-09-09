@@ -51,7 +51,11 @@
 	  
 	  <!--- option 2 we apply the prior entries for changes --->
 	  
-	  <cfset actionCode = getPrior.actionCode>
+	  <cfset selactionCode = getPrior.actionCode>
+	  
+	<cfelse>
+	
+		<cfset selactioncode = actionCode>
   
     </cfif>
 	
@@ -64,13 +68,13 @@
 		          (SELECT QuestionScore 
 				   FROM   OrganizationObjectQuestion 
 				   WHERE  ObjectId   = '#Object.ObjectId#'
-				   AND    ActionCode = '#actionCode#' 
+				   AND    ActionCode = '#selactionCode#' 
 				   AND    QuestionId = P.QuestionId) as Score,
 				   
 				  (SELECT QuestionMemo 
 				   FROM   OrganizationObjectQuestion 
 				   WHERE  ObjectId   = '#Object.ObjectId#'
-				   AND    ActionCode = '#actionCode#' 
+				   AND    ActionCode = '#selactionCode#' 
 				   AND    QuestionId = P.QuestionId) as Memo
 				
 	    FROM       Ref_EntityDocumentQuestion P
@@ -89,8 +93,8 @@
 					
 		<cfif entrymode eq "workflow">
 		
-			<cfset lkt = "savequestionaire('#object.Objectid#','#Questionaire.actioncode#','#questionid#','score_#left(QuestionId,8)#','score')">
-			<cfset lkm = "savequestionaire('#object.Objectid#','#Questionaire.actioncode#','#questionid#','memo_#left(QuestionId,8)#','memo')">
+			<cfset lkt = "savequestionaire('#object.Objectid#','#selactioncode#','#questionid#','score_#left(QuestionId,8)#','score')">
+			<cfset lkm = "savequestionaire('#object.Objectid#','#selactioncode#','#questionid#','memo_#left(QuestionId,8)#','memo')">
 			
 		<cfelse>
 		

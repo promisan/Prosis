@@ -8,16 +8,16 @@
  username="#SESSION.login#" 
  password="#SESSION.dbpw#">
 	 SELECT *
-	 FROM Ref_ExperienceParent	 
+	 FROM   Ref_ExperienceParent	 
 </cfquery>	
 	
 <cfquery name="Listing" 
  datasource="AppsSelection" 
  username="#SESSION.login#" 
  password="#SESSION.dbpw#">
-	 SELECT *
-	 FROM FunctionOrganizationTopic
-	 WHERE FunctionId = '#URL.IDFunction#'
+	 SELECT   *
+	 FROM     FunctionOrganizationTopic
+	 WHERE    FunctionId = '#URL.IDFunction#'
 	 ORDER BY TopicOrder, Parent
 </cfquery>	
 
@@ -25,81 +25,99 @@
 
 <cfform method="POST" name="mytopic" onsubmit="return false">
 
-	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="navigation_table">
+	<table width="100%" class="navigation_table">
 				
-	    <TR class="labelmedium linedotted" height="18">
-		   <td width="1%" style="padding-right:4px"></td>		   
-		   <td width="10%">Parent</td>
-		   <td width="30%">Question</td>
-		   <td width="50">Order</td>
-		   <td width="10">Oper.</td>
-		   <td width="15%">Officer</td>
-		   <td width="80" align="right">Created</td>		
+	    <TR class="labelmedium line" height="18">
+		    <td width="1%" style="padding-right:4px"></td>		   
+		   <td width="10%"><cf_tl id="Profile element"></td>
+		   <td width="50%"><cf_tl id="Question"></td>
+		   <td style="min-width:50px"><cf_tl id="Sort"></td>
+		   <td style="min-width:50px"><cf_tl id="Ena"></td>
+		   <td style="min-width:100px"><cf_tl id="Officer"></td>
+		   <td style="min-width:90px" align="right"><cf_tl id="Recorded"></td>			
 		   <cfoutput>
 		   	<td width="30" style="padding-left:4px">
-			<a href="javascript:ColdFusion.navigate('../Bucket/BucketQuestion/RecordListingDetail.cfm?idfunction=#url.idfunction#&topicid=new','listing')">
-			<font color="0080FF">[add]</font>
+			<a href="javascript:ptoken.navigate('#session.root#/Roster/RosterSpecial/Bucket/BucketQuestion/RecordListingDetail.cfm?idfunction=#url.idfunction#&topicid=new','listing')">
+			[add]
 			</a>
 			</td>			  	  
 		   </cfoutput>
 	    </TR>	
-		
-		<tr><td height="1" colspan="8" class="linedotted"></td></tr>
-				
+						
 		<cfif URL.topicid eq "new">
 						
-			<TR class="linedotted" style="height:30px">
+			<TR class="line labelmedium">
 			
-			<td></td>
-									
-			<td height="25">
+			<td rowspan="5"></td>
 			
-				<select name="Parent" class="regularxl">
+			<td><cf_tl id="Parent"></td>						
+			<td height="25" colspan="7"  style="padding-left:1px">			
+				<select name="Parent" class="regularxl" style="border:0px;border-left:1px solid silver;border-right:1px solid silver">
 					<cfoutput query="ParentList">
 						<option value="#Parent#">#Description#</option>
 					</cfoutput>		
-				</select>		
-				
-	        </td>	
-								   
-			<td style="padding-left:1px">		
-				   	<cfinput type="Text" 
-				         name="TopicPhrase" 
-						 message="You must enter a name" 
-						 required="Yes" 
-						 style="width:99%"							 					 				 
-						 maxlength="150" 
-						 class="regularxl">
-			</td>
+				</select>				
+	        </td>				
+			</tr>
 			
-			<td style="padding-left:1px">
+			<tr class="line labelmedium">	
+			<td><cf_tl id="Short name"></td>		
+			<td colspan="7" style="padding-left:1px">
+			
+				<cfinput type="Text" 
+						 style="border:0px;border-left:1px solid silver;border-right:1px solid silver"
+				         name="TopicSubject" 						 
+						 required="Yes" 						 
+						 size="50" 						 
+						 maxlength="50" 
+						 class="regularxl">
+			
+			</td>			
+			</tr>
+			
+			<tr class="line labelmedium">
+			 <td><cf_tl id="Question"></td>								   
+			<td colspan="7" style="padding-left:1px">
+			
+				<cftextarea name="TopicPhrase" style="padding:6px;font-size:14px;height:95px;width:99%;border:0px;border-left:1px solid silver;border-right:1px solid silver" required="Yes"></cftextarea>
+									 
+			</td>		
+			</tr>
+			
+			<tr class="line labelmedium">	
+			<td><cf_tl id="Sort"></td>		
+			<td colspan="7" style="padding-left:1px">
 			
 				<cfinput type="Text" 
 				         name="TopicOrder" 
 						 message="You must enter an order" 
 						 validate="integer"
 						 required="Yes" 
-						 style="text-align:center"		
+						 style="text-align:center;border:0px;border-left:1px solid silver;border-right:1px solid silver"		
 						 size="1" 						 
 						 maxlength="2" 
 						 class="regularxl">
 			
-			</td>
-			<td>		
-			      <input type="Checkbox"
-			       name="Operational" class="radiol"
-			       value="1" checked>
-			</td>
-											   
-			<td colspan="3" align="right">
-			<cfoutput>
-				<input type="submit" 
-					value="Save" 
-					onclick="quesave('new')"
-					class="button10g">
-			</cfoutput>
+			</td>			
+			</tr>
 			
-			</td>			    
+			<tr class="line labelmedium">	
+			<td><cf_tl id="Operational"></td>		
+			<td colspan="7" style="padding-left:1px">					
+		      <input type="Checkbox" name="Operational" class="radiol" value="1" checked>			  
+			</td>			
+			</tr>
+			
+			<tr class="line labelmedium">		
+			<td></td>							   
+			<td colspan="7" style="height:30px;padding-left:1px">
+			
+				<cfoutput>
+				<input type="submit" value="Save" onclick="quesave('#url.idfunction#','new')" class="button10g">
+				</cfoutput>
+			
+			</td>	
+					    
 			</TR>	
 																		
 		</cfif>						
@@ -112,38 +130,56 @@
 										
 			    <input type="hidden" name="TopicId" value="<cfoutput>#TopicId#</cfoutput>">
 																	
-				<TR class="linedotted">
+				<TR class="line labelmedium">
 				
-				   <td style="height:30px;width:1%"></td>
-								  				   
-				   <td>
+				   <td rowspan="5" style="height:30px;width:1%"></td>
+							
+				   <td><cf_tl id="Parent"></td>			  				   
+				   <td  style="padding-left:1px">
 				   
-				   <select name="Parent" class="regularxl">
+				   <select name="Parent" class="regularxl" style="border:0px;border-left:1px solid silver;border-right:1px solid silver">
 					<cfloop query="ParentList">
 						<option value="#Parent#" <cfif listing.parent eq parent>selected</cfif>>#Description#</option>
 					</cfloop>		
 				   </select>		
 				   
 				   </td>
-				   <td style="padding-left:1px">
-				   	   <cfinput type = "Text" 
-					   	value        = "#TopicPhrase#" 
-						name         = "TopicPhrase" 
-						message      = "You must enter a description" 
-						required     = "Yes" 
-						style        = "width:99%"							
-						maxlength    = "60" 
-						class        = "regularxl">			  
-		           </td>
 				   
-				   <td style="padding-left:1px">
+				  </tr>
+				  
+				  <tr class="line labelmedium">	
+					<td><cf_tl id="Short name"></td>		
+					<td colspan="7" style="padding-left:1px">
+					
+						<cfinput type="Text" 
+						         name="TopicSubject" 		
+								 style="border:0px;border-left:1px solid silver;border-right:1px solid silver"
+								 value="#topicSubject#"				 
+								 required="Yes" 									
+								 size="50" 						 
+								 maxlength="50" 
+								 class="regularxl">
+					
+					</td>			
+					</tr>
+				  
+				  <tr class="line labelmedium">  
+				   <td><cf_tl id="Question"></td>
+				   <td colspan="7"  style="padding-left:1px">				   
+				   	<textarea name="TopicPhrase" style="font-size:14px;padding:6px;height:95px;width:99%;min-width:99%;max-width:99%;border:0px;border-left:1px solid silver;border-right:1px solid silver">#TopicPhrase#</textarea>									   	   
+		           </td>
+				   </tr>
+				   
+				   <tr class="line labelmedium">  
+				   <td><cf_tl id="Order"></td>
+				   <td colspan="7"  style="padding-left:1px">
 				   
 				   	<cfinput type="Text" 
 				         name="TopicOrder" 
 						 value="#TopicOrder#" 
 						 message="You must enter an order" 
 						 validate="integer"
-						 style="text-align:center"		
+						 style="text-align:center;border:0px;border-left:1px solid silver;border-right:1px solid silver"		
 						 required="Yes" 
 						 size="1" 						 
 						 maxlength="2" 
@@ -151,20 +187,27 @@
 			
 				   
 				   </td>
-				   <td>
-				 
+				   </tr>
+				   
+				   <tr class="line labelmedium">  
+				   <td><cf_tl id="Operational"></td>
+				   <td colspan="7"  style="padding-left:1px">
+				 				 
 					     <input type="Checkbox"
 					       name="Operational" class="radiol"
 					       value="1"
 						   <cfif operational eq "1">checked</cfif>>
 						   
 				   </td>
-						
-				   <td colspan="3" align="right">
+				   </tr>
 				   
+				   <tr class="line labelmedium">  
+				   <td></td>
+				   <td colspan="7" style="padding-left:1px;height:30px">
+									   
 				   <input type="submit" 
 				        value="Save" 
-						onclick="quesave('#topicid#')"
+						onclick="quesave('#url.idfunction#','#topicid#')"
 						class="button10g">
 	
 					</td>
@@ -172,23 +215,20 @@
 																											
 			<cfelse>
 											
-				<TR class="navigation_row labelmedium linedotted">
-							
+				<TR class="navigation_row labelmedium line">							
 				   <td align="center" width="20" height="24" style="padding-top:3px;padding-right:7px">				  
-					  <cf_img icon="edit" onClick="ColdFusion.navigate('../Bucket/BucketQuestion/RecordListingDetail.cfm?idfunction=#url.idfunction#&topicid=#topicid#','listing')">
+					  <cf_img icon="edit" onClick="ptoken.navigate('../Bucket/BucketQuestion/RecordListingDetail.cfm?idfunction=#url.idfunction#&topicid=#topicid#','listing')">
 				   </td>							   
 				   <td height="17">#Parent#</td>
 				   <td>#TopicPhrase#</td>
 				   <td>#TopicOrder#</td>
 				   <td><cfif operational eq "0"><b>No</b><cfelse>Yes</cfif></td>			   
-				   <td colspan="1">#OfficerFirstName# #OfficerLastName#</td>
+				   <td>#OfficerFirstName# #OfficerLastName#</td>
 				   <td align="right">#dateformat(created,CLIENT.DateFormatShow)#</td>			   	 				   
-				   <td align="center" id="del_#topicid#">			    
-					 <cfinclude template="RecordListingDelete.cfm">					  
-				   </td>   
-				   		   
-			   </tr>	
-								 
+				   <td align="center" id="del_#topicid#" style="padding-top:2px">			    
+					 	<cfinclude template="RecordListingDelete.cfm">					  
+				   </td>				   		   
+			   </TR>								 
 				 					
 			</cfif>
 						

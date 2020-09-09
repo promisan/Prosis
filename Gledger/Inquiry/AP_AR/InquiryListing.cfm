@@ -1,19 +1,14 @@
 <cfparam name="CLIENT.payables" default="">
-<cfparam name="url.filter" default="">
-<cfparam name="url.value" default="">
+<cfparam name="url.filter"      default="">
+<cfparam name="url.value"       default="">
+<cfparam name="url.init"        default="0">
 
-<!--- configuration file --->
-
-<cfif url.mode eq "AP">
-    <!---
-    <cfset journalfilter = "'Payables','Payment','DirectPayment'">
-	--->
-	<cfset journalfilter = "'Payables'">
-<cfelse>
-    <cfset journalfilter = "'Receivables'">
-</cfif>	
 
 <cfoutput>
+
+<cfif url.init eq "0">
+	<cfinclude template="InquiryData.cfm">
+</cfif>
 
 <cfsavecontent variable="myquery">
 	
@@ -28,8 +23,7 @@
 			#PreserveSingleQuotes(Client.Payables)# 			
 			AND ReferenceName LIKE '#url.value#%'
 						
-	<cfelse>
-					
+	<cfelse>					
 			
 			<cfif findNoCase("WHERE",Client.Payables) lte 0>
 				WHERE 1=1
@@ -150,7 +144,7 @@
 <cfset fields[itm] = {label   = "#vAmount#", 					
 					field   = "Amount",
 					align   = "right",
-					formatted  = "numberformat(Amount,'__,__.__')",
+					formatted  = "numberformat(Amount,',.__')",
 					search  = "number"}>	
 									
 <cfset itm = itm+1>		
@@ -159,7 +153,7 @@
 					field   = "AmountOutstanding",
 					align   = "right",
 					aggregate  = "sum", 
-					formatted  = "numberformat(AmountOutstanding,'__,__.__')",
+					formatted  = "numberformat(AmountOutstanding,',.__')",
 					search  = "number"}>	
 					
 <table height="100%" width="100%">
@@ -176,14 +170,10 @@
 
 <tr><td valign="top">	
 	
-	<cfif url.filter eq "customer">
-	
-		<cfset cl = "hide">
-		
-	<cfelse>
-	
-		<cfset cl = "yes">
-		
+	<cfif url.filter eq "customer">	
+		<cfset cl = "hide">		
+	<cfelse>	
+		<cfset cl = "yes">		
 	</cfif>			
 										
 	<cf_listing

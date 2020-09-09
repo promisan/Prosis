@@ -215,7 +215,7 @@
 						<cfif recordstatus eq "9">
 						    <cfset color = "FED7CF">
 					    <cfelseif actionStatus eq "0">
-						    <cfset color = "ffffaf">
+						    <cfset color = "eaeaea">
 						<cfelse>
 						    <cfset color = "white">
 						</cfif>
@@ -427,8 +427,11 @@
 		<cfinclude template="JournalListingSubtotal.cfm">		
 		</table>
 		</td>
-	</tr>		  	
-	<tr><td colspan="2"><cfinclude template="JournalListingNavigation.cfm"></td></tr>		
+	</tr>		
+	
+	<!---  	
+	<tr><td colspan="2"><cfinclude template="JournalListingNavigation.cfm"></td></tr>	
+	--->	
 	
 </table>	
 

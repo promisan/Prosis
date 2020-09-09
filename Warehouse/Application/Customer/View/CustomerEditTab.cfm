@@ -48,6 +48,7 @@
 <cf_dialogstaffing>
 <cf_fileLibraryScript>
 <cf_listingscript>
+<cf_dialogMaterial>
 
 <cf_tl id="Do you want to remove this customer and all of its details ?" var="vPurgeCustomerMess">
 
@@ -142,8 +143,7 @@
 									iconheight = "#ht#" 
 									name       = "#vDetails#"
 									class      = "highlight1"
-									source 	   = "CustomerEdit.cfm?drillid=#url.drillid#">
-														
+									source 	   = "CustomerEdit.cfm?drillid=#url.drillid#">														
 						
 						<cfset itm = itm+1>		
 						<cf_tl id="Address"	var="vAddress">
@@ -154,8 +154,7 @@
 									iconwidth  = "#wd#" 								
 									iconheight = "#ht#"
 									name       = "#vAddress#"
-									source 	   = "../Address/CustomerAddress.cfm?customerid=#url.drillid#&mission=#Customer.mission#">
-									
+									source 	   = "../Address/CustomerAddress.cfm?customerid=#url.drillid#&mission=#Customer.mission#">									
 									
 						<cfset itm = itm+1>		
 						<cf_tl id="Price Schedule" var="vPriceSchedule">

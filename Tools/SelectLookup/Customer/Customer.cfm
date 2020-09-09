@@ -100,7 +100,7 @@
 	
 	</tr>
 			
-	<tr class="line"><td colspan="2" style="padding-top:4px">
+	<tr class="line"><td colspan="2" style="padding:4px">
 	  
 		<cf_tl id="Search" var="1">
 		

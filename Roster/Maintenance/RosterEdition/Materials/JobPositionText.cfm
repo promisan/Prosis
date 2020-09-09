@@ -62,42 +62,43 @@
 			<table width="100%" align="center" id="tdata_letter">
 
 			<cfswitch expression="#language.languagecode#">
+			
 			<cfcase value="0">
 			
 			<cfif qJOs.NoPosts gt 1 >
 				<tr><td colspan="2" class="linedotted"></td></tr>
-				<tr><td class="labelit" width="40%"><b>Posts</b>:</td>
+				<tr><td class="labelit" width="40%"><b><cf_tl id="Posts"></b>:</td>
 				<td class="label">#qJOs.NoPosts#</td>
 				</tr>
 			</cfif>
 			
 			<tr><td colspan="2" class="linedotted"></td></tr>
-			<tr><td class="labelit" width="40%"><b>Job Title</b>:</td>
+			<tr><td class="labelit" width="40%"><b><cf_tl id="Job Title"></b>:</td>
 				<td class="label">#getPost.FunctionDescription#, #getPost.PostGrade#</td>
 			</tr>
 	
 			<tr><td height="4"></td></tr>
-			<tr><td class="labelit" width="40%"><b>Deparment/Office</b>:</td>
+			<tr><td class="labelit" width="40%"><b><cf_tl id="Department">/<cf_tl id="Office"></b>:</td>
 				<td class="label" width="60%">#getPost.OrgUnitName#</td>
 			</tr>
 	
 			<tr><td colspan="2" class="linedotted"></td></tr>
-			<tr><td class="labelit" width="40%"><b>Location</b>:</td>
+			<tr><td class="labelit" width="40%"><b><cf_tl id="Location"></b>:</td>
 				<td class="label">NEW YORK</td>
 			</tr>
 
 			<tr><td colspan="2" class="linedotted"></td></tr>
-			<tr><td class="labelit" width="40%"><b>Posting Period</b>:</td>
+			<tr><td class="labelit" width="40%"><b><cf_tl id="Posting Period"></b>:</td>
 				<td class="label">#DateFormat(qEdition.DateEffective,CLIENT.DateformatShow)# - #DateFormat(qEdition.DateExpiration,CLIENT.DateformatShow)#</td>
 			</tr>
 			
 			
 			<tr><td colspan="2" class="linedotted"></td></tr>
-			<tr><td class="labelit" width="40%"><b>Job Opening number</b>:</td>
+			<tr><td class="labelit" width="40%"><b><cf_tl id="Job Opening Number"></b>:</td>
 				<td class="label">#qJOs.Reference#</td>
 			</tr>
 			
-			<tr><td colspan="2" class="linedotted"></td></tr>
+			<tr><td colspan="2" class="line"></td></tr>
 			<tr>
 				<td colspan="2">
 					<b>United Nations Core Values: Integrity, Professionalism, Respect for Diversity</b>

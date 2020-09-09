@@ -239,7 +239,7 @@ password="#SESSION.dbpw#">
 	
 	<cfif searchresult.recordcount eq "0">
 	
-	<tr><td colspan="13" align="center" class="labelmedium" style="font-weight:200;padding-top:10px;font-size:18px"><cf_tl id="There are no records to show in this view"></td></tr>
+	<tr><td colspan="13" align="center" class="labelmedium" style="padding-top:10px;font-size:18px"><cf_tl id="There are no records to show in this view"></td></tr>
 	
 	</cfif>
 		
@@ -322,51 +322,26 @@ password="#SESSION.dbpw#">
 			
 			<cfif workflow neq "">
 		 
-				 <td align="center" 
-					style="cursor:pointer;padding-left:5px" 
+				 <td align="center" style="cursor:pointer;padding-left:5px" 
 					onclick="workflowdrill('#workflow#','box_#workflow#')" >
 					
 					<cf_wfActive entitycode="entOvertime" objectkeyvalue4="#overtimeid#">	
 				 
 				 	<cfif wfStatus eq "Open">
 					
-						  <img id="exp#Workflow#" 
-					     class="hide" 
-						 src="#SESSION.root#/Images/arrowright.gif" 
-						 align="absmiddle" 
-						 alt="Expand" 
-						 height="9"
-						 width="7"			
-						 border="0"> 	
+						  <img id="exp#Workflow#" class="hide" src="#SESSION.root#/Images/arrowright.gif" 
+						 align="absmiddle" alt="Expand" height="9" width="7"> 	
 										 
-					   <img id="col#Workflow#" 
-					     class="regular" 
-						 src="#SESSION.root#/Images/arrowdown.gif" 
-						 align="absmiddle" 
-						 height="10"
-						 width="9"
-						 alt="Hide" 			
-						 border="0"> 
+					   <img id="col#Workflow#" class="regular" src="#SESSION.root#/Images/arrowdown.gif" 
+						 align="absmiddle" height="10" width="9" alt="Hide"> 
 					
 					<cfelse>
 					
-						   <img id="exp#Workflow#" 
-					     class="regular" 
-						 src="#SESSION.root#/Images/arrowright.gif" 
-						 align="absmiddle" 
-						 alt="Expand" 
-						 height="9"
-						 width="7"			
-						 border="0"> 	
+						   <img id="exp#Workflow#" class="regular" src="#SESSION.root#/Images/arrowright.gif" 
+						 align="absmiddle" alt="Expand" height="9" width="7"> 	
 										 
-					   <img id="col#Workflow#" 
-					     class="hide" 
-						 src="#SESSION.root#/Images/arrowdown.gif" 
-						 align="absmiddle" 
-						 height="10"
-						 width="9"
-						 alt="Hide" 			
-						 border="0"> 
+					   <img id="col#Workflow#" class="hide" src="#SESSION.root#/Images/arrowdown.gif" 
+						 align="absmiddle" height="10" width="9" alt="Hide" border="0"> 
 					
 					</cfif>
 					

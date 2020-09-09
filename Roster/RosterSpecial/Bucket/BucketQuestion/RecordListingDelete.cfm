@@ -11,7 +11,7 @@
 	   </cfquery>
 	   	
 	  <cfif check.recordcount eq "0">
-	      <cf_img icon="delete" onclick="ColdFusion.navigate('../Bucket/BucketQuestion/RecordListingPurge.cfm?idfunction=#url.idfunction#&Topicid=#topicid#','listing')">		 
+	      <cf_img icon="delete" onclick="ptoken.navigate('#session.root#/Roster/RosterSpecial/Bucket/BucketQuestion/RecordListingPurge.cfm?idfunction=#url.idfunction#&Topicid=#topicid#','listing')">		 
 	  </cfif>	   
   
 </cfoutput>  

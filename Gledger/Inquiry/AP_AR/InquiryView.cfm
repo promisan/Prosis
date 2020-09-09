@@ -26,7 +26,9 @@
 	
 	<script>
 	
-	  function reload(action,person) {  
+	  _cf_loadingtexthtml='';		
+	
+	  function reload(action,person) {  	 
 	      Prosis.busy('yes')	 
 	      ptoken.navigate('InquiryQuery.cfm?action='+action+'&personno='+person+'&mode=#url.mode#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#','result','','','POST','myaccountingform')	
 	  }
@@ -62,8 +64,7 @@
 			
 				<table width="97%" height="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding">
 				    <tr><td height="5" bgcolor="ffffff"></td></tr>
-					
-										
+																				
 					<tr><td valign="top" bgcolor="ffffff">
 															
 					<table width="97%" align="center">
@@ -75,29 +76,28 @@
 						</td>
 						</tr>	
 						
+						
 															
 						<tr>
 						<td valign="top" height="30" bgcolor="ffffff">
 							<cfinclude template="ShowJournal.cfm">
 						</td>
-						</tr>																														
-											
+						</tr>	
+						
 						
 						<tr><td valign="top" style="padding:4px;height:210;width:520" id="graph">						
 							<cfinclude template="ShowAging.cfm">
 						</td></tr>													
+						
 						<tr><td bgcolor="ffffff" height="100" align="center" valign="top" style="padding:2px" id="payee">
 						    <cfinclude template="ShowPayee.cfm">						
 						</td></tr>	
 						
 						
-																					
-								
-					</table>
-					
+					</table>			
 					
 					</td>
-					</tr>			
+					</tr>
 					
 				</table>
 				
@@ -109,8 +109,9 @@
 
 	<table width="100%" height="100%" cellspacing="0" cellpadding="0" border="0">
 	<tr><td valign="top" height="100%" style="padding:5px">		
-		<cf_divScroll overflowx="yes">		
-			<cf_securediv bind="url:InquiryListing.cfm?mode=#url.mode#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#" id="listbox" style="height:100%; width:100%;">				
+		<cf_divScroll overflowx="yes" id="listbox">		
+			<cf_securediv bind="url:InquiryListing.cfm?init=1&mode=#url.mode#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#" 
+			style="height:100%; width:100%;">				
 		</cf_divScroll>	
 	</td></tr>
 	</table>	

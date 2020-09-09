@@ -246,12 +246,17 @@ password="#SESSION.dbpw#">
 		</cfif>
 		
 		<cfif form.Mode eq "Mail">		
-		
-				
+						
 			<cfoutput>
+			
+			<cfif entity.MailFromAddress eq "">
+				<cfset fromm = client.eMail>
+			<cfelse>
+				<cfset fromm = Entity.MailFromAddress>
+			</cfif>
 				
 			 <cfmail to    = "#maillist#"
-		        from       = "#Entity.MailFromAddress#"											
+		        from       = "#fromm#"											
 				replyto    = "NOREPLY"
 		        subject    = "RESPONSE on #Object.ObjectReference#"	       			
 				bcc        = "#client.eMail#"

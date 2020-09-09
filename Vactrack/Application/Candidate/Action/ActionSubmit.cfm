@@ -58,8 +58,10 @@ password="#SESSION.dbpw#">
 <cfelse>
 
 		<cfset dateValue = "">
-		<CF_DateConvert Value="#Form.ActionDateStart#">
+		<CF_DateConvert Value="#Form.ActionDateStart#">		
 		<cfset STR = dateValue>
+		<cfset STR = dateAdd("H",Form.ActionHourStart,STR)>
+		<cfset STR = dateAdd("N",Form.ActionMinuteStart,STR)>
 
 		<cfquery name="UpdateCandidate" 
 		datasource="AppsVacancy" 

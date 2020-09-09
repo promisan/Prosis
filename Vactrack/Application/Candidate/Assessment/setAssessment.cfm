@@ -1,0 +1,180 @@
+<!--- saving --->
+
+<cfparam name="url.documentNo"   default="">
+<cfparam name="url.objectid"     default="">
+
+<cfif url.objectId neq "">
+	
+	<cfquery name="check" 
+	     datasource="AppsOrganization" 
+		 username="#SESSION.login#" 
+		 password="#SESSION.dbpw#">
+			 SELECT * 
+			 FROM   OrganizationObject
+			 WHERE  ObjectId = '#url.objectid#'
+	</cfquery>
+	
+	<cfset url.documentno = check.ObjectKeyValue1>
+
+</cfif>
+
+<cfparam name="url.personno"     default="">
+<cfparam name="url.actionCode"   default="">
+<cfparam name="url.competenceid" default="">
+
+<cfif url.personno neq "" and url.competenceid neq "">
+	
+	<cfquery name="user" 
+	     datasource="AppsSystem" 
+		 username="#SESSION.login#" 
+		 password="#SESSION.dbpw#">
+			 SELECT * 
+			 FROM   UserNames
+			 WHERE  Account = '#url.useraccount#'
+	</cfquery>
+	
+	<cfif url.documentno neq "">
+		
+		<cfquery name="getReview" 
+		     datasource="AppsVacancy" 
+			 username="#SESSION.login#" 
+			 password="#SESSION.dbpw#">
+			 SELECT * 
+			 FROM   DocumentCandidateReview
+			 WHERE  DocumentNo = '#url.documentno#'
+			 AND    PersonNo   = '#url.personNo#'
+			 AND    ActionCode = '#url.actionCode#'
+		</cfquery>
+		
+		<cfif getReview.recordcount eq "0">
+		
+			<cfquery name="Insert" 
+				datasource="AppsVacancy" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+				INSERT INTO DocumentCandidateReview
+						 (DocumentNo,
+						  PersonNo,		  
+						  ActionCode,							 
+						  OfficerUserId,
+						  OfficerLastName,
+						  OfficerFirstName)
+				  VALUES ('#url.documentno#',		  
+						  '#url.personNo#',							 
+						  '#url.actionCode#',
+						  '#user.account#',
+						  '#user.lastname#',		  
+						  '#user.firstname#')
+			</cfquery>	
+		
+		</cfif>
+		
+		<cfquery name="getReviewCompetence" 
+		     datasource="AppsVacancy" 
+			 username="#SESSION.login#" 
+			 password="#SESSION.dbpw#">
+			 SELECT * 
+			 FROM   DocumentCandidateReviewCompetence
+			 WHERE  DocumentNo   = '#url.documentno#'
+			 AND    PersonNo     = '#url.personNo#'
+			 AND    ActionCode   = '#url.actionCode#'
+			 AND    CompetenceId = '#url.CompetenceId#'
+		</cfquery>
+		
+		<cfif getReview.recordcount eq "0">
+		
+			<cfquery name="Insert" 
+				datasource="AppsVacancy" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+				INSERT INTO DocumentCandidateReviewCompetence
+						 (DocumentNo,
+						  PersonNo,		  
+						  ActionCode,	
+						  CompetenceId,		
+						  CompetenceMode,				 
+						  OfficerUserId,
+						  OfficerLastName,
+						  OfficerFirstName)
+				  VALUES ('#url.documentno#',		  
+						  '#url.personNo#',							 
+						  '#url.actionCode#',
+						  '#url.comptenceid#',
+						  'Topic',
+						  '#user.account#',
+						  '#user.lastname#',		  
+						  '#user.firstname#')
+			</cfquery>	
+		
+		</cfif>
+		
+		<cfquery name="getAssessment" 
+		     datasource="AppsVacancy" 
+			 username="#SESSION.login#" 
+			 password="#SESSION.dbpw#">
+			 SELECT * 
+			 FROM   DocumentCandidateAssessment
+			 WHERE  DocumentNo    = '#url.documentno#'
+			 AND    PersonNo      = '#url.personno#'
+			 AND    ActionCode    = '#url.actionCode#'
+			 AND    Competenceid  = '#url.competenceid#'
+			 AND    OfficerUserid = '#user.account#'  
+		</cfquery>
+		
+		<cfif getAssessment.recordcount eq "1">
+		
+			<cfset val = evaluate("form.#url.formfield#")>	
+		
+			<cfquery name="updateAssessment" 
+		     datasource="AppsVacancy" 
+			 username="#SESSION.login#" 
+			 password="#SESSION.dbpw#">
+				 UPDATE DocumentCandidateAssessment
+				 SET    <cfif url.field eq "score">
+					    AssessmentScore = '#val#'
+					    <cfelse>
+					    AssessmentMemo  = '#val#'
+					    </cfif>
+				 WHERE  DocumentNo      = '#url.documentNo#'
+				 AND    PersonNo        = '#url.personno#'
+				 AND    ActionCode      = '#url.actionCode#'
+				 AND    Competenceid    = '#url.competenceid#'
+				 AND    OfficerUserid   = '#user.account#' 
+		     </cfquery>
+			
+		<cfelse>
+		
+			<cfset val = evaluate("form.#url.formfield#")>		
+		
+			<cfquery name="Insert" 
+				datasource="AppsVacancy" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					INSERT INTO DocumentCandidateAssessment
+							 (DocumentNo,
+							  PersonNo,		  
+							  ActionCode,							 
+							  Competenceid,						  
+							  <cfif url.field eq "score">
+							  AssessmentScore,
+							  <cfelse>
+							  AssessmentMemo,
+							  </cfif>
+							  OfficerUserId,
+							  OfficerLastName,
+							  OfficerFirstName)
+					  VALUES ('#url.documentNo#',		  
+							  '#url.personno#',							 
+							  '#url.actionCode#',
+							  '#url.competenceid#',
+							  '#val#',
+							  '#user.account#',
+							  '#user.lastname#',		  
+							  '#user.firstname#')
+				</cfquery>			
+			
+		 </cfif>
+		
+	</cfif>	
+	
+</cfif>	

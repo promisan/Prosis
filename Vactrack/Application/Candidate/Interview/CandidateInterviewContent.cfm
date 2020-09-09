@@ -3,6 +3,7 @@
 	<cf_screentop height="100%" html="no" jQuery="Yes" layout="webapp" label="Interview for Track:#URL.DocumentNo#" scroll="Yes">
 </cfoutput>
 
+<cf_dialogStaffing>
 <cf_textareascript>
 
 <script language="JavaScript">
@@ -432,6 +433,8 @@ password="#SESSION.dbpw#">
 		</td>
 	</tr>
 	
+	<!--- this is now moved out to the screen itself
+	
 	<tr class="line" style="height:30px">
 		<td class="labelmedium"><cf_tl id="Recommended">:</td>
 		<td colspan="3">
@@ -450,6 +453,8 @@ password="#SESSION.dbpw#">
 			
 		</td>
 	</tr>
+	
+	--->
 	
 	<tr class="labelmedium line" style="height:30px">
 	    <td style="padding-top:4px"><cf_tl id="Attachments">: </td>
@@ -487,8 +492,6 @@ password="#SESSION.dbpw#">
 	</table>
 	
 	</td></tr>
-		
-	
 			
 	<cfif Interview.ActionCode eq URL.ActionCode or Interview.ActionCode eq "" and url.actioncode neq "view">	
 	

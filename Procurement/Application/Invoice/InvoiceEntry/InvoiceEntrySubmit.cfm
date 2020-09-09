@@ -107,7 +107,7 @@
 
    <cfif operational eq "1">
 
-    <!--- retrieve posting information --->  
+    <!--- retrieve posting information --->
  	
 	<cfquery name="Journal" 
     datasource="AppsLedger" 
@@ -117,17 +117,17 @@
 			FROM      Journal
 			WHERE     Mission       = '#Form.IssuedMission#' 
 			AND       SystemJournal = 'Procurement'
-			AND       Currency      = '#Form.IssuedCurrency#' 
+			AND       Currency      = '#Form.Currency#' 
 	</cfquery>
 	
 	<cfif Journal.recordcount eq "0">
 	   									
-		<cf_alert message = "Procurement journal (#Form.IssuedCurrency#) has not been recorded. Operation not allowed."
+		<cf_alert message = "Procurement journal (#Form.Currency#) has not been recorded. Operation not allowed."
 		  return = "back">
 		  <cfabort>
 	  
 	</cfif>  
-	
+		
 	<!--- convert to journal currency --->
 	
 	<cfquery name="IssuedCurr" 

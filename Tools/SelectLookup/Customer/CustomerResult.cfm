@@ -107,7 +107,7 @@ password="#SESSION.dbpw#">
 	</cfif>
 </cfquery>
 
-<cf_pagecountN show="13" 
+<cf_pagecountN show="15" 
                count="#Total.Total#">
 			   
 <cfset counted  = total.total>	
@@ -184,8 +184,8 @@ password="#SESSION.dbpw#">
 				<td style="min-width:90px">#Reference#</td>
 				<td style="min-width:70px">#PersonNo#</td>
 				<TD width="70%">#CustomerName#</TD>
-				<TD style="min-width:100px">#PhoneNumber#</TD>
-				<TD style="min-width:100px">#eMailAddress#</TD>
+				<TD style="min-width:90px">#PhoneNumber#</TD>
+				<TD style="min-width:100px;padding-right:3px">#eMailAddress#</TD>
 			</tr>
 				
 		</cfif>	

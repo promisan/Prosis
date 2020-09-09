@@ -57,11 +57,10 @@
 		  <input type="hidden" id="lanselect" name="lanselect"  value="#url.languagecode#">
 		  
 		   <cf_textarea name="ProfileText" id="ProfileText"                                            
-			   height         = "70%"
+			   height         = "50%"
 			   toolbar        = "mini"
 			   resize         = "0"
-			   color          = "ffffff">#Profile.ProfileText#</cf_textarea>
-		  
+			   color          = "ffffff">#Profile.ProfileText#</cf_textarea>		  
 					
 			</td>
 		</tr>

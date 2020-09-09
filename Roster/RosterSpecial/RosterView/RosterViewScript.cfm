@@ -308,17 +308,14 @@ h = #CLIENT.height# - 110
 }
 
 function showdocument(vacno) {
-
-	ptoken.open("#SESSION.root#/Vactrack/Application/Document/DocumentEdit.cfm?ID=" + vacno, "_blank", "left=20, top=20, width=" + w + ", height= " + h + ", status=yes, toolbar=no, scrollbars=yes, resizable=yes");
+	ptoken.open("#SESSION.root#/Vactrack/Application/Document/DocumentEdit.cfm?ID=" + vacno, vacno);
 }
 
 function va(fun) {
-
-	ptoken.open("#SESSION.root#/Vactrack/Application/Announcement/Announcement.cfm?ID="+fun, "_blank", "width=800, height=600, status=yes,toolbar=yes, scrollbars=yes, resizable=yes");
+	ptoken.open("#SESSION.root#/Vactrack/Application/Announcement/Announcement.cfm?header=yes&ID="+fun, "_blank", "width=800, height=600, status=yes,toolbar=yes, scrollbars=yes, resizable=yes");
 }
 
 function details(fun) {
-
     ptoken.open("../CandidateView/FunctionViewLoop.cfm?Idfunction=" + fun + "&status=#URL.Status#&Inquiry=#URL.Inquiry#", fun);
 	 
 }

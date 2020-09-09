@@ -1,39 +1,76 @@
 
+<!--- About this presentation
+this evaluation screen is based on either competencies enabled for the bucket or works on the topics set for the bucket --->
+
 <cfparam name="url.objectid"    default="">
 <cfparam name="url.documentNo"  default="6276">
+
+<!--- About this presentation
+this evaluation screen is based on either competencies enabled for the bucket or works on the topics set for the bucket --->
+
 <cfparam name="url.actioncode"  default="">
+
+<!--- About this presentation
+this evaluation screen is based on either competencies enabled for the bucket or works on the topics set for the bucket --->
+<cfparam name="url.modality"    default="Interview">  <!--- interview | test (phrases) --->
+
 <cfparam name="attributes.ajax" default="yes">
 
 <cfif url.objectid neq "">
 
-<cfquery name="BucketCompetencies" 
-datasource="appsVacancy" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-	SELECT FC.CompetenceId
-	FROM   Document D 
-		   INNER JOIN Applicant.dbo.FunctionOrganization FO
-				 ON D.FunctionId = FO.FunctionId
-		   INNER JOIN Applicant.dbo.FunctionOrganizationCompetence FC
-		   		 ON FO.FunctionId = FC.FunctionId
-	WHERE  D.DocumentNo = '#URL.DocumentNo#'
-</cfquery>
+<cfif url.modality eq "interview">
+		
+		<cfquery name="BucketCompetencies" 
+		datasource="appsVacancy" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT FC.CompetenceId
+			FROM   Document D 
+				   INNER JOIN Applicant.dbo.FunctionOrganization FO
+						 ON D.FunctionId = FO.FunctionId
+				   INNER JOIN Applicant.dbo.FunctionOrganizationCompetence FC
+				   		 ON FO.FunctionId = FC.FunctionId
+			WHERE  D.DocumentNo = '#URL.DocumentNo#'
+		</cfquery>
+		
+		<!--- only relevant competencies --->
+		
+		<cfquery name="Competencies" 
+		datasource="appsVacancy" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT  C.*
+			FROM    Applicant.dbo.Ref_Competence C
+			WHERE   C.Operational = 1 
+			<!--- Means that competencies applicable for this track have been defined at the bucket level --->
+			<cfif BucketCompetencies.recordcount gt 0>
+				AND C.CompetenceId IN (
+					#QuotedValueList(BucketCompetencies.CompetenceId)#
+				)
+			<cfelse>
+			AND    CompetenceCategory = 'Core'	
+			</cfif>
+		 	ORDER BY C.ListingOrder	
+		</cfquery>
+		
+<cfelse>
+	
+	<cfquery name="Competencies" 
+		datasource="AppsSelection" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		SELECT     TopicId as CompetenceId, TopicSubject as Description
+		FROM       FunctionOrganizationTopic
+		WHERE 	   FunctionId IN (SELECT FunctionId 
+		                          FROM   Functionorganization 
+								  WHERE   Documentno = '#url.documentno#')           
+		AND        Operational = 1 
+		ORDER BY   TopicOrder
+	</cfquery>
+	
+	<!--- continue --->
 
-<cfquery name="Competencies" 
-datasource="appsVacancy" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-	SELECT  C.*
-	FROM    Applicant.dbo.Ref_Competence C
-	WHERE   C.Operational = 1 and CompetenceCategory = 'Core'
-	<!--- Means that competencies applicable for this track have been defined at the bucket level --->
-	<cfif BucketCompetencies.recordcount gt 0>
-		AND C.CompetenceId IN (
-			#QuotedValueList(BucketCompetencies.CompetenceId)#
-		)
-	</cfif>
- 	ORDER BY C.ListingOrder	
-</cfquery>
+</cfif>		
 
 <cfoutput>
 
@@ -42,13 +79,13 @@ password="#SESSION.dbpw#">
 	<table border="0" style="width:100%">
 	
 	<tr class="fixrow">   
-	    <td style="background-color:f1f1f1;padding:4px;border:1px solid silver;min-width:140px"><cf_tl id="Officer"></td>
+	    <td style="background-color:f1f1f1;padding:4px;border:1px solid silver;min-width:140px"><cf_tl id="Evaluation by"></td>
 		<cfloop query="Competencies">
 		<td style="text-align:center;background-color:f1f1f1;padding:4px;border:1px solid silver;min-width:299px;">#Description#</td>
 		</cfloop>
 	</tr>
 	
-	<tr class="hide"><td id="process"></td></tr>
+	<tr class="xhide"><td id="process"></td></tr>
 	
 	<cfquery name="Access" 
 	datasource="appsOrganization" 
@@ -75,7 +112,7 @@ password="#SESSION.dbpw#">
 	
 		<tr class="labelmedium line">	
 		
-		<td valign="top" style="border-right:1px solid silver;font-size:13px;min-width:10px;padding:4px;<cfif session.acc neq usr>background-color:eaeaea</cfif>">
+		<td valign="top" style="width:200px;max-width:200px;border-right:1px solid silver;font-size:13px;min-width:10px;padding:4px;<cfif session.acc neq usr>background-color:eaeaea</cfif>">
 		
 		<cfquery name="user" 
 		datasource="appsSystem" 
@@ -86,7 +123,22 @@ password="#SESSION.dbpw#">
 			WHERE  Account = '#usr#'	
 		</cfquery>
 		
+		<table style="width:100%"><tr><td>
 		#user.lastname#, #user.firstname#</td>
+		</tr>
+		
+		<cfif url.modality eq "Test" and session.acc eq usr>
+			<tr><td style="padding-top:7px" align="center">
+		   <button type="button" class="button10g" style="height:62px;width:100px" onclick="testevaluation('#url.documentno#','#url.actioncode#','view')">
+			<img src="#session.root#/images/logos/system/test.png" style="height:50px;width:50px" alt="" border="0">
+			</button>
+			</td>
+			</tr>
+		</cfif>		
+		
+		</td></tr></table>
+		
+		</td>
 		
 		<cfloop query="Competencies">
 		
@@ -113,10 +165,10 @@ password="#SESSION.dbpw#">
 			
 			<tr class="line"><td>
 			
-			<cfset lkt = "savecandidateeval('#url.Objectid#','#url.personno#','#usr#','#url.actioncode#','#competenceid#','Score#url.Personno#_#competenceid#_#usr#','score')">
-			<cfset lkm = "savecandidateeval('#url.Objectid#','#url.personno#','#usr#','#url.actioncode#','#competenceid#','Memo#url.Personno#_#competenceid#_#usr#','memo')">
+			<cfset lkt = "savecandidateeval('#url.Objectid#','#url.personno#','#usr#','#url.actioncode#','#competenceid#','Score#url.Personno#_#left(competenceid,8)#_#usr#','score')">
+			<cfset lkm = "savecandidateeval('#url.Objectid#','#url.personno#','#usr#','#url.actioncode#','#competenceid#','Memo#url.Personno#_#left(competenceid,8)#_#usr#','memo')">
 			
-			<select name="Score#url.Personno#_#competenceid#_#usr#" class="regularxl" style="border:0px;width:100%" onchange="#lkt#">
+			<select name="Score#url.Personno#_#left(competenceid,8)#_#usr#" class="regularxl" style="border:0px;width:100%" onchange="#lkt#">
 			    <option value="0" <cfif get.AssessmentScore eq "0">selected</cfif>>--<cf_tl id="Select">--</option>
 				<option value="1" <cfif get.AssessmentScore eq "1">selected</cfif>><cf_tl id="Outstanding"></option>
 				<option value="2" <cfif get.AssessmentScore eq "2">selected</cfif>><cf_tl id="Satisfactory"></option>
@@ -126,12 +178,19 @@ password="#SESSION.dbpw#">
 			
 			</td></tr>
 			
-			<tr><td style="min-width:310px">	
+						
+			<tr><td style="min-width:310px">
 			
-							
+			<cfif url.modality eq "Test">
+			
+				<textarea name="Memo#url.Personno#_#left(competenceid,8)#_#usr#"	onchange="#lkm#"
+				  style="border:0px;border-left:1px solid silver;background-color:ffffaf;font-size:15px;padding:4px;resize: none;width:100%;height:70px">#get.AssessmentMemo#</textarea>
+						
+			<cfelse>
+										
 			<cfif Attributes.ajax eq "No">
 							
-				 <cf_textarea name="Memo#url.Personno#_#competenceid#_#usr#"	onchange="#lkm#"           		 
+				 <cf_textarea name="Memo#url.Personno#_#left(competenceid,8)#_#usr#"	onchange="#lkm#"           		 
 					 init="Yes"							
 					 color="ffffff"	 
 					 resize="false"		
@@ -142,7 +201,7 @@ password="#SESSION.dbpw#">
 					 
 				<cfelse>
 				
-				 <cf_textarea name="Memo#url.Personno#_#competenceid#_#usr#"	onchange="#lkm#"           		 						 						
+				 <cf_textarea name="Memo#url.Personno#_#left(competenceid,8)#_#usr#"	onchange="#lkm#"           		 						 						
 					 color="ffffff"	 
 					 init="Yes"
 					 resize="false"		
@@ -151,7 +210,9 @@ password="#SESSION.dbpw#">
 					 height="70"
 					 width="100%">#get.AssessmentMemo#</cf_textarea>
 					 				
-				</cfif>	 			
+				</cfif>	 
+				
+				</cfif>			
 			
 				</td></tr>	
 				 </table>	

@@ -52,33 +52,6 @@ password="#SESSION.dbpw#">
 	</cfoutput>
 </cfif>
 
-<!--- GL and journal matrix 
-
-<cfquery name="Matrix" 
-datasource="AppsLedger" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-SELECT        DT.GLAccount, DT.Journal, DT.Amount, Journal.Description
-
-FROM            (SELECT    L.GLAccount, 
-                 CASE WHEN L.ParentJournal IS NULL THEN L.Journal ELSE L.ParentJournal END AS Journal, 
-                                                    ROUND(SUM(L.AmountBaseDebit - L.AmountBaseCredit), 2) AS Amount
-                 FROM            TransactionLine AS L INNER JOIN
-                                TransactionHeader AS H ON L.Journal = H.Journal AND L.JournalSerialNo = H.JournalSerialNo
-                 WHERE        L.GLAccount IN (#preserveSingleQuotes(selaccount)#) 
-				 AND      H.ActionStatus IN ('0', '1') 
-				 AND      H.RecordStatus <> '9'
-                 GROUP BY L.GLAccount, 
-				          CASE WHEN L.ParentJournal IS NULL THEN L.Journal ELSE L.ParentJournal END) AS DT 
-						  
-		  INNER JOIN Journal ON DT.Journal = Journal.Journal
-		  
-		  WHERE   GLCategory = 'Actuals'	
-ORDER BY DT.Journal 
-</cfquery>
-
---->
-
 <!--- create query table --->
 
 <cfinclude template="InquiryData.cfm">
@@ -92,8 +65,7 @@ password="#SESSION.dbpw#">
 		     D.Currency, 
 		     Count(*) as Document,
 		     ROUND(SUM(AmountOutstanding),2) as Amount
-    FROM     Inquiry_#url.mode#_#session.acc# D, Accounting.dbo.Journal J	
-	WHERE    D.Journal = J.Journal
+    FROM     Inquiry_#url.mode#_#session.acc# D INNER JOIN Accounting.dbo.Journal J	ON D.Journal = J.Journal
 	
 	<cfif getAdministrator(url.mission) eq "0">
 	 AND    D.Journal IN (SELECT ClassParameter 
@@ -108,38 +80,6 @@ password="#SESSION.dbpw#">
 	ORDER BY D.Currency, D.Journal 
 	    	
 </cfquery>
-
-<!---
-
-<cfquery name="Vendor" 
-datasource="AppsLedger" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-    SELECT DISTINCT ReferenceName 
-    FROM   TransactionHeader P
-	WHERE  Mission = '#URL.Mission#'	
-	AND    abs(AmountOutstanding) > 0.05
- 	AND    TransactionCategory IN (#preservesinglequotes(journalfilter)#)
-    	
-	<!--- has a base booking on the accounts with AR or AP --->
-	AND    Journal IN (SELECT Journal 
-	                   FROM   TransactionLine 
-				       WHERE  Journal         = P.Journal 
-    				   AND    JournalSerialNo = P.JournalSerialNo 
-					   <!----- AND    GLAccount IN (#preserveSingleQuotes(selaccount)#) ---->
-					   <cfif TRIM(selaccount) neq "">
-	   		    		   AND    GLAccount IN (#preserveSingleQuotes(selaccount)#)
-					   </cfif>
-			    	   AND    TransactionSerialNo = '0')
-	
-	AND    ActionStatus IN ('0','1')		
-	AND    RecordStatus != '9'
-		
-	AND    Journal IN (SELECT Journal FROM Journal WHERE GLCategory = 'Actuals')	
-	  
-</cfquery>
-
---->
 
 <form name="myaccountingform">
 	
@@ -166,8 +106,7 @@ password="#SESSION.dbpw#">
 		<cfoutput query="JournalList">
 		<tr class="labelit line">
 			<td style="height:13px;padding-left:9px">
-			<input type="checkbox" id="Journal" name="Journal" value="'#Journal#'"
-				onclick="reload()">
+			<input type="checkbox" id="Journal" name="Journal" value="'#Journal#'" onclick="reload()">
 			</td>
 			<td>#Currency#</td>
 			<td>#Description#</td>

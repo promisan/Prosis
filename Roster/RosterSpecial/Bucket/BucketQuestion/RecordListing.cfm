@@ -3,7 +3,7 @@
 <cf_screentop height="100%" scroll="yes" html="No">
 --->
 		
-<table width="95%" border="0" bordercolor="silver" cellspacing="0" cellpadding="" align="center"  class="formpadding">
+<table width="99%" align="center"  class="formpadding">
 
  <tr><td height="15px"></td></tr> 		
     <tr><td class="labelmedium">Define one or more optional questions the applicant will have to answer as part of his application</td></tr>

@@ -9,11 +9,7 @@
 
 <cfoutput>
 
-<!---
-<cfif Form.ReferenceName IS NOT 'zz'>
-     <CFSET Criteria = #Criteria#&" AND P.ReferenceName IN ( #PreserveSingleQuotes(Form.ReferenceName)# )">
-</cfif> 
---->
+
 
 <cfset Criteria = "WHERE 1=1">
 
@@ -31,12 +27,14 @@
 
 <cfset client.payables = criteria>
 
-<script>   
-  
+<cfinclude template="InquiryData.cfm">
+
+
+<script>    
   _cf_loadingtexthtml=''  
   ptoken.navigate('ShowAging.cfm?mode=#url.mode#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#','graph')     
-  ptoken.navigate('ShowPayee.cfm?mode=#url.mode#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#','payee')  
-  ptoken.navigate('InquiryListing.cfm?mode=#url.mode#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#','listbox')     
+  ptoken.navigate('ShowPayee.cfm?mode=#url.mode#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#','payee')    
+  ptoken.navigate('InquiryListing.cfm?init=1&mode=#url.mode#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#','listbox')     
 </script>	
 
 <cfif url.action neq "person">

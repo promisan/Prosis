@@ -104,13 +104,13 @@
 		FROM      Currency
 		WHERE     Currency = '#cur#'								
 	</cfquery>
-
+	
+	
 	<cfquery name="getSales"
 		datasource="AppsLedger" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-		
-						
+					
 			SELECT   'Sale' as Mode,
 					 H.TransactionCategory,
 			         I.Category,
@@ -159,11 +159,8 @@
 			         C.Description, 
 					 H.#datefield#,
 					 H.TransactionCategory
-
-
 				 
-			UNION ALL		
-					
+			UNION ALL							
 			
 			SELECT 'Settlement' AS Mode,
 				    H.TransactionCategory,
@@ -186,14 +183,11 @@
                             FROM   Materials.dbo.WarehouseBatch  WITH (NOLOCK)
 				            WHERE  BatchId   = LH.TransactionSourceId
 							AND    #url.conditionfield# = '#url.conditionvalue#')
-							
-						
 											   
 			AND      LH.RecordStatus    = '1'
 	 		AND      LH.ActionStatus IN ('0','1')	
 											   
-			AND  
-        			(
+			AND  	(
 			           (H.TransactionCategory = 'Receipt'  AND L.TransactionSerialNo != '0') <!--- direct payment ---> OR
     			 	   (H.TransactionCategory = 'Banking'  AND L.TransactionSerialNo = '0')  <!--- AR payment ---> OR
 					   (H.TransactionCategory = 'Advances' AND L.TransactionSerialNo = '0')	<!--- Advance payment --->						
@@ -207,7 +201,7 @@
 			<cfelseif lng eq "Closing">											   
 			AND      LH.#datefield# BETWEEN #SQL_TODAYMINUS3# AND #SQL_TODAY# 		
 			<cfelseif lng eq "Historic">
-			AND      LH.#datefield# BETWEEN #SQL_TODAYMINUS3# AND #SQL_TODAY# 		
+			
 			AND      (
 				     LH.#datefield# #preservesingleQuotes(SQL_MONTH)# 
 				     OR LH.#datefield# #preservesingleQuotes(SQL_YEAR)# 
@@ -222,10 +216,8 @@
 			         L.Currency,
 			         A.Description, 
 					 LH.#datefield#,
-					 H.TransactionCategory		
-					 
-											
-				 		 					
+					 H.TransactionCategory	
+								
 	</cfquery>	
 		
 	<!---			
@@ -302,7 +294,7 @@
 				         L.Currency,
 				         C.Description, 
 						 H.#datefield#			
-		
+								
 		</cfquery>	
 		
 		<!---
@@ -528,7 +520,7 @@
 				
 								
 				<cfif lng eq "Current">
-					<cfset mlist = "item,day,yesterday,week,month">
+					<cfset mlist = "item,day,yesterday,week,month30">
 				<cfelseif lng eq "Closing">				
 					<cfset mlist = "item,day,yesterday,dayminus2,dayminus3">	
 				<cfelseif lng eq "Historic">	
@@ -624,8 +616,7 @@
 												AND     Category = '#Category#'														
 											</cfquery>	
 																																
-										</cfif>		
-										
+										</cfif>											
 																		
 																		
 								<tr class="navigation_row">	
@@ -682,10 +673,11 @@
 									<td></td>		
 									<td width="48%" colspan="1" style="height:21px;border-top:1px solid e1e1e1;" align="right"  class="labelmedium">
 									
-										
+									
 									<cfif qSale.Total neq "">	
-										<cfset amt = floor(qSale.Total)>										
-										<cfset dgt = (qSALE.Total-floor(qSale.Total))*100>
+																		
+										<cfset amt = floor(abs(qSale.Total))>																				
+										<cfset dgt = (abs(qSale.Total)-floor(abs(qSale.Total)))*100>
 										<cfif dgt lt "10">
 											<cfset dgt = "0#dgt#">																					
 										</cfif>
@@ -760,8 +752,7 @@
 											GROUP BY Currency
 											HAVING SUM(AmountOutstanding) > 1
 										</cfquery>
-											
-																		
+																					
 									<cfset total = "0">
 									<cfparam name="outstanding" default="0">
 																		
@@ -786,9 +777,10 @@
 												
 									<tr bgcolor="E6F2FF">								
 										<cfif per eq "Item">	
-										<td width="100%" align="left" style="border-top:1px solid e1e1e1;height:21px;padding-left:3px" class="line labelmedium"><cf_tl id="Accounts Receivable"></td>									
-										<cfelse>		
-										
+										<td width="100%" align="left" style="border-top:1px solid e1e1e1;height:21px;padding-left:3px" class="line labelmedium">
+										<cf_tl id="Accounts Receivable">
+										</td>									
+										<cfelse>										
 										
 										<cfif Total neq "">	
 											<cfset amt = floor(Total)>											
@@ -809,11 +801,13 @@
 								</cfif>
 								
 								<tr>	
-								<cfif per eq "Item">									
+								<cfif per eq "Item">	
+																
 									<td  width="100%" align="left" style="padding-left:23px" class="line labelmedium"><cf_tl id="Total"></td>
-								<cfelse>		
-									<cfif Mode eq "Sale">	
 									
+								<cfelse>		
+								
+									<cfif Mode eq "Sale">										
 									
 									<cfif vTotalAmount neq "">	
 										<cfset amt = floor(vTotalAmount)>											
@@ -827,8 +821,7 @@
 									</cfif>
 																			
 									<td align="right"  style="padding-left:3px" class="line labelmedium"><b>#Numberformat(amt,",.")#<font size="1">#left(dgt,2)#</font></td>
-									<td></td>			
-									
+									<td></td>										
 									
 									<cfif vTotalCOGS neq "">
 										<cfset amt = floor(vTotalCOGS)>	
@@ -845,8 +838,7 @@
 									<td></td>	
 									<cfelse>	
 									<td colspan="1" align="right"  style="padding-right:4px" class="line labelit"><cfif vTotalTransactions neq "0">#vTotalTransactions#</cfif></td>
-									<td></td>	
-									
+									<td></td>									
 									
 									<cfif vTotalAmount neq "">
 										<cfset amt = floor(vTotalAmount)>	

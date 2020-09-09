@@ -410,7 +410,25 @@
 		<td align="center">#dateformat(created, CLIENT.DateFormatShow)# #timeformat(created, "HH:MM")#</td>
 		<td align="center">
 		
-		<cfif ReferencePersonNo neq "">
+		<cfif ReferenceId neq "">
+		
+			<cfquery name="Customer" 
+				datasource="AppsMaterials" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					SELECT *
+					FROM     Customer
+					WHERE    CustomerId = '#ReferenceId#' 
+			</cfquery>
+			
+			<cfif Customer.recordcount eq "1">
+			<a href="javascript:editCustomer('#customer.CustomerId#')">#ReferenceName#</a>
+			<cfelse>
+			#ReferenceName#
+			</cfif>
+			
+		
+		<cfelseif ReferencePersonNo neq "">
 		
 			<cfquery name="Person" 
 				datasource="AppsEmployee" 

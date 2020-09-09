@@ -16,12 +16,12 @@
 	</cfquery>
 	
 	<cfif url.wparam eq "MARK">
-	
+		
 		<cfset dialog = "Mark">
 		<cfset checkText = "Pass">
 		
 	<cfelse>
-	
+			
 		<cfset dialog = "Test">
 		<cfset checkText = "Pass">
 		
@@ -102,7 +102,6 @@
 
 <cfoutput>
 
-
 <script language="JavaScript">
 
 	function printingPHP(roster,format,script) {
@@ -137,10 +136,28 @@
 			se.className = "hide";
 		}else{
 			se.className = "regular";
-			ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/CandidateAssessment.cfm?objectid=#object.objectid#&documentno='+doc+'&personno='+per+'&actioncode='+act,'box'+bx)		
+			ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/Assessment/CandidateAssessment.cfm?modality=#url.wparam#&objectid=#object.objectid#&documentno='+doc+'&personno='+per+'&actioncode='+act,'box'+bx)		
 		}
 	
 	}
+	
+	function phrases(id) {		
+		ProsisUI.createWindow('phrases', 'Maintain questions','',{x:100,y:100,width:document.body.offsetWidth-130,height:document.body.offsetHeight-130,modal:true,center:true})
+		ptoken.navigate('#SESSION.root#/Roster/RosterSpecial/Bucket/BucketQuestion/RecordListing.cfm?idfunction='+id,'phrases')
+	}
+	
+	function testevaluation(doc,act,mde) {		
+		ProsisUI.createWindow('test', 'Evaluation','',{x:100,y:100,width:document.body.offsetWidth-130,height:document.body.offsetHeight-130,modal:true,center:true})
+		ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/Assessment/AssessmentView.cfm?documentno='+doc+'&actioncode='+act+'&mode='+mde,'test')
+	}
+	
+	function quesave(id,topic) {
+	
+	   document.mytopic.onsubmit() 
+		if( _CF_error_messages.length == 0 ) {
+	       ptoken.navigate('#SESSION.root#/Roster/RosterSpecial/Bucket/BucketQuestion/RecordListingSubmit.cfm?idfunction='+id+'&topicid='+topic,'listing','','','POST','mytopic')
+		 }   
+	 }
 	
 	function editactivity(id,doc,per,act) {		
 		ProsisUI.createWindow('activitybox', 'Activity','',{x:100,y:100,width:document.body.offsetWidth-130,height:document.body.offsetHeight-130,modal:true,center:true})
@@ -159,7 +176,7 @@
 	
 	function interview(per,act) {		
 		ProsisUI.createWindow('interviewbox', 'Interview record','',{x:100,y:100,width:document.body.offsetWidth-100,height:document.body.offsetHeight-90,modal:true,center:true})
-		ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/CandidateInterview.cfm?DocumentNo=#Object.ObjectKeyValue1#&PersonNo='+per+'&ActionCode='+act,'interviewbox');
+		ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/Interview/CandidateInterview.cfm?DocumentNo=#Object.ObjectKeyValue1#&PersonNo='+per+'&ActionCode='+act,'interviewbox');
 	}
 	
 	function personprofile(doc,per) {
@@ -169,7 +186,7 @@
 	
 	function savecandidateeval(obj,per,usr,act,com,val,fld) {		   	     
 		 _cf_loadingtexthtml='';	
-		 ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/CandidateAssessmentSubmit.cfm?objectid='+obj+'&useraccount='+usr+'&personno='+per+'&actioncode='+act+'&competenceid='+com+'&formfield='+val+'&field='+fld,'process','','','POST','formembed')	
+		 ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/Assessment/setAssessment.cfm?objectid='+obj+'&useraccount='+usr+'&personno='+per+'&actioncode='+act+'&competenceid='+com+'&formfield='+val+'&field='+fld,'process','','','POST','formembed')	
 	}	
 
 </script>
@@ -293,8 +310,8 @@ password="#SESSION.dbpw#">
 
 <table style="height:100%;min-width:1000px" border="0" width="98%" align="center">
 
-
 <cfoutput>
+
  
  <tr class="labelmedium line">
  	<td><cf_tl id="Unit">:</td>
@@ -341,6 +358,12 @@ password="#SESSION.dbpw#">
 	
 	</TR>
 	
+	<cfif url.wparam eq "MARK" or url.wparam eq "TEST">
+	
+		<tr class="labelmedium"><td style="font-size:18px;height:30px" align="center" colspan="4"><a href="javascript:phrases('#bucket.functionid#')">Maintain test questions</a></td></tr>
+	
+	</cfif>
+	
 	</cfoutput>
 	
 	<cfquery name="Searchresult" 
@@ -375,8 +398,8 @@ password="#SESSION.dbpw#">
 	</cfquery>
 	
 	<cfset act = Action.ActionCode>
-
-<tr><td colspan="8" class="labelmedium" style="padding-left:5px;height:100%" valign="top">
+	
+<tr><td colspan="8" class="labelmedium" style="height:100%" valign="top">
 
 <cfif SearchResult.recordCount eq "0">
 
@@ -387,30 +410,29 @@ password="#SESSION.dbpw#">
 
 	<cf_divscroll>
 	
-	<table width="99%" class="navigation_table">
+	<table width="100%" class="navigation_table">
 	
 	    <TR class="labelmedium line fixrow" style="height:25px;">
 		  <td style="width:10px"></td>	  
-		  <td style="width:10px"></td>
+		 
+		  <TD style="min-width:200px"><cf_tl id="Candidate"></TD>   
+	   	  <TD style="min-width:100px"><cf_tl id="IndexNo"></TD>		 
+	           
+		  <TD style="min-width:100px"><cf_tl id="Nationality"></TD>
+		  <TD style="min-width:100px"><cf_tl id="DOB"></TD>
+	      <TD style="min-width:100px"><cf_tl id="Gender"></TD>
+		  <td style="max-width:10px"></td>
+		   
 		  <cfif dialog eq "Test"> 
 		  	<td style="width:60px"><cf_tl id="Score"></td>
 		  <cfelseif dialog eq "Interview">	
 		    <td style="width:60px"><cf_tl id="Interview"></td>
 		  <cfelse>			 
 		  	<td style="width:1px"></td>
-		  </cfif>
-	   	  <TD style="min-width:100px"><cf_tl id="IndexNo"></TD>
-	      <TD style="min-width:200px"><cf_tl id="Name"></TD>      
-		  <TD style="min-width:100px"><cf_tl id="Nationality"></TD>
-		  <TD style="min-width:100px"><cf_tl id="DOB"></TD>
-	      <TD style="min-width:100px"><cf_tl id="Gender"></TD>
+		  </cfif>		
 		  <td style="min-width:20%"><cfoutput>#checkText#</cfoutput></td>
 	   	  <TD style="min-width:100px"><cf_tl id="Status"></TD>	 
-		  
-		  <!--- 
-	  	  <TD style="font-size:17px" align="center"><cf_tl id="Memo"></td>
-		  --->
-	    </TR>	
+		</TR>	
 							
 		<cfquery name="Mission" 
 		datasource="appsOrganization" 
@@ -522,37 +544,63 @@ password="#SESSION.dbpw#">
 	    </cfif> 
 				
 		<cfset cla = "hide">
-		<cfset clb = "hide">					 
-		
+		<cfset clb = "hide">		
 		
 		<cfset stop = "0">
 				
-		<td style="padding-left:4px;padding-top:5px">
+		<td style="width:38px;padding-left:4px">
 		
+			<table>
+			
+			<tr>
+					
 			<cfif url.wparam eq "INTERVIEW">					
+			    <td>
 				<cf_img icon="expand" toggle="yes" onclick="assessment('assessment#CurrentRow#','#Object.ObjectKeyValue1#','#personno#','#action.actioncode#')">				
+				</td>
+			<cfelseif url.wparam eq "TEST">	
+			
+				<td style="padding-top:7px">
+			   	<cf_img icon="expand" toggle="yes" onclick="assessment('assessment#CurrentRow#','#Object.ObjectKeyValue1#','#personno#','#action.actioncode#')">							 
+				</td>				
+				<td style="padding-right:4px">
+				<img src="#session.root#/images/logos/system/importword.png" style="height:15px;width:18px" alt="Import word" border="0" onclick="testevaluation('#Object.ObjectKeyValue1#','#action.actioncode#','edit')">
+				</td>
+				
 			</cfif>
+			
+			</tr>
+			</table>
 			
 		</td>	
 		
 	    <input type="hidden" name="PersonNo_#CurrentRow#" value="#PersonNo#">
-		
-		<td style="padding-left:3px">
+							
+	    <td><a href ="javascript:ShowCandidate('#PersonNo#')">#LastName#, #FirstName#</a></td>			
+		<td><cfif IndexNoA neq ""><a href ="javascript:ShowPerson('#IndexNoA#')">#IndexNoA#</a><cfelse>[<cf_tl id="undefined">]</cfif></td>
+		<td>#NationalityName#</td>
+		<td>#dateformat(DOB,client.dateformatshow)#</td>
+		<td><cfif Gender eq "F"><cf_tl id="Female"><cfelse><cf_tl id="Male"></cfif></td>		
+		<td style="padding-top:2px;padding-left:3px">
 			<!--- track for candidate already exists --->
-			<cfif (Status eq "2s" and CandidateClass neq "" and wfinal neq "Track")>
-				<button class="button3" onClick="showdocumentcandidate('#Object.ObjectKeyValue1#','#PersonNo#')">
-					<img src="#SESSION.root#/Images/contract.gif" alt="Open candidate track" width="13" height="14">
-				</button>
+			<cfif (Status eq "2s" and CandidateClass neq "" and wfinal neq "Track")>				
+					<img src="#SESSION.root#/Images/contract.gif" onClick="showdocumentcandidate('#Object.ObjectKeyValue1#','#PersonNo#')" alt="Open candidate track" width="13" height="14">				
 			<cfelse>
 			 <cf_img icon="open" onclick="personprofile('#doc.documentno#','#PersonNo#')">	
 			</cfif>		
 		</td>
 		
+		<cfset tdSize = "60px">
+		<cfif wFinal eq "Track">
+		    <!--- onboarding track --->
+			<cfset tdSize = "100px">
+		</cfif>
+		
 		<td align="left">	
 		
 			<cfif dialog eq "Test">
 			
-				<input  type="text" 
+				<input type="text" 
 					name="ReviewScore_#currentrow#" 
 					id="ReviewScore_#currentrow#" 
 					value="#ReviewScore#" 
@@ -568,17 +616,6 @@ password="#SESSION.dbpw#">
 			</cfif>
 			
 		</td>
-		<td><cfif IndexNoA neq "">#IndexNoA#<cfelse>[<cf_tl id="undefined">]</cfif></td>
-	    <td><a href ="javascript:ShowCandidate('#PersonNo#')">#LastName#, #FirstName#</a></td>			
-		<td>#NationalityName#</td>
-		<td>#dateformat(DOB,client.dateformatshow)#</td>
-		<td><cfif Gender eq "F"><cf_tl id="Female"><cfelse><cf_tl id="Male"></cfif></td>		
-		
-		<cfset tdSize = "60px">
-		<cfif wFinal eq "Track">
-		    <!--- onboarding track --->
-			<cfset tdSize = "100px">
-		</cfif>
 		
 		<td style="min-width:#tdsize#" align="left">
 	
@@ -609,7 +646,7 @@ password="#SESSION.dbpw#">
 					<tr>
 					<td id="ReviewStatus_#CurrentRow#">
 														
-					<input onClick="hl(this,this.checked)" class="Radiol" style="height:18px;width:18px" 
+					<input onClick="hl(this,this.checked)" class="Radiol" style="height:17px;width:17px" 
 					type="checkbox" name="ReviewStatus_#CurrentRow#" id="ReviewStatus_#CurrentRow#" value="#wFinal#" <cfif Status gte wFinal>checked</cfif> style="cursor:pointer;">					
 														
 					</td>														
@@ -649,55 +686,13 @@ password="#SESSION.dbpw#">
 				
 			</cfif>
 			
-		</td>
+		</td>		
 		
-		<td id="status#PersonNo#" style="padding-left:3px" class="<cfif Status gte wfinal>highlight</cfif>">#DescriptionStatus#</td>
 		
-		<!--- has to be handled differently now as we have more text boxes 
-		<td style="font-size:17px" align="center">
 		
-			<cfset row = CurrentRow>
-			
-			<cfquery name="Memo" 
-				 datasource="AppsVacancy" 
-				 username="#SESSION.login#" 
-				 password="#SESSION.dbpw#">
-			      SELECT  *
-			      FROM     DocumentCandidateReview 
-				  WHERE    DocumentNo = '#Object.ObjectKeyValue1#'
-				  AND      PersonNo   = '#PersonNo#'
-				  AND      ActionCode != '#Act#'
-				  AND      ActionStatus = '1'
-				  AND      ReviewMemo IS NOT NULL			  
-				  ORDER BY Created DESC
-		    </cfquery>
-								
-			<cfloop query="Memo">
-			
-				<cfif Memo.ReviewMemo neq "">			
-					<cf_img icon="expand" toggle="yes" onclick="more('detail#CurrentRow#')">				
-				</cfif>			
-					
-			</cfloop>	
-			
-		</td>
-		--->
+		<td id="status#PersonNo#" style="padding-left:3px" class="<cfif Status gte wfinal>highlight</cfif>">#DescriptionStatus#</td>	
 		</tr>
-		
-		<!---
-		<cfloop query="Memo">
 				
-			<cfif Memo.ReviewMemo neq "">
-				<tr bgcolor="E0F0F3" class="hide" id="doc#Row#_#CurrentRow#">
-				<td colspan="2"></td>
-				<td colspan="2" class="labelmedium" style="padding-left:10px">#Memo.OfficerFirstName# #Memo.OfficerLastName#</td>
-				<td colspan="7" class="labelmedium" style="padding-left:10px">#Memo.ReviewMemo#</td>
-				</tr>
-			</cfif>
-		
-		</cfloop>
-		--->
-		
 		<cfif Remarks neq "">
 		
 			<tr class="navigation_row_child labelmedium">
@@ -720,15 +715,16 @@ password="#SESSION.dbpw#">
 		<cfif OtherCandidates.recordcount gte 0>
 		
 			<tr class="navigation_row_child">
-				<td colspan="2"></td>
-				<td colspan="8">
 				
-			    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+				<td colspan="10">
+				
+			    <table width="100%">
 					<cfloop query="OtherCandidates">
-					<tr><td class="labelmedium" style="padding-left:10px">				    
-						<a href="javascript:showdocument('#OtherCandidates.DocumentNo#')">
-						#Status#<cf_tl id="for">: #OtherCandidates.Mission#&nbsp;#OtherCandidates.PostGrade# #OtherCandidates.FunctionalTitle#</b></a>
-				    	</td>
+					<tr><td class="labelmedium">				    
+					<font color="FF0000"><cf_tl id="Attention">:</font>
+					 <a href="javascript:showdocument('#OtherCandidates.DocumentNo#')">
+					 #Status#<cf_tl id="for">: #OtherCandidates.Mission#&nbsp;#OtherCandidates.PostGrade# #OtherCandidates.FunctionalTitle#</b></a>
+				     </td>
 					</tr>
 					</cfloop>
 				</table>
@@ -739,12 +735,12 @@ password="#SESSION.dbpw#">
 		<cfif stop eq "1">
 		
 			<tr class="navigation_row_child">
-				<td colspan="2"></td>
-				<td colspan="8">
+				
+				<td colspan="10">
 			    <table width="100%">
 					<tr><td class="labelmedium" style="padding-left:10px">;
 						<a href="javascript:showdocumentcandidate('#Object.ObjectKeyValue1#','#PersonNo#')">
-						<b><font color="FF0000"><cf_tl id="Attention">:</font></b> <cf_tl id="This candidate has already a recruitment track." class="Message"></a>
+						<font color="FF0000"><cf_tl id="Attention">:</font> <cf_tl id="This candidate has already a recruitment track." class="Message"></a>
 				    	</td>
 					</tr>
 				</table>
@@ -829,69 +825,92 @@ password="#SESSION.dbpw#">
 			</td></tr>
 			
 			--->
-												
-			<tr id="assessment#currentrow#" class="hide">
-			<td colspan="2"></td>
-			<td colspan="8" id="boxassessment#currentrow#" style="padding:5px"></td>
+			
+			<cfquery name="getActivity" 
+			datasource="appsOrganization" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			    SELECT *
+				FROM   Ref_EntityActionDocument
+				WHERE  ActionCode = '#action.actionCode#'
+				AND    DocumentId IN (SELECT DocumentId FROM Ref_EntityDocument WHERE DocumentType = 'activity')
+			</cfquery>	
+		
+			<cfif getActivity.recordcount gte "1">				
+		
+				<tr id="action#currentrow#" class="xxhide">
+				<td colspan="2"></td>
+				<td colspan="8">
+					<cfdiv id="boxaction#PersonNo#" 
+					 bind="url:#session.root#/Vactrack/Application/Candidate/Action/ActionListing.cfm?documentNo=#Object.ObjectKeyValue1#&PersonNo=#PersonNo#&actioncode=#action.actioncode#">				
+				</td>
+				</tr>	
+			
+			</cfif>
+						
+															
+			<tr id="assessment#currentrow#" class="hide">			
+			<td colspan="10" id="boxassessment#currentrow#" style="padding:5px"></td>
 			</tr>		
 			
 		<cfelseif dialog eq "Mark">
 		
-			<tr id="action#currentrow#" class="hide">
-				<td colspan="2"></td>
-				<td colspan="8" id="boxaction#currentrow#" style="padding:5px"></td>
-			</tr>	
+			<cfquery name="getActivity" 
+			datasource="appsOrganization" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			    SELECT *
+				FROM   Ref_EntityActionDocument
+				WHERE  ActionCode = '#action.actionCode#'
+				AND    DocumentId IN (SELECT DocumentId FROM Ref_EntityDocument WHERE DocumentType = 'activity')
+			</cfquery>	
 		
-			<tr  id="assessment#currentrow#" class="hide">
-			  <td colspan="2"></td>
+			<cfif getActivity.recordcount gte "1">				
+		
+				<tr id="action#currentrow#" class="xxhide">
+				<td colspan="2"></td>
+				<td colspan="8">
+					<cfdiv id="boxaction#PersonNo#" 
+					 bind="url:#session.root#/Vactrack/Application/Candidate/Action/ActionListing.cfm?documentNo=#Object.ObjectKeyValue1#&PersonNo=#PersonNo#&actioncode=#action.actioncode#">				
+				</td>
+				</tr>	
+			
+			</cfif>
+					
+			<tr id="assessment#currentrow#" class="hide">			 
 			  <td colspan="10" style="padding:5px" id="boxassessment#currentrow#"></td>
 			</tr>		
 		
 		<cfelse>
 		
 			<!--- show subactions to be visible here which are tracked partially in the workflow object --->
-				
-			<tr id="action#currentrow#" class="xxhide">
-			<td colspan="2"></td>
-			<td colspan="8">
-				<cfdiv id="boxaction#PersonNo#" 
-				 bind="url:#session.root#/Vactrack/Application/Candidate/Action/ActionListing.cfm?documentNo=#Object.ObjectKeyValue1#&PersonNo=#PersonNo#&actioncode=#action.actioncode#">				
-			</td>
-			</tr>	
 						
-			<tr id="detail#currentrow#" class="#clb#">
-				<td colspan="2"></td>			
-				<td colspan="8" style="padding-top:1px;padding-bottom:4px">
-					<table width="99%" class="formpadding">
-						<tr>
-							
-							<td colspan="11" align="center" style="padding-right:10px">
-							<textarea name="ReviewMemo_#currentrow#" class="regular" style="height:40px;border:1px solid silver;width: 100%; font-size:14px;padding: 4px;background-color: f8f8f8;">#ReviewMemo#</textarea>
-							</td>		
-							</tr>
-							
-							<tr>						
-							<td colspan="11">
-							 
-						 	 <input type="Hidden" id="ReviewId_#currentrow#" name="ReviewId_#currentrow#" value="#rowguid#">
-					
-								 <cf_filelibraryN
-									DocumentPath  = "VacDocument"
-									SubDirectory  = "#rowguid#" 			
-									Insert        = "yes"
-									Filter        = ""	
-									LoadScript    = "No"
-									Box           = "vacdocument_#currentrow#"
-									Remove        = "yes"
-									ShowSize      = "yes">	
-					
-							</td>		
-						</tr>
-					</table>
-				</td>
+			<cfquery name="getActivity" 
+			datasource="appsOrganization" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			    SELECT *
+				FROM   Ref_EntityActionDocument
+				WHERE  ActionCode = '#action.actionCode#'
+				AND    DocumentId IN (SELECT DocumentId FROM Ref_EntityDocument WHERE DocumentType = 'activity')
+			</cfquery>	
+			
+			<cfif getActivity.recordcount gte "1">	
 				
-			</tr>
-		
+				<tr id="action#currentrow#" class="xxhide">
+				
+				<td colspan="10">
+					<cfdiv id="boxaction#PersonNo#" 
+					 bind="url:#session.root#/Vactrack/Application/Candidate/Action/ActionListing.cfm?documentNo=#Object.ObjectKeyValue1#&PersonNo=#PersonNo#&actioncode=#action.actioncode#">				
+				</td>
+				</tr>	
+			
+			</cfif>
+			
+			<tr id="assessment#currentrow#" class="hide">			 
+			  <td colspan="10" style="padding:5px" id="boxassessment#currentrow#"></td>
+			</tr>	
+								
 		</cfif>
 			
 		</cfoutput>	

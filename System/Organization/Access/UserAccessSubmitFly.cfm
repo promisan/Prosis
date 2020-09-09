@@ -160,8 +160,8 @@ WHERE Account = '#URL.ACC#'
 
 <script>
 
-	try { 
-	  parent.parent.ProsisUI.closeWindow('userdialog',true) } 
+	try { 		  
+	   parent.parent.ProsisUI.closeWindow('userdialog')	 } 
 	catch(e) {	parent.parent.window.close() }
 	
 	

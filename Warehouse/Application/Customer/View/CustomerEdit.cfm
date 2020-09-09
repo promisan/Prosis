@@ -133,18 +133,17 @@ password="#SESSION.dbpw#">
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
 				SELECT *
-		    FROM   Applicant.dbo.Applicant
-		    WHERE  PersonNo = '#Customer.PersonNo#'
+		        FROM   Applicant.dbo.Applicant
+		        WHERE  PersonNo = '#Customer.PersonNo#'
 			</cfquery>
 			
      			<table>
-				
-					<tr>
-					
+														
 					<td id="member">
-																
-						<input type="text"   name="name"     id="name" value="#Get.FirstName# #Get.LastName#" size="40" maxlength="40" class="regularxl" readonly style="padding-left:4px">				
-						<input type="hidden" name="personno" id="personno" value="#Get.PersonNo#" size="10" maxlength="10" readonly>
+																					
+						<input type="text"   name="name"     id="name"     value="#Get.FirstName# #Get.LastName#" style="cursor:pointer;text-decoration: underline;padding-left:4px" 
+						        textsize="80" maxlength="80" class="regularxl" readonly onclick="ShowCandidate('#Customer.PersonNo#')">				
+						<input type="hidden" name="personno" id="personno" value="#Customer.PersonNo#" size="10" maxlength="10" readonly>
 					
 					</td>
 					<td style="padding-left:3px">
@@ -164,14 +163,10 @@ password="#SESSION.dbpw#">
 						des1       = "PersonNo">
 							
 					</td>
-										
-					<cfif get.PersonNo neq "">
-					
-					<td>
+									
+					<td id="applicant" style="padding-top:1px">
 					    <cf_img icon="delete" onclick="document.getElementById('personno').value='';document.getElementById('name').value=''">
-					</td>
-					
-					</cfif>
+					</td>					
 												
 					</tr>
 				</table>		
@@ -223,7 +218,7 @@ password="#SESSION.dbpw#">
 					
 					<cfif get.PersonNo neq "">
 					
-					<td>
+					<td style="padding-top:1px">
 					    <cf_img icon="delete" onclick="document.getElementById('personno').value='';document.getElementById('name').value=''">
 					</td>
 					
@@ -279,7 +274,7 @@ password="#SESSION.dbpw#">
 				
 				<cfif get.OrgUnit neq "">
 					
-					<td>
+					<td style="padding-top:1px">
 					    <cf_img icon="delete" onclick="document.getElementById('orgunit').value='';document.getElementById('orgname').value=''">
 					</td>
 					

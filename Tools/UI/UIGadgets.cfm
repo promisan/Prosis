@@ -31,6 +31,11 @@
 	<script type="text/javascript" src="#SESSION.root#/Scripts/js-cookie/js.cookie.js"></script>
 
 	<style>
+
+		.k-dropdowntree .k-multiselect-wrap, .k-multiselect .k-multiselect-wrap {
+			border-color: rgba(0,0,0,.20) !important;
+		}
+
 		.k-dropdown .k-state-default
 		{
 			background-color: white;

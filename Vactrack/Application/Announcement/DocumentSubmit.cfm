@@ -57,9 +57,9 @@ password="#SESSION.dbpw#">
 		datasource="AppsSelection" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-		SELECT   *
-		FROM     FunctionOrganization 
-		WHERE    ReferenceNo = '#Form.ReferenceNo#'
+			SELECT   *
+			FROM     FunctionOrganization 
+			WHERE    ReferenceNo = '#Form.ReferenceNo#'
 		</cfquery>
 		
 		<cfif Check.recordcount eq "1" and Check.GradeDeployment neq Doc.GradeDeployment>
@@ -187,6 +187,37 @@ password="#SESSION.dbpw#">
 		<cfset id = Doc.VAId>
 		
 </cfif>
+
+<!--- competencies --->
+
+
+<cfquery name="cleanCompetence" 
+	 datasource="AppsSelection" 
+	 username="#SESSION.Login#" 
+	 password="#SESSION.dbpw#">	 
+	 	DELETE FROM FunctionOrganizationCompetence
+		WHERE FunctionId = '#id#'			 
+</cfquery>
+
+<cfparam name="Form.Competence" default="">
+
+<cfloop index="com" list="#Form.Competence#">
+
+	 <cfquery name="AddCompetence" 
+		 datasource="AppsSelection" 
+		 username="#SESSION.Login#" 
+		 password="#SESSION.dbpw#">	 
+	 	INSERT INTO FunctionOrganizationCompetence
+		(FunctionId, CompetenceId, OfficerUserId, OfficerLastName, OfficerFirstName)
+		VALUES (
+			'#id#',
+			'#com#',
+			'#SESSION.Acc#',
+			'#SESSION.First#',
+			'#SESSION.Last#' )	 
+	 </cfquery>
+	 
+</cfloop>	 
 
 <!--- update text --->
 

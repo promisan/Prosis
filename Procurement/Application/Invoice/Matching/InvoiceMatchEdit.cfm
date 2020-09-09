@@ -191,7 +191,7 @@
 					 
 					  <cfif invoice.actionStatus eq "0">
 					 			 
-					  <select name="OrgUnitOwner" id="OrgUnitOwner" class="regularxl" style="height:24px;font-size:14px;width:230px;"
+					  <select name="OrgUnitOwner" id="OrgUnitOwner" class="regularxl" style="border:0px;border-left:1px solid silver;border-right:1px solid silver;height:25px;font-size:14px;width:230px;"
 				          onChange="ColdFusion.navigate('InvoiceMatchOrgUnit.cfm?id=<cfoutput>#InvoiceIncoming.InvoiceIncomingId#</cfoutput>&field=owner&orgunit='+this.value,'unitprocess')">
 						  
 						<cfif Owner.recordcount eq "0">  
@@ -236,7 +236,7 @@
 								  ORDER BY HierarchyCode
 							 </cfquery>
 							 
-						    <select name="OrgUnitCenter" id="OrgUnitCenter" class="enterastab regularxl" style="height:24px;font-size:14px;width:230px;"
+						    <select name="OrgUnitCenter" id="OrgUnitCenter" class="enterastab regularxl" style="border:0px;border-left:1px solid silver;border-right:1px solid silver;height:25px;font-size:14px;width:230px;"
 							 onChange="ColdFusion.navigate('InvoiceMatchOrgUnit.cfm?id=<cfoutput>#url.id#</cfoutput>&field=center&orgunit='+this.value,'unitprocess')">>
 						    <cfoutput query="Center">
 			     		     	  <option value="#OrgUnit#" <cfif Invoice.OrgUnit eq OrgUnit>selected</cfif>>#OrgUnitName#</option>

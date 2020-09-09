@@ -135,8 +135,9 @@
 					  field         = "BatchNo",
 					  filtermode    = "1",
 					  display		= "Yes",
-					  displayfilter = "Yes",					  
-					  pfunction      = "displaybatch",
+					  displayfilter = "Yes",					  					  
+					  functionscript    = "batch",
+					  functionfield     = "BatchNo",								  	
 					  search        = "text"}>
 					  
 <cf_tl id="Bill To" var="1">						  

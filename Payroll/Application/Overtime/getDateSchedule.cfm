@@ -17,13 +17,35 @@
 
 <!--- this no longer creates a schedule for people anymore --->
 
+<!--- provision to remove contract days --->
+
+
+<cfquery name="base" 
+  	datasource="AppsEmployee" 
+  	username="#SESSION.login#" 
+  	password="#SESSION.dbpw#">			
+      DELETE   PersonWork
+	  FROM     PersonWork A
+	  WHERE    PersonNo         = '#URL.personno#'
+	  AND      CalendarDate     = #dte#
+	  AND      TransactionType  = '1'	 			  
+	  AND      NOT EXISTS (SELECT 'X' 
+	                       FROM   PersonWorkDetail 
+						   WHERE  PersonNo        = A.PersonNo
+						   AND    CalendarDate    = A.CalendarDate
+						   AND    TransactionType = A.TransactionType
+						   AND    BillingMode    != 'Contract')
+						   
+</cfquery>	
+
+
 <cfinvoke component = "Service.Process.Employee.Attendance"  
 	   method       = "LeaveAttendance" 
 	   PersonNo     = "#url.PersonNo#" 		
 	   Mission      = "#url.Mission#"	   
 	   Mode         = "force"					  
 	   StartDate    = "#dateformat(dte,client.dateformatshow)#"
-	   EndDate      = "#dateformat(dte,client.dateformatshow)#">	
+	   EndDate      = "#dateformat(dte,client.dateformatshow)#">		   
 
 <cfquery name="schedule" 
   	datasource="AppsEmployee" 
@@ -34,8 +56,7 @@
 	  WHERE    PersonNo         = '#URL.PersonNo#'
 	  AND      Mission          = '#URL.Mission#'	 
 	  AND      DateEffective    <= #dte#	 
-	  ORDER BY DateEffective DESC
-	  
+	  ORDER BY DateEffective DESC	  
 </cfquery>
 
 <table style="border:1px solid silver">
@@ -71,6 +92,8 @@ password="#SESSION.dbpw#">
 	  AND      TransactionType  = '1'	 			  
 </cfquery>		
 
+<!--- provision to clean indorect hours --->
+
 <cfquery name="Modality" 
 	datasource="AppsPayroll" 
 	username="#SESSION.login#" 
@@ -83,9 +106,9 @@ password="#SESSION.dbpw#">
 
 <cfloop index="hr" from="#parameter.hourstart#" to="#parameter.hourend#" step="1">
 		
-	<cfif hr gte "4"> <!--- starting from 4 oclick in the morning until 11-00 at night --->		
+	<cfif hr gte "1"> <!--- STL starting from 1 oclick in the morning until 22:59 at night --->		
 		 		
-		<tr class="labelmedium navigation_row line">
+		<tr class="labelmedium navigation_row line" style="height:15px">
 													
 			<cfif hr lt 0>
 			    <cfset hour = "#24+hr#">
@@ -105,11 +128,11 @@ password="#SESSION.dbpw#">
 				  SELECT   *						  					   
 				  FROM     Base
 				  WHERE    CalendarDateHour = '#hr#'	
-				  AND      HourSlot         = '#slot#'
+				  AND      HourSlot         = '#slot#'				  
 				</cfquery>				
 				
-				<cfif get.billingmode eq "Contract">
-					<cfset color = "ffffcf">	
+				<cfif get.billingmode eq "Contract">				
+					<cfset color = "C1E0FF">	
 				<cfelseif  get.source eq "overtime" and get.SourceId neq url.overtimeid>		
 					<cfset color = "yellow">	 		
 				<cfelse>
@@ -118,18 +141,19 @@ password="#SESSION.dbpw#">
 				
 				<td>			
 					<table width="100%" style="height:100%">			
-					<tr style="background-color:#color#;height:100%">		
+					<tr style="height:100%">		
 						    
-						<td style="border-left:1px solid silver;padding-left:15px;min-width:60">							
+						<td style="background-color:#color#;border-left:1px solid silver;padding-left:15px;min-width:60;">												
 							<cf_HourSlots hourslots="#schedule.hourslots#" slot="#slot#">								
 						</td>		
 							
-						<td>						
-						
-							   <cfif get.BillingMode eq "Contract">	
+						<td style="background-color:#color#;font-size:12px">		
+																		
+							   <cfif get.BillingMode eq "Contract" and get.ActionClass neq "Break">	
 							   
-							   	   <input type="hidden" name="BillingMode_#hr#_#slot#" value="Covered">								 					   
-								   <cf_tl id="Contract covered">
+							   	   <input type="hidden" name="BillingMode_#hr#_#slot#" value="Covered">		
+								   					 					   
+								   <cf_tl id="Contract covered">:&nbsp;#get.ActionClass#
 								 							   
 							   <cfelseif get.source eq "overtime" and get.SourceId neq url.overtimeid>
 							   
@@ -142,30 +166,25 @@ password="#SESSION.dbpw#">
 									
 									#get.BillingMode#
 									
-									<cfelseif overtime.recordcount eq "0">		
-									
-										<select name="BillingMode_#hr#_#slot#" class="regularxl" style="border:0px;width:200px">
-										    <cfif get.recordcount eq "0">
-											<option value=""></option>
-											<option value="Overtime"><cf_tl id="Overtime"></option>		
-											<option value="Contract"><cf_tl id="Contract"></option>										
-											<cfelse>
-											<option value="Overtime"><cf_tl id="Overtime"></option>		
-											<option value="Contract"><cf_tl id="Contract"></option>
+									<cfelseif overtime.recordcount eq "0">	
+																		
+										<select name="BillingMode_#hr#_#slot#" class="regularxl" style="border:0px;width:200px;<cfif get.actionClass eq 'break'>background-color:#color#</cfif>;">
+										    <cfif get.recordcount eq "0" or get.actionClass eq "break">
+											<option value=""></option>											
 											</cfif>
+											<option value="Overtime"><cf_tl id="Overtime"></option>		
+											<option value="Contract"><cf_tl id="Contract"></option>		
 																			
 										</select>	
 									
 									<cfelse>	
-																		 
-									 	<select name="BillingMode_#hr#_#slot#" class="regularxl" style="border:0px;width:200px"
+																											 
+									 	<select name="BillingMode_#hr#_#slot#" class="regularxl" style="border:0px;width:200px;<cfif get.actionClass eq 'break'>background-color:#color#</cfif>"
 										  onchange="ptoken.navigate('setHourModality.cfm?field=BillingMode&id=_#hr#_#slot#&value='+this.value,'process')">
-										    <cfif get.recordcount eq "0">
-											<option value=""></option>
-											<option value="Contract"><cf_tl id="Contract"></option>
-											<cfelse>
-											<option value="Contract"><cf_tl id="Contract"></option>
+										    <cfif get.recordcount eq "0" or get.actionClass eq "break">
+											<option value=""></option>											
 											</cfif>
+											<option value="Contract"><cf_tl id="Contract"></option>
 											<cfloop query="modality">
 											<option value="#SalaryTrigger#" <cfif get.BillingMode eq salarytrigger>selected</cfif>>#Description#</option>
 											</cfloop>
@@ -177,7 +196,7 @@ password="#SESSION.dbpw#">
 								
 							</td>
 								
-							<td valign="top" style="height:100%;min-width:70px">	
+							<td valign="top" style="background-color:#color#;height:100%;min-width:70px;border-left:1px solid silver">	
 														
 							    <cfif get.BillingMode eq "Contract">	
 								
@@ -206,15 +225,18 @@ password="#SESSION.dbpw#">
 									<cfelse>	
 																		     
 									    
-										<table><tr class="labelmedium"><td style="padding-left:3px;padding-top:1px"> 
-										<cfif get.BillingPayment eq "">
-										<cfelseif get.BillingPayment eq "0">Time
-										<cfelse>Payment</cfif>	
+										<table>
+										<tr class="labelmedium">
+										<td style="padding-left:3px;padding-top:1px"> 
+											<cfif get.BillingPayment eq "">
+											<cfelseif get.BillingPayment eq "0"><cf_tl id="Time">
+											<cfelse><cf_tl id="Payment"></cfif>	
 										</td>
 										<td>
 										<input type="hidden" name="BillingPayment_#hr#_#slot#" id="BillingPayment_#hr#_#slot#" value="0">
 										</td>
-										</tr></table>								
+										</tr>
+										</table>								
 																			
 									</cfif>
 								

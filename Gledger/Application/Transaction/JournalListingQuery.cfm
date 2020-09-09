@@ -53,18 +53,19 @@
 <cfoutput>
 
 	<cfsavecontent variable="querystatement">
+	
 	    TransactionHeader T WITH (NOLOCK)
-		       INNER JOIN TransactionLine L WITH (NOLOCK) ON T.Journal = L.Journal AND T.JournalSerialNo = L.JournalSerialNo
-			   LEFT OUTER JOIN Employee.dbo.Person P WITH (NOLOCK) ON P.PersonNo = T.ReferencePersonNo
-			   LEFT OUTER JOIN Materials.dbo.Customer C WITH (NOLOCK) ON C.CustomerId = T.ReferenceId
+		       INNER JOIN TransactionLine L             WITH (NOLOCK) ON T.Journal = L.Journal AND T.JournalSerialNo = L.JournalSerialNo			  
+			   LEFT OUTER JOIN Employee.dbo.Person P    WITH (NOLOCK) ON P.PersonNo = T.ReferencePersonNo
+			   LEFT OUTER JOIN Materials.dbo.Customer C WITH (NOLOCK) ON C.CustomerId = T.ReferenceId			  
 		
+						
 		WHERE  L.TransactionSerialNo = (SELECT MIN(TransactionSerialNo)
 										FROM     TransactionLine WITH (NOLOCK)
 										WHERE    Journal         = T.Journal
 										AND      JournalSerialNo = T.JournalSerialNo
-										GROUP BY Journal, JournalSerialNo
-										)
-		
+										GROUP BY Journal, JournalSerialNo )
+																						
 		<cfif url.journal neq "" AND url.journal neq "0">	
 		AND    T.Journal                = '#URL.Journal#' 
 		</cfif>
@@ -111,7 +112,10 @@
 			   T.TransactionReference LIKE '%#URL.Find#%' OR
 			   L.Fund              LIKE '#URL.Find#%' OR
 			   L.ProgramCode       LIKE '#URL.Find#%' OR
-			   EXISTS (SELECT 'X' FROM Program.dbo.ProgramPeriod Pe WHERE ProgramCode = L.ProgramCode AND Reference LIKE '#URL.Find#%')			  
+			   EXISTS (SELECT 'X' 
+			           FROM   Program.dbo.ProgramPeriod Pe 
+					   WHERE  ProgramCode = L.ProgramCode 
+					   AND    Reference LIKE '#URL.Find#%')			  
 			   <cfif num eq "1">  OR  T.DocumentAmount   LIKE '%#URL.Find#%' </cfif>
 			   )
 				
@@ -149,10 +153,12 @@
 		   T.ReferencePersonNo,
 		   T.OfficerFirstName,
 		   T.OfficerLastName,
+		   
 		   P.LastName,
 		   P.FirstName,
 		   P.IndexNo,
 		   C.CustomerName,
+		   
 		   T.Amount, 
 		   T.AmountOutstanding 
 	
@@ -176,12 +182,18 @@
 				           T.AmountOutstanding     as AmountOutstanding,
 					       SUM(L.AmountDebit)      as AmountTriggerDebit, 
 			               SUM(L.AmountCredit)     as AmountTriggerCredit 
-				   FROM    #preserveSingleQuotes(querystatement)# ) as Tbl
-				   
+				   FROM    #preserveSingleQuotes(querystatement)# ) as Tbl		
+				      
 	</cfquery>		
+	
+	<!--- remove me --->
+	
+	<cfif cfquery.executiontime gte "800">
+	<cfoutput>1:#cfquery.executiontime#</cfoutput>
+	</cfif>
+	
 
 <cfelse>
-
 	
 	<cfquery name="getTotal"
 		datasource="AppsLedger" 
@@ -230,17 +242,26 @@
 			   T.ActionStatus,
 			   T.RecordStatus,
 			   T.AccountPeriod,
-			   T.ReferencePersonNo,
+			   T.ReferencePersonNo,			  
 			   P.LastName,
 			   P.FirstName,
 			   P.IndexNo,
-	           C.CustomerName,
+	           C.CustomerName,			  
 			   T.OfficerFirstName,
 			   T.OfficerLastName,
 			   T.Amount, 
 			   T.AmountOutstanding, 
 			   SUM(L.AmountDebit)  as AmountTriggerDebit,
 			   SUM(L.AmountCredit) as AmountTriggerCredit
-		 FROM  #preserveSingleQuotes(querystatement)#
-		 ORDER BY T.Currency, T.#IDSorting# <cfif url.idsorting eq "DocumentDate" or url.idsorting eq "TransactionDate">DESC</cfif>, T.Created DESC		 
+		 FROM  #preserveSingleQuotes(querystatement)# 
+		 
+		 ORDER BY T.Currency, 
+		          T.#IDSorting# <cfif url.idsorting eq "DocumentDate" or url.idsorting eq "TransactionDate">DESC</cfif>, 
+				  T.Created DESC		 
+			
 </cfquery>
+
+<cfif cfquery.executiontime gte "800">
+	<cfoutput>2:#cfquery.executiontime#</cfoutput>
+	</cfif>
+	

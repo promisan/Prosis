@@ -7,7 +7,7 @@
 					
 			<input type="button" 
 				onclick="toggle('locatebox')" 
-				class="button10s" 
+				class="button10g" 
 				style="height:23px"
 				name="togglebutton" 
 				id="togglebutton"
@@ -47,7 +47,7 @@
 			    name="detail"
 				id="detail"
 		        width="98%"
-		        height="99%"
+		        height="97%"
 		        align="middle"
 		        scrolling="no"
 		        frameborder="0"></iframe>

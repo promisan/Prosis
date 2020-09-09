@@ -145,7 +145,7 @@ password="#SESSION.dbpw#">
 				datasource="AppsPayroll" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
-				INSERT INTO [dbo].[PersonOvertimeDetail]
+				INSERT INTO PersonOvertimeDetail
 					      (PersonNo,
 						   OvertimeId,
 						   SalaryTrigger,
@@ -174,7 +174,7 @@ password="#SESSION.dbpw#">
 				datasource="AppsPayroll" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
-				INSERT INTO [dbo].[PersonOvertimeDetail]
+				INSERT INTO PersonOvertimeDetail
 					      (PersonNo,
 						   OvertimeId,
 						   SalaryTrigger,

@@ -11,9 +11,9 @@ datasource="appsVacancy"
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
 	SELECT  D.*, 
-	        F.FunctionId as VAId, 
-			F.ReferenceNo as VAReferenceNo,
-			F.DateEffective as VAEffective,
+	        F.FunctionId     as VAId, 
+			F.ReferenceNo    as VAReferenceNo,
+			F.DateEffective  as VAEffective,
 			F.DateExpiration as VAExpiration
     FROM  	Document D LEFT OUTER JOIN Applicant.dbo.FunctionOrganization F ON D.FunctionId = F.FunctionId
     WHERE 	D.DocumentNo = '#Object.ObjectKeyValue1#'	
@@ -42,7 +42,7 @@ password="#SESSION.dbpw#">
 				
 		<td colspan="3">
     	<cfoutput>
-		<input type="text" name="ReferenceNo" class="regularxl" value="#Doc.VAReferenceNo#" size="10" maxlength="20">
+		<input type="text" name="ReferenceNo" class="regularxxl" value="#Doc.VAReferenceNo#" size="10" maxlength="20">
 		<input type="hidden" name="FunctionId" value="#Doc.VAId#">
 		</cfoutput>
 		</td>
@@ -51,7 +51,7 @@ password="#SESSION.dbpw#">
 	
 		<td colspan="3">
     	<cfoutput>
-		<input type="text" name="ReferenceNo" class="regularxl" value="" size="10" maxlength="20">
+		<input type="text" name="ReferenceNo" class="regularxxl" value="" size="10" maxlength="20">
 		<input type="hidden" name="FunctionId" value="">
 		</cfoutput>
 		</td>
@@ -68,7 +68,7 @@ password="#SESSION.dbpw#">
 		
 		<cf_intelliCalendarDate9
 			FieldName="DateEffective" 
-			class="regularxl"
+			class="regularxxl"
 			Default="#Dateformat(Doc.VAEffective, CLIENT.DateFormatShow)#"
 			AllowBlank="False">	
 		
@@ -84,17 +84,98 @@ password="#SESSION.dbpw#">
 	
 		   <cf_intelliCalendarDate9
 			FieldName="DateExpiration" 
-			class="regularxl"
+			class="regularxxl"
 			Default="#Dateformat(Doc.VAExpiration, CLIENT.DateFormatShow)#"
 			AllowBlank="False">	
 			
 	</td>
-	</TR>		
+	</TR>	
+	
+	<tr><td style="height:10px"></td></tr>
+	<tr class="labelmedium"><td style="font-size:25px" colspan="4"><cf_tl id="Candidate Assessment Core Competencies"></td></td>	
+	
+	<tr><td colspan="4">
+	
+			<table width="99%" align="center" class="formpadding">
+		   	
+			<tr><td height="10px"></td></tr>
+			 
+			 <cfquery name="GetCompetencies" 
+				 datasource="AppsSelection" 
+				 username="#SESSION.Login#" 
+				 password="#SESSION.dbpw#">
+					  
+				SELECT  CC.Description AS Category,
+				        C.*,
+				        (SELECT FOC.FunctionId
+					     FROM   FunctionOrganizationCompetence FOC
+						 WHERE  FOC.CompetenceId = C.CompetenceId
+						 <cfif doc.VaId neq "">
+						 AND   FOC.FunctionId = '#doc.VaId#'
+						 <cfelse>
+						 AND 1=0
+						 </cfif>) as FunctionId		
+			    FROM     Ref_Competence C
+					     INNER JOIN Ref_CompetenceCategory CC ON C.CompetenceCategory = CC.Code
+				WHERE    C.Operational = 1
+				ORDER BY CC.Code, ListingOrder			  
+			</cfquery>
+				
+			<cfset columns= 3>
+			
+			<tr>
+				<td>
+					
+					<table width="99%" align="center">
+			
+					<cfoutput query="GetCompetencies" group="Category">
+					 
+					 	<cfset cont   = 0>
+					 
+						 <tr class="line">
+						 	<td class="labellarge" colspan="#columns*2#">#Category#</td>
+						 </tr>
+						
+						 <cfoutput>
+						 	
+							<cfif cont eq 0> <tr> </cfif>
+							
+							<cfif FunctionId neq "">
+							   <cfset cl = "ffffcf">
+							<cfelse>
+							   <cfset cl = "ffffff">
+							</cfif>
+							
+					 		<td style="background-color:###cl#" 
+							    style="cursor:pointer;width:30px" align="center" class="labelmedium">
+								<input type="checkbox" class="radiol" value="#CompetenceId#" name="Competence" <cfif FunctionId neq "">checked</cfif>>
+								</td>
+								<td class="labelmedium" style="width:30%;padding-left:4px">#Description#</td>
+								<cfset cont = cont + 1>
+							</td>
+							<cfif cont eq columns> </tr> <cfset cont = 0> </cfif>
+							
+				 		  </cfoutput>
+						  
+						  <tr><td colspan="#columns*2#" height="15px"></td></tr>
+					
+					</cfoutput>
+					
+					</table>
+		
+				</td>
+			</tr>	
+					
+		</table>
+		
+	</td></tr>	
+	
+	<tr class="labelmedium"><td style="font-size:25px" height="2" colspan="4"><cf_tl id="Announcement text"></td></td>
 	
 	<tr><td height="2" colspan="4">
 			
 	<cfif Doc.VAId eq "">
-		
+	
 		 <cf_ApplicantTextArea
 			Table           = "FunctionTitleGradeProfile" 
 			Domain          = "#url.wParam#"
@@ -106,7 +187,7 @@ password="#SESSION.dbpw#">
 			Key02Value      = "#Doc.GradeDeployment#">
 		
 	<cfelse>
-				
+					
 		   <cf_ApplicantTextArea
 			Table           = "FunctionOrganizationNotes" 
 			Domain          = "#url.wParam#"

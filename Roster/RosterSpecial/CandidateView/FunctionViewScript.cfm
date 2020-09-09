@@ -2,18 +2,16 @@
 
 <script language="JavaScript">
 	
-	function quesave(topic) {
+	function quesave(id,topic) {
 	
 	   document.mytopic.onsubmit() 
 		if( _CF_error_messages.length == 0 ) {
-	       ptoken.navigate('../Bucket/BucketQuestion/RecordListingSubmit.cfm?idfunction=#url.idfunction#&topicid='+topic,'listing','','','POST','mytopic')
+	       ptoken.navigate('#SESSION.root#/Roster/RosterSpecial/Bucket/BucketQuestion/RecordListingSubmit.cfm?idfunction='+id+'&topicid='+topic,'listing','','','POST','mytopic')
 		 }   
 	 }
 	  
-	function va() {
-	
-	    ptoken.open("#SESSION.root#/vactrack/application/Announcement/Announcement.cfm?ID=#URL.IDFunction#&Mode=EDIT","VA","left=20, top=20, width=" + w + ", height= " + h + ", status=yes, toolbar=no, location=no, scrollbars=yes, resizable=no")
-		
+	function va() {	
+	    ptoken.open("#SESSION.root#/vactrack/application/Announcement/Announcement.cfm?ID=#URL.IDFunction#&Mode=EDIT","VA","left=20, top=20, width=" + w + ", height= " + h + ", status=yes, toolbar=no, location=no, scrollbars=yes, resizable=no")		
 	}	 
 	
 	function submitCompetence(element,functionId, competenceId){
@@ -143,18 +141,16 @@
 	function showdocumentcandidate(vacno,persno) {
 	    w = screen.width - 80;
 	    h = screen.height - 130;
-	    ptoken.open("#SESSION.root#/Vactrack/Application/Candidate/CandidateEdit.cfm?ID=" + vacno + "&ID1=" + persno, "_blank", "left=30, top=30, width=" + w + ", height= " + h + ", status=yes, toolbar=no, scrollbars=no, resizable=yes");
+	    ptoken.open("#SESSION.root#/Vactrack/Application/Candidate/CandidateEdit.cfm?ID=" + vacno + "&ID1=" + persno, "_blank");
 	}  
 	
 	function candidateApply(personno){
 		ptoken.navigate('#SESSION.root#/Roster/RosterSpecial/CandidateView/ApplicantManualSubmit.cfm?IDFunction=#URL.IDFunction#&owner=#Function.Owner#&personno='+personno,'detail')
 	}
 	
-	function candidate(id) {
-		
+	function candidate(id) {		
 		ProsisUI.createWindow('CandidateSearchWindow', 'Retrieve a candidate', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,center:true,resizable:false});			
-		ptoken.navigate('#SESSION.root#/Roster/Candidate/Events/LocateCandidate.cfm?mode=bucket&ID='+id + '&ts='+new Date().getTime(),'CandidateSearchWindow');
-		
+		ptoken.navigate('#SESSION.root#/Roster/Candidate/Events/LocateCandidate.cfm?mode=bucket&ID='+id + '&ts='+new Date().getTime(),'CandidateSearchWindow');		
 	}
 		
 	function initial(funno,doctpe) {

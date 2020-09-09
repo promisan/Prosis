@@ -24,7 +24,7 @@ password="#SESSION.dbpw#">
 <cfif get.Recordcount eq "1">
 
 <cfoutput>
-	<input type="text" name="name" value="#Get.FirstName# #Get.LastName#" size="40" maxlength="40" class="regularxl" readonly style="padding-left:3px">				
+	<input type="text" name="name" id="name" value="#Get.FirstName# #Get.LastName#" size="40" maxlength="40" class="regularxl" readonly style="padding-left:3px">				
 	<input type="hidden" name="personno" id="personno" value="#Get.PersonNo#">
 </cfoutput>
 

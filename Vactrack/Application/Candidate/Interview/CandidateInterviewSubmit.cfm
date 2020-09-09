@@ -35,7 +35,7 @@ password="#SESSION.dbpw#">
 			
 <cfif Form.DateInterviewStart neq "">
 
-<cfset dateValue = "">
+	<cfset dateValue = "">
 	<CF_DateConvert Value="#Form.DateInterviewStart#">
 	<cfset STR = dateValue>
 
@@ -44,7 +44,7 @@ password="#SESSION.dbpw#">
 	
 	<cfset te = DateAdd("h", "#Form.HourInterviewEnd#",   "#STR#")> 
 	<cfset te = DateAdd("m", "#Form.MinuteInterviewEnd#", "#te#")>
-	
+
 
 	 <cfquery name="CandidateStatus" 
 			datasource="AppsVacancy" 
@@ -55,13 +55,13 @@ password="#SESSION.dbpw#">
 				<!---
 				  DO not update the status automatically, candidate might have attended
 				  to the interview but might not be considereted for the selection
-				  
-				  Status                 = '2',  
+				  				  
 			      StatusDate             = getDate(),
 				  StatusOfficerUserId    = '#SESSION.acc#',
 				  StatusOfficerLastName  = '#SESSION.last#',
-				  StatusOfficerFirstName = '#SESSION.first#', --->
+				  StatusOfficerFirstName = '#SESSION.first#', 
 				  Status				 = '#Form.CandidateStatus#',
+				  --->
 				  TsInterviewStart       = #ta#,
 				  TsInterviewEnd         = #te# 
 			WHERE DocumentNo = '#URL.DocumentNo#'
@@ -76,8 +76,7 @@ password="#SESSION.dbpw#">
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
 		UPDATE DocumentCandidateReview
-		SET    ReviewDate = #now()#,
-			   ActionStatus = '1',
+		SET    ReviewDate = #now()#,			   
 			   ReviewMemo = '#Form.ReviewMemo#'
 		WHERE  DocumentNo = '#URL.DocumentNo#'
 		AND    PersonNo   = '#URL.Personno#'

@@ -1,4 +1,40 @@
 
+
+<cfquery name="Accounts"
+	datasource="AppsLedger" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	
+		SELECT     R.GLAccount
+				   
+		FROM       Ref_Account R  INNER JOIN
+				   Ref_AccountMission M ON R.GLAccount = M.GLAccount							   
+		WHERE      M.Mission       = '#url.mission#' 				
+		AND        R.AccountClass       = 'Balance' <!--- balance --->			
+		<cfif url.mode eq "AR">  
+		AND        (R.BankReconciliation = 1 AND R.AccountCategory IN ('Vendor','Neutral') 
+		            OR 
+				    R.AccountCategory = 'Vendor')
+		<cfelse>	
+		AND        R.AccountType        = 'Credit' 
+		AND        R.AccountCategory    = 'Customer'
+		</cfif>	
+								 		   
+</cfquery>		
+
+<cfset selaccount = quotedvalueList(Accounts.GLAccount)> 
+
+
+<cfif url.mode eq "AP">
+    <!---
+    <cfset journalfilter = "'Payables','Payment','DirectPayment'">
+	--->
+	<cfset journalfilter = "'Payables'">
+<cfelse>
+    <cfset journalfilter = "'Receivables'">
+</cfif>	
+
+
 <CF_DropTable dbName="AppsQuery" tblName="Inquiry_#url.mode#_#session.acc#">	
 
 <cftransaction isolation="READ_UNCOMMITTED">
@@ -6,8 +42,7 @@
 <cfquery name="InitTable" 
 datasource="AppsLedger" 
 username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-	
+password="#SESSION.dbpw#">	
 			
 			SELECT   DISTINCT P.Journal, 
 			         P.JournalSerialNo, 
@@ -79,9 +114,9 @@ password="#SESSION.dbpw#">
 						ON O.OrgUnit = P.ReferenceOrgUnit												 
 								 
 			WHERE    P.Mission = '#URL.Mission#'
-			
+						
 			AND      P.TransactionCategory IN (#preservesinglequotes(journalfilter)#) 
-			
+						
 			<!--- has a base booking on the accounts with AR or AP --->
 			AND      P.Journal IN (SELECT Journal 
 			                     FROM   TransactionLine 
@@ -120,9 +155,12 @@ password="#SESSION.dbpw#">
 			AND      P.Journal IN (SELECT Journal 
 			                     FROM   Journal 
 							     WHERE  GLCategory = 'Actuals')
-										     
-		
 			    		
 </cfquery>
 
 </cftransaction>
+
+
+
+
+

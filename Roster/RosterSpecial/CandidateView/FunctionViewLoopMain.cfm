@@ -93,7 +93,7 @@
 								<td class="labelmedium"><cf_tl id="Recruitment Request">:</td>
 							    <td class="labelmedium">
 								<cfoutput>
-									<a href="javascript:showdocument('#Function.DocumentNo#')"><font color="0080C0"><b>#Function.DocumentNo#</font></a>
+									<a href="javascript:showdocument('#Function.DocumentNo#')">#Function.DocumentNo#</a>
 								</cfoutput>  		
 																								
 								<cfquery name="Doc" 

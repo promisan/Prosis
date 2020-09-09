@@ -83,8 +83,8 @@ password="#SESSION.dbpw#">
 	   </td>
 	</tr>
 	<cfif actionmemo neq "">
-	<tr class="labelmedium line" style="height:15px">   
-	   <td colspan="6">#ActionMemo#</td>  
+	<tr class="labelmedium line" style="border-top:1px dotted silver;height:15px">   
+	   <td colspan="6" style="padding-left:4px">#ActionMemo#</td>  
 	</tr>
 	</cfif>
 

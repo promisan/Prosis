@@ -198,7 +198,7 @@ password="#SESSION.dbpw#">
 		</cfoutput> 
 								
 		<TR>
-		    <td valign="top" style="padding-top:5px" class="labelmedium" style="height:30px"><cf_tl id="Schedule"></td>
+		    <td valign="top" style="padding-top:5px" class="labelmedium" style="height:30px"><cf_tl id="Schedule">:</td>
 		    <td colspan="1" class="labelmedium" id="schedule">		
 				<cfdiv id="divMode" bind="url:getDateSchedule.cfm?personno=#url.id#&mission={mission}&seldate={OvertimePeriodEnd}&overtimeid=#rowguid#">					
 			</td>

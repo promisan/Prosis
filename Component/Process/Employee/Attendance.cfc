@@ -628,6 +628,18 @@
 				<cfset schedulemode = "1">				
 			
 			<cfelse>
+			
+				<cfquery name="lastschedule" 
+			  	datasource="AppsEmployee" 
+			  	username="#SESSION.login#" 
+			  	password="#SESSION.dbpw#">
+			      SELECT   TOP 1 *
+				  FROM     PersonWorkSchedule S 
+				  WHERE    PersonNo         = '#URL.PersonNo#'
+				  AND      Mission          = '#URL.Mission#'	 
+				  AND      DateEffective    <= #dte#	 
+				  ORDER BY DateEffective DESC	  
+				</cfquery>
 							
 				<cfquery name="hasSchedule" 
 		         datasource="AppsEmployee" 
@@ -637,13 +649,14 @@
 			         FROM     PersonWorkSchedule 
 			         WHERE    PersonNo = '#PersonNo#'
 					 AND      DateEffective <= #dte#
+					 AND      DateEffective >= '#lastSchedule.dateEffective#'
 					 <cfif mission neq "">
 					 AND      Mission = '#mission#'
 					 </cfif>
 					 ORDER BY DateEffective DESC
 			    </cfquery>
 				
-				<cfif hasSchedule.recordcount gte "1">
+				<cfif hasSchedule.recordcount gte "1">			
 													
 					<cfset schedulemode = "2">
 				
@@ -859,35 +872,44 @@
 						WHERE     PersonNo      = '#PersonNo#'	
 						AND       Mission       = '#mission#' 
 						AND       DateEffective <= #DateSel#
+						AND       DateEffective >= '#lastSchedule.dateEffective#'
 						AND       WeekDay        = #DayOfWeek(DateSel)#		
 						ORDER BY  DateEffective DESC	
 				</cfquery>	
 				
-				<cfquery name="getPersonSchedule" 
-					datasource="AppsEmployee" 		
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">				
-					   SELECT    *
-					   FROM      PersonWorkSchedule
-					   WHERE     PersonNo      = '#getValidSchedule.PersonNo#'
-					   AND       Mission       = '#getValidSchedule.Mission#'
-					   AND       Weekday       = #DayOfWeek(DateSel)#
-					   AND       DateEffective = '#getValidSchedule.DateEffective#'
-		         </cfquery>
+				<cfif getValidSchedule.recordcount gte "1">
+				
+					<cfquery name="getPersonSchedule" 
+						datasource="AppsEmployee" 		
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">				
+						   SELECT    *
+						   FROM      PersonWorkSchedule
+						   WHERE     PersonNo      = '#getValidSchedule.PersonNo#'
+						   AND       Mission       = '#getValidSchedule.Mission#'
+						   AND       Weekday       = #DayOfWeek(DateSel)#
+						   AND       DateEffective = '#getValidSchedule.DateEffective#'					   
+			         </cfquery>
+					 
+					 <cfquery name="getPersonTotal" dbtype="query">				
+						   SELECT    COUNT(CalendarDateHour) as Hours,
+						             MAX(CalendarDateSlot) as Slots
+						   FROM      getPersonSchedule					  			 
+					 </cfquery>
+					 
+					 <cfif getPersonTotal.Hours gte "1">
 				 
-				 <cfquery name="getPersonTotal" dbtype="query">				
-					   SELECT    COUNT(CalendarDateHour) as Hours,
-					             MAX(CalendarDateSlot) as Slots
-					   FROM      getPersonSchedule					  			 
-				 </cfquery>
-				 
-				 <cfif getPersonTotal.Hours gte "1">
-			 
-					 <cfset dayhours = getPersonTotal.Hours/getPersonTotal.Slots>			   
+						 <cfset dayhours = getPersonTotal.Hours/getPersonTotal.Slots>			   
+					 
+					 <cfelse>
+					 
+						 <cfset dayhours = "0">
+					 
+					 </cfif>
 				 
 				 <cfelse>
 				 
-					 <cfset dayhours = "0">
+				 	 <cfset dayhours = "0">
 				 
 				 </cfif>
 		   
@@ -1416,6 +1438,7 @@
 					               datasource="AppsEmployee" 
 					               username="#SESSION.login#" 
 					               password="#SESSION.dbpw#">
+								   
 					       		   INSERT INTO	PersonWorkDetail
 						    		      (PersonNo, 	    		  
 						    			   CalendarDate, 

@@ -57,8 +57,7 @@ password="#SESSION.dbpw#">
 			   <!--- ,
 			   L.Currency --->
 			   
-	ORDER BY   R.GLAccount	
-	
+	ORDER BY   R.GLAccount		
 			 		   
 </cfquery>		
 
@@ -68,14 +67,12 @@ password="#SESSION.dbpw#">
 
 <cfsavecontent variable="myquery">
 
-
 	SELECT * 
 	
 	FROM (
 
 		SELECT H.Journal, J.Description, TransactionSource, AccountPeriod, TransactionPeriod, sum(derivedtbl_1.Amount) as AmountBase
 		FROM TransactionHeader H, 
-		
 		
 		
 		          (SELECT        CASE WHEN L.ParentJournal IS NULL THEN L.Journal ELSE L.ParentJournal END AS Journal, 
