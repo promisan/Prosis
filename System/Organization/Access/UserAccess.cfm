@@ -849,16 +849,14 @@ WHERE   Role = '#URL.ID#'
 			    <table>
 			    <tr><td>
 			    
-				<input type="button" class="button10g" name="close" id="close" value="Close" onClick="parent.ProsisUI.closeWindow('myaccess',true)">
+				<cfif URL.ID1 neq "Object">
+				<input type="button" class="button10g" name="close" id="close" value="Close" onClick="parent.parent.ProsisUI.closeWindow('myaccess')">
+				<cfelse>
+				<input type="button" class="button10g" name="close" id="close" value="Close" onClick="parent.parent.ProsisUI.closeWindow('userdialog')">
+				</cfif>
 				
 				</td><td style="padding-left:2px">
-				    <!---
-					<input type="submit" class="button10g"  style="height:25px;width:200px" value="Apply" 
-							onclick="ColdFusion.Window.show('progress'); ColdFusion.ProgressBar.start('pBar');">	
-				
-					--->							
-					
-					<input type="submit" class="button10g"  style="height:25px;width:200px" value="Apply" onclick="Prosis.busy('yes');">			
+				   	<input type="submit" class="button10g"  style="height:25px;width:200px" value="Apply" onclick="Prosis.busy('yes');">			
 					</td>
 				</tr>
 				</table>				
@@ -873,13 +871,13 @@ WHERE   Role = '#URL.ID#'
 		<!--- -------------------------------------------------------- --->
 		
 		<tr><td class="hide" colspan="6">
-				
+						
 			<iframe name="resulting"
 			   id="resulting"
 			   width="100%"
 			   height="100%"
 			   scrolling="yes"
-			   frameborder="0"></iframe>
+			   frameborder="1"></iframe>
 					
 		</td></tr>
 		
@@ -892,39 +890,7 @@ WHERE   Role = '#URL.ID#'
 	</td></tr>
 	
 	</table>	
-	
-	<!--- disabled 11/4/2020
-	
-	<cfwindow name="progress"
-          title="Wait"
-          height="50"
-          width="320"
-          center="True"
-          closable="False"
-          draggable="false"
-          modal="False"
-          resizable="True">
-		  
-		<table width="100%" height="100%">
-		    <tr>
-			<td align="center">
-			
-				 <cfprogressbar name="pBar" 
-					    style="bgcolor:f4f4f4;progresscolor:FFB591" 
-						bind="cfc:Service.Authorization.AuthorizationBatch.getstatus()" 
-						height="10" 
-						interval="300" 
-						autoDisplay="false" 
-						width="260"/> 
-													
-			</td>
-			</tr>
-		</table>
-	
-	</cfwindow>		
-	
-	--->
-
+		
 </table>
 	
 <cf_screenBottom layout="webapp">

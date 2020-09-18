@@ -50,7 +50,7 @@ password="#SESSION.dbpw#">
 
 <cfform action="FieldEditLookupSubmit.cfm" method="POST" name="form#URL.Type#" id="form#URL.Type#">
 
-<table width="95%" border="0" cellspacing="0" cellpadding="0" align="left">
+<table width="95%" cellpadding="0" align="left">
 	    
 	 <cfinput type = "hidden" value="#URL.FunctionId#" id="FunctionId" name="FunctionId">
 	 <cfinput type = "hidden" value="#URL.SerialNo#"   id="SerialNo"   name="SerialNo">
@@ -60,17 +60,15 @@ password="#SESSION.dbpw#">
 	    <td width="100%" class="regular">
 	    <table width="100%" cellspacing="0" cellpadding="0" class="formpadding">
 			
-	    <TR>
-		   <td width="38%" class="labelit">Value</td>
-		   <td width="48%" class="labelit">Description</td>
-		   <td class="labelit">Sorting</td>
-		   <td class="labelit" width="10%" align="center">Enable</td>
-		   <td class="labelit" width="7%"></td>
-		   <td class="labelit" width="7%"></td>
+	    <TR class="labelmedium line">
+		   <td width="38%">Value</td>
+		   <td width="48%">Description</td>
+		   <td>Sorting</td>
+		   <td width="10%" align="center">Enable</td>
+		   <td width="7%"></td>
+		   <td width="7%"></td>
 	    </TR>	
-		
-		<tr><td colspan="6" class="linedotted"></td></tr>
-	
+					
 		<cfloop query="List">
 		
 		<cfset nm = ListValue>
@@ -85,7 +83,7 @@ password="#SESSION.dbpw#">
 			<TR>
 			   <td>&nbsp;#nm#</td>
 			   <td>
-			   	   <cfinput type="Text" value="#de#" name="ListDisplay" message="You must enter a description" required="Yes" size="30" maxlength="30" class="regular">
+			   	   <cfinput type="Text" value="#de#" name="ListDisplay" message="You must enter a description" required="Yes" size="30" maxlength="30" class="regularxl">
 	           </td>
 			    <td>
 			   	   <cfinput type="Text"
@@ -95,7 +93,7 @@ password="#SESSION.dbpw#">
 			       validate="integer"			      	     
 			       size="2"
 			       maxlength="2"
-			       class="regular">
+			       class="regularxl">
 	           </td>
 			   <td class="regular" align="center">
 			      <cfinput type="checkbox" name="Operational" id="Operational" value="1" >
@@ -105,10 +103,10 @@ password="#SESSION.dbpw#">
 					
 		<cfelse>
 		
-			<TR>
-			   <td class="labelit">#nm#</td>
-			   <td class="labelit">#de#</td>
-			   <td class="labelit">#od#</td>
+			<TR class="labelmedium line">
+			   <td>#nm#</td>
+			   <td>#de#</td>
+			   <td>#od#</td>
 			   <td align="center"><cfif #op# eq "0"><b>No</b><cfelse>Yes</cfif></td>
 			   <td>
 			   	<cf_img icon="edit" onclick="edit('#ListValue#')">
@@ -127,14 +125,8 @@ password="#SESSION.dbpw#">
 		<cfif URL.ListValue eq "">
 					
 			<TR>
-			<td>
-			   <cfinput type="Text" name="ListValue" message="You must enter a value" required="Yes" size="20" maxlength="20" class="regular">			
-			</td>
-			
-			<td>
-			   <cfinput type="Text" name="ListDisplay" message="You must enter a description" required="Yes" size="30" maxlength="30" class="regular">
-			</td>
-			
+			<td><cfinput type="Text" name="ListValue" message="You must enter a value" required="Yes" size="20" maxlength="20" class="regularxl"></td>			
+			<td><cfinput type="Text" name="ListDisplay" message="You must enter a description" required="Yes" size="30" maxlength="30" class="regularxl"></td>
 			<td>
 			  <cfinput type="Text"
 			       name="ListOrder"
@@ -144,20 +136,13 @@ password="#SESSION.dbpw#">
 				   style="text-align:center"
 			       size="1"
 			       maxlength="2"
-			       class="regular">
-			</td>
-			
-			<td align="center">
-				<cfinput type="checkbox" name="Operational" id="Operational" value="1" checked>
-			</td>
-								   
-			<td colspan="2" align="right">
-				<cfinput type="submit" value=" Add " id="Add" name="Add" class="button4" >
-			</td>
-			    
+			       class="regularxl">
+			</td>			
+			<td align="center"><cfinput type="checkbox" name="Operational" id="Operational" value="1" checked></td>
+			<td colspan="2" align="right"><cfinput type="submit" value=" Add " id="Add" name="Add" class="button4"></td>			    
 			</TR>	
 			
-			<cfset cnt = cnt + 20>
+			<cfset cnt = cnt + 25>
 								
 		</cfif>	
 		
@@ -165,19 +150,15 @@ password="#SESSION.dbpw#">
 		
 		</td>
 		</tr>
-				
-		<tr><td height="2" colspan="5"></td></tr> 
-			
+						
 	</table>	
 		
 </cfform>
 
-
 <script language="JavaScript">
 	
-	{
-		frm  = parent.document.getElementById("lookup#URL.Type#");
-		he = 28+#cnt#+#list.recordcount*22#;
+	{	frm  = parent.document.getElementById("lookup#URL.Type#");
+		he = 28+#cnt#+#list.recordcount*25#;
 		frm.height = he
 	}
 	

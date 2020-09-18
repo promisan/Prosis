@@ -218,18 +218,22 @@
 		 </cfif>		 
 		 	 		 
 		 <TR class="labelmedium" id="memo">
-			 <TD>Memo:</TD>  
+			 <TD>Input mode text editor</TD>  
 			 <TD>	
 			 <table>
 			 <tr><td>
-			 <input type="radio" class="radiol" 
+			 <input type="checkbox" class="radiol" 
 			     name="InputMemoHTML" id="InputMemoHTML" 
-				 value="1" onclick="if (document.getElementById('memosize').className == 'regular') { alert('a') } else { alert('b') }" <cfif get.InputMemoHTML eq "1" or get.InputMemoHTML eq "">checked</cfif>> 	 				 						
+				 value="1" onclick="if (document.getElementById('memosize').className == 'regular') { document.getElementById('memosize').className = 'hide' } else { document.getElementById('memosize').className = 'regular' }" <cfif get.InputMemoHTML eq "1" or get.InputMemoHTML eq "">checked</cfif>> 	 				 						
 			 </TD>
 			 <td class="#cl#" id="memosize">
-			 <input type="text" name="InputMemoSize" id="InputMemoSize" value="#get.InputMemoSize#" style="width:40px" class="regularxl">
-			 </td>
+			 <table>
+			 <tr>
+			 <td><input type="text" name="InputMemoSize" id="InputMemoSize" value="#get.InputMemoSize#" style="width:40px" class="regularxl"></td>
+			 <td style="padding-left:4px">Input field Length</td>
 			 </tr>
+			 </table>
+			  </tr>
 			 </table>
 		 </TR>
 		 

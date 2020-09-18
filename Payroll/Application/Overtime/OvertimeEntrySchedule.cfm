@@ -200,7 +200,7 @@ password="#SESSION.dbpw#">
 		<TR>
 		    <td valign="top" style="padding-top:5px" class="labelmedium" style="height:30px"><cf_tl id="Schedule">:</td>
 		    <td colspan="1" class="labelmedium" id="schedule">		
-				<cfdiv id="divMode" bind="url:getDateSchedule.cfm?personno=#url.id#&mission={mission}&seldate={OvertimePeriodEnd}&overtimeid=#rowguid#">					
+				<cf_securediv id="divMode" bind="url:getDateSchedule.cfm?personno=#url.id#&mission={mission}&seldate={OvertimePeriodEnd}&overtimeid=#rowguid#">					
 			</td>
 		</TR>
 				
@@ -212,14 +212,15 @@ password="#SESSION.dbpw#">
 		</TR>
 						
 		<tr><td class="labelmedium"><cf_tl id="Review by">:<font color="FF0000">*</font></td>			  
-		    <td colspan="1">		   
-		   	  <cfdiv bind="url:#session.root#/Payroll/Application/Overtime/getReviewer.cfm?FieldName=FirstReviewerUserId&Id=#URL.ID#&mission={mission}" id="FirstReviewerUserId"/>
+		    <td colspan="1">		
+			  
+		   	  <cf_securediv bind="url:#session.root#/Payroll/Application/Overtime/getReviewer.cfm?FieldName=FirstReviewerUserId&Id=#URL.ID#&mission={mission}" id="FirstReviewerUserId">
 		    </td>
   	    </tr>	
 		
 		<tr><td class="labelmedium"><cf_tl id="Second review by">:<font color="FF0000">*</font></td>			  
 		    <td>		   
-		   	  <cfdiv bind="url:#session.root#/Payroll/Application/Overtime/getReviewer.cfm?FieldName=SecondReviewerUserId&Id=#URL.ID#&mission={mission}" id="SecondReviewerUserId"/>
+		   	  <cf_securediv bind="url:#session.root#/Payroll/Application/Overtime/getReviewer.cfm?FieldName=SecondReviewerUserId&Id=#URL.ID#&mission={mission}" id="SecondReviewerUserId">
 		    </td>
   	    </tr>	
 							   
@@ -232,7 +233,7 @@ password="#SESSION.dbpw#">
 			
 			<tr>
 				<td class="labelmedium"><cf_tl id="Attachment">:</td>
-				<td colspan="1" style="padding-right:42px"><cfdiv bind="url:OvertimeAttachment.cfm?id=#rowguid#" id="att"></td>			
+				<td colspan="1" style="padding-right:42px"><cf_securediv bind="url:OvertimeAttachment.cfm?id=#rowguid#" id="att"></td>			
 			</tr>		
 						
 		<tr><td class="line" colspan="2"></td></tr>

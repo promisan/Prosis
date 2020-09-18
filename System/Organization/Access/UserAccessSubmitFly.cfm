@@ -91,8 +91,8 @@
 		
 <cfif st eq "0">
   <script>
-  parent.ColdFusion.Window.hide('progress')
-  alert("You have not made any changes to the profile.")  
+  alert("You have not made any changes to the authorization profile.")  
+  parent.Prosis.busy('no') 
   </script> 
   <cfabort>
 </cfif>	
@@ -108,7 +108,7 @@ FROM  System.dbo.UserNames
 WHERE Account = '#URL.ACC#'
 </cfquery>
 
-<cfif #Check.AccountType# eq "Group">
+<cfif Check.AccountType eq "Group">
 
 	<!--- 1. identify users for this group and remove access for these users for this role '#URL.ID4#' 
 	 --->
@@ -163,8 +163,7 @@ WHERE Account = '#URL.ACC#'
 	try { 		  
 	   parent.parent.ProsisUI.closeWindow('userdialog')	 } 
 	catch(e) {	parent.parent.window.close() }
-	
-	
+		
 </script>
 
 

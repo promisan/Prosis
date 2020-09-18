@@ -13,15 +13,7 @@
 <table cellspacing="0" cellpadding="0">
 	<tr>
     	<td style="padding-top:2px">	
-		 <cf_img icon="edit" onClick="entityedit('#url.entityCode#','#url.mission#')">
-		 <!---
-		 <img src="#SESSION.root#/Images/edit.gif" alt="" name="img_#url.entityCode#" 
-				  onMouseOver="document.img_#url.entityCode#.src='#SESSION.root#/Images/button.jpg'" 
-				  onMouseOut="document.img_#url.entityCode#.src='#SESSION.root#/Images/edit.gif'"
-				  style="cursor: pointer;" height="12" width="12" alt="" border="0" align="absmiddle" 
-				  onClick="entityedit('#url.entityCode#','#url.mission#')">
-				  --->
-			  
+		 <cf_img icon="edit" onClick="entityedit('#url.entityCode#','#url.mission#')">		 			  
 		</td>
 		<td>&nbsp;</td>
 		<td height="21" class="labelmedium">			 

@@ -3,34 +3,34 @@
 
 <cfif url.action neq "delete"> 
 	
-	<cfif Len(Form.Remarks) gt 300>
-	   <cfset remarks = Left(Form.Remarks, 300)>
-	<cfelse>
-	   <cfset remarks = Form.Remarks> 
-	</cfif>
-	
-	<cfparam name="Form.OvertimePeriodStart" default="#Form.OvertimePeriodEnd#">
-	<cfparam name="Form.OvertimeDate"        default="#Form.OvertimePeriodEnd#">
-	
-	<cfset dateValue = "">
-	<CF_DateConvert Value="#Form.OvertimePeriodStart#">
-	<cfset STR = dateValue>
-	
-	<cfset dateValue = "">
-	<CF_DateConvert Value="#Form.OvertimeDate#">
-	<cfset DTE = dateValue>
-	
-	<cfset dateValue = "">
-	<CF_DateConvert Value="#Form.OvertimePeriodEnd#">
-	<cfset END = dateValue>
-	
-	<cfif STR gt END>
-									
-		<cf_message message = "Invalid Period [#DateFormat(STR,CLIENT.DateFormatShow)#-#DateFormat(END,CLIENT.DateFormatShow)#].  Operation not allowed!"
-		        return = "back">
-	    <cfabort>
-				 
-	</cfif>   
+		<cfif Len(Form.Remarks) gt 300>
+		   <cfset remarks = Left(Form.Remarks, 300)>
+		<cfelse>
+		   <cfset remarks = Form.Remarks> 
+		</cfif>
+		
+		<cfparam name="Form.OvertimePeriodStart" default="#Form.OvertimePeriodEnd#">
+		<cfparam name="Form.OvertimeDate"        default="#Form.OvertimePeriodEnd#">
+		
+		<cfset dateValue = "">
+		<CF_DateConvert Value="#Form.OvertimePeriodStart#">
+		<cfset STR = dateValue>
+		
+		<cfset dateValue = "">
+		<CF_DateConvert Value="#Form.OvertimeDate#">
+		<cfset DTE = dateValue>
+		
+		<cfset dateValue = "">
+		<CF_DateConvert Value="#Form.OvertimePeriodEnd#">
+		<cfset END = dateValue>
+		
+		<cfif STR gt END>
+										
+			<cf_message message = "Invalid Period [#DateFormat(STR,CLIENT.DateFormatShow)#-#DateFormat(END,CLIENT.DateFormatShow)#].  Operation not allowed!"
+			        return = "back">
+		    <cfabort>
+					 
+		</cfif>   
 
 </cfif>
 
@@ -61,7 +61,7 @@ WHERE  OvertimeId  = '#Form.OvertimeId#'
 		   </cfquery>
 		   --->
 		   
-		   <cfif Overtime.status lte "1">
+		   <cfif Overtime.status lte "2">
 		   		     			   
 			   <!--- clear the overtime recorded in the timesheet for this person --->
 			   
@@ -240,12 +240,13 @@ WHERE  OvertimeId  = '#Form.OvertimeId#'
 				  	password="#SESSION.dbpw#">
 						SELECT    SUM(HourSlotMinutes) AS Minutes
 						FROM      PersonWorkDetail 
-						WHERE     PersonNo = '#form.PersonNo#' 
-						AND       CalendarDate = #str# 
+						WHERE     PersonNo        = '#form.PersonNo#' 
+						AND       CalendarDate    = #str# 
 						AND       TransactionType = '1'
-						AND       Source = 'Overtime'
-						AND       SourceId = '#form.overtimeid#'
-						AND       BillingMode != 'Contract'								
+						AND       Source          = 'Overtime'
+						AND       SourceId        = '#form.overtimeid#'
+						AND       BillingMode    != 'Contract'								
+						
 					</cfquery>
 			
 					<cfif totalovertime.minutes eq "0">
@@ -260,15 +261,15 @@ WHERE  OvertimeId  = '#Form.OvertimeId#'
 					   datasource="AppsEmployee" 
 					   username="#SESSION.login#" 
 					   password="#SESSION.dbpw#">
-					   UPDATE Payroll.dbo.PersonOvertime 
-					   SET    OvertimeDate         = #DTE#,
-					   		  OvertimePeriodStart  = #STR#,
-						      OvertimePeriodEnd    = #END#,
-							  DocumentReference    = '#Form.DocumentReference#',
-							  OvertimeHours        = '#vHour#',
-							  OvertimeMinutes      = '#vMinu#',				
-							  Remarks              = '#Form.Remarks#'
-					   WHERE  OvertimeId  = '#Form.OvertimeId#' 
+						   UPDATE Payroll.dbo.PersonOvertime 
+						   SET    OvertimeDate         = #DTE#,
+						   		  OvertimePeriodStart  = #STR#,
+							      OvertimePeriodEnd    = #END#,
+								  DocumentReference    = '#Form.DocumentReference#',
+								  OvertimeHours        = '#vHour#',
+								  OvertimeMinutes      = '#vMinu#',				
+								  Remarks              = '#Form.Remarks#'
+						   WHERE  OvertimeId  = '#Form.OvertimeId#' 
 					  </cfquery>
 					  
 					  <cfquery name="purgeDetail" 
@@ -287,15 +288,15 @@ WHERE  OvertimeId  = '#Form.OvertimeId#'
 				  	  datasource="AppsEmployee" 
 				  	  username="#SESSION.login#" 
 				  	  password="#SESSION.dbpw#">
-						SELECT    BillingMode, BillingPayment, SUM(HourSlotMinutes) AS Minutes
-						FROM      PersonWorkDetail AS P
-						WHERE     PersonNo     = '#form.PersonNo#' 
-						AND       CalendarDate = #str# 
-						AND       TransactionType = '1'
-						AND       Source       = 'Overtime'
-						AND       SourceId     = '#form.overtimeid#'
-						AND       BillingMode != 'Contract'
-						GROUP BY  BillingMode, BillingPayment
+							SELECT    BillingMode, BillingPayment, SUM(HourSlotMinutes) AS Minutes
+							FROM      PersonWorkDetail AS P
+							WHERE     PersonNo     = '#form.PersonNo#' 
+							AND       CalendarDate = #str# 
+							AND       TransactionType = '1'
+							AND       Source       = 'Overtime'
+							AND       SourceId     = '#form.overtimeid#'
+							AND       BillingMode != 'Contract'
+							GROUP BY  BillingMode, BillingPayment
 					  </cfquery>
 					  
 					  <cfloop query="details">
@@ -331,8 +332,97 @@ WHERE  OvertimeId  = '#Form.OvertimeId#'
 							</cfquery>	  
 					  
 					  </cfloop>
-					
+					  
 		         </cftransaction>
+				 
+				 <!--- check if the overtime has changed TO PAYMENT MODE TO TRIGGER A NEW WORKFLOW --->
+										  
+				  <cfquery name="getLines" 
+					datasource="AppsEmployee" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+						SELECT * 
+						FROM 	Payroll.dbo.PersonOvertimeDetail
+						WHERE 	OvertimeId     = '#form.overtimeId#'
+						AND 	PersonNo       = '#form.PersonNo#'
+						AND     BillingPayment = '1'
+				  </cfquery>
+					  
+				  <cfif Overtime.OvertimePayment eq "0" and getLines.recordcount gte "1">
+				  
+				  	  <cfquery name="Update" 
+					   datasource="AppsEmployee" 
+					   username="#SESSION.login#" 
+					   password="#SESSION.dbpw#">
+						   UPDATE Payroll.dbo.PersonOvertime 
+						   SET    OvertimePayment = 1						
+						   WHERE  OvertimeId  = '#Form.OvertimeId#' 
+					  </cfquery>
+				  
+					  <cfset class = "Payroll">
+					  					  
+					  <cfquery name="Person" 
+						datasource="AppsEmployee" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+							SELECT   *
+							FROM     Person
+							WHERE    PersonNo = '#Form.PersonNo#' 
+					  </cfquery>
+				  				  
+					  <cfquery name="Trigger" 
+						 datasource="AppsPayroll"
+						 username="#SESSION.login#" 
+						 password="#SESSION.dbpw#">
+						  SELECT   *
+						  FROM     Ref_TriggerGroup
+						  WHERE    TriggerGroup = 'Overtime'
+						</cfquery>  						
+										
+					<!--- OrgUnit          = "#OrgUnit#" --->
+					
+						<cfset link = "Payroll/Application/Overtime/OvertimeEdit.cfm?ID=#Form.PersonNo#&ID1=#form.overtimeid#">
+						
+						<!--- close the workflow --->
+						
+						<cf_ActionListing 
+						    EntityCode       = "EntOvertime"
+							EntityClass      = "#class#"
+							EntityGroup      = ""
+							EntityStatus     = ""							
+						    ObjectKey1       = "#Form.PersonNo#"
+							ObjectKey4       = "#form.overtimeid#"							
+							HideCurrent      = "Enforce" <!--- disactivates the current workflow to trigger a new one --->
+							CompleteCurrent  = "Yes"	
+							Show             = "No">		
+						
+						<!--- create a new one --->
+							
+						<cf_ActionListing 
+						    EntityCode       = "EntOvertime"
+							EntityClass      = "#class#"
+							EntityGroup      = ""
+							EntityStatus     = ""
+							PersonNo         = "#form.PersonNo#"
+							Mission          = "#Overtime.Mission#"						
+							ObjectReference  = "Overtime : #Overtime.DocumentReference#"
+							ObjectReference2 = "#Person.FirstName# #Person.LastName#"
+						    ObjectKey1       = "#Form.PersonNo#"
+							ObjectKey4       = "#form.overtimeid#"
+							ObjectURL        = "#link#"
+							FlyActor         = "#Overtime.FirstReviewerUserid#"
+							FlyActorAction   = "#Trigger.ReviewerActionCodeOne#"
+							FlyActor2        = "#Overtime.SecondReviewerUserid#"
+							FlyActor2Action  = "#Trigger.ReviewerActionCodeTwo#"								
+							Show             = "No">		
+					  
+					  <!--- we reset the workflow --->
+					  
+					  <script>
+						alert('This record will need to be reviewed again')
+					  </script>
+						  
+				  </cfif>
 				  
 		   </cfif>
 	   
@@ -343,10 +433,20 @@ WHERE  OvertimeId  = '#Form.OvertimeId#'
 <cfoutput>
 
 <cf_SystemScript>
-	
-<script>
-	 ptoken.location("EmployeeOvertime.cfm?ID=#Overtime.PersonNo#");
-</script>	
+
+<cfif url.refer neq "workflow">
+		
+	<script>
+		 ptoken.location("EmployeeOvertime.cfm?ID=#Overtime.PersonNo#");
+	</script>	
+
+<cfelse>
+
+	<script>
+		 ptoken.location("OvertimeEdit.cfm?ID=#Overtime.PersonNo#&ID1=#Overtime.OvertimeId#&refer=#url.refer#");
+	</script>	
+
+</cfif>
 
 </cfoutput>	   
 	

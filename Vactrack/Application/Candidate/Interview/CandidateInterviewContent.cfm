@@ -358,12 +358,12 @@ password="#SESSION.dbpw#">
 		<td></td>
 		<td height="30" colspan="3" align="center" class="labelmedium">
 		
-			Add panel member
+			<cf_tl id="Add panel member" var="member">
 		   <cfset link = "#SESSION.root#/vactrack/application/candidate/CandidateReviewPanel.cfm?DocumentNo=#URL.DocumentNo#||PersonNo=#URL.PersonNo#||ActionCode=#URL.ActionCode#">	
 		   
 		   <cf_selectlookup
 			    box        = "member"
-				title      = "Add Panel Member"
+				title      = "#member#"
 				link       = "#link#"
 				type       = "employee"
 				dbtable    = "Vacancy.dbo.DocumentCandidateReviewPanel"			
@@ -409,29 +409,37 @@ password="#SESSION.dbpw#">
 		
 		</cfoutput>
 		
-		<tr valign="top" class="line">
-		<td style="width:200px" class="labelmedium"><cf_tl id="Assessment">:</td>
-		<td colspan="3">
-				
-		<cfif (ActionCode eq URL.ActionCode or Interview.ActionCode eq "") and url.actioncode neq "view">		
+		<cfif interview.recordcount gte "1">
 		
-		 <cf_textarea name="ReviewMemo"	           		 
-						 init="Yes"							
-						 color="ffffff"	 
-						 resize="false"		
-						 border="0" 
-						 toolbar="Mini"
-						 height="90"
-						 width="100%"><cfoutput>#CandidateReview.ReviewMemo#</cfoutput></cf_textarea>		
-						 
-		 <cfelse>
-		 
-		 <cfoutput>#CandidateReview.ReviewMemo#</cfoutput>
-		 
-		 </cfif>				 
+			<tr valign="top" class="line">
+			<td style="width:200px" class="labelmedium"><cf_tl id="Assessment">:</td>
+			<td colspan="3">
+					
+			<cfif (ActionCode eq URL.ActionCode or Interview.ActionCode eq "") and url.actioncode neq "view">		
 			
-		</td>
-	</tr>
+			 <cf_textarea name="ReviewMemo"	           		 
+							 init="Yes"							
+							 color="ffffff"	 
+							 resize="false"		
+							 border="0" 
+							 toolbar="Mini"
+							 height="90"
+							 width="100%"><cfoutput>#CandidateReview.ReviewMemo#</cfoutput></cf_textarea>		
+							 
+			 <cfelse>
+			 
+			 <cfoutput>#CandidateReview.ReviewMemo#</cfoutput>
+			 
+			 </cfif>				 
+				
+			</td>
+			</tr>	
+			
+		<cfelse>
+		
+			<input type="text" name="ReviewMemo" value="">	
+
+		</cfif>
 	
 	<!--- this is now moved out to the screen itself
 	

@@ -136,9 +136,7 @@ will be put into different batches as they could have different process flows as
 				and      TransferQuantity is not NULL AND TransferQuantity <> 0
 				ORDER BY TransactionDate DESC		
 			</cfquery>		
-			
-			
-			
+						
 			<cfif Lines.ItemClearanceMode eq "">
 			
 				<cfset clearance = Lines.ParentClearanceMode>
@@ -471,7 +469,6 @@ will be put into different batches as they could have different process flows as
 										 				
 								</cfif>		
 								
-							
 						   
 						   <cfset qty = -1*TransferQuantity>			   
 						   
@@ -489,6 +486,30 @@ will be put into different batches as they could have different process flows as
 						   						   
 						   <cf_assignid>
 						   <cfset traid = rowguid>
+						   
+						   <cfif area eq "variance">
+						   
+						   		<cfset price   = "">
+								<cfset tax     = "">
+												   
+						   <cfelse>
+						   
+							   	<cfquery name="TaxCode"
+									datasource="AppsMaterials" 
+									username="#SESSION.login#" 
+									password="#SESSION.dbpw#">
+							   		SELECT       *
+									FROM         ItemWarehouse
+									WHERE        Warehouse = '#Warehouse#' 
+									AND          ItemNo    = '#ItemNo#' 
+									AND          UoM       = '#UnitOfMeasure#'
+								</cfquery>	
+						   
+						   	    <cfset price   = "">
+								<cfset tax     = "#TaxCode.TaxCode#">
+							   <!--- interoffice --->
+							
+						   </cfif>
 						  				  
 						   <cf_StockTransact 
 						        TransactionId        = "#traid#"
@@ -519,6 +540,9 @@ will be put into different batches as they could have different process flows as
 								DetailLineNo         = "1"
 								OrgUnit              = "#OrgFrom.OrgUnit#"
 								Shipping             = "Yes"  
+								SalesPrice           = "COGS"
+								SalesQuantity        = "#qty*-1#"
+								TaxCode              = "#tax#"								
 								DetailReference1     = "#MeterName#"
 								DetailReadInitial    = "#MeterInitial#"
 								DetailReadFinal      = "#MeterFinal#"
@@ -566,6 +590,10 @@ will be put into different batches as they could have different process flows as
 								workorderline        = "#workorderline#"
 								requirementid        = "#requirementid#"
 								OrgUnit              = "#OrgTo.OrgUnit#"
+								Shipping             = "Yes"  
+								SalesPrice           = "COGS"
+								SalesQuantity        = "#TransferQuantity#"
+								TaxCode              = "#tax#"	
 								Remarks              = "#TransferMemo#"
 								ActionStatus         = "#actionstatus#"
 								GLTransactionNo      = "#batchNo#"

@@ -357,11 +357,12 @@
 	  ptoken.navigate('#SESSION.root#/Tools/EntityAction/Dialog/DialogReset.cfm?entityclass=' + cls + '&objectid=' + id + '&ajaxid=' + ajaxid,'wfreset') 	
   }
   
-  function resetwfapply(id,ajaxid,mde,cls) {  
+  function resetwfapply(id,ajaxid,mde,cls,ret) {  
+       
 	   if (ajaxid == '') {
-	   ptoken.location('#SESSION.root#/Tools/EntityAction/ActionReset.cfm?archive='+mde+'&ref=#loadlink#&objectid='+id+'&entityclassnew='+cls) 	  
+	   ptoken.location('#SESSION.root#/Tools/EntityAction/ActionReset.cfm?archive='+mde+'&ref=#loadlink#&objectid='+id+'&entityclassnew='+cls+'&retain='+ret) 	  
 	   } else {	   	 	 
-	   ptoken.navigate('#SESSION.root#/Tools/EntityAction/ActionReset.cfm?archive='+mde+'&ref=#loadlink#&objectid='+id+'&entityclassnew='+cls+'&ajaxid='+ajaxid,ajaxid) 	  
+	   ptoken.navigate('#SESSION.root#/Tools/EntityAction/ActionReset.cfm?archive='+mde+'&ref=#loadlink#&objectid='+id+'&entityclassnew='+cls+'&retain='+ret+'&ajaxid='+ajaxid,ajaxid) 	  
 	   }  
   } 
   
@@ -421,11 +422,13 @@
   }	
   
   <!--- checks the object status --->
-  function objectstatus(last,id,ajaxid) {	       	  	    
-        se = document.getElementById('communicate_'+id)		
-		if (se) {		
-		ptoken.navigate('#SESSION.root#/tools/EntityAction/getObjectStatus.cfm?lastaction='+last+'&objectid='+id+'&ajaxid='+ajaxid,'communicate_'+id,null,workflowerrorhandler)	 		 									
-		}		
+  function objectstatus(last,id,ajaxid) {	
+        try {       	  	    
+        	se = document.getElementById('communicate_'+id)		
+			if (se) {		
+			ptoken.navigate('#SESSION.root#/tools/EntityAction/getObjectStatus.cfm?lastaction='+last+'&objectid='+id+'&ajaxid='+ajaxid,'communicate_'+id,null,workflowerrorhandler)	 		 									
+			}	
+		} catch(e) {}
   }		  
     
   var workflowerrorhandler = function(errorCode,errorMessage){	 	           

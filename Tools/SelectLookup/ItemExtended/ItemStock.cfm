@@ -159,8 +159,9 @@ and a select/uom/quantity mode if this is for supplies or other classes --->
 		       username="#SESSION.login#" 
 		       password="#SESSION.dbpw#">
 				SELECT     D.TransactionQuantity, D.TransactionUoM, D.ItemNo, U.UoMDescription, C.CustomerName, D.ItemClass
-				FROM       userTransaction.dbo.Sale#url.filter1value# AS D INNER JOIN
-		                   Materials.dbo.ItemUoM AS U ON D.ItemNo = U.ItemNo AND D.TransactionUoM = U.UoM INNER JOIN
+				FROM       Materials.dbo.vwCustomerRequest AS D INNER JOIN
+		                   Materials.dbo.ItemUoM AS U ON D.ItemNo = U.ItemNo AND D.TransactionUoM = U.UoM AND
+						   D.Warehouse = '#url.filter1value#' INNER JOIN
 		                   Materials.dbo.Customer AS C ON D.CustomerId = C.CustomerId
 				WHERE      D.Created > GETDATE() - 1 
 				AND        D.ItemNo = '#url.itemNo#' 

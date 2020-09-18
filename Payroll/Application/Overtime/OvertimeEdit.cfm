@@ -1,4 +1,5 @@
 <cfparam name="URL.id" default="">
+<cfparam name="URL.refer" default="">
 
 <cfquery name="Check" 
 datasource="AppsPayroll" 
@@ -12,6 +13,7 @@ password="#SESSION.dbpw#">
 	</cfif>	
 	AND    OvertimeId = '#url.id1#'		
 </cfquery>
+
 
 <cfif check.TransactionType eq "Schedule"> 
 	<cfinclude template="OvertimeEditSchedule.cfm">

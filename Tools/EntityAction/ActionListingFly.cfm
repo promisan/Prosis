@@ -87,7 +87,7 @@
 						<tr>
 						<td colspan="2" id="stepflyaccess">
 																																	
-						    <cfdiv id="actor#currentRow#" 
+						    <cf_securediv id="actor#currentRow#" 
 							bind="url:#SESSION.root#/tools/EntityAction/ActionListingActor.cfm?label=#ActionCode#Delegated&accesslevel=1&box=actor#currentrow#&Mode=Insert&ObjectId=#Object.ObjectId#&OrgUnit=#Unit#&Role=#Object.Role#&ActionPublishNo=#ActionPublishNo#&ActionCode=#ActionCode#&Group=#ActionAccessUserGroup#&Assist=#ActionAccessUGCollaborate#">
 													
 					    </td>
@@ -99,7 +99,7 @@
 						<tr>
 						<td colspan="2" id="stepflyaccess">					
 																										
-						    <cfdiv id="actor0" 
+						    <cf_securediv id="actor0" 
 							bind="url:#SESSION.root#/tools/EntityAction/ActionListingActor.cfm?box=actor0&Mode=BatchInsert&ObjectId=#Object.ObjectId#&OrgUnit=#Unit#&Role=#Object.Role#&ActionPublishNo=#ActionPublishNo#&ActionCode=#ActionCode#&Group=#GrantAccess.ActionAccessUserGroup#&Assist=#GrantAccess.ActionAccessUGCollaborate#">
 													
 					    </td>

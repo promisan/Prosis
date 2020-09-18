@@ -124,7 +124,7 @@
 				<cfset span="4">										
 			</cfif> 
 											
-			<td rowspan="#span#" id="cell#HierarchyCode#" align="left" style="padding-left:2px;padding-top:1px;">
+			<td rowspan="#span#" id="cell#HierarchyCode#" valign="top" align="left" style="padding-left:2px;padding-top:1px;">
 										    
 					<table height="90" width="96%" class="formpadding">
 										
@@ -132,7 +132,8 @@
 					
 					<td width="100%" valign="top" 
 					   style="background-color:##e1e1e180;min-width:50px;width:50px;padding-top:5px;padding-right:2px;padding-left:2px;border:1px solid gray;border-right:0px">
-																	
+									
+														
 						<cfif Check.recordcount gt "1">		
 										
 							
@@ -393,7 +394,7 @@
 					
 	<tr class="hide" id="d#OrgUnit#"><td colspan="#Resource.RecordCount+3#" id="i#OrgUnit#"></td></tr>		
 	<tr><td height="2"></td></tr>		
-	<tr><td colspan="#Resource.RecordCount+3#" id="detail_#OrgUnit#" style="padding-right:0px"></td></tr>	
+	<tr><td colspan="#Resource.RecordCount+3#" id="detail_#OrgUnit#" style="padding-right:1px"></td></tr>	
 	<tr><td style="height:15px"></td></tr>
 						
 	</CFOUTPUT>	

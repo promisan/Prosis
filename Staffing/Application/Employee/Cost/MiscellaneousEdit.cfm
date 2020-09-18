@@ -153,7 +153,7 @@ password="#SESSION.dbpw#">
 	</TR>
 	
 	<TR>
-    <TD class="labelmedium"><cf_tl id="Effective date">:</TD>
+    <TD class="labelmedium"><cf_tl id="Due date">:</TD>
     <TD>
 	
 		<cfif edit eq "1">
@@ -169,6 +169,30 @@ password="#SESSION.dbpw#">
 		<cfelse>
 		
 		<cfoutput>#Dateformat(Entitlement.DateEffective, CLIENT.DateFormatShow)#</cfoutput>
+		
+		</cfif>
+ 
+		
+	</TD>
+	</TR>	
+	
+	<TR>
+    <TD class="labelmedium"><cf_tl id="Payroll date">:</TD>
+    <TD>
+	
+		<cfif edit eq "1">
+  
+		  <cf_intelliCalendarDate9
+			FormName="MiscellaneousEdit"
+			FieldName="PayrollStart" 
+			class="regularxl"
+			DateFormat="#APPLICATION.DateFormat#"
+			Default="#Dateformat(Entitlement.PayrollStart, CLIENT.DateFormatShow)#"
+			AllowBlank="False">	
+		
+		<cfelse>
+		
+		<cfoutput>#Dateformat(Entitlement.PayrollStart, CLIENT.DateFormatShow)#</cfoutput>
 		
 		</cfif>
  

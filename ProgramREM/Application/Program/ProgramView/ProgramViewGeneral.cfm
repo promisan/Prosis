@@ -26,6 +26,10 @@
 <cfparam name="URL.page"     		 default="1">
 <cfparam name="URL.find"     		 default="">
 
+<cfif isDefined("URL.Mission") AND trim(URL.Mission) eq "">
+	<cfset URL.Mission = URL.ID2>
+</cfif>
+
 <cfset CLIENT.GlobalSetting = URL.Global>
 <cfset CLIENT.ProgramMode   = URL.Mode>
 

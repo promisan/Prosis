@@ -39,7 +39,7 @@
 <CFParam name="Attributes.Modal"  default="true">	
 			
 <cfset link   = "#SESSION.root#/warehouse/application/SalesOrder/POS/Sale/applyCustomer.cfm?warehouse=#url.warehouse#&">			
-<cfset jvlink = "ProsisUI.createWindow('dialogcustomerbox','Customer','',{x:100,y:100,height:document.body.clientHeight-80,width:#Attributes.width#,modal:#attributes.modal#,center:true});ColdFusion.navigate('#SESSION.root#/Tools/SelectLookup/Customer/Customer.cfm?datasource=appsMaterials&close=Yes&class=Customer&box=customerbox&link=#link#&dbtable=&des1=customerid&filter1=&filter1value=&filter2=&filter2value=','dialogcustomerbox')">		
+<cfset jvlink = "ProsisUI.createWindow('dialogcustomerbox','Customer','',{x:100,y:100,height:document.body.clientHeight-80,width:#Attributes.width#,modal:#attributes.modal#,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/Customer/Customer.cfm?datasource=appsMaterials&close=Yes&class=Customer&box=customerbox&link=#link#&dbtable=&des1=customerid&filter1=&filter1value=&filter2=&filter2value=','dialogcustomerbox')">		
 	
 <cfif getBatch.recordCount eq 1>
 

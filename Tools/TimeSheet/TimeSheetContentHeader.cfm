@@ -13,7 +13,7 @@
 								
 			<tr style="border-top:1px solid silver;">
 			
-				<td rowspan="2" align="right" style="border-bottom:1px solid silver;min-width:325px;padding-left:4px;width:100%">
+				<td rowspan="2" align="right" style="border-bottom:1px solid silver;min-width:345px;padding-left:4px;width:100%">
 					
 					<table width="100%" border="0">
 					
@@ -57,7 +57,7 @@
 							</a>
 							</td>
 							
-							<td height="36" align="right" style="padding-left:10;font-weight:350;" class="labelmedium">	
+							<td height="36" align="right" style="padding-left:10" class="labelmedium">	
 							<input type="checkbox" id="showdetail" value="1" <cfif url.detail eq "true">checked</cfif> onclick="Prosis.busy('yes');timesheet('#dateformat(date,client.dateSQL)#','#url.object#','#url.ObjectKeyValue1#','#url.ObjectKeyValue2#',this.checked,'#url.copyScheduleFunction#','#url.removeScheduleFunction#')">		
 							</td>
 							<td style="padding-left:5px;font-weight:350;" class="labelmedium"><cf_tl id="Leave requests">

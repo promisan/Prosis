@@ -35,21 +35,22 @@ password="#SESSION.dbpw#">
 		
 <cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
 
-<cfchart style = "#chartStyleFile#" format="png"
-           chartheight="160"
-           chartwidth="480"
+<cfchart style = "#chartStyleFile#" format="html"
+           chartheight="170"
+           chartwidth="450"
            showxgridlines="yes"
-           showygridlines="no"
-		   font="Calibri" fontsize="13"
-           seriesplacement="default"
-           backgroundcolor="ffffff"
-           databackgroundcolor="FfFfFf"          
-           labelmask="##"                    
-           show3d="no"   		      
-           pieslicestyle="sliced"
-           url="javascript:ColdFusion.navigate('InquiryListing.cfm?mode=#url.mode#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#&filter=aging&value=$ITEMLABEL$','listbox')">
+           showygridlines="yes"			   
+		   scaleTo="1400"		   
+		   xOffset=".5"
+		   yOffset=".5"
+		   font="Calibri" fontsize="14" 
+           seriesplacement="default" 		                
+           labelmask="##"     
+		   zoom="5"               
+           show3d="yes"   		                 
+           url="javascript:Prosis.busy('yes');ptoken.navigate('InquiryListing.cfm?mode=#url.mode#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#&filter=aging&value=$ITEMLABEL$','listbox')">
   
-		   <cfchartseries type="bar" seriescolor="E85DA2" datalabelstyle="value" paintstyle="plain" colorlist="##E8875D,##E8BC5D,##E85DA2,##5DE8D8,##CCCA6A,##339AFA,##66AC6A,##999A9A,##FFFA9A,##996AFA">  
+		   <cfchartseries type="cylinder" seriescolor="000000" datalabelstyle="value" colorlist="##000000,##5DE8D8,##CCCA6A,##FFFF00,##FF8040,##FF0000">  
    
      <!--- near future --->
 	  
@@ -150,7 +151,6 @@ password="#SESSION.dbpw#">
 <cfcatch></cfcatch>
 
 </cftry>
-
 
 </td>
 </tr>

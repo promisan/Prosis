@@ -30,10 +30,9 @@
 	  
 	}
 	
-	function fieldedit(fid,sid,ser) {		  
-		try { ColdFusion.Window.destroy('myfield',true) } catch(e) {}
-		ColdFusion.Window.create('myfield', 'Field', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,resizable:false,center:true})    				
-		ColdFusion.navigate('#SESSION.root#/system/modules/InquiryBuilder/FieldView.cfm?systemfunctionid='+sid+'&functionserialno='+ser+'&fieldid='+fid,'myfield') 					  
+	function fieldedit(fid,sid,ser) {		  		
+		ProsisUI.createWindow('myfield', 'Field', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,resizable:false,center:true})    				
+		ptoken.navigate('#SESSION.root#/system/modules/InquiryBuilder/FieldView.cfm?systemfunctionid='+sid+'&functionserialno='+ser+'&fieldid='+fid,'myfield') 					  
 	}
 	
 	function fieldrefresh(sid,ser) {	
@@ -41,18 +40,17 @@
 	    ColdFusion.navigate('#SESSION.root#/System/Modules/InquiryBuilder/InquiryEditFields.cfm?systemfunctionid='+sid+'&functionserialno='+ser,'fields')	     				
 	}
 	 
-	function selectdrilltemplate() {		
-	   	try { ColdFusion.Window.destroy('mydrill',true) } catch(e) {}
-		ColdFusion.Window.create('mydrill', 'Drill', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,resizable:false,center:true})    				
-		ColdFusion.navigate('#SESSION.root#/system/modules/inquirybuilder/DrillTemplate.cfm','mydrill') 	   
+	function selectdrilltemplate() {			   	
+		ProsisUI.createWindow('mydrill', 'Drill', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,resizable:false,center:true})    				
+		ptoken.navigate('#SESSION.root#/system/modules/inquirybuilder/DrillTemplate.cfm','mydrill') 	   
 	} 
 	 
 	function preview(id) {	
-		window.open("#SESSION.root#/tools/listing/listing/Inquiry.cfm?idmenu="+id+"&ts="+new Date().getTime()+"&height=500", "preview", "width=#client.width-100#,height=800,status=yes,resizable=yes");		
+		ptoken.open("#SESSION.root#/tools/listing/listing/Inquiry.cfm?idmenu="+id+"&height=500", "preview", "width=#client.width-100#,height=800,status=yes,resizable=yes");		
 	} 
 	
 	function copy(id) {		
-		window.open("#SESSION.root#/system/modules/inquirybuilder/CopyInquiryQuery.cfm?ts="+new Date().getTime()+"&id="+id,"copy","width=500,height=360,status=yes,resizable=no");						
+		ptoken.open("#SESSION.root#/system/modules/inquirybuilder/CopyInquiryQuery.cfm?id="+id,"copy","width=500,height=360,status=yes,resizable=no");						
 	}
 		
 	function editpreparation(id,ser) {	

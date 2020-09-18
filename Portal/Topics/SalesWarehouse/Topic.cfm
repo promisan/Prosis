@@ -28,7 +28,7 @@ password="#SESSION.dbpw#">
 				WHERE    Mission = '#mission#'	
 			</cfquery>
 				
-			<cf_paneItem id="WorkOrder#Mission#" 
+			<cf_paneItem id="StoreSale#Mission#" 
 	            systemfunctionid = "#systemfunctionid#" 
 				source           = "#session.root#/Warehouse/Application/SalesOrder/POS/Inquiry/DayTotalBase.cfm?mission=#mission#&systemfunctionid=#systemfunctionid#"
 				width            = "95%"
@@ -45,7 +45,7 @@ password="#SESSION.dbpw#">
 											
 			<cf_pane id="StoreSale_#warehouse#" search="No" height="auto">
 					
-				<cf_paneItem id="WorkOrder#currentrow#" 
+				<cf_paneItem id="StoreSale#currentrow#" 
 		            systemfunctionid = "#systemfunctionid#" 
 					source           = "#session.root#/Warehouse/Application/SalesOrder/POS/Inquiry/DayTotalBase.cfm?warehouse=#warehouse#&systemfunctionid=#systemfunctionid#"
 					width            = "95%"

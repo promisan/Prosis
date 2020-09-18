@@ -14,6 +14,7 @@
 	<img src="#SESSION.root#/images/delete5.gif" height="12" width="12" alt="Remove" border="0" align="absmiddle">
 </button>
 </td><td>
+
 <button class="button3" 
     style="width:26;height:19"	
 	type="button"

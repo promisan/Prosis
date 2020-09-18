@@ -43,23 +43,19 @@
 		
 			    <table cellspacing="0" cellpadding="0">
 			   
-			     <tr><td class="labellarge">	
-				
-				<cfoutput>#GetClass.EntityClassName#</cfoutput>
-				
-				</td>
-				
-				<td style="padding-left:4px">
-				
+			     <tr>
+								
 				<cfif AccessHeader eq "EDIT" or AccessHeader eq "ALL">
 				
 					<cfif GetCandidateStatus.Status eq "2s">
+					
+						<td>
 					  
 			        	<button name="RevokeTrack"
 					        id="RevokeTrack"
 					        value="Reset Candidate track"
 					        type="button"
-							class="button10g"				       
+							class="button10g" style="width:40px"				       
 					        onClick="revoke()">	
 						
 						<img src="<cfoutput>#SESSION.root#</cfoutput>/Images/position_obsolete.gif" 
@@ -67,12 +63,20 @@
 						 width="16" height="16" align="absmiddle" border="0">
 						 
 						 </button>
+						 
+						</td> 
 						
 					</cfif>	
 				
 				</cfif>
 										
-				</td></tr>
+				</td>
+				
+				<td style="padding-left:10px;font-size:17px" class="labelmedium">					
+				<cfoutput>#GetClass.EntityClassName#</cfoutput>				
+				</td>
+				
+				</tr>
 				</table>	
 				
 			<cfelseif GetCandidateStatus.Status eq "3">		
@@ -105,13 +109,8 @@
 			</cfquery>
 		
 		     <cfoutput>
-			
-		     <img src="#SESSION.root#/Images/annotation.gif" alt="See interview notes" 
-				name="note" border="0" class="regular" 
-				onMouseOver="document.note.src='#SESSION.root#/Images/button.jpg'" 
-				onMouseOut="document.note.src='#SESSION.root#/Images/annotation.gif'"
-				align="absmiddle" style="cursor: pointer;">&nbsp;
-				<a href="javascript:note()"><cf_tl id="Interview notes"></a>
+					    
+				<a href="javascript:note()"><cf_tl id="See Interview and evaluation record"></a>
 				 
 			 </cfoutput>				 
 						

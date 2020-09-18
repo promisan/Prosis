@@ -83,69 +83,49 @@ function hl(itm,fld){
 --->
 
 <cfif GroupAll.recordcount eq "0">
+
 <font style="color:gray">No position categorizations  enabled for entity</font>
+
 </cfif>
   
 <table width="100%">
-
-<tr>			
-    
-		<td style="padding-left:0px">		
-		<cfset row = 0>		
-		<table>
-			
-			<cfoutput query="GroupAll">		
-					
-			<cfif row eq "0"><tr></cfif>
-			
-			<cfset row = row+1>
-			
-			<td>
-			
-				<table bgcolor="white">
-						
-				      <TR bgcolor="white">					
-					
-						<CFIF AccessPosition eq "EDIT" OR AccessPosition eq "ALL">
-						
-							<TD style="height:14px;padding-right:4px">
-						
-							<cfif PositionNo eq "">
-							<input type="checkbox" class="radiol" name="positiongroup" value="#GroupCode#" onClick="hl(this,this.checked)">
-							<cfelse>
-							<input type="checkbox" class="radiol" name="positiongroup" value="#GroupCode#" checked onClick="hl(this,this.checked)">
-						    </cfif>
-							
-							</td>
-							
-							
-						<cfelse>						
-						
-							<cfif PositionNo neq "">
-							<TD style="height:14px;padding-right:4px">
-							  <img src="#SESSION.root#/Images/check_mark.gif" align="absmiddle" alt="" border="0">						
-							 </td> 
-							</cfif>							
-					   
-						</CFIF>
-														
-						<TD class="labelit" style="height:14px;padding-right:10px"><cfif PositionNo neq ""><cfelse><font color="808080"></cfif>#Description#&nbsp;&nbsp;|</TD>			
+<tr>			    
+	<td style="padding-left:0px">		
+	<cfset row = 0>				
+	<table>			
+		<cfoutput query="GroupAll">							
+		<cfif row eq "0"><tr></cfif>			
+		<cfset row = row+1>			
+		<td>
 		
-					</tr>
-					
-				</table>
-			</td>
-			
-			<cfif row eq "3">
-			 <cfset row = 0>
-			    </tr>
-			</cfif>	
-					
-			</CFOUTPUT>
-		
-		</table>		
-		</td>	
+			<table bgcolor="white" class="formpadding">						
+			      <TR bgcolor="white">										
+					<CFIF AccessPosition eq "EDIT" OR AccessPosition eq "ALL">						
+						<TD style="height:14px;padding-right:4px">						
+						<cfif PositionNo eq "">
+						<input type="checkbox" class="radiol" name="positiongroup" value="#GroupCode#" onClick="hl(this,this.checked)">
+						<cfelse>
+						<input type="checkbox" class="radiol" name="positiongroup" value="#GroupCode#" checked onClick="hl(this,this.checked)">
+					    </cfif>							
+						</td>							
+					<cfelse>							
+						<cfif PositionNo neq "">
+						<TD style="height:14px;padding-right:4px">
+						  <img src="#SESSION.root#/Images/check_mark.gif" align="absmiddle" alt="" border="0">						
+						 </td> 
+						</cfif>						   
+					</CFIF>														
+					<TD class="labelit" style="height:14px;padding-right:10px"><cfif PositionNo neq ""><cfelse><font color="808080"></cfif>#Description#&nbsp;&nbsp;|</TD>					
+				</tr>					
+			</table>
+		</td>			
+		<cfif row eq "3">
+		 <cfset row = 0>
+		    </tr>
+		</cfif>						
+		</cfoutput>		
+	</table>		
+	</td>	
 </tr>
-
 </table>
   

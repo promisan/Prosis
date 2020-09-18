@@ -339,7 +339,7 @@
 	</td></tr>	
 	
 	<tr><td colspan="3" id="selectedme">
-		<cfdiv bind="url:DocumentCandidateSelect.cfm?id=#url.id#">	
+		<cf_securediv bind="url:DocumentCandidateSelect.cfm?id=#url.id#">	
 	</td></tr>	
 	
 	<cf_actionListingScript>
@@ -362,8 +362,8 @@
 			  	   	
 	<tr><td colspan="3" style="padding:8px">
 		
-		<cfdiv id="#doc.DocumentNo#" 
-		    bind="url:DocumentWorkflow.cfm?ajaxid=#Doc.DocumentNo#"/>   
+		<cf_securediv id="#doc.DocumentNo#" 
+		    bind="url:DocumentWorkflow.cfm?ajaxid=#Doc.DocumentNo#">   
 				
 	</td></tr>
 	

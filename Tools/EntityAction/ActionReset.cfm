@@ -1,6 +1,7 @@
 
 <cfparam name="URL.EntityClassNew" default="">
 <cfparam name="URL.Archive"        default="0">
+<cfparam name="URL.Retain"         default="0">
 <cfparam name="url.ajaxid"         default="">
 
 <cfif CGI.HTTPS eq "off">
@@ -250,6 +251,41 @@
 		 	FROM   OrganizationObject
 			WHERE  ObjectId = '#URL.ObjectId#'		
 	</cfquery>
+	
+	<cfif url.retain eq "true">
+	
+		<!--- information --->
+	
+		<cfquery name="AddInfo" 
+			 datasource="AppsOrganization"
+			 username="#SESSION.login#" 
+			 password="#SESSION.dbpw#">
+			    INSERT INTO OrganizationObjectInformation
+				       (ObjectId, DocumentId, DocumentSerialNo, DocumentDescription, DocumentItem, DocumentItemValue, 
+					    OfficerUserId, OfficerLastName, OfficerFirstName,Created)
+				SELECT '#rowguid#',
+				        DocumentId, DocumentSerialNo, DocumentDescription, DocumentItem, DocumentItemValue, 
+					    OfficerUserId, OfficerLastName, OfficerFirstName,Created      				   
+			 	FROM   OrganizationObjectInformation
+				WHERE  ObjectId = '#URL.ObjectId#'		
+		</cfquery>
+	
+		<!--- questionaire --->
+	
+		<cfquery name="ReinstateNewHeader" 
+			 datasource="AppsOrganization"
+			 username="#SESSION.login#" 
+			 password="#SESSION.dbpw#">
+			    INSERT INTO OrganizationObjectQuestion
+				       ( ObjectId, ActionCode, QuestionId, QuestionScore, QuestionMemo, QuestionAttachment, 
+					    OfficerUserId, OfficerLastName, OfficerFirstName, Created )
+				SELECT '#rowguid#',ActionCode, QuestionId, QuestionScore, QuestionMemo, QuestionAttachment, 
+					    OfficerUserId, OfficerLastName, OfficerFirstName, Created			   
+			 	FROM   OrganizationObjectQuestion
+				WHERE  ObjectId = '#URL.ObjectId#'	
+		</cfquery>	
+	
+	</cfif>
 			<!--- ---------------------------------------------- --->
 	<!--- this will now create a new object and elements --->
 	<!--- ---------------------------------------------- --->

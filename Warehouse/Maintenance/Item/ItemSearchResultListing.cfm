@@ -81,6 +81,10 @@
 					AND #PreserveSingleQuotes(client.search)# 
 				</cfif>
 				
+				<cfif client.fbarcode neq "">				
+				AND     ItemNo IN (SELECT ItemNo FROM ItemUoM WHERE ItemNo = I.ItemNo AND ItemBarCode LIKE '#client.fbarcode#%')
+				</cfif>
+				
 				<!--- managed / used by this entity --->
 				<cfif url.fmission neq "">
 				AND		( I.Mission = '#url.fmission#' 

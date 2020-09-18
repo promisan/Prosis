@@ -49,7 +49,6 @@ password="#SESSION.dbpw#">
 		 document.getElementById('currencydate').className = "regular" } catch(e) {}
 	</script>
 
-
 </cfif>
 
 </td></tr></table>

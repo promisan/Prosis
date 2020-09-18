@@ -65,23 +65,23 @@
 					
 		<cfmap name="gmap"
 	     centerlatitude="#Zone.centerLatitude#" 
-	    centerlongitude="#Zone.centerlongitude#" 	 	
-	    doubleclickzoom="true" 
-		collapsible="false" 			
-	    overview="true" 
-		initshow="true"		
-		height="#url.height+8#"
-		width="#url.width+8#"
-		typecontrol="advanced" 		
-		hideborder="true"
-	    scrollwheelzoom="true" 
-		showmarkerwindow="true"
-		showcentermarker="true"
-	    showscale="true"
-		markerbind="url:#SESSION.root#/Attendance/Application/Address/AddressMAPDetail.cfm?cfmapname={cfmapname}&cfmapaddress={cfmapaddress}" 
-	    tip="Warden Support"
-		zoomcontrol="large3d" 
-	    zoomlevel="11"> 	
+	     centerlongitude="#Zone.centerlongitude#" 	 	
+	     doubleclickzoom="true" 
+		 collapsible="false" 			
+	     overview="true" 
+		 initshow="true"		
+		 height="#url.height+8#"
+		 width="#url.width+8#"
+		 typecontrol="advanced" 		
+		 hideborder="true"
+	     scrollwheelzoom="true" 
+	 	 showmarkerwindow="true"
+		 showcentermarker="true"
+	     showscale="true"
+		 markerbind="url:#SESSION.root#/Attendance/Application/Address/AddressMAPDetail.cfm?cfmapname={cfmapname}&cfmapaddress={cfmapaddress}" 
+	     tip="Warden Support"
+		 zoomcontrol="large3d" 
+	     zoomlevel="11"> 	
 												
 		<cfloop query="Listing">		
 		
@@ -155,6 +155,7 @@
 		</cfloop>	
 									
 </cfmap>
+
 
 </td></tr>
 

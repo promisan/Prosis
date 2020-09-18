@@ -25,6 +25,8 @@
 	 mandateno = "#url.Mandate#"
 	 role      = "'HROfficer','HRAssistant','HRPosition', 'HRLoaner', 'HRLocator','HRInquiry'"
 	 tree      = "0">	
+	 
+<cfinclude template="PostViewHeader.cfm">		 
 	 	 
    <cfif accesslist eq "" or accesslist eq "full">
          
@@ -37,7 +39,7 @@
 	     <cfset cl = "hide"> 	 
 	   </cfif>
 	  		   
-	   <cfinclude template="PostViewHeader.cfm">			   	   
+	   		   	   
 	  	   
 	   <cfquery name="SearchResult"
 		   datasource="AppsQuery"

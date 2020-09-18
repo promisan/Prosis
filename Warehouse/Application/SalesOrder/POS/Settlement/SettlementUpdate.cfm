@@ -24,8 +24,8 @@
  	datasource="AppsMaterials" 
  	username="#SESSION.login#" 
  	password="#SESSION.dbpw#">
-	 	SELECT  *
-	 	FROM    CustomerRequest
+	 	SELECT  TOP 1 *
+	 	FROM    vwCustomerRequest
 		WHERE   RequestNo = '#url.RequestNo#'	 	
 	</cfquery>	
 	

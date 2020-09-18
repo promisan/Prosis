@@ -63,7 +63,7 @@
 					fontbold="no" 
 					font="calibri"
 					fontitalic="no" 
-					show3d="yes" 
+					show3d="no" 
 					xaxistitle="" 				 
 					yaxistitle="" 
 					rotated="no" 
@@ -71,16 +71,15 @@
 					tipbgcolor="##000000" 					
 					markersize="30" 
 					backgroundcolor="##ffffff"					
-			       	chartheight="180" 
-				   	chartwidth="230">	
+			       	chartheight="220" 
+				   	chartwidth="250">	
 										
-					   <cfchartseries type="cylinder"
+					   <cfchartseries type="pie"
 				             query="Location"
 			    	         itemcolumn="LocationName"
-			        	     valuecolumn="Total"							 					 
-				             serieslabel=""
-						     colorlist="##5DB7E8,##E8875D,##E8BC5D,##CCCA6A,##339AFA,##66AC6A,##999A9A,##FFFA9A,##996AFA"
-			        	     markerstyle="circle"></cfchartseries>	
+			        	     valuecolumn="Total"		
+							 datalabelstyle="pattern"					 					 				            
+						     colorlist="##5DB7E8,##E8875D,##E8BC5D,##CCCA6A,##339AFA,##66AC6A,##999A9A,##FFFA9A,##996AFA"></cfchartseries>	
 							 
 				</cfchart>						 
 							

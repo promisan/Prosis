@@ -75,9 +75,9 @@
 				  password="#SESSION.dbpw#">
 				    SELECT 	*
 					FROM    ItemBOMDetail
-					WHERE   BOMId = '#url.BOMId#'  
+					WHERE   BOMId          = '#url.BOMId#'  
 					AND		MaterialItemNo = '#getUoM.ItemNo#'  		 							   		      
-					AND		MaterialUoM = '#getUoM.UoM#'
+					AND		MaterialUoM    = '#getUoM.UoM#'
 			</cfquery>
 		
 			<cfif qGetItemBundle.recordCount eq 1>
@@ -91,17 +91,17 @@
 </cfif>		
 		
 <cfinvoke component  = "Service.Process.Materials.POS"  
-   method            = "getPrice" 
-   priceschedule     = "#url.priceschedule#"
-   discount          = "#url.discount#"
-   warehouse         = "#url.warehouse#" 
-   customerid        = "#url.customerid#"
-   customeridTax     = "#url.customeridInvoice#"
-   currency          = "#url.Currency#"
-   ItemNo            = "#getUoM.itemno#"
-   UoM               = "#getUoM.uom#"
-   quantity          = "#qty#"
-   returnvariable    = "sale">	
+	   method            = "getPrice" 
+	   priceschedule     = "#url.priceschedule#"
+	   discount          = "#url.discount#"
+	   warehouse         = "#url.warehouse#" 
+	   customerid        = "#url.customerid#"
+	   customeridTax     = "#url.customeridInvoice#"
+	   currency          = "#url.Currency#"
+	   ItemNo            = "#getUoM.itemno#"
+	   UoM               = "#getUoM.uom#"
+	   quantity          = "#qty#"
+	   returnvariable    = "sale">	
    
    <cfquery name="getCategory" 
 	datasource="AppsMaterials" 
@@ -201,8 +201,7 @@
 			</script>
 			</cfoutput>
 		
-		<cfelse>	
-												 
+		<cfelse>													 
 					
 			<cfquery name="InsertLine" 
 				datasource="AppsMaterials" 

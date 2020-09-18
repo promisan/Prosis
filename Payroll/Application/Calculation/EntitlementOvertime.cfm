@@ -97,8 +97,8 @@ password="#SESSION.dbpw#">
 	AND    Ovt.OvertimePeriodEnd   >= Pay.DateEffective  <!--- 25/5/07 had to be added for correct rate determination, retro calc --->
 	AND    Ovt.OvertimePeriodEnd   <= Pay.DateExpiration 
 	
-	<!--- has been cleared and not processed yet in a prior month = not paid --->
-	AND    Ovt.Status          = '2' 
+	<!--- has been cleared and not processed yet in a prior month = not paid, we changed this from 2 into 3 9/17/2020  --->
+	AND    Ovt.Status          = '3' 
 	<!--- is defined to be payable --->
 	AND    OvtD.BillingPayment = 1	
 	AND    (OvtD.OvertimeHours > 0 OR OvtD.OvertimeMinutes > 0)

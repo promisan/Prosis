@@ -333,8 +333,9 @@
 					<td colspan="7" align="center" valign="bottom" style="padding-bottom:10px">
 										
 					<cf_tl id="Invoice"    var="label1">
-					<cf_tl id="Electronic" var="label2">		
-					<cf_tl id="Manual"     var="label3">						
+					<cf_tl id="Electronic" var="label2">
+					<cf_tl id="Manual"     var="label3">
+					<cf_tl id="FEL" var="label4">
 								
 					<cfquery name="getInvoiceSale"
 					 datasource="AppsMaterials" 
@@ -370,18 +371,43 @@
 					<cfif getWarehouseJournal.TransactionMode eq "2">
 					
 						<cfif getSale.sTotal neq "0">
-							<cf_button2
-							text		 = "#label2#" 
-							subtext		 = "#label1#"
-							id			 = "postsettlementbutton1"  
-							bgColor		 = "##52b3d9"
-							textsize	 = "24px" 
-							subtextsize	 = "15px" 
-							height		 = "80px"
-							width		 = "200px"							
-							textColor	 = "##F2F2F2"
-							borderRadius = "5px"
-							onclick	     = "postsettlement('#url.warehouse#','#url.customerid#','#customeridinvoice#','#getSale.SalesCurrency#','#url.batchid#','#url.terminal#','#url.td#','#url.th#','#url.tm#','2','#url.addressid#','#url.requestno#')">
+							<cfquery name="qSeriesCheck"
+									datasource="AppsOrganization"
+									username="#SESSION.login#"
+									password="#SESSION.dbpw#">
+									SELECT  *
+									FROM    OrganizationTaxSeries
+									WHERE   UserKey IS NOT NULL
+							</cfquery>
+
+							<cfif qSeriesCheck.recordcount neq 0>
+								<cf_button2
+									text		 = "#label4#"
+									subtext		 = "#label1#"
+									id			 = "postsettlementbutton1"
+									bgColor		 = "##52b3d9"
+									textsize	 = "24px"
+									subtextsize	 = "15px"
+									height		 = "80px"
+									width		 = "200px"
+									textColor	 = "##F2F2F2"
+									borderRadius = "5px"
+									onclick	     = "postsettlement('#url.warehouse#','#url.customerid#','#customeridinvoice#','#getSale.SalesCurrency#','#url.batchid#','#url.terminal#','#url.td#','#url.th#','#url.tm#','3','#url.addressid#','#url.requestno#')">
+							<cfelse>
+								<cf_button2
+										text		 = "#label2#"
+										subtext		 = "#label1#"
+										id			 = "postsettlementbutton1"
+										bgColor		 = "##52b3d9"
+										textsize	 = "24px"
+										subtextsize	 = "15px"
+										height		 = "80px"
+										width		 = "200px"
+										textColor	 = "##F2F2F2"
+										borderRadius = "5px"
+										onclick	     = "postsettlement('#url.warehouse#','#url.customerid#','#customeridinvoice#','#getSale.SalesCurrency#','#url.batchid#','#url.terminal#','#url.td#','#url.th#','#url.tm#','2','#url.addressid#','#url.requestno#')">
+							</cfif>
+
 						</cfif>
 						
 							<cf_button2

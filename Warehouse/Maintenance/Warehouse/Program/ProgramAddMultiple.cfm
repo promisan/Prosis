@@ -23,14 +23,16 @@ password="#SESSION.dbpw#">
 	ORDER BY ProgramName
 </cfquery>
 
-
+<!---
 <cf_screentop height="100%" scroll="yes" label="#vHead#" layout="webapp" banner="yellow" user="no">
+--->
 
 <table class="hide">
 	<tr><td colspan="2"><iframe name="processProgramWarehouseMulti" id="processProgramWarehouseMulti" frameborder="0"></iframe></td></tr>
 </table>
 
-<cfform action="Program/ProgramAddMultipleSubmit.cfm?warehouse=#url.warehouse#" name="frmProgramWarehouseMulti" method="POST" target="processProgramWarehouseMulti">
+<cfform action="Program/ProgramAddMultipleSubmit.cfm?warehouse=#url.warehouse#" 
+    name="frmProgramWarehouseMulti" method="POST" target="processProgramWarehouseMulti">
 
 <table width="100%" align="center">
 	<tr><td height="10"></td></tr>
@@ -46,8 +48,8 @@ password="#SESSION.dbpw#">
 								<cfset cnt = 0>
 								<cfoutput query="get">
 									<cfset cnt = cnt + 1>
-									<td style="width:#100/cols#%;" class="labelmedium">
-										<input type="Checkbox" id="prog_#ProgramCode#" name="prog_#ProgramCode#" value="#ProgramCode#" <cfif selected eq ProgramCode>checked</cfif>> #ProgramCode# - #ProgramName#
+									<td style="width:#100/cols#%;" class="labelmedium line">
+										<input class="radiol" type="Checkbox" id="prog_#ProgramCode#" name="prog_#ProgramCode#" value="#ProgramCode#" <cfif selected eq ProgramCode>checked</cfif>> #ProgramCode# - #ProgramName#
 									</td>
 								
 									<cfif cnt eq cols>

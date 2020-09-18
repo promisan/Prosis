@@ -58,15 +58,15 @@
 		<td>
 		
 			<cfform name="frmAssociation" action="Association/AssociationSubmit.cfm?warehouse=#url.warehouse#&type=#url.type#">
-				<table width="100%" class="formpadding">
+				<table width="100%" class="formspacing">
 				
 					<cfoutput query="listing" group="Mission">
 					
-					<tr><td class="labellarge" colspan="#vColumns#">#Mission#</td></tr>
+					<tr><td class="labellarge" style="font-size:20px" colspan="#vColumns#">#Mission#</td></tr>
 					
 					<cfoutput group="LocCountry">
 
-						<tr><td class="labellarge" colspan="#vColumns#">#CountryName#</td></tr>
+						<tr><td class="labellarge" style="font-size:18px" colspan="#vColumns#">#CountryName#</td></tr>
 
 						<cfoutput group="LocationId">
 							
@@ -85,12 +85,12 @@
 										<table width="100%">
 											<tr class="clsWHRows">
 												<td style="display:none;" class="clsWHContent">#CountryName# #LocationName# #WarehouseName#</td>
-												<td id="td_#warehouse#" class="labelit" style="padding:5px; border:1px solid ##C0C0C0; cursor:pointer; #vSelected#">
+												<td id="td_#warehouse#" class="labelit" style="padding:3px; border:1px solid silver; cursor:pointer; #vSelected#">
 												   <table cellspacing="0" cellpadding="0">
 												    <tr><td>
 													<input type="Checkbox" name="cb_#warehouse#" class="radiol" id="cb_#warehouse#" onclick="selectWHA('#warehouse#','##7EDDF1');" <cfif warehouse eq selected>checked</cfif>> 
 													</td>
-													<td style="padding-left:7px" class="labelmedium">												
+													<td style="padding-left:7px;font-size:17px" class="labelmedium">												
 													<label for="cb_#warehouse#">#WarehouseName#</label>
 													</td>
 													</tr>

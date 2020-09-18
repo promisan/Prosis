@@ -954,7 +954,7 @@
 							  #parscript#
 							  <tr class="labelmedium navigation_row line" style="height:20px">
 								<td style="padding-left:3px" width="100">#UCase(FieldDisplay)#</td>
-								<td>#CriteriaDescription#</td>
+								<td>#Parameter.CriteriaDescription#</td>
 								<td>Form.#CriteriaName#_#FieldName#</td>
 								<td style="word-wrap: break-word; word-break: break-all;">#evaluate("form.#CriteriaName#_#FieldName#")#</td>
 							  </tr>

@@ -255,14 +255,14 @@ password="#SESSION.dbpw#">
 		<TR>
 		    <td class="labelmedium" style="height:30px"><cf_tl id="Mode">:</TD>
 		    <td class="labelmedium">		
-				<cfdiv id="divMode" bind="url:getOvertimeMode.cfm?mission={mission}">					
+				<cf_securediv id="divMode" bind="url:getOvertimeMode.cfm?mission={mission}">					
 			</td>
 		</TR>
 		
 		<tr>						
 		    <td valign="top" style="padding-top:6px" class="labelmedium"><cf_tl id="Overtime">(HH:MM):</TD>
 		    <td valign="top">
-			  <cfdiv id="overtimecontent" bind="url:setOvertime.cfm?payment=0&personno=#url.id#">	
+			  <cf_securediv id="overtimecontent" bind="url:setOvertime.cfm?payment=0&personno=#url.id#">	
 			</td>				
 		</tr>
 		
@@ -282,13 +282,13 @@ password="#SESSION.dbpw#">
 		
 		<tr><td class="labelmedium"><cf_tl id="First review by">:<font color="FF0000">*</font></td>			  
 		    <td>		   
-		   	  <cfdiv bind="url:#session.root#/Payroll/Application/Overtime/getReviewer.cfm?FieldName=FirstReviewerUserId&Id=#URL.ID#&mission={mission}" id="FirstReviewerUserId"/>
+		   	  <cf_securediv bind="url:#session.root#/Payroll/Application/Overtime/getReviewer.cfm?FieldName=FirstReviewerUserId&Id=#URL.ID#&mission={mission}" id="FirstReviewerUserId">
 		    </td>
   	    </tr>	
 		
 		<tr><td class="labelmedium"><cf_tl id="Second review by">:<font color="FF0000">*</font></td>			  
 		    <td>		   
-		   	  <cfdiv bind="url:#session.root#/Payroll/Application/Overtime/getReviewer.cfm?FieldName=SecondReviewerUserId&Id=#URL.ID#&mission={mission}" id="SecondReviewerUserId"/>
+		   	  <cf_securediv bind="url:#session.root#/Payroll/Application/Overtime/getReviewer.cfm?FieldName=SecondReviewerUserId&Id=#URL.ID#&mission={mission}" id="SecondReviewerUserId">
 		    </td>
   	    </tr>	
 														
@@ -303,7 +303,7 @@ password="#SESSION.dbpw#">
 			
 			<tr>
 				<td class="labelmedium"><cf_tl id="Attachment">:</td>
-				<td style="padding-right:42px"><cfdiv bind="url:OvertimeAttachment.cfm?id=#rowguid#" id="att"></td>			
+				<td style="padding-right:42px"><cf_securediv bind="url:OvertimeAttachment.cfm?id=#rowguid#" id="att"></td>			
 			</tr>		
 						
 		<tr><td class="line" colspan="2"></td></tr>

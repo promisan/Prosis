@@ -7,11 +7,13 @@
 <cf_tl id="Save"      var = "vSave">
 <cf_tl id="Do you want to remove this record ?" var = "msg1">
 
+<!--- 
 <cfif url.programcode eq "">
 	<cf_screentop height="100%" scroll="Yes" html="Yes" layout="webapp" label="#vProject#" banner="gray" option="#vAdd# #vProject#" user="no">
 <cfelse>
 	<cf_screentop height="100%" scroll="Yes" html="Yes" layout="webapp" label="#vProject#" banner="gray" option="#vMaintain# #vProject#" user="no">
 </cfif>
+--->
 
 <cfquery name="Warehouse" 
 datasource="appsMaterials" 

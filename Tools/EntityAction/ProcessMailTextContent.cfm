@@ -32,7 +32,8 @@
 </cfif>
 
 <cfoutput>
-	
+
+
 	<cfmail TO          = "#sendto#"        
 		    FROM        = "#fromm#"
 			SUBJECT     = "#Attributes.text#: #Action.ActionDescription#"	

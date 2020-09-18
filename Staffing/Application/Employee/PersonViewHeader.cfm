@@ -708,7 +708,9 @@
 				  				
 				   <cfset url.PictureHeight = Param.PictureHeight>
 				   <cfset url.PictureWidth  = Param.PictureWidth>
+				   <!---
 				   <cfset url.mode          = "Staffing">
+				   --->
 				   <cfset url.personNo      = PersonNo>
 				   <cfset url.reference     = Reference>
 				   <cfset url.indexNo       = IndexNo>

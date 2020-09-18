@@ -18,7 +18,7 @@ password="#SESSION.dbpw#">
 
 <cfoutput>
 
-SELECT       M.CostId, P.PersonNo, P.IndexNo, P.LastName, P.FullName, M.Mission, M.DateEffective, 
+SELECT       M.CostId, P.PersonNo, P.IndexNo, P.LastName, P.FullName, M.Mission, M.DateEffective, M.PayrollStart,
              M.DocumentDate, M.DocumentReference, M.PayrollItem, Ref_PayrollItem.PayrollItemName, 
              M.EntitlementClass, M.Currency, M.Amount, 
 			 M.Status, M.Source, 
@@ -58,14 +58,6 @@ WHERE        M.Mission = '#url.mission#'
 						search            = "text"}>	
 						
 	<cfset itm = itm+1>	
-	<cf_tl id="Document" var = "1">		
-	<cfset fields[itm] = {label       = "#lt_text#",                    
-	     				field         = "DocumentReference",								
-						display       = "1",																																														
-						displayfilter = "yes",																																									
-						search        = "text"}>	
-						
-	<cfset itm = itm+1>	
 	<cf_tl id="Recorded" var = "1">		
 	<cfset fields[itm] = {label       = "#lt_text#",                    
 	     				field         = "Created",								
@@ -76,6 +68,15 @@ WHERE        M.Mission = '#url.mission#'
 						formatted     = "dateformat(Created,client.dateformatshow)"}>							
 						
 	<cfset itm = itm+1>	
+	<cf_tl id="Document" var = "1">		
+	<cfset fields[itm] = {label       = "#lt_text#",                    
+	     				field         = "DocumentReference",								
+						display       = "1",																																														
+						displayfilter = "yes",																																									
+						search        = "text"}>	
+	
+	<!---					
+	<cfset itm = itm+1>	
 	<cf_tl id="Date" var = "1">		
 	<cfset fields[itm] = {label       = "#lt_text#",                    
 	     				field         = "DocumentDate",								
@@ -83,17 +84,29 @@ WHERE        M.Mission = '#url.mission#'
 						width         = "18",																																									
 						displayfilter = "yes",																																									
 						search        = "date",		
-						formatted     = "dateformat(DocumentDate,client.dateformatshow)"}>												
+						formatted     = "dateformat(DocumentDate,client.dateformatshow)"}>		
+						
+	--->															
 						
 	<cfset itm = itm+1>
-	<cf_tl id="Effective" var = "1">		
+	<cf_tl id="Due" var = "1">		
 	<cfset fields[itm] = {label     = "#lt_text#",                    	                   
 	     				field       = "DateEffective",																																												
 						search      = "date",
 						display       = "1",	
 						width         = "18",
 						displayfilter = "Yes",		
-						formatted   = "dateformat(DateEffective,client.dateformatshow)"}>		
+						formatted   = "dateformat(DateEffective,client.dateformatshow)"}>	
+						
+	<cfset itm = itm+1>
+	<cf_tl id="Payment" var = "1">		
+	<cfset fields[itm] = {label     = "#lt_text#",                    	                   
+	     				field       = "PayrollStart",																																												
+						search      = "date",
+						display       = "1",	
+						width         = "18",
+						displayfilter = "Yes",		
+						formatted   = "dateformat(PayrollStart,client.dateformatshow)"}>								
 						
 	<cfset itm = itm+1>	
 	<cf_tl id="Item" var = "1">		

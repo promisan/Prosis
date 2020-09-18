@@ -116,11 +116,11 @@
 		<cfset addressid = "00000000-0000-0000-0000-000000000000">
 	<cfelse>
 		<cfquery name="qCheck"
-		datasource="AppsTransaction" 
+		datasource="AppsMaterials"
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
 			SELECT AddressId 
-			FROM   Sale#URL.Warehouse#
+			FROM   vwCustomerRequest
 			WHERE CustomerId = '#customerid#'
 		</cfquery> 							
 		

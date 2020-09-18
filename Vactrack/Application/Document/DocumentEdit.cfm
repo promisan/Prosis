@@ -274,18 +274,6 @@ function cleartech() {
 	 ptoken.open("DocumentRoster.cfm?ID=#URL.ID#&status=2", "_blank", "left=35, top=35, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=yes, resizable=no");
 	}	
 	
-// function mark(act) {
-//	 ptoken.open("../Candidate/CandidateReview.cfm?ID=#URL.ID#&ActionCode="+act+"&status=1", "_blank", "left=35, top=35, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=yes, resizable=no");
-//	}		
-	
-// function interview(act) {
-//	 ptoken.open("../Candidate/CandidateReview.cfm?ID=#URL.ID#&ActionCode="+act+"&status=2", "_blank", "left=35, top=35, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=yes, resizable=no");
-//	}			
-	
-// function recommend(act)	{
-//	 ptoken.open("../Candidate/CandidateReview.cfm?ID=#URL.ID#&ActionCode="+act+"&status=3", "_blank", "left=35, top=35, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=yes, resizable=no");
-//	}			
-	
 function editactivity(id)	{    	
 	ProsisUI.createWindow('candidate activity', 'candact', '',{x:100,y:100,height:800,width:800,modal:true,center:true})    					
 	ptoken.navigate('#session.root#/Vactrack/Application/Candidate/Action/ActionEdit.cfm?ID=' + id,'candact') 			
@@ -293,7 +281,7 @@ function editactivity(id)	{
 
 function asspost(vacno,mis,grd)	{    	
 	ProsisUI.createWindow('myassociate', 'Associate', '',{x:100,y:100,height:document.body.clientHeight-120,width:document.body.clientWidth-120,modal:true,center:true})    					
-	ColdFusion.navigate('AssociateView.cfm?ID=' + vacno + '&ID1=' + mis + '&ID2=' + grd,'myassociate') 			
+	ptoken.navigate('AssociateView.cfm?ID=' + vacno + '&ID1=' + mis + '&ID2=' + grd,'myassociate') 			
     }	
 	
 function reissue(vacno) {
@@ -305,7 +293,7 @@ function reissue(vacno) {
 	}
 
 function va(fun) {
-		ptoken.open(root + "/Vactrack/Application/Announcement/Announcement.cfm?ID="+fun, "_blank", "width=800, height=600, status=yes,toolbar=yes, scrollbars=yes, resizable=yes");
+		ptoken.open(root + "/Vactrack/Application/Announcement/Announcement.cfm?header=yes&ID="+fun, fun);
 	}
 	
 function reinstate(vacno,persno) {
@@ -314,12 +302,17 @@ function reinstate(vacno,persno) {
 		window.location = "DocumentCandidateReinstateSubmit.cfm?ID=" + vacno + "&ID1=" + persno;
 	}	
 	return false	
-}	
+}
 
-function personnote(per,act) {  
-	w = #CLIENT.width# - 100;
-	h = #CLIENT.height# - 160;
-	ptoken.open("#SESSION.root#/Vactrack/Application/Candidate/Interview/CandidateInterview.cfm?DocumentNo=#URL.ID#&PersonNo="+per+"&ActionCode="+act, "_blank", "left=30, top=30, width=" +w+ ", height=" +h+ ", toolbar=no, menubar=no, status=yes, scrollbars=yes, resizable=yes");	
+function personaction(per,act) {  	
+	ProsisUI.createWindow('myaction', 'Activities', '',{x:100,y:100,height:document.body.clientHeight-120,width:document.body.clientWidth-120,modal:true,center:true})    					
+	ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/Action/ActionListingView.cfm?DocumentNo=#URL.ID#&PersonNo='+per,'myaction') 			
+}
+	
+
+function personnote(per,act) {  	
+	ProsisUI.createWindow('myassociate', 'Interview record', '',{x:100,y:100,height:document.body.clientHeight-120,width:document.body.clientWidth-120,modal:true,center:true})    					
+	ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/Interview/CandidateInterview.cfm?DocumentNo=#URL.ID#&PersonNo='+per+'&ActionCode='+act,'myassociate') 			
 }
 
 </script>

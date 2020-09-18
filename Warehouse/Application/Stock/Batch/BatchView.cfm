@@ -119,7 +119,7 @@ password="#SESSION.dbpw#">
 		}	  
 		
 		function printbatch(batchno, template) {
-			window.open("#SESSION.root#/Tools/Mail/MailPrepareOpen.cfm?id="+batchno+"&ID1="+batchno+"&ID0="+template,"_blank", "left=30, top=30, width=800, height=800, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")	
+			ptoken.open("#SESSION.root#/Tools/Mail/MailPrepareOpen.cfm?id="+batchno+"&ID1="+batchno+"&ID0="+template,"_blank", "left=30, top=30, width=800, height=800, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")	
 		}	
 		
 		function transactionobservation(traid) {

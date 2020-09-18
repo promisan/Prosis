@@ -269,8 +269,7 @@
 				  	<cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
 					
 					<cfchart style = "#chartStyleFile#" 
-						format="png"
-						
+						format="png"						
 						scalefrom="0"
 						scaleto="50" 
 						showxgridlines="yes" 

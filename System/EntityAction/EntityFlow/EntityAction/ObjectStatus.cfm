@@ -14,7 +14,7 @@ password="#SESSION.dbpw#">
    <cfparam name="URL.ID2" default="">   
 </cfif>
 	
-<cfform action="ObjectStatusSubmit.cfm?EntityCode=#URL.EntityCode#&ID2=#URL.ID2#" method="POST" enablecab="Yes" name="action">
+<cfform method="POST" name="objectstatus">
 
 	<table width="98%" border="0" cellspacing="0" cellpadding="0" align="right">
 	 <tr><td height="4"></td></tr>   
@@ -30,14 +30,12 @@ password="#SESSION.dbpw#">
 		   <td width="7%" align="right" colspan="2" style="padding-right:4px">
 		     <cfoutput>
 			 <cfif URL.ID2 neq "new">
-			     <A href="javascript:ColdFusion.navigate('ObjectStatus.cfm?EntityCode=#URL.EntityCode#&ID2=new','ista')"><font color="0080FF">[add]</font></a>
+			     <A href="javascript:ptoken.navigate('ObjectStatus.cfm?EntityCode=#URL.EntityCode#&ID2=new','ista')">[add]</a>
 			 </cfif>			
 			 </cfoutput>
 		   </td>		   
 	    </TR>	
-		
-		<tr><td colspan="6" height="1" class="linedotted"></td></tr>
-					
+							
 		<cfoutput query="Detail">
 						
 		<cfset cd = EntityCode>
@@ -56,8 +54,10 @@ password="#SESSION.dbpw#">
 			   <td>
 			   	   <cfinput type="Text" value="#de#" name="StatusDescription" message="You must enter a description" required="Yes" size="30" maxlength="50" class="regularxl">
 	           </td>
-			    <td align="center"><input type="checkbox" class="radiol" name="Operational" id="Operational" value="1" <cfif "1" eq #op#>checked</cfif>></td>
-			   <td colspan="2" align="right" style="padding-right:4px"><input type="submit" style="height:18;width:60" value="Update" class="button10s"></td>
+			    <td align="center"><input type="checkbox" class="radiol" name="Operational" id="Operational" value="1" <cfif "1" eq op>checked</cfif>></td>
+			   <td colspan="2" align="right" style="padding-right:4px">
+			   <input type="button" style="height:18;width:60" value="Update" class="button10g" onclick="ptoken.navigate('ObjectStatusSubmit.cfm?EntityCode=#URL.EntityCode#&ID2=#url.id2#','ista','','','POST','objectstatus')">
+			   </td>
 		    </TR>	
 					
 		<cfelse>
@@ -68,7 +68,7 @@ password="#SESSION.dbpw#">
 			   <td align="center"><cfif op eq "0"><b>No</b><cfelse>Yes</cfif></td>
 			   <td width="15" align="right" style="padding-top:4px;padding-right:3px">
 			   
-			   	<cf_img icon="edit" navigation="Yes" onClick="javascript:ColdFusion.navigate('ObjectStatus.cfm?EntityCode=#URL.EntityCode#&ID2=#nm#','ista')">
+			   	<cf_img icon="edit" navigation="Yes" onClick="javascript:ptoken.navigate('ObjectStatus.cfm?EntityCode=#URL.EntityCode#&ID2=#nm#','ista')">
 			   
 			   </td>
 			   <td width="15" align="left" style="padding-top:4px">
@@ -85,13 +85,12 @@ password="#SESSION.dbpw#">
 			   </cfquery>
 				   
 			    <cfif Detail.recordcount eq "0">				
-					<cf_img icon="delete" navigation="Yes" onClick="ColdFusion.navigate('ObjectStatusPurge.cfm?EntityCode=#URL.EntityCode#&ID2=#nm#','ista')">			   							
+					<cf_img icon="delete" navigation="Yes" onClick="ptoken.navigate('ObjectStatusPurge.cfm?EntityCode=#URL.EntityCode#&ID2=#nm#','ista')">			   							
 				</cfif>
 				<a>
 			  </td>
 			   
-		    </TR>	
-			
+		    </TR>
 		
 		</cfif>
 				
@@ -100,8 +99,8 @@ password="#SESSION.dbpw#">
 		<cfif URL.ID2 eq "new">
 							
 			<TR>
-			<td height="25">
-			    <cfinput type="Text" value="" name="EntityStatus" message="You must enter a status code" required="Yes" size="1" maxlength="10" class="regularxl">
+			<td style="height:30px;padding-left:20px">
+			    <cfinput type="Text" value="" name="EntityStatus" style="text-align:center" message="You must enter a status code" required="Yes" size="1" maxlength="2" class="regularxl">
 	        </td>
 			
 			<td width="70%">
@@ -112,7 +111,13 @@ password="#SESSION.dbpw#">
 				<input class="radiol" type="checkbox" name="Operational" id="Operational" value="1" checked>
 			</td>
 								   
-			<td colspan="2" align="right" style="padding-right:4px"><input style="height:18;width:60" type="submit" value=" Add " class="Button10s"></td>
+			<td colspan="2" align="right" style="padding-right:4px">
+			<cfoutput>
+			<input style="width:60px" type="button" 
+			onclick="ptoken.navigate('ObjectStatusSubmit.cfm?EntityCode=#URL.EntityCode#&ID2=#url.id2#','ista','','','POST','objectstatus')"
+			value="Add" class="Button10g">
+			</cfoutput>
+			</td>
 			    
 			</TR>	
 											

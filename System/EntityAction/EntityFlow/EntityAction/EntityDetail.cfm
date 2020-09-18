@@ -28,13 +28,13 @@ password="#SESSION.dbpw#">
 function objectdialog(ent,code,type) {
     
 	parent.ProsisUI.createWindow('mydialog', 'Questionaire Items', '',{x:100,y:100,height:parent.document.body.clientHeight-90,width:parent.document.body.clientWidth-90,modal:true,resizable:false,center:true})    			
-	parent.ColdFusion.navigate('#SESSION.root#/System/EntityAction/EntityObject/ObjectElementQuestion.cfm?entitycode='+ent+'&code='+code+'&type='+type,'mydialog') 	
+	parent.ptoken.navigate('#SESSION.root#/System/EntityAction/EntityObject/ObjectElementQuestion.cfm?entitycode='+ent+'&code='+code+'&type='+type,'mydialog') 	
 }
 
 function showMailContentEdit(id){
   	
 	parent.ProsisUI.createWindow('maildialog', 'Configure Customised Mail', '',{x:100,y:100,height:parent.document.body.clientHeight-90,width:parent.document.body.clientWidth-90,modal:true,resizable:false,center:true})    			
-	parent.ColdFusion.navigate('#SESSION.root#/System/EntityAction/EntityObject/ObjectElementMailContent.cfm?documentId=' + id,'maildialog') 	
+	parent.ptoken.navigate('#SESSION.root#/System/EntityAction/EntityObject/ObjectElementMailContent.cfm?documentId=' + id,'maildialog') 	
 
 }
 
@@ -42,7 +42,7 @@ function savemyfield(ent,fld,tpe,id) {
     document.getElementById("myfield").onsubmit()
 			
 	if( _CF_error_messages.length == 0 ) {          
-		ColdFusion.navigate('../../EntityObject/ObjectElementSubmit.cfm?documentid='+id+'&entitycode='+ent+'&id2='+fld+'&type='+tpe,'i'+tpe,'','','POST','myfield')
+		ptoken.navigate('../../EntityObject/ObjectElementSubmit.cfm?documentid='+id+'&entitycode='+ent+'&id2='+fld+'&type='+tpe,'i'+tpe,'','','POST','myfield')
 	 }   
 }	 
 
@@ -83,12 +83,12 @@ function object(box,cde) {
 }
 
 function objectsave(box,cde) {
-     ColdFusion.navigate('ActionRecordsDocumentSubmit.cfm?actioncode='+cde,'embed'+box,'','','POST','action')
-	 ColdFusion.navigate('ActionRecordsDocument.cfm?entitycode=&actioncode=0','object'+box)	
+     ptoken.navigate('ActionRecordsDocumentSubmit.cfm?actioncode='+cde,'embed'+box,'','','POST','action')
+	 ptoken.navigate('ActionRecordsDocument.cfm?entitycode=&actioncode=0','object'+box)	
 } 
 
 function template(file) {  
- 	window.open("../EntityAction/TemplateDialog.cfm?path="+file, "Template", "left=40, top=40, width=860, height= 732, toolbar=no, status=yes, scrollbars=yes, resizable=yes");
+ 	ptoken.open("../EntityAction/TemplateDialog.cfm?path="+file, "Template", "left=40, top=40, width=860, height= 732, toolbar=no, status=yes, scrollbars=yes, resizable=yes");
 }
 
 function up(val) {
@@ -254,8 +254,8 @@ function hl(itm,fld){
 				 <tr><td>  	   
 					   
 					 <cfoutput>
-					 	<cfdiv id="actionrecords" 
-						       bind="url:ActionRecords.cfm?entitycode=#URL.EntityCode#"/> 
+					 	<cf_securediv id="actionrecords" 
+						       bind="url:ActionRecords.cfm?entitycode=#URL.EntityCode#"> 
 					 </cfoutput>	
 				 
 				 </td></tr>
@@ -281,14 +281,14 @@ function hl(itm,fld){
 			
 			<tr><td height="5" colspan="5">
 			 <cfoutput>
-				 <cfdiv id="igrp" bind="url:ActionGroup.cfm?entitycode=#URL.EntityCode#"/> 
+				 <cf_securediv id="igrp" bind="url:ActionGroup.cfm?entitycode=#URL.EntityCode#"> 
 			 </cfoutput>	
 			</td></tr>
 			
 			<cfif Searchresult.EnableStatus eq "1">
 			
 				<tr><td height="10"></td></tr>				
-				<tr><td height="20" class="labelmedium">
+				<tr><td height="20" class="labelmedium" style="font-size:20px">
 				<img src="#SESSION.root#/images/activity_start.gif"
 						                     alt=""
 						                     border="0"
@@ -298,7 +298,7 @@ function hl(itm,fld){
 				<tr>
 					<td>  	   						   
 					 <cfoutput>
-					 	<cfdiv name="ista" id="ista" bind="url:ObjectStatus.cfm?entitycode=#URL.EntityCode#"/> 
+					 	<cf_securediv name="ista" id="ista" bind="url:ObjectStatus.cfm?entitycode=#URL.EntityCode#"> 
 					 </cfoutput>						 
 					</td>
 				</tr>
@@ -323,7 +323,7 @@ function hl(itm,fld){
 			
 			<tr><td height="5" colspan="5">
 			   
-				 <cfdiv name="icls" id="icls" bind="url:ActionClass.cfm?entitycode=#URL.EntityCode#"/> 
+				<cf_securediv name="icls" id="icls" bind="url:ActionClass.cfm?entitycode=#URL.EntityCode#"> 
 				
 			</td></tr>
 											
@@ -350,7 +350,7 @@ function hl(itm,fld){
 				 </tr>		
 									 
 				 <tr><td colspan="3" id="#l#">  
-				 <cfdiv id="i#l#" name="i#l#" 
+				 <cf_securediv id="i#l#" name="i#l#" 
 				        bind="url:../../EntityObject/ObjectElement.cfm?entitycode=#URL.EntityCode#&type=dialog">
 				 
 				 </td>
@@ -382,7 +382,7 @@ function hl(itm,fld){
 									 
 				 <tr><td colspan="3" class="line"></td></tr>					 
 				 <tr><td colspan="3" id="rule">  
-				 <cfdiv id="irule" name="irule"
+				 <cf_securediv id="irule" name="irule"
 				        bind="url:../../EntityObject/ObjectElement.cfm?entitycode=#URL.EntityCode#&type=rule">
 				 
 				 </td></tr>
@@ -415,7 +415,7 @@ function hl(itm,fld){
 				 <tr><td colspan="3" class="line"></td></tr>					 
 				 
 				 <tr><td colspan="3" id="report">  
-				 <cfdiv id="idocument" name="idocument"
+				 <cf_securediv id="idocument" name="idocument"
 				        bind="url:../../EntityObject/ObjectElement.cfm?entitycode=#URL.EntityCode#&type=document">
 				 
 				 </td></tr>
@@ -444,7 +444,7 @@ function hl(itm,fld){
 									 
 				 <tr><td colspan="3" class="line"></td></tr>					 
 				 <tr><td colspan="3" id="report">  
-				 <cfdiv id="ireport" 
+				 <cf_securediv id="ireport" 
 				        bind="url:../../EntityObject/ObjectElement.cfm?entitycode=#URL.EntityCode#&type=report">
 				 
 				 </td></tr>
@@ -472,7 +472,7 @@ function hl(itm,fld){
 				 </tr>
 								 
 				 <tr><td colspan="3" id="question">  
-				 <cfdiv id="iquestion" 
+				 <cf_securediv id="iquestion" 
 				        bind="url:../../EntityObject/ObjectElement.cfm?entitycode=#URL.EntityCode#&type=question">
 				 
 				 </td></tr>
@@ -501,7 +501,7 @@ function hl(itm,fld){
 				 </tr>
 			     				 
 			     <tr><td colspan="3" id="attach">  
-			 	 <cfdiv id="iattach" 
+			 	 <cf_securediv id="iattach" 
 			        bind="url:../../EntityObject/ObjectElement.cfm?entitycode=#URL.EntityCode#&type=attach">
 			 
 				 </td></tr>		
@@ -530,7 +530,7 @@ function hl(itm,fld){
 				 </tr>
 			     				 
 			     <tr><td colspan="3" id="attach">  
-				 	 <cfdiv id="iactivity" 
+				 	 <cf_securediv id="iactivity" 
 				        bind="url:../../EntityObject/ObjectElement.cfm?entitycode=#URL.EntityCode#&type=activity">			 
 				 </td></tr>		
 				 
@@ -558,7 +558,7 @@ function hl(itm,fld){
 				 </tr>
 				 				 
 				 <tr><td colspan="3" id="mail">  
-				 <cfdiv id="imail" 
+				 <cf_securediv id="imail" 
 				        bind="url:../../EntityObject/ObjectElement.cfm?entitycode=#URL.EntityCode#&type=mail">
 				 
 				 </td></tr>
@@ -586,7 +586,7 @@ function hl(itm,fld){
 							 
 						 
 				  <tr><td colspan="3" id="script">  
-				  <cfdiv id="iscript" 
+				  <cf_securediv id="iscript" 
 				        bind="url:../../EntityObject/ObjectElement.cfm?entitycode=#URL.EntityCode#&type=script">
 				  </td></tr>
 				  
@@ -618,7 +618,7 @@ function hl(itm,fld){
 									 
 					 <tr><td colspan="3">  
 					 
-					   <cfdiv id="ifield" 
+					   <cf_securediv id="ifield" 
 					     bind="url:../../EntityObject/ObjectElement.cfm?entitycode=#URL.EntityCode#&type=field">
 									
 					  </td></tr>

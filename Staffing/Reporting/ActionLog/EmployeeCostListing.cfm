@@ -28,7 +28,7 @@
 	<!--- control list data content --->
 	
 	<cfquery name="Param" 
-	datasource="AppsWorkOrder" 
+	datasource="AppsEmployee" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 	    SELECT * 

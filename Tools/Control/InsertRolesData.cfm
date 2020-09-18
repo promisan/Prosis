@@ -1388,9 +1388,9 @@
 		      Code="VacDocument"   
 	          DocumentType="dialog" 
 			  DocumentCode="VA"
-			  DocumentDescription="Vacancy Announcement Builder"
+			  DocumentDescription="Job Requirement"
 			  DocumentTemplate="Vactrack/Application/Announcement/Document.cfm"
-			  DocumentStringList="#ValueList(Domain.TextAreaDomain)#"
+			  DocumentStringList="#ValueList(Domain.TextAreaDomain)#,ToR"
 			  DocumentMode="Embed">					
 		
 		<cf_insertEntityDocument
@@ -1402,13 +1402,15 @@
 			  DocumentTemplate="javascript:rostersearch"
 			  DocumentMode="PopUp">		
 			  
+		<!--- this form has 6 carefully defined stages to be supported, refer to the form for additional information --->
+			  
 		<cf_insertEntityDocument
 		      Code="VacDocument"   
 	          DocumentType="dialog" 
 			  DocumentCode="REV"
 			  DocumentDescription="Review Candidates"
 			  DocumentTemplate="Vactrack/application/candidate/CandidateReview.cfm"
-			  DocumentStringList="MARK,TEST,INTERVIEW,SELECT,INIT"
+			  DocumentStringList="MARK,TEST,SCORE,INTERVIEW,SELECT,INIT"
 			  DocumentMode="Embed">			  	
 		
 		<cf_insertEntityDocument
@@ -2737,4 +2739,4 @@
 		</cfif>
 	</cfloop>
 </cftransaction>
-<!---- Ending routine for access roles on 26/2014 ---->
+<!---- Ending routine for access roles on 2020 ---->

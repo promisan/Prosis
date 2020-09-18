@@ -33,40 +33,33 @@
 	scroll="no" 	
 	jQuery="Yes"
 	MenuAccess="Yes"
+	TreeTemplate="Yes"
 	validateSession="Yes">
 	
 <cfoutput>
 		
 <script language="JavaScript">
 	
-	function updateFund(fund) {
-		
+	function updateFund(fund) {		
 		document.getElementById("FundSelect").value = fund
 		<cfoutput>		
 		parent.right.document.location.href = "#SESSION.root#/Tools/Treeview/TreeViewInit.cfm"
 		</cfoutput>
 	}
 	
-	function updateGroup() {
-			  
-	    se = document.getElementById("treeselect")
-					
+	function updateGroup() {			  
+	    se = document.getElementById("treeselect")					
 		if (treeselect.value != "") {
 		
 				parent.right.document.location = "AllotmentViewGeneral.cfm?Period=" + document.getElementById("PeriodSelect").value + 
 	                     "&Edition=" + parent.document.getElementById("edition").value + 
 	                     "&ProgramGroup=" + document.getElementById("ProgramGroup").value +					
-						 "&" + treeselect.value
-						 
-				Prosis.busy('yes')		 
-														
+						 "&" + treeselect.value						 
+				Prosis.busy('yes')		 														
 		} else {					
 			parent.right.document.location.href = "#SESSION.root#/Tools/Treeview/TreeViewInit.cfm"
-		}
-		
-		
-		
-		}
+		}				
+	}
 	
 	function view(val,id) {
 		count = 1					
@@ -82,8 +75,7 @@
 		updateGroup()			    
 	}
 	
-	function updatePeriod(per,mandate,sid) {
-			
+	function updatePeriod(per,mandate,sid) {			
 		document.getElementById("PeriodSelect").value = per	
 		document.getElementById("MandateNo").value  = mandate
 		ptoken.navigate('AllotmentViewTree.cfm?Mission=#URL.Mission#&period='+per+'&systemfunctionid='+sid,'treebox')
@@ -92,7 +84,6 @@
 </script>	
  
 <cf_LayoutScript>
-<cfajaximport tags="cftree,cfform">		
 		
 <cfset attrib = {type="Border",name="mybox",fitToWindow="Yes"}>	
 <cf_layout attributeCollection="#attrib#">	

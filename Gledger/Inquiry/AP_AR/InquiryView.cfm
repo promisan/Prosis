@@ -85,11 +85,11 @@
 						</tr>	
 						
 						
-						<tr><td valign="top" style="padding:4px;height:210;width:520" id="graph">						
+						<tr><td valign="top" style="padding:1px;width:520" id="graph">						
 							<cfinclude template="ShowAging.cfm">
 						</td></tr>													
 						
-						<tr><td bgcolor="ffffff" height="100" align="center" valign="top" style="padding:2px" id="payee">
+						<tr><td bgcolor="ffffff" height="100" align="center" valign="top" id="payee">
 						    <cfinclude template="ShowPayee.cfm">						
 						</td></tr>	
 						

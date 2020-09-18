@@ -8,10 +8,11 @@
 	datasource="AppsMaterials" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-		SELECT   TOP 1 W.MissionOrgUnitId, T.Mission, T.CustomerIdInvoice
-		FROM     vwCustomerRequest T, Materials.dbo.Warehouse W
-		WHERE    T.CustomerId      = '#url.customerid#'		
-		AND      W.Warehouse       = T.Warehouse
+		SELECT   TOP 1 W.MissionOrgUnitId, 
+		         T.Mission, 
+				 T.CustomerIdInvoice
+		FROM     vwCustomerRequest T INNER JOIN Materials.dbo.Warehouse W ON W.Warehouse = T.Warehouse
+		WHERE    T.RequestNo  = '#url.RequestNo#'					
 </cfquery>
 
 <cfset vTransactionDate = "">
@@ -66,6 +67,8 @@
 	  </cfif>
 	  
 	  // refresh the customer billing
+	  
+	  		
 	  ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/sale/getCustomerBilling.cfm?requestno=#url.requestno#&customerid=#billingid#&warehouse=#url.warehouse#','customerinvoicebox')		 	  	  
 	   // show valid transactions
 	  ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/sale/getCustomerRequest.cfm?requestno=#url.requestno#&customerid=#billingid#&warehouse=#url.warehouse#','trarequestno')		 	  

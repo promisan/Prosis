@@ -272,7 +272,56 @@
 						 '#CGI.Remote_Addr#', 							
 						 '#CGI.HTTP_HOST#', 
 						 '#SESSION.acc#') 
-				</cfquery>				
+				</cfquery>		
+				
+				<cfif attributes.ParentObjectId neq "">
+				
+					<cfquery name="SubflowPrior" 
+						 datasource="AppsOrganization"
+						 username="#SESSION.login#" 
+						 password="#SESSION.dbpw#">
+						 SELECT      TOP 1 *
+						 FROM        OrganizationObject
+						 WHERE       ParentObjectId = '#attributes.ParentObjectId#' 
+						 AND         EntityClass = 'sUmoja' 
+						 AND         ObjectId <>  '#rowguid#'
+						 ORDER BY    Created DESC
+					 </cfquery>	 
+					 
+					 <cfif subflowPrior.recordcount eq "1">
+					
+						<cfquery name="AddInfo" 
+							 datasource="AppsOrganization"
+							 username="#SESSION.login#" 
+							 password="#SESSION.dbpw#">
+							    INSERT INTO OrganizationObjectInformation
+								       (ObjectId, DocumentId, DocumentSerialNo, DocumentDescription, DocumentItem, DocumentItemValue, 
+									    OfficerUserId, OfficerLastName, OfficerFirstName,Created)
+								SELECT '#rowguid#',
+								        DocumentId, DocumentSerialNo, DocumentDescription, DocumentItem, DocumentItemValue, 
+									    OfficerUserId, OfficerLastName, OfficerFirstName,Created      				   
+							 	FROM   OrganizationObjectInformation
+								WHERE  ObjectId = '#SubflowPrior.ObjectId#'		
+						</cfquery>
+					
+						<!--- questionaire --->
+					
+						<cfquery name="ReinstateNewHeader" 
+							 datasource="AppsOrganization"
+							 username="#SESSION.login#" 
+							 password="#SESSION.dbpw#">
+							    INSERT INTO OrganizationObjectQuestion
+								       ( ObjectId, ActionCode, QuestionId, QuestionScore, QuestionMemo, QuestionAttachment, 
+									    OfficerUserId, OfficerLastName, OfficerFirstName, Created )
+								SELECT '#rowguid#',ActionCode, QuestionId, QuestionScore, QuestionMemo, QuestionAttachment, 
+									    OfficerUserId, OfficerLastName, OfficerFirstName, Created			   
+							 	FROM   OrganizationObjectQuestion
+								WHERE  ObjectId = '#SubflowPrior.ObjectId#'	
+						</cfquery>	
+		
+					</cfif>
+								
+				</cfif>		
 																							
 				<cfset objectid = "#rowguid#">
 				<cfset order    = "0">

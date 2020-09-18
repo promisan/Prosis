@@ -69,6 +69,7 @@ password="#SESSION.dbpw#">
       FieldSort			   = '#FORM.FieldSort#',
 	  FieldColspan         = '#FORM.FieldColspan#',
 	  FieldFilterForce     = '#form.FieldFilterForce#',
+	  FieldFilterLabel     = '#form.FieldFilterLabel#',
       FieldOutputFormat    = '#FORM.FieldOutputFormat#',
       FieldFilterClass     = '#FORM.FieldFilterClass#',
       FieldFilterClassMode = '#FORM.FieldFilterClassMode#',
@@ -90,6 +91,6 @@ password="#SESSION.dbpw#">
 <cfoutput>
   <script>  	
 	parent.parent.fieldrefresh('#url.systemfunctionid#','#url.functionserialno#');
-	parent.parent.ColdFusion.Window.destroy('myfield',true)
+	parent.parent.ProsisUI.closeWindow('myfield',true)
   </script>
 </cfoutput>

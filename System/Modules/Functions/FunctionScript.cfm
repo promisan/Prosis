@@ -39,23 +39,22 @@
 			function helpedit(mod,cde,cls,id,mid) {
 			    ptoken.open("../helpBuilder/RecordEdit.cfm?code="+cde+"&class="+cls+"&idmenu="+mid+"&id="+id+"&ts="+new Date().getTime(), "help", "status=yes, height=950px, width=1030, scrollbars=yes, center=yes, resizable=yes");
 				// help(mid)
-			}
-			
+			}			
 			
 			function addAuthorizationCode(id) {
-				ColdFusion.navigate('#SESSION.root#/System/Modules/Functions/Authorization/AuthorizationRoles.cfm?id='+id+'&mode=new', 'contentbox1');
+				ptoken.navigate('#SESSION.root#/System/Modules/Functions/Authorization/AuthorizationRoles.cfm?id='+id+'&mode=new', 'contentbox1');
 			}					
 
 			function submitAuthorizationCode(id) {
 				ac = document.getElementById("AuthorizationCode");				
 				if (ac.value!='')
-					ColdFusion.navigate('#SESSION.root#/System/Modules/Functions/Authorization/AuthorizationRolesSubmit.cfm?id='+id+'&mode=new', 'contentbox1','','','POST','editauthorizationform');
+					ptoken.navigate('#SESSION.root#/System/Modules/Functions/Authorization/AuthorizationRolesSubmit.cfm?id='+id+'&mode=new', 'contentbox1','','','POST','editauthorizationform');
 				else
 					alert('Please define an authorization code');	
 			}	
 
 			function showAndHide(id,mde) {				
-				ColdFusion.navigate('#SESSION.root#/System/Modules/Functions/Authorization/AuthorizationRoles.cfm?id='+id+'&mode='+mde, 'contentbox1');
+				ptoken.navigate('#SESSION.root#/System/Modules/Functions/Authorization/AuthorizationRoles.cfm?id='+id+'&mode='+mde, 'contentbox1');
 			}	
 			
 			function selectValidation(c, sel) {
@@ -64,8 +63,7 @@
 				} else { 
 					$(sel).css('display','none'); 
 				}
-			}			
-			
+			}				
 
 	</script>
 

@@ -353,7 +353,9 @@
 				<?xml version="1.0" encoding="utf-16"?>
 				--->
 				<?xml version="1.0" encoding="utf-8"?>
-				<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+				<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+							   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+							   xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 				<soap:Body>
 					<registrarDte xmlns="http://listener.ingface.com/">
 						<dte xmlns="">
@@ -493,21 +495,23 @@
 						</soap:Envelope>
 				</cfoutput>
 				</cfsavecontent>
-			
-				<cfset soapBody = Replace(soapBody, Chr(09),"","all")> <!--- blank space ---->
-				<cfset soapBody = Replace(soapBody, Chr(13),"","all")> <!--- newline space ---->
-				<cfset soapBody = Replace(soapBody, Chr(10),"","all")> <!--- newline space ---->
 
 				<cfquery name		="getEDIConfig"
-						datasource	="AppsOrganization" 
-						username  	="#SESSION.login#" 
+						datasource	="AppsOrganization"
+						username  	="#SESSION.login#"
 						password  	="#SESSION.dbpw#">
-						SELECT 		*
-						FROM 		System.dbo.Parameter
+					SELECT 		*
+					FROM 		System.dbo.Parameter
 				</cfquery>
 
 				<cfset vEDIDirectory = getEDIConfig.EDIDirectory>
 				<cfset vLogsDirectory = vEDIDirectory & "Logs\#GetMission.Mission#\WorkOrderSale">
+
+				<cfset soapBody = Replace(soapBody, Chr(09),"","all")> <!--- blank space ---->
+				<cfset soapBody = Replace(soapBody, Chr(13),"","all")> <!--- newline space ---->
+				<cfset soapBody = Replace(soapBody, Chr(10),"","all")> <!--- newline space ---->
+
+
 
 				<cfif not directoryExists(vLogsDirectory)>
 					<cfdirectory action="create" directory="#vLogsDirectory#">
@@ -827,7 +831,19 @@
 			</cfif>				
 			
 			<cfset vreccount = "1">
-																		
+
+			<cfquery name		="getEDIConfig"
+					datasource	="#datasource#"
+					username  	="#SESSION.login#"
+					password  	="#SESSION.dbpw#">
+				SELECT 		*
+				FROM 		System.dbo.Parameter
+			</cfquery>
+
+			<cfset vEDIDirectory = getEDIConfig.EDIDirectory>
+			<cfset vLogsDirectory = vEDIDirectory & "Logs\#GetMission.Mission#\POSSale">
+
+
 			<cfsavecontent variable="soapBody">
 			<cfoutput>
 			
@@ -950,16 +966,8 @@
 			<cfset soapBody = Replace(soapBody, Chr(13),"","all")> <!--- newline space ---->
 			<cfset soapBody = Replace(soapBody, Chr(10),"","all")> <!--- newline space ---->
 
-			<cfquery name		="getEDIConfig"
-					datasource	="#datasource#" 
-					username  	="#SESSION.login#" 
-					password  	="#SESSION.dbpw#">
-					SELECT 		*
-					FROM 		System.dbo.Parameter
-			</cfquery>
 
-			<cfset vEDIDirectory = getEDIConfig.EDIDirectory>
-			<cfset vLogsDirectory = vEDIDirectory & "Logs\#GetMission.Mission#\POSSale">
+
 
 			<cfif not directoryExists(vLogsDirectory)>
 				<cfdirectory action="create" directory="#vLogsDirectory#">
@@ -1024,7 +1032,6 @@
 	</cffunction>
 
 
-
 	<cffunction name="SaleIssueV2"
 			access="public"
 			returntype="any"
@@ -1066,6 +1073,7 @@
 			UPPER(C.Reference) AS NIT,
 			C.eMailAddress,
 			C.TaxExemption,
+			C.PostalCode,
 			WB.TransactionDate,
 			WB.BatchNo,
 			WB.BatchReference,
@@ -1103,16 +1111,41 @@
 ) collate SQL_Latin1_General_Cp1251_CS_AS as Customeraddress,
 --->
 
-			(
-			SELECT TOP 1 ltrim(rtrim(isnull(R.Address,'') + ' ' + isnull(R.Address2,'') + ' ' + isnull(R.AddressCity,'')))
+		(
+			SELECT TOP 1 ltrim(rtrim(isnull(R.Address,'')))
 			FROM Materials.dbo.CustomerAddress A
 			INNER JOIN System.dbo.Ref_Address R ON R.AddressId = A.AddressId
 			WHERE A.CustomerId = C.CustomerId
-			AND A.AddressType = '#vAddrType#'
 		ORDER BY DateEffective DESC
 		) Customeraddress,
-
-
+		(
+			SELECT TOP 1 isnull(R.AddressCity,'GT')
+			FROM Materials.dbo.CustomerAddress A
+			INNER JOIN System.dbo.Ref_Address R ON R.AddressId = A.AddressId
+			WHERE A.CustomerId = C.CustomerId
+			ORDER BY DateEffective DESC
+		) CustomeraddressCity,
+		(
+			SELECT TOP 1 isnull(R.State,'GT')
+			FROM Materials.dbo.CustomerAddress A
+			INNER JOIN System.dbo.Ref_Address R ON R.AddressId = A.AddressId
+			WHERE A.CustomerId = C.CustomerId
+			ORDER BY DateEffective DESC
+		) CustomerAddressState,
+		(
+			SELECT TOP 1 isnull(R.AddressPostalCode,'')
+			FROM Materials.dbo.CustomerAddress A
+			INNER JOIN System.dbo.Ref_Address R ON R.AddressId = A.AddressId
+			WHERE A.CustomerId = C.CustomerId
+			ORDER BY DateEffective DESC
+		) CustomerAddressPostalCode,
+		(
+			SELECT TOP 1 isnull(R.Country,'GT')
+			FROM Materials.dbo.CustomerAddress A
+			INNER JOIN System.dbo.Ref_Address R ON R.AddressId = A.AddressId
+			WHERE A.CustomerId = C.CustomerId
+			ORDER BY DateEffective DESC
+		) CustomeraddressCountry,
 		ISNULL((
 		SELECT SUM(S1.SalesTotal)
 		FROM Materials.dbo.ItemTransaction T1
@@ -1231,7 +1264,7 @@
 		<cfset vPwd = GetMissionConfig.ExchangePassword>
 		<cfset vNitGFACE = GetWarehouseSeries.GFACEId>
 
-<!--- NIT from Seller --->
+		<!--- NIT from Seller --->
 		<cfset vNitEFACE = GetWarehouseSeries.EFACEId>
 		<cfset DocumentType = GetWarehouseSeries.TaxDocumentType>  <!--- SAT Document Type: Regular Invoice --->
 
@@ -1302,181 +1335,193 @@
 
 <!--- ISO 8601 --->
 
-		<cfset vNormalizedNit = Replace(vNIT,"-","","ALL")>
-		<cfset vNormalizedNit = Replace(vNormalizedNit,"C/F","CF","ALL")>
-		<cfxml variable="XmlDTE">
-			<cfoutput>
+			<cfset vNormalizedNit = Replace(vNIT,"-","","ALL")>
+			<cfset vNormalizedNit = Replace(vNormalizedNit,"C/F","CF","ALL")>
+			<cfxml variable="XmlDTE">
+				<cfoutput>
 				<?xml version="1.0" encoding="utf-8"?>
-						<dte:GTDocumento xmlns:ds="http://www.w3.org/2000/09/xmldsig##"
+				<dte:GTDocumento xmlns:ds="http://www.w3.org/2000/09/xmldsig##"
 					xmlns:dte="http://www.sat.gob.gt/dte/fel/0.2.0"
 					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 					Version="0.1" xsi:schemaLocation="http://www.sat.gob.gt/dte/fel/0.2.0">
-			<dte:SAT ClaseDocumento="dte">
-			<dte:DTE ID="DatosCertificados">
-			<dte:DatosEmision ID="DatosEmision">
-					<dte:DatosGenerales CodigoMoneda="#vCurrency#" FechaHoraEmision="#DateFormat(GetInvoice.TransactionDate,"YYYY-MM-DD")#T#TimeFormat(GetInvoice.TransactionDate,"hh:mm:ssXXX")#" Tipo="FACT"></dte:DatosGenerales>
-					<dte:Emisor AfiliacionIVA="GEN" CodigoEstablecimiento="#GetWarehouseDevice.Reference#" CorreoEmisor="#GetWarehouseSeries.UserEmail#" NITEmisor="#vNitEFACE#" NombreComercial="#GetMission.MissionName#" NombreEmisor="#GetMission.MissionName#">
-			<dte:DireccionEmisor>
-			<dte:Direccion>#GetInvoice.Address#</dte:Direccion>
-				<dte:CodigoPostal>01010</dte:CodigoPostal>
-				<dte:Municipio>GUATEMALA</dte:Municipio>
-				<dte:Departamento>GUATEMALA</dte:Departamento>
-				<dte:Pais>GT</dte:Pais>
-			</dte:DireccionEmisor>
-			</dte:Emisor>
-					<dte:Receptor CorreoReceptor="#GetInvoice.eMailAddress#" IDReceptor="#vNormalizedNIT#" NombreReceptor="#Replace(GetInvoice.CustomerName,"&","")#">
-				<cfif GetInvoice.CustomerAddress neq "">
-						<dte:DireccionReceptor>
-						<dte:Direccion>#GetInvoice.Customeraddress#</dte:Direccion>
-						<dte:CodigoPostal>01001</dte:CodigoPostal>
-						<dte:Municipio>GUATEMALA</dte:Municipio>
-						<dte:Departamento>GUATEMALA</dte:Departamento>
-						<dte:Pais>GT</dte:Pais>
-					</dte:DireccionReceptor>
-				</cfif>
-				</dte:Receptor>
-					<dte:Frases>
-						<dte:Frase CodigoEscenario="1" TipoFrase="1"></dte:Frase>
-					</dte:Frases>
-				<dte:Items>
-				<cfloop query="GetInvoice">
-					<cfif SalesPrice gt 0>
-						<cfset v_TipoItem = "B">
-						<cfif GetInvoice.isServiceItem eq "1">
-							<cfset v_TipoItem = "S">
+				<dte:SAT ClaseDocumento="dte">
+				<dte:DTE ID="DatosCertificados">
+				<dte:DatosEmision ID="DatosEmision">
+						<dte:DatosGenerales CodigoMoneda="#vCurrency#" FechaHoraEmision="#DateFormat(GetInvoice.TransactionDate,"YYYY-MM-DD")#T#TimeFormat(GetInvoice.TransactionDate,"hh:mm:ssXXX")#" Tipo="FACT"></dte:DatosGenerales>
+						<dte:Emisor AfiliacionIVA="GEN" CodigoEstablecimiento="#GetWarehouseDevice.Reference#" CorreoEmisor="#GetWarehouseSeries.UserEmail#" NITEmisor="#vNitEFACE#" NombreComercial="#GetMission.MissionName#" NombreEmisor="#GetMission.MissionName#">
+				<dte:DireccionEmisor>
+				<dte:Direccion>#GetInvoice.Address#</dte:Direccion>
+					<dte:CodigoPostal>01010</dte:CodigoPostal>
+					<dte:Municipio>GUATEMALA</dte:Municipio>
+					<dte:Departamento>GUATEMALA</dte:Departamento>
+					<dte:Pais>GT</dte:Pais>
+				</dte:DireccionEmisor>
+				</dte:Emisor>
+						<dte:Receptor CorreoReceptor="#GetInvoice.eMailAddress#" IDReceptor="#vNormalizedNIT#" NombreReceptor="#Replace(GetInvoice.CustomerName,"&","")#">
+					<cfif GetInvoice.CustomeraddressPostalCode neq "" or GetInvoice.PostalCode neq "">
+						<cfif GetInvoice.CustomerAddress neq "">
+							<dte:DireccionReceptor>
+								<dte:Direccion>#GetInvoice.Customeraddress#</dte:Direccion>
+								<dte:CodigoPostal><cfif GetInvoice.CustomeraddressPostalCode neq "">#GetInvoice.CustomeraddressPostalCode#<cfelse>#GetInvoice.PostalCode#</cfif></dte:CodigoPostal>
+								<dte:Municipio>#GetInvoice.CustomeraddressCity#</dte:Municipio>
+								<dte:Departamento>#GetInvoice.CustomeraddressState#</dte:Departamento>
+								<dte:Pais><cfif GetInvoice.CustomeraddressCountry eq "GUA">GT<cfelseif GetInvoice.CustomeraddressCountry neq "">#GetInvoice.CustomeraddressCountry#<cfelse>GT</cfif></dte:Pais>
+							</dte:DireccionReceptor>
 						</cfif>
+					</cfif>
+					</dte:Receptor>
+						<dte:Frases>
+							<dte:Frase CodigoEscenario="1" TipoFrase="1"></dte:Frase>
+						</dte:Frases>
+					<dte:Items>
+					<cfloop query="GetInvoice">
+						<cfif SalesPrice gt 0>
+							<cfset v_TipoItem = "B">
+							<cfif GetInvoice.isServiceItem eq "1">
+								<cfset v_TipoItem = "S">
+							</cfif>
 							<dte:Item BienOServicio="#v_TipoItem#" NumeroLinea="#vreccount#">
-						<dte:Cantidad>#TransactionQuantity#</dte:Cantidad>
-						<dte:UnidadMedida>#vUoM#</dte:UnidadMedida>
-							<cfset v_ItemDescription = ItemDescription>
-							<cfset v_ItemDescription = replace(v_ItemDescription,"&","&amp;","all")>
-							<cfset v_ItemDescription = replace(v_ItemDescription,"'","&apos;","all")>
-							<dte:Descripcion>#v_ItemDescription#</dte:Descripcion>
-						<dte:PrecioUnitario>#trim(numberformat(ABS(SchedulePrice),"__.__"))#</dte:PrecioUnitario>
-							<cfif TaxExemption eq "1">
-								<cfset vSaleAmount = SalesAmountExemption>
-							<cfelse>
-								<cfset vSaleAmount = SalesTotal>
-							</cfif>
-							<cfset vSaleAmountWithoutDiscount = SchedulePrice*TransactionQuantity>
-								<dte:Precio>#trim(numberformat(vSaleAmountWithoutDiscount,"__.__"))#</dte:Precio>
-							<cfif (vreccount eq "1" and ABS(TotalDiscounts) gt "0")>
-								<cfset vTaxLine = numberformat(SalesTax + TotalTaxDiscounts ,"__.__")>
-								<cfset vDiscountLine = trim(numberformat(ABS(vInvoiceTotalDiscount),"__.__"))>
+								<dte:Cantidad>#TransactionQuantity#</dte:Cantidad>
+								<dte:UnidadMedida>#vUoM#</dte:UnidadMedida>
+								<cfset v_ItemDescription = ItemDescription>
+								<cfset v_ItemDescription = replace(v_ItemDescription,"&","&amp;","all")>
+								<cfset v_ItemDescription = replace(v_ItemDescription,"'","&apos;","all")>
+								<dte:Descripcion>#v_ItemDescription#</dte:Descripcion>
+
+								<cfif TaxExemption eq "1">
+									<cfset vSaleAmount = SalesAmountExemption>
+								<cfelse>
+									<cfset vSaleAmount = SalesTotal>
+								</cfif>
+								<cfif (vreccount eq "1" and TotalDiscounts gt "0")>
+									<cfset vTaxLine = numberformat(SalesTax + TotalTaxDiscounts ,"__.__")>
+									<cfset vOriginal = SchedulePrice*TransactionQuantity>
+									<cfset vTotalDiscounts = vSaleAmount-vOriginal>
+									<cfset vDiscountLine = trim(numberformat(vInvoiceTotalDiscount,"__.__"))>
 								<cfelseif (Abs(SchedulePrice*TransactionQuantity-vSaleAmount) gt 0.05)>
-								<cfset vOriginal = SchedulePrice*TransactionQuantity>
-								<cfset vTotalDiscounts = abs(vOriginal-vSaleAmount)>
-								<cfset vInvoiceTotalDiscount = vTotalDiscounts + vInvoiceTotalDiscount>
-								<cfset vTaxLine = numberformat(SalesTax,"__.__")>
-								<cfset vDiscountLine = trim(numberformat(ABS(vTotalDiscounts),"__.__"))>
-							<cfelse>
-								<cfset vTaxLine = numberformat(SalesTax,"__.__")>
-								<cfset vDiscountLine = 0>
-							</cfif>
-							<dte:Descuento>#vDiscountLine#</dte:Descuento>
-						<dte:Impuestos>
-						<dte:Impuesto>
-							<dte:NombreCorto>IVA</dte:NombreCorto>
-							<dte:CodigoUnidadGravable>1</dte:CodigoUnidadGravable>
-						<dte:MontoGravable>#trim(numberformat(ABS(SalesTotal)-(SalesTax + TotalTaxDiscounts),"__.__"))#</dte:MontoGravable>
-							<cfif vreccount eq "1" and ABS(TotalDiscounts) gt "0">
-									<dte:MontoImpuesto>#numberformat(SalesTax + TotalTaxDiscounts ,"__.__")#</dte:MontoImpuesto>
-							<cfelse>
-									<dte:MontoImpuesto>#numberformat(SalesTax,"__.__")#</dte:MontoImpuesto>
-							</cfif>
-							</dte:Impuesto>
-							</dte:Impuestos>
-							<dte:Total>#trim(numberformat(ABS(SalesTotal),"__.__"))#</dte:Total>
-						</dte:Item>
-						<cfset vreccount = vreccount + 1>
-					</cfif>
-					<cfif TaxExemption eq "1">
-						<cfset vInvoiceTotalAmount = vInvoiceTotalAmount + SalesAmountExemption>
-						<cfset vInvoiceTotalTax = vInvoiceTotalTax + SalesTaxExemption>
-					<cfelse>
-						<cfset vInvoiceTotalAmount = vInvoiceTotalAmount + SalesTotal>
-						<cfset vInvoiceTotalTax = vInvoiceTotalTax + SalesTax>
-					</cfif>
-				</cfloop>
-				</dte:Items>
-				<dte:Totales>
-				<dte:TotalImpuestos>
-						<dte:TotalImpuesto NombreCorto="IVA" TotalMontoImpuesto="#numberformat(vInvoiceTotalTax,"__.__")#"></dte:TotalImpuesto>
-			</dte:TotalImpuestos>
-			<dte:GranTotal>#vInvoiceTotalAmount#</dte:GranTotal>
-			</dte:Totales>
-			</dte:DatosEmision>
-			</dte:DTE>
-			</dte:SAT>
-			</dte:GTDocumento>
-			</cfoutput>
-		</cfxml>
+									<cfset vOriginal = SchedulePrice*TransactionQuantity>
+									<cfset vTotalDiscounts = vSaleAmount-vOriginal>
+									<cfset vInvoiceTotalDiscount = vTotalDiscounts + vInvoiceTotalDiscount>
+									<cfset vTaxLine = numberformat(SalesTax,"__.__")>
+									<cfset vDiscountLine = trim(numberformat(vTotalDiscounts,"__.__"))>
+								<cfelse>
+									<cfset vTaxLine = numberformat(SalesTax,"__.__")>
+									<cfset vDiscountLine = 0>
+								</cfif>
+								<cfset vSaleAmountWithoutDiscount = SchedulePrice*TransactionQuantity>
+								<dte:PrecioUnitario>#trim(numberformat(ABS(SalesPrice),"__.__"))#</dte:PrecioUnitario>
+								<dte:Precio>#trim(numberformat((ABS(SalesPrice)*TransactionQuantity),"__.__"))#</dte:Precio>
 
-		<cfset StringDTE = toString(XmlDTE)>
+								<dte:Descuento>0</dte:Descuento>
+								<dte:Impuestos>
+								<dte:Impuesto>
+								<dte:NombreCorto>IVA</dte:NombreCorto>
+								<dte:CodigoUnidadGravable>1</dte:CodigoUnidadGravable>
+								<dte:MontoGravable>#trim(numberformat(ABS(vSaleAmount-SalesTax),"__.__"))#</dte:MontoGravable>
+								<dte:MontoImpuesto>#trim(numberformat(SalesTax,"__.__"))#</dte:MontoImpuesto>
+								</dte:Impuesto>
+								</dte:Impuestos>
+								<dte:Total>#trim(numberformat(ABS(SalesTotal),"__.__"))#</dte:Total>
+							</dte:Item>
+							<cfset vreccount = vreccount + 1>
+						</cfif>
+						<cfif TaxExemption eq "1">
+							<cfset vInvoiceTotalAmount = vInvoiceTotalAmount + SalesAmountExemption>
+							<cfset vInvoiceTotalTax = vInvoiceTotalTax + SalesTaxExemption>
+						<cfelse>
+							<cfset vInvoiceTotalAmount = vInvoiceTotalAmount + SalesTotal>
+							<cfset vInvoiceTotalTax = vInvoiceTotalTax + SalesTax>
+						</cfif>
+					</cfloop>
+					</dte:Items>
+					<dte:Totales>
+					<dte:TotalImpuestos>
+					<dte:TotalImpuesto NombreCorto="IVA" TotalMontoImpuesto="#trim(numberformat(vInvoiceTotalTax,"__.__"))#"></dte:TotalImpuesto>
+				</dte:TotalImpuestos>
+				<dte:GranTotal>#vInvoiceTotalAmount#</dte:GranTotal>
+				</dte:Totales>
+				</dte:DatosEmision>
+				</dte:DTE>
+				</dte:SAT>
+				</dte:GTDocumento>
+				</cfoutput>
+			</cfxml>
 
-		<cffile action="WRITE" file="#vLogsDirectory#\FEL_#GetInvoice.BatchNo#.txt" output="#StringDTE#">
+			<cfset StringDTE = toString(XmlDTE)>
 
-		<cfset Base64DTE = ToBase64(StringDTE) />
+			<cffile action="WRITE" file="#vLogsDirectory#\FEL_#GetInvoice.BatchNo#.txt" output="#StringDTE#">
 
-
-		<cfset stToSign =
-		{ "llave": "#GetWarehouseSeries.PrivateKey#",
-			"archivo": "#Base64DTE#",
-			"codigo": "#GetBatch.BatchNo#",
-			"alias": "#GetWarehouseSeries.Alias#",
-			"es_anulacion": "N"
-		}
-				>
-
-		<cffile action="WRITE" file="#vLogsDirectory#\FEL_#GetInvoice.BatchNo#_To_Sign.txt" output="#serializeJSON(stToSign)#">
-
-		<cfhttp url="https://signer-emisores.feel.com.gt/sign_solicitud_firmas/firma_xml" method="post" result="httpResponse" timeout="60">
-			<cfhttpparam type="header" name="Content-Type" value="application/json" />
-			<cfhttpparam type="body" value="#serializeJSON(stToSign)#">
-		</cfhttp>
-
-		<cffile action="WRITE" file="#vLogsDirectory#\FEL_#GetInvoice.BatchNo#_Response_Signature.txt" output="#httpResponse.fileContent#">
+			<cfset Base64DTE = ToBase64(StringDTE) />
 
 
-		<cfset jSonDTE = deserializeJSON(httpResponse.fileContent)>
-		<cfif jsonDTE.resultado neq "NO">
-			<cfset revBase64DTE =  ToString(ToBinary(jSONDTE.archivo)) />
+			<cfset stToSign =
+			{ "llave": "#GetWarehouseSeries.PrivateKey#",
+				"archivo": "#Base64DTE#",
+				"codigo": "#GetBatch.BatchNo#",
+				"alias": "#GetWarehouseSeries.Alias#",
+				"es_anulacion": "N"
+			}
+			>
 
-			<cffile action="WRITE" file="#vLogsDirectory#\FEL_#GetInvoice.BatchNo#_Response_Signature_decoded.txt" output="#revBase64DTE#">
-			<cfsavecontent variable="SignedXml"><?xml version="1.0" encoding="utf-8"?>
-				<cfoutput>#revBase64DTE#</cfoutput></cfsavecontent>
+			<cffile action="WRITE" file="#vLogsDirectory#\FEL_#GetInvoice.BatchNo#_To_Sign.txt" output="#serializeJSON(stToSign)#">
 
-			<cfset Base64SignedXML = ToBase64(toString(SignedXml)) />
-
-			<cfset stToCertify =
-			{ "nit_emisor":"#vNitEFACE#",
-				"correo_copia":"#GetWarehouseSeries.UserEmail#",
-				"xml_dte":"#Base64SignedXml#"
-			}>
-
-			<cffile action="WRITE" file="#vLogsDirectory#\FEL_#GetInvoice.BatchNo#_To_Certify.txt" output="#serializeJSON(stToCertify)#">
-			<cfset vSerialNo = GetBatch.BatchNo>
-
-
-			<cfhttp url="https://certificador.feel.com.gt/fel/certificacion/v2/dte/" method="post" result="httpResponse" timeout="60">
-				<cfhttpparam type="header" name="usuario" value="#GetWarehouseSeries.UserName#" />
-				<cfhttpparam type="header" name="llave" value="#GetWarehouseSeries.UserKey#" />
-				<cfhttpparam type="header" name="identificador" value="#vSerialNo#" />
+			<cfhttp url="https://signer-emisores.feel.com.gt/sign_solicitud_firmas/firma_xml" method="post" result="httpResponse" timeout="60">
 				<cfhttpparam type="header" name="Content-Type" value="application/json" />
-				<cfhttpparam type="body" value="#serializeJSON(stToCertify)#">
+				<cfhttpparam type="body" value="#serializeJSON(stToSign)#">
 			</cfhttp>
 
-			<cfset jSonCertification = deserializeJSON(httpResponse.fileContent)>
+			<cffile action="WRITE" file="#vLogsDirectory#\FEL_#GetInvoice.BatchNo#_Response_Signature.txt" output="#httpResponse.fileContent#">
 
-			<cffile action="WRITE" file="#vLogsDirectory#\FEL_#GetInvoice.BatchNo#_Response_Certifier.txt" output="#httpResponse.fileContent#">
 
-			<Cfif jSonCertification.resultado neq "NO">
-				<cfset EFACEResponse.Status = "OK">
-				<cfset EFACEResponse.Cae = jSonCertification.uuid>
-				<cfset EFACEResponse.Series = jSonCertification.serie>
-				<cfset EFACEResponse.DocumentNo = jSonCertification.numero>
-				<cfset EFACEResponse.Dte = jSonCertification.fecha>
-				<cfset EFACEResponse.ErrorDescription = "">
+			<cfset jSonDTE = deserializeJSON(httpResponse.fileContent)>
+			<cfif jsonDTE.resultado neq "NO">
+				<cfset revBase64DTE =  ToString(ToBinary(jSONDTE.archivo)) />
+
+				<cffile action="WRITE" file="#vLogsDirectory#\FEL_#GetInvoice.BatchNo#_Response_Signature_decoded.txt" output="#revBase64DTE#">
+				<cfsavecontent variable="SignedXml"><?xml version="1.0" encoding="utf-8"?>
+				<cfoutput>#revBase64DTE#</cfoutput></cfsavecontent>
+
+				<cfset Base64SignedXML = ToBase64(toString(SignedXml)) />
+
+				<cfset stToCertify =
+				{ "nit_emisor":"#vNitEFACE#",
+					"correo_copia":"#GetWarehouseSeries.UserEmail#",
+					"xml_dte":"#Base64SignedXml#"
+				}>
+
+				<cffile action="WRITE" file="#vLogsDirectory#\FEL_#GetInvoice.BatchNo#_To_Certify.txt" output="#serializeJSON(stToCertify)#">
+				<cfset vSerialNo = GetBatch.BatchNo>
+
+
+				<cfhttp url="https://certificador.feel.com.gt/fel/certificacion/v2/dte/" method="post" result="httpResponse" timeout="60">
+					<cfhttpparam type="header" name="usuario" value="#GetWarehouseSeries.UserName#" />
+					<cfhttpparam type="header" name="llave" value="#GetWarehouseSeries.UserKey#" />
+					<cfhttpparam type="header" name="identificador" value="#vSerialNo#" />
+					<cfhttpparam type="header" name="Content-Type" value="application/json" />
+					<cfhttpparam type="body" value="#serializeJSON(stToCertify)#">
+				</cfhttp>
+
+				<cfset jSonCertification = deserializeJSON(httpResponse.fileContent)>
+
+				<cffile action="WRITE" file="#vLogsDirectory#\FEL_#GetInvoice.BatchNo#_Response_Certifier.txt" output="#httpResponse.fileContent#">
+
+				<Cfif jSonCertification.resultado neq "NO">
+					<cfset EFACEResponse.Status = "OK">
+					<cfset EFACEResponse.Cae = jSonCertification.uuid>
+					<cfset EFACEResponse.Series = jSonCertification.serie>
+					<cfset EFACEResponse.DocumentNo = jSonCertification.numero>
+					<cfset EFACEResponse.Dte = jSonCertification.fecha>
+					<cfset EFACEResponse.ErrorDescription = "">
+				<cfelse>
+					<cfset EFACEResponse.Status = "false">
+					<cfset EFACEResponse.Cae = "">
+					<cfset EFACEResponse.DocumentNo = "">
+					<cfset EFACEResponse.Dte = "">
+					<cfset EFACEResponse.ErrorDescription = "">
+				</cfif>
+
+
+
 			<cfelse>
 				<cfset EFACEResponse.Status = "false">
 				<cfset EFACEResponse.Cae = "">
@@ -1485,20 +1530,11 @@
 				<cfset EFACEResponse.ErrorDescription = "">
 			</cfif>
 
-
-
-		<cfelse>
-			<cfset EFACEResponse.Status = "false">
-			<cfset EFACEResponse.Cae = "">
-			<cfset EFACEResponse.DocumentNo = "">
-			<cfset EFACEResponse.Dte = "">
-			<cfset EFACEResponse.ErrorDescription = "">
-		</cfif>
-
-		<cfreturn EFACEResponse>
+			<cfreturn EFACEResponse>
 
 
 	</cffunction>
+
 
 
 
@@ -2176,7 +2212,9 @@
 						T.InvoiceEnd,
 						A.ActionReference1,
 						A.ActionReference2,
-						A.ActionReference3
+						A.ActionReference3,
+						A.ActionReference4,
+						A.ActionReference5
 						
 				FROM   Accounting.dbo.TransactionHeaderAction A
 				INNER JOIN Accounting.dbo.TransactionHeader H ON H.Journal = A.Journal AND H.JournalSerialNo = A.JournalSerialNo
@@ -2185,38 +2223,50 @@
 				AND    H.TransactionCategory='Receivables'
 				AND    T.SeriesType = 'Invoice'
 		
-			</cfquery>				
-						
-			<!---- STORE THIS IN A CONFIG TABLE !! ---->
-			<cfset vUser = GetMissionConfig.ExchangeUserId>
-			<cfset vPwd = GetMissionConfig.ExchangePassword>
-			<cfset vNitGFACE = "12521337">
-			<cfset vNitEFACE = "11912472">
-			<cfset DocumentType = "64">  <!--- SAT Document Type: Regular Invoice --->
-						
-			<cfif GetInvoice.SalesCurrency eq "QTZ">
-				<cfset vExchangeRate = "1">
-				<cfset vCurrency = "GTQ">			
+			</cfquery>
+
+			<cfquery name		="getEDIConfig"
+					datasource	="#datasource#"
+					username  	="#SESSION.login#"
+					password  	="#SESSION.dbpw#">
+				SELECT 		*
+				FROM 		System.dbo.Parameter
+			</cfquery>
+
+			<cfset vEDIDirectory = getEDIConfig.EDIDirectory>
+			<cfset vLogsDirectory = vEDIDirectory & "Logs\#GetMission.Mission#\NC">
+
+			<cfif not directoryExists(vLogsDirectory)>
+				<cfdirectory action="create" directory="#vLogsDirectory#">
 			</cfif>
-			
-			<cfset vUoM = "UND">
-			<!-----
-			<cfif GetInvoice.UoM eq "each">
-				<cfset vUoM = "UND">
-			<cfelse>
-				<cfset vUoM = GetInvoice.UoM>
-			</cfif>   ------>
-		
-			<cfset vNIT = GetInvoice.NIT>
-			<cfif vNIT eq "CF" OR vNIT eq "C-F">
-				<cfset vNIT = "C/F">
-			</cfif>
-						
-			<cfset vInvoiceTotalAmount = "0">
-			<cfset vInvoiceTotalExempt = "0">
-			<cfset vInvoiceTotalDiscount = "0">
-			<cfset vInvoiceTotalTax = "0">
-												
+
+
+<!---- STORE THIS IN A CONFIG TABLE !! ---->
+		<cfset vUser = GetMissionConfig.ExchangeUserId>
+		<cfset vPwd = GetMissionConfig.ExchangePassword>
+		<cfset vNitGFACE = "12521337">
+		<cfset vNitEFACE = "11912472">
+		<cfset DocumentType = "64">  <!--- SAT Document Type: Regular Invoice --->
+
+		<cfif GetInvoice.SalesCurrency eq "QTZ">
+			<cfset vExchangeRate = "1">
+			<cfset vCurrency = "GTQ">
+		</cfif>
+
+		<cfset vUoM = "UND">
+
+		<cfset vNIT = GetInvoice.NIT>
+		<cfif vNIT eq "CF" OR vNIT eq "C-F">
+			<cfset vNIT = "C/F">
+		</cfif>
+
+		<cfset vInvoiceTotalAmount = "0">
+		<cfset vInvoiceTotalExempt = "0">
+		<cfset vInvoiceTotalDiscount = "0">
+		<cfset vInvoiceTotalTax = "0">
+
+			<cfif GetOriginalInvoice.ActionReference5 eq "">
+
 			<cfsavecontent variable="soapBody">
 			<cfoutput>
 			
@@ -2262,7 +2312,7 @@
 						<numeroDocumento>#GetInvoice.BatchNo#</numeroDocumento>
 			          
 					  	<numeroResolucion>#Replace(GetWarehouseSeries.AuthorizationNo,"-","","ALL")#</numeroResolucion>
-			         	<observaciones>Por anulaci�n de factura electr�nica No. #GetOriginalInvoice.ActionReference3#</observaciones>
+			         	<observaciones>Por anulacion de factura electronica No. #GetOriginalInvoice.ActionReference3#</observaciones>
 			          	<regimen2989><cfif GetInvoice.TaxExemption eq "1">true<cfelse>false</cfif></regimen2989>						
 			          	<regimenISR>N/A</regimenISR>
 			          	<serieAutorizada>#GetWarehouseSeries.SeriesNo#</serieAutorizada>
@@ -2328,21 +2378,7 @@
 			</cfoutput>
 			</cfsavecontent>
 
-			<cfquery name		="getEDIConfig"
-					datasource	="#datasource#" 
-					username  	="#SESSION.login#" 
-					password  	="#SESSION.dbpw#">
-					SELECT 		*
-					FROM 		System.dbo.Parameter
-			</cfquery>
 
-			<cfset vEDIDirectory = getEDIConfig.EDIDirectory>
-			<cfset vLogsDirectory = vEDIDirectory & "Logs\#GetMission.Mission#\NC">
-
-			<cfif not directoryExists(vLogsDirectory)>
-				<cfdirectory action="create" directory="#vLogsDirectory#">
-			</cfif>
-			
   			<cffile action="WRITE" file="#vLogsDirectory#\NC_#GetInvoice.BatchNo#.txt" output="#soapbody#">						
 
 			<cfhttp url="https://www.ingface.net/listener/ingface" method="post" result="httpResponse" timeout="300">
@@ -2352,105 +2388,189 @@
 			</cfhttp>			
 			
  			<cffile action="WRITE" file="#vLogsDirectory#\NC_#GetInvoice.BatchNo#_Response.txt" output="#httpResponse.fileContent#">
-			
-			<cfset EFACEResponse = structnew()>
 
-			<cfif httpResponse.statusCode eq "200 OK">				
-				<cfset xmlDoc = xmlParse(httpResponse.fileContent, false)>
-				
+			<cfset vStatus = httpResponse.statusCode>
+			
+		<cfelse>
+
+				<cfxml variable="XmlDTE">
+					<cfoutput>
+					<?xml version="1.0" encoding="UTF-8"?>
+					<dte:GTAnulacionDocumento xmlns:ds="http://www.w3.org/2000/09/xmldsig##" xmlns:dte="http://www.sat.gob.gt/dte/fel/0.1.0" xmlns:n1="http://www.altova.com/samplexml/other-namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="0.1" xsi:schemaLocation="http://www.sat.gob.gt/dte/fel/0.1.0 C:\Users\User\Desktop\FEL\Esquemas\GT_AnulacionDocumento-0.1.0.xsd">
+						<dte:SAT>
+							<dte:AnulacionDTE ID="DatosCertificados">
+								<dte:DatosGenerales FechaEmisionDocumentoAnular="#GetOriginalInvoice.ActionReference3#" FechaHoraAnulacion="#DateFormat(now(),'YYYY-MM-DD')#T#TimeFormat(now(),'HH:MM:SS')#-06:00" ID="DatosAnulacion" IDReceptor="#Replace(vNIT,"-","","ALL")#" MotivoAnulacion="ANULACION" NITEmisor="#vNitEFACE#" NumeroDocumentoAAnular="#GetInvoice.BatchReference#">
+								</dte:DatosGenerales>
+							</dte:AnulacionDTE>
+						</dte:SAT>
+					</dte:GTAnulacionDocumento>
+					</cfoutput>
+				</cfxml>
+				<cfset StringDTE = toString(XmlDTE)>
+
+				<cffile action="WRITE" file="#vLogsDirectory#\NC_FEL_#GetInvoice.BatchNo#.txt" output="#StringDTE#">
+				<cfset Base64DTE = ToBase64(StringDTE) />
+
+				<cfset stToSign =
+				{ "llave": "#GetWarehouseSeries.PrivateKey#",
+					"archivo": "#Base64DTE#",
+					"codigo": "#GetInvoice.BatchNo#",
+					"alias": "#GetWarehouseSeries.Alias#",
+					"es_anulacion": "S"
+				}>
+
+				<cffile action="WRITE" file="#vLogsDirectory#\NC_FEL_#GetInvoice.BatchNo#_To_Sign.txt" output="#serializeJSON(stToSign)#">
+
+				<cfhttp url="https://signer-emisores.feel.com.gt/sign_solicitud_firmas/firma_xml" method="post" result="httpResponse" timeout="60">
+					<cfhttpparam type="header" name="Content-Type" value="application/json" />
+					<cfhttpparam type="body" value="#serializeJSON(stToSign)#">
+				</cfhttp>
+
+				<cffile action="WRITE" file="#vLogsDirectory#\NC_FEL_#GetInvoice.BatchNo#_Response_Signature.txt" output="#httpResponse.fileContent#">
+
+				<cfset jSonDTE = deserializeJSON(httpResponse.fileContent)>
+				<cfif jsonDTE.resultado neq "NO">
+					<cfset revBase64DTE =  ToString(ToBinary(jSONDTE.archivo)) />
+
+					<cffile action="WRITE" file="#vLogsDirectory#\NC_FEL_#GetInvoice.BatchNo#_Response_Signature_decoded.txt" output="#revBase64DTE#">
+					<cfsavecontent variable="SignedXml"><?xml version="1.0" encoding="utf-8"?>
+						<cfoutput>#revBase64DTE#</cfoutput></cfsavecontent>
+
+					<cfset Base64SignedXML = ToBase64(toString(SignedXml)) />
+
+					<cfset stToCertify =
+					{ "nit_emisor":"#vNitEFACE#",
+						"correo_copia":"#GetWarehouseSeries.UserEmail#",
+						"xml_dte":"#Base64SignedXml#"
+					}>
+
+					<cffile action="WRITE" file="#vLogsDirectory#\NC_FEL_#GetInvoice.BatchNo#_To_Certify.txt" output="#serializeJSON(stToCertify)#">
+					<cfset vSerialNo = GetBatch.BatchNo>
+
+
+					<cfhttp url="https://certificador.feel.com.gt/fel/certificacion/v2/dte/" method="post" result="httpResponse" timeout="60">
+						<cfhttpparam type="header" name="usuario" value="#GetWarehouseSeries.UserName#" />
+						<cfhttpparam type="header" name="llave" value="#GetWarehouseSeries.UserKey#" />
+						<cfhttpparam type="header" name="identificador" value="#vSerialNo#" />
+						<cfhttpparam type="header" name="Content-Type" value="application/json" />
+						<cfhttpparam type="body" value="#serializeJSON(stToCertify)#">
+					</cfhttp>
+
+					<cfset jSonCertification = deserializeJSON(httpResponse.fileContent)>
+
+					<cffile action="WRITE" file="#vLogsDirectory#\NC_FEL_#GetInvoice.BatchNo#_Response_Certifier.txt" output="#httpResponse.fileContent#">
+				<cfelse>
+					<cfset vStatus = "ERROR">
+				</cfif>
+
+		</cfif>
+
+		<cfset EFACEResponse = structnew()>
+
+		<cfif vStatus eq "200 OK">
+			<cfset xmlDoc = xmlParse(httpResponse.fileContent, false)>
+
+			<cfif GetOriginalInvoice.ActionReference5 eq "">
 				<cfset vvalid = xmlSearch(xmlDoc,"//*[local-name()='valido']")>
 				<cfset cae = xmlSearch(xmlDoc,"//*[local-name()='cae']")>
 				<cfset docNo = xmlSearch(xmlDoc,"//*[local-name()='numeroDocumento']")>
-				<cfset dte = xmlSearch(xmlDoc,"//*[local-name()='numeroDte']")>				
-				
-				<cfif vvalid[1].XmlText eq "true">
-					
-						<!---- Valid Invoice Number generated by the GFACE. update Invoice number information --->										
-						<cfset EFACEResponse.Status = "OK">
-						<cfset EFACEResponse.Cae = cae[1].XmlText>
-						<cfset EFACEResponse.DocumentNo = docNo[1].XmlText>
-						<cfset EFACEResponse.Dte = dte[1].XmlText>
-						<cfset EFACEResponse.ErrorDescription = "">
-						
-						<!--- Create new action for the original invoice describing the credit note --->
-						
-						<cf_assignId>		
-						
-						<cfquery name="get"
-						 datasource="#datasource#" 
-						 username="#SESSION.login#" 
-						 password="#SESSION.dbpw#">
-						 	SELECT  *
-							FROM    Accounting.dbo.TransactionHeader
-							WHERE   TransactionSourceId = '#batchid#'
-							AND     TransactionCategory = 'Receivables'				
-						</cfquery> 							
-			
-						<cfquery name="AddAction"
-			               datasource="#datasource#"
-			               username="#SESSION.login#"
-			               password="#SESSION.dbpw#">
-			                  INSERT INTO Accounting.dbo.TransactionHeaderAction							  
-
-			                         (ActionId,
-								      Journal,
-			                          JournalSerialNo,
-			                          ActionCode,     
-								      ActionMode,  
-									  <!--- more information --->	
-									  ActionReference1,
-									  ActionReference2,
-									  ActionReference3,						                       								
-								      ActionReference4,
-									  ActionMemo,  							   						  
-			                          ActionDate,
-					  			      ActionStatus,                                
-			                          OfficerUserId,
-			                          OfficerLastName,
-			                          OfficerFirstName)
-									  
-			                  VALUES ('#rowguid#',
-									  '#get.Journal#',
-			            		      '#get.JournalSerialNo#',
-			                          'CreditNote',		
-									  '2',						
-									  <!--- more information --->	                       
-									  '#EFACEResponse.Cae#',
-									  '#EFACEResponse.DocumentNo#',
-									  '#EFACEResponse.Dte#',
-									  '#GetWarehouseSeries.SeriesNo#',
-									  '#left(EFACEResponse.ErrorDescription,100)#', 
-					                  getDate(),                                 
-			        		          '1',     <!--- mode process completed --->
-			                	      '#SESSION.acc#',
-			                          '#SESSION.last#',
-					                  '#SESSION.first#')  									                 
-			            </cfquery>  											
-						
-				<cfelse>
-				
-					<!---- Validation Error from the GFACE --->
-			
-					<cfset vErrorDesc = xmlSearch(xmlDoc,"//*[local-name()='descripcion']")>					
-					
-					<cfset EFACEResponse.Status = "false">
-					<cfset EFACEResponse.Cae = "">
-					<cfset EFACEResponse.DocumentNo = "">
-					<cfset EFACEResponse.Dte = "">
-					<cfset EFACEResponse.ErrorDescription = vErrorDesc[1].XmlText>					
-				
-				</cfif>
-				
+				<cfset dte = xmlSearch(xmlDoc,"//*[local-name()='numeroDte']")>
 			<cfelse>
-			
-				<cfset EFACEResponse.Status = httpResponse.statusCode>
+				<cfdump var="#xmlDoc#">
+				<cfabort>
+			</cfif>
+
+			<cfif vvalid[1].XmlText eq "true">
+
+<!---- Valid Invoice Number generated by the GFACE. update Invoice number information --->
+				<cfset EFACEResponse.Status = "OK">
+				<cfset EFACEResponse.Cae = cae[1].XmlText>
+				<cfset EFACEResponse.DocumentNo = docNo[1].XmlText>
+				<cfset EFACEResponse.Dte = dte[1].XmlText>
+				<cfset EFACEResponse.ErrorDescription = "">
+
+<!--- Create new action for the original invoice describing the credit note --->
+
+				<cf_assignId>
+
+				<cfquery name="get"
+						datasource="#datasource#"
+						username="#SESSION.login#"
+						password="#SESSION.dbpw#">
+					SELECT  *
+					FROM    Accounting.dbo.TransactionHeader
+					WHERE   TransactionSourceId = '#batchid#'
+				AND     TransactionCategory = 'Receivables'
+				</cfquery>
+
+				<cfquery name="AddAction"
+						datasource="#datasource#"
+						username="#SESSION.login#"
+						password="#SESSION.dbpw#">
+					INSERT INTO Accounting.dbo.TransactionHeaderAction
+
+					(ActionId,
+					Journal,
+					JournalSerialNo,
+					ActionCode,
+					ActionMode,
+<!--- more information --->
+					ActionReference1,
+					ActionReference2,
+					ActionReference3,
+					ActionReference4,
+					ActionMemo,
+					ActionDate,
+					ActionStatus,
+					OfficerUserId,
+					OfficerLastName,
+					OfficerFirstName)
+
+					VALUES ('#rowguid#',
+				'#get.Journal#',
+				'#get.JournalSerialNo#',
+				'CreditNote',
+				'2',
+<!--- more information --->
+					'#EFACEResponse.Cae#',
+				'#EFACEResponse.DocumentNo#',
+				'#EFACEResponse.Dte#',
+				'#GetWarehouseSeries.SeriesNo#',
+				'#left(EFACEResponse.ErrorDescription,100)#',
+				getDate(),
+				'1',     <!--- mode process completed --->
+					'#SESSION.acc#',
+				'#SESSION.last#',
+				'#SESSION.first#')
+				</cfquery>
+
+			<cfelse>
+
+<!---- Validation Error from the GFACE --->
+
+				<cfset vErrorDesc = xmlSearch(xmlDoc,"//*[local-name()='descripcion']")>
+
+				<cfset EFACEResponse.Status = "false">
 				<cfset EFACEResponse.Cae = "">
 				<cfset EFACEResponse.DocumentNo = "">
 				<cfset EFACEResponse.Dte = "">
-				<cfset EFACEResponse.ErrorDescription =  httpResponse.statusCode>
-			</cfif>		
-			
-			<cfreturn EFACEResponse>
+				<cfset EFACEResponse.ErrorDescription = vErrorDesc[1].XmlText>
+
+			</cfif>
+
+		<cfelse>
+
+			<cfset EFACEResponse.Status = httpResponse.statusCode>
+			<cfset EFACEResponse.Cae = "">
+			<cfset EFACEResponse.DocumentNo = "">
+			<cfset EFACEResponse.Dte = "">
+			<cfset EFACEResponse.ErrorDescription =  httpResponse.statusCode>
+		</cfif>
+
+		<cfreturn EFACEResponse>
+
+
+
 			 
 	</cffunction>		    
 

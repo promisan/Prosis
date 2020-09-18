@@ -550,8 +550,7 @@ password="#SESSION.dbpw#">
 				 
 				</script>			
 			
-				<cf_securediv id="gradeselect" bind="url:PositionGradeSelect.cfm?field=postgrade&presel=#url.id5#&mission=#url.id#&posttype={posttype}"/>
-				
+				<cf_securediv id="gradeselect" bind="url:PositionGradeSelect.cfm?mission=#url.id#&field=postgrade&presel=#url.id5#&posttype={posttype}">				
 				
 			</TD>
 			</TR>
@@ -570,7 +569,7 @@ password="#SESSION.dbpw#">
 				<td style="padding-left:8px" class="hide" id="approvalpostgradebox">
 				
 				<cf_securediv id="approvalpostgrade" 
-						  bind="url:PositionGradeSelect.cfm?field=ApprovalPostGrade&posttype={posttype}&presel=&mission=#url.id#">				
+						  bind="url:PositionGradeSelect.cfm?presel=&mission=#url.id#^field=ApprovalPostGrade&posttype={posttype}">				
 						
 				</td></tr>
 				
@@ -791,7 +790,7 @@ password="#SESSION.dbpw#">
 		        <TD class="labelmedium">
 				
 				<cf_securediv id="recruitment" 
-						  bind="url:PositionEntryTrack.cfm?posttype={posttype}&mission=#url.id#&mandate=#url.id1#&orgunit={orgunit}">
+						  bind="url:PositionEntryTrack.cfm?mission=#url.id#&mandate=#url.id1#&posttype={posttype}&orgunit={orgunit}">
 				
 				</TD>
 			</TR>

@@ -1,6 +1,7 @@
 
 <cfoutput>
 
+
 <cfparam name="sendto"    default="">		
 
 <!--- define if a record already exists --->
@@ -94,10 +95,7 @@
 			  </cfquery>	
 				  
 			  <cfset sendto = "#Address.eMailAddress#">   
-			  <cfif sendto eq "">
-			     <cfset sendto = "#Address.eMailAddress2#">
-			  </cfif>
-			  
+						  
 		   <cfelse>
 		   		
 				<!--- should never occur --->	   
@@ -197,6 +195,7 @@
 		 <cfset mailto = sendto>
 	</cfif>
 	
+		
 	<cfparam name="mailcc"   default="">
 	<cfparam name="mailbcc"  default="">	
 		      
@@ -231,34 +230,13 @@
   <cfswitch expression="#Mail.MailBody#">
 			
 		<cfcase value="Custom">
-		      
-			   <!--- 25/4/2012 this we can evaluate to add flyfields like
-			   
-			   Reference 1/2 @ref1 @ref2
-			   workflow Link @link
-			   The user triggering the mail @user
-			   Action description @action 
-			   todays date @today
-			   --->			 
-			   		   
-		      <cfset mailtext = Mail.MailBodyCustom>		
-			  
-			  <cfset htmllink = "<a href='#SESSION.root#/ActionView.cfm?id=#Object.Objectid#'><font color='0080FF'>Click here to process</font></a>">
-			  
-			  <cfset mailtext = replaceNoCase( "#mailtext#", "@link",      "#htmllink#",                                "ALL")>				
-			  <cfset mailtext = replaceNoCase( "#mailtext#", "@user",      "#SESSION.first# #SESSION.last#",            "ALL")>
-			  <cfset mailtext = replaceNoCase( "#mailtext#", "@ref1",      "#Object.ObjectReference#",                  "ALL")>
-			  <cfset mailtext = replaceNoCase( "#mailtext#", "@ref2",      "#Object.ObjectReference2#",                 "ALL")>
-			  <cfset mailtext = replaceNoCase( "#mailtext#", "@action",    "#Object.ActionDescription#",                "ALL")>
-			  <cfset mailtext = replaceNoCase( "#mailtext#", "@mission",   "#Object.Mission#",                          "ALL")>
-			  <cfset mailtext = replaceNoCase( "#mailtext#", "@owner",     "#Object.Owner#",                            "ALL")>
-			  <cfset mailtext = replaceNoCase( "#mailtext#", "@holder",    "#Object.OfficerFirstName# #Object.OfficerLastName#",       "ALL")>	
-			  <cfset mailtext = replaceNoCase( "#mailtext#", "@ipaddress", "#Object.OfficerNodeIP#",                    "ALL")>
-			  <cfset mailtext = replaceNoCase( "#mailtext#", "@today",     "#dateformat(now(),CLIENT.DateFormatShow)#", "ALL")>
-			  <cfset mailtext = replaceNoCase( "#mailtext#", "@time",      "#timeformat(now(),'HH:MM')#",               "ALL")>
-			  <cfset mailtext = replaceNoCase( "#mailtext#", "@entity",    "#Object.EntityDescription#",                "ALL")>
- 			  <cfset mailtext = replaceNoCase( "#mailtext#", "@class",     "#Object.EntityClassName#",                  "ALL")>
-			  		  
+		      			  			  			  
+			   <cfinvoke component = "Service.Process.System.Mail"  
+				   method           = "MailContentConversion" 
+				   objectId         = "#Object.ObjectId#" 	
+				   content          = "#Mail.MailBodyCustom#"			  
+				   returnvariable   = "mailtext">	  				 
+				   			  		  
 		</cfcase>
 		
 		<cfcase value="Script">		
@@ -280,7 +258,10 @@
    <tr class="line">				
 	
 	<td colspan="2" id="mailblock1" style="padding-bottom:5px;padding-top:5px">
-   
+	
+		<cfparam name="mailfrom" default="">
+	   <input type="hidden" name="ActionMailFrom" value="#mailfrom#">
+	   
 	   <table width="97%" align="center" class="formspacing">	
 	   
 	     <tr><td colspan="2"></td></tr>
@@ -394,9 +375,11 @@
 		   
 		   <cfif findNoCase("cf_nocache",cgi.query_string)> 
 		   
+		   <!--- toolbar="basic" --->
+		   
 		   	<cf_textarea height="180"   
-					color="ffffff" 
-					toolbar="basic"		
+					color="ffffff"
+					
 					resize="true"					
 					name="ActionMailBody" 
 					style="width:100%">#mailtext#</cf_textarea>
@@ -405,7 +388,7 @@
 		   		   		   	
 				  <cf_textarea height="180"   
 					color="ffffff" 
-					toolbar="basic"		
+						
 					resize="true"		
 					init="Yes"				
 					name="ActionMailBody" 

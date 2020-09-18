@@ -145,7 +145,8 @@
 	<cfset showProcess = "1">
 	<cfset def         = "0">	
 			
-	<tr class="line"><td valign="top" colspan="2" height="30">	
+	<tr class="line">
+	<td valign="top" colspan="2" height="30" id="menutabs">	
 		<table width="100%">
 		<tr>		
 			<cfset menumode = "menu">

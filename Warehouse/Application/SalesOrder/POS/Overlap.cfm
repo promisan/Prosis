@@ -3,12 +3,11 @@ datasource="AppsTransaction"
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
 	SELECT S.*, P.FullName, C.CustomerName 
-	FROM   Sale#URL.Warehouse# S LEFT OUTER JOIN Employee.dbo.Person P 
-			ON S.SalesPersonNo = P.PersonNo LEFT OUTER JOIN Materials.dbo.Customer C
-			ON C.CustomerId = S.CustomerId
+	FROM   vwCustomerRequest S 
+	       LEFT OUTER JOIN Employee.dbo.Person P    ON S.SalesPersonNo = P.PersonNo 
+		   LEFT OUTER JOIN Materials.dbo.Customer C	ON C.CustomerId = S.CustomerId
 	WHERE  Transactionid = '#url.Id#'		
 </cfquery>
-
 
 <cfquery name="getStockEntity" 
   datasource="AppsMaterials" 
@@ -20,14 +19,12 @@ password="#SESSION.dbpw#">
 		AND       TransactionUoM  = '#get.TransactionUoM#'
 </cfquery>
 
-
 <cfset itemEntityStock = getStockEntity.onHand>
 <cfset itemBeingSold   = 0>
 
 <cfoutput>
-<table width="100%">
-	
-	
+
+<table width="100%">		
 	
 	<tr height="30px">
 		<td width="5%"></td>
@@ -36,6 +33,7 @@ password="#SESSION.dbpw#">
 		</td>
 		<td width="5%"></td>
 	</tr>
+	
 	<tr height="30px">
 		<td width="5%"></td>
 		<td colspan="6" align="left" class="labelit" style="font-weight:bold">
@@ -43,15 +41,14 @@ password="#SESSION.dbpw#">
 		</td>
 		<td width="5%"></td>
 	</tr>	
+	
 	<tr>
 		<td width="5%"></td>
 		<td width="10%"></td>
 		<td align="left" class="labelit"></td>
 		<td width="20%">
 		</td>	
-		<td align="right" class="labelit">
-			#numberformat(itemEntityStock,"__,__")#
-		</td>			
+		<td align="right" class="labelit">#numberformat(itemEntityStock,",__")#</td>			
 		<td width="10%" align="right">
 			#DateFormat(now(),CLIENT.DateFormatShow)#
 			#TimeFormat(now(),"HH:MM:ss")#
@@ -67,21 +64,19 @@ password="#SESSION.dbpw#">
 		<td width="5%"></td>
 	</tr>	
 	
-	<tr>
+	<tr class="labelmedium">
 		<td width="5%"></td>
 		<td width="10%"></td>
-		<td width="20%" align="left" class="labelit">
+		<td width="20%" align="left">
 			<cfif get.FullName neq "">
 				#get.FullName#
 			<cfelse>
 				#SESSION.first# #SESSION.last#
 			</cfif>	
 		</td>
-		<td width="20%" align="left" class="labelit">
-			#get.CustomerName#
-		</td>		
-		<td align="right" class="labelit">
-			-#numberformat(get.TransactionQuantity,"__,__")#
+		<td width="20%" align="left">#get.CustomerName#</td>		
+		<td align="right">
+			-#numberformat(get.TransactionQuantity,",__")#
 			<cfset itemBeingSold   = itemBeingSold + get.TransactionQuantity> 
 		</td>			
 		<td width="10%" align="right">
@@ -155,8 +150,8 @@ password="#SESSION.dbpw#">
 		<td width="10%" align="right">
 		</td>
 		<td width="5%"></td>	
-	</tr>	
-	
+	</tr>		
 	
 </table>
+
 </cfoutput>

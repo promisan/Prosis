@@ -12,7 +12,7 @@
  password="#SESSION.dbpw#">
 	 UPDATE DocumentCandidate
 	 SET    Status = '9',
-	        StatusDate = getDate(),
+	        StatusDate             = getDate(),
 			StatusOfficerUserId    = '#SESSION.acc#',
 			StatusOfficerLastName  = '#SESSION.last#',
 			StatusOfficerFirstName = '#SESSION.first#'
@@ -35,7 +35,7 @@
  username="#SESSION.login#" 
  password="#SESSION.dbpw#">
 	 SELECT COUNT(*) as Posts
-	 FROM DocumentPost
+	 FROM   DocumentPost
 	 WHERE  DocumentNo  = '#URL.ID#' 
 </cfquery>
 

@@ -45,8 +45,8 @@
 		<cfif qBeneficiaries.recordcount neq 0>	
 			<table width = "100%">
 			<tr>
-				<td width="2%"></td>
-				<td>		
+				
+				<td style="height:28px;padding-left:12px">		
 					<select name="Beneficiary_Gender_#Left(URL.Id,5)#_#Left(URL.BeneficiaryId,5)#" 
 						id	="Beneficiary_Gender_#Left(URL.Id,5)#_#Left(URL.BeneficiaryId,5)#" 
 						style="font-size:16px" class="regularxl enterastab"

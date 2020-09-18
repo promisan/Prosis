@@ -1,7 +1,7 @@
 
 <!--- edit all relevant field settings --->
 
-<cf_screentop jquery="Yes" close="parent.ColdFusion.Window.destroy('myfield',true)" label="Listing field properties" scroll="Yes" layout="webapp" banner="yellow">
+<cf_screentop jquery="Yes" close="parent.ColdFusion.Window.destroy('myfield',true)" label="Listing field properties" html="No" scroll="Yes" layout="webapp" banner="yellow">
 
 <script>
 
@@ -18,24 +18,20 @@
 <cfquery name="Field" 
 datasource="AppsSystem" 
 username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-		 
+password="#SESSION.dbpw#">		 
 	SELECT *
 	FROM   Ref_ModuleControlDetailField
-	WHERE  FieldId = '#URL.FieldId#'
-	
+	WHERE  FieldId = '#URL.FieldId#'	
 </cfquery>
 
 <cfquery name="List" 
 datasource="AppsSystem" 
 username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-		 
+password="#SESSION.dbpw#">		 
 	SELECT *
 	FROM   Ref_ModuleControlDetail
 	WHERE  SystemFunctionId = '#Field.SystemFunctionId#'
-	AND    FunctionSerialNo = '#Field.FunctionSerialNo#'
-	
+	AND    FunctionSerialNo = '#Field.FunctionSerialNo#'	
 </cfquery>
 
 <!---
@@ -87,23 +83,21 @@ password="#SESSION.dbpw#">
 		
 			<table width="95%" align="center">
 				
-				<tr>
+				<tr class="line">
 					<td colspan="2" class="labelmedium">
 						<img src="#SESSION.root#/images/sqltable.gif" style="vertical-align:middle">&nbsp;&nbsp;Presentation of field
 					</td>
 				</tr>
-				
-				<tr> <td colspan="2" class="line"></td> </tr>
-				
+								
 				<tr>
 					<td colspan="2">
-						<table width="95%" align="center" class="formpadding formspacing">
+						<table width="100%" class="formpadding formspacing">
 						
 							<tr>
-								<td class="labelmedium" width="120px">
+								<td style="width:200px" class="labelmedium">
 									Display :
 								</td>
-								<td width="400px" class="labelmedium">
+								<td class="labelmedium">
 								    <table>
 									<tr>
 										<td><input style="width:18px;height:18px" type="radio" name="FieldDisplay" id="FieldDisplay" <cfif FieldInGrid eq "1">checked</cfif> onclick="form.ListingOrder.disabled=false" value="1"></td>
@@ -117,7 +111,7 @@ password="#SESSION.dbpw#">
 								</td>
 							
 								<td class="labelmedium">
-									Row / Order / Colspan grid :
+									Row | Column | Colspan :
 								</td>
 								<td>
 								
@@ -130,7 +124,7 @@ password="#SESSION.dbpw#">
 									 	<option value="3"  <cfif fieldrow eq "3">selected</cfif>>3</option>
 									</select>
 									</td>
-									<td>/</td>
+									<td style="padding-left:5px;padding-right:5px">|</td>
 									<td>									
 									<cfif FieldTree eq 1>
 										<cfinput type="text" name="ListingOrder" id="ListingOrder" value="#ListingOrder#" size="2" style="text-align:center" class="regularxl" range="0,999" disabled>
@@ -138,7 +132,7 @@ password="#SESSION.dbpw#">
 										<cfinput type="text" name="ListingOrder" id="ListingOrder" value="#ListingOrder#" size="2" style="text-align:center" class="regularxl" range="0,999">
 									</cfif>
 									</td>
-									<td>/</td>
+									<td style="padding-left:5px;padding-right:5px">|</td>
 									<td>									
 										<cfinput type="text" name="FieldColSpan" id="FieldColSpan" value="#FieldColSpan#" size="2" style="text-align:center" class="regularxl" range="0,15">								
 									</td>
@@ -154,7 +148,7 @@ password="#SESSION.dbpw#">
 									Column label :
 								</td>
 								<td>
-									<input type="text" name="FieldHeaderLabel" id="FieldHeaderLabel" value="#FieldHeaderLabel#" class="regularxl">
+									<input type="text" name="FieldHeaderLabel" id="FieldHeaderLabel" maxlength="30" value="#FieldHeaderLabel#" class="regularxl">
 								</td>
 			
 								<td class="labelmedium">
@@ -172,7 +166,7 @@ password="#SESSION.dbpw#">
 							<tr>
 
 								<td class="labelmedium">
-									Formatting :
+									Content Format :
 								</td>
 								<td>
 									<select name="FieldOutputFormat" id="FieldOutputFormat" class="regularxl">						 
@@ -185,16 +179,14 @@ password="#SESSION.dbpw#">
 								</td>
 								
 								<td class="labelmedium">
-									Sorting Mode:
+									Grouping / Sorting modality:
 								</td>
 								<td>
-									  <select name="FieldSort" id="FieldSort" class="regularxl">
-													
+									  <select name="FieldSort" id="FieldSort" class="regularxl">													
 										  	 <option value="1" <cfif fieldsort eq "1">selected</cfif>>Sort</option> 
 											 <option value="2" <cfif fieldsort eq "2">selected</cfif>>Group</option> 
 											 <option value="3" <cfif fieldsort eq "3">selected</cfif>>Sum</option> 
-											 <option value="0" <cfif fieldsort eq "0">selected</cfif>>No</option> 
-																			
+											 <option value="0" <cfif fieldsort eq "0">selected</cfif>>No</option> 																			
 								      </select>
 								</td>
 								
@@ -224,35 +216,35 @@ password="#SESSION.dbpw#">
 
 				<tr><td colspan="2" height="10px"></td></tr>
 				
-				<tr>
+				<tr class="line">
 					<td colspan="2" class="labelmedium">
 						<img src="#SESSION.root#/images/filter2.gif" style="vertical-align:middle">&nbsp;&nbsp;Filter on field
 					</td>
 				</tr>
-				
-				<tr> <td colspan="2" class="line"></td> </tr>
-				
+								
 				<tr>
 					<td colspan="2">
 					
-						<table width="95%" align="center">
+						<table width="100%" class="formapadding formspacing">
 						
 							<tr>
-								<td class="labelmedium" width="120px">
-									Filter input mode:
-								</td>
-								<td  width="250px">
+							
+								<td class="labelmedium" style="width:200px">Filter modality:</td>
+								<td>
 									 <select name="FieldFilterClass" id="FieldFilterClass"  class="regularxl" onChange="if (this.value == 'Text') { form.FieldFilterClassMode.disabled=false; if (form.FieldFilterClassMode.value==2){ showId('lookupId') } } else { form.FieldFilterClassMode.disabled=true; hideId('lookupId');}">
-										  <option value=""       <cfif FieldFilterClass eq "">selected</cfif>>N/A</option>					 
+										  <option value=""       <cfif FieldFilterClass eq "">selected</cfif>>No, no filtering</option>					 
 									 	  <option value="Text"   <cfif FieldFilterClass eq "Text">selected</cfif>>Text</option> 
 										  <option value="Amount" <cfif FieldFilterClass eq "Amount">selected</cfif>>Amount</option> 
 									 	  <option value="Date"   <cfif FieldFilterClass eq "Date">selected</cfif>>Date</option>   											
 									 </select>
 								</td>
-								
-								<td class="labelmedium">
-									Enforce:
+							
+								<td class="labelmedium">Filter label:</td>
+								<td>
+									<input type="text" name="FieldFilterLabel" id="FieldFilterLabel" value="#FieldFilterLabel#" width="60" maxlength="30" class="regularxl">
 								</td>
+								
+								<td class="labelmedium">Enforce Filter selection:</td>
 								<td>
 									  <select name="FieldFilterForce" id="FieldFilterForce" class="regularxl">
 													
@@ -260,11 +252,10 @@ password="#SESSION.dbpw#">
 											 <option value="1" <cfif FieldFilterForce eq "1">selected</cfif>>Yes</option> 
 																														
 								      </select>
-								</td>
-
-								<td class="labelmedium">
-									Selection :
-								</td>
+								</td>				
+								
+																
+								<td class="labelmedium">Selection Interface [Text]:</td>
 								<td>
 									<select name="FieldFilterClassMode" 
 									        id="FieldFilterClassMode" 
@@ -282,11 +273,11 @@ password="#SESSION.dbpw#">
 								</td>
 							</tr>
 						         
-							<tr valign="top" id="lookupId" <cfif FieldFilterClassMode neq "2">style="display:none;"</cfif>>
-								<td class="labelmedium" style="padding-top:10px">
-									Lookup values :
+							<tr valign="top" id="lookupId" style="<cfif FieldFilterClassMode neq "2">display:none</cfif>">
+								<td class="labelmedium" style="padding-top:3px">
+									Lookup values:
 								</td>
-								<td colspan="5" style="padding-top:10px">										     
+								<td colspan="7">										     
 								    <iframe src="FieldEditLookup.cfm?FunctionId=#SystemFunctionId#&SerialNo=#FunctionSerialNo#&FieldId=#FieldId#&Type=Filter" name="lookupFilter" id="lookupFilter" width="100%" height="50" marginwidth="0" marginheight="0" hspace="0" vspace="0" align="left" scrolling="no" frameborder="0"></iframe>
 								</td>
 							</tr>
@@ -309,7 +300,7 @@ password="#SESSION.dbpw#">
 					 
 				<tr>
 					<td colspan="2">
-						<table width="95%" align="center">
+						<table width="100%">
 							
 							<tr>
 								<td colspan="2" id="divEditable" <cfif FieldEditMode eq 0>style="display:none;"</cfif>>
@@ -400,13 +391,18 @@ password="#SESSION.dbpw#">
 				<tr> <td colspan="2" height="10px"></td> </tr>
 				
 				<tr>
-					<td colspan="2" class="linedotted"></td>
+					<td colspan="2" class="line"></td>
 				</tr>
 				
 				<tr>
-					<td colspan="2" align="center">
+					<td colspan="2" align="center" style="height:35px">
+						<table class="formspacing"><tr><td>
+						<input type="button" value="Close" style="font-size:13px;width:140px;height:27px" id="Close" name="Close" onclick="parent.ProsisUI.closeWindow('myfield',true)" class="button10g">
+						</td>
+						<td>
 						<input type="submit" value="Submit" style="font-size:13px;width:140px;height:27px" id="Submit" name="Submit" class="button10g">
-						<input type="button" value="Close" style="font-size:13px;width:140px;height:27px" id="Close" name="Close" onclick="parent.ColdFusion.Window.hide('myfield',true)" class="button10g">
+						</td></tr></table>
+						
 					</td>
 				</tr>
 				

@@ -612,9 +612,7 @@
 		   </cfif>	 
 		 		 
 		 </cfif>
-		 
-		
-		 
+				 
 		 <cfset resetworkflow = "0">
 		 		 
 		 <cftransaction>	

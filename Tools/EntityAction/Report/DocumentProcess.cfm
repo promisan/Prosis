@@ -192,18 +192,15 @@ password="#SESSION.dbpw#">
 		
 		<cfelseif url.action eq "refresh">
 		
-			<script>
-		
-				// ColdFusion.Layout.selectTab("processbox", "document");
-				ColdFusion.navigate('ProcessAction8TabsDocument.cfm?id=#URL.actionID#&docid=#url.docid#',document.getElementById('documentcontainer').value); 
-						
+			<script>						
+				ptoken.navigate('ProcessAction8TabsDocument.cfm?id=#URL.actionID#&docid=#url.docid#',document.getElementById('documentcontainer').value); 						
 			</script>	
 			
 		<cfelse>	
 			
 			<script>
 			
-				ColdFusion.navigate('ProcessAction8TabsDocument.cfm?id=#URL.actionID#&action=delete',document.getElementById('documentcontainer').value)	
+				ptoken.navigate('ProcessAction8TabsDocument.cfm?id=#URL.actionID#&action=delete',document.getElementById('documentcontainer').value)	
 								
 				<cfif check.recordcount eq "0">
 				    try {
@@ -217,7 +214,7 @@ password="#SESSION.dbpw#">
 		</cfif>
 		
 		<script>
-		 ColdFusion.navigate("Report/DocumentProcessOption.cfm?action=#url.action#&actionid=#url.actionid#&docid=#url.docid#&documentcode=#format.documentcode#&no=#url.no#",'docoption#url.docid#');	 		
+		 ptoken.navigate("Report/DocumentProcessOption.cfm?action=#url.action#&actionid=#url.actionid#&docid=#url.docid#&documentcode=#format.documentcode#&no=#url.no#",'docoption#url.docid#');	 		
 		</script>
 
 

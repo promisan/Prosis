@@ -19,6 +19,14 @@
     <cfset END = 'NULL'>
 </cfif>	
 
+<cfset dateValue = "">
+<cfif Form.PayrollStart neq ''>
+    <CF_DateConvert Value="#Form.PayrollStart#">
+    <cfset PAY = dateValue>
+<cfelse>
+    <cfset PAY = 'NULL'>
+</cfif>	
+
 <!--- verify if record exist --->
 
 <cfquery name="Entitlement" 
@@ -65,6 +73,7 @@ AND    CostId   = '#Form.CostId#'
 			   UPDATE PersonMiscellaneous
 			   SET    DateEffective      = #STR#,
 					  DocumentDate       = #END#,
+					  PayrollStart       = #PAY#,
 					  PayrollItem        = '#Form.Entitlement#',
 					  DocumentReference  = '#Form.DocumentReference#',
 					  EntitlementClass   = '#Form.EntitlementClass#',

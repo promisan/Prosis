@@ -161,7 +161,7 @@
 	   
 		    <!--- load script for embedded forms --->
 	   					 			 
-			<cfajaximport tags="cfform,cfwindow,cfinput-autosuggest,cfdiv">
+			<cfajaximport tags="cfform,cfinput-autosuggest,cfdiv">
 			<cf_ActionListingScript>
 			<cf_FileLibraryScript>
 			<cf_DetailsScript>		
@@ -192,7 +192,10 @@
 	   <cfelse>
 	   	   <cfset cl = "regular">	   
 	   </cfif>
-	  	  	  	   	   
+	   
+	   <!--- pointer to allow quick revert to process tab --->
+	   <cfset client.processtab = "#boxno#">
+	  	  	 			  	   	   
 	   <cf_menutab item  = "#boxno#" 
 	       iconsrc       = "Process-Submission.png" 
 		   iconwidth     = "64" 
@@ -309,9 +312,16 @@
 	        
    </cfif>   
    
+   <cfif boxno eq "1">
    
-  
-   <cfif menumode eq "content" and boxno gte "2">
+	   <!--- we hide the menu, to make the screen look more simply --->
+	   <script>
+	   try { document.getElementById('menutabs').className = 'hide' }
+	   catch(e) { }	
+	    </script>
+	   
+     
+   <cfelseif menumode eq "content" and boxno gte "2">
       	 	  
 	   <script>  	   	          
 		   try { document.getElementById('menu1').click() } 

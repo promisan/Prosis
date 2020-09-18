@@ -12,7 +12,7 @@
 
 <cfset show = 0>
 
-<cfloop index="itm" list="Report,Attach,Field,Question,Activity" delimiters=",">
+<cfloop index="itm" list="Report,Attach,Field,Question,Activity,Mail" delimiters=",">
 	
 	<cfquery name="GroupAll" 
 	datasource="AppsOrganization" 

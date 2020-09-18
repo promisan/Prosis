@@ -104,7 +104,7 @@
 		 <TR>
 			 <TD class="labelmedium" style="padding-left:5px" width="150"><cf_tl id="Last Project"> :<font color="FF0000">*</font></TD>  
 			 <TD>		 
-			 <cfdiv id="bProgram" bind="url:getProgram.cfm?mission={mission}&itemNo=#URL.Id#">		 	
+			 <cf_securediv id="bProgram" bind="url:getProgram.cfm?mission={mission}&itemNo=#URL.Id#">		 	
 			 </TD>
 		 </TR>		
 		 
@@ -234,7 +234,7 @@
 	    <td class="labelmedium" style="padding-left:5px"><cf_tl id="Stock Category">: <font color="FF0000">*</font></b></td>
 	    <td>
 		
-			<table cellspacing="0" cellpadding="0">	
+			<table>	
 			<tr>		
 			<td>
 			
@@ -266,7 +266,7 @@
 			<td class="labelmedium" style="padding-left:10px" align="right"><cf_tl id="Sub Category">:<font color="FF0000">*</font></td>
 			
 		    <td style="padding-left:10px">			
-				<cf_securediv id="divCategoryItem" bind="url:#SESSION.root#/Warehouse/Maintenance/Item/getCategoryItem.cfm?ItemNo=#Item.ItemNo#&Category={category}&CategoryItem=#Item.CategoryItem#">
+				<cf_securediv id="divCategoryItem" bind="url:#SESSION.root#/Warehouse/Maintenance/Item/getCategoryItem.cfm?ItemNo=#Item.ItemNo#&CategoryItem=#Item.CategoryItem#&Category={category}">
 		    </td>
 			
 			</tr>

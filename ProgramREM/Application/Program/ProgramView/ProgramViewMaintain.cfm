@@ -149,7 +149,7 @@
 			  
 		   	    <cf_tl id="Add" var="1">
 						
-			    <cfif Parameter.EnableGlobalProgram>		
+			    <cfif Parameter.EnableGlobalProgram neq "1">		
 				      
 			     	  <input type="button" value="#lt_text# #Parameter.TextLevel0#" style="font-size:12px;width:120;height:32" class="button10g" onClick="AddProgram('#URL.Mission#','#URL.Period#','#Org.OrgUnit#','','','add')"> 
 		            

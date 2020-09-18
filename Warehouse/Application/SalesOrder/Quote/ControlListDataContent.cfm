@@ -90,7 +90,15 @@
 	     				field       = "QuoteStatus",											
 						alias       = "C",	
 						filtermode  = "3",																							
-						search      = "text"}>							
+						search      = "text"}>		
+						
+	<cfset itm = itm+1>
+	<cf_tl id="Batch" var = "1">
+	<cfset fields[itm] = {label     = "#lt_text#",                    
+	     				field       = "BatchNo",											
+						alias       = "C",	
+						filtermode  = "2",																							
+						search      = "text"}>														
 
 	<cfset itm = itm+1>
 	<cf_tl id="Customer" var = "1">

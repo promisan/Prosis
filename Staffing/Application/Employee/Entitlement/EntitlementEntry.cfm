@@ -300,7 +300,11 @@ password="#SESSION.dbpw#">
 		   class="regularxl" value="0"  
 		   name="Amount" 
 		   message="Please enter a correct amount" 
-		   validate="float" required="Yes" size="12" maxlength="16" style="text-align: right;padding-right:3px">
+		   validate="float" 
+		   required="Yes" 
+		   size="12" 
+		   maxlength="16" 
+		   style="text-align: right;padding-right:3px">
 		
 		</td></tr></table>
 			

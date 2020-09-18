@@ -21,7 +21,8 @@
 	<tr><td height="10"></td></tr>
 	<tr>
 		<td height="100%">
-			<cfdiv id="divAssociation" style="height:100%; min-height:100%;" bind="url:Association/AssociationListingDetail.cfm?warehouse=#url.warehouse#&type={associationType}">
+			<cf_securediv id="divAssociation" style="height:100%; min-height:100%;" 
+			    bind="url:Association/AssociationListingDetail.cfm?warehouse=#url.warehouse#&type={associationType}">
 		</td>
 	</tr>
 </table>

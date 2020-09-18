@@ -33,6 +33,8 @@ function editEntitlement(persno, no) {
     <cfset END = 'NULL'>
 </cfif>	
 
+
+
 <!--- verify if record exist --->
 
 
@@ -58,6 +60,14 @@ function editEntitlement(persno, no) {
 	 		 <cfset dateValue = "">
 			 <CF_DateConvert Value="#dte#">
 			 <cfset STR = dateValue>
+			 
+			<cfset dateValue = "">
+			<cfif pay neq ''>
+			    <CF_DateConvert Value="#pay#">
+			    <cfset PAY = dateValue>
+			<cfelse>
+			    <cfset PAY = 'NULL'>
+			</cfif>	
 	 		 	
 			<cfquery name="Entitlement" 
 			datasource="AppsPayroll" 

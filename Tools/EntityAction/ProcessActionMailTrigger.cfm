@@ -169,9 +169,7 @@
 		 AND    O.EntityClass  = C.EntityClass
 		 AND    O.Operational  = 1
 	</cfquery>
-
 	
-
 	<cfif Object.classMail   eq "1" and <!--- mail enabled for the flow --->
 	      Object.enableEMail eq "1" and <!--- mail enabled fro the object --->
  		      (Form.actionStatus neq "0")>  <!--- user selected a forward, submit or deny --->
@@ -195,12 +193,14 @@
 			 AND       M.DocumentType    = 'mail'      
 			 AND       M.EntityCode      = '#Object.EntityCode#'  
 			</cfquery>
+					
 			
 			<cfif CheckMail.recordcount eq "1">
-			
+									
 				<cfparam name = "Form.SendTo"               default="">
 				<cfparam name = "Form.SendCc"               default="">
 				<cfparam name = "Form.SendBcc"              default="">
+				<cfparam name = "Form.ActionMailFrom"       default="">	
 				<cfparam name = "Form.ActionMailSubject"    default="">
 				<cfparam name = "Form.ActionMailPriority"   default="">	
 				<cfparam name = "Form.ActionMailBody"       default="">
@@ -216,6 +216,7 @@
 						actionId     = "#Action.ActionId#"
 						mailobject   = "#CheckMail.DocumentId#"					
 						mailType     = "Holder"
+						mailfrom     = "#Form.ActionMailFrom#"
 						sendTo       = "#form.sendto#" 
 						sendCc       = "#form.sendcc#" 
 						sendBcc      = "#form.sendbcc#" 
@@ -232,8 +233,7 @@
 	
 	    </cfif>		
 						
-		<cfif delaymail eq "0">
-		
+		<cfif delaymail eq "0">	
 		
 		
 			<!--- 2. send email to OTHER PARTIES - DUE after this step --->
@@ -280,7 +280,8 @@
 						<cf_ProcessMailHolder
 							actionId    = "#ActionId#"
 							mailobject  = "#CheckMail.DocumentId#"		
-							mailType    = "Due"									 	
+							mailType    = "Due"		
+							mailfrom    = "#Form.ActionMailFrom#"							 	
 							sendTo      = "#form.sendto#" 
 							sendCc      = "#form.sendcc#" 
 							sendBcc     = "#form.sendbcc#" 
@@ -302,13 +303,11 @@
 			   			   		   				      			
 			   <cfif NextCheck.EnableNotification eq "1" and NextCheck.recordcount eq "1">
 			   							
-					 <cfset actionId = NextAction.ActionId>	 		
-											 
+					 <cfset actionId = NextAction.ActionId>	 												 
 					
 					 <cfif NextCheck.NotificationManual eq "0" 
 					        <!--- or NextCheck.DueMailCode neq ""  --->
-							or NextAction.recordcount gt "1">		<!--- do not allow dialog if > 1 record --->	
-						
+							or NextAction.recordcount gt "1">		<!--- do not allow dialog if > 1 record --->							
 					 	 					 					 
 							<cfinclude template="ProcessMail.cfm">	
 												
@@ -324,8 +323,7 @@
 							
 						 <!--- <cfexit method="EXITTEMPLATE"> --->
 					 
-					 </cfif>	
-					 				 
+					 </cfif>						 				 
 						 
 			   </cfif> 
 		   

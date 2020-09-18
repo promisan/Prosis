@@ -420,10 +420,10 @@
 					
 				<CFIF GlobalAccess neq "NONE" OR ManagerAccess eq "ALL">
 								
-					<cftree name="idtree" font="calibri"  fontsize="12" bold="No" format="html" required="No">
-					     <cftreeitem 
-						  bind="cfc:service.Tree.OrganizationTree.getNodes({cftreeitempath},{cftreeitemvalue},'#url.mission#','#man#','AllotmentViewOpen.cfm','PRG','Responsible Unit','#url.mission#','#man#','','Full')">  		 
-				    </cftree>						
+					<cf_UItree name="idtree" font="calibri"  fontsize="12" bold="No" format="html" required="No">
+					     <cf_UITreeitem
+						  bind="cfc:service.Tree.OrganizationTree.getNodesV2({cftreeitempath},{cftreeitemvalue},'#url.mission#','#man#','AllotmentViewOpen.cfm','PRG','Responsible Unit','#url.mission#','#man#','','Full')">
+				    </cf_UItree>
 					
 			    <cfelse>
 				

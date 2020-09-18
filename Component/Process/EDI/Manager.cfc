@@ -64,7 +64,8 @@
 			 <cfargument name="Mission"        type="string"  required="true"   default="">
 			 <cfargument name="Terminal"       type="string"  required="true"   default="1">			 
 			 <cfargument name="BatchId"        type="string"  required="true"   default="">
-			 <cfargument name="RetryNo"        type="string"  required="false"   default="0">
+			 <cfargument name="RetryNo"        type="string"  required="false"  default="0">
+			 <cfargument name="Mode" 	       type="string"  required="false"  default="2">
 			 
 			 <cfquery name="qmission" 
 			  datasource="#ARGUMENTS.Datasource#" 
@@ -75,61 +76,28 @@
 					WHERE  Mission = '#Mission#'	    							   
 			</cfquery>
 
-			<cfif qmission.EDIMethod neq "">
+			<cfif qmission.EDIMethod neq "">			
 
-					<cfquery name="GetInvoice"
-						datasource="#datasource#"
-						username="#SESSION.login#"
-						password="#SESSION.dbpw#">
-						SELECT *
-						FROM Materials.dbo.WarehouseBatch WB
-						WHERE WB.BatchId='#Batchid#'
-					</cfquery>
-					<!--- Get Warehouse device information --->
-					<cfquery name="GetWarehouseDevice"
-							datasource="#datasource#"
-							username="#SESSION.login#"
-							password="#SESSION.dbpw#">
-						SELECT *
-						FROM   Materials.dbo.WarehouseTerminal
-						WHERE  Warehouse = '#GetInvoice.Warehouse#'
-						AND    TerminalName = '#terminal#'
-						AND    Operational=1
-					</cfquery>
+				<cfif Mode eq "2">
+					<cfinvoke component = "Service.Process.EDI.#qmission.EDIMethod#"
+			      	method           = "SaleIssue"
+				  	datasource       = "#ARGUMENTS.Datasource#"
+   				  	mission          = "#Mission#"
+			      	Terminal         = "#Terminal#"
+			      	Batchid          = "#BatchId#"
+				  	RetryNo		   = "#RetryNo#"
+			      	returnvariable   = "EDIResult">
+				<cfelseif Mode eq "3">
+					<cfinvoke component = "Service.Process.EDI.#qmission.EDIMethod#"
+							method           = "SaleIssueV2"
+							datasource       = "#ARGUMENTS.Datasource#"
+							mission          = "#Mission#"
+							Terminal         = "#Terminal#"
+							Batchid          = "#BatchId#"
+							RetryNo		   	 = "#RetryNo#"
+							returnvariable   = "EDIResult">
+				</cfif>
 
-					<!--- Get Warehouse and Series Information --->
-					<cfquery name="GetWarehouseSeries"
-							datasource="#datasource#"
-							username="#SESSION.login#"
-							password="#SESSION.dbpw#">
-							SELECT *
-							FROM   Organization.dbo.OrganizationTaxSeries
-							WHERE  OrgUnit = '#GetWarehouseDevice.TaxOrgUnitEDI#'
-							AND    SeriesType = 'Invoice'
-							AND    Operational=1
-					</cfquery>
-
-					<cfif GetWarehouseSeries.UserKey eq "">
-							<cfinvoke component = "Service.Process.EDI.#qmission.EDIMethod#"
-			      				method           = "SaleIssue"
-				  				datasource       = "#ARGUMENTS.Datasource#"
-   				  				mission          = "#Mission#"
-			      				Terminal         = "#Terminal#"
-			      				Batchid          = "#BatchId#"
-				  				RetryNo		   = "#RetryNo#"
-			      				returnvariable   = "EDIResult">
-					<cfelse>
-
-							<cfinvoke component = "Service.Process.EDI.#qmission.EDIMethod#"
-									method           = "SaleIssueV2"
-									datasource       = "#ARGUMENTS.Datasource#"
-									mission          = "#Mission#"
-									Terminal         = "#Terminal#"
-									Batchid          = "#BatchId#"
-									RetryNo		     = "#RetryNo#"
-									returnvariable   = "EDIResult">
-					</cfif>
-			
 			<cfelse>
 			
 				<cfset EDIResult.Status = "OK">

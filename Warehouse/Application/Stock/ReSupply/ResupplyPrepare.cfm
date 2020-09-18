@@ -1,7 +1,6 @@
 
 <cfparam name="URL.Mission"     default = "">
 <cfparam name="URL.Warehouse"   default = "Main">
-<cfparam name="URL.Category"    default = "">
 <cfparam name="URL.ItemNo"      default = "">
 <cfparam name="URL.Mode"        default = "undefined">
 <cfparam name="URL.Restocking"  default = "Procurement">
@@ -23,6 +22,64 @@
 <cfparam name="Form.Filter"            default="">
 <cfparam name="Form.RestockingSelect"  default="">
 <cfparam name="Form.RefreshContent"    default="0">
+
+<cfif Form.Category eq "">
+
+		<cfif get.ModeSetItem eq "Category">
+			
+			<cfquery name="CategorySelect" 
+			datasource="AppsMaterials" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				SELECT    DISTINCT R.*
+				FROM      Ref_Category R INNER JOIN
+		                  WarehouseCategory W ON W.Category = R.Category
+				WHERE     W.Warehouse   = '#URL.warehouse#'
+				AND       W.Operational = 1		
+				AND       R.Operational = 1					
+				ORDER BY  Description
+			</cfquery>
+				
+		<cfelseif get.ModeSetItem eq "Location">	
+			
+			<cfquery name="CategorySelect" 
+			datasource="AppsMaterials" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				SELECT    R.*
+				FROM      Ref_Category R 
+				WHERE     Category IN (SELECT ItemCategory 
+				                       FROM   ItemTransaction 
+									   WHERE Warehouse = '#url.warehouse#')				
+				AND       R.Operational = 1					
+				ORDER BY  Description
+			</cfquery>
+			
+		<cfelse>
+						  
+			<cfquery name="CategorySelect" 
+				datasource="AppsMaterials" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					SELECT    DISTINCT R.*
+					FROM      Ref_Category R INNER JOIN
+			                  Item I ON R.Category = I.Category INNER JOIN
+			                  ItemWarehouse W ON I.ItemNo = W.ItemNo
+					WHERE     W.Warehouse   = '#URL.warehouse#'
+					AND       I.ItemClass   = 'Supply'
+					ORDER BY  Description
+			</cfquery>
+			
+		</cfif>
+		
+	<cfset category = quotedvalueList(CategorySelect.Category)>
+ 		
+<cfelse>		
+					
+	<cfset category = form.category>
+
+</cfif>
+
 
 <cfif url.restocking eq "undefined">
 
@@ -312,8 +369,8 @@
 			
 			<cfif URL.ItemNo neq "">
 			AND       I.ItemNo        = '#URL.Item#' 
-			<cfelseif Form.Category neq "">
-			AND       R.Category      IN (#preserveSingleQuotes(Form.Category)#)  	
+			<cfelseif Category neq "">
+			AND       R.Category      IN (#preserveSingleQuotes(Category)#)  	
 			</cfif>
 			
 			<cfif Form.CategoryItem neq "">
@@ -341,7 +398,7 @@
 
 <!--- capture for next time --->
 
-<cfset resupply.category    = form.category>
+<cfset resupply.category    = category>
 <cfset resupply.programcode = form.programcode>
 
 <cfset session.mysupply = resupply>

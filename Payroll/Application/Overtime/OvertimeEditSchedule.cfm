@@ -36,16 +36,10 @@ password="#SESSION.dbpw#">
 <script language="JavaScript">
 
 	function check(act) {
+	
 		if (validateSubmission()) {
-			if (document.getElementById('status').value == '1' && act != 'delete') { 
-				if (confirm("This record will need to be reviewed again, continue ?")) {
-				  Prosis.busy('yes') 
-				  ptoken.navigate('#session.root#/payroll/application/overtime/OvertimeEditSubmit.cfm?mode=schedule&action='+act,'process','','','POST','overtimeedit')
-				}		
-			 } else { 
 			 Prosis.busy('yes')
-			 ptoken.navigate('#session.root#/payroll/application/overtime/OvertimeEditSubmit.cfm?mode=schedule&action='+act,'process','','','POST','overtimeedit')
-			 }
+			 ptoken.navigate('#session.root#/payroll/application/overtime/OvertimeEditSubmit.cfm?refer=#url.refer#&mode=schedule&action='+act,'process','','','POST','overtimeedit')			
 		}
 	}
 
@@ -91,40 +85,40 @@ password="#SESSION.dbpw#">
 </cfif>
 
 <cf_divscroll width="99%"  height="100%">
-
-<table cellpadding="0" cellspacing="0" width="99%" align="center">
-
-	<tr><td height="10" style="padding-left:7px">	
-		  <cfset ctr      = "0">		
-	      <cfset openmode = "hide"> 
-		  <cfinclude template="../../../Staffing/Application/Employee/PersonViewHeaderToggle.cfm">		  
-		 </td>
-	</tr>	
-
-	<tr><td height="100%" valign="top">
 	
-		<table height="100%" width="99%">
-			<tr>
-				<td style="padding-left:15px" id="edit_#GetOvertime.OverTimeId#">				  
-					<cfdiv bind="url:OvertimeEditScheduleForm.cfm?id1=#GetOvertime.OverTimeId#&id=#url.id#&mode=#url.mode#&refer=#url.refer#"/>
-				</td>
-			</tr>
-			
-			<tr class="hide"><td id="process"></td></tr>
-			<tr><td height="15"></td></tr> 
-			<cfif getOvertime.Status eq "5" and Object.recordcount eq "0">
-				<!--- nada --->
-			<cfelse>
-			<tr><td style="padding-left:35px;padding-right:25px" align="center">		
-				<cfdiv id="#GetOvertime.OverTimeId#" 
-				    bind="url:OvertimeWorkflow.cfm?id=#GetOvertime.OverTimeId#&ajaxid=#GetOvertime.OvertimeId#&mission=#Object.Mission#&mode=#url.mode#&refer=#url.refer#&id2=#url.id#"/>   					
-				</td>
-			</tr>
-			</cfif>
-		</table>
+	<table cellpadding="0" cellspacing="0" width="99%" align="center">
 	
-	</td></tr>
-</table>
+		<tr><td height="10" style="padding-left:7px">	
+			  <cfset ctr      = "0">		
+		      <cfset openmode = "hide"> 
+			  <cfinclude template="../../../Staffing/Application/Employee/PersonViewHeaderToggle.cfm">		  
+			 </td>
+		</tr>	
+					
+		<tr><td height="100%" valign="top">
+		
+			<table height="100%" width="99%">
+				<tr>
+					<td style="padding-left:15px" id="edit_#GetOvertime.OverTimeId#">				  
+						<cfdiv bind="url:OvertimeEditScheduleForm.cfm?id1=#GetOvertime.OverTimeId#&id=#url.id#&mode=#url.mode#&refer=#url.refer#"/>
+					</td>
+				</tr>
+				
+				<tr class="hide"><td id="process"></td></tr>
+				<tr><td height="15"></td></tr> 
+				<cfif getOvertime.Status eq "5" and Object.recordcount eq "0">
+					<!--- nada --->
+				<cfelse>
+				<tr><td style="padding-left:35px;padding-right:25px" align="center">		
+					<cf_securediv id="#GetOvertime.OverTimeId#" 
+					    bind="url:OvertimeWorkflow.cfm?id=#GetOvertime.OverTimeId#&ajaxid=#GetOvertime.OvertimeId#&mission=#Object.Mission#&mode=#url.mode#&refer=#url.refer#&id2=#url.id#">   					
+					</td>
+				</tr>
+				</cfif>
+			</table>
+		
+		</td></tr>
+	</table>
 
 </cf_divscroll>
 

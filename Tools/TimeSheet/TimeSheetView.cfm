@@ -17,7 +17,7 @@
 
 <cfset border= attributes.tableborder>
 
-<table width="98%" height="100%" cellspacing="0" cellpadding="0" align="center">
+<table width="98%" height="100%" align="center">
 
 <cfoutput>
 
@@ -53,5 +53,3 @@
 </cfoutput>
 
 </table>		
-
-  

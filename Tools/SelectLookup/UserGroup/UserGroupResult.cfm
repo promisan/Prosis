@@ -41,13 +41,13 @@
 	
 <cfset Crit = " Disabled = #Form.Status#">	
 
-<cfif #Criteria# eq "">
-    <cfset Criteria = #Crit#>
+<cfif Criteria eq "">
+    <cfset Criteria = Crit>
 <cfelse>
     <cfset Criteria = "#Criteria# AND #Crit#">
 </cfif>
 	
-<cfset CLIENT.search          = #Criteria#>
+<cfset CLIENT.search          = Criteria>
 
 <cfset link    = replace(url.link,"||","&","ALL")>
 
@@ -56,9 +56,9 @@ datasource="AppsSystem"
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
 	SELECT count(*) as Total
-	FROM  UserNames 
-	WHERE #PreserveSingleQuotes(CLIENT.search)# 
-	AND AccountType != 'Individual'	
+	FROM   UserNames 
+	WHERE  #PreserveSingleQuotes(CLIENT.search)# 
+	AND    AccountType != 'Individual'	
 </cfquery>
 
 <cf_pagecountN show="17" 
@@ -70,10 +70,10 @@ password="#SESSION.dbpw#">
 datasource="AppsSystem" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-	SELECT TOP #last# *
-	 FROM  UserNames 
-	WHERE #PreserveSingleQuotes(CLIENT.search)# 
-	AND AccountType != 'Individual'	
+	SELECT   TOP #last# *
+	FROM     UserNames 
+	WHERE    #PreserveSingleQuotes(CLIENT.search)# 
+	AND      AccountType != 'Individual'	
 	ORDER BY #URL.IDSorting#
 </cfquery>
 
@@ -93,17 +93,17 @@ password="#SESSION.dbpw#">
 
 	<td width="100%" colspan="2">
 	
-		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<table width="100%">
 		
 			<td colspan="2">
 			
-			<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+			<table width="100%" align="center" class="navigation_table">
 			
-			<TR>
-			    <td width="25" height="20"></td>
-				<TD class="labelheader">Name</TD>
-			    <TD class="labelheader">Account</TD>			   
-			    <TD class="labelheader">eMail</TD>
+			<TR class="labelmedium line">
+			    <td style="max-width:30px"></td>
+				<TD><cf_tl id="Group name"></TD>
+			    <TD><cf_tl id="Account"></TD>			   
+			    <TD>eMail</TD>
 			    <TD></TD>	  
 			</TR>
 			
@@ -116,8 +116,8 @@ password="#SESSION.dbpw#">
 			   				 
 				   <cfswitch expression = #URL.IDSorting#>
 				     <cfcase value = "AccountGroup">
-					 <tr height="20" bgcolor="f3f3f3">
-				     <td class="labelit" colspan="5"><b>#AccountGroup#</b></font></td>
+					 <tr class="labelmedium line" height="20" bgcolor="f3f3f3">
+				     <td colspan="5"><b>#AccountGroup#</b></font></td>
 					 </tr>
 				     </cfcase>
 				     <cfcase value = "LastName">
@@ -128,7 +128,7 @@ password="#SESSION.dbpw#">
 				     </cfcase>
 				     <cfdefaultcase>
 					 <tr bgcolor="E8E8CE">
-				    	 <td class="labelit" colspan="7"><b>#AccountGroup#<b></font></td>
+				    	 <td class="labelmedium" colspan="7"><b>#AccountGroup#<b></td>
 					 </tr>
 				     </cfdefaultcase>
 				   </cfswitch>
@@ -139,35 +139,30 @@ password="#SESSION.dbpw#">
 								   
 			   <cfset currrow = currrow + 1>
 			   				
-				   <cfif currrow lte last and currrow gte first>
-				   
-					   <tr><td colspan="8" class="linedotted"></td></tr>
-					
-					   <TR class="navigation_row" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('fbfbfb'))#">
+				   <cfif currrow lte last and currrow gte first>				   
+					  					
+					   <TR class="navigation_row line labelmedium" style="height:20px" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('fbfbfb'))#">
 					  
-						   <td height="18" width="20" align="center" style="padding-top:1px" class="navigation_action" onclick="ptoken.navigate('#link#&action=insert&#url.des1#=#account#','#url.box#','','','POST','')">					   
-						       <cf_img icon="add">						   
+						   <td style="height:20px;padding-top:1px" class="navigation_action" onclick="ptoken.navigate('#link#&action=insert&#url.des1#=#account#','#url.box#','','','POST','')">					   
+						       <cf_img icon="select">						   
 						   </td>							
 						  
-						   <TD width="40%" class="cellcontent">#LastName#</TD>
+						   <TD width="40%">#LastName#</TD>
 						   
-						    <TD width="20%" class="cellcontent">
+						   <TD width="20%">
 						   
 							   <cfif Access eq "EDIT" or Access eq "ALL">
-							   		<a href="javascript:ShowUser('#URLEncodedFormat(Account)#')" title="Open profile"><font color="0080C0">	
-									#Account#
-									</a>
+							   		<a href="javascript:ShowUser('#URLEncodedFormat(Account)#')" title="Open profile">#Account#</a>
 							   <cfelse>
 								    #Account# 
 						       </cfif>
 						   
-						   </TD>
+						   </TD>						   
 						   
-						   
-						   <TD width="25%" class="cellcontent">
+						   <TD width="25%">
 						   <cfif eMailAddress neq "">
-						   <a href="javascript:email('#eMailAddress#','','','','User','#Account#')"><font color="0080C0">
-						   </cfif>#eMailAddress#
+						   <a href="javascript:email('#eMailAddress#','','','','User','#Account#')"></cfif>
+						   #eMailAddress#
 						   </TD>	
 						   				   
 						   <TD></TD>			   
@@ -187,12 +182,8 @@ password="#SESSION.dbpw#">
 	</td>
 </tr>	
 
-<tr><td colspan="3" class="linedotted"></td></tr>
-
-<tr><td height="14" colspan="3">
-						 
-	 <cfinclude template="UserGroupNavigation.cfm">
-	 				 
+<tr><td height="14" colspan="3">						 
+	 <cfinclude template="UserGroupNavigation.cfm">	 				 
 </td></tr>
 
 </table>

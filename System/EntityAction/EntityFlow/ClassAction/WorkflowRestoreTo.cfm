@@ -279,7 +279,7 @@
 <cfoutput>
 	<script language="JavaScript">
 		alert("The Workflow configuration was successfully copied.")
-		window.location = "FlowView.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.TargetEntityClass#"
+		ptoken.location('FlowView.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.TargetEntityClass#')
 	</script>
 </cfoutput>
 

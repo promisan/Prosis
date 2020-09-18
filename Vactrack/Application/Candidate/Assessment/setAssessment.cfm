@@ -81,7 +81,7 @@
 			 AND    CompetenceId = '#url.CompetenceId#'
 		</cfquery>
 		
-		<cfif getReview.recordcount eq "0">
+		<cfif getReviewCompetence.recordcount eq "0">
 		
 			<cfquery name="Insert" 
 				datasource="AppsVacancy" 
@@ -99,7 +99,7 @@
 				  VALUES ('#url.documentno#',		  
 						  '#url.personNo#',							 
 						  '#url.actionCode#',
-						  '#url.comptenceid#',
+						  '#url.competenceid#',
 						  'Topic',
 						  '#user.account#',
 						  '#user.lastname#',		  
@@ -178,3 +178,27 @@
 	</cfif>	
 	
 </cfif>	
+
+<cfquery name="getSubmission" 
+     datasource="AppsVacancy" 
+	 username="#SESSION.login#" 
+	 password="#SESSION.dbpw#">
+	 SELECT * 
+	 FROM   DocumentCandidateAssessment
+	 WHERE  DocumentNo    = '#url.documentno#'
+	 AND    PersonNo      = '#url.personno#'
+	 AND    ActionCode    = '#url.actionCode#'
+	 AND    Competenceid  = '#url.competenceid#'
+	 AND    OfficerUserid = '#user.account#'  
+</cfquery>
+
+<cfoutput>
+
+<script>
+
+	$("##Score#url.Personno#_#left(url.competenceid,8)#_#url.useraccount#", window.parent.document).val('#getSubmission.AssessmentScore#')
+	$("##Memo#url.Personno#_#left(url.competenceid,8)#_#url.useraccount#", window.parent.document).val('#getSubmission.AssessmentMemo#')
+
+</script>
+
+</cfoutput>

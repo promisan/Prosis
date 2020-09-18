@@ -112,8 +112,8 @@ that carry this item and that are enabled --->
 		rowCounter		= "#warehouse.currentrow#"
     	returnvariable	= "highlightStyle">
 		
-	<tr #highlightStyle#>
-		<td colspan="2" height="33" valign="middle" style="font-size:22px;padding-left:4px;cursor:pointer;" onclick="toggleStockLevelWarehouse('#w#');">
+	<tr #highlightStyle# class="line">
+		<td colspan="2" style="height:35px;font-size:19px;padding-left:4px;cursor:pointer;" onclick="toggleStockLevelWarehouse('#w#');">
 			<img src="#SESSION.root#/Images/arrow.gif" class="twistie" id="twistie_#w#" height="11"> &nbsp;
 			#get.WarehouseName# <font face="Calibri" size="2">[#w#]</font>
 		</td>			
@@ -122,7 +122,7 @@ that carry this item and that are enabled --->
 	<tr id="trDetail_#w#" style="display:none;" class="trDetail">
 	
 		<td width="20"></td>
-		<td>
+		<td width="100%">
 			<table width="100%" align="center" class="formpadding">
 			
 			<cfloop query="ItemUoM">
@@ -144,7 +144,8 @@ that carry this item and that are enabled --->
 				<tr onMouseOver="this.style.backgroundColor='f1f1f1'" onMouseOut="this.style.backgroundColor=''">
 					<td valign="top" width="15%" style="padding-top:12px;padding-left:6px; padding-right:6px;border-right:1px solid gray;">#UoMDescription# (#UoM#)</u></font></td>
 					<td>
-						<table class="formpadding" width="100%" align="center">
+						<table class="formpadding" width="100%"  align="center">
+						
 							<tr><td height="5"></td></tr>
 							<tr class="labelmedium">
 								<cfif whs.MinimumStock gt whs.MaximumStock>
@@ -210,7 +211,7 @@ that carry this item and that are enabled --->
 								</td>
 								
 								<td style="padding-left:10px;"><cf_tl id="Min Order">:</td>
-								<cfif whs.MinReorderQuantity gt whs.MaximumStock>
+								    <cfif whs.MinReorderQuantity gt whs.MaximumStock>
 										<cfset cl = "yellow">
 									<cfelse>
 										<cfset cl = "">
@@ -236,7 +237,7 @@ that carry this item and that are enabled --->
 							</tr>							
 																						
 							<tr class="labelmedium">	
-								<td style="height:26;padding-left:5px;"><cf_tl id="Replenishment">:<cf_space spaces="40"></td>
+								<td style="height:26;padding-left:5px;"><cf_tl id="Replenishment">:</td>
 								<td colspan="2">			
 									<input type="checkbox" class="radiol"
 									       name="ReorderAutomatic_#row#" 
@@ -248,9 +249,15 @@ that carry this item and that are enabled --->
 													
 								<td style="padding-left:10px;"><cf_tl id="Through">:</td>
 								<td colspan="2" style="min-width:400px">
-								<input type="radio" class="radiol" name="Restocking_#row#" id="Restocking_#row#" value="Procurement" <cfif whs.Restocking neq "Warehouse">checked</cfif>><cf_tl id="Procurement">
-								<input type="radio" class="radiol" name="Restocking_#row#" id="Restocking_#row#" value="Warehouse" <cfif whs.Restocking eq "Warehouse">checked</cfif>><cf_tl id="Main Warehouse"><cf_tl id="Internal">
-								</td>							
+								<table>
+								<tr>
+									<td><input type="radio" class="radiol" name="Restocking_#row#" id="Restocking_#row#" value="Procurement" <cfif whs.Restocking neq "Warehouse">checked</cfif>></td>
+									<td style="padding-left:4px"><cf_tl id="Procurement"></td>
+									<td style="padding-left:4px"><input type="radio" class="radiol" name="Restocking_#row#" id="Restocking_#row#" value="Warehouse" <cfif whs.Restocking eq "Warehouse">checked</cfif>></td>
+									<td style="padding-left:4px"><cf_tl id="Parent Warehouse"></td>
+								</td>	
+								</tr>
+								</table>						
 								
 							</tr>								
 																					
@@ -275,7 +282,7 @@ that carry this item and that are enabled --->
 									name="AveragePeriod_#row#" 				
 									value="#whs.AveragePeriod#"
 									required="Yes"
-									message="Please enter an integer average days value" 
+									message="Record the number of days over which the average comsumption will be calculated" 
 									validate="integer"
 									class="regularxl" 
 									size="2" 
@@ -289,6 +296,7 @@ that carry this item and that are enabled --->
 									<!---
 									<b>#lsNumberFormat(whs.distributionAverage,",.___")#</b>
 									--->
+									
 									
 									
 								</td>

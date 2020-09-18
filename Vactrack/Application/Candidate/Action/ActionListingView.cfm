@@ -19,8 +19,7 @@ password="#SESSION.dbpw#">
 	FROM        DocumentCandidateReviewAction AS DCRA 
 	            INNER JOIN      Organization.dbo.Ref_EntityDocument AS R ON DCRA.DocumentId = R.DocumentId 
 	WHERE       DCRA.DocumentNo = '#url.documentNo#'
-	AND         DCRA.PersonNo   = '#url.personno#'
-	AND         DCRA.ActionCode = '#url.actioncode#'
+	AND         DCRA.PersonNo   = '#url.personno#'	
 	
 	ORDER BY    DCRA.Created DESC 			
 
@@ -31,7 +30,7 @@ password="#SESSION.dbpw#">
 
 <cfoutput>
 <tr class="labelmedium line" style="height:20px">
-   <td style="min-width:200px"><a href="javascript:editactivity('','#url.documentNo#','#url.personno#','#url.actioncode#')" title="Add an action for this candidate"><b><cf_tl id="Add"></b></a></td>
+   <td style="min-width:200px"></td>
    <td style="min-width:120px"><cf_tl id="Due"></td>   
    <td style="width:100%"><cf_tl id="Message"></td>
    <td style="min-width:160px"><cf_tl id="Officer"></td>
@@ -43,9 +42,7 @@ password="#SESSION.dbpw#">
 <cfoutput query="SearchResult">
 	
 	<tr class="labelmedium <cfif actionmemo eq "" and currentrow neq recordcount>line</cfif> navigation_row" style="height:15px">
-	   <td style="padding-left:4px">
-	   <a href="javascript:editactivity('#ActionId#','#url.documentNo#','#url.personno#','#url.actioncode#')">#DocumentDescription#</a>
-	   </td>
+	   <td style="padding-left:4px">#DocumentDescription#</td>
 	   <td>#dateformat(ActionDateStart,client.dateformatshow)# #timeformat(ActionDateStart,"HH:MM")#</td>	
 	   	 
 	   <td style="background-color:##e1e1e180;padding-left:3px;padding-right:3px">
@@ -78,9 +75,11 @@ password="#SESSION.dbpw#">
 	   <td style="padding-left:2px">#OfficerLastName#</td>
 	   <td>#dateformat(Created,client.dateformatshow)# #timeformat(Created,"HH:MM")#</td>
 	   <td style="padding-top:2px">
+	   <!---
 	   <cfif actionstatus eq "0">
-	   <cf_img onclick="deleteactivity('#ActionId#','#url.documentNo#','#url.personno#','#url.actioncode#')" icon="delete">
+	   	  <cf_img onclick="deleteactivity('#ActionId#','#url.documentNo#','#url.personno#','#url.actioncode#')" icon="delete">
 	   </cfif>
+	   --->
 	   </td>
 	</tr>
 	<cfif actionmemo neq "">

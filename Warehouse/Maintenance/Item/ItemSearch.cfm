@@ -252,11 +252,23 @@ password="#SESSION.dbpw#">
 		<INPUT type="hidden" name="Crit7_FieldName" id="Crit7_FieldName" value="ItemNoExternal">	
 		<INPUT type="hidden" name="Crit7_FieldType" id="Crit7_FieldType" value="CHAR">		
 		<TR>		
-		<TD style="min-width:190px" class="labelmedium"><cf_tl id="Code">/<cf_tl id="BarCode">:</td>
+		<TD style="min-width:190px" class="labelmedium"><cf_tl id="External code">:</td>
 		<TD><SELECT class="regularxxl" name="Crit7_Operator" id="Crit7_Operator">#SelectOptions#</SELECT> 
 		</TD>
 		<TD style="padding-left:2px">			
 		<INPUT class="regularxxl" type="text" style="height:30px" name="Crit7_Value" id="Crit7_Value" size="20">		
+		</TD>
+		</TR>
+		
+		<!--- Field: Item.itemNoExternal=CHAR;20;FALSE --->
+		<INPUT type="hidden" name="Crit8_FieldName" id="Crit8_FieldName" value="ItemBarCode">	
+		<INPUT type="hidden" name="Crit8_FieldType" id="Crit8_FieldType" value="CHAR">		
+		<TR>		
+		<TD style="min-width:190px" class="labelmedium"><cf_tl id="BarCode">:</td>
+		<TD><SELECT class="regularxxl" name="Crit8_Operator" id="Crit8_Operator">#SelectOptions#</SELECT> 
+		</TD>
+		<TD style="padding-left:2px">			
+		<INPUT class="regularxxl" type="text" style="height:30px" name="Crit8_Value" id="Crit8_Value" size="20">		
 		</TD>
 		</TR>
 

@@ -6,6 +6,22 @@
   <cfset url.wParam = "JobProfile">
 </cfif>
 
+<cfswitch expression="#url.wParam#">
+	
+	<cfcase value="JobProfile">
+		<cfset domain = "JobProfile">	
+	</cfcase>
+	
+	<cfcase value="ToR">
+		<cfset domain = "JobProfile">	
+	</cfcase>	
+	
+	<cfcase value="Preliminary">
+		<cfset domain = "Preliminary">	
+	</cfcase>	
+
+</cfswitch>
+
 <cfquery name="Doc" 
 datasource="appsVacancy" 
 username="#SESSION.login#" 
@@ -23,6 +39,7 @@ password="#SESSION.dbpw#">
          
   <tr>
     <td colspan="2">
+	
     <table width="100%" align="center" class="formpadding">
 			
 	<TR class="labelmedium line">
@@ -35,64 +52,80 @@ password="#SESSION.dbpw#">
 	
 	<cf_calendarScript>
 	
-	<TR class="labelmedium line">
-    <TD><cf_UITooltip Tooltip="Record only if this number is already known"><cf_tl id="Job Opening No">:</cf_UITooltip></TD>
-    	
-	<cfif Doc.VAId neq "">
-				
-		<td colspan="3">
-    	<cfoutput>
-		<input type="text" name="ReferenceNo" class="regularxxl" value="#Doc.VAReferenceNo#" size="10" maxlength="20">
-		<input type="hidden" name="FunctionId" value="#Doc.VAId#">
-		</cfoutput>
-		</td>
+	<cfif url.wParam neq "ToR">
 	
+		<TR class="labelmedium line">
+		
+	    <TD><cf_UITooltip Tooltip="Record only if this number is already known"><cf_tl id="Job Opening No">:</cf_UITooltip></TD>
+	    	
+		<cfif Doc.VAId neq "">
+					
+			<td colspan="3">
+	    	<cfoutput>
+			<input type="text" name="ReferenceNo" class="regularxxl" value="#Doc.VAReferenceNo#" size="10" maxlength="20">
+			<input type="hidden" name="FunctionId" value="#Doc.VAId#">
+			</cfoutput>
+			</td>
+		
+		<cfelse>
+		
+			<td colspan="3">
+	    	<cfoutput>
+			<input type="text" name="ReferenceNo" class="regularxxl" value="" size="10" maxlength="20">
+			<input type="hidden" name="FunctionId" value="">
+			</cfoutput>
+			</td>
+						
+		</cfif>
+		
+		</TR>	
+		
 	<cfelse>
 	
-		<td colspan="3">
-    	<cfoutput>
-		<input type="text" name="ReferenceNo" class="regularxxl" value="" size="10" maxlength="20">
-		<input type="hidden" name="FunctionId" value="">
-		</cfoutput>
-		</td>
+		<tr>
+			<td colspan="3">
+		    	<cfoutput>
+				<input type="hidden" name="ReferenceNo" class="regularxxl" value="" size="10" maxlength="20">
+				<input type="hidden" name="FunctionId" value="">
+				</cfoutput>
+			</td>
+		</tr>
+				
+	</cfif>	
+	
+	<cfif url.wParam neq "ToR">
+		
+		<TR class="labelmedium line">
+	    <td><cf_tl id="Announcement effective">:</td>
+	    <TD>
+			  		
+			<cf_intelliCalendarDate9
+				FieldName="DateEffective" 
+				class="regularxxl"
+				Default="#Dateformat(Doc.VAEffective, CLIENT.DateFormatShow)#"
+				AllowBlank="False">	
 					
+		</td>
+		<td><cf_tl id="Announcement expiration">:</td>
+		<td>
+		
+			   <cf_intelliCalendarDate9
+				FieldName="DateExpiration" 
+				class="regularxxl"
+				Default="#Dateformat(Doc.VAExpiration, CLIENT.DateFormatShow)#"
+				AllowBlank="False">	
+				
+		</td>
+		</TR>	
+	
 	</cfif>
-	
-	</TR>	
-	
-	<TR class="labelmedium line">
-    <td><cf_tl id="Announcement effective">:</td>
-    <TD>
-	
-	    <cfoutput>
 		
-		<cf_intelliCalendarDate9
-			FieldName="DateEffective" 
-			class="regularxxl"
-			Default="#Dateformat(Doc.VAEffective, CLIENT.DateFormatShow)#"
-			AllowBlank="False">	
-		
-		<input name="Key1"       type="hidden"  value="#Object.ObjectKeyValue1#">
-	    <input name="savecustom" type="hidden"  value="Vactrack/Application/Announcement/DocumentSubmit.cfm">
-	    <input name="savetext"   type="hidden"  value="1">
-		
-		</cfoutput>
-		
-	</td>
-	<td><cf_tl id="Announcement expiration">:</td>
-	<td>
 	
-		   <cf_intelliCalendarDate9
-			FieldName="DateExpiration" 
-			class="regularxxl"
-			Default="#Dateformat(Doc.VAExpiration, CLIENT.DateFormatShow)#"
-			AllowBlank="False">	
-			
-	</td>
-	</TR>	
+	<cfif url.wParam neq "ToR">
 	
 	<tr><td style="height:10px"></td></tr>
-	<tr class="labelmedium"><td style="font-size:25px" colspan="4"><cf_tl id="Candidate Assessment Core Competencies"></td></td>	
+	
+	<tr class="labelmedium"><td style="font-size:25px;font-weight:bold" colspan="4"><cf_tl id="Candidate Assessment Core Competencies"></td></td>	
 	
 	<tr><td colspan="4">
 	
@@ -170,7 +203,9 @@ password="#SESSION.dbpw#">
 		
 	</td></tr>	
 	
-	<tr class="labelmedium"><td style="font-size:25px" height="2" colspan="4"><cf_tl id="Announcement text"></td></td>
+	</cfif>
+		
+	<tr class="labelmedium"><td style="font-size:25px;font-weight:bold" height="2" colspan="4"><cf_tl id="Job Qualifications and special skills"></td></td>
 	
 	<tr><td height="2" colspan="4">
 			
@@ -178,7 +213,7 @@ password="#SESSION.dbpw#">
 	
 		 <cf_ApplicantTextArea
 			Table           = "FunctionTitleGradeProfile" 
-			Domain          = "#url.wParam#"
+			Domain          = "#domain#"
 			FieldOutput     = "ProfileNotes"
 			Mode            = "Edit"
 			Key01           = "FunctionNo"
@@ -190,7 +225,7 @@ password="#SESSION.dbpw#">
 					
 		   <cf_ApplicantTextArea
 			Table           = "FunctionOrganizationNotes" 
-			Domain          = "#url.wParam#"
+			Domain          = "#domain#"
 			FieldOutput     = "ProfileNotes"
 			Mode            = "Edit"
 			Key01           = "FunctionId"
@@ -207,3 +242,9 @@ password="#SESSION.dbpw#">
 </tr>
 
 </table>
+
+<cfoutput>
+<input name="Key1"       type="hidden"  value="#Object.ObjectKeyValue1#">
+<input name="savecustom" type="hidden"  value="Vactrack/Application/Announcement/DocumentSubmit.cfm">
+<input name="savetext"   type="hidden"  value="1">
+</cfoutput>

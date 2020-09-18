@@ -4,6 +4,7 @@
  <cfparam name="Attributes.actionId"    default="">
  <cfparam name="Attributes.mailobject"  default="">
  <cfparam name="Attributes.mailtype"    default="Action">
+ <cfparam name="Attributes.mailfrom"    default="">
  
  <cfparam name="Attributes.sendTo"      default="">
  <cfparam name="Attributes.sendCc"      default="">
@@ -80,6 +81,7 @@
 
 <cfif mail.documentTemplate neq "">
 
+
     <!--- execute template to retrieve mail attributes that are defined in the template --->	
 	<cfinclude template="../../#mail.documentTemplate#">
 	
@@ -133,7 +135,11 @@
 	FROM    System.dbo.Parameter
  </cfquery>	
  
- <cfif Object.MailFrom neq "">
+ <cfif attributes.mailfrom neq "">
+    <cfset mailFromName  = "">  
+	<cfset mailFrom      = "#attributes.mailfrom#">
+	<cfset mailReply     = "">  
+ <cfelseif Object.MailFrom neq "">
     <cfset mailFromName  = "#Object.MailFrom#">  
 	<cfset mailFrom      = "#Object.MailFromAddress#">
 	<cfset mailReply     = "">
@@ -169,9 +175,6 @@
 <!--- ----- TO   ----- --->
 <!--- ---------------- --->
 
-<!---
-<cfset sendto = "vanpelt@promisan.com">
---->
 
 	<cfif sendto eq "">
 		
@@ -331,8 +334,7 @@
 		
 				 <!--- assign the value from the assigned script mailto --->	  
 				 
-				 <cfset sendTo = mailTo>	
-				 
+				 <cfset sendTo = mailTo>				 
 							
 			</cfcase>
 			
@@ -500,6 +502,7 @@
 		</cfswitch>
 	
 	</cfif>
+	
 		
 	<!--- check if user turned off the validation for this entity, 
 	if not record is found let it go through --->
@@ -627,7 +630,7 @@
 			<cfswitch expression="#Mail.MailBody#">
 					
 				<cfcase value="Custom">
-				
+												
 				  <cfinvoke component = "Service.Process.System.Mail"  
 				   method           = "MailContentConversion" 
 				   objectId         = "#Object.ObjectId#" 	
@@ -648,7 +651,7 @@
 			</cfswitch>	
 		
 		</cfif>
-		 
+				 
 		<!--- ----------------------------------- --->
 		<!--- ------------ATTACHMENTS ----------- --->
 		<!--- ----------------------------------- --->
@@ -834,7 +837,7 @@
 				</cfif>	
 
 				<cfif mailfromName neq "">				
-					<cfset fromm = "#mailfromName#<#mailFrom#>">
+					<cfset fromm = "#mailfromName# <#mailFrom#>">
 				<cfelse>
 					<cfset fromm = "#mailfrom#">
 				</cfif>
@@ -857,6 +860,7 @@
 				<cfset SendBCC = replace(SendBCC,";",",","ALL")>
 				<cfset SendBCC = replace(SendBCC," ","","ALL")>
 				
+								
 				<!--- ----------- --->
 				<!--- now we send --->
 				<!--- ----------- --->
@@ -984,7 +988,8 @@
 									<cfquery name="Insert" 
 										datasource="AppsOrganization" 
 										username="#SESSION.login#" 
-										password="#SESSION.dbpw#">					
+										password="#SESSION.dbpw#">			
+											
 										INSERT INTO OrganizationObjectActionMail (
 													ThreadId,
 													SerialNo,
@@ -993,14 +998,12 @@
 													ActionId, 
 													MailUserAccount,
 													MailType,
+													MailFrom,
 													MailTo, 
 													MailCc,
 													MailSubject, 
 													MailBody, 
-													Priority,
-													<!---
-													MailAttachment, 
-													--->
+													Priority,													
 													OfficerUserId, 
 													OfficerLastName, 
 													OfficerFirstName)
@@ -1010,15 +1013,13 @@
 													'#Object.ActionCode#',
 													'#Attributes.ActionId#', 	
 													'#User.Account#',
-													'#Attributes.MailType#',			   
+													'#Attributes.MailType#',	
+													'#fromm#',		   
 													'#eMailAddress#',
 													'#addcc#',
 													'#sendsubject#',
 													'#sendBody#',
-													'#sendPriority#',
-													<!---
-													'#mailatt#',
-													--->
+													'#sendPriority#',													
 													'#SESSION.acc#',
 													'#SESSION.last#',
 													'#SESSION.first#')
@@ -1053,8 +1054,8 @@
 					</cfloop>				
 				
 				<cfelse>		
-								
-						<cfmail  FROM   = "#fromm#"
+												
+						<cfmail FROM        = "#fromm#"
 								TO          = "#mailto#"
 								CC          = "#SendCC#"
 								BCC         = "#SendBCC#"								
@@ -1071,23 +1072,19 @@
 								
 								<cftry>
 									 		
-									<cfloop index="att" from="1" to="10" step="1">
-											   
+									<cfloop index="att" from="1" to="10" step="1">											   
 									   <cfparam name="mailatt[#Att#][1]" default="none">
 									   <cfparam name="mailatt[#Att#][2]" default="none">									   
 									   <cfparam name="mailatt[#Att#][3]" default="none">
-
 								   	   <cfif mailatt[att][1] neq "none">	
 								            <cfif mailatt[att][2] eq "inline">
 											    <cfmailparam file = "#mailatt[att][1]#" contentid="#mailatt[att][3]#" disposition="inline">
 											<cfelse>									 
 										        <cfmailparam file = "#mailatt[att][1]#">
 											</cfif>	
-									   </cfif>
-																	   				  			   
-									</cfloop>
-											
-								<cfcatch></cfcatch>
+									   </cfif>																	   				  			   
+									</cfloop>											
+									<cfcatch></cfcatch>
 										
 								</cftry>
 																									
@@ -1137,7 +1134,7 @@
 					<cfquery name="Insert" 
 						datasource="AppsOrganization" 
 						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">					
+						password="#SESSION.dbpw#">																
 						
 						INSERT INTO OrganizationObjectActionMail (
 								ThreadId,
@@ -1147,14 +1144,12 @@
 								ActionId, 
 								MailUserAccount,
 								MailType,
+								MailFrom,
 								MailTo, 
 								MailCc,
 								MailSubject, 
 								MailBody, 
-								Priority,
-								<!---
-								MailAttachment, 
-								--->
+								Priority,								
 								OfficerUserId, 
 								OfficerLastName, 
 								OfficerFirstName)
@@ -1164,15 +1159,13 @@
 								'#Object.ActionCode#',
 								'#Attributes.ActionId#', 
 								'#User.Account#',									
-								'#Attributes.MailType#',			   
+								'#Attributes.MailType#',	
+								'#fromm#',		   
 								'#add#',
 								'#addcc#',
 								'#sendsubject#',
 								'#sendBody#',
-								'#sendPriority#',
-								<!---
-								'#mailatt#',
-								--->
+								'#sendPriority#',								
 								'#SESSION.acc#',
 								'#SESSION.last#',
 								'#SESSION.first#')

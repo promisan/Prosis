@@ -211,4 +211,6 @@
 
 <CF_DropTable dbName="AppsQuery" tblName="#SESSION.acc#DocumentT#FileNo#">
 
-<cflocation url="InquiryResult.cfm?fileno=#fileno#">
+<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+<cfset mid = oSecurity.gethash()/>   
+<cflocation url="InquiryResult.cfm?fileno=#fileno#&mid=#mid#">

@@ -109,36 +109,14 @@
 						ON CA.AddressId = A.AddressId
 				WHERE  CustomerId = '#url.customerid#'
 		</cfquery>
-		
-		<cftry>
-			<cfquery name="qCheck"
-			datasource="AppsTransaction" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-				SELECT AddressId 
-				FROM   Sale#URL.Warehouse#
-				WHERE CustomerId = '#url.customerid#'
-			</cfquery> 							
-		
-		<cfcatch>
-			
-			<cfquery name="qAlterTable"
-			datasource="AppsTransaction" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-				ALTER TABLE Sale#URL.Warehouse# ADD AddressId uniqueidentifier NULL  
-			</cfquery> 							
-			
-		</cfcatch>
-		
-		</cftry>
+
 
 		<cfquery name="qExisting"
-		datasource="AppsTransaction" 
+		datasource="AppsMaterials"
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
 			SELECT * 
-			FROM   Sale#URL.Warehouse#
+			FROM   vwCustomerRequest
 			WHERE CustomerId = '#url.customerid#'
 		</cfquery> 							
 				
@@ -147,7 +125,7 @@
 			<tr><td height="2"></td></tr>
 			
 			<tr class="labelmedium">
-				<td width="50" style="padding-left:30px"><cf_tl id="Branch">:</td>	
+				<td style="padding-left:30px;min-width:80px;padding-right:5px"><cf_tl id="Branch"></td>	
 				
 				<cfif url.addressid eq "00000000-0000-0000-0000-000000000000" and qExisting.recordcount neq 0>
 					<cfset url.addressid = qExisting.AddressId>

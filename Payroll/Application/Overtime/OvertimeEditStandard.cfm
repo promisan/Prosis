@@ -180,7 +180,7 @@ password="#SESSION.dbpw#">
 		<table height="100%" width="99%">
 			<tr>
 				<td style="padding-left:15px" id="edit_#GetOvertime.OverTimeId#">				  
-					<cfdiv bind="url:OvertimeEditStandardForm.cfm?id1=#GetOvertime.OverTimeId#&id=#url.id#&mode=#url.mode#&refer=#url.refer#"/>
+					<cf_securediv bind="url:OvertimeEditStandardForm.cfm?id1=#GetOvertime.OverTimeId#&id=#url.id#&mode=#url.mode#&refer=#url.refer#">
 				</td>
 			</tr>
 			
@@ -190,8 +190,8 @@ password="#SESSION.dbpw#">
 				<!--- nada --->
 			<cfelse>
 			<tr><td style="padding-left:35px;padding-right:25px" align="center">		
-				<cfdiv id="#GetOvertime.OverTimeId#" 
-				    bind="url:OvertimeWorkflow.cfm?id=#GetOvertime.OverTimeId#&ajaxid=#GetOvertime.OvertimeId#&mission=#Object.Mission#&mode=#url.mode#&refer=#url.refer#&id2=#url.id#"/>   					
+				<cf_securediv id="#GetOvertime.OverTimeId#" 
+				    bind="url:OvertimeWorkflow.cfm?id=#GetOvertime.OverTimeId#&ajaxid=#GetOvertime.OvertimeId#&mission=#Object.Mission#&mode=#url.mode#&refer=#url.refer#&id2=#url.id#">   					
 				</td>
 			</tr>
 			</cfif>

@@ -19,6 +19,7 @@ password="#SESSION.dbpw#">
 </cfquery>
 
 <cfloop query="get">
+
 	<cfif isDefined("Form.prog_#programCode#")>
 	
 		<cftry>
@@ -26,24 +27,19 @@ password="#SESSION.dbpw#">
 				datasource="AppsMaterials" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
-					INSERT INTO WarehouseProgram
-						(
+					INSERT INTO WarehouseProgram (
 							Warehouse,
 							ProgramCode,
 							Operational,
 							OfficerUserId,
 							OfficerLastName,
-							OfficerFirstName
-						)
-					VALUES
-						(
-							'#url.warehouse#',
+							OfficerFirstName ) 
+					VALUES ('#url.warehouse#',
 							'#ProgramCode#',
 							1,
 							'#SESSION.acc#',
 							'#SESSION.last#',
-							'#SESSION.first#'
-						)
+							'#SESSION.first#' )
 			</cfquery>
 		<cfcatch></cfcatch>
 		</cftry>
@@ -68,7 +64,8 @@ password="#SESSION.dbpw#">
 
 <cfoutput>
 	<script>
-		ColdFusion.Window.hide('mydialog'); 
-		ColdFusion.navigate('Program/ProgramListing.cfm?warehouse=#url.warehouse#' + '&ts=' + new Date().getTime(), 'contentbox2'); 
+		parent.ProsisUI.closeWindow('mydialog'); 
+		_cf_loadingtexthtml='';	
+		parent.ptoken.navigate('Program/ProgramListing.cfm?warehouse=#url.warehouse#','contentbox2'); 
 	</script>
 </cfoutput>

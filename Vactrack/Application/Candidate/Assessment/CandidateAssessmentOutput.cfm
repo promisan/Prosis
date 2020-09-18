@@ -11,11 +11,11 @@
 	 datasource="appsOrganization" 
 	 username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">
-		SELECT    *
-		FROM      OrganizationObject INNER JOIN
-		          Vacancy.dbo.[Document] ON OrganizationObject.ObjectKeyValue1 = Vacancy.dbo.[Document].DocumentNo INNER JOIN
-		          Applicant.dbo.FunctionOrganization ON Vacancy.dbo.[Document].DocumentNo = Applicant.dbo.FunctionOrganization.DocumentNo
-		WHERE     OrganizationObject.ObjectId = '#Object.ObjectId#'
+		SELECT  *
+		FROM    OrganizationObject INNER JOIN
+		        Vacancy.dbo.[Document] ON OrganizationObject.ObjectKeyValue1 = Vacancy.dbo.[Document].DocumentNo INNER JOIN
+		        Applicant.dbo.FunctionOrganization ON Vacancy.dbo.[Document].DocumentNo = Applicant.dbo.FunctionOrganization.DocumentNo
+		WHERE   OrganizationObject.ObjectId = '#Object.ObjectId#'
 </cfquery>
 
 <cfif get.recordcount eq "1">
@@ -24,16 +24,16 @@
 	 datasource="appsVacancy" 
 	 username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">
-     SELECT    DCA.DocumentNo, DCA.PersonNo, A.IndexNo, A.FirstName, A.LastName, A.FullName, DCA.OfficerUserId, DCA.OfficerLastName, DCA.OfficerFirstName, DCA.ActionCode,
-               C.Description, DCA.AssessmentScore, DCA.AssessmentMemo, C.ListingOrder, DCA.Created
-	  FROM     DocumentCandidateAssessment AS DCA INNER JOIN
-               Applicant.dbo.Applicant AS A ON DCA.PersonNo = A.PersonNo INNER JOIN
-               Applicant.dbo.Ref_Competence AS C ON DCA.CompetenceId = C.CompetenceId
-	  WHERE    DCA.DocumentNo = '#Object.ObjectKeyValue1#'
+      SELECT    DCA.DocumentNo, DCA.PersonNo, A.IndexNo, A.FirstName, A.LastName, A.FullName, DCA.OfficerUserId, DCA.OfficerLastName, DCA.OfficerFirstName, DCA.ActionCode,
+                C.Description, DCA.AssessmentScore, DCA.AssessmentMemo, C.ListingOrder, DCA.Created
+	  FROM      DocumentCandidateAssessment AS DCA INNER JOIN
+                Applicant.dbo.Applicant AS A ON DCA.PersonNo = A.PersonNo INNER JOIN
+                Applicant.dbo.Ref_Competence AS C ON DCA.CompetenceId = C.CompetenceId
+	  WHERE     DCA.DocumentNo = '#Object.ObjectKeyValue1#'
 	  <cfif wParam neq "">
-	  AND      ActionCode = '#wParam#'
+	  AND       ActionCode = '#wParam#'
 	  </cfif>
-	  ORDER BY DCA.DocumentNo, DCA.PersonNo, DCA.OfficerUserId, C.ListingOrder		
+	  ORDER BY  DCA.DocumentNo, DCA.PersonNo, DCA.OfficerUserId, C.ListingOrder		
 	</cfquery>	
   	
   <table style="width:100%">
@@ -80,11 +80,8 @@
 	    </cfif>
 	 </cfquery>
 		  	  
-	<tr><td colspan="2" style="border-bottom:1px solid silver;font-size:20px">#FirstName# #LastName# <cfif final.reviewStatus gt "1">: <font color="008000">RECOMMENDED</cfif></td></tr>
-
-	
-	 
-	 <tr><td colspan="2" valign="top" style="height:40px;background-color:f4f4f4;font-size:14px">#Final.ReviewMemo#</td></tr>
+	<tr><td colspan="2" style="border-bottom:1px solid silver;font-size:20px">#FirstName# #LastName# <cfif final.reviewStatus gt "1">: <font color="008000"><b>RECOMMENDED</b></cfif></td></tr>
+	<tr><td colspan="2" valign="top" style="height:40px;background-color:f4f4f4;font-size:14px">#Final.ReviewMemo#</td></tr>
 		 
 	<cfoutput group="OfficerUserId">
 	 

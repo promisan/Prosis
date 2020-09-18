@@ -340,7 +340,7 @@ function reloadForm(page,view,layout,global) {
 		 				  
 		 ORDER BY Pe.PeriodHierarchy  		 
 		 		 
-   </cfquery>	
+   </cfquery>
       
    <!---	    
    <cfoutput>3.#now()#:#cfquery.executionTime#<br></cfoutput>

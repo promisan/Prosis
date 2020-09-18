@@ -11,6 +11,7 @@ password="#SESSION.dbpw#">
 
 <cfoutput>
 	<script>
-		ColdFusion.navigate('Program/ProgramListing.cfm?warehouse=#url.warehouse#', 'contentbox2');
+	    _cf_loadingtexthtml='';	
+		ptoken.navigate('Program/ProgramListing.cfm?warehouse=#url.warehouse#', 'contentbox2');
 	</script>
 </cfoutput>

@@ -182,7 +182,8 @@
 			AND     EXISTS (SELECT 'X' 
                             FROM   Materials.dbo.WarehouseBatch  WITH (NOLOCK)
 				            WHERE  BatchId   = LH.TransactionSourceId
-							AND    #url.conditionfield# = '#url.conditionvalue#')
+							AND    #url.conditionfield# = '#url.conditionvalue#'
+							AND    BatchClass = 'WhsSale')  <!--- added to prevent mixing with workorder : aldana related sales --->
 											   
 			AND      LH.RecordStatus    = '1'
 	 		AND      LH.ActionStatus IN ('0','1')	
@@ -217,6 +218,8 @@
 			         A.Description, 
 					 LH.#datefield#,
 					 H.TransactionCategory	
+					 
+					 
 								
 	</cfquery>	
 		

@@ -2532,6 +2532,7 @@ function clearStockIssueEndFocus() {
 		try { ProsisUI.closeWindow('daytotal',true)} catch(e){};
    		ProsisUI.createWindow('daytotal', 'Day totals', '',{x:100,y:100,width:1080,height:650,resizable:true,modal:true,center:true});
    		ptoken.navigate('#SESSION.root#/Warehouse/Application/Salesorder/POS/Inquiry/daytotal.cfm?systemfunctionid=#url.systemfunctionid#&mission='+mis+'&warehouse='+whs,'daytotal');				
+		
 	}			
 	
 	function doTransferStock(w)	{
@@ -2548,13 +2549,11 @@ function clearStockIssueEndFocus() {
 
 	function salesOverlap(id,w)	{	 
 		
-		try { ColdFusion.Window.destroy('woverlap',true)} catch(e){};
-		ColdFusion.Window.create('woverlap', 'Overlap', '',{x:100,y:100,width:800,height:480,resizable:true,modal:true,center:true});
+		try { ProsisUI.closeWindow('woverlap',true)} catch(e){};
+		ProsisUI.createWindow('woverlap', 'Overlap', '',{x:100,y:100,width:800,height:480,resizable:true,modal:true,center:true});
 		ptoken.navigate('#SESSION.root#/Warehouse/Application/SalesOrder/POS/overlap.cfm?systemfunctionid=#url.systemfunctionid#&id='+id+'&warehouse='+w,'woverlap');
 				
-	}			
-
-
+	}		
 	
 	function salesfocus() {
 		$('##customerselect').focus();  
@@ -2565,8 +2564,7 @@ function clearStockIssueEndFocus() {
 			ptoken.navigate('#SESSION.root#/warehouse/application/salesOrder/POS/Sale/SaleVoidPerform.cfm?requestno='+req+'&terminal='+trm+'&customerid='+c+'&warehouse='+w+'&id='+id,'divVoidDocument');
 		}
 	}
-		
-	
+			
     function delete_tmp_transaction(id,whs,mode) {
         ptoken.navigate('#SESSION.root#/warehouse/application/stock/transaction/transactiondetaillinesdelete.cfm?id='+id+'&warehouse='+whs+'&mode='+mode,'line_'+id);                         
     }	
@@ -2587,9 +2585,12 @@ function clearStockIssueEndFocus() {
 	 }
 
 	 function doItemSelect(c, e, w) {
+	     	     
 		 if (e == null || e.keyCode == 13) {
-			 ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/Sale/getSaleItem.cfm?warehouse='+w+'&search='+c.value,'finditem','','','POST','saleform');
-			 c.value = '';
+		     if (c.value != '') {
+			     ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/Sale/getSaleItem.cfm?warehouse='+w+'&search='+c.value,'finditem','','','POST','saleform');
+			     c.value = '';
+			 }
 		 }
 	 }
 

@@ -41,25 +41,34 @@
 
 <cfset itemcondition = criteria>
 
-
 <!--- lot --->
 
 <cfset criteria = "">
-
 <cfparam name="Form.Crit3_Value_#url.box#" default="">
 <CFSET val = evaluate("Form.Crit3_Value_#url.box#")>
-
 <cfif val neq "">
-
 	<CF_Search_AppendCriteria
 	    FieldName = "#evaluate('Form.Crit3_FieldName_#url.box#')#"
 	    FieldType = "#evaluate('Form.Crit3_FieldType_#url.box#')#"
 	    Operator  = "#evaluate('Form.Crit3_Operator_#url.box#')#"
-	    Value     = "#evaluate('Form.Crit3_Value_#url.box#')#">
-		
+	    Value     = "#evaluate('Form.Crit3_Value_#url.box#')#">		
+</cfif>		
+<cfset lotcondition = criteria>
+
+<!--- barcode --->
+
+<cfset criteria = "">
+<cfparam name="Form.Crit5_Value_#url.box#" default="">
+<CFSET val = evaluate("Form.Crit5_Value_#url.box#")>
+<cfif val neq "">
+	<CF_Search_AppendCriteria
+	    FieldName = "#evaluate('Form.Crit5_FieldName_#url.box#')#"
+	    FieldType = "#evaluate('Form.Crit5_FieldType_#url.box#')#"
+	    Operator  = "#evaluate('Form.Crit5_Operator_#url.box#')#"
+	    Value     = "#evaluate('Form.Crit5_Value_#url.box#')#">		
 </cfif>		
 
-<cfset lotcondition = criteria>
+<cfset barcodecondition = criteria>
    
 <table width="100%">
  
@@ -81,6 +90,10 @@ password="#SESSION.dbpw#">
 	
 	<cfif lotcondition neq "">	
 	AND   ItemNo IN (SELECT ItemNo FROM ItemTransaction WHERE Warehouse = '#filter1value#' AND #preserveSingleQuotes(lotcondition)#)	
+	</cfif>
+	
+	<cfif barcodecondition neq "">	
+	AND   ItemNo IN (SELECT ItemNo FROM ItemUoM WHERE #preserveSingleQuotes(barcodecondition)#)	
 	</cfif>
 	
 	<cfif filter1 eq "Warehouse">
@@ -123,8 +136,7 @@ password="#SESSION.dbpw#">
           count="#Total.Total#">
 
 </cfif>		
-
-  
+ 
 			   
 <cfset counted  = total.total>			   
 
@@ -141,6 +153,10 @@ SELECT TOP #last# *
 	
 	<cfif lotcondition neq "">	
 	AND   ItemNo IN (SELECT ItemNo FROM ItemTransaction WHERE Warehouse = '#filter1value#' AND #preserveSingleQuotes(lotcondition)#)	
+	</cfif>
+	
+	<cfif barcodecondition neq "">	
+	AND   ItemNo IN (SELECT ItemNo FROM ItemUoM WHERE #preserveSingleQuotes(barcodecondition)#)	
 	</cfif>
 	
 	<cfif filter1 eq "Warehouse">
@@ -270,7 +286,7 @@ ORDER BY ItemNo
 				</cfif>
 						
 				<td>#UoMDescription#</td>
-				<td align="right">#numberformat(UOM.standardcost,",.__")#</td>		
+				<td align="right" style="padding-right:4px">#numberformat(UOM.standardcost,",.__")#</td>		
 				</tr>
 				
 		   </cfloop>
@@ -286,8 +302,7 @@ ORDER BY ItemNo
 		 
 		   <td width="30" style="padding-left:4px;padding-top:3px"><cf_img icon="select"></td>
 		   <td style="min-width:80">#ItemNo#</td>
-		   <TD width="85%">#ItemDescription#</TD>
-			
+		   <TD width="85%">#ItemDescription#</TD>			
 		</tr>
 	 		 
 	 </cfif> 

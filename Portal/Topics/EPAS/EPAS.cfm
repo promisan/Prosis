@@ -105,8 +105,8 @@
 		 <table>
 		 	<tr class="line">
 		 		<cfoutput>
-					<td class="labelmedium" style="font-weight:250;" align="center"><cf_tl id="Progress until Stage" var="1">#ucase(lt_text)#</td>
-					<td class="labelmedium" style="font-weight:250;" align="center"><cf_tl id="Reached Stage" var="1">#ucase(lt_text)#</td>
+					<td class="labelmedium" align="center"><cf_tl id="Progress until Stage" var="1">#ucase(lt_text)#</td>
+					<td class="labelmedium" align="center"><cf_tl id="Reached Stage" var="1">#ucase(lt_text)#</td>
 				</cfoutput>
 			</tr>
 			
@@ -117,7 +117,7 @@
 				
  				    <cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
 		 			<cfchart style = "#chartStyleFile#" 
-						format="png"				
+						format="png"										
 						scalefrom="0"
 						scaleto="#ht#" 
 						showxgridlines="yes" 
@@ -130,14 +130,15 @@
 						fontitalic="no" 
 						xaxistitle="" 				 
 						yaxistitle="" 
+						show3d="yes"	
 						rotated="no" 
 						sortxaxis="no" 				 
 						tipbgcolor="##000000" 
 						showmarkers="yes" 
 						markersize="5" 
 						backgroundcolor="##ffffff"	
-				       	chartheight="180" 
-					   	chartwidth="464"
+				       	chartheight="240" 
+					   	chartwidth="494"
 					   	url="javascript:ptoken.navigate('#session.root#/portal/topics/epas/EPASDetail.cfm?mission=#url.mission#&period=#url.period#&cstf=#url.cstf#&authorised=#url.authorised#&postclass=#url.postclass#&category=#url.category#&orgunit=#orgunit#&type=$ITEMLABEL$','EPASDetailContainer_#url.mission#');">	
 											
 						   <cfchartseries
@@ -199,8 +200,8 @@
 						showmarkers="yes" 
 						markersize="5" 
 						backgroundcolor="##ffffff"	
-				       	chartheight="190" 
-					   	chartwidth="380">
+				       	chartheight="240" 
+					   	chartwidth="300">
 						<!---
 						url="javascript:ptoken.navigate('#session.root#/portal/topics/epas/EPASDetail.cfm?mission=#url.mission#&period=#url.period#&cstf=#url.cstf#&authorised=#url.authorised#&postclass=#url.postclass#&category=#url.category#&orgunit=#orgunit#&type=$ITEMLABEL$','EPASDetailContainer_#url.mission#');">
 						--->
@@ -211,8 +212,7 @@
 				             markerstyle="rectangle"
 				             colorlist="##2574A9,##E8875D,##E8BC5D,##CCCA6A,##339AFA,##66AC6A,##999A9A,##FFFA9A,##996AFA">
 							 
-							 	<cfloop index="itm" list="#statuslist#">
-								
+							 	<cfloop index="itm" list="#statuslist#">								
 								 
 								 <cfset val = evaluate("getStage.#itm#")>		
 								 <cfif val gt "0">											 
@@ -238,7 +238,7 @@
 			<cfoutput>
 				<table width="100%">
 					<tr class="line">
-						<td class="labelmedium" style="font-weight:200" align="center"><cf_tl id="Summary" var="1">#ucase(lt_text)#</td>
+						<td class="labelmedium" align="center"><cf_tl id="Summary" var="1">#ucase(lt_text)#</td>
 					</tr>
 					<tr>
 						<td align="center" valign="top">

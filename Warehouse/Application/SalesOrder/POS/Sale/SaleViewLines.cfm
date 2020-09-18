@@ -7,12 +7,26 @@
 <cfparam name="url.requestno"  default="">
 
 <!--- apply the promotions --->
-			
-<cfinvoke component = "Service.Process.Materials.POS"  
-   method           = "applyPromotion" 
-   warehouse        = "#url.warehouse#" 
-   requestNo        = "#url.requestNo#"
-   customerid       = "#url.customerid#">
+
+<cfquery name="getline"
+	datasource="AppsMaterials" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT   * 			 				 
+		FROM     CustomerRequestLine									
+		WHERE    RequestNo = '#url.requestNo#' 				
+</cfquery>
+
+<cfif getline.BatchId eq "">
+				
+	<cfinvoke component = "Service.Process.Materials.POS"  
+	   method           = "applyPromotion" 
+	   warehouse        = "#url.warehouse#" 
+	   requestNo        = "#url.requestNo#"
+	   customerid       = "#url.customerid#">
+   
+</cfif>   
+		
 
 <cfquery name="WParameter" 
 	datasource="AppsMaterials" 

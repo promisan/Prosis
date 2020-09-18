@@ -70,9 +70,14 @@ password="#SESSION.dbpw#">
 	<cfelse>
 	  <cfset lbl = fieldHeaderLabel>  
 	</cfif>
-		
-	<cfif url.selfld eq "">
 	
+	<cfif fieldFilterLabel eq "">
+	  <cfset lblfilter = lbl>
+	<cfelse>
+	  <cfset lblfilter = fieldFilterLabel>  
+	</cfif>
+		
+	<cfif url.selfld eq "">	
 	 	  <cfset grid = fieldInGrid>
 	<cfelse>
 	
@@ -89,13 +94,14 @@ password="#SESSION.dbpw#">
 	</cfif>
 	
 	<cfif FieldSort eq "3">
-	   <cfset agg = "sum">
+	     <cfset agg = "sum">
 	<cfelse>
-	   <cfset agg = "">
+	     <cfset agg = "">
 	</cfif>
 
 	<cfset fields[currentrow] = 
                {label           = "#lbl#", 
+			    labelfilter     = "#lblfilter#",
                 width           = "#fieldWidth#", 
 				field           = "#fieldName#",
 				formatted       = "#formatted#",

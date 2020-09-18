@@ -28,7 +28,7 @@ password="#SESSION.dbpw#">
 
 	<cfset per = "#year(now())#,#year(now())-1#,#year(now())-2#">
 											
-		<cf_pane id="StoreSale_#mission#" search="No" height="auto">		
+		<cf_pane id="Workorder_#mission#" search="No" height="auto">		
 						
 			<cfquery name="get" 
 			datasource="AppsOrganization" 
@@ -54,7 +54,7 @@ password="#SESSION.dbpw#">
 					
 			<cfset per = "#year(now())#,#year(now())-1#,#year(now())-2#">
 											
-			<cf_pane id="StoreSale_#orgunit#" search="No" height="auto">
+			<cf_pane id="WorkOrder_#orgunit#" search="No" height="auto">
 					
 				<cf_paneItem id="WorkOrder#currentrow#" 
 		            systemfunctionid = "#systemfunctionid#" 

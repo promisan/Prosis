@@ -509,7 +509,7 @@
 				datasource="AppsMaterials" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">		
-																	
+																									
 					UPDATE   CustomerRequestLine 	
 					SET      SalesPrice      = SchedulePrice * ((100 - salesDiscount)/100), 					 
 					         SalesAmount     = SchedulePrice * ((100 - salesDiscount)/100) * TransactionQuantity * (1-taxpercentage/1),				 		
@@ -1991,7 +1991,8 @@
 								TransactionBatchNo    = "#batchno#"		
 								PersonNo              = "#PersonNo#"														
 								SalesPersonNo         = "#SalesPersonNo#"
-								SalesCurrency         = "#salesCurrency#"		
+								SalesCurrency         = "#salesCurrency#"	
+								PriceSchedule         = "#PriceSchedule#"	
 								SchedulePrice         = "#SchedulePrice#"	
 								SalesUoM              = "#TransactionUoM#"       <!--- as recorded in the sale POS --->	 
 								SalesQuantity         = "#transactionQuantity#"  <!--- as recorded in the sale POS --->								
@@ -2117,7 +2118,8 @@
 										TransactionBatchNo    = "#batchno#"		
 										PersonNo              = "#PersonNo#"														
 										SalesPersonNo         = "#SalesPersonNo#"
-										SalesCurrency         = "#salesCurrency#"		
+										SalesCurrency         = "#salesCurrency#"	
+										PriceSchedule         = "#PriceSchedule#"		
 										SchedulePrice         = "#SchedulePrice#"	
 										SalesUoM              = "#TransactionUoM#"
 										SalesQuantity         = "#salequantity#"
@@ -3061,7 +3063,7 @@
 						</cfif>
 						AND		Operational = 1
 						AND     SeriesType = 'Invoice'
-						AND		((InvoiceCurrent < InvoiceEnd) OR (UserKey IS NOT NULL))
+						AND		((InvoiceCurrent < InvoiceEnd) <cfif Mode eq "3" > OR (UserKey IS NOT NULL)</cfif>)
 					</cfquery> 	
 
 					<cfif getSeries.RecordCount eq "0">
@@ -3082,7 +3084,8 @@
 									   method           = "SaleIssue" 
 									   Datasource       = "AppsOrganization"
 									   Mission          = "#get.Mission#"
-									   Terminal			= "#Terminal#"	
+									   Terminal			= "#Terminal#"
+								       Mode 			= "#Mode#"
 									   BatchId			= "#BatchId#"
 									   returnvariable	= "stResponse">								
 		
@@ -3095,7 +3098,8 @@
 											   method           = "SaleIssue" 
 											   Datasource       = "AppsOrganization"
 											   Mission          = "#get.Mission#"
-											   Terminal			= "#Terminal#"	
+											   Terminal			= "#Terminal#"
+											   Mode 			= "#Mode#"
 											   BatchId			= "#BatchId#"
 											   RetryNo			= "#rtNo#"
 											   returnvariable	= "stResponse">		
@@ -3122,7 +3126,7 @@
 			
 			<cfif Invoice.Mode eq "2" and stResponse.DocumentNo neq  "">
 				<!--- update the current electronic invoice generated --->
-				<cfif getSeries.UserKey eq "">
+				<cfif Mode eq "2" >
 					<cfset curInvoice = "0">
 					<cfset curInvoice = LSParseNumber(right(stResponse.DocumentNo,10))>
 
@@ -3175,7 +3179,7 @@
 					AND		SeriesNo = '#getSeries.SeriesNo#'
 				</cfquery>				
 				
-				<cfif GetSer.InvoiceCurrent gte Getser.InvoiceEnd>
+				<cfif GetSer.InvoiceCurrent gte Getser.InvoiceEnd and Mode eq 2>
 					<!--- Series limit reached.  Disable this series --->
 					
 					<cfquery name="DisableSeries"
@@ -3371,7 +3375,10 @@
 				           ,SalesTax
 				           ,OrgUnit
 				           ,OrgUnitCode
-				           ,OrgUnitName )
+				           ,OrgUnitName
+						   ,OfficerUserId
+						   ,OfficerLastName
+						   ,OfficerFirstName )
 							   
 				   SELECT    NEWID() AS TransactionId, 
 				             '#RequestNo#',
@@ -3393,13 +3400,20 @@
 							  '#getBatch.CustomerIdInvoice#',
 						     </cfif>								   
 							 IT.ProgramCode, 
-							 ITS.PriceSchedule, ITS.SalesCurrency, ITS.SchedulePrice, ITS.SalesPrice, ITS.SalesPersonNo, 
-                                ITS.TaxCode, ITS.TaxPercentage, ITS.TaxExemption, ITS.TaxIncluded, 
+							 ITS.PriceSchedule, 
+							 ITS.SalesCurrency, 
+							 ITS.SchedulePrice, 
+							 ITS.SalesPrice, 
+							 ITS.SalesPersonNo, 
+                             ITS.TaxCode, 
+							 ITS.TaxPercentage, 
+							 ITS.TaxExemption, 
+							 ITS.TaxIncluded, 
 							 <!--- aggregate by removing the location of the transaction --->
 							 SUM(ITS.SalesAmount)/SUM(ITS.SalesQuantity) AS SalesUnitPrice,
 							 SUM(ITS.SalesAmount) AS SalesAmount, 
-							 SUM(ITS.SalesTax) AS SalesTax, 
-							 IT.OrgUnit, IT.OrgUnitCode, IT.OrgUnitName
+							 SUM(ITS.SalesTax)    AS SalesTax, 
+							 IT.OrgUnit, IT.OrgUnitCode, IT.OrgUnitName,'#session.acc#','#session.last#','#session.first#'
 							  
 					FROM     Materials.dbo.ItemTransaction IT 
 					         INNER JOIN Materials.dbo.ItemTransactionShipping ITS ON IT.TransactionId = ITS.TransactionId
@@ -3416,38 +3430,12 @@
 								 							
 				 </cfquery>
 				 					 
-				<cftry>
-				
-					<cfquery name="qCheck"
-					datasource="AppsTransaction" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-						SELECT AddressId 
-						FROM   Settle#URL.Warehouse#_#SESSION.acc#
-						WHERE CustomerId = '#aReturn.customerId#'
-						<cfif getBatch.AddressId neq "">
-							AND AddressId = '#aReturn.AddressId#'
-						</cfif>	
-					</cfquery> 							
-				
-				<cfcatch>
-					
-					<cfquery name="qAlterTable"
-					datasource="AppsTransaction" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-						ALTER TABLE Settle#URL.Warehouse#_#SESSION.acc# ADD AddressId uniqueidentifier NULL  
-					</cfquery> 							
-					
-				</cfcatch>
-				
-				</cftry>					 
 
 				 <cfquery name="deleteTmp"
 					datasource="AppsTransaction" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
-					DELETE Settle#Warehouse#_#SESSION.acc#
+					DELETE Settle#Warehouse#
 					WHERE CustomerId = '#aReturn.customerId#'
 					<cfif getBatch.AddressId neq "">
 						AND AddressId = '#aReturn.AddressId#'
@@ -3458,7 +3446,7 @@
 					datasource="AppsTransaction" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">			 
-					INSERT INTO Settle#Warehouse#_#SESSION.acc# 
+					INSERT INTO Settle#Warehouse#
 					           (CustomerId
 					           ,AddressId
 					           ,SettleCode
@@ -3470,24 +3458,23 @@
 					           ,ApprovalReference
 					           ,SettleCurrency
 					           ,SettleAmount)
-						SELECT 
-						  '#aReturn.customerId#'
-						  <cfif getBatch.AddressId neq "">
-						  	,'#getBatch.AddressId#'
-						  <cfelse>
-						  	,NULL
-						  </cfif>	
-					      ,SettleCode
-					      ,PromotionCardNo
-					      ,CreditCardNo
-					      ,ExpirationMonth
-					      ,ExpirationYear
-					      ,ApprovalCode
-					      ,ApprovalReference
-					      ,SettleCurrency
-					      ,SettleAmount
-					  FROM Materials.dbo.WarehouseBatchSettlement
-					  WHERE BatchNo = '#getBatch.BatchNo#'
+					SELECT   '#aReturn.customerId#'
+							  <cfif getBatch.AddressId neq "">
+							  	,'#getBatch.AddressId#'
+							  <cfelse>
+							  	,NULL
+							  </cfif>	
+						      ,SettleCode
+					    	  ,PromotionCardNo
+						      ,CreditCardNo
+						      ,ExpirationMonth
+						      ,ExpirationYear
+						      ,ApprovalCode
+						      ,ApprovalReference
+						      ,SettleCurrency
+					    	  ,SettleAmount
+					FROM 	 Materials.dbo.WarehouseBatchSettlement
+					WHERE    BatchNo = '#getBatch.BatchNo#'
 				 </cfquery>		 
 		 
 		 	</cftransaction>	

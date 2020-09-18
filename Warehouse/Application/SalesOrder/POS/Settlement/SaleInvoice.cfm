@@ -40,8 +40,9 @@
 		WHERE   Warehouse = '#url.warehouse#'
 		AND		Area      = 'SETTLE'
 		AND		Currency  = '#url.currency#'
-</cfquery> 
-	
+</cfquery>
+
+
 <table width="100%" height="100%">
 
 <cfquery name="getAction"

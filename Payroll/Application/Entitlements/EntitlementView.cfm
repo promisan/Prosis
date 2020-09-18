@@ -23,7 +23,7 @@
 	</cf_layoutarea>		
 
 	<cf_layoutarea 
-	    type="Border" position="left" name="treebox" maxsize="400" size="240" overflow="hidden" style="height:100%" collapsible="true" splitter="true">
+	    type="Border" position="left" name="treebox" maxsize="400" size="270" overflow="hidden" style="height:100%" collapsible="true" splitter="true">
 		
 	       <cfinclude template="EntitlementViewTree.cfm">			
 										

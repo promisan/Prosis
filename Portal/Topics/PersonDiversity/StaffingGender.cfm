@@ -4,7 +4,7 @@
 		
 		<tr class="line" style="height:20px"><td colspan="2" style="height:35px;font-weight:300;font-size:20px" class="labelmedium"><cf_tl id="Distribution by gender"></td></tr>
 	
-		<tr><td width="6%" style="padding-left:5px;padding-top:15px">
+		<tr><td width="6%" style="padding-left:5px;padding-top:15px;padding-right:4px">
 
 		    <cfquery name="Sex" dbtype="query">
 			  	SELECT    Gender,
@@ -31,27 +31,26 @@
 					showborder="no" 
 					fontsize="12" 
 					fontbold="no" 
-					font="calibri"
-					fontitalic="no" 
-					show3d="no" 
+					font="calibri"					
+					show3d="no" 					
 					xaxistitle="" 				 
 					yaxistitle="" 
 					rotated="no" 
 					sortxaxis="no" 				 
-					tipbgcolor="##000000" 
+					tipbgcolor="000000" 
 					showmarkers="yes" 					
 					markersize="30" 					
 					backgroundcolor="##ffffff"					
-			       	chartheight="190" 
-				   	chartwidth="150">					
+			       	chartheight="220" 
+				   	chartwidth="250">					
 																					
-					   <cfchartseries type="cylinder"
+					   <cfchartseries type="pie"
 				             query="Sex"
 			    	         itemcolumn="Gender"
-			        	     valuecolumn="Total"							 						 
-				             serieslabel=""
-						     colorlist="##E08FE0,##0B8EDD"
-			        	     markerstyle="circle"></cfchartseries>	
+			        	     valuecolumn="Total"	
+							 datalabelstyle="pattern"
+				             markerstyle="rectangle"						 						 
+						     colorlist="##E08FE0,##0B8EDD"></cfchartseries>	
 							 
 				</cfchart>
 						

@@ -628,19 +628,7 @@
 				<cfset schedulemode = "1">				
 			
 			<cfelse>
-			
-				<cfquery name="lastschedule" 
-			  	datasource="AppsEmployee" 
-			  	username="#SESSION.login#" 
-			  	password="#SESSION.dbpw#">
-			      SELECT   TOP 1 *
-				  FROM     PersonWorkSchedule S 
-				  WHERE    PersonNo         = '#URL.PersonNo#'
-				  AND      Mission          = '#URL.Mission#'	 
-				  AND      DateEffective    <= #dte#	 
-				  ORDER BY DateEffective DESC	  
-				</cfquery>
-							
+										
 				<cfquery name="hasSchedule" 
 		         datasource="AppsEmployee" 
 		         username="#SESSION.login#" 
@@ -648,8 +636,7 @@
 			         SELECT   TOP 1 *
 			         FROM     PersonWorkSchedule 
 			         WHERE    PersonNo = '#PersonNo#'
-					 AND      DateEffective <= #dte#
-					 AND      DateEffective >= '#lastSchedule.dateEffective#'
+					 AND      DateEffective <= #dte#					
 					 <cfif mission neq "">
 					 AND      Mission = '#mission#'
 					 </cfif>
@@ -863,16 +850,22 @@
 				
 	       <cfelseif schedulemode eq "2">
 		   
+		   				   
 			   	<cfquery name="getValidSchedule" 
 					datasource="AppsEmployee" 		
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
 					    SELECT    TOP 1 *
-						FROM 	  PersonWorkSchedule
+						FROM 	  PersonWorkSchedule PWS
 						WHERE     PersonNo      = '#PersonNo#'	
 						AND       Mission       = '#mission#' 
 						AND       DateEffective <= #DateSel#
-						AND       DateEffective >= '#lastSchedule.dateEffective#'
+						<!--- get the last enabled schedule to validly see if we have day --->
+						AND       DateEffective >= (SELECT   MAX(DateEffective)
+													FROM     PersonWorkSchedule S 
+													WHERE    PersonNo         = PWS.PersonNo
+													AND      Mission          = PWS.Mission
+													AND      DateEffective   <= #DateSel#)
 						AND       WeekDay        = #DayOfWeek(DateSel)#		
 						ORDER BY  DateEffective DESC	
 				</cfquery>	

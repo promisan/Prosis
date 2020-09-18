@@ -1,21 +1,19 @@
 		
-<cftree name="root"
-   font="calibri"
-   fontsize="12"		
-   bold="No"   
-   format="html"    
-   required="No">
-   
-   		
+<cf_UItree
+	id="root"
+	root="no"
+	title="<span style='font-size:16px;color:gray;padding-bottom:3px;padding-top:3px'>#attributes.mission#</span>"	
+	expand="Yes">			
+  		
 	   	<cf_tl id="Personnel Action" var="vAction">	  
-   
-   		<cftreeitem value="PA"
-	        display="<span class='labelmedium' style='color:0080C0;font-size:18px;padding-bottom:3px'>#vAction#</span>"
-			parent="root"	
-			target="right"						
-			href="EntitlementViewOpen.cfm?ID1=&ID=ACT&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"		
-	        expand="No">	
-			
+		
+		<cf_UItreeitem value="PA"
+		        display="<span class='labelit' style='font-weight:bold;font-size:18px;padding-bottom:3px;padding-top:3px'>#vAction#</span>"
+				parent="root"	
+				target="right"						
+				href="EntitlementViewOpen.cfm?ID1=&ID=ACT&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"									
+		        expand="No">
+      					
 			<cfquery name="ActionSource" 
 			    datasource="AppsEmployee" 
 			    username="#SESSION.login#" 
@@ -27,16 +25,15 @@
 			
 			<cfloop query="ActionSource">
 			
-				<cftreeitem value="#ActionSource#"
-			        display="<span class='labelmedium' style='font-size:12px;padding-bottom:3px'>#Description#</span>"
-					parent="PA"	
-					target="right"						
-					href="EntitlementViewOpen.cfm?ID1=#ActionSource#&ID=ACT&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"		
-			        expand="Yes">	
+				<cf_UItreeitem value="#ActionSource#"
+		        display="<span class='labelit' style='font-size:14px'>#Description#</span>"
+				parent="PA"					
+				target="right"						
+				href="EntitlementViewOpen.cfm?ID1=#ActionSource#&ID=ACT&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"	
+		        expand="No">	
 			
 			</cfloop>	
-						
-		<cftreeitem value="dummy" display="<span class='labelit' style='height:10px;font-size:12px'>&nbsp;</span>" parent="root" expand="no">	
+				
 			  									
 		<cfquery name="TriggerList" 
 		    datasource="AppsPayroll" 
@@ -76,40 +73,36 @@
 			<cfelse>
 			    <cfset exp = "Yes">
 			</cfif>
-						
-			<cftreeitem value="group_#TriggerGroup#"
-		        display="<span class='labelmedium' style='font-size:18px;color:0080C0;padding-bottom:3px'>#TriggerGroup#</span>"
-				target="right"	
-				href="EntitlementViewOpen.cfm?ID=GRP&ID1=#TriggerGroup#&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"		
-				parent="root"													
+			
+			<cf_UItreeitem value="group_#TriggerGroup#"
+		        display="<span class='labelit' style='font-weight:bold;font-size:18px;padding-bottom:3px;padding-top:3px'>#TriggerGroup#</span>"
+				parent="root"	
+				target="right"						
+				href="EntitlementViewOpen.cfm?ID=GRP&ID1=#TriggerGroup#&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"									
 		        expand="#exp#">								
 		
 			<cfoutput>
-							   			   		       					   											   
-			   	   <cftreeitem value="#SalaryTrigger#"
-				        display="<span class='labelmedium'>#Description#</span>"
-						parent="group_#TriggerGroup#"	
-						target="right"	
-						href="EntitlementViewOpen.cfm?ID=TRG&ID1=#SalaryTrigger#&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"												
-				        expand="No">		
-			   
-			</cfoutput> 	
 			
-			<cftreeitem value="dummy" display="" parent="root" expand="Yes">	
-		
-	    </cfoutput>	
+				<cf_UItreeitem value="#SalaryTrigger#"
+		        display="<span class='labelit' style='font-size:13px'>#Description#</span>"
+				parent="group_#TriggerGroup#"	
+				target="right"						
+				href="EntitlementViewOpen.cfm?ID=TRG&ID1=#SalaryTrigger#&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"									
+		        expand="No">		
+							   
+			</cfoutput> 	
 					
-		
-		
+	    </cfoutput>	
+				
 		 <cf_tl id="Cost recovery" var="vCost">	
+		 
+		 <cf_UItreeitem value="Recovery"
+		        display="<span class='labelit' style='font-size:18px;padding-bottom:3px;padding-top:3px'>#vCost#</span>"
+				parent="root"	
+				target="right"						
+				href="EntitlementViewOpen.cfm?ID1=&ID=PCR&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"									
+		        expand="No">				
+			
+</cf_UItree>
 		
-		<cftreeitem value="Recovery"
-        display="<span class='labelmedium' style='color:0080C0;font-size:18px;padding-bottom:3px'>#vCost#</span>"
-		parent="root"	
-		target="right"						
-		href="EntitlementViewOpen.cfm?ID1=&ID=PCR&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"		
-        expand="Yes">	
-		
-		
-</cftree>   
 	   

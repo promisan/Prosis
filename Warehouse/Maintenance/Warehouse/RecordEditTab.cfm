@@ -43,13 +43,13 @@
 	
 		function ask(id,idmenu) {
 			if (confirm("#msg1#")) {	
-				ColdFusion.navigate('RecordPurge.cfm?id1='+id+'&idmenu='+idmenu,'processWH');
+				ptoken.navigate('RecordPurge.cfm?id1='+id+'&idmenu='+idmenu,'processWH');
 			}	
 			return false	
 		}
 		
 		function applyunit(orgunit) {
-			ColdFusion.navigate('setUnit.cfm?orgunit='+orgunit,'processunit')
+			ptoken.navigate('setUnit.cfm?orgunit='+orgunit,'processunit')
 		}
 		
 		function editCategory(wh,cat) {
@@ -64,27 +64,23 @@
 		
 		function purgeCategory(wh,cat) {
 			if (confirm('Do you want to remove this category ?')) {
-				ColdFusion.navigate('Category/CategoryPurge.cfm?warehouse=' + wh + '&category=' + cat, wh + '_list');
+				ptoken.navigate('Category/CategoryPurge.cfm?warehouse=' + wh + '&category=' + cat, wh + '_list');
 			}
 		}
 		
 		function editProject(wh,prog) {
+		
 			var vWidth = 500;
-		   	var vHeight = 250;
-		   
-		   	try { ColdFusion.Window.destroy('mydialog'); } catch(er) {}
-		   	ColdFusion.Window.create('mydialog', 'Edit Project', '',{x:30,y:30,height:vHeight,width:vWidth,modal:true,center:true});    
-		   	ColdFusion.Window.show('mydialog'); 				
+		   	var vHeight = 250;	   		   	
+		   	ProsisUI.createWindow('mydialog', 'Edit Project', '',{x:30,y:30,height:vHeight,width:vWidth,modal:true,center:true});    		   			
 		   	ptoken.navigate("Program/ProgramEdit.cfm?warehouse=" + wh + "&programcode=" + prog + "&ts=" + new Date().getTime(),'mydialog');
 		}
 		
 		function addProject(wh,prog) {
+		
 			var vWidth = $(window).width() - 100;
-		   	var vHeight = $(window).height() - 100;
-		   
-		   	try { ColdFusion.Window.destroy('mydialog'); } catch(er) {}
-		   	ColdFusion.Window.create('mydialog', 'Add Projects', '',{x:30,y:30,height:vHeight,width:vWidth,modal:true,center:true});    
-		   	ColdFusion.Window.show('mydialog'); 				
+		   	var vHeight = $(window).height() - 100;		   		   
+		   	ProsisUI.createWindow('mydialog', 'Add Projects', '',{x:30,y:30,height:vHeight,width:vWidth,modal:true,center:true});    		   			
 		   	ptoken.navigate("Program/ProgramAddMultiple.cfm?warehouse=" + wh + "&ts=" + new Date().getTime(),'mydialog'); 
 		}
 		

@@ -9,7 +9,7 @@
   username="#SESSION.login#" 
   password="#SESSION.dbpw#">
 		SELECT   *
-		FROM     CustomerRequestLine 
+		FROM   vwCustomerRequest
 		<cfif url.transactionid neq "">
 		WHERE    TransactionId = '#url.transactionid#'			
 		<cfelse>

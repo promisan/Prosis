@@ -140,7 +140,7 @@ WHERE      ObjectId = '#URL.Objectid#'
 						 color="ffffff"	 
 						 resize="false"		
 						 border="0" 
-						 toolbar="Mini"
+						 toolbar="basic"
 						 height="90"
 						 width="99%"/>
 						 
@@ -150,7 +150,7 @@ WHERE      ObjectId = '#URL.Objectid#'
 						 color="ffffff"	 
 						 resize="false"		
 						 border="0" 
-						 toolbar="Mini" 
+						 toolbar="basic" 
 						 height="90"
 						 width="99%"/>
 						 				

@@ -381,26 +381,31 @@
 		
 		<cfcase value="UserGroup">	
 		
-			<CFParam name="Attributes.height" default="625">
-			<CFParam name="Attributes.width"  default="620">			
+			<CFParam name="Attributes.height" default="665">
+			<CFParam name="Attributes.width"  default="690">			
 				
-			<cfset jvlink = "ColdFusion.Window.create('dialog#box#', 'Find User Group', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,modal:true,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/UserGroup/UserGroup.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=&filter2value=','dialog#box#')">		
+			<cfset jvlink = "ProsisUI.createWindow('dialog#box#', 'User Group', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,modal:true,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/UserGroup/UserGroup.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=&filter2value=','dialog#box#')">		
 				
 			<cfif attributes.button eq "No">
 			
+				<table><tr><td>
 		    	<img src="#SESSION.root#/images/#icon#" alt="Click Here" border="0" align="absmiddle"
-				onclick="#preservesinglequotes(jvlink)#" style="cursor: pointer;">&nbsp;
-					 	<a href="javascript:#preservesinglequotes(jvlink)#" >						
-						#Attributes.title#</a>
+				onclick="#preservesinglequotes(jvlink)#" style="cursor: pointer;"></td>
+				<td style="padding-left:5px">
+				 	<a href="javascript:#preservesinglequotes(jvlink)#" >#Attributes.title#</a>
+				</td></tr></table>
 									
 			<cfelse>
 			
-				 <img src="#SESSION.root#/Images/#icon#" alt="Select user" name="img99" 
+				<table><tr><td>
+				 <img src="#SESSION.root#/Images/#icon#" alt="Select user group" name="img99" 
 						  onMouseOver="document.img99.src='#SESSION.root#/Images/contract.gif'" 
 						  onMouseOut="document.img99.src='#SESSION.root#/Images/#icon#'"
 						  style="cursor: pointer;" alt="" width="16" height="18" border="0" align="absmiddle" 
-						  onClick="#preservesinglequotes(jvlink)#">
-						  <a href="javascript:#preservesinglequotes(jvlink)#">#Attributes.title#</a>
+						  onClick="#preservesinglequotes(jvlink)#"></td>
+				<td style="padding-left:5px">		  
+				 	<a href="javascript:#preservesinglequotes(jvlink)#" >#Attributes.title#</a>
+				</td></tr></table>
 								
 			</cfif>	
 		

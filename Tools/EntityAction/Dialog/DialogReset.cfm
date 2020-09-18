@@ -105,7 +105,13 @@ Resetting the workflow will result in loosing process information you might have
 			</cfloop>
 		</select>
 		
+		</td>
+		</tr>
+		<tr>		
 		
+		<td class="labelit" style="padding-bottom:4px">		
+		Retain information elements and questionaires: <input type="checkbox" name="retain_#url.ObjectId#" id="retain_#url.ObjectId#" value="1" class="radiol">		
+		</td>		
 		
 	<cfelse>
 	
@@ -128,7 +134,7 @@ Resetting the workflow will result in loosing process information you might have
 	<input type="button" value="Close" style="font-size:15px" class="button10g" onclick="ProsisUI.closeWindow('wfreset')">
 	</td>
 	<td>
-	<input type="button" value="Apply" style="font-size:15px" class="button10g" onclick="resetwfapply('#url.objectid#','#url.ajaxid#',document.getElementById('archive').checked,document.getElementById('newclass_#url.objectid#').value)">
+	<input type="button" value="Apply" style="font-size:15px" class="button10g" onclick="resetwfapply('#url.objectid#','#url.ajaxid#',document.getElementById('archive').checked,document.getElementById('newclass_#url.objectid#').value,document.getElementById('retain_#url.objectid#').checked)">
 	</td>
 	</tr>
 	</table>

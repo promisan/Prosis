@@ -36,8 +36,9 @@
 		
 		<cfoutput>
 			<script>
-				ColdFusion.Window.hide('mydialog'); 
-				ColdFusion.navigate('Program/ProgramListing.cfm?warehouse=#form.warehouse#' + '&ts=' + new Date().getTime(), 'contentbox2'); 
+			    _cf_loadingtexthtml='';	
+				parent.ProsisUI.closeWindow('mydialog'); 
+				parent.ptoken.navigate('Program/ProgramListing.cfm?warehouse=#form.warehouse#','contentbox2'); 
 			</script>
 		</cfoutput>
 	
@@ -49,9 +50,7 @@
 			</script>
 		</cfoutput>
 	
-	</cfif>
-	
-	
+	</cfif>	
 
 <cfelse>
 
@@ -70,8 +69,9 @@
 		
 		<cfoutput>
 			<script>
-				ColdFusion.Window.hide('mydialog'); 
-				ColdFusion.navigate('Program/ProgramListing.cfm?warehouse=#form.warehouse#' + '&ts=' + new Date().getTime(), 'contentbox2'); 
+			    _cf_loadingtexthtml='';	
+				parent.ProsisUI.closeWindow('mydialog'); 
+				parent.ptoken.navigate('Program/ProgramListing.cfm?warehouse=#form.warehouse#','contentbox2'); 
 			</script>
 		</cfoutput>
 	
@@ -84,7 +84,5 @@
 		</cfoutput>
 	
 	</cfif>
-
-	
 
 </cfif>

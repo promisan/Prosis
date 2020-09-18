@@ -106,14 +106,14 @@
 		<cfoutput>		     
 		
 			<table width="99%" align="center">
-				<tr><td height="30" align="center" class="labelmedium"><font color="gray"><cf_tl id="Information was submitted"> <b>#timeformat(now(),"HH:MM")#</td></tr>
-				<tr><td height="1" class="linedotted"></td></tr>
+				<tr class="line"><td height="30" align="center" class="labelmedium"><font color="gray"><cf_tl id="Information was submitted"> <b>#timeformat(now(),"HH:MM")#</td></tr>				
 			</table>
 						
 			<cfif url.submitaction eq "embedsave">
 			
+				<cfparam name="#client.processtab#" default="2">
 				<script>				 				  			  
-				  document.getElementById('menu2').click()				  			 		  
+				  document.getElementById('menu#client.processtab#').click()				  			 		  
 				</script>			
 			
 			<cfelse>
@@ -786,6 +786,7 @@
 		<cfparam name="form.actionmailsubject"  default="">
 		<cfparam name="form.actionmailbody"     default="">
 		<cfparam name="form.actionmailpriority" default="">
+		<cfparam name="form.actionmailfrom"     default="">
 		
 		<cfif form.actionmailsubject neq "" or form.sendto neq "">
 		
@@ -822,6 +823,7 @@
 							ObjectId,
 							ActionCode,
 							ActionId, 
+							MailFrom,
 							MailType,
 							MailTo, 
 							MailCc,
@@ -838,6 +840,7 @@
 						   '#Object.ObjectId#',
 						   '#Action.ActionCode#',
 						   '#url.id#', 	
+						   '#form.actionMailFrom#',
 						   'generated',			   
 						   '#form.sendto#',
 						   '#form.sendcc#',

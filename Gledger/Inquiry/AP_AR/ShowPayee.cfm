@@ -10,7 +10,7 @@
 	datasource="AppsQuery" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-		SELECT   DISTINCT TOP 10 ReferenceName, 
+		SELECT   DISTINCT TOP 12 ReferenceName, 
 		         Currency, 
 				 SUM(Amount) as Amount, 
 				 SUM(CASE WHEN Amount > 0 THEN AmountOutstanding ELSE AmountOutstanding*-1 END) as Outstanding
@@ -31,16 +31,12 @@
 	--->
 	
 	
-	<table width="97%" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+	<table width="97%" align="center" class="navigation_table">
 		
 	<cfif findNoCase("ReferenceName","#CLIENT.Payables#")> 
-
 	<tr><td colspan="4" class="labelmedium"><cf_tl id="Summary"></td></tr>
-
-	<cfelse>
-	
-	<tr><td colspan="4" height="20" class="labelmedium"><cf_tl id="Top 10"></td></tr>	
-	
+	<cfelse>	
+	<tr><td colspan="4" height="20" class="labelmedium"><cf_tl id="Top 12"></td></tr>		
 	</cfif>
 	
 	<cfif url.mode eq "AP">
@@ -50,15 +46,16 @@
 	</cfif>
 	
 	<tr class="labelmedium">
-		<td style="border:1px solid silver;padding-left:4px"><cf_tl id="#vLabel#"></td>
-		
+		<td style="border:1px solid silver" align="center"></td>
+		<td style="border:1px solid silver;padding-left:4px"><cf_tl id="#vLabel#"></td>		
 		<td style="border:1px solid silver" align="center"><cf_tl id="Curr"></td>
 		<td style="border:1px solid silver;padding-right:3px" align="right"><cf_tl id="Amount"></td>
 		<td style="border:1px solid silver;padding-right:3px" align="right"><cf_tl id="Outstanding"></td>
 	</tr>
 	
 	<cfoutput query="Payee">
-	<tr class="navigation_row line labelmedium" onclick="javascript:Prosis.busy('yes');_cf_loadingtexthtml='';ptoken.navigate('InquiryListing.cfm?mode=#url.mode#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#&filter=customer&value=#referencename#','listbox')">
+	<tr class="navigation_row line labelmedium" style="height:20px" onclick="javascript:Prosis.busy('yes');_cf_loadingtexthtml='';ptoken.navigate('InquiryListing.cfm?mode=#url.mode#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#&filter=customer&value=#referencename#','listbox')">
+	    <td align="center">#Currentrow#</td>
 	    <td style="height:19px;padding-left:4px">#ReferenceName#</td>		
 		<td style="min-width:40px;padding-right:3px" align="center">#Currency#</td>
 		<td style="min-width:70px;padding-right:3px" align="right">#numberformat(amount,',__')#</td>
@@ -69,8 +66,7 @@
 	</table>
 	
 	<cfset ajaxonload("doHighlight")>
-	
-	
+		
 <script>
 	Prosis.busy('no')
 </script>

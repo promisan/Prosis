@@ -43,6 +43,9 @@ password="#SESSION.dbpw#">
 	
 		</cfif>
 		
+		<cfparam name="Form.DateEffective" default="#dateformat(now(),client.dateformatshow)#">
+		<cfparam name="Form.DateExpiration" default="#dateformat(now(),client.dateformatshow)#">
+		
 		<cfset dateValue = "">
 		<CF_DateConvert Value="#Form.DateEffective#">
 		<cfset STR = dateValue>
@@ -229,30 +232,5 @@ password="#SESSION.dbpw#">
 		Key01           = "FunctionId"
 		Key01Value      = "#id#"
 		Officer         = "N">
-		
-<!---		
 	
-<cfsavecontent variable="text">
-
-	<cfquery name="Document" 
-	 datasource="appsSelection" 
-	 username="#SESSION.login#" 
-	 password="#SESSION.dbpw#">
-			SELECT *
-			FROM FunctionOrganizationNotes N, Ref_TextArea R
-			WHERE FunctionId = '#id#'
-			AND N.TextAreaCode = R.Code
-			ORDER BY ListingOrder
-	</cfquery>
-
-	<br>
-	<b>Vacancy announcement</b>
-		
-	<cfoutput query="document">		 	
-	 <b><u>#Description#</u></b><br>#ProfileNotes#<p></p>	 	 					
-	</cfoutput>		
-
-</cfsavecontent>	
-
---->	
 		

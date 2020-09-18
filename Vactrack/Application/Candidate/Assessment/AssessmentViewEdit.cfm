@@ -1,10 +1,9 @@
 
-<!--- text reviewer --->
-
 <cf_screentop label="Review" html="No" jquery="Yes">
 
 <cfparam name="url.documentNo" default="1000">
-<cfparam name="url.ActionCode" default="VAD002">
+<cfparam name="url.ActionCode" default="VAD999">
+<cfparam name="url.PersonNo"   default="">
 <cfparam name="url.Status"     default="1">
 <cfparam name="url.Mode"       default="view">
 
@@ -16,6 +15,7 @@
 	FROM          DocumentCandidate
 	WHERE 		  DocumentNo = '#url.documentno#' 
 	and           Status IN ('1','2','2s')
+	AND           EntityClass is NULL
 </cfquery>
 
 <cfquery name="getPhrases" 
@@ -35,54 +35,57 @@
 
 <!--- change or the evaluator score, change text, change content --->
 
-<cfoutput>
+<cfinclude template="AssessmentViewScript.cfm">
 
-<script>
-	function applytext(itm,doc,per,com,act,mde,usr) {		
-	   _cf_loadingtexthtml='';	
-		ptoken.navigate('#session.root#/Vactrack/Application/Candidate/Assessment/AssessmentContent.cfm?itm='+itm+'&documentno='+doc+'&personno='+per+'&competenceid='+com+'&actioncode='+act+'&mode='+mde+'&useraccount='+usr,'box'+itm)	
-	}
-	
-	function applyeval(itm,doc,per,act,com,usr,frm,fld) {		    
-		ptoken.navigate('#session.root#/Vactrack/Application/Candidate/Assessment/setAssessment.cfm?itm='+itm+'&documentno='+doc+'&personno='+per+'&actioncode='+act+'&competenceid='+com+'&useraccount='+usr+'&formfield='+frm+'&field='+fld,'result_'+itm,'','','POST','textevaluation')		
-	}
-</script>
+<cfoutput>
 
 <cf_textareascript>
 
 <form method="post" name="textevaluation" id="textevaluation">
 
 	<table height="100%" width="100%" class="formspacing" style="background-color:white">
-	
-	<tr class="line labelmedium"><td style="padding-top:10px;height:40px;font-size:20px;padding-left:10px"><cf_tl id="Reviewer">: #session.first# #session.last#</td></tr>
-	
-	<tr><td style="padding:5px">
 			
+	<tr class="labelmedium"><td style="height:40px;font-size:20px;padding-left:10px">
+	<cfif url.mode eq "Edit">
+	<cf_tl id="Apply received answers">: #session.first# #session.last#
+	<cfelse>
+	<cf_tl id="Reviewer">: #session.first# #session.last#
+	</cfif>
+	</td>
+	<td align="right" style="font-size:17px;padding-right:8px"><a href="javascript:showquestion('#url.documentNo#','#url.personno#','#url.actioncode#','#url.mode#')">View Questions and submitted answers</a></td>
+	
+	</tr>
+		
+	<tr><td style="padding:5px" colspan="2">
+		    			
 		<table height="100%" width="100%" class="formspacing">
 		<tr style="height:20px" class="line labelmedium">
 		
 			<cfloop index="itm" from="1" to="#url.boxes#">
-			<td>
+			<td>			
+			
 				<table style="border:1px solid silver;border-bottom:0px;width:100%">
+								
 				<tr class="labelmedium line">
 				    <td style="background-color:f4f4f4;padding-left:5px"><cf_tl id="Candidate"></td>
 					<td>
 					<select id="personno_#itm#" name="personno_#itm#" style="width:100%;border:0px; border-left:1px solid silver" class="regularxxl" id="personno_#itm#" 
-					onchange="applytext('#itm#','#url.documentno#',this.value,document.getElementById('topic_#itm#').value,'#url.actioncode#','#url.mode#')">					
+					onchange="getContent('#itm#','#url.documentno#',this.value,document.getElementById('topic_#itm#').value,'#url.actioncode#','#url.mode#','#session.acc#')">					
 					<cfif itm gt "1">
 					<option value="">-- select --</option>
 					</cfif>
 					<cfloop query="getPerson">
-						<option value="#PersonNo#">#FirstName# #LastName#</option>
+						<option value="#PersonNo#" <cfif url.personno eq personno>selected</cfif>><cfif url.mode eq "View">Candidate #currentrow#<cfelse>#FirstName# #LastName#</cfif></option>
 					</cfloop>				
 					</select>				
 					</td>
-				</tr>
-				<tr class="labelmedium line">
+				</tr>				
+				
+				<tr class="labelmedium <cfif url.mode eq 'View'>line</cfif>">
 				    <td style="background-color:f4f4f4;padding-left:5px"><cf_tl id="Question"></td>
 					<td>
 					<select id="topic_#itm#" name="topic_#itm#" style="width:100%;border:0px; border-left:1px solid silver" class="regularxxl" id="personno_#itm#" 
-					onchange="applytext('#itm#','#url.documentno#',document.getElementById('personno_#itm#').value,this.value,'#url.actioncode#','#url.mode#','#session.acc#')">					
+					onchange="getContent('#itm#','#url.documentno#',document.getElementById('personno_#itm#').value,this.value,'#url.actioncode#','#url.mode#','#session.acc#')">					
 					<cfif itm gt "1">
 					<option value="">-- select --</option>
 					</cfif>
@@ -93,8 +96,16 @@
 					
 					</td>
 				</tr>	
-				<tr class="labelmedium line">
-				    <td style="background-color:f4f4f4;padding-left:5px">Evaluation</td>
+						
+							
+				<cfif url.mode eq "Edit">
+					<cfset cl = "hide">
+				<cfelse>
+				    <cfset cl = "">
+				</cfif>
+								
+				<tr class="labelmedium line #cl#">
+				    <td style="background-color:f4f4f4;padding-left:5px"><cf_tl id="Evaluation"></td>
 					<td>
 					
 					<cfif itm eq "1">
@@ -118,8 +129,7 @@
 					<cfelse>
 					
 						<cfset score = "0">
-						<cfset memo  = "">
-						
+						<cfset memo  = "">						
 						
 					</cfif>
 										
@@ -135,54 +145,57 @@
 					</select>								
 					
 					</td>
-				</tr>	
-				
+				</tr>					
+								
 				<tr class="hide"><td id="result_#itm#"></td></tr>
 				
 				<cfset lkt = "applyeval('#itm#','#url.documentno#',document.getElementById('personno_#itm#').value,'#url.actioncode#',document.getElementById('topic_#itm#').value,'#session.acc#','memo_#itm#','memo')">
 				
-				<cfparam name="get.AssessmentMemo" default="">
-									
-				<tr class="labelmedium">	
+				<cfparam name="get.AssessmentMemo" default="">				
+													
+				<tr class="labelmedium #cl#">	
 					<td valign="top" style="padding-top:5px;background-color:f4f4f4;padding-left:5px"><cf_tl id="Comments"></td>			    		
 					<td>
 					<textarea name="memo_#itm#" id="memo_#itm#" disabled onchange="#lkt#"
 					  style="border:0px;border-left:1px solid silver;background-color:ffffaf;font-size:15px;padding:4px;resize: none;width:100%;height:70px">#memo#</textarea>
 					</td>										
-				</tr>				
+				</tr>	
+						
 				</table>
+				
+				
 			</td>
-			</cfloop>
-			
+			</cfloop>			
 		</tr>
-			
+					
 		<tr>
 		<cfloop index="itm" from="1" to="#url.boxes#">
 		
 		<td style="height:95%;width:50%;padding:4px;border:1px solid silver;border-top:0px" valign="top">	
 		
 			<cfif itm eq "1">
-			
+						
 		    <cf_securediv style="height:100%" 
-			  bind="url:#session.root#/Vactrack/Application/Candidate/Assessment/AssessmentContent.cfm?itm=#itm#&documentno=#url.documentno#&personno=#getPerson.PersonNo#&actioncode=#url.actioncode#&competenceid=#getPhrases.Topicid#&mode=#url.mode#&useraccount=#session.acc#" 
+			  bind="url:#session.root#/Vactrack/Application/Candidate/Assessment/AssessmentViewEditContent.cfm?itm=#itm#&documentno=#url.documentno#&personno=#url.PersonNo#&actioncode=#url.actioncode#&competenceid=#getPhrases.Topicid#&mode=#url.mode#&useraccount=#session.acc#" 
 			 id="box#itm#">
-			 			 
+						 			 
 			<cfelse>
 			
-			<cfdiv style="height:100%" id="box#itm#"/>		
-			
+			<cfdiv style="height:100%" id="box#itm#"/>														
 									
-			</cfif>
+			</cfif>					
+			
 		</td>
 		
 		</cfloop>	
-		</tr>
-				
+		
+		</tr>				
 		</table>
-	
+			
 	</td></tr>
 	</table>
 
 </form>
 
 </cfoutput>
+

@@ -112,10 +112,10 @@ password="#SESSION.dbpw#">
 				   <table cellspacing="0" cellpadding="0">
 				   <tr>
 				   <td>	
-					<cf_img icon="edit" navigation="Yes" onclick="ColdFusion.navigate('#SESSION.root#/System/Modules/Functions/Group.cfm?ID=#URL.ID#&ID1=#account#','igroup')">
+					<cf_img icon="edit" navigation="Yes" onclick="ptoken.navigate('#SESSION.root#/System/Modules/Functions/Group.cfm?ID=#URL.ID#&ID1=#account#','igroup')">
 				   </td>
 				   <td style="padding-left:6px;padding-right:5px;">
-					 <cf_img icon="delete" onclick="ColdFusion.navigate('#SESSION.root#/System/Modules/Functions/GroupPurge.cfm?ID=#URL.ID#&ID1=#account#','igroup')">
+					 <cf_img icon="delete" onclick="ptoken.navigate('#SESSION.root#/System/Modules/Functions/GroupPurge.cfm?ID=#URL.ID#&ID1=#account#','igroup')">
 				   </td>			   
 				   </tr>
 				   </table>

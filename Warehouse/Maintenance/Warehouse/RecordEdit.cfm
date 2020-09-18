@@ -551,7 +551,7 @@ password="#SESSION.dbpw#">
 				SELECT  *
 				FROM    Warehouse 
 				WHERE   Mission = '#get.Mission#' 
-				AND     (SupplyWarehouse = '' OR SupplyWarehouse is NULL)
+				-- AND     (SupplyWarehouse = '' OR SupplyWarehouse is NULL)
 				AND     Warehouse != '#get.Warehouse#'
 				ORDER BY City
 			</cfquery>		

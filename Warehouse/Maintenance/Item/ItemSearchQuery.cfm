@@ -35,13 +35,21 @@
     FieldName="#Form.Crit7_FieldName#"
     FieldType="#Form.Crit7_FieldType#"
     Operator="#Form.Crit7_Operator#"
-    Value="#Form.Crit7_Value#">
+    Value="#Form.Crit7_Value#">	
+	
+<cfset client.search = criteria>	
+	
+<CF_Search_AppendCriteria
+    FieldName="#Form.Crit8_FieldName#"
+    FieldType="#Form.Crit8_FieldType#"
+    Operator="#Form.Crit8_Operator#"
+    Value="#Form.Crit8_Value#">
 
+<cfset client.fbarcode = URLEncodedFormat(form.Crit8_Value)>
+	
 <cfparam name="form.Crit9_Value" default="">		
 <cfparam name="form.Crit10_Value" default="">
 
-
-<cfset client.search = criteria>
 <cfset client.fmission = URLEncodedFormat(form.Crit6_Value)>
 	
 <cflocation url="ItemSearchResult.cfm?idmenu=#url.idmenu#&used=#URLEncodedFormat(form.Crit9_Value)#&fmission=#URLEncodedFormat(form.Crit6_Value)#&programcode=#URLEncodedFormat(form.Crit10_Value)#" addtoken="No">	

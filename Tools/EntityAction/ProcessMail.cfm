@@ -3,6 +3,8 @@
 
 <cfparam name="counter" default="0">
 
+<cfparam name="eMailType" default="STANDARD">
+
 <cfquery name="Org" 
 	 datasource="AppsOrganization"
 	 username="#SESSION.login#" 

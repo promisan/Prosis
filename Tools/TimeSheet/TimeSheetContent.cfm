@@ -362,14 +362,14 @@
 				
 					<cfset str   = "1">
 					<cfset end   = "#daysinmonth(session.timesheet["DateStart"])#">
-					<cfset pad   = "34"> 
+					<cfset pad   = "23"> 
 					<cfset cwd   = "28">
 					
 				<cfelse>
 				  
 				    <cfset str   = "0">
 		   	        <cfset end   = "41">
-					<cfset pad   = "34"> 
+					<cfset pad   = "23"> 
 					<cfset cwd   = "28">
 				  
 				</cfif>							

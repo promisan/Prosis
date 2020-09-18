@@ -272,31 +272,30 @@ SELECT *
 	}
 	
 	function arrivalrefresh() {	
-	    ColdFusion.navigate('CandidateWorkflow.cfm?id=#url.id#&id1=#url.id1#&ajaxid=#getCandidateStatus.CandidateId#','#getCandidateStatus.CandidateId#');		
+	    ptoken.navigate('CandidateWorkflow.cfm?id=#url.id#&id1=#url.id1#&ajaxid=#getCandidateStatus.CandidateId#','#getCandidateStatus.CandidateId#');		
 	}		
 	
 	function withdraw() {
 	
-		if (confirm("Do you want to withdraw this candidate ?")) {
-			ptoken.location('CandidateWithdraw.cfm?ID=#URL.ID#&ID1=#URL.ID1#')
+		if (confirm("Do you want to withdraw this candidate and revert the workflow back to support a new selection process ?")) {
+			ptoken.location('setCandidateWithdraw.cfm?ID=#URL.ID#&ID1=#URL.ID1#')
 		}	
 		return false	
 	}	
 	
 	function revoke() {
 	
-		if (confirm("Do you want to revoke the current track and define this again ?")) {
-			ptoken.location('CandidateRevokeTrack.cfm?ID=#URL.ID#&ID1=#URL.ID1#')
+		if (confirm("Do you want to revoke the current track and revert to the last step of the recruitment flow ?")) {
+			ptoken.location('setCandidateRevokeTrack.cfm?ID=#URL.ID#&ID1=#URL.ID1#')
 		}	
 		return false	
 	}	
 	
-	function note() {
-	
-	 	w = #CLIENT.width# - 100;
-		h = #CLIENT.height# - 160;
-		ptoken.open("#SESSION.root#/Vactrack/Application/Candidate/CandidateInterview.cfm?DocumentNo=#URL.ID#&PersonNo=#URL.ID1#&ActionCode=view", "_blank", "left=30, top=30, width=" +w+ ", height=" +h+ ", toolbar=no, menubar=no, status=yes, scrollbars=yes, resizable=yes");	
+	function note() {	
 		
+		ProsisUI.createWindow('interviewbox','Interview record','',{x:100,y:100,width:document.body.offsetWidth-100,height:document.body.offsetHeight-90,modal:true,center:true})
+		ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/Interview/CandidateInterview.cfm?DocumentNo=#URL.ID#&PersonNo=#URL.ID1#&ActionCode=view','interviewbox')
+			
 	}
 
 </script>

@@ -147,7 +147,7 @@
 		<cf_trackUser>
 	</cfif>
 					
-	<cfif Attributes.VerifyCSRF eq "ccccc">
+	<cfif Attributes.VerifyCSRF eq "1">
 								
 		<cfif (CGI.SCRIPT_NAME eq "/apps/Component/Process/Workorder/UploadPicture.cfm" AND 
 		       findNoCase("android", GetHttpRequestData().Headers["user-agent"]) neq 0) 

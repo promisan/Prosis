@@ -9,11 +9,11 @@
 </cfquery>
 
 <cfif qWarehouse.saleMode eq "2" or qWarehouse.SaleMode eq "3">
-	<cfset areaList = "STOCK,COGS,SALE,SETTLE">
+	<cfset areaList = "STOCK,INTEROFFICE,COGS,SALE,SETTLE">
 <cfelseif qWarehouse.saleMode eq "1" >
-    <cfset areaList = "STOCK,COGS,SALE">
+    <cfset areaList = "STOCK,INTEROFFICE,COGS,SALE">
 <cfelseif qWarehouse.saleMode eq "0">
-    <cfset areaList = "STOCK">
+    <cfset areaList = "STOCK,INTEROFFICE">
 </cfif>	
 
 <cfquery name="Currency" 

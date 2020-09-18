@@ -272,7 +272,7 @@ password="#SESSION.dbpw#">
 			   <td height="19" width="26">#currentrow#.</td>			  
 			   <td>#LineDescription#</td>			 
 			   <td width="40">#LineReference#</td>	
-			   <td align="right">#numberformat(LineAmount,"__,__.__")#</td>			 
+			   <td align="right">#numberformat(LineAmount,",.__")#</td>			 
 		    </tr>		
 			
 			<tr><td colspan="4">

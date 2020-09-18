@@ -50,8 +50,9 @@
 			AND    DC.Status = R.Status
 			AND    D.DocumentNo = DC.DocumentNo
 			AND    R.Class = 'Candidate' 
-			AND    A.PersonNo = DC.PersonNo 			
-			AND    DC.Status NOT IN ('2s','3')
+			AND    A.PersonNo = DC.PersonNo 	
+			AND    DC.Status NOT IN ('3')		
+			-- AND    DC.Status NOT IN ('2s','3')
 			ORDER BY DC.Status DESC, DOB, A.LastName
 		</cfquery>
 		
@@ -310,36 +311,84 @@
 		<td>#Description#<cfif Status eq "2s" and CandidateClass eq "">&nbsp;<b>:&nbsp;Flow</b></cfif></td>
 		<td width="30">
 		
-		<cfif TsInterviewStart neq "">
+		<table>
+		<tr>
 		
-				<cfquery name="Check" 
-				datasource="AppsOrganization" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-				    SELECT  TOP 1 *
-				    FROM    Vacancy.dbo.DocumentCandidateInterview
-					WHERE   DocumentNo = '#url.ajaxid#'
-					AND     PersonNo   = '#PersonNo#'
-					ORDER By Created DESC
-				</cfquery>
+			<cfquery name="Check" 
+					datasource="AppsOrganization" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+					    SELECT  TOP 1 *
+					    FROM    Vacancy.dbo.DocumentCandidateReviewAction
+						WHERE   DocumentNo = '#url.ajaxid#'
+						AND     PersonNo   = '#PersonNo#'
+						ORDER By Created DESC
+					</cfquery>
 		
-		     <img src="#SESSION.root#/Images/interview.gif" alt="See interview notes" 
-				name="a#CurrentRow#" border="0" class="regular" 
-				onMouseOver="document.a#currentrow#.src='#SESSION.root#/Images/interview.gif'" 
-				onMouseOut="document.a#currentrow#.src='#SESSION.root#/Images/interview.gif'"
-				align="ansmiddle" style="cursor: pointer;" 
-				onClick="personnote('#PersonNo#','view')">
-				
-		<cfelse>
+			<cfif check.recordcount gte "1">
+			<td>
+			
+			  <img src="#SESSION.root#/Images/Logos/System/mailout.png" alt="Recruitment review, testing and interview log activities" 
+					name="b#CurrentRow#" border="0" class="regular" 
+					onMouseOver="document.b#currentrow#.src='#SESSION.root#/Images/Logos/System/mailout.png'" 
+					onMouseOut="document.b#currentrow#.src='#SESSION.root#/Images/Logos/System/mailout.png'"
+					style="width:22px;height:21px"
+					align="ansmiddle" style="cursor: pointer;" 
+					onClick="personaction('#PersonNo#','view')">		
+			
+			</td>
+			
+			<td style="padding-left:4px;padding-top:1px">
+			
+			 <img src="#SESSION.root#/Images/Logos/System/test1.png" alt="Test and test results" 
+					name="b#CurrentRow#" border="0" class="regular" 					
+					style="width:27px;height:15px"
+					align="ansmiddle" style="cursor: pointer;" 
+					onClick="persontest('#PersonNo#','view')">		
+			</td>		
+					
+			</cfif>
+			
+			<td style="padding-left:4px;padding-right:7px;padding-top:1px">
+			
+			<cfif TsInterviewStart neq "">
+			
+					<cfquery name="Check" 
+					datasource="AppsOrganization" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+					    SELECT  TOP 1 *
+					    FROM    Vacancy.dbo.DocumentCandidateInterview
+						WHERE   DocumentNo = '#url.ajaxid#'
+						AND     PersonNo   = '#PersonNo#'
+						ORDER By Created DESC
+					</cfquery>
+					
+				 <cfif check.recordcount eq "1">	
+			
+			     <img src="#SESSION.root#/Images/Logos/System/Microphone.png?0" alt="Interview record" 
+					name="a#CurrentRow#" border="0" class="regular" 
+					onMouseOver="document.a#currentrow#.src='#SESSION.root#/Images/Logos/System/Microphone.png'" 
+					onMouseOut="document.a#currentrow#.src='#SESSION.root#/Images/Logos/System/Microphone.png'"
+					style="width:20px;height:16px"
+					align="ansmiddle" style="cursor: pointer;" 
+					onClick="personnote('#PersonNo#','view')">
+					
+				  </cfif>	
+									
+			</cfif>
+			
+			</td>
 		
-			<!--- --->
-				
-		</cfif>
+			
+		
+		</tr>
+		
+		</table>
 		
 		</td>
 		
-		<td>
-		
+		<td>		
 		
 		<cfif reviewInitiated eq "0">
 		
@@ -352,21 +401,34 @@
 		</td>
 		
 		<td>	
-									
-			<cfparam name="dialogAccess" default="edit">	
-									
-			<cfif Status lte "2s">
-					
-				<cfif (dialogAccess eq "EDIT" and Actions.ActionStatus eq "0") or getAdministrator("#doc.Mission#") eq "1">				 
-				   <cf_img icon="delete" onClick="personcancel('#URL.ajaxid#','#PersonNo#','#url.line#','DocumentCandidateDeleteSubmit.cfm')">				   			 
-			    </cfif>
+		
+			<cfquery name="Doc" 
+				datasource="AppsOrganization" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+				    SELECT  *
+				    FROM    Vacancy.dbo.Document
+					WHERE   DocumentNo = '#url.ajaxid#'					
+			</cfquery>
 			
-			<cfelseif Status eq "6" <!--- stalled ---> or Status eq "9" <!--- withdrawm --->>
+			<cfif doc.status eq "0">
+									
+				<cfparam name="dialogAccess" default="edit">	
+										
+				<cfif Status lte "2s">
+						
+					<cfif (dialogAccess eq "EDIT" and Actions.ActionStatus eq "0") or getAdministrator("#doc.Mission#") eq "1">				 
+					   <cf_img icon="delete" onClick="personcancel('#URL.ajaxid#','#PersonNo#','#url.line#','DocumentCandidateDeleteSubmit.cfm')">				   			 
+				    </cfif>
 				
-				<cfif (dialogAccess eq "EDIT" and Actions.ActionStatus eq "0") or getAdministrator("#doc.Mission#") eq "1">			
-				<a href="javascript:reinstate('#URL.ajaxid#','#PersonNo#')">[reinstate]</a>
-				</cfif>
+				<cfelseif Status eq "6" <!--- stalled ---> or Status eq "9" <!--- withdrawm --->>
 					
+					<cfif (dialogAccess eq "EDIT" and Actions.ActionStatus eq "0") or getAdministrator("#doc.Mission#") eq "1">			
+					<a href="javascript:reinstate('#URL.ajaxid#','#PersonNo#')">[reinstate]</a>
+					</cfif>
+						
+				</cfif>
+			
 			</cfif>
 		</td>
 		

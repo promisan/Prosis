@@ -115,7 +115,7 @@
 						<INPUT type="hidden" name="Crit4_FieldName_#url.box#" id="Crit4_FieldName_#url.box#" value="ItemNoExternal">		
 						<INPUT type="hidden" name="Crit4_FieldType_#url.box#" id="Crit4_FieldType_#url.box#" value="CHAR">
 						<TR>
-						<TD class="labelit"><cf_tl id="Barcode">:</TD>
+						<TD class="labelit"><cf_tl id="External code">:</TD>
 						
 						<TD>
 							<table cellspacing="0" cellpadding="0" class="formspacing">
@@ -129,7 +129,26 @@
 							</tr>
 							</table>					
 						</TD>
-						</TR>				
+						</TR>		
+						
+						<INPUT type="hidden" name="Crit5_FieldName_#url.box#" id="Crit5_FieldName_#url.box#" value="ItemBarcode">		
+						<INPUT type="hidden" name="Crit5_FieldType_#url.box#" id="Crit5_FieldType_#url.box#" value="CHAR">
+						<TR>
+						<TD class="labelit"><cf_tl id="Barcode">:</TD>
+						
+						<TD>
+							<table cellspacing="0" cellpadding="0" class="formspacing">
+							<tr><td>	
+							<SELECT name="Crit5_Operator_#url.box#" id="Crit4_Operator_#url.box#" class="regularxl">
+								#SelectOptions#
+							</SELECT>
+							</td><td>			
+							<INPUT type="text" class="regularxl" name="Crit5_Value_#url.box#" id="Crit5_Value_#url.box#" size="20"> 
+							</td>
+							</tr>
+							</table>					
+						</TD>
+						</TR>					
 				
 				</cfif>
 						

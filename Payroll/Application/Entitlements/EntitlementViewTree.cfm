@@ -13,8 +13,6 @@
 
 <cf_divscroll style="height:100%">
 
-<cfform method="POST" name="treeview">
-
 <table width="95%" align="center">
    	 			
 	  <tr><td style="padding-top:17px; padding-left:5px">	
@@ -27,8 +25,7 @@
 	 </td></tr>	
 		 		 
 </table>	
- 	 
-</cfform>	
+	 
 
 </cf_divscroll>
 

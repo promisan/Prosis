@@ -9,12 +9,13 @@ CKEDITOR.editorConfig = function( config ) {
 		
 	// Toolbar configuration generated automatically by the editor based on config.toolbarGroups.
 	config.toolbar = [
-		{ name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Print'] },
-		{ name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'Cut', 'Copy', 'Paste', 'PasteText','PasteFromWord', '-', 'Undo', 'Redo' ] },
+		{ name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Source','Print'] },
+		{ name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'Cut', 'Copy', 'Paste', '-', 'Undo', 'Redo' ] },
 		{ name: 'paragraph', 
 				groups: [ 'list', 'align'], 
-				items: [ 'NumberedList', 'BulletedList', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] 
+				items: [ 'NumberedList', 'BulletedList' ]
 		},
+		{ name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
 		{ name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ], items: [ 'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt' ] },
 		{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline','FontSize','TextColor','Table' ] }
 	];

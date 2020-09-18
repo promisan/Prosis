@@ -12,20 +12,26 @@
       ,Created
   	FROM Employee.dbo.Ref_Relationship
 </cfquery>
-  
+
 <cfquery name="qTransaction"
-	datasource="AppsTransaction" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-	SELECT * FROM dbo.Sale#URL.Warehouse#
-	WHERE TransactionId = '#URL.Id#'
+		datasource="AppsMaterials"
+		username="#SESSION.login#"
+		password="#SESSION.dbpw#">
+	SELECT   *
+	FROM  vwCustomerRequest
+	<cfif url.id neq "">
+		WHERE    TransactionId = '#url.id#'
+	<cfelse>
+		WHERE    1=0
+	</cfif>
 </cfquery>
+
 
 <cfinclude template="PreparationBeneficiary.cfm">
 
 <cfquery name="qBeneficiaries"
-	datasource="AppsTransaction" 
-	username="#SESSION.login#" 
+	datasource="AppsTransaction"
+	username="#SESSION.login#"
 	password="#SESSION.dbpw#">
 	SELECT * FROM dbo.Sale#URL.Warehouse#Beneficiary
 	WHERE TransactionId = '#URL.Id#'
@@ -58,8 +64,7 @@
 						     onclick="_cf_loadingtexthtml='';ptoken.navigate('#client.virtualdir#/warehouse/Application/SalesOrder/POS/Sale/setBeneficiary.cfm?warehouse=#url.warehouse#&BeneficiaryId=#qBeneficiaries.BeneficiaryId#&id=#transactionid#&CustomerId=#qBeneficiaries.CustomerId#&crow=#url.crow#&action=delete','Beneficiary_#url.crow#')">
 						
 					</td>
-					<td style="height:20px;padding-left:3px" width="2%" align="right">
-						
+					<td style="height:20px;padding-left:3px" width="2%" align="right">						
 						
 						<cfquery name="AllBeneficiaries"
 							datasource="AppsTransaction" 
@@ -95,12 +100,12 @@
 							)
 							AND   Len(FirstName)>2
 						</cfquery>							
-						
-						
+												
 						<cfif AllBeneficiaries.recordcount neq 0>
 							<img src="#SESSION.root#/images/circulation-blue.png" 
 						     alt="Change Beneficiary" border="0" width="24" height="24" style="cursor:pointer" class="clsNoPrint" 
 						     onclick="_cf_loadingtexthtml='';ptoken.navigate('#client.virtualdir#/warehouse/Application/SalesOrder/POS/Sale/setBeneficiary.cfm?warehouse=#url.warehouse#&BeneficiaryId=#qBeneficiaries.BeneficiaryId#&id=#transactionid#&CustomerId=#qBeneficiaries.CustomerId#&crow=#url.crow#&action=change','Beneficiary_detail_#url.crow#_#i#')">
+							 
 						</cfif>     
 						
 					</td>					

@@ -21,42 +21,49 @@
    returnvariable   = "accessextended">	   
    
 <cf_divscroll>
-
-<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding">
-   
-  <tr><td valign="top" style="padding-left:20px">
-  
-    <cfform>
-	
-	    <table width="98%" border="0" cellspacing="0" cellpadding="0" align="left">
+    	
+    <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding">
 				  
-		  <tr><td style="font-size:19px;height:40px;font-weight:200" class="labelmedium"><cf_tl id="Office attendance"></td></tr>	
+		  <tr><td style="font-size:19px;height:40px" class="labelit"><cf_tl id="Office attendance"></td></tr>	
 	 	
+
 		  <tr>
 	        <td valign="top"> 
 											
 			    <cf_tl id="#url.mission#" var="1">	
 									
-				<cftree name="idtree" fontsize="12" bold="No" format="html" required="No">
+				<cf_UItree name="idtree" fontsize="12" bold="No" format="html" required="No">
 				
-	 		     <cftreeitem 
-				  bind="cfc:service.Tree.OrganizationTree.getNodes({cftreeitempath},{cftreeitemvalue},'#url.mission#','#mandate.mandateno#','OrganizationListing.cfm','ATT','#lt_text#')">  		 
+	 		     <cf_UItreeitem
+				  bind="cfc:service.Tree.OrganizationTree.getNodesV2({cftreeitempath},{cftreeitemvalue},'#url.mission#','#mandate.mandateno#','OrganizationListing.cfm','ATT','#lt_text#')">
 									  
-			    </cftree>	
+			    </cf_UItree>
 				
 				</td>
 				
 			</tr>
+			
+						
+			<tr><td valign="top" style="padding-left:10px">
+			
+			<cf_UItree
+			id="root"
+			root="no"
+			title="<span style='font-size:24px;color:gray;padding-bottom:3px'>Attendance</span>"	
+			expand="Yes">
 			
 			<cfif accessextended eq "GRANTED">
 			
 			    <cf_verifyOperational module="ePas" Warning="No">
 				
 				<cfif operational eq "1">
-					
-				 <tr><td height="8"></td></tr>
-				  <tr><td style="font-size:19px;height:40px;font-weight:200" class="labelmedium"><cf_tl id="Performance Appraisal"></td></tr>	
-				  		 <tr><td>	  				
+				
+	   			  <cf_tl id="Performance Appraisal" var="PAS">
+				
+				  <cf_UItreeitem value="pas"
+			        display="<span style='font-size:18px;padding-top:8px;font-weight:bold;padding-bottom:5px' class='labelit'>#PAS#</span>"														
+					parent="root"							
+			        expand="Yes">									
 					
 						 <cfquery name="Period" 
 							datasource="AppsEPas" 	
@@ -69,39 +76,33 @@
 						</cfquery>	
 					
 						<cfif Period.recordcount gte 1>
-									
-							<cftree name="idPAS" fontsize="12" bold="No" format="html" required="No">
-																			
-								<cfoutput query="Period">
-										
-									<cftreeitem value="#currentrow#"
-								        display="<span style='padding-top:3px;padding-bottom:3px;color: 6688aa;' class='labelmedium'>#Code#</span>"	
-										href="../Appraisal/PASListing.cfm?mission=#url.mission#&period=#code#&filter=active"		
-										target="right"		
-										parent="idPAS"																											
-								        expand="No">	
-																			
-								</cfoutput>	
-							
-							</cftree>	
-						
+																										
+								<cfoutput query="Period">								
+								  
+							  	 <cf_UItreeitem value="pas_#currentrow#"
+								        display="<span style='font-size:16px;padding-top:3px;padding-bottom:3px' class='labelit'>#Code#</span>"
+										parent="pas"	
+										href="../Appraisal/PASListing.cfm?mission=#url.mission#&period=#code#&filter=active&systemfunctionid=#url.systemfunctionid#"											
+										target="right"
+								        expand="Yes">											
+																												
+								</cfoutput>								
+													
 						</cfif>
-					
-					
-					</td>
-					</tr>
-					
+										
 					</cfif>
 				
-               </cfif>
+            </cfif>
 			   
-			   <cfif accessextended eq "GRANTED">
-							
-			     <tr><td height="8"></td></tr>
-			     <tr><td style="font-size:19px;height:40px;font-weight:200" class="labelmedium">Home Address Zones</td></tr>	
-			  			  			  
-				     <tr><td>
-				  																								
+			<cfif accessextended eq "GRANTED">
+			
+				 <cf_tl id="Home Address Zones" var="home">
+				
+				  <cf_UItreeitem value="home"
+			        display="<span style='font-size:18px;padding-top:8px;font-weight:bold;padding-bottom:5px' class='labelit'>#home#</span>"														
+					parent="root"							
+			        expand="Yes">								
+			  				  																								
 					 <cfquery name="Zone" 
 						datasource="AppsEmployee" 	
 						username="#SESSION.login#" 
@@ -113,9 +114,7 @@
 					 </cfquery>	
 					
 					 <cfif Zone.recordcount gte 1>
-					
-						<cftree name="idwarden" fontsize="12" bold="No" format="html" required="No">
-																
+																					
 							<cfoutput query="Zone">
 							
 								 <cfquery name="AddressType" 
@@ -128,53 +127,50 @@
 										                      FROM   PersonAddress
 													          WHERE  AddressZone = '#code#')					        
 								 </cfquery>	
-							
-								<cftreeitem value="#Code#"
-							        display="<span style='padding-top:3px;padding-bottom:3px;color: gray;' class='labelmedium'>#Description#</span>"
-									parent="idwarden"														
-							        expand="No">	
+								 
+								  <cf_UItreeitem value="home_#code#"
+								        display="<span style='font-size:16px;padding-top:3px;padding-bottom:3px' class='labelit'>#Description#</span>"
+										parent="home"											
+								        expand="No">
+																
+									<cfloop query="AddressType">	
 									
-									<cfloop query="AddressType">								
-															
-										<cftreeitem value="#zone.code#_#addresstype#"
-									        display="<span style='padding-top:3px;padding-bottom:3px;color: 6688aa;' class='labelit'>#Description#</span>"
-											parent="#zone.code#"	
+										<cf_UItreeitem value="home_#zone.code#_#addresstype#"
+									        display="<span style='font-size:15px;padding-top:2px;padding-bottom:2px' class='labelit'>#Description#</span>"
+											parent="home_#zone.code#"	
+											href="../Address/AddressListing.cfm?mission=#url.mission#&zone=#zone.code#&addresstype=#addresstype#&filter=active&systemfunctionid=#url.systemfunctionid#"										
 											target="right"
-											href="../Address/AddressListing.cfm?mission=#url.mission#&zone=#zone.code#&addresstype=#addresstype#&filter=active"													
-									        expand="No">									
-																			
-											<cftreeitem value="#zone.code#_#addresstype#_map"
-										        display="&nbsp;Map"
-												parent="#zone.code#_#addresstype#"	
+									        expand="No">	
+											
+											<cf_UItreeitem value="home_#zone.code#_#addresstype#_map"
+										        display="<span style='font-size:14px;padding-top:2px;padding-bottom:2px' class='labelit'>MAP"
+												parent="home_#zone.code#_#addresstype#"	
+												href="../Address/AddressListingMAP.cfm?mission=#url.mission#&zone=#zone.code#&addresstype=#addresstype#&filter=active"										
 												target="right"
-												img="#SESSION.root#/images/map.png"
-												href="../Address/AddressListingMAP.cfm?mission=#url.mission#&zone=#zone.code#&addresstype=#addresstype#&filter=active"													
-										        expand="No">	
-												
-											<cftreeitem value="#zone.code#_#addresstype#_lis"
-										        display="List"
-												parent="#zone.code#_#addresstype#"	
-												target="right"												
-												href="../Address/AddressListing.cfm?mission=#url.mission#&zone=#zone.code#&addresstype=#addresstype#&filter=active"													
-										        expand="No">				
+										        expand="No">									
+																
+											<cf_UItreeitem value="home.#zone.code#_#addresstype#_lis"
+										        display="<span style='font-size:14px;padding-top:2px;padding-bottom:2px' class='labelit'>Listing"
+												parent="home_#zone.code#_#addresstype#"	
+												href="../Address/AddressListing.cfm?mission=#url.mission#&zone=#zone.code#&addresstype=#addresstype#&filter=active"										
+												target="right"
+										        expand="No">																												
 									
 									</cfloop>
 							
 							</cfoutput>	
-															
-						</cftree>	
-					
+											
 					</cfif>
-					
-					</td></tr>		
-					
-				</cfif>	
+									
+			</cfif>	
+			
+			 <cf_tl id="Leave records" var="leave">
 				
-				<tr><td height="8"></td></tr>
-			    <tr><td style="font-size:19px;height:40px;font-weight:200" class="labelmedium"><cf_tl id="Leave records"></td></tr>	 
-				
-				<tr><td>
-				
+			  <cf_UItreeitem value="leave"
+			        display="<span style='font-size:18px;padding-top:8px;font-weight:bold;padding-bottom:5px' class='labelit'>#leave#</span>"														
+					parent="root"							
+			        expand="Yes">						
+						
 				<cfquery name="LeaveType" 
 					datasource="AppsEmployee" 	
 					username="#SESSION.login#" 
@@ -191,14 +187,12 @@
 				</cfquery>	
 							
 				<cfif LeaveType.recordcount neq "0">			
-				
-				      <cftree name="idleave" fontsize="12" bold="No" format="html" required="No">	
-					  
-					  		<cftreeitem value="all"
-							        display="<span style='padding-top:3px;padding-bottom:3px;color: gray;' class='labelmedium'>All records</span>"											
-									target="right"																				
-							        expand="Yes">	
-					  
+				    
+					 		<cf_UItreeitem value="all_leave"
+							   display="<span style='font-size:16px;padding-top:3px;padding-bottom:3px' class='labelit'>All records</span>"
+							   parent="leave"											
+							   expand="Yes">					  
+					  							  
 					  		<cfquery name="StatusList" 
 								datasource="AppsEmployee" 	
 								username="#SESSION.login#" 
@@ -218,31 +212,30 @@
 									<cfelse>
 										<cfset cl = "6688aa">
 									</cfif>
-																
-									<cftreeitem value="all_#statuscode#"		
-									parent="all"								
-							        display="<span style='padding-top:3px;padding-bottom:3px;color:#cl#' class='labelmedium'>#description#</span>"	
-									href="../LeaveRequest/LeaveListing.cfm?systemfunctionid=#url.systemfunctionid#&mission=#url.mission#&leavetype=&filter=#statuscode#"		
-									target="right"																				
-							        expand="No">	
-								
+									
+									<cf_UItreeitem value="all_leave_#statuscode#"
+									        display="<span style='font-size:15px;padding-top:2px;padding-bottom:2px;color: #cl#;' class='labelit'>#Description#</span>"
+											parent="all_leave"	
+											href="../LeaveRequest/LeaveListing.cfm?systemfunctionid=#url.systemfunctionid#&mission=#url.mission#&leavetype=&filter=#statuscode#&systemfunctionid=#url.systemfunctionid#"										
+											target="right"
+									        expand="No">																	
+																	
 								</cfloop>	
 								
-							<cftreeitem value="ltpe"
-							        display="<span style='padding-top:3px;padding-bottom:3px;color: gray;' class='labelmedium'>Type of leave</span>"											
-									target="right"																				
-							        expand="No">							
+							<cf_UItreeitem value="ltpe"
+							   display="<span style='font-size:16px;padding-top:3px;padding-bottom:3px' class='labelit'>Type of leave</span>"
+							   parent="leave"											
+							   expand="No">													
 																	
 							<cfoutput query="LeaveType">
 							
-								
-								<cftreeitem value="#LeaveType#"
-							        display="<span style='padding-top:3px;padding-bottom:3px;color: 002350' class='labelmedium'>#Description#</span>"	
-									href="../LeaveRequest/LeaveListing.cfm?systemfunctionid=#url.systemfunctionid#&mission=#url.mission#&leavetype=#leavetype#&filter=active"		
-									target="right"	
-									parent="ltpe"																				
-							        expand="No">	
-									
+								<cf_UItreeitem value="ltpe_#LeaveType#"
+							        display="<span style='font-size:15px;padding-top:2px;padding-bottom:2px' class='labelit'>#Description#</span>"
+									parent="ltpe"	
+									href="../LeaveRequest/LeaveListing.cfm?systemfunctionid=#url.systemfunctionid#&mission=#url.mission#&leavetype=#leavetype#&filter=active&systemfunctionid=#url.systemfunctionid#"										
+									target="right"
+							        expand="No">									
+																	
 									<cfquery name="StatusList" 
 									datasource="AppsEmployee" 	
 									username="#SESSION.login#" 
@@ -258,73 +251,61 @@
 									<cfloop query="StatusList">
 									
 										<cfif StatusCode gte '8'>
-										<cfset cl = "red">
-									<cfelse>
-										<cfset cl = "6688aa">
-									</cfif>
-																	
-										<cftreeitem value="#tpe#_#statuscode#"
-										parent="#tpe#"	
-								        display="<span style='padding-top:3px;padding-bottom:3px;color: #cl#;' class='labelmedium'>#description#</span>"	
-										href="../LeaveRequest/LeaveListing.cfm?systemfunctionid=#url.systemfunctionid#&mission=#url.mission#&leavetype=#tpe#&filter=#statuscode#"		
-										target="right"																				
-								        expand="No">	
-									
+											<cfset cl = "red">
+										<cfelse>
+											<cfset cl = "6688aa">
+										</cfif>
+										
+										<cf_UItreeitem value="ltpe_#tpe#_#statuscode#"
+										        display="<span style='font-size:14px;padding-top:2px;padding-bottom:2px;color:#cl#' class='labelit'>#description#</span>"
+												parent="ltpe_#tpe#"	
+												href="../LeaveRequest/LeaveListing.cfm?systemfunctionid=#url.systemfunctionid#&mission=#url.mission#&leavetype=#tpe#&filter=#statuscode#&systemfunctionid=#url.systemfunctionid#"										
+												target="right"
+										        expand="No">			
+																			
 									</cfloop>
 																									
-							</cfoutput>	
-													
-					</cftree>	
-				
+							</cfoutput>													
+									
 				</cfif>
-				
-				</td>
-				</tr>
-				
+												
 				<cf_verifyOperational module="Payroll" Warning="No">
 				
 				<cfif operational eq "1">
 				
-					<tr><td height="8"></td></tr>
-				    <tr><td style="font-size:19px;height:40px;font-weight:200" class="labelmedium"><cf_tl id="Overtime records"></td></tr>	 
-									
-					<tr><td>
-										
-						<cftree name="idovertime" fontsize="12" bold="No" format="html" required="No">
-														
-									<cfquery name="Trigger" 
-										datasource="AppsPayroll" 	
-										username="#SESSION.login#" 
-										password="#SESSION.dbpw#">
-											SELECT    *
-											FROM      Ref_PayrollTrigger
-											WHERE     TriggerGroup = 'Overtime'							       		    
-									</cfquery>	
-																			
-									<cfoutput query="Trigger">
-									
-										<cftreeitem value="#SalaryTrigger#"
-									        display="<span style='padding-top:3px;padding-bottom:3px;color: 6688aa;' class='labelmedium'>#Description#</span>"
-											target="right"
-											href="../../Inquiry/Overtime/OvertimeListing.cfm?mission=#url.mission#&salaryTrigger=#SalaryTrigger#"																							
-									        expand="No">										
-																			
-									</cfoutput>	
-															
-						</cftree>	
-						
-						</td>
-					</tr>
+					<cf_tl id="Overtime records" var="ovt">
 				
-				</cfif>
-									   
-							   
-	    </table></td>
-	
-	</cfform>
-	
-  </tr>
-  
-</table>
+					  <cf_UItreeitem value="ovt"
+				        display="<span style='font-size:18px;padding-top:8px;font-weight:bold;padding-bottom:5px' class='labelit'>#ovt#</span>"														
+						parent="root"							
+				        expand="Yes">				
+																		
+							<cfquery name="Trigger" 
+								datasource="AppsPayroll" 	
+								username="#SESSION.login#" 
+								password="#SESSION.dbpw#">
+									SELECT    *
+									FROM      Ref_PayrollTrigger
+									WHERE     TriggerGroup = 'Overtime'							       		    
+							</cfquery>	
+																	
+							<cfoutput query="Trigger">
+							
+							   <cf_UItreeitem value="#SalaryTrigger#"
+							   display="<span style='font-size:16px;padding-top:3px;padding-bottom:3px' class='labelit'>#Description#</span>"
+							   target="right"
+							   href="../../Inquiry/Overtime/OvertimeListing.cfm?mission=#url.mission#&salaryTrigger=#SalaryTrigger#&systemfunctionid=#url.systemfunctionid#"				
+							   parent="ovt"											
+							   expand="No">		
+																						
+							</cfoutput>
+				
+				</cfif>									   
+						
+		</cf_UItree>	
+		
+		</td></tr>
+		
+</table>		
 
 </cf_divscroll>

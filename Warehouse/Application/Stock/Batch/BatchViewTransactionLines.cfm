@@ -83,6 +83,7 @@ password="#SESSION.dbpw#">
 				   T.ItemNo, 
 				   I.ItemBarCode,
 				   T.ItemDescription, 
+				   M.ItemNoExternal,
 				   T.ItemCategory, 
 				   T.BillingMode,
 				   T.ItemPrecision,
@@ -212,6 +213,7 @@ password="#SESSION.dbpw#">
 				   
 		FROM      <cfif batch.actionStatus neq "9">ItemTransaction<cfelse>ItemTransactionDeny</cfif> T 
 		          INNER JOIN Ref_TransactionType R ON T.TransactionType = R.TransactionType
+				  INNER JOIN Item M ON M.ItemNo = T.ItemNo 
 				  INNER JOIN ItemUoM I ON T.ItemNo = I.ItemNo AND T.TransactionUoM = I.UoM 
 				  INNER JOIN WarehouseBatch B ON B.BatchNo = T.TransactionBatchNo 
 				  INNER JOIN WarehouseLocation W ON T.Warehouse = W.Warehouse AND T.Location = W.Location
@@ -312,23 +314,23 @@ password="#SESSION.dbpw#">
 								<td>		
 								<input type="radio" class="radiol" name="modality" value="9" <cfif url.modality eq "9">checked</cfif> onclick="Prosis.busy('yes');_cf_loadingtexthtml='';ptoken.navigate('BatchViewTransactionLines.cfm?systemfunctionid=#url.systemfunctionid#&batchno=#url.batchno#&mode=process&modality=9','main')">
 								</td>		
-								<td style="font-size:17px;padding-left:3px"><cf_tl id="Hide Sales Margin"></td>	
+								<td style="font-size:16px;padding-left:3px"><cf_tl id="Hide Sales Margin"></td>	
 								<td style="padding-left:7px">		
 								<input type="radio" class="radiol" name="modality" value="1" <cfif url.modality eq "1">checked</cfif> onclick="Prosis.busy('yes');_cf_loadingtexthtml='';ptoken.navigate('BatchViewTransactionLines.cfm?systemfunctionid=#url.systemfunctionid#&batchno=#url.batchno#&mode=process&modality=1','main')">
 								</td>
-								<td style="font-size:17px;padding-left:3px"><cf_tl id="Show Sales Margin"></td>			
-								<cfif url.mode neq "embed" and searchresult.recordcount gte "40">																
-								<td style="padding:4px">|</td>					  
-								<td class="labelmedium">				
+								<td style="font-size:16px;padding-left:3px"><cf_tl id="Show Sales Margin"></td>			
+								<td style="padding:4px">|</td>									
+							</cfif>
+							
+							<cfif url.mode neq "embed" and searchresult.recordcount gte "30">																
+												  
+								<td class="labelmedium" style="font-size:16px">				
 									<a href="javascript:Prosis.busy('yes');_cf_loadingtexthtml='';ptoken.navigate('BatchViewTransactionListing.cfm?systemfunctionid=#url.systemfunctionid#&batchno=#url.batchno#','main')"><font color="0080C0"><cf_tl id="Show as grid"></font></a>																		
 								</td>
 								</cfif>
-								
-							</cfif>
 							
 							</cfoutput>
-														
-							<td style="padding:4px">|</td>													  
+																											  
 							</tr>
 																		  
 						  </table> 
@@ -349,7 +351,7 @@ password="#SESSION.dbpw#">
 			<cfset tot = 0>
 			
 			<tr>
-			<td colspan="16" style="<cfif url.mode eq 'embed'>height:180px<cfelse>height:100%</cfif>;border:0px solid silver">
+			<td colspan="16" style="<cfif url.mode eq 'embed'>height:180px<cfelse>height:100%</cfif>;border:0px solid silver;padding-bottom:4px">
 								
 			<cf_divscroll id="main" style="padding:8px;height:100%">	
 						
@@ -489,8 +491,8 @@ password="#SESSION.dbpw#">
 					<!--- ---------------------------------------- --->
 					
 					<tr class="line fixrow2">
-							<td class="labellarge" style="font-size:18px;height:33px;padding-left:4px" colspan="12">
-							
+							<td class="labellarge" style="font-size:20px;height:33px;padding-left:4px" colspan="12">
+														
 							<cfif warehouse neq Batch.Warehouse>
 																					
 									<cfquery name="Warehouse"
@@ -502,7 +504,20 @@ password="#SESSION.dbpw#">
 											WHERE    Warehouse       = '#warehouse#'									
 										</cfquery>
 			
-										<b><font color="804000">#Warehouse.WarehouseName#</font></b>
+										<font color="804000">#Warehouse.WarehouseName#</font>
+										
+							<cfelse>	
+							
+							     <cfquery name="Warehouse"
+										datasource="AppsMaterials" 
+										username="#SESSION.login#" 
+										password="#SESSION.dbpw#">
+											SELECT   *
+											FROM     Warehouse 
+											WHERE    Warehouse       = '#Batch.warehouse#'									
+										</cfquery>
+			
+										<font color="804000">#Warehouse.WarehouseName#</font>		
 													
 							</cfif>		
 							
@@ -583,7 +598,7 @@ password="#SESSION.dbpw#">
 									
 									</td>	
 									
-									<td class="hide ccontent">#Description# : #ItemBarcode# #ItemDescription# #Make# #Model# #TransactionReference# #RequestReference# #assetBarcode# #serialNo# #AssetDecalNo#</td>
+									<td class="hide ccontent">#Description#: #ItemNoExternal# #ItemBarcode# #ItemDescription# #Make# #Model# #TransactionReference# #RequestReference# #assetBarcode# #serialNo# #AssetDecalNo#</td>
 														
 									<td id="status_#transactionid#" style="padding-left:4px;padding-right:3px" width="2%">
 									
@@ -629,7 +644,6 @@ password="#SESSION.dbpw#">
 											
 											<cfset clearmode = check.clearancemode>											
 											
-											
 											<cfif clearmode eq "3">		
 																		
 												<cfquery name="Object"
@@ -651,9 +665,7 @@ password="#SESSION.dbpw#">
 											</cfif>								
 																		
 											<cfif clearmode eq "2" or (enforcelines eq "1" and clearmode neq "3")>
-											
-											    
-																																	 
+																																												 
 												<cfif ActionStatus eq "0">
 																										 
 												  <img src="#SESSION.root#/Images/button.jpg"
@@ -709,9 +721,7 @@ password="#SESSION.dbpw#">
 									<cfif Batch.BatchDescription eq "Receipt Distribution">
 									
 									<TD colspan="3" style="padding-right:3px">
-										<a class="navigation_action" href="javascript:item('#itemno#','','#mission#')">																				
-										#LocationDescription# #ItemDescription#								
-										</a>																												
+										<a class="navigation_action" href="javascript:item('#itemno#','','#mission#')">#LocationDescription# #ItemDescription#</a>																												
 									</TD>			
 									<td>#ItemBarCode#</td>							
 									
@@ -722,22 +732,20 @@ password="#SESSION.dbpw#">
 											<TD colspan="3" style="padding-right:3px">
 												<a class="navigation_action" href="javascript:item('#itemno#','','#mission#')">																						
 												#LocationDescription# #ItemNo# #ItemDescription#												
-												</a>
-																				
-											</TD>	
-											
+												</a>																				
+											</TD>												
 											<td>#ItemBarCode#</td>
 									
 									<cfelse>												
 									
-											<TD colspan="2" style="padding-right:3px">
+											<TD colspan="2" style="padding-right:3px;min-width:300px">
 											
-												<table align="left" height="100%" width ="100%">
+												<table align="left" style="height:100%">
 													<tr class="labelmedium" style="height:20px">
-													    <td style="border-left:1px solid silver;padding-left:3px;min-width:90px;width:90px">#LocationDescription#</td>
-														<td style="border-left:1px solid silver;padding-left:3px" align="left">
+													    <td style="border-left:1px solid silver;padding-left:3px">#LocationDescription# : </td>
+														<td style="padding-left:3px" align="left">
 														   <a class="navigation_action" href="javascript:item('#itemno#','','#mission#')">															
-															#ItemDescription# <cfif itembarcode neq "">-&nbsp;#ItemBarCode#</cfif>															
+															#ItemDescription# #ItemNoExternal# <!--- <cfif itembarcode neq "">-&nbsp;#ItemBarCode#</cfif> --->															
 														   </a>
 														</td>
 													</tr>
@@ -1407,6 +1415,7 @@ password="#SESSION.dbpw#">
 				
 				</cfoutput>
 				
+								
 				</table>
 				
 				</cf_divscroll>
@@ -1460,6 +1469,7 @@ password="#SESSION.dbpw#">
 	</tr>
 	
 </table>
+
 
 <cfset AjaxOnLoad("doHighlight")>	
 <script>

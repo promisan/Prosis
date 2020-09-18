@@ -46,6 +46,7 @@ password="#SESSION.dbpw#">
 				   T.TransactionDate, 
 				   T.ItemNo, 
 				   I.ItemBarCode,
+				   M.ItemNoExternal,
 				   T.ItemDescription, 
 				   T.ItemCategory, 
 				   T.BillingMode,
@@ -116,6 +117,7 @@ password="#SESSION.dbpw#">
 				   
 		FROM      <cfif batch.actionStatus neq "9">ItemTransaction<cfelse>ItemTransactionDeny</cfif> T INNER JOIN
 	               Ref_TransactionType R ON T.TransactionType = R.TransactionType 
+				   INNER JOIN Item M ON M.ItemNo = T.ItemNo
 				   INNER JOIN ItemUoM I ON T.ItemNo = I.ItemNo AND T.TransactionUoM = I.UoM 
 				   INNER JOIN WarehouseBatch B ON B.BatchNo = T.TransactionBatchNo 
 				   LEFT OUTER JOIN AssetItem A ON T.AssetId = A.AssetId
@@ -136,6 +138,22 @@ password="#SESSION.dbpw#">
 <cfset fields=ArrayNew(1)>
 
 	<cfset itm = itm+1>
+		
+	<cf_tl id="Product" var = "1">		
+	<cfset fields[itm] = {label     	= "#lt_text#",                    
+	     				field       	= "ItemDescription",																	
+						alias       	= "",																			
+						search      	= "text",
+						filtermode  	= "2"}>		
+	
+	<cfset itm = itm+1>					
+	<cf_tl id="ItemNo" var = "1">		
+	<cfset fields[itm] = {label     	= "#lt_text#",                    
+	     				field       	= "ItemNoExternal",																	
+						alias       	= "",																			
+						search      	= "text"}>			
+						
+	<cfset itm = itm+1>
 	<cf_tl id="Voucher" var = "1">				
 	<cfset fields[itm] = {label     	= "#lt_text#",                    
 	     				field       	= "TransactionReference",					
@@ -150,17 +168,7 @@ password="#SESSION.dbpw#">
 						alias       	= "",		
 						align       	= "center",		
 						functionscript  = "openreference",																						
-						search      	= "text"}>		
-	
-	<cfset itm = itm+1>
-		
-	<cf_tl id="Product" var = "1">		
-	<cfset fields[itm] = {label     	= "#lt_text#",                    
-	     				field       	= "ItemDescription",																	
-						alias       	= "",																			
-						search      	= "text",
-						filtermode  	= "2"}>		
-						
+						search      	= "text"}>												
 
 	<cfset itm = itm+1>
 	<cf_tl id="Date" var = "1">				

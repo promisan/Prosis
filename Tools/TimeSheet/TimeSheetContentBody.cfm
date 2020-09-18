@@ -41,7 +41,7 @@
 <cfoutput>
 	<cf_divscroll overflowy="scroll">
 
-		<table width="99%" align="left">
+		<table style="width:98.5%" align="left">
 										
 		<cfloop query="getPersons">
 																
@@ -52,17 +52,18 @@
 				<tr class="navigation_row clsTimesheetPersonRow" style="border-bottom:1px solid silver;height:18px">
 				
 					<td	height="100%" 
-						style="min-width:320px;width:100%;padding-right:3px" 
+						style="min-width:300px;width:100%;padding-right:3px" 
 						class="clsTimeSheetPerson clsTimeSheetPerson_#personno#"
 						onmouseover="$('.clsTimeSheetPerson_#personno#').css('background-color', '##8AFFBB');" 
 						onmouseout="$('.clsTimeSheetPerson_#personno#').css('background-color', '');">
-												 												
+					
+											 												
 					   <table width="100%" height="100%">								   
 					   	<cfoutput>		
 						<tr class="labelmedium" style="height:18px">
 						   <td width="1%" style="padding-top:1px"><cf_img icon="open" onclick="javascript:EditPerson('#PersonNo#','','leave')"></td>
 						   <td style="min-width:50px;width:40px;" class="ccontent">#PostGrade#</td>
-			    			   <td style="min-width:220px;padding-left:3px">
+			    			   <td style="min-width:205px;padding-left:3px">
 			    			   		<table width="100%">
 			    			   			<tr>
 			    			   				<td class="ccontent">
@@ -116,8 +117,8 @@
 						   </td>									  						   
 	     						</tr>
 						</cfoutput>			    					
-	  					   </table>							   
-					  						   
+	  					</table>							   
+											  						   
 					</td>
 																													
 					<cfinclude template="TimeSheetDetail.cfm">							

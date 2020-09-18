@@ -51,7 +51,7 @@
 					 fontbold="no" 
 					 font="calibri"
 					 fontitalic="no" 
-					 show3d="no" 
+					 show3d="yes" 
 					 xaxistitle="" 				 
 					 yaxistitle="Tracks" 
 					 rotated="no" 

@@ -1,6 +1,5 @@
 <cfparam name="url.sort" default="category">
 
-
 <cfset dest = "userTransaction.dbo.StockResupply#URL.Warehouse#_#SESSION.acc#">
 
 <cfquery name="ResultList" 
@@ -516,7 +515,10 @@ password="#SESSION.dbpw#">
 				
 			</td></tr>
 			
+						
 			<cfif ResultList.recordcount gte "1">
+			
+			<tr><td class="line" colspan="2"></td></tr>	
 							
 			<cfif url.restocking eq "Procurement">		
 			
@@ -563,11 +565,10 @@ password="#SESSION.dbpw#">
 			
 				<!--- select the reason for the request to trigger a workflow if needed --->
 				
-				<tr><td height="6" colspan="2"></td></tr>
-				
+								
 				<tr>
 				
-				<TD width="133" style="padding-left:14px;height:25px" class="labelmedium"><cf_tl id="Request"></TD>
+				<TD width="133" style="padding-left:14px;height:27px" class="labelmedium"><cf_tl id="Request"></TD>
 				
 					<cfquery name="RequestTypeList" 
 						datasource="AppsMaterials" 
@@ -590,7 +591,7 @@ password="#SESSION.dbpw#">
 								username="#SESSION.login#" 
 								password="#SESSION.dbpw#">
 									SELECT   * 
-									FROM     Ref_Request P
+									FROM     Ref_Request
 									WHERE    Operational = '1'							
 									ORDER BY ListingOrder						
 							</cfquery>
@@ -610,7 +611,7 @@ password="#SESSION.dbpw#">
 				</tr>	
 				
 				<tr>
-					<TD style="padding-left:14px;height:25px" class="labelmedium"><cf_tl id="Priority"> <font color="FF0000">*</font></TD>						
+					<TD style="padding-left:14px;height:28px" class="labelmedium"><cf_tl id="Priority"> <font color="FF0000">*</font></TD>						
 					<td id="requestaction">		
 						<cfdiv bind="url:#SESSION.root#/Warehouse/Application/Stock/Resupply/getRequestAction.cfm?warehouse=#url.warehouse#&requesttype={requesttype}">		
 					</td>
@@ -618,7 +619,7 @@ password="#SESSION.dbpw#">
 					
 			</cfif>
 			
-			<tr><td class="line" colspan="2"></td></tr>										
+												
 			<TR> 
 		       <TD style="padding-left:14px;height:25px" class="labelmedium"><cf_tl id="Unit"><font color="FF0000">*</font></TD>
 		       <td align="left">
@@ -713,7 +714,7 @@ password="#SESSION.dbpw#">
 						<cfelse>
 						
 						  <table align="center">
-						  <tr><td>
+						  <tr><td style="height:35px">
 						  
 						      <!--- show only if there are items with status i enabled  --->
 							 					
@@ -723,7 +724,7 @@ password="#SESSION.dbpw#">
 						         name      = "save"
 								 id        = "save" 
 						         value     = "#lt_text#" 
-								 style     = "width:240px;height:26px;font-size:16px"
+								 style     = "width:240px;height:26px;font-size:15px"
 								 class     = "button10g" 				
 								 onClick   = "Prosis.busy('yes');resupplysubmit('#URL.ID#','#url.systemfunctionid#','i')">		
 								 
@@ -747,7 +748,7 @@ password="#SESSION.dbpw#">
 								         name="save"
 										 id="save" 
 								         value="#lt_text#" 
-										 style="width:170px;height:26px;font-size:16px"
+										 style="width:170px;height:26px;font-size:15px"
 										 class="button10g" 				
 										 onClick="Prosis.busy('yes');resupplysubmit('#URL.ID#','#url.systemfunctionid#','')">		
 									 

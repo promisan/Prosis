@@ -6,6 +6,25 @@
 <cfparam name="url.thisdate" default="">
 <cfparam name="url.status"   default="0">
 
+<cfinvoke component  = "Service.Access" 
+	 method         = "RoleAccess"				  	
+	 role           = "'LeaveClearer'"		
+	 returnvariable = "manager">		   
+
+<cfif url.status eq "5">
+	<cfset access = "none">		  
+<cfelseif manager eq "Granted">
+	<cfset access = "all">        <!--- change hour and compensation --->
+<cfelseif url.status eq "0">
+	<cfset access = "hour">       <!--- change hours --->	
+<cfelseif url.status eq "1">
+	<cfset access = "hourdeny">   <!--- deny hours --->
+<cfelseif url.status eq "2">
+	<cfset access = "pay">        <!--- change compensation --->
+<cfelse> 
+	<cfset access = "none">		  <!--- status is 3 or 5 or 9 --->		
+</cfif>
+
 <cfif url.thisdate neq "">
 	<cfset selectedDate = ParseDateTime("#url.thisdate#")>
 	<cfset url.seldate = dateFormat(selectedDate,'DD/MM/YYYY')>
@@ -16,9 +35,7 @@
 <cfset DTE = dateValue>
 
 <!--- this no longer creates a schedule for people anymore --->
-
-<!--- provision to remove contract days --->
-
+<!--- -------- provision to remove contract----- days --->
 
 <cfquery name="base" 
   	datasource="AppsEmployee" 
@@ -34,10 +51,8 @@
 						   WHERE  PersonNo        = A.PersonNo
 						   AND    CalendarDate    = A.CalendarDate
 						   AND    TransactionType = A.TransactionType
-						   AND    BillingMode    != 'Contract')
-						   
+						   AND    BillingMode    != 'Contract')						   
 </cfquery>	
-
 
 <cfinvoke component = "Service.Process.Employee.Attendance"  
 	   method       = "LeaveAttendance" 
@@ -64,32 +79,32 @@
 <cfoutput>
 
 <cfquery name="parameter" 
-	  datasource="AppsEmployee" 
-	  username="#SESSION.login#" 
-	  password="#SESSION.dbpw#">
-	      SELECT *
-		  FROM   Parameter 
-		  WHERE  Identifier = 'A'				  
+	datasource="AppsEmployee" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    SELECT *
+		FROM   Parameter 
+		WHERE  Identifier = 'A'				  
 </cfquery>	
 
 <cfquery name="overtime" 
-datasource="AppsPayroll" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-    SELECT *
-    FROM   PersonOvertime
-	WHERE  OvertimeId = '#URL.overtimeid#'
+	datasource="AppsPayroll" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+    	SELECT *
+	    FROM   PersonOvertime
+		WHERE  OvertimeId = '#URL.overtimeid#'
 </cfquery>
 
 <cfquery name="base" 
   	datasource="AppsEmployee" 
   	username="#SESSION.login#" 
   	password="#SESSION.dbpw#">			
-      SELECT   *						  					   
-	  FROM     PersonWorkDetail
-	  WHERE    PersonNo         = '#URL.personno#'
-	  AND      CalendarDate     = #dte#
-	  AND      TransactionType  = '1'	 			  
+     	SELECT   *						  					   
+	  	FROM     PersonWorkDetail
+	  	WHERE    PersonNo         = '#URL.personno#'
+	  	AND      CalendarDate     = #dte#
+	  	AND      TransactionType  = '1'	 			  
 </cfquery>		
 
 <!--- provision to clean indorect hours --->
@@ -98,27 +113,67 @@ password="#SESSION.dbpw#">
 	datasource="AppsPayroll" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	SELECT    * 
-	FROM      Ref_PayrollTrigger
-	WHERE     TriggerGroup = 'Overtime'
-	and       Description NOT LIKE '%Differential%'
+		SELECT    * 
+		FROM      Ref_PayrollTrigger
+		WHERE     TriggerGroup = 'Overtime'
+		AND       Description NOT LIKE '%Differential%'
 </cfquery>
 
-<cfloop index="hr" from="#parameter.hourstart#" to="#parameter.hourend#" step="1">
-		
-	<cfif hr gte "1"> <!--- STL starting from 1 oclick in the morning until 22:59 at night --->		
-		 		
+<!--- we set here the hour period that may deviate from the calandar date itself as sually 
+                                                 the early night belongs to the prior period --->
+												 
+<cfif parameter.weekhourend lt parameter.weekhourstart>
+	<cfset end = parameter.weekhourend + 24>
+<cfelse>
+	<cfset end = parameter.weekhourend>	
+</cfif>
+
+<cfif url.status eq "2">
+	
+	<tr class="line">
+		<td colspan="#schedule.hourslots#" style="padding:5px;" align="right">
+			<table>
+				<tr>
+					<td>
+						<cf_tl id="Set all as">:
+					</td>	
+					<td style="padding-left:5px;">
+					
+						<input type="radio" id="setAllTime" name="setAllType" 
+						onclick="$('.clsBillingPayment').val('0');document.getElementById('submissionline').className='regular'" style="cursor:pointer;"> 
+						<label for="setAllTime" style="cursor:pointer;"><cf_tl id="Time"></label>
+					</td>
+					<td style="padding-left:5px;">
+						<input type="radio" id="setAllPay" name="setAllType" 
+						onclick="$('.clsBillingPayment').val('1');document.getElementById('submissionline').className='regular'" style="cursor:pointer;"> 
+						<label for="setAllPay" style="cursor:pointer;"><cf_tl id="Pay"></label>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+
+</cfif>
+
+<cfloop index="hr" from="#parameter.weekhourstart#" to="#end#" step="1">
+			 		
 		<tr class="labelmedium navigation_row line" style="height:15px">
 													
 			<cfif hr lt 0>
 			    <cfset hour = "#24+hr#">
 			<cfelseif hr lt "10">
 				<cfset hour = "0#hr#">
+			<cfelseif hr gt "24">	
+				<cfset hour = "0#hr-24#">
 			<cfelse>
 				<cfset hour = "#hr#">
 			</cfif>
 							
 			<td style="min-width:40;padding-left:4px" align="center">#hour#</td>
+			<td>		
+					
+			<table width="100%" style="height:100%">	
+			<tr class="labelmedium" style="height:100%">	
 			
 			<cfloop index="slot" from="1" to="#schedule.hourslots#">
 			
@@ -137,17 +192,13 @@ password="#SESSION.dbpw#">
 					<cfset color = "yellow">	 		
 				<cfelse>
 					<cfset color = "ffffff">	
-				</cfif>
-				
-				<td>			
-					<table width="100%" style="height:100%">			
-					<tr style="height:100%">		
-						    
+				</cfif>								
+												    
 						<td style="background-color:#color#;border-left:1px solid silver;padding-left:15px;min-width:60;">												
 							<cf_HourSlots hourslots="#schedule.hourslots#" slot="#slot#">								
 						</td>		
 							
-						<td style="background-color:#color#;font-size:12px">		
+						<td style="width:200px;background-color:#color#;font-size:12px">		
 																		
 							   <cfif get.BillingMode eq "Contract" and get.ActionClass neq "Break">	
 							   
@@ -157,38 +208,82 @@ password="#SESSION.dbpw#">
 								 							   
 							   <cfelseif get.source eq "overtime" and get.SourceId neq url.overtimeid>
 							   
-							   	   <cf_tl id="Overtime request">								   
+							   	   <cf_tl id="Overtime request resubmitted">								   
 								   <input type="hidden" name="BillingMode_#hr#_#slot#" value="Covered">
 							   
 							   <cfelse>		
 							   
-							   		<cfif url.status gte "2">
+							  						  
+							   		<cfif access eq "none" or access eq "pay">
 									
-									#get.BillingMode#
+									<input type="hidden" name="BillingMode_#hr#_#slot#" value="#get.BillingMode#">
 									
-									<cfelseif overtime.recordcount eq "0">	
+									<cfquery name="getName" 
+										datasource="AppsPayroll" 
+										username="#SESSION.login#" 
+										password="#SESSION.dbpw#">
+											SELECT    * 
+											FROM      Ref_PayrollTrigger
+											WHERE     SalaryTrigger = '#get.BillingMode#'
+									</cfquery>
+									
+									
+									#getName.Description#
+									
+									<cfelseif overtime.recordcount eq "0">	<!--- all or hour --->
 																		
 										<select name="BillingMode_#hr#_#slot#" class="regularxl" style="border:0px;width:200px;<cfif get.actionClass eq 'break'>background-color:#color#</cfif>;">
 										    <cfif get.recordcount eq "0" or get.actionClass eq "break">
 											<option value=""></option>											
 											</cfif>
 											<option value="Overtime"><cf_tl id="Overtime"></option>		
-											<option value="Contract"><cf_tl id="Contract"></option>		
-																			
+											<option value="Contract"><cf_tl id="Contract"></option>																				
 										</select>	
 									
-									<cfelse>	
+									<cfelseif access eq "hourdeny"> 
+									
+									    <!--- all or hour --->	
+										
+										<cfif get.BillingMode eq "">
+										
+										 	<input type="hidden" name="BillingMode_#hr#_#slot#" value="Covered">
+										
+										<cfelse>
+																																					 
+										 	<select name="BillingMode_#hr#_#slot#" class="regularxl" style="border:0px;width:200px;<cfif get.actionClass eq 'break'>background-color:#color#</cfif>"
+											  onchange="ptoken.navigate('setHourModality.cfm?field=BillingMode&id=_#hr#_#slot#&value='+this.value,'process')">
+											    <cfif get.recordcount eq "0" or get.actionClass eq "break">
+													<option value=""></option>											
+												</cfif>
+												<option value="Contract"><cf_tl id="Contract covered"></option>											
+												<cfloop query="modality">
+													<cfif get.BillingMode eq salarytrigger>
+												    <option value="#SalaryTrigger#" selected>#Description#</option>
+													</cfif>
+												</cfloop>											
+											</select>	
+										
+										</cfif>
+										
+									<cfelse>
+									
+									    <!--- all or hour --->	
 																											 
 									 	<select name="BillingMode_#hr#_#slot#" class="regularxl" style="border:0px;width:200px;<cfif get.actionClass eq 'break'>background-color:#color#</cfif>"
 										  onchange="ptoken.navigate('setHourModality.cfm?field=BillingMode&id=_#hr#_#slot#&value='+this.value,'process')">
 										    <cfif get.recordcount eq "0" or get.actionClass eq "break">
 											<option value=""></option>											
 											</cfif>
-											<option value="Contract"><cf_tl id="Contract"></option>
+											<option value="Contract"><cf_tl id="Contract covered"></option>
 											<cfloop query="modality">
-											<option value="#SalaryTrigger#" <cfif get.BillingMode eq salarytrigger>selected</cfif>>#Description#</option>
+																						
+												<cfif findNoCase(salarytrigger,quotedValueList(Base.BillingMode))> 
+												    <option value="#SalaryTrigger#" <cfif get.BillingMode eq salarytrigger>selected</cfif>>#Description#</option>
+												</cfif>	
+												
 											</cfloop>
 										</select>	
+										
 									
 									</cfif>						 
 								
@@ -197,15 +292,11 @@ password="#SESSION.dbpw#">
 							</td>
 								
 							<td valign="top" style="background-color:#color#;height:100%;min-width:70px;border-left:1px solid silver">	
-														
-							    <cfif get.BillingMode eq "Contract">	
-								
-									 <cfset cl = "hide">									 
-								
-								<cfelseif get.source eq "overtime" and get.SourceId neq url.overtimeid>
-								
-									 <cfset cl = "hide">
-								 
+																											
+							    <cfif get.BillingMode eq "Contract">									
+									 <cfset cl = "hide">												
+								<cfelseif get.source eq "overtime" and get.SourceId neq url.overtimeid>								
+									 <cfset cl = "hide">								 
 								<cfelse>
 								
 									<cfif get.billingMode eq "Contract" or get.recordcount eq "0">
@@ -214,23 +305,25 @@ password="#SESSION.dbpw#">
 										<cfset cl = "regularxl">   
 									</cfif>
 									
-									<cfif url.status eq "1">
+									<!--- if status is 1 or access role it will allow to change this ---> 
 									
-										<select name="BillingPayment_#hr#_#slot#" id="BillingPayment_#hr#_#slot#" class="#cl#" style="width:92%;border:0px;">
+									<cfif access eq "pay" or access eq "all">
+									
+										<select name="BillingPayment_#hr#_#slot#" id="BillingPayment_#hr#_#slot#" class="#cl# clsBillingPayment" 
+										style="width:92%;border:0px;" onchange="ptoken.navigate('setHourModality.cfm?field=BillingPayment&id=_#hr#_#slot#&value='+this.value,'process')">
 											<cfloop index="itm" list="0,1">
 											     <option value="#itm#" <cfif get.BillingPayment eq itm>selected</cfif>><cfif itm eq "1"><cf_tl id="Pay"><cfelse><cf_tl id="Time"></cfif></option>
 											</cfloop>	
 										</select>	
 																			
 									<cfelse>	
-																		     
-									    
+																													
 										<table>
 										<tr class="labelmedium">
 										<td style="padding-left:3px;padding-top:1px"> 
 											<cfif get.BillingPayment eq "">
 											<cfelseif get.BillingPayment eq "0"><cf_tl id="Time">
-											<cfelse><cf_tl id="Payment"></cfif>	
+											<cfelse><cf_tl id="Pay"></cfif>	
 										</td>
 										<td>
 										<input type="hidden" name="BillingPayment_#hr#_#slot#" id="BillingPayment_#hr#_#slot#" value="0">
@@ -243,17 +336,15 @@ password="#SESSION.dbpw#">
 								</cfif>
 								
 							</td>
-									
-					</tr>				
-				</table>
-			</td>
-			</cfloop>
-					
-			</tr>		
 				
-			
-	</cfif>
-	
+			</cfloop>			
+							
+			</tr>			
+			</table>
+			</td>
+					
+			</tr>						
+		
 </cfloop>
 
 </cfoutput>	

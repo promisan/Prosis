@@ -9,7 +9,7 @@
 	password="#SESSION.dbpw#">
 	SELECT        *
 	FROM         CustomerRequest
-	WHERE        RequestNo = '#url.requestNo#'
+	WHERE        RequestNo = '#url.requestNo#' 
 </cfquery>	
 
 <cfparam name="url.warehouse"  		  default="#get.Warehouse#">
@@ -139,16 +139,14 @@
 					   ItemNo           = "#itemno#"
 					   UoM              = "#TransactionUoM#"
 					   quantity         = "#TransactionQuantity#"
-					   returnvariable   = "sale">	
-					  
-					   		   
+					   returnvariable   = "sale">						   		   
 					   
 					<cfquery name="setLine"
 						datasource="AppsMaterials" 
 						username="#SESSION.login#" 
 						password="#SESSION.dbpw#">
 							UPDATE   CustomerRequestLine 
-							SET      CustomerIdInvoice = '#url.customeridInvoice#',
+							SET      CustomerIdInvoice = '#url.customeridInvoice#', 
 							         PriceSchedule     = '#Priceschedule#',		
 							         SchedulePrice     = '#sale.scheduleprice#', 
 									 SalesCurrency     = '#SalesCurrency#', 
@@ -159,9 +157,7 @@
 									 TaxIncluded       = '#sale.inclusive#', 
 									 SalesUnitPrice    = '#sale.PriceNet#', 
 									 SalesAmount       = '#sale.amount#', 
-									 SalesTax          = '#sale.amounttax#' 
-									
-									 	 
+									 SalesTax          = '#sale.amounttax#' 									 	 
 							WHERE    TransactionId = '#TransactionId#'		
 					</cfquery>
 										

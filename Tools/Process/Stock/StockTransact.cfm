@@ -229,7 +229,6 @@
 		
 </cfif>
 
-
 <cfquery name="WarehouseLocation"
     datasource="#Attributes.DataSource#" 
     username="#SESSION.login#" 
@@ -382,8 +381,6 @@
 	</cfif>		
 	
 </cfif>	
-
-
 
 <cfset dateValue = "">
 <CF_DateConvert Value="#Attributes.TransactionDate#">
@@ -1940,12 +1937,17 @@
 <!--- 3/3 create a shipping record to support billing/invoicing optional --->
 <!--- ------------------------------------------------------------------ --->
 
+<cfif attributes.salesprice eq "COGS">
+	<cfset attributes.SalesPrice = TransactionCostPrice>	
+</cfif>
+
 <cfif Attributes.Shipping eq "Yes" or Attributes.SalesPrice neq "">
 
     <cfparam name="Attributes.CommodityCode"     default = "">
     <cfparam name="Attributes.SalesCurrency"     default = "#APPLICATION.BaseCurrency#">
 	<cfparam name="Attributes.TaxPercentage"     default = "0">
 	<cfparam name="Attributes.SchedulePrice"     default = "0">
+	<cfparam name="Attributes.PriceSchedule"     default = "">
 	<!--- added to support a mode in which we only sell in different unit, but administer in base UoM --->
 	<cfparam name="Attributes.SalesUoM"          default = "#Attributes.TransactionUoM#">
 	<cfparam name="Attributes.SalesQuantity"     default = "#Attributes.TransactionQuantity#">
@@ -2088,6 +2090,7 @@
 			 TaxExemption,
 			 TaxIncluded, 
 			 <cfif attributes.SalesPrice neq "">
+			 PriceSchedule,
 			 SchedulePrice,
 			 SalesPrice,
 			 SalesAmount,
@@ -2118,6 +2121,7 @@
 			 '#attributes.TaxExemption#',
 			 '#attributes.TaxIncluded#', 
 			<cfif attributes.SalesPrice neq "">
+			 '#Attributes.PriceSchedule#',
 			 '#attributes.SchedulePrice#',
 			 '#attributes.SalesPrice#',
 			 '#sales#',

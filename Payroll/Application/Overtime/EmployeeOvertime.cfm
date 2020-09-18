@@ -65,7 +65,7 @@
 		
 </cfoutput>
 
-<table cellpadding="0" cellspacing="0" height="100%" width="100%" align="center">
+<table height="100%" width="100%" align="center">
 
 <tr><td style="height:10px">
 
@@ -156,11 +156,11 @@ password="#SESSION.dbpw#">
 	AND      L.ActionStatus != '9'
 </cfquery>	
 
-<tr><td style="height:100%">
+<tr><td style="height:100%;padding:10px">
 	
 <cf_divscroll>
 	
-<table width="99%">
+<table align="left" width="98%">
 
   <tr><td colspan="2"></td></tr>
   
@@ -207,18 +207,18 @@ password="#SESSION.dbpw#">
 	datasource="AppsPayroll" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	  SELECT    P.Mission,
-	            YEAR(P.OvertimePeriodEnd) AS OvertimeYear, 				
-				ESL.PayrollItem, 
-				R.PayrollItemName, 
-				ESL.Currency, 
-				ROUND(SUM(ESL.AmountPayroll), 2) AS Amount
-	  FROM      PersonOvertime AS P INNER JOIN
-	            EmployeeSalaryLine AS ESL ON P.OvertimeId = ESL.ReferenceId INNER JOIN
-	            Ref_PayrollItem AS R ON ESL.PayrollItem = R.PayrollItem
-	  WHERE     P.PersonNo = '#url.id#' AND (P.Status = '5')
-	  GROUP BY  P.Mission, YEAR(P.OvertimePeriodEnd), ESL.PayrollItem, R.PayrollItemName, ESL.Currency
-	  ORDER BY  P.Mission, ESL.PayrollItem, R.PayrollItemName, ESL.Currency
+		  SELECT    P.Mission,
+		            YEAR(P.OvertimePeriodEnd) AS OvertimeYear, 				
+					ESL.PayrollItem, 
+					R.PayrollItemName, 
+					ESL.Currency, 
+					ROUND(SUM(ESL.AmountPayroll), 2) AS Amount
+		  FROM      PersonOvertime AS P INNER JOIN
+		            EmployeeSalaryLine AS ESL ON P.OvertimeId = ESL.ReferenceId INNER JOIN
+		            Ref_PayrollItem AS R ON ESL.PayrollItem = R.PayrollItem
+		  WHERE     P.PersonNo = '#url.id#' AND (P.Status = '5')
+		  GROUP BY  P.Mission, YEAR(P.OvertimePeriodEnd), ESL.PayrollItem, R.PayrollItemName, ESL.Currency
+		  ORDER BY  P.Mission, ESL.PayrollItem, R.PayrollItemName, ESL.Currency
 	</cfquery>
 	
 	<TR class="line labelmedium fixrow">
@@ -242,15 +242,14 @@ password="#SESSION.dbpw#">
 	<tr><td colspan="13" align="center" class="labelmedium" style="padding-top:10px;font-size:18px"><cf_tl id="There are no records to show in this view"></td></tr>
 	
 	</cfif>
-		
-	
+			
 	<cfset last = '1'>
 	
 	<cf_tl id="Pending"	var="1">
 	<cfset vPending=#lt_text#>
 	
-	<cf_tl id="Approved"	var="1">
-	<cfset vApproved=#lt_text#>
+	<cf_tl id="Submitted"	var="1">
+	<cfset vSubmitted=#lt_text#>
 	
 	<cf_tl id="Cleared"	var="1">
 	<cfset vCleared=#lt_text#>
@@ -355,7 +354,11 @@ password="#SESSION.dbpw#">
 				
 			<td align="center" style="padding-top:3px;padding-right:4px">
 			<cfif status neq "5">
-			    <cf_img icon="edit" navigation="Yes" onclick="overtimeedit('#URL.ID#','#OvertimeId#')">			   
+				<cfif status gte "1" and url.scope eq "portal">				
+					<!--- we are no showing to edit --->					
+				<cfelse>
+				    <cf_img icon="edit" navigation="Yes" onclick="overtimeedit('#URL.ID#','#OvertimeId#')">			   
+				</cfif>
 			</cfif>	
 			</td>									
 			<td>#Dateformat(OvertimePeriodStart, CLIENT.DateFormatShow)# <cfif OvertimePeriodEnd neq OvertimePeriodStart>- #Dateformat(OvertimePeriodEnd, CLIENT.DateFormatShow)#</cfif></td>			
@@ -415,8 +418,6 @@ password="#SESSION.dbpw#">
 								GROUP BY SalaryTrigger		
 													
 							) as Base
-							
-							
 																						
 					</cfquery>
 																		
@@ -477,7 +478,6 @@ password="#SESSION.dbpw#">
 				<cfelse>
 					<cfset dosettle = "0">					
 				</cfif>	
-					
 			
 			</TD>
 			<TD>		
@@ -490,7 +490,7 @@ password="#SESSION.dbpw#">
 				
 					<cfswitch expression="#Status#">
 					 <cfcase value="0">#vPending#</cfcase>
-					 <cfcase value="1">#vApproved#</cfcase>
+					 <cfcase value="1">#vSubmitted#</cfcase>
 					 <cfcase value="2">#vCleared#</cfcase>
 					 <cfcase value="3">#vCleared#</cfcase>
 					 <cfcase value="5">#vPaid#</cfcase>
@@ -602,7 +602,7 @@ password="#SESSION.dbpw#">
 		
 			<input type="hidden" 
 		       name="workflowlink_#workflow#" id="workflowlink_#workflow#" 		   
-		       value="OvertimeWorkflow.cfm">			   
+		       value="#session.root#/Payroll/Application/Overtime/OvertimeWorkflow.cfm">			   
 		  
 		   <!---
 			<input type="hidden" 

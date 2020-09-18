@@ -35,6 +35,15 @@
 		</table>
 		</td>
 	  </tr>  
+	  
+	  	  <cfquery name="get" 
+			datasource="AppsMaterials" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				SELECT    *
+				FROM      Warehouse
+				WHERE     Warehouse   = '#URL.warehouse#'				
+			</cfquery>
 	        
 	  <tr id="filter">
 	    <td height="40"> 	 
@@ -64,39 +73,52 @@
 			
 			<tr class="line">
 			
-			<cfif Program.recordcount gte "1">
-			<td>
+			<cfif get.ModeSetItem eq "Category">
 			
-				<table>
-				<tr class="line"><td style="font-size:10px"><cf_tl id="Program"></TD></tr>
-				<tr>
-		        <td align="left" valign="top" style="padding-top:3px">
-				   			
-				    <select name="programcode" id="programcode" style="border:0px;width:300px;height:105px" multiple class="regularxl">
-						
-						<cfloop query="Program">
-						<option value="'#ProgramCode#'" <cfif find(programcode,session.mysupply['programcode'])>selected</cfif>>#ProgramName#</option>
-						</cfloop>
-					</select>
-			  	</td>				
-				</tr>
-				</table>							
-			</td>
+				  <cfquery name="CategorySelect" 
+				datasource="AppsMaterials" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					SELECT    DISTINCT R.*
+					FROM      Ref_Category R INNER JOIN
+			                  WarehouseCategory W ON W.Category = R.Category
+					WHERE     W.Warehouse   = '#URL.warehouse#'
+					AND       W.Operational = 1		
+					AND       R.Operational = 1					
+					ORDER BY  Description
+				</cfquery>
+				
+			<cfelseif get.ModeSetItem eq "Location">	
+			
+				  <cfquery name="CategorySelect" 
+				datasource="AppsMaterials" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					SELECT    R.*
+					FROM      Ref_Category R 
+					WHERE     Category IN (SELECT ItemCategory 
+					                       FROM   ItemTransaction 
+										   WHERE Warehouse = '#url.warehouse#')				
+					AND       R.Operational = 1					
+					ORDER BY  Description
+				</cfquery>
+			
+			<cfelse>
+						  
+				  <cfquery name="CategorySelect" 
+				datasource="AppsMaterials" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					SELECT    DISTINCT R.*
+					FROM      Ref_Category R INNER JOIN
+			                  Item I ON R.Category = I.Category INNER JOIN
+			                  ItemWarehouse W ON I.ItemNo = W.ItemNo
+					WHERE     W.Warehouse   = '#URL.warehouse#'
+					AND       I.ItemClass   = 'Supply'
+					ORDER BY  Description
+				</cfquery>
+			
 			</cfif>
-			
-			  
-			  <cfquery name="CategorySelect" 
-			datasource="AppsMaterials" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-				SELECT    DISTINCT R.*
-				FROM      Ref_Category R INNER JOIN
-		                  Item I ON R.Category = I.Category INNER JOIN
-		                  ItemWarehouse W ON I.ItemNo = W.ItemNo
-				WHERE     W.Warehouse   = '#URL.warehouse#'
-				AND       I.ItemClass   = 'Supply'
-				ORDER BY Description
-			</cfquery>
 					 
 	         <TD class="labelmedium">
 				  <table>
@@ -136,18 +158,33 @@
 			  	  </td>				
 				  </tr>
 				  </table>			
-			 </td>  	      
+			 </td>  	
+			 
+			 
+		
+			 
+			 <cfif Program.recordcount gte "1" and get.SupplyWarehouse eq "">
+			<td>
+			
+				<table>
+				<tr class="line"><td style="font-size:10px"><cf_tl id="Program"></TD></tr>
+				<tr>
+		        <td align="left" valign="top" style="padding-top:3px">
+				   			
+				    <select name="programcode" id="programcode" style="border:0px;width:300px;height:105px" multiple class="regularxl">
+						
+						<cfloop query="Program">
+						<option value="'#ProgramCode#'" <cfif find(programcode,session.mysupply['programcode'])>selected</cfif>>#ProgramName#</option>
+						</cfloop>
+					</select>
+			  	</td>				
+				</tr>
+				</table>							
+			</td>
+			</cfif>      
 	
 	        </TR>
 			
-			  <cfquery name="get" 
-			datasource="AppsMaterials" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-				SELECT    *
-				FROM      Warehouse
-				WHERE     Warehouse   = '#URL.warehouse#'				
-			</cfquery>
 							
 			<tr> 			
 			<td colspan="3" style="padding-left:4px">

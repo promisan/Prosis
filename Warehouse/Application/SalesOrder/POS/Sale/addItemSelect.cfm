@@ -125,11 +125,11 @@
 		  <cf_assignid>		
 		   
 		  <cfquery name="getLines" 
-			datasource="AppsTransaction" 
+			datasource="AppsMaterials"
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">			
 				SELECT   *
-				FROM     Sale#URL.Warehouse# T
+				FROM     vwCustomerRequest T
 				WHERE    T.CustomerId      = '#url.customerid#'				
 		  </cfquery>
 		

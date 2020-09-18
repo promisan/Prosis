@@ -75,10 +75,14 @@
 <cfset cnt  = "0">
 <cfset time = "0">
 
-<cfloop index="hr" from="#parameter.hourstart#" to="#parameter.hourend#" step="1">
+<cfif parameter.weekhourend lt parameter.weekhourstart>
+	<cfset send = parameter.weekhourend + 24>
+<cfelse>
+	<cfset send = parameter.weekhourend>	
+</cfif>
 
-    <cfif hr gte "1">
-
+<cfloop index="hr" from="#parameter.weekhourstart#" to="#send#" step="1">
+ 
 		<cfloop index="slot" from="1" to="#schedule.hourslots#">					
 		
 			<cfparam name = "Form.BillingMode_#hr#_#slot#"    default="">
@@ -87,44 +91,44 @@
 			<cfset mode = evaluate("Form.BillingMode_#hr#_#slot#")>
 			<cfset paym = evaluate("Form.BillingPayment_#hr#_#slot#")>					
 															
-			<cfif mode eq "covered">
+			<cfif mode eq "Covered">
 												
-				<!--- no action we leave it but maybe we can enable this as it won't undertwrite edits --->					
+				<!--- no action we leave it as it is covered by the week contract of the person --->					
 				
-			<cfelseif mode eq "">
+			<cfelseif mode eq "Contract">
 			
 				<!--- not sure this is a good idea as this will be overwritten when you press update in the schedule 
-				disabled by Hanno 08/09/2020
+				disabled by Hanno 08/09/2020 ---->
 			
 				<cfquery name="get" 
 				  	datasource="AppsEmployee" 
 				  	username="#SESSION.login#" 
 				  	password="#SESSION.dbpw#">
-				      DELETE FROM PersonWorkDetail 
+				      DELETE PersonWorkDetail 
 					  WHERE  PersonNo         = '#Form.PersonNo#' 
 					  AND    CalendarDate     = #str#
 					  AND    TransactionType  = '1'
 					  AND    CalendarDateHour = '#hr#'
-					  AND    HourSlot         = '#slot#' 					  
-			    </cfquery>		
-				
-				--->			
+					  AND    HourSlot         = '#slot#'			  
+			    </cfquery>						
+						
 			
 			<cfelseif findNoCase("overtime",mode)>
-			
+						
 				<!--- added by Hanno as this would allow to replace break days with overtime --->
 						
-				<cfquery name="get" 
+				<cfquery name="reset" 
 				  	datasource="AppsEmployee" 
 				  	username="#SESSION.login#" 
-				  	password="#SESSION.dbpw#">
+				  	password="#SESSION.dbpw#">					
 				      DELETE FROM PersonWorkDetail 
 					  WHERE  PersonNo         = '#Form.PersonNo#' 
 					  AND    CalendarDate     = #str#
 					  AND    TransactionType  = '1'
 					  AND    CalendarDateHour = '#hr#'
 					  AND    HourSlot         = '#slot#' 	
-					  AND    ActionClass      = 'Break'				  
+					  AND    ActionClass      = 'Break'		
+					  		  
 			    </cfquery>			
 						
 				<cfset cnt = cnt+1>
@@ -158,8 +162,8 @@
 				
 				<cfif getBalance.Balance gte getthreshold.maximumBalance>				
 					<cfset paym = "1">								
-				<cfelse>				
-					<cfset paym = "0">					
+				<cfelse>	
+				    <!--- we leave it on how it was set in the interface --->			
 				</cfif>
 							
 				<cfquery name="get" 
@@ -172,17 +176,17 @@
 					  AND     CalendarDate     = #str#
 					  AND     TransactionType  = '1'
 					  AND     CalendarDateHour = '#hr#'
-					  AND     HourSlot         = '#slot#' 
+					  AND     HourSlot         = '#slot#' 					  
 				</cfquery>
 					
-				<cfif get.recordcount eq "1">
+				<cfif get.recordcount gte "1">
 								
 					<!---- update --->
 				
 					<cfquery name="update" 
 					  	datasource="AppsEmployee" 
 					  	username="#SESSION.login#" 
-					  	password="#SESSION.dbpw#">
+					  	password="#SESSION.dbpw#">						
 					      UPDATE  PersonWorkDetail 
 						  SET     BillingMode      = '#mode#', 
 						          BillingPayment   = '#paym#', 
@@ -271,6 +275,9 @@
 					  
 					</cfloop>
 					
+					<!--- what if all holiday record were removed earlier on line 117, 
+					   better to check on the tables itself --->
+					
 					<cfquery name="getholiday" 
 					  	datasource="AppsEmployee" 
 					  	username="#SESSION.login#" 
@@ -281,6 +288,24 @@
 							AND    CalendarDate = #str# 
 							AND    ActionClass  = 'break' 						  
 					</cfquery>	
+															
+					<cfquery name="getValidSchedule" 
+						datasource="AppsEmployee" 		
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+					    SELECT    TOP 1 *
+						FROM 	  PersonWorkSchedule PWS
+						WHERE     PersonNo      = '#Form.PersonNo#'	
+						AND       Mission       = '#Form.mission#' 
+						AND       DateEffective <= #str#
+						<!--- last enabled schedule --->
+						AND       DateEffective >= (SELECT   MAX(DateEffective)
+													FROM     PersonWorkSchedule S 
+													WHERE    PersonNo         = PWS.PersonNo
+													AND      Mission          = PWS.Mission
+													AND      DateEffective   <= #str#)
+						AND       WeekDay        = #DayOfWeek(str)#								
+				    </cfquery>	
 																														
 					<cfset mul = "1">
 									
@@ -293,7 +318,7 @@
 					<cfelseif days eq "5" or dayofweek(str) eq "7">	
 					    <cfset mode = mde[2]>   <!--- always 150%      ---> 
 						<cfset mul = "1.5">
-					<cfelseif cnt eq "1" and days lte "4">				
+					<cfelseif cnt eq "1" and days lte "4" and getValidSchedule.recordcount gte "1">				
 						<cfset mode = mde[1]>	<!--- first half hour  --->									
 					<cfelse>			
 						<cfset mode = mde[2]>	<!--- 150%    		   --->
@@ -385,8 +410,7 @@
 			</cfif>
 						
 		</cfloop>	
-	
-	</cfif>		
+		
 
 </cfloop>
 

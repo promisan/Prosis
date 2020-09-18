@@ -121,7 +121,7 @@
 		
 </cfdocument>
 
-<cfquery name="Document" 
+<cfquery name="qDocument"
  datasource="AppsOrganization" 
  username="#SESSION.login#" 
  password="#SESSION.dbpw#">
@@ -154,7 +154,7 @@
 		</tr>
 		<tr><td height="1" colspan="3" bgcolor="808080"></td></tr>
 		<tr><td height="6"></td></tr>
-		<cfloop query="document">
+		<cfloop query="qDocument">
 		<tr>
 		   <td>#DocumentOrder#</td>
 		   <td>#DocumentDescription#</td>		   
@@ -176,7 +176,7 @@
 		
 	</cfdocument>
 		
-	<cfloop query="document"> 
+	<cfloop query="qDocument">
 	
 		<cfdocument name="doc#currentrow#"
           format="PDF"
@@ -389,7 +389,7 @@ is the source value of the first cfpdfparam tag. --->
 	
 	<cfpdfparam source="embed">
 		
-	<cfloop query="document"> 
+	<cfloop query="qDocument">
 		<cfpdfparam source="doc#currentrow#">
 	</cfloop>
 			

@@ -27,10 +27,8 @@
 	    <script>	       
 			   try {
 					 document.getElementById('menudocument').disabled = true 
-					 document.getElementById('menudocument').className = "hide"
-					 
-					 } catch(e) { }	
-					 
+					 document.getElementById('menudocument').className = "hide"					 
+				 } catch(e) { }						 
 	
 		</script>			
   		

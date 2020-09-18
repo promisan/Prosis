@@ -25,6 +25,19 @@ password="#SESSION.dbpw#">
 	WHERE    ObjectKeyValue4 = '#get.Overtimeid#'	
 </cfquery>
 
+<cfinvoke component  = "Service.Access" 
+      method         = "RoleAccess"				  	
+	  role           = "'LeaveClearer'"		
+	  returnvariable = "manager">		   
+
+<cfif get.status gte "5"> <!--- status is 5 or 9 --->
+	<cfset access = "NONE">		  
+<cfelseif manager eq "Granted">
+	<cfset access = "ALL">
+<cfelse>
+	<cfset access = "NONE">	
+</cfif>
+
 <cf_tl id="Payroll"	var="1">
 <cfset vYes= "#lt_text#">
 
@@ -37,7 +50,7 @@ password="#SESSION.dbpw#">
 <cfoutput>
 
 	<input type="hidden" name="PersonNo"           value="#URL.ID#">
-       <input type="hidden" name="OvertimeId"         value="#get.OvertimeId#">
+    <input type="hidden" name="OvertimeId"         value="#get.OvertimeId#">
 	<input type="hidden" name="status" id="status" value="#get.status#">
 		  
 </cfoutput>
@@ -60,8 +73,17 @@ password="#SESSION.dbpw#">
 				</cfif>
 			</td>
 			<cfif get.Status eq "9">
-			 <td><font color="FF0000">:<cf_tl id="Denied"></font></td>
-			</cfif>
+			 <td style="padding-left:3px"><font color="FF0000">:<cf_tl id="Denied"></font></td>
+			<cfelseif get.Status eq "1">
+			 <td style="padding-left:3px"><font color="blue">:<cf_tl id="Submitted"></font></td> 
+			<cfelseif get.Status eq "2">
+			 <td style="padding-left:3px"><font color="blue">:<cf_tl id="Cleared"></font></td> 
+			<cfelseif get.Status eq "3">
+			 <td style="padding-left:3px"><font color="green">:<cf_tl id="Cleared"></font></td>
+			<cfelseif get.Status eq "5">
+			 <td style="padding-left:3px"><font color="green">:<cf_tl id="Paid"></font></td> 
+			</cfif>			
+			
 			</tr>
 			</table>
 		</cfoutput>
@@ -72,7 +94,7 @@ password="#SESSION.dbpw#">
   <tr>
     <td width="100%">
     
-	<table border="0" cellpadding="0" cellspacing="0" class="formpadding" width="97%" align="right">
+	<table class="formpadding" width="97%" align="right">
 	
    	
 	<cfoutput>	
@@ -97,7 +119,7 @@ password="#SESSION.dbpw#">
 	<table cellspacing="0" cellpadding="0">
 	<tr class="labelmedium"><td>
 	
-			<cfif get.status gte "2">
+			<cfif get.status gte "3" and access neq "all">
 				#Dateformat(Get.OvertimePeriodStart, CLIENT.DateFormatShow)#
 			<cfelse>
 				  <cf_intelliCalendarDate9
@@ -111,7 +133,7 @@ password="#SESSION.dbpw#">
 	    </td>
 		<td>-</td>
 		<td>
-			<cfif get.status gte "2">
+			<cfif get.status gte "3">
 				   #Dateformat(Get.OvertimePeriodEnd, CLIENT.DateFormatShow)#
 			<cfelse>
 			
@@ -136,7 +158,7 @@ password="#SESSION.dbpw#">
 	<TR class="labelmedium">
     <TD><cf_tl id="Document reference">:</TD>
     <TD>
-	<cfif get.status gte "2">
+	<cfif get.status gte "3" and access neq "all">
 			 <cfif Get.DocumentReference eq "">--<cfelse>#Get.DocumentReference#</cfif>
 		<cfelse>
 			<INPUT type="text" class="regularxl enterasiab" name="DocumentReference" value="#Get.DocumentReference#" maxLength="30" size="30">
@@ -160,20 +182,20 @@ password="#SESSION.dbpw#">
 				WHERE    Mission = '#Object.mission#'	
 		  </cfquery>
 	
-		<cfif get.status gte "2">
+		<cfif get.status gte "3">
 		
 		    <cfif Get.OvertimePayment eq "1">#vYes#<cfelse>#vNo#</cfif>
 								
 		<cfelse>
 		
-			<cfdiv id="divMode" bind="url:getOvertimeMode.cfm?mission=#Object.Mission#&selected=#Get.OvertimePayment#">
+			<cf_securediv id="divMode" bind="url:getOvertimeMode.cfm?mission=#Object.Mission#&selected=#Get.OvertimePayment#">
 		
 	    </cfif>	
 		
 	</TD>
 	</TR>		
 
-	<cfif get.status gte "2">
+	<cfif get.status gte "3">
 	
 		<TR class="labelmedium" id="currencydate">
    		<TD width="120"></TD>
@@ -207,7 +229,7 @@ password="#SESSION.dbpw#">
 		<tr class="labelmedium">
 		  <td><cf_tl id="Deduct Time"></td>
 		  <td style="font-size:16px">		 
-		  <cfif get.status gte "2">
+		  <cfif get.status gte "3" and access neq "all">
 		  #numberformat(time.overtimehours,"()")#
 		  <cfelse>
 		  <input type="text" size="4" style="text-align:right" class="enterastab regularxl" value="#time.overtimehours#">		  
@@ -228,7 +250,7 @@ password="#SESSION.dbpw#">
 		<tr class="labelmedium">
 		<td><cf_tl id="Issue for payment"></td>
 		<td style="font-size:16px">		
-		<cfif get.status gte "2">
+		<cfif get.status gte "3" and access neq "all">
 		   #pay.overtimehours#
 		<cfelse>
 		  <input type="text" size="4" value="#pay.overtimehours#" style="text-align:right" class="enterastab regularxl" name="Pay">
@@ -242,9 +264,9 @@ password="#SESSION.dbpw#">
 	    <TD valign="top" style="padding-top:4px"><cf_tl id="Overtime">(HH:MM):</TD>
 	    <TD valign="top">
 		  <cfif get.status gte "2">
-		  <cfdiv id="overtimecontent" bind="url:setOvertime.cfm?payment=#get.overtimepayment#&personno=#url.id#&overtimeid=#url.id1#&accessmode=view">	
+		  <cf_securediv id="overtimecontent" bind="url:setOvertime.cfm?payment=#get.overtimepayment#&personno=#url.id#&overtimeid=#url.id1#&accessmode=view">	
 		  <cfelse>
-		  <cfdiv id="overtimecontent" bind="url:setOvertime.cfm?payment=#get.overtimepayment#&personno=#url.id#&overtimeid=#url.id1#&accessmode=edit">	
+		  <cf_securediv id="overtimecontent" bind="url:setOvertime.cfm?payment=#get.overtimepayment#&personno=#url.id#&overtimeid=#url.id1#&accessmode=edit">	
 		  </cfif>
 		</td>
 				
@@ -255,7 +277,7 @@ password="#SESSION.dbpw#">
 	<TR class="labelmedium">
         <td valign="top" style="padding-top:4px"><cf_tl id="Remarks">:</td>
         <TD>
-		<cfif get.status gte "2">
+		<cfif get.status gte "3" and access neq "all">
 			 <cfif Get.Remarks eq "">--<cfelse>#Get.Remarks#</cfif>
 		<cfelse>
 			<textarea class="regular" style="padding:3px;font-size:14px;width:90%" totlength="300"  onkeyup="return ismaxlength(this)"	rows="2" name="Remarks">#Get.Remarks#</textarea> </TD>
@@ -264,7 +286,7 @@ password="#SESSION.dbpw#">
 			
 	<tr class="labelmedium">
 		<td><cf_tl id="Attachment">:</td>
-		<td><cfdiv bind="url:OvertimeAttachment.cfm?id=#get.overtimeid#" id="att"></td>			
+		<td><cf_securediv bind="url:OvertimeAttachment.cfm?id=#get.overtimeid#" id="att"></td>			
 	</tr>	
 					
 	<cfquery name="Person" 
@@ -313,19 +335,9 @@ password="#SESSION.dbpw#">
 
 <tr><td class="line"></td></tr>  
 
-<cfinvoke component  = "Service.Access" 
-      method         = "RoleAccess"				  	
-	  role           = "'LeaveClearer'"		
-	  returnvariable = "manager">		   
-		  
-  
-<cfif manager eq "Granted">
-	<cfset access = "ALL">
-<cfelse>
-	<cfset access = "NONE">	
-</cfif>	  			
+			
 	
- <cfif (Get.Status lte "1" and URL.Mode neq "") or access eq "all">
+ <cfif (Get.Status lte "2" and URL.Mode neq "") or access eq "all">
  
 	  <cfoutput>	  
 	  
@@ -333,17 +345,22 @@ password="#SESSION.dbpw#">
 	  
 	   <td height="34" align="center">  
 	   
-		   <cfif url.mode neq "workflow">
+		   <cfif url.refer neq "workflow">
 		   
 		   		<cf_tl id="Back" var="1">      
 			    <input type="button" name="cancel" value="#lt_text#" class="button10g" onClick="ptoken.location('EmployeeOvertime.cfm?ID=#url.id#')">
 				
 		   </cfif>
+		   
+		   <cfif access eq "ALL" or get.Status lte "1">
 		   	 
 		   <cf_tl id="Delete" var="1">      
 		     <input class="button10g" type="button" name="Delete" value="#lt_text#" onclick="check('delete')">
 			 
-		   <cfif get.status lte "1"> 
+		   </cfif>	
+		   	 
+					 
+		   <cfif get.status lte "2" or access eq "all"> 
 		   	 
 		   <cf_tl id="Save" var="1">      
 		     <input class="button10g" type="button" name="Submit" value=" #lt_text# "  onclick="check('edit')">	              
@@ -360,7 +377,7 @@ password="#SESSION.dbpw#">
 
 	  <cfoutput>	
 	  
-	  <cfif url.mode neq "workflow">
+	  <cfif url.refer neq "workflow">
 	 	 	  
 		   <tr>
 		  

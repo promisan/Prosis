@@ -15,7 +15,7 @@
       FROM Parameter
   </cfquery>
 
-<cf_screenTop height="100%" border="0" title="#lt_text#" scroll="no" jQuery="Yes" html="No" validateSession="Yes">
+<cf_screenTop height="100%" border="0" title="#lt_text#" scroll="no" jQuery="Yes" html="No" validateSession="Yes" TreeTemplate="Yes">
   
 <cf_listingscript>
   

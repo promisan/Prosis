@@ -1,13 +1,13 @@
 
 <cfoutput>
 
-<form name="selectuser#box#" method="post">
-
 <table align="center" bgcolor="FFFFFF" width="100%" height="100%">
 
 <tr><td valign="top">
 
-<table width="99%" border="0" align="center" cellspacing="0" cellpadding="0" align="center">
+<form name="selectuser#box#" method="post">
+
+<table width="99%" align="center" align="center">
 
 <tr><td>
 
@@ -15,7 +15,7 @@
 	   method           = "LookupOptions" 
 	   returnvariable   = "SelectOptions">
 
-<table width="96%" class="formpadding" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="96%" border="0" cellspacing="0" cellpadding="0" align="center">
 
     <tr><td height="7"></td></tr>
   
@@ -83,7 +83,7 @@
 		<cf_tl id="Close" var="1">
 		<input type="button" 
 		   value="#lt_text#" 
-		   onclick="ColdFusion.Window.hide('dialog#url.box#')"
+		   onclick="ProsisUI.closeWindow('dialog#url.box#')"
 		   class="button10g">
 		   
 		</td>
@@ -103,15 +103,17 @@
 	</td></tr>
 
 	<tr>
-		<td colspan="2" align="center"><cfdiv id="resultuser#box#"></td>
+		<td colspan="2" align="center" style="padding:2px"><cfdiv id="resultuser#box#"></td>
 	</tr>
 
 	</table>
+	
+	</FORM>
 
 </td></tr>
 
 </table>
 
-</FORM>
+
 
 </cfoutput>

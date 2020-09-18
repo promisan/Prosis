@@ -1,6 +1,4 @@
 
-<cfajaximport tags="cfform,cftree">
-
 <cfparam name="url.systemfunctionid" default="">
 
 <cf_tl id="Tree Builder" var="1">
@@ -70,6 +68,9 @@
 	}
 
 </script>
+
+<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+<cfset mid = oSecurity.gethash()/>  
 	 
 <cfset attrib = {type="Border",name="mybox",fitToWindow="Yes"}>
 
@@ -95,7 +96,7 @@
 			        height="99%"
 			        scrolling="no"
 			        frameborder="0"
-					src="OrganizationTree.cfm?mode=#url.mode#&id2=#url.id2#">
+					src="OrganizationTree.cfm?mode=#url.mode#&id2=#url.id2#&mid=#mid#">
 			</iframe>		
 				 
 	</cf_layoutarea>		 
@@ -113,7 +114,7 @@
 			        height="100%"
 			        scrolling="no"
 			        frameborder="0"
-					src="MissionEdit.cfm?id2=#url.id2#">
+					src="MissionEdit.cfm?id2=#url.id2#&mid=#mid#">
 			</iframe>					
 										
 	
