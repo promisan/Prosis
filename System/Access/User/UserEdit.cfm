@@ -143,45 +143,86 @@ password="#SESSION.dbpw#">
 			
 			<cfif Get.AccountType eq "Individual">
 			
-			 <!--- Field: Applicant.IndexNo --->
-		    <TR>
-		    <TD class="labelmedium"><cf_tl id="EmployeeNo">:</TD>
-		    <TD class="labelmedium">
-				
-		    	<cfoutput>		
-				<table cellspacing="0" cellpadding="0"><tr><td>
-				<input type="text" name="EmployeeNo" id="personno" value="#get.PersonNo#" size="10" maxlength="20" class="regularxl enterastab" readonly>
-				</td>
-				<td style="padding-left:0px">
-				
-				 <cf_selectlookup
-						    box        = "employee"
-							link       = "getPerson.cfm?id=1"
-							button     = "Yes"
-							close      = "Yes"						
-							icon       = "search.png"
-							iconheight = "25"
-							iconwidth  = "25"
-							class      = "employee"
-							des1       = "PersonNo">
-						
-				</td>
-				
-				<input type="hidden" name="indexno" id="indexno" value="#get.indexNo#">
-				
-				</cfoutput>	
-						 	    	
-				<td id="employee">
-						    
-				</td>			
-				</tr>
-				
-				</table>
-						   
-			</TD>
-			</TR>
-			</cfif>
+			<!--- check --->
 			
+			<cfquery name="check" 
+			datasource="appsOrganization" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			    SELECT  * 
+			    FROM    Applicant.dbo.ApplicantSubmission
+				WHERE   ApplicantNo = '#get.ApplicantNo#'		
+			</cfquery>
+			
+				<cfif check.recordcount eq "1">
+				
+					<TR>
+				    <TD class="labelmedium"><cf_tl id="Natural Person">:</TD>
+				    <TD class="labelmedium">
+						
+				    	<cfoutput>		
+						<table cellspacing="0" cellpadding="0">
+						<tr>
+						<td>
+						<input style="background-color:f1f1f1" type="text" name="EmployeeNo" id="personno" value="#check.PersonNo#" size="10" maxlength="20" class="regularxl enterastab" readonly>
+						</td>
+						<td style="padding-left:10px"><cf_tl id="Submission">:</td>
+						<td style="padding-left:10px">
+						<input style="background-color:f1f1f1" type="text" name="ApplicantNo" id="applicantNo" value="#get.ApplicantNo#" size="5" maxlength="20" class="regularxl enterastab" readonly>
+						</td>
+						<td style="padding-left:0px"></td>					
+						<input type="hidden" name="indexno" id="indexno" value="#get.indexNo#">					
+						</cfoutput>						
+						</tr>				
+						</table>
+								   
+					</TD>
+					</TR>
+				
+				
+				<cfelse>
+							
+					<!--- Field: Applicant.IndexNo --->
+				    <TR>
+				    <TD class="labelmedium"><cf_tl id="EmployeeNo">:</TD>
+				    <TD class="labelmedium">
+						
+				    	<cfoutput>		
+						<table cellspacing="0" cellpadding="0"><tr><td>
+						<input type="text" name="EmployeeNo" id="personno" value="#get.PersonNo#" size="10" maxlength="20" class="regularxl enterastab" readonly>
+						</td>
+						<td style="padding-left:0px">
+						
+						 <cf_selectlookup
+								    box        = "employee"
+									link       = "getPerson.cfm?id=1"
+									button     = "Yes"
+									close      = "Yes"						
+									icon       = "search.png"
+									iconheight = "25"
+									iconwidth  = "25"
+									class      = "employee"
+									des1       = "PersonNo">
+								
+						</td>
+						
+						<input type="hidden" name="indexno" id="indexno" value="#get.indexNo#">
+						
+						</cfoutput>	
+								 	    	
+						<td id="employee">
+								    
+						</td>			
+						</tr>
+						
+						</table>
+								   
+					</TD>
+					</TR>
+					
+				</cfif>
+			
+			</cfif>
 			
 			
 			<cfif Get.AccountType eq "Individual">

@@ -92,7 +92,7 @@
 				<tr class="#c1#" id="actionmail2">
 					<td align="left" style="padding-left:4px" class="labelmedium">
 					<img src="<cfoutput>#SESSION.root#</cfoutput>/images/join.gif" align="absmiddle"	alt="" border="0">
-					&nbsp;&nbsp;Attach the "for this step" generated Documents:</td>								
+					&nbsp;&nbsp;Add the "for this step" generated Documents:</td>								
 					<td>
 						<INPUT type="checkbox" class="Radiol" name="PersonMailActionAttach" id="PersonMailActionAttach" value="1" <cfif Get.PersonMailActionAttach eq "1">checked</cfif>>
 					</td>
@@ -103,7 +103,7 @@
 				<tr class="#c1#" id="actionmail3">
 					<td align="left" style="padding-left:4px" class="labelmedium">
 					<img src="<cfoutput>#SESSION.root#</cfoutput>/images/join.gif" align="absmiddle"	alt="" border="0">
-					&nbsp;&nbsp;Attach the "for this object" included attachments:</td>								
+					&nbsp;&nbsp;Add the "for this object" loaded attachments:</td>								
 					<td>
 						<INPUT type="checkbox" class="Radiol" name="PersonMailObjectAttach" id="PersonMailObjectAttach" value="1" <cfif Get.PersonMailObjectAttach eq "1">checked</cfif>>
 					</td>

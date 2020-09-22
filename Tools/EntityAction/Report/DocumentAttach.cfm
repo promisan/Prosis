@@ -1,4 +1,6 @@
 
+<!--- declare documents to be attached --->
+
 <cfquery name="InsertAttach" 
  datasource="AppsOrganization"
  username="#SESSION.login#" 
@@ -19,6 +21,16 @@
 	FROM   Ref_EntityDocument
 	WHERE  EntityCode     = '#Object.EntityCode#' 
 	AND    DocumentType   = 'attach'
+	AND    Operational = 1
+	
+	AND     DocumentId IN (
+					
+				SELECT     DocumentId
+				FROM       Ref_EntityActionPublishDocument
+				WHERE      ActionPublishNo = '#Object.ActionPublishNo#'
+					
+			)
+	
 	AND    DocumentId NOT IN (SELECT DocumentId 
 	                          FROM   OrganizationObjectDocument 
 							  WHERE  ObjectId = '#Object.ObjectId#')

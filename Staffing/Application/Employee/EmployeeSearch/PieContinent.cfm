@@ -30,7 +30,11 @@ password="#SESSION.dbpw#">
 <tr><td align="center">
 
 <cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
-<cfchart style = "#chartStyleFile#" format="png" chartheight="200" chartwidth="600" showxgridlines="no" showygridlines="no" showborder="no" fontbold="no" fontitalic="no" show3d="yes" rotated="no" sortxaxis="yes" showlegend="yes" tipbgcolor="##FFFFCC" showmarkers="no" pieslicestyle="solid">
+<cfchart style = "#chartStyleFile#" format="html" 
+    chartheight="300" chartwidth="600" showxgridlines="no" showygridlines="no" showborder="no" fontbold="no" 
+	fontitalic="no" show3d="yes" rotated="no" sortxaxis="yes" showlegend="yes" 
+	tipbgcolor="000000" 
+	showmarkers="no" pieslicestyle="solid">
 
 <cfchartseries type="pie" query="Graph" itemcolumn="Continent" valuecolumn="Total" serieslabel="Gender" seriescolor="##FFFFCC" paintstyle="raise" markerstyle="circle" colorlist="##6688aa ,##8EA4BB">
 </cfchartseries>

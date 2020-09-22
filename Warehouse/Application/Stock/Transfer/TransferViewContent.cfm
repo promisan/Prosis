@@ -186,7 +186,7 @@
 	<td width="1%"></td>				
 	<TD style="padding-left:5px;min-width:50px"><cf_tl id="Cat"></TD>		
 	<TD style="min-width:60px"><cf_tl id="No"></TD>		
-	<td style="min-width:100px"><cf_tl id="BarCode"></td>		
+	<td style="min-width:100px"><cf_tl id="Code"></td>		
 	<TD style="width:100%"><cf_tl id="Product"></TD>	
 	<cfif url.loc eq "">
 	<TD style="min-width:60px"><cf_tl id="Location"></TD>	
@@ -247,7 +247,7 @@
 	  		
 			<cfif url.stockorderid eq "">	
 			
-		    <tr bgcolor="#IIf(CurrentRow Mod 2, DE('f4f4f4'), DE('Ffffff'))#"
+		    <tr bgcolor="#IIf(CurrentRow Mod 2, DE('ffffff'), DE('Ffffff'))#"
 			    style="cursor:pointer;height:20px;padding:0px"
 				class="labelmedium navigation_row regular line"					
 				ondblclick="item('#ItemNo#','#url.systemfunctionid#','#URL.Mission#')">
@@ -265,7 +265,7 @@
 			<td height="20"></td>						
 			<TD style="padding-left:5px;padding-right:3px">#Category#</TD>												
 			<TD style="padding-right:3px"><cfif prior neq itemno>#ItemNo#<cfelse>&nbsp;</cfif></TD>			
-			<td style="padding-right:5px;">#ItemBarcode#</td>
+			<td style="padding-right:5px;">#ItemNoExternal#</td>
 			
 			<cfif url.stockorderid eq "">					
 			

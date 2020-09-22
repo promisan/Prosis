@@ -267,12 +267,12 @@
 		ptoken.navigate('#SESSION.root#/Roster/RosterSpecial/Bucket/BucketQuestion/RecordListing.cfm?idfunction='+id,'phrases')
 	}
 	
-	function testevaluation(doc,per,act,mde) {		
-		ProsisUI.createWindow('test', 'Evaluation','',{x:100,y:100,width:document.body.offsetWidth-100,height:document.body.offsetHeight-100,modal:true,center:true})
+	function testevaluation(doc,per,act,mde,cls) {		
+		ProsisUI.createWindow('test', 'Evaluation','',{x:100,y:100,width:document.body.offsetWidth-70,height:document.body.offsetHeight-70,modal:true,center:true})
 		if (mde == 'edit') {
-			ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/Assessment/AssessmentView.cfm?documentno='+doc+'&actioncode='+act+'&personno='+per+'&mode='+mde,'test')
+			ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/Assessment/AssessmentView.cfm?documentno='+doc+'&actioncode='+act+'&personno='+per+'&mode='+mde+'&modality='+cls,'test')
 		} else {
-		   	ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/Assessment/AssessmentView.cfm?documentno='+doc+'&actioncode='+act+'&personno='+per+'&mode='+mde,'test')		
+		   	ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/Assessment/AssessmentView.cfm?documentno='+doc+'&actioncode='+act+'&personno='+per+'&mode='+mde+'&modality='+cls,'test')		
 		}					
 	}
 	
@@ -309,8 +309,8 @@
 	}	
 	
 	function savecandidateeval(obj,per,usr,act,com,val,fld) {		   	     
-		_cf_loadingtexthtml='';	
-		ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/Assessment/setAssessment.cfm?objectid='+obj+'&useraccount='+usr+'&personno='+per+'&actioncode='+act+'&competenceid='+com+'&formfield='+val+'&field='+fld,'process','','','POST','formembed')	
+		_cf_loadingtexthtml='';			
+		ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/Assessment/setAssessment.cfm?objectid='+obj+'&useraccount='+usr+'&personno='+per+'&actioncode='+act+'&competenceid='+com+'&formfield='+val+'&field='+fld,'process','','','POST','formembed')				
 	}	
 
 </script>
@@ -903,7 +903,7 @@ password="#SESSION.dbpw#">
 					<td colspan="10">				
 				    <table width="100%">
 						<cfloop query="OtherCandidates">
-						<tr><td class="labelmedium">				    
+						<tr><td class="labelmedium" style="padding-left:10px">				    
 						<font color="FF0000"><cf_tl id="Attention">:</font>
 						 <a href="javascript:showdocument('#OtherCandidates.DocumentNo#')">
 						 #Status#<cf_tl id="for">: #OtherCandidates.Mission#&nbsp;#OtherCandidates.PostGrade# #OtherCandidates.FunctionalTitle#</b></a>
@@ -1022,17 +1022,19 @@ password="#SESSION.dbpw#">
 			
 				<cfif getActivity.recordcount gte "1">				
 			
-					<tr id="action#currentrow#" class="xxhide">					
-					<td colspan="10">
-						<cfdiv id="boxaction#PersonNo#" 
+					<tr id="action#currentrow#" class="xxhide">		
+					<td></td>			
+					<td colspan="9">
+						<cf_securediv id="boxaction#PersonNo#" 
 						 bind="url:#session.root#/Vactrack/Application/Candidate/Action/ActionListing.cfm?documentNo=#Object.ObjectKeyValue1#&PersonNo=#PersonNo#&actioncode=#flowaction#">				
 					</td>
 					</tr>	
 				
 				</cfif>
 																				
-				<tr id="assessment#currentrow#" class="hide">			
-				<td colspan="10" id="boxassessment#currentrow#" style="padding:5px"></td>
+				<tr id="assessment#currentrow#" class="hide">		
+				<td></td>	
+				<td colspan="9" id="boxassessment#currentrow#" style="padding:5px"></td>
 				</tr>		
 				
 			<cfelseif dialog eq "Mark">
@@ -1050,16 +1052,18 @@ password="#SESSION.dbpw#">
 				<cfif getActivity.recordcount gte "1">				
 			
 					<tr id="action#currentrow#" class="xxhide">					
-					<td colspan="10" style="padding-left:20px">
-						<cfdiv id="boxaction#PersonNo#" 
+					<td></td>
+					<td colspan="9" style="padding-left:20px">
+						<cf_securediv id="boxaction#PersonNo#" 
 						 bind="url:#session.root#/Vactrack/Application/Candidate/Action/ActionListing.cfm?documentNo=#Object.ObjectKeyValue1#&PersonNo=#PersonNo#&actioncode=#flowaction#">				
 					</td>
 					</tr>	
 				
 				</cfif>
 						
-				<tr id="assessment#currentrow#" class="hide">			 
-				  <td colspan="10" style="padding:5px" id="boxassessment#currentrow#"></td>
+				<tr id="assessment#currentrow#" class="hide">		
+					<td></td>	 
+				    <td colspan="9" style="padding:5px" id="boxassessment#currentrow#"></td>
 				</tr>		
 			
 			<cfelse>
@@ -1081,7 +1085,7 @@ password="#SESSION.dbpw#">
 					<tr id="action#currentrow#" class="xxhide">
 					
 					<td colspan="10" style="padding-left:20px">
-						<cfdiv id="boxaction#PersonNo#" 
+						<cf_securediv id="boxaction#PersonNo#" 
 						 bind="url:#session.root#/Vactrack/Application/Candidate/Action/ActionListing.cfm?documentNo=#Object.ObjectKeyValue1#&PersonNo=#PersonNo#&actioncode=#flowaction#">				
 					</td>
 					</tr>	

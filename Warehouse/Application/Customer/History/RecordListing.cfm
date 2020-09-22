@@ -1,4 +1,6 @@
 
+<cfparam name="url.mission" default="">
+
 <cfsavecontent variable="myquery">		
 	<cfoutput>
 
@@ -67,9 +69,7 @@
 					B.OfficerUserId, 
 					B.OfficerLastName, 
 					B.OfficerFirstName, 
-					B.Created
-						 
-					
+					B.Created										
 					
 		FROM        Materials.dbo.WarehouseBatch AS B 
 					INNER JOIN  (SELECT CustomerID, CustomerName as CustomerInvoiceName 
@@ -77,6 +77,9 @@
 					INNER JOIN   Materials.dbo.Customer AS C ON B.CustomerId = C.CustomerId 
 					INNER JOIN   Materials.dbo.Warehouse AS W ON B.Warehouse = W.Warehouse
 		WHERE       B.CustomerId = '#url.customerid#' 
+		<cfif url.mission neq "">
+		AND         B.Mission = '#url.mission#'
+		</cfif>
 		AND         B.ActionStatus != '9'
 		ORDER BY    B.TransactionDate DESC
 	</cfoutput>

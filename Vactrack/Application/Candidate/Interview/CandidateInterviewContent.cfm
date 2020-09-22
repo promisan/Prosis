@@ -385,7 +385,7 @@ password="#SESSION.dbpw#">
 		<cfoutput query="Interview">
 		
 			<tr class="line">
-				<td valign="top" class="labelmedium" style="width:200px;padding-top:4px">#Description#</td>
+				<td valign="top" class="labelmedium" style="width:200px;padding-top:4px"><cf_tl id="Recapitulation"> #Description#</td>
 			    <td style="padding-left:0px">
 				<cfif (ActionCode eq URL.ActionCode or Interview.ActionCode eq "") and url.actioncode neq "view">			
 				
@@ -395,7 +395,7 @@ password="#SESSION.dbpw#">
 						 resize="false"		
 						 border="0" 
 						 toolbar="Mini"
-						 height="80"
+						 height="180"
 						 width="100%">#InterviewNotes#</cf_textarea>
 				
 				<!---	
@@ -408,6 +408,8 @@ password="#SESSION.dbpw#">
 			</tr>			
 		
 		</cfoutput>
+		
+		<!---
 		
 		<cfif interview.recordcount gte "1">
 		
@@ -440,6 +442,10 @@ password="#SESSION.dbpw#">
 			<input type="text" name="ReviewMemo" value="">	
 
 		</cfif>
+		
+		--->
+		
+		<input type="hidden" name="ReviewMemo" value="">	
 	
 	<!--- this is now moved out to the screen itself
 	

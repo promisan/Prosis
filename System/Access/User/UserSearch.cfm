@@ -64,75 +64,28 @@
 			<tr><td height="10"></td></tr>	
 			
 			<cfset session.userselect[0] = "">
-																									
-			<cfparam name="session.userselect[1]" default="">	  			
-												
-			<INPUT type="hidden" name="Crit1_FieldName" id="Crit1_FieldName" value="U.Account">		
-			<INPUT type="hidden" name="Crit1_FieldType" id="Crit1_FieldType" value="CHAR">
+			
+			<cfparam name="session.userselect[13]" default="">	
+			
 			<TR>
-			<TD class="labelmedium"><cf_tl id="Account">:</TD>
+			<TD width="200" class="labelmedium"><cf_tl id="Source class">:</TD>
 			<TD>
-			<SELECT name="Crit1_Operator" id="Crit1_Operator" class="regularxl enterastab">
+						
+				<cfquery name="SourceList" 
+			    datasource="AppsSystem" 
+			    username="#SESSION.login#" 
+		    	password="#SESSION.dbpw#">
+				SELECT DISTINCT Source
+				FROM            UserNames
+				</cfquery>
 				
-					<OPTION value="CONTAINS"><cfoutput>#vContains#</cfoutput> 
-					<OPTION value="BEGINS_WITH">begins with
-					<OPTION value="ENDS_WITH">ends with
-					<OPTION value="EQUAL">is
-					<OPTION value="NOT_EQUAL">is not
-					<OPTION value="SMALLER_THAN">before
-					<OPTION value="GREATER_THAN">after
-				
-				</SELECT>
-				
-			<INPUT type="text" name="Crit1_Value" id="Crit1_Value" size="20" value="#session.userselect[1]#" class="regularxl enterastab"> 
+				<select name="Source" class="regularxl enterastab">			
+					<cfloop query="SourceList">
+					<option value="#Source#" <cfif session.userselect[13] eq "#Source#">selected</cfif>>#Source#</option>
+					</cfloop>			
+				</select>
 			
-			</TD>
-			</TR>				
-			
-			<cfparam name="session.userselect[3]" default="">
-					
-			<INPUT type="hidden" name="Crit3_FieldName" id="Crit3_FieldName" value="U.LastName,U.FirstName,U.IndexNo">
-			
-			<INPUT type="hidden" name="Crit3_FieldType" id="Crit3_FieldType" value="CHAR">
-			<TR>
-			<TD class="labelmedium"><cf_tl id="Name">/<cf_tl id="Index">:</TD>
-			<TD><SELECT name="Crit3_Operator" id="Crit3_Operator" class="regularxl enterastab">
 				
-					<OPTION value="CONTAINS"><cfoutput>#vContains#</cfoutput>
-					<OPTION value="BEGINS_WITH">begins with
-					<OPTION value="ENDS_WITH">ends with
-					<OPTION value="EQUAL">is
-					<OPTION value="NOT_EQUAL">is not
-					<OPTION value="SMALLER_THAN">before
-					<OPTION value="GREATER_THAN">after
-				
-				</SELECT>
-				
-			<INPUT type="text" name="Crit3_Value" id="Crit2_Value" value="#session.userselect[3]#" size="20" class="regularxl enterastab"> 
-			
-			</TD>
-			</TR>
-			
-			<cfparam name="session.userselect[4]" default="">
-			
-			<INPUT type="hidden" name="Crit4_FieldName" id="Crit4_FieldName" value="U.AccountGroup">		
-			<INPUT type="hidden" name="Crit4_FieldType" id="Crit4_FieldType" value="CHAR">
-			<TR>
-			<TD class="labelmedium"><cf_tl id="Account Class">:</TD>
-			<TD><SELECT name="Crit4_Operator" id="Crit4_Operator" class="regularxl enterastab">
-				
-					<OPTION value="CONTAINS"><cfoutput>#vContains#</cfoutput>
-					<OPTION value="BEGINS_WITH">begins with
-					<OPTION value="ENDS_WITH">ends with
-					<OPTION value="EQUAL">is
-					<OPTION value="NOT_EQUAL">is not
-					<OPTION value="SMALLER_THAN">before
-					<OPTION value="GREATER_THAN">after
-				
-				</SELECT>
-				
-			<INPUT type="text" name="Crit4_Value" id="Crit4_Value" size="20" class="regularxl enterastab" value="#session.userselect[4]#">
-			
 			</TD>
 			</TR>	
 			
@@ -172,8 +125,97 @@
 			
 			</TD>
 			</TR>				
+																														
+			<cfparam name="session.userselect[1]" default="">	  			
+												
+			<INPUT type="hidden" name="Crit1_FieldName" id="Crit1_FieldName" value="U.Account">		
+			<INPUT type="hidden" name="Crit1_FieldType" id="Crit1_FieldType" value="CHAR">
+			<TR>
+			<TD class="labelmedium"><cf_tl id="Account">:</TD>
+			<TD>
+			<table><tr><td>
 			
+				<SELECT name="Crit1_Operator" id="Crit1_Operator" class="regularxl enterastab">				
+					<OPTION value="CONTAINS"><cfoutput>#vContains#</cfoutput> 
+					<OPTION value="BEGINS_WITH">begins with
+					<OPTION value="ENDS_WITH">ends with
+					<OPTION value="EQUAL">is
+					<OPTION value="NOT_EQUAL">is not
+					<OPTION value="SMALLER_THAN">before
+					<OPTION value="GREATER_THAN">after				
+				</SELECT>
+				
+				</td>
+				<td style="padding-left:3px">	
+				<INPUT type="text" name="Crit1_Value" id="Crit1_Value" size="20" value="#session.userselect[1]#" class="regularxl enterastab"> 
+				</td>
+				</tr>
+			</table>
 			
+			</TD>
+			</TR>	
+			
+					
+			
+			<cfparam name="session.userselect[3]" default="">
+					
+			<INPUT type="hidden" name="Crit3_FieldName" id="Crit3_FieldName" value="U.LastName,U.FirstName,U.IndexNo">
+			
+			<INPUT type="hidden" name="Crit3_FieldType" id="Crit3_FieldType" value="CHAR">
+			<TR>
+			<TD class="labelmedium"><cf_tl id="Name">/<cf_tl id="Index">:</TD>
+			<TD>
+			
+			<table><tr><td><SELECT name="Crit3_Operator" id="Crit3_Operator" class="regularxl enterastab">
+				
+					<OPTION value="CONTAINS"><cfoutput>#vContains#</cfoutput>
+					<OPTION value="BEGINS_WITH">begins with
+					<OPTION value="ENDS_WITH">ends with
+					<OPTION value="EQUAL">is
+					<OPTION value="NOT_EQUAL">is not
+					<OPTION value="SMALLER_THAN">before
+					<OPTION value="GREATER_THAN">after
+				
+				</SELECT>
+				</td>
+				<td style="padding-left:3px">			
+				<INPUT type="text" name="Crit3_Value" id="Crit2_Value" value="#session.userselect[3]#" size="20" class="regularxl enterastab"> 
+				</td>
+				</tr>
+			</table>
+			
+			</TD>
+			</TR>
+			
+			<cfparam name="session.userselect[4]" default="">
+			
+			<INPUT type="hidden" name="Crit4_FieldName" id="Crit4_FieldName" value="U.AccountGroup">		
+			<INPUT type="hidden" name="Crit4_FieldType" id="Crit4_FieldType" value="CHAR">
+			<TR>
+			<TD class="labelmedium"><cf_tl id="Account Class">:</TD>
+			<TD>
+			<table><tr><td>
+			<SELECT name="Crit4_Operator" id="Crit4_Operator" class="regularxl enterastab">
+				
+					<OPTION value="CONTAINS"><cfoutput>#vContains#</cfoutput>
+					<OPTION value="BEGINS_WITH">begins with
+					<OPTION value="ENDS_WITH">ends with
+					<OPTION value="EQUAL">is
+					<OPTION value="NOT_EQUAL">is not
+					<OPTION value="SMALLER_THAN">before
+					<OPTION value="GREATER_THAN">after
+				
+				</SELECT>
+				</td>
+				<td style="padding-left:3px">						
+				<INPUT type="text" name="Crit4_Value" id="Crit4_Value" size="20" class="regularxl enterastab" value="#session.userselect[4]#">
+				</td>
+				</tr>
+			</table>
+			
+			</TD>
+			</TR>	
+		
 			<cfparam name="session.userselect[2]" default="">	
 			
 			<TR>
@@ -194,29 +236,7 @@
 			</TD>
 			</TR>	
 			
-			<cfparam name="session.userselect[13]" default="">	
 			
-			<TR>
-			<TD width="200" class="labelmedium"><cf_tl id="Source">:</TD>
-			<TD>
-						
-				<cfquery name="SourceList" 
-			    datasource="AppsSystem" 
-			    username="#SESSION.login#" 
-		    	password="#SESSION.dbpw#">
-				SELECT DISTINCT Source
-				FROM            UserNames
-				</cfquery>
-				
-				<select name="Source" class="regularxl enterastab">			
-					<cfloop query="SourceList">
-					<option value="#Source#" <cfif session.userselect[13] eq "#Source#">selected</cfif>>#Source#</option>
-					</cfloop>			
-				</select>
-			
-				
-			</TD>
-			</TR>	
 						
 			<TR>
 			<TD class="labelmedium"><cf_tl id="Account Status">:</TD>

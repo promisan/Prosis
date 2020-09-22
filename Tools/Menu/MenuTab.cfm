@@ -85,7 +85,7 @@
 
 <cfelseif find("javascript:",source)>
     <cfset link = right(new,len(new)-11)>
-	
+		
 <cfelseif find("alert:",source)>
     <cfset link = right(new,len(new)-6)>	
 	<cfset link = "alert('#link#')">
@@ -112,7 +112,6 @@
 
 <cfoutput>
 
-
 <input type="hidden" id="id_menu#tabid#" name="id_menu#tabid#" value="#base##item#">
 
 <td style="width:#Attributes.width#" #stylescroll# align="center" id="tmenu#tabid#" name="tmenu#tabid#" class="#attributes.itemclass#">
@@ -129,15 +128,14 @@
 	<table style="width:100%" align="center" style="<cfif attributes.border eq 'yes'>border:1px solid silver</cfif>">
 	
 	<tr>
-	
-				
+					
 	<td class="#attributes.class#" 
 		id="#base##item#" 
 		name="#base##item#" 		
 		style="width:100%;cursor:pointer; padding-top:#attributes.padding#px;padding-bottom:2px;" 
 		align="center" 		
 		onclick="#attributes.script#;<cfif attributes.button eq 'no' and attributes.tabid eq "">mainmenu('#base#','#item#','#target#','#targetitem#','#attributes.selected#'); #preservesinglequotes(link)#;</cfif>">
-
+				
 		<cfif attributes.type eq "Vertical">
 				
 			<table width="100%" style="cursor:pointer"  valign="center" align="center">
@@ -168,7 +166,8 @@
 								<img width="#icwd#" align="absmiddle" height="#icht#" src="#SESSION.root#/Images/#icon#">
 								</td>													
 								</cfif>
-								<td align="center" name="menu#tabid#_text" id="menu#tabid#_text" style="font-size:15px;color:#attributes.fontcolor#;text-rendering: optimizeLegibility">#Name#<td>
+								<td align="center" name="menu#tabid#_text" id="menu#tabid#_text" 
+								   style="font-size:15px;color:#attributes.fontcolor#;text-rendering: optimizeLegibility">#Name#<td>
 							</tr>
 						</table>
 					</tr>								

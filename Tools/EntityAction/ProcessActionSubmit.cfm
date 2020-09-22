@@ -3,20 +3,20 @@
 	<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>"> 
 </head>
 
+
 <cfquery name="Object" 
  datasource="AppsOrganization"
  username="#SESSION.login#" 
  password="#SESSION.dbpw#"> 
-      SELECT O.*, 
+      SELECT OA.ActionId,
+	         O.*, 
 		     R.*, 
 			 C.EnableEMail as ClassMail
-	  FROM   OrganizationObject O, 
-		     Ref_Entity R, 
-		     Ref_EntityClass C
-      WHERE  ObjectId IN ( SELECT ObjectId FROM   OrganizationObjectAction WHERE  ActionId = '#url.id#' ) 
-	  AND    O.EntityCode  = R.EntityCode
-	  AND    O.EntityCode  = C.EntityCode 
-	  AND    O.EntityClass = C.EntityClass      
+	  FROM   OrganizationObjectAction OA
+	         INNER JOIN OrganizationObject O ON OA.ObjectId = O.ObjectId
+			 INNER JOIN Ref_Entity R    ON O.EntityCode  = R.EntityCode
+			 INNER JOIN Ref_EntityClass C ON O.EntityCode  = C.EntityCode AND O.EntityClass = C.EntityClass      
+      WHERE  ActionId = '#url.id#'  	   
 </cfquery>
 
 <cfquery name="Parameter" 
@@ -233,6 +233,7 @@
 	</cfif>	
 	
 	
+	
 		
 	<!--- --------------------------------------- --->
 	<!--- Perform general validation requirements --->
@@ -304,24 +305,29 @@
 		<!---  -- Tabbed mode (8): fields are saved by a separate button on the form --- --->
 	
 	</cfif>		
-				
+	
+	<!--- --------------------------------------- --->
+	<!--- Perform attachment requirements ------- --->
+	<!--- --------------------------------------- --->
+	<!--- -------- Added 28/4/2011 -------------- --->
+	
+	<cfinclude template="ProcessActionSubmitCustomAttachment.cfm">
+	
 	<cfquery name="Object" 
 	 datasource="AppsOrganization"
 	 username="#SESSION.login#" 
-	 password="#SESSION.dbpw#">
-		 SELECT O.*, 
-		        R.*, 
-				C.EnableEMail as ClassMail
-		 FROM   OrganizationObject O, 
-		        Ref_Entity R, 
-			    Ref_EntityClass C
-		 WHERE  Objectid = '#Action.ObjectId#'
-		  AND   O.EntityCode  = R.EntityCode
-		  AND   O.EntityCode  = C.EntityCode 
-		  AND   O.EntityClass = C.EntityClass   
-		  AND   O.Operational  = 1
+	 password="#SESSION.dbpw#"> 
+	      SELECT OA.ActionId,
+		         O.*, 
+			     R.*, 
+				 C.EnableEMail as ClassMail
+		  FROM   OrganizationObjectAction OA
+		         INNER JOIN OrganizationObject O ON OA.ObjectId = O.ObjectId
+				 INNER JOIN Ref_Entity R    ON O.EntityCode  = R.EntityCode
+				 INNER JOIN Ref_EntityClass C ON O.EntityCode  = C.EntityCode AND O.EntityClass = C.EntityClass      
+	      WHERE  ActionId = '#url.id#'  	   
 	</cfquery>
-	
+			
 	<cfif FORM.ActionMemo eq "" or FORM.ActionMemo eq "<p>&nbsp;</p>">						
 			<cfset memotext = "">	
 	</cfif>		
@@ -704,8 +710,7 @@
 			</cfcatch>
 							
 	</cftry>
-	--->
-	
+	--->	
 	
 	<cfquery name="NextStep" 
 	 datasource="AppsOrganization"

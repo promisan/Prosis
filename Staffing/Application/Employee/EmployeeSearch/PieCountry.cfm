@@ -30,16 +30,16 @@ password="#SESSION.dbpw#">
 <tr><td align="center">
 
 <cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
-<cfchart style = "#chartStyleFile#" format="png"
-           chartheight="260"
-           chartwidth="600"
+<cfchart style = "#chartStyleFile#" format="html"
+           chartheight="360"
+           chartwidth="670"
            showygridlines="no"
            seriesplacement="default"
            labelformat="number"
            sortxaxis="yes"
-           show3d="no"
+           show3d="yes"
            tipstyle="mouseOver"
-           tipbgcolor="00FFFC"
+           tipbgcolor="00000000"
            pieslicestyle="solid">
 
 <cfchartseries

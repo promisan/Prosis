@@ -157,6 +157,7 @@ function workflowdrill(key) {
 <cf_mapscript width="360" height="300" scope="embed">
 <cf_picturescript>
 <cf_dialogworkorder>
+<cf_dialogMaterial>
 <cf_layoutscript>
 <cf_menuscript>
 <cf_textareascript>
@@ -332,6 +333,16 @@ function workflowdrill(key) {
 
 </cfif>
 
+<cfif url.topic eq "warehousesales">
+
+   <tr>
+	   <td valign="top" height="100%">		  	
+		<cfinclude template="../../../Warehouse/Application/Customer/History/RecordListing.cfm">		
+	   </td>
+   </tr>
+
+</cfif>
+
 <cfif URL.Topic eq "eMail">
 
 		<cfoutput>
@@ -470,6 +481,7 @@ function workflowdrill(key) {
 </cfif>		
 		
 </cfcase>	
+
 
 <cfcase value="Profile">   	
 	

@@ -328,7 +328,7 @@
 				<cfset trigger  = "">
 				<cfset floword  = "0">
 				
-				<!--- create documents to be attached --->
+				<!--- declare documents to be attached --->
 				
 				<cfquery name="InsertAttach" 
 				 datasource="#attributes.Datasource#"
@@ -350,6 +350,20 @@
 					FROM    Organization.dbo.Ref_EntityDocument
 					WHERE   EntityCode   = '#Attributes.EntityCode#' 
 					AND     DocumentType = 'attach'
+					AND     Operational = 1
+					
+					<!--- only documents that are enabled in the actions of the flow --->
+					
+					AND     DocumentId IN (
+					
+							SELECT     DocumentId
+							FROM       Organization.dbo.Ref_EntityActionPublishDocument
+							WHERE      ActionPublishNo = '#Entity.ActionPublishNo#'
+					
+					)
+					
+										
+					
 				</cfquery>	
 				
 				<!--- ---------------------------------------------- --->

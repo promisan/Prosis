@@ -32,6 +32,7 @@
 		   <td width="10%"><cf_tl id="Profile element"></td>
 		   <td width="50%"><cf_tl id="Question"></td>
 		   <td style="min-width:50px"><cf_tl id="Sort"></td>
+		   <td style="min-width:80px"><cf_tl id="Scale"></td>
 		   <td style="min-width:50px"><cf_tl id="Ena"></td>
 		   <td style="min-width:100px"><cf_tl id="Officer"></td>
 		   <td style="min-width:90px" align="right"><cf_tl id="Recorded"></td>			
@@ -88,25 +89,32 @@
 			<td><cf_tl id="Sort"></td>		
 			<td colspan="7" style="padding-left:1px">
 			
-				<cfinput type="Text" 
-				         name="TopicOrder" 
-						 message="You must enter an order" 
-						 validate="integer"
-						 required="Yes" 
-						 style="text-align:center;border:0px;border-left:1px solid silver;border-right:1px solid silver"		
-						 size="1" 						 
-						 maxlength="2" 
-						 class="regularxl">
+				<table><tr><td>
+				
+					<cfinput type="Text" 
+					         name="TopicOrder" 
+							 message="You must enter an order" 
+							 validate="integer"
+							 required="Yes" 
+							 style="text-align:center;border:0px;border-left:1px solid silver;border-right:1px solid silver"		
+							 size="1" 						 
+							 maxlength="2" 
+							 class="regularxl">
+							 
+							 <td style="padding-left:7px"><cf_tl id="Score scale"></td>
+							 <td style="padding-left:3px"><cfinput validate="integer" value="10" style="text-align:center" size="3" maxlength="3" type="text" name="TopicRatingScale"></td>
+							 <td style="padding-left:7px"><cf_tl id="Scale minimum"></td>
+							 <td style="padding-left:3px"><cfinput validate="integer" value="6" style="text-align:center" size="3" maxlength="3" type="text" name="TopicRatingPass"></td>						 
+							 <td style="padding-left:7px"><cf_tl id="Operational"></td>		
+							 <td style="padding-left:5px">					
+						      <input type="Checkbox" name="Operational" class="radiol" value="1" checked>			  
+							</td>		
+						</tr>
+				</table>
 			
 			</td>			
 			</tr>
 			
-			<tr class="line labelmedium">	
-			<td><cf_tl id="Operational"></td>		
-			<td colspan="7" style="padding-left:1px">					
-		      <input type="Checkbox" name="Operational" class="radiol" value="1" checked>			  
-			</td>			
-			</tr>
 			
 			<tr class="line labelmedium">		
 			<td></td>							   
@@ -172,9 +180,11 @@
 				   
 				   <tr class="line labelmedium">  
 				   <td><cf_tl id="Order"></td>
-				   <td colspan="7"  style="padding-left:1px">
+				   <td colspan="7">
 				   
-				   	<cfinput type="Text" 
+				   <table><tr><td>
+				
+						<cfinput type="Text" 
 				         name="TopicOrder" 
 						 value="#TopicOrder#" 
 						 message="You must enter an order" 
@@ -184,26 +194,29 @@
 						 size="1" 						 
 						 maxlength="2" 
 						 class="regularxl">
-			
-				   
-				   </td>
-				   </tr>
-				   
-				   <tr class="line labelmedium">  
-				   <td><cf_tl id="Operational"></td>
-				   <td colspan="7"  style="padding-left:1px">
+							 
+							 <td style="padding-left:7px"><cf_tl id="Score scale"></td>
+							 <td style="padding-left:3px"><cfinput validate="integer" value="#TopicRatingScale#" style="text-align:center" size="3" maxlength="3" type="text" name="TopicRatingScale"></td>
+							 <td style="padding-left:7px"><cf_tl id="Score minimum"></td>
+							 <td style="padding-left:3px"><cfinput validate="integer" value="#TopicRatingPass#" style="text-align:center" size="3" maxlength="3" type="text" name="TopicRatingPass"></td>						 
+							 <td style="padding-left:7px"><cf_tl id="Operational"></td>
+						     <td style="padding-left:5px">
 				 				 
-					     <input type="Checkbox"
-					       name="Operational" class="radiol"
-					       value="1"
-						   <cfif operational eq "1">checked</cfif>>
+						     <input type="Checkbox"
+						       name="Operational" class="radiol"
+						       value="1"
+							   <cfif operational eq "1">checked</cfif>>
 						   
-				   </td>
+				            </td>
+						</tr>
+						</table>
+				 
 				   </tr>
-				   
+				   </td>
+								   
 				   <tr class="line labelmedium">  
 				   <td></td>
-				   <td colspan="7" style="padding-left:1px;height:30px">
+				   <td colspan="7" style="padding-left:1px;height:30px;padding:3px">
 									   
 				   <input type="submit" 
 				        value="Save" 
@@ -217,11 +230,12 @@
 											
 				<TR class="navigation_row labelmedium line">							
 				   <td align="center" width="20" height="24" style="padding-top:3px;padding-right:7px">				  
-					  <cf_img icon="edit" onClick="ptoken.navigate('../Bucket/BucketQuestion/RecordListingDetail.cfm?idfunction=#url.idfunction#&topicid=#topicid#','listing')">
+					  <cf_img icon="edit" onClick="ptoken.navigate('#session.root#/Roster/RosterSpecial/Bucket/BucketQuestion/RecordListingDetail.cfm?idfunction=#url.idfunction#&topicid=#topicid#','listing')">
 				   </td>							   
 				   <td height="17">#Parent#</td>
 				   <td>#TopicPhrase#</td>
 				   <td>#TopicOrder#</td>
+				   <td>#TopicRatingScale# [#TopicRatingPass#]</td>
 				   <td><cfif operational eq "0"><b>No</b><cfelse>Yes</cfif></td>			   
 				   <td>#OfficerFirstName# #OfficerLastName#</td>
 				   <td align="right">#dateformat(created,CLIENT.DateFormatShow)#</td>			   	 				   

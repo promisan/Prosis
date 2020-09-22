@@ -95,7 +95,8 @@ password="#SESSION.dbpw#">
 				
 			</td>
 			
-			<td style="padding-left:3px"><select name="ActionHourStart" class="regularxxl">
+			<td style="padding-left:3px"><select name="ActionHourStart" class="regularxxl" 
+			    onchange="ptoken.navigate('#session.root#/vactrack/application/candidate/action/setMailMessage.cfm?documentid='+document.getElementById('MailDocumentId').value+'&ObjectId=#Object.ObjectId#&PersonNo=#url.PersonNo#&actioncode=#url.actioncode#&functionid=#function.FunctionId#','mail','','','POST','activityform')">
 				<cfloop index="hr" list="08,09,10,11,12,13,14,15,16,17,18,19">
 					 <option value="#hr#" <cfif hr eq hour>selected</cfif>  >#hr#</option>
 	 			</cfloop>
@@ -104,7 +105,8 @@ password="#SESSION.dbpw#">
 			
 			<td style="padding-left:3px">:</td>
 			
-			<td style="padding-left:3px"><select name="ActionMinuteStart" class="regularxxl">
+			<td style="padding-left:3px"><select name="ActionMinuteStart" class="regularxxl" 
+			   onchange="ptoken.navigate('#session.root#/vactrack/application/candidate/action/setMailMessage.cfm?documentid='+document.getElementById('MailDocumentId').value+'&ObjectId=#Object.ObjectId#&PersonNo=#url.PersonNo#&actioncode=#url.actioncode#&functionid=#function.FunctionId#','mail','','','POST','activityform')">
 				<cfloop index="min" list="00,15,30,45">
 					 <option value="#min#" <cfif min eq minu>selected</cfif>>#min#</option>
 	 			</cfloop>
@@ -112,10 +114,17 @@ password="#SESSION.dbpw#">
 			</td>
 			
 			</tr>		
+					
+			
 		   </table>	
 		  
 		  </td>
 		</tr>
+		
+		<tr><td valign="top" style="padding-top:3px"><cf_tl id="Comment"></td>
+			<td><textarea name="ActionMemo" style="font-size:14px;padding:3px;width:99%;height:40px">#get.ActionMemo#</textarea></td>
+		</tr>
+		
 		
 		
 		<cfquery name="mail" 
@@ -166,32 +175,99 @@ password="#SESSION.dbpw#">
 			<tr><td colspan="2" style="font-size:20px">
 			
 			   <table style="width:100%">
+			   
 			   <tr class="labelmedium">
+			   
+			   	  <td align="left" style="font-size:20px"><cf_tl id="Outgoing MAIL message"></td>
 			      
-				  <td>
-				   
 				  <cfquery name="getmail" 
 					datasource="AppsOrganization" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
-				    SELECT     *
-				    FROM       Ref_EntityDocument
-					WHERE     EntityCode = '#Entity.EntityCode#' 
-					AND       DocumentType = 'mail'
-					AND       Operational = '1'
+					    SELECT    *
+						FROM      Ref_EntityActionDocument AS A INNER JOIN
+		             			  Ref_EntityDocument AS D ON A.DocumentId = D.DocumentId
+						WHERE     A.ActionCode = '#url.actioncode#'				    
+						AND       DocumentType = 'mail'
+						AND       Operational = '1'
+						ORDER BY DocumentOrder
 				  </cfquery>	
 				  
-				 <select name="MailDocumentId" class="regularxxl" onchange="_cf_loadingtexthtml='';	ptoken.navigate('#session.root#/vactrack/application/candidate/action/setMailMessage.cfm?documentid='+this.value+'&ObjectId=#Object.ObjectId#&PersonNo=#url.PersonNo#&actioncode=#url.actioncode#&functionid=#function.FunctionId#','mail','','','POST','activityform')">
-				 	<option value="hide" selected><cf_tl id="No"></option>
-					<option value=""><cf_tl id="Manual"></option>
-					<cfloop query="getMail">
-						<option value="#DocumentId#">#DocumentDescription#</option>
-					</cfloop>
+				  <cfif getMail.recordcount eq "0">
+				   
+					  <cfquery name="getmail" 
+						datasource="AppsOrganization" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+						    SELECT    *
+						    FROM      Ref_EntityDocument
+							WHERE     EntityCode = '#Entity.EntityCode#' 
+							AND       DocumentType = 'mail'
+							AND       Operational = '1'
+							ORDER BY DocumentOrder
+					  </cfquery>	
+				  
+				  </cfif>
+				  
+				  <cfif getMail.recordcount lte "3">		
+				  
+				  	<td align="right">
+					
+					 <input type="hidden" id="MailDocumentId">	
+				  
+				  	 <table>
+					 <tr class="labelmedium">	
+					 				 
+					  <td style="font-size:17px;padding-left:8px">
+					  <input type="radio"
+					     class="radiol" 
+						 name="MailDocumentId" 						
+						 value="hide" checked
+						 onclick="_cf_loadingtexthtml='';document.getElementById('MailDocumentId').value='hide';ptoken.navigate('#session.root#/vactrack/application/candidate/action/setMailMessage.cfm?documentid=hide&ObjectId=#Object.ObjectId#&PersonNo=#url.PersonNo#&actioncode=#url.actioncode#&functionid=#function.FunctionId#','mail','','','POST','activityform')">
+					  </td>
+				  	  <td style="font-size:17px;padding-left:4px;padding-top:3px">No mail</td>
+				  
+					  <cfloop query="getMail">
+					  					  
+					  <td style="font-size:17px;padding-left:8px">
+					  <input type="radio"
+					     class="radiol" 
+						 name="MailDocumentId" 
+						 id="MailDocumentId" 
+						 value="#documentId#" 
+						 onclick="_cf_loadingtexthtml='';;document.getElementById('MailDocumentId').value='#documentid#';ptoken.navigate('#session.root#/vactrack/application/candidate/action/setMailMessage.cfm?documentid=#documentid#&ObjectId=#Object.ObjectId#&PersonNo=#url.PersonNo#&actioncode=#url.actioncode#&functionid=#function.FunctionId#','mail','','','POST','activityform')">
+					  </td>
+					  <td style="font-size:17px;padding-left:4px;padding-top:3px">
+					  #DocumentDescription#
+					  </td>
+					  </cfloop>
+					  
+					  </tr>
+					  </table>
+					 				  
+				  <cfelse>
+				  
+				  <td align="right" style="padding-right:1px">
+				  
+				 <select name="MailDocumentId" id="MailDocumentId" class="regularxxl" 
+				       onchange="_cf_loadingtexthtml='';ptoken.navigate('#session.root#/vactrack/application/candidate/action/setMailMessage.cfm?documentid='+this.value+'&ObjectId=#Object.ObjectId#&PersonNo=#url.PersonNo#&actioncode=#url.actioncode#&functionid=#function.FunctionId#','mail','','','POST','activityform')">
+					   
+					 	<option value="hide" selected><cf_tl id="No Mail, just a comment"></option>
+						
+						<cfloop query="getMail">
+							<option value="#DocumentId#">#DocumentDescription#</option>
+						</cfloop>
+						<option value=""><cf_tl id="Custom drafted mail"></option>
+					
 				</select>	
 				
-				 <td align="right" style="font-size:20px"><cf_tl id="Outgoing MAIL message"></td>
+				</td>
+				
+				</cfif>
+			
 				   			   
 			   </tr>
+			   
 			   </table>
 			   
 			</td>
@@ -203,11 +279,7 @@ password="#SESSION.dbpw#">
 			
 		</cfif>
 		
-		<tr><td valign="top" style="padding-top:3px"><cf_tl id="Comment"></td>
-			<td><textarea name="ActionMemo" style="font-size:14px;padding:3px;width:99%;height:40px">#get.ActionMemo#</textarea></td>
-		</tr>
-		
-		<tr class="line"><td colspan="2"></td></tr>	
+			
 		<tr><td colspan="2" align="center">
 		
 			<table class="formspacing">

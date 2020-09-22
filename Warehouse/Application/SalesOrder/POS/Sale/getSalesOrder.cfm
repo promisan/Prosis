@@ -21,7 +21,7 @@
 </cfquery>	
  
  <!--- also clear any transactions here --->
-  
+
   
 <cfset URL.customerId = vWarehouseBatch.customerId>
 <cfset URL.addressid  = vWarehouseBatch.addressId>  
@@ -40,6 +40,7 @@
 		AND    ActionStatus != '9'
 </cfquery>		
 
+
 <!--- this will generate a new quote --->
 <cf_setCustomerRequest>
 		
@@ -52,10 +53,12 @@
 	
 <!--- refresh the screen --->	
 <cfoutput>
-	<script>		   	   	    	  
+	<script>			   	   	    	  
 	  ptoken.navigate('#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/applyCustomer.cfm?requestNo=#thisrequestNo#&batchid=#url.batchid#&customerid=#url.customerid#&addressid=#url.addressid#&warehouse=#url.warehouse#&terminal='+document.getElementById('terminal').value,'customerbox')
 	</script> 
 </cfoutput> 
+
+
 
 
 

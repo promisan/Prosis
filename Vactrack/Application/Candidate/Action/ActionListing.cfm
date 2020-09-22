@@ -31,7 +31,7 @@ password="#SESSION.dbpw#">
 
 <cfoutput>
 <tr class="labelmedium line" style="height:20px">
-   <td style="min-width:200px"><a href="javascript:editactivity('','#url.documentNo#','#url.personno#','#url.actioncode#')" title="Add an action for this candidate"><b><cf_tl id="Add"></b></a></td>
+   <td style="min-width:200px"><a href="javascript:editactivity('','#url.documentNo#','#url.personno#','#url.actioncode#')" title="Add an action for this candidate"><b><cf_tl id="Add activity"></b></a></td>
    <td style="min-width:120px"><cf_tl id="Due"></td>   
    <td style="width:100%"><cf_tl id="Message"></td>
    <td style="min-width:160px"><cf_tl id="Officer"></td>

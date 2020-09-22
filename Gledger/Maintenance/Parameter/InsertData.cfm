@@ -44,6 +44,7 @@ password="#SESSION.dbpw#">
 <cf_insertTransactionCategory   TransactionCategory="DirectPayment" Description="DirectPayment">
 <cf_insertTransactionCategory   TransactionCategory="Inventory"     Description="Inventory">
 <cf_insertTransactionCategory   TransactionCategory="Memorial"      Description="Memorial">
+<cf_insertTransactionCategory   TransactionCategory="Interoffice"   Description="Interoffice">
 <cf_insertTransactionCategory   TransactionCategory="Payables"      Description="Incoming Invoices">
 <cf_insertTransactionCategory   TransactionCategory="Payment"       Description="Payment">
 <cf_insertTransactionCategory   TransactionCategory="Receipt"       Description="Settlement">

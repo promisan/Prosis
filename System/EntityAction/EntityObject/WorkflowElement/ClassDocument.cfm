@@ -29,10 +29,23 @@
 		AND         S.DocumentType IN ('field','attach')
 		AND         S.Operational = '1'
 		AND         R.DocumentId NOT IN (SELECT DocumentId 
-		                         FROM   Ref_EntityActionPublishDocument
-								 WHERE  ActionPublishNo = '#URL.PublishNo#'
-								 AND    ActionCode = '#URL.ActionCode#')						 
+		                                 FROM   Ref_EntityActionPublishDocument
+								         WHERE  ActionPublishNo = '#URL.PublishNo#'
+								         AND    ActionCode = '#URL.ActionCode#')						 
 	</cfquery>
+	
+	<!--- remove disabled --->
+	
+	<cfquery name="Clean" 
+	datasource="AppsOrganization" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    DELETE  FROM  Ref_EntityActionPublishDocument
+		WHERE   DocumentId IN (SELECT DocumentId 
+		                       FROM   Ref_EntityDocument 
+							   WHERE  EntityCode = '#ActionMode.EntityCode#'
+							   AND    Operational = 0)							 
+	</cfquery>	
 	
 	<cfquery name="Detail" 
 	datasource="AppsOrganization" 
@@ -57,6 +70,7 @@
 		<cfelse>
 		WHERE     DocumentType IN  ('dialog','attach')
 		</cfif>		
+		AND       Operational = '1'
 		AND       DocumentId NOT IN (SELECT DocumentId 
 		                             FROM   Ref_EntityActionPublishDocument
 									 WHERE  ActionPublishNo = '#URL.PublishNo#'	
@@ -85,6 +99,19 @@
 										 AND    EntityClass = '#URL.EntityClass#'
 										 AND    ActionCode  = '#URL.ActionCode#')						 
 	</cfquery>
+	
+	<!--- remove disabled --->
+	
+	<cfquery name="Clean" 
+	datasource="AppsOrganization" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    DELETE  FROM  Ref_EntityClassActionDocument
+		WHERE   DocumentId IN (SELECT DocumentId 
+		                       FROM   Ref_EntityDocument 
+							   WHERE  EntityCode = '#URL.EntityCode#'
+							   AND    Operational = 0)							 
+	</cfquery>	
 	
 	<cfquery name="Detail" 
 	datasource="AppsOrganization" 
@@ -118,6 +145,7 @@
 									 AND    EntityClass      = '#URL.EntityClass#'
 									 AND    ActionCode       = '#URL.ActionCode#')	                      
 		AND       EntityCode = '#URL.EntityCode#'	
+		AND       Operational = 1
 		ORDER BY  R.DocumentType, R.DocumentOrder
 	</cfquery>
 
@@ -173,11 +201,11 @@
 		<cfelse>		
 		<tr><td colspan="6" style="font-size:20px" class="labelmedium">Standard workflow-only dialogs</td></tr>
 		</cfif>
-		
-		<tr><td style="height:3px"></td></tr>	
-		
+						
 				
-		<cfoutput>			
+		<cfoutput>		
+		
+			<cfif documentType neq "dialog">
 										
 			<cfset cd  = DocumentCode>
 			<cfset ord = ListingOrder>
@@ -222,7 +250,7 @@
 				          enabled="Yes"
 						  selected="#fil#"
 						  style="border:0px;border-left:1px solid silver; border-right:1px solid silver"
-				          onchange="ColdFusion.navigate('#SESSION.root#/System/EntityAction/EntityObject/WorkflowElement/ClassDocumentSubmit.cfm?EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&entitycode=#URL.EntityCode#&actionCode=#URL.ActionCode#&ID2=#documentid#&fil='+this.value+'&lo='+document.getElementById('listingorder#currentrow#').value+'&op='+document.getElementById('operational#currentrow#').checked,'savedoc')"
+				          onchange="ptoken.navigate('#SESSION.root#/System/EntityAction/EntityObject/WorkflowElement/ClassDocumentSubmit.cfm?EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&entitycode=#URL.EntityCode#&actionCode=#URL.ActionCode#&ID2=#documentid#&fil='+this.value+'&lo='+document.getElementById('listingorder#currentrow#').value+'&op='+document.getElementById('operational#currentrow#').checked,'savedoc')"
 				          id="objectfilter#currentrow#"
 				          class="regularxl">
 							   
@@ -270,6 +298,8 @@
 				   
 				  				   
 			   </TR>	
+			   
+			   </cfif>	
 			   
 		</cfoutput>		
 									

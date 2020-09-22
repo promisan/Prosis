@@ -6,10 +6,11 @@
 		Type            = "last"
 	    ReturnVariable  = "EOD">	
 				
+				
 <cfswitch expression="#url.action#">
 	
 	<cfcase value="EOD">
-	
+		
 		<!-- <cfform> -->
 		
 		<cfquery name="getMission" 
@@ -39,7 +40,7 @@
 	     		  AND     ActionStatus != '9'					  
 				  ORDER BY DateEffective DESC
 			 </cfquery>	  
-			 
+			 			 
 			 <cfset dte = dateformat(getMission.Date,client.dateformatshow)>
 			 
 			 <cfset start = "0">	
@@ -111,7 +112,7 @@
 	</cfcase>
 	
 	<cfcase value="period">
-			
+					
 		 <cfquery name="ScheduleList" 
 			datasource="AppsEmployee" 
 			username="#SESSION.login#" 
@@ -121,6 +122,9 @@
 			WHERE    PersonNo     = '#url.id#'	
 			AND      Mission      = '#url.mission#'					
 			AND      RecordStatus = '1'		
+			AND      SalarySchedule IN (SELECT SalarySchedule 
+			                            FROM Payroll.dbo.SalarySchedule 
+										WHERE Operational = 1)
 			GROUP BY SalarySchedule
 			ORDER BY MAX(DateExpiration) DESC
 	   </cfquery>		
@@ -160,7 +164,7 @@
 		
 		<cfoutput>
 		 <select name="customPeriodStart" id="customPeriodStart" 
-		     class="regularxl" style="width:80px" onchange="ptoken.navigate('#session.root#/payroll/application/calculation/CalculationProcessExecutePersonGo.cfm?id=#url.id#','progressbox')">
+		     class="regularxl" style="width:100px" onchange="ptoken.navigate('#session.root#/payroll/application/calculation/CalculationProcessExecutePersonGo.cfm?id=#url.id#','progressbox')">
 		 	<cfloop query="getPeriod">
 		 		<OPTION style="<cfif payrollstart gt schedulelist.datelast>background-color:d8d8d8</cfif>" value="01/#selMonth#/#SelYear#" <cfif currentrow eq "1">selected</cfif>>#selMonth#-#SelYear#</OPTION>
 		 	</cfloop>

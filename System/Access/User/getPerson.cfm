@@ -1,7 +1,6 @@
 
 <!--- get the person --->
 
-
 <cfquery name="get" 
 	datasource="AppsEmployee" 
 	username="#SESSION.login#" 

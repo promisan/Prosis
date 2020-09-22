@@ -683,37 +683,38 @@
 					
 					<cfoutput query="Document">
 					
-					        <cfif Document.DocumentMode eq "AsIs" and Document.DocumentLayout eq "PDF">
+					        <cfif DocumentMode eq "AsIs" and DocumentLayout eq "PDF">
 							
-								<!--- attach the generated PDF version of the document --->
+								<!--- attach the generated and stored PDF version of the document --->
 							
-								<cfif FileExists("#SESSION.rootDocumentPath#\#document.documentpath#")>	
+								<cfif FileExists("#SESSION.rootDocumentPath#\#documentpath#")>	
 							
 								    <cfset rw = rw+1>		
 									<!--- location of the file --->			
-									<cfset mailatt[rw][1] = "#SESSION.rootDocumentPath#\#document.documentpath#">
+									<cfset mailatt[rw][1] = "#SESSION.rootDocumentPath#\#documentpath#">
 									
 								</cfif>
 													
-							<cfelseif Document.DocumentLayout eq "PDF">
+							<cfelseif DocumentLayout eq "PDF">
 							
 								<!--- attach and or embed HTML version of the document, the embedding
 								 is defined by a parameter --->
+								 
+								<!--- NOTE : optional we can also convert this to PDF on the fly and attach it --->  
 							
 								<cfset rw = rw+1>
-											
-								<!--- NOTE : optional we can also convert this to PDF on the fly and attach it --->    
+															  
 								<cfdocument format="PDF"
 								filename = "#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\#DocumentDescription#.pdf" 
-								overwrite = "yes">
-									#DocumentContent#
-								</cfdocument>
+								overwrite = "yes">#DocumentContent#</cfdocument>
 								
 								<!--- location of the file 
 								--->			  
 								<cfset mailatt[rw][1] = "#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\#DocumentDescription#.pdf">
 								
 							<cfelse>
+							
+								<!--- default on the fly we make a file and attach it --->
 							
 							    <cfset rw = rw+1>
 								
@@ -730,6 +731,7 @@
 					</cfoutput>
 					
 					<!---- Attach also documents that have been attached to a particular group ---->
+					
 					<cfquery name="qGroup" 
 					     datasource="AppsOrganization" 
 						 username="#SESSION.login#" 
@@ -737,21 +739,19 @@
 						    SELECT   R.DocumentCode		
 						    FROM     Ref_EntityDocument R,
 								     Ref_EntityActionDocument R1
-						    WHERE    R1.ActionCode   in
-								( 
-									SELECT ActionCode
-									FROM OrganizationObjectAction
-									WHERE ObjectId='#Object.ObjectId#'
-									AND ActionId = '#Attributes.ActionId#'
-								)
+						    WHERE    R1.ActionCode IN (	SELECT ActionCode
+														FROM   OrganizationObjectAction
+														WHERE  ObjectId='#Object.ObjectId#'
+														AND    ActionId = '#Attributes.ActionId#' )
 							AND      R.DocumentId    = R1.DocumentId
 							AND      R.DocumentType  = 'Attach'
 							AND      R.DocumentMode  = 'Step'
 							AND      R.Operational   = 1
+							<!--- enabled attachments for for object --->
 							AND      R.DocumentId IN (SELECT DocumentId 
-							                          FROM OrganizationObjectDocument
-													  WHERE ObjectId = '#Object.ObjectId#'
-													  AND Operational = 1) 
+							                          FROM   OrganizationObjectDocument
+													  WHERE  ObjectId = '#Object.ObjectId#'
+													  AND    Operational = 1) 
 							ORDER BY DocumentOrder
 					</cfquery>					
 		

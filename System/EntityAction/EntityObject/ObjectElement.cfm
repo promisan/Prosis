@@ -72,7 +72,6 @@ password="#SESSION.dbpw#">
 </cfif>
 
 
-
 <table width="99%" border="0" cellspacing="0" cellpadding="0" align="center">
 
 	    <tr><td height="4"></td></tr>
@@ -123,7 +122,7 @@ password="#SESSION.dbpw#">
 		   <td colspan="2" align="right" width="70" style="padding-right:6px">
 	       <cfoutput>
 			 <cfif URL.ID2 neq "new">
-			     <A href="#ajaxLink('../../EntityObject/ObjectElement.cfm?EntityCode=#URL.EntityCode#&ID2=new&type=#URL.type#')#"><cf_tl id="Add"></a>
+			     <A href="#ajaxLink('../../EntityObject/ObjectElement.cfm?EntityCode=#URL.EntityCode#&type=#URL.type#&ID2=new')#"><cf_tl id="Add"></a>
 			 </cfif>
 			 </cfoutput>
 		   </td>		  
@@ -1090,10 +1089,10 @@ password="#SESSION.dbpw#">
 								size           = "40" 
 								maxlength      = "80">
 							</td>
-							</tr>
-							
+							</tr>							
 														
 				<cfelseif URL.type eq "report">
+				
 							<tr>
 								<td class="labelit" style="cursor:pointer">
 									<cf_UIToolTip tooltip="Select the type of layout the document will have">Layout:</cf_UIToolTip>
@@ -1309,7 +1308,7 @@ password="#SESSION.dbpw#">
 						  </cfif>
 						  
 						  <td width="20" style="padding-left:2px">
-						   <cf_img icon="edit" navigation="Yes" onclick="#ajaxLink('../../EntityObject/ObjectElement.cfm?EntityCode=#URL.EntityCode#&ID2=#nm#&Type=#URL.Type#')#">
+						   <cf_img icon="edit" navigation="Yes" onclick="#ajaxLink('../../EntityObject/ObjectElement.cfm?EntityCode=#URL.EntityCode#&Type=#URL.Type#&ID2=#nm#')#">
 						   <!---
 						   <A href="#ajaxLink('../../EntityObject/ObjectElement.cfm?EntityCode=#URL.EntityCode#&ID2=#nm#&Type=#URL.Type#')#">
 						   <img src="#SESSION.root#/Images/edit.gif" height="11" width="11" alt="edit" border="0" align="absmiddle">

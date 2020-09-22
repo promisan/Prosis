@@ -14,6 +14,8 @@
  		         TopicPhrase         = '#Form.TopicPhrase#',
 				 TopicSubJect        = '#Form.TopicSubject#',
 				 TopicOrder          = '#Form.TopicOrder#',
+				 TopicRatingScale     = '#Form.TopicRatingScale#',
+				 TopicRatingPass     = '#Form.TopicRatingPass#',
 				 Parent              = '#Form.Parent#'
 		  WHERE  TopicId    = '#URL.topicid#'
 		  AND    FunctionId = '#URL.IdFunction#'
@@ -21,33 +23,37 @@
 				
 <cfelse>
 			
-			<cf_assignid>
-		
-			<cfquery name="Insert" 
-			     datasource="AppsSelection" 
-			     username="#SESSION.login#" 
-			     password="#SESSION.dbpw#">
-			     INSERT INTO  FunctionOrganizationTopic
-			         (FunctionId,TopicId,
-				     TopicPhrase,
-					 TopicOrder,
-					 TopicSubject,
-					 Parent,
-					 Operational,
-					 OfficerUserId,
-					 OfficerLastName,
-					 OfficerFirstName)
-			      VALUES ('#url.idfunction#',
-				      '#rowguid#',
-					  '#Form.TopicPhrase#',
-					  '#Form.TopicOrder#',
-					  '#Form.TopicSubject#',
-					  '#Form.Parent#',
-			      	  '#Form.Operational#',
-					  '#SESSION.acc#',
-					  '#SESSION.last#',
-					  '#SESSION.first#')
-			</cfquery>
+	<cf_assignid>
+
+	<cfquery name="Insert" 
+	     datasource="AppsSelection" 
+	     username="#SESSION.login#" 
+	     password="#SESSION.dbpw#">
+	     INSERT INTO  FunctionOrganizationTopic
+	         (FunctionId,TopicId,
+		     TopicPhrase,
+			 TopicOrder,
+			 TopicSubject,
+			 TopicRatingScale,
+			 TopicRatingPass,
+			 Parent,
+			 Operational,
+			 OfficerUserId,
+			 OfficerLastName,
+			 OfficerFirstName)
+	      VALUES ('#url.idfunction#',
+		      '#rowguid#',
+			  '#Form.TopicPhrase#',
+			  '#Form.TopicOrder#',
+			  '#Form.TopicSubject#',
+			  '#Form.TopicRatingScale#',
+			  '#Form.TopicRatingPass#',
+			  '#Form.Parent#',
+	      	  '#Form.Operational#',
+			  '#SESSION.acc#',
+			  '#SESSION.last#',
+			  '#SESSION.first#')
+	</cfquery>
 					   	
 </cfif>
 

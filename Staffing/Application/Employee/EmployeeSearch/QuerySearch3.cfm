@@ -36,11 +36,11 @@
        </cfquery>
 
 <cfif #Select.SelectId# IS "F">
-    <CFSET #Gender# = "Person.Gender = 'F'">
+    <CFSET Gender = "Person.Gender = 'F'">
 <cfelseif #Select.SelectId# IS "M">	
-    <CFSET #Gender# = "Person.Gender = 'M'">
+    <CFSET Gender = "Person.Gender = 'M'">
 <cfelse>	
-    <CFSET #Gender# = "Person.Gender in ('M','F')">	
+    <CFSET Gender = "Person.Gender in ('M','F')">	
 </cfif> 
 
 </cfoutput>
@@ -111,12 +111,12 @@
     datasource="AppsEmployee" 
     username="#SESSION.login#" 
     password="#SESSION.dbpw#">
-    SELECT DISTINCT Person.PersonNo
-    INTO  userQuery.dbo.tmp#SESSION.acc#PersonAll
-    FROM  Person, PersonAssignment A
-    WHERE #PreserveSingleQuotes(Gender)# #PreserveSingleQuotes(Personal)#  #PreserveSingleQuotes(Nat)#
-	AND Person.PersonNo = A.PersonNo
-	GROUP BY Person.PersonNo 
+    SELECT     DISTINCT Person.PersonNo
+    INTO       userQuery.dbo.tmp#SESSION.acc#PersonAll
+    FROM       Person, PersonAssignment A
+    WHERE      #PreserveSingleQuotes(Gender)# #PreserveSingleQuotes(Personal)#  #PreserveSingleQuotes(Nat)#
+	AND        Person.PersonNo = A.PersonNo
+	GROUP BY   Person.PersonNo 
 	HAVING Max(DateExpiration) < getDate()
   </cfquery>
 
@@ -279,7 +279,7 @@
 <cfoutput>
 
 <script>
-	window.open("ResultView.cfm?ID=#URL.ID#&Mission=#URL.Mission#&IDForm=Search3.cfm", "_top"); 
+	ptoken.open("ResultView.cfm?ID=#URL.ID#&Mission=#URL.Mission#&IDForm=Search3.cfm", "_top"); 
 </script>
 
 </cfoutput>

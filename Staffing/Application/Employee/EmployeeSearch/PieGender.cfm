@@ -21,7 +21,7 @@ password="#SESSION.dbpw#">
     
 </cfquery>
 
-<cfif #Graph.recordCount# neq "0">
+<cfif Graph.recordCount neq "0">
 
 <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
 
@@ -30,15 +30,15 @@ password="#SESSION.dbpw#">
 <tr><td align="center">
 
 <cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
-<cfchart style = "#chartStyleFile#" format="png"
-           chartheight="300"
-           chartwidth="600"
+<cfchart style = "#chartStyleFile#" format="html"
+           chartheight="340"
+           chartwidth="800"
            showygridlines="no"
            seriesplacement="default"          
            sortxaxis="yes"
-           show3d="no"
+           show3d="yes"
            tipstyle="mouseOver"
-           tipbgcolor="00FFFC"
+           tipbgcolor="000000"
            pieslicestyle="sliced">
 
 <cfchartseries

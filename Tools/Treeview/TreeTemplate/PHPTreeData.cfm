@@ -199,30 +199,34 @@ password="#SESSION.dbpw#">
 			datasource="AppsMaterials" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
-				SELECT   CustomerId, Mission
-				FROM     Customer
-				WHERE    PersonNo = '#URL.ID#'	
-				AND      Operational = 1															
+				SELECT   B.CustomerId, B.Mission
+				FROM     Customer C INNER JOIN WarehouseBatch B ON C.Customerid = B.Customerid
+				WHERE    C.PersonNo = '#URL.ID#'	
+				AND      C.Operational = 1	
+				AND      B.ActionStatus != '9'
+				GROUP BY B.CustomerId, B.Mission														
 		</cfquery>				
 		
 		<cfloop query="Customer">
 		
-		<cf_UItreeitem value="customer#mission#"
-	        display="<span class='labelit' style='padding-bottom:4px;padding-top:4px;font-size:15px'>#Mission#</span>"
-			parent="Customer">	
-				
-		<cf_tl id= "Sales" var = "1">		
-		<cf_UItreeitem value="#mission#Sales"
-		        display="<span class='labelit' style='font-size:14px'>#lt_text#</span>"
-				parent="customer#mission#"
-				target="right">
+			<cf_UItreeitem value="customer#mission#_#customerid#"
+		        display="<span class='labelit' style='padding-bottom:4px;padding-top:4px;font-size:15px'>#Mission#</span>"
+				parent="Customer">	
 					
-		<cf_tl id= "Actions" var = "1">		
-				
-		<cf_UItreeitem value="#mission#Actions"
-	        display="<span class='labelit' style='font-size:14px'>#lt_text#</span>"
-			parent="customer#mission#"
-			target="right">		
+			<cf_tl id= "Sales" var = "1">		
+			<cf_UItreeitem value="#mission#_#customerid#Sales"
+			        display="<span class='labelit' style='font-size:14px'>#lt_text#</span>"
+					parent="customer#mission#_#customerid#"
+					href="General.cfm?ID=#URL.ID#&section=general&topic=warehousesales&Source=#Source#&edit=view&customerid=#customerid#&mission=#mission#"
+					target="right">
+					
+						
+			<cf_tl id= "Actions" var = "1">		
+					
+			<cf_UItreeitem value="#mission#_#customerid#Actions"
+		        display="<span class='labelit' style='font-size:14px'>#lt_text#</span>"
+				parent="customer#mission#_#customerid#"
+				target="right">		
 										
 		</cfloop>					
 			

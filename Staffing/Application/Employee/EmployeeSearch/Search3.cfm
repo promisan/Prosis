@@ -1,5 +1,5 @@
 
-<cf_screentop height="100%" scroll="Yes" html="No">
+<cf_screentop height="100%" scroll="Yes" html="No" jquery="Yes">
 
 <cfform action="Search3Submit.cfm?Mission=#URL.Mission#" method="POST" name="search">
 

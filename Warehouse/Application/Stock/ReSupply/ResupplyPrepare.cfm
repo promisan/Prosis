@@ -23,6 +23,16 @@
 <cfparam name="Form.RestockingSelect"  default="">
 <cfparam name="Form.RefreshContent"    default="0">
 
+
+<cfquery name="get" 
+		datasource="AppsMaterials" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT    *
+			FROM      Warehouse
+			WHERE     Warehouse = '#url.warehouse#'								
+</cfquery>
+
 <cfif Form.Category eq "">
 
 		<cfif get.ModeSetItem eq "Category">

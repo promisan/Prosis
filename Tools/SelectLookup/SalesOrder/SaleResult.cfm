@@ -108,6 +108,7 @@ password="#SESSION.dbpw#">
 
 <table height="100%" width="100%">
 
+<tr class="hide"><td id="search1"></td></tr>
 <tr class="line"><td height="14">						 
 	 <cfinclude template="SaleNavigation.cfm">	 				 
 </td></tr>
@@ -131,6 +132,8 @@ password="#SESSION.dbpw#">
 		<TD style="min-width:50"><cf_tl id="Status"></TD>			
 		</tr>  		 
 		
+		
+		
 		<cfoutput query="SearchResult">
 				
 		<cfif currentrow gte first>
@@ -150,8 +153,11 @@ password="#SESSION.dbpw#">
 			    <td align="center" style="padding-top:5px;background-color:###cl#80">	
 							
 				   <!--- sales that relate to issuance/inventory/issuance batch can not be edited here, we support opening the batch --->
+				   
 				   <cfif BatchClass eq "" or BatchClass eq "WhsSale">		   
-					   <cf_img icon="select" navigation="Yes" onclick="window['fnCBDialogSaleClose'] = function(){ ProsisUI.closeWindow('dialog#url.box#') }; ptoken.navigate('#link#&action=insert&#url.des1#=#batchid#','#url.box#','fnCBDialogSaleClose','','POST','');">
+					   <cf_img icon="select" 
+					           navigation="Yes" 
+							   onclick="window['fnCBDialogSaleClose'] = function(){ ProsisUI.closeWindow('dialog#url.box#') }; ptoken.navigate('#link#&action=insert&#url.des1#=#batchid#','#url.box#1','fnCBDialogSaleClose','','POST','');">
 				   </cfif>	
 				</td>
 				<td class="labellarge" style="padding-left:2px; color:##1983E0;"><a href="javascript:batch('#BatchNo#','#mission#','process','')">#BatchNo#</a></td>

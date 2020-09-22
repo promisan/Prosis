@@ -374,8 +374,6 @@ function hl(itm,fld){
 	    
 	</CFOUTPUT>
   
-	
-
 </table>
 
 </cf_divscroll>
@@ -387,7 +385,7 @@ function hl(itm,fld){
 	<td colspan="10">
 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 		<td height="40" colspan="1" align="left" valign="middle">
-		&nbsp;
+		
 		<cfoutput>	
 		<cf_tl id="Refresh" var="1"> 
 		<input type="button" name="Refresh" value="#lt_text#" class="button10g" onClick="javascript:location.reload()">
@@ -399,7 +397,7 @@ function hl(itm,fld){
 		<input type="button" name="Archive" value="#lt_text#" class="button10g" onClick="javascript:archive()">
 		</cfif>
 		</cfoutput>
-		&nbsp;
+		
 		</td>
 	
 	    <td height="30" colspan="1" align="right" valign="middle">

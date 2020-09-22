@@ -68,10 +68,10 @@
 		
 			_cf_loadingtexthtml='';	    
 			
-			ColdFusion.navigate('../InquiryBuilder/InquiryEditFields.cfm?systemfunctionid=#url.systemfunctionid#&functionserialno=#url.functionserialno#','fields')
+			ptoken.navigate('../InquiryBuilder/InquiryEditFields.cfm?systemfunctionid=#url.systemfunctionid#&functionserialno=#url.functionserialno#','fields')
 			// ColdFusion.navigate('../InquiryBuilder/SubDrill.cfm?systemfunctionid=#url.systemfunctionid#&functionserialno=#url.functionserialno#','drill')
-			ColdFusion.navigate('../InquiryBuilder/SubTable.cfm?systemfunctionid=#url.systemfunctionid#&functionserialno=#url.functionserialno#','table')
-			ColdFusion.navigate('../InquiryBuilder/SubBottom.cfm?systemfunctionid=#url.systemfunctionid#&functionserialno=#url.functionserialno#','bottom')
+			ptoken.navigate('../InquiryBuilder/SubTable.cfm?systemfunctionid=#url.systemfunctionid#&functionserialno=#url.functionserialno#','table')
+			ptoken.navigate('../InquiryBuilder/SubBottom.cfm?systemfunctionid=#url.systemfunctionid#&functionserialno=#url.functionserialno#','bottom')
 						
 		</script>
 		

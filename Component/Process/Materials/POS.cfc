@@ -3442,39 +3442,41 @@
 					</cfif>	
 				 </cfquery>							 
 				 
-				 <cfquery name="insertBatch"
+				  <cfquery name="insertBatch"
 					datasource="AppsTransaction" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">			 
 					INSERT INTO Settle#Warehouse#
-					           (CustomerId
-					           ,AddressId
-					           ,SettleCode
-					           ,PromotionCardNo
-					           ,CreditCardNo
-					           ,ExpirationMonth
-					           ,ExpirationYear
-					           ,ApprovalCode
-					           ,ApprovalReference
-					           ,SettleCurrency
-					           ,SettleAmount)
-					SELECT   '#aReturn.customerId#'
-							  <cfif getBatch.AddressId neq "">
-							  	,'#getBatch.AddressId#'
-							  <cfelse>
-							  	,NULL
-							  </cfif>	
-						      ,SettleCode
-					    	  ,PromotionCardNo
-						      ,CreditCardNo
-						      ,ExpirationMonth
-						      ,ExpirationYear
-						      ,ApprovalCode
-						      ,ApprovalReference
-						      ,SettleCurrency
-					    	  ,SettleAmount
-					FROM 	 Materials.dbo.WarehouseBatchSettlement
-					WHERE    BatchNo = '#getBatch.BatchNo#'
+					           (RequestNo,
+							    CustomerId,
+					            AddressId,
+					            SettleCode,
+					            PromotionCardNo,
+					            CreditCardNo,
+					            ExpirationMonth,
+					            ExpirationYear,
+					            ApprovalCode,
+					            ApprovalReference,
+					            SettleCurrency,
+					            SettleAmount)
+						SELECT  '#RequestNo#',
+						         '#aReturn.customerId#',
+								 <cfif getBatch.AddressId neq "">
+							  	'#getBatch.AddressId#',
+								 <cfelse>
+							  	 NULL,
+						         </cfif>	
+							     SettleCode,
+							     PromotionCardNo,
+							     CreditCardNo,
+							     ExpirationMonth,
+					    		 ExpirationYear,
+							     ApprovalCode,
+							     ApprovalReference,
+							     SettleCurrency,
+					    		 SettleAmount
+ 					  FROM  Materials.dbo.WarehouseBatchSettlement
+					  WHERE BatchNo = '#getBatch.BatchNo#'
 				 </cfquery>		 
 		 
 		 	</cftransaction>	
@@ -3679,9 +3681,20 @@
 											   Mission          = "#getBatch.Mission#"
 											   Terminal			= "#Terminal#"	
 											   BatchId			= "#BatchId#"
-											   returnvariable	= "stResponse">		 				
+											   returnvariable	= "stResponse">
+
+
+										<cfif stResponse.Status neq "OK">
+											<cftransaction action="rollback"/>
+											<cfoutput>
+												<script>
+												alert('#stResponse.ErrorDescription#')
+											</script>
+											</cfoutput>
+										</cfif>
+
 									</cfif>			
-									
+
 								</cfif>
 						</cfif>
 									   

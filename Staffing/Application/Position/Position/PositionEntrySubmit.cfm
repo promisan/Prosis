@@ -388,6 +388,15 @@
 			FROM  Organization.dbo.Organization
 			WHERE OrgUnit = '#Form.OrgUnit#'
 		</cfquery>		
+		
+		<cfquery name="Title" 
+		datasource="appsEmployee" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT *
+			FROM  Applicant.dbo.FunctionTitle
+			WHERE FunctionNo = '#Form.FunctionNo#'
+		</cfquery>		
 				
 		<cfquery name="InsertDocument" 
 		datasource="appsEmployee" 
@@ -399,6 +408,7 @@
 				 Status,
 				 FunctionNo, 
 				 FunctionalTitle, 
+				 OccupationalGroup,
 				 OrganizationUnit,
 				 Mission,
 				 Owner,
@@ -417,6 +427,7 @@
 		         '0',
 				 '#Form.FunctionNo#',
 		         '#Form.FunctionDescription#',
+				 '#title.OccupationalGroup#',
 				 '#OrgUnit.OrgUnitName#',
 				 '#Form.Mission#',
 				 '#Form.Owner#',
@@ -434,8 +445,9 @@
 				 '#SESSION.acc#',
 		    	 '#SESSION.last#',		  
 			  	 '#SESSION.first#')
-		  </cfquery>		  	 
-		  
+		  </cfquery>		  	
+				
+				  
 		  <cfquery name="InsertDocumentPost" 
 			datasource="appsEmployee" 
 			username="#SESSION.login#" 

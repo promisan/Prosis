@@ -68,8 +68,25 @@ password="#SESSION.dbpw#">
 	
 </cfif>	
 
+
 <cfif status eq "0">
 
+	<cfif personno eq client.personno>
+	
+		<cf_uitooltip tooltip="Please ask focal point to request on your behalf">	
+			<cfoutput>
+			<cfif mde eq "spa">
+				<cf_tl id="Request SPA">
+			<cfelseif mde eq "ass">
+				<cf_tl id="Request Assignment Extension">	
+			<cfelse>
+				<cf_tl id="Request Appointment Extension">
+			</cfif>		
+			</cfoutput>
+		</cf_uitooltip>
+		
+	<cfelse>
+		
 	<cfoutput>
 	<a style="width:100%;font-size:12px" href="javascript:AddEvent('#PersonNo#','#Parent.PositionNo#','#url.ajaxid#','#url.trigger#','#url.code#')">
 	<cfif mde eq "spa">
@@ -81,6 +98,8 @@ password="#SESSION.dbpw#">
 	</cfif>		
 	</a> 
 	</cfoutput>
+	
+	</cfif>
 
 <cfelse>
 
@@ -119,9 +138,4 @@ password="#SESSION.dbpw#">
 			ObjectURL        = "#link#">	
 
 </cfif>
-
- 	
- 		
-	
-	
 	

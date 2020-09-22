@@ -48,7 +48,7 @@
 
 	<cfoutput>
 	
-	<table style="width:100%;border:1px solid silver">
+	<table style="width:100%">
 				
 		<tr class="line labelmedium"><td style="padding-left:10px"><cf_tl id="Addressee"></td>
 		    <td><input type="text" name="MailTo" style="border:0px;border-left:1px solid silver;width:98%" value="#addressee#" class="regularxxl"></td>
@@ -56,40 +56,48 @@
 		<tr class="line labelmedium"><td style="padding-left:10px"><cf_tl id="Subject"></td>
 		    <td><input type="text" name="MailSubject" style="border:0px;border-left:1px solid silver;width:98%" value="#subject#" class="regularxxl"></td>
 		</tr>	
-		<tr class="line"><td colspan="2" valign="top" style="padding-top:4px">
+		
+		<cfquery name="Att" 
+			datasource="appsSystem" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">			
+				SELECT      *
+				FROM        Attachment
+				WHERE       DocumentPathName = 'VacDocument' 
+				AND         Reference = '#url.objectid#'	
+				AND         FileStatus != '9'		
+		</cfquery>
+		
+		<cfif att.recordcount gte "1">
+		
+			<tr class="labelmedium"><td  style="height:33px;padding-left:10px"><cf_tl id="Attachment"></td>
+			    <td style="border-left:1px solid silver">
+									
+					<table>
+					<tr class="labelmedium">			
+					<cfloop query="Att">
+					<td style="padding-left:4px"><input type="checkbox" name="MailAttachment" value="'#attachmentid#'" class="radiol"></td>
+					<td style="font-size:16px;padding-top:3px;padding-left:4px;padding-right:8px">#fileName#</td>			
+					</cfloop>
+					</tr>
+					</table>
+							
+				</td>
+			</tr>	
+		
+		</cfif>		
+		
+		<tr><td colspan="2" valign="top" style="padding-top:4px">
 		
 		   <cf_textarea name="MailBody" id="MailBody"                                            
-			   height         = "200"
-			   toolbar        = "mini"
+			   height         = "240"
+			   toolbar        = "basic"
 			   resize         = "0"
 			   color          = "ffffff">#body#</cf_textarea>		
 		
 		</td></tr>		
 		
-		<tr class="labelmedium"><td  style="padding-left:10px"><cf_tl id="Attachment"></td>
-		    <td style="border-left:1px solid silver">
-			
-				<cfquery name="Att" 
-				datasource="appsSystem" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">			
-					SELECT      *
-					FROM        Attachment
-					WHERE       DocumentPathName = 'VacDocument' 
-					AND         Reference = '#url.objectid#'			
-				</cfquery>
-								
-				<table>
-				<tr>			
-				<cfloop query="Att">
-				<td style="padding-left:4px"><input type="checkbox" name="MailAttachment" value="'#attachmentid#'" class="radiol"></td>
-				<td style="padding-left:4px;padding-right:8px">#fileName#</td>			
-				</cfloop>
-				</tr>
-				</table>
-						
-			</td>
-		</tr>			
+		
 	
 	</table>
 	

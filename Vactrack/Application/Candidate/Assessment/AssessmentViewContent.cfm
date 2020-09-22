@@ -7,13 +7,11 @@
 <cfparam name="url.filter" default="Candidate">
 
 <cfoutput>
-<script>
-
-function reload(grp,fil) {
-  ptoken.location('#session.root#/Vactrack/Application/Candidate/Assessment/AssessmentViewContent.cfm?documentno=#url.documentno#&personno=#url.personno#&actioncode=#url.actioncode#&mode=#url.mode#&group='+grp+'&filter='+fil)
-}
-
-</script>
+	<script>	
+		function reload(grp,fil) {
+		  ptoken.location('#session.root#/Vactrack/Application/Candidate/Assessment/AssessmentViewContent.cfm?documentno=#url.documentno#&personno=#url.personno#&actioncode=#url.actioncode#&mode=#url.mode#&modality=#url.modality#&group='+grp+'&filter='+fil)
+		}
+	</script>
 </cfoutput>
 
 <cfquery name="get" 
@@ -25,43 +23,105 @@ function reload(grp,fil) {
 		WHERE   DocumentNo = '#url.documentno#'
 </cfquery>
 
+<cfif url.modality eq "interview">
 
-<cfquery name="Question" 
-	datasource="appsVacancy" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-	SELECT        R.TopicPhrase, 
-	              R.TopicSubject, 
-				  R.TopicOrder,
-				  DCRC.DocumentNo, 
-				  DCRC.PersonNo, 
-				  DCRC.ActionCode, 
-				  DCRC.CompetenceId, 
-				  DCRC.CompetenceMode, 
-				  DCRC.CompetenceContent, 
-				  DCRC.OfficerUserId, 
-                  DCRC.OfficerLastName, 
-				  DCRC.OfficerFirstName, 
-				  DCRC.Created
-	FROM          DocumentCandidateReviewCompetence AS DCRC INNER JOIN
-                  Applicant.dbo.FunctionOrganizationTopic AS R ON DCRC.CompetenceId = R.TopicId INNER JOIN
-				   DocumentCandidate DC ON DC.DocumentNo = DCRC.DocumentNo and DC.PersonNo = DCRC.PersonNo
-	WHERE         DCRC.DocumentNo = '#url.documentno#' 
-	AND           DCRC.ActionCode = '#url.actioncode#'
-	<cfif url.filter eq "candidate">
-	AND           DCRC.PersonNo = '#url.personno#'	
-	</cfif>
-	<cfif url.mode eq "View">
-	<cfif url.group eq "candidate">
-	ORDER BY      DC.CandidateId, R.TopicOrder
-	<cfelse>
-	ORDER BY      R.TopicOrder,DC.CandidateId
-	</cfif>
-	<cfelse>
-	ORDER BY      DCRC.PersonNo, R.TopicOrder
-	</cfif>
+		<cfquery name="BucketCompetencies" 
+		datasource="appsVacancy" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT FC.CompetenceId
+			FROM   Document D 
+				   INNER JOIN Applicant.dbo.FunctionOrganization FO
+						 ON D.FunctionId = FO.FunctionId
+				   INNER JOIN Applicant.dbo.FunctionOrganizationCompetence FC
+				   		 ON FO.FunctionId = FC.FunctionId
+			WHERE  D.DocumentNo = '#URL.DocumentNo#'
+		</cfquery>
+				
+		<cfquery name="Topic" 
+		datasource="appsVacancy" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		SELECT        R.Description  as TopicPhrase, 		              
+					  R.ListingOrder as TopicOrder,
+					  DCRC.DocumentNo, 
+					  DCRC.PersonNo, 
+					  DCRC.ActionCode, 
+					  DCRC.CompetenceId, 					  
+					  DCRC.InterviewNotes as CompetenceContent, 
+					  DCRC.OfficerUserId, 
+	                  DCRC.OfficerLastName, 
+					  DCRC.OfficerFirstName, 
+					  DCRC.Created
+		FROM          DocumentCandidateInterview AS DCRC INNER JOIN
+	                  Applicant.dbo.Ref_Competence AS R ON DCRC.CompetenceId = R.CompetenceId INNER JOIN
+					   DocumentCandidate DC ON DC.DocumentNo = DCRC.DocumentNo and DC.PersonNo = DCRC.PersonNo
+		WHERE         DCRC.DocumentNo = '#url.documentno#' 
+		AND           DCRC.ActionCode = '#url.actioncode#'
+		AND           R.Operational = 1
+		<cfif BucketCompetencies.recordcount gt 0>
+		AND R.CompetenceId IN (
+					#QuotedValueList(BucketCompetencies.CompetenceId)#
+				)
+		<cfelse>
+			AND    R.CompetenceCategory = 'Core'	
+		</cfif>
+		<cfif url.filter eq "candidate">
+		AND           DCRC.PersonNo = '#url.personno#'	
+		</cfif>
+		<cfif url.mode eq "View">
+		<cfif url.group eq "candidate">
+		ORDER BY      DC.CandidateId, R.ListingOrder
+		<cfelse>
+		ORDER BY      R.ListingOrder,DC.CandidateId
+		</cfif>
+		<cfelse>
+		ORDER BY      DCRC.PersonNo, R.ListingOrder
+		</cfif>
+		
+	</cfquery>
+
+
+<cfelse>
 	
-</cfquery>
+	<cfquery name="Topic" 
+		datasource="appsVacancy" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		SELECT        R.TopicPhrase, 
+		              R.TopicSubject, 
+					  R.TopicOrder,
+					  DCRC.DocumentNo, 
+					  DCRC.PersonNo, 
+					  DCRC.ActionCode, 
+					  DCRC.CompetenceId, 
+					  DCRC.CompetenceMode, 
+					  DCRC.CompetenceContent, 
+					  DCRC.OfficerUserId, 
+	                  DCRC.OfficerLastName, 
+					  DCRC.OfficerFirstName, 
+					  DCRC.Created
+		FROM          DocumentCandidateReviewCompetence AS DCRC INNER JOIN
+	                  Applicant.dbo.FunctionOrganizationTopic AS R ON DCRC.CompetenceId = R.TopicId INNER JOIN
+					   DocumentCandidate DC ON DC.DocumentNo = DCRC.DocumentNo and DC.PersonNo = DCRC.PersonNo
+		WHERE         DCRC.DocumentNo = '#url.documentno#' 
+		AND           DCRC.ActionCode = '#url.actioncode#'
+		<cfif url.filter eq "candidate">
+		AND           DCRC.PersonNo = '#url.personno#'	
+		</cfif>
+		<cfif url.mode eq "View">
+		<cfif url.group eq "candidate">
+		ORDER BY      DC.CandidateId, R.TopicOrder
+		<cfelse>
+		ORDER BY      R.TopicOrder,DC.CandidateId
+		</cfif>
+		<cfelse>
+		ORDER BY      DCRC.PersonNo, R.TopicOrder
+		</cfif>
+		
+	</cfquery>
+	
+</cfif>	
 
 <form method="post" name="textevaluation" id="textevaluation">
 
@@ -69,9 +129,19 @@ function reload(grp,fil) {
 	
 <tr><td style="height:4px"></td></tr>
 
+<cfif url.modality eq "interview">
+
+<tr>
+	<td colspan="3" align="center" style="height:40px;font-size:30px">Interview and Competence Evaluation form</td>
+</tr>	
+
+<cfelse>
+
 <tr>
 	<td colspan="3" align="center" style="height:40px;font-size:30px">Question and Answer Evaluation form</td>
 </tr>	
+
+</cfif>
 
 <cfoutput>
 	
@@ -88,26 +158,25 @@ function reload(grp,fil) {
 </cfoutput>
 <tr><td style="height:1px;border-bottom:1px solid silver" colspan="3"></td></tr>	
 <tr>
-	<td style="height:35px;font-size:12px;padding-bottom:10px">Presentation:</td>
+	<td style="height:25px;font-size:12px;padding-bottom:10px">Presentation:</td>
 	<td colspan="2" style="font-size:20px">
 	
-	<table><tr>
-				
+	<table>
+			<tr>				
 				<td>
-				<select class="regularxxl" id="group" name="group" onchange="reload(this.value,document.getElementById('filter').value)">
+				<select style="border:0px;border-left:1px solid silver;border-right:1px solid silver;" class="regularxxl" id="group" name="group" onchange="reload(this.value,document.getElementById('filter').value)">
 	                 <option value="Candidate" <cfif url.group eq "Candidate">selected</cfif>><cf_tl id="Candidate"></option>
 					 <option value="Question" <cfif url.group eq "Question">selected</cfif>><cf_tl id="Question"></option>
 				   </select>
 				 </td>  
 				   
-				 <td style="padding-left:3px"><select class="regularxxl" id="filter" name="group" onchange="reload(document.getElementById('group').value,this.value)">
-	                 <option value="Candidate" <cfif url.filter eq "Candidate">selected</cfif>><cf_tl id="Selected"></option>
+				 <td style="padding-left:3px">
+				    <select style="border:0px;border-right:1px solid silver;" class="regularxxl" id="filter" name="group" onchange="reload(document.getElementById('group').value,this.value)">
+	                 <option value="Candidate" <cfif url.filter eq "Candidate">selected</cfif>><cf_tl id="Selected candidate"></option>
 					 <option value="All" <cfif url.filter eq "All">selected</cfif>><cf_tl id="All candidates"></option>
 				   </select>
-				</td>
-				   
-				   
-	   </tr>
+				</td>				   				   
+		   </tr>
 	</table>
 	
 	</td>
@@ -124,7 +193,7 @@ function reload(grp,fil) {
 	<cfset grp = "TopicOrder">
 </cfif>
 	
-<cfoutput query="Question" group="#grp#">
+<cfoutput query="Topic" group="#grp#">
 
 <cfset per = per+1>
 
@@ -147,10 +216,17 @@ function reload(grp,fil) {
 	<td colspan="2" style="font-size:24px;font-weight:bold"><cfif url.mode eq "View">Candidate #per#<cfelse>#Candidate.FirstName# #Candidate.LastName#</cfif></td>
 </tr>
 <cfelse>
-<tr>
-	<td valign="top" style="font-size:12px">Question #per#:</td>
-	<td colspan="2" style="font-size:20px;">#TopicPhrase# </td>
-</tr>
+	<cfif url.modality eq "interview">
+		<tr>
+		<td valign="top" style="font-size:12px"><cf_tl id="Topic"> #per#:</td>
+		<td colspan="2" style="font-size:20px;">#TopicPhrase# </td>
+		</tr>
+	<cfelse>
+		<tr>
+		<td valign="top" style="font-size:12px"><cf_tl id="Question"> #per#:</td>
+		<td colspan="2" style="font-size:20px;">#TopicPhrase# </td>
+		</tr>
+	</cfif>
 </cfif>
 
 <tr><td style="height:10px;border-bottom:1px solid silver" colspan="3"></td></tr>	
@@ -164,7 +240,7 @@ function reload(grp,fil) {
 	
 	<cfif url.group eq "Candidate">	
 	<tr>
-		<td valign="top" style="width:125px;padding-top:4px;font-size:17px;font-weight:bold">Question #row#.</td>
+		<td valign="top" style="width:125px;padding-top:4px;font-size:17px;font-weight:bold"><cfif url.modality eq "interview"><cf_tl id="Topic"><cfelse><cf_tl id="Question"></cfif> #row#.</td>
 		<td colspan="2" style="font-size:15px;padding-top:6px;">#TopicPhrase#</td>
 	</tr>
 	<cfelse>
@@ -175,7 +251,7 @@ function reload(grp,fil) {
 	</cfif>
 		
 	<tr>	    
-		<td align="right" style="font-size:16px;height:10px;padding-right:10px">Answer</td>
+		<td align="right" style="font-size:16px;height:10px;padding-right:10px"><cfif url.modality eq "interview"><cf_tl id="Annotation in interview"><cfelse>Answer</cfif></td>
 		<td style="font-size:16px"></td>
 		<td style="height:10px;font-size:16px" align="right"><cf_tl id="Received">:&nbsp;#dateformat(created,client.dateformatshow)# #timeformat(created,"HH:MM")#</td>	
 	</tr>
@@ -220,7 +296,7 @@ function reload(grp,fil) {
 			<cfset lkt = "seteval('','#url.documentno#','#personno#','#url.actioncode#','#CompetenceId#','#session.acc#','score_#personno#_#left(competenceid,8)#','score')">
 																				
 			<select name="score_#personno#_#left(competenceid,8)#" id="score_#personno#_#left(competenceid,8)#" 
-				 class="regularxxl" style="background-color:ffffcf;border-top:0px;width:100%" onchange="#lkt#" onmouseout="#lkt#">
+				 class="regularxxl" style="background-color:ffffaf;border-top:0px;width:100%" onchange="#lkt#" onmouseout="#lkt#">
 				    <option value="0" <cfif Score eq "0">selected</cfif>>--<cf_tl id="Select">--</option>
 					<option value="1" <cfif Score eq "1">selected</cfif>><cf_tl id="Out-standing"></option>
 					<option value="2" <cfif Score eq "2">selected</cfif>><cf_tl id="Satisfactory"></option>

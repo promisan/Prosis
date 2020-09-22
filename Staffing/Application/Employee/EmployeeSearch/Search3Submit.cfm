@@ -1,5 +1,7 @@
 <!--- store search request --->
 
+<cf_screentop height="100%" scroll="Yes" html="No" jquery="Yes">
+
 <cfparam name="Form.Description" default="New Search">
 
     <cfquery name="Clear" 
@@ -127,7 +129,7 @@
     </cfquery>
 </cfif>	
 
-<cfif #Form.ContractExpiration# neq "">
+<cfif Form.ContractExpiration neq "">
       <cfquery name="Insert" 
         datasource="AppsEmployee" 
         username="#SESSION.login#" 
@@ -333,6 +335,6 @@
       VALUES ('#URL.ID#','Category','#Item#','#Item#','3')
     </cfquery>
 		
-</cfloop>			   
-		
-<cflocation url="QuerySearch3.cfm?ID=#URL.ID#&Mission=#URL.Mission#" addtoken="No">
+</cfloop>	
+
+<cfinclude template="QuerySearch3.cfm">

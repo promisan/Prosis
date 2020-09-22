@@ -70,7 +70,7 @@
 			<tr>
 			<td valign="top" colspan="4" height="100%">					
 			    <cf_divscroll id="printContent_#url.warehouse#" style="height:100%">					
-					<cfdiv style="width:98%" bind="url:../../SalesOrder/POS/Inquiry/DayTotalBase.cfm?systemfunctionid=#url.systemfunctionid#&warehouse=#url.warehouse#">				
+					<cf_securediv style="width:98%" bind="url:../../SalesOrder/POS/Inquiry/DayTotalBase.cfm?systemfunctionid=#url.systemfunctionid#&warehouse=#url.warehouse#">				
 				</cf_divscroll>
 			</td>
 			</tr>

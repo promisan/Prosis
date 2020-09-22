@@ -491,8 +491,9 @@ will be put into different batches as they could have different process flows as
 						   
 						   		<cfset price   = "">
 								<cfset tax     = "">
+								<cfset exem    = "1">
 												   
-						   <cfelse>
+						   <cfelse>   <!--- interoffice --->
 						   
 							   	<cfquery name="TaxCode"
 									datasource="AppsMaterials" 
@@ -503,11 +504,13 @@ will be put into different batches as they could have different process flows as
 									WHERE        Warehouse = '#Warehouse#' 
 									AND          ItemNo    = '#ItemNo#' 
 									AND          UoM       = '#UnitOfMeasure#'
+									
 								</cfquery>	
 						   
 						   	    <cfset price   = "">
-								<cfset tax     = "#TaxCode.TaxCode#">
-							   <!--- interoffice --->
+								<cfset tax     = TaxCode.TaxCode>
+								<cfset exem    = "0">
+							  
 							
 						   </cfif>
 						  				  
@@ -542,7 +545,8 @@ will be put into different batches as they could have different process flows as
 								Shipping             = "Yes"  
 								SalesPrice           = "COGS"
 								SalesQuantity        = "#qty*-1#"
-								TaxCode              = "#tax#"								
+								TaxCode              = "#tax#"		
+								TaxExemption         = "#exem#"						
 								DetailReference1     = "#MeterName#"
 								DetailReadInitial    = "#MeterInitial#"
 								DetailReadFinal      = "#MeterFinal#"
@@ -594,6 +598,7 @@ will be put into different batches as they could have different process flows as
 								SalesPrice           = "COGS"
 								SalesQuantity        = "#TransferQuantity#"
 								TaxCode              = "#tax#"	
+								TaxExemption         = "#exem#"
 								Remarks              = "#TransferMemo#"
 								ActionStatus         = "#actionstatus#"
 								GLTransactionNo      = "#batchNo#"
@@ -667,7 +672,7 @@ will be put into different batches as they could have different process flows as
 						  <cfelse>
 						  
 						  
-						  <!--- no really supported without accounting anymore !!!!!!! --->
+						  <!--- no really supported without accounting anymore !!!!!!! to be disabled --->
 						  						        						  
 						  		<cfif clearance eq "0">	
 								     <cfset actionStatus = "1">

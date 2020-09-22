@@ -1,5 +1,5 @@
 
-<cfparam name="CLIENT.PageRecords" default="60">  
+<cfparam name="CLIENT.PageRecords" default="100">  
 <cfparam name="attributes.show"    default="#CLIENT.PageRecords#">  
 <cfparam name="attributes.count"   default="1">
 

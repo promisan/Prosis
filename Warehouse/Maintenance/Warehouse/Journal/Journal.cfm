@@ -77,6 +77,8 @@
 									<cfset tCat = "Inventory">
 								<cfelseif area eq "SALE">
 									<cfset tCat = "Receivables">
+								<cfelseif area eq "Interoffice">
+									<cfset tCat = "Interoffice">										
 								<cfelseif area eq "SETTLE">
 									<cfset tCat = "Receipt">	
 								</cfif>

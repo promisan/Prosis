@@ -7,6 +7,9 @@
 
 <cfoutput>
 
+<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+<cfset mid = oSecurity.gethash()/>   
+
 <cf_tl id="Employee Search" var="1">
 
 <cf_screenTop title="#lt_text#" border="0" html="No" JQuery="yes">
@@ -28,7 +31,7 @@
 	<cf_layoutarea  position="left" name="tree" overflow="hidden" maxsize="240" size="240" collapsible="true" splitter="true">
 	
 		<iframe 
-			src="SearchTree.cfm?ID=0&Mission=#URL.Mission#"
+			src="SearchTree.cfm?ID=0&Mission=#URL.Mission#&mid=#MID#"
 			name="left"
 	        id="left"
 	        width="100%"
@@ -41,9 +44,8 @@
 	
 	<cf_layoutarea  position="center" name="box">
 			
-			<iframe src="#SESSION.root#/Tools/Treeview/TreeViewInit.cfm"
-		        name="right" id="right" width="100%" height="100%" scrolling="no"
-		        frameborder="0"></iframe>
+			<iframe src="#SESSION.root#/Tools/Treeview/TreeViewInit.cfm?mid=#MID#"
+		        name="right" id="right" width="100%" height="100%" scrolling="no" frameborder="0"></iframe>
 				
 	</cf_layoutarea>			
 		

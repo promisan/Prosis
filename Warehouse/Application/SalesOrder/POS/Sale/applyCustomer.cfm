@@ -3,6 +3,7 @@
 <!--- Ajax template template to set the customer upon selection and update the screen --->
 <!--- ------------------------------------------------------------------------------- --->
 
+
 <cfparam name="url.init"       default="0">
 <cfparam name="url.requestno"  default="">
 <cfparam name="url.batchid"    default="">

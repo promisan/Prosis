@@ -431,7 +431,7 @@
 									<!--- search option --->
 										
 									<cfselect id="location" name="location"
-									     onchange="_cf_loadingtexthtml='';stocktransfer('n','#url.systemfunctionid#')" 
+									     onchange="_cf_loadingtexthtml='';Prosis.busy('yes');_cf_loadingtexthtml='';stocktransfer('n','#url.systemfunctionid#')" 
 										 query="LocationList" 
 										 value="Location" 
 										 queryposition="below"

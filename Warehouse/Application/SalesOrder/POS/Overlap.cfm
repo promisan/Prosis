@@ -99,13 +99,16 @@ password="#SESSION.dbpw#">
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 		SELECT S.*, P.FullName, C.CustomerName
-		FROM   Sale#URL.Warehouse# S LEFT OUTER JOIN Employee.dbo.Person P 
-			ON S.SalesPersonNo = P.PersonNo  LEFT OUTER JOIN Materials.dbo.Customer C
-			ON C.CustomerId = S.CustomerId 
-		WHERE  Transactionid != '#url.Id#'
-		AND ItemNo = '#get.ItemNo#'		
-	</cfquery>
-	
+		FROM   vwCustomerRequest S 
+		       LEFT OUTER JOIN Employee.dbo.Person P ON S.SalesPersonNo = P.PersonNo  
+			   LEFT OUTER JOIN Materials.dbo.Customer C	ON C.CustomerId = S.CustomerId 
+		WHERE  Warehouse = '#url.warehouse#'		
+		AND    BatchNo is NULL
+		AND    ActionStatus != '9'
+		AND    Transactionid != '#url.Id#'
+		AND    BatchId is NULL		
+		AND    ItemNo = '#get.ItemNo#'		
+	</cfquery>	
 		
 	<cfloop query="#getOthers#">
 	<tr>
@@ -118,7 +121,7 @@ password="#SESSION.dbpw#">
 			#getOthers.CustomerName#
 		</td>		
 		<td align="right" class="labelit">
-			-#numberformat(getOthers.TransactionQuantity,"__,__")#
+			-#numberformat(getOthers.TransactionQuantity,",__")#
 			<cfset itemBeingSold   = itemBeingSold + getOthers.TransactionQuantity>
 		</td>			
 		<td width="20%" align="right">
@@ -127,8 +130,7 @@ password="#SESSION.dbpw#">
 		</td>
 		<td width="5%"></td>	
 	</tr>
-	</cfloop>
-	
+	</cfloop>	
 	
 	<tr height="30px">
 		<td width="5%"></td>
@@ -142,11 +144,8 @@ password="#SESSION.dbpw#">
 		<td width="5%"></td>
 		<td width="10%"></td>
 		<td align="left" class="labelit"></td>
-		<td width="20%" align="left" class="labelit">
-		</td>			
-		<td align="right" class="labelit">
-			#numberformat(itemEntityStock-itemBeingSold,"__,__")#
-		</td>			
+		<td width="20%" align="left" class="labelit"></td>			
+		<td align="right" class="labelit">#numberformat(itemEntityStock-itemBeingSold,",__")#</td>			
 		<td width="10%" align="right">
 		</td>
 		<td width="5%"></td>	

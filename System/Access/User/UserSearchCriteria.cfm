@@ -118,14 +118,9 @@
 </cfif>
 
 <cfif form.isEmployee eq "0">
-
-	<cfset Criteria = "#Criteria# AND (U.PersonNo is NULL OR U.PersonNo NOT IN (SELECT PersonNo FROM Employee.dbo.Person WHERE Personno = U.PersonNo))">
-	
+	<cfset Criteria = "#Criteria# AND (U.PersonNo is NULL OR U.PersonNo NOT IN (SELECT PersonNo FROM Employee.dbo.Person WHERE Personno = U.PersonNo))">	
 <cfelseif form.isEmployee eq "1">
-
 	<cfset Criteria = "#Criteria# AND (U.PersonNo IN (SELECT PersonNo FROM Employee.dbo.Person WHERE Personno = U.PersonNo))">
-	
-
 </cfif>
 
 <cfset session.userselect[1]  = Form.Crit1_Value>

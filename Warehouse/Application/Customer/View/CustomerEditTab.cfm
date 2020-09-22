@@ -109,7 +109,7 @@
 
 
 		function displaybatch(thisbatch){
-			window.open('<cfoutput>#SESSION.root#</cfoutput>/Warehouse/Application/Stock/Batch/BatchView.cfm?batchno='+thisbatch, '_blank','top=100,left=100,width=1200,height=800,resizable=no');
+			ptoken.open('<cfoutput>#SESSION.root#</cfoutput>/Warehouse/Application/Stock/Batch/BatchView.cfm?batchno='+thisbatch, '_blank','top=100,left=100,width=1200,height=800,resizable=no');
 		}
 	
 </script>
@@ -124,7 +124,7 @@
 	
 			<!--- top menu --->
 			
-			<table width="100%" border="0" align="center" cellspacing="0" cellpadding="0">		  		
+			<table width="100%" align="center">		  		
 										
 				<cfset ht = "64">
 				<cfset wd = "64">			

@@ -11,11 +11,11 @@
 
 <cf_screentop html="No" scroll="Yes" height="100%" jQuery="yes" menuaccess="Context">
 
-<cfparam name="Form.Page"           default="1">
-<cfparam name="Form.Group"          default="LastName">
-<cfparam name="URL.Page"            default="#Form.Page#">
-<cfparam name="URL.IDSorting"       default="#Form.Group#">
-<cfparam name="CLIENT.UserQueryString"  default="">
+<cfparam name="Form.Page"              default="1">
+<cfparam name="Form.Group"             default="LastName">
+<cfparam name="URL.Page"               default="#Form.Page#">
+<cfparam name="URL.IDSorting"          default="#Form.Group#">
+<cfparam name="CLIENT.UserQueryString" default="">
 
 <cfoutput>
 	
@@ -43,6 +43,7 @@
 	}
 	
 	function reloadForm(group,page) {
+	    _cf_loadingtexthtml='';	
 	    Prosis.busy('yes');
 	    ptoken.location("UserResult.cfm?idmenu=#URL.idmenu#&ID=1&IDSorting=" + group + "&Page=" + page);
 	}
@@ -129,6 +130,10 @@
 			     U.PersonNo, 
 			     U.OfficerUserId,
 			     U.Created, 
+				 (SELECT  ApplicantNo 
+			      FROM    Applicant.dbo.ApplicantSubmission
+				  WHERE   ApplicantNo = U.ApplicantNo ) as NaturalPerson,
+				 				 
 				 (  SELECT  LastConnection 
 				    FROM    skUserLastLogon 
 					WHERE   Account = U.Account) as LastLogon,							
@@ -210,6 +215,7 @@
 			  if (se.className == "hide" || enforce == "yes") {
 					  
 				  se.className = "regular"
+				  _cf_loadingtexthtml='';	
 				  ptoken.navigate('UserEntryToday.cfm','todaybox')
 				  e.className = "hide"
 				  m.className = "regular"	  
@@ -318,12 +324,13 @@
 						     <option value="AccountGroup" <cfif URL.IDSorting eq "AccountGroup">selected</cfif>>Sort by Account group
 						     <OPTION value="LastName" <cfif URL.IDSorting eq "LastName">selected</cfif>>Sort by Last name
 						     <OPTION value="Account" <cfif URL.IDSorting eq "Account">selected</cfif>>Sort by Account name
+							 <option value="AccountMission" <cfif URL.IDSorting eq "AccountMission">selected</cfif>>Sort by Entity
 						</SELECT> 
 						
 						</td>
 						
-						<cfinclude template="../../../Tools/PageCount.cfm">	
-						
+						<cf_pageCountN count="#SearchResult.recordCount#">	
+																		
 						<cfif pages gt 1>
 						
 							<td align="right" style="padding-left:2px">
@@ -362,8 +369,8 @@
 				<table width="98%">
 								
 				<tr class="labelmedium fixrow">
-					<td height="22" width="30"></td>
-					<td width="25%"><cf_tl id="Name"></td>
+					<td height="22" style="width:40px"></td>
+					<td style="min-width:200px" width="25%"><cf_tl id="Name"></td>
 					<td width="100"><cf_tl id="Account"></td>
 					<td width="130"><cf_tl id="Network"></td>
 					<td style="min-width:120px"><cf_tl id="IndexNo"></td>
@@ -387,6 +394,9 @@
 					   
 					     <cfcase value = "AccountGroup">
 					      <tr class="fixrow2 labelmedium line"><td colspan="12" height="23" bgcolor="white">#AccountGroup#</td></tr>						  
+					     </cfcase>
+						  <cfcase value = "AccountMission">
+					      <tr class="fixrow2 labelmedium line"><td colspan="12" height="23" bgcolor="white">#AccountMission#</td></tr>						  
 					     </cfcase>
 					     <cfcase value = "LastName">
 						 
@@ -414,8 +424,9 @@
 				   
 					   <table cellspacing="0" cellpadding="0">
 					   <tr>
-					  
-					  						
+					   
+					   <td>#currentrow#</td>
+					  					  						
 						<cfif AccessCount gte "1">
 					   	   
 						    <cfif AccountType eq "Group">
@@ -446,7 +457,13 @@
 				   <TD><a href="javascript:ShowUser('#URLEncodedFormat(Account)#')">#LastName#<cfif firstname neq "">, #FirstName#</cfif></a></td> 
 				   <TD>#Account#</TD>  
 				   <TD style="padding-right:5px"><cfif mailserverdomain neq "">#MailServerDomain#/</cfif>#MailServerAccount#</TD> 
-				   <TD><A HREF="javascript:EditPerson('#PersonNo#')">#IndexNo#</a></TD>   
+				   
+				   <cfif NaturalPerson eq "">				   
+				   		<TD><A HREF="javascript:EditPerson('#PersonNo#')">#IndexNo#</a></TD>   				   
+				   <cfelse>				   
+				    	<TD><A HREF="javascript:ShowCandidate('#PersonNo#')">#IndexNo#</a></TD>				   
+				   </cfif>
+				   
 				   <td style="padding-left:4px">#AccountMission#</td>
 				   <TD style="padding-left:4px">
 				   
@@ -612,9 +629,9 @@
 		
 		</table>
 		
-</td>
+		</td>
 		</tr>
 		
-		</table>		
+	</table>		
 
 </form>

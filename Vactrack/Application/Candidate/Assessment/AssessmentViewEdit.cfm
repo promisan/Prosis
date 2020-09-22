@@ -70,7 +70,7 @@
 				    <td style="background-color:f4f4f4;padding-left:5px"><cf_tl id="Candidate"></td>
 					<td>
 					<select id="personno_#itm#" name="personno_#itm#" style="width:100%;border:0px; border-left:1px solid silver" class="regularxxl" id="personno_#itm#" 
-					onchange="getContent('#itm#','#url.documentno#',this.value,document.getElementById('topic_#itm#').value,'#url.actioncode#','#url.mode#','#session.acc#')">					
+					onchange="getContent('#itm#','#url.documentno#',this.value,document.getElementById('topic_#itm#').value,'#url.actioncode#','#url.mode#','#session.acc#','#url.modality#')">					
 					<cfif itm gt "1">
 					<option value="">-- select --</option>
 					</cfif>
@@ -85,7 +85,7 @@
 				    <td style="background-color:f4f4f4;padding-left:5px"><cf_tl id="Question"></td>
 					<td>
 					<select id="topic_#itm#" name="topic_#itm#" style="width:100%;border:0px; border-left:1px solid silver" class="regularxxl" id="personno_#itm#" 
-					onchange="getContent('#itm#','#url.documentno#',document.getElementById('personno_#itm#').value,this.value,'#url.actioncode#','#url.mode#','#session.acc#')">					
+					onchange="getContent('#itm#','#url.documentno#',document.getElementById('personno_#itm#').value,this.value,'#url.actioncode#','#url.mode#','#session.acc#','#url.modality#')">					
 					<cfif itm gt "1">
 					<option value="">-- select --</option>
 					</cfif>

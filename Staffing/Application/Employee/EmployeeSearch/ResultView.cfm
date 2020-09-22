@@ -1,5 +1,6 @@
 
 <cf_screentop html="no" height="100%" jQuery="Yes" label="Employee Inquiry">
+
 <cf_layoutScript>
 
 <cfparam name="URL.Mission" default="All">
@@ -9,6 +10,9 @@
 </cfif>
 
 <cfoutput>
+
+<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+<cfset mid = oSecurity.gethash()/>   
 
 <cfset attrib = {type="Border",name="mybox",fitToWindow="Yes"}>	
 
@@ -34,7 +38,7 @@
 	        id="left"
 	        width="100%"
 	        height="100%"
-			src="SearchTree.cfm?ID=1&ID1=#URL.ID#&ID2=B&ID3=GEN"
+			src="SearchTree.cfm?ID=1&ID1=#URL.ID#&ID2=B&ID3=GEN&mid=#mid#"
 	        scrolling="no"
 	        frameborder="0"></iframe>
 				
@@ -43,10 +47,8 @@
 	<cf_layoutarea  position="center" name="box">
 			
 			<iframe name="right" id="right" width="100%" height="100%" scrolling="no"
-		         src="ResultListing.cfm?ID=GEN&ID1=#URL.ID#&ID2=B&ID3=GEN" frameborder="0"></iframe>
-				
-				<!--- src="ResultListing.cfm?ID=GEN&ID1=#URL.ID#&ID2=B&ID3=GEN" --->
-				
+		         src="ResultListing.cfm?ID=GEN&ID1=#URL.ID#&ID2=B&ID3=GEN&mid=#mid#" frameborder="0"></iframe>
+								
 	</cf_layoutarea>			
 			
 </cf_layout>

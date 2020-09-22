@@ -194,11 +194,17 @@
 
 <cfoutput>
 
-<script>
 
+<cfif len(url.competenceid) gte "10">
+
+<script>
+	
 	$("##Score#url.Personno#_#left(url.competenceid,8)#_#url.useraccount#", window.parent.document).val('#getSubmission.AssessmentScore#')
 	$("##Memo#url.Personno#_#left(url.competenceid,8)#_#url.useraccount#", window.parent.document).val('#getSubmission.AssessmentMemo#')
 
 </script>
+
+</cfif>
+
 
 </cfoutput>
