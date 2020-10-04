@@ -27,7 +27,7 @@
 				  <td width="160" height="20" style="padding-left:0px;padding-right:0px">
 										
 					<table><tr>
-					<td class="hide" id="myboxes"></td>
+					
 					<td>
 										
 					  <button type="button" 
@@ -35,7 +35,7 @@
 					     style="width:127;height:26"
 					     class="button10g" 
 						 onclick="updateTextArea();saveoutput('save','#url.MemoActionid#','#url.documentId#','document#no#',document.getElementById('element#no#').value);">
-					 	 <img src="#SESSION.root#/Images/save_template.gif" align="absmiddle" alt="Save" border="0">Save</button>	
+					 	 <cf_tl id="Save Content"></button>	
 					  </td>
 					  
 					  <td style="padding-left:3px">
@@ -43,11 +43,15 @@
 				          name="Clean#No#" id="Clean#No#"
 				          style="width:137;height:26"
 				          class="button10g" 
-						  onclick="ColdFusion.navigate('ProcessActionDocumentTextElement.cfm?save=1&no=#no#&memoactionid=#url.MemoActionID#&documentid=#url.documentid#&frm=document#no#&element='+document.getElementById('element#no#').value,'boxFieldDoc#no#','','','POST','document#no#')">
+						  onclick="ptoken.navigate('ProcessActionDocumentTextElement.cfm?save=1&no=#no#&memoactionid=#url.MemoActionID#&documentid=#url.documentid#&frm=document#no#&element='+document.getElementById('element#no#').value,'boxFieldDoc#no#','','','POST','document#no#')">
 					 	 <img src="#SESSION.root#/Images/refresh.gif" align="absmiddle" alt="Removes invalid characters from the text" border="0">Cleanse Text</button>		
-					  </td></tr>
+					  </td>
+					  <td class="xxxhide" style="padding-left:4px" id="myboxes"></td>	
+					  </tr>
 					  </table>
-				  </td>				  
+				  </td>		
+				  
+				  	  
 
 				  <cfoutput>
 				  
@@ -61,7 +65,7 @@
 					  
 					  	<td class="labelmedium" style="padding-left:10px">
 					    <input type="radio" name="ele#no#" id="ele#no#" class="radiol" value="#itm#" <cfif itm eq "documentcontent">checked</cfif>
-					     onClick="document.getElementById('Save#No#').click();document.getElementById('element#no#').value='#itm#';ColdFusion.navigate('ProcessActionDocumentTextElement.cfm?no=#no#&memoactionid=#url.MemoActionID#&documentid=#url.documentid#&element=#itm#','boxFieldDoc#no#')">
+					     onClick="document.getElementById('Save#No#').click();document.getElementById('element#no#').value='#itm#';ptoken.navigate('ProcessActionDocumentTextElement.cfm?no=#no#&memoactionid=#url.MemoActionID#&documentid=#url.documentid#&element=#itm#','boxFieldDoc#no#')">
 						 
 						 <cfif itm eq "documentcontent">Body					 
 						 <cfelseif itm eq "documentheader">Header/Footer 

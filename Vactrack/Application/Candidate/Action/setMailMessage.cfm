@@ -1,7 +1,4 @@
-
-
 <!--- apply mail message content --->
-
 <cfif url.documentid neq "hide">
 	
 	<cfquery name="Mail" 
@@ -18,7 +15,7 @@
 	</cfquery>	
 	
 	<cfset dateValue = "">
-	<CF_DateConvert Value="#Form.ActionDateStart#">
+	<CF_DateConvert Value  = "#Form.ActionDateStart#">
 	<cfset STR = dateValue>	
 	<cfset STR = dateAdd("H",Form.ActionHourStart,STR)>
 	<cfset STR = dateAdd("N",Form.ActionMinuteStart,STR)>
@@ -50,10 +47,13 @@
 	
 	<table style="width:100%">
 				
-		<tr class="line labelmedium"><td style="padding-left:10px"><cf_tl id="Addressee"></td>
+		<tr class="line labelmedium">
+		    <td style="padding-left:10px"><cf_tl id="Addressee"></td>
 		    <td><input type="text" name="MailTo" style="border:0px;border-left:1px solid silver;width:98%" value="#addressee#" class="regularxxl"></td>
 		</tr>	
-		<tr class="line labelmedium"><td style="padding-left:10px"><cf_tl id="Subject"></td>
+		
+		<tr class="line labelmedium">
+		    <td style="padding-left:10px"><cf_tl id="Subject"></td>
 		    <td><input type="text" name="MailSubject" style="border:0px;border-left:1px solid silver;width:98%" value="#subject#" class="regularxxl"></td>
 		</tr>	
 		
@@ -61,11 +61,11 @@
 			datasource="appsSystem" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">			
-				SELECT      *
-				FROM        Attachment
-				WHERE       DocumentPathName = 'VacDocument' 
-				AND         Reference = '#url.objectid#'	
-				AND         FileStatus != '9'		
+				SELECT    *
+				FROM      Attachment
+				WHERE     DocumentPathName = 'VacDocument' 
+				AND       Reference    = '#url.objectid#'	
+				AND       FileStatus  != '9'		
 		</cfquery>
 		
 		<cfif att.recordcount gte "1">
@@ -76,8 +76,8 @@
 					<table>
 					<tr class="labelmedium">			
 					<cfloop query="Att">
-					<td style="padding-left:4px"><input type="checkbox" name="MailAttachment" value="'#attachmentid#'" class="radiol"></td>
-					<td style="font-size:16px;padding-top:3px;padding-left:4px;padding-right:8px">#fileName#</td>			
+						<td style="padding-left:4px"><input type="checkbox" name="MailAttachment" value="'#attachmentid#'" class="radiol"></td>
+						<td style="font-size:16px;padding-top:3px;padding-left:4px;padding-right:8px">#fileName#</td>			
 					</cfloop>
 					</tr>
 					</table>
@@ -95,9 +95,7 @@
 			   resize         = "0"
 			   color          = "ffffff">#body#</cf_textarea>		
 		
-		</td></tr>		
-		
-		
+		</td></tr>	
 	
 	</table>
 	
@@ -105,6 +103,4 @@
 
 	<cfset ajaxonload("initTextArea")>
 
-
 </cfif>
-

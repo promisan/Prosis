@@ -311,7 +311,7 @@
 		<td>#Description#<cfif Status eq "2s" and CandidateClass eq "">&nbsp;<b>:&nbsp;Flow</b></cfif></td>
 		<td width="30">
 		
-		<table>
+		<table width="100%">
 		<tr>
 		
 			<cfquery name="Check" 
@@ -349,7 +349,7 @@
 					
 			</cfif>
 			
-			<td style="padding-left:4px;padding-right:7px;padding-top:1px">
+			<td align="right" style="padding-left:4px;padding-right:7px;padding-top:1px">
 			
 			<cfif TsInterviewStart neq "">
 			

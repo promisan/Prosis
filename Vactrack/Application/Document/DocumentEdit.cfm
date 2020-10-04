@@ -308,6 +308,11 @@ function personaction(per,act) {
 	ProsisUI.createWindow('myaction', 'Activities', '',{x:100,y:100,height:document.body.clientHeight-120,width:document.body.clientWidth-120,modal:true,center:true})    					
 	ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/Action/ActionListingView.cfm?DocumentNo=#URL.ID#&PersonNo='+per,'myaction') 			
 }
+
+function personactionmail(id,ser) {  	
+	ProsisUI.createWindow('mymail', 'Mail', '',{x:100,y:100,height:document.body.clientHeight-170,width:document.body.clientWidth-170,modal:true,center:true})    					
+	ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/Action/ActionListingMail.cfm?Threadid='+id+'&SerialNo='+ser,'mymail') 			
+}
 	
 
 function personnote(per,act) {  	

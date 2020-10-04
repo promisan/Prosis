@@ -16,8 +16,8 @@
 	FROM      OrganizationObject AS OO INNER JOIN
               OrganizationObjectAction AS OOA ON OO.ObjectId = OOA.ObjectId
 	WHERE     OO.EntityCode = 'VacDocument' 
-	AND       OO.Operational = '1' 
-	AND       OOA.ActionStatus = '0' 
+	AND       OO.Operational      = '1' 
+	AND       OOA.ActionStatus    = '0' 
 	AND       OO.ObjectKeyValue1 = '#url.id#'
 	ORDER BY OO.Created DESC
 </cfquery>	
@@ -54,7 +54,7 @@ password="#SESSION.dbpw#">
 	WHERE Mission IN (SELECT Mission FROM Vacancy.dbo.Document WHERE DocumentNo = '#URL.ID#')
 </cfquery>
 
-<cfif SearchResult.recordCount neq "0" and getWorkOrder.recordcount eq "0">
+<cfif SearchResult.recordCount neq "0" and getWorkOrder.recordcount gte "0">
 
 <table width="99%" align="center" border="0" bgcolor="white" cellspacing="0" cellpadding="0" align="center" id="selected">
 
@@ -100,7 +100,7 @@ password="#SESSION.dbpw#">
 				   <img src="#SESSION.root#/Images/subflow_select.png" name="img5_#currentrow#"
 				   width="16" height="14" onMouseOver="document.img5_#currentrow#.src='#SESSION.root#/Images/subflow.png'" 
 				   onMouseOut="document.img5_#currentrow#.src='#SESSION.root#/Images/subflow_select.png'"
-				   alt="Go to candidate track" border="0" align="absmiddle" 
+				   alt="Open candidate track" border="0" align="absmiddle" 
 				   style="border-color: Silver; cursor: pointer">
 			   </button>
 			   
@@ -110,8 +110,8 @@ password="#SESSION.dbpw#">
 	
 	<cfif dob neq "">
 		
-		<cfset age = #year(now())#-#year(DOB)#>
-		<cfif #dayofyear(now())# lt #dayofyear(DOB)#>
+		<cfset age = year(now())-year(DOB)>
+		<cfif dayofyear(now()) lt dayofyear(DOB)>
 		  <cfset age = age -1>
 		</cfif>
 	
@@ -145,10 +145,10 @@ password="#SESSION.dbpw#">
 	<td colspan="9"> 
 		
 		<cf_DocumentCandidateReview 
-			   DocumentNo="#Doc.DocumentNo#" 
-			   PersonNo="#PersonNo#" 
-			   Owner="#Doc.Owner#"
-			   Trigger="Review">		
+			DocumentNo="#Doc.DocumentNo#" 
+			PersonNo="#PersonNo#" 
+			Owner="#Doc.Owner#"
+			Trigger="Review">		
 			   
 	</td></tr>
 		
@@ -166,7 +166,7 @@ password="#SESSION.dbpw#">
 	<td stle="height:40px"></td>
 	<td colspan="8">
 			
-	    <table border="0" cellpadding="0" cellspacing="0" width="99%" align="center">
+	    <table border="0" width="99%" align="center">
 		
 		<cfloop query="OtherCandidates">
 		<tr>

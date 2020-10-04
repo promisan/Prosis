@@ -15,8 +15,9 @@
 
  <cfoutput>
  
- <tr><td height="4"></td></tr>
- <tr>
+ <tr class="line">
+ 
+    <!---
     <td style="height:35px;padding-left:10px" class="labelmedium">
 		<!--- <cf_tl id="Click for help" var="vHelpMsg">
 		<a 
@@ -26,8 +27,9 @@
 				<cf_tl id="Action status">:
 		<!--- </a> --->
 	</td>
+	--->
     
-	<td width="84%">   
+	<td colspan="2" style="padding-left:10px;height:35px">   
 	
     <table cellspacing="0" cellpadding="0" id="processblock"><tr>
 		
@@ -360,5 +362,3 @@
 </cfoutput>	
 
 <cfset ajaxonload("doCalendar")>
-
-

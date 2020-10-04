@@ -3,6 +3,7 @@
 <cfparam name="URL.Header" default="1">
 <cfparam name="URL.mode"   default="standard">
 <cfparam name="URL.ID1"    default="">
+<cfparam name="getRoot.OrgUnit"    default="">
 
 <cfinvoke component = "Service.Process.System.Client" method= "getBrowser" returnvariable = "thisbrowser">	
 

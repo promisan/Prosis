@@ -50,7 +50,7 @@
 	ORDER BY EffectiveDate DESC
  </cfquery>	  
      		
- <table width="270" bgcolor="f4f4f4" class="formpadding">
+ <table width="270" class="formpadding">
   
  <cfset show = "regular">
 	
@@ -122,12 +122,12 @@
  <td align="right">		  
       <input type="text"
       name="entryexcjrn"
-	  id="entryexcjrn"
+	  id="entryexcjrn"	  
       value="#NumberFormat(jrnexc,'._____')#"
       size="12"
 	  #show#
       class="regularxl"
-      style="text-align: right;"
+      style="text-align: right;background-color:ffffcf"
       onChange="javascript:amountcalc('1')">
  </td>
  </tr>
@@ -144,7 +144,7 @@
 	   size="12"			  
 	   readonly    
 	   class="regularxl" 
-	   style="text-align: right;background-color:f4f4f4"
+	   style="text-align: right;background-color:E6E6E6"
 	   notab="">
 	   
  </td> 
@@ -174,7 +174,7 @@
 	       size="12"
 		   #ena#
 	       class="regularxl"
-	       style="text-align: right;"
+	       style="text-align: right;background-color:ffffcf"
 	       onChange="javascript:amountcalc('1')">
 	 </td>
 </tr>
@@ -189,7 +189,7 @@
 	       size="12"
 	       readonly	 
 		   class="regularxl"     
-	       style="text-align: right;background-color:f4f4f4"
+	       style="text-align: right;background-color:E6F6F6"
 	       notab="">
 	 </td> 	
 </tr>

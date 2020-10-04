@@ -259,7 +259,7 @@ password="#SESSION.dbpw#">
 									 <cf_UItreeitem value="#cur#_#left(systemfunctionid,8)#"
 								      	    display="<span style='font-size:14px' class='labelit'>#FunctionName#</span>"
 											parent="vw_#cur#"
-											href="../../../#FunctionDirectory#/#FunctionPath#?systemfunctionid=#url.systemfunctionid#&mission=#Attributes.Mission#&period=#attributes.Period#&currency=#cur#"							
+											href="../../../#FunctionDirectory#/#FunctionPath#?systemfunctionid=#url.systemfunctionid#&mission=#Attributes.Mission#&period=#attributes.Period#&currency=#cur#&area=Advance"							
 											target="right"																					
 									        expand="No">	
 									

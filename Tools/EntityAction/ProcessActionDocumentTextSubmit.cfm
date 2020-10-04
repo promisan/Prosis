@@ -22,6 +22,7 @@ function cleanText(inputText){
 		AND    DocumentId = '#URL.documentid#' 
 </cfquery>
 
+
 <cfloop query="documents">
 		
 	<cfif url.element eq "DocumentContent">
@@ -32,8 +33,7 @@ function cleanText(inputText){
 		<!---
 			cfset content = cleanText(content)
 		--->
-		 
-														
+		 														
 		<cfquery name="UpdateMemo" 
 			 datasource="AppsOrganization"
 			 username="#SESSION.login#" 
@@ -69,3 +69,6 @@ function cleanText(inputText){
 	</cfif>	
 			
 </cfloop>
+
+<cfoutput>Saved #timeformat(now(),"HH:MM:SS")#</cfoutput>
+

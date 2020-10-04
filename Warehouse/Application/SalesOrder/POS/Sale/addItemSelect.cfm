@@ -130,7 +130,8 @@
 			password="#SESSION.dbpw#">			
 				SELECT   *
 				FROM     vwCustomerRequest T
-				WHERE    T.CustomerId      = '#url.customerid#'				
+				WHERE    T.CustomerId      = '#url.customerid#'
+		  		AND  	 T.Warehouse   = '#url.warehouse#'
 		  </cfquery>
 		
 		  <cfif getLines.recordcount gte warehouse.salelines>

@@ -843,7 +843,7 @@ password="#SESSION.dbpw#">
 								
 								 <td>	
 								    
-								  <input type="text"   name="orgunitname1"  id="costcentername1" class="regularxl" value="#Org.OrgUnitName#"  style="width:422px" readonly ondblclick="resetcost()">
+								  <input type="text"   name="orgunitname1"  id="costcentername1" class="regularxl" value="#Org.OrgUnitName#"  style="width:454px" readonly ondblclick="resetcost()">
 								  <input type="hidden" name="mission1"      id="mission1">
 							   	  <input type="hidden" name="orgunit1"      id="costcenter1"  value="#Org.OrgUnit#">
 								  <input type="hidden" name="orgunitcode1"  id="costcentercode1">
@@ -891,7 +891,7 @@ password="#SESSION.dbpw#">
 			 <TD width="158" class="labelmedium"><cf_tl id="Description">/<cf_tl id="Memo">:</TD>
 	             <td align="left" colspan="3">
 				 
-				  <input type="text"   id="entryreference"     name="entryreference"     value="<cfoutput>#URL.entryreference#</cfoutput>"  class="regularxl" style="width:449px" maxlength="100">
+				  <input type="text"   id="entryreference"     name="entryreference"     value="<cfoutput>#URL.entryreference#</cfoutput>"  class="regularxl" style="width:454px" maxlength="100">
 				  <input type="hidden" id="entryreferencename" name="entryreferencename" value="<cfoutput>#URL.entryreferencename#</cfoutput>" >
 				 
 				 </td>	
@@ -935,7 +935,7 @@ password="#SESSION.dbpw#">
 						  
 							 <cfif url.taxcode neq "">
 						 				
-							 <select name="taxcode" id="taxcode" class="regularxl enterastab">
+							 <select name="taxcode" id="taxcode" class="regularxl enterastab" style="width:170px">
 					            <cfoutput query="Tax">
 					        	<option value="#TaxCode#" <cfif URL.taxcode eq TaxCode>selected</cfif>>
 								#TaxCode# #Description#</option>
@@ -944,7 +944,7 @@ password="#SESSION.dbpw#">
 							
 							<cfelse>
 							
-								<select name="taxcode" id="taxcode" class="regularxl enterastab">
+								<select name="taxcode" id="taxcode" class="regularxl enterastab" style="width:170px">
 					            <cfoutput query="Tax">
 					        	<option value="#TaxCode#" <cfif taxcode eq TaxCodeDefault>selected</cfif>>
 								#TaxCode# #Description#</option>
@@ -973,7 +973,7 @@ password="#SESSION.dbpw#">
 		</cfif>
 			
 		<tr>
-				  <TD style="padding-top:3px;" valign="top" class="labelmedium" height="21"><cf_tl id="Amount">:</TD>
+				  <TD style="padding-top:5px;" valign="top" class="labelmedium" height="21"><cf_tl id="Amount">:</TD>
 		          <td>
 				  
 					  <table cellspacing="0" cellpadding="0">
@@ -1010,7 +1010,7 @@ password="#SESSION.dbpw#">
 						       value="<cfoutput>#URL.entryamount#</cfoutput>"
 						       size="10"
 						       class="regularxl calculator enterastab"
-							   style="width:90;padding-top:1px;text-align: right;padding-right:4px"		
+							   style="width:110px;padding-top:1px;text-align: right;padding-right:4px"		
 							   onkeyup="amountcalc('0')" 					  
 						       onblur="curformat(this.value)">
 
@@ -1075,27 +1075,27 @@ password="#SESSION.dbpw#">
 			 			  
 			  <tr><td colspan="4" class="line"></td></tr>
 			  
-			  <tr><td colspan="4" height="30" align="center">
+			  <tr><td colspan="4" height="30">
 				
 			   <cfoutput>
 	
 			   <cfif url.serialNo eq "">
 	   		   <cf_tl id="Add Line" var="1">
 			   
-		       <input type="button" id="entryadd" style="width:160;font-size:13px" value="#lt_text#" 
+		       <input type="button" id="entryadd" style="height:30px;width:160;font-size:13px" value="#lt_text#" 
 			       class="button10g" 
 				   onClick="addline('add')">
 				   
 			   <cfelse>
 			   
 	   		    <cf_tl id="Update Line" var="1">
-			    <input type="button" id="entryedit" style="width:160;font-size:13px" value="#lt_text#" 
+			    <input type="button" id="entryedit" style="height:30px;width:160;font-size:13px" value="#lt_text#" 
 			       class="button10g"
 				   onClick="addline('edit')">
 	
 				   
 	   		    <cf_tl id="Add Line" var="1">
-				 <input type="button" id="entryadd" style="width:160;font-size:13px" value="#lt_text#" 
+				 <input type="button" id="entryadd" style="height:30px;width:160;font-size:13px" value="#lt_text#" 
 			       class="button10g"  
 				   onClick="addline('add')">  
 				   

@@ -37,8 +37,7 @@
 		
 		<cfelse>
 					
-		<td align="center" style="min-width:60px;height:19px">#orow#.</td>   
-	   
+		<td align="center" style="min-width:60px;height:19px">#orow#.</td>     
 	    <td style="min-width:40px">
 			
 			<table>
@@ -77,15 +76,12 @@
                
 	    <td style="min-width:70px">#PostGrade#<td>
 	   
-	    <td style="min-width:280px">
+	    <td style="min-width:280px">		 
 		 
-		 
-		   <cfset fun = rtrim(ltrim(FunctionDescription))>
-		  	   
+		   <cfset fun = rtrim(ltrim(FunctionDescription))>		  	   
 		   <cfif len(fun) gte "27">
 			   <cfset fun = "#left(fun,27)#..">	   
-		   </cfif>
-		   #fun#
+		   </cfif>#fun#
 		 		   
 	   </td>
 	  

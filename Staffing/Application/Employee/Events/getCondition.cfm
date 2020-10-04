@@ -1,5 +1,6 @@
 
 <cfparam name="URL.eventid" default="">
+<cfparam name="URL.preason" default="">
 
 <cfif URL.eventId neq "">
 
@@ -71,7 +72,7 @@
 			
 		<select name="conditioncode" id="conditioncode" class="regularxl" style="width:95%">
 			<cfloop query="qReasons">
-				<option value="#GroupListCode#" <cfif qCurrentEvent.Contractno eq GroupListCode>selected</cfif>>#Description#</option>
+				<option value="#GroupListCode#" <cfif qCurrentEvent.Contractno eq GroupListCode OR GroupListCode eq URL.preason>selected</cfif>>#Description#</option>
 			</cfloop>
 		<select>			
 		<input type="hidden" id="GroupConditionCode" name="GroupConditionCode" value="#qEvent.ConditionCode#">

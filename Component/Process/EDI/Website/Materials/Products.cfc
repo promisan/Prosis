@@ -1,4 +1,61 @@
 <cfcomponent displayname="ProsisReact" hint="Prosis React Datasource">
+	<cffunction name="trackUser" access="remote" returnType="void">
+		<cfargument name="account" 		Required=false default="">
+		<cfargument name="host" 		Required=false default="">
+		<cfargument name="sessionNo" 	Required=false default="">
+		<cfargument name="group" 		Required=false default="">
+		<cfargument name="PathName" 	Required=false default="">
+		<cfargument name="FileName" 	Required=false default="">
+		<cfargument name="Mission" 		Required=false default="">
+		<cftry>
+			<cfif len(CGI.HTTP_USER_AGENT) gte 200>
+				<cfset bws = left(CGI.HTTP_USER_AGENT,200)>
+			<cfelse>
+				<cfset bws = CGI.HTTP_USER_AGENT>
+			</cfif>
+
+			<cfif account eq "null">
+				<cfset account = "">
+			</cfif>
+
+			<cfquery name="insertLog"
+					datasource="AppsSystem">
+				INSERT INTO UserStatusLog
+				(Account,
+				HostName,
+				NodeIP,
+				NodeVersion,
+				HostSessionNo,
+				ActionTimeStamp,
+				ActionTemplate,
+				ActionQueryString,
+				TemplateGroup,
+				PathName,
+				FileName,
+				SystemFunctionId,
+				Mission)
+				VALUES
+				('#account#',
+				 '#host#',
+				'#CGI.Remote_Addr#',
+				'#bws#',
+				'#sessionNo#',
+				getDate(),
+				'#CGI.SCRIPT_NAME#',
+				'#CGI.QUERY_STRING#',
+				'#group#',
+				'#PathName#',
+				'#FileName#',
+				NULL,
+				'#Mission#'
+			)
+			</cfquery>
+
+			<cfcatch></cfcatch>
+
+		</cftry>
+	</cffunction>
+
 	<cffunction name="getAll" access="remote" hint="send a websocket message" returnType="void">
 		<cfargument name="categoryItem" 		Required=false default="">
 		<cfargument name="category" 			Required=false default="">
@@ -10,6 +67,9 @@
 		<cfargument name="selectTopNDiscount" 	Required=false default="">
 		<cfargument name="selectTopN" 			Required=false default="">
 		<cfargument name="itemNo" 				Required=false default="">
+		<cfargument name="account" 				Required=false default="">
+
+		<cfset trackUser(arguments.account,'tienda','','#categoryItem#','#category#','#searchText#','#mission#')>
 
 		<cfheader name="Access-Control-Allow-Origin" value="*">
 
@@ -521,6 +581,9 @@ AND S.FieldDefault='1'
 		<cfargument name="SearchText" Required=false default="">
 		<cfargument name="Category" Required=false default="">
 		<cfargument name="OrderBy" Required=false default="">
+		<cfargument name="account" Required=false default="">
+
+		<cfset trackUser(arguments.account,'tienda','','','#category#','#searchText#','BAMBINO')>
 
 		<cfheader name="Access-Control-Allow-Origin" value="*">
 
@@ -900,6 +963,10 @@ AND S.FieldDefault='1'
 		<cfargument name="deviceId" 	type="string" required="true" default="">
 		<cfargument name="warehouse" 	type="string" required="true" default="">
 		<cfargument name="mission" 		type="string" required="true" default="">
+		<cfargument name="account" 		type="string" required="true" default="">
+
+		<cfset trackUser(arguments.account,'tienda','','#warehouse#','Anonymous','','#mission#')>
+
 		<cfheader name="Access-Control-Allow-Origin" value="*">
 
 		<cfquery name="qCategoryItem" datasource="AppsMaterials">
@@ -957,8 +1024,9 @@ AND S.FieldDefault='1'
 			returnformat="json"
 			returnType="any">
 
-		<cfargument name="customerId" type="string" required="true" default="">
-		<cfargument name="warehouse" type="string" required="true" default="">
+		<cfargument name="customerId" 	type="string" required="true" default="">
+		<cfargument name="warehouse" 	type="string" required="true" default="">
+		<cfargument name="mission" 		type="string" required=false default="BAMBINO">
 		<cfheader name="Access-Control-Allow-Origin" value="*">
 
 		<cfquery name="qQuotes" datasource="AppsMaterials">
@@ -979,6 +1047,9 @@ AND S.FieldDefault='1'
 			WHERE 	R.CustomerId = '#arguments.customerId#'
 			AND 	R.BatchNo IS NULL
 			AND 	R.ActionStatus != '9'
+			<cfif arguments.mission neq "">
+			AND  	R.Mission = '#arguments.mission#'
+			</cfif>
 		</cfquery>
 
 		<cfset result = QueryToArray(qQuotes)>

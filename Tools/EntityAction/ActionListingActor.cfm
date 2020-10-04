@@ -23,9 +23,9 @@
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 		SELECT *
-		FROM  OrganizationObjectActionAccess 
-		WHERE ObjectId    = '#URL.ObjectId#'
-		 AND  ActionCode  = '#ActionCode#'
+		FROM   OrganizationObjectActionAccess 
+		WHERE  ObjectId    = '#URL.ObjectId#'
+		AND    ActionCode  = '#ActionCode#'
 </cfquery>
 
 <cfif check.recordcount eq "0" and url.actiondelete eq "">
@@ -94,19 +94,19 @@
 			 AND       ActionPublishNo = '#url.ActionPublishNo#' 
 		</cfquery> 			
 				
-	<cfelse>
+		<cfelse>
 		
-		<cfquery name="Action" 
-			 datasource="AppsOrganization"
-			 username="#SESSION.login#" 
-			 password="#SESSION.dbpw#">
-		     SELECT    ActionDescription
-			 FROM      Ref_EntityActionPublish
-			 WHERE     ActionAccess    = '#url.ActionCode#'
-			 AND       ActionPublishNo = '#url.ActionPublishNo#' 
-		</cfquery> 			
+			<cfquery name="Action" 
+				 datasource="AppsOrganization"
+				 username="#SESSION.login#" 
+				 password="#SESSION.dbpw#">
+			     SELECT    ActionDescription
+				 FROM      Ref_EntityActionPublish
+				 WHERE     ActionAccess    = '#url.ActionCode#'
+				 AND       ActionPublishNo = '#url.ActionPublishNo#' 
+			</cfquery> 			
 	
-	</cfif>	
+		</cfif>	
 	
 	</cfif>	
 	
@@ -115,51 +115,79 @@
 	<cfoutput>
 	<tr>
 	<td colspan="2">
-	<table border="0">
+	<table border="0" style="width:100%">
 		<tr>
-		  <!---
-			<td height="25" valign="top" class="labelmedium" width="150" style="padding-top:5px;padding-left:10px"><cf_tl id="Delegation">:</td>	
-			--->
+		  
 			<td height="15" colspan="2">
 			
-			<table class="formpadding">
-						
+			<table class="formpadding">						
 			<tr>			
 			<td>															
 				
 				<table><tr>
 				
 				<td colspan="2" class="labelmedium" style="padding-left:10px">
-				
+								
 				<cfset link = "ProcessActionAccess.cfm?accesslevel=1||box=#url.box#||Mode=#url.mode#||ObjectId=#url.ObjectId#||OrgUnit=#url.OrgUnit#||Role=#url.Role#||ActionPublishNo=#url.ActionPublishNo#||ActionCode=#url.ActionCode#||Group=#url.group#||Assist=#url.assist#">
-														 
+																		 
 				<cfif url.group neq "" and url.group neq "All" and url.group neq "[all users]">
+											
+					   <cf_tl id = "Select">
 					  
-						<cfquery name="qUserGroup" 
+					  					   
+					   <cfif url.group eq "[mission]">					   
+						   <cfset fil1 = "mission">	
+						   <cfset val1 = "#Object.Mission#">	
+						   <cfset label = "#Object.Mission#">	
+						   						 						   		   
+					   <cfelseif url.group eq "[unit]" and object.OrgUnit neq "">		
+					   			   
+						   <cfset fil1 = "orgunit">		
+						   <cfset val1 = "#Object.OrgUnit#">	
+						   					   
+						    <cfquery name="qUserGroup" 
+							 datasource="AppsOrganization"
+							 username="#SESSION.login#" 
+							 password="#SESSION.dbpw#">
+									SELECT  * 
+									FROM  Organization
+									WHERE OrgUnit = '#Object.OrgUnit#'
+					       </cfquery>
+												   		   
+						   <cfset label = "#Unit.OrgUnitName#">	
+						   
+					   <cfelse>					   
+					   
+						   <cfset fil1 = "usergroup">		
+						   <cfset val1 = "#URL.group#">		
+						   
+						   <cfquery name="qUserGroup" 
 							 datasource="AppsOrganization"
 							 username="#SESSION.login#" 
 							 password="#SESSION.dbpw#">
 									SELECT  * 
 									FROM system.dbo.UserNames
 									WHERE Account ='#URL.group#'
-					   </cfquery>
-					
-					   <cf_tl id = "Select">
+					       </cfquery>
+						   
+						   <cfset label = "#qUserGroup.LastName#">
+						   						   	   
+					   </cfif>
 					
 					   <cf_selectlookup
 						    box          = "#url.box#"
 							link         = "#link#"
 							icon         = "delegate.png"
-							title        = "<font size='3' color='0080C0'>#qUserGroup.LastName#</font>"
+							title        = "<font size='3' color='0080C0'>#label#</font>"
 							button       = "No"
 							close        = "No"
 							class        = "user"
 							des1         = "account"			
-							filter1      = "usergroup"
-							filter1value = "#URL.group#">
+							filter1      = "#fil1#"
+							filter1value = "#val1#">
 							
 				 <cfelse>
-				 
+								 
 					    <cf_selectlookup
 						    box          = "#url.box#"
 							title        = "<font size='3' color='0080C0'>Select Processor</font>"
@@ -180,30 +208,69 @@
 							
 				    or						
 				
-					<cfif url.assist neq "[all users]">
+					<cfif url.assist neq "[all users]" and url.group neq "All">
 					  
 						<cfquery name="qUserGroup" 
 							 datasource="AppsOrganization"
 							 username="#SESSION.login#" 
 							 password="#SESSION.dbpw#">
-									SELECT  * 
-									FROM system.dbo.UserNames
-									WHERE Account ='#URL.assist#'
+								SELECT  * 
+								FROM   System.dbo.UserNames
+								WHERE  Account ='#URL.assist#'
 					   </cfquery>
 					
 					   <cf_tl id = "Select">
+					   
+					   <cfif url.group eq "[mission]">					   
+						   <cfset fil1 = "mission">	
+						   <cfset val1 = "#Object.Mission#">	
+						   <cfset label = "#Object.Mission#">	
+						   		   
+					   <cfelseif url.group eq "[unit]" and object.OrgUnit neq "">		
+					   			   
+						   <cfset fil1 = "orgunit">		
+						   <cfset val1 = "#Object.OrgUnit#">	
+						   					   
+						    <cfquery name="qUserGroup" 
+							 datasource="AppsOrganization"
+							 username="#SESSION.login#" 
+							 password="#SESSION.dbpw#">
+									SELECT  * 
+									FROM  Organization
+									WHERE OrgUnit = '#Object.OrgUnit#'
+					       </cfquery>
+						 						   		   
+						   <cfset label = "#Unit.OrgUnitName#">	
+						   
+					   <cfelse>					   
+					   
+						   <cfset fil1 = "usergroup">		
+						   <cfset val1 = "#URL.group#">		
+						   
+						   <cfquery name="qUserGroup" 
+							 datasource="AppsOrganization"
+							 username="#SESSION.login#" 
+							 password="#SESSION.dbpw#">
+									SELECT  * 
+									FROM system.dbo.UserNames
+									WHERE Account ='#URL.group#'
+					       </cfquery>
+						   
+						   <cfset label = "#qUserGroup.LastName#">
+						   	   
+					   </cfif>
 					
 					   <cf_selectlookup
 						    box          = "#url.box#"
 							link         = "#link#"
 							icon         = "delegate.png"
-							title        = "<font size='3' color='green'>#qUserGroup.LastName#</font>"
+							title        = "<font size='3' color='green'>#label#</font>"
 							button       = "No"
 							close        = "No"
 							class        = "user"
 							des1         = "account"			
-							filter1      = "usergroup"
-							filter1value = "#URL.assist#">
+							filter1      = "#fil1#"
+							filter1value = "#val1#">
 							
 				    <cfelse>						
 									
@@ -243,7 +310,13 @@
 				</table>
 											
 			</td>
+			
+			
+			
 			</tr></table>
+			</td>
+			<td align="right">
+			<!--- empty spot --->
 			</td>
 		</tr>
 	</table>
@@ -254,10 +327,9 @@
 
 <cfelse>
 
-<table width="100%" height="100%" align="center">
-	   
+<table width="100%" height="100%" align="center">	   
 	<tr class="line"><td colspan="3" class="labelmedium" style="padding-left:30px" bgcolor="F5FBFE" height="20"><cf_tl id="Access granted to">:</td></tr>	
-	
+		
 </cfif>
 
 <tr style="margin-bottom:10px;"><td colspan="3" valign="top">
@@ -388,14 +460,15 @@
 			
 			<cfelse>
 			
-			<tr><td align="left" style="height:20px;padding-left:20px;font-size:12px;cursor:pointer" colspan="2" onClick="javascript:document.getElementById('#URL.ActionCode#_#type#').className='regular';">
+			<tr><td align="left" style="padding-left:20px;font-size:12px;cursor:pointer" 
+			    colspan="2" 
+				onClick="javascript:document.getElementById('#URL.ActionCode#_#type#').className='regular';">
 			   <a><font color="808080">CLICK HERE <cf_tl id="view Inherited access through ROLE granted authorization"></font></a>
 			</td></tr>
 			
 			<tr>
 			
-			<td colspan="2" valign="top">	
-			
+			<td colspan="2" valign="top">				
 			<table width="96%" border="0" align="center" id="#URL.ActionCode#_#type#" class="hide formpadding">	
 			
 			</cfif>		
@@ -430,11 +503,12 @@
 				
 			</cfif>	
 			
-			    <td style="padding-left:20px;padding-right:10px">#C#.</td>
-				<td>
+			    <td valign="top" style="padding-top:4px;padding-left:20px;padding-right:10px">#C#.</td>
+				<td valign="top" style="padding-top:2px">
 				
 					<table><tr><td>
 					
+										
 					<!--- I changed this line JM on 02/02/2010 : from type neq Document to type eq Document ---->		
 					
 					<cfif type eq "Document">		
@@ -448,10 +522,13 @@
 						 </td>
 						 					 
 						 <cfparam name="url.group" default="">						
-						 <td style="padding-left:4px;padding-top:2px;padding-right:5px">			
+						 <td style="padding-left:4px;padding-top:2px;padding-right:5px">	
 						 
+						 <cfif url.mode eq "Insert">						 	
 						   <cf_img icon="delete"							  
 						   onClick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/tools/entityAction/ProcessActionAccessDelete.cfm?box=#url.box#&Mode=#url.Mode#&ObjectId=#url.ObjectId#&OrgUnit=#url.OrgUnit#&Role=#url.Role#&ActionPublishNo=#url.actionPublishNo#&ActionCode=#url.ActionCode#&Group=#url.group#&account=#Account#&assist=#url.assist#','#url.box#')">
+						  </cfif> 
+						   
 						   
 						 </td>
 						 
@@ -545,7 +622,9 @@
 					<cfoutput group="ClassParameter">
 					
 						<tr>
-						<td  class="labelit">
+						<td>
+						
+							<table>
 													
 							<cfquery name="ThisAction" 
 								 datasource="AppsOrganization"
@@ -557,21 +636,22 @@
 									 AND       ActionPublishNo = '#url.ActionPublishNo#' 
 							</cfquery> 		
 							
-							<font color="C0C0C0">		
-						    - #ThisAction.ActionDescription#
-							</font>
+							<tr class="labelit" style="height:15px">
 							
 							<cfif type eq "Document">
 							
-								<img src="#SESSION.root#/Images/delete_user.gif" 
-								   alt="Remove access #FirstName# #LastName# for #ThisAction.ActionDescription#" 
-								   width="12" 
-								   height="12" 
-								   border="0" 
-								   style="cursor: pointer;" 
-								   onClick="ptoken.navigate('#SESSION.root#/tools/entityAction/ProcessActionAccessDelete.cfm?box=#url.box#&Mode=#url.Mode#&ObjectId=#url.ObjectId#&OrgUnit=#url.OrgUnit#&Role=#url.Role#&ActionPublishNo=#url.actionPublishNo#&ActionCode=#url.actionCode#&ActionDelete=#classparameter#&Group=#url.group#&assist=#url.assist#&account=#Account#','#url.box#')">
-								   
-							 </cfif>  
+								<td>								
+								<cf_img icon="delete" 
+								 onclick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/tools/entityAction/ProcessActionAccessDelete.cfm?box=#url.box#&Mode=#url.Mode#&ObjectId=#url.ObjectId#&OrgUnit=#url.OrgUnit#&Role=#url.Role#&ActionPublishNo=#url.actionPublishNo#&ActionCode=#url.actionCode#&ActionDelete=#classparameter#&Group=#url.group#&assist=#url.assist#&account=#Account#','#url.box#')">								 
+							     </td>	  
+								  
+							 </cfif> 
+							 							
+							<td>								
+						    #ThisAction.ActionDescription#
+							</td>							
+							</tr>							
+							</table>
 							   
 						</td>
 						</tr>	   

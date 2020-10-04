@@ -50,14 +50,15 @@ password="#SESSION.dbpw#">
 
 <cfset counted = SearchResult.recordcount>
 	
+	
 <script>
 
 	function reloadForm(group,page) {
-    	 window.location="InquiryResult.cfm?fileNo=<cfoutput>#URL.FileNo#</cfoutput>&IDSorting=" + group + "&Page=" + page;
+    	 ptoken.location('InquiryResult.cfm?fileNo=<cfoutput>#URL.FileNo#</cfoutput>&IDSorting=' + group + '&Page=' + page)
 	}
 
 	function search() {
-		window.location = "InquiryForm.cfm"
+		ptoken.location('InquiryForm.cfm')
 	}
 	
 </script>	

@@ -25,6 +25,28 @@
              $(this).click();
         });
     } 
+	
+	function eventportaladd(personno,scope, mission, trigger, event, reason) {    	
+    	Prosis.busy('yes');
+    	_cf_loadingtexthtml='';		
+		ProsisUI.createWindow('evdialog', 'HR Event request', '',{x:200,y:200,height:document.body.clientHeight-100,width:document.body.clientWidth-200,modal:true,resizable:false,center:true})    					
+    	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventForm.cfm?scope='+scope+'&portal=#url.portal#&personNo='+personno+'&pmission='+mission+'&ptrigger='+trigger+'&preason='+reason+'&pevent='+event,'evdialog')		 	
+    }
+	
+	function eventportalaedit(key,scope, mission, trigger, event, reason) {    	
+    	Prosis.busy('yes');
+    	_cf_loadingtexthtml='';		
+		ProsisUI.createWindow('evdialog', 'HR Event request', '',{x:200,y:200,height:document.body.clientHeight-100,width:document.body.clientWidth-200,modal:true,resizable:false,center:true})    					
+    	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventForm.cfm?scope='+scope+'&portal=#url.portal#&id='+key+'&pmission='+mission+'&ptrigger='+trigger+'&preason='+reason+'&pevent='+event,'evdialog')		 	
+    }
+	
+	function eventportaldelete(event,scope, mission, trigger, eventCode, reason) {
+		Ext.MessageBox.confirm('Delete', 'Are you sure ?', function(btn){
+		   if(btn === 'yes'){
+		       ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventsDelete.cfm?scope='+scope+'&eventid='+event+'&mission='+mission+'&trigger='+trigger+'&reason='+reason+'&event='+eventCode,'divEventDetail');
+		   }
+		 });
+    }
     
    function eventadd(personno,scope) {    	
     	Prosis.busy('yes');
@@ -45,16 +67,18 @@
 		tc  = document.getElementById('triggercode');
 		rid = document.getElementById('eventid');
 		mis = document.getElementById('mission');	
-		per = document.getElementById('personno');			
-    	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getEvent.cfm?personno='+per.value+'&triggercode='+tc.value+'&eventid='+rid.value+'&mission='+mis.value,'dEvent')
+		per = document.getElementById('personno');		
+		pevent = document.getElementById('pevent');
+    	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getEvent.cfm?personno='+per.value+'&triggercode='+tc.value+'&eventid='+rid.value+'&mission='+mis.value+'&pevent='+pevent.value,'dEvent')
     }    
 
     function checkreason() {
 		tc = document.getElementById('triggercode');
 		ev = document.getElementById('eventcode');
-		rid = document.getElementById('eventid');		
-    	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getReason.cfm?triggercode='+tc.value+'&eventcode='+ev.value+'&eventid='+rid.value,'dReason');		
-		ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getCondition.cfm?triggercode='+tc.value+'&eventcode='+ev.value+'&eventid='+rid.value,'dCondition');
+		rid = document.getElementById('eventid');
+		preason = document.getElementById('preason');
+    	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getReason.cfm?triggercode='+tc.value+'&eventcode='+ev.value+'&eventid='+rid.value+'&preason='+preason.value,'dReason');		
+		ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getCondition.cfm?triggercode='+tc.value+'&eventcode='+ev.value+'&eventid='+rid.value+'&preason='+preason.value,'dCondition');
     }
 	    
     function eventdelete(event,scope) {

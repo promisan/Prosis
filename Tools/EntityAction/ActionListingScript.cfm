@@ -101,6 +101,10 @@
 		ptoken.navigate('#SESSION.root#/System/Access/Lookup/UserSearch.cfm?Form=' + formname + '&id=' + id + '&id1=' + id1 + '&id2=' + id2 + '&id3=' + id3 + '&id4=' + id4,'userdialog') 	
 	
 	}
+	
+	function object(id) {
+	   ptoken.open("#SESSION.root#/ActionView.cfm?id=" + id, id);	   
+	}
 		
 	<!--- context sensitive for workflow process dialog embedded workflow only --->
 	

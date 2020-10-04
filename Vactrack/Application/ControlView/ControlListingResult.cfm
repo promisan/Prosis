@@ -1,46 +1,47 @@
 <cfparam name = "URL.Criteria" default = "No">
 
 <cfinclude template="ControlGetTrack.cfm">
-
 <cfinclude template = "ControlListingPrepare.cfm">
-
 
 <cfoutput>
 
-<table width="98%">
+<table width="98%" border="0">
 
-	<tr><td colspan="3">
-		    <table width="100%" border="0" cellspacing="0" cellpadding="0">		
+	<tr class="line"><td colspan="3">
+		    <table width="100%">		
 			<tr class="labelmedium2">
 		    <td style="font-size:29px;padding-left:20px" align="left"><b>#count.total#</b> Tracks at <b>#Sum.Total#</b> different stages </td>
 			
 			<cfif url.mode neq "Portal" and url.mode neq "Print">
-			<td align="right" style="padding-right:2px"><a href="javascript:printme()"><font color="0080FF">Printable Version</font></a></td>		
+			<td align="right" style="padding-right:2px"><a href="javascript:printme()">Printable Version</a></td>		
 			<cfelseif url.mode eq "Print">
-			<td align="right" style="padding-right:2px"><a href="javascript:window.print()"><font color="0080FF">[Print]</font></a></td>				
+			<td align="right" style="padding-right:2px"><a href="javascript:window.print()">[Print]</a></td>				
 			</cfif>
 			</tr>
 			</table>
 	    </td>
 	</tr>
 	
+	<cfif URL.Mode eq "Portal">
+		<cfset format = "PNG">
+	<cfelse>
+		<cfset format = "HTML">
+	</cfif>
+	
+	
 	<cfif Summary.recordcount gte 1>
 	
-		<tr>
+		<tr class="line">
 	
 			<cfif Sum.Total gt 0>
 							
-			<cfif URL.Mode eq "Portal">
-				<td align="center" class="regular">
-			<cfelse>
-				<td align="center" class="regular" style="border: 0pt solid silver;">
-			</cfif>		
-							
+			<td align="center" valign="bottom">
+										
 			<cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
 			
-			<cfchart style = "#chartStyleFile#" format="png" 
-			         chartheight="380" 
-					 chartwidth="770" 
+			<cfchart style = "#chartStyleFile#" format="#format#" 
+			         chartheight="300" 
+					 chartwidth="670" 
 					 scalefrom="0"
 					 scaleto="50" 
 					 showxgridlines="yes" 
@@ -51,7 +52,7 @@
 					 fontbold="no" 
 					 font="calibri"
 					 fontitalic="no" 
-					 show3d="yes" 
+					 show3d="no" 
 					 xaxistitle="" 				 
 					 yaxistitle="Tracks" 
 					 rotated="no" 
@@ -98,13 +99,13 @@
 			
 			<cfif URL.Mode neq "Portal" and URL.Mode neq "Dashboard"> 
 			
-				<td align="center" class="regular" style="border: 0px solid silver;">
+				<td align="center"  valign="bottom">
 											
 					<cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
 					
-					<cfchart style = "#chartStyleFile#" format="png" 
-				         chartheight="300" 
-						 chartwidth="350" 
+					<cfchart style = "#chartStyleFile#" format="#format#" 
+				         chartheight="280" 
+						 chartwidth="450" 
 						 scalefrom="0"
 						 scaleto="30" 
 						 showxgridlines="yes" 
@@ -132,7 +133,7 @@
 							 itemcolumn="Description" 
 							 valuecolumn="Counted" 
 							 datalabelstyle="value"	
-							 seriescolor="##CCCC66" 					 
+							 seriescolor="green" 					 
 							 markerstyle="snow">
 							</cfchartseries>
 						
@@ -142,7 +143,7 @@
 					         query="Period" 
 							 itemcolumn="Description" 
 							 valuecolumn="Counted" 
-							 seriescolor="gray" 					 
+							 seriescolor="##a0a0a0" 					 
 							 markerstyle="snow">
 							 </cfchartseries>
 							
@@ -166,9 +167,9 @@
 						
 		<tr><td colspan="3">
 			
-				<table width="99%" cellspacing="0" cellpadding="0" align="center" border="0">
+				<table width="99%" align="center">
 				
-					<tr><td style="padding-top:5px">
+					<tr><td>
 						
 						<cfif URL.Status neq "1">
 							

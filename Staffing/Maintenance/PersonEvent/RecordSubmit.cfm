@@ -5,6 +5,7 @@
 <cfparam name="Form.ActionPeriod"   default="0">
 <cfparam name="Form.EnablePortal"   default="0">
 <cfparam name="Form.Missions"       default="">
+<cfparam name="ActionInstruction"   default="">
 
 <cfif ParameterExists(Form.Insert)> 
 
@@ -39,6 +40,7 @@
 						INSERT INTO Ref_PersonEvent
 						         (Code,
 								 Description,
+								 ActionInstruction,
 								 ActionPosition,
 								 ActionPeriod,		
 								 EnablePortal,						
@@ -48,6 +50,7 @@
 								 OfficerFirstName)
 						  VALUES ('#Form.Code#',
 						          '#Form.Description#',
+								  '#Form.ActionInstruction#',
 						          '#Form.ActionPosition#', 
 						          '#Form.ActionPeriod#',	
 								  '#Form.EnablePortal#',					         
@@ -93,12 +96,13 @@ datasource="AppsEmployee"
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
 	UPDATE Ref_PersonEvent
-	SET   Code            = '#Form.Code#',
-	      Description     = '#Form.Description#',
-	      EntityClass	  = '#Form.entityClass#',
-	      EnablePortal    = '#Form.EnablePortal#',
-	      ActionPosition  = '#Form.ActionPosition#',
-	      ActionPeriod    = '#Form.ActionPeriod#'
+	SET   Code              = '#Form.Code#',
+	      Description       = '#Form.Description#',
+		  ActionInstruction = '#Form.ActionInstruction#',
+	      EntityClass	    = '#Form.entityClass#',
+	      EnablePortal      = '#Form.EnablePortal#',
+	      ActionPosition    = '#Form.ActionPosition#',
+	      ActionPeriod      = '#Form.ActionPeriod#'
 	WHERE Code  = '#Form.CodeOld#'
 </cfquery>	
 
@@ -170,9 +174,11 @@ password="#SESSION.dbpw#">
 		
 </cfif>	
 
+<cfoutput>
 <script language="JavaScript">
    
-     window.close()
-	 opener.location.reload()
-        
+     window.close()	 
+	 opener.applyfilter('1','','#Form.CodeOld#')
+	         
 </script>  
+</cfoutput>

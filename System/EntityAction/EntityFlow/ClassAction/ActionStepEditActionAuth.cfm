@@ -6,8 +6,7 @@
 						
 			<tr><td height="5"></td></tr> 
 			
-			<cfif Access.recordcount neq "0">
-			
+			<cfif Access.recordcount neq "0">			
 								
 				<tr><td colspan="2" class="labelmedium">Authorization to process a workflow step is in principle granted through user roles. 
 				Role access is applied once the defined criteria of the access is matched with the workflow object. 
@@ -54,7 +53,7 @@
 				<tr name="ugselect" id="ugselect" class="#cl#">
 					<td class="labelmedium" style="padding-left:20px">
 					<cf_uitooltip tooltip="Limit access granting to a member of a specific user group">
-					Limit <u>Processor</u> to members of usergroup:
+					Limit <u>Processor</u> to users/usergroup:
 					</cf_uitooltip>
 					</td>		
 					<td style="padding-left:5px">
@@ -81,8 +80,10 @@
 							value          = "Account"
 							display        = "Account"
 							selected       = "#Get.ActionAccessUserGroup#">		
-						<option value="DISABLED" selected>Not applicable</option>																			    
-					    <option value="[all users]">[all users]</option>						
+						<option value="'DISABLED'" selected>Not applicable</option>
+					    <option value="'[all users]'">[all users]</option>
+						<option value="'[mission]'">All users in Entity</option>
+						<option value="'[unit]'">Users in Unit</option>
 					</cf_uiselect>
 					
 					</td>
@@ -101,12 +102,11 @@
 					datasource="AppsSystem" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
-					SELECT   *
-					FROM     Usernames
-					WHERE    AccountType = 'Group'	
-					AND      AccountMission IN (SELECT Mission FROM Organization.dbo.Ref_Mission WHERE Operational = 1)					
-					ORDER BY AccountMission				
-					
+						SELECT   *
+						FROM     Usernames
+						WHERE    AccountType = 'Group'	
+						AND      AccountMission IN (SELECT Mission FROM Organization.dbo.Ref_Mission WHERE Operational = 1)					
+						ORDER BY AccountMission									
 					</cfquery>
 					
 					<cf_uiselect name="ActionAccessUGCollaborate" id="ActionAccessUGCollaborate" class="regularxl"
@@ -119,9 +119,11 @@
 							display        = "Account"
 							selected       = "#Get.ActionAccessUGCollaborate#">		
 										 						 
-					    <option value="DISABLED" selected>Not applicable</option>						
-						
+					    <option value="DISABLED" selected>Not applicable</option>												
 					    <option value="[all users]">[all users]</option>						
+						<option value="[mission]">All users in Entity</option>	
+						<option value="[unit]">All users in Unit</option>	
+						
 					</cf_uiselect>
 					
 					</td>
@@ -185,29 +187,36 @@
 			<cfif GetAccess.recordcount gte "1">
 			
 				<tr><td colspan="2" height="1" class="linedotted"></td></tr>
-				<tr><td class="labelmedium"><cf_UIToolTip tooltip="Actions that have been defined as [Delegate From] for this step">From this step authorised users may grant Access to:</cf_UIToolTip></td>
+				<tr>
+				<td valign="top" style="padding-top:2px" class="labelmedium">From this step authorised users may <cf_UIToolTip tooltip="Actions that have been defined as [Delegate From] for this step">grant Access</cf_UIToolTip> to the following actions in this flow:</td>
+
 				<td><table>
 				    <tr><td width="240">
-					<table width="100%" border="0" cellspacing="0" cellpadding="0" style="padding:3px;border:0px dotted silver" class="formpadding">
-					<cfloop query="GetAccess">
-						<tr class="labelmedium">
-						<td>
-							<cfif URL.PublishNo neq "">
-							   	<font color="2894FF">						
-							  <a href="javascript:parent.addtab('#ActionCode#','#ActionPublishNo#')" title="Edit Step Configuration">
-							</cfif>					
-							#currentrow#. #ActionDescription#
-							</a>
-						</td>
-						</tr>			
-					</cfloop>
-					</table>
+						<table width="100%" style="border:0px dotted silver" class="formpadding">
+						<cfloop query="GetAccess">
+							<tr class="labelmedium" style="height:15px">
+							<td>
+								<cfif URL.PublishNo neq "">							   					
+								  <a href="javascript:parent.addtab('#ActionCode#','#ActionPublishNo#')" title="Edit Step Configuration">
+								</cfif>					
+								#currentrow#. #ActionDescription#
+								</a>
+							</td>
+							</tr>			
+						</cfloop>
+						</table>
 					</td>
-					<TD class="labelmedium" style="cursor:pointer">
-					   <cf_UIToolTip tooltip="Allow to grant access in conjunction with any other steps which have the delegating step defined"><font color="0080C0">All steps:</cf_UIToolTip>
-					</TD>
-				    <TD style="padding-left:4px"><INPUT type="checkbox" class="radiol" name="ActionAccessPointer" id="ActionAccessPointer" value="1" <cfif Get.ActionAccessPointer eq "1">checked</cfif>></td>	
+					
+					<td style="border-left:1px solid silver;padding-top:4px" valign="top" >
+					<table><tr>
+					<TD class="labelmedium" style="padding-left:7px">
+					<cf_UIToolTip tooltip="Allow to grant access in conjunction with any other steps which have the delegating step defined">
+					   <font color="gray"><cf_tl id="Cluster"> </cf_UIToolTip>					  
+					</TD>					
+					<TD style="padding-left:4px"><INPUT type="checkbox" style="height:20px;width:20px" class="radiol" name="ActionAccessPointer" id="ActionAccessPointer" value="1" <cfif Get.ActionAccessPointer eq "1">checked</cfif>></td>	
 					</tr>
+					</tr></table>
+					</td>
 					</table>
 				</td>	
 				</tr>	

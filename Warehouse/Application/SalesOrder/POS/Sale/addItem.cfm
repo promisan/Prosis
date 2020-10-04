@@ -278,3 +278,4 @@
 	<cfinclude template="SaleViewLines.cfm">
 	<cfinclude template="setTotal.cfm">
 </cfif>
+

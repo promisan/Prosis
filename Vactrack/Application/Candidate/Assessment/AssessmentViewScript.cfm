@@ -13,8 +13,8 @@
 	   ptoken.navigate('#session.root#/Vactrack/Application/Candidate/Assessment/setContent.cfm?itm='+itm+'&documentno='+doc+'&personno='+per+'&competenceid='+com+'&actioncode='+act+'&useraccount='+usr,'result_'+itm,'','','POST','textevaluation')		
 	}
 		
-	function seteval(itm,doc,per,act,com,usr,frm,fld) {		    
-		ptoken.navigate('#session.root#/Vactrack/Application/Candidate/Assessment/setAssessment.cfm?itm='+itm+'&documentno='+doc+'&personno='+per+'&actioncode='+act+'&competenceid='+com+'&useraccount='+usr+'&formfield='+frm+'&field='+fld,'result_'+itm,'','','POST','textevaluation')		
+	function seteval(itm,doc,per,act,com,usr,frm,fld,mdl) {		    
+		ptoken.navigate('#session.root#/Vactrack/Application/Candidate/Assessment/setAssessment.cfm?itm='+itm+'&documentno='+doc+'&personno='+per+'&actioncode='+act+'&competenceid='+com+'&useraccount='+usr+'&formfield='+frm+'&field='+fld+'&modality='+mdl,'result_'+itm,'','','POST','textevaluation')		
 	}	
 	
 	function showquestion(doc,per,act,mde,cls) {

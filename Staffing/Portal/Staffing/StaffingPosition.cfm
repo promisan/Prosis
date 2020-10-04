@@ -104,9 +104,9 @@
 		}
 
 		.clsPosition {
-			height: 355px; 
+			height: 340px; 
 			overflow: auto;
-			border-bottom: 1px solid #EAEAEA; 
+			border-bottom: 0px solid #EAEAEA; 
 			border-right: 1px solid #EAEAEA;
 		}
 
@@ -154,11 +154,11 @@
 
 		<cf_mobileRow>
 
-			<cf_MobileCell id="filter" class="clsFilterContainer toggleScroll-y hidden-xs col-sm-2">
-				<cfinclude template="StaffingPositionFilter.cfm">
+			<cf_MobileCell id="filter" class="clsFilterContainer toggleScroll-y hidden-xs col-sm-4 col-md-3 col-lg-2">
+				<cfinclude template="StaffingOrganization.cfm">
 			</cf_MobileCell>
 
-			<cf_MobileCell id="main" class="clsMain col-sm-10"></cf_MobileCell>
+			<cf_MobileCell id="main" class="clsMain col-sm-8 col-md-9 col-lg-10"></cf_MobileCell>
 			
 		</cf_mobileRow>
 

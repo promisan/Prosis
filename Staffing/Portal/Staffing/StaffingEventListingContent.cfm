@@ -4,6 +4,8 @@
 
 <cf_dialogposition>
 <cf_listingscript>
+<cf_actionlistingscript>
+<cf_filelibraryscript>
 
 <cfparam name="url.unit" default="">
 <cfparam name="url.selection" default="">
@@ -91,7 +93,7 @@ password="#SESSION.dbpw#">
 	
 		    SELECT    Pe.Mission as Organization,
 					  Pe.PositionNo,
-									   
+					  Pe.Source,				   
 			          Pe.EventId, 
 					  Pe.OfficerFirstName,
 					  Pe.OfficerLastName,
@@ -268,7 +270,7 @@ password="#SESSION.dbpw#">
 						search        = "text",
 						filtermode    = "3"}>	
 	</cfif>								
-													
+							
 				
 						
 	<cfset itm = itm+1>
@@ -300,6 +302,17 @@ password="#SESSION.dbpw#">
 						filtermode    = "3"}>	
 						
 	<cfset itm = itm+1>	
+	<cf_tl id="Source" var = "1">		
+	<cfset fields[itm] = {label       = "#lt_text#",                    
+	     				field         = "Source",								
+						display       = "1",	
+						rowlevel      = "1",
+						Colspan       = "1",																																				
+						displayfilter = "yes",																																									
+						search        = "text",
+						filtermode    = "3"}>						
+						
+	<cfset itm = itm+1>	
 	<cf_tl id="Event" var = "1">		
 	<cfset fields[itm] = {label       = "#lt_text#",                    
 	     				field         = "EventDescription",								
@@ -310,15 +323,7 @@ password="#SESSION.dbpw#">
 						search        = "text",
 						filtermode    = "3"}>	
 						
-					
-	<cfset itm = itm+1>	
-	<cf_tl id="JO" var = "1">		
-	<cfset fields[itm] = {label       = "#lt_text#",                    
-	     				field         = "DocumentNo",								
-						display       = "1",	
-						width         = "13",																																									
-						displayfilter = "yes",																																									
-						search        = "text"}>							
+				
 						
 	<cfset itm = itm+1>	
 	<cf_tl id="Level" var = "1">		
@@ -328,7 +333,17 @@ password="#SESSION.dbpw#">
 						display       = "0",
 						displayfilter = "Yes",
 						filtermode    = "3"}>							
-								
+							
+	<cfset itm = itm+1>	
+	<cf_tl id="Event" var = "1">		
+	<cfset fields[itm] = {label       = "#lt_text#",                    
+	     				field         = "EventName",								
+						display       = "1",	
+						rowlevel      = "1",
+						Colspan       = "1",																																				
+						displayfilter = "no",																																									
+						search        = "text"}>	
+						
 	<cfset itm = itm+1>
 	<cf_tl id="Reason" var = "1">		
 	<cfset fields[itm] = {label       = "#lt_text#",                    	                   
@@ -339,18 +354,17 @@ password="#SESSION.dbpw#">
 						Colspan       = "1",			
 						displayfilter = "yes",																																															
 						search        = "text",
-						filtermode    = "2"}>	
+						filtermode    = "2"}>																	
 						
 	<cfset itm = itm+1>	
-	<cf_tl id="Event" var = "1">		
+	<cf_tl id="JO" var = "1">		
 	<cfset fields[itm] = {label       = "#lt_text#",                    
-	     				field         = "EventName",								
+	     				field         = "DocumentNo",								
 						display       = "1",	
-						rowlevel      = "1",
-						Colspan       = "1",																																				
-						displayfilter = "no",																																									
-						search        = "text"}>												
-						
+						width         = "13",																																									
+						displayfilter = "yes",																																									
+						search        = "text"}>		
+											
 	<cfset itm = itm+1>
 	<cf_tl id="Effective" var = "1">		
 	<cfset fields[itm] = {label     = "#lt_text#",                    	                   
@@ -518,7 +532,7 @@ password="#SESSION.dbpw#">
 	    box                 = "myeventlisting_#url.unit#"
 		link                = "#SESSION.root#/Staffing/Portal/Staffing/StaffingEventListingContent.cfm?mission=#url.mission#&systemfunctionid=#url.systemfunctionid#&unit=#url.unit#&selection=#url.selection#"
 	    html                = "No"		
-		tableheight         = "260px"
+		tableheight         = "460px"
 		tablewidth          = "100%"
 		calendar            = "9" 
 		font                = "Calibri"

@@ -126,7 +126,8 @@
 	<cfif EmbedFlow.recordcount eq "1" and EmbedCompleted.ActionStatus eq "0" and embed neq "0">
 	
 			<tr><td colspan="2" id="#URL.AjaxId#">
-				  
+			
+							  
 			 <cfset link = "#Object.ObjectURL#">
 									
 				<cf_ActionListing 
@@ -166,7 +167,8 @@
 		  name="processaction"  id="processaction">		
 		  
 		  <table width="100%">
-				 	
+		  
+		  					 	
 			<cfset wfmode = "8">	 		  		
 			<cfif ActionType eq "Action">
 			   <cfinclude template="ProcessActionAction.cfm"> 
@@ -216,18 +218,17 @@
 				  
 		   <cfinclude template="Report/DocumentAttach.cfm">	
 		   
+		   
 		   <cfparam name="w" default="184">  
 		   	    	   	   	   	     
 		   <cfif Action.EnableAttachment eq "1">
-		   
-			   <tr><td colspan="2" class="line"></td></tr>
-			   
+		   			  			   
 			   <tr><td colspan="2" style="height:2px"></td></tr>
 			   	   
-			   <tr>
-			  
+			   <tr class="line">
+			   			   			  
 				   <td width="<cfoutput>#w#</cfoutput>" height="35" style="padding-left:9px" class="labelmedium"><cf_tl id="Other attachment(s)">:</td>
-				   <td colspan="1">
+				   <td style="width:90%">
 			       <table width="97%" cellspacing="0" cellpadding="0">
 				   <tr><td>
 				   <cfset mode         = "edit">

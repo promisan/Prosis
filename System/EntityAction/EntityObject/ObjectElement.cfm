@@ -54,6 +54,7 @@ password="#SESSION.dbpw#">
 	<cfset documentid = rowguid>
 	
 <cfelse>
+
 	<cfset ret = "">
 	<cfif url.id2 eq "new">
 	
@@ -69,6 +70,7 @@ password="#SESSION.dbpw#">
 		
 	</cfif>
 	<cfset act = "../../EntityObject/ObjectElementSubmit.cfm?entitycode=#URL.entitycode#&documentid=#documentid#&type=#url.type#&id2=new">	
+	
 </cfif>
 
 
@@ -80,16 +82,17 @@ password="#SESSION.dbpw#">
 	
 	    <td width="100%">
 		
-		<cfform method="POST" 
-				name="myfield" 
-				onsubmit="#ret#"
-				action="#act#">
+		<!---
+		<cfform method="POST" name="myfield" onsubmit="#ret#" action="#act#">
+		--->
+		
+		<cfform method="POST" name="myfield" onsubmit="#ret#">
 									
 	    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding navigation_table">
 			
 	    <TR class="labelmedium line fixrow" style="height:15px">
 		
-		   <td style="padding-left:4px" width="10%">Code</td>
+		   <td style="padding-left:4px" width="10%"><cf_tl id="Code"></td>
 		   <cfif url.type neq "Attach" and url.type neq "Field"> 
 		   <td width="40%"><cf_tl id="Description"></td>
 		   <cfelse>
@@ -325,23 +328,30 @@ password="#SESSION.dbpw#">
 					   value="1" checked>
 			</td>
 
+			
 			<td colspan="2" align="center" style="border-right:1px solid silver">
-			<cfif url.type neq "mail">
 			<cfoutput>
+			
+			<cfif url.type neq "mail">
+			
 				<input type="button" 
 					value="Save" 
 					onclick="savemyfield('#URL.entitycode#','new','#url.type#','#documentid#')"
 					class="button10g" 
 					style="width:45;height:25px">
-			</cfoutput>
+			
 			<cfelse>
-			<cfset ptn = "new">
+
+				<cfset ptn = "new">
 				<input type="button" 
 					value="Save" 
 					onclick="savemyfield('#URL.entitycode#','new','#url.type#','#documentid#')"
 					class="button10g" 
 					style="width:45;height:25px">
+					
 			</cfif>
+			
+			</cfoutput>
 			
 			</td>			    
 			</TR>
@@ -450,9 +460,11 @@ password="#SESSION.dbpw#">
 				</tr>
 			
 			</cfif>	
+			
+			<!---
 						
-			<cfif url.type eq "Mail">			
-									
+			<cfif url.type eq "Mail">	
+												
 				<tr id="mail" bgcolor="f1f1f1" class="hide">
 				  <td colspan="8">	
 				  	<table width="100%" bgcolor="fafafa" cellspacing="0" cellpadding="0"><tr><td>
@@ -462,6 +474,8 @@ password="#SESSION.dbpw#">
 				</tr>
 									
 			</cfif>
+			
+			--->
 
 			<cfif url.type neq "Attach" and url.type neq "Field" and url.type neq "Mail">  								
 													
@@ -991,6 +1005,7 @@ password="#SESSION.dbpw#">
 				
 				</cfif>
 				
+				<!---
 				<cfif url.type eq "Mail">			
 									
 				<tr id="mail" bgcolor="ffffff" class="hide">
@@ -1002,6 +1017,7 @@ password="#SESSION.dbpw#">
 				</tr>
 									
 				</cfif>	
+				--->
 				
 				<cfif url.type neq "Field" and url.type neq "Activity" and url.type neq "question">
 				

@@ -1,6 +1,15 @@
 
 <!--- actors we obtain the enabled fly-actors for this action and allow them to record inputs (descision and comment --->
 
+<cfquery name="Object" 
+	datasource="appsOrganization" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#"> 
+	SELECT      *
+	FROM        OrganizationObject
+	WHERE       ObjectId   = '#ObjectId#' 	
+</cfquery>
+
 <cfquery name="Actor" 
 	datasource="appsOrganization" 
 	username="#SESSION.login#" 
@@ -36,13 +45,13 @@
 			password="#SESSION.dbpw#"> 
 			SELECT     TOP 1 *
 			FROM       OrganizationObjectActionAccessProcess
-			WHERE      ObjectId = '#ObjectId#' 
-			AND        ActionCode = '#ActionCode#'
-			AND        UserAccount = '#useraccount#'
+			WHERE      ObjectId     = '#ObjectId#' 
+			AND        ActionCode   = '#ActionCode#'
+			AND        UserAccount  = '#useraccount#'
 			ORDER BY   Created DESC
 		</cfquery>	
 	
-	    <cfif useraccount eq session.acc or getAdministrator("*") eq "1"> 
+	    <cfif (useraccount eq session.acc and process.recordcount eq "0" or process.decision eq "") or getAdministrator("#Object.Mission#") eq "9"> 
 		
 			<tr class="line labelmedium">
 			   <td style="padding-left:9px;background-color:f4f4f4;padding-right:5px">#FirstName# #LastName#</td>
@@ -61,19 +70,19 @@
 			   <td align="center" style="padding-left:4px;padding-right:4px">
 			   <cf_tl id="Submit" var="1">
 			   <input type="button" value="#lt_text#" style="width:100%"
-			    onclick="ptoken.navigate('#session.root#/Tools/EntityAction/Details/Actor/ActorViewSubmit.cfm?objectid=#objectid#&actionCode=#actionCode#&useraccount=#useraccount#','process','','','POST','actorform')">
+			    onclick="Prosis.busy('yes');ptoken.navigate('#session.root#/Tools/EntityAction/Details/Actor/ActorViewSubmit.cfm?objectid=#objectid#&actionCode=#actionCode#&useraccount=#useraccount#','process','','','POST','actorform')">
 				</td>
 			</tr>
 			
 		<cfelse>
 		
 			<tr class="line labelmedium navigation_row">
-			   <td style="padding-left:9px">#FirstName# #LastName#</td>
-			   <td>
+			   <td style="padding-left:4px">#FirstName# #LastName#</td>
+			   <td style="border-left:1px solid silver;padding-left:5px">
 			    <cfif Process.decision eq "0">--<cfelseif Process.decision eq "">--<cfelseif Process.decision eq "3"><cf_tl id="Yes"><cfelse><cf_tl id="No"></cfif>		  
 			   </td>   
-			   <td style="border-left:1px solid silver">#Process.DecisionMemo#</td>
-			   <td style="border-left:1px solid silver">#dateformat(Process.Created,'#client.dateformatshow# HH:MM')#</td>
+			   <td style="border-left:1px solid silver;padding-left:5px">#Process.DecisionMemo#</td>
+			   <td style="border-left:1px solid silver;padding-left:4px;min-width:150px">#dateformat(Process.Created,'#client.dateformatshow# HH:MM:SS')#</td>
 			</tr>		
 			
 		</cfif>

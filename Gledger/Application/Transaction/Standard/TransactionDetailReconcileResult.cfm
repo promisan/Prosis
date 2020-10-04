@@ -29,6 +29,7 @@ password="#SESSION.dbpw#">
 
 <!--- sub query for payment order --->
 
+
 <cfif url.init eq "Yes">
 
 	<cfif url.mode eq "PO">
@@ -115,7 +116,7 @@ password="#SESSION.dbpw#">
 		</cfsavecontent>
 		
 		</cfoutput>
-		
+				
 	</cfif>		
 
 	<cf_droptable dbname="AppsQuery" tblname="#HeaderSelect.Mission##SESSION.acc#Ledger">	
@@ -128,13 +129,15 @@ password="#SESSION.dbpw#">
 	
 	  <!--- select transactions which still have a balance on the orig amount 
 	  and are not part of this transaction already --->
-	   
+	  
+	  	   
 	  SELECT   P.Journal,
 	  		   J.Description as JournalDescription,
 	           P.JournalSerialNo,
 			   P.JournalTransactionNo,
 			   H.TransactionReference,
 			   H.ActionStatus,
+			   H.ReferenceOrgUnit,
 			   P.GLAccount,
 	           P.ReferenceName,
 			   P.TransactionDate,
@@ -160,6 +163,7 @@ password="#SESSION.dbpw#">
 	           R.Description   as GLDescription, 
 			   H.Description   as HeaderDescription, 
 			   H.TransactionId as TransactionIdHeader	
+			   
 			   
 	  INTO     userQuery.dbo.#HeaderSelect.Mission##SESSION.acc#Ledger		   	   
 		
@@ -342,6 +346,8 @@ password="#SESSION.dbpw#">
 	SELECT DISTINCT AccountPeriod
 	FROM SearchResult
 </cfquery>
+
+
 
 <cfset client.pagerecords = 100>
 

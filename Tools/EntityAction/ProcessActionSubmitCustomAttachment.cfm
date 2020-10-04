@@ -13,6 +13,7 @@ provided which are explicityly enabled for this Step in the workflow (aka custom
 	AND      W.ActionCode = '#Action.ActionCode#' 
 	AND      R.DocumentType = 'Attach' 
 	AND      R.FieldRequired = '1'
+	AND      R.Operational = 1 
 	 
 </cfquery>	 
 	
@@ -33,7 +34,7 @@ provided which are explicityly enabled for this Step in the workflow (aka custom
 			
 	<cfif check.recordcount eq "0">
 		
-		  <cf_message message = "You need to upload an attachment for: #DocumentDescription#">
+		  <cf_message message = "You are required to attach a document under: <br><span style='color:red;font-size:20px'>#DocumentDescription#</b>" return="false">
 		  <cfabort>
 	
 	</cfif>

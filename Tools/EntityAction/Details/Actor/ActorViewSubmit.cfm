@@ -1,4 +1,5 @@
 
+
 <!--- actors we obtain the enabled fly-actors for this action and allow them to record inputs (descision and comment --->
 
 <cfset dec = evaluate("Form.#url.userAccount#_Decision")>
@@ -20,4 +21,8 @@
 	</cfquery>
 
 </cfif>
+
+<script>
+	Prosis.busy('no')
+</script>
 	

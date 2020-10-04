@@ -197,21 +197,61 @@ password="#SESSION.dbpw#">
 						   
 						   </cfif>
 						   								   
-						   <td>						   		   
+						   <td>		
 						   
-						   <cfquery name="Signature" 
-							datasource="appsOrganization" 
-							username="#SESSION.login#" 
-							password="#SESSION.dbpw#">
-							SELECT *
-							FROM   Ref_EntityDocumentSignature
-							WHERE  EntityCode = '#Object.EntityCode#'
-							AND    Code IN (SELECT Code 
-								            FROM   Ref_EntityDocumentSignatureMission
-											WHERE  EntityCode = '#Object.EntityCode#'
-											AND    Mission    = '#Object.Mission#')							
-							AND    Operational = 1
-							</cfquery>															
+						   <cfif Object.Orgunit neq "">
+						   
+						      <cfquery name="OrgUnit" 
+								datasource="AppsOrganization" 
+								username="#SESSION.login#" 
+								password="#SESSION.dbpw#">
+								 	 SELECT *
+									 FROM   Organization
+									 WHERE  OrgUnit    = '#Object.OrgUnit#'			 	
+								</cfquery>
+						   
+							   <cfquery name="Signature" 
+								datasource="AppsOrganization" 
+								username="#SESSION.login#" 
+								password="#SESSION.dbpw#">		
+									SELECT    * 
+									FROM      Ref_EntityDocumentSignature
+									WHERE     EntityCode = '#Object.EntityCode#'
+									AND       Mission = '#Object.Mission#' 
+									AND       PersonNo IN
+							                      (SELECT  PersonNo
+							                       FROM    Employee.dbo.PersonAssignment
+							                       WHERE   OrgUnit IN
+							                                        (SELECT    OrgUnit
+							                                         FROM      Organization
+							                                         WHERE     Mission = '#OrgUnit.Mission#' 
+																	 AND       MandateNo = '#OrgUnit.MandateNo#' 
+																	 AND       HierarchyCode LIKE ('#orgUnit.HierarchyCode#%')) 
+												   AND     DateEffective <= GETDATE() 
+												   AND     DateExpiration >= GETDATE() 
+												   AND     Incumbency > 0 
+												   AND     AssignmentStatus IN ('0','1')) 
+								    AND        Operational = 1
+								</cfquery>	
+						   	
+							<cfelse>			   		   
+						   
+							   <cfquery name="Signature" 
+								datasource="appsOrganization" 
+								username="#SESSION.login#" 
+								password="#SESSION.dbpw#">
+								SELECT *
+								FROM   Ref_EntityDocumentSignature
+								WHERE  EntityCode = '#Object.EntityCode#'
+								AND    Code IN (SELECT Code 
+									            FROM   Ref_EntityDocumentSignatureMission
+												WHERE  EntityCode = '#Object.EntityCode#'
+												AND    Mission    = '#Object.Mission#')							
+								AND    Operational = 1
+								</cfquery>
+							
+							</cfif>				   		   
+						  			
 							
 							<cfif Signature.recordcount eq "0">
 														

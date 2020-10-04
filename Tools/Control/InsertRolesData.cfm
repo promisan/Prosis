@@ -1382,7 +1382,9 @@
 			password="#SESSION.dbpw#">
 			SELECT DISTINCT TextAreaDomain
 			FROM   Ref_TextArea  			
-		</cfquery>				
+		</cfquery>		
+		
+		<!--- add a ToR mode which does not require yet to define JO fields only requirements --->		
 			
 	    <cf_insertEntityDocument
 		      Code="VacDocument"   
@@ -1410,7 +1412,7 @@
 			  DocumentCode="REV"
 			  DocumentDescription="Review Candidates"
 			  DocumentTemplate="Vactrack/application/candidate/CandidateReview.cfm"
-			  DocumentStringList="MARK,TEST,SCORE,INTERVIEW,SELECT,INIT"
+			  DocumentStringList="MARK,TEST,SCORE,INTERVIEW,SELECT,INIT,CLOSE"
 			  DocumentMode="Embed">			  	
 		
 		<cf_insertEntityDocument
@@ -1427,7 +1429,15 @@
 			  DocumentCode="S001"
 			  DocumentDescription="Apply Rostering"
 			  DocumentTemplate="Vactrack/application/WorkFlow/Roster/applyRoster.cfm"
-			  DocumentMode="Process">			  	
+			  DocumentMode="Process">		
+			  
+		<cf_insertEntityDocument
+	          Code="VacDocument"   
+			  DocumentType="script" 
+			  DocumentCode="S009"
+			  DocumentDescription="Close Track"
+			  DocumentTemplate="Vactrack/application/WorkFlow/Arrival/closeTrack.cfm"
+			  DocumentMode="Process">		  	  	
 					  
 		<cf_insertEntity  Code="VacCandidate" 
 	          Description="Recruitment and Travel" 

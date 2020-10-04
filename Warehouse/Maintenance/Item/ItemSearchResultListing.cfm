@@ -1,6 +1,7 @@
 
-<cfset client.fmission   = url.fmission>
-<cfset client.programcode = url.programcode>
+<cfset session.fmission   = url.fmission>
+<cfset session.programcode = url.programcode>
+<cfset session.fbarcode   = "">
 
 <cfoutput>
 <cfsavecontent variable="myquery">
@@ -77,12 +78,12 @@
 						INNER JOIN Ref_CategoryItem RC ON I.Category = RC.Category AND I.CategoryItem = RC.CategoryItem
 						
 				WHERE	1 = 1				
-				<cfif client.search neq "">
-					AND #PreserveSingleQuotes(client.search)# 
+				<cfif session.search neq "">				
+					AND #PreserveSingleQuotes(session.search)# 
 				</cfif>
 				
-				<cfif client.fbarcode neq "">				
-				AND     ItemNo IN (SELECT ItemNo FROM ItemUoM WHERE ItemNo = I.ItemNo AND ItemBarCode LIKE '#client.fbarcode#%')
+				<cfif session.fbarcode neq "">				
+				AND     ItemNo IN (SELECT ItemNo FROM ItemUoM WHERE ItemNo = I.ItemNo AND ItemBarCode LIKE '#session.fbarcode#%')
 				</cfif>
 				
 				<!--- managed / used by this entity --->

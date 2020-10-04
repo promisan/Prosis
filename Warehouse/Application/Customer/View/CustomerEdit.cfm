@@ -37,7 +37,7 @@ password="#SESSION.dbpw#">
 	
 	<tr>
 	<td class="labelmedium"><cf_tl id="Entity"></td>
-	<td class="labelmedium">#Customer.Mission#</td>
+	<td style="font-size:17px" class="labelmedium">#Customer.Mission# / <b>#Customer.CustomerSerialNo#</b></td>
 	</tr>
 	
 	<tr>

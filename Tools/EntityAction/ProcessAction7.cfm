@@ -505,7 +505,7 @@
 	{
 	  w = #CLIENT.width# - 100;
 	  h = #CLIENT.height# - 140;
-	  window.open("ActionPrint.cfm?id=#URL.ID#","_blank", "left=30, top=30, width=" + w + ", height= " + h + ", toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=no")
+	  ptoken.open("ActionPrint.cfm?id=#URL.ID#","_blank", "left=30, top=30, width=" + w + ", height= " + h + ", toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=no")
   	}
 	
 	</cfif>
@@ -513,7 +513,7 @@
 	<cfif #URL.Mode# eq "Mail">
 		
 	{
-	  window.open("ActionMail.cfm?id=#URL.ID#","_blank", "left=30, top=30, width=800, height=600 , toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=no")
+	  ptoken.open("ActionMail.cfm?id=#URL.ID#","_blank", "left=30, top=30, width=800, height=600 , toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=no")
   	}
 		
 	</cfif>

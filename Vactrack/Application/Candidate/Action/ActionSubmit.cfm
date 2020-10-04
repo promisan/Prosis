@@ -1,4 +1,3 @@
-
 <!--- save action
       save and submit the eMail
 	  and refresh listing --->
@@ -68,9 +67,9 @@ password="#SESSION.dbpw#">
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
 			UPDATE DocumentCandidateReviewAction
-			SET   ActionDateStart        = #STR#,
-			      ActionMemo             = '#Form.actionMemo#'
-			WHERE ActionId = '#url.actionid#'				
+			SET    ActionDateStart = #STR#,
+			       ActionMemo      = '#Form.actionMemo#'
+			WHERE  ActionId        = '#url.actionid#'				
 	    </cfquery>	
 	
 </cfif>	 
@@ -130,7 +129,11 @@ password="#SESSION.dbpw#">
 							<cfmailparam file = "#session.rootdocumentpath##att.ServerPath#\#att.FileName#">						
 						</cfloop>		
 						
-					</cfif>				
+					</cfif>		
+					
+					<!--- disclaimer --->
+					<br><br>
+					<cf_maildisclaimer context="recruitment" id="mailid:#rowguid#">		
 																														
 					</cfmail>							
 							
@@ -138,10 +141,10 @@ password="#SESSION.dbpw#">
 						datasource="AppsOrganization" 
 						username="#SESSION.login#" 
 						password="#SESSION.dbpw#">
-						SELECT   TOP 1 SerialNo
-						FROM     OrganizationObjectActionMail
-						WHERE    ThreadId = '#url.ActionId#'									
-						ORDER BY SerialNo DESC
+							SELECT   TOP 1 SerialNo
+							FROM     OrganizationObjectActionMail
+							WHERE    ThreadId = '#url.ActionId#'									
+							ORDER BY SerialNo DESC
 					</cfquery>
 							
 					<cfif checked.serialno eq "">

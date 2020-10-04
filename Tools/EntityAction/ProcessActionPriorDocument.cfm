@@ -19,22 +19,23 @@
 			if (mode == "print") {
 		    	  w = 1000;
 			      h = #CLIENT.height# - 140;
-			      window.open("ActionPrint.cfm?mode="+mode+"&id="+id+"&docid="+docid,"_blank", "left=30, top=30, width=" + w + ", height= " + h + ", toolbar=no, menubar=yes, status=yes, scrollbars=yes, resizable=yes")			
+			      ptoken.open("ActionPrint.cfm?mode="+mode+"&id="+id+"&docid="+docid,"_blank", "left=30, top=30, width=" + w + ", height= " + h + ", toolbar=no, menubar=yes, status=yes, scrollbars=yes, resizable=yes")			
 			  }
 			  
 			if (mode == "pdf") {
 		    	  w = 1000;
 			      h = #CLIENT.height# - 140;
-			      window.open("ActionPrint.cfm?mode="+mode+"&id="+id+"&docid="+docid,"_blank", "left=30, top=30, width=" + w + ", height= " + h + ", toolbar=no, menubar=yes, status=yes, scrollbars=no, resizable=yes")			
+			      ptoken.open("ActionPrint.cfm?mode="+mode+"&id="+id+"&docid="+docid,"_blank", "left=30, top=30, width=" + w + ", height= " + h + ", toolbar=no, menubar=yes, status=yes, scrollbars=no, resizable=yes")			
 			  }  
 			  
 			 if (mode == "mail") {	  
-			     window.open("ActionMail.cfm?id="+id+"&docid="+docid,"_blank", "left=30, top=30, width=800, height=600 , toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=no")
+			     ptoken.open("ActionMail.cfm?id="+id+"&docid="+docid,"_blank", "left=30, top=30, width=800, height=600 , toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=no")
 		    }		
 			
 		 }
 	
 	</script>
+
 
 </cfif>
 

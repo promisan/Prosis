@@ -29,8 +29,8 @@
 	<cf_layoutarea  position="left"
 	     name="tree" 
 		 overflow="hidden" 
-		 maxsize="230" 
-		 size="230" 
+		 maxsize="280" 
+		 size="280" 
 		 collapsible="true" 
 		 splitter="true">
 	

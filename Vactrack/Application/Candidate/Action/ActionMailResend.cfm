@@ -62,6 +62,10 @@ password="#SESSION.dbpw#">
 				wraptext    = "100">											
 				#Form.MailBody#		
 				
+				<!--- disclaimer --->
+				<br><br>
+				<cf_maildisclaimer context="recruitment" id="mailid:#get.ThreadId#">		
+				
 				<cfif form.Mailattachment neq "">
 				
 					<cfquery name="Att" 

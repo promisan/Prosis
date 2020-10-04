@@ -793,7 +793,7 @@
 			<cfelse>
 
 				<!--- static tree --->
-				<cfset s.display   = "<span class='labelmedium'>#treelabel#</span>">
+				<cfset s.display   = "<span class='labelmedium' style='font-size:18px;font-weight:bold;padding-bottom:3px'>#treelabel#</span>">
 
 				<cfif id eq "DON">
 

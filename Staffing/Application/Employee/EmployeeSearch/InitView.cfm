@@ -28,7 +28,7 @@
 			 			  
 	</cf_layoutarea>			
 
-	<cf_layoutarea  position="left" name="tree" overflow="hidden" maxsize="240" size="240" collapsible="true" splitter="true">
+	<cf_layoutarea  position="left" name="tree" overflow="hidden" maxsize="280" size="280" collapsible="true" splitter="true">
 	
 		<iframe 
 			src="SearchTree.cfm?ID=0&Mission=#URL.Mission#&mid=#MID#"

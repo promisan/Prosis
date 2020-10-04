@@ -33,7 +33,6 @@
         <cfset vDestination = "attachment">
     </cfcase>
 
-
     <cfcase value="avi">
         <cfset vContentType = "video/x-msvideo" />
     </cfcase>
@@ -96,14 +95,20 @@
 	
 </cfswitch>
 
+<!--- change so all files will be rendered as an attachment --->
+<cfset vDestination = "attachment">
+
 <cftry>
 		
-	<cfheader name="Content-disposition"  value="#vDestination#; filename=#Replace(Replace(Attributes.SourceFileName, " ",  "_", "all"),",","&##44;","ALL")#" />
+    <cfheader name="Content-disposition"  value="#vDestination#; filename=#Replace(Replace(Attributes.SourceFileName, " ",  "_", "all"),",","&##44;","ALL")#" />
 	<cfheader name="Content-length" value="#getFileInfo(Path).size#" />
-	<cfcontent type="#vContentType#" file="#Path#" />
-	
+			
+	<cfcontent type="#vContentType#" file="#Path#"/>
+		
 <cfcatch>
+
 	<cfset m = Message()>
+	
 </cfcatch>	
 </cftry>									
 
@@ -111,8 +116,7 @@
 
    <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center">
 	 <tr><td align="center" height="40" class="labelmedium">		   
-		   <cf_tl id="This document link has expired. Go to the original document and click on it again"  class="Message">
-		 
+		   <cf_tl id="This document link has expired. Go to the original document and click on it again"  class="Message">		 
 		</td>
 	 </tr>
    </table>	

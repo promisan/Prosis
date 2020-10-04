@@ -149,10 +149,10 @@ password="#SESSION.dbpw#">
 					   
 					   <td style="padding-right:5px">
 					   		<cf_tl id="Regular Valuation">:
-					   		<br><span style="font-size:10px; color:8C8C8C; font-style:italic;">(<cf_tl id="Uncheck to force zero valuation">)</span>
+					   		<br><span style="font-size:10px; color:8C8C8C; font-style:italic;">(<cf_tl id="Uncheck to FORCE zero valuation">)</span>
 					   	</td>
 					   <td style="padding-right:10px">
-					   <input type="checkbox" id="transferrevaluation" value="1" checked>
+					   <input type="checkbox" class="radiol" id="transferrevaluation" value="1" checked>
 					   </td>
 					   
 					   <td class="labelit">

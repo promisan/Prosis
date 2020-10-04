@@ -40,10 +40,17 @@ password="#SESSION.dbpw#">
 		</TR>
 		
 		<TR class="labelmedium">
-	    <TD>Description:</TD>
+	    <TD>Name / Label:</TD>
 	    <TD>
 	  	   <cfinput type="Text" name="Description" value="" message="Please enter a description" required="Yes" size="40" maxlength="50"class="regularxl">
 	    </TD>
+		</TR>
+		
+		<TR class="labelmedium">
+	    <TD valign="top" style="padding-top:5px">Additional information:</TD>
+    	<TD>
+	  	   <textarea name="ActionInstruction" style="font-size:14px;padding:3px;width:100%;height:70px"></textarea>
+    	</TD>
 		</TR>
 		
 		<TR class="labelmedium">

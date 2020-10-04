@@ -37,7 +37,8 @@
     Operator="#Form.Crit7_Operator#"
     Value="#Form.Crit7_Value#">	
 	
-<cfset client.search = criteria>	
+		
+<cfset session.search = criteria>	
 	
 <CF_Search_AppendCriteria
     FieldName="#Form.Crit8_FieldName#"
@@ -45,11 +46,11 @@
     Operator="#Form.Crit8_Operator#"
     Value="#Form.Crit8_Value#">
 
-<cfset client.fbarcode = URLEncodedFormat(form.Crit8_Value)>
+<cfset session.fbarcode = URLEncodedFormat(form.Crit8_Value)>
 	
 <cfparam name="form.Crit9_Value" default="">		
 <cfparam name="form.Crit10_Value" default="">
 
-<cfset client.fmission = URLEncodedFormat(form.Crit6_Value)>
+<cfset session.fmission = URLEncodedFormat(form.Crit6_Value)>
 	
 <cflocation url="ItemSearchResult.cfm?idmenu=#url.idmenu#&used=#URLEncodedFormat(form.Crit9_Value)#&fmission=#URLEncodedFormat(form.Crit6_Value)#&programcode=#URLEncodedFormat(form.Crit10_Value)#" addtoken="No">	

@@ -47,48 +47,68 @@
  <!--- -------------------------------------------------- --->
  <!--- check if the parent document can be closed as well --->
  <!--- -------------------------------------------------- --->
+ 
+ <!--- first we check if the workflow is still open as now we support 
+ adding a last step for closing starting  20/09/2020 and then this is done manually as people might want to
+ inform other candidates for example --->
+ 
+ <cfquery name="CheckFlow" 
+   datasource="AppsOrganization" 
+   username="#SESSION.login#" 
+   password="#SESSION.dbpw#">
+	   SELECT * 
+	   FROM   OrganizationObject OO INNER JOIN OrganizationObjectAction OOA ON OO.Objectid = OOA.Objectid
+	   WHERE  OO.EntityCode    = 'VacDocument'	   
+	   AND    OO.ObjectKeyValue1  = '#Object.ObjectKeyValue1#'	
+	   AND    OO.Operational = 1 
+	   AND    OOA.ActionStatus = '0'
+ </cfquery>
+ 
+<cfif checkflow.recordcount eq "0">
  		 
- <cfquery name="CheckPosition" 
-   datasource="AppsVacancy" 
-   username="#SESSION.login#" 
-   password="#SESSION.dbpw#">
-	   SELECT * 
-	   FROM   DocumentPost
-	   WHERE  DocumentNo      = '#Object.ObjectKeyValue1#'	
- </cfquery>
- 
-  <cfquery name="CheckCandidate" 
-   datasource="AppsVacancy" 
-   username="#SESSION.login#" 
-   password="#SESSION.dbpw#">
-	   SELECT * 
-	   FROM   DocumentCandidate
-	   WHERE  DocumentNo      = '#Object.ObjectKeyValue1#'	
-	   AND    Status = '3'
- </cfquery>
- 
- <cfif CheckPosition.recordcount lte CheckCandidate.recordcount>
- 
-	  <cfquery name="CloseTrack" 
+	 <cfquery name="CheckPosition" 
 	   datasource="AppsVacancy" 
 	   username="#SESSION.login#" 
 	   password="#SESSION.dbpw#">
-		   UPDATE Document
-		   SET    Status                 = '1',
-		          StatusDate             = getDate(),
-       		      StatusOfficerUserId    = '#SESSION.acc#',
-		          StatusOfficerLastName  = '#SESSION.last#',
-		          StatusOfficerFirstName = '#SESSION.first#'
-		   WHERE  DocumentNo             = '#Object.ObjectKeyValue1#'	
+		   SELECT * 
+		   FROM   DocumentPost
+		   WHERE  DocumentNo      = '#Object.ObjectKeyValue1#'	
 	 </cfquery>
  
- </cfif>
+	 <cfquery name="CheckCandidate" 
+	   datasource="AppsVacancy" 
+	   username="#SESSION.login#" 
+	   password="#SESSION.dbpw#">
+		   SELECT * 
+		   FROM   DocumentCandidate
+		   WHERE  DocumentNo      = '#Object.ObjectKeyValue1#'	
+		   AND    Status = '3'
+	 </cfquery>
  
- <!--- ------------------------------------ --->
- <!--- update contract to be set as cleared --->
- <!--- ------------------------------------ --->
+	 <cfif CheckPosition.recordcount lte CheckCandidate.recordcount>
  
- <cfquery name="qContract" 
+		  <cfquery name="CloseTrack" 
+		   datasource="AppsVacancy" 
+		   username="#SESSION.login#" 
+		   password="#SESSION.dbpw#">
+			   UPDATE Document
+			   SET    Status                 = '1',
+			          StatusDate             = getDate(),
+	       		      StatusOfficerUserId    = '#SESSION.acc#',
+			          StatusOfficerLastName  = '#SESSION.last#',
+			          StatusOfficerFirstName = '#SESSION.first#'
+			   WHERE  DocumentNo             = '#Object.ObjectKeyValue1#'	
+		 </cfquery>
+ 
+	 </cfif>
+	 
+</cfif>	 
+ 
+<!--- ------------------------------------ --->
+<!--- update contract to be set as cleared --->
+<!--- ------------------------------------ --->
+ 
+<cfquery name="qContract" 
    datasource="AppsEmployee" 
    username="#SESSION.login#" 
    password="#SESSION.dbpw#">

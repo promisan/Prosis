@@ -30,17 +30,18 @@
 	     username="#SESSION.login#" 
 	     password="#SESSION.dbpw#">
 	     INSERT INTO  FunctionOrganizationTopic
-	         (FunctionId,TopicId,
-		     TopicPhrase,
-			 TopicOrder,
-			 TopicSubject,
-			 TopicRatingScale,
-			 TopicRatingPass,
-			 Parent,
-			 Operational,
-			 OfficerUserId,
-			 OfficerLastName,
-			 OfficerFirstName)
+ 	         (FunctionId,
+			  TopicId,
+		      TopicPhrase,
+			  TopicOrder,
+			  TopicSubject,
+			  TopicRatingScale,
+			  TopicRatingPass,
+			  Parent,
+			  Operational,
+			  OfficerUserId,
+			  OfficerLastName,
+			  OfficerFirstName)
 	      VALUES ('#url.idfunction#',
 		      '#rowguid#',
 			  '#Form.TopicPhrase#',

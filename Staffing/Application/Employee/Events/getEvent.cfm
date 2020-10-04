@@ -4,6 +4,8 @@
 <cfparam name="URL.mission"      default="">
 <cfparam name="URL.portal"       default="0">
 <cfparam name="URL.personNo"     default="0">
+<cfparam name="URL.pevent"     	 default="">
+<cfparam name="URL.preason"      default="">
 
 <cfquery name="getTrigger" 
 		 datasource="AppsEmployee" 
@@ -103,12 +105,12 @@
 </cfif>
 
 <select name="eventcode" id="eventcode" class="regularxl" style="width:95%" 
-    onchange="_cf_loadingtexthtml='';ptoken.navigate('<cfoutput>#SESSION.root#</cfoutput>/Staffing/Application/Employee/Events/getReason.cfm?triggercode='+document.getElementById('triggercode').value+'&eventcode='+this.value+'&eventid=','dReason')">
+    onchange="_cf_loadingtexthtml='';ptoken.navigate('<cfoutput>#SESSION.root#</cfoutput>/Staffing/Application/Employee/Events/getReason.cfm?triggercode='+document.getElementById('triggercode').value+'&eventcode='+this.value+'&eventid='+'&preason=#url.preason#','dReason')">
 	<cfif qEvent.recordcount gt "1">
 	<option value=""><cf_tl id="Please select">...</option>
 	</cfif>
 	<cfoutput query="qEvents">
-		<option value="#Code#" <cfif Code eq qEvent.EventCode>selected</cfif>>#Description#</option>
+		<option value="#Code#" <cfif Code eq qEvent.EventCode OR Code eq url.pevent>selected</cfif>>#Description#</option>
 	</cfoutput>
 <select>
 

@@ -74,6 +74,49 @@ password="#SESSION.dbpw#">
 
 </cfquery>
 
+<!--- get panel --->
+
+<cfquery name="getPanel" 
+	datasource="appsVacancy" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT * 
+		FROM   DocumentCandidateReviewPanel
+		WHERE  DocumentNo = '#url.documentNo#'
+		AND    PersonNo   = '#url.personno#'
+		AND    ActionCode = '#url.actionCode#'
+</cfquery>		
+
+<!--- set the panel members --->
+
+<cfif getPanel.recordcount eq "0">
+	
+	<cfquery name="Panel" 
+	datasource="appsVacancy" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+			INSERT INTO DocumentCandidateReviewPanel
+			(DocumentNo, PersonNo, ActionCode, PanelPersonNo)
+			
+			SELECT       OO.ObjectKeyValue1 AS DocumentNo, 
+			             '#url.personno#' AS personNo, 
+						 OOA.ActionCode, 
+						 U.PersonNo       AS PanelPersonNo
+			FROM         OrganizationObjectActionAccess AS OOA INNER JOIN
+			             System.dbo.UserNames AS U ON OOA.UserAccount = U.Account INNER JOIN
+			             OrganizationObject AS OO ON OOA.ObjectId = OO.ObjectId
+			WHERE        OOA.ActionCode = '#url.actionCode#' 
+			AND          OOA.ObjectKeyValue1 = '#url.documentNo#' 
+			AND          U.PersonNo IN
+			                             (SELECT    PersonNo
+			                               FROM     Employee.dbo.Person
+			                               WHERE    PersonNo = U.PersonNo)
+								   
+	</cfquery>	
+
+</cfif>						   
+
+
 <cfquery name="Interview" 
 datasource="appsVacancy" 
 username="#SESSION.login#" 
@@ -200,6 +243,16 @@ password="#SESSION.dbpw#">
 		  AND      PersonNo = '#URL.PersonNo#'
 		  AND      ActionCode = '#URL.ActionCode#'
 	</cfquery>	
+	
+	<cfif Interview.ActionCode eq URL.ActionCode or Interview.ActionCode eq "" and url.actioncode neq "view">	
+	
+	<TR class="labelmedium line">
+	
+    <td height="20" colspan="4"><cf_tl id="Interview Minutes and observations"></td>
+	
+	</TR>
+	
+	</cfif>
 	
 	<TR class="labelmedium line">
 	
@@ -344,7 +397,7 @@ password="#SESSION.dbpw#">
 		<cfif Interview.ActionCode eq URL.ActionCode or Interview.ActionCode eq "">	
 		
 		<cfset link = "#SESSION.root#/vactrack/application/candidate/CandidateReviewPanel.cfm?DocumentNo=#URL.DocumentNo#&PersonNo=#URL.PersonNo#&ActionCode=#URL.ActionCode#">	
-		<cfdiv bind="url:#link#" id="member"/>
+		<cf_securediv bind="url:#link#" id="member"/>
 			
 		</cfif>
 		
@@ -381,12 +434,12 @@ password="#SESSION.dbpw#">
 	<tr><td colspan="4" style="padding-left:0px">
 	
 	<table width="100%" align="center" class="formpadding">
-	
+		
 		<cfoutput query="Interview">
 		
 			<tr class="line">
-				<td valign="top" class="labelmedium" style="width:200px;padding-top:4px"><cf_tl id="Recapitulation"> #Description#</td>
-			    <td style="padding-left:0px">
+				<td valign="top" class="labelmedium" style="min-width:240px;padding-top:4px;padding-right:10px"><cf_tl id="Minutes">: #Description#</td>
+			    <td style="width:80%;padding-left:0px">
 				<cfif (ActionCode eq URL.ActionCode or Interview.ActionCode eq "") and url.actioncode neq "view">			
 				
 				 <cf_textarea name="#CompetenceId#"	           		 

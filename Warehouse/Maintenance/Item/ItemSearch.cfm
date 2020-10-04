@@ -126,7 +126,7 @@ password="#SESSION.dbpw#">
 			<INPUT type="hidden" name="Crit10_FieldType" id="Crit10_FieldType" value="CHAR">
 			<INPUT type="hidden" name="Crit10_Operator"  id="Crit10_Operator" value="EQUAL">
 				
-			<cfdiv id="bProgram" bind="url:getProgram.cfm?mission={Crit6_Value}&itemNo=&mode=search&FieldName=Crit10_Value&ts=#GetTickCount()#">
+			<cf_securediv id="bProgram" bind="url:getProgram.cfm?itemNo=&mode=search&FieldName=Crit10_Value&mission={Crit6_Value}">
 			</TD>	
 			</tr>
 			</table>

@@ -154,6 +154,7 @@ function logdocfile(id,box) {
  } 
  }	 
 
+
 function showfile(mode,openas,id) {  
 		
 	<!--- record an audit trail the -open- action to be logged --->
@@ -164,21 +165,13 @@ function showfile(mode,openas,id) {
     if (mode == "attachment" || mode == "attachmentmultiple") {		  
 
 	    if (openas == "view") {		
-		    <!--- ------------------------------------------------------------- --->
-		    <!--- perform the read action which copies the file to a save place --->
-			<!--- ------------------------------------------------------------- --->						
+		    <!--- ---------------------------------------------------------------- --->
+		    <!--- perform the read action which copies the file to a secure place- --->
+			<!--- ---------------------------------------------------------------- --->							
 			ptoken.open("#SESSION.root#/Tools/Document/FileRead.cfm?scope=actual&id="+id,"_blank");							
 		} else {
-    	   ptoken.open("#SESSION.root#/Tools/Document/FileEdit.cfm?mode="+mode+"&ts="+new Date().getTime()+"&id="+id, 'FileLibrary', "unadorned:yes; edge:raised; status:no; dialogHeight:800px; dialogWidth:1000px; status:yes;help:no; scroll:no; center:yes; resizable:yes");						
+    	   ptoken.open("#SESSION.root#/Tools/Document/FileEdit.cfm?mode="+mode+"&ts="+new Date().getTime()+"&id="+id, 'FileLibrary');						
 		}
-
-   // } else {
-	
-//	  if (openas == "view") {
- //   		alert("Not Supported")
-//		} else {
-//    	window.showModelessDialog("#SESSION.root#/Tools/Document/FileEdit.cfm?openas="+openas+"&mode="+mode+"&ts="+new Date().getTime()+"&id="+id, 'FileLibrary', "unadorned:yes; edge:raised; status:no; dialogHeight:800px; dialogWidth:1000px; status:yes;help:no; scroll:no; center:yes; resizable:yes");						
-//	    }
 
 	}
 }

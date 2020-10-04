@@ -42,9 +42,10 @@
 		
 		<cfif url.search neq "inmemory">				
 		WHERE      (Reference LIKE '%#url.search#%' 
-		                    OR CustomerName LIKE '%#url.search#%' 
-							OR PhoneNumber LIKE '%#url.search#%' 
-							OR eMailAddress LIKE '%#url.search#%')
+		                    OR CustomerSerialNo LIKE '%#url.search#%' 
+		                    OR CustomerName     LIKE '%#url.search#%' 
+							OR PhoneNumber      LIKE '#url.search#%' 
+							OR eMailAddress     LIKE '#url.search#%')
 		<cfelse>
 		WHERE     CustomerId IN
                           (SELECT   CustomerId
@@ -134,31 +135,33 @@
 	
 	<tr><td id       = "customerline#currentrow#" 
 	    name         = "customerline#currentrow#" 
-		onclick      = "document.getElementById('#URL.context#').className='hide';ptoken.navigate('#SESSION.root#/warehouse/application/SalesOrder/POS/Sale/applyCustomer.cfm?warehouse=#url.warehouse#&customerid=#customerid#&addressid=#addressid#','customerbox');" 
+		onclick      = "document.getElementById('#URL.context#').className='hide';_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/warehouse/application/SalesOrder/POS/Sale/applyCustomer.cfm?warehouse=#url.warehouse#&customerid=#customerid#&addressid=#addressid#','customerbox');" 
 	    class        = "regular" 
 		style        = "cursor:pointer"
 	    onmouseover  =  "if (this.className=='regular') { this.className='highlight2' }"
 		onmouseout   =  "if (this.className=='highlight2') { this.className='regular' }">
 						
-		<input type="hidden" name="r_#currentrow#_customermeta" id="r_#currentrow#_customermeta" value="#get.Reference#">				
+		<input type="hidden" name="r_#currentrow#_customermeta" id="r_#currentrow#_customermeta" value="#get.CustomerSerialNo#">				
 		<input type="hidden" name="r_#currentrow#_customerid"   id="r_#currentrow#_customerid"     value="#CustomerId#">
 					
 		<table width="100%" class="formpadding">
 		     
         <tbody>
-            <tr style='height:20px;padding: 5px;'>
-                <td class="s0" style="width:50%;" dir="ltr"><p style="font-size: 15px;padding: 3px 0 0 10px;"><i class="fas fa-user-circle"></i> #get.CustomerName#</p></td>
-                <td class="s0" style="width:50%;" style="width:50%;" dir="ltr"><p style="font-size: 13px;"><b>NIT:</b> #get.Reference#<p></td>
+            <tr style="height:20px;padding: 5px;">
+                <td class="s0" style="width:50%;" dir="ltr"><p style="font-size: 15px;padding: 3px 0 0 10px;"><i class="fas fa-user-circle"></i> #get.CustomerName# </p></td>
+                <td class="s0" style="width:50%;" style="width:50%;" dir="ltr"><p style="font-size: 13px;"><b><cf_tl id="Tax"></b>: #get.Reference# </td>
             </tr>
-            <tr style='height:20px;'>
+            <tr style="height:20px;" class="line">
                 <td class="s0" style="width:50%;" dir="ltr"><p style="font-size: 12px;padding:1px 0 4px 12px;color:##555555;"><i class="fas fa-envelope-square"></i> #get.eMailAddress#</p></td>
-                <td class="s0" style="width:50%;" dir="ltr"><p style="font-size: 12px;padding:1px 0 4px 0;color:##555555;"><i class="fas fa-phone-square"></i> #get.PhoneNumber#</p></td>
+                <td class="s0" style="width:50%;" dir="ltr"><p style="font-size: 12px;padding:1px 0 4px 0;color:##555555;"> <b>##</b><span style="font-size:13px;padding-right:20px">#get.CustomerSerialNo#</span><i class="fas fa-phone-square"></i> #get.PhoneNumber#</p></td>
             </tr>
+			<!---
             <cfif currentrow neq recordcount>
 				<tr>
                     <td colspan="3" class="linedotted"></td>
                 </tr>
 			</cfif>
+			--->
         </tbody>
          		
 		</table>

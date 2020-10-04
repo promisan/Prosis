@@ -17,13 +17,13 @@
 </cfquery>
 	
 <cfoutput>
-<cfif url.scope neq "portal">
+<cfif url.scope eq "portal">
 	<script>
-		ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventsListing.cfm?id=#qEvent.PersonNo#','eventdetail');
+		ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/Selfservice.cfm?id=#qEvent.PersonNo#&mission=#url.mission#&trigger=#url.trigger#&event=#url.event#','divEventDetail');
 	</script>
 <cfelse>
 	<script>
-		ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/Selfservice.cfm?id=#qEvent.PersonNo#','eventdetail');
+		ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventsListing.cfm?id=#qEvent.PersonNo#','eventdetail');
 	</script>
 </cfif>
 </cfoutput>

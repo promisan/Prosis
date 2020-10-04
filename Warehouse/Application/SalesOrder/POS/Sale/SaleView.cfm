@@ -349,13 +349,13 @@ password="#SESSION.dbpw#">
 								<cf_tl id="Select a customer" var="1">
 								
 								<cfif url.scope neq "POS">
-																
+																								
 								 	<input type         = "text" readonly
 								         name         = "customerselect" 
 								         id           = "customerselect"	
 										 onfocus      = "this.style.border='1px solid gray';document.getElementById('customerinvoiceselectbox').className ='hide';" 
 										 onblur       = "this.style.border='0px solid gray';forceSelect(this, 'customeridselect');"			 
-								         style        = "border:1px solid silver;background-image:linear-gradient(to bottom,##e1e1e1,##e1e1e1);padding-left:4px;width:98px;height:26px;font-size:17px;"
+								         style        = "border:1px solid silver;background-image:linear-gradient(to bottom,##e1e1e1,##e1e1e1);padding-left:4px;width:75px;height:26px;font-size:17px;"
 								         autocomplete = "off">						
 								
 								<cfelse>
@@ -365,7 +365,7 @@ password="#SESSION.dbpw#">
 								         id           = "customerselect"	
 										 onfocus      = "this.style.border='1px solid gray';document.getElementById('customerinvoiceselectbox').className ='hide';" 
 										 onblur       = "this.style.border='0px solid gray';forceSelect(this, 'customeridselect');"			 
-								         style        = "border:1px solid silver;background-image:linear-gradient(to bottom,##ffffff,##ffffff);padding-left:4px;width:98px;height:26px;font-size:17px;"
+								         style        = "border:1px solid silver;background-image:linear-gradient(to bottom,##ffffff,##ffffff);padding-left:4px;width:75px;height:26px;font-size:17px;"
 								         autocomplete = "off" 				  							       		  
 								         onkeyup      = "searchcombo('#get.mission#','#url.warehouse#','','customer',this.value,'up','','##customeridselect_val');"
 								         onkeydown    = "searchcombo('#get.mission#','#url.warehouse#','','customer',this.value,'down','','##customeridselect_val');">

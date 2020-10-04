@@ -1,4 +1,5 @@
 <cfparam name="URL.eventid" default="">
+<cfparam name="URL.preason" default="">
 
 <cfif URL.eventId neq "">
 
@@ -59,13 +60,22 @@
 		ORDER BY GroupListOrder
 </cfquery>		
 
+<cfoutput>
+
 <script language="JavaScript">
+
+    <!--- set label --->
+	document.getElementById('actiondatelabeleffective').innerHTML = '#event.ActionPeriodLabel#'
+	document.getElementById('actiondatelabelexpiration').innerHTML = '#event.ActionPeriodLabel#'
 	
+	<!--- show/hide expiration --->
 	<cfif Event.ActionPeriod eq "1">
 	   		document.getElementById("expirybox").className = "labelmedium"   
 	<cfelse>
 			document.getElementById("expirybox").className = "hide" 	
 	</cfif>
+	
+	<!--- show/hide unit/position --->
 		
 	<cfif Event.ActionPosition eq "1">
 	   		document.getElementById("positionbox").className = "labelmedium"   
@@ -80,6 +90,8 @@
 
 </script>
 
+</cfoutput>
+
 <cfif qReasons.recordcount neq 0>
 
     <script>
@@ -90,7 +102,7 @@
 			
 		<select name="reasoncode" id="reasoncode" class="regularxl" style="width:95%">
 			<cfloop query="qReasons">
-				<option value="#GroupListCode#" <cfif qCurrentEvent.ReasonListCode eq GroupListCode>selected</cfif>>#GroupListCode#-#Description#</option>
+				<option value="#GroupListCode#" <cfif qCurrentEvent.ReasonListCode eq GroupListCode OR GroupListCode eq url.preason>selected</cfif>>#GroupListCode#-#Description#</option>
 			</cfloop>
 		<select>			
 		<input type="hidden" id="GroupCode" name="GroupCode" value="#qEvent.ReasonCode#">

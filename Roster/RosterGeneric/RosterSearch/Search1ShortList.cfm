@@ -7,19 +7,35 @@
 
 <cfif url.wActionId neq "">
 
+	<!--- is called from the workflow --->
+
 	<cfquery name="param" 
 	datasource="AppsOrganization" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-		SELECT     R.ActionDialogParameter
-		FROM       OrganizationObjectAction OA INNER JOIN
-	               Ref_EntityActionPublish R ON OA.ActionPublishNo = R.ActionPublishNo AND OA.ActionCode = R.ActionCode
+		SELECT     R.ActionDialogParameter, O.ObjectId, O.ObjectKeyValue1, O.ObjectKeyValue2
+		FROM       OrganizationObjectAction OA 
+		           INNER JOIN  Ref_EntityActionPublish R ON OA.ActionPublishNo = R.ActionPublishNo AND OA.ActionCode = R.ActionCode 
+				   INNER JOIN  OrganizationObject O ON O.ObjectId = OA.ObjectId
 		WHERE      OA.ActionId = '#url.wActionId#'
 	</cfquery>
 	
 	<cfset url.wParam = param.ActionDialogParameter>
-
+	<cfset url.docNo  = param.ObjectKeyValue1>
+	
+	<cfquery name="Doc" 
+	datasource="AppsVacancy" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    SELECT *
+	    FROM   Document D
+		WHERE  D.DocumentNo = #URL.DocNo# 
+	</cfquery>
+	
+	<cfset url.functionNo = doc.FunctionNo>
+	
 </cfif>
+
 
 <cfparam name="url.wParam"      default="">
 <cfparam name="url.functionno"  default="">

@@ -192,19 +192,94 @@
 	 AND    OfficerUserid = '#user.account#'  
 </cfquery>
 
-<cfoutput>
 
-
-<cfif len(url.competenceid) gte "10">
-
-<script>
+<cfif url.modality eq "Interview">
+			
+		<cfoutput>
+		<script>			
+			try { 
+			$("##Score#url.Personno#_#url.competenceid#_#url.useraccount#", window.parent.document).val('#getSubmission.AssessmentScore#')
+		<!--- $("##Memo#url.Personno#_#url.competenceid#_#url.useraccount#", window.parent.document).val('#getSubmission.AssessmentMemo#')	--->
+			} catch(e) {}
+		</script>
+		</cfoutput>
 	
-	$("##Score#url.Personno#_#left(url.competenceid,8)#_#url.useraccount#", window.parent.document).val('#getSubmission.AssessmentScore#')
-	$("##Memo#url.Personno#_#left(url.competenceid,8)#_#url.useraccount#", window.parent.document).val('#getSubmission.AssessmentMemo#')
+<cfelse>
 
-</script>
-
-</cfif>
-
-
-</cfoutput>
+	<!--- calculate total score for the person --->
+	
+	<cfquery name="getPhrases" 
+	datasource="AppsSelection" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT     *
+		FROM       FunctionOrganizationTopic
+		WHERE 	   FunctionId IN (SELECT FunctionId 
+		                          FROM   Functionorganization 
+								  WHERE  Documentno = '#url.documentno#')           
+		AND        Operational = 1 
+		ORDER BY   TopicOrder
+	</cfquery>
+	
+	
+	<cfquery name="getScore" 
+	     datasource="AppsVacancy" 
+		 username="#SESSION.login#" 
+		 password="#SESSION.dbpw#">
+			SELECT       PersonNo, ROUND(AVG(AssessmentScore),0) AS Score
+			FROM         DocumentCandidateAssessment
+			WHERE        DocumentNo = '#url.documentno#' 
+			AND          ActionCode = '#url.actionCode#'
+			AND          AssessmentScore > 0
+			AND          CompetenceId IN (SELECT TopicId FROM Applicant.dbo.FunctionOrganizationTopic) 
+			GROUP BY     PersonNo
+	</cfquery>
+	
+	<cfset scoreresult = "">
+	
+	<cfloop query="getScore">
+		
+		<cfquery name="setScore" 
+		    datasource="AppsVacancy" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				UPDATE DocumentCandidateReview
+				SET     ReviewScore = '#Score#'
+				WHERE        DocumentNo = '#url.documentno#' 
+				AND          ActionCode = '#url.actionCode#' 
+				AND          PersonNo   = '#personno#' 	
+		</cfquery>
+		
+		<cfoutput>
+		<cfif personno eq url.personno>		
+			<cfset scoreresult = "#Score#">	
+		</cfif>
+		</cfoutput>
+	
+	</cfloop>	
+	
+	<cfoutput>
+	
+	<!--- test result score --->
+	
+	<cfif len(url.competenceid) gte "10">
+		
+		<script>	
+			try { 	
+			<cfif getPhrases.TopicRatingPass lte scoreresult>
+			$("##ReviewStatus_#url.Personno#", window.parent.document).prop('checked', true);
+			<cfelse>
+			$("##ReviewStatus_#url.Personno#", window.parent.document).prop('checked', false);
+			</cfif>
+			$("##Score#url.Personno#", window.parent.document).val('#scoreresult#')
+			$("##Score#url.Personno#_#left(url.competenceid,8)#_#url.useraccount#", window.parent.document).val('#getSubmission.AssessmentScore#')
+			<!--- $("##Memo#url.Personno#_#left(url.competenceid,8)#_#url.useraccount#", window.parent.document).val('#getSubmission.AssessmentMemo#') --->
+			} catch(e) {}
+			
+		</script>
+	
+	</cfif>	
+	
+	</cfoutput>
+	
+</cfif>	

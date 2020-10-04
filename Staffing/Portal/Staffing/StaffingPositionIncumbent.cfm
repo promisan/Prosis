@@ -8,7 +8,7 @@
 		 
 			 <table style="width:100%">
 			 <tr>
-			  <td valign="top" style="width:85px;padding-left:4px;padding-right:10px;padding-top:4px">
+			  <td valign="top" style="width:85px;padding-left:4px;padding-right:10px;">
 			  <table>
 				  <tr><td>
 				  
@@ -59,21 +59,7 @@
 				  
 			      </td>
 				  </tr>
-			      <tr><td align="center" style="font-size:12px">
-				  
-				   <cfquery name="nation" 
-						datasource="appsSystem" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">	
-					 
-						SELECT    *
-						FROM      Ref_Nation
-						WHERE     Code = '#nationality#'																
-					 </cfquery> 	
-				  
-				  #nation.Name#
-				  
-				  </td></tr>
+			      <tr><td align="center" style="font-size:12px">#NationalityName#</td></tr>
 			  </table>
 			</td>
 						  
@@ -82,15 +68,24 @@
 			  	<table style="width:100%">
 				
 				   <tr style="height:25px">						        
-						 <td colspan="3" style="width:100%">								 
+						 <td colspan="3" style="width:100%">	
+						 							 
 						 <table style="width:100%">
-						  <tr class="labelmedium">
-							  <td colspan="2" style="font-size:17px">#FirstName# #LastName#</td></tr>
-							  <tr class="labelmedium" style="height:20px">
-							  <td style="font-size:14px"><cf_tl id="Index">## #IndexNo#</td>
-							  <td style="padding-right:5px" align="right"></td>
-						  </tr>
+							 <tr class="labelmedium">
+								 <td colspan="2" style="font-weight:bold;font-size:17px">#FirstName# #LastName#</td>
+							 </tr>
+							 <tr class="labelmedium" style="height:20px">
+								 <td style="font-size:14px">
+								  <cfif getAdministrator("#mission#") eq "1">
+								  <cf_tl id="Index">## <a href="javascript:EditPerson('#PersonNo#')">#IndexNo#</a>
+								  <cfelse>
+								  <cf_tl id="Index">## #IndexNo#
+								  </cfif>
+								 </td>
+								 <td style="padding-right:5px" align="right"></td>
+							 </tr>
 						 </table>								
+						 
 						 </td>
 				   </tr>	
 				   
@@ -113,48 +108,54 @@
 					
 						<cfset docno = recruit.sourceId>
 					
-							<cfquery name="Track" 
+						<cfquery name="Track" 
 							datasource="AppsEmployee" 
 							username="#SESSION.login#" 
 							password="#SESSION.dbpw#">									
-							SELECT    D.*, RC.EntityClassName 
-							FROM      Vacancy.dbo.Document D INNER JOIN
-									  Organization.dbo.Ref_EntityClass RC ON RC.EntityClass = D.EntityClass AND RC.EntityCode = 'VacDocument'		
-							WHERE     D.DocumentNo = '#docno#' 
-							</cfquery>	
-					
-							<cfquery name="FO" 
-								datasource="AppsSelection" 
-								username="#SESSION.login#" 
-								password="#SESSION.dbpw#">												
+								SELECT    D.*, RC.EntityClassName 
+								FROM      Vacancy.dbo.Document D INNER JOIN
+										  Organization.dbo.Ref_EntityClass RC ON RC.EntityClass = D.EntityClass AND RC.EntityCode = 'VacDocument'		
+								WHERE     D.DocumentNo = '#docno#' 
+						</cfquery>	
+				
+						<cfquery name="FO" 
+							datasource="AppsSelection" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">												
 								SELECT    D.*
 								FROM      Functionorganization D 		
 								WHERE     FunctionId = '#Track.Functionid#' 												
-							</cfquery>			
+						</cfquery>			
 
-					<tr style="height:20px">	
-					      						   
-					   	   <td colspan="2" style="padding-right:5px;color:gray">#Track.entityclassName#:</td>
-				   	   	   <td align="right" style="padding-right:5px;color:green"><cfif fo.recordcount eq "1">#FO.ReferenceNo#<cfelse>#docno#</cfif></td>
-				
-					</tr>	
+						<tr>					      						   
+					   	   <td colspan="2" style="font-size:12px;padding-right:5px;">#Track.entityclassName#:</td>
+				   	   	   <td align="right" style="font-size:12px;padding-right:5px;color:green"><cfif fo.recordcount eq "1">#FO.ReferenceNo#<cfelse>#docno#</cfif></td>				
+						</tr>	
+						
+						<tr><td colspan="3" class="line"></td></tr>
 					 
-					</cfif> 
-				   	
+				   </cfif> 				   	
 				   								   
 				   <cfif getContract.ContractLevel neq "">	
 				   	
-					   <tr style="height:20px">							   
-					   	   <td colspan="2" style="color:gray"><cf_tl id="Type of appointment">:</td>
-					       <td align="right" style="padding-right:5px">#getContract.ContractType#</td>
-					   </tr>								   
+					   <tr>							   
+					   	   <td style="font-size:12px" colspan="2"><cf_tl id="Type of appointment">:</td>
+					       <td align="right" style="font-size:12px;padding-right:5px">#getContract.ContractType#</td>
+					   </tr>	
+					   
+					   <tr><td colspan="3" class="line"></td></tr>							   
 					   							   
-					   <tr style="height:20px">
-						   <td colspan="2" style="color:gray"><cf_tl id="Grade">/<cf_tl id="Step">:</td>
-						   <td align="right" style="padding-right:5px">#getContract.ContractLevel# / #getContract.ContractStep#</td>
+					   <tr>
+						   <td style="font-size:12px"><cf_tl id="Grade">|<cf_tl id="Step">:</td>
+						   <cfif getContractAdjustment.recordcount gte "1">
+						   <td align="right" style="font-size:12px;padding-right:5px">SPA: #getContractAdjustment.PostAdjustmentLevel# | #getContractAdjustment.PostAdjustmentStep#</td>
+						   <cfelse>
+						   <td></td>
+						   </cfif>
+						   <td align="right" style="font-size:12px;padding-right:5px">#getContract.ContractLevel# | #getContract.ContractStep#</td>
 					   </tr>
 						   								   
-					   <cfif PostGrade neq getContract.ContractLevel and incumbency eq "100">   
+					   <cfif Postgroup eq "Used" and PostGrade neq getContract.ContractLevel and incumbency eq "100">   
 						   
 						   	<tr>
 							 								   
@@ -170,22 +171,23 @@
 								   id="workflowcondition_#url.ajaxid#" 		   
 								   value="?personno=#Personno#&positionparentid=#PositionParentid#&ajaxid=#url.ajaxid#&mde=spa">	
 						   
-							   <td id="#url.ajaxid#" colspan="3" align="center" style="background-color:e1e1e1;border-radius:8px">
-							   <cfset mde = "spa">
-							   <cfinclude template="StaffingPositionWorkflowEvent.cfm">	
+							   <td id="#url.ajaxid#" colspan="3" align="center" style="padding:2px">
+								   <cfset mde = "spa">
+								   <cfinclude template="StaffingPositionWorkflowEvent.cfm">	
 							   </td>
 							   
-							  </tr> 								   
+							 </tr> 	
+									   
 													   
 						</cfif>
+						
+						<tr><td colspan="3" class="line"></td></tr>
+						 					   
+						<cfif getContract.DateExpiration neq "">							   
 						   
-						</tr>	
-					   
-						   <cfif getContract.DateExpiration neq "">							   
-						   
-							   <tr style="height:20px">
-								   <td style="color:gray" colspan="2"><cf_tl id="Appointment Expiry">:</td>
-								   <td align="right" style="padding-right:5px">
+							   <tr>
+								   <td style="font-size:12px" colspan="2"><cf_tl id="Appointment Expiry">:</td>
+								   <td align="right" style="font-size:12px;padding-right:5px">
 									   <cfif dateDiff("d",now(),getContract.DateExpiration) lte 50>
 									   <font color="FF0000">#dateformat(getContract.DateExpiration,client.dateformatshow)#</font>
 									   <cfelse>
@@ -194,7 +196,7 @@
 								   </td>
 							   </tr>
 							   
-							   <cfif getContract.AppointmentType neq "Permanent" or getContract.AppointmentType eq "">
+							   <cfif PostGroup eq "Used" and getContract.AppointmentType neq "Permanent">
 							   
 							   <tr>									   
 							   
@@ -210,7 +212,7 @@
 									   id="workflowcondition_#url.ajaxid#" 		   
 									   value="?personno=#Personno#&positionparentid=#PositionParentid#&ajaxid=#url.ajaxid#&mde=ctr">	
 							   
-							     <td colspan="3" id="#url.ajaxid#" align="center" style="background-color:e1e1e1;border-radius:8px">
+							     <td colspan="3" id="#url.ajaxid#" align="center" style="padding:2px">
 							     <cfset mde = "ctr">
 							     <cfinclude template="StaffingPositionWorkflowEvent.cfm">	
 								 </td>
@@ -218,14 +220,16 @@
 							   </tr>
 							   
 							   </cfif>
+							   
+							   <tr><td colspan="3" class="line"></td></tr>
 						   
 						   </cfif>
 						   
-					   </cfif>	   
+					 </cfif>	   
 					   
 					 <cfset extend = "0">  
 					 
-					 <cfif incumbency eq "100"
+					 <cfif PostGroup eq "Used" and incumbency eq "100"
 					     and DateExpiration neq "" <!--- has an expiration --->
 						 and getContract.AppointmentType neq "Temporary" or getContract.AppointmentType eq "">
 						 								 
@@ -266,9 +270,9 @@
 					
 					</cfif>	  
 					 
-					<tr style="height:20px">
-					   <td style="color:gray" colspan="2"><cf_tl id="Assignment Expiry">:</td>
-					   <td align="right" style="padding-right:5px">
+					<tr>
+					   <td style="font-size:12px" colspan="2"><cf_tl id="Assignment Expiry">:</td>
+					   <td align="right" style="font-size:12px;padding-right:5px">
 						   <cfif dateDiff("d",now(),DateExpiration) lte 50>
 						   <span style="color:##FF0000;">#dateformat(DateExpiration,client.dateformatshow)#</span>
 						   <cfelse>
@@ -277,7 +281,7 @@
 					   </td>							   
 					</tr>
 					   
-					<cfif extend eq "1">
+					<cfif extend eq "1" and PostGroup eq "Used">
 							   
 					   <tr>							   
 					   <cfset url.ajaxid = "ass_#PositionParentId#">
@@ -292,7 +296,7 @@
 							   id="workflowcondition_#url.ajaxid#" 		   
 							   value="?personno=#Personno#&positionparentid=#PositionParentid#&ajaxid=#url.ajaxid#&mde=ctr">	
 					   
-						 <td id="#url.ajaxid#" colspan="3" align="center" style="background-color:e1e1e1;border-radius:8px">
+						 <td id="#url.ajaxid#" colspan="3" align="center" style="padding:2px">
 						   <cfset mde = "ass">
 						   <cfinclude template="StaffingPositionWorkflowEvent.cfm">	
 						 </td>

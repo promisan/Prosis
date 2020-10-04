@@ -290,7 +290,7 @@ function saveExpanded(id) {
 		}
 	});
 
-	Cookies.set(id+'_expanded', kendo.stringify(expandedItemsIds));
+	//Cookies.set(id+'_expanded', kendo.stringify(expandedItemsIds));
 
 
 }
@@ -310,7 +310,7 @@ function _tree_collapse(e)
 
 	if (expanded) {
 		if (expanded[element.id]) {
-			expanded[element.id] = false;
+			//expanded[element.id] = false;
 		}
 	}
 

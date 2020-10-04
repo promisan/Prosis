@@ -1,5 +1,8 @@
-<cfparam name="URL.eventid" default="">
-<cfparam name="URL.portal"  default="0">
+<cfparam name="URL.eventid" 	default="">
+<cfparam name="URL.portal"  	default="0">
+<cfparam name="URL.ptrigger" 	default="">
+<cfparam name="URL.pevent" 		default="">
+<cfparam name="URL.preason" 	default="">
 
 <cfif URL.eventId neq "">
 
@@ -66,12 +69,12 @@
         id="triggercode" 
 		style="width:95%" 
 		class="regularxl" 
-		onchange="_cf_loadingtexthtml='';ptoken.navigate('<cfoutput>#SESSION.root#</cfoutput>/Staffing/Application/Employee/Events/getEvent.cfm?personno=<cfoutput>#url.personno#</cfoutput>&triggercode='+this.value+'&eventid=&mission='+document.getElementById('mission').value+'&portal=<cfoutput>#url.portal#</cfoutput>','dEvent');">		
+		onchange="_cf_loadingtexthtml='';ptoken.navigate('<cfoutput>#SESSION.root#</cfoutput>/Staffing/Application/Employee/Events/getEvent.cfm?personno=<cfoutput>#url.personno#</cfoutput>&triggercode='+this.value+'&eventid=&mission='+document.getElementById('mission').value+'&portal=<cfoutput>#url.portal#&pevent=#url.pevent#&preason=#url.preason#</cfoutput>','dEvent');">		
 		<cfif qTriggers.recordcount gt "1">
 			<option value="">Please select...</option>
 		</cfif>
 		<cfoutput query="qTriggers">
-			<option value="#Code#" <cfif Code eq qEvent.EventTrigger>selected</cfif>>#Description#</option>
+			<option value="#Code#" <cfif Code eq qEvent.EventTrigger OR Code eq url.ptrigger>selected</cfif>>#Description#</option>
 		</cfoutput>
 		
 <select>		

@@ -80,7 +80,7 @@
 <cfoutput>
 
 <cf_textareascript>
-<cfajaximport tags="cfwindow,cfmenu,cfdiv,cfform">
+<cfajaximport tags="cfdiv,cfform">
 <cf_ActionListingScript>
 <cf_FileLibraryScript mode="standard">
 <cf_PresentationScript>

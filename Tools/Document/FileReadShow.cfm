@@ -1,3 +1,6 @@
+
+<!---
+
 <script language="JavaScript"> 
 
 	function PrintThisPage() { 
@@ -7,7 +10,8 @@
 
 </script> 
 
-<form name="printout" id="printout">
+--->
+
 
 <cfparam name="url.ser" default="">
 <cfparam name="url.id"  default="">
@@ -36,6 +40,13 @@
 		WHERE   DocumentPathName = '#Att.DocumentPathName#' 
 </cfquery>
 
+
+
+<cfset o = Render()>	
+
+<!---
+
+
 <cfif Parameter.AttachModeOpen eq 0>
 
 	<cfif find(".doc","#Att.FileName#")>
@@ -55,7 +66,7 @@
 			 <!--- condition made for Marano to load the word document in the full screen allowing to print it --->
 			 
 			 <cfoutput>		
-				 <script> 		   				
+				 <script> 									
 					window.open("#SESSION.root#/CFRStage/User/#SESSION.acc#/#att.fileName#")
 				 </script>
 			 </cfoutput>
@@ -73,14 +84,15 @@
 		
 </cfif>
 
-</form>
+--->
+
 
 <!--- function to render the file --->
 
 <cffunction name="Render">
 
-	<cf_screentop label="#Att.FileName#" height="100%" scroll="No" layout="webapp" banner="blue">
-		
+	<cf_screentop label="Attachment" height="100%" scroll="No" layout="webapp" banner="gray">
+				
 	<cfoutput>
 	
 		<table width="100%" align="center" height="100%" cellspacing="0" cellpadding="0">
@@ -93,13 +105,10 @@
 					<cfheader name="Content-Disposition" value="attachment;filename=#att.fileName#">
 					<cfcontent type="text/plain" file="#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\#att.fileName#">
 				</cfif>	
-				
-				<cfif not find(".pdf", "#att.fileName#")> 			
-					<a href="javascript:PrintThisPage();"><font color="0080C0"><cf_tl if="Print this File"></a>
-				</cfif>
+								
 			</td>
 			
-			<td class="labelit"  height="21" style="padding-right:6px" align="right">&nbsp;&nbsp;Recorded by: <b>#Att.OfficerFirstName# #Att.OfficerLastName#</b> on <b>#dateformat(Att.Created,CLIENT.DateFormatShow)# - #timeformat(Att.Created,"HH:MM:SS")#</b>&nbsp;</td></tr>
+			<td class="labelmedium"  height="25" style="padding-right:6px" align="right">&nbsp;&nbsp;Recorded by: <b>#Att.OfficerFirstName# #Att.OfficerLastName#</b> on <b>#dateformat(Att.Created,CLIENT.DateFormatShow)# - #timeformat(Att.Created,"HH:MM:SS")#</b>&nbsp;</td></tr>
 		
 		<cfelse>
 			
@@ -138,8 +147,6 @@
 			
 			<cfelse>
 			
-				<tr><td colspan="2" valign="top" height="100%" valign="middle" align="center" style="padding:2px">
-				
 					<cfif FindNoCase(".flv", "#att.filename#")>
 							       
 							<cfset bgColorTheme       = "ffffff"> 
@@ -165,7 +172,10 @@
 								wmode="transparent">	
 								
 						<cfelse>	
-								
+						
+							<tr>
+							<td align="center" colspan="2" valign="middle" class="labelmedium" style="height:100%;font-size:25px">Please find below the file you requested</td></tr>
+							
 						   	
 							<!--- 
 							These lines are removed on Feb 20 2012
@@ -180,7 +190,10 @@
 							
 							<cfset CLIENT.sd = "#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\">
 							<cfset CLIENT.sf = "#att.fileName#">
-																
+							
+							<tr><td style="height:80px">	
+											
+																											
 							<iframe src ="FileRender.cfm?mid=#url.mid#"
 									name="ifWorkspace"
 							        id="ifWorkspace"
@@ -191,7 +204,11 @@
 						    	    frameborder="0">
 							</iframe>	
 							
-							<!---																					
+							</td>
+							</tr>
+							
+							<!---							
+																											
 							<iframe src="#client.virtualdir#/CFRStage/User/#SESSION.acc#/#att.fileName#"
 							        name="ifWorkspace"
 							        id="ifWorkspace"
@@ -204,13 +221,16 @@
 							</iframe>	
 							
 							--->
+							
+							</td></tr>
 													
 						</cfif>	
 				
-			</td></tr>
+			
 			</cfif>
 			
 		<cfelse>
+		
 		
 		     <!--- attachmodeopen = 1 this was driven by the excel issue --->
 		

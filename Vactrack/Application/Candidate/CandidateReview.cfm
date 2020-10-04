@@ -180,6 +180,7 @@
 	<cfset required = "'1','2','2s'">
 	<cfset wfinal = "2">
 
+
 <cfelseif url.wparam eq "SELECT">
 	
 	<cfset checkText = "Select">
@@ -189,8 +190,8 @@
 	<input type="Hidden" id="ReviewStatus" name="ReviewStatus" value="2s">
 	<cfset required = "'2','2s','9'">
 	<cfset wfinal = "2s">
-
-<cfelse>
+	
+<cfelseif url.wparam eq "INIT">
 
 	<cfset checkText = "Track">
 
@@ -199,7 +200,22 @@
 	<input type="Hidden" id="ReviewReset"  name="ReviewReset" value="2s">
 	<input type="Hidden" id="ReviewStatus" name="ReviewStatus" value="Track">
 	<cfset required = "'2s'">
-	<cfset wfinal = "Track">
+	<cfset wfinal = "Track">	
+
+<cfelse>
+
+	<!--- close track, thank you interface --->
+
+	<cfset checkText = "Log">
+
+	<cfset dialog = "Close">
+	<input type="Hidden" id="ReviewReset"  name="ReviewReset"   value="1">
+	<input type="Hidden" id="ReviewStatus" name="ReviewStatus"  value="2">
+	<cfset required = "'1','2'">
+	
+	<cfset wfinal = "Close">	
+	
+
 	
 </cfif>
 
@@ -299,7 +315,7 @@
 	}
 	
 	function interview(per,act) {		
-		ProsisUI.createWindow('interviewbox', 'Interview record','',{x:100,y:100,width:document.body.offsetWidth-100,height:document.body.offsetHeight-90,modal:true,center:true})
+		ProsisUI.createWindow('interviewbox', 'Minutes of the Interview','',{x:100,y:100,width:document.body.offsetWidth-100,height:document.body.offsetHeight-90,modal:true,center:true})
 		ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/Interview/CandidateInterview.cfm?DocumentNo=#Object.ObjectKeyValue1#&PersonNo='+per+'&ActionCode='+act,'interviewbox');
 	}
 	
@@ -308,10 +324,14 @@
 		expandArea('mybox','detailbox')
 	}	
 	
-	function savecandidateeval(obj,per,usr,act,com,val,fld) {		   	     
+	function savecandidateeval(obj,per,usr,act,com,val,fld,mdl) {		   	     
 		_cf_loadingtexthtml='';			
-		ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/Assessment/setAssessment.cfm?objectid='+obj+'&useraccount='+usr+'&personno='+per+'&actioncode='+act+'&competenceid='+com+'&formfield='+val+'&field='+fld,'process','','','POST','formembed')				
+		ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/Assessment/setAssessment.cfm?objectid='+obj+'&useraccount='+usr+'&personno='+per+'&actioncode='+act+'&competenceid='+com+'&formfield='+val+'&field='+fld+'&modality='+mdl,'process','','','POST','formembed')				
 	}	
+	
+	function showquestion(doc,per,act,mde,cls) {
+	    ptoken.open('#session.root#/Vactrack/Application/Candidate/Assessment/AssessmentViewContent.cfm?documentno='+doc+'&personno='+per+'&actioncode='+act+'&mode='+mde+'&modality='+cls,'qa'+doc)
+	}
 
 </script>
 
@@ -326,9 +346,9 @@
 datasource="AppsVacancy" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-    SELECT *
-    FROM  Document
-	WHERE DocumentNo = '#Object.ObjectKeyValue1#' 
+	    SELECT *
+	    FROM  Document
+		WHERE DocumentNo = '#Object.ObjectKeyValue1#' 
 </cfquery>
 
 <!--- ---------------------------------------------------------------- --->
@@ -430,6 +450,43 @@ password="#SESSION.dbpw#">
 	</cfquery>
 </cfif>
 
+<cfquery name="Searchresult" 
+	datasource="appsVacancy" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	
+	      SELECT   A.IndexNo AS IndexNoA, 
+		           A.PersonNo, 
+				   DC.Status, 
+				   DC.EntityClass as CandidateClass, 
+				   S.Description as DescriptionStatus, 				   
+				   DC.Remarks, 
+				   DC.TsInterviewStart,
+				   DC.TsInterviewEnd,
+				   DC.OfficerLastName, 
+				   DC.OfficerFirstName, 				   
+				   DC.Created, 
+				   A.LastName, 
+				   A.FirstName, 
+	               A.Nationality, 
+				   (SELECT Name FROM System.dbo.Ref_Nation WHERE Code = A.Nationality) as NationalityName,
+				   A.Gender, 
+				   A.DOB, 
+				   R.ReviewMemo,
+				   R.ReviewScore				   
+		   FROM    DocumentCandidate DC 
+		           INNER JOIN      Applicant.dbo.Applicant A ON DC.PersonNo = A.PersonNo 
+				   INNER JOIN      Ref_Status S ON DC.Status = S.Status 
+				   LEFT OUTER JOIN DocumentCandidateReview R ON DC.DocumentNo = R.DocumentNo AND DC.PersonNo = R.PersonNo AND R.ActionCode = '#flowaction#'		   				   	   
+		  WHERE    DC.DocumentNo = '#Object.ObjectKeyValue1#'		 
+		  AND      DC.Status IN (#preserveSingleQuotes(required)#) 		  		 
+		  AND      S.Class       = 'Candidate' 
+		  <cfif url.wparam neq "Init">
+		  -- AND      DC.EntityClass is NULL
+		  </cfif>
+		 
+</cfquery>
+
 <cfset col = "130">
 
 <table style="height:100%;min-width:1000px" border="0" width="98%" align="center">
@@ -484,49 +541,14 @@ password="#SESSION.dbpw#">
 	<cfif url.wparam eq "MARK" or url.wparam eq "TEST">
 	
 		<tr class="line labelmedium"><td style="font-size:18px;height:30px" align="center" colspan="4">
-		<a href="javascript:phrases('#bucket.functionid#')">Maintain test questions</a></td>
+		<a href="javascript:phrases('#bucket.functionid#')"><cf_tl id="Maintain test questions"></a></td>
 		</tr>
 	
 	</cfif>
 			
 	</cfoutput>
+		
 	
-	
-	
-	<cfquery name="Searchresult" 
-	datasource="appsVacancy" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-	
-	      SELECT   A.IndexNo AS IndexNoA, 
-		           A.PersonNo, 
-				   DC.Status, 
-				   DC.EntityClass as CandidateClass, 
-				   S.Description as DescriptionStatus, 				   
-				   DC.Remarks, 
-				   DC.OfficerLastName, 
-				   DC.OfficerFirstName, 
-				   DC.Created, 
-				   A.LastName, 
-				   A.FirstName, 
-	               A.Nationality, 
-				   (SELECT Name FROM System.dbo.Ref_Nation WHERE Code = A.Nationality) as NationalityName,
-				   A.Gender, 
-				   A.DOB, 
-				   R.ReviewMemo,
-				   R.ReviewScore				   
-		   FROM    DocumentCandidate DC 
-		           INNER JOIN      Applicant.dbo.Applicant A ON DC.PersonNo = A.PersonNo 
-				   INNER JOIN      Ref_Status S ON DC.Status = S.Status 
-				   LEFT OUTER JOIN DocumentCandidateReview R ON DC.DocumentNo = R.DocumentNo AND DC.PersonNo = R.PersonNo AND R.ActionCode = '#flowaction#'		   				   	   
-		  WHERE    DC.DocumentNo = '#Object.ObjectKeyValue1#'		 
-		  AND      DC.Status IN (#preserveSingleQuotes(required)#) 		  		 
-		  AND      S.Class       = 'Candidate' 
-		  <cfif url.wparam neq "Init">
-		  AND      DC.EntityClass is NULL
-		  </cfif>
-		 
-	</cfquery>
 			
 <tr><td colspan="8" class="labelmedium" style="height:100%" valign="top">
 
@@ -549,21 +571,21 @@ password="#SESSION.dbpw#">
 		  <TD style="min-width:100px"><cf_tl id="Nationality"></TD>
 		  <TD style="min-width:100px"><cf_tl id="DOB"></TD>
 	      <TD style="min-width:100px"><cf_tl id="Gender"></TD>
-		  <td style="max-width:10px"></td>
+		  <td style="max-width:10px;border-right:1px solid silver"></td>
 		  
-	   	  <TD style="min-width:100px"><cf_tl id="Status"></TD>	 
+	   	  <TD style="background-color:ffffaf;padding-left:4px;min-width:100px;border-right:1px solid silver"><cf_tl id="Recruit status"></TD>	 
 		  <cfelse>
 		  <TD colspan="7" style="min-width:200px"><cf_tl id="Candidate"></TD>      		
 		  </cfif>		  
 		  	   
 		  <cfif dialog eq "Score"> 
-		  	<td style="width:60px"><cf_tl id="Score"></td>
+		  	<td style="width:60px;background-color:ffffaf"><cf_tl id="Score"></td>
 		  <cfelseif dialog eq "Interview">	
-		    <td style="width:60px"><cf_tl id="Interview"></td>
+		    <td align="center" style="width:30px;background-color:ffffaf;"><cf_tl id="I"></td>
 		  <cfelse>			 
-		  	<td style="width:1px"></td>
+		  	<td style="width:1px;background-color:ffffaf"></td>
 		  </cfif>	  	
-		 <td style="min-width:20%"><cfoutput>#checkText#</cfoutput></td>
+		 <td style="min-width:10%;background-color:ffffaf"><cfoutput>#checkText#</cfoutput></td>
 		  
 		</TR>	
 							
@@ -682,7 +704,7 @@ password="#SESSION.dbpw#">
 		
 		<cfset stop = "0">
 				
-		<td style="width:38px;padding-left:4px">
+		<td style="width:38px;padding-left:4px;height:28px">
 		
 			<table>
 			
@@ -732,12 +754,12 @@ password="#SESSION.dbpw#">
 		
 		<cfif url.wParam neq "Score">
 				
-		<td><a href ="javascript:ShowCandidate('#PersonNo#')">#LastName#, #FirstName#</a></td>	
+		<td style="font-size:17px;font-weight:bold"><a href ="javascript:ShowCandidate('#PersonNo#')"><font color="000000">#LastName#, #FirstName#</font></a></td>	
 		<td><cfif IndexNoA neq ""><a href ="javascript:EditPerson('#IndexNoA#','','contract')">#IndexNoA#</a><cfelse>[<cf_tl id="undefined">]</cfif></td>		
 		<td>#NationalityName#</td>
 		<td>#dateformat(DOB,client.dateformatshow)#</td>
 		<td><cfif Gender eq "F"><cf_tl id="Female"><cfelse><cf_tl id="Male"></cfif></td>		
-		<td style="padding-top:2px;padding-left:3px">
+		<td style="padding-top:2px;padding-left:3px;border-right:1px solid silver">
 			<!--- track for candidate already exists --->
 			<cfif (Status eq "2s" and CandidateClass neq "" and wfinal neq "Track")>				
 					<img src="#SESSION.root#/Images/contract.gif" onClick="showdocumentcandidate('#Object.ObjectKeyValue1#','#PersonNo#')" alt="Open candidate track" width="13" height="14">				
@@ -745,14 +767,13 @@ password="#SESSION.dbpw#">
 			 <cf_img icon="open" onclick="personprofile('#doc.documentno#','#PersonNo#')">	
 			</cfif>		
 		</td>
-		<td id="status#PersonNo#" align="center" style="padding-left:3px" class="<cfif Status gte wfinal>highlight</cfif>">#DescriptionStatus#</td>	
+		<td id="status#PersonNo#" style="padding-left:3px;border-right:1px solid silver" class="<cfif Status gte wfinal>highlight</cfif>">#DescriptionStatus#</td>	
 				
 		<cfelse>
 		
 		<td colspan="7" style="height:35px;font-size:20px"><cf_tl id="Candidate"> #currentrow#</td>	
 		
-		</cfif>
-			
+		</cfif>			
 		
 		<td align="left" style="padding-left:4px">	
 				
@@ -760,17 +781,23 @@ password="#SESSION.dbpw#">
 					
 				<input type="text" 
 					name="ReviewScore_#currentrow#" 
-					id="ReviewScore_#currentrow#" 
+					id="Score#personno#" 
 					value="#ReviewScore#" 
 					maxlength="3" 
 					size="3" 
 					class="regularxl"
-					style="background-color:ffffcf;text-align:right;border:0px;border-left:1px solid silver;border-right:1px solid silver;">
+					style="height:100%;font-size:15px;background-color:ffffcf;text-align:right;border:0px;border-left:1px solid silver;border-right:1px solid silver;">
 					
-			<cfelseif dialog eq "Interview">	
-						
-			   <a href="javascript:interview('#PersonNo#','#FlowAction#')" title="Record interview results"><cf_tl id="Record"></a>
-					
+			<cfelseif dialog eq "Interview">						
+			 
+			    <img src="#SESSION.root#/Images/Logos/System/Microphone.png?0" title="Interview minutes" 
+					name="a#CurrentRow#" border="0" class="regular" 
+					onMouseOver="document.a#currentrow#.src='#SESSION.root#/Images/Logos/System/Microphone.png'" 
+					onMouseOut="document.a#currentrow#.src='#SESSION.root#/Images/Logos/System/Microphone.png'"
+					style="width:20px;height:16px"
+					align="ansmiddle" style="cursor: pointer;" 
+					onClick="interview('#PersonNo#','#FlowAction#')">
+			   			   					
 			</cfif>
 			
 		</td>
@@ -784,8 +811,81 @@ password="#SESSION.dbpw#">
 		<td style="min-width:#tdsize#" align="left">
 	
 			<cfset cls = CandidateClass>
+			
+			 <cfif dialog eq "Close">
+				
+				<table width="100%">
+				<tr>
+				
+					<cfquery name="Check" 
+						datasource="AppsVacancy" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+						    SELECT  TOP 1 *
+						    FROM    DocumentCandidateReviewAction
+							WHERE   DocumentNo = '#doc.DocumentNo#'
+							AND     PersonNo   = '#PersonNo#'								
+						</cfquery>
+				
+					<cfif check.recordcount gte "1">
 					
-			 <cfif dialog eq "Initiate">
+					<td>
+					
+					  <img src="#SESSION.root#/Images/Logos/System/mailout.png" alt="Recruitment review, testing and interview log activities" 
+							name="b#CurrentRow#" border="0" class="regular" 
+							onMouseOver="document.b#currentrow#.src='#SESSION.root#/Images/Logos/System/mailout.png'" 
+							onMouseOut="document.b#currentrow#.src='#SESSION.root#/Images/Logos/System/mailout.png'"
+							style="width:22px;height:21px"
+							align="ansmiddle" style="cursor: pointer;" 
+							onClick="personaction('#PersonNo#','view')">		
+					
+					</td>
+					
+					<td style="padding-left:4px;padding-top:1px">
+					
+					 <img src="#SESSION.root#/Images/Logos/System/test1.png" alt="Test and test results" 
+							name="b#CurrentRow#" border="0" class="regular" 					
+							style="width:27px;height:15px"
+							align="ansmiddle" style="cursor: pointer;" 
+							onClick="persontest('#PersonNo#','view')">		
+					</td>		
+							
+					</cfif>
+					
+					<td align="right" style="padding-left:4px;padding-right:7px;padding-top:1px">
+					
+					<cfif TsInterviewStart neq "">
+					
+							<cfquery name="Check" 
+							datasource="AppsOrganization" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+							    SELECT  TOP 1 *
+							    FROM    Vacancy.dbo.DocumentCandidateInterview
+								WHERE   DocumentNo = '#url.ajaxid#'
+								AND     PersonNo   = '#PersonNo#'
+								ORDER By Created DESC
+							</cfquery>
+							
+						 <cfif check.recordcount eq "1">	
+					
+					     <img src="#SESSION.root#/Images/Logos/System/Microphone.png?0" alt="Interview record" 
+							name="a#CurrentRow#" border="0" class="regular" 
+							onMouseOver="document.a#currentrow#.src='#SESSION.root#/Images/Logos/System/Microphone.png'" 
+							onMouseOut="document.a#currentrow#.src='#SESSION.root#/Images/Logos/System/Microphone.png'"
+							style="width:20px;height:16px"
+							align="ansmiddle" style="cursor: pointer;" 
+							onClick="personnote('#PersonNo#','view')">
+							
+						  </cfif>	
+											
+					</cfif>
+					
+					</td>				
+				</tr>				
+				</table>
+					
+			 <cfelseif dialog eq "Initiate">
 				
 				<select class="regularxl" name="EntityClass_#CurrentRow#" style="border:0px;border-left:1px solid silver;border-right:1px solid silver">
 				
@@ -816,7 +916,7 @@ password="#SESSION.dbpw#">
 					AND          CompetenceContent IS NOT NULL				
 				</cfquery>	
 			
-				#getContent.Received#
+				     <a href="javascript:showquestion('#Object.ObjectKeyValue1#','#personno#','#flowaction#','edit')">#getContent.Received# <cf_tl id="answers"></a>
 				
 					<input type="hidden" name="ReviewStatus_#CurrentRow#" id="ReviewStatus_#CurrentRow#" value="1">					
 				
@@ -830,10 +930,10 @@ password="#SESSION.dbpw#">
 			
 					<table>
 					<tr>
-					<td id="ReviewStatus_#CurrentRow#">
+					<td>
 														
 					<input onClick="hl(this,this.checked)" class="Radiol" style="height:17px;width:17px" 
-					type="checkbox" name="ReviewStatus_#CurrentRow#" id="ReviewStatus_#CurrentRow#" value="#wFinal#" <cfif Status gte wFinal>checked</cfif> style="cursor:pointer;">					
+					type="checkbox" name="ReviewStatus_#CurrentRow#" id="ReviewStatus_#personno#" value="#wFinal#" <cfif Status gte wFinal>checked</cfif> style="cursor:pointer;">					
 														
 					</td>														
 					</tr>
@@ -856,7 +956,7 @@ password="#SESSION.dbpw#">
 					<tr>									
 						<td style="padding-left:4px">												
 							<a href="javascript:decision('ReviewStatus_#CurrentRow#','#object.ObjectKeyValue1#','#personno#','#flowaction#','#status#','#wfinal#')">
-							<cf_tl id="Recommend">
+							<cf_tl id="Set recommendation">
 							</a>
 						</td>																	
 					</tr>
@@ -875,6 +975,8 @@ password="#SESSION.dbpw#">
 		</td>			
 		
 		</tr>
+		
+		<!--- next line --->
 		
 		<cfif dialog neq "score">
 					
@@ -932,83 +1034,7 @@ password="#SESSION.dbpw#">
 					
 			</cfif>
 			
-			<cfif dialog eq "Interview">
-			
-				<!---
-				
-				<!--- Are there competencies defined for the bucket linked to this document --->
-				<cfquery name="BucketCompetencies" 
-				datasource="appsVacancy" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-		
-					SELECT FC.CompetenceId
-					FROM   Document D 
-						   INNER JOIN Applicant.dbo.FunctionOrganization FO
-								 ON D.FunctionId = FO.FunctionId
-						   INNER JOIN Applicant.dbo.FunctionOrganizationCompetence FC
-						   		 ON FO.FunctionId = FC.FunctionId
-					WHERE  D.DocumentNo = '#Object.ObjectKeyValue1#'
-				
-				</cfquery>
-		
-				<cfquery name="Competencies" 
-				datasource="appsVacancy" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-				
-					SELECT C.CompetenceId, C.Description, I.InterviewNotes
-					FROM   Applicant.dbo.Ref_Competence C
-						   LEFT OUTER JOIN DocumentCandidateInterview I 
-						   		ON C.CompetenceId = I.CompetenceId AND I.PersonNo = '#PersonNo#' 
-								   AND I.DocumentNo = '#Object.ObjectKeyValue1#'
-					WHERE  C.Operational = 1
-					<!--- Means that competencies applicable for this track have been defined at the bucket level --->
-					<cfif BucketCompetencies.recordcount gt 0>
-					AND    C.CompetenceId IN (#QuotedValueList(BucketCompetencies.CompetenceId)#)
-					</cfif>
-				 	ORDER BY C.ListingOrder
-					
-				</cfquery>
-				
-				<tr id="interview#currentrow#" class="xhide" valign="tops">
-				
-				<td align="right" width="40"></td>
-				
-				<td colspan="9" align="left"> 
-				
-				<table width="90%" align="left">
-					
-					<tr>
-						<td colspan="3" class="labelmedium" style="padding-left:10px"><cf_tl id="Interview details"></td>
-					</tr>
-					
-					<cfif ReviewMemo neq "">
-						<tr class="line">
-							<td height="19" width="20" align="center"></td>
-							<td class="labelmedium" width="20%" style="color:blue"><cf_tl id="Assessment"></td>
-							<td>#ReviewMemo#</td>
-						</tr>
-					</cfif>
-					
-					<cfloop query="Competencies">
-					
-					<tr class="line">
-					    <td height="19" width="20" align="center"></td>
-						<td class="labelmedium" width="20%"><font color="004000">#Description#</font></td>
-					    <td style="pading-left:15px;" class="labelmedium"><cfif InterviewNotes eq ""><font color="FF8080">[no comments]</font>
-		                       <cfelse>#ParagraphFormat(InterviewNotes)#
-							   </cfif>
-					    </td>
-					</tr>
-								
-					</cfloop>
-					
-				</table>
-						
-				</td></tr>
-				
-				--->
+			<cfif dialog eq "Interview">			
 				
 				<cfquery name="getActivity" 
 				datasource="appsOrganization" 
@@ -1034,7 +1060,7 @@ password="#SESSION.dbpw#">
 																				
 				<tr id="assessment#currentrow#" class="hide">		
 				<td></td>	
-				<td colspan="9" id="boxassessment#currentrow#" style="padding:5px"></td>
+				<td colspan="9" id="boxassessment#currentrow#" style="padding:5px;overflow-x: scroll;"></td>
 				</tr>		
 				
 			<cfelseif dialog eq "Mark">
@@ -1053,7 +1079,7 @@ password="#SESSION.dbpw#">
 			
 					<tr id="action#currentrow#" class="xxhide">					
 					<td></td>
-					<td colspan="9" style="padding-left:20px">
+					<td colspan="9" style="padding-left:10px">
 						<cf_securediv id="boxaction#PersonNo#" 
 						 bind="url:#session.root#/Vactrack/Application/Candidate/Action/ActionListing.cfm?documentNo=#Object.ObjectKeyValue1#&PersonNo=#PersonNo#&actioncode=#flowaction#">				
 					</td>
@@ -1068,7 +1094,7 @@ password="#SESSION.dbpw#">
 			
 			<cfelse>
 			
-				<!--- show subactions to be visible here which are tracked partially in the workflow object --->
+				<!--- MARK and CLOSE show subactions to be visible here which are tracked partially in the workflow object --->
 							
 				<cfquery name="getActivity" 
 				datasource="appsOrganization" 
@@ -1083,8 +1109,8 @@ password="#SESSION.dbpw#">
 				<cfif getActivity.recordcount gte "1">	
 					
 					<tr id="action#currentrow#" class="xxhide">
-					
-					<td colspan="10" style="padding-left:20px">
+					<td></td>
+					<td colspan="9" style="padding-left:10px">
 						<cf_securediv id="boxaction#PersonNo#" 
 						 bind="url:#session.root#/Vactrack/Application/Candidate/Action/ActionListing.cfm?documentNo=#Object.ObjectKeyValue1#&PersonNo=#PersonNo#&actioncode=#flowaction#">				
 					</td>
@@ -1112,8 +1138,6 @@ password="#SESSION.dbpw#">
 		
 	</table>	
 	
-	</cf_divscroll>
-
 </cfif>
 
 </td></tr>
@@ -1125,3 +1149,4 @@ password="#SESSION.dbpw#">
 <cfif SearchResult.recordCount gte "1">
 	<cfset ajaxonload("doHighlight")>    	
 </cfif>
+

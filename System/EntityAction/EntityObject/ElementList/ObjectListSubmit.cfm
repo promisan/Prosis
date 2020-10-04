@@ -1,4 +1,3 @@
-<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
 
 <cfparam name="Form.Operational"        default="0">
 <cfparam name="Form.DocumentItem"       default="">
@@ -58,7 +57,7 @@
 
 <cfoutput>
 <script>
-	window.location = '../../EntityObject/ElementList/ObjectList.cfm?id2=new&DocumentId=#URL.DocumentId#'
+	ptoken.location('../../EntityObject/ElementList/ObjectList.cfm?id2=new&DocumentId=#URL.DocumentId#')
 </script>			
 </cfoutput>
 

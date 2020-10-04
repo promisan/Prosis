@@ -197,7 +197,7 @@ password="#SESSION.dbpw#">
 	    <input type="checkbox" name="Selected" class="radiol" value="#PositionNo#" checked onClick="hl(this,this.checked)">
 	  </cfif>
 	  </TD>
-	    <TD><a href="javascript:EditPost('#PositionNo#')"><cfif SourcePostNumber neq "">#SourcePostNumber#<cfelse>#PosistionParentId#</cfif></a></TD>
+	    <TD><a href="javascript:EditPost('#PositionNo#')"><cfif SourcePostNumber neq "">#SourcePostNumber#<cfelse>#PositionParentId#</cfif></a></TD>
 		<TD>#FunctionDescription#</TD>
 		<TD>#PostGrade#</TD>
 	    <TD>#Dateformat(DateExpiration, CLIENT.DateFormatShow)#</TD>

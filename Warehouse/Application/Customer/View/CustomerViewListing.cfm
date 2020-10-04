@@ -21,6 +21,7 @@
 			   LastName, 
 			   FirstName, 
 			   Reference, 
+			   CustomerSerialNo,
 			   PhoneNumber, 
 			   MobileNumber, 
 			   PostalCode,
@@ -63,6 +64,14 @@
 <cfset fields=ArrayNew(1)>
 
 <cfset itm = 0>
+
+<cfset itm = itm+1>						
+<cf_tl id="No" var="vNo">
+<cfset fields[itm] = {label     = "#vNo#",                  
+					  field       = "CustomerSerialNo",
+					  filtermode    = "4",		
+  					  alias			= "C",			
+					  search      = "text"}>	
 					
 <cfset itm = itm+1>		
 <cf_tl id="Name" var="vName">
@@ -71,7 +80,8 @@
 					  alias			= "C",				      
 					  filtermode    = "4",
 					  displayfilter = "Yes",
-					  search        = "text"}>							
+					  search        = "text"}>		
+		  					
 				
 <cfset itm = itm+1>						
 <cf_tl id="Reference" var="vReference">

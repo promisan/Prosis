@@ -36,7 +36,7 @@
 							  WHERE  ObjectId = '#Object.ObjectId#')
 </cfquery>
 
-<!--- check if defined --->
+<!--- check if declared for this flow and action  --->
 
 <cfquery name="Check" 
 	datasource="appsOrganization" 
@@ -57,7 +57,17 @@
 datasource="appsOrganization" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-    SELECT   R.*			
+    SELECT   R.*	,
+	
+	           ( SELECT TOP 1 ObjectFilter
+	             FROM    Ref_EntityActionPublishDocument
+			  	  WHERE   ActionPublishNo = '#Object.ActionPublishNo#' 
+				  AND     ActionCode      = '#Action.ActionCode#' 
+				  AND     DocumentId      = R.DocumentId
+				  AND     Operational     = 1) as ObjectFilter
+	
+	
+		
     FROM     Ref_EntityDocument R,
 		     Ref_EntityActionDocument R1
     WHERE    R1.ActionCode   = '#Action.ActionCode#' 
@@ -65,27 +75,32 @@ password="#SESSION.dbpw#">
 	AND      R.DocumentType  = 'Attach'
 	AND      R.DocumentMode  = 'Step'
 	AND      R.Operational   = 1
+	
+	<!--- is intended for this object, see above --->
 	AND      R.DocumentId IN (SELECT DocumentId 
 	                          FROM   OrganizationObjectDocument
 							  WHERE  ObjectId = '#Object.ObjectId#'
 							  AND    Operational = 1) 
-	<!--- 17/7/2018 and enabled for the step in the config --->			
+							  
+	<!--- is declared for this step --->			
 	<cfif check.recordcount gte "1">	  
 	AND 	EXISTS (SELECT  'X'
 	                FROM    Ref_EntityActionPublishDocument
 					WHERE   ActionPublishNo = '#Object.ActionPublishNo#' 
-					AND     ActionCode = '#Action.ActionCode#' 
-					AND     DocumentId = R.DocumentId
-					AND     Operational = 1)		
+					AND     ActionCode      = '#Action.ActionCode#' 
+					AND     DocumentId      = R.DocumentId
+					AND     Operational     = 1)		
 	</cfif>										  
 	ORDER BY DocumentOrder
 </cfquery>
 
 <cfif External.recordcount gte "1">
 
+<tr class="labelmedium line"><td colspan="2" style="padding-left:10px;height:35px;font-size:20px" colspan"2"><cf_tl id="Specific attachments to be added"></td></tr>
+	
 <tr><td colspan="2">
 
-<table border="0" width="100%" cellpadding="0" cellspacing="0" align="center">
+<table width="100%" align="center">
 
 	<cfoutput query="External">
 	
@@ -94,9 +109,15 @@ password="#SESSION.dbpw#">
 				
 		<tr class="line">
 		    <td width="9"></td>					
-		   	<td height="30" width="172" valign="top" style="padding-top:4px" class="labelmedium">#DocumentDescription#:</td>
-			<td height="30" style="padding-left:3px">
-			<cfset mode = "edit">
+		   	<td valign="top" style="background-color:f1f1f1;width:330px;border-right:1px solid silver;padding-left:10px;padding-top:4px" class="labelmedium">#DocumentDescription# <cfif FieldRequired eq "1"><font color="FF0000">*</font></cfif> :</td>
+			<td style="height:100%">
+			
+			<cfif ObjectFilter eq "Inquiry">
+				<cfset mode = "Inquiry">
+			<cfelse>
+				<cfset mode = "Edit">
+			</cfif>
+			
 			<cfset box = "b#currentrow#">
 			<cfset objectid = Object.objectid>
 			<cfinclude template="../ProcessObjectAttachment.cfm">
@@ -109,7 +130,6 @@ password="#SESSION.dbpw#">
 
 </td</tr>
 	
-</cfif>   
-	 	   	
+</cfif>   	   	
 
 

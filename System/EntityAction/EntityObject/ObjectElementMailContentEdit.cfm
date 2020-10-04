@@ -261,7 +261,7 @@ function toggleBody(control){
 	  	 			
 	    <tr id="boxbodycustom">	    
 		 <td colspan="2" valign="top" style="padding-top:6px" height="100%">				 		 
-		    <cf_textarea name="mailbodyCustom" height="240" color="ffffff" resize="Yes" skin="flat" init="Yes">#MailCustom.MailBodyCustom#</cf_textarea>			 
+		    <cf_textarea name="mailbodyCustom" height="70%" color="ffffff" resize="Yes" toolbar="basic" skin="flat" init="Yes">#MailCustom.MailBodyCustom#</cf_textarea>			 
 		 </td>
 	   </tr>   
 	    	   
@@ -280,5 +280,4 @@ function toggleBody(control){
 
 </cfform>
 
-
-
+<cfset ajaxOnLoad("initTextArea")>

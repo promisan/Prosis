@@ -65,7 +65,7 @@
 			
 	<cf_divscroll>
 	
-	<table width="97%" align="center" class="formpadding navigation_table">
+	<table width="97%" align="center" class="navigation_table">
 		
 	<tr class="fixrow labelmedium line">
 	   <td width="10%">Code</td>
@@ -85,8 +85,8 @@
 		SELECT   DISTINCT R.EntityClassName, R.EntityClass
 		FROM     Ref_EntityClassAction AS A INNER JOIN
 		         Ref_EntityClass AS R ON A.EntityCode = R.EntityCode AND A.EntityClass = R.EntityClass
-		WHERE    A.EntityCode = '#EntityCode#'
-		AND      A.ActionCode = '#ActionCode#'
+		WHERE    A.EntityCode   = '#EntityCode#'
+		AND      A.ActionCode  = '#ActionCode#'
 		AND      A.EntityClass != '#URL.EntityClass#'
 		</cfquery>
 	
@@ -110,19 +110,18 @@
 		
 	<cfif Used.recordcount gte "1">
 	
-		<tr class="lines">
+		<tr class="line" style="height:15px">
 		  <td style="display:none" class="csearch">#search#</td>
 		  <td colspan="1" align="right" style="padding-right:4px">
-		  <font size="1" color="6688aa">Used in:</font>	  
+		  <font size="1" color="6688aa">Used in draft:</font>	  
 		  </td>
 		  <td colspan="4"><font face="Verdana" size="1" color="gray">#Used.entityClassName# (#Used.EntityClass#)</td>
 		  <td></td>
-		</td>
-		
+		</td>		
 		</tr>
 		
 		<cfloop query="Used" startrow="2">
-		<tr class="lines">
+		<tr class="line" style="height:15px">
 			<td style="display:none" class="csearch">#search#</td>
 			<td></td>
 			<td colspan="4"> <font size="1" face="Verdana" color="gray">#entityClassName# (#Used.EntityClass#)</td>

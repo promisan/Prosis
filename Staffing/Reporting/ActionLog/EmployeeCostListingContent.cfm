@@ -43,7 +43,7 @@ WHERE        M.Mission = '#url.mission#'
 	<cfset fields[itm] = {label           = "#lt_text#",                    
 	     				field             = "IndexNo",					
 						alias             = "",		
-						filtermode        = "3",																											
+						filtermode        = "4",																											
 						search            = "text"}>		
 				
 	<cfset itm = itm+1>
@@ -53,7 +53,7 @@ WHERE        M.Mission = '#url.mission#'
 						functionscript    = "EditPerson",
 						functionfield     = "PersonNo",		
 						functioncondition = "Miscellaneous",	
-						filtermode        = "3",					
+						filtermode        = "4",					
 						width             = "40",																		
 						search            = "text"}>	
 						

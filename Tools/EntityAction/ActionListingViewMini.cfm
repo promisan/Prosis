@@ -1,9 +1,6 @@
-
-
 <cfoutput>
 
-		<cfset vTextStyle       = "color:##FAFAFA; font-size:14px;">		      
-		
+		<cfset vTextStyle       = "color:##FAFAFA; font-size:14px;">   		
 	
 		<cfif Actions.ActionFlowOrder lte CheckNext.ActionFlowOrder or CheckNext.ActionFlowOrder eq "">
 		
@@ -37,14 +34,14 @@
                 </cfif>
                     
 			<cfelseif NextAction.ActionFlowOrder eq "" 
-			     and FirstDue.ActionFlowOrder eq ActionFlowOrder>
-				 
-				<cfset cl = "##FFEBCF">
+			     and FirstDue.ActionFlowOrder eq ActionFlowOrder>				 
+																				 
+				<cfset cl = "##1A8CFF">
 				<cfset box = "##D35400">
 				<cfset action = "1">               
                						
 			<cfelseif (NextAction.ActionFlowOrder eq ActionFlowOrder or Concurrent.ActionParent eq ActionParent) and ActionStatus neq "2">
-						
+									
 				<cfset cl = "##f4f4f4">
 				<cfset box = "##EDB800">
 				<cfset action = "1">
@@ -55,17 +52,8 @@
 																			
 				<cfset cl = "##f4f4f4">
 				<cfset box = "##F5D76E">
-				<cfset action = "1">	
-				
-			<!---	
-								
-			<cfelseif ActionType eq "Decision">
-			    <cfset cl     = "">
-				<cfset box    = "4ED4CA">
-				<cfset action = "0">
-				
-			--->
-								
+				<cfset action = "1">					
+											
 			<cfelseif ActionStatus eq "9">
 			
 			    <cfset cl     = "">
@@ -128,10 +116,18 @@
 			
 			</cfif>
 																									
-			<tr bgcolor="#cl#">
-						   				
-				<cfset ht = attributes.rowheight - 10>
-				
+			<tr bgcolor="#cl#" style="border:1px solid gray">
+			
+				<cfquery name="Dialog" 
+				 datasource="AppsOrganization"
+				 username="#SESSION.login#" 
+				 password="#SESSION.dbpw#">
+				 	SELECT *
+					 FROM  Ref_EntityDocument D
+					 WHERE EntityCode  = '#EntityCode#' 
+					 AND   DocumentCode = '#ActionDialog#'
+				</cfquery>		
+			  	
 				<cfif attributes.subflow eq "No" and showaction eq "1">
 				
 					<cfset ln = "5">														
@@ -140,11 +136,11 @@
 				<cfelse>
 	
 					<cfset ln = "2">							
-                    <td align="right" style="height:30px">
+                    <td align="right" style="padding:3px">
 																			
 				</cfif>
 									
-					<table style="width:100%">
+					<table style="width:100%;height:100%">
 																						
 					<cfif Action eq "1" and (EntityAccess eq "EDIT" OR EntityAccess eq "READ")>
 					
@@ -182,7 +178,7 @@
 								 AND   DocumentCode = '#ActionDialog#'
 						</cfquery>													
 													
-							<tr style="background-color:E17100;height:25px">
+							<tr style="height:100%;font-size:10px" class="labelmedium">
 																							
 								<cfparam name="ActionProcess" default="Do it">
 								
@@ -210,7 +206,8 @@
 								  				
 									 <cfif object_op is 1 and Action eq "1" and (EntityAccess eq "EDIT" or EntityAccess eq "READ")>	 			
 									 
-										 <td align="center">			 		
+										 <td style="padding-left:10px">		
+											
 											<cfif attributes.hideprocess eq "0" and actionTrigger eq "" and showaction is 1>		
 											    <cfif Dialog.DocumentMode eq "Popup" and DisableStandardDialog eq "1" >				
 												   <cfif EntityAccess eq "EDIT">
@@ -251,60 +248,39 @@
 							<cfset boxend = "gray">
 						</cfif>							
 					
-						<tr><td style="max-width:360px;background-color:#boxend#;cursor: pointer;color:white;" align="center">																																
+						<tr><td style="padding-left:10px;max-width:360px;background-color:#boxend#;cursor: pointer;color:white;" align="center">																																
 																
 								<cfparam name="ActionCompleted" default="">
-								<cfparam name="ActionDenied" default="">
+								<cfparam name="ActionDenied"    default="">
 								
-								<cfif actionStatus eq "2Y" and ActionCompleted neq "">
-								#ActionCompleted#
-								<cfelseif actionStatus eq "2" and ActionCompleted neq "">
-								#ActionCompleted#
-								<cfelseif actionStatus eq "2N" and ActionDenied neq "">
-								#ActionDenied#
-								<cfelse>
-								#ActionDescription#
+								<cfif actionStatus eq "2Y" and ActionCompleted neq "">#ActionCompleted#
+								<cfelseif actionStatus eq "2" and ActionCompleted neq "">#ActionCompleted#
+								<cfelseif actionStatus eq "2N" and ActionDenied neq "">#ActionDenied#
+								<cfelse>#ActionDescription#
 								</cfif>
-								
-								<!---																											
-													
-								<table width="100%" height="100%" onClick="#pr#"
-									 style="max-width:360px;<cfif pr neq "" or SESSION.isAdministrator eq 'Yes'>cursor: pointer;</cfif> background-color:#box#; #vSquareStyle#;"
-									 ondblClick="<cfif SESSION.isAdministrator eq "Yes">javascript:stepedit('#Actions.EntityCode#','#Actions.EntityClass#','#Actions.ActionPublishNo#','#ActionCode#')</cfif>">
-										<tr>
-											<td style="min-width:5px"></td>
-											<td align="center" class="labelmedium" style="width:100%;font-size:14px;line-height:14px;cursor: pointer;color:rgba(0,0,0,0.7);font-weight:400;text-transform: capitalize;">
-																																												
-											<cfparam name="ActionCompleted" default="">
-											<cfparam name="ActionDenied" default="">
-											
-											<cfif actionStatus eq "2Y" and ActionCompleted neq "">
-											#ActionCompleted#
-											<cfelseif actionStatus eq "2" and ActionCompleted neq "">
-											#ActionCompleted#
-											<cfelseif actionStatus eq "2N" and ActionDenied neq "">
-											#ActionDenied#
-											<cfelse>
-											#ActionDescription#
-											</cfif>
-											
-											</td>											
-											<td style="min-width:5px"></td>
-										</tr>
-								</table>
-								
-								--->
 							
 						</td>
 						</tr>
 						
 					</cfif>
-															
-					<!--- line connecting --->
-										
+																
 					</table>
 																	
 				</td>		
+				
+				<cfif Dialog.DocumentMode eq "Popup" and Object_op eq 1>	
+								
+				<td align="center" class="labelmedium" style="height:100%;width:25px;cursor: pointer;font-size:14px;line-height:14px;background-color:c0c0c0">				
+						  <cf_img icon="open" onclick="#Dialog.DocumentTemplate#('#actioncode#','#actionId#','#url.ajaxid#')">						  
+				  </td>										  								
+				
+				<cfelse>
+				
+					<td align="center" style="height:100%;width:25px;color:white;background-color:silver">								
+					   <cf_img icon="open" onclick="object('#objectid#')">	
+					</td>
+				
+				</cfif>
 												
 			</tr>	
 										

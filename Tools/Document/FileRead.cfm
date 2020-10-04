@@ -2,9 +2,10 @@
 <!--- fileread.cfm 
 
 	1. copies file over to a save place _readfile
-	2. opens the file from secure locate into an iframe
-	
+	2. opens the file from secure locate into an iframe	
 --->
+
+
 
 <cfquery name="Att" 
 	 datasource="AppsSystem"
@@ -50,7 +51,8 @@
 	      directory="#SESSION.rootPath#\CFRStage\User\#SESSION.acc#">			 
 </cfif>
 
-<table cellspacing="0" cellpadding="0" align="center" class="formpadding"><tr><td class="labelmedium">
+
+<table align="center" class="formpadding"><tr><td class="labelmedium">
 
 <!---
 <cftry>
@@ -71,41 +73,53 @@
 		
 	<cfelse>
 	
+			
 		<!--- go to the file server --->				
 
 		<cfif att.server eq "document">
 		   <cfset svr = "#SESSION.rootdocumentpath#">
+		<cfelseif att.server eq "custom">  
+			<cfset svr = ""> 
 		<cfelse>
 		   <cfset svr = "#att.server#">
-		</cfif> 	
+		</cfif> 
+				
+		<cfif svr neq "">
+			<cfset filepath = "#svr#\#path#\#att.fileName#">
+		<cfelse>
+		    <cfset filepath = "#path#\#att.fileName#">
+		</cfif>	
 		
+													
 		<!--- we never read the file straight from the source location, we always work with a copy --->			
 			
 	    <cfif url.ser eq "">
 			
 			<cfset vImageSourceValidation = "#session.rootpath#\Images\imageNotAvailable.png">
-			<cfif FileExists("#svr#\#path#\#att.fileName#")>
-				<cfset vImageSourceValidation = "#svr#\#path#\#att.fileName#">
+			<cfif FileExists("#filepath#")>			
+				<cfset vImageSourceValidation = "#filepath#">	
 			</cfif>
+												
 			<cffile action="COPY" 
 				source="#vImageSourceValidation#" 
 		        destination="#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\#att.fileName#">
 				
 		<cfelse>		
-							
+					
 			<!--- locate the logged copy which is requested for viewing as an audit measure --->
 			<cfset vImageSourceValidation = "#session.rootpath#\Images\imageNotAvailable.png">
-			<cfif FileExists("#svr#\#path#\logging\#att.attachmentid#\[#ser#]_#att.filename#")>
-				<cfset vImageSourceValidation = "#svr#\#path#\logging\#att.attachmentid#\[#ser#]_#att.filename#">
+			
+			<cfif FileExists("#svr#\#path#\logging\#att.attachmentid#\[#ser#]_#att.filename#")>			
+				<cfset vImageSourceValidation = "#svr#\#path#\logging\#att.attachmentid#\[#ser#]_#att.filename#">				
 			</cfif>
+			
 			<cffile action="COPY" 
 				source="#vImageSourceValidation#" 
 		        destination="#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\#att.fileName#">					
 			
 		</cfif>   		
-						
-		<!--- adjust the image file sizing --->
-		
+							
+		<!--- adjust the image file sizing --->		
 
 		<cfif LCase(ListLast(att.fileName, ".")) eq "jpg" or  LCase(ListLast(att.fileName, ".")) eq "png"> 
 		
@@ -156,6 +170,8 @@
 			</cftry>	
 
 		</cfif>
+		
+		--->
 
 		
 	</cfif>			
@@ -190,7 +206,7 @@
 
 --->
 
-
 </td></tr></table>
 
+--->
 

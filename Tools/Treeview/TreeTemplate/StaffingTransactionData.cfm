@@ -1,25 +1,20 @@
 
-<cfset Mission = "#URL.Mission#">
+<cfset Mission = URL.Mission>
+
+<cf_UItree id="root" title="<span style='font-size:16px;color:gray;padding-bottom:3px'>#Mission#</span>" expand="Yes">
 
 <cfquery name="Default" 
-datasource="AppsOrganization" 
-maxrows=1 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-	SELECT DISTINCT MandateNo 
-    FROM   Ref_Mandate
-   	WHERE  Mission    = '#Mission#'
-	AND    MandateDefault = 1
+	datasource="AppsOrganization" 
+	maxrows=1 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT TOP 1 MandateNo 
+	    FROM   Ref_Mandate
+	   	WHERE  Mission    = '#Mission#'
+		ORDER BY MandateDefault DESC		
 </cfquery>
 	  
-<cfset MandateDefault = "#Default.MandateNo#">	  
-
-<cftree name="root"
-   font="calibri"
-   fontsize="12"		
-   bold="No"   
-   format="html"    
-   required="No">   
+<cfset MandateDefault = Default.MandateNo>	  
     
 <cfoutput>
 
@@ -40,12 +35,11 @@ password="#SESSION.dbpw#">
 	<cfelse>
 	   <cfset exp = "No">   
 	</cfif>	
-		      
-     <cftreeitem value="#MandateNo#"
-        display="<span style='padding-bottom:13px;height:39px;font-size:17px;color: black;' class='labelmedium'>#dateformat(Mandate.DateExpiration,client.dateformatshow)#</span>"
-		parent="root"					
-        expand="#exp#">	
-			   
+	
+	  <cf_UItreeitem value="#MandateNo#"
+		        display="<span style='font-size:17px;height:20px;padding-top:4px' class='labelit'>#dateformat(Mandate.DateExpiration,client.dateformatshow)#</span>"												
+				parent="root" expand="#exp#">				      
+     			   
 	  <cfset MandateNo = Mandate.MandateNo>
   
 	  <cfquery name="Action" 
@@ -60,21 +54,22 @@ password="#SESSION.dbpw#">
 		  ORDER BY R.ActionSource,R.ListingOrder, R.Description 
 	  </cfquery>
 	  
-	 <cftreeitem value="#MandateNo#_inc"
-        display="<span style='padding-top:3px;padding-bottom:3px;color : black;' class='labelmedium'>Mandate Inception</span>"
-		parent="#MandateNo#"	
-		href="../../Inception/MandateEdit.cfm?ID=#Mission#&ID1=#MandateNo#&Mission=0"
-		target="right">	
-		
-	 <cftreeitem value="#MandateNo#_dur"
-        display="<span style='padding-top:3px;padding-bottom:3px;color : black;' class='labelmedium'>During Mandate</span>"
-		parent="#MandateNo#"			
-        expand="Yes">	
-		
-	 <cftreeitem value="#MandateNo#_dur_act"
-        display="<span style='padding-top:3px;padding-bottom:3px;color : black;font-size:18px;' class='labelit'>Personnel Action</b></span>"
-		parent="#MandateNo#_dur"					
-        expand="#exp#">	
+	   <cf_UItreeitem value="#MandateNo#_inc"
+		        display="<span style='font-size:14px' class='labelit'>Inception of the mandate</span>"						
+				href="../../Inception/MandateEdit.cfm?ID=#Mission#&ID1=#MandateNo#&Mission=0"		
+				target="right"		
+				parent="#MandateNo#">	
+	  
+	  <cf_UItreeitem value="#MandateNo#_dur"
+		        display="<span style='font-size:14px' class='labelit'>During the mandate</span>"						
+				href="../../Inception/MandateEdit.cfm?ID=#Mission#&ID1=#MandateNo#&Mission=0"		
+				target="right"		
+				parent="#MandateNo#">	
+						
+	  <cf_UItreeitem value="#MandateNo#_dur_act"
+		        display="<span style='font-size:16px' class='labelit'>Personnel Action</span>"										
+				target="right"		
+				parent="#MandateNo#_dur">		 		
 	 
 	  <cfset prior = "">
        
@@ -83,24 +78,23 @@ password="#SESSION.dbpw#">
 	   <cfif actionsource neq prior>
 	   
 	     <cfset prior = actionsource>
-	   
-	      <cftreeitem value="#MandateNo#_dur_act_#prior#"
-	        display="<span style='padding-top:3px;padding-bottom:3px;font-size:17px;' class='labelit'>#ActionSource#</span>"
-			parent="#MandateNo#_dur_act"				
-			target="right"				
-	        expand="Yes">	
-	   
+		 
+		  <cf_UItreeitem value="#MandateNo#_dur_act_#prior#"
+		        display="<span style='font-size:13px' class='labelit'>#ActionSource#</span>"										
+				target="right" expand="No"		
+				parent="#MandateNo#_dur_act">		   
+	    	   
 	   </cfif>
 	  
 	   <cfset ActionCode = Action.ActionCode>
-	  
-	   <cftreeitem value="#MandateNo#_dur_act_#prior#_#ActionCode#"
-	        display="<span style='padding-top:0px;padding-bottom:0px;color:0080C0;' class='labelit'>#ActionCode# #Description#</span>"
-			parent="#MandateNo#_dur_act_#prior#"	
-			href="TransactionViewGeneral.cfm?ID=CDE&ID1=#ActionCode#&Mission=#Mission#&ID3=#MandateNo#&ID4=0"
-			target="right"				
-	        expand="No">	
-		    
+	   
+	    <cf_UItreeitem value="#MandateNo#_dur_act_#prior#_#ActionCode#"
+		        display="<span style='font-size:13px' class='labelit'>#ActionCode# #Description#</span>"										
+				target="right"		
+				href="TransactionViewGeneral.cfm?ID=CDE&ID1=#ActionCode#&Mission=#Mission#&ID3=#MandateNo#&ID4=0"
+				parent="#MandateNo#_dur_act_#prior#"
+				expand="Yes">		
+	  	  		    
 		  <cfquery name="ActionStatus" 
 		  datasource="AppsEmployee" 
 		  username="#SESSION.login#" 
@@ -125,13 +119,13 @@ password="#SESSION.dbpw#">
 		  </cfquery>		  		  
 	
 		  <cfloop query="actionstatus">
-		  		  
-			   <cftreeitem value="#MandateNo#_dur_act_#prior#_#ActionCode#_#Status#"
-			        display="<span style='padding-top:3px;padding-bottom:3px;color : black;' class='labelit'>#Description# [#counted#]</span>"
-					parent="#MandateNo#_dur_act_#prior#_#ActionCode#"	
-					href="TransactionViewGeneral.cfm?ID=CDE&ID1=#ActionCode#&Mission=#Mission#&ID3=#MandateNo#&ID4=#Status#"
-					target="right"				
-			        expand="No">	 		  
+		  
+		  	 <cf_UItreeitem value="#MandateNo#_dur_act_#prior#_#ActionCode#_#Status#"
+		        display="<span style='font-size:13px' class='labelit'>#Description# [#counted#]</span>"										
+				target="right"		
+				href="TransactionViewGeneral.cfm?ID=CDE&ID1=#ActionCode#&Mission=#Mission#&ID3=#MandateNo#&ID4=#Status#"
+				parent="#MandateNo#_dur_act_#prior#_#ActionCode#"
+				expand="No">			  	 
 		 		    
 		  </cfloop>
 	        
@@ -202,21 +196,23 @@ password="#SESSION.dbpw#">
 	  WHERE  Mission = '#Mission#'
 	  AND    MandateNo = '#MandateNo#'		
   </cfquery>
-    
-  <cftreeitem value="#MandateNo#_dur_tpe"
-        display="<span style='padding-top:3px;padding-bottom:3px;color : black;' class='labelmedium'>Posttype</span>"
-		parent="#MandateNo#_dur"				
-        expand="No">	
+  
+  <cf_UItreeitem value="#MandateNo#_dur_tpe"
+		        display="<span style='font-size:16px' class='labelit'>Post Type</span>"										
+				target="right"		
+				expand="No"
+				parent="#MandateNo#_dur">		 		
       
   <cfloop query="Posttype">
   
      <cfset tpe = "#Posttype.Posttype#">
-  
-     <cftreeitem value="#MandateNo#_dur_tpe_#tpe#"
-          display="#tpe#"
-   		  parent="#MandateNo#_dur_tpe"						
-          expand="Yes">	  
-  
+	 
+	  <cf_UItreeitem value="#MandateNo#_dur_tpe_#tpe#"
+		        display="<span style='font-size:13px' class='labelit'>#tpe#</span>"										
+				target="right"						
+				parent="#MandateNo#_dur_tpe"
+				expand="Yes">		
+        
 		  <cfquery name="ActionStatus" 
 		  datasource="AppsEmployee" 
 		  username="#SESSION.login#" 
@@ -233,13 +229,13 @@ password="#SESSION.dbpw#">
   
 			  <cfloop query="actionstatus">
 			  
-				    <cftreeitem value="#MandateNo#_dur_tpe_#tpe#_#Status#"
-			          display="#Description#"
-			   		  parent="#MandateNo#_dur_tpe_#tpe#"	
-					  href="TransactionViewGeneral.cfm?ID=TPE&ID1=#tpe#&Mission=#Mission#&ID3=#MandateNo#&ID4=#Status#'"
-					  target="right"				
-			          expand="Yes">	  
-			  
+			   <cf_UItreeitem value="#MandateNo#_dur_tpe_#tpe#_#Status#"
+		        display="<span style='font-size:13px' class='labelit'>#Description#</span>"										
+				target="right"		
+				href="TransactionViewGeneral.cfm?ID=TPE&ID1=#tpe#&Mission=#Mission#&ID3=#MandateNo#&ID4=#Status#"
+				parent="#MandateNo#_dur_tpe_#tpe#"
+				expand="No">	
+			  			  
 			  </cfloop>
 		        
 		  </cfloop>
@@ -248,7 +244,8 @@ password="#SESSION.dbpw#">
     
 </cfoutput>
 
-</cftree>
+</cf_UItree>	
+
  
 
 

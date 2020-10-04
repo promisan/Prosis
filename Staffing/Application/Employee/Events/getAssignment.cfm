@@ -27,7 +27,7 @@
 
 <table width="100%" class="navigation_table">
 
-	<tr class="labelit line">
+	<tr class="labelmedium line">
 		<td><cf_tl id="IndexNo"></td>		
 		<td><cf_tl id="LastName"></td>
 		<td><cf_tl id="FirstName"></td>
@@ -38,8 +38,8 @@
 	</tr>
 
 	<cfoutput query="Assignment">
-	<tr class="labelit navigation_row line" style="height:20px">
-		<td><a href="javascript:EditPerson('#PersonNo#')"><font color="0080C0">#Indexno#</a></td>
+	<tr class="labelmeium navigation_row line" style="height:20px">
+		<td style="padding-left:2px"><a href="javascript:EditPerson('#PersonNo#')">#Indexno#</a></td>
 		<td>#LastName#</td>
 		<td>#FirstName#</td>
 		<td>#dateformat(DateEffective,client.dateformatshow)#</td>

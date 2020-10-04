@@ -187,7 +187,7 @@ password="#SESSION.dbpw#">
 
 <cfform action="PositionParentInitialEditSubmit.cfm" method="POST" name="ParentEdit" target="result">
  
-<table width="96%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="96%"align="center">
   
   <tr><td colspan="2" class="hide">
 	   <iframe name="result" id="result" width="100%" height="100"></iframe>
@@ -221,7 +221,7 @@ password="#SESSION.dbpw#">
   <tr>
     <td width="100%" colspan="2">
 	
-    <table border="0" cellpadding="0" cellspacing="0" width="95%" align="center" class="formpadding formspacing">
+    <table border="0" width="95%" align="center" class="formpadding">
 	
     <TR><td height="4"></td></TR>		
 	
@@ -384,40 +384,8 @@ password="#SESSION.dbpw#">
 	<cfelse>
 	     <cfset cl = "hide"> 	 
 	</cfif>
-		 			
-    <TR>
-    <TD class="labelmedium"><cf_tl id="Classified level">:</TD>
-    <TD>
 	
-		<table cellspacing="0" cellpadding="0" class="formpadding">
-		<tr><td class="labelmedium">
-	
-	    <INPUT type="radio" name="Classified" class="radiol" value="0" <cfif Position.ApprovalPostGrade eq "">checked</cfif> onclick="javascript:measuresource('hide')"> Unclassified
-		<INPUT type="radio" name="Classified" class="radiol" value="1" <cfif Position.ApprovalPostGrade neq "">checked</cfif> onclick="javascript:measuresource('regular')"> Classified
-		
-		</td>
-		<td style="padding-left:8px">
-				
-			<cf_securediv id="approvalpostgradebox" class="#cl#" bind="url:#session.root#/Staffing/Application/Position/Position/PositionGradeSelect.cfm?field=approvalpostgrade&posttype={posttype}&presel=#Position.ApprovalPostGrade#&mission=#url.id#&functionno=#Position.FunctionNo#">
-
-		</td>
-		</tr>
-		</table>
-		<!---
-	  	<select name="approvalpostgrade" style="font:10px" size="1" class="<cfoutput>#cl#</cfoutput>">
-		<cfoutput query="PostGrade">
-		<option value="#PostGrade#" <cfif #PostGrade# eq #Position.ApprovalPostGrade#> selected </cfif>>
-    		#PostGrade#
-		</option>
-		</cfoutput>
-	    </select>
-		--->
-					
-	</TD>
-	</TR>	
-	
-				 			
-    <TR>
+	<TR>
     <TD class="labelmedium"><cf_tl id="Grade">:</TD>
     <TD>
 	
@@ -436,20 +404,52 @@ password="#SESSION.dbpw#">
 		
 	</TD>
 	</TR>
-			 
+		 			
     <TR>
-    <TD class="labelmedium"><cf_tl id="Approval date">:</TD>
-    <TD class="regular">
-		
-		<cf_intelliCalendarDate9
-			FieldName="ApprovalDate" 
-			class="regularxl"
-			DateFormat="#APPLICATION.DateFormat#"
-			Default="#Dateformat(Position.ApprovalDate, CLIENT.DateFormatShow)#">	
-			
-	</TD>
-	</TR>
+    <TD class="labelmedium"><cf_tl id="Post classification">:</TD>
+    <TD>
 	
+		<table cellspacing="0" cellpadding="0" class="formpadding">
+		<tr><td>
+		
+			<table>
+			<tr class="labelmedium">
+			<td><INPUT type="radio" name="Classified" class="radiol" value="0" <cfif Position.ApprovalPostGrade eq "">checked</cfif> onclick="javascript:measuresource('hide')"></td>
+			<td style="padding-left:4px"><cf_tl id="Non classified"></td>
+			<td style="padding-left:7px"><INPUT type="radio" name="Classified" class="radiol" value="1" <cfif Position.ApprovalPostGrade neq "">checked</cfif> onclick="javascript:measuresource('regular')"></td>
+			<td style="padding-left:4px"><cf_tl id="Classified"></td>
+			</tr>
+			</table>
+		
+		</td>
+		
+		<td style="padding-left:8px" id="approvalpostgradebox" class="#cl#">
+		
+			<table>
+			<tr><td>
+					
+				<cf_securediv bind="url:#session.root#/Staffing/Application/Position/Position/PositionGradeSelect.cfm?field=approvalpostgrade&presel=#Position.ApprovalPostGrade#&mission=#url.id#&functionno=#Position.FunctionNo#&posttype={posttype}">
+				</td>
+				<TD style="padding-left:8px" class="labelmedium"><cf_tl id="Date">:</TD>
+			    <TD style="padding-left:3px" class="regular">
+					
+					<cf_intelliCalendarDate9
+						FieldName="ApprovalDate" 
+						class="regularxl"
+						DateFormat="#APPLICATION.DateFormat#"
+						Default="#Dateformat(Position.ApprovalDate, CLIENT.DateFormatShow)#">	
+						
+				</TD>
+				
+				</tr></table>
+	
+			</td>	
+			</tr>
+			</table>
+							
+	</TD>
+	</TR>		
+    	
 	<tr><td class="labelmedium"><cf_tl id="Approval reference">:</td>
 	
 		<td>
@@ -464,7 +464,8 @@ password="#SESSION.dbpw#">
     <TD class="labelmedium"><cf_tl id="Effective date">:</TD>
     <TD height="20">
 	
-	<cfif Mandate.MandateStatus eq "0" or AccessPosition eq "ALL">	
+	<cfif Mandate.MandateStatus eq "0" or AccessPosition eq "ALL">
+	
 		
 		<cf_intelliCalendarDate9
 			FormName="PositionEdit"

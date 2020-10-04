@@ -22,17 +22,14 @@
    
 <cf_divscroll>
     	
-    <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding">
-				  
-		  <tr><td style="font-size:19px;height:40px" class="labelit"><cf_tl id="Office attendance"></td></tr>	
-	 	
-
+    <table width="100%" class="formpadding">
+			
 		  <tr>
-	        <td valign="top"> 
+	        <td style="padding-left:10px;padding-top:10px"> 
 											
-			    <cf_tl id="#url.mission#" var="1">	
+			    <cf_tl id="#url.mission# Office Attendance" var="1">
 									
-				<cf_UItree name="idtree" fontsize="12" bold="No" format="html" required="No">
+				<cf_UItree name="idtree" fontsize="20" bold="No" format="html" required="No">
 				
 	 		     <cf_UItreeitem
 				  bind="cfc:service.Tree.OrganizationTree.getNodesV2({cftreeitempath},{cftreeitemvalue},'#url.mission#','#mandate.mandateno#','OrganizationListing.cfm','ATT','#lt_text#')">
@@ -41,10 +38,9 @@
 				
 				</td>
 				
-			</tr>
-			
+			</tr>			
 						
-			<tr><td valign="top" style="padding-left:10px">
+			<tr><td style="padding-left:10px">
 			
 			<cf_UItree
 			id="root"

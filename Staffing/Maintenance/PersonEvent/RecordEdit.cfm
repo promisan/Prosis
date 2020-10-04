@@ -1,4 +1,42 @@
+
 <cfparam name="url.idmenu" default="">
+
+<cf_screentop height="100%" 
+	  label="Edit Person Event" 
+	  scroll="Yes" 
+	  layout="webapp" 
+	  jquery="Yes"
+	  menuAccess="Yes" 
+	  systemfunctionid="#url.idmenu#">
+
+<cfquery name="Get" 
+	datasource="AppsEmployee" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT *
+		FROM   Ref_PersonEvent
+		WHERE  Code = '#URL.ID1#'
+</cfquery>
+
+<cfoutput>
+
+<script language="JavaScript">
+
+function ask() {
+	if (confirm("Do you want to remove this event ?")) {	
+	return true 	
+	}	
+	return false
+	
+}	
+
+function instruction(cde,mis) {  	
+	ProsisUI.createWindow('instruction', 'Instruction', '',{x:100,y:100,height:document.body.clientHeight-70,width:document.body.clientWidth-70,modal:true,center:true})    					
+	ptoken.navigate('#SESSION.root#/Staffing/Maintenance/PersonEvent/InstructionDialog.cfm?code='+cde+'&Mission='+mis,'instruction') 			
+}
+
+</script>
+</cfoutput>
 
 <cfquery name="Mission" 
 datasource="appsOrganization" 
@@ -18,36 +56,7 @@ password="#SESSION.dbpw#">
 		AND    SystemModule = 'Staffing')
 </cfquery>
 
-
-<cf_screentop height="100%" 
-	  label="Edit Person Event" 
-	  scroll="Yes" 
-	  layout="webapp" 
-	  menuAccess="Yes" 
-	  systemfunctionid="#url.idmenu#">
-
-<cfquery name="Get" 
-	datasource="AppsEmployee" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-		SELECT *
-		FROM   Ref_PersonEvent
-		WHERE  Code = '#URL.ID1#'
-</cfquery>
-
-<script language="JavaScript">
-
-function ask() {
-	if (confirm("Do you want to remove this Code ?")) {	
-	return true 	
-	}	
-	return false
-	
-}	
-
-</script>
-
-<cfform action="RecordSubmit.cfm" method="POST" enablecab="Yes" name="dialog">
+<cfform action="RecordSubmit.cfm" method="POST" name="dialog">
 
 <table width="92%" cellspacing="0" cellpadding="0" align="center" class="formpadding formspacing">
 
@@ -62,11 +71,19 @@ function ask() {
 	</TR>
 	
 	<TR class="labelmedium">
-    <TD>Description:</TD>
+    <TD>Name / Label:</TD>
     <TD>
   	   <cfinput type="Text" name="Description" value="#get.description#" message="Please enter a description" required="Yes" size="30" maxlength="50"class="regularxl">
     </TD>
 	</TR>
+	
+	<TR class="labelmedium">
+    <TD valign="top" style="padding-top:5px">Additional information:</TD>
+    <TD>
+  	   <textarea name="ActionInstruction" style="font-size:14px;padding:3px;width:100%;height:70px">#get.ActionInstruction#</textarea>
+    </TD>
+	</TR>
+	
 	
 	<TR class="labelmedium">
     <TD>Order:</TD>
@@ -85,7 +102,7 @@ function ask() {
 	<TR class="labelmedium">
     <TD>Enable Portal:</TD>
     <TD>
-  		<input type="checkbox" class="radiol" name="EnablePortal" value="0" <cfif get.EnablePortal eq 1>checked</cfif>>
+  		<input type="checkbox" class="radiol" name="EnablePortal" value="1" <cfif get.EnablePortal eq 1>checked</cfif>>
     </TD>
 	</TR>
 
@@ -139,7 +156,7 @@ function ask() {
 		<tr>
 			<td style="padding-left:30px">
 			
-			<table cellspacing="0" border="0" cellpadding="0">						
+			<table>						
 			<cfset row = 0>
 		  
 			<cfoutput query="Mission">
@@ -148,18 +165,9 @@ function ask() {
 			
 			<cfif row eq "1">
 			<tr class="labelmedium">
-			</cfif>						
+			</cfif>		
 			
-			<td width="100" style="height:20px;padding-left:5px">#Mission#:</td>					
-			
-			<td align="center" width="35"> 
-			
-			 <table width="100%" cellspacing="0" cellpadding="0">
-			    <tr>
-				
-				<td align="center">			 
-				
-				<cfquery name="MissionCheck" 
+			<cfquery name="MissionCheck" 
 				datasource="appsEmployee" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
@@ -167,19 +175,32 @@ function ask() {
 				    FROM   Ref_PersonEventMission
 					WHERE  PersonEvent = '#get.Code#'
 					AND    Mission     = '#Mission#'
-				</cfquery>
-				 	
+				</cfquery>				
+			
+			<td width="100" style="height:20px;padding-left:5px">
+			<cfif MissionCheck.Recordcount eq "1">
+				<a href="javascript:instruction('#get.code#','#mission#')">#Mission#</a>
+			<cfelse>#Mission#</cfif>:				
+					
+			</td>					
+			
+			<td align="center" width="35"> 
+			
+			 <table width="100%">
+			    <tr>				
+				<td align="center">			 								 	
 				<cfif MissionCheck.Recordcount eq "1">
 					 <input type="checkbox" class="radiol" name="Missions" value="#Mission#" checked>
 				<cfelse>
 					 <input type="checkbox" class="radiol" name="Missions" value="#Mission#">
-				</cfif>
-				  
-				</td></tr></table>
+				</cfif>				  
+				</td>												
+				</tr>
+				</table>
 			 
 			 </TD>
 						 
-			 <cfif row eq "4">
+			 <cfif row eq "6">
 			 	</tr>
 				<cfset row = 0>
 			 </cfif>

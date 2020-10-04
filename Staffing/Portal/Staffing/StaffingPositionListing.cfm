@@ -1,5 +1,5 @@
 
-<cfinclude template="StaffingPositionPreparation.cfm">
+<cfinclude template="StaffingPositionPrepare.cfm">
 
 <cfif Position.recordCount eq 0>
     <div style="text-align:center; padding-top:15%; color:#808080; font-size:20px;">
@@ -74,12 +74,12 @@
           datasource="AppsEmployee" 
           username="#SESSION.login#" 
           password="#SESSION.dbpw#">
-          SELECT   * 
-          FROM     Organization.dbo.Organization
-		  WHERE    Mission     = '#Mission#'
-		  AND      MandateNo   = '#MandateNo#'
-          AND      OrgUnitCode IN (#preservesinglequotes(List)#)
-		  ORDER BY HierarchyCode DESC
+	          SELECT   * 
+	          FROM     Organization.dbo.Organization
+			  WHERE    Mission     = '#Mission#'
+			  AND      MandateNo   = '#MandateNo#'
+	          AND      OrgUnitCode IN (#preservesinglequotes(List)#)
+			  ORDER BY HierarchyCode DESC
 	   </cfquery>
 
         <div class="clsUnit clsSearchable">
@@ -93,11 +93,17 @@
 			</cfif>
 			<cfset spaces = "#spaces#&nbsp;">
 		</cfloop>
+		
+		<!---
+		<a href>Record Position</a>
+		--->
+		
 		</div>
 		
 		<div onclick="toggleActions('#OrgUnitOperational#');" class="actionsHeader clsSearchable">
 			<i class="fa fa-plus-circle actionsIcon actionsIcon_#OrgUnitOperational#" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<cf_tl id="Events recorded for unit">
 		</div>
+		
 		<div class="actionsContainer actions_#OrgUnitOperational#" style="display:none;" id="events_#OrgUnitOperational#"></div>
 
         <cfoutput>
@@ -107,7 +113,7 @@
             </cfif>
 
             <cf_MobileCell style="#vLeftBorder#" class="clsPosition clsSearchable toggleScroll-y col-xs-12 col-md-6 col-lg-#INT(12/vCols)#">
-                <cfinclude template="StaffingPositionDetail.cfm">	
+                <cfinclude template="StaffingPositionContainer.cfm">	
             </cf_MobileCell>
 
             <cfset vCnt = vCnt + 1>

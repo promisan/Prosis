@@ -191,9 +191,9 @@ password="#SESSION.dbpw#">
 							<tr class="clsRow_#currentrow# line" style="border-top:1px solid silver">
 							  
 							   <td style="padding-left:10px">
-							       <table width="100%" cellspacing="0" cellpadding="0">
+							       <table cellspacing="0" cellpadding="0">
 								   <tr class="labelmedium">
-								   <td style="padding-left:10px;padding-right:3px"><cf_tl id="Attach">:</td>
+								  
 							       <cfloop query="getfiles">	
 								   
 								   <cfinvoke component = "Service.Document.Attachment"  
@@ -204,8 +204,9 @@ password="#SESSION.dbpw#">
 									   returnvariable   = "Attachment">			
 								   
 								   <td class="labelmedium" style="padding-left:10px" 
-										   onclick="showfile('attachment','view','#attachment.attachmentid#')">												
-											<a href="##">#name#</a><cfif currentrow neq recordcount>;</cfif>												
+										   onclick="showfile('attachment','view','#attachment.attachmentid#')">												   										
+											<a href="##">
+											<cfif len(name) gt "20">#left(name,20)#...<cfelse>#name#</cfif></a><cfif currentrow neq recordcount>;</cfif>												
 										   </td>							   																			
 								   </cfloop>
 								   </tr>

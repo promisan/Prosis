@@ -79,7 +79,7 @@
 				
 		<tr class="labelmedium">
 			
-			<td style="min-width:60px;padding-right:4px;padding-left:30px"><cf_tl id="Postal">:</td>	
+			<td style="min-width:70px;padding-right:4px;padding-left:30px"><cf_tl id="Postal"></td>	
 			<td colspan="4">		
 						
 				 <cf_textInput

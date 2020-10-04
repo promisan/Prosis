@@ -74,7 +74,7 @@
 	datasource="AppsVacancy" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	SELECT DISTINCT F.*, E.*
+	SELECT DISTINCT F.*, E.*,E.PersonNo as PanelPersonNo
 	   FROM DocumentCandidateReviewpanel F, Employee.dbo.Person E
 	   WHERE F.DocumentNo     =  '#url.DocumentNo#'
 	   AND   F.PersonNo       =  '#url.PersonNo#'
@@ -82,7 +82,7 @@
 	   AND   F.PanelPersonNo  =  E.PersonNo
 	</cfquery>
 
-    <table width="99%" align="center" border="0" cellspacing="0" cellpadding="0" class="formpadding">			
+    <table width="99%" align="center" border="0" class="formpadding">			
     <tr class="labelmedium line">
 	   <td></td>
        <td height="15">IndexNo </td>
@@ -124,8 +124,8 @@
    <cfoutput query="Employee">  
 	   <tr class="line labelmedium">
 	   	  <td height="20">#currentrow#</td>
-	      <td><a href="javascript:EditPerson('#PersonNo#')">#IndexNo#</a></td>
-		  <td><a href="javascript:EditPerson('#PersonNo#')">#FirstName# #LastName#</a></td>
+	      <td><a href="javascript:EditPerson('#PanelPersonNo#')">#IndexNo#</a></td>
+		  <td><a href="javascript:EditPerson('#PanelPersonNo#')">#FirstName# #LastName#</a></td>
 		  <td>#Gender#</td>
 		  <td>#Nationality#</td>
 		  <td>#PanelMemo#</td>

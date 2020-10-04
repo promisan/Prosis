@@ -92,7 +92,7 @@
 				 resize="false"		
 				 border="0" 
 				 toolbar="Mini"
-				 height="70%"
+				 height="200"
 				 width="100%">#Check.ReviewMemo#</cf_textarea>
 	</td>
 	</tr>

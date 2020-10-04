@@ -1,6 +1,19 @@
 
 <!--- listing of the action --->
 
+<cfquery name="Candidate" 
+datasource="AppsVacancy" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+
+	SELECT      *				
+	FROM        DocumentCandidate
+	WHERE       DocumentNo = '#url.documentNo#'
+	AND         PersonNo   = '#url.personno#'	
+	
+
+</cfquery>
+
 <cfquery name="SearchResult" 
 datasource="AppsVacancy" 
 username="#SESSION.login#" 
@@ -26,9 +39,11 @@ password="#SESSION.dbpw#">
 </cfquery>
 
 
-<table width="100%" class="navigation_table">
+<table width="98%" class="navigation_table" align="center">
 
 <cfoutput>
+<tr class="labelmedium"><td colspan="5" style="height:40px;font-size:24px">#Candidate.FirstName# #Candidate.LastName#</td></tr>
+
 <tr class="labelmedium line" style="height:20px">
    <td style="min-width:200px"></td>
    <td style="min-width:120px"><cf_tl id="Due"></td>   
@@ -41,7 +56,7 @@ password="#SESSION.dbpw#">
 
 <cfoutput query="SearchResult">
 	
-	<tr class="labelmedium <cfif actionmemo eq "" and currentrow neq recordcount>line</cfif> navigation_row" style="height:15px">
+	<tr class="labelmedium <cfif actionmemo eq "" and currentrow neq recordcount>line</cfif> navigation_row">
 	   <td style="padding-left:4px">#DocumentDescription#</td>
 	   <td>#dateformat(ActionDateStart,client.dateformatshow)# #timeformat(ActionDateStart,"HH:MM")#</td>	
 	   	 
@@ -62,9 +77,10 @@ password="#SESSION.dbpw#">
 		   <table>
 		   <cfloop query="Mail">
 		     <tr class="<cfif currentrow neq Mail.recordcount>line</cfif> labelmedium" style="height:10px">
+			 		 <td style="padding-left:2px;min-width:30px"><cf_img icon="open" onclick="javascript:personactionmail('#threadid#','#serialno#')"></td>
 			         <td style="padding-left:2px;min-width:30px">#serialno#.</td>
 			         <td style="min-width:120px;padding-right:5px">#dateformat(Created,client.dateformatshow)# #timeformat(Created,"HH:MM")#</td>
-					 <td>#MailTo# : #MailSubject#</td>
+					 <td>#MailSubject#</td>
 			 </tr>
 		   </cfloop>
 		   </table>

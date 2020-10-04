@@ -191,6 +191,7 @@
    
    --->	
    
+      
    <cfset singleResourceOrder = "0">
   
    <cfif get.WorkOrderId neq "">
@@ -989,15 +990,11 @@
 						
 						<cfset curr = WarehouseCurrency>	
 					    						
-						<cfif curr eq APPLICATION.BaseCurrency>	
-							
-							<cfset cost = WarehousePrice>	
-							
-						<cfelseif Currency eq curr>
-						
+						<cfif curr eq APPLICATION.BaseCurrency>								
+							<cfset cost = WarehousePrice>								
+						<cfelseif Currency eq curr>						
 							<!--- we take the exchange rate found in the receipt --->						
-							<cfset cost = warehousePrice / ExchangeRate>
-						
+							<cfset cost = warehousePrice / ExchangeRate>						
 						<cfelse>
 												
 							<cf_exchangeRate datasource="appsMaterials"
@@ -1006,6 +1003,7 @@
 							CurrencyTo    = "#APPLICATION.BaseCurrency#"> 		
 							
 						    <cfset cost = warehousePrice / exc>
+							
 						</cfif>	
 																		
 						<cfif overheadpercentage eq "0">	
@@ -1107,11 +1105,10 @@
 						                     	   (SELECT TransactionId 
 						                            FROM    Materials.dbo.ItemTransaction 
 												    WHERE   TransactionId = V.DistributionTransactionId
-						  						    AND     ReceiptId  = '#ReceiptId#')	
-						  						    
+						  						    AND     ReceiptId  = '#ReceiptId#')		
+																	  						    
 						  						    					   
-						</cfquery>
-						
+						</cfquery>						
 						
 						<cfif getIssues.recordcount gte "1">
 												
@@ -1128,25 +1125,28 @@
 								   <cfabort>
 						
 							<cfelseif (abs(getTransaction.TransactionCostPrice-stockcostprice) gte 0.00 
-							        and getTransaction.Quantity eq ReceiptWarehouse)>										
+							           and getTransaction.Quantity eq ReceiptWarehouse)>	
+																						
 																		
 									 <cfinvoke component = "Service.Process.Materials.Stock"  
 									   method              = "correctItemValuation" 
-									   receiptid           = "#ReceiptId#"								   								  
-									   receiptCurrency     = "#curr#"
-									   receiptCostPrice    = "#cost#"
+									   receiptid           = "#ReceiptId#"
+									   receiptCostCurrency = "#APPLICATION.BaseCurrency#"
+									   receiptCostPrice    = "#cost#"								   								  
+									   receiptCurrency     = "#curr#"									   
 									   receiptPrice        = "#price#"
 									   GLCurrency          = "#Line.PurchaseCurrency#">									
 								   
 							<cfelseif (abs(getTransaction.TransactionCostPrice-stockcostprice) gte 0.00 
 							        and getTransaction.Quantity lt ReceiptWarehouse 
-									and getTransaction.Lines eq "1")>
+									and getTransaction.Lines eq "1")>							
 									
 									 <cfinvoke component = "Service.Process.Materials.Stock"  
 									   method              = "correctItemValuation" 
-									   receiptid           = "#ReceiptId#"								   								  
-									   receiptCurrency     = "#curr#"
-									   receiptCostPrice    = "#cost#"
+									   receiptid           = "#ReceiptId#"		
+									   receiptCostCurrency = "#APPLICATION.BaseCurrency#"	
+									   receiptCostPrice    = "#cost#"					   								  
+									   receiptCurrency     = "#curr#"									   
 									   receiptPrice        = "#price#"
 									   GLCurrency          = "#Line.PurchaseCurrency#">											 
 								   

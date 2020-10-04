@@ -53,6 +53,7 @@
 			         I.ItemDescription, 			   			 
 					 U.ItemUoMId,
 					 U.UoMDescription,
+					 U.ItemBarCode,
 					 '#url.currency#' as Currency,
 
 					   <cfloop query="schedule">
@@ -123,7 +124,26 @@
 						AND        Mission            = '#getWarehouse.Mission#'
 						AND        TransactionType    = '1'
 						ORDER BY Created DESC
-					   ) as LastCost	
+					   ) as LastCost,
+
+					   (
+						    SELECT TOP 1 IVO.OfferMinimumQuantity
+							FROM 	ItemVendor IV 
+									INNER JOIN ItemVendorOffer IVO 
+										ON IV.ItemNo = IVO.ItemNo
+							WHERE 	IV.ItemNo  = I.ItemNo
+							AND		IV.UoM = U.UoM
+							AND 	IV.Preferred = '1'
+							ORDER BY IVO.DateEffective DESC
+					   ) AS CTN,
+
+					   (
+						   	SELECT 	SUM(Ix.TransactionQuantityBase)
+							FROM 	ItemTransaction Ix WITH (NOLOCK)
+							WHERE 	Ix.ItemNo = I.ItemNo
+							AND 	Ix.TransactionUoM = U.UoM
+							AND 	Ix.ActionStatus != '9'
+					   ) as Stock
 					  
 			FROM      ItemWarehouse IW 
 			          INNER JOIN Item I ON IW.ItemNo = I.ItemNo 
@@ -190,12 +210,38 @@
 	     				field       	= "UoMDescription",																												
 						search      	= "text",
 						filtermode  	= "2"}>	
+
+	<cfset itm = itm+1>
+	<cf_tl id="Barcode" var = "1">			
+	<cfset fields[itm] = {label     	= "#lt_text#",                    
+	     				field       	= "ItemBarcode",																												
+						search      	= "text",
+						filtermode  	= "2"}>	
 						
 	<cfset itm = itm+1>
 	<cf_tl id="Codified" var = "1">			
 	<cfset fields[itm] = {label     	= "#lt_text#",                    
 	     				field       	= "Classification",																													
 						search      	= "text"}>		
+
+	<cfset itm = itm+1>
+	<cf_tl id="CTN" var = "1">			
+	<cfset fields[itm] = {label         = "#lt_text#",                    
+		     				field       = "CTN",	
+							width       = "15",
+							align       = "right",				
+							alias       = "",					
+							formatted   = "numberformat(CTN,',')"}>	
+
+	<cfset itm = itm+1>
+	<cf_tl id="Stock" var = "1">			
+	<cfset fields[itm] = {label         = "#lt_text#",                    
+		     				field       = "Stock",	
+							width       = "15",
+							align       = "right",				
+							alias       = "",
+							search      = "amount",					
+							formatted   = "numberformat(Stock,',')"}>	
 
 	<cfset itm = itm+1>
 	<cf_tl id="Last Cost" var = "1">			

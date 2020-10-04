@@ -22,8 +22,12 @@
 	
 	function AddVacancy(postno,box) {
 		ProsisUI.createWindow('mydialog', 'Record Recruitment Track', '',{x:100,y:100,height:600,width:640,modal:true,center:true});	
-		ptoken.navigate('#SESSION.root#/Vactrack/Application/Document/DocumentEntryPosition.cfm?box='+box+'&Mission=#URL.Mission#&ID1=' + postno + '&Caller=Listing','mydialog');	
+		ptoken.navigate('#SESSION.root#/Vactrack/Application/Document/DocumentEntryPosition.cfm?box='+box+'&portal=1&Mission=#URL.Mission#&ID1=' + postno + '&Caller=Listing','mydialog');	
 	}
+	
+	function rostersearch(action,actionid,ajaxid) {    
+	    ptoken.open("#SESSION.root#/Roster/RosterGeneric/RosterSearch/Search1ShortList.cfm?mode=vacancy&wActionId="+actionid, "search"+ajaxid, "left=35, top=35, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=yes, resizable=yes")	
+    }
 		
 	function AddEvent(per,pos,box,trg,cde) {    		   		   
 		ProsisUI.createWindow('evdialog', 'HR Event request', '',{x:100,y:100,height:430,width:680,modal:true,resizable:false,center:true})    					

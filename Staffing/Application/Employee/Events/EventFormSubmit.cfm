@@ -196,7 +196,7 @@
 
 	<cfoutput>
 		<script>
-			ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/Selfservice.cfm?id=#FORM.PersonNo#','eventdetail');
+			ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/Selfservice.cfm?id=#FORM.PersonNo#&mission=#form.mission#&trigger=#form.triggercode#&event=#form.eventcode#','divEventDetail');
 			try { ProsisUI.closeWindow('evdialog',true) } catch(e) {}
 		</script>
 	</cfoutput>

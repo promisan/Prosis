@@ -1875,11 +1875,15 @@
         displayname="26/7/2016 adjust the price of a stock receipt/production transaction and related corrections to issuance">
 		
 		<cfargument name="ReceiptId"            type="string"   required="false"   default="">	
-		<cfargument name="TraId"                type="string"   required="false"   default="">		
+		<cfargument name="TraId"                type="string"   required="false"   default="">	
 		
-		<cfargument name="ReceiptCurrency"      type="string"   required="true">				
-		<cfargument name="ReceiptCostPrice"     type="numeric"  required="true"   default="0">
+		
+		<cfargument name="ReceiptCurrency"      type="string"   required="true">		
 		<cfargument name="ReceiptPrice"         type="numeric"  required="true"   default="0">
+		
+		<cfargument name="ReceiptCostCurrency"  type="string"   required="true"   default="#ReceiptCurrency#">	
+		<cfargument name="ReceiptCostPrice"     type="numeric"  required="true"   default="0">
+		
 		<cfargument name="GLCurrency"           type="string"   required="true"   default="#ReceiptCurrency#">			
 		
 		<cfif receiptid neq "">
@@ -1950,7 +1954,7 @@
 					<cfset documentcurrency     =  ReceiptCurrency>
 					<cfset documentcostvalue    =  round((qty * receiptCostPrice)*100)/100>
 					<cfset documentpricevalue   =  round((qty * receiptPrice)*100)/100>
-					
+															
 					<cfset diff = documentpricevalue - documentcostvalue>						
 																					
 					<cf_exchangeRate datasource = "appsMaterials"
@@ -1966,36 +1970,36 @@
 					
 					<cf_exchangeRate datasource = "appsMaterials"
 							EffectiveDate       = "#tradte#"
-					        CurrencyFrom        = "#ReceiptCurrency#"
+					        CurrencyFrom        = "#ReceiptCostCurrency#"
 							CurrencyTo          = "#application.baseCurrency#"> 									
 										
 					<!--- cost and price BASE currency --->		
 					<cfset stockcostexc         =  exc>			
-					<cfset stockcostvalue       =  round((documentcostvalue/exc)*100)/100>										
-					<cfset stockcostprice       =  round((stockcostvalue/qty)*10000)/10000>	
-					
+					<cfset stockcostvalue       =  round((documentcostvalue/exc)*100)/100>																				
+					<cfset stockcostprice       =  round((stockcostvalue/qty)*10000)/10000>						
 					<cfset stockpricevalue      =  round((documentpricevalue/exc)*100)/100>
 					<cfset stockprice           =  round((stockpricevalue/qty)*10000)/10000>	
 					
 					<cfset diffstock            =  round((diff/exc)*100)/100>																		
 				
 				<cfelse>
-				
+								
 					<!--- production passing --->				
 				
-				</cfif>							
+				</cfif>		
+					
 								
 				<cfquery name="resetReceiptLine" 
 				   datasource="AppsMaterials" 
 				   username="#SESSION.login#" 
-				   password="#SESSION.dbpw#">
+				   password="#SESSION.dbpw#">				  
 					   UPDATE Materials.dbo.ItemTransaction
 					   SET    TransactionQuantity       =  '#qty#', 
 					   		  TransactionCostPrice      =  '#stockcostprice#', 
 					          TransactionValue          =  '#stockcostvalue#',
 							  ReceiptCostPrice          =  '#receiptCostPrice#', <!--- currency of the receipt --->
 							  ReceiptPrice              =  '#receiptPrice#'							 
-					   WHERE  TransactionId             =  '#transactionid#'		  	   
+					   WHERE  TransactionId             =  '#transactionid#'		 
 				</cfquery>		
 							
 				<!--- correct the posting header --->

@@ -52,7 +52,7 @@
 	
 	  // set the screen form values
 	  $('##customeridselect').val('#URL.CustomerId#');	
-	  $('##customerselect').val('#customer.reference#');
+	  $('##customerselect').val('#customer.CustomerSerialNo#');
 	  
 	  <cfif vTransactionDate neq "">
 	  	$('##transaction_date').val('#vTransactionDate#');

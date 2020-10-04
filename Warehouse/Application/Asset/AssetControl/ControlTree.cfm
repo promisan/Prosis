@@ -19,38 +19,39 @@
 	
 	<tr>
 	<td class="labelmedium" style="height:20;padding-left:10px">
-	<img style="width: 18px;position: relative;top: 5px;" src="#SESSION.root#/images/Edit.png" alt="" border="0">
-	<a href="javascript:newreceipt()"><font color="0080C0"><cf_tl id="Register New Asset"></font></a>
+	<table><tr class="labelmedium"><td>
+	<img style="width: 18px;" src="#SESSION.root#/images/Edit.png" alt="" border="0">
 	</td>
-	<td align="right">
-		<img src="#client.virtualdir#/images/Refresh-Orng.png" alt="tree refresh" border="0" onclick="javascript:tree_refresh()" style="cursor:pointer;width: 28px;padding: 4px 6px 0 0;">&nbsp;&nbsp;
+	<td class="labelmedium" style="padding-top:2px;font-size:16px;padding-left:10px">
+	<a href="javascript:newreceipt()"><cf_tl id="Register New Asset"></a>
+	</td></tr></table>
 	</td>
-	</tr>
-	<tr>
-        <td>
-        </td>
-    </tr>
+	<td align="right" style="padding-right:10px">
+		<img src="#client.virtualdir#/images/Refresh-Orng.png" alt="tree refresh" border="0" onclick="javascript:tree_refresh()"
+		 style="cursor:pointer;width: 20px;padding: 4px 6px 0 0;">
+	</td>
+	</tr>	
     <tr>
 	<td class="labelmedium" style="height:20;padding-left:10px">
-	<img style="width: 18px;position: relative;top: 5px;" src="#SESSION.root#/images/Edit.png" alt="" border="0">
-	<a href="javascript:depreciation()"><font color="0080C0"><cf_tl id="Depreciation"></font></a>
+	<table><tr class="labelmedium"><td>
+	<img style="width: 18px;" src="#SESSION.root#/images/Edit.png" alt="" border="0">
+	</td>
+	<td class="labelmedium" style="padding-top:2px;font-size:16px;padding-left:10px">
+	<a href="javascript:depreciation()"><cf_tl id="Depreciation"></a>
+	</td></tr></table>
 	</td>
 	
 	<td></td>
 	
 	</tr>
-    <tr>
-        <td height="20">
-        </td>
-    </tr>
-	
+    	
 	<tr><td colspan="2" class="linedotted"></td></tr>
 
 </cfif>
 
 </cfoutput>
 
-<tr><td valign="top" colspan="2" style="padding-top:6px;padding-left:5px">
+<tr><td valign="top" colspan="2" style="padding-top:6px;padding-left:8px">
 
 <cfinclude template = "TreePreparation.cfm">	
 

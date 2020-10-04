@@ -84,10 +84,11 @@
 	<cfif URL.fnd neq "">
 	
 		<!--- sync this search with the other receipt search --->
-		AND 	(ItemNo LIKE '%#URL.fnd#%' 
-			    	 OR ItemBarCode LIKE '%#URL.fnd#%' 
+		AND 	(ItemNo                 LIKE '%#URL.fnd#%' 
+			    	 OR ItemBarCode     LIKE '%#URL.fnd#%' 
+					 OR ItemNoExternal  LIKE '%#URL.fnd#%' 
 					 OR ItemDescription LIKE '%#URL.fnd#%'
-					 OR TransactionLot LIKE '%#URL.fnd#%'
+					 OR TransactionLot  LIKE '%#URL.fnd#%'
 					 OR TransactionReference LIKE '%#URL.fnd#%')					 
 				  
 	</cfif> 

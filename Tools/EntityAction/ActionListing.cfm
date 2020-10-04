@@ -482,7 +482,8 @@
 <cfif Attributes.Show eq "Yes"> 
 	
 	<cfif entity.showhistory gte "1">
-								
+							
+				
 		<!--- Prior workflow --->
 		
 		<cfquery name="Object" 
@@ -493,10 +494,11 @@
 			 FROM       Organization.dbo.OrganizationObject O
 			 WHERE      Operational = 0
 			            #preserveSingleQuotes(condition)#
+			 AND        EXISTS (SELECT 'X' FROM organizationObjectAction WHERE ObjectId = O.ObjectId AND ActionStatus <> '0')			
 			 ORDER BY   Created DESC	
 			 
 		</cfquery>
-					
+								
 		<cfoutput query="Object">
 						
 			<cfset ObjectId = "#Object.ObjectId#">		

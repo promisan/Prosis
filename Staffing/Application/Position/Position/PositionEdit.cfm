@@ -1660,7 +1660,7 @@ password="#SESSION.dbpw#">
 		<cfif (Position.PositionStatus eq "0" AND AccessPosition eq "EDIT")	OR (AccessPosition eq "ALL")>
 		
 			<td class="labelmedium">
-		    <INPUT type="radio" class="radiol" name="Classified" value="0" <cfif PositionParent.ApprovalPostGrade eq "">checked</cfif>  onclick="measuresource('hide')"> <cf_tl id="Unclassified">
+		    <INPUT type="radio" class="radiol" name="Classified" value="0" <cfif PositionParent.ApprovalPostGrade eq "">checked</cfif>  onclick="measuresource('hide')"> <cf_tl id="Non classified">
 			</td>
 			<td class="labelmedium" style="padding-left:15px">
 			<INPUT type="radio" class="radiol" name="Classified" value="1" <cfif PositionParent.ApprovalPostGrade neq "">checked</cfif> onclick="measuresource('regular')"> <cf_tl id="Classified">
@@ -1703,7 +1703,7 @@ password="#SESSION.dbpw#">
 				
 				<td class="labelmedium">
 				<cfoutput>
-				<cfif PositionParent.ApprovalPostGrade eq ""><cf_tl id="Unclassified"><cfelse>#PositionParent.ApprovalPostGrade#</cfif>
+				<cfif PositionParent.ApprovalPostGrade eq ""><cf_tl id="Non classified"><cfelse>#PositionParent.ApprovalPostGrade#</cfif>
 				<input type="hidden" name="approvalpostgrade" value="#PositionParent.ApprovalPostGrade#">
 				</cfoutput>
 				</td>

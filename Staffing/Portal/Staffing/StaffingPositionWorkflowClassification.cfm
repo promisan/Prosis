@@ -10,6 +10,16 @@ password="#SESSION.dbpw#">
 	 WHERE PositionParentId = '#positionparentid#'	 
 </cfquery>
 
+<cfquery name="Position" 
+datasource="AppsEmployee" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	 SELECT *
+	 FROM  Position		 
+	 WHERE PositionParentId = '#positionparentid#'	 
+	 ORDER BY DateEffective DESC
+</cfquery>
+
 <!--- check if we have an active workflow or not --->
 
 <cfset showflow = "0">
@@ -24,9 +34,15 @@ password="#SESSION.dbpw#">
 	
 </cfif>	
 
+<cfif Parent.SourcePostNumber eq "">
+	<cfset ref = "Classification #Parent.SourcePostNumber#">
+<cfelse>
+	<cfset ref = "Classification #Parent.PositionParentId#">
+</cfif>
+
 <cfif showFlow eq "1">
 	
-	<cfset link = "Staffing/Application/Position/PositionParent/ParentClassificationWorkflow.cfm?id2=#positionparentid#">			
+	<cfset link = "Staffing/Application/Position/PositionParent/PositionView.cfm?id2=#Position.PositionNo#">			
 			
 	<cf_ActionListing 
 	    EntityCode        = "PostClassification"
@@ -35,7 +51,8 @@ password="#SESSION.dbpw#">
 		EntityStatus      = ""
 		tablewidth        = "100%"
 		Mission           = "#Parent.mission#"	
-		ObjectReference   = "Classification"
+		OrgUnit           = "#Parent.OrgUnitOperational#"
+		ObjectReference   = "#ref#"
 		ObjectReference2  = "#Parent.PostGrade#" 	
 	    ObjectKey1        = "#Parent.PositionParentId#"	
 		AjaxId            = "#URL.ajaxId#"

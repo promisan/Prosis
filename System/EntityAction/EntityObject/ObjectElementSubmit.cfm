@@ -346,7 +346,6 @@
 		  WHERE  DocumentId = '#URL.DocumentId#'
 		</cfquery>			
 		
-		
 		<cf_LanguageInput
 						TableCode       = "Ref_EntityDocument" 
 						Mode            = "Save"

@@ -54,7 +54,7 @@
 	   <cf_UItreeitem value="#cont#"
 			        display="<span style='font-size:15px;' class='labelit'>#Cont#</span>"		
 					href="ResultListing.cfm?ID=CON&ID1=#URL.ID1#&ID2=#Cont#&ID3=COU" target="right"													
-					parent="region" expand="Yes">	
+					parent="region" expand="No">	
 										   
 		 <cfquery name="Country" 
 			datasource="AppsEmployee" 
@@ -71,7 +71,7 @@
 		<cfloop query="Country">
 		
 		      <cf_UItreeitem value="#code#"
-			        display="<span style='font-size:14px;height:25px' class='labelit'>#Name#</span>"		
+			        display="<span style='font-size:13px' class='labelit'>#Name#</span>"		
 					href="ResultListing.cfm?ID=COU&ID1=#URL.ID1#&ID2=#Code#&ID3=NONE" target="right"													
 					parent="#cont#" expand="Yes">	
 	
@@ -79,7 +79,6 @@
 		
 		
   </cfloop>
-  
-    
+      
 </cf_UItree>	  
   

@@ -1,5 +1,5 @@
 
-<!--- apply to roster all candidates that were shortlisted 2s  --->
+<!--- apply to roster all candidates that were recommended 2 but not selected 2s  --->
 
 <cfquery name="Document" 
 datasource="AppsOrganization" 

@@ -1,7 +1,5 @@
 
-<cf_sleep>
 <link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
-<cf_wait text="please wait, while preparing the attachment">
 
 <cfparam name="URL.DocId" default="">
 
@@ -229,18 +227,18 @@
 	   output="#mailfile#" 
 	   addnewline="Yes" 
 	   fixnewline="No">
-	
-	
+		
 	</cfif>	
 
 </cfoutput>
 
+<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+<cfset mid = oSecurity.gethash()/>   
+
 <cfoutput>
 
-	<cf_waitEnd>
-
 	<script language="JavaScript">
-			window.location = "#SESSION.root#/Tools/Mail/Mail.cfm?ID1=#ActionFlow.ActionDescription#&ID2=#attach#&Source=Action&Sourceid=#URL.ID#&Mode=Dialog&GUI=HTML"
+			window.location = "#SESSION.root#/Tools/Mail/Mail.cfm?ID1=#ActionFlow.ActionDescription#&ID2=#attach#&Source=Action&Sourceid=#URL.ID#&Mode=Dialog&GUI=HTML&mid=#mid#"
 	</script>
 
 </cfoutput>

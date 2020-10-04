@@ -1,12 +1,23 @@
 <cfparam name="url.action" default="">
 <cfparam name="url.mode"  default="view">
 
+<cfquery name="Event" 
+	datasource="AppsEmployee" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT *
+		FROM   Ref_PersonEvent
+		WHERE  Code    = '#URL.event#'		
+</cfquery>		
+
 <cfquery name="qEvents" 
 	 datasource="AppsEmployee" 
 	 username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">
 		SELECT *
-		FROM   Ref_PersonEventMission				
+		FROM   Ref_PersonEventMission	
+		WHERE  	PersonEvent	= '#URL.event#'	
+		AND		Mission = '#url.mission#'						
 </cfquery>
 
  <cfquery name="OnBoard" 
@@ -33,35 +44,41 @@
 <table align="center" style="height:100%;width:99%" border="0">
 
 	<tr>
-	<td style="height:60px">
+	<td>
 		<table width="100%">
 			<tr>
 			
-			<td style="padding-left:10px;width:66px">
-			<img src="../../../../Images/Logos/Staffing/action.png" height="62" alt="" border="0">			
-			</td>
-				    <td style="padding-left:6px;padding-right:10px;padding-top:10px;font-size:34px" class="labellarge" colspan="2">						
-							<cf_tl id="Document Self service">						
-					</td>
+			    <td colspan="2" style="padding-left:6px;padding-right:10px;padding-top:10px;font-size:34px" class="labellarge" colspan="2">						
+					<cf_tl id="#Event.Description#">						
+				</td>
+				
+				<td align="right" style="padding-top:26px;padding-right:10px">
+				    <!---
+					<cfif qEvents.recordcount gt 0 and OnBoard.recordcount gt 0>
+					--->
+					<cfif qEvents.recordcount gt 0>
 					
-					<td align="right" style="padding-top:26px;padding-right:10px">
-					    <!---
-						<cfif qEvents.recordcount gt 0 and OnBoard.recordcount gt 0>
-						--->
-						<cfif qEvents.recordcount gt 0>
+						  <cf_tl id="New Request" var="1">		   
+						  <cfoutput>
+					    	<input type="button" 
+								value="#lt_text#" 
+								class="button10g" 
+								style="width:190;height:25px" 
+								onclick="javascript:eventportaladd('#URL.id#','portal','#url.mission#', '#url.trigger#', '#url.event#', '');">
+						</cfoutput>
 						
-							  <cf_tl id="New Request" var="1">		   
-							  <cfoutput>
-						    	<input type="button" 
-									value="#lt_text#" 
-									class="button10g" 
-									style="width:190;height:25px" 
-									onclick="javascript:eventadd('#URL.id#','portal');">
-							</cfoutput>
-							
-						</cfif>
-					</td>
+					</cfif>
+				</td>
 			</tr>
+			
+			<tr>
+			<td colspan="3">
+			<cfoutput>
+					#qevents.Instruction#				
+			</cfoutput>			
+			</td>
+			</tr>
+						
 		</table>
 	</td>
 	</tr>
@@ -75,13 +92,16 @@
 		<TR class="line labelmedium fixrow">
 			<td></td>
 			<td></td>
+			<!---
   		    <td><cf_tl id="Entity"></td>  		     
+			--->
 		    <td><cf_tl id="Group">|<cf_tl id="Request"></td> 
-			<td><cf_tl id="Process"></td>  
+			
 			<td><cf_tl id="Effective"></td>  			
 			<td><cf_tl id="Expiration"></td>
 			<td><cf_tl id="Requested"></td>
-			<td width="5%"></td>			
+			<td width="5%"></td>	
+			<td><cf_tl id="Process"></td>  		
 		</TR>
 		
 		<!--- define mission --->
@@ -97,6 +117,9 @@
 					FROM   PersonEvent PE
 					WHERE  PersonNo = '#url.id#'
 					AND    RM.Mission = PE.Mission )
+			<cfif trim(url.mission) neq "">
+			AND 	Mission = '#url.mission#'
+			</cfif>
 		</cfquery>
 		
 		<cfoutput query="Mis">
@@ -160,6 +183,12 @@
 					AND    PE.Personno = '#URL.ID#'
 					<!--- only his/her own --->
 					AND    PE.OfficerUserId = '#session.acc#'
+					<cfif trim(url.trigger) neq "">
+					AND 	ET.Code = '#url.trigger#'
+					</cfif>
+					<cfif trim(url.event) neq "">
+					AND 	PE.EventCode = '#url.event#'
+					</cfif>
 				    ORDER BY PE.Created DESC		
 				    	
 				</cfquery>
@@ -184,7 +213,7 @@
 										
 										<cf_img icon="open" 
 				   							navigation="Yes" 
-				   							onClick="eventedit('#eventid#','portal')">
+				   							onClick="eventportaledit('#eventid#','portal','#url.mission#', '#url.trigger#', '#url.event#', '');">
 											
 										<cfelse>
 										
@@ -213,7 +242,9 @@
 													   
 							   </td>
 							   
+							   <!---
 							   <td>#Mission#</td>						   
+							   --->
 							   
 				               <TD width="50%" colspan="1">
 				               		<font color="808080">#TriggerDescription#:&nbsp;</font>#EventDescription#
@@ -224,27 +255,10 @@
 									<a href="javascript:showdocument('#documentno#')">(#DocumentNo#)</a></font>
 									</cfif>
 				               	</TD>
-								
-								<td style="min-width:100px;padding-right:10px">						   
-							   
-								   <cfif EntityClass neq "">
-							
-										<input type	= "hidden" 
-										   	name 	= "workflowlink_#eventid#" 
-										   	id   	= "workflowlink_#eventid#"
-										   	value	= "#client.root#/Staffing/Application/Employee/Events/SelfserviceWorkflow.cfm">	
-																									   
-										<cf_securediv id="#eventid#" bind="url:#client.root#/Staffing/Application/Employee/Events/SelfserviceWorkflow.cfm?ajaxid=#eventid#">       															
 														
-				
-									<cfelse>
-														
-									</cfif>				 						   
-								   
-							   </td>
 							   
-							   <td></td>
-							   <td></td>
+							   <td>#dateformat(ActionDateEffective,client.dateformatshow)#</td>
+							   <td><cfif ActionDateExpiration gte ActionDateEffective>#dateformat(ActionDateExpiration,client.dateformatshow)#</cfif></td>
 							   
 								<td>#dateformat(created,client.dateformatshow)# #timeformat(created,"HH:MM")#<!--- officerLastName#---> </td>		               	
 								<td width="5%">
@@ -263,7 +277,7 @@
 												
 									   				<td style="padding-left:5px">
 									   					<cf_img icon="delete" 					   						
-									   						onClick="javascript:eventdelete('#eventid#','portal')">
+									   						onClick="javascript:eventportaldelete('#eventid#','portal','#url.mission#', '#url.trigger#', '#url.event#', '');">
 									   				</td>
 													
 									   			</cfif>
@@ -274,6 +288,23 @@
 									</cfif>
 				
 								</td>	
+								
+								 <td style="min-width:100px;padding-right:10px">						   
+							   
+								   <cfif EntityClass neq "">
+							
+										<input type	= "hidden" 
+										   	name 	= "workflowlink_#eventid#" 
+										   	id   	= "workflowlink_#eventid#"
+										   	value	= "#client.root#/Staffing/Application/Employee/Events/SelfserviceWorkflow.cfm">	
+																									   
+										<cf_securediv id="#eventid#" bind="url:#client.root#/Staffing/Portal/Events/EventBaseDialogWorkflow.cfm?ajaxid=#eventid#">       															
+														
+									<cfelse>
+														
+									</cfif>				 						   
+								   
+							   </td>
 			
 						</TR>		
 					
@@ -322,35 +353,7 @@
 					</tr>
 					
 					</cfif>
-					
-					<!---
-										
-					<cfif ActionStatus eq "0" and EntityClass neq "">
-					
-						<input type	= "hidden" 
-						   	name 	= "workflowlink_#eventid#" 
-						   	id   	= "workflowlink_#eventid#"
-						   	value	= "#client.root#/Staffing/Application/Employee/Events/EventWorkflow.cfm">	
-						
-						<tr id="box_#eventid#">
-						    <td></td>
-							<td colspan="9">								   
-								<cfdiv id="#eventid#" bind="url:#client.root#/Staffing/Application/Employee/Events/EventWorkflow.cfm?ajaxid=#eventid#"/>       															
-							</td>
-						</tr>				
-		
-					<cfelse>
-		
-						<tr id="box_#eventid#" class="hide"> 
-						    <td>
-							<td colspan="9" id="#eventid#"></td>	
-						</tr>
-		
-					</cfif>
-					
-					<tr style="height:1px"><td colspan="10" class="line"></tr>
-					
-					--->
+									
 							
 					</cfloop>		
 				

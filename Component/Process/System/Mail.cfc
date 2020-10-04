@@ -124,6 +124,35 @@
 				</cfquery>
 				
 			<cfset content = replaceNoCase( "#content#", "@functionid","#Function.ReferenceNo#","ALL")>
+			
+			<!--- --- title ---- --->
+			
+			<cfquery name="Title" 
+				datasource="appsOrganization" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					SELECT    *
+					FROM      Applicant.dbo.FunctionTitle
+					WHERE     FunctionNo ='#Function.FunctionNo#' 					
+			</cfquery>
+			
+			<cfset content = replaceNoCase( "#content#", "@functiontitle","#Title.FunctionDescription#","ALL")>
+			
+			<!--- extended title --->
+			
+			<cfquery name="Title" 
+				datasource="appsOrganization" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					SELECT    TOP (1) QuestionScore, QuestionMemo
+					FROM      OrganizationObjectQuestion
+					WHERE     QuestionId = 'c98830f3-5474-4f31-a603-9b5fc5df016f' 
+					AND       ObjectId = '#ObjectId#'
+					ORDER BY  Created DESC
+			</cfquery>
+			
+			<cfset content = replaceNoCase( "#content#", "@functionextended","#Title.QuestionMemo#","ALL")>
+						
 				
 		</cfif>
 		

@@ -98,7 +98,6 @@
 
 <cfinclude template="ProcessActionScript.cfm">	
 
-
 <cfif action.processmode eq "1">
 
 	<cf_screentop scroll="yes"	   	    
@@ -112,9 +111,11 @@
 	   jquery="Yes"	   
 	   label="#Object.ObjectReference#: #Action.ActionDescription#">
 	   
-    	<cf_divscroll>	
+    <cf_divscroll>	
 		<cfinclude template="ProcessAction8Content.cfm">		
-		</cf_divscroll>
+	</cf_divscroll>
+		
+	<cfset AjaxOnLoad("function(){window.parent.ProsisUI.setWindowTitle('#Action.ActionDescription# #Action.ActionReference# [#Action.ActionCode#]','','gray');}")>		
 	
 <cfelseif action.processmode eq "4">
 
@@ -210,4 +211,5 @@
 		</cf_divscroll>
 		
 </cfif>		
+
 

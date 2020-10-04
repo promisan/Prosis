@@ -408,7 +408,7 @@ password="#SESSION.dbpw#">
    	   
 	   <cfif url.mode neq "direct">
 		   <cfif WarehouseItemNo neq "">	
-		   <a title="View Item" href="javascript:item('#WarehouseItemNo#','#POInfo.mission#','#url.systemfunctionid#')">#WarehouseItemNo#</a>
+		   <a title="View Item" href="javascript:item('#WarehouseItemNo#','#url.systemfunctionid#','#POInfo.mission#')">#WarehouseItemNo#</a>
 		   <cfelse>
 		   #ReceiptItemNo#
 		   </cfif>

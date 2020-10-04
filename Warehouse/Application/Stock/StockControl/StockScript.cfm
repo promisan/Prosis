@@ -115,7 +115,8 @@
 // added to show it in a full view 
 
 function setCursor(){
-	$('input[name=TransactionQuantity_1]').focus();	
+	// $('input[name=TransactionQuantity_1]').focus();	
+	$('input[name=ItemSelect]').focus();	
 }
 
 function printSale(cus,whs,bat,ter) {	

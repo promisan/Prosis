@@ -2,12 +2,11 @@
 
 <cfoutput>
 <script>
-	function saveList(id,id2)
-	{
-	    document.getElementById('formlist').onsubmit()
-				
+	function saveList(id,id2) {
+	    document.getElementById('formlist').onsubmit()				
 		if (_CF_error_messages.length == 0) {
-			ColdFusion.navigate('../../EntityObject/ElementList/ObjectListSubmit.cfm?DocumentId=' + id + '&id2=' + id2, 'lresult', '', '', 'POST', 'formlist')
+			_cf_loadingtexthtml='';	
+			ptoken.navigate('../../EntityObject/ElementList/ObjectListSubmit.cfm?DocumentId=' + id + '&id2=' + id2, 'lresult', '', '', 'POST', 'formlist')
 		}	
 	}	
 </script>
@@ -81,7 +80,7 @@ password="#SESSION.dbpw#">
 											
 			    <input type="hidden" name="DocumentItem" id="DocumentItem" value="<cfoutput>#nm#</cfoutput>">
 													
-				<TR style="height:35;padding-left:4px" class="labelmedium line navigation_row">
+				<TR style="height:30px;padding-left:4px" class="labelmedium line navigation_row">
 				   <td style="padding-left:4px">#nm#</td>
 				   <td>
 				   	   <cfinput type="Text" 
@@ -89,7 +88,8 @@ password="#SESSION.dbpw#">
 						name="DocumentItemName" 
 						message="You must enter a description" 
 						required="Yes" 
-						size="50" 
+						size="80" 
+						style="width:99%"
 						maxlength="80" 
 						class="regularxl">
 				  
@@ -123,7 +123,9 @@ password="#SESSION.dbpw#">
 						class	= "button10g" 
 						style	= "width:50;height:25px">
 					</td>
-			    </TR>				
+			    </TR>	
+				
+				<cfset cnt = cnt + 30>			
 															
 			<cfelse>
 							
@@ -152,27 +154,19 @@ password="#SESSION.dbpw#">
 				   <td>#de#</td>
 				   <td style="text-align:center">#ls#</td>
 				   <td align="center"><cfif op eq "0"><b>No</b><cfelse>Yes</cfif></td>
-				   <td align="right" width="20">
-				      					   				       
-				       <a href="#ajaxLink('../../EntityObject/ElementList/ObjectList.cfm?DocumentId=#URL.DocumentId#&ID2=#nm#')#">
-						   <img src="#SESSION.root#/Images/edit.gif" height="11" width="11" alt="edit" border="0" align="absmiddle">
-					   </a>
-					   
+				   <td align="right" width="20" style="padding-top:2px">				   
+				      	<cf_img icon="edit" onclick="javascript:_cf_loadingtexthtml='';ptoken.location('../../EntityObject/ElementList/ObjectList.cfm?DocumentId=#URL.DocumentId#&ID2=#nm#')">				   					   
 				   </td>
-				   <td style="padding-left:5px;padding-top:3px">
-				       <cfif Field.recordcount eq "0" and Mail.recordcount eq "0">
-					      						   
-				 	       <a href="#ajaxLink('../../EntityObject/ElementList/ObjectListPurge.cfm?DocumentId=#URL.DocumentId#&ID2=#nm#')#">
-						   <img src="#SESSION.root#/Images/delete5.gif" height="13" width="13" alt="delete" border="0" align="absmiddle">
-						   </a>
-						   
+				   <td style="padding-left:1px;padding-top:3px">
+				       <cfif Field.recordcount eq "0" and Mail.recordcount eq "0">					      		
+							<cf_img icon="delete" onclick="javascript:_cf_loadingtexthtml='';ptoken.location('../../EntityObject/ElementList/ObjectListPurge.cfm?DocumentId=#URL.DocumentId#&ID2=#nm#')">					   
 					   </cfif>
 				    </td>
 				 </TR>	
 										
 			</cfif>
 			
-			<cfset cnt = cnt + 20>	
+			<cfset cnt = cnt + 26>	
 						
 		</cfloop>
 		</cfoutput>
@@ -180,7 +174,7 @@ password="#SESSION.dbpw#">
 		<cfif URL.ID2 eq "new">		
 					
 			<TR>
-			<td height="35">
+			<td height="30">
 				    <cfinput type="Text" 
 				         value="" 
 						 name="DocumentItem" 
@@ -196,7 +190,8 @@ password="#SESSION.dbpw#">
 				         name="DocumentItemName" 
 						 message="You must enter a name" 
 						 required="Yes" 
-						 size="50" 
+						 size="80" 
+						 style="width:99%"
 						 maxlength="80" 
 						 class="regularxl">
 				</td>								 
@@ -243,7 +238,7 @@ password="#SESSION.dbpw#">
 <script language="JavaScript">
 	
 	frm  = parent.document.getElementById("frm_#URL.documentid#");
-	he = 25+#list.recordcount*25#+#cnt#;
+	he = #cnt+25#;
 	frm.height = he
 	
 </script>

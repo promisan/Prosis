@@ -40,7 +40,7 @@ password="#SESSION.dbpw#">
 		   height="13" 
 		   border="0" 
 		   style="cursor: pointer;" 
-		   onClick="ColdFusion.navigate('#SESSION.root#/tools/entityAction/ProcessActionAccessFavorite.cfm?ObjectId=#url.ObjectId#&ActionCode=#url.ActionCode#&action=grant&account=#url.Account#&accesslevel=#url.accesslevel#','b#account#_favorite')">
+		   onClick="ptoken.navigate('#SESSION.root#/tools/entityAction/ProcessActionAccessFavorite.cfm?ObjectId=#url.ObjectId#&ActionCode=#url.ActionCode#&action=grant&account=#url.Account#&accesslevel=#url.accesslevel#','b#account#_favorite')">
 						
 
 <cfelseif url.action eq "grant"> 
@@ -89,7 +89,7 @@ password="#SESSION.dbpw#">
 		   height="13" 
 		   border="0" 
 		   style="cursor: pointer;" 
-		   onClick="ColdFusion.navigate('#SESSION.root#/tools/entityAction/ProcessActionAccessFavorite.cfm?ObjectId=#url.ObjectId#&ActionCode=#url.ActionCode#&action=reset&account=#url.Account#&accesslevel=#url.accesslevel#','b#account#_favorite')">
+		   onClick="ptoken.navigate('#SESSION.root#/tools/entityAction/ProcessActionAccessFavorite.cfm?ObjectId=#url.ObjectId#&ActionCode=#url.ActionCode#&action=reset&account=#url.Account#&accesslevel=#url.accesslevel#','b#account#_favorite')">
 		   
 	</cfif>   
 	

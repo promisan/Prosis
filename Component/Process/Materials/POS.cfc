@@ -509,7 +509,7 @@
 				datasource="AppsMaterials" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">		
-																									
+																					
 					UPDATE   CustomerRequestLine 	
 					SET      SalesPrice      = SchedulePrice * ((100 - salesDiscount)/100), 					 
 					         SalesAmount     = SchedulePrice * ((100 - salesDiscount)/100) * TransactionQuantity * (1-taxpercentage/1),				 		
@@ -1991,8 +1991,7 @@
 								TransactionBatchNo    = "#batchno#"		
 								PersonNo              = "#PersonNo#"														
 								SalesPersonNo         = "#SalesPersonNo#"
-								SalesCurrency         = "#salesCurrency#"	
-								PriceSchedule         = "#PriceSchedule#"	
+								SalesCurrency         = "#salesCurrency#"		
 								SchedulePrice         = "#SchedulePrice#"	
 								SalesUoM              = "#TransactionUoM#"       <!--- as recorded in the sale POS --->	 
 								SalesQuantity         = "#transactionQuantity#"  <!--- as recorded in the sale POS --->								
@@ -2118,8 +2117,7 @@
 										TransactionBatchNo    = "#batchno#"		
 										PersonNo              = "#PersonNo#"														
 										SalesPersonNo         = "#SalesPersonNo#"
-										SalesCurrency         = "#salesCurrency#"	
-										PriceSchedule         = "#PriceSchedule#"		
+										SalesCurrency         = "#salesCurrency#"		
 										SchedulePrice         = "#SchedulePrice#"	
 										SalesUoM              = "#TransactionUoM#"
 										SalesQuantity         = "#salequantity#"
@@ -2261,7 +2259,22 @@
 					<cfset TransactionPeriod = "#year(dte)##month(dte)#">
 				<cfelse>
 					<cfset TransactionPeriod = "#year(dte)#0#month(dte)#">
-				</cfif>					
+				</cfif>		
+				
+				<cfquery name="getStoreUnit" 
+					datasource="AppsMaterials" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">				
+						SELECT   OrgUnit 
+						FROM     Organization.dbo.Organization
+						WHERE    MissionOrgUnitId IN (SELECT MissionOrgUnitId 
+						                              FROM   Warehouse 
+													  WHERE  Warehouse = '#warehouse#')
+						AND      DateEffective <= '#dateformat(TraDate,CLIENT.DateSQL)#'  
+						ORDER BY DateEffective
+				</cfquery>		
+				
+				<!--- ReferenceOrgUnit      = "#Customer.OrgUnit#"	removed as we have already the id, instead the warehouse --->
 						
 				<cf_GledgerEntryHeader
 					    DataSource            = "AppsMaterials"
@@ -2279,11 +2292,11 @@
 						MatchingRequired      = "1"
 						ActionStatus          = "1"
 						workflow              = "#workflow#"
-						Reference             = "Receivables"       
+						Reference             = "Receivables"   
+						ReferenceOrgUnit      = "#getStoreUnit.OrgUnit#"    
 						ReferenceName         = "#Customer.CustomerName#"
 						ReferenceId           = "#CustomerId#"
-						ReferenceNo           = ""
-						ReferenceOrgUnit      = "#Customer.OrgUnit#"
+						ReferenceNo           = ""						
 						ReferencePersonNo     = "#getLines.SalesPersonNo#"
 						DocumentCurrency      = "#Currency#"					
 						DocumentAmount        = "#tot#"
@@ -3375,10 +3388,7 @@
 				           ,SalesTax
 				           ,OrgUnit
 				           ,OrgUnitCode
-				           ,OrgUnitName
-						   ,OfficerUserId
-						   ,OfficerLastName
-						   ,OfficerFirstName )
+				           ,OrgUnitName )
 							   
 				   SELECT    NEWID() AS TransactionId, 
 				             '#RequestNo#',
@@ -3400,20 +3410,13 @@
 							  '#getBatch.CustomerIdInvoice#',
 						     </cfif>								   
 							 IT.ProgramCode, 
-							 ITS.PriceSchedule, 
-							 ITS.SalesCurrency, 
-							 ITS.SchedulePrice, 
-							 ITS.SalesPrice, 
-							 ITS.SalesPersonNo, 
-                             ITS.TaxCode, 
-							 ITS.TaxPercentage, 
-							 ITS.TaxExemption, 
-							 ITS.TaxIncluded, 
+							 ITS.PriceSchedule, ITS.SalesCurrency, ITS.SchedulePrice, ITS.SalesPrice, ITS.SalesPersonNo, 
+                                ITS.TaxCode, ITS.TaxPercentage, ITS.TaxExemption, ITS.TaxIncluded, 
 							 <!--- aggregate by removing the location of the transaction --->
 							 SUM(ITS.SalesAmount)/SUM(ITS.SalesQuantity) AS SalesUnitPrice,
 							 SUM(ITS.SalesAmount) AS SalesAmount, 
-							 SUM(ITS.SalesTax)    AS SalesTax, 
-							 IT.OrgUnit, IT.OrgUnitCode, IT.OrgUnitName,'#session.acc#','#session.last#','#session.first#'
+							 SUM(ITS.SalesTax) AS SalesTax, 
+							 IT.OrgUnit, IT.OrgUnitCode, IT.OrgUnitName
 							  
 					FROM     Materials.dbo.ItemTransaction IT 
 					         INNER JOIN Materials.dbo.ItemTransactionShipping ITS ON IT.TransactionId = ITS.TransactionId
@@ -3442,7 +3445,7 @@
 					</cfif>	
 				 </cfquery>							 
 				 
-				  <cfquery name="insertBatch"
+				 <cfquery name="insertBatch"
 					datasource="AppsTransaction" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">			 
@@ -3683,7 +3686,6 @@
 											   BatchId			= "#BatchId#"
 											   returnvariable	= "stResponse">
 
-
 										<cfif stResponse.Status neq "OK">
 											<cftransaction action="rollback"/>
 											<cfoutput>
@@ -3693,7 +3695,11 @@
 											</cfoutput>
 										</cfif>
 
-									</cfif>			
+
+
+									</cfif>
+
+
 
 								</cfif>
 						</cfif>

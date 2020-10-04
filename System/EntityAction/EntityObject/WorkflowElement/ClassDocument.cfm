@@ -263,6 +263,8 @@
 				   
 				   <cfelse>
 				   
+				   	   <cfif documenttype neq "attach">
+				   
 					   <select name="objectfilter#currentrow#" 		
 					   		   id="objectfilter#currentrow#" 
 							   class="regularxl"	
@@ -274,6 +276,23 @@
 					  		<option value="#ObjectFilter#" <cfif fil eq Objectfilter>selected</cfif>>#Objectfilter#</option>		   
 					   	</cfloop>
 						</select>
+						
+						<cfelse>
+						
+						 <select name="objectfilter#currentrow#" 		
+					   		   id="objectfilter#currentrow#" 
+							   class="regularxl"	
+							   style="border:0px;border-left:1px solid silver; border-right:1px solid silver"			 						  					   
+							   onchange="ptoken.navigate('#SESSION.root#/System/EntityAction/EntityObject/WorkflowElement/ClassDocumentSubmit.cfm?EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&entitycode=#URL.EntityCode#&actionCode=#URL.ActionCode#&ID2=#documentid#&fil='+this.value+'&lo='+document.getElementById('listingorder#currentrow#').value+'&op='+document.getElementById('operational#currentrow#').checked,'savedoc')">
+							   
+					       <option value="Insert">Insert</option>
+						   <option value="Inquiry" <cfif fil eq "Inquiry">selected</cfif>>Inquiry</option>
+					  	
+						  </select>
+						
+						
+						</cfif>
+						
 					
 				   </cfif>	
 				   

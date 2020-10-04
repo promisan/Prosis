@@ -8,11 +8,27 @@ password="#SESSION.dbpw#">
 	 WHERE PositionParentId = '#URL.ajaxid#'	 
 </cfquery>
 
-<cfset link = "Staffing/Application/Position/PositionParent/ParentClassificationWorkflow.cfm?id2=#url.ajaxid#">			
+<cfquery name="Position" 
+datasource="AppsEmployee" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	 SELECT *
+	 FROM  Position		 
+	 WHERE PositionParentId = '#URL.ajaxid#'	 
+	 ORDER BY DateEffective DESC
+</cfquery>
+
+<cfset link = "Staffing/Application/Position/PositionParent/PositionView.cfm?id2=#Position.PositionNo#">			
 
 <!--- prepare for a new workflow --->
 
 <cfparam name="url.class"  default="normal">
+
+<cfif Parent.SourcePostNumber eq "">
+	<cfset ref = "Classification #Parent.SourcePostNumber#">
+<cfelse>
+	<cfset ref = "Classification #Parent.PositionParentId#">
+</cfif>
 
 <cfif url.class eq "normal">
 
@@ -23,7 +39,8 @@ password="#SESSION.dbpw#">
 		EntityStatus     = ""
 		tablewidth       = "99%"
 		Mission          = "#Parent.mission#"	
-		ObjectReference  = "Classification"
+		OrgUnit          = "#Parent.OrgUnitOperational#"
+		ObjectReference  = "#ref#"
 		ObjectReference2 = "#Parent.PostGrade#" 	
 	    ObjectKey1       = "#url.ajaxid#"	
 		AjaxId           = "#URL.ajaxId#"
@@ -51,6 +68,7 @@ password="#SESSION.dbpw#">
 		EntityStatus     = ""
 		tablewidth       = "99%"
 		Mission          = "#Parent.mission#"	
+		OrgUnit          = "#Parent.OrgUnitOperational#"
 		ObjectReference  = "Classification"
 		ObjectReference2 = "#Parent.PostGrade#" 	
 	    ObjectKey1       = "#url.ajaxid#"	

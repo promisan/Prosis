@@ -30,19 +30,19 @@ password="#SESSION.dbpw#">
 <table width="100%" class="navigation_table">
 
 <cfoutput>
-<tr class="labelmedium line" style="height:20px">
-   <td style="min-width:200px"><a href="javascript:editactivity('','#url.documentNo#','#url.personno#','#url.actioncode#')" title="Add an action for this candidate"><b><cf_tl id="Add activity"></b></a></td>
-   <td style="min-width:120px"><cf_tl id="Due"></td>   
+<tr class="labelmedium <cfif searchresult.recordcount gte '1'>line</cfif>" style="height:24px;background-color:E6E2DD">
+   <td style="min-width:200px"><a href="javascript:editactivity('','#url.documentNo#','#url.personno#','#url.actioncode#')" title="Add an action for this candidate"><table><tr><td><cf_img icon="add"></td><td><cf_tl id="Add activity"></td></tr></table></a></td>
+   <td style="min-width:110px"><cf_tl id="Due"></td>   
    <td style="width:100%"><cf_tl id="Message"></td>
-   <td style="min-width:160px"><cf_tl id="Officer"></td>
-   <td style="min-width:120px"><cf_tl id="Recorded"></td>
+   <td style="min-width:140px"><cf_tl id="Officer"></td>
+   <td style="min-width:110px"><cf_tl id="Recorded"></td>
    <td></td>
 </tr>
 </cfoutput>
 
 <cfoutput query="SearchResult">
 	
-	<tr class="labelmedium <cfif actionmemo eq "" and currentrow neq recordcount>line</cfif> navigation_row" style="height:15px">
+	<tr class="labelmedium <cfif actionmemo eq "">line</cfif> navigation_row" style="height:15px">
 	   <td style="padding-left:4px">
 	   <a href="javascript:editactivity('#ActionId#','#url.documentNo#','#url.personno#','#url.actioncode#')">#DocumentDescription#</a>
 	   </td>
@@ -67,7 +67,7 @@ password="#SESSION.dbpw#">
 		     <tr class="<cfif currentrow neq Mail.recordcount>line</cfif> labelmedium" style="height:10px">
 			         <td style="padding-left:2px;min-width:30px">#serialno#.</td>
 			         <td style="min-width:120px;padding-right:5px">#dateformat(Created,client.dateformatshow)# #timeformat(Created,"HH:MM")#</td>
-					 <td>#MailTo# : #MailSubject#</td>
+					 <td>#MailSubject#</td>
 			 </tr>
 		   </cfloop>
 		   </table>
@@ -90,6 +90,8 @@ password="#SESSION.dbpw#">
 	</cfif>
 
 </cfoutput>
+
+<tr><td style="height:4px"></td></tr>
 
 </table>
 	

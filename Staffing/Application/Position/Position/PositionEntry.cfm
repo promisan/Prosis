@@ -562,7 +562,7 @@ password="#SESSION.dbpw#">
 			   <table cellspacing="0" cellpadding="0">
 			   <tr>
 			    <td class="labelmedium">
-			    <INPUT type="radio" class="rediol" name="Classified" value="0" checked onclick="measuresource('hide')"> <cf_tl id="Unclassified">
+			    <INPUT type="radio" class="rediol" name="Classified" value="0" checked onclick="measuresource('hide')"> <cf_tl id="Non classified">
 				<INPUT type="radio" class="rediol" name="Classified" value="1" onclick="measuresource('regular')"> <cf_tl id="Classified">			
 				</td>
 				

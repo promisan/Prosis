@@ -83,8 +83,12 @@
 
 </cftransaction>
 
+
+<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+<cfset mid = oSecurity.gethash()/>   
+
 <cfif Check1.Candidates lt Check2.Posts>
-	<cflocation url="../Document/DocumentEdit.cfm?ID=#URL.ID#" addtoken="No">
+	<cflocation url="../Document/DocumentEdit.cfm?ID=#URL.ID#&mid=#mid#" addtoken="No">
 <cfelse>
-	<cflocation url="CandidateEdit.cfm?ID=#URL.ID#&ID1=#URL.ID1#" addtoken="No">
+	<cflocation url="CandidateEdit.cfm?ID=#URL.ID#&ID1=#URL.ID1#&mid=#mid#" addtoken="No">
 </cfif>

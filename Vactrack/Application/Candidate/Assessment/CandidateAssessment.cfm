@@ -59,7 +59,7 @@ this evaluation screen is based on either competencies enabled for the bucket or
 		datasource="AppsSelection" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-		SELECT     TopicId as CompetenceId, TopicSubject as Description
+		SELECT     TopicId as CompetenceId, TopicSubject as Description, TopicRatingScale, TopicRatingPass
 		FROM       FunctionOrganizationTopic
 		WHERE 	   FunctionId IN (SELECT FunctionId 
 		                          FROM   Functionorganization 
@@ -83,13 +83,13 @@ this evaluation screen is based on either competencies enabled for the bucket or
 <cfoutput>
 
 	<cfset w = 100/competencies.recordcount>
-
+	
 	<table border="0" style="width:100%">
 	
 	<tr class="fixrow">   
 	    <td style="background-color:f1f1f1;padding:4px;border:1px solid silver;min-width:140px"><cf_tl id="Evaluation by"></td>
 		<cfloop query="Competencies">
-		<td style="text-align:center;background-color:f1f1f1;padding:4px;border:1px solid silver;min-width:299px;">#Description#</td>
+		<td style="text-align:center;background-color:f1f1f1;padding:4px;border:1px solid silver;min-width:140px">#Description#</td>
 		</cfloop>
 	</tr>
 	
@@ -167,18 +167,19 @@ this evaluation screen is based on either competencies enabled for the bucket or
 						
 		<cfif session.acc eq usr>
 		
-		<td valign="top" style="border-right:1px solid silver;width:100% min-width:200px">
+		<td valign="top" style="border-right:1px solid silver;min-width:100px">
 		
 			<table width="100%">
 			
 			<tr class="line"><td>
+						
+			<cfif url.modality eq "Interview">
 			
-			<cfset lkt = "savecandidateeval('#url.Objectid#','#url.personno#','#usr#','#url.actioncode#','#competenceid#','Score#url.Personno#_#left(competenceid,8)#_#usr#','score')">
-			
-			<cfif url.modality neq "Interview">
-			
+			<cfset lkt = "savecandidateeval('#url.Objectid#','#url.personno#','#usr#','#url.actioncode#','#competenceid#','Score#url.Personno#_#left(competenceid,8)#_#usr#','score','#url.modality#')">
+						
 			<!--- test score --->
-			<select id="Score#url.Personno#_#left(competenceid,8)#_#usr#" name="Score#url.Personno#_#left(competenceid,8)#_#usr#" class="regularxl" style="border:0px;width:100%" onchange="#lkt#">
+			<select id="Score#url.Personno#_#competenceid#_#usr#" name="Score#url.Personno#_#competenceid#_#usr#" class="regularxl" 
+			  style="border:0px;width:100%" onchange="#lkt#">
 			    <option value="0" <cfif get.AssessmentScore eq "0">selected</cfif>>--<cf_tl id="Select">--</option>
 				<option value="1" <cfif get.AssessmentScore eq "1">selected</cfif>><cf_tl id="Outstanding"></option>
 				<option value="2" <cfif get.AssessmentScore eq "2">selected</cfif>><cf_tl id="Satisfactory"></option>
@@ -188,61 +189,41 @@ this evaluation screen is based on either competencies enabled for the bucket or
 			
 			<cfelse>
 			
-			<select id="Score#url.Personno#_#left(competenceid,8)#_#usr#" name="Score#url.Personno#_#left(competenceid,8)#_#usr#" class="regularxl" style="border:0px;width:100%" onchange="#lkt#">
-			    <option value="0" <cfif get.AssessmentScore eq "0">selected</cfif>>--<cf_tl id="Select">--</option>
-				<option value="1" <cfif get.AssessmentScore eq "1">selected</cfif>><cf_tl id="Outstanding"></option>
-				<option value="2" <cfif get.AssessmentScore eq "2">selected</cfif>><cf_tl id="Satisfactory"></option>
-				<option value="3" <cfif get.AssessmentScore eq "3">selected</cfif>><cf_tl id="Partially satisfactory"></option>
-				<option value="4" <cfif get.AssessmentScore eq "4">selected</cfif>><cf_tl id="Unsatisfactory"></option>
-			</select>			
+			<cfset lkt = "savecandidateeval('#url.Objectid#','#url.personno#','#usr#','#url.actioncode#','#competenceid#','Score#url.Personno#_#left(competenceid,8)#_#usr#','score','#url.modality#')">
+						
+			<select id="Score#url.Personno#_#left(competenceid,8)#_#usr#" name="Score#url.Personno#_#left(competenceid,8)#_#usr#" class="regularxl" style="height:36px;font-size:25px;border:0px;width:100%" onchange="#lkt#">
+					<option value="0" selected><cf_tl id="Not applicable"></option>
+				    <cfloop index="itm" from="#topicRatingScale#" to="1" step="-1">
+					   <option value="#itm#" <cfif get.AssessmentScore eq itm>selected</cfif>>#itm#</option>
+					</cfloop>					
+			</select>						
 			
 			</cfif>
 			
 			</td></tr>
 									
-			<tr><td style="min-width:310px">
+			<tr><td style="min-width:210px">
+								
+			<cfif url.modality eq "Interview">
 			
-				<cfset lkm = "savecandidateeval('#url.Objectid#','#url.personno#','#usr#','#url.actioncode#','#competenceid#','Memo#url.Personno#_#left(competenceid,8)#_#usr#','memo')">
+				<cfset lkm = "savecandidateeval('#url.Objectid#','#url.personno#','#usr#','#url.actioncode#','#competenceid#','Memo#url.Personno#_#competenceid#_#usr#','memo','#url.modality#')">
+												
+				<textarea id="Memo#url.Personno#_#competenceid#_#usr#" 
+				   name="Memo#url.Personno#_#competenceid#_#usr#"	
+				   onchange="#lkm#"
+				   style="border:0px;background-color:ffffef;font-size:13px;padding:3px;resize: none;width:100%;height:70px">#get.AssessmentMemo#</textarea>
+				   
+			<cfelse>
 			
-			<!---			
-			<cfif url.modality neq "Interview">
-			--->
+				<cfset lkm = "savecandidateeval('#url.Objectid#','#url.personno#','#usr#','#url.actioncode#','#competenceid#','Memo#url.Personno#_#left(competenceid,8)#_#usr#','memo','#url.modality#')">
 						
 				<textarea id="Memo#url.Personno#_#left(competenceid,8)#_#usr#" 
 				   name="Memo#url.Personno#_#left(competenceid,8)#_#usr#"	
 				   onchange="#lkm#"
 				   style="border:0px;background-color:ffffef;font-size:13px;padding:3px;resize: none;width:100%;height:70px">#get.AssessmentMemo#</textarea>
 			
-			<!---			
-			<cfelse>
-										
-			<cfif Attributes.ajax eq "No">
-							
-				 <cf_textarea name="Memo#url.Personno#_#left(competenceid,8)#_#usr#"	onchange="#lkm#"           		 
-					 init="Yes"							
-					 color="ffffff"	 
-					 resize="false"		
-					 border="0" 
-					 toolbar="Mini"
-					 height="70"
-					 width="100%">#get.AssessmentMemo#</cf_textarea>
-					 
-				<cfelse>
-				
-				 <cf_textarea name="Memo#url.Personno#_#left(competenceid,8)#_#usr#"	onchange="#lkm#"           		 						 						
-					 color="ffffff"	 
-					 init="Yes"
-					 resize="false"		
-					 border="0" 
-					 toolbar="Mini" 
-					 height="70"
-					 width="100%">#get.AssessmentMemo#</cf_textarea>
-					 				
-				</cfif>	 
-				
-				</cfif>		
-				
-				--->	
+			
+			</cfif>	   
 			
 				</td></tr>	
 			 </table>	
@@ -284,11 +265,14 @@ this evaluation screen is based on either competencies enabled for the bucket or
 	
 	</table>
 	
+		
 	</cfoutput>
 	
 	</cfif>
 
 </cfif>
 
+<!---
 <cfset ajaxonload("initTextArea")>
+--->
 

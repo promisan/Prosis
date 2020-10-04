@@ -637,7 +637,7 @@
 				</cfquery>	
 				
 				<cfif lng eq "Current">
-					<cfset mlist = "item,day,yesterday,week,month">
+					<cfset mlist = "item,day,yesterday,week,month30">
 				<cfelseif lng eq "Closing">				
 					<cfset mlist = "item,day,yesterday,dayminus2,dayminus3">	
 				<cfelseif lng eq "Historic">	

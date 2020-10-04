@@ -13,10 +13,10 @@
 <cfoutput>
 
 <script>
- document.getElementById('indexno').value   = '#get.IndexNo#'
- document.getElementById('personno').value  = '#get.PersonNo#'
- document.getElementById('lastname').value  = '#get.LastName#'
- document.getElementById('firstname').value = '#get.FirstName#' 
+ document.getElementById('indexno').value   = "#get.IndexNo#"
+ document.getElementById('personno').value  = "#get.PersonNo#"
+ document.getElementById('lastname').value  = "#get.LastName#"
+ document.getElementById('firstname').value = "#get.FirstName#" 
  <cfif get.Gender eq "M">
   document.getElementById('male').checked   = true
  <cfelse>

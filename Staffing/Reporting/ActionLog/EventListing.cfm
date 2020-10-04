@@ -42,7 +42,7 @@
    <tr>
 
    <td colspan="1" height="100%" valign="top" style="padding:10px">
-		<cfdiv id="divListingContainer" style="height:100%" bind="url:#session.root#/Staffing/Reporting/ActionLog/EventListingContent.cfm?mission=#url.mission#&SystemFunctionId=#url.systemfunctionid#">        	
+		<cf_securediv id="divListingContainer" style="height:100%" bind="url:#session.root#/Staffing/Reporting/ActionLog/EventListingContent.cfm?mission=#url.mission#&SystemFunctionId=#url.systemfunctionid#">        	
 	</td>	
 	
    </tr>

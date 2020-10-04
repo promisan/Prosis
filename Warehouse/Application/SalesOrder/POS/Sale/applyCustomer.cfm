@@ -114,7 +114,7 @@
 														
 			<cfif url.batchid eq "">
 			
-				<span style="padding-left:5px;padding-right:5px">#customer.CustomerName#</span>
+				<span style="padding-left:5px;padding-right:5px">#customer.CustomerName# <font size="2">#Customer.Reference#</span>
 				 <input type="hidden" name="batchid" id="batchid" value="">
 				 		
 			<cfelse>
@@ -174,7 +174,7 @@
 							
 			    try {	
 								   																			
-				 	document.getElementById('customerselect').value    = '#customer.reference#' 											
+				 	document.getElementById('customerselect').value    = '#customer.customerserialNo#' 											
 					customertoggle('customerdata','#url.customerid#','open','#url.warehouse#','#url.addressid#');									
 					document.getElementById('customerdata_toggle').className = 'regular'										 	
 				} catch(e){console.log(e)}

@@ -258,13 +258,17 @@
 							WHERE  EntityCode    = '#URL.EntityCode#'
 							AND    Operational   = '1' 
 							AND    ActionCode   != '#URL.ActionCode#'
+							
+							
 							AND    ActionCode IN (
 													SELECT ActionCode
 												    FROM   Ref_EntityActionPublish
 													WHERE  ActionPublishNo = '#URL.PublishNo#'													
-													AND    ActionOrder < '#get.ActionOrder#'
+													AND    (ActionOrder < '#get.ActionOrder#')
 													)
+													
 						</cfquery>
+								
 										
 					</cfif>		
 												
@@ -328,7 +332,9 @@
 								</tr>		
 							</cfif>								
 							
-							<cfif Access.recordcount gte "1" or Entity.PersonClass neq "">
+							<!---
+							<cfif Entity.PersonClass neq "">
+							--->
 							
 								<tr class="line">
 								<cfset itm = itm+1>
@@ -344,7 +350,9 @@
 											name       = "Authorization">	
 								</tr>			
 					   
+					   	     <!---
 						     </cfif>						
+							 --->
 							
 							<tr class="line">
 													
@@ -432,9 +440,7 @@
 							FROM    Ref_SystemLanguage
 							WHERE   Operational   = '2' 
 						</cfquery>
-						
-						
-					   
+											   
 					    <cfif qLanguage.recordcount gt 0>
 					   
 					   	   <cfset itm = itm+1>
@@ -442,18 +448,20 @@
 								<cfinclude template="ActionStepEditActionLanguage.cfm">								
 						   </cf_menucontainer>
 											   					   
-					    </cfif>				
+					    </cfif>			
 						
-						
-					   
-					    <cfif Access.recordcount gte "1" or Entity.PersonClass neq "">
+						<!---					   
+					    <cfif Entity.PersonClass neq "">
+						--->
 							
 							<cfset itm = itm+1>
 							<cf_menucontainer name="subbox" item="#itm#" class="hide">	
 								<cfinclude template="ActionStepEditActionAuth.cfm">	
 							</cf_menucontainer>
-													   
+						
+						<!---							   
 					    </cfif>		
+						--->
 						
 						<!--- custom --->
 						
@@ -468,8 +476,7 @@
 							
 							<cfinclude template="ActionStepEditActionMail.cfm">			
 						</cf_menucontainer>		
-						
-							
+										
 						
 						<!--- docs --->
 												
@@ -477,7 +484,6 @@
 						<cf_menucontainer name="subbox" item="#itm#" class="hide">	
 							<cfinclude template="ActionStepEditActionEmbed.cfm">		
 						</cf_menucontainer>		
-						
 												
 						<!--- methods --->
 												

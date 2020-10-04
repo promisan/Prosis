@@ -379,8 +379,8 @@
 		   
 		   	<cf_textarea height="180"   
 					color="ffffff"
-					
-					resize="true"					
+					toolbar="basic"	
+					resize="false"					
 					name="ActionMailBody" 
 					style="width:100%">#mailtext#</cf_textarea>
 		   
@@ -388,8 +388,8 @@
 		   		   		   	
 				  <cf_textarea height="180"   
 					color="ffffff" 
-						
-					resize="true"		
+					toolbar="basic"	
+					resize="false"		
 					init="Yes"				
 					name="ActionMailBody" 
 					style="width:100%">#mailtext#</cf_textarea>
@@ -412,8 +412,9 @@
 		 
 			  <!--- show attachment --->
 			  <script LANGUAGE = "JavaScript">
-				  function view(att) {
-				  window.open(att, "Attachment", "width=850, height=660, menubar=yes, status=yes, toolbar=no, scrollbars=yes, resizable=yes"); }
+				  function view(att) {				 
+				  	ptoken.open('#session.root#/tools/document/FileRead.cfm?id='+att, 'Attachment'); 
+				  }
 			  </script>
 			  
 			  <table>
@@ -429,13 +430,31 @@
 	
 				   <cfif mailatt[att][1] neq "none">
 				   
+				   		<!--- we record the attachment in ref_attachment --->
+						
+						<cf_assignId>
+						
+						<!--- populate the attachment table so we can open it --->
+						
+						<cfset path = replaceNoCase(mailatt[att][1],mailatt[att][3],"")> 
+												
+						<cfquery name="InsertAtt" 
+							datasource="AppsSystem"
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+							INSERT INTO Attachment 
+							(AttachmentId, DocumentPathName, Server, ServerPath, FileName, FileStatus, OfficerUserId, OfficerLastName, OfficerFirstName)
+							VALUES ('#rowguid#','Mail','Custom','#path#','#mailatt[att][3]#','9','#session.acc#','#session.last#','#session.first#')					  		
+						</cfquery>							 
+										   
 				        <td style="padding-right:4px">
 				        <input type="checkbox" class="radiol"
 						    name  = "ActionMailAttachment" 
 							id    = "ActionMailAttachment" 
 							value = "#att#" checked>							
 						</td>	
-						<td style="padding-right:10px"><a href="javascript:view('#mailatt[att][2]#')">#mailatt[att][3]#</a></td>
+						<td style="padding-right:10px"><a href="javascript:view('#rowguid#')">#mailatt[att][3]#</a></td>
+						
 						
 				   <cfelse>
 				   

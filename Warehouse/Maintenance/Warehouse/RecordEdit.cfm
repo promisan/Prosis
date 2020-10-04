@@ -618,7 +618,7 @@ password="#SESSION.dbpw#">
     <TR>
     <TD valign="top" class="labelmedium" style="padding-top:4px;padding-left:33px"><cf_tl id="Stock Managed">:</TD>
     <TD style="width:500">
-		<cfdiv id="#url.id1#_list" bind="url:Category/CategoryListing.cfm?ID1=#url.id1#">
+		<cf_securediv id="#url.id1#_list" bind="url:Category/CategoryListing.cfm?ID1=#url.id1#">
 	</TD>
 	</TR>	
 	

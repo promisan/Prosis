@@ -3,19 +3,11 @@
 <cf_screentop height="100%" 	 
 	  layout="webapp" 
 	  menuAccess="Yes" 
+	  jquery="Yes"
 	  html="No"
 	  systemfunctionid="#url.idmenu#">
-
-
-<cfquery name="SearchResult"
-datasource="AppsEmployee" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-    SELECT *
-	FROM Ref_PersonEvent
-</cfquery>
-
-<cf_divscroll>
+	  
+<cf_listingscript> 
 
 <cfset Page         = "0">
 <cfset add          = "1">
@@ -29,59 +21,41 @@ function recordadd(grp) {
      ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=700, height=700, toolbar=no, status=yes, scrollbars=no, resizable=yes");
 }
 
-function recordedit(id1) {
-     ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=700, height=700, toolbar=no, status=yes, scrollbars=no, resizable=yes");
+function listing(mis) {
+	 _cf_loadingtexthtml='';
+     ptoken.navigate('RecordListingContent.cfm?mission='+mis+'&systemfunctionid=#url.systemfunctionid#','eventbox');
 }
 
 </script>	
 
 </cfoutput>
 
-<table width="97%" align="center" class="navigation_table">
+<table width="97%" height="100%" align="center" class="navigation_table">
 
-<thead>
-<tr class="labelmedium line">
-    <td></td>
-    <td>Id</td>
-	<td><cf_tl id="Description"></td>
-	<td><cf_tl id="Trigger"></td>
-	<td><cf_tl id="Workflow"></td>
-	<td><cf_tl id="Officer"></td>
-    <td><cf_tl id="Entered"></td>
-</tr>
-</thead>
-
-<tbody>
-
-<cfoutput query="SearchResult">
-
-    <tr class="navigation_row line labelmedium"> 
-	<td height="20" width="5%" align="center" style="padding-top:3px;">
-		<cf_img icon="select" navigation="Yes" onclick="recordedit('#Code#')">
-	</td>		
-	<td>#Code#</td>		
-	<td>#Description#</td>
+<tr class="labelmedium line" style="height:40px">
+    <td style="width:100px"><cf_tl id="Mission"></td>
+    <td>
 	
-		<cfquery name="Trigger"
+	<cfquery name="get" 
 		datasource="AppsEmployee" 
 		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">		
-			SELECT    T.Description
-			FROM      Ref_PersonEventTrigger R INNER JOIN
-			          Ref_EventTrigger T ON R.EventTrigger = T.Code
-			WHERE     R.EventCode = '#code#'		   
-		</cfquery>
+		password="#SESSION.dbpw#">	
+		SELECT DISTINCT Mission
+		FROM Ref_PersonEventMission
+		ORDER BY Mission
+	</cfquery>	
 	
-	<td><table><cfloop query="Trigger"><tr class="labelmedium"><td>#Description#</td></tr></cfloop></table></td>	
-	<td>#EntityClass#</td>
-	<td>#OfficerFirstName# #OfficerLastName#</td>
-	<td>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
-    </tr>
+	<select class="regularxxl" onchange="javascript:listing(this.value)">
+	  <option value=""><cf_tl id="All entities"></option>	
+	  <cfoutput query="get"><option value="#Mission#">#Mission#</option></cfoutput>
+	</select>	
 	
-</cfoutput>
+	</td>	
+</tr>
 
-</tbody>
+<tr><td colspan="2" id="eventbox" style="height:100%">
+<cfinclude template="RecordListingContent.cfm">
+</td></tr>
 
 </table>
 
-</cf_divscroll>

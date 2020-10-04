@@ -43,6 +43,16 @@
 	
 </cfif>	
 
+<cfif Form.Crit5_Value neq "">
+
+	<CF_Search_AppendCriteria
+	    FieldName="#Form.Crit5_FieldName#"
+	    FieldType="#Form.Crit5_FieldType#"
+	    Operator="#Form.Crit5_Operator#"
+	    Value="#Form.Crit5_Value#">
+	
+</cfif>	
+
 <cfset link    = replace(url.link,"||","&","ALL")>
 
 <!--- 14/11/2015 conversion for value on the fly --->
@@ -118,7 +128,7 @@ password="#SESSION.dbpw#">
 	
 	<cfsavecontent variable="mycustomer">
 	
-		SELECT CustomerId, Reference,CustomerName,PhoneNumber,eMailAddress,OrgUnit
+		SELECT CustomerId, Reference,CustomerName,PhoneNumber,eMailAddress,OrgUnit, CustomerSerialNo
 		FROM Customer
 		
 	</cfsavecontent>
@@ -127,17 +137,16 @@ password="#SESSION.dbpw#">
 
 	<cfsavecontent variable="mycustomer">
 	
-		SELECT CustomerId,Reference,PersonNo,CustomerName,PhoneNumber,eMailAddress,OrgUnit
-		FROM Customer		
+		SELECT  CustomerId,Reference,PersonNo,CustomerName,PhoneNumber,eMailAddress,OrgUnit,CustomerSerialNo
+		FROM    Customer		
 		UNION
-		SELECT CustomerId,Reference,PersonNo,CustomerName,PhoneNumber,eMailAddress, OrgUnit
-		FROM WorkOrder.dbo.Customer
+		SELECT  CustomerId,Reference,PersonNo,CustomerName,PhoneNumber,eMailAddress, OrgUnit,CustomerSerialNo
+		FROM    WorkOrder.dbo.Customer
 		
 				
 	</cfsavecontent>
 
 </cfif>
-
 
 
 <cfquery name="SearchResult" 
@@ -173,6 +182,19 @@ password="#SESSION.dbpw#">
 			 <cfinclude template="CustomerNavigation.cfm">	 				 
 		</td></tr>
 		
+		<tr class="line fixrow labelmedium">	  
+			    <td height="18" width="35" style="padding-left:5px;padding-top:4px;padding-right:6px" class="navigation_action" onclick="_cf_loadingtexthtml='';ptoken.navigate('#link#&action=insert&#url.des1#=#customerid#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">			  								
+				</td>
+				<td style="min-width:90px"><cf_tl id="No"></td>
+				<td style="min-width:90px"><cf_tl id="Reference"></td>
+				<td style="min-width:70px"><cf_tl id="Person"></td>
+				<TD width="70%"><cf_tl id="Name"></TD>
+				<TD style="min-width:90px"><cf_tl id="Phone"></TD>
+				<!---
+				<TD style="min-width:100px;padding-right:3px"><cf_tl id="eMail"></TD>
+				--->
+			</tr>
+		
 		<cfoutput query="SearchResult">
 		
 		<cfif currentrow gte first>
@@ -181,11 +203,14 @@ password="#SESSION.dbpw#">
 			    <td height="18" width="35" style="padding-left:5px;padding-top:4px;padding-right:6px" class="navigation_action" onclick="_cf_loadingtexthtml='';ptoken.navigate('#link#&action=insert&#url.des1#=#customerid#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">			  
 				<cf_img icon="select">						
 				</td>
+				<td style="min-width:60px">#CustomerSerialNo#</td>
 				<td style="min-width:90px">#Reference#</td>
 				<td style="min-width:70px">#PersonNo#</td>
-				<TD width="70%">#CustomerName#</TD>
+				<TD style="width:70%">#CustomerName#</TD>
 				<TD style="min-width:90px">#PhoneNumber#</TD>
+				<!---
 				<TD style="min-width:100px;padding-right:3px">#eMailAddress#</TD>
+				--->
 			</tr>
 				
 		</cfif>	

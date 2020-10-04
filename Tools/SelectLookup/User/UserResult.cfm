@@ -76,28 +76,52 @@ datasource="AppsSystem"
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
 	SELECT count(*) as Total
-	FROM  UserNames U
-	WHERE #PreserveSingleQuotes(CLIENT.search)# 
+	FROM   UserNames U
+	WHERE  #PreserveSingleQuotes(CLIENT.search)# 
 	<cfif url.filter3 eq "accounttype">	
-		<cfif #url.filter3value# neq "all">
+		<cfif url.filter3value neq "all">
 		AND   AccountType = '#url.filter3value#'
 		</cfif>
 	<cfelse>
 		AND   AccountType = 'Individual'	
 	</cfif>
-	<cfif url.filter1 neq "">
-	AND   Account IN (SELECT Account 
-	                  FROM   UserNamesGroup 
-					  WHERE  AccountGroup = '#url.filter1value#')
+	<cfif url.filter1 eq "mission">
+		AND   Account IN (SELECT   U.Account
+						 FROM     Organization.dbo.Organization AS O INNER JOIN
+			                      Employee.dbo.PersonAssignment AS PA ON O.OrgUnit = PA.OrgUnit INNER JOIN
+	                              UserNames AS U ON PA.PersonNo = U.PersonNo
+						 WHERE    PA.AssignmentStatus IN ('0', '1') 
+						 AND      PA.DateEffective < GETDATE() 
+						 AND      PA.DateExpiration >= GETDATE() 
+						 AND      O.OrgUnit IN (SELECT OrgUnit FROM Organization.dbo.Organization WHERE Mission = '#url.filter1value#') 
+						 AND      PA.AssignmentType = 'Actual')
+	
+	<cfelseif url.filter1 eq "orgunit">
+	   AND   Account IN (SELECT   U.Account
+						 FROM     Organization.dbo.Organization AS O INNER JOIN
+			                      Employee.dbo.PersonAssignment AS PA ON O.OrgUnit = PA.OrgUnit INNER JOIN
+	                              UserNames AS U ON PA.PersonNo = U.PersonNo
+						 WHERE    PA.AssignmentStatus IN ('0', '1') 
+						 AND      PA.DateEffective < GETDATE() 
+						 AND      PA.DateExpiration >= GETDATE() 
+						 AND      O.OrgUnit = '#url.filter1value#' 
+						 AND      PA.AssignmentType = 'Actual')
+	
+	
+	<cfelseif url.filter1 neq "">
+		AND   Account IN (SELECT Account 
+		                  FROM   UserNamesGroup 
+						  WHERE  AccountGroup = '#url.filter1value#')
 	</cfif>
 	<cfif url.filter2 eq "onboard" and getAdministrator("*") eq "0">
-	AND    PersonNo IN (SELECT PersonNo 
-	                    FROM   Employee.dbo.vwAssignment
-						WHERE  DateEffective <= getDate() and DateExpiration >= getDate()
-						AND    PersonNo = U.PersonNo
-						AND    AssignmentStatus IN ('0','1'))						
+	AND       PersonNo IN (SELECT PersonNo 
+	                       FROM   Employee.dbo.vwAssignment
+						   WHERE  DateEffective <= getDate() and DateExpiration >= getDate()
+						   AND    PersonNo = U.PersonNo
+						   AND    AssignmentStatus IN ('0','1'))						
 	</cfif>
-	AND LastName > '' and Disabled = 0
+	AND   LastName > '' 
+	AND   Disabled = 0
 </cfquery>
 
 <cfset show = int((url.height-510)/19)>
@@ -106,7 +130,6 @@ password="#SESSION.dbpw#">
                count="#Total.Total#">
 			   
 <cfset counted  = total.total>		
-
 
 <cfquery name="SearchResult" 
 datasource="AppsSystem" 
@@ -122,10 +145,33 @@ password="#SESSION.dbpw#">
 	<cfelse>
 		AND   AccountType = 'Individual'	
 	</cfif>
-	<cfif url.filter1 neq "">
-	AND    Account IN (SELECT Account 
-	                   FROM   UserNamesGroup 
-					   WHERE  AccountGroup = '#url.filter1value#') 
+	<cfif url.filter1 eq "mission">
+		AND   Account IN (SELECT   U.Account
+						 FROM     Organization.dbo.Organization AS O INNER JOIN
+			                      Employee.dbo.PersonAssignment AS PA ON O.OrgUnit = PA.OrgUnit INNER JOIN
+	                              UserNames AS U ON PA.PersonNo = U.PersonNo
+						 WHERE    PA.AssignmentStatus IN ('0', '1') 
+						 AND      PA.DateEffective < GETDATE() 
+						 AND      PA.DateExpiration >= GETDATE() 
+						 AND      O.OrgUnit IN (SELECT OrgUnit FROM Organization.dbo.Organization WHERE Mission = '#url.filter1value#') 
+						 AND      PA.AssignmentType = 'Actual')
+	
+	<cfelseif url.filter1 eq "orgunit">
+	   AND   Account IN (SELECT   U.Account
+						 FROM     Organization.dbo.Organization AS O INNER JOIN
+			                      Employee.dbo.PersonAssignment AS PA ON O.OrgUnit = PA.OrgUnit INNER JOIN
+	                              UserNames AS U ON PA.PersonNo = U.PersonNo
+						 WHERE    PA.AssignmentStatus IN ('0', '1') 
+						 AND      PA.DateEffective < GETDATE() 
+						 AND      PA.DateExpiration >= GETDATE() 
+						 AND      O.OrgUnit = '#url.filter1value#' 
+						 AND      PA.AssignmentType = 'Actual')
+	
+	
+	<cfelseif url.filter1 neq "">
+		AND   Account IN (SELECT Account 
+		                  FROM   UserNamesGroup 
+						  WHERE  AccountGroup = '#url.filter1value#')
 	</cfif>
 	<cfif url.filter2 eq "onboard" and getAdministrator("*") eq "0">
 	AND    PersonNo IN (SELECT PersonNo 

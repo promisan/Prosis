@@ -5,7 +5,10 @@
 <cfparam name="URL.Scope" 	    default="">
 <cfparam name="URL.box"			default="">
 <cfparam name="URL.Trigger" 	default="">
-
+<cfparam name="URL.pmission" 	default="">
+<cfparam name="URL.ptrigger" 	default="">
+<cfparam name="URL.pevent" 		default="">
+<cfparam name="URL.preason" 	default="">
 
 <script>	
 	Prosis.busy('no');
@@ -34,8 +37,13 @@
 	</cfquery>		
 </cfif>	
 
-
 <cfform method="POST" name="eventform">
+
+<cfoutput>
+	<input type="hidden" id="pevent" 	name="pevent" 		value="#URL.pevent#">
+	<input type="hidden" id="preason" 	name="preason" 		value="#URL.preason#">
+	<input type="hidden" id="conditiongroupcode" name="conditiongroupcode" value="">
+</cfoutput>
 
 <table width="94%" class="formpadding" align="center">
 
@@ -172,7 +180,7 @@
 						   
 						   <cfif check.recordcount gte "1">			
 						
-								<option value="#Mission#" <cfif Mission eq OnBoard.Mission OR Mission eq qEvent.Mission>selected</cfif>>#Mission#</option>
+								<option value="#Mission#" <cfif Mission eq OnBoard.Mission OR Mission eq qEvent.Mission OR Mission eq URL.pmission>selected</cfif>>#Mission#</option>
 							
 							</cfif>
 							
@@ -198,9 +206,7 @@
 				</cfif>
 				
 				</td>
-				
-				
-								
+							
 				<td style="padding-left:5px" align="right">
 				
 					<cf_space spaces="38">	
@@ -219,11 +225,9 @@
 				</td>
 				
 				</tr>
-				</table>
-												
+				</table>												
 				
-			</td>
-			
+			</td>			
 			</tr>
 			
 			<tr><td height="4"></td></tr>
@@ -233,7 +237,7 @@
 			<tr class="labelmedium">
 				
 				<td  style="padding-left:3px" width="20%"><cf_tl id="Nature">:</td>
-			    <td style="padding-left:0px">					
+			    <td style="padding-left:0px;font-size:16px">					
 				
 				    <cfif url.trigger neq "">
 					
@@ -243,17 +247,15 @@
 						 password="#SESSION.dbpw#">
 							 SELECT * 
 							 FROM Ref_EventTrigger
-							 WHERE Code = '#url.trigger#'
-							
+							 WHERE Code = '#url.trigger#'							
 						</cfquery>	
 						
-						<input type="hidden" name="triggercode" id="triggercode" value="<cfoutput>#url.trigger#</cfoutput>"> 
-						
+						<input type="hidden" name="triggercode" id="triggercode" value="<cfoutput>#url.trigger#</cfoutput>"> 						
 						<cfoutput>#get.Description#</cfoutput>
 										
 					<cfelse>
 									    			
-						<cf_securediv id="mynaturebox" bind="url:#session.root#/staffing/Application/Employee/Events/getTrigger.cfm?personno=#url.personno#&eventid=#URL.id#&mission={mission}&Positionno=#url.positionno#&scope=#url.scope#&portal=#url.portal#">						
+						<cf_securediv id="mynaturebox" bind="url:#session.root#/staffing/Application/Employee/Events/getTrigger.cfm?personno=#url.personno#&eventid=#URL.id#&mission={mission}&Positionno=#url.positionno#&scope=#url.scope#&portal=#url.portal#&ptrigger=#url.ptrigger#&preason=#url.preason#&pevent=#url.pevent#">						
 												
 					</cfif>
 				</td> 
@@ -269,7 +271,6 @@
 		  		</td>						
 			</tr>				
 
-
 			<tr name="Requisition" id="requisitionbox" class="hide">
 				<td style="padding-left:3px" width="20%">
 					<cf_tl id="Requisition No">:
@@ -280,7 +281,7 @@
 			</tr>				
 
 			<tr class="labelmedium">				
-				<td  style="padding-left:3px" width="20%"><cf_tl id="Requirement">:</td>
+				<td  style="padding-left:3px" width="20%"><cf_tl id="Requested action">:</td>
 			    <td style="padding-left:0px" id="dEvent"></td> 								
 			</tr>
 
@@ -340,7 +341,7 @@
 							 class     = "regularxl"
 							 id        = "positionselect"	
 							 value     = "#trim(Position.SourcePostNumber)# #trim(Position.FunctionDescription)# #trim(Position.PostGrade)#"
-							 style     = "padding-left:3px;padding-top:1px;width:400;font-size:16px; z-index:3;"  readonly>
+							 style     = "padding-left:6px;padding-top:1px;width:400;font-size:16px; z-index:3;"  readonly>
 							 
 					    <cfelse>
 						
@@ -360,7 +361,7 @@
 							 class     = "regularxl"
 							 id        = "positionselect"	
 							 value     = "#trim(Position.SourcePostNumber)# #trim(Position.FunctionDescription)# #trim(Position.PostGrade)#"
-							 style     = "padding-left:3px;padding-top:2px;width:400;font-size:16px; z-index:3; <cfif url.positionno neq ''>background-color:eaeaea</cfif>" readonly>
+							 style     = "padding-left:6px;padding-top:2px;width:400;font-size:16px; z-index:3; <cfif url.positionno neq ''>background-color:eaeaea</cfif>" readonly>
 												
 						</cfif>	 
 				
@@ -402,20 +403,19 @@
 			</tr>
 			
 			<tr class="hide"><td colspan="2" id="assignmentbox" style="padding-left:30px;padding-right:30px">
-				<cfdiv bind="url:#session.root#/staffing/Application/Employee/Events/getAssignment.cfm?positionno=#qEvent.PositionNo#"></cfdiv>															
+				<cf_securediv bind="url:#session.root#/staffing/Application/Employee/Events/getAssignment.cfm?positionno=#qEvent.PositionNo#">															
 			</td></tr>
 			
 			<tr id="conditionbox" class="labelmedium xxxxxxxhide">				
 				<td style="padding-left:3px" width="20%"><cf_tl id="ePerformance">:</td>
 			    <td style="padding-left:0px" id="dCondition"></td> 								
-			</tr>
-			
+			</tr>			
 									
 			<tr class="labelmedium">
 				
-				<td style="padding-left:3px" width="20%"><cf_tl id="Action Effective">:</td>
+				<td style="padding-left:3px" width="20%"><span id="actiondatelabeleffective"></span><cf_tl id="Effective">:</td>
 				<td style="padding-left:0px">
-				
+													
 					<cf_space spaces="38">	
 						
 					<cfif URL.Id eq "">
@@ -436,7 +436,7 @@
 			
 			<tr id="expirybox" class="hide">
 				
-				<td style="padding-left:3px" width="20%"><cf_tl id="Action Expiration">:</td>
+				<td style="padding-left:3px" width="20%"><span id="actiondatelabelexpiration"></span><cf_tl id="Expiration">:</td>
 				<td style="padding-left:0px">
 				
 					<cf_space spaces="38">	
@@ -591,6 +591,8 @@
 
 <cfset AjaxOnLoad("doCalendar")>
 
-<!--- disabled by hanno 2/7/2020
-<cfset AjaxOnLoad("checkevent")>
---->
+<!--- we wiggled this option of an on --->
+<cfif url.trigger neq "">
+	<cfset AjaxOnLoad("checkevent")>
+</cfif>
+
