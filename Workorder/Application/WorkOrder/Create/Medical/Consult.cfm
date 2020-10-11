@@ -285,20 +285,37 @@
 			
 		</td>
 	</tr>
-	
+
+	<cfquery name="qCurrency"
+			datasource="AppsLedger"
+			username="#SESSION.login#"
+			password="#SESSION.dbpw#">
+			SELECT    *
+			FROM      Currency
+	</cfquery>
+
+	<cfquery name="qBaseCurrency"
+			datasource="AppsLedger"
+			username="#SESSION.login#"
+			password="#SESSION.dbpw#">
+			SELECT TOP 1 DocumentCurrency
+			FROM Accounting.dbo.TransactionHeader
+			WHERE TransactionSource = 'WorkOrderSeries'
+			ORDER BY Created Desc
+	</cfquery>
+
+	<cfif qBaseCurrency.recordcount neq 0>
+		<cfset vCurrency = qBaseCurrency.DocumentCurrency>
+	<cfelse>
+		<cfset vCurrency = application.basecurrency>
+	</cfif>
+
+
 	<cfif line.recordcount eq "0">
 	
 	<tr>
 		<td style="padding-left:4px" class="labelmedium"><cf_tl id="Currency">:</td>
 		<td>
-		
-		<cfquery name="qCurrency" 
-		 datasource="AppsLedger" 
-		 username="#SESSION.login#" 
-		 password="#SESSION.dbpw#">		 
-			 SELECT    *
-			 FROM      Currency			
-		</cfquery>
 		
 		   <table cellspacing="0" cellpadding="0">
 					<tr>
@@ -306,7 +323,7 @@
 			
 				<select name="Currency" class="regularxl">
 				<cfoutput query="qCurrency">
-				    <option value="#Currency#" <cfif application.basecurrency eq currency>selected</cfif>>#Currency#</option>
+				    <option value="#Currency#" <cfif vCurrency eq currency>selected</cfif>>#Currency#</option>
 				</cfoutput>
 				</select>
 				
@@ -327,17 +344,10 @@
 					<tr>
 					<td>
 		
-				<cfquery name="qCurrency" 
-				 datasource="AppsLedger" 
-				 username="#SESSION.login#" 
-				 password="#SESSION.dbpw#">		 
-					 SELECT    *
-					 FROM      Currency			
-				</cfquery>
-					
+
 				<select name="Currency" class="regularxl">
 				<cfoutput query="qCurrency">
-				    <option value="#Currency#" <cfif application.basecurrency eq currency>selected</cfif>>#Currency#</option>
+				    <option value="#Currency#" <cfif vCurrency eq currency>selected</cfif>>#Currency#</option>
 				</cfoutput>
 				</select>
 				

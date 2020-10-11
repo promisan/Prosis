@@ -1,6 +1,4 @@
 
-<cf_screentop height="100%" label="BOM" layout="webapp" user="No">
-
 <cfparam name="url.bomid" default="">
 <cfparam name="url.mission" default="">
 
@@ -34,16 +32,15 @@
 	
 	<cfset url.mission = get.Mission>
 		
-</cfif>	
+</cfif>
 
-
-<table width="100%" height="100%" cellspacing="0" cellpadding="0">
+<table width="100%" height="100%">
 
 <tr><td height="100%" width="100%" bgcolor="white" style="padding:4px">
 
 	<cfform onsubmit="return false" id="frmMaterial" name="frmMaterial" style="height:100%">
 	
-	<TABLE width="99%" height="100%" cellspacing="0" cellpadding="0" align="center">
+	<TABLE width="99%" height="100%" align="center">
 	
 		<cfset i = 0>
 		
@@ -59,7 +56,7 @@
 						    <tr><td style="width:500px;padding-top:5px">
 								<cfoutput>
 									<input type="text" 
-										onkeyup="_cf_loadingtexthtml='';ColdFusion.navigate('#session.root#/Warehouse/Maintenance/Item/UoM/UoMBOM/ItemUoMBOMEditSelect.cfm?itemno=#url.itemno#&mission=#url.mission#&find='+this.value+'&class=supply','items')"
+										onkeyup="_cf_loadingtexthtml='';ptoken.navigate('#session.root#/Warehouse/Maintenance/Item/UoM/UoMBOM/ItemUoMBOMEditSelect.cfm?itemno=#url.itemno#&mission=#url.mission#&find='+this.value+'&class=supply','items')"
 										style = "width:98%;border:1px outset d1d1d1" 
 										class = "regularxl" 
 										id    = "findvalue" 
@@ -69,21 +66,23 @@
 							</tr>
 							<tr><td height="5"></td></tr>
 							<tr>
-									<td style="padding-right:0px;height:100%">										
+									<td style="padding-right:0px;height:100%">		
+																	
 										<cf_divscroll id="items" style="padding-right:0px;height:100%">
 									    	<cfset url.find    = "">	
 											<cfset url.prefix    = "">
 											<cfset url.class    = "Supply">
 											<cfinclude template="ItemUoMBOMEditSelect.cfm">
 										</cf_divscroll>																	
+										
 									</td>
 							</tr>
 						</table>							
 					</td>
 				</tr>	
 				</table>
-			</td>    	
-			
+			</td>   
+						
 			<td height="100%" width="70%" style="padding-left:6px">
 				<table width="100%" height="100%" class="formpadding">
 					<TR>
@@ -124,11 +123,13 @@
 										
 					<TR>
 						<TD height="100%" colspan="2" style="padding-top:5px">	
+						
 						    <cf_divscroll id="itembox" style="padding-right:0px;height:100%">					
 							<cfif Get.recordcount neq 0>																			
 								<cfinclude template="ItemUoMBOMDetails.cfm">
 							</cfif>	
 							</cf_divscroll>									
+							
 						</TD>
 					</TR>
 					
@@ -210,8 +211,7 @@
 																		
 							<input type="hidden" id="children" value="0">
 						
-						</cfif>				
-						
+						</cfif>								
 						
 					</tr>
 				</table>

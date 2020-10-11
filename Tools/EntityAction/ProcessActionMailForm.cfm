@@ -193,8 +193,7 @@
 	<!--- adjusted 15/11/2012 to ensure it has a value --->
 	<cfif mailto eq "">
 		 <cfset mailto = sendto>
-	</cfif>
-	
+	</cfif>	
 		
 	<cfparam name="mailcc"   default="">
 	<cfparam name="mailbcc"  default="">	
@@ -399,13 +398,75 @@
 		  							 
 	      </td>
 	  </tr>
-	   
-	   <cftry>
+	  	  
+	<cfquery name="Entity" 
+		datasource="AppsOrganization" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		SELECT TOP 1 * 
+		FROM   Ref_Entity
+		WHERE  EntityCode = '#Object.EntityCode#'		
+	</cfquery>
+	  
+	  <cfparam name="rw" default="0">
+	  
+	  <!--- option to attach object related attachment has been turned on --->
+	  
+	  <cfif Action.PersonMailObjectAttach eq "1" and Entity.DocumentPathName neq "">
+	  													
+			<cf_fileExist
+				DocumentPath  = "#Entity.DocumentPathName#"
+				SubDirectory  = "#Object.ObjectId#" 
+				Filter        = ""					
+				ListInfo      = "all">		
+			
+			<cfif filelist.recordcount eq "0">
+			
+				<cf_fileExist
+					DocumentPath  = "#Entity.DocumentPathName#"
+					SubDirectory  = "#Object.ObjectKeyValue4#" 
+					Filter        = ""					
+					ListInfo      = "all">		
+								
+			</cfif>		
+							
+			<!--- returns a query object filelist --->
+			
+			<cfloop query="filelist">
+			
+				<cfquery name="qAttachment" 
+				  datasource="AppsSystem" 
+				  username="#SESSION.login#" 
+				  password="#SESSION.dbpw#"> 
+					SELECT * 
+					FROM   Attachment
+					WHERE  Reference        = '#Object.ObjectId#'
+					AND    DocumentPathName = '#Entity.DocumentPathName#'
+					AND    FileName         = '#name#'							
+				</cfquery>
+				   
+				   <cfif qAttachment.fileStatus neq "9">
+				   				
+						<!--- was not deleted so we attach it to the array  --->
+						<cfset rw = rw +1>
+						<cfset mailatt[rw][1]="#directory#\#name#">	
+						<cfset mailatt[rw][2]="normal">	
+						<cfset mailatt[rw][3]="#name#">	
+					
+				   </cfif>
+				   
+				 	
+			
+			</cfloop>					
+				
+	</cfif> 
+		   
+	<cftry>
 		   
 		   <cfparam name="mailatt[1][1]" default="none">
-		   
+		   		   
 		   <cfif mailatt[1][1] neq "none">
-	  			  		   
+		   	  			  		   
 		   <tr>
 			  <td colspan="1"><cf_tl id="Attachment">:</b></td>
 			  <td>
@@ -416,49 +477,49 @@
 				  	ptoken.open('#session.root#/tools/document/FileRead.cfm?id='+att, 'Attachment'); 
 				  }
 			  </script>
-			  
+			  			  
 			  <table>
 			  <tr class="labelmedium">	
 			  	
 			  <cfloop index="att" from="1" to="10" step="1">
 			   
 				   <cfparam name="mailatt[#Att#][1]" default="none">
-				   <cfparam name="mailatt[#Att#][2]" default="none">
-				   <cfparam name="mailatt[#Att#][3]" default="none">
-				   
+				   <cfparam name="mailatt[#Att#][2]" default="normal">
+				   <cfparam name="mailatt[#Att#][3]" default="">
+				   				   
 				   <cftry>
 	
-				   <cfif mailatt[att][1] neq "none">
-				   
-				   		<!--- we record the attachment in ref_attachment --->
-						
-						<cf_assignId>
-						
-						<!--- populate the attachment table so we can open it --->
-						
-						<cfset path = replaceNoCase(mailatt[att][1],mailatt[att][3],"")> 
-												
-						<cfquery name="InsertAtt" 
-							datasource="AppsSystem"
-							username="#SESSION.login#" 
-							password="#SESSION.dbpw#">
-							INSERT INTO Attachment 
-							(AttachmentId, DocumentPathName, Server, ServerPath, FileName, FileStatus, OfficerUserId, OfficerLastName, OfficerFirstName)
-							VALUES ('#rowguid#','Mail','Custom','#path#','#mailatt[att][3]#','9','#session.acc#','#session.last#','#session.first#')					  		
-						</cfquery>							 
-										   
-				        <td style="padding-right:4px">
-				        <input type="checkbox" class="radiol"
-						    name  = "ActionMailAttachment" 
-							id    = "ActionMailAttachment" 
-							value = "#att#" checked>							
-						</td>	
-						<td style="padding-right:10px"><a href="javascript:view('#rowguid#')">#mailatt[att][3]#</a></td>
-						
-						
-				   <cfelse>
-				   
-				   </cfif>
+					   <cfif mailatt[att][1] neq "none">
+					   
+					   		<!--- we record the attachment in ref_attachment --->
+							
+							<cf_assignId>
+							
+							<!--- populate the attachment table so we can open it --->
+							
+							<cfset path = replaceNoCase(mailatt[att][1],mailatt[att][3],"")> 
+													
+							<cfquery name="InsertAtt" 
+								datasource="AppsSystem"
+								username="#SESSION.login#" 
+								password="#SESSION.dbpw#">
+								INSERT INTO Attachment 
+								(AttachmentId, DocumentPathName, Server, ServerPath, FileName, FileStatus, OfficerUserId, OfficerLastName, OfficerFirstName)
+								VALUES ('#rowguid#','Mail','Custom','#path#','#mailatt[att][3]#','9','#session.acc#','#session.last#','#session.first#')					  		
+							</cfquery>							 
+											   
+					        <td style="padding-right:4px">
+							
+					        <input type="checkbox" class="radiol"
+							    name  = "ActionMailAttachment" 
+								id    = "ActionMailAttachment" 
+								value = "#att#" checked>							
+							</td>	
+							<td style="padding-right:10px"><a href="javascript:view('#rowguid#')">#mailatt[att][3]#</a></td>
+													
+					   <cfelse>
+					   
+					   </cfif>
 				   
 				   <cfcatch></cfcatch>
 				   

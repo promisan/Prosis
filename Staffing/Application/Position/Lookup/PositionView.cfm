@@ -159,11 +159,13 @@
 
 <cf_layout attributeCollection="#attrib#"> 
 
+	<!---
 	<cf_layoutarea  position="top" name="menu" overflow="hidden" splitter="true" minsize="50" maxsize="50">
 		  		  
 			<cf_ViewTopMenu background="gray" user="No" label="Select Onboarding Position">
 						
 	</cf_layoutarea>
+	--->
 	
 	<cf_layoutarea 
 	    position    = "left" 
@@ -184,9 +186,10 @@
           overflow="auto">		  	
 	   
 			<cf_divscroll style="height:100%;padding-right:4px">			
-			<table width="97%" height="100%" style="padding-left:20px;padding-right:20px" cellspacing="0" cellpadding="0">				
-			<tr><td id="listresult" style="font-weight:200;padding-top:30px;font-size:25px" valign="top"  align="center" height="100%" class="labelmedium">	
-				<font color="0080C0">Locate a position and/or select the unit	
+			<table width="97%" height="100%" style="padding-left:20px;padding-right:20px">				
+			<tr><td id="listresult" style="padding-top:5px" valign="top" align="center" height="100%" class="labelmedium">	
+				<cfinclude template="PositionListing.cfm">
+				
 				</td>
 			</tr>
 			</table>	

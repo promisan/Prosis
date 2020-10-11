@@ -233,7 +233,16 @@
      
    <!--- ----------------------------------------------------- --->		   
    <!--- initiatilization of documents ahead of the processing --->
-   <!--- ----------------------------------------------------- --->	     
+   <!--- ----------------------------------------------------- --->	    
+   
+    <cfquery name="Action" 
+	 datasource="AppsOrganization"
+	 username="#SESSION.login#" 
+	 password="#SESSION.dbpw#">
+	   SELECT  *
+	   FROM    OrganizationObjectAction OA INNER JOIN Ref_EntityActionPublish P	ON OA.ActionPublishNo = P.ActionPublishNo AND  OA.ActionCode = P.ActionCode 	
+	   WHERE   ActionId = '#URL.ID#' 		   
+   </cfquery>  	 
     
 	<cfquery name="Format" 
 	datasource="appsOrganization" 

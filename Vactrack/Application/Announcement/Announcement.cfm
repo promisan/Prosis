@@ -88,7 +88,8 @@
 
 	   <table border="0" bgcolor="ffffff" height="100%" width="95%" align="center">
 	   <tr><td height="100%" width="100%" style="padding:20px">	  
-   	   	  
+	   
+	     	   	  
 		      <!--- custom path --->			  
 				  	   	      
 			<cfset URL.ID1 = VA.ReferenceNo>						

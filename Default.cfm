@@ -70,17 +70,17 @@ datasource="AppsSystem">
 <!--- ---------- check coldfusion version ----------- --->
 <!--- ----------------------------------------------- --->
 
-<cfif Server.Coldfusion.ProductVersion lte "11,0,4">						
+<cfif Server.Coldfusion.ProductVersion lte "11,0,10">						
 		
 		<cfoutput>						
 		<table align="center"><tr><td class="labelmedium" align="center" style="font-size:25px;padding-top:40px">		
-                 #Parameter.SystemTitle# is no longer supported under Adobe ColdFusion 11,0,4 <br> Please contact your administrator
+                 #Parameter.SystemTitle# is no longer supported under Adobe ColdFusion 11,0,10 <br> Please contact your administrator
 		</td></tr></table>	
 		</cfoutput>
 			
 		<cfabort>
 			
-</cfif>				
+</cfif>			
 						
 
 <!--- ----------------------------------------------- --->

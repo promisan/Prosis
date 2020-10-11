@@ -1,6 +1,6 @@
 
 <cf_UserProfilePictureContainer>
-
+<cfparam name="url.id" 		default="">
 <cfparam name="url.drillid" default="">
 
 <cfquery name="Candidate" 
@@ -146,7 +146,7 @@ password="#SESSION.dbpw#">
 												<table>
 												<tr>																																																
 												<td class="labelmedium" style="font-size:21px">												
-												<cfif AccessRoster neq "NONE" and url.drillid neq "">												
+												<cfif AccessRoster neq "NONE" and (url.drillid neq "" or url.id neq "")>
 													<a href="javascript:ShowCandidate('#Candidate.PersonNo#')">
 														#Candidate.LastName#, #Candidate.LastName2# #Candidate.FirstName# #Candidate.MiddleName#&nbsp;<font size="3">#Candidate.PersonNo#</font> 
 													</a>													
@@ -587,4 +587,7 @@ password="#SESSION.dbpw#">
 
 </td></tr></table>
 
+</td>
+</tr>
+</TABLE>
 </cfif>	

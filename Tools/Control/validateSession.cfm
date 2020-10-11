@@ -105,7 +105,7 @@
 			  CLIENT.width eq ""         or 			  
 			  CLIENT.dateformatshow eq "">			
 			  
-				  			  
+					  
 						  	
 			<!--- if the scope is not ajax it is just a matter of waiting for the ajax to pick it up --->
 			

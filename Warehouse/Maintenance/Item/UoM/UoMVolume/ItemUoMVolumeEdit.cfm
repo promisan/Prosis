@@ -24,11 +24,13 @@ password="#SESSION.dbpw#">
 <cfoutput>
 	<cf_tl id="Do you want to remove this record" var = "vRemove">
 
+<!---	
 <cfif url.temperature neq "">
 	<cf_screentop height="100%" scroll="Yes" layout="webapp" label="Unit of Measure Volume" option="Maintain Unit of Measure Volume [#Item.ItemDescription# - #Item.UoMDescription#]" banner="yellow" user="no">
 <cfelse>
 	<cf_screentop height="100%" scroll="Yes" layout="webapp" label="Unit of Measure Volume" option="Add Unit of Measure Volume [#Item.ItemDescription# - #Item.UoMDescription#]" user="no">
 </cfif>
+--->
 
 <script language="JavaScript">
 
@@ -57,9 +59,21 @@ function ask()
 
 <table width="80%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
 
+	 <cfoutput>
+
+    <tr class="labelmedium"><td colspan="2" style="font-size:18px">
+				
+	<cfif url.temperature neq "">
+		  Maintain Unit of Measure Volume [#Item.ItemDescription# - #Item.UoMDescription#]
+	<cfelse>
+		 Add Unit of Measure Volume [#Item.ItemDescription# - #Item.UoMDescription#]
+	</cfif>
+		
+	</td></tr>
+
 	<tr><td colspan="2" align="center" height="10"></tr>
 	
-    <cfoutput>
+   
 	
 	<cfinput type="hidden" name="ItemNo" value="#url.id#">
 	<cfinput type="hidden" name="UoM" value="#url.uom#">

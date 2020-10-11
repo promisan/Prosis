@@ -7,13 +7,15 @@ provided which are explicityly enabled for this Step in the workflow (aka custom
 	 password="#SESSION.dbpw#">
 	 
 	SELECT   R.*
-	FROM     Ref_EntityActionPublishDocument AS W INNER JOIN
-             Ref_EntityDocument AS R ON W.DocumentId = R.DocumentId
+	FROM     Ref_EntityActionPublishDocument AS W 
+	         INNER JOIN Ref_EntityDocument AS R ON W.DocumentId = R.DocumentId 
+			 INNER JOIN Ref_EntityActionDocument R1 ON  R.DocumentId = R1.DocumentId AND R1.ActionCode = '#Action.ActionCode#'
 	WHERE    W.ActionPublishNo = '#Object.ActionPublishNo#' 
-	AND      W.ActionCode = '#Action.ActionCode#' 
-	AND      R.DocumentType = 'Attach' 
-	AND      R.FieldRequired = '1'
-	AND      R.Operational = 1 
+	AND      W.ActionCode      = '#Action.ActionCode#' 
+	AND      R.DocumentType    = 'Attach' 
+	AND      R.DocumentMode    = 'Step'
+	AND      R.FieldRequired   = '1'
+	AND      R.Operational    = 1 
 	 
 </cfquery>	 
 	

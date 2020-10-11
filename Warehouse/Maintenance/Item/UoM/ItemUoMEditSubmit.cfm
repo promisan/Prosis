@@ -192,9 +192,11 @@
 	<cfoutput>
 	<script>			
 		 //alert('#vUpdated#');
-		 parent.ColdFusion.navigate('ItemUoMEdit.cfm?id=#url.id#&uom=#url.uom#','contentbox1');
+		
+		 parent.ptoken.navigate('ItemUoMEdit.cfm?id=#url.id#&uom=#url.uom#','contentbox1');		 
+		 try {
 		 opener.document.getElementById('refresh_uomlist').click();		
-		//opener.ColdFusion.navigate('UoM/ItemUoMList.cfm?id=#url.id#&uomselected=#url.uom#','uomlist');
+		 } catch(e) {}
 		
 	</script> 
 	</cfoutput> 

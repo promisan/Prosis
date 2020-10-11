@@ -692,7 +692,7 @@ password="#SESSION.dbpw#">
 <cfelseif url.source eq "VAC">	 
 
 	 <script LANGUAGE = "JavaScript">
-		 parent.parent.ColdFusion.Window.hide('myarrival')
+		 parent.parent.ProsisUI.closeWindow('myarrival')
 		 parent.parent.arrivalrefresh()     	 
 	 </script>
 	<!--- refresh the workflow --->

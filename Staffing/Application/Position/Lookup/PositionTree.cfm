@@ -1,7 +1,5 @@
 
-
 <cfoutput>
-
 
 <cfif URL.MandateNo eq "0000">
 
@@ -86,13 +84,13 @@
 					<input type  = "text"
 				       name      = "find"
 					   id        = "find"
-				       size      = "30"
+				       size      = "20"
 					   value     = ""
 					   onClick   = "clearno()" 
 					   style     = "border:0px;padding-left:3px;padding-top:3px"
 					   onKeyUp   = "search()"
 				       maxlength = "25"	   
-				       class     = "regularxl">
+				       class     = "regularxxl">
 			   
 			   </td>
 			   
@@ -137,10 +135,11 @@
 	<cfset arg = replace(arg,"&","|","ALL")>
 	<cfset arg = replace(arg,"=","!","ALL")>
 	
+		
 	<cfform>
-		<cftree name="tree" font="calibri"  fontsize="12" bold="No" format="html" required="No">
-		     <cftreeitem bind="cfc:service.Tree.OrganizationTree.getNodes({cftreeitempath},{cftreeitemvalue},'#url.mission#','#mandatedef#','PositionListing.cfm','DEF','#url.mission#','#URL.mission#','#MandateDef#','','','0','#arg#')">  		 
-		</cftree>	
+		<cf_UItree name="tree" font="calibri"  fontsize="12" bold="No" format="html" required="No">
+		     <cf_UItreeitem bind="cfc:service.Tree.OrganizationTree.getNodesV2({cftreeitempath},{cftreeitemvalue},'#url.mission#','#mandatedef#','PositionListing.cfm','DEF','#url.mission#','#URL.mission#','#MandateDef#','','','0','#arg#')">
+		</cf_UItree>
 	</cfform>
 			
 </td></tr>

@@ -33,52 +33,61 @@
 		WHERE  Warehouse = '#url.warehouse#'
 </cfquery>
 
-<cfquery name="Get" 
-	datasource="AppsMaterials" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-		SELECT     TOP 20 A.*			
-		FROM       Customer A 	
-		
-		<cfif url.search neq "inmemory">				
-		WHERE      (Reference LIKE '%#url.search#%' 
-		                    OR CustomerSerialNo LIKE '%#url.search#%' 
-		                    OR CustomerName     LIKE '%#url.search#%' 
-							OR PhoneNumber      LIKE '#url.search#%' 
-							OR eMailAddress     LIKE '#url.search#%')
-		<cfelse>
-		WHERE     CustomerId IN
-                          (SELECT   CustomerId
-                            FROM    vwCustomerRequest
-							WHERE   Mission     = '#url.mission#'
-							AND     Warehouse   = '#url.warehouse#'
-							AND     ActionStatus ! = '9'
-							AND     BatchNo is NULL
-							<!--- not loaded from existing --->
-							AND     BatchId is NULL)
-		</cfif>
-		AND        Mission = '#url.mission#'
-		AND        Operational = 1
-		<cfif Parameter.DefaultAddressType neq ''>
-			AND    EXISTS
-			(
-				SELECT 'X'
-				FROM   CustomerAddress CA
-				WHERE  CA.CustomerId  = A.CustomerId
-				AND    CA.AddressType = '#Parameter.DefaultAddressType#' 
-				AND    EXISTS
-				(
-					SELECT 'X'
-					FROM   System.dbo.Ref_Address RA
-					WHERE  RA.AddressId = CA.AddressId
-					AND    RA.Country = '#Warehouse.Country#'
-				)
-			)
-		</cfif>
-		ORDER BY   CustomerName 
-</cfquery>
+<cfif url.search eq "inmemory">	
 
-<table width="500" cellspacing="0" cellpadding="0" style="border:1px solid silver" bgcolor="white" id="tcustomer_search">
+	<!--- we take only people that could be reaonable still waiting in store --->
+
+	<cfquery name="Get" 
+		datasource="AppsMaterials" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT     DISTINCT TOP 10 A.*			
+			FROM       Customer A INNER JOIN vwCustomerRequest C ON A.CustomerId = C.CustomerId	
+			WHERE      C.Mission     = '#url.mission#'
+			AND        C.Warehouse   = '#url.warehouse#' 
+			AND        C.Created > getDate()-1
+			AND        ActionStatus ! = '9'
+			AND        BatchNo is NULL
+			<!--- not loaded from existing --->
+			AND        BatchId is NULL				
+			ORDER BY   CustomerName 
+	</cfquery>
+
+<cfelse>
+	
+	<cfquery name="Get" 
+		datasource="AppsMaterials" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT     TOP 20 A.*			
+			FROM       Customer A 				
+						
+			WHERE      (Reference LIKE '%#url.search#%' 
+			                    OR CustomerSerialNo LIKE '%#url.search#%' 
+			                    OR CustomerName     LIKE '%#url.search#%' 
+								OR PhoneNumber      LIKE '#url.search#%' 
+								OR eMailAddress     LIKE '#url.search#%')
+			
+			AND        Mission = '#url.mission#' <!--- not so sure as we allow mixing now --->			
+			AND        Operational = 1
+			
+			<cfif Parameter.DefaultAddressType neq ''>
+			AND        EXISTS (	SELECT 'X'
+								FROM   CustomerAddress CA
+								WHERE  CA.CustomerId  = A.CustomerId
+								AND    CA.AddressType = '#Parameter.DefaultAddressType#' 
+								AND    EXISTS ( SELECT 'X'
+												FROM   System.dbo.Ref_Address RA
+												WHERE  RA.AddressId = CA.AddressId
+												AND    RA.Country = '#Warehouse.Country#' )
+							  )	
+			</cfif>
+			ORDER BY   CustomerName 			
+	</cfquery>
+	
+</cfif>	
+
+<table width="500" style="border:1px solid silver" bgcolor="white" id="tcustomer_search">
 
 <input type="hidden" name="customerselectrow" id="customerselectrow" value="0">
 
@@ -148,12 +157,12 @@
 		     
         <tbody>
             <tr style="height:20px;padding: 5px;">
-                <td class="s0" style="width:50%;" dir="ltr"><p style="font-size: 15px;padding: 3px 0 0 10px;"><i class="fas fa-user-circle"></i> #get.CustomerName# </p></td>
-                <td class="s0" style="width:50%;" style="width:50%;" dir="ltr"><p style="font-size: 13px;"><b><cf_tl id="Tax"></b>: #get.Reference# </td>
+                <td class="s0" style="width:60%;" dir="ltr"><p style="font-size: 15px;padding: 3px 0 0 10px;"><i class="fas fa-user-circle"></i> #get.CustomerName# </p></td>
+                <td class="s0" style="width:40%;" style="width:50%;" dir="ltr"><p style="font-size: 13px;"><b><cf_tl id="Tax"></b>: #get.Reference# </td>
             </tr>
             <tr style="height:20px;" class="line">
-                <td class="s0" style="width:50%;" dir="ltr"><p style="font-size: 12px;padding:1px 0 4px 12px;color:##555555;"><i class="fas fa-envelope-square"></i> #get.eMailAddress#</p></td>
-                <td class="s0" style="width:50%;" dir="ltr"><p style="font-size: 12px;padding:1px 0 4px 0;color:##555555;"> <b>##</b><span style="font-size:13px;padding-right:20px">#get.CustomerSerialNo#</span><i class="fas fa-phone-square"></i> #get.PhoneNumber#</p></td>
+                <td class="s0" style="width:60%;" dir="ltr"><p style="font-size: 12px;padding:1px 0 4px 12px;color:##555555;"><i class="fas fa-envelope-square"></i> #get.eMailAddress#</p></td>
+                <td class="s0" style="width:40%;" dir="ltr"><p style="font-size: 12px;padding:1px 0 4px 0;color:##555555;"> <b>##</b><span style="font-size:13px;padding-right:20px">#get.CustomerSerialNo#</span><i class="fas fa-phone-square"></i> #get.PhoneNumber#</p></td>
             </tr>
 			<!---
             <cfif currentrow neq recordcount>

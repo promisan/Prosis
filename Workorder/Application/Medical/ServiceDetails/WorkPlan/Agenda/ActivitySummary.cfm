@@ -2,6 +2,32 @@
 <cfparam name="url.orgunit"    default="">
 <cfparam name="url.positionno" default="">
 
+<cfif url.OrgUnit eq "">
+	<cfquery name="qCurrentUnit"
+			datasource="AppsWorkOrder"
+			username="#SESSION.login#"
+			password="#SESSION.dbpw#">
+		SELECT *
+		FROM Employee.dbo.PersonAssignment PA
+		WHERE PersonNo = '#client.personNo#'
+	AND DateEffective  <= '#dateformat(url.calendardate,client.dateSQL)#'
+	AND DateExpiration >= '#dateformat(url.calendardate,client.dateSQL)#'
+	AND Incumbency = 100
+	AND AssignmentStatus IN ('0','1')
+	AND EXISTS
+	(
+	SELECT 'x'
+	FROM Employee.dbo.WorkSchedulePosition WP
+	WHERE WP.PositionNo = PA.PositionNo
+	)
+	</cfquery>
+	<cfif qCurrentUnit.recordcount neq 0>
+		<cfset URL.positionNo = qCurrentUnit.PositionNo>
+		<cfset URL.orgunit = qCurrentUnit.OrgUnit>
+		<cfset URL.personNo = Client.personNo>
+	</cfif>
+</cfif>
+
 <cfquery name="Check" 
 	 datasource="AppsWorkOrder" 
 	 username="#SESSION.login#" 

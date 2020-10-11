@@ -299,7 +299,7 @@ password="#SESSION.dbpw#">
 			<cfinput name="eMailAddress"
 			    id="emailaddress_#mission#" 
 				 onKeyUp="applyCustomerData('#url.mission#','emailaddress',this.value)"
-			    class="regularxl enterastab" type="text" value="#Customer.eMailAddress#" validate="email" size="45" maxlength="50">
+			    class="regularxl enterastab" type="text" value="#Customer.eMailAddress#" validate="email" size="60" maxlength="50">
 		</td>
 	</tr>
 	

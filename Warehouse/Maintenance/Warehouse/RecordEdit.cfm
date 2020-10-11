@@ -614,13 +614,22 @@ password="#SESSION.dbpw#">
 	   </tr></table>		
 	</td>
 	</tr>	
+	
+	<TR>
+	    <TD class="labelmedium" style="padding-left:33px"><cf_UIToolTip tooltip="Quotation settings"><cf_tl id="Quotations">:</cf_UIToolTip></TD>
+	    <td>
 			
-    <TR>
-    <TD valign="top" class="labelmedium" style="padding-top:4px;padding-left:33px"><cf_tl id="Stock Managed">:</TD>
-    <TD style="width:500">
-		<cf_securediv id="#url.id1#_list" bind="url:Category/CategoryListing.cfm?ID1=#url.id1#">
-	</TD>
-	</TR>	
+			<select name="QuotationMode" id="QuotationMode" class="regularxl">
+								
+				   <option value="0" <cfif get.QuotationMode eq 0>selected</cfif>>Only to support POS</option>
+				   <option value="1" <cfif get.QuotationMode eq 1>selected</cfif>>Enabled</option>
+				   <option value="2" <cfif get.QuotationMode eq 2>selected</cfif>>Enabled and retain</option> 
+				  				
+			</select>
+			
+			</td>	
+   
+   </tr>
 	
 	<TR>
 	    <TD class="labelmedium" style="padding-left:33px"><cf_UIToolTip tooltip="Default Sale Currency"><cf_tl id="POS Sale Mode">:</cf_UIToolTip></TD>
@@ -678,6 +687,13 @@ password="#SESSION.dbpw#">
 			</table>
 		
 		</TD>
+	</TR>	
+	
+	 <TR>
+    <TD valign="top" class="labelmedium" style="padding-top:4px;padding-left:33px"><cf_tl id="Stock Managed">:</TD>
+    <TD style="width:500">
+		<cf_securediv id="#url.id1#_list" bind="url:Category/CategoryListing.cfm?ID1=#url.id1#">
+	</TD>
 	</TR>	
 	
 </table>

@@ -1,6 +1,4 @@
 
-<cf_screentop html="No" jquery="Yes">
-
 <cfparam name="URL.Class"     default="Operational">
 <cfparam name="URL.ID"        default="">
 <cfparam name="URL.ID1"       default="">
@@ -9,6 +7,14 @@
 <cfparam name="URL.source"    default="">
 <cfparam name="URL.Mission"   default="#URL.ID2#">
 <cfparam name="URL.MandateNo" default="#URL.ID3#">
+
+<cfif url.mission eq "">
+    <cfset url.mission   = url.id2>
+</cfif>
+
+<cfif url.mandateno eq "">
+	<cfset url.mandateno = url.id3>
+</cfif>
 
 <cf_tl id="Vacant" var="1">
 <cfset tVacant=#lt_text#>
@@ -32,51 +38,55 @@
 
 <cfif URL.Source eq "VAC">	
 		
-   <cfquery name="Position" 
-   datasource="AppsVacancy" 
-   username="#SESSION.login#" 
-   password="#SESSION.dbpw#">
+	   <cfquery name="Position" 
+	   datasource="AppsVacancy" 
+	   username="#SESSION.login#" 
+	   password="#SESSION.dbpw#">
    
-	 SELECT  *
-	 FROM    Employee.dbo.Position Post 	        			 
-			 INNER JOIN Organization.dbo.Organization Org ON Post.OrgUnitOperational = Org.OrgUnit
-     <cfif url.org neq "0">
-	 WHERE   OrgUnitOperational = '#url.org#' 
-	 <cfelseif url.id1 neq "">
-	 WHERE   ( Post.PositionNo LIKE '%#URL.ID1#%' OR Post.SourcePostNumber LIKE '%#URL.ID1#%' OR Post.PositionParentId LIKE '%#URL.ID1#%') 		
-	 <cfelse>			  
-	 WHERE   ( 
-	         Post.PositionNo IN (SELECT PositionNo FROM DocumentPost WHERE DocumentNo = '#URL.DocumentNo#')
-			 OR
-	         Post.SourcePositionNo IN (SELECT PositionNo FROM DocumentPost WHERE DocumentNo = '#URL.DocumentNo#')
-			 )				
-	 </cfif>
-	 AND     Org.Mission     = '#URL.Mission#'
-	 AND     Org.MandateNo   = '#URL.MandateNo#'
-	 AND     Post.PostType IN (SELECT PostType
-		                       FROM  Employee.dbo.Position
-							   WHERE PositionNo IN (SELECT PositionNo 
-							                        FROM   DocumentPost 
-													WHERE  DocumentNo = '#URL.DocumentNo#')) 
+		 SELECT  *
+		 FROM    Employee.dbo.Position Post 	        			 
+				 INNER JOIN Organization.dbo.Organization Org ON Post.OrgUnitOperational = Org.OrgUnit
+	     <cfif url.org neq "0">
+		 WHERE   OrgUnitOperational = '#url.org#' 
+		 <cfelseif url.id1 neq "">
+		 WHERE   ( Post.PositionNo LIKE '%#URL.ID1#%' 
+		            OR Post.SourcePostNumber LIKE '%#URL.ID1#%' 
+					OR Post.PositionParentId LIKE '%#URL.ID1#%') 		
+		 <cfelse>			  
+		 WHERE   ( Post.PositionNo IN (SELECT PositionNo
+		                               FROM   DocumentPost 
+									   WHERE  DocumentNo = '#URL.DocumentNo#')
+				 OR Post.SourcePositionNo IN (SELECT PositionNo 
+				                              FROM   DocumentPost 
+											  WHERE  DocumentNo = '#URL.DocumentNo#')
+				 )				
+		 </cfif>
+		 AND     Org.Mission     = '#URL.Mission#'
+		 AND     Org.MandateNo   = '#URL.MandateNo#'
+		 AND     Post.PostType IN (SELECT PostType
+			                       FROM  Employee.dbo.Position
+								   WHERE PositionNo IN (SELECT PositionNo 
+								                        FROM   DocumentPost 
+														WHERE  DocumentNo = '#URL.DocumentNo#')
+								  ) 			
 			
-	</cfquery>				
-	
-	
-		
-		<table width="97%" border="0" cellspacing="0" cellpadding="0" class="navigation_table">
+		</cfquery>	
+				
+				
+		<table width="97%" class="navigation_table">
 			
 		<cfif Position.recordcount gte "1">
 		
 		<TR class="line">
-		    <td colspan="8" style="height:40;padding-left:10px;font-weight:200;font-size:17px" class="labelmedium">
-			<font color="gray">The following position(s) are associated to Recruitment request : <b><cfoutput>#URL.DocumentNo#</cfoutput></b></td>
+		    <td colspan="8" style="height:40px;padding-left:10px;font-size:19px" class="labelmedium">
+			<font color="6688aa">The following position(s) were associated to this Recruitment track : <b><cfoutput>#URL.DocumentNo#</cfoutput></b></td>
 		</TR>
 	
 		<cfoutput query="Position">
 		
 			<tr class="line labelmedium navigation_row" style="height:18px">
 			
-				<td width="6%" align="center" style="padding-top:5px">				
+				<td width="6%" align="center">				
 				  <cf_img icon="select" navigation="Yes" onclick="assignment('#URL.Source#','#PositionNo#','#URL.ApplicantNo#','#URL.PersonNo#','#URL.RecordId#','#URL.DocumentNo#');">										 
 				 </td>
 				 <td width="10%">#MandateNo#</td>
@@ -136,7 +146,6 @@
 </cfif>
 
 <cfif URL.ID eq "POS" or url.source is "TFR">
-
 	
 	<!--- retrieve position --->
 	
@@ -175,7 +184,7 @@
 	<cfoutput query="Position">
 	
 	<tr class="labelmedium navigation_row" style="height:18px">
-			<td width="6%" align="center" style="padding-top:5px;cursor:pointer" class="navigation_action" onclick="transfer('#URL.Source#','#PositionNo#','#URL.PersonNo#','#URL.RecordId#','#URL.DocumentNo#')">			
+			<td width="6%" align="center" style="padding-top:3px;cursor:pointer" class="navigation_action" onclick="transfer('#URL.Source#','#PositionNo#','#URL.PersonNo#','#URL.RecordId#','#URL.DocumentNo#')">			
 			  <cf_img icon="select">			  			
 			 </td>
 		     <TD width="50%">#FunctionDescription#</TD>
@@ -427,4 +436,5 @@
 </cfif>  
 
 <cfset ajaxonload("doHighlight")>
+
  

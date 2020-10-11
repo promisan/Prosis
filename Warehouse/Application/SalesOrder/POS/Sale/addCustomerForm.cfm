@@ -149,7 +149,7 @@ password="#SESSION.dbpw#">
     	<TD>
 		
 		<cf_tl id="Please enter a valid eMail" var="1" class="message">		
-		<cfinput type="Text" name="eMailAddress" class="regularxl enterastab" message="#lt_text#" validate="email" value="" required="No" size="30" maxlength="30">
+		<cfinput type="Text" name="eMailAddress" class="regularxl enterastab" message="#lt_text#" validate="email" value="" required="No" size="40" maxlength="50">
 		
 		</TD>
 	</TR>

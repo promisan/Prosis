@@ -60,8 +60,8 @@
 				</tr>	
 				
 				<tr>
-					<td class="labelit">
-						<cf_tl id="How many labels would you like to print">?
+					<td class="labelit" style="min-width:300px">
+						<cf_tl id="How many labels to print">?
 					</td>
 					<td style="padding-left:8px;">
 						<select name="labels" class="regularxl" id="labels" onChange="updateButton('#url.id#','#url.uom#',this.value,document.getElementById('sWarehouse').value)">
@@ -92,8 +92,8 @@
 					<td  width="100%" align="center">
 						<div style="display:#vshow_btn1#">
 							<cfdiv id="buttonPrint" bind="url:UoMBarCode/ButtonPrint.cfm?itemno=#url.id#&uom=#url.uom#&labels=1&whs={sWarehouse}">
-						</div>
-						<div style="style="display:#vshow_btn2#">						
+						</div>						
+						<div style="padding-top:4px;display:#vshow_btn2#">						
 							<cfdiv id="buttonPrintEPL" bind="url:UoMBarCode/ButtonPrintEPL.cfm?itemno=#url.id#&uom=#url.uom#&labels=1&whs={sWarehouse}">
 						</div>		
 					</td>

@@ -74,8 +74,8 @@
 
 <tr><td valign="top" style="padding-left:6px">
 	
-	<table width="100%" style="width:95%;height:95%">
-	
+	<table width="100%" style="width:100%;height:95%">
+		
 	<tr class="line">	
 	
 	<cfset lk = "">

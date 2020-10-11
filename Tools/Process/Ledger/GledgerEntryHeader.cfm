@@ -3,6 +3,7 @@
 <cfparam name="Attributes.Journal"                  default="">
 
 <cfparam name="Attributes.OrgUnitOwner"             default="0">
+<cfparam name="Attributes.OrgUnitSource"            default="0">
 <cfparam name="Attributes.OrgUnitTax"               default="0">
 <cfparam name="Attributes.AccountPeriod"            default="">
 <cfparam name="Attributes.JournalBatchNo"           default="">
@@ -367,6 +368,9 @@
 			   Mission,
 			   OrgUnitOwner,
 			   OrgUnitTax,
+			   <cfif Attributes.OrgUnitSource neq "">
+			   OrgUnitSource,
+			   </cfif>
 			   <cfif Attributes.ReferenceOrgUnit neq "">
 			   ReferenceOrgUnit,
 			   </cfif>
@@ -430,6 +434,9 @@
 			   '#Attributes.Mission#',
 			   '#Attributes.OrgUnitOwner#',
 			   '#Attributes.OrgUnitTax#',
+			   <cfif Attributes.OrgUnitSource neq "">
+			   '#Attributes.OrgUnitSource#',
+			   </cfif>
 			   <cfif Attributes.ReferenceOrgUnit neq "">
 			   '#Attributes.ReferenceOrgUnit#',
 			   </cfif>

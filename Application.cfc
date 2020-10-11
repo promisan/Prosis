@@ -1,22 +1,20 @@
-<cfcomponent
-displayname="Application"
-output="true"
-hint="Handle the application.">
+
+<cfcomponent displayname="Application" output="true" hint="Handle the application.">
  
-		<!--- Set up the application. --->
-		<cfset THIS.Name = "Prosis" />
-		<cfset THIS.ApplicationTimeout = CreateTimeSpan( 0, 24, 180, 0 ) />
-		<cfset THIS.SessionManagement = true />
-		<cfset THIS.clientmanagement = true />	
-		<cfset THIS.SessionTimeout   = CreateTimeSpan(0,24,180,0)/>        
-		<cfset this.wschannels = [{name="validatorchannel"}]>		
+	<!--- Set up the application. --->
+	<cfset THIS.Name = "Prosis" />
+	<cfset THIS.ApplicationTimeout = CreateTimeSpan( 0, 24, 180, 0 ) />
+	<cfset THIS.SessionManagement = true />
+	<cfset THIS.clientmanagement = true />	
+	<cfset THIS.SessionTimeout   = CreateTimeSpan(0,24,180,0)/>        
+	<cfset this.wschannels = [{name="validatorchannel"}]>		
 		 
-		<cffunction
-			name="OnRequestStart"
-			access="public"
-			returntype="boolean"
-			output="true"
-			hint="Fires at first part of page processing.">
+	<cffunction
+		name="OnRequestStart"
+		access="public"
+		returntype="boolean"
+		output="true"
+		hint="Fires at first part of page processing.">
 		 
 				<!--- Define arguments. --->
 				<cfargument	name="TargetPage" type="string"	required="true"/>
@@ -50,20 +48,19 @@ hint="Handle the application.">
 					
 				<cfreturn true />
 				
-		</cffunction>		 
+	</cffunction>		 
 		 
-		<cffunction
-			name="OnRequest"
-			access="public"
-			returntype="void"
-			output="true"
-			hint="Fires after pre page processing is complete.">
+	<cffunction
+		name="OnRequest"
+		access="public"
+		returntype="void"
+		output="true"
+		hint="Fires after pre page processing is complete.">
 		 
 		<!--- Define arguments. --->
-		<cfargument
-		name="TargetPage"
-		type="string"
-		required="true"/>
+		<cfargument	name="TargetPage"
+				type="string"
+				required="true"/>
 			
 			<!--- Include the requested page. --->
 			<cfinclude template="#ARGUMENTS.TargetPage#" />
@@ -71,6 +68,7 @@ hint="Handle the application.">
 			 
 		<!--- Return out. --->
 		<cfreturn />
-		</cffunction>
+		
+	</cffunction>
 	 
 </cfcomponent>

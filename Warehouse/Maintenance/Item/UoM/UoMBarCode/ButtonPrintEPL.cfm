@@ -1,7 +1,7 @@
 <cfparam name="url.lot" default="" >
 
-
 <cfif URL.lot eq "">
+
 	<cfquery name="Get" 
 			 datasource="AppsMaterials" 
 			 username="#SESSION.login#" 
@@ -12,8 +12,8 @@
 				WHERE  UoM.ItemNo = '#url.itemno#'
 				AND    UoM.UoM    = '#url.uom#'
 	</cfquery>
+	
 <cfelse>
-
 
 	<cfquery name="qWarehouse" 
 		 datasource="AppsMaterials" 
@@ -80,8 +80,6 @@
 	</cfquery>
 </cfif>
 
-
-
 <cfif getPrice.recordcount lte 0>
 	<cfquery name="GetPrice" 
 		 datasource="AppsMaterials" 
@@ -95,7 +93,6 @@
 	</cfquery>
 </cfif>
 
-
 <cfquery name="qWarehouse" 
 		datasource="AppsMaterials" 
 		 username="#SESSION.login#" 
@@ -105,26 +102,26 @@
 		WHERE Warehouse = '#url.whs#' 
 </cfquery>
 
-
 <cfif Get.ItemBarCodeAlternate eq "">
-	<cfset code = Ucase(Get.ItemBarCode)>
+	<cfset code = Ucase(Get.ItemBarCode)>	
 <cfelse>
-	<cfset code = Ucase(Get.ItemBarCodeAlternate)>
+	<cfset code = Ucase(Get.ItemBarCodeAlternate)>	
 </cfif>	
 
-	<cfoutput>
-		<cfset wtext=trim(Wrap(get.Classification, 25,true))>
-		<cfset br = "#chr(13)##chr(10)#">
-		<cfset salesPrice =  #Numberformat(GetPrice.SalesPrice,"____.__")#>
-		<cfif qWarehouse.TaskingMode eq 0>
-			<cfset wtext="#Get.CategoryItem# #Get.ItemNo# #Get.UoM#|#wtext#|#URL.lot# #qWarehouse.SaleCurrency#.#salesPrice#|">
-		<cfelse>
-			<cfset wtext="#Get.CategoryItem# #Get.ItemNo# #Get.UoM#|#wtext# #get.ItemDescription#|#URL.lot#   #qWarehouse.SaleCurrency#.#salesPrice#|">
-		</cfif>	
+<cfoutput>
 
-		<cfset wtext=replace(wtext,br,"|","All")>
-		<input type="button" value="Print Barcodes EPL2" style="width:200" class="button10g" onclick="javascript:printEPL('#code#','#url.itemno#','#url.uom#','#wtext#')">
-	</cfoutput>
-
+	<cfset wtext=trim(Wrap(get.Classification, 25,true))>
+	<cfset br = "#chr(13)##chr(10)#">
+	<cfset salesPrice =  Numberformat(GetPrice.SalesPrice,".__")>
+	<cfif qWarehouse.TaskingMode eq 0>
+		<cfset wtext="#Get.CategoryItem# #Get.ItemNo# #Get.UoM#|#wtext#|#URL.lot# #qWarehouse.SaleCurrency#.#salesPrice#|">
+	<cfelse>
+		<cfset wtext="#Get.CategoryItem# #Get.ItemNo# #Get.UoM#|#wtext# #get.ItemDescription#|#URL.lot#   #qWarehouse.SaleCurrency#.#salesPrice#|">
+	</cfif>	
+	<cfset wtext=replace(wtext,br,"|","All")>
+	<input type="button" value="Print Barcodes EPL2" style="width:200" class="button10g" 
+	   onclick="javascript:printEPL('#code#','#url.itemno#','#url.uom#','#wtext#')">
+	
+</cfoutput>
 
 <cfset AjaxOnload("launchQZ")>

@@ -13,7 +13,7 @@
 			<cfabort>
 	
 	<cfelse>
-	
+			
 		<cfquery name="get" 
 		datasource="AppsPurchase" 
 		username="#SESSION.login#" 
@@ -50,7 +50,7 @@
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
 		   UPDATE PurchaseLineReceipt
-		   SET    InvoicePrice       = '#val#',
+		   SET    InvoicePrice       = '#val#', 
 		          InvoiceAmountCost  = '#cost#',
 				  InvoiceAmountTax   = '#tax#'	         
 		   WHERE  ReceiptId          = '#url.receiptid#'
@@ -64,9 +64,9 @@
 		  FROM    PurchaseLineReceipt
 		  WHERE   ReceiptId = '#url.receiptid#'
 		</cfquery>
-		
-		<cfoutput>
-		#NumberFormat(get.InvoiceAmount,"__,__.__")#
+						
+		<cfoutput>		
+		#NumberFormat(get.InvoiceAmount,",.__")#		
 		</cfoutput>
 		
 	</cfif>	
@@ -138,7 +138,7 @@
 		</cfquery>
 		
 		<cfoutput>
-		#NumberFormat(get.InvoicePrice,"__,__.__")#
+		#NumberFormat(get.InvoicePrice,",.__")#
 		</cfoutput>
 
 	</cfif>

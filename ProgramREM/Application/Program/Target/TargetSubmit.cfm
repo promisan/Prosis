@@ -14,8 +14,7 @@
 	    username="#SESSION.login#" 
 	    password="#SESSION.dbpw#">
 	   	
-		INSERT INTO ProgramTarget
-		  	(
+		INSERT INTO ProgramTarget (
 				ProgramCode,
 				Period,
 				TargetId,
@@ -33,10 +32,8 @@
 				RecordStatus,
 				OfficerUserId,
 				OfficerLastName,
-				OfficerFirstName
-			)
-		VALUES
-			(
+				OfficerFirstName )
+		VALUES	(
 				'#url.programCode#',
 				'#url.period#',
 				'#RowGuid#',
@@ -58,8 +55,7 @@
 				'1',
 				'#session.acc#',
 				'#session.last#',
-				'#session.first#'
-			)
+				'#session.first#' )
 			
 	</cfquery>
 	
@@ -88,10 +84,9 @@
 
 </cfif>
 
-
 <cfoutput>
 	<script>
-	  	targetrefresh('#url.programcode#','#url.period#','#url.targetid#','#url.category#','#url.programaccess#');
-	   	try { window.close() } catch(e) {}
+	  	parent.targetrefresh('#url.programcode#','#url.period#','#url.targetid#','#url.category#','#url.programaccess#');
+	   	parent.ProsisUI.closeWindow('target')
 	</script>
 </cfoutput>

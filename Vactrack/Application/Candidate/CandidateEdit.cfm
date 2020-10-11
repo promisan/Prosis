@@ -1,29 +1,67 @@
 
-<!--- provision for UN only --->
-
-<cfquery name="DocParameter" 
-datasource="appsVacancy" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-    SELECT *
-    FROM Parameter
-</cfquery>
-
 <cfquery name="Doc" 
 datasource="appsVacancy" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
     SELECT *
-    FROM  Document
+    FROM Document
 	WHERE DocumentNo = '#URL.ID#'
 </cfquery>
 
-<!--- coexist new and old track --->
-<cfif Doc.EntityClass eq "">
-   redirecting...
-   <cflocation url="#SESSION.root#/Vacancy/Application/DocumentCandidateEdit.cfm?ID=#URL.ID#&ID1=#URL.ID1#" addtoken="No">
-</cfif>
+<cfquery name="GetCandidate" 
+datasource="AppsSelection" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+    SELECT *
+    FROM   Applicant
+	WHERE  PersonNo = '#URL.ID1#' 
+</cfquery>
 
+<cf_screentop title = "#URL.ID#: #GetCandidate.FirstName# #GetCandidate.LastName#"   
+   height        = "100%" 
+   layout        = "webapp"
+   banner        = "blue" 
+   bannerforce   = "Yes"
+   jquery        = "Yes"
+   html          = "No"  
+   systemmodule  = "Vacancy"
+   functionclass = "Window"
+   functionName  = "Candidate track"    
+   band          = "no"
+   line          = "no" 
+   scroll        = "no">
+
+<cfquery name="GetCandidateStatus" 
+datasource="appsVacancy" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+    SELECT DC.*, b.IndexNo
+    FROM DocumentCandidate DC left outer join Applicant.dbo.Applicant b
+		on DC.PersonNo = b.PersonNo
+	WHERE DC.PersonNo = '#URL.ID1#'
+	AND DC.DocumentNo = '#URL.ID#'
+</cfquery>
+
+<cfquery name="GetTravel" 
+datasource="appsVacancy" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+    SELECT *
+    FROM   stTravel
+	WHERE  PersonNo   = '#URL.ID1#'
+	AND    DocumentNo = '#URL.ID#'
+</cfquery>
+
+<cfquery name="GetReassignment" 
+datasource="appsVacancy" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+    SELECT *
+    FROM   stReassignment
+	WHERE  PersonNo   = '#URL.ID1#'
+	AND    DocumentNo = '#URL.ID#'
+</cfquery>   
+ 
 <!--- business rules 
 
 1. Candidate with status NOT 2s, 3 or 9 will not be shown in this screen!
@@ -45,9 +83,9 @@ password="#SESSION.dbpw#">
  datasource="appsVacancy" 
  username="#SESSION.login#" 
  password="#SESSION.dbpw#">
- SELECT COUNT(*) as Posts
- FROM DocumentPost
- WHERE  DocumentNo  = '#URL.ID#' 
+ SELECT  COUNT(*) as Posts
+ FROM    DocumentPost
+ WHERE   DocumentNo  = '#URL.ID#' 
 </cfquery>
 
 <cfif Check1.Candidates lt Check2.Posts>
@@ -56,25 +94,25 @@ password="#SESSION.dbpw#">
 	 datasource="appsVacancy" 
 	 username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">
-	 SELECT TOP 1 O.ObjectId, max(ActionFlowOrder) as ActionFlowOrder
-	 FROM   Organization.dbo.OrganizationObject O, 
-	        Organization.dbo.OrganizationObjectAction OA
-	 WHERE  O.ObjectKeyValue1 = '#URL.ID#' 
-	 AND    O.ObjectId = OA.ObjectId 
-	 AND    O.Operational  = 1
-	 AND    O.EntityCode = 'VacDocument' 
-	 GROUP BY O.ObjectId
+		 SELECT TOP 1 O.ObjectId, max(ActionFlowOrder) as ActionFlowOrder
+		 FROM   Organization.dbo.OrganizationObject O, 
+		        Organization.dbo.OrganizationObjectAction OA
+		 WHERE  O.ObjectKeyValue1 = '#URL.ID#' 
+		 AND    O.ObjectId = OA.ObjectId 
+		 AND    O.Operational  = 1
+		 AND    O.EntityCode = 'VacDocument' 
+		 GROUP BY O.ObjectId
 	</cfquery>
 		
 	<cfquery name="Update" 
 	 datasource="appsVacancy" 
 	 username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">
-	 UPDATE Organization.dbo.OrganizationObjectAction
-	 SET    ActionStatus = '0',
-	        TriggerActionType = 'Detail'
-	 WHERE  ObjectId        = '#LastStep.ObjectId#'
-	 AND    ActionFlowOrder = '#LastStep.ActionFlowOrder#' 
+		 UPDATE Organization.dbo.OrganizationObjectAction
+		 SET    ActionStatus = '0',
+		        TriggerActionType = 'Detail'
+		 WHERE  ObjectId        = '#LastStep.ObjectId#'
+		 AND    ActionFlowOrder = '#LastStep.ActionFlowOrder#' 
 	</cfquery>
 			
 	<cfoutput>
@@ -93,70 +131,21 @@ password="#SESSION.dbpw#">
 	 datasource="appsVacancy" 
 	 username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">
-	 SELECT TOP 1 *
-	 FROM   Organization.dbo.OrganizationObject O, 
-	        Organization.dbo.OrganizationObjectAction OA
-	 WHERE  O.ObjectKeyValue1 = '#URL.ID#' 
-	 AND    O.ObjectId = OA.ObjectId 
-	 AND    O.Operational  = 1
-	 AND    O.EntityCode = 'VacDocument' 
-	 ORDER BY ActionFlowOrder DESC
+		 SELECT   TOP 1 *
+		 FROM     Organization.dbo.OrganizationObject O
+		          INNER JOIN Organization.dbo.OrganizationObjectAction OA ON O.ObjectId = OA.ObjectId 
+		 WHERE    O.ObjectKeyValue1 = '#URL.ID#' 		 
+		 AND      O.Operational  = 1
+		 AND      O.EntityCode = 'VacDocument' 
+		 AND      OA.ActionStatus  ='0'
+		 ORDER BY ActionFlowOrder DESC
 	</cfquery>
 	
-	<cfif LastStep.actionStatus eq "0">
+	<cfif LastStep.recordcount gte "2">
 		<cf_message message="Problem, the track has to be forwarded before you can process the candidate" return="close">
 		<cfabort>
 	</cfif>
 
-</cfif>
-
-<cfquery name="GetCandidateStatus" 
-datasource="appsVacancy" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-    SELECT DC.*, b.IndexNo
-    FROM DocumentCandidate DC left outer join Applicant.dbo.Applicant b
-		on DC.PersonNo = b.PersonNo
-	WHERE DC.PersonNo = '#URL.ID1#'
-	AND DC.DocumentNo = '#URL.ID#'
-</cfquery>
-
-<cfquery name="GetTravel" 
-datasource="appsVacancy" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-    SELECT *
-    FROM stTravel
-	WHERE PersonNo   = '#URL.ID1#'
-	AND   DocumentNo = '#URL.ID#'
-</cfquery>
-
-<cfquery name="GetReassignment" 
-datasource="appsVacancy" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-    SELECT *
-    FROM stReassignment
-	WHERE PersonNo   = '#URL.ID1#'
-	AND   DocumentNo = '#URL.ID#'
-</cfquery>
-
-<cfquery name="Doc" 
-datasource="appsVacancy" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-    SELECT *
-    FROM Document
-	WHERE DocumentNo = '#URL.ID#'
-</cfquery>
-
-<!--- coexist new and old track --->
-<cfif GetCandidateStatus.EntityClass eq "" and Doc.EntityClass eq "">
-   
-   No longer supported
-   <cfabort>
-   redirecting...
-   <cflocation url="#SESSION.root#/Vacancy/Application/DocumentCandidateEdit.cfm?ID=#URL.ID#&ID1=#URL.ID1#" addtoken="No">
 </cfif>
 
 <cfquery name="Parameter" 
@@ -168,14 +157,7 @@ password="#SESSION.dbpw#">
 	WHERE Identifier = 'A'
 </cfquery>
 
-<cfquery name="Position" 
-datasource="appsVacancy" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-    SELECT *
-    FROM  Employee.dbo.Position
-	WHERE PositionNo = '#Doc.PositionNo#'
-</cfquery>
+
 
 <cf_dialogStaffing>
 
@@ -200,23 +182,14 @@ password="#SESSION.dbpw#">
 	PostType="#GetPost.PostType#"
 	returnvariable="accessheader">
 
-<cfquery name="GetCandidate" 
-datasource="AppsSelection" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-    SELECT *
-    FROM Applicant
-	WHERE PersonNo = '#URL.ID1#' 
-</cfquery>
-
 <cfquery name="GetClass" 
 datasource="appsOrganization" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
     SELECT *
-    FROM Ref_EntityClass
-	WHERE EntityCode = 'VacCandidate'
-	AND EntityClass = '#GetCandidateStatus.EntityClass#'
+    FROM   Ref_EntityClass
+	WHERE  EntityCode = 'VacCandidate'
+	AND    EntityClass = '#GetCandidateStatus.EntityClass#'
 </cfquery>
 
 <cfquery name="GetRelease" 
@@ -224,26 +197,10 @@ datasource="appsVacancy"
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
 SELECT *
-    FROM stReleaseRequest R, stParentOffice S
-    WHERE DocumentNo = '#URL.ID#'
-	AND  PersonNo    = '#URL.ID1#'
+    FROM   stReleaseRequest R
+    WHERE  DocumentNo = '#URL.ID#'
+	AND    PersonNo    = '#URL.ID1#'
 </cfquery>
-
-<cf_screentop title = "#URL.ID#: #GetCandidate.FirstName# #GetCandidate.LastName#"   
-   height        = "100%" 
-   layout        = "webapp"
-   banner        = "blue" 
-   bannerforce   = "Yes"
-   jquery        = "Yes"
-   html          = "No"  
-   systemmodule  = "Vacancy"
-   functionclass = "Window"
-   functionName  = "Candidate track"    
-   band          = "no"
-   line          = "no" 
-   scroll        = "no">
-   
-   <!--- icon          = "person2.png"  --->
 
 <cfset submit = "0">
 
@@ -266,9 +223,8 @@ SELECT *
 	}	
 	
 	function arrival() {		   
-		try { ColdFusion.Window.destroy('myarrival',true) } catch(e) {}
-		ColdFusion.Window.create('myarrival', 'On boarding', '',{x:100,y:100,height:document.body.clientHeight-40,width:document.body.clientWidth-40,modal:true,resizable:false,center:true})    					
-		ColdFusion.navigate('#SESSION.root#/Staffing/Application/Position/Lookup/PositionTrack.cfm?Source=vac&mission=#Doc.Mission#&mandateno=0000&applicantno=#URL.ID1#&personno=&recordid=#URL.ID#&documentno=#URL.ID#','myarrival') 	
+		ProsisUI.createWindow('myarrival', 'On boarding', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,resizable:false,center:true})    					
+		ptoken.navigate('#SESSION.root#/Staffing/Application/Position/Lookup/PositionTrack.cfm?Source=vac&mission=#Doc.Mission#&mandateno=0000&applicantno=#URL.ID1#&personno=&recordid=#URL.ID#&documentno=#URL.ID#','myarrival') 	
 	}
 	
 	function arrivalrefresh() {	

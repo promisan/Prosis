@@ -107,7 +107,7 @@
 	datasource="AppsEmployee" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-		SELECT PE.*, P.FullName, RPE.EntityClass
+		SELECT PE.*, P.FullName, RPE.EntityClass, RPE.Description
 		FROM   PersonEvent PE
 			   INNER JOIN Person P ON PE.PersonNo = P.PersonNo
 			   LEFT OUTER JOIN Ref_PersonEvent RPE ON RPE.Code = PE.EventCode
@@ -130,7 +130,7 @@
 			OrgUnit          = "#Event.OrgUnit#" 
 			PersonNo         = "#Event.PersonNo#" 
 			ObjectReference  = "#Event.FullName#"
-			ObjectReference2 = "#Event.Remarks#"			   
+			ObjectReference2 = "#Event.Description#"			   
 			ObjectKey4       = "#Form.eventid#"					
 			Show             = "No"
 			HideCurrent      = "No"			

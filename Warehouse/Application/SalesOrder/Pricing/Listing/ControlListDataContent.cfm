@@ -1,11 +1,16 @@
 
 <!--- control list data content --->
-
  
 <cfif url.SelectionDate neq "">
      <cfset dateValue = "">
 	 <CF_DateConvert Value="#url.SelectionDate#">
 	 <cfset dte = dateValue>	
+</cfif>	
+
+<cfif url.ReceiptDate neq "">
+     <cfset dateValue = "">
+	 <CF_DateConvert Value="#url.ReceiptDate#">
+	 <cfset rcp = dateValue>	
 </cfif>	
 
 <cfquery name="getWarehouse" 
@@ -30,6 +35,10 @@
 						  AND     Category  = '#url.category#'
 						  </cfif>
 						  )		
+		<cfif url.priceSchedule neq "">
+		AND      Code = '#url.priceSchedule#'
+		</cfif>
+						  
 		ORDER BY Code		 				
 </cfquery>
 
@@ -82,30 +91,29 @@
 				            )
 							) 
 										
-						  AS PriceSchedule#currentrow#,
-						  
-						  
+						   AS PriceSchedule#currentrow#,
+						  						  
 						   ISNULL(
 							    (SELECT     TOP 1 SalesPrice
-					            FROM      ItemUoMPrice
-					            WHERE     ItemNo        = IW.ItemNo 
-								AND       UoM           = IW.UoM 
-								AND       Currency      = '#url.currency#' 
-								AND       PriceSchedule = '#code#' 
-								AND       Warehouse     IS NULL
-								AND       DateEffective <= #dte#	
-								ORDER BY  DateEffective DESC		
+					             FROM      ItemUoMPrice
+					             WHERE     ItemNo        = IW.ItemNo 
+								 AND       UoM           = IW.UoM 
+								 AND       Currency      = '#url.currency#' 
+								 AND       PriceSchedule = '#code#' 
+								 AND       Warehouse     IS NULL
+								 AND       DateEffective <= #dte#	
+								 ORDER BY  DateEffective DESC		
 				            ),
 													
 								(SELECT     TOP 1 SalesPrice
-					            FROM      ItemUoMPrice
-					            WHERE     ItemNo        = IW.ItemNo 
-								AND       UoM           = IW.UoM 
-								AND       Currency      = '#url.currency#' 
-								AND       PriceSchedule = '#code#' 
-								AND       Warehouse     IS NULL
-								AND       DateEffective > #dte#	
-								ORDER BY  DateEffective ASC		
+					             FROM      ItemUoMPrice
+					             WHERE     ItemNo        = IW.ItemNo 
+								 AND       UoM           = IW.UoM 
+								 AND       Currency      = '#url.currency#' 
+								 AND       PriceSchedule = '#code#' 
+								 AND       Warehouse     IS NULL
+								 AND       DateEffective > #dte#	
+								 ORDER BY  DateEffective ASC		
 				            )
 							) 
 										
@@ -116,62 +124,119 @@
 						
 					  I.Classification, 
 					  I.ItemColor,
-					  (
-					    SELECT     TOP 1 TransactionCostPrice
-					    FROM       ItemTransaction
-					 	WHERE      ItemNo    = I.ItemNo
-						AND        TransactionUoM     = U.UoM
-						AND        Mission            = '#getWarehouse.Mission#'
-						AND        TransactionType    = '1'
-						ORDER BY Created DESC
+					  (     SELECT     TOP 1 TransactionCostPrice
+					        FROM       ItemTransaction
+					 	    WHERE      ItemNo    = I.ItemNo
+						    AND        TransactionUoM     = U.UoM
+						    AND        Mission            = '#getWarehouse.Mission#'
+						    AND        TransactionType    = '1'
+						    ORDER BY Created DESC
 					   ) as LastCost,
+					   
+					   <!--- a bit specific for Charlie --->
 
-					   (
-						    SELECT TOP 1 IVO.OfferMinimumQuantity
+					   (    SELECT  TOP 1 IVO.OfferMinimumQuantity
 							FROM 	ItemVendor IV 
-									INNER JOIN ItemVendorOffer IVO 
-										ON IV.ItemNo = IVO.ItemNo
+									INNER JOIN ItemVendorOffer IVO ON IV.ItemNo = IVO.ItemNo
 							WHERE 	IV.ItemNo  = I.ItemNo
 							AND		IV.UoM = U.UoM
 							AND 	IV.Preferred = '1'
 							ORDER BY IVO.DateEffective DESC
-					   ) AS CTN,
+					   ) AS Ctn,
 
-					   (
-						   	SELECT 	SUM(Ix.TransactionQuantityBase)
+					   (  	SELECT 	SUM(Ix.TransactionQuantity)
 							FROM 	ItemTransaction Ix WITH (NOLOCK)
-							WHERE 	Ix.ItemNo = I.ItemNo
-							AND 	Ix.TransactionUoM = U.UoM
-							AND 	Ix.ActionStatus != '9'
-					   ) as Stock
+							WHERE 	Ix.Mission        = '#URL.Mission#'
+							AND     Ix.ItemNo         = I.ItemNo
+							AND 	Ix.TransactionUoM = U.UoM							
+					   ) as StockMission,	
+					   
+					   (  	SELECT 	ISNULL(SUM(Iw.TransactionQuantity),-1)
+							FROM 	ItemTransaction Iw WITH (NOLOCK)
+							WHERE 	Iw.Warehouse      = '#URL.Warehouse#'
+							AND     Iw.ItemNo         = I.ItemNo
+							AND 	Iw.TransactionUoM = U.UoM							
+					   ) as Stock						   
 					  
 			FROM      ItemWarehouse IW 
 			          INNER JOIN Item I ON IW.ItemNo = I.ItemNo 
 					  INNER JOIN ItemUoM U ON IW.ItemNo = U.ItemNo AND IW.UoM = U.UoM 
 					  INNER JOIN Ref_CategoryItem C ON I.Category = C.Category AND I.CategoryItem = C.CategoryItem
-					  LEFT OUTER JOIN ItemUoMMission UM ON U.ItemNo = UM.ItemNo AND U.UoM = UM.UoM AND UM.Mission = '#getWarehouse.Mission#'
+					  
+					  <!---
+					  LEFT OUTER JOIN ItemUoMMission UM ON U.ItemNo = UM.ItemNo AND U.UoM = UM.UoM AND UM.Mission = '#url.mission#'
+					  --->
+					  
 			WHERE     IW.Warehouse = '#url.warehouse#' 
+			
 			<cfif url.Category neq "">
 			AND       I.Category   = '#url.Category#'
 			</cfif>
+			
 			<cfif url.programcode neq "">
 			AND      I.ProgramCode = '#url.programCode#'
 			</cfif>
 			
-			<!--- has a price defined 
-			AND       I.ItemNo IN  (SELECT    ItemNo
-			 		                FROM      ItemUoMPrice
-				                    WHERE     ItemNo        = IW.ItemNo 
-							        AND       UoM           = IW.UoM 
-							        AND       Currency      = '#url.currency#'  ) 
-									
-									--->
-									
+			<cfif url.hasPrice eq "0">
+			
+			AND      NOT EXISTS (SELECT 'X' 
+			                     FROM  ItemUoMPrice 
+						         WHERE Mission         = '#url.mission#'
+							     AND   ItemNo          = I.ItemNo
+							     AND   UoM             = U.UoM
+							     <cfif url.priceSchedule neq "">
+								 AND   PriceSchedule  = '#url.priceSchedule#' 
+							     </cfif>)
+								 
+			<cfelseif url.priceSchedule neq "">
+			
+			AND      EXISTS (SELECT 'X' 
+			                 FROM  ItemUoMPrice 
+						     WHERE Mission        = '#url.mission#'
+							 AND   ItemNo         = I.ItemNo
+							 AND   UoM            = U.UoM
+							 AND   PriceSchedule  = '#url.priceSchedule#')
+			
+			</cfif>					 
+						
+			<cfif url.taxcode neq "">
+			
+			AND      EXISTS (SELECT 'X' 
+			                 FROM ItemUoMPrice 
+						     WHERE Mission         = '#url.mission#'
+							 AND   ItemNo          = I.ItemNo
+							 AND   UoM             = U.UoM
+							 AND   TaxCode         = '#url.taxcode#')
+			
+			</cfif>
+			
+			
+			
+			<cfif url.receiptDate neq "">
+			
+			AND      EXISTS (SELECT 'X' 
+			                 FROM  ItemTransaction 
+						     WHERE Mission = '#url.mission#'
+							 AND   ItemNo           = I.ItemNo
+							 AND   TransactionUoM   = U.UoM
+							 AND   TransactionType  = '1'
+							 AND   TransactionDate >= #rcp#)
+			
+			</cfif>
+												
 			) as C		
 			
 			WHERE 1=1				
+			
+			<cfif url.instock eq "1">			
+			AND     Stock > 0
+			<cfelseif url.instock eq "0">
+			AND     Stock = 0	
+			<cfelseif url.instock eq "9">
+			AND     Stock = -1								
+			</cfif>
 								  
-			ORDER BY  CategoryItemOrder, ItemDescription, UoM
+			ORDER BY  CategoryItemName, CategoryItemOrder, ItemDescription, UoM
 			
 	</cfoutput>	
 	
@@ -211,12 +276,14 @@
 						search      	= "text",
 						filtermode  	= "2"}>	
 
-	<cfset itm = itm+1>
-	<cf_tl id="Barcode" var = "1">			
-	<cfset fields[itm] = {label     	= "#lt_text#",                    
-	     				field       	= "ItemBarcode",																												
-						search      	= "text",
-						filtermode  	= "2"}>	
+    <cfif url.priceSchedule neq "">							
+		<cfset itm = itm+1>
+		<cf_tl id="Barcode" var = "1">			
+		<cfset fields[itm] = {label     	= "#lt_text#",                    
+		     				field       	= "ItemBarcode",																												
+							search      	= "text",
+							filtermode  	= "2"}>	
+	</cfif>					
 						
 	<cfset itm = itm+1>
 	<cf_tl id="Codified" var = "1">			
@@ -258,6 +325,16 @@
 	     				field       	= "Currency",	
 						align           = "right",					
 						alias       	= ""}>
+						
+	<cfif url.priceSchedule neq "">
+	
+		<cfset itm = itm+1>
+		<cf_tl id="Tax" var = "1">			
+		<cfset fields[itm] = {label     	= "#lt_text#",                    
+		     				field       	= "TaxCode",										
+							alias       	= ""}>
+	
+	</cfif>					
 													
 	<cfloop query="schedule">
 	
@@ -290,7 +367,7 @@
 <cf_listing
 	    header              = "PriceListing"
 	    box                 = "saleprice"
-		link                = "#SESSION.root#/Warehouse/Application/SalesOrder/Pricing/Listing/ControlListDataContent.cfm?warehouse=#url.warehouse#&mission=#url.mission#&currency=#url.currency#&category=#url.category#&programcode=#url.programcode#&selectiondate=#url.selectiondate#&systemfunctionid=#url.systemfunctionid#"
+		link                = "#SESSION.root#/Warehouse/Application/SalesOrder/Pricing/Listing/ControlListDataContent.cfm?warehouse=#url.warehouse#&mission=#url.mission#&currency=#url.currency#&category=#url.category#&programcode=#url.programcode#&selectiondate=#url.selectiondate#&taxcode=#url.TaxCode#&InStock=#url.InStock#&PriceSchedule=#url.PriceSchedule#&receiptDate=#url.ReceiptDate#&hasPrice=#url.hasPrice#&systemfunctionid=#url.systemfunctionid#"
 	    html                = "No"		
 		tableheight         = "100%"
 		tablewidth          = "100%"		

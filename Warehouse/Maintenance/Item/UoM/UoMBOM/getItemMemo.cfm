@@ -42,25 +42,28 @@
 
 <!-- <cfform>-->
 
-<table width="100%" border="0"  align="center" id="tbox#url.boxnumber#">
+<table width="100%" border="0" align="center" id="tbox#url.boxnumber#">
 
 	<cfif url.boxnumber eq "0">
 		
-		<tr class="labelit line">
+		<tr class="labelmedium line">
 		   <td></td>
 		   <td><cf_tl id="Item"></td>
 		   <td><cf_tl id="Reference"></td>
 		   <td><cf_tl id="UoM"></td>
 		   <td align="right"><cf_tl id="Quantity"></td>
-		   <td align="right"><cf_tl id="Price"></td>	  	   
+		   <td align="right"><cf_tl id="Price"></td>	
+		   <td></td>  	   
 	   </tr>
  	
 	</cfif>	
 
-	<tr class="line">
-		<td width="1%" style="padding-top:2px;padding-right:6px"><cf_img icon="edit" onclick="editmemo('memo_#url.boxnumber#')" ></td>
+	<tr class="line labelmedium">
+	
+		<td style="min-width:20px;padding-top:2px;padding-right:6px">
+		<cf_img icon="edit" onclick="editmemo('memo_#url.boxnumber#')" ></td>
 		
-		<td style="height:22px" class="labelit" width="50%" align="left">
+		<td style="height:22px;width:100%" class="labelit" align="left">
 		
 			#GetItem.ItemDescription#		
 			<input type="hidden" required="true" name="itemno#URL.boxnumber#" id="itemno#URL.boxnumber#" value="#getItem.ItemNo#">	
@@ -68,7 +71,7 @@
 			
 		</td>
 		
-		<td width="10%" align="left" style="padding-right:1px">
+		<td align="left" style="min-width:100px;padding-right:1px">
 				
 			<cfif URL.MaterialId neq "">
 				<cfset vRef = GetBOM.MaterialReference>
@@ -80,15 +83,15 @@
 		         name		= "itemreference#URL.boxnumber#" 
 				 id			= "itemreference#URL.boxnumber#"
 			     value		= "#vRef#" 
-				 class		= "regular enterastab"
+				 class		= "regularxl enterastab"
 				 size		= "6" 
 				 maxLength =  "9"
 				 required	= "no"
-				 style		= "border:1px solid gray;height:19px;text-align: left;">		
+				 style		= "border-top:0px;border-bottom:0px;text-align: left;">		
 					 		
 		</td>			
 		
-		<td id="uombox" width="35%" style="font-size:11px"class="labelit">
+		<td id="uombox" style="min-width:200px">
 		
 			<cfif URL.MaterialId neq "">
 				<cfset vUoM = GetBOM.MaterialUoM>
@@ -108,14 +111,14 @@
 			<cfif getUoM.recordcount eq "1">
 			
 				<input type="hidden" name="uom#URL.boxnumber#" value="#getUoM.uom#">			
-				&nbsp;&nbsp;#getUoM.UoMDescription# <cfif getUoM.itembarcode neq "">/ #getUoM.ItemBarCode#</cfif>
+				#getUoM.UoMDescription# <cfif getUoM.itembarcode neq "">/ #getUoM.ItemBarCode#</cfif>
 			
 			<cfelse>	
 			
 				<select name = "uom#URL.boxnumber#" 
-				    class    = "regularh enterastab" 
-				    onchange = "ColdFusion.navigate('#session.root#/Warehouse/Maintenance/Item/UoM/UoMBom/getItemUOM.cfm?boxnumber=#url.boxnumber#&MaterialId=#URL.MaterialId#&ItemNo=#getItem.ItemNo#&UoM='+this.value+'&Mission='+document.getElementById('mission').value,'process')" 
-				    style    = "border:1px solid gray;height:16px;width:97%">
+				    class    = "regularxl enterastab" 
+					style="border-top:0px;border-bottom:0px;"
+				    onchange = "ptoken.navigate('#session.root#/Warehouse/Maintenance/Item/UoM/UoMBom/getItemUOM.cfm?boxnumber=#url.boxnumber#&MaterialId=#URL.MaterialId#&ItemNo=#getItem.ItemNo#&UoM='+this.value+'&Mission='+document.getElementById('mission').value,'process')">
 					
 					<cfloop query="GetUoM">
 						<option value="#uom#" <cfif vUoM eq UoM>selected</cfif>>#UoMDescription# <cfif itembarcode neq "">/ #ItemBarCode# </cfif></option>			
@@ -127,7 +130,7 @@
 			
 		</td>
 		
-		<td width="6%" align="right" style="Padding-left:1px">
+		<td align="right" style="min-width:60px;padding-left:1px">
 		
 			<cfif URL.MaterialId neq "">
 				<cfset vQuantity= "#GetBOM.MaterialQuantity#">
@@ -141,13 +144,13 @@
 				     value		="#vQuantity#" 
 					 validate	="float"
 					 message	="Invalid Quantity"
-					 class		="regular enterastab"
+					 class		="regularxl enterastab"
 					 size		="3" 
 					 required	="yes"
-					 style		="border:1px solid gray;width:50px;height:19px;text-align: right;">				
+					 style		="border-top:0px;border-bottom:0px;width:50px;text-align: right;">				
 		</td>	
 		
-		<td width="6%" align="right" style="padding-left:1px">
+		<td align="right" style="min-width:70px;padding-left:1px">
 				
 			<cfif URL.MaterialId neq "">
 				<cfset vCost = GetBOM.MaterialCost>
@@ -161,10 +164,10 @@
 				     value		="#vCost#" 
 					 validate	="float"
 					 message	="Invalid Cost"
-					 class		="regular enterastab"
+					 class		="regularxl enterastab"
 					 size		="5" 
 					 required	="yes"
-					 style		="border:1px solid gray;width:60px;height:19px;text-align: right;">				
+					 style		="border-top:0px;border-bottom:0px;width:60px;text-align: right;">				
 		</td>			
 		
 		<td align="right" width="2%" style="padding-left:3px">

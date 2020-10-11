@@ -84,7 +84,7 @@
 				  
 					<table cellspacing="0" cellpadding="0">
 					<tr><td>	
-										  
+															  
 						  <button type="button" 
 						     name="Mail" id="Mail" 
 						     style="width:41;height:25"
@@ -191,13 +191,13 @@
 	   	   
 	   		 <form name="document#no#" id="document#no#" style="height:100%">		 					   
 			  			   
-			   <table border="0" height="100%" width="100%" border="0" cellspacing="0" cellpadding="0">			   			   
+			   <table border="0" height="100%" width="100%">			   			   
 	 		    
 				  <tr class="line">
 						
 					<td align="left" colspan="3" height="26" style="padding-top:3px;padding-left:1px">	
 					
-					<table cellspacing="0" cellpadding="0">
+					<table class="formspacing">
 					
 					<tr>
 					
@@ -217,27 +217,27 @@
 							<td width="10">&nbsp;</td>
 						</cfif>
 				   
-					   	<td align="right" width="20"> 
+					   	<td align="right" style="width:20;height:30px"> 
 							  <button type="button" 
 							  name="Mail" id="Mail"
 							  style="width:41;height:25"
-							  class="button10s" onclick="docoutput('mail','#URL.MemoActionid#','#url.documentId#')">
+							  class="button10g" onclick="docoutput('mail','#URL.MemoActionid#','#url.documentId#')">
 							 	 <img src="#SESSION.root#/Images/mail_new.gif" align="absmiddle" alt="Send eMail" border="0">
 							  </button>
 						</td>
-						<td align="right" width="20">				 			 
+						<td align="right"  style="width:20;height:30px">				 			 
 							  <button type="button" 
 							     name="PDF"  id="PDF"	
 								 style="width:41;height:25"						 
-								 class="button10s" onclick="docoutput('pdf','#URL.MemoActionid#','#url.documentId#')">
+								 class="button10g" onclick="docoutput('pdf','#URL.MemoActionid#','#url.documentId#')">
 								 <img src="#SESSION.root#/Images/pdf_small.gif" align="absmiddle" alt="PDF" border="0">
 							  </button>					
 						</td>	
-						<td align="right" width="20">				 			 
+						<td align="right"  style="width:20;height:30px">				 			 
 							  <button type="button" 
 							     name="Print" id="Print" 	
 								 style="width:41;height:25"						 
-								 class="button10s" onclick="docoutput('print','#URL.MemoActionid#','#url.documentId#')">
+								 class="button10g" onclick="docoutput('print','#URL.MemoActionid#','#url.documentId#')">
 								 <img src="#SESSION.root#/Images/print.gif" align="absmiddle" alt="Print" border="0">
 							  </button>		
 					  	</td>
@@ -253,7 +253,7 @@
 	   			  
   			<cfif url.textmode eq "read">			
 			
-				<div align="left" style="height:275; width:100%; position:absolute; overflow: auto; border-top: 0px solid Silver;">				
+				<div align="left" style="height:290px; width:100%; position:absolute; overflow: auto; border-top: 0px solid Silver;">				
 				 <cfset text = replace(doc.DocumentContent,"<script","<disable","all")>
 				 <cfset text = replace(text,"<iframe","<disable","all")>	
 				 <cf_paragraph>#text#</cf_paragraph>			 				

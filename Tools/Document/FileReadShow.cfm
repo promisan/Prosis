@@ -173,8 +173,6 @@
 								
 						<cfelse>	
 						
-							<tr>
-							<td align="center" colspan="2" valign="middle" class="labelmedium" style="height:100%;font-size:25px">Please find below the file you requested</td></tr>
 							
 						   	
 							<!--- 
@@ -191,38 +189,46 @@
 							<cfset CLIENT.sd = "#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\">
 							<cfset CLIENT.sf = "#att.fileName#">
 							
+							<cfif LCase(ListLast(att.fileName, ".")) eq "pdf" or LCase(ListLast(att.fileName, ".")) eq "png">
+							
+								<tr><td style="height:100%;width:100%" colspan="2">	
+																																							
+								<iframe src ="FileRender.cfm?mid=#url.mid#"
+										name="ifWorkspace"
+								        id="ifWorkspace"
+								        width="100%"
+								        height="100%"
+								        marginwidth="0"
+								        marginheight="0"
+							    	    frameborder="0">
+								</iframe>	
+								
+								</td>
+								</tr>
+							
+							<cfelse>
+							
+							<tr>
+							<td align="center" colspan="2" valign="middle" class="labelmedium" style="height:100%;font-size:25px">Please find below the file you requested</td>
+							</tr>
+																					
 							<tr><td style="height:80px">	
-											
-																											
-							<iframe src ="FileRender.cfm?mid=#url.mid#"
-									name="ifWorkspace"
-							        id="ifWorkspace"
-							        width="100%"
-							        height="100%"
-							        marginwidth="0"
-							        marginheight="0"
-						    	    frameborder="0">
-							</iframe>	
+																																						
+								<iframe src ="FileRender.cfm?mid=#url.mid#"
+										name="ifWorkspace"
+								        id="ifWorkspace"
+								        width="100%"
+								        height="100%"
+								        marginwidth="0"
+								        marginheight="0"
+							    	    frameborder="0">
+								</iframe>	
 							
 							</td>
 							</tr>
 							
-							<!---							
-																											
-							<iframe src="#client.virtualdir#/CFRStage/User/#SESSION.acc#/#att.fileName#"
-							        name="ifWorkspace"
-							        id="ifWorkspace"
-							        width="100%"
-							        height="100%"
-							        marginwidth="0"
-							        marginheight="0"
-							        frameborder="0">
-									
-							</iframe>	
+							</cfif>
 							
-							--->
-							
-							</td></tr>
 													
 						</cfif>	
 				

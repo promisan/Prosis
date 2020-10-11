@@ -47,16 +47,18 @@
 		ORDER BY   C.Description, R.CategoryItemOrder, R.CategoryItemName, I.ItemMaster, I.ItemNo, I.ItemDescription
 </cfquery>
 
-<table width="100%" cellspacing="0" cellpadding="0" class="navigation_table">
+<table width="100%" class="navigation_table">
+
 	<cfif Item.recordcount eq "0">
-		<tr><td class="labelmedium" align="center" height="70"><font color="gray"><cf_tl id="No items found"></font></td></tr>	
+		<tr><td class="labelmedium" align="center" height="70"><cf_tl id="No items found"></td></tr>	
 	</cfif>
 	
 	<cfoutput query="Item" group="Description">
 		<tr><td class="labellarge"><b>#Description#</td></tr>		
 		<cfoutput group="CategoryItemName"> <tr><td style="padding-left:5px" class="labelmedium"><b>#CategoryItemName#</td></tr>
 		<cfoutput>
-		<tr class="navigation_row"><td width="100%" style="padding-left:10px" class="navigation_action labelit" onclick="selectresourceitem('#itemno#','#URL.prefix#','')">#ItemName#</td></tr>
+		<tr class="navigation_row"><td width="100%" style="padding-left:10px" class="navigation_action labelit"
+		 onclick="selectresourceitem('#itemno#','#URL.prefix#','')">#ItemName#</td></tr>
 		</cfoutput>		
 		</cfoutput> 
 	</cfoutput>									

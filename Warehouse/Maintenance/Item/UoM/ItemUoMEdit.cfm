@@ -94,17 +94,16 @@ password="#SESSION.dbpw#">
 					       size="8"
 					       maxlength="10"
 					       class="regularxl" 
-						   style="text-align:right;">#application.basecurrency#
-						   
-						   </td>
-						   <td style="padding-left:4px" class="labelit"><font color="0080C0">Applies if no entity cost set.</font></td>
+						   style="text-align:right;"></td> 
+						   <td style="padding-left:4px">#application.basecurrency#</td>
+						   <td style="padding-left:7px"><font color="gray">Applies if no entity cost set.</font></td>
 						   </tr></table> 
 						   
 				    </TD>
 			</TR>
 				
 		    <TR>
-				    <TD class="labelmedium"><cf_tl id="UoM">:</TD>
+				    <TD class="labelmedium"><cf_tl id="UoM Label">:</TD>
 				    <TD>
 					   <cf_tl id="Please enter a UoM description" var="vEnterDescription">
 					   
@@ -204,7 +203,10 @@ password="#SESSION.dbpw#">
 					<cfif ItemUoM.ItemBarCode neq "">
 					
 						<td class="labelmedium">
-												
+						
+							 <table>
+							 <tr><td>
+							 							 												
 							<cfinput type="Text"
 						       name="ItemBarCode"
 						       value="#ItemUoM.ItemBarCode#"				      
@@ -213,7 +215,16 @@ password="#SESSION.dbpw#">
 						       enabled="Yes"
 						       size="20"
 						       maxlength="20"
-						       class="regularxl">
+							   onkeyup="_cf_loadingtexthtml='';ptoken.navigate('getBarCodeCheck.cfm?itemno=#url.id#&uom=#url.uom#&mission=&itembarcode='+this.value,'itembarcodecheck')"
+							   class="regularxl">
+							   
+							    </td>
+							   
+							   <td style="padding-left:7px;font-weight:bold" id="itembarcodecheck"></td>
+							   
+							   </tr>							   
+							   
+							   </table>
 						   
 						 </td>  		
 						
@@ -226,17 +237,29 @@ password="#SESSION.dbpw#">
 				           UoM              = "#url.uom#"
 				           returnvariable   = "vBarCode">
 						   
-						  <td class="labelmedium">
+						  <td>
 						  
+						     <table>
+							 <tr><td>
+							 						  
 							  <cfinput type="Text"
-						       name="ItemBarCode"
-						       value="#vBarCode#"				      
-						       required="No"					   
-							   visible="Yes"
-						       enabled="Yes"
-						       size="10"
-						       maxlength="20"
-						       class="regularxl">
+							       name="ItemBarCode"
+							       value="#vBarCode#"				      
+							       required="No"					   
+								   visible="Yes"
+							       enabled="Yes"
+							       size="10"
+							       maxlength="20"
+								   onkeyup="_cf_loadingtexthtml='';ptoken.navigate('getBarCodeCheck.cfm?itemno=#url.id#&uom=#url.uom#&mission=&itembarcode='+this.value,'itembarcodecheck')"
+							       class="regularxl">
+							   
+							   </td>
+							   
+							   <td style="padding-left:7px;font-weight:bold" id="itembarcodecheck"></td>
+							   
+							   </tr>							   
+							   
+							   </table>
 						  					  
 						  </td>   
 					

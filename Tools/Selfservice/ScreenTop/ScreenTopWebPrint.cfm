@@ -1,6 +1,6 @@
 
 <!--- The user must be authenticated --->
-<cfif isDefined("session.authent")>
+<cfif isDefined("session.authent") and isDefined("session.last")>
 	<cfif session.authent eq "1">
 		<cf_WebPrintScript 
 			title="#session.welcome# - #session.first# #session.last#" 

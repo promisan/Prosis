@@ -14,15 +14,16 @@
 			
 <cfoutput>
 
+
 	<cfif url.mode eq "Item">					
 				
 		#GetItem.Classification# #GetItem.ItemDescription# (#getItem.ItemNo#)		
 		<input type="hidden" required="true" name="itemNo#URL.Prefix#" id="itemNo#URL.Prefix#" value="#url.itemno#">		
 		
 		<script>
-			ColdFusion.navigate('#session.root#/Warehouse/Maintenance/Item/UoM/UoMBOM/getItem.cfm?mode=uom&itemNo=#url.itemno#&prefix=#URL.Prefix#','uombox#URL.Prefix#')
+			ptoken.navigate('#session.root#/Warehouse/Maintenance/Item/UoM/UoMBOM/getItem.cfm?mode=uom&itemNo=#url.itemno#&prefix=#URL.Prefix#','uombox#URL.Prefix#')
 			<cfif url.prefix eq "_inherit">			
-			ColdFusion.navigate('#session.root#/Warehouse/Maintenance/Item/UoM/UoMBOM/RelatedBOM.cfm?itemno=#url.itemno#&mission='+document.getElementById("mission").value,'bom_box')			
+			ptoken.navigate('#session.root#/Warehouse/Maintenance/Item/UoM/UoMBOM/RelatedBOM.cfm?itemno=#url.itemno#&mission='+document.getElementById("mission").value,'bom_box')			
 			</cfif>
 		</script>
 		
@@ -60,7 +61,7 @@
 				  required="true" 
 				  message="#lt_text#" 
 				  value="UoM" 
-				  onchange="ColdFusion.navigate('#session.root#/Warehouse/Maintenance/Item/UoM/UoMBOM/RelatedBOM.cfm?itemno=#url.itemno#&uom='+this.value+'&mission='+getElementById('mission').value,'bom_box')"
+				  onchange="ptoken.navigate('#session.root#/Warehouse/Maintenance/Item/UoM/UoMBOM/RelatedBOM.cfm?itemno=#url.itemno#&uom='+this.value+'&mission='+getElementById('mission').value,'bom_box')"
 				  selected="#URL.UoM#"	  
 				  display="UoMDescription" 				 
 				  class="regularxl"/>			

@@ -18,6 +18,17 @@ password="#SESSION.dbpw#">
 	WHERE EntityCode = '#URL.EntityCode#'	
 </cfquery>
 
+<cfquery name="EntityClass" 
+datasource="AppsOrganization" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+    SELECT  TOP 1 *
+    FROM    Ref_EntityClassPublish
+	WHERE   EntityCode = '#URL.EntityCode#' 
+    AND     EntityClass = '#URL.EntityClass#'	
+	ORDER BY ActionPublishNo
+</cfquery>
+
 <cfquery name="Detail" 
 datasource="AppsOrganization" 
 username="#SESSION.login#" 
@@ -30,15 +41,22 @@ password="#SESSION.dbpw#">
 	AND     (E.ActionDescription LIKE '%#URL.search#%' OR E.ActionCode LIKE '%#URL.search#%') 
 	</cfif>
 	<cfif url.entityclass neq "">
+	AND    E.ActionCode IN (SELECT ActionCode
+				 		    FROM   Ref_EntityActionPublish 
+						    WHERE  ActionPublishNo = '#entityClass.ActionPublishNo#')
+				
+	
+	<!---
 	AND    E.ActionCode IN (SELECT EAP.ActionCode
 				 		    FROM   Ref_EntityActionPublish AS EAP INNER JOIN
 	                               Ref_EntityClassPublish AS ECP ON EAP.ActionPublishNo = ECP.ActionPublishNo 
 						    WHERE  ECP.EntityCode = '#URL.EntityCode#' 
 						    AND    ECP.EntityClass = '#URL.EntityClass#')
+							
+							--->
 	</cfif>
 	ORDER BY E.ListingOrder
 </cfquery>
-
 
 <cfquery name="Parent" 
 datasource="AppsOrganization" 
@@ -104,8 +122,7 @@ password="#SESSION.dbpw#">
 		
 		</select>	
 		</cfoutput>
-		 	     
-			   
+		 	     			   
 		</td>
 	
 	 <td style="height:35;padding-left:6px;padding-right:5px" class="labelit"><cf_tl id="Find"></td>
@@ -162,7 +179,7 @@ password="#SESSION.dbpw#">
 	    <TR class="line labelmedium  fixrow">
 		   
 		   <td></td>
-		   <td style="padding-left:2px" height="20" style="padding-left:5px"><cf_tl id="Code"></td>		  
+		   <td style="padding-left:2px;min-width:70px" height="20"><cf_tl id="Code"></td>		  
 		   <td style="padding-left:2px" width="50%"><cf_tl id="Description"></td>
 		   <td style="padding-left:2px" width="40">S</td>
 		   <td style="padding-left:2px" width="10%"><cf_tl id="Class"></td>
@@ -173,7 +190,7 @@ password="#SESSION.dbpw#">
 	         
 			 <cfoutput>			 
 			 <cfif URL.ID2 neq "new">
-			     <A href="javascript:#ajaxLink('ActionRecords.cfm?EntityCode=#URL.EntityCode#&search=#url.search#&ID2=new')#"><cf_tl id="add"></a>
+			     <A href="javascript:#ajaxLink('ActionRecords.cfm?EntityCode=#URL.EntityCode#&search=#url.search#&entityclass=#url.entityclass#&ID2=new')#"><cf_tl id="add"></a>
 			 </cfif>			
 			 </cfoutput>
 			 
@@ -190,9 +207,24 @@ password="#SESSION.dbpw#">
 			  <table cellspacing="0" cellpadding="0"><tr><td class="labelit"><cfoutput>#Entity.EntityAcronym#</cfoutput></td>
 				<td>-</td>
 				<td>
+				
 				<cfinput type="Text" value="" name="ActionCode" 
-				   message="You must enter a unique action code" required="Yes" size="1" maxlength="4" class="regularxl" style="border:0px;border-right:1px solid silver;border-left:1px solid silver">
-				</td></tr>
+				   message="You must enter a unique action code" 
+				   required="Yes" 
+				   maxlength="4" 
+				   class="regularxl" 
+				   onkeyUp="_cf_loadingtexthtml='';ptoken.navigate('getCodeCheck.cfm?entitycode=#url.entitycode#&value='+this.value,'codecheck')"
+				   style="width:40px;background-color:ffffaf">
+				   
+				</td>
+				
+				<td id="codecheck" align="center" style="min-width:20px;">
+				
+				
+				
+				</td>
+				
+				</tr>
 				</table> 
 	        </td>
 			
@@ -209,19 +241,19 @@ password="#SESSION.dbpw#">
 					Message         = "Please enter a description"
 					MaxLength       = "80"
 					Size            = "40"
-					style           = "width:99%;border:0px;border-left:1px solid silver"
+					style           = "width:99%;border:0px;"
 					Class           = "regularxl">					
 					
 			</td>
 			
-			<td style="padding-left:1px;border-left:1px solid silver">
+			<td style="padding-left:1px;border-left:1px solid silver;min-width:30px">
 						
 				   <cfinput type="text" 
 			         name="ListingOrder" 
 					 size="1" 					
 					 maxlength="2" 
 					 class="regularxl" 
-					 style="text-align:center;width:25;width:99%;border:0px;border-right:1px solid silver;border-left:1px solid silver" 
+					 style="text-align:center;width:25;width:99%;border:0px" 
 					 validate="integer" 
 					 visible="Yes" 
 					 enabled="Yes">
@@ -250,15 +282,15 @@ password="#SESSION.dbpw#">
 				
 			</td>
 			
-			<td align="center" style="padding-left:3px">
+			<td align="center" style="padding-left:3px;border-left:1px solid silver">
 				<input type="checkbox" class="radiol" name="EnableAccessFly" id="EnableAccessFly" value="1" checked>
 			</td>
 			
-			<td align="center" style="padding-left:3px">
+			<td align="center" style="padding-left:3px;border-left:1px solid silver">
 				<input type="checkbox" class="radiol" name="Operational" id="Operational" value="1" checked>
 			</td>
 								   
-			<td colspan="4" align="right" style="padding-left:3px;padding-right:4px">			
+			<td colspan="4" align="right" style="padding-left:3px;padding-right:4px;border-left:1px solid silver">			
 			   <input type="submit" style="width:50" value="Add" class="button10g">
 		    </td>
 			    

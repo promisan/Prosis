@@ -122,7 +122,7 @@ password="#SESSION.dbpw#">
 			name       ="left" 
 			position   ="left" 
 			collapsible="true"
-			size       ="190px"  
+			size       ="240px"  
 			overflow   ="scroll">
 			
 

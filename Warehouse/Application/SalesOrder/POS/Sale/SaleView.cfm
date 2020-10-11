@@ -62,6 +62,22 @@ password="#SESSION.dbpw#">
 
 <cfelse>
 
+<cfif get.QuotationMode eq "0">
+	
+	<!--- clean --->
+	
+	<cfquery name="clean" 
+	  datasource="AppsMaterials" 
+	  username="#SESSION.login#" 
+	  password="#SESSION.dbpw#">
+		    DELETE
+			FROM   CustomerRequest
+			WHERE  Warehouse = '#url.warehouse#'
+			AND    Created < getDate()-1
+	</cfquery>
+
+</cfif>
+
 <!--- check if this is a mode in which we potentially are connecting the POS to a tax unit source --->
 
 <cfquery name="getWarehouseJournal" 

@@ -102,11 +102,11 @@ password="#SESSION.dbpw#">
 			             '#url.personno#' AS personNo, 
 						 OOA.ActionCode, 
 						 U.PersonNo       AS PanelPersonNo
-			FROM         OrganizationObjectActionAccess AS OOA INNER JOIN
+			FROM         Organization.dbo.OrganizationObjectActionAccess AS OOA INNER JOIN
 			             System.dbo.UserNames AS U ON OOA.UserAccount = U.Account INNER JOIN
-			             OrganizationObject AS OO ON OOA.ObjectId = OO.ObjectId
+			             Organization.dbo.OrganizationObject AS OO ON OOA.ObjectId = OO.ObjectId
 			WHERE        OOA.ActionCode = '#url.actionCode#' 
-			AND          OOA.ObjectKeyValue1 = '#url.documentNo#' 
+			AND          OO.ObjectKeyValue1 = '#url.documentNo#' 
 			AND          U.PersonNo IN
 			                             (SELECT    PersonNo
 			                               FROM     Employee.dbo.Person
@@ -116,7 +116,6 @@ password="#SESSION.dbpw#">
 
 </cfif>						   
 
-
 <cfquery name="Interview" 
 datasource="appsVacancy" 
 username="#SESSION.login#" 
@@ -124,15 +123,12 @@ password="#SESSION.dbpw#">
 
 	SELECT C.CompetenceId, C.Description, I.*
 	FROM   Applicant.dbo.Ref_Competence C
-		   LEFT OUTER JOIN DocumentCandidateInterview I 
-		   		ON C.CompetenceId = I.CompetenceId AND I.PersonNo = '#URL.PersonNo#' 
+		   LEFT OUTER JOIN DocumentCandidateInterview I ON C.CompetenceId = I.CompetenceId AND I.PersonNo = '#URL.PersonNo#' 
 				   AND I.DocumentNo = '#URL.DocumentNo#'
 	WHERE  C.Operational = 1
 	<!--- Means that competencies applicable for this track have been defined at the bucket level --->
 	<cfif BucketCompetencies.recordcount gt 0>
-		AND C.CompetenceId IN (
-			#QuotedValueList(BucketCompetencies.CompetenceId)#
-		)
+	AND    C.CompetenceId IN ( #QuotedValueList(BucketCompetencies.CompetenceId)# )
 	</cfif>
  	ORDER BY C.ListingOrder
 	
@@ -160,7 +156,7 @@ password="#SESSION.dbpw#">
 		<input type="hidden" name="InterviewId" id="InterviewId" value="#rowguid#">
 	</cfoutput>
 		
-    <TR class="labelmedium">	
+    <TR class="labelmedium" style="height:20px">	
     <td height="20" width="6%" style="min-width:200px"><cf_tl id="Recruitment No">:</td>
 	<td width="30%" bgcolor="white">
 		<cfoutput>#Doc.DocumentNo#</cfoutput>
@@ -171,7 +167,7 @@ password="#SESSION.dbpw#">
 	</td>
 	</TR>
 	
-    <TR class="labelmedium">	
+    <TR class="labelmedium" style="height:20px">	
     <td height="20"><cf_tl id="Unit">:</td>
 	<td bgcolor="white">
 		<cfoutput>#Doc.OrganizationUnit#</cfoutput>
@@ -182,7 +178,7 @@ password="#SESSION.dbpw#">
 	</td>
 	</TR>
 		
-	<TR class="labelmedium">
+	<TR class="labelmedium" style="height:20px">
     <TD height="20"><cf_tl id="Functional title">:</TD>
     <TD bgcolor="white">
 		<cfoutput>#Doc.FunctionalTitle#</cfoutput>
@@ -193,7 +189,7 @@ password="#SESSION.dbpw#">
 	</td>
 	</TR>	
 		
- 	<TR class="labelmedium">	
+ 	<TR class="labelmedium" style="height:20px">	
     <td height="20"><cf_tl id="Remarks">:</td>
 	<TD bgcolor="white">
 		<cfoutput>#Doc.Remarks#</cfoutput> 
@@ -248,7 +244,7 @@ password="#SESSION.dbpw#">
 	
 	<TR class="labelmedium line">
 	
-    <td height="20" colspan="4"><cf_tl id="Interview Minutes and observations"></td>
+    <td height="20" style="font-size:18px;padding-top:5px" colspan="4"><cf_tl id="Interview Minutes and observations"></td>
 	
 	</TR>
 	
@@ -266,7 +262,7 @@ password="#SESSION.dbpw#">
 	</TD>
 	</TR>
 	
-	<tr><td></td></tr>	
+	<tr><td style="height:6px"></td></tr>	
 	<tr class="labelmedium"><td style="height:30px">
 	<cf_tl id="Interview time">:
 	</td>
@@ -320,7 +316,7 @@ password="#SESSION.dbpw#">
 			required="Yes" 
 			size="1" 
 			maxlength="2" 
-			class="regularxl" 
+			class="regularxxl" 
 			style="text-align: center;">
 		:
 		<cfinput type="Text" 
@@ -333,7 +329,7 @@ password="#SESSION.dbpw#">
 			 size="1" 
 			 maxlength="2" 
 			 style="text-align: center;" 
-			 class="regularxl">
+			 class="regularxxl">
 			 
 		</td>
 		
@@ -350,7 +346,7 @@ password="#SESSION.dbpw#">
 			required="Yes" 
 			size="1" 
 			maxlength="2" 
-			class="regularxl" 
+			class="regularxxl" 
 			style="text-align: center;">
 		:
 		<cfinput type="Text" 
@@ -363,7 +359,7 @@ password="#SESSION.dbpw#">
 			 size="1" 
 			 maxlength="2" 
 			 style="text-align: center;" 
-			 class="regularxl">
+			 class="regularxxl">
 			 
 			 </td>
 			 
@@ -384,52 +380,56 @@ password="#SESSION.dbpw#">
 	</td>
 		
 	</tr>
-	
-	
-	<cfif url.actioncode neq "view">
-	
-	    <tr><td height="4"></td></tr>
+		
+	<tr><td height="4"></td></tr>
 			
-		<tr valign="top">
-		<td><cf_tl id="Interview Panel">:</td>
+	<tr valign="top">
+		<td style="font-size:17px">
+		
+			<table>
+				<tr>
+				<td><cf_tl id="Panel Members"></td>
+				
+				<cfif url.actioncode neq "view">
+				
+					<cfif Interview.ActionCode eq URL.ActionCode or Interview.ActionCode eq "">	
+					
+					   <cf_tl id="Add panel member" var="member">
+					   <cfset link = "#SESSION.root#/vactrack/application/candidate/CandidateReviewPanel.cfm?DocumentNo=#URL.DocumentNo#||PersonNo=#URL.PersonNo#||ActionCode=#URL.ActionCode#">	
+					   
+					   <td style="padding-left:3px">
+					   <cf_selectlookup
+						    box        = "member"
+							title      = "#member#"
+							link       = "#link#"
+							type       = "employee"
+							dbtable    = "Vacancy.dbo.DocumentCandidateReviewPanel"			
+							des1       = "PanelPersonNo">	
+							
+						</td>		
+							
+					</cfif>			
+					
+				</cfif>
+				
+				</tr>
+			</table>
+			
+		</td>
+		
 		<td colspan="3">		
 				
 		<cfif Interview.ActionCode eq URL.ActionCode or Interview.ActionCode eq "">	
 		
-		<cfset link = "#SESSION.root#/vactrack/application/candidate/CandidateReviewPanel.cfm?DocumentNo=#URL.DocumentNo#&PersonNo=#URL.PersonNo#&ActionCode=#URL.ActionCode#">	
-		<cf_securediv bind="url:#link#" id="member"/>
+			<cfset link = "#SESSION.root#/vactrack/application/Candidate/CandidateReviewPanel.cfm?DocumentNo=#URL.DocumentNo#&PersonNo=#URL.PersonNo#&ActionCode=#URL.ActionCode#">	
+			<cf_securediv bind="url:#link#" id="member"/>
 			
 		</cfif>
 		
 		</td>
 		
-		</tr>
-				
-		<cfif Interview.ActionCode eq URL.ActionCode or Interview.ActionCode eq "">	
+	</tr>
 		
-		<tr class="line">
-		<td></td>
-		<td height="30" colspan="3" align="center" class="labelmedium">
-		
-			<cf_tl id="Add panel member" var="member">
-		   <cfset link = "#SESSION.root#/vactrack/application/candidate/CandidateReviewPanel.cfm?DocumentNo=#URL.DocumentNo#||PersonNo=#URL.PersonNo#||ActionCode=#URL.ActionCode#">	
-		   
-		   <cf_selectlookup
-			    box        = "member"
-				title      = "#member#"
-				link       = "#link#"
-				type       = "employee"
-				dbtable    = "Vacancy.dbo.DocumentCandidateReviewPanel"			
-				des1       = "PanelPersonNo">				
-			
-			</td>
-		</tr>    					
-		
-		</cfif>
-	
-	</cfif>
-	
-	<tr><td height="4"></td></tr>
 		
 	<tr><td colspan="4" style="padding-left:0px">
 	
@@ -438,8 +438,10 @@ password="#SESSION.dbpw#">
 		<cfoutput query="Interview">
 		
 			<tr class="line">
-				<td valign="top" class="labelmedium" style="min-width:240px;padding-top:4px;padding-right:10px"><cf_tl id="Minutes">: #Description#</td>
-			    <td style="width:80%;padding-left:0px">
+				<td colspan="1" valign="top" class="labelmedium" style="font-size:17px;min-width:240px;padding-top:4px;padding-right:10px"><cf_tl id="Minutes">: #Description#</td>
+			</tr>
+			<tr>	
+			    <td colspan="2" style="padding-left:0px">
 				<cfif (ActionCode eq URL.ActionCode or Interview.ActionCode eq "") and url.actioncode neq "view">			
 				
 				 <cf_textarea name="#CompetenceId#"	           		 
@@ -448,7 +450,7 @@ password="#SESSION.dbpw#">
 						 resize="false"		
 						 border="0" 
 						 toolbar="Mini"
-						 height="180"
+						 height="140"
 						 width="100%">#InterviewNotes#</cf_textarea>
 				
 				<!---	
@@ -523,6 +525,12 @@ password="#SESSION.dbpw#">
 	
 	--->
 	
+	
+			
+	</table>
+	
+	</td></tr>
+	
 	<tr class="labelmedium line" style="height:30px">
 	    <td style="padding-top:4px"><cf_tl id="Attachments">: </td>
 		<td colspan="3">
@@ -554,11 +562,6 @@ password="#SESSION.dbpw#">
 		  </cfif>	
 		</td>
 	</tr>	
-	
-		
-	</table>
-	
-	</td></tr>
 			
 	<cfif Interview.ActionCode eq URL.ActionCode or Interview.ActionCode eq "" and url.actioncode neq "view">	
 	

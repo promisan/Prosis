@@ -119,7 +119,7 @@
 	
 	</cfoutput>
 		
-	<cf_layoutarea  position="left" name="treebox" maxsize="300" size="290" collapsible="true" splitter="true">	
+	<cf_layoutarea  position="left" name="treebox" maxsize="350" size="350" collapsible="true" splitter="true">	
 		<cf_divScroll>					
 		    <cfinclude template="ProgramViewTree.cfm">		
 		</cf_divScroll>

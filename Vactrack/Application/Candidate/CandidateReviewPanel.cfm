@@ -129,7 +129,8 @@
 		  <td>#Gender#</td>
 		  <td>#Nationality#</td>
 		  <td>#PanelMemo#</td>
-		  <td><cf_img icon="delete" onclick="#ajaxLink('#SESSION.root#/vactrack/application/candidate/CandidateReviewPanel.cfm?action=delete&DocumentNo=#DocumentNo#&PersonNo=#PersonNo#&ActionCode=#ActionCode#&PanelPersonNo=#PanelPersonNo#')#"></td>
+		  <td><cf_img icon="delete" 
+		  onclick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/vactrack/application/candidate/CandidateReviewPanel.cfm?action=delete&DocumentNo=#DocumentNo#&PersonNo=#PersonNo#&ActionCode=#ActionCode#&PanelPersonNo=#PanelPersonNo#','member')"></td>
 	   </tr> 	      
    </cfoutput>   
    

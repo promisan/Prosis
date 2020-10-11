@@ -9,14 +9,16 @@
 3.  Result will be answer
 --->	
 
-<cfparam name="Attributes.EntityCode"       default="">
-<cfparam name="Attributes.EntityCode2"      default="">
-<cfparam name="Attributes.Mission"          default="">
-<cfparam name="Attributes.IncludeCompleted" default="Yes">
-<cfparam name="Attributes.MailFields"       default="Yes">
-<cfparam name="Attributes.Mode"             default="Table">
-<cfparam name="Attributes.Table"            default="tmp">
-<cfparam name="Attributes.ActionTable"      default="Organization.dbo.OrganizationObjectAction">
+<cfparam name="Attributes.EntityCode"            default="">
+<cfparam name="Attributes.EntityCodeIgnoreLast"  default="0">
+<cfparam name="Attributes.EntityCode2"           default="">
+<cfparam name="Attributes.EntityCode2IgnoreLast" default="0">
+<cfparam name="Attributes.Mission"          	 default="">
+<cfparam name="Attributes.IncludeCompleted" 	 default="Yes">
+<cfparam name="Attributes.MailFields"       	 default="Yes">
+<cfparam name="Attributes.Mode"             	 default="Table">
+<cfparam name="Attributes.Table"            	 default="tmp">
+<cfparam name="Attributes.ActionTable"      	 default="Organization.dbo.OrganizationObjectAction">
 
 <!--- ------------------ NEW feature to speed up the listing ------ --->
 <!--- first we check if something has changed recently otherwise
@@ -87,19 +89,29 @@ we do not reprocess the workflow status table --------------------- --->
 				 O.ObjectKeyValue3, 
 				 O.ObjectKeyValue4, 
 				 O.ActionPublishNo,
-				 MIN(A.ActionFlowOrder) AS ActionFlowOrder,	       
+				 MIN(A.ActionFlowOrder) AS ActionFlowOrder,	 <!--- take the lowest open action for reference --->      
 				 R1.EntityClass as EntityClassCode,
 		         R1.EntityClassName
 		
-		FROM     Organization.dbo.OrganizationObject O INNER JOIN
-		         #Attributes.ActionTable# A ON O.ObjectId = A.ObjectId INNER JOIN
-		         Organization.dbo.Ref_EntityClassPublish R ON O.ActionPublishNo = R.ActionPublishNo INNER JOIN
-		         Organization.dbo.Ref_EntityClass R1 ON R.EntityCode = R1.EntityCode AND R.EntityClass = R1.EntityClass
+		FROM     Organization.dbo.OrganizationObject O 
+				 INNER JOIN #Attributes.ActionTable# A ON O.ObjectId = A.ObjectId 
+				 INNER JOIN Organization.dbo.Ref_EntityClassPublish R ON O.ActionPublishNo = R.ActionPublishNo 
+				 INNER JOIN Organization.dbo.Ref_EntityClass R1 ON R.EntityCode = R1.EntityCode AND R.EntityClass = R1.EntityClass
 		WHERE    O.EntityCode IN ('#Attributes.EntityCode#','#Attributes.EntityCode2#') 
 		AND      A.ActionStatus IN ('0','1')
 		<cfif attributes.Mission neq "">
 	    AND      O.Mission = '#attributes.mission#'
 	    </cfif>
+		
+		<cfif attributes.EntityCodeIgnoreLast eq "1">
+		<!--- option to excluded objects that are in the last step of the workflow --->
+		AND      A.ActionCode NOT IN (SELECT TOP (1) ActionCode
+										FROM   Organization.dbo.Ref_EntityActionPublish
+										WHERE  ActionPublishNo = O.ActionPublishNo
+										ORDER BY ActionOrder DESC )
+		</cfif>								
+		
+		
 		AND      O.Operational  = 1
 		GROUP BY O.ObjectId, 
 		         O.EntityCode, 
@@ -110,6 +122,52 @@ we do not reprocess the workflow status table --------------------- --->
 				 O.ActionPublishNo,			
 				 R1.EntityClass,
 				 R1.EntityClassName
+				 
+		<cfif Attributes.EntityCode2 neq "">
+		
+			UNION
+			
+			SELECT   O.ObjectId, 
+			         O.EntityCode, 
+					 O.ObjectKeyValue1, 
+					 O.ObjectKeyValue2, 
+					 O.ObjectKeyValue3, 
+					 O.ObjectKeyValue4, 
+					 O.ActionPublishNo,
+					 MIN(A.ActionFlowOrder) AS ActionFlowOrder,	 <!--- take the lowest open action --->      
+					 R1.EntityClass as EntityClassCode,
+			         R1.EntityClassName
+			
+			FROM     Organization.dbo.OrganizationObject O 
+					 INNER JOIN #Attributes.ActionTable# A ON O.ObjectId = A.ObjectId 
+					 INNER JOIN Organization.dbo.Ref_EntityClassPublish R ON O.ActionPublishNo = R.ActionPublishNo 
+					 INNER JOIN Organization.dbo.Ref_EntityClass R1 ON R.EntityCode = R1.EntityCode AND R.EntityClass = R1.EntityClass
+			WHERE    O.EntityCode IN ('#Attributes.EntityCode2#') 
+			AND      A.ActionStatus IN ('0','1')
+			<cfif attributes.Mission neq "">
+		    AND      O.Mission = '#attributes.mission#'
+		    </cfif>
+			
+			<cfif attributes.EntityCode2IgnoreLast eq "1">
+			<!--- option to excluded objects that are in the last step of the workflow --->
+			AND      A.ActionCode NOT IN (SELECT   TOP (1) ActionCode
+										  FROM     Organization.dbo.Ref_EntityActionPublish
+										  WHERE    ActionPublishNo = O.ActionPublishNo
+										  ORDER BY ActionOrder DESC )
+			</cfif>									
+			
+			AND      O.Operational  = 1
+			GROUP BY O.ObjectId, 
+			         O.EntityCode, 
+					 O.ObjectKeyValue1, 
+					 O.ObjectKeyValue2, 
+					 O.ObjectKeyValue3, 
+					 O.ObjectKeyValue4, 
+					 O.ActionPublishNo,			
+					 R1.EntityClass,
+					 R1.EntityClassName
+				
+		</cfif>		 
 				 				 				 
 		<cfif attributes.includeCompleted eq "Yes">					
 		 
@@ -175,10 +233,7 @@ we do not reprocess the workflow status table --------------------- --->
 							 AND      ActionPublishNo = O.ActionPublishNo) as ActionDescriptionDue,											 
 							R.ParentCode,	
 							O.ActionMemo,						
-							getDate() as TimeStamp
-							
-							
-							
+							getDate() as TimeStamp							
 					<cfif attributes.mailfields eq "No">				
 					INTO    userQuery.dbo.#Attributes.Table#
 					<cfelse>	

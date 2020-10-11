@@ -67,7 +67,7 @@
 	
 		<script language="JavaScript">
 			alert("#vAlready#");
-			ColdFusion.Window.hide('mydialog');
+			ProsisUI.closeWindow('mydialog');
 		</script>  
 	
 	<cfelse>
@@ -86,8 +86,8 @@
 		</cfquery>
 		
 		<script language="JavaScript">   
-		    ColdFusion.navigate('UoMVolume/ItemUoMVolume.cfm?id=#Form.ItemNo#&UoM=#Form.UoM#','itemUoMVolumelist');     
-			ColdFusion.Window.hide('mydialog');	          
+		    ptoken.navigate('UoMVolume/ItemUoMVolume.cfm?id=#Form.ItemNo#&UoM=#Form.UoM#','itemUoMVolumelist');     
+			ProsisUI.closeWindow('mydialog');	          
 		</script> 
 		
 	</cfif>
@@ -107,8 +107,8 @@
 	</cfquery>	
 	
 	<script language="JavaScript">   
-	    ColdFusion.navigate('UoMVolume/ItemUoMVolume.cfm?id=#Form.ItemNo#&UoM=#Form.UoM#','itemUoMVolumelist');     
-		ColdFusion.Window.hide('mydialog');          
+	    ptoken.navigate('UoMVolume/ItemUoMVolume.cfm?id=#Form.ItemNo#&UoM=#Form.UoM#','itemUoMVolumelist');     
+		ProsisUI.closeWindow('mydialog');          
 	</script> 
 	
 </cfif>

@@ -211,6 +211,8 @@
 				to, subject, text, att --->
 				
 				<cfif Form.ActionMailPriority neq "0">
+				
+					<!--- #ThisAction.PersonMailObjectAttach# last field this is now shown for selection in the form --->
 
 					<cf_ProcessMailHolder
 						actionId     = "#Action.ActionId#"

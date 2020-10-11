@@ -1,6 +1,5 @@
  <!--- query document holder determined by class --->
  
-
  <cfparam name="Attributes.actionId"    default="">
  <cfparam name="Attributes.mailobject"  default="">
  <cfparam name="Attributes.mailtype"    default="Action">
@@ -73,21 +72,73 @@
 <cfparam name="mailsubject" default="">
 <cfparam name="mailtext"    default="">
 
-<cfset mailatt = ArrayNew(2)>
-
 <cfif mailto eq "">
 	<cfset mailto = sendTo>
 </cfif>
 
+<cfset mailatt = ArrayNew(2)>
+
 <cfif mail.documentTemplate neq "">
 
-
     <!--- execute template to retrieve mail attributes that are defined in the template --->	
+	<!--- also sets mailatt for custom attachment set in the custom mail itself --->
 	<cfinclude template="../../#mail.documentTemplate#">
 	
 </cfif>
 
+<!--- THEN we also set the attachment of the object defined attachments --->
+								
+<cfif attributes.sendAttObj eq "1" and Object.DocumentPathName neq "">
+
+		<cfparam name="rw" default="0">
+												
+		<cf_fileExist
+			DocumentPath  = "#Object.DocumentPathName#"
+			SubDirectory  = "#Object.ObjectId#" 
+			Filter        = ""					
+			ListInfo      = "all">		
+				
+		<cfif filelist.recordcount eq "0">
+				
+				<cf_fileExist
+					DocumentPath  = "#Object.DocumentPathName#"
+					SubDirectory  = "#Object.ObjectKeyValue4#" 
+					Filter        = ""					
+					ListInfo      = "all">		
+									
+		</cfif>		
+								
+		<!--- returns a query object filelist --->
+				
+		<cfloop query="filelist">
+		
+			<cfquery name="qAttachment" 
+			  datasource="AppsSystem" 
+			  username="#SESSION.login#" 
+			  password="#SESSION.dbpw#"> 
+				SELECT * 
+				FROM   Attachment
+				WHERE  Reference        = '#Object.ObjectId#'
+				AND    DocumentPathName = '#Object.DocumentPathName#'
+				AND    FileName         = '#name#'							
+			</cfquery>
+			   
+			   <cfif qAttachment.fileStatus neq "9">
+			   		
+					<cfset rw = rw +1>
+					<cfset mailatt[rw][1]="#directory#\#name#">	
+					<cfset mailatt[rw][2]="normal">	
+					<cfset mailatt[rw][3]="#name#">	
+				
+			   </cfif>				
+		
+		</cfloop>					
+			
+ </cfif>
+		
+<!--- ---------------------------------------------------------------- --->		
 <!--- now we remove attachments that are not selected in the interface --->
+<!--- ---------------------------------------------------------------- --->
 
 <cfparam name="form.actionMailAttachment"  default="99999">
 
@@ -692,6 +743,7 @@
 								    <cfset rw = rw+1>		
 									<!--- location of the file --->			
 									<cfset mailatt[rw][1] = "#SESSION.rootDocumentPath#\#documentpath#">
+									<cfset mailatt[rw][2] = "normal">
 									
 								</cfif>
 													
@@ -711,6 +763,8 @@
 								<!--- location of the file 
 								--->			  
 								<cfset mailatt[rw][1] = "#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\#DocumentDescription#.pdf">
+								<cfset mailatt[rw][2] = "normal">
+								<cfset mailatt[rw][3] = "#DocumentDescription#.pdf">
 								
 							<cfelse>
 							
@@ -725,12 +779,14 @@
 								  fixnewline="No">								
 								
 								<cfset mailatt[rw][1] = "#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\#DocumentDescription#.htm">
+								<cfset mailatt[rw][2] = "normal">
+								<cfset mailatt[rw][3] = "#DocumentDescription#.htm">
 																
 							</cfif>
 					        	
 					</cfoutput>
 					
-					<!---- Attach also documents that have been attached to a particular group ---->
+					<!--- attention : this was moved as this is object mail 
 					
 					<cfquery name="qGroup" 
 					     datasource="AppsOrganization" 
@@ -775,23 +831,25 @@
 	
 						</cfloop>
 						
-					</cfloop>				
+					</cfloop>	
+					
+					--->			
 				
 				</cfif>
-				
-				<!--- ------------------------------- --->
-				<!--- get the atachment of the object --->
-				<!--- ------------------------------- --->
+								
+				<!--- --------------------------------------------------------------------------------------------------------------- --->
+				<!--- get the atachment of the object : MOVED pro-actively in the form of the mail itself ProcessActionMailForm.cfm-- --->
+				<!--- -------------------------------------------Oct 5th 2020-------------------------------------------------------- 
 				
 				<cfparam name="attributes.sendattobj" default="">
 								
 				<cfif attributes.sendAttObj eq "1" and Object.DocumentPathName neq "">
 													
-				<cf_fileExist
-					DocumentPath  = "#Object.DocumentPathName#"
-					SubDirectory  = "#Object.ObjectId#" 
-					Filter        = ""					
-					ListInfo      = "all">		
+					<cf_fileExist
+						DocumentPath  = "#Object.DocumentPathName#"
+						SubDirectory  = "#Object.ObjectId#" 
+						Filter        = ""					
+						ListInfo      = "all">		
 					
 					<cfif filelist.recordcount eq "0">
 					
@@ -829,6 +887,8 @@
 					</cfloop>					
 				
 				</cfif>
+				
+				--->
 								
 				<cfset fromm = "#mailfrom#">
 				
@@ -929,8 +989,8 @@
 											<cfloop index="att" from="1" to="10" step="1">
 													   
 											   <cfparam name="mailatt[#Att#][1]" default="none">
-											   <cfparam name="mailatt[#Att#][2]" default="none">									   
-											   <cfparam name="mailatt[#Att#][3]" default="none">											   
+											   <cfparam name="mailatt[#Att#][2]" default="normal">									   
+											   <cfparam name="mailatt[#Att#][3]" default="">											   
 											   
 											   <cfif mailatt[att][1] neq "none">	
 											   	
@@ -1030,8 +1090,8 @@
 									<cfloop index="att" from="1" to="10" step="1">
 													   
 									   <cfparam name="mailatt[#Att#][1]" default="none">
-									   <cfparam name="mailatt[#Att#][2]" default="none">									   
-									   <cfparam name="mailatt[#Att#][3]" default="none">											   
+									   <cfparam name="mailatt[#Att#][2]" default="normal">									   
+									   <cfparam name="mailatt[#Att#][3]" default="">											   
 									   
 									   <cfif mailatt[att][1] neq "none">	
 									   									           										

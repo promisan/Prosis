@@ -127,12 +127,11 @@
 				    	
 				   <td class="labelmedium" style="padding:0 10px 0 0;cursor: pointer;" id="d1" onclick="document.getElementById('r1').click()">
 				   
-				       <span style="position: relative; top:2px;">
-					   <img src="#SESSION.root#/Images/Send.png" width="32" height="32"
+				         <img src="#SESSION.root#/Images/Send.png" width="32" height="32"
 					   alt="Go back to previous step" border="0" 
 					   align="absmiddle">
 					  					   					   					   
-                       <cf_tl id="#ActionGoToLabel#">
+                      <cf_tl id="#ActionGoToLabel#">
 					   
 				      <cfif Status eq "1">
 				  	    <cfset r = "regular">
@@ -140,17 +139,17 @@
 				        <cfset r = "hide">
 				      </cfif>
 				       
-					 <div class="#r#" id="d1a"></div>
+					 <span class="#r#" id="d1a"></span>
 					      
-					 <div class="#r#" id="d1b" style="padding-left:4px;padding-right:8px;position:relative;top:-4px;left:0;font-weight:normal;">
+					 <span class="#r#" id="d1b" style="padding-left:4px;padding-right:8px">
 					 
-					   <select style="width:240px;" name="ActionCodeOnHold" id="ActionCodeOnHold" class="regularxl">
+					   <select style="width:240px;" name="ActionCodeOnHold" id="ActionCodeOnHold" class="regularxxl">
 						<cfloop query="Revert">
 						  <option value="#Revert.ActionCode#" style="font-size:12px;"><cfif ActionCompleted neq "">#ActionCompleted#<cfelse>#ActionCode# #ActionDescription#</cfif></option>
 						</cfloop>
 					   </select>
 					   
-					 </div>
+					 </span>
 							   
 			   </cfif>	
 				   </td>				   

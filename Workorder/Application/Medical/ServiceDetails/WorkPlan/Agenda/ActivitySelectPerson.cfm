@@ -130,7 +130,7 @@
 				  <td rowspan="2" style="width:30px"><cf_img icon="select"></td><td>#FunctionDescription#</font></td>
 			  </tr>
 			  <tr class="labelmedium" style="height:15px">
-				  <td colspan="1" style="padding-left:0px"><font color="0080C0">#LastName#</td>
+				  <td colspan="1" style="padding-left:0px"><font color="0080C0">#FirstName#, #LastName#</td>
 			  </tr>		  
 			  </table>
 			</td>
@@ -150,7 +150,32 @@
 			
 		</cfif>
 	 
-    </table>	
+    </table>
+
+	<cfif url.PositionNo eq "">
+		<cfquery name="qCurrentUnit"
+				datasource="AppsWorkOrder"
+				username="#SESSION.login#"
+				password="#SESSION.dbpw#">
+			SELECT *
+			FROM Employee.dbo.PersonAssignment PA
+			WHERE PersonNo = '#client.personNo#'
+		AND DateEffective  <= #dts#
+			AND DateExpiration >= #dts#
+			AND Incumbency = 100
+			AND AssignmentStatus IN ('0','1')
+			AND EXISTS
+			(
+			SELECT 'x'
+			FROM Employee.dbo.WorkSchedulePosition WP
+			WHERE WP.PositionNo = PA.PositionNo
+			)
+		</cfquery>
+		<cfif qCurrentUnit.recordcount neq 0>
+			<cfset URL.positionNo = qCurrentUnit.PositionNo>
+			<cfset URL.personNo = Client.personNo>
+		</cfif>
+	</cfif>
 	
     <cfset ajaxonload("doHighlight")>
 	

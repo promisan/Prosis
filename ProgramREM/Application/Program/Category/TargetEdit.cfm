@@ -1,28 +1,11 @@
 
-<cf_textareaScript>
-<cf_calendarscript>
+<cfparam name="url.programcode"   default="">
+<cfparam name="url.period"        default="">
+<cfparam name="url.targetid"      default="">
+<cfparam name="url.category"      default="View">
+<cfparam name="url.programaccess" default="Test">
 
 <cfoutput>
-	
-	<script>
-	
-		function saveTarget(programcode,period,targetid,cat,programaccess) {
-				document.frmTarget.onsubmit() 
-				if( _CF_error_messages.length == 0 ) {
-	            	ColdFusion.navigate('#SESSION.root#/ProgramREM/application/Program/Target/TargetSubmit.cfm?programcode='+programcode+'&period='+period+'&targetid='+targetid+'&category='+cat+'&programaccess='+programaccess,'targetsubmit','','','POST','frmTarget')
-				 }   
-			}	 
-			
-	</script>
-
+<iframe src="#session.root#/ProgramREM/Application/Program/Category/TargetEditContent.cfm?programcode=#url.programcode#&period=#url.period#&targetid=#url.targetid#&category=#url.category#&programaccess=#url.programaccess#" 
+width="100%" height="100%" marginwidth="5" marginheight="5" frameborder="0"></iframe>
 </cfoutput>
-
-<cf_screentop label="Output" jquery="Yes" html="Yes" layout="webapp" scroll="Yes" banner="gray">
-
-<cfajaximport tags="cfform">
-
-<table width="100%" style="height:100%"><tr><td style="height:100%;padding:15px">
-	<cf_divscroll style="height:100%">
-	<cfdiv bind="url:#session.root#/ProgramREM/application/Program/Target/TargetEdit.cfm?programcode=#url.programcode#&period=#url.period#&category=#url.category#&targetid=#url.targetid#&programaccess=#url.programaccess#">	
-	</cf_divscroll>
-</td></tr></table>

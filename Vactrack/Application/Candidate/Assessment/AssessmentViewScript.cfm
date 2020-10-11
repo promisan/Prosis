@@ -5,11 +5,11 @@
 
 	function getContent(itm,doc,per,com,act,mde,usr,cls) {		
 	   _cf_loadingtexthtml='';		  
-		ptoken.navigate('#session.root#/Vactrack/Application/Candidate/Assessment/AssessmentViewEditContent.cfm?itm='+itm+'&documentno='+doc+'&personno='+per+'&competenceid='+com+'&actioncode='+act+'&mode='+mde+'&useraccount='+usr+'&modality='+cls,'box'+itm)	
+		ptoken.navigate('#session.root#/Vactrack/Application/Candidate/Interaction/AssessmentTestContent.cfm?itm='+itm+'&documentno='+doc+'&personno='+per+'&competenceid='+com+'&actioncode='+act+'&mode='+mde+'&useraccount='+usr+'&modality='+cls,'box'+itm)	
 	}
 
 	function setcontent(itm,doc,per,com,act,usr) {	
-	   updateTextArea();	  
+	   updateTextArea();	  	   
 	   ptoken.navigate('#session.root#/Vactrack/Application/Candidate/Assessment/setContent.cfm?itm='+itm+'&documentno='+doc+'&personno='+per+'&competenceid='+com+'&actioncode='+act+'&useraccount='+usr,'result_'+itm,'','','POST','textevaluation')		
 	}
 		

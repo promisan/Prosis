@@ -18,14 +18,14 @@
 
 <table class="hide"><tr><td id="targetsubmit"></td></tr></table>
 
-<cfset ht = "140">
+<cfset ht = "100">
 
 <cfoutput>
 
 	<cfform name="frmTarget" onsubmit="return false">
 	
 		<table width="99%" align="center">
-			<tr><td height="10"></td></tr>
+			
 			<tr>
 				<td>
 				   <table><tr>
@@ -44,7 +44,7 @@
 								message="Please, enter a valid reference">
 						</td>
 												
-						<td style="padding-left:30px; padding-right:10px;" class="labelmedium" width="15%"><cf_tl id="Due date">:</td>
+						<td style="padding-left:30px; padding-right:10px;" class="labelmedium" width="15%"><cf_tl id="Due"></td>
 						<td>
 						
 							<cfset vDueDate = "">
@@ -60,7 +60,7 @@
 								
 						</td>
 						
-						<td class="labelmedium" style="padding-right:10px;"><cf_tl id="Sort">:</td>
+						<td class="labelmedium" style="padding-left:30px;padding-right:10px;"><cf_tl id="Sort"></td>
 					    <td>
 						
 							<cfinput type="Text" 
@@ -81,31 +81,28 @@
 					</table>
 				</td>
 			</tr>		
-			
-			<tr><td height="4"></td></tr>	
-			<tr><td class="labellarge" style="color:846D3E;height:43px;padding-left:10px;font-size:25px;padding-top:2px;"><cf_tl id="Description">:</td></tr>			
+						
+			<tr class="line"><td class="labellarge" style="height:43px;padding-left:10px;font-size:20px"><cf_tl id="Description">:</td></tr>			
 			<tr>
 				<td style="padding-left:15px;padding-right:20px">
 				
 				      <cf_textarea name="TargetDescription"
 						   id             = "TargetDescription"                                           
 						   height         = "#ht#"
-						   toolbar        = "basic"
+						   toolbar        = "mini"
 						   resize         = "yes"
 						   color          = "ffffff">#get.TargetDescription#</cf_textarea>
-			   
-
 						
 				</td>
 			</tr>	
 			
-			<tr><td class="labellarge" style="color:846D3E;height:43px;padding-left:10px;font-size:25px;padding-top:2px;"><cf_tl id="BaseLine">:</td></tr>
+			<tr class="line"><td class="labellarge" style="height:43px;padding-left:10px;font-size:20px"><cf_tl id="BaseLine">:</td></tr>
 			<tr>
 				<td style="padding-left:15px;padding-right:20px">
 				<cf_textarea name="TargetIndicator"
 						   id             = "TargetIndicator"                                           
 						   height         = "#ht#"
-						   toolbar        = "basic"
+						   toolbar        = "mini"
 						   resize         = "yes"
 						   color          = "ffffff">#get.TargetIndicator#</cf_textarea>
 				
@@ -113,13 +110,13 @@
 				</td>
 			</tr>						
 					
-			<tr><td class="labellarge" style="color:846D3E;height:43px;padding-left:10px;font-size:25px;padding-top:2px;"><cf_tl id="Target">:</td></tr>			
+			<tr class="line"><td class="labellarge" style="height:43px;padding-left:10px;font-size:20px"><cf_tl id="Target">:</td></tr>			
 			<tr>
 				<td style="padding-left:15px;padding-right:20px">
 				   <cf_textarea name="Outcome"
 						   id             = "Outcome"                                           
 						   height         = "#ht#"
-						   toolbar        = "basic"
+						   toolbar        = "mini"
 						   resize         = "yes"
 						   color          = "ffffff">#get.Outcome#</cf_textarea>
 						   
@@ -127,37 +124,35 @@
 				</td>
 			</tr>						
 					
-			<tr><td class="labellarge" style="color:846D3E;height:43px;padding-left:10px;font-size:25px;padding-top:2px;"><cf_tl id="Outcome Verification">:</td></tr>
+			<tr class="line"><td class="labellarge" style="height:43px;padding-left:10px;font-size:20px"><cf_tl id="Outcome Verification">:</td></tr>
 			<tr>
 				<td style="padding-left:15px;padding-right:20px">
 				<cf_textarea name="OutcomeVerification"
 						   id             = "OutcomeVerification"                                           
 						   height         = "#ht#"
-						   toolbar        = "basic"
+						   toolbar        = "mini"
 						   resize         = "yes"
 						   color          = "ffffff">#get.OutcomeVerification#</cf_textarea>
 
 				</td>
 			</tr>							
-			<tr><td class="labellarge" style="color:846D3E;height:43px;padding-left:10px;font-size:25px;padding-top:2px;"><cf_tl id="External Factor">:</td></tr>
+			<tr class="line"><td class="labellarge" style="height:43px;padding-left:10px;font-size:20px"><cf_tl id="External Factor">:</td></tr>
 			<tr>
 				<td style="padding-left:15px;padding-right:20px">
 				
 				<cf_textarea name="ExternalFactor"
 						   id             = "ExternalFactor"                                           
 						   height         = "#ht#"
-						   toolbar        = "basic"
+						   toolbar        = "mini"
 						   resize         = "yes"
 						   color          = "ffffff">#get.ExternalFactor#</cf_textarea>
 				 
 
 				</td>
 			</tr>
-			
-			<tr><td height="4"></td></tr>
-			<tr><td class="linedotted"></td></tr>
-			<tr><td height="4"></td></tr>
 						
+			<tr><td class="line"></td></tr>
+									
 			<tr>
 				<td align="center">
 				    <table>

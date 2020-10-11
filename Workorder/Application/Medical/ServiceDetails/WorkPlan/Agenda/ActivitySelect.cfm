@@ -10,6 +10,34 @@
 <CF_DateConvert Value="#url.selecteddate#">
 <cfset DTS = dateValue>
 
+<cfif url.orgUnit eq 0 or Url.orgUnit eq "">
+	<cfif client.personNo neq "">
+		<cfquery name="qCurrentUnit"
+				datasource="AppsWorkOrder"
+				username="#SESSION.login#"
+				password="#SESSION.dbpw#">
+			SELECT *
+			FROM Employee.dbo.PersonAssignment PA
+			WHERE PersonNo = '#client.personNo#'
+			AND DateEffective  <= #dts#
+			AND DateExpiration >= #dts#
+			AND Incumbency = 100
+			AND AssignmentStatus IN ('0','1')
+			AND EXISTS
+			(
+			SELECT 'x'
+			FROM Employee.dbo.WorkSchedulePosition WP
+			WHERE WP.PositionNo = PA.PositionNo
+			)
+		</cfquery>
+
+		<cfset url.orgUnit = qCurrentUnit.OrgUnit>
+
+	</cfif>
+</cfif>
+
+
+
 <cfquery name="Unit" 
 	 datasource="AppsWorkOrder" 
 	 username="#SESSION.login#" 

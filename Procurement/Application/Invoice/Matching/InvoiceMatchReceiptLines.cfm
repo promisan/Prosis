@@ -347,13 +347,13 @@
 						<cfif Parameter1.InvoiceMatchPriceActual eq "1">								
 						
 							<td align="right" style="height:22;padding-left:1px;padding-right:1px;border-left:1px solid silver;width:80px">
-													
+																				
 								<cfif invoice.actionStatus eq "0">		
 							
 								<cfinput name="prc#receiptid#" 
 								 type="text" 
 								 class="amount enterastab" 
-								 onchange="_cf_loadingtexthtml='';ColdFusion.navigate('InvoiceMatchSetPrice.cfm?field=price&receiptid=#receiptid#&value='+this.value,'inv#receiptid#')"
+								 onchange="_cf_loadingtexthtml='';ptoken.navigate('InvoiceMatchSetPrice.cfm?field=price&receiptid=#receiptid#&value='+this.value,'inv#receiptid#')"
 								 style="padding-right:2px;height:19px;border:0px solid silver;background-color:ffffff;font-size:13px;text-align:right;width:100%" 
 								 value="#NumberFormat(InvoicePrice,"_.__")#">
 								 
@@ -383,7 +383,7 @@
 								<cfinput name="amt#receiptid#" 
 								 type="text" 
 								 class="amount enterastab" 
-								 onchange="_cf_loadingtexthtml='';ColdFusion.navigate('InvoiceMatchSetPrice.cfm?field=amount&receiptid=#receiptid#&value='+this.value,'inv#receiptid#')"
+								 onchange="_cf_loadingtexthtml='';ptoken.navigate('InvoiceMatchSetPrice.cfm?field=amount&receiptid=#receiptid#&value='+this.value,'inv#receiptid#')"
 								 style="padding-right:2px;height:19px;border:0px solid silver;background-color:ffffff;font-size:13px;text-align:right;width:80" 
 								 value="#NumberFormat(InvoiceAmount,".__")#">
 								 

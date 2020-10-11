@@ -108,7 +108,8 @@
 		                FROM   Ref_ActionServiceItem 
 					    WHERE  Serviceitem = '#workorder.serviceitem#')	
 		AND     EntryMode = 'Manual'
-		AND     (Mission IS NULL or Mission = '#workorder.mission#')	  
+		AND     (Mission IS NULL or Mission = '#workorder.mission#')
+		ORDER BY ListingOrder
 </cfquery>
 
 <cfif ActionClassList.recordcount eq "0">
@@ -120,7 +121,8 @@
 		    SELECT * 
 			FROM   Ref_Action
 			WHERE  Operational = 1		
-			AND    EntryMode = 'Manual'		
+			AND    EntryMode = 'Manual'
+			ORDER BY ListingOrder
 	</cfquery>
 
 </cfif>

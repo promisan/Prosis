@@ -118,7 +118,7 @@
 						 
 						 	<cfif fieldSelectMultiple eq "0">
 																
-								<cfselect name="f_#DocumentCode#" id="f_#DocumentCode#"  class="regularxl" required="#req#" message="Provide input for : #DocumentDescription#">
+								<cfselect name="f_#DocumentCode#" id="f_#DocumentCode#"  class="regularxxl" required="#req#" message="Provide input for : #DocumentDescription#">
 									<cfif fieldrequired eq 1>
 										<option value="">--<cf_tl id="Select">--</option>
 									</cfif>
@@ -128,12 +128,30 @@
 								</cfselect>
 								
 							<cfelse>	
+							
+								
+							<cf_UIselect name="f_#DocumentCode#" id="f_#DocumentCode#"			
+									size           = "1"
+									class          = "regularXXL"									
+									multiple       = "Yes"													
+									style          = "width:100%"	
+									required       = "#req#"		
+									message        ="Provide input for: #DocumentDescription#"								
+									query          = "#List#"
+									queryPosition  = "below"
+									selected       = "#topiclist#"
+									value          = "DocumentItem"
+									display        = "DocumentItemName"/>
+									
+								<!---	
 														
 								<cfselect name="f_#DocumentCode#" id="f_#DocumentCode#" class="regularxl" style="height:140" multiple required="#req#" message="Provide input for: #DocumentDescription#">
 									<cfloop query="List">
 									<option value="'#DocumentItem#'" <cfif ListContains(topiclist, DocumentItem)>selected</cfif>>#DocumentItemName#</option>
 									</cfloop>
 								</cfselect>		
+								
+								--->
 								
 							</cfif>			  
 						  
@@ -168,7 +186,7 @@
 							   name       = "f_#documentcode#" 
 							   id         = "f_#DocumentCode#"
 							   required   = "#req#" 							
-							   class      = "regularxl"
+							   class      = "regularxxl"
 							   size       = "10"
 						       maxlength  = "20"
 							   message    = "Please enter a correct amount"
@@ -183,7 +201,7 @@
 								name      = "f_#documentcode#" 
 								id        = "f_#DocumentCode#" 
 								required  = "#req#" 							
-								class     = "regularxl"
+								class     = "regularxxl"
 								size      = "40"
 					            maxlength = "40"
 								message   = "Please enter a correct email address"
@@ -210,7 +228,7 @@
 									   tooltip              = "#DocumentDescription#"
 								       size                 = "#fieldlength#"						   
 								       maxlength            = "#fieldlength#"
-								       class                = "regularxl">	
+								       class                = "regularxxl">	
 								   
 								 <cfelse>
 								 								 					 
@@ -232,7 +250,7 @@
 							              selected = "#Topic.documentItemValue#"
 							              tooltip  = "#DocumentDescription#"				            		              
 							              required = "#req#"
-										  class    = "regularxl"
+										  class    = "regularxxl"
 							              queryposition="below">
 							         		<option value = "#fieldDefault#">#fieldDefault#</option>
 							        </cfselect>
@@ -259,7 +277,7 @@
 										id        = "f_#DocumentCode#"
 										required  = "#req#" 	
 										validate  = "#fieldvalidation#"						
-										class     = "regularxl"
+										class     = "regularxxl"
 										mask      = "#fieldmask#"
 										size      = "#fieldlength#"
 										tooltip   = "#DocumentDescription#"
@@ -295,7 +313,7 @@
 						  		<cf_intelliCalendarDate9
 									FieldName="f_#documentcode#" 
 									Default="#val#"
-									class="regularxl"									
+									class="regularxxl"									
 									AllowBlank="#vAllowBlank#">				
 									
 						  </cfcase>

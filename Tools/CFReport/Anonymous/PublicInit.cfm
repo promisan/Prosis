@@ -29,9 +29,7 @@
 	<cfif find("MSIE","#CGI.HTTP_USER_AGENT#")>
 	    <cfset client.browser = "Explorer">
 	<cfelseif find("Firefox","#CGI.HTTP_USER_AGENT#")>
-	     <cfset client.browser = "Firefox">
-	<cfelseif find("Netscape","#CGI.HTTP_USER_AGENT#")>
-	     <cfset client.browser = "Netscape">
+	     <cfset client.browser = "Firefox">	
 	<cfelseif find("Opera","#CGI.HTTP_USER_AGENT#")>
 	     <cfset client.browser = "Opera">
 	<cfelseif find("Chrome","#CGI.HTTP_USER_AGENT#")>

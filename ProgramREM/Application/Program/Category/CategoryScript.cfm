@@ -17,7 +17,7 @@
 				 document.getElementById('textbox'+cat).className   = "regular line"
 				 try { document.getElementById('targetbox'+cat).className = "regular line" } catch(e) {}
 				 _cf_loadingtexthtml='';	
-				 ColdFusion.navigate('#SESSION.root#/programrem/application/program/Category/getTextArea.cfm?mode='+mod+'&programcode='+prg+'&code='+cat+'&period='+per,'textboxcontent'+cat)
+				 ptoken.navigate('#SESSION.root#/programrem/application/program/Category/getTextArea.cfm?mode='+mod+'&programcode='+prg+'&code='+cat+'&period='+per,'textboxcontent'+cat)
 							 
 			 }else{
 			     box.className = "regular line";	
@@ -30,7 +30,7 @@
 		}
 		
 		function categorysave(sta,prg,cat,per) {		  
-		      ColdFusion.navigate('#SESSION.root#/programrem/application/program/Category/CategoryEntrySubmitItem.cfm?status='+sta+'&programcode='+prg+'&code='+cat+'&period='+per,'process','','','POST','program')		
+		      ptoken.navigate('#SESSION.root#/programrem/application/program/Category/CategoryEntrySubmitItem.cfm?status='+sta+'&programcode='+prg+'&code='+cat+'&period='+per,'process','','','POST','program')		
 		}
 		
 		function edit(id) {	  
@@ -43,10 +43,9 @@
 			ptoken.navigate('#session.root#/ProgramREM/Application/Program/Target/TargetListing.cfm?programcode='+programcode+'&period='+period+'&targetid='+targetid+'&category='+cat+'&programaccess='+programaccess, 'targetdetail_'+cat)	
 		}	
 		
-		function editTarget(programcode,period,targetid,cat,programaccess) {
-			 w = #CLIENT.width# - 60;
-		     h = #CLIENT.height# - 120;		
-		     ptoken.open('#SESSION.root#/ProgramREM/application/Program/Category/TargetEdit.cfm?programcode='+programcode+'&period='+period+'&targetid='+targetid+'&category='+cat+'&programaccess='+programaccess, "target");
+		function editTarget(programcode,period,targetid,cat,programaccess) {		     
+			 ProsisUI.createWindow('target', 'Maintain Targets','',{x:100,y:100,width:document.body.offsetWidth-90,height:document.body.offsetHeight-90,modal:true,center:true})
+			 ptoken.navigate('#SESSION.root#/ProgramREM/application/Program/Category/TargetEdit.cfm?programcode='+programcode+'&period='+period+'&targetid='+targetid+'&category='+cat+'&programaccess='+programaccess, 'target')
 		}
 		
 		function removeTarget(programcode,period,targetid,cat,programaccess) {

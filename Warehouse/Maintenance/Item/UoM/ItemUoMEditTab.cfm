@@ -66,16 +66,13 @@ function calculateVolume() {
 		
 	if ($('##ItemUoMHeight').val()!='')	{
 		h=$('##ItemUoMHeight').val()		
-	}
-	
+	}	
 	if ($('##ItemUoMLength').val()!='')	{
 		l=$('##ItemUoMLength').val()		
-	}
-	
+	}	
 	if ($('##ItemUoMWidth').val()!='') {
 		w=$('##ItemUoMWidth').val()		
-	}	
-	
+	}		
 	$('##ItemUoMVolume').val(l*h*w);
 	
 }
@@ -110,11 +107,9 @@ function uommissiondelete(itm,uom,mission) {
 
 function uomvolumeedit(itm,uom,temperature) {
    var vWidth = 600;
-   var vHeight = 250;    
-   
-   ColdFusion.Window.create('mydialog', 'Temperature', '',{x:30,y:30,height:vHeight,width:vWidth,modal:true,center:true});    
-   ColdFusion.Window.show('mydialog'); 				
-   ptoken.navigate("UoMVolume/ItemUoMVolumeEdit.cfm?id="+itm+"&uom="+uom+"&temperature="+temperature+"&ts="+new Date().getTime(),'mydialog');
+   var vHeight = 250;      
+   ProsisUI.createWindow('mydialog', 'Temperature', '',{x:30,y:30,height:vHeight,width:vWidth,modal:true,center:true});       		
+   ptoken.navigate("UoMVolume/ItemUoMVolumeEdit.cfm?id="+itm+"&uom="+uom+"&temperature="+temperature,'mydialog');
 }
 
 function uomvolumedelete(itm,uom,temperature) {
@@ -140,7 +135,6 @@ function updateButton(itemno,uom,labels,whs){
 	ptoken.navigate('UoMBarCode/getBarCode.cfm?id='+itemno+'&uom='+uom+'&whs='+document.getElementById('sWarehouse').value+'&lot='+lot,'dBarcode');
 }
 
-
 var boxnumber=0;
 
 function editBOM(itemno,uom,bomid,mission) {
@@ -149,10 +143,9 @@ function editBOM(itemno,uom,bomid,mission) {
 		title = 'New instance BOM Item #nme# : '+mission;
 	} else {
 		title = 'Amend BOM Item #nme# : '+mission;
-	}	
-		
-	try { ColdFusion.Window.destroy('bomform',true)} catch(e){};
-    ColdFusion.Window.create('bomform', title, '',{x:100,y:100,width:document.body.offsetWidth-90,height:document.body.offsetHeight-90,resizable:false,modal:true,center:true})			  
+	}			
+    ProsisUI.createWindow('bomform',title,'',{x:100,y:100,width:document.body.offsetWidth-90,height:document.body.offsetHeight-90,resizable:false,modal:true,center:true})			  
+	
     ptoken.navigate('#SESSION.root#/Warehouse/Maintenance/Item/UoM/UOMBOM/ItemUoMBOMEdit.cfm?itemno='+itemno+'&uom='+uom+'&bomid='+bomid+'&mission='+mission,'bomform');
 }
 
@@ -175,7 +168,7 @@ function editBOMSubmit(frm,box,target) {
 
 function BOMInherit(itemno,uom,mission) {	
     try { ColdFusion.Window.destroy('bomform',true)} catch(e){};
-    ColdFusion.Window.create('bomform', 'Inherit BOM Item for #nme#:+mission', '',{x:100,y:100,width:document.body.offsetWidth-90,height:document.body.offsetHeight-90,resizable:false,modal:true,center:true})			  
+    ProsisUI.createWindow('bomform', 'Inherit BOM Item for #nme#:+mission', '',{x:100,y:100,width:document.body.offsetWidth-90,height:document.body.offsetHeight-90,resizable:false,modal:true,center:true})			  
     ptoken.navigate('#SESSION.root#/Warehouse/Maintenance/Item/UoM/UOMBOM/ItemUoMBOMInherit.cfm?itemno='+itemno+'&uom='+uom+'&mission='+mission,'bomform');	
 }
 
@@ -211,7 +204,7 @@ function deleteBOM(itemno,uom,materialid) {
 function selectresourceitem(itm,prefix,materialid) {
 					
 	if (prefix != '') 
-		ColdFusion.navigate('#session.root#/Warehouse/Maintenance/Item/UoM/UoMBOM/getItem.cfm?mode=item&itemNo=' + itm + '&prefix=' + prefix, 'itembox' + prefix)
+		ptoken.navigate('#session.root#/Warehouse/Maintenance/Item/UoM/UoMBOM/getItem.cfm?mode=item&itemNo=' + itm + '&prefix=' + prefix, 'itembox' + prefix)
 	else {
 		$('##itembox').append("<div id='itembox_"+boxnumber+"' name='itembox_"+boxnumber+"'></div>");
 		ptoken.navigate('#session.root#/Warehouse/Maintenance/Item/UoM/UoMBOM/getItemMemo.cfm?mode=item&itemNo=' + itm + '&prefix=' + prefix + '&boxnumber='+boxnumber+'&materialid='+materialid, 'itembox_' + boxnumber)

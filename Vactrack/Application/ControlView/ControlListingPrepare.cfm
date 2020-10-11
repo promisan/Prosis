@@ -34,10 +34,12 @@
 		<cfset vCondition = vCondition & " AND ( EXISTS (SELECT 'X' FROM Applicant.dbo.FunctionOrganization F WHERE F.ReferenceNo like '%#FORM.ReferenceNo#%' AND F.DocumentNo = T.DocumentNo) OR (T.ReferenceNo = '#FORM.ReferenceNo#' OR CAST(T.DocumentNo as varchar(10)) = '#Form.ReferenceNo#'))">
 	</cfif>		
 	<cfif Form.DateEffective neq "">
-		<cfset vCondition2 = vCondition2 & " AND (F.DateEffective >= '#FORM.DateEffective#')">	
+	    <CF_DateConvert Value="#FORM.DateEffective#">		
+		<cfset vCondition2 = vCondition2 & " AND (F.DateEffective >= #datevalue#)">	
 	</cfif>
 	<cfif Form.DateExpiration neq "">
-		<cfset vCondition2 = vCondition2 & " AND (F.DateExpiration <= '#FORM.DateExpiration#')">	
+	    <CF_DateConvert Value="#FORM.DateExpiration#">	
+		<cfset vCondition2 = vCondition2 & " AND (F.DateExpiration <= #datevalue#)">	
 	</cfif>	
 		
 </cfif>		

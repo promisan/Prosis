@@ -23,9 +23,8 @@
 <cfparam name="Attributes.SourceFileName"  default="#client.sf#">
 		
 <cfset Path = Attributes.SourceDirectory & Attributes.SourceFileName />
-		 		
-<cfset vDestination = "inline">		 		
-		 		  
+	 		
+	 		  
 <cfswitch expression="#LCase(ListLast(Attributes.SourceFileName, "."))#">
 
     <cfcase value="xml">
@@ -35,68 +34,82 @@
 
     <cfcase value="avi">
         <cfset vContentType = "video/x-msvideo" />
+		<cfset vDestination = "attachment">
     </cfcase>
 	
     <cfcase value="gif">
         <cfset vContentType = "image/gif" />
+		<cfset vDestination = "attachment">
     </cfcase>
 	
     <cfcase value="jpg,jpeg">        
 		<cfset vContentType = "image/jpg" />				
+		<cfset vDestination = "attachment">
     </cfcase>
 	
     <cfcase value="mp3">
         <cfset vContentType = "audio/mpeg" />
+		<cfset vDestination = "attachment">
     </cfcase>
 	
     <cfcase value="mov">
         <cfset vContentType = "video/quicktime" />
+		<cfset vDestination = "attachment">
     </cfcase>
 	
     <cfcase value="mpe,mpg,mpeg">
         <cfset vContentType = "video/mpeg" />
+		<cfset vDestination = "attachment">
     </cfcase>
 	
     <cfcase value="pdf">
         <cfset vContentType = "application/pdf" />
+		<cfset vDestination = "inline">
     </cfcase>
 	
     <cfcase value="png">
         <cfset vContentType = "image/png" />
+		<cfset vDestination = "inline">
     </cfcase>
 	
     <cfcase value="ppt">
         <cfset vContentType = "application/vnd.ms-powerpoint" />
+		<cfset vDestination = "attachment">
     </cfcase>
 	
     <cfcase value="wav">
         <cfset vContentType = "audio/x-wav" />
+		<cfset vDestination = "attachment">
     </cfcase>
 	
     <cfcase value="xls">
         <cfset vContentType = "application/vnd.ms-excel" />
+		<cfset vDestination = "attachment">
     </cfcase>
 
     <cfcase value="xlsx">
         <cfset vContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+		<cfset vDestination = "attachment">
     </cfcase>
 	
     <cfcase value="doc,docx">
         <cfset vContentType = "application/msword" />
+		<cfset vDestination = "attachment">
     </cfcase>
 	
     <cfcase value="zip">
         <cfset vContentType = "application/zip" />
+		<cfset vDestination = "attachment">
     </cfcase>
 	
     <cfdefaultcase>
         <cfset vContentType = "application/unknown" />
+		<cfset vDestination = "attachment">
     </cfdefaultcase>
 	
 </cfswitch>
 
 <!--- change so all files will be rendered as an attachment --->
-<cfset vDestination = "attachment">
 
 <cftry>
 		

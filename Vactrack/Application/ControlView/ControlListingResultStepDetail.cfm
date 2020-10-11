@@ -89,7 +89,7 @@
 				
 						<cfloop query = "qPosition">					
 							
-							<tr class="labelmedium">
+							<tr class="labelmedium" style="height:20px">
 							<td>
 								<cfif PostNumber neq "">
 									<a href="javascript:EditPosition('#Mission#','#MandateNo#','#PositionNo#','','no')">#PostNumber#</a>
@@ -169,6 +169,7 @@
 					   password="#SESSION.dbpw#">
 						SELECT   P.Mission,
 								 P.MandateNo,
+								 P.PositionParentId,
 								 DP.PostNumber, 
 						         DP.PositionNo,								 
 								 
@@ -190,12 +191,12 @@
 		
 				<cfloop query = "qPosition">					
 					
-					<tr class="labelmedium">
+					<tr class="labelmedium" style="height:20px">
 					<td>
 						<cfif PostNumber neq "">
 							<a href="javascript:EditPosition('#Mission#','#MandateNo#','#PositionNo#','','no')">#PostNumber#</a>
 						<cfelse>
-							<a href="javascript:EditPosition('#Mission#','#MandateNo#','#PositionNo#','','no')">N/A</a>
+							<a href="javascript:EditPosition('#Mission#','#MandateNo#','#PositionNo#','','no')">#PositionParentId#</a>
 						</cfif>
 					</td>
 					

@@ -91,6 +91,7 @@
 		        P.ActionDescription, 
 				P.ActionCompleted, 
 				P.ActionDenied,
+				P.ActionReference,
 				P.ActionProcess,
 				P.ActionOrder
 		 FROM   #CLIENT.LanPrefix#Ref_EntityActionPublish P	 		
@@ -120,7 +121,7 @@
 								   AND      Operational = 1) 
 		 </cfif>
 		 			
-		 GROUP BY P.ActionCode, P.ActionDescription, P.ActionCompleted, P.ActionDenied, P.ActionProcess, P.ActionOrder
+		 GROUP BY P.ActionCode, P.ActionDescription, P.ActionReference, P.ActionCompleted, P.ActionDenied, P.ActionProcess, P.ActionOrder
 		 ORDER BY P.ActionOrder 		 
 		 
 	   </cfquery>
@@ -160,13 +161,13 @@
 				  <b>:</b>
 			   </td>
 				      
-			   <td class="labelit" class="#r#" id="d1b" title="#vLblTTGoTo#">   
+			   <td class="#r#" id="d1b" title="#vLblTTGoTo#">   
 				   <select style="width:250px" class="regularxl"				   
 				     name="ActionCodeOnHold" id="ActionCodeOnHold"
 					 style="background: ffffff;" 
 					 onchange="_cf_loadingtexthtml='';updateTextArea();ptoken.navigate('#SESSION.root#/tools/EntityAction/ActionListingFly.cfm?mode=revert&objectid=#object.Objectid#&ActionPublishNo=#ActionPublishNo#&ActionCode='+this.value,'stepflyaccess');">					 
 					<cfloop query="Revert">
-					   <option value="#ActionCode#">#ActionCode# #ActionDescription#</option>
+					   <option value="#ActionCode#">TO: #ActionDescription# | #ActionReference# [#ActionCode#]</option>
 					</cfloop>
 					</select>					
 				</td>

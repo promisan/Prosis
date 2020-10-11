@@ -331,11 +331,9 @@ function stepinspect(id,pub) {
 			WHERE Objectid = '#url.objectid#'	   
 		</cfquery>		   
 					
-		ColdFusion.Window.create('actorshow', 'Actors', '',{x:100,y:100,height:350,width:700,resizable:false,modal:true,center:true});
-		
-		url = "#SESSION.root#/tools/EntityAction/ActionListingActor.cfm?Objectid=#url.objectid#&OrgUnit=#Obj.OrgUnit#&Role=#Obj.Role#&ActionPublishNo="+pub+"&ActionCode="+id+"&box=actorshow"
-				
-		ColdFusion.navigate(url,'actorshow')	
+		ProsisUI.createWindow('actorshow', 'Actors', '',{x:100,y:100,height:350,width:700,resizable:false,modal:true,center:true});		
+		url = "#SESSION.root#/tools/EntityAction/ActionListingActor.cfm?Objectid=#url.objectid#&OrgUnit=#Obj.OrgUnit#&Role=#Obj.Role#&ActionPublishNo="+pub+"&ActionCode="+id+"&box=actorshow"				
+		ptoken.navigate(url,'actorshow')	
 				 
  	  		
 	<cfelse>

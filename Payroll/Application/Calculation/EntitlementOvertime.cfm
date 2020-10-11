@@ -7,12 +7,12 @@ username="#SESSION.login#"
 password="#SESSION.dbpw#">
 
 	UPDATE  PersonOvertime
-	SET     Status = '2'
+	SET     Status = '3'
 	FROM    PersonOvertime T	
 	WHERE   OvertimeId NOT IN (SELECT ReferenceId 
 	                           FROM   EmployeeSalaryLine
 							   WHERE  ReferenceId = T.OvertimeId)
-	AND     Status IN ('1','2','3','5')
+	AND     Status IN ('5')
 	AND     OvertimePayment = 1
 	
 </cfquery>
@@ -265,11 +265,10 @@ password="#SESSION.dbpw#">
 			END >= Pay.DateEffective
 	AND    CASE WHEN ovt.OvertimeDate < '2018-02-01' THEN
 	         Ovt.OvertimeDate  ELSE Ovt.OvertimePeriodEnd
-		   END <= Pay.DateExpiration		
-		   
+		   END <= Pay.DateExpiration			   
 		
 	<!--- has been cleared and not processed yet in a prior month = not paid --->
-	AND    Ovt.Status          = '2' 
+	AND    Ovt.Status          = '3' 
 	<!--- is defined on the detailed level now as dominant factor --->
 	AND    OvtD.BillingPayment = 1
 	AND    (OvtD.OvertimeHours > 0 or  OvtD.OvertimeMinutes > 0)

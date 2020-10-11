@@ -1,11 +1,13 @@
 
-<cf_wfPending entityCode = "VacDocument" entityCode2  ="VacCandidate" 
-	 mailfields          = "No" 
-	 includeCompleted    = "No" 	 
-	 Mission             = "#url.mission#"
-	 Mode                = "subquery">
-	 
-	 
+<cf_wfPending 
+     EntityCode           = "VacDocument" 
+	 EntityCodeIgnoreLast = "1"	
+	 entityCode2          = "VacCandidate" 
+	 mailfields           = "No" 
+	 includeCompleted     = "No" 	 
+	 Mission              = "#url.mission#"
+	 Mode                 = "subquery">
+	 	 
 <!--- this will return the active step of the workflow, however the workflow is
 likely to be split over 2 entities as each workflow has one or more
 selected candidates which each have a track potentially assigned --->
@@ -54,16 +56,9 @@ selected candidates which each have a track potentially assigned --->
 		
 	FROM     Vacancy.dbo.Document D 
 	         <!--- if the track does not have a workflow it will render the tracks here as outer join --->
-	         LEFT OUTER JOIN  (#preserveSingleQuotes(WorkFlowSteps)#) as T ON D.DocumentNo = T.ObjectKeyValue1
+	         INNER JOIN (#preserveSingleQuotes(WorkFlowSteps)#) as T ON D.DocumentNo = T.ObjectKeyValue1
 			
-	WHERE    D.Mission = '#URL.Mission#'		
-										 		
-	 <!--- has a workflow track defined, no longer needed in my views 									  
-	 
-	 AND     D.DocumentNo IN (SELECT ObjectKeyValue1 
-	                          FROM   Organization.dbo.OrganizationObject 
-							  WHERE EntityCode = 'VacDocument')								  
-	 --->					  					  	
+	WHERE    D.Mission = '#URL.Mission#'							  	
 	 
 	 <!--- has at least one position associated to it --->
 	 AND     D.DocumentNo IN (SELECT DocumentNo 
@@ -100,7 +95,8 @@ selected candidates which each have a track potentially assigned --->
 														</cfif>
 													   
 													   
-													   ))			
+													   ))		
+													   	
 	 <!--- overruling status set by the user or workflow --->	
 	 AND      D.Status  = '#URL.Status#' 			
 	 	

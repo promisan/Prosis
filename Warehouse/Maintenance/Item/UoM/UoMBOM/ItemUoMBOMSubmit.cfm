@@ -177,8 +177,8 @@
 				
 		<cfoutput>
 			<script>
-				try { ColdFusion.Window.destroy('bomform',true)} catch(e){};
-				ColdFusion.navigate('UoMBOM/ItemUoMBOM.cfm?ID=#URL.ID#&UoM=#URL.UoM#&Selected=#FORM.mission#','itemUoMBOM');
+				try { ProsisUI.closeWindow('bomform',true)} catch(e){};
+				ptoken.navigate('UoMBOM/ItemUoMBOM.cfm?ID=#URL.ID#&UoM=#URL.UoM#&Selected=#FORM.mission#','itemUoMBOM');
 			</script>
 		</cfoutput>
 	
@@ -357,8 +357,8 @@
 
 		<cfoutput>
 			<script>
-				try { ColdFusion.Window.destroy('bomform',true)} catch(e){};
-				ColdFusion.navigate('UoMBOM/ItemUoMBOM.cfm?ID=#URL.ID#&UoM=#URL.UoM#&Selected=#FORM.mission#','itemUoMBOM');
+				try { ProsisUI.closeWindow('bomform',true)} catch(e){};
+				ptoken.navigate('UoMBOM/ItemUoMBOM.cfm?ID=#URL.ID#&UoM=#URL.UoM#&Selected=#FORM.mission#','itemUoMBOM');
 			</script>
 		</cfoutput>
 		

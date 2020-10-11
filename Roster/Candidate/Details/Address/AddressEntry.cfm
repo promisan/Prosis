@@ -41,6 +41,7 @@ username="#SESSION.login#"
 password="#SESSION.dbpw#">
     SELECT *
     FROM Ref_Relationship
+	ORDER BY ListingOrder
 </cfquery>
 
 <cfquery name="Nation" 

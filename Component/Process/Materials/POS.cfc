@@ -1403,6 +1403,7 @@
 							    DataSource            = "AppsMaterials"
 								Mission               = "#get.mission#"
 								OrgUnitOwner          = "#OrgUnitOwner#"
+								OrgUnitSource         = "#getStoreUnit.OrgUnit#"
 								Journal               = "#getJournal.Journal#" 
 								Description           = "Tender from #Customer.CustomerName#"
 								DocumentDate       	  = "#TransactionDate#"	
@@ -2280,6 +2281,7 @@
 					    DataSource            = "AppsMaterials"
 						Mission               = "#get.mission#"
 						OrgUnitOwner          = "#OrgUnitOwner#"
+						OrgUnitSource         = "#getStoreUnit.OrgUnit#"
 						OrgUnitTax            = "#getTerminal.TaxOrgUnitEDI#"
 						Journal               = "#getJournal.Journal#" 
 						Description           = "#mem#"
@@ -2293,7 +2295,7 @@
 						ActionStatus          = "1"
 						workflow              = "#workflow#"
 						Reference             = "Receivables"   
-						ReferenceOrgUnit      = "#getStoreUnit.OrgUnit#"    
+						ReferenceOrgUnit      = "#Customer.OrgUnit#"    
 						ReferenceName         = "#Customer.CustomerName#"
 						ReferenceId           = "#CustomerId#"
 						ReferenceNo           = ""						
@@ -2555,6 +2557,7 @@
 							    DataSource            = "AppsMaterials"
 								Mission               = "#get.mission#"
 								OrgUnitOwner          = "#OrgUnitOwner#"
+								OrgUnitSource         = "#getStoreUnit.OrgUnit#"
 								Journal               = "#getJournal.Journal#" 
 								Description           = "Tender from #Customer.CustomerName#"
 								DocumentDate       	  = "#dateformat(TraDate,CLIENT.DateFormatShow)#"	
@@ -3025,11 +3028,13 @@
 			
 				<cfset Invoice.Mode = "1"> <!--- manual --->
 				<cfset Invoice.ErrorDescription = "">
+				<cfset Invoice.ErrorDetail = "">
 				
 			<cfelse>
 			
 			    <cfset Invoice.Mode = "2">
 				<cfset Invoice.ErrorDescription = "">
+				<cfset Invoice.ErrorDetail = "">
 				
 			    <!--- ------------------- --->
 				<!--- jdiaz complementent --->
@@ -3060,7 +3065,7 @@
 					<!--- No valid tree defined for EDI --->
 					<cfset Invoice.Mode = "1"> <!--- manual --->
 					<cfset Invoice.ErrorDescription = "No valid tree defined">
-
+					<cfset Invoice.ErrorDetail = "">
 
 				<cfelse>
 				
@@ -3083,7 +3088,7 @@
 						<!--- No valid series defined for EDI --->
 						<cfset Invoice.Mode = "1"> <!--- manual --->
 						<cfset Invoice.ErrorDescription = "No valid series is defined">
-
+						<cfset Invoice.ErrorDetail = "">
 
 					<cfelse>
 						<cfset Invoice.Mode = "2"> <!--- EDI --->
@@ -3127,6 +3132,7 @@
 								<cfif stResponse.Status neq "OK">									   					
 									<cfset Invoice.Mode = "1"> <!--- manual --->
 									<cfset Invoice.ErrorDescription = stResponse.ErrorDescription>
+									<cfset Invoice.ErrorDetail = stResponse.ErrorDetail>
 								</cfif>
 								
 							</cfif>	  		
@@ -3287,7 +3293,8 @@
 						  <cfelseif getWarehouseJournal.TransactionMode eq "2">  <!--- Mode was 2 but no connection to the GFACE --->
 						   ActionReference4,
 						  </cfif>
-						  ActionMemo,  							   						  
+						  ActionMemo,
+						  ActionContent,
                           ActionDate,
 		  			      ActionStatus,                                
                           OfficerUserId,
@@ -3313,7 +3320,8 @@
 						  <cfelseif getWarehouseJournal.TransactionMode eq "2">
 						  		'#GetManualSeries.SeriesNo#',
 						  </cfif> 
-						  '#left(Invoice.ErrorDescription,100)#', 
+						  '#left(Invoice.ErrorDescription,100)#',
+						  '#Invoice.ErrorDetail#',
 		                  getDate(),                                 
         		          '1',     <!--- mode process completed --->
                 	      '#SESSION.acc#',

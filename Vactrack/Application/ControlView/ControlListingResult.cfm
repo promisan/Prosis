@@ -25,7 +25,7 @@
 	<cfif URL.Mode eq "Portal">
 		<cfset format = "PNG">
 	<cfelse>
-		<cfset format = "HTML">
+		<cfset format = "PNG">
 	</cfif>
 	
 	
@@ -35,13 +35,13 @@
 	
 			<cfif Sum.Total gt 0>
 							
-			<td align="center" valign="bottom">
+			<td align="center" valign="bottom" style="border:1px solid silver">
 										
 			<cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
 			
 			<cfchart style = "#chartStyleFile#" format="#format#" 
-			         chartheight="300" 
-					 chartwidth="670" 
+			         chartheight="340" 
+					 chartwidth="770" 
 					 scalefrom="0"
 					 scaleto="50" 
 					 showxgridlines="yes" 
@@ -52,7 +52,7 @@
 					 fontbold="no" 
 					 font="calibri"
 					 fontitalic="no" 
-					 show3d="no" 
+					 show3d="yes" 
 					 xaxistitle="" 				 
 					 yaxistitle="Tracks" 
 					 rotated="no" 
@@ -105,7 +105,7 @@
 					
 					<cfchart style = "#chartStyleFile#" format="#format#" 
 				         chartheight="280" 
-						 chartwidth="450" 
+						 chartwidth="300" 
 						 scalefrom="0"
 						 scaleto="30" 
 						 showxgridlines="yes" 

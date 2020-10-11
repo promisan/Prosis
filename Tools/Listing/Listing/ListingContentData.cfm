@@ -98,13 +98,35 @@
 					  <td colspan="#cols-3#" class="labellarge" style="font-weight:bold;padding-left:5px;height:30px">	
 					      
 						   <cfif findNoCase('00:00',evaluate(url.listgroupfield))>
+						   
+						     <!--- this is no longer needed as the below will take care of this : can be removed --->
+							 
 							 #dateformat(evaluate(url.listgroupfield),CLIENT.DateFormatShow)#
-						   <cfelse>		  
-							   <cfif evaluate(url.listgroupfield) neq "">
-								 #evaluate(url.listgroupfield)#
-							   <cfelse>
-								 #evaluate(url.listgroup)#
-							   </cfif>															 
+							 
+						   <cfelse>		
+						   					   
+						   	 <cfif evaluate(url.listgroupfield) neq "">							 
+							    <cfset groupfield = url.listgroupfield>								 
+							 <cfelse>							   
+							   	<cfset groupfield = url.listgroup>																 
+							 </cfif>						    
+						    
+							<!--- we check if for the selected field we have a special formatting set --->
+							
+							<cfloop array="#attributes.listlayout#" index="itm">		
+							
+								<cfif itm.field eq groupfield>
+															
+									<cfif itm.formatted neq "">
+									#evaluate(itm.formatted)#
+									<cfelse>
+									#evaluate(groupfield)#
+									</cfif>																	
+								
+								</cfif>
+						   	
+						      </cfloop>
+						   															 
 						   </cfif>				 
 						   </td>		
 						   <cfif aggregate eq "">		 

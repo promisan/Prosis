@@ -1,7 +1,9 @@
 <cfset url.selected = "">
 <cfparam name="url.mission" default="">
 
+<!---
 <cf_screentop label="BOM" scroll="Yes" layout="webapp" user="No">
+--->
 
 <table width="100%" height="100%" cellspacing="0" cellpadding="0">
 

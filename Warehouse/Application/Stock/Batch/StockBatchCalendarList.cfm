@@ -19,11 +19,7 @@
 	WHERE     Warehouse = '#url.warehouse#'	
 </cfquery>
 
-<table width="98%"	      
-       border="0"
-	   align="center"
-       cellspacing="0"	   
-	   cellpadding="0">
+<table width="98%" align="center">
 	   
   <tr><td height="4">
     <cfoutput>	
@@ -149,10 +145,7 @@
 							</td>	
 							
 						</TR>
-															
-					  
-				 
-				  
+						
 	 			</cfif>	
 										 									
 			</CFOUTPUT>

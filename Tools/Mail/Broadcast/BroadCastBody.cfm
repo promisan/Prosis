@@ -102,7 +102,7 @@
 		 </tr>		
 		  
 		  <tr>
-				<td width="80" height="20" style="height:30px;font-width:200;font-size:15px;padding-left:10px;padding-right:10px" class="labelmedium"><cf_tl id="Subject">:</td>
+				<td width="80" height="20" style="height:30px;min-width:200px;font-size:15px;padding-left:10px;padding-right:10px" class="labelmedium"><cf_tl id="Subject">:</td>
 				<td width="94%" style="padding-right:1px">
 									
 					<cfinput type="Text"
@@ -133,7 +133,7 @@
 					 init="Yes"
 					 width="100%"
 					 height="400"
-					 toolbar="mini"
+					 toolbar="basic"
 					 resize="no"
 					 color="ffffff"><cfoutput>#text#</cfoutput></cf_textarea>	 
 			  	

@@ -297,18 +297,20 @@
 				AND I.ItemNo = '#arguments.itemno#'
 			<cfelse>
 				<cfif vSearchText neq "">
-				AND 
-				(
-					<cf_softlike left="I.ItemDescription" 	right="#vSearchText#" language="ESP">
-					OR
-					<cf_softlike left="CI.CategoryItemName" right="#vSearchText#" language="ESP">
-					OR
-					<cf_softlike left="C.Description" 		right="#vSearchText#" language="ESP">
-					OR
-					I.itemNo = '#vSearchText#'
-					OR
-					I.itemNoExternal like '%#vSearchText#%'
-				)
+					AND 
+					(
+						<cf_softlike left="I.ItemDescription" 	right="#vSearchText#" language="ESP">
+						OR
+						<cf_softlike left="CI.CategoryItemName" right="#vSearchText#" language="ESP">
+						OR
+						<cf_softlike left="C.Description" 		right="#vSearchText#" language="ESP">
+						OR
+						I.ItemNo = '#vSearchText#'
+						OR
+						I.itemNoExternal like '%#vSearchText#%'
+						OR
+						I.ItemNo IN (SELECT Ux.ItemNo FROM ItemUoM Ux WHERE Ux.ItemBarcode like '%#vSearchText#%')
+					)
 				<cfelseif arguments.category neq "">
 					AND I.Category = '#arguments.category#'
 				<cfelse>

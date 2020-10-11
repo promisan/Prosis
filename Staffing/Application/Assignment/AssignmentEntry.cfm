@@ -7,6 +7,12 @@
 <cfparam name="URL.Caller"      default="0">
 <cfparam name="URL.Box"         default="">
 
+<cfif url.source eq "Vac">
+	<cfset HTML = "No">
+<cfelse>
+	<cfset HTML = "Yes">	
+</cfif>
+
  <cfif URL.Caller neq "Listing">
  	  
 	<cf_tl id="Register Assignment" var="vPosition">
@@ -18,6 +24,7 @@
 		menuaccess = "context" 
 		banner     = "yellow"
 		height     = "100%"
+		html       = "#html#"
 		line       = "No"
 		jQuery     = "yes">  
 		  
@@ -30,6 +37,7 @@
 		label="#vPosition#" 
 		menuaccess="context" 
 		banner="yellow"
+		html       = "#html#"
 		height="100%"
 		line="No"
 		jQuery="yes">
@@ -607,7 +615,7 @@ password="#SESSION.dbpw#">
 				<cfif URL.Caller eq "Listing">
 			   		<input type="button" name="cancel" value="#vClose#" class="button10g" onClick="window.close()">
 				<cfelse>
-					<input type="button" name="cancel" value="#vClose#" class="button10g" onClick="parent.ColdFusion.Window.hide('myarrival')">
+					<input type="button" name="cancel" value="#vClose#" class="button10g" onClick="parent.ProsisUI.closeWindow('myarrival')">
 				</cfif>
 			    <input class="button10g" type="submit" name="Submit" value="#vSave#">
 			</cfoutput>

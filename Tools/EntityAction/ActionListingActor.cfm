@@ -706,24 +706,24 @@
 						
 				<table width="98%" align="center">
 				
-					<tr><td colspan="9" class="labelmedium" style="height;30px;padding-left:4px">A Mail notification was sent to the following users:</td></tr>
+					<tr><td colspan="9" class="labelmedium" style="height;30px;padding-left:4px">A notification was sent to the below users:</td></tr>
 						
 					<tr>
 					   <td colspan="9">
-						<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
-						<cfoutput>
-						<cfloop query="MailSent">				
-						<tr class="labelit line">
-							<td style="padding-left:9px">#FirstName# #LastName# (#Account#)</td>
-							<td>#EMailAddress#</td>
-							<td>#EMailType#</td>
-							<td><cfif Exchangeid neq "">Task List<cfelse>Mail Only</cfif></td>
-							<td>#dateformat(created,CLIENT.DateFormatShow)# #timeformat(created,"HH:MM")#</td>
-							<td><font size="1">By:</font> #OfficerFirstName# #OfficerLastName#</td>
-						</tr>
-						</cfloop>
-						</cfoutput>
-						</table>
+							<table width="100%" align="center">
+							<cfoutput>
+							<cfloop query="MailSent">				
+							<tr class="labelmedium line">
+								<td style="padding-left:9px">#FirstName# #LastName# (#Account#)</td>
+								<td>#EMailAddress#</td>
+								<td>#EMailType#</td>
+								<td><cfif Exchangeid neq "">Task<cfelse>Mail</cfif></td>
+								<td>#dateformat(created,CLIENT.DateFormatShow)# #timeformat(created,"HH:MM")#</td>
+								<td>#OfficerLastName#</td>
+							</tr>
+							</cfloop>
+							</cfoutput>
+							</table>
 					   </td>
 					</tr>   	
 				</table>	

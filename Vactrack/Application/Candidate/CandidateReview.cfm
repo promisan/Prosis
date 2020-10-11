@@ -172,15 +172,29 @@
 		
 <cfelseif url.wparam eq "INTERVIEW">
 
-	<cfset checkText = "Outcome">
-
-	<cfset dialog = "Interview">
-	<input type="Hidden" id="ReviewReset"  name="ReviewReset"   value="1">
-	<input type="Hidden" id="ReviewStatus" name="ReviewStatus"  value="2">
-	<cfset required = "'1','2','2s'">
-	<cfset wfinal = "2">
-
-
+	   <cfset checkText = "Outcome">
+	
+	   <cfset dialog = "Interview">
+		<input type="Hidden" id="ReviewReset"  name="ReviewReset"   value="1">
+		<input type="Hidden" id="ReviewStatus" name="ReviewStatus"  value="2">
+	   <cfset required = "'1','2','2s'">
+	   <cfset wfinal = "2">
+		
+	   <cfquery name="check" 
+		datasource="AppsVacancy" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			 SELECT   *		   
+		     FROM    DocumentCandidate  				   	   
+			 WHERE   DocumentNo = '#Object.ObjectKeyValue1#'		 
+			 AND     Status IN (#preserveSingleQuotes(required)#) 		  		 			
+			 AND     EntityClass is NULL			 
+	   </cfquery>
+		 
+		<cfif check.recordcount eq "0">		 
+		 	<cfset required = "'0','1','2','2s'">		 
+		</cfif> 
+	
 <cfelseif url.wparam eq "SELECT">
 	
 	<cfset checkText = "Select">
@@ -459,7 +473,7 @@ password="#SESSION.dbpw#">
 		           A.PersonNo, 
 				   DC.Status, 
 				   DC.EntityClass as CandidateClass, 
-				   S.Description as DescriptionStatus, 				   
+				   S.Description  as DescriptionStatus, 				   
 				   DC.Remarks, 
 				   DC.TsInterviewStart,
 				   DC.TsInterviewEnd,
@@ -482,7 +496,7 @@ password="#SESSION.dbpw#">
 		  AND      DC.Status IN (#preserveSingleQuotes(required)#) 		  		 
 		  AND      S.Class       = 'Candidate' 
 		  <cfif url.wparam neq "Init">
-		  -- AND      DC.EntityClass is NULL
+		  AND      DC.EntityClass is NULL
 		  </cfif>
 		 
 </cfquery>
@@ -541,7 +555,7 @@ password="#SESSION.dbpw#">
 	<cfif url.wparam eq "MARK" or url.wparam eq "TEST">
 	
 		<tr class="line labelmedium"><td style="font-size:18px;height:30px" align="center" colspan="4">
-		<a href="javascript:phrases('#bucket.functionid#')"><cf_tl id="Maintain test questions"></a></td>
+		<a href="javascript:phrases('#bucket.functionid#')"><cf_tl id="Maintain TEST questions and submission"></a></td>
 		</tr>
 	
 	</cfif>
@@ -727,9 +741,12 @@ password="#SESSION.dbpw#">
 				
 				<cfif url.wParam eq "TEST">
 				
-					<td style="padding-right:4px">
-					<img src="#session.root#/images/logos/system/importword.png" style="height:15px;width:18px" alt="Import word" 
-					    border="0" onclick="testevaluation('#Object.ObjectKeyValue1#','#PersonNo#','#flowaction#','edit')">
+					<td style="padding-right:4px">					
+					<img src="#session.root#/images/logos/system/communication.png" style="height:21px;width:24px" alt="Candidate communication" 
+					    border="0" onclick="testcommunication('#Object.ObjectKeyValue1#','#PersonNo#','#flowaction#','edit')">
+						
+					<img src="#session.root#/images/logos/system/importword.png" style="height:21px;width:24px" alt="Import word" 
+					    border="0" onclick="testevaluation('#Object.ObjectKeyValue1#','#PersonNo#','#flowaction#','edit')">	
 					</td>
 				
 				</cfif>
@@ -739,8 +756,14 @@ password="#SESSION.dbpw#">
 				<!--- get test content for scoring --->
 				
 				<td style="padding-right:4px">
-				<img src="#session.root#/images/logos/system/importword.png" style="height:15px;width:18px" alt="Import word" 
+				<table><tr><td>
+				<img src="#session.root#/images/logos/system/communication.png" style="height:21px;width:24px" alt="Candidate communication" 
+					    border="0" onclick="testcommunication('#Object.ObjectKeyValue1#','#PersonNo#','#flowaction#','edit')">
+						</td>
+				<td style="padding-left:4px">	
+				<img src="#session.root#/images/logos/system/importword.png" style="height:21px;width:24px" alt="Import word" 
 				    border="0" onclick="testevaluation('#Object.ObjectKeyValue1#','#PersonNo#','#flowaction#','edit')">
+					</td></tr></table>
 				</td>	
 				
 			</cfif>

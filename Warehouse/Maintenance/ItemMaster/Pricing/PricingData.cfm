@@ -124,12 +124,14 @@ password="#SESSION.dbpw#">
 	password="#SESSION.dbpw#">
 	SELECT  *
 	FROM    Ref_Tax
-</cfquery>		
+</cfquery>	
+
+<cf_divscroll>		
 
 <cfform method="POST" name="inputform" 
 	id="inputform" 
 	action="#SESSION.root#/Warehouse/Maintenance/ItemMaster/Pricing/PricingSubmit.cfm?mission=#url.mission#&id=#url.id#&drillid=#url.drillid#">
-
+	
 <table width="96%" align="center">
 	  	  
 	<cfquery name="Cls" 
@@ -145,32 +147,23 @@ password="#SESSION.dbpw#">
 	
 	<cfif url.drillid neq "">
 	
-	<tr><td colspan="3" height="2"></td></tr>
+	<tr><td colspan="12" height="2"></td></tr>
 	
-	<tr class="line"><td colspan="3">
+	<tr class="line"><td colspan="12">
 	
 		<table width="100%" class="formpadding">
 		
 			<TR class="labelmedium">
-		    <td height="14" width="140"><cf_tl id="Item">:</td>
-		    <TD width="80%">#item.ItemNo# #Category.Description#
-		    </td>
-		    </tr>
-		
-			<TR class="labelmedium">
-		    <td height="14" width="140"><cf_tl id="Class">:</td>
-		    <TD width="80%">#Cls.Description#
-		    </td>
-		    </tr>
-			
-		    <TR class="labelmedium">
+		    <td height="14"><cf_tl id="Item">:</td>
+		    <TD style="font-size:16px">#item.ItemNo# #Category.Description#	
+			<td height="14"><cf_tl id="External">:</td>
+		    <TD style="font-size:16px">#item.ItemNoExternal#			    
+		    <td height="14"><cf_tl id="Class">:</td>
+		    <TD style="font-size:16px">#Cls.Description#
 		    <TD height="14"><cf_tl id="Code">:</TD>
-		    <TD>#item.Classification#</TD>
-			</TR>
-			
-			<TR class="labelmedium">
+		    <TD style="font-size:16px">#item.Classification#</TD>			
 		    <TD height="14"><cf_tl id="Description">:</TD>
-		    <TD>#item.ItemDescription#</TD>
+		    <TD style="font-size:16px">#item.ItemDescription#</TD>
 			</TR>	
 		
 		</table>
@@ -208,7 +201,7 @@ password="#SESSION.dbpw#">
 	<!--- pricing globally --->
 	
 	<tr class="line labelmedium">
-			<td colspan="11" height="34" style="font-size:28px;font-weight:200"><cf_tl id="#URL.Mission#"></td>
+			<td colspan="12" height="34" style="font-size:28px"><cf_tl id="#URL.Mission#"></td>
 	</tr>	
 					
 	<cfset w = "">				
@@ -230,7 +223,7 @@ password="#SESSION.dbpw#">
 		</cfquery>	
 				
 		<tr class="line labelmedium">
-			<td colspan="11" style="font-size:28px;font-weight:200">#getWarehouse.WarehouseName# (#Warehouse#)</td>
+			<td colspan="11" style="font-size:25px">#getWarehouse.WarehouseName# (#Warehouse#)</td>
 		</tr>	
 			
 	    <cfset w = warehouse>		
@@ -248,3 +241,5 @@ password="#SESSION.dbpw#">
 </table>
 
 </cfform>
+
+</cf_divscroll>

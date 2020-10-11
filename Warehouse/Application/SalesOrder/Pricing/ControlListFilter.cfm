@@ -27,6 +27,28 @@
 						
 	</cfquery>
 	
+	<cfquery name="PriceSchedule" 
+	datasource="appsMaterials" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    SELECT * 
+		FROM  Ref_PriceSchedule
+		WHERE Code  IN (SELECT PriceSchedule 
+		                FROM   ItemUoMPrice
+						WHERE  Mission = '#url.mission#')							
+	</cfquery>	
+	
+	<cfquery name="Tax" 
+		datasource="appsLedger" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		    SELECT * 
+			FROM  Ref_Tax		
+			WHERE TaxCode  IN (SELECT TaxCode 
+		                FROM   Materials.dbo.ItemUoMPrice
+						WHERE  Mission = '#url.mission#')							
+		</cfquery>
+	
 	 <cfquery name="Program" 
 		datasource="AppsMaterials" 
 		username="#SESSION.login#" 
@@ -45,7 +67,7 @@
 					
 	<td>		
 	
-	<table width="95%" class="formspacing" cellspacing="0" cellpadding="0" align="center">
+	<table width="95%" class="formspacing"  align="center">
 	
 		<tr>
 			<td height="5"></td>
@@ -53,7 +75,7 @@
 		
 		<tr class="labelmedium">
 			<TD style="width:190px"><cf_tl id="Program">:</TD>
-	        <td align="left" style="padding-top:3px">
+	        <td align="left">
 			   			
 			    <select name="programcode" id="programcode" style="width:300px;" class="regularxl">
 					<option value=""><cf_tl id="Any"></option>
@@ -61,7 +83,18 @@
 					<option value="#ProgramCode#">#ProgramName#</option>
 					</cfoutput>
 				</select>
-		  	</td>		
+		  	</td>	
+			<TD style="width:190px"><cf_tl id="Price schedule">:</TD>
+			<td>
+			 <select name="priceSchedule" id="priceSchedule" style="width:300px;" class="regularxl">
+					<option value=""><cf_tl id="Any"></option>
+					<cfoutput query="PriceSchedule">
+					<option value="#Code#">#Description#</option>
+					</cfoutput>
+				</select>
+				</td>
+			
+			</td>
 		</tr>	
 		
 	    <tr class="labelmedium">
@@ -74,12 +107,42 @@
 					</cfoutput>
 			    </select>								
 			</td>	
+			
+			<td width="15%"><cf_tl id="In Stock">:</td>
+			<td>
+			<table>
+			<tr class="labelmedium">
+			<td>
+			 <select name="InStock" id="InStock" size="1" class="regularxl">	
+					<option value=""><cf_tl id="N/A"></option>	
+					<option value="1"><cf_tl id="Has stock"></option>				
+					<option value="0"><cf_tl id="Zero stock"></option>		
+					<option value="9"><cf_tl id="No movement"></option>				   
+			    </select>		
+			</td>
+			<td style="padding-left:30px;min-width:70px"><cf_tl id="Has a Price">:</td>
+			<td style="padding-left:20px">
+			    <select name="Hasprice" id="HasPrice" size="1" class="regularxl">						
+					<option value="1" selected><cf_tl id="Yes"></option>				
+					<option value="0"><cf_tl id="No"></option>						   
+			    </select>				
+			</td></tr></table>
+			
 		</tr>
 		
 		<tr class="labelmedium">
 			<td><cf_tl id="Sale Currency">:</td>
 			<td>	
-			  	<cfdiv id="divPriceCurrency" bind="url:../../SalesOrder/Pricing/Currency.cfm?warehouse=#url.warehouse#&category={category}">			
+			  	<cf_securediv id="divPriceCurrency" bind="url:../../SalesOrder/Pricing/Currency.cfm?warehouse=#url.warehouse#&category={category}">			
+			</td>
+			<TD style="width:190px"><cf_tl id="Tax code">:</TD>
+			<td>
+			<select name="taxcode" id="taxcode" style="width:300px;" class="regularxl">
+					<option value=""><cf_tl id="Any"></option>
+					<cfoutput query="Tax">
+					<option value="#TaxCode#">#Description#</option>
+					</cfoutput>
+				</select>
 			</td>
 		</tr>
 		
@@ -92,12 +155,23 @@
 					Default="#dateformat(dateadd('m',-1,now()),CLIENT.DateFormatShow)#"
 					AllowBlank="False">	
 			</td>
+			
+			<td><cf_tl id="Receipt after">:</td>
+			<td>	
+			
+				 <cf_intelliCalendarDate9
+					FieldName="receiptdate" 
+					class="regularxl"					
+					Default="#dateformat(dateadd('m',-6,now()),CLIENT.DateFormatShow)#"
+					AllowBlank="True">	
+					
+			</td>
 		</tr>		
 			
 				
 		<tr><td height="3"></td></tr>
 		
-		<tr><td height="1" colspan="6" style="border-top:1px dotted silver"></td></tr>
+		<tr class="line"><td height="1" colspan="6"></td></tr>
 			
 	</TABLE>
 	
@@ -115,7 +189,7 @@
 			   id     = "Submit"
 			   value  = "#lt_text#" 
 			   class  = "button10g" 
-			   style  = "width:160px;height:23px" 
+			   style  = "width:160px;height:25px" 
 			   onclick= "pricefiltermain('#URL.Mission#','#URL.Warehouse#','#url.systemfunctionid#')">
 	
 		</td>

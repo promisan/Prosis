@@ -93,6 +93,7 @@
 					 </cfif>				
 					 TaskingMode,
 					 ModeSetItem,
+					 QuotationMode,
 					 SaleMode,
 					 SaleCurrency,
 					 <cfif trim('Form.SaleBackground') neq "">SaleBackground,</cfif>
@@ -120,6 +121,7 @@
 					  </cfif>
 					  '#Form.TaskingMode#',
 					  '#Form.ModeSetItem#',
+					  '#Form.QuotationMode#',
 					  '#Form.SaleMode#',
 					  '#Form.SaleCurrency#',
 					  <cfif trim('Form.SaleBackground') neq "">'#Form.SaleBackground#',</cfif>
