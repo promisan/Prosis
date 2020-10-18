@@ -1,5 +1,6 @@
 
-<cfparam name="attributes.TransactionId"   default="">
+<cfparam name="url.transactionid" default="">
+<cfparam name="attributes.TransactionId"   default="#url.transactionid#">
 <cfparam name="attributes.Journal"         default="">
 <cfparam name="attributes.JournalSerialNo" default="">
 
@@ -78,7 +79,8 @@
 							AND   th.ActionStatus 		IN ('0','1')			
 		WHERE  TL.ParentJournal          = '#attributes.Journal#'		    
 		AND    TL.ParentJournalSerialNo  = '#attributes.JournalSerialNo#'   
-		AND    TL.GLAccount              = '#SelectLines.GLAccount#'			
+		AND    TL.GLAccount              = '#SelectLines.GLAccount#'		
+		
 	</cfquery>   	
 		
 	<cfif SelectLines.total gte 0>
@@ -233,7 +235,6 @@
 		<cfcatch></cfcatch>
 		
 		</cftry>
-		
 		
 	
 </cfif>	

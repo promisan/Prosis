@@ -611,8 +611,8 @@
 									  id="filter#current.field#"
 									  class="regularxxl" 
 									  value="#val#" 
-									  size="20" 
-									  maxlength="20">
+									  size="50"
+									  maxlength="50">
 									  
 							   <cfset reset =  "#reset#;document.getElementById('filter#current.field#').value=''">	 
 									  								  

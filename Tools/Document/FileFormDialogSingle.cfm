@@ -8,6 +8,7 @@
 <cf_param name="url.reload"  		default="undefined" type="String">
 <cf_param name="url.documentserver" default="No" type="String">
 <cf_param name="url.pdfscript"		default="" type="String">
+<cf_param name="url.memo"	    	default="" type="String">
 <cfparam name="DocumentServerIsOp"  default="0">
 
 <cfif url.pdfscript neq "">
@@ -74,7 +75,7 @@
 	function browse() {	
 		ret = window.showModalDialog("Xythos/Tree.cfm?Dir=<cfoutput>#URL.DIR#</cfoutput>", window, "unadorned:yes; edge:raised; status:no; dialogHeight:300px; dialogWidth:370px; help:no; scroll:yes; center:yes; resizable:no");
 		if (ret) {
-			ColdFusion.navigate('FileDocumentSet.cfm?DSP='+ret,'dFile');
+			ptoken.navigate('FileDocumentSet.cfm?DSP='+ret,'dFile');
 			document.getElementById("DocumentServerPath").value = ret;
 		}
 	}		
@@ -99,7 +100,7 @@
 		enctype="multipart/form-data" 
 		onSubmit="return check()">
 		
-<table width="95%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">	
+<table width="95%" align="center" class="formpadding">	
 
 <cfif DocumentServerIsOp eq "0">	
 		<TR class="labelmedium">
@@ -120,7 +121,7 @@
 				       size="32"
 					   style="height:30px;font-size:16px;height:30px;border:0px"			  
 			    	   class="regularxl"
-				       onChange="ColdFusion.navigate('FileFormPDF.cfm?box=#url.box#&dir=#url.dir#&source='+this.value+'&destination='+document.getElementById('ServerFile').value,'pdf')">		
+				       onChange="ptoken.navigate('FileFormPDF.cfm?box=#url.box#&dir=#url.dir#&source='+this.value+'&destination='+document.getElementById('ServerFile').value,'pdf')">		
 					  </cfoutput> 
 				</cfif>
 			</TD>
@@ -134,8 +135,8 @@
 		   <td style="cursor: pointer;"><cf_tl id="Save as">:</td>
 		   <td style="padding-left:3px">
 		        <cfoutput>
-				<INPUT type="text" name="ServerFile" id="ServerFile" size="30" class="regularxl"
-				 onchange="ColdFusion.navigate('FileFormPDF.cfm?box=#url.box#&dir=#url.dir#&source='+document.getElementById('uploadedfile').value+'&destination='+this.value,'pdf')"> 
+				<INPUT type="text" name="ServerFile" id="ServerFile" size="30" class="regularxl" style="height:35px;width:98%"
+				 onchange="_cf_loadingtexthtml='';ptoken.navigate('FileFormPDF.cfm?box=#url.box#&dir=#url.dir#&source='+document.getElementById('uploadedfile').value+'&destination='+this.value,'pdf')"> 
 				</cfoutput>
 							
 		   </td>
@@ -148,14 +149,15 @@
 		<tr><td height="3"></td></tr>
 
 		<TR class="labelit">
-			<TD align="right"></TD>
-			
+			<TD align="right"></TD>			
 			<TD>
 			<cfdiv id="pdf">
+			<!---
 			<font color="808080">
 				<img src="<cfoutput>#SESSION.root#</cfoutput>/Images/finger.gif" alt="" border="0" align="absmiddle">
 					<cf_tl id="Applies ONLY for MS-word and MS-excel documents">
 				</font>
+			--->	
 			</cfdiv>	
 			</TD>
 		</TR>
@@ -164,19 +166,30 @@
 
 <tr><td height="6"></td></tr>
 <TR>
-   	<td style="cursor: pointer;" class="labelit" valign="top" style="padding-top:3px"><cf_tl id="Memo">:</td>
+   	<td style="cursor: pointer;" class="labelit" valign="top" style="padding-top:3px"><cf_tl id="Description">:</td>
 	
 	<TD>
+	
+	<cfoutput>
+	<!---
+	  maxlength="200"
+			   onkeyup="return ismaxlength(this)"	
+			   --->
 		
-	 <textarea id="AttachmentMemo"
+	 <INPUT type="text" id="AttachmentMemo"
 			   name="AttachmentMemo"				    
-			   class="regular" 
-			   maxlength="200"
-			   onkeyup="return ismaxlength(this)"					
-			   style="font-size:13px;padding:3px;height:38;width:98%"></textarea>	
+			   class="regularxl" 
+			   value="#url.memo#"				
+			   style="height:35px;width:98%">
+			   
+			   </cfoutput>
 							
 	</TD>
 </TR>
+<tr class="labelit">
+		   <td></td>
+		   <td><font color="808080">Use this field if you want to add a description to your attachment for recognition. Otherwise leave blank.</td>
+		</tr>
 
 <!---- a Document server has been enabled for this IP (e.g. Xythos) ---->	
 <cfoutput>

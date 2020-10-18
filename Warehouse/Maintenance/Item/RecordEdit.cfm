@@ -80,8 +80,8 @@
 	   if ($('##ItemNoExternal').val()=='') {
 	   	 	$('##ItemNoExternal').val(ob.value); }
 	   	 
-	   if ($('##ItemBarcode').val()=='') {
-	   	 	$('##ItemBarcode').val(ob.value); }   	
+	 //  if ($('##ItemBarcode').val()=='') {
+	 //  	 	$('##ItemBarcode').val(ob.value); }   	
    }
    
    function suggest(ob,mis)  {

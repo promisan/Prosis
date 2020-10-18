@@ -1,6 +1,6 @@
 <cfset url.scope 	= "standalone">
 <cfparam name="url.currency"          default="QTZ">
-<cfparam name="url.mode"              default="2">
+<cfparam name="url.mode"              default="3">
 <cfparam name="url.terminal"          default="">
 
 <cfquery name="qHeader"
@@ -10,8 +10,8 @@
     SELECT *
     FROM   Accounting.dbo.TransactionHeader TH
     WHERE  Journal		     = '#URL.Journal#'
-    AND    JournalSerialNo   = '#URL.JournalSerialNo#'
-    AND    TransactionSource = 'SalesSeries'
+AND    JournalSerialNo   = '#URL.JournalSerialNo#'
+AND    TransactionSource = 'SalesSeries'
 </cfquery>
 
 
@@ -56,8 +56,11 @@
         SELECT *
         FROM   Accounting.dbo.TransactionHeaderAction
         WHERE  Journal	       = '#URL.Journal#'
-        AND    JournalSerialNo = '#URL.JournalSerialNo#'
-        AND    ActionCode      = 'Invoice'
+    AND    JournalSerialNo = '#URL.JournalSerialNo#'
+    AND    ActionCode      = 'Invoice'
+    AND    ActionReference1 IS NOT NULL
+    AND    ActionReference2 IS NOT NULL
+    AND    ActionReference3 IS NOT NULL
     </cfquery>
 
     <cfif qCheck.recordcount eq 0>

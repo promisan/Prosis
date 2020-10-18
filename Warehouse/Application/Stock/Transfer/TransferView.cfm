@@ -89,7 +89,10 @@
 					 OR ItemNoExternal  LIKE '%#URL.fnd#%' 
 					 OR ItemDescription LIKE '%#URL.fnd#%'
 					 OR TransactionLot  LIKE '%#URL.fnd#%'
-					 OR TransactionReference LIKE '%#URL.fnd#%')					 
+					 OR TransactionReference LIKE '%#URL.fnd#%')		
+					 
+					 
+					 
 				  
 	</cfif> 
 						

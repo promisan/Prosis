@@ -44,7 +44,7 @@
 		    
 			<table cellspacing="0" cellpadding="0"><tr>
 			<td align="center" width="68" 
-				onclick="addfile('#attributes.mode#','#Replace(attributes.DocumentHost,'\','\\','all')#','#attributes.DocumentPath#','#attributes.Subdirectory#','#attributes.Filter#','#attributes.target#','1','No','#attributes.attachdialog#','#attributes.pdfscript#')" #selectme#>				
+				onclick="addfile('#attributes.mode#','#Replace(attributes.DocumentHost,'\','\\','all')#','#attributes.DocumentPath#','#attributes.Subdirectory#','#attributes.Filter#','#attributes.target#','1','No','#attributes.attachdialog#','#attributes.pdfscript#','#attributes.memo#')" #selectme#>				
 				<img src="#SESSION.root#/Images/Attach.png" width="24" height="24"
 					alt="Attach document" 
 				     alt="Attach document" 

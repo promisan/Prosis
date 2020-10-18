@@ -452,10 +452,9 @@
 						<cfset mailatt[rw][1]="#directory#\#name#">	
 						<cfset mailatt[rw][2]="normal">	
 						<cfset mailatt[rw][3]="#name#">	
+						<cfset mailatt[rw][4]="#qAttachment.AttachmentMemo#">	
 					
-				   </cfif>
-				   
-				 	
+				   </cfif>				 	
 			
 			</cfloop>					
 				
@@ -479,13 +478,13 @@
 			  </script>
 			  			  
 			  <table>
-			  <tr class="labelmedium">	
-			  	
+			 			  	
 			  <cfloop index="att" from="1" to="10" step="1">
 			   
 				   <cfparam name="mailatt[#Att#][1]" default="none">
 				   <cfparam name="mailatt[#Att#][2]" default="normal">
 				   <cfparam name="mailatt[#Att#][3]" default="">
+				   <cfparam name="mailatt[#Att#][4]" default="">
 				   				   
 				   <cftry>
 	
@@ -504,18 +503,39 @@
 								username="#SESSION.login#" 
 								password="#SESSION.dbpw#">
 								INSERT INTO Attachment 
-								(AttachmentId, DocumentPathName, Server, ServerPath, FileName, FileStatus, OfficerUserId, OfficerLastName, OfficerFirstName)
-								VALUES ('#rowguid#','Mail','Custom','#path#','#mailatt[att][3]#','9','#session.acc#','#session.last#','#session.first#')					  		
-							</cfquery>							 
-											   
-					        <td style="padding-right:4px">
+								(AttachmentId, 
+								 DocumentPathName, 
+								 Server, 
+								 ServerPath, 
+								 FileName, 
+								 FileStatus, 
+								 AttachmentMemo,
+								 OfficerUserId, 
+								 OfficerLastName, 
+								 OfficerFirstName)
+								VALUES ('#rowguid#',
+								        'Mail',
+										'Custom',
+										'#path#',
+										'#mailatt[att][3]#',
+										'9',
+										'#mailatt[att][4]#',
+										'#session.acc#',
+										'#session.last#',
+										'#session.first#')					  		
+							</cfquery>	
 							
-					        <input type="checkbox" class="radiol"
-							    name  = "ActionMailAttachment" 
-								id    = "ActionMailAttachment" 
-								value = "#att#" checked>							
-							</td>	
-							<td style="padding-right:10px"><a href="javascript:view('#rowguid#')">#mailatt[att][3]#</a></td>
+							<tr class="labelmedium">							 
+											   
+						        <td style="padding-right:4px">								
+						        <input type="checkbox" class="radiol"
+								    name  = "ActionMailAttachment" 
+									id    = "ActionMailAttachment" 
+									value = "#att#" checked>							
+								</td>	
+								<td style="padding-right:10px"><a href="javascript:view('#rowguid#')">#mailatt[att][3]#</a><cfif mailatt[att][4] neq "">: #mailatt[att][4]#</cfif></td>
+							
+							</tr>
 													
 					   <cfelse>
 					   
@@ -526,7 +546,7 @@
 				   </cftry>
 				  			   
 			  </cfloop>		
-			  </tr>
+			 
 			  </table>
 			  									   
 		      </td>

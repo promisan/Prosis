@@ -1,4 +1,3 @@
-
 	
 <cfparam name="URL.DocumentServer"  default="">
 <cfparam name="URL.dialog"          default="1">
@@ -39,14 +38,13 @@
 		
 	<cfif DirectoryExists("#rt#\#Dir#\#URL.ID#")>
 			
-		        <!--- skip--->
+        <!--- skip--->
 					
 	<cfelse>  	
 							  
-	      <cfdirectory action   = "CREATE" 
-				      directory= "#rt#\#Dir#\#URL.ID#">
+	      <cfdirectory action   = "CREATE" directory= "#rt#\#Dir#\#URL.ID#">
 					  
-		</cfif>		
+	</cfif>		
 		
 	<!--- get the array for files to be saved --->	
 		

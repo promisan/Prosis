@@ -289,7 +289,7 @@
 			     	  JournalList.TransactionCategory is "DirectPayment" or 
 				  	  JournalList.TransactionCategory is "Receivables" or				   
 				  	  JournalList.TransactionCategory is "Advances">
-		    	<td width="38%" style="padding-left:3px" class="labelmedium"><cf_tl id="Outstanding">:</font></td>
+		    	<td width="38%" colspan="2" style="padding-left:3px" class="labelmedium"><cf_tl id="Outstanding">:</td>
 				</cfif>
 			</tr>
 			</table>       
@@ -382,7 +382,8 @@
 						<td width="38%" align="right" style="padding-left:7px;padding-right:4px;border-left:1px solid silver" class="labelmedium">						
 						<font color="00BB00"><cf_tl id="nihil">
 						</td>
-						</cfif>						
+						</cfif>		
+						<td style="border-left:1px solid silver"><cf_img icon="open" onclick="getOutstanding('#TransactionId#')"></td>				
 						
 				
 				</cfif>

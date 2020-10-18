@@ -8,7 +8,7 @@ function showscript(id) {
 }
 
 function toggle(sc,val) {
-   document.getElementById('list').className = "hide"
+   document.getElementById('list').className = "hide"   
    if (val == "") {
       document.getElementById(sc).className = "hide"
 	} else {

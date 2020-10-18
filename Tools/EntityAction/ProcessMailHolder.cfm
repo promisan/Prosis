@@ -984,6 +984,10 @@
 										#sendBody#																												
 										<!--- try to attach possible documents --->
 										
+										<br><br><br>
+										<!--- disclaimer added 17/10/2020 --->
+										<cf_maildisclaimer context="workflow action" id="mailid:#Attributes.ActionId#">		
+										
 										<cftry>
 											 		
 											<cfloop index="att" from="1" to="10" step="1">
@@ -1126,7 +1130,11 @@
 								priority    = "#sendPriority#"
 								spoolEnable = "Yes"			
 								wraptext    = "100">											
-								#sendBody#																
+								#sendBody#				
+								
+								<br><br><br>
+								<!--- disclaimer added 17/10/2020 --->
+								<cf_maildisclaimer context="workflow action" id="mailid:#Attributes.ActionId#">												
 								
 								<!--- try to attach possible documents --->
 								

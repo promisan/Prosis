@@ -29,6 +29,8 @@
 					
 	<tr class="hide"><td id="process"></td></tr>	
 	
+	<!--- remove also the table moved into control
+	
 	<cfif url.parentcode eq "">
 	
 		<cfset Category = "">
@@ -54,6 +56,8 @@
 		
 	</cfif>		
 	
+	--->
+	
 	<cfinvoke component="Service.Process.Organization.Organization"  
 			   method="getUnitScope" 
 			   mode="Parent" 
@@ -66,83 +70,64 @@
 	datasource="AppsProgram" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-		  SELECT DISTINCT 
-		         Code,
+		  SELECT Code,
 				 Description,
 				 AreaCode, 
 				 Area,
 				 DescriptionMemo,
 				 EnableStatusWeight,
 				 HierarchyCode,
-				 
-				 (   SELECT TOP 1 Obligatory 
-	                 FROM   Ref_ParameterMissionCategory 
-				     WHERE  Mission = '#mission#' 					 
-					 AND    Category = V.Code
-					  <cfif orgunits neq "">
-						  AND    (OrgUnit = '0'  or OrgUnit IN (#preserveSingleQuotes(orgunits)#))
-						  <cfelse>
-						  AND    (OrgUnit = '0') 
-						  </cfif>
-				 ) as Obligatory,		
-				 		 
+				 Obligatory,
+											 		 
 				 ( 	 SELECT TOP 1 S.ProgramCode
 				     FROM   ProgramCategory S, 
 				            Ref_ProgramCategory Q
 				     WHERE  S.ProgramCode = '#URL.ProgramCode#'
 				     AND    S.ProgramCategory = Q.Code
-				     AND    Q.AreaCode  = V.AreaCode
+				     AND    Q.AreaCode  = R.AreaCode
 					 AND    S.Status   != '9'
 			     ) as Used		
 		
 		  <!--- enabled for mission and not used for budget preparation which are root entries by ddefinition but you can tweak this --->		  
 		  		 
-		  FROM   Ref_ProgramCategory V 
-		  
-		  <cfif selectarea eq "">
-		  WHERE  AreaCode > '' and Area != 'Risk' and Area != 'Gender Marker' <!--- hardcoded --->
-		  <cfelse>
-		  WHERE  Area = '#selectarea#'  
-		  </cfif>		 
-				  
-		  <!--- adjusted --->
-		  
-		  AND   (
-		  
-		  			Code IN (
-		                  SELECT Category 
-		                  FROM   Ref_ParameterMissionCategory 
-						  WHERE  Mission = '#mission#' 
-						  <!--- global access or units are enabled --->
-						  <cfif orgunits neq "">
-						  AND    (OrgUnit = '0'  or OrgUnit IN (#preserveSingleQuotes(orgunits)#))
-						  <cfelse>
-						  AND    (OrgUnit = '0') 
-						  </cfif>
-						  AND    (Period is NULL or Period = '#url.Period#')						  
-						  AND    BudgetEarmark = 0
-						  AND    Operational = 1
-						  )	  
+		  FROM   Ref_ParameterMissionCategory AS MC INNER JOIN
+                 Ref_ProgramCategory AS R ON MC.Category = R.Code
+				 
+		  WHERE  Mission = '#mission#'		 
 						  
-					OR 		
+		  <cfif selectarea eq "">
+		  AND    AreaCode > '' and Area != 'Risk' and Area != 'Gender Marker' <!--- hardcoded --->
+		  <cfelse>
+		  AND    Area = '#selectarea#'  
+		  </cfif>		
+		  
+		  AND    MC.BudgetEarmark = 0
+		  AND    MC.Operational = 1 
+				  
+		  <!--- adjusted for period maybe not needed --->
+		  
+		  AND    ( Code IN (SELECT Code
+		                    FROM   Ref_ProgramCategoryControl 
+						    WHERE  Mission        = '#Mission#' 
+						    AND    ControlElement = 'Period' 
+						    AND    ControlValue   = '#url.period#')
+						  
+					OR 	  
 					
-					(
-					<!--- has been valid in this period --->			
-					Code IN ( 
-					
-							  SELECT AreaCode 
+					Code IN ( SELECT AreaCode 
 					          FROM   ProgramCategoryPeriod Pe, Ref_ProgramCategory R
 							  WHERE  Pe.ProgramCategory = R.Code
 							  AND    ProgramCode = '#URL.ProgramCode#'
-							  AND    Period      = '#url.period#')										
-										
-					)
-										
-				)	
-		  		  
+							  AND    Period      = '#url.period#')		
+							  
+				)			  	
+				
+		  
+		  <!--- moved to control		  
 		  <cfif Category neq "">		
 		  AND    Code IN (#preservesingleQuotes(Category)#)
 		  </cfif>	
+		  --->
 		  		  		  	 						  
 		  <!--- only if the is defined for this prgram class --->		  
 		  AND    (ProgramClass is NULL or ProgramClass = '#ProgramClass#')				  
@@ -157,15 +142,15 @@
     <table width="100%" height="100%">
 		
 	<cfoutput query="MasterArea" group="Area">
-		
-	    <!--- Hanno hiding this line 26/2/2016 as no longer needed and takes unneeded space i think
-		
-		<cfif Area neq "Risk">	
-		    <tr><td style="height:50;font-size:27px" class="labellarge">#Area#</td></tr>		
-		</cfif>
-		
-		--->
-			
+					
+		<cfinvoke component="Service.Process.Program.Category"  
+			   method         = "CategoryControl" 
+			   Mission        = "#mission#"
+			   ProgramCode    = "#url.ProgramCode#" 
+			   Period         = "#url.period#"
+			   AreaCode       = "#areacode#"
+			   returnvariable = "disabled">		
+			     			   			
 	    <cfoutput>
 					
         <cfset ar  = Area>
@@ -217,11 +202,9 @@
 												password="#SESSION.dbpw#">
 													SELECT	AVG(ISNULL(S.Weight*1.0,0)) as Average
 													FROM	Ref_ProgramCategory C
-															LEFT OUTER JOIN	ProgramCategoryStatus CS
-																ON C.Code = CS.ProgramCategory
+															LEFT OUTER JOIN	ProgramCategoryStatus CS ON C.Code = CS.ProgramCategory
 																AND CS.ProgramCode = '#url.programcode#'
-															LEFT OUTER JOIN Ref_ProgramStatus S
-																ON CS.ProgramStatus = S.Code
+															LEFT OUTER JOIN Ref_ProgramStatus S	ON CS.ProgramStatus = S.Code
 													WHERE	Parent = '#arc#'
 													AND 	C.Operational = 1
 													AND 	C.EnableStatusWeight = 1
@@ -260,12 +243,43 @@
 					   AND    Status != '9') as Selected
 			FROM      Ref_ProgramCategory F  		  	   
 			WHERE     F.AreaCode = '#Arc#' 
+			<cfif disabled neq "">
+			AND       Code NOT IN (#preservesingleQuotes(disabled)#)
+			</cfif>
 			AND       HierarchyCode LIKE '__.%'			
 			ORDER BY  F.HierarchyCode			
-		</cfquery>		
+		</cfquery>
+		
+		<cfquery name="qSelected" dbtype="query">
+			SELECT 	*
+			FROM	GroupAll
+			WHERE 	Selected IS NOT NULL
+		</cfquery>
+		
+		<cfquery name="qMissionCategory" 
+		datasource="AppsProgram" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT 	*
+			FROM  	Ref_ParameterMissionCategory  		  	   
+			WHERE 	Mission  = '#url.mission#'
+			AND 	Category = '#groupAll.Parent#'		
+		</cfquery>
+		
+		<cfif qMissionCategory.AreaMinimum neq 0 AND qSelected.recordCount lt qMissionCategory.AreaMinimum>
+		
+			<cfoutput>
+				<tr>
+					<td style="padding:15px; padding-left:50px; color:##f24b4b; font-weight:bold; font-size:110%;" class="labellarge">
+						** <cf_tl id="This section requires a minimum of selected items">: #qMissionCategory.AreaMinimum#.
+					</td>
+				</tr>
+			</cfoutput>
+		
+		</cfif>
 													
    		<tr><td width="100%" height="100%" style="padding-left:20px; padding-top:10px;">
-								
+							
 			<cfif Used neq "" or selectarea neq "">			
 			    <cfset cl = "regular">			
 			<cfelse>			

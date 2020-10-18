@@ -1,8 +1,5 @@
 
-
 <cfparam name="url.actionsessionid" default="">
-
-
 
 <cfquery name="session" 
 	 datasource="appsVacancy" 
@@ -19,10 +16,12 @@
 	 password="#SESSION.dbpw#">
 		SELECT  *
 		FROM    Vacancy.dbo.DocumentCandidateReview
-		WHERE   ReviewId = '#session.sessionReferenceId#'
+		WHERE   ReviewId = '#session.EntityReference#'
 </cfquery>
 
 <cf_screentop label="Candidate Test Form" html="No" jquery="Yes" scroll="Yes">
+
+<cf_divscroll>
 
 <cf_textareascript>
 
@@ -35,36 +34,22 @@
 		WHERE   DocumentNo = '#get.documentno#'
 </cfquery>
 
-	
 <cfquery name="Topic" 
 	datasource="appsVacancy" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	SELECT        R.TopicPhrase, 
-	              R.TopicSubject, 
-				  R.TopicOrder,				
-				  DCRC.DocumentNo, 
-				  DCRC.PersonNo, 
-				  DCRC.ActionCode, 
-				  DCRC.CompetenceId, 
-				  DCRC.CompetenceMode, 
-				  DCRC.CompetenceContent, 
-				  DCRC.OfficerUserId, 
-                  DCRC.OfficerLastName, 
-				  DCRC.OfficerFirstName, 
-				  DCRC.Created
-	FROM          DocumentCandidateReviewCompetence AS DCRC INNER JOIN
-                  Applicant.dbo.FunctionOrganizationTopic AS R ON DCRC.CompetenceId = R.TopicId INNER JOIN
-				  DocumentCandidate DC ON DC.DocumentNo = DCRC.DocumentNo and DC.PersonNo = DCRC.PersonNo
-	WHERE         DCRC.DocumentNo = '#get.documentno#' 
-	AND           DCRC.ActionCode = '#get.actioncode#'	
-	AND           DCRC.PersonNo   = '#get.personno#'	
-	ORDER BY      R.TopicOrder			
+	SELECT        TopicId,
+	              TopicPhrase, 
+	              TopicSubject, 
+				  TopicOrder					  
+	FROM          Applicant.dbo.FunctionOrganizationTopic T INNER JOIN 
+	              Applicant.dbo.FunctionOrganization O ON T.Functionid = O.FunctionId
+	WHERE         DocumentNo = '#get.documentno#' 		
+	AND           Operational = 1
+	ORDER BY      TopicOrder			
 </cfquery>
 
-
-
-<form method="post" name="testform" id="testform">
+<form action="TestFormSubmit.cfm?actionsessionid=<cfoutput>#url.actionsessionid#</cfoutput>" method="post" name="testform" id="testform">
 
 	<table style="width:90%" align="center">
 		
@@ -72,7 +57,7 @@
 		
 		<cfoutput>
 		
-		<tr><td colspan="3" align="center" style="height:40px;font-size:30px">Candidate Test Submission form</td></tr>	
+		<tr><td colspan="3" align="center" style="height:40px;font-size:35px">Consultant / Individual Contractor Test </td></tr>	
 		<tr><td colspan="3" align="center" style="height:40px;font-size:15px">This form will expire after #dateformat(session.sessionplanend,client.dateformatshow)# #timeformat(session.sessionplanend,"HH:MM")#</td></tr>	
 		<tr><td colspan="3" align="center" style="height:40px;font-size:15px">Instructions ; you may record in this form, you may prepare answers in word and then paste, if you have problems entering or submitting information please contact XYZ</td></tr>	
 
@@ -112,6 +97,18 @@
 		<table style="width:100%">
 										
 		<cfoutput query="Topic">
+		
+			<cfquery name="Content" 
+			datasource="appsVacancy" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				SELECT        *
+				FROM          DocumentCandidateReviewCompetence
+				WHERE         DocumentNo = '#get.documentno#' 
+				AND           ActionCode = '#get.actioncode#'	
+				AND           PersonNo   = '#get.personno#'	
+				AND           CompetenceId = '#TopicId#'
+		   </cfquery>
 						
 			<tr><td style="height:10px;" colspan="2"></td></tr>	
 					
@@ -126,13 +123,12 @@
 				
 				 <cf_textarea name="content_#currentrow#"			 					
 					 color="ffffff"	 
-					 resize="false"	
-					 onchange="setcontent('#currentrow#','#get.documentno#','#get.personno#','#competenceid#','#get.actioncode#','#session.acc#')"	
+					 resize="false"						 
 					 border="0" 
 					 init="Yes"
 					 toolbar="Basic"
 					 height="200"
-					 width="100%">#CompetenceContent#</cf_textarea>
+					 width="100%">#Content.CompetenceContent#</cf_textarea>
 				
 				</td>
 			</tr>				
@@ -144,14 +140,14 @@
 	
 	<tr><td style="height:30px" align="center" colspan="3">
 	
-	<input type="button" name="Submit" value="Submit" class="button10g" 
-	onclick="alert('Your test has been submitted. You will get an eMail to confirm the by you submitted anwsers. You may continue updating information until the expiration time')" 
-	style="width:200px;height:35px;font-size:20px">
+	<input type="submit" name="Submit" value="Submit" class="button10g" style="width:200px;height:35px;font-size:20px">
 	</td></tr>	
 		
 	</table>
 
 </form>
+
+</cf_divscroll>
 
 
 

@@ -6,13 +6,15 @@
 	<cfabort>
 </cfif>
 
-<cfset box = replace(url.actioncode,"-","","ALL")> 
+<form name="actioninformation" id="actioninformation">
 		
-<table width="98%" align="right" class="navigation_table">
+<table width="96%" align="center" class="navigation_table">
+
+<tr class="labelmedium"><td style="font-size:18px" colspan="4">Associate actions to one ore more reusable objects.<br>This will then allow you to define if and how they are used in a step</td></tr>
 
 <cfset show = 0>
 
-<cfloop index="itm" list="Report,Attach,Field,Question,Activity,Mail" delimiters=",">
+<cfloop index="itm" list="Report,Attach,Field,Question,Activity,Mail,Session" delimiters=",">
 	
 	<cfquery name="GroupAll" 
 	datasource="AppsOrganization" 
@@ -31,8 +33,9 @@
 
 	 <cfif GroupAll.recordcount neq "0">
 	 
+	 <tr><td style="padding-top:4px"></td></tr>
 	 <tr class="labelmedium line">
-		 <td colspan="4" style="font-size:15px"><b><cfoutput><cf_tl id="#itm#"></cfoutput>:</td>
+		 <td colspan="4" style="height:30px;font-size:16px"><b><cfoutput><cf_tl id="#itm#"></cfoutput>:</td>
 	 </tr>
 	 
 	 <cfset show = 1>
@@ -48,12 +51,12 @@
 			SELECT *
 			FROM   Ref_EntityActionDocument R 
 			WHERE  R.ActionCode = '#URL.actioncode#'
-			 AND   R.DocumentId = '#DocumentId#'				
+			 AND   R.DocumentId = '#DocumentId#'			
 		</cfquery>   
 									
 	    <cfif r eq "0"><TR style="height:15px" class="navigation_row"></cfif>
 					
-			<td width="33%">
+			<td width="25%">
 				<table width="100%">
 				<cfif check.recordcount eq "0">
 					      <TR class="regular" style="height:16px">
@@ -62,17 +65,17 @@
 			   
 				<TD style="padding-left:6px;width:30px">	
 				<cfif Check.Recordcount eq "0">
-					<input type="checkbox" name="Document" id="Document" value="#DocumentId#" onClick="hl(this,this.checked)"></TD>
+					<input type="checkbox" class="radiol" name="Document" id="Document" value="#DocumentId#" onClick="hl(this,this.checked)"></TD>
 				<cfelse>
-					<input type="checkbox" name="Document" id="Document" value="#DocumentId#" checked onClick="hl(this,this.checked)"></td>
+					<input type="checkbox" class="radiol" name="Document" id="Document" value="#DocumentId#" checked onClick="hl(this,this.checked)"></td>
 			    </cfif> 
-				<TD class="labelit" style="padding-right:6px">#DocumentDescription#</TD>
+				<TD class="labelmedium" style="fon-size:15px;padding-right:6px">#DocumentDescription#</TD>
 				</table>
 			</td>
 			<cfif GroupAll.recordCount eq "1">
 				<td width="33%"></td>
 			</cfif>
-	  			<cfif r neq 2>
+	  			<cfif r neq 3>
 				   <cfset r = r+1>
 				<cfelse>
 				   <cfset r = 0>
@@ -89,20 +92,20 @@
 	
 	<cfoutput>
 	   <tr style="border-top:1px solid silver">
-		 <td colspan="4" height="34" align="center">
+		 <td colspan="4" height="34" align="center" id="associatedaction">
 		 
 			 <input type="button" 
 				 class="button10g" 
 				 value="Close" 
 				 style="width:100px"
-				 onClick="object('#box#','#url.actioncode#')" 
+				 onClick="ProsisUI.closeWindow('associatedobject')" 
 				 name="Close" id="Close">
 			 
 			 <input type="button" 
 				 style="width:100px" 
 				 class="button10g" 
 				 value="Save" 
-				 onClick="objectsave('#box#','#url.actioncode#')" 
+				 onClick="objectsave('#url.box#','#url.actioncode#')" 
 				 name="Save" id="Save">		 
 				 
 		 </td>
@@ -116,5 +119,7 @@
 </cfif>
 	
 </table>
+
+</form>
 		
 <cfset ajaxonload("doHighlight")>	

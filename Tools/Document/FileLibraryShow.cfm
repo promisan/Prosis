@@ -105,7 +105,7 @@
 		
      <input type="button" 
 	     id="att_#attbox#_refresh" name="att_#attbox#_refresh" style="width:30"
-		 onclick="attrefresh('#mode#','#DocumentPath#','#host#',document.getElementById('#attbox#_attachsubdir').value,'#Filter#','#list#','#ShowSize#','#Listing#','#Insert#','#remove#','#color#','#attbox#','#rowheader#','#boxw#','#Align#','#Border#','#attachdialog#','#inputsize#','#pdfscript#','#embedgraphic#','#documentserver#','#presentation#','#maxfiles#')" 
+		 onclick="attrefresh('#mode#','#DocumentPath#','#host#',document.getElementById('#attbox#_attachsubdir').value,'#Filter#','#list#','#ShowSize#','#Listing#','#Insert#','#remove#','#color#','#attbox#','#rowheader#','#boxw#','#Align#','#Border#','#attachdialog#','#inputsize#','#pdfscript#','#memo#','#embedgraphic#','#documentserver#','#presentation#','#maxfiles#')" 
 	     class="hide"> 
 	
 </cfif>
@@ -866,7 +866,7 @@
 					</cfsavecontent>
 								  			
 					<td align="center" width="120" 
-					onclick="addfile('#mode#','#host#','#DocumentPath#','#Subdirectory#','#Filter#','#attbox#','1','No','#attachdialog#','#pdfscript#')" #selectme#>	
+					onclick="addfile('#mode#','#host#','#DocumentPath#','#Subdirectory#','#Filter#','#attbox#','1','No','#attachdialog#','#pdfscript#','#memo#')" #selectme#>	
 					
 					    <table><tr><td>	
 							<img src="#SESSION.root#/Images/Attach.png" width="24" height="24" 
@@ -884,7 +884,7 @@
 					<cfif documentserver neq "No">
 						<td width="5%"></td>
 						<td align="center" width="120" class="cellcontent"
-						onclick="addfile('#mode#','#host#','#DocumentPath#','#Subdirectory#','#Filter#','#attbox#','1','#documentserver#','#attachdialog#','#pdfscript#')" #selectme#>		
+						onclick="addfile('#mode#','#host#','#DocumentPath#','#Subdirectory#','#Filter#','#attbox#','1','#documentserver#','#attachdialog#','#pdfscript#','#memo#')" #selectme#>		
 								<img src="#SESSION.root#/Images/Attach.png" width="24" height="24"
 								     alt="Attach document" 
 									 border="0" 

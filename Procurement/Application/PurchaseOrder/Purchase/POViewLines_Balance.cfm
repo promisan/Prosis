@@ -349,7 +349,7 @@
 			</td>
 			<td>
 			<cfif CaseNo neq "">
-				<a href="javascript:job('#JobNo#')"><font color="0080C0">#CaseNo#</font></a>
+				<a href="javascript:job('#JobNo#')">#CaseNo#</a>
 			</cfif>
 			<cfif lineReference neq "">
 			<cfif CaseNo neq "">/</cfif>#LineReference#</cfif>
@@ -361,7 +361,7 @@
 				<cfif Parameter.EnablePurchaseClass eq "1">	
 				<a title="Click Here to view details" href="javascript:classes('#requisitionno#')">
 				</cfif>
-				#NumberFormat(OrderAmount,",__.__")#
+				#NumberFormat(OrderAmount,",.__")#
 				</a>
 			</td>
 			<td align="right" bgcolor="e4e4e4"><a title="Click Here to view details for this amount" href="javascript:detail('#requisitionno#')"><font color="0080C0">#NumberFormat(hld,",__.__")#</a></td>

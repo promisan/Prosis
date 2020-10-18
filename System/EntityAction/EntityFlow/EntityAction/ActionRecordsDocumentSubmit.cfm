@@ -24,3 +24,7 @@
 	</cfloop>	
 	
 <cfinclude template="ActionRecordsEmbed.cfm">	
+
+<script>
+	ProsisUI.closeWindow('associatedobject')
+</script>

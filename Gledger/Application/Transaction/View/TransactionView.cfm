@@ -106,92 +106,96 @@ password="#SESSION.dbpw#">
 <cfoutput>
 
 <script language="JavaScript">
-
-function PosSettlement() {	
-	 // try { ColdFusion.Window.destroy('wsettle',true)} catch(e){};
-     ProsisUI.createWindow('wsettle', 'Settlement', '',{x:100,y:100,width:900,height:690,resizable:false,modal:true,center:true})		
-	 ptoken.navigate("#SESSION.root#/Warehouse/Application/SalesOrder/POS/Settlement/SettleView.cfm?journal=#url.journal#&journalSerialNo=#url.journalSerialNo#", "wsettle");		
-}
-
-function PrintReceivable() {	
-	 // try { ColdFusion.Window.destroy('wsettle',true)} catch(e){};
-     ProsisUI.createWindow('wsettle', 'Settlement', '',{x:100,y:100,width:870,height:670,resizable:false,modal:true,center:true})		
-	 ptoken.navigate("TransactionInvoice.cfm?journal=#url.journal#&journalSerialNo=#url.journalSerialNo#", "wsettle");		
-}
-
-function PrintTaxReceivable() {
-	// try { ColdFusion.Window.destroy('wsettle',true)} catch(e){};
-	ProsisUI.createWindow('wsettle', 'Settlement', '',{x:100,y:100,width:870,height:670,resizable:false,modal:true,center:true})
-	ptoken.navigate("TransactionTaxInvoice.cfm?journal=#url.journal#&journalSerialNo=#url.journalSerialNo#", "wsettle");
-}
-
-function recalcline(field) {
-
-	out = document.getElementById('out_'+field).value	
-    val = document.getElementById('amt_'+field).value
-	exc = document.getElementById('exc_'+field).value
-	_cf_loadingtexthtml='';		
-	ptoken.navigate('setAmount.cfm?field='+field+'&outstanding='+out+'&amount='+val+'&exchange='+exc,'offsetprocess')			
-}  
-
-function processline(id) {
-	ptoken.navigate('TransactionViewLine.cfm?transactionid='+id,'process')
-}
-
-function applyprogram(prg,scope) {
-   ptoken.navigate('setProgram.cfm?programcode='+prg+'&scope='+scope,'process')
-}  
-
-function view(sum) {
-	ptoken.open("TransactionView.cfm?embed=#url.embed#&journal=#url.journal#&journalserialNo=#url.journalserialno#&mode=regular&summary="+sum,"_self")
-}
-
-function more(bx) {
-
-	icM  = document.getElementById(bx+"Min")
-    icE  = document.getElementById(bx+"Exp")
-	se   = document.getElementById(bx);
-			 		 
-	if (se.className == "hide") {
-	   	 icM.className = "regular";
-	     icE.className = "hide";
-		 se.className  = "regular";		
-	 } else {
-	   	 icM.className = "hide";
-	     icE.className = "regular";
-    	 se.className  = "hide"
-	 }		 		
-  }
-  
-function earmark(name,cls) {
-	se = document.getElementsByName(name)
-	cnt = 0
-	while (se[cnt]) {
-		se[cnt].className = cls
-		cnt++
-    }
 	
-}  
-
-function present(mode) {
-			     		  		  
-	  w = #CLIENT.width# - 100;
-	  h = #CLIENT.height# - 140;
-	  
-	  docid = document.getElementById("printdocumentid").value
-	  		  
-	  if (docid != "") {			   
-		  ptoken.open("#SESSION.root#/Tools/Mail/MailPrepare.cfm?docid="+docid+"&id="+mode+"&id1=#Transaction.transactionid#","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")
-	  } else {
-	      alert("No format selected")
-	  }	  
- 	} 			  
-  
-function del(jrn,ser) {
-	if (confirm("Do you want to delete this transaction ?")) {
-	   ptoken.location("TransactionPurge.cfm?jrn=#URL.Journal#&ser=#URL.JournalSerialNo#&journal="+jrn+"&journalserialno="+ser)
+	function PosSettlement() {	
+		 // try { ColdFusion.Window.destroy('wsettle',true)} catch(e){};
+	     ProsisUI.createWindow('wsettle', 'Settlement', '',{x:100,y:100,width:900,height:690,resizable:false,modal:true,center:true})		
+		 ptoken.navigate("#SESSION.root#/Warehouse/Application/SalesOrder/POS/Settlement/SettleView.cfm?journal=#url.journal#&journalSerialNo=#url.journalSerialNo#", "wsettle");		
 	}
-}
+	
+	function PrintReceivable() {	
+		 // try { ColdFusion.Window.destroy('wsettle',true)} catch(e){};
+	     ProsisUI.createWindow('wsettle', 'Settlement', '',{x:100,y:100,width:870,height:670,resizable:false,modal:true,center:true})		
+		 ptoken.navigate("TransactionInvoice.cfm?journal=#url.journal#&journalSerialNo=#url.journalSerialNo#", "wsettle");		
+	}
+	
+	function PrintTaxReceivable() {
+		// try { ColdFusion.Window.destroy('wsettle',true)} catch(e){};
+		ProsisUI.createWindow('wsettle', 'Settlement', '',{x:100,y:100,width:870,height:670,resizable:false,modal:true,center:true})
+		ptoken.navigate("TransactionTaxInvoice.cfm?journal=#url.journal#&journalSerialNo=#url.journalSerialNo#", "wsettle");
+	}
+	
+	function recalcline(field) {
+		out = document.getElementById('out_'+field).value	
+	    val = document.getElementById('amt_'+field).value
+		exc = document.getElementById('exc_'+field).value
+		_cf_loadingtexthtml='';		
+		ptoken.navigate('setAmount.cfm?field='+field+'&outstanding='+out+'&amount='+val+'&exchange='+exc,'offsetprocess')			
+	}  
+	
+	function processline(id) {
+		ptoken.navigate('TransactionViewLine.cfm?transactionid='+id,'process')
+	}
+	
+	function applyprogram(prg,scope) {
+	    ptoken.navigate('setProgram.cfm?programcode='+prg+'&scope='+scope,'process')
+	}  
+	
+	function getOutstanding(id) {
+		ProsisUI.createWindow('outstanding', 'Outstanding Balance breakdown', '',{x:100,y:100,width:870,height:510,resizable:false,modal:true,center:true})
+		ptoken.navigate('getTransactionOffset.cfm?transactionid='+id, 'outstanding');
+	}
+	
+	function view(sum) {
+		ptoken.open("TransactionView.cfm?embed=#url.embed#&journal=#url.journal#&journalserialNo=#url.journalserialno#&mode=regular&summary="+sum,"_self")
+	}
+	
+	function more(bx) {
+	
+		icM  = document.getElementById(bx+"Min")
+	    icE  = document.getElementById(bx+"Exp")
+		se   = document.getElementById(bx);
+				 		 
+		if (se.className == "hide") {
+		   	 icM.className = "regular";
+		     icE.className = "hide";
+			 se.className  = "regular";		
+		 } else {
+		   	 icM.className = "hide";
+		     icE.className = "regular";
+	    	 se.className  = "hide"
+		 }		 		
+	  }
+	  
+	function earmark(name,cls) {
+		se = document.getElementsByName(name)
+		cnt = 0
+		while (se[cnt]) {
+			se[cnt].className = cls
+			cnt++
+	    }
+		
+	}  
+	
+	function present(mode) {
+				     		  		  
+		  w = #CLIENT.width# - 100;
+		  h = #CLIENT.height# - 140;
+		  
+		  docid = document.getElementById("printdocumentid").value
+		  		  
+		  if (docid != "") {			   
+			  ptoken.open("#SESSION.root#/Tools/Mail/MailPrepare.cfm?docid="+docid+"&id="+mode+"&id1=#Transaction.transactionid#","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")
+		  } else {
+		      alert("No format selected")
+		  }	  
+	 	} 			  
+	  
+	function del(jrn,ser) {
+		if (confirm("Do you want to delete this transaction ?")) {
+		   ptoken.location("TransactionPurge.cfm?jrn=#URL.Journal#&ser=#URL.JournalSerialNo#&journal="+jrn+"&journalserialno="+ser)
+		}
+	}
     
 </script>  
 
@@ -264,13 +268,6 @@ password="#SESSION.dbpw#">
 <!--- recalculated the balance outstanding of a transaction --->
 <!--- ----------------------------------------------------- --->
 
-<cfif get.matchingRequired eq "1">
-
-    <cf_TransactionOutstanding 
-	    journal="#url.journal#" 
-	    journalserialNo="#url.journalserialNo#">
-								
-</cfif>
 
 <cfif Transaction.OrgUnitOwner eq "0">
 
@@ -308,7 +305,7 @@ password="#SESSION.dbpw#">
 
 <!--- define the correct matching balance --->
 		
-<cfif Transaction.matchingRequired eq "1">
+<cfif Transaction.matchingRequired eq "1" or get.matchingRequired eq "1">
 
     <cf_TransactionOutstanding 
 	    journal="#url.journal#" 

@@ -11,14 +11,14 @@ password="#SESSION.dbpw#">
 	ORDER BY  EntityClassName, PA.ActionPublishNo, P.DateEffective
 </cfquery>
 
-<table style="width:70%" align="left" class="navigation_table">
+<table style="width:90%" align="left" class="navigation_table">
     <tr><td colspan="3" style="height:40px;font-weight:200;font-size:20px;padding-left:10px" class="labelmedium"><cf_tl id="Used in Published versions"></td></tr>
 	<tr class="line labelmedium">
 	    <td></td>
 		<td><cf_tl id="Class"></td>
 		<td><cf_tl id="Step"></td>
 		<td><cf_tl id="Publish"></td>
-		<td><cf_tl id="Effectie"></td>
+		<td><cf_tl id="Effective"></td>
 	</tr>
 	<cfoutput query="Usage">
 	<tr class="labelmedium navigation_row line" style="height:15px">

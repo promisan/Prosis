@@ -59,7 +59,7 @@
 	
 	<cf_tl id="Additionally required Information" var="1">		
 	
-	<tr class="line"><td style="height:46px;padding-left:10px;padding-top:5px;font-size:19px" colspan="2" class="labellarge"><font color="804040"><cfoutput>#lt_text#</cfoutput>:</b></td></tr>
+	<tr class="line"><td style="height:46px;padding-left:10px;padding-top:5px;font-size:19px" colspan="2" class="labellarge"><cfoutput>#lt_text#</cfoutput>:</td></tr>
 	
 	<tr id="fld0" class="regular">
 	
@@ -75,9 +75,9 @@
 		<cfloop query="fields">		
 						 
 		     <tr class="line">
-			    <td height="100%" width="320" valign="top" class="labelmedium" style="padding-top:5px;padding-left:20px">#DocumentDescription#:<cfif fieldrequired eq "1"><font color="FF0000">*</font></cfif></td>
+			    <td height="100%" width="318" valign="top" class="labelmedium" style="font-size:15px;border-right:1px solid silver;padding-top:8px;padding-left:20px;background-color:ffffff">#DocumentDescription#:<cfif fieldrequired eq "1"><font color="FF0000">*</font></cfif></td>
 
-				<td>
+				<td style="padding-left:3px">
 				<table width="100%" cellspacing="0" cellpadding="0">
 				
 					<tr>
@@ -128,7 +128,6 @@
 								</cfselect>
 								
 							<cfelse>	
-							
 								
 							<cf_UIselect name="f_#DocumentCode#" id="f_#DocumentCode#"			
 									size           = "1"
@@ -136,7 +135,7 @@
 									multiple       = "Yes"													
 									style          = "width:100%"	
 									required       = "#req#"		
-									message        ="Provide input for: #DocumentDescription#"								
+									message        = "Provide input for: #DocumentDescription#"								
 									query          = "#List#"
 									queryPosition  = "below"
 									selected       = "#topiclist#"
@@ -168,14 +167,26 @@
 						  
 						  </cfcase>
 						  
-						  <cfcase value="area">							
+						  <cfcase value="area">			
+						  
+						    <cfif DocumentLayout eq "htm"> 				
 							
 							<cf_textarea height="130"  color="ffffff" 
 							   resize     = "Yes"  
 							   value      = "#Topic.documentItemValue#" 
 							   name       = "f_#documentcode#" 
 							   init       = "Yes"
-							   id         = "f_#DocumentCode#" toolbar="mini">#Topic.documentItemValue#</cf_textarea>													 						
+							   id         = "f_#DocumentCode#" 
+							   toolbar="mini">#Topic.documentItemValue#</cf_textarea>													 						
+							   
+							 <cfelse>
+							 
+							 <textarea style="background-color:ffffcf;min-height:50px;max-height:100px;max-width:98%;width:98%;padding:3px;font-size:13px" 
+							    name = "f_#documentcode#" id = "f_#DocumentCode#" >#Topic.documentItemValue#</textarea>
+							 
+							 
+							 </cfif>
+							     
 																				
 						  </cfcase>
 						

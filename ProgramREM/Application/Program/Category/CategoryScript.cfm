@@ -5,6 +5,10 @@
 
 	<script language="JavaScript">
 	
+		function doRefresh() {
+			window.location.reload();
+		}
+	
 		function hlsave(val,prg,cat,mod,per){
 		
 		     box = document.getElementById('main'+cat)

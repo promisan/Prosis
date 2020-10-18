@@ -167,8 +167,7 @@
 		  name="processaction"  id="processaction">		
 		  
 		  <table width="100%">
-		  
-		  					 	
+		   					 	
 			<cfset wfmode = "8">	 		  		
 			<cfif ActionType eq "Action">
 			   <cfinclude template="ProcessActionAction.cfm"> 
@@ -213,12 +212,7 @@
 			   </td></tr>
 		   
 		    </cfif> 
-		  	   	   			   
-		   <!--- Element 1d of 3 ATTACHMENT DOCUMENT --->		  
-				  
-		   <cfinclude template="Report/DocumentAttach.cfm">	
-		   
-		   
+		   		   
 		   <cfparam name="w" default="184">  
 		   	    	   	   	   	     
 		   <cfif Action.EnableAttachment eq "1">
@@ -250,7 +244,8 @@
 			   	     	   				
 				<cfinclude template="ProcessActionMemoBase.cfm">
 				
-		   </cfif>	
+		   </cfif>		   
+		   
 		   
 		   <cfif entityaccess eq "EDIT">
 				
@@ -327,6 +322,10 @@
 			
 	    </td>
 	    </tr>    
+		
+		 <!--- Element 1d of 3 ATTACHMENT DOCUMENT --->		  
+				  
+	   <cfinclude template="Report/DocumentAttach.cfm">	
 				
 		<!--- keep outside the BASE form --->
 		

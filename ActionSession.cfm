@@ -1,13 +1,19 @@
+
 <cftry>
-		
+	
 	<cfquery name="SessionAction" 
 	 datasource="AppsOrganization">
 		 SELECT *
 		 FROM   OrganizationObjectActionSession 		
 		 WHERE  ActionSessionId = <cfqueryparam	value="#URL.ID#" cfsqltype="CF_SQL_IDSTAMP"> 	
 	</cfquery>
+	
+	<!---
+	<cfif SessionAction.recordcount eq "1" and SessionAction.SessionDocumentId neq "">
+	--->
+	
 							
-	<cfif SessionAction.recordcount eq "1" and SessionAction.SessionURL neq "">
+	<cfif SessionAction.recordcount eq "1">
 	
 		<cfquery name="Entity" 
 		 datasource="AppsOrganization">
@@ -16,6 +22,16 @@
 			 WHERE  EntityCode = '#SessionAction.EntityCode#'	 
 		</cfquery>		
 		
+		
+		<cfquery name="Document" 
+		 datasource="AppsOrganization">
+		 	 SELECT *
+			 FROM   Ref_EntityDocument
+			 WHERE  DocumentId = '#SessionAction.SessionDocumentId#'	 
+		</cfquery>	
+		
+		<cfset doc = Document.DocumentTemplate>
+							
 		<cfset go = "1">	
 		 		
 		<cfif SessionAction.ActionId neq "">
@@ -33,6 +49,19 @@
 				 FROM   OrganizationObject	
 				 WHERE  ObjectId = '#Action.ObjectId#'	
 			</cfquery>
+			
+			<!--- set the IP --->
+			
+			<cfif SessionAction.SessionIP eq "">
+			
+				<cfquery name="SessionAction" 
+				 datasource="AppsOrganization">
+					 UPDATE  OrganizationObjectActionSession 		
+					 SET     SessionIP = '#CGI.Remote_Addr#', SessionActualStart = getDate()				 
+					 WHERE   ActionSessionId = <cfqueryparam	value="#URL.ID#" cfsqltype="CF_SQL_IDSTAMP"> 	
+				</cfquery>		
+			
+			</cfif>
 			
 			<cf_publicinit>
 						
@@ -58,8 +87,7 @@
 					</td>
 					</tr>				
 				
-				<cfset go = "0">
-			
+				<cfset go = "0">			
 			
 			<cfelseif now() gt SessionAction.SessionPlanEnd and sessionAction.SessionPlanEnd neq "">	
 			    	
@@ -72,9 +100,19 @@
 					</tr>				
 				
 				<cfset go = "0">
+				
+			<cfelseif SessionAction.SessionIP neq CGI.Remote_Addr>
+						
+			    <tr><td align="center" style="padding-top:40px;color:red;font-size:23px" class="labelmedium">
+				 <cfoutput>
+				  Your #Object.Mission# Input form may not be accessed from different locations. <br><font size="2" color="0A72AF">Please contact your administrator if you believe this is not correct</p>.	
+				 </cfoutput>  
+				</td></tr>	
+				
+				<cfset go = "0">		
 			
 			</cfif>
-			
+									
 			</table>
 					
 		</cfif>
@@ -82,7 +120,7 @@
 		<cfif go eq "1">
 					
 			<cfinvoke component="Service.Process.System.Security" method="passtru" returnvariable="hashvalue"/>				
-			<cflocation url="#SESSION.root#/#SessionAction.SessionURL#?actionsessionid=#url.id#&#hashvalue#" addtoken="No"> 
+			<cflocation url="#SESSION.root#/#doc#?actionsessionid=#url.id#&#hashvalue#" addtoken="No"> 
 			
 		</cfif>
 					
@@ -99,18 +137,20 @@
 		</table>
 		
 	</cfif>
-
+	
+	
 	<cfcatch>
 
 	<cf_screentop html="No" title="Problem">
 	
 	<table width="90%" cellspacing="2" cellpadding="2">
 	<tr><td align="center" style="padding-top:40px;color:red;font-size:23px" class="labelmedium">
-	  Requested Form could not be retrieved or has been compromised. <br><font size="3" color="0A72AF">Please contact your administrator if the problem persists</p>.	
+	  Form could not be retrieved. <br><font size="2" color="0A72AF">Please contact your focal point if the problem persists</p>.	
 	</td></tr>
 	</table>
 	
 	</cfcatch>
 
 </cftry>
+
 

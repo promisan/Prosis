@@ -108,6 +108,7 @@
 	<CFParam name="Attributes.width"           default="100%">
 	<CFParam name="Attributes.style"           default="">  <!--- style of the mian box --->
 	<CFParam name="Attributes.align"           default="center">	
+	<CFParam name="Attributes.memo"            default="">
 	<CFParam name="Attributes.border"          default="0">
 	<CFParam name="Attributes.maxfiles"        default="200">
 	<CFParam name="Attributes.attachdialog"    default="Yes">	
@@ -126,6 +127,7 @@
 	<cfset DocumentPath   = Attributes.DocumentPath> 
 	<cfset subdirectory   = Attributes.subdirectory> 
 	<cfset filter         = Attributes.filter> 
+	<cfset Memo           = Attributes.Memo> 
 	<cfset DocumentHost   = Attributes.DocumentHost> 
 	<cfset ShowSize       = Attributes.ShowSize>
 	<cfset Listing        = Attributes.Listing>

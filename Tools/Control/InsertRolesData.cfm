@@ -1413,7 +1413,16 @@
 			  DocumentDescription="Review Candidates"
 			  DocumentTemplate="Vactrack/application/candidate/CandidateReview.cfm"
 			  DocumentStringList="MARK,TEST,SCORE,INTERVIEW,SELECT,INIT,CLOSE"
-			  DocumentMode="Embed">			  	
+			  DocumentMode="Embed">		
+			  
+		<cf_insertEntityDocument
+		      Code="VacDocument"   
+	          DocumentType="session" 
+			  DocumentCode="SES"
+			  DocumentDescription="Test submission session"
+			  DocumentTemplate="Vactrack/application/candidate/Interaction/TestForm.cfm"
+			  DocumentStringList="BASIC,EXTENDED"
+			  DocumentMode="Embed">			  	  	
 		
 		<cf_insertEntityDocument
 		      Code="VacDocument"   

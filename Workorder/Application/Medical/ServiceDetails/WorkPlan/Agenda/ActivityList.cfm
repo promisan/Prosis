@@ -418,6 +418,29 @@
 								
  </cfquery>
 
+<cfif url.personNo eq "">
+	<cfquery name="qCurrentUnit"
+			datasource="AppsWorkOrder"
+			username="#SESSION.login#"
+			password="#SESSION.dbpw#">
+		SELECT *
+		FROM Employee.dbo.PersonAssignment PA
+		WHERE PersonNo = '#client.personNo#'
+		AND DateEffective  <= '#dateformat(url.selecteddate,client.dateSQL)#'
+		AND DateExpiration >= '#dateformat(url.selecteddate,client.dateSQL)#'
+		AND Incumbency = 100
+		AND AssignmentStatus IN ('0','1')
+		AND EXISTS
+		(
+			SELECT 'x'
+			FROM Employee.dbo.WorkSchedulePosition WP
+			WHERE WP.PositionNo = PA.PositionNo
+		)
+		</cfquery>
+		<cfif qCurrentUnit.recordcount neq 0>
+			<cfset URL.personNo = Client.personNo>
+		</cfif>
+</cfif>
  
  <cfsavecontent variable="vTheMainContent">
 

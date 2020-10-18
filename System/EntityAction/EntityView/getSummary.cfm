@@ -2,6 +2,7 @@
 <!--- full summary --->
 <cf_myClearancesPrepare mode="table" role="1">
 
+<cftry>
 <cfquery name="getAction" 
  datasource="AppsOrganization"
  username="#SESSION.login#" 
@@ -84,3 +85,8 @@
 	</div>
 
 </cfoutput>
+
+<cfcatch>
+
+</cfcatch>
+</cftry>

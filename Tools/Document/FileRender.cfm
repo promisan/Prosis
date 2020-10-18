@@ -113,7 +113,7 @@
 
 <cftry>
 		
-    <cfheader name="Content-disposition"  value="#vDestination#; filename=#Replace(Replace(Attributes.SourceFileName, " ",  "_", "all"),",","&##44;","ALL")#" />
+    <cfheader name="Content-disposition"  value="#vDestination#; filename=#Replace(Replace(Attributes.SourceFileName, " ",  "_", "all"),",","","ALL")#" />
 	<cfheader name="Content-length" value="#getFileInfo(Path).size#" />
 			
 	<cfcontent type="#vContentType#" file="#Path#"/>

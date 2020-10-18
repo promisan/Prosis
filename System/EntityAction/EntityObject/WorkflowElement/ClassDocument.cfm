@@ -1,8 +1,8 @@
 
 <cfparam name="URL.ID2" default="">
 
-<!--- custom fields lined to an action are always automatically
- propagated to the step and can be diabled --->
+<!--- attention associated information elements are automatically propagated to the step of a published workflow 
+and can be diabled --->
 	
 <cfquery name="ActionMode" 
 	datasource="AppsOrganization" 
@@ -12,7 +12,6 @@
 	FROM   Ref_EntityAction
 	WHERE  ActionCode  = '#URL.ActionCode#'
 </cfquery>	
-
  
 <cfif url.publishNo neq "">
 	
@@ -21,20 +20,26 @@
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 	    INSERT INTO Ref_EntityActionPublishDocument
-					(ActionPublishNo,ActionCode,DocumentId,ListingOrder)
-		SELECT      '#URL.PublishNo#','#URL.ActionCode#',R.DocumentId,S.DocumentOrder
-		FROM        Ref_EntityActionDocument R, Ref_EntityDocument S
-		WHERE       R.ActionCode = '#URL.ActionCode#'
-		AND         R.DocumentId = S.DocumentId 
-		AND         S.DocumentType IN ('field','attach')
+					(ActionPublishNo,ActionCode,DocumentId,ListingOrder,Operational)
+		SELECT      '#URL.PublishNo#','#URL.ActionCode#',R.DocumentId,S.DocumentOrder,0
+		FROM        Ref_EntityActionDocument R INNER JOIN 
+		            Ref_EntityDocument S ON R.DocumentId = S.DocumentId
+		WHERE       R.ActionCode      = '#URL.ActionCode#'		
+		<cfif actionMode.ProcessMode gte "1">			
+		AND         S.DocumentType IN  ('function','dialog','field','attach','session')
+		<cfelse>
+		AND         S.DocumentType IN  ('dialog','field','attach','session')
+		</cfif>
 		AND         S.Operational = '1'
 		AND         R.DocumentId NOT IN (SELECT DocumentId 
 		                                 FROM   Ref_EntityActionPublishDocument
 								         WHERE  ActionPublishNo = '#URL.PublishNo#'
-								         AND    ActionCode = '#URL.ActionCode#')						 
+								         AND    ActionCode      = '#URL.ActionCode#')		
+										 
+													 
 	</cfquery>
 	
-	<!--- remove disabled --->
+	<!--- remove globally disabled --->
 	
 	<cfquery name="Clean" 
 	datasource="AppsOrganization" 
@@ -57,18 +62,21 @@
 				  	AND A.ActionPublishNo = '#URL.PublishNo#' 
 					AND A.ActionCode      = '#URL.ActionCode#'
 		<cfif actionMode.ProcessMode gte "1">			
-		WHERE     R.DocumentType IN  ('function','dialog','field','attach')
+		WHERE     R.DocumentType IN  ('function','dialog','field','attach','session')
 		<cfelse>
-		WHERE     R.DocumentType IN  ('dialog','field','attach')
+		WHERE     R.DocumentType IN  ('dialog','field','attach','session')
 		</cfif>
 		AND       R.EntityCode = '#url.entityCode#'	
+		
+		<!--- no longer needed as above they are added already
+		
 		UNION ALL
 		SELECT    *,0 as ListingOrder, '' as ObjectFilter, 0 as Valid
 		FROM      Ref_EntityDocument 
 		<cfif actionMode.ProcessMode gte "1">			
-		WHERE     DocumentType IN  ('function','dialog','attach')
+		WHERE     DocumentType IN  ('function','dialog','attach','session','field')
 		<cfelse>
-		WHERE     DocumentType IN  ('dialog','attach')
+		WHERE     DocumentType IN  ('dialog','attach','session','field')
 		</cfif>		
 		AND       Operational = '1'
 		AND       DocumentId NOT IN (SELECT DocumentId 
@@ -76,7 +84,9 @@
 									 WHERE  ActionPublishNo = '#URL.PublishNo#'	
 									 AND    ActionCode       = '#URL.ActionCode#')	                      
 		AND       EntityCode = '#URL.EntityCode#'	
-		ORDER BY  R.DocumentType, R.DocumentOrder
+		--->
+		
+		ORDER BY  R.DocumentType DESC, R.DocumentOrder
 	</cfquery>
 
 <cfelse>
@@ -86,12 +96,15 @@
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 	    INSERT INTO Ref_EntityClassActionDocument
-					(EntityCode, EntityClass,ActionCode,DocumentId,ListingOrder)
-		SELECT      '#URL.EntityCode#','#URL.EntityClass#','#URL.ActionCode#',R.DocumentId,S.DocumentOrder
-		FROM        Ref_EntityActionDocument R, Ref_EntityDocument S
-		WHERE       R.ActionCode = '#URL.ActionCode#'
-		AND         R.DocumentId = S.DocumentId 
-		AND         S.DocumentType IN ('field','attach')
+					(EntityCode, EntityClass,ActionCode,DocumentId,ListingOrder,Operational)
+		SELECT      '#URL.EntityCode#','#URL.EntityClass#','#URL.ActionCode#',R.DocumentId,S.DocumentOrder,0
+		FROM        Ref_EntityActionDocument R INNER JOIN Ref_EntityDocument S ON R.DocumentId = S.DocumentId 
+		WHERE       R.ActionCode = '#URL.ActionCode#'		    
+		<cfif actionMode.ProcessMode gte "1">			
+		AND         S.DocumentType IN  ('function','dialog','field','attach','session')
+		<cfelse>
+		AND         S.DocumentType IN  ('dialog','field','attach','session')
+		</cfif>
 		AND         S.Operational = '1'
 		AND         R.DocumentId NOT IN (SELECT DocumentId 
 				                         FROM   Ref_EntityClassActionDocument
@@ -100,7 +113,7 @@
 										 AND    ActionCode  = '#URL.ActionCode#')						 
 	</cfquery>
 	
-	<!--- remove disabled --->
+	<!--- remove globally disabled --->
 	
 	<cfquery name="Clean" 
 	datasource="AppsOrganization" 
@@ -124,20 +137,22 @@
 					AND A.EntityClass     = '#URL.EntityClass#' 
 					AND A.ActionCode      = '#URL.ActionCode#'
 		<cfif actionMode.ProcessMode gte "1">			
-		WHERE     R.DocumentType IN  ('function','dialog','field','attach')
+		WHERE     R.DocumentType IN  ('function','dialog','field','attach','session')
 		<cfelse>
-		WHERE     R.DocumentType IN  ('dialog','field','attach')
+		WHERE     R.DocumentType IN  ('dialog','field','attach','session')
 		</cfif>
 		AND       R.EntityCode = '#url.entityCode#'	
+		
+		<!---
 		
 		UNION ALL
 		
 		SELECT    *,0 as ListingOrder, '' as objectFilter, 0 as Valid
 		FROM      Ref_EntityDocument as R
 		<cfif actionMode.ProcessMode gte "1">			
-		WHERE     R.DocumentType IN  ('function','dialog','field','attach')
+		WHERE     R.DocumentType IN  ('function','dialog','field','attach','session')
 		<cfelse>
-		WHERE     R.DocumentType IN  ('dialog','field','attach')
+		WHERE     R.DocumentType IN  ('dialog','field','attach','session')
 		</cfif>
 		AND       DocumentId NOT IN (SELECT DocumentId 
 		                             FROM   Ref_EntityClassActionDocument
@@ -146,7 +161,9 @@
 									 AND    ActionCode       = '#URL.ActionCode#')	                      
 		AND       EntityCode = '#URL.EntityCode#'	
 		AND       Operational = 1
-		ORDER BY  R.DocumentType, R.DocumentOrder
+		--->
+		
+		ORDER BY  R.DocumentType DESC, R.DocumentOrder
 	</cfquery>
 
 </cfif>
@@ -160,7 +177,7 @@
 	    <table width="100%" border="0" cellspacing="0" cellpadding="0">
 				
 		<cfif detail.recordcount eq "0">
-		<tr><td colspan="6" align="center" height="80" class="labelmedium" style="font-weight:200">There were no custom fields configured for this action.</td></tr>
+		<tr><td colspan="6" align="center" height="80" class="labelmedium">There are no custom supporting objects configured for this action. If you require selection please enable them first on this action.</td></tr>
 		</cfif>
 						
 		<!--- upon creation of the object we can pass a filter to the organizationObject, this will then 
@@ -200,8 +217,7 @@
 		<tr><td colspan="6" style="font-size:20px" class="labelmedium">Custom Dialogs <font size="1">(not enabled yet, please use custom dialog on the standard setting tab)</td></tr>
 		<cfelse>		
 		<tr><td colspan="6" style="font-size:20px" class="labelmedium">Standard workflow-only dialogs</td></tr>
-		</cfif>
-						
+		</cfif>						
 				
 		<cfoutput>		
 		

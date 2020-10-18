@@ -67,19 +67,55 @@ password="#SESSION.dbpw#">
 	WHERE  Mission = '#Program.Mission#'
 </cfquery>
 
+<!--- check if period is controlled for this mission --->
+
+<cfquery name="getArea" 
+datasource="AppsProgram" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT DISTINCT AreaCode
+    FROM   ProgramCategory P INNER JOIN Ref_ProgramCategory R ON P.ProgramCategory = R.Code
+	WHERE  P.ProgramCode = '#URL.ProgramCode#'								 
+	AND    P.Status != '9'
+	AND    R.Area != 'Risk' and R.Area != 'Gender Marker'
+</cfquery>
+
+<cfset dis = "">
+
+<cfloop query="GetArea">
+	
+	<cfinvoke component="Service.Process.Program.Category"  
+		   method         = "CategoryControl" 
+		   Mission        = "#program.mission#"
+		   ProgramCode    = "#url.ProgramCode#" 
+		   Period         = "#url.period#"
+		   AreaCode       = "#areacode#"
+		   returnvariable = "disabled">		
+		   
+	   <cfif disabled neq "">	
+	       <cfif dis neq "">   	   
+			   <cfset dis = "#dis#,#disabled#">	   
+		   <cfelse>
+			   <cfset dis = "#disabled#">	
+		   </cfif>
+	   </cfif>
+	   
+</cfloop>	   
+
+<!--- get the relevant values to be shown for this program --->	   
+
 <cfquery name="ProgramCategory" 
 datasource="AppsProgram" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
 	SELECT R.Description as Category
-    FROM   ProgramCategory P, Ref_ProgramCategory R
-	WHERE  P.ProgramCategory = R.Code
-    AND    P.ProgramCode = '#URL.ProgramCode#'
-	AND    R.AreaCode IN (SELECT Category 
-	                      FROM   Ref_ParameterMissionCategory
-					      WHERE  Mission = '#Program.mission#'
-					      AND    (Period = '#url.period#' or Period is NULL)
-					     )
+    FROM   ProgramCategory P INNER JOIN Ref_ProgramCategory R ON P.ProgramCategory = R.Code
+	WHERE  P.ProgramCode = '#URL.ProgramCode#'
+	
+	<cfif dis neq "">
+	AND       Code NOT IN (#preservesingleQuotes(dis)#)
+	</cfif>
+							 
 	AND    P.Status != '9'
 	AND    R.Area != 'Risk' and R.Area != 'Gender Marker'
 </cfquery>

@@ -82,6 +82,7 @@
 				 DocumentOrder       = '#Form.DocumentOrder#',
 				 FieldType           = '#Form.FieldType#', 
 				 PortalShow          = '#Form.PortalShow#', 
+				 <!---
 				 <cfif url.type eq "mail">
 					 MailTo              = '#Form.MailTo#',
 					 <cfif form.MailToDocumentId neq "">
@@ -93,6 +94,7 @@
 					 MailBody            = '#Form.MailBody#',
 					 MailBodyCustom      = '#Form.MailBodyCustom#',
 				 </cfif>
+				 --->
 				 <cfif form.fieldtype eq "Text" or form.fieldtype eq "List">
 					 FieldLength          = '#Form.FieldLength#',
 					 FieldSelectMultiple  = '#Form.FieldSelectMultiple#',
@@ -175,17 +177,7 @@
 					 DocumentOrientation,
 					 DocumentEditor,
 					 LogActionContent,
-					 <cfif url.type eq "mail">
-					 MailTo,
-					 <cfif form.MailToDocumentId neq "">
-					 MailToDocumentId,
-					 </cfif>
-					 MailPriority,
-					 MailSubject,
-					 MailSubjectCustom,
-					 MailBody,
-					 MailBodyCustom,
-				      </cfif>
+					
 					 <cfif form.fieldtype eq "Text" or form.fieldtype eq "List">
 					 	 FieldLength,
 						 FieldSelectMultiple,
@@ -230,17 +222,7 @@
 					  '#Form.DocumentOrientation#',
 					  '#Form.DocumentEditor#',
 					  '#Form.LogActionContent#',
-					  <cfif url.type eq "mail">
-					  '#Form.MailTo#',
-						   <cfif form.MailToDocumentId neq "">
-							  '#Form.MailToDocumentId#',
-						  </cfif>
-					  '#Form.MailPriority#',
-					  '#Form.MailSubject#',
-					  '#Form.MailSubjectCustom#',
-					  '#Form.MailBody#',
-					  '#Form.MailBodyCustom#',
-				      </cfif>
+					  
 					  <cfif form.fieldtype eq "Text" or form.fieldtype eq "List">
 					      '#Form.FieldLength#',
 						  '#Form.FieldSelectMultiple#',

@@ -120,7 +120,7 @@
 					  M.Mission IN   (SELECT  DISTINCT Mission 
 					                  FROM    OrganizationAuthorization
 									  WHERE   UserAccount = '#SESSION.acc#' 
-									  AND     Role        = 'VacOfficer')
+									  AND     Role        = 'VacOfficer','HRAssistant','HROfficer')
 					   )					               				
 				  </cfif>	
 				  

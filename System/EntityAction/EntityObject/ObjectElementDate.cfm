@@ -3,8 +3,8 @@
   
   <table width="100%">
 	   <tr>
-	   <td width="20%" align="right"><cf_UIToolTip  tooltip="Default value, you may use CF strings and variables like O-SAT-S-000-&Year(now())">Default Value:</cf_UIToolTip></td>
-	   <td width="10%" align="right">
+	   <td width="20%" align="right">Default Value:</td>
+	   <td style="min-width:90px" align="right">
 			Today's date
 		</td>
 		<td width="5%" align="right">
@@ -19,6 +19,7 @@
 			      <input type="checkbox" name="Today" id="Today" value="0">
 			</cfif>		
 		</td>	   
+		<td style="padding-left:4px;padding-right:4px">or</td>
 	   <td width="20%" align="left">
 
 		<cfif IsValid("date",val)>

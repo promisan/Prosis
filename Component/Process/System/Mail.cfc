@@ -12,6 +12,7 @@
 		<cfargument name="ActionId"    type="string"  required="false" default="">	
 		<cfargument name="PersonNo"    type="string"  required="false" default="">	
 		<cfargument name="FunctionId"  type="string"  required="false" default="">
+		<cfargument name="ReviewId"    type="string"  required="false" default="">
 		<cfargument name="DateTime"    type="string"  required="false" default="">			
 		<cfargument name="Content"     type="string"  required="yes">	 	 				
 				
@@ -112,6 +113,28 @@
 				
 		</cfif>
 		
+		<cfif ActionId neq "" and ReviewId neq "">
+		
+			<cfquery name="WebSession" 
+				datasource="#DataSource#" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+				SELECT    * 
+				FROM      Organization.dbo.OrganizationObjectActionSession 						
+				WHERE     ActionId = '#actionid#'
+				AND       EntityReference = '#ReviewId#' 
+				
+			</cfquery>	
+			
+			<cfif websession.recordcount eq "1">
+								
+				<cfset content = replaceNoCase( "#content#", "@websession","<a href='#session.root#/ActionSession.cfm?id=#websession.actionSessionId#' target='_blank'>Open test</a>","ALL")>
+		
+			</cfif>
+		
+		
+		</cfif>
+		
 		<cfif FunctionId neq "">
 		
 			<cfquery name="Function" 
@@ -138,7 +161,7 @@
 			
 			<cfset content = replaceNoCase( "#content#", "@functiontitle","#Title.FunctionDescription#","ALL")>
 			
-			<!--- extended title --->
+			<!--- extended title CBD only --->
 			
 			<cfquery name="Title" 
 				datasource="appsOrganization" 

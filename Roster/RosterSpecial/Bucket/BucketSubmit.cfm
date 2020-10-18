@@ -57,7 +57,7 @@
 	  WHERE  ReferenceNo = '#Form.ReferenceNo#' 
 	</cfquery>
 
-	<cfif Verify.recordCount gte "1">
+	<cfif Verify.recordCount gte "1" and form.ReferenceNo neq "Direct">
    
 	  <cf_alert message = "A bucket with this Vacancy no :#Form.ReferenceNo# was registered already! Operation not allowed"
 	  return = "no">

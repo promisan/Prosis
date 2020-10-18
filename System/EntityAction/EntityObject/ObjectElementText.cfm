@@ -9,8 +9,7 @@
   <cfparam name="fieldselectmultiple" default="0">
   
   <table width="100%" cellspacing="0" cellpadding="0" class="formpadding">
-  
-         
+           
   	   <tr class="labelmedium">
 	   <td width="200">Validation:</td>
 	   <td>

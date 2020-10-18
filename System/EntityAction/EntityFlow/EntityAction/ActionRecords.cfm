@@ -214,7 +214,7 @@ password="#SESSION.dbpw#">
 				   maxlength="4" 
 				   class="regularxl" 
 				   onkeyUp="_cf_loadingtexthtml='';ptoken.navigate('getCodeCheck.cfm?entitycode=#url.entitycode#&value='+this.value,'codecheck')"
-				   style="width:40px;background-color:ffffaf">
+				   style="width:45px;background-color:ffffaf;text-align:center">
 				   
 				</td>
 				
@@ -467,6 +467,7 @@ password="#SESSION.dbpw#">
 			    <td align="center" style="padding-left:3px;padding-right:4px">
 
 				<cfset box = replace(actioncode,"-","","ALL")> 
+				
 				<cfdiv id="embed#box#">									
 					<cfinclude template="ActionRecordsEmbed.cfm">
 				</cfdiv>
@@ -481,9 +482,11 @@ password="#SESSION.dbpw#">
 		   <td colspan="12" id="detail#currentrow#"></td>
 	    </tr>
 		
+		<!---
 		<tr id="boxobject#box#" class="hide">
 		   <td colspan="12" id="object#box#"></td>
 	    </tr>
+		--->
 						
 		</cfloop>
 		

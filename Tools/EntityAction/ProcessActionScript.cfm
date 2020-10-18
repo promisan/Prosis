@@ -148,17 +148,17 @@
 	}
 	
 	function maildialog(obt,cde,glob) {			   
-		window.open("ProcessMailDialog.cfm?objectid="+obt+"&actioncode="+cde+"&NotificationGlobal="+glob, "wMailDialog", "height=700, width=700");				
+		ptoken.open("ProcessMailDialog.cfm?objectid="+obt+"&actioncode="+cde+"&NotificationGlobal="+glob, "wMailDialog", "height=700, width=700");				
 	}	
 					
 	function embedtabdoc(actionid,docid,sign,language,format,no,act) {			      
-		   ptoken.navigate('Report/DocumentProcess.cfm?actionid='+actionid+'&docid='+docid+'&sign='+sign+'&language='+language+'&format='+format+'&no='+no+'&action='+act,'docaction'+docid) 	 		   
+		ptoken.navigate('Report/DocumentProcess.cfm?actionid='+actionid+'&docid='+docid+'&sign='+sign+'&language='+language+'&format='+format+'&no='+no+'&action='+act,'docaction'+docid) 	 		   
 	}           	
 	
 	function mycallBack() { }
 		
 	var myerrorhandler = function(errorCode,errorMessage){
-		   alert("[In Error Handler]" + "\n\n" + "Error Code: " + errorCode + "\n\n" + "Error Message: " + errorMessage);
+		alert("[In Error Handler]" + "\n\n" + "Error Code: " + errorCode + "\n\n" + "Error Message: " + errorMessage);
 	}	
 
 	function showprocess() {
@@ -195,12 +195,11 @@
           while (itm.tagName!="TR")
           {itm=itm.parentNode;}
      }
-	 
-	 	 		 	
+	 	 	 		 	
 	 if (fld != false){		
-	 itm.className = "highLight2";
+	 	itm.className = "highLight2";
 	 }else{		
-     itm.className = "regular";		
+	     itm.className = "regular";		
 	 }
 	}	
 		
@@ -214,24 +213,21 @@
 	 se2 = document.getElementById(row+'Min')
 	 se3 = document.getElementById('act'+row)
 	 if (se1.className == "regular") {
-	    se2.className = "regular"
-		se1.className = "hide"
-		se3.className = "regular"
+		    se2.className = "regular"
+			se1.className = "hide"
+			se3.className = "regular"
 	 } else {
-	    se1.className = "regular"
-		se2.className = "hide"
-		se3.className = "hide"
+		    se1.className = "regular"
+			se2.className = "hide"
+			se3.className = "hide"
 	 }
     }	 
   
-  	function saveoutput(mode,id,docid,frm,ele) {	     
-	 
-	 ptoken.navigate('ProcessActionDocumentTextSubmit.cfm?memoactionid='+id+'&documentid='+docid+'&element='+ele+'&frm='+frm,'myboxes','','','POST',frm)
-	 		 
-	 if (mode != "save") {
-	    docoutput(mode,id,docid)
-	  }	 
-	 
+  	function saveoutput(mode,id,docid,frm,ele) {		 
+		 ptoken.navigate('ProcessActionDocumentTextSubmit.cfm?memoactionid='+id+'&documentid='+docid+'&element='+ele+'&frm='+frm,'myboxes','','','POST',frm)	 
+		 if (mode != "save") {
+			    docoutput(mode,id,docid)
+		 }	 	 
 	}	
 		
 	function docoutput(mode,id,docid) {
@@ -253,8 +249,7 @@
 	
 	   bact = document.getElementById("processblock");
 	   	      
-	   if (act == "show") {
-	   
+	   if (act == "show") {	   
 	   	  bact.className   = "regular";
 	    } else {
 		  bact.className   = "hide"; }
@@ -267,66 +262,65 @@
 		  bmem.className   = "hide"; }	  
 	
 	   try {	
-	   bmai1 = document.getElementById("mailblock1");	  
-	   bmai2 = document.getElementById("mailblock2");	 
-	   if (mai == "show") {
-	   	  bmai1.className   = "regular";
-		  bmai2.className   = "regular";
-	    } else {
-		  bmai1.className   = "hide";
-		  bmai2.className   = "hide"; }	    
-		  } catch(e) {}
-		  
+		   bmai1 = document.getElementById("mailblock1");	  
+		   bmai2 = document.getElementById("mailblock2");	 
+		   if (mai == "show") {
+			   	  bmai1.className   = "regular";
+				  bmai2.className   = "regular";
+		    } else {
+				  bmai1.className   = "hide";
+				  bmai2.className   = "hide"; }	    
+			} catch(e) {}		  
     }		 		
 		
 	function print(id) {
-	  w = #CLIENT.width# - 100;
-	  h = #CLIENT.height# - 140;
-	  ptoken.open("#SESSION.root#/Tools/EntityAction/ActionPrint.cfm?id="+id,"_blank", "left=30, top=30, width=" + w + ", height= " + h + ", toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=no")
+		  w = #CLIENT.width# - 100;
+		  h = #CLIENT.height# - 140;
+		  ptoken.open("#SESSION.root#/Tools/EntityAction/ActionPrint.cfm?id="+id,"_blank", "left=30, top=30, width=" + w + ", height= " + h + ", toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=no")
   	}
 	
     function mail(id) {
-	  ptoken.open("#SESSION.root#/Tools/EntityAction/ActionMail.cfm?id="+id,"_blank", "width=800, height=615, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")	 
+	      ptoken.open("#SESSION.root#/Tools/EntityAction/ActionMail.cfm?id="+id,"_blank", "width=800, height=615, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")	 
   	}	
 			
 	function selectoption(selectbox,itm) {
 							
-	try { document.getElementById("d0").style.fontWeight  = "normal"; } catch(e) {}
-	try { document.getElementById("d1").style.fontWeight  = "normal"; } catch(e) {}
-	try { document.getElementById("d2").style.fontWeight  = "normal"; } catch(e) {}
-	try { document.getElementById("d2n").style.fontWeight = "normal"; } catch(e) {}
-	try { document.getElementById("d2y").style.fontWeight = "normal"; } catch(e) {}
-	
-	try { document.getElementById(selectbox).style.fontWeight = "bold"; } catch(e) {}
-	
-	try { document.getElementById("dialog0").className  = "hide"; } catch(e) {}
-	try { document.getElementById("dialog1").className  = "hide"; } catch(e) {}
-	try { document.getElementById("dialog2").className  = "hide"; } catch(e) {}
-	try { document.getElementById("dialog2N").className = "hide"; } catch(e) {}
-	try { document.getElementById("dialog2Y").className = "hide"; } catch(e) {}
-	
-	try { document.getElementById("dialog"+itm).className = "regular"; } catch(e) {}
+		try { document.getElementById("d0").style.fontWeight      = "normal"; } catch(e) {}
+		try { document.getElementById("d1").style.fontWeight      = "normal"; } catch(e) {}
+		try { document.getElementById("d2").style.fontWeight      = "normal"; } catch(e) {}
+		try { document.getElementById("d2n").style.fontWeight     = "normal"; } catch(e) {}
+		try { document.getElementById("d2y").style.fontWeight     = "normal"; } catch(e) {}
 		
-	try {
-		revert1 = document.getElementById("d1a")
-		if (revert1) {
-			revert1.className = "hide";
-			revert2 = document.getElementById("d1b");
-			revert2.className = "hide"; }	
-	} catch(e) {}
+		try { document.getElementById(selectbox).style.fontWeight = "bold"; } catch(e) {}
 		
-	try {	
-
-	if (selectbox == "d1") {
-	    if (revert1) {
-		revert1.className = "regular";
-		revert2.className = "regular";
-		}
-		}
+		try { document.getElementById("dialog0").className        = "hide"; } catch(e) {}
+		try { document.getElementById("dialog1").className        = "hide"; } catch(e) {}
+		try { document.getElementById("dialog2").className        = "hide"; } catch(e) {}
+		try { document.getElementById("dialog2N").className       = "hide"; } catch(e) {}
+		try { document.getElementById("dialog2Y").className       = "hide"; } catch(e) {}
 		
-	} catch(e) {}	
-					
-	}		
+		try { document.getElementById("dialog"+itm).className = "regular"; } catch(e) {}
+		
+		try {
+			revert1 = document.getElementById("d1a")
+			if (revert1) {
+				revert1.className = "hide";
+				revert2 = document.getElementById("d1b");
+				revert2.className = "hide"; }	
+		} catch(e) {}
+		
+		try {	
+	
+		if (selectbox == "d1") {
+		    if (revert1) {
+			revert1.className = "regular";
+			revert2.className = "regular";
+			}
+			}
+			
+			} catch(e) {}	
+						
+		}		
 	
    function check(val) {
 	 
@@ -334,17 +328,17 @@
 	 se = document.getElementsByName("account")
 	
 	 while (count <= 30) {
+	 
 	     if (se[count]) {
-		 se[count].checked = val
-		 row = document.getElementById("d"+count)
-		 
-		 if (row) {
-			 if (val == true) {
-			  row.className = "highlight2"
-			 } else {
-			  row.className = "regular" }
-		 	 }		 
-		 }
+			 se[count].checked = val
+			 row = document.getElementById("d"+count)		 
+			 if (row) {
+				 if (val == true) {
+				  row.className = "highlight2"
+				 } else {
+				  row.className = "regular" }
+			 	 }		 
+			 }
 		 count++
 	 }	 	 
 	 }

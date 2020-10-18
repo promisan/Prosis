@@ -297,6 +297,12 @@
 		ptoken.navigate('#SESSION.root#/Roster/RosterSpecial/Bucket/BucketQuestion/RecordListing.cfm?idfunction='+id,'phrases')
 	}
 	
+	function testview(act) {		
+		ProsisUI.createWindow('testview', 'Submission status','',{x:100,y:100,width:document.body.offsetWidth-120,height:400,modal:true,center:true})
+		ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/Interaction/TestCandidateView.cfm?actionid='+act,'testview')		
+							
+	}
+	
 	function testevaluation(doc,per,act,mde,cls) {		
 		ProsisUI.createWindow('test', 'Evaluation','',{x:100,y:100,width:document.body.offsetWidth-70,height:document.body.offsetHeight-70,modal:true,center:true})
 		if (mde == 'edit') {
@@ -313,14 +319,14 @@
 		 }   
 	 }
 	
-	function editactivity(id,doc,per,act) {		
+	function editactivity(id,doc,per,act,actid) {		
 		ProsisUI.createWindow('activitybox', 'Activity','',{x:100,y:100,width:document.body.offsetWidth-130,height:document.body.offsetHeight-130,modal:true,center:true})
-		ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/Action/ActionEdit.cfm?id='+id+'&DocumentNo='+doc+'&PersonNo='+per+'&ActionCode='+act,'activitybox')
+		ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/Action/ActionEdit.cfm?id='+id+'&DocumentNo='+doc+'&PersonNo='+per+'&ActionCode='+act+'&ActionId='+actid,'activitybox')
 	}
 	
-	function deleteactivity(id,doc,per,act) {		
+	function deleteactivity(id,doc,per,act,actid) {		
 	    _cf_loadingtexthtml='';	
-		ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/Action/ActionDelete.cfm?actionid='+id+'&DocumentNo='+doc+'&PersonNo='+per+'&ActionCode='+act,'boxaction'+per)
+		ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/Action/ActionDelete.cfm?actionid='+id+'&DocumentNo='+doc+'&PersonNo='+per+'&ActionCode='+act+'&ObjectActionId='+actid,'boxaction'+per)
 	}
 		
 	function decision(box,doc,per,act,sta,fnl) {		
@@ -487,7 +493,8 @@ password="#SESSION.dbpw#">
 				   A.Gender, 
 				   A.DOB, 
 				   R.ReviewMemo,
-				   R.ReviewScore				   
+				   R.ReviewScore,	
+				   R.ReviewId			   
 		   FROM    DocumentCandidate DC 
 		           INNER JOIN      Applicant.dbo.Applicant A ON DC.PersonNo = A.PersonNo 
 				   INNER JOIN      Ref_Status S ON DC.Status = S.Status 
@@ -525,7 +532,7 @@ password="#SESSION.dbpw#">
 	
 	<cfif doc.remarks neq "">
 	    <td><cf_tl id="Remarks">:</td>
-		<TD>#Doc.Remarks#</TD>
+		<td>#Doc.Remarks#</td>
 	</cfif>
 	
 	<cfif Doc.FunctionId neq "">
@@ -540,29 +547,41 @@ password="#SESSION.dbpw#">
 		</cfquery>
 	
 		<td><cf_tl id="VA No">:</td>
-	    <TD> 
+	    <td> 
 		   <cfif Bucket.ReferenceNo neq "">
 		   <A href="javascript:va('#Bucket.FunctionId#');">#Bucket.ReferenceNo#</a>
 		   <cfelse>
 		   n/a
 		   </cfif>
-		</TD>
+		</td>
 		
 	</cfif>
 	
-	</TR>
+</TR>
 			
-	<cfif url.wparam eq "MARK" or url.wparam eq "TEST">
+<cfif url.wparam eq "MARK" or url.wparam eq "TEST">
 	
-		<tr class="line labelmedium"><td style="font-size:18px;height:30px" align="center" colspan="4">
-		<a href="javascript:phrases('#bucket.functionid#')"><cf_tl id="Maintain TEST questions and submission"></a></td>
+		<tr class="line labelmedium">
+		<td style="font-size:18px;height:30px" colspan="4">
+			<table align="center">
+				<tr>
+				<td style="font-size:18px;height:30px">
+				<a href="javascript:phrases('#bucket.functionid#')"><cf_tl id="Maintain TEST questions"></a>
+				</td>
+				<cfif url.wparam eq "TEST">
+					<td style="padding-left:6px;padding-right:6px">|</td>
+					<td style="font-size:18px;height:30px">
+					<a href="javascript:testview('#url.id#')"><cf_tl id="Online Submission"></a>
+					</td>
+				</cfif>
+				</tr>
+			</table>
+		</td>	
 		</tr>
 	
-	</cfif>
-			
-	</cfoutput>
-		
-	
+</cfif>
+				
+</cfoutput>
 			
 <tr><td colspan="8" class="labelmedium" style="height:100%" valign="top">
 
@@ -585,8 +604,7 @@ password="#SESSION.dbpw#">
 		  <TD style="min-width:100px"><cf_tl id="Nationality"></TD>
 		  <TD style="min-width:100px"><cf_tl id="DOB"></TD>
 	      <TD style="min-width:100px"><cf_tl id="Gender"></TD>
-		  <td style="max-width:10px;border-right:1px solid silver"></td>
-		  
+		  <TD style="max-width:10px;border-right:1px solid silver"></td>		  
 	   	  <TD style="background-color:ffffaf;padding-left:4px;min-width:100px;border-right:1px solid silver"><cf_tl id="Recruit status"></TD>	 
 		  <cfelse>
 		  <TD colspan="7" style="min-width:200px"><cf_tl id="Candidate"></TD>      		
@@ -741,12 +759,17 @@ password="#SESSION.dbpw#">
 				
 				<cfif url.wParam eq "TEST">
 				
-					<td style="padding-right:4px">					
-					<img src="#session.root#/images/logos/system/communication.png" style="height:21px;width:24px" alt="Candidate communication" 
-					    border="0" onclick="testcommunication('#Object.ObjectKeyValue1#','#PersonNo#','#flowaction#','edit')">
-						
-					<img src="#session.root#/images/logos/system/importword.png" style="height:21px;width:24px" alt="Import word" 
-					    border="0" onclick="testevaluation('#Object.ObjectKeyValue1#','#PersonNo#','#flowaction#','edit')">	
+					<td style="padding-right:4px">		
+					<table>
+						<tr>
+							<td>		
+							<cfif reviewid neq "">
+								<cf_securediv id="session_#reviewid#"  bind="url:#session.root#/tools/entityaction/session/setsession.cfm?actionid=#url.id#&entityreference=#reviewid#">							
+							</cfif>	
+							</td>
+													
+						</tr>
+					</table>	
 					</td>
 				
 				</cfif>
@@ -756,14 +779,20 @@ password="#SESSION.dbpw#">
 				<!--- get test content for scoring --->
 				
 				<td style="padding-right:4px">
-				<table><tr><td>
-				<img src="#session.root#/images/logos/system/communication.png" style="height:21px;width:24px" alt="Candidate communication" 
-					    border="0" onclick="testcommunication('#Object.ObjectKeyValue1#','#PersonNo#','#flowaction#','edit')">
-						</td>
-				<td style="padding-left:4px">	
-				<img src="#session.root#/images/logos/system/importword.png" style="height:21px;width:24px" alt="Import word" 
-				    border="0" onclick="testevaluation('#Object.ObjectKeyValue1#','#PersonNo#','#flowaction#','edit')">
-					</td></tr></table>
+				<table>
+					<tr>
+					<td>	
+					
+					<cfif reviewid neq "">
+							<cf_securediv id="session_#reviewid#"  bind="url:#session.root#/tools/entityaction/session/setsession.cfm?actionid=#url.id#&entityreference=#reviewid#">							
+					</cfif>
+											
+					
+					</td>
+					
+					
+					</tr>
+					</table>
 				</td>	
 				
 			</cfif>
@@ -933,13 +962,25 @@ password="#SESSION.dbpw#">
 						
 					SELECT       COUNT(*) AS Received
 					FROM         DocumentCandidateReviewCompetence
-					WHERE        DocumentNo = '#Object.ObjectKeyValue1#' 
-					AND          PersonNo   = '#personno#' 
-					AND          ActionCode = '#flowaction#' 
+					WHERE        DocumentNo      = '#Object.ObjectKeyValue1#' 
+					AND          PersonNo        = '#personno#' 
+					AND          ActionCode      = '#flowaction#' 
 					AND          CompetenceContent IS NOT NULL				
 				</cfquery>	
-			
-				     <a href="javascript:showquestion('#Object.ObjectKeyValue1#','#personno#','#flowaction#','edit')">#getContent.Received# <cf_tl id="answers"></a>
+				
+				    <cfif reviewid neq "">
+						<table style="width:100%">
+						<tr>				
+						<td id="box#ReviewId#">			
+					     <a href="javascript:showquestion('#Object.ObjectKeyValue1#','#personno#','#flowaction#','edit')">#getContent.Received# <cf_tl id="answers"></a>					 
+						</td>					 
+						<td style="padding-left:6px;padding-right:5px" align="right">	
+						   <img src="#session.root#/images/logos/system/importword.png" style="height:20px;width:22px" alt="Import word" 
+						       border="0" onclick="testevaluation('#Object.ObjectKeyValue1#','#PersonNo#','#flowaction#','edit')">
+						</td>					
+						</tr>
+						</table>	
+					</cfif>				 
 				
 					<input type="hidden" name="ReviewStatus_#CurrentRow#" id="ReviewStatus_#CurrentRow#" value="1">					
 				
@@ -1075,7 +1116,7 @@ password="#SESSION.dbpw#">
 					<td></td>			
 					<td colspan="9">
 						<cf_securediv id="boxaction#PersonNo#" 
-						 bind="url:#session.root#/Vactrack/Application/Candidate/Action/ActionListing.cfm?documentNo=#Object.ObjectKeyValue1#&PersonNo=#PersonNo#&actioncode=#flowaction#">				
+						 bind="url:#session.root#/Vactrack/Application/Candidate/Action/ActionListing.cfm?documentNo=#Object.ObjectKeyValue1#&PersonNo=#PersonNo#&actioncode=#flowaction#&objectactionid=#url.id#">				
 					</td>
 					</tr>	
 				
@@ -1104,7 +1145,7 @@ password="#SESSION.dbpw#">
 					<td></td>
 					<td colspan="9" style="padding-left:10px">
 						<cf_securediv id="boxaction#PersonNo#" 
-						 bind="url:#session.root#/Vactrack/Application/Candidate/Action/ActionListing.cfm?documentNo=#Object.ObjectKeyValue1#&PersonNo=#PersonNo#&actioncode=#flowaction#">				
+						 bind="url:#session.root#/Vactrack/Application/Candidate/Action/ActionListing.cfm?documentNo=#Object.ObjectKeyValue1#&PersonNo=#PersonNo#&actioncode=#flowaction#&objectactionid=#url.id#">				
 					</td>
 					</tr>	
 				
@@ -1118,7 +1159,7 @@ password="#SESSION.dbpw#">
 			<cfelse>
 			
 				<!--- MARK and CLOSE show subactions to be visible here which are tracked partially in the workflow object --->
-							
+											
 				<cfquery name="getActivity" 
 				datasource="appsOrganization" 
 				username="#SESSION.login#" 
@@ -1135,7 +1176,7 @@ password="#SESSION.dbpw#">
 					<td></td>
 					<td colspan="9" style="padding-left:10px">
 						<cf_securediv id="boxaction#PersonNo#" 
-						 bind="url:#session.root#/Vactrack/Application/Candidate/Action/ActionListing.cfm?documentNo=#Object.ObjectKeyValue1#&PersonNo=#PersonNo#&actioncode=#flowaction#">				
+						 bind="url:#session.root#/Vactrack/Application/Candidate/Action/ActionListing.cfm?documentNo=#Object.ObjectKeyValue1#&PersonNo=#PersonNo#&actioncode=#flowaction#&objectactionid=#url.id#">				
 					</td>
 					</tr>	
 				

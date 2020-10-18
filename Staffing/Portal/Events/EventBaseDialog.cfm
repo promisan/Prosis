@@ -296,7 +296,7 @@
 										<input type	= "hidden" 
 										   	name 	= "workflowlink_#eventid#" 
 										   	id   	= "workflowlink_#eventid#"
-										   	value	= "#client.root#/Staffing/Application/Employee/Events/SelfserviceWorkflow.cfm">	
+										   	value	= "#client.root#/Staffing/Portal/Events/EventBaseDialogWorkflow.cfm">	
 																									   
 										<cf_securediv id="#eventid#" bind="url:#client.root#/Staffing/Portal/Events/EventBaseDialogWorkflow.cfm?ajaxid=#eventid#">       															
 														

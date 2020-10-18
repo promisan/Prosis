@@ -246,6 +246,6 @@ password="#SESSION.dbpw#">
 	<script>   
 		ProsisUI.closeWindow('activitybox');
 		_cf_loadingtexthtml='';	
-		ptoken.navigate('#session.root#/Vactrack/Application/Candidate/Action/ActionListing.cfm?documentNo=#url.documentno#&PersonNo=#url.PersonNo#&actioncode=#url.actioncode#','boxaction#url.PersonNo#')
+		ptoken.navigate('#session.root#/Vactrack/Application/Candidate/Action/ActionListing.cfm?documentNo=#url.documentno#&PersonNo=#url.PersonNo#&actioncode=#url.actioncode#&objectactionid=#url.objectactionid#','boxaction#url.PersonNo#')
 	</script>	
 </cfoutput>	  

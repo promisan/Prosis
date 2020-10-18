@@ -11,7 +11,7 @@
 
 <script>
   
-function addfile(mode,host,dir,subdir,fil,box,ref,svr,window,pdf) {
+function addfile(mode,host,dir,subdir,fil,box,ref,svr,window,pdf,memo) {
 
 	if (svr=="No") {
 		vHeight=460;
@@ -25,13 +25,13 @@ function addfile(mode,host,dir,subdir,fil,box,ref,svr,window,pdf) {
 					
 			ProsisUI.createWindow('attachdialog', 'Attachment', '',{x:100,y:100,height:350,width:590,resizable:false,modal:false,center:true,color:'##e1e1e1'})    
 			// ColdFusion.Window.show('attachdialog') 					
-			ColdFusion.navigate('#SESSION.root#/Tools/Document/FileFormDialog.cfm?host='+host+'&mode='+mode+'&box='+box+'&dir=' + dir + '&ID=' + subdir + '&ID1=' + fil + '&reload='+ref+'&documentserver='+svr+'&pdfscript='+pdf,'attachdialog') 		
+			ptoken.navigate('#SESSION.root#/Tools/Document/FileFormDialog.cfm?host='+host+'&mode='+mode+'&box='+box+'&dir=' + dir + '&ID=' + subdir + '&ID1=' + fil + '&reload='+ref+'&documentserver='+svr+'&pdfscript='+pdf+'&memo='+memo,'attachdialog') 		
 		
 		} else {
 				    		
 			ProsisUI.createWindow('attachdialog', 'Attachment', '',{x:100,y:100,height:400,width:530,resizable:false,modal:true,center:true})    
 			// ColdFusion.Window.show('attachdialog') 					
-			ColdFusion.navigate('#SESSION.root#/Tools/Document/FileFormDialog.cfm?host='+host+'&mode='+mode+'&box='+box+'&dir=' + dir + '&ID=' + subdir + '&ID1=' + fil + '&reload='+ref+'&documentserver='+svr+'&pdfscript='+pdf,'attachdialog') 		
+			ptoken.navigate('#SESSION.root#/Tools/Document/FileFormDialog.cfm?host='+host+'&mode='+mode+'&box='+box+'&dir=' + dir + '&ID=' + subdir + '&ID1=' + fil + '&reload='+ref+'&documentserver='+svr+'&pdfscript='+pdf+'&memo='+memo,'attachdialog') 		
 		}	
 	
 	} else {
@@ -40,13 +40,13 @@ function addfile(mode,host,dir,subdir,fil,box,ref,svr,window,pdf) {
 					
 			ProsisUI.createWindow('attachdialog', 'Attachment', '',{x:100,y:100,height:400,width:590,resizable:false,modal:false,center:true,color:'##e1e1e1'})    
 			// ColdFusion.Window.show('attachdialog') 					
-			ColdFusion.navigate('#SESSION.root#/Tools/Document/FileFormDialog.cfm?host='+host+'&mode='+mode+'&box='+box+'&dir=' + dir + '&ID=' + subdir + '&ID1=' + fil + '&reload='+ref+'&documentserver='+svr+'&pdfscript='+pdf,'attachdialog') 		
+			ptoken.navigate('#SESSION.root#/Tools/Document/FileFormDialog.cfm?host='+host+'&mode='+mode+'&box='+box+'&dir=' + dir + '&ID=' + subdir + '&ID1=' + fil + '&reload='+ref+'&documentserver='+svr+'&pdfscript='+pdf+'&memo='+memo,'attachdialog') 		
 		
 		} else {
 				    		
 			ProsisUI.createWindow('attachdialog', 'Attachment', '',{x:100,y:100,height:400,width:530,resizable:false,modal:true,center:true})    
 			// ColdFusion.Window.show('attachdialog') 					
-			ColdFusion.navigate('#SESSION.root#/Tools/Document/FileFormDialog.cfm?host='+host+'&mode='+mode+'&box='+box+'&dir=' + dir + '&ID=' + subdir + '&ID1=' + fil + '&reload='+ref+'&documentserver='+svr+'&pdfscript='+pdf,'attachdialog') 		
+			ptoken.navigate('#SESSION.root#/Tools/Document/FileFormDialog.cfm?host='+host+'&mode='+mode+'&box='+box+'&dir=' + dir + '&ID=' + subdir + '&ID1=' + fil + '&reload='+ref+'&documentserver='+svr+'&pdfscript='+pdf+'&memo='+memo,'attachdialog') 		
 		}	
 	
 							   	
@@ -74,7 +74,7 @@ function mailfiles(mode,host,dir,subdir,fil) {
 	ptoken.open("#SESSION.root#/Tools/Mail/Mail.cfm?contextmode="+mode+"&id1=Mail&host="+host+"&dir="+dir+"&sub="+subdir+"&fil="+fil+"&mode=dialog&GUI=HTML","mail","width=800, height=620, status=yes, toolbar=no, scrollbars=no, resizable=yes");						
 }
 
-function attrefresh(mode,path,host,subdir,filter,hl,size,list,insert,remove,color,box,rowh,w,align,border,dialog,input,pdf,embed,svr,present,maxfile) {
+function attrefresh(mode,path,host,subdir,filter,hl,size,list,insert,remove,color,box,rowh,w,align,border,dialog,input,pdf,memo,embed,svr,present,maxfile) {
 		
 	url = "#SESSION.root#/tools/document/FileLibraryShow.cfm?Mode="+mode+
 	                            "&DocumentPath="+path+
@@ -95,18 +95,19 @@ function attrefresh(mode,path,host,subdir,filter,hl,size,list,insert,remove,colo
 								"&border="+border+
 								"&attachdialog="+dialog+
 								"&pdfscript="+pdf+
+								"&memo="+memo+
 								"&embedgraphic="+embed+
 								"&documentserver="+svr+
 								"&presentation="+present+
 								"&inputsize="+input
 	
 	_cf_loadingtexthtml="";			
-    ColdFusion.navigate(url,'att_'+box)		 
+    ptoken.navigate(url,'att_'+box)		 
 	
 
 }
 
-function delfile(mode,msg,id,path,host,subdir,filter,name,hl,size,list,insert,remove,color,box,rowh,w,align,border,dialog,input,pdf,embed,svr,present,maxfiles) {
+function delfile(mode,msg,id,path,host,subdir,filter,name,hl,size,list,insert,remove,color,box,rowh,w,align,border,dialog,input,pdf,memo,embed,svr,present,maxfiles) {
 	
 	if (confirm(msg)) {	
 		
@@ -131,6 +132,7 @@ function delfile(mode,msg,id,path,host,subdir,filter,name,hl,size,list,insert,re
 							"&align="+align+
 							"&border="+border+
 							"&pdfscript="+pdf+
+							"&memo="+memo+
 							"&embedgraphic="+embed+
 							"&documentserver="+svr+
 							"&presentation="+present+

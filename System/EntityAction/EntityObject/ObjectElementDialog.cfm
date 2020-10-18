@@ -36,21 +36,32 @@
 	<cfelse>
 	  <cfset cl = "regular">
 	</cfif>
-	
-	<td class="labelmedium">.dbo.</td>
+		
 	<td id="fieldlookup1" class="<cfoutput>#cl#</cfoutput>">
 	
-	 <cfinput type="Text"
-       name         = "lookuptable"
-       value        = "#LookupTable#"
-       autosuggest="cfc:service.reporting.presentation.gettable({lookupdatasource},{cfautosuggestvalue})"
-       maxresultsdisplayed="6"
-	   showautosuggestloadingicon="No"
-       typeahead    = "Yes"
-       required     = "No"
-       size         = "30"
-       maxlength    = "30"
-	   class="regularxl">
+		<table>
+		
+		<tr>
+		<td class="labelmedium" style="padding-left:8px;padding-right:4px">dbo.</td>
+		
+		<td>
+		
+		 <cfinput type="Text"
+	       name         = "lookuptable"
+	       value        = "#LookupTable#"
+	       autosuggest="cfc:service.reporting.presentation.gettable({lookupdatasource},{cfautosuggestvalue})"
+	       maxresultsdisplayed="6"
+		   showautosuggestloadingicon="No"
+	       typeahead    = "Yes"
+	       required     = "No"
+	       size         = "30"
+	       maxlength    = "30"
+		   class="regularxl">
+		   
+		   </td>
+			
+			</tr>
+			</table>
 	   
 	   </td>
 	  
@@ -62,8 +73,9 @@
  	
 	 <cfparam name="documentId" default="00000000-0000-0000-0000-000000000000">
    
-	 <td colspan="4" bgcolor="white">
-		<cfdiv bind="url:../../EntityObject/ObjectElementField.cfm?documentid=#documentid#&fieldtype=text&lookupdatasource={lookupdatasource}&lookuptable={lookuptable}" 
+     <td></td>     
+	 <td colspan="3" bgcolor="white" style="padding-left:41px">
+		<cf_securediv bind="url:../../EntityObject/ObjectElementField.cfm?documentid=#documentid#&fieldtype=text&lookupdatasource={lookupdatasource}&lookuptable={lookuptable}" 
 		   id="tablefields"/>
 	  
 	 </td>

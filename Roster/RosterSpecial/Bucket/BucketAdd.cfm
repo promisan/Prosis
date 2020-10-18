@@ -1,4 +1,4 @@
-<cf_screentop height="100%" scroll="Yes" html="no" label="Add Bucket" layout="webapp">
+<cf_screentop height="100%" jquery="Yes" scroll="Yes" html="no" label="Add Bucket" layout="webapp">
 
 <!--- select only function is the class of the owner and that are enabled as roster function --->
 
@@ -180,32 +180,36 @@ password="#SESSION.dbpw#">
 	   <td class="labelmedium"><cf_tl id="Grade">:</td>
    		<td>
 		
-		<table><tr><td>
-		<cfif GradeDeploy1.recordcount eq "0">
+		<table>
+		<tr>
+		<td>
 		
-			 <select name="postgrade" id="postgrade" class="regularxl">
-		   <cfoutput query="gradedeploy2">
-	    	 <option value="#GradeDeployment#">#GradeDeployment#</option>
-		   </cfoutput>
-		   </select>
-		
-		<cfelse>
-		
-		   <select name="postgrade" id="postgrade" class="regularxl">
-		   <cfoutput query="gradedeploy1">
-	    	 <option value="#GradeDeployment#">#GradeDeployment#</option>
-		   </cfoutput>
-		   </select>
-		</cfif>   
+			<cfif GradeDeploy1.recordcount eq "0">
+			
+				 <select name="postgrade" id="postgrade" class="regularxl">
+			   <cfoutput query="gradedeploy2">
+		    	 <option value="#GradeDeployment#">#GradeDeployment#</option>
+			   </cfoutput>
+			   </select>
+			
+			<cfelse>
+			
+			   <select name="postgrade" id="postgrade" class="regularxl">
+			   <cfoutput query="gradedeploy1">
+		    	 <option value="#GradeDeployment#">#GradeDeployment#</option>
+			   </cfoutput>
+			   </select>
+			</cfif>   
 		
 		</td>
 		
 		<TD class="labelmedium">
 			<img src="<cfoutput>#SESSION.root#</cfoutput>/Images/finger.gif" align="absmiddle" onclick="javascript:gjp()" alt="" border="0">
-			<a href="javascript:gjp()"><font color="0080C0"><cf_tl id="View job profile"></font></a>
+			<a href="javascript:gjp()"><cf_tl id="View job profile"></a>
 		</td>
 		
-		</tr></table>
+		</tr>
+		</table>
 	   </td>
 	</tr>
 	
@@ -310,20 +314,20 @@ password="#SESSION.dbpw#">
 	<tr> 
     <TD class="labelmedium"><cf_tl id="Location">:</TD>
     <TD>  	
-		<cf_securediv bind="url:getLocation.cfm?mission={mission}">	
+		<cf_securediv bind="url:getLocation.cfm?fillingtextonly=1&mission={mission}">	
 	</TD>
 	</TR>
 
 	<tr> 
     <TD class="labelmedium"><cf_tl id="Job Opening">:</TD>
     <TD>  
+	
 	<cfinput type="Text"
        name="referenceno"
        message="Please enter a valid Job Opening No"      
-       size="20"
-	   validate="integer"
+       size="20"	   
        maxlength="20"
-	   onchange="ColdFusion.navigate('VACheck.cfm?referenceno='+this.value,'va')"
+	   onkeyup="_cf_loadingtexthtml='';	ptoken.navigate('VACheck.cfm?referenceno='+this.value,'va')"
        class="regularxl enterastab">
 	</TD>
 	</TR>
@@ -350,7 +354,7 @@ password="#SESSION.dbpw#">
 	</tr>
 
     <TD class="labelmedium" height="22"><cf_tl id="Position specific">:</TD>
-    <TD class="labelmedium">No
+    <TD class="labelmedium"><cf_tl id="No">
 	</TD>
 	</TR>
 		

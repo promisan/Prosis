@@ -42,7 +42,21 @@ password="#SESSION.dbpw#">
 
 <cfif showFlow eq "1">
 	
-	<cfset link = "Staffing/Application/Position/PositionParent/PositionView.cfm?id2=#Position.PositionNo#">			
+	<cfset link = "Staffing/Application/Position/PositionParent/PositionView.cfm?id2=#Position.PositionNo#">	
+	
+	<cfif url.init eq "1">		
+	
+		<cfquery name="CloseCurrent" 
+			 datasource="AppsEmployee"
+			 username="#SESSION.login#" 
+			 password="#SESSION.dbpw#">
+				 UPDATE  Organization.dbo.OrganizationObject
+				 SET     Operational = 0
+				 WHERE   ObjectKeyValue1 = '#Parent.PositionParentId#'
+				 AND     EntityCode = 'PostClassification'							 
+		</cfquery>
+	
+	</cfif>
 			
 	<cf_ActionListing 
 	    EntityCode        = "PostClassification"
@@ -60,9 +74,5 @@ password="#SESSION.dbpw#">
 		Show              = "Mini"
 		HideCurrent       = "No">
 	
-</cfif>	
- 	
- 		
-	
-	
+</cfif>		
 	

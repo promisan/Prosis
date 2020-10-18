@@ -14,6 +14,6 @@ password="#SESSION.dbpw#">
 <cfoutput>  
 	<script>   		
 		_cf_loadingtexthtml='';	
-		ptoken.navigate('#session.root#/Vactrack/Application/Candidate/Action/ActionListing.cfm?documentNo=#url.documentno#&PersonNo=#url.PersonNo#&actioncode=#url.actioncode#','boxaction#url.PersonNo#')
+		ptoken.navigate('#session.root#/Vactrack/Application/Candidate/Action/ActionListing.cfm?documentNo=#url.documentno#&PersonNo=#url.PersonNo#&actioncode=#url.actioncode#&objectactionid=#url.Objectactionid#','boxaction#url.PersonNo#')
 	</script>	
 </cfoutput>	  

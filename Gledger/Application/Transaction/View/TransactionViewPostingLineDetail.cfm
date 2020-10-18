@@ -141,7 +141,7 @@
 							   <tr>
 							  	 <td class="labelit">
 								  <cfif (access eq "EDIT" and checkdis.recordcount eq "0" and url.print neq 1 and ActionStatus eq "0") or access eq "ALL">											  
-							      <a href="javascript:ColdFusion.navigate('TransactionViewPostingLineEdit.cfm?selected=#contributionlineid#&#link#&fld=contributionlineid','donor#box#')">
+							      <a href="javascript:ptoken.navigate('TransactionViewPostingLineEdit.cfm?selected=#contributionlineid#&#link#&fld=contributionlineid','donor#box#')">
 								  [<cf_tl id="edit">]</a>
 								  </cfif>
 								 </td>
@@ -191,7 +191,7 @@
 							  	 <td class="labelit">
 								 
 								  <cfif (access eq "EDIT" and checkdis.recordcount eq "0" and url.print neq 1 and ActionStatus eq "0") or access eq "ALL">			
-							      <a href="javascript:ColdFusion.navigate('TransactionViewPostingLineEdit.cfm?selected=#programcodeprovider#&#link#&fld=programprovider','programprovider#box#')">
+							      <a href="javascript:ptoken.navigate('TransactionViewPostingLineEdit.cfm?selected=#programcodeprovider#&#link#&fld=programprovider','programprovider#box#')">
 								  <font color="0080FF">[<cf_tl id="edit">]</font>
 								  </cfif>
 								  </a>
@@ -228,8 +228,8 @@
 						    
 						  	 <td class="labelit">							 
 								<cfif (access eq "EDIT" and checkdis.recordcount eq "0" and url.print neq 1 and ActionStatus eq "0") or access eq "ALL">			
-							      <a href="javascript:ColdFusion.navigate('TransactionViewPostingLineEdit.cfm?selected=#fund#&#link#&fld=fund','fund#box#')">
-								  <font color="0080FF">[<cf_tl id="edit">]</font>
+							      <a href="javascript:ptoken.navigate('TransactionViewPostingLineEdit.cfm?selected=#fund#&#link#&fld=fund','fund#box#')">
+								  [<cf_tl id="edit">]
 								  </a>
 								</cfif>							  
 							 </td>
@@ -254,8 +254,8 @@
 							   <tr>
 							  	 <td class="labelit">							 
 								  <cfif (access eq "EDIT" and checkdis.recordcount eq "0" and url.print neq 1 and ActionStatus eq "0") or access eq "ALL">	
-							      <a href="javascript:ColdFusion.navigate('TransactionViewPostingLineEdit.cfm?selected=#programcode#&#link#&fld=program','program#box#')">
-								  <font color="0080FF">[<cf_tl id="edit">]</font>
+							      <a href="javascript:ptoken.navigate('TransactionViewPostingLineEdit.cfm?selected=#programcode#&#link#&fld=program','program#box#')">
+								  [<cf_tl id="edit">]
 								  </cfif>
 								  </a>
 								 </td>

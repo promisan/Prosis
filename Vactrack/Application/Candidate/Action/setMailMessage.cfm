@@ -1,6 +1,28 @@
 <!--- apply mail message content --->
 <cfif url.documentid neq "hide">
 	
+		
+	<cfquery name="Object" 
+	datasource="AppsOrganization" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT       *
+		FROM         OrganizationObject
+		WHERE        Objectid = '#url.ObjectId#'		
+		AND          Operational = 1		
+	</cfquery>
+
+	<cfquery name="get" 
+		datasource="appsVacancy" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT    *
+			FROM      DocumentCandidateReview
+			WHERE     DocumentNo = '#Object.ObjectKeyValue1#' 
+			AND       PersonNo   = '#url.PersonNo#'
+			AND       ActionCode = '#url.actionCode#'			
+	</cfquery>	
+	
 	<cfquery name="Mail" 
 		datasource="appsOrganization" 
 		username="#SESSION.login#" 
@@ -34,11 +56,14 @@
 	   content          = "#Mail.MailSubjectCustom#"			  
 	   returnvariable   = "subject">	
 	   
+	  	   
 	<cfinvoke component = "Service.Process.System.Mail"  
 	   method           = "MailContentConversion" 
-	   objectId         = "#url.ObjectId#" 	
+	   objectId         = "#url.ObjectId#" 
+	   actionid         = "#url.objectactionid#"	
 	   personno         = "#url.Personno#"
 	   functionid       = "#url.Functionid#"
+	   reviewid         = "#get.ReviewId#"	
 	   datetime         = "#STR#"
 	   content          = "#Mail.MailBodyCustom#"			  
 	   returnvariable   = "body">	  		 				 
@@ -47,7 +72,7 @@
 	
 	<table style="width:100%">
 				
-		<tr class="line labelmedium">
+		<tr class="line labelmedium" style="border-top:1px solid silver">
 		    <td style="padding-left:10px"><cf_tl id="Addressee"></td>
 		    <td><input type="text" name="MailTo" style="border:0px;border-left:1px solid silver;width:98%" value="#addressee#" class="regularxxl"></td>
 		</tr>	

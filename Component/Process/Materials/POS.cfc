@@ -2048,8 +2048,26 @@
 
 							<cfset vtotal_locqty = 0>	
 							<cfset total = tra>		
+							
+							
+							<!--- reserved is on the item/warehouse level --->
+							
+							<cfinvoke component = "Service.Process.Materials.Stock"  
+								   method           = "getStock" 
+								   warehouse        = "#warehouse#" 								   						  
+								   ItemNo           = "#itemno#"
+								   UoM              = "#trauom#"							  
+								   returnvariable   = "stock">		
+								   
+							<cfif stock.reserved neq "">
+								<cfset reserved = stock.reserved>
+							<cfelse>
+								<cfset reserved = "0">	
+							</cfif>	
 																			
 							<cfloop index="loc" list="#valueList(myLocation.Location)#">	
+							
+								<!--- stock is on the item/warehouse/location level --->
 								
 								<cfinvoke component = "Service.Process.Materials.Stock"  
 								   method           = "getStock" 
@@ -2059,31 +2077,33 @@
 								   UoM              = "#trauom#"							  
 								   returnvariable   = "stock">		
 								   
-								  <cfif stock.reserved neq "">
-									<cfset pos = stock.onhand - stock.reserved>
-								  <cfelse>
-									<cfset pos = stock.onhand>
-								  </cfif>
-								 								  
-								  <cfif pos gt tra>
-								  
+								<cfset stockavail = stock.onhand>
+								
+								<!--- we deduct the reservation from the stock first and then the remained is available --->
+								
+								<cfif stockavail gt reserved>
+									<cfset stockavail = stockavail - reserved>
+									<cfset reserved = 0>
+								<cfelse>
+									<cfset stockavail = 0>	
+									<cfset reserved = reserved - stockavail>
+								</cfif>
+								  								 								  
+								<cfif stockavail gt tra>								  
 								  	<cfset locqty = tra>
-									<cfset tra = 0>
-									
-								  <cfelse>
+									<cfset tra    = 0>									
+								<cfelse>								  
+								  	<cfset locqty = stockavail>
+									<cfset tra    = tra - stockavail>								  								  
+								</cfif>									  				  
 								  
-								  	<cfset locqty = pos>
-									<cfset tra = tra - pos>
-								  								  
-								  </cfif>									  				  
-								  
-								  <cfif GetSaleUoM.recordCount gt 0 and GetSaleUoM.TransactionUoM neq "">
+								<cfif GetSaleUoM.recordCount gt 0 and GetSaleUoM.TransactionUoM neq "">
 									  <cfset salequantity = locqty / GetSaleUoM.UoMMultiplier>
-								  <cfelse>
+								<cfelse>
 								  	  <cfset salequantity = locqty>	  
-								  </cfif>		
+								</cfif>		
 								  															  
-								  <cfif locqty gt "0">
+								<cfif locqty gt "0">
 								  	
 								  	<cfset vtotal_locqty = vtotal_locqty + locqty>
 								 								 								  								
@@ -2145,10 +2165,18 @@
 									</cfif>	
 										
 								</cfloop>	
-																																
+								
 								<cfif vtotal_locqty eq 0>
 									<!--- Finishing without posting any transaction for this line--->
 									<cf_message message = "Stock was not available in any location for item : #ItemNo# (#trauom#)"
+					  				return = "no">
+					  				<cfabort>
+									
+								</cfif>			
+																																
+								<cfif vtotal_locqty lt total>
+									<!--- Finishing without posting any transaction for this line--->
+									<cf_message message = "Stock was not completely available for item : #ItemNo# (#trauom#)"
 					  				return = "no">
 					  				<cfabort>
 									

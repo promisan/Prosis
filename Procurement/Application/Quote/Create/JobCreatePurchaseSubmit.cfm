@@ -6,6 +6,8 @@
 <cf_tl id="Please select a vendor" var="1">
 <cfset vselect =#lt_text#>
 
+<cf_screentop html="No" jquery="Yes">
+
 <cfif Form.vendororgunit eq "">
 	<cfoutput>
 	<script>
@@ -437,7 +439,16 @@ the requisition orgunit, parent --->
 			 FROM     Materials.dbo.ItemUoM
 			 WHERE    ItemNo        = '#WarehouseItemNo#' 
 			 AND      UoM           = '#WarehouseUoM#' 						
-			 </cfquery>			
+			 </cfquery>		
+			 
+			  <cfquery name="getItem" 
+		     datasource="AppsPurchase" 
+	    	 username="#SESSION.login#" 
+		     password="#SESSION.dbpw#">
+				 SELECT   *
+				 FROM     Materials.dbo.Item
+				 WHERE    ItemNo        = '#WarehouseItemNo#' 			 				
+			 </cfquery>				
 		 
 		    <cfset OfferId              = getPrice.Offerid>
 		 	<cfset OrderTax             = getPrice.ItemTax/100>		
@@ -482,7 +493,7 @@ the requisition orgunit, parent --->
 			<cfset OrderAmountCost      = OrderQuantity*Price>									
 			<cfset OrderAmountTax       = OrderAmountCost*OrderTax>
 											
-			<cfset ItemNo = getUOM.ItemBarCode>
+			<cfset ItemNo = getItem.ItemNoExternal>
 			
 			<!--- we recalculate the base price as this is no longer based on the requisition line base value --->
 			<cf_exchangeRate CurrencyFrom="#form.Currency#" CurrencyTo="#Application.BaseCurrency#" datasource="AppsPurchase">
@@ -621,8 +632,8 @@ the requisition orgunit, parent --->
 		try {  
 			 parent.opener.reloadForm()	} 
 		catch(e) {}		
-			ColdFusion.navigate('SelectLines.cfm?mission=#url.mission#&period=#url.period#','pending')
-			ColdFusion.navigate('../../PurchaseOrder/Purchase/POViewView.cfm?header=No&ID=PO&ID1=#PoNo#&Mode=Edit','contentbox2')
+			ptoken.navigate('SelectLines.cfm?mission=#url.mission#&period=#url.period#','pending')
+			ptoken.navigate('../../PurchaseOrder/Purchase/POViewView.cfm?header=No&ID=PO&ID1=#PoNo#&Mode=Edit','contentbox2')
 			window.focus()
 			
 	</cfoutput>	

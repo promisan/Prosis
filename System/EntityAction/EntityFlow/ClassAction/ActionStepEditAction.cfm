@@ -366,7 +366,7 @@
 											target     = "subbox"
 											targetitem = "#itm#"
 											type       = "vertical"
-											name       = "Custom Dialogs and Fields"
+											name       = "Custom Data entry"
 											source     = "../../EntityObject/WorkflowElement/ClassDocument.cfm?EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&entitycode=#URL.EntityCode#&actionCode=#URL.ActionCode#">	
 													
 							</tr>

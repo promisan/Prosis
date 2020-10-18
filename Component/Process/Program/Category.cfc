@@ -19,9 +19,7 @@
 		<cfargument name="Period"             type="string" required="true">
 		
 		<!--- it is defined if a category has to be shown within a mission through ref_ParameterMissionCategory which is the top level 
-
-
-			Then we define for each item which is passedin the cluster in hierarchy, if the hierarchy item passes the control table, 
+		Then we define for each item which is passedin the cluster in hierarchy, if the hierarchy item passes the control table, 
 
 			obtain for the project top mission, program, period, parent unit -> to cfc
 
@@ -33,19 +31,190 @@
 
 			check category + mission + period 
 
-
-			= if no records for cat, mis, -period- found = pass
-	
+			= if no records for cat, mis, -period- found = pass	
 			= records for period found and match = pass
+			otherwise = hide			
+			we return a list of categorycodes that to be hidden --->
 
-			otherwise = hide
-			
-			we return a list of categorycodes that are relevant for the program / period selected --->
-
-		--->		
+        <!--- ---------------------------------------- --->		
+		<!--- obtain the program of this programcode-- --->
+		<!--- ---------------------------------------- --->
 		
-		   
-	   <cfreturn access>		
+		<cfquery name="get" 
+			datasource="AppsProgram" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			SELECT    *
+			FROM      ProgramPeriod
+			WHERE     ProgramCode = '#ProgramCode#'
+			AND       Period      = '#Period#'			
+		</cfquery>	
+		
+		<cfset phier = get.PeriodHierarchy>
+		<cfset program = "">
+		
+		<!--- ----------------------------------------- --->	
+		<!--- ------obtain the program of it ---------- --->
+		<!--- ----------------------------------------- --->
+		
+		<cfset hier = "">
+		
+		<cfloop index="itm" list="#phier#" delimiters=".">
+				     
+			<cfif hier eq "">
+				<cfset hier = "#itm#">
+			<cfelse>
+			    <cfset hier = "#hier#.#itm#">	
+			</cfif>	
+		
+			<cfquery name="get" 
+				datasource="AppsProgram" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+				SELECT    *
+				FROM      ProgramPeriod Pe
+				WHERE     ProgramCode IN (SELECT ProgramCode 
+				                          FROM   Program 
+										  WHERE  ProgramCode = Pe.ProgramCode
+										  AND    ProgramClass = 'Program')
+				AND       Period      = '#Period#'			
+				AND       PeriodHierarchy = '#hier#'
+				AND       OrgUnit IN (SELECT OrgUnit 
+				                      FROM   Organization.dbo.Organization WHERE Mission = '#mission#')
+			</cfquery>		
+			
+			<cfif get.recordcount eq "1">
+			
+				<cfset program = get.ProgramCode>
+			
+			</cfif>	
+		
+		</cfloop>
+		
+		<!--- ----------------------------------------- --->					
+		<!--- obtain the parent orgunit of this program --->
+		<!--- ----------------------------------------- --->	
+		
+		<cfquery name="get" 
+			datasource="AppsProgram" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			SELECT    *
+			FROM      ProgramPeriod
+			WHERE     ProgramCode = '#ProgramCode#'
+			AND       Period      = '#Period#'			
+		</cfquery>	
+		
+		<cfquery name="orgUnit" 
+			datasource="AppsOrganization" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			SELECT     P.OrgUnit
+			FROM       Organization AS O INNER JOIN
+                       Organization AS P ON O.ParentOrgUnit = P.OrgUnitCode AND O.Mission = P.Mission AND O.MandateNo = P.MandateNo
+			WHERE      O.OrgUnit = '#get.OrgUnit#'			
+		</cfquery>	
+		
+		<cfset orgunit = orgUnit.OrgUnit>
+		
+		<cfquery name="get" 
+			datasource="AppsProgram" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			SELECT    *
+			FROM      ProgramGroup
+			WHERE     ProgramCode = '#ProgramCode#'					
+		</cfquery>	
+		
+		<cfset group = "#valueList(get.ProgramGroup)#"> 
+				
+		<!--- get all the list of categories --->
+		
+		<cfquery name="List" 
+			datasource="AppsProgram" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			SELECT    *
+			FROM      Ref_ProgramCategory
+			WHERE     Code IN     (SELECT    Code
+                                   FROM      Ref_ProgramCategory 
+                                   WHERE     AreaCode = '#areacode#')
+			ORDER BY HierarchyCode
+			
+		</cfquery>	
+		
+		<cfset deny = "">
+		<cfset denyhier = "0">
+		
+		<cfoutput query="List">
+		
+		    <cfset pass = "1">			
+			
+			<cfif find(denyhier,hierarchycode)>
+			
+				<!-- the higher level is denied so also the deeper level will --->
+			
+				<cfset pass = "0">
+								
+			<cfelse>	
+					
+				<cfloop index="itm" list="period,orgunit,program,group">
+				
+					<cfquery name="getControl" 
+						datasource="AppsProgram" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+						SELECT    *
+						FROM      Ref_ProgramCategoryControl
+						WHERE     Code           = '#Code#'
+						AND       Mission        = '#mission#'
+						AND       ControlElement = '#itm#'
+					 </cfquery>
+										 					 					 				 
+					 <cfif GetControl.recordcount gte "1">
+					 				 					 					 					 
+					 	<!--- has filters defined for this element now we check if it is part of the allowed --->
+						
+						<cfset val = evaluate(itm)>
+				 		 
+					 	<cfquery name="getControl" 
+						datasource="AppsProgram" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+							SELECT    *
+							FROM      Ref_ProgramCategoryControl
+							WHERE     Code = '#Code#'
+							AND       Mission = '#mission#'
+							AND       ControlElement = '#itm#'
+							AND       ControlValue   = '#val#'
+					    </cfquery>
+					
+						<cfif getControl.recordcount eq "0">
+						
+							<!--- No, so this one we do not show --->
+							<cfset pass = "0">
+							<cfset denyhier = HierarchyCode>
+						</cfif>
+				 
+				 	</cfif>		
+								 			
+				</cfloop>
+				
+			</cfif>	
+			
+			<cfif pass eq "0">
+			
+			      <cfif deny eq "">
+				  	<cfset deny = "'#code#'">
+				  <cfelse>
+					<cfset deny = "#deny#,'#code#'">
+				  </cfif>	
+				  
+			</cfif>
+		
+		</cfoutput>
+	   
+	   <cfreturn deny>		
 		 
    </cffunction>
    

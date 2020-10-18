@@ -11,7 +11,7 @@
 		   		<table width="100%" cellspacing="0" cellpadding="0" class="formpadding"><tr><td style="padding-left:15px;padding-right:15px">
 			      <textarea class="regular" 			            
 						name="ActionMemo" 
-						style="border:1px solid silver;height:200;padding:4px;font-size:15px;width:98%">#Action.ActionMemo#</textarea>
+						style="border:1px solid silver;height:100;padding:4px;font-size:15px;width:98%">#Action.ActionMemo#</textarea>
 				</td></tr>
 				</table>		
 		   </td>

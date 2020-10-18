@@ -1,9 +1,8 @@
 
 <cfoutput>
 
-
 <style>
-      .Procets{
+      .Procets {
           display: inline;
 		  line-height:18px;
           background:##F4F4F4 url('#SESSION.root#/Images/Process.png') no-repeat 98% center;
@@ -20,27 +19,20 @@
           text-transform: uppercase;
           float: left;
 	      max-width: 158px;
-		  min-width:60px;
-      }
-      .Procets:hover{
+		  min-width:60px; }
+      .Procets:hover {
           background:rgba(174, 192, 108,1) url('#SESSION.root#/Images/Process-W.png') no-repeat 98% center;
           background-size:16px 16px;
           color: ##FFFFFF;
           text-decoration: none;
-          cursor:pointer;
-          
-      }
+          cursor:pointer; }
        @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
-	.Procets,.Procets:hover{
-              
-              background-size:16px 16px;
-              max-width: 158px;
-		      min-width: 70px;
-          }
-         
-      }
-	
-		
+				.Procets,.Procets:hover{              
+            	  background-size:16px 16px;
+	              max-width: 158px;
+			      min-width: 70px;
+          }         
+      }			
  </style>
 
 <cfparam name="url.myclentity" default="">
@@ -69,30 +61,28 @@
 	    ptoken.open(root + "/System/Organization/Application/OrganizationView.cfm?mode=embed&mission=" + mis, "orgtree", "width=980, height=660, status=yes, toolbar=no, scrollbars=yes, resizable=no");		
 	}
 
-	function aboutworkflow(id) {
-	
+	function aboutworkflow(id) {	
 	    try { ProsisUI.closeWindow('aboutworkflow',true)} catch(e){};
 		ProsisUI.createWindow('aboutworkflow', 'About this workflow', '',{x:10,y:10,height:250,width:460,resizable:false,modal:true,center:true});
 		ptoken.navigate('#SESSION.root#/Tools/EntityAction/AboutThisWorkflow.cfm?objectid='+id,'aboutworkflow')					
 	}
 	
-	function setwforgunit(object,org,target) {
-	   _cf_loadingtexthtml='';	
+	function setwforgunit(object,org,target) {	   
+	    _cf_loadingtexthtml='';	
 		ptoken.navigate('#SESSION.root#/Tools/EntityAction/AboutThisWorkflowUnit.cfm?objectid='+object+'&orgunit='+org,'orgunit_'+object)		
 	}
 
 	function templatedetail(id,compare) {
-		  w = #CLIENT.width# - 30;
-		  h = #CLIENT.height# - 100;
-		  window.open("#SESSION.root#/System/Template/TemplateDetail.cfm?id="+id+"&compare="+compare,"_blank","left=20, top=20, width=" + w + ", height= " + h + ", status=yes, toolbar=no, scrollbars=no, resizable=yes")
+		w = #CLIENT.width# - 30;
+		h = #CLIENT.height# - 100;
+		ptoken.open("#SESSION.root#/System/Template/TemplateDetail.cfm?id="+id+"&compare="+compare,"_blank","left=20, top=20, width=" + w + ", height= " + h + ", status=yes, toolbar=no, scrollbars=no, resizable=yes")
 	}
 	
-	function maildialog(obt,cde,glob) {			   
-		window.open("#SESSION.root#/Tools/EntityAction/ProcessMailDialog.cfm?objectid="+obt+"&actioncode="+cde+"&NotificationGlobal="+glob, "wMailDialog", "height=700, width=700");				
+	function maildialog(obt,cde,glob) {			   	
+		ptoken.open("#SESSION.root#/Tools/EntityAction/ProcessMailDialog.cfm?objectid="+obt+"&actioncode="+cde+"&NotificationGlobal="+glob, "wMailDialog", "height=700, width=700");				
 	}	
 	
-	function userlocateN(formname,id,id1,id2,id3,id4) {
-		
+	function userlocateN(formname,id,id1,id2,id3,id4) {		
 		wid = document.body.clientWidth-80		
 		if (wid > 800) {
 		  wid = 800
@@ -101,6 +91,19 @@
 		ptoken.navigate('#SESSION.root#/System/Access/Lookup/UserSearch.cfm?Form=' + formname + '&id=' + id + '&id1=' + id1 + '&id2=' + id2 + '&id3=' + id3 + '&id4=' + id4,'userdialog') 	
 	
 	}
+	
+	function workflowsession(id,refid) {		    
+		ProsisUI.createWindow('wfusersession', 'Workflow user session', '',{x:10,y:10,height:490,width:660,resizable:false,modal:true,center:true});
+		ptoken.navigate('#SESSION.root#/Tools/EntityAction/Session/SessionView.cfm?actionid='+id+'&referenceid='+refid,'wfusersession')					
+	}
+	
+	function workflowsessionsave(id,refid) {		
+	
+			document.sessionform.onsubmit() 
+			if( _CF_error_messages.length == 0 ) {
+				ptoken.navigate('#SESSION.root#/Tools/EntityAction/Session/SessionSubmit.cfm?actionid='+id+'&referenceid='+refid,'wfusersession','','','POST','sessionform')					
+	       	 }   
+	}	 	
 	
 	function object(id) {
 	   ptoken.open("#SESSION.root#/ActionView.cfm?id=" + id, id);	   

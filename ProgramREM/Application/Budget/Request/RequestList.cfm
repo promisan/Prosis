@@ -1,4 +1,5 @@
 
+
 <!--- ------------------------------------------------------------- --->
 <!--- important template to determine if access to edit is possible --->
 <!--- --------- allotment entry detail screen --------------------- --->
@@ -216,7 +217,8 @@ password="#SESSION.dbpw#">
 		--->
 		AND      ActionStatus != '9'
 		
-		ORDER BY D.RequestDue,		         
+		ORDER BY D.RequestDue,		 
+				 CAST(RequestRemarks AS char(10)),        <!--- added by muserref, not 100% sure --->       
 		         RequirementIdParent,  <!--- this is a cluster in selected from one screen --->
 				 D.RequestType DESC, 
 		         R.Description,  

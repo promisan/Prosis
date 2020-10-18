@@ -40,40 +40,12 @@ password="#SESSION.dbpw#">
 	ORDER BY DocumentOrder		
 </cfquery>
 
-<cfif url.type eq "Mail">
-   <cfparam name="URL.ID2" default="new">
-<cfelse>
-   <cfparam name="URL.ID2" default="new">   
-</cfif>
-
-<cfif url.type neq "mail">
-
-	<cfset ret = "return false">
-	<cfset act = "">
-	<cf_assignid>
-	<cfset documentid = rowguid>
+<cfparam name="URL.ID2" default="new">   
+<cfset ret = "return false">
+<cfset act = "">
+<cf_assignid>
+<cfset documentid = rowguid>
 	
-<cfelse>
-
-	<cfset ret = "">
-	<cfif url.id2 eq "new">
-	
-	   <cf_assignid>
-	   <cfset documentid = rowguid>
-	
-	<cfelse>
-		
-		<cfquery name="get" dbtype="query">
-		SELECT * FROM Detail WHERE DocumentCode = '#url.id2#'
-		</cfquery>		    
-		<cfset documentid = get.documentid>	
-		
-	</cfif>
-	<cfset act = "../../EntityObject/ObjectElementSubmit.cfm?entitycode=#URL.entitycode#&documentid=#documentid#&type=#url.type#&id2=new">	
-	
-</cfif>
-
-
 <table width="99%" border="0" cellspacing="0" cellpadding="0" align="center">
 
 	    <tr><td height="4"></td></tr>
@@ -88,24 +60,26 @@ password="#SESSION.dbpw#">
 		
 		<cfform method="POST" name="myfield" onsubmit="#ret#">
 									
-	    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding navigation_table">
+	    <table width="100%" class="formpadding navigation_table">
 			
 	    <TR class="labelmedium line fixrow" style="height:15px">
 		
-		   <td style="padding-left:4px" width="10%"><cf_tl id="Code"></td>
+		   <td style="background-color:white;padding-left:4px;min-width:150px"><cf_tl id="Code"></td>
 		   <cfif url.type neq "Attach" and url.type neq "Field"> 
-		   <td width="40%"><cf_tl id="Description"></td>
+		   <td style="background-color:white" width="80%"><cf_tl id="Description"></td>
 		   <cfelse>
-		   <td width="40%"><cf_tl id="Name"></td>
+		   <td style="background-color:white" width="80%"><cf_tl id="Name"></td>
 		   </cfif>
-		   <td style="cursor:pointer">
-		   	<cf_UIToolTip tooltip="Refer to Prosis Developer reference for instructions on how to define the mode based on the developed embedded form">Mode</cf_UIToolTip>
+		   <td style="cursor:pointer;background-color:white">
+		   	<cf_UIToolTip tooltip="Refer to Prosis Developer reference for instructions on how to define the mode based on the developed embedded form">
+			<font color="gray">
+			<cf_tl id="Usage"></cf_UIToolTip>
 		   </td>		   
 		   <cfif url.type neq "Attach" and url.type neq "Field"> 
-		   <td width="4%"></td>
+		   <td style="background-color:white" width="4%"></td>
 		   <cfelseif url.type eq "Field">
-		   <td width="25%">
-		   	<table cellspacing="0" cellpadding="0">
+		   <td style="background-color:white;;min-width:130px">
+		   	<table>
 		   		<tr class="labelmedium">
 					<td width="40"><cf_tl id="Obl"></td>
 					<td>&nbsp;</td>
@@ -114,15 +88,15 @@ password="#SESSION.dbpw#">
 		  	</table>
 		   </td>
 		   <cfelseif url.type eq "Attach">
-		   <td width="3%"><cf_tl id="Obl"></td>
+		   <td style="background-color:white;min-width:30px"><cf_tl id="Obl"></td>
 		   </cfif>
-		   <td width="40" align="center" style="cursor:pointer">
-			   <cf_UIToolTip tooltip="Listing order">Sort</cf_UIToolTip>
+		   <td style="background-color:white;min-width:30px">
+			   <cf_UIToolTip tooltip="Listing order"><font color="000000"><cf_tl id="Sort"></cf_UIToolTip>
 		   </td>
-		   <td width="40" style="padding-left:6px;cursor:pointer">
-			   <cf_UIToolTip tooltip="Activated / deactivated">Op</cf_UIToolTip>
+		   <td style="background-color:white;padding-left:6px;cursor:pointer;min-width:30px">
+			   <cf_UIToolTip tooltip="Activated / deactivated"><font color="000000">Op</cf_UIToolTip>
 		   </td>
-		   <td colspan="2" align="right" width="70" style="padding-right:6px">
+		   <td colspan="2" align="right" style="background-color:white;padding-right:6px;min-width:40px">
 	       <cfoutput>
 			 <cfif URL.ID2 neq "new">
 			     <A href="#ajaxLink('../../EntityObject/ObjectElement.cfm?EntityCode=#URL.EntityCode#&type=#URL.type#&ID2=new')#"><cf_tl id="Add"></a>
@@ -141,19 +115,27 @@ password="#SESSION.dbpw#">
 
 		<cfif URL.ID2 eq "new">
 											
-			<TR style="background-color:ffffcf">
+			<TR style="background-color:ffffff" class="line">
 			
-			<td style="padding-left:4px;border-right:1px solid silver;border-left:1px solid silver;">			
+			<td style="height:100%;padding-left:4px;border-right:1px solid silver;border-left:1px solid silver;">		
+			
+				<table height="100%" width="100%">
+				<tr><td height="100%">
 			
 			    <cfinput type="Text" 
 			         value="" 
 					 name="DocumentCode" 
-					 style="border:0px;background-color:transparent"
+					 style="border:0px solid silver;background-color:f1f1f1;width:99%;height:100%"
 					 message="You must enter a code" 
 					 required="Yes" 
-					 size="4" 
+					 size="10" 
 					 maxlength="20" 
+					 onkeyUp="_cf_loadingtexthtml='';ptoken.navigate('#session.root#/System/EntityAction/EntityObject/getCodeCheck.cfm?entitycode=#url.entitycode#&value='+this.value,'codecheck')"
 					 class="regularxl">
+					 
+					</td>
+					<td id="codecheck" align="right" style="min-width:20px;padding-right:4px">
+					</tr></table>	 
 					
 	        </td>	
 								   
@@ -169,11 +151,11 @@ password="#SESSION.dbpw#">
 					Required        = "Yes"
 					Message         = "Please enter a description"
 					MaxLength       = "80"
-					style           = "width:95%;border:0px;background-color:transparent"					
+					style           = "width:99%;border:0px;background-color:transparent"					
 					Class           = "regularxl">		
 											
 			</td>
-			<td style="padding-left:4px;border-right:1px solid silver">
+			<td style="min-width:100px;padding-left:4px;border-right:1px solid silver">
 
 			    <cfif URL.type eq "dialog">
 			      <select name="DocumentMode" id="DocumentMode" class="regularxl" style="border:0px;width:99%;background-color:transparent">
@@ -181,6 +163,11 @@ password="#SESSION.dbpw#">
 				   <option value="Ajax">Saves using Ajax</option>
 				   <option value="Popup">Popup</option>
 				  </select>
+			     <cfelseif URL.type eq "session">
+			      <select name="DocumentMode" id="DocumentMode" class="regularxl" style="border:0px;width:99%;background-color:transparent">
+				   <option value="Submit" selected>Submit</option>
+				   <option value="Ajax">Saves using Ajax</option>				   
+				  </select>  
 				<cfelseif URL.type eq "mail"> 
 				 <select name="DocumentMode" id="DocumentMode" class="regularxl" style="border:0px;width:99%;background-color:transparent">
 				   <option value="AsIs" selected>AsIs</option>
@@ -250,7 +237,7 @@ password="#SESSION.dbpw#">
 					
 					 <select name="DocumentMode" id="DocumentMode" class="regularxl" style="border:0px;width:99%;background-color:transparent">
 					    <option value="Step" selected>Step</option>
-						<option value="Header" selected>Header</option>
+						<option value="Header">Header</option>
 						<cfif checkNote.recordcount eq "0">
 							<option value="Notes">Notes</option>
 						</cfif>
@@ -272,13 +259,13 @@ password="#SESSION.dbpw#">
 			   
 			<cfif url.type neq "Attach" and url.type neq "Field"> 			 
 							
-				<td></td>
+				<td style="border-right:1px solid silver"></td>
 				
 			<cfelseif url.type eq "Field">
 			
 			   <td style="border-right:1px solid silver">
 			   	<table cellspacing="0" cellpadding="0">
-		   		<tr><td style="padding-right:4px;padding-left:4px">
+		   		<tr><td style="padding-right:4px;padding-left:4px;border-right:1px solid silver">
 			      <input type="Checkbox" name="FieldRequired" class="radiol" id="FieldRequired" value="0">
 				  </td>
 				  
@@ -305,7 +292,7 @@ password="#SESSION.dbpw#">
 			   
 			</cfif>
 
-			<td align="center" width="35" style="border-right:1px solid silver">
+			<td align="center" style="border-right:1px solid silver">
 			
 			   	<cfinput type="Text" 
 			         name="DocumentOrder" 
@@ -314,20 +301,19 @@ password="#SESSION.dbpw#">
 					 size="1" 						 
 					 value="1"
 					 validate="integer"
-					 style="width:30;text-align:center;border:0px;background-color:transparent"
+					 style="width:100%;text-align:center;border:0px;background-color:transparent"
 					 maxlength="2" 
 					 class="regularxl">
 					
 			</td>
 				
-			<td align="center" width="25" style="border-right:1px solid silver">
+			<td align="center" style="border-right:1px solid silver">
 				<input type="checkbox" 
 				       name="Operational"
 					   class="radiol"
 					   id="Operational" 
 					   value="1" checked>
 			</td>
-
 			
 			<td colspan="2" align="center" style="border-right:1px solid silver">
 			<cfoutput>
@@ -438,10 +424,17 @@ password="#SESSION.dbpw#">
 						
 			<cfif url.type eq "Field">			
 									
-				<tr id="text" bgcolor="ffffff" class="hide">
+				<tr id="text" class="hide">
 				  <td></td>
 				  <td colspan="7">
 				  	  <cfinclude template="ObjectElementText.cfm">
+				   </td>
+				</tr>
+				
+				<tr id="area" class="hide">
+				  <td></td>
+				  <td colspan="7">
+				  	  <cfinclude template="ObjectElementTextArea.cfm">
 				   </td>
 				</tr>
 
@@ -492,7 +485,7 @@ password="#SESSION.dbpw#">
 								<tr>
 								<td class="labelit" style="padding-left:10px">Message:</td>
 								<td><cfinput type  = "Text" 
-									class          = "regular" 
+									class          = "regularxl" 
 									value          = "" 
 									name           = "MessageProcessor" 
 									required       = "No" 
@@ -504,7 +497,7 @@ password="#SESSION.dbpw#">
 								<tr>
 								<td class="labelit" style="padding-left:10px">Message color:</td>
 								<td><cfinput type  = "Text" 
-									class          = "regular" 
+									class          = "regularxl" 
 									value          = "Red" 
 									name           = "DocumentColor" 
 									required       = "No" 
@@ -516,7 +509,7 @@ password="#SESSION.dbpw#">
 								<tr>
 								<td class="labelit" style="padding-left:10px">Instruction auditor:</td>
 								<td><cfinput type  = "Text" 
-									class          = "regular" 
+									class          = "regularxl" 
 									value          = "" 
 									name           = "MessageAudit" 
 									required       = "No" 
@@ -525,7 +518,7 @@ password="#SESSION.dbpw#">
 								</td>
 								</tr>							
 							
-							<cfelseif url.type eq "dialog">
+							<cfelseif url.type eq "dialog" or url.type eq "session">
 							
 								<td class="labelmedium" style="padding-top:6px;padding-right:5px;padding-left:23px;cursor:pointer">
 								
@@ -548,13 +541,11 @@ password="#SESSION.dbpw#">
 									 
 									 </tr>
 									 
-									 <tr><td class="labelmedium" style="padding-top:6px;padding-right:5px;padding-left:23px;cursor:pointer">Table List:</td><td>
+									 <tr><td valign="top" class="labelmedium" style="padding-top:6px;padding-right:5px;padding-left:23px;cursor:pointer">Table List:</td><td>
 									 <cfinclude template="ObjectElementDialog.cfm">
-									 </td>
-															
+									 </td>															
 							
-							<cfelseif url.type eq "script">
-														
+							<cfelseif url.type eq "script">														
 								
 								 <tr>
 								 <td class="labelmedium" style="min-width:100px;padding-top:6px;padding-right:15px;padding-left:23px;cursor:pointer">Runtime&nbsp;Parameter:</td>
@@ -576,7 +567,7 @@ password="#SESSION.dbpw#">
 								<tr>
 								<td class="labelmedium" style="min-width:200px;padding-right:5px;padding-left:23px;cursor:pointer">
 								<cf_UIToolTip
-								tooltip="Select the type of layout the document will have">
+								tooltip="Select the format of document to be generated">
 								Layout:</cf_UIToolTip>
 								</td>
 								<td style="padding:3px">
@@ -606,7 +597,7 @@ password="#SESSION.dbpw#">
 								<td  style="padding:3px">
 								  <select name="DocumentEditor" id="DocumentEditor" class="regularxl">
 								 	  <option value="CK" selected>CK editor</option>
-									  <option value="FCK">FCK Editor [deprecated CF11]</option>
+									  <option value="FCK">FCK Editor [deprecated]</option>
 								  </select>
 								</td>								
 								</tr>													
@@ -699,8 +690,8 @@ password="#SESSION.dbpw#">
 																			
 			    <input type="hidden" name="DocumentCode" id="DocumentCode" value="<cfoutput>#nm#</cfoutput>">
 																	
-				<TR bgcolor="ffffcf" class="line">
-				   <td height="30" style="padding-left:10px;border-right:1px solid silver">#nm#</td>
+				<TR bgcolor="ffffff" class="line">
+				   <td height="30" style="background-color:f4f4f4;padding-left:10px;border-right:1px solid silver">#nm#</td>
 				   <td style="border-right:1px solid silver">
 				   
 				   	<cf_LanguageInput
@@ -717,7 +708,7 @@ password="#SESSION.dbpw#">
 						Class           = "regularxl">
 				   	 				  
 		           </td>
-				   <td style="border-right:1px solid silver">
+				   <td style="min-width:100px;border-right:1px solid silver">
 				   				   
 				   <cfif URL.type eq "dialog">
 				      <select name="DocumentMode" id="DocumentMode" class="regularxl" style="border:0px;width:99%;background-color:transparent">
@@ -725,6 +716,11 @@ password="#SESSION.dbpw#">
 					   <option value="Ajax" <cfif md eq "Ajax">selected</cfif>>Saves using Ajax</option>
 					   <option value="Popup" <cfif md eq "Popup">selected</cfif>>Popup</option>
 					  </select>
+					   <cfelseif URL.type eq "session">
+				      <select name="DocumentMode" id="DocumentMode" class="regularxl" style="border:0px;width:99%;background-color:transparent">
+					   <option value="Submit" <cfif md eq "Submit">selected</cfif>>Submit</option>
+					   <option value="Ajax" <cfif md eq "Ajax">selected</cfif>>Saves using Ajax</option>				   
+					  </select>    
 					<cfelseif URL.type eq "report"> 
 					 <select name="DocumentMode" id="DocumentMode" class="regularxl" style="border:0px;width:99%;background-color:transparent">
 					   <option value="AsIs" <cfif md eq "AsIs">selected</cfif>>AsIs (Changes are NOT allowed)</option>
@@ -762,52 +758,53 @@ password="#SESSION.dbpw#">
 					  </select>   
 					<cfelseif URL.type eq "field"> 
 					
-					<cfquery name="CheckNote" 
-					datasource="AppsOrganization" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-					    SELECT *
-					    FROM  Ref_EntityDocument 
-						WHERE DocumentMode = 'Notes'
-						AND   EntityCode = '#URL.EntityCode#'
-						AND   DocumentCode = '#URL.ID2#'
-					</cfquery>	
+						<cfquery name="CheckNote" 
+						datasource="AppsOrganization" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+						    SELECT *
+						    FROM  Ref_EntityDocument 
+							WHERE DocumentMode = 'Notes'
+							AND   EntityCode = '#URL.EntityCode#'
+							AND   DocumentCode = '#URL.ID2#'
+						</cfquery>	
 						
-					<cfquery name="CheckCost" 
-					datasource="AppsOrganization" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-					    SELECT *
-					    FROM  Ref_EntityDocument 
-						WHERE DocumentMode = 'Cost'  
-						AND    EntityCode = '#URL.EntityCode#'
-						AND   DocumentCode = '#URL.ID2#'
-					</cfquery>
+						<cfquery name="CheckCost" 
+						datasource="AppsOrganization" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+						    SELECT *
+						    FROM  Ref_EntityDocument 
+							WHERE DocumentMode = 'Cost'  
+							AND    EntityCode = '#URL.EntityCode#'
+							AND   DocumentCode = '#URL.ID2#'
+						</cfquery>
 					
-					<cfquery name="CheckWork" 
-					datasource="AppsOrganization" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-					    SELECT *
-					    FROM  Ref_EntityDocument 
-						WHERE DocumentMode = 'Work'
-						AND    EntityCode = '#URL.EntityCode#'
-						AND   DocumentCode = '#URL.ID2#'
-					</cfquery>							
+						<cfquery name="CheckWork" 
+						datasource="AppsOrganization" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+						    SELECT *
+						    FROM  Ref_EntityDocument 
+							WHERE DocumentMode = 'Work'
+							AND    EntityCode = '#URL.EntityCode#'
+							AND   DocumentCode = '#URL.ID2#'
+						</cfquery>							
 					
-					<select name="DocumentMode" id="DocumentMode" class="regularxl" style="border:0px;width:99%">
-					   <cfif checkNote.recordcount eq "1">
-						   <option value="Notes" <cfif md eq "Notes">selected</cfif>>Notes</option>
-					   </cfif>
-					   <cfif checkCost.recordcount eq "1">
-						   <option value="Cost" <cfif md eq "Cost">selected</cfif>>Cost</option>
-					   </cfif>
-					   <cfif checkWork.recordcount eq "1">
-						   <option value="Work" <cfif md eq "Work">selected</cfif>>Work</option>
-					   </cfif>
-					   <option value="Step" <cfif md eq "Step">selected</cfif>>Step</option>
-					   <option value="Header" <cfif md eq "Header">selected</cfif>>Header</option>
-					  </select>     
+						<select name="DocumentMode" id="DocumentMode" class="regularxl" style="border:0px;width:99%">
+						   <cfif checkNote.recordcount eq "1">
+							   <option value="Notes" <cfif md eq "Notes">selected</cfif>>Notes</option>
+						   </cfif>
+						   <cfif checkCost.recordcount eq "1">
+							   <option value="Cost" <cfif md eq "Cost">selected</cfif>>Cost</option>
+						   </cfif>
+						   <cfif checkWork.recordcount eq "1">
+							   <option value="Work" <cfif md eq "Work">selected</cfif>>Work</option>
+						   </cfif>
+						   <option value="Step" <cfif md eq "Step">selected</cfif>>Step</option>
+						   <option value="Header" <cfif md eq "Header">selected</cfif>>Header</option>
+						</select>     
+						
 				    <cfelse>
 						<input type="hidden" name="DocumentMode" id="DocumentMode" value="Embed">
 						Embed
@@ -891,7 +888,7 @@ password="#SESSION.dbpw#">
 				
 				<cfif url.type neq "Attach" and url.type neq "Activity" and url.type neq "Field" and url.type neq "Question"> 		
 								 
-				<tr bgcolor="ffffef">
+				<tr bgcolor="ffffff" class="line">
 				   
 				    <td class="labelmedium" style="padding-left:20px">
 					
@@ -940,19 +937,18 @@ password="#SESSION.dbpw#">
 						  <font color="FF0000">&nbsp;*)</font> 
 						  </td>
 						 								   
-					   </cfif>	  
-					   
+					   </cfif>	 					   
 					   
 					   <cfif URL.type eq "dialog">
 							
 						<td align="right" style="padding-left:5px">Log&nbsp;Content:</td>
 						<td style="padding-left:5px">
-								    <input type="checkbox" 
-									       name="LogActionContent" 
-										   id="LogActionContent"
-										   class="radiol"
-										   value="1" 
-										   <cfif "1" eq LogActionContent>checked</cfif>>
+						    <input type="checkbox" 
+							       name="LogActionContent" 
+								   id="LogActionContent"
+								   class="radiol"
+								   value="1" 
+								   <cfif "1" eq LogActionContent>checked</cfif>>
 						</td>
 								
 					   </cfif>
@@ -974,6 +970,13 @@ password="#SESSION.dbpw#">
 					  <td></td>
 					  <td colspan="7">
 					  	  <cfinclude template="ObjectElementText.cfm">
+					   </td>					
+					</tr>
+					
+					<tr id="area" bgcolor="ffffff" class="#cl#">
+					  <td></td>
+					  <td colspan="7">
+					  	  <cfinclude template="ObjectElementTextArea.cfm">
 					   </td>					
 					</tr>
 									
@@ -1004,21 +1007,7 @@ password="#SESSION.dbpw#">
 					</tr>					
 				
 				</cfif>
-				
-				<!---
-				<cfif url.type eq "Mail">			
-									
-				<tr id="mail" bgcolor="ffffff" class="hide">
-				  <td colspan="8">
-				  <table width="100%" cellspacing="0" cellpadding="0"><tr><td>
-				  	  <cfinclude template="ObjectElementMail.cfm">
-				   </td></tr></table>	  
-				   </td>					
-				</tr>
-									
-				</cfif>	
-				--->
-				
+								
 				<cfif url.type neq "Field" and url.type neq "Activity" and url.type neq "question">
 				
 				<tr bgcolor="ffffff">			
@@ -1062,7 +1051,7 @@ password="#SESSION.dbpw#">
 							</tr>
 							
 							<tr>
-							<td class="labelit">Message auditor:</td>
+							<td class="labelit">Auditor:</td>
 							<td><cfinput type  = "Text" 
 								class          = "regularxl" 
 								value          = "#MessageAudit#" 
@@ -1074,7 +1063,7 @@ password="#SESSION.dbpw#">
 							</tr>
 							
 							
-				<cfelseif url.type eq "dialog">
+				<cfelseif url.type eq "dialog" or url.type eq "session">
 											
 							<tr>
 							<td class="labelit">String List:</td>
@@ -1089,7 +1078,7 @@ password="#SESSION.dbpw#">
 							</tr>
 							
 							<tr>
-							<td class="labelit" style="cursor:pointer">Table List:</td>
+							<td class="labelit" valign="top" style="padding-top:6px;cursor:pointer">Table List:</td>
 							<td class="labelit"><cfinclude template="ObjectElementDialog.cfm"></td>
 							</tr>
 							
@@ -1242,7 +1231,7 @@ password="#SESSION.dbpw#">
 					   </cfif>
 				   </td>
 				   <cfif url.type neq "Attach" and url.type neq "Field">  
-					   <td>
+					   <td style="padding-left:3px">
 					   <cfif not FileExists("#SESSION.rootpath#/#DocumentTemplate#") and left("#DocumentTemplate#","11") neq "javascript:">
 					     	 <font color="FF0000">
 							 <cfif len(documenttemplate) gt "20">
@@ -1252,7 +1241,7 @@ password="#SESSION.dbpw#">
 							 </cfif>	 
 					   <cfelse> 	
 					       <cfset ln = replace(documenttemplate,"\","\\","ALL")>		 
-					         <a href="javascript:template('#ln#')">
+					         <a href="javascript:template('#ln#')" title="#documenttemplate#">
 							  <cfif len(documenttemplate) gt "20">
 							 	 #left(documenttemplate,20)#..
 							 <cfelse>
@@ -1324,12 +1313,9 @@ password="#SESSION.dbpw#">
 						  </cfif>
 						  
 						  <td width="20" style="padding-left:2px">
-						   <cf_img icon="edit" navigation="Yes" onclick="#ajaxLink('../../EntityObject/ObjectElement.cfm?EntityCode=#URL.EntityCode#&Type=#URL.Type#&ID2=#nm#')#">
-						   <!---
-						   <A href="#ajaxLink('../../EntityObject/ObjectElement.cfm?EntityCode=#URL.EntityCode#&ID2=#nm#&Type=#URL.Type#')#">
-						   <img src="#SESSION.root#/Images/edit.gif" height="11" width="11" alt="edit" border="0" align="absmiddle">
-						   </a>
-						   --->
+						  
+						   <cf_img icon="open" navigation="Yes" onclick="#ajaxLink('../../EntityObject/ObjectElement.cfm?EntityCode=#URL.EntityCode#&Type=#URL.Type#&ID2=#nm#')#">
+						   
 						  </td>						  
 						  
 						  <cfif DocumentType eq "question">
@@ -1345,8 +1331,9 @@ password="#SESSION.dbpw#">
 							   align="absmiddle">
 							   
 						  </td>
-						  </cfif>						  
-					   	  <td align="center" width="15" style="padding:2px">					
+						  </cfif>	
+						  					  
+					   	  <td align="center" style="min-width:30px;padding-top:3px">					
 						  
 						   <cfset show = 1>
 						   
@@ -1420,13 +1407,7 @@ password="#SESSION.dbpw#">
 							   <cfif show eq "1">
 							   
 							   	 <cf_img icon="delete" onclick="#ajaxLink('../../EntityObject/ObjectElementPurge.cfm?EntityCode=#URL.EntityCode#&ID2=#DocumentId#&Type=#URL.Type#')#">
-							   
-							      <!---
-						 	       <A href="#ajaxLink('../../EntityObject/ObjectElementPurge.cfm?EntityCode=#URL.EntityCode#&ID2=#DocumentId#&Type=#URL.Type#')#">
-								   <img src="#SESSION.root#/Images/delete5.gif" height="12" width="12" alt="delete" border="0" align="absmiddle">
-								   </a>
-								   --->
-								   
+							   								   
 							   </cfif>
 						   	   
 						   </cfif>

@@ -217,7 +217,7 @@
   <cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
   
   <cfchart  style="#chartStyleFile#" 
-  		  	format="png"
+  		  	format="html"
            	chartheight="190"
            	chartwidth="550"
            	scalefrom="0"

@@ -47,7 +47,7 @@
 			
 
 					<td id="attach" align="center" width="110" 
-					onclick="addfile('#mode#','#host#','#DocumentPath#','#Subdirectory#','#Filter#','#attbox#','1','No','#attachdialog#','#pdfscript#')" #selectme#>
+					onclick="addfile('#mode#','#host#','#DocumentPath#','#Subdirectory#','#Filter#','#attbox#','1','No','#attachdialog#','#pdfscript#','#memo#')" #selectme#>
 						 <table cellspacing="0" cellpadding="0"><tr><td style="padding-left:4px">
 						
 						
@@ -62,7 +62,7 @@
 
 				<cfif DocumentServer neq "No">
 						<td id="attach" align="center" width="110" 
-						onclick="addfile('#mode#','#host#','#DocumentPath#','#Subdirectory#','#Filter#','#attbox#','1','#DocumentServer#','#attachdialog#','#pdfscript#')" #selectme#>
+						onclick="addfile('#mode#','#host#','#DocumentPath#','#Subdirectory#','#Filter#','#attbox#','1','#DocumentServer#','#attachdialog#','#pdfscript#','#memo#')" #selectme#>
 							 <table cellspacing="0" cellpadding="0"><tr><td style="padding-left:4px">
 							
 							

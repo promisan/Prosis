@@ -33,6 +33,7 @@ password="#SESSION.dbpw#">
 	    <td width="20"></td>
 	   <td><cf_tl id="Unit"></td>	  
 	   <td><cf_tl id="Code"></td>
+	   <td><cf_tl id="GlAccount"></td>
 	   <td width="40%"><cf_tl id="Description"></td>
 	   <td><cf_tl id="Parent"></td>	
 	   <td><cf_tl id="Frequency"></td>
@@ -72,6 +73,7 @@ password="#SESSION.dbpw#">
 		
 		<td>#unit#</td>	  
 		<td>#unitCode#</td>
+   		<td>#GlAccount#</td>
 		<td>#unitDescription#</td>		
 		<td>#unitparent#</td>		
 		<td>#frequency#</td>

@@ -1,4 +1,5 @@
 
+<cfparam name="url.objectactionid" default="">
 <!--- listing of the action --->
 
 <cfquery name="SearchResult" 
@@ -30,8 +31,9 @@ password="#SESSION.dbpw#">
 <table width="100%" class="navigation_table">
 
 <cfoutput>
+
 <tr class="labelmedium <cfif searchresult.recordcount gte '1'>line</cfif>" style="height:24px;background-color:E6E2DD">
-   <td style="min-width:200px"><a href="javascript:editactivity('','#url.documentNo#','#url.personno#','#url.actioncode#')" title="Add an action for this candidate"><table><tr><td><cf_img icon="add"></td><td><cf_tl id="Add activity"></td></tr></table></a></td>
+   <td style="min-width:200px"><a href="javascript:editactivity('','#url.documentNo#','#url.personno#','#url.actioncode#','#url.objectactionid#')" title="Add an action for this candidate"><table><tr><td><cf_img icon="add"></td><td><cf_tl id="Add activity"></td></tr></table></a></td>
    <td style="min-width:110px"><cf_tl id="Due"></td>   
    <td style="width:100%"><cf_tl id="Message"></td>
    <td style="min-width:140px"><cf_tl id="Officer"></td>
@@ -44,7 +46,7 @@ password="#SESSION.dbpw#">
 	
 	<tr class="labelmedium <cfif actionmemo eq "">line</cfif> navigation_row" style="height:15px">
 	   <td style="padding-left:4px">
-	   <a href="javascript:editactivity('#ActionId#','#url.documentNo#','#url.personno#','#url.actioncode#')">#DocumentDescription#</a>
+	   <a href="javascript:editactivity('#ActionId#','#url.documentNo#','#url.personno#','#url.actioncode#','#url.objectactionid#')">#DocumentDescription#</a>
 	   </td>
 	   <td>#dateformat(ActionDateStart,client.dateformatshow)# #timeformat(ActionDateStart,"HH:MM")#</td>	
 	   	 
@@ -79,7 +81,7 @@ password="#SESSION.dbpw#">
 	   <td>#dateformat(Created,client.dateformatshow)# #timeformat(Created,"HH:MM")#</td>
 	   <td style="padding-top:2px">
 	   <cfif actionstatus eq "0">
-	   <cf_img onclick="deleteactivity('#ActionId#','#url.documentNo#','#url.personno#','#url.actioncode#')" icon="delete">
+	   <cf_img onclick="deleteactivity('#ActionId#','#url.documentNo#','#url.personno#','#url.actioncode#','#url.objectactionid#')" icon="delete">
 	   </cfif>
 	   </td>
 	</tr>

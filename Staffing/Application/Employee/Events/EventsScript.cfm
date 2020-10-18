@@ -26,27 +26,7 @@
         });
     } 
 	
-	function eventportaladd(personno,scope, mission, trigger, event, reason) {    	
-    	Prosis.busy('yes');
-    	_cf_loadingtexthtml='';		
-		ProsisUI.createWindow('evdialog', 'HR Event request', '',{x:200,y:200,height:document.body.clientHeight-100,width:document.body.clientWidth-200,modal:true,resizable:false,center:true})    					
-    	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventForm.cfm?scope='+scope+'&portal=#url.portal#&personNo='+personno+'&pmission='+mission+'&ptrigger='+trigger+'&preason='+reason+'&pevent='+event,'evdialog')		 	
-    }
 	
-	function eventportalaedit(key,scope, mission, trigger, event, reason) {    	
-    	Prosis.busy('yes');
-    	_cf_loadingtexthtml='';		
-		ProsisUI.createWindow('evdialog', 'HR Event request', '',{x:200,y:200,height:document.body.clientHeight-100,width:document.body.clientWidth-200,modal:true,resizable:false,center:true})    					
-    	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventForm.cfm?scope='+scope+'&portal=#url.portal#&id='+key+'&pmission='+mission+'&ptrigger='+trigger+'&preason='+reason+'&pevent='+event,'evdialog')		 	
-    }
-	
-	function eventportaldelete(event,scope, mission, trigger, eventCode, reason) {
-		Ext.MessageBox.confirm('Delete', 'Are you sure ?', function(btn){
-		   if(btn === 'yes'){
-		       ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventsDelete.cfm?scope='+scope+'&eventid='+event+'&mission='+mission+'&trigger='+trigger+'&reason='+reason+'&event='+eventCode,'divEventDetail');
-		   }
-		 });
-    }
     
    function eventadd(personno,scope) {    	
     	Prosis.busy('yes');

@@ -178,7 +178,7 @@
 								 AND   DocumentCode = '#ActionDialog#'
 						</cfquery>													
 													
-							<tr style="height:100%;font-size:10px" class="labelmedium">
+							<tr style="height:25px;font-size:10px" class="labelmedium">
 																							
 								<cfparam name="ActionProcess" default="Do it">
 								
@@ -248,7 +248,7 @@
 							<cfset boxend = "gray">
 						</cfif>							
 					
-						<tr><td style="padding-left:10px;max-width:360px;background-color:#boxend#;cursor: pointer;color:white;" align="center">																																
+						<tr><td style="padding-left:10px;height:25px;max-width:360px;background-color:#boxend#;cursor: pointer;color:white;" align="center">																																
 																
 								<cfparam name="ActionCompleted" default="">
 								<cfparam name="ActionDenied"    default="">
@@ -256,7 +256,7 @@
 								<cfif actionStatus eq "2Y" and ActionCompleted neq "">#ActionCompleted#
 								<cfelseif actionStatus eq "2" and ActionCompleted neq "">#ActionCompleted#
 								<cfelseif actionStatus eq "2N" and ActionDenied neq "">#ActionDenied#
-								<cfelse>#ActionDescription#
+								<cfelse>#ActionReference#: #ActionDescription#
 								</cfif>
 							
 						</td>

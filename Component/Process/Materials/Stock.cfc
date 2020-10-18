@@ -127,23 +127,28 @@
 			    <cfset stock.onhand  = "#getOnHand.total#">
 			</cfif>
 			
-			<!--- sales order reservation --->
+			<!--- sales order reservation : Customer request --->
 			
-					<!--- PENDING --->
 			
-			<!--- stock cart --->
+			
+						
+			<!--- stock internal request : Request --->
 			
 			<cfquery name="getReserved" 
 				datasource="AppsMaterials" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
-				SELECT    R.RequestId, RequestedQuantity as Requested,
-				          (SELECT SUM(TransactionQuantity)
+				SELECT    R.RequestId, 
+				          RequestedQuantity as Requested,
+						  
+				          (SELECT ISNULL(SUM(TransactionQuantity),0)
 						   FROM   ItemTransaction
 						   WHERE  Requestid = R.RequestId
 						   AND    TransactionQuantity < 0 ) as Issued  
+						   
 				FROM      Request R
-				WHERE     Status NOT IN ('3','9')			    
+				WHERE     1=1
+				AND       Status NOT IN ('3','9')	<!--- means it was processed --->		    
 				<cfif mission neq "">
 				AND       Mission = '#mission#' 
 				</cfif>
@@ -156,12 +161,8 @@
 			
 			<cfloop query="getReserved">
 			
-			  	<cfif getReserved.Issued neq "">
-					<cfset stock.reserved = stock.reserved + (getReserved.Requested - getReserved.Issued)>
-				<cfelse>
-				    <cfset stock.reserved = stock.reserved + getReserved.Requested>
-				</cfif>
-					
+			  	<cfset stock.reserved = stock.reserved + (getReserved.Requested - getReserved.Issued)>
+									
 			</cfloop>			
 		
 		</cfif>
@@ -169,6 +170,8 @@
 		<cfreturn stock>	
 		
 	</cffunction>	
+	
+
 	
 	<!--- --------------------------------- --->
 	<!--- ----- 0b. get stock list -------- --->

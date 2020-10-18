@@ -65,26 +65,13 @@ function detail(box,cde) {
 
 function object(box,cde) {
 
-	se1 = document.getElementById("d"+box+"_max")
-	se2 = document.getElementById("d"+box+"_min")
-		
-	if (se1.className == "regular") {
-		se1.className = "hide"
-		se2.className = "regular" 
-		try {document.getElementById('boxobject'+box).className = "hide" } catch(e) {}	
-			
-	} else {	
-		se2.className = "hide"
-		se1.className = "regular" 
-		try {document.getElementById('boxobject'+box).className = "regular" } catch(e) {}	
-
-		ptoken.navigate('ActionRecordsDocument.cfm?entitycode=#url.entitycode#&actioncode='+cde,'object'+box)			
-	}	
+    ProsisUI.createWindow('associatedobject', 'Reusable Object', '',{x:30,y:30,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,center:true});       					
+   	ptoken.navigate('ActionRecordsDocument.cfm?box='+box+'&entitycode=#url.entitycode#&actioncode='+cde,'associatedobject'); 	
+	
 }
 
 function objectsave(box,cde) {
-     ptoken.navigate('ActionRecordsDocumentSubmit.cfm?actioncode='+cde,'embed'+box,'','','POST','action')
-	 ptoken.navigate('ActionRecordsDocument.cfm?entitycode=&actioncode=0','object'+box)	
+     ptoken.navigate('ActionRecordsDocumentSubmit.cfm?actioncode='+cde,'embed'+box,'','','POST','actioninformation')	
 } 
 
 function template(file) {  
@@ -123,27 +110,36 @@ function more(bx) {
 
 function toggle(val) {
 
-	switch (val)
-	{
+	switch (val) {
 	case "text":
 	  document.getElementById("text").className = "regular"
 	  document.getElementById("date").className = "hide"
+	  document.getElementById("area").className = "hide"
 	  document.getElementById("list").className = "hide"	  
 	  break;
 	case "list":
 	  document.getElementById("list").className = "regular"
   	  document.getElementById("text").className = "hide"
+	  document.getElementById("area").className = "hide"
 	  document.getElementById("date").className = "hide"	  
 	  break;
 	case "date":
 	  document.getElementById("date").className = "regular"
  	  document.getElementById("list").className = "hide"
+	  document.getElementById("area").className = "hide"
 	  document.getElementById("text").className = "hide"	
 	  break;
+	case "area":
+	  document.getElementById("date").className = "hide"
+ 	  document.getElementById("list").className = "hide"
+	  document.getElementById("area").className = "regular"
+	  document.getElementById("text").className = "hide"	
+	  break;  
 	default:
 		document.getElementById("text").className = "hide"
 		document.getElementById("list").className = "hide"
 		document.getElementById("date").className = "hide"
+		document.getElementById("area").className = "hide"
 	}	
 }
 
@@ -254,8 +250,7 @@ function hl(itm,fld){
 				 <tr><td>  	   
 					   
 					 <cfoutput>
-					 	<cf_securediv id="actionrecords" 
-						       bind="url:ActionRecords.cfm?entitycode=#URL.EntityCode#"> 
+					 	<cf_securediv id="actionrecords" bind="url:ActionRecords.cfm?entitycode=#URL.EntityCode#"> 
 					 </cfoutput>	
 				 
 				 </td></tr>
@@ -336,16 +331,16 @@ function hl(itm,fld){
 			 <table width="95%" border="0" align="center" class="formpadding">
 			 
 				 <tr><td height="10"></td></tr>
-				 <tr bgcolor="ffffff"><td style="height:80;width:40">
+				 <tr bgcolor="ffffff"><td style="height:70px">
 				 
 	 				<cfset l = "dialog">
 					
-	 				 <img src="#SESSION.root#/Images/Logos/System/Form.png"
+	 				 <img src="#SESSION.root#/Images/Logos/System/EntryForm.png"
 					id="#l#Exp" border="0" class="show" height="84"
 					align="absmiddle" style="cursor: pointer;">
 																	
 					</td>
-					<td width="90%" style="min-width:90%;height:50px;font-size:25px;font-weight:200;padding-top:40px" class="labellarge">Embedded Dialogs</td>
+					<td style="height:50px;font-size:25px;padding-top:30px" class="labellarge">Data Entry : Form</td>
 					<td width="15%" style="height:40px;padding-top:40px" align="right" class="labellarge">Linked to Workflow</td>
 				 </tr>		
 									 
@@ -360,6 +355,127 @@ function hl(itm,fld){
 			 
 		  </cfcase>
 		  
+		  <cfcase value="session">			   
+		 
+			 <table width="95%" border="0" align="center" class="formpadding">
+			 
+				 <tr><td height="10"></td></tr>
+				 <tr bgcolor="ffffff"><td style="height:70px">
+				 
+	 				<cfset l = "session">
+					
+	 				 <img src="#SESSION.root#/Images/Logos/System/Session.png"
+					id="#l#Exp" border="0" class="show" height="84"
+					align="absmiddle" style="cursor: pointer;">
+																	
+					</td>
+					<td style="min-width:97%;height:50px;font-size:25px;padding-top:30px" class="labellarge">Data Entry : Web Session</td>
+					<td width="15%" style="height:40px;padding-top:40px" align="right" class="labellarge">Linked to Workflow</td>
+				 </tr>		
+									 
+				 <tr><td colspan="3" id="#l#">  
+				 <cf_securediv id="i#l#" name="i#l#" 
+				        bind="url:../../EntityObject/ObjectElement.cfm?entitycode=#URL.EntityCode#&type=session">
+				 
+				 </td>
+				 </tr>
+			 
+			 </table>
+			 
+		  </cfcase>
+		  
+		  <cfcase value="field">
+			 
+			 	 <table width="95%" align="center" class="formpadding">
+			 
+					 <tr><td height="8"></td></tr>  			 	 
+				 
+				 	 <tr><td align="center" width="30">
+				 
+				 		 <cfset l = "script">
+								
+		 				 <img src="#SESSION.root#/Images/logos/system/entryField.png" 
+							 id="#l#Exp" border="0" class="show" height="84"
+							 align="absmiddle" style="cursor: pointer;">
+						
+		 				 </td>
+						 
+						 <td style="padding-top:40px;height:50px;font-size:25px;padding-left:10px" class="labelmedium"><cf_tl id="Data Entry : Custom Fields"></td>
+						 <td style="padding-top:40px;height:50px;padding-left:10px" align="right" class="labelit">Linked to Workflow Steps or Workflow Objects</td>
+						 
+					 </tr>									 
+									 
+					 <tr><td colspan="3">  
+					 
+					   <cf_securediv id="ifield" 
+					     bind="url:../../EntityObject/ObjectElement.cfm?entitycode=#URL.EntityCode#&type=field">
+									
+					  </td></tr>
+					  
+					 <tr><td height="6"></td></tr>
+					 
+				 </table>	 								   
+				   
+			</cfcase>
+		  
+		  <cfcase value="question">	
+			 
+			  <table width="95%" border="0" align="center" class="formpadding">
+			 
+				 <tr><td height="8"></td></tr>
+			 
+				 <tr><td align="center" width="20">
+				 
+				 <cfset l = "question">
+				
+ 				 <img src="#SESSION.root#/Images/logos/system/questionaire.png" 
+				 id="#l#Exp" height="84" border="0" class="show" align="absmiddle" style="cursor: pointer;">								
+												
+				     </td>
+					 <td style="padding-top:30px;height:50px;font-size:25px" class="labellarge">Data Entry : Questionaire</td>
+					 <td align="right">System Dialog</td>
+					 
+				 </tr>
+								 
+				 <tr><td colspan="3" id="question">  
+				 <cf_securediv id="iquestion" 
+				        bind="url:../../EntityObject/ObjectElement.cfm?entitycode=#URL.EntityCode#&type=question">
+				 
+				 </td></tr>
+				 
+				</table>
+				
+			 </cfcase>	
+			 
+			  <cfcase value="attach">	
+			 
+			  <table width="95%" border="0" align="center" cellspacing="0" cellpadding="0" class="formpadding">
+			 
+				 <tr><td height="8"></td></tr> 
+			 
+			 	 <tr><td align="center" width="20">
+			 
+	 				 <cfset l = "attach">
+					
+	 				 <img src="#SESSION.root#/Images/logos/system/attachment.png" alt="Show attachment" 
+					id="#l#Exp" border="0" class="show" height="84"
+					align="absmiddle" style="cursor: pointer;">
+							
+			          </td>
+					  <td style="height:50px;font-size:25px;padding-top:40px;padding-left:10px" class="labellarge">Attachment</td>
+					  <td align="right">Linked to Object or Action</td>
+				 </tr>
+			     				 
+			     <tr><td colspan="3" id="attach">  
+			 	 <cf_securediv id="iattach" 
+			        bind="url:../../EntityObject/ObjectElement.cfm?entitycode=#URL.EntityCode#&type=attach">
+			 
+				 </td></tr>		
+				 
+			</table>
+				
+			 </cfcase>	
+		  
 		  <cfcase value="rule">
 		  
 		    <table width="95%" border="0" align="center" class="formpadding">
@@ -369,12 +485,12 @@ function hl(itm,fld){
 				<tr>
 				 <td align="center" width="20">				 
 				  <cfset l = "report">				
- 				  <img src="#SESSION.root#/Images/read.gif"  
-				  id="#l#Exp" border="0" class="show" 
+ 				  <img src="#SESSION.root#/Images/Logos/System/Rule.png"  
+				  id="#l#Exp" border="0" class="show" height="84"
 				  align="absmiddle" style="cursor: pointer;">												
 				  </td>
 				  
-				  <td  style="height:50px;font-size:25px" class="labellarge">Conditional global rules for object processing</td>				  
+				  <td  style="height:50px;padding-top:40px;font-size:25px" class="labellarge">Conditional rules for object</td>				  
 				  <td class="labelit" align="right">Used to enforce correct source document</td>
 				 </tr>
 				 
@@ -401,12 +517,12 @@ function hl(itm,fld){
 				<tr>
 				 <td align="center" width="20">				 
 				  <cfset l = "report">				
- 				  <img src="#SESSION.root#/Images/logos/system/report.png" height="64" 
+ 				  <img src="#SESSION.root#/Images/logos/system/report.png" height="84" 
 				  id="#l#Exp" border="0" class="show" 
 				  align="absmiddle" style="cursor: pointer;">												
 				  </td>
 				  
-				  <td style="height:50px;font-size:25px;padding-top:40px" class="labellarge">Printable Documents from master Dialog</td>				  
+				  <td style="height:50px;font-size:25px;padding-top:40px" class="labellarge">Master object document (report)</td>				  
 				  <td align="right">Used for master dialog screen</td>
 				 </tr>
 				 
@@ -434,11 +550,11 @@ function hl(itm,fld){
 				 <td align="center" width="20">				 
 				  <cfset l = "report">				
  				  <img src="#SESSION.root#/Images/logos/system/report.png"  
-				  id="#l#Exp" border="0" class="show" height="64"
+				  id="#l#Exp" border="0" class="show" height="84"
 				  align="absmiddle" style="cursor: pointer;">												
 				  </td>
 				  
-				  <td style="height:50px;font-size:25px;padding-top:40px" class="labellarge">Embedded Documents to be generated by an Action</td>				  
+				  <td style="height:50px;font-size:25px;padding-top:40px" class="labellarge">Reports or Documents to be generated by an Action</td>				  
 				  <td align="right" class="labelit">Linked to Action</td>
 				 </tr>
 									 
@@ -453,62 +569,7 @@ function hl(itm,fld){
 				
 			 </cfcase>	
 			 
-			  <cfcase value="question">	
-			 
-			  <table width="95%" border="0" align="center" class="formpadding">
-			 
-				 <tr><td height="8"></td></tr>
-			 
-				 <tr><td align="center" width="20">
-				 
-				 <cfset l = "question">
-				
- 				 <img src="#SESSION.root#/Images/logos/system/questionaire3.png" id="#l#Exp" height="80" border="0" class="show" align="absmiddle" style="cursor: pointer;">								
-												
-				     </td>
-					 <td style="padding-top:40px;height:50px;font-size:25px" class="labellarge">Process evaluation Questions</td>
-					 <td align="right">System Dialog</td>
-					 
-				 </tr>
-								 
-				 <tr><td colspan="3" id="question">  
-				 <cf_securediv id="iquestion" 
-				        bind="url:../../EntityObject/ObjectElement.cfm?entitycode=#URL.EntityCode#&type=question">
-				 
-				 </td></tr>
-				 
-				</table>
-				
-			 </cfcase>	
-			 
-			  <cfcase value="attach">	
-			 
-			  <table width="95%" border="0" align="center" cellspacing="0" cellpadding="0" class="formpadding">
-			 
-				 <tr><td height="8"></td></tr> 
-			 
-			 	 <tr><td align="center" width="20">
-			 
-	 				 <cfset l = "attach">
-					
-	 				 <img src="#SESSION.root#/Images/logos/system/attachment.png" alt="Show assignment history" 
-					id="#l#Exp" border="0" class="show" height="80"
-					align="absmiddle" style="cursor: pointer;">
-							
-			          </td>
-					  <td style="height:50px;font-size:25px;padding-top:40px;padding-left:10px" class="labellarge">Required Attachments for Object</td>
-					  <td align="right">Linked to Object or Action</td>
-				 </tr>
-			     				 
-			     <tr><td colspan="3" id="attach">  
-			 	 <cf_securediv id="iattach" 
-			        bind="url:../../EntityObject/ObjectElement.cfm?entitycode=#URL.EntityCode#&type=attach">
-			 
-				 </td></tr>		
-				 
-			</table>
-				
-			 </cfcase>	
+			  
 			 
 			 <cfcase value="activity">	
 			 
@@ -520,8 +581,8 @@ function hl(itm,fld){
 			 
 	 				 <cfset l = "attach">
 					
-	 				 <img src="#SESSION.root#/Images/logos/system/attachment.png" alt="Show assignment history" 
-					id="#l#Exp" border="0" class="show" height="80"
+	 				 <img src="#SESSION.root#/Images/logos/system/subactivity.png" 
+					id="#l#Exp" border="0" class="show" height="84"
 					align="absmiddle" style="cursor: pointer;">
 							
 			          </td>
@@ -548,12 +609,12 @@ function hl(itm,fld){
 				 
 					  <cfset l = "mail">
 					
-	 				 <img src="#SESSION.root#/Images/logos/system/mail.png" height="84" alt="EMail Object" 
+	 				 <img src="#SESSION.root#/Images/Logos/System/Mailout.png" height="84" alt="Outgoing eMails" 
 					id="#l#Exp" border="0" class="show" 
 					align="absmiddle" style="cursor: pointer;">
 								
 					 </td>
-					 <td style="height:50px;font-size:25px;padding-top:40;padding-left:14px" class="labellarge">Customised Mails</td>
+					 <td style="height:50px;font-size:25px;padding-top:40;padding-left:14px" class="labellarge"><cf_tl id="Outgoing eMails"></td>
 					 <td align="right" style="padding-top:40px">Linked to Workflow</td>
 				 </tr>
 				 				 
@@ -595,39 +656,7 @@ function hl(itm,fld){
 			 
 			 </cfcase>
 			 
-			 <cfcase value="field">
-			 
-			 	 <table width="95%" border="0" align="center" cellspacing="0" cellpadding="0" class="formpadding">
-			 
-					 <tr><td height="8"></td></tr>  			 	 
-				 
-				 	 <tr><td align="center" width="30">
-				 
-				 		 <cfset l = "script">
-								
-		 				 <img src="#SESSION.root#/Images/logos/system/fields.png" alt="Show assignment history" 
-							 id="#l#Exp" border="0" class="show" height="84"
-							 align="absmiddle" style="cursor: pointer;">
-						
-		 				 </td>
-						 
-						 <td style="padding-top:40px;height:50px;font-size:25px;padding-left:10px" class="labelmedium"><cf_tl id="Custom Fields"></td>
-						 <td style="padding-top:40px;height:50px;padding-left:10px" align="right" class="labelit">Linked to Workflow Steps or Workflow Objects</td>
-						 
-					 </tr>									 
-									 
-					 <tr><td colspan="3">  
-					 
-					   <cf_securediv id="ifield" 
-					     bind="url:../../EntityObject/ObjectElement.cfm?entitycode=#URL.EntityCode#&type=field">
-									
-					  </td></tr>
-					  
-					 <tr><td height="6"></td></tr>
-					 
-				 </table>	 								   
-				   
-			</cfcase>		   
+			 		   
 	   
    </cfswitch>
    

@@ -5,6 +5,10 @@
 	<cfset url.id = "00000000-0000-0000-0000-000000000000">
 </cfif>
 
+<cfif url.actionid eq "">
+	<cfset url.actionid = "00000000-0000-0000-0000-000000000000">
+</cfif>
+
 <cfquery name="Entity" 
 datasource="AppsOrganization" 
 username="#SESSION.login#" 
@@ -96,7 +100,7 @@ password="#SESSION.dbpw#">
 			</td>
 			
 			<td style="padding-left:3px"><select name="ActionHourStart" class="regularxxl" 
-			    onchange="ptoken.navigate('#session.root#/vactrack/application/candidate/action/setMailMessage.cfm?documentid='+document.getElementById('MailDocumentId').value+'&ObjectId=#Object.ObjectId#&PersonNo=#url.PersonNo#&actioncode=#url.actioncode#&functionid=#function.FunctionId#','mail','','','POST','activityform')">
+			    onchange="ptoken.navigate('#session.root#/vactrack/application/candidate/action/setMailMessage.cfm?documentid='+document.getElementById('MailDocumentId').value+'&ObjectId=#Object.ObjectId#&PersonNo=#url.PersonNo#&actioncode=#url.actioncode#&functionid=#function.FunctionId#&objectactionid=#url.actionid#','mail','','','POST','activityform')">
 				<cfloop index="hr" list="08,09,10,11,12,13,14,15,16,17,18,19">
 					 <option value="#hr#" <cfif hr eq hour>selected</cfif>  >#hr#</option>
 	 			</cfloop>
@@ -106,7 +110,7 @@ password="#SESSION.dbpw#">
 			<td style="padding-left:3px">:</td>
 			
 			<td style="padding-left:3px"><select name="ActionMinuteStart" class="regularxxl" 
-			   onchange="ptoken.navigate('#session.root#/vactrack/application/candidate/action/setMailMessage.cfm?documentid='+document.getElementById('MailDocumentId').value+'&ObjectId=#Object.ObjectId#&PersonNo=#url.PersonNo#&actioncode=#url.actioncode#&functionid=#function.FunctionId#','mail','','','POST','activityform')">
+			   onchange="ptoken.navigate('#session.root#/vactrack/application/candidate/action/setMailMessage.cfm?documentid='+document.getElementById('MailDocumentId').value+'&ObjectId=#Object.ObjectId#&PersonNo=#url.PersonNo#&actioncode=#url.actioncode#&functionid=#function.FunctionId#&objectactionid=#url.actionid#','mail','','','POST','activityform')">
 				<cfloop index="min" list="00,15,30,45">
 					 <option value="#min#" <cfif min eq minu>selected</cfif>>#min#</option>
 	 			</cfloop>
@@ -145,7 +149,7 @@ password="#SESSION.dbpw#">
 				<table style="width:100%">
 				<tr class="labelmedium">
 				<td style="font-size:20px;width:20px">
-				<a href="javascript:if (confirm('Resend this mail ?')) { ptoken.navigate('#session.root#/Vactrack/Application/Candidate/Action/ActionMailResend.cfm?documentno=#url.documentno#&personno=#url.personno#&actioncode=#url.actioncode#&actionid=#mail.actionid#','resend')}"><cf_tl id="Resend"></a>
+				<a href="javascript:if (confirm('Resend this mail ?')) { ptoken.navigate('#session.root#/Vactrack/Application/Candidate/Action/ActionMailResend.cfm?documentno=#url.documentno#&personno=#url.personno#&actioncode=#url.actioncode#&actionid=#mail.actionid#&objectactionid=#url.actionid#','resend')}"><cf_tl id="Resend"></a>
 				</td>
 				<td style="font-size:20px;padding-left:3px">
 			    - <cf_tl id="Outgoing MAIL Message">
@@ -178,7 +182,7 @@ password="#SESSION.dbpw#">
 			   
 			   <tr class="labelmedium">
 			   
-			   	  <td align="left" style="font-size:20px"><cf_tl id="Outgoing MAIL message"></td>
+			   	 
 			      
 				  <cfquery name="getmail" 
 					datasource="AppsOrganization" 
@@ -209,7 +213,7 @@ password="#SESSION.dbpw#">
 				  
 				  </cfif>
 				  
-				  <cfif getMail.recordcount lte "3">		
+				  <cfif getMail.recordcount lte "2">		
 				  
 				  	<td align="right">
 					
@@ -223,7 +227,7 @@ password="#SESSION.dbpw#">
 					     class="radiol" 
 						 name="MailDocumentId" 						
 						 value="hide" checked
-						 onclick="_cf_loadingtexthtml='';document.getElementById('MailDocumentId').value='hide';ptoken.navigate('#session.root#/vactrack/application/candidate/action/setMailMessage.cfm?documentid=hide&ObjectId=#Object.ObjectId#&PersonNo=#url.PersonNo#&actioncode=#url.actioncode#&functionid=#function.FunctionId#','mail','','','POST','activityform')">
+						 onclick="_cf_loadingtexthtml='';document.getElementById('MailDocumentId').value='hide';ptoken.navigate('#session.root#/vactrack/application/candidate/action/setMailMessage.cfm?documentid=hide&ObjectId=#Object.ObjectId#&PersonNo=#url.PersonNo#&actioncode=#url.actioncode#&functionid=#function.FunctionId#&objectactionid=#url.actionid#','mail','','','POST','activityform')">
 					  </td>
 				  	  <td style="font-size:17px;padding-left:4px;padding-top:3px">No mail</td>
 				  
@@ -235,7 +239,7 @@ password="#SESSION.dbpw#">
 						 name="MailDocumentId" 
 						 id="MailDocumentId" 
 						 value="#documentId#" 
-						 onclick="_cf_loadingtexthtml='';;document.getElementById('MailDocumentId').value='#documentid#';ptoken.navigate('#session.root#/vactrack/application/candidate/action/setMailMessage.cfm?documentid=#documentid#&ObjectId=#Object.ObjectId#&PersonNo=#url.PersonNo#&actioncode=#url.actioncode#&functionid=#function.FunctionId#','mail','','','POST','activityform')">
+						 onclick="_cf_loadingtexthtml='';;document.getElementById('MailDocumentId').value='#documentid#';ptoken.navigate('#session.root#/vactrack/application/candidate/action/setMailMessage.cfm?documentid=#documentid#&ObjectId=#Object.ObjectId#&PersonNo=#url.PersonNo#&actioncode=#url.actioncode#&functionid=#function.FunctionId#&actionid=#url.actionid#&objectactionid=#url.actionid#','mail','','','POST','activityform')">
 					  </td>
 					  <td style="font-size:17px;padding-left:4px;padding-top:3px">
 					  #DocumentDescription#
@@ -247,10 +251,10 @@ password="#SESSION.dbpw#">
 					 				  
 				  <cfelse>
 				  
-				  <td align="right" style="padding-right:1px">
+				  <td style="padding-right:1px">
 				  
 				 <select name="MailDocumentId" id="MailDocumentId" class="regularxxl" 
-				       onchange="_cf_loadingtexthtml='';ptoken.navigate('#session.root#/vactrack/application/candidate/action/setMailMessage.cfm?documentid='+this.value+'&ObjectId=#Object.ObjectId#&PersonNo=#url.PersonNo#&actioncode=#url.actioncode#&functionid=#function.FunctionId#','mail','','','POST','activityform')">
+				       onchange="_cf_loadingtexthtml='';ptoken.navigate('#session.root#/vactrack/application/candidate/action/setMailMessage.cfm?documentid='+this.value+'&ObjectId=#Object.ObjectId#&PersonNo=#url.PersonNo#&actioncode=#url.actioncode#&functionid=#function.FunctionId#&actionid=#url.actionid#&objectactionid=#url.actionid#','mail','','','POST','activityform')">
 					   
 					 	<option value="hide" selected><cf_tl id="No Mail, just a comment"></option>
 						
@@ -264,6 +268,8 @@ password="#SESSION.dbpw#">
 				</td>
 				
 				</cfif>
+				
+				 <td align="right" style="font-size:20px"><cf_tl id="Outgoing MAIL message"></td>
 			
 				   			   
 			   </tr>
@@ -275,7 +281,7 @@ password="#SESSION.dbpw#">
 			</tr>	
 			
 			<!--- contentbox for mail --->
-			<tr><td id="mail" colspan="2" style="padding-left:0px"></td></tr>
+			<tr><td id="mail" colspan="2" style="height:413px;padding-left:0px"></td></tr>
 			
 		</cfif>
 		
@@ -285,7 +291,7 @@ password="#SESSION.dbpw#">
 			<table class="formspacing">
 				<tr>
 					<td><input type="button" class="button10g" value="Close" onclick="ProsisUI.closeWindow('activitybox')"></td>
-					<td><input type="button" class="button10g" value="Save and Send" onclick="ptoken.navigate('#session.root#/vactrack/application/candidate/action/actionsubmit.cfm?actionid=#url.id#&documentNo=#url.documentno#&PersonNo=#url.PersonNo#&actioncode=#url.actioncode#','actionsubmit','','','POST','activityform')"></td>
+					<td><input type="button" class="button10g" value="Save and Send" onclick="ptoken.navigate('#session.root#/vactrack/application/candidate/action/actionsubmit.cfm?actionid=#url.id#&documentNo=#url.documentno#&PersonNo=#url.PersonNo#&actioncode=#url.actioncode#&objectactionid=#url.actionid#','actionsubmit','','','POST','activityform')"></td>
 				</tr>
 			</table>
 		

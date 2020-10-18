@@ -72,11 +72,11 @@
 						 
 						 <cfif findNoCase("cf_nocache",cgi.query_string)> 
 						 												 
-						 	<cf_textarea height="200"  color="ffffff" resize="Yes" name="ActionMemo" toolbar="basic">#text#</cf_textarea>													 
+						 	<cf_textarea height="100"  color="ffffff" resize="Yes" name="ActionMemo" toolbar="mini">#text#</cf_textarea>													 
 						
 						 <cfelse>
 						 
-						 	<cf_textarea height="200"  color="ffffff" init="Yes" resize="Yes" name="ActionMemo" toolbar="basic">#text#</cf_textarea>													 
+						 	<cf_textarea height="140"  color="ffffff" init="Yes" resize="Yes" name="ActionMemo" toolbar="mini">#text#</cf_textarea>													 
 												 
 						 </cfif>	
 					  
@@ -92,10 +92,12 @@
 					  
 						  <tr><td width="190" style="padding-left:5px" class="labelmedium"><cf_tl id="Memo">:</td></tr>			
 						  		 
-						  <tr><td height="100%" style="padding-left:15px;padding-right:16px">									
+						  <tr><td height="100%" style="padding-left:15px;padding-right:16px">	
+						  
+						  								
 						  <textarea name   = "ActionMemo"
 						            class  = "regular"							
-						            style  = "border-radius:4px;font-size:13px;height:90; width:100%; padding:7px;border:1px solid d4d4d4;background: fafafa">#Doc.ActionMemo#</textarea>
+						            style  = "border-radius:4px;font-size:13px;height:50; width:100%; padding:7px;border:1px solid d4d4d4;background: fafafa">#Doc.ActionMemo#</textarea>
 						  </td></tr>		
 						  			 				
 						  <tr><td height="3"></td></tr>

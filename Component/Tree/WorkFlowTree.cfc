@@ -418,93 +418,119 @@
 
 			<cfset s = structNew()/>
 			<cfset s.value     = "#value#^dialog">
-			<cfset s.img       = "#SESSION.root#/images/Incoming.png">
+			<cfset s.img       = "#SESSION.root#/images/Logos/System/EntryForm.png">
 			<cfset s.parent    = "element">
-			<cfset s.display   = "<span class='labelmedium' style='font-size:13px;height:15px;color:black;'>Entry Forms</span>">
+			<cfset s.display   = "<span class='labelmedium' style='font-size:12px;height:15px;color:black;'>Entry : Form</span>">
 			<cfset s.leafnode=true/>
 			<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=dialog">
+			<cfset s.target    = "right">
+			<cfset arrayAppend(result,s)/>
+			
+			<cfset s = structNew()/>
+			<cfset s.value     = "#value#^question">
+			<cfset s.img       = "#SESSION.root#/images/Logos/System/Questionaire.png">
+			<cfset s.parent    = "element">
+			<cfset s.display   = "<span class='labelmedium' style='font-size:12px;color:black;'>Entry : Questionaire</span>">
+			<cfset s.leafnode=true/>
+			<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=question">
+			<cfset s.target    = "right">
+			<cfset arrayAppend(result,s)/>
+			
+			<cfset s = structNew()/>
+			<cfset s.value     = "#value#^session">
+			<cfset s.img       = "#SESSION.root#/images/Logos/System/Session.png">
+			<cfset s.parent    = "element">
+			<cfset s.display   = "<span class='labelmedium' style='font-size:12px;color:black;'>Entry : Web session</span>">
+			<cfset s.leafnode=true/>
+			<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=session">
 			<cfset s.target    = "right">
 			<cfset arrayAppend(result,s)/>
 
 			<cfset s = structNew()/>
 			<cfset s.value     = "#value#^field">
-			<cfset s.img       = "#SESSION.root#/images/Incoming.png">
+			<cfset s.img       = "#SESSION.root#/images/Logos/System/EntryField.png">
 			<cfset s.parent    = "element">
-			<cfset s.display   = "<span class='labelmedium' style='font-size:13px;height:15px;color:black;'>Entry Fields</span>">
+			<cfset s.display   = "<span class='labelmedium' style='font-size:12px;height:15px;color:black;'>Entry : Field</span>">
 			<cfset s.leafnode=true/>
 			<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=field">
 			<cfset s.target    = "right">
 			<cfset arrayAppend(result,s)/>
 			
 			<cfset s = structNew()/>
-			<cfset s.value     = "#value#^activity">
-			<cfset s.img       = "#SESSION.root#/images/Incoming.png">
+			<cfset s.value     = "#value#^attach">
+			<cfset s.img       = "#SESSION.root#/images/Logos/System/Attachment.png">
 			<cfset s.parent    = "element">
-			<cfset s.display   = "<span class='labelmedium' style='font-size:13px;height:15px;color:black;'>Activities</span>">
+			<cfset s.display   = "<span class='labelmedium' style='font-size:12px;color:black;'>Entry : Attachment</span>">
 			<cfset s.leafnode=true/>
-			<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=activity">
+			<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=attach">
 			<cfset s.target    = "right">
 			<cfset arrayAppend(result,s)/>
-
+			
+			
+			<cfset s = structNew()/>
+			<cfset s.value     = "#value#^report">
+			<cfset s.img       = "#SESSION.root#/images/Logos/System/Report.png">
+			<cfset s.parent    = "element">
+			<cfset s.display   = "<span class='labelmedium' style='font-size:12px;color:black;'>Output : Report</span>">
+			<cfset s.leafnode=true/>
+			<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=report">
+			<cfset s.target    = "right">
+			<cfset arrayAppend(result,s)/>			
+			
 			<cfset s = structNew()/>
 			<cfset s.value     = "#value#^mail">
-			<cfset s.img       = "#SESSION.root#/images/Incoming.png">
+			<cfset s.img       = "#SESSION.root#/images/Logos/System/Mailout.png">
 			<cfset s.parent    = "element">
-			<cfset s.display   = "<span class='labelmedium' style='font-size:13px;height:15px;color:black;'>Outgoing Mails</span>">
+			<cfset s.display   = "<span class='labelmedium' style='font-size:12px;color:black;'>Output : eMail</span>">
 			<cfset s.leafnode=true/>
 			<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=mail">
 			<cfset s.target    = "right">
 			<cfset arrayAppend(result,s)/>
+		
+			<cfset s = structNew()/>
+			<cfset s.value     = "#value#^activity">
+			<cfset s.img       = "#SESSION.root#/images/Logos/System/Subactivity.png">
+			<cfset s.parent    = "element">
+			<cfset s.display   = "<span class='labelmedium' style='font-size:12px;color:black;'>Support : Sub Activity</span>">
+			<cfset s.leafnode=true/>
+			<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=activity">
+			<cfset s.target    = "right">
+			<cfset arrayAppend(result,s)/>		
+			
 
 			<cfset s = structNew()/>
-			<cfset s.value     = "#value#^attach">
-			<cfset s.img       = "#SESSION.root#/images/Incoming.png">
+			<cfset s.value     = "#value#^method">
+			<cfset s.img       = "#SESSION.root#/images/Logos/System/Script.png">
 			<cfset s.parent    = "element">
-			<cfset s.display   = "<span class='labelmedium' style='font-size:13px;height:15px;color:black;'>Attachments</span>">
+			<cfset s.display   = "<span class='labelmedium' style='font-size:12px;color:black;'>Method : Script</span>">
 			<cfset s.leafnode=true/>
-			<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=attach">
+			<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=method">
 			<cfset s.target    = "right">
 			<cfset arrayAppend(result,s)/>
 
 			<cfset s = structNew()/>
 			<cfset s.value     = "#value#^document">
-			<cfset s.img       = "#SESSION.root#/images/Incoming.png">
+			<cfset s.img       = "#SESSION.root#/images/Logos/System/Report.png">
 			<cfset s.parent    = "element">
-			<cfset s.display   = "<span class='labelmedium' style='font-size:13px;height:15px;color:black;'>Master Documents</span>">
+			<cfset s.display   = "<span class='labelmedium' style='font-size:12px;color:black;'>Master : Document</span>">
 			<cfset s.leafnode=true/>
 			<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=document">
 			<cfset s.target    = "right">
 			<cfset arrayAppend(result,s)/>
-
+			
+			<!---
 			<cfset s = structNew()/>
-			<cfset s.value     = "#value#^report">
-			<cfset s.img       = "#SESSION.root#/images/Incoming.png">
+			<cfset s.value     = "#value#^rule">
+			<cfset s.img       = "#SESSION.root#/images/Logos/System/Rule.png">
 			<cfset s.parent    = "element">
-			<cfset s.display   = "<span class='labelmedium' style='font-size:13px;height:15px;color:black;'>Embedded Reports</span>">
+			<cfset s.display   = "<span class='labelmedium' style='font-size:12px;color:black;'>Master : Business rule</span>">
 			<cfset s.leafnode=true/>
-			<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=report">
+			<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=rule">
 			<cfset s.target    = "right">
-			<cfset arrayAppend(result,s)/>
+			<cfset arrayAppend(result,s)/>	
+			--->	
 
-			<cfset s = structNew()/>
-			<cfset s.value     = "#value#^question">
-			<cfset s.img       = "#SESSION.root#/images/Incoming.png">
-			<cfset s.parent    = "element">
-			<cfset s.display   = "<span class='labelmedium' style='font-size:13px;height:15px;color:black;'>Questionaire</span>">
-			<cfset s.leafnode=true/>
-			<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=question">
-			<cfset s.target    = "right">
-			<cfset arrayAppend(result,s)/>
-
-			<cfset s = structNew()/>
-			<cfset s.value     = "#value#^method">
-			<cfset s.img       = "#SESSION.root#/images/Incoming.png">
-			<cfset s.parent    = "element">
-			<cfset s.display   = "<span class='labelmedium' style='font-size:13px;height:15px;color:black;'>SQL Action Scripts</span>">
-			<cfset s.leafnode=true/>
-			<cfset s.href      = "EntityAction/EntityDetail.cfm?EntityCode=#ent#&option=method">
-			<cfset s.target    = "right">
-			<cfset arrayAppend(result,s)/>
+			
 
 		<cfelse>
 

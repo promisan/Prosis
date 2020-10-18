@@ -128,9 +128,7 @@
 			  
 			  <cfset url.ajaxid = "class_#PositionParentId#">
 			  
-			  <td id="#url.ajaxid#" style="height:100%;width:100%">
-			  
-			   	  <input type="hidden" 
+			  <input type="hidden" 
 				   name="workflowlink_#url.ajaxid#" 
 				   id="workflowlink_#url.ajaxid#" 		   
 				   value="StaffingPositionWorkflowClassification.cfm">		
@@ -139,6 +137,9 @@
 				   name="workflowcondition_#url.ajaxid#" 
 				   id="workflowcondition_#url.ajaxid#" 		   
 				   value="?positionparentid=#PositionParentid#&ajaxid=#url.ajaxid#">	
+			  
+			  <td id="#url.ajaxid#" style="height:100%;width:100%">	  
+			   	  
 				 				  
 				  <cf_wfActive entityCode="PostClassification" objectkeyvalue1="#PositionParentId#">
 				  

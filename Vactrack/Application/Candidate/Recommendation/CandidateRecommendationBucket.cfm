@@ -31,63 +31,6 @@ password="#SESSION.dbpw#">
 	WHERE   Owner = '#Edition.Owner#' 
 </cfquery>
 
-<!---
-
-<cfif Parameter.DefaultRosterAdd eq "1">
-
-	<cfset FileNo = round(Rand()*100)>
-
-	<CF_DropTable dbName="AppsQuery" tblName="v#SESSION.acc#Roster#FileNo#">
-
-	<!--- Hanno : the purpose of this is to add something to the default rostered as a generic bucket for rostering --->
-		
-	<cfquery name="Roster" 
-	datasource="AppsSelection" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-		SELECT  DISTINCT FunctionNo, OrganizationCode, GradeDeployment
-		INTO 	userQuery.dbo.v#SESSION.acc#Roster#FileNo#
-		FROM    FunctionOrganization
-		WHERE   SubmissionEdition = '#Parameter.DefaultRoster#'
-		
-	</cfquery>
-	
-	<cfquery name="Roster" 
-	datasource="AppsSelection" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-		INSERT INTO FunctionOrganization
-		           (FunctionNo, OrganizationCode, GradeDeployment, SubmissionEdition, ReferenceNo, Status, OfficerUserId, OfficerLastName, OfficerFirstName)
-		SELECT     DISTINCT F1.FunctionNo, 
-		                   F1.OrganizationCode, 
-						   F1.GradeDeployment, 
-						   '#Parameter.DefaultRoster#' as SubmissionEdition,
-						   'Direct',
-						   '1',
-						   '#SESSION.acc#',
-						   '#SESSION.last#',
-					   	   '#SESSION.first#'
-		FROM       FunctionOrganization F1 INNER JOIN
-		           Ref_SubmissionEdition S ON F1.SubmissionEdition = S.SubmissionEdition LEFT OUTER JOIN
-		           userQuery.dbo.v#SESSION.acc#Roster#FileNo# F2 ON F1.FunctionNo = F2.FunctionNo AND F1.OrganizationCode = F2.OrganizationCode AND 
-		           F1.GradeDeployment    = F2.GradeDeployment
-		WHERE      F1.SubmissionEdition != '#Parameter.DefaultRoster#'
-		AND        S.Owner               = '#Edition.Owner#'
-		AND        S.EnableManualEntry   = 1
-		AND        S.EnableAsRoster      = 1
-		AND        F1.FunctionNo IN (SELECT FunctionNo 
-		                             FROM   FunctionTitle 
-									 WHERE  FunctionRoster = '1' 
-									 AND    FunctionNo = F1.FunctionNo)
-		GROUP BY   F1.FunctionNo, F1.OrganizationCode, F1.GradeDeployment, F2.FunctionNo
-		HAVING     F2.FunctionNo IS NULL
-	</cfquery>
-		
-	<CF_DropTable dbName="AppsQuery" tblName="v#SESSION.acc#Roster#FileNo#">
-
-</cfif>
-
---->
 
 <!--- make listing for this person by excluding existing selections if not '9' --->
 
@@ -119,12 +62,11 @@ password="#SESSION.dbpw#">
 	WHERE  V.SubmissionEdition = '#fun.submissionedition#' 
 	<!--- filter by occupational group of the track to keep the list limited to relevant --->
 	AND    V.OccupationalGroup = '#doc.occupationalgroup#' 	
+	AND    V.GradeDeployment = '#doc.GradeDeployment#'
+	
 	<!--- we show only titles that are enabled as rostered --->
 	<cfif Parameter.DefaultRoster eq fun.submissionedition>
-		AND   V.FunctionRoster = '1'
-		<!--- removed by hanno to enable for titles that are intended for the roster 
-		AND   R.ReferenceNo IN ('Direct','direct')
-		--->
+		AND   (V.FunctionRoster = '1' OR V.ReferenceNo IN ('Direct','direct'))		
 	</cfif>	
 										 
 	ORDER BY OccupationGroupDescription, 
@@ -134,6 +76,8 @@ password="#SESSION.dbpw#">
 			 FunctionDescription						 
 				
 </cfquery>
+
+<cfif FunctionAll.recordcount gte "1">
 
 <table width="99%" align="left">
 
@@ -283,3 +227,7 @@ password="#SESSION.dbpw#">
 </table>
 
 <cfset ajaxonload("doHighlight")>
+
+</cfif>
+
+

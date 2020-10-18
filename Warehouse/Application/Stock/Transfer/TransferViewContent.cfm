@@ -66,6 +66,7 @@
 		    <!--- sync this search with the other receipt search --->
 	AND    (ItemNo LIKE '#vSearchFnd#' 
 	    OR ItemBarCode LIKE '#vSearchFnd#'
+		OR ItemNoExternal  LIKE '#vSearchFnd#'
 		OR ItemDescription LIKE '#vSearchFnd#'  
 		OR TransactionLot LIKE '#vSearchFnd#'
 		OR TransactionReference LIKE '#vSearchFnd#')

@@ -15,11 +15,14 @@ javascript:window.history.forward(1);
 		AND    Period      = '#url.period#'		
 </cfquery>	
 
+<!--- old code on old table 
+
  <cfinvoke component="Service.Process.Organization.Organization"  
 		   method="getUnitScope" 
 		   mode="Parent" 
 		   OrgUnit="#get.OrgUnit#"
-		   returnvariable="orgunits">	
+		   returnvariable="orgunits">			   
+  --->
 
 <cfquery name="CategoryAll" 
 	datasource="AppsProgram" 
@@ -40,7 +43,7 @@ javascript:window.history.forward(1);
 		<!--- hardcoded --->
 		AND  	Area != 'Risk'
 		
-		 <!--- adjusted --->
+		 <!--- adjusted 
 		  
 		  AND    Code IN (
 		                  SELECT Category 
@@ -56,18 +59,20 @@ javascript:window.history.forward(1);
 						  AND    BudgetEarmark = 0
 						  AND    Operational = 1
 						  )	  	
+						  
+			--->			  
 		
 		ORDER BY ParentListingOrder ASC, F.AreaCode ASC, F.ListingOrder ASC
 </cfquery>
 
 <cfinvoke component="Service.Access"
-	Method="Program"
-	ProgramCode="#URL.ProgramCode#"
-	Period="#URL.Period#"	
-	Role="'ProgramOfficer'"	
-	ReturnVariable="EditAccess">
-	
-<cfif CategoryAll.recordcount eq "0" and (EditAccess eq "EDIT" or EditAccess eq "ALL")>
+		Method="Program"
+		ProgramCode="#URL.ProgramCode#"
+		Period="#URL.Period#"	
+		Role="'ProgramOfficer'"	
+		ReturnVariable="EditAccess">
+			
+<cfif (EditAccess eq "EDIT" or EditAccess eq "ALL")>
 
 	<cflocation url="CategoryEntry.cfm?header=1&ProgramCode=#URL.ProgramCode#&Period=#URL.Period#&Layout=#URL.Layout#" addtoken="No">
 
@@ -166,10 +171,9 @@ javascript:window.history.forward(1);
 					
 				</tr>
 			
-			</cfif>											
-	
+			</cfif>		
 		
-	<tr><td colspan="3" class="linedotted"></td></tr>
+	<tr><td colspan="3" class="line"></td></tr>
 	
 	<tr><td></td></tr>
 	

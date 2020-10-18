@@ -17,13 +17,14 @@
 		bootstrap="Yes">
 			
 <cf_actionListingScript>
-<cf_dialogPosition>
-<cf_filelibraryscript>
 <cf_calendarscript>
+
+<cfajaximport tags="cfdiv">
 
 <cfinclude template="../../Application/Employee/Events/EventsScript.cfm">
 
 <cfoutput>
+
 	<script>
 	
 		function selectEvent(code, bg) {
@@ -32,13 +33,36 @@
 			ptoken.navigate('EventBase.cfm?mission=#url.mission#&triggercode=#url.triggercode#&personno=#url.id#&eventcode='+code,'eventBase');
 		}	
 		
-		function selectReason(personno, mission, trigger, event, code) {
+		function selectReason(personno, mission, trigger, event, reason, listcode,ajaxid) {
 			$('.clsEventButtonReason').css('background','##EFEFEF');
-			$('.btnReason_'+code).css('background','##fffdd4');
-			eventportaladd(personno, 1, mission, trigger, event, code);
+			$('.btnReason_'+listcode).css('background','##fffdd4');
+			eventreason(personno, mission, trigger, event, reason, listcode,ajaxid);
 		}	
-	
+		
+		function eventreason(personno, mission, trigger, event, reason, listcode, ajaxid) {    		    	
+	    	_cf_loadingtexthtml='';					
+			ProsisUI.createWindow('evdialog', 'Request', '',{x:200,y:200,height:document.body.clientHeight-150,width:540,modal:true,resizable:true,center:true})    								
+	    	ptoken.navigate('#SESSION.root#/Staffing/Portal/Events/EventForm.cfm?portal=#url.portal#&personNo='+personno+'&mission='+mission+'&trigger='+trigger+'&event='+event+'&reason='+reason+'&reasonlist='+listcode+'&ajaxid='+ajaxid,'evdialog')		 				
+	    }
+		
+		function eventreasonsubmit(ajaxid) {
+		
+		   eff = document.getElementById('ActionDateEffective');
+		   exp = document.getElementById('ActionDateExpiration');	
+		   
+		    if (eff.value == '')  {
+	     		Ext.Msg.alert('Effective date', 'Please specify an effective Date.');	
+    		} else if (exp.value == '') {
+			    Ext.Msg.alert('Effective date', 'Please specify an expiration Date.'); 
+			} else {	
+					
+		   	   ptoken.navigate('#SESSION.root#/Staffing/Portal/Events/EventFormSubmit.cfm?portal=#url.portal#&ajaxid='+ajaxid,ajaxid,'','','POST','eventform')		
+			}
+			   
+		}
+		
 	</script>
+	
 </cfoutput>
 
 <style>
@@ -105,12 +129,14 @@
 
 </cfif>
 
-<table height="100%" width="99%" align="center" border="0">		
+<div class="row" style="min-width:100%; width:100%; padding:10px;">
 
-	<tr>
-		<td valign="top" style="padding-left:10px;padding-right:10px;height:100%">
-			<cf_securediv id="eventdetail" bind="url:EventSelfservice.cfm?scope=#url.scope#&mission=#url.mission#&triggercode=#url.triggercode#&personno=#url.id#&portal=1" style="height:100%;padding:20px;">
-		</td>
-	</tr> 
-     	
-</table>	
+	<div class="col-lg-2 col-xs-4 clsEventMenu toggleScroll-y">
+		<cfinclude template="EventMenu.cfm">
+	</div>
+	
+	<div class="col-lg-10 col-xs-8 col-lg-offset-2 col-xs-offset-4" id="eventBase" style="padding-left:40px;">
+		<cfinclude template="EventBase.cfm">
+	</div>
+
+</div>
