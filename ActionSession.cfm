@@ -1,156 +1,193 @@
 
-<cftry>
+<cfparam name="url.id" default="00000000-0000-0000-0000-000000000000">
+
+<cf_tl id="Problem" var="1">
+<cf_screentop html="No" title="#lt_text#" jquery="yes" bootstrap="yes">
+
+<cf_publicinit>
+
+<style>
+
+	.center-screen {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		min-height: 100vh;
+	}
+
+	.main {
+		height:100%; 
+		width:100%; 
+		padding:30px;
+	}
+
+	.container {
+		background-color:#f5f5f5; 
+		padding:30px; 
+		border:1px solid #a8a8a8; 
+		border-radius:10px; 
+		overflow:hidden; 
+		height:auto;
+	}
+
+	.title {
+		color:#eb4034;
+		font-size:23px; 
+		text-align:center;
+	}
+
+	.subtitle {
+		color:#0A72AF; 
+		font-size:80%;
+	}
+
+	.metainfo {
+		padding-top:10px; 
+		color:#0A72AF; 
+		font-size:110%;
+	}
+
+	.submetainfo {
+		font-size:100%;
+	}
+
+	.logoContainer {
+		text-align:center; 
+		padding-bottom:20px;
+	}
+
+	.logo {
+		height:100px; 
+		width:auto;
+	}
+
+</style>
+
+<cfoutput>
+
+<script>
+
+	function checkUserSession() {		
+		_cf_loadingtexthtml='';				
+		ptoken.navigate('#session.root#/tools/entityaction/session/checkSession.cfm?id=#url.id#&mode=start','sessionbox')
+	}
 	
-	<cfquery name="SessionAction" 
-	 datasource="AppsOrganization">
-		 SELECT *
-		 FROM   OrganizationObjectActionSession 		
-		 WHERE  ActionSessionId = <cfqueryparam	value="#URL.ID#" cfsqltype="CF_SQL_IDSTAMP"> 	
-	</cfquery>
-	
-	<!---
-	<cfif SessionAction.recordcount eq "1" and SessionAction.SessionDocumentId neq "">
-	--->
-	
-							
-	<cfif SessionAction.recordcount eq "1">
-	
-		<cfquery name="Entity" 
-		 datasource="AppsOrganization">
-		 	 SELECT *
-			 FROM   Ref_Entity
-			 WHERE  EntityCode = '#SessionAction.EntityCode#'	 
-		</cfquery>		
-		
-		
-		<cfquery name="Document" 
-		 datasource="AppsOrganization">
-		 	 SELECT *
-			 FROM   Ref_EntityDocument
-			 WHERE  DocumentId = '#SessionAction.SessionDocumentId#'	 
-		</cfquery>	
-		
-		<cfset doc = Document.DocumentTemplate>
-							
-		<cfset go = "1">	
-		 		
-		<cfif SessionAction.ActionId neq "">
-						
-			<cfquery name="Action" 
-			 datasource="AppsOrganization">
-				 SELECT *
-				 FROM   OrganizationObjectAction		
-				 WHERE  ActionId = '#SessionAction.ActionId#'	
+</script>
+
+</cfoutput>
+
+<div class="main center-screen">
+	<div class="container">
+
+		<cfquery name="getLogo" 
+			datasource="AppsInit">
+			SELECT *
+			FROM   Parameter		
+			WHERE  Hostname = '#CGI.HTTP_HOST#'
+		</cfquery>
+
+		<div class="logoContainer">
+			<cfoutput>
+				<img src="#session.root#/#getLogo.ApplicationThemeLogo#" class="logo">
+			</cfoutput>
+		</div>
+
+		<cftry>
+			
+			<cfquery name="SessionAction" 
+			datasource="AppsOrganization">
+				SELECT *
+				FROM   OrganizationObjectActionSession 		
+				WHERE  ActionSessionId = <cfqueryparam	value="#URL.ID#" cfsqltype="CF_SQL_IDSTAMP"> 	
 			</cfquery>
-			
-			<cfquery name="Object" 
-			 datasource="AppsOrganization">
-				 SELECT *
-				 FROM   OrganizationObject	
-				 WHERE  ObjectId = '#Action.ObjectId#'	
-			</cfquery>
-			
-			<!--- set the IP --->
-			
-			<cfif SessionAction.SessionIP eq "">
-			
-				<cfquery name="SessionAction" 
-				 datasource="AppsOrganization">
-					 UPDATE  OrganizationObjectActionSession 		
-					 SET     SessionIP = '#CGI.Remote_Addr#', SessionActualStart = getDate()				 
-					 WHERE   ActionSessionId = <cfqueryparam	value="#URL.ID#" cfsqltype="CF_SQL_IDSTAMP"> 	
-				</cfquery>		
-			
-			</cfif>
-			
-			<cf_publicinit>
 						
-			<table width="90%" cellspacing="2" cellpadding="2">
+			<cfif SessionAction.recordcount eq "1">
 			
-			<cfif Action.ActionStatus neq "0">
-							
-				<tr><td align="center" style="padding-top:40px;color:red;font-size:23px" class="labelmedium">
-				<cfoutput>
-				  Your #Object.Mission# Input form is not no longer active. <br><font size="2" color="0A72AF">Please contact your administrator if you believe this is not correct</p>.	
-				</cfoutput>  
-				</td></tr>
-				
-				<cfset go = "0">	
-								
-			<cfelseif now() lt SessionAction.SessionPlanStart and sessionAction.SessionPlanStart neq "">			
-				
-					<tr>
-					<td align="center" style="padding-top:40px;color:red;font-size:25px" class="labelmedium">
-					<cfoutput>					
-					Your #Object.Mission# Input form is not enabled yet. <br><font size="3" color="0A72AF">It will be available starting #timeformat(SessionAction.SessionPlanStart,"HH:MM")# (#dateformat(SessionAction.SessionPlanStart,client.dateformatshow)#) Local time</p>.	
-					</cfoutput>
-					</td>
-					</tr>				
-				
-				<cfset go = "0">			
-			
-			<cfelseif now() gt SessionAction.SessionPlanEnd and sessionAction.SessionPlanEnd neq "">	
-			    	
-					<tr>
-					<td align="center" style="padding-top:40px;color:red;font-size:25px" class="labelmedium">
-					<cfoutput>					
-					Your #Object.Mission# Input form is no longer available. <br><font size="3" color="0A72AF">It expired #timeformat(SessionAction.SessionPlanEnd,"HH:MM")# (#dateformat(SessionAction.SessionPlanEnd,client.dateformatshow)#) Local time</p>.	
-					</cfoutput>
-					</td>
-					</tr>				
-				
-				<cfset go = "0">
-				
-			<cfelseif SessionAction.SessionIP neq CGI.Remote_Addr>
-						
-			    <tr><td align="center" style="padding-top:40px;color:red;font-size:23px" class="labelmedium">
-				 <cfoutput>
-				  Your #Object.Mission# Input form may not be accessed from different locations. <br><font size="2" color="0A72AF">Please contact your administrator if you believe this is not correct</p>.	
-				 </cfoutput>  
-				</td></tr>	
-				
-				<cfset go = "0">		
-			
-			</cfif>
+				<cfquery name="Entity" 
+				datasource="AppsOrganization">
+					SELECT *
+					FROM   Ref_Entity
+					WHERE  EntityCode = '#SessionAction.EntityCode#'	 
+				</cfquery>	
 									
-			</table>
+				<cfset go = "1">	
+						
+				<cfif SessionAction.ActionId neq "">
+								
+					<cfquery name="Action" 
+					datasource="AppsOrganization">
+						SELECT *
+						FROM   OrganizationObjectAction		
+						WHERE  ActionId = '#SessionAction.ActionId#'	
+					</cfquery>
 					
-		</cfif>
-		
-		<cfif go eq "1">
+					<cfquery name="Object" 
+					datasource="AppsOrganization">
+						SELECT *
+						FROM   OrganizationObject	
+						WHERE  ObjectId = '#Action.ObjectId#'	
+					</cfquery>
 					
-			<cfinvoke component="Service.Process.System.Security" method="passtru" returnvariable="hashvalue"/>				
-			<cflocation url="#SESSION.root#/#doc#?actionsessionid=#url.id#&#hashvalue#" addtoken="No"> 
+					<!--- set the IP --->
+					
+					<cfif SessionAction.SessionIP eq "">
+					
+						<cfquery name="SessionAction" 
+						datasource="AppsOrganization">
+							UPDATE  OrganizationObjectActionSession 		
+							SET     SessionIP = '#CGI.Remote_Addr#', SessionActualStart = getDate()				 
+							WHERE   ActionSessionId = <cfqueryparam	value="#URL.ID#" cfsqltype="CF_SQL_IDSTAMP"> 	
+						</cfquery>		
+					
+					</cfif>
+													
+					<div class="title" id="sessionbox"></div>
+				
+				</cfif>
+							
+			<cfelse>
+
+				<div class="title">
+					<cfoutput>
+					<b>Attention:</b> Requested document has been processed already or does not longer exist.
+					</cfoutput>  
+				</div>	
+				
+			</cfif>			
 			
+			<cfcatch>
+
+				<div class="title">
+					<cfoutput>
+					Form could not be retrieved.
+					<div class="subtitle">Please contact your focal point if the problem persists.</div>
+					</cfoutput>  
+				</div>
+			
+			</cfcatch>
+
+		</cftry>
+
+		<cfif isDefined("SessionAction") AND SessionAction.RecordCount gt 0>
+		
+			<cfoutput>
+			
+				<div class="metainfo">
+					Requested by #SessionAction.OfficerFirstName# #SessionAction.OfficerLastName#.
+					<div class="submetainfo">Local time <span id="timeContainer"></span></div>
+				</div>
+				
+				<script>												
+					setInterval(checkUserSession, 60000) 	
+					_cf_loadingtexthtml='';		
+					ptoken.navigate('#session.root#/tools/entityaction/session/checkSession.cfm?id=#url.id#&mode=start','sessionbox')													
+				</script>
+				
+			</cfoutput>
 		</cfif>
-					
-	<cfelse>
-		
-		<cf_screentop html="No" title="Problem">
-		
-		<table width="90%" height="90" class="formpadding">
-			<tr>
-			<td align="center" style="font-size:20px" class="labelmedium">			
-		  		<b>Attention:</b> Requested document has been processed already or does not longer exist.					
-			</td>
-			</tr>
-		</table>
-		
-	</cfif>
-	
-	
-	<cfcatch>
 
-	<cf_screentop html="No" title="Problem">
-	
-	<table width="90%" cellspacing="2" cellpadding="2">
-	<tr><td align="center" style="padding-top:40px;color:red;font-size:23px" class="labelmedium">
-	  Form could not be retrieved. <br><font size="2" color="0A72AF">Please contact your focal point if the problem persists</p>.	
-	</td></tr>
-	</table>
-	
-	</cfcatch>
-
-</cftry>
-
+	</div>
+</div>
 

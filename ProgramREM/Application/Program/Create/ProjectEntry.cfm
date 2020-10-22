@@ -288,7 +288,7 @@ password="#SESSION.dbpw#">
 
 	<cfset Update="yes">
 	<cfset Action="Edit">
-	<CFSET SubmitAction="ProgramEntryUpdate.cfm?ProgramCode=#URL.EditCode#&header=#url.header#">
+	<CFSET SubmitAction="ProgramEntryUpdate.cfm?ProgramCode=#URL.EditCode#&period=#url.period#&header=#url.header#">
 
 	<cfquery name="Implementer"
      datasource="AppsOrganization"
@@ -638,9 +638,9 @@ function validate(md) {
 		
 		<cfif access neq "READ">
 		
-		<tr><td colspan="6" height="1" class="linedotted"></td></tr>
+		<tr><td colspan="6" height="1" class="line"></td></tr>
 		
-		<tr><td id="savebox" colspan="6" align="center" style="height:40px">
+		<tr><td id="savebox" colspan="6" align="center" style="height:50px">
 					
 			<cfoutput>	   
 												

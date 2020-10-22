@@ -64,7 +64,7 @@
 				   FROM   Program
 				   WHERE  ProgramClass = 'Project'
 				   AND    Mission = '#url.mission#'
-				   ORDER BY Created DESC	   
+				   ORDER BY ProgramName   
 				</cfquery>		
 			 
 			<TD valign="top" style="padding-top:5px" class="labelmedium">
@@ -159,10 +159,7 @@
 				  </tr>
 				  </table>			
 			 </td>  	
-			 
-			 
-		
-			 
+			
 			 <cfif Program.recordcount gte "1" and get.SupplyWarehouse eq "">
 			<td>
 			

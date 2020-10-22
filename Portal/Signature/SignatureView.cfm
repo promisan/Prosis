@@ -4,27 +4,28 @@
 <cfparam name="imageheight" default="80">
 <cfparam name="imagewidth"  default="200">
 
-<tr><td align="center">
+<tr class="labelmedium"><td align="center">
+
 
 <cfoutput>
 
-	 <cfif FileExists("#SESSION.rootDocumentPath#\User\Signature\#account#.png")>		 
-		 
+	 <cfif FileExists("#SESSION.rootDocumentPath#\User\Signature\#account#.png")>		
+	 		 
 	       <cftry>
 		   
 		   	   <cfif url.mode neq "PDF">
-		   
+			  		   
 		       <cfimage 
 				  action="RESIZE" 
 				  source="#SESSION.rootDocumentPath#\User\Signature\#account#.png" 
 				  name="showimage" 
 				  height="#imageheight#" 
 				  width="#imagewidth#">
-				  
+				 				  
 				  <cfimage action="WRITETOBROWSER" source="#showimage#">
 				  
 				<cfelse>
-				
+								
 				  <cf_assignid> 
 									 		
 				  <img src="#SESSION.rootDocument#\User\Signature\#account#.png?id=#rowguid#"
@@ -37,7 +38,7 @@
 				</cfif> 
 				  
 			<cfcatch>
-			
+									
 			  <cf_assignid> 
 									 		
 			  <img src="#SESSION.rootDocument#\User\Signature\#account#.png?id=#rowguid#"
@@ -51,10 +52,11 @@
 			
 			</cftry>
 			
-	 <cfelseif FileExists("#SESSION.rootDocumentPath#\User\Signature\#account#.jpg")>	
+	 <cfelseif FileExists("#SESSION.rootDocumentPath#\User\Signature\#account#.jpg")>
 	 
+	 	 	 	 	 
 		 	<cftry>
-			
+									
 		    	<cfif url.mode neq "PDF">
 		   
 			       <cfimage 
@@ -95,9 +97,9 @@
 			
 			</cftry>	
 		 
-  	 <cfelse>		 
-			 
-		  <b><img src="#SESSION.root#/Images/image-not-found.gif" alt="Not found" style="height: auto;width: #imagewidth#px;margin: auto;" border="0" align="absmiddle"></b>
+  	 <cfelse>		
+	 
+	 No signature has been loaded
 			  
 	 </cfif>
 	 

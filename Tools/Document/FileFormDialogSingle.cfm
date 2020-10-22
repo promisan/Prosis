@@ -13,13 +13,13 @@
 
 <cfif url.pdfscript neq "">
 
-<cf_screentop height="100%" icon="pdfform.png" label="Attach Readable PDF"
+<cf_screentop height="100%" icon="pdfform.png" label="Attach Readable PDF" jquery="Yes"
    scroll="no" banner="gray" html="Yes" user="no" bannerheight="40" layout="webapp">
 
 <cfelse>
 
 
-<cf_screentop height="100%" label="Attach file" html="No"
+<cf_screentop height="100%" label="Attach file" html="No" jquery="Yes"
    scroll="no" banner="red" user="no" bannerheight="40" layout="webapp">
    
 </cfif>
@@ -166,7 +166,7 @@
 
 <tr><td height="6"></td></tr>
 <TR>
-   	<td style="cursor: pointer;" class="labelit" valign="top" style="padding-top:3px"><cf_tl id="Description">:</td>
+   	<td style="cursor: pointer;" class="labelit"><cf_tl id="Description">:</td>
 	
 	<TD>
 	
@@ -229,7 +229,7 @@
 		<td height="30" id="busy" align="center" class="hide" style="padding-left:6px">
 			<table align="center" width="200">
 				<tr><td height="3"></td></tr>
-				<tr><td height="1" class="linedotted"></td></tr>
+				<tr><td height="1" class="line"></td></tr>
 				<tr><td align="center" height="20" class="labelmedium">
 			    <img align="absmiddle" src="<cfoutput>#SESSION.root#</cfoutput>/Images/busy4.gif" alt="" border="0">&nbsp;Uploading ...
 				</td></tr>

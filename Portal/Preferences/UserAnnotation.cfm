@@ -3,9 +3,8 @@
 
 	<tr><td height="10"></td></tr>
 	
-	<tr><td colspan="2"><font size="4"><cf_tl id="Manage Annotation Categories (up to 10)"></b></font></td></tr>
-	<tr><td height="10"></td></tr>
-   
+	<tr class="line"><td colspan="2" class="labellarge"><span style="font-size: 24px;margin: 10px 0 6px;display: block;color: #52565B;"><cf_tl id="Manage Annotation Categories (up to 10)"></span></td></tr>
+		   
 	<tr><td height="4"></td></tr>
 		
 	<cfquery name="List" 

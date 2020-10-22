@@ -467,7 +467,7 @@
 		   <cfif mailatt[1][1] neq "none">
 		   	  			  		   
 		   <tr>
-			  <td colspan="1"><cf_tl id="Attachment">:</b></td>
+			  <td valign="top" style="padding-top:4px" colspan="1"><cf_tl id="Attachment">:</td>
 			  <td>
 		 
 			  <!--- show attachment --->
@@ -525,7 +525,7 @@
 										'#session.first#')					  		
 							</cfquery>	
 							
-							<tr class="labelmedium">							 
+							<tr class="labelmedium" style="height:10px">							 
 											   
 						        <td style="padding-right:4px">								
 						        <input type="checkbox" class="radiol"
@@ -533,7 +533,7 @@
 									id    = "ActionMailAttachment" 
 									value = "#att#" checked>							
 								</td>	
-								<td style="padding-right:10px"><a href="javascript:view('#rowguid#')">#mailatt[att][3]#</a><cfif mailatt[att][4] neq "">: #mailatt[att][4]#</cfif></td>
+								<td style="padding-right:10px;padding-top:2px"><a href="javascript:view('#rowguid#')">#mailatt[att][3]#</a><cfif mailatt[att][4] neq "">: #mailatt[att][4]#</cfif></td>
 							
 							</tr>
 													

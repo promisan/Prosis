@@ -6,13 +6,14 @@
 <cfcomponent>
 
     <cfproperty name="name" type="string">
-    <cfset this.name = "ProgramRoutine">
+    <cfset this.name = "ProgramRoutine for multiple reference tables to control like ProgramCategory, ProgramFinancial and later event">
 	
-	<cffunction name="CategoryControl"
+	<cffunction name="ReferenceTableControl"
              access="public"
              returntype="any"
              displayname="Determine if category item has to be shown for data entry">
 		
+		<cfargument name="ControlObject"      type="string" required="true"  default="Ref_ProgramCategory">	
 		<cfargument name="Mission"            type="string" required="true"  default="">	
 		<cfargument name="AreaCode"           type="string" required="true"  default=""> 
 		<cfargument name="ProgramCode"        type="string" required="true"  default="">
@@ -80,7 +81,7 @@
 				AND       Period      = '#Period#'			
 				AND       PeriodHierarchy = '#hier#'
 				AND       OrgUnit IN (SELECT OrgUnit 
-				                      FROM   Organization.dbo.Organization WHERE Mission = '#mission#')
+				                      FROM   Organization.dbo.Organization WHERE Mission = '#mission#') 
 			</cfquery>		
 			
 			<cfif get.recordcount eq "1">
@@ -103,20 +104,20 @@
 			FROM      ProgramPeriod
 			WHERE     ProgramCode = '#ProgramCode#'
 			AND       Period      = '#Period#'			
-		</cfquery>	
+		</cfquery>				
 		
 		<cfquery name="orgUnit" 
 			datasource="AppsOrganization" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
-			SELECT     P.OrgUnit
+			SELECT     P.OrgUnit, P.Mission
 			FROM       Organization AS O INNER JOIN
                        Organization AS P ON O.ParentOrgUnit = P.OrgUnitCode AND O.Mission = P.Mission AND O.MandateNo = P.MandateNo
 			WHERE      O.OrgUnit = '#get.OrgUnit#'			
 		</cfquery>	
 		
 		<cfset orgunit = orgUnit.OrgUnit>
-		
+						
 		<cfquery name="get" 
 			datasource="AppsProgram" 
 			username="#SESSION.login#" 
@@ -130,6 +131,8 @@
 				
 		<!--- get all the list of categories --->
 		
+		<cfif ControlObject eq "Ref_ProgramCategory">
+				
 		<cfquery name="List" 
 			datasource="AppsProgram" 
 			username="#SESSION.login#" 
@@ -142,6 +145,19 @@
 			ORDER BY HierarchyCode
 			
 		</cfquery>	
+		
+		<cfelse>
+		
+			<cfquery name="List" 
+				datasource="AppsProgram" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+				SELECT    *, Code as HierarchyCode
+				FROM      Ref_ProgramFinancial	
+				ORDER BY ListingOrder		
+			</cfquery>	
+				
+		</cfif>
 		
 		<cfset deny = "">
 		<cfset denyhier = "0">
@@ -165,7 +181,7 @@
 						username="#SESSION.login#" 
 						password="#SESSION.dbpw#">
 						SELECT    *
-						FROM      Ref_ProgramCategoryControl
+						FROM      #ControlObject#Control
 						WHERE     Code           = '#Code#'
 						AND       Mission        = '#mission#'
 						AND       ControlElement = '#itm#'
@@ -182,7 +198,7 @@
 						username="#SESSION.login#" 
 						password="#SESSION.dbpw#">
 							SELECT    *
-							FROM      Ref_ProgramCategoryControl
+							FROM      #ControlObject#Control
 							WHERE     Code = '#Code#'
 							AND       Mission = '#mission#'
 							AND       ControlElement = '#itm#'

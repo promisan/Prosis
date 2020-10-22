@@ -12,6 +12,9 @@ password="#SESSION.dbpw#">
 		name="formsetting">
  	
 <table width="97%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+
+<tr class="line"><td colspan="2" class="labellarge"><span style="font-size: 24px;margin: 10px 0 6px;display: block;color: #52565B;"><cf_tl id="Workflow settings"></span></td></tr>
+	
 	
 	<tr><td height="8"></td></tr>
 	
@@ -59,7 +62,7 @@ password="#SESSION.dbpw#">
 	--->
 	
 	<TR>
-    <TD style="height:25" class="labelmedium">Sent Mail to:</TD>
+    <TD style="height:25" class="labelmedium">Use Mail address:</TD>
     <TD>
 	  <table cellspacing="0" cellpadding="0"><tr>
 		

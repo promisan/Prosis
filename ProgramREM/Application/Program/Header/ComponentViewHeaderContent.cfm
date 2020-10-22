@@ -85,7 +85,7 @@ password="#SESSION.dbpw#">
 <cfloop query="GetArea">
 	
 	<cfinvoke component="Service.Process.Program.Category"  
-		   method         = "CategoryControl" 
+		   method         = "ReferenceTableControl" 
 		   Mission        = "#program.mission#"
 		   ProgramCode    = "#url.ProgramCode#" 
 		   Period         = "#url.period#"

@@ -60,6 +60,8 @@
 		</tr> 
 				
 	</cfoutput>		
+	
+	<tr><td style="height:3px"></td></tr>
 		
 </table>
 

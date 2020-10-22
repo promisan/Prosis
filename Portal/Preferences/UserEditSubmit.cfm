@@ -49,6 +49,21 @@
 		     account="#check.account#">			 						 
 		   
    </cfif>	  
+   
+<cfelseif url.id eq "Signature">	
+
+	<cfparam name="form.Pref_Signature" default="0">
+
+	<cfquery name="UpdateUser" 
+	datasource="AppsSystem" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		UPDATE   UserNames 
+		SET      Pref_Signature           = '#Form.Pref_Signature#',
+		         Pref_SignatureBlock      = '#Form.Pref_SignatureBlock#' 
+		WHERE Account = '#SESSION.acc#'
+	</cfquery>
+	
 	
 <cfelseif url.id eq "Presentation">	
 
@@ -95,12 +110,12 @@
 	datasource="AppsOrganization" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	SELECT *
-	FROM   Ref_Entity 
-	WHERE  Operational = 1
-	AND    Role NOT IN (SELECT Role 
-	                    FROM   Ref_AuthorizationRole 
-						WHERE  SystemModule = 'System')
+		SELECT *
+		FROM   Ref_Entity 
+		WHERE  Operational = 1
+		AND    Role NOT IN (SELECT Role 
+		                    FROM   Ref_AuthorizationRole 
+							WHERE  SystemModule = 'System')
 	</cfquery>
 	
 	<cfloop query="Get">
@@ -117,10 +132,10 @@
 		datasource="AppsSystem" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-			SELECT *
-			FROM   UserEntitySetting
-			WHERE  Account    = '#SESSION.acc#'
-			AND    EntityCode = '#EntityCode#'
+			SELECT  *
+			FROM    UserEntitySetting
+			WHERE   Account     = '#SESSION.acc#'
+			AND     EntityCode  = '#EntityCode#'
 		</cfquery>
 		
 		<cfif check.recordcount eq "0">
@@ -129,12 +144,10 @@
 			datasource="AppsSystem" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
-				INSERT UserEntitySetting
-				(Account,EntityCode,EnableMailNotification,EnableExchangeTask)
-				VALUES
-				('#SESSION.acc#','#EntityCode#','#mail#','#task#')
-			</cfquery>
-		
+				INSERT  UserEntitySetting
+				        (Account,EntityCode,EnableMailNotification,EnableExchangeTask)
+				VALUES  ('#SESSION.acc#','#EntityCode#','#mail#','#task#')
+			</cfquery>		
 		
 		<cfelse>		
 		
@@ -142,11 +155,11 @@
 			datasource="AppsSystem" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
-				UPDATE UserEntitySetting
-				SET    EnableMailNotification = '#mail#',
-				       EnableExchangeTask = '#task#'
-				WHERE  Account = '#SESSION.acc#'
-				AND    EntityCode = '#EntityCode#'
+				UPDATE  UserEntitySetting
+				SET     EnableMailNotification = '#mail#',
+				        EnableExchangeTask = '#task#'
+				WHERE   Account = '#SESSION.acc#'
+				AND     EntityCode = '#EntityCode#'
 			</cfquery>		
 		
 		</cfif>

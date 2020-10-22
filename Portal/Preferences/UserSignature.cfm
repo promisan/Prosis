@@ -1,22 +1,71 @@
 
-<table width="97%" cellspacing="0" cellpadding="0" class="formpadding" align="center">
+
+<cfquery name="Get" 
+datasource="AppsSystem" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT *
+	FROM UserNames 
+	WHERE Account = '#SESSION.acc#'
+</cfquery>
+
+<cfform onsubmit="return false" method="POST" name="formsetting">
+
+<table width="97%" class="formpadding" align="center">
 
 	<tr><td height="4"></td></tr>
-    <tr><td colspan="2" class="labellarge"><span style="font-size: 24px;margin: 20px 0 20px;display: block;color: #52565B;"><cf_tl id="Signature"></span></td></tr>
+    <tr class="line"><td colspan="2" class="labellarge"><span style="font-size: 24px;margin: 10px 0 6px;display: block;color: #52565B;"><cf_tl id="Signature"></span></td></tr>
 			
 	<cfoutput>	
 	<tr><td colspan="2">
 	
 	   <iframe src="../Signature/Signature.cfm?account=#SESSION.acc#"
         width="100%"
-        height="300"
+		style="height:170px"        
         frameborder="0">
 	   </iframe>
 	   
 	</td></tr>
+	
+	<tr class="line"><td colspan="2" class="labellarge"><span style="font-size: 24px;margin: 10px 0 6px;display: block;color: 52565B;"><cf_tl id="EMail Signature"></span></td></tr>
+		
+	<tr><td style="height:40px">
+	<input type="checkbox" name="Pref_Signature" value="1" class="radiol" <cfif get.Pref_Signature eq "1">checked</cfif>>
+	Automatically include my signature on messages that I compose.</td></tr>	
+	
+	<tr><td style="height:40px">
+	<input type="button" name="Prepare Block" value="Propose content" onclick="_cf_loadingtexthtml='';ptoken.navigate('getSignature.cfm','processblock')" class="button10g"></td></tr>	
+		
+	<tr><td colspan="2">
+	
+		<table style="width:520px;height:180px"><tr><td style="border:1px solid silver" id="processblock">
+		
+		<!--- if no data we generate a draft structure based on the user and his unit so he/she can easily update it --->
+	
+	   	<cf_textarea height="180"  width="520"  
+					color="ffffff"
+					toolbar="mini"	
+					init="yes"
+					resize="false"
+					id="block"					
+					name="Pref_SignatureBlock">#Get.Pref_SignatureBlock#</cf_textarea>
+					
+		</td></tr></table>			
+	
+	</td></tr>
+	
+	<tr><td height="1" colspan="2">
+		<cf_tl id="Save" var="vSave">
+		<input type="button" onclick="updateTextArea();prefsubmit('signature')" name="Save" id="Save" value="#vSave#" class="button10g">			
+	</td></tr>
+	
 	</cfoutput>
 	
 </table>	
+
+</cfform>
+
+<cfset ajaxonload("initTextArea")>
 
 <script>
 	Prosis.busy('no');	

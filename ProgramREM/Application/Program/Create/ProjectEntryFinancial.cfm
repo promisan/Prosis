@@ -3,17 +3,23 @@
 
 <cfparam name="url.mode" default="edit">
 
-<table width="94%" align="center" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="94%" align="center" class="formpadding">
 				
-	<TR class="labelit">		    
+	<TR class="labelmedium line">		    
 	    <td height="20" colspan="2"><cf_tl id="Metric"></td>  
 		<TD><cf_tl id="Reference"></TD>
 		<td width="130"><cf_tl id="Officer"></td>
 		<td width="4"></td>
 	</TR>
-					
-	<tr><td colspan="6" height="1" class="linedotted"></td></tr>
 	
+	<cfinvoke component="Service.Process.Program.Category"  
+	   method         = "ReferenceTableControl" 
+	   ControlObject  = "Ref_ProgramFinancial"	   
+	   ProgramCode    = "#url.ProgramCode#" 
+	   Period         = "#url.period#"
+	   AreaCode       = "#areacode#"
+	   returnvariable = "disabled">		
+			
 	<cfquery name="Metrics" 
 	datasource="AppsProgram" 
 	username="#SESSION.login#" 
@@ -21,20 +27,31 @@
 		
 		SELECT   *		       
 		FROM     Ref_ProgramFinancial F
+		<!--- exists for the entity --->
+		WHERE    Code IN (SELECT Code FROM Ref_ProgramFinancialControl WHERE Mission = '#Mission#')		
+		<!--- not disabled for this program --->
+		<cfif disabled neq "">
+		AND       Code NOT IN (#preservesingleQuotes(disabled)#)
+		</cfif>		 
+		
+		<!--- we obtain any code that belongs to the category : 22/10 we moved this out to Ref_ProgramFinancialControl
+		which does not mean the below table can't have a function as well --->
+		<!---
 		WHERE    Code IN (SELECT Code 
 		                  FROM   Ref_ProgramFinancialCategory
 						  WHERE  ProgramCategory IN (SELECT S.Code
-						                             FROM   ProgramCategory P, 
-													        Ref_ProgramCategory R,
-															Ref_ProgramCategory S
-													 WHERE  P.ProgramCategory = R.Code
-													 AND    R.Area = S.Area
-													 AND    P.ProgramCode = '#url.programcode#'													 )
+						                             FROM   ProgramCategory P 
+													        INNER JOIN Ref_ProgramCategory R ON P.ProgramCategory = R.Code
+															INNER JOIN Ref_ProgramCategory S ON R.AreaCode = S.AreaCode
+													 WHERE  P.ProgramCode = '#url.programcode#'		
+											 )
 					     )		                      
+		--->		
+		
+		
 	    ORDER BY ListingOrder
 		
-	</cfquery>
-	
+	</cfquery>	
 					
 	<cfoutput query="Metrics">
 	
@@ -49,9 +66,9 @@
 		    ORDER BY DateEffective DESC
 		</cfquery>
 	
-		<TR>
+		<TR class="labelmedium">
 					  				
-			<TD  class="labelmedium" height="31" width="160">&nbsp;#Description#:
+			<TD  height="31" style="padding-left:4px" width="160">#Description#:
 				<input type="hidden" name="Metric_#currentRow#" id="Metric_#currentRow#" value="#Code#" size="4" maxlength="4"></td>
 			</TD>
 			
@@ -67,7 +84,7 @@
 				       validate="float"
 				       required="No"
 					   class="regularxl"				  
-					   value="#numberformat(last.AmountPlanned,'__,__')#"
+					   value="#numberformat(last.AmountPlanned,',__')#"
 					   message="Please enter a correct amount"
 					   style="width:60;text-align:right"
 				       visible="Yes"
@@ -87,11 +104,12 @@
 				
 					<td height="20">
 					<table>
-						<tr><td width="56" class="labelmedium">
+						<tr class="labelmedium">
+						<td width="56">
 						#APPLICATION.BaseCurrency#
 						</td>
-						<td class="labelmedium">
-						#numberformat(Last.AmountPlanned,"__,__")#
+						<td>
+						#numberformat(Last.AmountPlanned,",__")#
 						</td>
 						</tr>
 					</table>
@@ -103,15 +121,14 @@
 					
 				</cfif>
 			
-			<td class="lalbelit">#last.reference#</td>
+			<td>#last.reference#</td>
 			
 			</cfif>	
 							
-			<td class="labelit">#last.officerfirstName# #last.officerLastName# <font size="1">(#dateformat(last.created,CLIENT.DateFormatShow)# #timeformat(last.created,"HH:MM")#)</font></td>	
+			<td>#last.officerfirstName# #last.officerLastName# <font size="1">(#dateformat(last.created,CLIENT.DateFormatShow)# #timeformat(last.created,"HH:MM")#)</font></td>	
 			<td></td>				
 			
-	</TR>		
-	
+	</TR>			
 		
 	</CFOUTPUT>	
 	

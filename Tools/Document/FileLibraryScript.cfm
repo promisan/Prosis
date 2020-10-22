@@ -139,7 +139,7 @@ function delfile(mode,msg,id,path,host,subdir,filter,name,hl,size,list,insert,re
 							"&attachdialog="+dialog
 	 
 	 _cf_loadingtexthtml='';								
-	 ColdFusion.navigate(url,'att_'+box)							
+	 ptoken.navigate(url,'att_'+box)							
 	 
 	}
 	    
@@ -150,7 +150,7 @@ function logdocfile(id,box) {
  se = document.getElementById("logbox"+box)
  if (se.className == "hide") {
      se.className = "regular"
-	 ColdFusion.navigate('#SESSION.root#/tools/document/FileLog.cfm?id='+id,'logboxcontent'+box)
+	 ptoken.navigate('#SESSION.root#/tools/document/FileLog.cfm?id='+id,'logboxcontent'+box)
  } else {
      se.className = "hide"
  } 

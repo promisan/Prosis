@@ -417,7 +417,7 @@
 														<img src="#SESSION.root#/CFRStage/User/#SESSION.acc#/tn_#name#" 
 														    style="cursor:pointer;border:1px solid ##cccccc;" 
 															align="absmiddle" 
-															alt="Open Image" height="42" border="0" align="center">	
+															alt="Open Image" height="36" width="60" border="0" align="center">	
 															
 															<cfcatch></cfcatch>																							
 															
@@ -430,10 +430,11 @@
 											</td>																											  
 											
 											<td width="50%" style="padding-left:10px;cursor:pointer" 
-											   onclick="embedfile('#contextmode#','#attachment.attachmentid#','show','#attachment.attachmentid#')" class="cellcontent">
+											   onclick="" class="cellcontent">
 											   
 											   <table>											   
-											   <tr class="labelmedium"><td style="color:0080FF">#Nameshow#</td></tr>											   
+											   <tr class="labelmedium"><td style="color:6688aa">
+											   <a href="javascript:embedfile('#contextmode#','#attachment.attachmentid#','show','#attachment.attachmentid#')">#Nameshow#</a></td></tr>											   
 											   <cfif len(Attachment.attachmentMemo) gte "5" and attachment.attachmentmemo neq "Detected">									 	
 													<tr class="labelmedium" style="height:15px">													    
 														<td>#Attachment.AttachmentMemo#</td>
@@ -567,7 +568,7 @@
 												align="absmiddle" 
 												style="cursor: pointer;"
 												tooltip="Remove document" 
-											    onClick="delfile('#contextmode#','Remove attachment #Name#','#attachment.attachmentid#','#DocumentPath#','#host#','#Subdirectory#','#Filter#','#Name#','#list#','#ShowSize#','#Listing#','#Insert#','#remove#','#color#','#attbox#','#rowheader#','#boxw#','#Align#','#Border#','#attachdialog#','#inputsize#','#pdfscript#','#embedgraphic#','#documentserver#','#presentation#','#maxfiles#')"> 
+											    onClick="delfile('#contextmode#','Remove attachment #Name#','#attachment.attachmentid#','#DocumentPath#','#host#','#Subdirectory#','#Filter#','#Name#','#list#','#ShowSize#','#Listing#','#Insert#','#remove#','#color#','#attbox#','#rowheader#','#boxw#','#Align#','#Border#','#attachdialog#','#inputsize#','#pdfscript#','#memo#','#embedgraphic#','#documentserver#','#presentation#','#maxfiles#')"> 
 										
 										 </td>
 									 
@@ -583,7 +584,7 @@
 												align="absmiddle" 
 												style="cursor: pointer;"
 												tooltip="Remove document" 
-											    onClick="delfile('#contextmode#','Remove attachment #Name#','#attachment.attachmentid#','#DocumentPath#','#host#','#Subdirectory#','#Filter#','#Name#','#list#','#ShowSize#','#Listing#','#Insert#','#remove#','#color#','#attbox#','#rowheader#','#boxw#','#Align#','#Border#','#attachdialog#','#inputsize#','#pdfscript#','#embedgraphic#','#documentserver#','#presentation#','#maxfiles#')"> 
+											    onClick="delfile('#contextmode#','Remove attachment #Name#','#attachment.attachmentid#','#DocumentPath#','#host#','#Subdirectory#','#Filter#','#Name#','#list#','#ShowSize#','#Listing#','#Insert#','#remove#','#color#','#attbox#','#rowheader#','#boxw#','#Align#','#Border#','#attachdialog#','#inputsize#','#pdfscript#','#memo#','#embedgraphic#','#documentserver#','#presentation#','#maxfiles#')"> 
 										
 									 </td>									 
 									 

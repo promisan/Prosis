@@ -214,7 +214,8 @@ password="#SESSION.dbpw#">
 	         L.SalaryTrigger, 
 			 R.PayrollItemName, 
 			 L.DependentId,
-			 L.DateEffective 
+			 L.DateEffective,
+			 L.DateExpiration
 	
 	
 	
@@ -279,9 +280,9 @@ password="#SESSION.dbpw#">
    
   <td width="100%" colspan="4" style="padding:10px">
   
-  <table border="0" cellpadding="0" cellspacing="0"  width="100%">
+  <table width="100%">
     	
-	<TR height="18" class="line labelmedium">
+	<TR height="18" class="line labelmedium fixrow">
     	<td width="1%" align="center"></td>
 		<td width="1%" align="center"></td>
 		<TD width="30%"><cf_tl id="Entitlement"></TD>
@@ -311,8 +312,8 @@ password="#SESSION.dbpw#">
 
 <cfoutput query="Search" group="EntitlementClass">
 
-<tr class="line">
-<td colspan="13" class="labelmedium" style="font-weight:200;height:47px;padding-left:0px;font-size:21px">
+<tr class="line fixrow">
+<td colspan="13" class="labelmedium" style="background-color:white;height:47px;padding-left:0px;font-size:21px">
 	<cfif EntitlementClass eq "Rate"><cf_tl id="Rate based">
 	<cfelseif EntitlementClass eq "Percentage"><cf_tl id="Percentage based">
 	<cfelseif EntitlementClass eq "Amount"><cf_tl id="Individually calculated">
@@ -538,20 +539,34 @@ password="#SESSION.dbpw#">
 		</a>
 	</td>
 	<td>
-	
-	
-		
+			
 	<cfloop query="Action">
 		<cfif ActionStatus eq "9"><font color="FF0000">#ActionDocumentNo#</font><cfelse><font color="black">#ActionDocumentNo#</font></cfif><cfif currentrow neq recordcount>&nbsp;|</cfif>		
 	</cfloop>		
 	
 	</td>
-	<td style="padding-right:4px">#Dateformat(DateEffective, CLIENT.DateFormatShow)#</td>
-	<td style="padding-right:4px">
-	  <cfif Dateformat(DateExpiration, CLIENT.DateFormatShow) eq ""><font color="808080">#vEoC#</font>
-	  <cfelse>#Dateformat(DateExpiration, CLIENT.DateFormatShow)#
-	  </cfif> </td>
-	<TD style="padding-right:4px">#EntitlementGroup#</TD>
+	
+	<cfif DateEffective gt DateExpiration and dateExpiration neq "">
+		
+		<td align="center" style="background-color:FEC5B8;padding-left:4px;padding-right:4px">#Dateformat(DateEffective, CLIENT.DateFormatShow)#</td>
+		<td align="center" style="background-color:FEC5B8;padding-left:4px;padding-right:4px">
+		  <cfif Dateformat(DateExpiration, CLIENT.DateFormatShow) eq ""><font color="808080">#vEoC#</font>
+		  <cfelse>#Dateformat(DateExpiration, CLIENT.DateFormatShow)#
+		  </cfif>
+	    </td>
+	
+	<cfelse>
+	
+		<td align="center" style="padding-right:4px;padding-left:4px;">#Dateformat(DateEffective, CLIENT.DateFormatShow)#</td>
+		<td align="center" style="padding-right:4px;padding-left:4px;">
+		  <cfif Dateformat(DateExpiration, CLIENT.DateFormatShow) eq ""><font color="808080">#vEoC#</font>
+		  <cfelse>#Dateformat(DateExpiration, CLIENT.DateFormatShow)#
+		  </cfif>
+		</td>
+	
+	</cfif>
+	
+	<TD style="padding-left:4px;padding-right:4px">#EntitlementGroup#</TD>
 	<TD style="padding-right:4px;min-width:70px">
 	<cfif PayrollAccess eq "EDIT" or PayrollAccess eq "ALL">
 	<a href="javascript:toggledays('#EntitlementId#')" id="days_#EntitlementId#">
@@ -564,10 +579,14 @@ password="#SESSION.dbpw#">
 	<TD style="padding-right:4px"><cfif SalarySchedule neq getActiveSchedule.SalarySchedule><font color="FF0000">#SalarySchedule#</font><cfelse>#SalarySchedule#</cfif></TD>
 	<cfif EntitlementClass eq "Amount">
 	<TD align="left"><cf_tl id="#Period#"></TD>
-	<TD align="right" style="padding-right:4px;min-width:100px">#Currency# #NumberFormat(Amount, ".__")#</TD>
+	<TD align="right" style="padding-right:4px;min-width:160px">
+	<table style="width:100%"><tr><td style="padding-left:5px">#Currency#</td><td align="right">#NumberFormat(Amount, ".__")#</td></tr></table>
+	</TD>
 	<cfelseif EnableAmount eq "1">
 	<TD align="right"></TD>
-	<TD align="right" style="padding-right:4px;min-width:100px">#Currency# #NumberFormat(Amount, ".__")#</TD>
+	<TD align="right" style="padding-right:4px;min-width:160px">
+	<table style="width:100%"><tr><td style="padding-left:5px">#Currency#</td><td align="right">#NumberFormat(Amount, ".__")#</td></tr></table>
+	</TD>
 	<cfelseif ContractId neq "">
 	<TD colspan="2" style="min-width:150px"><font color="800080">#vCD#</TD>
 	<cfelse>

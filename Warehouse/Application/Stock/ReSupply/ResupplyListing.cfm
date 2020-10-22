@@ -163,7 +163,7 @@ password="#SESSION.dbpw#">
 					<tr class="labelmedium line fixrow" style="border-top:1px solid silver">
 					    <td style="min-width:35px"></td>
 						<td align="center" style="min-width:50px;border-left:1px solid silver;padding-right:4px"><cf_tl id="No"></td>
-						<td align="center" style="min-width:120px;border-left:1px solid silver;padding-right:4px"><cf_tl id="Barcode"></td>
+						<td align="center" style="min-width:120px;border-left:1px solid silver;padding-right:4px"><cf_tl id="External"></td>
 						<td align="center" style="width:89%;border-left:1px solid silver;padding-right:4px"><cf_tl id="Item"></td>	
 						<td align="center" style="min-width:80px;border-left:1px solid silver;padding-right:4px"><cf_tl id="MinOrder"></td>			
 						<td align="center" style="min-width:80px;border-left:1px solid silver;padding-right:4px"><cf_tl id="Price"></td>			
@@ -338,7 +338,7 @@ password="#SESSION.dbpw#">
 						   </table>
 						</td>
 						<td style="padding-left:3px">#ItemNo#</td>
-						<td style="padding-left:3px">#ItemBarCode#</td>
+						<td style="padding-left:3px">#ItemNoExternal#</td>
 						<td style="min-width:89%;padding-left:3px"><cfif len(ItemDescription) lte 5>#ItemDescriptionExternal#<cfelse>#ItemDescription#</cfif> : #UOMDescription#</td>	
 						
 						<cfif hasVendor gte "1">

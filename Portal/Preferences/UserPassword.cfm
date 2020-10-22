@@ -45,8 +45,8 @@ password="#SESSION.dbpw#">
 
 	<tr><td height="4"></td></tr>
 	
-	<tr><td colspan="2" class="labelmedium"><b><cf_tl id="Password"></b></font></td></tr>
-	<tr><td colspan="2" height="1" class="linedotted"></td></tr>
+	<tr class="line"><td colspan="2" class="labellarge"><span style="font-size: 24px;margin: 10px 0 6px;display: block;color: #52565B;"><cf_tl id="Password"></span></td></tr>
+	
 	<tr><td height="6"></td></tr>
 	
 	<cfif get.EnforceLDAP eq "1">

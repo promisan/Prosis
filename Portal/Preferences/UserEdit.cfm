@@ -17,13 +17,14 @@
 	ORDER BY FunctionName
 </cfquery>
 
-<cfajaximport tags="cfform,cfwindow">
+<cfajaximport tags="cfform">
 
 <cfinclude template="UserEditScript.cfm">
 
 <cf_menuscript>
 <cf_screentop height="100%"  html="No" jquery="Yes">
 <cf_listingscript> 
+<cf_textareascript>
 
 <cfquery name="Get"
 datasource="AppsSystem" 
@@ -72,9 +73,9 @@ password="#SESSION.dbpw#">
 
 <tr class="hide"><td id="process"></td></tr>
 
-<tr><td height="100%" valign="top" style="padding:10px">
+<tr><td height="100%" valign="top" style="padding-top:10px">
 	
-	<table height="100%" width="99%" border="0" cellspacing="0" cellpadding="0" align="center">
+	<table height="100%" width="99%" align="center">
 	
 	<cfoutput>
 	<tr>
@@ -220,38 +221,37 @@ password="#SESSION.dbpw#">
 		</tr>
 		
 		</cfif>
-		
-				
+						
 		<cfif url.webapp eq "">	
 		
-		<tr>											
-		<cfset itm = itm + 1>
-		<cf_tl id="Report Log" var="1">
+			<tr>											
+			<cfset itm = itm + 1>
+			<cf_tl id="Report Log" var="1">
+						
+			<cf_menutab item       = "#itm#" 
+			        targetitem = "1"
+			        iconsrc    = "Logos/User/UserEdit-Report.png" 
+					iconwidth  = "#wd#" 
+					iconheight = "#ht#" 
+					name       = "#lt_text#"
+					source     = "javascript:pref('ListingReport.cfm')">		
+			</tr>
 					
-		<cf_menutab item       = "#itm#" 
-		        targetitem = "1"
-		        iconsrc    = "Logos/User/UserEdit-Report.png" 
-				iconwidth  = "#wd#" 
-				iconheight = "#ht#" 
-				name       = "#lt_text#"
-				source     = "javascript:pref('ListingReport.cfm')">		
-		</tr>
-				
+			
+			<tr>			
+			<cfset itm = itm + 1>
+			<cf_tl id="Mail Log" var="1">			
+			
+			<cf_menutab item       = "#itm#" 
+			        targetitem = "1"
+			        iconsrc    = "Logos/User/UserEdit-Mail.png" 
+					iconwidth  = "#wd#" 
+					iconheight = "#ht#" 				
+					name       = "#lt_text#"
+					source     = "javascript:pref('ListingMail.cfm')">		
+			</tr>		
 		
-		<tr>			
-		<cfset itm = itm + 1>
-		<cf_tl id="Mail Log" var="1">			
-		
-		<cf_menutab item       = "#itm#" 
-		        targetitem = "1"
-		        iconsrc    = "Logos/User/UserEdit-Mail.png" 
-				iconwidth  = "#wd#" 
-				iconheight = "#ht#" 				
-				name       = "#lt_text#"
-				source     = "javascript:pref('ListingMail.cfm')">		
-		</tr>		
-		</cfif>								
-										
+		</cfif>											
 
 		</cfoutput>
 		
@@ -264,22 +264,23 @@ password="#SESSION.dbpw#">
 		  <tr height="10">
 			<td colspan="1" bgcolor="white" class="labellarge">		
 			<cfoutput>
-                <h1 style="font-size: 18px;font-weight: 200;margin: 0 0 0 20px;display: block;">Account:
-                    <span style="font-size: 32px;line-height: 32px; font-weight: 400;margin: 0;display: block;">#Session.acc# </span>
-                    <span style="font-size: 14px;margin:10px 0 0;display: block;">[<cf_tl id="group">: #get.AccountGroup#] </span></h1>
+                <h1 style="font-size: 18px;margin: 0 0 0 20px;display: block;">Account:
+                    <span style="font-size: 32px;line-height: 22px; margin: 0">#Session.acc# <span style="font-size: 14px;margin:10px 0 0">[<cf_tl id="group">: #get.AccountGroup#]</span></span>
+                 </h1>
 			</cfoutput>
 			</td>
 				
 		</tr>
 	  
-	  <tr><td width="100%" height="100%">
+	  <tr><td width="100%" height="100%" style="padding-left:10px;padding-right:10px">
 	    <cf_divscroll overflowx="auto">
 		<table width="100%" height="100%">		   
 			<cf_menucontainer item="1" class="regular"></cf_menucontainer>			
 		</table>
 		</cf_divscroll>
 	</td>	
-	</tr></table>
+	</tr>
+	</table>
 	</td>
 	</tr>
 	</table>

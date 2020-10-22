@@ -28,36 +28,7 @@
 <table width="100%" align="center">
 					
 	<tr class="hide"><td id="process"></td></tr>	
-	
-	<!--- remove also the table moved into control
-	
-	<cfif url.parentcode eq "">
-	
-		<cfset Category = "">
-		
-	<cfelse>
-	
-		<cfquery name="GroupFilter" 
-		datasource="AppsProgram" 
-		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">
-		SELECT * 
-		FROM   Ref_ProgramGroupCategory
-		WHERE  Code IN (SELECT ProgramGroup
-		               FROM   ProgramGroup 
-					   WHERE  ProgramCode = '#url.parentcode#')
-		</cfquery>	
-				
-		<cfif groupFilter.recordcount eq "0">		
-			<cfset Category = "">		
-		<cfelse>			
-			<cfset Category = quotedValueList(GroupFilter.Category)>			
-		</cfif>
-		
-	</cfif>		
-	
-	--->
-	
+			
 	<cfinvoke component="Service.Process.Organization.Organization"  
 			   method="getUnitScope" 
 			   mode="Parent" 
@@ -122,13 +93,7 @@
 							  
 				)			  	
 				
-		  
-		  <!--- moved to control		  
-		  <cfif Category neq "">		
-		  AND    Code IN (#preservesingleQuotes(Category)#)
-		  </cfif>	
-		  --->
-		  		  		  	 						  
+		 	 		  		  		  	 						  
 		  <!--- only if the is defined for this prgram class --->		  
 		  AND    (ProgramClass is NULL or ProgramClass = '#ProgramClass#')				  
 		 
@@ -143,13 +108,14 @@
 		
 	<cfoutput query="MasterArea" group="Area">
 					
-		<cfinvoke component="Service.Process.Program.Category"  
-			   method         = "CategoryControl" 
-			   Mission        = "#mission#"
-			   ProgramCode    = "#url.ProgramCode#" 
-			   Period         = "#url.period#"
-			   AreaCode       = "#areacode#"
-			   returnvariable = "disabled">		
+		<cfinvoke component    =  "Service.Process.Program.Category"  
+			   method          =  "ReferenceTableControl" 
+			   ControlObject   =  "Ref_ProgramFinancial"
+			   Mission         =  "#mission#"
+			   ProgramCode     =  "#url.ProgramCode#" 
+			   Period          =  "#url.period#"
+			   AreaCode        =  "#areacode#"
+			   returnvariable  =  "disabled">		
 			     			   			
 	    <cfoutput>
 					
@@ -192,6 +158,7 @@
 						</td>
 						
 						<cfif EnableStatusWeight eq "1">
+						
 							<td style="padding:2px;" width="10%">
 								<table width="100%">
 									<tr>
@@ -225,7 +192,9 @@
 									</tr>
 								</table>
 							</td>
+							
 						</cfif>
+						
 					</tr>
 				</table>
 			</td>
