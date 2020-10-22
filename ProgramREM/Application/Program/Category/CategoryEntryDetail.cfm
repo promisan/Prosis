@@ -28,7 +28,36 @@
 <table width="100%" align="center">
 					
 	<tr class="hide"><td id="process"></td></tr>	
-			
+	
+	<!--- remove also the table moved into control
+	
+	<cfif url.parentcode eq "">
+	
+		<cfset Category = "">
+		
+	<cfelse>
+	
+		<cfquery name="GroupFilter" 
+		datasource="AppsProgram" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		SELECT * 
+		FROM   Ref_ProgramGroupCategory
+		WHERE  Code IN (SELECT ProgramGroup
+		               FROM   ProgramGroup 
+					   WHERE  ProgramCode = '#url.parentcode#')
+		</cfquery>	
+				
+		<cfif groupFilter.recordcount eq "0">		
+			<cfset Category = "">		
+		<cfelse>			
+			<cfset Category = quotedValueList(GroupFilter.Category)>			
+		</cfif>
+		
+	</cfif>		
+	
+	--->
+	
 	<cfinvoke component="Service.Process.Organization.Organization"  
 			   method="getUnitScope" 
 			   mode="Parent" 
@@ -93,7 +122,13 @@
 							  
 				)			  	
 				
-		 	 		  		  		  	 						  
+		  
+		  <!--- moved to control		  
+		  <cfif Category neq "">		
+		  AND    Code IN (#preservesingleQuotes(Category)#)
+		  </cfif>	
+		  --->
+		  		  		  	 						  
 		  <!--- only if the is defined for this prgram class --->		  
 		  AND    (ProgramClass is NULL or ProgramClass = '#ProgramClass#')				  
 		 

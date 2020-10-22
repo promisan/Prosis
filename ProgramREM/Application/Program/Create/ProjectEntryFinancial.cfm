@@ -14,10 +14,10 @@
 	
 	<cfinvoke component="Service.Process.Program.Category"  
 	   method         = "ReferenceTableControl" 
-	   ControlObject  = "Ref_ProgramFinancial"	   
+	   ControlObject  = "Ref_ProgramFinancial"	
+	   Mission        = "#ParentOrg.Mission#"   
 	   ProgramCode    = "#url.ProgramCode#" 
-	   Period         = "#url.period#"
-	   AreaCode       = "#areacode#"
+	   Period         = "#url.period#"	   
 	   returnvariable = "disabled">		
 			
 	<cfquery name="Metrics" 
@@ -28,7 +28,7 @@
 		SELECT   *		       
 		FROM     Ref_ProgramFinancial F
 		<!--- exists for the entity --->
-		WHERE    Code IN (SELECT Code FROM Ref_ProgramFinancialControl WHERE Mission = '#Mission#')		
+		WHERE    Code IN (SELECT Code FROM Ref_ProgramFinancialControl WHERE Mission = '#ParentOrg.Mission#')		
 		<!--- not disabled for this program --->
 		<cfif disabled neq "">
 		AND       Code NOT IN (#preservesingleQuotes(disabled)#)
@@ -69,7 +69,7 @@
 		<TR class="labelmedium">
 					  				
 			<TD  height="31" style="padding-left:4px" width="160">#Description#:
-				<input type="hidden" name="Metric_#currentRow#" id="Metric_#currentRow#" value="#Code#" size="4" maxlength="4"></td>
+				<input type="hidden" name="Metric_#Code#" id="Metric_#Code#" value="#Code#" size="4" maxlength="4"></td>
 			</TD>
 			
 			<cfif url.mode eq "edit">
@@ -79,14 +79,14 @@
 				 <table cellspacing="0" cellpadding="0"><tr><td style="padding:4px">
 				 
 					<cfinput type="Text"
-				       name="MetricsPlanned_#currentRow#"
+				       name="MetricsPlanned_#Code#"
 				       validateat="onBlur"
 				       validate="float"
 				       required="No"
-					   class="regularxl"				  
+					   class="regularxxl"				  
 					   value="#numberformat(last.AmountPlanned,',__')#"
 					   message="Please enter a correct amount"
-					   style="width:60;text-align:right"
+					   style="width:80;text-align:right"
 				       visible="Yes"
 				       enabled="Yes">
 				   
@@ -95,7 +95,7 @@
 			   			  
 				</TD>
 				<td>
-				<input type="text" class="regularxl" name="MetricsReference_#currentRow#" value="#last.Reference#" size="20" maxlength="20">
+				<input type="text" class="regularxxl" name="MetricsReference_#Code#" value="#last.Reference#" size="20" maxlength="20">
 				</td>
 									
 			<cfelse>

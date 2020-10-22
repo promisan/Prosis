@@ -116,7 +116,7 @@ password="#SESSION.dbpw#">
 
 	<cfset Update="yes">
 	<cfset Action="Edit">
-	<CFSET SubmitAction="ProgramEntryUpdate.cfm?ProgramCode=#URL.EditCode#&header=#url.header#">
+	<CFSET SubmitAction="ProgramEntryUpdate.cfm?ProgramCode=#URL.EditCode#&period=#url.period#&header=#url.header#">
 	
 	 <cfquery name="Implementer" 
      datasource="AppsOrganization" 

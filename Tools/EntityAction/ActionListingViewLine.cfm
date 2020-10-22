@@ -319,7 +319,7 @@
 								<table align="center" class="Procets-L" style="height:100%;width:100%;height:40px;max-width:360px;background-color:#box#;#vSquareStyle#;">								
 									<tr>									
 									<td style="min-width:10px"></td>	
-									<cfif Dialog.DocumentMode eq "Popup">																
+									<cfif Dialog.DocumentMode eq "Popup">																									
 									<td align="center" class="labelmedium" style="width:100%;cursor: pointer;font-size:14px;line-height:14px;color:rgba(255,255,255,1);font-weight:400;height:25px;"
 										  onClick="<cfif Object_op eq 1>#Dialog.DocumentTemplate#('#actioncode#','#actionId#','#url.ajaxid#')</cfif>">#ActionDescription#</td>										  
 									<cfelse>
@@ -1027,6 +1027,7 @@
 																
 			</cfif>			
 			
+						
 			<cf_fileexist
 				DocumentPath = "#EntityCode#"
 				DataSource   = "appsOrganization"
@@ -1034,7 +1035,7 @@
 				Filter       = "">	
 													
 			<cfif files gte "1">
-				
+							
 				<tr bgcolor="transparent">
 				<td colspan="#col#" style="padding-right:30px">
 				  			   
@@ -1047,8 +1048,9 @@
 					<cfelse>
 					  <cfset script = "no">
 					</cfif>
-					<cfset color  = "transparent">				
-							
+					<cfset color  = "transparent">		
+					
+																				
 				    <cfinclude template = "ProcessActionAttachment.cfm">
 									   					
 				</td>
@@ -1060,48 +1062,59 @@
 			
 			<cfset actid = actionid>
 			
-			<cfloop query="External">								
-									  			   
-			    <cfset mode         = "inquiry">
-		   		<cfset EntityCode   = "#EntityCode#">
-			    <cfset ActionId     = "#ActId#">
-				<cfset Box          = "#CurrentRow#">	
-				<cfif attributes.ajaxid eq "">
-				  <cfset script = "yes">
-				<cfelse>
-				  <cfset script = "no">
-				</cfif>
-				
+			<cfif External.recordcount gt "0">
+								
 				<tr class="hide" id="atta#actionid#">
 									
 					<td colspan="#col#" style="padding-right:30px;height:36px">
-																				
-					<cfif SESSION.isAdministrator eq "Yes" or session.acc eq Object.OfficerUserid>
-										
-					 <cfset md = "yes">
-					<cfelse>
-					 <cfset md = "no"> 
-					</cfif>
-												
-				    <cf_filelibraryN
-						DocumentPath  = "#EntityCode#"
-						SubDirectory  = "#ObjectId#" 
-						Filter        = "#DocumentCode#"
-						LoadScript    = "No"
-						color         = "f4f4f4"
-						AttachDialog  = "No"
-						Width         = "100%"
-						Box           = "ext_#Box#"
-						rowheader     = "No"
-						Insert        = "#md#"
-						Remove        = "#md#">	
-									   					
+					
+						<table style="width:100%">
+						
+						<cfloop query="External">											
+									  			   
+						    <cfset mode         = "inquiry">
+					   		<cfset EntityCode   = "#EntityCode#">
+						    <cfset ActionId     = "#ActId#">
+							<cfset Box          = "#CurrentRow#">	
+							<cfif attributes.ajaxid eq "">
+							     <cfset script = "yes">
+							<cfelse>
+							     <cfset script = "no">
+							</cfif>
+						
+							<tr><td>
+																						
+								<cfif SESSION.isAdministrator eq "Yes" or session.acc eq Object.OfficerUserid>										
+								 <cfset md = "yes">
+								<cfelse>
+								 <cfset md = "no"> 
+								</cfif>
+															
+							    <cf_filelibraryN
+									DocumentPath  = "#EntityCode#"
+									SubDirectory  = "#ObjectId#" 
+									Filter        = "#DocumentCode#"
+									LoadScript    = "No"
+									color         = "f4f4f4"
+									AttachDialog  = "No"
+									Width         = "100%"
+									Box           = "ext_#Box#_#currentrow#"
+									rowheader     = "No"
+									Insert        = "#md#"
+									Remove        = "#md#">	
+								
+							</td></tr>
+						
+						</cfloop>
+						
+						</table>	
+														   					
 					</td>
 					
 				</TR>			
-			
-			</cfloop>
-								
+				
+			</cfif>
+											
 			<cfif ActionCodeOnHold neq "">
 			
 				<cfquery name="Trigger" 

@@ -8,6 +8,7 @@
 </cfsilent>
 <!--- End Prosis template framework --->
 
+
 <cfparam name="Form.ProgramDescription"      default="">
 <cfparam name="Form.ProgramNameShort"        default="">
 <cfparam name="Form.ServiceClass"            default="">
@@ -207,6 +208,8 @@
 		  		   
 	       <cfinclude template="ProjectEntryStatusSubmit.cfm">
 		   <cfinclude template="ProjectEntryEventSubmit.cfm">
+		  
+		  
 		   <cfinclude template="ProjectEntryFinancialSubmit.cfm">
 		   <cfinclude template="../Category/CategoryEntrySubmit.cfm">
 						

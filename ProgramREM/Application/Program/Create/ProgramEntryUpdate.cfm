@@ -9,6 +9,7 @@
 <!--- End Prosis template framework --->
 <!--- 30/04/04 removed updating of record creation information --->
 
+
 <cfparam name="URL.ProgramCode"               default="">
 <cfparam name="URL.Action"                    default="">
 <cfparam name="Form.ServiceClass"             default="">
@@ -61,8 +62,7 @@
 	 </cfquery> 
 
 	 <cfoutput>
-     <script>
-	     returnValue = '#prior.programid#'		 		
+     <script>	     	 		
 		 try {
 	     window.close()					 						
 		 opener.right.history.go() }
@@ -229,7 +229,7 @@
 		   <cfset Mission     = get.Mission>
 	       <cfinclude template = "ProjectEntryStatusSubmit.cfm">		   
 		   <cfinclude template = "ProjectEntryEventSubmit.cfm">
-		   
+		   		   		   
 		   <cfif url.header eq "1">
 			   <cfinclude template = "ProjectEntryFinancialSubmit.cfm">
 			   <cfinclude template = "../Category/CategoryEntrySubmit.cfm">	
@@ -579,7 +579,7 @@
 		<cfcase value="Program">
 		
 			<script LANGUAGE = "JavaScript"> 
-				window.location = "../ProgramViewTop.cfm?ProgramCode=#form.ProgramCode#&mission=#getProgram.Mission#&&Period=#form.Period#"		
+			    ptoken.location('../ProgramViewTop.cfm?ProgramCode=#form.ProgramCode#&mission=#getProgram.Mission#&Period=#form.Period#')						
 			</script>
 			  
 		</cfcase>
@@ -589,18 +589,18 @@
 		    <cfif Parameter.DefaultOpenProgram eq "Activity">
 			
 			  	  <script LANGUAGE = "JavaScript"> 
-					  window.location = "../Activity/Progress/ActivityView.cfm?ProgramCode=#form.ProgramCode#&Mission=#getProgram.Mission#&Period=#form.Period#"
+					   ptoken.location('../Activity/Progress/ActivityView.cfm?ProgramCode=#form.ProgramCode#&Mission=#getProgram.Mission#&Period=#form.Period#')					   
 				  </script>
 			  						  
 			<cfelse>
 											   
 				  <cfif Parameter.EnableIndicator eq "1">
 					  <script LANGUAGE = "JavaScript"> 
-							window.location = "../Indicator/TargetView.cfm?ProgramCode=#form.ProgramCode#&Mission=#getProgram.Mission#&Period=#form.Period#"
+							ptoken.location('../Indicator/TargetView.cfm?ProgramCode=#form.ProgramCode#&Mission=#getProgram.Mission#&Period=#form.Period#')							
 					  </script>
 				  <cfelse>
 					  <script LANGUAGE = "JavaScript"> 
-						    window.location = "../ActivityProgram/ActivityView.cfm?ProgramCode=#form.ProgramCode#&Mission=#getProgram.Mission#&Period=#form.Period#"
+						    ptoken.location('../ActivityProgram/ActivityView.cfm?ProgramCode=#form.ProgramCode#&Mission=#getProgram.Mission#&Period=#form.Period#')							
 				   	  </script>
 				  </cfif>
 								
@@ -610,15 +610,15 @@
 					
 		<cfcase value="Project">
 										
-				<cfif Parameter.EnableGANTT eq "1">		
-					<script LANGUAGE = "JavaScript"> 					   
-						window.location = "../../Activity/Progress/ActivityView.cfm?ProgramCode=#form.ProgramCode#&Mission=#getProgram.Mission#&Period=#form.Period#&output=1"
-					</script>
-				<cfelse>	
-				    <script LANGUAGE = "JavaScript"> 		
-				  		window.location = "../Events/EventsView.cfm?ProgramCode=Mission=#form.ProgramCode#&Mission=#getProgram.Mission#&Period=#form.Period#"
-					</script>
-				</cfif>			
+			<cfif Parameter.EnableGANTT eq "1">		
+				<script LANGUAGE = "JavaScript"> 	
+				    ptoken.location('../../Activity/Progress/ActivityView.cfm?ProgramCode=#form.ProgramCode#&Mission=#getProgram.Mission#&Period=#form.Period#&output=1')						
+				</script>
+			<cfelse>	
+			    <script LANGUAGE = "JavaScript"> 		
+			  		ptoken.location('../Events/EventsView.cfm?ProgramCode=Mission=#form.ProgramCode#&Mission=#getProgram.Mission#&Period=#form.Period#')						
+				</script>
+			</cfif>			
 						
 		</cfcase>			
 	

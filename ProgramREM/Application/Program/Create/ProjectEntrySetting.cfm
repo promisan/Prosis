@@ -13,7 +13,7 @@
 		
 		<tr><td height="4"></td></tr>
 		
-		<tr><td colspan="6" style="height:37px;font-weight:bold" class="labellarge"><cf_tl id="Actors and Partners"></td></tr>	
+		<tr class="line"><td colspan="6" style="height:37px;font-size:24px;padding-left:4px" class="labellarge"><cf_tl id="Actors and Partners"></td></tr>	
 				
 		<cfoutput>	
 			<INPUT type="hidden" name="orgunit" id="orgunit" value="#Org#">
@@ -297,7 +297,7 @@
 		    </cfquery>
 			
 			<tr><td colspan="6" height="5"></td></tr>	
-			<tr><td colspan="6" style="font-weight:bold;height:37px" class="labellarge"><cf_tl id="Budget Settings [Budget Manager only]"></td></tr>	
+			<tr class="line"><td colspan="6" style="height:47px;font-size:24px;padding-left:4px" class="labelmedium"><cf_tl id="Budget Settings"><span style="font-size:15px">[Budget Manager only]</span></td></tr>	
 							
 			<cfoutput>
 			
@@ -357,8 +357,8 @@
 		</cfif>
 										
 		
-		<tr><td colspan="6" style="height:33px;font-weight:bold" class="labellarge"><cf_tl id="Miscellaneous"></td></tr>	
-				
+		<tr class="line"><td colspan="6" style="height:47px;font-size:24px;padding-left:4px" class="labelmedium"><cf_tl id="Miscellaneous"></td></tr>	
+		<tr><td height="3"></td></tr>		
 		<TR>
 	
 		    <TD class="labelmedium" style="padding-left:10px"style="cursor:pointer">
@@ -375,7 +375,7 @@
 				
 		<cfif ProgramAccess eq "EDIT" or ProgramAccess eq "ALL">
 		
-		<TR><TD class="labelmedium" style="height:25px;padding-left:10px"><cf_tl id="Presentation">:</TD>
+		<TR><TD class="labelmedium" style="height:30px;padding-left:10px"><cf_tl id="Presentation">:</TD>
 			    <TD class="labelmedium">
 				    <table><tr>
 					<td style="padding-left:0px"><input type="radio" class="radiol enterastab" name="Presentation" value="1" <cfif EditProgram.Presentation neq "0" >Checked</cfif>></td>
@@ -388,7 +388,7 @@
 			</tr>
 		
 		<TR>	
-			<TD class="labelmedium" style="height;25px;padding-left:10px"><cf_tl id="Status Handling">:</TD>
+			<TD class="labelmedium" style="height:30px;padding-left:10px"><cf_tl id="Status Handling">:</TD>
 		    <TD class="labelmedium">	
 				<table><tr>
 				<td style="padding-left:0px"><input type="radio" name="Status" class="radiol enterastab" value="1" <cfif EditProgram.Status eq "1">Checked</cfif>></td>
@@ -468,5 +468,6 @@
 			</TD>
 			</cfoutput>
 		</TR>	
+		<tr><td height="4"></td></tr>
 		
 </table>

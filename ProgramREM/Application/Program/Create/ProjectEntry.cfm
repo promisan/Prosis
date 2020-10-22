@@ -287,7 +287,7 @@ password="#SESSION.dbpw#">
 <cfelse>
 
 	<cfset Update="yes">
-	<cfset Action="Edit">
+	<cfset Action="Edit">	
 	<CFSET SubmitAction="ProgramEntryUpdate.cfm?ProgramCode=#URL.EditCode#&period=#url.period#&header=#url.header#">
 
 	<cfquery name="Implementer"
@@ -374,7 +374,7 @@ function validate(md) {
 	document.programform.onsubmit() 
 	if( _CF_error_messages.length == 0 ) {  
 	    Prosis.busy('yes')    
-		ptoken.navigate('#SubmitAction#?action='+md,'process','','','POST','programform')
+		ptoken.navigate('#SubmitAction#&action='+md,'process','','','POST','programform')
 	 }   
 }		
 
@@ -382,7 +382,7 @@ function validate(md) {
 
 </cfoutput>
 
-<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+<table width="100%" height="100%">
 
 <tr class="hide"><td id="process"></td></tr>	
 
@@ -638,9 +638,9 @@ function validate(md) {
 		
 		<cfif access neq "READ">
 		
-		<tr><td colspan="6" height="1" class="line"></td></tr>
+		<tr><td colspan="6" height="1" class="linedotted"></td></tr>
 		
-		<tr><td id="savebox" colspan="6" align="center" style="height:50px">
+		<tr><td id="savebox" colspan="6" align="center" style="height:40px">
 					
 			<cfoutput>	   
 												

@@ -3,28 +3,20 @@
 	datasource="AppsProgram" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-			SELECT   *		       
+		SELECT   *		       
 		FROM     Ref_ProgramFinancial F
-		WHERE    Code IN (SELECT Code 
-		                  FROM   Ref_ProgramFinancialCategory
-						  WHERE  ProgramCategory IN (SELECT S.Code
-						                             FROM   ProgramCategory P, 
-													        Ref_ProgramCategory R,
-															Ref_ProgramCategory S
-													 WHERE  P.ProgramCategory = R.Code
-													 AND    R.Area = S.Area
-													 AND    P.ProgramCode = '#programcode#'													 )
-					     )		                      
-	    ORDER BY ListingOrder
-		
+		ORDER BY ListingOrder				
 </cfquery>
 
-
 <cfloop query="financial">
+
+  <cfparam name="FORM.Metric_#Code#" default="">
+  <cfparam name="FORM.MetricsPlanned_#Code#" default="">
+  <cfparam name="FORM.MetricsReference_#Code#" default="">
   
-  <cfset code     = Evaluate("FORM.Metric_#currentrow#")>
-  <cfset plan     = Evaluate("FORM.MetricsPlanned_#currentrow#")>
-  <cfset ref      = Evaluate("FORM.MetricsReference_#currentrow#")>
+  <cfset code     = Evaluate("FORM.Metric_#Code#")>
+  <cfset plan     = Evaluate("FORM.MetricsPlanned_#Code#")>
+  <cfset ref      = Evaluate("FORM.MetricsReference_#Code#")>
   
   <cfset plan = replace(plan,',','',"ALL")>
   
@@ -34,10 +26,10 @@
 		datasource="AppsProgram" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-			SELECT TOP 1 * 
-			FROM ProgramFinancial
-			WHERE ProgramCode  = '#ProgramCode#'
-			AND Code = '#Code#'
+			SELECT   TOP 1 * 
+			FROM     ProgramFinancial
+			WHERE    ProgramCode  = '#ProgramCode#'
+			AND      Code         = '#Code#'
 			ORDER BY DateEffective DESC
 	  </cfquery>	
 		

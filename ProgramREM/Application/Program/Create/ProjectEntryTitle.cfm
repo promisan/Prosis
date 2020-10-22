@@ -168,6 +168,9 @@ password="#SESSION.dbpw#">
 		   
 		   <input type="hidden" name="parentcode"    id="parentcode"    value="#ParentCode#">	
 		   
+		  <tr class="line"><td colspan="6" style="height:47px;font-size:24px" class="labelmedium"><cf_tl id="Project Definition"></td></tr>	
+		
+		   
 		   <tr>
 			  <td class="labelmedium"><cf_tl id="Entry Date">: <font color="FF0000">*</font></td>
 			  <td  class="labelmedium">

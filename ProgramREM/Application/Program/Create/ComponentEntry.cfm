@@ -176,9 +176,9 @@ password="#SESSION.dbpw#">
 	
 <cfelse>
 
-	<cfset Update="yes">
-	<cfset Action="Edit">
-	<CFSET SubmitAction="ProgramEntryUpdate.cfm?ProgramCode=#URL.EditCode#&header=#url.header#">
+	<cfset Update = "yes">
+	<cfset Action = "Edit">
+	<CFSET SubmitAction="ProgramEntryUpdate.cfm?ProgramCode=#URL.EditCode#&period=#url.period#&header=#url.header#">
 	
 	<cfquery name="Implementer" 
      datasource="AppsOrganization" 
@@ -324,7 +324,7 @@ password="#SESSION.dbpw#">
 
 	<cfform action="#SubmitAction#" method="POST" name="componentform" onsubmit="return false">
 			
-		<table width="98%" align="center" border="0" cellspacing="0" cellpadding="0">
+		<table width="98%" align="center">
 		
 		<tr class="line"><td>
 		<cfif editProgram.PeriodParentCode eq "">
@@ -472,9 +472,7 @@ password="#SESSION.dbpw#">
 					<input type="hidden" name="orgunitclass0"  id="orgunitclass0" value="#Requester.orgunitclass#" readonly>
 					
 					</td>
-					
-					
-					
+									
 					</tr>
 
 					</table>			
@@ -1018,7 +1016,7 @@ password="#SESSION.dbpw#">
 		<tr><td class="line"></td></tr>
 				
 		<tr><td height="32" colspan="2">
-			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+			<table width="100%" class="formpadding">
 			
 		   		<td align="center">
 				

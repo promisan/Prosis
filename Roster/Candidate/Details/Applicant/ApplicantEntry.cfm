@@ -302,7 +302,7 @@ password="#SESSION.dbpw#">
 		<tr id="entity">
 		<td class="labelmedium"><cf_tl id="Entity">:</td>
 		<td>
-		<cf_securediv bind="url:getEntity.cfm?class={ApplicantClass}&mission=#url.mission#">
+		<cf_securediv bind="url:getEntity.cfm?mission=#url.mission#&class={ApplicantClass}">
 		</td>
 		</tr>
 		
@@ -461,7 +461,7 @@ password="#SESSION.dbpw#">
 			
 			<cfelse>
 			
-				<cf_securediv id="Nationality_id" bind="url:getNationality.cfm?orgunit={OrgUnit}" bindOnLoad="Yes">
+				<cf_securediv id="Nationality_id" bind="url:getNationality.cfm?mission=#url.mission#&orgunit={OrgUnit}" bindOnLoad="Yes">
 
 			</cfif>
 			
