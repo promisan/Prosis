@@ -1,4 +1,5 @@
 
+
 <!--- retrieve the data to be shown --->
 
 <cfif url.currency eq "">
@@ -337,7 +338,7 @@
 	
 			<!--- 2 - 3 main detail content --->
 				
-			<tr class="labelmedium line fixrow2">
+			<tr class="labelmedium line<cfif opening.recordcount gte "1">fixrow2<cfelse>fixrow1</cfif>">
 			    <td style="min-width:40px"></td>
 				<TD style="min-width:100px"><cf_tl id="Journal"></TD>
 			    <TD style="min-width:130px;width:20%"><cf_tl id="TraNo"></TD>
@@ -450,7 +451,8 @@
 			<cfoutput query="SearchResult" group="#group#" startrow="#first#">
 							 
 			  <cfset refi   = "referenceid">
-							
+			 
+										
 			  <cfswitch expression = "#URL.ID#">
 				 
 				 <cfcase value = "TransactionType">

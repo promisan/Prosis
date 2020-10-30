@@ -59,7 +59,13 @@ password="#SESSION.dbpw#">
 				 W.MissionOrgUnitId,
 				 W.Beneficiary,
 				 T.*, 
-				 UoMMission.TransactionUoM AS SalesUoM,
+				 M.ItemNoExternal,
+				 <!--- this field needs some thoughts --->
+				 (SELECT TransactionUoM 
+				  FROM   Materials.dbo.ItemUoMMission IUM
+				  WHERE  IUM.ItemNo = T.ItemNo 
+				  AND    IUM.UoM = I.UoM 
+				  AND    IUM.Mission = W.Mission) as SalesUoM,
 		         I.UoMDescription, 
 				 I.ItemBarCode,
 				 C.CommissionMode,				 
@@ -78,15 +84,11 @@ password="#SESSION.dbpw#">
 				 ) as OnHandAll								 				
 				 				 
 		FROM     vwCustomerRequest T
-				 INNER JOIN  Materials.dbo.ItemUoM I
-					ON  T.ItemNo = I.ItemNo	AND T.TransactionUoM  = I.UoM	
-				 INNER JOIN Materials.dbo.Warehouse W
-				 	ON  W.Warehouse       = T.Warehouse
-				 INNER JOIN Materials.dbo.Ref_Category C
-				 	ON  C.Category = T.ItemCategory
-				 LEFT JOIN Materials.dbo.ItemUoMMission UoMMission
-					ON UoMMission.ItemNo = T.ItemNo AND UoMMission.UoM = I.UoM AND UoMMission.Mission = W.Mission
-					
+				 INNER JOIN  Materials.dbo.ItemUoM I      ON  T.ItemNo     = I.ItemNo AND T.TransactionUoM  = I.UoM	
+				 INNER JOIN  Materials.dbo.Item M  	      ON  T.ItemNo     = M.ItemNo		
+				 INNER JOIN  Materials.dbo.Warehouse W    ON  W.Warehouse  = T.Warehouse
+				 INNER JOIN  Materials.dbo.Ref_Category C ON  C.Category   = T.ItemCategory
+				 					
 		WHERE    T.RequestNo = '#url.requestNo#' 			
 			
 		ORDER BY T.Created #WParameter.SaleLinesOrder#
@@ -163,8 +165,7 @@ password="#SESSION.dbpw#">
 						<cfif Warehouse neq URL.Warehouse>
 							#transferFrom# <span style="font-weight:bold">#WarehouseName#</div>
 						</cfif>	
-						#ItemBarCode#, 
-						#UoMDescription#, 
+						<cfif ItemNoExternal neq "">#ItemNoExternal#,<cfelse>#ItemBarCode#,</cfif>#UoMDescription#, 
 						<span ed="onhandall_#currentrow#">
 												
 							<cfif ItemClass eq "Service">
@@ -174,7 +175,7 @@ password="#SESSION.dbpw#">
 							<cfelse>
 									
 								<cfset vStockAll = OnHandAll>
-						
+						        
 								<cfif TransactionQuantity gt vStockAll>
 									<font color="FF0000">#numberformat(vStockAll,'_')#</font>
 								<cfelse>

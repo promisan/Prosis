@@ -3,7 +3,6 @@
 
 <cfparam name="url.actionsessionid" default="">
 
-
 <cftransaction>
 
 <cfquery name="getsession" 
@@ -79,14 +78,14 @@
 					  OfficerUserId,
 					  OfficerLastName,
 					  OfficerFirstName)
-			  VALUES ('#url.documentno#',		  
-					  '#url.personNo#',							 
-					  '#url.actionCode#',
-					  '#url.competenceid#',
+			  VALUES ('#get.documentno#',		  
+					  '#get.personNo#',							 
+					  '#get.actionCode#',
+					  '#TopicId#',
 					  'Topic',						  					  
-					  '#user.account#',
-					  '#user.lastname#',		  
-					  '#user.firstname#')
+					  '#session.acc#',
+					  '#session.last#',		  
+					  '#session.first#')
 		</cfquery>	
 			
 	 </cfif>		
@@ -94,6 +93,8 @@
 	<cfset val = evaluate("form.content_#currentrow#")>
 
 	<cfif val neq "">
+	
+		<!--- MAYBE WE WANT TO KEEP A LOG OF THE SUBMISSION ?? --->
 		
 		<cfquery name="Content" 
 			datasource="appsVacancy" 
@@ -126,13 +127,14 @@
 	<table width="100%" valign="center" align="center">
 	<tr class="labelmedium">
 		<td align="center" style="font-size:20px;padding-top:140px;color:blue">
-		Thank you!<br><br>Your answers were submitted and received. <br>You will shortly receive an eMail to confirm the by you submitted answers. <br>You may continue updating information until <b>#timeformat(getsession.sessionplanend,"HH:MM")#</b>.
+		Thank you!<br><br>Your answers were submitted and received. <br>You will shortly receive an eMail with the submitted answers. <br>You may continue updating information until <b>#timeformat(getsession.sessionplanend,"HH:MM")#</b>.
 		</td>
 	</tr>
 	<tr><td align="center" style="padding-top:50px">
 		<table class="formspacing">
 		<tr><td>	
-		<input type="button" name="Submit" value="Continue" class="button10g" onclick="ptoken.open('TestForm.cfm?actionsessionid=#url.actionsessionid#','_self')" style="width:200px;height:35px;font-size:20px">
+		<input type="button" name="Submit" value="Continue" class="button10g" 
+		    onclick="ptoken.location('#SESSION.root#/Tools/EntityAction/Session/ActionSessionContent.cfm?actionsessionid=#url.actionsessionid#')" style="width:200px;height:35px;font-size:20px">
 		</td>
 		<td>
 		<input type="button" name="Close" value="Close" class="button10g" onclick="window.close()" style="width:200px;height:35px;font-size:20px">

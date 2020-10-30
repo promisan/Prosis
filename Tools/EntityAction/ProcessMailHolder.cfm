@@ -984,7 +984,7 @@
 										#sendBody#																												
 										<!--- try to attach possible documents --->
 										
-										<br><br><br>
+										<br>
 										<!--- disclaimer added 17/10/2020 --->
 										<cf_maildisclaimer context="workflow action" id="mailid:#Attributes.ActionId#">		
 										
@@ -1132,9 +1132,10 @@
 								wraptext    = "100">											
 								#sendBody#				
 								
-								<br><br><br>
+								<br>
 								<!--- disclaimer added 17/10/2020 --->
-								<cf_maildisclaimer context="workflow action" id="mailid:#Attributes.ActionId#">												
+								<cf_maildisclaimer context="workflow action" id="mailid:#Attributes.ActionId#">		
+												
 								
 								<!--- try to attach possible documents --->
 								

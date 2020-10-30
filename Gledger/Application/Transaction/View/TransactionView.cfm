@@ -146,6 +146,11 @@ password="#SESSION.dbpw#">
 		ptoken.navigate('getTransactionOffset.cfm?transactionid='+id, 'outstanding');
 	}
 	
+	function getSummary(id) {
+		ProsisUI.createWindow('outstanding', 'Contra account distribution', '',{x:100,y:100,width:870,height:510,resizable:false,modal:true,center:true})
+		ptoken.navigate('getTransactionSummary.cfm?transactionid='+id, 'outstanding');
+	}
+	
 	function view(sum) {
 		ptoken.open("TransactionView.cfm?embed=#url.embed#&journal=#url.journal#&journalserialNo=#url.journalserialno#&mode=regular&summary="+sum,"_self")
 	}

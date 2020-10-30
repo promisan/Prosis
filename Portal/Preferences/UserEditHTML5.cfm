@@ -22,7 +22,7 @@
 <cf_screentop html="No" jquery="Yes">
 
 <cfinclude template="UserEditScript.cfm">
-
+<cf_textareascript>
 
 <cf_listingscript> 
 <cf_menuscript>
@@ -153,6 +153,18 @@ password="#SESSION.dbpw#">
 											source     = "javascript:pref('UserSignature.cfm')">	
 								</tr>
 								
+								<tr class="sit-mnu-left">
+									<cfset itm = itm + 1>
+									<cf_tl id="Mail Signature" var="1">			
+									<cf_menutab item       = "#itm#" 
+									        targetitem = "1"
+									        iconsrc    = "#imageDirectory#/Mail.png" 
+											iconwidth  = "#wd#" 
+											iconheight = "#ht#" 
+											name       = "#lt_text#"
+											source     = "javascript:pref('UserMail.cfm')">	
+								</tr>
+								
 								<cfif url.showFeatures eq 1>
 								<tr class="sit-mnu-left">
 									<cfset itm = itm + 1>			
@@ -213,6 +225,7 @@ password="#SESSION.dbpw#">
 								
 										
 								<cfif url.webapp eq "">	
+								
 								<tr class="sit-mnu-left">	
 									<cfset itm = itm + 1>
 									<cf_tl id="Reports" var="1">
@@ -224,8 +237,7 @@ password="#SESSION.dbpw#">
 											iconheight = "#ht#" 
 											name       = "#lt_text#"
 											source     = "javascript:pref('ListingReport.cfm')">		
-								</tr>
-										
+								</tr>										
 								
 								<tr class="sit-mnu-left">	
 									<cfset itm = itm + 1>
@@ -249,14 +261,14 @@ password="#SESSION.dbpw#">
 					
 					
 						
-					<td valign="top" height="100%" width="90%" style="padding-left:20px;">  
-						<table width="100%" height="100%">	
-							<cf_menucontainer item="1" class="regular">							
-							   <cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
-							   <cfset mid = oSecurity.gethash()/>
-							   <cfdiv bind="url:UserIdentification.cfm?mid=#mid#&showLDAPMailbox=#url.showLDAPMailbox#">
-							</cf_menucontainer>	
+					<td valign="top" height="100%" width="90%" style="padding-left:20px;"> 
+					 						
+						<table width="100%" height="100%">							
+							<cf_menucontainer item="1" class="regular">														   
+							   <cf_securediv bind="url:UserIdentification.cfm?showLDAPMailbox=#url.showLDAPMailbox#">
+							</cf_menucontainer>							
 						</table>
+						
 					</td>
 				
 				</tr>
@@ -267,7 +279,6 @@ password="#SESSION.dbpw#">
 	</tr>
 	
 	</table>	
-
 
 </cf_divScroll>
 

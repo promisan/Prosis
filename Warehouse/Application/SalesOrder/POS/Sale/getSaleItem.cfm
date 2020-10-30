@@ -1,4 +1,6 @@
 <cfparam name="Form.SalesPersonNo" default="">
+<cfparam name="url.ItemUoMId"      default="">
+<cfparam name="url.Search"         default="">
 
 <cfoutput>
      
@@ -32,77 +34,93 @@ password="#SESSION.dbpw#">
 	WHERE  Mission = '#WParameter.Mission#'	
 </cfquery>
 
-<cfquery name="get" 
-  datasource="AppsMaterials" 
-  username="#SESSION.login#" 
-  password="#SESSION.dbpw#">
-	    SELECT I.ItemNo,I.UoM,I.ItemUoMId, L.TransactionLot
-		FROM   ItemUoM I WITH (NOLOCK) INNER JOIN  ItemUoMMissionLot L WITH (NOLOCK)
-					ON I.ItemNo   = L.ItemNo
-					AND    I.UoM      = L.UoM
-						INNER JOIN Item ITM WITH (NOLOCK)
-					ON ITM.ItemNo = I.ItemNo 
-		WHERE   		
-		L.Mission  = '#WParameter.Mission#'
-		AND    (L.ItemBarCode LIKE '#url.search#%' OR L.ItemBarCodeAlternate LIKE '#url.search#%' OR ITM.ItemNoExternal LIKE '%#URL.search#%')
-		AND    I.ItemNo IN (SELECT ItemNo 
-		                    FROM   Item WITH (NOLOCK) 
-							WHERE  ItemNo = I.ItemNo AND Destination = 'Sale')
-
-							 			 							   		      
-</cfquery>
-
-
-<!--- fin the item --->
-
-<cfif get.recordcount eq "0">
-
+<cfif url.itemUoMId neq "">
+	
 	<cfquery name="get" 
 	  datasource="AppsMaterials" 
 	  username="#SESSION.login#" 
 	  password="#SESSION.dbpw#">
-	    SELECT    U.ItemNo,U.UoM, U.ItemUoMId
-		FROM      ItemUoM U WITH (NOLOCK) INNER JOIN Item I WITH (NOLOCK)
-					ON U.ItemNo = I.ItemNo
-		WHERE     
-			<cfif MParameter.EarmarkManagement eq "0">
-				U.ItemBarCode LIKE '#url.search#%'  		 							   		  
-					OR I.ItemNoExternal LIKE '%#URL.search#%'
-			<cfelse>
-				U.ItemBarCode 			= '#url.search#'  		 							   		  
-					OR I.ItemNoExternal = '#URL.search#'
-			</cfif>		    
+	  
+		    SELECT ItemNo,UoM,ItemUoMId
+			FROM   ItemUoM 
+			WHERE  ItemUoMId = '#url.itemUoMId#'
+															 			 							   		      
 	</cfquery>
 	
-	<!--- Added by Armin on April 4th 2019 ---->
-	<cfif get.recordcount gt 1 and URL.search neq "">
+	<cfset lot = "0">
+
+<cfelse>
+
+	<!--- first we check if somehow there is a lot for this search --->
+	
+	<cfquery name="get" 
+	  datasource="AppsMaterials" 
+	  username="#SESSION.login#" 
+	  password="#SESSION.dbpw#">
+		    SELECT TOP 40 I.ItemNo,I.UoM,I.ItemUoMId, L.TransactionLot
+			FROM   ItemUoM I WITH (NOLOCK) 
+			       INNER JOIN  ItemUoMMissionLot L WITH (NOLOCK) ON I.ItemNo = L.ItemNo AND I.UoM = L.UoM
+				   INNER JOIN Item ITM             WITH (NOLOCK) ON ITM.ItemNo = I.ItemNo 
+			WHERE  L.Mission  = '#WParameter.Mission#'			
+			AND    (L.ItemBarCode LIKE '#url.search#%' 
+			           OR L.ItemBarCodeAlternate LIKE '#url.search#%' 
+					   OR ITM.ItemNoExternal LIKE '%#URL.search#%')
+			AND    I.ItemNo IN (SELECT ItemNo 
+			                    FROM   Item WITH (NOLOCK) 
+								WHERE  ItemNo = I.ItemNo AND Destination = 'Sale')	
+												 			 							   		      
+	</cfquery>
+
+	<!--- find the item --->
+
+	<cfif get.recordcount neq "1">
+	
+	    <!--- Hanno, I am not convinced if there are lot this could would be correct --->
+	
 		<cfquery name="get" 
 		  datasource="AppsMaterials" 
 		  username="#SESSION.login#" 
 		  password="#SESSION.dbpw#">
-		    SELECT    TOP  1 U.ItemNo,U.UoM, U.ItemUoMId
-			FROM      ItemUoM U WITH (NOLOCK) INNER JOIN Item I WITH (NOLOCK)
-						ON U.ItemNo = I.ItemNo
-			WHERE
-				<cfif MParameter.EarmarkManagement eq "0">     
-					U.ItemBarCode LIKE '#url.search#%'  		 							   		  
-						OR I.ItemNoExternal LIKE '%#URL.search#%'
+		    SELECT    U.ItemNo,U.UoM, U.ItemUoMId
+			FROM      ItemUoM U WITH (NOLOCK) 
+			          INNER JOIN Item I WITH (NOLOCK) ON U.ItemNo = I.ItemNo
+					  INNER JOIN  ItemUoMMission L WITH (NOLOCK) ON U.ItemNo = L.ItemNo AND U.UoM = L.UoM AND L.Mission = '#WParameter.Mission#'
+			WHERE     <cfif MParameter.EarmarkManagement eq "0">
+					  U.ItemBarCode LIKE '#url.search#%' OR I.ItemNoExternal LIKE '%#URL.search#%'
 				<cfelse>
-					U.ItemBarCode 		    = '#url.search#'  		 							   		  
-						OR I.ItemNoExternal = '#URL.search#'
-				</cfif>		
-			ORDER BY U.UoMMultiplier ASC			    
-		</cfquery>		
+					  U.ItemBarCode = '#url.search#' OR I.ItemNoExternal = '#URL.search#'
+				</cfif>		    
+		</cfquery>
+		
+		<!--- Added by Armin on April 4th 2019 ---->
+		
+		<cfif get.recordcount gte 1 and URL.search neq "">
+		
+			<!--- we open a dialog with the content that people can select from --->
+			
+			<cfoutput>
+			
+			<script>
+				ProsisUI.createWindow('itemselectbox', 'Select Item', '',{x:100,y:100,width:700,height:400,resizable:false,modal:true,center:true})		
+				_cf_loadingtexthtml='';		  	  	
+		        ptoken.navigate('#SESSION.root#/Warehouse/Application/Salesorder/POS/Sale/getMatchingItem.cfm?mission=#WParameter.Mission#&warehouse=#url.warehouse#&search=#url.search#','itemselectbox');	 	
+			</script>
+			
+			</cfoutput>		
+			
+		</cfif>	
+			
+		<cfset lot = "0">
+		
+	<cfelse>
+	
+		<cfset lot = get.TransactionLot>	
+		
 	</cfif>	
 	
 	
-	<cfset lot = "0">
-	
-<cfelse>
-
-	<cfset lot = get.TransactionLot>	
-	
 </cfif>	
+
 
 <cfoutput>
 
@@ -114,26 +132,25 @@ password="#SESSION.dbpw#">
 	  datasource="AppsEmployee" 
 	  username="#SESSION.login#" 
 	  password="#SESSION.dbpw#">
-	    SELECT    *
-		FROM      Person WITH (NOLOCK)
-		WHERE     PersonNo LIKE '#url.search#%'  		 							   		      
+		    SELECT    *
+			FROM      Person WITH (NOLOCK)
+			WHERE     PersonNo LIKE '#url.search#%'  		 							   		      
 	</cfquery>
 	
 	<cfif getPerson.recordcount eq "1">
 	
-	<!--- set the person instead to the last line --->
+		<!--- set the person instead to the last line --->
 	
-	<script>	
+		<script>	
 		   _cf_loadingtexthtml='';			   
 			ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/Sale/applyPerson.cfm?warehouse=#url.warehouse#&requestNo=#form.requestNo#&customerid=#form.customeridselect#&customeridinvoice=#form.customerinvoiceidselect#&currency=#form.currency#&PersonNo=#getPerson.PersonNo#','salelines');
-	</script>
-	
-	<table><tr><td class="labelmedium">#getPerson.FirstName# #getPerson.LastName#</td></tr></table>
-	
-	
+		</script>
+		
+		<table><tr><td class="labelmedium">#getPerson.FirstName# #getPerson.LastName#</td></tr></table>
+		
 	<cfelse>
 
-    <table><tr><td class="labelmedium"><font color="FF0000"><cf_tl id="Not found"></font></td></tr></table>
+	    <table><tr><td class="labelmedium"><font color="FF0000"><cf_tl id="Not found"></font></td></tr></table>
 	
 	</cfif>
 	
@@ -143,18 +160,19 @@ password="#SESSION.dbpw#">
 	  datasource="AppsMaterials" 
 	  username="#SESSION.login#" 
 	  password="#SESSION.dbpw#">
-		    SELECT    *
-			FROM      Item WITH (NOLOCK)
-			WHERE     ItemNo = '#get.ItemNo#'  		 							   		      
+		    SELECT  *
+			FROM    Item WITH (NOLOCK)
+			WHERE   ItemNo = '#get.ItemNo#'  		 							   		      
 	</cfquery>
 	
 	<cfquery name="getWCategory" 
 	  datasource="AppsMaterials" 
 	  username="#SESSION.login#" 
 	  password="#SESSION.dbpw#">
-		    SELECT    *
-			FROM      WarehouseCategory WITH (NOLOCK)
-			WHERE     Category = '#getItem.Category#' AND Warehouse = '#url.Warehouse#'
+		    SELECT  *
+			FROM    WarehouseCategory WITH (NOLOCK)
+			WHERE   Category = '#getItem.Category#' 
+			AND     Warehouse = '#url.Warehouse#'
 	</cfquery>
 		
 	<cfif getItem.itemClass eq "Bundle">
@@ -196,7 +214,9 @@ password="#SESSION.dbpw#">
 					AND       TransactionLot  = '#Lot#'   						   		      
 			</cfquery>
 		
-			<cfif (getStock.OnHand lte "0" or getStock.OnHand eq "") and getItem.ItemClass neq "service" and getWCategory.Oversale eq 0> <!--- Check WarehouseCategory.Oversale too --->
+			<cfif (getStock.OnHand lte "0" or getStock.OnHand eq "") 
+			      and getItem.ItemClass neq "service" 
+				  and getWCategory.Oversale eq 0> <!--- Check WarehouseCategory.Oversale too --->
 			
 				<table>
 					<tr>
@@ -222,10 +242,12 @@ password="#SESSION.dbpw#">
 					#getItem.ItemDescription#
 					</cfif>
 					</td>
+					
+					<!--- directly add --->
 										
 					<td class="hide">	
 					    <cf_tl id="Add Item" var="1">			
-					    <input type="button" id= "posadditem" Value = "#lt_text#" class="button10s">			
+					    <input type="button" id= "posadditem" Value = "#lt_text#" class="button10g">			
 						<script>	
 						    try {
 							date   = document.getElementById('transaction_date');
@@ -235,17 +257,15 @@ password="#SESSION.dbpw#">
 							sche   = document.getElementById('PriceSchedule');		
 							reqn   = document.getElementById('RequestNo');																													
 							ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/Sale/addItem.cfm?RequestNo='+reqn.value+'&warehouse=#url.warehouse#&customerid=#form.customeridselect#&customeridinvoice=#form.customerinvoiceidselect#&currency=#form.currency#&SalesPersonNo=#form.SalesPersonNo#&ItemUomId=#get.ItemUoMid#&Transactionlot=#lot#&priceschedule='+sche.value+'&discount='+disc.value+'&date='+date.value+'&hour='+hour.value+'&minu='+minu.value,'salelines');
-							} catch(e) { alert('select a customer')}
+							} catch(e) { alert('Select customer')}
 						</script>
 					</td>					
 					</tr>
 				</table>
 				
 			</cfif>
-
 			
-	</cfif>	
-	
+	</cfif>		
 	
 </cfif>
 

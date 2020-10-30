@@ -18,10 +18,10 @@
 	
  <tr>
 	<td></td>    
-	<td height="18" colspan="#col-2#" align="left" bgcolor="D9FDFC" style="border: 1px solid d1d1d1;">
+	<td colspan="#col-2#" align="left" bgcolor="D9FDFC" style="padding-left:20px;border: 1px solid d1d1d1;">
 	
-		<table cellspacing="0" cellpadding="0">
-		<tr class="labelit">
+		<table width="100%">
+		<tr class="labelmedium">
 		<td width="90">#MissionOperational#</td>
 		<td width="80">#PostGrade#</td>
 		<td width="180">#functionDescription#</td>

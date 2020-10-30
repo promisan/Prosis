@@ -297,18 +297,18 @@
 					</tr>
 					
 					</cfif>
-										
-					<cfif ActionStatus eq "0" and EntityClass neq "">
 					
-						<input type	= "hidden" 
+					<input type	= "hidden" 
 						   	name 	= "workflowlink_#eventid#" 
 						   	id   	= "workflowlink_#eventid#"
 						   	value	= "#client.root#/Staffing/Application/Employee/Events/EventWorkflow.cfm">	
+										
+					<cfif ActionStatus eq "0" and EntityClass neq "">
 						
 						<tr id="box_#eventid#">
 						    <td></td>
 							<td colspan="9">								   
-								<cfdiv id="#eventid#" bind="url:#client.root#/Staffing/Application/Employee/Events/EventWorkflow.cfm?ajaxid=#eventid#"/>       															
+								<cf_securediv id="#eventid#" bind="url:#client.root#/Staffing/Application/Employee/Events/EventWorkflow.cfm?ajaxid=#eventid#">
 							</td>
 						</tr>				
 		

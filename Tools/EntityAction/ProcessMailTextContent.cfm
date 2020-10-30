@@ -33,7 +33,6 @@
 
 <cfoutput>
 
-
 	<cfmail TO          = "#sendto#"        
 		    FROM        = "#fromm#"
 			SUBJECT     = "#Attributes.text#: #Action.ActionDescription#"	
@@ -138,15 +137,15 @@
 								<td style="padding-left:10px;">
 									<h1 style="margin:0;color:##555555;font-weight:400;">
 									<cfif attributes.accesslevel eq "1">
-		                                            #SESSION.welcome# <cf_tl id="Action"><br> 
-		                                            <cfelse>
-		                                            #SESSION.welcome# <cf_tl id="Notification"><br>
-		                                            </cfif>
-		                                            <h2 style="margin:5px 0 0;font-size:16px;"><cf_tl id="Activity for your action has been posted."></h2>
-		                                        </h1>
+                                        #SESSION.welcome# <cf_tl id="Action"><br> 
+                                        <cfelse>
+                                        #SESSION.welcome# <cf_tl id="Notification"><br>
+                                        </cfif>
+                                        <h2 style="margin:5px 0 0;font-size:16px;"><cf_tl id="Activity for your action has been posted."></h2>
+                                    </h1>
 		
 								</td>
-		                                    <td style="height:70px;height:70px">						
+		                        <td style="height:70px;height:70px">						
 									<img src="cid:alarm" width="60" height="60" border="0" align="absmiddle" style="display:block">
 								</td>
 							</tr>
@@ -211,16 +210,21 @@
 				</tr>
 		        <tr height="40px"><td></td></tr>
 			</table>
-		    
-			<table><tr><td height="40"><cf_MailDefaultFooter></td></tr></table>
+								    					
+			<cf_MailDefaultFooter disclaimer="HideSignature" context="workflow" id="#qObject.ObjectId#" displaylogo="0">
 			
+						
 		</body>
 		</html>
-
-    	<cfmailparam file="#SESSION.root#/Images/SVG/alarm.png" contentid="alarm" disposition="inline"/>
-		<cfmailparam file="#SESSION.root#/Images/prosis-logo-gray.png" contentid="logo-gray" disposition="inline"/>
+		
+		<cfmailparam file="#SESSION.rootpath#\Images\SVG\alarm.png" contentid="alarm" disposition="inline"/>
+<!---
+    	<cfmailparam file="#SESSION.root#/Images/SVG/alarm.png"        contentid="alarm"     disposition="inline"/>		    
+		--->
 												
 	</cfmail>
 		
 </cfoutput>
+
+
 	

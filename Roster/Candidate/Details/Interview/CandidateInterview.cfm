@@ -336,12 +336,12 @@ password="#SESSION.dbpw#">
 		datasource="AppsSelection" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-		SELECT A.Languageid
-		FROM ApplicantLanguage A, ApplicantSubmission S
-		WHERE S.ApplicantNo = A.ApplicantNo
-		AND  S.PersonNo   = '#URL.PersonNo#'
-		AND  A.Languageid = '#LanguageId#'
-		AND  A.Status = '1'
+			SELECT A.Languageid
+			FROM   ApplicantLanguage A, ApplicantSubmission S
+			WHERE  S.ApplicantNo = A.ApplicantNo
+			AND    S.PersonNo   = '#URL.PersonNo#'
+			AND    A.Languageid = '#LanguageId#'
+			AND    A.Status = '1'
 		</cfquery>
 		
 		<input type="checkbox" class="radiol"
@@ -359,7 +359,7 @@ password="#SESSION.dbpw#">
 	 <cf_ApplicantTextArea
 		Table           = "ApplicantInterviewNotes" 
 		Domain          = "#URL.Domain#"
-		Format          = "Rich"
+		Format          = "Mini"
 		Height          = "90"
 		FieldOutput     = "InterviewNotes"
 		Mode            = "#Mode#"
@@ -376,6 +376,7 @@ password="#SESSION.dbpw#">
 		<td colspan="2" align="right" style="padding-right:10px">
 		<input type="submit" class="button10g" name="Submit" value="Save">
 		</td></tr>
+		<tr><td style="height:20px"></td></tr>
 	</cfif>
 				
 </table>	

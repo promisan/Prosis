@@ -385,8 +385,14 @@
 						</cfif>		
 						<td style="border-left:1px solid silver"><cf_img icon="open" onclick="getOutstanding('#TransactionId#')"></td>				
 						
+				<cfelseif JournalList.TransactionCategory neq "Inventory">  
+				
+				<!--- maybe more exceptions --->
+				
+				<td align="center" style="width:3%;border-left:1px solid silver"><cf_img icon="open" onclick="getSummary('#TransactionId#')"></td>	
 				
 				</cfif>
+								
 			</tr>
 			</table>
 		
@@ -566,8 +572,7 @@
 	 </cfoutput>
 	 
  </cfoutput>
-        	      
-      
+        	            
   <cfoutput query="Transaction">
     
   	  <cfif TransactionSource eq "WorkOrderSeries">
@@ -614,8 +619,7 @@
 			  </table>
 		    </td>
 		  </tr>
-		  
-	  
+		  	  
 	  	 <cfif url.summary eq "0">
 	  			
 			<cfquery name="getMode" 

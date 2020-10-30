@@ -114,7 +114,7 @@ password="#SESSION.dbpw#">
 		<cfinclude template="AccountResultListingCompress.cfm">
 			
 	<cfelseif url.mde eq "JournalTransactionNo">	
-					
+			
 		<cfinclude template="AccountResultListingAggregate.cfm">		
 						
 	<cfelse>

@@ -1,6 +1,6 @@
 <!--- Create Criteria string for query from data entered thru search form --->
 
-<cf_message message="Function was moved to module contoller">
+<cf_message message="Function was moved to user module library contoller">
 <cfabort>
 
 <cf_screentop height="100%" html="No" scroll="Vertical">

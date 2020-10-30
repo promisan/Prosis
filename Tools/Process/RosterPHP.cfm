@@ -4,7 +4,7 @@
 <cfparam name="Attributes.DisplayText"   default="Print PHP">
 <cfparam name="Attributes.Format"        default="Document">
 <cfparam name="Attributes.RosterList"    default="">
-<cfparam name="Attributes.Image"         default="#SESSION.root#/Images/pdf_button.png">
+<cfparam name="Attributes.Image"         default="#SESSION.root#/Images/Logos/System/Document.png">
 <cfparam name="Attributes.ButtonWidth"   default="21">
 <cfparam name="Attributes.ButtonHeight"  default="21">
 <cfparam name="Attributes.Class"         default="">
@@ -71,7 +71,7 @@ password="#SESSION.dbpw#">
 						'onSuccess':function(req) { 	
 						 document.getElementById("php_"+script).className = "regular"
 						 document.getElementById("wait_"+script).className = "hide"
-					  	 window.open("#SESSION.root#/cfrstage/user/#SESSION.acc#/php_"+script+".pdf?IDFunction=#Attributes.IDFunction#&ts="+new Date().getTime(),"php_"+script, "location=no, toolbar=no, scrollbars=yes, resizable=yes")
+					  	 window.open("#SESSION.root#/cfrstage/user/#SESSION.acc#/php_"+script+".pdf?IDFunction=#Attributes.IDFunction#&ts="+new Date().getTime(),"php_"+script)
 						
 		           	  },					
 			    	    'onError':function(req) { 	
@@ -103,8 +103,8 @@ password="#SESSION.dbpw#">
 			
 			<td id="php_#attributes.script#">
 					
-				<cfdiv id="detail_#attributes.script#">		
-			
+				<cfdiv id="detail_#attributes.script#">	
+							
 				<cfif Attributes.DisplayType eq "Button">
 				
 				   <input style="#Attributes.Style#" 
@@ -146,26 +146,18 @@ password="#SESSION.dbpw#">
 				 
 				 	 <table><tr><td class="labelit">	
 				      
-					  <a href="javascript:printingPHP('#Attributes.RosterList#','#Attributes.Format#','#Attributes.script#')">
-				      	<font color="6688aa">#Attributes.DisplayText#</font>
-					  </a>
+					  <a href="javascript:printingPHP('#Attributes.RosterList#','#Attributes.Format#','#Attributes.script#')">#Attributes.DisplayText# </a>
 					  
 					  </td>
 					  <td>		  
-					  					  
-					  									 
-				      <button title   =  "PHP" 
-							  class   =  "button3"
-							  type    =  "button"
-				              onClick =  "printingPHP('#Attributes.RosterList#','#Attributes.Format#','#Attributes.script#')">
-				
-							   <img src     = "#Attributes.Image#"			    
+																	 
+				 			   <img src     = "#Attributes.Image#"			    
 						        alt     = "Personal History Profile" 
 						        border  = "0" 
+								onClick =  "printingPHP('#Attributes.RosterList#','#Attributes.Format#','#Attributes.script#')"
 							    align   = "absmiddle" 
 						        style   = "#Attributes.Style#">				
-								
-				      </button>		 
+							
 					  
 					   </td></tr>
 					   </table>		

@@ -110,15 +110,15 @@
 
 </cfoutput>
 
-<cfif url.scope eq "BackOffice">	
-<table border="0" align="center" style="width:96%;height:98%">
+<cfif url.scope eq "BackOffice" or url.scope eq "">	
+<table align="center" style="width:96%;height:100%">
 <cfelse>
-<table align="center" border="0" style="width:96%;height:98%">
+<table align="center" border="0" style="width:96%;height:100%">
 </cfif>
 
-<tr><td height="100%">
+<tr><td height="100%" valign="top" style="padding-top:8px">
 
-	<cfform onsubmit="return false"  name="entry" style="height:98%">
+	<cfform onsubmit="return false"  name="entry" style="height:100%">
 		  
 		<cfoutput>
 		
@@ -131,10 +131,12 @@
 					
 		<table width="98%" height="100%" border="0" class="formpadding">
 			
-			<tr>
-			<td height="35">
+			
 					
 			<cfif URL.action eq "Create">	
+			
+				<tr>
+				<td height="35">
 			
 				<cfif url.scope eq "BackOffice">	
 																	
@@ -149,6 +151,9 @@
 				<cfelse>
 								
 				</cfif>
+				
+				</td>			
+				</tr>	
 							
 				<cf_assignid>
 				<cfset submissionid = rowguid>
@@ -160,9 +165,6 @@
 			</cfif>
 			
 			<input type="hidden" name="submissionid" value="#submissionid#">
-						
-			</td>			
-			</tr>	
 										
 			<tr>		
 			    <td height="100%" valign="top" id="detailcontent" style="padding-left:9px;padding-right:9px">		

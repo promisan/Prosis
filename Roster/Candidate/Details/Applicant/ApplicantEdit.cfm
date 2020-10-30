@@ -17,6 +17,7 @@ username="#SESSION.login#"
 password="#SESSION.dbpw#">
     SELECT * 
     FROM Ref_ApplicantClass
+	ORDER BY Description
 </cfquery>
 
 <cfquery name="Get" 

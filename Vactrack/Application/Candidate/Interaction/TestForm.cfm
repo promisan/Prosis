@@ -19,11 +19,6 @@
 		WHERE   ReviewId = '#session.EntityReference#'
 </cfquery>
 
-<cf_screentop label="Candidate Test Form" html="No" jquery="Yes" scroll="Yes">
-
-<cf_divscroll>
-
-<cf_textareascript>
 
 <cfquery name="document" 
 	 datasource="appsVacancy" 
@@ -49,18 +44,14 @@
 	ORDER BY      TopicOrder			
 </cfquery>
 
-<form action="TestFormSubmit.cfm?actionsessionid=<cfoutput>#url.actionsessionid#</cfoutput>" method="post" name="testform" id="testform">
+<form action="<cfoutput>#SESSION.root#/Vactrack/Application/Candidate/Interaction/TestFormSubmit.cfm?actionsessionid=#url.actionsessionid#</cfoutput>" method="post" name="testform" id="testform">
 
 	<table style="width:90%" align="center">
 		
-		<tr><td style="height:4px"></td></tr>
-		
-		<cfoutput>
-		
-		<tr><td colspan="3" align="center" style="height:40px;font-size:35px">Consultant / Individual Contractor Test </td></tr>	
-		<tr><td colspan="3" align="center" style="height:40px;font-size:15px">This form will expire after #dateformat(session.sessionplanend,client.dateformatshow)# #timeformat(session.sessionplanend,"HH:MM")#</td></tr>	
-		<tr><td colspan="3" align="center" style="height:40px;font-size:15px">Instructions ; you may record in this form, you may prepare answers in word and then paste, if you have problems entering or submitting information please contact XYZ</td></tr>	
-
+		<tr><td style="height:14px"></td></tr>
+				
+		<tr><td colspan="3" align="center" style="height:40px;font-size:35px">Consultant / Individual Contractor Test </td></tr>				
+		<tr><td colspan="3" align="center" style="height:40px;font-size:15px">Instructions ; you may record in this form, you may prepare answers in word and then paste, if you experience  problems please contact XYZ</td></tr>	
 					
 		<tr><td style="height:10px;border-bottom:1px solid silver" colspan="3"></td></tr>	
 		<tr><td style="height:10px"></td></tr>	
@@ -74,6 +65,8 @@
 			WHERE         DocumentNo = '#get.documentno#' 
 			AND           PersonNo   = '#get.personno#'		
 		</cfquery>
+		
+		<cfoutput>
 					
 		<tr>
 			<td style="min-width:200px;font-size:20px"><cf_tl id="Candidate">:</td>
@@ -138,16 +131,10 @@
 		</table>
 		</td></tr>
 	
-	<tr><td style="height:30px" align="center" colspan="3">
-	
+	<tr><td style="height:30px" align="center" colspan="3">	
 	<input type="submit" name="Submit" value="Submit" class="button10g" style="width:200px;height:35px;font-size:20px">
 	</td></tr>	
 		
 	</table>
 
 </form>
-
-</cf_divscroll>
-
-
-

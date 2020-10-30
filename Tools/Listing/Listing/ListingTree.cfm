@@ -19,9 +19,9 @@
   <tr><td valign="top" style="padding-top:2px;padding-left:4px" style="height:100%; width:100%">
   		<cf_divscroll height="#vContentTreeHeight#" width="100%" overflowy="auto" overflowx="auto">
 		  	
-				<cftree name="idtree"  font="Calibri" fontsize="13" format="html"> 				  
-				   	<cftreeitem bind="cfc:service.Tree.BuilderTree.getNodes({cftreeitempath},{cftreeitemvalue},'#url.systemfunctionid#','#url.FunctionSerialNo#','#url.box#')">				 
-				</cftree>
+				<cf_UItree name="idtree"  font="Calibri" fontsize="13" format="html">
+					<cf_UItreeitem bind="cfc:service.Tree.BuilderTree.getNodesV2({cftreeitempath},{cftreeitemvalue},'#url.systemfunctionid#','#url.FunctionSerialNo#','#url.box#')">
+				</cf_UItree>
 			
 		</cf_divscroll>
   </td></tr>  

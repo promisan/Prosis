@@ -67,14 +67,12 @@
 	    h = #CLIENT.height# - 145;
 		ptoken.open(root + "/Warehouse/Application/StockOrder/Task/Shipment/TaskView.cfm?actionstatus=1&scope=regular&stockorderid="+id,"_blank", "left=60, top=30, width=" + w + ", height= " + h + ", status=yes, scrollbars=no, resizable=yes");
 	}
-
-    var lookupcustomer = "_blank";
+    
 	function selectcustomer(formname,fldcustomerid,fldcustomername,customerid) {
-
-		ptoken.open(root + "/Warehouse/Application/Customer/Lookup/LookupSearch.cfm?FormName=" + formname + "&fldcustomerid=" + fldcustomerid + "&fldcustomername=" + fldcustomername+"&customerid="+customerid, lookupcustomer, "width=800, height=660, status=yes, toolbar=no, scrollbars=no, resizable=yes");
-		if (lookupcustomer == "_blank") {
-			lookupcustomer = "lookupCustomer"
-		}
+       
+	    ProsisUI.createWindow('customer', 'Customer', '',{x:100,y:100,height:document.body.clientHeight-90,width:790,modal:true,center:true})
+		ptoken.navigate(root + "/Warehouse/Application/Customer/Lookup/LookupSearch.cfm?FormName=" + formname + "&fldcustomerid=" + fldcustomerid + "&fldcustomername=" + fldcustomername+"&customerid="+customerid, "customer");
+		
 	}
 
 	function selectwarehouseitem(mis,cls,mas,applyscript,scope) {	

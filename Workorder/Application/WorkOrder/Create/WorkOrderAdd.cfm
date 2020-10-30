@@ -149,11 +149,17 @@
 								   class="regularxl">   
 						   	  
 							   <cfoutput query="ServiceitemList">
-							   
+
+								   <cfif customer.orgunit eq "">
+									   <cfset vUnit = url.orgunit>
+								   <cfelse>
+									   <cfset vUnit = customer.orgunit>
+								   </cfif>
+
 							  	  <cfinvoke component = "Service.Access"  
 									   method           = "workorderprocessor" 
 									   mission          = "#url.mission#" 	
-									   orgunit          = "#customer.orgunit#"
+									   orgunit          = "#vUnit#"
 									   serviceitem      = "#code#"  
 									   returnvariable   = "access">  
 								   				   

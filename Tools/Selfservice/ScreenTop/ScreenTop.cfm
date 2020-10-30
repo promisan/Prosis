@@ -200,8 +200,12 @@ datasource="AppsInit">
 	<!--- this is generate the top HTML portion of the page with 4 different layouts --->
 	<!--- -------------------------------------------------------------------------- --->
 			
-	<cfif attributes.systemmodule neq "" and attributes.functionname neq "" and (Attributes.SystemFunctionId eq "" or Attributes.SystemFunctionId eq "undefined")>
-						
+	<cfif attributes.systemmodule neq "" 
+	    and attributes.functionname neq "" 
+	    and (Attributes.SystemFunctionId eq ""  
+		              or Attributes.SystemFunctionId eq "undefined" 
+					  or Attributes.SystemFunctionId eq "00000000-0000-0000-0000-000000000000")>
+							
 	    <!--- we generate a system function id --->
 		
 		<cf_ModuleInsertSubmit

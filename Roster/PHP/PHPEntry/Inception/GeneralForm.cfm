@@ -48,13 +48,15 @@
 		<cfset row=row+1>		
 		
 		<!--- 13/10 in the initial request of an account we no longer ask for the picture, this is reserved for the portal --->
+		
+		<tr>
 				
 		<cfif url.action neq "create">
 				
-			<td valign="top" rowspan="30" align="left" style="padding-top:5px;width:130;padding-right:10px">
+			<td valign="top" rowspan="30" align="left" style="padding-top:5px;width:240px;padding-right:10px">
 				<table>
 					<tr>
-						<td style="border:1px solid C0C0C0;">
+						<td style="width:140px;height:170px;border:1px solid C0C0C0;">
 						
 						    <cfif get.PersonNo eq "">
 						
@@ -96,6 +98,7 @@
 							</cfif>			
 						</td>
 					</tr>
+					
 					<tr><td align="center" valign="middle" class="labelmedium" style="color:808080; height:30px; border:1px solid C0C0C0;"><cf_tl id="My Picture"></td></tr>
 				</table>
 			</td>
@@ -143,7 +146,7 @@
 	    <!--- Field: Applicant.LastName --->
 	    <TR id="personfield" name="personfield">		
 	    <TD class="labelmedium" style="min-width:160px;width:23%" align="left"><cf_tl id="LastName">  : <cfif get.CandidateStatus neq "1"><font color="FF0000">&nbsp;*&nbsp;</font></cfif></TD>
-	    <TD class="labelmedium" align="left">	
+	    <TD class="labelmedium" align="left" style="height:27px">	
 				
 		   <cf_tl class="Message" id="LastName:Entry" var="1">
 		   
@@ -234,7 +237,7 @@
 	    <!--- Field: Applicant.FirstName --->
 	    <TR id="personfield" name="personfield">
 		<TD class="labelmedium" align="left"><cf_tl id="FirstName"> : <font color="FF0000"><cfif get.CandidateStatus neq "1">&nbsp;*&nbsp;</cfif></font></TD>
-	    <TD class="labelmedium" align="left">
+	    <TD class="labelmedium" align="left" style="height:27px">
 					
 		   <cf_tl class="Message" id="FirstName:Entry" var="1">
 		   
@@ -365,7 +368,7 @@
 	    <!--- Field: Applicant.Gender --->
 	    <TR id="personfield" name="personfield">		
 	    <TD class="labelmedium" align="left"><cf_tl id="Gender"> : <cfif get.CandidateStatus neq "1"><font color="FF0000">&nbsp;*&nbsp;</font></cfif></TD>
-	    <TD align="left" class="labelmedium">
+	    <TD align="left" class="labelmedium" style="height:27px">
 		
 		    <cfif url.mode neq "view" and get.CandidateStatus neq "1">
 			
@@ -405,7 +408,7 @@
 		    <!--- Field: Applicant.MiddleName --->
 		    <tr id="personfield" name="personfield">			
 		    <td class="labelmedium" align="left"><cf_tl id="BirthCity">:</TD>
-		    <td align="left">
+		    <td align="left" style="height:27px">
 			
 				<cfif url.mode neq "view">			
 					<INPUT type="text" class="regularxl enterastab" name="BirthCity" value="#Get.BirthCity#" maxLength="50" size="40">			
@@ -488,7 +491,8 @@
 	    <!--- Field: Applicant.Nationality --->
 	    <tr id="personfield" name="personfield">		
 	    <td class="labelmedium" align="left"><cf_tl id="Nationality"> : <cfif get.CandidateStatus neq "1"><font color="FF0000">&nbsp;*&nbsp;</font></cfif></TD>
-	    <td align="left" class="labelmedium">
+	    <td align="left" class="labelmedium" style="height:27px">
+		
 		
 			<cfif url.mode neq "view" and get.CandidateStatus neq "1">
 								

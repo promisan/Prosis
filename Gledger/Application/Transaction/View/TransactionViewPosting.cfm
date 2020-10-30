@@ -194,8 +194,6 @@ Armin 10/4/2013: Very important query as it combines child/parent transactions. 
 
 </cfif>
 
-
-
 <cfquery name="Lines"
 		datasource="AppsLedger"
 		username="#SESSION.login#"
@@ -214,6 +212,7 @@ Armin 10/4/2013: Very important query as it combines child/parent transactions. 
 					H.ActionStatus,
 					H.RecordStatus,
 					H.TransactionId,
+					H.DocumentDate,
 					H.TransactionPeriod as TransactionPeriodHeader,
 					T.TransactionDate,
 					T.TransactionPeriod as TransactionPeriodLine,
@@ -284,6 +283,7 @@ Armin 10/4/2013: Very important query as it combines child/parent transactions. 
 					 H.RecordStatus,
 					 H.TransactionId,
 					 H.TransactionPeriod,
+					 H.DocumentDate,
 				 	 T.TransactionDate,
 					 T.TransactionPeriod,
 					 G.Description,
@@ -319,16 +319,16 @@ Armin 10/4/2013: Very important query as it combines child/parent transactions. 
 					<!--- hanno 29/7 adjusted the sorting --->
 					
 			ORDER BY Sorting,
-					T.TransactionDate,
-					H.JournalTransactionNo,
-					H.Created,
+					H.DocumentDate,
+					H.JournalTransactionNo,					
 					T.ParentJournal,
 					T.ParentJournalSerialNo,
 					T.GLAccount,
-					T.TransactionSerialNo
+					T.TransactionSerialNo,
+					H.Created
+					
 
 </cfquery>
-
 
 
 <!--- prepare a summary based on the user selection --->
@@ -349,6 +349,7 @@ Armin 10/4/2013: Very important query as it combines child/parent transactions. 
 				  ParentJournalSerialNo,
 				  TransactionDate,
 				  TransactionPeriodHeader,
+				  DocumentDate,
 				  GLDescription,
 				  AccountLabel,
 				  AccountClass,
@@ -377,8 +378,9 @@ Armin 10/4/2013: Very important query as it combines child/parent transactions. 
 				  Mission,
 				  OrgUnitOwner,
 				  PeriodStatus,
-				  TransactionDate,
+				  TransactionDate,				  
 				  TransactionPeriodHeader,
+				  DocumentDate,
 				  JournalTransactionNo,
 				  ParentJournal,
 				  ParentJournalSerialNo,
@@ -394,14 +396,19 @@ Armin 10/4/2013: Very important query as it combines child/parent transactions. 
 				  Reference,
 				  Currency
 		 ORDER BY Sorting,				  
-				  TransactionDate,
+				  DocumentDate,
 				  TransactionPeriodHeader,
 				  JournalTransactionNo,
 				  TransactionSource,
 				  ParentJournal,
 				  ParentJournalSerialNo,
-				  GLAccount			
+				  GLAccount		
+				 
 	</cfquery>	
+	
+	<!--- not more than 100 out of 1000 (1 second)
+	<cfoutput>---#cfquery.executiontime#---</cfoutput>
+	--->
 
 </cfif>
 

@@ -146,7 +146,7 @@ password="#SESSION.dbpw#">
 						 J.JournalTransactionNo, 
 						 J.DocumentDate, 
 						 T.Currency				
-											
+										
 			</cfquery>
 			
 </cfif>			

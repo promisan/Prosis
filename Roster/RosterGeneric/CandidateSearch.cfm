@@ -16,6 +16,21 @@
 
 <cf_dialogStaffing>   
 <cfajaximport tags="cfdiv">
+<cf_ajaxRequest>
+
+<cfquery name="Owner" 
+	datasource="AppsSelection" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT  TOP 1 *
+		FROM   Ref_ParameterOwner
+</cfquery>
+
+<cfif Owner.PathHistoryProfile eq "">
+	<cfset path = "Roster/PHP/PDF/PHP_Combined_List.cfm">
+<cfelse>
+    <cfset path = "Custom/#Owner.PathHistoryProfile#">
+</cfif>
 
 <script>
 
@@ -59,6 +74,30 @@ function list(page) {
 	   Prosis.busy('yes')
 	}
 
+		function printingPHP(roster,format,script) {
+						
+			document.getElementById("php_"+script).className = "hide"
+			document.getElementById("wait_"+script).className = "regular"
+													
+
+			url = "#SESSION.root#/#path#?PHP_Roster_List="+roster+"&FileNo="+script	
+																			
+	 		AjaxRequest.get({			
+	        'url':url,    	    
+			'onSuccess':function(req) { 	
+			 document.getElementById("php_"+script).className = "regular"
+			 document.getElementById("wait_"+script).className = "hide"
+		  	 window.open("#SESSION.root#/cfrstage/user/#SESSION.acc#/php_"+script+".pdf?ts="+new Date().getTime(),"php_"+script)
+			
+          	  },					
+    	    'onError':function(req) { 	
+			 document.getElementById("wait_"+script).className = "hide"
+			 alert("An error has occurred upon preparing this PHP. A notification email was sent to the administrator.")}	
+    	     });	
+					
+		 }
+
+	
 </script>
 
 </cfoutput>

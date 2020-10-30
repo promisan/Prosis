@@ -64,6 +64,7 @@
 
 </cfif>
 
+
 <!--- refresh button to be called from outside removed hasnno 22/9
 <cfoutput>
 	<input type="hidden" id="refreshbutton" 
@@ -79,7 +80,7 @@
 		
 		    <cfoutput>		
 			    <cfif project.recordcount gte "1">
-			    <a href="javascript:helpedit('#Project.SystemModule#','#Project.ProjectCode#','#url.class#','','#url.systemfunctionid#')"><font color="0080C0">[Add topic]</a>
+			    <a href="javascript:helpedit('#Project.SystemModule#','#Project.ProjectCode#','#url.class#','','#url.systemfunctionid#')">[Add Help topic]</a>
 				</cfif>
 			</cfoutput>
 			

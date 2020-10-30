@@ -203,7 +203,7 @@ password="#SESSION.dbpw#">
 	<cfif Program.ProgramAllotment eq "1"	
 	   and (BudgetAccess eq "EDIT" or BudgetAccess eq "ALL")>
 
-		<td style="padding-right:6px" class="labelmedium"><cf_tl id="Mode">:</td>
+		<td style="padding-right:6px" class="labelmedium"><cf_tl id="Mode"></td>
 		<td id="enforcedetail"  class="labelmedium" style="padding-right:6px">	
 		
 		<cfif CheckAllotment.recordcount eq "0" or Program.EnforceAllotmentRequest eq "1">
@@ -213,7 +213,7 @@ password="#SESSION.dbpw#">
 		
 			<cfoutput>
 			
-				<a href="javascript:ColdFusion.navigate('#SESSION.root#/ProgramREM/Application/Program/Header/ProgramEditAllotment.cfm?programcode=#program.programcode#','enforcedetail')">		
+				<a href="javascript:ptoken.navigate('#SESSION.root#/ProgramREM/Application/Program/Header/ProgramEditAllotment.cfm?programcode=#program.programcode#','enforcedetail')">		
 				<font color="6688aa"><u>		
 					<cfif Program.EnforceAllotmentRequest eq "1"> <cf_tl id="Enforce Request Details"> <cfelse> <cf_tl id="Default"> </cfif>		
 				</font>

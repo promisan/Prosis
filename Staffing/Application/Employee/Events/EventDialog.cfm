@@ -120,7 +120,7 @@
 	</cf_layoutarea>	
 	
 	<cf_layoutarea 
-	    position="right" name="commentbox" minsize="20%" maxsize="30%" size="350" overflow="yes" collapsible="true" splitter="true">
+	    position="right" name="commentbox" minsize="20%" maxsize="30%" size="370" overflow="yes" collapsible="true" splitter="true">
 	
 		<cf_divscroll style="height:99%">
 			<cf_commentlisting objectid="#eventid#"  ajax="No">		

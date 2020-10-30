@@ -35,13 +35,13 @@
 <CF_DateConvert Value="#Form.SessionPlanStart#">
 <cfset STR = dateValue>
 <cfset STR = DateAdd("h", "#Form.HourSessionPlanStart#", "#STR#")> 
-<cfset STR = DateAdd("m", "#Form.MinuteSessionPlanStart#", "#STR#")>
+<cfset STR = DateAdd("n", "#Form.MinuteSessionPlanStart#", "#STR#")>
 
 <cfset dateValue = "">
 <CF_DateConvert Value="#Form.SessionPlanEnd#">
 <cfset end = dateValue>	
 <cfset end = DateAdd("h", "#Form.HourSessionPlanEnd#",   "#end#")> 
-<cfset end = DateAdd("m", "#Form.MinuteSessionPlanEnd#", "#end#")>
+<cfset end = DateAdd("n", "#Form.MinuteSessionPlanEnd#", "#end#")>
 
 <cfif UserSession.recordcount eq "1">
 

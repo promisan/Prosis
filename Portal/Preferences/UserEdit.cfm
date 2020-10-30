@@ -135,6 +135,20 @@ password="#SESSION.dbpw#">
 				source     = "javascript:pref('UserSignature.cfm')">	
 		</tr>
 		<tr>
+		
+		<tr>			
+		<cfset itm = itm + 1>
+		<cf_tl id="Mail block Log" var="1">			
+			
+			<cf_menutab item       = "#itm#" 
+			        targetitem = "1"
+			        iconsrc    = "Logos/User/UserEdit-Mail.png" 
+					iconwidth  = "#wd#" 
+					iconheight = "#ht#" 				
+					name       = "#lt_text#"
+					source     = "javascript:pref('UserMail.cfm')">		
+			</tr>		
+		
 		<cfset itm = itm + 1>			
 		<cf_tl id="Features" var="1">
 		

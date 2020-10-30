@@ -46,12 +46,14 @@ password="#SESSION.dbpw#">
 
 <cf_calendarscript>
 
+<cf_divscroll>
+
 <cfform action="MissionEditSubmit.cfm?id2=#url.id2#" method="POST" name="missionedit">
 
 <table width="96%" border="0" cellspacing="0" cellpadding="0" align="center">
 
  <tr><td height="5"></td></tr>	
- <tr class="line"><td colspan="2" style="height:40px;font-size:25px;font-weight:200"><cf_tl id="Settings and Modules"></td></tr>
+ <tr class="line"><td colspan="2" style="height:40px;font-size:25px;font-weight:200"><cf_tl id="Definition"></td></tr>
   
   <tr>
   
@@ -84,7 +86,7 @@ password="#SESSION.dbpw#">
 				name="Clear" 
 				id="Clear"
 				value="#vClear#" 
-				onclick="ColdFusion.navigate('MissionAccessClear.cfm?mission=#mission.mission#','clear')">
+				onclick="ptoken.navigate('MissionAccessClear.cfm?mission=#mission.mission#','clear')">
 		</cfif>
 	  </cfoutput>	
 	</td>
@@ -181,7 +183,7 @@ password="#SESSION.dbpw#">
 				
 			</td>	
 			
-			<td style="padding-left:14px" class="labelmedium"><cf_tl id="Until">:</td>
+			<td style="padding-left:14px;padding-right:6px" class="labelmedium"><cf_tl id="Until">:</td>
 		    
 			<td>
 						
@@ -273,11 +275,36 @@ password="#SESSION.dbpw#">
 			</TD>
 			</TR>	
 			
+			<tr>
+			<td class="labelmedium"><cf_tl id="Classification">:</td>
+			<td>
 			
+			  <cfquery name="Type" 
+			     datasource="AppsOrganization" 
+			     username="#SESSION.login#" 
+			     password="#SESSION.dbpw#">
+			       SELECT *
+			       FROM  Ref_MissionType
+			  </cfquery>
+		     		
+			  <select name="MissionType" id="MissionType" class="regularxl enterastab">
+			   <cfoutput query="Type">
+			   	  <option value="#MissionType#" <cfif Mission.MissionType eq MissionType>selected</cfif>>#MissionType#</option>
+			   </cfoutput>
+			  </select>
+						
+			</td>		
+			</tr>
 								
 			<TR>		    
 		    <td class="labelmedium"><cf_tl id="Home page URL">:  </td>
-			<td><cfinput type="Text" name="MissionURL" value="#Mission.MissionURL#" required="No" size="60" maxlength="50" class="regularxl enterastab">				
+			<td><cfinput type="Text" name="MissionURL" value="#Mission.MissionURL#" required="No" size="80" maxlength="80" class="regularxl enterastab">				
+			</td>
+			</TR>	
+			
+			<TR>		    
+		    <td class="labelmedium"><cf_tl id="Mail Signature logo">:  </td>
+			<td><cfinput type="Text" name="MissionPathLogo" value="#Mission.MissionPathLogo#" required="No" size="80" maxlength="80" class="regularxl enterastab">				
 			</td>
 			</TR>	
 						
@@ -332,7 +359,9 @@ password="#SESSION.dbpw#">
 			
 			</table>
 			</td>
-			</tr>					
+			</tr>	
+			
+			 <tr class="line"><td colspan="2" style="height:40px;font-size:25px;font-weight:200"><cf_tl id="Settings and Modules"></td></tr>				
 			
 			<cf_verifyOperational Module="Staffing">
 			
@@ -460,25 +489,7 @@ password="#SESSION.dbpw#">
 				</td>
 			</TR>
 			
-			<tr>
-			<td class="labelmedium">Classification:</td>
-			<td>
 			
-			  <cfquery name="Type" 
-			     datasource="AppsOrganization" 
-			     username="#SESSION.login#" 
-			     password="#SESSION.dbpw#">
-			       SELECT *
-			       FROM  Ref_MissionType
-			  </cfquery>
-		     		
-			  <select name="MissionType" id="MissionType" class="regularxl enterastab">
-			   <cfoutput query="Type">
-			   	  <option value="#MissionType#" <cfif Mission.MissionType eq MissionType>selected</cfif>>#MissionType#</option>
-			   </cfoutput>
-			  </select>
-						
-			</td>		
 			
 			<tr>
 												
@@ -609,5 +620,7 @@ password="#SESSION.dbpw#">
 	</TABLE>
 		
 	</CFFORM>
+	
+</cf_divscroll>	
 	
 <cf_screenBottom html="No">

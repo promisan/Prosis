@@ -7,7 +7,7 @@
 <cf_publicinit>
 
 <style>
-
+	
 	.center-screen {
 		display: flex;
 		flex-direction: column;
@@ -17,68 +17,83 @@
 		min-height: 100vh;
 	}
 
-	.main {
-		height:100%; 
-		width:100%; 
-		padding:30px;
+	.float-bottom-right {
+		position: fixed;
+		bottom:7%;
+		right:3%;
+	}
+
+	.main { 
+		width:50%;
 	}
 
 	.container {
-		background-color:#f5f5f5; 
+		background-color:rgba(255,255,255,0.75); 
 		padding:30px; 
 		border:1px solid #a8a8a8; 
 		border-radius:10px; 
 		overflow:hidden; 
 		height:auto;
+		width:100%;
 	}
 
 	.title {
-		color:#eb4034;
-		font-size:23px; 
+		color:#303030;
+		font-size:20px; 
 		text-align:center;
 	}
 
 	.subtitle {
-		color:#0A72AF; 
+		color:#303030; 
 		font-size:80%;
 	}
 
 	.metainfo {
-		padding-top:10px; 
-		color:#0A72AF; 
+		color:#303030; 
 		font-size:110%;
+		position: fixed;
+		top:3%;
+		left:3%;
+		padding:30px;
+		background-color:rgba(255,255,255,0.75); 
+		border:1px solid #a8a8a8; 
+		border-radius:3px; 
+		overflow:hidden; 
 	}
-
-	.submetainfo {
-		font-size:100%;
-	}
-
+	
 	.logoContainer {
 		text-align:center; 
 		padding-bottom:20px;
 	}
 
 	.logo {
-		height:100px; 
+		height:60px; 
 		width:auto;
+	}
+
+	@media only screen and (max-width: 768px) {
+		.logo {
+			height:75px; 
+		}
 	}
 
 </style>
 
 <cfoutput>
 
-<script>
+	<script>
 
-	function checkUserSession() {		
-		_cf_loadingtexthtml='';				
-		ptoken.navigate('#session.root#/tools/entityaction/session/checkSession.cfm?id=#url.id#&mode=start','sessionbox')
-	}
-	
-</script>
+		function checkUserSession() {		
+			_cf_loadingtexthtml='';				
+			ptoken.navigate('#session.root#/tools/entityaction/session/checkSession.cfm?id=#url.id#&mode=init','sessionbox')
+		}
+		
+	</script>
 
 </cfoutput>
 
-<div class="main center-screen">
+<div class="main float-bottom-right">
+
 	<div class="container">
 
 		<cfquery name="getLogo" 
@@ -89,9 +104,16 @@
 		</cfquery>
 
 		<div class="logoContainer">
+		
+			<table style="width:100%">
+			<tr style="border-bottom:1px solid black" class="labelmedium"><td style="padding-bottom:5px">
 			<cfoutput>
 				<img src="#session.root#/#getLogo.ApplicationThemeLogo#" class="logo">
 			</cfoutput>
+			</td>
+			<td style="font-size:20px;padding-bottom:5px" valign="bottom"  align="right"><cf_tl id="User Session"></td>
+			</tr></table>
+			
 		</div>
 
 		<cftry>
@@ -170,24 +192,47 @@
 
 		</cftry>
 
-		<cfif isDefined("SessionAction") AND SessionAction.RecordCount gt 0>
-		
-			<cfoutput>
-			
-				<div class="metainfo">
-					Requested by #SessionAction.OfficerFirstName# #SessionAction.OfficerLastName#.
-					<div class="submetainfo">Local time <span id="timeContainer"></span></div>
-				</div>
-				
-				<script>												
-					setInterval(checkUserSession, 60000) 	
-					_cf_loadingtexthtml='';		
-					ptoken.navigate('#session.root#/tools/entityaction/session/checkSession.cfm?id=#url.id#&mode=start','sessionbox')													
-				</script>
-				
-			</cfoutput>
-		</cfif>
-
 	</div>
 </div>
 
+<cfif isDefined("SessionAction") AND SessionAction.RecordCount gt 0>
+
+	<cfquery name="getBackground" 
+		datasource="AppsOrganization">
+		SELECT	ECM.SessionBackGround
+		FROM	OrganizationObjectActionSession S INNER JOIN 
+		        OrganizationObjectAction A ON S.ActionId = A.ActionId INNER JOIN 
+				OrganizationObject O ON A.ObjectId = O.ObjectId	INNER JOIN 
+				Ref_EntityClassMission ECM ON ECM.EntityCode = O.EntityCode
+											AND ECM.EntityClass = O.EntityClass
+											AND ECM.Mission = O.Mission
+		WHERE	S.ActionSessionId = '#SessionAction.ActionSessionId#'
+	</cfquery>
+
+	<cfif getBackground.recordCount eq 1 AND getBackground.SessionBackground neq "">
+		<cfoutput>
+			<style>
+				body {
+					background-image: url("#session.root#/#getBackground.SessionBackground#");
+					background-position: center; 
+  					background-repeat: no-repeat; 
+  					background-size: cover; 
+				}
+			</style>
+		</cfoutput>
+	</cfif>
+		
+	<cfoutput>
+	
+		<div class="metainfo">
+			<cf_tl id="Your contact">: #SessionAction.OfficerFirstName# #SessionAction.OfficerLastName#.
+		</div>
+		
+		<script>												
+			checkUserSession();
+			setInterval(checkUserSession, 30000);				
+		</script>
+		
+	</cfoutput>
+
+</cfif>

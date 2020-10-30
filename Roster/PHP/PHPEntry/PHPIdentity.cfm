@@ -1,6 +1,22 @@
+
+<cfif url.applicantNo neq "">
+
+	<cfquery name="Submission" 
+		datasource="AppsSelection" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT *
+		    FROM  ApplicantSubmission
+		    WHERE ApplicantNo = '#url.applicantno#'
+	</cfquery>	
+	
+	<cfset url.personno = submission.personNo>
+
+</cfif>
+
 <cfparam name="URL.PersonNo" 	default="#CLIENT.PersonNo#">
 <cfparam name="URL.ApplicantNo" default="#CLIENT.ApplicantNo#">
-<cfparam name="URL.NameStyle" 	default="font-size:18px;">
+<cfparam name="URL.NameStyle" 	default="font-size:18px">
 
 <cfoutput>
 	
@@ -26,7 +42,7 @@
 	<table width="100%" align="center" bgcolor="f1f1f1">
 		
 		<tr class="line">
-		   <td style="padding-top:4px;height:35px;min-width:900px">
+		   <td style="padding-top:1px;height:32px;min-width:900px">
 		   		   
 		   <table width="100%">
 			   <tr class="labelmedium">

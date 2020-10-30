@@ -2585,14 +2585,19 @@ function clearStockIssueEndFocus() {
 			ptoken.navigate('#SESSION.root#/Warehouse/Application/StockOrder/Task/Shipment/UnlinkTask.cfm?taskid='+id+'&context=cfwindow&scope='+scope,'dialogprocesstask');
 	 }
 
-	 function doItemSelect(c, e, w) {
+	 function doItemSelect(search,e,whs) {
 	     	     
 		 if (e == null || e.keyCode == 13) {
-		     if (c.value != '') {
-			     ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/Sale/getSaleItem.cfm?warehouse='+w+'&search='+c.value,'finditem','','','POST','saleform');
-			     c.value = '';
+		     if (search.value != '') {
+			     ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/Sale/getSaleItem.cfm?warehouse='+whs+'&search='+search.value,'finditem','','','POST','saleform');
+			     search.value = '';
 			 }
 		 }
+	 }
+	 
+	 function doItemMatch(whs,uomid) {	    		    
+		ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/Sale/getSaleItem.cfm?warehouse='+whs+'&itemuomid='+uomid,'finditem','','','POST','saleform');		
+		ProsisUI.closeWindow('itemselectbox')
 	 }
 
 </script>

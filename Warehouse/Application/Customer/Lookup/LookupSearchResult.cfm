@@ -15,33 +15,39 @@
 
 <CFSET Criteria = ''>
 <CF_Search_AppendCriteria
-    FieldName="#Form.Crit1_FieldName#"
-    FieldType="#Form.Crit1_FieldType#"
-    Operator="#Form.Crit1_Operator#"
-    Value="#Form.Crit1_Value#">
-
+	    FieldName="#Form.Crit1_FieldName#"
+	    FieldType="#Form.Crit1_FieldType#"
+	    Operator="#Form.Crit1_Operator#"
+	    Value="#Form.Crit1_Value#">
 
 <CF_Search_AppendCriteria
         FieldName="#Form.Crit2_FieldName#"
         FieldType="#Form.Crit2_FieldType#"
         Operator="#Form.Crit2_Operator#"
         Value="#Form.Crit2_Value#">
+		
+<CF_Search_AppendCriteria
+        FieldName="#Form.Crit3_FieldName#"
+        FieldType="#Form.Crit3_FieldType#"
+        Operator="#Form.Crit3_Operator#"
+        Value="#Form.Crit3_Value#">		
 
 
 <!--- Query returning search results --->
 <cfquery name="SearchResult"
-datasource="AppsMaterials"
-username="#SESSION.login#"
-password="#SESSION.dbpw#">
-	SELECT TOP 100 *
-    FROM Customer
-	<cfif PreserveSingleQuotes(Criteria) neq "">
-	WHERE #PreserveSingleQuotes(Criteria)#
-	<cfelse>
-	WHERE CustomerName is not NULL
-	</cfif>
-	ORDER BY CustomerName</cfquery>
-
+	datasource="AppsMaterials"
+	username="#SESSION.login#"
+	password="#SESSION.dbpw#">
+		SELECT TOP 100 *, (SELECT MAX(TransactionDate) FROM WarehouseBatch WHERE CustomerId = C.Customerid AND ActionStatus != '9') as LastDate 
+    	FROM Customer C
+		<cfif PreserveSingleQuotes(Criteria) neq "">
+		WHERE #PreserveSingleQuotes(Criteria)#
+		<cfelse>
+		WHERE CustomerName is not NULL
+		</cfif>
+		AND   Operational = 1
+		ORDER BY CustomerName
+</cfquery>
 
 <cfoutput>
 
@@ -55,32 +61,27 @@ password="#SESSION.dbpw#">
 			var cid = "#Form.fldcustomerid#";
 			var cname = "#Form.fldcustomername#";
 
-		    parent.opener.document.getElementById(cid).value = customerid
-			parent.opener.document.getElementById(cname).value = customername
-
-			parent.window.close();
+		    parent.document.getElementById(cid).value   = customerid
+			parent.document.getElementById(cname).value = customername
+			parent.ProsisUI.closeWindow('customer')
 	}
 
 	function search() {
-		window.location = "LookupSearchSelect.cfm?#Form.link#"
+		ptoken.location('LookupSearchSelect.cfm?#Form.link#')
 	}
-
-
 
 </script>
 
 </cfoutput>
 
-<cf_dialogStaffing>
+<cf_dialogLedger>
 
-<table width="98%" height="94%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="98%" height="94%" align="center">
 
-<tr><td colspan="2" align="center" height="30">
-	<input type="button" class="button10s" style="width:140;height:25" name="Search" value="Search" onClick="search()">
+<tr class="line"><td colspan="2" align="center" height="30">
+	<input type="button" class="button10g" style="width:140;height:25" name="Search" value="Search" onClick="search()">
 	</td>
 </tr>
-
-<tr><td height="1" colspan="7" class="line"></td></tr>
 
 <tr><td colspan="2" valign="top" id="tablecontent">
 
@@ -90,35 +91,38 @@ password="#SESSION.dbpw#">
 	   <td height="28" class="labelmedium" colspan="7">
 		   <table width="100%">
 			   <tr>
-				   <td class="labelmedium" style="padding-left:20px"><cfoutput>#SearchResult.recordcount#</cfoutput> <cf_tl id="employees listed"></td>
+				   <td class="labelmedium" style="padding-left:20px"><cfoutput>#SearchResult.recordcount#</cfoutput> <cf_tl id="customers listed"></td>
+				   <!---
 				   <td>|</td>
 				   <td class="labelmedium">
-				      <a href="javascript:addrecord()"><font color="6688aa">Register a new person</font></a>
+				      <a href="javascript:addrecord()">Register a new customer</a>
 				   </td>
+				   --->
 			   </tr>
 		   </table>
 	   </td>
 	   <td align="right"></td>
 	</tr>
 
-	<TR class="line">
+	<TR class="line labelmedium">
 	    <td height="20"></td>
-        <TD class="labelit"><cf_tl id="Reference"></TD>
-	    <TD class="labelit"><cf_tl id="Name"></TD>
+		<TD><cf_tl id="Id"></TD>        
+	    <TD><cf_tl id="Name"></TD>
+		<TD><cf_tl id="PersonId"></TD>
+		<TD><cf_tl id="Last"></TD>
+		<TD><cf_tl id="Reference"></TD>
 	</TR>
 
 	<CFOUTPUT query="SearchResult">
 
-
-		<TR class="navigation_row line labelmedium" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('f7f7f7'))#">
-
-			<TD width="30" align="center" class="navigation_action" style="padding-left:10px;padding-top:5px"
-			   onclick="selected('#customerid#','#customername#')">
-			   <cf_img icon="select">
-			</TD>
-            <TD>#Reference#</TD>
+		<TR class="navigation_row line labelmedium" style="height:20px" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('f1f1f1'))#">
+			<TD width="30" align="center" class="navigation_action" style="padding-left:7px;padding-top:3px"
+			   onclick="selected('#customerid#','#customername#')"><cf_img icon="select"></TD>
+            <TD><a href="javascript:editCustomer('#customerid#')">#CustomerSerialNo#</a></TD>
 			<TD>#CustomerName#</TD>
-
+			<TD>#PersonNo#</TD>
+			<td>#dateformat(LastDate,client.dateformatshow)#</td>
+			<TD>#Reference#</TD>
 		</TR>
 
 	</CFOUTPUT>

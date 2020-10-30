@@ -4,7 +4,7 @@
 <cfparam name="getTotal.records"         default="0">
 <cfparam name="searchresult.recordcount" default="#getTotal.records#">
 
-<table width="100%" height="100%" cellspacing="0" cellpadding="0">
+<table width="100%" height="100%">
 
 <tr>
 
@@ -160,12 +160,12 @@
 				   </tr>
 				   </table>
 						   
-			</td>
-					
-			
+			</td>					
+									
 			<cfif url.journal eq "">
 			
-				<td>					
+				<td>	
+							
 				
 					<table>
 					<tr class="labelmedium">
@@ -194,20 +194,23 @@
 				</td>	
 			
 			<cfelse>
+			
+			
 					
 				<cfif Journal.TransactionCategory is "Payables" or
 				      Journal.TransactionCategory is "Memorial" or 
 				      Journal.TransactionCategory is "DirectPayment" or 
 					  Journal.TransactionCategory is "Advances" or 
-					  Journal.TransactionCategory is "Receivables" or Journal.TransactionCategory is "Payment" or Journal.TransactionCategory is "Banking">
+					  Journal.TransactionCategory is "Receivables" or 
+					  Journal.TransactionCategory is "Receipt" or 
+					  Journal.TransactionCategory is "Payment" or 
+					  Journal.TransactionCategory is "Banking">
 					  
 					<td>	
 									
 					<table cellspacing="0" cellpadding="0" class="formpadding">
 					
-						<tr class="labelmedium">
-						
-						
+						<tr class="labelmedium">					
 						
 						<td style="padding-left:7px;cursor: pointer;" onclick="reloadForm(document.getElementById('page').value,'Pending')">  				
 						<input type="radio" style="height:18px;width:18px" class="radiol" name="Status" value="Pending" <cfif URL.IDStatus eq "Pending">checked</cfif>>
@@ -216,7 +219,7 @@
 						<cf_tl id="Pending for Clearance">
 						</td>
 						
-						<cfif Journal.TransactionCategory neq "Memorial">
+						<cfif Journal.TransactionCategory neq "Memorial" and  Journal.TransactionCategory neq "Receipt" and  Journal.TransactionCategory neq "Payment">
 						
 						<td style="padding-left:7px;cursor: pointer;" onclick="reloadForm(document.getElementById('page').value,'Outstanding')">  				
 						<input type="radio" style="height:18px;width:18px" class="radiol" name="Status" value="Outstanding" <cfif URL.IDStatus eq "Outstanding">checked</cfif>>

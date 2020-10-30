@@ -528,10 +528,9 @@ password="#SESSION.dbpw#">
 					    <cfelseif submissions eq "1">				
 				
 							<cf_RosterPHP 
-								DisplayType = "HLink"
-								Image       = "#SESSION.root#/Images/pdf_small.gif"
+								DisplayType = "HLink"								
 								DisplayText = ""
-								style       = "height:14;width:16"
+								style       = "height:22px;width:22px"
 								Script      = "#currentrow-first + 1#"
 								RosterList  = "#ApplicantNo#"
 								Format      = "Document">
@@ -562,10 +561,9 @@ password="#SESSION.dbpw#">
 								<td align="right" style="padding-right:5px">
 							
 								<cf_RosterPHP 
-									DisplayType = "HLink"
-									Image       = "#SESSION.root#/Images/pdf_small.gif"
+									DisplayType = "HLink"									
 									DisplayText = "#left(Source,2)#"
-									style       = "height:14;width:16"
+									style       = "height:22px;width:22px"
 									Script      = "#row-first + 1#"
 									RosterList  = "#ApplicantNo#"
 									Format      = "Document">	

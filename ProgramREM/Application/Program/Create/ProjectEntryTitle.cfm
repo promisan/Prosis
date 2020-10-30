@@ -24,13 +24,9 @@ password="#SESSION.dbpw#">
     SELECT 	G.*,
 			O.Mission
 	FROM   	ProgramGroup G
-			INNER JOIN Ref_ProgramGroup RG
-				ON G.ProgramGroup = RG.Code
-			INNER JOIN ProgramPeriod PP
-				ON PP.ProgramCode = G.ProgramCode
-				AND PP.Period = '#url.period#'
-			INNER JOIN Organization.dbo.Organization O
-				ON PP.OrgUnit = O.OrgUnit
+			INNER JOIN Ref_ProgramGroup RG ON G.ProgramGroup = RG.Code
+			INNER JOIN ProgramPeriod PP    ON PP.ProgramCode = G.ProgramCode AND PP.Period = '#url.period#'
+			INNER JOIN Organization.dbo.Organization O ON PP.OrgUnit = O.OrgUnit
 	WHERE  	G.ProgramCode = '#vEditProgramCode#'
 </cfquery>
 
@@ -40,8 +36,7 @@ username="#SESSION.login#"
 password="#SESSION.dbpw#">
     SELECT 	PC.*
 	FROM   	Program P
-			INNER JOIN Ref_ProgramClass PC
-				ON P.ProgramClass = PC.Code
+			INNER JOIN Ref_ProgramClass PC ON P.ProgramClass = PC.Code
 	WHERE  	P.ProgramCode = '#vEditProgramCode#'
 </cfquery>
 
@@ -53,72 +48,61 @@ password="#SESSION.dbpw#">
 	<cfset vPeriodFieldsMode = "HTML">
 </cfif>
 
-<!--- All projects --->
+<!--- prepare subtitles to be customazble --->
+	
+<cfif qGroup.Mission eq "DPA" OR qGroup.Mission eq "DPPA-DPO">
+					
+	<!--- DPA projects --->						
+	<cfset vDisplayProblemAnalysis = "display:none;">
+	
+	<!--- Rapid Response --->
+	<cfif qGroup.ProgramGroup eq "D02">		
+		<cf_tl class="Message" id="Rapid DPPA-DPO Objective"       var="vSummarySubtitle">
+		<cf_tl class="Message" id="Rapid DPPA-DPO Requirement"     var="vRequirementsSubtitle">
+		<cf_tl class="Message" id="Rapid DPPA-DPO Justification"   var="vJustificationSubtitle">	
+	<cfelse>
+		<cf_tl class="Message" id="Project DPPA-DPO Objective"     var="vSummarySubtitle">
+		<cf_tl class="Message" id="Project DPPA-DPO Requirement"   var="vRequirementsSubtitle">
+		<cf_tl class="Message" id="Project DPPA-DPO Justification" var="vJustificationSubtitle">								
+	</cfif>
+		
+<cfelse>
+	
+	<cf_tl class="Message" id="Project Objective Subtitle"         var="vSummarySubtitle">
+	<cf_tl class="Message" id="Project Requirement Subtitle"       var="vRequirementsSubtitle">
+	<cf_tl class="Message" id="Project Justification Subtitle"     var="vJustificationSubtitle">
+		
+</cfif>
+
+<!--- General text box titles and subtitles --->
+<cfoutput>
 <cfsavecontent variable="vSummaryLabel">
-	<cf_tl id="Summary">:<font color="FF0000">*</font>
-	<br><font size="2" color="808080">(<cf_tl id="include link to Division Work-Plans">)
+	<cf_tl id="Overall Objectives">:<font color="FF0000">*</font>
+	<cfif vSummarySubtitle neq "">
+	<br><font size="2" color="808080">#vSummarySubtitle#</font>
+	</cfif>	
 </cfsavecontent>
 
 <cfsavecontent variable="vRequirementsLabel">
-   <cf_tl id="Requirements and Objective">:
-   <br><font size="2" color="808080">(Specify clearly posts and consultancies with level, duration, location, and/or training and/or travel including number of people, number of trips, who is travelling, etc.)
+   <cf_tl id="Budget Requirements">:
+   <cfif vRequirementsSubtitle neq "">
+	<br><font size="2" color="808080">#vRequirementsSubtitle#</font>
+	</cfif>   
 </cfsavecontent>
 
 <cfset vDisplayDescription = "">
 <cfsavecontent variable="vDescriptionLabel">
-   <cf_tl id="Description">:<font color="FF0000">*</font>
-	<br><font size="2" color="808080">Reason, funding and role
+   <cf_tl id="Justification">:<font color="FF0000">*</font>
+   <cfif vJustificationSubtitle neq "">
+	<br><font size="2" color="808080">#vJustificationSubtitle#</font>
+	</cfif>      
 </cfsavecontent>
 
 <cfset vDisplayProblemAnalysis = "">
 <cfsavecontent variable="vProblemAnalysisLabel">
-    <cf_tl id="Problem Analysis">:<font color="FF0000">*</font>
-	<br><font size="2" color="808080">(<cf_tl id="include link to Division Work-Plans">)
+    <cf_tl id="Problem Analysis">:<font color="FF0000">*</font>	
 </cfsavecontent>
-
-<cfif qGroup.recordCount gt 0>
-	<!--- DPA projects --->
-	<cfif qGroup.Mission eq "DPA" OR qGroup.Mission eq "DPPA-DPO">
-	
-		<cfsavecontent variable="vSummaryLabel">
-			Overall Objectives:
-			<br><font size="2" color="808080">Describe the project's overall objective(s), including how they contribute to DPPA's Strategic Plan 2020-2022.
-		</cfsavecontent>
-		
-		<cfsavecontent variable="vRequirementsLabel">
-		   Budget Requirements:
-		   <br><font size="2" color="808080">Narrative explanation of the budget and how the project will be implemented (i.e. through an Implementing Partner, a Mission, Regional Center, or directly by HQ etc.)
-		</cfsavecontent>
-		
-		<cfset vDisplayDescription = "">
-			<cfsavecontent variable="vDescriptionLabel">
-			   	Justification of the project: 
-				<br><font size="2" color="808080">Describe the overall context (political, social, etc.) the challenge the project seeks to address and why it is important. Reflect on the gender dimensions where relevant.
-			</cfsavecontent>
-		
-		<cfset vDisplayProblemAnalysis = "display:none;">
-		
-		<!--- Rapid Response --->
-		<cfif qGroup.ProgramGroup eq "D02">
-		
-			<cfsavecontent variable="vSummaryLabel">
-				 Brief summary of the problem/crisis: <font color="FF0000">*</font>
-			</cfsavecontent>
-			
-			<cfsavecontent variable="vRequirementsLabel">
-			   Budget requirements:
-			   <br><font size="2" color="808080">Narrative explanation of the budget.
-			</cfsavecontent>
-			
-			<cfset vDisplayDescription = "">
-			<cfsavecontent variable="vDescriptionLabel">
-			   	Description of the request: <font color="FF0000">*</font>
-				<br><font size="2" color="808080">Reason for rapid response funding
-			</cfsavecontent>
-			
-		</cfif>
-	</cfif>
-</cfif>
+</cfoutput>
 
 <!--- ----------------------------------------------------------------------------------------- --->
 
@@ -158,8 +142,7 @@ password="#SESSION.dbpw#">
 			  </td>		  
 		   </tr>
 		   		   		   
-		   <cfelse>
-		   		  		   
+		   <cfelse>	   
 			   
 		   		   
 		   </cfif>		
@@ -679,6 +662,7 @@ password="#SESSION.dbpw#">
 		<tr>   
 								
 		        <TD colspan="6">
+								
 				
 				<cfif mode eq "edit">
 								
@@ -694,7 +678,7 @@ password="#SESSION.dbpw#">
 					LanguageDefault = "1"	
 					Message         = ""
 					Form            = "programform"
-					Maxlength       = "30000"
+					Maxlength       = "30000"					
 					cols            = "69"
 					height          = "150"
 					rows            = "13"

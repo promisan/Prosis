@@ -5,7 +5,7 @@
 
 <cfset dateValue = "">
 <CF_DateConvert Value="#Form.DateEffective#">
-<cfset STR = #dateValue#>
+<cfset STR = dateValue>
 
 <cfset dateValue = "">
 <cfif #Form.DateExpiration# neq ''>
@@ -38,6 +38,7 @@ UPDATE Ref_Mission
 		DateEffective         = #STR#,
 		DateExpiration        = #END#,
 		MissionURL            = '#Form.MissionURL#',
+		MissionPathLogo       = '#Form.MissionPathLogo#',
 		MissionParentOrgUnit  = '#Form.MissionParentOrgUnit#',
 		Operational           = '#Form.Operational#',
 		ProcurementMode       = '#Form.ProcurementMode#',		

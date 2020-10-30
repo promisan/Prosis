@@ -148,6 +148,7 @@ password="#SESSION.dbpw#">
 								
 			</tr>
 			
+						
 			<cfif Param.PostingMode eq "1">
 			
 				<!--- show by parent --->
@@ -166,57 +167,58 @@ password="#SESSION.dbpw#">
 			
 				<cfloop query="getParent">
 				
-				<cfquery name="CheckMe"
-				datasource="AppsPayroll" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-				    SELECT 	*
-					FROM 	SalarySchedulePayrollItemParent
-					WHERE 	Mission          = '#Schedule.Mission#'
-					AND  	SalarySchedule   = '#Schedule.SalarySchedule#'
-					AND 	PayrollItem      = '#get.PayrollItem#'
-					AND     PostGradeParent  = '#Code#'
-				</cfquery>
+					<cfquery name="CheckMe"
+					datasource="AppsPayroll" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+					    SELECT 	*
+						FROM 	SalarySchedulePayrollItemParent
+						WHERE 	Mission          = '#Schedule.Mission#'
+						AND  	SalarySchedule   = '#Schedule.SalarySchedule#'
+						AND 	PayrollItem      = '#get.PayrollItem#'
+						AND     PostGradeParent  = '#Code#'
+					</cfquery>
+						
+					<cfquery name="Account" 
+					datasource="AppsLedger" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+						SELECT *
+						FROM   Ref_Account
+						WHERE  GLAccount = '#CheckMe.GLAccount#'
+								
+					</cfquery>
+				
+					<tr style="height:14px">
 					
-				<cfquery name="Account" 
-				datasource="AppsLedger" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-					SELECT *
-					FROM   Ref_Account
-					WHERE  GLAccount = '#CheckMe.GLAccount#'
+					<td class="labelmedium" style="padding-top:5px;padding-left:20px">#schedule.mission# #Code#</td>
+					
+					<td><table>							
 							
-				</cfquery>
-				
-				<tr style="height:14px">
-				
-				<td class="labelmedium" style="padding-top:5px;padding-left:20px">#schedule.mission# #Code#</td>
-				
-				<td><table>							
-						
-						 <td style="padding-left:1px">				    
-							<input type="text" id="glaccount_#row#_#currentrow#" name="glaccount_#row#_#currentrow#" size="11" value="#CheckMe.GLAccount#"  class="regularxl" readonly style="width:100;padding-left:4px">
-						 </td>
-						 <td style="padding-left:2px">	
-						    <input type="text" id="glaccountname_#row#_#currentrow#" name="glaccountname_#row#_#currentrow#"  value="#Account.Description#" class="regularxl" size="40" readonly style="width:100%;padding-left:4px">						
-					    </td>
-						
-						<td style="padding-left:14px">						
-							<cf_img icon="edit" onClick="selectaccountgl('#schedule.Mission#','glaccount','','','applyaccount','#row#_#currentrow#')">														  
-						 </td>
-						
-						<td style="padding-left:4px;padding-right:5px">						
-							<cf_img icon="delete" onClick="removeAccount('#row#_#currentrow#');">													
-						</td>	
-						
-						</table>
-						</td>
-				
-				</tr>
+							 <td style="padding-left:1px">				    
+								<input type="text" id="glaccount_#row#_#currentrow#" name="glaccount_#row#_#currentrow#" size="11" value="#CheckMe.GLAccount#"  class="regularxl" readonly style="width:100;padding-left:4px">
+							 </td>
+							 <td style="padding-left:2px">	
+							    <input type="text" id="glaccountname_#row#_#currentrow#" name="glaccountname_#row#_#currentrow#"  value="#Account.Description#" class="regularxl" size="40" readonly style="width:100%;padding-left:4px">						
+						    </td>
+							
+							<td style="padding-left:14px">						
+								<cf_img icon="edit" onClick="selectaccountgl('#schedule.Mission#','glaccount','','','applyaccount','#row#_#currentrow#')">														  
+							 </td>
+							
+							<td style="padding-left:4px;padding-right:5px">						
+								<cf_img icon="delete" onClick="removeAccount('#row#_#currentrow#');">													
+							</td>	
+							
+							</table>
+							</td>
+					
+					</tr>
+					
 				</cfloop>
 				
 			<cfelseif Param.PostingMode eq "2">	
-						
+									
 				<!--- show by class --->
 				
 				<cfquery name="getClass" 
@@ -232,82 +234,82 @@ password="#SESSION.dbpw#">
 			
 				<cfloop query="getClass">
 				
-				<cfquery name="CheckMe"
-				datasource="AppsPayroll" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-				    SELECT 	*
-					FROM 	SalarySchedulePayrollItemClass
-					WHERE 	Mission          = '#Schedule.Mission#'
-					AND  	SalarySchedule   = '#Schedule.SalarySchedule#'
-					AND 	PayrollItem      = '#get.PayrollItem#'
-					AND     PostClass        = '#PostClass#'
-				</cfquery>
+					<cfquery name="CheckMe"
+					datasource="AppsPayroll" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+					    SELECT 	*
+						FROM 	SalarySchedulePayrollItemClass
+						WHERE 	Mission          = '#Schedule.Mission#'
+						AND  	SalarySchedule   = '#Schedule.SalarySchedule#'
+						AND 	PayrollItem      = '#get.PayrollItem#'
+						AND     PostClass        = '#PostClass#'
+					</cfquery>
 					
-				<cfquery name="Account" 
-				datasource="AppsLedger" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-					SELECT *
-					FROM   Ref_Account
-					WHERE  GLAccount = '#CheckMe.GLAccount#'							
-				</cfquery>
+					<cfquery name="Account" 
+					datasource="AppsLedger" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+						SELECT *
+						FROM   Ref_Account
+						WHERE  GLAccount = '#CheckMe.GLAccount#'							
+					</cfquery>
 				
-				<tr style="height:10px" class="labelit">
-				
-				<td style="padding-left:30px">#PostClass#:</td>
-				
-				<td><table>							
-					 <tr>
-						 <td style="padding-left:1px">				    
-							<input type="text" id="glaccount_#row#_#currentrow#" name="glaccount_#row#_#currentrow#" size="11" value="#CheckMe.GLAccount#"  class="regularh" readonly style="width:100;padding-left:4px">
-						 </td>
-						 <td style="padding-left:2px">	
-						    <input type="text" id="glaccountname_#row#_#currentrow#" name="glaccountname_#row#_#currentrow#"  value="#Account.Description#" class="regularh" size="40" readonly style="width:100%;padding-left:4px">						
-					    </td>
-						
-						<td style="padding-left:14px">						
-							<cf_img icon="edit" onClick="selectaccountgl('#schedule.Mission#','glaccount','','','applyaccount','#row#_#currentrow#')">														  
-						 </td>
-						
-						<td style="padding-left:4px;padding-right:5px">						
-							<cf_img icon="delete" onClick="removeAccount('#row#_#currentrow#');">													
-						</td>	
-					</tr>
-					</table>
-				</td>
-				
-				<cfquery name="Account" 
-				datasource="AppsLedger" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-					SELECT *
-					FROM   Ref_Account
-					WHERE  GLAccount = '#CheckMe.GLAccountLiability#'							
-				</cfquery>
-				
-				<td style="padding-left:30px">#PostClass#:</td>
-				<td>
-					<table>							
-						<tr>
-						<td style="padding-left:1px">				    
-							<input type="text" id="glaccountliability_#row#_#currentrow#" name="glaccountliability_#row#_#currentrow#" size="11" value="#CheckMe.GLAccountLiability#"  class="regularh" readonly style="width:100;padding-left:4px">
-						</td>
-						<td style="padding-left:2px">	
-						    <input type="text" id="glaccountliabilityname_#row#_#currentrow#" name="glaccountliabilityname_#row#_#currentrow#"  value="#Account.Description#" class="regularh" size="40" readonly style="width:100%;padding-left:4px">						
-					    </td>
-						
-						<td style="padding-left:14px">						
-							<cf_img icon="edit" onClick="selectaccountgl('#schedule.Mission#','glaccountliability','','','applyaccount','#row#_#currentrow#')">														  
-						</td>
-						
-						<td style="padding-left:4px;padding-right:5px">						
-							<cf_img icon="delete" onClick="removeLiability('#row#_#currentrow#');">													
-						</td>	
+					<tr style="height:10px" class="labelit">
+					
+					<td style="padding-left:30px">#PostClass#:</td>
+					
+					<td><table>							
+						 <tr>
+							 <td style="padding-left:1px">				    
+								<input type="text" id="glaccount_#row#_#currentrow#" name="glaccount_#row#_#currentrow#" size="11" value="#CheckMe.GLAccount#"  class="regularh" readonly style="width:100;padding-left:4px">
+							 </td>
+							 <td style="padding-left:2px">	
+							    <input type="text" id="glaccountname_#row#_#currentrow#" name="glaccountname_#row#_#currentrow#"  value="#Account.Description#" class="regularh" size="40" readonly style="width:100%;padding-left:4px">						
+						    </td>
+							
+							<td style="padding-left:14px">						
+								<cf_img icon="edit" onClick="selectaccountgl('#schedule.Mission#','glaccount','','','applyaccount','#row#_#currentrow#')">														  
+							 </td>
+							
+							<td style="padding-left:4px;padding-right:5px">						
+								<cf_img icon="delete" onClick="removeAccount('#row#_#currentrow#');">													
+							</td>	
 						</tr>
-					</table>				
-				</td>			
-				</tr>
+						</table>
+					</td>
+					
+					<cfquery name="Account" 
+					datasource="AppsLedger" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+						SELECT *
+						FROM   Ref_Account
+						WHERE  GLAccount = '#CheckMe.GLAccountLiability#'							
+					</cfquery>
+					
+					<td style="padding-left:30px">#PostClass#:</td>
+					<td>
+						<table>							
+							<tr>
+							<td style="padding-left:1px">				    
+								<input type="text" id="glaccountliability_#row#_#currentrow#" name="glaccountliability_#row#_#currentrow#" size="11" value="#CheckMe.GLAccountLiability#"  class="regularh" readonly style="width:100;padding-left:4px">
+							</td>
+							<td style="padding-left:2px">	
+							    <input type="text" id="glaccountliabilityname_#row#_#currentrow#" name="glaccountliabilityname_#row#_#currentrow#"  value="#Account.Description#" class="regularh" size="40" readonly style="width:100%;padding-left:4px">						
+						    </td>
+							
+							<td style="padding-left:14px">						
+								<cf_img icon="edit" onClick="selectaccountgl('#schedule.Mission#','glaccountliability','','','applyaccount','#row#_#currentrow#')">														  
+							</td>
+							
+							<td style="padding-left:4px;padding-right:5px">						
+								<cf_img icon="delete" onClick="removeLiability('#row#_#currentrow#');">													
+							</td>	
+							</tr>
+						</table>				
+					</td>			
+					</tr>
 				
 				</cfloop>			
 			

@@ -254,6 +254,7 @@
 												   color          = "ffffff">#val#</cf_textarea>
 										
 										<cfelse>
+																			
 																								
 											<cfif attributes.form neq "">
 											
@@ -262,7 +263,7 @@
 													 class="#Attributes.Class#"
 													 maxlength="#Attributes.maxlength#"
 													 onKeyUp="_cf_loadingtexthtml='';ColdFusion.navigate('#SESSION.root#/tools/input/text/memolength.cfm?field=#nm#&size=#Attributes.maxlength#','memcount_#nm#','','','POST','#attributes.form#')"											 
-													 style="width:100%;<cfif SystemDefault neq '1'>background-color: F0FFFF</cfif>;border-radius:3px;font-size:13px;padding:3px">#val#</textarea>		
+													 style="max-width:99%;width:99%;resize: vertical;background-color:<cfif SystemDefault neq '1'>F0FFFF<cfelse>F1F1F1</cfif>;border-radius:3px;font-size:14px;padding:8px">#val#</textarea>		
 												
 											<cfelse>
 																									
@@ -271,7 +272,7 @@
 													 class="#Attributes.Class#"
 													 maxlength="#Attributes.maxlength#"
 													 onkeyup="return ismaxlength(this)"
-													 style="width:100%;<cfif SystemDefault neq '1'>background-color: F0FFFF</cfif>;border-radius:3px;font-size:13px;padding:3px">#val#</textarea>		
+													 style="font-size:14px;max-width:99%;width:99%;resize: vertical;background-color:<cfif SystemDefault neq '1'>F0FFFF<cfelse>F1F1F1</cfif>;border-radius:3px;padding:8px">#val#</textarea>		
 													 
 											</cfif>		
 										

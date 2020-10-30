@@ -130,7 +130,7 @@ password="#SESSION.dbpw#">
 			
 			</cfloop>
 			
-			<cfelse>
+			<cfelseif Param.PostingMode eq "2">
 			
 			<!--- show by class --->
 				
@@ -140,7 +140,7 @@ password="#SESSION.dbpw#">
 				password="#SESSION.dbpw#">
 					SELECT *
 					FROM   Employee.dbo.Ref_PostClass
-					WHERE  PostClass IN (SELECT DISTINCT PostClass 
+					WHERE  PostClass IN (SELECT PostClass 
 					                     FROM   Employee.dbo.Position 
 										 WHERE  Mission = '#Schedule.Mission#')																		
 				</cfquery>

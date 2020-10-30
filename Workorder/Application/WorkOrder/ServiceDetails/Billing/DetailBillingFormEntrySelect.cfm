@@ -290,28 +290,37 @@
 				</select>
 			
 			<cfelse>
-															
-				<select name  = "#UnitClass#_costid_0" 
-				   id         = "#UnitClass#_costid_0"
-				   style      = "width:300;border-radius:3px" 
-				   class      = "provision regularxl enterastab"
-				   onkeydown="if (event.keyCode==13) {event.keyCode=9; return event.keyCode}"
-				   onchange   = "unitshow('#unitclass#',this.value,'#qt#');showfeature('#unitclass#',this.value,'#url.workorderid#','#url.workorderline#','#url.requestid#','#url.mode#','#url.billingid#','#url.orgunitowner#','#url.date#')">			   
-				   <cfloop query="UnitDetail">
-				   
-				   		<cfinvoke component = "Service.Process.WorkOrder.Provisioning"  
-						   method           = "getRate" 
-						   Mission          = "#url.mission#"
-						   OrgUnitOwner     = "#url.orgunitowner#"
-						   ServiceItem      = "#url.serviceitem#"
-						   Unit             = "#Unit#"
-						   SelectionDate    = "#dateformat(str,client.dateformatshow)#"   
-					   	   returnvariable   = "getRate">	   				   
-				   
-					    <!--- map on the unit and then used the cost id for deeper --->
-						<option value="#getRate.CostId#" <cfif sel eq unit>selected</cfif>>#UnitDescription#</option>
-				   </cfloop>			
-				</select>
+
+				<cfset qSelect=QueryNew("CostId,UnitDescription","varchar,varchar")>
+				<cfset vSelect = "">
+				<cfloop query="UnitDetail">
+						<cfinvoke component = "Service.Process.WorkOrder.Provisioning"
+								method           = "getRate"
+								Mission          = "#url.mission#"
+								OrgUnitOwner     = "#url.orgunitowner#"
+								ServiceItem      = "#url.serviceitem#"
+								Unit             = "#Unit#"
+								SelectionDate    = "#dateformat(str,client.dateformatshow)#"
+								returnvariable   = "getRate">
+					<!--- map on the unit and then used the cost id for deeper --->
+					<cfset vRow=StructNew()>
+					<cfset vRow={CostId=getRate.CostId,UnitDescription=UnitDescription}>
+					<cfset QueryAddRow(qSelect,vRow)>
+					<cfif sel eq unit>
+						<cfset vSelect = getRate.CostId>
+					</cfif>
+				</cfloop>
+				<cf_uiselect name  = "#UnitClass#_costid_0"
+						id         = "#UnitClass#_costid_0"
+						style      = "width:600;border-radius:3px"
+						query 	  = "#qSelect#"
+						value      = "CostId"
+						selected   = "#vSelect#"
+						display    = "UnitDescription"
+						filter     = "contains"
+						class      = "provision regularxl enterastab"
+						onchange   = "unitshow('#unitclass#',this.value(),'#qt#');showfeature('#unitclass#',this.value(),'#url.workorderid#','#url.workorderline#','#url.requestid#','#url.mode#','#url.billingid#','#url.orgunitowner#','#url.date#')">
+				</cf_uiselect>
 			
 			</cfif>
 			

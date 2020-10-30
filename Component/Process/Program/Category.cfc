@@ -41,6 +41,7 @@
 		<!--- obtain the program of this programcode-- --->
 		<!--- ---------------------------------------- --->
 		
+				
 		<cfquery name="get" 
 			datasource="AppsProgram" 
 			username="#SESSION.login#" 
@@ -83,15 +84,15 @@
 				AND       OrgUnit IN (SELECT OrgUnit 
 				                      FROM   Organization.dbo.Organization WHERE Mission = '#mission#') 
 			</cfquery>		
-			
+						
 			<cfif get.recordcount eq "1">
 			
 				<cfset program = get.ProgramCode>
-			
+							
 			</cfif>	
 		
 		</cfloop>
-		
+				
 		<!--- ----------------------------------------- --->					
 		<!--- obtain the parent orgunit of this program --->
 		<!--- ----------------------------------------- --->	
@@ -158,81 +159,136 @@
 			</cfquery>	
 				
 		</cfif>
+
+		<cfset elements = "">
 		
-		<cfset deny = "">
-		<cfset denyhier = "0">
-		
-		<cfoutput query="List">
-		
-		    <cfset pass = "1">			
-			
-			<cfif find(denyhier,hierarchycode)>
-			
-				<!-- the higher level is denied so also the deeper level will --->
-			
-				<cfset pass = "0">
-								
-			<cfelse>	
-					
-				<cfloop index="itm" list="period,orgunit,program,group">
+		<!--- we check if filter is set for this CODE and functional ELEMENT  --->
 				
-					<cfquery name="getControl" 
-						datasource="AppsProgram" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">
+		<cfloop index="itm" list="period,orgunit,program,group">
+		
+				<cfquery name="getControl" 
+					datasource="AppsProgram" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
 						SELECT    *
 						FROM      #ControlObject#Control
-						WHERE     Code           = '#Code#'
+						WHERE     Code           IN (SELECT Code 
+						                             FROM   Ref_ProgramCategory 
+													 WHERE AreaCode = '#areacode#')
 						AND       Mission        = '#mission#'
-						AND       ControlElement = '#itm#'
-					 </cfquery>
-										 					 					 				 
-					 <cfif GetControl.recordcount gte "1">
-					 				 					 					 					 
-					 	<!--- has filters defined for this element now we check if it is part of the allowed --->
-						
-						<cfset val = evaluate(itm)>
-				 		 
-					 	<cfquery name="getControl" 
-						datasource="AppsProgram" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">
-							SELECT    *
-							FROM      #ControlObject#Control
-							WHERE     Code = '#Code#'
-							AND       Mission = '#mission#'
-							AND       ControlElement = '#itm#'
-							AND       ControlValue   = '#val#'
-					    </cfquery>
-					
-						<cfif getControl.recordcount eq "0">
-						
-							<!--- No, so this one we do not show --->
-							<cfset pass = "0">
-							<cfset denyhier = HierarchyCode>
-						</cfif>
+						AND       ControlElement = '#itm#'						
+				 </cfquery>
 				 
-				 	</cfif>		
-								 			
-				</cfloop>
-				
-			</cfif>	
-			
-			<cfif pass eq "0">
-			
-			      <cfif deny eq "">
-				  	<cfset deny = "'#code#'">
-				  <cfelse>
-					<cfset deny = "#deny#,'#code#'">
-				  </cfif>	
-				  
-			</cfif>
+				 <cfif getControl.recordcount gte "1">
+				 
+					 <cfif elements eq "">
+						 <cfset elements = "#itm#">
+					 <cfelse>
+					 	<cfset elements = "#elements#,#itm#">	 
+					 </cfif>
+				 
+				 </cfif>
 		
-		</cfoutput>
-	   
+		</cfloop>
+				
+		<cfif elements neq "">
+		
+			<cfloop index="itm" list="#elements#">
+			
+				<cfset deny = "">
+				<cfset denyhier = "9999">
+					
+				<cfoutput query="List">
+								
+				    <!--- ATTENTION we need  cater for the fact that a program can have multiple GROUP assigned
+					     so we need to loop through each group value --->
+						 				
+				    <cfset pass = "1">					
+							
+					<cfif find(denyhier,hierarchycode)>
+					
+						<!--- the higher level is denied so also the deeper level will --->
+																													
+						<cfset pass = "0">		
+													
+														
+					<cfelse>				
+															 															 				 					 					 					 
+						<!--- we have filters set for this category AREA and ELEMENT (Period)
+						so now we check if it applies for the underlying range of topics 
+						the selected ELEMENT-VALUE value (FY17) --->
+								
+						<cfset val = evaluate(itm)>
+								 
+						<cfquery name="getControl" 
+							datasource="AppsProgram" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+								SELECT    *
+								FROM      #ControlObject#Control
+								WHERE     Code           IN (SELECT Code 
+								                             FROM   Ref_ProgramCategory 
+															 WHERE  AreaCode = '#areacode#' 
+															 AND    HierarchyCode LIKE '#HierarchyCode#%')
+								AND       Mission        = '#mission#'
+								AND       ControlElement = '#itm#'								
+								<cfif itm eq "Period">
+								AND       ControlValue   = '#val#'
+								</cfif>
+						 </cfquery>
+								
+						 <cfif getControl.recordcount eq "0">
+																																									
+								<!--- not explicitly enabled so the higher category level will rule not changes in the deny --->
+								
+						 <cfelse>
+						 
+						 		<!--- we have records for this hierarchy now we check if it is enabled --->
+						 															
+									<cfquery name="getDetailControl" 
+									datasource="AppsProgram" 
+									username="#SESSION.login#" 
+									password="#SESSION.dbpw#">
+										SELECT    *
+										FROM      #ControlObject#Control
+										WHERE     Code           IN (SELECT Code 
+								                             FROM   Ref_ProgramCategory 
+															 WHERE  AreaCode = '#areacode#' 
+															 AND    HierarchyCode LIKE '#HierarchyCode#%')
+										AND       Mission        = '#mission#'
+										AND       ControlElement = '#itm#'
+										AND       ControlValue   = '#val#'
+								    </cfquery>									
+																
+									<cfif getDetailControl.ControlMode eq "0" or getDetailControl.recordcount eq "0">		
+																	
+										<cfset pass = "0">
+										<cfset denyhier = HierarchyCode>																																					
+									
+									</cfif>														
+												 
+							 	</cfif>											
+							
+							</cfif>				
+																					
+						<cfif pass eq "0">
+																		
+						      <cfif deny eq "">
+							  	<cfset deny = "'#code#'">
+							  <cfelse>
+								<cfset deny = "#deny#,'#code#'">
+							  </cfif>	
+							  
+						</cfif>
+											
+				</cfoutput>
+			
+			</cfloop>		
+		
+		</cfif>		
+		   
 	   <cfreturn deny>		
 		 
-   </cffunction>
-   
+   </cffunction>   
   		
 </cfcomponent>	 

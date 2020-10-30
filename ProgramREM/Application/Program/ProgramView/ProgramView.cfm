@@ -29,7 +29,7 @@
 	scroll="no">		
 		
 <cf_layoutscript>	
-<cfajaximport tags="cftree,cfform">
+
 <cf_ObjectControls>
 
 <cfset attrib = {type="Border",name="mybox",fitToWindow="Yes"}>	

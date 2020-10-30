@@ -145,7 +145,7 @@
 					
 		<cfinvoke component    =  "Service.Process.Program.Category"  
 			   method          =  "ReferenceTableControl" 
-			   ControlObject   =  "Ref_ProgramFinancial"
+			   ControlObject   =  "Ref_ProgramCategory"
 			   Mission         =  "#mission#"
 			   ProgramCode     =  "#url.ProgramCode#" 
 			   Period          =  "#url.period#"
@@ -198,6 +198,11 @@
 								<table width="100%">
 									<tr>
 										<td align="center" style="font-size:60px;font-weight:bold; color:##808080;" class="labelmedium">
+											
+											<cf_tl id="AVG" var="1">
+											<cfset vAVGVal = 0>
+											<cfset vAVGLabel = lt_text>
+											
 											<cfquery name="getAVGWeight" 
 												datasource="AppsProgram" 
 												username="#SESSION.login#" 
@@ -213,16 +218,21 @@
 											</cfquery>
 											
 											<cfif getAVGWeight.recordCount gt 0 AND getAVGWeight.Average neq "">
-												#numberformat(getAVGWeight.Average, ",")#
-											<cfelse>
-												-
+												<cfset vAVGVal = getAVGWeight.Average>
 											</cfif>
 											
+											<!--- kherrera(2020-10-26): new rules applied for GM 4--->
+											<cfif vAVGVal eq 3 AND url.mission eq 'DPPA-DPO' AND (url.period eq "F21")>
+												<cfset vAVGVal = 4>
+												<cfset vAVGLabel = "">
+											</cfif>
+											
+											#numberformat(vAVGVal, ",")#
 										</td>
 									</tr>
 									<tr>
 										<td align="center" style="font-size:11px;font-weight:200; color:##808080;" class="labelmedium">
-								      		<cf_tl id="AVG"> #ard#
+								      		#vAVGLabel# #ard#
 									  	</td>
 									</tr>
 								</table>
