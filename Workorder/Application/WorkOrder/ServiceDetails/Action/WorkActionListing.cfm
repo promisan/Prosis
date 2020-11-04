@@ -755,7 +755,7 @@ password="#SESSION.dbpw#">
 				--->
 												
 					<!-----<cfif SESSION.acc eq OfficerUserId or getAdministrator(workorder.mission) eq "1"> ----->
-						<cfif access eq "ALL" or getAdministrator(workorder.mission) eq "1">
+						<cfif access eq "EDIT" or access eq "ALL" or getAdministrator(workorder.mission) eq "1">
 																
 						<table>
 						<tr><td align="right" style="padding-right:2px;padding-top:2px">	

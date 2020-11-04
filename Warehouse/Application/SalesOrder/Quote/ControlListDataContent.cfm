@@ -48,6 +48,7 @@
 			WHERE          CR.Warehouse = '#url.warehouse#' 
 			-- AND            CR.BatchNo IS NULL 
 			AND            CR.ActionStatus <> '9' 
+			<!--- to exclude temporary loaded records to amend --->
 			AND            EXISTS (SELECT    'X'
                                    FROM      CustomerRequestLine AS S
                                    WHERE     RequestNo = CR.RequestNo 

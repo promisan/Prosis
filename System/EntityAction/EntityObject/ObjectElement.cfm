@@ -78,12 +78,12 @@ password="#SESSION.dbpw#">
 		   <cfif url.type neq "Attach" and url.type neq "Field"> 
 		   <td style="background-color:white" width="4%"></td>
 		   <cfelseif url.type eq "Field">
-		   <td style="background-color:white;;min-width:130px">
+		   <td style="background-color:white;min-width:130px">
 		   	<table>
 		   		<tr class="labelmedium">
-					<td width="40"><cf_tl id="Obl"></td>
-					<td>&nbsp;</td>
-					<td><cf_tl id="Type"></td>
+					<td style="background-color:white" width="40"><cf_tl id="Obl"></td>
+					<td style="background-color:white">&nbsp;</td>
+					<td style="background-color:white"><cf_tl id="Type"></td>
 				</tr>				
 		  	</table>
 		   </td>
@@ -620,7 +620,7 @@ password="#SESSION.dbpw#">
 								</tr>
 								
 								<tr>
-									 <td class="labelmedium" style="padding-right:5px;padding-left:23px;cursor:pointer">
+									 <td class="labelmedium" style="padding-right:15px;padding-left:23px;cursor:pointer">
 									 <cf_UIToolTip tooltip="A context senstive value to be used for filtering at runtime valid reports.  Example: [norefresh] makes this document not being refreshed upon form submission.">
 									 Usage Criteria:</cf_UIToolTip>
 									 </td>
@@ -708,51 +708,51 @@ password="#SESSION.dbpw#">
 						Class           = "regularxl">
 				   	 				  
 		           </td>
-				   <td style="min-width:100px;border-right:1px solid silver">
+				   <td style="min-width:100px;border-right:1px solid silver;padding-right:6px">
 				   				   
 				   <cfif URL.type eq "dialog">
-				      <select name="DocumentMode" id="DocumentMode" class="regularxl" style="border:0px;width:99%;background-color:transparent">
+				      <select name="DocumentMode" id="DocumentMode" class="regularxl" style="border:0px;width:96%;background-color:transparent">
 					   <option value="Embed" <cfif md eq "Embed">selected</cfif>>Embed</option>
 					   <option value="Ajax" <cfif md eq "Ajax">selected</cfif>>Saves using Ajax</option>
 					   <option value="Popup" <cfif md eq "Popup">selected</cfif>>Popup</option>
 					  </select>
 					   <cfelseif URL.type eq "session">
-				      <select name="DocumentMode" id="DocumentMode" class="regularxl" style="border:0px;width:99%;background-color:transparent">
+				      <select name="DocumentMode" id="DocumentMode" class="regularxl" style="border:0px;width:96%;background-color:transparent">
 					   <option value="Submit" <cfif md eq "Submit">selected</cfif>>Submit</option>
 					   <option value="Ajax" <cfif md eq "Ajax">selected</cfif>>Saves using Ajax</option>				   
 					  </select>    
 					<cfelseif URL.type eq "report"> 
-					 <select name="DocumentMode" id="DocumentMode" class="regularxl" style="border:0px;width:99%;background-color:transparent">
+					 <select name="DocumentMode" id="DocumentMode" class="regularxl" style="border:0px;width:96%;background-color:transparent">
 					   <option value="AsIs" <cfif md eq "AsIs">selected</cfif>>AsIs (Changes are NOT allowed)</option>
 					   <option value="Edit" <cfif md eq "Edit" or md eq "Embed">selected</cfif>>Edit (Changes are allowed)</option>
 					   <option value="Blank" <cfif md eq "Blank">selected</cfif>>Reset/Edit</option>
 					  </select>   
 					<cfelseif URL.type eq "document"> 
-					 <select name="DocumentMode" id="DocumentMode" class="regularxl" style="border:0px;width:99%;background-color:transparent">
+					 <select name="DocumentMode" id="DocumentMode" class="regularxl" style="border:0px;width:96%;background-color:transparent">
 					    <option value="AsIs" <cfif md eq "AsIs">selected</cfif>>AsIs</option>	 
 					 </select>       
 					<cfelseif URL.type eq "question"> 
-					 <select name="DocumentMode" id="DocumentMode" class="regularxl" style="border:0px;width:99%;background-color:transparent">
+					 <select name="DocumentMode" id="DocumentMode" class="regularxl" style="border:0px;width:96%;background-color:transparent">
 					   <option value="Rating" <cfif md eq "Rating">selected</cfif>>Rating</option>
 					   <option value="Comments" <cfif md eq "Edit">selected</cfif>>Edit</option>				 
 					  </select>      
 					 <cfelseif URL.type eq "rule"> 
-					 <select name="DocumentMode" id="DocumentMode" class="regularxl" style="border:0px;width:99%;background-color:transparent">
+					 <select name="DocumentMode" id="DocumentMode" class="regularxl" style="border:0px;width:96%;background-color:transparent">
 					   <option value="Notify" <cfif md eq "Stopper">selected</cfif>>Notification</option>	
 					   <option value="Stopper" <cfif md eq "Stopper">selected</cfif>>Stopper</option>				 
 					 </select>      
 					<cfelseif URL.type eq "mail"> 
-					 <select name="DocumentMode" id="DocumentMode" class="regularxl" style="border:0px;width:99%;background-color:transparent">
+					 <select name="DocumentMode" id="DocumentMode" class="regularxl" style="border:0px;width:96%;background-color:transparent">
 					   <option value="AsIs" <cfif md eq "AsIs">selected</cfif>>AsIs</option>
 					   <option value="Edit" <cfif md eq "Edit">selected</cfif>>Edit</option>
 					  </select> 
 					<cfelseif URL.type eq "script"> 
-					 <select name="DocumentMode" id="DocumentMode" class="regularxl" style="border:0px;width:99%;background-color:transparent">
+					 <select name="DocumentMode" id="DocumentMode" class="regularxl" style="border:0px;width:96%;background-color:transparent">
 					   <option value="Process" <cfif md eq "Process">selected</cfif>>Process</option>
 					   <option value="Condition" <cfif md eq "Condition">selected</cfif>>Condition</option>
 					  </select>   
 					<cfelseif URL.type eq "attach"> 					
-					 <select name="DocumentMode" id="DocumentMode" class="regularxl" style="border:0px;width:99%;background-color:transparent">
+					 <select name="DocumentMode" id="DocumentMode" class="regularxl" style="border:0px;width:96%;background-color:transparent">
 					   <option value="Header" <cfif md eq "Header">selected</cfif>>Header</option>
 					   <option value="Step" <cfif md eq "Step">selected</cfif>>Step</option>
 					  </select>   
@@ -791,7 +791,7 @@ password="#SESSION.dbpw#">
 							AND   DocumentCode = '#URL.ID2#'
 						</cfquery>							
 					
-						<select name="DocumentMode" id="DocumentMode" class="regularxl" style="border:0px;width:99%">
+						<select name="DocumentMode" id="DocumentMode" class="regularxl" style="border:0px;width:96%">
 						   <cfif checkNote.recordcount eq "1">
 							   <option value="Notes" <cfif md eq "Notes">selected</cfif>>Notes</option>
 						   </cfif>
@@ -814,11 +814,12 @@ password="#SESSION.dbpw#">
 				   <cfif url.type neq "Attach" and url.type neq "Field">   
 				   <td></td>
 				   
-				   <cfelseif url.type eq "Field">
+				    <cfelseif url.type eq "Field">
 				   
-				   		<td style="border-right:1px solid silver">
+				   		<td style="padding-left:4px;border-left:1px solid silver;border-right:1px solid silver">
 						    <table cellspacing="0" cellpadding="0">
-					   		<tr><td>
+					   		<tr><td style="border-left:1px solid silver">
+							
 						     <input type="Checkbox"
 						       name="FieldRequired"
 							   class="radiol"
@@ -827,7 +828,7 @@ password="#SESSION.dbpw#">
 							   <cfif fieldrequired eq "1">checked</cfif>>
 							  </td>
 							 
-							  <td style="padding-left:4px">
+							  <td style="padding-left:4px;border-left:1px solid silver">
 							  
 							  <select name="fieldtype" id="fieldtype" class="regularxl" onchange="toggle(this.value)" style="border:0px;width:99%;background-color:transparent">
 							 	  <option value="list"     <cfif fieldtype eq "list">selected</cfif>>List</option>
@@ -1014,7 +1015,7 @@ password="#SESSION.dbpw#">
 			    <td valign="top" style="padding-left:15px;padding-top:7px;padding-right:30px" height="25" class="labelmedium">&nbsp;Settings</td>
 				<td colspan="7" align="right">
 
-				<table width="100%" class="formpadding" cellspacing="0" cellpadding="0">
+				<table width="100%" class="formpadding">
 										
 				<cfif url.type eq "field">
 							
@@ -1252,14 +1253,14 @@ password="#SESSION.dbpw#">
 					   </td>
 					<cfelseif url.type eq "Field">
 					
-					    <td>
+					    <td style="min-width:230px">
 					    <table cellspacing="0" cellpadding="0" class="formpadding">
 					   		<tr class="labelmedium" style="height:15px">
 							  <td width="40" class="labelmedium">
 						      <cfif fieldrequired eq "0">No<cfelse>Yes</cfif>
 							  </td>
 							  <td style="padding-left:4px"></td>
-							  <td class="labelmedium">
+							  <td class="labelmedium" style="min-width:200px">
 								  <cfif fieldtype eq "List">
 								    <a href="javascript:more('#documentid#')">#fieldtype#</a>
 								  <cfelse>	

@@ -341,7 +341,9 @@ password="#SESSION.dbpw#">
 						<td style="padding-left:3px">#ItemNoExternal#</td>
 						<td style="min-width:89%;padding-left:3px"><cfif len(ItemDescription) lte 5>#ItemDescriptionExternal#<cfelse>#ItemDescription#</cfif> : #UOMDescription#</td>	
 						
-						<cfif hasVendor gte "1">
+						
+						
+						<cfif hasVendor gte "1" and url.restocking eq "Procurement">
 										
 							<cfquery name="getRelatedUoM" 
 								datasource="AppsMaterials" 
@@ -373,7 +375,7 @@ password="#SESSION.dbpw#">
 							
 						<cfelse>
 						
-							<td></td>	
+							<td>#MinReorderQuantity#</td>	
 							<td></td>
 							
 						</cfif>	

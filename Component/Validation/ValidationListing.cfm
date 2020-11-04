@@ -3,6 +3,7 @@
 <cf_param name="url.object"			  default="" type="string">
 <cf_param name="url.width"			  default="90%" type="string">
 
+
   <!--- if condition is not met it re-create an entry in the table --->
 			 							 
 		 <cfquery name="getValidation" 
@@ -21,7 +22,7 @@
 			 WHERE    M.SystemFunctionId = '#url.SystemFunctionId#'
 			 <cfif mission neq "">
 			 AND      EXISTS (SELECT 'X' 
-			                     FROM Ref_ModuleControlValidationMission
+			                     FROM  Ref_ModuleControlValidationMission
 								 WHERE SystemFunctionId = M.SystemFunctionId
 								 AND   ValidationCode = M.ValidationCode
 								 AND   Mission = '#url.mission#') 
@@ -29,12 +30,27 @@
 			 AND      M.Operational = 1
 			 ORDER BY M.ListingOrder ASC
 			 
+			 
 		 </cfquery> 		 
 			 
 		<cf_pane id="validationMonitor" search="No" height="95%">
-				 	 			 
+		
+			<div style="width:84%; background-color:#DEDEDE; padding:8px; margin-bottom:10px; font-size:125%;">
+				<cfoutput>
+					<cf_tl id="Validations" var="1">
+					#ucase(lt_text)#
+					<cf_tl id="Refresh all" var="1">
+					<img 
+						src="#session.root#/images/refresh_gray.png" 
+						style="float:right; height:16px; cursor:pointer;" 
+						onclick="parent.parent.doProjectValidations();"
+						title="#lt_text#">
+				</cfoutput>
+			</div>
+						 	 			 
 			 <cfoutput query="getValidation">
-			 			 			 		
+			 
+									 			 			 		
 				 <!--- <cftry>	--->
  
 				 	<cfinvoke component = "Service.Validation.#SystemModule#"  

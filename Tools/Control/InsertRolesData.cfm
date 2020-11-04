@@ -2679,6 +2679,14 @@
 		  DocumentDescription="Expenditures"
 		  DocumentTemplate="cost"
 		  DocumentMode="Embed">		
+		  
+	<cf_insertEntityDocument
+	      Code="#EntityCode#"   
+          DocumentType="function" 
+		  DocumentCode="fmes"
+		  DocumentDescription="Messenger"
+		  DocumentTemplate="mess"
+		  DocumentMode="Embed">			  
 		  	  
 	<cf_insertEntityDocument
 	      Code="#EntityCode#"   

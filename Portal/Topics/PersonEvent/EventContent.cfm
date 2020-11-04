@@ -50,6 +50,7 @@
 	           P.OrgUnit, 
 			   P.OrgUnitName, 
 			   </cfif>
+			   Sub.Source,
 			   Sub.EventYear, 
 			   Sub.EventMonth, 
 			   Sub.ActionStatus, 
@@ -81,6 +82,7 @@
 							 R.Description AS EventTriggerName, 
 							 Pe.EventCode, 
 							 E.Description AS EventName,
+							 Pe.Source,
 	                         
 	                         (SELECT     TOP 1 U.Account
 	                          FROM       Organization.dbo.OrganizationObjectActionAccess AS OOAA INNER JOIN
@@ -129,6 +131,7 @@
 			 Sub.ActionStatus, 
 			 Sub.EventTrigger, 
 			 Sub.EventTriggerName, 
+			 Sub.Source,
 			 Sub.EventCode, 
 			 Sub.EventName, 
 			 Sub.EventYear, 
@@ -162,6 +165,8 @@
 	  <table height="100%" border="0">
 	 
 	 	  <tr><td valign="top" align="center" style="padding-top:7px;">
+		  
+		  	<table><tr><td>
 		  				  
 			  <cfquery name="Summary" dbtype="query">
 				    SELECT     EventTrigger,
@@ -180,11 +185,11 @@
 			  			  			  
 			  <cfchart style = "#chartStyleFile#" 
 				       format="png"
-				       chartheight="150" 
-					   chartwidth="1120"    			  
+				       chartheight="440" 
+					   chartwidth="640"    			  
 				       seriesplacement="default"	 
 					   showborder="No"
-					   show3d="no"
+					   show3d="yes"
 					   fontsize="12" 
 					   scaleFrom = "0"  					   
 					   showlegend="no"
@@ -193,16 +198,58 @@
 				       sortxaxis="yes">	
 										
 					   <cfchartseries
-			             type="bar"
+			             type="pie"
 			             query="Summary"				 
 			             itemcolumn="EventTriggerName"
 			             valuecolumn="Counted"
-			             serieslabel="Summary"						
+						 datalabelstyle="columnlabel"
+			             serieslabel="Events by Trigger"						
 						 seriescolor = "EB974E" 				 			 
 					     colorlist="#vColorlist#"/>			
+					 
+				</cfchart>	
+				
+				</td>
+				<td>			
+			  <cfquery name="Summary" dbtype="query">
+				    SELECT     Source,							            				 
+							   SUM(Actions) as Counted					   
+				    FROM       Base		
+					<cfif user neq "">
+					WHERE      Actor = '#user#'
+					</cfif>						
+				    GROUP BY   Source   
+					ORDER BY   Source
+			  </cfquery>	
+				
+				 <cfchart style = "#chartStyleFile#" 
+				       format="png"
+				       chartheight="300" 
+					   chartwidth="400"    			  
+				       seriesplacement="default"	 
+					   showborder="No"
+					   show3d="yes"
+					   fontsize="12" 
+					   scaleFrom = "0"  					   
+					   showlegend="no"
+					   pieslicestyle="solid"
+					   showxgridlines="yes"
+				       sortxaxis="yes">	
+														
+						 
+						  <cfchartseries
+			             type="bar"
+			             query="Summary"				 
+			             itemcolumn="Source"
+			             valuecolumn="Counted"						 
+			             serieslabel="Events by Source"						
+						 seriescolor = "EB974E" 				 			 
+					     colorlist="#vColorlist#"/>		 
 						 
 				</cfchart>	
-						
+				
+				</td></tr></table>
+										
 		</td></tr>
 		</table>
 	

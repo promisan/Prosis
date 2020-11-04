@@ -62,7 +62,8 @@
 	 </cfquery> 
 
 	 <cfoutput>
-     <script>	     	 		
+     <script>
+	     returnValue = '#prior.programid#'		 		
 		 try {
 	     window.close()					 						
 		 opener.right.history.go() }
@@ -579,7 +580,7 @@
 		<cfcase value="Program">
 		
 			<script LANGUAGE = "JavaScript"> 
-			    ptoken.location('../ProgramViewTop.cfm?ProgramCode=#form.ProgramCode#&mission=#getProgram.Mission#&Period=#form.Period#')						
+				window.location = "../ProgramViewTop.cfm?ProgramCode=#form.ProgramCode#&mission=#getProgram.Mission#&&Period=#form.Period#"		
 			</script>
 			  
 		</cfcase>
@@ -589,18 +590,18 @@
 		    <cfif Parameter.DefaultOpenProgram eq "Activity">
 			
 			  	  <script LANGUAGE = "JavaScript"> 
-					   ptoken.location('../Activity/Progress/ActivityView.cfm?ProgramCode=#form.ProgramCode#&Mission=#getProgram.Mission#&Period=#form.Period#')					   
+					  window.location = "../Activity/Progress/ActivityView.cfm?ProgramCode=#form.ProgramCode#&Mission=#getProgram.Mission#&Period=#form.Period#"
 				  </script>
 			  						  
 			<cfelse>
 											   
 				  <cfif Parameter.EnableIndicator eq "1">
 					  <script LANGUAGE = "JavaScript"> 
-							ptoken.location('../Indicator/TargetView.cfm?ProgramCode=#form.ProgramCode#&Mission=#getProgram.Mission#&Period=#form.Period#')							
+							window.location = "../Indicator/TargetView.cfm?ProgramCode=#form.ProgramCode#&Mission=#getProgram.Mission#&Period=#form.Period#"
 					  </script>
 				  <cfelse>
 					  <script LANGUAGE = "JavaScript"> 
-						    ptoken.location('../ActivityProgram/ActivityView.cfm?ProgramCode=#form.ProgramCode#&Mission=#getProgram.Mission#&Period=#form.Period#')							
+						    window.location = "../ActivityProgram/ActivityView.cfm?ProgramCode=#form.ProgramCode#&Mission=#getProgram.Mission#&Period=#form.Period#"
 				   	  </script>
 				  </cfif>
 								
@@ -610,15 +611,15 @@
 					
 		<cfcase value="Project">
 										
-			<cfif Parameter.EnableGANTT eq "1">		
-				<script LANGUAGE = "JavaScript"> 	
-				    ptoken.location('../../Activity/Progress/ActivityView.cfm?ProgramCode=#form.ProgramCode#&Mission=#getProgram.Mission#&Period=#form.Period#&output=1')						
-				</script>
-			<cfelse>	
-			    <script LANGUAGE = "JavaScript"> 		
-			  		ptoken.location('../Events/EventsView.cfm?ProgramCode=Mission=#form.ProgramCode#&Mission=#getProgram.Mission#&Period=#form.Period#')						
-				</script>
-			</cfif>			
+				<cfif Parameter.EnableGANTT eq "1">		
+					<script LANGUAGE = "JavaScript"> 					   
+						window.location = "../../Activity/Progress/ActivityView.cfm?ProgramCode=#form.ProgramCode#&Mission=#getProgram.Mission#&Period=#form.Period#&output=1"
+					</script>
+				<cfelse>	
+				    <script LANGUAGE = "JavaScript"> 		
+				  		window.location = "../Events/EventsView.cfm?ProgramCode=Mission=#form.ProgramCode#&Mission=#getProgram.Mission#&Period=#form.Period#"
+					</script>
+				</cfif>			
 						
 		</cfcase>			
 	

@@ -114,16 +114,16 @@
 	--->
 	
 	<tr>  
-		  <td style="padding-left:20px">
+		  <td style="height:40px;padding-left:20px">
 		  
 		  	<table class="formspacing">
 			<tr>			
 				<td><input type="radio" checked name="Process" id="Process" value="Process" style="height:19px;width:19px" class="radiol" onclick="stockpicking('s','#url.systemfunctionid#')"/></td>
-				<td style="font-size:18px;padding-left:3px" class="labelmedium"><cf_tl id="Process Pickticket"></td>
+				<td style="padding-top:3px;font-size:18px;padding-left:3px" class="labelmedium"><cf_tl id="Process Replenishment request or Internal request"></td>
 				<td style="padding-left:10px"><input type="radio" name="Process" id="Process" style="height:19px;width:19px" value="Pending" class="radiol" onclick="stockbackorder('s','#url.systemfunctionid#')"/></td>
-				<td style="font-size:18px;padding-left:3px" class="labelmedium"><cf_tl id="On Backorder"></td>		
+				<td style="padding-top:3px;font-size:18px;padding-left:3px" class="labelmedium"><cf_tl id="On Backorder"></td>		
 				<td style="padding-left:10px"><input type="radio" name="Process" id="Process" style="height:19px;width:19px" value="Shipping" class="radiol" onclick="stockshipment('s','#url.systemfunctionid#')"/></td>
-				<td style="font-size:18px;padding-left:3px" class="labelmedium"><cf_tl id="Pending shipment"></td>		
+				<td style="padding-top:3px;font-size:18px;padding-left:3px" class="labelmedium"><cf_tl id="Pending shipment"></td>		
 			</tr>
 			</table>
 				
@@ -133,7 +133,7 @@
 		  
   </cfoutput>
 	  
-  <tr><td colspan="3" height="1" class="linedotted"></td></tr>
+  <tr><td colspan="3" height="1" class="line"></td></tr>
 	  	   
   <tr onKeyUp="javascript:search()">
   

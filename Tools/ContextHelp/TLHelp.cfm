@@ -110,10 +110,21 @@ password="#SESSION.dbpw#">
 
 <cfoutput>
 	
-<table>
+<table width="100%">
+		
+	<cfif HelpId.TopicPresentation eq "Embed">
+	
+	<tr class="line">
+	<td style="padding-top:6px;font-size:16px;font-weight:bold">#HelpId.TopicName#</td>
+	</tr>
+	
 	<tr>
-												
-	<cfif HelpId.TopicPresentation eq "Tooltip" or HelpId.TopicPresentation eq "Dialog">	
+	<td style="padding-left:10px;padding-top:4px">#HelpId.UITextAnswer#</td>
+	</tr>
+													
+	<cfelseif HelpId.TopicPresentation eq "Tooltip" or HelpId.TopicPresentation eq "Dialog">	
+	
+	<tr>
 											
 	        <!--- tooltip --->		
 															
@@ -125,12 +136,8 @@ password="#SESSION.dbpw#">
 						<td style="padding:0px;cursor:pointer;" class="#attributes.styleclass#" align="#Attributes.Align#">
 					</cfif>			
 					    										
-						<a href="javascript:setProsisHelp('#SESSION.root#/Tools/ContextHelp/HelpContent.cfm?topicid=#HelpId.topicid#', function(){ showProsisHelp(); });">
-																			   
-							<font color="#attributes.color#" style="font-size:12px">							 
-								#label#
-							</font>
-							
+						<a href="javascript:setProsisHelp('#SESSION.root#/Tools/ContextHelp/HelpContent.cfm?topicid=#HelpId.topicid#', function(){ showProsisHelp(); });">																			   
+							<font color="#attributes.color#" style="font-size:12px">#label#</font>							
 						</a>						
 						
 					</td>
@@ -140,10 +147,7 @@ password="#SESSION.dbpw#">
 					<td style="padding-left:3px;padding-right:3px" 
 					   onclick="setProsisHelp('#SESSION.root#/Tools/ContextHelp/HelpContent.cfm?topicid=#HelpId.topicid#', function(){ showProsisHelp(); });">
 					
-					<img src="#SESSION.root#/Images/#icon#"									    	 
-						 border="0"							 
-						 align="absmiddle"
-						 style="cursor: pointer;">
+						<img src="#SESSION.root#/Images/#icon#"	border="0" align="absmiddle" style="cursor: pointer;">
 						 
 					</td>	 
 					
@@ -154,10 +158,7 @@ password="#SESSION.dbpw#">
 					<td style="padding-left:3px;padding-right:3px" 
 					   onclick="setProsisHelp('#SESSION.root#/Tools/ContextHelp/HelpContent.cfm?topicid=#HelpId.topicid#', function(){ showProsisHelp(); });">
 					
-					<img src="#SESSION.root#/Images/#icon#"									    	 
-						 border="0"							 
-						 align="absmiddle"
-						 style="cursor: pointer;">
+						<img src="#SESSION.root#/Images/#icon#"	border="0" align="absmiddle" style="cursor: pointer;">
 						 
 					</td>	 
 					
@@ -165,27 +166,26 @@ password="#SESSION.dbpw#">
 			
 			<!---
 					
-			<cfelseif Attributes.Display eq "Both" or Attributes.Display eq "Icon">
-			
-			    <cfif attributes.display eq "both">
-				    
-					<td width="2"></td>
-					
-				</cfif>			
-								
-				<td>
+				<cfelseif Attributes.Display eq "Both" or Attributes.Display eq "Icon">
 				
-												
-				<a href="javascript:setProsisHelp('#SESSION.root#/Tools/ContextHelp/HelpContent.cfm?topicid=#HelpId.topicid#', function(){ showProsisHelp(); });">																
-					<img src="#SESSION.root#/Images/#ic#"									    	 
-						 border="0"							 
-						 align="absmiddle"
-						 style="cursor: pointer;">
-				</a>
+				    <cfif attributes.display eq "both">
+					    
+						<td width="2"></td>
+						
+					</cfif>			
+									
+					<td>
+																	
+					<a href="javascript:setProsisHelp('#SESSION.root#/Tools/ContextHelp/HelpContent.cfm?topicid=#HelpId.topicid#', function(){ showProsisHelp(); });">																
+						<img src="#SESSION.root#/Images/#ic#"									    	 
+							 border="0"							 
+							 align="absmiddle"
+							 style="cursor: pointer;">
+					</a>
+								 
+					</td>			 
 							 
-				</td>			 
-						 
-			</cfif>		
+				</cfif>		
 			
 			--->
 			

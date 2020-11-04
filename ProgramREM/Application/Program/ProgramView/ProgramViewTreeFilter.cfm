@@ -72,7 +72,7 @@
 	 
 	 <tr><td height="4"></td></tr>
 		 	 
-	 <tr><td class="linedotted" height="1" colspan="2"></td></tr>
+	 <tr><td class="line" height="1" colspan="2"></td></tr>
 	 	  
 	<!--- select the plan period --->
 		  	 	  

@@ -41,14 +41,14 @@
 		 
  	   <cf_UItree name="idtree" format="html" required="No">
 		   <cf_UItreeitem 
-			  bind="cfc:service.Tree.OrganizationTree.getNodesV2({cftreeitempath},{cftreeitemvalue},'#url.mission#','#man#','#session.root#/ProgramREM/Application/Program/ProgramView/ProgramViewOpen.cfm','PRG','#url.mission#','#url.mission#','#man#','','Full','0','none','#seldate#')">  		 
+			  bind="cfc:service.Tree.OrganizationTree.getNodesV2({cftreeitempath},{cftreeitemvalue},'#url.mission#','#man#','#session.root#/ProgramREM/Application/Program/ProgramView/ProgramViewOpen.cfm','PRG','#url.mission#','#url.mission#','#man#','','Full','0','&systemfunctionid!#url.systemfunctionid#','#seldate#')">  		 
 	   </cf_UItree>		
 
 <cfelse>
 	
 	    <cf_UItree name="idtree" format="html" required="No">
 			<cf_UItreeitem 
-			  bind="cfc:service.Tree.OrganizationTree.getNodesV2({cftreeitempath},{cftreeitemvalue},'#url.mission#','#man#','#session.root#/ProgramREM/Application/Program/ProgramView/ProgramViewOpen.cfm','PRG','#url.mission#','#url.mission#','#man#','','role','0','none','#seldate#')">  		 
+			  bind="cfc:service.Tree.OrganizationTree.getNodesV2({cftreeitempath},{cftreeitemvalue},'#url.mission#','#man#','#session.root#/ProgramREM/Application/Program/ProgramView/ProgramViewOpen.cfm','PRG','#url.mission#','#url.mission#','#man#','','role','0','&systemfunctionid!#url.systemfunctionid#','#seldate#')">  		 
        </cf_UItree>		
     
 </cfif> 

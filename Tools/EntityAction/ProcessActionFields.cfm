@@ -25,30 +25,30 @@
 	 datasource="AppsOrganization"
 	 username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">	   
-	    SELECT R.*
-	 FROM      Ref_EntityDocument R INNER JOIN
-	           Ref_EntityActionDocument A ON R.DocumentId = A.DocumentId
-	 WHERE     A.ActionCode = '#ActionCode#' 
-	 AND       R.DocumentType = 'field'
-	 AND       R.Operational = 1
-	 AND       R.DocumentMode = 'Step'
-	 
-	 <!--- limit the fields to be shown only for designated objects --->
-	 
-	 AND       R.DocumentId IN (SELECT DocumentId 
-	                            FROM   Ref_EntityActionPublishDocument 
-								WHERE  ActionCode = '#ActionCode#'
-								AND    ActionPublishNo = '#Object.ActionPublishNo#' 
-								AND    Operational = 1
-								AND   (
-								       ObjectFilter = ''
-								       OR ObjectFilter is NULL
-									   OR ObjectFilter IN (SELECT ObjectFilter 
-									                       FROM   OrganizationObject 
-														   WHERE  ObjectId = '#Object.Objectid#')
-									  )
-								)	  
-	ORDER BY DocumentOrder							
+		 SELECT    R.*
+		 FROM      Ref_EntityDocument R 
+		           INNER JOIN  Ref_EntityActionDocument A ON R.DocumentId = A.DocumentId
+				    <!--- limit the fields to be shown only for designated objects --->
+				   INNER JOIN   ( SELECT DocumentId, ListingOrder 
+		                          FROM   Ref_EntityActionPublishDocument 
+								  WHERE  ActionCode = '#ActionCode#'
+								  AND    ActionPublishNo = '#Object.ActionPublishNo#' 
+								  AND    Operational = 1
+								  AND   (ObjectFilter = ''
+									     OR ObjectFilter is NULL
+										 OR ObjectFilter IN (SELECT ObjectFilter 
+										                     FROM   OrganizationObject 
+														     WHERE  ObjectId = '#Object.Objectid#')
+										)
+								 ) as B ON R.DocumentId = B.DocumentId	 
+				   
+				   
+				   
+		 WHERE     A.ActionCode = '#ActionCode#' 
+		 AND       R.DocumentType = 'field'
+		 AND       R.Operational = 1
+		 AND       R.DocumentMode = 'Step'
+		 ORDER BY ListingOrder, DocumentOrder							
 </cfquery>
  			
 <cfset setCalendar = 0> 			
@@ -57,7 +57,7 @@
 				
 	<table width="100%" cellspacing="0" cellpadding="0">
 	
-	<cf_tl id="Additionally required Information" var="1">		
+	<cf_tl id="Required Information" var="1">		
 	
 	<tr class="line"><td style="height:46px;padding-left:10px;padding-top:5px;font-size:19px" colspan="2" class="labellarge"><cfoutput>#lt_text#</cfoutput>:</td></tr>
 	

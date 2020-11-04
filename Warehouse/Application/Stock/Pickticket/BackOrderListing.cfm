@@ -74,7 +74,7 @@
 				<td>		  
 			  	<input type="radio" name="Process" id="Process" style="height:19px;width:19px" value="Process" class="radiol" onclick="stockpicking('s','#url.systemfunctionid#')"/>			
 				</td>
-				<td style="font-size:20px;padding-left:3px" class="labelmedium"><cf_tl id="Process Pickticket"></td>
+				<td style="font-size:20px;padding-left:3px" class="labelmedium"><cf_tl id="Process Replenishment"></td>
 				<td style="padding-left:10px">		  
 			  	<input type="radio" checked name="Backorder" style="height:19px;width:19px" id="Backorder" value="Pending" class="radiol" onclick="stockbackorder('s','#url.systemfunctionid#')"/>			
 				</td>
@@ -166,7 +166,7 @@
 	  </td>			
   </tr>
     
-  <tr><td colspan="2" height="1" class="linedotted"></td></tr>
+  <tr><td colspan="2" height="1" class="line"></td></tr>
 					
   <TR onKeyUp="navigate()">
 	<td height="100%" colspan="2">
@@ -237,8 +237,7 @@
 				  				  						
 					    <tr bgcolor = "#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('Ffffff'))#"
 						    class   = "labelmedium navigation_row"
-							style   = "cursor : pointer"									
-							ondblclick  = "item('#ItemNo#','','#URL.Mission#')">
+							style   = "cursor : pointer">
 													
 							<cfif itemClass eq "Supply">
 						    	<td align="left">
@@ -264,7 +263,7 @@
 							</td>							
 							<td>#reference#</td>
 							<td><cfif ShipToWarehouseName neq "">#ShipToWarehouseName#<cfelse>#Contact#</cfif></td>
-							<TD><a href="javascript:ShowItem('#ItemNo#')">#ItemNo#</a></TD>
+							<TD><a href="javascript:item('#ItemNo#','#url.systemfunctionid#','#url.mission#')">#ItemNo#</a></TD>
 							<TD>#ItemDescription#</TD>
 						    <TD>#UoMDescription#</TD>
 						    <TD align="right">#RequestedQuantity#</TD>

@@ -31,8 +31,7 @@
 				   C.SettleUntilPeriod
 			FROM   Ref_PayrollTrigger T INNER JOIN
 	               Ref_PayrollComponent R ON T.SalaryTrigger = R.SalaryTrigger LEFT OUTER JOIN
-	               SalaryScheduleComponent C ON R.Code = C.ComponentName	   
-			 AND   SalarySchedule = '#URL.ID1#'	   
+	               SalaryScheduleComponent C ON R.Code = C.ComponentName AND   SalarySchedule = '#URL.ID1#'	   
 	   		
 			ORDER BY T.TriggerGroup, R.Description, R.ListingOrder 
 		</cfquery>
@@ -66,7 +65,7 @@
 						AND    SalarySchedule = '#URL.ID1#'
 						AND    ComponentName = '#ComponentName#'
 					</cfquery>
-					
+															
 					<cfif Check.recordcount eq "0">
 						<input type="hidden" name="value_#Com#"    value="#Code#">
 						<input type="checkbox" name="select_#Com#" value="#Code#" <cfif ComponentName neq "">checked</cfif> onclick="toggleme('#com#',this.checked)">

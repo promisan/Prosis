@@ -11,20 +11,20 @@
 <script>
 
 function recordadd(grp) {
-     window.open("RecordAdd.cfm?idmenu=#url.idmenu#&mission=#url.mission#", "Add", "left=80, top=80, width=1100, height=900, toolbar=no, status=yes, scrollbars=no, resizable=no");
+     ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#&mission=#url.mission#", "Add", "left=80, top=80, width=1100, height=900, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 function categoryedit(cat) {
 
 	var vHeight = document.body.clientHeight-50;
 	var vWidth = document.body.clientWidth-200;	
-	window.open("RecordEdit.cfm?idmenu=#url.idmenu#&mission=#url.mission#&id1="+cat, "Edit");   
+	ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&mission=#url.mission#&id1="+cat, "Edit");   
 }
 
 function recordrefresh(cat) {
 
 	if (document.getElementById('box_'+cat)) {			   
-	    ColdFusion.navigate('RecordListingMission.cfm?code='+cat,'box_'+cat)	
+	    ptoken.navigate('RecordListingMission.cfm?code='+cat,'box_'+cat)	
 	} else {
 	  history.go()
 	}	
@@ -89,7 +89,7 @@ function show(row) {
 
 <cf_divscroll>
 
-<table style="width:100%">
+<table style="width:100%" class="navigation_table">
 
 <tr class="labelheader line">
     <td></td>  
@@ -126,8 +126,8 @@ password="#SESSION.dbpw#">
 	<cfset earmark = budgetearmark>
     
 	<tr class="navigation_row line">
-		<td style="padding-left:10px;height:30px" align="left" width="40" class="navigation_action"  onclick="recordedit('#Code#')">	 
-			<cf_img icon="edit">		 
+		<td style="padding-left:10px;height:30px" align="left" width="40" class="navigation_action"  onclick="categoryedit('#Code#')">	 
+			<cf_img icon="select">		 
 		 </td>
 		 	 
 		<td></td> 
@@ -140,8 +140,7 @@ password="#SESSION.dbpw#">
 		</td>	
 		<td class="labelmedium">#OfficerLastName#</td>
 		<td class="labelmedium">#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
-    </tr>
-		
+    </tr>		
 	
 	<cfquery name="Level2"
 	datasource="AppsProgram" 
@@ -156,9 +155,9 @@ password="#SESSION.dbpw#">
 	
 	<tr bgcolor="ffffcf" class="cellcontent line navigation_row">
 		<td align="left" bgcolor="ffffff" style="padding-left:20px" height="18" class="navigation_action" onclick="categoryedit('#Code#')"> 		
-			<cf_img icon="edit">				 
+			<cf_img icon="select">				 
 		 </td>
-		<td style="cursor: pointer;padding-top:3px">
+		<td style="cursor: pointer;padding-top:5px">
 		  <cfif children gte "1">
 				<cf_img icon="expand" toggle="Yes" onClick="show('#SearchResult.currentrow#_#currentrow#')" state="open">
 		  </cfif>		
@@ -186,7 +185,7 @@ password="#SESSION.dbpw#">
 	    <tr bgcolor="ffffef" class="cellcontent line navigation_row" 
 		    name="box#SearchResult.currentrow#_#Level2.currentrow#" id="box#SearchResult.currentrow#_#Level2.currentrow#" class="hide">
 			<td align="right" bgcolor="white" class="navigation_action"  onclick="categoryedit('#Code#')" style="padding-left:8px">
-			   <cf_img icon="edit">	
+			   <cf_img icon="select">	
 			</td>
 			<td>
 			</td>
@@ -210,4 +209,6 @@ password="#SESSION.dbpw#">
 </table></td></tr>
 
 </table>
+
+<cfset ajaxonload("doHighlight")>
 

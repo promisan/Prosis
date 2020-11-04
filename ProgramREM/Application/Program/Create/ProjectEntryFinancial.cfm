@@ -18,7 +18,7 @@
 	   Mission        = "#ParentOrg.Mission#"   
 	   ProgramCode    = "#url.ProgramCode#" 
 	   Period         = "#url.period#"	   
-	   returnvariable = "disabled">		
+	   returnvariable = "control">		
 			
 	<cfquery name="Metrics" 
 	datasource="AppsProgram" 
@@ -30,8 +30,8 @@
 		<!--- exists for the entity --->
 		WHERE    Code IN (SELECT Code FROM Ref_ProgramFinancialControl WHERE Mission = '#ParentOrg.Mission#')		
 		<!--- not disabled for this program --->
-		<cfif disabled neq "">
-		AND       Code NOT IN (#preservesingleQuotes(disabled)#)
+		<cfif control.deny neq "">
+		AND       Code NOT IN (#preservesingleQuotes(control.deny)#)
 		</cfif>		 
 		
 		<!--- we obtain any code that belongs to the category : 22/10 we moved this out to Ref_ProgramFinancialControl

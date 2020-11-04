@@ -157,7 +157,7 @@
 											
 						<select name="PeriodFrom" 
 						   class="regularxl"
-						   onchange="ColdFusion.navigate('ProgramCarryOverMain.cfm?period=#url.period#&parentunit=#url.parentunit#&prior='+this.value,'content')">
+						   onchange="ptoken.navigate('ProgramCarryOverMain.cfm?period=#url.period#&parentunit=#url.parentunit#&prior='+this.value,'content')">
 							<cfloop query="PeriodList">
 							   <option value="#Period#" <cfif Prior.Period eq Period>selected</cfif>>#Period#</option>
 							</cfloop>

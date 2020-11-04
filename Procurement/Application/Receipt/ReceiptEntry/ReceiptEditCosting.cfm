@@ -195,7 +195,7 @@
 			 			
 				 <table width="100%" align="center" bgcolor="ffffff">
 				 	<tr><td style="padding-left:1px" id="i<cfoutput>#Receipt.ReceiptNo#</cfoutput>">
-																																
+																														
 							<cfset url.mode     = "receipt">
 							<cfset url.box      = "i#Receipt.ReceiptNo#">																		
 							<cfset url.reqno    = "#checkLines.requisitionno#">

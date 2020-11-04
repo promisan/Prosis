@@ -316,7 +316,7 @@ password="#SESSION.dbpw#">
 			   
 			   </cfif>
 																		
-			<td colspan="1" valign="top" style="border:1px solid gray;min-width:65%;border-top-left-radius:0px;border-bottom-left-radius:1px;background-image:linear-gradient(to bottom,##dadada,##dadada);padding-right:15px;height:80px;" id="customer_box">
+			<td colspan="1" valign="top" style="border:1px solid gray;min-width:65%;border-top-left-radius:0px;border-bottom-left-radius:1px;background-image:<cfif url.scope eq 'POS'>linear-gradient(to bottom,##dadada,##dadada)</cfif>;padding-right:15px;height:80px;" id="customer_box">
 						
 				<table width="100%" align="left" style="min-width:360px">
 				
@@ -434,7 +434,7 @@ password="#SESSION.dbpw#">
 			   </td>			   
 			  			   			   	  			  			 			   	  			  
 			   <td valign="top" 
-			       style="border:1px solid gray;min-width:200px;padding-left:5px;background-image:linear-gradient(to bottom,##c1c1c1,##c1c1c1)" 
+			       style="border:1px solid gray;min-width:200px;padding-left:5px;background-image:<cfif url.scope eq 'POS'>linear-gradient(to bottom,##c1c1c1,##c1c1c1)</cfif>" 
 				   class="#full#">
 			   
 				   <table width="100%" border="0"> 

@@ -90,13 +90,13 @@ password="#SESSION.dbpw#">
 		   ProgramCode    = "#url.ProgramCode#" 
 		   Period         = "#url.period#"
 		   AreaCode       = "#areacode#"
-		   returnvariable = "disabled">		
+		   returnvariable = "control">		
 		   
-	   <cfif disabled neq "">	
+	   <cfif control.deny neq "">	
 	       <cfif dis neq "">   	   
-			   <cfset dis = "#dis#,#disabled#">	   
+			   <cfset dis = "#dis#,#control.deny#">	   
 		   <cfelse>
-			   <cfset dis = "#disabled#">	
+			   <cfset dis = "#control.deny#">	
 		   </cfif>
 	   </cfif>
 	   

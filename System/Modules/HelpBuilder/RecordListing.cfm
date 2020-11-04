@@ -97,32 +97,28 @@
 				</td></tr>
 				
 				<tr class="labelmedium line">
-				<td></td>
-				<td></td>
-				<td><cf_tl id="Name"></td>
-				<td><cf_tl id="Code"></td>
-				<td><cf_tl id="Label"></td>
-				<td><cf_tl id="Language"></td>
-				<td><cf_tl id="Status"></td>
+					<td></td>
+					<td></td>
+					<td><cf_tl id="Name"></td>
+					<td><cf_tl id="Code"></td>
+					<td><cf_tl id="Label"></td>
+					<td><cf_tl id="Language"></td>
+					<td><cf_tl id="Status"></td>
 				</tr>
 				
 				<cfoutput query="SearchResult">	
 				  	   			  
-					  	<tr class="navigation_row labelmedium line" style="height:20px">			   		   
-						    <td width="10"></td>
-							<td width="7%" style="padding-left:4px;padding-top:4px">			
-								<cf_img icon="select" navigation="yes" onClick="helpedit('#Project.Systemmodule#','#ProjectCode#','#url.class#','#TopicId#','#systemfunctionid#')">			
-							</td>	
-							<td width="30%"><cfif len(TopicName) gt "50">#left(TopicName,50)#..<cfelse>#TopicName#</cfif></TD>
-							<td width="8%">#TopicCode#</TD>
-							<td width="40%">#UITextHeader#</TD>
-							<td width="10%">#LanguageCode#</TD>
-							<td style="padding-right:4px" width="8%">
-								<cfif len(UITextAnswer) lt 20>
-								<font color="FF0000">Pending	
-								</cfif>
-							</td>						
-						</tr>			
+				  	<tr class="navigation_row labelmedium line" style="height:20px">			   		   
+					    <td width="10"></td>
+						<td width="3%" style="padding-left:4px;padding-top:3px">			
+							<cf_img icon="select" navigation="yes" onClick="helpedit('#Project.Systemmodule#','#ProjectCode#','#url.class#','#TopicId#','#systemfunctionid#')">			
+						</td>	
+						<td width="30%"><cfif len(TopicName) gt "50">#left(TopicName,50)#..<cfelse>#TopicName#</cfif></TD>
+						<td width="8%">#TopicCode#</TD>
+						<td width="40%">#UITextHeader#</TD>
+						<td width="10%">#LanguageCode#</TD>
+						<td style="padding-right:4px" width="8%"><cfif len(UITextAnswer) lt 20><font color="FF0000">Pending</font></cfif></td>						
+					</tr>			
 										
 				</cfoutput>
 		

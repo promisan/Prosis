@@ -155,7 +155,7 @@
 	  <cfelse>
 	  <!--- no filtering --->
 	  </cfif>
-	  ORDER BY PR.ReceiptItemNo, PR.Created DESC	 	 	 
+	  ORDER BY PR.ReceiptItemNo, PR.ReceiptItem, PR.Created DESC	 	 	 
 </cfquery>
 
   

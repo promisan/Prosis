@@ -69,7 +69,7 @@
 					 
 						 <cfif Components.ProgramClass neq "Program">
 						 
-						 <select class="regularxl" name="selected_#Components.ProgramCode#">
+						 <select class="regularxl" name="selected_#Components.ProgramCode#" style="border:0px;border-left:1px solid silver;border-right:1px solid silver">
 						    <option value=""><cf_tl id="As before"></option>
 						 	<cfloop query="GlobalNew">
 							   <option value="#ProgramCode#">#Reference#</option>
@@ -143,8 +143,6 @@
 				
 	    </cfloop>  
 		
-		
-     
   </cfloop> 
   
 </cfoutput>   

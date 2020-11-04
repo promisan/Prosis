@@ -114,10 +114,10 @@ password="#SESSION.dbpw#">
 				<td style="padding-left:10px" class="labelit"><cf_tl id="Actor"></td>
 											
 					<td class="label" style="color:gray;padding-left:12px">	
-					  <select class="regularxl" id="fldactor_#thisDivName#" onchange="doChangeActor('#link#','#URL.mission#',this,document.getElementById('fldsort_#thisDivName#'),document.getElementById('fldstage_#thisDivName#'),'#thisDivName#')">					 		
+					  <select class="regularxl" id="fldactor_#thisDivName#" style="width:130px" onchange="doChangeActor('#link#','#URL.mission#',this,document.getElementById('fldsort_#thisDivName#'),document.getElementById('fldstage_#thisDivName#'),'#thisDivName#')">					 		
 					       <option value="">ANY</option>
 						  <cfloop query="Actor">				  
-						  	<option value="#Account#" <cfif session.acc eq account and lastName neq "Pana">selected</cfif>>#FirstName# #LastName#</option>					  
+						  	<option value="#Account#" <cfif session.acc eq account and lastName neq "Pana">selected</cfif>>#LastName#</option>					  
 						  </cfloop>
 					  </select>	
 					</td>		

@@ -339,7 +339,40 @@
 	
 	</table>
 	
-	</td></tr>			
+	</td>
+	
+	<cfquery name="Function" 
+	 datasource="AppsOrganization"
+	 username="#SESSION.login#" 
+	 password="#SESSION.dbpw#">	   
+	     SELECT    R.*, W.ListingOrder, W.ObjectFilter
+		 FROM      Ref_EntityDocument R, Ref_EntityActionPublishDocument  W
+		 WHERE     DocumentType = 'function'
+		 AND       DocumentCode = 'fmes'
+		 AND       R.Operational = 1
+		 AND       R.DocumentMode    = 'Embed'
+		 AND       R.DocumentId      = W.DocumentId 
+		 AND       W.ActionCode      = '#ActionCode#'
+		 AND       W.ActionPublishNo = '#Object.ActionPublishNo#' 
+		 AND       W.Operational = 1
+		 ORDER BY  W.ListingOrder 
+	</cfquery>
+	
+	<cfif function.recordcount eq "1">
+	
+	<td style="min-width:370px;border-left:1px solid silver" valign="top">
+	
+	      <cf_divscroll style="height:100%">		  
+				<cf_commentlisting objectid="#Object.ObjectId#"  ajax="No">		
+		  </cf_divscroll>
+		
+	</td>
+	
+	</cfif>
+	
+	
+	
+	</tr>			
 		   
 </table>	   	
 	   

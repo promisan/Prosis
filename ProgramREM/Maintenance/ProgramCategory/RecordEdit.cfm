@@ -115,6 +115,13 @@ function toggleClass(s,st) {
   	   <cfinput type="Text" name="Description" value="#get.Description#" message="please enter a description" required="Yes" size="60" maxlength="75" class="regularxl">
     </TD>
 	</TR>
+	
+	<TR>
+    <TD valign="top" style="padding-top:5px" class="labelmedium"><cf_tl id="Subtitle">:</TD>
+    <TD>
+	<textarea style="width:98%;padding:3px;font-size:14px" class="regular" rows="4" name="DescriptionMemo"><cfoutput>#get.DescriptionMemo#</cfoutput></textarea>
+     </TD>
+	</TR>
 		
 	<TR>
     <TD class="labelmedium">Listing&nbsp;Order:</TD>
@@ -220,7 +227,7 @@ function toggleClass(s,st) {
 	<tr><td style="font-size:20px;height:50px" class="labelmedium" colspan="2"><b><font color="0080C0">Data entry interface settings</td></tr>
 	
 	<TR id="target">
-    <TD class="labelmedium">Output/Target entry:</TD>
+    <TD class="labelmedium"><cf_tl id="Output/Target entry">:</TD>
     <TD>
   	   <table>
 	   		<tr>
@@ -231,8 +238,7 @@ function toggleClass(s,st) {
 			</tr>
 	   </table>	
     </TD>
-	</TR>
-		
+	</TR>		
 		
 	<cfquery name="Earmark" 
 	datasource="AppsProgram" 
@@ -254,24 +260,21 @@ function toggleClass(s,st) {
 	</TR>
 		
 	</cfif>
-		
-	
-	
-	<!---
-	<tr><td class="labelmedium" colspan="2" valign="top" style="padding-top:5px">Input configuration:</td></tr>
-	--->
-	
-		
-		
+			
 	<cfset vThisCode = get.code>
+	
+	<tr><td colspan="2" height="5" style="padding-right:30px">
+	<table border="1" style="width:100%">
 	<cfinclude template="ClassificationDetail.cfm">
-		
+	</table>
+	</td></tr>
+				
 	<tr><td height="5"></td></tr>
 	<tr><td colspan="2" class="linedotted"></td></tr>	
 	<tr><td height="5"></td></tr>
 	
 	<TR>
-    <TD class="labelmedium">Operational:</TD>
+    <TD class="labelmedium"><cf_tl id="Operational">:</TD>
     <TD>
   	   <table>
 	   		<tr>
@@ -284,12 +287,7 @@ function toggleClass(s,st) {
     </TD>
 	</TR>
 	
-	<TR>
-    <TD valign="top" style="padding-top:5px" class="labelmedium">Memo:</TD>
-    <TD>
-	<textarea style="width:98%;padding:3px;font-size:13px" class="regular" rows="3" name="DescriptionMemo"><cfoutput>#get.DescriptionMemo#</cfoutput></textarea>
-     </TD>
-	</TR>
+	
 		
 	<tr><td height="5"></td></tr>
 	<tr><td colspan="2" class="linedotted"></td></tr>	

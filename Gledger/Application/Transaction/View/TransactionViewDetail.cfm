@@ -1419,6 +1419,8 @@
 		               username="#SESSION.login#" 
 		               password="#SESSION.dbpw#">					
 						SELECT    TOP 10 								
+								  Journal,
+								  JournalSerialNo,
 								  TransactionId,JournalTransactionNo,OfficerLastName,
 								  TransactionDate,currency,ABS(Amount) Amount, ABS(AmountOutstanding) as AmountOutstanding
 						FROM      TransactionHeader H
@@ -1436,7 +1438,7 @@
 						AND       Currency = 'QTZ' 
 						--->
 																		
-						AND       ABS(AmountOutstanding) > 0.05
+						AND       AmountOutstanding > 0.05
 						AND  	  ActionStatus != '9'
 						AND  	  RecordStatus != '9'
 						
@@ -1488,7 +1490,7 @@
 						
 							<table width="100%" cellspacing="0" cellpadding="0">				
 						
-							<tr><td>
+							<tr><td style="padding-left:14px;padding-right:14px">
 							
 								<!---- <form name="offsetform" id="offsetform"> ---->
 								<cfform name="offsetform" id="offsetform">
@@ -1529,7 +1531,7 @@
 									<cfset indexadvance = indexadvance + 1>
 										<tr class="labelmedium">
 
-										 <td style="height:25px">#JournalTransactionNo#</td>
+										 <td style="height:25px"><a href="javascript:ShowTransaction('#journal#','#JournalSerialNo#','1','tab')">#JournalTransactionNo#</a></td>
 										 <td>#OfficerLastName#</td>
 										 
 										 <td>#dateformat(TransactionDate,client.dateformatshow)#</td>
@@ -1649,7 +1651,7 @@
 									</cfoutput> 
 									</td>
 									</tr>
-									<tr><td><div id="offsetprocess" name="offsetprocess"></div></td></tr>
+									<tr><td colspan="11" id="offsetprocess"></td></tr>
 								</table>
 								
 								</cfform>

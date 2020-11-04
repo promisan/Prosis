@@ -64,20 +64,16 @@ function togglePostingMode(v, sel) {
 		FROM     SalarySchedule
 		WHERE    SalarySchedule = '#URL.ID1#'
 	</cfquery>
-
-	<table class="hide">
-		<tr ><td colspan="2"><iframe name="result" id="result" width="100%" height="100"></iframe></td></tr>
-	</table>
 	
 	<cfform style="height:100%"
 	  action="ScheduleEditSubmit.cfm?idmenu=#URL.idmenu#&ID1=#URL.ID1#" method="POST" target="result">
 		
 	<table width="98%" height="100%" align="center" cellspacing="0" cellpadding="0" class="formpadding">	
 	
-	<tr><td height="5"></td></tr>
-			  
-    
+	<tr class="hide"><td colspan="5"><iframe name="result" id="result" width="100%" height="100"></iframe></td></tr>
 	
+	<tr><td height="5"></td></tr>
+		
 	<tr><td height="100%">			
 			
 		<table width="100%" height="100%" cellspacing="0" cellpadding="0">
@@ -111,9 +107,7 @@ function togglePostingMode(v, sel) {
 							            iconsrc    = "Logos/Payroll/Green/Staff.png" 
 										iconwidth  = "#wd#" 
 										iconheight = "#ht#" 
-										name       = "Staff Grades">
-									
-							
+										name       = "Staff Grades">						
 										
 							<cf_menutab item       = "4" 
 							            iconsrc    = "Logos/Payroll/Green/Component.png" 
@@ -121,12 +115,11 @@ function togglePostingMode(v, sel) {
 										iconheight = "#ht#" 
 										name       = "Set Components">			
 
-
 							<cf_menutab item       = "5" 
 							            iconsrc    = "Logos/Staffing/Green/WorkSchedule.png" 
 										iconwidth  = "#wd#" 
 										iconheight = "#ht#" 
-										name       = "Default WorkSchedule">													
+										name       = "Default WorkSchedule">		
 										
 							
 																				 		

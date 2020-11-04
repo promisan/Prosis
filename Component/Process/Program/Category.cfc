@@ -190,20 +190,22 @@
 				 </cfif>
 		
 		</cfloop>
-				
-		<cfif elements neq "">
 		
-			<cfloop index="itm" list="#elements#">
-			
-				<cfset deny = "">
-				<cfset denyhier = "9999">
+		<cfset coll = "">
+		<cfset deny = "">
+		<cfset denyhier = "9999">
 					
+		<cfif elements neq "">
+						
+			<cfloop index="itm" list="#elements#">
+								
 				<cfoutput query="List">
 								
 				    <!--- ATTENTION we need  cater for the fact that a program can have multiple GROUP assigned
 					     so we need to loop through each group value --->
 						 				
-				    <cfset pass = "1">					
+				    <cfset pass    = "1">		
+					<cfset collapse = "0">				
 							
 					<cfif find(denyhier,hierarchycode)>
 					
@@ -263,7 +265,11 @@
 									<cfif getDetailControl.ControlMode eq "0" or getDetailControl.recordcount eq "0">		
 																	
 										<cfset pass = "0">
-										<cfset denyhier = HierarchyCode>																																					
+										<cfset denyhier = HierarchyCode>		
+										
+									<cfelseif getDetailControl.ControlMode eq "5">
+									
+										<cfset collapse = "1">																																													
 									
 									</cfif>														
 												 
@@ -280,14 +286,28 @@
 							  </cfif>	
 							  
 						</cfif>
-											
+						
+						<cfif collapse eq "1">
+																		
+						      <cfif deny eq "">
+							  	<cfset coll  = "'#code#'">
+							  <cfelse>
+								<cfset coll = "#coll#,'#code#'">
+							  </cfif>	
+							  
+						</cfif>
+						
+																	
 				</cfoutput>
 			
 			</cfloop>		
 		
 		</cfif>		
+		
+		<cfset control.deny = deny>
+		<cfset control.coll = coll>
 		   
-	   <cfreturn deny>		
+	   <cfreturn control>		
 		 
    </cffunction>   
   		

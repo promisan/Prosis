@@ -68,26 +68,27 @@ and can be diabled --->
 		</cfif>
 		AND       R.EntityCode = '#url.entityCode#'	
 		
-		<!--- no longer needed as above they are added already
+		<!--- no longer needed as above they are added already --->
 		
-		UNION ALL
-		SELECT    *,0 as ListingOrder, '' as ObjectFilter, 0 as Valid
-		FROM      Ref_EntityDocument 
-		<cfif actionMode.ProcessMode gte "1">			
-		WHERE     DocumentType IN  ('function','dialog','attach','session','field')
-		<cfelse>
-		WHERE     DocumentType IN  ('dialog','attach','session','field')
-		</cfif>		
-		AND       Operational = '1'
-		AND       DocumentId NOT IN (SELECT DocumentId 
-		                             FROM   Ref_EntityActionPublishDocument
-									 WHERE  ActionPublishNo = '#URL.PublishNo#'	
-									 AND    ActionCode       = '#URL.ActionCode#')	                      
-		AND       EntityCode = '#URL.EntityCode#'	
-		--->
+		<cfif actionMode.ProcessMode gte "1">	
+		
+			UNION ALL
+			SELECT    *,0 as ListingOrder, '' as ObjectFilter, 0 as Valid
+			FROM      Ref_EntityDocument 			
+			WHERE     DocumentType IN  ('function')		
+			AND       Operational = '1'
+			AND       DocumentId NOT IN (SELECT DocumentId 
+			                             FROM   Ref_EntityActionPublishDocument
+										 WHERE  ActionPublishNo = '#URL.PublishNo#'	
+										 AND    ActionCode       = '#URL.ActionCode#')	                      
+			AND       EntityCode = '#URL.EntityCode#'					
+		
+		</cfif>
 		
 		ORDER BY  R.DocumentType DESC, R.DocumentOrder
+		
 	</cfquery>
+	
 
 <cfelse>
 
@@ -143,25 +144,23 @@ and can be diabled --->
 		</cfif>
 		AND       R.EntityCode = '#url.entityCode#'	
 		
-		<!---
+		<cfif actionMode.ProcessMode gte "1">		
 		
-		UNION ALL
+			UNION ALL
+			
+			SELECT    *,0 as ListingOrder, '' as objectFilter, 0 as Valid
+			FROM      Ref_EntityDocument as R		
+			WHERE     R.DocumentType IN  ('function')	
+			
+			AND       DocumentId NOT IN (SELECT DocumentId 
+			                             FROM   Ref_EntityClassActionDocument
+										 WHERE  EntityCode       = '#URL.EntityCode#'	
+										 AND    EntityClass      = '#URL.EntityClass#'
+										 AND    ActionCode       = '#URL.ActionCode#')	                      
+			AND       EntityCode = '#URL.EntityCode#'	
+			AND       Operational = 1	
 		
-		SELECT    *,0 as ListingOrder, '' as objectFilter, 0 as Valid
-		FROM      Ref_EntityDocument as R
-		<cfif actionMode.ProcessMode gte "1">			
-		WHERE     R.DocumentType IN  ('function','dialog','field','attach','session')
-		<cfelse>
-		WHERE     R.DocumentType IN  ('dialog','field','attach','session')
 		</cfif>
-		AND       DocumentId NOT IN (SELECT DocumentId 
-		                             FROM   Ref_EntityClassActionDocument
-									 WHERE  EntityCode       = '#URL.EntityCode#'	
-									 AND    EntityClass      = '#URL.EntityClass#'
-									 AND    ActionCode       = '#URL.ActionCode#')	                      
-		AND       EntityCode = '#URL.EntityCode#'	
-		AND       Operational = 1
-		--->
 		
 		ORDER BY  R.DocumentType DESC, R.DocumentOrder
 	</cfquery>

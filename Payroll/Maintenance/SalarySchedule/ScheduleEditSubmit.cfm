@@ -227,7 +227,8 @@
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
     SELECT R.*
-	FROM   Ref_PayrollComponent R
+    FROM   Ref_PayrollTrigger T INNER JOIN
+	       Ref_PayrollComponent R ON T.SalaryTrigger = R.SalaryTrigger 	 
 </cfquery>
 
 <cfoutput query="Component">
@@ -276,6 +277,7 @@
 					datasource="AppsPayroll" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
+															
 				    INSERT INTO SalaryScheduleComponent 
 							(SalarySchedule, 
 							 ComponentName, 
@@ -291,22 +293,22 @@
 							 OfficerUserId, 
 							 OfficerLastName, 
 							 OfficerFirstName)
-					SELECT '#URL.ID1#', 
-					        Code, 
-						    EntitlementPointer, 
-						    EntitlementGroup,
-						    SalaryMultiplier, 
-						    PayrollItem,
-						    Period, 
-						    RateStep, 
-						    SalaryDays,						    
-						    ListingOrder, 
-						    '#settle#', 
-						    '#SESSION.acc#',
-						    '#SESSION.last#', 
-						    '#SESSION.first#'
-					FROM    Ref_PayrollComponent 	   
-					WHERE   Code = '#cde#'
+					SELECT  '#URL.ID1#', 
+					         Code, 
+						     EntitlementPointer, 
+						     EntitlementGroup,
+						     SalaryMultiplier, 
+						     PayrollItem,
+						     Period, 
+						     RateStep, 
+						     SalaryDays,						    
+						     ListingOrder, 
+						     '#settle#', 
+						     '#SESSION.acc#',
+						     '#SESSION.last#', 
+						     '#SESSION.first#'
+					FROM     Ref_PayrollComponent 	   
+					WHERE    Code = '#cde#'
 				</cfquery>
 				
 			</cfif>	

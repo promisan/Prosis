@@ -8,6 +8,7 @@
 	     SELECT    R.*, W.ListingOrder, W.ObjectFilter
 		 FROM      Ref_EntityDocument R, Ref_EntityActionPublishDocument  W
 		 WHERE     DocumentType = 'function'
+		 AND       DocumentCode != 'fmes'
 		 AND       R.Operational = 1
 		 AND       R.DocumentMode    = 'Embed'
 		 AND       R.DocumentId      = W.DocumentId 
@@ -22,7 +23,7 @@
 	<tr><td colspan="2">
 	
 		<table width="100%" cellspacing="0" cellpadding="0">
-			
+					
 			<cfoutput query="function">	  
 			   		 					 
 				 <cf_ProcessActionTopic name="#DocumentCode#"  

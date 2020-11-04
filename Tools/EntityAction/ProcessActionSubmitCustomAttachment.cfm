@@ -16,6 +16,7 @@ provided which are explicityly enabled for this Step in the workflow (aka custom
 	AND      R.DocumentMode    = 'Step'
 	AND      R.FieldRequired   = '1'
 	AND      R.Operational    = 1 
+	AND      W.Operational = 1
 	 
 </cfquery>	 
 	

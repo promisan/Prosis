@@ -116,12 +116,12 @@
 			  
 			  <cfif ApprovalPostGrade neq "" or ApprovalPostGrade neq "">		
 			    <td align="center" 
-				  style="height:23px;background-color:##bfff80;font-size:13px;min-width:120px;padding-left:3px;padding-right:4px">		  
-				    #ApprovalPostGrade# <span style="font-size:10px">#ApprovalReference#		
+				  style="height:23px;background-color:##bfff80;font-size:13px;min-width:160px;padding-left:3px;padding-right:4px">		  
+				    <span style="font-size:10px"><cf_tl id="Classified"></span>#ApprovalReference#		
 				 </td>	
 			  <cfelse>
 			    <td align="center" 
-				  style="height:23px;background-color:##ffb3b3;font-size:13px;min-width:120px;padding-left:3px;padding-right:4px">	
+				  style="height:23px;background-color:##ffb3b3;font-size:13px;min-width:160px;padding-left:3px;padding-right:4px">	
 			  		<cf_tl id="Non classified">	
 				 </td>						
 			  </cfif>					 
@@ -138,15 +138,15 @@
 				   id="workflowcondition_#url.ajaxid#" 		   
 				   value="?positionparentid=#PositionParentid#&ajaxid=#url.ajaxid#">	
 			  
-			  <td id="#url.ajaxid#" style="height:100%;width:100%">	  
+			  <td id="#url.ajaxid#" style="height:100%;width:100%;padding-left:10px">	  
 			   	  
 				 				  
 				  <cf_wfActive entityCode="PostClassification" objectkeyvalue1="#PositionParentId#">
 				  
 				  <cfif wfStatus eq "Closed">					  
 					   
-					   <a style="padding-left:24px" href="javascript:AddClassification('#positionparentid#','#url.ajaxid#')">
-					   <cf_tl id="Request Classification">
+					   <a href="javascript:AddClassification('#positionparentid#','#url.ajaxid#')">
+					   <cf_tl id="Request new Classification">
 					   </a>
 					   
 				  <cfelseif wfStatus eq "Open">									  						  						  						  			 
@@ -184,7 +184,7 @@
 				   id="workflowcondition_#url.ajaxid#" 		   
 				   value="?positionparentid=#PositionParentid#&ajaxid=#url.ajaxid#">	
 		
-			<td align="center" style="width:100%;height:100%"  id="#url.ajaxid#">		
+			<td align="center" style="width:100%;height:100%;padding-left:10px"  id="#url.ajaxid#">		
 				<cfinclude template="StaffingPositionWorkflowRecruit.cfm">			
 			</td>
 			

@@ -1,5 +1,5 @@
 <cfquery name="get"
-datasource="AppsTransaction" 
+datasource="AppsMaterials" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
 	SELECT S.*, P.FullName, C.CustomerName 
@@ -28,7 +28,7 @@ password="#SESSION.dbpw#">
 	
 	<tr height="30px">
 		<td width="5%"></td>
-		<td colspan="6" align="center" class="labelit" style="font-weight:bold">
+		<td colspan="6" align="center" class="labellarge" style="font-weight:bold">
 			#get.ItemDescription#
 		</td>
 		<td width="5%"></td>
@@ -58,13 +58,13 @@ password="#SESSION.dbpw#">
 
 	<tr height="30px">
 		<td width="5%"></td>
-		<td colspan="6" align="left" class="labelit" style="font-weight:bold">
+		<td colspan="6" align="left" class="labelmedium" style="font-weight:bold">
 			<cf_tl id="This request">
 		</td>
 		<td width="5%"></td>
 	</tr>	
 	
-	<tr class="labelmedium">
+	<tr class="labelmedium line">
 		<td width="5%"></td>
 		<td width="10%"></td>
 		<td width="20%" align="left">
@@ -95,7 +95,7 @@ password="#SESSION.dbpw#">
 	</tr>
 	
 	<cfquery name="getOthers"
-	datasource="AppsTransaction" 
+	datasource="AppsMaterials" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 		SELECT S.*, P.FullName, C.CustomerName
@@ -111,7 +111,7 @@ password="#SESSION.dbpw#">
 	</cfquery>	
 		
 	<cfloop query="#getOthers#">
-	<tr>
+	<tr class="labelmedium line">
 		<td width="5%"></td>
 		<td width="10%"></td>
 		<td width="20%" align="left" class="labelit">

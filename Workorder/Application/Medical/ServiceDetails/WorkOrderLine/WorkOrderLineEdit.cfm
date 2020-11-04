@@ -56,7 +56,6 @@
 			  	  <cfinvoke component = "Service.Access"  
 					   method           = "workorderprocessor" 
 					   mission          = "#get.mission#" 	
-					   orgunit          = "#customer.orgunit#"
 					   serviceitem      = "#code#"  
 					   returnvariable   = "access">  
 				   				   

@@ -355,55 +355,45 @@
 	  	  <tr>
 	       <td style="padding-top:4px"> 
 		   
-		    <cftree name="status"
-			   font="calibri"
-			   fontsize="12"		
-			   bold="No"   
-			   format="html"    
-			   required="No">  		
-	
-			  <cf_tl id="Allotment" var="1">
-			  
-			    <cftreeitem value="List"
-			        display="<span class='labelmedium'>#lt_text#</span>"			
-					parent="status"					
+		   <cf_tl id="Allotment" var="1">
+
+				<cf_UItree
+					id="root"
+					title="<span style='font-size:16px;padding-bottom:3px'>#lt_text#</span>"	
+					expand="Yes">
+		  		  			  
+			   <cf_tl id="Review and Release" var="1">
+		
+			   <cf_UItreeitem value="program"
+			        display="<span class='labelit' style='padding-bottom:1px;padding-top:1px;font-size:15px'>#lt_text#</span>"
+					parent="root"	
+					href="../Action/AllotmentActionOpen.cfm?systemfunctionid=#url.systemfunctionid#&mode=ACT&ID1=0&ID2=#url.mission#&ID3=#man#&id4="
+					target="right"								
 			        expand="Yes">	
-							
-				 
-								 		
-				  <cf_tl id="Review and Release" var="1">
 				
-					  <cftreeitem value="program"
-				        display="<span style='color:0080C0' class='labelmedium'><u>#lt_text#</span>"
-						href="AllotmentViewOpen.cfm?mode=REQ&ID1=0&ID2=#url.mission#&ID3=#man#&id4="
-						target="right"
-						parent="List"					
-				        expand="Yes">							
-						
-				 <cf_tl id="Pending Release" var="1">
-				
-					  <cftreeitem value="pending"
-				        display="<span style='color:0080C0' class='labelmedium'><u>#lt_text#</span>"
-						href="AllotmentViewOpen.cfm?mode=STA&ID1=0&ID2=#url.mission#&ID3=#man#&id4="
-						target="right"
-						parent="List"					
-				        expand="Yes">		
-						
-				 <cf_tl id="View Release Transactions" var="1">
-				
-					  <cftreeitem value="actions"
-				        display="<span style='color:0080C0' class='labelmedium'><u>#lt_text#</span>"
-						href="../Action/AllotmentActionOpen.cfm?systemfunctionid=#url.systemfunctionid#&mode=ACT&ID1=0&ID2=#url.mission#&ID3=#man#&id4="
-						target="right"
-						parent="List"					
-				        expand="Yes">					
-						
-						<cftreeitem value="dummy"
-			        display=""			
-					parent="status"					
-			        expand="Yes">			
-			  
-			 </cftree>
+				<cf_tl id="Pending Release" var="1">
+		
+			    <cf_UItreeitem value="program"
+			        display="<span class='labelit' style='padding-bottom:1px;padding-top:1px;font-size:15px'>#lt_text#</span>"
+					parent="root"	
+					href="AllotmentViewOpen.cfm?mode=STA&ID1=0&ID2=#url.mission#&ID3=#man#&id4="
+					target="right"								
+			        expand="Yes">	
+					
+				<cf_tl id="View Release Transactions" var="1">
+		
+			    <cf_UItreeitem value="program"
+			        display="<span class='labelit' style='padding-bottom:1px;padding-top:1px;font-size:15px'>#lt_text#</span>"
+					parent="root"	
+					href="../Action/AllotmentActionOpen.cfm?systemfunctionid=#url.systemfunctionid#&mode=ACT&ID1=0&ID2=#url.mission#&ID3=#man#&id4="
+					target="right"								
+			        expand="Yes">				 
+					
+			
+			 
+			 </cf_UItree>
+			 
+			 <br>
 			
 			 <cfinvoke component="Service.AccessGlobal"  
 			      method="global" 
@@ -427,43 +417,34 @@
 					
 			    <cfelse>
 				
-					<cftree name="idtree" font="calibri"  fontsize="12" bold="No" format="html" required="No">
-					     <cftreeitem 
-						  bind="cfc:service.Tree.OrganizationTree.getNodes({cftreeitempath},{cftreeitemvalue},'#url.mission#','#man#','AllotmentViewOpen.cfm','PRG','Operational Structure','#url.mission#','#man#','','Role')">  		 
-				    </cftree>	
-								
+					<cf_UItree name="idtree" font="calibri"  fontsize="12" bold="No" format="html" required="No">
+					     <cf_UITreeitem
+						  bind="cfc:service.Tree.OrganizationTree.getNodesV2({cftreeitempath},{cftreeitemvalue},'#url.mission#','#man#','AllotmentViewOpen.cfm','PRG','Operational Structure','#url.mission#','#man#','','Role')">
+				    </cf_UItree>
+																	
 				</cfif>
 							
+				<br>
 				
 				<cfif getAdministrator("*") eq "1">
 				
-					<cftree name="audit"
-						   font="calibri"
-						   fontsize="12"		
-						   bold="No"   
-						   format="html"    
-						   required="No">  
-						   
-						    <cftreeitem value="dummy"
-			        		display=""			
-							parent=""					
-					        expand="Yes">	
-					   
-					   	 <cf_tl id="Audit" var="1">
-						 
-					    <cftreeitem value="AuditList"
-				        display="<span class='labelmedium'><b>#lt_text#</span>"			
-						parent="audit"					
-				        expand="Yes">	
-									
-				        <cf_tl id="Invalid Organization" var="1">
-					
-						<cftreeitem value="invalidorg"
-				        display="#lt_text#"
+					<cf_tl id="Audit" var="1">
+				
+					<cf_UItree
+						id="audit"
+						title="<span style='font-size:16px;padding-bottom:3px'>#lt_text#</span>"	
+						expand="Yes">
+				
+					  <cf_tl id="Invalid Organization" var="1">
+		
+				    <cf_UItreeitem value="invalidorg"
+				        display="<span class='labelit' style='padding-bottom:1px;padding-top:1px;font-size:15px'>#lt_text#</span>"
+						parent="audit"	
 						href="AllotmentViewOpen.cfm?mode=AOR&ID1=0&ID2=#url.mission#&ID3=#man#&id4="
-						target="right"
-						parent="AuditList"					
-				        expand="Yes">				
+						target="right"								
+				        expand="Yes">	
+						 
+					  	
 			
 						<!---					
 						<cf_tl id="Cleared" var="1">
@@ -475,7 +456,7 @@
 				        expand="Yes">					
 						--->
 					
-					 </cftree>
+					  </cf_UItree>
 				
 				</cfif>		
 			

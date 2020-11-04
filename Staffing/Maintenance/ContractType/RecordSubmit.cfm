@@ -7,10 +7,9 @@
 datasource="AppsEmployee" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-SELECT *
-FROM Ref_ContractType
-WHERE 
-ContractType  = '#Form.ContractType#' 
+	SELECT 	*
+	FROM 	Ref_ContractType
+	WHERE   ContractType  = '#Form.ContractType#' 
 </cfquery>
 
    <cfif #Verify.recordCount# is 1>

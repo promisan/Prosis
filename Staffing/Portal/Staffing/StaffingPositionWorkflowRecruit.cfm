@@ -22,7 +22,7 @@ password="#SESSION.dbpw#">
 	
 	<cfif Active.recordcount eq "0">
 			
-		<td style="padding-left:24px;width:100%"> 
+		<td style="width:100%"> 
 		    <a href="javascript:AddVacancy('#PositionNo#','#url.ajaxid#')"><cf_tl id="Initiate recruitment"></a> 	
 		</td>		
 	

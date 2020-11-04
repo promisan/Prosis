@@ -21,7 +21,7 @@ password="#SESSION.dbpw#">
 <cf_textareascript>
 
 <cfif url.id neq "">
-<cf_screentop jquery="Yes" banner="red" bannerforce="Yes" layout="webapp" scroll="Yes" label="#URL.Code#|#URL.Class#: Help Project Topic" doctype="HTML5">
+<cf_screentop jquery="Yes" banner="red"   bannerforce="Yes"  layout="webapp" scroll="Yes" label="#URL.Code#|#URL.Class#: Help Project Topic" doctype="HTML5">
 <cfelse>
 <cf_screentop jquery="Yes" banner="green" bannerforce="Yes"  layout="webapp" html="Yes" scroll="Yes" label="#URL.Code#|#URL.Class#: Help Project Topic" doctype="HTML5">
 </cfif>
@@ -36,7 +36,7 @@ password="#SESSION.dbpw#">
 		
 	<!--- Entry form --->
 	
-	<table width="98%" align="center" border="0" cellspacing="0" cellpadding="0" class="formpadding formspacing">
+	<table width="98%" align="center" class="formpadding formspacing">
 			
 		<tr class="hide">
 			<td><iframe name="process" id="process"></iframe></td>
@@ -45,7 +45,7 @@ password="#SESSION.dbpw#">
 	    <tr><td height="6"></td></tr>
 	    				
 		<TR>
-		    <TD class="labelmedium" style="font-weight:200"><cf_tl id="Topic">:</TD>
+		    <TD class="labelmedium"><cf_tl id="Topic">:</TD>
 		    <TD class="labelit">
 			   <table cellspacing="0" cellpadding="0">
 			   <tr>
@@ -64,7 +64,7 @@ password="#SESSION.dbpw#">
 		</TR>		
 		
 		<TR>
-	    <TD width="150" class="labelmedium" style="font-weight:200">Code: <font size="3">#URL.Code#-</TD>
+	    <TD width="150" class="labelmedium">Code: <font size="3">#URL.Code#-</TD>
 		<TD class="labelit">				
 		  
 			  	   <cfinput type="Text" name="TopicCode" value="#Get.TopicCode#" message="Please enter a code" required="Yes" size="10" maxlength="10" class="regularxl enterastab">
@@ -87,7 +87,7 @@ password="#SESSION.dbpw#">
 		</TR>		
 		
 		<tr>
-			<TD class="labelmedium" width="70" style="font-weight:200"><cf_tl id="Language">:</TD>
+			<TD class="labelmedium" width="70"><cf_tl id="Language">:</TD>
 			<TD class="labelit">
 				<select name="LanguageCode" id="LanguageCode" class="regularxl enterastab">
 				  <cfloop query="Language">
@@ -99,20 +99,21 @@ password="#SESSION.dbpw#">
 		</tr>					
 					
 		<TR>
-			<TD class="labelmedium" style="font-weight:200"><cf_tl id="Label">:</TD>
+			<TD class="labelmedium"><cf_tl id="Label">:</TD>
 		    <TD class="labelit">
 		  	   <cfinput type="Text" name="UITextHeader" value="#Get.UITextHeader#" size="70" maxlength="80" class="regularxl enterastab">			   
 		    </TD>
 		</TR>	
 		
 		<tr>
-			<TD class="labelmedium" width="90" style="font-weight:200"><cf_tl id="Presentation">:</TD>
+			<TD class="labelmedium" width="90"><cf_tl id="Presentation">:</TD>
 			<TD class="labelit">
 			
 			<table cellspacing="0" cellpadding="0">
 			<tr>
 			<td class="labelit">
 				<select name="TopicPresentation" id="TopicPresentation" class="regularxl enterastab">
+				  <option value="Embed"  <cfif get.TopicPresentation eq "Embed">selected</cfif>>Embed</option>
 				  <option value="Dialog"  <cfif get.TopicPresentation eq "Dialog">selected</cfif>>Window</option>
 				  <option value="Modal"   <cfif get.TopicPresentation eq "Modal">selected</cfif>>Modal Dialog</option>
 				  <option value="Tooltip" <cfif get.TopicPresentation eq "Tooltip">selected</cfif>>Help Slider</option>				
@@ -205,11 +206,11 @@ password="#SESSION.dbpw#">
 				
 				<cfloop index="itm" list="Question,Answer" delimiters=",">				
 							
-					<tr><td class="labelit" style="height:40px;padding-top:10px;font-weight:200;font-size:15px" colspan="2" height="50" width="100"><cfoutput>#itm#</cfoutput> body:</td></tr>
+					<tr><td class="labelit" style="height:40px;padding-top:10px;font-size:15px" colspan="2" height="50" width="100"><cfoutput>#itm#</cfoutput> body:</td></tr>
 					
 					<tr>
 					<td colspan="2" valign="top" height="190">
-						<cf_textarea name="#itm#" color="ffffff" toolbar="basic" height="170" resize="no" init="yes"><cfoutput>#evaluate("get.UIText#itm#")#</cfoutput></cf_textarea>										
+						<cf_textarea name="#itm#" color="ffffff" toolbar="basic" height="170" resize="false" init="yes"><cfoutput>#evaluate("get.UIText#itm#")#</cfoutput></cf_textarea>										
 					</td>
 					</tr>					
 				
@@ -249,6 +250,8 @@ password="#SESSION.dbpw#">
 </table>	
 
 <cf_screenbottom layout="webapp">
+
+<cfset ajaxonload("doTextarea")>
 
 </cfoutput>
 

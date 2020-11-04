@@ -103,10 +103,10 @@
 
 		<cfoutput>
 			offset:#offset#
-			amt:#amt#
-			stop:#stop#
 			thisOutstanding:#thisOutstanding#
+			amt:#amt#					
 			get.AmountOutstanding: #get.AmountOutstanding#
+			stop:#stop#	
 		</cfoutput>
 
 		<cfset amt 	= amt - offset>

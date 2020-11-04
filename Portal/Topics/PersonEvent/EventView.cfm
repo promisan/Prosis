@@ -24,7 +24,7 @@
 				    <cfset org = url.orgunit>
 				</cfif>
 																																														
-				<cfdiv id="divPersonEventDetail_#thisDivName#"
+				<cf_securediv id="divPersonEventDetail_#thisDivName#"
 					 bind="url:#session.root#/Portal/Topics/PersonEvent/EventContent.cfm?mission=#url.mission#&period=#url.period#&orgunit=#org#&actor=#actor#&sort=#sort#&divname=#thisDivName#">					
 																	 
 				</td>

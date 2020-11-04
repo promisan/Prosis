@@ -761,8 +761,8 @@ password="#SESSION.dbpw#">
 	SET       EconomicStock = OnHand+InternalRequested+Requested+OnOrder-(Reserved-fulfilled)-Earmarked 
 </cfquery>
 
-<cfif createtable eq "1">
-	
+<cfif form.refreshContent eq "1">
+
 	<cfquery name="UpdateRequest1" 
 	datasource="AppsTransaction" 
 	username="#SESSION.login#" 

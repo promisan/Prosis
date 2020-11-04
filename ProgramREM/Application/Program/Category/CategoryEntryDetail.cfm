@@ -29,7 +29,7 @@
 					
 	<tr class="hide"><td id="process"></td></tr>	
 	
-	<!--- remove also the table moved into control
+	<!--- remove also the table to moved into Control table
 	
 	<cfif url.parentcode eq "">
 	
@@ -139,9 +139,11 @@
 							
 	<tr><td style="padding-left:10px">
 		   	
-    <table width="100%" height="100%">
+    <table style="width:97%" height="100%">
 		
 	<cfoutput query="MasterArea" group="Area">
+	
+		<!--- table to define what to collapse and hide --->
 					
 		<cfinvoke component    =  "Service.Process.Program.Category"  
 			   method          =  "ReferenceTableControl" 
@@ -150,17 +152,17 @@
 			   ProgramCode     =  "#url.ProgramCode#" 
 			   Period          =  "#url.period#"
 			   AreaCode        =  "#areacode#"
-			   returnvariable  =  "disabled">		
-			     			   			
+			   returnvariable  =  "control">				   		
+					
 	    <cfoutput>
 					
         <cfset ar  = Area>
 		<cfset arc = AreaCode>
 		<cfset ard = Description>
 		<cfset mem = DescriptionMemo>
-				 							
+								 							
 		<TR>
-			<td onClick="areaexpand('#arc#')" style="padding-top:1px;cursor: pointer;">
+			<td onClick="areaexpand('#arc#')" style="padding-top:6px;cursor: pointer;">
 				<table width="100%">
 					<tr>
 					  <td align="left">
@@ -257,41 +259,13 @@
 					   AND    Status != '9') as Selected
 			FROM      Ref_ProgramCategory F  		  	   
 			WHERE     F.AreaCode = '#Arc#' 
-			<cfif disabled neq "">
-			AND       Code NOT IN (#preservesingleQuotes(disabled)#)
+			<cfif control.deny neq "">
+			AND       Code NOT IN (#preservesingleQuotes(control.deny)#)
 			</cfif>
 			AND       HierarchyCode LIKE '__.%'			
 			ORDER BY  F.HierarchyCode			
 		</cfquery>
-		
-		<cfquery name="qSelected" dbtype="query">
-			SELECT 	*
-			FROM	GroupAll
-			WHERE 	Selected IS NOT NULL
-		</cfquery>
-		
-		<cfquery name="qMissionCategory" 
-		datasource="AppsProgram" 
-		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">
-			SELECT 	*
-			FROM  	Ref_ParameterMissionCategory  		  	   
-			WHERE 	Mission  = '#url.mission#'
-			AND 	Category = '#groupAll.Parent#'		
-		</cfquery>
-		
-		<cfif qMissionCategory.AreaMinimum neq 0 AND qSelected.recordCount lt qMissionCategory.AreaMinimum>
-		
-			<cfoutput>
-				<tr>
-					<td style="padding:15px; padding-left:50px; color:##f24b4b; font-weight:bold; font-size:110%;" class="labellarge">
-						** <cf_tl id="This section requires a minimum of selected items">: #qMissionCategory.AreaMinimum#.
-					</td>
-				</tr>
-			</cfoutput>
-		
-		</cfif>
-													
+																	
    		<tr><td width="100%" height="100%" style="padding-left:20px; padding-top:10px;">
 							
 			<cfif Used neq "" or selectarea neq "">			
@@ -306,12 +280,9 @@
     			<td width="30" valign="top"></td>
 				<td width="100%" height="100%">
 				
-				<table width="100%" 
-				    height="100%"					
-					align="left">		
+				<table width="100%" height="100%" align="left">		
 					
-					<cfset row = 0>
-																						
+					<cfset row = 0>													
 					<cfloop query="GroupAll">									
 																										
 						<cfquery name="CheckParent" 
@@ -337,100 +308,120 @@
 																	
 						<TR>
 						
-							<td width="100%" valign="top" height="100%">
+							<td width="98%" valign="top" height="100%">
 																					
-							<table width="100%" height="100%" cellspacing="0" cellpadding="0">
-							
-								<cfif Selected eq "" and Operational eq "0">
-								    <TR id="main#code#" class="hide">
-								<cfelse>  
-								    <TR id="main#code#" class="regular <cfif par eq "0" or (par eq "1" and EntryMode is "1")>line</cfif>">
-								</cfif>
+								<table width="100%" height="100%">
 								
-								    <td style="width:100%">
+									<cfif Selected eq "" and Operational eq "0">
+									    <TR id="main#code#" class="hide">
+									<cfelse>  
+									    <TR id="main#code#" class="regular <cfif par eq "0" or (par eq "1" and EntryMode is "1")>linexxx</cfif>">
+									</cfif>
 									
-										<table width="100%">
+									    <td style="width:100%">
 										
-											<tr>											
-											<cfif par eq "0" or (par eq "1" and EntryMode is "1")>											
-											 <td width="40" align="right" style="padding-left:29px;padding-top:3px;padding-right:5px">		
-																										
-												<cfif Selected eq "">
-												    <input type="checkbox"  style="height:17px;width:17px" name="programcategory"  value="'#Code#'" onClick="hlsave(this.checked,'#url.programcode#','#code#','#mode#','#url.period#')">
-												<cfelse>
-												    <input type="checkbox"  style="height:17px;width:17px" name="programcategory"  value="'#Code#'" checked onClick="hlsave(this.checked,'#url.programcode#','#code#','#mode#','#url.period#')">
-											    </cfif>												
-											 </td>											 
-											<cfelse>											
-											   <td></td> 												
-											</cfif>
-																				   																		
-										    <TD width="99%" style="padding-top:2px">
+											<table width="100%">
 											
-												<table width="99%" height="100%">								  
-													<tr>
-													<td valign="top" style="padding:2px;padding-left:14px;padding-top:4px;height:17px">
-													<table width="99%">
-													<tr>
-													<td width="20%" class="<cfif par eq '1'>labellarge<cfelse>labelmedium</cfif>">
-													<cfif par eq '1'><b></cfif><u>#Description#</u></b> <cfif descriptionmemo neq "">: #DescriptionMemo#</cfif>
-													</td>													
-													</tr></table>													
-													</td>														
-													</tr>
-												</table>
+												<cfif par eq 1>
 												
-											</TD>				
-											
-										    </tr>
-										
-										<cfif selected eq "">
-										
-											<tr class="hide" id="textbox#code#"><td colspan="3" id="textboxcontent#code#"></td></tr>
-										
-										<cfelse>
-										
-											<tr class="regular" id="textbox#code#">
-												<td style="padding-left:28px;width:100%" colspan="3">		
-																																											
-												<cfset url.code = code>
-												<cfset url.mode = mode>
-												<cfdiv id="textboxcontent#code#" bind="url:#SESSION.root#/ProgramREM/Application/Program/Category/getTextArea.cfm?programcode=#url.programcode#&code=#code#&mode=#mode#&period=#url.period#">
-																																																		
-												</td>
-											</tr>
-										 
-										</cfif>
-										
-										<cfif EnableTarget eq "1">
+													<cf_tl id="Open" var="1">
+													<tr id="clsHeader_#code#" class="line" title="#lt_text#" onclick="$('.clsDetail_#code#').toggle();" style="cursor:pointer; background-color:##f4f4f4;">
+													
+												<cfelse>
+													<cfquery name="getSelected" dbtype="query">
+														SELECT 	*
+														FROM 	GROUPALL
+														WHERE 	Parent = '#parent#'
+														AND     SELECTED IS NOT NULL
+														AND 	SELECTED <> ''
+													</cfquery>
+													
+													<cfset vDisplay = "">
+													<cfif FindNoCase(parent, control.coll) neq 0 AND getSelected.recordCount eq 0>
+														<cfset vDisplay = "display:none;">
+													</cfif>
+													
+													<tr class="line clsElement clsDetail_#parent#" style="#vDisplay#">
+												</cfif>
+																							
+												<cfif par eq "0" or (par eq "1" and EntryMode is "1")>		
+																					
+												 <td valign="top" align="right" style="width:60px;max-width:60px;min-width:60px;padding-top:6px;padding-right:5px">																													
+													<cfif Selected eq "">
+													    <input type="checkbox"  style="height:18px;width:18px" name="programcategory"  value="'#Code#'" onClick="hlsave(this.checked,'#url.programcode#','#code#','#mode#','#url.period#')">
+													<cfelse>
+													    <input type="checkbox"  style="height:18px;width:18px" name="programcategory"  value="'#Code#'" checked onClick="hlsave(this.checked,'#url.programcode#','#code#','#mode#','#url.period#')">
+												    </cfif>												
+												 </td>											 
+												 
+												<cfelse>											
+												
+												   <td style="width:30px;max-width:30px;min-width:30px"></td> 												
+												   
+												</cfif>
+																					   																		
+											    <TD style="width:100%;padding-top:2px">
+												
+													<table width="99%" height="100%">								  
+														<tr>
+														<td valign="top" style="padding:2px;padding-left:14px;padding-top:4px;height:17px" class="<cfif par eq '1'>labellarge<cfelse>labelmedium</cfif>">													
+														<cfif par eq '1'><b></cfif><u>#Description#</u></b> <cfif descriptionmemo neq "">: #DescriptionMemo#</cfif>																									
+														</td>														
+														</tr>
+													</table>
+													
+												</TD>				
+												
+											    </tr>
 											
 											<cfif selected eq "">
-												<cfset cl = "hide">
+											
+												<tr class="hide" id="textbox#code#"><td colspan="3" id="textboxcontent#code#"></td></tr>
+											
 											<cfelse>
-											    <cfset cl = "regular">
-											</cfif>																
-											<tr class="#cl#" id="targetbox#code#">											
-																					
-											<td colspan="3" style="padding-left:40px;padding-top:2px" id="targetdetail_#code#">
 											
-												<cfset url.category = code>																
-												<cfinclude template="../Target/TargetListing.cfm">
-																	
-											</td>
+												<cfset vClass = "">
+												<cfif par eq 0>
+													<cfset vClass = "clsDetail_#parent#">
+												</cfif>
 											
-											</tr>
+												<tr class="regular clsElement #vClass#" id="textbox#code#">
+												
+													<td style="padding-left:28px;width:100%" colspan="3">																																												
+													<cfset url.code = code>
+													<cfset url.mode = mode>
+													<cfdiv id="textboxcontent#code#" bind="url:#SESSION.root#/ProgramREM/Application/Program/Category/getTextArea.cfm?programcode=#url.programcode#&code=#code#&mode=#mode#&period=#url.period#">																																																			
+													</td>
+												</tr>
+											 
+											</cfif>
 											
+											<cfif EnableTarget eq "1">
+												
+												<cfif selected eq "">
+													<cfset cl = "hide">
+												<cfelse>
+												    <cfset cl = "regular">
+												</cfif>		
+																										
+												<tr class="#cl#" id="targetbox#code#">																																	
+												<td colspan="3" style="padding-left:40px;padding-top:2px" id="targetdetail_#code#">												
+													<cfset url.category = code>																
+													<cfinclude template="../Target/TargetListing.cfm">																		
+												</td>												
+												</tr>
+											
+											</cfif>
+											
+											</table>
 										
-										</cfif>
-										
-										</table>
+									   </td>
+									</tr>
 									
-								   </td>
-								</tr>
+									<!--- make this an option to be enabled for a category, like we have text boxes to be added --->
+																						
+								</table>
 								
-								<!--- make this an option to be enabled for a category, like we have text boxes to be added --->
-																					
-							</table>
 							</td>
 																					
 						</tr>
@@ -445,8 +436,8 @@
 									
 			</td></tr>	
 			
-		</cfoutput>	
-					
+		</cfoutput>
+			
 	</cfoutput>	
 	
 	</table>

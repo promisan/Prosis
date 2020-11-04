@@ -66,7 +66,9 @@ password="#SESSION.dbpw#">
 
 <cfif qCategoryMission.recordCount gt 0 AND qCategoryMission.AreaMaximum neq 0>
 	<cfif qValidCategory.recordCount gte qCategoryMission.AreaMaximum>
-		<cfset vAllowChange = 0>
+		<cfif VerifyGroup.Status neq url.status>
+			<cfset vAllowChange = 0>
+		</cfif>
 	</cfif>
 </cfif>
 

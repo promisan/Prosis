@@ -28,7 +28,9 @@
 			<tr><td colspan="2" style="height:5px"></td></tr>
 			
 		</cfif>
-					
+		
+		<!--- option to manage status fields and immediately save them --->
+		
 		<cfquery name="Program" 
 			datasource="AppsProgram" 
 			username="#SESSION.login#" 
@@ -44,7 +46,73 @@
 			AND		PP.Period = '#URL.Period#'
 		</cfquery>
 		
-	   <cfset mission      = program.OrgUnitMission>
+		<!--- status field for data entry --->
+		
+		<cfif selectarea eq "">
+		
+		<tr><td colspan="2" style="height:5px">
+		
+			<cfquery name="StatusList" 
+				datasource="AppsProgram" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					SELECT  F.Code, 
+					        F.Description, 					   
+							F.StatusClass,					    							   							    	
+						    S.Created,
+							S.OfficerFirstName, 
+						    S.OfficerLastName, 
+						    S.ProgramStatus as Selected
+					FROM    ProgramStatus S RIGHT OUTER JOIN
+				            Ref_ProgramStatus F ON S.ProgramStatus = F.Code AND S.ProgramCode = '#URL.EditCode#'
+					WHERE   F.Code IN (SELECT ProgramStatus
+					                   FROM   Ref_ProgramStatusMission	   
+								 	   WHERE  Mission = '#Program.OrgUnitMission#') 
+					 AND    F.Operational = 1 
+						 
+				    ORDER By Description
+				
+				</cfquery>	
+			
+				<cfquery name="statusclasslist" dbtype="query">
+					SELECT DISTINCT StatusClass
+					FROM StatusList
+				</cfquery>			
+				
+				<table width="100%">
+											    		
+					<cfloop query="statusclasslist">						
+					
+							<tr class="labelmedium">
+						    <td width="20%" class="labelmedium"><cf_tl id="#StatusClass#">:</td>
+							    <td>
+								
+									<cfquery name="StatusSelect" dbtype="query">
+								       SELECT *
+								       FROM   StatusList
+									   WHERE  StatusClass = '#StatusClass#'					
+								    </cfquery>
+									
+									<cfset fld = replaceNoCase(StatusClass," ","","ALL")>
+																						 							 																								
+									<select name="Status#fld#" class="regularxxl">												 					
+										 <cfloop query="StatusSelect">
+										     <option value="#Code#" <cfif Selected eq Code> selected</cfif>>#Description#</option>
+										 </cfloop>								
+									</select>
+								
+								</td>
+							</tr>
+					
+					</cfloop>	
+				
+				</table>
+		
+		</td></tr>		
+		
+		</cfif>		
+				
+	    <cfset mission      = program.OrgUnitMission>
 		<cfset programclass = program.programclass>
 								
 		<tr><td colspan="2" style="padding-left:3px;padding-right:10px" height="100%">
