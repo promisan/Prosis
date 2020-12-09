@@ -44,7 +44,7 @@ password="#SESSION.dbpw#">
 		</cfif>
 		
 		<cfparam name="Form.DateEffective" default="#dateformat(now(),client.dateformatshow)#">
-		<cfparam name="Form.DateExpiration" default="#dateformat(now(),client.dateformatshow)#">
+		<cfparam name="Form.DateExpiration" default="#dateformat(now()+30,client.dateformatshow)#">
 		
 		<cfset dateValue = "">
 		<CF_DateConvert Value="#Form.DateEffective#">

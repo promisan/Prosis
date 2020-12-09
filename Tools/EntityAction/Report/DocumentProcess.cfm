@@ -1,17 +1,14 @@
 
-
-
-
 <cfoutput>
 
 <cfquery name="Object" 
 datasource="appsOrganization" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-SELECT     *
-FROM       OrganizationObject O, OrganizationObjectAction A
-WHERE      O.Objectid = A.Objectid
-AND        A.ActionId = '#url.ActionId#'
+	SELECT     *
+	FROM       OrganizationObject O, OrganizationObjectAction A
+	WHERE      O.Objectid = A.Objectid
+	AND        A.ActionId = '#url.ActionId#' 
 </cfquery>
 
 <cfquery name="Format" 
@@ -114,15 +111,39 @@ password="#SESSION.dbpw#">
 				<cfset URL.DocumentTemplate  = "#Format.DocumentTemplate#">
 				
 			  	<cfinclude template = "DocumentFramework.cfm">
+				
+				<!--- embed the signature block into the document --->
+				
+				<cfset path = left(DocumentTemplate,len(DocumentTemplate)-4)>						
+				
+				<cfif FileExists("#SESSION.rootpath#\#path#_Signature.cfm")>	
+				
+					<cfsavecontent variable="signatureblock">
+						<cfinclude template="../../../#path#_Signature.cfm">	
+					</cfsavecontent>
+						
+					<cfif signatureblock neq "">
+						
+						<cfset start = findNoCase("<sign>",text)> 
+						<cfset start = start>
+						<cfset end   = findNoCase("</sign>",text)> 
+						<cfset cnt   = end-start+7>
+						<cfif start gt "1" and cnt gt "1">
+							<cfset prior = mid(text,start,cnt)>									
+							<cfset text = replace("#text#", "#prior#", "<sign>#signatureblock#</sign>")>
+						</cfif>
+															
+					</cfif>		
+					
+				</cfif>					
 			   
 			 </cfif>  
 							
 			<cfcatch>
 				
 				<table width="100%" cellspacing="0" cellpadding="0" class="formpadding">
-				<tr><td bgcolor="ffffaf" align="center">
-				#CFCatch.Message# - #CFCATCH.Detail# 
-				</td></tr></table>			
+				<tr><td bgcolor="ffffaf" align="center">#CFCatch.Message# - #CFCATCH.Detail#</td></tr>
+				</table>			
 				
 				<cfabort>
 				
@@ -175,6 +196,8 @@ password="#SESSION.dbpw#">
 		</cftry>	
 		
 </cfif>
+
+
 
 		<cfif url.action eq "Add">
 		

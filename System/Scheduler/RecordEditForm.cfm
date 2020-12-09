@@ -13,7 +13,7 @@
 
 <cfform action="RecordSubmit.cfm?ID=#URL.ID#&collectionid=#url.collectionid#" method="POST" jquary="Yes" name="entry" target="result">
 						
-		<table width="92%" align="center" class="formpadding formspacing">
+		<table width="92%" align="center" class="formpadding">
 		
 		<tr>		
 			<td height="20" class="labelmedium" width="25%">Module:</td>
@@ -240,8 +240,8 @@
 		--->
 		</select>
 		<td class="hide" id="schedulebox"></td>
-				
-		</TD>
+						
+		
 		</TR>	
 		
 		<tr name="timebox" class="<cfoutput>#cl#</cfoutput>"><td class="labelmedium">Time:</td>
@@ -398,13 +398,11 @@
 		<cfelse>
 		  <cfset t = "#Line.ScriptFailureMail#">
 		</cfif>
-				
-		<tr><td valign="top" style="padding-top:5px" class="labelmedium">Mail Notification to</td></tr>
 		
 		<tr>
 						
 			<TR>
-		    <td style="padding-left:10px" width="90" class="labelmedium">Failure:</td>			
+		    <td style="padding-left:10px" width="90" class="labelmedium">Mail Failure:</td>			
 		    <TD>
 			<table><tr><td>
 			<cfinput type="Text"
@@ -430,7 +428,7 @@
 			</cfif>
 			
 			<TR>
-		    <td style="padding-left:10px" class="labelmedium">Success:</td>
+		    <td style="padding-left:10px" class="labelmedium">Mail Success:</td>
 		    <TD>
 			<table><tr><td>
 			<cfinput type="Text"
@@ -459,12 +457,12 @@
 		<tr>
 			<td colspan="2" align="center">
 
-		    <table cellspacing="0" cellpadding="0" align="center" class="formpadding">
+		    <table align="center" class="formspacing">
 
 			   <tr>
 			  
 			     <td valign="top">
-			   		<cf_button type="button" onclick="window.close()"  name="cancel" id="cancel" value = "Cancel">
+			   		<input type="button" class="button10g" onclick="parent.ProsisUI.closeWindow('schedulebox')"  name="cancel" id="cancel" value = "Cancel">
 				 </td>
 				 
 				 <td valign="top">
@@ -475,7 +473,7 @@
 					 
 					 <cfelse>		
 					 
-					 	<cf_button type="submit" name="update" id="update" value ="Save">
+					 	<input type="submit" class="button10g" name="update" id="update" value ="Save">
 						
 					 </cfif>
 				 

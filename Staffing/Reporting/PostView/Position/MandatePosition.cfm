@@ -19,13 +19,13 @@
 	Key2Value       = "#url.mission#"				
 	Label           = "Yes">	
 		 
-<cf_screentop label="#url.mission# : #lt_content#" html="Yes" jquery="Yes" layout="Webapp">	 
+<cf_screentop label="#url.mission# : #lt_content#" html="Yes" jquery="Yes" layout="Webapp" banner="gray" bannerForce="Yes">	 
 
 <cf_ListingScript>
 <cf_DialogStaffing>
 <cf_Calendarscript>
 
-<cfparam name="url.mandate" default="P002">
+<cfparam name="url.mandate" default="P001">
    
 <!--- obtain a list of functions to be shown here --->
 
@@ -79,8 +79,13 @@
 		 function position(sid) {
 		      Prosis.busy('yes')
 		      _cf_loadingtexthtml='';
-			  ptoken.navigate('#SESSION.root#/Staffing/Reporting/PostView/Position/PositionMandate.cfm?systemfunctionid='+sid+'&mission=#url.mission#&mandate='+document.getElementById('mandateselect').value,'actionbox')		 
-		 }		
+			  ptoken.navigate('#SESSION.root#/Staffing/Reporting/PostView/Position/ViewMandate.cfm?systemfunctionid='+sid+'&mission=#url.mission#&mandate='+document.getElementById('mandateselect').value,'actionbox')		 
+		 }	
+		 
+		 function postmanagement(sid) {		     
+		      _cf_loadingtexthtml='';
+			  ptoken.navigate('#SESSION.root#/Staffing/Reporting/PostView/Position/ViewManagement.cfm?systemfunctionid='+sid+'&mission=#url.mission#&mandate='+document.getElementById('mandateselect').value,'actionbox')		 
+		 }			
 		
 		</script>
 			
@@ -127,10 +132,10 @@
 							
 							<table border="0" style="cursor:pointer">
 					  		<tr>
-							<td height="26" align="center" style="padding-left:6px">
-								<img src="#SESSION.root#/Images/Contract.png" height="26" width="26">
+							<td align="center" style="padding-left:8px;height:55px">
+								<img src="#SESSION.root#/Images/Menu_brown.png" height="32" width="32">
 							</td>						
-							<td align="center" style="padding:0 20px 0 2px;font-size:16px;border-right:1px solid ##cccccc;" class="labelmedium"><cf_uitooltip tooltip="#FunctionMemo#"><font color="000000">#FunctionName#</cf_uitooltip><td>
+							<td align="center" style="padding-left:8px;padding-right:10px;font-size:16px;border-right:1px solid ##cccccc;" class="labelmedium"><cf_uitooltip tooltip="#FunctionMemo#"><font color="000000">#FunctionName#</cf_uitooltip><td>
 							</tr>				
 				  		    </table>  
 													
@@ -148,7 +153,8 @@
 	 </cfoutput>
 	 	 
 	 <tr>
-	    <td height="100%" valign="top" colspan="3"><cfdiv style="width:100%;height:100%;padding-bottom:5px" id="actionbox"></td>
+	    <td height="100%" valign="top" colspan="3">
+		<cfdiv style="width:100%;height:100%;padding-bottom:2px" id="actionbox"></td>
 	 </tr>
 					  
 	</table>  

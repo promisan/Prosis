@@ -33,26 +33,25 @@
     WHERE  ContractId = '#URL.ContractId#'
 </cfquery>
 
-
 <cf_divscroll>
 
-	<cfform action="EmployeePASEditSubmit.cfm?ContractId=#URL.ContractId#" method="POST" name="action" style="height:100%">
+	<cfform action="EmployeePASEditSubmit.cfm?ContractId=#URL.ContractId#" method="POST" name="action" style="height:98.5%">
 	
 	<table height="100%" width="100%" style="min-width:850px">
 	
 	<tr><td height="100%" valign="top">		
 	
-		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<table width="100%">
 		
-		<tr><td valign="top" style="padding:3px">
+		<tr><td valign="top">
 		
-			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding formspacing">
+			<table width="100%" class="formpadding formspacing">
 												
 			<cfoutput>
 			
 			<tr><td style="padding-top:20px;padding-left:20px">
 			
-			    <table width="99%" align="center" border="0" cellspacing="0" cellpadding="0" class="formpadding formspacing">
+			    <table width="99%" align="center" class="formpadding formspacing">
 				
 				<cfinvoke component = "Service.Access"  
 				   method           = "staffing" 

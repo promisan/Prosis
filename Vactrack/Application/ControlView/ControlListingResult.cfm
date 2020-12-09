@@ -35,7 +35,7 @@
 	
 			<cfif Sum.Total gt 0>
 							
-			<td align="center" valign="bottom" style="border:1px solid silver">
+			<td align="center" valign="bottom">
 										
 			<cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
 			
@@ -51,9 +51,10 @@
 					 fontsize="13" 
 					 fontbold="no" 
 					 font="calibri"
-					 fontitalic="no" 
-					 show3d="yes" 
-					 xaxistitle="" 				 
+					 fontitalic="no" 					 
+					 show3d="no" 					 
+					 xaxistitle="" 		
+					 showlegend="yes" 		 
 					 yaxistitle="Tracks" 
 					 rotated="no" 
 					 sortxaxis="no" 				 
@@ -70,7 +71,7 @@
 			             itemcolumn="Description"
 			             valuecolumn="Counted"
 			             seriescolor="##00CCC6"
-			             datalabelstyle="pattern"		            
+			             datalabelstyle="value"		            
 			             markerstyle="diamond"						 
 			             colorlist="##3399FF,##CCCC66,##FD7E00,##66CC66,##999999,##9966FF,##FF7777,##674172,##336E7B,##ABB7B7">
 	
@@ -112,16 +113,15 @@
 						 showygridlines="yes"
 						 gridlines="6" 
 						 showborder="no" 
-						 fontsize="12" 
-						 fontbold="no" 
-						
+						 fontsize="13" 
+						 fontbold="no" 						
 						 fontitalic="no" 
 						 xaxistitle="" 
 						 yaxistitle="" 
 						 show3d="no" 
 						 rotated="no" 
 						 sortxaxis="no" 
-						 showlegend="no" 						 
+						 showlegend="yes" 						 
 						 showmarkers="yes" 
 						 markersize="30" 
 						 backgroundcolor="##ffffff">

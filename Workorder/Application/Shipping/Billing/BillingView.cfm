@@ -7,6 +7,8 @@
 
 <cf_screentop scroll="No" layout="webapp" jQuery="Yes" html="No" banner="green" label="#lt_text#">
 
+<cf_listingscript>
+
 <cfajaximport tags="cfform,cfwindow">
 <cf_dialogMaterial>
 <cf_dialogOrganization>

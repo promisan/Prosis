@@ -42,7 +42,7 @@ password="#SESSION.dbpw#">
 
 <cf_tl id="Deliverable / Milestone" var="1">
 
-<cf_screentop label="#lt_text#" height="100" bannerheight="55" layout="webapp" user="no" banner="gray">
+<cf_screentop label="#lt_text#" height="100" html="No" layout="webapp" user="no" banner="gray">
 
 <cfform method="POST" enablecab="Yes" name="outputform">
 
@@ -151,7 +151,7 @@ password="#SESSION.dbpw#">
 			<cfif vPeriodFieldsMode eq "HTML">
 				<cf_textarea name="activityoutput" id="activityoutput"                                            
 				   height         = "250"
-				   toolbar        = "basic"
+				   toolbar        = "mini"
 				   expand         = "no"
 				   init           = "Yes"
 				   resize         = "yes"

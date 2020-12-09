@@ -42,7 +42,7 @@ password="#SESSION.dbpw#">
 
 <cfif Snapshot.recordcount eq "0">
 
-	<tr><td colspan="3" align="center" style="padding-top:4px" class="labelit"><font color="808080"> <cf_tl id="No snapshots available"> </td></tr>
+	<tr><td style="background-color:ffffcf" colspan="3" align="center" class="labelmedium"><cf_tl id="No snapshots available"> </td></tr>
 	
 </cfif>
 

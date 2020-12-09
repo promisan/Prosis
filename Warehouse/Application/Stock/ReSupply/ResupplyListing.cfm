@@ -17,7 +17,7 @@ password="#SESSION.dbpw#">
 	<cfif url.sort eq "Category">
 	ORDER BY D.Category,CategoryItemOrder, D.CategoryItem,ItemDescription,UoM
 	<cfelseif url.sort eq "Item">
-	ORDER BY D.Mission,D.ItemBarCode,ItemDescription,UoM
+	ORDER BY D.Mission,D.ItemNoExternal,ItemDescription,UoM
 	<cfelse>
 	ORDER BY D.Category,CategoryItemOrder, D.CategoryItem,ItemDescription,UoM
 	</cfif>
@@ -241,10 +241,10 @@ password="#SESSION.dbpw#">
 					<cfset lsort[3] = "CategoryItem">	
 				<cfelse>
 				    <cfset lsort[1] = "mission">
-					<cfset lsort[2] = "ItemBarCode">
+					<cfset lsort[2] = "ItemNoExternal">
 					<cfset lsort[3] = "ItemDescription">	
 				</cfif>					
-									
+								
 				<cfoutput query="ResultList" group="#lsort[1]#">
 				
 					<cfset cnt=0>
@@ -323,7 +323,7 @@ password="#SESSION.dbpw#">
 					    <cf_precision number="#ItemPrecision#">
 						<tr class="labelmedium line navigation_row" style="height:20px" bgcolor="<cfif ToBeRequested lt 1>F4f4f4<cfelse>FFFFFF</cfif>">		
 								
-						<td style="padding-top:3px;padding-left:3px">
+						<td style="padding-top:2px;padding-left:3px">
 						   <table>
 						   <tr>
 						   <td>
@@ -340,8 +340,6 @@ password="#SESSION.dbpw#">
 						<td style="padding-left:3px">#ItemNo#</td>
 						<td style="padding-left:3px">#ItemNoExternal#</td>
 						<td style="min-width:89%;padding-left:3px"><cfif len(ItemDescription) lte 5>#ItemDescriptionExternal#<cfelse>#ItemDescription#</cfif> : #UOMDescription#</td>	
-						
-						
 						
 						<cfif hasVendor gte "1" and url.restocking eq "Procurement">
 										

@@ -13,7 +13,7 @@
 	</a>
 	</TD>
   	<TD style="padding-left:4px">#GLAccount#</TD>
-	<TD style="padding-left:4px"><a href="javascript:showledger('#mission#','','#AccountPeriod#','#GLAccount#')">#GLAccountName#</a></TD>	
+	<TD style="min-width:190px;padding-left:4px"><a href="javascript:showledger('#mission#','','#AccountPeriod#','#GLAccount#')">#GLAccountName#</a></TD>	
 	
 	<TD>	
 	

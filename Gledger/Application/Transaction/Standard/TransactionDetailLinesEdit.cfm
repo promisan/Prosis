@@ -47,7 +47,7 @@ password="#SESSION.dbpw#">
 
 <cfoutput query="Get">
 
-<table width="100%" cellspacing="0" cellpadding="0" align="right" class="formpadding">
+<table width="100%" align="right" class="formpadding">
 
 <cfif transactiontype neq "Standard" and getAdministrator("*") eq "0">
 
@@ -107,7 +107,7 @@ password="#SESSION.dbpw#">
 
 </tr>			
 
-<tr><td colspan="2">
+<tr><td colspan="2" style="min-width:100px">
 	
 	<cf_filelibraryN
 		DocumentPath="Ledger"

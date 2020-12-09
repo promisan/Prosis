@@ -98,11 +98,10 @@
 		AND       ActionStatus != '9'		
 </cfquery> 
 
-
 <cfif PurchaseClass.PurchaseTemplate neq "">
-	<cfset tmp = "#PurchaseClass.PurchaseTemplate#">
+   <cfset tmp = "#PurchaseClass.PurchaseTemplate#">
 <cfelseif Parameter.PurchaseTemplate neq "">
-    <cfset tmp = "#Parameter.PurchaseTemplate#"> 
+   <cfset tmp = "#Parameter.PurchaseTemplate#"> 
 <cfelse>
 	<cfset tmp = "Procurement/Application/Purchaseorder/Purchase/POViewPrint.cfm">  
 </cfif>
@@ -204,9 +203,9 @@
 			  docid = document.getElementById("printdocumentid").value
 			  		  
 			  if (docid != "") {			   
-				  window.open("#SESSION.root#/Tools/Mail/MailPrepare.cfm?docid="+docid+"&id="+mode+"&id1=#URL.ID1#","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")
+				  ptoken.open("#SESSION.root#/Tools/Mail/MailPrepare.cfm?docid="+docid+"&id="+mode+"&id1=#URL.ID1#","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")
 			  } else {
-			      window.open("#SESSION.root#/Tools/Mail/MailPrepare.cfm?templatepath=#tmp#&id="+mode+"&id1=#URL.ID1#","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")		 
+			      ptoken.open("#SESSION.root#/Tools/Mail/MailPrepare.cfm?templatepath=#tmp#&id="+mode+"&id1=#URL.ID1#","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")		 
 			  }	  
 	  	} 			
 		

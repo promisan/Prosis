@@ -151,17 +151,17 @@ password="#SESSION.dbpw#">
 	
 	    <cfif TaxCalculation is "Inclusive">
 	
-	      <cfset Taxdebit       = #debit# - (#debit# * 1/(1+(#Percentage#)))>
-	      <cfset Taxcredit      = #credit# - (#credit# * 1/(1+(#Percentage#)))>
-	      <cfset Taxdebitbase   = #debitbase# - (#debitbase# * 1/(1+(#Percentage#)))>
-	      <cfset Taxcreditbase  = #creditbase# - (#creditbase# * 1/(1+(#Percentage#)))>
+	      <cfset Taxdebit       = debit - (debit * 1/(1+(Percentage)))>
+	      <cfset Taxcredit      = credit - (credit * 1/(1+(Percentage)))>
+	      <cfset Taxdebitbase   = debitbase - (debitbase * 1/(1+(Percentage)))>
+	      <cfset Taxcreditbase  = creditbase - (creditbase * 1/(1+(Percentage)))>
 	      	 
 		<cfelse>
 	 
-	      <cfset Taxdebit       = #debit#      * (#Percentage#)>
-	      <cfset Taxcredit      = #credit#     * (#Percentage#)>
-	      <cfset Taxdebitbase   = #debitbase#  * (#Percentage#)>
-	      <cfset Taxcreditbase  = #creditbase# * (#Percentage#)>
+	      <cfset Taxdebit       = debit      * (Percentage)>
+	      <cfset Taxcredit      = credit     * (Percentage)>
+	      <cfset Taxdebitbase   = debitbase  * (Percentage)>
+	      <cfset Taxcreditbase  = creditbase * (Percentage)>
 	 
 		</cfif>
 	 
@@ -357,15 +357,13 @@ password="#SESSION.dbpw#">
 	   
 	   <cfelse>
 	   NULL,NULL,'{00000000-0000-0000-0000-000000000000}',
-	   </cfif>
-	  
+	   </cfif>	  
 	   getdate())
 </cfquery>
 
 <cfif TaxAccount neq "">
 
-<!--- tax entry --->
-
+	<!--- tax entry --->
 	
    <cfset traamt = abs(taxdebit - taxcredit)>
 
@@ -482,7 +480,6 @@ password="#SESSION.dbpw#">
    </cfquery>
 
 </cfif>
-
 
 <cfinclude template="TransactionDetailLines.cfm">
 

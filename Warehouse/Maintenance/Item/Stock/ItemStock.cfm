@@ -86,16 +86,19 @@ password="#SESSION.dbpw#">
 				AND IW.UoM = U.UoM
 			 INNER JOIN Item I
 				ON IW.ItemNo = I.ItemNo
-	WHERE     IW.ItemNo = '#URL.ID#'
+	WHERE     IW.ItemNo = '#URL.ID#' 
+	<cfif url.mission neq "">
+	and IW.Warehouse IN (SELECT Warehouse FROM Warehouse WHERE Mission = '#url.mission#')
+	</cfif>
 	
 	) as XL
 	
-	WHERE  RecordsIn > 0  
+	WHERE     RecordsIn > 0  
 	ORDER BY  Mission, Warehouse
 	
 </cfquery>
 	
-<table width="95%" align="center" class="navigation_table formpadding">
+<table width="98%" align="center" class="navigation_table formpadding">
 	 
 	<tr><td height="6"></td></tr>  
 	

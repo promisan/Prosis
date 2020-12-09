@@ -17,13 +17,13 @@
 
 <cfform onsubmit="return false" name="holidaylistform">				  
      
-<table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+<table width="100%" align="center" style="width:300px">
 
    	  <tr class="line labelmedium" style="height:20px">
   	  <td height="25" width="20"></td>
-   	  <td width="15%">Date</td>	 
-   	  <td width="60%">Name of Holiday</td>	
-	  <td width="20"></td>
+   	  <td width="15%" style="min-width:70px"><cf_tl id="Date"></td>	 
+   	  <td width="60%"><cf_tl id="Name of Holiday"></td>	
+	  <td width="10"></td>
       </tr>
 	  	  	      		  
 	  <cfoutput query = "holiday">
@@ -71,7 +71,7 @@
 			
 		</cfloop>
 				
-			<td bgcolor="#col#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td bgcolor="#col#">&nbsp;</td>
 			
 		<cfelse>
 		    <td></td>	

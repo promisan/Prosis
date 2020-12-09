@@ -189,16 +189,13 @@ _UIObject.prototype.last =  function() {
 
 _UIObject.prototype.setWindowTitle = function(t,c,fc){
 
-	var lastElement = this.last();
-	
+	var lastElement = this.last();	
 	//var dialog = $("##"+lastElement).data("kendoWindow");
-	$("##"+lastElement+"_wnd_title").html('<img src="#session.root#/images/logos/menu/prosis-icon.png" style="cursor:pointer;padding-right:10px" height="24" width="24" title="Function" border="0" onclick="##">'+t);
-	
-	
+	//$("##"+lastElement+"_wnd_title").html('<img src="#session.root#/images/logos/menu/prosis-icon.png" style="cursor:pointer;padding-right:10px" height="24" width="24" title="Function" border="0" onclick="##">'+t);
+	$("##"+lastElement+"_wnd_title").html(t);	
 	$(".k-window-titlebar").css('border-color',c);	
 	$(".k-window-titlebar").css('background',c);	
-	$(".k-window-title").css('color',fc);	
-	
+	$(".k-window-title").css('color',fc);		
 
 }
 
@@ -207,22 +204,17 @@ _UIObject.prototype.closeWindow = function (f){
 	_WINDOWS.pop();
 }
 
-
 _UIObject.prototype.restoreWindow = function (f){
 	$('##'+f).data("kendoWindow").restore();
 }
 
 _UIObject.prototype.existsWindow = function (f) {
-	if(jQuery.inArray(f, _WINDOWS) !== -1)
-	{
+	if(jQuery.inArray(f, _WINDOWS) !== -1) {
 		return true;
-	}
-	else
-	{
+	} else {
 		return false;
 	}
 }
-
 
 _UIObject.prototype.doColor = function (){
 	kendo.init($('.k-content'));
@@ -238,8 +230,7 @@ _UIObject.prototype.doColor = function (){
 		}****/
 
 
-_UIObject.prototype.doAlert = function(tlt,msg,color)
-{
+_UIObject.prototype.doAlert = function(tlt,msg,color) {
 	$("##_UIDialog").append("</br></br></br>");
 	$("##_UIDialog").append(msg);
 	$("##_UIDialog").append("</br></br></br></br></br>");
@@ -276,8 +267,6 @@ _UIObject.prototype.doAlert = function(tlt,msg,color)
 
 } //end doAlert
 
-
-
 function saveExpanded(id) {
 
 	var treeview = $("##"+id).data("kendoTreeView");
@@ -291,30 +280,22 @@ function saveExpanded(id) {
 	});
 
 	//Cookies.set(id+'_expanded', kendo.stringify(expandedItemsIds));
-
-
 }
 
-
-function _tree_collapse(e)
-{
+function _tree_collapse(e){
 	var id = this.element.context.id;
 	var item = this.dataItem(e.node);
 	var element = this.dataItem(e.node);
-
 	var str_expanded = Cookies.get(id+'_expanded');
 	var expanded = null;
 	if (str_expanded) {
 		expanded = JSON.parse(str_expanded);
 	}
-
 	if (expanded) {
 		if (expanded[element.id]) {
 			//expanded[element.id] = false;
 		}
 	}
-
-
 }
 
 function _tree_action(e) {
@@ -340,7 +321,6 @@ function _tree_action(e) {
 			}
 		}
 	}
-
 
 }
 
@@ -379,14 +359,11 @@ function _tree_action_binder_single(item) {
 	console.log(url);
 	console.log(target);
 
-
 	if (url) {
 		if (url != '') {
 			if (url.search("javascript")!=-1) {
 				eval(url);
-			}
-			else
-			{
+			} else {
 				if (target != '') {
 					ptoken.open(url, target);
 				}
@@ -396,8 +373,7 @@ function _tree_action_binder_single(item) {
 
 }
 
-function _expand_to()
-{
+function _expand_to() {
 	var data = this.items();
 
 	var id = this.element.context.id;
@@ -410,11 +386,9 @@ function _expand_to()
 	for (var i = 0; i < data.length; i++) {
 		var dataitem = data[i];
 		var element = this.dataItem(dataitem);
-		if (element.level()<=_DEFAULT_LEVEL_)
-		{
+		if (element.level()<=_DEFAULT_LEVEL_) {
 			this.expand(dataitem);
 		}
-
 		if (expanded) {
 			if (expanded[element.id]) {
 				this.expand(dataitem);
@@ -424,8 +398,7 @@ function _expand_to()
 	}
 }
 
- _UIObject.prototype.doToolTip = function(id,title,content,contentURL,w,h,position,duration,callout,showOn)
-{
+ _UIObject.prototype.doToolTip = function(id,title,content,contentURL,w,h,position,duration,callout,showOn) {
 
 	if (content =='') {
 		if (contentURL == '') {
@@ -477,8 +450,7 @@ function _expand_to()
 
 }
 
-_UIObject.prototype.doTooltipPositioning = function(h)
-{
+_UIObject.prototype.doTooltipPositioning = function(h) {
 
 	var dTT = $('div.k-tooltip:visible');
 	dTT.animate({height:h},400,function(){
@@ -499,24 +471,19 @@ _UIObject.prototype.doTooltipPositioning = function(h)
 		var vsum = vTop+eHeight;
 		console.log('sum',vsum);
 
-		if (vsum > wHeight)
-		{
+		if (vsum > wHeight) {
 			vNewTop = wHeight - eHeight-40;
 			childPos.top = vNewTop;
 			parentPos.top = vNewTop;
-
 			console.log('new top',childPos);
 			//dTT.offset(childPos);
 			dTT.parent().offset(parentPos);
 		}
 	});
 
-
 }
 
-
-_UIObject.prototype.doTabStrip = function(id,content)
-{
+_UIObject.prototype.doTabStrip = function(id,content){
 	var ts = $("##tabstrip_"+id).kendoTabStrip({
 		animation: {open: {effects: "fadeIn"}},
 		contentUrls: content
@@ -524,9 +491,7 @@ _UIObject.prototype.doTabStrip = function(id,content)
 
 }
 
-
-_UIObject.prototype.doMenu = function(id)
-{
+_UIObject.prototype.doMenu = function(id){
 	var ts = $("##Menu_"+id).kendoMenu(
 		{animation: { open: {
 			effects: "zoomIn",
@@ -535,21 +500,15 @@ _UIObject.prototype.doMenu = function(id)
 		}
 		});
 	$("##Menu_"+id).show();
-
 }
 
-
-_UIObject.prototype.doBreadCrumb = function(id,content)
-{
+_UIObject.prototype.doBreadCrumb = function(id,content){
 	console.log("id",id);
 	console.log(content);
 	var ts = $("##BreadCrumb_"+id).kendoBreadcrumb({navigational: true, items:content});
-
 }
 
-
-_UIObject.prototype.doTree = function(id)
-{
+_UIObject.prototype.doTree = function(id){
 	_TREES.push(id);
 
 	$("##_"+id).show();
@@ -563,13 +522,10 @@ _UIObject.prototype.doTree = function(id)
 			console.log(node);
 			_tree_action({ node: node });
 		});
-
 	}
-
 }
 
-_UIObject.prototype.doTreeBinder = function(id,serviceRoot,serviceMethod,serviceData)
-{
+_UIObject.prototype.doTreeBinder = function(id,serviceRoot,serviceMethod,serviceData) {
 		binder = new kendo.data.HierarchicalDataSource({
 			transport: {
 				read: {
@@ -615,10 +571,8 @@ _UIObject.prototype.doTreeBinder = function(id,serviceRoot,serviceMethod,service
 		}
 }
 
-_UIObject.prototype.doOpenTree = function(id,node)
-{
+_UIObject.prototype.doOpenTree = function(id,node){
 	_treeview = $('##'+id).data("kendoTreeView");
-
 	var bar = _treeview.findByText(node);
 	//_treeview.select(bar);
 	console.log(bar);
@@ -633,25 +587,17 @@ _UIObject.prototype.doOpenTree = function(id,node)
 
 	}
 ***/
-
-
-
 }
 
-_UIObject.prototype.doCalendarRange = function(id)
-{
+_UIObject.prototype.doCalendarRange = function(id){
 
-	vFormat = "#Replace(CLIENT.DateFormatShow,'mm','MM')#";
-	
+	vFormat = "#Replace(CLIENT.DateFormatShow,'mm','MM')#";	
 	lb_start = $("##"+id+"_lbl_start").val();
-	lb_end = $("##"+id+"_lbl_end").val();
-	
+	lb_end = $("##"+id+"_lbl_end").val();	
 	date_start = $("##"+id+"_date_start").val();
-	date_end = $("##"+id+"_date_end").val();
-	
+	date_end = $("##"+id+"_date_end").val();	
 	enabled = $("##"+id+"_enabled").val();
-	onChange = $("##"+id+"_onchange").val();
-	
+	onChange = $("##"+id+"_onchange").val();	
 	$("##"+id+" _start").val(date_start);
 	$("##"+id+"_end").val(date_end);
 	console.log(date_start);
@@ -671,9 +617,7 @@ _UIObject.prototype.doCalendarRange = function(id)
 			if (onChange != '')
 			{
 				eval(onChange+"(range)")
-			}
-			
-			
+			}			
 		},
          "messages": {
              "startLabel": lb_start,
@@ -682,8 +626,7 @@ _UIObject.prototype.doCalendarRange = function(id)
 		range: { start: kendo.parseDate(date_start,vFormat), end:  kendo.parseDate(date_end,vFormat)}
 	}).data("kendoDatePicker");
 
-	if (enabled == 'No')
-	{
+	if (enabled == 'No') {
 		var dateRangePicker =$("##"+id).data("kendoDatePicker");
 		dateRangePicker.enable(false);
 	}
@@ -691,12 +634,9 @@ _UIObject.prototype.doCalendarRange = function(id)
 	$(".k-textbox").css('border-color','silver');	
 	$(".k-textbox").css('color','##000');	
 	$(".k-textbox-container").css('width','110px');	
-
-	
 	
 }
 </script>
-
 
 <div id="_ProsisUI" class="k-content"></div>
 </cfoutput>
@@ -704,7 +644,6 @@ _UIObject.prototype.doCalendarRange = function(id)
 <cfif attributes.treeTemplate eq "Yes">
 	<cfinclude template="UITreeBinderTemplate.cfm">
 </cfif>
-
 
 <script>
 	_UIObject.prototype.escapeHtml = function (unsafe) {

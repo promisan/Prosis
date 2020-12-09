@@ -129,7 +129,7 @@ password="#SESSION.dbpw#">
 		</cfif>	
 		
 		</cfoutput>
-		
+				
 		<cfoutput query="ItemList" group="Warehouse">
 										
 				<tr class="labelmedium">					

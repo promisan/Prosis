@@ -148,15 +148,16 @@
 			    <cfif cnt neq "0">
 		
 				 	<script language="javascript">
-					    alert("Sofar <cfoutput>#cnt#</cfoutput> candidate<cfif #cnt# eq '1'> has<cfelse>s have</cfif> been listed for your track.")
+					    alert("Recruitment track : <cfoutput>#cnt#</cfoutput> candidate<cfif #cnt# eq '1'> has<cfelse>s have</cfif> been listed.")
 																								 					 
 						se = parent.parent.window																						 																
 						try {
-						se.opener.document.getElementById('workflowbutton_#docno#').click()
+						se.opener.document.getElementById('workflowbutton_#docno#').click()						
 						} catch(e) {
 							try { 
-							se = parent.parent.parent.window		
-						    se.opener.document.getElementById('workflowbutton_#docno#').click()
+							se = parent.parent.parent.window	
+							se.document.getElementById('workflowbutton_#docno#').click()															
+						    // se.opener.document.getElementById('workflowbutton_#docno#').click() : hanno							
 							} catch(e) {}
 						}
 												

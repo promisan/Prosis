@@ -212,6 +212,7 @@ password="#SESSION.dbpw#">
 			   AND        SC.SalaryFirstApplied <= L.DateEffective 
 			   ORDER BY   SalaryFirstApplied DESC )
 			   
+			   
 			   <cfelse>
 			   
 			   0
@@ -865,6 +866,7 @@ password="#SESSION.dbpw#">
 				AND        SL.ServiceLevel    = '#ContractLevel#' 
 				AND        SL.ServiceStep     = '#ContractStep#'
 				AND        SL.Operational      = 1
+				
 			</cfquery>	
 			
 			<cfif Check.recordcount eq '0'>

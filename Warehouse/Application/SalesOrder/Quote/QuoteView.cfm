@@ -3,6 +3,15 @@
 <cf_screentop height="99%" label="Quotation #URL.RequestNo#" html="No" layout="webapp" jquery="Yes" scroll="No">
 
 	<cfset url.scope = "Quote">
+			
+	<cfquery name="Clear"
+		datasource="AppsMaterials"
+		username="#SESSION.login#"
+		password="#SESSION.dbpw#">
+		DELETE FROM CustomerRequestLine
+		WHERE BatchId IS NOT NULL
+		AND  Created < getDate()-2		
+	</cfquery>
 	
 	<cfquery name="Clear"
 		datasource="AppsMaterials"
@@ -66,7 +75,7 @@
 		
 			<script>		
 				function setSaleQuote() {			    			
-				 	document.getElementById('customerselect').value          = '#customer.reference#' 											
+				 	document.getElementById('customerselect').value          = '#customer.customerserialno#' 											
 					customertoggle('customerdata','#Request.customerid#','open','#Request.warehouse#','#Request.addressid#');									
 					document.getElementById('customerdata_toggle').className = 'regular'		
 					Prosis.busy('no')								 			
@@ -89,6 +98,7 @@
 		
 		<cf_textareascript>		
 		<cf_layoutscript>
+		<cf_dialogLedger>
 				
 		<cfset attrib = {type="Border",name="mybox",fitToWindow="Yes"}>	  
 		
@@ -124,7 +134,7 @@
 				</tr>
 				<tr class="labelmedium" style="height:20px">
 				      <td><cf_tl id="Customer">:</td>
-				      <td>#Customer.CustomerName#</td>
+				      <td><a href="javascript:editCustomer('#customer.Customerid#')">#Customer.CustomerName#</a></td>
 				</tr>
 				<tr class="labelmedium" style="height:20px">
 				      <td><cf_tl id="Address">:</td>
@@ -153,7 +163,7 @@
 				      <td colspan="2">
 					  <textarea name="remarks" 
 					  onchange="ptoken.navigate('#session.root#/warehouse/application/salesOrder/Quote/setQuote.cfm?requestNo=#request.RequestNo#','process','','','POST','quote')"
-					  style="padding:5px;width:100%;font-size:14px;height:80px;background-color:C1E0FF">#Request.Remarks#</textarea>
+					  style="padding:5px;width:100%;font-size:14px;height:80px;background-color:ffffff">#Request.Remarks#</textarea>
 					  </td>
 				</tr>
 				<tr><td id="process"></td></tr>
@@ -162,8 +172,9 @@
 						
 				<tr class="labelmedium">
 				      <td style="height:40px"><cf_tl id="Load">:</td>
-				      <td><input type="button" name="Load" value="Load" class="button10g" 
-					  onclick="Prosis.busy('yes');ptoken.navigate('#session.root#/warehouse/application/salesOrder/POS/Sale/SaleInit.cfm?systemfunctionid=#url.systemfunctionid#&scope=#url.scope#&mission=#request.mission#&warehouse=#request.warehouse#&requestNo=#url.requestNo#','contentquote')">
+				      <td>					 
+					  <input type="button" name="Load" value="Load" class="button10g" 
+					  onclick="Prosis.busy('yes');ptoken.navigate('#session.root#/warehouse/application/salesOrder/Quote/QuoteInit.cfm?systemfunctionid=#url.systemfunctionid#&scope=#url.scope#&requestNo=#url.requestNo#','content')">
 					  </td>
 				</tr>
 				

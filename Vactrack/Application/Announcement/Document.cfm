@@ -92,13 +92,13 @@ password="#SESSION.dbpw#">
 		</tr>
 				
 	</cfif>	
-	
+		
 	<cfif url.wParam neq "ToR">
 		
 		<TR class="labelmedium line">
 	    <td><cf_tl id="Announcement effective">:</td>
 	    <TD>
-			  		
+					  		
 			<cf_intelliCalendarDate9
 				FieldName="DateEffective" 
 				class="regularxxl"

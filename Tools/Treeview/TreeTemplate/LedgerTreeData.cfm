@@ -8,12 +8,12 @@ password="#SESSION.dbpw#">
 	WHERE  Mission = '#Attributes.Mission#'
 </cfquery>
 
-
 <cf_tl id="#Attributes.Mission#" var="mis">
 
 <cf_UItree
 	id="root"
 	title="<span style='font-size:16px;color:gray;padding-bottom:3px'>#mis#</span>"	
+	root="no"
 	expand="Yes">
 
 	<cfif Parameter.AdministrationLevel eq "Tree">
@@ -55,7 +55,7 @@ password="#SESSION.dbpw#">
 			  <cf_tl id="Actions" var="vEvents">
 			  
 			  <cf_UItreeitem value="action"
-			        display="<span style='font-size:18px;padding-bottom:5px;font-weight:bold' class='labellarge'>#vEvents#</span>"						
+			        display="<span style='font-size:18px;padding-bottom:5px;font-weight:bold' class='labelmedium'>#vEvents#</span>"						
 					href="JournalViewOpen.cfm?ID=EVE&ID1=0&Mission=#Attributes.Mission#"				
 					parent="root"
 					target="right"							
@@ -64,14 +64,14 @@ password="#SESSION.dbpw#">
 			  <cf_tl id="Journal" var="vJournals">
 			  
 			  <cf_UItreeitem value="journal"
-			        display="<span style='font-size:18px;padding-top:5px;padding-bottom:5px;font-weight:bold' class='labellarge'>#vJournals#</span>"						
+			        display="<span style='font-size:18px;padding-top:5px;font-weight:bold' class='labelmedium'>#vJournals#</span>"						
 					parent="root"							
 			        expand="Yes">	
 												  
 		      <cfoutput query="Category" group="Currency">		  
 			  
 			  	 <cf_UItreeitem value="journal_#Currency#"
-					        display="<span style='font-size:16px;color:green;font-weight:bold;padding-top:3px;padding-bottom:3px' class='labelit'>#Currency#</span>"
+					        display="<span style='font-size:16px;padding-top:5px;color:green;font-weight:bold;' class='labelit'>#Currency#</span>"
 							parent="journal"											
 							target="right"
 					        expand="Yes">	
@@ -180,19 +180,19 @@ password="#SESSION.dbpw#">
 				<cf_tl id="Account" var="vAccount">
 					
 				<cf_UItreeitem value="account"
-				        display="<span style='font-size:18px;padding-top:5px;padding-bottom:5px;font-weight:bold' class='labellarge'>#vAccount#</span>"						
+				        display="<span style='font-size:18px;padding-top:5px;font-weight:bold' class='labelit'>#vAccount#</span>"						
 						parent="root"							
 				        expand="Yes">	
 							
 				<cf_UItreeitem value="vw_Balance"
-				        display="<span style='font-size:15px;padding-top:2px;padding-bottom:2px' class='labelit'>Trial Balance</span>"
+				        display="<span style='font-size:15px;padding-top:2px' class='labelit'>Trial Balance</span>"
 						parent="account"	
 						href="../../../GLedger/Inquiry/Account/BalanceListing.cfm?systemfunctionid=#url.systemfunctionid#&mission=#Attributes.Mission#&period=#attributes.Period#&glcategory=#Attributes.GLCategory#&Orgunit="										
 						target="right"
 				        expand="No">			
 						
 				<cf_UItreeitem value="vw_Result"
-				        display="<span style='font-size:15px;padding-top:2px;padding-bottom:2px' class='labelit'>Results</span>"
+				        display="<span style='font-size:15px;' class='labelit'>Results</span>"
 						parent="account"	
 						href="../../../GLedger/Inquiry/Account/ResultListing.cfm?systemfunctionid=#url.systemfunctionid#&mission=#Attributes.Mission#&period=#attributes.Period#&glcategory=#Attributes.GLCategory#&OrgUnit="										
 						target="right"
@@ -205,7 +205,7 @@ password="#SESSION.dbpw#">
 					 <cf_tl id="Views" var="vLedgerViews">
 					
 					 <cf_UItreeitem value="views"
-					        display="<span style='font-size:18px;padding-top:5px;padding-bottom:5px;font-weight:bold' class='labellarge'>#vLedgerViews#</span>"						
+					        display="<span style='font-size:18px;padding-top:5px;font-weight:bold' class='labelit'>#vLedgerViews#</span>"						
 							parent="root"							
 					        expand="Yes">		
 										
@@ -223,7 +223,7 @@ password="#SESSION.dbpw#">
 						 	<cfset cur = currency.currency>
 							
 							<cf_UItreeitem value="vw_#Currency#"
-						        display="<span style='font-size:15px;padding-top:2px;padding-bottom:2px' class='labelit'>#Currency#</span>"
+						        display="<span style='font-size:15px;padding-top:5px;' class='labelit'>#Currency#</span>"
 								parent="views"											
 								target="right"
 						        expand="No">		
@@ -274,43 +274,7 @@ password="#SESSION.dbpw#">
 										target="right"																					
 								        expand="No">		
 										
-								</cfif>
-													    				
-																
-							    <!--- remove me
-								
-								<cfquery name="Area" 
-								  datasource="AppsLedger" 
-								  username="#SESSION.login#" 
-								  password="#SESSION.dbpw#">
-								      SELECT * 
-								      FROM   Employee.dbo.Ref_AreaGLedger	
-									  WHERE Area = 'Advance'					 
-								</cfquery>	
-								
-								<cfloop query="Area">
-								
-									<cf_tl id="Advance Employee" var="vStatusEmployee">
-								
-									<cf_UItreeitem value="#cur#_#area#"
-							        	display="<span style='padding-bottom:5px;font-size:14px' class='labelit'>#vStatusEmployee#</span>"
-										parent="vw_#cur#"		
-										href="../../Inquiry/Advance/ListingEmployee.cfm?systemfunctionid=#url.systemfunctionid#&mission=#Attributes.Mission#&currency=#cur#&area=#area#"							
-										target="right"																					
-								        expand="No">	
-									
-								</cfloop>	
-								
-								<cf_tl id="Advance Vendor" var="vStatusVendor">
-								
-								<cf_UItreeitem value="#cur#_vendor"
-							      	    display="<span style='padding-bottom:5px;font-size:14px' class='labelmedium'>#vStatusVendor#</span>"
-										parent="#cur#"		
-										href="../../Inquiry/Advance/ListingVendor.cfm?systemfunctionid=#url.systemfunctionid#&mission=#Attributes.Mission#&currency=#cur#"							
-										target="right"																					
-								        expand="No">	
-										
-								 --->		
+								</cfif>								
 										
 							</cfloop>							
 					

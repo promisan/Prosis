@@ -98,7 +98,7 @@ insurance dialog.
 		  	<cfform onsubmit="return false" method= "POST" name= "formembed" style="height:99%">				
 			    		   	   		
 				<table style="height:100%;width:100%">
-				 	   		
+								 	   		
 				   <!--- traditional form which can be submitted directly or as part of the submit process --->
 				  		 			 
 					  <tr><td id="submit_formembed" height="1"></td></tr>
@@ -147,6 +147,7 @@ insurance dialog.
 		<!--- completely independent entry form which is handled in a full ajax manner --->
 			
 		<table width="100%" height="99%">  	
+		
 			 <tr>
 				<td colspan="2" height="99%" valign="top">	
 																			

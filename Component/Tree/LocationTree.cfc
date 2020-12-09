@@ -90,8 +90,7 @@
 				     FROM     Location
 					 WHERE    Mission        = '#mission#'
 					 AND      ParentLocation = '#Location#'					
-		    </cfquery>	
-			
+		    </cfquery>				
 			
 			<cfquery name="Class" 
 				     datasource="AppsMaterials" 
@@ -100,8 +99,7 @@
 				     SELECT   * 
 				     FROM     Ref_LocationClass
 					 WHERE    Code = '#LocationClass#'								
-		    </cfquery>	
-			
+		    </cfquery>				
 						 			           
             <cfset s = structNew()/>
             <cfset s.value     = "node#location#">
@@ -126,13 +124,12 @@
 			<cfset s.expand    = "false">					
             <cfset arrayAppend(result,s)/>	
 					
-       </cfoutput>
-	   	  
+       </cfoutput>	   	  
 	     	   
 	   </cfif>
-	  
-		      
+	  		      
    <cfreturn result/>
+   
 </cffunction>
 
 </cfcomponent>

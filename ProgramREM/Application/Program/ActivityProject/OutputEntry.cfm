@@ -70,7 +70,7 @@ password="#SESSION.dbpw#">
 			
 			   <cfif URL.outputid eq "" and (URL.ProgramAccess eq "EDIT" or URL.ProgramAccess eq "ALL") and completed eq "0">
 			   
-				   <cfset jvlink = "ColdFusion.Window.create('outputdialog', 'Milestone / Deliverable', '',{x:0,y:0,height:document.body.clientHeight-50,width:document.body.clientWidth-50,resizable:false,modal:true,center:true});ptoken.navigate('OutputEntryDialog.cfm?id=#url.id#&outputid=0','outputdialog')">		
+				   <cfset jvlink = "ProsisUI.createWindow('outputdialog', 'Milestone / Deliverable', '',{x:0,y:0,height:document.body.clientHeight-150,width:document.body.clientWidth-150,resizable:false,modal:true,center:true});ptoken.navigate('OutputEntryDialog.cfm?id=#url.id#&outputid=0','outputdialog')">		
 			
 				   <cfoutput>
 				   <a href="javascript:#jvlink#"><font color="0080C0"><cf_tl id="New"></font></a>

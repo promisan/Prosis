@@ -12,33 +12,33 @@
 <cfparam name="url.mission"       default="">
 <cfparam name="url.accountperiod" default="2010">
 
-<table width="100%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="96%" class="formpadding">
 
 <tr>
-  <td align="center" style="padding-top:10px" class="labelmedium">This is a <b>preview</b> on how balance will be presented after this transaction is posted</td>
+  <td style="padding-top:10px" class="labelmedium">This is a <b>preview</b> on how balance will be presented after this transaction is posted</td>
 </tr>
 
 <cfoutput>
-<tr><td align="center" class="labellarge">#url.accountPeriod#</td></tr>
+<tr><td  class="labellarge">#url.accountPeriod#</td></tr>
 </cfoutput>
 
-<tr><td align="center">
+<tr><td>
 
-<table width="600" style="border:1px dotted silver" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="100%" cellspacing="0" cellpadding="0" class="formpadding">
 
-<tr class="line">
-	<td colspan="2" class="labelmedium" style="padding:left:4px"><cf_tl id="Account"></td>
-	<td colspan="2" bgcolor="ffffcf" align="center" class="labelmedium"><cf_tl id="Current Total"></td>
-	<td colspan="2" align="center" bgcolor="EBF7FE" class="labelmedium"><cf_tl id="New Total"></td></tr>
+<tr class="line labelmedium">
+	<td colspan="2" style="padding:left:4px"><cf_tl id="Account"></td>
+	<td colspan="2" bgcolor="ffffcf" align="center"><cf_tl id="Current Total"></td>
+	<td colspan="2" align="center" bgcolor="EBF7FE"><cf_tl id="New Total"></td></tr>
 </tr>
 
-<tr class="line">
+<tr class="line labelmedium">
 	<td style="padding:2px"><cf_space spaces="25"></td>
 	<td style="padding:2px"><cf_space spaces="120"></td>
-	<td style="padding:2px" class="labelit" align="right"><cf_space spaces="25"><cf_tl id="Debit"></td>
-	<td style="padding:2px" class="labelit" align="right"><cf_space spaces="25"><cf_tl id="Credit"></td>
-	<td style="padding:2px" class="labelit" align="right"><cf_space spaces="25"><cf_tl id="Debit"></td>
-	<td style="padding:2px" class="labelit" align="right"><cf_space spaces="25"><cf_tl id="Credit"></td>
+	<td style="padding:2px" align="right"><cf_space spaces="25"><cf_tl id="Debit"></td>
+	<td style="padding:2px" align="right"><cf_space spaces="25"><cf_tl id="Credit"></td>
+	<td style="padding:2px" align="right"><cf_space spaces="25"><cf_tl id="Debit"></td>
+	<td style="padding:2px" align="right"><cf_space spaces="25"><cf_tl id="Credit"></td>
 </tr>	
 
 <cfquery name="Line"

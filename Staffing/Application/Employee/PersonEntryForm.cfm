@@ -96,18 +96,18 @@ password="#SESSION.dbpw#">
 			<cfset indexno = Parameter.Indexno + 1>		
 			
 			<input class="regularxl enterastab" 
-			  type="text" name="IndexNo" style="text-align:center;background-color:f1f1f1"
+			  type="text" name="IndexNo" style="width:100px;text-align:center;background-color:f1f1f1"
 			  value="#indexno#" 
-			  size="8" readonly required="No" maxlength="20">		
+			  size="16" readonly required="No" maxlength="20">		
 			
 		<cfelse>
 		
 			<cfset indexno = Applicant.IndexNo>	
 			
 			<cfinput class="regularxl enterastab" 
-			  type="text" name="IndexNo" style="text-align:center"
+			  type="text" name="IndexNo" 
 			  value="#indexno#" 
-			  size="8" message="Please enter #CLIENT.IndexNoName#" required="No" maxlength="20">		
+			  size="16" message="Please enter #CLIENT.IndexNoName#" required="No" maxlength="20">		
 		  		
 		</cfif>
 		

@@ -44,7 +44,7 @@
 			<!--- -----------Line 1 of 12 : TOP record ---------------------- --->
 			<!--- ---------------------------------------------------------- --->
 		
-			<tr><td height="26"  style="border-top:1px solid silver">
+			<tr><td height="26">
 			
 				<table border="0" width="100%" align="center">
 					

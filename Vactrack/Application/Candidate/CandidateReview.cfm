@@ -197,7 +197,7 @@
 	
 <cfelseif url.wparam eq "SELECT">
 	
-	<cfset checkText = "Select">
+	<cfset checkText = "Approve">
 	
 	<cfset dialog = "Selection">
 	<input type="Hidden" id="ReviewReset"  name="ReviewReset" value="2">
@@ -228,8 +228,6 @@
 	<cfset required = "'1','2'">
 	
 	<cfset wfinal = "Close">	
-	
-
 	
 </cfif>
 
@@ -464,7 +462,6 @@ password="#SESSION.dbpw#">
 								       AND    EntityClass = R.EntityClass)
 								   
 				 )			
-		
 		
 		AND   (R.EntityParameter is NULL or R.EntityParameter = '' or R.EntityParameter = '#Position.PostType#')	  
 	</cfquery>
@@ -743,9 +740,9 @@ password="#SESSION.dbpw#">
 			<tr>
 					
 			<cfif dialog eq "Interview">					
-			    <td>
+		    <td>
 				<cf_img icon="expand" toggle="yes" onclick="assessment('assessment#CurrentRow#','#Object.ObjectKeyValue1#','#personno#','#flowaction#')">				
-				</td>
+			</td>
 				
 			<cfelseif dialog eq "SCORE">	
 						
@@ -781,16 +778,11 @@ password="#SESSION.dbpw#">
 				<td style="padding-right:4px">
 				<table>
 					<tr>
-					<td>	
-					
+					<td>						
 					<cfif reviewid neq "">
 							<cf_securediv id="session_#reviewid#"  bind="url:#session.root#/tools/entityaction/session/setsession.cfm?actionid=#url.id#&entityreference=#reviewid#">							
-					</cfif>
-											
-					
-					</td>
-					
-					
+					</cfif>					
+					</td>				
 					</tr>
 					</table>
 				</td>	
@@ -806,7 +798,7 @@ password="#SESSION.dbpw#">
 		
 		<cfif url.wParam neq "Score">
 				
-		<td style="font-size:17px;font-weight:bold"><a href ="javascript:ShowCandidate('#PersonNo#')"><font color="000000">#LastName#, #FirstName#</font></a></td>	
+		<td style="font-size:17px;font-weight:bold"><a href ="javascript:ShowCandidate('#PersonNo#')">#LastName#, #FirstName#</a></td>	
 		<td><cfif IndexNoA neq ""><a href ="javascript:EditPerson('#IndexNoA#','','contract')">#IndexNoA#</a><cfelse>[<cf_tl id="undefined">]</cfif></td>		
 		<td>#NationalityName#</td>
 		<td>#dateformat(DOB,client.dateformatshow)#</td>
@@ -992,17 +984,10 @@ password="#SESSION.dbpw#">
 				 <cfif (PreventSelection.recordcount eq "0" or Validation.recordcount eq "1") and 
 				  (Selected.recordcount eq "0" or Status eq "9" or Selected.Status gte "2" or Selected.Status lte "2s")>
 			
-					<table>
-					<tr>
-					<td>
-														
-					<input onClick="hl(this,this.checked)" class="Radiol" style="height:17px;width:17px" 
+																								
+					<input onClick="hl(this,this.checked)" class="radiol" style="height:16px;width:16px" 
 					type="checkbox" name="ReviewStatus_#CurrentRow#" id="ReviewStatus_#personno#" value="#wFinal#" <cfif Status gte wFinal>checked</cfif> style="cursor:pointer;">					
-														
-					</td>														
-					</tr>
-					</table>	
-					
+										
 				<cfelse>			
 					
 					 <!--- can't select a candidate that has been selected ---> 
@@ -1020,7 +1005,7 @@ password="#SESSION.dbpw#">
 					<tr>									
 						<td style="padding-left:4px">												
 							<a href="javascript:decision('ReviewStatus_#CurrentRow#','#object.ObjectKeyValue1#','#personno#','#flowaction#','#status#','#wfinal#')">
-							<cf_tl id="Set recommendation">
+							<cf_tl id="Record decision">
 							</a>
 						</td>																	
 					</tr>
@@ -1098,18 +1083,18 @@ password="#SESSION.dbpw#">
 					
 			</cfif>
 			
-			<cfif dialog eq "Interview">			
-				
-				<cfquery name="getActivity" 
+			<cfquery name="getActivity" 
 				datasource="appsOrganization" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
 				    SELECT *
 					FROM   Ref_EntityActionDocument
 					WHERE  ActionCode = '#flowaction#'
-					AND    DocumentId IN (SELECT DocumentId FROM Ref_EntityDocument WHERE DocumentType = 'activity')
-				</cfquery>	
+					AND    DocumentId IN (SELECT DocumentId FROM Ref_EntityDocument WHERE DocumentType = 'activity' AND DocumentMode <> 'Notify')
+			</cfquery>	
 			
+			<cfif dialog eq "Interview">			
+							
 				<cfif getActivity.recordcount gte "1">				
 			
 					<tr id="action#currentrow#" class="xxhide">		
@@ -1128,17 +1113,7 @@ password="#SESSION.dbpw#">
 				</tr>		
 				
 			<cfelseif dialog eq "Mark">
-			
-				<cfquery name="getActivity" 
-				datasource="appsOrganization" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-				    SELECT *
-					FROM   Ref_EntityActionDocument
-					WHERE  ActionCode = '#flowaction#'
-					AND    DocumentId IN (SELECT DocumentId FROM Ref_EntityDocument WHERE DocumentType = 'activity')
-				</cfquery>	
-			
+						
 				<cfif getActivity.recordcount gte "1">				
 			
 					<tr id="action#currentrow#" class="xxhide">					
@@ -1159,17 +1134,8 @@ password="#SESSION.dbpw#">
 			<cfelse>
 			
 				<!--- MARK and CLOSE show subactions to be visible here which are tracked partially in the workflow object --->
-											
-				<cfquery name="getActivity" 
-				datasource="appsOrganization" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-				    SELECT *
-					FROM   Ref_EntityActionDocument
-					WHERE  ActionCode = '#flowaction#'
-					AND    DocumentId IN (SELECT DocumentId FROM Ref_EntityDocument WHERE DocumentType = 'activity')
-				</cfquery>	
-				
+							
+								
 				<cfif getActivity.recordcount gte "1">	
 					
 					<tr id="action#currentrow#" class="xxhide">

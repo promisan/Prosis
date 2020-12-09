@@ -23,14 +23,14 @@
 	}
 </style>
 
-<table width="96%" border="0" height="100%" align="center">
+<table width="96%" height="100%" align="center">
 	
 	<tr class="hide"><td id="process"></td></tr>	
 	
 	<tr class="line">
 	
-		<td height="16" style="padding-top:2px">
-		
+		<td height="16">
+
 			<cfinvoke component = "Service.Presentation.TableFilter"  
 			   method           = "tablefilterfield" 
 			   filtermode       = "direct"
@@ -39,6 +39,7 @@
 			   style            = "font:14px;height:25;width:120"
 			   rowclass         = "clsFilterRow"
 			   rowfields        = "ccontent">
+
 		</td>
 	</tr>
 				
@@ -94,6 +95,7 @@
 	<tr class="hide"><td id="processchat"></td></tr>
 	
 	<tr><td width="95%" id="add" valign="bottom">		
+	
 	     <cfinclude template="CommentEntry.cfm">		 			
 		</td>
 	</tr>

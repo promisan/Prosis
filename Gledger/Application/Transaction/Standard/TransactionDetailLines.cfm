@@ -66,13 +66,13 @@ password="#SESSION.dbpw#">
 </cfif>
 
 <cfquery name="Clear" 
-		datasource="AppsQuery" 
-		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">
-		DELETE 
-		FROM   #SESSION.acc#GledgerLine_#client.sessionNo#
-		WHERE  TransactionSerialNo = '0' 
+	datasource="AppsQuery" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		DELETE FROM   #SESSION.acc#GledgerLine_#client.sessionNo# WHERE TransactionSerialNo = '0' 
 </cfquery> 
+
+<cfset caggregate = "0">
 
 <cfif Line.recordcount neq "0">
    	
@@ -80,17 +80,45 @@ password="#SESSION.dbpw#">
 		datasource="AppsQuery" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-		SELECT DISTINCT ParentLineId, 
-		                ParentJournal, 
-						ParentJournalSerialNo  
-		FROM  #SESSION.acc#GledgerLine_#client.sessionNo# 		
+		SELECT   ParentJournal, 
+			     ParentJournalSerialNo,
+			     ISNULL(ParentLineId,'00000000-0000-0000-0000-000000000000') as ParentLineId		                 
+		FROM     #SESSION.acc#GledgerLine_#client.sessionNo# 	
+		GROUP BY ParentJournal,ParentJournalSerialNo,ParentLineId  	
 	</cfquery>	
+	
+	<!--- correction in case of payment order with several corrections on the contra not to result in debit and credit transaction 
+	 : ana 21/11/2021 --->
+	
+	<cfif Contra.recordcount gt "1">
+	
+		<cfquery name="CheckManual" dbtype="query">
+			SELECT *
+			FROM  Contra
+			WHERE ParentLineId = '00000000-0000-0000-0000-000000000000'		
+		</cfquery>	
+	
+		<cfif checkManual.recordcount gte "1">
+		
+			<cfset caggregate = "1">
+			
+			<!--- we just take one line for posting replace the contra query --->
+			
+			<cfquery name="Contra" dbtype="query">
+				SELECT *
+				FROM  Contra
+				WHERE ParentLineId = '00000000-0000-0000-0000-000000000000' 	
+			</cfquery>	
+			
+		</cfif>	
+		
+	</cfif>
 	
 	<cfset apply = "0">
 									
-	<cfloop query="Contra">
+	<cfloop query="Contra">	
 						
-		<cfif ParentLineId neq "">
+		<cfif caggregate eq "0">
 													
 			<cfquery name="Header" 
 			datasource="AppsLedger" 
@@ -115,8 +143,8 @@ password="#SESSION.dbpw#">
 				password="#SESSION.dbpw#">
 					SELECT TransactionLineId
 					FROM   TransactionLine
-					WHERE  Journal = '#ParentJournal#'
-					AND    JournalSerialNo = '#ParentJournalSerialNo#'
+					WHERE  Journal             = '#ParentJournal#'
+					AND    JournalSerialNo     = '#ParentJournalSerialNo#'
 					AND    TransactionSerialNo = '0'					
 				</cfquery>		
 				
@@ -129,7 +157,16 @@ password="#SESSION.dbpw#">
 					       TransactionHeader H
 					WHERE  L.Journal = H.Journal
 					AND    L.JournalSerialNo = H.JournalSerialNo				      
-					AND    L.TransactionLineId = '#Check.TransactionLineId#'						
+					AND    L.TransactionLineId IN (
+					
+							SELECT TransactionLineId
+							FROM   TransactionLine
+							WHERE  Journal             = '#ParentJournal#'
+							AND    JournalSerialNo     = '#ParentJournalSerialNo#'
+							AND    TransactionSerialNo = '0'	
+					
+					)
+								
 				</cfquery>		
 							
 			</cfif>	
@@ -140,17 +177,24 @@ password="#SESSION.dbpw#">
 			datasource="AppsQuery" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
-				SELECT SUM(AmountDebit) - SUM(AmountCredit) as Diff, 
+				SELECT SUM(AmountDebit)     - SUM(AmountCredit) as Diff, 
 				       SUM(AmountBaseDebit) - SUM(AmountBaseCredit) as DiffB 
 				FROM   #SESSION.acc#GLedgerLine_#client.sessionNo#
-				<cfif ParentLineId neq "">
-				WHERE  ParentLineId        = '#ParentLineId#' 
+				WHERE  1=1
+				<cfif caggregate eq "1">
+				    <!--- we take all lines in batch --->
 				<cfelse>
-				WHERE  ParentLineId is NULL
-				</cfif>
-				AND    TransactionSerialNo != '0' 							
+					<cfif ParentLineId neq "00000000-0000-0000-0000-000000000000">
+					AND    ParentLineId        = '#ParentLineId#' 
+					<cfelse>
+					AND    ParentLineId is NULL
+					</cfif>		
+				</cfif>				
+				AND    TransactionSerialNo != '0'		
+									
 		</cfquery>
-					
+		
+							
 		<cfif glacc neq "" and Total.Diff neq "">
 		
 			<!--- generate a contra-transaction --->
@@ -207,7 +251,8 @@ password="#SESSION.dbpw#">
 				<cfif Check.recordcount eq "1" and apply eq "0">
 				
 				   <!--- provision added 10/5/2010 based on obsevation kristina to edit a payment reconciliation record 
-				   adjust a but by hanno to prevent doubles ---> 				 			  
+				   adjust a but by hanno to prevent doubles ---> 		
+				   		 			  
 				   <cfset lineid = Check.TransactionLineId>		
 				   <cfset apply = "1">		   
 				   
@@ -250,9 +295,16 @@ password="#SESSION.dbpw#">
 					   AmountBaseDebit,
 					   AmountBaseCredit, 
 					   Created,
-					   <cfif ParentLineId neq "" and Header.Recordcount gte "1">					   
-					   ParentTransactionId,ParentJournal,ParentJournalSerialNo
-					   <cfelse>ParentTransactionId </cfif>)
+					   <cfif caggregate eq "1">
+					   ParentTransactionId
+					   <cfelse>
+						   <cfif ParentLineId neq "" and Header.Recordcount gte "1">					   
+						   ParentTransactionId,ParentJournal,ParentJournalSerialNo
+						   <cfelse>
+						   ParentTransactionId
+						   </cfif>
+					   </cfif>	   
+					   )
 					VALUES 
 					   ('#HeaderSelect.Journal#',
 					   '0',
@@ -272,10 +324,14 @@ password="#SESSION.dbpw#">
 					   '#amtBD#',
 					   '#amtBC#', 
 					   getDate(),
-					   <cfif ParentLineId neq "" and Header.Recordcount gte "1">
-					        '#Header.TransactionId#','#Header.Journal#','#Header.JournalSerialNo#'
-					   <cfelse>
+					   <cfif caggregate eq "1">
 					        '{00000000-0000-0000-0000-000000000000}'
+					   <cfelse>		
+						   <cfif ParentLineId neq "" and Header.Recordcount gte "1">
+						        '#Header.TransactionId#','#Header.Journal#','#Header.JournalSerialNo#'
+						   <cfelse>
+						        '{00000000-0000-0000-0000-000000000000}'
+							</cfif>
 						</cfif>)
 			</cfquery>				
 						
@@ -418,13 +474,13 @@ password="#SESSION.dbpw#">
 	   
 	   <tr bgcolor="ffffff" class="line labelmedium fixrow">
 	   
-	      <TD height="20"></TD>
-	      <TD></TD>
+	      <TD style="width:20px" height="20"></TD>
+	      <TD style="width:20px"></TD>
 		  <td><cf_tl id="PAP"></td>	
 	      <TD><cf_tl id="Acc"></TD>		
 	      <td><cf_tl id="Name"></td>	
 	      <td style="border-right: 1px solid Silver;"><cf_tl id="Reference"></td>		
-		  <td align="right" style="border-right: 1px solid Silver;;padding-right:2px;"><cf_tl id="Debit"></td>
+		  <td align="right" style="border-right: 1px solid Silver;padding-right:2px;"><cf_tl id="Debit"></td>
 		  <TD align="right" style=";padding-right:2px;border-right: 1px solid Silver;"><cfoutput>#APPLICATION.BaseCurrency#</cfoutput></TD>
 	      <TD align="right" style=";padding-right:2px;border-right: 1px solid Silver;"><cf_tl id="Credit"></TD>   
 	      <TD align="right" style="padding-right:2px;"><cfoutput>#APPLICATION.BaseCurrency#</cfoutput></TD>    
@@ -438,7 +494,7 @@ password="#SESSION.dbpw#">
 		      
 			   <td height="20" align="center" valign="middle"></td>	   
 			   <td></td>
-			   <td width="4%" style="padding-left:2px;padding-right:8px">
+			   <td style="padding-left:2px;padding-right:8px">
 			   	  #year(pap)#<cfif month(pap) lt 10>0</cfif>#month(pap)#		    		   
 			   </td>
 			   <td width="80"><cfif accountLabel neq "">#AccountLabel#<cfelse>#GLAccount#</cfif></td>
@@ -570,8 +626,8 @@ password="#SESSION.dbpw#">
 							 
 		   </td>
 				
-		   <td style="min-width:100px;padding-left:2px;padding-right:2px">#TransactionSerialNo#</td>
-		   <td width="4%" style="min-width:100px;padding-left:2px;padding-right:8px">
+		   <td style="min-width:40px;padding-left:2px;padding-right:2px">#TransactionSerialNo#</td>
+		   <td style="padding-left:2px;padding-right:8px">
 		   <cfif transactiondate eq "">	   
 		   #year(pap)#<cfif month(pap) lt 10>0</cfif>#month(pap)#
 		   <cfelse>
@@ -582,18 +638,21 @@ password="#SESSION.dbpw#">
 		   <td style="width:50%">#Description#</td>
 		   <td style="border-right: 1px solid Silver;WIDTH:50%;min-width:100px">
 		       <cfif TraCat is "Payment">
+			       #Memo#
+			       <!---
 		           <A HREF ="javascript:ShowVendor('#Reference#','9')">#ReferenceName#</a>
+				   --->
 			   <cfelse>#ReferenceName# #Memo#
 			   </cfif>
 		   </td>
 		   	   	   	   		
 		   <td align="right" style="min-width:100px;border-right: 1px solid Silver;border-bottom: 1px solid Silver;padding-right:2px;">
 			   <cfif AmountDebit is not "">#NumberFormat(AmountDebit,',.__')#</cfif></td>
-		   <td align="right" bgcolor="fafafa" style="min-width:100px;border-right: 1px solid Silver;border-bottom: 1px solid Silver;padding-right:2px;"><i>
+		   <td align="right" style="background-color:##fafafa80;min-width:100px;border-right: 1px solid Silver;border-bottom: 1px solid Silver;padding-right:2px;"><i>
 			   <cfif AmountBaseDebit is not ""><font color="C0C0C0">#NumberFormat(AmountBaseDebit,',.__')#</cfif></td>   
 		   <td align="right" style="min-width:100px;border-right: 1px solid Silver;border-bottom: 1px solid Silver;padding-right:2px;">
 			   <cfif AmountCredit is not "">#NumberFormat(AmountCredit,',.__')#</cfif></td>	  
-		   <td align="right" bgcolor="fafafa" style="min-width:100px;border-bottom: 1px solid Silver;;padding-right:2px;"><i>
+		   <td align="right" style="background-color:##fafafa80;min-width:100px;border-bottom: 1px solid Silver;;padding-right:2px;"><i>
 			   <cfif AmountBaseCredit is not ""><font color="C0C0C0">#NumberFormat(AmountBaseCredit,',.__')#</cfif></td>   
 		   </TR>
 	
@@ -734,7 +793,7 @@ password="#SESSION.dbpw#">
 		     </td>
 		   </tr>
 		   	   
-		   <tr><td colspan="9" height="1" class="line"></td></tr>
+		   <tr><td colspan="10" height="1" class="line"></td></tr>
 		   	 	
 	   </cfoutput>	
 	 
@@ -786,12 +845,12 @@ password="#SESSION.dbpw#">
 		    <tr style="height:25px" class="labelmedium">
 		    <td align="center" style="width:100%;padding-right:2px;border-right:0px solid Silver;"></td>
 			<cfoutput query="total">
-			<td align="right" style="background-color:f1f1f1;font-size:14px;min-width:100px;padding-right:2px;border-top: 1px solid Silver;"><b>#NumberFormat(db,',.__')#</b></td>	
-			<td align="right" style="background-color:f1f1f1;font-size:14px;min-width:100px;padding-right:2px;border-top: 1px solid Silver;" bgcolor="fafafa">#NumberFormat(bdb,',.__')#</b></td>	
-			<td align="right" style="background-color:f1f1f1;font-size:14px;min-width:100px;padding-right:2px;border-top: 1px solid Silver;"><b>#NumberFormat(cd,',.__')#</b></td>		
-			<td align="right" style="background-color:f1f1f1;font-size:14px;min-width:100px;padding-right:2px;border-top: 1px solid Silver;" bgcolor="fafafa">#NumberFormat(bcd,',.__')#</b></td>	
+			<td align="right" style="background-color:f1f1f1;font-size:14px;min-width:100px;padding-right:2px;border-left: 1px solid Silver;"><b>#NumberFormat(db,',.__')#</b></td>	
+			<td align="right" style="font-size:14px;min-width:100px;padding-right:2px;border-left: 1px solid Silver;"><i>#NumberFormat(bdb,',.__')#</b></td>	
+			<td align="right" style="background-color:f1f1f1;font-size:14px;min-width:100px;padding-right:2px;border-left: 1px solid Silver;"><b>#NumberFormat(cd,',.__')#</b></td>		
+			<td align="right" style="font-size:14px;min-width:100px;padding-right:2px;border-left: 1px solid Silver;"><i>#NumberFormat(bcd,',.__')#</b></td>	
 			</cfoutput>
-			<td style="min-width:5px"></td>
+			<td style="min-width:10px"></td>
 	    </TR>	
 		
 		 <tr style="height:35px" class="labelmedium">
@@ -819,7 +878,7 @@ password="#SESSION.dbpw#">
 				  	<table><tr>			
 					
 					<td align="center" >
-				    <button  type="button" value="Post Transaction" onclick="javascript:doSubmit(this)" class="button10g" style="background-color:##6688aa80;font-size:16px;height:30px; width:240px">
+				    <button  type="button" value="Post Transaction" onclick="javascript:doSubmit(this)" class="button10g" style="background-color:gray;color:white;font-size:16px;height:34px; width:280px">
 						<cf_tl id="Post Transaction">
 					</button>			
 					</td></tr></table>

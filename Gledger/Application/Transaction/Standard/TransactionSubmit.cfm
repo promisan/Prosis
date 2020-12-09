@@ -145,13 +145,13 @@ password="#SESSION.dbpw#">
 </cfif>		
 
 <!--- closing the windows --->
-
+<cfoutput>
 <script language='JavaScript'>       
      try {parent.opener.document.getElementById('apply').click();} catch(e) {
    	      try {parent.opener.history.go();} catch(e) {}
 	 }	
 	 parent.window.close()			
 	 //try {parent.history.go() } catch(e) {}	
-		
+	 window.open('#session.root#/gledger/application/transaction/view/TransactionView.cfm?id=#trid#');
 </script>
-
+</cfoutput>

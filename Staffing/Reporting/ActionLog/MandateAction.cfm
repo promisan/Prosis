@@ -7,9 +7,6 @@
 </cfsilent>
 <!--- End Prosis template framework --->
 
-
-
-
 <cfinvoke component="Service.Presentation.Presentation" 
      method="highlight" 
 	 returnvariable="stylescroll">
@@ -22,7 +19,7 @@
 	Key2Value       = "#url.mission#"				
 	Label           = "Yes">	
 	 
-<cf_screentop label="#url.mission# : #lt_content#" html="Yes" jquery="Yes" layout="Webapp">	 
+<cf_screentop label="#url.mission# : #lt_content#" html="Yes" jquery="Yes" layout="Webapp" banner="gray" bannerforce="Yes">	 
 
 <cf_listingscript       mode="Regular">
 <cf_dialogstaffing>
@@ -150,10 +147,10 @@
 						
 						<table border="0" style="cursor:pointer">
 				  		<tr>
-						<td height="26" align="center" style="padding-left:6px">
-							<img src="#SESSION.root#/Images/Contract.png" height="24" width="24">
+						<td align="center" style="padding-left:6px;height:50px">
+							<img src="#SESSION.root#/Images/Menu_brown.png" height="32" width="32">
 						</td>						
-						<td align="center" style="padding:0 20px 0 2px;font-size:14px;border-right:1px solid ##cccccc;" class="labelmedium"><cf_uitooltip tooltip="#FunctionMemo#"><font color="000000">#FunctionName#</cf_uitooltip><td>
+						<td align="center" style="padding-left:6px;padding-right:20px;font-size:16px;border-right:1px solid ##cccccc;" class="labelmedium"><cf_uitooltip tooltip="#FunctionMemo#"><font color="000000">#FunctionName#</cf_uitooltip><td>
 						</tr>				
 			  		    </table>  
 												

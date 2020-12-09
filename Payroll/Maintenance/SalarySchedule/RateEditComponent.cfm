@@ -1,5 +1,5 @@
 
-<table style="width:100%"  height="100%">
+<table style="width:100%" height="100%">
 
 <cfquery name="CurrencyList"
 	datasource="AppsLedger" 
@@ -36,121 +36,122 @@
 	
 	    <!--- header 1 --->
 		
-		<tr class="labelmedium" style="height:20px">
-		   <td valign="top" style="padding-top:4px;min-width:80px"><!---<b><cf_tl id="Step">---></td>
-		   
-		   <cfoutput query="Component">
-		   
-		     <cfquery name="getCurrency"
-				datasource="AppsPayroll" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-			    SELECT  TOP 1 *
-				FROM    SalaryScaleLine
-				WHERE   ScaleNo        = '#Scale.ScaleNo#' 				
-				AND     ComponentName  = '#ComponentName#'							
-     		</cfquery>		
+		<tr>
+		
+		<td colspan="<cfoutput>#component.recordcount+2#</cfoutput>" valign="top">
+		
+			<cf_divscroll>	
+									
+			<table width="99%">		
+		
+			<tr class="labelmedium fixrow" style="border:0px;height:20px">
 			
-			<cfif getCurrency.recordcount gte "1">
-					
-    			 <cfset curr = getCurrency.Currency>
-				 
-			<cfelse>
-						
-				 <cfquery name="schedule"
+			   <td valign="top" style="padding-top:4px;min-width:80px"><!---<b><cf_tl id="Step">---></td>
+			   
+			   <cfoutput query="Component">
+			   
+			     <cfquery name="getCurrency"
 					datasource="AppsPayroll" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
 				    SELECT  TOP 1 *
-					FROM    SalarySchedule
-					WHERE   SalarySchedule = '#Scale.SalarySchedule#'						
+					FROM    SalaryScaleLine
+					WHERE   ScaleNo        = '#Scale.ScaleNo#' 				
+					AND     ComponentName  = '#ComponentName#'							
 	     		</cfquery>		
-								
-			     <cfset curr = schedule.PaymentCurrency>
-				 
-			</cfif>		
-		   
-		   <td valign="top" style="border-bottom:1px solid silver;padding-right:2px;border-right:1px solid silver;border-left:1px solid silver;padding-left:2px">
-		   
-		   <table width="100%" cellspacing="0" cellpadding="0" align="center" class="formpadding">		
-		    
-			   <tr class="labelit line">
-			   <td height="20" align="center" style="font-size:14px;cursor:pointer;min-width:80px;word-break: break-all;">
-				   <cf_UItooltip  tooltip="#ComponentName# #Description#">#left(ComponentName,10)#</cf_UItooltip>
-			   </td>
-			   </tr> 
-			   
-			   <tr><td align="center">
-			   
-			   <table><tr class="labelit"><td>
-			   
-			    <cfset cp = "#replace(ComponentName,' ','','ALL')#">
-			    <cfset cp = "#replace(cp,'-','','ALL')#">
 				
-			   	<select name="Currency_#cp#" style="font:10px;border:0px">
-				  <cfloop query="CurrencyList">
-				    <option value="#Currency#" <cfif Currency eq curr>selected</cfif>>#Currency#</option>
-				  </cfloop>
-				</select>	
-				
-				<input type="hidden" name="Currency_#cp#_old" id="Currency_#cp#_old" value="#getCurrency.Currency#">
-						   
-			   </td>	
-			   <td style="padding-left:2px">/#left(Period,1)#</td>
-			   </tr>
-			   </table>
+				<cfif getCurrency.recordcount gte "1">
+						
+	    			 <cfset curr = getCurrency.Currency>
+					 
+				<cfelse>
+							
+					 <cfquery name="schedule"
+						datasource="AppsPayroll" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+					    SELECT  TOP 1 *
+						FROM    SalarySchedule
+						WHERE   SalarySchedule = '#Scale.SalarySchedule#'						
+		     		</cfquery>		
+									
+				     <cfset curr = schedule.PaymentCurrency>
+					 
+				</cfif>		
 			   
-			   </td>
-			   </tr> 		  
-		   </table>
-		   </td>
-		   </cfoutput>
-		   
-		   <td style="width:25px"></td>
-		   
-		</tr>			
-		
-		<!--- header 2 --->
-				
-		<tr style="height:35px">
-		   <td width="40" align="center"></td>
-		  
-		  <cfset pGrade=PostGrade.PostGrade>
-
-		   <cfoutput query="Component">
-		   
-			   <td align="right" style="padding-top:3px">
+			   <td valign="top" style="padding-right:2px;border-right:1px solid silver;border-left:1px solid silver;padding-left:2px">
 			   
-			   	<table cellspacing="0" cellpadding="0" align="right" class="formpadding">
-				    <tr><td style="border:1px solid silver;padding:4px">		   		           
-				   		   <cfset cp = "#replace(ComponentName,' ','','ALL')#">
-						   <cfset cp = "#replace(cp,'-','','ALL')#">
-				   			   
-						   <cfset gr = "#replace(pGrade,'-','')#">
-						   <cfset gr = "#replace(gr,' ','')#">								          
-						   <img src="#session.root#/Images/copy4.gif" alt="Inherit to all levels" height="13" width="13" border="0" onclick="populateall('#gr#_1_#cp#','_#cp#')">					   
-					   </td>				   
-					   <td style="padding-left:4px;border:1px solid silver;padding:4px">					 
-						   <img src="#session.root#/Images/delete5.gif" alt="Delete to all levels" height="13" width="13" border="0" onclick="deleteall('_1_#cp#','_#cp#')">				  				   
-				       </td>
-				   </tr> 		 
+			   <table width="100%" align="center" class="formpadding">		
+			    
+				   <tr class="labelit">
+				   <td height="20" align="center" style="font-size:14px;cursor:pointer;min-width:80px;word-break: break-all;">
+					   <cf_UItooltip  tooltip="#ComponentName# #Description#">#left(ComponentName,10)#</cf_UItooltip>
+				   </td>
+				   </tr> 
+				   
+				   <tr><td align="center">
+				   
+				   <table>
+				   <tr class="labelit"><td>
+				   
+				    <cfset cp = "#replace(ComponentName,' ','','ALL')#">
+				    <cfset cp = "#replace(cp,'-','','ALL')#">
+					
+				   	<select name="Currency_#cp#" style="font:10px;border:0px">
+					  <cfloop query="CurrencyList">
+					    <option value="#Currency#" <cfif Currency eq curr>selected</cfif>>#Currency#</option>
+					  </cfloop>
+					</select>	
+					
+					<input type="hidden" name="Currency_#cp#_old" id="Currency_#cp#_old" value="#getCurrency.Currency#">
+							   
+				   </td>	
+				   <td style="padding-left:2px">/#left(Period,1)#</td>
+				   </tr>
 				   </table>
 				   
+				   </td>
+				   </tr> 		  
+			   </table>
 			   </td>
-		   
-		   </cfoutput>
-		   
-		   <td style="width:23px"></td>
-		   
-		</tr>	
+			   </cfoutput>
+			   
+			   <td style="width:25px"></td>
+			   
+			</tr>			
 		
-		<tr>
-		
-		<td colspan="<cfoutput>#component.recordcount+2#</cfoutput>" valign="top" style="width:99%;height:99%">
-						
-		<cf_divscroll>
-						
-			<table style="width:98.7%;height:100%">		
+			<!--- header 2 --->
+				
+			<tr style="height:35px" class="fixrow2 line">
+			   <td width="40" align="center"></td>
+			  
+			  <cfset pGrade=PostGrade.PostGrade>
+	
+			   <cfoutput query="Component">
+			   
+				   <td align="right" style="padding-right:2px;border-right:1px solid silver;border-left:1px solid silver;padding-left:2px">
+				  			   
+				   	<table align="right" class="formpadding">
+					    <tr><td style="padding:4px">		   		           
+					   		   <cfset cp = "#replace(ComponentName,' ','','ALL')#">
+							   <cfset cp = "#replace(cp,'-','','ALL')#">
+					   			   
+							   <cfset gr = "#replace(pGrade,'-','')#">
+							   <cfset gr = "#replace(gr,' ','')#">								          
+							   <img src="#session.root#/Images/copy4.gif" alt="Inherit to all levels" height="13" width="13" border="0" onclick="populateall('#gr#_1_#cp#','_#cp#')">					   
+						   </td>				   
+						   <td style="padding-left:4px;border:1px solid silver;padding:4px">					 
+							   <img src="#session.root#/Images/delete5.gif" alt="Delete to all levels" height="13" width="13" border="0" onclick="deleteall('_1_#cp#','_#cp#')">				  				   
+					       </td>
+					   </tr> 		 
+					   </table>
+					   
+				   </td>
+			   
+			   </cfoutput>
+			   
+			   
+		    </tr>				
 						
 			<cfoutput query="PostGrade">		
 				
@@ -158,26 +159,37 @@
 				<cfset gr = "#replace(gr,' ','')#">				
 							
 			    <tr style="border-bottom:1px solid silver">
-					<td width="100%" colspan="#component.recordcount+2#">
-					
-					    <table width="100%" cellspacing="0" cellpadding="0">
-						<tr><td align="center" width="40">
-					
-						<img src="#SESSION.root#/Images/arrowright.gif" alt="" 
-						id="#gr#Exp" border="0" class="regular" 
-						align="absmiddle" style="cursor: pointer;" 
-						onClick="maximize('#gr#')">
+										
+					   <td>
+					   
+						   <table>
+						   <tr>
+						   <td style="padding-right:6px">
+											    					
+							<img src="#SESSION.root#/Images/arrowright.gif" alt="" 
+							id="#gr#Exp" border="0" class="regular" 
+							align="absmiddle" style="cursor: pointer;" 
+							onClick="maximize('#gr#')">
+							
+							<img src="#SESSION.root#/Images/arrowdown.gif" 
+							id="#gr#Min" alt="" border="0" 
+							align="absmiddle" class="hide" style="cursor: pointer;" 
+							onClick="maximize('#gr#')">
+												
+							</td>
+							<td style="height:32px; font-size:16px" class="labelmedium"><a href="javascript:maximize('#gr#')">#PostGrade#</a></td>
+							
+							</tr>
+							</table>
 						
-						<img src="#SESSION.root#/Images/arrowdown.gif" 
-						id="#gr#Min" alt="" border="0" 
-						align="absmiddle" class="hide" style="cursor: pointer;" 
-						onClick="maximize('#gr#')">
-											
 						</td>
-						<td style="height:32px; font-size:18px" class="labelmedium"><a href="javascript:maximize('#gr#')">#PostGrade#</font></a></td></tr>
-						</table>
 						
-					</td>
+						 <cfloop query="Component">
+			   
+					     <td align="right" style="padding-right:2px;border-right:1px solid silver;border-left:1px solid silver;padding-left:2px"></td>
+					   
+					     </cfloop>
+						
 					
 				</tr>
 																				
@@ -243,9 +255,9 @@
 																				
 								<cfif RateComponentName eq ""> 			
 								
-								<td align="right" style="padding-right:4px;border-left:1px solid silver;">
+								<td align="right" style="padding-right:4px;border-left:1px solid silver;;border-right:1px solid silver;">
 									
-									<cfif schedule.paymentRounding eq "2">
+									<cfif schedule.paymentRounding gte "2">
 								
 										<cfset amt = "#numberformat(amt,',.__')#">
 									
@@ -273,7 +285,7 @@
 								   
 								 <cfelse>
 								 
-									 <td align="right" style="font-size:13px;background-color:ffffcf;padding-right:2px;border-left:1px solid silver;">								
+									 <td align="right" style="font-size:13px;background-color:ffffcf;padding-right:2px;border-left:1px solid silver;;border-right:1px solid silver;">								
 									 	 #numberformat(amt,'.__')#							 
 									 </td>							 
 								 
@@ -292,9 +304,7 @@
 					
 												
 			</cfoutput>
-			
-			<tr><td height="100%"></td></tr>
-			
+						
 			</table>
 		
 		</cf_divscroll>

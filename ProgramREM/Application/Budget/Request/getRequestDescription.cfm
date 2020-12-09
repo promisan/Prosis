@@ -111,7 +111,7 @@
 			       name      = "RequestDescription_#url.line#"		   	   
 				   maxlength = "200"	
 				   class     = "regularxl enterastab"
-				   style     = "width:98%;height:25;padding-left:4px;border:0px;border-left:1px solid silver;border-right:1px solid silver"	
+				   style     = "width:98%;height:25;padding-left:4px;border:1px solid silver"	
 				   size      = "40"   
 			       value     = "#entry.requestDescription#">
 				</td>
@@ -133,7 +133,7 @@
 					
 			<cfset sel = list.topicvaluecode>
 											
-			<select name="TopicValueCode_#url.line#"  class="regularxl enterastab" style="width:99%;border:0px;border-right:1px solid silver" 
+			<select name="TopicValueCode_#url.line#"  class="regularxl enterastab" style="width:98%" 
 				onchange="applycost('#url.itemmaster#',this.value,'#url.line#','#entry.topicvaluecode#','#url.mission#','#url.location#')">
 				
 				<option value="">--<cf_tl id="select option">--</option>

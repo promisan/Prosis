@@ -358,6 +358,7 @@ password="#SESSION.dbpw#">
   <tr>
     <td width="100%" colspan="3" id="header">
 	
+	
 	<cfparam name="client.verbose" default="">	
 	
 	<cfif client.verbose eq "">
@@ -388,7 +389,7 @@ password="#SESSION.dbpw#">
 	  <cfset wflnk = "#session.root#/ProgramREM/Application/Program/Header/ComponentViewWorkFlow.cfm">
 	
 	  <tr><td width="100%" colspan="3" align="center">
-	  	
+	 	  	
 	  <cfoutput>
 	 
 	 	<input type="hidden"           
@@ -408,7 +409,7 @@ password="#SESSION.dbpw#">
 	  </td>
 	  </tr> 
 	  
-	  <tr><td id="process"></td></tr>
+	  <tr class="xhide"><td id="process"></td></tr>
   
    </cfif> 
 	    

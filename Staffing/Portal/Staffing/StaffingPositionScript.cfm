@@ -1,6 +1,8 @@
 
 <cfoutput>
 
+<cf_presentationScript>
+<cf_textareascript>
 <cf_calendarscript>
 <cf_filelibraryscript>
 <cf_actionlistingscript>
@@ -14,23 +16,34 @@
 		var vUnits = $('.clsFilterUnit:checked').map(function() {return this.value;}).get().join(',');
 		ptoken.navigate('StaffingPositionListing.cfm?mission=#url.mission#&selection=#url.selection#&unit='+vUnits, 'main');
 	}
+	
+	function ViewPosition(pos) {
+		ProsisUI.createWindow('positiondialog', 'Position Classification', '',{x:100,y:100,height:500,width:840,modal:true,center:true});	
+		ptoken.navigate('#SESSION.root#/Staffing/Portal/Staffing/PositionDialogView.cfm?positionparentid='+pos,'positiondialog')		
+	}
 					
 	function AddClassification(pos,ajaxid) {
-		ProsisUI.createWindow('classify', 'Record Classification', '',{x:100,y:100,height:600,width:640,modal:true,center:true});	
+		ProsisUI.createWindow('classify', 'Record Classification', '',{x:100,y:100,height:600,width:840,modal:true,center:true});	
 		ptoken.navigate('#SESSION.root#/Staffing/Portal/Staffing/StaffingPositionClassification.cfm?positionparentid='+pos+'&ajaxid='+ajaxid+'&portal=1&init=1','classify')		
 	}
 	
 	function AddVacancy(postno,box) {
-		ProsisUI.createWindow('mydialog', 'Record Recruitment Track', '',{x:100,y:100,height:600,width:640,modal:true,center:true});	
+		ProsisUI.createWindow('mydialog', 'Record Recruitment Track', '',{x:100,y:100,height:600,width:840,modal:true,center:true});	
 		ptoken.navigate('#SESSION.root#/Vactrack/Application/Document/DocumentEntryPosition.cfm?box='+box+'&portal=1&Mission=#URL.Mission#&ID1=' + postno + '&Caller=Listing','mydialog');	
 	}
+	
+	function Selected(no,description) {									
+			document.getElementById('functionno').value = no
+			document.getElementById('FunctionDescription').value = description					 
+			ProsisUI.closeWindow('myfunction')
+		 }		
 	
 	function rostersearch(action,actionid,ajaxid) {    
 	    ptoken.open("#SESSION.root#/Roster/RosterGeneric/RosterSearch/Search1ShortList.cfm?mode=vacancy&wActionId="+actionid, "search"+ajaxid, "left=35, top=35, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=yes, resizable=yes")	
     }
 		
 	function AddEvent(per,pos,box,trg,cde) {    		   		   
-		ProsisUI.createWindow('evdialog', 'HR Event request', '',{x:100,y:100,height:430,width:680,modal:true,resizable:false,center:true})    					
+		ProsisUI.createWindow('evdialog', 'HR Event request', '',{x:100,y:100,height:500,width:680,modal:true,resizable:false,center:true})    					
 	   	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventForm.cfm?box='+box+'&portal=1&personNo='+per+'&positionno='+pos+'&trigger='+trg+'&code='+cde,'evdialog')		 	
 	}
 	

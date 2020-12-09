@@ -11,7 +11,7 @@
 		
 <!---- edit/add layout --->
 
-<cf_screentop height="100%" user="no" line="no" label="Report Layout Settings" scroll="Yes" layout="webapp" banner="gray">
+<cf_screentop height="100%" html="No" user="no" line="no" label="Report Layout Settings" scroll="Yes" layout="webapp" banner="gray">
 
 <cfform action="LayoutSubmit.cfm?Status=#URL.Status#&ID=#URL.ID#&ID1=#URL.ID1#" target="result" method="POST" name="layout">
 
@@ -288,11 +288,11 @@
 	
 </cfif>
 
-<tr><td colspan="2" height="1" class="linedotted"></td></tr>	
+<tr><td colspan="2" height="1" class="line"></td></tr>	
 		
 <tr bgcolor="white">
 		<td colspan="2" align="center" height="35">
-		   <button class="button10g" name="Save" id="Save" type="button" onclick="parent.ColdFusion.Window.destroy('mydialog',true)">
+		   <button class="button10g" name="Save" id="Save" type="button" onclick="parent.ProsisUI.closeWindow('mydialog',true)">
 		   Cancel
 		   </button>
 		   <button class="button10g" name="Save" id="Save" type="submit">

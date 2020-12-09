@@ -7,6 +7,7 @@
 
 <cfif URL.Tree neq "Functional">
 
+
 	<cftransaction isolation="read_uncommitted">
  			             
 	<cfquery name="Position" 
@@ -51,30 +52,30 @@
 		 AND   Pos.DateEffective     <= '#DTE#'
 		 		 
 		 <cfif cat neq "">
-		    AND   Pos.PostGradeParent IN (#PreserveSingleQuotes(cat)#) 
+		 AND   Pos.PostGradeParent IN (#PreserveSingleQuotes(cat)#) 
 		 </cfif>
 		 
 		 <cfif occ neq "">
-		    AND   Pos.OccupationalGroup IN (#PreserveSingleQuotes(occ)#) 
+		 AND   Pos.OccupationalGroup IN (#PreserveSingleQuotes(occ)#) 
 		 </cfif>
 		 
 		 <cfif cls neq "">
-		    AND   Pos.PostClass IN (#PreserveSingleQuotes(cls)#) 
+		 AND   Pos.PostClass IN (#PreserveSingleQuotes(cls)#) 
 		 </cfif>
 		 
 		 <cfif pte neq "">
-		    AND   Pos.PostType IN (#PreserveSingleQuotes(pte)#) 
+		 AND   Pos.PostType IN (#PreserveSingleQuotes(pte)#) 
 		 </cfif>
 		 
 		 <cfif aut neq "">
-		    AND   Pos.PostAuthorised IN (#PreserveSingleQuotes(aut)#) 
+		 AND   Pos.PostAuthorised IN (#PreserveSingleQuotes(aut)#) 
 		 </cfif>
 		 
 		 <cfif getAdministrator("#url.mission#") eq "0">		 		 
-		    AND   Pos.PostType IN (#preservesingleQuotes(ptpe)#)		  
+		 AND   Pos.PostType IN (#preservesingleQuotes(ptpe)#)		  
 		 </cfif> 
 		 
-		 <!--- remove vacant posts to be shown that qualify --->
+		 <!--- remove vacant posts to be shown that qualify : save 3 seconds
 		
 		 AND    (CASE Pos.ShowVacancy WHEN 0 THEN Pos.PositionNo ELSE 1 END ) IN
 				 
@@ -89,17 +90,17 @@
 					AND    DateExpiration > '#dte#') 
 					
 		           ELSE (1) END )   
+				   
+		 --->
 		 		 
-		  ORDER BY Pos.Mission, Pos.HierarchyCode  
-				 
+		 ORDER BY Pos.Mission, Pos.HierarchyCode  		  
+						 
 	</cfquery>	
 	
 	</cftransaction>
 	
-	<!---
-	
-	<cfoutput>#cfquery.executionTime#</cfoutput>		
-	
+	<!---	
+	<cfoutput>1. #cfquery.executionTime#</cfoutput>		
 	--->
 		
 <cfelse>
@@ -154,23 +155,7 @@
 		 <cfif aut neq "">
 		    AND   P.PostAuthorised IN (#PreserveSingleQuotes(aut)#) 
 		 </cfif>	
-		 
-		  <!--- remove vacant posts to be shown that qualify --->
 		
-		 AND    (CASE P.ShowVacancy WHEN 0 THEN P.PositionNo ELSE 1 END ) IN
-				 
-			    (CASE P.ShowVacancy WHEN 0 THEN 
-				 
-				   (SELECT PositionNo
-				    FROM   PersonAssignment 
-					WHERE  PositionNo = P.PositionNo
-					AND    AssignmentStatus IN ('0','1')
-					AND    Incumbency > 0
-					AND    DateEffective <= '#dte#' 
-					AND    DateExpiration > '#dte#') 
-					
-		           ELSE (1) END )   
-		 
 		 <cfif getAdministrator("#url.mission#") eq "0">
 		 AND   P.PostType IN (#preservesingleQuotes(ptpe)#)
 		 </cfif>
@@ -189,7 +174,31 @@
 	</cfquery>	
 
 </cfif>
+
+<!--- remove positions that have show vaqcancy = 0 and without active assignment --->
+
+<cfquery name="ResetVacancy0" 
+    datasource="AppsQuery" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		DELETE #SESSION.acc#_WhsStaffingPosition#FileNo#
+		FROM   #SESSION.acc#_WhsStaffingPosition#FileNo# P
+		WHERE  ShowVacancy = 0
+		AND    PositionNo NOT IN (SELECT PositionNo
+				                  FROM   Employee.dbo.PersonAssignment 
+								  WHERE  PositionNo = P.PositionNo
+					              AND    AssignmentStatus IN ('0','1')
+					              AND    Incumbency > 0
+					              AND    DateEffective <= '#dte#' 
+					              AND    DateExpiration > '#dte#')
 		
+</cfquery>	
+
+<!---	
+<cfoutput>2. #cfquery.executionTime#</cfoutput>	
+--->
+
+
 <cfif URL.Tree eq "Operational">
 	
 	<cfset mis = URL.Mission>
@@ -238,6 +247,7 @@
 	<cfset man = "P001">	
 		
 </cfif>	
+
 
 <cftransaction isolation="read_uncommitted">
 
@@ -342,6 +352,7 @@
 						   WHERE  OrgUnit#URL.Tree# = Org.OrgUnit) 
 						   
 </cfquery>
+
 
 </cftransaction>
 	
@@ -517,8 +528,7 @@
 			</cfoutput>
 			
 	</cfoutput>
-			
-				
+							
 </cfif>
 
 <cfquery name="Index" 

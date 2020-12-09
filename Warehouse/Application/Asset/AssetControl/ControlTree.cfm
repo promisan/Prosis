@@ -10,17 +10,19 @@
 	   returnvariable    = "accessright">	
 	   
   
-<table width="100%" cellspacing="0" cellpadding="0" class="tree formpadding">
+<table width="98%" cellspacing="0" cellpadding="0" class="tree formpadding" align="center">
 	  	 
 <cfif accessright eq "GRANTED">	 
 	
 	<tr><td height="3"></td></tr>
 	<tr class="hide"><td height="3"></td><td><cfdiv name="drefresh" id="drefresh"/></td></tr>
 	
-	<tr>
+	<tr class="line">
 	<td class="labelmedium" style="height:20;padding-left:10px">
-	<table><tr class="labelmedium"><td>
-	<img style="width: 18px;" src="#SESSION.root#/images/Edit.png" alt="" border="0">
+	<table>
+	<tr class="labelmedium">
+	<td>
+	<img style="width: 15px;" src="#SESSION.root#/images/Edit.png" alt="" border="0">
 	</td>
 	<td class="labelmedium" style="padding-top:2px;font-size:16px;padding-left:10px">
 	<a href="javascript:newreceipt()"><cf_tl id="Register New Asset"></a>
@@ -28,13 +30,13 @@
 	</td>
 	<td align="right" style="padding-right:10px">
 		<img src="#client.virtualdir#/images/Refresh-Orng.png" alt="tree refresh" border="0" onclick="javascript:tree_refresh()"
-		 style="cursor:pointer;width: 20px;padding: 4px 6px 0 0;">
+		 style="cursor:pointer;width: 15px;padding: 4px 6px 0 0;">
 	</td>
 	</tr>	
-    <tr>
+    <tr class="line">
 	<td class="labelmedium" style="height:20;padding-left:10px">
 	<table><tr class="labelmedium"><td>
-	<img style="width: 18px;" src="#SESSION.root#/images/Edit.png" alt="" border="0">
+	<img style="width: 15px;" src="#SESSION.root#/images/Edit.png" alt="" border="0">
 	</td>
 	<td class="labelmedium" style="padding-top:2px;font-size:16px;padding-left:10px">
 	<a href="javascript:depreciation()"><cf_tl id="Depreciation"></a>
@@ -44,9 +46,7 @@
 	<td></td>
 	
 	</tr>
-    	
-	<tr><td colspan="2" class="linedotted"></td></tr>
-
+   
 </cfif>
 
 </cfoutput>
@@ -55,12 +55,23 @@
 
 <cfinclude template = "TreePreparation.cfm">	
 
+<!---
+					
+<cf_UItree name="tmaterials" bold="No" format="html" required="No">
+    <cf_UItreeitem
+	  bind="cfc:Service.Process.Materials.Tree.getNodes({cftreeitemvalue},{cftreeitempath},'#url.Mission#')">
+   </cf_UItree>
+   
+   --->
+
+   
 <cfform>
 	<cftree name="tmaterials" font="Calibri" fontsize="12" format="html" required="No">
 		   	 <cftreeitem 
 				  bind="cfc:Service.Process.Materials.Tree.getNodes({cftreeitemvalue},{cftreeitempath},'#url.Mission#')">  		 
 	</cftree>			
 </cfform>
+
 
 </td></tr></table>
 

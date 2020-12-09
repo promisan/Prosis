@@ -58,11 +58,17 @@
 	
 	--->
 	
+	
+	
+	<!--- form before can be removed and embedded in the control 
+	
 	<cfinvoke component="Service.Process.Organization.Organization"  
 			   method="getUnitScope" 
 			   mode="Parent" 
 			   OrgUnit="#get.OrgUnit#"
 			   returnvariable="orgunits">	
+			   
+    --->			   
 		   
 	<!--- obtain the items to show --->
 		 	   					   	  
@@ -133,9 +139,11 @@
 		  AND    (ProgramClass is NULL or ProgramClass = '#ProgramClass#')				  
 		 
 		  ORDER BY Area, HierarchyCode
+	
+	
 		  		  		  
 	</cfquery>	
-	
+		
 							
 	<tr><td style="padding-left:10px">
 		   	
@@ -155,7 +163,8 @@
 			   returnvariable  =  "control">				   		
 					
 	    <cfoutput>
-					
+		
+							
         <cfset ar  = Area>
 		<cfset arc = AreaCode>
 		<cfset ard = Description>
@@ -177,7 +186,9 @@
 									  				   
 							      <img src="#SESSION.root#/Images/portal_min.png" 
 							          id="#arc#Min" alt="Hide" border="0" height="18" width="18"
-									  align="absmiddle" class="<cfif Used neq "">regular<cfelse>hide</cfif>">						  
+									  align="absmiddle" class="<cfif Used neq "">regular<cfelse>hide</cfif>">	
+									 
+												  
 								
 								</td>
 								
@@ -265,26 +276,26 @@
 			AND       HierarchyCode LIKE '__.%'			
 			ORDER BY  F.HierarchyCode			
 		</cfquery>
-																	
+																							
    		<tr><td width="100%" height="100%" style="padding-left:20px; padding-top:10px;">
 							
 			<cfif Used neq "" or selectarea neq "">			
 			    <cfset cl = "regular">			
 			<cfelse>			
 				<cfset cl = "hide">			
-			</cfif>					
+			</cfif>											
 									   					
     		<table width="100%" height="100%" align="right" class="#cl#" id="#arc#">
 						
 			<tr>
     			<td width="30" valign="top"></td>
 				<td width="100%" height="100%">
-				
+							
 				<table width="100%" height="100%" align="left">		
-					
+													
 					<cfset row = 0>													
 					<cfloop query="GroupAll">									
-																										
+																																				
 						<cfquery name="CheckParent" 
 						    datasource="AppsProgram" 
 				   		    username="#SESSION.login#" 
@@ -309,11 +320,11 @@
 						<TR>
 						
 							<td width="98%" valign="top" height="100%">
-																					
+																												
 								<table width="100%" height="100%">
-								
+																
 									<cfif Selected eq "" and Operational eq "0">
-									    <TR id="main#code#" class="hide">
+									    <TR id="main#code#" class="zzzzzzzhide">
 									<cfelse>  
 									    <TR id="main#code#" class="regular <cfif par eq "0" or (par eq "1" and EntryMode is "1")>linexxx</cfif>">
 									</cfif>
@@ -376,7 +387,7 @@
 											
 											<cfif selected eq "">
 											
-												<tr class="hide" id="textbox#code#"><td colspan="3" id="textboxcontent#code#"></td></tr>
+												<tr class="hide" id="textbox#code#"><td style="padding-left:58px;width:100%" colspan="3" id="textboxcontent#code#"></td></tr>
 											
 											<cfelse>
 											
@@ -387,7 +398,7 @@
 											
 												<tr class="regular clsElement #vClass#" id="textbox#code#">
 												
-													<td style="padding-left:28px;width:100%" colspan="3">																																												
+													<td style="padding-left:58px;width:100%" colspan="3">																																												
 													<cfset url.code = code>
 													<cfset url.mode = mode>
 													<cfdiv id="textboxcontent#code#" bind="url:#SESSION.root#/ProgramREM/Application/Program/Category/getTextArea.cfm?programcode=#url.programcode#&code=#code#&mode=#mode#&period=#url.period#">																																																			

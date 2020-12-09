@@ -1,8 +1,8 @@
-<table width="95%" align="center" cellspacing="0" cellpadding="0" class="formpadding formspacing">
+<table width="95%" align="center" class="formpadding ">
 	
 	    <tr><td height="4"></td></tr>
 		
-		<tr class="line"><td colspan="2" class="labellarge" style="font-size:25px">Schedule general settings</td></tr>
+		<tr class="line"><td colspan="2" class="labellarge" style="font-weight:200;font-size:25px">Schedule general settings</td></tr>
 		
 		<TR>
 	    <TD style="padding-left:10" width="20%" class="labelmedium"><cf_tl id="Name">:</TD>
@@ -95,7 +95,7 @@
 		</TR>
 		
 		<tr>
-		 <TD style="padding-left:10" class="labelmedium"><cf_tl id="Include Zero Incumbency">:&nbsp;</TD>
+		 <TD style="padding-left:10px" class="labelmedium"><cf_tl id="Include Zero Incumbency">:&nbsp;</TD>
 		       <TD>
 			
 			   <select name="IncumbencyZero" class="regularxl">			   
@@ -107,7 +107,7 @@
 		</tr>	
 					
 		<tr>
-		 <TD style="padding-left:10" class="labelmedium"><cf_tl id="Enforce Program">:&nbsp;</TD>
+		 <TD style="padding-left:10px" class="labelmedium"><cf_tl id="Enforce Program">:</TD>
 		       <TD>
 			
 			   <select name="EnforceProgram" class="regularxl">			   
@@ -120,10 +120,11 @@
 	
 		<tr><td height="10"></td></tr>
 		
-		<tr class="line"><td colspan="2" class="labellarge" style="font-size:25px">Salary definition</td></tr>
+		<tr class="line"><td colspan="2" class="labellarge" style="font-weight:200;font-size:25px"><cf_tl id="Salary definition"></td></tr>
+		
 		<tr>	
 		
-	    <TD style="padding-left:10" class="labelmedium"><cf_tl id="Mode">:</TD>
+	    <TD style="padding-left:10px" class="labelmedium"><cf_tl id="Mode">:</TD>
 	    <TD>
 		   <select name="SalaryBaseRate" onchange="base(this.value)" class="regularxl">
 		   <option value="1" <cfif Get.SalaryBaseRate eq "1">selected</cfif>>Rate (default)</option>
@@ -163,7 +164,7 @@
 		
 		<tr><td height="10"></td></tr>
 		
-		<tr class="line"><td colspan="2" class="labellarge" style="font-size:25px">Settlement</td></tr>
+		<tr class="line"><td colspan="2" class="labellarge" style="font-weight:200;font-size:25px">Settlement</td></tr>
 		
 		<tr>
 
@@ -226,7 +227,7 @@
 		<td style="padding-left:10;padding-top:3px" class="labelmedium" valign="top"><cf_tl id="Payslip Mail Memo">:</td>
 		<td>
 		<cfoutput>
-		<textarea name="PaySlipMailText" style="font-size:13px;padding:5px;width:90%;height:220" class="regular">#get.PayslipMailText#</textarea>
+		<textarea name="PaySlipMailText" style="font-size:13px;padding:5px;width:90%;height:150px" class="regular">#get.PayslipMailText#</textarea>
 		</cfoutput>
 		</td>
 		

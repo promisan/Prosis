@@ -69,8 +69,12 @@
 					    FROM   Accounting.dbo.Currency
 						WHERE  EnableProcurement = 1
 						AND	   Currency IN (SELECT Currency
-							                 FROM   WarehouseCategoryPriceSchedule
-									         WHERE  Warehouse  = '#Warehouse.Warehouse#'
+							                 FROM   WarehouseCategoryPriceSchedule		
+									         <cfif w neq "">
+											 WHERE  Warehouse     = '#w#'
+											 <cfelse>
+											 WHERE  Warehouse IN (#quotedvalueList(whs.warehouse)#) 
+											 </cfif>
 									         AND    Category   = '#Item.Category#'
 											 AND    PriceSchedule = '#code#'
 											 AND    Operational = 1)

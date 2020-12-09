@@ -129,7 +129,7 @@
 		<table width="100%">
 		    
 			<tr class="line" style="border-top:1px solid silver">
-			<td style="font-weight:200;min-width:420px;font-size:18px;padding-left:10px;height:35px" class="labelmedium">			
+			<td style="min-width:420px;font-size:18px;padding-left:10px;height:35px" class="labelmedium">			
 			<font color="008000">This workflow is consistent and can be published !
 			</td>
 			<td style="padding-left:10px">

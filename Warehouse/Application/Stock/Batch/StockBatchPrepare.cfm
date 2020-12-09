@@ -99,6 +99,7 @@
 	 ) as B
 	 
 	 WHERE 1=1 	 
+	 
 	</cfquery>
 		
 	

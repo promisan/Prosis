@@ -56,6 +56,7 @@
 			  	  <cfinvoke component = "Service.Access"  
 					   method           = "workorderprocessor" 
 					   mission          = "#get.mission#" 	
+					   orgunit          = "#customer.orgunit#"
 					   serviceitem      = "#code#"  
 					   returnvariable   = "access">  
 				   				   
@@ -94,15 +95,14 @@
 				</cfoutput>					
 			</select>
 		
-		</td>
-				
+		</td>				
 		
 		</tr>
 		<tr class="labelmedium">
 		
 		    <td><cf_tl id="Activity">:</td>
 			<td>
-				<cfdiv bind="url:#session.root#/workorder/application/Medical/ServiceDetails/WorkOrderLine/getServiceReference.cfm?mission=#get.mission#&servicedomain=#get.servicedomain#&reference=#get.Reference#&serviceitem={serviceitem}">						
+				<cf_securediv bind="url:#session.root#/workorder/application/Medical/ServiceDetails/WorkOrderLine/getServiceReference.cfm?mission=#get.mission#&servicedomain=#get.servicedomain#&reference=#get.Reference#&serviceitem={serviceitem}">						
 			</td>		
 		
 		</tr>
@@ -111,7 +111,7 @@
 		<td class="labelmedium"><cf_tl id="ReferenceNo">:</td>
 		<td>
 		<cfoutput>
-		<input type="text" class="regularxl enterastab" name="Reference" id="Reference" value="#get.HeaderReference#" style="width:100">	
+		<input type="text" class="regularxl enterastab" name="Reference" id="Reference" value="#get.HeaderReference#" style="width:100px">	
 		</cfoutput>
 		</td>
 		</tr>

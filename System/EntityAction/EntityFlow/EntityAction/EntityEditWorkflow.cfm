@@ -48,7 +48,9 @@
 		</td>	
 		</TR>
 		
+		<!---
 		<cfif entity.EntityKeyField4 neq "">
+		--->
 		
 			<TR>
 			<td class="labelmedium" style="padding-left:10px" style="cursor:pointer"><cf_UIToolTip tooltip="Set the link to object attachments">Object Attachment Logical Folder:</cf_UIToolTip></td>
@@ -72,8 +74,10 @@
 			
 			</td>	
 			</TR>
-				
+		
+		<!---		
 		</cfif>
+		--->
 		
 		
 		<TR>

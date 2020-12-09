@@ -43,11 +43,11 @@
            bindonload     = "No" 	      			 			 				          
            richtext       = "Yes"     
 		   height         = "630"		      
-           toolbar        = "Default"><cfoutput><cf_paragraph>#text#</cf_paragraph></cfoutput></cf_textarea>
+           toolbar        = "Basic"><cfoutput><cf_paragraph>#text#</cf_paragraph></cfoutput></cf_textarea>
 	
 	<cfelse>
-		
-		<cf_textarea name="FieldDocument#no#" height="480" allowedContent = "yes">
+			
+		<cf_textarea name="FieldDocument#no#" height="480" toolbar = "Basic" allowedContent = "yes">
 				<cfoutput><cf_paragraph>#text#</cf_paragraph></cfoutput>
 		</cf_textarea>	
 			

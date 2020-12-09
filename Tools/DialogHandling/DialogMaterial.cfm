@@ -5,31 +5,33 @@
 	
 	var root = "#SESSION.root#";
 	
-	function itemopen(itm,mid) {
-	   	
-	    w = #CLIENT.width# - 90;
-	    h = #CLIENT.height# - 175;
-		ptoken.open(root + "/Warehouse/Maintenance/Item/RecordEdit.cfm?idmenu="+mid+"&ID=" + itm, "dlg_"+itm, "left=20, top=20, width=" + w + ", height= " + h + ", status=yes, toolbar=no, scrollbars=no, resizable=yes");	
+	function itemopen(itm,mid,mis) {	
+		 item(itm,mid,mis) 		   
 	}
 	
-	function item(itm,mid,mis) {	  
+	function item(itm,mid,mis) {	
+	  
 	   var mission = mis
 	      
 	   if (!mid || mid=='undefined'){
 	   		mid = ''; 
 	   }
-	   
-	   if (mis=='undefined') {
-	   
-	   try {
-	   	  mission = document.getElementById('mission').value
-		  } catch(e) {}		
-		  
+	  	   	   	   
+	   if (mission) {
+	 
+	   } else {
+	 	 	  	  	   
+		   try {
+		   	  mission = document.getElementById('mission').value			 
+			  } catch(e) {
+			  mission = ''			  
+			  }				  
 		}  
+		
 				
 	    w = #CLIENT.width# - 80;
 	    h = #CLIENT.height# - 145;
-		ptoken.open(root + "/Warehouse/Maintenance/ItemMaster/ItemView.cfm?idmenu="+mid+"&mission="+mission+"&ID=" + itm + "&ts="+new Date().getTime(), "dlg_"+itm);	
+		ptoken.open(root + "/Warehouse/Maintenance/ItemMaster/ItemView.cfm?idmenu="+mid+"&mission="+mission+"&ID=" + itm, "dlg_"+itm);	
 	}
 	
 	function EditAsset(assetid,template) {

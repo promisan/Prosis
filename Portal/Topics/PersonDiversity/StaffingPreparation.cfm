@@ -80,7 +80,7 @@
 							FROM      PersonContract
 							WHERE     Mission         IN ('#url.mission#','UNDEF')
 							AND       DateEffective  <= #dt# 
-							AND       DateExpiration >= #dt# 							
+							AND       (DateExpiration >= #dt# or DateExpiration is NULL)							
 							AND       ActionStatus IN ('0','1') 
 							GROUP BY  PersonNo, Mission
 							) as L ON PC.PersonNo = L.PersonNo 
@@ -191,7 +191,7 @@
 		WHERE        A.Mission           = '#url.mission#' 
 		<!--- situation at the end of the month --->
 		AND          A.DateEffective    <= #dt# 
-		AND          A.DateExpiration   >= #dt# 
+		AND          (A.DateExpiration   >= #dt# or DateExpiration is NULL)
 		<cfif url.category neq "" and url.category neq "all">
 			<cfif url.category eq "0">
 				AND A.Incumbency = '0'
@@ -281,7 +281,7 @@
 									FROM      PersonContract
 									WHERE     Mission  IN ('#url.mission#','UNDEF')
 									AND       DateEffective  <= #prior# 
-									AND       DateExpiration >= #prior# 												
+									AND       (DateExpiration >= #prior# or DateExpiration is NULL)												
 									AND       ActionStatus IN ('0','1') 
 									GROUP BY  PersonNo, Mission
 									) as L ON PC.PersonNo = L.PersonNo 
@@ -335,7 +335,7 @@
 				WHERE        A.Mission = '#url.mission#' 
 				<!--- situation at the end of the month --->
 				AND          A.DateEffective <= #prior# 
-				AND          A.DateExpiration >= #prior# 
+				AND          A.DateExpiration >= #prior#
 				AND          A.AssignmentStatus IN ('0','1')
 				<cfif url.category neq "" and url.category neq "all">
 					<cfif url.category eq "0">

@@ -171,12 +171,12 @@ password="#SESSION.dbpw#">
 
 <cfif URL.Mode neq "Limited">
 	
-	<table width="98%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+	<table width="98%" height="100%" align="center">
 		
 	<tr><td valign="top">
 	
-
-	  
+	
+  
 	<cfif URL.mode eq "ssa" or url.mode eq "Vacancy">
 		
 		<cfif url.scope neq "embed">

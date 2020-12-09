@@ -160,9 +160,7 @@
 									WHERE Reference = 'Invoice')
 																		
 			 						
-		<cfelse>
-					
-					
+		<cfelse>					
 					
 			FROM    Purchase P INNER JOIN
 		            PurchaseLine PL ON P.PurchaseNo = PL.PurchaseNo
@@ -179,7 +177,7 @@
 		<!--- purchase is enabled for invoice --->		
 		AND      P.OrderType NOT IN (SELECT Code FROM Ref_OrderType WHERE InvoiceWorkflow = '9') 
 		
-		<!--- -only if not forced for closure --->
+		<!--- only if not forced for closure --->
 		AND      P.ObligationStatus = '1'
 						
 		GROUP BY PL.PurchaseNo
@@ -322,8 +320,8 @@ password="#SESSION.dbpw#">
 	AND     S.StatusClass  = 'Purchase'
 	AND     Org.PersonNo   = P.PersonNo 
 	AND     P.PurchaseNo IN (SELECT PurchaseNo 
-	                         FROM userQuery.dbo.#SESSION.acc#Invoice_#fileNo#
-							 WHERE PurchaseNo = P.PurchaseNo) <!--- only purchase order that have not been invoiced --->
+	                         FROM   userQuery.dbo.#SESSION.acc#Invoice_#fileNo#
+							 WHERE  PurchaseNo = P.PurchaseNo) <!--- only purchase order that have not been invoiced --->
 	#preserveSingleQuotes(condition)# 
 	AND      P.PersonNo > ''
 	

@@ -14,7 +14,7 @@ password="#SESSION.dbpw#">
 	<cfset url.mission = getProgram.mission>
 </cfif>
 
-<table width="100%" align="center" class="formpadding">
+<table width="100%" align="center">
 	<tr>
 		<td class="clsPrintContent">
 			<cfif getProgram.ProgramClass eq "Program">			
@@ -23,6 +23,6 @@ password="#SESSION.dbpw#">
 				<cfinclude template="ComponentViewHeader.cfm">
 			</cfif>
 		</td>
-	</tr>
+	</tr>	
 </table>
 

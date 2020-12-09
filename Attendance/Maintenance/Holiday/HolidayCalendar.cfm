@@ -25,14 +25,14 @@
 function validate(mis,date) {
 	document.holidayform.onsubmit() 	
 	if( _CF_error_messages.length == 0 ) {            
-		ColdFusion.navigate('setHolidaySubmit.cfm?mission='+mis+'&selecteddate='+date,'calendartarget','','','POST','holidayform')
+		ptoken.navigate('setHolidaySubmit.cfm?mission='+mis+'&selecteddate='+date,'calendartarget','','','POST','holidayform')
 	 }   
 }	
 
 function validatelist(mis,act) {
 	document.holidaylistform.onsubmit() 	
 	if( _CF_error_messages.length == 0 ) {            
-		ColdFusion.navigate('setHolidaySubmit.cfm?mission='+mis+'&action='+act,'listsubmit','','','POST','holidaylistform')
+		ptoken.navigate('setHolidaySubmit.cfm?mission='+mis+'&action='+act,'listsubmit','','','POST','holidaylistform')
 	 }   
 }	  
 
@@ -42,11 +42,11 @@ function validatelist(mis,act) {
 <cfset save         = "0"> 
 <cfinclude template = "../HeaderMaintain.cfm"> 
 
-<cf_screentop scroll="Yes" html="no">
+<cf_screentop scroll="Yes" html="no" jquery="Yes">
 
-<table width="100%" border="0" class="formpadding" align="center" bordercolor="000000" bgcolor="FFFFFF">
+<table width="100%" border="0" class="formpadding" bgcolor="FFFFFF">
 
-<tr><td width="96%" align="center" style="padding:10px">
+<tr><td width="96%" style="padding-left:20px">
 
 		<table border="0" cellspacing="0" cellpadding="0">
 		
@@ -72,7 +72,7 @@ function validatelist(mis,act) {
 		</tr>
 		
 		<tr>
-		<td colspan="1" align="left" valign="top" id="missioncontent" style="border:0px solid silver;width:650">		
+		<td colspan="1" align="left" valign="top" id="missioncontent" style="padding-left:30px;border:0px solid silver;width:550">		
 			<cfinclude template="HolidayCalendarContent.cfm">								
 		</td>
 		

@@ -1393,7 +1393,15 @@
 			  DocumentDescription="Job Requirement"
 			  DocumentTemplate="Vactrack/Application/Announcement/Document.cfm"
 			  DocumentStringList="#ValueList(Domain.TextAreaDomain)#,ToR"
-			  DocumentMode="Embed">					
+			  DocumentMode="Embed">		
+			  
+		  <cf_insertEntityDocument
+		      Code="VacDocument"   
+	          DocumentType="dialog" 
+			  DocumentCode="ADD"
+			  DocumentDescription="Identify candidates"
+			  DocumentTemplate="Vactrack/Application/Candidate/Identify/Document.cfm"			  			  
+			  DocumentMode="Ajax">			  			
 		
 		<cf_insertEntityDocument
 		      Code="VacDocument"   

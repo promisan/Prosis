@@ -41,14 +41,14 @@ password="#SESSION.dbpw#">
 <cfif format.recordcount gte "1">
 
 
-<tr><td style="height:46px;padding-left:10px;padding-top:5px;font-size:19px" colspan="2" class="labellarge"><font color="804040"><cfoutput><cf_tl id="Generate preconfigured Documents or Forms for this action"></cfoutput>:</b></td></tr>
+<tr><td style="height:46px;padding-left:10px;padding-top:5px;font-size:21px" colspan="2" class="labellarge"><cfoutput><cf_tl id="Preconfigured Documents or Forms"></cfoutput>:</td></tr>
 	   
 <tr><td colspan="2" style="padding-top:4px">
 
 	<cfform action="ProcessActionSubmit.cfm?reload=1&wfmode=8&process=#url.process#&ID=#URL.ID#&ajaxId=#url.ajaxid#" 
        method="post" name="processaction"  id="processaction">
 
-	<table width="100%" align="center" cellspacing="0" cellpadding="0">
+	<table width="100%" align="center">
 	   		 
 	<tr><td class="hide"></td></tr>	
 					
@@ -59,51 +59,56 @@ password="#SESSION.dbpw#">
 		  		   
 		   <!--- new form to capture the results of the selected report(s) to be generated --->
 		   	   
-					 <cfoutput>
+					
 						<input name="Key1" id="Key1" type="hidden" value="#Object.ObjectKeyValue1#">
 						<input name="Key2" id="Key2" type="hidden" value="#Object.ObjectKeyValue2#">
 						<input name="Key3" id="Key3" type="hidden" value="#Object.ObjectKeyValue3#">
 					    <input name="Key4" id="Key4" type="hidden" value="#Object.ObjectKeyValue4#">
-					 </cfoutput>
-									  			
+														  			
 					    <cfset cls = "">	
 							      
 						   <cfif CurrentDocument eq "">
-						        <TR class="regular line" style="border-top:1px solid silver">
+						        <TR class="regular line" style="border-top:0px solid silver">
 					       <cfelse>
-						        <TR class="highlight1 line" style="border-top:1px solid silver">
+						        <TR class="highlight1 line" style="border-top:0px solid silver">
 					       </cfif> 
 						   
-						   <td style="padding-left:30px" width="40" id="docoption#documentid#">
+						   <td style="padding-left:30px" id="docoption#documentid#">
 						  						   
-							<table cellspacing="0" cellpadding="0" class="formpadding">
-							<tr class="labelmedium"><td>
+							<table class="formpadding">
+							<tr class="labelmedium">
+							<td>
+							
+								<cf_tl id="Prepare document" var="1">
 																    
 								<cfif CurrentDocument eq "">
 								
-								 <button class="button3" 
-								 type="button"
+								 <input class="button10g" 
+								   type="button" style="width:250px"
 								   onclick="savereportfields('0');embedtabdoc('#url.id#','#documentid#',document.getElementById('signatureblock#documentcode#').value,document.getElementById('languagecode#documentcode#').value,document.getElementById('format#documentcode#').value,'#currentrow#','add')"
-								   style="width:26;height:19">
-								 <img src="#SESSION.root#/Images/write.gif" alt="Add" border="0" align="absmiddle">
-								 </button>
+								   value="#lt_text#">
+								   
 								<cfelse>
+								 
 								 <button class="button3" 
-								    style="width:26;height:19"
+								    style="width:26px;height:19px"
 									type="button"
 								    onclick="savereportfields('0');embedtabdoc('#url.id#','#documentid#',document.getElementById('signatureblock#documentcode#').value,document.getElementById('languagecode#documentcode#').value,document.getElementById('format#documentcode#').value,'#currentrow#','delete')">
-								 <img src="#SESSION.root#/Images/delete5.gif" height="13" width="13" alt="Remove" border="0" align="absmiddle">
+								    <img src="#SESSION.root#/Images/delete5.gif" height="16" width="16" alt="Remove" border="0" align="absmiddle">
 								 </button>
-								 </td>
-								 <td>
+								 
+							</td>
+							
+							<td>
 								 <button class="button3" 
-								 style="width:26;height:19"
+								 style="width:26px;height:19px"
 								 type="button"
 								   onclick="savereportfields('0');embedtabdoc('#url.id#','#documentid#',document.getElementById('signatureblock#documentcode#').value,document.getElementById('languagecode#documentcode#').value,document.getElementById('format#documentcode#').value,'#currentrow#','refresh')">
-								 <img src="#SESSION.root#/Images/refresh3.gif" alt="Refresh" border="0" align="absmiddle">									
+								 <img src="#SESSION.root#/Images/refresh3.gif" height="16" width="16" alt="Refresh" border="0" align="absmiddle">									
 								 </button>
 								</cfif>
-							</td></tr>
+							</td>
+							</tr>
 							</table>								
 						   
 						   </td>	

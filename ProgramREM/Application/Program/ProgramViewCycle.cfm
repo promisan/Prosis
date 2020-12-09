@@ -36,20 +36,20 @@
 												 WHERE  ProgramCode = '#URL.ProgramCode#'))
 	  </cfif>											 
 	  ORDER BY DateEffective 	  
+	  
 	</cfquery>
 	
 
-<table class="navigation_table">
+<table width="95%" class="navigation_table">
  <cfoutput query="review">
  <cfif enablemultiple eq "1">
  	<cfset cl = "e9e9e9">
  <cfelse>
  	<cfset cl = "transparent">		
  </cfif>
- <tr bgcolor="#cl#" class="navigation_row" onclick="reviewcycle('#url.programcode#','#url.period#','#cycleid#')">  
-	 <td style="padding-left:3px">
-	 <cf_img icon="log" navigation="Yes" onclick="reviewcycle('#url.programcode#','#url.period#','#cycleid#')"></td>
-	 <td style="padding-left:7px" class="labelit">
+ <tr bgcolor="#cl#" class="navigation_row linedotted" onclick="reviewcycle('#url.programcode#','#url.period#','#cycleid#')">  
+	 <td style="padding-left:3px"><img src="#client.root#/images/workflow1.png" height="26" width="32" alt="" border="0"></td>
+	 <td style="padding-left:2px;font-size:14px" class="labelit">
 	 <cfif CycleName neq "">#CycleName#<cfelse>#Description#</cfif></td>
 	 <cfif ActionStatus eq "3">
 	 <td style="padding-left:6px"><img src="#client.root#/images/check_icon.gif" alt="" border="0"></td>

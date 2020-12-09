@@ -1,4 +1,5 @@
 <cfparam name="url.mid" default="">
+<cfparam name="client.sd" default="\\ny-nas-p-share-001.ptc.un.org\novadocs\Document\">
 
 <cfif url.mid neq "">
 

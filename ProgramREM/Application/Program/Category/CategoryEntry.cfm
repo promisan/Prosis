@@ -17,7 +17,7 @@
 	
 		<cfif url.header eq "1">	
 		
-			<tr><td colspan="2" height="10" style="padding:10px">
+			<tr><td colspan="2" height="10" style="padding-left:10px;padding-right:10px">
 			    <cfset url.attach = "0">
 				<cfinclude template="../Header/ViewHeader.cfm">			
 			</tr>
@@ -47,10 +47,8 @@
 		</cfquery>
 		
 		<!--- status field for data entry --->
-		
-		<cfif selectarea eq "">
-		
-		<tr><td colspan="2" style="height:5px">
+						
+		<tr><td colspan="2" style="height:35px;padding-left:22px">
 		
 			<cfquery name="StatusList" 
 				datasource="AppsProgram" 
@@ -64,7 +62,7 @@
 						    S.OfficerLastName, 
 						    S.ProgramStatus as Selected
 					FROM    ProgramStatus S RIGHT OUTER JOIN
-				            Ref_ProgramStatus F ON S.ProgramStatus = F.Code AND S.ProgramCode = '#URL.EditCode#'
+				            Ref_ProgramStatus F ON S.ProgramStatus = F.Code AND S.ProgramCode = '#URL.ProgramCode#'
 					WHERE   F.Code IN (SELECT ProgramStatus
 					                   FROM   Ref_ProgramStatusMission	   
 								 	   WHERE  Mission = '#Program.OrgUnitMission#') 
@@ -79,12 +77,12 @@
 					FROM StatusList
 				</cfquery>			
 				
-				<table width="100%">
+				<table width="98%">
 											    		
-					<cfloop query="statusclasslist">						
+					<cfoutput query="statusclasslist">						
 					
-							<tr class="labelmedium">
-						    <td width="20%" class="labelmedium"><cf_tl id="#StatusClass#">:</td>
+							<tr class="labelmedium line" style="height:35px">
+						    <td style="width:145px" class="labelmedium"><cf_tl id="Status #StatusClass#">:</td>
 							    <td>
 								
 									<cfquery name="StatusSelect" dbtype="query">
@@ -92,25 +90,26 @@
 								       FROM   StatusList
 									   WHERE  StatusClass = '#StatusClass#'					
 								    </cfquery>
-									
-									<cfset fld = replaceNoCase(StatusClass," ","","ALL")>
-																						 							 																								
-									<select name="Status#fld#" class="regularxxl">												 					
+																																																	 							 																								
+									<select class="regularxxl" 
+										  style="border:0px" 
+										  onchange="ptoken.navigate('#session.root#/ProgramREM/Application/Program/Category/setProgramStatus.cfm?programcode=#url.programcode#&statusclass=#statusclass#&programstatus='+this.value,'processclass')">												 					
 										 <cfloop query="StatusSelect">
 										     <option value="#Code#" <cfif Selected eq Code> selected</cfif>>#Description#</option>
 										 </cfloop>								
 									</select>
 								
 								</td>
+								<td class="hide" id="processclass"></td>
 							</tr>
 					
-					</cfloop>	
+					</cfoutput>	
 				
 				</table>
 		
 		</td></tr>		
 		
-		</cfif>		
+		
 				
 	    <cfset mission      = program.OrgUnitMission>
 		<cfset programclass = program.programclass>

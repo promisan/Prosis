@@ -1,9 +1,8 @@
 	
 <cf_screentop height="100%" 
     band="no" 
-	scroll="No" 
-	bannerheight="60" 
-	banner="blue" 
+	scroll="No" 	
+	banner="gray" 
 	layout="webapp" 
 	label="#url.mission# #url.period# Commitment analysis">
 		

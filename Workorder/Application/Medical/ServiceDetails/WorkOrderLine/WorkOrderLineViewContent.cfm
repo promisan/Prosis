@@ -131,10 +131,10 @@
 			<table><tr><td style="padding-right:7px">
 			<img src="<cfoutput>#session.root#</cfoutput>/images/addlarge.png" height="21" width="21" alt="" border="0">
 			</td>
-			<td class="labelmedium" style="font-weight:200;padding-right:10px;padding-top:3px;height:50px;font-size:16px">
+			<td class="labelmedium" style="padding-right:10px;padding-top:3px;height:50px;font-size:16px">
 			<cfif editmode eq "Edit">
 				<cfoutput>
-				<a href="javascript:addworkorder('#get.mission#','#get.customerid#','#line.workorderid#','#line.workorderline#','embed')"><font color="0080C0"><cf_tl id="Add Successive Encounter"></a>
+				<a href="javascript:addworkorder('#get.mission#','#get.customerid#','#line.workorderid#','#line.workorderline#','embed')"><cf_tl id="Add Successive Encounter"></a>
 				</cfoutput>
 			</cfif>
 			</td></tr>
@@ -657,8 +657,7 @@
 			<tr>
 				<td colspan="2" id="posting" style="padding-left:20px;padding-right:1px">		
 				    <table width="100%"><tr><td style="border:0px solid silver;padding-top:0px;padding-left:8px">	
-					<cfset post = "0">
-					
+					<cfset post = "0">					
 					<cfinclude template="WorkOrderLinePosting.cfm">
 					</td></tr>	
 					</table>

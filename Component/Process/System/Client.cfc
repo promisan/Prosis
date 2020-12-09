@@ -120,10 +120,15 @@
 					
 			<cfset clientbrowser.name    = "Edge">
 			
-			<cfset vVersion = mid(browserstring, find("Edg/",browserstring), find(".",browserstring))>
-			<cfset vVersion = mid(vVersion, find("Edg/",vVersion), find(".",vVersion))>
-			<cfset vVersion = replace(vVersion, "Edg/", "", "ALL")>
-			<cfset vVersion = replace(vVersion, ".", "", "ALL")>
+			<cftry>
+				<cfset vVersion = mid(browserstring, find("Edg/",browserstring), find(".",browserstring))>
+				<cfset vVersion = mid(vVersion, find("Edg/",vVersion), find(".",vVersion))>
+				<cfset vVersion = replace(vVersion, "Edg/", "", "ALL")>
+				<cfset vVersion = replace(vVersion, ".", "", "ALL")>
+			<cfcatch>
+				<cfset vVersion = "86--">
+			</cfcatch>
+			</cftry>
 			
 			<cfset clientbrowser.release = vVersion>	
 			

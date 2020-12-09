@@ -102,7 +102,7 @@
 				      </td>
 				  </tr>
 			
-				  <tr><td style="padding:5px" colspan="2" valign="top" bgcolor="ffffff" id="summary" name="summary">
+				  <tr><td style="padding:5px" colspan="2" valign="top" id="summary" name="summary">
 				      <cfset url.orgunit = getroot.orgunit>
 					  <cfinclude template="RequestSummary.cfm">	  		  
 				  </td></tr>			 		

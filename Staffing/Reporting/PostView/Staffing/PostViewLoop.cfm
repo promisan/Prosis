@@ -91,7 +91,7 @@
 					 
 <cfif Missing.recordcount gte "1">
 	
-	<table width="100%" bgcolor="ffffaf" cellspacing="0" cellpadding="0" border="0" bordercolor="gray" class="formpadding">
+	<table width="100%" bgcolor="ffffaf" bordercolor="gray" class="formpadding">
 	   
 		<tr><td align="Center" height="30" class="cellcontent">
 		<font color="FF0000"><b><cf_tl id="Problem">:</b> #Missing.recordcount# positions are not associated to a unit for this staffing period. Please contact your administrator</font>
@@ -230,7 +230,7 @@
 			  returnvariable = "maintain">		
 			  			
 					
-	<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+	<table width="100%" height="100%">
 	
 	    <cfoutput>		
 		
@@ -419,7 +419,7 @@
 <cf_tl id="Workforce Table" var="1">
 <cf_screentop 
     label="&nbsp;#lt_text# - #URL.Mission#&nbsp;&nbsp;" 
-	banner="yellow" 
+	banner="gray" 
 	bannerforce="Yes"
 	band="No" 
 	height="100%" 
@@ -438,8 +438,7 @@
 
 <cfoutput>
 	<script>	
-	  ColdFusion.navigate('PostViewLoopCache.cfm?fileno=#fileno#&list=#list#&id=#id#','errorcontent')
-	  
+	  ptoken.navigate('PostViewLoopCache.cfm?fileno=#fileno#&list=#list#&id=#id#','errorcontent')	  
 	</script>
 </cfoutput>
 

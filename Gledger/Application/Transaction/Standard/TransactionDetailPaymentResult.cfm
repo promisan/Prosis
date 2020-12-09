@@ -103,8 +103,8 @@ password="#SESSION.dbpw#">
 						
 		<tr class="line labelmedium">
 		    <TD style="min-width:30px"></TD>
-		    <TD style="min-width:100px"><cf_tl id="Transaction"></TD>
-			<TD style="min-width:130px"><cf_tl id="InvoiceNo"></TD>
+		    <TD style="min-width:120px"><cf_tl id="Transaction"></TD>
+			<TD style="min-width:150px"><cf_tl id="InvoiceNo"></TD>
 			<cfif url.id1 neq "ReferenceName">
 		    	<TD style="min-width:120px"><cf_tl id="Vendor"></TD>
 			<cfelse>

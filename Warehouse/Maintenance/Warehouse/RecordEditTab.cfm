@@ -1,3 +1,14 @@
+
+<cfquery name="Get" 
+datasource="appsMaterials" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT   * 
+	FROM     Warehouse 
+	WHERE    Warehouse = '#URL.ID1#'
+</cfquery>
+
+
 <cf_tl id = "Stock Point Settings" var = "vTitle">
 <cf_tl id = "Do you want to remove this record ?" var = "msg1">
 
@@ -8,7 +19,7 @@
 			  scroll="Yes" 
 			  html="Yes" 
 			  layout="webapp" 
-			  label="#vTitle#" 
+			  label="#get.Mission# #get.WarehouseName#" 
 			  banner="gray" 
 			  jQuery="Yes"
 			  line="no"			 
@@ -148,8 +159,8 @@
 		<table width="100%" align="center" cellspacing="0" cellpadding="0">
 		<tr>
 		
-				<cfset wd = "58">
-				<cfset ht = "58">		
+				<cfset wd = "64">
+				<cfset ht = "64">		
 				<cfset itm="1">	
 						
 				<cf_tl id = "Settings" var = "vName1">

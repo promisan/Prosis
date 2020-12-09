@@ -219,6 +219,6 @@
 
 <script> 
     parent.parent.outputrefresh()
-    parent.parent.ColdFusion.Window.destroy('mydialog',true)  
+    parent.parent.ProsisUI.closeWindow('mydialog',true)  
 </script> 	
    

@@ -1,17 +1,16 @@
 
 <!--- query --->
 
-<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" class="tree">
+<table width="100%" height="100%" class="tree">
 
 <tr><td valign="top">
 
-	<table width="98%" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+	<table width="98%" class="formpadding">
 	
 	<cfoutput>
 		<tr>
 		<td height="18" style="padding-top:4px;padding-left:5px" class="labelit">
-		<a id="refresh" href="javascript:ColdFusion.navigate('LocationTree.cfm?id2=#url.id2#','tree')">
-		<font color="002350"><cf_tl id="Refresh"></font>
+		<a id="refresh" href="javascript:ptoken.navigate('LocationTree.cfm?id2=#url.id2#','tree')"><cf_tl id="Refresh">
 		</a>
 		</td>
 		</tr>

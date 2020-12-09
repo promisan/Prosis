@@ -3,6 +3,7 @@
 <cfparam name="currentrow" default="1">
 <cfparam name="candidate" default="0">
 <cfparam name="url.line" default="#currentrow#">
+<cfparam name="url.mode" default="document">
 
 <cfif candidate eq "0">
 		
@@ -128,21 +129,21 @@
 		
 	<cfif SearchResult.recordcount eq "0">
 	
-	<table width="100%" border="0" bgcolor="ffffef" align="center" id="shortlist">
-			 <tr>
-			 <td align="center" class="labelmedium" style="width:100%;height:40px"><font color="gray">No candidates have been listed for this recruitment track.</font></td>
-			 </tr>
+	<table width="100%" height="100%" bgcolor="ffffef" align="center" id="shortlist">
+		 <tr>
+		 <td align="center" class="labelmedium" style="width:100%;height:40px;font-size:20px">No candidates were listed for this recruitment track.</td>
+		 </tr>
 	</table>		 
 	
 	</cfif>	
 		
 	<cfif SearchResult.recordCount neq "0">
-	
-	<table width="100%" class="<cfoutput>#cls#</cfoutput>" border="0"	        			
-			 bgcolor="ffffff"
-			 align="center" 
-			 id="shortlist">
-			
+				
+	<table width="100%" 	        			
+			 bgcolor="ffffff" 
+			 align="center" 			 
+			 id="shortlist">			 	
+					
 		<cfquery name="Validation" 
 			datasource="AppsOrganization" 
 			username="#SESSION.login#" 
@@ -177,7 +178,7 @@
 				<cfelse>
 					
 				<tr><td height="20" style="height:25px;padding-left:20px" id="selectionvalidation" class="labelmedium">	
-					 <a href="javascript:ColdFusion.navigate('DocumentCandidateValidation.cfm?documentNo=#url.ajaxid#','selectionvalidation')">					 
+					 <a href="javascript:ptoken.navigate('#session.root#/Vactrack/Application/Document/DocumentCandidateValidation.cfm?documentNo=#url.ajaxid#','selectionvalidation')">					 
 					 Press here</a> to overwrite the candidate selection limitation
 					</td>
 				</tr>	
@@ -208,11 +209,11 @@
 			<cfif currentrow neq recordcount>,</cfif> </cfoutput></td>
 		</tr>
 	</cfif>
-	
-	<tr><td>
+		
+	<tr><td style="width:100%;border:0px solid silver">
 	
 	<table width="96%" align="center" class="formpadding navigation_table">
-	
+			
 	    <TR class="labelmedium line">
 	   	  <TD></TD>
 		  <td></td>
@@ -314,6 +315,13 @@
 		<table width="100%">
 		<tr>
 		
+			<td style="padding-left:3px;border-right:1px solid silver">
+			
+			<cfif url.mode eq "step">						
+				 <cf_img icon="open" onclick="personprofile('#url.ajaxid#','#PersonNo#')">	
+			</cfif>		
+			</td>
+		
 			<cfquery name="Check" 
 					datasource="AppsOrganization" 
 					username="#SESSION.login#" 
@@ -379,9 +387,7 @@
 			</cfif>
 			
 			</td>
-		
-			
-		
+				
 		</tr>
 		
 		</table>
@@ -418,7 +424,7 @@
 				<cfif Status lte "2s">
 						
 					<cfif (dialogAccess eq "EDIT" and Actions.ActionStatus eq "0") or getAdministrator("#doc.Mission#") eq "1">				 
-					   <cf_img icon="delete" onClick="personcancel('#URL.ajaxid#','#PersonNo#','#url.line#','DocumentCandidateDeleteSubmit.cfm')">				   			 
+					   <cf_img icon="delete" onClick="personcancel('#URL.ajaxid#','#PersonNo#','#url.line#','#session.root#/Vactrack/Application/Document/DocumentCandidateDeleteSubmit.cfm')">				   			 
 				    </cfif>
 				
 				<cfelseif Status eq "6" <!--- stalled ---> or Status eq "9" <!--- withdrawm --->>
@@ -577,8 +583,9 @@
 	</td></tr>
 		
 	</table>
-	
+		
 	</cfif>
+	
 	
 </cfif>
 

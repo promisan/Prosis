@@ -105,14 +105,12 @@
 							<td colspan="2" valign="top" align="center" style="height:160px">
 							    <cf_divscroll>
 								<table width="98%" align="center" class="formpadding navigation_table">
-									<tr><td height="10"></td></tr>
+									<tr><td height="6"></td></tr>
 									
 									<cfoutput query="getAppointment">
 										<tr class="navigation_row labelmedium line" style="height:15px">
 										     <td>#currentrow#</td>
-											<td style="padding-left:4px;min-width:70"><a href="javascript:EditPerson(#PersonNo#,'','');" style="color:##0695C4;" title="#lblViewPerson#">#IndexNo#</a></td>
-											<td>#FullName#<br><font size="1">#ContractFunctionDescription#</font></td>
-											<td style="min-width:50;padding-right:4px"><cfif SalarySchedule eq "NoPay"><font color="red"><cf_tl id="Unfunded"><cfelse>#ContractLevel#</cfif></td>										
+											<td style="padding-left:4px;min-width:70"><a href="javascript:EditPerson(#PersonNo#,'','');" style="color:##0695C4;" title="#lblViewPerson#">#IndexNo#</a>&nbsp;#FullName#<font size="1">&nbsp;#ContractFunctionDescription#</font><cfif SalarySchedule eq "NoPay"><font color="red"><cf_tl id="Unfunded"><cfelse>#ContractLevel#</cfif></td>
 											<td>#dateFormat(DateEffective, client.dateFormatShow)#</td>
 											<td style="padding-left:4px"><cfif actionStatus eq "0"><font color="FF0000"><cf_tl id="P"></cfif></td>
 										</tr>
@@ -168,17 +166,15 @@
 					    <td colspan="2" class="labelmedium" align="center"><cf_tl id="Staff with Separation action"><cfoutput>#url.mission#</cfoutput></td>
 					</tr>
 					<tr>
-						<td colspan="2" valign="top" align="center" style="height:160px">
+						<td colspan="2" valign="top" align="center" style="height:170px">
 						    <cf_divscroll>
 							<table width="98%" align="center" class="formpadding navigation_table">
-								<tr><td height="10"></td></tr>
+								<tr><td height="6"></td></tr>
 								
 								<cfoutput query="getSeparation">
 									<tr class="navigation_row labelmedium line" style="height:15px">
 									     <td>#currentrow#</td>
-										<td style="padding-left:4px;min-width:70"><a href="javascript:EditPerson(#PersonNo#,'','');" style="color:##0695C4;" title="#lblViewPerson#">#IndexNo#</a></td>
-										<td>#FullName#<br><font size="1">#ContractFunctionDescription#</font></td>
-										<td style="min-width:50;padding-right:4px"><cfif SalarySchedule eq "NoPay"><i><font color="red"><cf_tl id="Unfunded"><cfelse>#ContractLevel#</cfif></td>										
+										<td style="padding-left:4px;min-width:70"><a href="javascript:EditPerson(#PersonNo#,'','');" style="color:##0695C4;" title="#lblViewPerson#">#IndexNo#</a>&nbsp;#FullName#&nbsp;<font size="1">#ContractFunctionDescription#</font><cfif SalarySchedule eq "NoPay"><font color="red"><cf_tl id="Unfunded"><cfelse>#ContractLevel#</cfif></td>										
 										<td>#dateFormat(DateEffective, client.dateFormatShow)#</td>
 										<td style="padding-left:4px"><cfif actionStatus eq "0"><font color="FF0000"><cf_tl id="P"></cfif></td>
 									</tr>
@@ -220,16 +216,15 @@
 						    <td colspan="2" class="labelmedium" align="center"><cf_tl id="Other Staff Expiring"><cfoutput>#url.mission#</cfoutput></td>
 						</tr>
 						<tr>
-							<td colspan="2" valign="top" align="center" style="height:160px">
+							<td colspan="2" valign="top" align="center" style="height:170px">
 							    <cf_divscroll>
 								<table width="98%" align="center" class="formpadding navigation_table">
-									<tr><td height="10"></td></tr>
+									<tr><td height="6"></td></tr>
 									
 									<cfoutput query="getOutgoing">
 										<tr class="navigation_row labelmedium line" style="height:15px">
 										     <td>#currentrow#</td>
-											<td style="padding-left:4px;min-width:70"><a href="javascript:EditPerson('#PersonNo#','','');" style="color:##0695C4;" title="#lblViewPerson#">#IndexNo#</a></td>
-											<td>#FullName#</td>
+											<td style="padding-left:4px;min-width:70"><a href="javascript:EditPerson('#PersonNo#','','');" style="color:##0695C4;" title="#lblViewPerson#">#IndexNo#</a>&nbsp;#FullName#</td>											
 											<td style="min-width:50;padding-right:4px"><cfif SalarySchedule eq "NoPay"><font color="red"><cf_tl id="Unfunded"><cfelse>#ContractLevel#</cfif></td>										
 											<td>#dateFormat(DateEffective, client.dateFormatShow)#</td>											
 										</tr>
@@ -276,7 +271,7 @@
 			</cfquery>
 			
 			<tr style="border-top:1px solid silver">
-			
+						
 			<td align="center" style="width:50%;border-right:1px solid silver;height:140px;padding:2px">
 			
 			<table width="100%" height="100%">
@@ -284,7 +279,7 @@
 				    <td colspan="2" class="labelmedium" align="center"><cf_tl id="Incoming"></td>
 				</tr>
 				<tr>
-					<td colspan="2" valign="top" align="center" style="height:160px">
+					<td colspan="2" valign="top" align="center" style="height:170px">
 					    <cf_divscroll>
 						<table width="98%" align="center" class="formpadding navigation_table">
 							<tr><td height="2"></td></tr>
@@ -309,8 +304,7 @@
 							
 								<tr class="navigation_row labelmedium line" style="height:15px">
 								    <td style="min-width:30">#currentrow#</td>
-									<td style="min-width:70"><a href="javascript:EditPerson('#PersonNo#','','');" style="color:##0695C4;" title="#lblViewPerson#">#IndexNo#</a></td>
-									<td>#FullName#</td>
+									<td style="min-width:70"><a href="javascript:EditPerson('#PersonNo#','','');" style="color:##0695C4;" title="#lblViewPerson#">#IndexNo#</a>#FullName#</td>									
 									<td><cfif getFrom.recordcount eq "0"><i><font color="808080"><cf_tl id="external"><cfelse>#getFrom.ParentOrgUnitName#</cfif></td>
 									<td style="min-width:50" style="padding-right:4px"><cfif SalarySchedule eq "NoPay"><font color="red"><cf_tl id="Unfunded"><cfelse>#ContractLevel#</cfif></td>
 									<td style="padding-left:4px">#dateFormat(DateEffective, client.dateFormatShow)#</td>
@@ -346,7 +340,7 @@
 				    <td colspan="2" class="labelmedium" align="center"><cf_tl id="Outgoing"></td>
 				</tr>
 				<tr>
-					<td colspan="2" valign="top" align="center" style="height:160px">
+					<td colspan="2" valign="top" align="center" style="height:170px">
 					    <cf_divscroll>
 						<table width="98%" align="center" class="formpadding navigation_table">
 							<tr><td height="2"></td></tr>

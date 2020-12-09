@@ -44,15 +44,15 @@
 			</cfquery>
 			
 			<table><tr>
-						 
-			<td class="labelit"><cf_tl id="Entity">:</td>
+					 
+			
 			<td>				
 			
 			<select name="filterMission" 
 					id="filterMission" 								
 					class="regularxl"
 					onchange="javascript: dofilter();">
-				<option value="">-- Enterprise Wide --</option>
+				<option value="">-- All --</option>
 				<cfloop query="getLookup">
 				  <option value="#getLookup.mission#" <cfif client.fmission eq getLookup.mission>selected</cfif>>#getLookup.mission#</option>
 			  	</cfloop>

@@ -213,9 +213,8 @@
 		ptoken.open("<cfoutput>#SESSION.root#</cfoutput>/"+template+"?journal="+journal+"&journalserialno="+journalserialno+"&printdocumentid="+documentid,"doPrintFormat","left=100, top=100, width=500, height=500, status=no, toolbar=no, scrollbars=yes, resizable=yes");
 	}
 		
-	function editForm(wli) {
-	   	try { ColdFusion.Window.destroy('wEditForm',true)} catch(e){};
-       	ColdFusion.Window.create('wEditForm', '<cfoutput>#vLabelForm#</cfoutput>', '',{x:100,y:100,width:600,height:400,resizable:false,modal:true,center:true})		
+	function editForm(wli) {	   	
+       	ProsisUI.createWindow('wEditForm', '<cfoutput>#vLabelForm#</cfoutput>', '',{x:100,y:100,width:500,height:300,resizable:false,modal:true,center:true})		
 	   	ptoken.navigate('<cfoutput>#SESSION.root#</cfoutput>/WorkOrder/Application/Medical/ServiceDetails/WorkOrderLine/WorkOrderLineEdit.cfm?workorderlineid='+wli,'wEditForm');		
 	}
 			  

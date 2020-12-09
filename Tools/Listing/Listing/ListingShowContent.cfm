@@ -1,6 +1,6 @@
 <cfoutput>
 	
-	<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" onkeyup="listnavigateRow()">   
+	<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" onkeyup="listnavigateRow('#box#')">   
 		
 	<input type="hidden" name="treefield"      id="treefield"       value="">
 	<input type="hidden" name="treevalue"      id="treevalue"       value="">
@@ -71,7 +71,7 @@
 		
 	</cfif>  
 	  
-		<tr class="xxxxxhide">
+		<tr class="hide">
 	    	<td height="0%" id="#attributes.box#_ajax"></td>
 	    </tr>						
 				
@@ -79,7 +79,7 @@
 		
 		<!--- ------------------------------------------------------------------------------------- --->
 		<!--- provision to fix the height bug in IE10 and IE11 but ONLY if the left tree is enabled --->
-		<!--- ------------------------------------------------------------------------------------- --->
+		<!--- ------------------------------------------------------------------------------------- 
 		
 		<cfquery name="tree" 
 		     datasource="AppsSystem" 
@@ -106,6 +106,8 @@
 			</cfif>
 		
 		</cfif>
+		
+		--->
 		
 		<!--- ------------------------------------------------------------------------------------- --->
 		<!--- provision to fix the height bug in IE10 and IE11 but ONLY if the left tree is enabled --->

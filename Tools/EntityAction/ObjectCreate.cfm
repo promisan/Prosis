@@ -113,7 +113,6 @@
 
 <!--- check if object exists --->
 
-
 <cfquery name="Object" 
  datasource="#attributes.Datasource#"
  username="#SESSION.login#" 

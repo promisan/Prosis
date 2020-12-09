@@ -164,12 +164,11 @@
 			  </td>
 		  
 		  <td style="padding-left:3px">	
-		  
 		  <!--- added read as it does not really harm much to enable this --->		  		  
-		  <CFIF getAdministrator('*') eq "1" AND (ProgramAccess EQ "ALL" or ProgramAccess eq "EDIT" or ProgramAccess eq "READ")>
+
+		    <CFIF ProgramAccess EQ "ALL" or ProgramAccess eq "EDIT" or ProgramAccess eq "READ">
 		  
 		  	<cfif url.id1 neq "Tree">
-		  		  	  				
 				 <button type="button" class="button10g" style="font-size:12px;height:32;width:120" 
 				 onClick="CarryProgram('#URL.Period#','#Org.OrgUnit#','Component')"> 
 				 &nbsp;<img src="#SESSION.root#/Images/transfer2.gif" alt="" border="0" align="absmiddle">&nbsp;<cf_tl id="Carry-over">

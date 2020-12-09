@@ -22,7 +22,7 @@
 
 <!--- no rates found --->
 	
-<table height="100%" width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table height="100%" width="100%" align="center">
   
   	 <tr><td height="3"></td></tr>
       <tr>
@@ -30,15 +30,10 @@
 				
 		<cf_divscroll>
 		
-		<cfform>
-				
-		<cftree name="root"
-		   font="calibri"
-		   fontsize="15"		
-		   bold="No"   
-		   format="html"    
-		   required="No">  
-	   
+		<cf_UItree id="root"
+			title="<span style='font-size:16px;color:gray;padding-bottom:3px'>#url.mission#</span>"	
+			expand="Yes">
+						   
 		   <cfoutput query="Effective" group="ServiceLocation">
 		   
 		   		  <cfif servicelocation eq url.location>
@@ -46,14 +41,14 @@
 				  <cfelse>
 				    <cfset exp = "no">	
 				  </cfif>
-		   
-				  <cftreeitem value="#ServiceLocation#"
-			        display="<span style='color:black'>#ServiceLocation# #Description#</span>"						
+				  
+				  <cf_UItreeitem value="#ServiceLocation#"
+			        display="<span style='font-size:16px;padding-top:5px;padding-bottom:5px;font-weight:bold' class='labellarge'>#ServiceLocation# #Description#</span>"						
 					parent="root"	
+					target="right"
 					href="Blank.cfm"						
-					target="right"								
 			        expand="#exp#">	
-					
+		   									
 					<cfoutput group="SalaryFirstApplied">
 					
 						<cfif month(SalaryFirstApplied) neq month(SalaryEffective)>
@@ -61,32 +56,33 @@
 						<cfelse>
 							<cfset val = "#dateformat(SalaryFirstApplied,'YYYY/MM')#">						
 						</cfif>
-											
-						<cftreeitem value="#ServiceLocation#_#currentrow#"
-				        display="<span style='color:black'>#val#</span>"	
-						href="RateEdit.cfm?Effective=#SalaryEffective#&Schedule=#url.schedule#&Mission=#url.Mission#&Location=#servicelocation#&operational=#url.operational#&mode=Grade"																		
-						parent="#ServiceLocation#"							
-						target="right"								
-				        expand="Yes">	
+						
+						 <cf_UItreeitem value="#ServiceLocation#_#currentrow#"
+					        display="<span style='font-size:14px;' class='labelit'>#val#</span>"						
+							parent="#ServiceLocation#"	
+							target="right"
+							href="RateEdit.cfm?Effective=#SalaryEffective#&Schedule=#url.schedule#&Mission=#url.Mission#&Location=#servicelocation#&operational=#url.operational#&mode=Grade"						
+					        expand="Yes">
+												
                             
-							<cftreeitem value="#ServiceLocation#_#currentrow#_1"
-					        display="Grades scale"						
+							<cf_UItreeitem value="#ServiceLocation#_#currentrow#_1"
+					        display="<span style='font-size:13px;' class='labellarge'>Grades scale</span>"						
 							parent="#ServiceLocation#_#currentrow#"	
 							href="RateEdit.cfm?Effective=#SalaryEffective#&Schedule=#url.schedule#&Mission=#url.Mission#&Location=#servicelocation#&operational=#url.operational#&mode=Grade"
 							target="right"
 							img="#SESSION.root#/Images/Incoming.png"			
 					        expand="No">		
 							
-							<cftreeitem value="#ServiceLocation#_#currentrow#_2"
-					        display="Percentages"						
+							<cf_UItreeitem value="#ServiceLocation#_#currentrow#_2"
+					        display="<span style='font-size:13px;' class='labellarge'>Percentages</span>"						
 							parent="#ServiceLocation#_#currentrow#"	
 							href="RateEdit.cfm?Effective=#SalaryEffective#&Schedule=#url.schedule#&Mission=#url.Mission#&Location=#servicelocation#&operational=#url.operational#&mode=percentage"
 							target="right"
 							img="#SESSION.root#/Images/Incoming.png"			
 					        expand="No">	
 							
-							<cftreeitem value="#ServiceLocation#_#currentrow#_3"
-					        display="Other Rates"						
+							<cf_UItreeitem value="#ServiceLocation#_#currentrow#_3"
+					        display="<span style='font-size:13px;' class='labellarge'>Other Rates</span>"						
 							parent="#ServiceLocation#_#currentrow#"	
 							href="RateEdit.cfm?Effective=#SalaryEffective#&Schedule=#url.schedule#&Mission=#url.Mission#&Location=#servicelocation#&operational=#url.operational#&mode=rate"
 							target="right"
@@ -97,10 +93,8 @@
 								
 			</cfoutput>		
 		
-		</cftree> 	
-		
-		</cfform>	
-						
+		</cf_UItree>
+								
 		</cf_divscroll>
 												
 		</td>

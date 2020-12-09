@@ -190,7 +190,7 @@ password="#SESSION.dbpw#">
 			<td>
 			</td>
 			<td  style="padding-left:30px">#Code#</td>
-			<td>#Description#</a></td>
+			<td>#left(Description,60)#</a></td>
 			<td><cfif earmark eq "1">#EarmarkPercentage#%</cfif></td>
 			<td align="center"><cfif entryMode eq 0><b>No</b></cfif></td>
 			<td></td>

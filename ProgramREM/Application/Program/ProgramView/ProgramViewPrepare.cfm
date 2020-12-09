@@ -180,8 +180,17 @@ function reloadForm(page,view,layout,global) {
 	   
    </cfif>
    
-   <!--- ----------------------------------------------- --->   
- 																					
+   <!--- -- check if this person has full access -- --->   
+   
+   <cfinvoke component="Service.Access"
+			Method         = "organization"
+			Mission        = "#URL.Mission#"			
+			Period         = "#URL.Period#"
+			Role           = "ProgramOfficer"			
+			ReturnVariable = "AccessGlobal">	
+			
+   <!--- ------------------------------------------ --->					   								
+																																							
    <cfquery name="ResultListing" 
          datasource="AppsProgram" 
          username="#SESSION.login#" 
@@ -285,13 +294,26 @@ function reloadForm(page,view,layout,global) {
 	     WHERE  	Pe.OrgUnit IN (SELECT OrgUnit FROM Organization.dbo.Organization WHERE Mission = '#URL.Mission#')
 		 AND        Pe.Period = '#URL.Period#' 	
 		 AND        Pe.RecordStatus != 9
+		 
+		 <!--- general filter on orgunits added by Hanno --->
+		 
+		 <cfif accessGlobal eq "NONE">
+		 
+		 AND   (      Pe.OrgUnit IN (SELECT A.OrgUnit
+						             FROM   Organization.dbo.OrganizationAuthorization A INNER JOIN Organization.dbo.Organization O ON O.OrgUnit = A.OrgUnit
+						             WHERE  A.UserAccount = '#SESSION.acc#' 
+						             AND    A.Mission     = '#Mission#'							  
+						             AND    A.Role IN ('ProgramOfficer'))
+					  OR
+					  P.ProgramClass = 'Program'
+			   )
+			   
+		 </cfif>
 		
 		 <!--- show only program classes to which the user has been granted access ---> 
-		 <cfif filterProgramClass neq "">
-		
+		 <cfif filterProgramClass neq "">		
 		 AND        P.ProgramClass IN (#preservesingleQuotes(filterProgramClass)#)
-		 </cfif>
-		 		
+		 </cfif>		 		
 		 		 		 
 		 <cfif URL.ProgramGroup neq "All"> 
 		    AND    ( Pe.ProgramCode IN (
@@ -306,7 +328,8 @@ function reloadForm(page,view,layout,global) {
 				)			 
 									 
 		 </cfif>	
-		 
+		
+				 
 		 <cfif URL.ReviewCycleId neq "">
 		 AND    ( Pe.ProgramCode IN (
                         SELECT ProgramCode

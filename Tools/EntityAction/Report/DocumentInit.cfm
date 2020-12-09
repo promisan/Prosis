@@ -8,6 +8,9 @@
 datasource="appsOrganization" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
+
+    <!--- removed by Hanno 26/11/2020 only documents that are set to be forced will be populated here 
+	
 	SELECT    D.DocumentId, 
 			  R.DocumentCode,
 	          R.DocumentMode, 
@@ -15,7 +18,8 @@ password="#SESSION.dbpw#">
 			  R.DocumentTemplate, 
 			  R.DocumentStringList,
 			  'ENG' as DocumentLanguageCode,
-			  R.DocumentFramework
+			  R.DocumentFramework,
+			  0 as ForceDocument
 	FROM      Ref_EntityActionDocument D INNER JOIN
 	          Ref_EntityDocument R ON D.DocumentId = R.DocumentId 
 	WHERE     ActionCode = '#Action.ActionCode#' 
@@ -31,7 +35,10 @@ password="#SESSION.dbpw#">
 										   
 	UNION
 	
+	--->
+	
 	<!--- forced documents to be refreshed with content --->
+	
 	SELECT    D.DocumentId, 
 			  R.DocumentCode,
 	          R.DocumentMode, 
@@ -39,11 +46,12 @@ password="#SESSION.dbpw#">
 			  R.DocumentTemplate, 
 			  R.DocumentStringList,
 			  D.DocumentLanguageCode,
-			  R.DocumentFramework
+			  R.DocumentFramework,
+			  D.ForceDocument
 	FROM      Ref_EntityActionPublishDocument D INNER JOIN
 	          Ref_EntityDocument R ON D.DocumentId = R.DocumentId 
-	WHERE     ActionCode = '#Action.ActionCode#'
-	AND       ActionPublishNo = '#Object.ActionPublishNo#'
+	WHERE     ActionCode        = '#Action.ActionCode#'
+	AND       ActionPublishNo   = '#Object.ActionPublishNo#'
 	AND       D.Operational   = 1
 	AND       D.ForceDocument = 1 
 									   
@@ -63,7 +71,7 @@ action, add a record by a generating (ASIS) or copying (EDIT) --->
 			WHERE     ActionId   = '#URL.ID#'
 			AND       DocumentId = '#DocumentId#' 
 		</cfquery>
-		
+						
 		<cfif check.recordcount eq "0" or (check.recordcount eq "1" and Check.documentContent eq "")>
 				
 			<cfquery name="Last" 
@@ -74,10 +82,10 @@ action, add a record by a generating (ASIS) or copying (EDIT) --->
 				FROM     OrganizationObjectActionReport 
 				WHERE    DocumentId = '#DocumentId#' 
 				AND      ActionId IN (SELECT ActionId 
-				                      FROM OrganizationObjectAction 
-									  WHERE ObjectId = '#Object.ObjectId#')
+				                      FROM   OrganizationObjectAction 
+									  WHERE  ObjectId = '#Object.ObjectId#')
 				AND      ActionId <> '#URL.ID#'
-				ORDER BY Created DESC
+				ORDER BY Created DESC				
 				</cfquery>					
 		
 			<cfif DocumentMode eq "AsIs" and DocumentLayout neq "PDF">
@@ -116,8 +124,7 @@ action, add a record by a generating (ASIS) or copying (EDIT) --->
 					</cftry>		
 				</cfsavecontent>			
 		
-			<cfelseif DocumentMode eq "AsIs" and DocumentLayout eq "PDF">
-			
+			<cfelseif DocumentMode eq "AsIs" and DocumentLayout eq "PDF">			
 			
 				 	<cftry>		  				  		
 						<cfdirectory action="CREATE" 
@@ -136,19 +143,20 @@ action, add a record by a generating (ASIS) or copying (EDIT) --->
 					     </cfcatch>		
 					     </cftry>					 
 						
-					</cfsavecontent>														
-					
+					</cfsavecontent>					
 			
 			<cfelseif DocumentMode neq "Blank">
 						
 				<cfif Last.DocumentContent neq "">
-					
+				
+					<!--- if forcedocument = 1 then we freshly generate the document and do not inherit it from the prior --->
+													
 					<cfset text = Last.DocumentContent>
-										
+															
 				<cfelse>
-								
+														
 					<cfset text = Last.DocumentContent>
-											
+																					
 					<cfset URL.Language = DocumentLanguageCode>
 					
 					<!--- Getting the default mode --->
@@ -165,12 +173,10 @@ action, add a record by a generating (ASIS) or copying (EDIT) --->
 								<cfbreak>
 							</cfif>
 						</cfif>	
-					</cfloop>		
-															
+					</cfloop>																
 					
 					<cfif vListFinal eq "">
-					
-						
+											
 					<cfelse>
 					
 						<cfset URL.format = vListFinal>
@@ -179,17 +185,44 @@ action, add a record by a generating (ASIS) or copying (EDIT) --->
 						<cfset URL.Description       = "">	<!--- As it is initial generation --->
 						<cfset URL.DocumentFramework = "#DocumentFramework#">
 						<cfset URL.DocumentTemplate  = "#DocumentTemplate#">
-													
+						
+						<!--- this will freshly generate the document along with the framework --->							
 						<cfinclude template = "DocumentFramework.cfm">
 				
-					</cfif>
-														
+					</cfif>		
+																			
 				
 				</cfif>		
 				
 			</cfif>
 	
 			<cfif DocumentMode neq "Blank">
+			
+				<!--- new feature to apply a signature block content to the document on the spot where it is intended --->								
+																						
+		        <cfset path = left(DocumentTemplate,len(DocumentTemplate)-4)>						
+				
+				<cfif FileExists("#SESSION.rootpath#\#path#_Signature.cfm")>	
+				
+					<cfsavecontent variable="signatureblock">
+						<cfinclude template="../../../#path#_Signature.cfm">	
+					</cfsavecontent>
+						
+					<cfif signatureblock neq "">
+						
+						<cfset start = findNoCase("<sign>",text)> 
+						<cfset start = start>
+						<cfset end   = findNoCase("</sign>",text)> 
+						<cfset cnt   = end-start+7>
+						<cfif start gt "1" and cnt gt "1">
+							<cfset prior = mid(text,start,cnt)>									
+							<cfset text = replace("#text#", "#prior#", "<sign>#signatureblock#</sign>")>
+						</cfif>
+															
+					</cfif>		
+					
+				</cfif>	
+				 								
 				
 				<cfif check.recordcount eq "0">
 							
@@ -197,17 +230,18 @@ action, add a record by a generating (ASIS) or copying (EDIT) --->
 						datasource="appsOrganization" 
 						username="#SESSION.login#" 
 						password="#SESSION.dbpw#">
+						
 						INSERT INTO OrganizationObjectActionReport
 								 (ActionId,
-								 DocumentId,
-								 DocumentContent,
-								 <cfif DocumentLayout eq "PDF">
+								  DocumentId,
+								  DocumentContent,
+								  <cfif DocumentLayout eq "PDF">
 									 DocumentPath,
-								 </cfif>
-								 SignatureBlock,
-								 OfficerUserId, 
-								 OfficerLastName,
-								 OfficerFirstName) 
+								  </cfif>
+								  SignatureBlock,
+								  OfficerUserId, 
+								  OfficerLastName,
+								  OfficerFirstName) 
 						  VALUES ('#URL.ID#', 
 								  '#DocumentId#',
 								  '#text#',
@@ -226,6 +260,7 @@ action, add a record by a generating (ASIS) or copying (EDIT) --->
 						datasource="appsOrganization" 
 						username="#SESSION.login#" 
 						password="#SESSION.dbpw#">
+						
 							UPDATE    OrganizationObjectActionReport
 							SET       DocumentContent = '#text#',
 							          SignatureBlock  = '#last.SignatureBlock#'

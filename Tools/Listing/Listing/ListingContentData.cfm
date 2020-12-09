@@ -10,14 +10,12 @@
 
 	<cfoutput>
 	   		   
-		<table style="width:98.5%">
-							
+		<table style="width:98.5%" class="navigation_table" id="#box#_table" border="0">
+								
 			<cfif searchresult.recordcount eq "0">	
 			
-				<cfinclude template="ListingHeader.cfm">		
-							    								
-				<tr><td style="height:50" align="center" colspan="#cols#" class="labelmedium"><cf_tl id="NoRecords" var="tlNoRecords">#tlNoRecords#.</td></tr>							
-			
+				<cfinclude template="ListingHeader.cfm">								    								
+				<tr><td style="height:50" align="center" colspan="#cols#" class="labelmedium"><cf_tl id="NoRecords" var="tlNoRecords">#tlNoRecords#.</td></tr>										
 			<cfelse>
 						 					
 			 <cfinclude template="ListingHeader.cfm">
@@ -94,9 +92,9 @@
 					  
 					  <!--- grouping record --->
 																
-					  <tr class="line fixrow2">
-					  <td colspan="#cols-3#" class="labellarge" style="font-weight:bold;padding-left:5px;height:30px">	
-					      
+					  <tr class="line fixrow2 navigation_row labelmedium2">
+					  <td colspan="#cols-2#" class="labellarge" style="font-weight:bold;padding-left:5px;height:30px">	
+					  					      
 						   <cfif findNoCase('00:00',evaluate(url.listgroupfield))>
 						   
 						     <!--- this is no longer needed as the below will take care of this : can be removed --->
@@ -130,9 +128,9 @@
 						   </cfif>				 
 						   </td>		
 						   <cfif aggregate eq "">		 
-						   <td align="right" colspan="3" class="labelmedium" style="font-weight:bold;padding-top:4px;padding-bottom:2px;padding-right:10px">#subtotal.counted#</td>				 
+						   <td align="right" colspan="3" style="font-weight:bold;padding-top:4px;padding-bottom:2px;padding-right:10px">#subtotal.counted#</td>				 
 						   <cfelse>
-						   <td align="right" colspan="3" class="labelmedium" style="font-weight:bold;padding-top:4px;padding-bottom:2px;padding-right:10px">
+						   <td align="right" colspan="3" style="font-weight:bold;padding-top:4px;padding-bottom:2px;padding-right:10px">
 						   <cfif subtotal.counted gt "1">
 						   (#subtotal.counted#)&nbsp;
 						   </cfif>#evaluate(aggregateformat)#</td>	
@@ -152,24 +150,55 @@
 					</cfif>  
 					
 					<cfset dkey = evaluate(drillkey)>
-																				
-					<!--- ------------------ --->
-					<cfset rowspan = showrows>
+					
+					<!--- we obtain the content of the 2 and 3 line if it is indeed declared inreality --->
+										
 					<cfset rowspan = "1">
-					<!--- ------------------ ---> 
-															
-					<cfif showrows eq "1">								   
-					   <tr class="#attributes.classsub#" id="r#row#" keyvalue="#s#" name="f#box#_#dkey#">					
-					<cfelse>
-					   <tr class="#attributes.classsub#" id="r#row#" keyvalue="#s#" name="f#box#_#dkey#">
+					<cfset hasContent2  = "No">
+					<cfset hasContent3  = "No">
+					
+					<cfif showrows gte "2"> 	
+										
+						<cfsavecontent variable="rowcontent2">
+							 <cfset hascontent   = "No">	
+							 <cfset rowshow      = "2">
+						     <cfinclude template = "ListingContentField.cfm">
+							 <cfset hasContent2  = hasContent>
+						</cfsavecontent>
+						
+						<cfif hasContent2 eq "Yes">
+							<cfset rowspan = rowspan+1>
+						</cfif>	
+					
 					</cfif>
-															
-					<cfif rowspan eq "1">																	   
-						<td style="padding-left:12;height:21px" class="labelnormal" id="#s#">#currentrow#.</td>		   
-					<cfelse>
-						<td style="padding-left:12;height:21px" class="labelnormal" rowspan="#rowspan#" id="#s#">#currentrow#.</td>	
+					
+					<cfif showrows gte "3"> 
+						
+						<cfsavecontent variable="rowcontent3">
+							<cfset hascontent    = "No">
+							 <cfset rowshow      = "3">	
+						     <cfinclude template = "ListingContentField.cfm">
+							 <cfset hasContent3  = hasContent>
+						</cfsavecontent>
+						
+						<cfif hasContent3 eq "Yes">
+							<cfset rowspan = rowspan+1>
+						</cfif>
+					
 					</cfif>
-					   
+																									
+					<!--- coloring
+					<tr class="#iif(currentrow MOD 2,DE('labelnormal'),DE('#attributes.classline2#'))#" id="r#row#" keyvalue="#s#" name="f#box#_#dkey#">					
+					--->
+																									   
+					<cfif rowspan eq "1">											   
+					   <tr class="#attributes.classheader# navigation_row line" name="f#box#_#dkey#" id="r#row#" keyvalue="#s#" style="background-color:#iif(currentrow MOD 2,DE('fafafa'),DE('efefef'))#">					
+					<cfelse>
+					   <tr class="#attributes.classheader# navigation_row" name="f#box#_#dkey#"  id="r#row#" keyvalue="#s#" style="background-color:#iif(currentrow MOD 2,DE('fafafa'),DE('efefef'))#"> 
+					</cfif>				
+										
+					<td style="padding-left:12;height:21px" id="#s#">#currentrow#.</td>	
+									   
 					<!--- to be checked 1/9/2013 --->
 					  
 					   <cfif attributes.selectmode eq "Checkbox">		   
@@ -182,17 +211,13 @@
 																			
 					   <cfif attributes.listtype eq "Directory">
 							
-							<td align="center" rowspan="#rowspan#" style="padding-top:1px">
-							
-								<cfif row eq "1" and client.browser eq "Explorer"><cf_space spaces="5"></cfif>
+							<td align="center" rowspan="#rowspan#" style="padding-top:1px">							
 								<cf_img icon="open" id="img0_#currentrow#" onclick="showtemplate('#attributes.listpath#','#attributes.listquery#\\#name#')">
 							</td>
 									  							
 					   <cfelseif drillmode eq "">
 						
-							<td align="center" rowspan="#rowspan#" style="padding-top:1px">
-								<cfif row eq "1" and client.browser eq "Explorer"><cf_space spaces="5"></cfif>
-							</td>
+							<td align="center" rowspan="#rowspan#" style="padding-top:1px"></td>
 							<!--- do not show drill --->
 														
 					   <cfelseif drillmode eq "Embed" or drillmode eq "EmbedXT" or drillmode eq "Workflow">
@@ -203,48 +228,47 @@
 								<cfset tdrillmode = drillmode>								
 							</cfif>
 						
-						   <cfset cl = "toggledrill('#lcase(tdrillmode)#','box#dkey#','#drilltemplate#','#dkey#','#argument#','#drillbox#','#drillstring#')">
-							
-						   <td align="center" rowspan="#rowspan#" style="padding-top:1px;padding-left:5px">
-						   
-						   <img style="cursor:pointer" name="exp#dkey#" id="exp#dkey#" 
-						     class="regular" src="#client.VirtualDir#/Images/arrowright.gif" align="absmiddle" alt="Expand" height="9" width="7" onclick="#cl#" border="0"> 	
-							 
-						   <img style="cursor:pointer" name="col#dkey#" id="col#dkey#" 
-						     class="hide" src="#client.VirtualDir#/Images/arrowdown.gif" align="absmiddle" height="10" width="9" alt="Hide" onclick="#cl#" border="0"> 
+						   <cfset cl = "toggledrill('#lcase(tdrillmode)#','box#dkey#','#drilltemplate#','#dkey#','#argument#','#drillbox#','#drillstring#')">							
+						   <td align="center" style="padding-top:1px;padding-left:5px">								  						  						   				   						   
+						   <img style="cursor:pointer" id="exp#dkey#" 
+						     class="regular" src="#client.VirtualDir#/Images/arrowright.gif" align="absmiddle" alt="Expand" height="9" width="7" onclick="#cl#"> 								 
+						   <img style="cursor:pointer" id="col#dkey#" 
+						     class="hide" src="#client.VirtualDir#/Images/arrowdown.gif" align="absmiddle" height="10" width="9" alt="Hide" onclick="#cl#"> 							 
 						   </td>
 							 
 						<cfelse>						
 												
-						   <cfset cl = "toggledrill('#lcase(drillmode)#','box#dkey#','#drilltemplate#','#dkey#','#argument#','#drillbox#','#drillstring#')">			  					 
-						   
-						   <td align="center" rowspan="#rowspan#" onclick="#cl#">
-							   <cfif row eq "1" and client.browser eq "Explorer"><cf_space spaces="5"></cfif>
-							   <cf_img id="exp#currentrow#" icon="open">							   
-							</td>
-													 
+						   <cfset cl = "toggledrill('#lcase(drillmode)#','box#dkey#','#drilltemplate#','#dkey#','#argument#','#drillbox#','#drillstring#')">							   					  	  					 						   
+						   <td class="navigation_action" onclick="#cl#">						   						   
+						   <cf_img id="exp#currentrow#" icon="open"></td>
+						 													 
 						</cfif>  		
 						
 						<!--- ------------------------------------------------------------------- --->
 						<!--- -------------------------SHOW FIELD CONTENT------------------------ --->				
 						<!--- ------------------------------------------------------------------- --->			
-						<cfset rowshow = 1><cfinclude template="ListingContentField.cfm">			
+						<cfset rowshow = 1>
+						<cfinclude template="ListingContentField.cfm">		
+						<cfset endcell = 0>
+						
 						<!--- ------------------------------------------------------------------- --->	
 						<!--- ------------------------------------------------------------------- --->																				
 												
 						<cfif attributes.listtype eq "Directory">			
 							<td style="border-left:1px dotted ##C0C0C0;"><input type="checkbox" value="#attributes.listquery#\#name#"></td>			
+							<cfset endcell = endcell+1>		
 						</cfif>
 												
 						<cfif annotation neq "">		
 							
-							<td id="note#dkey#" align="center">									    
+							<td style="padding:3px" id="note#dkey#" align="center">									    
 							   	<cfif doc.entityKeyField4 neq "">				
 									<cf_annotationshow entity="#annotation#" keyvalue4="#dkey#" docbox="note#dkey#">					   
 								<cfelse>				
 									<cf_annotationshow entity="#annotation#" keyvalue1="#dkey#" docbox="note#dkey#">				
 								</cfif>											
-							</td>									
+							</td>		
+							<cfset endcell = endcell+1>									
 							
 						</cfif>			
 												
@@ -253,47 +277,49 @@
 							<td align="right" style="padding-top:2px;padding-right:5px;padding-left:3px">	
 							     <img src="#session.root#/images/delete.png" 
 								   id="del#row#" style="height:17px;cursor:pointer" alt="Remove record" border="0" 
-								   onclick="deleterow('#row#','#attributes.datasource#','#deletetable#','#drillkey#','#dkey#')">	
+								   onclick="deleterow($(this),'f#box#_#dkey#','#attributes.datasource#','#deletetable#','#drillkey#','#dkey#')">	
 								 <!---								
 							     <cf_img icon="delete" id="del#row#" onclick="deleterow('#row#','#attributes.datasource#','#deletetable#','#drillkey#','#dkey#')">		
 								 --->
-							</td>											
+							</td>	
+							<cfset endcell = endcell+1>										
 						</cfif>					
 						
 					</tr>
-					
-					<!--- determine if we need to show a second row --->
-					
-					<cfif showrows gte "2"> 	
-					
-						<cfset hascontent = "No">														
-						<tr onclick="listshowRow('#row#');" style="border-bottom:1px solid ##C0C0C0; background-color:##FCFFE0;" name="f#box#_#dkey#" id="s#row#" class="<cfif showrows eq "2">#attributes.classheader#<cfelse>#attributes.classsub#</cfif>">	  
-						    <td colspan="2"></td>							
-						   	<cfset rowshow = "2">								
-							<cfinclude template="ListingContentField.cfm">
+										
+					<!--- determine if we need to show 2nd and 3rd row --->
+															
+					<cfif hasContent2 eq  "Yes"> 									
+																									
+						<tr name="f#box#_#dkey#" style="background-color:##FCFFE0;border-top:1px dotted silver;border-bottom:1px" class="#attributes.classheader#">
+							<cfloop index="itm" from="1" to="2"><td style="background-color:#iif(currentrow MOD 2,DE('fafafa'),DE('efefef'))#"></td></cfloop>#rowcontent2#
+							<cfloop index="itm" from="1" to="#endcell#"><td style="background-color:#iif(currentrow MOD 2,DE('fafafa'),DE('efefef'))#"></td></cfloop>
+							</tr>
+												
+							<!--- we do this up front now
 							<cfif hascontent eq "No">
 								<cfset ajaxOnLoad("function(){ $('##s#row#').removeClass('#attributes.classheader#').addClass('hide'); }")>
 							<cfelse>
 								<cfset ajaxOnLoad("function(){ $('##r#row# td').css('border-bottom-color','##E3E3E3'); }")>
 							</cfif>		
-						</tr>					
-					</cfif>							
+							--->
+							
+						<cfif hasContent3 eq "No">												
+						<tr class="navigation_row_child"><td colspan="#cols#" style="border-bottom:1px solid silver;height:0px"></td></tr>												
+						</cfif>
+										
+					</cfif>					
 					
-					<!--- determine if we need to show a third row --->
-					
-					<cfif showrows eq "3">		
-					
-					    <cfset hascontent = "No">					    				
-						<tr onclick="listshowRow('#row#')" style="border-bottom:1px solid ##C0C0C0; background-color:##FCFFE0;" name="f#box#_#dkey#" id="t#row#" class="<cfif showrows eq "3">#attributes.classheader#<cfelse>#attributes.classsub#</cfif>">
-							<td colspan="2"></td>								  		
-						    <cfset rowshow = "3">
-							<cfinclude template="ListingContentField.cfm">	
-							<cfif hascontent eq "No">
-								<cfset ajaxOnLoad("function(){ $('##t#row#').removeClass('#attributes.classheader#').addClass('hide'); }")>
-							<cfelse>
-								<cfset ajaxOnLoad("function(){ $('##r#row# td, ##s#row# td').css('border-bottom-color','##E3E3E3'); }")>
-							</cfif>			
-						</tr>		
+					<cfif hasContent3 eq "Yes">		
+															    				    				
+						<tr name="f#box#_#dkey#" style="background-color:##FCFFE0;border-top:1px dotted silver;border-bottom:1px solid silver" 
+						    class="#attributes.classheader#">
+							<cfloop index="itm" from="1" to="2"><td style="background-color:#iif(currentrow MOD 2,DE('fafafa'),DE('efefef'))#"></td></cfloop>#rowcontent2#
+							<cfloop index="itm" from="1" to="#endcell#"><td style="background-color:#iif(currentrow MOD 2,DE('fafafa'),DE('efefef'))#"></td></cfloop>
+							</tr>								
+																					
+						<tr class="navigation_row_child"><td colspan="#cols#" style="border-bottom:1px solid silver;height:0px"></td></tr>						
+						
 												
 					</cfif>		
 					

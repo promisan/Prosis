@@ -4,13 +4,13 @@
 <cfparam name="url.reportid" default="">
 <cfparam name="url.mode" default="regular">
 
-<cfajaximport tags="cfprogressbar,cfform,cfdiv,cfwindow">
+<cfajaximport tags="cfprogressbar,cfform,cfdiv">
 
 <cfif url.reportId eq "" and url.mode eq "regular">
 	<cf_tl id="Export Data to MS Excel" var="1">
-	<cf_screentop height="100%" jquery="Yes" scroll="Vertical" layout="webapp" label="#lt_text#" option="Microsoft Excel" banner="green" bannerheight="70" line="no">	 
+	<cf_screentop height="100%" jquery="Yes" scroll="Vertical" layout="webapp" label="#lt_text#" banner="gray" line="no">	 
 <cfelse>
-    <cf_screentop height="100%" jquery="Yes" scroll="Yes" html="No" bannerheight="70" banner="green">	 
+    <cf_screentop height="100%" jquery="Yes" scroll="Yes" html="No" banner="gray">	 
 	<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
 </cfif>
 

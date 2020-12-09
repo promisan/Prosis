@@ -202,68 +202,95 @@
  </cfquery>	
 			
 <table width="99%" height="100%" class="navigation_table" border="0">
-	
-	<tr style="border-top:1px solid silver" class="line">
-			
-		<td width="20%" colspan="2" valign="top" style="padding-top:2px">
-		
-			  <table width="100%">
-			  
-			  <tr>
-			  <cfoutput>	  
-			  	 
-				 <td style="height:40px;padding-left:10px">
-					  
-				  	<table width="300">
-					    <tr class="labelmedium">
-				  		<cfloop query="Summary">			  			
-				  			<td style="padding-left:10px;min-width:100px">#PostClassGroup#</td>	
-							<td style="padding-left:6px;min-width:100px;border:1px solid silver;padding-right:4px" align="right"><font color="408080">#summary.PostTotal#</td>				  						  		
-				  		</cfloop>												  		
-						</tr>
-				  	</table>		
-						
-				  </td>		  	
-				 
-				  <cfif url.orgunit neq "">
-				  
-				   <td align="center" class="labelmedium clsNoPrint" style="cursor:pointer;padding-right:10px" onclick="ptoken.open('#SESSION.root#/Staffing/Application/Position/MandateView/MandateViewGeneral.cfm?header=1&ID=ORG&ID1=#get.orgunitcode#&ID2=#url.Mission#&ID3=#get.MandateNo#', 'staffing_#url.orgunit#')">
-				  	<a><cf_tl id="Open Detail"></a>
-				   </td>
-				   <td>|</td>
-				  </cfif>
-				  
-				   <td align="right" class="labelmedium clsNoPrint" style="cursor:pointer;padding-right:10px" onclick="loadmodule('#session.root#/Staffing/Reporting/PostView/Staffing/PostViewLoop.cfm','#url.mission#','acc=#session.acc#&Mandate=#Mandate.MandateNo#&tree=Operational&Unit=cum','')">
-				  	<a><cf_tl id="Open Matrix"></a>
-				  </td>
-						  
-			  </cfoutput>
-			  </tr>
-			  
-			  </table>
-			  
-		</td>
-	
-		</tr>
-		  
+	  
 		  <cfif Post.recordcount eq "0">
 		  
 			  <tr><td colspan="2"
 			     style="padding-top:5px;cursor:pointer;padding-left:10px" 
 				 class="labelmedium"><font color="FF0000"><cf_tl id="No data found"></td></tr>
 			  
-		  <cfelse>
+		  <cfelse>		  
 		  
 			  <tr>
-			  <td style="width:5%;padding-right:2px" valign="top">	 	
+			  <td style="padding-right:2px" valign="top">	 	
+			  
+			  	<table height="100%">
+				
+				<tr style="height:20px"><td>
+				
+					 <table width="100%">
+					
+						<tr><td style="font-size:20px;height:26;padding-left:6px" class="labelmedium"><cf_tl id="Positions"></td>
+						
+						<cfoutput>	
+						    <td align="right" class="labelmedium clsNoPrint" style="cursor:pointer;padding-right:10px" 
+							onclick="loadmodule('#session.root#/Staffing/Reporting/PostView/Staffing/PostViewLoop.cfm','#url.mission#','acc=#session.acc#&Mandate=#Mandate.MandateNo#&tree=Operational&Unit=cum','')">
+								  	<a><cf_tl id="Open Matrix"></a>
+								  </td>
+						</cfoutput>		  
+						
+						</tr>
+					
+					</table>
+				
+				</td>				
+								
+				</tr>		
+				
+				<tr style="height:20px;border-top:1px solid silver" class="line">
+			
+				<td width="20%" colspan="2" valign="top" style="padding-top:2px">
+				
+					  <table width="100%">
+					  
+					  <tr>
+					  <cfoutput>	  
+					  	 
+						 <td style="height:30px;padding-left:4px">
+							  
+						  	<table>
+							    <tr class="labelmedium">
+						  		<cfloop query="Summary">			  			
+						  			<td style="padding-left:10px;min-width:70px">#PostClassGroup#</td>	
+									<td style="font-size:17px;padding-left:6px;min-width:50px;padding-right:4px" align="right"><b>#summary.PostTotal#</td>				  						  		
+						  		</cfloop>												  		
+								</tr>
+						  	</table>		
+								
+						  </td>		  	
+						 
+						  <cfif url.orgunit neq "">
+						  
+						   <td align="center" class="labelmedium clsNoPrint" style="cursor:pointer;padding-right:10px" 
+						   onclick="alert('a');ptoken.open('#SESSION.root#/Staffing/Application/Position/MandateView/MandateViewGeneral.cfm?header=1&ID=ORG&ID1=#get.orgunitcode#&ID2=#url.Mission#&ID3=#get.MandateNo#', 'staffing_#url.orgunit#')">
+						  	<a><cf_tl id="Open Detail"></a>
+						   </td>
+						   <td>|</td>
+						  </cfif>
+						 
+								  
+					  </cfoutput>
+					  </tr>
+					  
+					  </table>
+					  
+				</td>
+			
+				</tr>				
+						
+				<tr><td></td></tr>
+				
+				<tr><td align="center">
 			  	  		  	
 				 	<cfquery name="Summary" dbtype="query">
 					  	SELECT    SUM(Posts) as PostTotal, 
+								  SUM(Incumbency) as IncumbencyTotal,
 					              Code,
 								  Description,
 								  ViewOrder
 					 	 FROM     Post
 					  	GROUP BY  Code, Description, ViewOrder
+						ORDER BY ViewOrder
 				  	</cfquery>	
 							
 				  	<cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
@@ -276,28 +303,29 @@
 						showygridlines="yes"
 						gridlines="6" 
 						showborder="no" 
-						fontsize="10" 						
+						fontsize="12" 						
 						show3d="no" 
-						showlegend="no"
+						showlegend="yes"
 						xaxistitle="" 				 
 						yaxistitle="Tracks" 						
 						rotated="no" 
 						sortxaxis="no" 				 
 						tipbgcolor="##000000" 
-						showmarkers="yes" 
-						markersize="30" 
+						showmarkers="yes" 						
 						backgroundcolor="##ffffff"					
-				       	chartheight="265" 
-					   	chartwidth="265">	
+				       	chartheight="315" 
+					   	chartwidth="395">	
 											
 						   <cfchartseries type="pie"
 					             query="Summary"
 				    	         itemcolumn="Description"
-				        	     valuecolumn="PostTotal"
-								 datalabelstyle="columnlabel"								 
+				        	     valuecolumn="PostTotal"								 							 
 					             serieslabel=""
 							     colorlist="##2574A9,##E8875D,##E8BC5D,##CCCA6A,##339AFA,##66AC6A,##999A9A,##FFFA9A,##996AFA"
-				        	     markerstyle="circle"></cfchartseries>	
+				        	     markerstyle="circle">
+								 
+								 
+								 </cfchartseries>							 
 								 
 					</cfchart>
 					
@@ -311,14 +339,57 @@
 					
 					--->
 					
+					</td></tr>
+					
+					<!---
+					
+					<tr><td style="font-size:20px;height:26;padding-left:6px" class="labelmedium"><cf_tl id="Incumbents"></td></tr>						
+					
+					--->
+									
+					<tr><td valign="bottom">
+										
+					<cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
+					
+					<cfchart style = "#chartStyleFile#" 
+						format="png"						
+						scalefrom="0"						
+						showxgridlines="yes" 
+						showygridlines="yes"
+						gridlines="6" 
+						showborder="no" 
+						fontsize="13" 												 
+						showlegend="no"
+						xaxistitle="" 				 
+						yaxistitle="Incumbents" 						
+						rotated="no" 
+						sortxaxis="no" 				 
+						tipbgcolor="##000000" 
+						showmarkers="yes" 
+						markersize="30" 
+						backgroundcolor="##ffffff"					
+				       	chartheight="160" 
+					   	chartwidth="535">	
+											
+						   <cfchartseries type="bar"
+					             query="Summary"
+				    	         itemcolumn="Description"
+				        	     valuecolumn="IncumbencyTotal"								 							 
+					             serieslabel=""
+							     colorlist="##2574A9,##E8875D,##E8BC5D,##CCCA6A,##339AFA,##66AC6A,##999A9A,##FFFA9A,##996AFA"
+				        	     markerstyle="circle"></cfchartseries>							 
+								 
+					</cfchart>
+										
+					</td></tr>					
+					</table>
+					
 				
 			</td>
 								
-			<td style="height:100%;width:100%;padding-top:3px">
-										
+			<td style="width:100%;" valign="top">										
 																										
 					<table width="100%" height="98%">
-					<tr>
 								
 					<cfquery name="getCols" dbtype="query">
 				        SELECT     DISTINCT ViewOrder
@@ -327,65 +398,70 @@
 				
 					<cfoutput query="Post" group="ViewOrder">
 					
-						<cfset pos = 0>
-						<cfset vac = 0>
-						<cfset inc = 0>
-					
-						<td width="#48/getCols.recordcount#%" valign="top" style="border:1px solid silver;height:98%">
+						  <cfset pos = 0>
+						  <cfset vac = 0>
+						  <cfset inc = 0>
 						
-							<table width="100%" height="100%">	
-							  
+							<cfif currentrow eq "1">
+							<tr class="line labelmedium2" style="height:28px">
+								<td width="100%" style="min-width:40px;padding-left:6px"><cf_tl id="Grade"></td>				
+								<td align="center" style="min-width:45px;padding-right:2px!important;border-left:1px solid silver">P</td>												
+								<td align="center" style="min-width:45px;padding-right:2px;border-left:1px solid silver">I</td>
+								<td align="center" style="min-width:45px;padding-right:2px;border-left:1px solid silver">V</td>
+								<td align="center" style="min-width:45px;padding-right:6px;border-left:1px solid silver">V%</td>
+							</tr>	
+							</cfif>
+									   							  
 							<cfif url.category eq "ALL">			
-								<tr class="line"><td align="center" style="border-bottom:1px solid silver;height:26;font-size:14px;padding-left:8px" class="labelmedium" colspan="5">#Description#</td></tr>						
+								<tr style="background-color:efefef;border-top:1px solid silver;border-bottom:1px solid silver">
+								<td style="font-size:17px;padding-left:6px" class="labelmedium">#Description#</td>
+								
+								<cfoutput>				
+							
+								  <cfset pos = pos + posts>
+								  <cfset inc = inc + incumbency>
+								  <cfset vac = vac + (posts - incumbency)>
+								  <cfset per = (pos - inc)*100 / pos>
+																
+								 									
+								</cfoutput>		
+								
+								 <td align="right" style="font-size:15px;padding-right:2px;border-left:1px dotted silver"><a href="javascript:doStaffing('#url.mission#','#url.orgunit#','#url.period#','#url.fund#','#url.postclass#','#url.authorised#','#code#','', '')"><font color="008000">#pos#</a></td>
+								 <td align="right" style="font-size:15px;padding-right:2px;border-left:1px dotted silver"><a href="javascript:doStaffing('#url.mission#','#url.orgunit#','#url.period#','#url.fund#','#url.postclass#','#url.authorised#','#code#','', 'I')">#inc#</a></td>
+	  							 <td align="right" style="font-size:15px;padding-right:2px:1px dotted silver"><a href="javascript:doStaffing('#url.mission#','#url.orgunit#','#url.period#','#url.fund#','#url.postclass#','#url.authorised#','#code#','', 'V')"><font color="FF0000">#vac#</a></td>				  	
+								 <td style="font-size:15px;padding-right:4px;border-left:1px dotted silver" align="right"><cfif per eq "0">--<cfelseif per eq "100">#numberformat(per,',')#<cfelse>#numberformat(per,'._')#</cfif></td>								
+																
+								</tr>						
 							<cfelse>	
 								<tr><td colspan="5" height="4"></td></tr>
-							</cfif>
-							<tr class="line labelmedium" style="height:20px">
-								<td width="100%" style="min-width:40px;padding-left:6px"><cf_tl id="Grade"></td>				
-								<td align="center" style="min-width:25px;padding-right:2px!important;border-left:1px solid silver">P</td>
-												
-								<td align="center" style="min-width:25px;padding-right:2px!important;border-left:1px solid silver">I</td>
-								<td align="center" style="min-width:25px;padding-right:2px!important;border-left:1px solid silver">V</td>
-								<td align="center" style="min-width:25px;padding-right:6px;border-left:1px solid silver">V%</td>
-							</tr>	
-																
+							</cfif>		
+							
+							<cfset pos = 0>
+						    <cfset vac = 0>
+						    <cfset inc = 0>
+							
+																							
 							<cfoutput>				
 							
 								<cfset pos = pos + posts>
 								<cfset inc = inc + incumbency>
 								<cfset vac = vac + (posts - incumbency)>
 								<cfset per = (posts - incumbency)*100 / posts>
-								
-								<tr class="navigation_row labelmedium linedotted" style="height:18px">
-								  <td style="padding-left:6px;border-left:0px solid silver"><a href="javascript:doStaffing('#url.mission#','#url.orgunit#','#url.period#','#url.fund#','#url.postclass#','#url.authorised#','#code#','#postGradebudget#', '')">#PostGradeBudget#</a></td>
-								  <td align="right" style="padding-right:2px!important;border-left:1px dotted silver"><a href="javascript:doStaffing('#url.mission#','#url.orgunit#','#url.period#','#url.fund#','#url.postclass#','#url.authorised#','#code#','#postGradebudget#', '')"><font color="008000">#Posts#</a></td>
-								  <td align="right" style="padding-right:2px!important;border-left:1px dotted silver"><a href="javascript:doStaffing('#url.mission#','#url.orgunit#','#url.period#','#url.fund#','#url.postclass#','#url.authorised#','#code#','#postGradebudget#', 'I')">#Incumbency#</a></td>
-	  							  <td align="right" style="padding-right:2px!important;border-left:1px dotted silver"><cfif posts-incumbency neq "0"><a href="javascript:doStaffing('#url.mission#','#url.orgunit#','#url.period#','#url.fund#','#url.postclass#','#url.authorised#','#code#','#postGradebudget#', 'V')"><font color="FF0000">#Posts-Incumbency#</a></font></cfif></td>				  	
-								  <td align="right" style="padding-right:3px!important;border-right:0px dotted silver;border-left:1px dotted silver">
+																
+								<tr class="navigation_row labelmedium2">
+								  <td style="padding-left:26px;"><a href="javascript:doStaffing('#url.mission#','#url.orgunit#','#url.period#','#url.fund#','#url.postclass#','#url.authorised#','#code#','#postGradebudget#', '')"><font color="000000">#PostGradeBudget#</a></td>
+								  <td align="right" style="padding-right:2px;border-left:1px dotted silver"><a href="javascript:doStaffing('#url.mission#','#url.orgunit#','#url.period#','#url.fund#','#url.postclass#','#url.authorised#','#code#','#postGradebudget#', '')"><font color="008000">#Posts#</a></td>
+								  <td align="right" style="padding-right:2px;border-left:1px dotted silver"><a href="javascript:doStaffing('#url.mission#','#url.orgunit#','#url.period#','#url.fund#','#url.postclass#','#url.authorised#','#code#','#postGradebudget#', 'I')">#Incumbency#</a></td>
+	  							  <td align="right" style="padding-right:2px;border-left:1px dotted silver"><cfif posts-incumbency neq "0"><a href="javascript:doStaffing('#url.mission#','#url.orgunit#','#url.period#','#url.fund#','#url.postclass#','#url.authorised#','#code#','#postGradebudget#', 'V')"><font color="FF0000">#Posts-Incumbency#</a></font></cfif></td>				  	
+								  <td align="right" style="padding-right:3px;border-right:0px dotted silver;border-left:1px dotted silver">
 								  <cfif per eq "0">--<cfelseif per eq "100">#numberformat(per,',')#<cfelse>#numberformat(per,'._')#</cfif></td>
 								</tr>		
 										
-							</cfoutput>					
-										
-							<cfset per = (pos - inc)*100 / pos>
-							
-							<tr><td style="height:100%"></td></tr>
-										
-							<tr class="labelmedium" style="background-color:efefef;border-top:1px dotted silver" style="height:12px">
-								  <td style="padding-left:6px;border-left:0px solid silver"></td>				  
-								  <td align="right" style="padding-right:2px!important;border-left:1px dotted silver"><a href="javascript:doStaffing('#url.mission#','#url.orgunit#','#url.period#','#url.fund#','#url.postclass#','#url.authorised#','#code#','', '')"><font color="008000">#pos#</a></td>
-								  <td align="right" style="padding-right:2px!important;border-left:1px dotted silver"><a href="javascript:doStaffing('#url.mission#','#url.orgunit#','#url.period#','#url.fund#','#url.postclass#','#url.authorised#','#code#','', 'I')">#inc#</a></td>
-	  							  <td align="right" style="padding-right:2px!important;border-left:1px dotted silver"><a href="javascript:doStaffing('#url.mission#','#url.orgunit#','#url.period#','#url.fund#','#url.postclass#','#url.authorised#','#code#','', 'V')"><font color="FF0000">#vac#</a></td>				  	
-								  <td style="padding-right:4px;border-right:0px solid silver;border-left:1px dotted silver" align="right"><cfif per eq "0">--<cfelseif per eq "100">#numberformat(per,',')#<cfelse>#numberformat(per,'._')#</cfif></td>
-							</tr>			
-									
-							</table>
-						
-						</td>
+							</cfoutput>		
+														
+												
+					</cfoutput>				
 					
-					</cfoutput>
-					
-					</tr>
 					</table>
 					
 										

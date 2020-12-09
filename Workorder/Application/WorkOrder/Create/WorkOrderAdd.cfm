@@ -78,7 +78,61 @@
 						    FROM  Customer
 							WHERE Customerid = '#URL.Customerid#' 			
 						</cfquery>
-							
+						<!--- Fixing Sync  issue with customerName as in some instances is blank
+						11/23/2020 - by Armin
+						---->
+						<cfif Customer.CustomerName eq "" AND Customer.PersonNo neq "">
+							<cfquery name="qApplicant"
+									datasource="appsWorkOrder"
+									username="#SESSION.login#"
+									password="#SESSION.dbpw#">
+									SELECT *
+									FROM applicant.dbo.Applicant
+									WHERE PersonNo='#Customer.PersonNo#'
+							</cfquery>
+
+							<cfif qApplicant.Recordcount neq 0>
+
+								<cfset vFullName = "">
+								<cfif qApplicant.FirstName neq "">
+									<cfset vFullName = "#qApplicant.FirstName#">
+								</cfif>
+
+								<cfif qApplicant.MiddleName neq "">
+									<cfset vFullName = "#vFullName# #qApplicant.MiddleName#">
+								</cfif>
+
+								<cfif qApplicant.LastName neq "">
+									<cfset vFullName = "#vFullName# #qApplicant.LastName#">
+								</cfif>
+
+								<cfif qApplicant.LastName2 neq "">
+									<cfset vFullName = "#vFullName# #qApplicant.LastName2#">
+								</cfif>
+
+								<cfquery name="qUpdate"
+										datasource="appsWorkOrder"
+										username="#SESSION.login#"
+										password="#SESSION.dbpw#">
+										UPDATE Customer
+										SET CustomerName = '#vFullName#'
+										WHERE CustomerId = '#URL.Customerid#'
+								</cfquery>
+
+								<cfquery name="Customer"
+										datasource="appsWorkOrder"
+										username="#SESSION.login#"
+										password="#SESSION.dbpw#">
+										SELECT *
+										FROM  Customer
+										WHERE Customerid = '#URL.Customerid#'
+								</cfquery>
+							</cfif>
+
+						</cfif>
+
+
+
 						<cfquery name="getPrior" 
 						 datasource="AppsWorkOrder" 
 						 username="#SESSION.login#" 

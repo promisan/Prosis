@@ -45,11 +45,8 @@
 		
 		<cfif Show eq "Show">
 	
-			<table width="100%" 
-				border="0" 
-				cellspacing="0" 
-				cellpadding="0" 
-				align="center"" 
+			<table width="100%" 				
+				align="center" 
 			    onClick="#Action#" 
 				onMouseOver="hl(this,true,'#Status#')" 
 				onMouseOut="hl(this,false,'')"
@@ -57,9 +54,9 @@
 				<cfif line eq "Yes">
 				<tr><td height="1" colspan="2" class="line"></td></tr>
 				</cfif>
-				<tr> 
-				  <td width="30" align="center" height="23">
-				  <img src="#Icon#" alt="" border="0" align="middle">
+				<tr style="height:30px"> 
+				  <td align="center" style="padding-left:4px;width:40px" height="23">
+				  <img src="#Icon#" style="height:26px;width:26px" border="0" align="middle">
 				  </td>
 				  <td class="labelit" style="padding-left:4px">#Name#</td>
 				</tr>

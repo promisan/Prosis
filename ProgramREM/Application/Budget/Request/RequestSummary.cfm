@@ -131,18 +131,15 @@ password="#SESSION.dbpw#">
 	WHERE    Mission = '#Edition.Mission#'
 </cfquery>
 
-<table width="99%" align="center" cellspacing="0" cellspacing="0" border="1" style="border:1px solid gray">
+<table width="100%" align="center">
 
-<tr><td valign="top">
+<tr><td valign="top" style="border:1px solid silver">
 	
 <cfif Parameter.BudgetCeiling eq "Resource">	
 	
 		<!--- celing enabled per program/resource --->
 		
-		<table width="99%"
-	       border="0"
-	       cellspacing="0"
-	       cellpadding="0">
+		<table width="98%">
 		   
 		 <tr bgcolor="E6E6E6" class="line labelit" style="height:15px">  
 				<td style="border-right:1px solid silver;padding-left:10px"><cf_tl id="resource"></td>
@@ -342,17 +339,17 @@ password="#SESSION.dbpw#">
 	
 	<cfoutput>
 		
- 	<table width="100%" align="center" cellspacing="0" cellpadding="0">
+ 	<table width="100%" align="center">
 	
 		<tr bgcolor="E6E6E6" class="line labelit" style="height:15px">  
 				<td style="border-right:1px solid silver;border-top:0px;padding-left:10px"><cf_tl id="resource"></td>				
-				<td colspan="2" align="right" style="border-top:0px;min-width:60;padding-right:3px;border-right:1px solid gray;"><cf_tl id="request">
+				<td colspan="2" align="right" style="border-top:0px;min-width:60;padding-right:3px"><cf_tl id="request">
 			</tr>		
 		
 	   <tr class="labelit line" bgcolor="#hd#">
 	    <td style="height:20px;padding-left:6px"><cf_tl id="Ceiling">:</td>		
 		<td></td>
-		<td align="right" style="padding-right:6px" align="right">#numberformat(Ceiling.amount,"__,__")#</b></td>
+		<td align="right" style="padding-right:6px" align="right">#numberformat(Ceiling.amount,",__")#</td>
 	   </tr>
 	   		 	   
 		<!--- check requested for ceiling sources --->
@@ -430,9 +427,9 @@ password="#SESSION.dbpw#">
 		</cfquery> 
 							   
 		<cfloop query="Resource">
-		    <tr class="cellcontent line" bgcolor="ffffef">	
+		    <tr class="labelit line" bgcolor="ffffef">	
 			<td colspan="2" style="padding-left:10px">#Name#</td>
-			<td align="right" style="padding-right:6px">#numberformat(Amount,"__,__")#
+			<td align="right" style="padding-right:6px">#numberformat(Amount,",__")#
 		    </tr>						   
 		</cfloop>	
 		
@@ -468,19 +465,19 @@ password="#SESSION.dbpw#">
 		
 				<tr class="labelit line" bgcolor="e3e3e3">	
 				<td colspan="2" height="15" style="padding-left:10px"><cf_tl id="Support"></td>
-				<td align="right" style="padding-right:6px">#numberformat(Overall.support,"__,__")#</td>
+				<td align="right" style="padding-right:6px">#numberformat(Overall.support,",__")#</td>
 			   </tr>	
 			
-			   <tr class="labelit line" bgcolor="#cl#">	
+			   <tr class="labelit" bgcolor="#cl#">	
 				<td colspan="2" height="15" style="padding-left:10px">#vOverall#</td>
-				<td align="right" style="padding-right:6px">#numberformat(Overall.support+Overall.amount,"__,__")#</td>
+				<td align="right" style="padding-right:6px">#numberformat(Overall.support+Overall.amount,",__")#</td>
 			   </tr>	
 		
 			<cfelse>
 				 
-			   <tr class="labelit line" bgcolor="#cl#">	
+			   <tr class="labelit" bgcolor="#cl#">	
 				<td colspan="2" height="15" style="padding-left:10px">#vOverall#</td>
-				<td align="right" style="padding-right:6px">#numberformat(Overall.amount,"__,__")#</td>
+				<td align="right" style="padding-right:6px">#numberformat(Overall.amount,",__")#</td>
 			   </tr>	
 			   
 			</cfif>    	
@@ -493,7 +490,7 @@ password="#SESSION.dbpw#">
 		
 			<tr class="labelit" bgcolor="#hd#">
 			    <td style="padding-left:6px" colspan="2">#vAvailable#</td>
-				<td align="right" style="padding-right:6px"><b>#numberformat(Ceiling.amount-Required,"__,__")#</b></td>
+				<td align="right" style="padding-right:6px"><b>#numberformat(Ceiling.amount-Required,",__")#</b></td>
 			</tr>				
 		
 		</cfif>

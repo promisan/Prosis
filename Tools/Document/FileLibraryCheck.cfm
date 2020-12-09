@@ -4,6 +4,7 @@
 <CFParam name="Attributes.filter"          default="">
 <CFParam name="Attributes.attachdialog"    default="Yes">	
 <CFParam name="Attributes.pdfscript"       default="">
+<CFParam name="Attributes.memo"            default="">
 
 <cfquery name="Attachment" 
 	datasource="AppsSystem" 
@@ -25,7 +26,6 @@
 	         default="#SESSION.rootDocumentPath#\">
 </cfif>		
 
-
 <cfdirectory action="LIST"
    directory="#Attributes.DocumentHost#\#attributes.DocumentPath#\#attributes.SubDirectory#"
    name="GetFiles"
@@ -35,22 +35,22 @@
 <cfif attributes.target neq "" and getfiles.recordcount eq "0">
 
 		<cfsavecontent variable="selectme">
-        		style="height:20px;cursor: pointer;border: 1px solid"
+        		style="height:20px;cursor: pointer;border: 1px solid silver"
 				onMouseOver="this.className='highlight1'"
 				onMouseOut="this.className='regular'"
 		</cfsavecontent>
 
 		<cfoutput>
 		    
-			<table cellspacing="0" cellpadding="0"><tr>
-			<td align="center" width="68" 
+			<table><tr>
+			<td align="center" width="120" 
 				onclick="addfile('#attributes.mode#','#Replace(attributes.DocumentHost,'\','\\','all')#','#attributes.DocumentPath#','#attributes.Subdirectory#','#attributes.Filter#','#attributes.target#','1','No','#attributes.attachdialog#','#attributes.pdfscript#','#attributes.memo#')" #selectme#>				
-				<img src="#SESSION.root#/Images/Attach.png" width="24" height="24"
+				<img src="#SESSION.root#/Images/Attach.png" width="24" height="23"
 					alt="Attach document" 
 				     alt="Attach document" 
 					 border="0"
 					 align="absmiddle">
-				<cf_tl id="Attach">
+				<span style="padding-top:2px"><cf_tl id="Attach"></span>
 			</td>
 			</tr></table>
 		</cfoutput>	

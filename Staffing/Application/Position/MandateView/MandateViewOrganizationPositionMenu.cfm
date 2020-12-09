@@ -96,7 +96,7 @@
 	
 	</cfif>
 	
-	<cfif param.AssignmentEntryDirect eq "0" and getAdministrator("*") eq "0">
+	<cfif param.AssignmentEntryDirect eq "0">	
 		 <cfset show5 = "hide">
 	</cfif>
 		
@@ -128,31 +128,31 @@
 		  
 		  menuName1="Enter Assignment"
 		  menuAction1="javascript:AddAssignment('#url.PositionNo#','i#url.PositionNo#')"
-		  menuIcon1="#SESSION.root#/Images/HR_EmployeeIncoming.gif"
+		  menuIcon1="#SESSION.root#/Images/AssignmentAdd.png"
 		  menuStatus1="Add a new assignment"
 		  menuShow1="#show5#"
 				  
 		  menuName2="Duplicate position"
 		  menuAction2="javascript:AddPosition('#Position.Mission#','#Position.MandateNo#','#Position.OrgUnitOperational#','#Position.FunctionNo#','#Position.Posttype#','#Position.PostGrade#','#Position.LocationCode#','#Position.OrgUnitAdministrative#','#url.PositionNo#')"
-		  menuIcon2="#SESSION.root#/Images/Position_Duplicate.gif"
+		  menuIcon2="#SESSION.root#/Images/PositionDuplicate.png"
 		  menuStatus2="Duplicate position"
 		  menuShow2="#show2#"
 		  
 		  menuName3="View Position"
 		  menuAction3="javascript:EditPost('#url.PositionNo#')"
-		  menuIcon3="#SESSION.root#/Images/Search2.gif"
+		  menuIcon3="#SESSION.root#/Images/PositionView.png"
 		  menuStatus3="View position"
 		  menuShow3="#show3#"
 		  
 		  menuName4="Edit Position"
 		  menuAction4="javascript:EditPosition('#Position.Mission#','#Position.MandateNo#','#url.PositionNo#','i#url.PositionNo#')"
-		  menuIcon4="#SESSION.root#/Images/edit.gif"
+		  menuIcon4="#SESSION.root#/Images/PositionEdit.png"
 		  menuStatus4="Edit position"
 		  menuShow4="#show4#"	   
 		  
 	      menuName5="Initiate Recruitment"
 		  menuAction5="javascript:AddVacancy('#url.PositionNo#')"
-		  menuIcon5="#SESSION.root#/Images/HRadmin.gif"
+		  menuIcon5="#SESSION.root#/Images/Recruitment.png"
 		  menuStatus5="Initiate recruitment"	  
 		  menuShow5="#show6#">
 		  
@@ -166,31 +166,31 @@
 		  
 		  menuName1="Enter Assignment"
 		  menuAction1="javascript:AddAssignment('#url.PositionNo#','i#url.PositionNo#')"
-		  menuIcon1="#SESSION.root#/Images/HR_EmployeeIncoming.gif"	  
+		  menuIcon1="#SESSION.root#/Images/AssignmentAdd.png"	  
 		  menuStatus1="Add a new assignment"
 		  menuShow1="#show5#"
 		  
 		  menuName2="Duplicate Position"
 		  menuAction2="javascript:AddPosition('#Position.Mission#','#Position.MandateNo#','#Position.OrgUnitOperational#','#Position.FunctionNo#','#Position.Posttype#','#Position.PostGrade#','#Position.LocationCode#','#Position.OrgUnitAdministrative#','#url.PositionNo#')"
-		  menuIcon2="#SESSION.root#/Images/Position_Duplicate.gif"
+		  menuIcon2="#SESSION.root#/Images/PositionDuplicate.png"
 		  menuStatus2="Duplicate position"
 		  menuShow2="#show2#"
 		  
 		  menuName3="View Position"
 		  menuAction3="javascript:EditPost('#url.PositionNo#')"
-		  menuIcon3="#SESSION.root#/Images/Search2.gif"
+		  menuIcon3="#SESSION.root#/Images/PositionView.png"
 		  menuStatus3="View position"
 		  menuShow3="#show3#"
 		  
 		  menuName4="Edit Position"
 		  menuAction4="javascript:EditPosition('#Position.Mission#','#Position.MandateNo#','#url.PositionNo#','i#url.PositionNo#')"
-		  menuIcon4="#SESSION.root#/Images/edit.gif"
+		  menuIcon4="#SESSION.root#/Images/PositionEdit.png"
 		  menuStatus4="Edit position"
 		  menuShow4="#show4#"
 		  
 		  menuName5="Intiate Recruitment"
 		  menuAction5="javascript:AddVacancy('#url.PositionNo#')"
-		  menuIcon5="#SESSION.root#/Images/HRadmin.gif"
+		  menuIcon5="#SESSION.root#/Images/Recruitment.png"
 		  menuStatus5="Initiate recruitment"
 		  menuShow5="#show6#">
 		  

@@ -1,7 +1,7 @@
 
-<cf_screentop height="100%" scroll="Yes" html="No">
+<cf_screentop height="100%" JQUERY="YES" scroll="Yes" html="No">
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="left" class="formpadding">
+<table width="100%" align="left" class="formpadding">
 
 <tr><td style="padding-left:15px">
 

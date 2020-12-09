@@ -259,7 +259,6 @@ password="#SESSION.dbpw#">
 	<cf_screentop height="100%" label="#label#" SystemModule="Program" FunctionClass="Window" FunctionName="Project Entry" html="no" jquery="Yes" layout="webapp" scroll="yes" banner="gray">
 </cfif>
 
-
 <cfif URL.EditCode eq "">
 
 	<cfset Update="no">
@@ -270,18 +269,18 @@ password="#SESSION.dbpw#">
      datasource="AppsOrganization"
      username="#SESSION.login#"
      password="#SESSION.dbpw#">
-      SELECT  *
-      FROM    #CLIENT.LanPrefix#Organization O
-   	  WHERE   O.OrgUnit = '#URL.ParentUnit#'
+	      SELECT  *
+	      FROM    #CLIENT.LanPrefix#Organization O
+	   	  WHERE   O.OrgUnit = '#URL.ParentUnit#'
     </cfquery>
 	
 	<cfquery name="Requester" 
      datasource="AppsOrganization" 
      username="#SESSION.login#" 
      password="#SESSION.dbpw#">
-      SELECT *
-      FROM #LanPrefix#Organization O
-	  WHERE O.OrgUnit = '0'
+	      SELECT *
+	      FROM   #LanPrefix#Organization O
+		  WHERE  O.OrgUnit = '0'
      </cfquery>
 
 <cfelse>
@@ -400,7 +399,7 @@ function validate(md) {
 	
 	 <!--- top menu --->
 				
-		<table width="100%" border="0" align="center" class="formpadding" cellspacing="0" cellpadding="0">		  		
+		<table width="100%" border="0" align="center" class="formpadding">		  		
 						
 			<cfset ht = "48">
 			<cfset wd = "48">
@@ -644,11 +643,12 @@ function validate(md) {
 					
 			<cfoutput>	   
 												
-		     <cfif isParent.recordcount eq "0" 
-			   and Position.recordcount eq "0"
-			   and Purchase.recordcount eq "0"
-			   and Ledger.recordcount eq "0">
-			
+		     <cfif isParent.recordcount  eq "0" 
+			   and Position.recordcount  eq "0"
+			   and isCleared.recordcount eq "0"
+			   and Purchase.recordcount  eq "0"
+			   and Ledger.recordcount    eq "0">
+			   			
 			   <cf_tl id="Delete" var="vDelete">
 		       <input class="button10g" style="height:28;width:180" type="submit" name="Delete" onclick="return ask()" value="#vDelete#">
 				 

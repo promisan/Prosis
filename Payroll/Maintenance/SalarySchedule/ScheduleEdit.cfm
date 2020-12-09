@@ -1,5 +1,5 @@
 
-<cf_screentop height="100%" label="Salary schedule #URL.ID1#" banner="gray" layout="webapp" band="No" jquery="Yes" scroll="No">
+<cf_screentop height="100%" label="Salary schedule #URL.ID1#" banner="gray" bannerforce="Yes" layout="webapp" band="No" jquery="Yes" scroll="No">
 
 <cf_menuScript>
 
@@ -76,17 +76,17 @@ function togglePostingMode(v, sel) {
 		
 	<tr><td height="100%">			
 			
-		<table width="100%" height="100%" cellspacing="0" cellpadding="0">
+		<table width="100%" height="100%">
 		
 		<cfoutput>
-		<tr><td height="40">
+		<tr class="line"><td height="40">
 		
 				<!--- top menu --->
 						
-				<table width="100%" border="0" align="center" cellspacing="0" cellpadding="0">		  		
+				<table width="100%" border="0" align="center">		  		
 								
-					<cfset ht = "48">
-					<cfset wd = "48">
+					<cfset ht = "64">
+					<cfset wd = "64">
 										
 					<tr>					
 								
@@ -129,18 +129,13 @@ function togglePostingMode(v, sel) {
 			</td>
 		 </tr>
 		 </cfoutput>
-		 
-		<tr><td height="1" colspan="1" class="linedotted"></td></tr>
-		
+		 		
 		<tr><td height="100%">
 		
-		    <cf_divscroll style="height:100%">
+		   
 			
-			<table width="100%" 
-			      border="0"
-				  height="100%"
-				  cellspacing="0" 
-				  cellpadding="0" 
+			<table width="100%" 			     
+				  height="100%"				 
 				  align="center">	  
 			 		
 					<tr class="hide"><td valign="top" id="result"></td></tr>
@@ -162,9 +157,7 @@ function togglePostingMode(v, sel) {
 					</cf_menucontainer> 	
 								
 			</table>
-			
-			</cf_divscroll>
-		
+					
 		</td></tr>
 		
 		</table>

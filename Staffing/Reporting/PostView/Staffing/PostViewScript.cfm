@@ -35,8 +35,13 @@ function detail(cls,mis,dte) {
 	}
 }	
 
-function treeview(mis,man,tree) {
-	ptoken.open("#SESSION.root#/system/organization/Tree/OrgTree.cfm?link=#link#&mission="+mis+"&mandateno="+man+"&tree="+tree,"tree"+mis);
+
+// function treeview(mis,man,tree) {
+//	ptoken.open('#SESSION.root#/system/organization/Tree/OrgTree.cfm?link=#link#&mission='+mis+'&mandateno='+man+'&tree='+tree,'tree'+mis);
+// }
+
+function positionview(mis,man,tree) {
+	ptoken.open('#SESSION.root#/Staffing/Portal/Staffing/StaffingPosition.cfm?header=1&mission='+mis+'&mandateno='+man,'tree'+mis);
 }
 
 function tree(mis,man,tree,dte) {
@@ -83,8 +88,7 @@ function workflowdrill(key,context) {
 		   co.className = "regular"			  
 		   ex.className = "hide"	
 		   
-		   if (context == "position") {
-		       
+		   if (context == "position") {		       
 			   ptoken.navigate('#SESSION.root#/Staffing/Reporting/Postview/Staffing/PostViewDetailWorkflow.cfm?ajaxid='+key+'?ajaxid='+key,key)		   
 		   }
 		  
@@ -109,7 +113,7 @@ function showorg(org,start,end,space) {
 	     document.getElementById("detail_"+org).className = "regular";			  		  	  	  
 	     ptoken.navigate(url,'detail_'+org)		  	  	
 	 } else {
-	 document.getElementById("detail_"+org).className = "regular";		
+	     document.getElementById("detail_"+org).className = "regular";		
 	 }
 	 
 	 }

@@ -1,6 +1,4 @@
 
-
-
 <cfparam name="URL.Portal" default="0">
 
 <cfif url.Portal eq "0">
@@ -60,8 +58,7 @@
 <cfinvoke component="Service.AccessGlobal"
     Method="global"
   	Role="AdminProgram"
-	ReturnVariable="ManagerAccess">	  
-	
+	ReturnVariable="ManagerAccess">	  	
 	
 <cfif URL.ID1 neq "Tree">
 	
@@ -177,29 +174,32 @@
 				<cfinvoke component="Service.Access"
 					Method         = "organization"
 					Mission        = "#URL.Mission#"
-					OrgUnit        = "#Org.OrgUnit#"
+					OrgUnit        = ""
 					Period         = "#URL.Period#"
 					Role           = "ProgramOfficer"
-					ReturnVariable = "ProgramAccess">	
+					ReturnVariable = "ProgramAccess">															
 			
-			    <cfinclude template = "ProgramViewPrepare.cfm">		
-												
-				<cfinclude template = "ProgramViewMaintain.cfm">						
+			    <cfif ProgramAccess eq "xxxxxnone">
 				
-			 </cfcase>
-		
-			<cfcase value="Progress">
-			
-			    <cfinclude template="ProgramViewPrepare.cfm">
+					  <cf_message message = "You have no access to this organization level. Operation not allowed."
+				      return = "No">		
 				
-				<cfinclude template="../../../Reporting/Progress/Project/ProgressPrepare.cfm">
+				<cfelse>
+
+				    <cfinclude template = "ProgramViewPrepare.cfm">		
+					<cfinclude template = "ProgramViewMaintain.cfm">						
+					
+				</cfif>	
 				
 			</cfcase>
 		
-			<cfcase value="Indicator">
-						
-			<cfinclude template="../../Indicator/Score/ScoreView.cfm">
-			
+			<cfcase value="Progress">			
+			    <cfinclude template="ProgramViewPrepare.cfm">				
+				<cfinclude template="../../../Reporting/Progress/Project/ProgressPrepare.cfm">				
+			</cfcase>
+		
+			<cfcase value="Indicator">						
+				<cfinclude template="../../Indicator/Score/ScoreView.cfm">			
 			</cfcase>
 		
 		</cfswitch>

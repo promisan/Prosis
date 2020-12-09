@@ -1212,7 +1212,6 @@
 		</cfquery>
 
 
-
 <!--- Get Mission Information --->
 		<cfquery name="GetMission"
 				datasource="#datasource#"
@@ -1223,6 +1222,16 @@
 			WHERE Mission = '#mission#'
 		</cfquery>
 
+<!--- Get Warehouse information --->
+		<cfquery name="GetWarehouse"
+				datasource="#datasource#"
+				username="#SESSION.login#"
+				password="#SESSION.dbpw#">
+			SELECT *
+			FROM   Materials.dbo.Warehouse
+			WHERE  Warehouse = '#GetInvoice.Warehouse#'
+		</cfquery>
+
 <!--- Get Warehouse device information --->
 		<cfquery name="GetWarehouseDevice"
 				datasource="#datasource#"
@@ -1231,8 +1240,8 @@
 			SELECT *
 			FROM   Materials.dbo.WarehouseTerminal
 			WHERE  Warehouse = '#GetInvoice.Warehouse#'
-		AND    TerminalName = '#terminal#'
-		AND    Operational=1
+			AND    TerminalName = '#terminal#'
+			AND    Operational=1
 		</cfquery>
 
 <!--- Get Warehouse and Series Information --->
@@ -1240,11 +1249,12 @@
 				datasource="#datasource#"
 				username="#SESSION.login#"
 				password="#SESSION.dbpw#">
-			SELECT *
-			FROM   Organization.dbo.OrganizationTaxSeries
-			WHERE  OrgUnit = '#GetWarehouseDevice.TaxOrgUnitEDI#'
-		AND    SeriesType = 'Invoice'
-		AND    Operational=1
+			SELECT T.*, O.OrgUnitName
+			FROM   Organization.dbo.OrganizationTaxSeries T
+						INNER JOIN Organization.dbo.Organization O ON T.OrgUnit = O.OrgUnit
+			WHERE  T.OrgUnit = '#GetWarehouseDevice.TaxOrgUnitEDI#'
+		AND    T.SeriesType = 'Invoice'
+		AND    T.Operational=1
 		</cfquery>
 
 
@@ -1307,8 +1317,18 @@
 		<cfset vInvoiceTotalExempt = "0">
 		<cfset vInvoiceTotalDiscount = "0">
 		<cfset vInvoiceTotalTax = "0">
-		<cfset vInvoiceTotalDiscount = GetInvoice.TotalDiscounts+0>
-		<cfset vInvoiceTotalTaxDiscount = GetInvoice.TotalTaxDiscounts+0>
+		<cfif GetInvoice.TotalDiscounts neq "">
+			<cfset vInvoiceTotalDiscount = GetInvoice.TotalDiscounts+0>
+		<cfelse>
+			<cfset vInvoiceTotalDiscount = 0>
+		</cfif>
+		<cfif GetInvoice.TotalTaxDiscounts neq "">
+			<cfset vInvoiceTotalTaxDiscount = GetInvoice.TotalTaxDiscounts+0>
+		<cfelse>
+			<cfset vInvoiceTotalTaxDiscount = 0>
+		</cfif>
+
+
 		<cfif GetInvoice.DiscountDescription neq "">
 			<cfset vDiscountDescription = GetInvoice.DiscountDescription>
 		<cfelse>
@@ -1348,7 +1368,7 @@
 			<dte:DTE ID="DatosCertificados">
 			<dte:DatosEmision ID="DatosEmision">
 					<dte:DatosGenerales CodigoMoneda="#vCurrency#" FechaHoraEmision="#DateFormat(now(),"YYYY-MM-DD")#T#TimeFormat(now(),"hh:mm:ssXXX")#" Tipo="#vInvoiceType#"></dte:DatosGenerales>
-					<dte:Emisor AfiliacionIVA="GEN" CodigoEstablecimiento="#GetWarehouseDevice.Reference#" CorreoEmisor="#GetWarehouseSeries.UserEmail#" NITEmisor="#vNitEFACE#" NombreComercial="#GetMission.MissionName#" NombreEmisor="#GetMission.MissionName#">
+					<dte:Emisor AfiliacionIVA="GEN" CodigoEstablecimiento="#GetWarehouseDevice.Reference#" CorreoEmisor="#GetWarehouseSeries.UserEmail#" NITEmisor="#vNitEFACE#" NombreComercial="#GetWarehouseSeries.OrgUnitName#" NombreEmisor="#GetMission.MissionName#">
 			<dte:DireccionEmisor>
 			<dte:Direccion>#GetInvoice.Address#</dte:Direccion>
 				<dte:CodigoPostal>01001</dte:CodigoPostal>
@@ -1422,7 +1442,7 @@
 							<cfset v_ItemDescription = ItemDescription>
 							<cfset v_ItemDescription = replace(v_ItemDescription,"&","&amp;","all")>
 							<cfset v_ItemDescription = replace(v_ItemDescription,"'","&apos;","all")>
-								<dte:Descripcion>#v_ItemDescription#</dte:Descripcion>
+								<dte:Descripcion>#ItemNo#|#v_ItemDescription#</dte:Descripcion>
 
 							<cfif TaxExemption eq "1">
 								<cfset vSaleAmount = SalesAmountExemption>
@@ -1453,11 +1473,11 @@
 						<dte:Impuesto>
 							<dte:NombreCorto>IVA</dte:NombreCorto>
 							<dte:CodigoUnidadGravable>1</dte:CodigoUnidadGravable>
-						<dte:MontoGravable>#trim(numberformat(ABS(vSaleAmount-SalesTax),"__.__"))#</dte:MontoGravable>
-						<dte:MontoImpuesto>#trim(numberformat(SalesTax,"__.__"))#</dte:MontoImpuesto>
+						<dte:MontoGravable>#trim(numberformat(ABS(vSaleAmount-SalesTax),"__._______"))#</dte:MontoGravable>
+						<dte:MontoImpuesto>#trim(numberformat(SalesTax,"__._______"))#</dte:MontoImpuesto>
 						</dte:Impuesto>
 						</dte:Impuestos>
-						<dte:Total>#trim(numberformat(ABS(SalesTotal),"__.__"))#</dte:Total>
+						<dte:Total>#trim(numberformat(ABS(SalesTotal),"__._______"))#</dte:Total>
 						</dte:Item>
 						<cfset vreccount = vreccount + 1>
 					</cfif>
@@ -1474,7 +1494,7 @@
 				<dte:TotalImpuestos>
 						<dte:TotalImpuesto NombreCorto="IVA" TotalMontoImpuesto="#trim(numberformat(vInvoiceTotalTax,"__.__"))#"></dte:TotalImpuesto>
 			</dte:TotalImpuestos>
-			<dte:GranTotal>#vInvoiceTotalAmount#</dte:GranTotal>
+			<dte:GranTotal>#trim(numberformat(vInvoiceTotalAmount,"__._______"))#</dte:GranTotal>
 			</dte:Totales>
 				<cfif vInvoiceType eq "FCAM">
 						<dte:Complementos>
@@ -1567,10 +1587,20 @@
 					</cfcatch>
 				</cftry>
 
+				<cffile action="WRITE" file="#vLogsDirectory#\FEL_#GetInvoice.BatchNo#_Response_Certifier_#RetryNo#.txt" output="#httpResponse.fileContent#">
+
+				<cfif findNoCase("Connection Failure",httpResponse.fileContent)>
+					<cfset vError = 1>
+					<cfset EFACEResponse.Status = "false">
+					<cfset EFACEResponse.Cae = "">
+					<cfset EFACEResponse.DocumentNo = "">
+					<cfset EFACEResponse.Dte = "">
+					<cfset EFACEResponse.ErrorDescription = "Connection Failure">
+					<cfset EFACEResponse.ErrorDetail = "Connection Failure">
+
+				</cfif>
 
 				<cfif vError eq 0>
-
-					<cffile action="WRITE" file="#vLogsDirectory#\FEL_#GetInvoice.BatchNo#_Response_Certifier_#RetryNo#.txt" output="#httpResponse.fileContent#">
 
 					<Cfif jSonCertification.resultado neq "NO">
 						<cfset EFACEResponse.Status = "OK">
@@ -1580,11 +1610,33 @@
 						<cfset EFACEResponse.Dte = jSonCertification.fecha>
 						<cfset EFACEResponse.ErrorDescription = "">
 					<cfelse>
+
+						<cfset e = jSonCertification>
+						<!---
+						.categoria
+						.fuente
+						.mensaje_error
+						.numeral
+						--->
+						<cfset vError = "">
+						<cfset vCategory = "">
+						<cfloop from="1" to="#ArrayLen(e.descripcion_errores)#" index="i">
+							<cfif vError eq "">
+								<cfset vError = e.descripcion_errores[i].mensaje_error>
+								<cfset vCategory = e.descripcion_errores[i].categoria>
+							<cfelse>
+								<cfset vError = "#vError#, #e.descripcion_errores[i].mensaje_error#">
+							</cfif>
+						</cfloop>
+
+
 						<cfset EFACEResponse.Status = "false">
 						<cfset EFACEResponse.Cae = "">
 						<cfset EFACEResponse.DocumentNo = "">
 						<cfset EFACEResponse.Dte = "">
-						<cfset EFACEResponse.ErrorDescription = "Error en conexion 100">
+						<cfset EFACEResponse.ErrorDescription = "#vCategory#">
+						<cfset EFACEResponse.ErrorDetail = "#vError#">
+
 					</cfif>
 				<cfelse>
 					<cfset EFACEResponse.Status = "false">

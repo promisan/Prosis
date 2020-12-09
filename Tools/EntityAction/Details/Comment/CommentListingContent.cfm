@@ -3,6 +3,8 @@
 <cf_param name="url.threadid" default="47939CF6-CF9B-8A52-AFB7-4CBAE9DB7C63" type="String">
 <cf_param name="url.serialno" default="1" type="String">
 
+<cf_param name="url.ajax" default="">
+
 <cfquery name="Object" 
 datasource="AppsOrganization" 
 username="#SESSION.login#" 
@@ -77,7 +79,7 @@ password="#SESSION.dbpw#">
 		
 		<tr class="line navigation_row clsFilterRow clsFilterRow_#currentrow#">
 			<td>
-				<table width="100%" align="center" class="formpadding"> 
+				<table border="0" width="100%" align="center" class="formpadding"> 
 				
 					<tr class="clsRow_#currentrow#">
 					    <!---
@@ -229,6 +231,7 @@ password="#SESSION.dbpw#">
 							<tr class="clsRow_#currentrow# line" style="border-top:1px solid silver">
 							  
 							   <td style="padding-left:10px">
+							   
 							       <table width="100%">
 								   								   
 								   <cf_filelibraryN
@@ -258,22 +261,24 @@ password="#SESSION.dbpw#">
 						<cfset vMaxChars = 100>
 							
 						<tr class="clsRow_#currentrow#">
-							
-							<td valign="top" style="padding-left:20px;padding-right:15px;padding-top:4px;padding-bottom:8px" class="label ccontent">
-								<table width="100%" >
+													
+							<td valign="top" style="padding-top:0px;padding-left:20px;padding-right:15px" class="ccontent">
+													
+								<table width="98%" border="0" align="center">
+								
 									<input type="Hidden" value="1" id="commentListingMailBodyToggler_#currentrow#">
 									<cfset vMailBody = replace(Get.MailBody,"<strong>","<b>","ALL")>
 									<cfset vMailBody = replace(vMailBody,"</strong>","</b>","ALL")>
 									<cfset vMailBody = replace(vMailBody,"<em>","<i>","ALL")>
 									<cfset vMailBody = replace(vMailBody,"</em>","</i>","ALL")>
 									<div id="commentListingMailBodyContent_#currentrow#" style="display:none;">#vMailBody#</div>
-									<tr>				
-											
+									
+									<tr>												
 																																					
 										<td valign="top" class="ccontent" id="commentListingMailBodyContainer_#currentrow#" 
-										 style="background-color:<cfif officerUserId eq session.acc>##462C94<cfelse>##e3e3e3</cfif>;height:30px;border-radius:4px;padding-left:16px;border:1px solid d1d1d1;padding:6px;#vPriorityColor#">
-										
-											<div style="font-size:13px;color:<cfif officerUserId eq session.acc>white<cfelse>black</cfif>">#left(vMailBody,vMaxChars)# <cfif len(get.mailBody) gt vMaxChars>...</cfif></div>
+										 style="border-radius:4px;background-color:<cfif officerUserId eq session.acc>##462C94<cfelse>##e3e3e3</cfif>;padding:2px;border:1px solid d1d1d1;#vPriorityColor#">
+																				
+											<div style="padding:6px;padding-top:10px;font-size:13px;color:<cfif officerUserId eq session.acc>white<cfelse>black</cfif>">#left(vMailBody,vMaxChars)# <cfif len(get.mailBody) gt vMaxChars>...</cfif></div>
 											
 											<cfif len(get.mailBody) gt vMaxChars>
 												<cf_tl id="more" var="1">
@@ -307,14 +312,15 @@ password="#SESSION.dbpw#">
 <cfoutput>
 
 	<cfsavecontent variable="ajaxFunction">
-		
-	    <!--- show content icon --->
+					
+	    if (document.getElementById('mybox')) {
 		<cfif get.recordcount gt 0>					
 		    notifyBorderById('mybox', 'left', 'message.png', '#vMessagesLabel#', 'myboxhascontent');
 		<cfelse>
 			removeNotificationBorderById('mybox', 'left', 'myboxhascontent');
 		</cfif>	
-		 
+		}
+						 
 		<!--- remove wait gif --->
 		_cf_loadingtexthtml='';
 		
@@ -333,11 +339,10 @@ password="#SESSION.dbpw#">
 		<!--- reset any backoffice scripts that might be still running --->
 		try { clearInterval ( commentrefresh_#left(url.objectid,8)# ); } catch(e) {}		
 		commentrefresh_#left(url.objectid,8)# = setInterval('commentstatus("#get.recordcount#","#url.objectid#","communicatecomment_#vURLObjectId#")',20000);
-		
-		<!--- Do search filter 
-		$('##filtersearchsearch').keyup();--->
+				
 	</cfsavecontent>
 	
 </cfoutput>
 
 <cfset AjaxOnLoad("function() { #ajaxFunction# }")>
+	

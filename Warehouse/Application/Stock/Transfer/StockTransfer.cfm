@@ -124,10 +124,10 @@
 					
 					<tr class="labelmedium">
 						<td width="40"></td>
-						<td width="120"><cf_tl id="To Facility">:</td>
+						<td style="min-width:150px"><cf_tl id="Destination">:</td>
 						
-						<td>
-						
+						<td style="width:100%">
+												
 						<table cellspacing="0" cellpadding="0">
 						
 							 <cfquery name="Warehouse"
@@ -211,6 +211,8 @@
 							 
 							 </td>
 							 
+							 
+							 
 							 <!--- ---------------- --->
 							 <!--- Storage Location --->
 							 <!--- ---------------- --->
@@ -232,7 +234,13 @@
 														
 									<cfinclude template="getLocation.cfm">								
 													 
-								</td>								
+								</td>	
+								
+								<td style="padding-left:3px">
+								 <input class="button10g" type="button" value="Inquiry" style="width:80px"
+								 onclick="ProsisUI.createWindow('inquiry', 'Inquiry', '',{x:100,y:100,width:600,height:470,resizable:false,modal:true,center:true});ptoken.navigate('#SESSION.root#/Warehouse/Application/Stock/Transfer/TransferInquiry.cfm?warehouse='+document.getElementById('transferwarehouse#url.id#').value+'&itemNo=#Transaction.ItemNo#&UoM=#Transaction.UnitOfMeasure#','inquiry');">
+								 							 
+								 </td>							
 							
 							</cfif>		
 							
@@ -251,7 +259,7 @@
 								<cfoutput>			
 								<td align="left" style="padding-left:4px;cursor:pointer" id="f#Transaction.TransactionId#" valign="top" 
 								 onclick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/warehouse/application/stock/Transfer/StockTransfer.cfm?mode=delete&warehouse=#url.whs#&id=#url.id#','transfer#url.id#')">			
-								 <font color="FF0000"><cf_tl id="cancel"></font>		
+								 <cf_img icon="delete">								 		
 								</td>			
 								</cfoutput>
 							
@@ -281,7 +289,7 @@
 					<tr class="labelmedium">
 					<td width="40"></td>
 					<td valign="top"><cf_tl id="Product">:</td>
-					<td width="70%" id="itembox#url.id#">	
+					<td width="90%" id="itembox#url.id#">	
 					
 					    <!--- we show the items of the source and the items that are supported for this location selected --->		
 						
@@ -511,7 +519,7 @@
 				
 					<tr class="labelmedium">
 					<td width="40"></td>
-					<td width="70%"><cf_tl id="Quantity">:</td>
+					<td><cf_tl id="Quantity">:</td>
 					<td>
 						
 						<input type    = "text"
@@ -531,7 +539,7 @@
 				
 				<tr class="labelmedium">
 					<td width="40"></td>
-						<td width="70%"><cf_tl id="Date/Time">:</td>
+						<td><cf_tl id="Date/Time">:</td>
 						<td>
 						
 						 <cf_getWarehouseTime warehouse="#url.whs#">

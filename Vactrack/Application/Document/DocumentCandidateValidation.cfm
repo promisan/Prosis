@@ -4,9 +4,9 @@
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 	INSERT INTO DocumentValidation
-	(DocumentNo,ValidationCode,OfficerUserId,OfficerLastName,OfficerFirstName)
+		(DocumentNo,ValidationCode,OfficerUserId,OfficerLastName,OfficerFirstName)
 	VALUES
-	('#url.documentNo#','OverwriteSelection','#SESSION.acc#','#SESSION.last#','#SESSION.first#')	
+		('#url.documentNo#','OverwriteSelection','#SESSION.acc#','#SESSION.last#','#SESSION.first#')	
 </cfquery>
 
 <cfquery name="Validation" 
@@ -33,7 +33,7 @@
 	<cfelse>
 		
 	<tr><td height="20">	
-		 &nbsp;<a href="javascript:ColdFusion.navigate('DocumentCandidateValidation.cfm?documentNo=#url.documentno#','selectionvalidation')">
+		 &nbsp;<a href="javascript:ptoken.navigate('#session.root#/Vactrack/Application/Document/DocumentCandidateValidation.cfm?documentNo=#url.documentno#','selectionvalidation')">
 		 <font color="2894FF">
 		 Press here to overwrite the candidate selection limitation
 		 </font>

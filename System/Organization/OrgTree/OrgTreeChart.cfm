@@ -41,6 +41,7 @@
 	<cfset vFiltered = 1>
 </cfif>
 
+
 <cfquery name="getDirectory" 
 	datasource="AppsEmployee">
 	
@@ -95,7 +96,7 @@
 							SELECT	TOP 1 PC.ContractLevel
 							FROM	PersonContract PC							
 							WHERE	PC.PersonNo        = A.PersonNo
-							AND     PC.ActionStatus    = '1'					
+							AND     PC.ActionStatus    IN ('1','0')					
 							AND     PC.DateExpiration >= '#url.referencedate#'
 							ORDER BY DateExpiration DESC ), '') as ContractLevel
 						
@@ -169,7 +170,7 @@
 				
 			) as Data
 			
-			INNER JOIN Ref_PostGrade CG ON Data.ContractLevel = CG.PostGrade
+			LEFT OUTER JOIN Ref_PostGrade CG ON Data.ContractLevel = CG.PostGrade
 			RIGHT OUTER JOIN Organization.dbo.Organization O ON Data.OrgUnit#trim(url.orgunittype)# = O.OrgUnit 
 			
 			WHERE  O.Mission          = '#url.mission#'
@@ -202,11 +203,9 @@
 								
 								
 			</cfif>				
-					
 			
+		ORDER BY O.HierarchyCode, Data.PostOrder, CG.PostOrder	
 		
-		
-		ORDER BY O.HierarchyCode, Data.PostOrder, CG.PostOrder		
 		
 </cfquery>
 

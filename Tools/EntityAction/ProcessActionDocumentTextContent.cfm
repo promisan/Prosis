@@ -160,7 +160,9 @@
 		
 			</table>				
 			
-	   <cfelseif doc.documentMode eq "AsIs" and doc.DocumentLayout eq "PDF">		   		  
+	   <cfelseif doc.documentMode eq "AsIs" and doc.DocumentLayout eq "PDF">		
+	  
+	  		  
 	   
 			   <!--- PDF load --->
 			   			 

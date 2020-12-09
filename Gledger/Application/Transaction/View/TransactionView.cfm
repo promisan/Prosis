@@ -231,15 +231,6 @@ password="#SESSION.dbpw#">
 	FROM     Parameter 
 </cfquery>
 
-<cfquery name="get" 
-datasource="AppsLedger" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-	SELECT     H.*
-	FROM       TransactionHeader H
-	WHERE      H.Journal         = '#URL.Journal#' 
-	AND        H.JournalSerialNo = '#URL.JournalSerialNo#' 	
-</cfquery>
 
 <cfif url.role eq "" or url.role eq "undefined">
 
@@ -254,7 +245,7 @@ password="#SESSION.dbpw#">
 	<cfinvoke component = "Service.Access"  
 	   method           = "RoleAccess" 
 	   role             = "'#url.role#'"
-	   mission          = "#get.mission#"	
+	   mission          = "#Transaction.mission#"	
 	   accesslevel      = "'1','2'"  
 	   orgunit          = "0"
 	   returnvariable   = "access">	
@@ -310,11 +301,26 @@ password="#SESSION.dbpw#">
 
 <!--- define the correct matching balance --->
 		
-<cfif Transaction.matchingRequired eq "1" or get.matchingRequired eq "1">
+<cfif Transaction.matchingRequired eq "1">
 
     <cf_TransactionOutstanding 
 	    journal="#url.journal#" 
 	    journalserialNo="#url.journalserialNo#">
+		
+	<!--- as this may change the value on the outstnading field, we refresh the content before we present --->	
+		
+	<cfquery name="Transaction" 
+	datasource="AppsLedger" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT     H.*, 
+		           P.ActionStatus as AccountStatus
+		FROM       TransactionHeader H, Period P
+		WHERE      H.Journal         = '#URL.Journal#' 
+		AND        H.JournalSerialNo = '#URL.JournalSerialNo#' 
+		AND        H.AccountPeriod   = P.AccountPeriod
+		ORDER BY   H.TransactionDate
+	</cfquery>	
 								
 </cfif>
 

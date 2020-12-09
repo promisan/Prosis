@@ -1413,12 +1413,12 @@ password="#SESSION.dbpw#">
 						   </cfif>
 			
 						   <cf_tl id="Please enter an amount" var="1">
-						   
+						   						   
 						   <cfinput type="Text" 
 							   name="requestprice_1"
 							   id="requestprice_1"
 						       value="#val#"						       			   
-							   style="text-align:right;padding-right:3px;width:92"
+							   style="text-align:right;padding-right:3px;width:88px;border-radius:0px"
 							   message="#lt_text#"
 							   class="regularxl enterastab"
 						       required="Yes">			   
@@ -1435,7 +1435,7 @@ password="#SESSION.dbpw#">
 				   <td>				   
 					   	<table cellspacing="0" cellpadding="0">
 						<tr>
-						   <td align="right" bgcolor="A4FFA4" style="font-size:14px;height:27;width:91;border-radius:3px;border:1px solid silver;padding-right:3px">
+						   <td align="right" bgcolor="A4FFA4" style="font-size:14px;height:27px;width:91;border-radius:3px;border:1px solid silver;padding-right:3px">
 							
 							<cfparam name="lk" default="">
 					   
@@ -1496,7 +1496,7 @@ password="#SESSION.dbpw#">
 			   
 			   <cfelse>
 			   		   
-			   		<textarea style="padding:4px;width:100%;height:45;font-size:13px" name="RequestRemarks" class="enterastab regular">#entry.requestRemarks#</textarea>
+			   		<textarea style="padding:4px;width:97.5%;max-width:97.5%;resize: vertical;height:45;font-size:13px" name="RequestRemarks" class="enterastab regular">#entry.requestRemarks#</textarea>
 					
 				</cfif>	
 			   

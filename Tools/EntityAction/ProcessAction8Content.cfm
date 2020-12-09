@@ -1,8 +1,8 @@
-<table width="100%" height="100%" cellspacing="0" cellpadding="0">
+<table width="100%" height="100%">
 	
 	<tr><td colspan="2" style="padding-left:15px;padding-right:15px;">
    	
-	<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+	<table width="100%" height="100%">
 		
 	<cfparam name="URL.Mode" default="">	
 	<cfparam name="url.id"  default="{00000000-0000-0000-0000-000000000000}">
@@ -107,6 +107,7 @@
 						<table width="100%">
 							<tr class="labelmedium">
 							<td style="font-size:16px;background-color:white">
+							#Object.EntityClassName# /
 							#Object.ObjectReference# <cfif Object.ObjectReference2 neq "">(#Object.ObjectReference2#)</cfif>
 							</td>					
 							<td align="right" style="background-color:white">

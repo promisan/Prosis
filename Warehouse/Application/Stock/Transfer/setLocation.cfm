@@ -64,7 +64,7 @@
 	 <select name  = "locationto" 
 	         id    = "locationto" 
 			 class = "regularxl"
-			 style = "width:auto;"
+			 style = "width:auto;border:0px;font-size:14px;background-color:transparent"
 	         onChange = "ptoken.navigate('#session.root#/warehouse/application/stock/transfer/applyLocation.cfm?systemfunctionid=#url.systemfunctionid#&whs=#url.whs#&warehouseto=#url.warehouseto#&locationto='+this.value,'setvalue');">		 
 						
 		<cfloop query="Location">

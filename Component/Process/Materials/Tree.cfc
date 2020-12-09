@@ -44,10 +44,10 @@
 					</cfcase>					
 				</cfswitch>
 				
-			<cfelse>								
+			<cfelse>						
 			
 				<cfinclude template = "Tree/#vMid#.cfm">	
-				
+									
 				<cfset s = StructNew()> 	
 				<cfset s.value="">   									
 				<cfset s.leafnode=true/>	

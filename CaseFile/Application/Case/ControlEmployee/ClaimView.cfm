@@ -50,9 +50,9 @@
    <cf_layoutarea 
           position="left"
           name="controltree"          
-          size="270"
-		  minsize="270"
-		  maxsize="270"
+          size="320"
+		  minsize="320"
+		  maxsize="320"
           overflow="auto"			
           collapsible="true" 
           splitter="true">		  

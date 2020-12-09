@@ -38,9 +38,7 @@
 	   <cfelse>
 	     <cfset cl = "hide"> 	 
 	   </cfif>
-	  		   
-	   		   	   
-	  	   
+	     
 	   <cfquery name="SearchResult"
 		   datasource="AppsQuery"
 		   username="#SESSION.login#"
@@ -97,21 +95,21 @@
 					<table bgcolor="FDFEDE" style="width:100%;height:100%;height:80px">
 					
 					<tr>
-					<td valign="top" style="padding-left:10px;padding-top:5px;border:1px solid silver;border-right:0px">
+					<td valign="top" style="padding-left:10px;padding-top:5px;border:1px solid silver;border-right:0px;border-top:0px">
 																	
-					<img src="#session.root#/Images/Logos/Staffing/OrgUnit.png" 
+					<img src="#session.root#/Images/Logos/Staffing/OrgUnit1.png" 
 						alt="Click to access classe under." height="60"
 						id="classExpand" border="0" class="regular" 
 						align="absmiddle" style="cursor: pointer; border : 0px solid silver;" 
 						onClick="showclass()">
 					
-					<img src="#session.root#/Images/Logos/Staffing/OrgUnit.png" height="60"
+					<img src="#session.root#/Images/Logos/Staffing/OrgUnit1.png" height="60"
 						id="classMin" alt="Click to hide units" border="0" 
 						align="absmiddle" class="hide" style="cursor: pointer; border : 0px solid silver;" 
 						onClick="showclass()">
 					
 					</td>
-					<td valign="top" style="border:1px solid silver;border-left:0px;min-width:268px;max-width:268px;font-weight:200;width:100%;font-size:31px;padding-top:17px" class="labellarge">		
+					<td valign="top" style="border:1px solid silver;border-left:0px;border-top:0px;min-width:268px;max-width:268px;font-weight:290;width:100%;font-size:31px;padding-top:17px;padding-left:20px" class="labellarge">		
 						#Mission#  			
 					</td>
 					</tr>
@@ -144,7 +142,7 @@
 					  	<cfset bgc = "FFF4F4">
 					  </cfif>
 					  
-					   <td style="height:28px;font-size:12px;padding-left:2px;cursor:pointer;min-width:40;border-bottom:1px solid gray">
+					   <td style="height:23px;font-size:12px;padding-left:2px;cursor:pointer;min-width:40;border-bottom:1px solid gray">
 					  					  
 					   <cfif Client.LanguageId eq "ESP">
 					   

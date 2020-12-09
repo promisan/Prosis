@@ -1,7 +1,21 @@
+
+<cfquery name="Item" 
+datasource="appsMaterials" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT *
+	FROM   Item
+	WHERE  ItemNo = '#URL.ID#' 
+</cfquery>
  
-<cfparam name="URL.ID"      default="0000">
-<cfparam name="URL.Mission" default="Promisan">
-<cfparam name="url.idmenu"  default="">
+<cfparam name="url.ID"       default="0000">
+<cfparam name="url.Mission"  default="#Item.Mission#">
+<cfparam name="url.idmenu"   default="">
+<cfparam name="url.MID"      default="">
+
+<cfif url.mission eq "">
+	<cfset url.mission = item.Mission>
+</cfif>
 
 <cfinclude template="ItemViewScript.cfm">
 
@@ -16,21 +30,9 @@
 <cfinclude template="ItemScript.cfm">
 
 <cfajaximport tags="cfform">
-
-<cfquery name="Item" 
-datasource="appsMaterials" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-	SELECT *
-	FROM   Item
-	WHERE  ItemNo = '#URL.ID#' 
-</cfquery>
-
-<cfparam name="URL.Mission" default="Promisan">
-<cfparam name="URL.MID"     default="">
 	
-<input type="hidden" name="optionselect" id="optionselect">	
-<input type="hidden" name="mission" id="mission" value="<cfoutput>#URL.mission#</cfoutput>"> 
+<!--- variables that contain the selected menu function to be reloaded --->	
+<input type="hidden" id="optionselect">	
 
 <script language="JavaScript">
 
@@ -105,7 +107,7 @@ function toggleMenu(){
 
 	<cf_layoutArea position="header" name="theHeader">
 		<cf_tl id="Stock Control" var="1">
-		<cf_ViewTopMenu label="#url.mission#: #Item.ItemDescription#" background="gray">
+		<cf_ViewTopMenu label="#Item.ItemDescription#" background="gray">
 	</cf_layoutArea>
 
 	<cf_layoutarea position="left" name="leftmenu" maxsize="300" size="230" collapsible="true" splitter="true">
@@ -115,12 +117,10 @@ function toggleMenu(){
 	<cf_layoutarea  position="center" name="mainbox" overflow="auto">	
 		
 		<cf_divscroll>			
-		<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding">			    
+		<table width="100%" height="100%" class="formpadding">			    
 			<tr>	
-				<td width="100%" valign="top" height="100%" id="main" style="padding:4px">
-			
-				   <cfinclude template="ItemViewHeader.cfm">	
-					
+				<td width="100%" valign="top" height="100%" id="main" style="padding:4px">			
+				   <cfinclude template="ItemViewHeader.cfm">						
 				</td>
 			</tr>
 		</table>

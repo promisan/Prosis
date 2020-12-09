@@ -224,7 +224,7 @@
 						<cfif cnt eq "1"><tr></cfif>
 						
 						<td height="12" style="width:160<cfif cnt neq '1'>;padding-left:10px</cfif>" class="labelmedium">#Current.LabelFilter#: <cfif current.filtermode eq "4"></cfif>
-						<cfif current.filterforce eq "1"><font color="FF0000">*)</font></cfif><cf_space spaces="40">
+						<cfif current.filterforce eq "1"><font color="FF0000">*)</font></cfif>
 						</td>
 						
 						<cfif client.browser eq "explorer">
@@ -676,13 +676,11 @@
 			
 			<cfif url.systemfunctionid neq "" and group eq "Yes">
 							
-			 	<tr><td class="labelmedium" style="height:35px"><cf_tl id="Group output by">:<cf_space spaces="30"></td>
+			 	<tr><td class="labelmedium" style="min-width:200px;height:35px"><cf_tl id="Group output by">:</td>
 				<td colspan="5">
 					<table cellspacing="0" cellpadding="0">
-					<tr>
-					
-					<td><input type="radio" class="radiol" name="groupfield" 
-									 value="none" <cfif url.listgroup eq "">checked></cfif></td>
+					<tr>					
+					<td><input type="radio" class="radiol" name="groupfield" value="none" <cfif url.listgroup eq "">checked></cfif></td>
 					<td style="padding-left:3px;padding-right:7px" class="labelit"><cf_tl id="None"></td>
 					
 					<cfset hasGroup = "0">
@@ -692,15 +690,13 @@
 								<cfset hasGroup = "1">					
 								<td><input type="radio" class="radiol" name="groupfield" 
 									 value="#current.field#" <cfif url.listgroupfield eq current.field>checked</cfif>></td>
-								<td style="padding-left:4px;padding-right:7px" class="labelit">#current.labelfilter#</td>
-									
+								<td style="padding-left:4px;padding-right:7px" class="labelit">#current.labelfilter#</td>									
 						</cfif>
 					</cfloop>
 					
-					<cfif hasGroup eq "1">
-					
-					<td style="padding-left:8px"><input type="checkbox" class="radiol" name="groupdir" 
-									 value="DESC" <cfif url.listgroupdir eq "DESC">checked></cfif></td><td style="padding-left:4px;padding-right:7px"><cf_tl id="DESC"></td>
+					<cfif hasGroup eq "1">					
+					<td style="padding-left:8px"><input type="checkbox" class="radiol" name="groupdir" value="DESC" <cfif url.listgroupdir eq "DESC">checked></cfif></td>
+					 <td style="padding-left:4px;padding-right:7px"><cf_tl id="DESC"></td>
 									 
 					</cfif>				 
 					
@@ -721,15 +717,11 @@
 				<tr>
 				<td>		
 					 <cf_tl id="Reset" var="1">
-				     <input type="button" name="reset" id="reset" value="#lt_text#" class="button10g" style="border-radius:7px;font-size:12px;height:25px;width:120px" onClick= "#reset#">    	
-					 
-				</td>
-				
-				
+				     <input type="button" name="reset" id="reset" value="#lt_text#" class="button10g" style="border-radius:7px;font-size:12px;height:25px;width:120px" onClick= "#reset#">    						 
+				</td>			
 				<td style="padding-left:2px">
 					 <cf_tl id="Apply" var="1">
-					 <input type="button" name="apply" id="apply" value="#lt_text#" class="button10g" style="font-size:12px;height:25px;border-radius:7px;width:120px" onClick= "applyfilter('',1,'content')">  
-														
+					 <input type="button" name="apply" id="apply" value="#lt_text#" class="button10g" style="font-size:12px;height:25px;border-radius:7px;width:120px" onClick= "applyfilter('',1,'content')">  														
 				</td>
 				
 				<cfif url.systemfunctionid neq "">

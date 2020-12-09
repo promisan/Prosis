@@ -1,14 +1,14 @@
 
 <cfoutput>
 
-<table width="99%" style="min-width: 1200px;" border="0" align="center" cellspacing="0" cellpadding="0">		  		
+<table width="99%" style="min-width: 1200px;" border="0" align="center">		  		
 						
 	<cfinvoke component="Service.Presentation.Presentation"
     method="highlight" class="highlight3"
     returnvariable="stylescroll"/>
 	
-		<cfset ht = "64">
-		<cfset wd = "64">
+		<cfset ht = "54">
+		<cfset wd = "54">
 		
 		<cf_tl id="Advanced" var="1">
 		<cfset tInquiry = "#Lt_text#">		

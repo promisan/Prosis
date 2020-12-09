@@ -68,6 +68,8 @@
 
 </cfif>   
 
+
+
 </cfoutput>
 
 <meta http-equiv="Pragma" content="no-cache"> 
@@ -83,7 +85,7 @@
 
 <cf_layout attributeCollection="#attrib#">
 	
-	<cfif url.mode neq "complete">
+	<cfif url.mode neq "complete" and url.mode neq "Vacancy">
 	
 	<cf_layoutarea 
 	   	position  = "header"
@@ -134,5 +136,6 @@
 </cf_layout>
 	
 </cfoutput>
+
 
 <cf_screenBottom layout="webapp">

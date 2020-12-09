@@ -23,7 +23,7 @@
 		<tr class="line" class="labelmedium">
 		</cfif>
 		
-			<td style="min-width:100px;padding-top:3px;padding-left:4px" valign="top">#StatusClass#:</td>
+			<td style="min-width:100px;padding-top:3px;padding-left:4px;background-color:e5e5e5" valign="top">#StatusClass#:</td>
 		
 			<td valign="top" style="padding-top:3px;width:31%">
 				<table>
@@ -58,7 +58,7 @@
 	</cfoutput>				
 			
 	<tr class="labelmedium">
-		<td valign="top" style="padding-top:3px;padding-left:3px">Text entry areas:</td>
+		<td valign="top" style="padding-top:3px;background-color:e5e5e5;padding-left:3px">Text entry areas:</td>
 		<td valign="top" style="padding-top:3px;" colspan="5">
 			<cfquery name="programProfile" 
 				datasource="AppsProgram" 
@@ -88,10 +88,10 @@
 					<cfset cnt = cnt+1>
 	
 				    <cfif cnt eq "1">
-						<tr class="navigation_row labelmedium" id="rowp_#vProfileId#" style="height:15px">
+						<tr class="navigation_row labelmedium line" id="rowp_#vProfileId#" style="height:15px">
 					</cfif>
 					
-						<td style="#vProfileStyle#" width="2%">
+						<td style="#vProfileStyle#;<cfif cnt gt '1'>border-left:1px solid silver</cfif>" align="center" width="2%">
 							<input type="Checkbox" 
 								id="profile_#vProfileId#" 
 								name="profile_#vProfileId#" 
@@ -99,7 +99,7 @@
 								<cfif Selected eq Code>checked</cfif>>
 						</td>
 						<td style="padding-left:6px; #vProfileStyle#;width:31%;border-left:1px solid silver">
-							<label for="profile_#vProfileId#">#Description#</label>
+							<label for="profile_#vProfileId#">#left(Description,60)#</label>
 						</td>
 						
 					<cfif cnt eq "3"></tr><cfset cnt = 0></cfif>

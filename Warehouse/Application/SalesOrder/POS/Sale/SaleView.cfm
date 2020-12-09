@@ -316,7 +316,7 @@ password="#SESSION.dbpw#">
 			   
 			   </cfif>
 																		
-			<td colspan="1" valign="top" style="border:1px solid gray;min-width:65%;border-top-left-radius:0px;border-bottom-left-radius:1px;background-image:<cfif url.scope eq 'POS'>linear-gradient(to bottom,##dadada,##dadada)</cfif>;padding-right:15px;height:80px;" id="customer_box">
+			<td colspan="1" valign="top" style="min-width:65%;border-top-left-radius:0px;border-bottom-left-radius:1px;<cfif url.scope eq 'POS'>border:1px solid gray;background-image:linear-gradient(to bottom,##dadada,##dadada)</cfif>;padding-right:15px;height:80px;" id="customer_box">
 						
 				<table width="100%" align="left" style="min-width:360px">
 				
@@ -357,7 +357,7 @@ password="#SESSION.dbpw#">
 							<tr>
 							
 							<td onkeydown="if (event.keyCode==13) {$('##customerinvoiceselect').focus(); }" class="clsNoPrint"
-							   style="border-top-left-radius:0px;border-bottom-left-radius:0px;border:0px solid gray"> 
+							   style="border-top-left-radius:0px;border:0px solid gray"> 
 							
 								<input type="hidden"  id="customeridselect"     name="customeridselect" value="#url.customerid#">
 								<input type="hidden"  id="customeridselect_val" name="customeridselect_val" value="">
@@ -365,17 +365,17 @@ password="#SESSION.dbpw#">
 								<cf_tl id="Select a customer" var="1">
 								
 								<cfif url.scope neq "POS">
-																								
+																																								
 								 	<input type         = "text" readonly
 								         name         = "customerselect" 
 								         id           = "customerselect"	
 										 onfocus      = "this.style.border='1px solid gray';document.getElementById('customerinvoiceselectbox').className ='hide';" 
 										 onblur       = "this.style.border='0px solid gray';forceSelect(this, 'customeridselect');"			 
-								         style        = "border:1px solid silver;background-image:linear-gradient(to bottom,##e1e1e1,##e1e1e1);padding-left:4px;width:75px;height:26px;font-size:17px;"
+								         style        = "border:0px solid silver;width:75px;height:26px;font-size:17px;"
 								         autocomplete = "off">						
 								
 								<cfelse>
-																					
+																													
 							  	<cfinput type         = "text" 
 								         name         = "customerselect" 
 								         id           = "customerselect"	
@@ -392,7 +392,7 @@ password="#SESSION.dbpw#">
 							  
 							  </td>							
 							
-							  <td style="width:100%;padding-left:4px;border:0px solid gray;" class="regular">	
+							  <td style="width:100%;padding-left:0px;border:0px solid gray;" class="regular">	
 							  
 							       <table width="100%">								  
 								   <tr><td id="customerbox" style="width:100%;background-color:##d4d4d4;max-height:26px;min-width:150px;height:26px;font-size:17px;padding-right:4px">					 						 								  								   
@@ -434,7 +434,7 @@ password="#SESSION.dbpw#">
 			   </td>			   
 			  			   			   	  			  			 			   	  			  
 			   <td valign="top" 
-			       style="border:1px solid gray;min-width:200px;padding-left:5px;background-image:<cfif url.scope eq 'POS'>linear-gradient(to bottom,##c1c1c1,##c1c1c1)</cfif>" 
+			       style="min-width:200px;padding-left:5px;<cfif url.scope eq 'POS'>border:1px solid gray;background-image:linear-gradient(to bottom,##c1c1c1,##c1c1c1)</cfif>" 
 				   class="#full#">
 			   
 				   <table width="100%" border="0"> 
@@ -676,7 +676,7 @@ password="#SESSION.dbpw#">
 							
 				<cfset htx = "100%">
 												
-					<table border="0" width="100%" height="100%" style="border:1px solid silver;">
+					<table border="0" width="100%" height="100%" style="border-top:1px solid silver;">
 										   						
 						<tr style="background-color:##f1f1f1;height:10px;border-bottom:1px solid silver">
 						<td style="padding:5px 10px 6px 0;">
@@ -713,9 +713,9 @@ password="#SESSION.dbpw#">
 						</td>
 						</tr>
 						
-						<tr>
+						<tr style="border-bottom:1px solid silver;">
 													
-						    <td height="100%" style="border:0px solid gray;border-bottom-left-radius:5px;border-bottom-RIGHT-radius:5px" width="100%" valign="top" bgcolor="ffffff"> 		
+						    <td height="100%" width="100%" valign="top" bgcolor="ffffff"> 		
 						    <cf_divscroll id="salelines" overflowy="scroll">																
 							   <cfinclude template="SaleViewLines.cfm">								
 							</cf_divscroll>   							
@@ -736,14 +736,14 @@ password="#SESSION.dbpw#">
 				
 				<tr>
 				
-				<td valign="top" style="padding-left:5px;min-width:340px;padding-right:5px" class="clsNoPrint">
+				<td valign="top" style="padding-top:4px;padding-left:5px;min-width:340px;padding-right:5px" class="clsNoPrint">
 				
 					<table>
 					
 						<cfif get.SaleMode gte "1">
 						
 							<tr class="clsNoPrint">
-							<td style="border:1px solid silver;height:40px;padding-top:4px;padding-left:5px; color:##000000;">
+							<td style="height:40px;padding-top:4px;padding-left:5px; color:##000000;">
 			
 								<table cellspacing="0" cellpadding="0">
 								<tr>
@@ -794,17 +794,25 @@ password="#SESSION.dbpw#">
 					
 					</table>		
 	
-				</td>			
+				</td>	
 				
-				<td width="50%" style="border:1px solid silver;height:100px;" valign="top" class="clsFooterDetail clsCustomeradditional;#full#">
+				<cfif url.scope eq "POS">		
+				
+				<td width="50%" style="padding-top:4px;height:100px;" valign="top" class="clsFooterDetail clsCustomeradditional;#full#">
 													
 					<div id="customeradditional" style="border-bottom-left-radius:10px;height:100%; padding-top:1px; padding-bottom:3px;background-image: linear-gradient(to bottom,##d6d6d6,##f1f1f1);">								
 						<cfinclude template="getCustomerInfo.cfm">
 					</div>
 													
 				</td>
+				
+				<cfelse>
+				
+				<td></td>
+				
+				</cfif>
 													
-				<td width="50%" valign="top" style="border:1px solid silver;min-width:300px;" class="clsFooterDetail">
+				<td width="50%" valign="top" style="padding-top:4px;min-width:300px;" class="clsFooterDetail">
 				
 					<table width="100%" height="100%">
 																					
@@ -881,8 +889,7 @@ password="#SESSION.dbpw#">
 	                                    imageHeight = "48px"										
 										style		= "cursor:pointer;min-width:150px;border-radius: 4px!important;background-color: ##FFFF00;background-repeat: no-repeat;background-size: 48px 48px;background-position:  270px 8px;padding-right: 40px;"																
 										onclick		= "#vScriptFunction#">	
-
-
+										
 							</td></tr>
 							 				
 						</table>

@@ -63,8 +63,7 @@
 			<cfargument name="filename"    type="string" required="true"   default="">
 			<cfargument name="sheetname"   type="string" required="true"   default="My sheet">
 			
-			<cfargument name="cols"        type="array"  required="yes">
-				
+			<cfargument name="cols"        type="array"  required="yes">				
 
 			<cfloop index="x" from="1" to="#ArrayLen(cols)#">
 			
@@ -75,7 +74,6 @@
 				</cfif>	
 			
 			</cfloop>
-
 
 			<cfquery name="data" 
 				datasource="#datasource#">
@@ -212,8 +210,7 @@
 		
 			<cfset rowstart = "2">
 			
-			<cfset session.status    = "0">							
-			
+			<cfset session.status    = "0">				
 			
 			<cfquery name="group1" dbtype="query"> 
 			     SELECT DISTINCT #groupbyone#

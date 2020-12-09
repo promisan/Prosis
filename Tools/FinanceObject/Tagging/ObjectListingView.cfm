@@ -356,7 +356,7 @@
 					   
 					   </td>
 					   <td width="50" align="center" class="labelmedium">#Currency#</td>
-					   <td width="120" align="right" id="amt#serialno#" class="labelmedium">#numberFormat(Amount,"__,__.__")# </td>
+					   <td width="120" align="right" id="amt#serialno#" class="labelmedium">#numberFormat(Amount,",.__")# </td>
 					   <td width="30%" height="21">	
 					 		 <table cellspacing="0" cellpadding="0" class="formpadding">
 								 <tr>

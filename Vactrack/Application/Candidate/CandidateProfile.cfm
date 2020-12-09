@@ -9,7 +9,7 @@ password="#SESSION.dbpw#">
     FROM  Document
 	WHERE DocumentNo = '#url.documentNo#' 
 </cfquery>
-		
+
 <cf_ComparisonView 
     personNo="#url.PersonNo#" 
 	hideperson="No" 

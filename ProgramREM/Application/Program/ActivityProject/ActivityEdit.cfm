@@ -192,14 +192,14 @@ password="#SESSION.dbpw#">
 								        <td valign="top">
 										   <table cellspacing="0" cellpadding="0"><tr><td height="20" style="padding-top:3px" class="labelmedium"><cf_tl id="Detailed Outline">:</td></tr></table>
 										</td>
-									    <td colspan="3" height="28" class="labelmedium" style="padding-right:1px">
+									    <td colspan="3" height="28" class="labelmedium" style="padding-right:1px;border-bottom:1px solid silver">
 										   <cfoutput>
 										   
 											<cfif ProgramAccess eq "ALL" or completed eq "0">											
 											
 											   <cf_textarea name="activityoutline" id="activityoutline"                                            
 												   height         = "100"
-												   toolbar        = "basic"
+												   toolbar        = "mini"
 												   init           = "Yes"
 												   resize         = "yes"
 												   color          = "ffffff">#EditActivity.ActivityOutline#</cf_textarea>										

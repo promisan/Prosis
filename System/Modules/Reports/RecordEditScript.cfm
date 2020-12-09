@@ -70,21 +70,18 @@ function outputpurge(rl) {
 }
 		
 function outputedit(val) {	
-	ColdFusion.Window.create('mydialog', 'Edit', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,center:true})    
-	ColdFusion.Window.show('mydialog') 				
+	ProsisUI.createWindow('mydialog', 'Edit', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,center:true})    			
 	ptoken.navigate('../ReportOutput/LayoutView.cfm?Status=#op#&ID=#URL.ID#&ID1='+val,'mydialog') 		
 } 
 								
-function extractadd() {		        
-	try { ColdFusion.Window.destroy('myexcel',true) } catch(e) {}
-	ColdFusion.Window.create('myexcel', 'Receipt', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,resizable:false,center:true})    			
-	ColdFusion.navigate('../ReportOutput/ExcelView.cfm?Mode=new&ID=#URL.ID#&ID1=','myexcel') 		
+function extractadd() {		        	
+	ProsisUI.createWindow('myexcel', 'Extract', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,resizable:false,center:true})    			
+	ptoken.navigate('../ReportOutput/ExcelView.cfm?Mode=new&ID=#URL.ID#&ID1=','myexcel') 		
 } 
 			
-function extractedit(id1) {
-    try { ColdFusion.Window.destroy('myexcel',true) } catch(e) {}
-	ColdFusion.Window.create('myexcel', 'Receipt', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,resizable:false,center:true})    			
-	ColdFusion.navigate('../ReportOutput/ExcelView.cfm?Mode=edit&ID=#URL.ID#&ID1=' + id1,'myexcel') 				
+function extractedit(id1) {    
+	ProsisUI.createWindow('myexcel', 'Extract', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,resizable:false,center:true})    			
+	ptoken.navigate('../ReportOutput/ExcelView.cfm?Mode=edit&ID=#URL.ID#&ID1=' + id1,'myexcel') 				
 } 	
 	
 function outputrefresh() {		      

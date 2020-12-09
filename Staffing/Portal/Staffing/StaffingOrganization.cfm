@@ -1,9 +1,11 @@
 
 <table style="height:100%;width:100%">
 
+<!---
 <tr class="labelmedium line">
 	<td style="font-size:16px"><cf_tl id="Select units"></td>
 </tr>
+--->
 
 <tr><td style="height:100%">
 
@@ -22,6 +24,11 @@
 				WHERE    O.Mission = '#url.mission#' 			
 				AND      O.DateEffective  < '#url.selection#' 
 				AND      O.DateExpiration > '#url.selection#'
+				
+				AND      O.OrgUnit IN (SELECT  OrgUnitOperational
+										FROM   Employee.dbo.Position
+										WHERE  Mission = '#url.mission#')		
+				
 				ORDER BY O.HierarchyCode
 				
 		</cfquery>
@@ -37,6 +44,11 @@
 				WHERE    O.Mission = '#url.mission#' 			
 				AND      O.DateEffective  < '#url.selection#' 
 				AND      O.DateExpiration > '#url.selection#'
+				
+				AND      O.OrgUnit IN (SELECT  OrgUnitOperational
+										FROM   Employee.dbo.Position
+										WHERE  Mission = '#url.mission#')		
+				
 				AND      O.OrgUnit IN (SELECT  OA.OrgUnit
 										FROM   OrganizationAuthorization AS OA 
 										WHERE  OA.Mission = '#url.mission#' 

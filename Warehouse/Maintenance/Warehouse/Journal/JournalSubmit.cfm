@@ -1,5 +1,5 @@
 
-<cfset areaList = "STOCK,COGS,SALE,SETTLE">
+<cfset areaList = "STOCK,COGS,SALE,SETTLE,INTEROFFICE">
 
 <cfquery name="Currency" 
 	datasource="appsLedger" 

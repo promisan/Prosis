@@ -718,7 +718,7 @@
             <div style="padding-left:10px; border-bottom:1px solid #C0C0C0;">
                 <h2 class="text-info titletext" style="font-size:140%; text-transform:capitalize">
                     <table width="90%">
-                        <tr>
+                        <tr class="fixrow">
                             <td width="5%" style="min-width:50px;"></td>
                             <td width="38%" style="padding-right:10px; font-size:70%;">
                                 <cf_tl id="Sale">

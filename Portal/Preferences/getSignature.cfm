@@ -60,33 +60,41 @@ password="#SESSION.dbpw#">
 		AND           ContactCode = 'Extension'
 		ORDER BY      Created DESC		
 	</cfquery>
-	
-	
-	
+			
 	<cfoutput>
 	<cfsavecontent variable="block">
-	<table border="0" cellpadding="0" cellspacing="0">
-		<tbody>
+	<table border="0" cellpadding="0" cellspacing="0">		
 			<tr><td><span style="font-size:12px">#Person.FirstName# #Person.LastName#</span></td></tr>
 			<tr><td><span style="font-size:12px">#Function.FunctionDescription#,&nbsp;#Function.MissionName#,&nbsp;#Function.OrgUnitName#</span></td></tr>
 			<tr><td><span style="font-size:12px">#Address.Address#, #Address.Address2#,&nbsp;#Address.AddressCity#, #Address.Country#&nbsp;#Address.AddressPostalCode#</span></td></tr>
 			<tr><td><span style="font-size:12px">Room:&nbsp;&nbsp;#Office.ContactURL# #Office.BuildingCode# #Office.BuildingLevel# floor</span></td></tr>
 			<tr><td><span style="font-size:12px">Tel:&nbsp;&nbsp;#Office.ContactCallSign#</span></td></tr>			
-			<tr><td><span style="font-size:12px">Email:&nbsp;&nbsp;#get.eMailAddress#</span></td></tr>
-		</tbody>
+			<tr><td><span style="font-size:12px">Email:&nbsp;&nbsp;#get.eMailAddress#</span></td></tr>		
 	</table>	
 	</cfsavecontent>	
 	
 	<cf_textarea height="200"  width="520"  
 				color="ffffff"
-				toolbar="mini"	
-				init="yes"
+				toolbar="mini"					
 				resize="false"
 				id="block"					
 				name="Pref_SignatureBlock">#block#</cf_textarea>
 				
 	</cfoutput>			
+	
+<cfelse>
+	
+	<script>
+	alert("Not updated")
+	</script>
 
-	<cfset ajaxonload("initTextArea")>
+	<cf_textarea height="200"  width="520"  
+				color="ffffff"
+				toolbar="mini"					
+				resize="false"
+				id="block"					
+				name="Pref_SignatureBlock"><cfoutput>#Get.Pref_SignatureBlock#</cfoutput></cf_textarea>
 
 </cfif>
+
+<cfset ajaxonload("initTextArea")>

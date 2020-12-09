@@ -690,11 +690,21 @@
 <cf_ModuleInsertSubmit
    SystemModule      = "Staffing" 
    FunctionClass     = "Inquiry"
-   FunctionName      = "Positions" 
+   FunctionName      = "Post Management" 
    MenuClass         = "Position"
    MenuOrder         = "1"
    MainMenuItem      = "0"
-   FunctionMemo      = "Inquiry Staff positions"
+   FunctionMemo      = "Inquire and manage positions"
+   ScriptName        = "postmanagement"> 
+
+<cf_ModuleInsertSubmit
+   SystemModule      = "Staffing" 
+   FunctionClass     = "Inquiry"
+   FunctionName      = "Positions" 
+   MenuClass         = "Position"
+   MenuOrder         = "2"
+   MainMenuItem      = "0"
+   FunctionMemo      = "Inquire Staff positions enabled during staffing period"
    ScriptName        = "position"> 
     
 <cf_ModuleInsertSubmit

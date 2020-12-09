@@ -1083,6 +1083,12 @@
 			
 			<!--- update outstanding --->
 			
+			 <cf_TransactionOutstanding 
+			    journal         = "#ParentJournal#" 
+			    journalserialNo = "#ParentJournalSerialNo#">
+			
+			<!--- this is wrong code 
+			
 			<cfquery name="DefineResult" 
 				datasource="AppsLedger" 
 				username="#SESSION.login#" 
@@ -1104,11 +1110,13 @@
 		    datasource="AppsLedger" 
 		    username="#SESSION.login#" 
 		    password="#SESSION.dbpw#">
-		    UPDATE TransactionHeader 
-		    SET    AmountOutstanding = ROUND(Amount - '#am#',2)	   
-		    WHERE  Journal = '#ParentJournal#'
-		    AND    JournalSerialNo = '#ParentJournalSerialNo#' 
-			</cfquery>		   		
+			    UPDATE TransactionHeader 
+			    SET    AmountOutstanding = ROUND(Amount - '#am#',2)	   
+			    WHERE  Journal = '#ParentJournal#'
+			    AND    JournalSerialNo = '#ParentJournalSerialNo#' 
+			</cfquery>		
+			
+			--->   		
 			
 		</cfif>
 	

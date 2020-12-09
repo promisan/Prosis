@@ -29,7 +29,7 @@
 		<cftree name="tree#Mandate.Mandateno#" font="tahoma"  fontsize="11" bold="No" format="html" required="No">
 		
 			     <cftreeitem 
-				  bind="cfc:service.Tree.OrganizationTree.getNodes({cftreeitempath},{cftreeitemvalue},'#Param.TreeCustomer#','#Mandate.Mandateno#','CustomerList.cfm','CUS','#Param.TreeCustomer#','#Param.TreeCustomer#','#Mandate.Mandateno#','#url.dsn#','','0','systemfunctionid!#url.systemfunctionid#')">  		 
+				  bind="cfc:service.Tree.OrganizationTree.getNodesV2({cftreeitempath},{cftreeitemvalue},'#Param.TreeCustomer#','#Mandate.Mandateno#','CustomerList.cfm','CUS','#Param.TreeCustomer#','#Param.TreeCustomer#','#Mandate.Mandateno#','#url.dsn#','','0','systemfunctionid!#url.systemfunctionid#')">  		 
 				  
 	    </cftree>	
 			

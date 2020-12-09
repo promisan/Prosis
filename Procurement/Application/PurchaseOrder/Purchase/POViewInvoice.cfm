@@ -43,6 +43,12 @@
 					   WHERE  ObjectKeyValue4 = I.Invoiceid
 					   AND    Operational     = 1) as WorkflowId,
 					   
+					     (SELECT ISNULL(SUM(AmountMatched),0)
+					   FROM   InvoicePurchase
+					   WHERE  InvoiceId = I.InvoiceId
+					   AND    PurchaseNo ='#URL.ID1#'
+					   ) as PurchaseAmount,
+					   
 					  ( SELECT ISNULL(SUM(DocumentAmountMatched),0)
 					   	FROM   InvoicePurchase
 					   	WHERE  InvoiceId = I.InvoiceId
@@ -73,6 +79,13 @@
 					   FROM   Organization.dbo.OrganizationObject 
 					   WHERE  ObjectKeyValue4 = I.Invoiceid
 					   AND    Operational     = 1) as WorkflowId,
+					   
+					   (SELECT ISNULL(SUM(AmountMatched),0)
+					   FROM   InvoicePurchase
+					   WHERE  InvoiceId = I.InvoiceId
+					   AND    PurchaseNo ='#URL.ID1#'
+					   ) as PurchaseAmount, 
+					   
 					  (SELECT ISNULL(SUM(DocumentAmountMatched),0)
 					   FROM   InvoicePurchase
 					   WHERE  InvoiceId = I.InvoiceId
@@ -97,11 +110,11 @@
 
 <cfoutput>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<table width="100%" align="center" class="navigation_table">
 	  
 	   <cfif url.mode neq "Print">			
 			
-			<tr><td colspan="11" height="20">	 
+			<tr><td colspan="12" height="20">	 
 							
 			<cfif Parameter.InvoiceRequisition eq "0">  <!--- or POType.InvoiceWorkflow eq "0" --->
 			   <cfset mode = "po">			   
@@ -109,9 +122,7 @@
 			</cfif>
 			
 			</td></tr>			
-			
-			<tr><td height="1" colspan="11" class="line"></td></tr>  
-			
+						
 			<TR class="labelmedium line">
 	   <cfelse>
 	          
@@ -131,8 +142,9 @@
 	   <td width="100"><cf_tl id="Officer"></td>
 	   <td width="80" align="center"><cf_tl id="Entered"></td>
 	   <td width="50" align="center"></td>
-       <td width="100" align="right" style="padding-right:6px"><cf_tl id="On Invoice"></td>
-	   <td width="100" align="right" style="padding-right:6px"><cf_tl id="PO Charged"></td>
+       <td align="right" style="padding-right:6px;min-width:100px"><cf_tl id="On Invoice"></td>
+	   <td align="right" style="padding-right:6px;min-width:100px"><cf_tl id="PO Offset"></td>
+	   <td align="right" style="padding-right:6px;min-width:100px"><cf_tl id="Posted"></td>
 	 </TR> 
 									
 		<cfif Lines.recordcount eq "0">
@@ -179,8 +191,9 @@
 				<td>#OfficerLastName#</td>
 				<td align="center">#DateFormat(Created,CLIENT.DateFormatShow)#</td>
 				<td align="center">#DocumentCurrency#</td>
-				<td align="right" style="padding-right:5px">#NumberFormat(DocumentAmount,",.__")#</td>
-				<td  align="right" style="padding-right:10px">#NumberFormat(ChargedAmount,",.__")#</td>
+				<td align="right" style="padding-right:2px">#NumberFormat(DocumentAmount,",.__")#</td>
+				<td align="right" style="padding-right:2px">#NumberFormat(PurchaseAmount,",.__")#</td>
+				<td align="right" style="padding-right:2px">#NumberFormat(ChargedAmount,",.__")#</td>
 							
            	</tr>
 			
@@ -211,11 +224,11 @@
 			
 					    <tr><td height="4"></td></tr></tr>
 						
-						<tr><td></td><td height="18" style="padding-left:5px" height="2" colspan="9" class="labelit"><cf_tl id="General Ledger">:</td></tr>		
+						<tr><td></td><td height="18" style="padding-left:5px" height="2" colspan="10" class="labelit"><cf_tl id="General Ledger">:</td></tr>		
 										
-						<tr><td></td><td colspan="11" height="100%" style="padding-left:10px">
+						<tr><td></td><td colspan="12" height="100%" style="padding-left:10px">
 						
-							<table width="100%" cellspacing="0" cellpadding="0" class="formpadding">
+							<table width="100%" class="formpadding">
 					
 							  <cfset pages = "0">
 							  <cfset embed = "1">	
@@ -253,13 +266,10 @@
 						  	 </cfquery>	
 							 
 							 <cfif SearchResult.recordcount gte "1">
-							 		
-								 <tr><td></td>
-								     <td height="20" colspan="11" class="labelit" style="padding-left:14px"><cf_tl id="Receipt Postings"></td>
-								 </tr>	
+							 									
 								 				 
 								 <tr><td></td><td colspan="11" height="100%" style="padding-left:10px">
-									 <table width="100%" cellspacing="0" cellpadding="0">
+									 <table width="100%">
 							
 									  <cfset pages  = "0">
 									  <cfset embed  = "1">

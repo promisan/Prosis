@@ -121,6 +121,25 @@
 					  formatted     = "timeformat(Created,'HH:MM')",
 					  search        = "text"}>	
 					  
+<cfset itm = itm+1>		
+
+<cfset fields[itm] = {label         = "##", 
+					  field         = "Lines",
+				      searchfield   = "Lines",
+					  filtermode    = "0",
+					  align         = "right",
+					  formatted     = "numberformat(Lines,',_')",
+					  search        = "number"}>	
+					 
+<cfset itm = itm+1>		
+<cf_tl id="Clear" var="vClear">
+<cfset fields[itm] = {label         = "CL", 
+					  field         = "Cleared",
+				      searchfield   = "Cleared",
+					  filtermode    = "0",
+					  align         = "right",
+					  formatted     = "numberformat(Cleared,',_')",
+					  search        = "number"}>						  					  
 
 <cfset itm = itm+1>			
 <cf_tl id="Status" var="vStatus">			

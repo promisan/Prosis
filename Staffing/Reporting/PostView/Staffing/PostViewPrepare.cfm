@@ -76,7 +76,7 @@
 				
 		<CF_DateConvert Value="#DT#">
 		<cfset Date = dateValue>
-				
+						
 		<!--- check if view exists, if not create view --->		
 		<cfinclude template="PostViewResource.cfm">		
 					
@@ -85,7 +85,7 @@
 		<!--- ----------------------------------------------------------------------------------- --->										
 		<cfinclude template="FactTable.cfm">
 		<!--- ----------------------------------------------------------------------------------- --->
-				
+						
 	    <!--- get the fact tables into a variable --->
 		
 		<cfset ass = "userQuery.dbo.#SESSION.acc#_WhsStaffingAssignment#FileNo#"> 
@@ -130,8 +130,7 @@
 			<cfelse>				
 				<cfset list = "Aut,NonAut,IncUsd,Vacancy">				 
 			</cfif>		
-			
-				 
+						 
 	 
 	        <cfloop index="itm" list="#list#">
 			
@@ -331,7 +330,7 @@
 		</cfoutput>
 		
 		</cfsavecontent>
-				
+						
 		<!---				
 		</cfquery>
 		--->
@@ -400,7 +399,7 @@
 		<!--- ------------ --->
 		<!--- update SUB   --->
 		<!--- ------------ --->
-							
+									
 		<!--- calculate subtotals from the cell totals --->
 				 
 		 <cfsavecontent variable="Grade1">
@@ -550,6 +549,7 @@
 				
 						
 		</cfif>			
+
 	
 	<cfquery name="ResultRows"
 	datasource="AppsQuery"

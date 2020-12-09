@@ -90,7 +90,7 @@
 					formatted   = "dateformat(TransactionDate,CLIENT.DateFormatShow)",		
 					align       = "center"}>						
 					
-<cfset 	filter = "No">				
+<cfset 	filter = "Yes">				
 
 <cfelse>
 
@@ -146,7 +146,7 @@
 <cfset fields[itm] = {label      = "#vPrice#",                    
     				field        = "SalesPrice",		
 					align        = "right",		
-					formatted    = "numberformat(SalesPrice,'__.__')",																			
+					formatted    = "numberformat(SalesPrice,'.__')",																			
 					alias        = "TS"}>		
 					
 <cfset itm = itm+1>				
@@ -154,7 +154,7 @@
 <cfset fields[itm] = {label      = "#vTax#",                    
     				field        = "SalesTax",	
 					align        = "right",		
-					formatted    = "numberformat(SalesTax,'__.__')",																				
+					formatted    = "numberformat(SalesTax,'.__')",																				
 					alias        = "TS"}>							
 										
 <cfset itm = itm+1>				
@@ -162,7 +162,7 @@
 <cfset fields[itm] = {label      = "#vTotal#",                    
     				field        = "SalesTotal",	
 					align        = "right",		
-					formatted    = "numberformat(SalesTotal,'__.__')",																				
+					formatted    = "numberformat(SalesTotal,'.__')",																				
 					alias        = "TS"}>					
 					
 <!--- hidden key field --->
@@ -228,7 +228,7 @@
 		screentop         = "No"	
 		listlayout        = "#fields#"
 		drillmode         = "window" 
-		drillargument     = "950;1050;true;true"	
+		drillargument     = "920;1250;true;true"	
 		drilltemplate     = "Warehouse/Application/Stock/Batch/BatchView.cfm?systemfunctionid=#url.systemfunctionid#&header=1&mode=process&batchno="
 		drillkey          = "TransactionBatchNo"
 		drillbox          = "blank">	

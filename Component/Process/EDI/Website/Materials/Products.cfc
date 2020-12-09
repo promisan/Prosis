@@ -275,6 +275,11 @@
 			FROM   ItemTransaction
 			WHERE  ItemNo         = I.ItemNo
 			AND    Mission        = MI.Mission
+			AND    (TransactionId NOT IN
+					(SELECT        I.TransactionId
+						FROM            Warehouse AS W INNER JOIN ItemTransaction AS I ON W.Warehouse = I.Warehouse AND W.LocationReceipt = I.Location
+						WHERE        (I.TransactionType = '1')))
+
 			) as OnHand
 
 
@@ -318,6 +323,7 @@
 						AND CI.CategoryItem = '#CategoryItem#'
 					</cfif>
 				</cfif>
+
 
 				<cfif trim(selectTopNDiscount) neq "">
 					AND I.ItemNo IN (

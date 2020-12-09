@@ -3,6 +3,7 @@
 
 <cfparam name="FORM.Select" default="">
 
+
 <cfif ParameterExists(Form.Return)> 
 
      <cfif FORM.Select eq "">
@@ -10,9 +11,6 @@
        return = "back">
        <cfabort>
      </cfif>
-
-     <cf_wait text="Please wait . .">
-
      <cfquery name="SelectRoster" 
      datasource="AppsSelection" 
      username="#SESSION.login#" 
@@ -134,9 +132,7 @@
 	     </cftransaction>
 	 
 	 </cfif>
-	 
-	 <cf_waitEnd>
-	 	
+	 	 	
      <script language="JavaScript">
 
 	    <cfoutput>
@@ -161,9 +157,7 @@
 	 <!---
 	<cftry>
 	--->
-	
-		<cf_wait1 icon="clock">
-		
+			
 		<CF_DropTable dbName="AppsQuery" tblName="#SESSION.acc#RosterTmp">
 		
 		<cfquery name="Staffing" 
@@ -232,12 +226,9 @@
 			</cfquery>			
 		
 		</cfloop>
-
 		
 		<CF_DropTable dbName="AppsQuery" tblName="#SESSION.acc#RosterTmp">
 				
-		<cf_waitEnd>
-		
 		<!---
 		
 		<cfcatch>

@@ -199,12 +199,12 @@ password="#SESSION.dbpw#">
 				
 				   <td colspan="3" valign="bottom" align="right" style="padding-right:7px"> 
 				   <cfif wfStatus eq "Closed">			   
-				   <a id="classificationadd" href="javascript:	ptoken.navigate('#SESSION.root#/Staffing/Application/Position/PositionParent/ParentClassificationWorkflow.cfm?class=init&positionparentid=#url.id2#&ajaxid=#url.ajaxid#','#url.ajaxid#')">
+				   <a id="classificationadd" href="javascript:	ProsisUI.createWindow('classify', 'Record Classification', '',{x:100,y:100,height:500,width:840,modal:true,center:true});ptoken.navigate('#SESSION.root#/Staffing/Application/Position/PositionParent/ParentClassification.cfm?class=init&positionparentid=#url.id2#&ajaxid=#url.ajaxid#','classify')">
 				   <cf_tl id="Initiate post classification workflow">
 				   </a>	 			   
 				   </cfif>
 				   <cfif wfStatus eq "Open">
-				   <a id="classificationdelete" style="color:red" href="javascript:ptoken.navigate('#SESSION.root#/Staffing/Application/Position/PositionParent/ParentClassificationWorkflow.cfm?class=delete&positionparentid=#url.id2#&ajaxid=#url.ajaxid#','#url.ajaxid#')">
+				   <a id="classificationdelete" style="color:red" href="javascript:Prosis.busy('yes');ptoken.navigate('#SESSION.root#/Staffing/Application/Position/PositionParent/ParentClassificationWorkflow.cfm?class=delete&positionparentid=#url.id2#&ajaxid=#url.ajaxid#','#url.ajaxid#')">
 				     <cf_tl id="Remove classification workflow">
 				   </a>	 
 				   </cfif>

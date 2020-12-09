@@ -398,7 +398,7 @@
 																	
 				</td>		
 											
-				<td style="padding-top:4px;width: auto; min-width:140px;">
+				<td style="padding-top:4px;width: auto; min-width:110px;">
                           
 					<table cellspacing="0" cellpadding="0">			
 							
@@ -415,7 +415,7 @@
 								   value="#actionTakeAction#" 
 								   maxlength="3" 
 								   class="regularxl" 
-								   style="width: 39px; text-align: center" 
+								   style="width: 20px; text-align: center" 
 								   onChange="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/tools/entityAction/ActionListingPerformance.cfm?objectid=#objectid#&actionid=#actionid#&hour='+this.value,'perf')">
 									
 							</td>							
@@ -428,8 +428,7 @@
 							
 							<td style="padding-left:3px;padding-right:3px;font-size: 12px;"><cf_tl id="hr"></td>							
 						</cfif>
-						
-						<td style="padding-left:5px;padding-left:3px;padding-right:3px;font-size: 12px;"> | #ActionReference#</td>						
+																
 						</tr>					
 						
 					</table>
@@ -442,6 +441,10 @@
 					 and Action eq "1">
 					
 				<td colspan="1" style="padding-top:4px;width: auto;min-width: 120px; ">
+				
+				    <cfif OfficerFirstName eq "">
+					#ActionReference#	
+					<cfelse>									
 					#OfficerFirstName# #OfficerLastName#<br>
 					<cfif officerdate neq "">
 					
@@ -451,6 +454,8 @@
 						
 						<!--- outputting --->
 						#DateFormat(LocalTime,"#client.dateFormatShow#")#@#TimeFormat(LocalTime, "HH:MM")# <font style="font-size: xx-small;"><cfif timezone neq "0:00">[<cfif timezone gt 0>+</cfif>#timezone#]</cfif></font>
+					
+					</cfif>
 					
 					</cfif>
 				</td>	
@@ -526,7 +531,13 @@
 							  --->
 				<cfelse>
 				
-					<td style="padding-top:4px; width: auto;">#OfficerFirstName# #OfficerLastName#
+					<td style="padding-top:4px; width: auto;">
+					
+					<cfif OfficerFirstName eq "">
+					#ActionReference#	
+					<cfelse>	
+					#OfficerFirstName# #OfficerLastName#
+					</cfif>
 					
 					<cfif officerdate neq "">
 						<br>

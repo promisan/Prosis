@@ -153,15 +153,13 @@ password="#SESSION.dbpw#">
 								 AND    SelectId = F1.FunctionId
 								 ) as Selected
 								 
-				FROM     FunctionOrganization F1 INNER JOIN
-                         FunctionTitle F ON F1.FunctionNo = F.FunctionNo INNER JOIN
-                         Ref_Organization R ON F1.OrganizationCode = R.OrganizationCode INNER JOIN
-                         Ref_GradeDeployment G ON F1.GradeDeployment = G.GradeDeployment 
+				FROM     FunctionOrganization F1 
+				         INNER JOIN FunctionTitle F ON F1.FunctionNo = F.FunctionNo 
+						 INNER JOIN Ref_Organization R ON F1.OrganizationCode = R.OrganizationCode 
+						 INNER JOIN Ref_GradeDeployment G ON F1.GradeDeployment = G.GradeDeployment 
 					     <cfloop query="steps">
 					     LEFT OUTER JOIN userQuery.dbo.#SESSION.acc#Roster#Status#_#fileno# S#Status# 
-						  ON S#Status#.FunctionNo = F1.FunctionNo 
-						 AND S#Status#.OrganizationCode = F1.OrganizationCode 
-						 AND S#Status#.GradeDeployment = F1.GradeDeployment 
+						      ON S#Status#.FunctionNo = F1.FunctionNo AND S#Status#.OrganizationCode = F1.OrganizationCode AND S#Status#.GradeDeployment = F1.GradeDeployment 
 					     </cfloop>
 					
 			 WHERE   	#PreserveSingleQuotes(cond)#			 							 
@@ -169,12 +167,20 @@ password="#SESSION.dbpw#">
 		                	                	 FROM RosterSearchLine
 		                    	            	 WHERE SearchId = #URL.ID#
 		                        	         	 AND SearchClass = 'Edition')
-											 
+												 
+			 AND        (F.FunctionRoster = '1' OR F1.ReferenceNo IN ('Direct','direct') OR F1.PostSpecific = 0)									 
+			 <!---								 
 			 AND     	F.FunctionRoster = '1'		
+			 --->
+			 
+			 
+			 <!--- this setting can be adjustment when a roster bucket is to be showned or not --->
+			  
 			 <cfif Parameter.RosterSearchBucketVA eq "0">
-		     	<!---   exclude buckets triggered by a supertrack/VA   --->
-				AND 	(F1.PostSpecific = 0 or F1.DocumentNo = #Search.SearchCategoryId#)
+		     <!---      exclude buckets triggered by a supertrack/VA   --->
+			 AND 	    (F1.PostSpecific = 0 or F1.DocumentNo = #Search.SearchCategoryId#)
 			 </cfif>								 
+			 
 		     ORDER BY 	G.ListingOrder, 
 			          	R.HierarchyOrder, 
 					  	<!--- F1.FunctionId, --->
@@ -214,7 +220,7 @@ password="#SESSION.dbpw#">
 		 document.getElementById("Prios").className = "hide"	 
 		</script>	
 		
-		<tr><td colspan="<cfoutput>#col#</cfoutput>" height="30" class="labelmedium" bgcolor="ffffff" align="center"><font color="FF8040">No buckets found</b></td></tr>
+		<tr><td colspan="<cfoutput>#col#</cfoutput>" height="30" class="labelmedium" bgcolor="ffffff" align="center"><font color="FF8040"><cf_tl id="No buckets found"></td></tr>
 	<cfelse>
 	
 	<script>

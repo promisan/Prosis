@@ -1,5 +1,7 @@
 
+<!---
 <cf_screentop label="Depreciation" scroll="Yes" banner="green" layout="webapp" user="No">
+--->
 
 <cf_verifyOperational module="Accounting" Warning="No">
 
@@ -63,45 +65,49 @@
 
 <cfform action="../Depreciation/DepreciationCalculation.cfm?Mission=#URL.Mission#" method="post">
 
-<table width="100%" height="100%" align="center" border="0" cellspacing="0" cellpadding="0" bordercolor="silver" bgcolor="white" class="formpadding">
+<table width="100%" align="center" bgcolor="white" class="formpadding">
+
 <tr><td valign="top">
-<table width="100%" border="0"></td></tr>
-   
-   <tr><td height="5"></td></tr>
-   <tr>
-      <td class="labellarge" style="padding-left:10px"><cf_tl id="Year">:</td>
-	  <td>	  
-	  <select name="Year" id="Year" style="font-size:25px;height:35px" class="regularxl">
-	  
-		  <option value="#Parameter.LastYearDepreciation#">#Parameter.LastYearDepreciation# (recalculate)</option>
+
+	<table width="100%" border="0"></td></tr>
+	   
+	   <tr><td height="5"></td></tr>
+	   <tr>
+	      <td class="labellarge" style="padding-left:10px"><cf_tl id="Year">:</td>
+		  <td>	  
+		  <select name="Year" id="Year" style="font-size:25px;height:35px" class="regularxl">
 		  
-		  <!--- check if exisits --->
-			  			  
-	      <cfquery name="check" 
-			    datasource="appsLedger" 
-			    username="#SESSION.login#" 
-			    password="#SESSION.dbpw#">
-			    SELECT    *
-			    FROM      Period
-				WHERE     AccountYear = '#Parameter.LastYearDepreciation+1#'
-		  </cfquery> 
+			  <option value="#Parameter.LastYearDepreciation#">#Parameter.LastYearDepreciation# (recalculate)</option>
+			  
+			  <!--- check if exisits --->
+				  			  
+		      <cfquery name="check" 
+				    datasource="appsLedger" 
+				    username="#SESSION.login#" 
+				    password="#SESSION.dbpw#">
+				    SELECT    *
+				    FROM      Period
+					WHERE     AccountYear = '#Parameter.LastYearDepreciation+1#'
+			  </cfquery> 
+			  
+			  <cfif check.recordcount gte "1">	  	  
+			  	<option value="#Parameter.LastYearDepreciation+1#">#Parameter.LastYearDepreciation+1#</option>	  
+			  </cfif>
 		  
-		  <cfif check.recordcount gte "1">	  	  
-		  	<option value="#Parameter.LastYearDepreciation+1#">#Parameter.LastYearDepreciation+1#</option>	  
-		  </cfif>
-	  
-	  </select>
-	  </td>
-   </tr>
-   <tr><td height="5"></td></tr>
-   <tr><td height="1" colspan="2" bgcolor="E5E5E5"></td></tr>
-   <tr><td height="5"></td></tr>
-   <tr>
-	   <cf_tl id="Apply now" var="1">
-      <td colspan="2" align="center" height="50"><input type="submit" class="button10g" style="width:160;height:30" name="Submit" id="Submit" value="#lt_text#"></td>
-   </tr>
-</table>
+		  </select>
+		  </td>
+	   </tr>
+	   <tr><td height="5"></td></tr>
+	   <tr><td height="1" colspan="2" bgcolor="E5E5E5"></td></tr>
+	   <tr><td height="5"></td></tr>
+	   <tr>
+		   <cf_tl id="Apply now" var="1">
+	      <td colspan="2" align="center" height="50"><input type="submit" class="button10g" style="width:160;height:30" name="Submit" id="Submit" value="#lt_text#"></td>
+	   </tr>
+	</table>
+	
 </td></tr>
+
 </table>
 
 </cfform>

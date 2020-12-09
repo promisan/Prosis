@@ -134,6 +134,8 @@
 
 <cfset itm = 0>
 
+<!---
+
 <cfif url.fmission neq "">		
 	
 	<cf_tl id="Entity" var="1">
@@ -145,6 +147,8 @@
 						functioncondition = "#url.fmission#"}>				
 
 </cfif>
+
+--->
 
 <cfset itm = itm+1>
 <cf_tl id="Description" var="1">
@@ -279,6 +283,6 @@
 		excelShow     = "Yes"
 		drillmode     = "tab"	
 		drillstring   = "#str#"
-		drilltemplate = "Warehouse/Maintenance/Item/RecordEdit.cfm?id="
+		drilltemplate = "Warehouse/Maintenance/ItemMaster/ItemView.cfm?id="
 		drillkey      = "ItemNo">
 

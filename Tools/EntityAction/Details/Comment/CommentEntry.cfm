@@ -23,7 +23,7 @@ WHERE      ObjectId = '#URL.Objectid#'
 	
 		<table align="center" style="height:100%;width:98%;pdding-left:4px;">
 			
-			<tr><td style="padding:2px;padding-left:1px;padding-right:1px;border-bottom:1px solid silver">
+			<tr><td style="padding:2px;padding-left:1px;padding-right:1px">
 			
 			<form method="post" name="entryform" id="entryform" style="width:99%">
 	
@@ -134,7 +134,7 @@ WHERE      ObjectId = '#URL.Objectid#'
 				<tr><td style="border-top:1px solid silver;padding-bottom:2px;padding-left:3px;padding-right:3px;">
 
 					<cfif Attributes.ajax eq "No">
-					
+																			
 					 <cf_textarea name="MailBody"	           		 
 						 init="Yes"							
 						 color="ffffff"	 
@@ -146,8 +146,9 @@ WHERE      ObjectId = '#URL.Objectid#'
 						 
 					<cfelse>
 					
+																									
 					 <cf_textarea name="MailBody"	           		 						 						
-						 color="ffffff"	 
+						 color="ffffff"	 						 
 						 resize="false"		
 						 border="0" 
 						 toolbar="mini" 
@@ -194,6 +195,12 @@ WHERE      ObjectId = '#URL.Objectid#'
 		</table>	
 		
 </cfif>	
+
+<cfif Attributes.ajax eq "Yes">
+
+	<cfset ajaxonload("initTextArea")>
+
+</cfif>
 
 
 

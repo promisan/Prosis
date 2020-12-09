@@ -21,9 +21,9 @@ password="#SESSION.dbpw#">
 <cfinclude template="ScheduleScript.cfm">
 
 <cfif URL.Id eq "">
-    <cf_screentop height="100%" blur="yes" layout="webapp" html="yes" jquery="Yes" banner="gray" scroll="yes" label="Register Schedule" option="Define Batch routines to be performed on a regular basis">
+    <cf_screentop height="100%" blur="yes" layout="webapp" html="no" jquery="Yes" banner="gray" scroll="yes" label="Register Schedule" option="Define Batch routines to be performed on a regular basis">
 <cfelse>
-	<cf_screentop height="100%" blur="yes" html="yes" scroll="no" jquery="Yes" banner="blue" layout="webapp"  label="#Line.ScheduleName#" option="Maintain Batch routines to be performed on a regular basis" user="yes">
+	<cf_screentop height="100%" blur="yes" html="no" scroll="no" jquery="Yes" banner="blue" layout="webapp"  label="#Line.ScheduleName#" option="Maintain Batch routines to be performed on a regular basis" user="yes">
 </cfif>	
 
 <cfquery name="AppServer" 
@@ -122,7 +122,7 @@ function schedulelog(id,id1,act) {
 
 <cfif URL.Id eq "">
 
-	<tr><td align="center" valign="top" style="padding-top:8px">
+	<tr><td align="center" valign="top">
 
 	<cfparam name="Status" default="1">
 	
@@ -132,11 +132,11 @@ function schedulelog(id,id1,act) {
 
    <cf_menuscript>
    
-   <tr><td align="center" height="40" style="padding-top:4px">   
+   <tr><td align="center" height="40">   
    
    <!--- top menu --->
 				
-		<table width="96%" border="0" align="center" cellspacing="0" cellpadding="0">		  		
+		<table width="96%" align="center">		  		
 						
 			<cfset ht = "64">
 			<cfset wd = "64">
@@ -171,8 +171,6 @@ function schedulelog(id,id1,act) {
 	
 	</tr>
  
-	<tr><td height="1" colspan="1" class="linedotted"></td></tr>
-
 	<tr><td height="100%" width="100%" valign="top">		
 	
 		<cf_divscroll>	

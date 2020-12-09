@@ -86,7 +86,7 @@
 			 ItemDescription		 
 </cfquery>
 
-<table width="100%" align="center" class="navigation_table">
+<table style="width:98.5%" align="left" class="navigation_table">
 			
 <cfif url.stockorderid neq "">							
 	 				 
@@ -184,7 +184,12 @@
 					
 <tr class="fixrow labelmedium line">
     <td width="1%" height="17"></td>							
-	<td width="1%"></td>				
+	<td width="1%"></td>	
+	<cfif url.mode eq "standard">
+	<TD width="1%" align="right"></TD>						
+	<cfelse>
+	<TD width="8%" align="right"><cf_tl id="Transfer"></TD>	
+	</cfif>			
 	<TD style="padding-left:5px;min-width:50px"><cf_tl id="Cat"></TD>		
 	<TD style="min-width:60px"><cf_tl id="No"></TD>		
 	<td style="min-width:100px"><cf_tl id="Code"></td>		
@@ -192,16 +197,11 @@
 	<cfif url.loc eq "">
 	<TD style="min-width:60px"><cf_tl id="Location"></TD>	
 	</cfif>
-	<TD style="min-width:60px" align="right"><cf_tl id="Minimum Quantity"></TD>
+	<TD style="min-width:60px" align="right"><cf_tl id="Min"></TD>
 	<TD style="min-width:80px" align="center"><cfif Param.lotManagement eq "Yes"><cf_tl id="Lot"></cfif></TD>	
 	<TD style="min-width:60px"><cf_tl id="Reference"></TD>
 	<TD style="min-width:80px;padding-left:4px"><cf_tl id="Measure"></TD>					
-    <td style="min-width:60px" align="right"><cf_tl id="On Hand"></td>					
-	<cfif url.mode eq "standard">
-	<TD width="1%" align="right"></TD>						
-	<cfelse>
-	<TD width="8%" align="right"><cf_tl id="Transfer"></TD>	
-	</cfif>
+    <td style="min-width:60px" align="right"><cf_tl id="On Hand"></td>		
 	<TD width="10"></TD>	
 </TR>
 	
@@ -220,7 +220,8 @@
     try {
     prior = document.getElementById('totalrecords').value
 	if (prior != '#SearchResult.recordcount#') {
-		ColdFusion.navigate('#session.root#/Warehouse/Application/Stock/Transfer/setPage.cfm?mode=#url.mde#&systemfunctionid=#url.systemfunctionid#&height=#url.height#&total=#SearchResult.recordCount#','pagebox')
+	    _cf_loadingtexthtml='';	
+		ptoken.navigate('#session.root#/Warehouse/Application/Stock/Transfer/setPage.cfm?mode=#url.mde#&systemfunctionid=#url.systemfunctionid#&height=#url.height#&total=#SearchResult.recordCount#','pagebox')
 		document.getElementById('totalrecords').value = '#SearchResult.recordCount#' 
 	}	
 	} catch(e) {}
@@ -263,7 +264,65 @@
 			</cfif>
 				
 		    <td style="padding-left:6px"></td>								
-			<td height="20"></td>						
+			<td height="20"></td>	
+			
+			<td style="padding-left:5px;padding-right:5px;padding-top:3px">
+			
+				<cfif url.mode eq "Quick">
+				
+				<cfelse>
+					
+				     <!--- check if the transfer transaction is enabled --->
+				 
+					 <cfif url.stockorderid neq "" and Quantity gt "0">
+					 
+					 	<cf_img icon="select" 
+							 navigation="Yes"  
+							 onclick="ptoken.navigate('#SESSION.root#/Warehouse/Application/Stock/Transfer/StockTransfer.cfm?loc=#location#&whs=#url.warehouse#&mode=insert&warehouse=#url.warehouse#&id=#TransactionId#&systemfunctionid=#url.systemfunctionid#&stockorderid=#url.stockorderid#','transfer#TransactionId#')">
+																	 
+					 <cfelseif  Quantity gt "0">
+					 
+					  <!--- checking if the transfer option is enabled --->
+					 
+					  <cfquery name="isInitialised"
+						datasource="AppsMaterials" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+						  SELECT    *
+						  FROM      ItemWarehouseLocationTransaction WITH (NOLOCK)
+						  WHERE     Warehouse = '#url.Warehouse#' 
+						  AND       Location  = '#location#' 
+						  AND       ItemNo    = '#ItemNo#' 
+						  AND       UoM       = '#UnitOfMeasure#' 						 							 
+					  </cfquery>
+					 
+					 <cfquery name="CheckEnabled"
+						datasource="AppsMaterials" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+						  SELECT    *
+						  FROM      ItemWarehouseLocationTransaction WITH (NOLOCK)
+						  WHERE     Warehouse = '#url.Warehouse#' 
+						  AND       Location  = '#location#' 
+						  AND       ItemNo    = '#ItemNo#' 
+						  AND       UoM       = '#UnitOfMeasure#' 						 
+						  AND       TransactionType IN ('6','8') 
+						  AND       Operational = '1'
+					  </cfquery>
+					  
+					<cfif CheckEnabled.recordcount gte "1" or isInitialised.recordcount eq "0">
+						<cf_img icon="select" 
+							 navigation="Yes"  
+							 onclick="ptoken.navigate('#SESSION.root#/Warehouse/Application/Stock/Transfer/StockTransfer.cfm?loc=#Location#&whs=#url.warehouse#&mode=insert&warehouse=#url.warehouse#&id=#TransactionId#&systemfunctionid=#url.systemfunctionid#&stockorderid=#url.stockorderid#','transfer#TransactionId#')">
+																				 
+					 </cfif>	
+					 
+					</cfif>  
+				
+				</cfif>
+				 
+			</td>
+								
 			<TD style="padding-left:5px;padding-right:3px">#Category#</TD>												
 			<TD style="padding-right:3px"><cfif prior neq itemno>#ItemNo#<cfelse>&nbsp;</cfif></TD>			
 			<td style="padding-right:5px;">#ItemNoExternal#</td>
@@ -320,62 +379,7 @@
 				<td></td>	
 			</cfif>		
 			
-			<td style="padding-left:5px;padding-right:5px;">
 			
-				<cfif url.mode eq "Quick">
-				
-				<cfelse>
-					
-				     <!--- check if the transfer transaction is enabled --->
-				 
-					 <cfif url.stockorderid neq "" and Quantity gt "0">
-					 
-					 	<cf_img icon="open" 
-							 navigation="Yes"  
-							 onclick="ptoken.navigate('#SESSION.root#/Warehouse/Application/Stock/Transfer/StockTransfer.cfm?loc=#location#&whs=#url.warehouse#&mode=insert&warehouse=#url.warehouse#&id=#TransactionId#&systemfunctionid=#url.systemfunctionid#&stockorderid=#url.stockorderid#','transfer#TransactionId#')">
-																	 
-					 <cfelseif  Quantity gt "0">
-					 
-					  <!--- checking if the transfer option is enabled --->
-					 
-					  <cfquery name="isInitialised"
-						datasource="AppsMaterials" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">
-						  SELECT    *
-						  FROM      ItemWarehouseLocationTransaction WITH (NOLOCK)
-						  WHERE     Warehouse = '#url.Warehouse#' 
-						  AND       Location  = '#location#' 
-						  AND       ItemNo    = '#ItemNo#' 
-						  AND       UoM       = '#UnitOfMeasure#' 						 							 
-					  </cfquery>
-					 
-					 <cfquery name="CheckEnabled"
-						datasource="AppsMaterials" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">
-						  SELECT    *
-						  FROM      ItemWarehouseLocationTransaction WITH (NOLOCK)
-						  WHERE     Warehouse = '#url.Warehouse#' 
-						  AND       Location  = '#location#' 
-						  AND       ItemNo    = '#ItemNo#' 
-						  AND       UoM       = '#UnitOfMeasure#' 						 
-						  AND       TransactionType IN ('6','8') 
-						  AND       Operational = '1'
-					  </cfquery>
-					  
-					<cfif CheckEnabled.recordcount gte "1" or isInitialised.recordcount eq "0">
-						<cf_img icon="open" 
-							 navigation="Yes"  
-							 onclick="ptoken.navigate('#SESSION.root#/Warehouse/Application/Stock/Transfer/StockTransfer.cfm?loc=#Location#&whs=#url.warehouse#&mode=insert&warehouse=#url.warehouse#&id=#TransactionId#&systemfunctionid=#url.systemfunctionid#&stockorderid=#url.stockorderid#','transfer#TransactionId#')">
-																				 
-					 </cfif>	
-					 
-					</cfif>  
-				
-				</cfif>
-				 
-			</td>
 					
 			</tr>		
 			
@@ -384,7 +388,7 @@
 				<cfif transferquantity eq "">	
 				
 				<tr class="hide" id="transfer#TransactionId#row">				
-					<td colspan="#cols+1#" style="background-color:f1f1f1">											
+					<td colspan="#cols+1#" style="background-color:ffffff">											
 						<cfdiv id="transfer#TransactionId#">																
 					</td>
 				</tr>		
@@ -392,7 +396,7 @@
 				<cfelse>	
 						
 				<tr class="hide" id="transfer#TransactionId#row">
-					<td colspan="#cols+1#" style="background-color:f1f1f1">																									
+					<td colspan="#cols+1#" style="background-color:ffffff">																									
 						<cfdiv id="transfer#TransactionId#" 
 						   bind="url:#SESSION.root#/Warehouse/Application/Stock/Transfer/StockTransfer.cfm?whs=#url.warehouse#&loc=#url.loc#&mode=insert&id=#TransactionId#&systemfunctionid=#url.systemfunctionid#&stockorderid=#url.stockorderid#">																		
 					</td>
@@ -417,9 +421,9 @@
 			
 			     <cfcase value = "Location">
 				 
-				 <tr style="cursor:pointer" class="line">
+				 <tr style="cursor:pointer" class="line fixrow2">
 															 
-					<td colspan="14" class="labelmedium" style="font-weight:200;font-size:27px;height:40px;padding-bottom:3px;padding-top:4px;padding-left:8px">				
+					<td colspan="14" class="labelmedium" style="font-size:24px;height:35px;padding-bottom:3px;padding-top:4px;padding-left:8px">				
 						 
 					<cfquery name="Loc"
 					datasource="AppsMaterials" 
@@ -433,7 +437,7 @@
 						AND   Location = '#Location#'														    
 					</cfquery>
 											   
-				 	#Loc.Description# #Loc.StorageCode# <font size="2">(#location#)</font> 
+				 	#Loc.Description# <cfif Loc.StorageCode neq Loc.Description>#Loc.StorageCode#</cfif> <font size="2"><cfif Loc.StorageCode neq Location>(#location#)</cfif></font> 
 					  
 					</td>
 										

@@ -1,16 +1,25 @@
 
 <!--- Position box --->
 
+<cfparam name="url.header"     default="0">
 <cfparam name="url.mission"    default="STL">
 <cfparam name="url.selection"  default="#dateformat(now(),client.dateSQL)#">
 
-<cf_tl id="Positions View" var="vMainLabel">
+<cf_tl id="#url.mission# Position Incumbency View" var="vMainLabel">
 <cfset vLayout = "webapp">
 
-<cf_screentop jquery="yes" bootstrap="yes" html="no" label="#vMainLabel#">
+<cfif url.header eq "1">
+	<cfset html = "Yes">
+<cfelse>
+	<cfset html = "No">
+</cfif>
+	
+<cf_screentop jquery="yes" bootstrap="yes" html="#html#" layout="webapp" banner="gray" label="#vMainLabel#">
+
+<cf_divscroll>
 
 	<cf_staffingPositionScript>
-	
+		
 	<cfoutput>
 	<script>
 	
@@ -167,6 +176,8 @@
 	<script>
 		doFilter();
 	</script>
+	
+</cf_divscroll>	
 		
 <cf_screenbottom layout="#vLayout#">
 

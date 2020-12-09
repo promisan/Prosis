@@ -190,7 +190,7 @@
 <cf_listing
 	    header              = "event"
 	    box                 = "eventlisting"
-		link                = "#SESSION.root#/WorkOrder/Application/Shipping/WorkOrderView/WorkOrderListing.cfm?systemfunctionid=#url.systemfunctionid#&mission=#url.mission#"
+		link                = "#SESSION.root#/WorkOrder/Application/Shipping/WorkOrderView/WorkOrderListingContent.cfm?systemfunctionid=#url.systemfunctionid#&mission=#url.mission#"
 	    html                = "No"		
 		tableheight         = "100%"
 		tablewidth          = "100%"

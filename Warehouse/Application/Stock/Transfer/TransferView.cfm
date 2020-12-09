@@ -109,7 +109,7 @@
 			 ItemDescription		 
 </cfquery>
 
-<form name="transferform" id="transferform" style="height:99.4%">
+<form name="transferform" id="transferform" style="height:100%">
 
 <cfoutput>
 <input type="hidden" id="totalrecords" value="#Searchresult.recordcount#">
@@ -214,10 +214,7 @@
 				
 				<cfif access eq "DENIED">	 
 				
-					<table width="100%" height="100%" 
-					       border="0" 
-						   cellspacing="0" 			  
-						   cellpadding="0" 
+					<table width="100%" height="100%" 					       
 						   align="center">
 						   <tr><td align="center" height="40" class="labelit">
 						    <font color="FF0000">
@@ -233,7 +230,7 @@
 	
 	 <tr>
 	 
-	 <td height="100%" valign="top" style="padding:5px">   
+	 <td height="100%" valign="top">   
 	    
 		 <table width="100%" border="0" height="100%" align="center">	
 		    	    
@@ -270,84 +267,19 @@
 						  					  
 						  		<table style="width:100%">		
 								
-								<tr class="labelmedium" style="height:30px">
+								<tr class="labelmedium" style="height:35px">
 								
 								<cfoutput>
-								<td style="font-size:18px;min-width:300px;">#lt_content#</td>
+								<td style="font-size:20px;min-width:300px;">
+								<cfif lt_content eq ""><cf_tl id="Stock transfer"><cfelse>#lt_content#</cfif></td>
 								</cfoutput>
-								
-								<td style="padding-right:4px"><cf_tl id="Destination"></td>
-								
-								<td>
-								
-									<table><tr><td>
-							  				  										
-									<cfquery name="Warehouse"
-										datasource="AppsMaterials" 
-										username="#SESSION.login#" 
-										password="#SESSION.dbpw#">
-										    SELECT 	*
-											FROM   	Warehouse W
-											WHERE  	1=1
-											AND     (
-											
-											         (Mission   = '#url.Mission#' AND Warehouse = '#URL.Warehouse#')
-													 OR 
-													 Warehouse IN (SELECT AssociationWarehouse
-											                       FROM   WarehouseAssociation 
-																   WHERE  Warehouse           = '#URL.Warehouse#'
-																   AND    AssociationType     = 'Transfer'
-																   AND    AssociationWarehouse = W.Warehouse
-																   )
-																									
-													)												
-											
-																									
-									 </cfquery>	
-										 
-									 <cfoutput>
-														
-									  <select name  = "warehouseto"
-									    id         = "warehouseto" 
-										class      = "regularxl"
-										style      = "width:auto;"
-									    onchange   = "ptoken.navigate('#SESSION.root#/warehouse/application/stock/Transfer/setLocation.cfm?systemfunctionid=#url.systemfunctionid#&whs=#url.warehouse#&warehouseto='+this.value,'locationbox')">
-										
-										<option value=""><cf_tl id="Select"></option>
-									   
-									   <cfloop query="Warehouse">
-									   						   										
-											<option value="#Warehouse#"><cfif mission neq url.mission><cf_tl id="Interoffice">:</cfif> #warehouse# #WarehouseName#</option>
-																	
-										</cfloop>
-									
-									 </select>		
-									 
-									 </cfoutput>
-									 
-									 </td>
-									 
-									 <td class="labelmedium hide" style="padding-left:3px" id="locationrow">
-									 <!--- <cf_tl id="Location">: --->
-									 </td>
-									 							 
-									 <td id="locationbox" style="padding-left:4px;width:200px">							 							 		
-											<input type="hidden" name="locationto" id="locationto" value="">																		
-									 </td>									 
-																						 
-									 <td id="setvalue"></td>
-									 
-									 </tr>
-									 </table>
-								 
-								 </td>
 								 
 								 <td align="right">
 								
 									 <table style="width:100%" border="0" align="right">
 									 <tr>														
 									 <td style="padding-left:20px;padding-right:20px;min-width:60px"><cf_tl id="Date/Time"></td>
-									 <td align="right">
+									 <td align="right" style="padding-right:10px">
 											
 											 <cf_getWarehouseTime warehouse="#url.warehouse#">
 											
@@ -377,7 +309,87 @@
 							
 						</td>
 														
-				  </tr>		  
+				  </tr>		
+				  
+				  <tr class="line">
+				  
+				  	<td style="height:25px;background-color:f1f1f1"">
+									  
+				  	  <table width="100%">
+					 							  
+				      <td style="padding-left:20px;font-size:14px;"><cf_tl id="Destination"></td>
+								
+					  <td>
+								
+						<table><tr><td>
+				  				  										
+						<cfquery name="Warehouse"
+							datasource="AppsMaterials" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+							    SELECT 	*
+								FROM   	Warehouse W
+								WHERE  	1=1
+								AND     (
+								
+								         (Mission   = '#url.Mission#' AND Warehouse = '#URL.Warehouse#')
+										 OR 
+										 Warehouse IN (SELECT AssociationWarehouse
+								                       FROM   WarehouseAssociation 
+													   WHERE  Warehouse           = '#URL.Warehouse#'
+													   AND    AssociationType     = 'Transfer'
+													   AND    AssociationWarehouse = W.Warehouse
+													   )
+																						
+										)												
+								
+																						
+						 </cfquery>	
+							 
+						 <cfoutput>
+											
+						  <select name  = "warehouseto"
+						    id         = "warehouseto" 
+							class      = "regularxl"
+							style      = "width:300px;border:0px;font-size:14px;background-color:transparent"
+						    onchange   = "_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/warehouse/application/stock/Transfer/setLocation.cfm?systemfunctionid=#url.systemfunctionid#&whs=#url.warehouse#&warehouseto='+this.value,'locationbox')">
+							
+							<option value=""><cf_tl id="Select"></option>
+						   
+						   <cfloop query="Warehouse">
+						   						   										
+								<option value="#Warehouse#"><cfif mission neq url.mission><cf_tl id="Interoffice">:</cfif> #warehouse# #WarehouseName#</option>
+														
+							</cfloop>
+						
+						 </select>		
+						 
+						 </cfoutput>
+						 
+						 </td>
+						 
+						 <td class="labelmedium hide" style="padding-left:3px" id="locationrow">
+						 <!--- <cf_tl id="Location">: --->
+						 </td>
+						 							 
+						 <td id="locationbox" style="padding-left:4px;width:200px">							 							 		
+								<input type="hidden" name="locationto" id="locationto" value="">																		
+						 </td>									 
+																			 
+						 <td id="setvalue"></td>
+						 
+						 </tr>
+						 </table>
+								 
+				 </td>
+				  
+				 </tr>
+				 
+				</table>
+				
+				</td>
+				
+				</tr>   
 				  
 		  <cfelse>
 		  
@@ -397,7 +409,7 @@
 						username="#SESSION.login#" 
 						password="#SESSION.dbpw#">
 						    SELECT    Location, 
-							          WL.StorageCode+' '+WL.Description as Description, 
+							          CASE WHEN WL.StorageCode <> WL.Description THEN WL.StorageCode+' '+WL.Description ELSE WL.StorageCode END as Description,							         
 									  R.Description as Class
 							FROM      WarehouseLocation WL LEFT OUTER JOIN Ref_WarehouseLocationClass R
 							ON        WL.LocationClass = R.Code
@@ -428,7 +440,7 @@
 								
 								<tr>
 								
-								<td height="100%">
+								<td height="100%" style="padding-right:5px">
 								
 								<!-- <cfform> -->
 								
@@ -441,13 +453,12 @@
 										 queryposition="below"
 										 display="Description" 
 										 multiple="Yes"
-										 style="background-color:ffffff;width:240px;height:100%;border:0px"
+										 style="background-color:ffffff;width:200px;height:100%;border:0px"
 										 group="Class" 
 										 class="regularxl"
 										 selected="#selloc#">
 																			
 										<option value=""><cf_tl id="View all locations"></option>
-										 
 										 
 									</cfselect>	
 								
@@ -553,11 +564,86 @@
 								
 					        </TR>
 											
-							<tr><td style="height:100%">
+							<tr><td style="height:100%;padding:5px">
 						
 						   <cf_divscroll id="content" overflowy="scroll">								
 							   <cfinclude template="TransferViewContent.cfm">		  					
 							</cf_divscroll>
+							
+							</td></tr>
+							
+							<tr style="border-top:1px solid silver">
+		 							
+									<td colspan="1" align="center">		
+								  
+									    <table width="100" align="center">
+										
+										<cfquery name="check"
+							                dbtype="query">
+											SELECT  *
+											FROM    SearchResult
+											WHERE   Quantity > 0
+										</cfquery>			
+										
+										<cfif check.recordcount eq "0">			
+											<tr><td id="save" class="hide" align="center" style="border:0px solid silver;padding:4px">			
+										<cfelse>			
+											<tr><td id="save" class="regular" align="center" style="border:0px solid silver;padding:4px">			
+										</cfif>
+									  
+									    <!--- option to post the transaction --->
+										
+										<cfoutput>
+										
+										<!--- called from warehouse --->
+										
+										<cfquery name="whs"
+										datasource="AppsMaterials" 
+										username="#SESSION.login#" 
+										password="#SESSION.dbpw#">
+										    SELECT  *
+											FROM    Warehouse
+											WHERE   Warehouse = '#URL.Warehouse#'
+										</cfquery>						
+														
+										<cfinvoke component  = "Service.Access"  
+										   method            = "RoleAccess" 
+										   mission           = "#whs.mission#" 
+										   missionorgunitid  = "#whs.missionorgunitid#" 
+										   role              = "'WhsPick'"
+										   parameter         = "#url.systemfunctionid#"
+										   accesslevel       = "'1','2'"
+										   returnvariable    = "accessright">	
+										   
+										<cfif accessright eq "GRANTED">		
+															
+											<cf_tl id="Post Transfer" var="vSubmit">
+										   	<input name="Save" id="Save" type="button"
+												 value="#vSubmit#" 
+												 class="Button10g" 
+												 style="width:270px;height:29px;font-size:13px" 
+												 onclick="trfsubmit('#url.mission#','#url.systemfunctionid#','#url.stockorderid#','#url.loc#')">
+											    					
+										<cfelse>
+										
+											<cf_tl id="Transfer Quantities" var="vTransfer">
+											<button name="Save" id="Save"
+												 value="#vTransfer#" 
+												 class="Button10s" disabled
+												 style="width:230px;height:29px;font-size:13px">
+											    	<cf_tl id="Submit Transfer">
+											</button>								
+															
+										</cfif>   
+										
+										</cfoutput>
+										
+										</td></tr>
+										</table>				
+							  	   						  
+								      </td></tr>
+								  
+								</table>	
 							
 							</td></tr>
 											
@@ -565,7 +651,8 @@
 													
 						</td>	
 						
-						</tr>								
+						</tr>	
+										
 																										
 					</cfoutput>					
 															
@@ -574,82 +661,6 @@
 			</td>	  
 						
 		  </TR>		
-		  
-		  <tr style="border-top:1px solid silver">
-		 							
-			<td colspan="1" align="center">		
-		  
-			    <table width="100" align="center">
-				
-				<cfquery name="check"
-	                dbtype="query">
-					SELECT  *
-					FROM    SearchResult
-					WHERE   Quantity > 0
-				</cfquery>			
-				
-				<cfif check.recordcount eq "0">			
-					<tr><td id="save" class="hide" align="center" style="border:0px solid silver;padding:4px">			
-				<cfelse>			
-					<tr><td id="save" class="regular" align="center" style="border:0px solid silver;padding:4px">			
-				</cfif>
-			  
-			    <!--- option to post the transaction --->
-				
-				<cfoutput>
-				
-				<!--- called from warehouse --->
-				
-				<cfquery name="whs"
-				datasource="AppsMaterials" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-				    SELECT  *
-					FROM    Warehouse
-					WHERE   Warehouse = '#URL.Warehouse#'
-				</cfquery>						
-								
-				<cfinvoke component  = "Service.Access"  
-				   method            = "RoleAccess" 
-				   mission           = "#whs.mission#" 
-				   missionorgunitid  = "#whs.missionorgunitid#" 
-				   role              = "'WhsPick'"
-				   parameter         = "#url.systemfunctionid#"
-				   accesslevel       = "'1','2'"
-				   returnvariable    = "accessright">	
-				   
-				<cfif accessright eq "GRANTED">		
-									
-					<cf_tl id="Post Transfer" var="vSubmit">
-				   	<input name="Save" id="Save" type="button"
-						 value="#vSubmit#" 
-						 class="Button10g" 
-						 style="width:270px;height:29px;font-size:13px" 
-						 onclick="trfsubmit('#url.mission#','#url.systemfunctionid#','#url.stockorderid#','#url.loc#')">
-					    					
-				<cfelse>
-				
-					<cf_tl id="Transfer Quantities" var="vTransfer">
-					<button name="Save" id="Save"
-						 value="#vTransfer#" 
-						 class="Button10s" disabled
-						 style="width:230px;height:29px;font-size:13px">
-					    	<cf_tl id="Submit Transfer">
-					</button>								
-									
-				</cfif>   
-				
-				</cfoutput>
-				
-				</td></tr>
-				</table>				
-	  	   						  
-		      </td></tr>
-		  
-		</table>	
-	
-	</td></tr>
-	
 	</table>    
 
 </form>

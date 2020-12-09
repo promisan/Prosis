@@ -5,6 +5,7 @@ username="#SESSION.login#"
 password="#SESSION.dbpw#">
     SELECT 	T.*,
 			LT.ClearanceMode, 
+			LT.PreparationMode,
 			LT.EntityClass, 
 			LT.Operational,
 			LT.Created as Updated
@@ -32,22 +33,22 @@ password="#SESSION.dbpw#">
   	ORDER BY R.ListingOrder              
 </cfquery>
 
-<cfset vColumns = 7>
+<cfset vColumns = 8>
 
 <cfform name="frmTransaction" action="Transaction/TransactionClearanceSubmit.cfm?warehouse=#URL.warehouse#">
 
-<table width="90%" align="center" class="navigation_table">
+<table width="90%" align="center" class="navigation_table formpadding">
 
 	<tr><td height="10" style="padding-top:10px" colspan="6" class="labelmedium">Used for scenarios where it is not defined on the storage location</td></tr>
 	
 	<tr class="labelmedium line">
 		<td width="30"><cf_tl id="Class"></td>
 		<td><cf_tl id="Transaction"></td>
-		<td align="center"><cf_tl id="Clearance Mode"></td>
-		<td align="center"><cf_tl id="Workflow"></td>
-		<td align="center"><cf_tl id="Preparation"></td>
-		<td align="center"><cf_tl id="Enabled"></td>
-		<td align="center"><cf_tl id="Updated"></td>
+		<td><cf_tl id="Clearance Mode"></td>
+		<td><cf_tl id="Workflow"></td>
+		<td><cf_tl id="Preparation"></td>
+		<td><cf_tl id="Enabled"></td>
+		<td><cf_tl id="Updated"></td>
 	</tr>
 		
 	<cf_tl id="Batch" var="vBatch">
@@ -70,15 +71,15 @@ password="#SESSION.dbpw#">
 		
 		<cfoutput>
 		
-			<tr class="navigation_row line labelmedium" bgcolor="FFFFFF">
+			<tr class="navigation_row labelmedium" bgcolor="FFFFFF">
 				<td></td>
 				<td>
 					#Description#
 					<input type="Hidden" name="TransactionType_#TransactionType#" id="TransactionType_#TransactionType#" value="#TransactionType#">
 				</td>
-				<td align="center" class="Label">
+				<td class="Label">
 				
-					<select name="ClearanceMode_#TransactionType#" class="regularxl" id="ClearanceMode" style="border:0px" onchange="javascript: changeWorkflow(this,'#TransactionType#');">
+					<select name="ClearanceMode_#TransactionType#" class="regularxl" id="ClearanceMode" onchange="javascript: changeWorkflow(this,'#TransactionType#');">
 						<option value="1" <cfif ClearanceMode eq "1">selected</cfif>>#vBatch#</option>
 						<option value="2" <cfif ClearanceMode eq "2">selected</cfif>>#vIndividual#</option>
 						<!--- allow for workflow or auto clearance setting --->
@@ -92,7 +93,7 @@ password="#SESSION.dbpw#">
 					
 				</td>
 				
-				<td align="center" width="120">
+				<td width="120">
 				    
 					<cfif wfclass.recordcount gte "1">
 					 
@@ -115,19 +116,34 @@ password="#SESSION.dbpw#">
 					</cfif>
 									
 				</td>
-				
-				<td>------</td>
 								
-				<td align="center" class="Labelmedium">
-					<table><tr><td>
-					<input type="radio" class="radiol" name="Operational_#TransactionType#" id="Operational_#TransactionType#" value="0" <cfif operational eq 0>checked</cfif>>
-					</td><td class="labelmedium" style="padding-left:4px">No</td>
-					<td style="padding-left:4px">
-					<input type="radio" class="radiol" name="Operational_#TransactionType#" id="Operational_#TransactionType#" value="1" <cfif operational eq 1 or operational eq "">checked</cfif>>
-					</td><td class="labelmedium" style="padding-left:4px">#vYes#</td>
-					</tr></table>
+				<cfif transactionType eq "8" or transactionType eq "6">
+				
+					<td class="Labelmedium">
+					    <select name="PreparationMode_#TransactionType#" class="regularxl">
+							<option value="0" <cfif PreparationMode eq "0">selected</cfif>><cf_tl id="Destination location"></option>
+							<option value="1" <cfif PreparationMode eq "1">selected</cfif>><cf_tl id="Destination warehouse"></option>
+							<option value="2" <cfif PreparationMode eq "2">selected</cfif>><cf_tl id="Batch"></option>
+						</select>					
+					</td>
+					
+				<cfelse>
+				
+					<td class="Labelmedium">
+					<input type="hidden" name="PreparationMode_#TransactionType#" value="0">	
+					</TD>
+								
+				</cfif>
+				
+								
+				<td class="Labelmedium">
+					<table>
+					<tr><td>
+					<input type="checkbox" class="radiol" name="Operational_#TransactionType#" id="Operational_#TransactionType#" value="1" <cfif operational eq 1>checked</cfif>>
+					</td></tr>
+					</table>
 				</td>
-				<td align="center" class="labelit">#dateformat(updated,client.dateformatshow)#</td>
+				<td class="labelmedium">#dateformat(updated,client.dateformatshow)#</td>
 			</tr>
 			
 		</cfoutput>
@@ -139,15 +155,9 @@ password="#SESSION.dbpw#">
 			<cf_tl id="Save" var="vSave">
 			
 			<cfoutput>
-			   			   
-			 <cf_button 
-				mode        = "silver"
-				label       = "#vSave#" 
-				type        = "Submit"
-				id          = "save"					
-				width       = "170px" 					
-				color       = "636334"
-				fontsize    = "11px">   
+			
+			<input type="submit" value="#vSave#" class="button10g" style="width:200px;height:25px;font-size:14px">
+					
 			   				
 			</cfoutput>
 			

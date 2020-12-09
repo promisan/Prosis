@@ -8,14 +8,14 @@
 
 <!--- to be tuned to only load relevant scripts --->
 
-<cfparam name="attributes.classheader"  default="labelnormal line">
+<cfparam name="attributes.classheader"  default="labelnormal">
 <cfparam name="attributes.classsub"     default="labelnormal line">
 <cfparam name="attributes.mode"         default="extended">
 <cfparam name="attributes.gadgets"      default="No">
 
 <cfif attributes.mode eq "Extended">
 	
-	<cfajaximport tags="cfform,cfinput-autosuggest,cfdiv,cftree">
+	<cfajaximport tags="cfform,cfinput-autosuggest,cfdiv">
 		
 <cfelse>
 
@@ -104,9 +104,9 @@ function applyfilter(md,mypage,ajaxid,callback) {
 	    try {	
 				
 	    if (mypage == "") {		  				   
-		   pg = document.getElementById('page').value 		   
+		     pg = document.getElementById('page').value 		   
 	    } else {   		 
-		   pg = mypage
+		     pg = mypage
 		}		
 																						 					  	
 		document.listfilter.onsubmit() 	
@@ -120,27 +120,28 @@ function applyfilter(md,mypage,ajaxid,callback) {
 		   ordir = document.getElementById('listorderdir').value  		       
 		   orala = document.getElementById('listorderalias').value 		
 		   			  		   				  		   		   
-		   if (ajaxid == "content") {	
-		   
+		   if (ajaxid == "content") {			   
     		   Prosis.busy('yes')		  		   		  
 			   <!--- redirect if the action if to refresh a line itself --->
 			   target   = document.getElementById('gridbox').value  
-		   } else {				   
+		   } else {		
+		      	   
 			   target   = document.getElementById('ajaxbox').value  		   
+						    
 			   se = document.getElementById(ajaxid)		  		 
-		   		   		  		   
+			  		   		   		  		   
 			   if (se) {} else { 		   
 				  // alert("View could not be updated : "+ajaxid); target="" 
 				  }		   
 			   }		  
-			  		   		   
+			  			  		   		   
 			   if (target != "") {		   		   	  		   		   	 					   		   
 				   sfld  = document.getElementById('selectedfields').value	 				 			 		 
 				   if (lkf == "") {					   
-				   	  window['__printListingCallback'] = function(){ if (callback) callback(); };
-				      ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&listorder='+or+'&listorderfield='+orfld+'&selfld='+sfld+'&listorderalias='+orala+'&listorderdir='+ordir+'&content=1&refresh='+md,target,'__printListingCallback','','POST','listfilter')				  
+				   	  window['__printListingCallback'] = function(){ if (callback) callback(); };					  
+				       ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&listorder='+or+'&listorderfield='+orfld+'&selfld='+sfld+'&listorderalias='+orala+'&listorderdir='+ordir+'&content=1&refresh='+md,target,'__printListingCallback','','POST','listfilter')				  
 				   } else {				   	      		   			 
-				      ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&listorder='+or+'&listorderfield='+orfld+'&selfld='+sfld+'&listorderalias='+orala+'&listorderdir='+ordir+'&content=1&refresh='+md,target,'','','POST',lkf)		  
+				       ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&listorder='+or+'&listorderfield='+orfld+'&selfld='+sfld+'&listorderalias='+orala+'&listorderdir='+ordir+'&content=1&refresh='+md,target,'','','POST',lkf)		  
 				   }		   
 			   }	
 		  
@@ -203,22 +204,22 @@ function processrow(template,key,string,val) {
 	   ptoken.navigate('#SESSION.root#/'+template+key+'&'+string+'&value='+val,'listingaction')	;  
 } 
 
-function deleterow(row,dsn,table,field,value) {        
+function deleterow(t,row,dsn,table,field,value) {        
 
 	   if (confirm("Do you want to remove this record ?")) {		
 
-		   ptoken.navigate('#SESSION.root#/tools/listing/listing/ListingDelete.cfm?row='+row+'&dsn='+dsn+'&table='+table+'&key='+field+'&val='+value,'listingaction')
-		   // applynav()
+		   ptoken.navigate('#SESSION.root#/tools/listing/listing/ListingDelete.cfm?row='+row+'&dsn='+dsn+'&table='+table+'&key='+field+'&val='+value,'listingaction')		  
 		   // hide the line as it was removed	     
-		   document.getElementById('r'+row).remove()
+		   t.closest('tr').remove();
+		   //document.getElementById('r'+row).remove()
 		   try {
-		   document.getElementById('l'+row).remove()  
+		   //document.getElementById('l'+row).remove()  
 		   } catch(e) {}
 		   }
 }
 
-function listnavigateRow()	{
-	
+function listnavigateRow(box)	{
+			
 	vrowno  = document.getElementById("rowno").value
 
 	if(window.event) {
@@ -226,7 +227,7 @@ function listnavigateRow()	{
 	} else {
 		keynum = window.event.which;
 	}
-						
+								
 	if (keynum == 13) {		   
 	   try { document.getElementById("exp"+vrowno).click() } catch(e) {} 	  
 	}
@@ -248,27 +249,31 @@ function listnavigateRow()	{
 	}
 	 
 	<!--- key down ---> 
-	if (keynum == 40) {	
-	   try { 	   
-	   r = vrowno-1+2		  
-	   listshowRow(r);	   
-	   <!--- document.getElementById("r"+r).click()	   --->
-	   } catch(e) {	     
-	        if (document.getElementById('next')) {
-			    pg = document.getElementById('page').value				 
-		        document.getElementById('page').value = pg++;				 		
-		        applyfilter('',pg++,'content')		 
-		    }
-	   }				   
-	 }	
+//	if (keynum == 40) {	
+//	   try { 	   
+//	   r = vrowno-1+2		  
+//	   listshowRow(r);	   
+//	   <!--- document.getElementById("r"+r).click()	   --->
+//	   } catch(e) {	     
+//	        if (document.getElementById('next')) {
+//			    pg = document.getElementById('page').value				 
+//		        document.getElementById('page').value = pg++;				 		
+//		        applyfilter('',pg++,'content')		 
+//		    }
+//	   }				   
+//	 }	
 	 
 	<!--- key down page ---> 
 	if (keynum == 34) {	
 	         try { 		  
 		     if (document.getElementById('next')) {
-				 pg = document.getElementById('page').value				 
-			     document.getElementById('page').value = pg++;				 		
-			     applyfilter('',pg++,'content')		 
+			 	 vTable = $('##'+box+'_table');				 
+				 if ($('.navigation_row:last', vTable).is(":visible")) {	
+				     alert('b')			 
+					 pg = document.getElementById('page').value				 
+				     document.getElementById('page').value = pg++;				 			
+				     applyfilter('',pg++,'content')		 
+				 }
 			  }	} catch(e) {}		   
 	}	
 	
@@ -298,93 +303,24 @@ function listnavigateRow()	{
 		  }	 		   
 	}		 
 	 
-	<!--- < kep up reocrd  ---> 				 
-	if (keynum == 38) {	
-	   try { 
-	   r = vrowno-1
-	   se  = document.getElementById("r"+r).click()	  	  
-	   } catch(e) {
-	      if (document.getElementById('prior')) {
-			 pg = document.getElementById('page').value				 
-		     document.getElementById('page').value = pg--;				 		
-		     applyfilter('',pg--,'content')		 
-		  }	 		
-	   }				   
-	 } 	
+//	<!--- < kep up reocrd  ---> 				 
+//	if (keynum == 38) {	
+//	   try { 
+//	   r = vrowno-1
+//	   se  = document.getElementById("r"+r).click()	  	  
+//	   } catch(e) {
+//	      if (document.getElementById('prior')) {
+//			 pg = document.getElementById('page').value				 
+//		     document.getElementById('page').value = pg--;				 		
+//		     applyfilter('',pg--,'content')		 
+//		  }	 		
+//	   }				   
+//	 } 	
 	
 	<!--- disable scroll of the scrollbar  --->
 	 document.onkeydown=function(){return event.keyCode==38 || event.keyCode==40 ? false : true;}		 	 		 		 			
 	} 
-	
-function listshowRow(rowno) {		
-       	  	     		
-	   document.getElementById("rowno").value = rowno		  	   
-	   rows = document.getElementById("norows").value	   
-	   try { document.getElementById('nav'+rowno).click() } catch(e) {}	   
-	   	  	   	  	  	  	   	  	  	   		     
-	   count = 1	
-	     	   	     			  						 	   
-	   while (document.getElementById("r"+count)) {
-	   	   
-	       if (rows == "1") {
-	          rf = document.getElementById("r"+count)		
-			 			  
-			   <!--- check if already deleted --->
-			   if (rf.className != "hide") { 
-				   if (count != rowno) {
-				       if (rf.className != "#attributes.classheader#") { 
-					       rf.className  = "#attributes.classheader#"					  						   
-						   } 
-					   } else {
-					       rf.className  = "#attributes.classheader# highlight4"					   						   			    					 
-				       }				   			    	   
-			   } 
-			   count++ 
-			  
-	     	} 	
-					
-		   if (rows == "2")	{
-		      rf = document.getElementById("r"+count)	
-		      rs = document.getElementById("s"+count)
-						  
-			   <!--- check if already deleted --->
-			   if (rf.className != "hide") { 
-				   if (count != rowno) {
-				       if (rf.className != "#attributes.classsub#") { 
-					       rf.className  = "#attributes.classsub#"					  
-						   rs.className  = "regular" 						  
-						   } 
-					   } else {
-					       rf.className  = "#attributes.classsub# highlight4"					   
-						   rs.className  = "highlight4" 						  			    					 
-				       }				   			    	   
-			   } 
-			   count++ 			  
-		   } 
-		   
-		   if (rows == "3")	{
-		      rf = document.getElementById("r"+count)	
-		      rs = document.getElementById("s"+count)	
-		      rt = document.getElementById("t"+count)	
-			  
-			   <!--- check if already deleted --->
-			   if (rf.className != "hide") { 
-				   if (count != rowno) {
-				       if (rf.className != "#attributes.classsub#") { 
-					       rf.className  = "#attributes.classsub#"					  
-						   rs.className  = "#attributes.classsub#" 
-						   rt.className  = "regular" 
-						   } 
-					   } else {
-					       rf.className  = "#attributes.classsub# highlight4"					   
-						   rs.className  = "#attributes.classsub# highlight4"
-						   rt.className  = "highlight4"					    					 
-				       }				   			    	   
-			   } 
-			   count++ 			  
-		   } 
-		 }		 	   
-    }   	   
+	   
 	
 function navtarget(url,tgt) {  
    _cf_loadingtexthtml="<div style='padding-top:10px'><img src='<cfoutput>#SESSION.root#</cfoutput>/images/busy10.gif'/>";	

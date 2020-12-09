@@ -27,155 +27,17 @@
 <cfparam name="Attributes.AdditionalDocs"   default="">
 
 <cfif thisTag.ExecutionMode is 'start'>
-
-	<html xmlns="http://www.w3.org/1999/xhtml">
+	
 	<html>
 	
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />		
-	
-		<style type="text/css">
-		body
-		{
-			border : 0 0;
-			border-top : 0 none;
-			margin : 0 0 0 0;
-			margin-bottom : 0;
-			margin-left : 0;
-			margin-right : 0;
-			margin-top : 0;
-			padding : 0 0 0 0;
-			padding-bottom : 0;
-			padding-left : 0;
-			padding-right : 0;
-			padding-top : 0;
-			
-		}
-
-		#tdata_letter
-		{
-			font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
-			width:100%;
-			border:0px solid #b0b0b0;
-			padding:0px 0px 0px 0px;
-		}
-
-		#tdata_memo
-		{
-			font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
-			width:100%;
-			border:0px solid #b0b0b0;
-			padding:0px 0px 0px 0px;
-		}
-
-		#tmain {
-			font-family:"Verdana", Arial, Helvetica, sans-serif;
-			border: 0px solid White;
-			padding:0px 0px 0px 0px;
-			align : justify;
-		}
-
-		td.serif{
-			font-family:"Times New Roman", Courier, Garamond, serif;
-			font-size : 22pt;
-			font-weight:normal;
-			align : justify;
-		}
-
-		td.serif_small{
-			font-family:"Times New Roman", Courier, Garamond, serif;
-			font-size : 7pt;
-			font-weight:normal;
-			align : justify;
-		}
-
-		#tdata_letter td {
-			font-family:"Times New Roman", Courier, Garamond, serif;
-			font-size : 10pt;
-			align : justify;
-		}
-
-
-		td.memoheader {
-			font-family:"Times New Roman", Courier, Garamond, serif;
-			font-size : 10pt;
-			align : justify;
-		}
-
-
-		div.content {
-			align : justify;
-		}
-
-
-		td.continous
-		{
-			border-bottom: solid 1px #000000;
-			padding: 2px 0 2px 0
-
-		}
-
-		td.square
-		{
-			border-bottom: solid 1px #000000;
-			border-top: solid 1px #000000;
-			border-left: solid 1px #000000;
-			border-right: solid 1px #000000;
-			padding: 0px 0 0px 0
-
-		}
-
-		td.dotted
-		{
-			border-bottom: 1px dashed #000;
-			padding: 2px 0 2px 0
-
-		}
-
-		td.bold
-		{
-			font-family:arial, helvetica; 
-			font-size:12px; 
-			font-weight:bold;
-		}
-
-		td.small_bold
-		{
-			font-family:arial, helvetica; 
-			font-size:10px; 
-			font-weight:bold;
-		}
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>				
+		<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#</cfoutput>/tools/entityAction/Report/LayoutStyleSheet.css">			
+	</head>
 		
-		td.xsmall_bold
-		{
-			font-family:arial, helvetica; 
-			font-size:9px; 
-			font-weight:bold;
-		}			
-		
-		td.underline
-		{
-			font-family:arial, helvetica;
-			font-size:12px;
-			font-weight:normal;
-			text-decoration : underline;
-		}
+	<body>
 
-		td.bold_underline
-		{
-			font-family:arial, helvetica;
-			font-size:12px;
-			font-weight:bold;
-			text-decoration : underline;
-		}			
-</style>
-		
-		
-		</head>
-		
-		<body>
-
-		<table width="99%" cellspacing="0" cellpadding="0" id="tmain">
+		<table width="99%" id="tmain">
 		
 		<cfif Attributes.TitleLine1 neq "" or
 		  Attributes.Logo neq "" or
@@ -262,8 +124,7 @@
 				</td>
 		  </tr>
 		 </cfif>		
-		  <tr>
-			
+		  <tr>			
 			<td width="5%"></td>
 		    <td width="80%" class="serif_small">
 						

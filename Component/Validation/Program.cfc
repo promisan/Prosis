@@ -888,11 +888,14 @@
 				<cfif getMinMax.RecordCount eq 1>
 					<cfset vMinCount = getMinMax.AreaMinimum>
 					<cfset vMaxCount = getMinMax.AreaMaximum>
+										
 				</cfif>
 				
 				<cfif getProgram.programClass neq "Program" 
 					AND ExpectedAccomplishments.TotalResults gt 0 
 					AND ExpectedAccomplishments.CountSelected gt vMinCount>
+					
+					
 					
 					<cfquery name="getFinancials"
 						datasource="AppsProgram" 
@@ -903,6 +906,7 @@
 							WHERE 	ProgramCode = '#get.ProgramCode#'
 							AND 	ProgramStatus = 'FIN02'
 					</cfquery>
+						
 					
 					<cfif ExpectedAccomplishments.CountSelected gt vMaxCount 
 						OR (ExpectedAccomplishments.CountSelected eq vMaxCount AND getFinancials.recordCount eq 0)

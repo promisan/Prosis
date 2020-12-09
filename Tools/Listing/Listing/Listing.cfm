@@ -63,7 +63,7 @@
 
 <cfparam name="attributes.classheader"        default="labelnormal">
 <cfparam name="attributes.classsub"           default="labelnormal line">
-<cfparam name="attributes.classline"          default="">
+<cfparam name="attributes.classcell"          default="listingcell">
 
 <cfparam name="attributes.tablewidth"         default="100%">
 <cfparam name="attributes.tableheight"        default="100%">
@@ -1509,16 +1509,18 @@
 	</cfif>	
 	
 <cfelse>	
+
+	<!--- we refresh the fields directly --->
 	 
 	<cfif searchResult.recordcount eq "1">	
 			 
-		<cfloop query="SearchResult">		
-		    <cfset rowshow = "1">									
-			<cfinclude template="ListingContentField.cfm">				
-			<cfset rowshow = "2">									
-			<cfinclude template="ListingContentField.cfm">	
-			<cfset rowshow = "3">									
-			<cfinclude template="ListingContentField.cfm">							
+		<!--- we loop through the record with its query field row values --->	 
+		<cfloop query="SearchResult">	
+		
+			<cfloop index="rowshow" from="1" to="3">		   						
+				<cfinclude template="ListingContentField.cfm">				
+			</cfloop>				
+			
 		</cfloop> 
 								
 	<cfelse>

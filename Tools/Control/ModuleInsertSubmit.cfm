@@ -27,16 +27,17 @@
 	SELECT  *
 	FROM    Ref_ModuleControl
 	WHERE   SystemModule  = '#Attributes.SystemModule#' 
-	AND     FunctionName  = '#Attributes.FunctionName#'
 	AND     (
-	         (FunctionClass = '#Attributes.FunctionClass#')
-	         OR  
-			 (FunctionDirectory = '#Attributes.FunctionDirectory#' AND FunctionPath = '#Attributes.FunctionPath#' AND FunctionCondition = '#attributes.functioncondition#')	
-			 <cfif attributes.scriptname neq "">
-			 OR
-			 ScriptName = '#attributes.scriptname#'		 
-			 </cfif>
+			FunctionName  = '#Attributes.FunctionName#'
+			<cfif attributes.scriptname neq "">OR ScriptName = '#attributes.scriptname#'</cfif>
+			) 
+	
+	<cfif attributes.scriptname eq "">	
+	AND     (FunctionClass = '#Attributes.FunctionClass#' OR  
+			 (FunctionDirectory = '#Attributes.FunctionDirectory#' AND FunctionPath = '#Attributes.FunctionPath#' AND FunctionCondition = '#attributes.functioncondition#')				 
 			)
+	</cfif>		
+			
 	</cfquery>	
 				
 	<cfif Check.recordcount eq "0">

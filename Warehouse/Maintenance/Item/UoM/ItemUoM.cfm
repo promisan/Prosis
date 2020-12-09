@@ -8,11 +8,13 @@ password="#SESSION.dbpw#">
 	WHERE 	ItemNo = '#URL.ID#'
 </cfquery>
 
-<table width="95%" cellspacing="0" cellpadding="0" align="center">
+<table width="99%" align="center">
 
+	 <cfoutput>
+
+    <!--- it is now embedded 
+	
 	<tr><td height="7"></td></tr>
-
-    <cfoutput>
 	
 	<cfquery name="Cls" 
 	datasource="AppsMaterials" 
@@ -41,6 +43,8 @@ password="#SESSION.dbpw#">
 		
 	<tr><td class="line" colspan="2"></td></tr>
 	
+	--->
+	
 	<tr><td colspan="2" style="height:30px" class="labelit">
 	
 		<cf_tl id="The UoM defined for supply item represent the the actual level of the item as it kept in stock" class="message">.
@@ -51,14 +55,11 @@ password="#SESSION.dbpw#">
 	<tr><td height="1" colspan="2" class="line"></td></tr>	
 	<tr><td colspan="2" align="center">	
 	
-	    <cf_getMID>
-		<cfdiv bind="url:UoM/ItemUoMList.cfm?id=#url.id#&uomselected=&mid=#mid#" id="uomlist"/>		
+		<cf_securediv bind="url:#session.root#/Warehouse/Maintenance/Item/UoM/ItemUoMList.cfm?id=#url.id#&uomselected=" id="uomlist">		
 				
 	</td></tr>
 		
-	<tr><td colspan="2">
-	<cfdiv id="uomedit"/>
-	</td></tr>
+	<tr><td colspan="2" id="uomedit"></td></tr>
 	
 	</cfoutput>	
 

@@ -5,55 +5,55 @@ this list also includes parent records in case the user has access to the child 
    mission="#mission#"    
    role="'CaseFileManager'">
    
-<cf_tl id="Organization" var="1">						
+<cf_tl id="Organization" var="1">	
 
-<cftreeitem value="organization"
-        display="<td class='labelmedium'>#lt_text#"		
-		href     = "javascript:list('ORG','')"			
-		expand="No" 
-		parent="standard">	
-		      
-   <cfquery name="listUnit" 
-    datasource="AppsOrganization" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-	SELECT DISTINCT TreeOrder, 
-	                OrgUnitName, 
-					OrgUnit,  
-					OrgUnitCode, 
-					HierarchyCode,
-					MissionOrgUnitId 
-	FROM   #CLIENT.LanPrefix#Organization
-	WHERE  Mission = '#Mission#'
-	<!--- only the parent units to be selected here --->
-   	AND   (ParentOrgUnit is NULL OR ParentOrgUnit = '' OR Autonomous = 1)
-	
-	<!--- only relevant units to be shown for which access is defined --->
-	
-	AND   CONVERT(varchar(38), MissionOrgUnitId) + '_' + MandateNo IN (
-	
-				SELECT    CONVERT(varchar(38), MissionOrgUnitId) + '_' + MAX(MandateNo)
-				FROM      Organization
-				WHERE     Mission = '#Mission#'
-				<cfif accesslist neq "full">
-				AND       OrgUnit IN (#preserveSingleQuotes(accesslist)#)	  	
-				<cfelseif accesslevel neq "ALL"> 
-				AND    1=0  	
-				</cfif>
-				GROUP BY MissionOrgUnitId				
-   		
-			)
-	ORDER BY HierarchyCode		
+	 <cf_UItreeitem value="organization"
+	        display = "<span style='font-size:16px;font-weight:bold;padding-top:3px;padding-bottom:3px' class='labelit'>#lt_text#</span>"
+			parent  = "root"	
+			href    = "javascript:list('ORG','')"												
+			target  = "right"
+	        expand  = "No">	
+      
+	<cfquery name="listUnit" 
+	    datasource="AppsOrganization" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT DISTINCT TreeOrder, 
+			                OrgUnitName, 
+							OrgUnit,  
+							OrgUnitCode, 
+							HierarchyCode,
+							MissionOrgUnitId 
+			FROM   #CLIENT.LanPrefix#Organization
+			WHERE  Mission = '#Mission#'
+			<!--- only the parent units to be selected here --->
+		   	AND   (ParentOrgUnit is NULL OR ParentOrgUnit = '' OR Autonomous = 1)
+			
+			<!--- only relevant units to be shown for which access is defined --->
+			
+			AND   CONVERT(varchar(38), MissionOrgUnitId) + '_' + MandateNo IN (
+			
+						SELECT    CONVERT(varchar(38), MissionOrgUnitId) + '_' + MAX(MandateNo)
+						FROM      Organization
+						WHERE     Mission = '#Mission#'
+						<cfif accesslist neq "full">
+						AND       OrgUnit IN (#preserveSingleQuotes(accesslist)#)	  	
+						<cfelseif accesslevel neq "ALL"> 
+						AND    1=0  	
+						</cfif>
+						GROUP BY MissionOrgUnitId				
+		   		
+					)
+			ORDER BY HierarchyCode		
 	</cfquery>			
 		
 	<cfloop query="listUnit">
-		  
-		 	<cftreeitem value="#orgunit#"
-	        display  = "#OrgUnitName#"
-			parent   = "organization"					
-			expand   =  "No"
-			href     = "javascript:list('ORG','#OrgUnit#')">	
+	
+			 <cf_UItreeitem value="#orgunit#"
+	        display = "<span style='font-size:14px;' class='labelit'>#OrgUnitName#</span>"
+			parent  = "organization"	
+			href    = "javascript:list('ORG','#orgunit#')"												
+			target  = "right">		 
 			 
 	</cfloop>
-	
 	

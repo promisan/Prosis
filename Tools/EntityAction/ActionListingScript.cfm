@@ -97,6 +97,12 @@
 		ptoken.navigate('#SESSION.root#/Tools/EntityAction/Session/SessionView.cfm?actionid='+id+'&referenceid='+refid,'wfusersession')					
 	}
 	
+	function workflowchat(id) {
+	    try { ProsisUI.closeWindow('wfuserchat') } catch(e) {}
+	    ProsisUI.createWindow('wfuserchat', 'Messenger', '',{x:25,y:25,height:document.body.clientHeight-89,width:510,resizable:false,center:true,modal:false});
+		ptoken.navigate('#SESSION.root#/Tools/EntityAction/Details/Comment/CommentListing.cfm?ajax=Yes&objectId='+id,'wfuserchat')		
+	}
+	
 	function workflowsessionsave(id,refid) {		
 	
 			document.sessionform.onsubmit() 
@@ -471,18 +477,19 @@
 				
 	function showatt(row) {
 
-	 se1 = document.getElementById(row+'Exp')
-	 se2 = document.getElementById(row+'Min')
-	 se3 = document.getElementById('att'+row)
-	 if (se1.className == "regular") {
-	  	  	se2.className = "regular"
-			se1.className = "hide"
-			se3.className = "hide"
-	 } else {
-		    se1.className = "regular"
-			se2.className = "hide"
-			se3.className = "regular"
-	 }
+		 se1 = document.getElementById(row+'Exp')
+		 se2 = document.getElementById(row+'Min')
+		 se3 = document.getElementById('att'+row)
+		 if (se1.className == "regular") {
+		  	  	se2.className = "regular"
+				se1.className = "hide"
+				se3.className = "hide"
+		 } else {
+			    se1.className = "regular"
+				se2.className = "hide"
+				se3.className = "regular"
+		 }
+		 
     } 
 		
 	function accessgrantedwf(topic,row,act,set,org,role,pub) {

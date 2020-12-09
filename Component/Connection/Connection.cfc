@@ -885,10 +885,12 @@
 								<cfif getObjects.ScopeMode eq "Listing">
 								
 									<!--- listing --->	
-						
-									<script>																	
+									
+									<cfif ObjectId neq "">						
+									<script>										   																
 										applyfilter('1','','#ObjectId#')								
 									</script>
+									</cfif>
 						
 								<cfelse>
 							

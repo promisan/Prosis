@@ -149,16 +149,12 @@
 					 }
 				 }
 				 
-				 function editrole(status, id, role) {
-				 
-				    
-					try { ColdFusion.Window.destroy('myrole',true) } catch(e) {}
-					ColdFusion.Window.create('myrole', 'Receipt', '',{x:100,y:100,height:document.body.clientHeight-100,width:document.body.clientWidth-100,modal:true,resizable:false,center:true})    								
+				 function editrole(status, id, role) {				 				    					
+					ProsisUI.createWindow('myrole', 'Receipt', '',{x:100,y:100,height:document.body.clientHeight-100,width:document.body.clientWidth-100,modal:true,resizable:false,center:true})    								
 					ptoken.navigate('RoleView.cfm?status='+status+'&id='+id+'&role='+role,'myrole') 		
 				 }
 				 
-				 function rolerefresh(status,id) {
-				 
+				 function rolerefresh(status,id) {				 
 					_cf_loadingtexthtml='';	
 				    ptoken.navigate('Role.cfm?status='+status+'&ID='+id+'&ID1=','rolebox');
 				 }

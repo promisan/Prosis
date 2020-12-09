@@ -132,7 +132,7 @@ detail --->
 			
 			<tr class="line"><td height="20" colspan="#cols#" style="padding-left:4px" class="labellarge">#DateYear#</td></tr>		
 						
-			<tr height="18" class="labelit">
+			<tr height="18" class="labelmedium">
 			  <td style="padding-left:5px;border:1px solid silver;"></td>
 			  <td align="center" id="labelqty" style="border:1px solid silver;min-width:90px">
 			  <cf_tl id="Quantity">
@@ -186,8 +186,8 @@ detail --->
 				   
 		<cfelse>
 				   
-			   	<td style="border:1px solid silver">
-											
+			   	<td style="border:1px solid silver;padding-right:4px">
+															
 					<cf_tl id="Please enter a quantity" var="1">				
 							
 					<cfif Dates.requestQuantity eq "0">				
@@ -196,7 +196,7 @@ detail --->
 					       name="requestquantity_#currentrow#"
 					       value=""
 					       class="regularh enterastab"
-						   style="text-align:right;width:99%;border:0px"
+						   style="text-align:right;width:97%;border:0px"
 						   size="8"							   
 						   message="#lt_text#">
 						   
@@ -206,7 +206,7 @@ detail --->
 					       name="requestquantity_#currentrow#"
 					       value="#Dates.requestQuantity#"
 					       class="regularh enterastab"
-						   style="text-align:right;;width:99%;border:0px"
+						   style="text-align:right;;width:97%;border:0px"
 						   size="8"							   
 						   message="#lt_text#">
 						   
@@ -220,7 +220,7 @@ detail --->
 				       name="remarks_#currentrow#"
 				       value="#Dates.remarks#"						      
 					   size="50"
-					   style="width:100%;border:0px"
+					   style="width:97%;border:0px"
 					   tabindex="999"
 					   maxlength="50"							  					 
 				       required="No"      				      
@@ -245,22 +245,22 @@ detail --->
 		   
 		   	   <cf_tl id="Please enter a quantity" var="1">				  
 			   
-			   <td style=";border:1px solid silver">
+			   <td align="right" style="border:1px solid silver">
 			 	
 				   <input type = "Text"
 				       name        = "resourcequantity_#currentrow#"
 				       value       = "#Dates.resourceQuantity#"
 				       validate    = "float"
 					   size        = "8"
-					   style       = "text-align:right;width:99%;border:0px"
+					   style       = "text-align:right;border:0px;"
 					   message     = "#lt_text#"
 				       required    = "No"      
 					   class       = "regularh enterastab">						   
 				   
 			   </td>
 			  					 
-			   <td style="padding-left:1px;border:1px solid silver">			
-			   			  
+			   <td style="padding-left:1px;border:1px solid silver">	
+			   		   			  
 				   <input type   = "Text"
 			   		   name      = "resourcedays_#currentrow#"
 					   value     = "#Dates.resourcedays#"
@@ -273,7 +273,7 @@ detail --->
 					   
 			   </td>
 	
-			   <td style="padding-left:1px;min-width:100px;padding-right:1px;border:1px solid silver">			    
+			   <td style="padding-left:1px;min-width:100px;padding-right:3px;border:1px solid silver">			    
 											
 					<cfdiv id="quantity_#currentrow#" 
 				       bindonload="false"
@@ -281,7 +281,7 @@ detail --->
 					   						 				  															  							   
 					   <input type = "text" 
 					    class      = "regularh enterastab" 
-						style      = "text-align:right;width:99%;background-color:f1f1f1;border:0px" 
+						style      = "text-align:right;width:96%;background-color:f1f1f1;border:0px" 
 						size       = "8"						
 						readonly 
 						id         = "requestquantity_#currentrow#" 
@@ -299,7 +299,7 @@ detail --->
 				       name         = "remarks_#currentrow#"
 				       value        = "#Dates.remarks#"	
 					   tabindex     = "999"					      
-					   style        = "width:100%;border:0px"
+					   style        = "width:96%;border:0px"
 					   maxlength    = "50"			 					 
 				       required     = "No"      				      
 				       class        = "regularh enterastab">

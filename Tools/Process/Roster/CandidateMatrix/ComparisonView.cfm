@@ -45,7 +45,7 @@
 			 WHERE    S.PersonNo = A.PersonNo
 			 AND      S.ApplicantNo = '#attributes.applicantno#'		 
 		</cfquery>	
-		
+						
 <cfelseif attributes.personNo neq "" and attributes.source neq "">		
 
 	<cfquery name="getCandidates" 
@@ -92,9 +92,8 @@
 		 AND      S.Source   = '#SSource#'
 		 ORDER BY Created DESC
 	</cfquery>	
-	
-	<cfset attributes.applicantNo = getCandidates.applicantNo>
-	
+				
+	<cfset attributes.applicantNo = getCandidates.applicantNo>	
 	
 <cfelseif attributes.personNo neq "" and attributes.owner eq "">
 

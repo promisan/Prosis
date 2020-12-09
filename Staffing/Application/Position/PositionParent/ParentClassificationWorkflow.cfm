@@ -1,4 +1,5 @@
 
+
 <cfquery name="Parent" 
 datasource="AppsEmployee" 
 username="#SESSION.login#" 
@@ -12,9 +13,9 @@ password="#SESSION.dbpw#">
 datasource="AppsEmployee" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-	 SELECT *
-	 FROM  Position		 
-	 WHERE PositionParentId = '#URL.ajaxid#'	 
+	 SELECT   *
+	 FROM     Position		 
+	 WHERE    PositionParentId = '#URL.ajaxid#'	 
 	 ORDER BY DateEffective DESC
 </cfquery>
 
@@ -30,11 +31,13 @@ password="#SESSION.dbpw#">
 	<cfset ref = "Classification #Parent.PositionParentId#">
 </cfif>
 
+<cfparam name="Form.entityClass" default="Standard">
+
 <cfif url.class eq "normal">
 
 	<cf_ActionListing 
 	    EntityCode       = "PostClassification"
-		EntityClass      = "Standard"
+		EntityClass      = "#Form.EntityClass#"
 		EntityGroup      = ""
 		EntityStatus     = ""
 		tablewidth       = "99%"
@@ -46,6 +49,8 @@ password="#SESSION.dbpw#">
 		AjaxId           = "#URL.ajaxId#"
 		ObjectURL        = "#link#"
 		Show             = "Yes">
+		
+	
 
 <cfelseif url.class eq "init">
 	
@@ -56,14 +61,14 @@ password="#SESSION.dbpw#">
 			 UPDATE  Organization.dbo.OrganizationObject
 			 SET     Operational = 0
 			 WHERE   ObjectKeyValue1 = '#url.ajaxid#'
-			 AND     EntityCode = 'PostClassification'							 
+			 AND     EntityCode = 'PostClassification'					 
 	</cfquery>
 			
 	<!--- add flow and show --->
 		
 	<cf_ActionListing 
 	    EntityCode       = "PostClassification"
-		EntityClass      = "Standard"
+		EntityClass      = "#Form.EntityClass#"
 		EntityGroup      = ""
 		EntityStatus     = ""
 		tablewidth       = "99%"
@@ -91,7 +96,7 @@ password="#SESSION.dbpw#">
 			 SET     Operational = 0
 			 WHERE   ObjectKeyValue1 = '#url.ajaxid#'
 			 AND     EntityCode = 'PostClassification'	
-			  AND     Operational     = 1								 
+			  AND     Operational     = 1							 
 	</cfquery>
 	
 <cfelseif url.class eq "delete">	
@@ -108,6 +113,7 @@ password="#SESSION.dbpw#">
 		
 	<script>
 		document.getElementById('classificationdelete').className = "hide"
+		Prosis.busy('no')
 	</script>	
 
 </cfif>

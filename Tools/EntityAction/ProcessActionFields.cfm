@@ -247,11 +247,32 @@
 										datasource="#lookupdatasource#" 
 										username="#SESSION.login#" 
 										password="#SESSION.dbpw#">
-										SELECT  DISTINCT #LookupFieldKey#, #LookupFieldName#
-										FROM    #lookuptable#		
-										WHERE   #LookupFieldKey#!='#fieldDefault#'				
+											SELECT    DISTINCT #LookupFieldKey# as KeyValue, 
+											          #LookupFieldName# as Display
+											FROM      #lookuptable#		
+											WHERE     #LookupFieldKey# != '#fieldDefault#'	
+											<cfif LookupCondition neq "">
+											AND       #preserveSingleQuotes(LookupCondition)#
+											</cfif>
+											ORDER BY  #LookupFieldName#			
 									 </cfquery>	
+									 									 
+									 <cf_UIselect name = "f_#DocumentCode#" 
+									    id             = "f_#DocumentCode#"												
+										class          = "regularXXL"																														
+										style          = "width:99%"	
+										required       = "#req#"		
+										message        = "Provide input for: #DocumentDescription#"								
+										query          = "#List#"
+										queryPosition  = "below"
+										filter         = "contains"
+										selected       = "#Topic.documentItemValue#"
+										value          = "KeyValue"
+						                display        = "Display">
+										<option value = "#fieldDefault#">#fieldDefault#</option>
+									 </cf_UIselect>
 									 
+									 <!---
 									  <cfselect name="f_#documentcode#"
 									      id       = "f_#DocumentCode#"
 							              message  = "Please enter #fieldvalidation#"
@@ -265,6 +286,7 @@
 							              queryposition="below">
 							         		<option value = "#fieldDefault#">#fieldDefault#</option>
 							        </cfselect>
+									--->
 							 							 
 								 </cfif>  											 		
 							

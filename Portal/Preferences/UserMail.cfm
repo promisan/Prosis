@@ -37,7 +37,7 @@ password="#SESSION.dbpw#">
 					toolbar="mini"	
 					init="yes"
 					resize="false"
-					id="block"					
+					id="signatureblock"					
 					name="Pref_SignatureBlock">#Get.Pref_SignatureBlock#</cf_textarea>
 					
 		</td></tr></table>			

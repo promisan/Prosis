@@ -136,8 +136,8 @@
    				  mission          = "#Mission#" 
 			      Terminal         = "#Terminal#" 
 			      Batchid          = "#BatchId#"
-			      returnvariable   = "EDIResult">	 
-			
+			      returnvariable   = "EDIResult">
+
 			<cfelse>
 			
 				<cfset EDIResult.Status = "OK">

@@ -79,9 +79,8 @@
 	  }
 		
 	function depreciation() {
-	     ColdFusion.Window.create('dep', 'Depreciation', '',{x:100,y:100,height:300,width:700,modal:true,center:true})
-	     ColdFusion.Window.show('dep')	
-	     ColdFusion.navigate('../Depreciation/DepreciationSet.cfm?mission=#url.mission#','dep') 
+	     ProsisUI.createWindow('dep', 'Depreciation', '',{x:100,y:100,height:300,width:700,modal:true,center:true})	     
+	     ptoken.navigate('../Depreciation/DepreciationSet.cfm?mission=#url.mission#','dep') 
 	}
 
 	function newreceipt() {		    

@@ -2,6 +2,7 @@
 <cfparam name="url.scope" default="Standard">
 <cfparam name="url.lines" default="1">
 
+
 <cfoutput>
 
 	<cfif url.mode eq "Total">

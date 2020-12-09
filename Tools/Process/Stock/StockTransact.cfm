@@ -1663,8 +1663,7 @@
 								TransactionType2      = "Standard"
 								Amount2               = "#totCredit#">
 														
-						<cfelse>		
-						
+						<cfelse>						
 											
 							<cf_GledgerEntryLine
 							    DataSource            = "#Attributes.DataSource#"
@@ -1742,10 +1741,12 @@
 					    password="#SESSION.dbpw#">
 						    SELECT    *
 						    FROM      Accounting.dbo.Ref_Tax
-							WHERE     TaxCode = '#attributes.TaxCode#'
+							WHERE     TaxCode = '#attributes.TaxCode#'							
 					</cfquery> 			
 					
 					<!--- convert the cost price to the currency of the DocumentCurrency in the GL transaction --->
+					
+					<cfparam name="Attributes.SalesCurrency"     default = "#APPLICATION.BaseCurrency#">
 					
 					<cf_exchangeRate datasource="#Attributes.DataSource#"
 								     EffectiveDate = "#Attributes.TransactionDate#"
@@ -1781,138 +1782,205 @@
 					
 					<!--- pending is the link to the customer --->		
 					
+					<cfparam name="Attributes.SalesTotal"     default = "#totGL#">
+					
 					<cfif totGl neq "0">
 								
-					<cf_GledgerEntryHeader
-					    DataSource            = "#Attributes.DataSource#"
-						Mission               = "#Attributes.Mission#"
-						OrgUnitOwner          = "#OrgUnitOwner#"
-						Journal               = "#Journal.Journal#" 
-						Description           = "#Attributes.Remarks#"
-						TransactionSource     = "#Attributes.TransactionSource#"
-						TransactionSourceId   = "#Attributes.GLTransactionSourceId#"
-						TransactionSourceNo   = "#Attributes.GLTransactionSourceNo#"
-						AccountPeriod         = "#Parameter.CurrentAccountPeriod#"
-						TransactionCategory   = "#Attributes.TransactionCategory#"
-						TransactionDate       = "#Attributes.TransactionDate#"
-						JournalTransactionNo  = "#Attributes.GLTransactionNo#"
-						MatchingRequired      = "1"		
-						ActionStatus          = "1"			
-						Reference             = "Sale"       
-						ReferenceName         = "#Attributes.ItemNo# #left(Item.Itemdescription,100)#"
-						ReferencePersonNo     = "#attributes.SalesPersonNo#"
-						ReferenceId           = "#Attributes.TransactionId#"
-						ReferenceNo           = ""
-						DocumentCurrency      = "#Attributes.SalesCurrency#"
-						DocumentDate          = "#Attributes.TransactionDate#"
-						DocumentAmount        = "#Attributes.SalesTotal#"
-						AmountOutstanding     = "0">						
+							<cf_GledgerEntryHeader
+							    DataSource            = "#Attributes.DataSource#"
+								Mission               = "#Attributes.Mission#"
+								OrgUnitOwner          = "#OrgUnitOwner#"
+								Journal               = "#Journal.Journal#" 
+								Description           = "#Attributes.Remarks#"
+								TransactionSource     = "#Attributes.TransactionSource#"
+								TransactionSourceId   = "#Attributes.GLTransactionSourceId#"
+								TransactionSourceNo   = "#Attributes.GLTransactionSourceNo#"
+								AccountPeriod         = "#Parameter.CurrentAccountPeriod#"
+								TransactionCategory   = "#Attributes.TransactionCategory#"
+								TransactionDate       = "#Attributes.TransactionDate#"
+								JournalTransactionNo  = "#Attributes.GLTransactionNo#"
+								MatchingRequired      = "1"		
+								ActionStatus          = "1"			
+								Reference             = "Sale"       
+								ReferenceName         = "#Attributes.ItemNo# #left(Item.Itemdescription,100)#"
+								ReferencePersonNo     = "#attributes.SalesPersonNo#"
+								ReferenceId           = "#Attributes.TransactionId#"
+								ReferenceNo           = ""
+								DocumentCurrency      = "#Attributes.SalesCurrency#"
+								DocumentDate          = "#Attributes.TransactionDate#"
+								DocumentAmount        = "#Attributes.SalesTotal#"
+								AmountOutstanding     = "0">						
 																																					 
 							<cfif Param.taxmanagement eq "1">			
 																																					 
-							<cf_GledgerEntryLine
-							    DataSource            = "#Attributes.DataSource#"
-								Lines                 = "4"
-								TransactionDate       = "#Attributes.TransactionDate#"
-								Journal               = "#Journal.Journal#"
-								JournalNo             = "#JournalTransactionNo#"
-								JournalTransactionNo  = "#Attributes.GLTransactionNo#"
-								AccountPeriod         = "#Parameter.CurrentAccountPeriod#"
-								Currency              = "#Attributes.SalesCurrency#"
-								LogTransaction		  = "No"
-																										
-								TransactionSerialNo1  = "1"
-								Class1                = "Debit"
-								Reference1            = "COGS"       
-								ReferenceName1        = "#left(Item.Itemdescription,100)#"
-								Description1          = "#Type.Description#"
-								GLAccount1            = "#Attributes.GLAccountDebit#"
-								Costcenter1           = "#costcenter#"
-								WorkOrderLineId1      = "#workorderlineid#"
-								ReferenceId1          = "#Attributes.ReferenceId#"
-								ReferenceNo1          = "#Attributes.ItemNo#"
-								TransactionType1      = "Standard"
-								Amount1               = "#totGl#"
+								<cf_GledgerEntryLine
+								    DataSource            = "#Attributes.DataSource#"
+									Lines                 = "4"
+									TransactionDate       = "#Attributes.TransactionDate#"
+									Journal               = "#Journal.Journal#"
+									JournalNo             = "#JournalTransactionNo#"
+									JournalTransactionNo  = "#Attributes.GLTransactionNo#"
+									AccountPeriod         = "#Parameter.CurrentAccountPeriod#"
+									Currency              = "#Attributes.SalesCurrency#"
+									LogTransaction		  = "No"
+																											
+									TransactionSerialNo1  = "1"
+									Class1                = "Debit"
+									Reference1            = "COGS"       
+									ReferenceName1        = "#left(Item.Itemdescription,100)#"
+									Description1          = "#Type.Description#"
+									GLAccount1            = "#Attributes.GLAccountDebit#"
+									Costcenter1           = "#costcenter#"
+									WorkOrderLineId1      = "#workorderlineid#"
+									ReferenceId1          = "#Attributes.ReferenceId#"
+									ReferenceNo1          = "#Attributes.ItemNo#"
+									TransactionType1      = "Standard"
+									Amount1               = "#totGl#"
+										
+									TransactionSerialNo2  = "2"
+									Class2                = "Credit"
+									Reference2            = "Stock"       
+									ReferenceName2        = "#left(Item.Itemdescription,100)#"
+									Description2          = "#Type.Description#"
+									GLAccount2            = "#Attributes.GLAccountCredit#"
+									Costcenter2           = "#costcenter#"
+									WorkOrderLineId2      = "#workorderlineid#"
+									ReferenceNo2          = "#Attributes.ItemNo#"
+									ReferenceId2          = "#Attributes.ReferenceId#"
+									TransactionType2      = "Standard"
+									Amount2               = "#totCredit#"														
 									
-								TransactionSerialNo2  = "2"
-								Class2                = "Credit"
-								Reference2            = "Stock"       
-								ReferenceName2        = "#left(Item.Itemdescription,100)#"
-								Description2          = "#Type.Description#"
-								GLAccount2            = "#Attributes.GLAccountCredit#"
-								Costcenter2           = "#costcenter#"
-								WorkOrderLineId2      = "#workorderlineid#"
-								ReferenceNo2          = "#Attributes.ItemNo#"
-								ReferenceId2          = "#Attributes.ReferenceId#"
-								TransactionType2      = "Standard"
-								Amount2               = "#totCredit#"														
+									TransactionSerialNo3  = "3"
+									Class3                = "Debit"
+									Reference3            = "Correction Sales Tax"       
+									ReferenceName3        = "#left(Item.Itemdescription,100)#"
+									Description3          = "#Type.Description#"
+									TransactionTaxCode3   = "#attributes.TaxCode#"
+									GLAccount3            = "#Tax.GLAccountReceived#"
+									Costcenter3           = "#costcenter#"
+									WorkOrderLineId3      = "#workorderlineid#"
+									ReferenceNo3          = "#Attributes.ItemNo#"
+									ReferenceId3          = "#Attributes.ReferenceId#"
+									TransactionType3      = "Standard"
+									Amount3               = "#taxCOGS#"
+																
+									TransactionSerialNo4  = "4"
+									Class4                = "Credit"
+									Reference4            = "COGS Tax Paid"       
+									ReferenceName4        = "#left(Item.Itemdescription,100)#"
+									Description4          = "#Type.Description#"
+									TransactionTaxCode4   = "#attributes.TaxCode#"
+									GLAccount4            = "#Tax.GLAccountPaid#"
+									Costcenter4           = "#costcenter#"
+									WorkOrderLineId4      = "#workorderlineid#"
+									ReferenceNo4          = "#Attributes.ItemNo#"
+									ReferenceId4          = "#Attributes.ReferenceId#"
+									TransactionType4      = "Standard"
+									Amount4               = "#taxCOGS#">
 								
-								TransactionSerialNo3  = "3"
-								Class3                = "Debit"
-								Reference3            = "Correction Sales Tax"       
-								ReferenceName3        = "#left(Item.Itemdescription,100)#"
-								Description3          = "#Type.Description#"
-								TaxCode3              = "#attributes.TaxCode#"
-								GLAccount3            = "#Tax.GLAccountReceived#"
-								Costcenter3           = "#costcenter#"
-								WorkOrderLineId3      = "#workorderlineid#"
-								ReferenceNo3          = "#Attributes.ItemNo#"
-								ReferenceId3          = "#Attributes.ReferenceId#"
-								TransactionType3      = "Standard"
-								Amount3               = "#taxCOGS#"
-															
-								TransactionSerialNo4  = "4"
-								Class4                = "Credit"
-								Reference4            = "COGS Tax Paid"       
-								ReferenceName4        = "#left(Item.Itemdescription,100)#"
-								Description4          = "#Type.Description#"
-								TaxCode4              = "#attributes.TaxCode#"
-								GLAccount4            = "#Tax.GLAccountPaid#"
-								Costcenter4           = "#costcenter#"
-								WorkOrderLineId4      = "#workorderlineid#"
-								ReferenceNo4          = "#Attributes.ItemNo#"
-								ReferenceId4          = "#Attributes.ReferenceId#"
-								TransactionType4      = "Standard"
-								Amount4               = "#taxCOGS#">
-								
-						<cfelse>
+							<cfelseif attributes.TransactionClass eq "Interoffice">		
+							
+								   <cfif totGL gte "0">
+								   	   <cfset tax = Tax.GLAccountReceived>
+								   <cfelse>
+								   	   <cfset tax = Tax.GLAccountPaid>	   
+								   </cfif>	 
+							
+								   <cfset totGL = totGL+taxCOGS>						
+							
+								   <cf_GledgerEntryLine
+								    DataSource            = "#Attributes.DataSource#"
+									Lines                 = "3"
+									TransactionDate       = "#Attributes.TransactionDate#"
+									Journal               = "#Journal.Journal#"
+									JournalNo             = "#JournalTransactionNo#"
+									JournalTransactionNo  = "#Attributes.GLTransactionNo#"
+									AccountPeriod         = "#Parameter.CurrentAccountPeriod#"
+									Currency              = "#Attributes.SalesCurrency#"
+									LogTransaction		  = "No"
+																											
+									TransactionSerialNo1  = "1"
+									Class1                = "Debit"
+									Reference1            = "IO"       
+									ReferenceName1        = "#left(Item.Itemdescription,100)#"
+									Description1          = "#Type.Description#"
+									GLAccount1            = "#Attributes.GLAccountDebit#"
+									Costcenter1           = "#costcenter#"
+									TransactionTaxCode1   = "#attributes.TaxCode#"
+									WorkOrderLineId1      = "#workorderlineid#"
+									ReferenceId1          = "#Attributes.ReferenceId#"
+									ReferenceNo1          = "#Attributes.ItemNo#"
+									TransactionType1      = "Standard"
+									Amount1               = "#totGl#"
+										
+									TransactionSerialNo2  = "2"
+									Class2                = "Credit"
+									Reference2            = "Stock"       
+									ReferenceName2        = "#left(Item.Itemdescription,100)#"
+									Description2          = "#Type.Description#"
+									GLAccount2            = "#Attributes.GLAccountCredit#"
+									Costcenter2           = "#costcenter#"
+									TransactionTaxCode2   = "#attributes.TaxCode#"
+									WorkOrderLineId2      = "#workorderlineid#"
+									ReferenceNo2          = "#Attributes.ItemNo#"
+									ReferenceId2          = "#Attributes.ReferenceId#"
+									TransactionType2      = "Standard"
+									Amount2               = "#totCredit#"														
+									
+									TransactionSerialNo3  = "3"
+									Class3                = "Debit"
+									Reference3            = "Sales Tax"       
+									ReferenceName3        = "#left(Item.Itemdescription,100)#"
+									Description3          = "#Type.Description#"
+									TransactionTaxCode3   = "#attributes.TaxCode#"
+									GLAccount3            = "#Tax.GLAccountReceived#"
+									Costcenter3           = "#costcenter#"									
+									WorkOrderLineId3      = "#workorderlineid#"
+									ReferenceNo3          = "#Attributes.ItemNo#"
+									ReferenceId3          = "#Attributes.ReferenceId#"
+									TransactionType3      = "Standard"
+									Amount3               = "#taxCOGS#">
+							
+									<!--- 15/11/2020 -- book also the tax Paid --->							
+							
+							<cfelse>
 						
-							<cf_GledgerEntryLine
-							    DataSource            = "#Attributes.DataSource#"
-								Lines                 = "2"
-								TransactionDate       = "#Attributes.TransactionDate#"
-								Journal               = "#Journal.Journal#"
-								JournalNo             = "#JournalTransactionNo#"
-								JournalTransactionNo  = "#Attributes.GLTransactionNo#"
-								AccountPeriod         = "#Parameter.CurrentAccountPeriod#"
-								Currency              = "#Attributes.SalesCurrency#"
-								LogTransaction		  = "No"
-																										
-								TransactionSerialNo1  = "1"
-								Class1                = "Debit"
-								Reference1            = "COGS"       
-								ReferenceName1        = "#left(Item.Itemdescription,100)#"
-								Description1          = "#Type.Description#"
-								GLAccount1            = "#Attributes.GLAccountDebit#"
-								Costcenter1           = "#costcenter#"
-								WorkOrderLineId1      = "#workorderlineid#"
-								ReferenceId1          = "#Attributes.ReferenceId#"
-								ReferenceNo1          = "#Attributes.ItemNo#"
-								TransactionType1      = "Standard"
-								Amount1               = "#totGl#"
-									
-								TransactionSerialNo2  = "2"
-								Class2                = "Credit"
-								Reference2            = "Stock"       
-								ReferenceName2        = "#left(Item.Itemdescription,100)#"
-								Description2          = "#Type.Description#"
-								GLAccount2            = "#Attributes.GLAccountCredit#"
-								Costcenter2           = "#costcenter#"
-								WorkOrderLineId2      = "#workorderlineid#"
-								ReferenceNo2          = "#Attributes.ItemNo#"
-								ReferenceId2          = "#Attributes.ReferenceId#"
-								TransactionType2      = "Standard"
-								Amount2               = "#totCredit#">													
+								<cf_GledgerEntryLine
+								    DataSource            = "#Attributes.DataSource#"
+									Lines                 = "2"
+									TransactionDate       = "#Attributes.TransactionDate#"
+									Journal               = "#Journal.Journal#"
+									JournalNo             = "#JournalTransactionNo#"
+									JournalTransactionNo  = "#Attributes.GLTransactionNo#"
+									AccountPeriod         = "#Parameter.CurrentAccountPeriod#"
+									Currency              = "#Attributes.SalesCurrency#"
+									LogTransaction		  = "No"
+																											
+									TransactionSerialNo1  = "1"
+									Class1                = "Debit"
+									Reference1            = "COGS"       
+									ReferenceName1        = "#left(Item.Itemdescription,100)#"
+									Description1          = "#Type.Description#"
+									GLAccount1            = "#Attributes.GLAccountDebit#"
+									Costcenter1           = "#costcenter#"
+									WorkOrderLineId1      = "#workorderlineid#"
+									ReferenceId1          = "#Attributes.ReferenceId#"
+									ReferenceNo1          = "#Attributes.ItemNo#"
+									TransactionType1      = "Standard"
+									Amount1               = "#totGl#"
+										
+									TransactionSerialNo2  = "2"
+									Class2                = "Credit"
+									Reference2            = "Stock"       
+									ReferenceName2        = "#left(Item.Itemdescription,100)#"
+									Description2          = "#Type.Description#"
+									GLAccount2            = "#Attributes.GLAccountCredit#"
+									Costcenter2           = "#costcenter#"
+									WorkOrderLineId2      = "#workorderlineid#"
+									ReferenceNo2          = "#Attributes.ItemNo#"
+									ReferenceId2          = "#Attributes.ReferenceId#"
+									TransactionType2      = "Standard"
+									Amount2               = "#totCredit#">													
 									
 							</cfif>
 									
@@ -2035,18 +2103,19 @@
 	</cfif>
 	
 	<!--- recalculate --->	
+	
 	<cfif attributes.SalesAmount eq "0">
 		
 		<cfif attributes.TaxIncluded eq "1">
-		
+				
 			<cfset sales = SalesPrice*(Attributes.TransactionQuantity*-1)-Attributes.SalesTax>
 		
 		<cfelse>
-		
+				
 			<cfset sales = SalesPrice*(Attributes.TransactionQuantity*-1)>
 		
 		</cfif>
-		
+				
 	<cfelse>
 	
 		<cfset sales = attributes.SalesAmount>
@@ -2071,7 +2140,8 @@
 	   DELETE FROM ItemTransactionShipping
 	   WHERE TransactionId = '#attributes.transactionid#'
 	</cfquery>
-		
+	
+			
 	<cfquery name="Insert" 
 	   datasource="#Attributes.DataSource#" 
 	   username="#SESSION.login#" 

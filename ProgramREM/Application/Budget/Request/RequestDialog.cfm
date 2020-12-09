@@ -29,7 +29,10 @@
 	password="#SESSION.dbpw#">
 		SELECT    *
 		FROM      Ref_MissionPeriod
-		WHERE     Mission        = (SELECT Ox.Mission FROM Program.dbo.ProgramPeriod PPx INNER JOIN Organization.dbo.Organization Ox ON PPx.OrgUnit = Ox.OrgUnit WHERE PPx.ProgramCode = '#URL.ProgramCode#' AND PPx.Period = '#URL.Period#') 
+		WHERE     Mission        = (SELECT Ox.Mission 
+		                            FROM Program.dbo.ProgramPeriod PPx 
+									     INNER JOIN Organization.dbo.Organization Ox ON PPx.OrgUnit = Ox.OrgUnit 
+								    WHERE PPx.ProgramCode = '#URL.ProgramCode#' AND PPx.Period = '#URL.Period#') 
 		AND       PlanningPeriod = '#url.Period#' 
 		AND       isPlanPeriod = 1
 	</cfquery>
@@ -40,7 +43,13 @@
 
 <cfif url.editionid eq "">
 
-	<table align="center"><tr><td class="labelmedium"><font color="FF0000">Problem, edition could not be determined. Please contact your administrator</font></td></tr></table>
+	<table align="center">
+		<tr>
+			<td class="labelmedium">
+			<font color="FF0000">Problem, edition could not be determined. Please contact your administrator</font>
+			</td>
+		</tr>
+	</table>
 	<cfabort>
 
 </cfif>

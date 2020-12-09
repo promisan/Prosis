@@ -289,8 +289,8 @@
 					
 					 <!--- we take the blank warehouse first --->
 																
-				</cfquery>							
-				
+				</cfquery>		
+												
 				<cfif getPrice.recordcount eq "1">
 				
 					<cf_exchangeRate datasource="AppsMaterials" 
@@ -302,7 +302,8 @@
 					 <cfset sale.price         = getPrice.SalesPrice/exc>
 					 <cfset sale.taxcode       = getPrice.TaxCode>
 					 					 
-				<cfelse>	
+				<cfelse>				
+				
 				
 					<!--- finally we take the price from the standard cost -in Base currency --->	
 					
@@ -835,7 +836,7 @@
 			  	 			 
 			  <cfoutput query="getTransaction" group="customerid">	
 			  
-				  	 <!--- clear --->
+				  	 <!--- clear 
 					   
 				    <cfquery name="reset" 
 						datasource="AppsTransaction" 
@@ -844,7 +845,9 @@
 						DELETE FROM dbo.Sale#Warehouse# 
 						WHERE (CustomerId = '#CustomerId#' 
 						      or CustomerId = '00000000-0000-0000-0000-000000000000')
-					</cfquery>				  
+					</cfquery>		
+					
+					--->		  
 			  
 			       <cfoutput>
 			
@@ -1666,7 +1669,8 @@
 				SELECT *
 				FROM   CustomerRequestLine
 				WHERE  RequestNo = '#url.requestNo#'				
-				AND    TransactionQuantity <> 0				
+				AND    TransactionQuantity <> 0
+				ORDER BY Created ASC
 			</cfquery>	
 									
 			<cfset tot = "0">
@@ -3160,7 +3164,9 @@
 								<cfif stResponse.Status neq "OK">									   					
 									<cfset Invoice.Mode = "1"> <!--- manual --->
 									<cfset Invoice.ErrorDescription = stResponse.ErrorDescription>
-									<cfset Invoice.ErrorDetail = stResponse.ErrorDetail>
+									<cfif StructKeyExists(stResponse,"ErrorDetail")>
+										<cfset Invoice.ErrorDetail = stResponse.ErrorDetail>
+									</cfif>
 								</cfif>
 								
 							</cfif>	  		

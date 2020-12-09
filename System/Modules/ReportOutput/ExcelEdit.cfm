@@ -1,7 +1,7 @@
 
 <cf_textareascript>	
 
-<cf_screentop height="100%" close="parent.ColdFusion.Window.destroy('myexcel',true)" jQuery="yes" html="yes" bannerheight="4" title="Data set declaration form" layout="webapp" banner="gray">
+<cf_screentop height="100%" close="parent.ColdFusion.Window.destroy('myexcel',true)" jQuery="yes" html="no" bannerheight="4" title="Data set declaration form" layout="webapp" banner="gray">
 
 <cfoutput>
 
@@ -149,7 +149,7 @@ WHERE OutputId = '#URL.ID1#'
 	<tr class="labelmedium"><td height="40" style="font-weight:200;font-size:19px" colspan="2">Optional user selection settings</td></tr>
 				
     <TR class="labelmedium">
-    <TD align="right">Excel : Grouping 1 Fieldname:</TD>
+    <TD align="right" style="padding-right:5px">Excel : Grouping 1 Fieldname:</TD>
     <TD>
 		<input type="Text" name="FieldGrouping1" id="FieldGrouping1"
 		value="<cfif #Get.FieldGrouping1# neq "">#Get.FieldGrouping1#</cfif>" class="regularxl" size="30" maxlength="50">
@@ -157,7 +157,7 @@ WHERE OutputId = '#URL.ID1#'
 	</TR>
 			
     <TR class="labelmedium">
-    <td align="right">Excel : Grouping 2 Fieldname:</td>
+    <td align="right" style="padding-right:5px">Excel : Grouping 2 Fieldname:</td>
     <TD>
 		<input type="Text" name="FieldGrouping2" id="FieldGrouping2"
 		value="<cfif #Get.FieldGrouping2# neq "">#Get.FieldGrouping2#</cfif>" class="regularxl" size="30" maxlength="50">
@@ -165,13 +165,13 @@ WHERE OutputId = '#URL.ID1#'
 	</TR>
 	
 	 <TR class="labelmedium">
-    <TD  align="right">Detail fields(s):</TD>
+    <TD  align="right" style="padding-right:5px">Detail fields(s):</TD>
     <TD><textarea style="font-size:13px;padding:3px" class="regular" name="FieldDetail" cols="50" rows="2">#Get.FieldDetail#</textarea>
 		</TD>
 	</TR>
 	
 	<TR class="labelmedium">
-    <TD  align="right">Summary Fieldname(s):</TD>
+    <TD  align="right" style="padding-right:5px">Summary Fieldname(s):</TD>
     <TD>
 		<input type="Text" name="FieldSummary" id="FieldSummary"
 		value="<cfif #Get.FieldSummary# neq "">#Get.FieldSummary#</cfif>" class="regularxl" size="40" maxlength="50">
@@ -179,7 +179,7 @@ WHERE OutputId = '#URL.ID1#'
 	</TR>
 			
 	<TR class="labelmedium">
-    <TD  align="right">ROLAP Detail template:</TD>
+    <TD  align="right" style="padding-right:5px">ROLAP Detail template:</TD>
     <TD>
 		<input type="Text" name="DetailTemplate" id="DetailTemplate"
 		value="<cfif #Get.DetailTemplate# neq "">#Get.DetailTemplate#</cfif>" class="regularxl" size="80" maxlength="80">
@@ -187,7 +187,7 @@ WHERE OutputId = '#URL.ID1#'
 	</TR>
 	
 	<TR class="labelmedium">
-    <TD  align="right">ROLAP ID= passthru:</TD>
+    <TD  align="right" style="padding-right:5px">ROLAP ID= passthru:</TD>
     <TD>
 		<input type="Text" name="DetailKey" id="DetailKey"
 		value="<cfif #Get.DetailKey# neq "">#Get.DetailKey#</cfif>" class="regularxl" size="30" maxlength="30">
@@ -196,18 +196,18 @@ WHERE OutputId = '#URL.ID1#'
 		
 	<tr><td height="2"></td></tr>
 			
-	<tr>
+	<tr class="line">
         <td colspan="2" align="center">			
-		<cf_textarea name="OutputMemo" init="Yes" color="ffffff" toolbar="Basic" height="160">#Get.OutputMemo#</cf_textarea>		
+		<cf_textarea name="OutputMemo" init="Yes" color="ffffff" toolbar="Mini" height="160">#Get.OutputMemo#</cf_textarea>		
 		</td>
 		
 	</TR>		
 	
 	<tr><td colspan="2" align="center" height="35">
 	
-	    <table><tr>
+	    <table class="forspacing"><tr>
 		<td>
-		<input class="button10g" type="button" name="Cancel" id="Cancel" value="Cancel" onClick="parent.parent.ColdFusion.Window.hide('myexcel',true)">
+		<input class="button10g" type="button" name="Cancel" id="Cancel" value="Cancel" onClick="parent.parent.ProsisUI.closeWindow('myexcel',true)">
 		</td>
 		<cfif URL.Mode eq "New">
 			<td>

@@ -25,6 +25,7 @@
 <cfajaximport>
 
 <table width="100%" height="100%"><tr><td style="width:100%;height:100%" class="clsPrintContent">
+
  
 <form action="<cfoutput>#SESSION.root#/roster/rostergeneric/RosterSearch/ResultShortList.cfm?mode=#url.mode#&docno=#url.docno#&ID=#URL.ID#&ID1=#URL.ID1#&ID2=#URL.ID2#&ID3=#URL.ID3#</cfoutput>" 
 	method="post" style="height:98%;padding-right:8px"
@@ -679,8 +680,7 @@
 		</cf_divscroll>	
 						
 		</td>
-		</tr>
-		
+		</tr>		
 				
 		<cfif url.print eq "0">
 								

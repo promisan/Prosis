@@ -58,10 +58,9 @@
 	<cfif url.webapp eq "Backoffice">	
 				
 		<cf_screentop height="100%" icon="list2.png" label="Listing: #Menu.FunctionName#" line="no" band="no"  scroll="No" html="no" banner="gray" layout="webapp" MenuAccess="Yes" JQuery="yes" TreeTemplate="Yes">
-			
 	<cfelseif url.webapp eq "Portal">
 	
-		<cf_screentop height="100%" scroll="Yes" html="no" banner="gray" JQuery="yes">
+		<cf_screentop height="100%" scroll="Yes" html="no" banner="gray" JQuery="yes" >
 		
 	</cfif>	
 	

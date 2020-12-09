@@ -248,8 +248,10 @@
 
 </cfif>
 
+
 	<cfoutput query="searchresult" group="#grp#">
-			
+	
+				
 		<cfif grp eq "ModuleOrder">		
 			
 			  <tr id="m#grp#1" class="hide"><td height="4"></td></tr>
@@ -422,7 +424,9 @@
 					  count++
 					} 
 		
-				</script>				
+				</script>	
+				
+						
 						
 				<cfif ((FunctionClass neq "Application") and FunctionClass neq "Roster" and FunctionClass neq "Inquiry") or 
 					  MenuClass eq "Special" OR
@@ -432,7 +436,7 @@
 					  Find("Detail",class) or
 					  Presentation eq "2" or
 					  Selection eq "Favorite">		
-					  					 					  		  								
+					 					  					 					  		  								
 					 <cfif Selection eq "Favorite">
 					 			  			
 						<cf_licenseCheck module="'#systemmodule#'" 
@@ -478,22 +482,26 @@
 						 <cfif functionsupport eq "1">
 									
 							 <cfif ScriptName eq "">
-							 		
+														 		
 							     <table width="98%" align="center" class="regularZ formpadding" 
-								     onMouseOver="hl(this,true,'#FunctionName#')" onMouseOut="hl(this,false,'')">								  																						 
-								     <cfset go = "modulelog('#systemfunctionid#','#selmission#');loadformI('#FunctionPath#','#condition#','#FunctionTarget#','#FunctionDirectory#','#systemFunctionId#','#Heading#','#EnforceReload#','#FunctionVirtualDir#','#FunctionHost#')">								  
+								     onMouseOver="hl(this,true,'#FunctionName#')" onMouseOut="hl(this,false,'')">
+									 								  																						 
+							     <cfset go = "modulelog('#systemfunctionid#','#selmission#');loadformI('#FunctionPath#','#condition#','#FunctionTarget#','#FunctionDirectory#','#systemFunctionId#','#Heading#','#EnforceReload#','#FunctionVirtualDir#','#FunctionHost#')">
+				 								  
+							
 							  <cfelse>
-							  							  	 
+							  							  							  	 
 								 <table width="98%" align="center" class="regularZ formpadding" onMouseOver="hl(this,true,'#FunctionName#')" onMouseOut="hl(this,false,'')">
 									 																		 									 					  					  
 									  <cfif conditionRevised eq "" or conditionRevised eq "undefined">				  	  
-									     <cfset go = "modulelog('#systemfunctionid#','#selmission#');#ScriptName#('#mode#','#systemFunctionId#','#Heading#','#EnforceReload#','#functiontarget#')">						
+									     <cfset go = "modulelog('#systemfunctionid#','#selmission#');#ScriptName#('#mode#','#systemFunctionId#','#Heading#','#EnforceReload#','#functiontarget#')">																 
 									  <cfelse>		 				    
-										 <cfset go = "modulelog('#systemfunctionid#','#selmission#');#ScriptName#('#condition#','#systemFunctionId#','','','#functiontarget#')">					
+										 <cfset go = "modulelog('#systemfunctionid#','#selmission#');#ScriptName#('#condition#','#systemFunctionId#','','','#functiontarget#')">															 
 									  </cfif>					
 												  	  
 							  </cfif>	
-						  
+							 
+							 						  
 						<cfelse>
 												  
 						      <table width="98%" align="center" bordercolor="FFFFF4"  class="regularZ">							

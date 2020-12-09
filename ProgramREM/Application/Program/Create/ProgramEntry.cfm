@@ -229,283 +229,294 @@ function setprogram(val,scope,org) {
      
   <tr> <td width="100%" colspan="2" align="center">
   
-  <cfform action="#SubmitAction#" method="POST" name="ProgramEntry" onsubmit="return false">
- 
-	<cfoutput>
-	
-	<cfparam name="URL.Refresh" default="">
-	<INPUT type="hidden" name="Mission"       id="Mission"       value="#URL.Mission#">
-	<INPUT type="hidden" name="ParentCode"    id="ParentCode"    value="#URL.ParentCode#">
-	<INPUT type="hidden" name="ProgramId"     id="ProgramId"     value="#URL.Id#">
-	<INPUT type="hidden" name="Period"        id="Period"        value="#URL.Period#">
-	<INPUT type="hidden" name="ProgramLayout" id="ProgramLayout" value="Program">
-	<INPUT type="hidden" name="ProgramClass"  id="ProgramClass"  value="Program">
-	<INPUT type="hidden" name="Refresh"       id="Refresh"       value="#URL.Refresh#">	
-	</cfoutput>
-	
-	<cf_menuscript>
-	
-	<cf_tl id="Descriptive" var="1">		
+	  <cfform action="#SubmitAction#" method="POST" name="ProgramEntry" onsubmit="return false">
+	 
+		<cfoutput>
 		
-    <table width="99%" align="center" border="0" class="formpadding">
-	
-	<tr><td>
-	
-	   <!--- top menu --->
-				
-		<table width="100%" border="0" align="center" class="formspacing" cellspacing="0" cellpadding="0">		  		
-						
-			<cfset ht = "48">
-			<cfset wd = "48">
-								
-			<tr>		
+		<cfparam name="URL.Refresh" default="">
+		<INPUT type="hidden" name="Mission"       id="Mission"       value="#URL.Mission#">
+		<INPUT type="hidden" name="ParentCode"    id="ParentCode"    value="#URL.ParentCode#">
+		<INPUT type="hidden" name="ProgramId"     id="ProgramId"     value="#URL.Id#">
+		<INPUT type="hidden" name="Period"        id="Period"        value="#URL.Period#">
+		<INPUT type="hidden" name="ProgramLayout" id="ProgramLayout" value="Program">
+		<INPUT type="hidden" name="ProgramClass"  id="ProgramClass"  value="Program">
+		<INPUT type="hidden" name="Refresh"       id="Refresh"       value="#URL.Refresh#">	
+		</cfoutput>
+		
+		<cf_menuscript>
+		
+		<cf_tl id="Descriptive" var="1">		
 			
-			<cfset itm = 1>		
-			<cf_tl id="Name and Descriptive" var="vName">
-			<cf_menutab item       = "#itm#" 
-		            iconsrc    = "Logos/Program/Benefit.png" 
-					iconwidth  = "#wd#" 
-					iconheight = "#ht#" 									
-					class      = "highlight1"
-					name       = "#vName#">
+	    <table width="99%" align="center" border="0" class="formpadding">
+		
+		<tr><td>
+		
+		   <!--- top menu --->
 					
-			<cfif Parameter.EnableObjective eq "1">
-			
-				<cfset itm = itm+1>
-				<cf_tl id="Goal and Objective" var="vGoal">
-				<cf_menutab item       = "#itm#" 
-		            iconsrc    = "Logos/Program/Goal.png" 
-					iconwidth  = "#wd#" 
-					iconheight = "#ht#" 														
-					name       = "#vGoal#">	
-					
-			</cfif>						
-					
-			<cfset itm = itm+1>
-			<cf_tl id="Settings" var="vSettings">										
-										
-			<cf_menutab item       = "#itm#" 
-		            iconsrc    = "Logos/Program/Indicator.png" 
-					iconwidth  = "#wd#" 
-					iconheight = "#ht#" 				
-					name       = "#vSettings#">			
-			
-			<td width="10%"></td>																 		
-																 		
-			</tr>
-		</table>
-		
-		</td>
-		
-	</tr>
-	
-	<tr><td class="linedotted"></td></tr>	
-	
-	<cfoutput>
-	<input type="Hidden" name="ProgramCode" id="ProgramCode" value="#EditProgram.ProgramCode#">
-    </cfoutput>
-	
-	<!--- --------------------- --->
-	<!--- descriptive container --->
-	<!--- --------------------- --->
-	
-	<cf_menucontainer item="1" class="regular">
-		
-		<table width="96%" class="formpadding" cellspacing="0" cellpadding="0" align="center">
-		
-	    <!--- Field: Program Name --->
-		<TR><TD height="10"></TD></TR>
-		
-	    <TR>
-	    <TD valign="top" class="labelmedium" style="padding-top:4px"><cf_tl id="Name">:</TD>
-	    <TD>
-		
-		<cf_LanguageInput
-				TableCode       = "Program" 
-				Mode            = "Edit"
-				Name            = "ProgramName"
-				Value           = "#EditProgram.ProgramName#"
-				Key1Value       = "#EditProgram.ProgramCode#"
-				Type            = "Input"
-				Required        = "No"
-				Message         = "Please enter a Name"
-				size            = "78"
-				maxlength       = "400"
-				Class           = "regularxl">
-		
-		</TD>
-		</TR>	
-				
-		<TR><TD height="10"></TD></TR>
-		
-	    <!--- Field: Program Goal --->
-	
-		<TR>
-	        <TD valign="top" class="labelmedium" style="padding-top:4px"><cf_tl id="Description">:</td>
-			<td>
-			
-			<cf_LanguageInput
-				TableCode       = "ProgramPeriod" 
-				Mode            = "Edit"
-				Name            = "PeriodDescription"
-				Value           = "#EditProgram.PeriodDescription#"
-				Key1Value       = "#EditProgram.ProgramCode#"
-				Key2Value       = "#EditProgram.Period#"
-				Type            = "Text"
-				Required        = "No"
-				Message         = ""
-				Maxlength       = "2000"				
-				cols            = "62"
-				rows            = "6"
-				Class           = "regular">
-				
-			</td>	
-			
-		</TR>
-		
-		<tr><td colspan="2" class="linedotted"></td></tr>
-		
-		<tr><td colspan="2" align="center" height="30">
-	
-			<cfquery name="Check" 
-		     datasource="AppsProgram" 
-		     username="#SESSION.login#" 
-		     password="#SESSION.dbpw#">
-		     SELECT * 
-			 FROM  ProgramPeriod
-			 WHERE PeriodParentCode = '#EditProgram.ProgramCode#'		
-		    </cfquery>
-			
-			<cfoutput>			
-					
-					<cfif check.recordcount eq "0">
-					<cf_tl id="Delete" var="vDelete">
-					<input class="button10g" type="button" onclick="validate('delete')" style="height:26;width:120" name="Delete"  value="#vDelete#">
-					</cfif>		
-					<cf_tl id="Save" var="vSave">						
-					<input class="button10g" type="button" onclick="validate('add')" style="height:26;width:120" name="Save" value="#vSave#">
-				</cfoutput>				   
-			
-			</td></tr>			   
-		
-		</table>
-		
-	</cf_menucontainer>
-	
-	<!--- --------------------- --->
-	<!--- -----goal container-- --->
-	<!--- --------------------- --->
-	
-	<cfif Parameter.EnableObjective eq "1">
-	
-	<cf_menucontainer item="2" class="hide">	
-	 	
-	    <!--- Field: Program Goal --->
-		
-		<table width="96%" class="formpadding" cellspacing="0" cellpadding="0" align="center">
-			
-			<TR>
-		        <TD width="10%" class="labelmedium" valign="top" style="padding-top:4px"><cf_tl id="Goal">:</td>
-				
-		        <TD>
+			<table width="100%" border="0" align="center" class="formspacing" cellspacing="0" cellpadding="0">		  		
 							
-				<cf_LanguageInput
-					TableCode       = "ProgramPeriod" 
-					Mode            = "Edit"
-					Name            = "PeriodGoal"
-					Value           = "#EditProgram.PeriodGoal#"
-					Key1Value       = "#EditProgram.ProgramCode#"
-					Key2Value       = "#EditProgram.Period#"
-					Type            = "Text"
-					Required        = "No"
-					Message         = ""
-					cols            = "59"
-					rows            = "4"
-					Maxlength       = "50000"
-					Class           = "regular">
+				<cfset ht = "48">
+				<cfset wd = "48">
+									
+				<tr>		
 				
-				</td>
+				<cfset itm = 1>		
+				<cf_tl id="Name and Descriptive" var="vName">
+				<cf_menutab item       = "#itm#" 
+			            iconsrc    = "Logos/Program/Benefit.png" 
+						iconwidth  = "#wd#" 
+						iconheight = "#ht#" 									
+						class      = "highlight1"
+						name       = "#vName#">
+						
+				<cfif Parameter.EnableObjective eq "1">
 				
-			</TR>
+					<cfset itm = itm+1>
+					<cf_tl id="Goal and Objective" var="vGoal">
+					<cf_menutab item       = "#itm#" 
+			            iconsrc    = "Logos/Program/Goal.png" 
+						iconwidth  = "#wd#" 
+						iconheight = "#ht#" 														
+						name       = "#vGoal#">	
+						
+				</cfif>						
+						
+				<cfset itm = itm+1>
+				<cf_tl id="Settings" var="vSettings">										
+											
+				<cf_menutab item       = "#itm#" 
+			            iconsrc    = "Logos/Program/Indicator.png" 
+						iconwidth  = "#wd#" 
+						iconheight = "#ht#" 				
+						name       = "#vSettings#">			
+				
+				<td width="10%"></td>																 		
+																	 		
+				</tr>
+			</table>
 			
+			</td>
+			
+		</tr>
+		
+		<tr><td class="linedotted"></td></tr>	
+		
+		<cfoutput>
+		<input type="Hidden" name="ProgramCode" id="ProgramCode" value="#EditProgram.ProgramCode#">
+	    </cfoutput>
+		
+		<!--- --------------------- --->
+		<!--- descriptive container --->
+		<!--- --------------------- --->
+		
+		<cf_menucontainer item="1" class="regular">
+			
+			<table width="96%" class="formpadding" cellspacing="0" cellpadding="0" align="center">
+			
+		    <!--- Field: Program Name --->
 			<TR><TD height="10"></TD></TR>
 			
-		    <!--- Field: Program Objective --->
+		    <TR>
+		    <TD valign="top" class="labelmedium" style="padding-top:4px"><cf_tl id="Name">:</TD>
+		    <TD>
+			
+			<cf_LanguageInput
+					TableCode       = "Program" 
+					Mode            = "Edit"
+					Name            = "ProgramName"
+					Value           = "#EditProgram.ProgramName#"
+					Key1Value       = "#EditProgram.ProgramCode#"
+					Type            = "Input"
+					Required        = "No"
+					Message         = "Please enter a Name"
+					size            = "78"
+					maxlength       = "400"
+					Class           = "regularxl">
+			
+			</TD>
+			</TR>	
+					
+			<TR><TD height="10"></TD></TR>
+			
+		    <!--- Field: Program Goal --->
 		
 			<TR>
-		        <TD valign="top" class="labelmedium" style="padding-top:4px"><cf_tl id="Objective">:</td>
-				
+		        <TD valign="top" class="labelmedium" style="padding-top:4px"><cf_tl id="Description">:</td>
 				<td>
 				
 				<cf_LanguageInput
 					TableCode       = "ProgramPeriod" 
 					Mode            = "Edit"
-					Name            = "PeriodObjective"
-					Value           = "#EditProgram.PeriodObjective#"
+					Name            = "PeriodDescription"
+					Value           = "#EditProgram.PeriodDescription#"
 					Key1Value       = "#EditProgram.ProgramCode#"
 					Key2Value       = "#EditProgram.Period#"
 					Type            = "Text"
 					Required        = "No"
 					Message         = ""
-					cols            = "69"
-					rows            = "4"
-					Maxlength       = "2000"
+					Maxlength       = "2000"				
+					cols            = "62"
+					rows            = "6"
 					Class           = "regular">
-				
-				</td>
+					
+				</td>	
 				
 			</TR>
 			
 			<tr><td colspan="2" class="linedotted"></td></tr>
 			
 			<tr><td colspan="2" align="center" height="30">
-	
+		
 				<cfquery name="Check" 
 			     datasource="AppsProgram" 
 			     username="#SESSION.login#" 
 			     password="#SESSION.dbpw#">
-			     SELECT * 
-				 FROM  ProgramPeriod
-				 WHERE PeriodParentCode = '#EditProgram.ProgramCode#'		
+				     SELECT * 
+					 FROM   ProgramPeriod
+					 WHERE  PeriodParentCode = '#EditProgram.ProgramCode#'		
+			    </cfquery>
+				
+				<cfquery name="Review" 
+			     datasource="AppsProgram" 
+			     username="#SESSION.login#" 
+			     password="#SESSION.dbpw#">
+				     SELECT * 
+					 FROM   ProgramPeriodReview
+					 WHERE  ProgramCode = '#EditProgram.ProgramCode#'		
+					 WHERE  Period      = '#EditProgram.Period#'	
+					 AND    ActionStatus = '3'
 			    </cfquery>
 				
 				<cfoutput>			
-					
-					<cfif check.recordcount eq "0">
-					<cf_tl id="Delete" var="vDelete">
-					<input class="button10g" type="button" onclick="validate('delete')" style="height:26;width:120" name="Delete"  value="#vDelete#">
-					</cfif>		
-					<cf_tl id="Save" var="vSave">						
-					<input class="button10g" type="button" onclick="validate('add')" style="height:26;width:120" name="Save" value="#vSave#">
-				</cfoutput>				   
+						
+						<cfif check.recordcount eq "0" and checkReview.recordcount eq "0">
+							<cf_tl id="Delete" var="vDelete">
+							<input class="button10g" type="button" onclick="validate('delete')" style="height:26;width:120" name="Delete"  value="#vDelete#">
+						</cfif>		
+						<cf_tl id="Save" var="vSave">						
+						<input class="button10g" type="button" onclick="validate('add')" style="height:26;width:120" name="Save" value="#vSave#">
+					</cfoutput>				   
+				
+				</td></tr>			   
 			
-			</td></tr>			   
+			</table>
 			
-		</table>	
-		
 		</cf_menucontainer>
 		
-	<cfelse>
+		<!--- --------------------- --->
+		<!--- -----goal container-- --->
+		<!--- --------------------- --->
 		
-			<!--- Field: Program Objective --->
-			<input type="hidden" name="ProgramGoal" id="ProgramGoal" value="">
-			<input type="hidden" name="ProgramObjective" id="ProgramObjective" value="">
+		<cfif Parameter.EnableObjective eq "1">
+		
+		<cf_menucontainer item="2" class="hide">	
+		 	
+		    <!--- Field: Program Goal --->
 			
-	</cfif>
+			<table width="96%" class="formpadding" cellspacing="0" cellpadding="0" align="center">
+				
+				<TR>
+			        <TD width="10%" class="labelmedium" valign="top" style="padding-top:4px"><cf_tl id="Goal">:</td>
+					
+			        <TD>
+								
+					<cf_LanguageInput
+						TableCode       = "ProgramPeriod" 
+						Mode            = "Edit"
+						Name            = "PeriodGoal"
+						Value           = "#EditProgram.PeriodGoal#"
+						Key1Value       = "#EditProgram.ProgramCode#"
+						Key2Value       = "#EditProgram.Period#"
+						Type            = "Text"
+						Required        = "No"
+						Message         = ""
+						cols            = "59"
+						rows            = "4"
+						Maxlength       = "50000"
+						Class           = "regular">
+					
+					</td>
+					
+				</TR>
+				
+				<TR><TD height="10"></TD></TR>
+				
+			    <!--- Field: Program Objective --->
 			
-	<!--- --------------------- --->
-	<!--- settings container--- --->
-	<!--- --------------------- --->
-	
-	<cf_menucontainer item="3" class="hide">		
-		<cfinclude template="ProgramEntrySetting.cfm">	
-	</cf_menucontainer>
-	
-</td></tr>
-		   		      
-</CFFORM>
+				<TR>
+			        <TD valign="top" class="labelmedium" style="padding-top:4px"><cf_tl id="Objective">:</td>
+					
+					<td>
+					
+					<cf_LanguageInput
+						TableCode       = "ProgramPeriod" 
+						Mode            = "Edit"
+						Name            = "PeriodObjective"
+						Value           = "#EditProgram.PeriodObjective#"
+						Key1Value       = "#EditProgram.ProgramCode#"
+						Key2Value       = "#EditProgram.Period#"
+						Type            = "Text"
+						Required        = "No"
+						Message         = ""
+						cols            = "69"
+						rows            = "4"
+						Maxlength       = "2000"
+						Class           = "regular">
+					
+					</td>
+					
+				</TR>
+				
+				<tr><td colspan="2" class="linedotted"></td></tr>
+				
+				<tr><td colspan="2" align="center" height="30">
+		
+					<cfquery name="Check" 
+				     datasource="AppsProgram" 
+				     username="#SESSION.login#" 
+				     password="#SESSION.dbpw#">
+				     SELECT * 
+					 FROM  ProgramPeriod
+					 WHERE PeriodParentCode = '#EditProgram.ProgramCode#'		
+				    </cfquery>
+					
+					<cfoutput>			
+						
+						<cfif check.recordcount eq "0">
+						<cf_tl id="Delete" var="vDelete">
+						<input class="button10g" type="button" onclick="validate('delete')" style="height:26;width:120" name="Delete"  value="#vDelete#">
+						</cfif>		
+						<cf_tl id="Save" var="vSave">						
+						<input class="button10g" type="button" onclick="validate('add')" style="height:26;width:120" name="Save" value="#vSave#">
+					</cfoutput>				   
+				
+				</td></tr>			   
+				
+			</table>	
+			
+			</cf_menucontainer>
+			
+		<cfelse>
+			
+				<!--- Field: Program Objective --->
+				<input type="hidden" name="ProgramGoal" id="ProgramGoal" value="">
+				<input type="hidden" name="ProgramObjective" id="ProgramObjective" value="">
+				
+		</cfif>
+				
+		<!--- --------------------- --->
+		<!--- settings container--- --->
+		<!--- --------------------- --->
+		
+		<cf_menucontainer item="3" class="hide">		
+			<cfinclude template="ProgramEntrySetting.cfm">	
+		</cf_menucontainer>
+		
+	</td></tr>
+			   		      
+	</cfform>
 
-</table>
+	</table>
   
 </td></tr>	
 

@@ -13,8 +13,7 @@
 
 </td></tr>
 
-<cfif url.init eq "1">
-	<cfflush>
+<cfif url.init eq "1">	
 	<cfinclude template="CreateScale.cfm">
 </cfif>
 
@@ -30,6 +29,11 @@ password="#SESSION.dbpw#">
 </cfquery>
 
 <cfoutput>
+
+<cf_dialogLedger>
+<cf_calendarscript>
+
+<cfajaximport tags="cfform">
 
 <script>
 	
@@ -49,8 +53,13 @@ password="#SESSION.dbpw#">
 	}
 	
 	function missionedit(sch,mis) {
-	    ptoken.open("MissionEdit.cfm?idmenu=#URL.idmenu#&schedule=" + sch + "&mission=" + mis, "Mission", "left=80, top=80, width=900, height=700, toolbar=no, status=yes, scrollbars=no, resizable=no");
+	    ProsisUI.createWindow('misdialog', 'Details', '',{x:100,y:100,height:325,width:700,resizable:false,modal:true,center:true})	
+	    ptoken.navigate('MissionEdit.cfm?idmenu=#URL.idmenu#&schedule=' + sch + '&mission=' + mis, 'misdialog');
 	}
+	
+	function applyaccount(acc) {
+	    ptoken.navigate('setAccount.cfm?account='+acc,'processmanual')
+	} 
 	
 	function rate(sch,mis,loc) {   
 	    ptoken.open("RateView.cfm?idmenu=#url.idmenu#&Schedule=" + sch + "&Mission=" + mis + "&Location=" + loc, "Edit");
@@ -109,17 +118,22 @@ password="#SESSION.dbpw#">
 			</tr>
 			--->						
 		
-		<cfoutput query="SearchResult" group="SalarySchedule"> 
-		     
-			<tr><td style="height:15px"></td></tr> 
+		<cfoutput query="SearchResult" group="SalarySchedule"> 		    
+			
 		    <tr class="labelmedium navigation_row line">
 				<td style="height:30px" align="center">
 					<cf_img icon="edit" navigation="Yes" onclick="recordedit('#SalarySchedule#');">
 				</td>
 				<td style="min-width:150px;font-size:21px"><a href="javascript:recordedit('#SalarySchedule#')">#SalarySchedule#</a></td>
 				<td style="min-width:300px">#Description#</td>
-				<td>#SalaryCalculationPeriod#
-				<cfif SalaryCalculationPeriod eq "MONTH">(#SalaryBasePeriodDays#)<cfelse>(#SalaryBasePeriod#)</cfif></td>
+				<td>
+				<cfif SalaryCalculationPeriod eq "MONTH">
+				<cfif SalaryBasePeriodDays eq "30">Actual Calendar Days (28-31)
+				<cfelseif SalaryBasePeriodDays eq "30fix">Fixed 30 Day month
+				<cfelse>Average Working days (21.75)
+				</cfif>
+				</cfif>
+				</td>
 				<td>#PaymentCurrency#</td>
 				<td><cfif SalaryBaseRate eq "1">Rate<cfelse>Negotiated Amount</cfif></td>		
 			</tr>	
@@ -173,7 +187,8 @@ password="#SESSION.dbpw#">
 					
 					    <td class="labelit" id="#rowguid#" style="padding-left:5px">
 						
-							<table><tr><td style="font-size:14px">					
+							<table><tr><td style="font-size:14px">	
+											
 							<a href="javascript:rate('#SalarySchedule#','#Mission#','#ServiceLocation#')">#ServiceLocation#&nbsp;#LocationDescription#</a>
 												
 							   <cfquery name="Contract"

@@ -78,7 +78,7 @@
 
 	<td style="width:6px">&nbsp;&nbsp;</td>
 		
-	<td width="29%" style="padding:10px;border:1px solid silver">
+	<td width="29%" style="padding:10px">
 	
 	  <table cellspacing="0" cellpadding="0">
 	  	  
@@ -95,7 +95,7 @@
 	 <tr>
 	  <cfoutput>
 		  <td class="labelit" style="cursor:pointer;padding-left:4px" onclick="loadmodule('#SESSION.root#/Procurement/Application/Requisition/RequisitionView/RequisitionView.cfm','#url.mission#','','#get.SystemFunctionid#')">
-		  <a><font color="0080C0"><cf_tl id="Open Application"></a></td>
+		  <a><cf_tl id="Open Application"></a></td>
 	  </cfoutput>
 	  </tr>
 	   
@@ -117,10 +117,10 @@
 	 	  format      = "png"
 	      chartheight     = "210"
 	      chartwidth      = "520"
+		  fontsize        = "13" 	
 	      showxgridlines  = "yes"
 	      seriesplacement = "default"
-	      show3d          = "no"	      
-	      pieslicestyle   = "sliced">	
+	      show3d          = "no">	
 								
 			   <cfchartseries
 	             type="bar"
@@ -139,32 +139,31 @@
 	
 	<td style="width:7px">&nbsp;</td>
 		
-		<td width="69%" bgcolor="f4f4f4" valign="top" style="border:1px solid silver;padding:15px">
+		<td width="69%" valign="top">
 		
-		<table width="100%" cellspacing="0" cellpadding="0" align="center">
+		<table width="100%" align="center">
 		
-		<tr class="line">
+		<tr>
 	  <cfoutput>
 		  <td  colspan="3" style="cursor:pointer;cursor:pointer" onclick="loadmodule('#SESSION.root#/Portal/Topics/Obligation/Dataset.cfm','#url.mission#','period=#url.period#','#get.SystemFunctionid#','tab')">
-		  <table cellspacing="0" cellpadding="0"><tr><td>
-		  	<img src="#session.root#/images/olap_cube.png" height="21" alt="" border="0">
+		  <table cellspacing="0" cellpadding="0">
+		  <tr style="height:50px"><td>
+		  	<img src="#session.root#/images/olap_cube.png?id=2" height="40" alt="" border="0">
 			</td>
-			<td class="labelmedium" style="padding-top:0px;padding-left:4px">
-			  <a><font color="0080C0"><cf_tl id="Slice and dice"></font></a>
-			  </td></tr>
+			<td class="labelmedium" style="font-size:17px;padding-left:6px"><a><cf_tl id="Slice and dice"></a></td></tr>
 		  </table>
 		  </td>
 	  </cfoutput>
 	  </tr>	  
 					
-		<tr class="labelmedium line">	
+		<tr class="labelmedium" style="background-color:f1f1f1">	
 		<td><cf_tl id="Class"></td>	
 		<td align="right"><cf_tl id="Lines"></td>
 		<td align="right"><cf_tl id="Value"></td>
 		</tr>
 				
 		<cfoutput query="getObligation">				
-			<tr class="navigation_row labelit">
+			<tr class="navigation_row labelmedium">
 			  <td style="padding-left:15px">#Description#</td>
 			  <td align="right">#Lines#</td>
 			  <td align="right" style="padding-right:5px">#numberformat(amount,",._")#</td>
@@ -178,7 +177,7 @@
 	    </cfquery>	
 		
 		<cfoutput>
-		<tr class="navigation_row labelmedium line">
+		<tr class="navigation_row labelmedium" style="background-color:f4f4f4">
 			  <td style="padding-left:4px">Total</td>
 			  <td align="right">#Total.Lines#</td>
 			  <td align="right" style="padding-right:5px">#numberformat(Total.amount,",._")#</td>

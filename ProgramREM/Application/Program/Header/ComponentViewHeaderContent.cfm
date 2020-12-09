@@ -20,9 +20,9 @@ password="#SESSION.dbpw#">
 </cfif>
 
 <cfquery name="Program" 
-datasource="AppsProgram" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
+	datasource="AppsProgram" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
 	SELECT  P.*, 
 			O.OrgUnitName as OrganizationName, 
 	        Pe.OrgUnit, 
@@ -59,9 +59,9 @@ password="#SESSION.dbpw#">
 </cfquery>
 
 <cfquery name="Param" 
-datasource="AppsProgram" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
+	datasource="AppsProgram" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
 	SELECT *
 	FROM   Ref_ParameterMission
 	WHERE  Mission = '#Program.Mission#'
@@ -70,9 +70,9 @@ password="#SESSION.dbpw#">
 <!--- check if period is controlled for this mission --->
 
 <cfquery name="getArea" 
-datasource="AppsProgram" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
+	datasource="AppsProgram" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
 	SELECT DISTINCT AreaCode
     FROM   ProgramCategory P INNER JOIN Ref_ProgramCategory R ON P.ProgramCategory = R.Code
 	WHERE  P.ProgramCode = '#URL.ProgramCode#'								 
@@ -105,9 +105,9 @@ password="#SESSION.dbpw#">
 <!--- get the relevant values to be shown for this program --->	   
 
 <cfquery name="ProgramCategory" 
-datasource="AppsProgram" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
+	datasource="AppsProgram" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
 	SELECT R.Description as Category
     FROM   ProgramCategory P INNER JOIN Ref_ProgramCategory R ON P.ProgramCategory = R.Code
 	WHERE  P.ProgramCode = '#URL.ProgramCode#'
@@ -121,9 +121,9 @@ password="#SESSION.dbpw#">
 </cfquery>
 
 <cfquery name="ParentProgram" 
-datasource="AppsProgram" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
+	datasource="AppsProgram" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
     SELECT P.ProgramCode, 
 	       P.ProgramName, 
 		   Pe.PeriodParentCode as ParentCode, 
@@ -198,7 +198,7 @@ password="#SESSION.dbpw#">
 			<cfif url.Verbose eq "0">
 				
 				<img src="#SESSION.root#/Images/down2.gif" 
-					onclick="ColdFusion.navigate('#SESSION.root#/ProgramRem/Application/Program/Header/ComponentViewHeaderContent.cfm?programcode=#url.programcode#&period=#url.period#&verbose=1&attach=#url.attach#','header')"
+					onclick="ptoken.navigate('#SESSION.root#/ProgramRem/Application/Program/Header/ComponentViewHeaderContent.cfm?programcode=#url.programcode#&period=#url.period#&verbose=1&attach=#url.attach#','header')"
 					align="absmiddle" 
 					style="mouse:hand"			
 					alt="Expand information" border="0">
@@ -206,7 +206,7 @@ password="#SESSION.dbpw#">
 			<cfelse>
 					
 				<img src="#SESSION.root#/Images/up2.gif" align="absmiddle" alt="Hide information" border="0"
-					onclick="ColdFusion.navigate('#SESSION.root#/ProgramRem/Application/Program/Header/ComponentViewHeaderContent.cfm?programcode=#url.programcode#&period=#url.period#&verbose=0&attach=#url.attach#','header')"
+					onclick="ptoken.navigate('#SESSION.root#/ProgramRem/Application/Program/Header/ComponentViewHeaderContent.cfm?programcode=#url.programcode#&period=#url.period#&verbose=0&attach=#url.attach#','header')"
 					align="absmiddle" 
 					style="mouse:hand">
 						
@@ -328,8 +328,8 @@ password="#SESSION.dbpw#">
         <td height="16" style="padding-left:5px" class="labelit"><cf_tl id="Requesting Unit">:</td>
         <td class="labelit" colspan="2">
 		
-		<table><tr><td class="labelit">
-		<a href="javascript:viewOrgUnit('#OrgUnit#')">#OrganizationName#</a></b>
+		<table>
+		<tr><td class="labelit"><a href="javascript:viewOrgUnit('#OrgUnit#')">#OrganizationName#</a>
 			 
 	   <cfset Parent    = ParentOrgUnit>
 	   <cfset Mission   = Mission>
@@ -422,22 +422,23 @@ password="#SESSION.dbpw#">
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
 			
-			SELECT   R.Description, 
-			         PeR.ReviewId, 
-					 R.DateEffective, 
-					 R.DateExpiration, 
-					 PeR.ActionStatus,
-					 S.StatusDescription, 
-					 PeR.OfficerUserId, 
-					 PeR.OfficerLastName, 
-					 PeR.OfficerFirstName, 
-					 PeR.Created
-			FROM     ProgramPeriodReview PeR INNER JOIN
-                     Ref_ReviewCycle R ON PeR.ReviewCycleId = R.CycleId INNER JOIN
-                     Organization.dbo.Ref_EntityStatus S ON PeR.ActionStatus = S.EntityStatus AND S.EntityCode = 'EntProgramReview'
-			WHERE    ProgramCode = '#url.programcode#' and R.Period = '#url.period#'  and Per.Period = '#url.period#'
-			AND      R.Operational = 1 and PeR.ActionStatus <= '3'		
-			AND      R.EnableMultiple = 0	
+				SELECT   R.Description, 
+				         PeR.ReviewId, 
+						 R.DateEffective, 
+						 R.DateExpiration, 
+						 PeR.ActionStatus,
+						 S.StatusDescription, 
+						 PeR.OfficerUserId, 
+						 PeR.OfficerLastName, 
+						 PeR.OfficerFirstName, 
+						 PeR.Created
+				FROM     ProgramPeriodReview PeR INNER JOIN
+	                     Ref_ReviewCycle R ON PeR.ReviewCycleId = R.CycleId INNER JOIN
+	                     Organization.dbo.Ref_EntityStatus S ON PeR.ActionStatus = S.EntityStatus AND S.EntityCode = 'EntProgramReview'
+				WHERE    ProgramCode = '#url.programcode#' and R.Period = '#url.period#'  and Per.Period = '#url.period#'
+				AND      R.Operational = 1 and PeR.ActionStatus <= '3'		
+				AND      R.EnableMultiple = 0	
+			
 		</cfquery>		
 					
 		<cfif approval.recordcount gte "1">
@@ -473,8 +474,8 @@ password="#SESSION.dbpw#">
 			--->
 		    		  
 			<tr class="line">
-			  <td style="padding-top:4px" class="labelit clsNoPrint" colspan="4">	
-			  
+			  <td style="padding-top:4px" class="clsNoPrint" colspan="4">	
+			  			  			  
 			  	<cfset per = replaceNoCase(url.period,"-","")>
 							  
 			  	 <cfif ListFind("ALL,EDIT",ProgramAccess) GT 0>		
@@ -505,9 +506,9 @@ password="#SESSION.dbpw#">
 				 
 				 </td>
 				 
-				 </tr>
+			 </tr>
 			  		
-				<!---				  		  
+			<!---				  		  
 				  <cfif ProgramAccess eq "ALL">		
 				 				 
 				  	 <cf_filelibraryN
@@ -534,10 +535,8 @@ password="#SESSION.dbpw#">
 				 	 
 				 </cfif>
 				 
-				 --->
-				 			 		
-			
-		  
+			--->
+				 
 		</cfif>
 		 	 	  
 	  </cfoutput>	  

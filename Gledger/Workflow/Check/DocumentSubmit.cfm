@@ -32,7 +32,7 @@ password="#SESSION.dbpw#">
 	WHERE    TransactionCheckId = '#url.id#'        
 </cfquery>
 
-<cfset amt = replace("#form.checkamount#",",","")>
+<cfset amt = replace("#form.checkamount#",",","","ALL")>
 
 <cfif not LSIsNumeric(amt)>
 	

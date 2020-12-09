@@ -197,12 +197,15 @@
 		   
 		   <td style="padding-left:10px">
 		   	
-			<table cellspacing="0" cellpadding="0">
-		   <tr>
-		   <cfparam name="val[5]" default="false">
-		   <td style="padding-left:4px"><input type="radio" name="ExcelExport" id="DrillExport" value="true" <cfif val[5] eq "true">checked</cfif>></td><td class="labelmedium" style="padding-left:4px">Yes</td>
-		   <td style="padding-left:4px"><input type="radio" name="ExcelExport" id="ExcelExport" value="false" <cfif val[5] neq "true">checked</cfif>></td><td class="labelmedium" style="padding-left:4px">No</td>
-		   </tr></table></td>
+			   <table cellspacing="0" cellpadding="0">
+			   <tr class="labelmedium">
+			   <cfparam name="val[5]" default="false">
+			   <td style="padding-left:4px"><input type="radio" name="ExcelExport" id="ExcelExport" value="true" <cfif val[5] eq "true">checked</cfif>></td><td style="padding-left:4px">Yes</td>
+			   <td style="padding-left:4px"><input type="radio" name="ExcelExport" id="ExcelExport" value="false" <cfif val[5] neq "true">checked</cfif>></td><td style="padding-left:4px">No</td>
+			   </tr>
+			   </table>
+		   
+		   </td>
 		 	   		   
 	    </tr>				
 		

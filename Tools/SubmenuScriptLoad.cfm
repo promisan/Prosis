@@ -142,51 +142,55 @@ function orgaccess(mission,systemfunctionid,header,enforce,target) {
 	}
 }
 
-function assetlocation(mission,systemfunctionid) {
- 	ptoken.open("#SESSION.root#/Warehouse/Maintenance/Location/LocationView.cfm?ts="+new Date().getTime()+"&Mission=" + mission+"&systemfunctionid=" + systemfunctionid,  "locacc", "left=10, top=10, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=no, resizable=yes");
+function assetlocation(mission,systemfunctionid,header,enforce,target) {
+    if (target == "_new") {		
+ 	ptoken.open("#SESSION.root#/Warehouse/Maintenance/Location/LocationView.cfm?mission=" + mission+"&systemfunctionid=" + systemfunctionid,  "locacc");
+	} else {
+	ptoken.open("#SESSION.root#/Warehouse/Maintenance/Location/LocationView.cfm?mission=" + mission+"&systemfunctionid=" + systemfunctionid,  "locacc", "left=10, top=10, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=no, resizable=yes");
+	}
 }
 
 function program(mission,systemfunctionid,header,enforce,target) {
     if (target == "_new") {		
-	ptoken.open("#SESSION.root#/ProgramREM/Application/Program/ProgramView/ProgramView.cfm?ts="+new Date().getTime()+"&mission=" + mission+"&systemfunctionid=" + systemfunctionid,"allot"+mission)	
+	ptoken.open("#SESSION.root#/ProgramREM/Application/Program/ProgramView/ProgramView.cfm?mission=" + mission+"&systemfunctionid=" + systemfunctionid,"allot"+mission)	
 	} else {
- 	ptoken.open("#SESSION.root#/ProgramREM/Application/Program/ProgramView/ProgramView.cfm?ts="+new Date().getTime()+"&mission=" + mission+"&systemfunctionid=" + systemfunctionid,  "program", "left=10, top=10, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=no, resizable=yes");
+ 	ptoken.open("#SESSION.root#/ProgramREM/Application/Program/ProgramView/ProgramView.cfm?mission=" + mission+"&systemfunctionid=" + systemfunctionid,  "program", "left=10, top=10, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=no, resizable=yes");
 	}
 }
 
 function allotment(mission,systemfunctionid,header,enforce,target) {
     if (target == "_new") {	
-	ptoken.open("#SESSION.root#/ProgramREM/Application/Budget/AllotmentView/AllotmentView.cfm?ts="+new Date().getTime()+"&mission=" + mission + "&systemfunctionid=" + systemfunctionid,  "program"+mission);	
+	ptoken.open("#SESSION.root#/ProgramREM/Application/Budget/AllotmentView/AllotmentView.cfm?mission=" + mission + "&systemfunctionid=" + systemfunctionid,  "program"+mission);	
 	} else {
- 	ptoken.open("#SESSION.root#/ProgramREM/Application/Budget/AllotmentView/AllotmentView.cfm?ts="+new Date().getTime()+"&mission=" + mission + "&systemfunctionid=" + systemfunctionid,  "allotment", "left=10, top=10, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=no, resizable=yes");
+ 	ptoken.open("#SESSION.root#/ProgramREM/Application/Budget/AllotmentView/AllotmentView.cfm?mission=" + mission + "&systemfunctionid=" + systemfunctionid,  "allotment", "left=10, top=10, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=no, resizable=yes");
 	}
 }
 
 function progress(mission,systemfunctionid,header,enforce,target) {
- 	ptoken.open("#SESSION.root#/ProgramREM/Application/Program/ProgressView/ProgressView.cfm?ts="+new Date().getTime()+"&Mission=" + mission+ "&systemfunctionid=" + systemfunctionid,  "progress", "left=10, top=10, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=yes, resizable=yes");
+ 	ptoken.open("#SESSION.root#/ProgramREM/Application/Program/ProgressView/ProgressView.cfm?Mission=" + mission+ "&systemfunctionid=" + systemfunctionid,  "progress", "left=10, top=10, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=yes, resizable=yes");
 }
 
 function projectprogress(mission,systemfunctionid,header,enforce,target) {
- 	ptoken.open("#SESSION.root#/ProgramREM/Application/Program/ProjectProgressView/ProgressView.cfm?ts="+new Date().getTime()+"&Mission=" + mission + "&systemfunctionid=" + systemfunctionid,  "progress", "left=10, top=10, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=no, resizable=yes");
+ 	ptoken.open("#SESSION.root#/ProgramREM/Application/Program/ProjectProgressView/ProgressView.cfm?mission=" + mission + "&systemfunctionid=" + systemfunctionid,  "progress", "left=10, top=10, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=no, resizable=yes");
 }
 
 function monitoringprogress(mission,systemfunctionid,header,enforce,target) {
- 	ptoken.open("#SESSION.root#/ProgramREM/Application/monitoring/monitoringProgressView/ProgressView.cfm?ts="+new Date().getTime()+"&Mission=" + mission + "&systemfunctionid=" + systemfunctionid,  "progress", "left=10, top=10, width=" + w + ", height= " + h + ", toolbar=yes, status=yes, scrollbars=yes, resizable=yes");
+ 	ptoken.open("#SESSION.root#/ProgramREM/Application/monitoring/monitoringProgressView/ProgressView.cfm?mission=" + mission + "&systemfunctionid=" + systemfunctionid,  "progress", "left=10, top=10, width=" + w + ", height= " + h + ", toolbar=yes, status=yes, scrollbars=yes, resizable=yes");
 }
 
 function casefile(mission,systemfunctionid,header,enforce,target) {             
     if (target == "_new") {	
-	  ptoken.open("#SESSION.root#/CaseFile/Application/Case/CaseControl/CaseView.cfm?ts="+new Date().getTime()+"&Mission=" + mission + "&systemfunctionid=" + systemfunctionid,  "casefile");
+	  ptoken.open("#SESSION.root#/CaseFile/Application/Case/CaseControl/CaseView.cfm?Mission=" + mission + "&systemfunctionid=" + systemfunctionid,  "casefile");
 	} else { 
- 	  ptoken.open("#SESSION.root#/CaseFile/Application/Case/CaseControl/CaseView.cfm?ts="+new Date().getTime()+"&Mission=" + mission + "&systemfunctionid=" + systemfunctionid,  "casefile", "left=10, top=10, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=no, resizable=yes");
+ 	  ptoken.open("#SESSION.root#/CaseFile/Application/Case/CaseControl/CaseView.cfm?Mission=" + mission + "&systemfunctionid=" + systemfunctionid,  "casefile", "left=10, top=10, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=no, resizable=yes");
 	}
 }
 
 function requisition(mission,systemfunctionid,heading,enforce,target) {
     if (target == "_new") {	
- 	ptoken.open("#SESSION.root#/Procurement/Application/Requisition/RequisitionView/RequisitionView.cfm?ts="+new Date().getTime()+"&mission=" + mission+ "&systemfunctionid=" + systemfunctionid,  "req"+mission);
+ 	ptoken.open("#SESSION.root#/Procurement/Application/Requisition/RequisitionView/RequisitionView.cfm?mission=" + mission+ "&systemfunctionid=" + systemfunctionid,  "req"+mission);
 	} else {
-	ptoken.open("#SESSION.root#/Procurement/Application/Requisition/RequisitionView/RequisitionView.cfm?ts="+new Date().getTime()+"&mission=" + mission+ "&systemfunctionid=" + systemfunctionid,  "req"+mission, "left=10, top=10, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=no, resizable=yes");
+	ptoken.open("#SESSION.root#/Procurement/Application/Requisition/RequisitionView/RequisitionView.cfm?mission=" + mission+ "&systemfunctionid=" + systemfunctionid,  "req"+mission, "left=10, top=10, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=no, resizable=yes");
 	
 	}
 }

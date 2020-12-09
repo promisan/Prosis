@@ -11,6 +11,7 @@
 <cfparam name="URL.scale"        default="89">
 <cfparam name="URL.orientation"  default="portrait">
 
+
 <cfif url.docid neq "">
 
 	<cfquery name="Document" 
@@ -56,9 +57,11 @@
 <cfset vpath=replace(vpath,"\\","\","ALL")>
 <cfset vpath=replace(vpath,"//","/","ALL")>
 
+
 <cfif URL.ID eq "Mail">	
-   	
+  		
 	<cfif FindNoCase(".cfm", URL.templatepath)>
+	
 		<cfdocument 
 	      format       = "#URL.format#"
 	      pagetype     = "letter"
@@ -73,7 +76,9 @@
 	      fontembed    = "Yes"
 	      scale        = "#URL.scale#"
 	      backgroundvisible="Yes">
-		  		  		  
+		  
+		  <link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
+		  		  		  		  
 		  <cfinclude template="../../#URL.templatepath#">
 		  			
 		</cfdocument>	
@@ -107,11 +112,13 @@
 		</cfreport>	
 
 	</cfif>
-	
-	
+		
+	<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+	<cfset mid = oSecurity.gethash()/> 
+		
 	<cfoutput>
 	<script language="JavaScript">
-			window.location = "#SESSION.root#/Tools/Mail/Mail.cfm?Subject=#URL.Subject#&ID1=#URL.ID1#&ID2=#attach#&Source=Action&Sourceid=#URL.ID#&Mode=Dialog&GUI=HTML"
+			window.location = "#SESSION.root#/Tools/Mail/Mail.cfm?Subject=#URL.Subject#&ID1=#URL.ID1#&ID2=#attach#&Source=Action&Sourceid=#URL.ID#&Mode=Dialog&GUI=HTML&mid=#mid#"
 	</script>
 	</cfoutput>
 		
@@ -121,18 +128,12 @@
 	
 	  <cfinclude template="../../#URL.templatepath#">		
 	  
-	  <script>
-	  
-	   window.print()
-	  
+	  <script>	  
+	   window.print()	  
 	  </script>
 
 <cfelse>
-
-	<cf_screentop height="100%" html="No">
-
-    <cf_wait text="please wait, while preparing your document">
-	
+	  	
 	<cfif FindNoCase(".cfm", URL.templatepath)>
 	
 	 	<cfdocument 
@@ -157,8 +158,7 @@
 			 		
 		</cfdocument>	
 	
-	<cfelse>
-	
+	<cfelse>	
 		
 		<cfset rep=replace(url.templatepath,"/","\","ALL")>
 			
@@ -173,6 +173,8 @@
 
 	</cfif>
 
+	<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+	<cfset mid = oSecurity.gethash()/> 
 	
 	<cfoutput>
 	<script language="JavaScript">
@@ -181,5 +183,3 @@
 	</cfoutput>
 
 </cfif>
-
-</body>

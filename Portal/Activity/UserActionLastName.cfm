@@ -74,27 +74,27 @@ datasource="AppsSystem">
 	
 </cfquery>		
 
-<table width="99%" border="0" ellspacing="0" cellpadding="0" class="formpadding">
+<table width="99%" class="formpadding">
 
 <tr>
 <td>
 
-<table width="100%" cellspacing="0" cellpadding="0" class="navigation_table">
+<table width="100%" style="min-width:1000px" class="navigation_table">
 
 	<tr class="labelmedium line fixrow">
-	<td height="21"></td>
-	<td><cf_tl id="Account"></td>
-	<td><cf_tl id="Owner"></td>
-	<td><cf_tl id="Name"></td>	
-	<td><cf_tl id="Entity"></td>
-	<td><cf_tl id="S"></td>
-	<td></td>
-	<td><cf_tl id="Site"></td>	
-	<td><cf_tl id="IP"></td>
-	<td><cf_tl id="Browser"></td>
-	<td><cf_tl id="Last"></td>
-	<td><cf_tl id="Active"></td>
-	<td></td>
+	<td style="background-color:white"height="21"></td>
+	<td style="background-color:white"><cf_tl id="Account"></td>
+	<td style="min-width:90px;background-color:white"><cf_tl id="Owner"></td>
+	<td style="background-color:white"><cf_tl id="Name"></td>	
+	<td style="min-width:90px;background-color:white"><cf_tl id="Entity"></td>
+	<td style="background-color:white"><cf_tl id="S"></td>
+	<td style="background-color:white"></td>
+	<td style="background-color:white"><cf_tl id="Site"></td>	
+	<td style="background-color:white"><cf_tl id="IP"></td>
+	<td style="min-width:90px;background-color:white"><cf_tl id="Browser"></td>
+	<td style="background-color:white"><cf_tl id="Last"></td>
+	<td style="background-color:white"><cf_tl id="Active"></td>
+	<td style="background-color:white"></td>
 	</tr>
 	
 	<cfset usr = 0>
@@ -102,7 +102,7 @@ datasource="AppsSystem">
 	<cfset usr = usr + 1>
 	
 	<tr class="navigation_row labelmedium line clsFilterRow">
-	<td style="height:21px;padding-left:3px" class="labelit ccontent">#usr#.</td>
+	<td style="padding-left:3px;padding-right:3px" class="labelit ccontent">#usr#.</td>
 	
 	<td class="ccontent"><cfif access eq "Full">
 	     <a href="javascript:ShowUser('#Account#','audit')">#Account#</a>
@@ -144,11 +144,11 @@ datasource="AppsSystem">
 	<cfelse>
 	  <cfset cl = "black">
 	</cfif>  
-	<td height="18" style="font-size:10px;padding-right:2px" class="ccontent"><font color="#cl#">#CurrentRow#</td>  
-	<td width="20" style="padding-top:4px" align="center" class="ccontent">	
+	<td style="padding-right:2px" class="ccontent"><font color="#cl#">#CurrentRow#</td>  
+	<td width="20" style="padding-top:8px" align="center" class="ccontent">	
 	   <cf_img icon="expand" toggle="yes" onclick="listing('#currentrow#','show','#Account#','#HostName#','#HostSessionNo#')">				
 	</td>
-	<td height="27" style="padding-left:2px" class="ccontent">
+	<td style="padding-left:2px" class="ccontent">
 	<font color="#cl#">
 	<cfset hst = "">
 	<cfloop index="itm" list="#HostName#" delimiters=".">
@@ -157,7 +157,7 @@ datasource="AppsSystem">
 	</cfif>
 	</cfloop>#hst#
 	</td>
-	<td style="padding-left:2px" class="ccontent">
+	<td style="padding-left:2px;padding-right:4px" class="ccontent">
 	<cfif access eq "full"> 
 		<cfif cl neq "red" and Drill.recordcount gt "0">
 		<font color="#cl#">#NodeIP#

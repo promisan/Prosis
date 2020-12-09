@@ -96,7 +96,7 @@ password="#SESSION.dbpw#">
 
 <cfif External.recordcount gte "1">
 
-<tr class="labelmedium line"><td colspan="2" style="padding-left:10px;height:25px;font-size:14px" colspan"2"><cf_tl id="Specific attachments to be added"></td></tr>
+<tr class="labelmedium line"><td colspan="2" style="padding-left:10px;height:45px;font-size:21px" colspan"2"><cf_tl id="Specific attachments to be added"></td></tr>
 	
 <tr><td colspan="2">
 
@@ -109,8 +109,8 @@ password="#SESSION.dbpw#">
 				
 		<tr class="line">
 		    <td width="9"></td>					
-		   	<td valign="top" style="width:320px;border-right:1px solid silver;padding-left:10px;padding-top:4px" class="labelmedium">#DocumentDescription# <cfif FieldRequired eq "1"><font color="FF0000">*</font></cfif> :</td>
-			<td style="height:100%">
+		   	<td style="min-width:320px;max-width:420px;width:420px;padding-left:10px" class="labelmedium">#DocumentDescription# <cfif FieldRequired eq "1"><font color="FF0000">*</font></cfif> :</td>
+			<td style="height:100%" valign="top">
 			
 			<cfif ObjectFilter eq "Inquiry">
 				<cfset mode = "Inquiry">

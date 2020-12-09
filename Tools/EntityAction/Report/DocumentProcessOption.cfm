@@ -21,17 +21,20 @@
 	onclick="savereportfields('0');embedtabdoc('#url.actionid#','#url.docid#',document.getElementById('signatureblock#documentcode#').value,document.getElementById('languagecode#documentcode#').value,document.getElementById('format#documentcode#').value,'#url.no#','refresh')">
 	<img src="#SESSION.root#/images/refresh3.gif" alt="Refresh" border="0" align="absmiddle">									
 </button>	
+
 </td>
 	
 <cfelse>	
 
+<cf_tl id="Prepare document" var="1">
+
 <td> 
- <button class="button3" 
+ <input class="button10g" 
  	type="button"
-    style="width:26;height:19"
-	onclick="savereportfields('0');embedtabdoc('#url.actionid#','#url.docid#',document.getElementById('signatureblock#documentcode#').value,document.getElementById('languagecode#documentcode#').value,document.getElementById('format#documentcode#').value,'#url.no#','add')">
-	<img src="#SESSION.root#/images/write.gif" alt="Add" border="0" align="absmiddle">
- </button>	
+	style="width:250px"
+    value="#lt_text#"
+	onclick="savereportfields('0');embedtabdoc('#url.actionid#','#url.docid#',document.getElementById('signatureblock#documentcode#').value,document.getElementById('languagecode#documentcode#').value,document.getElementById('format#documentcode#').value,'#url.no#','add')">	
+	
 </td> 
 
 </cfif>

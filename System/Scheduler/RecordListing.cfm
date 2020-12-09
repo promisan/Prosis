@@ -28,9 +28,8 @@
 	 
 	 function recordadd(id1) {
 	 
-	    w = 900;
-		h = 800;
-	    ptoken.open('RecordEdit.cfm?id=' + id1,'schedule','left=30, top=30, width=' + w + ', height= ' + h + ', toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes')
+	    ProsisUI.createWindow('schedulebox', 'Scheduler', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,resizable:false,center:true})  	 		   
+	    ptoken.navigate('RecordView.cfm?id=' + id1,'schedulebox')
 	   
 	 }
 	 
@@ -234,7 +233,7 @@
 			ORDER BY   ProcessStart DESC
 		</cfquery>
 				
-		<tr class="navigation_row labelmedium <cfif scheduleMemo eq "">line</cfif>" id="lin#scheduleid#" style="height:22px">
+		<tr class="navigation_row labelmedium2 line" id="lin#scheduleid#" style="height:22px">
 		
 		<td width="20"></td>	   	
 		<td width="10" align="center">#currentRow#.</td>		
@@ -271,7 +270,7 @@
 				<tr class="labelmedium"><td align="right" style="padding-right:2px;height:15px">
 					<cfif c gt 1><img src="#session.root#/images/join.gif" alt="" border="0"></cfif>
 				</td>
-				<td class="navigation_action" style="height:20px;padding-right:2px;font-size:14px"><a href="javascript:recordadd('#ScheduleId#')"><font color="black">#ScheduleName#</a></td>
+				<td class="navigation_action" style="height:20px;padding-right:2px;font-size:14px;cursor:pointer" onclick="recordadd('#ScheduleId#')"><a title="#ScheduleMemo#"><font color="black">#ScheduleName#</a></td>
 				</tr>
 			</table>
 			
@@ -364,7 +363,9 @@
 					
 		</td>
 			
-		</TR>		
+		</TR>	
+		
+		<!---	
 				
 		<cfif scheduleMemo neq "">	
 	
@@ -381,6 +382,8 @@
 		</tr>	
 				
 		</cfif>
+		
+		--->
 			
 		<tr id="log#scheduleid#" class="hide">
 		    <td colspan="1"></td>

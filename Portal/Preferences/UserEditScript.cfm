@@ -7,8 +7,7 @@
 		   document.getElementById(fld).disabled = true
 		 } else {
 		   document.getElementById(fld).disabled = false
-		 }  
-		
+		 }  		
 		}
 		
 		function _userlocate(ret,params) {
@@ -19,8 +18,7 @@
 			    document.getElementById(params[1]).value = val[1];
 				document.getElementById(params[2]).value = val[2];
 				document.getElementById(params[3]).value = val[3];				     	
-		    }
-		
+		    }		
 		}
 				
 		function pref(id) {
@@ -29,9 +27,8 @@
 		  ptoken.navigate(id,'contentbox1')
 		}		
 	
-		function prefsubmit(val) {
-	
-			document.formsetting.onsubmit() 
+		function prefsubmit(val) {				
+			document.formsetting.onsubmit() 			
 			if( _CF_error_messages.length == 0 ) {  
 			   Prosis.busy('yes')           
 			   ptoken.navigate('UserEditSubmit.cfm?showLDAPMailbox=#url.showLDAPMailbox#&id='+val,'process','','','POST','formsetting')

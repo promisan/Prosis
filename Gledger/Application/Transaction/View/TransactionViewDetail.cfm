@@ -101,13 +101,12 @@
 				   <td style="padding-left:5px">
 				   <input type="radio" style="height:18;width:18" name="SummaryView" value="0" <cfif url.summary eq "0">checked</cfif> onClick="view('0')">
 				   </td>
-				   <td class="labelmedium" style="padding-left:2px;padding-right:8px"><cf_tl id="Full view"></td>
+				   <td class="labelmedium" style="padding-left:2px;padding-right:8px"><cf_tl id="Full view"></td>				   
 				   
-				   
-					   <td style="padding-left:5px">
+				   <td style="padding-left:5px">
 					   <input type="radio" style="height:18;width:18" name="SummaryView" value="0" <cfif url.summary eq "9">checked</cfif> onClick="view('9')">
-					   </td>
-					   <td class="labelmedium" style="padding-left:2px"><cf_tl id="Edit"></td>
+				   </td>
+				   <td class="labelmedium" style="padding-left:2px"><cf_tl id="Edit"></td>
 				 
 				   </table>
 				   
@@ -156,8 +155,7 @@
 	    <cfset cl = "e5e5e5">
 	  <cfelse>
 	  	<cfset cl = "ffffaf">
-	  </cfif>
-	 
+	  </cfif>	 
 	 
       <tr>
         <td height="23" width="25%" style="font-size:19px;padding-left:3px;border:1px solid gray;font-weight:200" bgcolor="<cfoutput>#cl#</cfoutput>" class="cellborder labelmedium" align="center" ><CFOUTPUT query="Transaction">#TransactionCategory# [#Journal#]</b></font>
@@ -196,7 +194,7 @@
 						WHERE        BatchNo ='#TransactionSourceNo#'									
 					</cfquery>	
 					 
-					 <cfif get.recordcount eq "1">
+					 <cfif getBatch.recordcount eq "1">
 					 
 					 	<a href="javascript:batch('#getBatch.BatchNo#')">#getBatch.BatchNo#</a>&nbsp;|
 					 
@@ -1078,10 +1076,10 @@
 										  TransactionDate,currency,ABS(Amount) Amount, ABS(AmountOutstanding) as AmountOutstanding
 
 								FROM      TransactionHeader H
-								WHERE     Mission             = '#get.Mission#'
-								AND       (ReferenceOrgUnit    = '#get.ReferenceOrgUnit#')
+								WHERE     Mission             = '#Transaction.Mission#'
+								AND       (ReferenceOrgUnit    = '#Transaction.ReferenceOrgUnit#')
 								AND       TransactionCategory = 'Advances'
-								--AND     Currency            = '#get.Currency#' 
+								--AND     Currency            = '#Transaction.Currency#' 
 								AND       ABS(AmountOutstanding) > 0.05
 								AND  	  ActionStatus != '9'
 								AND  	  RecordStatus != '9'
@@ -1092,7 +1090,7 @@
 								AND       Journal IN (SELECT ClassParameter 
 							                      FROM   Organization.dbo.OrganizationAuthorization 
 												  WHERE  Role        = 'Accountant'
-												  AND    Mission     = '#get.Mission#'
+												  AND    Mission     = '#Transaction.Mission#'
 												  AND    UserAccount = '#session.acc#'
 												  AND    AccessLevel IN ('1','2'))
 							</cfif>
@@ -1154,7 +1152,7 @@
 										<td align="right"><cf_tl id="Offset"></td>
 									</tr>
 									
-									<cfset amt = get.AmountOutstanding>									
+									<cfset amt = Transaction.AmountOutstanding>									
 
 									<cfset indexadvance=0>
 									
@@ -1179,8 +1177,8 @@
 										 </td>	
 										 <td align="right">
 
-										 <cfif CheckAdvances.currency neq get.currency>
-										   <cf_exchangeRate currencyFrom = "#CheckAdvances.currency#" currencyTo = "#get.currency#">
+										 <cfif CheckAdvances.currency neq Transaction.currency>
+										   <cf_exchangeRate currencyFrom = "#CheckAdvances.currency#" currencyTo = "#Transaction.currency#">
 										   <cfset erate = exc>
 										<cfelse>
 											<cfset erate = 1>   
@@ -1229,7 +1227,7 @@
 										 
 										 <td align="right">
 										 
-										 <cfif CheckAdvances.currency eq get.currency>
+										 <cfif CheckAdvances.currency eq Transaction.currency>
 												
 											<input type="text" 
 												 name="exc_#left(TransactionId,8)#" 
@@ -1284,7 +1282,7 @@
 									
 									<cf_tl id="Apply Offset" var="voffset">
 									
-									<input onclick="ptoken.navigate('#session.root#/Gledger/Application/Transaction/Offset/APOffsetSubmit.cfm?journal=#get.Journal#&JournalSerialNo=#get.JournalSerialNo#','offsetprocess','','','POST','offsetform')" 
+									<input onclick="ptoken.navigate('#session.root#/Gledger/Application/Transaction/Offset/APOffsetSubmit.cfm?journal=#Transaction.Journal#&JournalSerialNo=#Transaction.JournalSerialNo#','offsetprocess','','','POST','offsetform')" 
 									   type="button" style="width:160px" class="button10g" id="Offsetapply" name="Offsetapply" value="#voffset#">
 									</cfoutput> 
 									</td>
@@ -1424,13 +1422,13 @@
 								  TransactionId,JournalTransactionNo,OfficerLastName,
 								  TransactionDate,currency,ABS(Amount) Amount, ABS(AmountOutstanding) as AmountOutstanding
 						FROM      TransactionHeader H
-						WHERE     Mission = '#get.Mission#'
-						<cfif get.TransactionSource eq "SalesSeries">
-						AND       (ReferenceOrgUnit    = '#get.ReferenceOrgUnit#' <cfif getBatch.CustomerId neq "">OR ReferenceId = '#getBatch.CustomerId#'</cfif>)
-						<cfelseif  get.TransactionSource eq "AccountSeries" AND get.ReferenceId neq "">
-						AND       ReferenceId = '#get.ReferenceId#'
+						WHERE     Mission = '#Transaction.Mission#'
+						<cfif Transaction.TransactionSource eq "SalesSeries">
+						AND       (ReferenceOrgUnit    = '#Transaction.ReferenceOrgUnit#' <cfif getBatch.CustomerId neq "">OR ReferenceId = '#getBatch.CustomerId#'</cfif>)
+						<cfelseif  Transaction.TransactionSource eq "AccountSeries" AND Transaction.ReferenceId neq "">
+						AND       ReferenceId = '#Transaction.ReferenceId#'
 						<cfelse>
-						AND       ReferenceOrgUnit    = '#get.ReferenceOrgUnit#'
+						AND       ReferenceOrgUnit    = '#Transaction.ReferenceOrgUnit#'
 					 	</cfif>
 						AND       TransactionCategory = 'Advances'
 											
@@ -1448,7 +1446,7 @@
 						AND       Journal IN (SELECT ClassParameter 
 						                      FROM   Organization.dbo.OrganizationAuthorization 
 											  WHERE  Role    = 'Accountant'
-											  AND    Mission = '#get.Mission#'
+											  AND    Mission = '#transaction.Mission#'
 											  AND    UserAccount = '#session.acc#'
 											  AND    AccessLevel IN ('1','2'))
 						</cfif>
@@ -1521,7 +1519,7 @@
 										<td align="right"><cf_tl id="Offset"></td>
 									</tr>
 									
-									<cfset amt = get.AmountOutstanding>									
+									<cfset amt = Transaction.AmountOutstanding>									
 									<cfset indexadvance=0>
 
 
@@ -1547,9 +1545,9 @@
 			    		      					  Default="#Dateformat(now(), CLIENT.DateFormatShow)#">	
 
 										 <td align="right"> 
-										 <cfif currency neq get.currency>
+										 <cfif currency neq Transaction.currency>
 							   
-										   <cf_exchangeRate currencyFrom = "#currency#" currencyTo = "#get.currency#">
+										   <cf_exchangeRate currencyFrom = "#currency#" currencyTo = "#Transaction.currency#">
 										   <cfset erate = exc>
 							   
 										<cfelse>
@@ -1592,7 +1590,7 @@
 										 
 										 <td align="right">
 										 
-										 <cfif currency eq get.currency>
+										 <cfif currency eq Transaction.currency>
 												
 											<input type="text" 
 												 name="exc_#left(TransactionId,8)#" 
@@ -1646,7 +1644,7 @@
 									<tr><td colspan="11" align="center" style="padding-top:5px;border-top:1px solid silver">
 									<cfoutput>
 									<cf_tl id="Apply Offset" var="off">
-									<input onclick="ptoken.navigate('#session.root#/Gledger/Application/Transaction/Offset/AROffsetSubmit.cfm?journal=#get.Journal#&JournalSerialNo=#get.JournalSerialNo#','offsetprocess','','','POST','offsetform')" 
+									<input onclick="ptoken.navigate('#session.root#/Gledger/Application/Transaction/Offset/AROffsetSubmit.cfm?journal=#Transaction.Journal#&JournalSerialNo=#Transaction.JournalSerialNo#','offsetprocess','','','POST','offsetform')" 
 									   type="button" style="width:260px" class="button10g" id="Offsetapply" name="Offsetapply" value="#off#">
 									</cfoutput> 
 									</td>

@@ -281,7 +281,7 @@
 		  	<cfset bgc = "FFF4F4">
 		  </cfif>
 		 			 			  		     		  
-		  <td style="height:26px;font-size:12px;padding-left:2px;cursor:pointer;min-width:40;border-bottom:1px solid gray">
+		  <td style="height:20px;font-size:12px;padding-left:2px;cursor:pointer;min-width:40;border-bottom:1px solid gray">
 			  
 			   <cfif Client.LanguageId eq "ESP">
 			   

@@ -22,7 +22,7 @@
 <cfinclude template="UserEditScript.cfm">
 
 <cf_menuscript>
-<cf_screentop height="100%"  html="No" jquery="Yes">
+<cf_screentop height="100%" html="No" jquery="Yes">
 <cf_listingscript> 
 <cf_textareascript>
 
@@ -69,9 +69,9 @@ password="#SESSION.dbpw#">
     }
 </style>    
     
-<table width="98%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="98%" height="100%" align="center" class="formpadding">
 
-<tr class="hide"><td id="process"></td></tr>
+<tr class="xhide"><td id="process"></td></tr>
 
 <tr><td height="100%" valign="top" style="padding-top:10px">
 	

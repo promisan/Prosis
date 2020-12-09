@@ -59,6 +59,7 @@ will be put into different batches as they could have different process flows as
 <cfset tot = 0>
 <cfset batches = "">
 
+
 <cfloop index="actiontype" list="Transfer,Conversion">
 
 	<cfif actiontype eq "Transfer">
@@ -67,11 +68,27 @@ will be put into different batches as they could have different process flows as
 		 <cfset url.tpe = "6">
 	</cfif>		
 	
+	<cfquery name="ObtainMode"
+	datasource="AppsMaterials" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT *
+		FROM   WarehouseTransaction
+		WHERE  Warehouse       = '#url.whs#'
+		AND    TransactionType = '#url.tpe#'
+	</cfquery>
+	
 	<cfquery name="getBatch"
 	datasource="AppsTransaction" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
+	    <cfif ObtainMode.PreparationMode eq "0">
 	    SELECT   DISTINCT TransferWarehouse, TransferLocation 				 
+		<cfelseif ObtainMode.PreparationMode eq "1">
+		SELECT   DISTINCT TransferWarehouse 		
+		<cfelse>
+		SELECT   DISTINCT Warehouse
+		</cfif>
 		FROM     Transfer#URL.Whs#_#SESSION.acc# S
 		<cfif actiontype eq "Transfer">
 		WHERE    (TransferItemNo = ItemNo OR TransferItemNo IS NULL) AND (Location <> TransferLocation OR Warehouse <> TransferWarehouse)
@@ -131,8 +148,15 @@ will be put into different batches as they could have different process flows as
 				<cfelse>
 				WHERE    TransferItemNo <> ItemNo AND TransferItemNo IS NOT NULL
 				</cfif>
+				
+				<cfif ObtainMode.PreparationMode eq "0">
 				AND      TransferWarehouse = '#transferWarehouse#'
 				AND      TransferLocation  = '#transferLocation#'	
+				<cfelseif ObtainMode.PreparationMode eq "1">
+				AND      TransferWarehouse = '#transferWarehouse#'
+				<cfelse>
+				<!--- no filter --->
+				</cfif>				
 				and      TransferQuantity is not NULL AND TransferQuantity <> 0
 				ORDER BY TransactionDate DESC		
 			</cfquery>		
@@ -204,8 +228,14 @@ will be put into different batches as they could have different process flows as
 					password="#SESSION.dbpw#">
 					INSERT INTO  WarehouseBatch
 						   ( Mission,
-						     Warehouse, 							 
-							 Location,
+						   	 <cfif ObtainMode.PreparationMode eq "0">
+							 Warehouse, 							 
+							 Location,				
+							 <cfelseif ObtainMode.PreparationMode eq "1">
+							 Warehouse,
+							 <cfelse>
+							 Warehouse,
+							 </cfif>						   
 							 BatchWarehouse,
 						     BatchNo, 
 							 <cfif url.stockorderid neq "">
@@ -227,8 +257,14 @@ will be put into different batches as they could have different process flows as
 						     OfficerLastName, 
 						     OfficerFirstName )
 					VALUES ('#getWarehouse.mission#',    <!--- url.mis#', interoffice support --->
+					        <cfif ObtainMode.PreparationMode eq "0">
 					        '#getWarehouse.Warehouse#',  <!--- processing receiving warehouse --->							
 							'#Lines.TransferLocation#',
+							<cfelseif ObtainMode.PreparationMode eq "1">
+							 '#getWarehouse.Warehouse#', <!--- processing receiving warehouse --->	 
+							<cfelse>
+							 '#URL.Whs#',                <!--- processing same as distributing warehouse --->	   
+							</cfif>  
 							'#URL.Whs#',                 <!--- originating distributing warehouse --->
 					        '#batchNo#',
 							 <cfif url.stockorderid neq "">
@@ -445,11 +481,7 @@ will be put into different batches as they could have different process flows as
 									WHERE   Category = '#Category#' 
 									AND     Area     = 'Stock'
 								</cfquery>	
-								
-								<!---
-								<cfparam name="AccountTask.GLAccount" default="30103">
-								--->
-																								
+																																
 								<cfquery name="AccountTask"
 										datasource="AppsMaterials" 
 										username="#SESSION.login#" 
@@ -467,93 +499,99 @@ will be put into different batches as they could have different process flows as
 									  
 									<cfabort>		
 										 				
-								</cfif>		
-								
+								</cfif>										
 						   
-						   <cfset qty = -1*TransferQuantity>			   
-						   
-						   <cf_assignid>
-						   
-						   <!--- FROM location --->
-						   
-						   <!--- 22/02/2012 I added shipping record to be created --->
-						   
-						   <cfif clearance eq "0">	
-							  <cfset actionStatus = "1">
-						   <cfelse>
-							  <cfset actionStatus = "0">
-						   </cfif>  
-						   						   
-						   <cf_assignid>
-						   <cfset traid = rowguid>
-						   
-						   <cfif area eq "variance">
-						   
-						   		<cfset price   = "">
-								<cfset tax     = "">
-								<cfset exem    = "1">
-												   
-						   <cfelse>   <!--- interoffice --->
-						   
-							   	<cfquery name="TaxCode"
-									datasource="AppsMaterials" 
-									username="#SESSION.login#" 
-									password="#SESSION.dbpw#">
-							   		SELECT       *
-									FROM         ItemWarehouse
-									WHERE        Warehouse = '#Warehouse#' 
-									AND          ItemNo    = '#ItemNo#' 
-									AND          UoM       = '#UnitOfMeasure#'
+							   <cfset qty = -1*TransferQuantity>			   
+							   
+							   <cf_assignid>
+							   
+							   <!--- FROM location --->
+							   
+							   <!--- 22/02/2012 I added shipping record to be created --->
+							   
+							   <cfif clearance eq "0">	
+								  <cfset actionStatus = "1">
+							   <cfelse>
+								  <cfset actionStatus = "0">
+							   </cfif>  
+							   						   
+							   <cf_assignid>
+							   <cfset traid = rowguid>
+							   
+							   <cfif area eq "variance">
+							   
+							   	    <cfset ship      = "No">
+							   		<cfset price     = "">
+									<cfset tax       = "">
+									<cfset exem      = "1">
+									<cfset ship      = "No">
+									<cfset Class     = "COGS">
+													   
+							   <cfelse>   <!--- interoffice --->
+							   
+								   	<cfquery name="TaxCode"
+										datasource="AppsMaterials" 
+										username="#SESSION.login#" 
+										password="#SESSION.dbpw#">
+								   		SELECT       *
+										FROM         ItemWarehouse
+										WHERE        Warehouse = '#Warehouse#' 
+										AND          ItemNo    = '#ItemNo#' 
+										AND          UoM       = '#UnitOfMeasure#'
+										
+									</cfquery>	
+							   
+							   	    <cfset Class     = "Interoffice">
+							   		<cfset ship      = "Yes">
+							   	    <cfset price     = "COGS">
+									<cfset tax       = TaxCode.TaxCode>
+									<cfset exem      = "0">
 									
-								</cfquery>	
-						   
-						   	    <cfset price   = "">
-								<cfset tax     = TaxCode.TaxCode>
-								<cfset exem    = "0">
-							  
-							
-						   </cfif>
+									<!--- check POS.cfc to record a sale --->
+								 
+							   </cfif>
 						  				  
-						   <cf_StockTransact 
-						        TransactionId        = "#traid#"
-								TransactionIdOrigin  = "#TransactionIdOrigin#"
-								TransactionReference = "#transactionReference#"
-							    DataSource           = "AppsMaterials" 
-							    TransactionType      = "#url.tpe#"
-								TransactionSource    = "WarehouseSeries"
-								ItemNo               = "#ItemNo#" 
-								Mission              = "#url.mis#" 
-								Warehouse            = "#Warehouse#" 
-								TransactionLot       = "#TransactionLot#"
-								BillingMode          = "#billingmode#"
-								Location             = "#Location#"
-								TransactionCurrency  = "#APPLICATION.BaseCurrency#"
-								TransactionQuantity  = "#qty#"
-								TransactionUoM       = "#UnitOfMeasure#"						
-								ReceiptId            = "#ReceiptId#"
-								TransactionDate      = "#dateformat(TransactionDate,CLIENT.DateFormatShow)#"
-								TransactionTime      = "#timeformat(TransactionDate,'HH:MM')#"							
-								TransactionLocalTime = "Yes"
-								TransactionBatchNo   = "#batchno#"
-								workorderid          = "#workorderid#"
-								workorderline        = "#workorderline#"
-								requirementid        = "#requirementid#"
-								Remarks              = "#TransferMemo#"
-								ActionStatus         = "#actionstatus#"
-								DetailLineNo         = "1"
-								OrgUnit              = "#OrgFrom.OrgUnit#"
-								Shipping             = "Yes"  
-								SalesPrice           = "COGS"
-								SalesQuantity        = "#qty*-1#"
-								TaxCode              = "#tax#"		
-								TaxExemption         = "#exem#"						
-								DetailReference1     = "#MeterName#"
-								DetailReadInitial    = "#MeterInitial#"
-								DetailReadFinal      = "#MeterFinal#"
-								GLTransactionNo      = "#batchNo#"
-								GLCurrency           = "#APPLICATION.BaseCurrency#"
-								GLAccountDebit       = "#AccountTask.GLAccount#"
-								GLAccountCredit      = "#AccountStock.GLAccount#">	
+							   <cf_StockTransact 
+							        TransactionId        = "#traid#"
+									TransactionClass     =  "#class#"
+									TransactionIdOrigin  = "#TransactionIdOrigin#"
+									TransactionReference = "#transactionReference#"
+								    DataSource           = "AppsMaterials" 
+								    TransactionType      = "#url.tpe#"
+									TransactionSource    = "WarehouseSeries"
+									ItemNo               = "#ItemNo#" 
+									Mission              = "#url.mis#" 
+									Warehouse            = "#Warehouse#" 
+									TransactionLot       = "#TransactionLot#"
+									BillingMode          = "#billingmode#"
+									Location             = "#Location#"
+									TransactionCurrency  = "#APPLICATION.BaseCurrency#"
+									TransactionQuantity  = "#qty#"
+									TransactionUoM       = "#UnitOfMeasure#"						
+									ReceiptId            = "#ReceiptId#"
+									TransactionDate      = "#dateformat(TransactionDate,CLIENT.DateFormatShow)#"
+									TransactionTime      = "#timeformat(TransactionDate,'HH:MM')#"							
+									TransactionLocalTime = "Yes"
+									TransactionBatchNo   = "#batchno#"
+									workorderid          = "#workorderid#"
+									workorderline        = "#workorderline#"
+									requirementid        = "#requirementid#"
+									Remarks              = "#TransferMemo#"
+									ActionStatus         = "#actionstatus#"
+									DetailLineNo         = "1"
+									OrgUnit              = "#OrgFrom.OrgUnit#"
+									Shipping             = "#ship#"  
+									SalesPrice           = "#price#"
+									SalesQuantity        = "#qty*-1#"
+									TaxCode              = "#tax#"		
+									TaxExemption         = "#exem#"						
+									DetailReference1     = "#MeterName#"
+									DetailReadInitial    = "#MeterInitial#"
+									DetailReadFinal      = "#MeterFinal#"
+									GLTransactionNo      = "#batchNo#"
+									GLCurrency           = "#APPLICATION.BaseCurrency#"
+									GLAccountDebit       = "#AccountTask.GLAccount#"
+									GLAccountCredit      = "#AccountStock.GLAccount#">	
 								
 							 <!--- TO location --->	
 								 
@@ -567,11 +605,12 @@ will be put into different batches as they could have different process flows as
 								
 						     <!---	TO location --->
 							 
-							  <cf_assignid>
-						      <cfset newid = rowguid>
+							 <cf_assignid>
+						     <cfset newid = rowguid>
 							 								
 						     <cf_StockTransact 
 							    TransactionId        = "#newid#" 
+								TransactionClass     = "#class#"
 							    ParentTransactionId  = "#traid#"
 							    DataSource           = "AppsMaterials" 								
 								TransactionReference = "#transactionReference#"
@@ -594,8 +633,8 @@ will be put into different batches as they could have different process flows as
 								workorderline        = "#workorderline#"
 								requirementid        = "#requirementid#"
 								OrgUnit              = "#OrgTo.OrgUnit#"
-								Shipping             = "Yes"  
-								SalesPrice           = "COGS"
+								Shipping             = "No"  
+								SalesPrice           = "#price#"
 								SalesQuantity        = "#TransferQuantity#"
 								TaxCode              = "#tax#"	
 								TaxExemption         = "#exem#"
@@ -672,7 +711,7 @@ will be put into different batches as they could have different process flows as
 						  <cfelse>
 						  
 						  
-						  <!--- no really supported without accounting anymore !!!!!!! to be disabled --->
+						  <!--- no really supported without accounting anymore !!!!!!! to be disabled 
 						  						        						  
 						  		<cfif clearance eq "0">	
 								     <cfset actionStatus = "1">
@@ -803,7 +842,9 @@ will be put into different batches as they could have different process flows as
 									
 								</cfif>			
 									
-									<!--- removed ReceiptId  = "#ReceiptId#" --->						
+									<!--- removed ReceiptId  = "#ReceiptId#" --->		
+									
+									--->				
 							
 						  </cfif>
 						  		

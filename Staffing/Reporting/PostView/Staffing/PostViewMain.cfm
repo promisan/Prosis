@@ -8,23 +8,23 @@
 
 <cfoutput>
 
- <table width="100%" height="100%" cellspacing="0" cellpadding="0">
+ <table width="100%" height="100%">
  	 
 	<tr><td colspan="#tblr#" height="30">
 		 	  
-		   <table width="97%" align="center" cellspacing="0" cellpadding="0">
+		   <table width="97%" align="center">
 		   
-		    <tr class="line">
+		    <tr>
 			       <td colspan="2"> 
 			
-					<table width="100%" cellspacing="0" cellpadding="0">
+					<table width="100%">
 					<tr>
 					
 					<td height="40">
 										
 						<table cellspacing="0" cellpadding="0"><tr>	
 						
-						<td height="50" style="padding-left:3px">
+						<td style="padding-left:3px;height:40px">
 						
 							<table cellspacing="0" cellpadding="0">
 							<tr>
@@ -155,7 +155,7 @@
 			
 						<td>		
 						<cf_tl id="Workforce maintenance" var="1">
-						<input type="button" onclick="maintain()" name="maintain" value="#lt_text#" class="button10g" style="height:28px;width:200px;font-size:14px">							
+						<input type="button" onclick="maintain()" name="maintain" value="#lt_text#" class="button10g" style="height:28px;width:250px;font-size:14px">							
 						</td>
 					
 					</cfif>
@@ -199,23 +199,27 @@
 							
 							<input type="button" onclick="#script#" name="olap" value="#lt_text#" class="button10g" style="height:28px;width:200px;font-size:14px">							
 					
-							</td>
-														
+						</td>														
+						
+						<td style="padding-left:2px">
+							<cf_tl id="Position Centric View" var="1">															
+							<input type="button" onclick="positionview('#URL.Mission#','#url.mandate#','#url.tree#')" name="tree" value="#lt_text#" class="button10g" style="height:28px;width:200px;font-size:14px">																		
+						</td>
+						
+						<!---
 												
 						<td style="padding-left:2px">
-							<cf_tl id="Org Chart" var="1">	
-														
-							<input type="button" onclick="treeview('#URL.Mission#','#url.mandate#','#url.tree#')" name="tree" value="#lt_text#" class="button10g" style="height:28px;width:200px;font-size:14px">							
-					
-						
+							<cf_tl id="Org Chart" var="1">															
+							<input type="button" onclick="treeview('#URL.Mission#','#url.mandate#','#url.tree#')" name="tree" value="#lt_text#" class="button10g" style="height:28px;width:200px;font-size:14px">																		
 						</td>
+						
+						--->
 					
 					</cfif>	
 					
 					</td>
 					
 					</tr>
-					
 					
 					</table>
 					
@@ -302,8 +306,6 @@
 			</td>
 			</tr>			
 			
-			<tr><td colspan="2" class="line"></td></tr>
-			
 		  </table>		
       </td>
 	</tr>		
@@ -355,7 +357,7 @@
 					<table width="100%">
 					<tr>
 															
-					<td class="labelmedium" style="font-size:29px;font-weight:200">
+					<td class="labelmedium" style="height:40px;font-weight:250;font-size:24px">
 						
 						<cfquery name="Tree" 
 						datasource="AppsOrganization" 
@@ -447,13 +449,13 @@
 						
 						<td style="height:30px;padding-left:3px"></td>
 						<td>					
-						<input type="radio" class="radiol" style="height:20px;width:20px"
+						<input type="radio" class="radiol" style="height:18px;width:18px"
 						   name="summarytotal" id="unittotal" 
 						   value="unit" 
 						   onClick="Prosis.busy('yes');totals.value='unit';reloadview('unit',snapshot.value,treename.value,'<cfoutput>#URL.Mandate#</cfoutput>')" <cfif URL.UNIT neq "cum">checked</cfif>>
 						</td>   
 																				   
-						<td onclick="Prosis.busy('yes');unittotal.click()" style="cursor: pointer;;padding-left:4px" class="labelmedium">
+						<td onclick="Prosis.busy('yes');unittotal.click()" style="font-weight:290;cursor: pointer;;padding-left:4px" class="labelmedium">
 						
 							<cfif URL.UNIT neq "cum">
 							<font color="0080C0" style="font-size: 16px;">
@@ -465,12 +467,12 @@
 						</td>			
 						
 						<td style="padding-left:10px">
-						<input type="radio" class="radiol" style="height:20px;width:20px"
+						<input type="radio" class="radiol" style="height:18px;width:18px"
 						     name="summarytotal" id="cumtotal" 
 							 value="cum" 
 							 onClick="Prosis.busy('yes');totals.value='cum';reloadview('cum',snapshot.value,treename.value,'<cfoutput>#URL.Mandate#</cfoutput>')" <cfif URL.UNIT eq "cum">checked</cfif>>
 						</td>
-						<td onclick="Prosis.busy('yes');cumtotal.click()" class="labelmedium" style="cursor: pointer;padding-left:4px;padding-right:10px">
+						<td onclick="Prosis.busy('yes');cumtotal.click()" class="labelmedium" style="font-weight:290;cursor: pointer;padding-left:4px;padding-right:10px">
 						
 							<cfif URL.UNIT eq "cum">
 								<font color="0080C0" style="font-size: 16px;">

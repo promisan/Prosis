@@ -90,8 +90,9 @@ password="#SESSION.dbpw#">
                                 	 FROM    RosterSearchLine
                                 	 WHERE   SearchId = #URL.ID#
                                  	 AND     SearchClass = 'Edition')
-	 AND     F.FunctionRoster = '1'		
-	 
+									 
+	 AND    (F.FunctionRoster = '1' OR F1.ReferenceNo IN ('Direct','direct') OR F1.PostSpecific = 0)									 
+	 	 
 	 <cfif occ neq "">
 	 
 	 AND     O.OccupationalGroup = '#occ#'		

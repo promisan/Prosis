@@ -239,7 +239,7 @@
 			AND	Data.ContractLevel = '#url.postgrade#'
 		</cfif>
 		ORDER BY Data.HierarchyCode, Data.PostOrder, CG.PostOrder   
-		
+				
 </cfquery>
 
 

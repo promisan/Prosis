@@ -639,156 +639,175 @@
 <!--- ------------------------ --->
 
 <cf_ModuleInsertSubmit
-   SystemModule="Warehouse" 
+   SystemModule  = "Warehouse" 
    FunctionClass = "Item"
-   FunctionName = "Configuration" 
-   MenuClass = "Maintain"
-   MenuOrder = "1"
-   MainMenuItem = "0"
-   FunctionMemo = "On Order"
-   ScriptName = "itmedit"
-   AccessUserGroup = "0">    
-
-<cf_ModuleInsertSubmit
-   SystemModule="Warehouse" 
-   FunctionClass = "Item"
-   FunctionName = "Facility Settings" 
-   MenuClass = "Maintain"
-   MenuOrder = "1"
-   MainMenuItem = "0"
-   FunctionMemo = "Stock Level"
-   ScriptName = "itmlevel"
-   AccessUserGroup = "0">    
+   FunctionName  = "General settings" 
+   MenuClass     = "Maintain"
+   MenuOrder     = "1"
+   MainMenuItem  = "0"
+   FunctionMemo  = "Maintain item"
+   ScriptName    = "itmedit"
+   AccessUserGroup = "0">      
    
 <cf_ModuleInsertSubmit
-   SystemModule="Warehouse" 
-   FunctionClass = "Item"
-   FunctionName = "Storage Locations" 
-   MenuClass = "Maintain"
-   MenuOrder = "2"
-   MainMenuItem = "0"
-   FunctionMemo = "Item Locations"
-   ScriptName = "itmloc"
+   SystemModule    = "Warehouse" 
+   FunctionClass   = "Item"
+   FunctionName    = "Unit of measure" 
+   MenuClass       = "Maintain"
+   MenuOrder       = "1"
+   MainMenuItem    = "0"
+   FunctionMemo    = "Maintain item"
+   ScriptName      = "itmuom"
    AccessUserGroup = "0">   
-   
-<cf_ModuleInsertSubmit
-   SystemModule="Warehouse" 
-   FunctionClass = "Item"
-   FunctionName = "Providers" 
-   MenuClass = "Maintain"
-   MenuOrder = "3"
-   MainMenuItem = "0"
-   FunctionMemo = "Item Pricing"
-   ScriptName = "itmvendor"
-   AccessUserGroup = "0">           
-   
-<cf_ModuleInsertSubmit
-   SystemModule="Warehouse" 
-   FunctionClass = "Item"
-   FunctionName = "Sales Pricing" 
-   MenuClass = "Maintain"
-   MenuOrder = "4"
-   MainMenuItem = "0"
-   FunctionMemo = "Item Pricing"
-   ScriptName = "itmprice"
-   AccessUserGroup = "0">  
-   
+  
 <!--- disabled ItemGLedger    
      
 <cf_ModuleInsertSubmit
-   SystemModule="Warehouse" 
-   FunctionClass = "Item"
-   FunctionName = "Account codes" 
-   MenuClass = "Maintain"
-   MenuOrder = "5"
-   MainMenuItem = "0"
-   FunctionMemo = "Item Account codes"
-   ScriptName = "itmaccount"
+   SystemModule    = "Warehouse" 
+   FunctionClass   = "Item"
+   FunctionName    = "Account codes" 
+   MenuClass       = "Maintain"
+   MenuOrder       = "5"
+   MainMenuItem    = "0"
+   FunctionMemo    = "Item Account codes"
+   ScriptName      = "itmaccount"
    AccessUserGroup = "0">    
    
---->     
-	  
+--->                
+
 <cf_ModuleInsertSubmit
-   SystemModule="Warehouse" 
-   FunctionClass = "Item"
-   FunctionName = "Stock Level" 
-   MenuClass = "Inquiry"
-   MenuOrder = "1"
-   MainMenuItem = "0"
-   FunctionMemo = "Stock Level"
-   ScriptName = "stocklevel"
-   AccessUserGroup = "0">   
-          
-	   
+   SystemModule    = "Warehouse" 
+   FunctionClass   = "Storage"
+   FunctionName    = "Warehouse settings" 
+   MenuClass       = "Maintain"
+   MenuOrder       = "1"
+   MainMenuItem    = "0"
+   FunctionMemo    = "Warehouse storage settings"
+   ScriptName      = "itmlevel"
+   AccessUserGroup = "0">  
+   
+<!--- storage --->      
+   
 <cf_ModuleInsertSubmit
-   SystemModule="Warehouse" 
-   FunctionClass = "Item"
-   FunctionName = "Resupply Request" 
-   MenuClass = "Inquiry"
-   MenuOrder = "2"
-   MainMenuItem = "0"
-   FunctionMemo = "Resupply Request"
-   ScriptName = "itmonorder"
-   AccessUserGroup = "0">   
-          
-<cf_ModuleInsertSubmit
-   SystemModule="Warehouse" 
-   FunctionClass = "Item"
-   FunctionName = "Order Receipts" 
-   MenuClass = "Inquiry"
-   MenuOrder = "3"
-   MainMenuItem = "0"
-   FunctionMemo = "Receipts"
-   ScriptName = "itmreceipt"
-   AccessUserGroup = "0">      
-       
-<cf_ModuleInsertSubmit
-   SystemModule="Warehouse" 
-   FunctionClass = "Item"
-   FunctionName = "Stock Transactions" 
-   MenuClass = "Inquiry"
-   MenuOrder = "4"
-   MainMenuItem = "0"
-   FunctionMemo = "Stock Transaction movements and distribution"
-   ScriptName = "itmtransaction"
+   SystemModule    = "Warehouse" 
+   FunctionClass   = "Storage"
+   FunctionName    = "Stock Level" 
+   MenuClass       = "Inquiry"
+   MenuOrder       = "1"
+   MainMenuItem    = "0"
+   FunctionMemo    = "Stock Level"
+   ScriptName      = "stocklevel"
    AccessUserGroup = "0">      
    
 <cf_ModuleInsertSubmit
-   SystemModule="Warehouse" 
-   FunctionClass = "Item"
-   FunctionName = "WorkOrder Allocation" 
-   MenuClass = "Inquiry"
-   MenuOrder = "5"
-   MainMenuItem = "0"
-   FunctionMemo = "WorkOrder Earmarking"
-   ScriptName = "itmworkorder"
-   AccessUserGroup = "0">            
+   SystemModule    = "Warehouse" 
+   FunctionClass   = "Storage"
+   FunctionName    = "Storage Locations" 
+   MenuClass       = "Maintain"
+   MenuOrder       = "2"
+   MainMenuItem    = "0"
+   FunctionMemo    = "Item storage locations"
+   ScriptName      = "itmloc"
+   AccessUserGroup = "0">   
+ 
+  
+   
+<!--- acquisition --->   
+   
+<cf_ModuleInsertSubmit
+   SystemModule    = "Warehouse" 
+   FunctionClass   = "Acquisition"
+   FunctionName    = "Vendor quotes" 
+   MenuClass       = "Maintain"
+   MenuOrder       = "3"
+   MainMenuItem    = "0"
+   FunctionMemo    = "Vendor quotes"
+   ScriptName      = "itmvendor"
+   AccessUserGroup = "0"> 
+   
+<cf_ModuleInsertSubmit
+   SystemModule    = "Warehouse" 
+   FunctionClass   = "Acquisition"
+   FunctionName    = "Resupply Request" 
+   MenuClass       = "Inquiry"
+   MenuOrder       = "2"
+   MainMenuItem    = "0"
+   FunctionMemo    = "Resupply Request"
+   ScriptName      = "itmonorder"
+   AccessUserGroup = "0">     
+             
+<cf_ModuleInsertSubmit
+   SystemModule    = "Warehouse" 
+   FunctionClass   = "Acquisition"
+   FunctionName    = "Receipts" 
+   MenuClass       = "Inquiry"
+   MenuOrder       = "3"
+   MainMenuItem    = "0"
+   FunctionMemo    = "Receipts"
+   ScriptName      = "itmreceipt"
+   AccessUserGroup = "0"> 
+   
+<!--- sales and distribution --->                        
+   
+<cf_ModuleInsertSubmit
+   SystemModule    = "Warehouse" 
+   FunctionClass   = "Distribution"
+   FunctionName    = "Sales price" 
+   MenuClass       = "Maintain"
+   MenuOrder       = "4"
+   MainMenuItem    = "0"
+   FunctionMemo    = "Item Pricing"
+   ScriptName      = "itmprice"
+   AccessUserGroup = "0">  
+         
+<cf_ModuleInsertSubmit
+   SystemModule    = "Warehouse" 
+   FunctionClass   = "Distribution"
+   FunctionName    = "Transactions" 
+   MenuClass       = "Inquiry"
+   MenuOrder       = "4"
+   MainMenuItem    = "0"
+   FunctionMemo    = "Stock Transaction movements and distribution"
+   ScriptName      = "itmtransaction"
+   AccessUserGroup = "0">      
+   
+<cf_ModuleInsertSubmit
+   SystemModule    = "Warehouse" 
+   FunctionClass   = "Distribution"
+   FunctionName    = "WorkOrder Allocation" 
+   MenuClass       = "Inquiry"
+   MenuOrder       = "5"
+   MainMenuItem    = "0"
+   FunctionMemo    = "WorkOrder Earmarking"
+   ScriptName      = "itmworkorder"
+   AccessUserGroup = "0">    
+   
+<!--- analysis and planning --->            
        
 <cf_ModuleInsertSubmit
-   SystemModule="Warehouse" 
-   FunctionClass = "Item"
-   FunctionName = "Statistics" 
-   MenuClass = "Inquiry"
-   MenuOrder = "6"
-   MainMenuItem = "0"
-   FunctionMemo = "Item Account codes"
-   ScriptName = "itmstatistic"
+   SystemModule    = "Warehouse" 
+   FunctionClass   = "Analysis"
+   FunctionName    = "Analysis" 
+   MenuClass       = "Inquiry"
+   MenuOrder       = "6"
+   MainMenuItem    = "0"
+   FunctionMemo    = "Item analysis"
+   ScriptName      = "itmstatistic"
    AccessUserGroup = "0">              
       
 <!--- general maintenance --->      
 
 <cf_ModuleInsertSubmit
-   SystemModule="Warehouse" 
-   FunctionClass = "Maintain"
-   FunctionName = "Parameter" 
-   MenuClass = "System"
-   MenuOrder = "1"
-   MainMenuItem = "1"
-   FunctionMemo = "Warehouse and Asset Module parameters"
+   SystemModule      = "Warehouse" 
+   FunctionClass     = "Maintain"
+   FunctionName      = "Parameter" 
+   MenuClass         = "System"
+   MenuOrder         = "1"
+   MainMenuItem      = "1"
+   FunctionMemo      = "Warehouse and Asset Module parameters"
    FunctionDirectory = "Warehouse/Maintenance"
-   FunctionPath = "Parameter/ParameterEdit.cfm"   
-   AccessUserGroup = "0">  
-   
+   FunctionPath      = "Parameter/ParameterEdit.cfm"   
+   AccessUserGroup   = "0">     
 
 <cf_ModuleInsertSubmit
    SystemModule="Warehouse" 

@@ -1,4 +1,3 @@
-
 				
 <cfswitch expression="#Level#">
 	
@@ -35,7 +34,7 @@
 		  
 		  <cfloop query="Master">	
 			    <cfset exist  = TRUE>
-				<cfset mas = #Category#>
+				<cfset mas = Category>
 	        	<cfset s = StructNew()> 
 		        <cfset s.value = "#mas#"> 
 		        <cfset s.display = "<span class='labelit'>#Description#<font color='53A9FF'>(#counted#)</span>"> 
@@ -120,7 +119,8 @@
 					<cfset s.href    = "javascript:listshow('IMK','#vmid#','#mission#','#make#')">
 					<cfset s.leafnode=true/>
 					<cfset arrayAppend(result,s)/>		  
-				 </cfloop>			
+				 </cfloop>		
+				 	
 	</cfcase>
 	
 </cfswitch>

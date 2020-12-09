@@ -238,7 +238,7 @@ password="#SESSION.dbpw#">
 	<cf_tl id="UoM" var = "1">			
 	<cfset fields[itm] = {label     	= "#lt_text#",                    
 	     				field       	= "UoMDescription",					
-						alias       	= "",																			
+						alias       	= "",																									
 						search      	= "text",
 						filtermode  	= "2"}>																			
 
@@ -248,7 +248,7 @@ password="#SESSION.dbpw#">
 	     				field       	= "TransactionQuantity",	
 						align       	= "right",				
 						alias       	= "",					
-						formatted   	= "numberformat(TransactionQuantity,'__,__')",														
+						formatted   	= "numberformat(TransactionQuantity,',__')",														
 						search      	= ""}>								
 	
 	<!--- define access 
@@ -304,7 +304,7 @@ password="#SESSION.dbpw#">
 <cf_tl id="Return" var="vReturn">	
 <cf_tl id="Extended listing" var="vList">
 	
-<cfset menu[1] = {label = "#vReturn# #vList#", script = "Prosis.busy('yes');_cf_loadingtexthtml='';ColdFusion.navigate('BatchViewTransactionLines.cfm?mode=process&systemfunctionid=#url.systemfunctionid#&batchno=#url.batchno#','main')"}>				 
+<cfset menu[1] = {label = "#vReturn# #vList#", script = "Prosis.busy('yes');_cf_loadingtexthtml='';ptoken.navigate('BatchViewTransactionLines.cfm?mode=process&systemfunctionid=#url.systemfunctionid#&batchno=#url.batchno#','main')"}>				 
 	
 <cf_listing
 	    header              = "transactionlist"
@@ -322,8 +322,7 @@ password="#SESSION.dbpw#">
 		headercolor         = "ffffff"		
 		menu                = "#menu#"
 		filtershow          = "Yes"
-		excelshow           = "Yes" 	
-			
+		excelshow           = "Yes" 				
 		listlayout          = "#fields#"
 		drillmode           = "window" 
 		drillargument       = "#client.height-90#;#client.width-90#;false;false"	

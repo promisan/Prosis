@@ -1,13 +1,8 @@
 
-<cfform>
 <cfoutput>
 
-<cftree name="root"
-   font="calibri"
-   fontsize="14"		
-   bold="No"   
-   format="html"    
-   required="No">   
+<cf_UItree id="root" title="<span style='font-size:16px;color:gray;padding-bottom:3px'>Salaryscale</span>" expand="Yes">
+ 
 
 <cfquery name="Schedule" 
   datasource="AppsPayroll" 
@@ -32,11 +27,10 @@
   
   <cfset sch = Schedule.SalarySchedule>
   
-   <cftreeitem value="#sch#"
-	        display="#SalarySchedule.Description#"
-			parent="Root"	
-			expand="No">	    
-   
+  	 <cf_UItreeitem value="#sch#"
+			        display="<span style='font-size:14px' class='labelit'>#SalarySchedule.Description#</span>"																
+					parent="root">
+     
 	  <cfquery name="Location" 
 	  datasource="AppsPayroll" 
 	  username="#SESSION.login#" 
@@ -53,13 +47,13 @@
 	  
 	       <cfset loc = Location.ServiceLocation>
 		   
-		    <cftreeitem value="#sch#_#loc#"
-				    display="#Location.Description#"
-					parent="#sch#"								
+		    <cf_UItreeitem value="#sch#_#loc#"
+			        display="<span style='font-size:13px' class='labelit'>#Description#</span>"						
 					href="#session.root#/Payroll/Application/SalaryScale/SalaryScaleListing.cfm?ID=#sch#&ID1=#loc#&ID2=all&contractid=#contractid#"							
 					target="scaleright"
-				    expand="No">	
-						
+					expand="No"
+					parent="#sch#">
+		 						
 				 <cfquery name="Service" 
 				       datasource="AppsPayroll" 
 				       username="#SESSION.login#" 
@@ -79,25 +73,23 @@
 				  </cfquery>
 					  
 				  <cfloop query="Service">
-					   	  
-		  			 <cftreeitem value="#sch#_#loc#_#ServiceLevel#"
-				        display="#ServiceLevel#"
-						parent="#sch#_#loc#"								
-						href="#session.root#/Payroll/Application/SalaryScale/SalaryScaleListing.cfm?ID=#sch#&ID1=#loc#&ID2=#ServiceLevel#&contractid=#contractid#"							
-						target="scaleright"
-				        expand="No">	
-						
+				  
+				  	 <cf_UItreeitem value="#sch#_#loc#_#ServiceLevel#"
+			        display="<span style='font-size:13px' class='labelit'>#ServiceLevel#</span>"						
+					href="#session.root#/Payroll/Application/SalaryScale/SalaryScaleListing.cfm?ID=#sch#&ID1=#loc#&ID2=#ServiceLevel#&contractid=#contractid#"					
+					target="scaleright"
+					parent="#sch#_#LOC#">
+					 						
 				  </cfloop>	  
    
 	  </cfloop>
   
  </cfloop>
  
- </cftree>
+ </cf_UItree>	
  
 </cfoutput>
 
-</cfform>
 
 
 

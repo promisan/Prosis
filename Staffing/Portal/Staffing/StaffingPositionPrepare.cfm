@@ -112,4 +112,5 @@ we also add positions to it which they loaned to another unit --->
 		AND        DateEffective  < '#url.selection#' 
 		AND        DateExpiration > '#url.selection#'
 		AND        AssignmentStatus IN ('0','1') 	
+		
 </cfquery>

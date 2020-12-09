@@ -94,7 +94,7 @@ password="#SESSION.dbpw#">
 		
 		<!--- Added by Armin on April 4th 2019 ---->
 		
-		<cfif get.recordcount gte 1 and URL.search neq "">
+		<cfif get.recordcount gt 1 and URL.search neq "">
 		
 			<!--- we open a dialog with the content that people can select from --->
 			
@@ -255,7 +255,8 @@ password="#SESSION.dbpw#">
 							minu   = document.getElementById('Transaction_minute');
 							disc   = document.getElementById('Discount');
 							sche   = document.getElementById('PriceSchedule');		
-							reqn   = document.getElementById('RequestNo');																													
+							reqn   = document.getElementById('RequestNo');		
+							 _cf_loadingtexthtml='';																												
 							ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/Sale/addItem.cfm?RequestNo='+reqn.value+'&warehouse=#url.warehouse#&customerid=#form.customeridselect#&customeridinvoice=#form.customerinvoiceidselect#&currency=#form.currency#&SalesPersonNo=#form.SalesPersonNo#&ItemUomId=#get.ItemUoMid#&Transactionlot=#lot#&priceschedule='+sche.value+'&discount='+disc.value+'&date='+date.value+'&hour='+hour.value+'&minu='+minu.value,'salelines');
 							} catch(e) { alert('Select customer')}
 						</script>

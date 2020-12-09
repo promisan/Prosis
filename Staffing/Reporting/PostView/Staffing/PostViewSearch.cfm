@@ -11,13 +11,13 @@
 						
 						<tr>
 						
-						  <td class="labelmedium" style="font-size:20px;padding-left:10px"><cf_tl id="Find">:</td>
+						  <td class="labelmedium" style="font-size:16px;padding-left:10px"><cf_tl id="Find">:</td>
 						  
 						    <td style="padding-left:4px">
 						  
-						  <select name="scope" id="scope" style="width:210px;font-size:17px;height:32px" class="regularxl">
+						  <select name="scope" id="scope" style="width:350px;font-size:17px;height:32px" class="regularxl">
 						  
-							  <option value="employee" selected>Employee / Candidate</option>
+							  <option value="employee" selected><cf_tl id="Employee"> / <cf_tl id="Recruitment Candidate"></option>
 							  <option value="orgunit"><cf_tl id="Organization"></option>
 							  <option value="location"><cf_tl id="Location"></option>
 							  <option value="position"><cf_tl id="Position"> / <cf_tl id="Recruitment Track"></option>
@@ -52,7 +52,7 @@
 						 <td colspan="4" style="padding-left:10px">
 							<cfoutput>
 						    <cf_tl id="Search" var="1">
-    					    <input type="button" id="gosearch" name="gosearch" value="#lt_text#" class="button10g" style="font-size:12px;height:31;width: 120px;" onClick="search(document.getElementById('scope').value,document.getElementById('snapshot').value)">
+    					    <input type="button" id="gosearch" name="gosearch" value="#lt_text#" class="button10g" style="font-size:17px;height:32;width:190px;" onClick="search(document.getElementById('scope').value,document.getElementById('snapshot').value)">
 						    </cfoutput>
 							</td>
 						 						  

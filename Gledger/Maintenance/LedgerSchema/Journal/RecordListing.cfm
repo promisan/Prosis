@@ -130,7 +130,7 @@ function recordedit(id) {
 			  		<cf_img icon="edit">		
 				</td>				
 				<td bgcolor="#cl#">#GLCategory#</td>				
-				<td bgcolor="#cl#" style="padding-left:2px;padding-right:2px"><a href="javascript:recordedit('#Journal#')"><font color="0080C0">#Journal#</font></a></td>
+				<td bgcolor="#cl#" style="padding-left:2px;padding-right:2px"><a href="javascript:recordedit('#Journal#')">#Journal#</a></td>
 				<td bgcolor="#cl#" style="padding-left:2px;padding-right:2px">#Currency#</td>	
 				<td bgcolor="#cl#" style="padding-left:2px;padding-right:2px">#left(SystemJournal,7)#..</td>
 				<td bgcolor="#cl#" style="padding-left:2px;padding-right:2px">#Description#</td>									

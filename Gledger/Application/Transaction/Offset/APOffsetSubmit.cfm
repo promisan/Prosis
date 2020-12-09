@@ -36,9 +36,7 @@
 <cfset amt = getAR.AmountOutstanding>
 <cfset ARCur = getAR.Currency >
 
-
 <cfset stop = "0">
-
 
 <cfloop index="id" list="#Form.Advances#">
 

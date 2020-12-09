@@ -1,6 +1,7 @@
 
 <cfparam name="URL.ID"            default="">
 <cfparam name="URL.box"           default="">
+<cfparam name="URL.portal"        default="0">
 <cfparam name="URL.ID1"           default="">
 <cfparam name="URL.Caller"        default="">
 <cfparam name="DocumentNoTrigger" default="#URL.ID#">
@@ -46,14 +47,13 @@
 
 <cfelse>
 
-	<cfform action="#session.root#/Vactrack/Application/Document/DocumentEntrySubmit.cfm?box=#url.box#&ID=#DocumentNoTrigger#&id1=#URL.ID1#"
-	  method="POST" style="height:98%" name="documententry" target="result">
+	<cfform action="#session.root#/Vactrack/Application/Document/DocumentEntrySubmit.cfm?portal=#url.portal#&box=#url.box#&ID=#DocumentNoTrigger#&id1=#URL.ID1#"
+	  method="POST" style="height:99%" name="documententry" target="result">
 	  
-		<table width="93%" height="98%" align="center" class="formpadding">
+		<table width="93%" height="98%" align="center">
 		    
 		  <tr class="hide"><td><iframe name="result" id="result"></iframe></td></tr>
-		       
-		  <tr><td height="1"></td></tr>	   
+		 	    
 		  <tr>
 		    <td width="100%" height="100%">
 				
@@ -73,20 +73,14 @@
 				<TR class="xhide">
 			    <TD class="labelmedium" height="23"><cf_tl id="Owner"> :</TD>
 			    <TD class="labelmedium">
-				    <cfoutput>#Owner.Description# / #Position.PostType# 
+				    <cfoutput>#Owner.Description# / #Position.PostType# / #Position.Mission#
 					<input type="hidden" name="Owner"    value="#accessTrack.Owner#">
 					<input type="hidden" name="PostType" value="#Position.PostType#">
+					<input type="hidden" name="Mission" value="<cfoutput>#Position.Mission#</cfoutput>"
 				    </cfoutput>
 				</td>
 				</TR>		
 						
-				<TR>			    
-			    <td height="20" class="labelmedium"><cf_tl id="Entity">:</td>
-				<td class="labelmedium">
-					<cfoutput>#Position.Mission#</cfoutput>
-					<input type="hidden" name="Mission" value="<cfoutput>#Position.Mission#</cfoutput>">						 
-			    </td>
-				</TR>	
 				
 				<cfif Position.SourcePostNumber eq "">	
 				
@@ -168,8 +162,15 @@
 				<td><input type="text" name="OrgUnit" style="background-color:f1f1f1" value="<cfoutput>#Position.OrgUnitName#</cfoutput>" readonly size="60" maxlength="80" class="regularxl">		
 				</td>
 				</TR>		
+							   			
+				<TR bgcolor="ffffff">
+			    <TD colspan="2" style="padding-right:15px">			
+				    <cf_tlhelp SystemModule = "Vacancy" Class = "General" HelpId = "recint" LabelId = "Instructions">			 			
+				</TD>	
 				
-			    <tr> 		
+				<!--- hidden by Hanno 24/11/2020 --->
+				
+				<tr class="hide"> 		
 				
 				<TD class="labelmedium"><cf_uitooltip tooltip="Due date on a recruitment request refers to the deadline that a department has to fullfill this vacancy"><cf_tl id="Due date">:</cf_uitooltip></td>
 			    
@@ -187,7 +188,7 @@
 						AllowBlank="False">	  
 					 	 
 				</td>
-				</TR>		
+				</TR>	
 					
 				<cfquery name="Deployment" 
 				datasource="AppsSelection" 
@@ -226,6 +227,8 @@
 					</cfquery>
 					
 				</cfif>	
+				
+				<cfif url.portal eq "0">
 					
 			    <!--- Field: DeploymentLevel --->
 			    <TR>
@@ -238,8 +241,14 @@
 					</option>
 					</cfoutput>
 				    </cfselect>			
-				</td>
-				</TR>			
+				</td>				
+				</TR>
+				
+				<cfelse>
+				
+				<cfparam name="Form.GradeDeployment" default="">
+				
+				</cfif>			
 			    
 			    <TR>
 			    <TD class="labelmedium" valign="top" style="padding-top:5px"><cf_tl id="Recruitment modality">:</TD>
@@ -264,8 +273,10 @@
 										
 				</TD>
 				</TR>	
+				
+				<!--- hidden as we have enough text in the workflow these days --->
 				   
-				<TR>
+				<TR class="hide">
 					<td class="labelmedium" valign="top" style="padding-top:4px"><cf_tl id="Remarks">:</td>
 					 <TD>
 					 <textarea style="width:95%;padding:3px;font-size:14px" rows="2" name="Remarks" class="regular" maxlength="200"  onkeyup="return ismaxlength(this)"></textarea>
@@ -288,7 +299,7 @@
 					
 					<cfif PostGradeValidation.recordcount neq 0>
 						<cf_tl id="Create" var="1">
-						<input class="button10g" onclick="document.getElementById('submit').className='hide'" id="submit" name="submit" type="submit" name="Submit" value="<cfoutput>#lt_text#</cfoutput>">
+						<input class="button10g" onclick="document.getElementById('submit').className='hide'" id="submit" style="height:28px;font-size:15px;width:200px" type="submit" name="Submit" value="<cfoutput>#lt_text#</cfoutput>">
 					<cfelse>				
 						Alert: you may not raise a recruitment track for grade <cfoutput>#Position.PostGrade#</cfoutput>.<br>Check with your assigned focal point.				
 					</cfif>		

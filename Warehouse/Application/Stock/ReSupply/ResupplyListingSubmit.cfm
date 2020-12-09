@@ -320,7 +320,7 @@
 			(RequisitionNo, Topic, TopicValue, OfficerUserId, OfficerLastName, OfficerFirstName)
 	
 				SELECT        '#URL.ReqNo#_'+Cast([LineNo] as varchar) as RequisitionNo, 
-				              '#Param.RequisitionTopicClassification#',ItemBarCode,							                
+				              '#Param.RequisitionTopicClassification#',ItemNoExternal,							                
 								 
 								 '#SESSION.acc#',
 								 '#SESSION.last#',

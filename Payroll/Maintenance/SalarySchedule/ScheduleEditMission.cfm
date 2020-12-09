@@ -18,21 +18,19 @@
 	<tr>	
 		<td height="10" colspan="3" class="header">
 		
-				<table width="98%" align="center" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+				<table width="98%" align="center" class="formpadding">
 				
 				<tr><td height="8" colspan="5" ></td></tr>		
 				
-				<tr class="labelit linedotted">
-					<td class="labelit">Op</td>		
+				<tr class="labelmedium line">
+					<td>Op</td>		
 					<td>Entity</td>							
-					<td class="labelit">Effective</td>
-					<td class="labelit" align="center">Unit</td>
-					<td class="labelit" align="center">Disable Distribution</td>
-					<td class="labelit">Posting Level</td>	
-					<td class="labelit">Posting Journal</td>					
-					<td class="labelit">Person Liability</td>
-					
-							
+					<td>Effective</td>
+					<td align="center">Unit</td>
+					<td align="center">Disable Distribution</td>
+					<td>Posting Level</td>	
+					<td>Posting Journal</td>					
+					<td>Person Liability</td>							
 				</tr>				
 									
 				<cfset ln="0">	
@@ -46,47 +44,41 @@
 				datasource="AppsPayroll" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
-				SELECT *
-			    FROM   SalaryScheduleMission 
-			   	WHERE  SalarySchedule = '#URL.ID1#'
-				AND    Mission = '#mission#'				
+					SELECT *
+				    FROM   SalaryScheduleMission 
+				   	WHERE  SalarySchedule = '#URL.ID1#'
+					AND    Mission = '#mission#'				
 				</cfquery>
 								
 				<cfquery name="Used" 
 				datasource="AppsPayroll" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
-				SELECT *
-			    FROM   SalarySchedulePeriod 
-			   	WHERE  SalarySchedule = '#URL.ID1#'
-				AND    Mission = '#mission#'
-				AND   CalculationStatus > '0'
+					SELECT *
+				    FROM   SalarySchedulePeriod 
+				   	WHERE  SalarySchedule = '#URL.ID1#'
+					AND    Mission = '#mission#'
+					AND   CalculationStatus > '0'
 				</cfquery>
 												
 				<cfset ln = ln + 1>
 													
-				<tr class="labelmedium line" style="height:40px">
+				<tr class="labelmedium line">
 				
-					 <cfif used.recordcount gte "1">
-				  
+					 <cfif used.recordcount gte "1">		  
 				   
 					   <input type="hidden" name="mission_#ln#" value="1">
 					   <td></td>
 				   
 				   <cfelse>
 				   
-				   	<td align="center">
-					 					   
-					   <input type="checkbox" name="mission_#ln#" value="1" <cfif get.recordcount eq "1">checked</cfif>>
-				  		
+				   	<td align="center">					 					   
+					   <input type="checkbox" name="mission_#ln#" value="1" <cfif get.recordcount eq "1">checked</cfif>>				  		
 					</td>
 				   
 				   </cfif>
 				   
-				   <td>#Mission#
-				   <cf_space spaces="45">
-				   </td>
-				  				   
+				   <td>#Mission#</td>			  				   
 				  
 				   				   
 				   <td>				   

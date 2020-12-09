@@ -79,9 +79,10 @@
 			
 			var vHideNoPrint = '<'+'s'+'cr'+'ipt'+'>#attributes.jQueryAlias#(".clsNoPrint").css("display","none"); ' + cbFunction + '<'+'/s'+'cr'+'ipt'+'>';
 			
-			w = window.open('', 'Print_Page', 'scrollbars=yes, width=#_prosisWebPrintWindowWidth#, height=#_prosisWebPrintWindowHeight#'); 
-		    w.document.write(vStyle + vBody + vTitle + vContent + vHideNoPrint + vBodyClose);
-		    w.document.close();
+			// w = window.open('', 'Print_Page', 'scrollbars=yes, width=#_prosisWebPrintWindowWidth#, height=#_prosisWebPrintWindowHeight#'); 
+			w = window.open('', 'Print_Page', 'scrollbars=yes, width=900px, height=900px');
+		    //w.document.write(vStyle + vBody + vTitle + vContent + vHideNoPrint + vBodyClose);
+		    //w.document.close();
 		}
 		
 		function _ProsisWebPrint(){

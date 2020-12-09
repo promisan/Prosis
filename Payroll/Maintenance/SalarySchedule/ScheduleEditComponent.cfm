@@ -1,8 +1,9 @@
 		
-	<table width="95%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
-		
-		<tr><td height="3"></td></tr>
-		<tr class="labelmedium line">
+<cf_divscroll style="height:100%">
+	 	
+<table width="96%" align="center" class="navigation_table">
+				
+		<tr class="labelmedium line fixrow">
 		    <td height="17" align="center"></td>
 			<td></td>
 			<td><cf_tl id="Component"></td>
@@ -38,11 +39,13 @@
 				
 		<cfoutput query="component" group="TriggerGroup">
 				
-		<tr class="line"><td height="30" colspan="9" width="10%" style="height:40px;padding-left:10px;font-size:20px;" class="labellarge line">#TriggerGroup#</td></tr>
+		<tr class="fixrow2">
+		    <td height="30" colspan="9" style="font-weight:200;height:40px;padding-left:10px;font-size:20px;" class="labellarge line">#TriggerGroup#</td>
+		</tr>
 						
 			<cfoutput>
 			
-			<TR bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('eaeaea'))#" style="height:15px" class="line navigation_row labelmedium">
+			<TR bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('efefef'))#" style="height:20px" class="line navigation_row labelmedium">
 			
 			<cfset com = "#replace(Code,' ','','ALL')#">
 			<cfset com = "#replace(com,'-','','ALL')#">
@@ -121,26 +124,25 @@
 				<td></td>
 				<td colspan="11" style="padding-left:30px" id="detailLocation_#com#"></td>
 			</tr>
-			
-			<tr><td colspan="8"></td></tr>
-					
+											
 			<cfif period eq "DAY" and componentid neq "">
 			
-			<tr id="r#ComponentId#">
-			  		     
-			   <td colspan="8" id="i#componentid#">		
-				<cfset url.componentid = ComponentId>
-				<cfinclude template="ScheduleEditDates.cfm">		
-			</td></tr>
+				<tr id="r#ComponentId#">
+				  		     
+				   <td colspan="8" id="i#componentid#">		
+					<cfset url.componentid = ComponentId>
+					<cfinclude template="ScheduleEditDates.cfm">		
+				</td></tr>
 				
 			</cfif>
 					
 			</cfoutput>
 		
-		</cfoutput>
-		
+		</cfoutput>		
 								
 </table>
+
+</cf_divscroll>
 
 <cfset ajaxonload("doHighlight")>
 		

@@ -1104,6 +1104,8 @@
 					 WHERE    EntityCode     = 'ProcPO'  
 					 AND      Mission        = '#PO.Mission#' 
 		</cfquery>
+		
+		
 			
 	 <cfif CheckMission.WorkflowEnabled eq "1">		  	  
 		
@@ -1129,9 +1131,9 @@
 							   class  = "hide"
 						       name   = "workflowlinkprocess_#url.id1#" 
 							   id     = "workflowlinkprocess_#url.id1#"
-						       onClick= "ColdFusion.navigate('PurchaseStatus.cfm?role=#url.role#&header=#url.header#&purchaseno=#url.id1#','postatus')">
+						       onClick= "ptoken.navigate('PurchaseStatus.cfm?role=#url.role#&header=#url.header#&purchaseno=#url.id1#','postatus')">
 				 
-				    	<cfdiv id="#URL.ID1#" bind="url:#wflnk#?ajaxid=#URL.ID1#"/>
+				    	<cf_securediv id="#URL.ID1#" bind="url:#wflnk#?ajaxid=#URL.ID1#">
 					 
 					 </cfoutput>
 					 

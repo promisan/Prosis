@@ -569,8 +569,6 @@ function hl(itm,fld){
 				
 			 </cfcase>	
 			 
-			  
-			 
 			 <cfcase value="activity">	
 			 
 			  <table width="95%" border="0" align="center" cellspacing="0" cellpadding="0" class="formpadding">
@@ -586,8 +584,8 @@ function hl(itm,fld){
 					align="absmiddle" style="cursor: pointer;">
 							
 			          </td>
-					  <td style="height:50px;font-size:25px;padding-top:40px;padding-left:10px" class="labellarge">Subactivities for an Object</td>
-					  <td align="right">To be associated to an action</td>
+					  <td style="height:50px;font-size:25px;padding-top:40px;padding-left:10px" class="labellarge">Subactivities within an Object step</td>
+					  <td align="right">Actions or Alert</td>
 				 </tr>
 			     				 
 			     <tr><td colspan="3" id="attach">  

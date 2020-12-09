@@ -317,8 +317,8 @@
 		<table width="100%">
 		<tr>
 		
-			<cfset wd = "64">
-			<cfset ht = "64">		
+			<cfset wd = "74">
+			<cfset ht = "74">		
 			
 			<cfset itm = "1">
 
@@ -328,7 +328,7 @@
 						iconwidth  = "#wd#" 
 						iconheight = "#ht#" 
 						targetitem = "1"
-						padding    = "2"
+						padding    = "0"
 						class      = "highlight1"
 						name       = "#lt_text#"
 						source     = "ItemForm.cfm?id=#url.id#&mode=#url.mode#&loadcolor=1&idmenu=#url.idmenu#&fmission=#url.fmission#">						
@@ -343,11 +343,12 @@
 							iconwidth  = "#wd#" 
 							iconheight = "#ht#"
 							targetitem = "2" 
-							padding    = "2"
+							padding    = "0"
 							name       = "#lt_text#"
 							source     = "Classification/ItemClassification.cfm?id=#url.id#&mode=#url.mode#&idmenu=#url.idmenu#">
 			</cfif>
 			
+			<!---
 			<cfset itm = itm+1>
 			<cf_tl id = "UoM" var = "uom">
 			<cf_tl id = "and" var = "vAnd">
@@ -357,9 +358,23 @@
 						iconwidth  = "#wd#" 
 						iconheight = "#ht#"
 						targetitem = "2" 
-						padding    = "2"
+						padding    = "0"
 						name       = "#uom# #vAnd# #usage#"
 						source     = "UoM/ItemUoM.cfm?id=#url.id#&mode=#url.mode#&idmenu=#url.idmenu#">		
+						
+			--->		
+			
+			<cfset itm = itm+1>
+			<cf_tl id = "Photo" var = "1">
+			<cf_menutab item       = "#itm#" 
+			            iconsrc    = "Images.png" 
+						iconwidth  = "#wd#" 
+						targetitem = "2"
+						padding    = "0"
+						iconheight = "#ht#" 
+						name       = "#lt_text#"
+						source     = "Picture/ItemPictureBox.cfm?id=#url.id#&mode=#url.mode#&idmenu=#url.idmenu#">		
+							
 						
 			<cfif item.ItemClass neq "Asset" and getWarehouse.recordcount gte "1">			
 			
@@ -370,22 +385,14 @@
 							iconwidth  = "#wd#" 
 							iconheight = "#ht#"
 							targetitem = "2" 
-							padding    = "2"
+							padding    = "0"
 							name       = "#lt_text#"
 							source     = "PriceSchedule/ItemPriceSchedule.cfm?id=#url.id#&mode=#url.mode#&idmenu=#url.idmenu#">
 						
 			</cfif>			
 		
-			<cfset itm = itm+1>
-			<cf_tl id = "Photo" var = "1">
-			<cf_menutab item       = "#itm#" 
-			            iconsrc    = "Images.png" 
-						iconwidth  = "#wd#" 
-						targetitem = "2"
-						padding    = "2"
-						iconheight = "#ht#" 
-						name       = "#lt_text#"
-						source     = "Picture/ItemPictureBox.cfm?id=#url.id#&mode=#url.mode#&idmenu=#url.idmenu#">		
+									
+			<!--- disabled here as now we have a combined screen 			
 			
 			<cfset itm = itm+1>			
 			<cf_tl id = "Stock Level" var = "1">
@@ -410,7 +417,7 @@
 						name       = "#lt_text#"
 						source     = "../ItemMaster/Vendors/vendorListing.cfm?id=#url.id#&mode=#url.mode#&idmenu=#url.idmenu#&mission=#url.fmission#">
 
-
+            --->
 
 			<cfif item.ItemClass eq "Asset">
 			
@@ -421,7 +428,7 @@
 							iconwidth  = "#wd#" 
 							iconheight = "#ht#" 
 							padding    = "2"
-							targetitem = "2"
+							targetitem = "0"
 							name       = "#lt_text#"
 							source     = "Consumption/ItemSupply.cfm?id=#url.id#&mode=#url.mode#&idmenu=#url.idmenu#">
 							

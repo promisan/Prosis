@@ -59,9 +59,9 @@ password="#SESSION.dbpw#">
 	datasource="#Form.querydatasource#" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	   #preservesinglequotes(sc)#
+	   #preservesinglequotes(sc)#	   
 	</cfquery>
-			
+						
 	<cfcatch>
 			
 		<cfif len(sc) gte 10>
@@ -114,17 +114,30 @@ password="#SESSION.dbpw#">
 </cfif>
 
 <cfset fr = mid(myscript,s+4,e-(s+3))>
+
+<!--- make a list of clumns that are not found --->
+		
+<cfset col = SelectQuery.columnList>
+<cfset colfields = "">
+
+<cfloop index="fld" list="#col#">
+
+	<cfif not findNoCase(fld,valueList(Detail.fieldName))>
+	
+	     <cfif colfields eq "">
+		    <cfset colfields = "#fld#">
+		 <cfelse>
+		    <cfset colfields = "#colfields#,#fld#">	
+		 </cfif> 
+	
+	</cfif> 
+
+</cfloop>
 	
 <cfset submitlink = "#SESSION.root#/System/Modules/InquiryBuilder/InquiryEditFieldsSubmit.cfm?Datasource=#Form.querydatasource#&SystemFunctionId=#URL.SystemFunctionId#&functionSerialNo=#url.functionSerialNo#">
 
 <table width="100%" align="center" cellspacing="0" cellpadding="0" class="formpadding">
 
-<!---
-
-<tr><td style="padding-left:2px;padding-right:2px" class="labellarge">Fields</td></tr>
-<tr><td class="linedotted"></td></tr>
-
---->
 <tr><td>
 			
 	    <table width="100%" class="navigation_table formpadding">
@@ -140,45 +153,56 @@ password="#SESSION.dbpw#">
 		</cfloop>
 			
 	    <TR class="labelmedium line fixrow">
-		   <td height="22" style="padding-left:1px"></td>
-		   <td><cfif alias eq "1">Alias</cfif></td>
-	   	   <td>Field</td>
-		   <td>isKey</td>
-		   <td>Show</td>
-		   <td>Align</td>
-		   <td>Label</td>
-		   <td>Format</td>
-		   <td style="cursor:pointer;padding-right:3px"><cf_UIToolTip tooltip="Enforce With, leave as 0 to let system define the presentation">Width</cf_UIToolTip></td>
-		   <td style="cursor:pointer"><cf_UIToolTip tooltip="Initial Grouping/Sorting of the listing">Mode</cf_UIToolTip></td>
-		   <td>Filter</td>
-		   <td style="cursor:pointer"><cf_UIToolTip tooltip="Filter selection mode">Filter</cf_UIToolTip></td>
-		   <td><cf_UIToolTip tooltip="Show option in the tree">Tree</cf_UIToolTip></td>
-		   <td align="center">
+		   <td align="center" style="text-align:center;border:1px solid silver;padding-left:1px">
 		   
 	 	   <cfoutput>
+		   
+		   	 <cfif colfields eq "" or URL.ID2 eq "new">
+			 
+			 <cfelse>
 			
-			 <div onClick="ColdFusion.navigate('#SESSION.root#/System/Modules/InquiryBuilder/InquiryEditFields.cfm?SystemFunctionId=#URL.SystemFunctionId#&functionSerialNo=#url.functionSerialNo#&ID2=new','fields')">			 
-			     <A href="##">Add</a>
+			 <div onClick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/System/Modules/InquiryBuilder/InquiryEditFields.cfm?SystemFunctionId=#URL.SystemFunctionId#&functionSerialNo=#url.functionSerialNo#&ID2=new','fields')">			 
+			     <A style="font-size:13px" href="##"><cf_tl id="Add"></a>
 			 </div>
+			 
+			 </cfif>
 			
 		   </cfoutput>
 							 
 		   </td>
-	    </TR>	
-				
-		<!---		
-		<cfinvoke component="Service.Presentation.Presentation"
-	       method="highlight"
-	       returnvariable="stylescroll"/>
+		   <td height="22" style="text-align:center;border:1px solid silver;padding-left:1px"><cf_tl id="sort"></td>
+		   <td style="text-align:center;border:1px solid silver;padding-left:1px"><cfif alias eq "1">Alias</cfif></td>
+	   	   <td style="text-align:center;border:1px solid silver;padding-left:1px"><cf_tl id="Field"></td>
+		   <td style="text-align:center;border:1px solid silver;padding-left:1px">isKey</td>
+		   <td style="text-align:center;border:1px solid silver;padding-left:1px"><cf_tl id="Show"></td>
+		   <td style="text-align:center;border:1px solid silver;padding-left:1px"><cf_tl id="Align"></td>
+		   <td style="text-align:center;border:1px solid silver;padding-left:1px"><cf_tl id="Label"></td>
+		   <td style="text-align:center;border:1px solid silver;padding-left:1px"><cf_tl id="Format"></td>
+		   <td style="text-align:center;border:1px solid silver;max-width:40px;cursor:pointer;padding-right:3px"><cf_UIToolTip tooltip="Enforce With, leave as 0 to let system define the presentation">Width</cf_UIToolTip></td>
+		   <td style="text-align:center;border:1px solid silver;cursor:pointer"><cf_UIToolTip tooltip="Initial Grouping/Sorting of the listing">Mode</cf_UIToolTip></td>
+		   <td style="text-align:center;border:1px solid silver;"><cf_tl id="Filter"></td>
+		   <td style="text-align:center;cursor:pointer;border:1px solid silver;"><cf_UIToolTip tooltip="Filter selection mode">Select mode</cf_UIToolTip></td>
+		   <td style="text-align:center;border:1px solid silver;"><cf_UIToolTip tooltip="Show option in the tree">Tree</cf_UIToolTip></td>
+		   <td></td>
 		   
-		   --->
-	
+	    </TR>	
+			
 		<cfoutput>
+		
+				
 		<cfloop query="Detail">
 															
 			<cfif URL.ID2 eq fieldid>
+			
+				<cfif colfields eq "">
+				    <cfset colfields = "#fieldname#">
+				 <cfelse>
+				    <cfset colfields = "#fieldname#,#colfields#">	
+				 </cfif> 
 																					
 				<TR class="line" style="background-color:f1f1f1">
+				
+				     <td></td>
 				     <td align="center" style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
 					 
 					  <input type="Text" 
@@ -219,7 +243,7 @@ password="#SESSION.dbpw#">
 					 
 					 <select name="fieldname" id="fieldname" class="regularxl" style="border:0px;width:100%;background-color:transparent">
 									 
-					  <cfloop index="col" list="#SelectQuery.columnList#" delimiters=",">
+					  <cfloop index="col" list="#colfields#" delimiters=",">
 					  	  <option value="#col#"  <cfif col eq fieldname>selected</cfif>>#col#</option> 
 					  </cfloop>
 									
@@ -267,7 +291,7 @@ password="#SESSION.dbpw#">
 						  name="fieldheaderlabel" 
                           id="fieldheaderlabel"
 						  value="#fieldheaderlabel#" 
-						  style="width:100%;border:0px" 
+						  style="width:100%;border:0px;background-color:transparent" 
 						  class="regularxl"
 						  maxlength="30">
 														 
@@ -288,14 +312,14 @@ password="#SESSION.dbpw#">
 					 </td>
 					 					
 					 
-					<td style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
+					<td style="width:40px;border-left:1px solid silver;padding-left:2px;padding-right:2px">
 					 
 					  <input type="Text" 
 						  name="fieldwidth" 
                           id="fieldwidth"
 						  value="#fieldwidth#" 
 						  class="regularxl"
-						  style="width:100%;padding-top:2px;text-align:center;border:0px" 
+						  style="width:100%;padding-top:2px;text-align:center;border:0px;background-color:transparent" 
 						  maxlength="3">
 														 
 					 </td>
@@ -308,8 +332,7 @@ password="#SESSION.dbpw#">
 						 <option value="2" <cfif fieldsort eq "2">selected</cfif>>Group</option> 
 						 <option value="3" <cfif fieldsort eq "3">selected</cfif>>Sum</option> 
 						 <option value="0" <cfif fieldsort eq "0">selected</cfif>>No</option> 
-						
-												
+																		
 				 	   </select>
 					  
 					 </td>
@@ -357,7 +380,7 @@ password="#SESSION.dbpw#">
 						   <input type="button" 
 							   value="Save" 
 							   style="width:50px;height:23px"
-					   		   onclick="ColdFusion.navigate('#submitlink#&fieldiskey='+fieldiskey.value+'&fieldingrid='+fieldingrid.value+'&fieldalignment='+fieldalignment.value+'&fieldid=#fieldid#&listingorder='+listingorder.value+'&fieldname='+fieldname.value+'&fieldqueryalias='+fieldqueryalias.value+'&fieldheaderlabel='+fieldheaderlabel.value+'&fieldoutputformat='+fieldoutputformat.value+'&fieldwidth='+fieldwidth.value+'&fieldsort='+fieldsort.value+'&fieldfilterclass='+fieldfilterclass.value+'&fieldtree='+fieldtree.value+'&FieldFilterClassMode='+FieldFilterClassMode.value,'fields')">
+					   		   onclick="ptoken.navigate('#submitlink#&fieldiskey='+fieldiskey.value+'&fieldingrid='+fieldingrid.value+'&fieldalignment='+fieldalignment.value+'&fieldid=#fieldid#&listingorder='+listingorder.value+'&fieldname='+fieldname.value+'&fieldqueryalias='+fieldqueryalias.value+'&fieldheaderlabel='+fieldheaderlabel.value+'&fieldoutputformat='+fieldoutputformat.value+'&fieldwidth='+fieldwidth.value+'&fieldsort='+fieldsort.value+'&fieldfilterclass='+fieldfilterclass.value+'&fieldtree='+fieldtree.value+'&FieldFilterClassMode='+FieldFilterClassMode.value,'fields')">
 							   	
 					</td>
 									
@@ -378,11 +401,23 @@ password="#SESSION.dbpw#">
 				<cfelse>
 					<cfset color = "ffffff">
 				</cfif>			
+														
+				<TR class="navigation_row labelmedium line" bgcolor="#color#" style="height:18px" onDblClick="#edit#">
 				
-										
-				<TR class="navigation_row labelmedium line" bgcolor="#color#" style="height:18px">
+				  <td align="right" style="padding-right:4px;padding-top:3px;border-left:1px solid silver;">		
+				   
+					   <table>
+						   <tr>		
+						   <td>
+						   <cf_img icon="select" tooltip="Editing this field settings" onclick="#edit#">						  						   
+						   </td>		   
+						   <td><cf_img icon="edit" tooltip="Editing this field settings" onclick="fieldedit('#fieldid#','#systemfunctionid#','#FunctionSerialNo#')"></td>						  
+						   </tr>
+					   </table>		 
+					
+				  </td>
 				
-				   <td align="center" class="navigation_action" style="border-left:1px solid silver;padding;3px" onclick="#edit#">#ListingOrder#.</td>
+				   <td align="center" class="navigation_action" style="border-left:1px solid silver;padding;3px">#ListingOrder#.</td>
 				   <td style="border-left:1px solid silver;padding;3px">
 				    <cfif not find(" #FieldAliasQuery#", fr)>
 					     <font color="FF0000">
@@ -406,25 +441,17 @@ password="#SESSION.dbpw#">
 										<cfelseif FieldFilterClassMode eq "3">ListNN  <!--- checkbox or select multi --->
 										<cfelseif FieldFilterClassMode eq "4">Like
 										</cfif></td>	
-				   <td style="border-left:1px solid silver;padding-left:2px;padding-right:2px"><cfif FieldTree eq "0">No<cfelse>Yes</cfif></td>				  				   		   
+				   <td style="border-left:1px solid silver;padding-left:2px;padding-right:2px"><cfif FieldTree eq "0">No<cfelse>Yes</cfif></td>		
 				   
-				   <td align="right" style="padding-right:4px;padding-top:3px;border-left:1px solid silver;">		
-				   
-					   <table>
-						   <tr>				   
-						   <td>					   
-						     	<cf_img icon="edit" tooltip="Editing this field settings" onclick="fieldedit('#fieldid#','#systemfunctionid#','#FunctionSerialNo#')">																					   
-						   </td>
-						   <td style="padding-left:4px">	   
+				   				   
+				    <td style="border-left:1px solid silver;padding-top:3px;padding-left:2px;padding-right:2px">	   
 						   
 							   	<cf_img icon="delete"
 								     onclick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/System/Modules/InquiryBuilder/InquiryEditFieldsPurge.cfm?Datasource=#Form.querydatasource#&SystemFunctionId=#URL.SystemFunctionId#&FunctionSerialNo=#URL.FunctionSerialNo#&fieldid=#fieldid#','fields')">										
 									 
-						   </td>
-						   </tr>
-					   </table>		 
-					
-				  </td>
+					  </td>
+				   
+				   </td>		  				   		   
 				   
 			    </TR>	
 																			
@@ -432,7 +459,7 @@ password="#SESSION.dbpw#">
 												
 		</cfloop>		
 										
-		<cfif URL.ID2 eq "new">		
+		<cfif URL.ID2 eq "new" and colfields neq "">		
 		
 			<cfquery name="Last" 
 			datasource="AppsSystem" 
@@ -454,14 +481,19 @@ password="#SESSION.dbpw#">
 			<cf_assignId>
 		
 			<TR class="line">
-			     <td style="height:20" align="center" style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
+			
+			     <td align="right" style="border-right:1px solid silver;padding-left:2px;padding-right:2px">			   		   		  
+											   	
+				</td>
+				
+			     <td align="center" style="width:30px;border-left:1px solid silver;padding-left:2px;padding-right:2px">
 				 
 				  <input type="Text" 
 					  name="listingorder"
                       id="listingorder" 
 					  value="#ord#" 
 					  class="regularxl"
-					  style="width:23;text-align: center;border:0px" 
+					  style="width:95%;text-align:center;border:0px" 
 					  maxlength="2">
 													 
 				 </td>
@@ -494,7 +526,7 @@ password="#SESSION.dbpw#">
 				<td style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
 				 
 				 <select name="fieldname" id="fieldname" style="width:100%;border:0px" class="regularxl">								 
-					  <cfloop index="col" list="#SelectQuery.columnList#" delimiters=",">
+					  <cfloop index="col" list="#colfields#" delimiters=",">
 					  	  <option value="#col#" >#col#</option> 
 					  </cfloop>								
 				 </select>
@@ -536,7 +568,7 @@ password="#SESSION.dbpw#">
                       id        = "fieldheaderlabel"
 					  value     = "" 
 					  class     = "regularxl"
-					  style     = "width:100%;text-align:center;border:0px" 
+					  style     = "width:100%;text-align:center;border:0px;background-color:transparent" 
 					  maxlength = "30">
 													 
 				</td>
@@ -554,14 +586,14 @@ password="#SESSION.dbpw#">
 				 
 				</td>
 				
-				<td align="center" style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
+				<td align="center" style="max-width:40px;border-left:1px solid silver;padding-left:2px;padding-right:2px">
 				 
 				  <input type="Text" 
 					  name="fieldwidth" 
                       id="fieldwidth"
 					  value="0" 
 					  class="regularxl"
-					  style="width:100%;text-align:center;border:0px" 
+					  style="width:100%;text-align:center;border:0px;background-color:transparent" 
 					  maxlength="2">
 													 
 				</td>
@@ -610,16 +642,16 @@ password="#SESSION.dbpw#">
 						 <option value="0" selected>No</option> 												
 				 	  </select>
 					 
-				</td>							 
-				 		
-				<td align="right" style="border-left:1px solid silver;padding-left:2px;padding-right:2px">			   
+				</td>	
+				
+				  <td align="right" style="border-left:1px solid silver;border-right:1px solid silver;padding-left:2px;padding-right:2px">			   
 			   			  
 				   <input type="button" 
 					   value="Add" 
-					   style="width:50px;height:23px"
-			   		   onclick="ColdFusion.navigate('#submitlink#&fieldiskey='+fieldiskey.value+'&fieldingrid='+fieldingrid.value+'&fieldid=#rowguid#&listingorder='+listingorder.value+'&fieldname='+fieldname.value+'&fieldqueryalias='+fieldqueryalias.value+'&fieldheaderlabel='+fieldheaderlabel.value+'&fieldoutputformat='+fieldoutputformat.value+'&fieldwidth='+fieldwidth.value+'&fieldalignment='+fieldalignment.value+'&fieldsort='+fieldsort.value+'&fieldfilterclass='+fieldfilterclass.value+'&fieldtree='+fieldtree.value+'&FieldFilterClassMode='+FieldFilterClassMode.value,'fields')">
+					   style="width:100%;height:23px"
+			   		   onclick="ptoken.navigate('#submitlink#&fieldiskey='+fieldiskey.value+'&fieldingrid='+fieldingrid.value+'&fieldid=#rowguid#&listingorder='+listingorder.value+'&fieldname='+fieldname.value+'&fieldqueryalias='+fieldqueryalias.value+'&fieldheaderlabel='+fieldheaderlabel.value+'&fieldoutputformat='+fieldoutputformat.value+'&fieldwidth='+fieldwidth.value+'&fieldalignment='+fieldalignment.value+'&fieldsort='+fieldsort.value+'&fieldfilterclass='+fieldfilterclass.value+'&fieldtree='+fieldtree.value+'&FieldFilterClassMode='+FieldFilterClassMode.value,'fields')">
 											   	
-				</td>
+				</td>	
 				   
 			</TR>	
 		

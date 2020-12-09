@@ -13,12 +13,11 @@
 	 <cfabort>
 </cfif>
 
-
 <cfparam name="cl" default="regular">
 
 <!--- counts cols --->
 	
-<cfset cols = 2>
+<cfset cols = 0>
 	
 <cfloop array="#attributes.listlayout#" index="current">
 
@@ -139,16 +138,11 @@
 			   	   
 	<cfelse>	
 												
-			<cfif attributes.screentop eq "yes">		
-					
-			    <cf_screentop html="#attributes.html#" height="#attributes.tableheight#" scroll="#scroll#"> 			
-			
+			<cfif attributes.screentop eq "yes">					
+			    <cf_screentop html="#attributes.html#" height="#attributes.tableheight#" scroll="#scroll#"> 						
 			</cfif>			
 													
-			<table width="#attributes.tablewidth#" 
-			    height="#attributes.tableheight#" 				
-				align="center" 				
-				onKeyUp="listnavigateRow()">
+			<table width="#attributes.tablewidth#" height="#attributes.tableheight#" align="center" onKeyUp="listnavigateRow('#box#')">
 														 
 	 		  <cfif attributes.banner neq "">   
 			   <tr class="line"><td>#attributes.banner#</td></tr>				   			  
@@ -211,7 +205,7 @@
 					<tr>
 					   <td width="99%" style="padding-top:2px">
 					  
-					      <table cellspacing="0" cellpadding="0" class="formspacing">
+					      <table class="formspacing">
 						  <tr>
 						  
 						  <td align="left" style="padding-top:2px;padding-left:3px;padding-right:5px">
@@ -335,10 +329,9 @@
 					
 						<td bgcolor="#attributes.headercolor#" colspan="2">
 						
-							<table width="100%" cellspacing="0" cellpadding="0" align="right">
+							<table width="100%" align="right">
 							
-								<tr>	
-								
+								<tr>									
 																
 								<td id="locate#attributes.box#" name="locate#attributes.box#" width="100%" class="#cl#">								
 								 <cfinclude template="ListingFilter.cfm"> 																
@@ -377,6 +370,8 @@
 				<!--- added for Evelyn to support --->
 				<!--- box to hold value to be posted upon updating the line in the background --->				
 				
+				<!--- no longer needed armin 8/12/2020 
+				
 				<tr class="hide"><td>
 				
 				  <cfoutput>					  
@@ -386,16 +381,16 @@
 				  </cfoutput>
 				  
 				</td></tr>
+				
+				--->
 												   			 
 				<tr class="hide"><td style="height:1px" id="#attributes.box#_ajax"></td></tr>  		
 						
 			    <tr>
 				    <td height="100%" colspan="2">	
 																																						
-						<cf_divscroll overflowx="auto" overflowy="hidden" style="height:100%">						
-							<cfdiv id="#attributes.box#_content" style="height:100%">												
-								<cfinclude template="ListingContent.cfm">					
-							</cfdiv>						
+						<cf_divscroll overflowx="auto" overflowy="hidden" id="#attributes.box#_content" style="height:100%">																							
+							<cfinclude template="ListingContent.cfm">																		
 						</cf_divscroll>					
 										
 					</td>
@@ -408,8 +403,9 @@
     
 </cfif>  
 
-
 <cfif attributes.html is "yes">
 	<cf_screenbottom html="#attributes.html#">
 </cfif>
+
+<cfset ajaxonload("doHighlight")>
  

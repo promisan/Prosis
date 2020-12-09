@@ -1,8 +1,8 @@
 <cfoutput>
 
-<cfset stl = "cursor:pointer;font-size:11px;">
+<cfset stl = "cursor:pointer;font-size:12px;height:30px">
 
-<tr class="fixrow" style="height:26px">
+<tr style="height:32px" class="fixrow">
 
     <td style="min-width:30px"></td>	
     <td style="min-width:30px"></td>	
@@ -132,7 +132,7 @@
 						
 			<cfif current.formatted eq "class">
 			
-				<td style="min-width:20px;#stl#">
+				<td style="min-width:20px;">
 																	
 			<cfelseif current.sort eq "No">
 						
@@ -150,14 +150,13 @@
 						
 						</cfloop>	
 											
-						<td style="width:#dw#;#stl#">										
-						<cf_space spaces="#size#">							
+						<td style="width:#dw#;min-width:#size*10#;border-left:1px solid silver;padding-left:5px">								
+											
 												
 					<cfelse> 
 										
-						<td style="width:#dw#;#stl#">				
-						<cf_space spaces="#current.width#">		
-																	
+						<td style="width:#dw#;min-width:#current.width*10#;border-left:1px solid silver;padding-left:5px">				
+																							
 					</cfif>	
 							
 			<cfelse>
@@ -171,18 +170,18 @@
 				<cfset sc = "document.getElementById('listorderdir').value='#dir#';document.getElementById('listorderfield').value='#current.field#';document.getElementById('listorder').value='#current.fieldsort#';document.getElementById('listorderalias').value='#current.alias#';applyfilter('','','content')">
 								
 				<cfif find("%",current.width)> 								
-				    <td width="#current.width#" onClick="#sc#" #stylescroll# style="#stl#">					 					  					  
+				    <td width="#current.width#" style="border-left:1px solid silver;padding-left:5px" onClick="#sc#">					 					  					  
 				<cfelse>				
 					<cfparam name="current.formatted" default="#current.field#">						
 					<cfif current.formatted eq "">
 						<cfset current.formatted = "#current.field#">
 					</cfif>																					 																
-					<td onClick="#sc#" #stylescroll# style="width:#dw#;#stl#">									
+					<td onClick="#sc#" style="width:#dw#;#stl#;border-left:1px solid silver;padding-left:5px">									
 					<cf_space spaces="#wd[col]#">										
 				</cfif>	
-									
+													
 			</cfif>
-			
+						
 			<!--- table to be shown --->
 						  
 			<table width="100%">
@@ -197,7 +196,7 @@
 				  </cfif>
 			      
 				  <tr>
-					  <td class="#attributes.classheader#" align="#vThisAlign#" style="#vThisAlignStyle# #stl#">#current.label#</td>
+					  <td class="#attributes.classheader#" align="#vThisAlign#" style="#vThisAlignStyle#">#current.label#</td>
 					
 					  <cfif url.listorder eq current.fieldsort>
 					  <td align="right" style="padding-right:3px;">							  

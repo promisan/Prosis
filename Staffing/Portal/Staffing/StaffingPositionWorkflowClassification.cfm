@@ -1,6 +1,7 @@
 
 <cfparam name="url.init" default="0">
 
+
 <cfquery name="Parent" 
 datasource="AppsEmployee" 
 username="#SESSION.login#" 
@@ -57,10 +58,22 @@ password="#SESSION.dbpw#">
 		</cfquery>
 	
 	</cfif>
+	
+	<cfquery name="Object" 
+		 datasource="AppsEmployee"
+		 username="#SESSION.login#" 
+		 password="#SESSION.dbpw#">
+			 SELECT  *
+			 FROM    Organization.dbo.OrganizationObject				
+			 WHERE   ObjectKeyValue1 = '#Parent.PositionParentId#'
+			 AND     Operational = 1							 
+	</cfquery>
+	
+	<cfparam name="Form.EntityClass" default="#Object.EntityClass#">
 			
 	<cf_ActionListing 
 	    EntityCode        = "PostClassification"
-		EntityClass       = "Standard"
+		EntityClass       = "#Form.EntityClass#"
 		EntityGroup       = ""
 		EntityStatus      = ""
 		tablewidth        = "100%"
@@ -74,5 +87,4 @@ password="#SESSION.dbpw#">
 		Show              = "Mini"
 		HideCurrent       = "No">
 	
-</cfif>		
-	
+</cfif>	

@@ -39,40 +39,35 @@ password="#SESSION.dbpw#">
 </cfif>
 
 <cfif url.myform eq "lineform">
-
-	<cf_screentop height="100%" label="Invoice Details" scroll="no" html="Yes" banner="gray" User="no" layout="webapp">
+	
 	<form name="lineform" id="lineform">
 	
 </cfif>
 
-	<table width="100%" height="100%" cellspacing="0" cellpadding="0" class="formpadding">
+	<table width="100%" height="100%" class="formpadding">
 	
 	  <tr><td height="8"></td></tr>	 
 	  
 	  <tr>
 	    <td width="95%" align="center" valign="top" style="padding:14px">
-	    <table width="96%" border="0" cellspacing="0" cellpadding="0" align="center">
+	    <table width="96%" align="center">
 					
-		    <tr>
+		    <tr class="labelmedium">
 			 
-			 <td colspan="2" width="80%" class="labelit"><cf_tl id="Description"> 
+			 <td colspan="2" width="80%"><cf_tl id="Description"> 
 			     <cfoutput>
 				 <cfif URL.ID2 neq "new" and url.access eq "Edit">
-				     <A href="javascript:ColdFusion.navigate('#SESSION.root#/procurement/application/invoice/InvoiceEntry/InvoiceEntryLine.cfm?myform=#url.myform#&tax=#url.tax#&mission=#url.mission#&ID=#URL.ID#&ID2=new','linedetail')"><font color="0080FF">[add]</font></a>
+				     <A href="javascript:ptoken.navigate('#SESSION.root#/procurement/application/invoice/InvoiceEntry/InvoiceEntryLine.cfm?myform=#url.myform#&tax=#url.tax#&mission=#url.mission#&ID=#URL.ID#&ID2=new','linedetail')">[add]</a>
 				 </cfif>
 			   </cfoutput>
 		     </td>     
-			 <td width="21%" class="labelit"><cf_tl id="Reference"></td>		
-			 <td width="80" class="labelit"><cf_tl id="Amount"></td>	 
+			 <td width="21%"><cf_tl id="Reference"></td>		
+			 <td width="80"><cf_tl id="Amount"></td>	 
 			  
 		    </TR>			
 			
-			<tr><td height="1" colspan="4" style="border-bottom: 1px dotted Silver;"></td></tr>
-			
 			<cfif URL.ID2 eq "new" and url.access eq "Edit">
-			
-			    <tr><td height="3"></td></tr>
-				
+							
 				<TR>
 							
 				<td colspan="2" style="padding: 2px;">
@@ -89,12 +84,13 @@ password="#SESSION.dbpw#">
 				
 				<td style="padding: 2px;">
 				
-						<input type="Text" 
+						<input type="text" 
 					      name="linereference" 
 						  id="linereference"
 						  style="width:100%"
 						  maxlength="20" 
-						  class="regularxl enterastab">
+						  class="regularxl enterastab"						  
+				    	  message="You must enter a description">
 						  
 			    </td>	
 				  			   
@@ -134,7 +130,7 @@ password="#SESSION.dbpw#">
 					  <cf_tl id="Apply" var="1">
 					
 						<input type="button"
-						  onclick="ColdFusion.navigate('#SESSION.root#/procurement/application/invoice/InvoiceEntry/InvoiceEntryLineSubmit.cfm?myform=#url.myform#&tax=#url.tax#&mission=#url.mission#&ID=#URL.ID#&ID2=new','documentamounttotal','','','POST','#url.myform#')"
+						  onclick="ptoken.navigate('#SESSION.root#/procurement/application/invoice/InvoiceEntry/InvoiceEntryLineSubmit.cfm?myform=#url.myform#&tax=#url.tax#&mission=#url.mission#&ID=#URL.ID#&ID2=new','documentamounttotal','','','POST','#url.myform#')"
 						  value="#lt_text#" 
 						  style="width:100"						 
 						  class="button10g">
@@ -144,7 +140,7 @@ password="#SESSION.dbpw#">
 					</td>
 				</tr>		
 				
-				<tr><td colspan="4" height="1" class="linedotted"></td></tr>	
+				<tr><td colspan="4" height="1" class="line"></td></tr>	
 			
 			</cfif>	
 						
@@ -205,7 +201,7 @@ password="#SESSION.dbpw#">
 				
 				</td></tr>
 				
-				<tr>
+				<tr class="line">
 				
 				<td align="center" colspan="4" height="27">
 				  
@@ -213,16 +209,14 @@ password="#SESSION.dbpw#">
 				   
 					   <input type="button" 
 						    value="#lt_text#" 
-							style="width:130;height:23px"
+							style="width:180;height:23px"
 						    class="button10g"
-						    onclick="ColdFusion.navigate('#SESSION.root#/procurement/application/invoice/InvoiceEntry/InvoiceEntryLineSubmit.cfm?myform=#url.myform#&tax=#url.tax#&mission=#url.mission#&ID=#URL.ID#&ID2=#url.id2#','documentamounttotal','','','POST','#url.myform#')">
+						    onclick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/procurement/application/invoice/InvoiceEntry/InvoiceEntryLineSubmit.cfm?myform=#url.myform#&tax=#url.tax#&mission=#url.mission#&ID=#URL.ID#&ID2=#url.id2#','documentamounttotal','','','POST','#url.myform#')">
 							
 					</td>
 				
 				</tr>
-				
-				<tr><td height="1" colspan="4" style="border-bottom: 1px dotted Silver;"></td></tr>
-						
+										
 			<cfelse>
 			
 				<TR class="labelmedium line">
@@ -230,15 +224,15 @@ password="#SESSION.dbpw#">
 					 <td width="40" align="center">
 					 
 						 <table>
-						 <tr>
-						 <td class="labelit" style="padding: 2px;">#currentrow#.</td>
+						 <tr class="labelmedium">
+						 <td style="padding: 2px;">#currentrow#.</td>
 						 				 
 						 <cfif url.access eq "Edit">
 							<td style="padding-top:2px;padding-left:3px;">						
-								<cf_img icon="edit" onclick="ColdFusion.navigate('#SESSION.root#/procurement/application/invoice/InvoiceEntry/InvoiceEntryLine.cfm?myform=#url.myform#&tax=#url.tax#&mission=#url.mission#&ID=#URL.ID#&ID2=#InvoiceLineId#','linedetail')">
+								<cf_img icon="edit" onclick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/procurement/application/invoice/InvoiceEntry/InvoiceEntryLine.cfm?myform=#url.myform#&tax=#url.tax#&mission=#url.mission#&ID=#URL.ID#&ID2=#InvoiceLineId#','linedetail')">
 							</td>
 							<td style="padding-left:2px;padding-top: 2px;">								
-								 <cf_img icon="delete"   onclick="ColdFusion.navigate('#SESSION.root#/procurement/application/invoice/InvoiceEntry/InvoiceEntryLineSubmit.cfm?myform=#url.myform#&tax=#url.tax#&action=delete&mission=#url.mission#&ID=#URL.ID#&ID2=#InvoiceLineId#','documentamounttotal')">						  
+								 <cf_img icon="delete"   onclick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/procurement/application/invoice/InvoiceEntry/InvoiceEntryLineSubmit.cfm?myform=#url.myform#&tax=#url.tax#&action=delete&mission=#url.mission#&ID=#URL.ID#&ID2=#InvoiceLineId#','documentamounttotal')">						  
 							 </td>	 
 							 
 							</cfif>	  
@@ -253,14 +247,12 @@ password="#SESSION.dbpw#">
 				 
 			    </TR>	
 				
-				<tr><td colspan="4">
+				<tr class="line"><td colspan="4">
 						<cfset access = "view">		
 						<cfset url.lineid = invoicelineid>											
 						<cfinclude template="InvoiceEntryLineAttachment.cfm">	
 				</td></tr>
 				
-				<tr><td height="1" colspan="4" style="border-bottom: 1px dotted Silver;"></td></tr>
-			
 			</cfif>
 					
 			</cfoutput>
@@ -273,7 +265,7 @@ password="#SESSION.dbpw#">
 				   <td height="20"><cf_tl id="Total"></td>
 				   <td></td>
 				   <td></td>
-				   <td align="right"><cfoutput>#numberformat(total.total,"__,__.__")#</cfoutput></td>
+				   <td align="right"><cfoutput>#numberformat(total.total,",.__")#</cfoutput></td>
 				   <td></td>
 				</tr>
 							

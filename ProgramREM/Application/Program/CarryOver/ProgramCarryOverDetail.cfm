@@ -141,8 +141,8 @@
 			
 	        <cfinclude template="ProgramCarryOverSubDetail.cfm"> 
 				
-	    </cfloop>  
-		
+	    </cfloop>  	
+     
   </cfloop> 
   
 </cfoutput>   

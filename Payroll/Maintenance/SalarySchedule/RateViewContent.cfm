@@ -16,7 +16,7 @@
 	    position="left" 
 		name="treebox" 
 		maxsize="300" 		
-		size="200" 
+		size="260" 
 		collapsible="true"		
 		splitter="true">
 		

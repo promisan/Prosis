@@ -39,11 +39,13 @@
                         <img style="max-width: 120px;height:auto;border: 1px solid ##efefef;" src="#session.rootDocument#/#Image.ImagePath#" width="800" height="600">
 		            </a>
 	            </div>
+				<!---
 	            <div style="float: left;width:50%;padding-left: 15px;">
 	            	<h2 style="margin: 4px 0 0;">#Image.ItemNo#</h2>
 	            	<h2 style="margin: 4px 0 0;">(#Item.ItemNoExternal#)</h2>
 	                #Item.ItemDescription#<br>#Item.Mission#
 	            </div>
+				--->
 	        </div>
 	        </tr>
         </cfif>

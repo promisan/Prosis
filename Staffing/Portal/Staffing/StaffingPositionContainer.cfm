@@ -58,9 +58,9 @@
 				  <td style="background-color:##e4e4e4;font-size:17px;padding-left:8px;width:160px;"><span style="font-size:12px;">Post##</span>&nbsp;
 				  
 				  <cfif getAdministrator("#mission#") eq "1">
-				  <a href="javascript:EditPosition('#mission#','#MandateNo#','#PositionNo#')">#SourcePostNumber#</a>
+				  <a href="javascript:EditPosition('#mission#','#MandateNo#','#PositionNo#')"><cfif sourcePostNumber eq "">#PositionParentid#<cfelse>#SourcePostNumber#</cfif></a>
 				  <cfelse>
-				  #SourcePostNumber#
+				  <cfif sourcePostNumber eq "">#PositionParentid#<cfelse>#SourcePostNumber#</cfif>
 				  </cfif>
 				  </td>		
 				  				  				  
@@ -115,14 +115,29 @@
 		<tr class="line">				   
 			  
 			  <cfif ApprovalPostGrade neq "" or ApprovalPostGrade neq "">		
-			    <td align="center" 
-				  style="height:23px;background-color:##bfff80;font-size:13px;min-width:160px;padding-left:3px;padding-right:4px">		  
-				    <span style="font-size:10px"><cf_tl id="Classified"></span>#ApprovalReference#		
+			    <td align="center" onclick="ViewPosition('#PositionParentId#')"
+				  style="cursor:pointer;height:23px;background-color:##bfff80;font-size:13px;min-width:130px;padding-left:3px;padding-right:4px">		
+				  
+				  <u><cf_tl id="Classified"></u>
+				  
+				   <!---
+				  <cf_UITooltip
+					id         = "position#PositionNo#"
+					ContentURL = "PositionDialogView.cfm?positionno=#PositionNo#"
+					CallOut    = "true"
+					Position   = "left"
+					Width      = "480"
+					ShowOn     = "click"
+					Height     = "200"
+					Duration   = "300">												  	  
+				      	<span style="font-size:10px"><cf_tl id="Classified"></span>#ApprovalReference#				  
+				  </cf_UItooltip>					    --->
+				    	
 				 </td>	
 			  <cfelse>
 			    <td align="center" 
-				  style="height:23px;background-color:##ffb3b3;font-size:13px;min-width:160px;padding-left:3px;padding-right:4px">	
-			  		<cf_tl id="Non classified">	
+				  style="height:23px;background-color:##ffb3b3;font-size:13px;min-width:130px;padding-left:3px;padding-right:4px">	
+			  		<cf_tl id="Not classified">	
 				 </td>						
 			  </cfif>					 
 			  
@@ -200,7 +215,7 @@
 		
 		<cfif AssignDetail.recordcount eq "0">
 		
-			<tr><td colspan="2" style="height:220px;width:100%">
+			<tr><td colspan="2" style="height:200px;width:100%">
 			     <table style="width:100%;height:100%">
 					 <tr>					
 					 <td valign="top" style="padding-top:4px;text-align:center;background-color:##FFB0FF50;width:100%"><cf_tl id="Vacant"></td>		  								 
@@ -216,7 +231,7 @@
 			WHERE      PositionNo = '#PositionNo#' 		
 			ORDER BY   Incumbency DESC		
 	    </cfquery>		
-		
+				
 		<tr><td style="height:4px"></td></tr>	
 				 	
 		<cfif AssignDetail.recordcount neq "0">
@@ -298,8 +313,9 @@
 	<cf_divscroll>
 	<table width="100%">
 	
+		
 	<cfif AssignDetail.recordcount neq "0">
-	
+		
 		<cfset postgroup = PositionGroup>
 			
 		<cfloop query="AssignDetail" startrow="1" endrow="2">

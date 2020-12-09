@@ -19,6 +19,8 @@
 	   
 <cfparam name="url.docid" default="#Document.Documentid#">
 <cfparam name="sel" default="1">	
+
+
 		
  <table width="100%" height="100%">
  
@@ -30,9 +32,10 @@
 					 document.getElementById('menudocument').className = "hide"					 
 				 } catch(e) { }						 
 	
-		</script>			
-  		
-	   <cfelseif document.recordcount gte "2">			  
+		</script>	
+		 		
+	   <cfelseif document.recordcount gte "2">		
+	    
 	   	 	   
 		   <tr><td valign="top">  
 				
@@ -78,6 +81,7 @@
 					
 		</cfif>
 		
+		
 		<cfif document.recordcount gte "1">		
 
 			<script>	    
@@ -95,6 +99,7 @@
 		<td valign="top" height="100%">
 							
 				<table width="100%" height="100%">	
+			
 																												 
 				 <cf_menucontainer name="doc" item="1" class="regular">		
 				 								
@@ -103,8 +108,10 @@
 						   <cfset url.no = sel>
 						   <cfset url.textmode     = "EDIT">
 						   <cfset url.memoactionid = url.id>
-						   <cfset url.documentid   = url.docid>							   
+						   <cfset url.documentid   = url.docid>		
+						  						   
 						   <cfinclude template     = "ProcessActionDocumentTextContent.cfm">			   
+						 
 						   					   				   
 					 </cfif>
 				 

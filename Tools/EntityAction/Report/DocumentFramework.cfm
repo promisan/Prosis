@@ -167,8 +167,6 @@
 		   </cfcatch>
 		   </cftry>
 		   
-</cfif>
-			   
-			   
+</cfif>		   
 
 

@@ -48,6 +48,7 @@ password="#SESSION.dbpw#">
 	             Ref_EntityDocument AS D ON A.DocumentId = D.DocumentId
 	WHERE        A.ActionCode = '#url.actioncode#'
 	AND          DocumentType = 'activity'
+	AND          DocumentMode <> 'Notify'
 	ORDER BY     D.DocumentOrder		
 </cfquery>
 
@@ -55,7 +56,17 @@ password="#SESSION.dbpw#">
 datasource="AppsVacancy" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-	SELECT      ActionId, DocumentNo, PersonNo, ActionCode, DocumentId, ActionDateStart, ActionDateEnd, ActionMemo, ActionStatus, OfficerUserId, OfficerLastName, 
+	SELECT      ActionId, 
+	            DocumentNo, 
+				PersonNo, 
+				ActionCode, 
+				DocumentId, 
+				ActionDateStart, 
+				ActionDateEnd, 
+				ActionMemo, 
+				ActionStatus, 
+				OfficerUserId, 
+				OfficerLastName, 
                 OfficerFirstName, Created
     FROM        DocumentCandidateReviewAction
 	WHERE       ActionId = '#url.id#'	

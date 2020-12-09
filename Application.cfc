@@ -30,6 +30,11 @@
 					<cfparam name="CLIENT.Timeout" default="40">
 					<cfparam name="SESSION.authent" default="0">
 					
+					<cfquery name="Linked" 
+						datasource="appsSystem">
+						SELECT * FROM ParameterLinkedServer
+					</cfquery>	
+					
 					<cfif SESSION.authent eq "1">
 						<cfset trackUser = "1">
 					<cfelse>

@@ -1,23 +1,8 @@
 
 <cfoutput>
 	
-	<cfparam name="url.warehouse" default="BCN000">
-	<cfparam name="url.scope"     default="POS">
-
-	<script>
-		$(document).ready(function () {
-		setInterval( function() {
-		time_refresh('#URL.warehouse#');}, 60000 );});	
-	</script>
-
-<cfif url.scope eq "Quote">
-
-	<input type="hidden" id="mission"   name="mission"   value="#url.mission#">
-	<input type="hidden" id="warehouse" name="warehouse" value="#url.warehouse#">	
-	
-	<cfset ajaxonload("setSaleQuote")>	
-
-</cfif>
+<cfparam name="url.warehouse" default="BCN000">
+<cfparam name="url.scope"     default="POS">
 
 <!--- clean quotes that were only reloaded for potential reposting but were never done so --->
 
@@ -33,9 +18,29 @@
 	AND   Created < GETDATE() - 1
 </cfquery>
 
+<script>
+	$(document).ready(function () {
+	setInterval( function() {
+	time_refresh('#URL.warehouse#');}, 60000 );});	
+</script>
+		
+<cfif url.scope eq "Quote">
 
+    <input type="hidden" id="scope"     name="scope"     value="Quote">
+	<input type="hidden" id="mission"   name="mission"   value="#url.mission#">
+	<input type="hidden" id="warehouse" name="warehouse" value="#url.warehouse#">	
+	
+	<cfset ajaxonload("setSaleQuote")>	
+	
+<cfelse>
+
+	<input type="hidden" id="scope"     name="scope"     value="POS">
+
+</cfif>
 
 </cfoutput>
+
+
 
 <cfquery name="qWarehouse"
 	datasource="AppsMaterials"

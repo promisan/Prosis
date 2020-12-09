@@ -1,4 +1,6 @@
 
+
+
 <table width="100%" class="formpadding">
 
 <cfinvoke component = "Service.Access"  
@@ -26,14 +28,7 @@
 
 <tr><td valign="top" width="100%" height="100%"  style="padding-top:8px;padding-left:8px;">
 
-<cfform>
-
-	<cftree name="root"
-		        font="Calibri"
-		        fontsize="12"		
-		        bold="No"   
-				format="html"    
-		        required="No">
+    <cf_UItree id="root" expand="Yes" Root="No">	
 
 			<cfset Mission = URL.mission>
 						
@@ -59,21 +54,22 @@
 			
 				<cfoutput query="Status" group="EntityCode">		
 				
-						<cf_tl id="File status" var="1">			
-					
-						<cftreeitem value="#EntityCode#"
-			            display   = "<td class='labellarge'>#lt_text#"						
-			           	expand    = "Yes">	
+						<cf_tl id="File status" var="1">		
 						
+						 <cf_UItreeitem value="#EntityCode#"
+					        display = "<span style='font-size:16px;font-weight:bold;padding-top:3px;padding-bottom:3px' class='labelit'>#lt_text#</span>"
+							parent  = "root"														
+							target  = "right"
+					        expand  = "Yes">							
+												
 					<cfoutput>	
-							
-						<cftreeitem value="#EntityCode#_#EntityStatus#"
-				            display="#StatusDescription#"
-				            parent="#EntityCode#"
-				            
-				            href="javascript:list('status','#EntityStatus#','#mission#')"
-				            queryasroot="No"
-				            expand="No">						
+					
+						<cf_UItreeitem value="#EntityCode#_#EntityStatus#"
+					        display = "<span style='font-size:14px' class='labelit'>#StatusDescription#</span>"
+							parent  = "#EntityCode#"														
+							target  = "right"
+							href="javascript:list('status','#EntityStatus#','#mission#')"
+					        expand  = "No">									
 						
 					</cfoutput>
 					
@@ -93,19 +89,21 @@
 				</cfquery>	 	
 					
 				<cfoutput query="Step" group="StatusClass">					
-					
-						<cftreeitem value="#statusclass#"
-				            display   = "<td class='labelmedium'>Case File Status"								
-				           	expand    = "Yes">	
-						
+				
+					 <cf_UItreeitem value="#statusclass#"
+					        display = "<span style='font-size:16px;font-weight:bold;padding-top:3px;padding-bottom:3px' class='labelit'>Case File Status</span>"
+							parent  = "root"														
+							target  = "right"
+					        expand  = "Yes">	
+												
 					<cfoutput>	
-							
-						<cftreeitem value="#statusclass#_#status#"
-				            display="#Description#"
-				            parent="#statusclass#"				            
-				            href="javascript:list('status','#status#','#mission#')"
-				            queryasroot="No"
-				            expand="No">						
+					
+						<cf_UItreeitem value="#statusclass#_#status#"
+					        display = "<span style='font-size:14px' class='labelit'>#Description#</span>"
+							parent  = "#StatusClass#"														
+							target  = "right"
+							href="javascript:list('status','#status#','#mission#')"
+					        expand  = "No">								
 						
 					</cfoutput>
 					
@@ -138,29 +136,31 @@
 			
 			<cfif Loc.recordcount gt "0">
 			
-				<cftreeitem value="Loc"
-			            display="<td class='labelmedium'>Location</td>"							
-			           	expand="No">						
+				 <cf_UItreeitem value="Loc"
+					        display = "<span style='font-size:16px;font-weight:bold;padding-top:3px;padding-bottom:3px' class='labelit'>Location</span>"
+							parent  = "root"														
+							target  = "right"
+					        expand  = "No">										
 					
 				<cfoutput query="Loc" group="Location">		
 				
-				    <cfif name neq "">		
+				    <cfif name neq "">	
 					
-						<cftreeitem value="#location#"
-				            display="#name#"
-							href="javascript:list('nation','#location#')"
-							parent="Loc"																
-				           	expand="No">	
-							
+						<cf_UItreeitem value="#location#"
+					        display = "<span style='font-size:14px' class='labelit'>#Name#</span>"
+							parent  = "Loc"														
+							target  = "right"
+							href    = "javascript:list('nation','#location#')"
+					        expand  = "No">								
+													
 						<cfoutput>	
-								
-							<cftreeitem value="#location#_#casualty#"
-				            display="#Casualty#"
-				            parent="#location#"
-				            img="#SESSION.root#/Images/select.png"
-				            href="javascript:list('nation','#location#','#casualty#')"
-				            queryasroot="No"
-				            expand="Yes">						
+						
+							<cf_UItreeitem value="#location#_#casualty#"
+					        display = "<span style='font-size:14px' class='labelit'>#Casualty#</span>"
+							parent  = "#location#"														
+							target  = "right"
+							href    = "javascript:list('nation','#location#','#casualty#')"
+					        expand  = "No">																	
 							
 						 </cfoutput>
 					 
@@ -170,9 +170,9 @@
 			
 			</cfif>	
 			
-	</cftree>
+	</cf_UItree>
 			
-</cfform>
+
 </td></tr></table>
 
 

@@ -1,4 +1,5 @@
 
+
 <cfparam name="url.scope" default="standard">
 <cfparam name="url.mode"  default="Total">
 
@@ -48,7 +49,7 @@
 			</cfloop>
 			
 			<cfif url.scope eq "period">				
-				<div id="total_display" style="padding-top:3px;font-size:15">#numberformat(tot,",__.__")#</div>
+				<div id="total_display" style="padding-top:3px;font-size:15">#numberformat(tot,",.__")#</div>
 			</cfif>
 			
 			<script language="JavaScript">
@@ -125,7 +126,7 @@
 		</cfcatch>
 	</cftry>	
 			
-	<input type="text" class="regularh"  size="10" tabindex="9999" style="background-color:f1f1f1;text-align:right;width:99%;border:0px" readonly id="requestquantity_#url.line#" name="requestquantity_#url.line#" value="#numberformat(qty,",__")#" tabindex="999">	
+	<input type="text" class="regularh"  size="10" tabindex="9999" style="background-color:f1f1f1;text-align:right;width:97%;border:0px" readonly id="requestquantity_#url.line#" name="requestquantity_#url.line#" value="#numberformat(qty,",__")#" tabindex="999">	
 		
 
 </cfif>

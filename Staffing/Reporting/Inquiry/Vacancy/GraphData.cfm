@@ -166,7 +166,7 @@
 	<cfset f = "20">
 	<cfset w = "2000">
 <cfelse>	
-	<cfset h = "240">
+	<cfset h = "340">
 	<cfset f = "10">
 	<cfset w = client.width-200>
 </cfif>
@@ -194,7 +194,7 @@
 	           seriesplacement = "default"
 	           labelformat     = "number"
 	           yaxistitle      = "Post/Vacancy count"
-	           show3d          = "no"	         
+	           show3d          = "yes"	         
 	           pieslicestyle   = "sliced"
 	           url             = "javascript:listener('$ITEMLABEL$')">
 	
@@ -219,9 +219,7 @@
 	<td>
 	
 	 <cfif url.scope eq "all" or url.scope eq "vac">  
-	 
-
-	  	 
+	 	  	 
 	 <cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
 	 				 		
 		<cfchart style = "#chartStyleFile#" 
@@ -233,7 +231,7 @@
 	      seriesplacement = "default"
 	      labelformat     = "number"
 		  yaxistitle      = "Post/Vacancy count"
-	      show3d          = "no"	      	      
+	      show3d          = "yes"	      	      
 	      url             = "javascript:listener('$ITEMLABEL$')">	  
    
 		 <cfchartseries

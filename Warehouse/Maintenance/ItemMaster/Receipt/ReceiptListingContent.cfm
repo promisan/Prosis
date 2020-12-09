@@ -116,7 +116,7 @@ password="#SESSION.dbpw#">
 	     				field       = "ReceiptAmountBaseCost",					
 						align       = "right",
 						alias       = "",					
-						formatted   = "numberFormat(ReceiptAmountBaseCost,'__,_.__')",														
+						formatted   = "numberFormat(ReceiptAmountBaseCost,',.__')",														
 						search      = ""}>		
 						
 	<cfset itm = itm+1>
@@ -126,7 +126,7 @@ password="#SESSION.dbpw#">
 	     				field       = "ReceiptAmountBaseTax",					
 						align       = "right",
 						alias       = "",					
-						formatted   = "numberFormat(ReceiptAmountBaseTax,'__,_.__')",														
+						formatted   = "numberFormat(ReceiptAmountBaseTax,',.__')",														
 						search      = ""}>		
 						
 	<cfset itm = itm+1>
@@ -135,7 +135,7 @@ password="#SESSION.dbpw#">
 	     				field       = "ReceiptAmountBase",					
 						align       = "right",
 						alias       = "",					
-						formatted   = "numberFormat(ReceiptAmountBase,'__,_.__')",														
+						formatted   = "numberFormat(ReceiptAmountBase,',.__')",														
 						search      = ""}>													
 						
 	<cfset itm = itm+1>				
@@ -172,7 +172,7 @@ password="#SESSION.dbpw#">
 		excelshow           = "Yes" 		
 		listlayout          = "#fields#"
 		drillmode           = "window" 
-		drillargument       = "750;850;false;false"	
+		drillargument       = "900;1200;false;false"	
 		drilltemplate       = "Procurement/Application/Receipt/ReceiptEntry/ReceiptLineEdit.cfm?rctid="
 		drillkey            = "ReceiptId"
 		drillbox            = "addaddress">	

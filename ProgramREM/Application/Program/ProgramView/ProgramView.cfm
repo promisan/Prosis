@@ -30,6 +30,8 @@
 		
 <cf_layoutscript>	
 
+<cfajaximport tags="cfform">
+
 <cf_ObjectControls>
 
 <cfset attrib = {type="Border",name="mybox",fitToWindow="Yes"}>	

@@ -403,7 +403,7 @@ password="#SESSION.dbpw#">
         
 	<td> 
 					
-	  <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+	  <table width="100%" align="center" class="formpadding">
 	  
 	    <tr class="line"><td colspan="2" style="font-size:27px;font-weight:200;height:45px;padding-left:18px" class="labelmedium"><cf_tl id="Invoice Registration"></td></tr>
 				  			  			
@@ -641,7 +641,7 @@ password="#SESSION.dbpw#">
 			
 		 </tr>	
 				
-		 <tr class="line">
+		 <tr>
 			    <TD class="labelmedium" style="padding-left:23px">
 					<cfif md eq "org">
 						<cf_tl id="Invoice">
@@ -660,9 +660,7 @@ password="#SESSION.dbpw#">
 				</TD>
 				
 		 </tr>		
-		 		 
-		 
-		 		 		  	  	    			
+		 		 		 		  	  	    			
 		 <TR>		  
 		   <TD class="labelmedium" style="padding-left:23px"><cfif md eq "org"><cf_tl id="Invoice/Reference"><cfelse><cf_tl id="Document"></cfif> No: <font color="FF0000">*</font></TD>
            <td colspan="1">	
@@ -703,7 +701,7 @@ password="#SESSION.dbpw#">
 		 
 		 <cfelse>
 		 
-			  <tr>		  
+			<tr>		  
 			   <td class="labelmedium" style="padding-left:23px"><cf_tl id="Reference">:</TD>
 	           <td colspan="1">			   	   
 				  <cfinput type="Text" class="regularxl enterastab" name="InvoiceReference" value="" required="No" size="40" maxlength="40"> 			
@@ -1020,7 +1018,7 @@ password="#SESSION.dbpw#">
 						<td class="labelmedium" style="padding-left:7px">
 						   
 						   <cfoutput>	 
-						  	 <a href="javascript:ColdFusion.Window.create('linedetail', 'Detailed Information', '',{x:600,y:0,height:450,width:620,closable:true,resizable:true,modal:true,center:true});ColdFusion.navigate('InvoiceEntryLine.cfm?tax='+document.getElementById('tax').value+'&mission=#url.mission#&id=#guid#','linedetail')"><font face="Calibri" size="3" color="0080FF"><cf_tl id="Record in detail"></font></a>
+						  	 <a href="javascript:ProsisUI.createWindow('linedetail', 'Detailed Information', '',{x:600,y:0,height:450,width:620,closable:true,resizable:true,modal:true,center:true});ptoken.navigate('InvoiceEntryLine.cfm?tax='+document.getElementById('tax').value+'&mission=#url.mission#&id=#guid#','linedetail')"><cf_tl id="Record in detail"></a>
 						   </cfoutput>	 
 						   
 						</td>
@@ -1054,7 +1052,7 @@ password="#SESSION.dbpw#">
 										required="Yes" 
 										class="regularxl enterastab"										
 										style="text-align: center;width:25" 
-										onChange="ColdFusion.navigate('InvoiceExemption.cfm?tag=#tag#&documentamount='+documentamount.value+'&tax='+this.value,'exemption')">
+										onChange="ptoken.navigate('InvoiceExemption.cfm?tag=#tag#&documentamount='+documentamount.value+'&tax='+this.value,'exemption')">
 										
 									</td>
 									<td class="labelmedium" width="19" align="center">%</td>													 

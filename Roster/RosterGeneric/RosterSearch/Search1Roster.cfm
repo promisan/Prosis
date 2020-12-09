@@ -94,13 +94,14 @@
 				datasource="AppsSelection" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
-				  SELECT  Distinct O.*
-				     FROM    dbo.FunctionTitle F INNER JOIN
-				             dbo.FunctionOrganization F1 ON F.FunctionNo = F1.FunctionNo INNER JOIN
-				             dbo.Ref_Organization R ON F1.OrganizationCode = R.OrganizationCode INNER JOIN
-				             dbo.OccGroup O ON F.OccupationalGroup = O.OccupationalGroup
-				     WHERE   F.FunctionRoster = '1'		
-					 
+				     
+					 SELECT  DISTINCT O.*
+				  
+				     FROM    dbo.FunctionTitle F 
+					         INNER JOIN dbo.FunctionOrganization F1 ON F.FunctionNo = F1.FunctionNo 
+							 INNER JOIN dbo.Ref_Organization R ON F1.OrganizationCode = R.OrganizationCode 
+							 INNER JOIN dbo.OccGroup O ON F.OccupationalGroup = O.OccupationalGroup
+				     WHERE   1=1 
 					 <cfif occ neq "">
 					 
 					 AND     O.OccupationalGroup = '#occ#'	
@@ -108,16 +109,24 @@
 					 <cfelseif rosterAccess eq "NONE" and URL.Mode neq "Limited" and url.docNo eq "">	
 					
 					 <!--- give access to logical buckets for which a person has been granted access through one of more vacancies ---> 					 
-					 AND  F1.FunctionId IN 
-					 		(SELECT DISTINCT Bucket.FunctionId
-							FROM     RosterAccessAuthorization A INNER JOIN
-				        			 FunctionOrganization FO ON A.FunctionId = FO.FunctionId INNER JOIN
-				                  	 FunctionOrganization Bucket ON FO.FunctionNo = Bucket.FunctionNo AND FO.OrganizationCode = Bucket.OrganizationCode AND 
-				                  	 FO.GradeDeployment = Bucket.GradeDeployment
-							WHERE    A.UserAccount = '#SESSION.acc#')					
+					 AND     F1.FunctionId IN 	(SELECT Bucket.FunctionId
+								   			     FROM   RosterAccessAuthorization A 
+											            INNER JOIN FunctionOrganization FO ON A.FunctionId = FO.FunctionId 
+													    INNER JOIN FunctionOrganization Bucket ON FO.FunctionNo = Bucket.FunctionNo AND FO.OrganizationCode = Bucket.OrganizationCode AND 
+								                  	    FO.GradeDeployment = Bucket.GradeDeployment
+											     WHERE  A.UserAccount = '#SESSION.acc#')		
+											 			
 					 </cfif>
+					 
 					 AND    F1.SubmissionEdition IN (#preservesingleQuotes(ed)#)
+					 
+					 <!--- ability to limit presentation using function and setting of PostSpecific = 0, Post specific is only a track for recruitment but not to 
+					       set rostering of a person which is supported differently --->
+					 
+					 AND    (F.FunctionRoster = '1' OR F1.ReferenceNo IN ('Direct','direct') OR F1.PostSpecific = 0)		
+					 
 				     ORDER BY Description
+					 
 			</cfquery>
 	
 			<cfif OccGroup.recordcount eq "0">
@@ -132,16 +141,19 @@
 				</cfquery>	
 	
 				<cfset cls = "hide">
-				<table><tr><td style="padding-top:10px" class="labelmedium" align="center">
-				<font color="FF0000">
-				<cfoutput>Problem, you have no access or there are no rostered candidates for occupational group <b>#Occ.Description#</b> in the editions #preservesingleQuotes(ed)#
-				</font></cfoutput>
+				<table style="width:100%">
+				<tr><td style="padding-top:10px;font-size:20px;color:red" class="labelmedium" align="center">
+				
+				<cfoutput>
+				Problem : You have no access or there are no rostered candidates for occupational group <b>#Occ.Description#</b> in the editions #preservesingleQuotes(ed)#
+				</cfoutput>
+				
 				</td></tr></table>
 					
 			<cfelse>		
 								
 					
-				<table width="100%" border="0" align="center" cellspacing="0" cellpadding="0" align="left">
+				<table width="100%" align="center">
 			
 				<tr><td height="8"></td></tr>	
 											

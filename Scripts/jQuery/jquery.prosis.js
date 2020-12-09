@@ -327,14 +327,11 @@ if (window.jQuery) {
 		}
 	}
 	
-	function clearFocus(t_focusedRow)
-	{
-		if (currentSelected)
-		{
+	function clearFocus(t_focusedRow) {
+		if (currentSelected) {
 			currentSelected.css("backgroundColor",previousclicked);
 			currentSelected.removeClass("focused");
-			currentSelected.find('td.navigation_pointer').html('&nbsp;&nbsp;&nbsp;&nbsp;');
-			
+			currentSelected.find('td.navigation_pointer').html('&nbsp;&nbsp;&nbsp;&nbsp;');			
 		}
 	}
 	
@@ -342,7 +339,11 @@ if (window.jQuery) {
 				
 		previousclicked = t_focusedRow.attr('bgcolor');
 		if (!previousclicked)
-			previousclicked = 'transparent';
+		{
+			previousclicked = t_focusedRow.css("background-color");
+			if (!previousclicked)
+				previousclicked = 'transparent';
+		}
 		
 		setColors(t_focusedRow);
 						
@@ -387,17 +388,13 @@ if (window.jQuery) {
 		
 		setColors(current);		
 		
-		if (navigationselected!='transparent')
-		{
+		if (navigationselected!='transparent') {
 			$('.focused').css({background:navigationselected});
 			$('.focused').css("backgroundColor",navigationselected);
 			current.addClass('rowhover');
 		}
-		
-		
-		
-		if (navigationhover!='transparent')
-		{
+				
+		if (navigationhover!='transparent') {
 			current.css({background:navigationhover});
 			current.css("backgroundColor",navigationhover);
 		}
@@ -423,6 +420,12 @@ if (window.jQuery) {
 		
 		var table = tRow.parents('.navigation_table');
 		previouscolor = tRow.attr('bgcolor')
+		if (!previouscolor)
+		{
+			previouscolor = tRow.css("background-color");
+			if (!previouscolor)
+				previouscolor = 'transparent';
+		}		
 
 		var navigationhover_tmp = table.attr('navigationhover');
 		if (navigationhover_tmp)
@@ -434,31 +437,27 @@ if (window.jQuery) {
 		
 	}
 		
-	function clearHover(tRow)
-	{
+	function clearHover(tRow) {
 		if (!previouscolor)
 			previouscolor = 'transparent';
 		
 		tRow.css({background:previouscolor});
 		tRow.css("backgroundColor", previouscolor);
-		tRow.find('td.navigation_pointer').html('&nbsp;&nbsp;&nbsp;&nbsp;');
-		
+		tRow.find('td.navigation_pointer').html('&nbsp;&nbsp;&nbsp;&nbsp;');		
 		
 		tRow=tRow.nextAll("tr:visible").first();
 		while(tRow.hasClass("navigation_row_child"))	{
 			tRow.css({background:previouscolor});
 			tRow.css("backgroundColor",previouscolor);
 			tRow = tRow.nextAll("tr:visible").first();
-		}			
-		
+		}
 		
 	}
 
 	function doHighlight() {
 	
 	try{
-		
-		
+				
 		$('.navigation_pointer').each(function () {
 			$(this).html('&nbsp;&nbsp;&nbsp;&nbsp;'); 			
 		});
@@ -498,11 +497,9 @@ if (window.jQuery) {
 				if (ev.which == 38 || ev.which == 40) {				
 					clearFocus();
 					
-					if (focusedRow == null) {
-					
+					if (focusedRow == null) {					
 						focusedRow = $('.navigation_row:first', $(this));						
-					}
-					else 
+					} else 
 						//Page up
 						if (ev.which == 38) {		
 					
@@ -553,8 +550,7 @@ if (window.jQuery) {
 		$(".navigation_row_child").off('hover');
 
 		$(".navigation_row").on('click',function(ev){
-			if (!focusClick)
-			{
+			if (!focusClick){
 				clearFocus();
 				focusedRow = $(this); 	
 				setFocus(focusedRow);
@@ -563,8 +559,7 @@ if (window.jQuery) {
 	    });			
 		
 		$(".navigation_row").on('dblclick',function(ev){
-			if (!focusClick)
-			{
+			if (!focusClick){
 				clearFocus();
 				focusedRow = $(this);
 				doClick();
@@ -575,8 +570,7 @@ if (window.jQuery) {
 		});
 		
 		$(".navigation_row_child").on('dblclick',function(ev){
-			if (!focusClick)
-			{
+			if (!focusClick){
 				clearFocus();
 				focusedRow = $(this).prev(".navigation_row").first(); 	
 				doClick();
@@ -598,7 +592,6 @@ if (window.jQuery) {
 
 
 		$(".navigation_row_child").on('mouseenter',function(){
-
 				current = $(this).prevAll(".navigation_row").first();
 				setHover(current);				
 		});
@@ -609,11 +602,8 @@ if (window.jQuery) {
 					clearHover(current);
 		});
 
-
-
 		$(".navigation_row_child").on('click',function(){
-			if (!focusClick)
-			{
+			if (!focusClick){
 				clearFocus();	
 				focusedRow = $(this).prevAll(".navigation_row").first(); 	
 				setFocus(focusedRow)
@@ -634,10 +624,8 @@ if (window.jQuery) {
 					
 					var byIndex = -1;
 					$.each( focusable, function( key, elem ) {
-					  if ($(elem).attr("tabIndex"))
-					  {
-					  	if ($(elem).attr("tabIndex")>byIndex)
-					  	{
+					  if ($(elem).attr("tabIndex")) {
+					  	if ($(elem).attr("tabIndex")>byIndex) {
 					  		byIndex = $(elem).attr("tabIndex");
 					  	}
 					  }
@@ -648,19 +636,15 @@ if (window.jQuery) {
 					{
 						var currentIndex = $(this).attr("tabIndex");
 						
-						console.log(currentIndex);
-						
+						console.log(currentIndex);						
 						var focusable = $('input,select,button,textarea').filter(function() {
 								return $(this).attr("tabIndex") > parseInt(currentIndex);
 							
 						});
 						
-						console.log(focusable);
-						
+						console.log(focusable);						
 						focusable.eq(0).focus();
-					}
-					else
-					{
+					} else {
 						focusable.eq(focusable.index(this) + 1).focus();
 					}
 					return false;
@@ -683,26 +667,21 @@ if (window.jQuery) {
 	}
 
 	function __b64toBlob(b64Data, contentType, sliceSize) {
-	  contentType = contentType || '';
-	  sliceSize = sliceSize || 512;
-
-	  var byteCharacters = atob(b64Data);
-	  var byteArrays = [];
-
-	  for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-	    var slice = byteCharacters.slice(offset, offset + sliceSize);
-
-	    var byteNumbers = new Array(slice.length);
-	    for (var i = 0; i < slice.length; i++) {
-	      byteNumbers[i] = slice.charCodeAt(i);
-	    }
-
-	    var byteArray = new Uint8Array(byteNumbers);
-
-	    byteArrays.push(byteArray);
-	  }
-
-	  var blob = new Blob(byteArrays, {type: contentType});
-	  return blob;
+	 
+		  contentType = contentType || '';
+		  sliceSize = sliceSize || 512;
+		  var byteCharacters = atob(b64Data);
+		  var byteArrays = [];
+		  for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+		    var slice = byteCharacters.slice(offset, offset + sliceSize);
+		    var byteNumbers = new Array(slice.length);
+		    for (var i = 0; i < slice.length; i++) {
+		      byteNumbers[i] = slice.charCodeAt(i);
+		    }
+		    var byteArray = new Uint8Array(byteNumbers);
+		    byteArrays.push(byteArray);
+		  }
+		  var blob = new Blob(byteArrays, {type: contentType});
+		  return blob;
 	}	
 }

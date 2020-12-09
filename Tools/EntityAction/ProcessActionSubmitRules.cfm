@@ -1,4 +1,3 @@
-<!--- save the custom fields as listed on the screen --->
 
 <cfquery name="Rules" 
 	 datasource="AppsOrganization"

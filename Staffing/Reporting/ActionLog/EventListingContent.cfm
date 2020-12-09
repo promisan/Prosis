@@ -173,7 +173,10 @@ password="#SESSION.dbpw#">
 					   
 					   
 					  (CASE WHEN DocumentNo != '0' THEN Pe.DocumentNo ELSE '' END) as DocumentNo,
+					  
+					  <!---					  
 					  (CASE WHEN T.EntityCode = 'PersonContract' THEN Pe.ContractNo ELSE '' END) as ContractNo,
+					  --->
 					  
 					  Pe.DateEvent, 
 					  Pe.DateEventDue, 
@@ -419,7 +422,8 @@ password="#SESSION.dbpw#">
 						rowlevel      = "2",
 						Colspan       = "5",																																													
 						search        = "text"}>				
-						
+	
+	<!---					
 	<cfset itm = itm+1>	
 	<cf_tl id="PAS" var = "1">		
 	<cfset fields[itm] = {label       = "#lt_text#",                    
@@ -430,7 +434,9 @@ password="#SESSION.dbpw#">
 						Colspan       = "1",
 						width         = "35",																																							
 						search        = "text",
-						filtermode    = "2"}>								
+						filtermode    = "2"}>		
+						
+						--->						
 											
 						
 	<cfset itm = itm+1>	

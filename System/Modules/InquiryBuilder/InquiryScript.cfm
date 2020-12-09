@@ -50,13 +50,14 @@
 	} 
 	
 	function copy(id) {		
-		ptoken.open("#SESSION.root#/system/modules/inquirybuilder/CopyInquiryQuery.cfm?id="+id,"copy","width=500,height=360,status=yes,resizable=no");						
+	    ProsisUI.createWindow('copy', 'Copy Listing', '',{x:100,y:100,height:460,width:500,modal:true,resizable:false,center:true})
+		ptoken.navigate('#SESSION.root#/system/modules/inquirybuilder/CopyInquiry.cfm?id='+id,'copy');						
 	}
 		
 	function editpreparation(id,ser) {	
 	    		
 		ProsisUI.createWindow('myscript', 'Query', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,resizable:false,center:true})    						
-		ColdFusion.navigate('#SESSION.root#/system/modules/inquirybuilder/PreparationEdit.cfm?ts='+new Date().getTime()+'&systemfunctionid='+id+'&functionserialno='+ser,'myscript') 
+		ptoken.navigate('#SESSION.root#/system/modules/inquirybuilder/PreparationEdit.cfm?ts='+new Date().getTime()+'&systemfunctionid='+id+'&functionserialno='+ser,'myscript') 
 //		window.showxxxModalDialog("#SESSION.root#/system/modules/inquirybuilder/PreparationEdit.cfm?ts="+new Date().getTime()+"&systemfunctionid="+id+"&functionserialno="+ser, window, "unadorned:yes; edge:raised; status:yes; dialogHeight:770px; dialogWidth:970px; help:no; scroll:no; center:yes; resizable:yes");		
 	}	
 		

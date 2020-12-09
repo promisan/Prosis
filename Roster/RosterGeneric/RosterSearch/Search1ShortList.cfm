@@ -36,7 +36,6 @@
 	
 </cfif>
 
-
 <cfparam name="url.wParam"      default="">
 <cfparam name="url.functionno"  default="">
 	
@@ -102,7 +101,8 @@
 		<cfset url.wparam = "FULL">
 		<cfset url.owner  = Own>
 		<cfset url.mode   = "Vacancy">	
-						
+		
+								
 		<cfinclude template="InitView.cfm">
 	
 <cfelseif url.mode eq "ssa">	

@@ -32,10 +32,11 @@
  username="#SESSION.login#" 
  password="#SESSION.dbpw#">
    SELECT *
-   FROM OrganizationObject O, Ref_Entity R		
-   WHERE ObjectId = '#Action.ObjectId#' 
-   AND O.EntityCode = R.EntityCode
-   AND O.Operational  = 1
+   FROM   OrganizationObject O
+          INNER JOIN Ref_Entity R      ON O.EntityCode = R.EntityCode
+		  INNER JOIN Ref_EntityClass C ON O.EntityCode = C.EntityCode and O.EntityClass = C.EntityClass		
+   WHERE  ObjectId = '#Action.ObjectId#'    
+   AND    O.Operational  = 1
 </cfquery>
 
 <cfswitch expression="#Object.EntityCode#">

@@ -904,23 +904,22 @@
 								datasource="AppsOrganization"
 								username="#SESSION.login#"
 								password="#SESSION.dbpw#">
-							SELECT *
-							FROM   Organization O
-							WHERE  O.Mission     = '#Mission#'
-						AND    O.MandateNo   = '#MandateNo#'
-								
-								<!--- removed for FMS as it was hiding too much for buyer
-								<cfif Vendor.recordcount gt "0">
-								AND    O.OrgUnit IN (SELECT Pe.OrgUnit
-								                     FROM   Program.dbo.ProgramPeriod Pe
-								                     WHERE  Pe.OrgUnit = O.OrgUnit)
+								SELECT *
+								FROM   Organization O
+								WHERE  O.Mission     = '#Mission#'
+								AND    O.MandateNo   = '#MandateNo#'
+									
+									<!--- removed for FMS as it was hiding too much for buyer
+									<cfif Vendor.recordcount gt "0">
+									AND    O.OrgUnit IN (SELECT Pe.OrgUnit
+									                     FROM   Program.dbo.ProgramPeriod Pe
+									                     WHERE  Pe.OrgUnit = O.OrgUnit)
+									</cfif>
+									--->
+	
+								<cfif selectiondate neq "">
+									AND DateEffective <= #sdte# AND DateExpiration >= #sdte#
 								</cfif>
-								--->
-
-							<cfif selectiondate neq "">
-								AND DateEffective <= #sdte# AND DateExpiration >= #sdte#
-							</cfif>
-
 						</cfquery>
 
 					<cfelse>
@@ -1002,16 +1001,14 @@
 								maxrows=1
 								username="#SESSION.login#"
 								password="#SESSION.dbpw#">
-							SELECT OrgUnit, ParentOrgUnit
-							FROM   Organization
-							WHERE  OrgUnitCode = '#Parent#'
-						AND    Mission     = '#Miss#'
-						AND    MandateNo   = '#Mand#'
-
-							<cfif selectiondate neq "">
-								AND DateEffective <= #sdte# AND DateExpiration >= #sdte#
-							</cfif>
-
+								SELECT OrgUnit, ParentOrgUnit
+								FROM   Organization
+								WHERE  OrgUnitCode = '#Parent#'
+								AND    Mission     = '#Miss#'
+								AND    MandateNo   = '#Mand#'	
+								<cfif selectiondate neq "">
+								AND    DateEffective <= #sdte# AND DateExpiration >= #sdte#
+								</cfif>								
 						</cfquery>
 
 						<cfif LevelUp.recordcount eq "1">

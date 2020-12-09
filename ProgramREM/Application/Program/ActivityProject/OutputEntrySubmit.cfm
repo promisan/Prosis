@@ -149,7 +149,7 @@
 
 <cfoutput>
 	<script>
-	    ColdFusion.Window.hide('outputdialog')
+	    ProsisUI.closeWindow('outputdialog')
 		ptoken.navigate('OutputEntry.cfm?completed=0&programaccess=#url.programaccess#&id=#URL.ID#','outputbox')
 	</script>
 </cfoutput>

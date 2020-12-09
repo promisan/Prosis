@@ -50,7 +50,18 @@
    MainMenuItem      = "0"
    FunctionMemo      = "Inquiry Checks issued"
    FunctionDirectory = "GLedger/Inquiry/"
-   FunctionPath      = "Checks/CheckIssued.cfm">    
+   FunctionPath      = "Checks/CheckIssued.cfm"> 
+   
+<cf_ModuleInsertSubmit
+   SystemModule      = "Accounting" 
+   FunctionClass     = "Inquiry"
+   FunctionName      = "Pending Sale Declaration" 
+   MenuClass         = "Journal"
+   MenuOrder         = "2"
+   MainMenuItem      = "0"
+   FunctionMemo      = "Sales not declared"
+   FunctionDirectory = "GLedger/Inquiry/"
+   FunctionPath      = "Invoice/InvoiceNotDeclared.cfm">          
     
  <cf_ModuleInsertSubmit
    SystemModule      = "Accounting" 

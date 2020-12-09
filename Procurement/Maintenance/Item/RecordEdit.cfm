@@ -1,6 +1,6 @@
 
 <cf_textareascript>		  
-<cfajaximport tags="cfwindow,cfdiv,cfform,cfinput-datefield">
+<cfajaximport tags="cfwindow,cfdiv,cfform">
 <cf_menuscript>
 <cf_dialogmaterial>
 <cf_listingscript>
@@ -48,12 +48,12 @@ password="#SESSION.dbpw#">
 	}
 	
 	function saveUoMEach(item,control) {
-		ColdFusion.navigate('Items/UoMEachSubmit.cfm?item='+item+'&value='+control.value,'processUomEach');
+		ptoken.navigate('Items/UoMEachSubmit.cfm?item='+item+'&value='+control.value,'processUomEach');
 		setTimeout("document.getElementById('processUomEach').innerHTML='';",2000);
 	}
 
 	function saveripple(code) {
-		ColdFusion.navigate('Budgeting/RippleSubmit.cfm?id='+code+'&id1='+document.getElementById("TopicValueCode").value+'&id2='+document.getElementById("Mission").value+'&id3='+document.getElementById("RippleItemMaster").value+'&id4='+document.getElementById("RippleObjectCode").value+'&id5='+document.getElementById("BudgetMode").value+'&id6='+document.getElementById("BudgetAmount").value,'result');
+		ptoken.navigate('Budgeting/RippleSubmit.cfm?id='+code+'&id1='+document.getElementById("TopicValueCode").value+'&id2='+document.getElementById("Mission").value+'&id3='+document.getElementById("RippleItemMaster").value+'&id4='+document.getElementById("RippleObjectCode").value+'&id5='+document.getElementById("BudgetMode").value+'&id6='+document.getElementById("BudgetAmount").value,'result');
 	}
 	
 	function updateripple(code, id1,id2,id3,id4) {
@@ -61,24 +61,24 @@ password="#SESSION.dbpw#">
 			op = 1;
 		else
 			op = 0;			
-		ColdFusion.navigate('Budgeting/RippleUpdateSubmit.cfm?id='+code+'&id1='+document.getElementById("TopicValueCode").value+'&id2='+document.getElementById("Mission").value+'&id3='+document.getElementById("RippleItemMaster").value+'&id4='+document.getElementById("RippleObjectCode").value+'&id5='+document.getElementById("BudgetMode").value+'&id6='+document.getElementById("BudgetAmount").value+'&id7='+op+'&id11='+id1+'&id22='+id2+'&id33='+id3+'&id44='+id4,'result');
+		ptoken.navigate('Budgeting/RippleUpdateSubmit.cfm?id='+code+'&id1='+document.getElementById("TopicValueCode").value+'&id2='+document.getElementById("Mission").value+'&id3='+document.getElementById("RippleItemMaster").value+'&id4='+document.getElementById("RippleObjectCode").value+'&id5='+document.getElementById("BudgetMode").value+'&id6='+document.getElementById("BudgetAmount").value+'&id7='+op+'&id11='+id1+'&id22='+id2+'&id33='+id3+'&id44='+id4,'result');
 	}	
 	
 	function do_delete(id,id1,id2,id3,id4) {
 		if (confirm("Do you want to remove this record ?")) {
 			_cf_loadingtexthtml='';	
-			ColdFusion.navigate('Budgeting/RippleDelete.cfm?id='+id+'&id1='+id1+'&id2='+id2+'&id3='+id3+'&id4='+id4,'result');		
+			ptoken.navigate('Budgeting/RippleDelete.cfm?id='+id+'&id1='+id1+'&id2='+id2+'&id3='+id3+'&id4='+id4,'result');		
 		}		
 	}	
 	
 	function do_edit(id,id1,id2,id3,id4) {
 	    _cf_loadingtexthtml='';	
-		ColdFusion.navigate('Budgeting/RecordRipple.cfm?mode=edit&code='+id+'&id1='+id1+'&id2='+id2+'&id3='+id3+'&id4='+id4,'ripple');		
+		ptoken.navigate('Budgeting/RecordRipple.cfm?mode=edit&code='+id+'&id1='+id1+'&id2='+id2+'&id3='+id3+'&id4='+id4,'ripple');		
 	}	
 
 	function define_costelements(id) {
 	    _cf_loadingtexthtml='';	
-		ColdFusion.navigate('Budgeting/CostElements.cfm?id'+id,'costelements');				
+		ptoken.navigate('Budgeting/CostElements.cfm?id'+id,'costelements');				
 	}	
 	
 	function define_cost_details(id) {
@@ -123,12 +123,11 @@ password="#SESSION.dbpw#">
 				found = 1;
 
 		if (found) {
-			ColdFusion.Window.show('wCostElement');
-			ColdFusion.navigate('Budgeting/CostElementForm.cfm?id='+id,'wCostElement','','','POST','fMission');
+		    ProsisUI.createWindow('wCostElement', 'New Cost Element', '',{x:100,y:100,height:750,width:1000,modal:true,center:true}) 		  
+			ptoken.navigate('Budgeting/CostElementForm.cfm?id='+id,'wCostElement','','','POST','fMission');
 		} else {
 			alert('Please define one or more entities');	
 			}
-
 	}
 	
 	function submit_costelement() {
@@ -139,19 +138,19 @@ password="#SESSION.dbpw#">
 			if (checkboxes[i].checked)
 				found = 1;
 		if (found)
-			ColdFusion.navigate('Budgeting/CostElementSubmit.cfm','result','','','POST','fCostElement');
+			ptoken.navigate('Budgeting/CostElementSubmit.cfm','result','','','POST','fCostElement');
 		else	
 			alert('Please define one or more item list');			
 	}	
 	
 	function delete_cost_element(id1, id2, id3, id4, id5, id6, id7) {
 		if (confirm("Do you want to remove this record ?")) {
-			ColdFusion.navigate('Budgeting/CostElementDelete.cfm?id1='+id1+'&id2='+id2+'&id3='+id3+'&id4='+id4+'&id5='+id5+'&id6='+id6,'result');		
+			ptoken.navigate('Budgeting/CostElementDelete.cfm?id1='+id1+'&id2='+id2+'&id3='+id3+'&id4='+id4+'&id5='+id5+'&id6='+id6,'result');		
 		}		
 	}
 	
 	function submitInstruction(i,c) {
-		ColdFusion.navigate('Budgeting/submitInstructions.cfm?itemmaster='+i+'&code='+c,'process_'+c,null,'','POST','formBudgetingObject_'+c);
+		ptoken.navigate('Budgeting/submitInstructions.cfm?itemmaster='+i+'&code='+c,'process_'+c,null,'','POST','formBudgetingObject_'+c);
 	}
 	
 	function toggleInstructions(code) {
@@ -162,25 +161,12 @@ password="#SESSION.dbpw#">
 
 </cfoutput>
 
-<cfwindow center="true"
-	modal="true"
-	width="1000" 
-	height="750"
-	name="wCostElement" 
-	title="New Cost Element"
-	initshow="false" 
-	draggable="true" 
-	resizable="true"
-	closable="true"/>
 
 <cf_divscroll>
 
-<table width="95%"
-       border="0"
+<table width="95%"      
 	   height="100%"
-	   align="center"
-	   cellspacing="0"
-       cellpadding="0">
+	   align="center">
 	   
 	<!--- <tr><td height="25" style="font-size:15px;"><font face="Calibri" size="3"><cfoutput>#get.description#</cfoutput></td></tr> --->
 	
@@ -188,7 +174,7 @@ password="#SESSION.dbpw#">
 	<tr>
 		<td align="center" valign="top">
 		
-			<table width="100%" cellspacing="0" cellpadding="0" align="center">
+			<table width="100%" align="center">
 				<tr>
 				<cfset wd = "64">
 				<cfset ht = "64">
@@ -278,13 +264,13 @@ password="#SESSION.dbpw#">
 		
 		<td>
 	</tr>
-	<tr><td class="linedotted"></td></tr>
+	<tr><td class="line"></td></tr>
 	<tr><td height="3"></td></tr>
 	<tr>
 	<td height="100%" valign="top">
 	   <table width="100%" height="100%" cellspacing="0" cellpadding="0">
 		<cf_menucontainer item="1" class="regular">
-			 <cfdiv bind="url:RecordEditForm.cfm?mission=#url.mission#&id1=#url.id1#&idMenu=#url.idmenu#"> 
+			 <cf_securediv bind="url:RecordEditForm.cfm?mission=#url.mission#&id1=#url.id1#&idMenu=#url.idmenu#"> 
 	 	</cf_menucontainer>	
 	   </table>	
 	</td>

@@ -38,19 +38,19 @@
 				
 		<tr>
 		
-		<td width="25%" style="height:157px;min-width:230px;padding:3px">
+		<td width="25%" style="height:157px;min-width:230px">
 		    
 			<table width="99%" height="100%">
 								
-				<tr><td colspan="<cfoutput>#parent.recordcount+3#</cfoutput>" height="100%" width="100%" style="border-left:0px solid silver">		
+				<tr><td colspan="<cfoutput>#parent.recordcount+3#</cfoutput>" height="100%" width="100%">		
 				
 					<cf_divscroll style="width:100%" overflowy="scroll">		
-					<table width="98%" class="navigation_table">		
+					<table width="96%" class="navigation_table">		
 					    <cfset tot = 0>				
 						<cfoutput query="summary">		
-							<tr class="line navigation_row labelmedium" style="height:10px">
+							<tr class="navigation_row labelmedium">
 							    <td style="padding-left:4px;width:100%">#currentrow# #NationalityName# (#Nationality#)</td>																						
-								<td align="right" style="padding-right:2px;background-color:e1e1e1;min-width:33px;border-right:1px solid silver;border-left:1px solid silver;">#Total#</td>
+								<td align="right" style="padding-right:2px;background-color:e1e1e1;min-width:33px;">#Total#</td>
 							</tr>		
 							<cfif total neq "">
 								<cfset tot = tot + total>
@@ -63,7 +63,7 @@
 				</tr>
 				
 				<cfoutput>
-				<tr class="labelmedium"><td colspan="#parent.recordcount+3#" class="line" align="right" style="padding-right:25px"><cf_tl id="Total">:<b>&nbsp;#tot#</td></tr>
+				<tr class="labelmedium"><td colspan="#parent.recordcount+3#" style="padding-right:8px" align="right"><cf_tl id="Total">:<b>&nbsp;#tot#</td></tr>
 				</cfoutput>
 			
 			</table>
@@ -90,17 +90,17 @@
 			  	ORDER BY  Total DESC				
 			</cfquery>		
 		
-		    <td width="25%" colspan="1" class="labelmedium" align="center" style="height:157px;min-width:230px;padding:3px">
+		    <td width="25%" colspan="1" class="labelmedium" align="center" style="height:157px;min-width:230px">
 			
 				<table width="99%" height="100%">
 									
 					<tr><td colspan="<cfoutput>#parent.recordcount+3#</cfoutput>" height="100%" width="100%" style="border-left:0px solid silver">		
 					
 						<cf_divscroll style="width:100%" overflowy="scroll">		
-						<table width="98%" class="navigation_table">	
+						<table width="96%" class="navigation_table">	
 							<cfset tot = 0>							
 							<cfoutput query="summary">		
-								<tr class="line labelmedium navigation_row" style="height:10px">
+								<tr class="labelmedium navigation_row">
 								    <td style="padding-left:4px;width:100%">#currentrow# #NationalityName# (#Nationality#)</td>																								
 									<td align="right" style="padding-right:2px;background-color:e1e1e1;min-width:33px;border-right:1px solid silver;border-left:1px solid silver;">#Total#</td>
 								</tr>		
@@ -115,7 +115,7 @@
 					</tr>
 				
 					<cfoutput>
-					<tr class="labelmedium"><td colspan="#parent.recordcount+3#" class="line" align="right" style="padding-right:25px"><cf_tl id="Total">:<b>&nbsp;#tot#</td></tr>
+					<tr class="labelmedium"><td colspan="#parent.recordcount+3#" class="line" align="right" style="padding-right:8px"><cf_tl id="Total">:<b>&nbsp;#tot#</td></tr>
 					</cfoutput>
 							
 				</table>
@@ -123,7 +123,7 @@
 			</td>
 		</cfloop>
 								
-		<td align="center" style="width:25%;height:100%;padding:6px">
+		<td align="center" style="width:25%;height:100%;">
 		
 				 <cfquery name="Parent" dbtype="query">
 				  	SELECT    ContractLevelParent, ViewOrder,
@@ -144,16 +144,16 @@
 				 
 				     <cfoutput>				 
 					 
-						 <tr class="labelmedium line">
+						 <tr class="labelmedium">
 						 	<td style="width:50%;padding-left:3px;padding-right:4px"><cf_tl id="Category"></td>					
 							<td style="min-width:35;padding-right:3px" align="right"><cf_tl id="Nat"></td>						
 							<td style="min-width:35" align="right"><cf_tl id="Total"></td>	 
 						 </tr>
 						 
 						 <cfloop query="Parent">
-							 <tr class="labelmedium line navigation_row" style="height:10px">
+							 <tr class="labelmedium navigation_row">
 							 	<td style="padding-left:2px">#ContractLevelParent#</td>							
-								<td align="right" style="border:1px solid silver;padding-right:3px">						
+								<td align="right" style="padding-right:3px">						
 								  <cfquery name="nat" dbtype="query">
 								  	 SELECT  *
 								 	 FROM    NatContent

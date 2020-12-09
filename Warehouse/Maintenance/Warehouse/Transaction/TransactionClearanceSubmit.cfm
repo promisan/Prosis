@@ -22,6 +22,7 @@ password="#SESSION.dbpw#">
 	<cfloop query="types">
 	
 		<cfparam name="Form.EntityClass_#TransactionType#" default="">
+		<cfparam name="Form.Operational_#TransactionType#" default="0">
 		<cfset entcls = evaluate("Form.EntityClass_#TransactionType#")>
 	
 		<cfif isDefined('form.TransactionType_#TransactionType#')>
@@ -33,7 +34,8 @@ password="#SESSION.dbpw#">
 			    INSERT INTO WarehouseTransaction (
 							Warehouse,							
 							TransactionType,
-							ClearanceMode,						
+							ClearanceMode,		
+							PreparationMode,				
 							EntityClass,						
 							Operational,
 							OfficerUserId,
@@ -43,6 +45,7 @@ password="#SESSION.dbpw#">
 						'#url.warehouse#',						
 						'#Evaluate("Form.TransactionType_#TransactionType#")#',
 						'#Evaluate("Form.ClearanceMode_#TransactionType#")#',
+						'#Evaluate("Form.PreparationMode_#TransactionType#")#',
 						<cfif (evaluate("Form.ClearanceMode_#TransactionType#") eq "3" or evaluate("Form.ClearanceMode_#TransactionType#") eq "2") and entcls neq "">
 						'#entcls#',
 						<cfelse>						

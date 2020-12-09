@@ -4,145 +4,77 @@
 <cf_listingScriptNavigation>
 <cf_listingscript>
 
-
 <script>
 
-    function itmloc() {
-	  document.getElementById("filter").className = "hide";
-	  ColdFusion.navigate('Location/Location.cfm?mission=#url.mission#&itemno=#url.id#','detail')	
-	}
-	
-	 function itmvendor() {
-	 	document.getElementById("filter").className = "hide";
-		url = "Vendors/vendorListing.cfm?id=#URL.ID#&mission=#URL.Mission#";
-		ColdFusion.navigate(url,'detail');
-	}		
-	
-	 function itmedit(v,mid) {		  
-	   url = "ItemViewEdit.cfm?idmenu="+mid+"&ID=#URL.ID#&mode=embed";
-	   ColdFusion.navigate(url,'detail');  
+	 function itmedit(s,sid) {		  	    
+	    url = "ItemViewEdit.cfm?idmenu="+sid+"&ID=#URL.ID#&mode=embed";
+		document.getElementById('optionselect').value = ""		
+	    ptoken.navigate(url,'detail');  
 	 }
-	
-	 function itmprice() {
-	    document.getElementById("filter").className = "hide"	
-		url = "Pricing/Pricing.cfm?id=#URL.ID#&mission=#URL.Mission#"
-		ColdFusion.navigate(url,'detail')		 
+	 
+	 function itmuom(s,sid) {		  	    
+	    url = "../Item/UoM/ItemUoM.cfm?id=#url.id#&mode=embed&idmenu="+sid;		
+		document.getElementById('optionselect').value = ""
+	    ptoken.navigate(url,'detail');  
+	 }
+	 
+	 function applymenu() {	   
+	 	fun = document.getElementById('optionselect').value		
+		if (fun != "") {		 
+		   document.getElementById('opt_'+fun).click()		   
+		}  
+	 }
+	 
+	 <!--- mission senstive --->
+	 
+	 function itmloc(s,sid) {
+	    mis = document.getElementById('mission').value				
+	    document.getElementById("filter").className = "hide";
+		document.getElementById('optionselect').value = sid		
+		_cf_loadingtexthtml='';	
+	    ptoken.navigate('Location/Location.cfm?mission='+mis+'&itemno=#url.id#','detail')	
 	}
 	
-	 function itmaccount() {
-	 ColdFusion.navigate('Ledger/Ledger.cfm?mission=#url.mission#&itemno=#url.id#','detail')	 
+	 function itmvendor(s,sid) {	    
+	    mis = document.getElementById('mission').value		
+	 	document.getElementById("filter").className = "hide";
+		document.getElementById('optionselect').value = sid		
+		url = "Vendors/vendorListing.cfm?id=#URL.ID#&mission="+mis;
+		_cf_loadingtexthtml='';	
+		ptoken.navigate(url,'detail');
+	}		
+	 
+	 function recorduomedit(itm,uom) {	
+	    if (uom == '') {
+			wd = 1150
+		    ht = 680
+	 		ptoken.open("#session.root#/Warehouse/Maintenance/Item/UoM/ItemUoMEditTab.cfm?id="+itm+"&uom="+uom,itm, "left=20, top=20, width="+wd+", height="+ht+",menubar=no, toolbar=no, status=yes, scrollbars=no, resizable=yes");
+		} else {
+		ptoken.open("#session.root#/Warehouse/Maintenance/Item/UoM/ItemUoMEditTab.cfm?id="+itm+"&uom="+uom,itm);		
+		}
+	}
+	
+	 function itmprice(s,sid) {
+	    document.getElementById("filter").className = "hide"	
+		mis = document.getElementById('mission').value		
+		document.getElementById('optionselect').value = sid		
+		url = "Pricing/Pricing.cfm?id=#URL.ID#&mission="+mis
+		_cf_loadingtexthtml='';	
+		ptoken.navigate(url,'detail')		 
+	}
+	
+	 function itmaccount(s,sid) {
+	    ptoken.navigate('Ledger/Ledger.cfm?mission='+mis+'&itemno=#url.id#','detail')	 
 	}	
 	// warehouse item settings //
 	
-	function itmlevel() {
+	function itmlevel(s,sid) {
 	    document.getElementById("filter").className = "hide"	
-		url = "StockLevel/StockMinMax.cfm?id=#URL.ID#&mission=#URL.Mission#"
-		ColdFusion.navigate(url,'detail')	
-	}
-	
-	function itmlevelsubmit() {
-	   url = "StockLevel/StockMinMaxSubmit.cfm?id=#URL.ID#&mission=#URL.Mission#"	  
-	   ColdFusion.navigate(url,'detail','','','POST','inputform')
-	
-	}
-		
-	// item receipts : to be reworked for a listing
-			
-	function stockonorder(s) {
-		
-    document.getElementById("filter").className   = "regular"	
-	document.getElementById("optionselect").value = "itmonorder('r')"
-	uom  = document.getElementById("unitofmeasure").value
-	whs  = document.getElementById("warehouse").value	
-	str  = document.getElementById("datestart").value	
-	end  = document.getElementById("dateend").value	
-	
-	if (s == "") { 
-	
-		url = "#SESSION.root#/Procurement/Application/Requisition/RequisitionView/RequisitionViewView.cfm?ts="+new Date().getTime()+
-				"&height="+document.body.offsetHeight+
-	            "&id=WHS"+
-				"&mission=#URL.mission#"+
-				"&warehouse="+whs+
-				"&itemno=#URL.ID#"+
-				"&uom="+uom+
-				"&str="+str+
-				"&end="+end
-	} else {	
-	
-		pge  = document.getElementById("page").value
-		grp  = document.getElementById("sort").value	
-		
-		url = "#SESSION.root#/Procurement/Application/Requisition/RequisitionView/RequisitionViewView.cfm?"+
-				"&height="+document.body.offsetHeight+
-	            "&id=WHS"+
-				"&mission=#URL.mission#"+
-				"&warehouse="+whs+
-				"&itemno=#URL.ID#"+
-				"&uom="+uom+
-				"&str="+str+
-				"&end="+end+
-				"&page="+pge+
-				"&sort="+grp;
-	}		
-	
-	ColdFusion.navigate(url,'detail')		
-	}
-	
-	// show receipts in requisition detail 
-	
-	function more(box,req,act,mode) {
-		
-		document.getElementById("filter").className = "hide";					
-		icM  = document.getElementById(box+"Min")
-		icE  = document.getElementById(box+"Exp")
-		se   = document.getElementById(box);
-			 		 
-		if (act=="show") {	 
-	     	 icM.className = "regular";
-		     icE.className = "hide";
-			 se.className  = "regular";
-			 ColdFusion.navigate('#SESSION.root#/Procurement/Application/Receipt/ReceiptEntry/ReceiptDetail.cfm?box=i'+box+'&reqno='+req+'&mode='+mode,'i'+box)	    
-		 } else {	    
-	     	 icM.className = "hide";
-		     icE.className = "regular";
-	     	 se.className  = "hide"	 
-		 }
-		 		
-    }
-		
-	// stock level
-			
-	function stocklevel(s) {	
-	    document.getElementById("filter").className = "hide"; 
-		ColdFusion.navigate('#SESSION.root#/Warehouse/Maintenance/Item/Stock/ItemStock.cfm?mission=#url.mission#&mode=embed&id=#url.id#','detail')		
-	}
-				
-	// item receipts
-			
-	function itmreceipt(s) {	
-	    document.getElementById("filter").className = "hide"; 
-		ColdFusion.navigate('Receipt/ReceiptListing.cfm?mission=#url.mission#&itemno=#url.id#','detail')		
-	}
-	
-	// item transactions 
-	
-	function itmtransaction(s,sid) {	
-	    document.getElementById("filter").className = "hide";	
-		ColdFusion.navigate('Transaction/TransactionListing.cfm?mission=#url.mission#&systemfunctionid='+sid+'&itemno=#url.id#','detail')	 
-	}	
-	
-	// item workorder earmark 
-	
-	function itmworkorder(s,sid) {	
-	    document.getElementById("filter").className = "hide";	
-		ColdFusion.navigate('WorkOrder/WorkOrderListing.cfm?mission=#url.mission#&systemfunctionid='+sid+'&itemno=#url.id#','detail')	 
-	}	
-	
-	// item statistics for this mission 							
-	
-	function itmstatistic() {
-	  ColdFusion.navigate('Statistics/Statistics.cfm?mission=#url.mission#&itemno=#url.id#','detail')	 
+		mis = document.getElementById('mission').value	
+		document.getElementById('optionselect').value = sid
+		_cf_loadingtexthtml='';	
+		url = "StockLevel/StockMinMax.cfm?id=#URL.ID#&mission="+mis
+		ptoken.navigate(url,'detail')	
 	}
 	
 	//stock level, JQUERY needed
@@ -167,8 +99,126 @@
 			$('.twistie').attr('src', '#SESSION.root#/Images/arrow.gif');
 			$('##twistie').attr('src', '#SESSION.root#/Images/expand1.gif');
 		}
+	}		
+	
+	function itmlevelsubmit() {
+	   mis = document.getElementById('mission').value
+	   url = "StockLevel/StockMinMaxSubmit.cfm?id=#URL.ID#&mission="+mis	  
+	   ptoken.navigate(url,'detail','','','POST','inputform')
+	
 	}
 		
+	// item receipts : to be reworked for a listing
+			
+	function stockonorder(s,sid) {
+		
+	    document.getElementById("filter").className   = "regular"	
+		document.getElementById('optionselect').value = sid
+		
+		uom  = document.getElementById("unitofmeasure").value
+		whs  = document.getElementById("warehouse").value	
+		str  = document.getElementById("datestart").value	
+		end  = document.getElementById("dateend").value	
+		mis  = document.getElementById('mission').value
+					
+		if (s == "") { 
+		
+			url = "#SESSION.root#/Procurement/Application/Requisition/RequisitionView/RequisitionViewView.cfm?ts="+new Date().getTime()+
+					"&height="+document.body.offsetHeight+
+		            "&id=WHS"+
+					"&mission="+mis+
+					"&warehouse="+whs+
+					"&itemno=#URL.ID#"+
+					"&uom="+uom+
+					"&str="+str+
+					"&end="+end
+		} else {	
+		
+			pge  = document.getElementById("page").value
+			grp  = document.getElementById("sort").value	
+			
+			url = "#SESSION.root#/Procurement/Application/Requisition/RequisitionView/RequisitionViewView.cfm?"+
+					"&height="+document.body.offsetHeight+
+		            "&id=WHS"+
+					"&mission="+mis+
+					"&warehouse="+whs+
+					"&itemno=#URL.ID#"+
+					"&uom="+uom+
+					"&str="+str+
+					"&end="+end+
+					"&page="+pge+
+					"&sort="+grp;
+		}		
+		
+		ptoken.navigate(url,'detail')		
+	}
+	
+	// show receipts in requisition detail 
+	
+	function more(box,req,act,mode) {
+		
+		document.getElementById("filter").className = "hide";					
+		icM  = document.getElementById(box+"Min")
+		icE  = document.getElementById(box+"Exp")
+		se   = document.getElementById(box);
+			 		 
+		if (act=="show") {	 
+	     	 icM.className = "regular";
+		     icE.className = "hide";
+			 se.className  = "regular";
+			 ptoken.navigate('#SESSION.root#/Procurement/Application/Receipt/ReceiptEntry/ReceiptDetail.cfm?box=i'+box+'&reqno='+req+'&mode='+mode,'i'+box)	    
+		 } else {	    
+	     	 icM.className = "hide";
+		     icE.className = "regular";
+	     	 se.className  = "hide"	 
+		 }
+		 		
+    }
+		
+	// stock level
+			
+	function stocklevel(s,sid) {	
+	    document.getElementById("filter").className = "hide"; 
+		mis = document.getElementById('mission').value			
+		document.getElementById('optionselect').value = sid
+		ptoken.navigate('#SESSION.root#/Warehouse/Maintenance/Item/Stock/ItemStock.cfm?mission='+mis+'&mode=embed&id=#url.id#','detail')		
+	}
+				
+	// item receipts
+			
+	function itmreceipt(s,sid) {	
+	    document.getElementById("filter").className = "hide"; 		
+		mis = document.getElementById('mission').value		
+		document.getElementById('optionselect').value = sid
+		ptoken.navigate('Receipt/ReceiptListing.cfm?mission='+mis+'&itemno=#url.id#','detail')		
+	}
+	
+	// item transactions 
+	
+	function itmtransaction(s,sid) {	
+		// alert(sid)
+	    document.getElementById("filter").className = "hide";	
+		mis = document.getElementById('mission').value		
+		document.getElementById('optionselect').value = sid
+		ptoken.navigate('Transaction/TransactionListing.cfm?mission='+mis+'&systemfunctionid='+sid+'&itemno=#url.id#','detail')	 
+	}	
+	
+	// item workorder earmark 
+	
+	function itmworkorder(s,sid) {	
+	    document.getElementById("filter").className = "hide";	
+		mis = document.getElementById('mission').value	
+		document.getElementById('optionselect').value = sid
+		ptoken.navigate('WorkOrder/WorkOrderListing.cfm?mission='+mis+'&systemfunctionid='+sid+'&itemno=#url.id#','detail')	 
+	}	
+	
+	// item statistics for this mission 							
+	
+	function itmstatistic(s,sid) {
+	   mis = document.getElementById('mission').value	   
+	   document.getElementById('optionselect').value = sid
+	   ptoken.navigate('Statistics/Statistics.cfm?mission='+mis+'&itemno=#url.id#','detail')	 
+	}
 			
 </script>
 		

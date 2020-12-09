@@ -99,6 +99,6 @@
 <cfoutput>
 	<script>
 	    parent.parent.rolerefresh('#url.status#','#url.id#')
-		parent.parent.ColdFusion.Window.destroy('myrole',true)	
+		parent.parent.ProsisUI.closeWindow('myrole',true)	
 	</script>
 </cfoutput>

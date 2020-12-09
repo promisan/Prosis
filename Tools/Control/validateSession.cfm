@@ -103,9 +103,7 @@
 			  SESSION.root eq ""         or 					   		  
 			  CLIENT.browser eq ""       or 
 			  CLIENT.width eq ""         or 			  
-			  CLIENT.dateformatshow eq "">			
-			  
-					  
+			  CLIENT.dateformatshow eq "">		
 						  	
 			<!--- if the scope is not ajax it is just a matter of waiting for the ajax to pick it up --->
 			
@@ -113,14 +111,12 @@
 			
 				<cfset SESSION.isRelogon = "Yes">
 			
-				<script language="JavaScript">	
-					
+				<script language="JavaScript">						
 				    // we stop session validation						
 					// sessionvalidatestop()	
 					tmp_error = 1;			
 					// start checking on ultra level that will validate if the validation to be restarted again
-					sessioninitvalidatestart()
-					
+					sessioninitvalidatestart()					
 					try { document.getElementById("div_container_screen").style.overflow = 'hidden';
 						} catch(e){};		
 					try { document.getElementById("sessionvalid").style.display = 'block'
@@ -246,8 +242,7 @@
 				   try { sessioninitvalidatestop()  } catch(e) {}			 
 				</script>	
 						
-		</cfif>
-		
+		</cfif>		
 		
 	</cfif>	
 

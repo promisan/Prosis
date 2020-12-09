@@ -106,7 +106,9 @@
 		 	<tr class="line">
 		 		<cfoutput>
 					<td class="labelmedium" align="center"><cf_tl id="Progress until Stage" var="1">#ucase(lt_text)#</td>
+					<!---
 					<td class="labelmedium" align="center"><cf_tl id="Reached Stage" var="1">#ucase(lt_text)#</td>
+					--->
 				</cfoutput>
 			</tr>
 			
@@ -130,15 +132,15 @@
 						fontitalic="no" 
 						xaxistitle="" 				 
 						yaxistitle="" 
-						show3d="yes"	
+						show3d="no"	
 						rotated="no" 
 						sortxaxis="no" 				 
 						tipbgcolor="##000000" 
 						showmarkers="yes" 
 						markersize="5" 
 						backgroundcolor="##ffffff"	
-				       	chartheight="240" 
-					   	chartwidth="494"
+				       	chartheight="360" 
+					   	chartwidth="714"
 					   	url="javascript:ptoken.navigate('#session.root#/portal/topics/epas/EPASDetail.cfm?mission=#url.mission#&period=#url.period#&cstf=#url.cstf#&authorised=#url.authorised#&postclass=#url.postclass#&category=#url.category#&orgunit=#orgunit#&type=$ITEMLABEL$','EPASDetailContainer_#url.mission#');">	
 											
 						   <cfchartseries
@@ -164,70 +166,6 @@
 									
 		 		</td>
 				
-				 <cfquery name="getStage" dbtype="query">
-				  	SELECT  SUM(Contracts-Initiated)      AS Issued, 
-						  	SUM(Initiated-WithActivities) AS Initiated, 
-						  	SUM(WithActivities-Submit)    AS Workplan, 
-			                SUM(Submit-Cleared)           AS Submit, 
-						    SUM(Cleared-Midterm)          AS Cleared, 
-						    SUM(Midterm-Final)            AS Midterm, 
-						    SUM(Final-complete)          AS Final,
-							SUM(complete)                AS complete
-				 	FROM    GetBase		
-					WHERE   AssignmentOrgUnit is not NULL				
-				 </cfquery>	
-				
-				<td style="padding-top:10px;">
-								
-				<cfchart style = "#chartStyleFile#" 
-						format="png"				
-						scalefrom="0"
-						scaleto="#ht#" 
-						showxgridlines="yes" 
-						showygridlines="yes"
-						gridlines="6" 
-						showborder="no" 
-						fontsize="13" 
-						fontbold="no" 
-						font="calibri"
-						fontitalic="no" 
-						xaxistitle="" 				 
-						yaxistitle="PAR" 
-						rotated="no" 
-						sortxaxis="no" 
-						show3d="no"				 
-						tipbgcolor="##000000" 
-						showmarkers="yes" 
-						markersize="5" 
-						backgroundcolor="##ffffff"	
-				       	chartheight="240" 
-					   	chartwidth="300">
-						<!---
-						url="javascript:ptoken.navigate('#session.root#/portal/topics/epas/EPASDetail.cfm?mission=#url.mission#&period=#url.period#&cstf=#url.cstf#&authorised=#url.authorised#&postclass=#url.postclass#&category=#url.category#&orgunit=#orgunit#&type=$ITEMLABEL$','EPASDetailContainer_#url.mission#');">
-						--->
-												 						 
-						    <cfchartseries
-				             type="pie"
-				             datalabelstyle="pattern"
-				             markerstyle="rectangle"
-				             colorlist="##2574A9,##E8875D,##E8BC5D,##CCCA6A,##339AFA,##66AC6A,##999A9A,##FFFA9A,##996AFA">
-							 
-							 	<cfloop index="itm" list="#statuslist#">								
-								 
-								 <cfset val = evaluate("getStage.#itm#")>		
-								 <cfif val gt "0">											 
-								 <cfchartdata item="#itm#"  value="#val#">
-								 </cfif>
-														 
-							   </cfloop>	 
-								 						 
-						   </cfchartseries>	
-						   					  
-
-					</cfchart>	
-				
-				</td>
-				
 				
 		 	</tr>
 		 </table>		 
@@ -236,14 +174,86 @@
 		
 		<td width="50%" style="padding:5px;" valign="top">
 			<cfoutput>
-				<table width="100%">
+				<table width="100%" height="100%">
 					<tr class="line">
 						<td class="labelmedium" align="center"><cf_tl id="Summary" var="1">#ucase(lt_text)#</td>
 					</tr>
 					<tr>
-						<td align="center" valign="top">
+						<td valign="top">
 						    <cfinclude template="EPASUnit.cfm">
 						</td>
+					</tr>	
+					
+					<tr class="line">
+					<td class="labelmedium" align="center"><cf_tl id="Reached Stage" var="1">#ucase(lt_text)#</td>
+					</tr>
+					
+					<tr>
+						
+						 <cfquery name="getStage" dbtype="query">
+						  	SELECT  SUM(Contracts-Initiated)      AS Issued, 
+								  	SUM(Initiated-WithActivities) AS Initiated, 
+								  	SUM(WithActivities-Submit)    AS Workplan, 
+					                SUM(Submit-Cleared)           AS Submit, 
+								    SUM(Cleared-Midterm)          AS Cleared, 
+								    SUM(Midterm-Final)            AS Midterm, 
+								    SUM(Final-complete)          AS Final,
+									SUM(complete)                AS complete
+						 	FROM    GetBase		
+							WHERE   AssignmentOrgUnit is not NULL				
+						 </cfquery>	
+				
+							<td valign="bottom">
+											
+							<cfchart style = "#chartStyleFile#" 
+									format="png"				
+									scalefrom="0"
+									scaleto="#ht#" 
+									showxgridlines="yes" 
+									showygridlines="yes"
+									gridlines="6" 
+									showborder="no" 
+									fontsize="13" 
+									fontbold="no" 
+									font="calibri"
+									fontitalic="no" 
+									xaxistitle="" 				 
+									yaxistitle="PAR" 
+									rotated="no" 									
+									sortxaxis="no" 
+									show3d="no"				 
+									tipbgcolor="##000000" 
+									showmarkers="yes" 
+									markersize="5" 
+									backgroundcolor="##ffffff"	
+							       	chartheight="160" 
+								   	chartwidth="440">
+									<!---
+									url="javascript:ptoken.navigate('#session.root#/portal/topics/epas/EPASDetail.cfm?mission=#url.mission#&period=#url.period#&cstf=#url.cstf#&authorised=#url.authorised#&postclass=#url.postclass#&category=#url.category#&orgunit=#orgunit#&type=$ITEMLABEL$','EPASDetailContainer_#url.mission#');">
+									--->
+															 						 
+									    <cfchartseries
+							             type="bar"
+							             datalabelstyle="value"
+							             markerstyle="rectangle"
+							             colorlist="##2574A9,##E8875D,##E8BC5D,##CCCA6A,##339AFA,##66AC6A,##999A9A,##FFFA9A,##996AFA">
+										 
+										 	<cfloop index="itm" list="#statuslist#">								
+											 
+											 <cfset val = evaluate("getStage.#itm#")>		
+											 <cfif val gt "0">											 
+											 <cfchartdata item="#itm#"  value="#val#">
+											 </cfif>
+																	 
+										   </cfloop>	 
+											 						 
+									   </cfchartseries>	
+									   					  
+			
+								</cfchart>	
+							
+							</td>
+												
 					</tr>
 				</table>
 			</cfoutput>

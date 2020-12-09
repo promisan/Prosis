@@ -10,7 +10,6 @@
 
 </cfif>
 
-
 <cfif Len(Form.ScheduleMemo) gt 100>
 	<script>
 	 	alert("You entered a memo that exceeded the allowed size of 100 characters.");
@@ -243,11 +242,11 @@
 	
 <script language="JavaScript">
     <cfif url.id eq "">		  
-	   parent.window.close()
-	   parent.opener.history.go()
-	<cfelse>	   
-       parent.window.close()	 	
-	   parent.opener.history.go()
+	   parent.parent.ProsisUI.closeWindow('schedulebox')
+	   parent.parent.opener.history.go()
+	<cfelse>	   	
+       parent.parent.ProsisUI.closeWindow('schedulebox') 	
+	   parent.parent.opener.history.go()
 	</cfif>   
 </script>  
 	

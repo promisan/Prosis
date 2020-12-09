@@ -34,7 +34,7 @@ password="#SESSION.dbpw#">
 	    <cfset html = "No">
 	</cfif>
 	
-	<cf_screentop height="100%" html="#html#" label="#Report.FunctionName#" bannerheight="50" layout="webapp" banner="Gray" jquery="Yes">
+	<cf_screentop height="100%" html="#html#" label="#Report.FunctionName#" layout="webapp" banner="Gray" bannerforce="Yes" jquery="Yes">
 		
 	<cfif URL.Data eq "1">
 		
@@ -58,7 +58,7 @@ password="#SESSION.dbpw#">
 
 <cfelseif URL.Format eq "Excel">
 
-	<cf_screentop height="100%" html="No" bannerheight="50" label="#Report.FunctionName#" layout="webapp" banner="Gray" jquery="Yes">
+	<cf_screentop height="100%" html="No" label="#Report.FunctionName#" layout="webapp" banner="Gray" jquery="Yes">
 			
 	<cfif URL.Data eq "1">	
 	 

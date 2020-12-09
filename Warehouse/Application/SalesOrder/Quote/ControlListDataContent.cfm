@@ -215,7 +215,7 @@
 						field         = "Remarks",	
 						display       = "1",								
 						rowlevel      = "2",
-						Colspan       = "11",																																													
+						Colspan       = "9",																																													
 						search        = "text"}>																																
 							
 		

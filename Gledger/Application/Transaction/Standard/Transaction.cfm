@@ -1137,7 +1137,7 @@ function togglebox(val) {
 			
 			<tr><td style="height:5px"></td></tr>
 			
-			<tr><td colspan="9" align="center" valign="top" style="border-top:1px solid silver;max-height:200px;border-bottom:1px solid silver;">
+			<tr><td colspan="9" align="center" valign="top" style="border-top:1px solid silver;max-height:200px">
 				  				   
 					   <!--- ------------------------------------------ --->
 					   <!--- show the prepared transactions for posting --->
@@ -1162,15 +1162,19 @@ function togglebox(val) {
 			
 			<tr>
 			
-					<td style="padding-left:35px;padding-right:15px;min-width:140px;width:140px;max-width:140px;border-right:1px solid silver" valign="top">
+					<td style="padding-left:35px;padding-right:15px;min-width:140px;width:140px;max-width:140px" valign="top">
 					
-					<table align="center">					
-					    <cfinclude template="TransactionDetailMenu.cfm"> 					
+					<table align="center" style=";background-color:fafafa;border:1px solid silver;">	
+					   <tr><td style="padding:4px">
+					   <table>			
+					    <cfinclude template="TransactionDetailMenu.cfm">
+						</table>
+					   </td></tr>	 					
 					</table>
 					
 					</td>
 				
-				    <td valign="top" style="height:100%;width:100%;padding-left:10px;padding-right:15px">		
+				    <td valign="top" style="height:100%;width:100%;padding-left:4px;padding-right:4px">		
 					
 						<table style="height:100%;width:100%;" border="0" align="center">
 						

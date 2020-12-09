@@ -126,7 +126,7 @@
 						  <table width="100%" cellspacing="0" cellpadding="0" align="center" style="cursor:pointer;height:14px" 
 						   onClick="loadform('#seturl#','#FunctionTarget#',this,'#SystemFunctionId#');selected(this)" 
 						   onMouseOver="hlx(this,true,'#FunctionMemo#')" 
-						   onMouseOut="hlx(this,false,'')" id="opt" name="opt" class="regular1"> 	
+						   onMouseOut="hlx(this,false,'')" id="opt_#SystemFunctionId#" name="opt" class="regular1"> 	
 						  		 		   
 					  <cfelse>
 					  
@@ -149,7 +149,8 @@
 						  <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="height:14px;cursor:pointer;" 		  
 							  onClick="#ScriptName#('#ScriptVariable#','#SystemFunctionId#'); selected(this);" 				  
 							  onMouseOver="hlx(this,true)" 
-							  onMouseOut="hlx(this,false);" id="opt" name="opt" class="regular1"> 	  		  
+							  onMouseOut="hlx(this,false);" id="opt_#SystemFunctionId#" name="opt" class="regular1"> 	
+							  
 							 			     				
 					  </cfif>
 					  

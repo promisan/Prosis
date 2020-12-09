@@ -1901,9 +1901,28 @@
 					FROM  Ref_LeaveTypeMission
 					WHERE LeaveType = '#leavetype#'
 					AND   Mission   = '#Mission#'												
-				</cfquery>					
-													
-				<cfset balancestartdate = dateadd("M","#getPeriod.EntitlementDuration*-1#",now())>
+				</cfquery>			
+				
+				<cfquery name="getContract" 
+				      datasource="AppsEmployee" 		  
+					  username="#SESSION.login#" 
+					  password="#SESSION.dbpw#">
+					   SELECT    TOP 1 *
+					   FROM      PersonContract
+					   WHERE     PersonNo = '#PersonNo#'
+					   AND       Mission  = '#Mission#'
+					   AND       ActionStatus IN ('0','1')
+					   <cfif cutoffdate neq "">
+					   AND       DateExpiration < #cutoff#					   
+					   </cfif>					   
+					   ORDER BY  DateEffective DESC							   					   
+				</cfquery>		
+				
+				<cfif getContract.dateExpiration gt now()>														
+					<cfset balancestartdate = dateadd("M","#getPeriod.EntitlementDuration*-1#",now())>
+				<cfelse>
+				    <cfset balancestartdate = dateadd("M","#getPeriod.EntitlementDuration*-1#",getContract.dateExpiration)>
+				</cfif>	
 																
 				<!--- correct the balance start continuous start date for the current mission --->
 					
@@ -1920,23 +1939,7 @@
 					   <!--- the continuous period is later than the scoped date --->
 					   <cfset balancestartdate = EOD>								
 				</cfif> 										
-								  
-				<cfquery name="getContract" 
-				      datasource="AppsEmployee" 		  
-					  username="#SESSION.login#" 
-					  password="#SESSION.dbpw#">
-					   SELECT    TOP 1 *
-					   FROM      PersonContract
-					   WHERE     PersonNo = '#PersonNo#'
-					   AND       Mission  = '#Mission#'
-					   AND       ActionStatus IN ('0','1')
-					   <cfif cutoffdate neq "">
-					   AND       DateExpiration < #cutoff#					   
-					   </cfif>					   
-					   ORDER BY  DateEffective DESC		
-					   					   
-				</cfquery>	
-				
+											
 				<cfif getContract.dateExpiration gt now()>				
 					<cfset mth = dateDiff("M",balancestartdate,getContract.dateExpiration)>																	
 				<cfelse>
@@ -2054,18 +2057,12 @@
 			                             WHERE   LeaveType = T.LeaveType)
 			</cfquery>	
 				
-			<cfif getLeaveClass.recordcount gte "1">
-						
-				<cfset class = "LeaveType,#valueList(getLeaveClass.Code)#">		
-						
-			<cfelse>
-			
-				<cfset class = "LeaveType">
-			
+			<cfif getLeaveClass.recordcount gte "1">						
+				<cfset class = "LeaveType,#valueList(getLeaveClass.Code)#">								
+			<cfelse>			
+				<cfset class = "LeaveType">			
 			</cfif>	
-			
-			
-						
+					
 			<cfloop index="itm" list="#class#">						
 			
 				<cfset BAL = "0">
