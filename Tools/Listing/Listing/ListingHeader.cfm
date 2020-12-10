@@ -1,10 +1,12 @@
 <cfoutput>
 
+<cfset session.mytable = searchresult>			
+
 <cfset stl = "cursor:pointer;font-size:12px;height:30px">
 
-<tr style="height:32px" class="fixrow">
+<tr style="height:40px" class="fixrow">
 
-    <td style="min-width:30px"></td>	
+    <td style="min-width:30px">#last# - #counted#</td>	
     <td style="min-width:30px"></td>	
 		
 	<cfif attributes.selectmode neq "">
@@ -57,7 +59,7 @@
 				<cfset labelsize = len(current.label)*3>	
 				<cfset sizefield = len(current.label)*3>													
 																								
-				<cfloop query="searchresult" startrow="1" endrow="25">
+				<cfloop query="searchresult" startrow="1" endrow="20">
 				
 				    <cfif current.formatted eq "Rating">					
 						<cfset sizefield = "10">					
@@ -78,7 +80,7 @@
 						</cfif>
 						
 						<cfif sizefield gte "100">
-						      <cfset sizefield = "80">
+						      <cfset sizefield = "80">							  
 						</cfif>
 													
 					</cfif>				
@@ -125,9 +127,10 @@
 			
 			<cfif find("%",  current.width)>
 				<cfset dw = "#current.width#">
-			<cfelse>
+			<cfelse>			
 				<cfset dw = "#(wd[col]*100)/total#">
 				<cfset dw = "#round(dw)#%">
+				
 			</cfif>	
 						
 			<cfif current.formatted eq "class">
@@ -144,19 +147,14 @@
 												
 							<cfset item = evaluate("#current.field#")>					
 							
-							<cfif len(item)*2 gt size>							
+							<cfif len(item)*2 gt size>														
 							   <cfset size = len(item)*2>
 							</cfif>
 						
-						</cfloop>	
-											
-						<td style="width:#dw#;min-width:#size*10#;border-left:1px solid silver;padding-left:5px">								
-											
-												
-					<cfelse> 
-										
-						<td style="width:#dw#;min-width:#current.width*10#;border-left:1px solid silver;padding-left:5px">				
-																							
+						</cfloop>												
+						<td style="width:#dw#;min-width:#size#;border-left:1px solid silver;padding-left:5px">																															
+					<cfelse>										
+						<td style="width:#dw#;min-width:#current.width#;border-left:1px solid silver;padding-left:5px">																											
 					</cfif>	
 							
 			<cfelse>

@@ -66,7 +66,7 @@
 		} else {		   
 			se.className = "regular"		
 			if (type != "Warehouse") {						
-				  ptoken.navigate('#SESSION.root#/Procurement/Application/Requisition/Requisition/RequisitionEntryRegular.cfm?mode='+mode+'&option=itm&itemmaster='+mas+'&reqid='+id+'&mis='+mis+'&id=itm&access=view&des=&item=','det'+box)
+				  ptoken.navigate('#SESSION.root#/Procurement/Application/Requisition/Requisition/RequisitionEntryWarehouse.cfm?mode='+mode+'&option=mas&itemmaster='+mas+'&reqid='+id+'&mis='+mis+'&id=itm&access=view&des=&item=','det'+box)
 			    } else {
 			 	  ptoken.navigate('#SESSION.root#/Procurement/Application/Requisition/Requisition/RequisitionEntryWarehouse.cfm?mode='+mode+'&option=itm&itemmaster='+mas+'&reqid='+id+'&mis='+mis+'&id=itm&access=view&des=&item='+itm,'det'+box)
 			    }

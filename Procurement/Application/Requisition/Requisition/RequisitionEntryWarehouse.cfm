@@ -2,6 +2,7 @@
 <cfparam name="URL.mode"   default="">
 <cfparam name="URL.option" default="uom">
 <cfparam name="URL.access" default="#url.mode#">
+
 	
 <cfoutput>
 
@@ -23,13 +24,10 @@
 			<table cellspacing="0" cellpadding="0">
 			<tr><td class="labelmedium">
 			#Item.ItemNo# 
-
 			<cfif item.ItemNoExternal neq "">
 				 (#item.ItemNoExternal#)
-			</cfif>
-						
-			#Item.ItemDescription# / #url.des# 
-			
+			</cfif>						
+			#Item.ItemDescription# / #url.des# 			
 			</td></tr>
 			</table>
 			
@@ -122,8 +120,7 @@
 			
 			</tr>	
 			
-		</cfif>
-		
+		</cfif>		
 		
 		</table>
 					
@@ -154,7 +151,26 @@
 		
 	</cfcase>
 	
-	</cfswitch>
+	<cfcase value="mas">
+			
+		<cfif Access eq "View">
+		
+		    <cfquery name="get" 
+				datasource="AppsPurchase" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+				SELECT   *
+				FROM     RequisitionLine
+				WHERE    RequisitionNo = '#url.ReqId#'					
+			</cfquery>
+		
+			#get.RequestDescription#			
+				
+		</cfif>		
+		
+	</cfcase>
 	
+	</cfswitch>
+		
 </cfoutput>			
 

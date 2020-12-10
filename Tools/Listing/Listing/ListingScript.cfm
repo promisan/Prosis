@@ -218,6 +218,24 @@ function deleterow(t,row,dsn,table,field,value) {
 		   }
 }
 
+function isVisibleToTheUser(vElement) {
+
+	console.log('id',vElement.attr('id'))
+	console.log('id',vElement.offset())
+	let elementTop = vElement.offset().top;
+	let elementBottom = elementTop + vElement.outerHeight();
+	console.log('element top',elementTop);
+	console.log('element bottom',elementBottom);
+
+	let viewportTop = $("html,body").scrollTop();
+	let viewportBottom = viewportTop + $(window).height();
+
+	console.log('view top',viewportTop);
+	console.log('view bottom',viewportBottom);
+
+	return elementBottom > viewportTop && elementTop < viewportBottom;
+};
+
 function listnavigateRow(box)	{
 			
 	vrowno  = document.getElementById("rowno").value
@@ -267,8 +285,12 @@ function listnavigateRow(box)	{
 	if (keynum == 34) {	
 	         try { 		  
 		     if (document.getElementById('next')) {
-			 	 vTable = $('##'+box+'_table');				 
-				 if ($('.navigation_row:last', vTable).is(":visible")) {	
+			 	 vLast = $('##'+box+'_table tr:last');
+			 	 console.log(vLast.attr('id'));
+				 console.log(isVisibleToTheUser(vLast));
+
+
+				 if (isVisibleToTheUser(vLast)) {
 				     alert('b')			 
 					 pg = document.getElementById('page').value				 
 				     document.getElementById('page').value = pg++;				 			
@@ -348,25 +370,6 @@ function showtemplate(path,key) {
     window.open("#SESSION.root#/System/Modification/PostFile/TemplateDetail.cfm?path="+path+"&file="+key+"&ts="+new Date().getTime(), "dialog", "unadorned:yes; edge:raised; status:no; dialogHeight:#client.height-100#px; dialogWidth:#client.width-140#px; help:no; scroll:no; center:yes; resizable:yes");	
 }	
 
-	
-// function addlistingentry(template,arg) {
-   
-//	val = arg.split(";");		
-		
-//	if 	(val[2] == "true") {				
-   	
-//			 ret = window.showModalDialog("#SESSION.root#/"+template+"&mode=insert&ts="+new Date().getTime(),window,"unadorned:yes; edge:raised; status:no; dialogHeight:"+val[0]+"px; dialogWidth:"+val[1]+"px; help:no; scroll:no; center:"+val[3]+"; resizable:yes");									
-
-			 // feature to refresh a tree value upon return of the focus
-			 
-//			 try { document.getElementById("treerefresh").click(); } catch(e) {}				 
-//			 if (ret) {	applyfilter('1','','content') }		
-			 
-//		} else {			   
-// 		  ptoken.open("#SESSION.root#/"+template+"&mode=insert","Listing","left=20, top=20, width=" + val[1] + "px, height=" + val[0] + "px, status=yes, toolbar=no, scrollbars=yes, resizable=yes")						    
-//		}				
-// }
-
 
 function toggledrill(mode,box,template,key,arg,drillbox,str) {
 
@@ -433,7 +436,7 @@ function toggledrill(mode,box,template,key,arg,drillbox,str) {
 	
 	
 	if (mode == "drillbox") {
-	   ColdFusion.navigate('#SESSION.root#/'+template+'?drillid='+key+'&'+str,drillbox);		   
+	   ptoken.navigate('#SESSION.root#/'+template+'?drillid='+key+'&'+str,drillbox);		   
     }	  
 		  
 	if (mode == "workflow") {
@@ -447,7 +450,7 @@ function toggledrill(mode,box,template,key,arg,drillbox,str) {
 		   co.className = "regular"
 		   ex.className = "Hide"
 		    _cf_loadingtexthtml="<div><img src='#SESSION.root#/images/busy10.gif'/>";	
-		   ColdFusion.navigate('#SESSION.root#/tools/listing/listing/ListingDialog.cfm?ajaxid=c'+key+'&drillid='+key,'c'+key)
+		   ptoken.navigate('#SESSION.root#/tools/listing/listing/ListingDialog.cfm?ajaxid=c'+key+'&drillid='+key,'c'+key)
 		} else {  se.className = "hide"
 		          ex.className = "regular"
 		   	      co.className = "Hide"  } 	
@@ -470,7 +473,7 @@ function toggledrill(mode,box,template,key,arg,drillbox,str) {
 		} else {		
 		    parent.ProsisUI.createWindow('adddetail','Detail','',{x:50,y:50,height:700,width:val[1],modal:val[2],center:val[3]})  <!--- creates the drillbox --->  	
 		}							
-		parent.ColdFusion.navigate('#SESSION.root#/'+template+'?drillid='+key+str,'adddetail') 					
+		parent.ptoken.navigate('#SESSION.root#/'+template+'?drillid='+key+str,'adddetail') 					
 	  }
 	  
 	// Prosis ajax window, to be discontinued  
@@ -546,12 +549,12 @@ function toggledrill(mode,box,template,key,arg,drillbox,str) {
 	}
 	
 	function printListing(maxrows, pTarget) {
-		ColdFusion.navigate('#session.root#/tools/listing/listing/defineRowsToShow.cfm?maxRows='+maxrows, pTarget, function(){
+			ptoken.navigate('#session.root#/tools/listing/listing/defineRowsToShow.cfm?action=all&maxRows='+maxrows, pTarget, function(){
 			applyfilter('1','','content', function(){
 				Prosis.webPrint.print('##printTitle','.clsListingContent', true, function(){ 
 					$('##_divContentFields').attr('style','width:100%;'); $('##_divContentFields').parent('div').attr('style','width:100%;');
 				});
-				ColdFusion.navigate('#session.root#/tools/listing/listing/resetRowsToShow.cfm?maxRows='+maxrows, pTarget, function(){
+				ptoken.navigate('#session.root#/tools/listing/listing/defineRowsToShow.cfm?action=reset&maxRows='+maxrows, pTarget, function(){
 					applyfilter('1','','content');
 				});
 			});

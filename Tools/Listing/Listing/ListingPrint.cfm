@@ -41,7 +41,6 @@
 				imageheight  = "20px"
 				onclick	 	= "printListing('#attributes.printshowrows#', 'processPrint');">
 				
-				
 		</cfoutput>
 
 	</td>

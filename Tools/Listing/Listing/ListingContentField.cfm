@@ -74,6 +74,10 @@
 								   value="#evaluate(current.field)#" 
 								   class="regular" 
 								   onchange="processrow('#current.processtemplate#','#dkey#','#current.processstring#',this.value)">				 
+								   
+							 <cfelseif url.ajaxid eq "append">
+					 
+								 <!--- APPEND --->	   
 							
 							<cfelse>
 							
@@ -94,7 +98,11 @@
 								<input type="checkbox" id="#current.field#_#dkey#" checked onclick="processrow('#current.processtemplate#','#dkey#','#current.processstring#',this.checked)">												
 								<cfelse>					
 								<input type="checkbox" id="#current.field#_#dkey#" <cfif evaluate(current.field) neq "">checked</cfif> onclick="processrow('#current.processtemplate#','#dkey#','#current.processstring#',this.checked)">												
-								</cfif>										 
+								</cfif>		
+								
+							 <cfelseif url.ajaxid eq "append">
+					 
+								 <!--- APPEND --->									 
 							
 							<cfelse>
 							
@@ -158,6 +166,10 @@
 												<td class="cellcontent" style="#current.style#;padding-left:5px;padding-right:4px">#val#</td>
 												
 											</cfif>	
+											
+										 <cfelseif url.ajaxid eq "append">
+					 
+											 <!--- APPEND --->	
 																			
 										<cfelse>	
 										
@@ -258,8 +270,13 @@
 										
 					<cfif url.ajaxid eq "content">	
 					<td align="center" colspan="#colspan#" class="#attributes.classcell#">
-					    <table class="formpadding"><tr><td id="f#box#_#dkey#_#cnt#" width="8" height="10" style="border: 1px solid Gray; background-color:#color#;"></td></tr></table>
-					</td>					
+					    <table class="formpadding"><tr><td id="f#box#_#dkey#_#cnt#" style="height:13px;width:11px;border: 1px solid Gray; background-color:#color#;"></td></tr></table>
+					</td>	
+					
+					<cfelseif url.ajaxid eq "append">
+					 
+					 <!--- APPEND --->
+					 				
 					<cfelse>
 																								
 						<script>								
@@ -286,25 +303,28 @@
 		<td <cfif currentalign neq "left">align="#current.align#"</cfif> class="#attributes.classcell#" <cfif colspan neq "left">colspan="#colspan#"</cfif> style="color:#fontcolor#;#current.style#"					   
 		id="f#box#_#dkey#_#rowshow#_#cnt#" onclick="toggledrill('#drillmode#','box#dkey#','#drilltemplate#','#dkey#','#argument#','#drillbox#','#drillstring#')">#evaluate(current.formatted)#</td>					
 		
+					 <cfelseif url.ajaxid eq "append">
+					 
+					 <!--- APPEND --->
+		
 					 <cfelse>
 					 				
-							<script language="JavaScript">																	
-							se = document.getElementById('f#box#_#dkey#_#rowshow#_#cnt#')																		
-							if (se) { 
-							   try { 
-							   
-							    // _cf_loadingtexthtml='';														
+							<script language="JavaScript">		
+							
+							   try {					   																					
+								se = document.getElementById('f#box#_#dkey#_#rowshow#_#cnt#')																																			
+								if (se) { $('##'+'f#box#_#dkey#_#rowshow#_#cnt#').html('#inner#'); }						
+ 							    } catch(e) {}	
+															
+							</script> 	
+							
+							<!---   // _cf_loadingtexthtml='';														
 								// first we set the value in a formfield that is is listingshow
 								// document.getElementById('f#box#_fieldvalue').value = '#urlencodedformat(inner)#'												
 								// output that value in doing a post on that form
 								// ptoken.navigate('#session.root#/Tools/Listing/Listing/setValue.cfm?field=f#box#_fieldvalue','f#box#_#dkey#_#rowshow#_#cnt#','','','POST','mylistform')						 								
 							    // se.className = "#class#" indicate it is updated 
-								
-								$('##'+'f#box#_#dkey#_#rowshow#_#cnt#').html('#inner#');
-								
-								} catch(e) {}	
-							}											
-							</script> 	
+								--->
 																																			
 					 </cfif>
 																					
@@ -316,19 +336,16 @@
 					<cfif inner neq "" and current.functionscript neq "" and url.ajaxid eq "content"> <!--- somehow the inner would not work for a refresh --->
 						
 						 <cfparam name="current.functionfield" default="">
-						 <cfif current.functionfield neq "">
-							 							   
-								<cfset cellclick = "#current.functionscript#('#evaluate(current.functionfield)#','#url.systemfunctionid#','#current.functioncondition#')">												
-								
-						 <cfelse>
-							 							 	
-							    <cfset cellclick = "#current.functionscript#('#evaluate(current.field)#','#url.systemfunctionid#','#current.functioncondition#')">
-															
+						 <cfset cellstyle = "text-decoration: underline;font-color:blue">
+						 <cfif current.functionfield neq "">							 							   
+								<cfset cellclick = "#current.functionscript#('#evaluate(current.functionfield)#','#url.systemfunctionid#','#current.functioncondition#')">																				
+						 <cfelse>							 							 	
+							    <cfset cellclick = "#current.functionscript#('#evaluate(current.field)#','#url.systemfunctionid#','#current.functioncondition#')">															
 						 </cfif>	 
 							  
 					<cfelseif inner neq "" and current.drilltemplate neq "">
 											 				 
-						 	  <cfset cellstyle = "text-decoration: underline;">
+						 	  <cfset cellstyle = "text-decoration: underline;font-color:blue">
 							  <cfset cellclick = "toggledrill('embed','box#dkey#','#current.drilltemplate#','#evaluate(current.functionfield)#','','','')">	  
 						 						  
 					<cfelse>
@@ -353,36 +370,37 @@
 																												
 						<cfif colspan eq "1">		
 							<cfif current.align eq "left">				
-							<td id="f#box#_#dkey#_#rowshow#_#cnt#" class="#attributes.classcell#" style="#cellstyle#;#current.style#"><cfif cellclick neq ""><span onClick="#cellclick#"><a>#inner#</a></span><cfelse>#inner#</cfif></td>										
+							<td id="f#box#_#dkey#_#rowshow#_#cnt#" class="#attributes.classcell#" style="#cellstyle#;#current.style#" <cfif len(cellclick) gte '2'>onClick="#cellclick#"</cfif>>#inner#</td>										
 							<cfelse>
-							<td id="f#box#_#dkey#_#rowshow#_#cnt#" class="#attributes.classcell#" style="#cellstyle#;#current.style#" align="#current.align#"><cfif cellclick neq ""><span onClick="#cellclick#"><a>#inner#</a></span><cfelse>#inner#</cfif></td>													
+							<td id="f#box#_#dkey#_#rowshow#_#cnt#" class="#attributes.classcell#" style="#cellstyle#;#current.style#" align="#current.align#" <cfif len(cellclick) gte '2'>onClick="#cellclick#"</cfif>>#inner#</td>													
 							</cfif>						
 						<cfelse>					
 							<td id="f#box#_#dkey#_#rowshow#_#cnt#" class="#attributes.classcell#" style="#cellstyle#;#current.style#" <cfif current.align neq "left">align="#current.align#"</cfif> colspan="#current.colspan#" onclick="#cellclick#"><cfif cellclick neq ""><a>#inner#</a><cfelse>#inner#</cfif></td>														
 						</cfif>		
+						
+					 <cfelseif url.ajaxid eq "append">
+					 
+					 <!--- APPEND --->
 							
 					<cfelse>	
 									
 						<!--- instead of showing we update the field in listingshow.cfm line 379 and then we display that info --->				   																		
-					    <script language="JavaScript">																		
+					   <script language="JavaScript">		
+							
+							   try {					   																					
+								se = document.getElementById('f#box#_#dkey#_#rowshow#_#cnt#')																																			
+								if (se) { $('##'+'f#box#_#dkey#_#rowshow#_#cnt#').html('#inner#'); }						
+ 							    } catch(e) {}	
+															
+							</script> 							
 						
-							se = document.getElementById('f#box#_#dkey#_#rowshow#_#cnt#')																																			
-							if (se) { 	
-																		
-							   try {								   						    																				
-								// first we set the value in a formfield that is is listingshow							
+						<!--- 
+						// first we set the value in a formfield that is is listingshow							
 								// document.getElementById('f#box#_fieldvalue').value = '#urlencodedformat(inner)#'																			
 								// output that value in doing a post on that form
 								// _cf_loadingtexthtml='';								
-								//ptoken.navigate('#session.root#/Tools/Listing/Listing/setValue.cfm?field=f#box#_fieldvalue','f#box#_#dkey#_#rowshow#_#cnt#','','','POST','mylistform')						 								
-							    // se.className = "#class#" 				
-								
-								 $('##'+'f#box#_#dkey#_#rowshow#_#cnt#').html('#inner#');
-								
-								} catch(e) {}	
-							}		
-																
-						</script> 									
+								// ptoken.navigate('#session.root#/Tools/Listing/Listing/setValue.cfm?field=f#box#_fieldvalue','f#box#_#dkey#_#rowshow#_#cnt#','','','POST','mylistform')						 								
+							    // se.className = "#class#" --->
 																						
 					</cfif>		
 										

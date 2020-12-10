@@ -612,7 +612,7 @@ TD.listingcell {
 	padding-right:4px;
 	height:26px;
 	font-size:13px;
-	border-left:solid d3d3d3 1px;
+	border-left:solid #dddddd 1px;
 	cursor:pointer;
 }
 
@@ -816,9 +816,23 @@ TR.fixrow2 td {
 	z-index:9999;
 }
 
+TR.fixrow240 td {
+    position: sticky; 
+    top: 40px;
+	background: #fafafa;
+	z-index:9999;
+}
+
 TR.fixrow3 td {
     position: sticky; 
     top: 48px;
+	background: #fafafa;
+	z-index:9999;
+}
+
+TR.fixrow340 td {
+    position: sticky; 
+    top: 80px;
 	background: #fafafa;
 	z-index:9999;
 }

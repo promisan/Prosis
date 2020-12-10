@@ -13,7 +13,7 @@
 	
 		function UserEdit(account,script) {		
 			  ProsisUI.createWindow('mydialog', 'User', '',{x:100,y:100,height:document.body.clientHeight-120,width:document.body.clientWidth-120,modal:true,center:true})    			 				
-			  ColdFusion.navigate('#SESSION.root#/System/Access/User/UserView.cfm?ID=' + account+'&script='+script,'mydialog') 				
+			  ptoken.navigate('#SESSION.root#/System/Access/User/UserView.cfm?ID=' + account+'&script='+script,'mydialog') 				
 		}		
 	
 	</script>
@@ -56,19 +56,18 @@ password="#SESSION.dbpw#">
         background-color: #033F5D!important;
     }
 </style>
-<table width="95%" align="center" border="0" cellspacing="0">
-<tr height="5"></tr>
-  <tr class="labelmedium line">
+<table width="95%" align="center" border="0" cellspacing="0" style="min-width:1000px">
+  <tr class="labemedium2 line">
     <cfoutput>	
-    <td align="left" valign="middle" style="height:58;padding-top: 10px;">
+    <td align="left" valign="middle" style="height:58px;padding-top:6px;">
 	
         <table>
-		<tr><td valign="top">		
+		<tr><td valign="top" style="padding-right:5px">		
 		
 		<cfif user.accounttype eq "Group">
-			<img style="position: relative;top:6px;left:2px;" src="#SESSION.root#/Images/User-Group.png" height="64" width="64" alt="" border="0">
+			<img style="position: relative;left:2px;" src="#SESSION.root#/Images/User-Group.png" height="79" width="79" alt="" border="0">
 		<cfelse>
-			<img style="position: relative;top:6px;left:2px;" src="#SESSION.root#/Images/User.png" height="64" width="64" alt="" border="0">
+			<img style="position: relative;top:6px;left:2px;" src="#SESSION.root#/Images/User.png" height="56" width="56" alt="" border="0">
 		</cfif>
 		
 		</td>
@@ -117,7 +116,7 @@ password="#SESSION.dbpw#">
 		 
 		    <tr><td height="5"></td></tr>		 
 	
-	        <tr class="labelmedium" style="height:20px">	       
+	        <tr class="labemedium2" style="height:20px">	       
 			    <td width="20%" ><cf_tl id="Account">:</td>
 			    <td colspan="2" >#User.Account# [#User.Source#]</td>
 			    <td ><cf_tl id="Operational Entity">:</td>
@@ -131,7 +130,7 @@ password="#SESSION.dbpw#">
 		  
 		   <cfif User.AccountType eq "Individual">
 		  					
-		      <tr class="labelmedium" style="height:20px">
+		      <tr class="labemedium2" style="height:20px">
 	    	    <td><cf_tl id="Name">:</td>
 	        	<td colspan="2" >#FirstName# #LastName#</td>
 				
@@ -141,7 +140,7 @@ password="#SESSION.dbpw#">
 				
 			  </tr>
 			  
-		      <tr class="labelmedium" style="height:20px">
+		      <tr class="labemedium2" style="height:20px">
 		        <td><cf_tl id="IndexNo">:</td>
 				<td  colspan="2"><cfif IndexNo neq ""><A HREF ="javascript:EditPerson('#IndexNo#')"><font color="0080C0">#IndexNo#</a>
 				<cfelse><font color="FF0000">Not defined</font>
@@ -159,7 +158,7 @@ password="#SESSION.dbpw#">
 			  		  
 		   <cfelse>
 		  							
-		      <tr class="labelmedium" style="height:20px">
+		      <tr class="labemedium2" style="height:20px">
 	    	    <td><cf_tl id="Name">:</td>
 		        <td  colspan="2">#LastName#</td>
 				<td  colspan="2">
@@ -171,14 +170,14 @@ password="#SESSION.dbpw#">
 			 	  		  	  
 		   </cfif>	  
 		  				  
-		   <tr class="labelmedium" style="height:20px">
+		   <tr class="labemedium2" style="height:20px">
 	        <td><cf_tl id="Group">:</td>
 	        <td colspan="2" >#AccountGroup#</td>
 			<td ><cf_tl id="Account Owner">:</td>
 	        <td colspan="2" ><cfif AccountOwner neq "">#AccountOwner#<cfelse><font color="gray">Not defined</font></cfif></td>
 	       </tr>
 		  			  
-		   <tr class="labelmedium" style="height:20px">
+		   <tr class="labemedium2" style="height:20px">
 	        <td><cf_tl id="eMail">:</td>
 	       	<td colspan="2" ><cfif eMailAddress neq "">
 			    <a href="javascript:email('#eMailAddress#','','','','User','#Account#')"><font color="0080C0">#eMailAddress#
@@ -196,12 +195,12 @@ password="#SESSION.dbpw#">
 			 </td>			
 	      </tr>
 		  			  
-		  <tr class="labelmedium" style="height:20px">
+		  <tr class="labemedium2" style="height:20px">
 	        <td><cf_tl id="IP">:</td>
 	        <td colspan="2"><cfif NodeIP neq "">#NodeIP#<cfelse><font color="gray"><cf_tl id="Not determined"></font></cfif></td>
 	      </tr>
 		 
-		  <tr class="labelmedium" style="height:20px">
+		  <tr class="labemedium2" style="height:20px">
 	        <td><cf_tl id="Account Status">:</td>
 	        <td colspan="2" style="font-size:14px;cursor:pointer">
 						

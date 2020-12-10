@@ -6,7 +6,8 @@ if (window.jQuery) {
 	var paging = false;
 	
 	var navigationhover    = "#A8EFF2";
-	var navigationselected = "#F0F0F0";
+	//var navigationselected = "#F0F0F0";
+	var navigationselected = "#A8EFF2";
 	var previouscolor	   = "transparent";
 	var previousclicked    = "transparent";
 
@@ -330,6 +331,7 @@ if (window.jQuery) {
 	function clearFocus(t_focusedRow) {
 		if (currentSelected) {
 			currentSelected.css("backgroundColor",previousclicked);
+			currentSelected.css("background-color",previousclicked);
 			currentSelected.removeClass("focused");
 			currentSelected.find('td.navigation_pointer').html('&nbsp;&nbsp;&nbsp;&nbsp;');			
 		}
@@ -361,6 +363,7 @@ if (window.jQuery) {
 			{
 				t_focusedRow.css({background:navigationselected});
 				t_focusedRow.css("backgroundColor",navigationselected);
+				t_focusedRow.css("background-color",navigationselected);
 			}
 			
 			current = t_focusedRow.nextAll("tr:visible").first();			
@@ -425,7 +428,7 @@ if (window.jQuery) {
 			previouscolor = tRow.css("background-color");
 			if (!previouscolor)
 				previouscolor = 'transparent';
-		}		
+		}
 
 		var navigationhover_tmp = table.attr('navigationhover');
 		if (navigationhover_tmp)

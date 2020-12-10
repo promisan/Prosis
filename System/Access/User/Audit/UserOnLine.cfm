@@ -53,18 +53,18 @@
 </cfif>
 
 
-<table cellspacing="0" cellpadding="0" border="0" width="98%">
+<table width="98%">
 
 	<cfoutput>
 	
-	<tr class="line">
+	<tr class="line labelmedium2">
 	
-		<td class="labelmedium" style="font-weight:200;font-size:27px;height:45px;padding-left:5px">System interaction</td>
-		<td align="right" height="20" class="labelmedium" style="padding-left:4px;padding-right:5px">			
-			<a title="prior month" href="javascript:month('prior','01/#mt#/#url.year#')"><b><font size="2" color="0080FF"><<</font> </b></a>
-			<font size="2" color="0080FF">#monthasstring(url.month)# #url.year#
+		<td style="font-size:22px;height:35px;padding-left:5px">System interaction</td>
+		<td align="right" colspan="3" height="20" style="padding-left:4px;padding-right:5px">			
+			<a title="prior month" href="javascript:month('prior','01/#mt#/#url.year#')"><<</a>
+			#monthasstring(url.month)# #url.year#
 			<cfif dt+1 lt now()>
-				<a title="next month" href="javascript:month('next','#d#/#mt#/#url.year#')"><b><font size="2" color="0080FF">>></font></b></a>
+				<a title="next month" href="javascript:month('next','#d#/#mt#/#url.year#')">>></a></a>
 			</cfif>
 		</td>
 		
@@ -72,13 +72,19 @@
 	
 	</cfoutput>
 	
-	<tr class="line"><td align="center" colspan="2" style="padding:7px">
+	<tr class="line">
+	
+	<td align="center" valign="top" style="padding:7px">
+	
+		<table border="0">
+			<tr class="labelmedium2"><td align="center" style="max-height:30px;border-bottom:1px solid silver">Usage</td></tr>
+			<tr><td style="height:100%">	
 	
 			<cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
 			
 				<cfchart style = "#chartStyleFile#" format="png"
-		           chartheight="110"
-		           chartwidth="#client.width-330#"
+		           chartheight="300"
+		           chartwidth="320"
 		           scalefrom="0"		          
 				   font="Calibri"				   
 				   fontsize="11"
@@ -119,9 +125,13 @@
 		  </cfchart>
 	  
 	  </td>
-	 	 	  
-	</tr>
+	  
+	  </tr>
+	  </table>
+	  
+</td>
 	
+		
  <cfquery name="Total" 
 	datasource="appsSystem" 
 	username="#SESSION.login#" 
@@ -151,28 +161,28 @@
 <cfparam name="init" default="0">
 		
 <cfif visits.recordcount gte "1">
-				
-	<tr>  
-		    
-		<td align="center">	
+			    
+		<td align="center" valign="top">	
 		
 		<table border="0">
-		<tr><td align="center" style="font-weight:200;height:30px;border-bottom:1px solid silver" class="labellarge">Relative usage between modules</td></tr>
+		<tr class="labelmedium2"><td align="center" style="height:30px;border-bottom:1px solid silver">Relative usage between modules</td></tr>
 		<tr><td>	
 		   				
 			<cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
 			
 			<cfchart style="#chartStyleFile#" 
 				     format="png"
-			         chartheight="280"
+			         chartheight="350"
 			         chartwidth="460"
 			         scalefrom="0"	
-					 showborder="0"			  
+					 showborder="0"			
+					 fontsize="12"  
 					 title="Relative usage application areas"
 			         scaleto="10"
 			         seriesplacement="default"
 			         labelformat="percent"
-					 show3d="yes"   				       
+					 show3d="no"   				       
+					 showlegend="Yes"
 			         tipstyle="mouseOver"
 			         showmarkers="No">	
 		  
@@ -215,25 +225,27 @@
 				GROUP BY Mission
 		</cfquery>	
 		
-		<td align="center">		
+		<td align="center" valign="top">		
 		
 			<table border="0">
-			<tr><td align="center" style="font-weight:200;height:30px;border-bottom:1px solid silver" class="labellarge">Relative usage between entities/missions</td></tr>
+			<tr class="labelmedium2"><td align="center" style="height:30px;border-bottom:1px solid silver">Relative usage between entities/missions</td></tr>
 			<tr><td>	
 		   				
 			<cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
 			
 			<cfchart style="#chartStyleFile#" 
 				     format="png"
-			         chartheight="280"
+			         chartheight="350"
 			         chartwidth="460"
 			         scalefrom="0"	
 					 showborder="0"			  
 					 title="Relative usage application areas"
 			         scaleto="10"
+					 fontsize="12"					 
 			         seriesplacement="default"
 			         labelformat="percent"
-					 show3d="yes"   				       
+					 show3d="no"   				       
+					 showlegend="Yes"
 			         tipstyle="mouseOver"
 			         showmarkers="No">	
 		  
@@ -265,6 +277,7 @@
 </cfif>
 
 </table>
+
 
 <script>
 	Prosis.busy('no')

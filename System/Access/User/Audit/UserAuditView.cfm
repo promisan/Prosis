@@ -64,18 +64,18 @@
 			<tr><td height="28">#header#</td></tr>
 			<tr><td height="1" class="line"></td></tr>	
 			<tr><td height="100%">
-			    <cf_divscroll style="height:96%">
-				<table width="100%" height="100%" style="border:0px solid gray">	
+			    				
+				<table width="100%" height="100%">	
 				
-				 <cf_menucontainer item="1"> 					
-				 	<cfset init = "1">						
-			  		<cfinclude template="UserOnLine.cfm">	
+				 <cf_menucontainer item="1" class="regular"> 					 		
+				 	<cfset init = "1">		
+					<cfdiv bind="url:#SESSION.root#/System/Access/User/Audit/UserOnLine.cfm?id=#url.id#">							  		
 				 </cf_menucontainer>
 				 				 
 				 <cf_menucontainer item="2" class="hide" iframe="logbox">
 				
 				 </table>
-				 </cf_divscroll>
+				
 			 </td>
 			 </tr>
 		</table>

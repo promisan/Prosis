@@ -22,7 +22,7 @@
 	menuaccess    = "context" 
 	jquery        = "Yes">
 	
-<cfajaximport tags="cfdiv,cfchart,cfform,cfwindow">
+<cfajaximport tags="cfdiv,cfchart,cfform">
 
 <script>
 
@@ -81,8 +81,7 @@
 								    					
 						<cfif url.content eq "Audit">	
 						
-							<cf_divscroll id="contentbox" style="height:99%;width:100%">		
-								
+							<cf_divscroll id="contentbox" style="height:99%;width:100%">									
 							<!--- from screen that tracks usage of the system --->
 							<cfinclude template="Audit/UserAuditView.cfm">				
 							</cf_divscroll>

@@ -77,6 +77,7 @@ password="#SESSION.dbpw#">
 		AND      C.Code           = S.ComponentName
 		AND      T.EnableContract = 0
 		ORDER BY C.SalaryTrigger, S.ListingOrder
+		
 </cfquery>
 
 <!--- only show schedules that are relevant for this person ---> 

@@ -39,19 +39,17 @@
 						
 				<td colspan="8" align="left">
 				
-				    <table cellspacing="0" cellpadding="0">
+				    <table>
 					
 					<tr class="labelmedium">
 						<td style="min-width:150px;height:40px">								
-						<a title="view requisition" href="javascript:RequisitionView('#URL.Mission#','#URL.Period#','#Reference#')">
-						
+						<a title="view requisition" href="javascript:RequisitionView('#URL.Mission#','#URL.Period#','#Reference#')">						
 						<cfsilent>
 							<cfloop index="itm" list="#Reference#" delimiters="-">#itm#</cfloop>
-						</cfsilent>
-											
+						</cfsilent>											
 						<cfset ref = replaceNoCase(reference,itm,"<font size='5'>#itm#</font>")> 						
-						#ref#</a>
-												
+						#ref#
+						</a>												
 						</td>
 						
 						<cfif URL.ID neq "WHS">
@@ -188,10 +186,8 @@
 					   
 				</cfif>	   
 							
-				<cfif pt eq "0">		  
-				
-					<cf_img icon="edit" navigation="Yes" onClick="ProcReqEdit('#RequisitionNo#','dialog')">
-					 
+				<cfif pt eq "0">			
+					<cf_img icon="edit" navigation="Yes" onClick="ProcReqEdit('#RequisitionNo#','dialog')">					 
 			  	</cfif>
 			
 			</td>				
@@ -201,6 +197,7 @@
 					
 			</tr>
 			</table>
+			
 	  		
 		</td>
 		
@@ -235,7 +232,7 @@
 					<td style="cursor:pointer" onclick="showreqdetail('#requisitionno#_detail','#requisitionno#','#mission#','#itemmaster#','#requesttype#','#warehouseitemno#','listing')"><u>#des#</font></td>
 				</cfif>					
 							
-			<cfelse>				
+			<cfelse>							
 				<td style="cursor:pointer" onclick="showreqdetail('#requisitionno#_detail','#requisitionno#','#mission#','#itemmaster#','#requesttype#','#warehouseitemno#','listing')"><u>#des#</td>		
 			</cfif>
 			
@@ -263,7 +260,7 @@
 			</table>
 		</td>
 		
-		<td>#DateFormat(RequestDate, CLIENT.DateFormatShow)#&nbsp;</td>
+		<td style="padding-right:10px">#DateFormat(RequestDate, CLIENT.DateFormatShow)#</td>
 		<td>
 		
 		<cfif URL.ID eq "STA" and URL.ID1 eq "2k">
@@ -308,7 +305,7 @@
 								
 									<table cellspacing="0" cellpadding="0">
 									<tr><td>
-										<cf_img icon="delete" onclick="ColdFusion.navigate('setBuyerRevert.cfm?id=#requisitionno#&actoruserid=#actoruserid#','buyer#requisitionno#_#currentrow#')" tooltip="Reset buyer assignment"> 	
+										<cf_img icon="delete" onclick="ptoken.navigate('setBuyerRevert.cfm?id=#requisitionno#&actoruserid=#actoruserid#','buyer#requisitionno#_#currentrow#')" tooltip="Reset buyer assignment"> 	
 										</td>
 										<td class="labelmedium" style="padding-left:3px"><cfif ActorLastName neq "">#ActorLastName#<cfelse>#LastName#</cfif></td>
 									 </tr>

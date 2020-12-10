@@ -113,7 +113,7 @@ span {
 <cfset vTop = 55>
 <cfset vHeight = 30>
 <cfset vType   = 8>
-
+<!--- AN13 --->
 <cfset cont = 0>
 <cfloop index="i" from="1" to="#url.numberOfLabels#" step="1">
 			<cfset cont = cont + 1>
