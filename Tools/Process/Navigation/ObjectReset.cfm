@@ -66,10 +66,13 @@
 </cfquery>
 
 <cfoutput>
+
+	<cfparam name="url.mid" default="">
+	
 	<script language="JavaScript">
 	
 		 {
-		 	window.location ="#SESSION.root#/#Parameter.TemplateHome#?reload=1&mission=#url.mission#&owner=#url.owner#&Alias=#url.alias#&Object=#url.object#&Code=#URL.Code#&TableName=#TableName#&#Object#Id=#URL.Id#&PersonNo=#CLIENT.PersonNo#&ApplicantNo=#url.id#&section=#url.section#";
+		 	window.location ="#SESSION.root#/#Parameter.TemplateHome#?reload=1&mission=#url.mission#&owner=#url.owner#&Alias=#url.alias#&Object=#url.object#&Code=#URL.Code#&TableName=#TableName#&#Object#Id=#URL.Id#&PersonNo=#CLIENT.PersonNo#&ApplicantNo=#url.id#&section=#url.section#&mid=#url.mid#";
 		 }
 	
 	</script>		

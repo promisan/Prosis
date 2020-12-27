@@ -276,9 +276,12 @@
 			WHERE  ItemNo         = I.ItemNo
 			AND    Mission        = MI.Mission
 			AND    (TransactionId NOT IN
-					(SELECT        I.TransactionId
+						(SELECT        I.TransactionId
 						FROM            Warehouse AS W INNER JOIN ItemTransaction AS I ON W.Warehouse = I.Warehouse AND W.LocationReceipt = I.Location
-						WHERE        (I.TransactionType = '1')))
+						WHERE        (I.TransactionType = '1') AND (I.TransactionId NOT IN
+						(SELECT        TransactionId
+						FROM            ItemTransactionValuation))
+						))
 
 			) as OnHand
 

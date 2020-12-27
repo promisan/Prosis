@@ -215,13 +215,13 @@
 		password="#SESSION.dbpw#">
 		    SELECT *
 	    	FROM   SalarySchedule
-			WHERE  SalarySchedule = '#ContractSel.SalarySchedule#'
+			WHERE  SalarySchedule = '#ContractSel.SalarySchedule#' 
 		</cfquery>		
 		
 		<cfif mode eq "view">
+														
+			<cfif ContractSel.ContractSalaryAmount neq "0" and last eq "1">
 						
-			<cfif ContractSel.ContractSalaryAmount neq "0" or last eq "1">
-			
 				<!--- manual salary : ajax ensure the currency is based on the Payroll schedule --->
 				<tr id="editfield" name="editfield">
 				   <td style="padding-left:5px" class="labelmedium bcell"><cf_tl id="Negotiated Salary">:</TD>	    		
@@ -244,8 +244,10 @@
 			
 			</cfif>
 		
-		<cfelseif mode eq "edit">		
-				
+		<cfelseif mode eq "edit">	
+		
+			<cfif ContractSel.ContractSalaryAmount neq "0" and last eq "1">
+						
 			<!--- manual salary : ajax ensure the currency is based on the Payroll schedule --->
 			<tr id="editfield" name="editfield">
 			<td style="padding-left:5px" class="labelmedium bcell"><cf_tl id="Negotiated Salary">:</TD>
@@ -260,6 +262,8 @@
 				</td>
 							 	 		
 			</tr>
+			
+			</cfif>
 		
 		</cfif>
 			

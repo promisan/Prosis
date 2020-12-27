@@ -16,49 +16,46 @@
 
 <cfsavecontent variable="sqlselect">
 
-          P.Mission, 
-          P.PurchaseNo, 
-		  <cfif Parameter.PurchaseCustomField eq "">
-		  
-		  P.PurchaseNo as PurchaseReference,
-		  
-		  <cfelse>
-		  		  
-		     CASE 
-			
-			 <!--- generic changes : check if the workflow is aready no pending steps but active --->
-						 
-			 WHEN P.Userdefined#Parameter.PurchaseCustomField# = '' THEN P.PurchaseNo				
-			 WHEN P.Userdefined#Parameter.PurchaseCustomField# is NULL THEN P.PurchaseNo															   							   			   
-			 ELSE P.Userdefined#Parameter.PurchaseCustomField#
-			 
-			END as PurchaseReference,		
-		  
-		  </cfif>
-
-		  P.OrderDate, 
-		  P.Period,
-		  P.OrderClass, 
-		  Class.Description AS ClassDescription, 
-		  P.OrderType, 
-		  Type.Description AS TypeDescription, 
-		  Type.InvoiceWorkflow,
-		  Type.ReceiptEntry,
-		  P.OrgUnit, 
-		  P.OrgUnitVendor, 
-		  P.PersonNo,
-		  S.ProgramCode,
-		  S.ProgramName,
-		  P.OfficerLastName,
-		  CASE P.OrgUnitVendor
-   	       WHEN 0 THEN 'stf:'+E.FirstName+' '+E.LastName 
+      P.Mission, 
+      P.PurchaseNo, 
+	  <cfif Parameter.PurchaseCustomField eq "">		  
+	  P.PurchaseNo as PurchaseReference,		  
+	  <cfelse>
+	  		  
+	     CASE 
+		
+		 <!--- generic changes : check if the workflow is aready no pending steps but active --->
+					 
+		 WHEN P.Userdefined#Parameter.PurchaseCustomField# = '' THEN P.PurchaseNo				
+		 WHEN P.Userdefined#Parameter.PurchaseCustomField# is NULL THEN P.PurchaseNo															   							   			   
+		 ELSE P.Userdefined#Parameter.PurchaseCustomField#
+		 
+		END as PurchaseReference,		
+	  
+	  </cfif>
+	  
+	  P.OrderDate, 
+	  P.Period,
+	  P.OrderClass, 
+	  Class.Description AS ClassDescription, 
+	  P.OrderType, 
+	  Type.Description AS TypeDescription, 
+	  Type.InvoiceWorkflow,
+	  Type.ReceiptEntry,
+	  P.OrgUnit, 
+	  P.OrgUnitVendor, 
+	  P.PersonNo,
+	  S.ProgramCode,
+	  S.ProgramName,
+	  P.OfficerLastName,
+	  CASE P.OrgUnitVendor WHEN 0 THEN 'stf:'+E.FirstName+' '+E.LastName 
 		   WHEN NULL THEN 'stf:'+E.FirstName+' '+E.LastName 
 		   ELSE Vendor.OrgUnitName 
-	      END as IssuedBy,
-		  COUNT(PL.RequisitionNo) AS Lines,
-		  P.Currency,			  
-		  SUM(PL.OrderAmount) AS Amount,		
-		  SUM(PL.OrderAmountBase) AS AmountBase			
+      END as IssuedBy,
+	  COUNT(PL.RequisitionNo) AS Lines,
+	  P.Currency,			  
+	  SUM(PL.OrderAmount)     AS Amount,		
+	  SUM(PL.OrderAmountBase) AS AmountBase			
  
 </cfsavecontent>	
 </cfoutput>			  
@@ -82,7 +79,6 @@
 </cfsavecontent>
 
 <cfoutput>
-
 
 <cfswitch expression="#URL.ID#">
 
@@ -215,10 +211,8 @@
 </cfsavecontent>
 
 <cfset condition = condition & " " & OrderClass>
-
 	
 </cfoutput>
-
 
 <cfquery name="Parameter" 
    datasource="AppsPurchase" 
@@ -270,7 +264,7 @@
 <cfoutput> 
 
 	<cfsavecontent variable="myquery">  
-		SELECT   *
+		SELECT  *, OrderDate
 		FROM  	userQuery.dbo.lsPurchase_#SESSION.acc# P			 			
 	</cfsavecontent>	
 		  
@@ -349,7 +343,8 @@
 <cfset fields[itm] = {label      = "#lt_text#",    
 					width        = "0", 
 					field        = "OrderDate",		
-					labelfilter  = "Order Date",			
+					column       = "month",
+					labelfilter  = "Order Date",						
 					formatted    = "dateformat(OrderDate,CLIENT.DateFormatShow)",
 					search       = "date"}>
 					

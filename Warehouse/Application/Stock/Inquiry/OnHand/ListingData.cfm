@@ -88,7 +88,7 @@
 <tr>
 	
 	<td colspan="1" height="100%" valign="top">	
-		<cfdiv id="divListingContainer" style="height:100%;" bind="url:../Inquiry/OnHand/ListingDataContainer.cfm?warehouse=#url.warehouse#&location=#url.location#&mission=#url.mission#&SystemFunctionId=#url.SystemFunctionId#">        	
+		<cf_securediv id="divListingContainer" style="height:100%;" bind="url:../Inquiry/OnHand/ListingDataContainer.cfm?warehouse=#url.warehouse#&location=#url.location#&mission=#url.mission#&SystemFunctionId=#url.SystemFunctionId#">        	
 	</td>	
 
 </tr>	

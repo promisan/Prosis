@@ -1,5 +1,5 @@
 
-<!--- process field selection on the fly --->
+<!--- process field selection to be shown in the listing on-the-fly --->
 
 <cfparam name="form.selfields" default="">
 

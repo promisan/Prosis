@@ -8,13 +8,13 @@
 	<script language="JavaScript">
 	
 	function distribution(id) {
-		window.open("#SESSION.root#/System/Access/User/Audit/ListingReportDetail.cfm?drillid=" + id, id);
+		ptoken.open("#SESSION.root#/System/Access/User/Audit/ListingReportDetail.cfm?drillid=" + id, id);
 	}	
 	
 	function schedule(id) {
 	    w = #CLIENT.width# - 100;
 	    h = #CLIENT.height# - 32;
-		window.open("#SESSION.root#/tools/cfreport/SubmenuReportView.cfm?source=library&id=" + id, id);
+		ptoken.open("#SESSION.root#/tools/cfreport/SubmenuReportView.cfm?source=library&id=" + id, id);
 	}
 	
 	function listing(row,id) {
@@ -27,7 +27,7 @@
      	 icM.className = "regular";
 	     icE.className = "hide";
 		 se.className  = "regular";
-		 ColdFusion.navigate('DistributionLogDetail.cfm?batchid=#URL.ID#&row=' + row + '&Id=' + id,'i'+row)
+		 ptoken.navigate('DistributionLogDetail.cfm?batchid=#URL.ID#&row=' + row + '&Id=' + id,'i'+row)
 	 } else {	 	     
      	 icM.className = "hide";
 	     icE.className = "regular";
@@ -149,33 +149,33 @@ GROUP BY M.Description,
  <tr class="line">
 	 <td height="42" style="font-size:24px;font-weight:200" colspan="2">Reporter Log for : <b>#DateFormat(Created, "DDDD, DD-MM-YYYY")#</b></td>  
  </tr> 
- <tr class="line labelmedium">
+ <tr class="line labelmedium2">
    <td width="160">Server IP:</td>
    <td style="font-size:16px;height:28px" width="80%">#OfficerUserId#</td>
  </tr>  
- <tr class="line labelmedium">
+ <tr class="line labelmedium2">
    <td>Batch status:</td>
    <td  style="font-size:16px;height:28px"><cfif ProcessStatus eq "Empty"><font color="red">Empty batch<cfelse><font color="408080">#ProcessClass# | #ProcessStatus#</cfif></td>
  </tr>
- <tr class="line labelmedium">
+ <tr class="line labelmedium2">
    <td height="20">Process execution:</td>
    <td  style="font-size:16px;height:28px">#dateFormat(ProcessStart,client.dateformatshow)#: <b>#TimeFormat(ProcessStart,"HH:MM:SS")#</b> - ended: <b>#TimeFormat(ProcessEnd,"HH:MM:SS")#</b></td>
  </tr>
- <tr class="line labelmedium">  
+ <tr class="line labelmedium2">  
    <td>Duration</td>
    <td  style="font-size:16px;height:28px"><cfif min neq "0"><b>#int(min)#</b> minutes<cfelse><b>#sec#</b> second(s)</cfif></td>   
  </tr>
    
  <cfset sent = EMailSent - Failed.recordcount>
   
- <tr class="line labelmedium">  
+ <tr class="line labelmedium2">  
    <td>No of e-Mails sent:</td>
    <td style="font-size:16px;height:28px"><b>#Sent#</b> message(s) <font size="1">successfully delivered to CF defined mail engine</td>
  </tr>
  
  <cfif sent gt "0">
  
- <tr class="line labelmedium">  
+ <tr class="line labelmedium2">  
    <td>Average time per e-Mail</td>
    <td  style="font-size:16.5px;height:28px"><b>#numberformat(sec/Sent,",_._")#&nbsp;</b><cfif #numberformat(sec/Sent,",_._")# eq "1">second<cfelse>seconds</cfif>
    &nbsp;[System average : #numberformat(Avg.AvgTimeEmail,",_._")# seconds]
@@ -245,10 +245,10 @@ GROUP BY M.Description,
    <td height="20" colspan="2"> <table width="100%">
         <cfoutput query="Failed" group="Description">
 		
-         <tr class="line labelmedium"><td colspan="4" height="20"><b>#Description#</td></tr>
+         <tr class="line labelmedium2"><td colspan="4" height="20"><b>#Description#</td></tr>
 				 
 		 <cfoutput>
- 		 <tr class="labelmedium line">  
+ 		 <tr class="labelmedium2 line">  
 		   <td style="padding-left:3px">
 		   
 		  <cfinvoke component="Service.AccessReport"  
@@ -285,7 +285,7 @@ GROUP BY M.Description,
  </cfif> 
  
  <tr>  
-   <td colspan="2" class="labelmedium" style="height:50px;font-size:26px;font-weight:200">Distribution details</td>
+   <td colspan="2" class="labelmedium2" style="height:50px;font-size:26px;font-weight:200">Distribution details</td>
  </tr> 
  
  <tr>  
@@ -293,13 +293,13 @@ GROUP BY M.Description,
    
         <cfoutput query="Log" group="Description">
 		
-         <tr class="line labelmedium"><td colspan="5" style="height:35px;font-size:20px;font-weight:200">#Description#</td></tr>
+         <tr class="line labelmedium2"><td colspan="5" style="height:35px;font-size:20px;font-weight:200">#Description#</td></tr>
 		 
 		 <cfoutput>		
 		 
- 		 <tr class="line labelmedium">  
+ 		 <tr class="line labelmedium2">  
 		 
-		   <td height="20" align="center" style="width:30px;padding-top:2px">
+		   <td height="20" align="center" style="width:30px;padding-top:1px">
 		   
 			  <cfinvoke component="Service.AccessReport"  
 		          method="editreport"  

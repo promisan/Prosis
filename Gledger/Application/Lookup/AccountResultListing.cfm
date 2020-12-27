@@ -259,7 +259,7 @@
 			
 			<cfif opening.recordcount gte "1">
 	
-			    <TR class="line labelmedium fixrow" style="background-color:e4e4e4;height:25px">	
+			    <TR class="line labelmedium2 fixrow" style="background-color:e4e4e4;height:25px">	
 			    
 			  	<td colspan="7" style="width:100%;padding-left:5px">
 				
@@ -338,7 +338,7 @@
 	
 			<!--- 2 - 3 main detail content --->
 				
-			<tr class="labelmedium line<cfif opening.recordcount gte "1">fixrow2<cfelse>fixrow1</cfif>">
+			<tr class="labelmedium2 line<cfif opening.recordcount gte "1">fixrow2<cfelse>fixrow1</cfif>">
 			    <td style="min-width:40px"></td>
 				<TD style="min-width:100px"><cf_tl id="Journal"></TD>
 			    <TD style="min-width:130px;width:20%"><cf_tl id="TraNo"></TD>
@@ -384,7 +384,7 @@
 												
 		 <cfif Searchresult.recordcount eq "0">
 			<tr>
-			   <td style="padding-top:10px" colspan="13" align="center" class="labelmedium"><font color="FF0000"><cf_tl id="No transactions found to show in this view"></td>
+			   <td style="padding-top:10px" colspan="13" align="center" class="labelmedium2"><font color="FF0000"><cf_tl id="No transactions found to show in this view"></td>
 			 </tr>	
 		 </cfif>
 						
@@ -457,7 +457,7 @@
 				 
 				 <cfcase value = "TransactionType">
 				 <tr>
-				     <td colspan="13" class="labelmedium" style="height:35;padding-left:3px">#TransactionType#</td> 
+				     <td colspan="13" class="labelmedium2" style="height:35;padding-left:3px">#TransactionType#</td> 
 				 </tr>			 
 			     </cfcase>							 					
 				 
@@ -481,7 +481,7 @@
 					  				  														
 					  <cfif srow-first lt rows>									
 					  
-					    <tr id="r#currentrow#" class="navigation_row labelmedium line" style="height:15px">																		    
+					    <tr id="r#currentrow#" class="navigation_row labelmedium2 line" style="height:25px">																		    
 						<td align="center">#currentrow#</td>						
 						<TD style="padding-left:4px">
 						

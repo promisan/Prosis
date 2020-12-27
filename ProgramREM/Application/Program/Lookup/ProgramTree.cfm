@@ -10,9 +10,7 @@
   </cfquery>
  
   <cfif Period.MandateNo eq "">
-  
-  	<cf_waitEnd>
-	
+  	
     <cf_message message="Please define mandate" return="no">
 	<cfabort>
   
@@ -29,57 +27,44 @@
 <cfparam name="CLIENT.ProgramMode" default="Maintain">  
 
 <cfset Criteria = ''>
-
-<cfform>
- 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding">
-   
-  <tr><td valign="top">
-    
-    <table width="100%" border="0" cellspacing="0" cellpadding="0"  class="formpadding">
+     
+<table width="100%">
 	
      <tr>
         <td style="padding-left:4px"> 
 	
 		<cfinvoke component="Service.AccessGlobal"  
-	      method="global" 
-		  role="AdminProgram" 
-		  returnvariable="GlobalAccess">
+		      method="global" 
+			  role="AdminProgram" 
+			  returnvariable="GlobalAccess">
 			
 		<cfinvoke component="Service.Access"
-		   Method="Organization"
-		   Mission="#URL.Mission#"
-		   Role="ProgramOfficer', 'ProgramManager', 'ProgramAuditor"
-		   ReturnVariable="MissionAccess">	
+			   Method="Organization"
+			   Mission="#URL.Mission#"
+			   Role="ProgramOfficer', 'ProgramManager', 'ProgramAuditor"
+			   ReturnVariable="MissionAccess">	
 						   			
 		<cfset CLIENT.ShowReports = "YES">
 		
 		<CFIF GlobalAccess neq "NONE" 
 		     OR MissionAccess eq "READ" OR MissionAccess eq "EDIT" or MissionAccess eq "ALL">
 			 
-				 	<cftree name="idtree" font="tahoma"  fontsize="11" bold="No" format="html" required="No">
-					     <cftreeitem 
-						  bind="cfc:service.Tree.OrganizationTree.getNodes({cftreeitempath},{cftreeitemvalue},'#url.mission#','#Period.MandateNo#','ProgramListing.cfm','PRA','Operational Structure','#url.mission#','#Period.MandateNo#','#url.period#','Full')">  		 
-				    </cftree>		
+			 	<cf_UItree name="idtree" bold="No" format="html" required="No">
+				     <cf_UItreeitem
+					  bind="cfc:service.Tree.OrganizationTree.getNodesV2({cftreeitempath},{cftreeitemvalue},'#url.mission#','#Period.MandateNo#','ProgramListing.cfm','PRA','Operational Structure','#url.mission#','#Period.MandateNo#','#url.period#','Full')">  		 
+			    </cf_UITree>		
 	
 	    <cfelse>
 		
-					<cftree name="idtree" font="tahoma"  fontsize="11" bold="No" format="html" required="No">
-					     <cftreeitem 
-						  bind="cfc:service.Tree.OrganizationTree.getNodes({cftreeitempath},{cftreeitemvalue},'#url.mission#','#Period.MandateNo#','ProgramListing.cfm','PRA','Operational Structure','#url.mission#','#Period.MandateNo#','#url.period#','role')">  		 
-				    </cftree>	
+				<cf_UItree name="idtree" bold="No" format="html" required="No">
+				     <cf_UItreeitem
+					  bind="cfc:service.Tree.OrganizationTree.getNodesV2({cftreeitempath},{cftreeitemvalue},'#url.mission#','#Period.MandateNo#','ProgramListing.cfm','PRA','Operational Structure','#url.mission#','#Period.MandateNo#','#url.period#','role')">  		 
+			   </cf_UITree>	
 	     
 		</cfif>
 		
-	 </td></tr>
-    	  
-	   <tr>
-        <td height="3"></td>
-      </tr>
-			  
-    </table></td>
-  </tr>
-  
+	 </td>
+	 </tr>
+      	  
 </table>
 
-</cfform>

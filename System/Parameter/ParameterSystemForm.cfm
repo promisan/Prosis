@@ -54,22 +54,24 @@ password="#SESSION.dbpw#">
 	
 	<tr>
 	
-			<cfif url.action eq 1><cfset vclass="highlight1"><cfelse><cfset vclass="normal"></cfif>						
-			<cf_menutab item       = "1" 
-		        iconsrc    = "Release.png" 
-				iconwidth  = "#wd#" 
-				iconheight = "#ht#" 				
-				class      = "#vclass#"				
-				name       = "Registration and release">			
+				
 							
 
-			<cfif url.action eq 2><cfset vclass="highlight1"><cfelse><cfset vclass="normal"></cfif>													
-			<cf_menutab item       = "2" 
+			<cfif url.action eq 1><cfset vclass="highlight1"><cfelse><cfset vclass="normal"></cfif>													
+			<cf_menutab item       = "1" 
 		        iconsrc    = "Logos/System/Authorization.png" 
 				iconwidth  = "#wd#" 
 				iconheight = "#ht#" 				
 				class      = "#vclass#"								
 				name       = "User Authentication">		
+				
+			<cfif url.action eq 2><cfset vclass="highlight1"><cfelse><cfset vclass="normal"></cfif>						
+			<cf_menutab item       = "2" 
+		        iconsrc    = "Release.png" 
+				iconwidth  = "#wd#" 
+				iconheight = "#ht#" 				
+				class      = "#vclass#"				
+				name       = "Registration and release">			
 
 			<cfif url.action eq 3><cfset vclass="highlight1"><cfelse><cfset vclass="normal"></cfif>										
 			<cf_menutab item       = "3" 
@@ -113,13 +115,14 @@ password="#SESSION.dbpw#">
 	
 		<cfif url.action eq 1><cfset vclass="regular"><cfelse><cfset vclass="hide"></cfif>
 		<cf_menucontainer item="1" class="#vclass#">
-			 <cfinclude template="ParameterSystemEditRegistration.cfm">
+		     <cfinclude template="ParameterSystemEditAuthentication.cfm">
 		<cf_menucontainer>
 		
 		<cfif url.action eq 2><cfset vclass="regular"><cfelse><cfset vclass="hide"></cfif>
 		<cf_menucontainer item="2" class="#vclass#">
-		     <cfinclude template="ParameterSystemEditAuthentication.cfm">
+			 <cfinclude template="ParameterSystemEditRegistration.cfm">
 		<cf_menucontainer>
+		
 		
 		<cfif url.action eq 3><cfset vclass="regular"><cfelse><cfset vclass="hide"></cfif>
 		<cf_menucontainer item="3" class="#vclass#">

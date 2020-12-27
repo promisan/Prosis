@@ -139,6 +139,18 @@ but was disabled for STL on 7/22/2019. It can be re-enabled, but for now we keep
 			
 	</cfif>		
 	
+	<cfif isDefined ("url.customEnd") and url.customEnd neq "">
+	
+			<cfset dateValue = "">
+			<CF_DateConvert Value="#url.customEnd#">
+			<cfset end = dateValue>		
+			
+	<cfelse>
+	
+			<cfset end = "">			
+			
+	</cfif>		
+	
 	<!--- determine the period of calculation of entitlements			
 
 		<cfquery name="selPeriod" 
@@ -265,7 +277,12 @@ but was disabled for STL on 7/22/2019. It can be re-enabled, but for now we keep
 																	 ) 
 																	 
 																	 
-									 AND     PayrollStart >= #str#	<!--- selected in the form for periods to be calculated --->							 								 
+									 AND     PayrollStart >= #str#	
+									 <cfif end neq "">
+									 AND     PayrollStart   <= #end#
+									 </cfif>
+									 
+									 <!--- selected in the form for periods to be calculated --->							 								 
 									 <!---  AND     PayrollEnd   <= '#selPeriod.PeriodEnd#'	--->
 									 								 						
 									 
@@ -303,9 +320,11 @@ but was disabled for STL on 7/22/2019. It can be re-enabled, but for now we keep
 		AND      M.SalarySchedule = S.SalarySchedule
 		
 		ORDER BY P.PayrollStart,P.SalarySchedule	
+		
+		
 											
 	</cfif>	
-					
+						
 </cfquery>	
 
 <cfif Calculation.recordcount eq 0>
@@ -396,7 +415,7 @@ but was disabled for STL on 7/22/2019. It can be re-enabled, but for now we keep
 			password="#SESSION.dbpw#">
 				UPDATE CalculationLog 
 				SET    ActionStatus = '9',
-						ActionMemo = 'You have selected one or more periods which are not consequetive. Operation not allowed'				    
+						ActionMemo = 'You have selected one or more periods which are not consecutive. Operation not allowed'				    
 				WHERE  ProcessNo= '#URL.Processno#' 
 		</cfquery>
 			

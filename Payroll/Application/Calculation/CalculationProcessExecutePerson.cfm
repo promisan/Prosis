@@ -12,14 +12,14 @@
 	<table border="0" width="89%" height="100%" align="center" class="formpadding">
 	
 		<tr class="labelmedium line" style="height:35px">
-		<td style="min-width:300px;width:300px"><cf_tl id="Action">:</td><td style="font-size:16px"><cf_tl id="Recalculation of entitlements and settlements"></td></tr>
+		<td style="min-width:300px;width:300px;"><cf_tl id="Action">:</td><td style="padding-left:5px;font-size:16px; border-left:1px solid silver;border-right:1px solid silver"><cf_tl id="Recalculation of entitlements and settlements"></td></tr>
 		<tr class="labelmedium line" style="height:35px">
 		   <td style="font-size:16px"><cf_tl id="Requester">:</td>
-		   <td>#SESSION.first# #SESSION.last# on #timeformat(now(),"HH:MM:SS")#</td></tr>	
+		   <td style="font-size:16px;border-left:1px solid silver;border-right:1px solid silver;padding-left:5px">#SESSION.first# #SESSION.last# on #timeformat(now(),"HH:MM:SS")#</td></tr>	
 											
 		<tr class="labelmedium line" style="height:35px">
 		      <td style="font-size:16px"><cf_tl id="Entity">:</td>
-			  <td>		
+			  <td colspan="1" style="border-left:1px solid silver;border-right:1px solid silver">		
 			  
 			  <cfquery name="MissionList" 
 				datasource="AppsEmployee" 
@@ -31,7 +31,8 @@
 				AND      RecordStatus = '1'		
 			   </cfquery>	
 			 								
-				<select name="mission" id="mission" class="regularxl" onchange="ptoken.navigate('#session.root#/payroll/application/calculation/CalculationProcessExecutePersonGo.cfm?id=#url.id#','progressbox')">
+				<select name="mission" id="mission" style="border:0px;width:100%" class="regularxl" 
+				     onchange="ptoken.navigate('#session.root#/payroll/application/calculation/CalculationProcessExecutePersonGo.cfm?id=#url.id#','progressbox')">
 				 	<cfloop query="missionList">
 				 		<OPTION value="#mission#" <cfif currentrow eq "1">selected</cfif>>#Mission#</OPTION>
 				 	</cfloop>
@@ -42,30 +43,40 @@
 		
 		<tr class="labelmedium line" style="height:35px">
 		    <td style="font-size:16px">Calculated Entitlements as of (EOD):</td>
-			<td id="startdate">					  
+			<td id="startdate" colspan="1" style="border-left:1px solid silver;border-right:1px solid silver">					  
 			  <cfdiv bind="url:#session.root#/payroll/application/calculation/CalculationProcessExecutePersonGet.cfm?action=eod&id=#url.id#&mission={mission}">			 	
 			</td>
 	    </tr>	
 		
 		<tr class="labelmedium line" style="height:35px">
 		    <td style="font-size:16px">Applicable Schedules:</td>
-			<td>				  
+			<td colspan="1"  style="padding-left:5px;border-left:1px solid silver;border-right:1px solid silver">				  
 			  <cfdiv bind="url:#session.root#/payroll/application/calculation/CalculationProcessExecutePersonGet.cfm?action=schedule&id=#url.id#&mission={mission}">			 				
 		    </td>
 	    </tr>	
 		
 		<tr class="labelmedium line" style="height:35px">
 		    <td style="font-size:16px">Recalculate the entitlements starting month:</td>
-			<td>					  
+			<td  style="border-left:1px solid silver;border-right:1px solid silver">							  
+			<table style="height:100%">
+			<tr><td style="border-right:1px solid silver">
 			   <cfdiv bind="url:#session.root#/payroll/application/calculation/CalculationProcessExecutePersonGet.cfm?action=period&id=#url.id#&mission={mission}">		 	
 		    </td>
+			<td style="font-size:16px;padding-left:5px;padding-right:5px">until:</td>
+			<td style="border-left:1px solid silver;border-right:1px solid silver">							  
+			   <cfdiv bind="url:#session.root#/payroll/application/calculation/CalculationProcessExecutePersonGet.cfm?action=periodend&id=#url.id#&mission={mission}">		 	
+		    </td>
+			</tr>
+			</table>
+			</td>
+			
 	    </tr>	
 		
 		<!--- if the person is not under contract for the current month --->
 		
 		<tr class="labelmedium" id="enforce" style="height:35px">
 	      <td style="font-size:16px" height="10">Settle if not under contract :</td>
-		  <td>
+		  <td  style="border-left:1px solid silver;border-right:1px solid silver">
 		     <cfdiv bind="url:#session.root#/payroll/application/calculation/CalculationProcessExecutePersonGet.cfm?action=enforce&id=#url.id#&mission={mission}">		 	
 			 
 			 <input type="hidden" id="forcesettlement" value="0">		 

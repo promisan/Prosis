@@ -49,7 +49,8 @@
 	 AND       F.Operational = 1
 	 AND       S.ItemNo  = '#url.itemno#'			
 	 AND       S.UoM     = '#url.uom#'
-		
+	 
+			
 </cfsavecontent>
 
 
@@ -189,7 +190,7 @@
 	     				field       = "DistributionAverage",					
 						alias       = "",	
 						align       = "right",																		
-						formatted   = "numberformat(DistributionAverage,'__,__')"}>						
+						formatted   = "numberformat(DistributionAverage,',__')"}>						
 						
 	<cfset itm = itm+1>
 	
@@ -197,7 +198,7 @@
 	     				field       = "MinimumStock",					
 						alias       = "",		
 						align       = "right",																	
-						formatted   = "numberformat(minimumstock,'__,__')"}>		
+						formatted   = "numberformat(minimumstock,',__')"}>		
 						
 							
 	<cfset itm = itm+1>
@@ -206,7 +207,7 @@
 	     				field       = "MaximumStock",					
 						alias       = "",	
 						align       = "right",																			
-						formatted   = "numberformat(Maximumstock,'__,__')"}>							
+						formatted   = "numberformat(Maximumstock,',__')"}>							
 						
 	<cfset itm = itm+1>
 	
@@ -215,7 +216,7 @@
 						alias       = "",	
 						aggregate   = "sum",
 						align       = "right",																			
-						formatted   = "numberformat(OnHand,'__,__')"}>						
+						formatted   = "numberformat(OnHand,',__')"}>						
 	
 	<!---					
 	<cfset itm = itm+1>
@@ -224,7 +225,7 @@
 	     				field       = "OnHandValue",					
 						alias       = "",	
 						align       = "right",																			
-						formatted   = "numberformat(OnHandValue,'__,__.__')"}>		
+						formatted   = "numberformat(OnHandValue,',.__')"}>		
 						
 	--->	
 												

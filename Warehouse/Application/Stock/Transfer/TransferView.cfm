@@ -564,7 +564,7 @@
 								
 					        </TR>
 											
-							<tr><td style="height:100%;padding:5px">
+							<tr><td style="height:100%">
 						
 						   <cf_divscroll id="content" overflowy="scroll">								
 							   <cfinclude template="TransferViewContent.cfm">		  					

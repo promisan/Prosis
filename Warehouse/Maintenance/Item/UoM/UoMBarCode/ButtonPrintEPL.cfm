@@ -124,4 +124,9 @@
 	
 </cfoutput>
 
-<cfset AjaxOnload("launchQZ")>
+<script>
+	$( document ).ready(function() {
+
+		launchQZ();
+	});
+</script>

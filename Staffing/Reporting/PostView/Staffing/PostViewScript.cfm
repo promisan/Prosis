@@ -291,13 +291,12 @@ function AddReview(postno,box) {
 	}
 
 function AddVacancy(postno,box) {
-	ProsisUI.createWindow('mydialog', 'Record Recruitment Track', '',{x:100,y:100,height:600,width:640,modal:true,center:true});	
+	ProsisUI.createWindow('mydialog', 'Record Recruitment Track', '',{x:100,y:100,height:620,width:640,modal:true,center:true});	
 	ptoken.navigate('#SESSION.root#/Vactrack/Application/Document/DocumentEntryPosition.cfm?box='+box+'&Mission=#URL.Mission#&ID1=' + postno + '&Caller=Listing','mydialog')	
 }
 
 function AddPAS(assno,box) {
-	ColdFusion.Window.create('mypasdialog', 'PAS', '',{x:100,y:100,height:600,width:740,modal:false,center:true});
-	ColdFusion.Window.show('mypasdialog');
+	ProsisUI.createWindow('mypasdialog', 'PAS', '',{x:100,y:100,height:620,width:640,modal:true,center:true});	
 	ptoken.navigate("#SESSION.root#/ProgramREM/Portal/Workplan/PAS/PASCreate.cfm?ts="+new Date().getTime()+"&box="+box+"&Mission=#URL.Mission#&AssignmentNo=" + assno,'mypasdialog');	
 }
 

@@ -114,6 +114,7 @@
 	
 <cf_dialogPosition>	
 <cf_dialogStaffing>	
+<cf_fileLibraryScript>
 
 <link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
 
@@ -254,7 +255,7 @@
 	
 			<td valign="top" height="100%" bgcolor="white">
 							
-			<table width="100%" style="min-width: 1000px;" height="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+			<table width="100%" style="min-width: 1000px;" height="100%" align="center">
 			
 				<!--- clean data for reloading --->
 						
@@ -387,10 +388,8 @@
 			   </cf_menucontainer>			
 			  			   			  	   	   
 			   <cfset itm = itm+1>					   
-		       <cf_menucontainer item="#itm#" class="hide">		
-				     <cfinclude template="MandateDocument.cfm"> 
-			   </cf_menucontainer>		
-			   			   
+		       <cf_menucontainer item="#itm#" class="hide"/>						     
+			  			   			   
 			   <cfset itm = itm+1>		 
 			   <cf_menucontainer item="#itm#" class="hide" iframe="expirationbox"/>
 			  		
@@ -402,7 +401,6 @@
 		
 		</td>
 	</tr>
-	
 	
 	</table>	
 		

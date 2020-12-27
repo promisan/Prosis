@@ -46,7 +46,6 @@
 
 </script>
 
-
 </cfoutput>
 
 <cfquery name="defaultSchedule" 
@@ -155,7 +154,7 @@ password="#SESSION.dbpw#">
 
 <cfform action="EntitlementEntrySubmit.cfm?Status=#URL.Status#&entitlementId=#rowguid#" method="POST" name="EntitlementEntry" onSubmit="return verify(EntitlementEntry.entitlement.value)">
 
-<table width="96%" align="center" border="0" cellspacing="0" cellpadding="0">
+<table width="96%" align="center">
   <tr><td>
 	
 	<cfoutput>
@@ -173,11 +172,9 @@ password="#SESSION.dbpw#">
     </td>
   </tr> 
   
-  <tr><td style="height:3px"></td></tr>	
-    
+  <tr><td style="height:3px"></td></tr>	    
   <tr><td class="line"></td></tr>
-  
-         
+           
   <tr>
     <td height="100%" width="100%">
 	
@@ -185,12 +182,12 @@ password="#SESSION.dbpw#">
 	
     <TR><TD height="5"></TD></TR>		
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD style="width:20%;padding-left:20"><cf_tl id="Schedule">:</TD>
     <TD>
     	
     	<cfoutput>
-		  	<select name="SalarySchedule" size="1" class="regularxl">
+		  	<select name="SalarySchedule" size="1" class="regularxxl">
 				<cfloop query="Schedules">
 				<option value="#SalarySchedule#" <cfif SalarySchedule eq DefaultSchedule.SalarySchedule>selected</cfif>>
 		    		#SalarySchedule#
@@ -202,7 +199,7 @@ password="#SESSION.dbpw#">
 	</TD>
 	</TR>
   
-    <TR class="labelmedium">
+    <TR class="labelmedium2">
     <TD style="padding-left:20"><cf_tl id="Effective">:</TD>
     <TD>
 	
@@ -210,13 +207,13 @@ password="#SESSION.dbpw#">
 			FieldName="DateEffective" 
 			Scriptdate="prior"
 			manual="False"
-			class="regularxl"
+			class="regularxxl"
 			Default="#Dateformat(now(), CLIENT.DateFormatShow)#">	
 		
 	</TD>
 	</TR>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD style="padding-left:20"><cf_tl id="Expiration">:</TD>
     <TD>
 	
@@ -225,7 +222,7 @@ password="#SESSION.dbpw#">
 			FieldName="DateExpiration" 
 			Script="prior"
 			Manual="True"
-			class="regularxl"
+			class="regularxxl"
 			Default=""
 			AllowBlank="TRUE">	
 			
@@ -242,10 +239,10 @@ password="#SESSION.dbpw#">
 			AND    ActionStatus != '9'					
 	</cfquery>
 							
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
 	    <TD style="padding-left:20"><cf_tl id="Applies to">:</TD>
 		<TD>
-		<select name="DependentId" class="regularxl enterastab">
+		<select name="DependentId" class="regularxxl enterastab">
 			<option value=""><cf_tl id="Staffmember"></option>
 			<cfoutput query="Dependent">
 				<option value="#dependentid#">#FirstName# #LastName# [#Gender#] #dateformat(BirthDate,CLIENT.DateFormatShow)#</option>
@@ -254,14 +251,14 @@ password="#SESSION.dbpw#">
 		</td>
 	</tr>		
 			
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD style="padding-left:20"><cf_tl id="Payroll Item">:</TD>
     <TD>
 	  	<cfselect name="entitlement"
           size="1"
           required="Yes"
           id="entitlement"
-          class="regularxl"
+          class="regularxxl"
 		  message="Please select a payroll item"
           onChange="javascript:prior(this.value)">
 			<option value=""><cf_tl id="select"></option>
@@ -272,7 +269,7 @@ password="#SESSION.dbpw#">
 	</TD>
 	</TR>		
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD style="padding-left:20"><cf_tl id="Rate">:</TD>
     <TD>
 	
@@ -284,7 +281,7 @@ password="#SESSION.dbpw#">
 		
 		<table cellspacing="0" cellpadding="0"><tr><td>
 	
-	  	<select name="Currency" size="1" class="regularxl">
+	  	<select name="Currency" size="1" class="regularxxl">
 		<cfoutput query="Currency">
 		<option value="#Currency#" <cfif cur eq Currency>selected</cfif>>
     		#Currency#
@@ -297,51 +294,51 @@ password="#SESSION.dbpw#">
 		<td style="padding-left:4px">
 		
 	    <cfinput type="Text" 
-		   class="regularxl" value="0"  
+		   class="regularxxl" value="0"  
 		   name="Amount" 
 		   message="Please enter a correct amount" 
 		   validate="float" 
 		   required="Yes" 
 		   size="12" 
 		   maxlength="16" 
-		   style="text-align: right;padding-right:3px">
+		   style="text-align: right;padding-right:3px;height:30px">
 		
 		</td></tr></table>
 			
 	</TD>
 	</TR>		
 	
-    <TR class="labelmedium">
+    <TR class="labelmedium2">
     <TD style="padding-left:20"><cf_tl id="Rate application">:</TD>
     <TD>
 	
 	    <table>
-			<tr class="labelmedium">
-			<td><INPUT type="radio" class="radiol" name="Period" value="DAY"></td><td style="padding-left:4px">Daily</td>
-			<td style="padding-left:8px"><INPUT type="radio" class="radiol" name="Period" value="WORKDAY"></td><td style="padding-left:4px">Daily: workdays only)</td>
-			<td style="padding-left:8px"><INPUT type="radio" class="radiol" name="Period" value="MONTHF" checked></td><td style="padding-left:4px">Monthly</td>
-			<td style="padding-left:8px"><INPUT type="radio" class="radiol" name="Period" value="MONTH"></td><td style="padding-left:4px">Monthly: contractual days)</td>
-			<td style="padding-left:8px"><INPUT type="radio" class="radiol" name="Period" value="MONTHW"></td><td style="padding-left:4px">Monthly: contractual-lwop days</td>
+			<tr class="labelmedium2">
+			<td><INPUT type="radio" class="radiol" name="Period" value="DAY"></td><td style="padding-left:4px;font-size:16px;">Daily</td>
+			<td style="padding-left:8px"><INPUT type="radio" class="radiol" name="Period" value="WORKDAY"></td><td style="font-size:16px;padding-left:4px">Daily: workdays only)</td>
+			<td style="padding-left:8px"><INPUT type="radio" class="radiol" name="Period" value="MONTHF" checked></td><td style="font-size:16px;padding-left:4px">Monthly</td>
+			<td style="padding-left:8px"><INPUT type="radio" class="radiol" name="Period" value="MONTH"></td><td style="font-size:16px;padding-left:4px">Monthly: contractual days)</td>
+			<td style="padding-left:8px"><INPUT type="radio" class="radiol" name="Period" value="MONTHW"></td><td style="font-size:16px;padding-left:4px">Monthly: contractual-lwop days</td>
 			</tr>
 		</table>
 		
 	</TD>
 	</TR>
 		
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD style="padding-left:20"><cf_tl id="Source Document">:</TD>
-    <TD><input type="text" name="documentReference" class="regularxl" size="20" maxlength="20"></TD>
+    <TD><input type="text" name="documentReference" class="regularxxl" size="20" maxlength="20"></TD>
 	</TR>
 	
-	<TR class="labelmedium">
-        <td style="padding-left:20" class="labelmedium" valign="top" style="padding-top:7px"><cf_tl id="Remarks">:</td>
-        <TD><textarea rows="3" style="font-size:13px;padding:3px;width:90%" name="Remarks" class="regular"></textarea> </TD>
+	<TR class="labelmedium2">
+        <td style="padding-left:20" class="labelmedium2" valign="top" style="padding-top:7px"><cf_tl id="Remarks">:</td>
+        <TD><textarea rows="3" style="font-size:15px;padding:3px;width:90%" name="Remarks" class="regular"></textarea> </TD>
 	</TR>
 	
 	<cf_filelibraryscript>
 	
 	<tr>
-		<td class="labelmedium"><cf_tl id="Attachment">:</td>
+		<td <TD style="padding-left:20" class="labelmedium2"><cf_tl id="Attachment">:</td>
 		<td><cfdiv bind="url:EntitlementEntryAttachment.cfm?id=#url.id#&entitlementid=#rowguid#" id="att"></td>			
 	</tr>			
 	

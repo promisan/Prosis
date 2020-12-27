@@ -81,7 +81,7 @@ password="#SESSION.dbpw#">
 			   <td><input type="radio" class="radiol" name="Crit5_Value" value="1" onclick="document.getElementById('filter').className='regular'"  <cfif SESSION.StaffSearch["Mode"] eq "1">checked</cfif>></td>
 			   <td style="font-size:17px;padding-left:5px"><cf_tl id="On board"></td>
 			   <td style="padding-left:6px;padding-right:10px;padding-top:2px">
-				   <select name="Mission" class="regularxl">
+				   <select name="Mission" class="regularxxl">
 					   <cfoutput query="Mission">
 					   	<option value="#Mission#" <cfif SESSION.StaffSearch["Mission"] eq mission>selected</cfif>>#Mission#</option>
 					   </cfoutput>
@@ -104,31 +104,24 @@ password="#SESSION.dbpw#">
 		   <cfset cl = "hide">
 		</cfif>
 		
-		 <td id="filter" class="<cfoutput>#cl#</cfoutput>" style="padding-top:0px;border:0px solid e1e1e1;padding-left:3px;padding-right:7px">
-	
-				   <table style="width:700px">
-				   <tr class="labelmedium" style="height:20px">
-				   <td><img src="<cfoutput>#session.root#</cfoutput>/images/join.gif" alt="" border="0"></td>
-				   <td style="padding-left:2px"><input type="radio" name="Crit9_Value" value="0" checked></td>
-				   <td style="font-size:13px;padding-top:0px"><cf_tl id="All"></td>  
-				   <td style="width:15px;border-right:1px solid gray"></td>		
-				   <td style="padding-left:2px"><input type="radio" name="Crit9_Value" value="8"></td>
-				   <td style="font-size:13px;padding-top:0px"><cf_tl id="Step Increment">..</td>  
-				    <td style="padding-left:2px"><input type="radio" name="Crit9_Value" value="7"></td>
-				   <td style="font-size:13px;padding-top:0px"><cf_tl id="SPA expiry">..</td>  
-				   <td style="padding-left:2px"><input type="radio" name="Crit9_Value" value="9"></td>
-				   <td style="font-size:13px;padding-top:0px"><cf_tl id="Appointm expiry"></td>  
-				   <td style="padding-left:2px;padding-right:3px"><cf_tl id="in"></td>
-				   <td style="padding-right:4px"><input type="input" name="Days_Value" style="width:30px;text-align:center" value="30" class="regularxl"></td>
-				   <td style="padding-right:4px"><cf_tl id="days"></td>				   
-				   </td>
-				   <td style="border-left:1px solid gray;"></td>				  
-				   <td style="padding-left:2px"><input type="radio" name="Crit9_Value" value="5"></td>
-				   <td style="font-size:13px;padding-top:0px;padding-right:4px"><cf_tl id="Birth day"></td>  
-				   <td style="border-left:1px solid gray;"></td>				  
-				   <td style="padding-left:2px"><input type="radio" name="Crit9_Value" value="2"></td>
-				   <td style="font-size:13px;padding-top:0px;padding-right:0px"><cf_tl id="No user"></td>  
-				   	</tr>
+		 <td id="filter" class="<cfoutput>#cl#</cfoutput>" style="padding-top:0px;border:0px solid e1e1e1;padding-right:7px">
+		 
+		 		 <table>
+				   <tr class="labelmedium2" style="height:20px">
+				   <td>
+		 			<select name="Crit9_Value" class="regularxxl">
+						<option value="0"><cf_tl id="All"></option>
+						<option value="8"><cf_tl id="Step Increment"></option>
+						<option value="7"><cf_tl id="SPA expiry"></option>
+						<option value="9"><cf_tl id="Appointment expiry"></option>
+						<option value="5"><cf_tl id="Birth day"></option>
+						<option value="2"><cf_tl id="No user account"></option>
+					</select>
+				    </td>	
+					<td style="padding-left:4px;padding-right:4px"><cf_tl id="in"></td>	
+					<td style="padding-left:4px;padding-right:4px"><input type="input" name="Days_Value" style="height:30px;width:30px;text-align:center" value="30" class="regularxxl"></td>
+				   <td style="padding-right:4px"><cf_tl id="days"></td>			
+				 
 				   </table>
 			   
 			   </td>
@@ -366,9 +359,9 @@ password="#SESSION.dbpw#">
 		
 			<table class="formpadding">
 			<tr>
-				<td><input type="radio" class="radiol" name="Crit4_Value" value="M"></td><td class="labelmedium"><cf_tl id="Male"></td>
-				<td style="padding-left:4px"><input type="radio" class="radiol" name="Crit4_Value" value="F"></td><td class="labelmedium"><cf_tl id="Female"></td>
-				<td style="padding-left:4px"><input type="radio" class="radiol" name="Crit4_Value" value="" checked></td><td class="labelmedium"><cf_tl id="Any"></td>
+				<td><input type="radio" class="radiol" name="Crit4_Value" value="" checked></td><td style="padding-top:2px" class="labelmedium2"><cf_tl id="Any"></td>	
+				<td style="padding-left:4px"><input type="radio" class="radiol" name="Crit4_Value" value="M"></td><td style="padding-top:2px" class="labelmedium2"><cf_tl id="Male"></td>
+				<td style="padding-left:4px"><input type="radio" class="radiol" name="Crit4_Value" value="F"></td><td style="padding-top:2px" class="labelmedium2"><cf_tl id="Female"></td>
 			</tr>
 			</table>
 	   

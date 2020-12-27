@@ -20,7 +20,7 @@ password="#SESSION.dbpw#">
 		<cf_paneItem id="WorkOrder_1" 
             systemfunctionid = "#systemfunctionid#" 
 			source           = "#session.root#/Portal/Topics/WorkOrder/ServiceCharge.cfm?mission=#mission#"
-			width            = "95%"
+			width            = "98%"
 			height           = "auto"
 			Mission          = "#mission#"
 			Period           = "#per#"	

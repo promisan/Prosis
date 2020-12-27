@@ -21,27 +21,25 @@
 						
 		<cfif update eq "yes">
 			
-				<tr><td colspan="3" height="26">
+				<tr class="line" style="background-color:f3f3f3"><td colspan="3" height="35" style="padding-left:10px">
 					<table cellspacing="0" cellpadding="0">
-						<tr>
+						<tr class="labelmedium">
 						<td><input type="radio" class="radiol" name="toggle" id="toggle1" value="unit" checked onclick="togglebox('unit')"></td>
-						<td class="labelmedium" style="padding-left:4px;cursor:pointer" onclick="document.getElementById('toggle1').click()"><cf_tl id="Move responsibility"></td>
-					    <cfif ProgramAccess eq "EDIT" or ProgramAccess eq "ALL">						
+						<td style="padding-left:4px;cursor:pointer" onclick="document.getElementById('toggle1').click()"><cf_tl id="Move responsibility"></td>
+					    <cfif Access eq "ALL" or ProgramAccess eq "EDIT" or ProgramAccess eq "ALL">						
 						<td style="padding-left:10px"><input type="radio" name="toggle" class="radiol" id="toggle2" value="action" onclick="togglebox('action')"></td>
-						<td class="labelmedium" style="padding-left:4px;cursor:pointer" onclick="document.getElementById('toggle2').click()"><cf_tl id="Move under different Program">/<cf_tl id="Project"></td>		
+						<td style="padding-left:4px;cursor:pointer" onclick="document.getElementById('toggle2').click()"><cf_tl id="Move under different Program">/<cf_tl id="Project"></td>		
 						</cfif>
 						</tr>
 					</table>	
 				</td></tr>
-				
-				<tr><td class="line" colspan="3"></td></tr>
-				
+								
 				<tr><td height="4"></td></tr>
 												
 				<TR name="unitmove">
 				
-			   	    <TD style="padding-left:10px" width="30%" class="labelmedium"><cf_tl id="Unit">:</TD>
-					<td height="23">
+			   	    <TD style="padding-left:10px;width:20%" class="labelmedium"><cf_tl id="Unit">:</TD>
+					<td height="23" style="width:80%">
 				
 					<cfquery name="OrgSel"
 			         datasource="AppsOrganization"        
@@ -79,8 +77,8 @@
 				<cfoutput>	
 				
 				<TR name="unitmove">
-			    	<TD height="25" style="padding-left:10px" class="labelmedium" width="16%"><cf_tl id="Program">:</TD>
-				    <TD class="labelmedium">#Parent.ProgramName#</td>		
+			    	<TD height="25" style="padding-left:10px;width:20%" class="labelmedium"><cf_tl id="Program">:</TD>
+				    <TD style="width:80%"class="labelmedium">#Parent.ProgramName#</td>		
 				</tr>
 				
 				</cfoutput>			
@@ -91,21 +89,7 @@
 			
 			    <cfoutput>				
 				
-				<TR name="actionmove" id="actionmove" class="hide">
-		    	<TD></TD>	
-			    <TD height="23">
-		    	
-			    	<button class="button10g" 
-						   name="search1" 
-						   type="button"
-						   style="width: 250px;height:25px" 
-						   onClick="selectprogramme('#ParentOrg.Mission#','#URL.Period#','#OrgParent.OrgUnit#','#EditProgram.OrgUnit#','#URL.EditCode#','setprogram')">			
-						   <cf_tl id="Select Parent">
-					</button>	   
-				
-				</TD>
-				</TR>
-				
+								
 				<tr id="actionmove" class="hide">
 				    <td  style="padding-left:10px" width="16%" class="labelmedium"><cf_tl id="Unit">:</td>
 					
@@ -122,16 +106,39 @@
 				</tr>
 		
 				<tr name="actionmove" class="hide">
-				    <td style="padding-left:10px" class="labelmedium"><cf_tl id="Action">:</td>
+				    <td style="padding-left:10px" class="labelmedium"><cf_tl id="Parent">:</td>
 					
-					 <TD><input type="text" 
+					 <TD>
+					 
+					 <table>
+					 <tr><td>
+					 
+					 <input type="text" 
 					         class="regularxl" 
 							 name="parentcodename"
 							 id="parentcodename"  
 							 value="#Parent.ProgramName#" 
 							 size="68" 
 							 maxlength="60" readonly>	
-					</td>	 
+					</td>	
+					
+					 <TD style="height:30px;padding-left:3px">
+		    	
+				    	<button class="button10g" 
+							   name="search1" 
+							   type="button"
+							   style="width:30px;height:25px" 
+							   onClick="selectprogramme('#ParentOrg.Mission#','#URL.Period#','#OrgParent.OrgUnit#','#EditProgram.OrgUnit#','#URL.EditCode#','setprogram')">			
+							   <cf_tl id="...">
+						</button>	   
+						    
+					
+					</td></tr>
+					</table>
+					
+					</td>
+					
+					 
 				</tr>
 				
 				</cfoutput>			

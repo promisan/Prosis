@@ -66,6 +66,7 @@ password="#SESSION.dbpw#">
 	<cfinclude template="../../../Tools/SubmenuLeft.cfm">
 </td></tr>
 
+
 <tr><td style="padding-left:7px">
 	<cfset heading        = "Analysis">
 	<cfset module         = "'Warehouse'">

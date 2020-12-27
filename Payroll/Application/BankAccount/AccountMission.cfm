@@ -27,7 +27,7 @@
 				#Mission# :
 			</td>
 			<td style="padding-left:10px;">
-				<select name="bank_#mission#" id="bank_#mission#" class="regularxl" required="yes">
+				<select name="bank_#mission#" id="bank_#mission#" class="regularxxl">
 					<option value=""> -- <cf_tl id="Select a Bank"> --
 					<cfquery name="getBanks" 
 						datasource="AppsLedger" 

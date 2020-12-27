@@ -129,15 +129,13 @@
 	
 <cfoutput>	
 	<script>
-		try 
-		{
+		try {
 			parent.pasdialog('#rowguid#');
 			parent.document.getElementById("refresh_#url.box#").click();
-			parent.ColdFusion.Window.hide('mypasdialog');
-		} catch(e) 
-		{ 
+			parent.ProsisUI.closeWindow('mypasdialog');
+		} catch(e) { 
 			parent.window.close(); 
-		}
+			}
 	</script>	
 </cfoutput>
 

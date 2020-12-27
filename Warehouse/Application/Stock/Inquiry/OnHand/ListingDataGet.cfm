@@ -10,7 +10,7 @@
 	WHERE  	  Warehouse = '#url.warehouse#'							
 </cfquery>		
 
-<cfparam name="url.filterwarehouse"   default="0">	
+<cfparam name="url.filterwarehouse"   default="1">	<!--- enforce the warehouse --->
 <cfparam name="url.location"          default="">	
 <cfparam name="Form.TransactionLot"   default="">		
 <cfparam name="Form.Location"         default="#url.location#">		
@@ -100,8 +100,7 @@
 		<cfquery name="getDataInMemory" 
 			datasource="AppsMaterials" 
 			username="#SESSION.login#" 
-			password="#SESSION.dbpw#"> 
-			
+			password="#SESSION.dbpw#"> 			
 					
 			 SELECT    C.Category,
 			 		   C.Description as CategoryDescription,
@@ -159,11 +158,11 @@
 			 <!--- not needed here
 			 AND       C.StockControlMode = 'Stock'
 			 --->
-			 	 
+						 	 
 			 <cfif url.filterwarehouse eq "1">
 			 
 			 AND       P.Warehouse = '#url.warehouse#'	 
-			 
+			 			 
 			 <cfelse>
 			 		   
 				<cfif globalmission neq "granted">
@@ -209,20 +208,23 @@
 			 
 			 </cfif>
 			 
+			 <!---	removed in order to show --->
+			 HAVING SUM(TransactionQuantity) > 0	
+			 
 		
 		</cfquery>	
-		
-				
-	<cfelse>
 	
-			
+				
+	<cfelse>	
+				
 			<cfquery name="getDataInMemory" 
 			datasource="AppsMaterials" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#"> 
 					
 		
-			 SELECT    I.Category,
+			 SELECT    newid() as ListingKey,
+			           I.Category,
 			 		   C.Description as CategoryDescription,
 			           T.ItemNo,	
 					   I.ItemNoExternal,
@@ -245,10 +247,10 @@
 						WHERE  ItemNo = T.ItemNo) as Pictures,						
 					   
 					   SUM(TransactionQuantity) as OnHand,
-					   SUM(TransactionValue) as OnHandValue						  
-					   
-					 			          		   
+					   SUM(TransactionValue)    as OnHandValue						  
+					   					 			          		   
 			 INTO 	   userQuery.dbo.#SESSION.acc#_OnHand			   
+			 
 			 FROM      ItemTransaction T 	 	         
 			           INNER JOIN Item I ON T.ItemNo = I.ItemNo 
 					   INNER JOIN ItemUoM U ON I.ItemNo = U.ItemNo AND T.TransactionUoM = U.UoM 
@@ -263,9 +265,12 @@
 			 --->
 			 
 			 AND       I.ItemClass = 'Supply'		
-			 	 
+			 
+						 	 
 			 <cfif url.filterwarehouse eq "1">
 			 
+			 
+			 			 
 			 AND       P.Warehouse = '#url.warehouse#'	 
 			 
 			 <cfelse>
@@ -328,14 +333,11 @@
 				   U.ItemBarCode,		   
 				   U.UoMDescription,
 				   I.ParentItemNo
+				   			
+			 <!---	removed in order to show --->
+			 HAVING SUM(TransactionQuantity) > 0	
 			
-			<!---	removed in order to show
-			 HAVING SUM(TransactionQuantity) != 0		   
-			 --->
-			 
-			 ORDER BY P.WarehouseName, W.Description, I.Category, T.ItemNo, I.ParentItemNo   
-			 
-			 
+			 ORDER BY P.WarehouseName, W.Description, I.Category, T.ItemNo, I.ParentItemNo 
 			 			
 		</cfquery>
 			

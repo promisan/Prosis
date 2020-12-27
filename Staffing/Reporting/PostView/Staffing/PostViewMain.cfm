@@ -337,11 +337,11 @@
 			<cfinclude template="MandateFilterInit.cfm">
 	   </td></tr>
 	  	   	   	  
-	   <tr><td colspan="<cfoutput>#tblr#</cfoutput>" style="height:100%;padding-left:45px;padding-right:45px" class="clsPrintContent">	 
+	   <tr><td colspan="<cfoutput>#tblr#</cfoutput>" style="height:100%;padding-left:45px;padding-right:0px" class="clsPrintContent">	 
 	   		
 			<cf_divscroll style="align:center" overflowy="scroll">	     	   	
 							
-			<table style="width:98%" border="0" align="center">
+			<table style="width:97%" border="0">
 				
 			  <cfinclude template="PostViewOrgClass.cfm"> 		  	  			  						 
 			  				   		   

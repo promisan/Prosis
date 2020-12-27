@@ -132,14 +132,14 @@
 					 <cfif len(name) gt "30">
 					    <cfset name = left(name,30)>
 					 </cfif>			
-					 
+					 					 
 					 <cfinvoke component="Service.Analysis.CrossTab"  
 						  method      = "ShowInquiry"
 						  buttonClass = "td"					  						 
 						  buttonText  = "<font size='3' style='font-family: calibri;'>Excel</font>"						 
 						  reportPath  = "Tools\Listing\Listing\"
 						  SQLtemplate = "ListingExcel.cfm"
-						  queryString = "systemfunctionid=#url.systemfunctionid#"
+						  queryString = "box=#attributes.box#&systemfunctionid=#url.systemfunctionid#"
 						  dataSource  = "#attributes.datasource#" 
 						  module      = "SelfService"
 						  outputid    = "#url.systemfunctionid#"

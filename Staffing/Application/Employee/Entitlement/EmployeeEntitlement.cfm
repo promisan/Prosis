@@ -58,7 +58,7 @@ function toggledays(id) {
 }
 
 function dependentedit(persno,depid,mode,ctr) {			
-	ptoken.location("#SESSION.root#/Staffing/Application/Employee/Dependents/DependentView.cfm?contractid="+ctr+"&action="+mode+"&ID="+persno+"&ID1="+depid)							
+	 ptoken.location("#SESSION.root#/Staffing/Application/Employee/Dependents/DependentView.cfm?contractid="+ctr+"&action="+mode+"&ID="+persno+"&ID1="+depid)							
 }	
 
 function workflowdrill(key,box,mode) {
@@ -81,7 +81,6 @@ function workflowdrill(key,box,mode) {
 
 </script>
 
-
 <cf_verifyOnBoard PersonNo="#url.id#">
 
 <cfinvoke component="Service.Access"
@@ -97,7 +96,6 @@ function workflowdrill(key,box,mode) {
 
 <cf_tl id="Contract defined" var="1">
 <cfset vCD="#lt_text#">
-
 
 <cf_divscroll>
 
@@ -132,8 +130,6 @@ password="#SESSION.dbpw#">
 <cfelse>	
 	  <cfset condition = "(dateAdd(s,-1,dateAdd(d,1,L.DateExpiration)) < #now()#)">
 </cfif>
-
-
 
 <cfset conditiondep = condition>
 
@@ -202,7 +198,11 @@ password="#SESSION.dbpw#">
 		     PT.description as TriggerDescription,
 		     PT.TriggerCondition,
 		     PT.TriggerDependent,
-			 PT.TriggerGroup
+			 PT.TriggerGroup,
+			 (SELECT EntitlementName
+			  FROM   Ref_PayrollTriggerGroup
+			  WHERE  SalaryTrigger    = L.SalaryTrigger
+			  AND    EntitlementGroup = L.EntitlementGroup) as TriggerGroupName
 	
 	FROM     PersonEntitlement L LEFT OUTER JOIN
              Ref_PayrollItem R ON L.PayrollItem = R.PayrollItem LEFT OUTER JOIN
@@ -266,8 +266,8 @@ password="#SESSION.dbpw#">
 		
 		<table>
 		<tr>
-			<td><input type="button" value="#vGeneric#"  style="width:140px;height:25px" class="button10g" onClick="entitlementtrigger('#URL.ID#','#URL.ID1#')"></td>
-			<td style="padding-left:4px"><input type="button" style="width:140px;height:25px" value="#vIndividual#" class="button10g" onClick="entitlement('#URL.ID#','#URL.ID1#')"></td>
+			<td><input type="button" value="#vGeneric#"  style="width:180px;height:26px;font-size:15px" class="button10g" onClick="entitlementtrigger('#URL.ID#','#URL.ID1#')"></td>
+			<td style="padding-left:4px;padding-right:9px"><input type="button" style="width:180px;height:26px;font-size:15px" value="#vIndividual#" class="button10g" onClick="entitlement('#URL.ID#','#URL.ID1#')"></td>
 		</tr>
 		</table>
 	
@@ -295,7 +295,7 @@ password="#SESSION.dbpw#">
 		<TD width="5%"><cf_tl id="Days"></TD>
 		<TD width="15%"><cf_tl id="Schedule"></TD>		
 		<TD width="10%" align="right"><cf_tl id="Period"></TD>
-		<TD width="20%" align="right"><cf_tl id="Amount"></TD>
+		<TD width="20%" align="right" style="padding-right:4px"><cf_tl id="Amount"></TD>
 	</TR>
 	
 <cfset last = '1'>
@@ -426,7 +426,7 @@ password="#SESSION.dbpw#">
 								</cfif>			
 							</cfif>
 						</td>
-						<td style="width:15px padding-left:2px;padding-top:1px;padding-right:5px">
+						<td style="width:15px padding-left:2px;padding-top:2px;padding-right:5px">
 							<cfif Status eq "0">
 								<cf_img icon="delete" onClick="deletetrigger('#EntitlementId#')">
 							</cfif>
@@ -566,7 +566,7 @@ password="#SESSION.dbpw#">
 	
 	</cfif>
 	
-	<TD style="padding-left:4px;padding-right:4px">#EntitlementGroup#</TD>
+	<TD style="padding-left:4px;padding-right:4px"><cfif TriggerGroupName eq "">#EntitlementGroup#<cfelse>#TriggerGroupName#</cfif></TD>
 	<TD style="padding-right:4px;min-width:70px">
 	<cfif PayrollAccess eq "EDIT" or PayrollAccess eq "ALL">
 	<a href="javascript:toggledays('#EntitlementId#')" id="days_#EntitlementId#">

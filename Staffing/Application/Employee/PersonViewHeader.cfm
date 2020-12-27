@@ -136,7 +136,7 @@
              WHERE  Code = '#Employee.Nationality#'
       </cfquery>   	   			
 
-       <table cellpadding="0" cellspacing="0" width="98%" align="center">   
+       <table width="98%" align="center">   
 	                              
 			   <tr class="line">   
                   <td valign="top" style="padding:4px;border-right:0px solid silver"> 
@@ -286,7 +286,7 @@
 						   
 						        <cfif appointment.recordcount gte "1">	
 								
-									<table cellspacing="0" cellpadding="0">
+									<table>
 									
 										<cfloop query="Appointment">
 										    <tr>
@@ -315,13 +315,13 @@
 												WHERE      PA.PersonNo      = '#url.id#'
 												AND        P.Mission        = '#mission#' 
 												AND        PA.AssignmentStatus IN ('0', '1') 
-												AND        PA.DateEffective = '#dateformat(EOD,client.datesql)#'
+												AND        PA.DateEffective = '#dateformat(EOD,client.datesql)#'												
 											</cfquery>
 											
 											<cfif Assignment.recordcount eq "0">
 											
-											<td style="padding-left:7px;font-size:14px"><font color="FF0000">
-											<cf_UItooltip tooltip="No assignment started on the same date as the EOD"><font color="8000FF"><cf_tl id="Check assignment"></cf_UItooltip>
+											<td style="padding-left:7px;font-size:14px;cursor:pointer;min-width:100px">
+											<cf_UItooltip tooltip="No assignment started on the same date as the EOD"><font color="red"><u><cf_tl id="Attention">!</u></cf_UItooltip>
 											</td>
 											
 											</cfif>
@@ -375,19 +375,20 @@
 						   <cfelse>
 						   	
 							   <cfif user.disabled eq "1">
+							   
 							   	<font color="FF0000">
+								
 							   </cfif>
 							   
-							   <cfif user.mailserveraccount neq "">
-							     <font size="1">ldap</font>: #user.mailserveraccount# / <font size="1">#SESSION.welcome#</font>: #user.account#
-							   <cfelseif user.accountno neq "">
-								 <font size="1">ldap</font>: #user.accountno# /<font size="1">#SESSION.welcome#</font>: #user.account#
-							   <cfelse>	 
-							     <font size="1">#SESSION.welcome#</font>: #user.account#
-							   </cfif>	 
-								
-								
-								</font>							   	
+								   <cfif user.mailserveraccount neq "">
+								     <font size="1">ldap</font>: #user.mailserveraccount# / <font size="1">#SESSION.welcome#</font>: #user.account#
+								   <cfelseif user.accountno neq "">
+									 <font size="1">ldap</font>: #user.accountno# /<font size="1">#SESSION.welcome#</font>: #user.account#
+								   <cfelse>	 
+								     <font size="1">#SESSION.welcome#</font>: #user.account#
+								   </cfif>	 	
+								   							
+							   </font>							   								   
 						   
 						   </cfif>	                         
                              
@@ -447,17 +448,15 @@
 				  
    		    	 	<cfif url.scope eq "Backoffice">
 					
-                     <table width="100%" cellspacing="0"  border="0" cellpadding="0"  border="0">   
+                     <table width="100%">   
 					 
 					 	 <cfif employee.eMailaddress eq "">
 					 	 <tr>   
            
-                              <td class="labelit"><cf_tl id="Corporate mail">:</td>   
+                              <td class="labelit"><font color="808080"><cf_tl id="Corporate mail">:</td>   
            
                               <td class="labelmedium" style="height:20px;font-size:14px">
-                                 <cfoutput query="Employee">
-								   #eMailAddress#
-                                 </cfoutput>
+                                 <cfoutput query="Employee">#eMailAddress#</cfoutput>
                              </td>   
            
                         </tr>   

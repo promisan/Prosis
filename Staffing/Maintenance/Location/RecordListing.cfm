@@ -1,5 +1,6 @@
 <!--- Create Criteria string for query from data entered thru search form --->
 
+<cf_screentop height="100%" scroll="Yes" html="No" jquery="Yes">
 <cfparam name="url.mission" default="">
 
 <cf_divscroll>
@@ -14,22 +15,22 @@
 <script language = "JavaScript">
 
 function recordadd(grp) {
-    window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "AddLocation", "left=80, top=80, width=540, height=400, toolbar=no, status=yes, scrollbars=no, resizable=no");
+    ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "AddLocation", "left=80, top=80, width=560, height=400, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 function recordedit(id1) {
-    window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "EditLocation", "left=80, top=80, width= 500, height=400, toolbar=no, status=yes, scrollbars=no, resizable=no");
+    ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "EditLocation", "left=80, top=80, width=560, height=400, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 function reload(mis) {    
-     window.location = "RecordListing.cfm?idmenu=#url.idmenu#&ts="+new Date().getTime()+"&mission=" + mis;
+     ptoken.location('RecordListing.cfm?idmenu=#url.idmenu#&mission=' + mis)
 }
 
 </script>	
 	
 </cfoutput>
 
-<table width="97%" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<table width="97%" align="center" class="navigation_table">
 
 <tr><td colspan="5" height="20" style="padding-top:4px;padding-bottom:5px">
 
@@ -110,7 +111,7 @@ password="#SESSION.dbpw#">
 	ORDER BY Mission, ListingOrder, LocationName 
 </cfquery>   
 	  
-<tr class="labelheader line">
+<tr class="labelmedium line">
     <td></td>
     <td>Code</td>
 	<td>Location name</td>
@@ -126,25 +127,24 @@ password="#SESSION.dbpw#">
 <cfoutput query="SearchResult" group="Mission">
 
 <tr height="30"><td colspan="9" class="labellarge">#Mission#</b></td></tr>
-
-<cfoutput>
-  	
-    <tr style="height:22px" class="cellcontent navigation_row line"> 
-	<td width="5%" align="center">
-	   <cf_img icon="open" navigation="Yes" onclick="recordedit('#LocationCode#')">
-	</td>		
-	<td>#LocationCode#</a></td>
-	<td>#LocationName# <cfif countryname neq "">/ #CountryName#</cfif></td>
-	<td align="center">#Dateformat(DateEffective, "#CLIENT.DateFormatShow#")#</td>
-	<td align="center">#Dateformat(DateExpiration, "#CLIENT.DateFormatShow#")#</td>
-	<td align="center">#ServiceLocationDescription#</td>
-	<td align="center">#ListingOrder#</td>
-	<td>#OfficerLastName#</td>
-	<td>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
-    </tr>
 	
-	
-</cfoutput>
+	<cfoutput>
+	  	
+	    <tr style="height:22px" class="cellcontent navigation_row line"> 
+		<td width="5%" align="center">
+		   <cf_img icon="open" navigation="Yes" onclick="recordedit('#LocationCode#')">
+		</td>		
+		<td>#LocationCode#</a></td>
+		<td>#LocationName# <cfif countryname neq "">/ #CountryName#</cfif></td>
+		<td align="center">#Dateformat(DateEffective, "#CLIENT.DateFormatShow#")#</td>
+		<td align="center">#Dateformat(DateExpiration, "#CLIENT.DateFormatShow#")#</td>
+		<td align="center">#ServiceLocationDescription#</td>
+		<td align="center">#ListingOrder#</td>
+		<td>#OfficerLastName#</td>
+		<td>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
+	    </tr>	
+		
+	</cfoutput>
 
 </cfoutput>
 

@@ -1,6 +1,4 @@
 
-<cfajaximport tags="cfwindow">
-
 <cfoutput>
 	
 	<script language="JavaScript">
@@ -17,17 +15,15 @@
 		 
      function closeme(val) {  
 	      document.getElementById("drilltemplate").value = val
-    	  ColdFusion.Window.destroy('mydrill',true)		
+    	  ProsisUI.closeWindow('mydrill',true)		
     }
 	 
-	function toggle(fld,val) {
-	
+	function toggle(fld,val) {	
 	  if (val == "") {
 	  	document.getElementById(fld).disabled = true
 	  } else {
 	    document.getElementById(fld).disabled = false
-	  }
-	  
+	  }	  
 	}
 	
 	function fieldedit(fid,sid,ser) {		  		
@@ -37,7 +33,7 @@
 	
 	function fieldrefresh(sid,ser) {	
 	    _cf_loadingtexthtml='';
-	    ColdFusion.navigate('#SESSION.root#/System/Modules/InquiryBuilder/InquiryEditFields.cfm?systemfunctionid='+sid+'&functionserialno='+ser,'fields')	     				
+	    ptoken.navigate('#SESSION.root#/System/Modules/InquiryBuilder/InquiryEditFields.cfm?systemfunctionid='+sid+'&functionserialno='+ser,'fields')	     				
 	}
 	 
 	function selectdrilltemplate() {			   	
@@ -54,11 +50,9 @@
 		ptoken.navigate('#SESSION.root#/system/modules/inquirybuilder/CopyInquiry.cfm?id='+id,'copy');						
 	}
 		
-	function editpreparation(id,ser) {	
-	    		
+	function editpreparation(id,ser) {		    		
 		ProsisUI.createWindow('myscript', 'Query', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,resizable:false,center:true})    						
-		ptoken.navigate('#SESSION.root#/system/modules/inquirybuilder/PreparationEdit.cfm?ts='+new Date().getTime()+'&systemfunctionid='+id+'&functionserialno='+ser,'myscript') 
-//		window.showxxxModalDialog("#SESSION.root#/system/modules/inquirybuilder/PreparationEdit.cfm?ts="+new Date().getTime()+"&systemfunctionid="+id+"&functionserialno="+ser, window, "unadorned:yes; edge:raised; status:yes; dialogHeight:770px; dialogWidth:970px; help:no; scroll:no; center:yes; resizable:yes");		
+		ptoken.navigate('#SESSION.root#/system/modules/inquirybuilder/PreparationEdit.cfm?systemfunctionid='+id+'&functionserialno='+ser,'myscript') 
 	}	
 		
 	function embedding(val) {	

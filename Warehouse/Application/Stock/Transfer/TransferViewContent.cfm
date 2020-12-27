@@ -201,8 +201,7 @@
 	<TD style="min-width:80px" align="center"><cfif Param.lotManagement eq "Yes"><cf_tl id="Lot"></cfif></TD>	
 	<TD style="min-width:60px"><cf_tl id="Reference"></TD>
 	<TD style="min-width:80px;padding-left:4px"><cf_tl id="Measure"></TD>					
-    <td style="min-width:60px" align="right"><cf_tl id="On Hand"></td>		
-	<TD width="10"></TD>	
+    <td style="min-width:60px;padding-right:5px" align="right"><cf_tl id="On Hand"></td>			
 </TR>
 	
 </cfif>			
@@ -251,7 +250,7 @@
 			
 		    <tr bgcolor="#IIf(CurrentRow Mod 2, DE('ffffff'), DE('Ffffff'))#"
 			    style="cursor:pointer;height:20px;padding:0px"
-				class="labelmedium navigation_row regular line"					
+				class="labelmedium2 navigation_row regular line"					
 				ondblclick="item('#ItemNo#','#url.systemfunctionid#','#URL.Mission#')">
 				
 			<cfelse>	
@@ -259,7 +258,7 @@
 			 <!--- embedded mode --->
 			
 			 <tr bgcolor="#IIf(CurrentRow Mod 2, DE('f4f4f4'), DE('Ffffff'))#"
-			    class="navigation_row labelmedium line" style="cursor : pointer;height:20px;padding:0px">
+			    class="navigation_row labelmedium2 line" style="cursor : pointer;height:20px;padding:0px">
 				
 			</cfif>
 				
@@ -367,7 +366,7 @@
 			<td align="right"><cfif param.LotManagement is "1" and TransactionLot neq "0">#TransactionLot#</cfif></td>	
 			<td><cfif Transactionreference neq "Stock discrepancy" and StockControlMode eq "Individual">#TransactionReference#</cfif></td>	
 			<td style="padding-left:4px">#UoMDescription#</td>	
-			<td align="right"><cfif Quantity lte "0"><b><font color="FF0000"></cfif>#NumberFormat(Quantity,'#pformat#')#</font></td>													
+			<td align="right" style="padding-right:4px"><cfif Quantity lte "0"><b><font color="FF0000"></cfif>#NumberFormat(Quantity,'#pformat#')#</font></td>													
 					
 			<cfif url.mode eq "Quick">
 				<td align="right" style="padding-left:5px;">

@@ -118,7 +118,8 @@
 							iconwidth  = "#wd#" 
 							iconheight = "#ht#" 	
 							padding    = "1"					
-							name       = "#vDocuments#">
+							name       = "#vDocuments#"
+							source = "MandateDocument.cfm?mission=#url.mission#&mandate=#url.mandate#">
 									
 			</cfif>
 			

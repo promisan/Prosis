@@ -119,7 +119,7 @@ password="#SESSION.dbpw#">
 		        systemfunctionid = "#systemfunctionid#"  
 				source           = "#session.root#/Portal/Topics/Staffing/Staffing.cfm?mission=#mission#&unit=#defunit#"
 				customFilter	 = "#session.root#/Portal/Topics/Staffing/CustomFilter.cfm?mission=#mission#&targetbox=#currentrow#"
-				width            = "100%"
+				width            = "98%"
 				height           = "auto"
 				Mission          = "#mission#"		
 				Period           = "#per#"		

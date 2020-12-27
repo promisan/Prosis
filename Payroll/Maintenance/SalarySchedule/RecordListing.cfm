@@ -41,11 +41,11 @@ password="#SESSION.dbpw#">
 	h = #CLIENT.height# - 150;
 		
 	function reloadForm(page) {
-	     ptoken.location("RecordListing.cfm?idmenu=#URL.IDMenu#&init=1"); 
+	    ptoken.location("RecordListing.cfm?idmenu=#URL.IDMenu#&init=1"); 
 	}
 	
 	function recordadd(grp) {
-	   ptoken.open("ScheduleAdd.cfm?idmenu=#URL.idmenu#&id=", "Add", "left=80, top=80, width=660, height=480, toolbar=no, status=yes, scrollbars=no, resizable=yes");
+	    ptoken.open("ScheduleAdd.cfm?idmenu=#URL.idmenu#&id=", "Add", "left=80, top=80, width=660, height=480, toolbar=no, status=yes, scrollbars=no, resizable=yes");
 	}
 	
 	function recordedit(id1) {
@@ -56,6 +56,13 @@ password="#SESSION.dbpw#">
 	    ProsisUI.createWindow('misdialog', 'Details', '',{x:100,y:100,height:325,width:700,resizable:false,modal:true,center:true})	
 	    ptoken.navigate('MissionEdit.cfm?idmenu=#URL.idmenu#&schedule=' + sch + '&mission=' + mis, 'misdialog');
 	}
+		
+	function missioneditsubmit(sch,mis,act) {
+		document.formmission.onsubmit() 
+		if( _CF_error_messages.length == 0 ) {           
+			ptoken.navigate('MissionEditSubmit.cfm?idmenu=#URL.idmenu#&action='+act+'&mission='+mis+'&schedule='+sch,'process','','','POST','formmission')
+		}   
+    }	
 	
 	function applyaccount(acc) {
 	    ptoken.navigate('setAccount.cfm?account='+acc,'processmanual')
@@ -78,53 +85,35 @@ password="#SESSION.dbpw#">
 
 	<table width="97%" height="100%" cellspacing="0" cellpadding="0" border="0" align="center" class="navigation_table">
 	
-	 <tr><td height="30" class="labellarge" style="font-size:30px;height:50px">&nbsp;Salary schedule and Rates</td>
+	 <tr><td height="30" class="labellarge" style="padding-left:6px;font-size:30px;height:50px">Salary schedule and Rates</td>
 		 <td align="right">
 		   <input class="button10g" style="width:150px" type="button" name="Init" value="Initialise" onclick="reloadForm()">		
 		 </td>
 	</tr>
 	
+	<tr class="hide"><td id="process"></td></tr>
 	<tr><td colspan="2" width="100%" height="100%" valign="top">
 	
 	<cf_divscroll>
 	
 		<table width="98%">
 		 
-			<tr class="line fixrow" style="height:20px;">
-		    <td width="4%" class="labelit" align="center"></td>
-		    <td width="10%" class="labelit"><cf_tl id="Code"></td>
-			<td width="20%" class="labelit"><cf_tl id="Name"></td>
-			<td class="labelit"><cf_tl id="Period"></td>
-			<td class="labelit"><cf_tl id="Currency"></td>
-			<td class="labelit"><cf_tl id="Base Salary"></td>	
-			</tr>
-			
-			<!---	
-			<tr class="labelit">
-			
-			    <td width="4%" bgcolor="ffffff"></td>		
-									
-				<td style="border-bottom:1px solid silver" width="22%"><font color="808080"><cf_tl id="Entity"></td>
-							
-				<td style="border-bottom:1px solid silver" width="22%"><font color="808080"><cf_tl id="Payroll Location"></td>
-				<td style="border-bottom:1px solid silver" width="10%"><font color="808080"><cf_tl id="Ctr"></td>
-					
-				<td style="border-bottom:1px solid silver" width="22%"><font color="808080"><cf_tl id="Payroll Location"></td>
-				<td style="border-bottom:1px solid silver" width="10%"><font color="808080"><cf_tl id="Ctr"></td>
-				
-				<td style="border-bottom:1px solid silver" width="22%"><font color="808080"><cf_tl id="Payroll Location"></td>
-				<td style="border-bottom:1px solid silver" width="10%"><font color="808080"><cf_tl id="Ctr"></td>
-					
-			</tr>
-			--->						
+			<tr class="line fixrow labelmedium" style="height:20px;">
+		    <td width="4%" align="center"></td>
+		    <td width="10%"><cf_tl id="Code"></td>
+			<td width="20%"><cf_tl id="Name"></td>
+			<td><cf_tl id="Period"></td>
+			<td><cf_tl id="Currency"></td>
+			<td><cf_tl id="Base Salary"></td>	
+			</tr>					
 		
 		<cfoutput query="SearchResult" group="SalarySchedule"> 		    
 			
 		    <tr class="labelmedium navigation_row line">
 				<td style="height:30px" align="center">
-					<cf_img icon="edit" navigation="Yes" onclick="recordedit('#SalarySchedule#');">
+					<cf_img icon="edit" navigation="Yes" onclick="recordedit('#SalarySchedule#')">
 				</td>
-				<td style="min-width:150px;font-size:21px"><a href="javascript:recordedit('#SalarySchedule#')">#SalarySchedule#</a></td>
+				<td style="min-width:150px;font-size:19px">#SalarySchedule#</td>
 				<td style="min-width:300px">#Description#</td>
 				<td>
 				<cfif SalaryCalculationPeriod eq "MONTH">
@@ -140,11 +129,16 @@ password="#SESSION.dbpw#">
 			
 			<cfoutput group="Mission"> 		
 			
-				<tr class="labelmedium">
+				<tr class="labelmedium line">
 				
 				<td></td>
 										
-				<td style="padding-left:10px" bgcolor="D3E9F8"><a href="javascript:missionedit('#SalarySchedule#','#mission#')">#Mission#</a>&nbsp;(#dateformat(DateEffective,CLIENT.DateFormatShow)#)</td>			
+				<td style="padding-left:10px" bgcolor="D3E9F8">
+				   
+				   <a href="javascript:missionedit('#SalarySchedule#','#mission#')">#Mission#</a>
+				   
+				</td>
+				<td style="padding-left:4px">#dateformat(DateEffective,CLIENT.DateFormatShow)#</td>			
 											
 					<cfquery name="Location"
 					datasource="AppsPayroll" 
@@ -185,11 +179,13 @@ password="#SESSION.dbpw#">
 						
 						<cf_assignid>
 					
-					    <td class="labelit" id="#rowguid#" style="padding-left:5px">
+					    <td id="#rowguid#" style="padding-left:5px;border-left:1px solid silver;border-bottom:1px solid silver;border-right:1px solid silver;">
 						
-							<table><tr><td style="font-size:14px">	
-											
-							<a href="javascript:rate('#SalarySchedule#','#Mission#','#ServiceLocation#')">#ServiceLocation#&nbsp;#LocationDescription#</a>
+							<table><tr class="labelmedium">
+							
+							<td style="padding-top:2px"><cf_img icon="open" onclick="rate('#SalarySchedule#','#Mission#','#ServiceLocation#')"></td>
+							
+							<td>#ServiceLocation#&nbsp;#LocationDescription#
 												
 							   <cfquery name="Contract"
 								datasource="AppsEmployee" 
@@ -208,7 +204,7 @@ password="#SESSION.dbpw#">
 								(#Contract.total#)								 
 								 					
 							</td>
-							<td style="padding-left:3px">
+							<td style="padding-left:3px;padding-top:2px;">
 							
 							  <cfif check.recordcount eq "0">
 								<cf_img icon="delete" onclick="removelocation('#SalarySchedule#','#Mission#','#ServiceLocation#','#rowguid#')">
@@ -222,7 +218,7 @@ password="#SESSION.dbpw#">
 											
 						<cfif cnt eq "3">
 						</tr>
-						<tr><td></td><td></td>
+						<tr><td></td><td></td><td></td>
 						<cfset cnt = 0>
 						</cfif>		
 						
@@ -231,6 +227,8 @@ password="#SESSION.dbpw#">
 					</cfloop>				
 					
 		 	</cfoutput>			
+			
+			<tr><td style="height:3px"></td></tr>
 				
 		</cfoutput>
 		

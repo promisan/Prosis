@@ -22,7 +22,7 @@
 			<cfif mode eq "view">
 				<td bgcolor="#pclr#" class="ccell">
 				
-					<table ccellspacing="0" ccellpadding="0">
+					<table cellspacing="0" cellpadding="0">
 					
 					<tr><td>
 														

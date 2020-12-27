@@ -1,40 +1,116 @@
 
 <cfoutput>
 
-<table width="99%" class="formpadding formspacing" cellspacing="0" cellpadding="0" align="center">
+<table width="99%" class="formpadding" align="center" style="height:190px">
+<tr><td valign="top">
+
+<table class="formpadding" align="center" style="width:100%">
 			
 	<tr id="detailfunction" class="#cl#">
-		
-		<cf_UIToolTip tooltip="Adds a filter section to the inquiry listing">
-		<td class="labelmedium" height="24">Enable&nbsp;Filtering:</td>
-		</cf_UIToolTip>
 				
+		<td class="labelmedium" style="width:210px" height="24">Grid features:</td>
+						
 		<td class="labelmedium">
-				
-		  <select class="regularxl" name="FilterShow" id="FilterShow" style="font:10px">
-			<option value="1" <cfif List.FilterShow eq "1">selected</cfif>>Yes</option>
-			<option value="0" <cfif List.FilterShow eq "0">selected</cfif>>No</option>
-		   </select>
-		   
-		</td>
+		
+			<table>
 			
-	</tr>		
+			<tr>
+			
+			<cf_UIToolTip tooltip="Adds a filter section to the inquiry listing">
+				<td class="labelmedium" height="24">Filter:</td>
+			</cf_UIToolTip>
+			
+			<td style="padding-left:4px">
+			
+			  <select class="regularxl" name="FilterShow" id="FilterShow" style="font:10px">
+				<option value="1" <cfif List.FilterShow eq "1">selected</cfif>>Yes</option>
+				<option value="0" <cfif List.FilterShow eq "0">selected</cfif>>No</option>
+			   </select>
+			
+			</td>
+			
+			<td>
+		
+				<table>
+					
+					<tr class="labelmedium2">
+					  <td style="padding-left:15px"><cf_UIToolTip tooltip="requires Key field">Delete on:</cf_UIToolTip></td>
+					  <td style="padding-left:10px">
+				
+					   	  <cf_securediv id="table" 
+					       bind="url:#SESSION.root#/System/Modules/InquiryBuilder/SubTable.cfm?systemfunctionid=#url.systemfunctionid#&functionserialno=#url.functionserialno#&datasource={querydatasource}">
+						   
+					   </td>
+					   
+					   <td style="padding-left:20px;">Annotation / workflow:</td>
+					   <td style="padding-left:10px">
+					   
+						   <cf_securediv id="annotation" 
+						       bind="url:#SESSION.root#/System/Modules/InquiryBuilder/Annotation.cfm?systemfunctionid=#url.systemfunctionid#&functionserialno=#url.functionserialno#&datasource={querydatasource}">
+							   
+					   </td>		   		   
+				     		   
+					   <td style="padding-left:10px;">Excel Export:</td>
+					   
+					   <td style="padding-left:10px">
+					   	
+						   <table cellspacing="0" cellpadding="0">
+						   <tr class="labelmedium2">
+						   <cfparam name="val[5]" default="false">
+						   <td><input type="radio" name="ExcelExport" id="ExcelExport" value="true" <cfif val[5] eq "true">checked</cfif>></td><td style="padding-left:4px">Yes</td>
+						   <td style="padding-left:4px"><input type="radio" name="ExcelExport" id="ExcelExport" value="false" <cfif val[5] neq "true">checked</cfif>></td><td style="padding-left:4px">No</td>
+						   </tr>
+						   </table>
+					   
+					   </td>
+					   
+					    <td style="padding-left:20px">Scroll:</td>
+					   
+					   <td style="padding-left:10px">
+					   	
+						   <table cellspacing="0" cellpadding="0">
+						   <tr class="labelmedium2">
+						   <cfparam name="val[6]" default="paging">
+						   <td style="padding-left:4px"><input type="radio" name="Scrolling" id="Scrolling" value="true" <cfif val[6] eq "paging">checked</cfif>></td><td style="padding-left:4px">Paging</td>
+						   <td style="padding-left:4px"><input type="radio" name="Scrolling" id="Scrolling" value="false" <cfif val[6] neq "paging">checked</cfif>></td><td style="padding-left:4px">Continuous</td>
+						   </tr>
+						   </table>
+					   
+					   </td>
+					 	   		   
+				    </tr>				
+					
+				 </table>
+			
+			</td>
+				
+			</tr>	
+			
+			</table>
+				   
+		</td>		
+			
+	</tr>	
 	
+	<tr class="labelmedium"><td style="font-size:26px"><cf_tl id="Details"></td></tr>	
+		
 	<tr>
 		  <td  height="24" class="labelmedium">Drilldown mode:</td>
 			<td class="labelmedium">
 			   <select name="DrillMode" id="DrillMode" class="regularxl" onchange="embedding(this.value)">
 				<option value="None"         <cfif List.DrillMode eq "None">selected</cfif>>Not applicable</option>
-				<option value="Default"      <cfif List.DrillMode eq "Default">selected</cfif>>Show All fields</option>
-				<option value="Workflow"     <cfif List.DrillMode eq "Workflow">selected</cfif>>Workflow Object</option>
-				<option value="Embed"        <cfif List.DrillMode eq "Embed">selected</cfif>>Embed</option>
-				<option value="Tab"          <cfif List.DrillMode eq "Tab">selected</cfif>>Tab</option>
+				<option value="Default"      <cfif List.DrillMode eq "Default">selected</cfif>>Embed : Show All fields</option>
+				<option value="Workflow"     <cfif List.DrillMode eq "Workflow">selected</cfif>>Embed : Workflow Object</option>
+				<option value="Embed"        <cfif List.DrillMode eq "Embed">selected</cfif>>Embed : Template</option>
+				<option value="Tab"          <cfif List.DrillMode eq "Tab">selected</cfif>>Tab : Template</option>
 				<!---
 				<option value="Dialog"       <cfif List.DrillMode eq "Dialog">selected</cfif>>Window Modal Dialog (IE and FF)</option>	
 				--->
-				<option value="DialogAjax"   <cfif List.DrillMode eq "DialogAjax">selected</cfif>>CFwindow</option>					
+				<option value="DialogAjax"   <cfif List.DrillMode eq "DialogAjax">selected</cfif>>Kendo window : Template</option>		
+				<!---			
 				<option value="Window"       <cfif List.DrillMode eq "Window">selected</cfif>>Window (single)</option>						
-				<option value="SecureWindow" <cfif List.DrillMode eq "SecureWindow" or List.DrillMode eq "Window">selected</cfif>>Window (multiple)</option>		
+				--->
+				<option value="SecureWindow" <cfif List.DrillMode eq "SecureWindow" or List.DrillMode eq "Window">selected</cfif>>Tab : Template</option>		
 			   </select>
 			</td>	
 	</tr>		
@@ -72,7 +148,7 @@
 							   style="padding-left:3px;border:0px"
 							   size="100" 
 							   maxlength="100"
-						       onblur= "ColdFusion.navigate('#SESSION.root#/System/Modules/InquiryBuilder/TemplateValidation.cfm?template='+this.value,'dDrillTemplate')">
+						       onblur= "ptoken.navigate('#SESSION.root#/System/Modules/InquiryBuilder/TemplateValidation.cfm?template='+this.value,'dDrillTemplate')">
 					</td>
 					
 					<td align="right" style="padding-top:1px;padding-bottom:1px">		
@@ -92,7 +168,7 @@
 	
 			</td>
 		<td style="padding-left:3px">
-				  <cfdiv id="dDrillTemplate" 
+				  <cf_securediv id="dDrillTemplate" 
 					bind="url:#SESSION.root#/System/Modules/InquiryBuilder/TemplateValidation.cfm?template=#list.InsertTemplate#" />
 		</td>
 		</tr>
@@ -119,13 +195,13 @@
 				   class="regularxl" 
 				   size="100" 
 				   maxlength="150" 
-				   onblur= "ColdFusion.navigate('#SESSION.root#/System/Modules/InquiryBuilder/TemplateValidation.cfm?template='+this.value,'dInsertTemplate')">
+				   onblur= "ptoken.navigate('#SESSION.root#/System/Modules/InquiryBuilder/TemplateValidation.cfm?template='+this.value,'dInsertTemplate')">
 				   
 		</td>
 		<td style="padding-left:3px">
 			
-			   <cfdiv id="dInsertTemplate" 
-				bind="url:#SESSION.root#/System/Modules/InquiryBuilder/TemplateValidation.cfm?template=#list.InsertTemplate#" />
+			   <cf_securediv id="dInsertTemplate" 
+				bind="url:#SESSION.root#/System/Modules/InquiryBuilder/TemplateValidation.cfm?template=#list.InsertTemplate#">
 
 		</td>
 		
@@ -164,56 +240,17 @@
 		   <cfparam name="val[4]" default="false">
 		   <td style="padding-left:5px"><input type="radio" name="DrillArgumentCenter" id="DrillArgumentCenter" value="true" <cfif val[4] eq "true">checked</cfif>></td><td class="labelmedium" style="padding-left:4px">Yes</td>
 		   <td style="padding-left:5px"><input type="radio" name="DrillArgumentCenter" id="DrillArgumentCenter" value="false" <cfif val[4] neq "true">checked</cfif>></td><td class="labelmedium" style="padding-left:4px">No</td>
-		  
-		   
+		  		   
 		</tr>
 		</table>		 		
 		</td>
 	
 	</tr>	
-	
-	<tr id="detailfunction" class="#cl#"  height="24">
-		
-	<td colspan="2">
-	
-		<table cellspacing="0" cellpadding="0">
-		
-		<tr>
-		  <td style="height:30px" width="190"  class="labelmedium"><cf_UIToolTip tooltip="requires Key field">Enable Deletion on:</cf_UIToolTip></td>
-		  <td>
-	
-	   	  <cf_securediv id="table" 
-	       bind="url:#SESSION.root#/System/Modules/InquiryBuilder/SubTable.cfm?systemfunctionid=#url.systemfunctionid#&functionserialno=#url.functionserialno#&datasource={querydatasource}">
-		   
-		   </td>
-		   
-		   <td style="padding-left:20px;height:30px" class="labelmedium">Show Annotation:</td>
-		   <td>
-			   <cf_securediv id="annotation" 
-			       bind="url:#SESSION.root#/System/Modules/InquiryBuilder/Annotation.cfm?systemfunctionid=#url.systemfunctionid#&functionserialno=#url.functionserialno#&datasource={querydatasource}">
-		   </td>		   		   
-	     		   
-		   <td style="padding-left:20px;height:30px"  class="labelmedium">Show Excel Export:</td>
-		   
-		   <td style="padding-left:10px">
-		   	
-			   <table cellspacing="0" cellpadding="0">
-			   <tr class="labelmedium">
-			   <cfparam name="val[5]" default="false">
-			   <td style="padding-left:4px"><input type="radio" name="ExcelExport" id="ExcelExport" value="true" <cfif val[5] eq "true">checked</cfif>></td><td style="padding-left:4px">Yes</td>
-			   <td style="padding-left:4px"><input type="radio" name="ExcelExport" id="ExcelExport" value="false" <cfif val[5] neq "true">checked</cfif>></td><td style="padding-left:4px">No</td>
-			   </tr>
-			   </table>
-		   
-		   </td>
-		 	   		   
-	    </tr>				
-		
-	   </table>
-		
-	</td>
-	</tr>	
-	
+			
+</table>
+
+</td>
+</tr>
 </table>
 
 </cfoutput>	

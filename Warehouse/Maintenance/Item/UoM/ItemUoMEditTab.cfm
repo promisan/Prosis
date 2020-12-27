@@ -50,10 +50,8 @@
 	
 </cfif>
 
-<!---
-<cf_PrinterQZTray>
---->
 
+<cf_PrinterQZTray>
 <cfoutput>
 
 <script language="JavaScript">
@@ -244,12 +242,17 @@ function printEPL(barcode,itemno,uom,desc) {
 		y = y + 20;
 	}                                                             
 
+	//'B'+x+',10,0,9,3,2,80,B,"'+barcode+'"\n', -- COD93
+	//'B'+x+',10,0,E30,3,N,80,B,"'+barcode+'"\n', -- EAN13
+	//https://www.servopack.de/support/zebra/EPL2_Manual.pdf
+
     var data = [
       '\nN\n',
-      'B'+x+',10,0,9,3,2,80,B,"'+barcode+'"\n',
+	  'B'+x+',10,0,E30,3,N,80,B,"'+barcode+'"\n',
       str,
       '\nP'+total+',1\n'
     ];
+	console.log(data);
 
 	qz.print(config, data).catch(function(e) { console.error(e); });
 

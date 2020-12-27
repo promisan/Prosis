@@ -246,11 +246,11 @@ password="#SESSION.dbpw#">
 		
 			<table class="formspacing">
 				<tr>
-				<td class="labelit">
+				<td class="labellarge">
 				   <input type="radio" class="radiol" id="format" name="format" <cfif url.format eq "list">checked</cfif> value="list" onclick="reloadalert('1');document.getElementById('listaggregation').className='regular'">	   
 				</td>
 				<td class="labelmedium" style="padding-left:3px"><cf_tl id="Report"></td>
-				<td class="labelit" style="padding-left:3px">
+				<td class="labellarge" style="padding-left:3px">
 				   <input type="radio" class="radiol" id="format" name="format" <cfif url.format eq "chart">checked</cfif> value="chart" onclick="reloadalert('1');;document.getElementById('listaggregation').className='hide'">	   
 				</td>	
 				<td class="labelmedium" style="padding-left:3px"><cf_tl id="Chart"></td>							
@@ -346,7 +346,7 @@ password="#SESSION.dbpw#">
 
 							</table>
 							</td>
-							<td class="labelit" style="padding-left:5px">
+							<td class="labellarge" style="padding-left:5px">
 							<input type="radio" class="radiol" id="layout" name="layout" <cfif url.lay eq "vertical">checked</cfif> value="vertical" onclick="reload('0')"></td>
 							
 						</tr>
@@ -486,7 +486,7 @@ password="#SESSION.dbpw#">
 			
 			<!---
 			
-			<td class="labelit" style="padding-left:5px;height:29px"><cf_tl id="Center"></td>
+			<td class="labellarge" style="padding-left:5px;height:29px"><cf_tl id="Center"></td>
 			<td class="labelmedium" style="padding-left:5px;height:29px">
 																	
 					<input type="checkbox" class="radiol" name="showcenter" id="showcenter" value="yes" class="regularxl" onChange="reloadalert('1');">					   			 		 																				
@@ -545,14 +545,14 @@ password="#SESSION.dbpw#">
 			<table class="formspacing">
 				<tr>
 				
-				<td class="labelit" style="padding-left:4px">
+				<td class="labellarge" style="padding-left:4px">
 				   <input type="radio" class="radiol" id="history" name="history" value="accountperiod" onclick="document.getElementById('boxpostperiod').className='hide';document.getElementById('boxaccountperiod').className='regular'">	   
 				</td>
-				<td class="labelit" style="padding-left:1px"><cf_tl id="Fiscal Year"></td>
-				<td class="labelit" style="padding-left:3px">
+				<td class="labellarge" style="padding-left:1px"><cf_tl id="Fiscal Year"></td>
+				<td class="labellarge" style="padding-left:3px">
 				   <input type="radio" class="radiol" id="history" name="history" value="transactionperiod" checked onclick="document.getElementById('boxpostperiod').className='regular';document.getElementById('boxaccountperiod').className='hide'">	   
 				</td>	
-				<td class="labelit" style="padding-left:1px"><cfoutput>#url.accountperiod#</cfoutput><cf_tl id="PAP"></td>							
+				<td class="labellarge" style="padding-left:1px"><cfoutput>#url.accountperiod#</cfoutput><cf_tl id="PAP"></td>							
 				
 				</tr>		
 			</table>
@@ -589,7 +589,7 @@ password="#SESSION.dbpw#">
 							   name="AccountPeriod" 
 							   value="#AccountPeriod#">
 						   </td>
-						   <td class="labelIT" style="padding-left:3px">#AccountPeriod#</td>
+						   <td class="labellarge" style="padding-left:3px">#AccountPeriod#</td>
 						</tr>
 						
 						</cfoutput>
@@ -675,7 +675,7 @@ password="#SESSION.dbpw#">
 						   		name="TransactionPeriod" 
 						   		value="'#TransactionPeriod#'">
 					   		</td>
-					   		<td class="labelit" style="height:18px;padding-left:5px">#TransactionPeriod#</td>
+					   		<td class="labellarge" style="height:18px;padding-left:5px">#TransactionPeriod#</td>
 						</tr>							
 													
 					<cfelse>
@@ -691,7 +691,7 @@ password="#SESSION.dbpw#">
 							   name="TransactionPeriod" 
 							   value="'#TransactionPeriod#'">
 						   </td>
-						   <td class="labelit" style="font-size:14px;height:18px;padding-left:5px;padding-right:6px">#TransactionPeriod#</td>
+						   <td class="labellarge" style="font-size:14px;height:18px;padding-left:5px;padding-right:6px">#TransactionPeriod#</td>
 						<cfif row eq "2">  
 						</tr>
 						<cfset row = "0">

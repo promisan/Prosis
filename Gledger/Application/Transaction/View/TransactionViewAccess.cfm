@@ -55,13 +55,13 @@
 			
 				<cfif url.print neq 1>
 				
-					<table cellspacing="0" cellpadding="0" class="formpadding">
+					<table cellspacing="0" cellpadding="0" class="formpadding formspacing">
 					
 						<tr>
 															
 						 <td style="padding-top:1px"><cf_img icon="edit" onclick="EditTransaction('#Journal#','#JournalSerialNo#')"></td>
-						 <td style="padding-left:4px" class="labelit"><a href="javascript:EditTransaction('#Journal#','#JournalSerialNo#')">
-						      <font color="gray"><cf_tl id="Amend">
+						 <td style="padding-left:4px" class="labelmedium2"><a href="javascript:EditTransaction('#Journal#','#JournalSerialNo#')">
+						      <cf_tl id="Amend">
 							 </a>
 						 </td>
 						 <td style="padding-left:5px;padding-right:5px">|</td>
@@ -93,8 +93,8 @@
 											or TransactionSource eq "SalesSeries")>
 							
 							 <td style="padding-left:4px;padding-top:3px"><cf_img icon="delete" onclick="del('#Journal#','#JournalSerialNo#')"></td>
-							 <td style="padding-left:4px" class="labelit"><a href="javascript:del('#Journal#','#JournalSerialNo#')">
-							      <font size="2"><cf_tl id="Delete">
+							 <td style="padding-left:4px" class="labelmedium2"><a href="javascript:del('#Journal#','#JournalSerialNo#')">
+							      <cf_tl id="Delete">
 								  </a>
 							  </td>					 
 							   

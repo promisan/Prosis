@@ -1443,7 +1443,7 @@
 									ParentJournal         = "#parentJournal#"
 									ParentJournalSerialNo =	"#parentJournalSerialNo#"			
 									Currency              = "#SettleCurrency#"
-									LogTransaction		  = "No"		
+									LogTransaction		  = "Yes"		
 														
 									TransactionSerialNo1  = "0"
 									Class1                = "Credit"
@@ -1469,7 +1469,9 @@
 								
 						    </cfif>
 									
-					</cfloop>				
+					</cfloop>	
+					
+					<!--- better to use the component --->			
 		
 					<cfquery name="qUpdateOutstanding"
 					datasource="AppsMaterials" 
@@ -1996,7 +1998,8 @@
 								TransactionBatchNo    = "#batchno#"		
 								PersonNo              = "#PersonNo#"														
 								SalesPersonNo         = "#SalesPersonNo#"
-								SalesCurrency         = "#salesCurrency#"		
+								SalesCurrency         = "#salesCurrency#"	
+								PriceSchedule         = "#PriceSchedule#"		
 								SchedulePrice         = "#SchedulePrice#"	
 								SalesUoM              = "#TransactionUoM#"       <!--- as recorded in the sale POS --->	 
 								SalesQuantity         = "#transactionQuantity#"  <!--- as recorded in the sale POS --->								
@@ -2142,7 +2145,8 @@
 										TransactionBatchNo    = "#batchno#"		
 										PersonNo              = "#PersonNo#"														
 										SalesPersonNo         = "#SalesPersonNo#"
-										SalesCurrency         = "#salesCurrency#"		
+										SalesCurrency         = "#salesCurrency#"	
+										PriceSchedule         = "#PriceSchedule#"	
 										SchedulePrice         = "#SchedulePrice#"	
 										SalesUoM              = "#TransactionUoM#"
 										SalesQuantity         = "#salequantity#"
@@ -2350,7 +2354,7 @@
 							TransactionPeriod     = "#transactionperiod#"    
 							JournalTransactionNo  = "#batchno#"							
 							Currency              = "#Currency#"
-							LogTransaction		  = "No"												
+							LogTransaction		  = "Yes"												
 								
 							TransactionSerialNo1  = "0"
 							Class1                = "Debit"
@@ -2365,90 +2369,90 @@
 									
 							<cfset ln = "0">							
 									
-							<cfloop query="getLines">						
-												
-								<!--- COGS booking --->
-						
-								<cfquery name="GetSale" 
-								datasource="AppsMaterials" 
-								username="#SESSION.login#" 
-								password="#SESSION.dbpw#">
-									SELECT   *
-									FROM     Ref_CategoryGledger S
-									WHERE    Category = '#ItemCategory#'
-									AND      Area     = 'Sales'
-									AND      GLAccount IN (SELECT GLAccount FROM Accounting.dbo.Ref_Account WHERE GLAccount = S.GLAccount)
-								</cfquery>			
-								
-								<cfif GetSale.recordcount eq "0">
-			 	
-									<cf_message message = "A sales accounts was not defined for category : #ItemCategory#">
-									  <cfabort>
-						
-								</cfif>	 								
-																
-								<cfquery name="Tax" 
-							    datasource="AppsMaterials" 
-							    username="#SESSION.login#" 
-							    password="#SESSION.dbpw#">
-								    SELECT    *
-								    FROM      Accounting.dbo.Ref_Tax
-									WHERE     TaxCode = '#TaxCode#'
-								</cfquery> 									
+						<cfloop query="getLines">						
+											
+							<!--- COGS booking --->
+					
+							<cfquery name="GetSale" 
+							datasource="AppsMaterials" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+								SELECT   *
+								FROM     Ref_CategoryGledger S
+								WHERE    Category = '#ItemCategory#'
+								AND      Area     = 'Sales'
+								AND      GLAccount IN (SELECT GLAccount FROM Accounting.dbo.Ref_Account WHERE GLAccount = S.GLAccount)
+							</cfquery>			
+							
+							<cfif GetSale.recordcount eq "0">
+		 	
+								<cf_message message = "A sales accounts was not defined for category : #ItemCategory#">
+								  <cfabort>
+					
+							</cfif>	 								
+															
+							<cfquery name="Tax" 
+						    datasource="AppsMaterials" 
+						    username="#SESSION.login#" 
+						    password="#SESSION.dbpw#">
+							    SELECT    *
+							    FROM      Accounting.dbo.Ref_Tax
+								WHERE     TaxCode = '#TaxCode#'
+							</cfquery> 									
 
-								<cfparam name="Attributes.TransactionPeriod"        default="#TransactionPeriod#">															
-						
-								<cf_GledgerEntryLine
-								    DataSource            = "AppsMaterials"
-									Lines                 = "2"
-									TransactionDate       = "#dateformat(TraDate,CLIENT.DateFormatShow)#"		
-									TransactionPeriod     = "#transactionperiod#" 								
-									Journal               = "#getJournal.Journal#"
-									JournalNo             = "#JournalTransactionNo#"
-									JournalTransactionNo  = "#batchno#"							
-									Currency              = "#currency#"
-									LogTransaction		  = "No"												
-										
-									TransactionSerialNo1  = "#ln+1#"
-									Class1                = "Credit"
-									Reference1            = "Sales Income"   									
-									ReferenceName1        = "#left(Itemdescription,80)#"
-									Description1          = "Sale"
-									GLAccount1            = "#getSale.GLAccount#"
-									Costcenter1           = "#Org.OrgUnit#"
-									ReferenceNo1          = "#ItemNo#"							
-									TransactionType1      = "Standard"
-									Amount1               = "#SalesAmount#"	
+							<cfparam name="Attributes.TransactionPeriod"        default="#TransactionPeriod#">															
+					
+							<cf_GledgerEntryLine
+							    DataSource            = "AppsMaterials"
+								Lines                 = "2"
+								TransactionDate       = "#dateformat(TraDate,CLIENT.DateFormatShow)#"		
+								TransactionPeriod     = "#transactionperiod#" 								
+								Journal               = "#getJournal.Journal#"
+								JournalNo             = "#JournalTransactionNo#"
+								JournalTransactionNo  = "#batchno#"							
+								Currency              = "#currency#"
+								LogTransaction		  = "Yes"												
 									
-									TransactionSerialNo2  = "#ln+2#"
-									Class2                = "Credit"
-									Reference2            = "Sales Tax"  									  
-									ReferenceName2        = "#left(Itemdescription,80)#"
-									Description2          = "Sale"
-									GLAccount2            = "#Tax.GLAccountReceived#"
-									Costcenter2           = "#Org.OrgUnit#"
-									ReferenceNo2          = "#ItemNo#"							
-									TransactionType2      = "Standard"
-									TransactionTaxCode    = "#TaxCode#"
-									Amount2               = "#SalesTax#">																		
-				
-								<cfset ln = ln+2>
+								TransactionSerialNo1  = "#ln+1#"
+								Class1                = "Credit"
+								Reference1            = "Sales Income"   									
+								ReferenceName1        = "#left(Itemdescription,80)#"
+								Description1          = "Sale"
+								GLAccount1            = "#getSale.GLAccount#"
+								Costcenter1           = "#Org.OrgUnit#"
+								ReferenceNo1          = "#ItemNo#"							
+								TransactionType1      = "Standard"
+								Amount1               = "#SalesAmount#"	
 								
-							</cfloop>	
+								TransactionSerialNo2  = "#ln+2#"
+								Class2                = "Credit"
+								Reference2            = "Sales Tax"  									  
+								ReferenceName2        = "#left(Itemdescription,80)#"
+								Description2          = "Sale"
+								GLAccount2            = "#Tax.GLAccountReceived#"
+								Costcenter2           = "#Org.OrgUnit#"
+								ReferenceNo2          = "#ItemNo#"							
+								TransactionType2      = "Standard"
+								TransactionTaxCode    = "#TaxCode#"
+								Amount2               = "#SalesTax#">																		
+			
+							<cfset ln = ln+2>
+							
+						</cfloop>	
 							
 				<cfquery name="setJournal" 
 		    	datasource="AppsMaterials" 
 			    username="#SESSION.login#" 
 			    password="#SESSION.dbpw#">
 					UPDATE   Materials.dbo.ItemTransactionShipping
-					SET      Journal = '#getJournal.Journal#', 
+					SET      Journal         = '#getJournal.Journal#', 
 					         JournalSerialNo = '#JournalTransactionNo#'
 					WHERE    TransactionId IN
 		                          (SELECT  TransactionId
               				       FROM    Materials.dbo.ItemTransaction
 		                           WHERE   TransactionBatchNo = '#batchno#')
-				</cfquery>			   
-							
+				</cfquery>		
+											
 				<cfset parentJournal          = getJournal.Journal>
 				<cfset parentJournalSerialNo  = JournalTransactionNo>
 				
@@ -2626,7 +2630,7 @@
 									ParentJournal         = "#parentJournal#"
 									ParentJournalSerialNo =	"#parentJournalSerialNo#"			
 									Currency              = "#SettleCurrency#"
-									LogTransaction		  = "No"		
+									LogTransaction		  = "Yes"		
 														
 									TransactionSerialNo1  = "0"
 									Class1                = "Credit"
@@ -2652,7 +2656,9 @@
 								
 						    </cfif>
 									
-					</cfloop>				
+					</cfloop>	
+					
+					<!--- Hanno better to use the component we have to correct this, but it can work here --->			
 		
 					<cfquery name="qUpdateOutstanding"
 					datasource="AppsMaterials" 
@@ -2663,7 +2669,7 @@
 						WHERE  Journal           = '#Receivable_Journal#'
 						AND    JournalSerialNo   = '#Receivable_JournalNo#'
 					</cfquery>		
-					
+									
 					<!--- 2/8/2014 send the receipt mail 
 					
 					<cfif mail eq "Yes">					
@@ -2934,7 +2940,7 @@
 					TransactionPeriod     = "#getHeader.TransactionPeriod#"    
 					JournalTransactionNo  = "#get.batchno#"							
 					Currency              = "#getHeader.Currency#"
-					LogTransaction		  = "No"												
+					LogTransaction		  = "Yes"												
 						
 					TransactionSerialNo1  = "0"
 					Class1                = "Debit"
@@ -2989,7 +2995,7 @@
 						JournalNo             = "#getHeader.JournalSerialNo#"
 						JournalTransactionNo  = "#get.batchno#"							
 						Currency              = "#getHeader.currency#"
-						LogTransaction		  = "No"												
+						LogTransaction		  = "Yes"												
 							
 						TransactionSerialNo1  = "#ln+1#"
 						Class1                = "Credit"
@@ -3016,7 +3022,8 @@
 		
 						<cfset ln = ln+2>
 						
-					</cfloop>				 			  
+					</cfloop>		
+											 			  
 			  			  
 				</cfif>
 			
@@ -3089,8 +3096,6 @@
 					</cfif>
 					AND    TaxOrgUnitEDI IS NOT NULL
 				</cfquery>
-
-
 
 				<cfif getSeriesType.RecordCount eq "0">
 				
@@ -3737,12 +3742,8 @@
 											</cfoutput>
 										</cfif>
 
-
-
 									</cfif>
-
-
-
+									
 								</cfif>
 						</cfif>
 									   
@@ -3792,15 +3793,13 @@
 		<cfif COGS eq "Yes">		
 			
 			<cfoutput>
-			<cfsavecontent variable="getCOGS">
-						        
+			<cfsavecontent variable="getCOGS">						        
 					        Accounting.dbo.TransactionHeader H 
 							INNER JOIN Accounting.dbo.TransactionLine L ON H.Journal = L.Journal AND H.JournalSerialNo = L.JournalSerialNo									
 					WHERE   H.Mission = '#Mission#'
 					AND     H.TransactionSource    = 'WarehouseSeries'						
 					AND     H.TransactionCategory  = 'Inventory'
-					AND     L.Reference            = 'COGS'			
-			
+					AND     L.Reference            = 'COGS'						
 			</cfsavecontent>
 			</cfoutput>
 			

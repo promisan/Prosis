@@ -30,8 +30,6 @@ function recordedit(id1) {
 
 </script>	
 
-<cf_listingScriptNavigation>
-
 </cfoutput>
 
 <table id="myListing" width="95%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table formpadding">

@@ -41,14 +41,14 @@ password="#SESSION.dbpw#">
 <cfif format.recordcount gte "1">
 
 
-<tr><td style="height:46px;padding-left:10px;padding-top:5px;font-size:21px" colspan="2" class="labellarge"><cfoutput><cf_tl id="Preconfigured Documents or Forms"></cfoutput>:</td></tr>
+<tr class="line"><td style="height:46px;padding-left:10px;padding-top:5px;font-size:21px" colspan="2" class="labellarge"><cfoutput><cf_tl id="Preconfigured Documents or Forms"></cfoutput>:</td></tr>
 	   
-<tr><td colspan="2" style="padding-top:4px">
+<tr><td colspan="2">
 
 	<cfform action="ProcessActionSubmit.cfm?reload=1&wfmode=8&process=#url.process#&ID=#URL.ID#&ajaxId=#url.ajaxid#" 
        method="post" name="processaction"  id="processaction">
 
-	<table width="100%" align="center">
+	<table width="100%" align="center" class="navigation_table">
 	   		 
 	<tr><td class="hide"></td></tr>	
 					
@@ -68,9 +68,9 @@ password="#SESSION.dbpw#">
 					    <cfset cls = "">	
 							      
 						   <cfif CurrentDocument eq "">
-						        <TR class="regular line" style="border-top:0px solid silver">
+						        <TR class="regular line navigation_row" style="border-top:0px solid silver">
 					       <cfelse>
-						        <TR class="highlight1 line" style="border-top:0px solid silver">
+						        <TR class="highlight1 line navigation_row" style="border-top:0px solid silver">
 					       </cfif> 
 						   
 						   <td style="padding-left:30px" id="docoption#documentid#">
@@ -167,7 +167,7 @@ password="#SESSION.dbpw#">
 			   						<!--- Getting data of the template ---> 
 									<cfset l = len(Format.DocumentTemplate)>		
 							        <cfset path = left(Format.DocumentTemplate,l-4)>		
-									<cfset vList = "Memo,Letter,Fax,Note">
+									<cfset vList = "Memo,Letter,Fax,Note,Legal">
 									<cfset vListFinal = "">
 									
 									<cfloop index="vItem" list="#vList#">
@@ -186,7 +186,8 @@ password="#SESSION.dbpw#">
 									
 									<cfelse>																	
 																												
-							        <select name="format#documentcode#" id="format#documentcode#" style="border:0px;border-left:1px solid silver;border-right:1px solid silver" size="1" class="regularxl">
+							        <select name="format#documentcode#" id="format#documentcode#" 
+									     style="border:0px;border-left:1px solid silver;border-right:1px solid silver" size="1" class="regularxl">
 										<cfloop list="#vListFinal#" index="vItem">
 											<option value="#vItem#" <cfif Format.DocumentFormat eq "#vItem#">selected</cfif>>#vItem#</option>
 										</cfloop>

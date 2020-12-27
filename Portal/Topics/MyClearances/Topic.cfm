@@ -3,7 +3,7 @@
 	
 	<cf_paneItem id="MyClearances_1" 
 				source="#SESSION.root#/system/entityaction/entityview/MyClearancesMain.cfm?mode=topic"
-				width="95%"
+				width="98%"
 				height="auto"									
 				Label="My pending actions"
 				filterValue="Staffing">

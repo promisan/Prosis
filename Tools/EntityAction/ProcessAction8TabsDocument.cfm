@@ -19,10 +19,10 @@
 	   
 <cfparam name="url.docid" default="#Document.Documentid#">
 <cfparam name="sel" default="1">	
-
-
 		
- <table width="100%" height="100%">
+ <table border="0" width="100%" height="100%">
+ 
+ 	   <tr>	
  
 	   <cfif document.recordcount eq "0">	
 	   
@@ -34,19 +34,18 @@
 	
 		</script>	
 		 		
-	   <cfelseif document.recordcount gte "2">		
-	    
+	   <cfelseif document.recordcount gte "2">		    
 	   	 	   
-		   <tr><td valign="top">  
+		   <td valign="top" style="width:100px;border-right:1px solid gray">  
 				
-			   	<table width="100%" border="0"  cellspacing="0" cellpadding="0">
-		  	   
-			     <tr class="line">
-				
+			   	<table style="width:100%">
+		  	   				
 				 <cfset ht = "32">
 				 <cfset wd = "32">	
 				
 				 <cfloop query="document"> 	
+				 
+				 <tr class="line">
 				 
 				 	<cfif url.docid eq documentid>
 						<cfset sel = currentrow>					
@@ -59,28 +58,23 @@
 					            item       = "#currentrow#" 
 								target     = "doc"
 					            targetitem = "1"
-								padding    = "0"
-					            iconsrc    = "Documents.png" 
-								iconwidth  = "32" 
+								padding    = "8"
+					            iconsrc    = "DocumentEdit.png" 
+								iconwidth  = "44" 
 								class      = "#class#"
-								iconheight = "32" 
+								iconheight = "54" 
 								name       = "#DocumentDescription#"
 								source     = "ProcessActionDocumentTextContent.cfm?no=#currentrow#&textmode=EDIT&memoactionid=#url.id#&documentid=#documentid#">	
+								
+					</tr>			
 				 		 
 				 </cfloop>
-				 
-				 <td width="10%"></td>
-				 
-				</tr>
-				 
+								 
 				</table>
 			 
 			 </td>
-			 
-			</tr>
-					
-		</cfif>
-		
+			 					
+		</cfif>		
 		
 		<cfif document.recordcount gte "1">		
 
@@ -94,12 +88,9 @@
 			
 		</cfif>	
 					
-		<tr>
-		
-		<td valign="top" height="100%">
+		   <td valign="top" height="100%">
 							
-				<table width="100%" height="100%">	
-			
+				<table width="100%" height="100%">				
 																												 
 				 <cf_menucontainer name="doc" item="1" class="regular">		
 				 								
@@ -111,8 +102,7 @@
 						   <cfset url.documentid   = url.docid>		
 						  						   
 						   <cfinclude template     = "ProcessActionDocumentTextContent.cfm">			   
-						 
-						   					   				   
+						 						   					   				   
 					 </cfif>
 				 
 				</cf_menucontainer>
@@ -120,6 +110,7 @@
 			   </table>  
 		   
 		 </td>
+		 
 		 </tr>
 		   
 </table>

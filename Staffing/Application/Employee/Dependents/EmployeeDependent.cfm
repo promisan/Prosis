@@ -24,8 +24,6 @@
 <cfparam name="url.status" default="Valid">
 <cfparam name="url.webapp" default="">
 
-<cfajaximport tags="cfwindow">
-
 <cfif url.action eq "claim">
 <cf_screentop html="no" scroll="yes" jquery="Yes" menuaccess="context"  actionobject="Person"
 		actionobjectkeyvalue1="#url.id#">

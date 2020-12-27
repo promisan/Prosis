@@ -521,7 +521,7 @@
 			
 	<script>		   
 	     parent.parent.parent.right.dependentrefresh('#FORM.PersonNo#','#url.contractid#','#url.action#')			
-		 parent.parent.parent.ColdFusion.Window.destroy('mydependent',true)	    
+		 parent.parent.parent.ProsisUI.closeWindow('mydependent',true)	    
 	</script>	
 		 	 
 </cfoutput>	 

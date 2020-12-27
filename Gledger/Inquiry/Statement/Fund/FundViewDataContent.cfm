@@ -93,7 +93,7 @@
 			
 			<cfset vDetailClassFn = ".clsGroupDetail_#attributes.baseid#_#vAccountGroupId#">
 													
-			<TR bgcolor="#attributes.color#" class="labelit line navigation_row clsParentDetail_#attributes.baseid#" 
+			<TR bgcolor="#attributes.color#" class="labellarge line navigation_row clsParentDetail_#attributes.baseid#" 
 			     onclick="toggleSection('#vDetailClassFn#');" style="#attributes.visible#;height:#attributes.height#px">		
 			
 			 <td style="font-size:#attributes.fontsize#;padding-left:20px;padding-right:3px">#attributes.GroupValue#</b></td>
@@ -184,7 +184,7 @@
 			
 			<cfset vDetailClassFn = ".clsGroupDetail_#attributes.baseid#_#vAccountGroupId#">
 															
-			<TR bgcolor="#attributes.color#" class="labelit line navigation_row clsParentDetail_#attributes.baseid#" 
+			<TR bgcolor="#attributes.color#" class="labellarge line navigation_row clsParentDetail_#attributes.baseid#" 
 			     onclick="toggleSection('#vDetailClassFn#');" style="#attributes.visible#;height:#attributes.height#px">		
 			
 			 <td style="font-size:#attributes.fontsize#;padding-left:20px;padding-right:3px">#attributes.GroupValue#</b></td>
@@ -276,7 +276,7 @@
 			
 			<cfset vDetailClassFn = ".clsGroupDetail_#attributes.baseid#_#vAccountGroupId#">
 													
-			<TR bgcolor="#attributes.color#" class="labelit line navigation_row clsParentDetail_#attributes.baseid#" 
+			<TR bgcolor="#attributes.color#" class="labellarge line navigation_row clsParentDetail_#attributes.baseid#" 
 			     onclick="toggleSection('#vDetailClassFn#');" style="#attributes.visible#;height:#attributes.height#px">		
 			
 			 <td style="font-size:#attributes.fontsize#;padding-left:20px;padding-right:3px">#attributes.GroupValue#</b></td>
@@ -344,7 +344,7 @@
 				
 			 </cfquery>
 						  	
-			 <td class="labelit" align="right" style="font-size:#attributes.fontsize-2#;#attributes.contentstyle#;border-radius:5px;background-color:#attributes.color#">
+			 <td class="labellarge" align="right" style="font-size:#attributes.fontsize-2#;#attributes.contentstyle#;border-radius:5px;background-color:#attributes.color#">
 			 	  
 			  <cfif data.total lt 0>
 			  <font color="FF0000">#NumberFormat(evaluate("Data.Total"),',__')#</font>
@@ -379,7 +379,7 @@
 			
 			<cfset vDetailClassFn = ".clsGroupDetail_#attributes.baseid#_#vAccountId#">
 													
-			<TR bgcolor="#attributes.color#" class="labelit line navigation_row clsParentDetail_#attributes.baseid#" 
+			<TR bgcolor="#attributes.color#" class="labellarge line navigation_row clsParentDetail_#attributes.baseid#" 
 			     onclick="toggleSection('#vDetailClassFn#');" style="#attributes.visible#;height:#attributes.height#px">		
 				 
 			 <td style="font-size:#attributes.fontsize#;padding-left:20px;padding-right:3px">#attributes.GroupValue#</b></td>
@@ -454,7 +454,7 @@
 			    <cfset sc = "showledger('#URL.mission#','',document.getElementById('period').value,'#attributes.GroupValue#','','#org#','tab')"> 
 			 </cfif>		
 						  	
-			 <td class="labelit" onMouseOver="this.bgColor='FFFFCF'" onMouseOut="this.bgColor='transparent'" 
+			 <td class="labellarge" onMouseOver="this.bgColor='FFFFCF'" onMouseOut="this.bgColor='transparent'" 
 			     align="right" oncontextmenu="#sc#" style="#attributes.contentstyle#;border-radius:5px">
 			 	  
 				  <cfif data.total lt 0>

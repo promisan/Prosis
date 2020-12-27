@@ -1,5 +1,3 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-
 <cfparam name="url.tbarcode" default="1">
 <cfparam name="url.mission"     default="BCN">
 <cfparam name="url.ReceiptNo" default="RCT-1417">
@@ -112,8 +110,9 @@ span {
 
 <cfset vTop = 55>
 <cfset vHeight = 30>
-<cfset vType   = 8>
-<!--- AN13 --->
+<cfset vType   = 9>
+<!--- Code128 8--->
+<!--- EAN13 9--->
 <cfset cont = 0>
 <cfloop index="i" from="1" to="#url.numberOfLabels#" step="1">
 			<cfset cont = cont + 1>
@@ -122,10 +121,12 @@ span {
 					<cfset code = Ucase(Get.ItemBarCode)>
 				<cfelse>
 					<cfset code = Ucase(Get.ItemBarCodeAlternate)>
-				</cfif>	
-				<br>
-				<CF_BarCodeGenerator BarCodeType="#vType#" BarCode="#code#"  Height="#vHeight#" ThinWidth="2">		
-				<br>
+				</cfif>
+				<cfif code neq "">
+					<br>
+					<CF_BarCodeGenerator BarCodeType="#vType#" BarCode="#code#"  Height="#vHeight#" ThinWidth="2">
+					<br>
+				</cfif>
 				<cfoutput>#Get.ItemBarCode#&nbsp;&nbsp;#Get.CategoryItem#&nbsp;#Get.ItemNo#</cfoutput>
 			</span>			 
 			<br> 

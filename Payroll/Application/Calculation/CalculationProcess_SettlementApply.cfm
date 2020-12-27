@@ -707,14 +707,17 @@
 		--->
 		<!--- ---------------------------------------------------------------------------------------------- --->		
 
-		AND     D.PersonNo NOT IN ( SELECT      PersonNo 
-		                            FROM        Payroll.dbo.EmployeeSettlement
-								    WHERE       PersonNo       = D.PersonNo
-								    AND         Mission        = '#Form.Mission#'
-								    AND         SalarySchedule = '#Form.Schedule#'
-								    <!--- added to limit this condition to the month itself --->
-								    AND         PaymentDate    = #SALEND# 	
-								    AND         ActionStatus   = '0')	  
+		AND     D.PersonNo NOT IN ( SELECT      ES.PersonNo 
+		                            FROM        Payroll.dbo.EmployeeSettlement AS ES INNER JOIN
+							                    Payroll.dbo.EmployeeSettlementLine AS ESL ON ES.PersonNo = ESL.PersonNo AND ES.SalarySchedule = ESL.SalarySchedule AND ES.Mission = ESL.Mission AND ES.PaymentDate = ESL.PaymentDate AND 
+							                         ES.PaymentStatus = ESL.PaymentStatus
+								    WHERE       ES.PersonNo       = D.PersonNo
+								    AND         ES.Mission        = '#Form.Mission#'
+								    AND         ES.SalarySchedule = '#Form.Schedule#'
+									
+								    <!--- added to limit this condition to the month itself, which we might have to change a bit more  --->
+								    AND         ES.PaymentDate    = #SALEND# 	
+								    AND         ES.ActionStatus   = '0')	  
 								   
 		<!--- --------------------------------------------------------------------------------------------------- --->
 		<!--- 20/10 we also exclude people that have been connected to an already closed schedule for this month  --->
@@ -731,7 +734,7 @@
 					AND     ES.PaymentDate    = #SALEND# 	
 					AND     ES.SettlementSchedule <> ES.SalarySchedule 
 					AND     SSP.CalculationStatus = '3' )	
-	  									   
+		
 								   						  																	
 	</cfquery>			
 			  

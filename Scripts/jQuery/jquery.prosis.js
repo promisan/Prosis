@@ -5,11 +5,12 @@ if (window.jQuery) {
 	var focusClick = false;
 	var paging = false;
 	
-	var navigationhover    = "#A8EFF2";
+	var navigationhover    = "#C6D3D4";
 	//var navigationselected = "#F0F0F0";
 	var navigationselected = "#A8EFF2";
 	var previouscolor	   = "transparent";
 	var previousclicked    = "transparent";
+	var beforehover        = "transparent";
 
 	function _ProsisObject(){}
 
@@ -165,7 +166,19 @@ if (window.jQuery) {
 			$(element).closest('form').trigger('submit');
 		});
 	};
-	
+
+	_ProsisObject.prototype.busyRegion = function(mode,sdiv){
+
+		if (mode=='yes') {
+			$('#'+sdiv).css({'z-index':99999999,'opacity':0.6,'background-color': '#b0b0b0'});
+			$("#"+sdiv).fadeIn(300);
+		} else {
+			//$("#"+sdiv).fadeOut(300);
+			$('#'+sdiv).css({'z-index':0,'opacity':1,'background-color': '#FFFFFF'});
+		}
+	}
+
+
 	_ProsisObject.prototype.busy = function(mode,sdiv){
 
 		var larg = arguments.length
@@ -248,6 +261,7 @@ if (window.jQuery) {
 
 	});	
 
+
 	function doClick() {
         lastEnter = true;		
         if (focusedRow.attr('class').indexOf("navigation_row") != -1) {        
@@ -329,6 +343,9 @@ if (window.jQuery) {
 	}
 	
 	function clearFocus(t_focusedRow) {
+		console.log('selected',currentSelected);
+		console.log('previousclicked',previousclicked);
+
 		if (currentSelected) {
 			currentSelected.css("backgroundColor",previousclicked);
 			currentSelected.css("background-color",previousclicked);
@@ -340,11 +357,21 @@ if (window.jQuery) {
 	function setFocus(t_focusedRow)	{
 				
 		previousclicked = t_focusedRow.attr('bgcolor');
+		console.log('previousclicked1',previousclicked);
 		if (!previousclicked)
 		{
-			previousclicked = t_focusedRow.css("background-color");
-			if (!previousclicked)
-				previousclicked = 'transparent';
+			if (t_focusedRow.hasClass('rowhover'))
+				previousclicked = beforehover;
+			else
+			{
+				previousclicked = t_focusedRow.css("background-color");
+				console.log('previousclicked2',previousclicked);
+				if (!previousclicked)
+					previousclicked = 'transparent';
+			}
+
+
+
 		}
 		
 		setColors(t_focusedRow);
@@ -388,7 +415,16 @@ if (window.jQuery) {
 	}
 	
 	function setHover(current) {
-		
+
+		beforehover = current.attr('bgcolor');
+		if (!beforehover)
+		{
+			beforehover = current.css("background-color");
+			if (!beforehover)
+				beforehover = 'transparent';
+		}
+
+
 		setColors(current);		
 		
 		if (navigationselected!='transparent') {
@@ -441,24 +477,28 @@ if (window.jQuery) {
 	}
 		
 	function clearHover(tRow) {
-		if (!previouscolor)
-			previouscolor = 'transparent';
-		
-		tRow.css({background:previouscolor});
-		tRow.css("backgroundColor", previouscolor);
-		tRow.find('td.navigation_pointer').html('&nbsp;&nbsp;&nbsp;&nbsp;');		
-		
+
+		console.log('before hover from clear hover',beforehover);
+
+		tRow.css({background:beforehover});
+		tRow.css("background-color", beforehover);
+		tRow.find('td.navigation_pointer').html('&nbsp;&nbsp;&nbsp;&nbsp;');
+
+
+
 		tRow=tRow.nextAll("tr:visible").first();
 		while(tRow.hasClass("navigation_row_child"))	{
-			tRow.css({background:previouscolor});
-			tRow.css("backgroundColor",previouscolor);
+			tRow.css({background:beforehover});
+			tRow.css("backgroundColor",beforehover);
 			tRow = tRow.nextAll("tr:visible").first();
 		}
+
+		beforehover = 'transparent';
 		
 	}
 
 	function doHighlight() {
-	
+
 	try{
 				
 		$('.navigation_pointer').each(function () {
@@ -474,7 +514,8 @@ if (window.jQuery) {
 				focusedRow = $('.navigation_row:first');
 				if (focusedRow) 
 					focusedRow.toggleClass('focused');
-			}		
+			}
+
 			
 		});		
 		
@@ -491,19 +532,21 @@ if (window.jQuery) {
 			}
 		});
 
+
+
 	//Basically, we will ignore those tables whose parent has the "ignore" class	
 			
 		$(':not(.ignore) > .navigation_table').on('keydown',function(ev){
 				
 				$('.rowhover').removeClass('rowhover');
 				
-				if (ev.which == 38 || ev.which == 40) {				
+				if (ev.which == 38 || ev.which == 40) {		
 					clearFocus();
 					
 					if (focusedRow == null) {					
 						focusedRow = $('.navigation_row:first', $(this));						
 					} else 
-						//Page up
+						//keystroke up
 						if (ev.which == 38) {		
 					
 							focusedRow = focusedRow.closest('tr').prevAll('.navigation_row:first')
@@ -515,7 +558,7 @@ if (window.jQuery) {
 							
 						}
 						else 
-							//Page down
+							//keystroke down
 							if (ev.which == 40) {							
 								focusedRow = focusedRow.closest('tr').nextAll('.navigation_row:first');																
 								if (focusedRow) {
@@ -527,8 +570,10 @@ if (window.jQuery) {
 					
 					setFocus(focusedRow)
 					currentSelected =focusedRow
+
 				}
 				else 
+					//page up/down
 					if (ev.which == 33 || ev.which == 34) {
 						doPageUpDown(ev);
 					}
@@ -589,7 +634,7 @@ if (window.jQuery) {
 
 		$(".navigation_row").on('mouseleave',function(){				
 				current = $(this);
-				if (!current.hasClass('focused'))
+				//if (!current.hasClass('focused'))
 					clearHover(current);	
 		});
 

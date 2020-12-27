@@ -188,7 +188,8 @@
 	<cfset fields[itm] = {label     = "#lt_text#",                    
 	     				field       = "SalesTotal",	
 						formatted   = "numberformat(SalesTotal,',.__')",	
-						align       = "right",										
+						align       = "right",			
+						aggregate   = "sum",							
 						alias       = "",
 						search      = "amount"}>		
 						
@@ -243,11 +244,10 @@
 <!--- embed|window|dialogajax|dialog|standard --->
 
 <!--- prevent the method to see this as an embedded listing --->
-
 	
 <cf_listing
 	    header              = "CustomerQuote"
-	    box                 = "mybox"
+	    box                 = "customerquote"
 		link                = "#SESSION.root#/Warehouse/Application/SalesOrder/Quote/ControlListDataContent.cfm?warehouse=#url.warehouse#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#"	   			
 		datasource          = "AppsMaterials"
 		listquery           = "#myquery#"					

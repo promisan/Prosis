@@ -202,8 +202,8 @@
 	</cfif>
 		
 	<cfif source.recordcount gte "2" and source.actionfield eq "">
-	<tr><td colspan="3" align="center" class="labelmedium" style="padding:4px;height:1px;font-weight:350">		
-	This action <cfif ActionDescription eq "denied"><font color="FF0000">would have</font><cfelse>has</cfif> affected <b>#source.recordcount#</b> records in the system. You can inspect each record by selecting the below links in blue	
+	<tr><td colspan="3" align="center" class="labelmedium2" style="padding:4px;height:1px">		
+	This action <cfif ActionDescription eq "denied"><font color="FF0000">would have</font><cfelse>has</cfif> affected <b>#source.recordcount#</b> records in the system. You may inspect each leg by selecting the below links in the colored box.	
 	</td></tr>	
 	</cfif>
 		
@@ -258,18 +258,23 @@
 																
 								<cfif (actionSourceId eq parentsourceId and actionsourceid neq "") or (actionSourceNo eq parentsourceno and actionSourceNo neq "")>
 								<cfset lk = "#source.actionlink#&action=1">								
-								<td align="center" style="height:40px;width:#wd#%;background-color:85FE70;padding:6px;font-size:16px;border:1px solid gray">
-								<a href="#SESSION.root#/#ActionLink#&action=1" target="detail"><font color="000000">#currentrow# Primary</a> #ActionSource#
+								<td align="center" style="cursor:pointer;height:40px;width:#wd#%;background-color:85FE70;padding:6px;font-size:16px;border:1px solid gray"
+								onclick="ptoken.open('#SESSION.root#/#ActionLink#&action=1','detail')">
+								<a><font color="000000">#currentrow# Primary #ActionSource# leg</a>
 								</td>
 								<cfelse>
-								<td align="center" style="width:#wd#%;background-color:silver;padding:6px;font-size:16px;border:1px solid gray">
-								<a href="#SESSION.root#/#ActionLink#&action=1" target="detail"><font color="000000">#currentrow# Associated</a> #ActionSource#
+								<td align="center" style="cursor:pointer;width:#wd#%;background-color:silver;padding:6px;font-size:16px;border:1px solid gray"
+								onclick="ptoken.open('#SESSION.root#/#ActionLink#&action=1','detail')">
+								<a><font color="000000">#currentrow# Associated #ActionSource# leg</a>
 								</td>								
 								</cfif>
 																			
 							<cfelse>
 																													
-								<td align="center" style="width:#wd#%;background-color:FF8080;padding:6px;font-size:16px;border:1px solid gray"><a href="#SESSION.root#/#ActionLink#&action=1" target="detail"><font color="000000">#currentrow# Superseded #ActionSource#</font></a></td>
+								<td align="center" style="cursor:pointer;width:#wd#%;background-color:FF8080;padding:6px;font-size:16px;border:1px solid gray"
+								onclick="ptoken.open('#SESSION.root#/#ActionLink#&action=1','detail')">								
+								<a><font color="000000">#currentrow# Superseded #ActionSource# leg</font></a>								
+								</td>
 							
 							</cfif>
 							

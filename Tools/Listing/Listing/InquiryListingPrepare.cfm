@@ -197,7 +197,7 @@ password="#SESSION.dbpw#">
 <cf_listing
     header         = "#menu.FunctionName#"
     box            = "inquirydetail"
-	link           = "#SESSION.root#/Tools/Listing/Listing/InquiryContent.cfm?height=#url.height#&systemfunctionid=#url.systemfunctionid#&functionserialNo=#url.functionserialNo#&mission=#url.mission#"
+	link           = "#SESSION.root#/Tools/Listing/Listing/InquiryListingPrepare.cfm?height=#url.height#&systemfunctionid=#url.systemfunctionid#&functionserialNo=#url.functionserialNo#&mission=#url.mission#"
     html           = "No"	
 	showlist       = "#url.showlist#"
 	datasource     = "#main.querydatasource#"

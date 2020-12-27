@@ -8,11 +8,11 @@
 
     <cfoutput>
 	<table cellspacing="0" cellpadding="0" class="formpadding">
-	<tr><td class="labelmedium">
+	<tr><td class="labelmedium2">
     <img src="#SESSION.root#/Images/alert_caution.gif" alt="" border="0" align="absmiddle">
 	</td>
 	<cfif url.mode eq "descriptive">
-	<td class="labelmedium">
+	<td class="labelmedium2">
 	<font color="gray">---</font>
 	</td>
 	</cfif>
@@ -23,6 +23,7 @@
 <cfelse>
 	 
 	<cftry>	
+	
 		<cfset License = 0>
 		<cfset vYear = 0>		
 		<cfset vQuarter = 0>		
@@ -40,7 +41,7 @@
 		     <cfoutput>
 			  <table cellspacing="0" cellpadding="0" class="formpadding"><tr><td>
 			 <img src="#SESSION.root#/Images/alert_stop.gif" alt="" border="0" align="absmiddle">	
-			 </td><td class="labelmedium">
+			 </td><td class="labelmedium2">
 			 <font color="FF0000">Invalid Key - 2</font>
 			  </td></tr></table>
 			 </cfoutput>

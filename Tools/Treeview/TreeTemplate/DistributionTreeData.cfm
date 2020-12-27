@@ -28,7 +28,7 @@
 	  </cfif>
 	  
 	   <cf_UItreeitem value="#year#"
-	        display="<span style='font-size:18px;padding-bottom:5px;font-weight:bold' class='labellarge'>#Year#</span>"														
+	        display="<span style='font-size:18px;padding-top:5px;padding-bottom:5px;font-weight:bold' class='labelmedium'>#Year#</span>"														
 			parent="root"							
 	        expand="#exp#">	
 	 	     
@@ -51,7 +51,7 @@
 		    <cfset mtS = monthAsString(Month.Month)>
 			
 			 <cf_UItreeitem value="#yr##mts#"
-		        display="<span style='font-size:15px;padding-bottom:4px;' class='labellarge'>#mtS#</span>"														
+		        display="<span style='font-size:15px;' class='labelit'>#mtS#</span>"														
 				parent="#yr#"							
 		        expand="No">			
 						
@@ -93,7 +93,7 @@
 			   <cfif Check.recordcount eq "1">	
 			   
 			   		 <cf_UItreeitem value="#yr##mts##dy#"
-				        display="<span style='font-size:13px;padding-bottom:2px;' class='labellarge'>#dy# [#dys#]</span>"														
+				        display="<span style='font-size:13px;' class='labelit'>#dy# [#dys#]</span>"														
 						parent="#yr##mts#"		
 						target="right"
 			            href="DistributionLog.cfm?ID=#Check.BatchId#"					
@@ -102,7 +102,7 @@
 				<cfelse>
 				
 					 <cf_UItreeitem value="#yr##mts##dy#"
-				        display="<span style='font-size:13px;padding-bottom:2px;' class='labellarge'>#dy# [#dys#]</span>"														
+				        display="<span style='font-size:13px;' class='labelit'>#dy# [#dys#]</span>"														
 						parent="#yr##mts#"		
 						target="right"
 			            href="DistributionLog.cfm?ID=#Check.BatchId#"					
@@ -111,7 +111,7 @@
 					<cfloop query="Check">
 					
 						 <cf_UItreeitem value="#yr##mts##dy#_#currentrow#"
-				        display="<span style='font-size:12px;padding-bottom:2px;' class='labellarge'>#timeformat(ProcessEnd, "HH:MM")#</span>"														
+				        display="<span style='font-size:12px;' class='labelit'>#timeformat(ProcessEnd, "HH:MM")#</span>"														
 						parent="#yr##mts##dy#"		
 						target="right"
 			            href="DistributionLog.cfm?ID=#Check.BatchId#"					

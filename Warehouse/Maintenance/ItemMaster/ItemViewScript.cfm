@@ -37,7 +37,7 @@
 		}
 		
 		function purgevendor(mission,itemno,uom,orgunitvendor) {			
-			ColdFusion.navigate('vendorPurge.cfm?mission=' + mission + '&id=' + itemno + '&uom=' + uom + '&orgunitvendor=' + orgunitvendor,'main');
+			ptoken.navigate('vendorPurge.cfm?mission=' + mission + '&id=' + itemno + '&uom=' + uom + '&orgunitvendor=' + orgunitvendor,'main');
 		}
 		
 		function editvendoroffer(mission,itemno,uom,orgunitvendor,offerid) {
@@ -46,7 +46,7 @@
 
 			ColdFusion.Window.create('mydialog', 'Supply', '',{x:30,y:30,height:height,width:width,modal:true,center:true});    
 			ColdFusion.Window.show('mydialog'); 				
-			ColdFusion.navigate("#SESSION.root#/Warehouse/Maintenance/ItemMaster/Vendors/vendorOfferEdit.cfm?itemno="+itemno+"&mission="+mission+"&uom="+uom+"&orgunitvendor="+orgunitvendor+"&offerid="+offerid+"&ts="+new Date().getTime(),'mydialog'); 
+			ptoken.navigate("#SESSION.root#/Warehouse/Maintenance/ItemMaster/Vendors/vendorOfferEdit.cfm?itemno="+itemno+"&mission="+mission+"&uom="+uom+"&orgunitvendor="+orgunitvendor+"&offerid="+offerid+"&ts="+new Date().getTime(),'mydialog'); 
 		}
 		
 		function editvendorofferperdate(offerid,mission,itemno,uom,orgunitvendor,dateeffective) {
@@ -88,7 +88,7 @@
 			
 			if (validateDate(vDateRaw,'yes',1)) {
 				var vDate = vDateRaw.value.substring(6, 10) + "-" + vDateRaw.value.substring(3, 5) + "-" + vDateRaw.value.substring(0, 2);
-				ColdFusion.navigate('#SESSION.root#/Warehouse/Maintenance/ItemMaster/Vendors/vendorOfferEditPerDate_LocationList.cfm?offerid='+offerid+'&itemno='+itemno+'&mission='+mission+'&uom='+uom+'&orgunitvendor='+orgunitvendor+'&dateEffective='+vDate,'divLocationList');
+				ptoken.navigate('#SESSION.root#/Warehouse/Maintenance/ItemMaster/Vendors/vendorOfferEditPerDate_LocationList.cfm?offerid='+offerid+'&itemno='+itemno+'&mission='+mission+'&uom='+uom+'&orgunitvendor='+orgunitvendor+'&dateEffective='+vDate,'divLocationList');
 			}
 		}
 

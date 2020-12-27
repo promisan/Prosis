@@ -469,7 +469,7 @@ a workflow created and also status = 0 is applies, then it will be picked up her
 
 				</tr>
 
-				<tr class="labelmedium line fixrow" style="height:20px">
+				<tr class="labelmedium line fixrow" style="height:26px;border-top:1px solid silver">
 
 				<TD style="min-width:35;padding-right:4px" height="20" align="center">
 
@@ -533,7 +533,7 @@ a workflow created and also status = 0 is applies, then it will be picked up her
 
 				<cfset cnt = 0>
 
-					<tr class="line">
+					<tr class="line" style="height:35px">
 
 					<cfquery name="Jrn"
 							datasource="AppsLedger"
@@ -544,7 +544,7 @@ a workflow created and also status = 0 is applies, then it will be picked up her
 							WHERE  Journal = '#Journal#'
 					</cfquery>
 
-					<TD class="line" style="height:30" align="center">
+					<TD align="center">
 
 					<cfif TransactionSource eq "AccountSeries">
 
@@ -589,9 +589,9 @@ a workflow created and also status = 0 is applies, then it will be picked up her
 
 					</TD>
 
-					<td colspan="13" class="line">
+					<td colspan="13">
 
-					<table cellspacing="0" cellpadding="0">
+					<table>
 
 					<cfquery name="Org"
 						datasource="AppsOrganization"
@@ -811,10 +811,8 @@ a workflow created and also status = 0 is applies, then it will be picked up her
 							<tr bgcolor="fafafa">
 							<td height="24" class="labelit" style="padding-left:20px;padding-top:0px" colspan="3"><cf_tl id="Source">:</td>
 							<td colspan="9" class="labelmedium">
-	
-									<a href="javascript:ShowTransaction('#parentjournal#','#parentjournalserialNo#','1')">
-							<font color="0080C0">#Jrn.Description# (#parentJournal#- #parentJournalserialno# {#getParentDocument.DocumentReference#})</font>
-							</a>
+								<a href="javascript:ShowTransaction('#parentjournal#','#parentjournalserialNo#','1')">
+							    #Jrn.Description# (#parentJournal#- #parentJournalserialno# {#getParentDocument.DocumentReference#})</a>
 							</td>
 							</tr>
 

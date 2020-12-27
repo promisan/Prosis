@@ -12,7 +12,7 @@
 
 <cfsavecontent variable="myquery">
 	
-	SELECT	*
+	SELECT	*, TransactionDate
 	FROM     dbo.Inquiry_#url.mode#_#session.acc# P		
 	
 	<cfif url.filter eq "customer">
@@ -70,30 +70,30 @@
 </cfif>
 
 <cfset itm = 1>
-<cfset fields[itm] = {label = "#vLabel#",                  
-					field   = "#field#",
-					search  = "text",
-					filtermode = "2"}>
+<cfset fields[itm] = {label     = "#vLabel#",                  
+					field       = "#field#",
+					search      = "text",
+					filtermode  = "3"}>
 
 <cfset itm = itm+1>
 <cf_tl id="Batch No" var="vBatchNo">
-<cfset fields[itm] = {label      = "#vBatchNo#",
-	field      = "JournalTransactionNo",
-	search     = "text"}>
+<cfset fields[itm] = {label     = "#vBatchNo#",
+					field       = "JournalTransactionNo",
+					search      = "text"}>
 
 <cfset itm = itm+1>				
 <cf_tl id="Invoice No" var="vInvoice">		
-<cfset fields[itm] = {label      = "#vInvoice#", 					
-					field      = "TransactionReference",
-					search     = "text"}>	
+<cfset fields[itm] = {label     = "#vInvoice#", 					
+					field       = "TransactionReference",
+					search      = "text"}>	
 					
 <cfset itm = itm+1>	
 <cf_tl id="Account" var="vAccount">			
-<cfset fields[itm] = {label      = "#vAccount#", 					
-					field      = "GLAccount",					
-					search     = "text",
-					display    = "no",
-					filtermode = "2"}>								
+<cfset fields[itm] = {label     = "#vAccount#", 					
+					field       = "GLAccount",					
+					search      = "text",
+					display     = "no",
+					filtermode  = "2"}>								
 					
 <!---						
 <cfset itm = itm+1>							
@@ -103,26 +103,25 @@
 
 <cfset itm = itm+1>		
 <cf_tl id="Posted" var="vPosted">		
-<cfset fields[itm] = {label      = "#vPosted#", 					
-					field      = "TransactionDate",
-					formatted  = "dateformat(TransactionDate,CLIENT.DateFormatShow)",
-					search     = "date"}>		
+<cfset fields[itm] = {label       = "#vPosted#", 					
+					field         = "TransactionDate",
+					column        = "month",					
+					formatted     = "dateformat(TransactionDate,CLIENT.DateFormatShow)",
+					search        = "date"}>							
 					
-					
-										
 <cfset itm = itm+1>	
 <cf_tl id="Due" var="vDue">			
-<cfset fields[itm] = {label      = "#vDue#", 					
-					field      = "ActionBefore",
-					formatted  = "dateformat(ActionBefore,CLIENT.DateFormatShow)",
-					search     = "date"}>							
+<cfset fields[itm] = {label       = "#vDue#", 					
+					field         = "ActionBefore",
+					formatted     = "dateformat(ActionBefore,CLIENT.DateFormatShow)",
+					search        = "date"}>							
 
 <cfset itm = itm+1>		
 <cf_tl id="Days" var="vDays">	
-<cfset fields[itm] = {label     = "#vDays#",
-                    align       = "right",                   
-					field       = "Days",
-					search      = "number"}>		
+<cfset fields[itm] = {label       = "#vDays#",
+                    align         = "right",                   
+					field         = "Days",
+					search        = "number"}>		
 
 <cfset itm = itm+1>		
 <cf_tl id="Status" var="vSta">							
@@ -134,27 +133,28 @@
 		
 <cfset itm = itm+1>		
 <cf_tl id="Curr" var="vCurr">							
-<cfset fields[itm] = {label   = "#vCurr#",                   
-					field   = "Currency",
-					search  = "text",
-					filtermode = "2"}>					
+<cfset fields[itm] = {label      = "#vCurr#",                   
+					field        = "Currency",
+					search       = "text",
+					filtermode   = "2"}>					
 
 <cfset itm = itm+1>							
 <cf_tl id="Amount" var="vAmount">		
-<cfset fields[itm] = {label   = "#vAmount#", 					
-					field   = "Amount",
-					align   = "right",
-					formatted  = "numberformat(Amount,',.__')",
-					search  = "number"}>	
+<cfset fields[itm] = {label      = "#vAmount#", 					
+					field        = "Amount",
+					align        = "right",
+					aggregate    = "sum",
+					formatted    = "numberformat(Amount,',.__')",
+					search       = "number"}>	
 									
 <cfset itm = itm+1>		
 <cf_tl id="Outstanding" var="vOutstanding">						
-<cfset fields[itm] = {label   = "#vOutstanding#", 					
-					field   = "AmountOutstanding",
-					align   = "right",
-					aggregate  = "sum", 
-					formatted  = "numberformat(AmountOutstanding,',.__')",
-					search  = "number"}>	
+<cfset fields[itm] = {label     = "#vOutstanding#", 					
+					field       = "AmountOutstanding",
+					align       = "right",
+					aggregate   = "sum", 
+					formatted   = "numberformat(AmountOutstanding,',.__')",
+					search      = "number"}>	
 					
 <table height="100%" width="100%">
 

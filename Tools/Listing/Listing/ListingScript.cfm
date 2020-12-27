@@ -25,13 +25,98 @@
 
 <cf_calendarscript>
 <cf_annotationscript>
-<cf_listingScriptNavigation>
 
 <cfif attributes.gadgets eq "Yes">
 	<cf_UIGadgets>	
 </cfif>
 
 <script language="JavaScript">
+
+function isAt(position) {
+
+	var vDiv             = $("##_divContentFields");
+	var vTable           = $("##_divSubContent");
+	var vNavigationTable = vTable.find( ".navigation_table" );
+	var id_table  = vNavigationTable.attr('id');
+	console.log('id',id_table);
+	var currentSelected = vNavigationTable.find(".focused");
+
+	if (currentSelected && position=='bottom') {
+		var currentIndex = currentSelected.index();
+		console.log('currentIndex',currentIndex);
+		var vRows = $("##"+id_table+" > tbody > tr.navigation_row:visible" );
+		var nextRow = vRows.eq(currentIndex+5);
+
+		var currentTD = currentSelected.find('td:first');
+		console.log('currentTD',currentTD.html())
+
+		currentSelected.removeClass('focused');
+		currentSelected.css("backgroundColor",'transparent');
+		currentSelected.css("background-color",'transparent');
+
+		var navigationselected = "##A8EFF2";
+		nextRow.addClass('focused');
+		nextRow.css({background:navigationselected});
+		nextRow.css("background",navigationselected);
+
+		var nextTD = nextRow.find('td:first');
+		console.log('nextTD',nextTD.html());
+		
+	}
+
+	var limit = vTable.height();
+	console.log('limit', limit);
+	
+	
+	if (position == 'bottom') {
+		var currentPosition = vDiv.scrollTop() + vDiv.height() + 1;
+		console.log('current', currentPosition);
+		return currentPosition > limit;
+	}
+
+	if (position=='top') {
+		var currentPosition = vDiv.scrollTop();
+		console.log('current', currentPosition);
+		return currentPosition == 0;
+	}
+
+	return false;
+}
+
+function doScroll() {
+
+	$("##_divContentFields").on('scroll',function(){
+		
+		pga = document.getElementById('pages').value
+		nav = document.getElementById('navigation').value
+
+		if (isAt('bottom'))	{
+			// going to next page			
+			pg = document.getElementById('page').value			
+			if (nav == 'auto') {			
+				applyfilter('1','','append');			
+			} else {							
+				if (pg == pga || nav == 'manual') { 				    
+				     // nada 					 
+				} else {			
+					document.getElementById('page').value = pg++;			
+					applyfilter('',pg++,'content')
+				}				
+			}
+			
+    	} else if (isAt('top'))	{
+			//going to previous page
+			pg = document.getElementById('page').value
+			if (pg == 1 || nav != 'paging') { 
+			    // nada
+			} else {
+				pg--;
+				document.getElementById('page').value = pg;
+				applyfilter('', pg, 'content')
+			}
+		}
+	});
+}
 
 function recordedit(id1) {
 	ptoken.open("#SESSION.root#/System/Modules/Functions/RecordEdit.cfm?ID=" + id1 + "&ts="+new Date().getTime(), "configure");
@@ -47,10 +132,8 @@ function filtertree(treefld,treeval) {
 	
 	document.listfilter.onsubmit() 
 	
-	if( _CF_error_messages.length == 0 ) {
-	
-	   <!--- set selected value of the tree for usage in the filter --->
-	
+	if( _CF_error_messages.length == 0 ) {	
+	   <!--- set selected value of the tree for usage in the filter --->	
 	   try {
 		   if (treeval != 'undefined') {
 		   document.getElementById("treefield").value = treefld
@@ -81,11 +164,10 @@ function filtertree(treefld,treeval) {
 } 
 
 function mail(id,ser) {
-	  window.open("#SESSION.root#/Tools/Mail/Broadcast/BroadCastListing.cfm?systemfunctionid="+id+"&functionserialno="+ser+"&ts="+new Date().getTime(), "broadcast", "status=no, height=715px, width=920px, scrollbars=no, toolbar=no, resizable=no");
+	  ptoken.open("#SESSION.root#/Tools/Mail/Broadcast/BroadCastListing.cfm?systemfunctionid="+id+"&functionserialno="+ser, "broadcast", "status=no, height=715px, width=920px, scrollbars=no, toolbar=no, resizable=no");
 }
 
 function gofilter(e) {
-
 	   keynum = e.keyCode ? e.keyCode : e.charCode;
 	   if (keynum == 13) {
 	   	  e.stopPropagation()
@@ -93,116 +175,140 @@ function gofilter(e) {
 	   }
   }
 
-<!--- make ajax sensitive 26/08/2010 --->
+<!--- this option is used to refresh the content based on the selection or to refresh a value or to add records to the grid --->
 
-function applyfilter(md,mypage,ajaxid,callback) {	
+function filtergroup(box,opt) {
+	if (opt.value == 'none') {
+		document.getElementById(box+'_groupselection').className = "hide"
+	} else {
+	    document.getElementById(box+'_groupselection').className = "regular"
+	}
+}
 
-		_cf_loadingtexthtml='';		
-												
-		try { document.getElementById("treerefresh").click();} catch(e) {}
-		
+function applyfilter(md,mypage,ajaxid,callback,groupvalue1,grouptarget,col1,col1value) {	
+
+		_cf_loadingtexthtml='';																				
+		try { document.getElementById("treerefresh").click();} catch(e) {}		
 	    try {	
 				
-	    if (mypage == "") {		  				   
-		     pg = document.getElementById('page').value 		   
-	    } else {   		 
-		     pg = mypage
-		}		
-																						 					  	
-		document.listfilter.onsubmit() 	
-									
-		if( _CF_error_messages.length == 0 ) {						   
-		   		 						  		   		  	  
-		   lk    = document.getElementById('mylink').value			  
-		   lkf   = document.getElementById('mylinkform').value   		     		  		  
-		   or    = document.getElementById('listorder').value		  
-		   orfld = document.getElementById('listorderfield').value		   
-		   ordir = document.getElementById('listorderdir').value  		       
-		   orala = document.getElementById('listorderalias').value 		
-		   			  		   				  		   		   
-		   if (ajaxid == "content") {			   
-    		   Prosis.busy('yes')		  		   		  
-			   <!--- redirect if the action if to refresh a line itself --->
-			   target   = document.getElementById('gridbox').value  
-		   } else {		
-		      	   
-			   target   = document.getElementById('ajaxbox').value  		   
-						    
-			   se = document.getElementById(ajaxid)		  		 
-			  		   		   		  		   
-			   if (se) {} else { 		   
-				  // alert("View could not be updated : "+ajaxid); target="" 
-				  }		   
-			   }		  
-			  			  		   		   
-			   if (target != "") {		   		   	  		   		   	 					   		   
-				   sfld  = document.getElementById('selectedfields').value	 				 			 		 
-				   if (lkf == "") {					   
-				   	  window['__printListingCallback'] = function(){ if (callback) callback(); };					  
-				       ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&listorder='+or+'&listorderfield='+orfld+'&selfld='+sfld+'&listorderalias='+orala+'&listorderdir='+ordir+'&content=1&refresh='+md,target,'__printListingCallback','','POST','listfilter')				  
-				   } else {				   	      		   			 
-				       ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&listorder='+or+'&listorderfield='+orfld+'&selfld='+sfld+'&listorderalias='+orala+'&listorderdir='+ordir+'&content=1&refresh='+md,target,'','','POST',lkf)		  
-				   }		   
-			   }	
-		  
-	       }   
+		    if (mypage == "") {		  				   
+			     pg = document.getElementById('page').value 		   
+		    } else {   		 
+			     pg = mypage
+			}		
+																										 					  	
+			document.listfilter.onsubmit() 	
+													
+			if( _CF_error_messages.length == 0 ) {						   
+			   		 						  		   		  	  
+			   lk    = document.getElementById('mylink').value			  
+			   lkf   = document.getElementById('mylinkform').value   		     		  		  
+			   or    = document.getElementById('listorder').value		  
+			   orfld = document.getElementById('listorderfield').value		   
+			   ordir = document.getElementById('listorderdir').value  		       
+			   orala = document.getElementById('listorderalias').value 		
+			   			  		   				  		   		   
+			   if (ajaxid == "content") {			   
+	    		   Prosis.busyRegion('yes','_divSubContent');
+  		   		  
+				   <!--- redirect if the action if to refresh a line itself --->
+				   target   = document.getElementById('gridbox').value  
+				   
+			   } else {		
+			   	      	   
+				   target   = document.getElementById('ajaxbox').value  							    
+				   se = document.getElementById(ajaxid)		  		 				  		   		   		  		   
+				   if (se) {} else { 		   
+					  // alert("View could not be updated : "+ajaxid); target="" 
+					  }		   
+				}	
+																																  			  		   		   
+				if (target != "") {		   		   	  		   		   	 					   		   
+					   sfld  = document.getElementById('selectedfields').value	 					    			 		 
+					   if (lkf == "") {					   
+					   	  window['__printListingCallback'] = function(){ if (callback) callback(); };								 						  	  											  
+					       ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&groupvalue1='+groupvalue1+'&grouptarget='+grouptarget+'&col1='+col1+'&col1value='+col1value+'&listorder='+or+'&listorderfield='+orfld+'&selfld='+sfld+'&listorderalias='+orala+'&listorderdir='+ordir+'&content=1&refresh='+md,target,'__printListingCallback','','POST','listfilter')				  
+					   } else {							         	      		   			 						  
+					       ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&groupvalue1='+groupvalue1+'&grouprow1='+grouptarget+'&col1='+col1+'&col1value='+col1value+'&listorder='+or+'&listorderfield='+orfld+'&selfld='+sfld+'&listorderalias='+orala+'&listorderdir='+ordir+'&content=1&refresh='+md,target,'','','POST',lkf)		  						  
+					   }		   
+				}	
+							  
+		     }   
 
-	} catch(e) {	
-								
-  	   if (!pg)
-	   
-	   pg=0
-
-	   lk=""
-	   if (document.getElementById('mylink'))							
-	   		lk    = document.getElementById('mylink').value
-	   
-	   lkf=""
-	   if (document.getElementById('mylinkform'))	
-	   	   lkf   = document.getElementById('mylinkform').value
-
-	   or=""	   	  	   
-	   if (document.getElementById('listorder')) 
-	   		or    = document.getElementById('listorder').value
-	   		
-	   orfld=""
-	   if (document.getElementById('listorderfield'))
-	   		orfld = document.getElementById('listorderfield').value
-	   		
-	   ordir=""
-	   if (document.getElementById('listorderdir'))		
-	   		ordir = document.getElementById('listorderdir').value
-	   		
-	   orala=""
-	   if (document.getElementById('listorderalias')) 		  	
-	   		orala = document.getElementById('listorderalias').value
-	   	 
-	   target = ""
-	   if (ajaxid == "content") {
-	   		if (document.getElementById('gridbox'))		  
-		   		target   = document.getElementById('gridbox').value  
-		   } else {
-		    if (document.getElementById('ajaxbox'))
-		   		target   = document.getElementById('ajaxbox').value  
-	      } 
-	   
-	   sfld =""
-	   if (document.getElementById('selectedfields'))
-	    	sfld  = document.getElementById('selectedfields').value  			
-	  	   		    
-	   if (target != "") {
-	   
-		   	if (lkf == "") {			  	 			
-		     	ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&listorder='+or+'&listorderfield='+orfld+'&selfld='+sfld+'&listorderalias='+orala+'&listorderdir='+ordir+'&content=1',target)
-		   	} else {			
-		      ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&listorder='+or+'&listorderfield='+orfld+'&selfld='+sfld+'&listorderalias='+orala+'&listorderdir='+ordir+'&content=1',target,'','','POST',lkf)
-		   	}
-	   } else { Prosis.busy('no') } }
-	   }
-
+		} catch(e) {			
+												
+	  	   if (!pg)
+		   
+		   pg=0
+	
+		   lk=""
+		   if (document.getElementById('mylink'))							
+		   		lk    = document.getElementById('mylink').value		   
+		   lkf=""
+		   if (document.getElementById('mylinkform'))	
+		   	   lkf   = document.getElementById('mylinkform').value	
+		   or=""	   	  	   
+		   if (document.getElementById('listorder')) 
+		   		or    = document.getElementById('listorder').value		   		
+		   orfld=""
+		   if (document.getElementById('listorderfield'))
+		   		orfld = document.getElementById('listorderfield').value		   		
+		   ordir=""
+		   if (document.getElementById('listorderdir'))		
+		   		ordir = document.getElementById('listorderdir').value		   		
+		   orala=""
+		   if (document.getElementById('listorderalias')) 		  	
+		   		orala = document.getElementById('listorderalias').value		   	 
+		   target = ""
+		   if (ajaxid == "content") {
+		   		if (document.getElementById('gridbox'))		  
+			   		target   = document.getElementById('gridbox').value  
+			   } else {
+			    if (document.getElementById('ajaxbox'))
+			   		target   = document.getElementById('ajaxbox').value  
+		      }		   
+		   sfld =""
+		   if (document.getElementById('selectedfields'))
+		    	sfld  = document.getElementById('selectedfields').value  			
+		  	   		    
+		   if (target != "") {
+		   
+			   	if (lkf == "") {			  	 			
+			     	ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&groupvalue1='+groupvalue1+'&grouprow1='+grouptarget+'&col1='+col1+'&col1value='+col1value+'&listorder='+or+'&listorderfield='+orfld+'&selfld='+sfld+'&listorderalias='+orala+'&listorderdir='+ordir+'&content=1',target)
+			   	} else {			
+			      ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&groupvalue1='+groupvalue1+'&grouprow1='+grouptarget+'&col1='+col1+'&col1value='+col1value+'&listorder='+or+'&listorderfield='+orfld+'&selfld='+sfld+'&listorderalias='+orala+'&listorderdir='+ordir+'&content=1',target,'','','POST',lkf)
+			   	}
+		   } else { Prosis.busyRegion('no','_divSubContent');
+	 } }
+}
+	
 function processrow(template,key,string,val) {   
 	   ptoken.navigate('#SESSION.root#/'+template+key+'&'+string+'&value='+val,'listingaction')	;  
 } 
+
+
+// adding lines to the listing rows
+
+function listgroupshow(key,target,col1,col1value) {
+
+	se1 = $('##'+target+'_exp');
+	se2 = $('##'+target+'_col');
+			
+	if (se2.hasClass('regular')) {
+	 	
+		se1.removeClass('hide').addClass('regular');
+		se2.removeClass('regular').addClass('hide');		
+		$('.'+target+'_data').each(function(index) { $(this).remove()})	 
+		 
+	} else  {	
+			
+		se1.removeClass('regular').addClass('hide');		
+		se2.removeClass('hide').addClass('regular');		
+		applyfilter('0','','append','',key,target,col1,col1value) 			
+		 
+	}	 
+ 
+}
 
 function deleterow(t,row,dsn,table,field,value) {        
 
@@ -218,23 +324,6 @@ function deleterow(t,row,dsn,table,field,value) {
 		   }
 }
 
-function isVisibleToTheUser(vElement) {
-
-	console.log('id',vElement.attr('id'))
-	console.log('id',vElement.offset())
-	let elementTop = vElement.offset().top;
-	let elementBottom = elementTop + vElement.outerHeight();
-	console.log('element top',elementTop);
-	console.log('element bottom',elementBottom);
-
-	let viewportTop = $("html,body").scrollTop();
-	let viewportBottom = viewportTop + $(window).height();
-
-	console.log('view top',viewportTop);
-	console.log('view bottom',viewportBottom);
-
-	return elementBottom > viewportTop && elementTop < viewportBottom;
-};
 
 function listnavigateRow(box)	{
 			
@@ -281,25 +370,30 @@ function listnavigateRow(box)	{
 //	   }				   
 //	 }	
 	 
-	<!--- key down page ---> 
+	<!--- page down page ---> 
 	if (keynum == 34) {	
-	         try { 		  
-		     if (document.getElementById('next')) {
-			 	 vLast = $('##'+box+'_table tr:last');
-			 	 console.log(vLast.attr('id'));
-				 console.log(isVisibleToTheUser(vLast));
-
-
-				 if (isVisibleToTheUser(vLast)) {
-				     alert('b')			 
-					 pg = document.getElementById('page').value				 
-				     document.getElementById('page').value = pg++;				 			
-				     applyfilter('',pg++,'content')		 
-				 }
-			  }	} catch(e) {}		   
-	}	
 	
-	
+         try { 				   
+		     if (document.getElementById('next')) {	
+			 
+			 	 pga = document.getElementById('pages').value
+				 nav = document.getElementById('navigation').value
+				 
+				 if (isAt('bottom') && nav != 'manual')	{				 
+					// going to next page
+					pg = document.getElementById('page').value					
+					if (nav == 'auto') {					
+						applyfilter('1','','append');					
+					} else {									
+						if (pg == pga) {} else {			
+							document.getElementById('page').value = pg++;			
+							applyfilter('',pg++,'content') }						
+					       }		 			 
+					}	   
+			  }	
+		 } catch(e) {}		   
+	}		
+		
 	<!--- >>! last page --->
 	if (keynum == 35) {		  
 	     if (document.getElementById('next')) {
@@ -316,12 +410,18 @@ function listnavigateRow(box)	{
 		  }	 		   
 	}			
 	
-	<!--- << key up page ---> 
-	if (keynum == 33) {		  
+	<!--- << page up page ---> 
+	if (keynum == 33) {	
+	
+		 nav = document.getElementById('navigation').value	  
 	     if (document.getElementById('prior')) {
-			 pg = document.getElementById('page').value				 
-		     document.getElementById('page').value = pg--;				 		
-		     applyfilter('',pg--,'content')		 
+
+	     	if (isAt('top') && nav!='manual') {
+				 pg = document.getElementById('page').value
+				 document.getElementById('page').value = pg--;
+				 applyfilter('', pg--, 'content')
+			 }
+
 		  }	 		   
 	}		 
 	 
@@ -367,12 +467,11 @@ function listingshow(itm) {
 }
 
 function showtemplate(path,key) {
-    window.open("#SESSION.root#/System/Modification/PostFile/TemplateDetail.cfm?path="+path+"&file="+key+"&ts="+new Date().getTime(), "dialog", "unadorned:yes; edge:raised; status:no; dialogHeight:#client.height-100#px; dialogWidth:#client.width-140#px; help:no; scroll:no; center:yes; resizable:yes");	
+    ptoken.open("#SESSION.root#/System/Modification/PostFile/TemplateDetail.cfm?path="+path+"&file="+key+"&ts="+new Date().getTime(), "dialog", "unadorned:yes; edge:raised; status:no; dialogHeight:#client.height-100#px; dialogWidth:#client.width-140#px; help:no; scroll:no; center:yes; resizable:yes");	
 }	
 
-
 function toggledrill(mode,box,template,key,arg,drillbox,str) {
-
+    
 	if (str != '') {
 	    str = "&"+str }
 	
@@ -383,29 +482,32 @@ function toggledrill(mode,box,template,key,arg,drillbox,str) {
 
 	if (mode == "embed") {
 		   
-		se = document.getElementById(box)
-		try {
-			ex = document.getElementById("exp"+key)
-			co = document.getElementById("col"+key)	} catch(e) {}
-		
-		if (se.className == "hide") {
-		   se.className = "regular" 
-		   try {
-			   co.className = "regular"
-			   ex.className = "hide" } catch(e) {}
-		   if (str == '') {
-			   ColdFusion.navigate('#SESSION.root#/'+template+'?drillid='+key,'c'+key)
-		   } else {
-			   ColdFusion.navigate('#SESSION.root#/'+template+'?drillid='+key+'&'+str,'c'+key)
-		   }
-		} else {  se.className = "hide"
-		          try {
-				  ex.className = "regular"
-		   	      co.className = "Hide" 
-				  } catch(e) {} } 	
-	  }
+		    se = $('##'+box);			
+			try { ex = $('##exp'+key)
+				  co = $('##col'+key) } catch(e) {}
+			
+			if   (se.hasClass('hide')) { 
+			       se.removeClass('hide').addClass('regular') 
+				   try {
+				      co.removeClass('hide').addClass('regular')
+					  ex.removeClass('regular').addClass('hide') 
+				   } catch(e) {}
+					   
+			   if (str == '') {
+				   ptoken.navigate('#SESSION.root#/'+template+'?drillid='+key,'c'+key)
+			   } else {
+				   ptoken.navigate('#SESSION.root#/'+template+'?drillid='+key+'&'+str,'c'+key)
+			   }
+			   
+			} else {  se.removeClass('regular').addClass('hide')
+			          try {
+					    ex.removeClass('hide').addClass('regular')
+			   	        co.removeClass('regular').addClass('hide') 
+					  } catch(e) {} 
+				   } 	
+		  }
 	  
-	  // added 20/1/2015 
+	 // added 20/1/2015 
 	  
 	if (mode == "nav") {
 		   
@@ -416,24 +518,24 @@ function toggledrill(mode,box,template,key,arg,drillbox,str) {
 		} catch(e) {}
 		
 		if (se.className == "hide") {
-		   se.className = "regular" 
+		     se.className = "regular" 
 		   try {
-		   co.className = "regular"
-		   ex.className = "hide"
+		     co.className = "regular"
+		     ex.className = "hide"
 		   } catch(e) {}
 		   if (str == '') {
-		   ColdFusion.navigate('#SESSION.root#/'+template+'?drillid='+key,'c'+key)
+		   ptoken.navigate('#SESSION.root#/'+template+'?drillid='+key,'c'+key)
 		   } else {
-		   ColdFusion.navigate('#SESSION.root#/'+template+'?drillid='+key+'&'+str,'c'+key)
+		   ptoken.navigate('#SESSION.root#/'+template+'?drillid='+key+'&'+str,'c'+key)
 		   }
 		   
-		} else { se.className = "hide"
-		         try {
-				 	ex.className = "regular"
-			   	     co.className = "hide" 
-				 } catch(e) {} } 	
-	  }	  
-	
+		} else { 
+		   se.className = "hide"
+		   try {
+				ex.className = "regular"
+			    co.className = "hide" 
+		   } catch(e) {} } 	
+	  }	  	
 	
 	if (mode == "drillbox") {
 	   ptoken.navigate('#SESSION.root#/'+template+'?drillid='+key+'&'+str,drillbox);		   
@@ -449,8 +551,8 @@ function toggledrill(mode,box,template,key,arg,drillbox,str) {
 		   se.className = "regular" 		   
 		   co.className = "regular"
 		   ex.className = "Hide"
-		    _cf_loadingtexthtml="<div><img src='#SESSION.root#/images/busy10.gif'/>";	
-		   ptoken.navigate('#SESSION.root#/tools/listing/listing/ListingDialog.cfm?ajaxid=c'+key+'&drillid='+key,'c'+key)
+		   _cf_loadingtexthtml="<div><img src='#SESSION.root#/images/busy10.gif'/>";	
+		   ptoken.navigate('#SESSION.root#/tools/listing/listing/ListingDetailWorkflow.cfm?ajaxid=c'+key+'&drillid='+key,'c'+key)
 		} else {  se.className = "hide"
 		          ex.className = "regular"
 		   	      co.className = "Hide"  } 	
@@ -501,7 +603,7 @@ function toggledrill(mode,box,template,key,arg,drillbox,str) {
 		}  
 	  	  	
 	if (mode == "dialog") {	  		
-		alert('Modal IE Dialog mode no longer support. Check your administrator')
+		alert('Modal IE Dialog mode no longer supported. Check your administrator')
 		// discontinued	
 		}
 	
@@ -535,27 +637,24 @@ function toggledrill(mode,box,template,key,arg,drillbox,str) {
 		w = #CLIENT.width# - 60;
         h = #CLIENT.height# - 120;			
 		ptoken.open('#SESSION.root#/'+template+key+str+'&idmenu='+idmenu+'&ts='+new Date().getTime(),'_top')				
-		}		
-					
+		}						
 	}	
 
-	function facttablexls2(controlid,format,filter,qry,dsn) {	
-	   
+	function facttablexls2(controlid,format,filter,qry,dsn) {		   
 	    w = #CLIENT.width# - 80;
 		h = #CLIENT.height# - 120;						
 		ptoken.open("#SESSION.root#/component/analysis/CrossTabLaunch.cfm?dsn="+dsn+"&fileno=1&controlid="+controlid+"&"+qry+"&filter="+filter+"&data=1&format="+format+"&ts="+new Date().getTime(), "WExcelExport");		
-	//	ptoken.open("#SESSION.root#/component/analysis/CrossTabLaunch.cfm?dsn="+dsn+"&fileno=1&controlid="+controlid+"&"+qry+"&filter="+filter+"&data=1&format="+format+"&ts="+new Date().getTime(), "WExcelExport", "left=20, top=20,status=yes, height="+h+" px, width="+w+" px, scrollbars=no, center=yes, resizable=yes");		
-	
+	//	ptoken.open("#SESSION.root#/component/analysis/CrossTabLaunch.cfm?dsn="+dsn+"&fileno=1&controlid="+controlid+"&"+qry+"&filter="+filter+"&data=1&format="+format+"&ts="+new Date().getTime(), "WExcelExport", "left=20, top=20,status=yes, height="+h+" px, width="+w+" px, scrollbars=no, center=yes, resizable=yes");			
 	}
 	
 	function printListing(maxrows, pTarget) {
-			ptoken.navigate('#session.root#/tools/listing/listing/defineRowsToShow.cfm?action=all&maxRows='+maxrows, pTarget, function(){
-			applyfilter('1','','content', function(){
-				Prosis.webPrint.print('##printTitle','.clsListingContent', true, function(){ 
-					$('##_divContentFields').attr('style','width:100%;'); $('##_divContentFields').parent('div').attr('style','width:100%;');
+		ptoken.navigate('#session.root#/tools/listing/listing/defineRowsToShow.cfm?action=all&maxRows='+maxrows, pTarget, function(){
+		applyfilter('1','','content', function(){
+			Prosis.webPrint.print('##printTitle','.clsListingContent', true, function(){ 
+				$('##_divContentFields').attr('style','width:100%;'); $('##_divContentFields').parent('div').attr('style','width:100%;');
 				});
-				ptoken.navigate('#session.root#/tools/listing/listing/defineRowsToShow.cfm?action=reset&maxRows='+maxrows, pTarget, function(){
-					applyfilter('1','','content');
+			ptoken.navigate('#session.root#/tools/listing/listing/defineRowsToShow.cfm?action=reset&maxRows='+maxrows, pTarget, function(){
+				applyfilter('1','','content');
 				});
 			});
 		});

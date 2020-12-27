@@ -132,8 +132,8 @@
 		<cfset vDatesColor = "background-color:##95EDA3;">
 	</cfif>
 	
-	<td align="center" style="border-left:1px solid gray;border-right:1px solid silver; #vDatesColor#">#Dateformat(DateEffective, CLIENT.DateFormatShow)#</td>
-	<td align="center" style="border-left:1px solid gray;border-right:1px solid silver; #vDatesColor#">
+	<td align="center" style="border-left:1px solid gray;border-right:0px solid silver; #vDatesColor#">#Dateformat(DateEffective, CLIENT.DateFormatShow)#</td>
+	<td align="center" style="border-left:1px solid gray;border-right:0px solid silver; #vDatesColor#">
 	<cfif DateExpiration neq "">
 	#Dateformat(DateExpiration, CLIENT.DateFormatShow)#
 	<cfelse>

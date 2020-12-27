@@ -392,7 +392,7 @@ RELOAD : enforces the left menu to be reloades upon launching of the template.
 					    	</td>
 							
 						</cfif>
-						
+												
 						<script language="JavaScript">
 						
 							function revoke(del) {

@@ -368,16 +368,16 @@
 				
 				<table width="98%">
 								
-				<tr class="labelmedium fixrow">
+				<tr class="labelmedium2 fixrow">
 					<td height="22" style="width:40px"></td>
-					<td style="min-width:200px" width="25%"><cf_tl id="Name"></td>
+					<td style="min-width:200px"><cf_tl id="Name"></td>
 					<td width="100"><cf_tl id="Account"></td>
 					<td width="130"><cf_tl id="Network"></td>
 					<td style="min-width:120px"><cf_tl id="IndexNo"></td>
-					<td width="100"><cf_tl id="Managed"></td>
-					<td width="20%"><cf_tl id="eMail"></td>
-					<td width="100"><cf_tl id="Group"></td>
-					<td width="110"><cf_tl id="Last logon"></td>
+					<td><cf_tl id="Managed"></td>
+					<td style="min-width:120px"><cf_tl id="eMail"></td>
+					<td><cf_tl id="Group"></td>
+					<td style="min-width:120px"><cf_tl id="Last logon"></td>
 					<td width="20"></td>
 					<td width="20"></td>
 					<td width="20"></td>
@@ -393,10 +393,10 @@
 					   <cfswitch expression="#URL.IDSorting#">
 					   
 					     <cfcase value = "AccountGroup">
-					      <tr class="fixrow2 labelmedium line"><td colspan="12" height="23" bgcolor="white">#AccountGroup#</td></tr>						  
+					      <tr class="fixrow2 labelmedium line"><td colspan="13" height="23" bgcolor="white">#AccountGroup#</td></tr>						  
 					     </cfcase>
 						  <cfcase value = "AccountMission">
-					      <tr class="fixrow2 labelmedium line"><td colspan="12" height="23" bgcolor="white">#AccountMission#</td></tr>						  
+					      <tr class="fixrow2 labelmedium line"><td colspan="13" height="23" bgcolor="white">#AccountMission#</td></tr>						  
 					     </cfcase>
 					     <cfcase value = "LastName">
 						 
@@ -406,7 +406,7 @@
 					     <!--- <td colspan="8"><font face="Tahoma" size="2"><b>&nbsp;#Dateformat(TransactionDate, "#CLIENT.DateFormatShow#")#</b></font></td> --->
 					     </cfcase>
 					     <cfdefaultcase>		 
-					      <tr><td colspan="12" class="labelmedium">#AccountGroup#</td></tr>
+					      <tr><td colspan="13" class="labelmedium">#AccountGroup#</td></tr>
 					     </cfdefaultcase>
 					   </cfswitch>
 				
@@ -418,7 +418,7 @@
 				   
 				   <cfif currrow lte No>
 				   
-				   <TR bgcolor="#IIf(disabled eq '1', DE('d6d6d6'), DE('FFFFFF'))#" class="labelmedium navigation_row line" style="height:20px">
+				   <TR bgcolor="#IIf(disabled eq '1', DE('d6d6d6'), DE('FFFFFF'))#" class="labelmedium2 navigation_row line" style="height:25px">
 				        
 				   <td width="60" align="center">
 				   
@@ -437,7 +437,7 @@
 								
 						   <cfelse>
 						   
-						        <td style="width:24;padding-left:6px;padding-top:2px" class="navigation_action" onclick="UserEdit('#Account#')">				
+						        <td style="width:24;padding-left:6px;padding-top:1px" class="navigation_action" onclick="UserEdit('#Account#')">				
 								  <cf_img icon="select">							   				 
 								</td>    	 
 								 
@@ -455,17 +455,17 @@
 				   </td>
 				
 				   <TD><a href="javascript:ShowUser('#URLEncodedFormat(Account)#')">#LastName#<cfif firstname neq "">, #FirstName#</cfif></a></td> 
-				   <TD>#Account#</TD>  
+				   <TD style="padding-right:5px">#Account#</TD>  
 				   <TD style="padding-right:5px"><cfif mailserverdomain neq "">#MailServerDomain#/</cfif>#MailServerAccount#</TD> 
 				   
 				   <cfif NaturalPerson eq "">				   
-				   		<TD><A HREF="javascript:EditPerson('#PersonNo#')">#IndexNo#</a></TD>   				   
+				   		<TD style="padding-right:5px"><A HREF="javascript:EditPerson('#PersonNo#')">#IndexNo#</a></TD>   				   
 				   <cfelse>				   
-				    	<TD><A HREF="javascript:ShowCandidate('#PersonNo#')">#IndexNo#</a></TD>				   
+				    	<TD style="padding-right:5px"><A HREF="javascript:ShowCandidate('#PersonNo#')">#IndexNo#</a></TD>				   
 				   </cfif>
 				   
-				   <td style="padding-left:4px">#AccountMission#</td>
-				   <TD style="padding-left:4px">
+				   <td style="padding-right:5px">#AccountMission#</td>
+				   <TD style="padding-right:5px">
 				   
 				   <cfif eMailAddress neq "">
 						 <a href="javascript:email('#eMailAddress#','','','','User','#Account#')">#eMailAddress#</font>

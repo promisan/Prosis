@@ -26,15 +26,15 @@
 
 <table width="100%" cellspacing="0" cellpadding="0" class="formpadding">
 
-<tr class="line labelmedium">
+<tr class="line labelmedium2">
 	<td colspan="2" style="padding:left:4px"><cf_tl id="Account"></td>
 	<td colspan="2" bgcolor="ffffcf" align="center"><cf_tl id="Current Total"></td>
 	<td colspan="2" align="center" bgcolor="EBF7FE"><cf_tl id="New Total"></td></tr>
 </tr>
 
-<tr class="line labelmedium">
-	<td style="padding:2px"><cf_space spaces="25"></td>
-	<td style="padding:2px"><cf_space spaces="120"></td>
+<tr class="line labelmedium2">
+	<td style="padding:2px"></td>
+	<td style="padding:2px"></td>
 	<td style="padding:2px" align="right"><cf_space spaces="25"><cf_tl id="Debit"></td>
 	<td style="padding:2px" align="right"><cf_space spaces="25"><cf_tl id="Credit"></td>
 	<td style="padding:2px" align="right"><cf_space spaces="25"><cf_tl id="Debit"></td>
@@ -54,7 +54,7 @@
 
 <cfif line.recordcount eq "0">
 
-<tr><td COLSPAN="6" align="center" height="30" class="labelmedium"><cf_tl id="No transactions recorded"></td></tr>
+<tr><td COLSPAN="6" align="center" height="30" class="labelmedium2"><cf_tl id="No transactions recorded"></td></tr>
 
 </cfif>
 
@@ -85,9 +85,9 @@
 	AND      H.TransactionId != '#Header.TransactionId#'
 </cfquery>	
 
-<tr>
-   <td style="padding:2px;min-width:200px" class="labelit">#Account.GLAccount#</td>
-   <td style="padding:2px" class="labelit">#Account.Description#</td>
+<tr class="labelmedium2 line">
+   <td style="padding:2px;min-width:200px">#Account.GLAccount#</td>
+   <td style="padding:2px">#Account.Description#</td>
    
    <cfif curr.basedebit eq "">
       <cfset currentdebit = 0>
@@ -100,33 +100,31 @@
       <cfset currentcredit = curr.basecredit>	    
    </cfif>
    
-   <td style="padding:2px" align="right" class="labelit"><cfif Curr.BaseDebit gte Curr.BaseCredit>
-          #numberFormat(currentdebit-currentcredit,"__,__.__")#
+   <td style="padding:2px" align="right"><cfif Curr.BaseDebit gte Curr.BaseCredit>
+          #numberFormat(currentdebit-currentcredit,",.__")#
        </cfif>
    </td>
-   <td style="padding:2px" align="right" class="labelit">
+   <td style="padding:2px" align="right">
 	   <cfif Curr.BaseDebit lt Curr.BaseCredit>
-          #numberFormat(currentcredit-currentdebit,"__,__.__")#
+          #numberFormat(currentcredit-currentdebit,",.__")#
        </cfif>
    </td>
    
    <cfset debit  = currentdebit+BaseDebit>
    <cfset credit = currentcredit+BaseCredit>
    
-   <td style="padding:2px" align="right" class="labelit"><cfif Debit gte Credit>
-          <font color="0080FF">#numberFormat(Debit-Credit,"__,__.__")#
+   <td style="padding:2px" align="right"><cfif Debit gte Credit>
+          <font color="0080FF">#numberFormat(Debit-Credit,",.__")#
        </cfif>   
    </td>
    
-   <td style="padding:2px" align="right" class="labelit"><cfif Debit lt Credit>
-          <font color="0080FF">#numberFormat(Credit-Debit,"__,__.__")#
+   <td style="padding:2px" align="right"><cfif Debit lt Credit>
+          <font color="0080FF">#numberFormat(Credit-Debit,",.__")#
        </cfif>   
    
    </td>
       
 </tr>
-
-<tr><td colspan="6" class="line"></td></tr>
 
 </cfoutput>
 

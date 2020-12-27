@@ -44,11 +44,11 @@
                        '#session.First#')
         </cfquery>
 				 
-	   <img src="#SESSION.root#/Images/validate.gif"
+	   <img src="#SESSION.root#/Images/TransactionType/validate.png"
 	     border="0"
 		 onclick="setlinestatus('#transactionid#','0')"
 		 align="absmiddle"
-		 height="14" width="14"
+		 height="16" width="14"
 	     style="cursor: pointer;">
 				 
 	</cfif>

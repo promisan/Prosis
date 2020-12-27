@@ -197,8 +197,6 @@ password="#SESSION.dbpw#">
 		
 </cfif>
 
-
-
 		<cfif url.action eq "Add">
 		
 		<script>
@@ -206,7 +204,7 @@ password="#SESSION.dbpw#">
 				try {
 					 document.getElementById('menudocument').disabled = false } catch(e) { }		
 					 
-				ColdFusion.navigate('ProcessAction8TabsDocument.cfm?action=add&id=#URL.actionID#&docid=#url.docid#',document.getElementById('documentcontainer').value)	
+				ptoken.navigate('ProcessAction8TabsDocument.cfm?action=add&id=#URL.actionID#&docid=#url.docid#',document.getElementById('documentcontainer').value)	
 				document.getElementById('menudocument').className = "regular"
 				// se = document.getElementById('documentmenu').value
 				// document.getElementById(se).click()

@@ -123,9 +123,6 @@
 </tr>
 <tr><td height="5"</td></tr>
     
-
-<tr><td height="4"></td></tr>
-
 <tr><td style="padding-left:4px">
 	
 	<cfoutput>
@@ -135,13 +132,10 @@
 	<cfset arg = replace(arg,"&","|","ALL")>
 	<cfset arg = replace(arg,"=","!","ALL")>
 	
-		
-	<cfform>
-		<cf_UItree name="tree" font="calibri"  fontsize="12" bold="No" format="html" required="No">
+	<cf_UItree name="tree" font="calibri"  fontsize="12" bold="No" format="html" required="No">
 		     <cf_UItreeitem bind="cfc:service.Tree.OrganizationTree.getNodesV2({cftreeitempath},{cftreeitemvalue},'#url.mission#','#mandatedef#','PositionListing.cfm','DEF','#url.mission#','#URL.mission#','#MandateDef#','','','0','#arg#')">
 		</cf_UItree>
-	</cfform>
-			
+				
 </td></tr>
 
 </table>

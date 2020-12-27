@@ -1,5 +1,5 @@
 
-<cf_screentop height="100%" 
+<cf_screentop height="100%" jquery="Yes"
      scroll="Vertical" menuAccess="Yes" systemfunctionid="#url.idmenu#"
 	 html="No" title="Employee Inquiry">
 	
@@ -7,18 +7,16 @@
 datasource="AppsSystem" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-    SELECT CODE, NAME 
-    FROM   Ref_Nation
-	WHERE  NAME > 'A'
-	AND    Code IN (SELECT Nationality FROM Employee.dbo.Person)
+    SELECT   CODE, NAME 
+    FROM     Ref_Nation
+	WHERE    NAME > 'A'
+	AND      Code IN (SELECT DISTINCT Nationality FROM Employee.dbo.Person)
 	ORDER BY NAME
 </cfquery>
 
-<br><br><br>
-
+<br><br>
 <!--- Search form --->
 <FORM action="PersonSearchQuery.cfm?height=<cfoutput>600</cfoutput>" method="post">
-
 
 <cf_tl id="contains" var="1">
 <cfset vcontains=#lt_text#>
@@ -36,15 +34,15 @@ password="#SESSION.dbpw#">
 <cfset vafter=#lt_text#>
   
   
-<table width="80%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="80%" align="center">
 
 	<tr>
 	<td colspan="2">
 		<table width="100%">
 			
 		    <tr>
-			    <td height="25" width="90%" class="labellarge">
-				<b><cf_tl id="SearchBy" class="Message">:</b></font>
+			    <td height="25" width="90%" style="font-size:26px" class="labellarge">
+				<cf_tl id="SearchBy" class="Message">:
 				</td>
 				<cf_tl id="Reset" var="1">
 				<cfset vReset=#lt_text#>
@@ -317,38 +315,43 @@ password="#SESSION.dbpw#">
 	</TR>
 	
 	<tr><td height="5" colspan="1"></td></tr>
-			
-<!--- Field: Staff.Nationality=CHAR;40;FALSE --->
-		<TR>
-	<TD class="labelmedium"><cf_tl id="Nationality">:</b>
-	<P>
-	<input type="radio" class="radiol" name="Nation" value="0">Incl.
-	<p>
-    <input type="radio" class="radiol" name="Nation" value="1" checked>Excl.
- 	
-	</TD>
 	
-	<TD>
-
-    	<select name="Nationality" size="10" class="regularxl" multiple style="height:160px">
-	    <cfoutput query="Nation">		
-		<option value="'#Code#'"selected>
-		#Name#
-		</option>
-		</cfoutput>
-	    </select>
+	<TR>
+		<TD class="labelmedium" valign="top" style="padding-top:4px"><cf_tl id="Nationality">:</TD>
 		
-	</TD>
-	</TR>
-	
-	<tr><td class="linedotted" colspan="2"></td></tr>
+		<TD>
+		
+		<cf_UIselect name = "Nationality"					
+					size           = "1"
+					class          = "regularXXL"
+					id             = "Nationality"		
+					multiple       = "Yes"													
+					style          = "width:100%"											
+					query          = "#Nation#"
+					queryPosition  = "below"
+					value          = "Code"
+					display        = "Name"/>
+		
+		<!---
+	    	<select name="Nationality" id="Nationality" size="10" multiple disabled class="regularxl" style="height:150px;min-width:200">
+			    <cfoutput query="Nation">		
+				<option value="'#Code#'"selected>#Name#</option>
+				</cfoutput>
+		    </select>
+			--->
+			
+		</TD>
+		</TR>
+			
 	
 	<tr><td height="5" colspan="1"></td></tr>
 	
+	<tr><td class="line" colspan="2"></td></tr>
+		
 	<tr>
     <td colspan="2" style="height:30">
 	 <cfoutput>
-	 <input type="submit" name="Submit" value="#vSubmit#" class="button10s" style="width:130;height:23">
+	 <input type="submit" name="Submit" value="#vSubmit#" class="button10g" style="width:130;height:23">
 	 </cfoutput>
 	</td>
 	

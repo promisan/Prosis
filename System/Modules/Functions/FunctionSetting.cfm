@@ -70,16 +70,16 @@ password="#SESSION.dbpw#">
 	
 	</cfif>			
 		
-	<TR  class="labelmedium" style="height:27px">
+	<TR  class="labelmedium2" style="height:27px">
         <td width="130">Module:</td>
-        <TD class="labelmedium" width="80%">
+        <TD width="80%">
 		<cfoutput>
 		#Line.SystemModule#
 		</TD>
 		</cfoutput>
 	</TR>	
 	
-	<TR  class="labelmedium" style="height:27px">
+	<TR class="labelmedium2" style="height:27px">
         <td>Function class:</td>
         <TD>
 		<cfoutput>
@@ -89,7 +89,7 @@ password="#SESSION.dbpw#">
 	</TR>	
 	
 	<cfif Line.FunctionClass eq "SelfService">
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
         <td  style="height:23">Background image:</td>
 	    <TD>
 		 <cfoutput>
@@ -108,7 +108,7 @@ password="#SESSION.dbpw#">
 	</cfif>
 	
 	<cfif Line.FunctionClass eq "SelfService">
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
         <td style="height:23">Enforce Host:</td>
 	     <TD>
 		 <cfoutput>
@@ -129,7 +129,7 @@ password="#SESSION.dbpw#">
 	</tr>	
 	</cfif>
 		
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
         <td style="height:24">Menu class:</td>
         <TD>
 		
@@ -155,7 +155,7 @@ password="#SESSION.dbpw#">
 		</cfoutput>
 	</TR>	
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD style="height:24">Menu Name:</TD>
 			
 		<td>
@@ -187,7 +187,7 @@ password="#SESSION.dbpw#">
 		
 	</tr>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
         <td style="height:36">Menu Subtitle:</td>
         <TD>
 		
@@ -221,13 +221,13 @@ password="#SESSION.dbpw#">
 		--->
 	</TR>
 		
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD style="height:24">Relative order:</TD>
 	<TD>
 	    <cfinput type="Text" name="MenuOrder" value="#Line.MenuOrder#" message="Please enter a valid integer" validate="integer" required="Yes" size="1" maxlength="3" style="text-align:center;" class="regularxl">
 	</td>
 	
-	<tr class="labelmedium">
+	<tr class="labelmedium2">
 	<TD style="height:24">Menu Icon:</TD>
 	<TD>
 	
@@ -279,7 +279,7 @@ password="#SESSION.dbpw#">
 	 </TD>
 	</TR>	
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
         <td valign="top" style="padding-top:3px;height:38">Memo:</td>
         <TD>
 						
@@ -291,7 +291,7 @@ password="#SESSION.dbpw#">
 		
 	<cfif Line.ScreenWidth neq "">
 		
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
         <td align="right" style="height:24">Dialog width:</td>
         <TD>
 		<cfoutput>
@@ -308,7 +308,7 @@ password="#SESSION.dbpw#">
 		</cfoutput>
 	</TR>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
         <td align="right" style="height:24">Dialog height:</td>
         <TD>
 		<cfoutput>
@@ -330,7 +330,7 @@ password="#SESSION.dbpw#">
 		
 	<cfif Line.ScriptName eq "">
 	
-		<TR class="labelmedium">
+		<TR class="labelmedium2">
 	        <td valign="top" style="padding-top:4px" height="22">Launch Template:</td>
 	        <td>
 			
@@ -362,13 +362,13 @@ password="#SESSION.dbpw#">
 				</cfif>
 							
 				<cfif Line.FunctionClass neq "SelfService">
-				<TR class="labelmedium">
+				<TR class="labelmedium2">
 			        <td>Host:</td>
 					
 			        <TD>
 					
 					<table cellspacing="0" cellpadding="0">
-					<tr class="labelmedium"><td style="padding:1px">
+					<tr class="labelmedium2"><td style="padding:1px">
 					<input type="radio" class="radiol" name="HostSelect" id="HostSelect" value="0" <cfif Line.FunctionHost eq "">checked</cfif> onclick="document.getElementById('host').className='hide'">
 					</td><td style="padding:1px">Default</td>
 					<td>&nbsp;</td>
@@ -404,7 +404,7 @@ password="#SESSION.dbpw#">
 				   <cfset cl = "regularxl">
 				</cfif>
 										
-				<TR class="labelmedium">
+				<TR class="labelmedium2">
 			        <td style="padding:1px;padding-right:10px">Directory:</td>
 			        <TD style="padding:1px">
 					<cfoutput>					
@@ -412,7 +412,7 @@ password="#SESSION.dbpw#">
 					</cfoutput>
 				</TR>
 									  
-				<TR class="labelmedium">
+				<TR class="labelmedium2">
 			        <td style="padding:1px">Path:</td>
 			        <TD style="padding:1px">
 					<cfoutput>					
@@ -429,7 +429,7 @@ password="#SESSION.dbpw#">
 				</TR>
 				
 				
-				<TR class="labelmedium">
+				<TR class="labelmedium2">
 			        <td valign="top" style="padding-top:3px">Target:</td>
 			        <TD style="padding-top:3px">
 					<table cellspacing="0" cellpadding="0">
@@ -454,7 +454,7 @@ password="#SESSION.dbpw#">
 	
 	<cfelse>
 		    
-		<TR class="labelmedium">
+		<TR class="labelmedium2">
 	        <td style="height:24px">Java/Action script:</td>
 	        <TD>
 			<cfoutput>
@@ -464,7 +464,7 @@ password="#SESSION.dbpw#">
 		
 		<cfif Line.MainmenuItem eq "1">
 		
-		<TR class="labelmedium">
+		<TR class="labelmedium2">
 		        <td style="height:24px">Target:</td>
 		        <TD>
 					<table cellspacing="0" cellpadding="0">					
@@ -496,7 +496,7 @@ password="#SESSION.dbpw#">
 				
 	</cfif>
 		
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD style="height:24">Enforce refresh:</TD>
     <TD>
 		<table cellspacing="0" cellpadding="0">
@@ -510,7 +510,7 @@ password="#SESSION.dbpw#">
 	</td>	
 	</tr>		
 					
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD style="height:24">Enabled:</TD>
     <TD>
 		<table cellspacing="0" cellpadding="0">
@@ -525,7 +525,7 @@ password="#SESSION.dbpw#">
 			
 	<cfif Line.FunctionClass neq "SelfService">
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD style="height:24">Grant Access to UserGroup:</TD>
     <TD>
 		<table cellspacing="0" cellpadding="0">
@@ -554,14 +554,14 @@ password="#SESSION.dbpw#">
 		
 	</cfif>
 		
-	<tr class="labelmedium">
+	<tr class="labelmedium2">
 	    <td style="height:24" class="labelmedium">Browser Support:</td>
 		<td>
 		
 		<cfoutput>
 		
 			<table cellspacing="0" cellpadding="0">
-			<tr class="labelmedium">		
+			<tr class="labelmedium2">		
 			
 			<td>
 			<INPUT type="radio" class="radiol" name="BrowserSupport" id="BrowserSupport" value="1" <cfif line.functionclass eq "Listing" or line.functionclass eq "Maintain" or Line.FunctionClass eq "System">disabled</cfif><cfif Line.BrowserSupport eq "1">checked</cfif>>
@@ -600,7 +600,7 @@ password="#SESSION.dbpw#">
 	<tr><td colspan="2" valign="bottom">
 	  <table width="100%" cellspacing="0" cellpadding="0" class="formpadding">
 	  
-	   <td class="labelmedium">
+	   <td class="labelmedium2">
 	       <cfif Line.FunctionClass eq "Maintain">
 		  	     
 		     <input type="checkbox"
@@ -622,7 +622,7 @@ password="#SESSION.dbpw#">
 					  name="del" 
 					  id="del"
 					  value="Delete" 
-					  onclick="ColdFusion.navigate('FunctionDelete.cfm?id=#Line.SystemFunctionId#','myresult')">
+					  onclick="ptoken.navigate('FunctionDelete.cfm?id=#Line.SystemFunctionId#','myresult')">
 			  </cfif>
 			  
 		  </cfoutput>   

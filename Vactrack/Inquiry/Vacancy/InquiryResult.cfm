@@ -6,7 +6,6 @@
 
 <cf_dialogStaffing>
 <cf_dialogPosition>
-<cf_listingScriptNavigation>
 
 <cfparam name="URL.IDSorting"    default="PostGrade">
 <cfparam name="URL.Page"         default="1">
@@ -122,7 +121,7 @@ password="#SESSION.dbpw#">
 		<TD width="15%"><cf_tl id="Grade"></TD>
 	    <TD width="10%"><cf_tl id="Entity"></TD>
 	    <TD width="12%"><cf_tl id="Position"></TD>
-		<td><cf_tl id="Reference"></TD>		
+		<td style="padding-right:3px"><cf_tl id="Reference"></TD>		
 	</TR>
 	
 	<cfset currrow = 0>
@@ -169,7 +168,7 @@ password="#SESSION.dbpw#">
 						 <cfset cl = "ffffff"> 
 						</cfif>		
 								
-					    <TR bgcolor="#cl#" style="height:24px" class="navigation_row labelmedium">
+					    <TR bgcolor="#cl#" style="height:24px" class="navigation_row labelmedium2">
 						
 						<cfif DocumentStatus eq "9">
 							<td height="18" align="center">#currrow#.</td>
@@ -195,8 +194,7 @@ password="#SESSION.dbpw#">
 						</td> 
 						
 						<TD style="padding-left:9px;padding-right:4px">
-						   <a href="javascript:showdocument('#DocumentNo#','ZoomIn')" 
-						    title="Go to recruitment track"><font color="0080C0">#DocumentNo#</font></a>
+						   <a href="javascript:showdocument('#DocumentNo#','ZoomIn')" title="Go to recruitment track">#DocumentNo#</a>
 						</TD>
 						
 						<td style="padding-left:8px">#FunctionalTitle#</td>	
@@ -204,11 +202,11 @@ password="#SESSION.dbpw#">
 					    <td>#Mission#</TD>
 					    <td width="30%">											
 						
-							<table width="99%" border="0" cellspacing="0" cellpadding="0" align="center">
+							<table width="99%" align="center">
 							
 							<tr><td>
 							
-								<table width="99%" border="0" cellspacing="0" cellpadding="0" align="center">
+								<table width="99%" align="center">
 								
 								<cfset c = 0>
 								<cfset cnt = 1>
@@ -229,10 +227,9 @@ password="#SESSION.dbpw#">
 										WHERE      DocumentNo = '#DocumentNo#'
 								    </cfquery>		
 														
-								   <td>
+								   <td style="padding-top:3px">
 								    <a title="View Position" 
-									 href="javascript:EditPosition('','','#PositionNo#')">		
-									 <font color="0080C0">						
+									 href="javascript:EditPosition('','','#PositionNo#')">											 					
 									 <cfif PostNumber neq "">#PostNumber#<cfelse>#PositionNo#</cfif>
 									</a>
 								   </td>
@@ -265,17 +262,17 @@ password="#SESSION.dbpw#">
 							
 							<cfif Person.name neq "">
 																
-							<TR>
+							<TR class="navigation_row_child">
 								<td></td>
 								<td></td>
 								<td></td>						
 								<td colspan="6" style="height:30">
 								
-								<table width="99%" border="0" cellspacing="0" cellpadding="0" align="center">
+								<table width="99%" align="center">
 									   
 									<tr><td style="padding-left:13px">
 									
-										<table border="0" cellspacing="0" cellpadding="0">
+										<table>
 										
 										<cfset c = 0>
 										<cfset cnt = 1>
@@ -290,11 +287,11 @@ password="#SESSION.dbpw#">
 												<cfelse>
 												
 													<cfif status eq "2s" or status eq "3">
-														<td bgcolor="ffffcf" style="padding:2px;border: 1px solid gray;">
+														<td bgcolor="ffffcf" style="border: 1px solid gray;padding-right:6px;border-radius:4px">
 															<cf_space spaces="48" class="labelit" label="#cnt#. #Name#" script="javascript:showdocumentcandidate('#DocumentNo#','#PersonNo#','0')">										 												
 													<cfelse>
 														<td bgcolor="f4f4f4" 
-														    style="padding:2px;border: 0px dotted silver;">
+														    style="border: 0px dotted silver;">
 															<cf_space spaces="48" class="labelit" label="#cnt#. #Name#">												
 														</TD>	
 													</cfif>								

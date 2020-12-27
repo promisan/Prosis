@@ -1,8 +1,8 @@
 
 <!--- this defines first, last, counted and pages --->
-<cf_PageCountN count="#Searchresult.recordcount#" show="#CLIENT.PageRecords#">
+<cf_PageCountN count="#Searchresult.recordcount#" show="#attributes.show#">
 
-<cfset counted = Searchresult.recordcount>
+<cfset countedrows = Searchresult.recordcount>
 
 <!--- ---------------------- --->
 <!--- update navigation only --->
@@ -15,57 +15,28 @@
 
 <cfparam name="cl" default="regular">
 
-<!--- counts cols --->
-	
-<cfset cols = 0>
-	
-<cfloop array="#attributes.listlayout#" index="current">
-
-    <cfparam name="current.display" default="1">	
-    <cfif current.display eq "1">
-		<cfset cols = cols+1>	
-	</cfif>
-    
-</cfloop>
-
-<cfif attributes.selectmode neq "">
-       <cfset cols = cols+1>	
-</cfif>
-		
-<cfif attributes.listtype eq "Directory">
-	   <cfset cols = cols+1>
-</cfif>   
-
-<!--- define columns to be shown --->
-
-<cfif deletetable neq "">
-   	   <cfset cols = cols+1>
-</cfif>
-
-<cfif annotation neq "">
-       <cfset cols = cols+1>
-</cfif>
-
-<!--- 14/6/2016 : changed from client to session as client has limitation in size --->
+<!--- 14/6/2016 : changed from client to session as client has limitation in size 
 
 <cfif attributes.drillkey neq "">
-
-	<cfset session.trafilter = evaluate("quotedvalueList(searchresult.#attributes.drillkey#)")>
-			
+	<cfset session.trafilter = evaluate("quotedvalueList(searchresult.#attributes.drillkey#)")>			
 </cfif>	
+
+--->
 
 <cfif url.content eq "1">
 
-	<table width="100%" height="100%">		
-	  <tr><td height="100%">
-	  <cfinclude template="ListingContent.cfm"></td></tr>
-	</table> 
+    <!--- -------------------------------------------------- --->
+	<!--- only content because apply/refresh/sort is pressed --->
+		  
+	<cfinclude template="ListingContentHTML.cfm">
 	
 <cfelse>
 
   <cfoutput>
-
+    
    <cfif listclass eq "Listing">
+   
+   	    <!--- menu listing --->
               	   
    	   <cf_layout type="border">
 	   
@@ -106,6 +77,13 @@
             <input type="hidden"  name="gridbox"        id="gridbox"        value="#attributes.box#_content">    
             <input type="hidden"  name="ajaxbox"        id="ajaxbox"        value="#attributes.box#_ajax">    
             <input type="hidden"  name="selectedfields" id="selectedfields" value="">
+			
+			<input type="hidden" name="treefield"      id="treefield"       value="">
+			<input type="hidden" name="treevalue"      id="treevalue"       value="">
+			<input type="hidden" name="listorder"      id="listorder"       value="#url.listorder#">	
+			<input type="hidden" name="listorderfield" id="listorderfield"  value="#url.listorderfield#">	
+			<input type="hidden" name="listorderalias" id="listorderalias"  value="#url.listorderalias#">	
+			<input type="hidden" name="listorderdir"   id="listorderdir"    value="#url.listorderdir#">		
 					  	
 		  	<cfquery name="tree" 
 	            datasource="AppsSystem" 
@@ -126,7 +104,7 @@
 			</cfif>
 			
 			<cf_layoutArea position="center" name="content" style="padding:5px; height:70%; min-height:70%;" overflow="hidden">				 						
-					<cfinclude template="ListingShowContent.cfm">								
+					<cfinclude template="ListingContentHTMLInquiry.cfm">								
 			</cf_layoutArea>
 			
 			<cf_tl id="Fields" var="tlFields">
@@ -137,11 +115,14 @@
 		</cf_layout>
 			   	   
 	<cfelse>	
-												
+	
+			<!--- embedded direct listing --->
+																
+			<cfparam name="scroll" default="No">									
 			<cfif attributes.screentop eq "yes">					
 			    <cf_screentop html="#attributes.html#" height="#attributes.tableheight#" scroll="#scroll#"> 						
 			</cfif>			
-													
+
 			<table width="#attributes.tablewidth#" height="#attributes.tableheight#" align="center" onKeyUp="listnavigateRow('#box#')">
 														 
 	 		  <cfif attributes.banner neq "">   
@@ -242,6 +223,7 @@
 								  buttonText  = "#excel#"		
 								  buttonstyle = "width:180px"				 
 								  reportPath  = "Tools\Listing\Listing\"
+								  queryString = "box=#attributes.box#&systemfunctionid=#url.systemfunctionid#"
 								  SQLtemplate = "ListingExcel.cfm"						 
 								  dataSource  = "#attributes.datasource#" 
 								  module      = "SelfService"										  								  
@@ -328,13 +310,15 @@
 					<tr>
 					
 						<td bgcolor="#attributes.headercolor#" colspan="2">
-						
+												
 							<table width="100%" align="right">
 							
 								<tr>									
 																
-								<td id="locate#attributes.box#" name="locate#attributes.box#" width="100%" class="#cl#">								
+								<td id="locate#attributes.box#" name="locate#attributes.box#" width="100%" class="#cl#">	
+														
 								 <cfinclude template="ListingFilter.cfm"> 																
+								
 								</td>
 											
 								<td align="right" valign="top" style="padding:2px;z-index:1; position:relative;">
@@ -366,36 +350,19 @@
 					</tr>
 																											
 				</cfif>		
+																			   			 
+				<tr class="xhide"><td style="height:1px" id="#attributes.box#_ajax">				
+				</td></tr>  			
 				
-				<!--- added for Evelyn to support --->
-				<!--- box to hold value to be posted upon updating the line in the background --->				
-				
-				<!--- no longer needed armin 8/12/2020 
-				
-				<tr class="hide"><td>
-				
-				  <cfoutput>					  
-					<form name="mylistform" method="post">				
-						<input type="text" name="f#attributes.box#_fieldvalue" id="f#attributes.box#_fieldvalue">			
-					</form>
-				  </cfoutput>
-				  
-				</td></tr>
-				
-				--->
-												   			 
-				<tr class="hide"><td style="height:1px" id="#attributes.box#_ajax"></td></tr>  		
-						
 			    <tr>
-				    <td height="100%" colspan="2">	
-																																						
-						<cf_divscroll overflowx="auto" overflowy="hidden" id="#attributes.box#_content" style="height:100%">																							
-							<cfinclude template="ListingContent.cfm">																		
-						</cf_divscroll>					
-										
+				    <td height="100%" id="#attributes.box#_content" colspan="2">	
+									
+						<cfinclude template="ListingContentHTML.cfm">	   	
+																
 					</td>
 				</tr>		  		   
-		 </table>		 
+								
+		 </table>
 		 	
 	</cfif>   
         
@@ -407,5 +374,7 @@
 	<cf_screenbottom html="#attributes.html#">
 </cfif>
 
+
 <cfset ajaxonload("doHighlight")>
+<cfset ajaxonload("doScroll")>
  

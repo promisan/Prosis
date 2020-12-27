@@ -490,7 +490,7 @@ password="#SESSION.dbpw#">
 					<!--- --------------- LOCATION --------------- --->
 					<!--- ---------------------------------------- --->
 					
-					<tr class="line fixrow2">
+					<tr class="fixrow2">
 							<td class="labellarge" style="font-size:20px;height:33px;padding-left:4px" colspan="12">
 														
 							<cfif warehouse neq Batch.Warehouse>
@@ -504,7 +504,7 @@ password="#SESSION.dbpw#">
 											WHERE    Warehouse       = '#warehouse#'									
 										</cfquery>
 			
-										<font color="804000">#Warehouse.WarehouseName#</font>
+										#Warehouse.WarehouseName#
 										
 							<cfelse>	
 							
@@ -517,7 +517,7 @@ password="#SESSION.dbpw#">
 											WHERE    Warehouse       = '#Batch.warehouse#'									
 										</cfquery>
 			
-										<font color="804000">#Warehouse.WarehouseName#</font>		
+										#Warehouse.WarehouseName#		
 													
 							</cfif>		
 							
@@ -590,7 +590,7 @@ password="#SESSION.dbpw#">
 											<td style="padding-left:5px;width:35px;height:20px;padding-right:5px">#row#.</td>							
 											<td align="right" style="width:40px;padding-right:3px">
 											<img onclick="batchtransaction('#transactionid#','#url.systemfunctionid#','process')" 
-											  height="13" width="15" src="#session.root#/images/TransactionType/#transactionType#.png" alt="" border="0">
+											  height="16" width="18" src="#session.root#/images/TransactionType/#transactionType#.png" alt="" border="0">
 										</td>
 										    
 										</tr>
@@ -670,21 +670,21 @@ password="#SESSION.dbpw#">
 																										 
 												  <img src="#SESSION.root#/Images/button.jpg"
 												      border="0" 
-												 	  onclick="setlinestatus('#transactionid#','1')" height="12" width="14"
+												 	  onclick="setlinestatus('#transactionid#','1')" height="14" width="16"
 													  align="absmiddle" style="cursor: pointer;">
 									 
 									 			<cfelse>												
 											
 												   <cfif batch.actionStatus eq "0">								   
 												   
-													   <img src="#SESSION.root#/Images/validate.gif" border="0" 
-													   height="14" width="12" onclick="setlinestatus('#transactionid#','0')"
+													   <img src="#SESSION.root#/Images/TransactionType/validate.png" border="0" 
+													   height="16" width="14" onclick="setlinestatus('#transactionid#','0')"
 													   align="absmiddle" style="cursor: pointer;">
 												   
 												   <cfelse>
 												   								   
-													   <img src="#SESSION.root#/Images/validate.gif" border="0" 
-													   height="14" width="12" align="absmiddle" style="cursor: pointer;">
+													   <img src="#SESSION.root#/Images/TransactionType/validate.png" border="0" 
+													   height="16" width="14" align="absmiddle" style="cursor: pointer;">
 									 								   
 												   </cfif>
 									 
@@ -694,19 +694,19 @@ password="#SESSION.dbpw#">
 											
 												<cfif ActionStatus eq "1">
 												
-												 <img src="#SESSION.root#/Images/validate.gif" border="0" 								  
+												 <img src="#SESSION.root#/Images/TransactionType/validate.png" border="0" height="16" width="14"								  
 													 align="absmiddle">
 													 
 												<cfelse>
 												
 													<cfif clearmode eq "1" or clearmode eq "">
 													
-													 <img src="#SESSION.root#/Images/pending.gif" border="0" height="11" width="12"								  
+													 <img src="#SESSION.root#/Images/pending.gif" border="0" height="16" width="14"							  
 														 align="absmiddle" alt="Batch clearance">	 
 													
 													<cfelse>
 													
-													 <img src="#SESSION.root#/Images/pending2.gif" border="0" height="12" width="12"								  
+													 <img src="#SESSION.root#/Images/pending2.gif" border="0" height="16" width="14"							  
 														 align="absmiddle" alt="Process workflow">									
 													
 													</cfif>	 
@@ -990,7 +990,7 @@ password="#SESSION.dbpw#">
 													<tr>	
 													
 													<td style="padding-left:2px;width:30;padding-right:1px" align="right">																					
-													    <cf_img icon="edit" onclick="ColdFusion.navigate('#SESSION.root#/warehouse/application/stock/batch/setTransactionEdit.cfm?field=quantity&systemfunctionid=#url.systemfunctionid#&transactionid=#transactionid#','quantity_#transactionid#')">															
+													    <cf_img icon="edit" onclick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/warehouse/application/stock/batch/setTransactionEdit.cfm?field=quantity&systemfunctionid=#url.systemfunctionid#&transactionid=#transactionid#','quantity_#transactionid#')">															
 													</td>												
 													
 													<cfif workflowid eq "">		
@@ -1429,7 +1429,7 @@ password="#SESSION.dbpw#">
 					<tr bgcolor="fafafa" style="border-top:1px solid silver">
 						  	<td height="20" align="center"></td>
 							<td colspan="10" align="right"  style="padding-right:4px;padding-top:4px">
-							    <table style="border:1px solid silver"><tr class="labelmedium"><td style="padding:4px">
+							    <table style="border:1px solid silver;background-color:d4d4d4"><tr class="labelmedium2"><td style="padding:4px">
 							    <cf_tl id="Count">:
 								</td>
 								<td style="padding-left:5px;padding:4px">#searchresult.recordcount#</td>

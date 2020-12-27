@@ -160,17 +160,21 @@ password="#SESSION.dbpw#">
 <cfoutput>
 
 <cf_divscroll>
-<table width="100%" cellspacing="0" cellpadding="0" bgcolor="ffffff">
+<table width="100%" bgcolor="ffffff">
 
 <tr><td valign="top" style="padding:5px">
 
 <cfform name="inquiryform" id="inquiryform">
 
-<table width="97%" align="center" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="97%" align="center" class="formpadding">
+
+	<tr class="labelmedium"><td style="font-size:26px"><cf_tl id="Query"></td></tr>
 	
 	<tr><td colspan="2">			
 		<cfinclude template="InquiryEditQuery.cfm">		
-	</td></tr>  		
+	</td></tr>  	
+	
+	<tr class="labelmedium"><td style="font-size:26px"><cf_tl id="Grid"></td></tr>	
 	
 	<tr id="detailfunction" name="detailfunction" class="#cl#">
 	
@@ -182,25 +186,21 @@ password="#SESSION.dbpw#">
 			
 		<cfelse>
 	
-			<cfdiv id="fields"
-			bind="url:#SESSION.root#/System/Modules/InquiryBuilder/InquiryEditFields.cfm?systemfunctionid=#url.systemfunctionid#&functionserialno=#url.functionserialno#"/>	
+			<cf_securediv id="fields"
+			bind="url:#SESSION.root#/System/Modules/InquiryBuilder/InquiryEditFields.cfm?systemfunctionid=#url.systemfunctionid#&functionserialno=#url.functionserialno#">	
 		
 		</cfif>
 	
 	   </td>
 	</tr>
 	
+	
 	<tr><td colspan="2" style="padding-top:5px">
 	
-		<table width="100%" cellspacing="0" class="formpadding">
-		<!---
-			<tr><td style="padding-left:3px" class="labellarge"><b>Application settings</td></tr>
-			<tr><td class="linedotted"></td></tr>	
-			--->
-			<tr><td>
+		<table width="100%" cellspacing="0" class="formpadding">			
+			<tr class="line"><td>
 			<cfinclude template="InquiryEditSettings.cfm">	
-			</td></tr>	
-			<tr><td class="line"></td></tr>		
+			</td></tr>				
 		</table>
 	
 	</td>
@@ -209,7 +209,7 @@ password="#SESSION.dbpw#">
 	<tr><td colspan="2" height="1" id="deploy"></td></tr>
 	
 	<tr><td colspan="1" align="center">	
-	   <cfdiv id="bottom" 
+	   <cf_securediv id="bottom" 
 	       bind="url:#SESSION.root#/System/Modules/InquiryBuilder/SubBottom.cfm?systemfunctionid=#url.systemfunctionid#&functionserialno=#url.functionserialno#&datasource={querydatasource}">	
 	</td>
 	<td class="regular" id="result" align="right"></td>

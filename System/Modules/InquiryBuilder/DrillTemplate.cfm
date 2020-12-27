@@ -1,23 +1,7 @@
 
-<!--- select drill template --->
-
-<script>
-
-  function closeme(val) {
-  
-      document.getElementById("drilltemplate").value = val
-      ColdFusion.Window.destroy('mydrill',true)
-		
-  }
-</script>
-
 <cfoutput>
-
-<cf_screentop height="100%" close="ColdFusion.Window.destroy('mydrill',true)" jquery="Yes" scroll="Yes" label="Drill down template" layout="webapp" banner="gray" line="no">
-
-<br>	
 					
-<table width="95%" cellspacing="0" cellpadding="0" align="center" class="navigation_table formpadding">
+<table width="95%" align="center" class="navigation_table formpadding">
 
 <tr class="line">
    <td></td>
@@ -29,7 +13,7 @@
 <tr><td height="4"></td></tr>
 <tr><td class="labellarge" colspan="2">Program & Project</td></tr>
 
-<tr class="navigation_row line labelmedium" style="height:15px">
+<tr class="navigation_row line labelmedium2" style="height:15px">
 
       <cfset v = "ProgramREM/Application/Program/ProgramView.cfm?ProgramId=">
       <td width="34">
@@ -43,7 +27,7 @@
 </tr>
 
 
-<tr class="navigation_row line labelmedium" style="height:15px">
+<tr class="navigation_row line labelmedium2" style="height:15px">
 
   <cfset v = "ProgramREM/Application/Budget/Allotment/AllotmentInquiry.cfm?caller=external&programid=">
       <td width="34">
@@ -59,7 +43,7 @@
 <tr><td height="4"></td></tr>
 <tr><td class="labellarge" colspan="2">Human Resources</td></tr>
 
-<tr class="navigation_row line labelmedium" style="height:15px">
+<tr class="navigation_row line labelmedium2" style="height:15px">
 
   <cfset v = "Staffing/Application/Employee/PersonView.cfm?id=">
       <td><cf_img icon="select" onClick="closeme('#v#')" navigation="Yes"></td>
@@ -68,7 +52,7 @@
 	  <td>PersonNo</td>
 </tr>
 
-<tr class="navigation_row line labelmedium" style="height:15px">
+<tr class="navigation_row line labelmedium2" style="height:15px">
 
   <cfset v = "Staffing/Application/Position/Position/PositionEdit.cfm?id2=">
       <td><cf_img icon="select" onClick="closeme('#v#')" navigation="Yes"></td>
@@ -77,7 +61,7 @@
 	  <td>PositionNo</td>
 </tr>
 
-<tr class="navigation_row line labelmedium" style="height:15px">
+<tr class="navigation_row line labelmedium2" style="height:15px">
 
   <cfset v = "Staffing/Application/Position/PositionParent/PositionView.cfm?box=&id2=">
       <td><cf_img icon="select" onClick="closeme('#v#')" navigation="Yes"></td>
@@ -86,7 +70,7 @@
 	  <td>PositionNo</td>
 </tr>
 
-<tr class="navigation_row line labelmedium" style="height:15px">
+<tr class="navigation_row line labelmedium2" style="height:15px">
      <cfset v = "Roster/Candidate/Details/PHPView.cfm?ID=">
      <td><cf_img icon="select" onClick="closeme('#v#')" navigation="Yes"></td>
      <td><a href="javascript:closeme('#v#')">Candidate</a></td>
@@ -98,7 +82,7 @@
 <tr><td height="4"></td></tr>
 <tr><td class="labellarge" colspan="2">Operations</td></tr>
 
-<tr class="navigation_row line labelmedium" style="height:15px">
+<tr class="navigation_row line labelmedium2" style="height:15px">
       <cfset v = "Procurement/Application/Requisition/Requisition/RequisitionEdit.cfm?header=1&id=">
       <td><cf_img icon="select" onClick="closeme('#v#')" navigation="Yes"></td>
       <td><a href="javascript:closeme('#v#')">Procurement Requisition</a></td>
@@ -106,7 +90,7 @@
 	  <td>RequisitionNo</td>	  
 </tr>
 
-<tr class="navigation_row line labelmedium" style="height:15px">
+<tr class="navigation_row line labelmedium2" style="height:15px">
       <cfset v = "Procurement/Application/PurchaseOrder/Purchase/POViewGeneral.cfm?ID1=">
       <td><cf_img icon="select" onClick="closeme('#v#')" navigation="Yes"></td>
       <td><a href="javascript:closeme('#v#')">Purchase Order</a></td>
@@ -114,7 +98,7 @@
 	  <td>PurchaseNo</td>
 </tr>
 
-<tr class="navigation_row line labelmedium" style="height:15px">
+<tr class="navigation_row line labelmedium2" style="height:15px">
       <cfset v = "Roster/RosterSpecial/CandidateView/FunctionViewLoop.cfm?IDFunction=">
       <td><cf_img icon="select" onClick="closeme('#v#')" navigation="Yes"></td>
       <td><a href="javascript:closeme('#v#')">Roster Bucket</a></td>
@@ -122,7 +106,7 @@
 	  <td>FunctionId</td>
 </tr>
 
-<tr class="navigation_row line labelmedium" style="height:15px">
+<tr class="navigation_row line labelmedium2" style="height:15px">
       <cfset v = "Procurement/Application/Invoice/Matching/InvoiceMatch.cfm?ID=">
       <td><cf_img icon="select" onClick="closeme('#v#')" navigation="Yes"></td>
       <td><a href="javascript:closeme('#v#')">Invoice</a></td>
@@ -130,7 +114,7 @@
 	  <td>InvoiceId</td>
 </tr>
 
-<tr class="navigation_row line labelmedium" style="height:15px">
+<tr class="navigation_row line labelmedium2" style="height:15px">
       <cfset v = "Workorder/Application/WorkOrder/WorkorderView/WorkOrderView.cfm?workorderid=">
       <td><cf_img icon="select" onClick="closeme('#v#')" navigation="Yes"></td>
       <td><a href="javascript:closeme('#v#')">Workorder</a></td>
@@ -138,7 +122,7 @@
 	  <td>WorkorderId</td>
 </tr>
 
-<tr class="navigation_row line labelmedium" style="height:15px">
+<tr class="navigation_row line labelmedium2" style="height:15px">
       <cfset v = "Workorder/Application/WorkOrder/WorkorderView/WorkOrderView.cfm?workorderlineid=">
       <td><cf_img icon="select" onClick="closeme('#v#')" navigation="Yes"></td>
       <td><a href="javascript:closeme('#v#')">Workorder</a></td>
@@ -146,7 +130,7 @@
 	  <td>WorkorderLineId</td>
 </tr>
 
-<tr class="navigation_row line labelmedium" style="height:15px">
+<tr class="navigation_row line labelmedium2" style="height:15px">
       <cfset v = "workorder/Application/Shipping/Shipment/ShipmentEntry.cfm?mode=listing&workorderlineid=">
       <td><cf_img icon="select" onClick="closeme('#v#')" navigation="Yes"></td>
       <td><a href="javascript:closeme('#v#')">Workorder Receipt</a></td>
@@ -154,7 +138,7 @@
 	  <td>WorkorderId</td>
 </tr>
 
-<tr class="navigation_row line labelmedium" style="height:15px">
+<tr class="navigation_row line labelmedium2" style="height:15px">
       <cfset v = "Workorder/Application/WorkOrder/ServiceDetails/ServiceLineDetail.cfm?drillid=">
       <td><cf_img icon="select" onClick="closeme('#v#')" navigation="Yes"></td>
       <td><a href="javascript:closeme('#v#')">Workorder Line</a></td>
@@ -165,7 +149,7 @@
 <tr><td height="4"></td></tr>
 <tr><td class="labellarge" colspan="2">Financials</td></tr>
 
-<tr class="navigation_row line labelmedium" style="height:15px">
+<tr class="navigation_row line labelmedium2" style="height:15px">
       <cfset v = "Gledger/Application/Transaction/View/TransactionViewDetail.cfm?ID1=">
       <td><cf_img icon="select" onClick="closeme('#v#')" navigation="Yes"></td>
       <td><a href="javascript:closeme('#v#')">Ledger Transaction</a></td>
@@ -173,7 +157,7 @@
 	  <td>TransactionId</td>
 </tr>
 
-<tr class="navigation_row line labelmedium" style="height:15px">
+<tr class="navigation_row line labelmedium2" style="height:15px">
       <cfset v = "System/Access/User/UserDetail.cfm?ID=">
       <td><cf_img icon="select" onClick="closeme('#v#')" navigation="Yes"></td>
       <td><a href="javascript:closeme('#v#')">System User</a></td>
@@ -188,7 +172,7 @@
 </cfquery>
 
 <cfloop query="GetCustom">
-	<tr class="navigation_row line labelmedium" style="height:15px">
+	<tr class="navigation_row line labelmedium2" style="height:15px">
       <cfset v = "#GetCustom.FunctionPath#">
       <td><cf_img icon="select" onClick="closeme('#v#')" navigation="Yes"></td>
       <td><a href="javascript:closeme('#v#')">#GetCustom.FunctionName#</a></td>
@@ -196,11 +180,11 @@
 	  <td>#GetCustom.ScriptVariable1#</td>
 	</tr>
 	
-	<tr><td colspan="4" class="line"></td></tr>
 </cfloop>	
 
 </table>
 
 </cfoutput>
 
-<cf_screenbottom layout="webapp">
+<cfset ajaxonload("doHighlight")>
+

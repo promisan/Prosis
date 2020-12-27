@@ -11,7 +11,7 @@
 
 <cfoutput>
 
-<tr class="line labelmedium regular <cfif color neq 'ffffdf'>navigation_row</cfif>" bgcolor="#color#" style="height:20px" 
+<tr class="line labelmedium regular <cfif color neq 'ffffdf'>navigation_row</cfif>" bgcolor="#color#" style="height:26px" 
        onMouseOver="earmark('b#journal#_#journalserialNo#_#glaccount#','highlight')"
 	   onMouseOut="earmark('b#journal#_#journalserialNo#_#glaccount#','regular')">   	 	
 	     

@@ -16,7 +16,7 @@
 
 <cfoutput>
 
-<table width="100%" cellspacing="0" cellpadding="0">
+<table width="100%">
 	<tr><td colspan="2" align="center" height="370">
 		
 		<button onclick="payrollprocess('#nextprocess#','#url.id#',document.getElementById('forcesettlement').value,document.getElementById('mission').value,'0'); prg = setInterval('showprogresscalculate(\'#nextprocess#\')', 5000)"			

@@ -35,7 +35,6 @@ password="#SESSION.dbpw#">
 	 <cfabort>			
 </cfif>
 
-
 <cfset amt = v*100/(100+form.tax)>
 <cfset dif = v - amt>
 
@@ -137,7 +136,7 @@ password="#SESSION.dbpw#">
 <script>
     
 	parent.parent.document.getElementById('refreshinvoice').click()
-	parent.parent.ColdFusion.Window.destroy('mydialog',true)
+	parent.parent.ProsisUI.closeWindow('mydialogs',true)
 	
 </script>	
 

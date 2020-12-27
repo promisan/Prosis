@@ -32,25 +32,28 @@
 	
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>				
-		<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#</cfoutput>/tools/entityAction/Report/LayoutStyleSheet.css">			
+		<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#</cfoutput>/tools/entityAction/Report/LayoutStyleSheet.css">					
 	</head>
 		
 	<body>
 
 		<table width="99%" id="tmain">
 		
+				
 		<cfif Attributes.TitleLine1 neq "" or
 		  Attributes.Logo neq "" or
 		  Attributes.TitleLine2 neq "" or 
 		  Attributes.TitleLine3 neq "" or
 		  Attributes.TitleLine4 neq "" or
 		  Attributes.TitleLine5 neq "">		
+		  
 		  <tr align="center" valign="top">
 				<td colspan="3" height="60" width="100%" style="padding-top:20px">
 				
 					<table width="100%" cellspacing="0" cellpadding="0">
 
 						<tr>
+						    <cfif Attributes.TitleLine1 neq "">
 							<td valign="bottom" align="right" width="45%" class="serif">
 								<cfoutput>#Attributes.TitleLine1#</cfoutput>
 							</td>
@@ -61,35 +64,48 @@
 								<cfoutput>#Attributes.TitleLine2#</cfoutput>
 							
 							</td>
+							<cfelse>							
+							<td align="center" width="25%">
+								<cfoutput>#Attributes.Logo#</cfoutput>
+							</td>
+							<td valign="bottom" align="left" width="75%" class="serif">
+								<cfoutput>#Attributes.TitleLine2#</cfoutput>
+							
+							</td>
+							</cfif>
+							
 						</tr>
 						
 						<cfswitch expression="#Attributes.Class#">
 						<cfcase value="Memo">
 							<tr>
+							    <cfif Attributes.TitleLine3 neq "">
 								<td align="right" width="45%" class="serif_small">
-								<cfoutput>#Attributes.TitleLine3#</cfoutput>
-								
+								<cfoutput>#Attributes.TitleLine3#</cfoutput>								
 								</td>
-								<td align="center" width="10%">
-								</td>
+								</cfif>
+								<td align="center" width="10%"></td>
 								<td align="left" width="45%" class="serif_small">
 								<cfoutput>#Attributes.TitleLine4#</cfoutput>
 								</td>
 							</tr>				
 						</cfcase>
+						
 						<cfcase value="Letter">
+							<cfif Attributes.TitleLine3 neq "">
 							<tr>
 								<td colspan="3" align="center" class="serif_small">
-								<cfoutput>#Attributes.TitleLine3#</cfoutput>
-								
+								<cfoutput>#Attributes.TitleLine3#</cfoutput>								
 								</td>
 							</tr>	
+							</cfif>
+							<cfif Attributes.TitleLine4 neq "">
 							<tr>
 								<td colspan="3" align="center" class="serif_small">
-								<cfoutput>#Attributes.TitleLine4#</cfoutput>
-								
+								<cfoutput>#Attributes.TitleLine4#</cfoutput>								
 								</td>
-							</tr>
+							</tr>		
+							</cfif>					
 							<cfif Attributes.TitleLine5 neq "">
 							<tr>
 								<td colspan="3" align="center" class="serif_small">
@@ -101,8 +117,7 @@
 						<cfcase value="Note">
 							<tr>
 								<td colspan="3" align="center">
-								<cfoutput>#Attributes.TitleLine3#</cfoutput>
-								
+								<cfoutput>#Attributes.TitleLine3#</cfoutput>								
 								</td>
 							</tr>	
 							<tr>
@@ -124,28 +139,33 @@
 				</td>
 		  </tr>
 		 </cfif>		
-		  <tr>			
-			<td width="5%"></td>
-		    <td width="80%" class="serif_small">
+		 
 						
 			<cfswitch expression="#Attributes.Class#">
 		
 				<cfcase value="Memo">
+				 <tr>			
+					<td width="5%"></td>
+				    <td width="80%" class="serif_small">
 						<cfinclude template="Layouts/Memo.cfm">
+					</td>
+				</tr>	
 				</cfcase>
 				<cfcase value="Letter">
+				<tr>			
+					<td width="5%"></td>
+				    <td width="80%" class="serif_small">
 						<cfinclude template="Layouts/Letter.cfm">
+					</td>
+				</tr>		
 				</cfcase>							
 		
 			</cfswitch>
 			
-			</td>
-		  </tr>
-		  
 		  <tr>
 		    <td width="5%"></td>
 		    <td width="80%" class="serif_small">
-			
+						
 			<!--- body content comes here to be loaded on the fly --->
 						
 <cfelse>

@@ -67,16 +67,18 @@
 		   clearInterval ( prg );
 		}	
 		
+		
 				
 		function payrollprocess(processno,personno,enforce,mission,mde) {
 	
 			var dateEff   = document.getElementById("dateEffective").value;	
 			var startFrom = document.getElementById("customPeriodStart").value;	
+			var startEnd  = document.getElementById("customPeriodEnd").value;	
 		    
 		    <cfif getAdministrator("*") eq "1">	
-			  window.open('../Calculation/CalculationProcess.cfm?mode='+mde+'&processno='+processno+'&mission='+mission+'&personno='+personno+'&enforce='+enforce+'&dateEff='+dateEff+'&customStart='+startFrom,'_blank') 
+			  window.open('../Calculation/CalculationProcess.cfm?mode='+mde+'&processno='+processno+'&mission='+mission+'&personno='+personno+'&enforce='+enforce+'&dateEff='+dateEff+'&customStart='+startFrom+'&customEnd='+startEnd,'_blank') 
 			<cfelse>
-			    ptoken.navigate('../Calculation/CalculationProcess.cfm?mode='+mde+'&processno='+processno+'&mission='+mission+'&personno='+personno+'&enforce='+enforce+'&dateEff='+dateEff+'&customStart='+startFrom,'runbox') 	 										
+			    ptoken.navigate('../Calculation/CalculationProcess.cfm?mode='+mde+'&processno='+processno+'&mission='+mission+'&personno='+personno+'&enforce='+enforce+'&dateEff='+dateEff+'&customStart='+startFrom+'&customEnd='+startEnd,'runbox') 	 										
 			 </cfif>
 			showprogresscalculate(processno)		 				 
 		} 
@@ -319,10 +321,13 @@
 	
    <tr><td height="100%" style="padding-right:16px">
    
-   		
+   		<cf_divscroll overflowy="scroll">
 		
-		<table width="99%" 		      
+		<table width="99%" 
+		      border="0"
 			  height="100%"
+			  cellspacing="0" 
+			  cellpadding="0" 
 			  align="center">	  
 		 		
 				<tr class="hide"><td valign="top" height="1" id="result"></td></tr>							
@@ -330,7 +335,7 @@
 												
 		</table>
 		
-		
+		</cf_divscroll>
 	
 	</td></tr>
 	

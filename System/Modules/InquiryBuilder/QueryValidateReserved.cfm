@@ -1,5 +1,6 @@
+<!--- adjust the prepared query for reserved words used in the query --->
 
-<!--- temp table --->
+<!--- temp table to be use from the preparation query --->
 <cfloop index="t" from="1" to="10">		
 		<cfset sc = replaceNoCase("#sc#","@answer#t#","#evaluate('answer#t#')#")>  					  
 </cfloop>

@@ -95,7 +95,7 @@
 					<table bgcolor="FDFEDE" style="width:100%;height:100%;height:80px">
 					
 					<tr>
-					<td valign="top" style="padding-left:10px;padding-top:5px;border:1px solid silver;border-right:0px;border-top:0px">
+					<td valign="top" style="padding-left:10px;padding-top:5px;border:1px solid silver;border-right:0px">
 																	
 					<img src="#session.root#/Images/Logos/Staffing/OrgUnit1.png" 
 						alt="Click to access classe under." height="60"
@@ -109,7 +109,7 @@
 						onClick="showclass()">
 					
 					</td>
-					<td valign="top" style="border:1px solid silver;border-left:0px;border-top:0px;min-width:268px;max-width:268px;font-weight:290;width:100%;font-size:31px;padding-top:17px;padding-left:20px" class="labellarge">		
+					<td valign="top" style="border:1px solid silver;border-left:0px;min-width:268px;max-width:268px;font-weight:290;width:100%;font-size:31px;padding-top:17px;padding-left:20px" class="labellarge">		
 						#Mission#  			
 					</td>
 					</tr>

@@ -66,29 +66,31 @@
 				<td style="min-width:30px;width:30px;padding-left:10px" align="center">		
 						
 				  <cfif SystemModule neq sys>	
+				  
+				  <!--- onMouseOver="document.#SystemModule#Exp.src='#CLIENT.VirtualDir#/Images/Logo/System/ListCollapsed.png'" 
+					    onMouseOut="document.#SystemModule#Exp.src='#CLIENT.VirtualDir#/Images/Logo/System/ListCollapsed.png'" --->
 				 
-				  	<img src="#client.virtualdir#/Images/expand5.gif" alt="Expand" 
-					    onMouseOver="document.#SystemModule#Exp.src='#CLIENT.VirtualDir#/Images/expand-over.gif'" 
-					    onMouseOut="document.#SystemModule#Exp.src='#CLIENT.VirtualDir#/Images/expand5.gif'"
-						name="#SystemModule#Exp" id="#SystemModule#Exp" border="0" class="regular" 
-						align="absmiddle" style="cursor: pointer;"
-						onClick="show('#SystemModule#')">
-						
-					<img src="#client.virtualdir#/Images/collapse5.gif" 
-						onMouseOver="document.#SystemModule#Min.src='#CLIENT.VirtualDir#/Images/collapse-over.gif'" 
+				  	<img src="#client.virtualdir#/Images/Logos/System/ListCollapsed.png" alt="Expand" 					    
+						name="#SystemModule#Exp" id="#SystemModule#Exp" class="regular" 
+						align="absmiddle" style="cursor: pointer;height:21px" onClick="show('#SystemModule#')">
+					
+					<!---	
+					onMouseOver="document.#SystemModule#Min.src='#CLIENT.VirtualDir#/Images/collapse-over.gif'" 
 						onMouseOut="document.#SystemModule#Min.src='#CLIENT.VirtualDir#/Images/collapse5.gif'"
-						name="#SystemModule#Min" id="#SystemModule#Min" alt="Collapse" border="0" 
-						align="absmiddle" class="hide" style="cursor: pointer;"
-						onClick="show('#SystemModule#')">  			
+						--->
+						
+					<img src="#client.virtualdir#/Images/Logos/System/ListExpanded.png" 						
+						name="#SystemModule#Min" id="#SystemModule#Min" alt="Collapse"  
+						align="absmiddle" class="hide" style="cursor: pointer;height:21px"	onClick="show('#SystemModule#')">  			
 							
 				  </cfif>			  
 				  	   
 				</td>
 				
-				<td style="min-width:100%;height:20px;padding-left:7px" colspan="7">
+				<td style="min-width:100%;height:30px;padding-left:7px" colspan="7">
 				 <table border="0" width="100%">
-				  <tr class="labelmedium">
-				  <td style="font-size:16px"><a href="javascript:show('#SystemModule#')">#ModuleName#</a></td>
+				  <tr class="labelmedium2">
+				  <td style="font-size:18px"><a href="javascript:show('#SystemModule#')">#ModuleName#</a></td>
 				  <td valign="bottom" align="right" class="labelit">#hint#</td>
 				  </tr>
 				  </table>

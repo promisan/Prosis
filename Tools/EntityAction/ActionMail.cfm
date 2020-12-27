@@ -3,6 +3,15 @@
 
 <cfparam name="URL.DocId" default="">
 
+<cfquery name="Init" 
+datasource="AppsInit">
+	SELECT * 
+	FROM   Parameter
+	WHERE  HostName = '#cgi.http_host#'		
+</cfquery>
+
+<cfparam name="documentpagesize" default="Letter">
+
 <cfif url.docid eq "">
 	
 	<cfquery name="Action" 
@@ -11,18 +20,37 @@
 	 FROM  OrganizationObjectAction OA
 	 WHERE ActionId = '#URL.ID#' 	
 	</cfquery>
+	
+	<cfset vDocumentscale        = "92">		
 
 <cfelse>
 	
 	<cfquery name="Action" 
 	 datasource="AppsOrganization">
 	 SELECT OA.*, OAP.*
-	 FROM  OrganizationObjectAction OA,
-	       OrganizationObjectActionReport OAP
-	 WHERE OA.ActionId    = '#URL.ID#' 
-	  AND  OA.ActionId    = OAP.ActionId 	 	
+	 FROM   OrganizationObjectAction OA,
+	        OrganizationObjectActionReport OAP
+	 WHERE  OA.ActionId    = '#URL.ID#' 
+	  AND   OA.ActionId    = OAP.ActionId 	
+	  AND   OAP.DocumentId = '#URL.DocId#' 	
 	</cfquery>
+	
+	<cfquery name="qDocument" 
+	 datasource="AppsOrganization">
+	  SELECT * 
+	  FROM   Ref_EntityDocument
+	  WHERE  DocumentId = '#Action.DocumentId#'	  
+	 </cfquery>	
+	
+	<cfset documentpagesize      = Action.DocumentFormat>
+	<cfset vDocumentscale        = qDocument.Scale>		
 
+</cfif>
+
+<cfif documentpagesize eq "">
+	<cfif Init.ReportPageType neq "">
+		<cfset documentpagesize = Init.ReportPageType>	
+	</cfif>	
 </cfif>
 
 <cfquery name="ActionFlow" 
@@ -134,11 +162,11 @@
 		    
 		<cfdocument 
 		      format       = "#Entity.DefaultFormat#"
-		      pagetype     = "letter"
+		      pagetype     = "#documentpagesize#"
 			  overwrite    = "yes"
 			  filename     = "#SESSION.rootPath#/CFRStage/User/#SESSION.acc#/#fileName#"
 			  margintop    = "0.4"
-		      marginbottom = "0.4"
+		      marginbottom = "1.0"
 		      marginright  = "0.4"
 		      marginleft   = "0.4"
 			  encryption   = "128-bit"
@@ -146,13 +174,22 @@
 		      orientation  = "portrait"
 		      unit         = "cm"
 		      fontembed    = "Yes"
-		      scale        = "98"
+		      scale        = "#vdocumentscale#"
 		      backgroundvisible="Yes">
 		
 		<cfdocumentitem type="footer">
+		
 			<cfoutput>
-			Page #cfdocument.currentPagenumber#
+			
+			<table width="100%" style="height:14px">
+				<tr class="labelmedium">
+				<td style="font-size:13px" valign="bottom">#session.first# #session.last# #dateformat(now(),client.dateformatshow)# #timeformat(now(),"HH:MM")#</td>
+				<td style="font-size:13px" valign="bottom" align="right"><cf_tl id="Page"> #cfdocument.currentpagenumber# <cf_tl id="of"> #cfdocument.totalpagecount#</td>
+				</tr>
+				</table>				
+			
 			</cfoutput>
+			
 		</cfdocumentitem>
 		
 		<!---	

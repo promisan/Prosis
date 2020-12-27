@@ -200,8 +200,7 @@
 			  F.AnnouncementTitle		 
 			 
 	</cfquery>
-		
-	
+			
 	<!--- define the roster status to be shown --->
 	
 	<cfset stp = "">
@@ -328,6 +327,7 @@
 				 
 		
 	</cfquery>	
+
 	
 </cfsilent>
 
@@ -347,6 +347,7 @@
 </cfcatch>
 
 </cftry>
+
 
 <CF_DropTable dbName="AppsQuery" tblName="#SESSION.acc#RosterSelect#FileNo#">
 <CF_DropTable dbName="AppsQuery" tblName="#SESSION.acc#RosterDetailS#FileNo#">

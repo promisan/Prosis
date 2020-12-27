@@ -8,9 +8,8 @@
 		if (contractid==undefined){
 			contractid = '';
 		}
-		
-		try { parent.ColdFusion.Window.destroy('mydependent',true) } catch(e) {}
-		parent.ColdFusion.Window.create('mydependent', 'Dependent', '',{x:100,y:100,height:parent.document.body.clientHeight-80,width:parent.document.body.clientWidth-80,modal:true,resizable:false,center:true})    					
+				
+		parent.ProsisUI.createWindow('mydependent', 'Dependent', '',{x:100,y:100,height:parent.document.body.clientHeight-80,width:parent.document.body.clientWidth-80,modal:true,resizable:false,center:true})    					
 		parent.ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Dependents/DependentView.cfm?contractid='+contractid+'&action='+mode+'&ID='+persno,'mydependent') 		
 	}	
 	
@@ -49,7 +48,7 @@
 		     se.className = "regular" 		   
 		     co.className = "regular"
 		     ex.className = "hide"		   
-		     ColdFusion.navigate('#SESSION.root#/Staffing/Application/Employee/Dependents/EmployeeDependentWorkflow.cfm?ajaxid='+key,key)		   
+		     ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Dependents/EmployeeDependentWorkflow.cfm?ajaxid='+key,key)		   
 			 
 		} else { 		
 			 se.className = "hide"

@@ -1,19 +1,42 @@
 <cfoutput>
 
-<cfset session.mytable = searchresult>			
+<!--- ---------------------------------------------------------------------- --->
+<!--- obtain relevant data of the query for adding on-the-fly is enabled     --->
+<!--- ---------------------------------------------------------------------- --->
+
+<cfset session.listingdata[box]['sql']          = sc>                        <!--- the generated query --->
+<cfset session.listingdata[box]['dataset']      = searchresult>			     <!--- the generate data itself --->	
+<cfset session.listingdata[box]['datasetgroup'] = "">                        <!--- the partially clustered data for grouping/ column to improve performance ---> 	 
+<cfset session.listingdata[box]['pagecnt']      = attributes.show>	         <!--- page count 1 of 20 from 300 1: --->
+<cfset session.listingdata[box]['recshow']      = attributes.show>	         <!--- page count 1 of 20 from 300 2: --->
+<cfset session.listingdata[box]['records']      = searchresult.recordcount>  <!--- page count 1 of 20 from 300 3: --->
+<cfset session.listingdata[box]['columns']      = "">                        <!--- the total columns in the grid --->
+<cfset session.listingdata[box]['colprefix']    = "">                        <!--- the total columns show before the first data column --->	
+<cfset session.listingdata[box]['firstsummary'] = "0">                       <!--- the column on which the first cell summary appears --->
+<cfset session.listingdata[box]['aggregate']    = "">	                     <!--- the aggregate (SUM, count) formula to be applied on the grouping --->
+<cfset session.listingdata[box]['aggrfield']    = "">                        <!--- the fields that are to be aggregated --->  
+
 
 <cfset stl = "cursor:pointer;font-size:12px;height:30px">
 
 <tr style="height:40px" class="fixrow">
 
-    <td style="min-width:30px">#last# - #counted#</td>	
+    <td style="min-width:30px"></td>	
     <td style="min-width:30px"></td>	
 		
 	<cfif attributes.selectmode neq "">
 	   <td></td>
 	</cfif>
 	
-	<!--- determine the best width --->
+	<!--- determine the best width and spans etc based on the config passed into loading --->
+	
+	<cfset totalcols = "2"> <!--- by default we have 2 columns up front --->
+	
+	<cfif attributes.selectmode eq "Checkbox" or attributes.selectmode eq "Radio">	
+	     <cfset totalcols = totalcols + 1>
+	</cfif>
+	
+	<cfset session.listingdata[box]['colprefix'] = totalcols>	
 	
 	<cfloop array="#attributes.listlayout#" index="current">
 	
@@ -26,12 +49,19 @@
 		 <cfparam name="current.rowlevel"     default="1">	
 		 <cfparam name="current.colspan"      default="1">		
 		 <cfparam name="current.align"        default="left">	
-		 <cfparam name="current.fieldsort"    default="#current.field#">		
+		 <cfparam name="current.fieldsort"    default="#current.field#">	
+		 <cfparam name="current.column"       default="">	
+		 
+		 <cfparam name="showcolumn" default="">
+		 
+		 <cfif current.column neq "">
+		 	   <cfset showcolumn = current.field>
+		 </cfif>	
 		 
 		 <cfif showrows lt current.rowlevel>
 		       <cfset showrows = current.rowlevel>
-		 </cfif> 
-		 
+		 </cfif> 		 
+			 
 		 <cfif current.rowlevel eq "2">
 		 
 		    <cfparam name="cols2nd" default="0">
@@ -47,8 +77,14 @@
 		    <!--- precount the cols used --->
 		    <cfset cols3rd = cols3rd+current.colspan>					
 			<cfset last3rd = current.label>	
+			
+		 <cfelseif current.field eq url.listgroupfield>
+		 
+			 <!--- does not count as is shown in grouping --->	
 							 		 
 		 <cfelseif current.display eq "1" and current.rowlevel eq "1">
+		 		 
+		 	<cfset totalcols = totalcols + 1>
 		 
 		    <cfset col = col+1>		 				
 				
@@ -59,7 +95,7 @@
 				<cfset labelsize = len(current.label)*3>	
 				<cfset sizefield = len(current.label)*3>													
 																								
-				<cfloop query="searchresult" startrow="1" endrow="20">
+				<cfloop query="searchresult" startrow="1" endrow="15">
 				
 				    <cfif current.formatted eq "Rating">					
 						<cfset sizefield = "10">					
@@ -151,7 +187,8 @@
 							   <cfset size = len(item)*2>
 							</cfif>
 						
-						</cfloop>												
+						</cfloop>		
+																
 						<td style="width:#dw#;min-width:#size#;border-left:1px solid silver;padding-left:5px">																															
 					<cfelse>										
 						<td style="width:#dw#;min-width:#current.width#;border-left:1px solid silver;padding-left:5px">																											
@@ -198,10 +235,11 @@
 					
 					  <cfif url.listorder eq current.fieldsort>
 					  <td align="right" style="padding-right:3px;">							  
+					 
 						    <cfif url.listorderdir is "ASC">
-						 	    <img src="#SESSION.root#/Images/sort_asc.gif" alt="" border="0">
-							<cfelse>
-								<img src="#SESSION.root#/Images/sort_desc.gif" alt="" border="0">
+						 	    <img src="#SESSION.root#/Images/sort_asc.png" height="19px">
+							<cfelse>							
+								<img src="#SESSION.root#/Images/sort_desc.png" height="19px">
 							</cfif>										  	  
 					  </td>
 					  </cfif>	
@@ -217,17 +255,23 @@
     </cfloop>	
 				
 	<cfif attributes.listtype eq "Directory">	
-	<td width="30" class="#attributes.classheader#"><cf_tl id="sel"></td>	
+		<td width="30" class="#attributes.classheader#"><cf_tl id="sel"></td>	
+		<cfset totalcols = totalcols+1>
 	</cfif>
 	
 	<cfif deletetable neq "">	
-	<td align="right" style="min-width:20px;border-left: 1px solid silver;"></td>			
+		<td align="right" style="min-width:20px;border-left: 1px solid silver;border-right: 1px solid silver;"></td>	
+		<cfset totalcols = totalcols+1>		
 	</cfif>
 	
 	<cfif annotation neq "">	
-	<td align="right" style="min-width:20px;border-left: 1px solid silver;"></td>		
+		<td align="right" style="min-width:20px;border-left: 1px solid silver;border-right: 1px solid silver;"></td>		
+		<cfset totalcols = totalcols+1>
 	</cfif>
-	
+			
 </tr>	
+
+<!--- we put the format of the grid in the session --->
+<cfset session.listingdata[box]['columns'] = totalcols>	
 	
 </cfoutput>	

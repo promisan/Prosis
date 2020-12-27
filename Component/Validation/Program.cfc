@@ -638,115 +638,119 @@
 					datasource="AppsProgram" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
-						SELECT  O.*
+						SELECT  O.*, PeriodParentCode
 					    FROM   ProgramPeriod PP
 								INNER JOIN Organization.dbo.Organization O
 									ON PP.OrgUnit = O.OrgUnit
 					    WHERE  PP.ProgramId ='#ObjectKeyValue1#'					
 				</cfquery>
 				
-				<cfquery name="getMinMax" 
-					datasource="AppsProgram" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-						SELECT   *
-						FROM     Ref_ParameterMissionCategory
-						WHERE    Mission = '#getProgramUnit.Mission#'	
-						AND 	 Category = 'DPPA_FW'
-				</cfquery>
+				<cfif getProgramUnit.PeriodParentCode neq "P9416">
 				
-				<cfset vMinCountCondition = " > 0">
-				<cfif getMinMax.RecordCount eq 1>
-					<cfset vMinCountCondition = " >= #getMinMax.AreaMinimum#">
-				</cfif>
-			
-				<cfquery name="ExpectedAccomplishments"
-					datasource="AppsProgram" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-	
-					SELECT	CASE 
-								WHEN TotalResults > 0 AND CountSelected #vMinCountCondition# AND CountSelected = CountHasText THEN 1
-								ELSE 0
-							END as ExpectedAccomplishmentsValidation
-					FROM
-						(
-						SELECT	ISNULL(COUNT(Code), 0) as TotalResults,
-								ISNULL(COUNT(isSelected), 0) as CountSelected,
-								ISNULL(SUM(hasText), 0) as CountHasText
+					<cfquery name="getMinMax" 
+						datasource="AppsProgram" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+							SELECT   *
+							FROM     Ref_ParameterMissionCategory
+							WHERE    Mission = '#getProgramUnit.Mission#'	
+							AND 	 Category = 'DPPA_FW'
+					</cfquery>
+					
+					<cfset vMinCountCondition = " > 0">
+					<cfif getMinMax.RecordCount eq 1>
+						<cfset vMinCountCondition = " >= #getMinMax.AreaMinimum#">
+					</cfif>
+				
+					<cfquery name="ExpectedAccomplishments"
+						datasource="AppsProgram" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+		
+						SELECT	CASE 
+									WHEN TotalResults > 0 AND CountSelected #vMinCountCondition# AND CountSelected = CountHasText THEN 1
+									ELSE 0
+								END as ExpectedAccomplishmentsValidation
 						FROM
 							(
-								SELECT	RPC.Code, 
-										(
-											SELECT	PPx.ProgramId
-											FROM	ProgramCategory PCx
-													INNER JOIN ProgramCategoryPeriod PCPx
-														ON PCx.ProgramCode = PCPx.ProgramCode
-														AND PCx.ProgramCategory = PCPx.ProgramCategory
-													INNER JOIN ProgramPeriod PPx
-														ON PCPx.Period = PPx.Period 
-														AND PCPx.ProgramCode = PPx.ProgramCode	
-											WHERE	PCx.ProgramCategory = RPC.Code
-											AND		PPx.Period = PossibleCategories.Period
-											AND		PPx.ProgramId = '#ObjectKeyValue1#'
-											AND		PCx.Status <> '9'
-										) as isSelected,
-										(
-											SELECT	CASE
-														WHEN LTRIM(RTRIM(CONVERT(VARCHAR(5000), PCPrx.ProfileNotes))) = '' THEN 0
-														ELSE 1
-													END as CountNotes
-											FROM	ProgramCategory PCx
-													INNER JOIN ProgramCategoryPeriod PCPx
-														ON PCx.ProgramCode = PCPx.ProgramCode
-														AND PCx.ProgramCategory = PCPx.ProgramCategory
-													INNER JOIN ProgramPeriod PPx
-														ON PCPx.Period = PPx.Period 
-														AND PCPx.ProgramCode = PPx.ProgramCode
-													INNER JOIN ProgramCategoryProfile PCPrx
-														ON PCPx.ProgramCode = PCPrx.ProgramCode
-														AND PCPx.ProgramCategory = PCPrx.ProgramCategory	
-											WHERE	PCx.ProgramCategory = RPC.Code
-											AND		PPx.Period = PossibleCategories.Period
-											AND		PPx.ProgramId = '#ObjectKeyValue1#'
-											AND		PCx.Status <> '9'
-										) as hasText
-								FROM	(
-											SELECT	RPCx.*, 
-													CCx.ControlValue as Period
-											FROM	Ref_ProgramCategory RPCx
-													INNER JOIN Ref_ParameterMissionCategory MCx
-														ON RPCx.Code = MCx.Category
-													INNER JOIN Ref_ProgramCategoryControl CCx
-															ON MCx.Category = CCx.Code
-															AND MCx.Mission = CCx.Mission
-															AND CCx.ControlElement = 'Period'
-															AND CCx.ControlValue = '#get.Period#'
-											WHERE   RPCx.Area = 'DPPA Strategic Objectives'
-											AND		MCx.Mission = '#getProgramUnit.Mission#'
-											<!---
-											AND		(MCx.OrgUnit = '#get.OrgUnit#' OR MCx.OrgUnit = '0')
-											AND		(MCx.Period = '#get.Period#' OR MCx.Period IS NULL)
-											--->
-										) AS PossibleCategories
-										INNER JOIN Ref_ProgramCategory RPC
-											ON PossibleCategories.Code = RPC.Code
-											OR (PossibleCategories.Code = RPC.Parent OR RPC.HierarchyCode LIKE PossibleCategories.HierarchyCode + '%')
-								WHERE	RPC.Parent IS NOT NULL 
-								AND		LTRIM(RTRIM(RPC.Parent)) != ''
-								AND		RPC.Operational = '1'
-							) AS ValidationData
-						) AS T
-										
-				</cfquery>
-				
-				<cfif getProgram.programClass neq "Program" AND ExpectedAccomplishments.ExpectedAccomplishmentsValidation eq 0>
-							
-					<cfinvoke method    = "getValidationStruct" 					   
-					   ValidationCode   = "#ValidationCode#"
-					   PassCode			= "No"
-					   returnvariable   = "result">	
+							SELECT	ISNULL(COUNT(Code), 0) as TotalResults,
+									ISNULL(COUNT(isSelected), 0) as CountSelected,
+									ISNULL(SUM(hasText), 0) as CountHasText
+							FROM
+								(
+									SELECT	RPC.Code, 
+											(
+												SELECT	PPx.ProgramId
+												FROM	ProgramCategory PCx
+														INNER JOIN ProgramCategoryPeriod PCPx
+															ON PCx.ProgramCode = PCPx.ProgramCode
+															AND PCx.ProgramCategory = PCPx.ProgramCategory
+														INNER JOIN ProgramPeriod PPx
+															ON PCPx.Period = PPx.Period 
+															AND PCPx.ProgramCode = PPx.ProgramCode	
+												WHERE	PCx.ProgramCategory = RPC.Code
+												AND		PPx.Period = PossibleCategories.Period
+												AND		PPx.ProgramId = '#ObjectKeyValue1#'
+												AND		PCx.Status <> '9'
+											) as isSelected,
+											(
+												SELECT	CASE
+															WHEN LTRIM(RTRIM(CONVERT(VARCHAR(5000), PCPrx.ProfileNotes))) = '' THEN 0
+															ELSE 1
+														END as CountNotes
+												FROM	ProgramCategory PCx
+														INNER JOIN ProgramCategoryPeriod PCPx
+															ON PCx.ProgramCode = PCPx.ProgramCode
+															AND PCx.ProgramCategory = PCPx.ProgramCategory
+														INNER JOIN ProgramPeriod PPx
+															ON PCPx.Period = PPx.Period 
+															AND PCPx.ProgramCode = PPx.ProgramCode
+														INNER JOIN ProgramCategoryProfile PCPrx
+															ON PCPx.ProgramCode = PCPrx.ProgramCode
+															AND PCPx.ProgramCategory = PCPrx.ProgramCategory	
+												WHERE	PCx.ProgramCategory = RPC.Code
+												AND		PPx.Period = PossibleCategories.Period
+												AND		PPx.ProgramId = '#ObjectKeyValue1#'
+												AND		PCx.Status <> '9'
+											) as hasText
+									FROM	(
+												SELECT	RPCx.*, 
+														CCx.ControlValue as Period
+												FROM	Ref_ProgramCategory RPCx
+														INNER JOIN Ref_ParameterMissionCategory MCx
+															ON RPCx.Code = MCx.Category
+														INNER JOIN Ref_ProgramCategoryControl CCx
+																ON MCx.Category = CCx.Code
+																AND MCx.Mission = CCx.Mission
+																AND CCx.ControlElement = 'Period'
+																AND CCx.ControlValue = '#get.Period#'
+												WHERE   RPCx.Area = 'DPPA Strategic Objectives'
+												AND		MCx.Mission = '#getProgramUnit.Mission#'
+												<!---
+												AND		(MCx.OrgUnit = '#get.OrgUnit#' OR MCx.OrgUnit = '0')
+												AND		(MCx.Period = '#get.Period#' OR MCx.Period IS NULL)
+												--->
+											) AS PossibleCategories
+											INNER JOIN Ref_ProgramCategory RPC
+												ON PossibleCategories.Code = RPC.Code
+												OR (PossibleCategories.Code = RPC.Parent OR RPC.HierarchyCode LIKE PossibleCategories.HierarchyCode + '%')
+									WHERE	RPC.Parent IS NOT NULL 
+									AND		LTRIM(RTRIM(RPC.Parent)) != ''
+									AND		RPC.Operational = '1'
+								) AS ValidationData
+							) AS T
 											
+					</cfquery>
+					
+					<cfif getProgram.programClass neq "Program" AND ExpectedAccomplishments.ExpectedAccomplishmentsValidation eq 0>
+								
+						<cfinvoke method    = "getValidationStruct" 					   
+						   ValidationCode   = "#ValidationCode#"
+						   PassCode			= "No"
+						   returnvariable   = "result">	
+												
+					</cfif>
+					
 				</cfif>
 			
 			</cfif>

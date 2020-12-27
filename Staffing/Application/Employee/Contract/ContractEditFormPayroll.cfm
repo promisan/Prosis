@@ -17,6 +17,15 @@
 
 <!--- we show triggers based on the prior and selected value --->
 
+<cfquery name="check" 
+datasource="AppsPayroll" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT SalaryTrigger
+	FROM   Ref_PayrollTriggerContractType	
+	WHERE  Operational = 1
+</cfquery>	
+
 <cfquery name="Ent" 
 datasource="AppsPayroll" 
 username="#SESSION.login#" 
@@ -26,10 +35,12 @@ password="#SESSION.dbpw#">
 	WHERE     EnableContract IN ('1','2')
 	AND       Operational    = 1
 	AND       TriggerGroup != 'Contract'
+	<cfif check.recordcount gt "0">
 	AND       SalaryTrigger IN (SELECT SalaryTrigger
 			                    FROM   Ref_PayrollTriggerContractType
 								WHERE  ContractType = '#url.contracttype#'
 								AND    Operational = 1)
+	</cfif>							
 						
 	AND       SalaryTrigger IN (
 		                        SELECT  RC.SalaryTrigger
@@ -40,26 +51,6 @@ password="#SESSION.dbpw#">
 																	
 								
 </cfquery>
-
-<cfif Ent.recordcount eq "0">
-
-	<cfquery name="Ent" 
-		datasource="AppsPayroll" 
-		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">
-			SELECT    *
-			FROM      Ref_PayrollTrigger
-			WHERE     EnableContract IN ('1','2')
-			AND       Operational = 1			
-			AND       SalaryTrigger IN (SELECT  RC.SalaryTrigger
-									    FROM    SalaryScheduleComponent SC INNER JOIN
-					                            Ref_PayrollComponent RC ON SC.ComponentName = RC.Code
-									    WHERE   SC.SalarySchedule IN ('#contractsel.salarySchedule#','#url.salaryschedule#')
-									    )  								
-		</cfquery>		
-	
-		
-</cfif>
 
 <table width="100%">
 
@@ -78,11 +69,11 @@ password="#SESSION.dbpw#">
 			
 	<tr id="editfield" name="editfield">
 		
-	    <TD style="padding-left:5px;min-width:330" class="labelmedium bcell">#Description#:</TD>
+	    <TD style="padding-left:5px;min-width:300px" class="labelmedium bcell">#Description#:</TD>
 	  							
 			<cfif mode eq "view">
 						
-				<td bgcolor="f1f1f1" class="labelmedium ccell" style="min-width:220;padding-right:3px">							
+				<td bgcolor="f1f1f1" class="labelmedium ccell" style="min-width:233;padding-right:3px">							
 				<cfif Check.recordcount eq "0">--<cfelse><cf_tl id="Yes"></cfif>
 				</td>
 				

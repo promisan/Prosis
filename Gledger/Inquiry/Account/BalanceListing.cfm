@@ -16,7 +16,7 @@
 			  H.OrgUnitOwner,
 			  </cfif> 
               G.AccountGroup, 
-			  G.Description AS AccountGroupDescription, 
+			  G.AccountGroup+' '+G.Description AS AccountGroupDescription, 
 			  R.GLAccount, 
 			  R.Description, 
 			  R.AccountType, 
@@ -93,6 +93,7 @@
 <cfset fields[itm] = {label           = "#lt_text#", 
                     width             = "0", 
 					field             = "AccountGroupDescription",
+					fieldsort         = "AccountGroup",     
 					filtermode        = "2",
 					search            = "text"}>				
 			
@@ -135,7 +136,8 @@
 <cf_tl id="Category" var="1">
 <cfset fields[itm] = {label      = "#lt_text#", 
 					width      = "0", 
-					field      = "AccountCategory",							
+					field      = "AccountCategory",		
+										
 					filtermode = "2",    
 					search     = "text"}>	
 																			

@@ -9,22 +9,17 @@
 
 <script>
 
-function verify(myvalue)
-
-{ 
-
-if (myvalue == "")
-
-{ 
-
-		alert("You did not define a salary scale")
-		document.ContractEntry.search.focus()
-		document.ContractEntry.search.select()
-		document.ContractEntry.search.click()
-		return false
-		}
-		
-}		
+function verify(myvalue) { 
+	
+	if (myvalue == "") { 
+	
+			alert("You did not define a salary scale")
+			document.ContractEntry.search.focus()
+			document.ContractEntry.search.select()
+			document.ContractEntry.search.click()
+			return false
+			}			
+	}		
 
 </script>
 

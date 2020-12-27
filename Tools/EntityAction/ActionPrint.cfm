@@ -3,7 +3,6 @@
 
 <cfoutput>
 <link rel="stylesheet" type="text/css" href="#SESSION.root#/#client.style#">
-<body style="overflow: scroll;">
 
 <cf_wait1 text="Preparing Requested Document in PDF format" flush="force">
 

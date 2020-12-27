@@ -73,7 +73,7 @@
 	
 	<cfif check.recordcount eq "1">
 			
-		<cfloop index="itm" list="listgroup,listgroupfield,listgroupalias,listgroupdir">
+		<cfloop index="itm" list="listgroup,listgroupfield,listgroupsort,listgroupalias,listgroupdir,listgrouptotal">
 		
 			<cfquery name="check" 
 			datasource="AppsSystem" 
@@ -100,17 +100,23 @@
 			  </cfif>
 			  
 		</cfloop>
-		
+			
 		<!--- revert as this is not a valid field anymore --->
 		
 		<cfif accept eq "0">
 		
 		    <cfset URL.listgroup         = "">
 			<cfset URL.listgroupfield    = "">
+			<cfset URL.listgroupsort     = "">
 			<cfset URL.listgroupalias    = "">
 			<cfset URL.listgroupdir      = "">
+			<cfset URL.listgrouptotal    = "">
 			
 		</cfif>	
+		
+		<cfif url.listgroupsort eq "">
+			<cfset url.listgroupsort = url.listgroupfield>
+		</cfif>
 		
 	</cfif>	
 

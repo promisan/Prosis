@@ -41,8 +41,8 @@
 				
 		</cfoutput>
 	  
-	    <tr class="labelmedium" style="height:35px">
-           <td><a href="javascript:refreshTree()">Refresh</a>&nbsp;|&nbsp;<a title="All Reports are prepared but are not distributed by Mail" href="javascript:batch('trial')">Test run</a></td>
+	    <tr class="labelmedium2" style="height:35px">
+           <td><a href="javascript:refreshTree()"><cf_tl id="Refresh"></a>&nbsp;|&nbsp;<a title="All Reports are prepared but are not distributed by Mail" href="javascript:batch('trial')">Test run</a></td>
         </tr>
 			
 	   	  

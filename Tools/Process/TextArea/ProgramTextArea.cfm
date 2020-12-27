@@ -92,7 +92,7 @@
 														
 					   <cfif Attributes.Format eq "Text">
 					   								 				
-							<textarea style="width:95%;font-size:13px;padding-top:5px;padding-left:8px;padding-right:8px;height:#Attributes.height#;border:1px solid silver;background-color:ffffdf"
+							<textarea style="min-height:80px;width:95%;font-size:13px;padding-top:5px;padding-left:8px;padding-right:8px;height:#Attributes.height#;resize:vertical;border:0px solid silver;background-color:ffffdf"
 							  rows="#NoRows#" 
 							  onchange="#attributes.onchange#"
 							  name="f#attributes.field##Code#" 

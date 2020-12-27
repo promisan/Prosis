@@ -1,5 +1,5 @@
-
-<cf_divscroll>
+<cf_screentop height="100%" scroll="Yes" html="No" jquery="Yes">
+<cf_divscroll height="100%">
 
 <cfset add          = "1">
 <cfinclude template = "../HeaderMaintain.cfm"> 
@@ -28,8 +28,7 @@ function recordedit(id1) {
 
 </cfoutput>
 
-<table width="94%" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
-
+<table width="94%" align="center" class="navigation_table">
 
 	<tr class="labelmedium line">
 	    <td></td>
@@ -45,7 +44,7 @@ function recordedit(id1) {
 
 	<cfoutput query="SearchResult">
 	    <tr class="navigation_row line labelmedium"> 
-			<td width="5%" align="center" style="padding-top:4px">
+			<td width="5%" align="center" style="padding-top:2px">
 			   <cf_img icon="open" navigation="Yes" onclick="recordedit('#DocumentType#');">
 			</td>			
 			<td>#DocumentType#</td>

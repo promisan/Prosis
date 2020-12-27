@@ -64,7 +64,7 @@ password="#SESSION.dbpw#">
 		<img src="#SESSION.root#/Images/bankaccount.png" height="99" alt=""  border="0" align="absmiddle">			
 	</td>
 	
-    <td width="98%" height="24" style="font-size:38px;font-weight:200" class="labelmedium"><cf_tl id="Bank accounts"></td>
+    <td width="98%" height="24" style="font-size:38px;font-weight:200" class="labelmedium2"><cf_tl id="Bank accounts"></td>
 	
     <td align="right" height="30" style="padding-right:10px;padding-top:35px">
 	
@@ -108,7 +108,7 @@ password="#SESSION.dbpw#">
 		<cfoutput query="Listing" group="Destination">
 		
 		<tr class="line">
-		<td colspan="9" class="labelmedium" style="font-size:20px;font-weight:200;height:35;padding-left:5px">#Destination#</tr>
+		<td colspan="9" class="labelmedium2" style="font-size:20px;font-weight:200;height:35;padding-left:5px">#Destination#</tr>
 		</tr>
 		
 		<cfoutput>
@@ -350,7 +350,7 @@ password="#SESSION.dbpw#">
 				</cfquery>
 				<table>
 					<cfloop query="getAccountMission">
-						<tr class="labelmedium">
+						<tr class="labelmedium2">
 							<td>#Mission#:</td>
 							<td style="padding-left:10px;">
 								#BankName# - (#AccountNo# - #Currency#)

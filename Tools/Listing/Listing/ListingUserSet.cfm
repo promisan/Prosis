@@ -7,7 +7,7 @@
 
 <cfelse>
 
-	<cfset mlist = "listgroup,listgroupfield,listgroupalias,listgroupdir">
+	<cfset mlist = "listgroup,listgroupfield,listgroupsort,listgroupalias,listgroupdir,listgrouptotal">
 
 </cfif>
 

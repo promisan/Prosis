@@ -48,8 +48,6 @@ password="#SESSION.dbpw#">
 
 <cfoutput>
 	
-	<cf_listingScriptNavigation>
-
 	<script language="JavaScript">
 	
 	function ask() {
@@ -104,7 +102,7 @@ password="#SESSION.dbpw#">
 
 <cfform action="RecordSubmit.cfm?idmenu=#url.idmenu#" method="POST" name="dialog">
 
-<table width="95%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="95%" align="center" class="formpadding">
 
 	<tr><td height="6"></td></tr>
     <cfoutput>

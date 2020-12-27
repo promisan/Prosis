@@ -47,7 +47,7 @@
 	
 	<cfelse>
 			
-		<cf_textarea name="FieldDocument#no#" height="480" toolbar = "Basic" allowedContent = "yes">
+		<cf_textarea name="FieldDocument#no#" height="95%" toolbar = "Basic" allowedContent = "yes">
 				<cfoutput><cf_paragraph>#text#</cf_paragraph></cfoutput>
 		</cf_textarea>	
 			
@@ -61,18 +61,23 @@
 	
   <cfelse>  
   
-	  <table width="100%" height="100%" border="0" class="formpadding" cellspacing="0" cellpadding="0">
+	  <table width="98%" border="0" class="formpadding" align="center">
 	  
 	  <tr>
-	     <td class="labellarge" height="24"><b>Header (PDF only)</td>
+	     <td class="labelmedium" style="font-size:24px;padding-left:4px">Header <font size="1">[PDF only]</td>
 		 <td class="labelit" align="right">Margin:<select name="margintop" id="margintop" class="regularxl">
-			 <cfloop index="m" from="0.5" to="5" step="0.5">
+			 <cfloop index="m" from="0.1" to="5" step="0.1">
 			     <option value="#m#" <cfif doc.DocumentMarginTop eq m>selected</cfif>>#m#</option>
 	    	  </cfloop>
 	     </td>
 	  </tr>
 	  
 	  <tr><td colspan="2">
+	  
+	  	 <textarea name="hdrFieldDocument#no#" style="padding:5px;border:0px;background-color:efefef;width:100%;height:50px">#doc.DocumentHeader#</textarea>	
+	  
+	  
+	  	 <!--- remove hanno 
 	  
 	     <cfset text = replace(doc.DocumentHeader,"<script","<disable","all")>
 	     <cfset text = replace(text,"<iframe","<disable","all")>
@@ -84,23 +89,25 @@
 	           allowedContent = "Yes"
 	           toolbar        = "Basic"><cfoutput><cf_paragraph>#text#</cf_paragraph></cfoutput>
 		 </cf_textarea>
+		 
+		 --->
 	  
 	  </td></tr>
 	  
-	  <tr><td height="1" colspan="2" class="linedotted"></td></tr> 
-	  
-	  <tr>
-	     <td class="labellarge" height="24"><b>Footer (PDF only)</td>
+	   <tr>
+	     <td class="labelmedium" style="font-size:24px;padding-left:4px">Footer <font size="1">[PDF only]</td>
 		 <td class="labelit" align="right">Margin:<select name="marginbottom" id="marginbottom" class="regularxl">
-			 <cfloop index="m" from="0.5" to="5" step="0.5">
+			 <cfloop index="m" from="0.1" to="5" step="0.1">
 			     <option value="#m#" <cfif doc.DocumentMarginBottom eq m>selected</cfif>>#m#</option>
 	    	  </cfloop>
 	     </td>
-	  </tr>
-	  
-	  <tr><td height="1" colspan="2" class="linedotted"></td></tr> 
+	  </tr>	  
 	    
 	  <tr><td colspan="2">
+	  
+	  	<textarea name="ftrFieldDocument#no#" style="padding:5px;border:0px;background-color:efefef;width:100%;height:50px">#doc.DocumentFooter#</textarea>	
+	  
+	  	 <!---
 
 	     <cfset text = replace(doc.DocumentFooter,"<script","<disable","all")>
 	     <cfset text = replace(text,"<iframe","<disable","all")>
@@ -112,8 +119,13 @@
 	           allowedContent = "Yes"   
 	           toolbar        = "Basic"><cfoutput><cf_paragraph>#text#</cf_paragraph></cfoutput>
 		 </cf_textarea>
+		 
+		 --->
 	  
 	  </td></tr>	
+	 
+	 <tr class="labelmedium2"><td style="font-size:20px" colspan="2">Available shortcut</td></tr> 
+	 <tr><td colspan="2">@default : This will render the page and total number as well as the date and person</td></tr>
 	    
 	  </table>
   

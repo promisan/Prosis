@@ -1,3 +1,5 @@
+
+<cf_screentop height="100%" scroll="Yes" html="No" jquery="Yes">
 <cf_divscroll>
 
 
@@ -14,18 +16,18 @@ password="#SESSION.dbpw#">
 <cfset add          = "0">
 <cfinclude template = "../HeaderMaintain.cfm"> 
 
-<table width="96%" border="0" align="center" cellspacing="0" cellpadding="0">  
+<table width="96%" border="0" align="center">  
 
 <cfoutput>
 
 <script>
 
 function recordadd(grp) {
-          window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "AddShipToMode", "left=80, top=80, width= 650, height=350, toolbar=no, status=no, scrollbars=no, resizable=yes");
+     ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "AddShipToMode", "left=80, top=80, width= 650, height=350, toolbar=no, status=no, scrollbars=no, resizable=yes");
 }
 
 function recordedit(id1) {
-          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "EditShipToMode", "left=80, top=80, width=950, height=500, toolbar=no, status=no, scrollbars=no, resizable=yes");
+     ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "EditShipToMode", "left=80, top=80, width=950, height=500, toolbar=no, status=no, scrollbars=no, resizable=yes");
 }
 
 </script>	

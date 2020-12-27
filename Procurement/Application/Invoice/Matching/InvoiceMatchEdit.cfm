@@ -11,7 +11,7 @@
 		   		  
 		     <table width="100%" cellspacing="0" cellpadding="0">
 			 
-			 <tr class="labelmedium line" style="height:20px">
+			 <tr class="labelmedium2 line" style="height:20px">
 		  
 		  	 <td style="min-width:100px;max-width:100;padding-left:12px"><cf_tl id="Received">:</td>			 
 			 <td><cfoutput>#dateformat(InvoiceIncoming.DocumentDate,CLIENT.DateFormatShow)#</cfoutput></td>			 
@@ -85,10 +85,10 @@
 			 
 			 <tr>
 			 
-				 <td class="labelmedium" style="padding-left:24px"><cf_tl id="Recorded">:</td>
-				 <td colspan="3" class="labelmedium">
+				 <td class="labelmedium2" style="padding-left:24px"><cf_tl id="Recorded">:</td>
+				 <td colspan="3" class="labelmedium2">
 				 
-				 <table><tr class="labelmedium"><td>
+				 <table><tr class="labelmedium2"><td>
 				 
 				 <cfoutput>#dateformat(InvoiceIncoming.Created,CLIENT.DateFormatShow)# #timeformat(InvoiceIncoming.Created,"HH:MM")# (#InvoiceIncoming.OfficerLastName#)</cfoutput>
 				 
@@ -127,7 +127,7 @@
 			 
 			 --->
 			 
-		   <tr class="labelmedium line" style="height:20px">		   	   
+		   <tr class="labelmedium2 line" style="height:20px">		   	   
 		  
 		   <td style="min-width:143px;max-width:143;padding-left:12px"><cf_UIToolTip  tooltip="The unit of which the workflow processors (workgroup) have been granted access to"><cf_tl id="Owner">:</cf_UIToolTip><font color="FF0000">*</font></td>
 					 
@@ -187,7 +187,7 @@
 						  ORDER BY  TreeOrder, OrgUnitName
 					 </cfquery>					 
 					 
-					 <table><tr><td class="labelmedium">
+					 <table><tr><td class="labelmedium2">
 					 
 					  <cfif invoice.actionStatus eq "0">
 					 			 
@@ -221,7 +221,7 @@
 					  </td>
 					  
 					  <td class="labelit" style="padding-left:40px"><cf_tl id="Center">:</td>
-					  <td class="labelmedium" style="padding-left:20px">
+					  <td class="labelmedium2" style="padding-left:20px">
 					  
 					     <cfif invoice.actionStatus eq "0">
 					  
@@ -273,8 +273,7 @@
 		  </table>
 		  
 		  </td>
-		  </tr>		  
-				  		 		  		  
+		  </tr>					  		 		  		  
 		 		  
 		    <cfoutput>
 			
@@ -285,16 +284,14 @@
 				
 				   function edit() {
 				   					   
-						ColdFusion.Window.create('mydialog', '#matchlabel#', '',{x:100,y:100,height:document.body.clientHeight-60,width:document.body.clientWidth-60,modal:true,center:true})    
-						ColdFusion.Window.show('mydialog') 				
+						ProsisUI.createWindow('mydialog', '#matchlabel#', '',{x:100,y:100,height:700,width:870,modal:true,center:true})    						 				
 						ptoken.navigate('#SESSION.root#/Procurement/Application/Invoice/Workflow/MarkDown/MarkDownView.cfm?invoiceid=#url.id#','mydialog') 						
 									
 				   }
 			   								
 				   function editincoming() {			    
 				   
-						ColdFusion.Window.create('mydialogs', '#matchincoming#', '',{x:100,y:100,height:700,width:700,modal:true,center:true})    
-						ColdFusion.Window.show('mydialogs') 				
+						ProsisUI.createWindow('mydialogs', '#matchincoming#', '',{x:100,y:100,height:700,width:870,modal:true,center:true})    									
 						ptoken.navigate('#SESSION.root#/Procurement/Application/Invoice/InvoiceEntry/IncomingView.cfm?invoiceid=#url.id#','mydialogs') 	
 
 					  }
@@ -399,7 +396,7 @@
 									
 						<tr><td height="3"></td></tr>
 										
-						<tr><td colspan="6" align="center" class="labelmedium" style="font-size:15">
+						<tr><td colspan="6" align="center" class="labelmedium2" style="font-size:15">
 							<font size="1" color="000000"><cf_tl id="Attention">:</font>
 							<cfif Invoice.ActionStatus neq "9">
 							<font color="6688aa"><cf_tl id="This invoice is on hold">.</font>
@@ -437,7 +434,7 @@
 				    <table width="99%" border="0" cellspacing="0" cellpadding="0" align="center">
 			
 					<tr>
-						<td class="labelmedium">
+						<td class="labelmedium2">
 						
 						<cfoutput>
 						
@@ -459,7 +456,7 @@
 							  
 							 </td>
 							 
-							 <td class="labelmedium" style="font-weight:200;font-size:20px"> 
+							 <td class="labelmedium2" style="font-weight:200;font-size:20px"> 
 							  
 							  <a href="javascript:more('#url.id#')" title="Record and view additional comments and remarks">
 							  <font color="0080C0"><cf_tl id="Additional Comments and Remarks"></font>	

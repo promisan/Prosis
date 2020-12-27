@@ -85,7 +85,7 @@
 
 <cfoutput>
 
-<table id="tsettlement" name="tsettlement" align="center" border="0" width="100%" height="100%" class="navigation_table" style="border:0px solid silver">
+<table id="tsettlement" name="tsettlement" align="center" width="100%" height="100%" class="navigation_table">
 
 <tr class="line settlement_title">
 	

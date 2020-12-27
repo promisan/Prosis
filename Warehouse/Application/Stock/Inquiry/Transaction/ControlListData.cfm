@@ -184,9 +184,9 @@
 	</cfcatch>
 
 </cftry>
-
    
 <cfif action eq "refresh">
+
 	
 	<CF_DropTable dbName="AppsQuery"  tblName="#SESSION.acc#_ItemTransaction"> 		
 	

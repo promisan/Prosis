@@ -235,18 +235,18 @@ password="#SESSION.dbpw#">
 			
 			<tr>
 			  <td></td>
-			  <td class="labelit"><cf_space spaces="35"></td>
-			  <td class="labelit" style="width:100%"></td>
+			  <td class="labellarge"><cf_space spaces="35"></td>
+			  <td class="labellarge" style="width:100%"></td>
 			  
 			  <cfif form.layout neq "corporate">	
 			  
 			      <!---					  
 				  <cfoutput query="PeriodList">
-				  <td class="labelit" width="80" align="center"><cf_space spaces="10">#AccountPeriod#</td>
+				  <td class="labellarge" width="80" align="center"><cf_space spaces="10">#AccountPeriod#</td>
 				  </cfoutput>
 				  --->
 			  <cfelse>
-			  	  <td class="labelit" align="center"><cf_space spaces="14"><cf_tl id="Total"></td>
+			  	  <td class="labellarge" align="center"><cf_space spaces="14"><cf_tl id="Total"></td>
 			  </cfif>
 			 
 			</tr>
@@ -285,17 +285,17 @@ password="#SESSION.dbpw#">
 			
 			<tr>
 			  <td></td>
-			  <td align="center" class="labelit"><cf_space spaces="35"></td>
-			  <td align="center" style="width:100%" class="labelit"><cf_space spaces="65"></td>
+			  <td align="center" class="labellarge"><cf_space spaces="35"></td>
+			  <td align="center" style="width:100%" class="labellarge"><cf_space spaces="65"></td>
 			  
 			  <cfif form.layout neq "corporate">
 			      <!---
 				  <cfoutput query="PeriodList">
-				  <td class="labelit" width="80" align="center"><cf_space spaces="10">#AccountPeriod#</td>
+				  <td class="labellarge" width="80" align="center"><cf_space spaces="10">#AccountPeriod#</td>
 				  </cfoutput>
 				  --->
 			  <cfelse>			  
-			  	<td class="labelit" align="center"><cf_space spaces="14"><cf_tl id="Total"></td>				  
+			  	<td class="labellarge" align="center"><cf_space spaces="14"><cf_tl id="Total"></td>				  
 			  </cfif>			  				   
 			 
 			</tr>

@@ -16,10 +16,10 @@
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 	    SELECT *
-	    FROM  Ref_ModuleControlDetailField
-		WHERE SystemFunctionId = '#URL.SystemFunctionId#'		
-		AND   FunctionSerialNo = '#URL.FunctionSerialNo#'
-		AND FieldIsKey = 1
+	    FROM   Ref_ModuleControlDetailField
+		WHERE  SystemFunctionId = '#URL.SystemFunctionId#'		
+		AND    FunctionSerialNo = '#URL.FunctionSerialNo#'
+		AND    FieldIsKey = 1
 </cfquery>
 
 <cftry>
@@ -31,12 +31,7 @@
 	<!--- -------------------------- --->
 	
 	<cfset fileNo = "#Header.DetailSerialNo#">						
-	<cfinclude template="QueryPreparationVars.cfm">
-		
-	<cfloop index="t" from="1" to="10">		
-		<cfset sc = replaceNoCase("#sc#","@answer#t#","#evaluate('answer#t#')#")>  						  
-    </cfloop>
-	
+	<cfinclude template="QueryPreparationVars.cfm">			
 	<cfinclude template="QueryValidateReserved.cfm">
 				
 	<cfquery name="SelectQuery" 
@@ -50,9 +45,9 @@
 	datasource="appsOrganization" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#"> 
-	   SELECT *
-	   FROM Ref_Entity
-	   WHERE EntityKeyField1 IN ('#CheckForKey.fieldName#') OR EntityKeyField4 IN ('#CheckForKey.fieldName#')
+	   SELECT  *
+	   FROM    Ref_Entity
+	   WHERE   EntityKeyField1 IN ('#CheckForKey.fieldName#') OR EntityKeyField4 IN ('#CheckForKey.fieldName#')
 	</cfquery>
 			
 	 <select name="EntityCode" id="EntityCode" class="regularxl">

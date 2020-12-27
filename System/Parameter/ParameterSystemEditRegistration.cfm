@@ -7,27 +7,27 @@
 		<!--- Field: Release --->
 	
 	    <TR>
-	    <td style="padding-left:10px" class="labelmedium" width="170">Release:</td>
+	    <td style="padding-left:10px" class="labelmedium2" width="170">Release:</td>
 	    <td>
 	  	    <cfoutput query="get">
-			<cfinput class="regularxl" style="text-align: center;" type="Text" name="Version" value="#Version#" message="Please enter the release version" required="Yes" size="8" maxlength="8">
+			<cfinput class="regularxxl" style="font-size:20px;text-align: center;" type="Text" name="Version" value="#Version#" message="Please enter the release version" required="Yes" size="8" maxlength="8">
 			</cfoutput>
 		</td>
 		</tr>
 		<tr>
-		<td class="labelmedium" style="padding-left:10px">Remote support server:</td>
+		<td class="labelmedium2" style="padding-left:10px">Remote support server:</td>
 		<td><cfoutput query="get">
 			<input class="regularxl" style="text-align: left;" type="Text" name="PromisanServer" id="PromisanServer" value="#PromisanServer#" size="40" maxlength="40">
 			</cfoutput></td>
 		</tr>
 		<tr>	
-		<td class="labelmedium" style="padding-left:10px">Remote support account:</td>
+		<td class="labelmedium2" style="padding-left:10px">Remote support account:</td>
 		<td><cfoutput query="get">
 			<input class="regularxl" style="text-align: left;" type="Text" name="PromisanAccount" id="PromisanAccount" value="#PromisanAccount#" size="20" maxlength="20">
 			</cfoutput></td>
 		</tr>
 		<tr>	
-		<td class="labelmedium" style="padding-left:10px">Local Synchronization Directory:</td>
+		<td class="labelmedium2" style="padding-left:10px">Local Synchronization Directory:</td>
 		<td><cfoutput query="get">
 			<input class="regularxl" style="text-align: left;" type="Text" name="ExchangeDirectory" id="ExchangeDirectory" value="#ExchangeDirectory#" size="50" maxlength="50">
 			</cfoutput></td>
@@ -81,15 +81,12 @@
 		--->
 	
 		<tr>	
-		<td class="labelmedium" style="padding-left:10px" height="24" >Master source code:</td>
+		<td class="labelmedium2" style="padding-left:10px" height="24" >Master source code:</td>
 		<td><table border="0" cellspacing="0" cellpadding="0">
 			
 			<tr>		
-			<cfoutput>
-			<td width="30">
-			<img src="#SESSION.root#/Images/version.gif" alt="" border="0" align="absmiddle">
-			</td>
-			<td class="labelmedium"><a href="javascript:sourcecode()">
+			<cfoutput>			
+			<td class="labelmedium2"><a href="javascript:sourcecode()">
 			List Application files that are pending synchronisation with the master version</a>
 			</td></tr>
 			</cfoutput>
@@ -98,7 +95,7 @@
 		</tr>
 
 		<tr>	
-		<td class="labelmedium" style="padding-left:10px" height="24" >Master Source code Encode engine:</td>
+		<td class="labelmedium2" style="padding-left:10px" height="24" >Master Source code Encode engine:</td>
 		<td>
 			<cfoutput query="get">
 			<input class="regularxl" style="text-align: left;" type="Text" name="EncodeEngine" id="EncodeEngine" value="#EncodeEngine#" size="80" maxlength="80">

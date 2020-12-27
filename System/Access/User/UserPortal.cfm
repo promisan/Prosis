@@ -8,6 +8,7 @@
 		AND 	M.FunctionClass = 'Selfservice'
 		AND		M.MenuClass in ('Mission','Main')
 		AND		M.Operational = 1
+		AND     M.FunctionName <> 'widgets'
 		ORDER BY M.FunctionMemo ASC, M.FunctionName ASC
 </cfquery>
 
@@ -22,27 +23,27 @@
 
 <cf_divscroll style="height:100%">
 
-<table width="95%" align="center">
+<table width="96%" align="center">
 	<tr>
 		<td height="20"></td>
 	</tr>
-	<tr>
+	<tr class="labelmedium2">
 		<td width="6%">
 			<cfoutput>
-			<img src="#SESSION.root#/Images/Logos/System/Global.png" title="Portals" height="48" align="middle">
+			<img src="#SESSION.root#/Images/Logos/System/Portal.png" title="Portals" height="48" align="middle">
 			</cfoutput>
 		</td>
-		<td valign="middle" class="labellarge"><cf_tl id="Selfservice User Portal Access"></font></td>
+		<td valign="middle" style="font-size:20px"><cf_tl id="User Portal authorization"></td>
 	</tr>
 	<tr>
 		<td colspan="2">
-			<table width="85%" align="center" class="navigation_table">
+			<table width="89%" align="center" class="navigation_table">
 				<cfoutput query="Portals">
-					<tr bgcolor="FFFFFF" class="labelmedium linedotted navigation_row" style="height:20px">
-						<td height="25" style="padding-left:4px">
+					<tr class="line labelmedium2 navigation_row" style="height:35px">
+						<td style="font-size:17px;padding-left:4px">
 							#FunctionName#
 						</td>
-						<td height="25" style="padding-left:4px">
+						<td style="font-size:17px;padding-left:4px">
 							#FunctionMemo#
 						</td>
 						<td align="center">
@@ -66,10 +67,10 @@
 							<table>
 							<tr class="labelmedium" style="height:20px"><td>
 							<cfset formatId = replace(SystemFunctionId, "-", "", "ALL")>
-							<input type="Radio" class="radiol" name="portal_#formatId#" id="portal_#formatId#" onclick="submitChange('#url.id#', '#SystemFunctionId#', 1);" <cfif qAccess.status eq 1 or (qAccess.recordCount eq 0 and vStatus eq 1)>checked</cfif>>
+							<input type="Radio" class="radiol" style="height:20px;width:20px" name="portal_#formatId#" id="portal_#formatId#" onclick="submitChange('#url.id#', '#SystemFunctionId#', 1);" <cfif qAccess.status eq 1 or (qAccess.recordCount eq 0 and vStatus eq 1)>checked</cfif>>
 							</td>
 							<td style="padding-left:3px">Yes</td>
-							<td style="padding-left:13px"><input type="Radio" class="radiol" name="portal_#formatId#" id="portal_#formatId#" onclick="javascript: submitChange('#url.id#', '#SystemFunctionId#', 9);" <cfif qAccess.status eq 9 or (qAccess.recordCount eq 0 and vStatus eq 9)>checked</cfif>></td>
+							<td style="padding-left:13px"><input type="Radio" style="height:20px;width:20px" class="radiol" name="portal_#formatId#" id="portal_#formatId#" onclick="javascript: submitChange('#url.id#', '#SystemFunctionId#', 9);" <cfif qAccess.status eq 9 or (qAccess.recordCount eq 0 and vStatus eq 9)>checked</cfif>></td>
 							<td style="padding-left:3px">No</td>
 							</tr></table>
 						</td>
@@ -80,9 +81,7 @@
 	</tr>
 	<tr><td height="10"></td></tr>
 	<tr class="hide">
-		<td colspan="2" align="center">
-			<cfdiv id="divUserPortalSubmit" bind="url:UserPortalSubmit.cfm?id=">
-		</td>
+		<td colspan="2" align="center" id="divUserPortalSubmit"></td>
 	</tr>
 </table>
 

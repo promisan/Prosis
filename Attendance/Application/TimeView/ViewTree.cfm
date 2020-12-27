@@ -141,14 +141,14 @@
 											<cf_UItreeitem value="home_#zone.code#_#addresstype#_map"
 										        display="<span style='font-size:14px;padding-top:2px;padding-bottom:2px' class='labelit'>MAP"
 												parent="home_#zone.code#_#addresstype#"	
-												href="../Address/AddressListingMAP.cfm?mission=#url.mission#&zone=#zone.code#&addresstype=#addresstype#&filter=active"										
+												href="../Address/AddressListingMAP.cfm?mission=#url.mission#&zone=#zone.code#&addresstype=#addresstype#&filter=active&systemfunctionid=#url.systemfunctionid#"										
 												target="right"
 										        expand="No">									
 																
 											<cf_UItreeitem value="home.#zone.code#_#addresstype#_lis"
 										        display="<span style='font-size:14px;padding-top:2px;padding-bottom:2px' class='labelit'>Listing"
 												parent="home_#zone.code#_#addresstype#"	
-												href="../Address/AddressListing.cfm?mission=#url.mission#&zone=#zone.code#&addresstype=#addresstype#&filter=active"										
+												href="../Address/AddressListing.cfm?mission=#url.mission#&zone=#zone.code#&addresstype=#addresstype#&filter=active&systemfunctionid=#url.systemfunctionid#"										
 												target="right"
 										        expand="No">																												
 									
@@ -206,13 +206,13 @@
 									<cfif StatusCode gte '8'>
 										<cfset cl = "red">
 									<cfelse>
-										<cfset cl = "6688aa">
+										<cfset cl = "">
 									</cfif>
 									
 									<cf_UItreeitem value="all_leave_#statuscode#"
-									        display="<span style='font-size:15px;padding-top:2px;padding-bottom:2px;color: #cl#;' class='labelit'>#Description#</span>"
+									        display="<span style='font-size:14px;color: #cl#;' class='labelit'>#Description#</span>"
 											parent="all_leave"	
-											href="../LeaveRequest/LeaveListing.cfm?systemfunctionid=#url.systemfunctionid#&mission=#url.mission#&leavetype=&filter=#statuscode#&systemfunctionid=#url.systemfunctionid#"										
+											href="../LeaveRequest/LeaveListing.cfm?systemfunctionid=#url.systemfunctionid#&mission=#url.mission#&leavetype=&filter=#statuscode#"										
 											target="right"
 									        expand="No">																	
 																	
@@ -228,7 +228,7 @@
 								<cf_UItreeitem value="ltpe_#LeaveType#"
 							        display="<span style='font-size:15px;padding-top:2px;padding-bottom:2px' class='labelit'>#Description#</span>"
 									parent="ltpe"	
-									href="../LeaveRequest/LeaveListing.cfm?systemfunctionid=#url.systemfunctionid#&mission=#url.mission#&leavetype=#leavetype#&filter=active&systemfunctionid=#url.systemfunctionid#"										
+									href="../LeaveRequest/LeaveListing.cfm?systemfunctionid=#url.systemfunctionid#&mission=#url.mission#&leavetype=#leavetype#&filter=active"										
 									target="right"
 							        expand="No">									
 																	
@@ -255,7 +255,7 @@
 										<cf_UItreeitem value="ltpe_#tpe#_#statuscode#"
 										        display="<span style='font-size:14px;padding-top:2px;padding-bottom:2px;color:#cl#' class='labelit'>#description#</span>"
 												parent="ltpe_#tpe#"	
-												href="../LeaveRequest/LeaveListing.cfm?systemfunctionid=#url.systemfunctionid#&mission=#url.mission#&leavetype=#tpe#&filter=#statuscode#&systemfunctionid=#url.systemfunctionid#"										
+												href="../LeaveRequest/LeaveListing.cfm?systemfunctionid=#url.systemfunctionid#&mission=#url.mission#&leavetype=#tpe#&filter=#statuscode#"										
 												target="right"
 										        expand="No">			
 																			

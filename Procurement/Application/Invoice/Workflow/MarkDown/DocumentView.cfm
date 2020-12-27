@@ -1,9 +1,7 @@
 
 <cfif NOT isDefined("Object.ObjectKeyValue4")>
-	<cf_screentop height="100%" band="No" scroll="No" banner="gray" user="No" jquery="Yes" label="Amount Payable" layout="webapp">		  
+	<cf_screentop height="100%" band="No" html="No" scroll="No" banner="gray" user="No" jquery="Yes" label="Amount Payable" layout="webapp">		  
 </cfif>
-
-<cfajaximport tags="cfwindow">
 
 <cfform style="height:100%" action="DocumentSubmit.cfm?mode=onhold&dialog=1" method="POST" name="forminvoice" target="result">
 
@@ -28,9 +26,7 @@
 
 	<tr><td class="line"></td></tr> 
 	<tr>
-		<td align="center" height="30" style="padding-bottom:10px">
-		<!---  <input type="button" class="button10g" style="width:110px;height:24" align="center" value="Cancel" onclick="window.close()" name="Close" id="Close">
-		--->
+		<td align="center" height="30" style="padding-bottom:10px">		
 		  <input type="submit" class="button10g" style="width:150px;height:27" align="center" value="Save"  name="Save" id="Save">
 		</td>
     </tr>

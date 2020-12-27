@@ -88,7 +88,7 @@
 		
 		   <cfif url.scope eq "portal">	
 		        <img src="<cfoutput>#session.root#/Images/Dependent.png</cfoutput>" style="height:65px;float:left;">
-    	   		<h1 style="float:left;color:#333333;font-size:28px;font-weight:200;padding-top:22px;">Dependent <strong> Entitlements</strong></h1>			        	
+    	   		<h1 style="float:left;color:#333333;font-size:28px;font-weight:200">Dependent <strong> Entitlements</strong></h1>			        	
         		<p style="clear: both; font-size: 15px; margin: 1% 0 0 1%;">Review your declared dependents and the entitlements that affect your monthly payroll.</p>
         		<div class="emptyspace" style="height: 40px;"></div>
 			<cfelse>
@@ -107,18 +107,14 @@
 			
 				<cfif url.status eq "valid">
 					 
-				     <td valign="bottom" align="right" class="labelit">
-					 <a href="javascript:dependentshow('#url.id#','all','#url.action#')">
-					 <font color="0080C0" size="1" face="arial">[Show ALL records]</font>
-					 </a>
+				     <td valign="bottom" align="right" class="labelmedium2">
+					 <a href="javascript:dependentshow('#url.id#','all','#url.action#')">[Show ALL records]</a>
 					 </td>
 				 
 				<cfelse>
 				 
-				 	<td valign="bottom" align="right" class="labelit">
-					 <a href="javascript:dependentshow('#url.id#','valid','#url.action#')">
-					 <font color="0080C0" size="1" face="arial">[HIDE Superseded records]</font>
-					 </a>
+				 	<td valign="bottom" align="right" class="labelmedium2">
+					 <a href="javascript:dependentshow('#url.id#','valid','#url.action#')">[HIDE Superseded records]</a>
 				    </td>
 					 
 				</cfif>
@@ -194,8 +190,6 @@
 	
   </tr>
   
-<tr><td colspan="2" class="line"></td></tr>  
-
 <cfif openContract eq "1" and url.action eq "Person">
 	<tr class="line"><td align="center" style="height:30px;font-weight:200" class="labellarge" colspan="2"><font color="red"><cf_tl id="There is a contract pending review"></td></tr>
 </cfif>
@@ -203,9 +197,9 @@
 <tr>
 
   <td width="100%" colspan="2">
-  <table border="0" cellpadding="0" cellspacing="0" width="100%" class="navigation_table">
+  <table width="100%" class="navigation_table">
 	
-<TR class="<cfif url.action eq 'Person'>labelmedium<cfelse>labelit</cfif> line">
+<TR class="labelmedium2 line">
     <td height="20" style="width:20px"></td>
     <td style="width:20px"></td>
     <td width="40%" colspan="2"><cf_tl id="Relation"></td>	
@@ -233,9 +227,9 @@
 		<cfset color = "white">
 	</cfif>
 	
-	<tr bgcolor="#color#" class="navigation_row labelmedium" style="font-weight:400">
+	<tr bgcolor="#color#" class="navigation_row labelmedium2">
 	
-	     <td height="20" align="center" style="cursor:pointer" onclick="workflowdrilldependent('#dependentid#','box_#dependentid#')" >
+	     <td height="20" align="center" style="padding-left:4px;cursor:pointer" onclick="workflowdrilldependent('#dependentid#','box_#dependentid#')" >
 		 
 		  <cfif opencontract eq "0" and url.action eq "person">
 				
@@ -248,8 +242,8 @@
 							 src="#SESSION.root#/Images/arrowright.gif" 
 							 align="absmiddle" 
 							 alt="Expand" 
-							 height="9"
-							 width="7"			
+							 height="10"
+							 width="10"			
 							 border="0"> 	
 										 
 					   <img name="col#WorkflowId#" id="col#WorkflowId#" 
@@ -257,7 +251,7 @@
 							 src="#SESSION.root#/Images/arrowdown.gif" 
 							 align="absmiddle" 
 							 height="10"
-							 width="9"
+							 width="10"
 							 alt="Hide" 			
 							 border="0"> 
 							 
@@ -268,8 +262,8 @@
 							 src="#SESSION.root#/Images/arrowright.gif" 
 							 align="absmiddle" 
 							 alt="Expand" 
-							 height="9"
-							 width="7"			
+							 height="10"
+							 width="10"			
 							 border="0"> 	
 										 
 					   <img name="col#WorkflowId#" id="col#WorkflowId#" 
@@ -277,7 +271,7 @@
 							 src="#SESSION.root#/Images/arrowdown.gif" 
 							 align="absmiddle" 
 							 height="10"
-							 width="9"
+							 width="10"
 							 alt="Hide" 			
 							 border="0"> 			
 					
@@ -466,14 +460,15 @@
 		<TD style="padding-right:2px"><cfif DateEffective neq "">#Dateformat(DateEffective, CLIENT.DateFormatShow)#<cfelse>#Dateformat(Created, CLIENT.DateFormatShow)#</cfif></TD>
 			
 		<cfif actionStatus eq "9">
-			<td id="status_#dependentid#" align="center" style="font-weight:200;min-width:70px;border:1px solid silver;background-color:ff0000"><cf_tl id="Inactive"></td>	
+			<td id="status_#dependentid#" align="center" style="font-weight:200;min-width:70px;border:1px solid silver;background-color:##ff0000"><cf_tl id="Inactive"></td>	
 		<cfelseif actionstatus eq "0">
 		<td id="status_#dependentid#" align="center" style="font-weight:200;min-width:70px;border:1px solid silver;border-right:0px;background-color:yellow"><cf_tl id="Pending"></td>
 		<cfelseif actionstatus eq "1">
-		<td id="status_#dependentid#" align="center" style="font-weight:200;min-width:70px;border:1px solid silver;border-right:0px;background-color:e1e1e1"><cf_tl id="In Process"></td>		
+		<td id="status_#dependentid#" align="center" style="font-weight:200;min-width:70px;border:1px solid silver;border-right:0px;background-color:##e1e1e1"><cf_tl id="In Process"></td>		
 		<cfelse>
-		<td id="status_#dependentid#" align="center" style="font-weight:200;min-width:70px;border:1px solid silver;border-right:0px;background-color:lime"><cf_tl id="Cleared"></td>	
+		<td id="status_#dependentid#" align="center" style="font-weight:200;min-width:70px;border:1px solid silver;border-right:0px;background-color:##80E382"><cf_tl id="Cleared"></td>	
 		</cfif>		
+		
 	</tr>
 		
 		<cfif len(remarks) gte "15">
@@ -544,11 +539,11 @@
 				
 					<cfif actionstatus eq "9">
 					
-					<table width="100%" bgcolor="f4f4f4" class="formpadding" style="border-top:1px solid silver;padding:bottom:2px">
+					<table width="98%" bgcolor="f4f4f4" style="border:1px solid silver;padding:bottom:2px">
 					
 					<cfelse>
 					
-					<table width="100%" bgcolor="ffffcf" class="formpadding" style="border-top:1px solid silver;padding:bottom:2px">
+					<table width="98%" bgcolor="ffffcf" style="border:1px solid silver;padding:bottom:2px">
 								
 					</cfif>
 					
@@ -578,11 +573,11 @@
 									   <cfelse>
 									   
 										   <cfif Status eq "2">									   
-										   <td width="10%" align="center" style="font-weight:200;border-right:1px solid silver;background-color:lime"><cf_tl id="Cleared"></td>
+										   <td width="10%" align="center" style="border-right:1px solid silver;background-color:##80E382"><cf_tl id="Cleared"></td>
 										   <cfelseif Status eq "1">   
-										     <td width="10%" align="center" style="font-weight:200;border-right:1px solid silver;background-color:yellow"><cf_tl id="In Process"></td>									   
+										     <td width="10%" align="center" style="border-right:1px solid silver;background-color:yellow"><cf_tl id="In Process"></td>									   
 										   <cfelse>
-										    <td width="10%" align="center" style="font-weight:200;border-right:1px solid silver;background-color:yellow"><cf_tl id="Pending"></td> 									   
+										    <td width="10%" align="center" style="border-right:1px solid silver;background-color:yellow"><cf_tl id="Pending"></td> 									   
 										   </cfif>
 									   </cfif>	
 									   
@@ -646,39 +641,36 @@
 						
 		<cfif url.action eq "person" and workflowid neq "">		
 			
-				<input type  = "hidden" 
-				       name  = "workflowlink_#dependentid#" 
-				       id    = "workflowlink_#dependentid#" 				   
-				       value = "#SESSION.root#/staffing/application/employee/dependents/EmployeeDependentWorkflow.cfm">	
-					   
-				<input type="hidden" 
-				   	   name="workflowlinkprocess_#dependentid#" id="workflowlinkprocess_#dependentid#" 
-				       onclick="ColdFusion.navigate('setDependentStatus.cfm?id=#dependentid#','status_#dependentid#')">		    				   
+			<input type  = "hidden" 
+			       name  = "workflowlink_#dependentid#" 
+			       id    = "workflowlink_#dependentid#" 				   
+			       value = "#SESSION.root#/staffing/application/employee/dependents/EmployeeDependentWorkflow.cfm">	
+				   
+			<input type="hidden" 
+			   	   name="workflowlinkprocess_#dependentid#" id="workflowlinkprocess_#dependentid#" 
+			       onclick="ptoken.navigate('setDependentStatus.cfm?id=#dependentid#','status_#dependentid#')">		    				   
+		
+			<cfif ActionStatus eq "0" or ActionStatus eq "1">
 			
-				<cfif ActionStatus eq "0" or ActionStatus eq "1">
+				<tr id="box_#dependentid#" class="navigation_row_child">
+				<td colspan="2"></td>
+				<td colspan="11" id="#dependentid#">
+			
+					<cfset url.ajaxid = dependentid>
+					<cfinclude template="EmployeeDependentWorkflow.cfm">
 				
-					<tr id="box_#dependentid#" class="navigation_row_child">
-					<td colspan="2"></td>
-					<td colspan="11" id="#dependentid#">
+				</td></tr>
 				
-						<cfset url.ajaxid = dependentid>
-						<cfinclude template="EmployeeDependentWorkflow.cfm">
-					
-					</td></tr>
-					
-				<cfelse>
-				
-					<tr id="box_#dependentid#" class="hide">
-					<td colspan="2"></td>
-					<td colspan="11" id="#dependentid#"></td></tr>
-				
-				</cfif>		
+			<cfelse>
+			
+				<tr id="box_#dependentid#" class="hide">
+				<td colspan="2"></td>
+				<td colspan="11" id="#dependentid#"></td></tr>
+			
+			</cfif>		
 			  	
 		</cfif>
 		
-
-		<tr class="line"><td colspan="12" height="2"></td></tr>
-			
 </cfoutput>
 
 </TABLE>

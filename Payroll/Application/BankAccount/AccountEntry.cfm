@@ -24,7 +24,7 @@ password="#SESSION.dbpw#">
 
 <cfoutput>
 
-<table cellpadding="0" cellspacing="0" width="99%" align="center">
+<table width="99%" align="center">
 
 	<tr><td height="10" style="padding-left:7px">	
 		  <cfset ctr      = "0">		
@@ -35,23 +35,21 @@ password="#SESSION.dbpw#">
 	
 </table>
 
-<table><tr><td height="2"></td></tr></table>	
-
-<table width="94%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="94%" align="center">
 <tr><td>
 
-	<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+	<table width="100%" align="center">
 	
 	   <tr>
-	    <td width="100%" height="22" align="left" class="labellarge" style="padding-left:12px;height:40px;font-size:25px">	
+	    <td width="100%" align="left" class="labellarge" style="padding-left:12px;height:40px;font-size:25px">	
 		
-		 <table class="formpadding">
+		 <table>
 		 <tr>
 		 <td>
 		    <cf_space spaces="20">   
 			<img src="#SESSION.root#/Images/BankAccounts.png" height="68" alt=""  border="0" align="absmiddle">			
 		 </td>
-		 <td height="24" style="padding-left:15px;font-size:27px;padding-top:28px;font-weight:200" class="labelmedium"><cf_tl id="Register bankaccount"></td>	
+		 <td height="24" style="padding-left:15px;font-size:27px;padding-top:14px;font-weight:200" class="labelmedium2"><cf_tl id="Register bankaccount"></td>	
 	     </tr> 		
 		 </table>
 		 
@@ -59,37 +57,35 @@ password="#SESSION.dbpw#">
 	  </tr>	 
 	    
 	  <tr>
-	    <td style="padding-top:10px;padding-left:22px" width="100%">
+	    <td style="padding-top:6px;padding-left:22px" width="100%">
 		
 			<cfform action="AccountEntrySubmit.cfm" method="POST" name="accountentry">
 			
 			<input type="hidden" name="PersonNo" value="#URL.ID#" class="regular">
 		
 		    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="formpadding">
-			
-		    <TR><td height="4"></td></TR>		
-		
+					
 		    <TR style="height:40px" class="line">
-		    <TD style="width:180px" class="labelmedium"><cf_tl id="Effective date">:</TD>
+		    <TD style="width:180px" class="labelmedium2"><cf_tl id="Effective date">:</TD>
 		    <TD>	
 				<table><tr><td>
 				
 				  <cf_intelliCalendarDate9
 				FieldName="DateEffective" 
 				Default="#Dateformat(now(), CLIENT.DateFormatShow)#"
-				class="regularxl enterastab"
+				class="regularxxl enterastab"
 				AllowBlank="False">	
 				
 				</td>
 				
 				<!---
 				
-				<TD class="labelmedium" style="padding-left:20px"><cf_tl id="Expiration date">:</TD>
+				<TD class="labelmedium2" style="padding-left:20px"><cf_tl id="Expiration date">:</TD>
 		        <TD>	
 				  <cf_intelliCalendarDate9
 				FieldName="DateExpiration" 
 				Default=""
-				class="regularxl enterastab"
+				class="regularxxl enterastab"
 				AllowBlank="True">	
 				
 			    </TD>			
@@ -103,8 +99,8 @@ password="#SESSION.dbpw#">
 			</TR>
 							
 			<TR>
-		    <TD class="labelmedium" style="height:32px"><cf_tl id="Destination">:</TD>
-		    <TD class="labelmedium">	
+		    <TD class="labelmedium2" style="height:32px"><cf_tl id="Destination">:</TD>
+		    <TD class="labelmedium2">	
 				<INPUT type="radio" class="enterastab" name="Destination" value="Personal" checked> <cf_tl id="Personal">
 				<INPUT type="radio" class="enterastab" name="Destination" value="Beneficiary"> <cf_tl id="Beneficiary">
 				
@@ -112,10 +108,10 @@ password="#SESSION.dbpw#">
 			</TR>
 				
 		    <TR>
-		    <TD class="labelmedium"><cf_tl id="Bank name">:</TD>
+		    <TD class="labelmedium2"><cf_tl id="Bank name">:</TD>
 		   	
 		    <TD>
-			  	<select name="BankCode" size="1" class="regularxl enterastab">
+			  	<select name="BankCode" size="1" class="regularxxl enterastab">
 				<cfloop query="Bank">
 				<option value="#Code#">
 		    		#Description#
@@ -127,24 +123,24 @@ password="#SESSION.dbpw#">
 			</TR>
 				
 			<TR>
-		    <TD class="labelmedium" style="padding-left:10px;"><cf_tl id="Bank Address">:</TD>
+		    <TD class="labelmedium2" style="padding-left:10px;"><cf_tl id="Bank Address">:</TD>
 		   	<TD>
-			<input type="text" name="BankAddress" style="width:95%" size="40" maxlength="80" class="regularxl enterastab">
+			<input type="text" name="BankAddress" style="width:95%" size="40" maxlength="80" class="regularxxl enterastab">
 			 </TD>
 			
 			</TR>
 				
 			<TR>
-		    <TD class="labelmedium" style="padding-left:10px;"><cf_tl id="Bank Telephone">:</TD>
-		   	<TD class="labelmedium">
-			<input type="text" name="BankTelephoneNo" id="BankTelephoneNo" value="" size="10" maxlength="20" class="regularxl enterastab">
+		    <TD class="labelmedium2" style="padding-left:10px;"><cf_tl id="Bank Telephone">:</TD>
+		   	<TD class="labelmedium2">
+			<input type="text" name="BankTelephoneNo" id="BankTelephoneNo" value="" size="10" maxlength="20" class="regularxxl enterastab">
 			</TD>
 			
 			</TR>
 				
 			<TR>
-		    <TD class="labelmedium" style="height:32px"><cf_tl id="Account type">:</TD>
-			<TD class="labelmedium">
+		    <TD class="labelmedium2" style="height:32px"><cf_tl id="Account type">:</TD>
+			<TD class="labelmedium2">
 		        <INPUT type="radio" class="enterastab" name="AccountType" value="Checking" checked> <cf_tl id="Checking">
 				<INPUT type="radio" class="enterastab" name="AccountType" value="Savings"> <cf_tl id="Savings">
 				<INPUT type="radio" class="enterastab" name="AccountType" value="Credit"> <cf_tl id="Credit Card">		
@@ -152,7 +148,7 @@ password="#SESSION.dbpw#">
 			</TR>
 				
 			<TR>
-		    <TD class="labelmedium"><cf_tl id="Account Name">:</TD>
+		    <TD class="labelmedium2"><cf_tl id="Account Name">:</TD>
 		   	<TD>
 				<cf_tl id="Please enter account name" var="vAccountMessage" class="message">
 				<cfinput type="Text"
@@ -163,13 +159,13 @@ password="#SESSION.dbpw#">
 			       enabled="Yes"
 			       size="50"
 			       maxlength="80"
-			       class="regularxl enterastab">
+			       class="regularxxl enterastab">
 			</TD>
 			
 			</TR>	
 				
 			<TR>
-		    <TD class="labelmedium"><cf_tl id="Account No">:</TD>
+		    <TD class="labelmedium2"><cf_tl id="Account No">:</TD>
 		    <TD>
 				 <cf_tl id="You must enter a bank account no" var="vAccountNameMessage" class="message">
 				 <cfinput type="Text"
@@ -181,31 +177,35 @@ password="#SESSION.dbpw#">
 			       enabled="Yes"
 			       size="20"
 			       maxlength="35"
-			       class="regularxl enterastab">
+			       class="regularxxl enterastab">
 		    </TD>
 			
 			</TR>
+			
+			<cf_tl id="You must enter a ABA no" var="vABAMessage" class="message">
 				
 			<TR>
 		    <TD class="labelit" style="padding-left:10px;"><cf_tl id="ABA">:</TD>
-		    <TD><input type="text" class="regularxl enterastab" name="AccountABA" size="10" maxlength="20"></TD>
+		    <TD><cfinput type="text" message="#vABAMessage#" class="regularxxl enterastab" name="AccountABA" validate="noblanks" size="10" maxlength="20"></TD>
 			
 			</TR>
 			
+			<cf_tl id="You must enter a SWIFT no" var="vSwiftMessage" class="message">
+			
 			<TR>
 		    <TD class="labelit" style="padding-left:10px;"><cf_tl id="Swift code">:</TD>
-		    <TD><input type="text" class="regularxl enterastab" name="SwiftCode" size="11" maxlength="11"></TD>
+		    <TD><cfinput type="text" message="#vSWIFTMessage#" class="regularxxl enterastab" name="SwiftCode" validate="noblanks" size="11" maxlength="11"></TD>
 			
 			</TR>
 			
 			<TR>
 		    <TD class="labelit" style="padding-left:10px;"><cf_tl id="IBAN">:</TD>
-		    <TD class="labelmedium"><input type="text" class="regularxl enterastab" value="" name="IBAN" id="IBAN" size="25" maxlength="35"></TD>
+		    <TD class="labelmedium2"><input type="text" class="regularxxl enterastab" value="" name="IBAN" id="IBAN" size="25" maxlength="35"></TD>
 			
 			</TR>
 			
 			<TR>
-		    <TD class="labelmedium"><cf_tl id="Account currency">:</TD>
+		    <TD class="labelmedium2"><cf_tl id="Account currency">:</TD>
 			
 			 <TD>
 				 	 
@@ -218,7 +218,7 @@ password="#SESSION.dbpw#">
 					WHERE SalarySchedule = '#Contract.SalarySchedule#'
 			</cfquery>
 				 
-			 <select name="AccountCurrency" class="regularxl enterastab">
+			 <select name="AccountCurrency" class="regularxxl enterastab">
 			  	<cfloop query="Currency">
 				<option value="#Currency#" <cfif currency eq schedule.paymentcurrency>selected</cfif>> #Currency#</option>
 				</cfloop>
@@ -232,14 +232,14 @@ password="#SESSION.dbpw#">
 		    <tr><td height="5"></td></tr>	
 
 			<TR>
-		        <td class="labelmedium" valign="top" style="padding-top:6px;"><cf_tl id="Pay through">:</td>
+		        <td class="labelmedium2" valign="top" style="padding-top:6px;"><cf_tl id="Pay through">:</td>
 		        <TD valign="top" style="padding-top:0px;">
 		        	<cfdiv id="divAccountMission" bind="url:AccountMission.cfm?PersonNo=#url.id#&AccountId=">
 		        </TD>
 			</TR>
 					   
 			<TR>
-		        <td class="labelmedium"><cf_tl id="Remarks">:</td>
+		        <td class="labelmedium2"><cf_tl id="Remarks">:</td>
 		        <TD><textarea cols="50" style="padding;3px;font-size:14px;width:95%" class="regular" rows="3" name="Remarks"></textarea> </TD>
 			</TR>
 			

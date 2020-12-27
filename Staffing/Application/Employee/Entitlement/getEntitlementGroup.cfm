@@ -76,11 +76,10 @@ password="#SESSION.dbpw#">
 	    <cfoutput query="Group">							
 			<cfif applyMode eq "DOB">		
 			    <cfif age gte ApplyRangeFrom and age lte applyRangeTo>
-					<option value="#EntitlementGroup#"><cfif EntitlementName neq "">#EntitlementName#<cfelse>#EntitlementGroup#</cfif>
-					</option>
+					<option value="#EntitlementGroup#"><cfif EntitlementName neq "">#EntitlementName#<cfelse>#EntitlementGroup#</cfif></option>
 				</cfif>				
 			<cfelse>
-			    <option value="#EntitlementGroup#"><cfif EntitlementName neq "">#EntitlementName#<cfelse>#EntitlementGroup#</cfif> </option>
+			    <option value="#EntitlementGroup#"><cfif EntitlementName neq "">#EntitlementName#<cfelse>#EntitlementGroup#</cfif></option>
 			</cfif>	
 		</cfoutput>
 	</select>

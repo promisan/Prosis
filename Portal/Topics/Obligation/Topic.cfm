@@ -32,7 +32,7 @@ password="#SESSION.dbpw#">
 		<cf_paneItem id="Obligation" 
 		    systemfunctionid = "#systemfunctionid#"  
 			source           = "#session.root#/Portal/Topics/Obligation/ObligationClass.cfm?mission=#mission#"
-			width            = "95%"
+			width            = "98%"
 			height           = "auto"			
 			Mission          = "#mission#"
 			Period           = "#valuelist(PeriodList.PlanningPeriod)#"

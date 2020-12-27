@@ -641,10 +641,10 @@ password="#SESSION.dbpw#">
 <cfif (val - incamt) gt 0.005>
   
     <cfif url.dialog eq "0">	
-	 	<cf_message message = "You are not allowed to exceed the amount of the received invoice #Header.DocumentCurrency# #numberformat(incamt,"__,__.__")#."
+	 	<cf_message message = "You are not allowed to exceed the amount of the received invoice #Header.DocumentCurrency# #numberformat(incamt,",.__")#."
 	  	return = "no">
 	<cfelse>
-	     <cf_alert message = "You are not allowed to exceed the amount of the received invoice in the amount of #Header.DocumentCurrency# #numberformat(incamt,',__.__')#.">
+	     <cf_alert message = "You are not allowed to exceed the amount of the received invoice in the amount of #Header.DocumentCurrency# #numberformat(incamt,',.__')#.">
 	</cfif>	 
 	<cfabort>			
  
@@ -1265,12 +1265,10 @@ password="#SESSION.dbpw#">
 </cftransaction>
 
 <cfif url.mode neq "workflow">
-
 	
 	<script>
     	parent.parent.document.getElementById('refreshamount').click()
-		parent.parent.ColdFusion.Window.destroy('mydialog',true)
-	
+		parent.parent.ProsisUI.closeWindow('mydialog')	
 	</script>	
     
 </cfif>

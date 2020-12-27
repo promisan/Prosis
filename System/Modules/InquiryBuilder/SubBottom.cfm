@@ -39,7 +39,7 @@ password="#SESSION.dbpw#">
 				try {show('regular')} catch(e) {}
 			</script>
 						
-			<table cellspacing="0" cellpadding="0" class="formspacing formpadding">
+			<table>
 			<tr>				
 														
 			<cf_distributer>			
@@ -61,7 +61,7 @@ password="#SESSION.dbpw#">
 				<button type="button"
 					class="button10g"
 					style="width:145;height:25"
-					onclick="ColdFusion.navigate('#SESSION.root#/tools/process/entityaction/FunctionDeploy.cfm?controlid=#URL.SystemFunctionId#','deploy')">
+					onclick="ptoken.navigate('#SESSION.root#/tools/process/entityaction/FunctionDeploy.cfm?controlid=#URL.SystemFunctionId#','deploy')">
 					<img src="#SESSION.root#/Images/deploy.gif" height="12" align="absmiddle" alt="" border="0"> Deploy
 				</button>
 				</td>
@@ -80,14 +80,12 @@ password="#SESSION.dbpw#">
 				--->						
 							
 			</cfif>
-			
-			
-			
+						
 			<td onMouseOver="document.getElementById('save').focus()">
 			
 			<button name="save" id="save" class="button10g" style="width:145;height:25" type="button"
-				onclick="ColdFusion.navigate('#SESSION.root#/System/Modules/InquiryBuilder/InquiryEditSubmit.cfm?systemfunctionid=#URL.SystemFunctionId#&FunctionSerialNo=#URL.FunctionSerialNo#','result','','','POST','inquiryform');document.getElementById('testing').className='button10s'">
-					<img src="#SESSION.root#/Images/check_mark.gif" align="absmiddle" alt="" border="0"> Save
+				onclick="ptoken.navigate('#SESSION.root#/System/Modules/InquiryBuilder/InquiryEditSubmit.cfm?systemfunctionid=#URL.SystemFunctionId#&FunctionSerialNo=#URL.FunctionSerialNo#','result','','','POST','inquiryform');document.getElementById('testing').className='button10g'">
+				 Save
 			</button>
 			
 			</td>
@@ -100,7 +98,7 @@ password="#SESSION.dbpw#">
 		
 		<cfcatch>
 			
-			<input class="button10s" style="height:22" type="button" name="Cancel" id="Cancel" value="Close" onclick="window.close();returnvalue=9">
+			<input class="button10g" style="height:25px" type="button" name="Cancel" id="Cancel" value="Close" onclick="window.close();returnvalue=9">
 				
 		</cfcatch>
 	

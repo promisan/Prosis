@@ -48,11 +48,11 @@
 			<cf_MobileGraphPalette 
 				color="green" 
 				transparency="0.9">
-			<td style="background-color:#colors[1]#; height:20;width:20;border;1px solid gray"></td><td class="labelit" style="padding-left:5px;padding-right:20px"><cf_tl id="Surplus"></td>
+			<td style="background-color:#colors[1]#; height:20;width:20;border;1px solid gray"></td><td class="labellarge" style="padding-left:5px;padding-right:20px"><cf_tl id="Surplus"></td>
 			<cf_MobileGraphPalette 
 				color="red" 
 				transparency="0.6">
-			<td style="background-color:#colors[1]#; height:20;width:20;border;1px solid gray"></td><td class="labelit" style="padding-left:5px;padding-right:20px"><cf_tl id="Deficit"></td>
+			<td style="background-color:#colors[1]#; height:20;width:20;border;1px solid gray"></td><td class="labellarge" style="padding-left:5px;padding-right:20px"><cf_tl id="Deficit"></td>
 		  </tr>
 	  
 		</table>

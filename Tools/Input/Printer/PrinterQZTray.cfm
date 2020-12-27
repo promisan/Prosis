@@ -60,13 +60,13 @@ qz.websocket.setErrorCallbacks(handleConnectionError);
 
             qz.websocket.connect(config).then(function() {
               <cfif attributes.useDefault eq "No">
-                    doPrint();
+                    //doPrint();
                 <cfelse>
                     findDefaultPrinter(true);
                 </cfif>
             }).catch(handleConnectionError);
         } else {
-            doPrint();
+            //doPrint();
         }
     }
 

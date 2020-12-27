@@ -42,6 +42,7 @@
 </cfif>
 --->
 
+<cfinclude template="ValidateRequest.cfm">
 <cfinclude template="ZeroPriceValidation.cfm">
 <cfinclude template="../Settlement/OversaleValidation.cfm">
 

@@ -36,7 +36,7 @@
 
 <cf_divscroll>
 	
-		<table width="98%" align="center" border="0" cellspacing="0" cellpadding="0" class="formpadding navigation_table">
+		<table width="98%" align="center" class="formpadding navigation_table">
 								
 		  <cfif url.webapp eq "">
 		  		
@@ -188,7 +188,7 @@
 		  <tr><td height="3"></td></tr>		   
 		  <tr>
 		  <td width="100%" colspan="3" class="clsPrintBalance">
-		  <table border="0" cellpadding="0" cellspacing="0" width="99%" align="center" class="formpadding">
+		  <table width="99%" align="center" class="formpadding">
 		  		  				
 			<tr class="line labelmedium fixrow">			
 			<td height="18"></td>

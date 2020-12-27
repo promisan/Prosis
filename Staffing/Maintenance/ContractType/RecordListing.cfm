@@ -22,11 +22,11 @@ password="#SESSION.dbpw#">
 <script LANGUAGE = "JavaScript">
 
 function recordadd(grp) {
-          window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 600, height= 500, toolbar=no, status=yes, scrollbars=no, resizable=yes");
+          ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 600, height= 500, toolbar=no, status=yes, scrollbars=no, resizable=yes");
 }
 
 function recordedit(id1) {
-          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width= 600, height= 500, toolbar=no, status=yes, scrollbars=no, resizable=yes");
+          ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width= 600, height= 500, toolbar=no, status=yes, scrollbars=no, resizable=yes");
 }
 
 </script>	
@@ -52,7 +52,7 @@ function recordedit(id1) {
 
 	<cfoutput query="SearchResult">
 	    <tr class="navigation_row line labelmedium" style="height:20px"> 
-		<td height="18" width="5%" align="center" style="padding-top:4px">
+		<td height="18" width="5%" align="center" style="padding-top:2px">
 		    <cf_img icon="open" navigation="yes" onclick="recordedit('#ContractType#');">
 		</td>			
 		<td>#ContractType#</td>

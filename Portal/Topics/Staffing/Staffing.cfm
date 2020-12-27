@@ -201,7 +201,7 @@
 	 GROUP BY PostClassGroup			  
  </cfquery>	
 			
-<table width="99%" height="100%" class="navigation_table" border="0">
+<table width="98%" align="center" height="100%" class="navigation_table" border="0">
 	  
 		  <cfif Post.recordcount eq "0">
 		  

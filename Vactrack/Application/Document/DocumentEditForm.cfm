@@ -2,43 +2,41 @@
 <cfform action="DocumentEditSubmit.cfm" method="post" name="documentedit" style="padding-left:20px;padding-right:20px">
  
 	<table align="center" bgcolor="white" style="min-width:1100px;width:100%" >
-	
-	  <tr><td height="10"></td></tr>
-	  
+		 	  
 	  <cfif ((Doc.Status is "0" or Doc.Status is "9") and AccessHeader eq "ALL") or getAdministrator("*") eq "1">
 	  
-		  	 <tr><td style="height:48">
+		  	 <tr><td style="height:48px">
 			 
-				  <table width="100%" border="0" cellspacing="0" align="right" class="formpadding">
+				  <table width="100%" align="right" class="formpadding">
 				    
 				  <tr>
 										  
-				  <td style="font-size:31px;padding-left:6px;font-weight:bold">
+				  <td style="font-size:30px;padding-left:6px;">
 				  
 				  <cfoutput>
 				  
-				  <cfif Doc.Status is "9"><font color="FF8080">Cancelled/Withdrawn </b></cfif></font>
-				  <cfif Doc.Status is "1"><font color="green">Track Closed on <b>#dateformat(doc.StatusDate,client.dateformatshow)#</b> by <b>#doc.StatusOfficerLastName#</b></cfif></font>
-				  <cfif Doc.Status is "0"><font color="gray">Track in Process</b></cfif></font>		
+				  <cfif Doc.Status is "9"><font color="FF8080"><cf_tl id="Cancelled/Withdrawn"></font></cfif>
+				  <cfif Doc.Status is "1"><font color="green"><cf_tl id="Track closed"><br><font size="2">on #dateformat(doc.StatusDate,client.dateformatshow)# #doc.StatusOfficerLastName#</font></cfif></font>
+				  <cfif Doc.Status is "0"><font color="gray"><cf_tl id="Track in Process"></font></cfif>		
 				  
 				  </cfoutput>	 
 				  
 				  </td>			
 				  
-				  <td class="labellarge">
+				  <td class="labelmedium">
 				  
 			        <cfoutput>	
-				      <cfif getPost.recordcount lt getCandidate.recordcount><font color="FF0000">PROBLEM:&nbsp;<font></font></cfif>	
-					  <cf_tl id="Positions">: <b>#getPost.recordcount#</b> | <cf_tl id="Selected candidates">: <b><cfif getCandidate.recordcount eq "0"><font color="FF0000"></cfif>#getCandidate.recordcount#</b>				 
+				      <cfif getPost.recordcount lt getCandidate.recordcount><font color="FF0000">PROBLEM:&nbsp;<font></cfif>	
+					  <cf_tl id="Job opening">: <b>#getPost.recordcount#</b> | <cf_tl id="Selected">: <b><cfif getCandidate.recordcount eq "0"><font color="FF0000"></cfif>#getCandidate.recordcount#</b>				 
 					</cfoutput>
 					
 			      </td>
 							  
 				  <td id="result"></td>
 				  	
-				  <td align="right" colspan="2" style="border:0px solid silver">
+				  <td align="right" colspan="2">
 				  
-				         <table class="formspacing"><tr>
+				         <table class="formspacing"><tr class="labelmedium">
 				  						  
 				  		<cfif (Doc.Status is "0")>
 					
@@ -70,12 +68,14 @@
 						  	   
 					   	<cfelse>
 						
+							<td>
 						    <!--- check candidates with status = 3 --->
 							<cfif getPost.recordcount eq GetCompleted.recordcount>						
-							   <b><font size="2" color="808080">Closed</b>&nbsp;
+							   <font color="808080"><cf_tl id="Fulfilled"></font>
 							<cfelse>
-							   <b><font color="green">Under recruitment</b>  
+							   <font color="green"><cf_tl id="Under recruitment"></font>  
 							</cfif>
+							</td>
 					   	
 					   </cfif>
 					
@@ -124,7 +124,7 @@
 	  <tr>
 	    <td width="100%">
 		
-	    <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+	    <table width="100%" align="center">
 		
 		<tr><td colspan="3">
 		

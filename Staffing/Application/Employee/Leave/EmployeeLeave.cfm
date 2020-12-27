@@ -51,9 +51,7 @@
 		
 	<cfparam name="URL.Mode" default="records">
 	
-	<link rel="stylesheet" type="text/css" href="#SESSION.root#/<cfoutput>#client.style#</cfoutput>">
-	
-	<table width="100%" height="100%" align="center" cellspacing="0" cellpadding="0">
+	<table width="100%" height="100%" align="center">
 	
 		<tr>
 			<td height="10" style="padding-top:3px;padding-left:7px;padding-bottom:3px">			
@@ -65,7 +63,7 @@
 		
 		<tr><td height="100%" width="100%" align="center">
 		        
-				<table width="100%" height="100%" cellspacing="0" cellpadding="0">
+				<table width="100%" height="100%">
 				<tr><td style="padding-left:10px"><cfinclude template="EmployeeLeaveTab.cfm"></td></tr>
 				</table>	
 				

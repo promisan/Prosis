@@ -121,14 +121,14 @@ password="#SESSION.dbpw#">
 	 <cfif Entitlement.Status eq "9" or Entitlement.Status eq "8">
 		
 		<tr><td></td></tr>
-		<tr bgcolor="FFFF00"><td style="border:1px solid silver" class="labelmedium" colspan="3" align="center">Attention, this record is no longer applicable or effective</font></td></tr>
+		<tr bgcolor="FFFF00"><td style="border:1px solid silver" class="labelmedium2" colspan="3" align="center">Attention, this record is no longer applicable or effective</font></td></tr>
 
      <cfelse>		
 	 
 	 	<cfif url.action eq "1">
 	 
 	 	<tr><td></td></tr>
-		<tr><td style="border:1px solid silver" class="labelmedium" colspan="3" align="center">Attention, this record currently applicable and effective</font></td></tr>
+		<tr><td style="border:1px solid silver" class="labelmedium2" colspan="3" align="center">Attention, this record currently applicable and effective</font></td></tr>
 		
 		</cfif>
 			
@@ -173,13 +173,13 @@ password="#SESSION.dbpw#">
 		
 	    <TR><TD style="height:5px"></TD></TR>		
 		
-		<TR class="labelmedium">
+		<TR class="labelmedium2">
 	    <TD style="min-width:200px"><cf_tl id="Entitlement">:</TD>
 	    <TD style="min-width:400px">
 		
 			<cfif accessmode eq "edit">
 		
-				 <input type="text" name="SalaryTrigger" style="background-color:e4e4e4" value="#Entitlement.SalaryTrigger#" size="30" maxlength="30" readonly class="regularxl">		
+				 <input type="text" name="SalaryTrigger" style="background-color:e4e4e4" value="#Entitlement.SalaryTrigger#" size="30" maxlength="30" readonly class="regularxxl">		
 				 
 			<cfelse>
 			
@@ -198,13 +198,13 @@ password="#SESSION.dbpw#">
 		</TD>
 		</TR>	
 		
-		<TR class="labelmedium">
+		<TR class="labelmedium2">
 	    <TD><cf_tl id="Salary schedule">:</TD>
 	    <TD>
 		
 			<cfif accessmode eq "edit">
 			
-			  	<select name="SalarySchedule" size="1" class="regularxl">
+			  	<select name="SalarySchedule" size="1" class="regularxxl">
 				<cfloop query="SalarySchedule">
 				<option value="#SalarySchedule.SalarySchedule#" <cfif Entitlement.SalarySchedule eq SalarySchedule>selected</cfif>>
 		    		#SalarySchedule# #Description#
@@ -232,7 +232,7 @@ password="#SESSION.dbpw#">
 		
 		 
 	 
-	    <TR class="labelmedium">
+	    <TR class="labelmedium2">
 	    <TD><cf_tl id="Effective date">:</TD>
 	    <TD>
 		
@@ -241,7 +241,7 @@ password="#SESSION.dbpw#">
 			  <cf_intelliCalendarDate9
 			FormName="EntitlementEdit"
 			FieldName="DateEffective" 
-			class="regularxl"
+			class="regularxxl"
 			DateFormat="#APPLICATION.DateFormat#"
 			Default="#Dateformat(Entitlement.DateEffective, CLIENT.DateFormatShow)#">	
 			
@@ -254,7 +254,7 @@ password="#SESSION.dbpw#">
 		</TD>
 		</TR>
 			
-		<TR class="labelmedium">
+		<TR class="labelmedium2">
 	    <TD><cf_tl id="Expiration date">:</TD>
 	    <TD>
 		
@@ -263,7 +263,7 @@ password="#SESSION.dbpw#">
 			  <cf_intelliCalendarDate9
 				FormName   = "EntitlementEdit"
 				FieldName  = "DateExpiration" 
-				class      = "regularxl"
+				class      = "regularxxl"
 				DateFormat = "#APPLICATION.DateFormat#"
 				Default    = "#Dateformat(Entitlement.DateExpiration, CLIENT.DateFormatShow)#">	
 				
@@ -278,7 +278,7 @@ password="#SESSION.dbpw#">
 				
 		<cfif Trigger.enableAmount eq "1">
 		
-		<TR class="labelmedium">
+		<TR class="labelmedium2">
 		    <TD width="170"><cf_tl id="Start date of reimbursement">:</TD>
 		    <TD>
 			
@@ -288,7 +288,7 @@ password="#SESSION.dbpw#">
 				
 					 <cf_intelliCalendarDate9
 						FieldName="EntitlementDate" 					
-						Class="regularxl enterastab"
+						Class="regularxxl enterastab"
 						DateFormat="#APPLICATION.DateFormat#"
 						Default="#Dateformat(Entitlement.EntitlementDate, CLIENT.DateFormatShow)#"
 						AllowBlank = "False">	
@@ -297,7 +297,7 @@ password="#SESSION.dbpw#">
 				
 					  <cf_intelliCalendarDate9
 						FieldName="EntitlementDate" 					
-						Class="regularxl enterastab"
+						Class="regularxxl enterastab"
 						DateFormat="#APPLICATION.DateFormat#"
 						Default="#Dateformat(Entitlement.DateEffective, CLIENT.DateFormatShow)#"
 						AllowBlank = "False">	
@@ -321,7 +321,7 @@ password="#SESSION.dbpw#">
 				</td>
 			</tr>
 		
-		<TR id="enableamount" class="labelmedium">
+		<TR id="enableamount" class="labelmedium2">
 	    <TD><cf_tl id="Submitted Amount">:</TD>
 		
 		<cfquery name="Currency" 
@@ -342,7 +342,7 @@ password="#SESSION.dbpw#">
 			<tr>
 			<td>
 		
-		  	<select name="Currency" size="1" class="regularxl">
+		  	<select name="Currency" size="1" class="regularxxl">
 			<cfloop query="Currency">
 			<option value="#Currency#" <cfif entitlement.currency eq Currency>selected</cfif>>
 	    		#Currency#
@@ -354,7 +354,7 @@ password="#SESSION.dbpw#">
 			
 			<td style="padding-left:4px">
 			
-		    <cfinput type="Text" value="#entitlement.amount#" class="regularxl"  name="Amount" message="Please enter a correct amount" validate="float" required="Yes" size="12" maxlength="16" style="text-align: center">
+		    <cfinput type="Text" value="#entitlement.amount#" class="regularxxl"  name="Amount" message="Please enter a correct amount" validate="float" required="Yes" size="12" maxlength="16" style="text-align: center">
 			
 			</td>
 			</tr>
@@ -372,13 +372,13 @@ password="#SESSION.dbpw#">
 		
 		</cfif>		
 			
-		<TR class="labelmedium">
+		<TR class="labelmedium2">
 	    <TD><cf_tl id="Reference2">:</TD>
 	    <TD>
 		
 			<cfif accessmode eq "edit">
 	
-			    <input type="text" class="regularxl" name="documentReference" value="#Entitlement.DocumentReference#" class="regular" size="30" maxlength="30">		
+			    <input type="text" class="regularxxl" name="documentReference" value="#Entitlement.DocumentReference#" class="regular" size="30" maxlength="30">		
 				
 			<cfelse>
 			
@@ -392,8 +392,8 @@ password="#SESSION.dbpw#">
 		<cfif Trigger.SalaryTrigger eq trigger.triggerDependent 
 				and Trigger.TriggerCondition eq "Dependent">
 		
-			<TR class="labelmedium" id="dependentbox">
-		    <TD class="labelmedium" valign="top" style="padding-top:4px"><cf_tl id="Qualifying dependents">:</TD>
+			<TR class="labelmedium2" id="dependentbox">
+		    <TD class="labelmedium2" valign="top" style="padding-top:4px"><cf_tl id="Qualifying dependents">:</TD>
 		    <TD>			
 					
 				<cfif accessmode eq "edit">
@@ -410,7 +410,7 @@ password="#SESSION.dbpw#">
 				
 				<table>
 				<cfloop query = "dependents">		 
-					<tr class="labelmedium <cfif currentrow lt recordcount>line</cfif>">
+					<tr class="labelmedium2 <cfif currentrow lt recordcount>line</cfif>">
 						<td>#FirstName# #LastName#</td>						
 						<td style="padding-left:6px">#Relationship#</td>
 						<td style="padding-left:6px">#dateformat(birthdate,client.dateformatshow)# (#datediff("yyyy",BirthDate,now())#)</td>
@@ -467,7 +467,7 @@ password="#SESSION.dbpw#">
 					
 					<table>
 					<cfloop query = "dependents">		 
-						<tr class="labelmedium <cfif currentrow lt recordcount>line</cfif>">
+						<tr class="labelmedium2 <cfif currentrow lt recordcount>line</cfif>">
 							<td>#FirstName#</td>
 							<td style="padding-left:4px">#LastName#</td>
 							<td style="padding-left:4px">#dateformat(birthdate,client.dateformatshow)#</td>
@@ -482,7 +482,7 @@ password="#SESSION.dbpw#">
 		
 		</cfif>
 				
-		<TR class="labelmedium">
+		<TR class="labelmedium2">
 	        <td valign="top" style="padding-top:4px" width="100"><cf_tl id="Remarks">:</td>
 	        <TD>
 			
@@ -543,21 +543,19 @@ password="#SESSION.dbpw#">
 		
 					<TR class="line"><TD colspan="2" class="line">					    	
 											
-								<table width="100%" bgcolor="FFFFFF">
-								   <tr><td height="30" align="center">
-									   <cf_tl id="Back" var="1">
-								   	   <input type="button" name="cancel" value="#lt_text#" class="button10g" onClick="goback()">			   							 							   
-								   </td></tr>
-							   </table>
+							<table width="100%" bgcolor="FFFFFF">
+							   <tr><td height="30" align="center">
+								   <cf_tl id="Back" var="1">
+							   	   <input type="button" name="cancel" value="#lt_text#" class="button10g" onClick="goback()">			   							 							   
+							   </td></tr>
+						   </table>
 				   
 				   </TD></TR>	
 				   
 			   </cfif>
 		   
 		    </cfif>
-				
-		
-	   
+			
 		</cfoutput>		
 	
 		<cfquery name="Person" 
@@ -598,7 +596,7 @@ password="#SESSION.dbpw#">
 		</cfquery>
 				
 		<cfif OnBoard.recordcount eq "0">
-		<tr><td colspan="2" class="labelmedium">
+		<tr><td colspan="2" class="labelmedium2">
 				<font>Problem, no active assignment found for selected entitlement period</font>
 			</td>
 		</tr>		
@@ -620,7 +618,7 @@ password="#SESSION.dbpw#">
 		
 		<cfif start.recordcount eq "0">
 		
-		<tr><td colspan="2" class="labelmedium" align="center">
+		<tr><td colspan="2" class="labelmedium2" align="center">
 				<font color="FF0000">Alert : no active assignment found for the effective date of this entitlement</font>
 				</td>
 		</tr>		
@@ -653,7 +651,7 @@ password="#SESSION.dbpw#">
 			 	</cfquery>	
 			
 				<tr>
-					<td colspan="2" class="labelmedium" align="center">
+					<td colspan="2" class="labelmedium2" align="center">
 			
 					<cfset link = "Staffing/Application/Employee/Entitlement/EntitlementEditTrigger.cfm?ID=#url.id#&ID1=#Entitlement.EntitlementId#">
 			

@@ -69,11 +69,11 @@
 				<!--- prevent running the query --->
 				
 				<cfset filterselect = searchresult>
-			
+							
 			<cfelse>								
 			
-				<cfset scfull = replaceNoCase(sc,condition,"")>			
-			
+				<cfset scfull = replaceNoCase(sc,condition,"")>		
+							
 				<cfquery name="filterselect" 
 				datasource="#attributes.datasource#" 
 				username="#SESSION.login#" 
@@ -86,7 +86,7 @@
 				--->
 											
 			</cfif>	
-			
+									
 			<cfset reset = "">			
 																	
 			<cfloop array="#attributes.listlayout#" index="current">	
@@ -137,7 +137,7 @@
 						
 						<cfif srt eq "">
 						   <cfset srt = fld>
-						</cfif>										
+						</cfif>																		
 					
 						<cfif current.lookupscript neq "">
 						
@@ -155,20 +155,24 @@
 												
 							<cftry>		
 																				
-								<cfif current.lookupgroup eq "">			
-																																				
+								<cfif current.lookupgroup eq "">	
+																																																				
 								 	<cfquery name="lookupdata" dbtype="query">
-									    SELECT   DISTINCT #srh# AS CODE, #displ# AS DISPLAY   
+									    SELECT   DISTINCT #srh# AS CODE, #displ# AS DISPLAY, #srt# as SORT   
 							   			FROM     filterselect				
 										WHERE    #fld# is not NULL 	and #fld# != ''
 										ORDER BY #srt# 								 
-								    </cfquery>																
+								    </cfquery>		
+									
+									<!---
+									<cfoutput> DISTINCT = faster than group by  #cfquery.executiontime#</cfoutput>		
+									--->												
 																				
 								<cfelse>
 								
 									<cfquery name="lookupdata" dbtype="query">
 									
-									    SELECT   DISTINCT #srh# AS CODE, #displ# AS DISPLAY, #current.lookupgroup#   
+									    SELECT   DISTINCT #srh# AS CODE, #displ# AS DISPLAY, #current.lookupgroup#, #srt# as SORT      
 							   			FROM     filterselect				
 										WHERE    #fld# is not NULL and #fld# != '' 	
 										ORDER BY #current.lookupgroup#,#srt#							 
@@ -180,20 +184,20 @@
 							<cfcatch>
 							
 								<cfset fld  = current.field>	
-								<cfset srh  = current.field>		
-																					
+								<cfset srh  = current.field>	
+																																					
 								<cfif current.lookupgroup eq "">		
 																																			
 								 	<cfquery name="lookupdata" dbtype="query">
-									    SELECT   DISTINCT #srh# AS CODE,#displ# AS DISPLAY   
+									    SELECT   DISTINCT #srh# AS CODE,#displ# AS DISPLAY, #srt# as SORT      
 							   			FROM     filterselect													
-										ORDER BY #fld# 								 
+										ORDER BY #srt# 								 
 								    </cfquery>		
 								
 								<cfelse>
 							
 									<cfquery name="lookupdata" dbtype="query">
-									    SELECT   DISTINCT #srh# AS CODE, #displ# AS DISPLAY #current.lookupgroup#   
+									    SELECT   DISTINCT #srh# AS CODE, #displ# AS DISPLAY #current.lookupgroup#, #srt# as SORT      
 							   			FROM     filterselect													
 										ORDER BY #current.lookupgroup#,#srt#							 
 								    </cfquery>		
@@ -223,7 +227,7 @@
 					
 						<cfif cnt eq "1"><tr></cfif>
 						
-						<td height="12" style="width:160<cfif cnt neq '1'>;padding-left:10px</cfif>" class="labelmedium">#Current.LabelFilter#: <cfif current.filtermode eq "4"></cfif>
+						<td height="12" style="min-width:140px<cfif cnt neq '1'>;padding-left:10px</cfif>" class="labelmedium">#Current.LabelFilter#: <cfif current.filtermode eq "4"></cfif>
 						<cfif current.filterforce eq "1"><font color="FF0000">*)</font></cfif>
 						</td>
 						
@@ -678,26 +682,46 @@
 							
 			 	<tr><td class="labelmedium" style="min-width:200px;height:35px"><cf_tl id="Group output by">:</td>
 				<td colspan="5">
+				
 					<table cellspacing="0" cellpadding="0">
-					<tr>					
-					<td><input type="radio" class="radiol" name="groupfield" value="none" <cfif url.listgroup eq "">checked></cfif></td>
-					<td style="padding-left:3px;padding-right:7px" class="labelit"><cf_tl id="None"></td>
+					<tr>	
 					
-					<cfset hasGroup = "0">
-									 
-					<cfloop array="#attributes.listlayout#" index="current">	
-						<cfif (current.filtermode eq "2" or current.filtermode eq "3" ) and current.search neq "">	 
-								<cfset hasGroup = "1">					
-								<td><input type="radio" class="radiol" name="groupfield" 
-									 value="#current.field#" <cfif url.listgroupfield eq current.field>checked</cfif>></td>
-								<td style="padding-left:4px;padding-right:7px" class="labelit">#current.labelfilter#</td>									
-						</cfif>
-					</cfloop>
+					<td>
 					
-					<cfif hasGroup eq "1">					
-					<td style="padding-left:8px"><input type="checkbox" class="radiol" name="groupdir" value="DESC" <cfif url.listgroupdir eq "DESC">checked></cfif></td>
-					 <td style="padding-left:4px;padding-right:7px"><cf_tl id="DESC"></td>
+					<select name="groupfield" id="groupfield" class="regularxxl" onchange="filtergroup('#box#',this)">
+					    <option value="none" <cfif url.listgroup eq "">selected</cfif>><cf_tl id="None"></option>
+						
+						<cfset hasGroup = "0">
 									 
+						<cfloop array="#attributes.listlayout#" index="current">	
+							<cfif (current.filtermode eq "2" or current.filtermode eq "3" ) and current.search neq "">	 
+									<cfset hasGroup = "1">	
+									<option value="#current.field#" <cfif url.listgroupfield eq current.field>selected</cfif>>#current.labelfilter#</option>																					
+							</cfif>
+						</cfloop>
+																
+					</select>	
+					
+					</td>			
+					
+					<cfif url.listgroup eq "">
+						<cfset cl = "hide">
+					<cfelse>
+						<cfset cl = "regular">	
+					</cfif>
+										
+					<cfif hasGroup eq "1">		
+					
+						<td id="#box#_groupselection" class="#cl#">
+							<table>
+								<tr>		
+								 <td style="padding-left:8px"><input type="checkbox" class="radiol" name="groupdir" value="DESC" <cfif url.listgroupdir eq "DESC">checked></cfif></td>
+								 <td style="padding-left:4px;padding-right:7px"><cf_tl id="DESC"></td>		
+								 <td style="padding-left:8px"><input type="checkbox" class="radiol" name="grouptotal" value="1" <cfif url.listgrouptotal eq "1">checked></cfif></td>
+								 <td style="padding-left:4px;padding-right:7px"><cf_tl id="Summary"></td>									 
+								</tr>
+							</table>
+						</td>	
 					</cfif>				 
 					
 					</tr>

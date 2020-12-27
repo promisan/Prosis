@@ -326,7 +326,7 @@ password="#SESSION.dbpw#">
 												<table>
 													<tr>
 														<td>
-															<input type="text" name="FieldEditTemplate" id="FieldEditTemplate" value="#FieldEditTemplate#" class="regularxl" size="43" onblur="ColdFusion.navigate('FieldEditTemplate.cfm?template='+this.value+'&resultField=editTemplate','validateTemplate');">
+															<input type="text" name="FieldEditTemplate" id="FieldEditTemplate" value="#FieldEditTemplate#" class="regularxl" size="43" onblur="ptoken.navigate('FieldEditTemplate.cfm?template='+this.value+'&resultField=editTemplate','validateTemplate');">
 														</td>
 														<td id="validateTemplate"></td>
 													</tr>

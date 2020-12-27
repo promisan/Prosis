@@ -440,8 +440,8 @@
 									
 					   <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center">
 						 <tr><td align="center" height="40" class="labellarge">					 
-						   <font size="5" color="FF0000">					   
-							   <cf_tl id="Detected an issue with your Authorization to access this function" class="Message">.
+						   <font size="4" color="FF0000">					   
+							   <cf_tl id="Authorization to access function is denied" class="Message">.
 						   </font>
 							</td>
 						 </tr>

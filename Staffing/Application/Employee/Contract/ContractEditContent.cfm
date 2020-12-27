@@ -2,7 +2,7 @@
 <cfform action="ContractEditSubmit.cfm?action=#url.action#" 
 		       method="POST" name="ContractEntry" onSubmit="#onsub#" style="width:100%">
 		
-	<table width="99%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+	<table width="99%" align="center" class="formpadding">
 	
 	<cfif url.action eq "0">
 			

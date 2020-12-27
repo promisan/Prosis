@@ -40,7 +40,7 @@ password="#SESSION.dbpw#">
 
 <cf_tl id="Incoming Invoice" var="vTitle">
 
-<cf_screentop height="100%" scroll="yes" label="#vTitle#" user="No" html="Yes" layout="webapp" banner="gray">
+<cf_screentop height="100%" jquery="Yes" scroll="yes" label="#vTitle#" user="No" html="No" layout="webapp" banner="gray">
  
 	<cfform name="incomingedit" action="IncomingEditSubmit.cfm?invoiceincomingid=#inv.invoiceincomingid#" method="POST" target="result">
 	
@@ -99,7 +99,7 @@ password="#SESSION.dbpw#">
 						       visible="Yes"					 
 						       enabled="Yes"						       
 							   class="#cl# regularxl"
-							   value="#NumberFormat(Inv.IncomingAmount,"____.__")#"
+							   value="#NumberFormat(Inv.IncomingAmount,".__")#"
 						       maxlength="15"
 						       style="text-align: right;">
 					   
@@ -115,7 +115,7 @@ password="#SESSION.dbpw#">
 						       visible="Yes"
 						       enabled="Yes"						       
 							   class="#cl# regularxl"
-							   value="#NumberFormat(Inv.IncomingAmount,"____.__")#"
+							   value="#NumberFormat(Inv.IncomingAmount,".__")#"
 						       maxlength="15"
 						       style="text-align: right;"
 							   onchange  = "ColdFusion.navigate('#SESSION.root#/procurement/application/invoice/InvoiceEntry/InvoiceExemption.cfm?tag=no&documentamount='+this.value+'&tax='+tax.value,'exemption')">
@@ -195,8 +195,7 @@ password="#SESSION.dbpw#">
 			  <td width="2"></td>
 																		   
 			  <td>
-			  
-			  				   
+			  			  				   
 				   <cfoutput>
 				     <cf_tl id ="Specification" var="1">
 					 
@@ -206,7 +205,7 @@ password="#SESSION.dbpw#">
 						 name="Details"
 						 id="Details" 
 						 value="#lt_text#..."
-						 onclick="ColdFusion.navigate('#SESSION.root#/procurement/application/invoice/invoiceentry/InvoiceEntryLine.cfm?myform=incomingedit&tax='+tax.value+'&mission=#inv.mission#&id=#inv.invoiceincomingid#','linedetail')">
+						 onclick="ptoken.navigate('#SESSION.root#/procurement/application/invoice/invoiceentry/InvoiceEntryLine.cfm?myform=incomingedit&tax='+tax.value+'&mission=#inv.mission#&id=#inv.invoiceincomingid#','linedetail')">
 						 
 					</cfoutput>	 
 						   
@@ -245,7 +244,7 @@ password="#SESSION.dbpw#">
 								class="regularxl"
 								size="1" 
 								style="text-align: center;width:40px" 
-								onChange="ColdFusion.navigate('#SESSION.root#/procurement/application/invoice/InvoiceEntry/InvoiceExemption.cfm?tag=no&documentamount='+documentamount.value+'&tax='+this.value,'exemption')">
+								onChange="ptoken.navigate('#SESSION.root#/procurement/application/invoice/InvoiceEntry/InvoiceExemption.cfm?tag=no&documentamount='+documentamount.value+'&tax='+this.value,'exemption')">
 								
 								</td>
 								<td width="19" class="labelmedium" align="center">%</td>													 
@@ -260,7 +259,7 @@ password="#SESSION.dbpw#">
 									       required="Yes"
 										   readonly
 										   class="regularxl"
-										   value="#numberformat(inv.ExemptionAmount,'__,__.__')#"				      
+										   value="#numberformat(inv.ExemptionAmount,',.__')#"				      
 									       size="15"
 									       maxlength="15"
 									       style="width:100;text-align: right;">

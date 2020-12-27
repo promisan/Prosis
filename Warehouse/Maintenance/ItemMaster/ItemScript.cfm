@@ -1,7 +1,5 @@
 
 <cfoutput>
-
-<cf_listingScriptNavigation>
 <cf_listingscript>
 
 <script>

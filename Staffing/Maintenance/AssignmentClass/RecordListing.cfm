@@ -1,4 +1,6 @@
 
+<cf_screentop height="100%" scroll="Yes" html="No" jquery="Yes">
+
 <cfquery name="SearchResult"
 datasource="AppsEmployee" 
 username="#SESSION.login#" 
@@ -17,20 +19,20 @@ password="#SESSION.dbpw#">
 <script>
 
 function recordadd() {
-       window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 450, height= 280, toolbar=no, status=yes, scrollbars=no, resizable=no");
+       ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 450, height= 280, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 function recordedit(id1) {
-       window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width= 450, height= 280, toolbar=no, status=yes, scrollbars=no, resizable=no");
+       ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width= 450, height= 280, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 </script>	
 	
 </cfoutput>
 
-<table width="95%" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<table width="95%" align="center" class="navigation_table">
 
-<tr class="labelmedium line">
+<tr class="labelmedium line fixrow">
     <td></td>
     <td>Code</td>
 	<td width="30%">Label</td>
@@ -38,12 +40,12 @@ function recordedit(id1) {
 	<td>Incumb</td>
 	<td>Sort</td>
 	<td>Officer</td>
-    <td align="right">Entered</td>
+    <td align="right" style="padding-right:3px">Entered</td>
 </tr>
 
 <cfoutput query="SearchResult">
     <tr height="20" class="navigation_row line labelmedium"> 
-		<td width="5%" align="center" style="padding-top:4px">
+		<td width="5%" align="center" style="padding-top:2px">
 			<cf_img icon="open" navigation="Yes" onclick="recordedit('#AssignmentClass#')">
 		</td>			
 		<td>#AssignmentClass#</td>
@@ -52,7 +54,7 @@ function recordedit(id1) {
 		<td>#Incumbency#%</td>
 		<td>#Listingorder#</td>
 		<td>#OfficerLastName#</td>
-		<td align="right">#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
+		<td align="right" style="padding-right:3px">#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
     </tr>
 </cfoutput>
 

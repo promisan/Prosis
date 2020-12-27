@@ -96,14 +96,9 @@ password="#SESSION.dbpw#">
      method         = "timesheet" 
 	 returnvariable = "timekeeper" 
 	 personno       = "#URL.ID#">
-	 
-</cfoutput>	 
-	 
- <cf_divscroll>
-  		
-  <table width="96%" align="center" class="formpadding">
-	  	 		
-	 
+	 			
+  <table width="96%" height="100%" align="center" class="formpadding">
+	 	 		
 	 
 	 <!--- Query returning search results --->
 	 <cfquery name="Search" dbtype="query">
@@ -126,23 +121,16 @@ password="#SESSION.dbpw#">
 	</cfquery>		
 					  
 	<tr>
-	  <td align="center" class="clsPrintContent">
-	  
-			  <table width="100%" class="formpadding navigation_table">
-				
-				<cfoutput>
-				
-				<tr class="line fixrow">	    
-			  
-			    <td class="labellarge" style="height:40px" colspan="10">		
-			   
+	  <td align="center" style="height:10px">
+	  		
+											   
 			       <table>
 				   <tr>	
 				   
-				   <td align="center" height="20" class="labelmedium" style="min-width:140px;">		
+				   <td align="center" height="20" class="labelmedium" style="min-width:140px;;background-color:f5f5f5">		
 				   	<table class="clsNoPrint">
 				   		<tr>
-				   			<td>
+				   			<td style="padding-left:4px" style="background-color:f5f5f5">
 				   				<span id="printTitle" style="display:none;"><cf_tl id="Leave Records"> - [#getPerson.indexNo#] #getPerson.fullName#</span>
 								<cf_tl id="Print" var="1">
 								<cf_button2 
@@ -155,7 +143,7 @@ password="#SESSION.dbpw#">
 									printTitle	= "##printTitle"
 									printContent = ".clsPrintContent">
 				   			</td>
-				   			<td class="labelmedium" style="font-size:19px;padding-left:5px;padding-right:30px;min-width:110px">
+				   			<td class="labelmedium" style="font-size:19px;padding-left:5px;padding-right:30px;min-width:110px;background-color:f5f5f5">
 				   				<cfif access eq "EDIT" or access eq "ALL" or timekeeper eq "EDIT" or timekeeper eq "ALL">		
 							    	<a href="javascript:leave('#URL.ID#')"><cf_tl id="Add Record"></a>	    	
 								</cfif>
@@ -164,8 +152,8 @@ password="#SESSION.dbpw#">
 				   	</table>
 				   </td>
 				   
-				   <td class="labelmedium" style="min-width:50px;padding-left:10px;border-left:1px solid silver"><cf_tl id="Type">:</td>
-				   <td style="padding-left:10px">
+				   <td class="labelmedium" style="min-width:50px;padding-left:10px;border-left:1px solid silver;background-color:f5f5f5"><cf_tl id="Type">:</td>
+				   <td style="padding-left:10px;background-color:f5f5f5">
 				   
 					   <cfquery name="qLeaveType" dbtype="query">
 						   SELECT DISTINCT LeaveType, Description
@@ -192,7 +180,7 @@ password="#SESSION.dbpw#">
 				   
 				   <cfelse>
 				   
-				   <td class="labelmedium" style="min-width:60px;padding-left:10px"><cf_tl id="Status">:</td>
+				   <td class="labelmedium" style="min-width:60px;padding-left:10px;background-color:f5f5f5"><cf_tl id="Status">:</td>
 				   <td style="padding-left:10px">
 				 
 				   <select name="filterstatus" id="filterstatus" class="regularxl" onchange="records('#url.id#')">
@@ -221,7 +209,7 @@ password="#SESSION.dbpw#">
 					
 					<cfelse>
 										    
-					    <td style="padding-left:10px">
+					    <td style="padding-left:10px;background-color:f5f5f5">
 					   
 					    <cfquery name="qYear" dbtype="query">
 						   SELECT DISTINCT LeaveYear
@@ -249,21 +237,32 @@ password="#SESSION.dbpw#">
 				   </tr>
 				   
 				   </table> 
-			   
-			    </td>
-			  </tr>	
+			 			  
+		</td>
+		</tr>
+		
+		</cfoutput>
+		
+		<tr>
+		<td class="clsPrintContent" style="height:100%">  
+		
+			 <cf_divscroll>		
 			  
-			  <TR class="labelmedium line">
-			        <TD width="40" style="top:35px;padding-left:4px"><cf_tl id="Type"></TD>	
-				    <td style="top:35px;min-width:20px" align="center"></td>
-					<td style="top:35px;min-width:10px" align="center"></td>
-				    <td style="top:35px;width:70%"><cf_tl id="Leave Class"></td>
-					<TD style="top:35px;width:20%"><cf_tl id="Officer"></TD>											
-					<TD style="top:35px;width:95;min-width:95px"><cf_tl id="Effective"></TD>
-					<TD style="top:35px;width:95;min-width:95px"><cf_tl id="Expiration"></TD>					
-					<TD style="top:35px;min-width:55px" align="right"><cf_tl id="Days"></TD>			
-					<TD style="top:35px;min-width:55px" align="right"><cf_tl id="Taken"></TD>		
-					<TD style="top:35px;min-width:55px" align="right"><cf_tl id="Calc"></TD>									
+			  <table width="100%" class="formpadding navigation_table"> 
+			  
+			  <cfoutput>
+						  
+			  <TR class="labelmedium line fixrow" style="height:27px">
+			        <TD width="40" style="padding-left:4px"><cf_tl id="Type"></TD>	
+				    <td style="min-width:20px" align="center"></td>
+					<td style="min-width:10px" align="center"></td>
+				    <td style="width:70%"><cf_tl id="Leave Class"></td>
+					<TD style="width:20%"><cf_tl id="Officer"></TD>											
+					<TD style="width:95;min-width:95px"><cf_tl id="Effective"></TD>
+					<TD style="width:95;min-width:95px"><cf_tl id="Expiration"></TD>					
+					<TD style="min-width:55px" align="right"><cf_tl id="Days"></TD>			
+					<TD style="min-width:55px" align="right"><cf_tl id="Taken"></TD>		
+					<TD style="min-width:55px;padding-right:3px" align="right"><cf_tl id="Calc"></TD>									
 				</TR>
 			  
 			  </cfoutput>
@@ -280,9 +279,9 @@ password="#SESSION.dbpw#">
 			
 			<cfset display="">
 			
-			<tr class="line labelit fixrow2">
+			<tr class="labelit fixrow2">
 						
-			    <td bgcolor="ffffff" style="top:35px;height:43px;font-size:21px;padding-top:0px;padding-left:4px" colspan="10" align="left">
+			    <td bgcolor="ffffff" style="height:35px;font-size:21px;padding-top:0px;padding-left:4px" colspan="10" align="left">
 				 
 			     <cfswitch expression="#Status#">
 				 
@@ -322,11 +321,11 @@ password="#SESSION.dbpw#">
 													
 							<table width="100%" height="100%">
 							  <tr>
-							  <td class="labelmedium" style="height:20px;font-weight:200;font-size:25px" valign="top">#LeaveYear#</td>
+							  <td class="labelmedium" style="height:20px;font-size:23px" valign="top">#LeaveYear#</td>
 							 
 								  <td align="right" style="width:400px">
 								  
-									  <table width="100%" bgcolor="e4e4e4" style="border:1px solid silver">
+									  <table width="100%" bgcolor="e4e4e4" style="border:0px solid silver">
 									  
 									  <cfquery name="LeaveStatus" 
 											datasource="AppsEmployee" 
@@ -601,15 +600,13 @@ password="#SESSION.dbpw#">
 			</cfoutput>
 			
 		</TABLE>
+		
+		</cf_divscroll>
 
 	</td>
    </tr>
 
-   <tr><td height="9" colspan="11"></td></tr>
-
 </TABLE>
-
-</cf_divscroll>
 
 <cfset ajaxonload("doHighlight")>
 

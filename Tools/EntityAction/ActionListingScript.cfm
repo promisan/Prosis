@@ -189,7 +189,7 @@
 				}
 						
 	function workflowshow(pub,ent,cls,cde,obj)	{	
-		ptoken.open('#SESSION.root#/System/EntityAction/EntityFlow/ClassAction/FlowView.cfm?scope=object&objectid='+obj+'&connector=init&PublishNo='+pub+'&EntityCode='+ent+'&EntityClass='+cls+'&ActionNoShow='+cde, 'workflow');	
+		ptoken.open('#SESSION.root#/System/EntityAction/EntityFlow/ClassAction/FlowView.cfm?scope=object&objectid='+obj+'&connector=init&PublishNo='+pub+'&EntityCode='+ent+'&EntityClass='+cls+'&ActionNoShow='+cde, 'workflowshow');	
 	    /*	    			in Finantial Event, the error was triggered: "root is undefined"
 		ptoken.open(root + '/System/EntityAction/EntityFlow/ClassAction/FlowView.cfm?scope=object&objectid='+obj+'&connector=init&PublishNo='+pub+'&EntityCode='+ent+'&EntityClass='+cls+'&ActionNoShow='+cde, 'workflow','status=yes,height=800,width=1000,scrollbars=yes,center=yes,resizable=yes');					
 		*/

@@ -66,6 +66,7 @@ password="#SESSION.dbpw#">
 				  FROM   SalarySchedule 
 				  WHERE  SalarySchedule = S.SalarySchedule) as ScheduleName,		        
 				 C.SalaryTrigger, 
+				 T.EnableAmount,
 				 T.Description
 	    FROM     Ref_PayrollTrigger T, Ref_PayrollComponent C, SalaryScheduleComponent S
 		WHERE    (
@@ -76,8 +77,7 @@ password="#SESSION.dbpw#">
 		AND      C.SalaryTrigger  = T.SalaryTrigger
 		AND      C.Code           = S.ComponentName
 		AND      T.EnableContract = 0
-		ORDER BY C.SalaryTrigger, S.ListingOrder
-		
+		ORDER BY C.SalaryTrigger, S.ListingOrder		
 </cfquery>
 
 <!--- only show schedules that are relevant for this person ---> 
@@ -202,9 +202,7 @@ password="#SESSION.dbpw#">
 			   <td><cfdiv bindonload="Yes" bind="url:getSalaryTrigger.cfm?personno=#url.id#&schedule={SalarySchedule}"/></td>			
 			</tr>
 			
-			<tr class="hide"><td colspan="2" id="process"></td></tr>
-			
-			
+			<tr class="hide"><td colspan="2" id="process"></td></tr>					
 				
 		    <TR class="labelmedium">
 		    <TD width="170"><cf_tl id="Effective">:</TD>
@@ -243,7 +241,15 @@ password="#SESSION.dbpw#">
 			    FROM Currency
 			</cfquery>
 			
+			<cfif trigger.enableAmount eq "1">
+			
+			<TR id="enableamount" class="labelmedium regular">
+			
+			<cfelse>
+			
 			<TR id="enableamount" class="labelmedium hide">
+			
+			</cfif>
 		    <TD><cf_tl id="Amount">:</TD>
 		    <TD>
 			
@@ -309,8 +315,8 @@ password="#SESSION.dbpw#">
 			</tr>	
 			
 			<TR class="labelmedium">
-		        <td valign="top" style="padding-top:3px"><cf_tl id="Remarks">:</td>
-		        <td><textarea class="regular" style="width:90%;padding:3px;font-size:13px;height:50px" name="Remarks"></textarea> </TD>
+		        <td valign="top" style="padding-top:5px"><cf_tl id="Remarks">:</td>
+		        <td><textarea class="regular" style="width:95%;height:50px" name="Remarks"></textarea> </TD>
 			</TR>
 			
 			<tr><td></td></TR>

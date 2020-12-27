@@ -21,7 +21,7 @@
 	<cf_paneItem id="#session.acc#" 
 	        systemfunctionid = "#systemfunctionid#"  
 			source           = "#session.root#/Portal/Topics/Support/TicketView.cfm"
-			width            = "95%"
+			width            = "98%"
 			height           = "auto"		
 			Label            = "My Pending Support Tickets"
 			ShowPrint		 = "1"			

@@ -1,8 +1,6 @@
-<cfparam name="URL.DocId"  default="">
-<cfparam name="URL.Mode"   default="pdf">
-<cfparam name="URL.Format" default="">
-
-
+<cfparam name="URL.DocId"             default="">
+<cfparam name="URL.Mode"              default="pdf">
+<cfparam name="URL.Format"            default="">
 
 <cfquery name="Init" 
 datasource="AppsInit">
@@ -11,61 +9,78 @@ datasource="AppsInit">
 	WHERE  HostName = '#cgi.http_host#'		
 </cfquery>
 
-<cfset vDocumentpagesize = "#Init.ReportPageType#">
-
+<cfparam name="documentpagesize" default="Letter">
 
 <cfif url.docid eq "">
 	
 	<cfquery name="Action" 
 	 datasource="AppsOrganization">
-	 SET TextSize 1000000
-	 SELECT *, 
-	       ActionMemo as DocumentContent
-	 FROM  OrganizationObjectAction OA
-	 WHERE ActionId = '#URL.ID#' 	
+	 
+	 SET    TextSize 1000000
+	 
+	 SELECT *, ActionMemo as DocumentContent
+	 FROM   OrganizationObjectAction OA
+	 WHERE  ActionId = '#URL.ID#' 	
+	 
 	</cfquery>
 	
-	<cfset documentheader       = "">
-	<cfset documentfooter       = "">
-	<cfset vDocumentmargintop    = "0">
-	<cfset vDocumentmarginbottom = "0">	
-	<cfset documentorientation  = "Vertical">
+	<cfset documentheader        = "">
+	<cfset documentfooter        = "">	
+	<cfset vDocumentmargintop    = "0.5">
+	<cfset vDocumentmarginbottom = "0.5">	
+	<cfset documentorientation   = "Vertical">
 
 	<cfset documentName = "">
-	<cfset vDocumentscale = "100">			
-
-
+	<cfset vDocumentscale = "95">		
 	
 <cfelse>
 	
 	<cfquery name="Action" 
 	 datasource="AppsOrganization">
-	 SET TextSize 1000000  
-	 SELECT OA.ActionCode, 
-	        OA.OrgUnit, 
-			OA.ActionPublishNo, 
-			OAP.*
-	 FROM  OrganizationObjectAction OA,
-	       OrganizationObjectActionReport OAP
-	 WHERE OA.ActionId = '#URL.ID#' 
-	  AND  OA.ActionId = OAP.ActionId
-	  AND  OAP.DocumentId = '#URL.DocId#' 	  	
+	 	SET TextSize 1000000  
+
+		 SELECT    OA.ActionCode, 
+		           OA.OrgUnit, 
+				   OA.ActionPublishNo, 
+				   OAP.*
+		 FROM      OrganizationObjectAction OA,
+		           OrganizationObjectActionReport OAP
+		 WHERE     OA.ActionId = '#URL.ID#' 
+		  AND      OA.ActionId = OAP.ActionId
+		  AND      OAP.DocumentId = '#URL.DocId#' 	  			  
 	</cfquery>	
 
 	<cfquery name="qDocument" 
 	 datasource="AppsOrganization">
 	  SELECT * 
-	  FROM Ref_EntityDocument
-	  WHERE DocumentId = '#URL.DocId#'
+	  FROM   Ref_EntityDocument
+	  WHERE  DocumentId = '#URL.DocId#'	  
 	 </cfquery>	
 	 
- 	<cfset documentorientation  = qDocument.DocumentOrientation>	 
-	<cfset documentName = "#qDocument.DocumentDescription# /">
+ 	<cfset documentorientation   = qDocument.DocumentOrientation>	 
+	<cfset documentName          = qDocument.DocumentDescription>	
+	<cfset documentpagesize      = Action.DocumentFormat>
 	
-	<cfset vDocumentmargintop    = "#qDocument.MarginTop#">
-	<cfset vDocumentmarginbottom = "#qDocument.MarginBottom#">		
-	<cfset vDocumentscale = "#qDocument.Scale#">			
+	<cfif len(action.documentHeader) gte "5" and action.documentMarginTop neq "0">
+		<cfset vDocumentmargintop    = "#action.documentMarginTop#">
+	<cfelse>
+		<cfset vDocumentmargintop    = "#qDocument.MarginTop#">
+	</cfif>
 	
+	<cfif len(action.documentFooter) gte "5" and action.documentMarginBottom neq "0">
+		<cfset vDocumentmarginbottom = Action.documentMarginBottom>		
+	<cfelse>
+		<cfset vDocumentmarginbottom = qDocument.MarginBottom>		
+	</cfif>	
+	
+	<cfset vDocumentscale            = qDocument.Scale>			
+	
+</cfif>
+
+<cfif documentpagesize eq "">
+	<cfif Init.ReportPageType neq "">
+		<cfset documentpagesize = Init.ReportPageType>	
+	</cfif>	
 </cfif>
 
 <cfquery name="qTitle" 
@@ -80,6 +95,8 @@ datasource="AppsInit">
 <cfoutput>
 	<title>#documentName# #qTitle.ObjectReference# #qTitle.ObjectReference2#</title>
 </cfoutput>
+
+<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
 
 <cfswitch expression="#documentorientation#">
 	<cfcase value="Horizontal">
@@ -107,7 +124,6 @@ datasource="AppsInit">
 	 AND   P.ActionPublishNo = '#Action.ActionPublishNo#' 
 </cfquery>
 
-
 <cfif URL.Format eq "">	
 	<cfset URL.Format = Entity.DefaultFormat>
 </cfif>
@@ -115,8 +131,8 @@ datasource="AppsInit">
 <cfquery name="Org" 
  datasource="AppsOrganization">
  SELECT *
- FROM Organization
- WHERE OrgUnit = '#Action.OrgUnit#' 
+ FROM   Organization
+ WHERE  OrgUnit = '#Action.OrgUnit#' 
 </cfquery>
 
 <cfset FileNo = round(Rand()*1000)>
@@ -143,20 +159,18 @@ datasource="AppsInit">
     <!---
 	<cfset text = replace("#DocumentContent#", "@pb", "<cfdocumentitem type = 'pagebreak'></cfdocumentitem>", "ALL")>
 	--->
-	
+			
 	<cfset text = replace("#DocumentContent#", "@pb", "<p style='page-break-after:always;'>&nbsp;</p>", "ALL")>
-	
+				
 	<cfscript>
 		matches = rematch("<footer>(.*)</footer>", text);
 		results = "";
-		for (match in matches)
-		{
+		for (match in matches){
 			found = rereplace(match, "<footer>(.*)</footer>", "\1");
 		    results = results & found; 
-			text = replace (text,found,"","ALL"); 
-		
+			text = replace (text,found,"","ALL"); 		
 		}
-	</cfscript>	
+	</cfscript>		
 
 	<cfif DocumentFooter eq "">
 		<cfset vDocumentFooter = results>
@@ -164,69 +178,51 @@ datasource="AppsInit">
 		<cfset vDocumentFooter = DocumentFooter>
 	</cfif>
 	
-	<cfif vDocumentFooter neq "">
-		<cfset vDocumentmarginbottom = vDocumentmarginbottom + 2>
+	<cfif vDocumentFooter neq "" and vDocumentmarginbottom lt 1.0>
+		<cfset vDocumentmarginbottom = 1.0>
 	</cfif>
-	
-	<cftry>
-			
-				
+								
 	<cfdocument 
-      format       = "#URL.Format#"
-	  overwrite    = "yes"	  
-      pagetype     = "#vDocumentpagesize#"
-	  orientation  = "#documentorientation#"
-      unit         = "cm"
-      encryption   = "none"
-	  margintop    = "#vDocumentmargintop#"
-      marginbottom = "#vDocumentmarginbottom#"
-      marginright  = "0"
-      marginleft   = "0"
-      fontembed    = "No"
-      scale        = "#vDocumentscale#"
-      backgroundvisible="Yes">	
-
-			#text#
-							  
-		<cfif DocumentHeader neq "">
+      format            = "#URL.Format#"
+	  overwrite         = "yes"	  
+      pagetype          = "#documentpagesize#"
+	  orientation       = "#documentorientation#"
+      unit              = "cm"
+      encryption        = "none"
+	  margintop         = "#vDocumentmargintop#"
+      marginbottom      = "#vDocumentmarginbottom#"
+      marginright       = "0"
+      marginleft        = "0"
+      fontembed         = "Yes"
+      scale             = "#vDocumentscale#"
+      backgroundvisible = "Yes">	
+	  
+		 #text#
+		 									  
+		<cfif DocumentHeader neq "">		
+			<cfdocumentitem type="header">#DocumentHeader#</cfdocumentitem>						
+		</cfif>  
 		
-			<cfdocumentitem type="header">
-				#DocumentHeader#
-			</cfdocumentitem>
-						
-		</cfif>  
-
-	
 		<cfif vDocumentFooter neq "">
-			<cfdocumentitem type="footer">			
+			<cfdocumentitem type="footer">
+			
+				<cfif find("@default",vDocumentFooter)>	
+				
+				<table width="100%" style="height:10px">
+				<tr class="labelmedium">
+				<td style="font-size:13px" valign="bottom">#session.first# #session.last# #dateformat(now(),client.dateformatshow)# #timeformat(now(),"HH:MM")#</td>
+				<td style="font-size:13px" valign="bottom" align="right"><cf_tl id="Page"> #cfdocument.currentpagenumber# <cf_tl id="of"> #cfdocument.totalpagecount#</td>
+				</tr>
+				</table>	
+				
+				<cfelse>
 				#vDocumentFooter#
+				</cfif>
+			
 			</cfdocumentitem>			
-		</cfif>  
+		</cfif>  		
 										
 	</cfdocument>
-	
-	<cfcatch>
-	
-		<cfdocument 
-	      format       = "#URL.Format#"
-	      pagetype     = "#vDocumentpagesize#"
-		  orientation  = "#documentorientation#"
-	      unit         = "cm"
-	      encryption   = "none"
-		  margintop    = "#documentmargintop#"
-	      marginbottom = "#documentmarginbottom#"
-	      marginright  = "0"
-	      marginleft   = "0"
-	      fontembed    = "Yes"
-	      scale        = "#documentscale#"
-	      backgroundvisible="Yes">			  
-			  Problem : document could not be created.
-		  
-		 </cfdocument> 	
-	
-	</cfcatch>
-	
-	</cftry>
 	
 <cfelse>
 

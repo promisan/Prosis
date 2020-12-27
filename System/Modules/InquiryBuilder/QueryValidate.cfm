@@ -99,11 +99,10 @@
 				#CFCatch.Message# - #CFCATCH.Detail#
 				</td></tr>
 				<tr class="labelmedium"><td>#Form.QueryDatasource#</td></tr>
-				<tr><td width="100%">
+				<tr><td width="100%" style="padding:5px;background-color:FF8080;border:1px solid silver">
 				
-				<textarea class="regular"
-		          style="width:100%; height:100%; color: FFA07A;">#preservesinglequotes(sc)#</textarea>
-				
+				#preservesinglequotes(sc)#
+								
 				</td></tr>
 				</table>		       
 				</cfoutput>

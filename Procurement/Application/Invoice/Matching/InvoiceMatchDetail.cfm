@@ -71,11 +71,18 @@ password="#SESSION.dbpw#">
 
 </cfif>
 
- <table width="100%">      
+ <table width="100%">     
+ 
+    <tr>
+		<td class="labelmedium2" style="border:0px solid gray;padding-left:12px;padding-right:10px;height:40px;font-size:20px">
+		<cf_tl id="Provider">
+	</td>
+
+	</tr> 
       
 	<cfif Invoice.orgunitvendor neq "0">	
 	   
-	    <tr class="line labelmedium">
+	    <tr class="line labelmedium2">
 	
 		<!--- vendor invoice --->
 		
@@ -90,7 +97,7 @@ password="#SESSION.dbpw#">
 		
 	    <td colspan="1" style="min-width:160px;max-width:160;width:160;padding-left:13px"><cf_tl id="Vendor">/<cf_tl id="Contractor">:</td>
 		<cfoutput>
-			<td colspan="1" class="labelmedium">				  
+			<td colspan="1" class="labelmedium2">				  
 			  <a href="javascript:viewOrgUnit('#OrgUnit.OrgUnit#')">#OrgUnit.OrgUnitName#</a>
 			   <input type="hidden" name="orgunit" id="orgunit" value="#OrgUnit.OrgUnit#"> 
 			</td>
@@ -108,10 +115,10 @@ password="#SESSION.dbpw#">
 			WHERE PersonNo = '#InvoiceIncoming.PersonNo#' 
 		</cfquery>	
 		
-		<tr class="line labelmedium">
+		<tr class="line labelmedium2">
 		<td colspan="1" style="min-width:160px;max-width:160;padding-left:13px"><cf_tl id="Employee">:</td>
 		<cfoutput>
-			<td colspan="1" class="labelmedium">	
+			<td colspan="1" class="labelmedium2">	
 			  <a href="javascript:EditPerson('#Person.PersonNo#')">#Person.FirstName# #Person.LastName#</font></a>
 			   <input type="hidden" name="orgunit" id="orgunit" value="0"> 
 			   <input type="hidden" name="personno" id="personno" value="#Person.PersonNo#"> 
@@ -128,7 +135,7 @@ password="#SESSION.dbpw#">
     <td width="100"><cf_tl id="Purchase">:</td>
     <td width="35%">
 		<table border="0" cellspacing="0" cellpadding="0">
-		 <tr style="height:18px" class="labelmedium">
+		 <tr style="height:18px" class="labelmedium2">
 	    <cfoutput query="Purchase">
 			<td style="padding-right:10px;border:0px solid silver">
 			<a href="javascript:ProcPOEdit('#Purchaseno#','view')" title="Purchase Order">#PurchaseNo# <cfif Parameter1.PurchaseCustomField neq "">: #evaluate("Userdefined#Parameter1.PurchaseCustomField#")#</cfif></a></td>
@@ -139,7 +146,7 @@ password="#SESSION.dbpw#">
 	</td>
 </tr>
 
-<TR class="labelmedium line">
+<TR class="labelmedium2 line">
   
    <TD style="padding-left:13px"><cfif md eq "org">Invoice<cfelse>Document</cfif> No:</TD>
    <td colspan="1">	
@@ -167,13 +174,14 @@ password="#SESSION.dbpw#">
 	  orgunit="#Invoice.OrgUnitOwner#"  
 	  returnvariable="accessreq">	
 	  
-      <td height="18" class="labelmedium" style="padding-left:13px"><cf_tl id="Amount Original">:</td>
+      <td height="18" class="labelmedium2" style="padding-left:13px"><cf_tl id="Amount Original">:</td>
       <td colspan="1">	
       		
-		  <table><tr class="labelmedium">
+		  <table><tr class="labelmedium2">
 		  <td>	
 		  #InvoiceIncoming.DocumentCurrency# #NumberFormat(InvoiceIncoming.DocumentAmount,",.__")#
 		  </td>
+
 		  
 		  <cfquery name="Other" 
 			datasource="AppsPurchase" 
@@ -204,8 +212,7 @@ password="#SESSION.dbpw#">
 					   <td class="hide" id="refreshinvoice" onclick="Prosis.busy('yes');ptoken.navigate('InvoiceMatchDetail.cfm?id=#url.id#','invoicedetail')">
 					   refresh
 					   </td>
-					   </cfoutput>							
-					  
+					   </cfoutput>						  
 										  		
 				 </cfif>
 			 
@@ -216,13 +223,13 @@ password="#SESSION.dbpw#">
 			 	  
      </td>
 	 	 	
-	 <td class="labelmedium"><cf_tl id="Exempted">:</td>
-	 <td class="labelmedium">  
+	 <td class="labelmedium2"><cf_tl id="Exempted">:</td>
+	 <td class="labelmedium2">  
 	 	<cfif Parameter1.TaxExemption eq "1" or InvoiceIncoming.ExemptionAmount neq "0">
 			<font color="gray">
-			#NumberFormat(InvoiceIncoming.ExemptionAmount,"__,__.__")#
+			#NumberFormat(InvoiceIncoming.ExemptionAmount,",.__")#
 			<cfif InvoiceIncoming.ExemptionAmount neq "">
-			&nbsp;Revised: #NumberFormat(InvoiceIncoming.DocumentAmount-InvoiceIncoming.ExemptionAmount,"__,__.__")#
+			&nbsp;Revised: #NumberFormat(InvoiceIncoming.DocumentAmount-InvoiceIncoming.ExemptionAmount,",.__")#
 			</cfif>
 			</font>
 		<cfelse>
@@ -264,11 +271,11 @@ password="#SESSION.dbpw#">
 	  </td>
 	  <td width="93%">
 	  
-	      <table width="470" border="0" cellspacing="0" cellpadding="0"	bgcolor="f5f5f5">
+	      <table width="470" border="0" bgcolor="f5f5f5">
 		  		
 			<cfoutput query="Detail">
 			
-			<tr class="labelmedium">							
+			<tr class="labelmedium2">							
 			   <td height="19" width="26">#currentrow#.</td>			  
 			   <td>#LineDescription#</td>			 
 			   <td width="40">#LineReference#</td>	
@@ -296,7 +303,7 @@ password="#SESSION.dbpw#">
 <!--- check if the invoice is paid again cancelled requisitions --->  
   
 <tr>
-<td class="labelmedium" style="border:0px solid gray;padding-left:12px;padding-right:10px;height:30px;font-size:25px">
+<td class="labelmedium2" style="border:0px solid gray;padding-left:12px;padding-right:10px;height:40px;font-size:20px">
 <cf_tl id="Amounts Payable">
 </td>
 <td colspan="3" style="padding-left:10px;padding-right:10px">
@@ -307,7 +314,7 @@ password="#SESSION.dbpw#">
 <!---
 
 <tr>
-<td  class="labelmedium" >
+<td  class="labelmedium2" >
 <cf_tl id="Posted to Journal">
 </td>
 <td colspan="3" style="padding-left:10px;padding-right:10px">
@@ -356,7 +363,7 @@ password="#SESSION.dbpw#">
   
  </cfif>
     			
-  <TR class="line labelmedium">
+  <TR class="line labelmedium2">
      
    <TD style="padding-left:33px"><cf_tl id="Transaction date">:</td>
    
@@ -365,9 +372,9 @@ password="#SESSION.dbpw#">
    	 <cfoutput>
    
      <table cellspacing="0" cellpadding="0">
-	 <tr><td class="labelmedium">#Dateformat(Invoice.DocumentDate, CLIENT.DateFormatShow)#</td>
-	 <td style="padding-left:24px" class="labelmedium"><cf_tl id="Date Due">:</td>
-	 <td style="padding-left:7px" class="labelmedium">
+	 <tr><td class="labelmedium2">#Dateformat(Invoice.DocumentDate, CLIENT.DateFormatShow)#</td>
+	 <td style="padding-left:24px" class="labelmedium2"><cf_tl id="Date Due">:</td>
+	 <td style="padding-left:7px" class="labelmedium2">
 	    <cfif Invoice.ActionBefore gte now()>
 		#Dateformat(Invoice.ActionBefore, CLIENT.DateFormatShow)#
 		<cfelse>
@@ -381,8 +388,8 @@ password="#SESSION.dbpw#">
 	   
    </td>	
    
-    <td class="labelmedium"><cf_tl id="Terms">:</td>
-             <td colspan="1" class="labelmedium">	 
+    <td class="labelmedium2"><cf_tl id="Terms">:</td>
+             <td colspan="1" class="labelmedium2">	 
 	   		
 		     <cfoutput>
 			 
@@ -414,9 +421,9 @@ password="#SESSION.dbpw#">
 	  orgunit="#Invoice.OrgUnitOwner#"  
 	  returnvariable="accessreq">	
 	 
-     <td class="labelmedium" style="padding-left:33px"><cf_tl id="Amount">:</TD>
+     <td class="labelmedium2" style="padding-left:33px"><cf_tl id="Amount">:</TD>
 	 
-     <td colspan="1" class="labelmedium">
+     <td colspan="1" class="labelmedium2">
 		   
 		   <table cellspacing="0" cellpadding="0">		   
 		       
@@ -438,7 +445,7 @@ password="#SESSION.dbpw#">
 				     <cfset diff = abs(checkmatch.total-Invoice.DocumentAmount)>
 
   				     <cfset documententrystatus = "0">
-					 <td bgcolor="FF0000" class="labelmedium" style="font-size:24px;border:1px solid black;padding-left:6px;padding-right:6px">				  
+					 <td bgcolor="FF0000" class="labelmedium2" style="font-size:24px;border:1px solid black;padding-left:6px;padding-right:6px">				  
 				  	  <cfoutput>
 					  	<font color="FFFFFF">#Invoice.DocumentCurrency#&nbsp;#NumberFormat(Invoice.DocumentAmount,",.__")#&nbsp;&nbsp;&nbsp;<cf_tl id="Difference">&nbsp;#NumberFormat(diff,",__.__")#
 					  </cfoutput>				 
@@ -446,7 +453,7 @@ password="#SESSION.dbpw#">
 					 
 				   <cfelse>
 				   
-				   	 <td class="labelmedium" style="font-size:27px">				  
+				   	 <td class="labelmedium2" style="font-size:27px">				  
 				  	  <cfoutput><font size="3">#Invoice.DocumentCurrency#</font>&nbsp; #NumberFormat(Invoice.DocumentAmount,",.__")#</cfoutput>				 
 					 </td> 	 		 
 				  					 
@@ -454,17 +461,19 @@ password="#SESSION.dbpw#">
 				   
 				<cfelse>
 				
-					 <td class="labelmedium" style="font-size:25px">				  
+					 <td class="labelmedium2" style="font-size:25px">				  
 				  	  <cfoutput><font size="3">#Invoice.DocumentCurrency#</font>&nbsp; #NumberFormat(Invoice.DocumentAmount,",.__")#</cfoutput>				 
 					 </td> 	    
 				   
 				</cfif>  
 		   			     		      				  
-				  <td class="labelmedium" style="padding-left:10px">	
-				    					  					 
+				  <td class="labelmedium2" style="padding-left:10px">	
+				 			 	
+				    									  					 
 				   <cfif Invoice.ActionStatus eq "0" and (Post.recordcount eq "0" or getAdministrator("*") eq "1") and (session.acc eq Invoice.OfficerUserId or AccessReq eq "ALL")>
 				  
 				       <cfoutput>
+					   
 				       		<img onclick="edit()" 
 							     style="cursor:pointer" 
 								 src="#SESSION.root#/images/edit.gif" 
@@ -472,6 +481,7 @@ password="#SESSION.dbpw#">
 								 width="14" 
 								 alt="Edit Payable amount" 
 								 border="0">					  
+								 
 					   </cfoutput>
 				  </cfif>
 				  
@@ -494,8 +504,8 @@ password="#SESSION.dbpw#">
 	  
 	  <cfif GLCheck.recordcount eq "1">
 	
-	     <TD class="labelmedium"><cf_tl id="Posted Amount">:</TD>
-	     <td colspan="1" class="labelmedium">	
+	     <TD class="labelmedium2"><cf_tl id="Posted Amount">:</TD>
+	     <td colspan="1" class="labelmedium2">	
 		 <cfoutput>
 		      <a href="javascript:ShowTransaction('#GLCheck.Journal#','#GLCheck.JournalSerialNo#','1','tab','z','z')">
 			  <font color="2894FF">
@@ -507,8 +517,8 @@ password="#SESSION.dbpw#">
 		  
 	  <cfelse>
 	  
-	   <td class="labelmedium"><cf_tl id="Period">:</td>
-	   <td colspan="1" class="labelmedium"><cfoutput>#Invoice.Period#</cfoutput></td>	  
+	   <td class="labelmedium2"><cf_tl id="Period">:</td>
+	   <td colspan="1" class="labelmedium2"><cfoutput>#Invoice.Period#</cfoutput></td>	  
 	  		  		
 	  </cfif>		   
 	   
@@ -532,13 +542,13 @@ password="#SESSION.dbpw#">
         <cfoutput>
 		
 	       <tr class="line">	  
-		       <TD height="20" style="padding-left:33px" class="labelmedium"><cf_tl id="Reconciliation">:</TD>
-	              <td colspan="1" class="labelmedium">	 
+		       <TD height="20" style="padding-left:33px" class="labelmedium2"><cf_tl id="Reconciliation">:</TD>
+	              <td colspan="1" class="labelmedium2">	 
 	    	       	  <font color="FF8040">#dateformat(Reconcile.Created,CLIENT.DateFormatShow)#	  
 	   		   </td>	
 			   <cfif Reconcile.OfficerLastName neq "">
-				   <td class="labelmedium"><cf_tl id="Officer">:</td>
-				   <td class="labelmedium">#Reconcile.OfficerFirstName# #Reconcile.OfficerLastName#</td>
+				   <td class="labelmedium2"><cf_tl id="Officer">:</td>
+				   <td class="labelmedium2">#Reconcile.OfficerFirstName# #Reconcile.OfficerLastName#</td>
 			   </cfif>			   
 		   </TR>
 		   
@@ -571,16 +581,16 @@ password="#SESSION.dbpw#">
 						WHERE     I.ReconciliationNo = '#Invoice.ReconciliationNo#'
 					</cfquery>
 					
-					<tr><td colspan="4" class="labelmedium" bgcolor="ffffcf" align="center">Invoice was reconciled clustered with other payables</td></tr>				
+					<tr><td colspan="4" class="labelmedium2" bgcolor="ffffcf" align="center">Invoice was reconciled clustered with other payables</td></tr>				
 				
 				</cfif>
 								
 				<cfloop query="IMISdetail">
-					<tr>
-					   <td class="labelmedium" style="padding-left:2px">#DocumentCode#</td>
-					   <td class="labelmedium">#DocumentId1#</td>
-					   <td class="labelmedium">#InvoiceNo#</td>			   
-					   <td class="labelmedium" align="right" style="padding-right:2px">#Currency# #numberformat(documentamount,",.__")#</td>
+					<tr class="labelmedium2">
+					   <td style="padding-left:2px">#DocumentCode#</td>
+					   <td>#DocumentId1#</td>
+					   <td>#InvoiceNo#</td>			   
+					   <td align="right" style="padding-right:2px">#Currency# #numberformat(documentamount,",.__")#</td>
 					</tr>   
 				</cfloop>
 				</table>
@@ -608,23 +618,23 @@ password="#SESSION.dbpw#">
    
    <cfif cancelled.recordcount gte "1">
    
-   <tr class="line"><td height="25" colspan="4" align="center" class="labelmedium" bgcolor="FCD8A7">Alert: invoice mapped against obligation lines which have been disabled. <b>Contact your administrator.</td></tr>
+   <tr class="line"><td height="25" colspan="4" align="center" class="labelmedium2" bgcolor="FCD8A7">Alert: invoice mapped against obligation lines which have been disabled. <b>Contact your administrator.</td></tr>
    
    <tr><td colspan="4" style="padding-left:33px">
    <table width="100%" cellspacing="0" cellpadding="0" class="formpadding">
    
 	   <cfoutput query="cancelled">
 	   
-	   	 <tr id="#requisitionno#_1" bgcolor="ffffdf">
+	   	 <tr id="#requisitionno#_1" bgcolor="ffffdf" class="labelmedium2">
 			
 			   <td rowspan="2" align="left"></td>
-	    	   <td class="labelmedium">&nbsp;</td>		  
-			   <td class="labelmedium">#RequestDescription#</td>
-			   <td class="labelmedium"><i>#OfficerLastName#</i></td>
-	    	   <td align="right" class="labelmedium">#RequestQuantity#</td>
-			   <td align="center" class="labelmedium">#QuantityUoM#</td>
-			   <td align="right" class="labelmedium">#NumberFormat(RequestCostprice,",.__")#</td>
-			   <td align="right" style="padding-right:5px" class="labelmedium">#NumberFormat(RequestAmountBase,",.__")#</td>			   
+	    	   <td>&nbsp;</td>		  
+			   <td>#RequestDescription#</td>
+			   <td><i>#OfficerLastName#</i></td>
+	    	   <td align="right">#RequestQuantity#</td>
+			   <td align="center">#QuantityUoM#</td>
+			   <td align="right">#NumberFormat(RequestCostprice,",.__")#</td>
+			   <td align="right" style="padding-right:5px">#NumberFormat(RequestAmountBase,",.__")#</td>			   
 			   <td rowspan="2" align="center" valign="middle">			   
 				   <cf_img icon="edit" onClick="javascript:ProcReqEdit('#requisitionno#','dialog');">			 									   
 			   </td>
@@ -643,7 +653,7 @@ password="#SESSION.dbpw#">
 				 	 
 		<!--- funding --->		
 		
-		<tr class="line"><td valign="top" class="labelmedium" style="border-right:0px solid silver;padding-left:33px;padding-top:5px"><cf_tl id="Budget Charge"> :</td>		
+		<tr class="line"><td valign="top" class="labelmedium2" style="border-right:0px solid silver;padding-left:33px;padding-top:5px"><cf_tl id="Budget Charge"> :</td>		
 			<td colspan="3" id="funding" valign="top" style="padding-left:4px;padding-top:5px">
 				<cfinclude template="InvoiceMatchFunding.cfm">
 			</td>
@@ -656,7 +666,7 @@ password="#SESSION.dbpw#">
 	<cfif Invoice.Description neq "">
  							  	   
 		  <cfoutput>
-	       <tr class="line labelmedium">	  
+	       <tr class="line labelmedium2">	  
 		       <td style="padding-left:33px"><cf_tl id="memo">:</td>
 	           <td colspan="3">#Invoice.Description#</td>	
 		   </TR>
@@ -667,7 +677,7 @@ password="#SESSION.dbpw#">
 	 <cfset url.mission = Invoice.Mission>		
 	  	 			 		   
 	  <tr class="line" style="height:30px">
-	        <td style="padding-left:33px;padding-top:6px" valign="top" class="labelmedium"><cf_tl id="Orginal invoice attachments">:</td>
+	        <td style="padding-left:33px;padding-top:6px" valign="top" class="labelmedium2"><cf_tl id="Orginal invoice attachments">:</td>
 			<td colspan="3" id="attach">
 			   <cfset access = AccessReq>
 			   <cfinclude template="../InvoiceEntry/InvoiceEntryAttachment.cfm">						
@@ -677,7 +687,7 @@ password="#SESSION.dbpw#">
 	  <cfif accessreq eq "Edit">
 		<tr class="line">
 		    <td></td>
-			<td colspan="3" class="labelmedium">Attach related documents such an invoice original etc.</td>
+			<td colspan="3" class="labelmedium2">Attach related documents such an invoice original etc.</td>
 		</tr>
 	  </cfif>
 		 

@@ -121,7 +121,7 @@ password="#SESSION.dbpw#">
 				
             <tr class="labelmedium">
 			<td style="font-size:25px;padding-left:20px">
-			<h1><cf_tl id="Page"> #cfdocument.currentpagenumber# <cf_tl id="or"> #cfdocument.totalpagecount#</h1>
+			<h1><cf_tl id="Page"> #cfdocument.currentpagenumber# <cf_tl id="of"> #cfdocument.totalpagecount#</h1>
 			</td>
 			<td align="right" style="font-size:50px"> 
 				<h1><cf_tl id="IMPORTANT: Mark all packages and papers with contract and/or order numbers"></h1>

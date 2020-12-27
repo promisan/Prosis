@@ -252,7 +252,7 @@
 <cf_listing
 	    header              = "addresslist"
 	    box                 = "address"
-		link                = "#SESSION.root#/Attendance/Application/Address/AddressListingContent.cfm?filter=#url.filter#&mission=#url.mission#&zone=#url.zone#&addresstype=#url.addresstype#"
+		link                = "#SESSION.root#/Attendance/Application/Address/AddressListingContent.cfm?systemfunctionid=#url.systemfunctionid#&filter=#url.filter#&mission=#url.mission#&zone=#url.zone#&addresstype=#url.addresstype#"
 	    html                = "No"		
 		tableheight         = "100%"
 		tablewidth          = "100%"

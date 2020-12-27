@@ -105,76 +105,66 @@
 		</cfoutput>	
 	
 	</cfsavecontent>	
-	
-		
+			
 	<cfif checkCategory.recordcount gte "2">
 	
 		<cfset itm = itm+1>		
-		<cfset fields[itm] = {label     = "#vCategory#",                    
-		     				field       = "CategoryDescription",	
-							search      = "text",	
-							filtermode  = "2"}>	
+		<cfset fields[itm] = {label       = "#vCategory#",                    
+		     				field         = "CategoryDescription",	
+							search        = "text",	
+							filtermode    = "3"}>	
 		
 		<cfset itm = itm+1>					
-		<cfset fields[itm] = {label     = "#vSubCategory#",                    
-		     				field       = "CategoryItemName"}>	
-							
+		<cfset fields[itm] = {label       = "#vSubCategory#",                    
+		     				field         = "CategoryItemName"}>								
 						
 	<cfelse>
 	
 		<cfset itm = itm+1>	
-		<cfset fields[itm] = {label     = "#vCategory#",                    
-		     				field       = "CategoryDescription"}>	
+		<cfset fields[itm] = {label       = "#vCategory#",                    
+		     				field         = "CategoryDescription"}>	
 		
 		<cfset itm = itm+1>	
-		<cfset fields[itm] = {label     = "#vSubCategory#",                    
-		     				field       = "CategoryItemName",																							
-							search      = "text",	
-							filtermode  = "2"}>	
+		<cfset fields[itm] = {label       = "#vSubCategory#",                    
+		     				field         = "CategoryItemName",																							
+							search        = "text",	
+							filtermode    = "3"}>	
 	
 	</cfif>								
 
-	<cfset itm = itm+1>
+	<cfset itm = itm+1>		
+	<cfset fields[itm] = {label           = "P",                    
+	                    labelfilter       = "Pictures",
+	     				field             = "Pictures",					
+						alias             = "",	
+						width             = "10",
+						align       	  = "center",
+						filtermode  	  = "2"}>							
 	
-	
-	<cfset fields[itm] = {label     = "P",                    
-	                    labelfilter = "Pictures",
-	     				field       = "Pictures",					
-						alias       = "",	
-						width       = "10",
-						align       = "center",
-						filtermode  = "2"}>
-							
-	
-	<cfset itm = itm+1>
-		
-	<cfset fields[itm] = {label     = "Barcode",                    
-	     				field       = "ItemBarCode",							
-						align       = "left",
-						search		= "text"}>
+	<cfset itm = itm+1>		
+	<cfset fields[itm] = {label     	  = "Barcode",                    
+	     				field       	  = "ItemBarCode",							
+						align       	  = "left",
+						search			  = "text"}>
 
 
-	<cfset itm = itm+1>
-		
-	<cfset fields[itm] = {label     = "#vItemNoExternal#",                    
-	     				field       = "ItemNoExternal",							
-						align       = "left",
-						search		= "text"}>	
+	<cfset itm = itm+1>		
+	<cfset fields[itm] = {label           = "#vItemNoExternal#",                    
+	     				field             = "ItemNoExternal",							
+						align       	  = "left",
+						search			  = "text"}>	
 	
 	
-	<cfset itm = itm+1>
-		
+	<cfset itm = itm+1>		
 	<cfset fields[itm] = {label           = "#vItemName#",                    
 	     				field             = "ItemDescription",	<!--- display --->	
 						searchfield       = "ItemNo",		    <!--- code    --->						
 						search            = "text",									
 						lookupscript      = "#itemscript#",
 						lookupgroup       = "Category",
-						filtermode        = "2"}>			
-													
+						filtermode        = "2"}>																
 		
-	<cfset itm = itm+1>
-	
+	<cfset itm = itm+1>	
 	<cfset fields[itm] = {label           = "#vItem#",                    
 	     				field             = "ItemNo",
 						functionscript    = "stockOnHandItem",	
@@ -182,8 +172,7 @@
 						search            = "text"}>							
 		
 						
-	<cfset itm = itm+1>	
-		
+	<cfset itm = itm+1>			
 	<cfset fields[itm] = {label     = "#vUoM#",                    
 	     				field       = "UoMDescription",																						
 						search      = "text",
@@ -191,14 +180,11 @@
 						
 	<cfif mode eq "stock" and Param.LotManagement eq "1">
 	
-		<cfset itm = itm+1>
-		
+		<cfset itm = itm+1>		
 		<cfset fields[itm] = {label     = "#vLot#",                    
 		     				field       = "TransactionLot",																							
 							search      = "text",	
-							filtermode  = "4"}>		
-		
-			
+							filtermode  = "4"}>					
 	
 	</cfif>							
 										
@@ -326,7 +312,7 @@
 	    
 		h = #client.height-150#;
 		w = #client.width-150#;
-		window.open('#SESSION.root#/warehouse/maintenance/warehouselocation/LocationItemUoM/ItemUoMEdit.cfm?warehouse=#url.warehouse#&location=#url.location#','_blank', 'left=20, top=20, width=' + w + ',height=' + h + ',status=yes, toolbar=no, scrollbars=yes, resizable=yes');
+		ptoken.open('#SESSION.root#/warehouse/maintenance/warehouselocation/LocationItemUoM/ItemUoMEdit.cfm?warehouse=#url.warehouse#&location=#url.location#','_blank', 'left=20, top=20, width=' + w + ',height=' + h + ',status=yes, toolbar=no, scrollbars=yes, resizable=yes');
 		
 	</cfoutput>
 
@@ -373,6 +359,7 @@
 	<input type="hidden" id="mission" name="mission" value="#url.mission#">
 </cfoutput>
 
+
 <cfif (url.location neq "" and 
        url.systemfunctionid neq "" and 
 	   Param.LotManagement eq "0" and url.mode eq "item" and
@@ -409,7 +396,9 @@
 		
 <cfelse>
 
-	<!--- embed|window|dialogajax|dialog|standard --->			
+	<!--- embed|window|dialogajax|dialog|standard --->		
+	
+	
 
 	<cf_listing
 	    header              = "itemlocationlist"
@@ -429,7 +418,8 @@
 		show                = "35"		
 		menu                = "#menu#"
 		filtershow          = "Yes"
-		excelshow           = "Yes" 		
+		excelshow           = "Yes" 	
+		drillkey            = "ListingKey"	
 		listlayout          = "#fields#">	
 
 </cfif>

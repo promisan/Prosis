@@ -85,12 +85,12 @@
 					</td>
 					<td valign="bottom" align="right" class="labelmedium" style="padding-bottom:4px;padding-right:26px">
 					  <table>
-					    <tr class="labelmedium">
-						<td style="padding-right:6px;font-weight:200;font-size:17px">
-					  	<a href="javascript:Prosis.busy('yes');mypas('#url.personno#','#url.period#','#url.function#','#Period.Mission#')"><cf_tl id="My PAS"></a>
+					    <tr class="labelmedium2">
+						<td style="padding-right:6px;font-size:17px">
+					  	<a href="javascript:Prosis.busy('yes');mypas('#url.personno#','#url.period#','#url.function#','#Period.Mission#')"><cf_tl id="My Own PAS"></a>
 						</td>
 						<td>|</td>
-					    <td style="padding-left:6px;font-weight:200;font-size:17px">
+					    <td style="padding-left:6px;font-size:17px">
 					  	<a href="javascript:Prosis.busy('yes');supervisor('#url.personno#','#url.period#','#url.function#')"><cf_tl id="Refresh"></a>
 						</td>
 						</tr>
@@ -108,7 +108,7 @@
 					
 					<cf_divscroll>
 					
-					<table class="navigation_table" width="100%">
+					<table class="navigation_table" width="98%">
 										
 						<cfquery name="Staff" 
 							datasource="appsePas" 
@@ -141,22 +141,22 @@
 							ORDER BY  P.LastName
 						</cfquery>	
 						
-						<tr class="labelmedium line">
-							<td></td>
-							<td></td>
-							<td><cf_tl id="Name"></td>							
-							<td><cf_tl id="IndexNo"></td>
-							<td><cf_tl id="G"></td>
+						<tr class="labelmedium2 line fixrow">
+							<td style="background-color:ffffff"></td>
+							<td style="background-color:ffffff"></td>
+							<td style="background-color:ffffff"><cf_tl id="Name"></td>							
+							<td style="background-color:ffffff"><cf_tl id="IndexNo"></td>
+							<td style="background-color:ffffff"><cf_tl id="G"></td>
 							
-							<td><cf_tl id="Section / Unit"></td>
-							<td><cf_tl id="Functional Title"></td>
-							<td><cf_tl id="Class"></td>
-							<td><cf_tl id="Status"></td>
+							<td style="background-color:ffffff"><cf_tl id="Section / Unit"></td>
+							<td style="background-color:ffffff"><cf_tl id="Functional Title"></td>
+							<td style="background-color:ffffff"><cf_tl id="Class"></td>
+							<td style="background-color:ffffff"><cf_tl id="Status"></td>
 						</tr>
 						
 						<cfoutput query="Staff">
 						
-						<tr class="labelmedium navigation_row line">
+						<tr class="labelmedium2 navigation_row line">
 							<td style="padding-left:8px">
 							
 							<cfif actionStatus gte "5">
@@ -215,7 +215,7 @@
 							
 								<table width="100%">
 									<tr>									
-									<td style="height:15px;width:20px;border:1px solid gray;background-color:lime"</td>													
+									<td style="height:18px;width:20px;border:1px solid gray;background-color:lime"</td>													
 									</tr>
 								</table>
 							
@@ -239,7 +239,7 @@
 									<tr>
 									
 									<cfloop query="section">										
-									<td style="height:15px;border:1px solid gray;<cfif ProcessStatus eq "1">background-color:lime</cfif>">									
+									<td style="height:18px;border:1px solid gray;<cfif ProcessStatus eq "1">background-color:lime</cfif>">									
 									<cf_UIToolTip tooltip="#DescriptionTooltip#"/></td>
 									</cfloop>												
 									</tr>

@@ -44,9 +44,7 @@ password="#SESSION.dbpw#">
 			    (DateExpiration is NULL  OR  DateExpiration = '')
 			   ) 	
 	</cfquery>
-	
-	
-	
+		
 	<script>
 	
 		try {
@@ -72,8 +70,8 @@ password="#SESSION.dbpw#">
 			
 			<table width="100%" align="center" class="navigation_table">
 			
-			<TR class="labelmedium line">
-			    <td><cf_tl id="Status"></td>
+			<TR class="labelmedium2 line">
+			    <td style="padding-left:2px"><cf_tl id="Status"></td>
 				<td><cf_tl id="Dependent"></td>
 			    <td><cf_tl id="Effective"></td>
 				<TD><cf_tl id="Expiration"></TD>
@@ -85,30 +83,34 @@ password="#SESSION.dbpw#">
 			
 			<cfoutput query="select">
 			
-			<TR class="labelmedium line navigation_row">
+			<TR class="labelmedium2 <cfif currentrow neq recordcount>line</cfif> navigation_row">
 				
-				<td style="padding-left:5px"><cfif Status eq "2"><cf_tl id="Approved"><cfelse><cf_tl id="Pending"></cfif></td>
+				<td style="padding-left:2px"><cfif Status eq "2"><cf_tl id="Approved"><cfelse><cf_tl id="Pending"></cfif></td>
 				<td>
 				
-				<cfquery name="dependent" 
-				datasource="AppsEmployee" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-					SELECT * 
-					FROM   PersonDependent 
-					WHERE  DependentId   = '#dependentid#'  	
-				</cfquery>
+				<cfif dependentid neq "">
 				
-				#Dependent.FirstName#
+					<cfquery name="dependent" 
+					datasource="AppsEmployee" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+						SELECT * 
+						FROM   PersonDependent 
+						WHERE  DependentId   = '#dependentid#'  	
+					</cfquery>
+					
+					#Dependent.FirstName#
+				
+				</cfif>
 				
 				</td>
 				<td>#Dateformat(DateEffective, CLIENT.DateFormatShow)#</td>
-				<td><cfif #Dateformat(DateExpiration, CLIENT.DateFormatShow)# eq "">End of contract<cfelse>#Dateformat(DateExpiration, CLIENT.DateFormatShow)#</cfif> </td>
+				<td><cfif Dateformat(DateExpiration, CLIENT.DateFormatShow) eq "">End of contract<cfelse>#Dateformat(DateExpiration, CLIENT.DateFormatShow)#</cfif> </td>
 				<TD>#SalarySchedule#</TD>
 				<cfif EntitlementClass eq "Amount">
 					<TD align="right" style="padding-right:4px">#Period#</TD>
 					<TD align="right">#Currency# #NumberFormat(Amount, ".__")#</TD>
-				<cfelseif enableAmount eq "1">
+				<cfelseif get.enableAmount eq "1">
 					<TD align="right" style="padding-right:4px"></TD>
 					<TD align="right">#Currency# #NumberFormat(Amount, ".__")#</TD>	
 				<cfelseif ContractId neq "">
@@ -118,7 +120,7 @@ password="#SESSION.dbpw#">
 				<table>
 					<tr class="labelmedium">
 					<td style="padding-left:20px;min-width:100px"><font color="FF0000"><cf_tl id="Terminate">:</font></td>
-					<td style="padding-left:3px;padding-right:5px"><input type="checkbox" name="terminate" value="#EntitlementId#"></td>
+					<td style="padding-left:3px;padding-right:5px"><input type="checkbox" class="radiol" name="terminate" value="#EntitlementId#"></td>
 					</tr>
 				</table>
 				</td>
@@ -130,7 +132,7 @@ password="#SESSION.dbpw#">
 			</table>
 		</td>	
 		</tr>
-		
+						
 		</table>
 	
 	</cfif>
@@ -138,7 +140,7 @@ password="#SESSION.dbpw#">
 	<cfcatch>
 	
 	<table width="100%" align="center">
-	   <tr class="line"><td align="center" class="labelmedium"><font color="FF0000"><cf_tl id="Incorrect date recorded"></font></td></tr>
+	   <tr class="line"><td align="center" class="labelmedium"><cf_tl id="Incorrect date recorded"></td></tr>
      </table>	
 	
 	</cfcatch>

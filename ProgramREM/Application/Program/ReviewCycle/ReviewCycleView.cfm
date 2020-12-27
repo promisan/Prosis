@@ -35,7 +35,7 @@
 		<cf_screenTop height="100%" html="No"  jquery="Yes" scroll="yes">	
 	</cfif>	
 	
-	<cfajaximport tags="cfmenu,cfdiv,cfwindow">
+	<cfajaximport tags="cfdiv">
 	<cf_ActionListingScript>
 	<cf_FileLibraryScript>
 
@@ -107,8 +107,10 @@
 	</script>
 	
 </cfoutput>
+
+<cf_divscroll>
 	
-<table width="99%" border="0" align="center" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="99%" align="center" class="formpadding">
 
     <cfif url.header eq "0">
 			
@@ -362,9 +364,7 @@
 		  EditAccess eq "NONE" or 
 		  EditAccess eq "READ">
 		  --->		
-		  
-		
-		 		 		  	
+				 		 		  	
 	<cfif Review.ActionStatus gte "3" or 
 		  EditAccess eq "NONE" or 
 		  EditAccess eq "READ" or 
@@ -396,12 +396,12 @@
 								
 			<cfif PriorReview.recordcount gte "1">
 						
-				<tr><td class="linedotted">
+				<tr><td class="line">
 				<table><tr>
 				<td class="labelit" style="padding-left:5px;padding-right:10px"><font color="808080"><cf_tl id="Other actions">:</td>
 				<cfoutput query="PriorReview">
 				<td class="labelmedium" style="padding-left:5px;padding-right:10px">
-				  <a href="ReviewCycleView.cfm?header=#url.header#&cycleid=#url.cycleid#&reviewid=#reviewid#"><font color="0080C0">#OfficerLastName# #dateformat(created,client.dateformatshow)# <cfif actionstatus eq "3">Completed<cfelseif actionstatus eq "9">Denied<cfelse>Pending</cfif></a>
+				  <a href="ReviewCycleView.cfm?header=#url.header#&cycleid=#url.cycleid#&reviewid=#reviewid#">#OfficerLastName# #dateformat(created,client.dateformatshow)# <cfif actionstatus eq "3"><cf_tl id="Completed"><cfelseif actionstatus eq "9"><cf_tl id="Denied"><cfelse><cf_tl id="Pending"></cfif></a>
 	 		    </td>
 				</cfoutput>
 				</tr>
@@ -410,8 +410,7 @@
 										
 			</cfif>	
 			
-		</cfif>
-		
+		</cfif>		
 		
 	<cfif mode eq "edit" or Review.ActionStatus eq "8">	
 							
@@ -421,10 +420,10 @@
 					
 				<cfif Review.ActionStatus eq "8" or url.reviewid eq "">
 				
-				    <cf_tl id="Open #Cycle.Description#" var="1"> 
-					
+				    <cf_tl id="Initate #Cycle.Description#" var="1"> 
+										
 					<tr><td align="center" style="height:40px" id="process" class="linedotted">
-					<input style="width:250;height:29px" 
+					<input style="width:290;height:29px;font-size:16px" 
 					   type="button" 
 					   name="Submit" 
 					   onclick="ptoken.navigate('setSubscription.cfm?header=#url.header#&status=1&reviewid=#Review.ReviewId#&programcode=#url.programcode#&period=#url.period#&cycleid=#url.cycleid#','process')" value="#lt_text#" class="button10g">
@@ -443,20 +442,18 @@
 					
 				</cfif>
 			
-			<cfelse>
-						
+			<cfelse>						
 									
 				<cfif Review.ActionStatus eq "8" or url.reviewid eq "">				
 				
-					<cf_tl id="Open #Cycle.Description#" var="1"> 	
+					<cf_tl id="Initiate #Cycle.Description#" var="1"> 	
 					
 				    <!--- only visible if the period is valid --->
 										
-					<cfif Cycle.DateEffective lte now() and Cycle.DateExpiration gte now()>
-					
+					<cfif Cycle.DateEffective lte now() and Cycle.DateExpiration gte now()>					
 										
-						<tr><td align="center" class="linedotted" style="height:40px" id="process">
-						<input style="width:250;height:29px" 
+						<tr><td align="center" style="height:40px" id="process">
+						<input style="width:290;height:29px;font-size:16px" 
 						   type="button" 
 						   name="Subscribe" 
 						   onclick="ptoken.navigate('setSubscription.cfm?header=#url.header#&status=1&reviewid=#Review.ReviewId#&programcode=#url.programcode#&period=#url.period#&cycleid=#url.cycleid#','process')" value="#lt_text#" class="button10g">
@@ -466,11 +463,11 @@
 					
 				<cfelseif Review.ActionStatus eq "0" or Review.ActionStatus eq "1">
 				
-					 <cf_tl id="Revoke #Cycle.Description#" var="1"> 	
+					 <cf_tl id="Revoke #Cycle.Description# submission" var="1"> 	
 				
 					<tr>
-						<td align="center" class="linedotted" style="height:40px" id="process">
-						<input style="width:250;height:29px" type="button" name="Subscribe" value="#lt_text#" 
+						<td align="center" style="height:40px" id="process">
+						<input style="width:390;height:29px;font-size:16px" type="button" name="Subscribe" value="#lt_text#" 
 						onclick="ptoken.navigate('setSubscription.cfm?header=#url.header#&status=8&reviewid=#Review.ReviewId#&programcode=#url.programcode#&period=#url.period#&cycleid=#url.cycleid#','process')" class="button10g">
 						</td>
 					</tr>		
@@ -485,15 +482,13 @@
 			
 			</cfoutput>
 					
-	</cfif>
-		
+	</cfif>		
 					
-	<cfif url.reviewId neq "">	
-		
+	<cfif url.reviewId neq "">			
 				
 		<cfif Review.ActionStatus gte "0">	
 		
-		    <tr><td style="padding-left:4px;height:35" class="linedotted labellarge"><cfif Review.ActionStatus eq "3"><font color="green"><b><cf_tl id="Completed"><cfelseif Review.ActionStatus eq "9"><font color="red"><cf_tl id="Denied"></cfif></td></tr>
+		    <tr><td style="padding-left:4px;height:35" class="labellarge"><cfif Review.ActionStatus eq "3"><font color="green"><b><cf_tl id="Completed"><cfelseif Review.ActionStatus eq "9"><font color="red"><cf_tl id="Denied"></cfif></td></tr>
 		
 			<tr><td>
 			
@@ -511,8 +506,7 @@
 					
 				</form>	
 							
-			</td></tr>		
-			
+			</td></tr>				
 									
 			<cfif mode eq "edit" and Review.ActionStatus neq "8">
 						
@@ -521,15 +515,17 @@
 				<cf_tl id="Save" var="1">
 			
 			    <cfoutput>
+								
 				<input style="width:250;height:29px" 
 				   type="button" 
 				   name="Save" 
-				   onclick="Prosis.busy('yes');ColdFusion.navigate('ReviewCycleSubmit.cfm?header=#url.header#&cycleid=#url.cycleid#&reviewid=#url.ReviewId#','process','','','POST','reviewform')"
+				   onclick="Prosis.busy('yes');ptoken.navigate('ReviewCycleSubmit.cfm?header=#url.header#&cycleid=#url.cycleid#&reviewid=#url.ReviewId#','process','','','POST','reviewform')"
 				   value="#lt_text#" 
 				   class="button10g">
+				   
 				 </cfoutput>  
 				</td></tr>		
-				<tr><td class="linedotted"></td></tr>
+				<tr><td class="line"></td></tr>
 			
 			</cfif>	
 			
@@ -572,8 +568,7 @@
 				</cfloop>	
 			
 			</cfif>	
-			
-			
+						
 			<cfif wf eq "0">			
 				 <tr>
 				  <td class="labellarge" style="background-color:E35457; color:ffffff; padding:10px; font-size:150%;" align="center">
@@ -611,6 +606,7 @@
 
 	</cfif>
 
-
 </table>
+
+</cf_divscroll>
 

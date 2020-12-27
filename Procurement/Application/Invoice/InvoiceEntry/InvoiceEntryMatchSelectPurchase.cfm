@@ -86,11 +86,11 @@ password="#SESSION.dbpw#">
 
 <table width="100%" border="0" bgcolor="white">
 
-<tr><td style="border:1px solid silver;padding-left:8px;padding-right:8px">
+<tr><td style="padding-left:8px;padding-right:8px">
 
 	<table width="100%" cellspacing="0" cellpadding="0" class="navigation_table">
 	
-	<tr class="line labelit">
+	<tr class="line labelmedium">
 		<td width="1%"></td>	
 		<td></td>
 		<td><cf_tl id="Purchase No"></td>
@@ -105,10 +105,10 @@ password="#SESSION.dbpw#">
 	
 	<cfoutput query="ResultSet" group="PurchaseNo">
 	
-		<tr id="#currentrow#" class="navigation_row linedotted labelit">
+		<tr id="#currentrow#" class="navigation_row line labelmedium2">
 		
 			<td style="padding-left:4px;padding-top:2px">
-			  <cf_img icon="add" tooltip="select" onClick="purchaseselect('#purchaseno#','#invoiceid#')">
+			    <cf_img icon="add" tooltip="select" onClick="purchaseselect('#purchaseno#','#invoiceid#')">
 			</td>
 			
 			<td width="2%" align="center">
@@ -157,8 +157,8 @@ password="#SESSION.dbpw#">
 					   	<td width="10%" align="right">#OrderQuantity#</td>
 						<td width="20%" align="center">#OrderUoM#</td>
 						<td width="10%" align="center">#Currency#</td>
-						<td width="12%" align="right">#NumberFormat(OrderAmount/OrderQuantity,",__.__")#</td>
-					    <td width="12%" align="right">#NumberFormat(OrderAmount,",__.__")#</td>
+						<td width="12%" align="right">#NumberFormat(OrderAmount/OrderQuantity,",.__")#</td>
+					    <td width="12%" align="right">#NumberFormat(OrderAmount,",.__")#</td>
 					</tr>			
 				</cfoutput>
 			  </table>

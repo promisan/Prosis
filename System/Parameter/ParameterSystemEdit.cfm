@@ -54,7 +54,7 @@ function changePwdMode(val)
 
 </script>
 
-<cfajaximport tags="cfform,cfwindow">
+<cfajaximport tags="cfform">
    
 <div id="fSystem" style="width:100%">
 	<cfinclude template = "ParameterSystemForm.cfm">

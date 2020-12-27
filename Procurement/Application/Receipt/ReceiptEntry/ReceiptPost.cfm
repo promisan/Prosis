@@ -1226,7 +1226,7 @@
 							
 							<cfif GLCOGS.recordcount eq "0" and operational eq "1">
 							    
-							  	 <cf_message message = "COGS account for #Item.Category# does not exist">
+							  	 <cf_message message = "COGS GL account for Item category #Item.Category# was not set">
 								 <cfabort>
 							
 							</cfif>			

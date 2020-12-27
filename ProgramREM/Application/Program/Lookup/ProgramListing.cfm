@@ -115,31 +115,25 @@ password="#SESSION.dbpw#">
 
 <CF_DropTable dbName="AppsQuery"  tblName="tmp#SESSION.acc#ProgramPeriod#FileNo#">	
 
-
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="100%" align="center">
   
   <tr>
-  <td style="padding:16px">
+  <td style="padding-left:16px;padding-right:16px">
   
-     <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+     <table width="100%" align="center" class="navigation_table">
      
-		 <tr class="labelit linedotted"> 
-		   <td width="8%">&nbsp;</td>
-		   <td width="15%" align="left"><cf_tl id="Code"></td>
-	       <td width="60%" align="left"><cf_tl id="Program name"><cf_space spaces="30"></td>
-		   <td width="15%" align="left"><cf_tl id="Class"></td>	  
+		 <tr class="labelmedium line fixrow"> 
+		   <td style="min-width:25px"></td>
+		   <td style="min-width:90px"><cf_tl id="Code"></td>
+	       <td width="100%" align="left"><cf_tl id="Program name"></td>		  
 		 </tr>
 		
 		 <cfoutput query="Program" group="HierarchyCode">
-		 
-		 <tr><td height="7"></td></tr>
-			 
-		 <tr bgcolor="e4e4e4" style="border:1px solid silver" class="labelmedium">
+		 			 
+		 <tr class="labelmedium2 line" style="height:30px" bgcolor="e4e4e4">
 		 	<td colspan="4" style="padding-left:4px">#OrgUnitCode# #OrgUnitName#</td>	 
 		 </tr>
-		 
-		 <tr><td height="7"></td></tr>
-			 
+		 			 
 			 <cfoutput>
 			 
 			 	<cfif programclass eq "Program">
@@ -153,13 +147,12 @@ password="#SESSION.dbpw#">
 				 <cfset orgname = replace(OrgUnitName,"'","","ALL")> 
 				 <cfset prgname = replace(ProgramName,"'","","ALL")> 
 				
-				 <TR bgcolor="#cl#" class="labelit navigation_row">
+				 <TR bgcolor="#cl#" class="labelmedium line navigation_row">
 					 <td align="center" style="padding-top:3px">				
 					   <cf_img icon="select" navigation="Yes" onclick="programselected('#programid#','#orgunit#')">
 					 </td>
 					 <td><cfif Reference neq "">#Reference#<cfelse>#ProgramCode#</cfif></td>
-					 <td>#ProgramName#</td>
-					 <td style="padding-right:5px">#ProgramClass#</td>				  
+					 <td><b>#ProgramClass#</b>:&nbsp;#ProgramName#</td>					 		  
 				 </tr>
 			 	 
 			 </cfoutput>
@@ -168,12 +161,9 @@ password="#SESSION.dbpw#">
 	 	 
 	 </table>
   
-  </td>
-  
+  </td>  
   </tr>  
   
 </table>
 
 <cfset ajaxonload("doHighlight")>
-
-

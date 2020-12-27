@@ -6,7 +6,7 @@
 <script language="JavaScript">
 
 function editAccount(persno, no) {
-	window.location = "AccountEdit.cfm?ID=" + persno + "&ID1=" + no ;
+	ptoken.location = "AccountEdit.cfm?ID=" + persno + "&ID1=" + no ;
 }
 </script>
 
@@ -37,9 +37,12 @@ function editAccount(persno, no) {
 </cfif>	
 
 <cfif Form.AccountABA eq "" and Form.SwiftCode eq "">
+
+   <table style="width:100%"><tr class="labelmedium2"><td align="center" style="padding-top:30px" onclick="history.back()">
    <cfoutput>
     <cf_tl id="Problem, must provide with an ABA or SwiftCode in order to continue">
   </cfoutput>
+  </td></tr></table>
   <cfabort>
 </cfif>
 
@@ -57,20 +60,20 @@ password="#SESSION.dbpw#">
 </cfquery>
 
 <cfif Account.recordCount gte 1> 
-
-<cfoutput>
-
-<cfparam name="URL.ID" default="#Account.PersonNo#">
-<cfinclude template="../../../Staffing/Application/Employee/PersonViewHeader.cfm">
-
-<p align="center">
-
-<font face="Calibri" size="2" color="FF0000">An account with this AccountNo was already registered</font></b></p>
-<hr>
-
-<input type="button" class="button10g" value="Edit Account" onClick="javascript:editAccount('#Account.PersonNo#','#Account.AccountId#');">
-
-</cfoutput>
+	
+	<cfoutput>
+	
+	<cfparam name="URL.ID" default="#Account.PersonNo#">
+	<cfinclude template="../../../Staffing/Application/Employee/PersonViewHeader.cfm">
+	
+	<p align="center">
+	
+	<font face="Calibri" size="3" color="FF0000">An account with this AccountNo was already registered</font></b></p>
+	<hr>
+	
+	<input type="button" class="button10g" value="Edit Account" onClick="javascript:editAccount('#Account.PersonNo#','#Account.AccountId#');">
+	
+	</cfoutput>
 
 <CFELSE>
 
@@ -175,8 +178,7 @@ password="#SESSION.dbpw#">
 		   ptoken.location("EmployeeBankAccount.cfm?ID=#Form.PersonNo#");    
 	     </script>	
 	 
-	 </cfoutput>
-	
+	 </cfoutput>	
 	
 </cfif>	
 

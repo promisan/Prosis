@@ -24,7 +24,7 @@
 <cfoutput>
 <cfsavecontent variable="myquery">
 
-	SELECT    *
+	SELECT    *, TransactionDate
 	FROM      StockBatch_#SESSION.acc# B
 	WHERE     1=1 
 	
@@ -82,7 +82,7 @@
 <cfset fields[itm] = {label         = "#vLocation#", 
 					  field         = "LocationDescription",
 					  searchfield	= "LocationDescription",
-  					  filtermode    = "2",
+  					  filtermode    = "3",
 					  search		= "text"}>	
 					  
 <cfset itm = itm+1>		
@@ -108,6 +108,7 @@
 <cfset fields[itm] = {label         = "#vDate#", 
 					  field         = "TransactionDate",
 				      searchfield   = "TransactionDate",
+					  column        = "month",
 					  filtermode    = "0",
 					  formatted     = "dateformat(TransactionDate,client.dateformatshow)",
 					  search        = "date"}>	

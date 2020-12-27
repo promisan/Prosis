@@ -25,7 +25,7 @@
 	    SELECT *
 	    FROM  OrganizationObject
 		WHERE ObjectKeyValue4 = '#id#' 
-		AND   Operational = 1
+		AND   Operational     = 1
 	</cfquery>
 		
 	<cfif Doc.recordcount gte "1">

@@ -43,7 +43,7 @@
 				  </cfif>
 				  
 				  <cf_UItreeitem value="#ServiceLocation#"
-			        display="<span style='font-size:16px;padding-top:5px;padding-bottom:5px;font-weight:bold' class='labellarge'>#ServiceLocation# #Description#</span>"						
+			        display="<span style='font-size:16px;padding-top:2px;padding-bottom:2px;font-weight:bold' class='labelit'>#ServiceLocation# #Description#</span>"						
 					parent="root"	
 					target="right"
 					href="Blank.cfm"						
@@ -66,27 +66,24 @@
 												
                             
 							<cf_UItreeitem value="#ServiceLocation#_#currentrow#_1"
-					        display="<span style='font-size:13px;' class='labellarge'>Grades scale</span>"						
+					        display="<span style='font-size:13px;' class='labelit'>Grades scale</span>"						
 							parent="#ServiceLocation#_#currentrow#"	
 							href="RateEdit.cfm?Effective=#SalaryEffective#&Schedule=#url.schedule#&Mission=#url.Mission#&Location=#servicelocation#&operational=#url.operational#&mode=Grade"
-							target="right"
-							img="#SESSION.root#/Images/Incoming.png"			
+							target="right"									
 					        expand="No">		
 							
 							<cf_UItreeitem value="#ServiceLocation#_#currentrow#_2"
-					        display="<span style='font-size:13px;' class='labellarge'>Percentages</span>"						
+					        display="<span style='font-size:13px;' class='labelit'>Percentages</span>"						
 							parent="#ServiceLocation#_#currentrow#"	
 							href="RateEdit.cfm?Effective=#SalaryEffective#&Schedule=#url.schedule#&Mission=#url.Mission#&Location=#servicelocation#&operational=#url.operational#&mode=percentage"
-							target="right"
-							img="#SESSION.root#/Images/Incoming.png"			
+							target="right"									
 					        expand="No">	
 							
 							<cf_UItreeitem value="#ServiceLocation#_#currentrow#_3"
-					        display="<span style='font-size:13px;' class='labellarge'>Other Rates</span>"						
+					        display="<span style='font-size:13px;' class='labelit'>Other Rates</span>"						
 							parent="#ServiceLocation#_#currentrow#"	
 							href="RateEdit.cfm?Effective=#SalaryEffective#&Schedule=#url.schedule#&Mission=#url.Mission#&Location=#servicelocation#&operational=#url.operational#&mode=rate"
-							target="right"
-							img="#SESSION.root#/Images/Incoming.png"			
+							target="right"									
 					        expand="No">				
 					
 					</cfoutput>

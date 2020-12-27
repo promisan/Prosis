@@ -73,19 +73,19 @@
 datasource="AppsSystem" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-	SELECT *
-	FROM   xl#Client.LanguageId#_Ref_ModuleControl R
-	WHERE SystemFunctionId = '#URL.SystemFunctionId#'	
+	SELECT  *
+	FROM    xl#Client.LanguageId#_Ref_ModuleControl R
+	WHERE   SystemFunctionId = '#URL.SystemFunctionId#'	
 </cfquery>
 
-<table width="100%" height="100%" cellspacing="0" cellpadding="0">
+<table width="100%" height="100%">
     
 	<tr id="log">
 	
         <td valign="top" height="100%">
             
             <cfdiv id="inquirydetail" style="width:100%; height:100%; min-height:100%;">		
-                <cfinclude template="InquiryContent.cfm">
+                <cfinclude template="InquiryListingPrepare.cfm">
             </cfdiv>		
                    
         </td>

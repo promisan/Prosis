@@ -18,7 +18,6 @@
 
 <cf_dialogstaffing>
 
-
 <cfsavecontent variable="myquery">
 
 	<cfoutput>
@@ -26,64 +25,75 @@
 		SELECT *
 		FROM (
 		
-		SELECT       P.IndexNo, 
-		             P.FirstName, 
-					 P.LastName, 
-					 P.LastName+','+P.FirstName as Name,	
-					 P.PersonNo,					 
-					 PL.GroupListCode, 
+		SELECT      P.IndexNo, 
+		            P.FirstName, 
+					P.LastName, 
+					P.LastName+','+P.FirstName as Name,	
+					P.PersonNo,					 
+					PL.GroupListCode, 
+					
+					<!--- this query slows down a lot so I removed it for now pending a better query--->
+					
+					(SELECT LastName
+					FROM System.dbo.UserNames
+					WHERE Account = PL.FirstReviewerUserId) as FRO,
+					
+					<!---
+										 
+					(CASE  WHEN Status = '1' THEN  
+						case when V.ActionDescriptionDue like 'xxxHHRR%' then '-'
+						     when V.ActionDescriptionDue like 'xxxConfirmation%' then '-' END
+	--					else organization.dbo.nextapproval(PL.LeaveId,PL.FirstReviewerUserId,PL.SecondReviewerUserId, pl.Status)  END
+		             ELSE '-' END) as FRO,
 					 
-case  WHEN Status = '1' 
-then 
-	case when V.ActionDescriptionDue like 'HHRR%' then '-'
-	     when V.ActionDescriptionDue like 'Confirmation%' then '-'
-	else
-	organization.dbo.nextapproval(PL.LeaveId,PL.FirstReviewerUserId,PL.SecondReviewerUserId, pl.Status)  end-- onayi beklenen
-else
-'-' end as FRO,
+					 --->
 					 
-					 (CASE WHEN PL.GroupCode is not NULL THEN 
+					(CASE WHEN PL.GroupCode is not NULL THEN 
 					 
 					 (SELECT  TOP 1 Description
 					  FROM    Ref_PersonGroupList
 					  WHERE   GroupCode = PL.GroupCode 
 					  AND     GroupListCode = PL.GroupListCode) ELSE R.Description END) as LeaveClass,
 					  
-					 (CASE WHEN TransactionType = 'Manual' 
+					(CASE WHEN TransactionType = 'Manual' 
 					       THEN 'Backoffice' 
 						   ELSE ( CASE WHEN TransactionType = 'External' 
 						               THEN 'Migrated' 
 									   ELSE 'Portal' END) END) as TransactionType,
 									   
-					 (SELECT  O.OrgUnitCode
+					(SELECT  O.OrgUnitCode
 					    FROM  Organization.dbo.Organization O 
 						WHERE O.OrgUnit = PL.OrgUnit	  
 						) as OrgUnitCode,
 						
-					 (SELECT O.OrgUnitName
+					(SELECT O.OrgUnitName
 					    FROM  Organization.dbo.Organization O 
 						WHERE O.OrgUnit = PL.OrgUnit	  
-						) as OrgUnitName,							   
+						) as OrgUnitName,		
+						
+					(SELECT O.HierarchyCode
+					    FROM  Organization.dbo.Organization O 
+						WHERE O.OrgUnit = PL.OrgUnit	  
+						) as OrgUnitName_ord,								   
 					
- 					 PL.DateEffective, 
-					 PL.DateEffectiveFull, 
-					 PL.DateExpiration, 
-		             PL.DateExpirationFull, 
-					 PL.DaysLeave, 
-					 PL.DaysDeduct, 
-					 PL.Status, 
-					 PL.OfficerUserid,
-					 PL.OfficerLastName,
-					 PL.OfficerFirstName,				    
+ 					PL.DateEffective, 
+					PL.DateEffectiveFull, 
+					PL.DateExpiration, 
+		            PL.DateExpirationFull, 
+					PL.DaysLeave, 
+					PL.DaysDeduct, 
+					PL.Status, 
+					PL.OfficerUserid,
+					PL.OfficerLastName,
+					PL.OfficerFirstName,				    
 					 
-					 CASE WHEN Status = '1' 
+					CASE WHEN Status = '1' 
 					       THEN V.ActionDescriptionDue 
 						   ELSE (
 						      SELECT    Description 
     						  FROM      Ref_Status
 	    					  WHERE     Class = 'Leave'
-		    				  AND       Status = PL.Status) END as StatusDescription,		
-					 	  					  
+		    				  AND       Status = PL.Status) END as StatusDescription,		  					  
 					  
 					 PL.LeaveId
 					 
@@ -127,8 +137,7 @@ else
 		
 		) as B
 		
-		WHERE 1=1
-		
+		WHERE 1=1		
 			
 	</cfoutput>
 
@@ -139,88 +148,88 @@ else
 <cfset itm = 0>
 
 <cfset itm = itm+1>		
-<cfset fields[itm] = {label       = "IndexNo",                  
-					field         = "IndexNo",
-					functionscript= "EditPerson",
-					functionfield = "PersonNo",
-					search        = "text"}>	
+<cfset fields[itm] = {label        = "IndexNo",                  
+					field          = "IndexNo",
+					functionscript = "EditPerson",
+					functionfield  = "PersonNo",
+					search         = "text"}>	
 					
 <cfset itm = itm+1>						
-<cfset fields[itm] = {label       = "Name",                  
-					field         = "Name",
-					filtermode    = "0",
-					search        = "text"}>				
+<cfset fields[itm] = {label        = "Name",                  
+					field          = "Name",
+					filtermode     = "0",
+					search         = "text"}>				
 
 <cfset itm = itm+1>							
-<cfset fields[itm] = {label       = "Class",  					
-					field         = "LeaveClass",
-					filtermode    = "2",					
-					search        = "text"}>	
+<cfset fields[itm] = {label        = "Class",  					
+					field          = "LeaveClass",
+					filtermode     = "2",					
+					search         = "text"}>	
 				
 
 					
 <cfset itm = itm+1>							
-<cfset fields[itm] = {label       = "Unit",  	
-                    labelfilter   = "Unit code",				
-					field         = "OrgUnitCode",	
-					filtermode    = "4",								
-					search        = "text"}>							
-					
+<cfset fields[itm] = {label        = "Unit",  	
+                    labelfilter    = "Unit code",				
+					field          = "OrgUnitCode",
+					filtermode     = "4",								
+					search         = "text"}>												
 		
 <cfset itm = itm+1>							
-<cfset fields[itm] = {label       = "Unit name",  					
-					field         = "OrgUnitName",
-					filtermode    = "2",					
-					search        = "text"}>					
+<cfset fields[itm] = {label        = "Unit name",  					
+					field          = "OrgUnitName",
+					fieldsort      = "OrgUnitName_ord",
+					filtermode     = "2",					
+					search         = "text"}>		
+					
 					
 <cfset itm = itm+1>							
-<cfset fields[itm] = {label       = "Source",  					
-					field         = "TransactionType",
-					filtermode    = "2",					
-					search        = "text"}>											
+<cfset fields[itm] = {label        = "Source",  					
+					field          = "TransactionType",
+					filtermode     = "3",					
+					search         = "text"}>											
 															
 <cfset itm = itm+1>							
-<cfset fields[itm] = {label       = "Status",  					
-					field         = "StatusDescription",
-					filtermode    = "2",					
-					search        = "text"}>			
+<cfset fields[itm] = {label        = "Status",  					
+					field          = "StatusDescription",
+					filtermode     = "2",					
+					search         = "text"}>			
 																
 <cfset itm = itm+1>							
-<cfset fields[itm] = {label       = "Recorded By",  					
-					field         = "OfficerLastName",	
-					search        = "text"}>	
+<cfset fields[itm] = {label        = "Recorded By",  					
+					field          = "OfficerLastName",	
+					search         = "text"}>	
 
 <cfset itm = itm+1>							
-<cfset fields[itm] = {label       = "Leave Monitor/FRO",  					
-					field         = "FRO",	
-					search        = "text"}>	
+<cfset fields[itm] = {label        = "Monitor",  					
+					field          = "FRO",	
+					search         = "text"}>	
 					
 <cfset itm = itm+1>												
-<cfset fields[itm] = {label       = "Effective",					
-					field         = "DateEffective",
-					search        = "date",
-					align         = "center",
-					formatted     = "dateformat(DateEffective,'#CLIENT.DateFormatShow#')"}>	
+<cfset fields[itm] = {label        = "Effective",					
+					field          = "DateEffective",
+					search         = "date",
+					align          = "center",
+					formatted      = "dateformat(DateEffective,'#CLIENT.DateFormatShow#')"}>	
 					
 <cfset itm = itm+1>							
-<cfset fields[itm] = {label       = "Expiration",  					
-					field         = "DateEffective",
-					align         = "center",
-					formatted     = "dateformat(DateExpiration,'#CLIENT.DateFormatShow#')"}>	
+<cfset fields[itm] = {label        = "Expiration",  					
+					field          = "DateEffective",
+					align          = "center",
+					formatted      = "dateformat(DateExpiration,'#CLIENT.DateFormatShow#')"}>	
 					
 <cfset itm = itm+1>							
-<cfset fields[itm] = {label       = "Days",  					
-					field         = "DaysLeave",
-					align         = "center",
-					formatted     = "numberformat(DaysLeave,'_._')"}>						
+<cfset fields[itm] = {label        = "Days",  					
+					field          = "DaysLeave",
+					align          = "center",
+					formatted      = "numberformat(DaysLeave,'_._')"}>						
 					
 <cfset itm = itm+1>							
-<cfset fields[itm] = {label       = "Deduct",  					
-					field         = "DaysDeduct",
-					align         = "center",
-					formatted     = "numberformat(DaysDeduct,'_._')"}>								
+<cfset fields[itm] = {label        = "Deduct",  					
+					field          = "DaysDeduct",
+					align          = "center",
+					formatted      = "numberformat(DaysDeduct,'_._')"}>								
 
-<table width="100%" height="100%"><tr><td style="padding:8px;width:100%;height:100%">	
 	
 	<cf_listing
 		    header         = "Leave"
@@ -240,6 +249,4 @@ else
 			drillargument  = "940;1190;false;false"	
 			drilltemplate  = "Staffing/Application/Employee/Leave/EmployeeLeaveEdit.cfm?refer=workflow&action=1&scope=attendance&id1="
 			drillkey       = "LeaveId">
-	
-</td></tr></table>		
 

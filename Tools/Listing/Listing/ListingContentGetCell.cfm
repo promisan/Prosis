@@ -1,6 +1,4 @@
-
 <!--- we save the content into a field --->
-
 <cfset cnt = 0>	
 <cfparam name  = "rowshow" default="1">
 
@@ -269,14 +267,19 @@
 						</cfloop>
 										
 					<cfif url.ajaxid eq "content">	
-					<td align="center" colspan="#colspan#" class="#attributes.classcell#">
-					    <table class="formpadding"><tr><td id="f#box#_#dkey#_#cnt#" style="height:13px;width:11px;border: 1px solid Gray; background-color:#color#;"></td></tr></table>
-					</td>	
+					
+						<td align="center" colspan="#colspan#" class="#attributes.classcell#">
+						<table class="formpadding"><tr><td id="f#box#_#dkey#_#cnt#" style="height:13px;width:11px;border: 1px solid Gray; background-color:#color#;"></td></tr></table>
+						</td>	
 					
 					<cfelseif url.ajaxid eq "append">
 					 
-					 <!--- APPEND --->
-					 				
+					   <!--- APPEND --->		
+					   
+					   <cfscript>
+					      boxcontent[cnt] = "<td align='center' colspan='#colspan#' class='#attributes.classcell#'><table class='formpadding'><tr><td id='f#box#_#dkey#_#cnt#' style='height:13px;width:11px;border: 1px solid Gray; background-color:#color#;'></td></tr></table></td>"	  						
+					   </cfscript>					   
+					 			  					 				
 					<cfelse>
 																								
 						<script>								
@@ -305,8 +308,22 @@
 		
 					 <cfelseif url.ajaxid eq "append">
 					 
-					 <!--- APPEND --->
-		
+			 		     <!--- ---------- --->
+						 <!--- --APPEND-- --->
+						 <!--- ---------- --->
+						 
+						 <cfscript>
+					 
+						   inner = evaluate(current.formatted)						 
+						   if (len(cellclick) gte "2") {
+							    myclick = "onclick=toggledrill('#drillmode#','box#dkey#','#drilltemplate#','#dkey#','#argument#','#drillbox#','#drillstring#')"
+							} else {	
+						 		myclick = ""
+							}							   									
+						   boxcontent[cnt] = "<td id='f#box#_#dkey#_#rowshow#_#cnt#' class='#attributes.classcell#' colspan='#current.colspan#' align='#current.align#' #myclick# style='color:#fontcolor#;#current.style#'>#inner#</td>"
+						  
+						 </cfscript>
+					
 					 <cfelse>
 					 				
 							<script language="JavaScript">		
@@ -333,7 +350,7 @@
 					<cfset cellstyle  = "">
 					<cfset fontcolor = "">			
 					<cfset inner = evaluate(current.formatted)>													 
-					<cfif inner neq "" and current.functionscript neq "" and url.ajaxid eq "content"> <!--- somehow the inner would not work for a refresh --->
+					<cfif inner neq "" and current.functionscript neq "" and (url.ajaxid eq "content" or url.ajaxid eq "append")> <!--- somehow the inner would not work for a refresh --->
 						
 						 <cfparam name="current.functionfield" default="">
 						 <cfset cellstyle = "text-decoration: underline;font-color:blue">
@@ -366,22 +383,28 @@
 					
 						<cfif rowshow gte "2" and len(inner) gte "2">
 							<cfset hascontent = "Yes">															
-						</cfif>		
-																												
-						<cfif colspan eq "1">		
-							<cfif current.align eq "left">				
-							<td id="f#box#_#dkey#_#rowshow#_#cnt#" class="#attributes.classcell#" style="#cellstyle#;#current.style#" <cfif len(cellclick) gte '2'>onClick="#cellclick#"</cfif>>#inner#</td>										
-							<cfelse>
-							<td id="f#box#_#dkey#_#rowshow#_#cnt#" class="#attributes.classcell#" style="#cellstyle#;#current.style#" align="#current.align#" <cfif len(cellclick) gte '2'>onClick="#cellclick#"</cfif>>#inner#</td>													
-							</cfif>						
-						<cfelse>					
-							<td id="f#box#_#dkey#_#rowshow#_#cnt#" class="#attributes.classcell#" style="#cellstyle#;#current.style#" <cfif current.align neq "left">align="#current.align#"</cfif> colspan="#current.colspan#" onclick="#cellclick#"><cfif cellclick neq ""><a>#inner#</a><cfelse>#inner#</cfif></td>														
-						</cfif>		
-						
+						</cfif>											
+																																		
+						<td id="f#box#_#dkey#_#rowshow#_#cnt#" <cfif current.align neq "left">align="#current.align#"</cfif> class="#attributes.classcell#" 
+						colspan="#current.colspan#" style="#cellstyle#;#current.style#" <cfif len(cellclick) gte '2'>onClick="#cellclick#"</cfif>>#inner#</td>																			
+												
 					 <cfelseif url.ajaxid eq "append">
 					 
-					 <!--- APPEND --->
-							
+					    <!--- ---------- --->
+					 	<!--- APPEND ROW --->
+						<!--- ---------- --->
+						
+						<cfscript>
+						 
+						 if (len(cellclick) gte '2') {
+							 myclick = "onclick=#cellclick#"
+							} else {
+						     myclick = "" 
+							} 
+						 boxcontent[cnt] = "<td id='f#box#_#dkey#_#rowshow#_#cnt#' class='#attributes.classcell#' colspan='#current.colspan#' align='#current.align#' style='#cellstyle#;#current.style#' #myclick#>#inner#</td>"
+						 						 										
+						</cfscript>		
+					 							
 					<cfelse>	
 									
 						<!--- instead of showing we update the field in listingshow.cfm line 379 and then we display that info --->				   																		

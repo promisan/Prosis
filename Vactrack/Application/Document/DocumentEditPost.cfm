@@ -5,10 +5,8 @@
 
 <script>
   
-function maintain(org,mis,man) {
-    w = #CLIENT.width# - 85;
-    h = #CLIENT.height# - 110;
-	window.open("#SESSION.root#/Staffing/Application/Position/MandateView/MandateViewGeneral.cfm?ID=ORG&ID1=" + org + "&ID2="+mis+"&ID3="+man, "maintain"+org)
+function maintain(org,mis,man) {   
+	ptoken.open('#SESSION.root#/Staffing/Application/Position/MandateView/MandateViewGeneral.cfm?ID=ORG&ID1=' + org + '&ID2='+mis+'&ID3='+man, 'maintain'+org)
 }  
 
 </script>
@@ -37,14 +35,12 @@ ORDER BY  P.SourcePostNumber
 	  
 	  <TR class="labelmedium line">
 	    <td width="33"></td>
-	    <TD><cf_tl id="Post number"></TD>
+	    <TD><cf_tl id="Post">##</TD>
 	    <TD><cf_tl id="Function"></TD>
 	    <TD><cf_tl id="Grade"></TD>		
 		<TD><cf_tl id="Unit"></TD>
 		<TD><cf_tl id="Expiration"></TD>		
-		<TD><cf_tl id="IndexNo"></TD>
-		<TD><cf_tl id="Name"></TD>
-		<TD><cf_tl id="End date"></TD>
+		<TD><cf_tl id="Incumbent"></TD>		
 	  </TR>
 	  
 	  <cfif Post.recordcount eq "0">
@@ -91,9 +87,7 @@ ORDER BY  P.SourcePostNumber
 		<td>Unit not defined</td>		
 		</cfif>		
 	    <TD>#Dateformat(DateExpiration, CLIENT.DateFormatShow)#</TD>
-		<TD><a href="javascript:EditPerson('#Person.PersonNo#')">#Person.IndexNo#</a></TD>
-		<TD>#Person.FirstName# #Person.LastName#</TD>
-		<TD>#Dateformat(Person.DateExpiration, CLIENT.DateFormatShow)#</TD>
+		<TD><a href="javascript:EditPerson('#Person.PersonNo#')">#Person.IndexNo#</a> #Person.FirstName# #Person.LastName# #Dateformat(Person.DateExpiration, CLIENT.DateFormatShow)#</TD>
 	</TR>
 
 	</CFOUTPUT>

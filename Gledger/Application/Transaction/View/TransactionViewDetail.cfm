@@ -130,13 +130,58 @@
   
     <td width="100%" colspan="2">
 	
-    <table border="0" cellpadding="0" width="100%" class="formpadding">
+    <table width="100%" class="formpadding">
+	
+	<cfif Transaction.RecordStatus eq "9">
+	    <cfset cl = "FED7CF">
+	  <cfelseif Transaction.ActionStatus eq "1">
+	    <cfset cl = "00FF80">		
+	  <cfelse>	  
+	  	<cfset cl = "ffffaf">
+	  </cfif>	 
+	
       <tr>
-        <td width="25%" height="20" style="padding-left:3px" class="labelmedium"><cf_tl id="Journal">:</td>
-        <td width="25%" style="padding-left:3px" class="labelmedium"><cf_tl id="SerialNo">:</td>
-        <td width="25%" style="padding-left:3px" class="labelmedium"><cf_tl id="Source">:</td>
-        <td width="25%" style="padding-left:3px" class="labelmedium">
-		   <cfoutput query="Transaction">
+	  
+        <td width="25%" rowspan="2" height="35" class="labelmedium">
+		
+			<table style="border:1px solid silver;width:100%;height:100%">
+			<tr><td style="font-size:10px;padding-left:2px"><cf_tl id="Journal">:</td></tr>
+			<tr>
+			<td width="25%" style="height:35px;font-size:19px;padding-left:3px;border:0px solid gray;border-radius:5px" bgcolor="<cfoutput>#cl#</cfoutput>" class="labelmedium2" align="center" ><CFOUTPUT query="Transaction">#TransactionCategory# [#Journal#]</cfoutput>
+			</tr>
+			</table>
+		
+		</td>
+		
+		<td width="25%" rowspan="2" style="padding-left:3px" class="labelmedium">
+		
+			<table style="border:1px solid silver;width:100%;height:100%">
+			<tr><td style="font-size:10px;padding-left:2px"><cf_tl id="SerialNo">:</td></tr>
+			<tr>
+			<cfset jrn = Journal>
+			</td>
+			<td width="25%" style="height:35px;font-size:19px;padding-left:3px;" bgcolor="<cfoutput>#cl#</cfoutput>" class="labelmedium2"  align="center" ><CFOUTPUT query="Transaction">#JournalSerialNo#</cfoutput><cfif Transaction.RecordStatus eq "9"><cf_tl id="Voided"></cfif></td>			 
+		    </td>
+			</tr>		
+			</table>
+		
+		</td>
+		       
+        <td width="25%" rowspan="2" style="padding-left:3px" class="labelmedium">
+		
+		    <table style="border:1px solid silver;width:100%;height:100%">
+			<tr><td style="font-size:10px;padding-left:2px"><cf_tl id="Source">:</td></tr>
+			<tr>
+			
+			<td width="25%" style="height:35px;font-size:19px;padding-left:3px;border:0px solid gray;border-radius:5px" bgcolor="<cfoutput>e6e6e6</cfoutput>" class="labelmedium2" align="center" ><CFOUTPUT query="Transaction">#TransactionSource# <cfif Reference neq "">(#Reference#)</cfif></font></cfoutput></td>
+			</tr>
+			</table>
+		</td>	
+		
+		<td width="25%" rowspan="2" style="padding-left:3px" class="labelmedium">
+		
+		<table style="border:1px solid silver;width:100%;height:100%">
+			<tr><td style="font-size:10px;padding-left:2px"><cfoutput query="Transaction">
 			    <cfif TransactionSource is "InvoiceSeries">
 					<cf_tl id="PurchaseNo">:
 				<cfelseif TransactionSource is "WorkOrderSeries">
@@ -145,125 +190,118 @@
 					<cf_tl id="Reference">:
 					
 		    	</cfif>
-			</cfoutput>
-		</td>
-      </tr>
-	    	  
-	  <cfif Transaction.RecordStatus eq "9">
-	    <cfset cl = "FED7CF">
-	  <cfelseif Transaction.ActionStatus eq "1">
-	    <cfset cl = "e5e5e5">
-	  <cfelse>
-	  	<cfset cl = "ffffaf">
-	  </cfif>	 
-	 
-      <tr>
-        <td height="23" width="25%" style="font-size:19px;padding-left:3px;border:1px solid gray;font-weight:200" bgcolor="<cfoutput>#cl#</cfoutput>" class="cellborder labelmedium" align="center" ><CFOUTPUT query="Transaction">#TransactionCategory# [#Journal#]</b></font>
-		<cfset jrn = Journal>
-		</cfoutput></td>
-		<td width="25%" style="font-size:19px;padding-left:3px;border:1px solid gray;font-weight:200" bgcolor="<cfoutput>#cl#</cfoutput>" class="cellborder labelmedium"  align="center" ><CFOUTPUT query="Transaction">#JournalSerialNo#</font></cfoutput>
-		<cfif Transaction.RecordStatus eq "9"><b><cf_tl id="Voided"></cfif>
-		</td>
-        <td width="25%" style="padding-left:3px;border-top:1px solid gray" class="cellborder labelmedium" align="center" ><CFOUTPUT query="Transaction">#TransactionSource# <cfif Reference neq "">(#Reference#)</cfif></font></cfoutput></td>
-        <td width="25%" style="padding-left:3px;border-top:1px solid gray" class="cellborder labelmedium" align="center" ><CFOUTPUT query="Transaction">
-		
-		<cfif JournalBatchNo neq "">#JournalBatchNo#/</cfif>
-		
-		<cfif access eq "EDIT" or access eq "ALL">
-		
-			<cfif TransactionSource is "PurchaseSeries" or TransactionCategory eq "Purchase">
-		     <A HREF ="javascript:ProcPOEdit('#JournalTransactionNo#','','tab')">#JournalTransactionNo#</A>
-			<cfelseif TransactionSource is "WorkOrderSeries">
+			</cfoutput></td></tr>
+			<tr>
 			
-			 <cfif TransactionSourceNo eq "Medical">
-			 
-			    <a href ="javascript:workorderview('#ReferenceId#','medical')">
-			    <font color="0080C0">
-				</a>
-			 
-			 <cfelse>		
-			 			 
-			 	 <cfif TransactionSourceNo neq "">							
-				 
-					 <cfquery name="getBatch" 
-						datasource="AppsMaterials" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">
-					    SELECT       *
-						FROM         WarehouseBatch
-						WHERE        BatchNo ='#TransactionSourceNo#'									
-					</cfquery>	
+			<td width="25%" style="height:35px;font-size:19px;padding-left:3px;border:0px solid gray;border-radius:5px" 
+			  bgcolor="<cfoutput>e6e6e6</cfoutput>" class="labelmedium2" align="center" >
+			  
+					  <CFOUTPUT query="Transaction">
+				
+				<cfif JournalBatchNo neq "">#JournalBatchNo#/</cfif>
+				
+				<cfif access eq "EDIT" or access eq "ALL">
+				
+					<cfif TransactionSource is "PurchaseSeries" or TransactionCategory eq "Purchase">
+				     <A HREF ="javascript:ProcPOEdit('#JournalTransactionNo#','','tab')">#JournalTransactionNo#</A>
+					<cfelseif TransactionSource is "WorkOrderSeries">
+					
+					 <cfif TransactionSourceNo eq "Medical">
 					 
-					 <cfif getBatch.recordcount eq "1">
+					    <a href ="javascript:workorderview('#ReferenceId#','medical')">
+					    <font color="0080C0">
+						</a>
 					 
-					 	<a href="javascript:batch('#getBatch.BatchNo#')">#getBatch.BatchNo#</a>&nbsp;|
-					 
-					 </cfif>
-				 				
-				 </cfif>
-
-				 <cfquery name="getWorkOrder" 
-					datasource="AppsMaterials" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-				    SELECT       WL.*
-					FROM         ItemTransaction T , WorkOrder.dbo.WorkOrderLine WL
-			    	WHERE        T.TransactionId = '#ReferenceId#'				
-					AND          T.WorkOrderId   = WL.WorkOrderId
-					AND          T.WorkOrderLine = WL.WorkOrderLine
-				</cfquery>	
-				
-				<cfif getWorkOrder.workorderlineid neq "">
-				
-				      <A HREF ="javascript:editworkorderline('#getWorkOrder.WorkOrderLineId#')">#getWorkOrder.Source#</a>
-					  
-				<cfelse>		
-									 			 			 	 
-					  <A HREF ="javascript:workorderview('#TransactionSourceId#','generic')">#JournalTransactionNo#</a>
-					  
-				</cfif> 	
-								
-			 </cfif>			
-			
-			<cfelseif TransactionSource is "InsuranceSeries">
-			
-				<a href ="javascript:showclaim('#ReferenceId#','#Mission#')">#JournalTransactionNo#</a>
-				
-			<cfelseif TransactionCategory eq "Reservation">
-			
-			 	<a href ="javascript:ProcReqEdit('#JournalTransactionNo#','','tab')">#JournalTransactionNo#</a>
-				
-			<cfelseif TransactionSource is "WarehouseSeries">
+					 <cfelse>		
+					 			 
+					 	 <cfif TransactionSourceNo neq "">							
+						 
+							 <cfquery name="getBatch" 
+								datasource="AppsMaterials" 
+								username="#SESSION.login#" 
+								password="#SESSION.dbpw#">
+							    SELECT       *
+								FROM         WarehouseBatch
+								WHERE        BatchNo ='#TransactionSourceNo#'									
+							</cfquery>	
+							 
+							 <cfif getBatch.recordcount eq "1">
+							 
+							 	<a href="javascript:batch('#getBatch.BatchNo#')">#getBatch.BatchNo#</a>&nbsp;|
+							 
+							 </cfif>
+						 				
+						 </cfif>
+		
+						 <cfquery name="getWorkOrder" 
+							datasource="AppsMaterials" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+						    SELECT       WL.*
+							FROM         ItemTransaction T , WorkOrder.dbo.WorkOrderLine WL
+					    	WHERE        T.TransactionId = '#ReferenceId#'				
+							AND          T.WorkOrderId   = WL.WorkOrderId
+							AND          T.WorkOrderLine = WL.WorkOrderLine
+						</cfquery>	
+						
+						<cfif getWorkOrder.workorderlineid neq "">
+						
+						      <A HREF ="javascript:editworkorderline('#getWorkOrder.WorkOrderLineId#')">#getWorkOrder.Source#</a>
+							  
+						<cfelse>		
+											 			 			 	 
+							  <A HREF ="javascript:workorderview('#TransactionSourceId#','generic')">#JournalTransactionNo#</a>
+							  
+						</cfif> 	
+										
+					 </cfif>			
+					
+					<cfelseif TransactionSource is "InsuranceSeries">
+					
+						<a href ="javascript:showclaim('#ReferenceId#','#Mission#')">#JournalTransactionNo#</a>
+						
+					<cfelseif TransactionCategory eq "Reservation">
+					
+					 	<a href ="javascript:ProcReqEdit('#JournalTransactionNo#','','tab')">#JournalTransactionNo#</a>
+						
+					<cfelseif TransactionSource is "WarehouseSeries">
+									
+						<cfquery name="getBatch" 
+							datasource="AppsMaterials" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+						    SELECT       *
+							FROM         WarehouseBatch
+							WHERE        BatchNo ='#TransactionSourceNo#'									
+						</cfquery>	
 							
-				<cfquery name="getBatch" 
-					datasource="AppsMaterials" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-				    SELECT       *
-					FROM         WarehouseBatch
-					WHERE        BatchNo ='#TransactionSourceNo#'									
-				</cfquery>	
-					
-				<a href="javascript:batch('#getBatch.BatchNo#')">#getBatch.BatchNo#</a>			 
+						<a href="javascript:batch('#getBatch.BatchNo#')">#getBatch.BatchNo#</a>			 
+						
+					<cfelse>#JournalTransactionNo#</cfif> 
+							
+				<cfelse>
 				
-			<cfelse>#JournalTransactionNo#</cfif> 
-					
-		<cfelse>
+					#JournalTransactionNo#
+				
+				</cfif>		
+				
+				</cfoutput>
+			  
+			  </td>
+			</tr>
+			</table>
+		</td>
 		
-			#JournalTransactionNo#
-		
-		</cfif>		
-		
-		</cfoutput></td>
-		
-      </tr>
+      </tr>  
+	 
+    
     </table>
     </td>
   </tr>  
   
   <tr>
   
-   <td width="100%" colspan="2" height="39">
+   <td width="100%" colspan="2" height="36">
      <table border="0" cellpadding="0" width="100%">
       <tr>
         <td width="100" style="padding-left:3px" class="labelmedium"  bgcolor="fafafa"><cf_tl id="Transaction date">:</td>
@@ -276,7 +314,7 @@
 			</cfif>
 		</td>
 		
-		<td colspan="3" bgcolor="fafafa" height="20">
+		<td colspan="3" bgcolor="fafafa">
 		
 			<cf_space spaces="85">
 			<table width="100%" height="100%" cellspacing="0" cellpadding="0">
@@ -299,9 +337,10 @@
 	  <CFOUTPUT query="Transaction">
 	  	  
       <tr>
-        <td height="20" align="center" class="cellborder labelmedium">#DateFormat(TransactionDate, CLIENT.DateFormatShow)#</td>
-		<td height="20" align="center" class="cellborder labelmedium">#TransactionPeriod#</td>
-        <td width="30%" colspan="2" class="cellborder labelmedium" style="padding-left:2px">
+	 
+        <td height="20" align="center" style="background-color:D3E9F8;" class="cellborder labelmedium2">#DateFormat(TransactionDate, CLIENT.DateFormatShow)#</td>
+		<td height="20" align="center" style="background-color:D3E9F8;" class="cellborder labelmedium2">#TransactionPeriod#</td>
+        <td width="30%" align="center" colspan="2" class="cellborder labelmedium" style="background-color:ffffdf;padding-left:2px">
 		
 		<cfif operational eq "1" and Reference eq "Invoice">
 				
@@ -363,21 +402,21 @@
 		
 		<td class="cellborder" colspan="3">
 		
-			<table width="100%" height="100%" cellspacing="0" cellpadding="0">
+			<table width="100%" height="100%">
 			<tr>
-		        <td width="24%" align="center" bgcolor="D3E9F8" class="labelmedium" style="height:24px;padding-left:5px">#AccountPeriod#</b></font></td>
-	    	    <td width="38%" class="labelmedium" align="right" style="padding-right:3px"><font size="2">#Currency#</font> #NumberFormat(Amount,',.__')#</font></td>
+		        <td width="24%" align="center" bgcolor="D3E9F8" class="labelmedium2" style="height:24px;padding-left:5px">#AccountPeriod#</font></td>
+	    	    <td width="38%" class="labelmedium2" align="right" style="padding-right:3px"><font size="2">#Currency#</font> #NumberFormat(Amount,',.__')#</td>
 				<cfif JournalList.TransactionCategory is "Payables" or 
 			      JournalList.TransactionCategory is "DirectPayment" or 
 				  JournalList.TransactionCategory is "Receivables" or
 				  JournalList.TransactionCategory is "Advances"> 
 			  
 			    		<cfif amountOutstanding neq "0">
-						<td width="38%" align="right" bgcolor="FEE3DE" class="labelmedium" style="padding-left:7px;padding-right:4px;border-left:1px solid silver">						
+						<td width="38%" align="right" bgcolor="FEE3DE" class="labelmedium2" style="padding-left:7px;padding-right:4px;border-left:1px solid silver">						
 						<font color="FF0000">#NumberFormat(AmountOutstanding,',.__')#
 						</td>
 						<cfelse>
-						<td width="38%" align="right" style="padding-left:7px;padding-right:4px;border-left:1px solid silver" class="labelmedium">						
+						<td width="38%" align="right" style="padding-left:7px;padding-right:4px;border-left:1px solid silver" class="labelmedium2">						
 						<font color="00BB00"><cf_tl id="nihil">
 						</td>
 						</cfif>		
@@ -402,18 +441,38 @@
 	   <td width="20%" style="padding-left:3px"><cf_tl id="Document Date">:</td>      
        <td style="padding-left:3px" width="20%"><cf_tl id="Officer">:</td>
 	   <td style="padding-left:3px" width="20%"><cf_tl id="Recorded">:</td>
-	   <td style="padding-left:3px" width="20%"><cf_tl id="Reference">:</td>
+	   <td height="20" style="padding-left:3px"><cf_tl id="Amount">:</td>	
+	   
 	   <cfif ActionBankId neq "">
 	   <td style="padding-left:3px" width="15%"><cf_tl id="Reconciliation"></td>
 	   </cfif>
-	   <td height="20" style="padding-left:3px" width="15%"><cf_tl id="Amount">:</td>		
+	   <td style="padding-left:3px" width="20%"><cf_tl id="Reference">:</td>
+	   	
       </tr>
 	   
-	   <tr class="labelmedium">
-	    <td align="center">#dateformat(DocumentDate, CLIENT.DateFormatShow)#</td>    
-        <td align="center">#OfficerFirstName# #OfficerLastName# (#OfficerUserId#)</b></td>
-		<td align="center">#dateformat(created, CLIENT.DateFormatShow)# #timeformat(created, "HH:MM")#</td>
-		<td align="center">
+	   <tr class="labelmedium line">
+	    <td align="center" style="padding-left:7px;padding-right:4px;border-left:1px solid silver">#dateformat(DocumentDate, CLIENT.DateFormatShow)#</td>    
+        <td align="center" style="padding-left:7px;padding-right:4px;border-left:1px solid silver">#OfficerFirstName# #OfficerLastName# (#OfficerUserId#)</b></td>
+		<td align="center" style="padding-left:7px;padding-right:4px;border-left:1px solid silver">#dateformat(created, CLIENT.DateFormatShow)# #timeformat(created, "HH:MM")#</td>
+		
+		<td height="23" align="right" style="padding-left:7px;padding-right:4px;border-left:1px solid silver">#documentcurrency# #NumberFormat(DocumentAmount,',.__')#</td>	
+		
+		<cfif Transaction.ActionBankId neq "">
+		
+			<cfquery name="Bank" 
+			datasource="AppsLedger" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				SELECT *
+				FROM     Ref_BankAccount
+				WHERE    BankId       = '#Transaction.ActionBankId#' 
+			</cfquery>
+	
+			<td align="center">#Bank.BankName#</td>
+		
+		</cfif>
+		
+		<td align="center" style="padding-left:7px;padding-right:4px;border-left:1px solid silver;;border-right:1px solid silver">
 		
 		<cfif ReferenceId neq "">
 		
@@ -471,22 +530,7 @@
 		
 		</td>
 		
-		<cfif Transaction.ActionBankId neq "">
-		
-			<cfquery name="Bank" 
-			datasource="AppsLedger" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-				SELECT *
-				FROM     Ref_BankAccount
-				WHERE    BankId       = '#Transaction.ActionBankId#' 
-			</cfquery>
-	
-			<td align="center">#Bank.BankName#</td>
-		
-		</cfif>
-		
-		<td height="23" align="right" style="padding-right:8px">#documentcurrency# #NumberFormat(DocumentAmount,',.__')#</td>		
+			
 
       </tr>
 	  </cfoutput>
@@ -1628,7 +1672,7 @@
 										 	<input type="text" 
 												 name="off_#left(TransactionId,8)#" 
 												 id="off_#left(TransactionId,8)#"
-												 value="#NumberFormat(offset,'_,____.__')#" 
+												 value="#NumberFormat(offset,',.__')#" 
 												 size="10" 
 												 readonly
 												 tabindex="9999"
@@ -1679,7 +1723,7 @@
 <cfif URL.Show eq "show">
 
   <tr>
-  <td width="100%" colspan="2" id="postinglines" style="padding:0px;">  
+  <td width="100%" colspan="2" id="postinglines" style="border-top:1px solid silver;border-bottom:1px solid silver">  
      
 	     <cf_securediv bind="url:TransactionViewPosting.cfm?journal=#url.journal#&JournalSerialno=#url.JournalSerialno#&mode=#url.mode#&summary=#url.summary#" id="content">	  	
 	 

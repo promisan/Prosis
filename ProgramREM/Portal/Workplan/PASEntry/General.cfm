@@ -22,9 +22,9 @@ password="#SESSION.dbpw#">
     WHERE  ContractId = '#URL.ContractId#'
 </cfquery>
 
+<cfform action="GeneralSubmit.cfm?Code=#URL.Code#&Section=#URL.Section#&ContractId=#URL.ContractId#" method="POST" name="action" style="height:98%">
+		
 <cf_divscroll>
-
-	<cfform action="GeneralSubmit.cfm?Code=#URL.Code#&Section=#URL.Section#&ContractId=#URL.ContractId#" method="POST" name="action" style="height:99%">
 	
 	<table height="100%" width="100%" style="min-width:850px">
 	
@@ -443,6 +443,6 @@ password="#SESSION.dbpw#">
 	
 	</table>
 	
-	</cfform>	
-
 </cf_divscroll>
+
+</cfform>	

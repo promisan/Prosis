@@ -59,68 +59,74 @@ function loadurl(url) {
 	
 	<table width="100%" class="formspacing formpadding line'">
 	
-	    <tr class="line">
-		<td class="labelmedium">&nbsp;Name:</td>
-		<td class="labelmedium"><cfoutput><b>#Mission.MissionName# (#DateFormat(Mission.DateEffective, CLIENT.DateFormatShow)#)</cfoutput></td>
+	    <tr class="line labelmedium2">
+		<td style="padding-left:6px">Name:</td>
+		<td><cfoutput><b>#Mission.MissionName# (#DateFormat(Mission.DateEffective, CLIENT.DateFormatShow)#)</cfoutput></td>
 		</tr>
 		
-		<tr class="line">
-		<td class="labelmedium">&nbsp;Management:</td>
-		<td class="labelmedium"><cfoutput><b>#Mission.MissionOwner#</cfoutput></td>
+		<tr class="line labelmedium2">
+		<td style="padding-left:6px">Management:</td>
+		<td><cfoutput><b>#Mission.MissionOwner#</cfoutput></td>
 		</tr>
 		
-		<tr class="line">
-		<td class="labelmedium">&nbsp;Staffing Mode:</td>
-		<td class="labelmedium"><cfoutput><b><cfif Mandate.MandateStatus eq "1">Locked<cfelse>Draft</cfif></cfoutput></td>
+		<tr class="labelmedium2 line">
+		<td style="padding-left:6px"><cf_tl id="Staffing Mode">:</td>
+		<td><cfoutput><b><cfif Mandate.MandateStatus eq "1">Locked<cfelse>Draft</cfif></cfoutput></td>
 		</tr>
 		<cfset cnt = cnt+30>
 		
 		<cfoutput query="MissionGroup">
 		<cfset cnt = cnt+15>
 		
-		<tr class="line">
-			<td class="labelmedium">&nbsp;#GroupName#</td>
-			<td class="labelmedium">#GroupValue#</td>
+		<tr class="line labelmedium2">
+			<td style="padding-left:6px">#GroupName#</td>
+			<td>#GroupValue#</td>
 		</tr>
-		</cfoutput>
-				
-		<tr class="line">
+		</cfoutput>	
+		
 		  
-		   <cfoutput query="Document">
-		   <td colspan="2" align="center" class="labelmedium">
-		   <a href="#URL#" target="_blank">#CurrentRow#.<b> #Description#</b></a>
-		   <img src="#SESSION.root#/Images/contract.GIF" 
-		   alt="Open document" 
-		   align="absmiddle"
-		   border="0" style="cursor: pointer;" onClick="loadurl('#URL#')">
-		   &nbsp;&nbsp;&nbsp;
-		    </td>
-		   </cfoutput>
-		  
+	   <cfoutput query="Document">
+	   <tr class="line labelmedium">
+	   <td colspan="2" align="center">
+	   <a href="#URL#" target="_blank">#CurrentRow#.<b> #Description#</b></a>
+	   <img src="#SESSION.root#/Images/contract.GIF" 
+	   alt="Open document" 
+	   align="absmiddle"
+	   border="0" style="cursor: pointer;" onClick="loadurl('#URL#')">
+	   &nbsp;&nbsp;&nbsp;
+	    </td>
 		</tr>
-	
+	   </cfoutput>
+		
 	</table>
-	
+		
 	</td></tr>
 						
 	<tr><td>
+	
 	  <table width="100%">
 		   <tr>
 		   <td>
-
-		  <cf_fileLibraryScript>
-		  	   
+		  		  	   
 		    <cfinvoke component="Service.Access"  
 	          method="org" 
 			  mission="#URL.Mission#"
 			  mandateNo="#URL.Mandate#"
 			  returnvariable="accessOrg">
-		  
-		   <cfdiv bind="url:#SESSION.root#/Staffing/Reporting/Postview/Staffing/MandateDocumentContent.cfm?mission=#url.mission#&mandate=#url.mandate#&accessorg=#accessorg#">
+			  
+			  <cfset url.accessorg = accessorg>
+			  
+			  <cfinclude template="MandateDocumentContent.cfm">
+		 
+		 <!---
+		   <cf_securediv bind="url:#SESSION.root#/Staffing/Reporting/Postview/Staffing/MandateDocumentContent.cfm?mission=#url.mission#&mandate=#url.mandate#&accessorg=#accessorg#">
+		   --->
 		 					 
 	      </td>
 		  </tr>
 	  </table>
-	</td></tr> 
+	</td>
+	
+  </tr> 
 	 	 
 </table>		

@@ -223,7 +223,7 @@ password="#SESSION.dbpw#">
 				overflow    = "hidden"
 				splitter    = "true">
 				
-				<table width="100%" height="100%"><tr><td align="center" style="padding-top:10px">	
+				<table width="100%" height="100%"><tr><td align="center">	
 				
 				<iframe src="PASMenu.cfm?Section=#Check.code#&PersonNo=#URL.PersonNo#&Id=#URL.ContractId#"
 		        name="left" id="left" width="100%" height="100%" style="overflow:hidden"
@@ -240,7 +240,7 @@ password="#SESSION.dbpw#">
 	<cf_layoutarea position="center" name="box" style = "border-right:1px solid 6688aa">
 				
 `			<table width="100%" height="100%">
-			<tr><td valign="top" style="padding-bottom:10px">	
+			<tr><td valign="top" style="padding-bottom:5px">	
 			 			     					
 				<iframe src="../#Check.TemplateURL#?Code=#URL.Code#&PersonNo=#URL.PersonNo#&Section=#Check.Code#&Topic=#Check.TemplateTopicId#&ContractId=#URL.ContractID##Check.TemplateCondition#&mid=#mid#"
 		        name="right" id="right" width="100%" height="100%" scrolling="no"

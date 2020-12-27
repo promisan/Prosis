@@ -1,5 +1,7 @@
 
-<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
+<cfif NOT isDefined("Object.ObjectKeyValue4")>
+	<cf_screentop height="100%" band="No" html="No" scroll="No" banner="gray" user="No" jquery="Yes" label="Amount Payable" layout="webapp">
+</cfif>	
 
 <!--- custom workflow form --->
 
@@ -186,9 +188,7 @@ password="#SESSION.dbpw#">
 		  </td>
 			  
 		</tr>
-		
-		
-	
+			
 	</cfif>
 		
 	<TR>
@@ -234,9 +234,9 @@ password="#SESSION.dbpw#">
 		 <cf_tl id="Journal">
 		 </td>
 		 <td style="padding-right:10px">
-			<cfdiv id="postingJournalselect" 
+			<cf_securediv id="postingJournalselect" 
 			    bind="url:#session.root#/Procurement/Application/Invoice/InvoiceEntry/setJournal.cfm?mission=#inv.mission#&owner=#inv.orgunitowner#&currency=#inv.documentCurrency#&invoicejournal=#inv.journal#&purchaseNo=#PO.PurchaseNo#">				
-			</cfdiv>
+
 		 </td>
     </tr>
 		  
@@ -263,8 +263,7 @@ password="#SESSION.dbpw#">
 			 <td colspan="3" id="purchaseresult">	
 			 
 			 	<cfset url.invoiceid = Object.ObjectKeyValue4>
-			    <cfinclude template="DocumentPurchase.cfm">
-			 	
+			    <cfinclude template="DocumentPurchase.cfm">			 	
 			
 			</td>
 			
@@ -289,7 +288,7 @@ password="#SESSION.dbpw#">
 						
 		</tr>	 
 		
-		<tr><td id="purchasefunding" colspan="4" style="padding-left:20px;padding-right:20px"></td></tr>		
+		<tr><td id="purchasefunding" colspan="4" style="padding-left:10px;padding-right:10px"></td></tr>		
 				 
 		 <tr>
 		 
@@ -352,13 +351,13 @@ password="#SESSION.dbpw#">
 				<cfif PO.PurchaseNo neq "">
 			
 					<cfoutput>
-					#numberformat(Total.Amount,",__.__")#</font></b>
+					#numberformat(Total.Amount,",.__")#</font></b>
 					</cfoutput>			
 				
 				<cfelse>
 				
 					<cfoutput>
-					<font color="red">#numberformat(INV.DocumentAmount,",__.__")#</font></b>
+					<font color="red">#numberformat(INV.DocumentAmount,",.__")#</font></b>
 					</cfoutput>		
 								
 				</cfif>
@@ -502,9 +501,9 @@ password="#SESSION.dbpw#">
 </tr>    
 			
 <tr>	  
-	   <td class="labelmedium" valign="top" style="padding-top:3px"><cf_tl id="Comments on Invoice">:</td>
+	   <td class="labelmedium" valign="top" style="padding-top:3px"><cf_tl id="Comments">:</td>
        <td colspan="3">	 
-      	   <textarea style="width:98%;padding:3px;font-size:13px;height:60px" class="regular" name="Description"><cfoutput>#Inv.Description#</cfoutput></textarea>
+      	   <textarea style="width:98%;padding:3px;font-size:13px;min-height:60px" class="regular" name="Description"><cfoutput>#Inv.Description#</cfoutput></textarea>
 	   </td>	
 </TR>	
 			

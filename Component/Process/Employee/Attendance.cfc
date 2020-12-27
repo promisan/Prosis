@@ -3336,7 +3336,8 @@
 									</cfif>
 																											
 								</cfloop>
-																											
+								
+																																			
 								 <!--- Schedule Time / Base time * CreditFull = Maximum (M) --->					
 								 
 						 		<cfset factor = credit.CreditFull>	
@@ -3438,7 +3439,9 @@
 									
 								 </cfif>	
 							 				 
-						</cfif>	 	 
+						</cfif>	 	
+						
+											
 						 		
 					    <!--- 2.define leave taken to be processed---> 		
 					   		 

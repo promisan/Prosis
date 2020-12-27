@@ -1,5 +1,5 @@
 	
-<cfform action="MissionEditSubmit.cfm?idmenu=#URL.idmenu#&mission=#URL.mission#&schedule=#URL.schedule#" method="POST">
+<cfform onsubmit="return false" name="formmission" method="POST">
 
 	<cfquery name="Get" 
 	datasource="AppsPayroll" 
@@ -80,9 +80,9 @@
 		
 		<input class="button10g" type="button" name="Cancel" value="Cancel" onClick="ProsisUI.closeWindow('misdialog')">
 		<cfif check.recordcount eq "0">
-		<input class="button10g" type="submit" name="Delete" value="Delete">
+		<input class="button10g" type="submit" name="Delete" value="Delete" onclick"missioneditsubmit('#url.schedule#','#url.mission#','delete')>
 		</cfif>
-	    <input class="button10g" type="submit" name="Update" value="Update ">
+	    <input class="button10g" type="submit" name="Update" value="Update " onclick="missioneditsubmit('#url.schedule#','#url.mission#','update')">
 		
 	</td></tr>
 	

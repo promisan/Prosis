@@ -149,7 +149,7 @@ password="#SESSION.dbpw#">
 		        systemfunctionid = "#systemfunctionid#"  
 				source           = "#session.root#/Portal/Topics/PersonDiversity/Staffing.cfm?mission=#mission#&unit=#defunit#&SystemFunctionId=#SystemFunctionId#"
 				customFilter	 = "#session.root#/Portal/Topics/PersonDiversity/CustomFilter.cfm?mission=#mission#&targetbox=#currentrow#&SystemFunctionId=#SystemFunctionId#"
-				width            = "99%"
+				width            = "98%"
 				height           = "100%"
 				Mission          = "#mission#"		
 				Units            = "#units#"	

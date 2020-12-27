@@ -1,8 +1,10 @@
 
 
+<!---
 <cf_screentop height="100%" layout="webapp" label="Add PAS" user="no" scroll="no">
 
 <cf_dialogPosition>
+--->
 
 <cfparam name="URL.Box" default="">
 <cfparam name="URL.AssignmentNo" default="">
@@ -31,7 +33,7 @@
 <cfform action="#SESSION.root#/ProgramREM/Portal/Workplan/PAS/PASCreateSubmit.cfm?AssignmentNo=#url.assignmentNo#&box=#url.box#" 
    target="result" method="POST" name="documententry">	     
    
-<table width="91%"  border="0" cellspacing="0" cellpadding="0" align="center" bordercolor="silver" class="formpadding">
+<table width="98%"  align="center" class="formpadding">
 		 
 	<cfquery name="Person" 
 	    datasource="AppsEmployee" 
@@ -55,7 +57,7 @@
 	
 	<tr>
 	    <td width="100%">
-	    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="formpadding formspacing">
+	    <table width="100%" class="formpadding formspacing">
 	
 		<cfoutput query="Person">		
 								
@@ -233,7 +235,7 @@
 					<table class="formspacing">
 					<tr>
 					<td><cf_tl id="Cancel" var="1">
-					<input class="button10g" type="button" name="cancel" value="<cfoutput>#lt_text#</cfoutput>" onClick="try {ColdFusion.Window.hide('mypasdialog');} catch(e) { window.close(); }">						
+					<input class="button10g" type="button" name="cancel" value="<cfoutput>#lt_text#</cfoutput>" onClick="try {ProsisUI.closeWindow('mypasdialog');} catch(e) { window.close(); }">						
 					</td>
 					<td><cf_tl id="Create" var="1">
 					<input class="button10g" type="submit" name="Submit" value="<cfoutput>#lt_text#</cfoutput>">

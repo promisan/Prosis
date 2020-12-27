@@ -5,7 +5,7 @@
 
 <cfif Form.AccountId eq "">
   <table align="center">
-	  <tr class="labelmedium">
+	  <tr class="labelmedium2">
 	  <td style="padding-top:20px;font-size:20px">
 	  <cfoutput>
 	    <cf_tl id="Problem, the request can not be executed">
@@ -42,7 +42,7 @@
 
 <cfif Form.AccountABA eq "" and Form.SwiftCode eq "">
    <table align="center">
-	  <tr class="labelmedium">
+	  <tr class="labelmedium2">
 	  <td style="padding-top:20px;font-size:20px">	
 	  <cfoutput>
 	    <cf_tl id="Problem, you must provide an ABA or SwiftCode in order to continue">

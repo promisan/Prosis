@@ -3,7 +3,7 @@
 
 <cf_divscroll overflowy="scroll">
 
-<table width="93%" cellspacing="0" cellpadding="0" align="center" class="formpadding navigation_table">
+<table width="93%" align="center" class="formpadding navigation_table">
 		
 	<cfquery name="Settlement" 
 	datasource="AppsPayroll" 
@@ -461,7 +461,5 @@
 	<tr><td height="10"></td></tr>
 
 </table>
-
-<cf_screentop>
 
 <cfset ajaxonload("doHighlight")>

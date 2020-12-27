@@ -22,46 +22,47 @@
 <cfset k4     = attributes.keyvalue4>
 <cfset bx     = attributes.docbox>
 
-	<cfquery name="Color" 
-		 datasource="AppsSystem" 
-		 username="#SESSION.login#" 
-		 password="#SESSION.dbpw#">
-		 SELECT DISTINCT U.AnnotationId,Description,Color,A.ListingOrder
-		 FROM   UserAnnotationRecord U, 
-		        UserAnnotation A
-		 WHERE  U.Account  = A.Account
-		 AND    U.AnnotationId = A.AnnotationId
-		 AND    (U.Account  = '#SESSION.acc#' OR U.Scope = 'Shared')
-		 
-		 AND    U.EntityCode   = '#ent#'
-		 <cfif k1 neq "">
-		 AND    U.ObjectKeyValue1 = '#k1#'	
-		 </cfif>
-		 <cfif k2 neq "">
-		 AND    U.ObjectKeyValue2 = '#k2#'	
-		 </cfif>
-		 <cfif k3 neq "">
-		 AND    U.ObjectKeyValue3 = '#k3#'	
-		 </cfif>
-		 <cfif k4 neq "">
-		 AND    U.ObjectKeyValue4 = '#k4#'	
-		 </cfif>		 		
-		 ORDER BY A.ListingOrder
-	</cfquery>	
-
+<cfquery name="Color" 
+	 datasource="AppsSystem" 
+	 username="#SESSION.login#" 
+	 password="#SESSION.dbpw#">
+	 
+	 SELECT DISTINCT U.AnnotationId,Description,Color,A.ListingOrder
+	 FROM   UserAnnotationRecord U INNER JOIN UserAnnotation A ON U.Account  = A.Account AND U.AnnotationId = A.AnnotationId
+	 WHERE  (U.Account  = '#SESSION.acc#' OR U.Scope = 'Shared')
+	 
+	 AND    U.EntityCode   = '#ent#'
+	 <cfif k1 neq "">
+	 AND    U.ObjectKeyValue1 = '#k1#'	
+	 </cfif>
+	 <cfif k2 neq "">
+	 AND    U.ObjectKeyValue2 = '#k2#'	
+	 </cfif>
+	 <cfif k3 neq "">
+	 AND    U.ObjectKeyValue3 = '#k3#'	
+	 </cfif>
+	 <cfif k4 neq "">
+	 AND    U.ObjectKeyValue4 = '#k4#'	
+	 </cfif>		 		
+	 ORDER BY A.ListingOrder
+	 
+</cfquery>	
+	
 <cfoutput>
 	
-<table style="height:98%;min-width:20px"><tr onclick="editannotation('#ent#','#k1#','#k2#','#k3#','#k4#','#bx#')">	  		  	
+<table style="height:98%;min-width:20px">
+<tr onclick="editannotation('#ent#','#k1#','#k2#','#k3#','#k4#','#bx#')">	  		  	
 	<cfif color.recordcount eq "0">			
 		<td bgcolor="white" height="16" title="Click to annotate" style="min-width:20px;cursor:pointer;border:1px solid silver"></td>				
 	<cfelse>		
 		<cfloop query="color">				    
-			<td height="16"  title="#Description#" width="4" style="background-color:white;cursor:pointer;border:1px solid silver"></td>			
+			<td height="16"  title="#Description#" width="4" style="background-color:#color#;cursor:pointer;border:1px solid silver"></td>			
 		</cfloop>	
 	</cfif>
 </tr>
-<tr><td class="hide" id="annotation#bx#" onclick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/Tools/Annotation/AnnotationShow.cfm?box=#bx#&entity=#ent#&key1=#k1#&key2=#k2#&key3=#k3#&key4=#k4#','#bx#')">
-</td></tr>
+<tr>
+   <td class="hide" id="annotation#bx#" onclick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/Tools/Annotation/AnnotationShow.cfm?box=#bx#&entity=#ent#&key1=#k1#&key2=#k2#&key3=#k3#&key4=#k4#','#bx#')"></td>
+</tr>
 </table>
 
 </cfoutput>

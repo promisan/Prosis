@@ -11,7 +11,7 @@ password="#SESSION.dbpw#">
 <cfif trigger.triggerInstruction neq "">
 	<table width="90%" align="center">
 	<tr class="line">
-		<td colspan="2" class="labelit" style="border-top:1px solid silver;height:1px;padding-left:10px; padding-right:10px">
+		<td colspan="2" class="labelmedium" style="border-top:1px solid silver;height:1px;padding-left:10px; padding-right:10px">
 		<font color="0080C0">
 		<cfoutput>#trigger.triggerInstruction#</cfoutput>
 		</td>

@@ -6,20 +6,20 @@
      drop view [dbo].[vwListing#SESSION.acc#]
 </cfquery>
 
-<cfparam name="session.listingquery" default="">
+<cfparam name="session.listingdata['#url.box#']['sql']" default="">
 
-<cfset substr = left(session.listingquery,30)>
+<cfset substr = left(session.listingdata[url.box]['sql'],30)>
 
 <cfif findNoCase(" TOP ",substr)>
 
-    <cfset qry =  session.listingquery> 	
+    <cfset qry =  session.listingdata[url.box]['sql']> 	
 	
 <cfelse>
 
     <cfif findNoCase("DISTINCT",substr)>
-		<cfset qry =  replaceNoCase(session.listingquery,"SELECT DISTINCT","SELECT DISTINCT TOP 5000")> 	
+		<cfset qry =  replaceNoCase(session.listingdata[url.box]['sql'],"SELECT DISTINCT","SELECT DISTINCT TOP 50000")> 	
 	<cfelse>
-		<cfset qry =  replaceNoCase(session.listingquery,"SELECT","SELECT TOP 5000")> 	
+		<cfset qry =  replaceNoCase(session.listingdata[url.box]['sql'],"SELECT","SELECT TOP 50000")> 	
 	</cfif>
 	
 </cfif>	
@@ -27,7 +27,8 @@
 <cfquery name="Listing" 
     datasource="#url.dsn#">
 	CREATE VIEW dbo.vwListing#SESSION.acc# AS 
-	#preservesinglequotes(qry)#    	
+	#preservesinglequotes(qry)#    
+	
 </cfquery> 
 
 <cfset table1   = "vwListing#SESSION.acc#">	

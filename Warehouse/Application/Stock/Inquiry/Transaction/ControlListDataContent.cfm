@@ -13,7 +13,7 @@ password="#SESSION.dbpw#">
 <cfsavecontent variable="myquery">
 
 	<cfoutput>	   
-		SELECT    TOP 2500 IT.*, UoM.ItemBarCode
+		SELECT    TOP 70000 IT.*, IT.TransactionDate
 	    FROM      userQuery.dbo.#SESSION.acc#_ItemTransaction IT
 				  INNER JOIN Materials.dbo.ItemUoM UoM 
 					ON IT.ItemNo = UoM.ItemNo AND IT.TransactionUoM = UoM.UoM
@@ -40,7 +40,7 @@ password="#SESSION.dbpw#">
 	
 	<cfset itm = itm+1>	
 	
-	<cf_tl id="Facility" var = "1">		
+	<cf_tl id="Warehouse" var = "1">		
 	<cfset fields[itm] = {label         = "#lt_text#",                    
 	     				field           = "WarehouseName",																	
 						alias           = "",																			
@@ -58,6 +58,7 @@ password="#SESSION.dbpw#">
 						search          = ""}>		
 
 
+	<!--- 					
 	<cfset itm = itm+1>
 	<cf_tl id="ItemNo" var = "1">		
 	<cfset fields[itm] = {label         = "#lt_text#",                    
@@ -66,6 +67,7 @@ password="#SESSION.dbpw#">
 						searchalias		= "IT",
 						search          = "text",
 						filtermode      = "4"}>				
+	--->					
 						
 	<cfset itm = itm+1>
 	<cf_tl id="Product" var = "1">		
@@ -102,7 +104,7 @@ password="#SESSION.dbpw#">
 	     				field       = "BatchDescription",					
 						alias       = "",																			
 						search      = "text",
-						filtermode  = "2"}>		
+						filtermode  = "3"}>		
 						
 	<cfset itm = itm+1>
 	<cf_tl id="ReceiptNo" var = "1">			
@@ -111,7 +113,8 @@ password="#SESSION.dbpw#">
 						alias       = "",																			
 						search      = "text",
 						filtermode  = "4"}>																							
-							
+	
+	<!---						
 	<cfset itm = itm+1>
 	<cf_tl id="Request" var = "1">			
 	<cfset fields[itm] = {label     = "#lt_text#",                    
@@ -120,13 +123,14 @@ password="#SESSION.dbpw#">
 						search      = "text",
 						filtermode  = "0"}>		
 						
-															
+	--->													
 						
 	<cfset itm = itm+1>
 	<cf_tl id="Date" var = "1">				
 	<cfset fields[itm] = {label     = "#lt_text#",                    
 	     				field       = "TransactionDate",					
 						alias       = "",		
+						column      = "month",
 						align       = "center",		
 						formatted   = "dateformat(TransactionDate,CLIENT.DateFormatShow)",																	
 						search      = "date"}>		
@@ -163,6 +167,8 @@ password="#SESSION.dbpw#">
 	
 	</cfif>		
 	
+	<!---
+	
 	<cfset itm = itm+1>	
 	<cf_tl id="Barcode" var = "1">		
 	<cfset fields[itm] = {label     = "#lt_text#",                    
@@ -170,13 +176,16 @@ password="#SESSION.dbpw#">
 						alias       = "",	
 						filtermode  = "4", 																		
 						search      = "text"}>												
+						
+	--->					
 
 	<cfset itm = itm+1>
 	<cf_tl id="Qty" var = "1">							
 	<cfset fields[itm] = {label     = "#lt_text#",                    
 	     				field       = "TransactionQuantity",	
 						align       = "right",				
-						alias       = "",					
+						alias       = "",			
+						aggregate   = "sum",		
 						formatted   = "numberformat(TransactionQuantity,',__')",														
 						search      = "number"}>								
 	
@@ -212,7 +221,8 @@ password="#SESSION.dbpw#">
 			<cfset fields[itm] = {label     = "#lt_text#",                    
 			     				field       = "TransactionValue",					
 								align       = "right",
-								alias       = "",					
+								alias       = "",	
+								aggregate   = "sum",				
 								formatted   = "numberformat(TransactionValue*-1,',.__')",														
 								search      = ""}>	
 							

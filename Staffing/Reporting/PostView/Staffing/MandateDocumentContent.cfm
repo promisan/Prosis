@@ -1,4 +1,5 @@
-				  
+	
+					  
 	<cfif url.accessOrg eq "EDIT" or url.accessOrg eq "ALL">			  
 	
 		<cf_filelibraryN
@@ -6,7 +7,7 @@
 			SubDirectory="#URL.Mission#" 
 			Filter="#URL.Mandate#"
 			Insert="yes"
-			loadscript="No"			
+			loadscript="no"			
 			Remove="yes"
 			rowHeader="no"
 			ShowSize="yes">	 
@@ -18,7 +19,7 @@
 			SubDirectory="#URL.Mission#" 
 			Filter="#URL.Mandate#"
 			Insert="no"
-			loadscript="No"			
+			loadscript="no"			
 			Remove="no"
 			rowHeader="no"
 			ShowSize="yes">	 

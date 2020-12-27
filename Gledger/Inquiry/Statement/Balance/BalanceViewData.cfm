@@ -8,7 +8,7 @@
 	  
 		  <cfloop index="itm" list="#nodelist#" delimiters=",">
 		  
-		  <td class="labelit" align="right" style="border:1px dotted gray;padding-right:3px"><cf_space spaces="22">
+		  <td class="labellarge" align="right" style="border:1px dotted gray;padding-right:3px"><cf_space spaces="22">
 		  
 			  <cfif form.layout eq "owner">
 			  
@@ -88,7 +88,7 @@
 				  </cfif>	  
 			  </cfquery>		  			
 		   			
-			<td class="labelit" align="right" style="border:1px dotted gray;padding-right:3px">
+			<td class="labellarge" align="right" style="border:1px dotted gray;padding-right:3px">
 							
 					<cfif data.total eq "">
 						-
@@ -154,8 +154,8 @@
 				
 			<TR class="clsDetail_#field#_#vAccountParentId# navigation_row linedotted" bgcolor="##e8e8e8" onclick="#vGroupOnClick#" style="#vGroupVisible#">
 		   	  <td style="padding-left:10px"></td>
-		  	  <td style="height:23px;width:100;padding-left:6px" class="labelit"><cfif form.aggregation is "detail"></cfif>#AccountGroup#</b></td>
-			  <td class="labelit" ><cfif form.aggregation is "detail"></cfif>#AccountGroupDescription#</td>
+		  	  <td style="height:23px;width:100;padding-left:6px" class="labellarge"><cfif form.aggregation is "detail"></cfif>#AccountGroup#</b></td>
+			  <td class="labellarge" ><cfif form.aggregation is "detail"></cfif>#AccountGroupDescription#</td>
 			  
 			   <cfif form.layout neq "corporate">
 	 
@@ -181,7 +181,7 @@
 						</cfif>	
 					  </cfquery>
 				   			
-					<td class="labelit" align="right" style="border:1px dotted gray;padding-right:3px">
+					<td class="labellarge" align="right" style="border:1px dotted gray;padding-right:3px">
 							<font color="808080">			
 							<cfif data.total eq "">
 								-
@@ -200,7 +200,7 @@
 			  <cfelse>
 			  
 			      <!--- Show total only if periods are not shown, because this is running balance --->
-				  <td align="right" style="width:100;padding-right:10px; background-color:##d4d4d4;" class="labelit">	
+				  <td align="right" style="width:100;padding-right:10px; background-color:##d4d4d4;" class="labellarge">	
 				  	<cfif Group.subtotal lt 0>
 						<font color="FF0000">#NumberFormat(evaluate("Group.subtotal"),'(_,____)')#</font>
 					<cfelse>
@@ -217,12 +217,12 @@
 					
 		   <!--- <cfif form.aggregation is "detail"> --->
 			
-				<tr class="clsDetail_#field#_#vAccountGroupId# navigation_row linedotted labelit" style="#vDetailVisible#">
+				<tr class="clsDetail_#field#_#vAccountGroupId# navigation_row linedotted labellarge" style="#vDetailVisible#">
 				    <td style="padding-left:5px"></td>
 			    	
-					<td style="width:100;padding-left:10px;padding-right:10px" class="labelit">#GLAccount#</td>
+					<td style="width:100;padding-left:10px;padding-right:10px" class="labellarge">#GLAccount#</td>
 				    
-					<td style="padding-left:5px" class="labelit">#Description#</td>
+					<td style="padding-left:5px" class="labellarge">#Description#</td>
 					
 					<cfif form.layout neq "corporate">
 					
@@ -256,7 +256,7 @@
 								<cfset sc = "showledger('#URL.mission#','',document.getElementById('period').value,'#GLAccount#','#itm#','','tab')">						    
 							</cfif>	
 																	
-							<td class="labelit" align="right" style="padding-left:10px;border:1px solid e4e4e4;padding-right:8px"
+							<td class="labellarge" align="right" style="padding-left:10px;border:1px solid e4e4e4;padding-right:8px"
 							 onMouseOver="this.bgColor='FFFFCF'" onMouseOut="this.bgColor='transparent'" onclick="#sc#">
 								
 								<cfif data.total eq "">
@@ -292,7 +292,7 @@
 						    <cfset sc = "showledger('#URL.mission#','',document.getElementById('period').value,'#GLAccount#',#Form.TransactionPeriod#,'','tab')"> 
 						</cfif>		
 						
-						<td class="labelit" style="padding-left:10px;" align="right" onMouseOver="this.bgColor='FFFFCF'" onMouseOut="this.bgColor='transparent'" onclick="#sc#">
+						<td class="labellarge" style="padding-left:10px;" align="right" onMouseOver="this.bgColor='FFFFCF'" onMouseOut="this.bgColor='transparent'" onclick="#sc#">
 							<cfif Data.Total lt 0>
 								<font color="FF0000">#NumberFormat(evaluate("Data.Total"),'(_,____)')#</font>
 							<cfelse>

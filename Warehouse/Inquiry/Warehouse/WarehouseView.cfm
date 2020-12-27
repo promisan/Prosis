@@ -14,8 +14,6 @@
 <cf_informationscript>
 <cf_listingscript>
 
-
-
 <cfif client.googleMAP eq "1">
 	<cfajaximport tags="cfmap" params="#{googlemapkey='#client.googlemapid#'}#">
 </cfif>	

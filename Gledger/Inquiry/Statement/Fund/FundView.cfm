@@ -231,15 +231,15 @@ password="#SESSION.dbpw#">
 								
 				<tr>
 				  
-				  <td class="labelit"><cf_space spaces="15"></td>
-				  <td class="labelit" style="width:100%"><cf_space spaces="65"></td>
+				  <td class="labellarge"><cf_space spaces="15"></td>
+				  <td class="labellarge" style="width:100%"><cf_space spaces="65"></td>
 				  
 				  <cfif showperiod eq "1">
 					  <cfoutput query="Period">
-					  <td style="border-radius:4px;border:1px solid silver" class="labelit" width="80" align="center"><cf_space spaces="10">#Period#</td>
+					  <td style="border-radius:4px;border:1px solid silver" class="labellarge" width="80" align="center"><cf_space spaces="10">#Period#</td>
 					  </cfoutput>
 				  </cfif>
-				  <td style="border-radius:4px;border:1px solid silver" class="labelit" align="center"><cf_space spaces="15"><cf_tl id="Total"></td>					   
+				  <td style="border-radius:4px;border:1px solid silver" class="labellarge" align="center"><cf_space spaces="15"><cf_tl id="Total"></td>					   
 				 
 				</tr>
 				</cfif>			
@@ -277,14 +277,14 @@ password="#SESSION.dbpw#">
 			  <cfif Period.recordcount gt "1">	
 				
 				<tr>				 
-				  <td class="labelit"><cf_space spaces="15"></td>
-				  <td class="labelit"><cf_space spaces="65"></td>				  
+				  <td class="labellarge"><cf_space spaces="15"></td>
+				  <td class="labellarge"><cf_space spaces="65"></td>				  
 				  <cfif showperiod eq "1">
 					  <cfoutput query="Period">
-					     <td width="80" style="border-radius:4px;border:1px solid silver" class="labelit" align="center"><cf_space spaces="10">#Period#</td>
+					     <td width="80" style="border-radius:4px;border:1px solid silver" class="labellarge" align="center"><cf_space spaces="10">#Period#</td>
 					  </cfoutput>
 				  </cfif>				  
-				  <td style="border-radius:4px;border:1px solid silver" class="labelit" align="center"><cf_tl id="Total"><cf_space spaces="20"></td>					   				 
+				  <td style="border-radius:4px;border:1px solid silver" class="labellarge" align="center"><cf_tl id="Total"><cf_space spaces="20"></td>					   				 
 				</tr>
 				
 			  </cfif>		

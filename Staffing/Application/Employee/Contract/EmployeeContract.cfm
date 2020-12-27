@@ -117,9 +117,9 @@
 			   ex.className = "hide"	
 			   
 			   if (mode != "spa") {
-				   ColdFusion.navigate('#SESSION.root#/staffing/application/employee/contract/EmployeeContractWorkflow.cfm?ajaxid='+key,key)		   
+				   ptoken.navigate('#SESSION.root#/staffing/application/employee/contract/EmployeeContractWorkflow.cfm?ajaxid='+key,key)		   
 			   } else {
-			  	   ColdFusion.navigate('#SESSION.root#/staffing/application/employee/contract/Adjustment/EmployeeContractSPAWorkflow.cfm?ajaxid='+key,key)	
+			  	   ptoken.navigate('#SESSION.root#/staffing/application/employee/contract/Adjustment/EmployeeContractSPAWorkflow.cfm?ajaxid='+key,key)	
 	   		   }
 			  
 			} else {  se.className = "hide"
@@ -134,7 +134,7 @@
 
 <cfset ctr= 0>
 
-<table width="100%" height="100%" border="0" ccellspacing="0" ccellpadding="0" align="center" class="formpadding">
+<table width="100%" height="100%" align="center" class="formpadding">
 
 <cfparam name="url.header" default="1">
 <cfif url.header eq "1">
@@ -193,26 +193,24 @@ password="#SESSION.dbpw#">
 			 
 			 <cfif operational eq "1">
 			 
-			 (SELECT     TOP 1 SCL.Amount
-			   FROM       Payroll.dbo.SalaryScale SC INNER JOIN
-                          Payroll.dbo.SalaryScaleLine SCL ON SC.ScaleNo = SCL.ScaleNo INNER JOIN
-                          Payroll.dbo.SalarySchedule S ON SC.SalarySchedule = S.SalarySchedule INNER JOIN
-                          Payroll.dbo.SalaryScheduleComponent C ON S.SalarySchedule = C.SalarySchedule 
-						  AND S.SalaryBasePayrollItem = C.PayrollItem 
-						  AND SCL.ComponentName       = C.ComponentName	  
-						  
-						  
-			   WHERE      SCL.ServiceLevel    = L.ContractLevel
-			   AND        SCL.ServiceStep     = L.ContractStep
-			   AND        SC.Operational      = 1
-			   AND        SC.Mission          = L.Mission
-			   AND        SC.ServiceLocation  = L.ServiceLocation
-			   AND        SC.SalaryEffective <= L.DateEffective
-			   AND  	  SC.SalarySchedule   = L.SalarySchedule
-			   AND        SC.SalaryFirstApplied <= L.DateEffective 
-			   ORDER BY   SalaryFirstApplied DESC )
-			   
-			   
+				 (SELECT     TOP 1 SCL.Amount
+				   FROM       Payroll.dbo.SalaryScale SC INNER JOIN
+	                          Payroll.dbo.SalaryScaleLine SCL ON SC.ScaleNo = SCL.ScaleNo INNER JOIN
+	                          Payroll.dbo.SalarySchedule S ON SC.SalarySchedule = S.SalarySchedule INNER JOIN
+	                          Payroll.dbo.SalaryScheduleComponent C ON S.SalarySchedule = C.SalarySchedule 
+							  AND S.SalaryBasePayrollItem = C.PayrollItem 
+							  AND SCL.ComponentName       = C.ComponentName	 						  
+							  
+				   WHERE      SCL.ServiceLevel    = L.ContractLevel
+				   AND        SCL.ServiceStep     = L.ContractStep
+				   AND        SC.Operational      = 1
+				   AND        SC.Mission          = L.Mission
+				   AND        SC.ServiceLocation  = L.ServiceLocation
+				   AND        SC.SalaryEffective <= L.DateEffective
+				   AND  	  SC.SalarySchedule   = L.SalarySchedule
+				   AND        SC.SalaryFirstApplied <= L.DateEffective 
+				   ORDER BY   SalaryFirstApplied DESC )
+			   			   
 			   <cfelse>
 			   
 			   0
@@ -232,7 +230,7 @@ password="#SESSION.dbpw#">
 	<cfelse>
 	ORDER BY L.DateEffective #URL.Order#, L.Created #URL.Order#, L.ActionStatus DESC <!--- make sure the expired contract show first --->
 	</cfif>
-	
+		
 </cfquery>
 
 
@@ -296,7 +294,7 @@ password="#SESSION.dbpw#">
 
 <tr><td style="height:100%">
 	
-<table width="98%" border="0" align="center" class="formpadding" style="min-width:1024px;height:100%">
+<table width="98%" border="0" align="center" style="min-width:1024px;height:100%">
 	
 	<cfinvoke component  = "Service.Access" 
       method     = "contract"
@@ -308,23 +306,25 @@ password="#SESSION.dbpw#">
 	
 	<cfif url.header eq "1">
 		
-		<tr class="line">
+		<tr>
 
 		    <td height="18">
 	
-			<table ccellspacing="0" ccellpadding="0">
+			<table>
 			<tr>		
 			
-			    <td style="height:40px;padding-left:13px;font-size:29px;min-width:120px" class="labellarge">				
-				<table><tr><td style="height:40px;padding-left:3px;font-size:29px;font-weight:200">
-				<cf_tl id="Appointments"></td><td style="height:40px;padding-top:7px;padding-left:5px;font-size:20px;font-weight:200"><cf_tl id="and"><cf_tl id="Amendments"></td></tr>
+			    <td style="height:60px;padding-left:13px;min-width:120px">				
+				<table><tr class="labelmedium">
+				<td><img src="#client.root#/images/contract.png" height="49" alt="" border="0"></td>
+				<td style="height:50px;padding-top:18px;padding-left:18px;font-size:40px">
+				<cf_tl id="Appointments"></td><td style="height:50px;padding-top:30px;padding-left:5px;font-size:19px;"><cf_tl id="and"><cf_tl id="Amendments"></td></tr>
 				</table>			
 				</td>
-				<td style="padding-left:10px"></td>
+				<td style="padding-left:30px"></td>
 					 
 			 <cfif url.status eq "valid">
 			 
-			     <td class="labelit" align="right" valign="bottom"><cf_space spaces="26">
+			     <td class="labelmedium2" align="right" valign="bottom" style="min-width:80px">
 				 <a href="javascript:contractshow('#url.id#','all','#URL.Order#')">
 				 <cf_tl id="AUDIT view">
 				 </a>
@@ -332,7 +332,7 @@ password="#SESSION.dbpw#">
 			 
 			 <cfelse>
 			 
-			 	<td class="labelit" align="center" valign="bottom"><cf_space spaces="20">
+			 	<td class="labelmedium2" align="center" valign="bottom">
 				 <a href="javascript:contractshow('#url.id#','valid','#URL.Order#')">
 				 <cf_tl id="ACTIVE">
 				 </a>
@@ -343,22 +343,20 @@ password="#SESSION.dbpw#">
 			 <td valign="bottom" style="padding-left:5px;padding-right:5px">|</td> 
 			 						
 			 <cfif url.order eq "ASC">
-			 	<td class="labelit" align="center" valign="bottom"><cf_space spaces="20">
+			 	<td class="labelmedium2" align="center" style="min-width:105px" valign="bottom">
 					 <a href="javascript:contractshow('#url.id#','#URL.status#','DESC')">
 					 <cf_tl id="NEWEST on top">
 					 </a>
 				 </td>
 			<cfelse>	
-				<td class="labelit" align="center" valign="bottom"><cf_space spaces="20">
+				<td class="labelmedium2" align="center" style="min-width:105px" valign="bottom">
 					 <a href="javascript:contractshow('#url.id#','#URL.status#','ASC')">
 					 <cf_tl id="OLDEST on top">
 					 </a>		 
 				 </td>	 
 			 </cfif>
 
-			 <td valign="bottom" style="padding-left:10px;">&nbsp;</td> 
-
-			 <td class="labelit" align="center" valign="bottom" style="color:0080C0;"><cf_space spaces="20">
+			 <td class="labelmedium2" align="center" valign="bottom" style="min-width:90px;color:0080C0;">
 			 	<input type="checkbox" id="btnToggleDetails" onclick="$('.clsDetailComments').toggle()"> <label for="btnToggleDetails"><cf_tl id="Details"></label>
 			 </td>	
 			 			
@@ -385,28 +383,28 @@ password="#SESSION.dbpw#">
 			<table><tr>
 											
 				<cfif access eq "ALL" or access eq "EDIT">							 
-					    <cfset jvlink = "ProsisUI.createWindow('dialoggrade', 'Grade', '',{x:100,y:100,height:400,width:510,resizable:false,modal:true,center:true});ColdFusion.navigate('PersonGrade.cfm?id=#url.id#','dialoggrade')">									    
-						<td class="labelmedium" valign="bottom" style="font-weight:200;font-size:14px;padding-left:4px;padding-right:4px"><cf_tl id="History">:</td>												
+					    <cfset jvlink = "ProsisUI.createWindow('dialoggrade', 'Grade', '',{x:100,y:100,height:400,width:510,resizable:false,modal:true,center:true});ptoken.navigate('PersonGrade.cfm?id=#url.id#','dialoggrade')">									    
+						<td class="labelmedium" valign="bottom" style="font-size:14px;padding-left:4px;padding-right:4px"><cf_tl id="View"></td>												
 						<cf_tl id="Grade" var="1">								
-						<td class="labelmedium" valign="bottom" style="font-size:14px;padding-left:4px;padding-right:4px"><a href="javascript:#preservesinglequotes(jvlink)#"><cfoutput><font color="0080C0">#lt_text#</font></cfoutput></a></td>						
+						<td class="labelmedium" valign="bottom" style="font-size:14px;padding-left:4px;padding-right:4px"><a href="javascript:#preservesinglequotes(jvlink)#"><cfoutput>#lt_text#</cfoutput></a></td>						
 						<td valign="bottom" style="padding-left:5px;padding-right:5px">|</td>   
-						<cfset jvlink = "ProsisUI.createWindow('dialogappointment', 'Appointment', '',{x:100,y:100,height:480,width:810,resizable:true,modal:true,center:true});ColdFusion.navigate('PersonAppointment.cfm?id=#url.id#','dialogappointment')">									    
+						<cfset jvlink = "ProsisUI.createWindow('dialogappointment', 'Appointment', '',{x:100,y:100,height:480,width:810,resizable:true,modal:true,center:true});ptoken.navigate('PersonAppointment.cfm?id=#url.id#','dialogappointment')">									    
 						<cf_tl id="Appointment" var="1">								
-						<td class="labelmedium" valign="bottom" style="font-size:14px;padding-left:4px;padding-right:4px"><a href="javascript:#preservesinglequotes(jvlink)#"><cfoutput><font color="0080C0">#lt_text#</font></cfoutput></a></td>						
+						<td class="labelmedium" valign="bottom" style="font-size:14px;padding-left:4px;padding-right:4px"><a href="javascript:#preservesinglequotes(jvlink)#"><cfoutput>#lt_text#</font></cfoutput></a></td>						
 						  				    			
 				</cfif>
 					 	
 				<cfif access eq "ALL" or access eq "EDIT">	
 							
 			  	    <cf_tl id="Record new" var="1">	
-					<td class="labelmedium" valign="bottom" style="min-width:10px;font-size:14px;padding-left:24px;padding-right:5px"><a href="javascript:contract('#URL.ID#')"><cfoutput><font color="0080C0">#lt_text#</font></cfoutput></a></td>
+					<td class="labelmedium" valign="bottom" style="min-width:10px;font-size:14px;padding-left:24px;padding-right:15px"><a href="javascript:contract('#URL.ID#')"><cfoutput>#lt_text#</cfoutput></a></td>
 									
 				</cfif>
 				
 				<cfif Pending.recordcount gte "1">	
 				
 				<td valign="bottom" style="padding-left:5px;padding-right:5px">|</td>
-			    <td class="labelmedium" valign="bottom" style="font-weight:200;padding-left:3px;padding-right:5px"><font color="red"><cf_tl id="Open Actions"></td>
+			    <td class="labelmedium" valign="bottom" style="font-weight:200;padding-left:3px;padding-right:15px"><font color="red"><cf_tl id="Open Actions"></td>
 						
 				</cfif>
 			
@@ -422,15 +420,15 @@ password="#SESSION.dbpw#">
    </cfoutput>	
       
    <cfif Expire.recordcount eq "0" and SearchResult.Recordcount neq "0">
-	   <tr class="line"><td colspan="2" align="center" class="labelmedium" style="height:32px;font-size:15px">	  
+	   <tr class="line"><td colspan="2" align="center" class="labelmedium2" style="height:32px;font-size:15px">	  
 	   Attention :<font color="FF0000"><cf_tl id="This person has no active appointment at this moment"></td></tr>	  
    </cfif>
    
-  <td width="100%" colspan="2" height="100%">
+  <td width="100%" colspan="2" height="100%" style="padding-top:10px;padding-left:10px">
   
   	  <cf_divscroll>
  
-	  <table border="0" style="width:98.5%">
+	  <table style="width:99%;border:1px solid silver;padding:2px">
 			
 		<TR class="labelmedium line fixrow">
 		    <td width="3%" height="18" align="center"></td>
@@ -522,7 +520,7 @@ password="#SESSION.dbpw#">
 					</cfif>
 									
 					<cfif DateEffective gt dte and start eq "1">
-						<tr class="labelmedium"><td style="border:1px solid gray;height:25px;color:white" colspan="15" align="center" bgcolor="DD6F00"><cf_tl id="Break in contract"></td></tr>
+						<tr class="labelmedium"><td style="border:0px solid gray;height:25px;color:white" colspan="15" align="center" bgcolor="DD6F00"><cf_tl id="Break in contract"></td></tr>
 					</cfif>
 				
 				</cfif>	
@@ -568,21 +566,21 @@ password="#SESSION.dbpw#">
 			
 			</cfif>
 		
-		<tr bgcolor="f1f1f1" style="border-top:0px solid silver;" class="navigation_row labelmedium">
+		<tr bgcolor="f1f1f1" style="border-top:0px solid silver;height:30px;" class="navigation_row labelmedium2">
 		
 		<cfelseif HistoricContract eq "1">
 		
 		<!--- active contract --->
-		<tr bgcolor="f1f1f1" style="border-top:1px solid silver" class="navigation_row labelmedium">
+		<tr bgcolor="f1f1f1" style="height:30px;border-top:1px solid silver" class="navigation_row labelmedium2">
 		
 		<cfelseif dateeffective lte now() and (dateExpiration is "" or dateExpiration gte now())>
 		
 		<!--- active contract --->
-		<tr bgcolor="DAF9FC" class="navigation_row labelmedium" style="border-top:1px solid silver">
+		<tr bgcolor="DAF9FC" class="navigation_row labelmedium2" style="height:30px;border-top:1px solid silver">
 		
 		<cfelse>
 		
-		<TR bgcolor="#iif(currentrow Mod 2, DE('FFFFFF'), DE('FFFFFF'))#" style="border-top:1px solid silver" class="navigation_row labelmedium">
+		<TR bgcolor="#iif(currentrow Mod 2, DE('FFFFFF'), DE('FFFFFF'))#" style="height:30px;border-top:1px solid silver" class="navigation_row labelmedium2">
 		
 		</cfif>
 					
@@ -670,7 +668,7 @@ password="#SESSION.dbpw#">
 			
 			<td style="background-color:#cl#;padding-left:3px;padding-right:5px">#Mission#</td>		
 			<td style="background-color:#cl#;padding-right:2px" colspan="2">#ActionDescription#</td>
-			<TD style="background-color:#cl#">
+			<td style="background-color:#cl#">
 						
 			<cfquery name = "Action"
 			datasource = "AppsEmployee"
@@ -778,7 +776,7 @@ password="#SESSION.dbpw#">
 						
 			</td>
 			
-			<TD style="background-color:#cl#" style="padding-left:3px">
+			<td style="background-color:#cl#" style="padding-left:3px">
 			
 			<cfif SalarySchedule eq "NoPay">
 				<font color="800040"><cf_tl id="Unfunded"></font>
@@ -786,7 +784,8 @@ password="#SESSION.dbpw#">
 				#ContractLevel#/#ContractStep#<cfif contracttime neq "100">&nbsp;:&nbsp;#ContractTime#</cfif>
 			</cfif>
 			
-			</TD>
+			</td>
+			
 			<td style="background-color:#cl#">
 			<cfif actioncode eq "3006">--
 				<cfelseif stepincreasedate eq "">--
@@ -797,17 +796,16 @@ password="#SESSION.dbpw#">
 			
 			</td>
 			
-			<TD align="right" style="background-color:#cl#;padding-right:7px">
+			<td align="right" style="background-color:#cl#;padding-right:7px">
 						
-			<cfif BaseSalary eq "0" or BaseSalary eq "">--
-			<cfelseif contractTime eq 100 or contractTime eq "">
-			#numberformat(BaseSalary,',.__')#
-			<cfelse>
-			#numberformat(BaseSalary*contracttime/100,',.__')#
-			</cfif>
+				<cfif BaseSalary eq "0" or BaseSalary eq "">--
+				<cfelseif contractTime eq 100 or contractTime eq "">			
+				#numberformat(BaseSalary,',.__')#			
+				<cfelse>			
+				#numberformat(BaseSalary*contracttime/100,',.__')#
+				</cfif>
 			
-			
-			</TD>			
+			</td>			
 			
 			<td style="background-color:#cl#;padding-left:4px;padding-right:6px;" id="status_#contractid#">
 			
@@ -910,7 +908,7 @@ password="#SESSION.dbpw#">
 			  
 			<input type="hidden" 
 			   name="workflowlinkprocess_#workflow#" 
-			   onclick="ColdFusion.navigate('EmployeeContractStatus.cfm?id=#contractid#','status_#workflow#')">		    
+			   onclick="ptoken.navigate('EmployeeContractStatus.cfm?id=#contractid#','status_#workflow#')">		    
 			   
 			<!---  not relevant anymore 19/4/2018 as per effort to re-embed the contract entry screen
 			into the workflow as opposed to what we had in NY back in 2013 as contracts are now differently embedded can be removed   
@@ -1102,70 +1100,77 @@ password="#SESSION.dbpw#">
 				AND      ActionStatus IN ('0','1')
 				ORDER BY DateEffective DESC
 			</cfquery>	
+			
+			
+			
+			<cfif Expire.recordcount eq "0" and SearchResult.Recordcount neq "0">
+			
+				<!--- no active contract --->
+			
+			<cfelse>
 									
-			<cfif actionStatus eq "1" 
-			    and Parameter.disableSPA eq "0" 
-				and HistoricContract eq "0" 
-				and ContractAdjustment eq "1"
-				and dependentshow eq "0" 
-				and SalarySchedule neq "NoPay"
-				and url.status eq "valid" 
-				and actioncode neq "3006"> 	
-							
-			<!---	requested by Karin for STL temp measurement			
-			<cfif actionStatus eq "1" and Parameter.disableSPA eq "0" and (DateExpiration gte now() or DateExpiration eq "")>
-			--->
-						
-				<cfif CheckLast.DateExpiration lt dateExpiration or dateExpiration eq "">
-				
-				    <!--- ------------------------------------------------------------------------- --->
-				    <!--- do not allow for additional SPA request if there is a pending SPA request --->
-				    <!--- ------------------------------------------------------------------------- --->
-					
-					<cfset row = row+1>
-					
-					<cf_assignid>
-												
-				    <cfset jvlink = "ProsisUI.createWindow('spa', 'Contract Post Adjustment','',{x:100,y:100,height:630,width:630,resizable:false,modal:true,center:true});ColdFusion.navigate('#session.root#/Staffing/Application/Employee/Contract/Adjustment/ContractSPA.cfm?contractid=#contractid#&postadjustmentid=#rowguid#&spabox=spa#row#','spa')">				
-					
-					<cfif (access eq "ALL" or access eq "EDIT") and SPAcount lte "2">
-					
-					<tr style="border-top:1px solid silver">
-					
-						<td colspan="1"></td>					
-						<td colspan="14" id="spa#row#">
-						
-							<table width="100%" align="center">
-							
-								<cfset SPACount = SPACount + 1>
-							
-								<tr height="26">
+				<cfif actionStatus eq "1" 
+				    and Parameter.disableSPA eq "0" 
+					and HistoricContract eq "0" 
+					and ContractAdjustment eq "1"
+					and dependentshow eq "0" 
+					and SalarySchedule neq "NoPay"
+					and url.status eq "valid" 
+					and actioncode neq "3006"> 	
 								
-									<td class="labelit">			    					
-									<img src="#SESSION.root#/images/finger.gif" onclick="#jvlink#" style="cursor:pointer" alt="" border="0" align="absmiddle">						
-									<a href="javascript:#jvlink#" title="Record a request for Special Post Adjustment">
-									<cf_tl id="Grant SPA">
-									</a>						
-									</td>
-								
-								</tr>
+				<!---	requested by Karin for STL temp measurement			
+				<cfif actionStatus eq "1" and Parameter.disableSPA eq "0" and (DateExpiration gte now() or DateExpiration eq "")>
+				--->
 							
-							
-							
-							</table>	
-							
-						</td>		
-					</tr>	
+					<cfif CheckLast.DateExpiration lt dateExpiration or dateExpiration eq "">
 					
+					    <!--- ------------------------------------------------------------------------- --->
+					    <!--- do not allow for additional SPA request if there is a pending SPA request --->
+					    <!--- ------------------------------------------------------------------------- --->
+						
+						<cfset row = row+1>
+						
+						<cf_assignid>
+													
+					    <cfset jvlink = "ProsisUI.createWindow('spa', 'Contract Post Adjustment','',{x:100,y:100,height:630,width:630,resizable:false,modal:true,center:true});ColdFusion.navigate('#session.root#/Staffing/Application/Employee/Contract/Adjustment/ContractSPA.cfm?contractid=#contractid#&postadjustmentid=#rowguid#&spabox=spa#row#','spa')">				
+						
+						<cfif (access eq "ALL" or access eq "EDIT") and SPAcount lte "2">
+						
+						<tr style="border-top:1px solid silver">
+						
+							<td colspan="1"></td>					
+							<td colspan="14" id="spa#row#">
+							
+								<table width="100%" align="center">
+								
+									<cfset SPACount = SPACount + 1>
+								
+									<tr height="26">
+									
+										<td class="labelmedium">			    					
+										<img src="#SESSION.root#/images/finger.gif" onclick="#jvlink#" style="cursor:pointer" alt="" border="0" align="absmiddle">						
+										<a href="javascript:#jvlink#" title="Record a request for Special Post Adjustment">
+										<cf_tl id="Grant SPA">
+										</a>						
+										</td>
+									
+									</tr>
+								
+								</table>	
+								
+							</td>		
+						</tr>	
+						
+						</cfif>
+								
 					</cfif>
-							
+					
 				</cfif>
 				
-			</cfif>
-			
-		</cfif>		
+			</cfif>		
 		
-				
+		</cfif>
+						
 		</cfoutput>
 				
 		</TABLE>

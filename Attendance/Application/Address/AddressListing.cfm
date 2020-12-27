@@ -7,12 +7,6 @@
 <cf_dialogstaffing>
 
 <cf_divscroll>
-
-<table width="100%" height="100%">
-<tr>
-<td style="padding:10px"><cfinclude template="AddressListingContent.cfm"></td>
-</tr>
-</table>
-
+<cfinclude template="AddressListingContent.cfm">
 </cf_divscroll>
 

@@ -18,13 +18,12 @@ password="#SESSION.dbpw#">
 
 <tr class="line labelmedium fixrow">
     
-	<TD align="left"><cf_tl id="Component"></TD>	
-	<TD align="left"><cf_tl id="Group"></TD>
-	<TD align="left"><cf_tl id="Currency"></TD>
-	<TD align="right"><cf_tl id="Amount"></TD>
+	<TD style="padding-left:20px"><cf_tl id="Component"></TD>	
+	<TD><cf_tl id="Group"></TD>
+	<TD><cf_tl id="Currency"></TD>
+	<TD style="padding-right:4px" align="right"><cf_tl id="Amount"></TD>
 	  
 </TR>
-
 
 <cfquery name="CurrencyList"
 	datasource="AppsLedger" 
@@ -36,16 +35,16 @@ password="#SESSION.dbpw#">
 
 <cfoutput query="Rate" group="SalaryTrigger">	
 
-	<tr><td colspan="3" class="labelmedium" style="font-size:20px;height:43px">#TriggerDescription#</td></tr>
+	<tr><td colspan="3" class="labelmedium fixrow2" style="font-size:20px;height:43px">#TriggerDescription#</td></tr>
 
 	<cfoutput>
 			   
-			<TR bgcolor="white" class="line navigation_row" style="height:20px">
+			<TR bgcolor="white" class="line navigation_row labelmedium" style="height:20px">
 			
 			<cfset cp = "#replace(ComponentName,' ','','ALL')#">
 		    <cfset cp = "#replace(cp,'-','','ALL')#">
 			
-			<TD class="labelit" style="padding-left:20px">#Description# (#Code#)</TD>						
+			<TD style="padding-left:20px;border-top:1px solid silver">#Description# (#Code#)</TD>						
 						
 			<cfquery name="Group"
 			datasource="AppsPayroll" 
@@ -57,7 +56,7 @@ password="#SESSION.dbpw#">
 				AND       G.EntitlementGroup  = '#EntitlementGroup#'		  
 			</cfquery>						
 			
-			<TD class="labelit"><cfif Group.EntitlementName neq "">#Group.EntitlementName# (#Group.EntitlementGroup#)<cfelse>#Group.EntitlementGroup#</cfif></TD>		
+			<TD style="border-top:1px solid silver"><cfif Group.EntitlementName neq "">#Group.EntitlementName# (#Group.EntitlementGroup#)<cfelse>#Group.EntitlementGroup#</cfif></TD>		
 					
 			<cfquery name="getRate"
 					datasource="AppsPayroll" 
@@ -89,7 +88,7 @@ password="#SESSION.dbpw#">
 				</cfif>			
 			
 			<TD style="border:1px solid silver;padding-right:2px" align="right">
-			<select name="Currency_#cp#" class="regularh enterastab" style="border:0px">
+			<select name="Currency_#cp#" class="regularxl enterastab" style="background-color:##ffffff80;border:0px;width:98%">
 				  <cfloop query="CurrencyList">
 				    <option value="#Currency#" <cfif Currency eq curr>selected</cfif>>#Currency#</option>
 				  </cfloop>
@@ -111,8 +110,8 @@ password="#SESSION.dbpw#">
 			       enabled="Yes"							   
 			       size="5"
 				   maxlength="20"
-				   style="border:0px solid silver;width:95%;text-align:right"
-			       class="amount2 enterastab regularh"/>
+				   style="background-color:##ffffff80;border:0px solid silver;width:98%;text-align:right"
+			       class="amount2 enterastab regularxl"/>
 															   					   
 		    <input type="hidden"  id="Amount_#cp#_old" name="Amount_#cp#_old" value="#getRate.amount#">
 				

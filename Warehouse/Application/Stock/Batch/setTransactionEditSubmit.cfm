@@ -55,7 +55,8 @@
 							FROM     ItemTransaction
 							WHERE    TransactionId = '#url.TransactionId#' 
 							         OR ParentTransactionid = '#url.TransactionId#'  
-							ORDER BY Created DESC
+									 
+							ORDER BY Created DESC							
 					</cfquery>			
 														
 					<cfquery name="getLinesAction"
@@ -100,16 +101,25 @@
 									AND       ItemNo          = '#ItemNo#'
 									AND       TransactionUoM  = '#TransactionUoM#'
 									<!--- added the transactionlot --->   	
-									AND       TransactionLot  = '#TransactionLot#'						   		      
+									AND       TransactionLot  = '#TransactionLot#'																																						   		      
 							</cfquery>
 							
-							<cfset bal = getStock.Onhand - transactionQuantity + url.value*-1>
-						
+							<cfif transactionquantity gte "1">
+							    <cfset dev = url.value - transactionquantity>
+								<!--- receiving side we make sure the lower receipt will not make it negative ---> 
+							<cfelse>
+							    <cfset dev = transactionquantity*-1 - url.value> 
+							    <!--- ussuing side, we make sure the increase of the issuance will not make it negative --->
+							</cfif>
+							
+							<!--- determine the new virtual stock balance after the correction --->
+							<cfset bal = getStock.Onhand + dev>
+													
 							<cfif bal lt 0>
 								
 								<cfoutput>						    
 								<script>
-									alert("You are not allowed to issue beyond the calculated stock level : #getStock.Onhand - transactionQuantity#.\n\nPlease transfer stock to this location first.")
+									alert("You are not allowed to adjust the transaction so the new calculated stock level is below 0 you have on hand: #getStock.Onhand - transactionQuantity#.\nPlease adjust your transaction or transfer additional stock to this location first.")
 								</script>
 								</cfoutput>
 	
@@ -211,6 +221,8 @@
 								<cfelse>
 									<cfset status = "0">							
 								</cfif>		
+								
+								<cfif shipping eq "Yes">					
 																							  				  
 							    <cf_StockTransact 
 							        TransactionId             = "#transactionid#"
@@ -288,7 +300,72 @@
 									
 									GLCurrency                = "#APPLICATION.BaseCurrency#"
 									GLAccountDebit            = "#GLAccountDebit#" 
-									GLAccountCredit           = "#GLAccountCredit#">									
+									GLAccountCredit           = "#GLAccountCredit#">		
+									
+									<cfelse>
+									
+									<cf_StockTransact 
+							        TransactionId             = "#transactionid#"
+									TransactionClass          = "#cls#"								
+								    DataSource                = "AppsMaterials" 
+								    TransactionType           = "#transactiontype#"
+									TransactionSource         = "WarehouseSeries"
+									ItemNo                    = "#ItemNo#" 
+									Mission                   = "#Mission#" 
+									Warehouse                 = "#Warehouse#" 
+									Location                  = "#Location#"
+									TransactionLot            = "#TransactionLot#"
+									TransactionIdOrigin       = "#TransactionIdOrigin#"
+									TransactionCurrency       = "#APPLICATION.BaseCurrency#"
+									
+									TransactionQuantity       = "#qty#"				
+									
+									TransactionUoM            = "#TransactionUoM#"
+									TransactionUoMMultiplier  = "#TransactionUoMMultiplier#"
+									TransactionCostPrice      = "#TransactionCostPrice#"
+									ReceiptId                 = "#ReceiptId#"
+									ReceiptCostPrice          = "#ReceiptCostPrice#"
+									ReceiptPrice              = "#ReceiptPrice#"
+									ActionStatus              = "#status#"
+									TransactionDate           = "#dateformat(TransactionDate,CLIENT.DateFormatShow)#"
+									TransactionTime           = "#timeformat(TransactionDate,'HH:MM')#"			
+									TransactionBatchNo        = "#TransactionBatchNo#"
+									Remarks                   = "#Remarks#"
+									
+									WorkOrderId               = "#WorkOrderId#"
+									WorkOrderLine             = "#WorkOrderLine#"
+									RequirementId             = "#requirementId#"								
+									BillingUnit               = "#BillingUnit#"
+									
+									OrgUnit                   = "#OrgUnit#"
+									PersonNo                  = "#PersonNo#"
+									
+									CustomerId                = "#CustomerId#"
+									AssetId                   = "#AssetId#"
+									ProgramCode               = "#ProgramCode#"
+									RequestId                 = "#RequestId#"
+									TaskSerialNo              = "#TaskSerialNo#"
+									BillingMode               = "#BillingMode#"
+									
+									TransactionReference      = "#TransactionReference#"
+									TransactionMetric         = "#TransactionMetric#"
+									ParentTransactionId       = "#parenttransactionid#"				
+													
+									DetailLineNo              = "#getDetail.recordcount#"
+									DetailReference1          = "#getDetail.Reference1#"
+									DetailReference2          = "#getDetail.Reference2#"
+									DetailReadInitial         = "#getDetail.MeterReadingInitial#"
+									DetailReadFinal           = "#getDetail.MeterReadingFinal#"
+																								
+									
+									GLTransactionNo           = "#TransactionBatchNo#"
+									GLTransactionSourceId     = "#Batch.BatchId#"
+									
+									GLCurrency                = "#APPLICATION.BaseCurrency#"
+									GLAccountDebit            = "#GLAccountDebit#" 
+									GLAccountCredit           = "#GLAccountCredit#">	
+									
+									</cfif>										
 									
 									<!--- we restore actions as well maybe best to pass this into the component as well
 									19/8/2019 --->

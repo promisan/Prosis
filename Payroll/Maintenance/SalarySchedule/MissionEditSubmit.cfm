@@ -1,9 +1,7 @@
-
-<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
  
 <cf_wait Text="Saving schedule components">
 
-<cfif ParameterExists(Form.Delete)>
+<cfif url.action eq "delete">
  
 <cfquery name="Delete"
   datasource="AppsPayroll" 
@@ -11,18 +9,15 @@
   password="#SESSION.dbpw#">
      DELETE FROM SalaryScheduleMission
 	 WHERE  SalarySchedule  = '#URL.Schedule#'
-	 AND    Mission  = '#URL.Mission#'
+	 AND    Mission  = '#URL.Mission#' 
 </cfquery>
 
-</cfif>
+<cfelseif url.action eq "update">
 
-
-<cfset dateValue = "">
-<CF_DateConvert Value="#form.DateEffective#">
-<cfset STR = dateValue>
-		
-<cfif ParameterExists(Form.Update)> 
-	
+	<cfset dateValue = "">
+	<CF_DateConvert Value="#form.DateEffective#">
+	<cfset STR = dateValue>
+			
 	<cf_verifyOperational 
 	         datasource= "appsSystem"
 	         module    = "Accounting" 
@@ -61,14 +56,13 @@
 		 AND    Mission  = '#URL.Mission#'
 		 AND    PayrollStart < #STR#
 	</cfquery>
-	
-		
+			
 </cfif>
 
 <cfoutput>
 <script language="JavaScript">   
-     window.close()
-	 opener.location = "RecordListing.cfm?idmenu=#url.idmenu#&init=1"       
+     ProsisUI.closeWindow('misdialog')
+	 ptoken.location('RecordListing.cfm?idmenu=#url.idmenu#&init=1')       
 </script>  
 </cfoutput>
 	

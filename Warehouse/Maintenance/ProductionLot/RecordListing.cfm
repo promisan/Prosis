@@ -24,16 +24,14 @@ password="#SESSION.dbpw#">
 <script>
 
 function recordadd() {
-          window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 500, height= 350, toolbar=no, status=yes, scrollbars=no, resizable=no");
+    ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 500, height= 350, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 function recordedit(mis, lot) {
-          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&mission=" + mis + "&lot=" + lot, "Edit", "left=80, top=80, width= 500, height= 350, toolbar=no, status=yes, scrollbars=no, resizable=no");
+    ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&mission=" + mis + "&lot=" + lot, "Edit", "left=80, top=80, width= 500, height= 350, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 </script>
-
-<cf_listingScriptNavigation>
 
 </cfoutput> 
 	

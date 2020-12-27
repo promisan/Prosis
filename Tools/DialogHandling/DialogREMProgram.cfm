@@ -10,8 +10,7 @@ var root = "#SESSION.root#";
 function selectprogramme(mission,period,orgunitparent,orgunit,programcode,applyscript,scope) {	
 	
 	// 15/2/2015 newly added to replace modal dialog 	
-	ColdFusion.Window.create('programwindow', 'Programme', '',{x:100,y:100,height:document.body.clientHeight-80,width:750,modal:false,center:true})    
-    ColdFusion.Window.show('programwindow')				
+	ProsisUI.createWindow('programwindow', 'Select responsible Unit and Programme', '',{x:100,y:100,height:document.body.clientHeight-90,width:950,modal:true,center:true})        				
     ptoken.navigate(root + '/ProgramREM/Application/Program/Lookup/Program.cfm?mission=' + mission + '&period=' + period + '&orgunitparent=' + orgunitparent + '&orgunit=' + orgunit + '&programcode=' + programcode + '&applyscript='+ applyscript + '&scope=' + scope,'programwindow') 		
 }	 
 

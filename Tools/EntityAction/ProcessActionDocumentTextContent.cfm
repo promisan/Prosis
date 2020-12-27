@@ -1,5 +1,4 @@
 
-
 <cfoutput>
 	
 	  <cfquery name="Doc" 
@@ -23,36 +22,34 @@
 	  	   	   	 			   
 	   		<table width="100%" height="100%" border="0" class="formspacing">
 			   
-			      <tr class="line" style="height:40px;">
+			      <tr style="height:30px;">
 				  <td width="160" height="20" style="padding-left:0px;padding-right:0px">
 										
-					<table><tr>
-					
-					<td>
-										
+					<table>
+					<tr>					
+					<td>										
 					  <button type="button" 
 					     name="Save#No#" id="Save#No#"
 					     style="width:127;height:26"
 					     class="button10g" 
 						 onclick="updateTextArea();saveoutput('save','#url.MemoActionid#','#url.documentId#','document#no#',document.getElementById('element#no#').value);">
-					 	 <cf_tl id="Save Content"></button>	
-					  </td>
-					  
-					  <td style="padding-left:3px">
+					 	 <cf_tl id="Save Content"></button>							 
+					</td>	
+								  
+					<td style="padding-left:3px">
 					  <button type="button" 
 				          name="Clean#No#" id="Clean#No#"
 				          style="width:137;height:26"
 				          class="button10g" 
 						  onclick="ptoken.navigate('ProcessActionDocumentTextElement.cfm?save=1&no=#no#&memoactionid=#url.MemoActionID#&documentid=#url.documentid#&frm=document#no#&element='+document.getElementById('element#no#').value,'boxFieldDoc#no#','','','POST','document#no#')">
-					 	 <img src="#SESSION.root#/Images/refresh.gif" align="absmiddle" alt="Removes invalid characters from the text" border="0">Cleanse Text</button>		
-					  </td>
-					  <td class="xxxhide" style="padding-left:4px" id="myboxes"></td>	
-					  </tr>
-					  </table>
+					 	 <img src="#SESSION.root#/Images/refresh.gif" align="absmiddle" alt="Removes invalid characters from the text" border="0"><cf_tl id="Cleanse Text"></button>		
+					</td>
+					<td class="xxxhide" style="padding-left:4px" id="myboxes"></td>	
+					</tr>
+					</table>
+					
 				  </td>		
-				  
-				  	  
-
+				 
 				  <cfoutput>
 				  
 				  <td>
@@ -82,37 +79,41 @@
 				  
 				  <td align="right">	
 				  
-					<table cellspacing="0" cellpadding="0">
+					<table>
+					
 					<tr><td>	
 															  
 						  <button type="button" 
 						     name="Mail" id="Mail" 
 						     style="width:41;height:25"
-						     class="button10s" 
+						     class="button10g" 
 							 onclick="saveoutput('mail','#url.MemoActionid#','#url.documentId#','document#no#',document.getElementById('element#no#').value)">
 						 	 <img src="#SESSION.root#/Images/mail_new.gif" align="absmiddle" alt="Send eMail" border="0">
 						  </button>		
 							  		
-					</td><td style="padding-left:4px">
+					</td>
+					<td style="padding-left:4px">
 					
 						 <button type="button" 
 						     name="Print" id="Print"	
 							 style="width:41;height:25"						 
-							 class="button10s" 
+							 class="button10g" 
 							 onclick="saveoutput('pdf','#url.MemoActionid#','#url.documentId#','document#no#',document.getElementById('element#no#').value)">
 							 <img src="#SESSION.root#/Images/pdf_small.gif" align="absmiddle" alt="PDF" border="0">
 						 </button>		
 
-					</td><td style="padding-left:4px">				  
+					</td>
+					<td style="padding-left:4px">				  
 							 				 
 						  <button type="button" 
 							 name="Print" id="Print" 	
 							 style="width:41;height:25"						 
-							 class="button10s" onclick="saveoutput('print','#URL.MemoActionid#','#url.documentId#','document#no#',document.getElementById('element#no#').value)">
+							 class="button10g" onclick="saveoutput('print','#URL.MemoActionid#','#url.documentId#','document#no#',document.getElementById('element#no#').value)">
 							  <img src="#SESSION.root#/Images/print.gif" align="absmiddle" alt="Print" border="0">
 						  </button>		
 						  
-					</td></tr>
+					</td>
+					</tr>
 					</table>
 				 	
 				</td>			
@@ -161,9 +162,7 @@
 			</table>				
 			
 	   <cfelseif doc.documentMode eq "AsIs" and doc.DocumentLayout eq "PDF">		
-	  
-	  		  
-	   
+	     
 			   <!--- PDF load --->
 			   			 
 			   <table width="100%" height="96%" border="0">
@@ -251,6 +250,7 @@
 			</td></tr>
 						
 			<tr>
+			
 			<td colspan="3" height="100%" width="100%" valign="top">	
 	   			  
   			<cfif url.textmode eq "read">			
@@ -278,11 +278,12 @@
 				--->
 												
 			<cfelse>
-															
+																					
 				<cfdiv id="boxFieldDoc#no#"
 			       bind="url:ProcessActionDocumentTextElement.cfm?no=#no#&memoactionid=#url.MemoActionID#&documentid=#url.documentid#&element=documentcontent">			
 												
-			</cfif>				
+			</cfif>		
+					
 		    </td></tr>			
 		
 			</table>

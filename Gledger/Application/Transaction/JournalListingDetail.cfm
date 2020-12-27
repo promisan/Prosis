@@ -36,7 +36,7 @@
 
 		<table width="99%" align="left" class="navigation_table">
 		
-		     <tr style="height:10px" class="fixrow labelmedium line">
+		     <tr style="height:10px" class="fixrow labelmedium2 line">
 				  
 			     <td style="min-width:70" align="left">
 			  	  				 
@@ -73,7 +73,7 @@
 				<td colspan="2" style="min-width:350px"><cf_tl id="Reference"></td>
 				<td style="min-width:95px"><cf_tl id="Batch"></TD>
 				<td style="min-width:95px"><cf_tl id="Document"></TD>		
-				<td style="min-width:95px"><cf_tl id="Series"></TD>
+				<td style="min-width:55px"><cf_tl id="Series"></TD>
 				<td style="width:100%" colspan="2"><cf_tl id="Description"></TD>	
 				<td style="min-width:95px"><cf_tl id="Posted"></TD>
 			    <td style="min-width:30px" align="center"><cf_tl id="Curr"></TD>							
@@ -215,12 +215,12 @@
 						<cfif recordstatus eq "9">
 						    <cfset color = "FED7CF">
 					    <cfelseif actionStatus eq "0">
-						    <cfset color = "eaeaea">
+						    <cfset color = "ffffcf">
 						<cfelse>
 						    <cfset color = "white">
 						</cfif>
 														
-					    <TR bgcolor="#color#" style="height:19px" class="labelmedium line navigation_row clsSearchClass" id="#journal#_#journalserialno#">
+					    <TR bgcolor="#color#" style="height:27px" class="labelmedium2 line navigation_row clsSearchClass" id="#journal#_#journalserialno#">
 										
 					    <td class="navigation_action" 
 						   style="padding-top:1px;padding-left:4px;padding-right:7px" align="center" onClick="ShowTransaction('#Journal#','#JournalSerialNo#','1','tab')">	
@@ -235,7 +235,7 @@
 							    <cfset ref = JournalTransactionNo>	
 							</cfif>		
 							
-							<a href="javascript:ShowTransaction('#Journal#','#JournalSerialNo#','1')">#ref#</A>
+							#ref#
 						
 						</TD>
 						
@@ -362,8 +362,6 @@
 							   <cfset AmtOutT = AmtOutT + AmountOutstanding>	
 							</cfif>	
 							
-							
-						
 						<cfelse>
 						
 							<td class="clsSearchField" style="min-width:100px;padding-right:3px" align="right">#NumberFormat(Amount,',.__')#</td>
@@ -389,7 +387,7 @@
 						<cfset Amt  = Amt  + Amount>  
 					    <cfset AmtT = AmtT + Amount>
 										
-						 <td style="padding-right:4px" align="center" id="note_#Journal#_#JournalSerialNo#">
+						 <td style="padding-left:4px;padding-right:4px;padding-top:3px" valign="middle" align="center" id="note_#Journal#_#JournalSerialNo#">
 								 
 							 <cf_annotationshow entity="GLTransaction" 
 						         keyvalue4="#TransactionId#"
