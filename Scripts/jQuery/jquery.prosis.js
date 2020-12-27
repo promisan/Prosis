@@ -173,7 +173,6 @@ if (window.jQuery) {
 			$('#'+sdiv).css({'z-index':99999999,'opacity':0.6,'background-color': '#b0b0b0'});
 			$("#"+sdiv).fadeIn(300);
 		} else {
-			//$("#"+sdiv).fadeOut(300);
 			$('#'+sdiv).css({'z-index':0,'opacity':1,'background-color': '#FFFFFF'});
 		}
 	}
