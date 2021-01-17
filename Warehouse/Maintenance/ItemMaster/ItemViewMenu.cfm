@@ -29,15 +29,19 @@ password="#SESSION.dbpw#">
 	<cfinclude template = "../../../Tools/SubmenuLeft.cfm">
 </td></tr>
 
-<tr><td style="padding-left:10px;padding-top:4px;padding-bottom:4px">
+<tr><td id="entityselect" style="padding-left:10px;padding-top:14px;padding-bottom:0px">
 
 <select name="mission" id="mission" class="regularxxl" style="width:205px" onchange="applymenu()">
-<cfoutput query="Mission">
-<option value="#mission#" <cfif mission eq url.mission>selected</cfif>>#mission#</option>
-</cfoutput>
+	<cfoutput query="Mission">
+	<option value="#mission#" <cfif mission eq url.mission>selected</cfif>>#mission#</option>
+	</cfoutput>
 </select>
 
 </td></tr>
+
+<tr class="labelmedium">
+    <td align="center" style="padding:5px;color:gray">The below function apply to the selected entity only</td>
+</tr>
 
 <tr><td style="padding-left:7px">
 	<cfset heading        = "Acquisition">

@@ -8,33 +8,40 @@ password="#SESSION.dbpw#">
 	ORDER BY TriggerGroup, ListingOrder ASC
 </cfquery>
 
-<cf_divscroll>
+<cf_screentop html="No" jquery="Yes">
 
 <cfset Page         = "0">
 <cfset add          = "1">
 <cfset Header       = "Candidate Section">
-<cfinclude template = "../HeaderRoster.cfm"> 
+
+<table width="98%" height="100%">
+
+<tr style="height:10px"><td><cfinclude template = "../HeaderRoster.cfm"></td></tr>
 
 <cfoutput>
 
 <script language = "JavaScript">
 
 function recordadd(grp) {
-          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=", "Add", "left=80, top=80, width=850, height=850, toolbar=no, status=yes, scrollbars=no, resizable=yes");
+          ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=", "Add", "left=80, top=80, width=850, height=850, toolbar=no, status=yes, scrollbars=no, resizable=yes");
 }
 
 function recordedit(id1) {
-          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=850, height=850, toolbar=no, status=yes, scrollbars=no, resizable=yes");
+          ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=850, height=850, toolbar=no, status=yes, scrollbars=no, resizable=yes");
 }
 
 </script>	
 
 </cfoutput>
 
-<table width="97%" cellspacing="0" cellpadding="0" align="center" class="maintenancetable navigation_table">
+<tr><td>
+
+<cf_divscroll>
+
+<table width="95%" align="center" class="navigation_table">
 
 <thead>
-	<tr>
+	<tr class="line labelmedium2">
 	    <td></td>
 	    <td><cf_tl id="Code"></td>
 		<td><cf_tl id="Description"></td>	  
@@ -46,15 +53,15 @@ function recordedit(id1) {
 
 <tbody>
 	<cfoutput query="SearchResult" group="TriggerGroup">
-		<tr>
-			<td colspan="6" class="labelit" style="font-size:20px;height:40px">#TriggerGroup#</td>
+		<tr class="labelmedium2 line">
+			<td colspan="6" style="font-size:20px;height:40px">#TriggerGroup#</td>
 		</tr>
 		<cfoutput>
-			<tr class="navigation_row">
+			<tr class="navigation_row labelmedium line">
 				<td width="5%" align="center">
-				  <cf_img icon="edit" onclick="recordedit('#Code#')" navigation="Yes">
+				  <cf_img icon="open" onclick="recordedit('#Code#')" navigation="Yes">
 				</td>	
-				<td><a href="javascript:recordedit('#Code#')">#Code#</a></td>
+				<td>#Code#</td>
 				<td>#Description#</td>
 				<td align="center">#ListingOrder#</td>	
 				<td align="center"><cfif Obligatory eq 1>Yes<cfelse><b>No</b></cfif></td>
@@ -67,3 +74,7 @@ function recordedit(id1) {
 </table>
 
 </cf_divscroll>
+
+</td></tr>
+
+</table>

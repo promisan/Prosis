@@ -21,9 +21,9 @@
 		ORDER BY Mission ASC, Period, DateEffective DESC, DateExpiration DESC
 </cfquery>
 
-<table width="94%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding navigation_table">
+<table width="100%" class="formpadding navigation_table">
 
-<tr class="linedotted labelmedium">
+<tr class="line labelmedium2">
     
 	<TD align="left"></TD>
     <TD style="padding-left:14px" align="center" width="50px"><cf_tl id="Id"></TD>

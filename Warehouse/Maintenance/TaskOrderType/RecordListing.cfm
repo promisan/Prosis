@@ -1,4 +1,4 @@
-<cf_divscroll>
+
 
 <cfquery name="SearchResult"
 datasource="AppsMaterials" 
@@ -8,11 +8,14 @@ password="#SESSION.dbpw#">
 	FROM 	Ref_TaskType
 </cfquery>
 
-<cfset Page         = "0">
-<cfset add          = "0">
-<cfinclude template = "../HeaderMaintain.cfm"> 
+<cf_screentop html="No" jquery="Yes">
 
-<table width="98%"  border="0" align="center" bordercolor="silver" cellspacing="0" cellpadding="0"  >  
+<cfset Page         = "0">
+<cfset add          = "1">
+
+<table height="100%" width="99%" align="center">
+
+<tr><td style="height:10px"><cfinclude template = "../HeaderMaintain.cfm"></td></tr>
 
 <cfoutput>
 
@@ -31,8 +34,10 @@ function recordedit(id1) {
 </cfoutput>
 
 <tr><td colspan="2">
+
+	<cf_divscroll>
 	
-	<table width="96%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+	<table width="96%" align="center" class="navigation_table">
 		
 		<tr><td colspan="6" height="30" class="labelit">
 		
@@ -40,38 +45,35 @@ function recordedit(id1) {
 		
 		</td></tr>
 		
-		<tr class="labelit">
+		<tr class="labelmedium2 line">
 		    <TD></TD> 
-		    <TD class="labelit">Code</TD>
-			<td class="labelit">Description</td>
-			<TD class="labelit">Officer</TD>
-		    <TD class="labelit">Entered</TD>  
+		    <TD>Code</TD>
+			<td>Description</td>
+			<TD>Officer</TD>
+		    <TD>Entered</TD>  
 		</TR>
-		
-		<tr><td height="1" colspan="6" class="line"></td></tr>	
-		
+				
 		<cfoutput query="SearchResult">
 		    
 			
-		    <TR class="labelmedium navigation_row"> 
+		    <TR class="labelmedium2 navigation_row line"> 
 				<td height="20" width="5%" align="center" style="padding-top:1px">
 				  <cf_img icon="open" navigation="Yes" onclick="recordedit('#Code#');">
 				</td>		
-				<TD class="labelit">#Code#</TD>
-				<TD class="labelit">#Description#</TD>
-				<TD class="labelit">#OfficerFirstName# #OfficerLastName#</TD>
-				<TD class="labelit">#Dateformat(Created, "#CLIENT.DateFormatShow#")#</TD>
+				<TD>#Code#</TD>
+				<TD>#Description#</TD>
+				<TD>#OfficerFirstName# #OfficerLastName#</TD>
+				<TD>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</TD>
 		    </TR>
-		    
-			<tr><td class="line" colspan="6"></td></tr>	
-		
+		    		
 		</CFOUTPUT>
 		
 	</TABLE>
+	
+	</cf_divscroll>
 		
 	</td>
 	</tr>
 
 </TABLE>
 
-</cf_divscroll>

@@ -1,31 +1,28 @@
 <!--- Create Criteria string for query from data entered thru search form --->
 
-<cfajaximport>
+<cf_screentop html="No" jquery="Yes">
 
-<table style="height:100%;width:100%">
+<table width="98%" height="100%" align="center">
 
-<tr><td style="height:20">
-
+<cfset Page         = "0">
 <cfset add          = "1">
+<cfset save         = "0">
 <cfset Header       = "Salary Scale Components">
-<cfinclude template = "../HeaderPayroll.cfm"> 
-<cfparam name="url.trigger" default="">
-
-</td></tr>
+ 
+<tr style="height:10px"><td><cfinclude template = "../HeaderPayroll.cfm"></td></tr>
 
 <!--- initially set the class --->
  
-
 <cfoutput>
 
 <script LANGUAGE = "JavaScript">
 	
 	function recordadd(grp) {
-	          window.open("RecordEdit.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=780, height=770, toolbar=no, status=yes, scrollbars=no, resizable=no");
+         ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=780, height=770, toolbar=no, status=yes, scrollbars=no, resizable=no");
 	}
 	
 	function recordedit(id1) {	          
-	          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=770, height=770, toolbar=no, status=yes, scrollbars=no, resizable=no");
+         ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=770, height=770, toolbar=no, status=yes, scrollbars=no, resizable=no");
 	}
 
 </script>	
@@ -39,7 +36,7 @@
 	<tr class="line" style="height:20px">   
 		<td style="height:45;font-size:20px;padding-left:10px" class="labelmedium" colspan="12">
 		<table>
-		<tr>
+		<tr class="labelmedium2">
 					
 			<cfquery name="SearchResult"
 			datasource="AppsPayroll" 
@@ -72,8 +69,8 @@
 	          visible="Yes"
 	          enabled="Yes"
 			  onchange="ptoken.navigate('RecordListingDetail.cfm?trigger='+this.value,'content')"
-	          style="width:300px"
-	          class="regularxxl">
+	          style="width:300px;font-size:16px"
+	          class="regularxb">
 			<option value="" selected>Any</option>		
 			</cfselect>
 			</td>
@@ -94,7 +91,7 @@
 	</td></tr>
 	
 	</table>
-
+	
 </td></tr>
 
 </table>

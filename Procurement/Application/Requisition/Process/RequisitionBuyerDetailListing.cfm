@@ -6,10 +6,9 @@
 	<proCom></proCom>
 </cfsilent>
 
-<cf_screentop height="100%" scroll="yes" html="No">
+<cf_screentop height="100%" scroll="yes" html="No" jquery="Yes">
 
 <cf_ListingScript>
-
 
 <!--- End Prosis template framework --->
 
@@ -102,18 +101,15 @@
 					width      = "0", 
 					align      = "right",
 					field      = "Total",										
-					formatted  = "numberformat(Total,'__,__.__')"}>
+					formatted  = "numberformat(Total,',.__')"}>
 					
-
-<table width="100%" height="100%" cellspacing="0" cellpadding="0" align="center" class="formpadding"><tr><td>
-		
 
 <cf_listing
     header        = "myheader"
     box           = "inprocess"
 	link          = "#SESSION.root#/Procurement/Application/Requisition/Process/RequisitionBuyerDetailListing.cfm?mission=#url.mission#"	
     html          = "No"
-	show          = "40"
+	show          = "100"
 	datasource    = "AppsPurchase"
 	listquery     = "#myquery#"
 	listkey       = "JobNo"
@@ -126,10 +122,9 @@
 	filterShow    = "Yes"
 	excelShow     = "Yes"
 	drillmode     = "securewindow"
-	drillargument = "940;940;false;false"			
+	drillargument = "940;1240;false;false"			
 	drilltemplate = "/Procurement/Application/Quote/QuotationView/JobViewGeneral.cfm?mode=view&ID1="
-	drillkey      = "JobNo">
-		
+	drillkey      = "JobNo">		
    
    <!---
      
@@ -190,5 +185,3 @@
 	
 	--->
 			
-	</td></tr></table>
-	

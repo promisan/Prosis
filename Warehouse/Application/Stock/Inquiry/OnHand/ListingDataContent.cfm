@@ -218,7 +218,8 @@
 	<cfset itm = itm+1>
 	
 	<cfset fields[itm] = {label     = "#vOnHand#",                    
-	     				field       = "OnHand",							
+	     				field       = "OnHand",		
+						aggregate   = "SUM",						
 						align       = "right",																			
 						formatted   = "numberformat(OnHand,',__')",
 						search      = "number"}>		
@@ -230,7 +231,8 @@
 		<cfset itm = itm+1>
 		
 		<cfset fields[itm] = {label     = "#vStockValue#",                    
-		     				field       = "OnHandValue",					
+		     				field       = "OnHandValue",	
+							aggregate   = "SUM",				
 							alias       = "",	
 							align       = "right",																							
 							formatted   = "numberformat(OnHandValue,',.__')"}>															
@@ -270,7 +272,7 @@
 		     				field       = "DistributionAverage",					
 							alias       = "",	
 							align       = "right",																		
-							formatted   = "numberformat(DistributionAverage,'__,__')"}>						
+							formatted   = "numberformat(DistributionAverage,',__')"}>						
 							
 		<cfset itm = itm+1>
 		
@@ -279,7 +281,7 @@
 							labelfilter = "Minimum stock",	
 							alias       = "",		
 							align       = "right",																	
-							formatted   = "numberformat(minimumstock,'__,__')",
+							formatted   = "numberformat(minimumstock,',__')",
 							search      = "number"}>					
 							
 		<cfset itm = itm+1>
@@ -289,7 +291,7 @@
 							labelfilter = "Maximum stock",				
 							alias       = "",	
 							align       = "right",																			
-							formatted   = "numberformat(Maximumstock,'__,__')",
+							formatted   = "numberformat(Maximumstock,',__')",
 							search      = "number"}>	
 														
 		<cfset itm = itm+1>
@@ -370,7 +372,7 @@
 	<!--- embed|window|dialogajax|dialog|standard --->			
 	<cf_listing
 	    header              = "itemlocationlist"
-	    box                 = "listing"
+	    box                 = "stockonhand_a"
 		link                = "#SESSION.root#/Warehouse/Application/Stock/Inquiry/OnHand/ListingDataContent.cfm?mode=#url.mode#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#&warehouse=#url.warehouse#&location=#url.location#"
 	    html                = "No"		
 		tableheight         = "100%"
@@ -398,11 +400,10 @@
 
 	<!--- embed|window|dialogajax|dialog|standard --->		
 	
-	
 
 	<cf_listing
 	    header              = "itemlocationlist"
-	    box                 = "listing"
+	    box                 = "stockonhand_b"
 		link                = "#SESSION.root#/Warehouse/Application/Stock/Inquiry/OnHand/ListingDataContent.cfm?mode=#url.mode#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#&warehouse=#url.warehouse#&location=#url.location#"
 	    html                = "No"		
 		tableheight         = "100%"

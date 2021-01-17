@@ -1,3 +1,4 @@
+
 <cfquery name="delete"
 	datasource="AppsEmployee" 
 	username="#SESSION.login#" 
@@ -5,12 +6,12 @@
 	    DELETE
 		FROM	Ref_PersonEventTrigger
 		WHERE	EventTrigger = '#url.trigger#'
-		AND		EventCode = '#url.code#'
+		AND		EventCode    = '#url.code#'
 </cfquery>
 
 <cfoutput>
 	<script>
-		ColdFusion.navigate('PersonEventListing.cfm?id1=#URL.trigger#','divPersonEvent');
-		ColdFusion.Window.hide('mydialog');
+		ptoken.navigate('PersonEventListing.cfm?id1=#URL.trigger#','divPersonEvent');
+		
 	</script>
 </cfoutput>

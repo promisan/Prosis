@@ -12,7 +12,7 @@ password="#SESSION.dbpw#">
 
 <cf_UItree
 	id="root"
-	title="<span style='font-size:16px;color:gray;padding-bottom:3px'>#mis#</span>"	
+	title="<span style='font-size:16px;color:gray;'>#mis#</span>"	
 	root="no"
 	expand="Yes">
 
@@ -55,8 +55,8 @@ password="#SESSION.dbpw#">
 			  <cf_tl id="Actions" var="vEvents">
 			  
 			  <cf_UItreeitem value="action"
-			        display="<span style='font-size:18px;padding-bottom:5px;font-weight:bold' class='labelmedium'>#vEvents#</span>"						
-					href="JournalViewOpen.cfm?ID=EVE&ID1=0&Mission=#Attributes.Mission#"				
+			        display="<span style='font-size:18px;font-weight:bold' class='labelit'>#vEvents#</span>"						
+					href="JournalViewOpen.cfm?ID=EVE&ID1=0&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"				
 					parent="root"
 					target="right"							
 			        expand="Yes">							 	
@@ -64,7 +64,7 @@ password="#SESSION.dbpw#">
 			  <cf_tl id="Journal" var="vJournals">
 			  
 			  <cf_UItreeitem value="journal"
-			        display="<span style='font-size:18px;padding-top:5px;font-weight:bold' class='labelmedium'>#vJournals#</span>"						
+			        display="<span style='font-size:18px;font-weight:bold;padding-top:5px' class='labelit'>#vJournals#</span>"						
 					parent="root"							
 			        expand="Yes">	
 												  
@@ -157,7 +157,7 @@ password="#SESSION.dbpw#">
 							<cf_UItreeitem value="#Journal#_tra"
 						        display="<span style='font-size:12px'>#vPostings#</span>"
 								parent="#Journal#"														
-								href="JournalViewOpen.cfm?ID=TRA&ID1=0&ID2=#Journal.Journal#&Mission=#Attributes.Mission#"							
+								href="JournalViewOpen.cfm?ID=TRA&ID1=0&ID2=#Journal.Journal#&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"							
 								target="right"
 						        expand="No">	
 																	

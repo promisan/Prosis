@@ -29,6 +29,7 @@
 <cf_wfPending entityCode="SysReport" IncludeCompleted="No" MailFields="No" table="#SESSION.acc#_ReportPending">
 
 <cfajaximport tags="cfdiv">
+
 <cf_dialogStaffing>
 	
 <script language="JavaScript">
@@ -36,7 +37,7 @@
 	function schedule(id) {
 	    w = #CLIENT.width# - 35;
 	    h = #CLIENT.height# - 40;
-		window.open("#SESSION.root#/tools/cfreport/SubmenuReportView.cfm?id=" + id, "_blank");
+		ptoken.open('#SESSION.root#/tools/cfreport/SubmenuReportView.cfm?id=' + id, '_blank');
 	}
 
 	function listing(row,act,id)  {
@@ -48,7 +49,7 @@
 		
 		if (act=="show") {
 		
-			ColdFusion.navigate('SubscriptionDetail.cfm?row=' + row + '&id=' + id,'i'+row)
+			ptoken.navigate('SubscriptionDetail.cfm?row=' + row + '&id=' + id,'i'+row)
 				icM.className = "regular";
 			    icE.className = "hide";
 				se.className  = "regular";				
@@ -62,7 +63,7 @@
 	      
 	function reload(filter,only,cls,search,invalid)	{
 	     Prosis.busy('yes')		 
-	     window.location="RecordListing.cfm?idmenu=#url.idmenu#&class="+cls+"&only=" + only + "&filter=" + filter + "&search=" + search + "&invalid=" + invalid; 
+	     ptoken.location('RecordListing.cfm?idmenu=#url.idmenu#&class='+cls+'&only=' + only + '&filter=' + filter + '&search=' + search + '&invalid=' + invalid); 
 	}
 	
 	function recordadd(id) {
@@ -76,13 +77,13 @@
 	function usage(id) {
 		w = #CLIENT.width# - 40;
 	    h = #CLIENT.height# - 30;
-	         window.open("Distribution.cfm?Controlid=" + id, "Edit", "left=40, top=15, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=no, resizable=yes");
+	         ptoken.open("Distribution.cfm?Controlid=" + id, "distribution"+id);
 	}
 	
 	function load(id) {
 	    w = #CLIENT.width# - 40;
 	    h = #CLIENT.height# - 30;
-		window.open("#SESSION.root#/tools/cfreport/SubmenuReportView.cfm?id=" + id+"&source=Library", "_blank", "left=10, top=10, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=no, resizable=yes");
+		ptoken.open("#SESSION.root#/tools/cfreport/SubmenuReportView.cfm?id=" + id+"&source=Library", "_blank", "left=10, top=10, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=no, resizable=yes");
 	}
 	
 	function search(e) {
@@ -309,7 +310,7 @@
 	
 	<td colspan="7" height="40">
 	
-		<table height="100%" cellspacing="0" cellpadding="0">
+		<table height="100%">
 		
 		<tr>
 		
@@ -416,7 +417,7 @@
 	<cfif url.class eq "Dataset">
 	
 	<tr class="line"><td colspan="8" height="30" bgcolor="ffffcf">
-		<table width="98%" align="center" cellspacing="0" cellpadding="0">
+		<table width="98%" align="center">
 			<tr><td class="labelit">Tag generated reports are report instances created by the designated custom TAG embedded in the application or to generate menu based data set inquiry to present context sensitive reporting.
 			Instances will be automatically be recreated in the case the instance is removed.
 			</td></tr>
@@ -429,9 +430,9 @@
 	
 	<cf_divscroll>
 	
-	<table width="100%">
+	<table width="99%" align="left">
 	
-	<tr class="labelmedium fixrow">
+	<tr class="labelmedium2 fixrow">
 	    <td height="20" align="left"></td>
 		<td>Owner</td>
 		<td width="30%">Name</td>
@@ -452,7 +453,7 @@
 			</cfquery>
 	
 	<tr class="fixrow2">
-	  <td height="21" colspan="4" class="labelmedium" style="font-weight:400;height;31;font-size:16px;padding-left:20px">#Description#&nbsp;&nbsp;<font size="2">[#Total.Total#]</font></td>
+	  <td height="21" colspan="4" class="labelmedium2" style="font-weight:400;height;31;font-size:16px;padding-left:20px">#Description#&nbsp;&nbsp;<font size="2">[#Total.Total#]</font></td>
 	  <td colspan="4" align="right">
 	  
 	  	<cfquery name="Global"
@@ -484,7 +485,7 @@
 		AND    FunctionClass = '#FunctionClass#'				
 	</cfquery>		
 	
-	<tr class="fixrow3"><td colspan="8" class="labelmedium" style="padding-left:20px">/#FunctionClass#/ [#total.total#]</b></font></td></tr>
+	<tr class="fixrow3"><td colspan="8" class="labelmedium2" style="padding-left:20px">/#FunctionClass#/ [#total.total#]</b></font></td></tr>
 		
 	<cfoutput group="MenuClass">
 	
@@ -537,45 +538,45 @@
 		 <cfset color = "ffffff">
 		</cfif> 	
 				
-		<tr bgcolor="#color#" class="navigation_row labelmedium line" style="height:22px">
+		<tr bgcolor="#color#" class="navigation_row labelmedium2 line">
 		
-		<td width="6%" align="center" height="15" class="navigation_action" onclick="<cfif functionName neq prior>javascript:recordedit('#ControlId#')</cfif>">
+			<td width="6%" align="center" height="15" class="navigation_action" onclick="<cfif functionName neq prior>javascript:recordedit('#ControlId#')</cfif>">
+			
+				<cfif functionName neq prior>	
+				
+					 <img src="#SESSION.root#/Images/#icon#" alt="Maintain report" name="img0_#currentrow#" 
+						  onMouseOver="document.img0_#currentrow#.src='#SESSION.root#/Images/button.jpg'" 
+						  onMouseOut="document.img0_#currentrow#.src='#SESSION.root#/Images/#icon#'"
+						  style="cursor: pointer;" align="absmiddle" height="9" width="9">
+						  
+				</cfif>			  
+				
+			</td>
 		
-			<cfif functionName neq prior>	
-			
-				 <img src="#SESSION.root#/Images/#icon#" alt="Maintain report" name="img0_#currentrow#" 
-					  onMouseOver="document.img0_#currentrow#.src='#SESSION.root#/Images/button.jpg'" 
-					  onMouseOut="document.img0_#currentrow#.src='#SESSION.root#/Images/#icon#'"
-					  style="cursor: pointer;" align="absmiddle" height="9" width="9">
-					  
-			</cfif>			  
-			
-		</td>
+			<td>#owner#</td>		
+			<td>
 		
-		<td>#owner#</td>		
-		<td>
-	
-		<a href="javascript:recordedit('#ControlId#')" title="Maintain report">
-		
-		<cfif functionName neq prior>
+			<a href="javascript:recordedit('#ControlId#')" title="Maintain report">
 			
-		<cfif TemplateSQL eq "Application"><b>Tag:</b>&nbsp;</cfif>
-			<cfif operational eq "0"><font color="gray"></cfif>
-				#MenuClass#/#FunctionName#
-			
-		<cfelse>
-		
-			<img src="#SESSION.root#/Images/join.gif" align="absmiddle" alt="" border="0">
-			
-			<cfif operational neq "1">
-				Development version
+			<cfif functionName neq prior>
+				
+			<cfif TemplateSQL eq "Application"><b>Tag:</b>&nbsp;</cfif>
+				<cfif operational eq "0"><font color="gray"></cfif>
+					#MenuClass#/#FunctionName#
+				
 			<cfelse>
-				Production version
+			
+				<img src="#SESSION.root#/Images/join.gif" align="absmiddle" alt="" border="0">
+				
+				<cfif operational neq "1">
+					Development version
+				<cfelse>
+					Production version
+				</cfif>
 			</cfif>
-		</cfif>
-		</a>
-		
-		</td>
+			</a>
+			
+			</td>
 		
 		<td>
 		
@@ -629,7 +630,7 @@
 	    </tr>
 		
 		<cfif functionName neq prior>
-		 <tr class="hide" id="d#currentrow#"><td colspan="6" id="i#currentrow#"></td></tr>
+		 <tr class="hide" id="d#currentrow#"><td style="padding-left:20px;padding-right:20px" colspan="8" id="i#currentrow#"></td></tr>
 		</cfif>
 				 
 		<cfif functionName neq prior>	
@@ -655,7 +656,6 @@
 </tr>
 
 </table>
-
 
 </td>
 </tr>

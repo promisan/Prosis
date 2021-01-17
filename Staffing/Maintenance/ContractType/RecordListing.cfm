@@ -9,13 +9,14 @@ password="#SESSION.dbpw#">
 	FROM Ref_ContractType
 </cfquery>
 
-<cf_divscroll>
+
 
 <cfset add          = "1">
 <cfset save         = "0"> 
-<cfinclude template = "../HeaderMaintain.cfm"> 	
+ 	
+<table width="98%" align="center" height="100%">
 
-<table width="100%" align="center" cellspacing="0" cellpadding="0" >
+<tr><td style="height:10px"><cfinclude template = "../HeaderMaintain.cfm"></td></tr>
 
 <cfoutput>
 
@@ -35,10 +36,11 @@ function recordedit(id1) {
 	
 <tr><td colspan="2">
 
-<table width="97%" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<cf_divscroll>
 
+<table width="97%" align="center" class="navigation_table">
 
-<tr class="line labelmedium">
+<tr class="line labelmedium2">
     <td></td>
     <td>Code</td>
 	<td>Description</td>
@@ -51,7 +53,7 @@ function recordedit(id1) {
 </tr>
 
 	<cfoutput query="SearchResult">
-	    <tr class="navigation_row line labelmedium" style="height:20px"> 
+	    <tr class="navigation_row line labelmedium2"> 
 		<td height="18" width="5%" align="center" style="padding-top:2px">
 		    <cf_img icon="open" navigation="yes" onclick="recordedit('#ContractType#');">
 		</td>			
@@ -88,9 +90,10 @@ function recordedit(id1) {
 	
 </table>
 
+</cf_divscroll>
+
 </td>
 </tr>
 
 </table>
 
-</cf_divscroll>

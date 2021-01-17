@@ -14,16 +14,14 @@
 
 	<script>
 		
-		function editPE(trig, code) {
-			try { ColdFusion.Window.destroy('mydialog',true) } catch(e) {}
-			ColdFusion.Window.create('mydialog', 'Person Event', '',{x:100,y:100,height:300,width:document.body.clientWidth-160,modal:true,resizable:true,center:true})    					
-		
-			ColdFusion.navigate('PersonEventTriggerEdit.cfm?trigger='+trig+'&code='+code, 'mydialog');	 
+		function editPE(trig, code) {			
+			ProsisUI.createWindow('mydialog', 'Person Event', '',{x:100,y:100,height:300,width:document.body.clientWidth-160,modal:true,resizable:true,center:true})    							
+			ptoken.navigate('PersonEventTriggerEdit.cfm?trigger='+trig+'&code='+code, 'mydialog');	 
 		}
 		
 		function deletePE(trig, code) {
 			if (confirm('Do you want to remove person event trigger ?')) {
-				ColdFusion.navigate('PersonEventTriggerPurge.cfm?trigger='+trig+'&code='+code, 'processDeletePE');	 
+				ptoken.navigate('PersonEventTriggerPurge.cfm?trigger='+trig+'&code='+code, 'processDeletePE');	 
 			}
 		}
 		
@@ -31,7 +29,7 @@
 
 </cfoutput>
 
-<cfajaximport tags="cfform, cfdiv,cfwindow">
+<cfajaximport tags="cfform, cfdiv">
   
 <cfquery name="Get" 
 	datasource="AppsEmployee" 
@@ -64,13 +62,13 @@
 
 <cfform action="RecordSubmit.cfm?id1=#URL.ID1#" method="POST"  name="dialog">
 
-<table width="92%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding formspacing">
+<table width="92%" align="center" class="formpadding formspacing">
 
-    <tr><td></td></tr>
+    <tr><td style="height:5px"></td></tr>
     <cfoutput>
     <TR>
-    <TD class="labelmedium" width="120">&nbsp;&nbsp;Code:</TD>
-    <TD class="labelmedium">
+    <TD class="labelmedium2" width="120">&nbsp;&nbsp;Code:</TD>
+    <TD class="labelmedium2">
   	   #get.Code#
 	   <input type="hidden" name="CodeOld" value="#get.Code#" size="10" maxlength="10" readonly>
     </TD>
@@ -79,14 +77,14 @@
 	<TR>
     <TD class="labelmedium">&nbsp;&nbsp;Description:</TD>
     <TD>
-  	   <cfinput type="Text" name="Description" value="#get.description#" message="Please enter a description" required="Yes" size="25" maxlength="50" class="regularxl">
+  	   <cfinput type="Text" name="Description" value="#get.description#" message="Please enter a description" required="Yes" size="25" maxlength="50" class="regularxxl">
     </TD>
 	</TR>
 
 	<TR>
     <TD class="labelmedium">&nbsp;&nbsp;Entity:</TD>
     <TD>
-		<select name="entity" id="entity" class="regularxl">
+		<select name="entity" id="entity" class="regularxxl">
 			<option value="">None</option>
 			<cfloop query="GetEntity">
 			  <option value="#GetEntity.EntityCode#" <cfif getEntity.EntityCode eq Get.EntityCode>selected</cfif>>#GetEntity.EntityCode# - #GetEntity.EntityDescription#</option>
@@ -100,17 +98,17 @@
 	<TR>
     <TD class="labelmedium">&nbsp;&nbsp;Order:</TD>
     <TD>
-  	   <cfinput type="Text" name="ListingOrder" value="#get.ListingOrder#" message="Please enter a Listing Order" required="No" size="2" maxlength="2" class="regularxl">
+  	   <cfinput type="Text" name="ListingOrder" value="#get.ListingOrder#" message="Please enter a Listing Order" required="No" size="2" maxlength="2" class="regularxxl">
     </TD>
 	</TR>
 	
 	</cfoutput>
 	
-	<tr><td colspan="2" class="linedotted"></td></tr>
+	<tr><td colspan="2" class="line"></td></tr>
 	
 	<tr>
 		<td align="center" colspan="2">
-    	<input class="button10g" type="submit" name="Update" value=" Update ">
+    	<input class="button10g" style="width:200px" type="submit" name="Update" value=" Update ">
 		</td>	
 	</tr>
 
@@ -129,7 +127,7 @@
 	<tr><td height="10"></td></tr>
 	<tr>
 		<td>
-			<cfdiv id="divPersonEvent" bind="url:PersonEventListing.cfm?id1=#URL.ID1#">
+			<cf_securediv id="divPersonEvent" bind="url:PersonEventListing.cfm?id1=#URL.ID1#">
 		</td>
 	</tr>
 </table>

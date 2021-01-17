@@ -24,7 +24,7 @@
 
 function ask(mission,city) {
 	if (confirm("Do you want to remove this record ?")) {	
-		ColdFusion.navigate('RecordPurge.cfm?mission='+mission+'&city='+city,'processDelete');
+		ptoken.navigate('RecordPurge.cfm?mission='+mission+'&city='+city,'processDelete');
 	}	
 }	
 
@@ -39,32 +39,33 @@ function ask(mission,city) {
 	  menuAccess="Yes" 
 	  systemfunctionid="#url.idmenu#">
 
-<cfform action="RecordSubmit.cfm?idmenu=#url.idmenu#&mission=#url.mission#&city=#url.city#" method="POST" enablecab="Yes" name="dialog">
+<cfform action="RecordSubmit.cfm?idmenu=#url.idmenu#&mission=#url.mission#&city=#url.city#" method="POST" name="dialog">
 
-<table width="95%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="95%" align="center" class="formpadding">
 
 	<tr><td height="6"></td></tr>
     <cfoutput>
-    <tr>
+    <tr class="labelmedium2">
     <td width="20%">Entity:</td>
     <td>
 	   	#get.mission#
-		<input type="hidden" name="mission" id="mission" value="#get.mission#">
+		<input type="hidden" name="mission" id="mission"  class="regularxxl" value="#get.mission#">
     </td>
 	</tr>
 	
-	<tr>
-    <td width="20%">Region:</td>
+	<tr class="labelmedium2">
+    <td class="labelmedium2" width="20%">Region:</td>
     <td>
 	   	#get.city#
-		<input type="hidden" name="city" id="city" value="#get.city#">
+		<input type="hidden" name="city" id="city" class="regularxxl" value="#get.city#">
     </td>
 	</tr>
 	
-	<tr>
+	<tr class="labelmedium2">
     <td>Order:</td>
     <td>
-  	   <cfinput type="Text" name="listingOrder" value="#get.listingOrder#" message="Please enter a numeric listing order" required="Yes" size="1" validate="integer" maxlength="3" class="regular" style="text-align:center;">
+  	   <cfinput type="Text" name="listingOrder" value="#get.listingOrder#" message="Please enter a numeric listing order" required="Yes" 
+	     size="1" validate="integer" maxlength="3" class="regularxxl" style="text-align:center;">
     </td>
 	</tr>
 			

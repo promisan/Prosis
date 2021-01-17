@@ -1,72 +1,83 @@
-<cf_screentop height="100%" scroll="Yes" html="No" jquery="Yes">
-
-<cf_divscroll>
 
 <cfquery name="SearchResult"
 datasource="appsMaterials" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-    SELECT 	*
-	FROM 	Ref_Metric
+    SELECT 	 *
+	FROM 	 Ref_Metric
 	ORDER BY Measurement
 </cfquery>
 
+<cf_screentop html="No" jquery="Yes">
 
 <cfset Page         = "0">
 <cfset add          = "1">
-<cfinclude template = "../HeaderMaintain.cfm"> 
+
+<table width="98%" align="center" height="100%">
+
+<tr style="height:10px"><td><cfinclude template = "../HeaderMaintain.cfm"></td></tr>
  
- <cfoutput>
-
-<script>
-
-function recordadd(grp) {
-          window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 500, height= 300, toolbar=no, status=yes, scrollbars=no, resizable=no");
-}
-
-function recordedit(id1) {
-          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width= 500, height= 300, toolbar=no, status=yes, scrollbars=no, resizable=no");
-}
-
-</script>	
+<cfoutput>
+	
+	<script>
+	
+		function recordadd(grp) {
+		      ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=600, height=400, toolbar=no, status=yes, scrollbars=no, resizable=no");
+		}
+		
+		function recordedit(id1) {
+		      ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=600, height=400, toolbar=no, status=yes, scrollbars=no, resizable=no");
+		}
+	
+	</script>	
 
 </cfoutput>
 
-<table id="myListing" width="95%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table formpadding">
+<tr><td>
 
-<tr class="labelit line">
-    <TD align="left"></TD>
-    <TD align="left">Code</TD>
-	<TD align="left">Description</TD>
-	<td>UoM</td>
-	<TD align="center">Operational</TD>
-	<TD align="left">Officer</TD>
-    <TD align="left">Entered</TD>
-</TR>
-
-<cfoutput query="SearchResult" group="Measurement">
-
-	<tr><td colspan="7" class="labelmedium" height="25"><b><i>#Measurement#</i></b></td></tr>
-	<tr><td colspan="7" class="line"></td></tr>
-	<cfoutput>    	
+	<cf_divscroll>
+	
+		<table id="myListing" width="95%" align="center" class="navigation_table formpadding">
 		
-    <TR class="navigation_row labelit line"> 
-		<td align="center">
-			  <cf_img icon="open" navigation="Yes" onclick="recordedit('#Code#');">
-		</td>
-		<TD>#Code#</TD>
-		<TD>#Description#</TD>
-		<td>#MeasurementUoM#</td>
-		<TD align="center"><cfif operational eq 0><b>No</b><cfelse>Yes</cfif></TD>
-		<TD>#OfficerFirstName# #OfficerLastName#</TD>
-		<TD>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</TD>
-    </TR>	
-	</cfoutput>
+		<tr class="labelmedium2 line">
+		    <TD></TD>
+		    <TD>Code</TD>
+			<TD>Description</TD>
+			<td>UoM</td>
+			<TD align="center">Operational</TD>
+			<TD>Officer</TD>
+		    <TD>Entered</TD>
+		</TR>
+		
+		<cfoutput query="SearchResult" group="Measurement">
+		
+			<tr class="line"><td colspan="7" class="labelmedium2" style="font-size:22px">#Measurement#</td></tr>
+						
+			<cfoutput>    	
+				
+		    <TR class="navigation_row labelmedium2 line"> 
+				<td align="center">
+					  <cf_img icon="open" navigation="Yes" onclick="recordedit('#Code#');">
+				</td>
+				<TD>#Code#</TD>
+				<TD>#Description#</TD>
+				<td>#MeasurementUoM#</td>
+				<TD align="center"><cfif operational eq 0><b>No</b><cfelse>Yes</cfif></TD>
+				<TD>#OfficerFirstName# #OfficerLastName#</TD>
+				<TD>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</TD>
+		    </TR>	
+			
+			</cfoutput>
+		
+		</CFOUTPUT>
+		
+		<tr><td height="20"></td></tr>
+		
+		</TABLE>
+	
+	</cf_divscroll>
 
-</CFOUTPUT>
+</td>
+</tr>
 
-<tr><td height="20"></td></tr>
-
-</TABLE>
-
-</cf_divscroll>
+</table>

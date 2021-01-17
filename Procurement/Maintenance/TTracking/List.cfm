@@ -34,27 +34,26 @@ password="#SESSION.dbpw#">
   		method="POST" 
 		name="element">
 	
-<table width="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="100%" class="formpadding">
 				
 		<cfif list.recordcount eq "0">
 		  <cfset url.id2 = "new">
 		</cfif>  
 			
-		    <TR height="18" class="line labelit">
+		    <TR height="18" class="line labelmedium2">
 			  
 			   <td width="60%">Transportation Stage</td>
 			   <td width="50">Sort</td>
 			   <td width="30" align="center">Active</td>
-			   <td colspan="2" align="right">
+			   <td colspan="2" align="right" style="padding-right:4px">
 		       <cfoutput>
 				 <cfif URL.ID2 neq "new">
-				     <A href="javascript:ColdFusion.navigate('List.cfm?Code=#URL.Code#&ID2=new','#url.code#_list')">
-					 <font color="0080FF">[add]</font></a>
+				     <A href="javascript:ptoken.navigate('List.cfm?Code=#URL.Code#&ID2=new','#url.code#_list')">[add]</a>
 				 </cfif>
-				 </cfoutput>&nbsp;
+				 </cfoutput>
 			   </td>		  
 		    </TR>
-			<tr><td colspan="5" class="line"></td></tr>							
+								
 				
 		<cfoutput>
 		
@@ -79,14 +78,14 @@ password="#SESSION.dbpw#">
 						required="Yes" 
 						size="60" 
 						maxlength="60" 
-						class="regular">
+						class="regularxxl">
 				  
 		           </td>
 				   <td height="22">
 				   	<cfinput type="Text"
 					       name="TrackingOrder"
 					       value="#ls#"
-						   class="regular"
+						   class="regularxxl"
 					       validate="integer"
 					       required="Yes"
 						   message="Please enter an order value" 
@@ -100,12 +99,12 @@ password="#SESSION.dbpw#">
 				     </td>
 				  
 				   <td align="center">
-				      <input type="checkbox" name="Operational" id="Operational" value="1" <cfif "1" eq op>checked</cfif>>
+				      <input type="checkbox" class="radiol" name="Operational" id="Operational" value="1" <cfif "1" eq op>checked</cfif>>
 					</td>
 				   <td colspan="2" align="right">
 				   <input type="submit" 
 				        value="Save" 
-						class="button10s" 
+						class="button10g" 
 						style="width:50">&nbsp;</td>
 			    </TR>	
 				
@@ -113,13 +112,13 @@ password="#SESSION.dbpw#">
 			<cfelse>
 								
 						
-				<TR class="labelit linedotted" color="fcfcfc">
+				<TR class="labelmedium2 line" color="fcfcfc">
 				   
 				   <td>#de#</td>
 				   <td>#ls#</td>
 				   <td align="center"><cfif op eq "0"><b>No</b><cfelse>Yes</cfif></td>
 				   <td align="right" style="padding-top:3px;">
-				   		<cf_img icon="edit" onclick="ColdFusion.navigate('List.cfm?Code=#URL.Code#&ID2=#nm#','#url.code#_list');">
+				   		<cf_img icon="edit" onclick="ptoken.navigate('List.cfm?Code=#URL.Code#&ID2=#nm#','#url.code#_list');">
 				   </td>
 			   			   
 				   <cfquery name="Check" 
@@ -133,7 +132,7 @@ password="#SESSION.dbpw#">
 				   
 				   <td align="center" width="20" style="padding-top:3px;">
 				     <cfif check.recordcount eq "0">
-						   <cf_img icon="delete" onclick="ColdFusion.navigate('ListPurge.cfm?Code=#URL.Code#&ID2=#nm#','#url.code#_list');">
+						   <cf_img icon="delete" onclick="ptoken.navigate('ListPurge.cfm?Code=#URL.Code#&ID2=#nm#','#url.code#_list');">
 					 </cfif>	   
 					  
 				    </td>
@@ -145,8 +144,7 @@ password="#SESSION.dbpw#">
 		</cfloop>
 		</cfoutput>
 													
-		<cfif URL.ID2 eq "new">
-		
+		<cfif URL.ID2 eq "new">		
 					
 			<TR>
 									   
@@ -157,7 +155,7 @@ password="#SESSION.dbpw#">
 						 required="Yes" 
 						 size="50" 
 						 maxlength="50" 
-						 class="regular">
+						 class="regularxxl">
 				</td>								 
 				<td>
 				   <cfinput type="Text" 
@@ -168,7 +166,7 @@ password="#SESSION.dbpw#">
 					  style="text-align:center"
 					  value="#lst#"
 					  validate="integer"
-					  class="regular"
+					  class="regularxxl"
 					  maxlength="2">
 				</td>
 				
@@ -181,16 +179,16 @@ password="#SESSION.dbpw#">
 			<cfoutput>
 			<input type="submit" 
 				value="Add" 
-				class="button10s" 
+				class="button10g" 
 				style="width:50">
 			&nbsp;
 			</cfoutput>
 			</td>			    
-			</TR>	
-								
+			</TR>									
 											
-		</cfif>								
-</table>		
+		</cfif>		
+								
+</table>	
 						
 
 </cfform>

@@ -1,18 +1,10 @@
 
-<table width="95%" 
-    border="0" 	
-	cellspacing="0" 
-	cellpadding="0"
+<table width="95%"    
 	class="formpadding" 
 	align="center">
-  		
-	<tr>
-		<td height="5">
-		</td>
-	</tr>
-		
+  			
 	<tr>	
-	    <td width="100%" id="listing">
+	    <td width="100%" id="listing" style="min-width:1000px">
 			<cfinclude template="RecordListingDetail.cfm">
 		</td>		
 	</tr>		

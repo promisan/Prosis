@@ -9,6 +9,8 @@
 		AND		CategoryItem = '#url.item#'
 </cfquery>
 
+<!---
+
 <cfif url.item eq "">
 
 	<cf_screentop height="100%" scroll="Yes" layout="webapp" banner="gray" user="no"
@@ -20,6 +22,7 @@
    		label="Generic Item">
 
 </cfif>
+--->
 
 <cfoutput>
 

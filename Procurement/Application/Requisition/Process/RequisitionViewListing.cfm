@@ -43,9 +43,9 @@ function mail2(mode,id) {
 	    
 	  <tr>
 	    <td width="100%" >
-	    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="formpadding">
+	    <table width="100%" class="formpadding">
 			
-	    <TR class="labelit linedotted">
+	    <TR class="labelmedium2 linedotted">
 		   <td width="1%" height="19"></td>
 		   <td width="1%"></td>
 		   <td width="40%"><cf_tl id="Description"></td>
@@ -91,7 +91,7 @@ function mail2(mode,id) {
 				<tr><td height="4"></td></tr>
 				
 				<TR bgcolor="white">
-				   <td height="20" colspan="7" class="labelmediumcl" style="padding-left:10px"><b>#Reference#</font>
+				   <td height="20" colspan="7" class="labelmedium" style="font-size:20px;padding-left:10px">#Reference#</font>
 				   
 				   <img src="#SESSION.root#/Images/print_small4.gif" 
 				    align="absmiddle" 
@@ -102,7 +102,7 @@ function mail2(mode,id) {
 					
 				   </td>			 
 				   <td align="right" class="labelmediumcl"><b>(#Sum.Counted#)&nbsp;&nbsp;
-				   <b>#NumberFormat(Sum.Total,",__.__")#</td>
+				   <b>#NumberFormat(Sum.Total,",.__")#</td>
 				   <td bgcolor="white"></td>
 		 	    </TR>
 						
@@ -114,7 +114,7 @@ function mail2(mode,id) {
 		<tr><td height="24" colspan="9" class="labellarge" style="padding-left:20px;border-top:1px dotted silver">
 		<b>#ActionDescription#</b></td></tr>							
 		<cfoutput>		
-		<tr><td height="1" colspan="9" class="linedotted"></td></tr>
+		<tr><td height="1" colspan="9" class="line"></td></tr>
 
 		<cfquery name="qItem" 
 		datasource="appsMaterials" 
@@ -140,7 +140,7 @@ function mail2(mode,id) {
 			 <cfset color = "transparent"> 
 		</cfif>
 												
-		<tr class="labelit" bgcolor="#color#">
+		<tr class="labelmedium2" bgcolor="#color#">
 		
 		   <td rowspan="2" align="left"></td>
     	   <td style="width:6px"></td>		  
@@ -148,14 +148,14 @@ function mail2(mode,id) {
 		   <td></td>
     	   <td align="right">#RequestQuantity#</td>
 		   <td align="center">#QuantityUoM#</td>
-		   <td align="right">#NumberFormat(RequestCostprice,",__.__")#</td>
-		   <td align="right" style="padding-right:4px">#NumberFormat(RequestAmountBase,",__.__")#</td>		   
+		   <td align="right">#NumberFormat(RequestCostprice,",.__")#</td>
+		   <td align="right" style="padding-right:4px">#NumberFormat(RequestAmountBase,",.__")#</td>		   
 		   <td align="center" style="padding-left:5px;padding-right:5px;padding-top:1px">		   
 		         <cf_img icon="edit" onClick="javascript:ProcReqEdit('#requisitionno#','dialog');">		 								   
 		   </td>
 		</tr>
 		
-		<tr class="labelit" id="#requisitionno#_2" bgcolor="#color#">
+		<tr class="labelmedium2" id="#requisitionno#_2" bgcolor="#color#">
 		
 		<td></td>
 		<td><b>#Description#</b></td>
@@ -195,7 +195,7 @@ function mail2(mode,id) {
 		<tr><td></td><td></td><td height="20"
 		     align="center" 
 			 bgcolor="red" style="border:1px solid silver" 
-			 colspan="6" class="labelit">
+			 colspan="6" class="labelmedium2">
 			 Invalid Program/Project code assigned to this Requisition line</td></tr>			 	
 		</cfif>
 		
@@ -224,7 +224,7 @@ function mail2(mode,id) {
 		<tr><td></td><td></td><td height="20"
 		     align="center" 
 			 bgcolor="red" 
-			 colspan="6" style="border:1px solid silver" class="labelit">
+			 colspan="6" style="border:1px solid silver" class="labelmedium2">
 			 <font color="gray">OrgUnit assigned belong to different mandate. Correct: #checkMandate.MandateNo# This line: #MandateNo#</td></tr>
 			 	
 		</cfif>	
@@ -251,7 +251,7 @@ function mail2(mode,id) {
 				<tr id="#requisitionno#_4">
 				<td colspan="2"></td>
 				<td bgcolor="ffffcf" style="border-top:1px solid silver;border-left:1px solid silver;border-right:1px solid silver;" 
-				colspan="6" align="center"><font size="2">No funding defined</td>
+				colspan="6" align="center"><font size="4">No funding defined</td>
 				
 				</cfif>
 				
@@ -274,18 +274,18 @@ function mail2(mode,id) {
 						<td colspan="2"></td>											
 						<td colspan="6" align="center" bgcolor="EEFDF1" style="border:1px solid silver;">
 							<table width="100%">
-							<tr>							  
-							   <td class="labelit" style="padding-left:3px" width="10%">#Fund#</td>
-							   <td class="labelit" style="padding-left:3px" width="10%">#ProgramPeriod#</td>
-							   <td class="labelit" width="10%">
+							<tr class="labelmedium2">							  
+							   <td style="padding-left:3px" width="10%">#Fund#</td>
+							   <td style="padding-left:3px" width="10%">#ProgramPeriod#</td>
+							   <td width="10%">
 							   <a href="javascript:ViewProgram('#ProgramCode#','#Per#','#Program.ProgramClass#')">
 							   <cfif Program.reference neq "">#Program.Reference#<cfelse>#ProgramCode#</cfif>
 							   </a>
 							   </td>
-							   <td class="labelit" width="15%">#Program.ProgramName#</td>
-							   <td class="labelit" width="35%">#CodeDisplay# #ObjectDescription#</td>							  
-							   <td class="labelit" width="10%">#Percentage*100#%</td>
-							   <td class="labelit" style="padding-right:3px" width="15%" align="right">#numberFormat(Percentage*amt,"__,__.__")#</td>							   
+							   <td width="15%">#Program.ProgramName#</td>
+							   <td width="35%">#CodeDisplay# #ObjectDescription#</td>							  
+							   <td width="10%">#Percentage*100#%</td>
+							   <td style="padding-right:3px" width="15%" align="right">#numberFormat(Percentage*amt,"__,__.__")#</td>							   
 							</tr>
 							</table>
 							
@@ -334,8 +334,8 @@ function mail2(mode,id) {
 			   <td>#OrgUnitName#</td>
     		   <td align="center">#QuotationQuantity#</td>
 			   <td align="center">#QuotationUoM#</td>
-		       <td align="right">#NumberFormat(QuoteAmountBase/QuotationQuantity,",__.__")#</td>
-		       <td align="right">#NumberFormat(QuoteAmountBase,",__.__")#&nbsp;</td>
+		       <td align="right">#NumberFormat(QuoteAmountBase/QuotationQuantity,",.__")#</td>
+		       <td align="right" style="padding-right:5px">#NumberFormat(QuoteAmountBase,",.__")#</td>
 		   
 		       <td rowspan="1" align="center">
 		      		<!--- 

@@ -68,7 +68,7 @@
         </td>
     </tr>
 	<tr bgcolor="#f6f6f6" style="background-color: #f6f6f6;">
-		<td height="100%">
+		<td height="100%" style="padding:20px">
 			<table align="center">
 			
 			<cfoutput>
@@ -160,7 +160,7 @@
 				
 				<tr>
 					<td id="action">
-						<table cellspacing="1" cellpadding="1" align="center">
+						<table align="center">
 					
 					 		<tr>
 						 		<td>						 
@@ -173,7 +173,7 @@
 									</cfif>				 
 								 
 						 		</td>
-						 		<td id="send">
+						 		<td id="send" style="padding-left:3px">
 								<cf_tl id="Send instructions" var="vLabel2">
 						  		<input class="button" type="button" value="#vLabel2#" onclick="process()">
 					

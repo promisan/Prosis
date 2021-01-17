@@ -188,9 +188,9 @@
 						  
 						  <cfif (workdate.actionstatus eq "0" OR workdate.recordCount eq 0) and url.mode eq "View" and url.edit eq "1">
 					  					  
-							  <td align="right" class="labelmedium" style="padding-left:4px;padding-right:4px;font-size:17px">
+							  <td align="right" class="labelmedium2" style="padding-left:4px;padding-right:4px;font-size:17px">
 							  <a href="javascript:entryhour('#url.id#',document.getElementById('datefield').value,document.getElementById('monthfield').value,document.getElementById('yearfield').value,'')">
-							  <font color="0080C0"><cf_tl id="Record additional slots"></font></a>
+							  <cf_tl id="Record additional slots"></a>
 							  </td>
 						  
 						  </cfif>

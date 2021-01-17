@@ -42,10 +42,10 @@
 		
 		<cfloop query="getCustomFields">
 			<cfif i eq 0>
-				<tr class="labelmedium" style="height:18px">
+				<tr class="labelmedium2" style="height:18px">
 			</cfif>					
-				<td style="padding-left:0px;min-width:70px"><cfif topiclabel eq "">#Description#<cfelse>#TopicLabel#</cfif>:</td>
-				<td width="150" style="padding-left:3px;padding-right:7px;"><cfif TopicValue eq "">n/a<cfelse>#TopicValue#</cfif></td>
+				<td style="padding-left:0px;font-size:12px;min-width:70px"><cfif topiclabel eq "">#Description#<cfelse>#TopicLabel#</cfif>:</td>
+				<td style="mon-width:200px;padding-left:3px;padding-right:7px;"><cfif TopicValue eq "">n/a<cfelse>#TopicValue#</cfif></td>
 				<cfset i = i + 1>
 	
 			<cfif i eq vTotal>

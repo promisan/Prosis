@@ -42,8 +42,7 @@ WHERE        M.Mission = '#url.mission#'
 	<cf_tl id="IndexNo" var = "1">			
 	<cfset fields[itm] = {label           = "#lt_text#",                    
 	     				field             = "IndexNo",					
-						alias             = "",		
-						filtermode        = "4",																											
+						alias             = "",																																			
 						search            = "text"}>		
 				
 	<cfset itm = itm+1>
@@ -52,8 +51,7 @@ WHERE        M.Mission = '#url.mission#'
 	     				field             = "FullName",																							
 						functionscript    = "EditPerson",
 						functionfield     = "PersonNo",		
-						functioncondition = "Miscellaneous",	
-						filtermode        = "4",					
+						functioncondition = "Miscellaneous",											
 						width             = "40",																		
 						search            = "text"}>	
 						
@@ -63,7 +61,9 @@ WHERE        M.Mission = '#url.mission#'
 	     				field         = "Created",								
 						display       = "1",	
 						width         = "18",																																									
-						displayfilter = "yes",																																									
+						displayfilter = "yes",		
+						alias         = "M",
+						column        = "month",																																							
 						search        = "date",		
 						formatted     = "dateformat(Created,client.dateformatshow)"}>							
 						
@@ -90,23 +90,25 @@ WHERE        M.Mission = '#url.mission#'
 						
 	<cfset itm = itm+1>
 	<cf_tl id="Due" var = "1">		
-	<cfset fields[itm] = {label     = "#lt_text#",                    	                   
-	     				field       = "DateEffective",																																												
-						search      = "date",
+	<cfset fields[itm] = {label       = "#lt_text#",                    	                   
+	     				field         = "DateEffective",																																												
+						search        = "date",
+						column        = "month",	
 						display       = "1",	
 						width         = "18",
 						displayfilter = "Yes",		
-						formatted   = "dateformat(DateEffective,client.dateformatshow)"}>	
+						formatted     = "dateformat(DateEffective,client.dateformatshow)"}>	
 						
 	<cfset itm = itm+1>
 	<cf_tl id="Payment" var = "1">		
-	<cfset fields[itm] = {label     = "#lt_text#",                    	                   
-	     				field       = "PayrollStart",																																												
-						search      = "date",
+	<cfset fields[itm] = {label       = "#lt_text#",                    	                   
+	     				field         = "PayrollStart",																																												
+						search        = "date",
+						column        = "month",
 						display       = "1",	
 						width         = "18",
 						displayfilter = "Yes",		
-						formatted   = "dateformat(PayrollStart,client.dateformatshow)"}>								
+						formatted     = "dateformat(PayrollStart,client.dateformatshow)"}>								
 						
 	<cfset itm = itm+1>	
 	<cf_tl id="Item" var = "1">		
@@ -144,22 +146,19 @@ WHERE        M.Mission = '#url.mission#'
 						displayfilter = "yes",	
 						width         = "18",	
 						align         = "right",																																								
-						search        = "amount",
-						filtermode    = "3",
-						formatted     = "numberformat(amount,',.__')"}>																							
-	
-		
-
+						search        = "amount",						
+						formatted     = "numberformat(amount,',.__')"}>			
+			
 	<cfset itm = itm+1>		
 	<cf_tl id="Status" var = "1">		
 	<cfset fields[itm] = {label       = "S",      
-						LabelFilter = "#lt_text#", 
-						field       = "Status",  
-						width       = "4",    											
-						formatted   = "Rating",
+						LabelFilter   = "#lt_text#", 
+						field         = "Status",  
+						width         = "4",    											
+						formatted     = "Rating",
 						search        = "text",
-						filtermode  = "3",
-						ratinglist  = "9=Red,0=white,1=Yellow,3=Green,5=black"}>																								
+						filtermode    = "3",
+						ratinglist    = "9=Red,0=white,1=Yellow,3=Green,5=black"}>																								
 																
 <cfset menu=ArrayNew(1)>	
 

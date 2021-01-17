@@ -5,7 +5,7 @@
 <cf_tl id="Maintain Accounting Schema" var="1">
 
 <cf_screenTop height="100%"              
-			  html="Yes" jQuery="Yes" layout="webapp" label="#lt_text#"			  
+			  html="Yes" jQuery="Yes" layout="webapp" label="#lt_text#"	bannerforce="gray"		  
 			  border="0" menuAccess="Yes" systemfunctionid="#url.idmenu#">			
 			  
 <cf_layoutscript>			  

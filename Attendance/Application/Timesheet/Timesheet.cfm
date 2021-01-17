@@ -31,7 +31,8 @@
 <cf_dialogstaffing>
 <cf_dialogPosition>
 
-<cf_screentop height="100%" title="ts:#Employee.LastName# #Employee.PersonNo#" jquery="Yes" scroll="No" html="no" layout="webapp" label="Timesheet: #Employee.FirstName# #Employee.LastName# #Employee.IndexNo#">
+<cf_screentop height="100%" title="ts:#Employee.LastName# #Employee.PersonNo#" 
+      jquery="Yes" scroll="No" html="no" layout="webapp" label="Timesheet: #Employee.FirstName# #Employee.LastName# #Employee.IndexNo#">
 
 <cfparam name="caller" default="dayview"> 
 
@@ -68,8 +69,9 @@
 	  }
 	  
 	function entryhour(pers,x,mth,yr,hr,slot,context,actionclass,actioncode) {								
-			_cf_loadingtexthtml='';									
-			ptoken.navigate('#SESSION.root#/attendance/application/TimeSheet/Dialog/DialogOpen.cfm?id='+pers+'&day='+x+'&startmonth='+mth+'&startyear='+yr+'&hour='+hr+'&slot='+slot+'&context='+context+'&actionclass='+actionclass+'&actioncode='+actioncode,'dialog')								
+		_cf_loadingtexthtml='';					
+		ProsisUI.createWindow('tsentry','Timesheet entry','',{x:100,y:100,height:document.body.clientHeight-100,width:890,resizable:false,modal:true,center:true});									
+		ptoken.navigate('#SESSION.root#/attendance/application/TimeSheet/Dialog/DialogOpen.cfm?id='+pers+'&day='+x+'&startmonth='+mth+'&startyear='+yr+'&hour='+hr+'&slot='+slot+'&context='+context+'&actionclass='+actionclass+'&actioncode='+actioncode,'tsentry')								
  	}  	
 	
 	function schedulesave() 	{
@@ -89,7 +91,7 @@
 			slt  = document.getElementById("slots").value								
 			url  = "#SESSION.root#/attendance/application/workschedule/ScheduleEditSubmit.cfm?mission="+mis+"&dateeffective="+eff+"&slots="+slt+"&id=#URL.id#&ds="+ds
 			_cf_loadingtexthtml='';	
-			ColdFusion.navigate(url,'contentbox1')
+			ptoken.navigate(url,'contentbox1')
 			// _cf_loadingtexthtml="<div><img src='<cfoutput>#SESSION.root#</cfoutput>/images/busy10.gif'/>";
 									
 		}
@@ -98,46 +100,46 @@
 	    Prosis.busy('yes')
 		url = "#SESSION.root#/attendance/application/workschedule/ScheduleEdit.cfm?mission="+mis+"&dateeffective="+eff+"&id=#URL.id#"
 		_cf_loadingtexthtml="";	
-		ColdFusion.navigate(url,'contentbox1')
+		ptoken.navigate(url,'contentbox1')
 	}
 				
 	function showdate(d) {
-	    ColdFusion.navigate('#SESSION.root#/attendance/application/TimeSheet/TimesheetDetail.cfm?ID0=#URL.ID0#&id=#URL.ID#&day='+d+'&startmonth=#url.startmonth#&startyear=#url.startyear#&adam=0','contentbox1') 
+	    ptoken.navigate('#SESSION.root#/attendance/application/TimeSheet/TimesheetDetail.cfm?ID0=#URL.ID0#&id=#URL.ID#&day='+d+'&startmonth=#url.startmonth#&startyear=#url.startyear#&adam=0','contentbox1') 
 	}
 	
 	function gotodate(pers,x,mth,yr,a) {
-	       _cf_loadingtexthtml="";	
-		   Prosis.busy('yes')		 
-		   ColdFusion.navigate('#SESSION.root#/attendance/application/TimeSheet/TimesheetDetail.cfm?id0=#url.id0#&id='+pers+'&day='+x+'&startmonth='+mth+'&startyear='+yr+'&adam=0','contentbox1') 		
+	    _cf_loadingtexthtml="";	
+		Prosis.busy('yes')		 
+		ptoken.navigate('#SESSION.root#/attendance/application/TimeSheet/TimesheetDetail.cfm?id0=#url.id0#&id='+pers+'&day='+x+'&startmonth='+mth+'&startyear='+yr+'&adam=0','contentbox1') 		
 	}	
 	
 	function gotoweek(pers,x,mth,yr,a) {
-		   ColdFusion.navigate('#SESSION.root#/attendance/application/TimeSheet/WeekView.cfm?id0=#url.id0#&id=#URL.ID#&day='+x+'&startmonth='+mth+'&startyear='+yr+'&adam=0','contentbox1') 
+		ptoken.navigate('#SESSION.root#/attendance/application/TimeSheet/WeekView.cfm?id0=#url.id0#&id=#URL.ID#&day='+x+'&startmonth='+mth+'&startyear='+yr+'&adam=0','contentbox1') 
 	}	
 	
 	function gotomonth(pers,x,mth,yr,a) {
-		   ptoken.navigate('#SESSION.root#/attendance/application/TimeSheet/CalMonth.cfm?id0=#url.id0#&id=#URL.ID#&day='+x+'&startmonth='+mth+'&startyear='+yr+'&adam=0','contentbox1') 
+		ptoken.navigate('#SESSION.root#/attendance/application/TimeSheet/CalMonth.cfm?id0=#url.id0#&id=#URL.ID#&day='+x+'&startmonth='+mth+'&startyear='+yr+'&adam=0','contentbox1') 
 	}	
 	
 	function gotoyear(pers,x,mth,yr,a) {		
-		   ptoken.navigate('#SESSION.root#/attendance/application/TimeSheet/Summary/Summary.cfm?id0=#url.id0#&id=#URL.ID#&day='+x+'&startmonth='+mth+'&startyear='+yr+'&adam=0','contentbox1') 
+		ptoken.navigate('#SESSION.root#/attendance/application/TimeSheet/Summary/Summary.cfm?id0=#url.id0#&id=#URL.ID#&day='+x+'&startmonth='+mth+'&startyear='+yr+'&adam=0','contentbox1') 
 	}	
 	 				
 	function activity(id) {		     
-           w = #CLIENT.width#  - 80;
-           h = #CLIENT.height# - 120;	 
-	       ptoken.open("#SESSION.root#/programrem/application/program/ActivityProject/ActivityView.cfm?ActivityId=" + id,"activity","width="+w+",height="+h+",status=yes,toolbar=no,scrollbars=yes,resizable=yes")		  					
+        w = #CLIENT.width#  - 80;
+        h = #CLIENT.height# - 120;	 
+	    ptoken.open("#SESSION.root#/programrem/application/program/ActivityProject/ActivityView.cfm?ActivityId=" + id,"activity","width="+w+",height="+h+",status=yes,toolbar=no,scrollbars=yes,resizable=yes")		  					
 	}	  	
 		
 	function hourdel(pers,date,hr,slot,context) {	
-	       Prosis.busy('yes')	        
-		   url = "#SESSION.root#/attendance/application/TimeSheet/HourEntryDelete.cfm?context="+context+"&id="+pers+"&date="+date+"&hr="+hr+"&slot="+slot			
-		   if (context == "day") {
+	    Prosis.busy('yes')	        
+		url = "#SESSION.root#/attendance/application/TimeSheet/HourEntryDelete.cfm?context="+context+"&id="+pers+"&date="+date+"&hr="+hr+"&slot="+slot			
+		if (context == "day") {
 			  ptoken.navigate(url,'list');
 			  sum(date);
-		   } else {
+		} else {
 			  ptoken.navigate(url,'contentbox1')
-		   }			
+		}			
 	 }	 
 		
 	function hourcopy(pers,date,frm,context) {

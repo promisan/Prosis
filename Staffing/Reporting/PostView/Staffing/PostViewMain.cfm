@@ -155,7 +155,7 @@
 			
 						<td>		
 						<cf_tl id="Workforce maintenance" var="1">
-						<input type="button" onclick="maintain()" name="maintain" value="#lt_text#" class="button10g" style="height:28px;width:250px;font-size:14px">							
+						<input type="button" onclick="maintain()" name="maintain" value="#lt_text#" class="button10g" style="height:28px;width:210px;font-size:14px">							
 						</td>
 					
 					</cfif>
@@ -172,6 +172,8 @@
 					   returnvariable   = "inquiryaccess">			
 			
 					<cfif maintain neq "NONE" or inquiryaccess eq "GRANTED">	
+							
+							<!--- deprecated by Adobe to be replaced by a listing 
 																									
 							<td style="padding-left:2px">
 					
@@ -199,7 +201,9 @@
 							
 							<input type="button" onclick="#script#" name="olap" value="#lt_text#" class="button10g" style="height:28px;width:200px;font-size:14px">							
 					
-						</td>														
+							</td>			
+	
+							--->											
 						
 						<td style="padding-left:2px">
 							<cf_tl id="Position Centric View" var="1">															

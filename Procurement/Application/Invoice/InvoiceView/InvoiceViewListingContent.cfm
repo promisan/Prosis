@@ -1,15 +1,5 @@
 
-<cfoutput>
-	
-	<!--- pass the result to the script --->
-	<cfsavecontent variable="myquery">
-		 SELECT I.*,
-				V.ActionDescriptionDue
-		 FROM   lsInvoice_#SESSION.acc# I LEFT OUTER JOIN #SESSION.acc#wfInvoice V ON ObjectkeyValue4 = I.InvoiceId	
-		 WHERE 1=1 <!--- needed for the query in the listing --->	
-	</cfsavecontent>
 
-</cfoutput>
 	
 <!--- show person, status processing color and filter on raise by me --->
 
@@ -64,7 +54,8 @@
 <cf_tl id="Date" var="vDate">
 <cfset itm = itm+1>					
 <cfset fields[itm] = {label       = "#vDate#",  					
-					field         = "DocumentDate",					
+					field         = "DocumentDate",						
+					column        = "month",				
 					formatted     = "dateformat(DocumentDate,'DD/MM/YY')",
 					search        = "date"}>
 
@@ -150,7 +141,19 @@
 <cftry>
 
 <cf_wfpending entityCode="ProcInvoice"  
-      table="#SESSION.acc#wfInvoice" mailfields="No" IncludeCompleted="No">							
+      table="#SESSION.acc#wfInvoice" mailfields="No" IncludeCompleted="No">		
+	  
+<cfoutput>
+	
+	<!--- pass the result to the script --->
+	<cfsavecontent variable="myquery">
+		 SELECT I.*, DocumentDate,
+				V.ActionDescriptionDue
+		 FROM   lsInvoice_#SESSION.acc# I LEFT OUTER JOIN #SESSION.acc#wfInvoice V ON ObjectkeyValue4 = I.InvoiceId	
+		 WHERE 1=1 <!--- needed for the query in the listing --->	
+	</cfsavecontent>
+
+</cfoutput>	  					
 
 <table width="100%" height="100%" cellspacing="0" cellpadding="0" align="center">
 <tr><td style="padding-left:8px;padding-right:8px;padding-bottom:6px">

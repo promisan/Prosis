@@ -9,32 +9,31 @@
 	<cf_screentop height="100%" scroll="Yes" html="No" jquery="Yes">
 </cfif>
 
-<table width="94%" height="100%"  border="0" align="center" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="94%" height="100%" align="center" class="formpadding">
 
 <tr><td height="10"></td></tr>
 <tr><td valign="top">
 
 <form action="RecordPurge.cfm?<cfoutput>module=#url.module#&portal=#url.portal#&systemfunctionid=#url.systemfunctionid#</cfoutput>" method="post" name="result" id="result">
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="100%" class="formpadding">
    
   <tr class="noprint">
     <td>
 	
-	<table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="white">
-	
+	<table width="100%" bgcolor="white">	
 	 			
-		<tr><td colspan="2" class="labellarge" style="font-size:29px;font-weight:200">
+		<tr><td colspan="2" class="labellarge" style="font-size:29px">
 
 	<cfoutput>
 	My <cfif URL.View eq "1">&nbsp;<img src="#SESSION.root#/Images/favorite.gif" alt="" width="40" height="40" border="0">&nbsp;<font color="FF8040">popular</font>&nbsp;</cfif>report variants</b>
 	</cfoutput>
 	
-	<font size="1">&nbsp;
+	<font size="3">&nbsp;
 	<cfif URL.View eq "1">
-	    <a href="javascript:reloadForm('0')"><font color="2894FF">[Show All variants]</font></a>
+	    <a href="javascript:reloadForm('0')">[Show All variants]</a>
 	<cfelse>
-	    <a href="javascript:reloadForm('1')"><font color="2894FF">[Show Favorite variants only]</font></a>	  
+	    <a href="javascript:reloadForm('1')">[Show Favorite variants only]</a>	  
 	</cfif>	
 			</td></tr>
 		</table>
@@ -79,11 +78,11 @@
 
 <tr><td colspan="2">
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding naivation_table">
+<table width="100%" align="center" class="formpadding naivation_table">
 
 <cfif SearchResult.recordcount eq "0">
 
-     <tr><td height="5"></td></tr>
+    <tr><td height="5"></td></tr>
     <tr><td height="1" class="line" colspan="13"></td></tr>	
 	<tr><td colspan="13"  style="height:60px" align="center" class="labellarge"><font color="808080">No subscribed reports were found.</td></tr>
 	<tr><td height="1" class="line" colspan="13"></td></tr>
@@ -95,7 +94,7 @@
 		<TR>
 		    <td colspan="13">
 			
-				<table width="100%" cellspacing="0" cellpadding="0">
+				<table width="100%">
 				<tr>
 				    <td width="165" colspan="2" class="labellarge" style=";font-weight:200;height:40;font-size:24px;padding-top:5px;padding-left:5px">#Description#</td>
 				   
@@ -114,8 +113,8 @@
 			
 		<cfoutput group="FunctionName">
 		
-		<tr class="line">
-		<td colspan="7" class="labelmedium" style="font-weight:200;font-size:16px;padding-left:15px"><font color="gray">#FunctionName#</font></td>
+		<tr class="line labelmedium2" style="height:30px">
+		<td colspan="7" style="font-size:17px;padding-left:15px"><font color="gray">#FunctionName#</font></td>
 		<td colspan="6" align="right"><cfif FunctionAbout neq "">
 		<button type="button" class="button3" onClick="javascript:reportabout('#ControlId#')"
 		onmouseover="javascript:tooltip('About this report')" onmouseout="javascript:tooltip('')">
@@ -151,9 +150,9 @@
 					
 			</cfif>
 					
-			<TR id="#currentrow#1" class="navigation_row labelmedium line">
+			<TR id="#currentrow#1" class="navigation_row labelmedium2 line">
 						
-			<td width="30" align="center" style="padding-left:30px"
+			<td align="center" style="padding-left:5px"
 			    onClick="more('#reportId#','show','#Currentrow#','prior')">
 		
 				<img src="#SESSION.root#/Images/arrowright.gif" alt="View criteria" 
@@ -170,31 +169,30 @@
 								
 			</td>
 			
-			<td width="32"  align="center">
+			<td width="32" style="padding-left:4px" align="center">
 				  
 			<CFIF access is "GRANTED"> 
 			
 			     <cfif TemplateReport neq "Excel">
 				 
    					   <img src="#SESSION.root#/Images/print_small3.gif" alt="Open report" name="img1_#currentrow#" 				    
-						  style="cursor: pointer;" alt="View report" height="16" border="0" align="absmiddle" onClick="javascript: report('#ReportId#')">
+						  style="cursor: pointer;" alt="View report" height="16" border="0" align="absmiddle" onClick="report('#ReportId#')">
 					  
 				  <cfelse>
 				  
 					   <img src="#SESSION.root#/Images/dataset.png" alt="Open report" name="img1_#currentrow#" 				    
-						  style="cursor: pointer;" alt="View report" height="16" border="0" align="absmiddle" onClick="javascript: report('#ReportId#')">		
+						  style="cursor: pointer;" alt="View report" height="16" border="0" align="absmiddle" onClick="report('#ReportId#')">		
 				  
 				  </cfif>
   
 			<cfelse>
 			      <img src="#SESSION.root#/Images/caution.gif" border="0">
 			</cfif>	
-			</td>
-					
+			</td>					
 			
 			<CFIF access is "GRANTED"> 
 			
-				<td id="mail#reportid#" width="32" align="center">
+				<td id="mail#reportid#" width="20" align="center">
 				
 				<cfset l = len(reportPath)>
 							
@@ -209,7 +207,7 @@
 					<cfif DistributioneMail neq "">
 
 						<img src="#SESSION.root#/Images/mail.png"  onClick="mail('#ReportId#','#path#','#TemplateSQL#')"
-						  name="img3_#currentrow#" height="28" width="23" style="cursor:pointer" alt="eMail report" border="0" align="absmiddle" >
+						  name="img3_#currentrow#" alt="send this report to myself" height="28" width="23" style="cursor:pointer" alt="eMail report" border="0" align="absmiddle" >
 
 					</cfif>
 				
@@ -217,23 +215,22 @@
 				
 				</td>
 				
-				<td width="32" 
-			    align="center" style="padding-top:3px">
-				
-				<cf_img icon="edit" onClick="schedule('#ReportId#')">				
+				<td width="20" align="center" style="padding-top:3px">
+								
+				<cf_img icon="open" tooltip="open report variant" onClick="schedule('#ReportId#')">				
 							  
 				</td>
 					
-				<td width="32" align="center">
+				<td width="20" align="center">
 				
 				<cfif ShowPopular eq "0">
 				
-					<img onClick="javascript: popular('1','#ReportId#')" height="13" src="#SESSION.root#/Images/favorite.gif" alt="List as favorite report" border="0" align="absmiddle"
+					<img onClick="javascript: popular('1','#ReportId#')" height="12" src="#SESSION.root#/Images/favorite.gif" alt="List as favorite report" border="0" align="absmiddle"
 					onMouseOver="tooltip('List as favorite report')" onMouseOut="tooltip('')" style="cursor:pointer">
 				
 				<cfelse>
 				
-					<img onClick="javascript: popular('0','#ReportId#')" height="13" src="#SESSION.root#/Images/down2.gif" alt="Disable as favorite report" border="0" align="absmiddle"
+					<img onClick="javascript: popular('0','#ReportId#')" height="12" src="#SESSION.root#/Images/down2.gif" alt="Disable as favorite report" border="0" align="absmiddle"
 					onMouseOver="tooltip('Disable as favorite report')" onMouseOut="tooltip('')" style="cursor:pointer">
 				
 				</cfif>
@@ -246,8 +243,8 @@
 				
 			</cfif>
 			
-			<td style="padding-left:4px"><a href="javascript:more('#reportId#','show','#Currentrow#')"><font color="0080C0"><cfif TemplateReport eq "Excel">Dataset<cfelse>#LayoutName#</cfif></a></td>
-			<TD width="20%" class="labelmedium">#DistributionSubject#</TD>
+			<td style="padding-left:4px"><a href="javascript:more('#reportId#','show','#Currentrow#')"><cfif TemplateReport eq "Excel">Dataset<cfelse>#LayoutName#</cfif></a></td>
+			<TD width="20%">#DistributionSubject#</TD>
 			<TD><cfif DistributionPeriod neq "Manual">#DistributionPeriod# <cfif #DistributionPeriod# eq "Weekly">[#DistributionDOW#]</cfif></cfif></TD>
 			<TD><cfif TemplateReport neq "Excel">#FileFormat#<cfelse>Analysis ROLAP</cfif></TD>
 			<TD><!--- #Dateformat(DateEffective, CLIENT.DateFormatShow)# - ---> #Dateformat(DateExpiration, CLIENT.DateFormatShow)#</TD>					 
@@ -256,7 +253,7 @@
 			<img src="#SESSION.root#/Images/caution.gif" alt="Report was never launched" border="0"> 
 			<b>Never</b><cfelse>last:#Dateformat(LastDate, CLIENT.DateFormatShow)#</cfif></TD>								
 			<td width="5%" align="center">
-				<input type="checkbox" name="selected" id="selected" value="'#ReportId#'">
+				<input type="checkbox" class="radiol" name="selected" id="selected" value="'#ReportId#'">
 			</td>	
 			
 			<td width="2%" align="center">
@@ -292,7 +289,7 @@
 			
 			<tr>
 			  <td align="center" colspan="1" valign="top"></td>
-			  <td colspan="12" class="labelmedium" style="font-weight:200">
+			  <td colspan="12" class="labelmedium2" style="font-weight:200">
 				  <font color="gray">This report variant was made available to you by:</font></i>&nbsp;&nbsp;<font color="0080FF">#User.FirstName# #User.LastName# 
 			  </td>
 			</tr>
@@ -311,9 +308,8 @@
 			
 			</cfif>
 																	 
-				<tr id="#currentrow#" class="hide">
-				  <td align="center" colspan="1" valign="top"></td>
-				  <td colspan="11" id="i#currentrow#"></td>
+				<tr id="#currentrow#" class="hide">				  
+				  <td colspan="13" style="padding-left:10px" id="i#currentrow#"></td>
 				</tr>
 						
 				<tr id="#currentrow#3" class="hide">

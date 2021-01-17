@@ -23,7 +23,7 @@
 			FROM 	Ref_EntityClass
 			WHERE	EntityCode = '#vEntityCode#'
 	</cfquery>
-	<select name="EntityClass" class="regularxl">		
+	<select name="EntityClass" class="regularxxl">		
 		<cfoutput query="WF">
 			<option value="#EntityClass#" <cfif EntityClass eq url.entityClass>selected</cfif>>#EntityClassName#</option>
 		</cfoutput>
@@ -32,7 +32,7 @@
 <cfelse>
 
     <table>
-	<tr><td class="labelmedium">Standard</td></tr>    
+	<tr><td class="labelmedium2">Standard</td></tr>    
 	</table>
 	<input name="EntityClass" type="Hidden" value="Standard">
 	

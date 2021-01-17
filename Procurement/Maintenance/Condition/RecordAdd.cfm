@@ -10,23 +10,25 @@
  
 <CFFORM action="RecordSubmit.cfm" method="post" name="dialog">
 
-<table width="95%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="95%" align="center" class="formpadding">
+
+	<tr><td style="height:6px"></td></tr>
 
    <!--- Field: Id --->
     <TR>
-    <TD class="labelit">Code:</TD>
+    <TD class="labelmediumn2">Code:</TD>
     <TD class="labelit">
 		<cfinput type="Text" name="Code" value="" message="Please enter a code" required="Yes" size="20" maxlength="20"
-		class="regularxl">
+		class="regularxxl">
 	</TD>
 	</TR>
 		
 	   <!--- Field: Description --->
     <TR>
-    <TD class="labelit">Description:</TD>
+    <TD class="labelmedium2">Description:</TD>
     <TD class="labelit">
 		<cfinput type="Text" name="Description" value="" message="Please enter a description" required="Yes" size="30" maxlength="50"
-		class="regularxl">
+		class="regularxxl">
 	</TD>
 	</TR>
 	

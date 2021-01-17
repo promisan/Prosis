@@ -26,15 +26,13 @@
 		password="#SESSION.dbpw#">
 		INSERT INTO Ref_EventTrigger
 		         (Code,
-				 Description,
-				 EntityCode,
+				 Description,				
 				 ListingOrder,
 				 OfficerUserId,
 				 OfficerLastName,
 				 OfficerFirstName)
 		  VALUES ('#Form.code#',
-		          '#Form.Description#',
-		          '#Form.Entity#', 
+		          '#Form.Description#',		          
 		          '#Form.ListingOrder#', 
 				  '#SESSION.acc#',
 		    	  '#SESSION.last#',		  

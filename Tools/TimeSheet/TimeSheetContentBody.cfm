@@ -52,18 +52,17 @@
 				<tr class="navigation_row clsTimesheetPersonRow" style="border-bottom:1px solid silver;height:18px">
 				
 					<td	height="100%" 
-						style="min-width:300px;width:100%;padding-right:3px" 
+						style="min-width:301px;width:100%;padding-right:4px" 
 						class="clsTimeSheetPerson clsTimeSheetPerson_#personno#"
 						onmouseover="$('.clsTimeSheetPerson_#personno#').css('background-color', '##8AFFBB');" 
-						onmouseout="$('.clsTimeSheetPerson_#personno#').css('background-color', '');">
-					
+						onmouseout="$('.clsTimeSheetPerson_#personno#').css('background-color', '');">					
 											 												
 					   <table width="100%" height="100%">								   
 					   	<cfoutput>		
 						<tr class="labelmedium" style="height:18px">
-						   <td width="1%" style="padding-top:1px"><cf_img icon="open" onclick="javascript:EditPerson('#PersonNo#','','leave')"></td>
+						   <td width="1%" style="padding-top:1px"><cf_img icon="select" onclick="javascript:EditPerson('#PersonNo#','','leave')"></td>
 						   <td style="min-width:50px;width:40px;" class="ccontent">#PostGrade#</td>
-			    			   <td style="min-width:205px;padding-left:3px">
+			    			   <td style="min-width:207px;padding-left:3px;padding-right:3px">
 			    			   		<table width="100%">
 			    			   			<tr>
 			    			   				<td class="ccontent">
@@ -115,10 +114,10 @@
 			    			   			</tr>
 							   </table>
 						   </td>									  						   
-	     						</tr>
+	     				</tr>
 						</cfoutput>			    					
 	  					</table>							   
-											  						   
+									  						   
 					</td>
 																													
 					<cfinclude template="TimeSheetDetail.cfm">							
@@ -128,8 +127,8 @@
 							<cfoutput>
 							<td id="#PersonNo#_recap" style="border-left:1px solid silver;">
 								<cfif getThisOrgUnit.WorkSchema eq 1>
-								<cfset url.personno = per>
-								<cfinclude template="TimeSheetPerson.cfm">	
+									<cfset url.personno = per>
+									<cfinclude template="TimeSheetPerson.cfm">	
 								</cfif>									
 							</td>	
 							</cfoutput>						

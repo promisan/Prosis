@@ -2,7 +2,7 @@
 <cfparam name="URL.ID2" default="SAT">
 
 <!--- Search form --->
-<table width="100%" cellspacing="0" cellpadding="0" style="padding-bottom:2px;padding:0px" class="formpadding">
+<table width="100%" style="padding-bottom:2px;padding:0px" class="formpadding">
 
 <tr><td>
 
@@ -24,6 +24,7 @@
 		                    FROM   WarehouseCategory
 							WHERE  Warehouse = '#url.warehouse#'
 							AND    Operational = 1)	
+		ORDER BY Description				
 						
 	</cfquery>
 	
@@ -77,7 +78,7 @@
 			<TD style="width:190px"><cf_tl id="Program">:</TD>
 	        <td align="left">
 			   			
-			    <select name="programcode" id="programcode" style="width:300px;" class="regularxl">
+			    <select name="programcode" id="programcode" style="width:300px;" class="regularxxl">
 					<option value=""><cf_tl id="Any"></option>
 					<cfoutput query="Program">
 					<option value="#ProgramCode#">#ProgramName#</option>
@@ -86,7 +87,7 @@
 		  	</td>	
 			<TD style="width:190px"><cf_tl id="Price schedule">:</TD>
 			<td>
-			 <select name="priceSchedule" id="priceSchedule" style="width:300px;" class="regularxl">
+			 <select name="priceSchedule" id="priceSchedule" style="width:300px;" class="regularxxl">
 					<option value=""><cf_tl id="Any"></option>
 					<cfoutput query="PriceSchedule">
 					<option value="#Code#">#Description#</option>
@@ -100,7 +101,7 @@
 	    <tr class="labelmedium">
 			<td width="15%"><cf_tl id="Category">:</td>
 			<td>	
-			    <select name="category" id="category" size="1" class="regularxl">	
+			    <select name="category" id="category" size="1" class="regularxxl">	
 					<option value=""><cf_tl id="Any"></option>			
 				    <cfoutput query="CategoryList">
 						<option value="#Category#">#Description#</option>
@@ -113,7 +114,7 @@
 			<table>
 			<tr class="labelmedium">
 			<td>
-			 <select name="InStock" id="InStock" size="1" class="regularxl">	
+			 <select name="InStock" id="InStock" size="1" class="regularxxl">	
 					<option value=""><cf_tl id="N/A"></option>	
 					<option value="1"><cf_tl id="Has stock"></option>				
 					<option value="0"><cf_tl id="Zero stock"></option>		
@@ -122,7 +123,7 @@
 			</td>
 			<td style="padding-left:30px;min-width:70px"><cf_tl id="Has a Price">:</td>
 			<td style="padding-left:20px">
-			    <select name="Hasprice" id="HasPrice" size="1" class="regularxl">						
+			    <select name="Hasprice" id="HasPrice" size="1" class="regularxxl">						
 					<option value="1" selected><cf_tl id="Yes"></option>				
 					<option value="0"><cf_tl id="No"></option>						   
 			    </select>				
@@ -137,7 +138,7 @@
 			</td>
 			<TD style="width:190px"><cf_tl id="Tax code">:</TD>
 			<td>
-			<select name="taxcode" id="taxcode" style="width:300px;" class="regularxl">
+			<select name="taxcode" id="taxcode" style="width:300px;" class="regularxxl">
 					<option value=""><cf_tl id="Any"></option>
 					<cfoutput query="Tax">
 					<option value="#TaxCode#">#Description#</option>
@@ -151,7 +152,7 @@
 			<td>	
 				 <cf_intelliCalendarDate9
 					FieldName="selectiondate" 
-					class="regularxl"					
+					class="regularxxl"					
 					Default="#dateformat(dateadd('m',-1,now()),CLIENT.DateFormatShow)#"
 					AllowBlank="False">	
 			</td>
@@ -161,7 +162,7 @@
 			
 				 <cf_intelliCalendarDate9
 					FieldName="receiptdate" 
-					class="regularxl"					
+					class="regularxxl"					
 					Default="#dateformat(dateadd('m',-6,now()),CLIENT.DateFormatShow)#"
 					AllowBlank="True">	
 					
@@ -170,8 +171,7 @@
 			
 				
 		<tr><td height="3"></td></tr>
-		
-		<tr class="line"><td height="1" colspan="6"></td></tr>
+				
 			
 	</TABLE>
 	
@@ -179,8 +179,8 @@
 	
 	<cfoutput>
 	
-		<tr>
-		<td style="padding-left:17px;padding-top:4px" align="center">
+		<tr class="line">
+		<td style="height:35px;padding-left:17px;padding-top:4px" align="center">
 			
 		<cf_tl id="Filter" var="1">
 					
@@ -189,7 +189,7 @@
 			   id     = "Submit"
 			   value  = "#lt_text#" 
 			   class  = "button10g" 
-			   style  = "width:160px;height:25px" 
+			   style  = "width:190px;height:27px" 
 			   onclick= "pricefiltermain('#URL.Mission#','#URL.Warehouse#','#url.systemfunctionid#')">
 	
 		</td>
@@ -202,8 +202,6 @@
 </cfform>
 
 </td></tr>
-
-<tr><td colspan="2" style="padding-top:4px" class="line"></td></tr>
 
 </table>
 

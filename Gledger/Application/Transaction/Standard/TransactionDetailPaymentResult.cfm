@@ -97,11 +97,10 @@ password="#SESSION.dbpw#">
 	<tr>
 	
 	<td colspan="3">
-	
-		
-		<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+			
+		<table width="100%" align="center" class="navigation_table">
 						
-		<tr class="line labelmedium">
+		<tr class="line labelmedium fixrow">
 		    <TD style="min-width:30px"></TD>
 		    <TD style="min-width:120px"><cf_tl id="Transaction"></TD>
 			<TD style="min-width:150px"><cf_tl id="InvoiceNo"></TD>
@@ -115,18 +114,35 @@ password="#SESSION.dbpw#">
 			
 		    <TD style="min-width:40px"><cf_tl id="Curr"></TD>
 			<td style="min-width:100px"><cf_tl id="Payment"></td>
-			<td style="min-width:100px" align="right"><cf_tl id="Pending"></td>
-			<td style="min-width:100px" align="right"><cf_tl id="Discounted"></td>
+			<td style="min-width:100px;padding-right:3px" align="right"><cf_tl id="Pending"></td>
+			<td style="min-width:100px;padding-right:3px" align="right"><cf_tl id="Discounted"></td>
 		</TR>
 		
 		<cfif searchresult.recordcount eq "0">
 		
 			<tr>
 			     <td height="40" class="labelmedium" style="padding-top:7px" align="center" colspan="9">
-			    <cf_tl id="There are no pending account payables in #journal.currency#"></font>
+			    <cf_tl id="There are no pending account payables in #journal.currency#">
 				 </td>
 			</tr>
-		
+			
+		<cfelse>
+		  
+			<tr class="line fixrow2">
+			<td height="34" colspan="10" align="center">		
+						
+				<table width="100%">
+				
+				  <tr style="background-color:e6e6e6">
+				   <td style="padding-left:10px"></td>
+				   <td align="right" id="total" style="padding-right:2px" class="labelmedium2"></td>					   
+				  </tr>
+				   
+			   </table>
+					   
+			</td>
+			</tr>	
+				
 		</cfif>		
 		
 		<cfif searchresult.recordcount gte "50">
@@ -188,7 +204,7 @@ password="#SESSION.dbpw#">
 			
 				<cfset color = "transparent">
 			
-				<tr class="line labelmedium" style="background-color:##FFA57980;height:23px">
+				<tr class="line labellarge navigation_row" style="background-color:##ffffcf;font-size:19px;height:32px">
 				
 				   <cfif currentrow eq "1">	
 				   
@@ -269,8 +285,7 @@ password="#SESSION.dbpw#">
 				   </cfif>		
 				   
 				   <cfif color neq "red">  
-				 		     
-											
+				 		     											
 						 <td style="padding-right:5px" align="right">#NumberFormat(Total.Amount,',.__')#</b></td>	
 						 <td align="right" style="padding-right:5px">#NumberFormat(Total.AmountDiscounted,',.__')#</b></td>					   
 				 
@@ -288,13 +303,13 @@ password="#SESSION.dbpw#">
 			  		     
 			<cfoutput>
 						   
-			   <tr class="labelmedium navigation_row #cl# clsGroup_#url.id1#_#vGroupId# line" style="height:21px;border-bottom: 1px solid silver">
+			   <tr class="labelmedium2 navigation_row #cl# clsGroup_#url.id1#_#vGroupId# line" style="height:21px;border-bottom: 1px solid silver">
 			   		
 					<cfset fld = left(TransactionId,8)>
 							
 				    <td align="right" style="padding-top:2px;padding-left:20px;padding-right:8px">										
 						<input type="checkbox" name="selected" id="selected" 
-						  class="rediol" value="#TransactionId#" 
+						  class="radiol" value="#TransactionId#" 
 						  onClick="hl(this,this.checked);settotal('PO');$('##off_#fld#').toggle();">
 													
 					</td>
@@ -309,11 +324,11 @@ password="#SESSION.dbpw#">
 					<TD>#Dateformat(TransactionDate, "#CLIENT.DateFormatShow#")#</TD>					
 				    <TD align="left">#Currency#</TD>
 					<td align="right" style="padding-right:1px">
-					
+										
 					<cfset AmtOut =  AmountOutstanding-(AmountOutstanding*ActionDiscount)>		
 						
-					<input type="text" class="regularh" id="off_#fld#" onchange="settotal('PO')"
-					    style="display:none;font-size:13px;background-color:ffffaf;height:20px;border:0px;border-left:1px solid silver;border-right:1px solid silver;text-align:right" 
+					<input type="text" class="regularxxl" id="off_#fld#" onchange="settotal('PO')"
+					    style="display:none;font-size:16px;background-color:D5E9FF;height:25px;border:0px;border-left:1px solid silver;border-right:1px solid silver;text-align:right" 
 						value="#NumberFormat(AmtOut,',.__')#" name="off_#fld#">
 					</td>	
 					
@@ -332,43 +347,7 @@ password="#SESSION.dbpw#">
 				   
 		</CFOUTPUT>
 		  
-		<cfif searchresult.recordcount gt "0">
-		  
-			<tr class="line"><td height="37" colspan="9" align="center">		
-						
-					<table width="100%">
-					
-						<tr><td style="padding-left:10px">
-						
-						<!---
-			   
-					   	<cfoutput>
-					   							   
-							<cf_tl id="Add Selected" var="1">
-							
-							<input class="button10g" 
-							       style="height:25;width:170" 
-								   type="button" 
-								   name="Submit" 
-								   value="#lt_text#" 
-								   onClick="addlines()">	
-								  
-								    
-					    </cfoutput>
-						
-						--->
-						
-					   </td>
-					   <td align="right" id="total" style="padding-right:10px" class="labelmedium"></td>
-					   
-					   </tr>
-					   
-				   </table>
-					   
-				   </td>
-			   </tr>	
-		   
-		 </cfif>  			
+		
 		
 		</TABLE>
 	

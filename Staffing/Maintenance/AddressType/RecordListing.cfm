@@ -1,7 +1,4 @@
 <!--- Create Criteria string for query from data entered thru search form --->
-
-<HTML><HEAD><TITLE>Address Type</TITLE></HEAD>
-
  
 <cfquery name="SearchResult"
 datasource="AppsEmployee" 
@@ -12,35 +9,37 @@ password="#SESSION.dbpw#">
 	ORDER BY ListingOrder
 </cfquery>
 
-<cf_divscroll>
-	
-	<cfset Page         = "0">
-	<cfset add          = "1">
-	<cfinclude template = "../HeaderMaintain.cfm"> 		
-	
-	<table width="100%" align="center" cellspacing="0" cellpadding="0">
+<cfset Page         = "0">
+<cfset add          = "1">
+<cf_screentop html="No" jquery="Yes">
+
+<table width="98%" align="center" height="100%">
+
+<tr style="height:10px"><td><cfinclude template = "../HeaderMaintain.cfm"></td></tr>
 	
 	<cfoutput>
 	
 	<script LANGUAGE = "JavaScript">
 	
 	function recordadd(grp) {
-	     window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 490, height= 450, toolbar=no, status=yes, scrollbars=no, resizable=no");
+	     ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 590, height= 450, toolbar=no, status=yes, scrollbars=no, resizable=no");
 	}
 	
 	function recordedit(id1) {
-	     window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width= 490, height= 450, toolbar=no, status=yes, scrollbars=no, resizable=no");
+	     ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width= 590, height= 450, toolbar=no, status=yes, scrollbars=no, resizable=no");
 	}
 	
 	</script>	
 	
 	</cfoutput>
-		
-	<tr><td colspan="2">
+
+<tr><td colspan="2">
 	
-	<table width="97%" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+	<cf_divscroll>
 	
-	<tr class="labelmedium line">
+	<table width="96%" align="center" class="navigation_table">
+	
+	<tr class="labelmedium2 line">
 	    <td></td>
 	    <td>Id</td>
 		<td>Description</td>
@@ -53,7 +52,7 @@ password="#SESSION.dbpw#">
 	
 	<cfoutput query="SearchResult">
 	 
-	    <tr class="labelmedium navigation_row"> 
+	    <tr class="labelmedium2 navigation_row line"> 
 		<td height="20" width="5%" align="center">
 		 <cf_img icon="open" navigation="Yes" onclick="recordedit('#AddressType#');">
 		</td>		
@@ -69,17 +68,12 @@ password="#SESSION.dbpw#">
 		<td>#OfficerFirstName# #OfficerLastName#</td>
 		<td>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
 	    </tr>
-		
-		<tr><td height="1" colspan="8" class="linedotted"></td></tr>	
-	
+			
 	</CFOUTPUT>
 	
 	</table>
 	
-	</td>
+	</cf_divscroll>
 	
-	</table>
-	
-</cf_divscroll>
-
-</BODY></HTML>
+</td></tr>	
+</table>

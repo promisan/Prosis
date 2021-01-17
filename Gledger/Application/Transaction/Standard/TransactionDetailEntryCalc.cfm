@@ -55,7 +55,7 @@
  <cfset show = "regular">
 	
  <cfif not LSIsNumeric(URL.entryamount) and url.entryamount neq "">
-  <tr><td colspan="4"  class="labelit"><font color="FF0000"><cf_tl id="Incorrect Amount Entered"> : <cfoutput>#URL.entryamount#</cfoutput></td></tr>
+  <tr><td colspan="4"  class="labelmedium2"><font color="FF0000"><cf_tl id="Incorrect Amount Entered"> : <cfoutput>#URL.entryamount#</cfoutput></td></tr>
   <input type="hidden" name="status" value="0">
   <cfset show = "hide">  
  <cfelse>
@@ -101,7 +101,7 @@
 	 
 <cfelse>
     
-	<tr class="labelit"><td colspan="4" style="padding-left:4px"><font size="1" color="FF0000"><cf_tl id="Problem">, <cf_tl id="amounts can not be calculated"></font></td></tr>
+	<tr class="labelmedium2"><td colspan="4" style="padding-left:4px"><font size="1" color="FF0000"><cf_tl id="Problem">, <cf_tl id="amounts can not be calculated"></font></td></tr>
 		<cfset jrnexc = 1>
 	    <cfset jrnamt = 0>
 	    <cfset bseexc = 1>
@@ -116,7 +116,7 @@
  </cfif> 
 
 	  
- <tr class="labelmedium">
+ <tr class="labelmedium2">
  <td>&nbsp;</td>
  <TD style="padding-left:5px;padding-right:5px"><cf_tl id="Exchange"> #Journ.Currency#:</TD>  
  <td align="right">		  
@@ -126,13 +126,13 @@
       value="#NumberFormat(jrnexc,'._____')#"
       size="12"
 	  #show#
-      class="regularxl"
+      class="regularxxl"
       style="text-align: right;background-color:ffffcf"
       onChange="javascript:amountcalc('1')">
  </td>
  </tr>
  
- <tr class="labelmedium">
+ <tr class="labelmedium2">
  <td></td> 
  <td style="padding-left:5px;padding-right:5px"><cf_tl id="Total"> #Journ.Currency#:</td>
  <td align="right">
@@ -143,7 +143,7 @@
 	   value="#NumberFormat(jrnamt,',.__')#"
 	   size="12"			  
 	   readonly    
-	   class="regularxl" 
+	   class="regularxxl" 
 	   style="text-align: right;background-color:E6E6E6"
 	   notab="">
 	   
@@ -165,7 +165,7 @@
 
 <tr class="#cl#">
 	 <td>&nbsp;</td>	
-	 <TD class="labelmedium">#APPLICATION.BaseCurrency# <cf_tl id="Exch. rate">:</TD>  
+	 <TD style="padding-left:5px;padding-right:5px" class="labelmedium2">#APPLICATION.BaseCurrency# <cf_tl id="Exch. rate">:</TD>  
 	 <td align="right">		  
 	     <input type="text"
 	       name="entryexcbase"
@@ -173,7 +173,7 @@
 	       value="#NumberFormat(bseexc,'._____')#"
 	       size="12"
 		   #ena#
-	       class="regularxl"
+	       class="regularxxl"
 	       style="text-align: right;background-color:ffffcf"
 	       onChange="javascript:amountcalc('1')">
 	 </td>
@@ -181,14 +181,14 @@
 	 
 <tr class="#cl#">	
 	 <td></td>
-	 <td  class="labelmedium"><cf_tl id="Base Amount">:</td>
+	 <td style="padding-left:5px;padding-right:5px" class="labelmedium2"><cf_tl id="Base Amount">:</td>
 	 <td align="right"><input type="text"
 	       name="entryamtbase"
 		   id="entryamtbase"
 	       value="#NumberFormat(bseamt,',.__')#"
 	       size="12"
 	       readonly	 
-		   class="regularxl"     
+		   class="regularxxl"     
 	       style="text-align: right;background-color:E6F6F6"
 	       notab="">
 	 </td> 	

@@ -406,12 +406,14 @@ the requisition orgunit, parent --->
 					 FROM     Materials.dbo.ItemVendorOffer
 					 WHERE    ItemNo        = '#WarehouseItemNo#' 
 					 AND      UoM           = '#WarehouseUoM#' 
-					 AND      OrgUnitVendor = '#Form.vendororgunit#' 					 	 
+					 AND      OrgUnitVendor = '#Form.vendororgunit#' 	
+					 <!---				 	 
 					 <cfif Warehouse neq "">
 					 AND      LocationId = (SELECT LocationId 
 					                        FROM   Materials.dbo.Warehouse 
 											WHERE  Warehouse = '#Warehouse#')
 					 </cfif>
+					 --->
 					 ORDER BY DateEffective DESC					 	
 				 </cfquery>
 				 

@@ -185,8 +185,7 @@
 				  
 				  	   <tr><td colspan="6" height="1" id="#MenuClass#" name="#MenuClass#" class="linedotted"></td></tr>				   
 			   
-			   <cfelseif owner neq "">	 
-			   		   
+			   <cfelseif owner neq "">			   		   
 			   
 				   <!--- no header in case of the system function --->
 				   

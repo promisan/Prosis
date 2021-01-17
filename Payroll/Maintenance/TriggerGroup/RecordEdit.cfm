@@ -49,7 +49,7 @@
 		    </TD>
 			</TR>
 		
-			<TR class="labelmedium">
+			<TR class="labelmedium2">
 		    <TD><cf_tl id="Description">:</TD>
 		    <TD>
 				<cfinput 	
@@ -60,14 +60,14 @@
 					required="yes" 
 					size="30" 
 			   		maxlength="50" 
-					class="regularxl">
+					class="regularxxl">
 		    </TD>
 			</TR>
 			
-			<TR class="labelmedium">
+			<TR class="labelmedium2">
 		    <TD><cf_tl id="Reviewer Action 1">:</TD>
 		    <TD>
-				<select name="ReviewerActionCodeOne" style="width:200px" class="regularxl">
+				<select name="ReviewerActionCodeOne" style="width:200px" class="regularxxl">
 					<option value="">N/A</option>
 					<cfloop query="EntityAction">
 						<option value="#ActionCode#" <cfif get.ReviewerActionCodeOne eq ActionCode>selected</cfif>>#ActionDescription#</option>
@@ -76,10 +76,10 @@
 		    </TD>
 			</TR>
 			
-			<TR class="labelmedium">
+			<TR class="labelmedium2">
 		    <TD><cf_tl id="Reviewer Action 2">:</TD>
 		    <TD>
-				<select name="ReviewerActionCodeTwo" style="width:200px"  class="regularxl">
+				<select name="ReviewerActionCodeTwo" style="width:200px"  class="regularxxl">
 					<option value="">N/A</option>
 					<cfloop query="EntityAction">
 						<option value="#ActionCode#" <cfif get.ReviewerActionCodeTwo eq ActionCode>selected</cfif>>#ActionDescription#</option>

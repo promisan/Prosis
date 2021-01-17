@@ -81,7 +81,7 @@ ORDER BY U.NodeIP, N.LastName, U.HostName
 	
 	<table width="100%" class="navigation_table">
 	
-	<tr class="labelmedium line fixrow">
+	<tr class="labelmedium2 line fixrow">
 		<td height="21">No.</td>
 		<td>IP</td>
 		<td>Browser</td>
@@ -104,9 +104,9 @@ ORDER BY U.NodeIP, N.LastName, U.HostName
 	
 	<cfset usr = usr + 1>
 		
-	<tr class="navigation_row line labelmedium clsFilterRow" style="height:14px">
+	<tr class="navigation_row line labelmedium2 clsFilterRow" style="height:14px">
 		
-		<td class="ccontent">#usr#</td>
+		<td class="ccontent" style="padding-left:3px">#usr#</td>
 		<td class="ccontent">#NodeIP#</td>
 		<td class="ccontent">
 		

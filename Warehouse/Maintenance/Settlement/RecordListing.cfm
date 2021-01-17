@@ -1,7 +1,4 @@
 <!--- Create Criteria string for query from data entered thru search form --->
-<cf_divscroll>
-
-<cf_screentop html="No" jquery="Yes">
 
 <cfquery name="SearchResult"
 datasource="appsMaterials" 
@@ -10,6 +7,8 @@ password="#SESSION.dbpw#">
     SELECT *
 	FROM Ref_Settlement
 </cfquery>
+
+<cf_screentop html="No" jquery="Yes">
 
 <cfset Page         = "0">
 <cfset add          = "1">
@@ -25,11 +24,11 @@ password="#SESSION.dbpw#">
 <script>
 
 	function recordadd(grp) {
-	    window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=650, height= 300, toolbar=no, status=yes, scrollbars=no, resizable=no");
+	    ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=650, height= 300, toolbar=no, status=yes, scrollbars=no, resizable=no");
 	}
 	
 	function recordedit(id1) {
-	    window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=650, height= 300, toolbar=no, status=yes, scrollbars=no, resizable=no");
+	    ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=650, height= 300, toolbar=no, status=yes, scrollbars=no, resizable=no");
 	}
 
 	function show(cde) {
@@ -70,7 +69,7 @@ password="#SESSION.dbpw#">
 
 	<table width="100%" align="center" class="navigation_table">
 	
-	<tr class="fixrow labelmedium line">
+	<tr class="fixrow labelmedium2 line">
 	    <TD align="left"></TD>
 	    <TD>Code</TD>
 		<TD>Description</TD>
@@ -83,7 +82,7 @@ password="#SESSION.dbpw#">
 		<cfoutput>
 		<cfloop query="SearchResult">
 					    
-		    <TR class="navigation_row line labelmedium"> 
+		    <TR class="navigation_row line labelmedium2"> 
 				<TD align="center">
 					<table cellspacing="0" cellpadding="0">
 						<tr>

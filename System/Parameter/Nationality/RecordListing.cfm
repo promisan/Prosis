@@ -1,6 +1,6 @@
 <!--- Create Criteria string for query from data entered thru search form --->
 
-<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
+<cf_screentop html="No" jquery="Yes">
 
 <cfquery name="SearchResult" 
 datasource="AppsSystem" 
@@ -13,39 +13,39 @@ password="#SESSION.dbpw#">
 
 <cfset Page = "0">
 <cfset Header = "Nations">
- 
+
+<table style="height:100%;width:96%" align="center">
+<tr><td>
+<cfinclude template="../HeaderParameter.cfm"> 
+</td></tr>
+
 <cfoutput> 
 
 <script>
 
 function reloadForm(page){
-	window.location="RecordListing.cfm?Page=" + page; 
+	ptoken.location="RecordListing.cfm?Page=" + page; 
 }
 
 function recordadd(grp){
-    window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=450, height=300, toolbar=no, status=yes, scrollbars=no, resizable=no");
+    ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=450, height=300, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 function recordedit(id1) {
-    window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=450, height=300, toolbar=no, status=yes, scrollbars=no, resizable=no");
+    ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=450, height=300, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 </script>	
 
 </cfoutput>
 
-<table style="height:100%;width:100%">
-<tr><td>
-<cfinclude template="../HeaderParameter.cfm"> 
-</td></tr>
-
 <tr><td style="height:100%">
 
 <cf_divscroll>
 	
-	<table width="96%" border="0" cellspacing="0" cellpadding="0" align="center">
+	<table width="96%" align="center">
 	
-	<tr class="line fixrow labelmedium">
+	<tr class="line fixrow labelmedium2">
 	    <TD align="center">Area</TD>
 	    <TD>Code</TD>
 		<TD>Name</TD>
@@ -61,7 +61,7 @@ function recordedit(id1) {
 	<cfoutput query="SearchResult" group="Continent">
 	
 	<cfif continent neq "">
-	<tr class="fixrow2"><td colspan="7" class="labelit line" style="font-size:23px;padding-left:4px;height:45">#Continent#</font></td></tr>
+	<tr class="fixrow2"><td colspan="7" class="labelmedium line" style="font-size:23px;padding-left:4px;height:45">#Continent#</font></td></tr>
 	</cfif>
 	
 	<cfset cnt  = "0">
@@ -70,17 +70,16 @@ function recordedit(id1) {
 	   
 	    <cfset cnt = cnt+1>
 	    <cfif cnt eq "1">
-		<TR bgcolor="white">
+		<TR class="labelmedium2 line">
 		</cfif>
 		
-	    <td align="center" style="height:16px;padding-top:2px">
-		  <cf_img icon="edit" onclick="recordedit('#Code#')">	 
+	    <td align="center" style="height:16px;padding-top:1px">
+		  <cf_img icon="open" onclick="recordedit('#Code#')">	 
 		</td>		
-		<TD style="padding-left:2px" class="labelit"><a href="javascript:recordedit('#Code#')">#Code#</a></TD>
-		<TD style="padding-left:2px" class="labelit">#name#</TD>	
+		<TD style="padding-left:2px">#Code#</TD>
+		<TD style="padding-left:2px">#name#</TD>	
 		<cfif cnt eq "3">
-	    </TR>
-		<tr><td height="1" colspan="9" class="line"></td></tr>
+	    </TR>		
 		<cfset cnt = 0>
 		</cfif>
 		

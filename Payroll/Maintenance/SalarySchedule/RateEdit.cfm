@@ -8,6 +8,8 @@
 <cfparam name="URL.Location"     default="R001">
 <cfparam name="URL.Operational"  default="1">
 <cfparam name="URL.Effective"    default="">  <!--- SQL format --->
+
+<cfajaximport tags="cfform">
      
 <cfoutput>
 
@@ -194,7 +196,7 @@ password="#SESSION.dbpw#">
 	
 	<tr><td colspan="2" valign="top" height="100%" style="width:100%;border-left:1px solid silver">
 	  
-		<cfform name="rateform" style="height:98%;width:100%" onsubmit="return false">
+		<cfform name="rateform" style="height:99%;width:100%" onsubmit="return false">
 			
 		<cfoutput>
 		
@@ -202,21 +204,21 @@ password="#SESSION.dbpw#">
 			
 			<cfset jvlink = "ProsisUI.createWindow('addscale', 'Add Scale', '',{x:100,y:100,height:325,width:400,resizable:false,modal:true,center:true});ptoken.navigate('#SESSION.root#/payroll/maintenance/SalarySchedule/RateAdd.cfm?scaleno=#scale.scaleno#','addscale')">		
 									
-			<tr class="labelmedium line" id="header" style="background-color:<cfif scale.operational eq '1'>ffffff<cfelse>FF8080</cfif>;height:35px">
+			<tr class="labelmedium2 line" id="header" style="background-color:<cfif scale.operational eq '1'>ffffff<cfelse>FF8080</cfif>">
 			  <td style="padding-left:10px;"><cf_tl id="Entity">:</td> 
-			  <td style="font-size:14px">#URL.Mission#</b></td>
+			  <td>#URL.Mission#</b></td>
 			  <td><cf_tl id="Schedule">:</td>
-			  <td style="font-size:14px">#Schedule.SalarySchedule# (#Scale.ScaleNo#)</b></td>			 
+			  <td>#Schedule.SalarySchedule# (#Scale.ScaleNo#)</b></td>			 
 			  <td><cf_tl id="Location">:</td>  
-			  <td style="font-size:14px">#URL.Location# [#Location.LocationCountry# - #Location.Description#]</b></td>
+			  <td>#URL.Location# [#Location.LocationCountry# - #Location.Description#]</b></td>
 			</tr>	
 				
-			<tr class="labelmedium line" style="background-color:ffffff;height:35px">
+			<tr class="labelmedium line" style="background-color:ffffff;">
 			 
 			    <td height="20" style="padding-left:10px" class="labelmedium"><cf_tl id="Currency">:</td>
 			    <td class="labelmedium">
 			  
-			  	<select name="Currency" class="regularxl">
+			  	<select name="Currency" class="regularxxl" style="border:0px;background-color:f1f1f1">
 				  <cfloop query="Currency">
 				  <option value="#Currency#"<cfif Currency eq Schedule.PaymentCurrency>selected</cfif>>#Currency#</option>
 				  </cfloop>
@@ -236,7 +238,8 @@ password="#SESSION.dbpw#">
 							<cf_intelliCalendarDate9
 								FieldName="SalaryEffective" 
 								Default="#Dateformat(Scale.SalaryEffective, CLIENT.DateFormatShow)#"
-								class="regularxl"
+								class="regularxxl"
+								style="border:0px;background-color:f1f1f1;text-align:center"
 								AllowBlank="False">
 						
 										
@@ -287,7 +290,8 @@ password="#SESSION.dbpw#">
 					<cf_intelliCalendarDate9
 						FieldName="SalaryFirstApplied" 
 						Default="#Dateformat(Scale.SalaryFirstApplied, CLIENT.DateFormatShow)#"
-						class="regularxl"
+						class="regularxxl"						
+						style="text-align:center;border:0px;background-color:f1f1f1"
 						AllowBlank="False">					
 					
 				</td>
@@ -307,7 +311,7 @@ password="#SESSION.dbpw#">
 				
 						<table width="100%" style="min-width:900px">
 															
-						<tr id="percent" name="percent" class="regular" style="padding-left:30px">
+						<tr id="percent" name="percent" class="regular" style="padding-left:10px">
 						     <td><cfinclude template="RateEditPercentage.cfm"></td>
 						</tr>	
 						
@@ -319,11 +323,11 @@ password="#SESSION.dbpw#">
 				
 					<cf_divscroll style="height:99%;width:100%;min-width:900px" overflowy="auto" overflowx="auto">	
 					
-					<table width="100%">				
-						<tr class="regular">
-					     <td style="padding-left:20px"><cfinclude template="RateEditRate.cfm"></td>
-					</tr>		
-					</table>
+						<table width="100%">				
+							<tr class="regular">
+						     <td style="padding-left:20px"><cfinclude template="RateEditRate.cfm"></td>
+						</tr>		
+						</table>
 					
 					</cf_divscroll>	
 															
@@ -343,15 +347,15 @@ password="#SESSION.dbpw#">
 					
 					<cf_divscroll style="width:100%" overflowy="auto" overflowx="auto">	
 														
-					<table style="height:100%;width:100%">	
-																					
-						<tr id="rate" name="rate" class="regular">
-							<td align="left" style="padding-left:20px;height:100%;">																									
-							<cfinclude template="RateEditComponent.cfm">																				
-							</td>
-						</tr>	
-																	
-					</table>	
+						<table style="height:100%;width:100%">	
+																						
+							<tr id="rate" name="rate" class="regular">
+								<td align="left" style="padding-left:10px;height:100%;">																									
+								<cfinclude template="RateEditComponent.cfm">																				
+								</td>
+							</tr>	
+																		
+						</table>	
 					
 					</cf_divscroll>					
 					
@@ -386,7 +390,7 @@ password="#SESSION.dbpw#">
 								
 				<td align="right" style="padding-left:4px">
 				
-					<a href="javascript:ColdFusion.navigate('SalarySchedulePrint.cfm?mission=#url.mission#&scaleno=#scale.scaleno#','cprint','','','POST','')">				
+					<a href="javascript:ptoken.navigate('SalarySchedulePrint.cfm?mission=#url.mission#&scaleno=#scale.scaleno#','cprint','','','POST','')">				
 						<img src="#SESSION.root#/images/print.png" height="25" width="25" align="absmiddle" alt="" border="0">
 					</a>
 					

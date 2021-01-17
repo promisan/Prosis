@@ -132,7 +132,7 @@
 							
 							<table border="0" style="cursor:pointer">
 					  		<tr>
-							<td align="center" style="padding-left:8px;height:55px">
+							<td align="center" style="padding-left:8px;height:45px">
 								<img src="#SESSION.root#/Images/Menu_brown.png" height="32" width="32">
 							</td>						
 							<td align="center" style="padding-left:8px;padding-right:10px;font-size:16px;border-right:1px solid ##cccccc;" class="labelmedium"><cf_uitooltip tooltip="#FunctionMemo#"><font color="000000">#FunctionName#</cf_uitooltip><td>

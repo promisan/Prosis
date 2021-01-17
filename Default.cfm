@@ -16,7 +16,7 @@
 <cfparam name="SESSION.last"              default="">
 <cfparam name="SESSION.first"             default="">
 
-<cf_setRelease version="8.60.00459" release="20201018">
+<cf_setRelease version="8.75.00523" release="20210117">
 
 <cfquery name="Get" 
 datasource="AppsSystem">

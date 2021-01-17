@@ -201,15 +201,16 @@ password="#SESSION.dbpw#">
 	
 	</cftry>
 	
-	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<table width="100%">
 	
-	<TR height="23">
-	    <TD style="padding-left:4px" class="labelit"><cf_tl id="Grade">/<cf_tl id="Functional title"></TD>
-		<TD class="labelit"><cf_tl id="Area"></TD>
+	<TR height="23" class="labelmedium2 fixrow line">
+	    <TD style="padding-left:4px"><cf_tl id="Grade">/<cf_tl id="Functional title"></TD>
+		<TD><cf_tl id="Area"></TD>
 		<cfloop query="steps">		
-			<TD class="labelit" align="center"><cfoutput><a style="cursor: pointer;" title="#Meaning#">#TextHeader#</a></cfoutput></td>			
+			<TD style="width:60px;border-left:1px solid silver;padding-right:3px" align="right">
+			<cfoutput><a style="cursor: pointer;" title="#Meaning#">#TextHeader#</a></cfoutput></td>			
 		</cfloop>
-	    <TD class="labelit" align="center"><cf_tl id="Select"></TD>
+	    <TD align="center"><cf_tl id="Select"></TD>
 	</TR>
 	
 	<cfset col = 3+steps.recordcount>
@@ -218,9 +219,8 @@ password="#SESSION.dbpw#">
 	
 		<script>
 		 document.getElementById("Prios").className = "hide"	 
-		</script>	
-		
-		<tr><td colspan="<cfoutput>#col#</cfoutput>" height="30" class="labelmedium" bgcolor="ffffff" align="center"><font color="FF8040"><cf_tl id="No buckets found"></td></tr>
+		</script>			
+		<tr><td colspan="<cfoutput>#col#</cfoutput>" height="30" class="labelmedium2" bgcolor="ffffff" align="center"><font color="FF8040"><cf_tl id="No buckets found"></td></tr>
 	<cfelse>
 	
 	<script>
@@ -235,7 +235,7 @@ password="#SESSION.dbpw#">
 	
 	<cfset g = "0">
 	
-	<tr><td height="25" style="padding-top:5px" colspan="#col#" class="labellarge linedotted">#GradeDescription# [#GradeDeployment#]</td></tr>
+	<tr class="labelmedium2 line"><td height="40" style="padding-top:5px;font-size:22px" colspan="#col#">#GradeDescription# [#GradeDeployment#]</td></tr>
 		
 	<cfoutput>
 		
@@ -264,11 +264,11 @@ password="#SESSION.dbpw#">
 			
 			</cfif>  		  
 				
-		<TR bgcolor="<cfif selected eq '1' or pre eq "1">ffffcf</cfif>">
-		    <TD class="labelmedium" style="padding-left:10px"><a href="javascript:gjp('#FunctionNo#','#GradeDeployment#')" title="Review description"><font color="0080C0">#FunctionDescription#</a></TD>
-		    <TD class="labelmedium">#OrganizationDescription#</TD>
+		<TR class="labelmedium2 line" bgcolor="<cfif selected eq '1' or pre eq "1">ffffcf</cfif>">
+		    <TD style="padding-left:10px"><a href="javascript:gjp('#FunctionNo#','#GradeDeployment#')" title="Review description">#FunctionDescription#</a></TD>
+		    <TD>#OrganizationDescription#</TD>
 			<cfloop index="status" list="#st#" delimiters=",">
-			<td class="labelmedium" align="right" style="padding-right:5px;width:36;border-left: 1px solid e4e4e4; border-right: 1px solid C8C8C8;">
+			<td align="right" style="padding-right:3px;border-left: 1px solid silver; border-right: 1px solid silver;">
 			<cfif Evaluate("Status" & Status) eq "">
 			0
 			<cfelse>
@@ -276,7 +276,7 @@ password="#SESSION.dbpw#">
 			</cfif>			
 			</td>
 			</cfloop>		
-			<td class="labelit" align="center">		
+			<td align="center">		
 							
 			<input type="checkbox" 
 			       name="bucket_#currentRow#"  class="radiol" value="1" 

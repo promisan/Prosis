@@ -49,20 +49,20 @@
 	
 	<CF_DropTable dbName="AppsQuery" tblName="#SESSION.acc#Crit">
 
-	<table width="100%" bgcolor="transparent"  border="0" cellspacing="0" cellpadding="0">
+	<table width="100%" bgcolor="transparent">
 	    
 	  <tr>
 	    <td width="100%" class="regular">
-	    <table width="98%" align="center" border="0" cellpadding="0" cellspacing="0" >
+	    <table width="100%" align="center">
 			
-	    <TR>
+	    <TR class="fixrow">
 		   <td height="20" width="20"></td>
-		   <td width="19%" class="labelit"><b>Variant Parameter</b></td>
-		   <td width="80%" class="labelit"><b>Selected Value</b></td>
+		   <td width="19%" class="labelmedium2">Variant Parameter</b></td>
+		   <td width="80%" class="labelmedium2">Selected Value</b></td>
 		   <td></td>
 	    </TR>	
 				
-		<tr><td colspan="6" class="linedotted"></td></tr>
+		<tr><td colspan="6" class="line"></td></tr>
 		
 		<tr><td height="2" colspan="6"></td></tr>	
 		
@@ -74,7 +74,7 @@
 		   
 		   <td width="20"></td>
 		   <td class="labelit" valign="top" style="padding-top:1px">#CriteriaDescription#</td>
-		   <td  class="labelit">
+		   <td class="labelit">
 		  		  		   
 		    <cfif CriteriaType eq "Date" and CriteriaDateRelative eq "1">
 		
@@ -246,7 +246,7 @@
 		</tr> 	
 		
 		<cfif currentrow neq recordcount>
-		<tr><td colspan="3" class="linedotted" height="1"></td></tr>
+		<tr><td colspan="3" class="line" height="1"></td></tr>
 		</cfif>
 		
 		</cfif>

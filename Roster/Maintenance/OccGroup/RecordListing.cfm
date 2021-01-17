@@ -15,23 +15,22 @@ password="#SESSION.dbpw#">
 	ORDER BY ListingOrder, OccupationalGroup
 </cfquery>
 
+<cf_screentop html="No" jquery="Yes">
 
-<table style="height:100%;width:100%">
+<table width="98%" height="100%">
 
-<tr><td><cfinclude template = "../HeaderRoster.cfm"> </td></tr>
-
-
+<tr style="height:10px"><td><cfinclude template = "../HeaderRoster.cfm"></td></tr>
 
 <cfoutput>
 
 <script LANGUAGE = "JavaScript">
 
 function recordadd(grp) {
-      window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=650, height=470, toolbar=no, status=yes, scrollbars=no, resizable=no");
+      ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=650, height=470, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 function recordedit(id1) {
-      window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=650, height=470, toolbar=no, status=yes, scrollbars=no, resizable=no");
+      ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=650, height=470, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 </script>	
@@ -44,7 +43,7 @@ function recordedit(id1) {
 
 <table width="97%" align="center" class="navigation_table formpadding">
 
-	<tr class="fixrow labelmedium line">
+	<tr class="fixrow labelmedium2 line">
 	    <td></td>
 	    <td>Code</td>
 		<td>Name</td>
@@ -59,14 +58,14 @@ function recordedit(id1) {
 <cfoutput query="SearchResult">
 
 	<cfif Status neq "1">
-	<tr style="background-color:##FBE0D9" class="navigation_row labelmedium line">
+	<tr style="background-color:##FBE0D9" class="navigation_row labelmedium2 line">
 	<cfelse>
-	<tr class="navigation_row labelmedium line">
+	<tr class="navigation_row labelmedium2 line">
 	</cfif> 
 	<td width="5%" align="center">
-		  <cf_img icon="open" navigation="Yes" onclick="recordedit('#OccupationalGroup#')">
+		  <cf_img icon="select" navigation="Yes" onclick="recordedit('#OccupationalGroup#')">
 	</td>		
-	<td><a href="javascript:recordedit('#OccupationalGroup#')">#OccupationalGroup#</a></td>
+	<td>#OccupationalGroup#</td>
 	<td>#Description#</td>
 	<td>#DescriptionFull#</td>
 	<td>#ListingOrder#</td>

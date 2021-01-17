@@ -3,13 +3,12 @@
 
 <cf_SubMenulogo module="Payroll" selection="Maintenance">
 
-<cfset heading = "Payroll reference">
+<cfset heading = "Payroll definition">
 <cfset module = "'Payroll'">
 <cfset selection = "'Maintain'">
 <cfset class = "'Main'">
 
 <cfinclude template="../../Tools/Submenu.cfm">
-
 
 <cfset heading = "Lookup reference">
 <cfset module = "'Payroll'">

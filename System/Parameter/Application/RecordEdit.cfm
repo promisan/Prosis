@@ -32,9 +32,9 @@
 				Type            		= "Input"
 				Required        		= "Yes"
 				Message         		= "Please, enter a valid description."
-				MaxLength       		= "50"
-				Size            		= "50"
-				Class           		= "regular"
+				MaxLength       		= "30"
+				Size            		= "30"
+				Class           		= "regularxl"
 				Operational     		= "1"
 				Label           		= "Yes">
 			
@@ -42,7 +42,7 @@
     </td>
 
 
-	<td>
+	<td style="padding-left:2px">
 		<cfquery name="GetHost" 
 				 datasource="AppsInit" 
 				 username="#SESSION.login#" 
@@ -54,6 +54,7 @@
 		</cfquery>
 
 		<cfselect name="HostName">
+		    <option value=""></option>
 			<cfoutput query="GetHost">
 				<option value="#HostName#" <cfif GetApplication.HostName eq GetHost.HostName>selected</cfif>>#HostName#
 			</cfoutput>
@@ -61,7 +62,7 @@
 		
 	</td>
 	
-    <td>
+    <td style="padding-left:2px">
 	
 		<cfquery name="GetOwner" 
 				 datasource="AppsOrganization" 
@@ -81,7 +82,7 @@
 
     </td>
 
-    <td>
+    <td style="padding-left:2px">
 	
 		<table >
 			<tr>
@@ -109,17 +110,21 @@
 	
 
     <td>
-       <input type="radio" name="Operational" value="1" <cfif Operational eq 1>checked</cfif>>Yes
-  	   <input type="radio" name="Operational" value="0" <cfif Operational eq 0>checked</cfif>>No
+	 <table><tr class="labelmedium">
+	   <td><input type="radio" name="Operational" value="1" <cfif Operational eq 1>checked</cfif>></td>
+	   <td>Yes</td>
+	   <td><input type="radio" name="Operational" value="0" <cfif Operational eq 0>checked</cfif>></td>
+	   <td>No</td>
+	   </tr></table>
     </td>
 	
-	<td colspan="2">
+	<td colspan="2" align="center">
 	
-		<input type="button" class="button10g" value="Save" onclick="save('edit')">
+		<input type="button" class="button10g" style="width:90px" value="Save" onclick="save('edit')">
 	
 	</td>
 	
 </tr>
 
 <tr> <td colspan="9" height="6"></td> </tr>
-<tr> <td colspan="9" height="1" class="linedotted"></td> </tr>
+<tr> <td colspan="9" height="1" class="line"></td> </tr>

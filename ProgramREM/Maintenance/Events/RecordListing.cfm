@@ -8,32 +8,41 @@ password="#SESSION.dbpw#">
 	ORDER BY ListingOrder
 </cfquery>
 
-	
 <cfset Header = "Project Events">
-<cfset page   = "0">
-<cfinclude template="../HeaderMaintain.cfm">  
+
+<cf_screentop html="No" jquery="Yes">
+
+<table width="98%" height="100%" align="center">
+
+<cfset Page         = "0">
+<cfset add          = "1">
+<cfset save         = "0"> 
+<tr style="height:10px"><td><cfinclude template = "../HeaderMaintain.cfm"></td></tr>
+
 
 <cfoutput>
 	
 	<script>
 	
 	function recordadd(grp) {
-	      window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=800, height=500, toolbar=no, status=no, scrollbars=no, resizable=yes");
+	      ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=800, height=500, toolbar=no, status=no, scrollbars=no, resizable=yes");
 	}
 	
 	function recordedit(id1) {
-	      window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=800,height=500, toolbar=no, status=no, scrollbars=no, resizable=yes");
+	      ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=800,height=500, toolbar=no, status=no, scrollbars=no, resizable=yes");
 	}
 	
 	</script>	
 	
 </cfoutput>	
 
-<cf_divscroll>
+<tr><td>
 
-<table width="95%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+	<cf_divscroll>
+	
+	<table width="95%" align="center" class="navigation_table">
 
-	<tr class="labelmedium line">
+	<tr class="labelmedium2 line">
 	    <td></td>
 	    <td>Code</td>
 		<td>Description</td>		
@@ -45,7 +54,7 @@ password="#SESSION.dbpw#">
 
 	<cfoutput query="SearchResult">    
 	
-		<tr class="navigation_row line labelmedium">
+		<tr class="navigation_row line labelmedium2">
 		    <td align="center" style="padding-top:3px"><cf_img icon="select" onclick="recordedit('#Code#')" navigation="yes"> </td>	
 			<td><a href="javascript:recordedit('#Code#')">#Code#</a></td>	
 			<td>#Description#</td>
@@ -79,6 +88,11 @@ password="#SESSION.dbpw#">
 		
 	</cfoutput>
 
+	</table>
+	
+	</cf_divscroll>
+
+</td>
+</tr>
 </table>
 
-</cf_divscroll>

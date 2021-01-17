@@ -408,10 +408,6 @@
     <cfset s = "Hide"> 
 	<cfset f = "">
 </cfif>		
-
-
-<table width="100%" height="100%" cellspacing="0" cellpadding="0" align="center">
-<tr><td style="padding:6px">
 										
 	<cf_listing
     	header        = "lsPurchase"
@@ -436,8 +432,6 @@
 		drillstring   = "mode=list"
 		drilltemplate = "Procurement/Application/Invoice/InvoiceEntry/InvoiceEntryMatchHeader.cfm"
 		drillkey      = "PurchaseNo">
-
-</td></tr></table>
 
 <script>
 	parent.Prosis.busy('no')

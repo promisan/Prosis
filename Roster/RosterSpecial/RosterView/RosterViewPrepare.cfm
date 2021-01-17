@@ -92,8 +92,7 @@ password="#SESSION.dbpw#">
 		</cfif>
 		AND     R.GradeDeployment = Fo.GradeDeployment  
 		
-		AND Fo.Status != '9'
-		
+		AND Fo.Status != '9'		
 				
 		<cfif URL.Edition eq "All">
 		

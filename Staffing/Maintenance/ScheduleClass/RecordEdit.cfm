@@ -32,39 +32,40 @@ function ask() {
 
 </script>
 
-
 <!--- edit form --->
 
-<table width="92%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="92%" align="center" class="formpadding formspacing">
 
-<cfform action="RecordSubmit.cfm" method="POST" enablecab="Yes" name="dialog">
+<cfform action="RecordSubmit.cfm" method="POST" name="dialog">
+
+	<tr><td style="height:6px"></td></tr>
 
     <cfoutput>
-    <TR>
-    <TD class="labelit" width="120">&nbsp;&nbsp;Code:</TD>
+    <TR class="labelmedium2">
+    <TD width="120">Code:</TD>
     <TD>
-  	   <input type="text" name="Code" value="#get.Code#" size="10" maxlength="10" class="regularxl">
+  	   <input type="text" name="Code" value="#get.Code#" size="10" maxlength="10" class="regularxxl">
 	   <input type="hidden" name="CodeOld" value="#get.Code#" size="10" maxlength="10" readonly>
     </TD>
 	</TR>
 	
-	<TR>
-    <TD class="labelit">&nbsp;&nbsp;Description:</TD>
+	<TR class="labelmedium2">
+    <TD>Description:</TD>
     <TD>
-  	   <cfinput type="Text" name="Description" value="#get.description#" message="Please enter a description" required="Yes" size="23" maxlength="50"class="regularxl">
+  	   <cfinput type="Text" name="Description" value="#get.description#" message="Please enter a description" required="Yes" size="23" maxlength="50" class="regularxxl">
     </TD>
 	</TR>
 
-	<TR>
-    <TD class="labelit">&nbsp;&nbsp;Order:</TD>
+	<TR class="labelmedium2">
+    <TD>Order:</TD>
     <TD>
-  	   <cfinput type="Text" name="ListingOrder" value="#get.ListingOrder#" message="Please enter a valid Listing Order" required="No" size="2" maxlength="2" range="0,999" class="regularxl">
+  	   <cfinput type="Text" style="text-align:center" name="ListingOrder" value="#get.ListingOrder#" message="Please enter a valid Listing Order" required="No" size="2" maxlength="2" range="0,999" class="regularxxl">
     </TD>
 	</TR>
 	
 	</cfoutput>
 	
-	<tr><td colspan="2" class="linedotted"></td></tr>
+	<tr><td colspan="2" class="line"></td></tr>
 	
 	<tr>
 		

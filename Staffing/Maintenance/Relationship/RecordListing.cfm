@@ -18,11 +18,11 @@ password="#SESSION.dbpw#">
 <script language = "JavaScript">
 
 	function recordadd(grp) {
-	       ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 390, height= 200, toolbar=no, status=yes, scrollbars=no, resizable=no");
+	       ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 490, height= 250, toolbar=no, status=yes, scrollbars=no, resizable=no");
 	}
 	
 	function recordedit(id1) {
-	       ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width= 390, height= 200, toolbar=no, status=yes, scrollbars=no, resizable=no");
+	       ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width= 490, height= 250, toolbar=no, status=yes, scrollbars=no, resizable=no");
 	}
 
 </script>	
@@ -44,7 +44,7 @@ password="#SESSION.dbpw#">
 <tbody>
 	<cfoutput query="SearchResult">
 	
-	    <tr class="navigation_row labelmedium line"> 
+	    <tr class="navigation_row labelmedium2 line"> 
 			<td width="5%" align="center" style="padding-top:1px;"> 
 			 <cf_img icon="open" navigation="Yes" onclick="recordedit('#Relationship#')">
 			</td>		

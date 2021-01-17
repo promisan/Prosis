@@ -64,20 +64,24 @@
 		function _doFilter(reset, date) {
 			    var vMethod = $('##distributionMethod').val();
 			    var vMode = $('##paymentmode').val();
+				_cf_loadingtexthtml='';	
 			    ptoken.navigate('#session.root#/payroll/application/paymentDistribution/EmployeeDistributionDetail.cfm?id=#url.id#&lines=#vLines#&bigAmount=#vBigAmount#&method='+vMethod+'&mode='+vMode+'&reset='+reset+'&DateEffective='+date, 'divDetail');
 		}
 
 		function reloadDist(mode, date) {
 			if (mode.toLowerCase() == 'view') {
+			    _cf_loadingtexthtml='';	
 				ptoken.navigate('#SESSION.root#/Payroll/Application/PaymentDistribution/EmployeeDistributionListing.cfm?ID=#URL.ID#&lines=#vLines#&bigAmount=#vBigAmount#&scope=#url.scope#&viewMode='+mode+'&DateEffective='+date, 'distributionDetail');
 			}
 			if (mode.toLowerCase() == 'edit') {
+			    _cf_loadingtexthtml='';	
 				ptoken.navigate('#SESSION.root#/Payroll/Application/PaymentDistribution/EmployeeDistributionEdit.cfm?ID=#URL.ID#&lines=#vLines#&bigAmount=#vBigAmount#&scope=#url.scope#&viewMode='+mode+'&DateEffective='+date, 'distributionDetail');
 			}
 		}
 
 		function removeDist(date) {
 			if (confirm('#lblRemoveDist#')) {
+				_cf_loadingtexthtml='';	
 				ptoken.navigate('#SESSION.root#/Payroll/Application/PaymentDistribution/EmployeeDistributionPurge.cfm?ID=#URL.ID#&DateEffective='+date, 'distprocess');
 			}
 		}

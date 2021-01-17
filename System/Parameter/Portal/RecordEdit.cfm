@@ -17,7 +17,7 @@ WHERE PortalId = '#URL.ID1#'
 
 <script>
  function file(mde) {
- ColdFusion.navigate('RecordFile.cfm?portalid=#url.id1#&mode='+mde,'location')
+	 ptoken.navigate('RecordFile.cfm?portalid=#url.id1#&mode='+mde,'location')
  }
  
 function ask() {
@@ -47,17 +47,17 @@ function ask() {
 
 <!--- Entry form --->
 
-<table width="94%" class="formpadding formspacing" cellspacing="0" cellpadding="0" align="center">
+<table width="94%" class="formpadding formspacing" align="center">
 
     <tr><td height="10"></td></tr>
 
 	<tr class="hide"><td colspan="2" height="200"><iframe name="result" id="result"></iframe></td></tr>
    	
 	<TR>
-    <TD width="200" class="labelmedium">Presentation:</TD>
+    <TD width="200" class="labelmedium2">Presentation:</TD>
     <TD>
 	
-		<select name="class" id="class" onchange="file(this.value)" class="regularxl">
+		<select name="class" id="class" onchange="file(this.value)" class="regularxxl">
 			<option value="Reference" <cfif Get.Class eq "Reference">selected</cfif>>Main Menu - Tab:Reference</option>
 			<option value="Announcement" <cfif Get.Class eq "Announcement">selected</cfif>>Main Menu - Tab:Announcement</option>
 			<option value="Self service" <cfif Get.Class eq "Self service">selected</cfif>>Main Menu - Tab:Self Service</option>
@@ -80,9 +80,9 @@ function ask() {
 		 WHERE   Operational IN ('1','2')
 		</cfquery> 		
 				
- 		<TD width="100" class="labelmedium">Language:</TD>
+ 		<TD width="100" class="labelmedium2">Language:</TD>
 	    <TD>
-		<select name="LanguageCode" id="LanguageCode" class="regularxl">
+		<select name="LanguageCode" id="LanguageCode" class="regularxxl">
 		  <option value="">Any</option>
 		  <cfoutput query="Language">
 		  <option value="#Code#" <cfif Get.LanguageCode eq Code>selected</cfif>>#LanguageName#</option>
@@ -92,7 +92,7 @@ function ask() {
 	</tr>	
 		
 	<TR>
-    <TD width="120" class="labelmedium">Description:</TD>
+    <TD width="120" class="labelmedium2">Description:</TD>
     <TD>
   	   <cfinput type="text" 
 	      name      = "Description" 
@@ -101,11 +101,11 @@ function ask() {
 		  required  = "Yes" 
 		  size      = "50" 
 		  maxlength = "60" 
-		  class     = "regularxl">
+		  class     = "regularxxl">
     </TD>
 	</TR>
 		
-	<tr> <TD class="labelmedium" width="120">Submission Date:</TD><td>
+	<tr> <TD class="labelmedium2" width="120">Submission Date:</TD><td>
 	
 	<cf_calendarscript>
 		
@@ -113,7 +113,7 @@ function ask() {
 		
 			<cf_intelliCalendarDate9
 			FieldName="ActivityDate" 
-			Class="regularxl"
+			Class="regularxxl"
 			Default="#dateformat(Get.ActivityDate,CLIENT.DateFormatShow)#"
 			AllowBlank="False">	
 		
@@ -121,7 +121,7 @@ function ask() {
 		
 		<cf_intelliCalendarDate9
 			FieldName="ActivityDate" 
-			Class="regularxl"
+			Class="regularxxl"
 			Default="#dateformat(now(),CLIENT.DateFormatShow)#"
 			AllowBlank="False">	
 			
@@ -130,7 +130,7 @@ function ask() {
 	</td></tr>
 		
 	<TR>
-    <TD class="labelmedium">Order:</TD>
+    <TD class="labelmedium2">Order:</TD>
     <TD>
   	   <cfinput type="Text" 
 	      name="ListingOrder" 
@@ -139,7 +139,7 @@ function ask() {
 		  required="Yes" 
 		  value="#get.ListingOrder#"
 		  size="2" 
-		  maxlength="2" class="regularxl">
+		  maxlength="2" class="regularxxl">
     </TD>
 	</TR>
 		
@@ -149,7 +149,7 @@ function ask() {
 	</tr>
 	
 	<TR>
-    <TD class="labelmedium"><cf_UIToolTip tooltip="Show only on the listed servers, comma delimited">Servers:</cf_UIToolTip></TD>
+    <TD class="labelmedium2"><cf_UIToolTip tooltip="Show only on the listed servers, comma delimited">Servers:</cf_UIToolTip></TD>
     <TD>
 	
   	   <cfinput type="Text" 
@@ -159,20 +159,20 @@ function ask() {
 		 value="#Get.HostNameList#"
 		 size="50"
 		 maxlength="80" 
-		 class="regularxl">
+		 class="regularxxl">
 		 
     </TD>
 	</TR>
 	
 	<TR>
-    <TD class="labelmedium">Target:</TD>
+    <TD class="labelmedium2">Target:</TD>
     <TD class="labelmedium">
     	<INPUT class="radiol" type="radio" name="LocationTarget" id="LocationTarget" value="_blank" <cfif Get.LocationTarget neq "_self">checked</cfif>> New window
 		<INPUT class="radiol" type="radio" name="LocationTarget" id="LocationTarget" value="_self" <cfif Get.LocationTarget eq "_self">checked</cfif>> In frame
      </TD>
 	</TR>
 			
-	<tr><td colspan="2" height="1" class="linedotted"></td></tr>
+	<tr><td colspan="2" height="1" class="line"></td></tr>
 	
 	<tr>		
 	<td align="center" colspan="2" height="30">

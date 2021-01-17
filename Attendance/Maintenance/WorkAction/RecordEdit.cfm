@@ -8,8 +8,7 @@
 <cf_screentop height="100%" 
               scroll="Yes" 
 			  layout="webapp" 
-			  label="Time Sheet Action" 
-			  option="#vOpt#" 
+			  label="Time Sheet Action" 			
 			  banner="yellow"
 			  menuAccess="Yes" 
 			  jquery="Yes"
@@ -30,12 +29,11 @@
 	<script language="JavaScript">
 	
 		function addMission(id1) {
-		   var vWidth = 600;
-		   var vHeight = 350;    
+		   var vWidth = 500;
+		   var vHeight = 250;    
 		   
-		   ColdFusion.Window.create('mydialog', 'Entities', '',{x:30,y:30,height:vHeight,width:vWidth,modal:true,center:true});    
-		   ColdFusion.Window.show('mydialog'); 				
-		   ColdFusion.navigate("WorkActionMissionListing.cfm?idmenu=#url.idmenu#&id1=" + id1 + "&ts=" + new Date().getTime(),'mydialog');
+		   ProsisUI.createWindow('mydialog', 'Entities', '',{x:30,y:30,height:vHeight,width:vWidth,modal:true,center:true});    		   				
+		   ptoken.navigate("WorkActionMissionListing.cfm?idmenu=#url.idmenu#&id1=" + id1 + "&ts=" + new Date().getTime(),'mydialog');
 		}
 		
 		function selectMission(idMission, mission, color) {
@@ -50,7 +48,7 @@
 				action = 0;
 			}
 			
-			ColdFusion.navigate('WorkActionMissionSubmit.cfm?idmenu=#url.idmenu#&id1=#url.id1#&mission='+mission+'&action='+action,'missionSubmit');
+			ptoken.navigate('WorkActionMissionSubmit.cfm?idmenu=#url.idmenu#&id1=#url.id1#&mission='+mission+'&action='+action,'missionSubmit');
 		}
 	
 	</script>
@@ -62,14 +60,14 @@
 
 <cfform action="RecordSubmit.cfm?idmenu=#url.idmenu#&id1=#url.id1#" method="POST" name="dialog">
 
-<table width="95%" cellspacing="0" cellpadding="0" class="formpadding formspacing" align="center">
+<table width="95%" class="formpadding formspacing" align="center">
 	
 	<tr><td height="10"></td></tr>
 	
     <cfoutput>
-    <TR>
-    <TD class="labelmedium" width="35%"><cf_tl id="Action">:</TD>
-    <TD class="labellarge">
+    <TR class="labelmedium2">
+    <TD width="35%"><cf_tl id="Action">:</TD>
+    <TD>
   	   <cfif url.id1 eq "">
 	   
 	   		<cfinput type="text" 
@@ -79,7 +77,7 @@
 			   required="yes" 
 			   size="10" 
 		       maxlength="10" 
-			   class="labelmedium">
+			   class="regularxxl">
 	   	
 	   <cfelse>
 	   
@@ -90,9 +88,9 @@
     </TD>
 	</TR>
 	
-	<TR>
-    <TD class="labelmedium"><cf_tl id="Parent Action">:</TD>
-    <TD class="labelmedium">
+	<TR class="labelmedium2">
+    <TD><cf_tl id="Parent Action">:</TD>
+    <TD>
   	   <cfquery name="GetParent" 
 			datasource="appsEmployee" 
 			username="#SESSION.login#" 
@@ -102,15 +100,20 @@
 				ORDER BY ListingOrder ASC
 		</cfquery>
 		
-		<cfselect name="ActionParent" class="regularxl" query="GetParent" display="Description" value="TimeClass" required="Yes" selected="#get.ActionParent#" message="Please select a parent action">
+		<cfselect name="ActionParent" 
+		     class="regularxxl" query="GetParent" 
+			 display="Description" value="TimeClass" 
+			 required="Yes" 
+			 selected="#get.ActionParent#" 
+			 message="Please select a parent action">
 		</cfselect>
 		
     </TD>
 	</TR>
 	
-	<TR>
-    <TD class="labelmedium"><cf_tl id="Description">:</TD>
-    <TD class="labelmedium">
+	<TR class="labelmedium2">
+    <TD><cf_tl id="Description">:</TD>
+    <TD>
   	   
 	    <cfinput type="text" 
 	       name="ActionDescription" 
@@ -119,13 +122,13 @@
 		   required="yes" 
 		   size="30" 
 	       maxlength="50" 
-		   class="regularxl">
+		   class="regularxxl">
     </TD>
 	</TR>
 	
-	<TR>
-    <TD class="labelmedium"><cf_tl id="Order">:</TD>
-    <TD class="labelmedium">
+	<TR class="labelmedium2">
+    <TD><cf_tl id="Order">:</TD>
+    <TD>
   	   
 	    <cfinput type="text" 
 	       name="ListingOrder" 
@@ -135,13 +138,13 @@
 		   required="yes" 
 		   size="1" 
 	       maxlength="3" 
-		   class="regularxl" style="text-align:center;">
+		   class="regularxxl" style="text-align:center;">
     </TD>
 	</TR>
 	
-	<TR>
-    <TD class="labelmedium"><cf_tl id="Color">:</TD>
-    <TD class="labelmedium">
+	<TR class="labelmedium2">
+    <TD><cf_tl id="Color">:</TD>
+    <TD>
   	   
 		<cf_color 	name="ViewColor" 
 					value="#get.ViewColor#"
@@ -149,9 +152,9 @@
     </TD>
 	</TR>
 	
-	<TR>
-    <TD class="labelmedium"><cf_tl id="Program Lookup">:</TD>
-    <TD class="labelmedium">
+	<TR class="labelmedium2">
+    <TD><cf_tl id="Program Lookup">:</TD>
+    <TD>
 	   <table><tr>
 	    <td><input type="radio" class="radiol" name="ProgramLookup" id="ProgramLookup" value="1" <cfif get.ProgramLookup eq "1">checked</cfif>></td>
 		<td class="labelmedium" style="padding-left:5px">Yes</td>
@@ -162,9 +165,9 @@
     </TD>
 	</TR>
 	
-	<TR>
-    <TD class="labelmedium"><cf_tl id="Operational">:</TD>
-    <TD class="labelmedium">
+	<TR class="labelmedium2">
+    <TD><cf_tl id="Operational">:</TD>
+    <TD>
 	  <table><tr>
 	    <td>
   	   	<input type="radio" class="radiol" name="Operational" id="Operational" value="1" <cfif get.Operational eq "1" or url.id1 eq "">checked</cfif>>
@@ -178,24 +181,22 @@
 	</TR>
 	
 	<cfif url.id1 neq "">
-		<TR>
-	    <TD class="labelmedium"><cf_tl id="Enabled Entities">:</TD>
-	    <TD class="labelmedium">
+		<TR class="labelmedium2">
+	    <TD><cf_tl id="Enabled Entities">:</TD>
+	    <TD>
 	  	   	<cfdiv id="divMission" bind="url:WorkActionMission.cfm?id1=#url.id1#">
 	    </TD>
 		</TR>
 	</cfif>
 		
 	</cfoutput>
-	
-	<tr><td height="6"></td></tr>	
+		
 	<tr><td colspan="2" class="line"></td></tr>	
-	<tr><td height="6"></td></tr>	
 			
 	<tr>
 		
 	<td align="center" colspan="2">	
-    	<input class="button10g" type="submit" name="Update" id="Update" value=" Save ">
+    	<input class="button10g" type="submit" name="Update" id="Update" value="Save">
 	</td>	
 	</tr>
 		

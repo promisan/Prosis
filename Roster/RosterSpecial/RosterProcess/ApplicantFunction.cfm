@@ -83,17 +83,20 @@ password="#SESSION.dbpw#">
 <cfset URL.IDTemplate = "reload">
 <!--- Entry form --->
 
-<table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="100%">
 
-<TR><td valign="top" colspan="7" height="20">
+<TR>
+<td valign="top" colspan="7" height="20">
 
-<table width="100%" border="0" cellpadding="0" cellspacing="0" class="formpadding">
+<table width="100%" class="formpadding">
 
   <!--- Field: Applicant.Applicantion --->
     
+	<tr class="labelmedium2">
+	
 	<cfoutput query = "Detail">
-	<td rowspan=4">
-		<A HREF ="javascript:ShowCandidate('#PersonNo#')"><img src="#SESSION.root#/Images/folder.JPG" alt="" name="Process" id="Process" border="0" align="middle"></b></A>
+	<td rowspan="4">
+		<A HREF ="javascript:ShowCandidate('#PersonNo#')"><img src="#SESSION.root#/Images/folder.JPG" alt="" name="Process" id="Process" border="0" align="middle"></A>
     </td>
 	</cfoutput>
 		
@@ -117,12 +120,12 @@ password="#SESSION.dbpw#">
 	</TR>	
 	
     <!--- Field: Applicant.LastName --->
-    <TR>
+    <TR class="labelmedium2">
     <TD>Name:</TD>
     <TD>
 	<cfoutput query = "Detail">#FirstName# #LastName#</cfoutput>
 	</TD>
-	<TR>
+	<TR class="labelmedium2">
 	<td height="13">DOB:</td>
 	<TD>
 	<cfoutput query = "Detail">#Dateformat(DOB, CLIENT.DateFormatShow)#</cfoutput>
@@ -134,28 +137,26 @@ password="#SESSION.dbpw#">
 	</TR>
 	
     <!--- Field: Applicant.Nationality --->
-    <TR>
-    <td height="13" class="regular">Nationality</td>
-    <TD class="regular">
+    <TR class="labelmedium2">
+    <td height="13">Nationality</td>
+    <TD>
  	<cfoutput query = "Detail">#Nationality#</cfoutput>
 			
     <!--- Field: Applicant.EmailAddress --->
    
-    <td height="13" class="regular">E-mail Address:</td>
-    <TD class="regular">
-	
-		<cfoutput query = "Detail">#eMailAddress#</cfoutput>
-		
+    <td height="13">E-mail Address:</td>
+    <TD>	
+		<cfoutput query = "Detail">#eMailAddress#</cfoutput>		
 	</TD>
 	</TR>
 	
 	<cfoutput query = "Clearance">
-	<TR>
+	<TR class="labelmedium2">
 	<td></td>
-	<td class="labelit">#Description# :</td>
+	<td>#Description# :</td>
 	<td></td>
-	<td class="labelit">Processed by:</td>
-	<td class="labelit">#OfficerFirstName# #OfficerLastName# &nbsp;on: #DateFormat(Created, CLIENT.DateFormatShow)#</td>	
+	<td>Processed by:</td>
+	<td>#OfficerFirstName# #OfficerLastName# &nbsp;on: #DateFormat(Created, CLIENT.DateFormatShow)#</td>	
 	</TR>
     </cfoutput>
 	
@@ -163,18 +164,17 @@ password="#SESSION.dbpw#">
 </tr>
 
 <tr><td height="4"></td></tr>
-	
-<tr><td colspan="7" class="linedotted"></td></tr>
-<TR height="20">
-    <TD class="labelit">Area</TD>
-    <TD class="labelit">Function</TD>
-	<TD class="labelit">Owner</TD>
-    <TD class="labelit">Deployment Level</TD>
-	<TD class="labelit">Vacancy</TD>
-	<TD class="labelit">Status</TD>	
+
+
+<TR height="20" class="labelmedium2 line">
+    <TD>Area</TD>
+    <TD>Function</TD>
+	<TD>Owner</TD>
+    <TD>Deployment Level</TD>
+	<TD>Vacancy</TD>
+	<TD>Status</TD>	
 	<TD></TD>
 </TR>
-<tr><td colspan="7" height="1" class="linedotted"></td></tr>
 <cfoutput query="FunctionAll" group="HierarchyOrder">
 
 <CFOUTPUT>
@@ -210,7 +210,6 @@ password="#SESSION.dbpw#">
 <CFIF FunctionJustification neq "">
 	<TR><td></td><td colspan="4">#ParagraphFormat(FunctionJustification)#</td></TR>
 </CFIF>
-
 
 </CFOUTPUT>
 </CFOUTPUT>

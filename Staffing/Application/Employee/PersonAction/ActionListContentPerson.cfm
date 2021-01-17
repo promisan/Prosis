@@ -11,10 +11,9 @@
 <cfset itm = itm+1>								
 <cfset fields[itm] = {label      = "Personnel Action", 					
 					field      = "PersonnelAction",											
-					filtermode = "2",
+					filtermode = "3",
 					search     = "text"}>	
-					
-						
+							
 
 <cfset itm = itm+1>						
 <cfset fields[itm] = {label      = "Reason", 					
@@ -32,6 +31,7 @@
 <cfset itm = itm+1>					
 <cfset fields[itm] = {label      = "Entity",                   
 					field      = "Mission", 	
+					filtermode = "2",
 					width      = "26",						
 					search     = "text"}>					
 
@@ -48,7 +48,7 @@
 <cfset itm = itm+1>					
 <cfset fields[itm] = {label      = "Officer", 					
 					field      = "OfficerLastName",										
-					filtermode = "2",
+					filtermode = "3",
 					search     = "text"}>													
 
 <cfset itm = itm+1>					
@@ -65,7 +65,8 @@
 
 <cfset itm = itm+1>					
 <cfset fields[itm] = {label      = "Processed",    					
-					field      = "LastProcessed",					
+					field      = "LastProcessed",	
+					column     = "month",				
 					formatted  = "dateformat(Lastprocessed,CLIENT.DateFormatShow) ",
 					search     = "date"}>		
 					
@@ -85,7 +86,7 @@
 <cfset itm = itm+1>											
 <cfset fields[itm] = {label      = "Source", 					
 					field      = "ActionSource",														
-					filtermode = "2",
+					filtermode = "3",
 					search     = "text"}>								
 		
 <!--- embed|window|dialogajax|dialog|standard --->

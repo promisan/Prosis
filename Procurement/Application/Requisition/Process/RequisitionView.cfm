@@ -97,28 +97,28 @@ password="#SESSION.dbpw#">
 
 <tr><td height="6"></td></tr>
 
-<tr class="labelit">
+<tr class="labelmedium2">
    <td width="8%"><cf_tl id="Reference">:</b></td>
    <td>#Requisition.Reference#</td>
 </tr>
 
-<tr class="labelit">
+<tr class="labelmedium2">
    <td width="8%"><cf_tl id="Period">:</b></td>
    <td>#Requisition.Period#</td>
 </tr>
 
-<tr class="labelit">
+<tr class="labelmedium2">
    <td><cf_tl id="Issued">:</b></td>
    <td>#Requisition.OfficerFirstName# #Requisition.OfficerLastName#</td>
 </tr>
 
-<tr class="labelit">
+<tr class="labelmedium2">
    <td><cf_tl id="Submitted">:</b></td>
    <td>#dateformat(Requisition.Created,CLIENT.DateFormatShow)#</td>
 </tr>
 
 <cfform action="RequisitionView.cfm?action=save&Mission=#url.mission#&RequisitionRef=#URL.RequisitionRef#" method="POST">
-<tr class="labelit">
+<tr class="labelmedium2">
    <td valign="top" style="padding-top:4px"><cf_tl id="Justification">:</b></td>
    <td width="90%">
          <textarea style="width:100%;height:90;font-size:13px;padding:4px" name="RequisitionPurpose" class="regular">#Header.RequisitionPurpose#</textarea>

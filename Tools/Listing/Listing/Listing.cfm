@@ -2,7 +2,7 @@
 <!--- 
 
 	values for fields	
-
+	
 	display           : yes:no
 	label             : header label
 	navigation        : modality of paging or auto scroll : paging/auto
@@ -29,12 +29,11 @@
 	<cfset url.systemfunctionid = "">
 </cfif>
 
-<cfparam name="attributes.showlist"           default="Yes">
-<cfparam name="attributes.banner"             default="">
-<cfparam name="attributes.listingshow"        default="Yes">
-<cfparam name="attributes.headershow"         default="Yes">
-<cfparam name="attributes.filtershow"         default="No">
-<cfparam name="attributes.navigation"         default="auto"> <!--- auto | paging --->
+<cfparam name="attributes.showlist"           default="Yes">   <!--- option to hide the listing, not recommended --->
+<cfparam name="attributes.banner"             default="">      <!--- show text in the top of the listing --->
+<cfparam name="attributes.filtershow"         default="No">    <!--- allow to filter the dataset --->
+<cfparam name="attributes.headershow"         default="Yes">   <!---  show the listing header and options to sort etc. should be yes --->
+<cfparam name="attributes.navigation"         default="auto">  <!--- auto | paging if we have 2/3 rows or we have annotation it is reset -> paging --->
 <cfparam name="attributes.excelshow"          default="No">
 <cfparam name="attributes.printshow"          default="Yes">
 <cfparam name="attributes.printshowrows"      default="500">
@@ -91,13 +90,12 @@
 <cfparam name="attributes.listgrouptotal"     default="0">
 
 <!--- 21/12/2020 : future 2nd dimension --->
-<cfparam name="attributes.listgroup2alias"     default="">
-<cfparam name="attributes.listgroup2"          default="">
-<cfparam name="attributes.listgroup2format"    default="">
-<cfparam name="attributes.listgroup2field"     default="#attributes.listgroup#">
-<cfparam name="attributes.listgroup2sort"      default="#attributes.listgroup#">
-<cfparam name="attributes.listgroup2dir"       default="ASC">
-
+<cfparam name="attributes.listgroup2alias"    default="">
+<cfparam name="attributes.listgroup2"         default="">
+<cfparam name="attributes.listgroup2format"   default="">
+<cfparam name="attributes.listgroup2field"    default="#attributes.listgroup#">
+<cfparam name="attributes.listgroup2sort"     default="#attributes.listgroup#">
+<cfparam name="attributes.listgroup2dir"      default="ASC">
 
 <cfparam name="attributes.listlayout"         default="">   <!--- these are the fields --->
 <cfparam name="attributes.headercolor"        default="white">
@@ -120,15 +118,20 @@
 <cfparam name="attributes.drillkey"           default="">
 
 <!--- delete mode --->
-<cfparam name="attributes.deletetable"      default="">
+<cfparam name="attributes.deletetable"        default="">
 
-<cfparam name="attributes.refresh"          default="0">
+<!--- optioon to control the default mode of taking fresh data--->
+<cfparam name="attributes.refresh"            default="1">
 
-<!--- Added by Armin on 13th July 2011 --->
-
-<cfparam name="attributes.allowgrouping"    default="Yes">
+<!--- ----------------------------- --->
+<!--- convert into simple variables --->
+<!--- ----------------------------- --->
 
 <cfparam name="box"                         default="#attributes.box#">
+
+<cfif box eq "">
+	<cfset box = attributes.box>
+</cfif>
 
 <cfparam name="drillbox"                    default="#attributes.drillbox#">
 <cfparam name="drillrow"                    default="#attributes.drillrow#">
@@ -157,22 +160,39 @@
    <cfset setting[row] = itm>	
 </cfloop>
 
+<!--- those variables come from the interface when selecting sorting and tree on the fly and
+we keep them in form field for easy pickup and are in listingshow.cfm --->
+
 <cfparam name="url.link"                   default="#attributes.link#">
 <cfparam name="url.linkform"               default="#attributes.linkform#">
+
 <cfparam name="URL.content"                default="0">
-<cfparam name="url.filter"                 default="all">
+<cfparam name="URL.filter"                 default="all">
 <cfparam name="URL.page"                   default="1">
 <cfparam name="URL.selfld"                 default="">
 <cfparam name="URL.treefield"              default="">
 
-<!--- default sorting --->
+<!--- default sorting | filter form  => url --->
+
+<cfparam name="form.listorder"             default="#attributes.listorder#">
+<cfparam name="Form.listorderfield"        default="#attributes.listorderfield#">
+<cfparam name="form.listorderalias"        default="#attributes.listorderalias#">
+<cfparam name="form.listorderdir"          default="#attributes.listorderdir#">
+	
+<cfparam name="URL.listorder"              default="#form.listorder#">
+<cfparam name="URL.listorderfield"         default="#form.listorderfield#">
+<cfparam name="URL.listorderalias"         default="#form.listorderalias#">
+<cfparam name="URL.listorderdir"           default="#form.listorderdir#">
+
+<cfif attributes.annotation neq "">
+	<cfset attributes.navigation = "paging">
+</cfif>
+
+
+<!--- we time the openen moment --->
+<cfset listingtimestart = now()>
 
 <cfset listclass = "embedded">
-	
-<cfparam name="URL.listorder"              default="#attributes.listorder#">
-<cfparam name="URL.listorderfield"         default="#attributes.listorderfield#">
-<cfparam name="URL.listorderalias"         default="#attributes.listorderalias#">
-<cfparam name="URL.listorderdir"           default="#attributes.listorderdir#">
 
 <cfif url.systemfunctionid neq "">
 
@@ -182,7 +202,7 @@
 	datasource="AppsSystem" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-		SELECT *
+		SELECT * 
 		FROM   UserModule
 		WHERE  Account          = '#SESSION.acc#'
 		AND    SystemFunctionId = '#url.SystemFunctionId#'			
@@ -232,10 +252,10 @@
     
 	<!--- we then we GET the selection of the user for the sorting into the table 
 	    and we overwrite the standard settings as passed from the calling listing 
-		script ---> 		
+		script ---> 	
 		
-    <cf_ListingUserGet systemfunctionid="#url.systemfunctionid#" listlayout="#attributes.listlayout#" modefield="Sroup">	
-		
+    <cf_ListingUserGet systemfunctionid="#url.systemfunctionid#" listlayout="#attributes.listlayout#" modefield="Sorting">	
+				
 </cfif>	
 
 <!--- default group --->
@@ -244,12 +264,17 @@
 
 <cfif url.listgroup eq "">
 
-    <cfset URL.listgroup         = attributes.listgroup>
-	<cfset URL.listgroupfield    = attributes.listgroupfield>
-	<cfset URL.listgroupsort     = attributes.listgroupsort>
-	<cfset URL.listgroupalias    = attributes.listgroupalias>
-	<cfset URL.listgroupdir      = attributes.listgroupdir>
-	<cfset URL.listgrouptotal    = attributes.listgrouptotal>	
+    <cfset URL.listgroup              = attributes.listgroup>
+	<cfset URL.listgroupfield         = attributes.listgroupfield>
+	<cfset URL.listgroupsort          = attributes.listgroupsort>
+	<cfset URL.listgroupalias         = attributes.listgroupalias>
+	<cfset URL.listgroupdir           = attributes.listgroupdir>
+	<cfset URL.listgrouptotal         = attributes.listgrouptotal>	
+	<cfset url.listcolumn1            = "">
+	<cfset url.listcolumn1_type       = "period">
+	<cfset url.listcolumn1_typemode   = "">
+	<cfset url.datacell1              = "">
+	<cfset url.datacell1formula       = "">
 
 <cfelse>
 	
@@ -258,88 +283,203 @@
 	<cfparam name="URL.listgroupsort"          default="#attributes.listgroupsort#">
 	<cfparam name="URL.listgroupalias"         default="#attributes.listgroupalias#">
 	<cfparam name="URL.listgroupdir"           default="#attributes.listgroupdir#">
+	<cfset url.listcolumn1            = "">
+	<cfset url.listcolumn1_type       = "period">
+	<cfset url.listcolumn1_typemode   = "">
+	<cfset url.datacell1              = "">
+	<cfset url.datacell1formula       = "">
 	
 </cfif>	
 
+<!--- -------------------------------------------------------------------------------- ---> 
+<!--- we check if we have something in memory that we can use for this box  and person --->
+<!--- -------------------------------------------------------------------------------- ---> 
+
+<cfparam name="form.useCache" default="">  <!--- requested --->
+
+<cftry>
+	<cfset session.listingdata[box]['timestamp']        = now()>	
+<cfcatch></cfcatch>	
+</cftry>
+
+<cfif datediff("d",now(),session.listingdata[box]['timestamp']) gte 1> 
+	<!--- listing has expired 24 hours so we refresh per definition --->  	
+	<cfset attributes.refresh = "1">				
+<cfelseif attributes.refresh eq "1" and form.useCache eq "">
+	<!--- this is the default value upon opening --->
+<cfelse>
+    <!--- interface enforces the refresh --->
+	<cfif form.useCache eq "0">
+		<cfset attributes.refresh = "1">			
+	<cfelse>
+		<cfset attributes.refresh = "0">			
+	</cfif>
+</cfif>	
 
 <cfif url.systemfunctionid neq "">
-	
-	<cfparam name="form.groupfield"  default="">
-	<cfparam name="form.grouptotal"  default="0">
 
+	<!--- inspect declaration fields --->
+	
+	<!--- relevant field --->
+		
+	<cfset declaredfields = "''">
+	
+	<cfloop array="#attributes.listlayout#" index="fields">	
+		
+		<cfparam name="fields.searchfield"  default="#fields.field#">	
+	    <cfparam name="fields.fieldsort"    default="#fields.field#">	
+	    <cfparam name="fields.alias"        default="">		
+		<cfparam name="fields.searchalias"  default="#fields.alias#">	
+							
+		<cfif not findNoCase(fields.field,declaredfields)>			
+			 <cfset declaredfields = "#declaredfields#,'#fields.field#'">			
+		</cfif>
+		
+		<cfif not findNoCase(fields.fieldsort,declaredfields)>
+			 <cfset declaredfields = "#declaredfields#,'#fields.fieldsort#'">
+		</cfif>
+		
+		<cfif not findNoCase(fields.searchfield,declaredfields)>
+			 <cfset declaredfields = "#declaredfields#,'#fields.searchfield#'">
+		</cfif>						
+									
+	</cfloop>
+	
+	<cfquery name="clean" 
+	   datasource="AppsSystem" 
+	   username="#SESSION.login#" 
+	   password="#SESSION.dbpw#">
+			DELETE FROM UserModuleCondition
+			WHERE       SystemFunctionId = '#url.systemfunctionid#' 
+			AND         ConditionField IN ('listorderfield', 'listorder', 'listgroupsort', 'listgroupfield', 'listgroup','listcolumn1') 
+			AND         ConditionValue NOT IN (#preserveSingleQuotes(declaredfields)#) 
+	</cfquery>
+
+	<cfparam name="form.groupfield"           default="">					
+	<cfparam name="form.grouptotal"           default="0">  <!--- explore / pivot --->	
+	<cfparam name="form.colfield1"            default="">
+	
+	<!--- obtain from the passed setting the type of the column --->
+			
+	<cfparam name="form.listcolumn1_type"     default = "period">
+	<cfparam name="form.listcolumn1_typemode" default = "">
+	
+	<cfparam name="form.datacell1"            default = "">
+	<cfparam name="form.datacell1formula"     default = "SUM">	
+	
 	<!--- we capture the selection of the user for the grouping into the table ---> 
-	
+		
 	<cfif form.groupfield eq "None">  
-	
+		
 		<cfquery name="check" 
 			datasource="AppsSystem" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
 				DELETE FROM UserModuleCondition
-				WHERE Account = '#SESSION.acc#'
-				AND   SystemFunctionId = '#url.systemfunctionid#'	
-				AND   ConditionClass   = 'Group'								
+				WHERE  Account = '#SESSION.acc#'
+				AND    SystemFunctionId = '#url.systemfunctionid#'	
+				AND    ConditionClass   = 'Group'								
 		</cfquery>		
 				
-		<cfset url.listgroup        = "">
-		<cfset url.listgroupfield   = "">
-		<cfset url.listgroupsort    = "">
-		<cfset url.listgroupalias   = "">
-		<cfset url.listgroupdir     = "">
-		<cfset url.listgrouptotal   = "">
+		<cfset url.listgroup             = "">
+		<cfset url.listgroupfield        = "">
+		<cfset url.listgroupsort         = "">
+		<cfset url.listgroupalias        = "">
+		<cfset url.listgroupdir          = "">
+		<!--- enable pivit / explore --->
+		<cfset url.listgrouptotal        = "">
+		
+		<cfset url.listcolumn1           = "">	
+		<cfset url.listcolumn1_type      = "">	
+		<cfset url.listcolumn1_typemode  = "">  
+		
+		<cfset url.datacell1             = "">
+		<cfset url.datacell1formula      = "">
 							
 	<cfelseif form.groupfield neq "">
-		
-		<cfset url.listgroup      = "#form.groupfield#">
-		<cfset url.listgroupfield = "#form.groupfield#">	
-		<cfset url.listgroupsort  = "#form.groupfield#">	
-		<cfset url.listgroupalias = "">		
-		<cfset url.listgrouptotal = "#form.grouptotal#">		
-	
-			<cfloop array="#attributes.listlayout#" index="fields">	
-			
-				<cfif fields.field eq form.groupfield>
 				
-				   <cfif fields.search eq "">	
-				   			     
-					  <cfparam name="fields.alias"  default="">						  
-					  <cfset url.listgroupalias = fields.alias>						  
-					  <cfparam name="fields.searchalias"  default="#fields.alias#">			
-					   
-				   <cfelse>
-				   				   
-				       <cfparam name="fields.searchfield"  default="#fields.field#">	
-					   <cfparam name="fields.fieldsort"    default="#fields.field#">	
-					   <cfparam name="fields.alias"        default="">		
-					   <cfparam name="fields.searchalias"  default="#fields.alias#">	
-					   <!--- provision to work correctly for the sorting and grouping and show the evaluated field--->
-					   <cfset url.listgroup         = fields.searchfield>  <!--- apply grouping --->
-					   <cfset url.listgroupalias    = fields.searchalias>  <!--- apply grouping --->	
-					   <cfset url.listgroupfield    = fields.field>        <!--- outputting --- --->
-					   <cfset url.listgroupsort     = fields.fieldsort>    <!--- order in outputting based on the setting --- --->
-					 
-					   					  		   
-					</cfif> 
-					  
-				</cfif>
-			</cfloop>	
-			
-		<cfparam name="form.GroupDir" default="ASC">	
+		<cfset url.listgroup             = "#form.groupfield#">
+		<cfset url.listgroupfield        = "#form.groupfield#">	
+		<cfset url.listgroupsort         = "#form.groupfield#">	
+		<cfset url.listgroupalias        = "">		
 		
-		<cfset url.listgroupdir   = "#form.groupdir#">
+		
+			
+		<cfloop array="#attributes.listlayout#" index="fields">	
+		
+			<cfparam name="fields.searchfield"  default="#fields.field#">	
+		    <cfparam name="fields.fieldsort"    default="#fields.field#">	
+		    <cfparam name="fields.alias"        default="">		
+			<cfparam name="fields.searchalias"  default="#fields.alias#">	
+		
+			<cfif fields.field eq form.groupfield>
+			
+			   <cfif fields.search eq "">	
+			   					  			  
+				  <cfset url.listgroupalias = fields.alias>						  
+				   
+			   <cfelse>
+			   				       
+				   <!--- provision to work correctly for the sorting and grouping and show the evaluated field--->
+				   <cfset url.listgroup         = fields.searchfield>  <!--- apply grouping --->
+				   <cfset url.listgroupalias    = fields.searchalias>  <!--- apply grouping --->	
+				   <cfset url.listgroupfield    = fields.field>        <!--- outputting --- --->
+				   <cfset url.listgroupsort     = fields.fieldsort>    <!--- order in outputting based on the setting --- --->
+				 					   					  		   
+				</cfif> 
+				  
+			</cfif>
+					
+			<cfparam name="fields.column" default="">
+			
+			<cfif fields.field eq form.colfield1>
+			    <cfif fields.column eq "month">
+					<cfset form.listcolumn1_type = "period">
+				<cfelse>
+					<cfset form.listcolumn1_type = fields.column>
+				</cfif>
+			</cfif>
+						
+		</cfloop>	
+		
+		<!--- added function to clean invalid subscriptions based on the pass format --->
+		
+		
+				
+		<cfparam name="form.GroupDir" default="ASC">			
+		<cfset url.listgroupdir   = form.groupdir>
+		
+		<!--- enable pivot / explore --->
+		<cfset url.listgrouptotal        = "#form.grouptotal#">	
+		
+		<!--- enable columns --->
+		<cfset url.listcolumn1           = "#form.colfield1#">          <!--- i.e transactiondate                   --->
+		<cfset url.listcolumn1_type      = "#form.listcolumn1_type#">     <!--- period | common                       --->
+		<cfset url.listcolumn1_typemode  = "#form.listcolumn1_typemode#"> <!--- period { year, quarter, month, week } --->
+								
+		<!--- future 	
+			<cfset url.listcolumn2    = "#form.colfield2#">
+		--->
+		
+		<!--- cell content field & formula --->
+		<cfset url.datacell1             = "#form.datacell1#">
+		<cfset url.datacell1formula      = "#form.datacell1formula#">
 		
 		<!--- we capture the selection of the user for the sorting into the table ---> 
 	    <cf_ListingUserSet systemfunctionid="#url.systemfunctionid#" modefield="Group">		
-	
+			
 	</cfif>
-	
+				
 	<!--- we then we GET the selection of the user for the sorting into the table 
 	    and we overwrite the standard settings as passed from the calling listing 
 		script ---> 	
 				
 	<cf_ListingUserGet systemfunctionid="#url.systemfunctionid#" listlayout="#attributes.listlayout#" modefield="Group">	
-					
+	
+							
 </cfif>
+
+
 
 <cfparam name="URL.listorderformat"        default="">
 <cfparam name="URL.listgroupformat"        default="">
@@ -391,17 +531,17 @@
 	<!--- apply possible filter --->
 	
 	<cfif url.treefield neq "undefined" and url.treefield neq "">
-			<cfset condition   = " AND #url.treefield# = '#url.treevalue#' ">			
+		<cfset condition   = " AND #url.treefield# = '#url.treevalue#' ">			
 	<cfelseif form.treefield neq "" and form.treevalue neq "">		
-			<cfset condition   = " AND #form.treefield# = '#form.treevalue#' ">	
+		<cfset condition   = " AND #form.treefield# = '#form.treevalue#' ">	
 	<cfelse>
-	   	
+	   	<!--- nada --->
 	</cfif>
 	
 	<cfparam name="url.listorderformat" default="Standard">	
 		
 	<cfparam name="form.savefilter" default="">	
-			
+				
 	<!--- get the old value --->	
 					
 	<cfif url.systemfunctionid neq ""  and form.savefilter eq "1">
@@ -446,7 +586,7 @@
 		</cfif>
 								
 	</cfif>
-													
+														
 	<cfloop array="#attributes.listlayout#" index="current">
 	
 	    <!--- remove group fields --->	
@@ -456,28 +596,31 @@
 			<cfset current.displayfilter = "yes">	
 		</cfif>	
 				
-		<cfparam name="current.isKey"            default="0">			
-		<cfparam name="current.display"          default="Yes">		
-		<cfparam name="current.isAccess"         default="0">	
+		<cfparam name="current.isKey"             default="0">			
+		<cfparam name="current.display"           default="Yes">	
+		<cfparam name="current.displayfilter"     default="Yes">	
+		<cfparam name="current.isAccess"          default="0">	
 		
-		<cfparam name="current.field"            default="">	
-		<cfparam name="current.fieldsort"        default="#current.field#">			
-		<cfparam name="current.column"           default="">	
-		<cfparam name="current.alias"            default="">	
+		<cfparam name="current.field"             default="">	
+		<cfparam name="current.fieldsort"         default="#current.field#">			
+		<cfparam name="current.column"            default="">	
+		<cfparam name="current.alias"             default="">	
+		<cfparam name="current.rowlevel"          default="1">	
 		
-		<cfparam name="current.search"           default="">	
-		<cfparam name="current.searchfield"      default="">
-		<cfparam name="current.searchalias"      default="">	
+		<cfparam name="current.search"            default="">	
+		<cfparam name="current.searchfield"       default="">
+		<cfparam name="current.searchalias"       default="">	
 		
-		<cfparam name="current.filtermode"       default="0">	
-		<cfparam name="current.filterforce"      default="0">
-		<cfparam name="current.lookupQuery"      default="">	
-		<cfparam name="current.lookupGroup"      default="">
-		<cfparam name="current.functionscript"   default="">	
-		<cfparam name="current.displayfilter"    default="Yes">
-		<cfparam name="current.functionfield"    default="">	
-		<cfparam name="current.functioncondition"  default="">	
-		<cfparam name="current.processmode"      default="">	
+		<cfparam name="current.filtermode"        default="">	
+		<cfparam name="current.filterforce"       default="0">
+		<cfparam name="current.lookupQuery"       default="">	
+		<cfparam name="current.lookupGroup"       default="">
+		
+		<cfparam name="current.functionscript"    default="">			
+		<cfparam name="current.functionfield"     default="">	
+		<cfparam name="current.functioncondition" default="">	
+		
+		<cfparam name="current.processmode"       default="">	
 		
 		<cfif current.isKey eq "1">
 		
@@ -492,13 +635,17 @@
 		
 		</cfif>		
 		
-		<cfparam name="accesslevel" default="0">
-					
+		<cfif current.rowLevel gte "2">		
+			<cfset attributes.navigation = "paging">		
+		</cfif>
+				
+		<cfparam name="accesslevel" default="0">					
 		<cfif current.isAccess eq "1">		
 			<cfset accessLevel = current.field>		
 		</cfif>
 		
-		<!--- saving filter values --->
+		<!--- saving filter values only if this indeed is intended 
+		for other fields no saving--->
 		
 		<cfif current.display eq "1" or 
 		      current.display eq "yes" or 
@@ -548,27 +695,30 @@
 						
 		<!--- ------------------------------------------------------ --->
 		<!--- --retrieve initial values if the form is loaded------- --->
-		<!--- ------------------------------------------------------ --->	
-															
-		<cfif current.search neq "">		    
-						
+		<!--- ------------------------------------------------------ --->			
+																					
+		<cfif current.search neq "">		
+		 								
 			<cfswitch expression="#Current.search#">
 																	
 				<cfcase value="text">
-																			
-					<cf_getUserFilter systemfunctionid="#url.systemfunctionid#" field="#current.field#" filter="#savefilter#">												
-																													
+				
+					<cfif current.filtermode neq "3">																													
+						<cf_getUserFilter systemfunctionid="#url.systemfunctionid#" field="#current.field#" filter="#savefilter#">												
+					<cfelse>									
+					    <cf_getUserFilter systemfunctionid="#url.systemfunctionid#" field="#current.field#" filter="#savefilter#" delimiter="|">
+					</cfif>	
+																																		
 					<!--- declare the form filter field and populate it with the save value --->				   								
 					<cfparam name="form.filter#current.field#" default="#getval#">	
 															
 					<cfset val = evaluate("form.filter#current.field#")>					
-					<cfset val = replace( val,"'", "''", "ALL" )>
+					<cfset val = replace( val,"'", "''", "ALL")>
 					<cfset val = trim(val)>
-																												
-					<cfif val neq "" and val neq ",">															
+																																	
+					<cfif val neq "" and len(val) gte "3">															
 					    <!--- determine that the interface should show the selected values --->
-					    <cfset attributes.isfiltered = "Yes">
-						
+					    <cfset attributes.isfiltered = "Yes">						
 					</cfif>
 															
 					<cfif current.filtermode eq "4">	
@@ -608,14 +758,14 @@
 						</cfif>	
 					
 					<cfelseif current.filtermode neq "3">	
-																																	
+																																											
 						<cfif val neq "">					
 							<cfset length   = len(val)>                                                            
 							<cfset condition   = "#condition# AND CONVERT(VARCHAR(100),#fld#) LIKE ('%#val#%') #CLIENT.Collation#">												
-						</cfif>    
-																		
-						<cfif form.savefilter eq "1" and savefilter eq "Yes">
-						
+						</cfif>   
+																																				
+						<cfif form.savefilter eq "1" and savefilter eq "Yes">					
+												
 							<cf_setUserFilter systemfunctionid="#url.systemfunctionid#" 
 							         field="#current.field#" 
 									 value="#val#">
@@ -627,8 +777,27 @@
 						<!--- multi-select --->		
 																																
 						<cfset thiscondition = "">
-																		
-						<cfloop index="itm" list="#val#">
+						
+						<!--- idealyy we know here if this is a checkbox or kendo multi-select 
+						
+						<cfif evaluate("form.filter#current.field#_checkbox") eq "Yes">
+							<cfset del = ",">
+						<cfelse>
+						    <cfset del = "|">
+						</cfif>		
+						---> 			
+																																			
+						<cfloop index="itm" list="#val#" delimiters="|">
+						
+							<!--- 30/12/2021 likely we can remove the like as well --->
+						
+							<cfif thiscondition eq "">							
+								<cfset thiscondition   = "#fld# LIKE ('%#itm#%') #CLIENT.Collation#">												
+							<cfelse>									                                                         
+								<cfset thiscondition   = "#thiscondition# OR #fld# LIKE ('%#itm#%') #CLIENT.Collation#">					
+							</cfif> 
+							
+							<!--- 30/12/2020 : we tuned the filtering using | so this seems to be no longer needed 
 						
 							<cfif thiscondition eq "">							
 								<cfset thiscondition   = "CONVERT(VARCHAR,#fld#) LIKE ('%#itm#%') #CLIENT.Collation#">												
@@ -636,9 +805,11 @@
 								<cfset thiscondition   = "#thiscondition# OR CONVERT(VARCHAR,#fld#) LIKE ('%#itm#%') #CLIENT.Collation#">					
 							</cfif> 
 							
+							--->
+							
 							<!--- declare the form filter field and populate it with the save value 			   								
 							<cfparam name="form.filter#current.field#" default="#getval#">	 
-							--->								
+							--->												
 							
 							<cfif form.savefilter eq "1" and savefilter eq "Yes">
 																												
@@ -646,14 +817,18 @@
 								    field = "#current.field#" 
 									mode  = "multi"
 									value = "#itm#">
-										 
+																												 
 							</cfif>	
 											
 						</cfloop>		
 						
 						<cfif thiscondition neq "">						
 							<cfset condition   = "#condition# AND (#thiscondition#)">											
-						</cfif>					
+						</cfif>		
+						
+						<!---
+						<cfoutput>#thiscondition#</cfoutput>			
+						--->
 											
 					</cfif>
 																					
@@ -861,729 +1036,12 @@
 <!--- ------obtain data----- --->
 <!--- ---------------------- --->
 
-
-<cfif url.ajaxid eq "append">
-
-	<!--- better to store this based on the box --->
-	
-	<cfset searchresult = session.listingdata[attributes.box]['dataset']>
-		
-	<cfif url.groupvalue1 eq "" or url.groupvalue1 eq "undefined">
-	
-		<!--- this is a generic refresh for the table listing --->	
-	
-		<cfset start = session.listingdata[attributes.box]['recshow']+1>			
-		<cfset end   = session.listingdata[attributes.box]['recshow']+session.listingdata[attributes.box]['pagecnt']>		
-		<cfset rowdatatarget = "r">		
-			
-	<cfelse>
-	
-		<!--- we apply a filter for the result to be shown --->
-		
-			<cfif url.col1 eq "undefined">
-				<cfset url.col1 = "">
-			</cfif>
-									
-		    <cftry>		
-		
-			<cfquery name="getGroup1" dbtype="query">
-				SELECT #url.listgroupfield# as FilterValue				
-				FROM   Searchresult
-				WHERE  #drillkey# = '#url.groupvalue1#'												
-			</cfquery>	
-						
-				<cfcatch>	
-				
-				<cfquery name="getGroup1" dbtype="query">
-					SELECT #url.listgroupfield# as FilterValue					
-					FROM   Searchresult
-					WHERE  #drillkey# = #url.groupvalue1#												
-				</cfquery>
-							
-				</cfcatch>
-								
-			
-			</cftry>
-			
-			<cftry>
-					
-			<cfquery name="searchResult" dbtype="query">
-				SELECT * 
-				FROM   Searchresult
-				<cfif getGroup1.FilterValue neq "">
-				WHERE  #url.listgroupfield# = '#getGroup1.FilterValue#'
-				<cfelse>
-				WHERE  #url.listgroupfield# is NULL							
-				</cfif>
-				<cfif url.col1 neq "">
-				AND    #url.col1#           = '#url.col1value#'
-				</cfif>
-			</cfquery>	
-								
-				<cfcatch>	
-											
-					<cfquery name="searchResult" dbtype="query">
-						SELECT * 
-						FROM   Searchresult
-						WHERE  #url.listgroupfield# = #getGroup1.FilterValue#	
-						<cfif url.col1 neq "">
-						AND    #url.col1#           = '#url.col1value#'
-						</cfif>				
-					</cfquery>	
-										
-				</cfcatch>
-					
-		     </cftry>
-				
-		<cfset start = "1">			
-		<cfset end   = searchresult.recordcount>
-		<!--- here is the name of the class to which we will add --->
-		<cfset rowdatatarget = url.grouptarget>				
-	
-	</cfif>
-		    
-	<!--- in case of append we use the same query object --->
-
-<cfelseif attributes.listtype eq "SQL">  <!--- in case of append we use the same query object --->
-
-	<cfoutput>
-	
-		 <cfset listquery =  attributes.listquery>
-	
-	     <!--- we are going to add fields to support the dimensional presentation --->
-		 
-		<cfloop array="#attributes.listlayout#" index="fields">
-		
-			<cfparam name="fields.column" default="">
-		
-			<cfif fields.column eq "month">
-		        <cfset fo = findNoCase("#fields.field#", listquery)>	
-				<cfif fo gt "1">
-					<cfset qry1 = left(listquery, fo-1)>
-					<cfset start  = fo+len(fields.field)>									
-					<cfset qry2 = mid(listquery,start,len(listquery)-start)>
-					<cfset listquery = "#qry1# #fields.field#,CONVERT(varchar(7), #fields.field#, 126) AS #fields.field#_MTH #qry2#"> 											
-				</cfif>	
-			</cfif>
-			
-		
-		</cfloop> 
-							 	
-		<cfparam name="form.annotationsel" default="">	
-		
-		<!--- we are going to remove the ORDER BY that appears at the end of the query --->
-	
-		<cfif findNoCase("ORDER BY",listquery)>	  
-		  
-		   <cfset fo = findNoCase("ORDER BY", listquery)>		   
-		   <cfloop condition="FindNoCase('ORDER BY', attributes.listquery, fo+1)">		  			           
-		       <cfset fo = findNoCase("ORDER BY", listquery,fo+1)>					 		   
-		   </cfloop>		   
-		   <cfset listquery = left(listquery, fo-1)>		   
-		<cfelse>		
-		   <cfset listquery =  listquery>  		   
-		</cfif>
-	
-		<cfif findNoCase("DISTINCT",  listquery)>
-		    <cfset listquery = replaceNoCase(listquery,"SELECT DISTINCT ","SELECT DISTINCT TOP 100 PERCENT ")> 
-		<cfelseif findNoCase("TOP",  listquery)> 
-			<cfset listquery = replaceNoCase(listquery,"SELECT ","SELECT ")> 
-		<cfelse>
-			<cfset listquery = replaceNoCase(listquery,"SELECT ","SELECT TOP 100 PERCENT ")> 
-		</cfif>		
-						
-		<!--- we are going to determine if the main portion of the query has a group by --->
-											
-		<cfif not findnocase("GROUP BY ",attributes.listquery) and not findnocase("--Condition",attributes.listquery)>		
-					
-			<cfsavecontent variable="querylist">
-									
-			    #preserveSingleQuotes(listquery)# 	
-				<cfif not findnocase("WHERE ",attributes.listquery)>
-				WHERE 1=1
-				</cfif>
-				<cfif condition neq "">
-				#preserveSingleQuotes(condition)# 
-				</cfif>	
-										
-				<cfif form.annotationsel neq "">		
-				
-					<cfif form.annotationsel EQ "none">
-						AND  #qdrillkey# NOT IN
-								 (SELECT <cfif doc.entityKeyField4 neq "">ObjectKeyValue4<cfelse>ObjectKeyValue1</cfif>
-		                       	  FROM   [#System.DatabaseServer#].System.dbo.UserAnnotationRecord
-							 	  WHERE  Account      = '#SESSION.acc#' 
-							 	  AND    EntityCode   = '#annotation#')	
-					<cfelse>							
-						AND  #qdrillkey# IN
-								 (SELECT <cfif doc.entityKeyField4 neq "">ObjectKeyValue4<cfelse>ObjectKeyValue1</cfif>
-		                       	  FROM   [#System.DatabaseServer#].System.dbo.UserAnnotationRecord
-							 	  WHERE  Account      = '#SESSION.acc#' 
-							 	  AND    EntityCode   = '#annotation#' 
-							 	  AND    AnnotationId = '#form.annotationsel#')	
-					</cfif>		  
-											
-				</cfif>
-				
-				<!--- filter on the ajax id only --->
-				
-				<cfif url.ajaxid neq "content">
-				AND #qdrillkey# = '#url.ajaxid#' 
-				</cfif>
-				
-				<cfif url.listorder neq "" or url.listgroup neq "">										
-				
-				ORDER BY				
-				
-					<!--- grouping --->
-					
-					<cfif url.listgroup neq "">
-													
-						<cfif url.listgroupformat eq "date">
-						
-							<cfif url.listgroupalias neq "">			
-								CAST (#url.listgroupalias#.#url.listgroup# as Datetime) 
-							<cfelse>
-								CAST (#url.listgroup# as Datetime)  
-							</cfif>							
-						
-						<cfelse>
-						
-							<cfif url.listgroupalias neq "">								
-								#url.listgroupalias#.#url.listgroupsort# 
-							<cfelse>
-								#url.listgroupsort# 
-							</cfif>									
-						
-						</cfif>
-					
-					#url.listgroupdir# 
-					
-					<cfif url.listorder neq "" and url.listorder neq url.listgroup>,</cfif>
-					
-					</cfif>		
-					
-					<!--- sorting --->
-									
-					<cfif url.listorder neq "" and url.listorder neq url.listgroup>
-													
-						<cfif url.listorderformat eq "date">
-						
-							<cfif url.listorderalias neq "">			
-								CAST (#url.listorderalias#.#url.listorder# as Datetime) 
-							<cfelse>
-								CAST (#url.listorder# as Datetime)  
-							</cfif>							
-						
-						<cfelse>
-						
-							<cfif url.listorderalias neq "">			
-								#url.listorderalias#.#url.listorder# 
-							<cfelse>
-								#url.listorder# 
-							</cfif>									
-						
-						</cfif>
-					
-					#url.listorderdir# 
-					
-					</cfif>							
-			
-				</cfif>					
-			
-			</cfsavecontent>													
-				
-		<cfelseif findnocase("--Condition",attributes.listquery)>	
-						
-			<!--- 16/6/2014 recompose the query that contains a --condition indicator to 
-			
-			 determine where the listing condition should go  --->
-			
-			<cfset strlen  = len(attributes.listquery)>		
-			
-		    <cfset start = findnocase("--Condition",attributes.listquery)>
-															
-			<cfset strleft  = left(attributes.listquery,start-1)>
-			<cfset strright = right(attributes.listquery,strlen-start+1)>
-			
-			<cfif form.annotationsel neq "">
-						
-				<cfsavecontent variable="ann">
-					
-				<cfif form.annotationsel EQ "none">
-				AND  #qdrillkey# NOT IN
-						 (SELECT <cfif doc.entityKeyField4 neq "">ObjectKeyValue4<cfelse>ObjectKeyValue1</cfif>
-                       	  FROM   System.dbo.UserAnnotationRecord
-					 	  WHERE  Account      = '#SESSION.acc#' 
-					 	  AND    EntityCode   = '#annotation#')	
-				<cfelse>							
-				AND  #qdrillkey# IN
-						 (SELECT <cfif doc.entityKeyField4 neq "">ObjectKeyValue4<cfelse>ObjectKeyValue1</cfif>
-                       	  FROM   System.dbo.UserAnnotationRecord
-					 	  WHERE  Account      = '#SESSION.acc#' 
-					 	  AND    EntityCode   = '#annotation#' 
-					 	  AND    AnnotationId = '#form.annotationsel#')	
-				</cfif>	
-				
-				<!--- filter on the ajax id only --->				
-				<cfif url.ajaxid neq "content">
-				AND #qdrillkey# = '#url.ajaxid#'		
-				</cfif>	  			
-										 
-				</cfsavecontent>	
-								
-			<cfelse>
-			
-				<cfsavecontent variable="ann">
-							
-				<!--- filter on the ajax id only --->				
-				<cfif url.ajaxid neq "content">
-				AND #qdrillkey# = '#url.ajaxid#'											
-				</cfif>	  			
-										 
-				</cfsavecontent>								 
-				
-			</cfif>
-						
-			<cfif not findnocase("WHERE ",attributes.listquery)>
-				<cfset strwhr = "WHERE 1=1">
-			<cfelse>
-				<cfset strwhr = "">	
-			</cfif>
-			
-			<!--- compose the query --->
-			
-			<cfset strqry = "#strleft# #strwhr# #condition# #ann# #strright#">			
-		
-			<cfsavecontent variable="querylist">
-						
-			    #preserveSingleQuotes(strqry)# 	
-				
-				<!--- grouping --->
-				
-				<cfif url.listgroup neq "" or url.listorder neq "">
-								
-				ORDER BY 
-				
-					<cfif url.listgroup neq "">
-													
-						<cfif url.listgroupformat eq "date">
-						
-							<cfif url.listgroupalias neq "">			
-								CAST (#url.listgroupalias#.#url.listgroup# as Datetime) 
-							<cfelse>
-								CAST (#url.listgroup# as Datetime)  
-							</cfif>							
-						
-						<cfelse>
-												
-							<cfif url.listgroupalias neq "">			
-								#url.listgroupalias#.#url.listgroupsort# 
-							<cfelse>
-								#url.listgroupsort# 
-							</cfif>									
-						
-						</cfif>
-					
-					    #url.listgroupdir# 
-					
-					<cfif url.listorder neq "" and url.listorder neq url.listgroup>,</cfif>
-					
-					</cfif>		
-												
-					<cfif url.listorder neq "" and url.listorder neq url.listgroup>
-					
-						<cfif url.listorderalias neq "">			
-						#url.listorderalias#.#url.listorder# 
-						<cfelse>
-						#url.listorder# 
-						</cfif>
-						
-						#url.listorderdir# 
-						
-					</cfif>		
-					
-				</cfif>													
-			
-			</cfsavecontent>
-								
-		<cfelse>
-				
-		    <!--- recompose the query that contains a group --->
-			
-			<cfset strlen  = len(attributes.listquery)>
-			<cfset start  = "1">
-			
-			<cfloop index="itm" from="1" to="4">
-				<cfif findnocase("GROUP BY",attributes.listquery,start)>
-				  <cfset start = findnocase("GROUP BY",attributes.listquery,start)>
-				</cfif>
-			</cfloop>
-												
-			<cfset strleft  = left(attributes.listquery,start-1)>
-			<cfset strright = right(attributes.listquery,strlen-start+1)>
-			
-			<cfif form.annotationsel neq "">
-			
-				<cfsavecontent variable="ann">
-					
-				<cfif form.annotationsel EQ "none">
-				AND  #qdrillkey# NOT IN
-						 (SELECT <cfif doc.entityKeyField4 neq "">ObjectKeyValue4<cfelse>ObjectKeyValue1</cfif>
-                       	  FROM   System.dbo.UserAnnotationRecord
-					 	  WHERE  Account      = '#SESSION.acc#' 
-					 	  AND    EntityCode   = '#annotation#')	
-				<cfelse>							
-				AND  #qdrillkey# IN
-						 (SELECT <cfif doc.entityKeyField4 neq "">ObjectKeyValue4<cfelse>ObjectKeyValue1</cfif>
-                       	  FROM   System.dbo.UserAnnotationRecord
-					 	  WHERE  Account      = '#SESSION.acc#' 
-					 	  AND    EntityCode   = '#annotation#' 
-					 	  AND    AnnotationId = '#form.annotationsel#')	
-				</cfif>	
-				
-				<!--- filter on the ajax id only --->				
-				<cfif url.ajaxid neq "content">
-				AND #qdrillkey# = '#url.ajaxid#'				
-				</cfif>	  			
-										 
-				</cfsavecontent>		
-				
-			<cfelse>
-			
-				<cfset ann = "">					 
-				
-			</cfif>
-			
-			<cfif not findnocase("WHERE ",attributes.listquery)>
-				<cfset strwhr = "WHERE 1=1">
-			<cfelse>
-				<cfset strwhr = "">	
-			</cfif>
-			
-			<!--- compose the query --->
-						
-			<cfset strqry = "#strleft# #strwhr# #condition# #ann# #strright#">
-			
-			<cfsavecontent variable="querylist">
-			
-			    #preserveSingleQuotes(strqry)# 	
-				
-				<!--- grouping --->
-				
-				<cfif url.listgroup neq "" or url.listorder neq "">
-								
-				ORDER BY 
-				
-					<cfif url.listgroup neq "">
-													
-						<cfif url.listgroupformat eq "date">
-						
-							<cfif url.listgroupalias neq "">			
-								CAST (#url.listgroupalias#.#url.listgroup# as Datetime) 
-							<cfelse>
-								CAST (#url.listgroup# as Datetime)  
-							</cfif>							
-						
-						<cfelse>
-												
-							<cfif url.listgroupalias neq "">			
-								#url.listgroupalias#.#url.listgroupsort# 
-							<cfelse>
-								#url.listgroupsort# 
-							</cfif>									
-						
-						</cfif>
-					
-					    #url.listgroupdir# 
-					
-					<cfif url.listorder neq "" and url.listorder neq url.listgroup>,</cfif>
-					
-					</cfif>		
-												
-					<cfif url.listorder neq "" and url.listorder neq url.listgroup>
-					
-						<cfif url.listorderalias neq "">			
-						#url.listorderalias#.#url.listorder# 
-						<cfelse>
-						#url.listorder# 
-						</cfif>
-						
-						#url.listorderdir# 
-						
-					</cfif>		
-					
-				</cfif>										
-			
-			</cfsavecontent>
-			
-		</cfif>
-					
-	</cfoutput>
-	
-	<!--- preparation of a standard recorded listing --->	
-			
-	<cfif listclass eq "Listing">
-			
-		<!--- outputting --->
-						
-		<cfquery name="Header" 
-		datasource="AppsSystem" 
-		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">
-			SELECT *
-			FROM   Ref_ModuleControlDetail
-			WHERE  SystemFunctionId = '#URL.SystemFunctionId#'
-			AND    FunctionSerialNo = '1'
-		</cfquery>
-										
-		<cfif attributes.refresh eq "1" or url.content eq "0">
-		
-			<cfset fileNo = "#Header.DetailSerialNo#">	
-			
-			<!--- run the preparation queries with temp tables --->
-			<cfinclude template="../../../System/Modules/InquiryBuilder/QueryPreparation.cfm">	
-			
-			<cfset sc = querylist>
-			
-			<!--- make some conversion r --->
-			<cfinclude template="../../../System/Modules/InquiryBuilder/QueryValidateReserved.cfm">				
-						
-			<cftry>
-						
-				<cftransaction isolation="read_uncommitted">									
-			
-					<cfquery name="SearchResult" 
-						datasource="#attributes.datasource#" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#"> 			
-						#preserveSingleQuotes(sc)#  
-					</cfquery>		
-				
-				</cftransaction>
-			
-				<cfcatch>
-					
-					<cfquery name="SearchResult" 
-						datasource="#attributes.datasource#" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#"> 			
-						#preserveSingleQuotes(sc)#  
-					</cfquery>	
-				
-				</cfcatch>
-			</cftry>	
-														
-		<cfelse>			   
-		
-			<cftry>					
-							
-				<cfset fileNo = Header.DetailSerialNo>							
-				<cfinclude template="../../../System/Modules/InquiryBuilder/QueryPreparationVars.cfm">
-				
-				<cfset sc = querylist>			
-				<cfinclude template="../../../System/Modules/InquiryBuilder/QueryValidateReserved.cfm">	
-									
-				<cftry>
-				
-					<cftransaction isolation="read_uncommitted">	
-														
-						<cfquery name="SearchResult" 
-							datasource="#attributes.datasource#" 
-							username="#SESSION.login#" 
-							password="#SESSION.dbpw#"> 			
-							#preserveSingleQuotes(sc)# 
-						</cfquery>	
-												
-					</cftransaction>
-				
-					<cfcatch>
-					
-						<cfquery name="SearchResult" 
-							datasource="#attributes.datasource#" 
-							username="#SESSION.login#" 
-							password="#SESSION.dbpw#"> 			
-							#preserveSingleQuotes(sc)# 
-						</cfquery>	
-						
-					</cfcatch>
-				</cftry>
-			
-				<cfcatch>													
-					
-					<!--- is included in query preparation
-					<cfinclude template="../../../System/Modules/InquiryBuilder/QueryPreparationVars.cfm">					
-					---> 
-					
-				    <cfset sc = querylist>				
-				    <cfinclude template="../../../System/Modules/InquiryBuilder/QueryValidateReserved.cfm">	
-																					
-					<cfinclude template="../../../System/Modules/InquiryBuilder/QueryPreparation.cfm">		
-					
-					<cftry>
-											
-						<cftransaction isolation="read_uncommitted">
-															
-							<cfquery name="SearchResult" 
-								datasource="#attributes.datasource#" 
-								username="#SESSION.login#" 
-								password="#SESSION.dbpw#"> 			
-								    #preserveSingleQuotes(sc)# 	
-							</cfquery>		
-						
-						</cftransaction>
-											
-						<cfcatch>
-													
-							<cfquery name="SearchResult" 
-								datasource="#attributes.datasource#" 
-								username="#SESSION.login#" 
-								password="#SESSION.dbpw#"> 			
-								    #preserveSingleQuotes(sc)# 	
-							</cfquery>		
-						
-						</cfcatch>
-						
-					</cftry>				
-							
-				</cfcatch>
-			
-			</cftry>
-						
-		</cfif>	
-		
-	<cfelse>
-			
-		<!--- outputting of an in the application embedded listing which does not have a prequery as this can be embedded --->			
-										
-		<cftry>
-				
-			<cfset fileNo = "0">			
-		    <!--- prepare temp variables, is not really needed for this mode --->
-			<cfinclude template="../../../System/Modules/InquiryBuilder/QueryPreparationVars.cfm">	
-						
-			<cfset sc = querylist>			
-			<!--- convert reserved words in the query string like @user --->
-		    <cfinclude template="../../../System/Modules/InquiryBuilder/QueryValidateReserved.cfm">		
-																
-			<cftry>
-						
-				<cftransaction isolation="read_uncommitted">	
-											
-					<cfquery name="SearchResult" 
-						datasource="#attributes.datasource#" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#"> 										
-						#preserveSingleQuotes(sc)# 					
-					</cfquery>	
-					
-					<!---
-					<cfoutput>#cfquery.executiontime#</cfoutput>
-					--->
-															
-				</cftransaction>
-			
-				<cfcatch>
-				
-					<cfquery name="SearchResult" 
-						datasource="#attributes.datasource#" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#"> 										
-						#preserveSingleQuotes(sc)# 					
-					</cfquery>	
-				
-				</cfcatch>
-				
-			</cftry>
-																																							
-			<cfcatch>
-							
-				<CFIF url.systemfunctionid neq "">
-				
-					<cfquery name="set" 
-					datasource="AppsSystem" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-						DELETE FROM UserModuleCondition				
-						WHERE Account          = '#SESSION.acc#'
-						AND   SystemFunctionId = '#url.systemfunctionid#'								
-					</cfquery>		
-				
-				</cfif>
-			
-				<cfoutput>
-				<table width="80%" align="center" cellspacing="0" cellpadding="0" class="formpadding">
-					<tr><td height="10"></td></tr>
-					<tr><td><b>Error:</td></tr>
-					<tr><td bgcolor="ffffaf">
-					#CFCatch.Message# - #CFCATCH.Detail#
-					</td></tr>
-					<cfif getAdministrator("*") eq "1">
-					<tr><td><b><cf_tl id="Query">:</td></tr>
-					<tr><td>
-					#preserveSingleQuotes(querylist)# 	
-					</td></tr>
-					</cfif>
-				</table>
-				</cfoutput>				
-				<cfabort>
-			
-			</cfcatch>
-				
-		</cftry>
-			
-	</cfif>		
-		
-	<cfif url.listorder neq "">
-	
-	<cftry>
-			
-		<cfquery name="CheckGroup"       
-		      maxrows=1 
-	         dbtype="query">
-			 SELECT DISTINCT #url.listorder#
-			 FROM   SearchResult
-		</cfquery>	
-				
-		<cfcatch>
-		
-		       <cfoutput>
-					<table width="80%" align="center" cellspacing="0" cellpadding="0" class="formpadding">
-					<tr><td height="10"></td></tr>
-					<tr><td><b><cf_tl id="Error for Query">:</td></tr>
-					<tr><td bgcolor="ffffaf">
-					#CFCatch.Message# - #CFCATCH.Detail#
-					</td></tr>
-					<cfif getAdministrator("*") eq "1">
-					<tr><td><b><cf_tl id="Query">:</td></tr>
-					<tr><td>
-					#preserveSingleQuotes(querylist)# 	
-					</td></tr>
-					</cfif>
-					</table>
-					</cfoutput>
-					
-					</cfcatch>	
-		
-		</cftry>
-	
-	</cfif>	
-	
-	<!--- --------------------------------------- --->
-	<!--- set the client var to link to the table --->
-	<!--- --------------------------------------- --->
-	
-	
-<cfelse>
-	
-	<cfdirectory action="LIST"
-          directory = "#attributes.listpath#\#attributes.listquery#"
-          name      = "SearchResult"
-          sort      = "#url.listorder# #url.listorderdir# "
-          type      = "all"
-          listinfo  = "all">
-
+<!--- correction --->
+<cfif url.datacell1 eq "total">
+	<cfset url.datacell1formula = "SUM">
 </cfif>
+
+<cfinclude template="ListingData.cfm">
 
 <!--- ---------------------- --->
 <!--- PRESENTING the result  --->
@@ -1593,7 +1051,7 @@
 
 <cfif url.ajaxid eq "content">
   
-	<cfif attributes.showlist eq "Yes">		
+	<cfif attributes.showlist eq "Yes">				
 		<!--- shows the listing as HTML and header --->			
 		<cfinclude template="ListingShow.cfm">																			
 	</cfif>	
@@ -1605,10 +1063,22 @@
 		
 <cfelse>	
 
-	<!--- shows the listing as HTML and header --->	
+    <cfset dkey = url.ajaxid>
+	<!--- performs only an update action --->	
 	<cfinclude template="ListingContentAJAX_UPDATE.cfm">		
 
 </cfif>	
+
+<cfset session.listingdata[box]['listingpreparation'] = round((now()- listingtimestart)*100000000)/1000>
+
+<cfsavecontent variable="myscript">
+ 	_cf_loadingtexthtml='';				
+	ptoken.navigate('#session.root#/tools/listing/Listing/setTime.cfm?box=#box#','#attributes.box#_performance');
+	ptoken.navigate('#session.root#/tools/listing/Listing/setFilter.cfm?box=#box#','#attributes.box#_ajax');
+	$('##_divContentFields').scroll(function() {  $(this).find('.sticky').css('left', $(this).scrollLeft());});	
+</cfsavecontent>
+
+<cfset AjaxOnLoad("function(){#myscript#}")>
 
 </cfoutput>
 

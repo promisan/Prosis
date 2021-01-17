@@ -35,7 +35,7 @@ password="#SESSION.dbpw#">
 		
 <cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
 
-<cfchart style = "#chartStyleFile#" format="html"
+<cfchart style = "#chartStyleFile#" format="png"
            chartheight="170"
            chartwidth="450"
            showxgridlines="yes"
@@ -50,7 +50,7 @@ password="#SESSION.dbpw#">
            show3d="yes"   		                 
            url="javascript:Prosis.busy('yes');ptoken.navigate('InquiryListing.cfm?mode=#url.mode#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#&filter=aging&value=$ITEMLABEL$','listbox')">
   
-		   <cfchartseries type="cylinder" seriescolor="000000" datalabelstyle="value" colorlist="##000000,##5DE8D8,##CCCA6A,##FFFF00,##FF8040,##FF0000">  
+	   <cfchartseries type="cylinder" seriescolor="000000" datalabelstyle="value" colorlist="##000000,##5DE8D8,##CCCA6A,##FFFF00,##FF8040,##FF0000">  
    
      <!--- near future --->
 	  

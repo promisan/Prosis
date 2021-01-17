@@ -122,38 +122,47 @@ function applysale(acc) {
     <TD class="labelmedium"><cf_tl id="Default AP tax">:</TD>
     <TD>
 	
-		<table cellspacing="0" cellpadding="0"><tr><td>
-		
-			       <input type="Text" name="glaccount1" id="glaccount1" size="6" value="#get.GLAccountInvoiceTax#" class="regularxl" readonly>
-    	   <input type="text" name="gldescription1" id="gldescription1" value="#get.InvoiceTax#" class="regularxl" size="50" readonly>
-		   <input type="hidden" name="debitcredit1" id="debitcredit1" value="" class="regularxl" size="6" readonly>
+		<table cellspacing="0" cellpadding="0">
+		<tr><td>
+		    <input type="Text" name="glaccount1" id="glaccount1" size="6" value="#get.GLAccountInvoiceTax#" class="regularxl" readonly>
+		    </td>
+			<td style="padding-left:2px">
+		    <input type="text" name="gldescription1" id="gldescription1" value="#get.InvoiceTax#" class="regularxl" size="50" readonly>
+			</td>
+		    <input type="hidden" name="debitcredit1" id="debitcredit1" value="" class="regularxl" size="6" readonly>
+		    <td>
 		    <img src="#SESSION.root#/Images/search.png" alt="Select account" name="img3" 
 				  onMouseOver="document.img3.src='#SESSION.root#/Images/contract.gif'" 
 				  onMouseOut="document.img3.src='#SESSION.root#/Images/search.png'"
 				  style="cursor: pointer;" alt="" width="20" height="20" border="0" align="absmiddle" 
 				  onClick="selectaccountgl('','','','','applyinvoice')">
-				  
-		 		   
-		</td></tr></table>   
+			</td>
+		</tr>
+		</table>   
 	
 	</TD>
 	</TR>
 	
 	<TR>
-    <TD class="labelmedium"><cf_tl id="Default AR tax">:</TD>
+    <TD style="min-width:300px" class="labelmedium"><cf_tl id="Default AR tax">:</TD>
     <TD>
-  			<table cellspacing="0" cellpadding="0"><tr><td>
-			
+  			<table cellspacing="0" cellpadding="0">
+			<tr><td>			
 			    <input type="Text" name="glaccount2" id="glaccount2" value="#get.GLAccountSalesTax#" size="6" class="regularxl" readonly>
-    	   <input type="text" name="gldescription2" id="gldescription2" value="#get.SalesTax#" class="regularxl" size="50" readonly>
-		   <input type="hidden" name="debitcredit2" id="debitcredit2" value="" class="regularxl" size="6" readonly>
+				</td>
+			   <td style="padding-left:2px">
+	    	   <input type="text" name="gldescription2" id="gldescription2" value="#get.SalesTax#" class="regularxl" size="50" readonly>
+			   <input type="hidden" name="debitcredit2" id="debitcredit2" value="" class="regularxl" size="6" readonly>
+			   </td>
+		   	<td>
 		    <img src="#SESSION.root#/Images/search.png" alt="Select account" name="img5" 
 				  onMouseOver="document.img5.src='#SESSION.root#/Images/contract.gif'" 
 				  onMouseOut="document.img5.src='#SESSION.root#/Images/search.png'"
 				  style="cursor: pointer;" alt="" width="20" height="20" border="0" align="absmiddle" 
 				  onClick="selectaccountgl('','','','','applysale')">
-					    
-		   </td></tr></table>	
+			</td>
+			</tr>
+			</table>	
 	</TD>
 	</TR>	
 	

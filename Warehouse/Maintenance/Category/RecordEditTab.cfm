@@ -52,15 +52,14 @@ function toggleEnableTransactions(control,id) {
 function editcategoryitem(cat,itm) {
 	var vWidth = 500;
 	var vHeight = 300;    
-	
-	try { ColdFusion.Window.destroy('mydialog',true) } catch(e) {}			   
-	ColdFusion.Window.create('mydialog', 'Category Item', '',{x:30,y:30,height:vHeight,width:vWidth,modal:true,center:true});    				
-	ColdFusion.navigate("CategoryItem/CategoryItemEdit.cfm?idmenu=#url.idmenu#&category=" + cat + "&item=" + itm + "&ts=" + new Date().getTime(),'mydialog'); 
+					   
+	ProsisUI.createWindow('mydialog', 'Category Item', '',{x:30,y:30,height:vHeight,width:vWidth,modal:true,center:true});    				
+	ptoken.navigate("CategoryItem/CategoryItemEdit.cfm?idmenu=#url.idmenu#&category=" + cat + "&item=" + itm + "&ts=" + new Date().getTime(),'mydialog'); 
 }
 
 function purgecategoryitem(cat,itm) {
 	if (confirm('Do you want to remove this item ?')) {
-		ColdFusion.navigate('CategoryItem/CategoryItemPurge.cfm?idmenu=#url.idmenu#&category=' + cat + '&item=' + itm, 'contentbox1');
+		ptoken.navigate('CategoryItem/CategoryItemPurge.cfm?idmenu=#url.idmenu#&category=' + cat + '&item=' + itm, 'contentbox1');
 	}
 }
 
@@ -68,19 +67,18 @@ function editcategoryworkflow(action, cat, code) {
 	var vWidth = 475;
 	var vHeight = 350;    
 	
-	try { ColdFusion.Window.destroy('mydialog',true) } catch(e) {}		   
-	ColdFusion.Window.create('mydialog', 'Logging Item', '',{x:30,y:30,height:vHeight,width:vWidth,modal:true,center:true});    				
-	ColdFusion.navigate("Logging/CategoryWorkflowEdit.cfm?idmenu=#url.idmenu#&category=" + cat + "&action=" + action + "&code=" + code + "&ts=" + new Date().getTime(),'mydialog'); 
+	ProsisUI.createWindow('mydialog', 'Logging Item', '',{x:30,y:30,height:vHeight,width:vWidth,modal:true,center:true});    				
+	ptoken.navigate("Logging/CategoryWorkflowEdit.cfm?idmenu=#url.idmenu#&category=" + cat + "&action=" + action + "&code=" + code + "&ts=" + new Date().getTime(),'mydialog'); 
 }
 
 function purgecategoryworkflow(action, cat, code) {
 	if (confirm('Do you want to remove this workflow ?')) {
-		ColdFusion.navigate('Logging/CategoryWorkflowPurge.cfm?idmenu=#url.idmenu#&category=' + cat + '&action=' + action + '&code=' + code, 'divObservations_'+action);
+		ptoken.navigate('Logging/CategoryWorkflowPurge.cfm?idmenu=#url.idmenu#&category=' + cat + '&action=' + action + '&code=' + code, 'divObservations_'+action);
 	}
 }
 
 function applyaccount(val,area) {
-	ColdFusion.navigate('setAccount.cfm?glaccount='+val+'&area='+area,'process')	
+	ptoken.navigate('setAccount.cfm?glaccount='+val+'&area='+area,'process')	
 }
 
 </script>

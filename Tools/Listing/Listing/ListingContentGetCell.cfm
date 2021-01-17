@@ -2,8 +2,6 @@
 <cfset cnt = 0>	
 <cfparam name  = "rowshow" default="1">
 
-<cfset dkey = evaluate(drillkey)>
-
 	<cfoutput> 		
 								
 		<cfloop array="#attributes.listlayout#" index="current">	
@@ -15,8 +13,10 @@
 			<!--- colspan for the field, only for row 2 and 3 --->
 			<cfparam name="current.colspan"     default="1">
 			<cfparam name="current.processmode" default="">
+			
+			<cfif current.field eq url.listgroupfield>
 		
-			<cfif (current.display eq "Yes" or current.display eq "1") and current.rowlevel eq rowshow>
+			<cfelseif (current.display eq "Yes" or current.display eq "1") and current.rowlevel eq rowshow>
 													
 				<cfset colspan = current.colspan>
 							
@@ -347,13 +347,17 @@
 																					
 				<cfelse>	
 				
+					<!--- Hanno 11/1/2021 : does not work needs fixed size
+					<cfset cellstyle  = "text-overflow: ellipsis;overflow:hidden;white-space:nowrap">
+					--->
 					<cfset cellstyle  = "">
+				
 					<cfset fontcolor = "">			
 					<cfset inner = evaluate(current.formatted)>													 
 					<cfif inner neq "" and current.functionscript neq "" and (url.ajaxid eq "content" or url.ajaxid eq "append")> <!--- somehow the inner would not work for a refresh --->
 						
 						 <cfparam name="current.functionfield" default="">
-						 <cfset cellstyle = "text-decoration: underline;font-color:blue">
+						 <cfset cellstyle = "text-decoration: underline;font-color:blue;text-overflow: ellipsis;">
 						 <cfif current.functionfield neq "">							 							   
 								<cfset cellclick = "#current.functionscript#('#evaluate(current.functionfield)#','#url.systemfunctionid#','#current.functioncondition#')">																				
 						 <cfelse>							 							 	
@@ -362,7 +366,7 @@
 							  
 					<cfelseif inner neq "" and current.drilltemplate neq "">
 											 				 
-						 	  <cfset cellstyle = "text-decoration: underline;font-color:blue">
+						 	  <cfset cellstyle = "text-decoration: underline;font-color:blue;">
 							  <cfset cellclick = "toggledrill('embed','box#dkey#','#current.drilltemplate#','#evaluate(current.functionfield)#','','','')">	  
 						 						  
 					<cfelse>

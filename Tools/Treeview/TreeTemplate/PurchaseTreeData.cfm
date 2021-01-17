@@ -1,27 +1,28 @@
 
 <cf_tl id="Purchase" var="vPurchase">
 
+
 <cf_UItree
 	id="root"
-	title="<span style='font-size:16px;color:gray;padding-bottom:3px'>#vPurchase# #url.mission#</span>"	
+	title="<span style='font-size:19px;color:gray;padding-bottom:3px'>#vPurchase# #url.mission#</span>"	
 	expand="Yes">
 			
     <cf_tl id="Issued" var="vIssue">	
 							
 			<cf_UItreeitem value="Issued"
-	        display="<span style='font-size:15px;padding-top:5px;padding-bottom:5px;font-weight:bold' class='labelit'>#vIssue# #dateformat(now()-7, CLIENT.DateFormatShow)#</span>"
+	        display="<span style='font-size:16px;padding-top:3px;padding-bottom:3px' class='labelit'>#vIssue# #dateformat(now()-7, CLIENT.DateFormatShow)#</span>"
 			parent="root"	
 			target="right"						
 			href="PurchaseViewOpen.cfm?ID1=Today&ID=TOD&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"		
-	        expand="Yes">	
-			   									
+	        expand="Yes">				
+						   									
 			<cfquery name="StatusList" 
 			    datasource="AppsPurchase" 
 			    username="#SESSION.login#" 
 			    password="#SESSION.dbpw#">
-				SELECT *
-			    FROM  #Client.LanPrefix#Status 
-				WHERE StatusClass IN ('Job','Purchase')
+				SELECT   *
+			    FROM     #Client.LanPrefix#Status 
+				WHERE    StatusClass IN ('Job','Purchase')
 				ORDER BY StatusClass 
 			</cfquery>
 			
@@ -35,8 +36,7 @@
 		     </cfquery>
 			
 			<cfoutput query="StatusList" group="StatusClass">
-						
-						
+												
 			    <cf_tl id="#StatusClass#" var="vStatusClass">	
 				
 				<cfif StatusClass eq "Job">
@@ -46,7 +46,7 @@
 				</cfif>
 											
 				<cf_UItreeitem value="#StatusClass#"
-			        display="<span style='font-size:15px;padding-top:5px;padding-bottom:5px;' class='labelit'>#lbl#</span>"
+			        display="<span style='font-size:16px;;padding-top:3px;padding-bottom:1px' class='labelit'>#lbl#</span>"
 					parent="root"													
 			        expand="Yes">										
 			
@@ -113,20 +113,20 @@
 							   <cfif Check.recordcount gte "1">
 	
 								   <cf_UItreeitem value="#par#"
-							        display="<span style='font-size:14px;' class='labelit'>#Description#</span>"
-									parent="#StatusClass#"	
-									target="right"	
-									href="PurchaseViewOpen.cfm?ID1=#status#&ID=STA&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"														
-							        expand="No">	
+								        display="<span style='font-size:15px;' class='labelit'>#Description#</span>"
+										parent="#StatusClass#"	
+										target="right"	
+										href="PurchaseViewOpen.cfm?ID1=#status#&ID=STA&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"														
+								        expand="No">	
 									
 									<cfloop query="Check">
 									
 										 <cf_UItreeitem value="#par#_#orderclass#"
-								        display="<span style='font-size:13px;' class='labelit'>#Description#</div>"
+								        display="<span style='font-size:13px;' class='labelit'>#Description#</span>"
 										parent="#par#"	
 										target="right"	
 										href="PurchaseViewOpen.cfm?ID1=#status#&ID=STA&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#&orderclass=#orderclass#"														
-								        expand="Yes">	
+								        expand="no">	
 																		
 									</cfloop>					
 																
@@ -134,7 +134,7 @@
 							
 							<cfelse>					   
 							
-								   <cf_UItreeitem value="#StatusClass#_#Status#"
+								   <cf_UItreeitem value="#par#"
 								        display="<span style='font-size:14px;' class='labelit'>#Description#</span>"
 										parent="#StatusClass#"	
 										target="right"	
@@ -148,7 +148,7 @@
 										parent="#par#"	
 										target="right"	
 										href="PurchaseViewOpen.cfm?ID1=#status#&ID=STA&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#&orderclass=#orderclass#"														
-								        expand="Yes">	
+								        expand="No">	
 																		
 									</cfloop>			
 							

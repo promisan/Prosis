@@ -20,23 +20,23 @@
 
 <!--- Entry form --->
 
-<table width="96%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="94%" align="center" class="formpadding">
 	
 	<cfform action="RecordSubmit.cfm" method="POST" enablecab="Yes" name="dialog">
 	
-	<tr><td height="5"></td></tr>
+	<tr><td height="7"></td></tr>
 
     <TR>
-    <TD class="labelit">Code:</TD>
-    <TD class="labelit">
-  	   <cfinput type="Text" name="ContractType" value="" message="Please enter a code" required="Yes" size="10" maxlength="10" class="regularxl">
+    <TD class="labelmedium2">Code:</TD>
+    <TD class="labelmedium2">
+  	   <cfinput type="Text" name="ContractType" value="" message="Please enter a code" required="Yes" size="10" maxlength="10" class="regularxxl">
     </TD>
 	</TR>
 	
 	<TR>
-    <TD class="labelit">Description:</TD>
-    <TD class="labelit">
-  	   <cfinput type="Text" name="Description" value="" message="Please enter a description" required="Yes" size="40" maxlength="40" class="regularxl">
+    <TD class="labelmedium2">Description:</TD>
+    <TD class="labelmedium2">
+  	   <cfinput type="Text" name="Description" value="" message="Please enter a description" required="Yes" size="40" maxlength="40" class="regularxxl">
     </TD>
 	</TR>
 	
@@ -50,10 +50,10 @@
 	</cfquery>
 	
 	<tr>
-	<td class="labelit">Appointment type:</td>
+	<td class="labelmedium2">Appointment type:</td>
 	<td>
 		
-		<select name="AppointmentType" class="regularxl">
+		<select name="AppointmentType" class="regularxxl">
 		   
 			<cfoutput query="Type">
 				<option value="#AppointmentType#">#Description#</option>
@@ -74,10 +74,10 @@
 		WHERE EntityCode = 'PersonContract'
 	</cfquery>
 	
-	<td class="labelit">Workflow Class:</td>
+	<td class="labelmedium2">Workflow Class:</td>
 	<td>
 		
-		<select name="Workflow" class="regularxl">
+		<select name="Workflow" class="regularxxl">
 		    <option value="">N/A</option>
 			<cfoutput query="WorkFlow">
 				<option value="#EntityClass#">#EntityClassName#</option>
@@ -89,7 +89,7 @@
 	</tr>
 	
 	<TR>
-    <TD valign="top" class="labelit" style="padding-top:4px;">Enabled for:</TD>
+    <TD valign="top" class="labelmedium2" style="padding-top:4px;">Enabled for:</TD>
     <TD>
 		<cfdiv id="divMission" bind="url:RecordMission.cfm?code=">
     </TD>
@@ -100,8 +100,8 @@
 	<tr>	
 	<td align="center" height="30" colspan="2">
 		
-	<input class="button10s" style="width:80px" type="button" name="Cancel" value=" Cancel " onClick="window.close()">
-    <input class="button10s" style="width:80px" type="submit" name="Insert" value=" Submit ">
+	<input class="button10g" type="button" name="Cancel" value=" Cancel " onClick="window.close()">
+    <input class="button10g" type="submit" name="Insert" value=" Submit ">
 	
 	</td>	
 	

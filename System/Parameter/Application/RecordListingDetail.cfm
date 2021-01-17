@@ -15,7 +15,7 @@
 
 <cfform method="POST" name="applicationform" onsubmit="return false;">
 
-<table width="95%" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<table width="95%" align="center" class="navigation_table">
 
 <tr class="labelmedium line">
 	<td></td>
@@ -49,14 +49,14 @@
 					<table cellspacing="0" cellpadding="0">
 						<tr>
 							<td>
-								<cf_img icon="edit" navigation="Yes" onclick="recordedit('#code#')">
+								<cf_img icon="select" navigation="Yes" onclick="recordedit('#code#')">
 							</td>
 							<cfif Usage neq "System">
 								<td style="padding-left:4px;">
 									<cf_img icon="delete" onclick="deleteApplication('#code#')">
 								</td>
 							</cfif>
-							<td style="padding-left:4px;padding-right:4px;padding-top:3px">
+							<td style="padding-left:4px;padding-right:4px;padding-top:8px">
 								<cf_img icon="expand" toggle="Yes" onclick="showModules('#code#')">
 							</td>
 						</tr>

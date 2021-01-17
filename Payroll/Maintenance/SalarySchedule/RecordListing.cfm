@@ -3,7 +3,7 @@
 
 <cf_screentop height="100%" html="No" scroll="Yes" jQuery="Yes">
 
-<table width="100%" height="100%" cellspacing="0" cellpadding="0" align="center" >
+<table width="100%" height="100%" style="min-width:1200px" align="center" >
 <tr><td colspan="2" height="10">
 
 <cfset Page         = "0">

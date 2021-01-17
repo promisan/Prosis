@@ -22,7 +22,7 @@
 	  	  
 	  </td>
       <td><a href="javascript:closeme('#v#')">Program/Project</a></td>
-      <td style="word-wrap: break-word;"><font size="1" color="gray">#v#</td>
+      <td style="word-wrap: break-word;"><font size="2"  color="gray">#v#</td>
 	  <td>ProgramId</td>
 </tr>
 
@@ -36,7 +36,7 @@
 	  	  
 	  </td>
       <td><a href="javascript:closeme('#v#')">Program Allotment Execution</a></td>
-      <td style="word-wrap: break-word;"><font size="1" color="gray">#v#</td>
+      <td style="word-wrap: break-word;"><font size="2"  color="gray">#v#</td>
 	  <td>ProgramId</td>
 </tr>
 
@@ -48,7 +48,7 @@
   <cfset v = "Staffing/Application/Employee/PersonView.cfm?id=">
       <td><cf_img icon="select" onClick="closeme('#v#')" navigation="Yes"></td>
       <td><a href="javascript:closeme('#v#')">Employee</a></td>
-      <td style="word-wrap: break-word;"><font size="1" color="gray">#v#</td>
+      <td style="word-wrap: break-word;"><font size="2"  color="gray">#v#</td>
 	  <td>PersonNo</td>
 </tr>
 
@@ -57,7 +57,7 @@
   <cfset v = "Staffing/Application/Position/Position/PositionEdit.cfm?id2=">
       <td><cf_img icon="select" onClick="closeme('#v#')" navigation="Yes"></td>
       <td><a href="javascript:closeme('#v#')">Position</a></td>
-      <td style="word-wrap: break-word;"><font size="1" color="gray">#v#</td>
+      <td style="word-wrap: break-word;"><font size="2"  color="gray">#v#</td>
 	  <td>PositionNo</td>
 </tr>
 
@@ -66,7 +66,7 @@
   <cfset v = "Staffing/Application/Position/PositionParent/PositionView.cfm?box=&id2=">
       <td><cf_img icon="select" onClick="closeme('#v#')" navigation="Yes"></td>
       <td><a href="javascript:closeme('#v#')">Position Parent</a></td>
-      <td style="word-wrap: break-word;"><font size="1" color="gray">#v#</td>
+      <td style="word-wrap: break-word;"><font size="2"  color="gray">#v#</td>
 	  <td>PositionNo</td>
 </tr>
 
@@ -74,7 +74,7 @@
      <cfset v = "Roster/Candidate/Details/PHPView.cfm?ID=">
      <td><cf_img icon="select" onClick="closeme('#v#')" navigation="Yes"></td>
      <td><a href="javascript:closeme('#v#')">Candidate</a></td>
-     <td style="word-wrap: break-word;"><font size="1" color="gray">#v#</td>
+     <td style="word-wrap: break-word;"><font size="2"  color="gray">#v#</td>
 	 <td>PersonNo</td>
 	 
 </tr>
@@ -83,10 +83,18 @@
 <tr><td class="labellarge" colspan="2">Operations</td></tr>
 
 <tr class="navigation_row line labelmedium2" style="height:15px">
+      <cfset v = "Warehouse/Application/Stock/Batch/batch/BatchView.cfm?drillid=">
+      <td><cf_img icon="select" onClick="closeme('#v#')" navigation="Yes"></td>
+      <td><a href="javascript:closeme('#v#')">POS sale</a></td>
+      <td style="word-wrap: break-word;"><font size="2"  color="gray">#v#</td>
+	  <td>BatchNo</td>
+</tr>
+
+<tr class="navigation_row line labelmedium2" style="height:15px">
       <cfset v = "Procurement/Application/Requisition/Requisition/RequisitionEdit.cfm?header=1&id=">
       <td><cf_img icon="select" onClick="closeme('#v#')" navigation="Yes"></td>
       <td><a href="javascript:closeme('#v#')">Procurement Requisition</a></td>
-      <td style="word-wrap: break-word; word-break: break-all;"><font size="1" color="gray">#v#</td>
+      <td style="word-wrap: break-word; word-break: break-all;"><font size="2"  color="gray">#v#</td>
 	  <td>RequisitionNo</td>	  
 </tr>
 
@@ -94,7 +102,7 @@
       <cfset v = "Procurement/Application/PurchaseOrder/Purchase/POViewGeneral.cfm?ID1=">
       <td><cf_img icon="select" onClick="closeme('#v#')" navigation="Yes"></td>
       <td><a href="javascript:closeme('#v#')">Purchase Order</a></td>
-      <td style="word-wrap: break-word;"><font size="1" color="gray">#v#</td>
+      <td style="word-wrap: break-word;"><font size="2"  color="gray">#v#</td>
 	  <td>PurchaseNo</td>
 </tr>
 
@@ -102,7 +110,7 @@
       <cfset v = "Roster/RosterSpecial/CandidateView/FunctionViewLoop.cfm?IDFunction=">
       <td><cf_img icon="select" onClick="closeme('#v#')" navigation="Yes"></td>
       <td><a href="javascript:closeme('#v#')">Roster Bucket</a></td>
-      <td style="word-wrap: break-word;"><font size="1" color="gray">#v#</td>
+      <td style="word-wrap: break-word;"><font size="2"  color="gray">#v#</td>
 	  <td>FunctionId</td>
 </tr>
 
@@ -110,7 +118,7 @@
       <cfset v = "Procurement/Application/Invoice/Matching/InvoiceMatch.cfm?ID=">
       <td><cf_img icon="select" onClick="closeme('#v#')" navigation="Yes"></td>
       <td><a href="javascript:closeme('#v#')">Invoice</a></td>
-      <td style="word-wrap: break-word;"><font size="1" color="gray">#v#</td>
+      <td style="word-wrap: break-word;"><font size="2"  color="gray">#v#</td>
 	  <td>InvoiceId</td>
 </tr>
 
@@ -118,7 +126,7 @@
       <cfset v = "Workorder/Application/WorkOrder/WorkorderView/WorkOrderView.cfm?workorderid=">
       <td><cf_img icon="select" onClick="closeme('#v#')" navigation="Yes"></td>
       <td><a href="javascript:closeme('#v#')">Workorder</a></td>
-      <td style="word-wrap: break-word;"><font size="1" color="gray">#v#</td>
+      <td style="word-wrap: break-word;"><font size="2"  color="gray">#v#</td>
 	  <td>WorkorderId</td>
 </tr>
 
@@ -126,7 +134,7 @@
       <cfset v = "Workorder/Application/WorkOrder/WorkorderView/WorkOrderView.cfm?workorderlineid=">
       <td><cf_img icon="select" onClick="closeme('#v#')" navigation="Yes"></td>
       <td><a href="javascript:closeme('#v#')">Workorder</a></td>
-      <td style="word-wrap: break-word;"><font size="1" color="gray">#v#</td>
+      <td style="word-wrap: break-word;"><font size="2"  color="gray">#v#</td>
 	  <td>WorkorderLineId</td>
 </tr>
 
@@ -134,7 +142,7 @@
       <cfset v = "workorder/Application/Shipping/Shipment/ShipmentEntry.cfm?mode=listing&workorderlineid=">
       <td><cf_img icon="select" onClick="closeme('#v#')" navigation="Yes"></td>
       <td><a href="javascript:closeme('#v#')">Workorder Receipt</a></td>
-      <td style="word-wrap: break-word;"><font size="1" color="gray">#v#</td>
+      <td style="word-wrap: break-word;"><font size="2"  color="gray">#v#</td>
 	  <td>WorkorderId</td>
 </tr>
 
@@ -142,7 +150,7 @@
       <cfset v = "Workorder/Application/WorkOrder/ServiceDetails/ServiceLineDetail.cfm?drillid=">
       <td><cf_img icon="select" onClick="closeme('#v#')" navigation="Yes"></td>
       <td><a href="javascript:closeme('#v#')">Workorder Line</a></td>
-      <td style="word-wrap: break-word;"><font size="1" color="gray">#v#</td>
+      <td style="word-wrap: break-word;"><font size="2"  color="gray">#v#</td>
 	  <td>WorkorderLineId</td>
 </tr>
 
@@ -150,10 +158,10 @@
 <tr><td class="labellarge" colspan="2">Financials</td></tr>
 
 <tr class="navigation_row line labelmedium2" style="height:15px">
-      <cfset v = "Gledger/Application/Transaction/View/TransactionViewDetail.cfm?ID1=">
+      <cfset v = "Gledger/Application/Transaction/View/TransactionView.cfm?ID=">
       <td><cf_img icon="select" onClick="closeme('#v#')" navigation="Yes"></td>
       <td><a href="javascript:closeme('#v#')">Ledger Transaction</a></td>
-      <td style="word-wrap: break-word;"><font size="1" color="gray">#v#</td>
+      <td style="word-wrap: break-word;"><font size="2"  color="gray">#v#</td>
 	  <td>TransactionId</td>
 </tr>
 
@@ -161,7 +169,7 @@
       <cfset v = "System/Access/User/UserDetail.cfm?ID=">
       <td><cf_img icon="select" onClick="closeme('#v#')" navigation="Yes"></td>
       <td><a href="javascript:closeme('#v#')">System User</a></td>
-      <td style="word-wrap: break-word;"><font size="1" color="gray">#v#</td>
+      <td style="word-wrap: break-word;"><font size="2"  color="gray">#v#</td>
 	  <td>Account</td>
 </tr>
 
@@ -176,7 +184,7 @@
       <cfset v = "#GetCustom.FunctionPath#">
       <td><cf_img icon="select" onClick="closeme('#v#')" navigation="Yes"></td>
       <td><a href="javascript:closeme('#v#')">#GetCustom.FunctionName#</a></td>
-	  <td style="word-wrap: break-word;"><font size="1" color="gray">#v#</td>
+	  <td style="word-wrap: break-word;"><font size="2"  color="gray">#v#</td>
 	  <td>#GetCustom.ScriptVariable1#</td>
 	</tr>
 	

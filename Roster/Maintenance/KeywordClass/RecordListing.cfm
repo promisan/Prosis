@@ -22,11 +22,11 @@
 	<script>
 	
 	function recordadd(grp) {
-	          window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=650, height=400, toolbar=no, status=yes, scrollbars=no, resizable=no");
+          ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=650, height=400, toolbar=no, status=yes, scrollbars=no, resizable=no");
 	}
 	
 	function recordedit(id1) {
-	          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=650, height=400, toolbar=no, status=yes, scrollbars=no, resizable=no");
+          ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=650, height=400, toolbar=no, status=yes, scrollbars=no, resizable=no");
 	}
 	
 	function show(cde) {
@@ -34,7 +34,7 @@
 		se = document.getElementById(cde)
 		if (se.className == "hide") {
 			se.className  = "regular" 
-			ColdFusion.navigate('List.cfm?code='+cde,cde+'_list')
+			ptoken.navigate('List.cfm?code='+cde,cde+'_list')
 		} else {
 			se.className  = "hide"
 		}
@@ -66,35 +66,35 @@
 
 <tr><td height="10"></td></tr>
 
-<tr class="labelheader line">   
+<tr class="fixrow line labelmedium2">   
 	<td></td>
 	<td></td>
-    <td class="labelit">&nbsp;&nbsp;&nbsp;<cf_tl id="Code"></td>
-	<td class="labelit"><cf_tl id="Description"></td>
-	<td class="labelit" align="center"><cf_tl id="Keywords"></td>
-	<td class="labelit" align="center"><cf_tl id="Order"></td>	
-	<td class="labelit" align="center"><cf_tl id="Owners"></td>	
-	<td class="labelit"><cf_tl id="Occ. group"></td>
+    <td>&nbsp;&nbsp;&nbsp;<cf_tl id="Code"></td>
+	<td><cf_tl id="Description"></td>
+	<td align="center"><cf_tl id="Keywords"></td>
+	<td align="center"><cf_tl id="Order"></td>	
+	<td align="center"><cf_tl id="Owners"></td>	
+	<td><cf_tl id="Occ. group"></td>
 	<td></td>
 </tr>
 
 <cfoutput query="SearchResult" group="Parent">
  
-	<tr class="linedotted">
-		<td colspan="8" class="labelmedium" style="padding-left:5px"><b>#Parent#</b></td>
+	<tr class="line">
+		<td colspan="8" class="labelmedium2" style="height:35px;font-size:20px;padding-left:5px">#Parent#</b></td>
 	</tr>
 
 <cfoutput>
     
-	<tr class="cellcontent linedotted navigation_row clsRow">
+	<tr class="labelmedium2 line navigation_row clsRow">
 	<td class="clsFields" style="display:none;">
 		#Parent# #ExperienceClass# #Description# #DescriptionFull#
 	</td>
-	<td align="center">
+	<td style="padding-top:8px" align="center">
 		<cf_img icon="expand" toggle="Yes" onclick="show('#ExperienceClass#')">
 	</td>
-	<td >
-		<cf_img icon="Edit" onclick="recordedit('#ExperienceClass#')" navigation="Yes">
+	<td style="padding-top:2px">
+		<cf_img icon="select" onclick="recordedit('#ExperienceClass#')" navigation="Yes">
 	</td>
 	<td style="padding-left:4px">#ExperienceClass#</td>
 	<td>#Description#</td>
@@ -105,9 +105,7 @@
     </tr>
 	
 	 <tr class="hide" id="#ExperienceClass#">
-	    <td colspan="8">
-		<cfdiv id="#ExperienceClass#_list"/>				
-	</td></tr>
+	    <td colspan="8" id="#ExperienceClass#_list"></td></tr>
 
 </cfoutput>
 

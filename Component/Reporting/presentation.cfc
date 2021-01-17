@@ -318,13 +318,11 @@
 						   ORDER BY #field#
 					</cfquery>						
 					
-				</cfif>
-							
+				</cfif>							
 				
 			<cfelse>
 			
-				<!--- outputting --->
-												
+				<!--- outputting --->												
 			   				
 				<cfif mode eq "Combo">
 						
@@ -343,10 +341,10 @@
 				  	<cfquery name="data"
 				         maxrows="#topselect#"
 			    	     dbtype="query">
-						    SELECT DISTINCT top #topselect# #field# AS PK
-							 #preservesinglequotes(qry)#					  
+						   SELECT   DISTINCT top #topselect# #field# AS PK
+							        #preservesinglequotes(qry)#					  
 						   ORDER BY #field#
-					    </cfquery>	
+					 </cfquery>	
 				  
 				</cfif> 				
 																	

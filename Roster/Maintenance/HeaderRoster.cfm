@@ -46,12 +46,12 @@ function menu() {
 </cftry>
 
 <cfif add eq "1">
-	<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+	<table width="100%" align="center" class="formpadding">
 	<tr><td height="1" class="linedotted"></td></tr>
 	<tr><td height="28" align="center">
 		<cfoutput>
 		  <input type="button" value="Back" class="button10g"  onclick="menu()">	
-	      <input type="button" value="Add" class="button10g"  onclick="javascript:recordadd('')">
+	      <input type="button" value="Add"  class="button10g"  onclick="javascript:recordadd('')">
 		</cfoutput>
 		</td>
 	</tr>

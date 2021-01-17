@@ -2,12 +2,15 @@
 <cfoutput>
 	
 	<!--- pass the result to the script --->
-	<cfsavecontent variable="myquery">				
+	<cfsavecontent variable="myquery">		
+			
+	    SELECT *, TransactionDate
+		FROM (		
 				
 			SELECT     L.Journal, 
 			           L.JournalSerialNo, 
 					   L.TransactionSerialNo, 
-					   L.GLAccount, 
+					   L.GLAccount+' '+R.Description as Account,
 					   L.TransactionLineId, 
 					   L.JournalTransactionNo, 
 					   L.Memo, 
@@ -18,13 +21,21 @@
 			           L.ProgramCodeProvider, 
 					   L.ProgramPeriod, 
 					   L.ObjectCode, 
-					   C.Reference as ContributionReference,
+					   <!---
+					   (SELECT Reference
+					    FROM  Program.dbo.Contributionline Pe
+						WHERE L.ProgramPeriod = Pe.Period AND L.ProgramCode = Pe.ProgramCode) as Contribution,										   
+						--->
 					   L.ContributionLineId, 
 					   L.AccountPeriod, 
 					   L.TransactionDate, 
 					   L.TransactionType, 
 					   L.Reference as TransactionReference, 
-					   Pe.Reference,
+					   <!---
+					   (SELECT Reference
+					    FROM   Program.dbo.ProgramPeriod Pe
+						WHERE  L.ProgramPeriod = Pe.Period AND L.ProgramCode = Pe.ProgramCode) as Reference,					   
+						--->
 					   L.ReferenceName, 
 					   L.ReferenceNo, 
 			           L.ReferenceId, 
@@ -51,15 +62,17 @@
 					   
 			FROM       TransactionLine AS L 
 					   INNER JOIN TransactionHeader H ON H.Journal = L.Journal and H.JournalSerialNo = L.JournalSerialNo
-					   LEFT OUTER JOIN Program.dbo.ProgramPeriod AS Pe ON L.ProgramPeriod = Pe.Period AND L.ProgramCode = Pe.ProgramCode
-					   LEFT OUTER JOIN
-                       Program.dbo.Contributionline AS C ON C.ContributionLineId = L.ContributionLineId
-			
+					   INNER JOIN Ref_Account R ON L.GLAccount = R.GLAccount 
+					   			
 			WHERE     H.Journal       = '#url.journal#' 
 			AND       H.AccountPeriod = '#url.period#'
 			AND       H.ActionStatus != '9'
 			AND       H.RecordStatus != '9'
-		
+			
+			) as D
+			
+			WHERE 1=1 --condition
+					
 	</cfsavecontent>
 
 </cfoutput>
@@ -74,24 +87,33 @@
 <cfset itm = itm+1>
 <cfset fields[itm] = {label      = "No",                   
 					field      = "JournalSerialNo",
-					filtermode = "1",
+					filtermode = "2",
 					search     = "text"}>
 		
 
 <cfset itm = itm+1>								
 <cfset fields[itm] = {label      = "Date",                   
-					field      = "TransactionDate",					
+					field      = "TransactionDate",								
+					column     = "month",	
 					formatted  = "dateformat(TransactionDate,CLIENT.DateFormatShow)",
 					search     = "date"}>		
 							
-								
 <cfset itm = itm+1>					
 <cfset fields[itm] = {label      = "Account",                    
-					field      = "GLAccount",
+					field      = "Account",
 					filtermode = "2",
-					labelfilter = "GL Account",
-					search     = "text"}>
-					
+					labelfilter = "Account",
+					search     = "text"}>	
+													
+	
+				
+<cfset itm = itm+1>					
+<cfset fields[itm] = {label      = "Reference",                    
+					field      = "TransactionReference",					
+					labelfilter = "Reference",
+					search     = "text"}>	
+
+<!---										
 <cfset itm = itm+1>						
 <cfset fields[itm] = {label      = "Fund", 					
 					field      = "Fund",					
@@ -103,7 +125,9 @@
 					field      = "ObjectCode",					
 					filtermode = "2",    
 					search     = "text"}>						
+--->
 
+<!---					
 <cfset itm = itm+1>								
 <cfset fields[itm] = {label      = "Program",                   
 					field      = "Reference",	
@@ -117,7 +141,7 @@
 <cfset fields[itm] = {label      = "Period",  					
 					field      = "ProgramPeriod",										
 					filtermode = "2",				
-					search     = "text"}>
+					search     = "text"}>	
 					
 <cfset itm = itm+1>					
 <cfset fields[itm] = {label     = "Donor",  					
@@ -126,8 +150,9 @@
 					searchfield = "Reference",									
 					filtermode  = "2",				
 					search      = "text"}>
-													
 					
+--->						
+						
 <cfset itm = itm+1>								
 <cfset fields[itm] = {label      = "Cur.",   					
 					field      = "Currency",					
@@ -138,6 +163,7 @@
 					field      = "AmountDebit",
 					<!--- search     = "number", --->
 					aggregate  = "sum",
+					width      = "30",
 					align      = "right",
 					formatted  = "numberformat(AmountDebit,',.__')"}>	
 					
@@ -147,6 +173,7 @@
 					<!--- search     = "number", ---> 
 					aggregate  = "sum",
 					align      = "right",
+					width      = "30",
 					formatted  = "numberformat(AmountCredit,',.__')"}>						
 					
 <cfset itm = itm+1>					
@@ -159,11 +186,12 @@
 
 <!---
 <cf_wfpending entityCode="ProcInvoice"  
-      table="#SESSION.acc#wfInvoice" mailfields="No" IncludeCompleted="No">							--->
-							
+      table="#SESSION.acc#wfInvoice" mailfields="No" IncludeCompleted="No">							--->							
+	  
+						
 <cf_listing
-    header        = "lsTransaction"
-    box           = "lsTransaction"
+    header        = "Transaction#url.journal#"
+    box           = "Transaction#url.journal#"
 	link          = "#SESSION.root#/Gledger/Application/Transaction/JournalTransactionListingContent.cfm?#cgi.query_string#"
     html          = "No"
 	show          = "42"
@@ -178,7 +206,7 @@
 	excelShow     = "Yes"
 	annotation    = "GLTransaction"
 	drillmode     = "securewindow"
-	drillargument = "1040;#client.widthfull#;false;false"	
+	drillargument = "1030;#client.widthfull#;false;false"	
 	drilltemplate = "Gledger/Application/Transaction/View/TransactionView.cfm?id="
 	drillkey      = "TransactionLineId">
 	

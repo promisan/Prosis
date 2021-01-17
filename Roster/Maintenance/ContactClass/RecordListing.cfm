@@ -7,55 +7,67 @@ password="#SESSION.dbpw#">
 	FROM 	Ref_ContactClass
 </cfquery>
 
-<cf_divscroll>
 
-<cfset Page         = "0">
-<cfset add          = "1">
-<cfset Header       = "Background Contact Class">
-<cfinclude template = "../HeaderRoster.cfm"> 
+<cf_screentop html="No" jquery="Yes">
+
+<table width="98%" align="center" height="100%">
+	
+	<cfset Page         = "0">
+	<cfset add          = "1">
+	<cfset Header       = "Background Contact Class">
+	<tr style="height:10px"><td><cfinclude template = "../HeaderRoster.cfm"></td></tr>
 
 <cfoutput>
 
 <script language = "JavaScript">
 
 function recordadd(grp) {
-          window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 450, height= 290, toolbar=no, status=yes, scrollbars=no, resizable=yes");
+          ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 550, height= 290, toolbar=no, status=yes, scrollbars=no, resizable=yes");
 }
 
 function recordedit(id1) {
-          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width= 450, height= 290, toolbar=no, status=yes, scrollbars=no, resizable=yes");
+          ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width= 550, height= 290, toolbar=no, status=yes, scrollbars=no, resizable=yes");
 }
 
 </script>	
 
 </cfoutput>
 
-<table width="95%" cellspacing="0" cellpadding="0" align="center" class="maintenancetable navigation_table">
+<tr><td>
 
-<thead>
-	<tr>
-	    <td></td>
-	    <td>Code</td>
-		<td>Description</td>	
-		<td align="center">Order</td>
-	    <td>Entered</td>  
-	</tr>
-</thead>
+	<cf_divscroll>
+	
+	<table width="95%" align="center" class="formpadding navigation_table">
+		
+		<thead>
+			<tr  class="labelmedium2 line">
+			    <td></td>
+			    <td>Code</td>
+				<td>Description</td>	
+				<td align="center">Order</td>
+			    <td>Entered</td>  
+			</tr>
+		</thead>
+		
+		<tbody>
+			<cfoutput query="SearchResult">
+				<tr class="labelmedium2 line navigation_row">
+					<td width="5%" align="center">
+					  <cf_img icon="open" onclick="recordedit('#Code#')" navigation="Yes">
+					</td>	
+					<td>#Code#</td>
+					<td>#Description#</td>	
+					<td align="center">#ListingOrder#</td>
+					<td>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
+			    </tr>
+			</cfoutput>
+		</tbody>
+	   
+	</table>
+	
+	</cf_divscroll>
 
-<tbody>
-	<cfoutput query="SearchResult">
-		<tr class="navigation_row">
-			<td width="5%" align="center">
-			  <cf_img icon="open" onclick="recordedit('#Code#')" navigation="Yes">
-			</td>	
-			<td><a href="javascript:recordedit('#code#')">#Code#</a></td>
-			<td>#Description#</td>	
-			<td align="center">#ListingOrder#</td>
-			<td>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
-	    </tr>
-	</cfoutput>
-</tbody>
-   
+</td>
+</tr>
+
 </table>
-
-</cf_divscroll>

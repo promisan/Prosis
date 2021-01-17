@@ -29,8 +29,9 @@ password="#SESSION.dbpw#">
     <td width="50%" style="padding-left:2px"><cf_tl id="Category"></td>
     <td align="center"><label title="Operational"><cf_tl id="Op"></label></td>
 	<td align="center"><label title="Discount"><cf_tl id="Disc"></label></td>
-	<td align="center"><label title="Oversale"><cf_tl id="Over"></label></td>
-	<td align="center"><label title="Selfservice"><cf_tl id="Self"></label></td>
+	<td align="center"><label title="Tax"><cf_tl id="Tax"></label></td>
+	<td align="center"><label title="Oversale"><cf_tl id="Oversale"></label></td>
+	<td align="center"><label title="Selfservice"><cf_tl id="Selfservice"></label></td>
 	<td align="center"><label title="Request Mode"><cf_tl id="Req"></label></td>
 	<td height="23" align="right" style="padding-left:20px">
 		<cfoutput>
@@ -47,21 +48,33 @@ password="#SESSION.dbpw#">
 
 	<tr class="navigation_row line labelmedium" style="height:20px">
 		
-		<td style="padding-left:3px">#CategoryDescription#</td>
+		<td style="padding-left:3px">#Category# #CategoryDescription#</td>
 		<td align="center"><cfif Operational eq 1>#vYes#<cfelse><b>No</b></cfif></td>		
-		<td align="center">#ThresholdDiscount#</td>	
+		<td align="center">#ThresholdDiscount#%</td>	
+		
+		<cfquery name="TaxCodes" 
+		datasource="appsLedger" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT 	*
+			FROM 	Ref_Tax	
+			WHERE  TaxCode = '#taxcode#'
+		</cfquery>
+		
+		<td align="center">#TaxCodes.Description#</td>
 		<td align="center"><cfif OverSale eq 1>#vYes#<cfelse><b>No</b></cfif></td>
 		<td align="center"><cfif SelfService eq 1>#vYes#<cfelse><b>No</b></cfif></td>
 		<td align="center"><cfif RequestMode eq 1><label title="Consolidated">C</label><cfelse><label title="Not Consolidated">NC</label></cfif></td>
-		<td style="padding-top:1px; padding-left:22px;">
+		<td align="right" style="padding-top:1px; padding-left:22px;padding-right:10px;">
 			<table>
 				<tr>
-					<td><cf_img icon="edit" onclick="editCategory('#url.id1#','#category#');"></td>
 					<cfif validate eq 0>					
-					<td style="padding-left:3px">
+					<td style="padding-right:3px">
 						<cf_img icon="delete" onclick="purgeCategory('#url.id1#','#category#');">
 					</td>
 					</cfif>
+					<td><cf_img icon="open" onclick="editCategory('#url.id1#','#category#');"></td>
+					
 				</tr>
 			</table>
 		</td>

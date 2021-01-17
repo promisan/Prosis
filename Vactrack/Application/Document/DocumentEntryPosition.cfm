@@ -48,18 +48,18 @@
 <cfelse>
 
 	<cfform action="#session.root#/Vactrack/Application/Document/DocumentEntrySubmit.cfm?portal=#url.portal#&box=#url.box#&ID=#DocumentNoTrigger#&id1=#URL.ID1#"
-	  method="POST" style="height:99%" name="documententry" target="result">
+	  method="POST" style="height:98%" name="documententry" target="result">
 	  
-		<table width="93%" height="98%" align="center">
+		<table width="93%" height="99%" align="center">
 		    
 		  <tr class="hide"><td><iframe name="result" id="result"></iframe></td></tr>
 		 	    
 		  <tr>
 		    <td width="100%" height="100%">
 				
-			<cf_divscroll style="height:100%">
+			<cf_divscroll style="height:98%">
 			
-			    <table border="0" width="100%" class="formpadding formspacing">
+			    <table width="100%" class="formpadding formspacing">
 				
 				<cfquery name="Owner" 
 					datasource="AppsOrganization" 
@@ -194,15 +194,16 @@
 				datasource="AppsSelection" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
-					SELECT * FROM Ref_GradeDeployment
+					SELECT * 
+					FROM   Ref_GradeDeployment
 					WHERE  GradeDeployment IN (	
-							SELECT 	 DISTINCT FO.GradeDeployment
-							FROM     Employee.dbo.Position AS P INNER JOIN
-							         FunctionTitle AS FT ON P.FunctionNo = FT.FunctionNo INNER JOIN
-							         FunctionOrganization AS FO ON FT.FunctionNo = FO.FunctionNo INNER JOIN
-							         Ref_SubmissionEdition AS Se ON FO.SubmissionEdition = Se.SubmissionEdition
-							WHERE    Se.Owner = '#accesstrack.owner#' 
-							AND      P.PositionNo = '#URL.ID1#'	
+								SELECT 	 DISTINCT FO.GradeDeployment
+								FROM     Employee.dbo.Position AS P INNER JOIN
+								         FunctionTitle AS FT ON P.FunctionNo = FT.FunctionNo INNER JOIN
+								         FunctionOrganization AS FO ON FT.FunctionNo = FO.FunctionNo INNER JOIN
+								         Ref_SubmissionEdition AS Se ON FO.SubmissionEdition = Se.SubmissionEdition
+								WHERE    Se.Owner = '#accesstrack.owner#' 
+								AND      P.PositionNo = '#URL.ID1#'	
 							)
 					ORDER BY ListingOrder
 				</cfquery>
@@ -214,15 +215,12 @@
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
 					SELECT * FROM Ref_GradeDeployment
-					WHERE  PostGradeBudget IN (		
-								
+					WHERE  PostGradeBudget IN (										
 							SELECT   DISTINCT PG.PostGradeBudget
 							FROM     Employee.dbo.Position AS P INNER JOIN
 							                      Employee.dbo.Ref_PostGrade PG ON P.PostGrade = PG.PostGrade
-							WHERE    P.PositionNo = '#URL.ID1#'
-							
-							)
-							
+							WHERE    P.PositionNo = '#URL.ID1#'							
+							)							
 					ORDER BY ListingOrder
 					</cfquery>
 					
@@ -234,11 +232,10 @@
 			    <TR>
 			    <td class="labelmedium"><cf_tl id="Roster Level">:</td>
 					
-				<td><cfselect name="GradeDeployment"  class="regularxl">
+				<td><cfselect name="GradeDeployment" class="regularxl">
 				    <option value="">n/a</option>
 				    <cfoutput query="Deployment">
-					<option value="#GradeDeployment#">#Description#
-					</option>
+						<option value="#GradeDeployment#">#Description#</option>
 					</cfoutput>
 				    </cfselect>			
 				</td>				
@@ -309,7 +306,7 @@
 			
 			</TABLE>
 		
-		</cf_divscroll>
+		   </cf_divscroll>
 		
 		</td></tr>
 		

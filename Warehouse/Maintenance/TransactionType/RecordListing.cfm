@@ -15,7 +15,7 @@ password="#SESSION.dbpw#">
 <cfset add          = "0">
 <cfinclude template = "../HeaderMaintain.cfm"> 
 
-<table width="96%"  border="0" align="center" bordercolor="silver" cellspacing="0" cellpadding="0"  >  
+<table width="96%"  align="center">  
 
 <cfoutput>
 
@@ -35,9 +35,9 @@ function recordedit(id1) {
 	
 <tr><td colspan="2">
 	
-	<table width="100%" align="center" class="formpadding navigation_table">
+	<table width="96%" align="center" class="formpadding navigation_table">
 	
-	<tr class="labelmedium fixrow">
+	<tr class="labelmedium2 fixrow line">
 	    <TD></TD> 
 	    <TD>Code</TD>
 		<td>Description</td>
@@ -46,14 +46,12 @@ function recordedit(id1) {
 		<td>Report template</td>
 	    <TD>Entered</TD>  
 	</TR>
-	
-	<tr><td colspan="6" class="line"></td></tr>	
-	
+		
 	<cfoutput query="SearchResult">
 	
-	    <TR class="navigation_row labelmedium line" bgcolor="FFFFFF"> 
+	    <TR class="navigation_row labelmedium2 line" bgcolor="FFFFFF"> 
 			<td height="20" width="5%" align="center">
-			  <cf_img icon="edit" onclick="recordedit('#TransactionType#');">
+			  <cf_img icon="open" onclick="recordedit('#TransactionType#');">
 			</td>		
 			<TD>#TransactionType#</TD>
 			<TD>#Description#</TD>

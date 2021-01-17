@@ -1,10 +1,8 @@
 <!--- Create Criteria string for query from data entered thru search form --->
-<cf_screentop html="No" jquery="Yes">
-<cf_divscroll>
+
 
 <cfset Page         = "0">
 <cfset add          = "1">
-<cfinclude template = "../HeaderMaintain.cfm"> 	
 
 <cfquery name="SearchResult"
 datasource="appsMaterials" 
@@ -14,18 +12,22 @@ password="#SESSION.dbpw#">
 	FROM Ref_Disposal
 </cfquery>
 
-<table width="96%" align="center" border="0" cellspacing="0" cellpadding="0" >
+<cf_screentop html="No" jquery="Yes">
+
+<table width="98%" align="center" height="100%">
+
+<tr style="height:10px"><td><cfinclude template = "../HeaderMaintain.cfm"></td></tr>
 
 <cfoutput>
 
 <script>
 
 function recordadd(grp) {
-          window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 450, height= 250, toolbar=no, status=yes, scrollbars=no, resizable=no");
+       ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 450, height= 250, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 function recordedit(id1) {
-          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width= 450, height= 250, toolbar=no, status=yes, scrollbars=no, resizable=no");
+      ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width= 450, height= 250, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 </script>	
@@ -34,37 +36,38 @@ function recordedit(id1) {
 
 <tr><td colspan="2">
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
-
-<tr>
-    <TD align="left"></TD>
-    <TD align="left" class="labelit"><cf_tl id="Code"></TD>
-	<TD align="left" class="labelit"><cf_tl id="Description"></TD>
-	<TD align="left" class="labelit"><cf_tl id="Officer"></TD>
-    <TD align="left" class="labelit"><cf_tl id="Entered"></TD>
-</TR>
-
-<cfoutput query="SearchResult">
-
-	<tr><td height="1" class="line" colspan="5"></td></tr>
-    
-    <TR class="navigation_row"> 
-	<td align="center" style="padding-top:0px">
-	   <cf_img icon="open" navigation="yes" onclick="recordedit('#Code#');">
-	</td>
-	<TD class="labelit"><a href="javascript:recordedit('#Code#')">#Code#</a></TD>
-	<TD class="labelit">#Description#</TD>
-	<TD class="labelit">#OfficerFirstName# #OfficerLastName#</TD>
-	<TD class="labelit">#Dateformat(Created, "#CLIENT.DateFormatShow#")#</TD>
-    </TR>
+<cf_divscroll>
 	
-</CFOUTPUT>
+	<table width="100%" align="center" class="navigation_table">
+	
+	<tr class="labelmedium2 line fixrow">
+	    <TD align="left"></TD>
+	    <TD><cf_tl id="Code"></TD>
+		<TD><cf_tl id="Description"></TD>
+		<TD><cf_tl id="Officer"></TD>
+	    <TD><cf_tl id="Entered"></TD>
+	</TR>
+	
+	<cfoutput query="SearchResult">
+	    
+	    <TR class="navigation_row labelmedium2 line"> 
+		<td align="center" style="padding-top:1px">
+		   <cf_img icon="open" navigation="yes" onclick="recordedit('#Code#');">
+		</td>
+		<TD class="labelit"><a href="javascript:recordedit('#Code#')">#Code#</a></TD>
+		<TD class="labelit">#Description#</TD>
+		<TD class="labelit">#OfficerFirstName# #OfficerLastName#</TD>
+		<TD class="labelit">#Dateformat(Created, "#CLIENT.DateFormatShow#")#</TD>
+	    </TR>
+		
+	</CFOUTPUT>
+	
+	</TABLE>
 
-</TABLE>
+</cf_divscroll>
 
 </td>
 </tr>
 
 </TABLE>
 
-</cf_divscroll>

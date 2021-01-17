@@ -7,7 +7,7 @@
 <script>
 
 function recordedit(id1) {    
-    window.open("#SESSION.root#/System/Modules/Reports/RecordEdit.cfm?ID=" + id1, "Edit", "left=40, top=15, width=920, height=830, toolbar=no, status=yes, scrollbars=no, resizable=no");
+    ptoken.open('#SESSION.root#/System/Modules/Reports/RecordEdit.cfm?ID=' + id1, 'Edit');
 }
   
 function tooltip(name) {
@@ -23,7 +23,7 @@ function tooltip(name) {
 function report(id) {
     w = #CLIENT.width# - 56;
     h = #CLIENT.height# - 70;
-	window.open("#SESSION.root#/tools/cfreport/ReportLinkOpen.cfm?reportid=" + id, "_blank", "left=10, top=10, width=" + w + ", height= " + h + ", toolbar=no, status=no, scrollbars=yes, resizable=yes");
+	ptoken.open('#SESSION.root#/tools/cfreport/ReportLinkOpen.cfm?reportid=' + id, '_blank', 'left=10, top=10, width=' + w + ', height= ' + h + ', toolbar=no, status=no, scrollbars=yes, resizable=yes');
 }
 
 function reportabout(id) {
@@ -41,9 +41,9 @@ function schedule(id) {
 function popular(st,id) {
 
     <cfif url.portal eq "0">
-    window.location = "#SESSION.root#/System/Modules/Subscription/RecordPopular.cfm?portal=0&view=#URL.view#&st="+st+"&id="+id
+    ptoken.location('#SESSION.root#/System/Modules/Subscription/RecordPopular.cfm?portal=0&view=#URL.view#&st='+st+'&id='+id)
 	<cfelse>
-	ColdFusion.navigate('#SESSION.root#/System/Modules/Subscription/RecordPopular.cfm?portal=1&view=#URL.view#&st='+st+'&id='+id,'mylist')	
+	ptoken.navigate('#SESSION.root#/System/Modules/Subscription/RecordPopular.cfm?portal=1&view=#URL.view#&st='+st+'&id='+id,'mylist')	
 	</cfif>
 	
 }
@@ -56,7 +56,7 @@ function purge() {
 
 function mail(id,path,sql) {
 	if (confirm("Do you want to send this report to your eMail now ?")) {
-	ColdFusion.navigate('#SESSION.root#/tools/cfreport/ReportSQL8.cfm?reportId=' + id + '&Mode=Instant','mail'+id)	
+	ptoken.navigate('#SESSION.root#/tools/cfreport/ReportSQL8.cfm?reportId=' + id + '&Mode=Instant','mail'+id)	
   	}
 }
 
@@ -83,7 +83,7 @@ function more(id,act,row,content) {
 	   	 icM.className = "regular";
 	     icE.className = "hide";
 		 se.className  = "regular";
-		 ColdFusion.navigate(url,'i'+row)				 
+		 ptoken.navigate(url,'i'+row)				 
 	} else {
 	   	 icM.className = "hide";
 	     icE.className = "regular";

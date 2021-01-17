@@ -84,18 +84,18 @@
 <cfif Broadcast.BroadcastStatus eq "0">
 	
 	<tr>
-		<td class="labelmedium" height="20">Schedule:</td>
+		<td class="labelmedium2" height="20">Schedule:</td>
 		<td>
 			
-		<table cellspacing="0" cellpadding="0"><tr><td class="labelmedium">
-		<input type="radio" name="Schedule" id="Schedule" class="radiol" value="0" checked></td><td style="padding-left:5px" class="labelmedium">Immediate</td>
-		<td style="padding-left:15px"><input type="radio" class="radiol" disabled name="Schedule" id="Schedule" value="1"></td><td style="padding-left:5px" class="labelmedium">Date:</td>
+		<table cellspacing="0" cellpadding="0"><tr><td class="labelmedium2">
+		<input type="radio" name="Schedule" id="Schedule" class="radiol" value="0" checked></td><td style="padding-left:5px" class="labelmedium2">Immediate</td>
+		<td style="padding-left:15px"><input type="radio" class="radiol" disabled name="Schedule" id="Schedule" value="1"></td><td style="padding-left:5px" class="labelmedium2">Date:</td>
 		</td><td style="padding-left:5px">
 			<cf_intelliCalendarDate9
 					FieldName="BroadcastDate" 
 					Default="#broadcast.broadcastDate#"
 					AllowBlank="True"
-					Class="regularxl">	
+					Class="regularxxl">	
 			</td>				
 		</tr></table>	
 						
@@ -105,8 +105,8 @@
 </cfif>
 
 <tr>
-	<td class="labelmedium" height="20" width="120">Sent by:</td>
-	<td height="20" width="80%" class="labelmedium">
+	<td class="labelmedium2" height="20" width="120">Sent by:</td>
+	<td height="20" width="80%" class="labelmedium2">
 	
 	  <cfif Broadcast.BroadcastStatus eq "0">
 	
@@ -122,7 +122,7 @@
 			   validate="email"
    			   message="Please enter a valid Sent By address."
 		       typeahead="No"
-			   class="regularxl"
+			   class="regularxxl"
 			   maxlength="50"
 		       size="40">
 		   
@@ -138,7 +138,7 @@
 			   message="Please enter a valid Sent By address."
   			   validate="email"
 		       typeahead="No"
-			   class="regularxl"
+			   class="regularxxl"
 			   maxlength="50"
 		       size="40">
 		   		   
@@ -154,8 +154,8 @@
 </tr>
 
 <tr>
-	<td class="labelmedium">Reply address:</td>
-	<td height="20" class="labelmedium">
+	<td class="labelmedium2">Reply address:</td>
+	<td height="20" class="labelmedium2">
 	 <cfif Broadcast.BroadcastStatus eq "0">
 		<cfinput type="Text"
        name="BroadcastReplyTo"
@@ -166,7 +166,7 @@
        showautosuggestloadingicon="False"
 	   message="Please enter a valid Repply To address"
        typeahead="No"
-	   class="regularxl"
+	   class="regularxxl"
 	   validate="email"
 	   maxlength="50"
        size="40">
@@ -176,8 +176,8 @@
 	</td>
 </tr>
 <tr>
-	<td class="labelmedium">Fail to:</td>
-	<td height="20" class="labelmedium">
+	<td class="labelmedium2">Fail to:</td>
+	<td height="20" class="labelmedium2">
 	 <cfif Broadcast.BroadcastStatus eq "0">
 	  <cfinput type="Text"
        name="BroadcastFailTo"
@@ -189,7 +189,7 @@
        showautosuggestloadingicon="False"
        typeahead="No"
 	   message="Please enter a valid Fail To address"
-	   class="regularxl"
+	   class="regularxxl"
 	   maxlength="50"
        size="40">
 	   <cfelse>
@@ -199,14 +199,14 @@
 </tr>
 
 <tr>
-	<td class="labelmedium">Priority:</td>
-	<td height="20" class="labelmedium">
+	<td class="labelmedium2">Priority:</td>
+	<td height="20" class="labelmedium2">
 	<cfif Broadcast.BroadcastStatus eq "0">
 		<table class="formspacing">
 		<tr>
-		<td><input type="radio" class="radiol" name="BroadcastPriority" id="BroadcastPriority" <cfif broadcast.broadcastpriority eq "1">checked</cfif> value="1"></td><td class="labelmedium">High</td>
-		<td style="padding-left:4px"><input type="radio" class="radiol" name="BroadcastPriority" id="BroadcastPriority" <cfif broadcast.broadcastpriority eq "3" or Broadcast.broadcastpriority eq "">checked</cfif> value="3"></td><td class="labelmedium">Normal</td>
-		<td style="padding-left:4px"><input type="radio" class="radiol" name="BroadcastPriority" id="BroadcastPriority" <cfif broadcast.broadcastpriority eq "5">checked</cfif> value="3"></td><td class="labelmedium">Low</td>
+		<td><input type="radio" class="radiol" name="BroadcastPriority" id="BroadcastPriority" <cfif broadcast.broadcastpriority eq "1">checked</cfif> value="1"></td><td class="labelmedium2">High</td>
+		<td style="padding-left:4px"><input type="radio" class="radiol" name="BroadcastPriority" id="BroadcastPriority" <cfif broadcast.broadcastpriority eq "3" or Broadcast.broadcastpriority eq "">checked</cfif> value="3"></td><td class="labelmedium2">Normal</td>
+		<td style="padding-left:4px"><input type="radio" class="radiol" name="BroadcastPriority" id="BroadcastPriority" <cfif broadcast.broadcastpriority eq "5">checked</cfif> value="3"></td><td class="labelmedium2">Low</td>
 		</tr>	
 		</table>
 	<cfelse>	  
@@ -222,10 +222,10 @@
 	</td>
 </tr>
 <tr>
-	<td class="labelmedium">Mailer Id:</td>
-	<td height="20" class="labelmedium">
+	<td class="labelmedium2">Mailer Id:</td>
+	<td height="20" class="labelmedium2">
 	<cfif Broadcast.BroadcastStatus eq "0">
-	<input type="text" class="regularxl" value="#broadcast.broadcastMailerId#" name="BroadcastMailerId" id="BroadcastMailerId" size="30" maxlength="30">
+	<input type="text" class="regularxxl" value="#broadcast.broadcastMailerId#" name="BroadcastMailerId" id="BroadcastMailerId" size="30" maxlength="30">
 	<cfelse>
 	#broadcast.broadcastMailerId#
 	</cfif>
@@ -234,8 +234,8 @@
 </tr>
 
 <tr>
-	<td class="labelmedium" height="20">Recipients:</td>
-	<td class="labelmedium" style="height:25px">
+	<td class="labelmedium2">Recipients:</td>
+	<td class="labelmedium2" style="height:30px">
 	
 	  <cfquery name="Recipient" 
 	   datasource="AppsSystem" 
@@ -252,8 +252,8 @@
 </tr>
 
 <tr>
-	<td class="labelmedium" height="20" style="padding-right:40px">eMail Confirmation:</td>
-	<td class="labelmedium">
+	<td class="labelmedium2" height="20" style="padding-right:40px">eMail Confirmation:</td>
+	<td class="labelmedium2">
 	<cfif Broadcast.BroadcastStatus eq "0">
 	<input type="checkbox" class="radiol" name="BroadcastBCC" id="BroadcastBCC" <cfif broadcast.broadcastbcc eq "1">checked</cfif> value="1">
 	<cfelse>
@@ -264,8 +264,8 @@
 
 
 <tr>
-	<td class="labelmedium" height="20">Additional CC address:</td>
-	<td height="20" class="labelmedium">
+	<td class="labelmedium2" height="20">Additional CC address:</td>
+	<td height="20" class="labelmedium2">
 	
 	 <cfif Broadcast.BroadcastStatus eq "0">
 		
@@ -277,7 +277,7 @@
 	       enabled="Yes"
 		   message="Please enter a valid eMail address"
 		   value="#broadcast.broadcastCC#"    
-		   class="regularxl"
+		   class="regularxxl"
 		   maxlength="50"
 	       size="40">
 		   <cfelse>
@@ -288,10 +288,10 @@
 </tr>
 
 <tr>
-	<td class="labelmedium" height="20">Memo:</td>
-	<td class="labelmedium">
+	<td class="labelmedium2" height="20">Memo:</td>
+	<td class="labelmedium2">
 	<cfif Broadcast.BroadcastStatus eq "0">
-	<input type="text" class="regularxl" name="BroadcastMemo" id="BroadcastMemo" value="#broadcast.broadcastmemo#" style="width:99%" size="70" maxlength="100">
+	<input type="text" class="regularxxl" name="BroadcastMemo" id="BroadcastMemo" value="#broadcast.broadcastmemo#" style="width:99%" size="70" maxlength="100">
 	<cfelse>
 	#broadcast.broadcastmemo#
 	</cfif>
@@ -299,8 +299,8 @@
 </tr>
 
 <tr>
-	<td valign="top" style="padding-top:6px" class="labelmedium" height="25">Attachments:</td>
-	<td class="labelmedium">
+	<td valign="top" style="padding-top:6px" class="labelmedium2" height="25">Attachments:</td>
+	<td class="labelmedium2">
 	<cfdiv bind="url:BroadcastAttachment.cfm?id=#url.id#">	
 	</td>
 	
@@ -311,10 +311,8 @@
 
 <cfif Broadcast.Broadcaststatus eq "0">
 
-<tr><td colspan="2" align="center" height="30">
-		  
-  	<input type="button" name="Save" id="Save" value="Save" class="button10g" onclick="saveSettings();">
-		  
+<tr><td colspan="2" align="center" height="30">		  
+  	<input type="button" style="width:140px" name="Save" id="Save" value="Save" class="button10g" onclick="saveSettings();">		  
     </td>
 </tr>
   

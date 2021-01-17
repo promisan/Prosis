@@ -202,7 +202,7 @@
 		
 <cf_listing
 	    header              = "itemlocationlist"
-	    box                 = "listing"
+	    box                 = "itemlocationlist_#url.warehouse#"		
 		link                = "#SESSION.root#/Warehouse/Application/Stock/Inquiry/OnHandTransaction/ListingDataContent.cfm?mission=#url.mission#&systemfunctionid=#url.systemfunctionid#&warehouse=#url.warehouse#&location=#url.location#"
 	    html                = "No"		
 		tableheight         = "100%"

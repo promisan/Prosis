@@ -73,11 +73,12 @@ that carry this item and that are enabled --->
 </cfquery>	
 
 <table width="100%">
+    <tr><td height="10"></td></tr>
 	<tr>
-		<td valign="middle" class="labellarge">
+		<td valign="middle" class="labellarge" style="font-size:17px">
 			<cfoutput>
-				<a href="javascript:toggleAllStockLevelWarehouse();" style="color:6688aa;">
-					<img src="#SESSION.root#/Images/expand1.gif" id="twistie" height="11">&nbsp;<cf_tl id="Expand/collapse all facilities"></span>
+				<a href="javascript:toggleAllStockLevelWarehouse();">
+					<img src="#SESSION.root#/Images/expand1.gif" id="twistie" height="18">&nbsp;<cf_tl id="Expand / collapse all facilities"></span>
 				</a>
 			</cfoutput>
 		</td>
@@ -142,12 +143,12 @@ that carry this item and that are enabled --->
 				</cfquery>	
 							
 				<tr onMouseOver="this.style.backgroundColor='f1f1f1'" onMouseOut="this.style.backgroundColor=''">
-					<td valign="top" width="15%" style="padding-top:12px;padding-left:6px; padding-right:6px;border-right:1px solid gray;">#UoMDescription# (#UoM#)</u></font></td>
+					<td valign="top" width="15%" style="padding-top:12px;padding-left:6px; padding-right:6px;border-right:1px solid gray;">#UoMDescription# (#UoM#)</td>
 					<td>
 						<table class="formpadding" width="100%"  align="center">
 						
 							<tr><td height="5"></td></tr>
-							<tr class="labelmedium">
+							<tr class="labelmedium2">
 								<cfif whs.MinimumStock gt whs.MaximumStock>
 									<cfset cl = "yellow">
 								<cfelse>
@@ -162,7 +163,7 @@ that carry this item and that are enabled --->
 										name="MinimumStock_#row#" 
 										message="Please enter a numeric value"
 										value="#whs.MinimumStock#"
-										class="regularxl"				
+										class="regularxxl"				
 										required="Yes"
 										style="text-align:right;width:50"				
 										visible="Yes" enabled="Yes">
@@ -185,13 +186,13 @@ that carry this item and that are enabled --->
 										message="Please enter a numeric value"
 										value="#whs.MaximumStock#"				
 										required="Yes"
-										class="regularxl"
+										class="regularxxl"
 										style="text-align:right;width:50"
 										visible="Yes" enabled="Yes">
 								</td>
 							</tr>
 																					
-							<tr class="labelmedium">
+							<tr class="labelmedium2">
 								
 								<td style="padding-left:5px;"><cf_tl id="Tax">:</td>
 								<td colspan="2">
@@ -206,7 +207,7 @@ that carry this item and that are enabled --->
 						          required="Yes"
 						          type="Text"
 								  style="font:10px"
-						          class="regularxl"/>									
+						          class="regularxxl"/>									
 								
 								</td>
 								
@@ -218,13 +219,17 @@ that carry this item and that are enabled --->
 									</cfif>
 								
 								<td bgcolor="#cl#">
-									<cfinput type="Text" name="MinReorderQuantity_#row#" 				
-									value="#whs.MinReorderQuantity#"
-									required="Yes"
-									message="Please enter a numeric value"				
-									class="regularxl"
-									style="text-align:right;width:50"
-									visible="Yes" enabled="Yes">
+								
+									<cfinput type="Text" 
+									    name     = "MinReorderQuantity_#row#" 				
+										value    = "#whs.MinReorderQuantity#"
+										required = "Yes"
+										message  = "Please enter a numeric value"				
+										class    = "regularxxl"
+										style    = "text-align:right;width:50"
+										visible  = "Yes" 
+										enabled  = "Yes">
+									
 								</td>
 								
 								<cfif whs.MinReorderQuantity gt whs.MaximumStock>
@@ -236,7 +241,7 @@ that carry this item and that are enabled --->
 								
 							</tr>							
 																						
-							<tr class="labelmedium">	
+							<tr class="labelmedium2">	
 								<td style="height:26;padding-left:5px;"><cf_tl id="Replenishment">:</td>
 								<td colspan="2">			
 									<input type="checkbox" class="radiol"
@@ -261,10 +266,10 @@ that carry this item and that are enabled --->
 								
 							</tr>								
 																					
-							<tr class="labelmedium">	
+							<tr class="labelmedium2">	
 								<td style="padding-left:5px;"><cf_tl id="Request">:</td>
 								<td colspan="4">
-								<table><tr class="labelmedium">
+								<table><tr class="labelmedium2">
 								<td>
 								<input type="radio" class="radiol" name="RequestType_#row#" id="RequestType_#row#" value="Regular" <cfif whs.RequestType neq "Pickticket">checked</cfif>>
 								</td>
@@ -275,7 +280,7 @@ that carry this item and that are enabled --->
 								
 							</tr>							
 																					
-							<tr class="labelmedium">	
+							<tr class="labelmedium2">	
 								<td style="padding-left:5px;"><cf_tl id="Average Days">:</td>
 								<td colspan="2">
 									<cfinput type="Text" 
@@ -284,7 +289,7 @@ that carry this item and that are enabled --->
 									required="Yes"
 									message="Record the number of days over which the average comsumption will be calculated" 
 									validate="integer"
-									class="regularxl" 
+									class="regularxxl" 
 									size="2" 
 									maxlength="2"
 									style="text-align:center;"
@@ -314,14 +319,14 @@ that carry this item and that are enabled --->
 									
 							<cfif stockC.recordcount gte "1">	
 														
-								<tr class="labelmedium">	
+								<tr class="labelmedium2">	
 									<td style="padding-left:5px;"><cf_tl id="Stock Class">:</td>
 									<td colspan="5">
 																		
 										<table>
 											<tr>
 												<cfloop query="stockC">
-													<td class="labelmedium">#Description#:</td>
+													<td class="labelmedium2">#Description#:</td>
 													<td style="padding-left:4px;padding-right:10px">
 														<cfinput type="Text" 
 															name="TargetQuantity_#row#_#code#" 				
@@ -329,7 +334,7 @@ that carry this item and that are enabled --->
 															required="Yes"
 															message="Please enter an integer average days value" 
 															validate="numeric"
-															class="regularxl" 
+															class="regularxxl" 
 															size="4" 
 															maxlength="10"
 															style="text-align:right; padding-right:2px;">
@@ -343,7 +348,7 @@ that carry this item and that are enabled --->
 							
 							</cfif>
 							
-							<tr class="labelmedium">	
+							<tr class="labelmedium2">	
 								<td style="padding-left:5px;"><cf_tl id="Shipping Memo">:</td>
 								<td colspan="5">
 								<input type="text" name="ShippingMemo_#row#" id="ShippingMemo_#row#" value="#whs.ShippingMemo#" style="width:90%;height:25;font-size:14px;padding:3px" class="regular">
@@ -361,12 +366,9 @@ that carry this item and that are enabled --->
 	</tr>
 	
 	</cfoutput>
-	
-	<tr><td height="15"></td></tr>
-	<tr><td colspan="2" class="line"></td></tr>
-	<tr><td height="15"></td></tr>
+		
 	<tr>
-		<td colspan="2" align="center">
+		<td colspan="2" align="center" style="height:40px">
 			<input type="button" style="width:140px" class="button10g" name="Save" id="Save" value="Save" onclick="itmlevelsubmit()">
 		</td>
 	</tr>

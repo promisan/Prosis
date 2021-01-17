@@ -41,9 +41,11 @@ password="#SESSION.dbpw#">
 
 <!--- edit form --->
 
-<cfform action="RecordSubmit.cfm?idmenu=#url.idmenu#" method="POST" enablecab="Yes" name="dialog">
+<cfform action="RecordSubmit.cfm?idmenu=#url.idmenu#" method="POST" name="dialog">
 
-<table width="92%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="92%" align="center" class="formpadding formspacing">
+
+	<tr><td style="height:5px"></td></tr>
 
     <cfoutput>
 	<tr><td height="4"></td></tr>
@@ -65,7 +67,7 @@ password="#SESSION.dbpw#">
 	<TR>
     <TD class="labelit"><cf_tl id="Order">:</TD>
     <TD>
-  	   <cfinput type="text" name="ListingOrder" value="#get.ListingOrder#" validate="integer" required="Yes" size="2" maxlength="2" class="regularxl">
+  	   <cfinput style="text-align:center" type="text" name="ListingOrder" value="#get.ListingOrder#" validate="integer" required="Yes" size="2" maxlength="2" class="regularxl">
     </TD>
 	</TR>
 			

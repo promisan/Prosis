@@ -3,8 +3,7 @@
 <cf_screentop height="100%" 
 			  label="Address Type" 
 			  scroll="Yes" 
-			  layout="webapp" 
-			  option="Address address type" 
+			  layout="webapp" 			  
 			  menuAccess="Yes" 
 			  jquery="Yes"
 			  systemfunctionid="#url.idmenu#">
@@ -22,7 +21,7 @@
     <TR>
     <TD class="labelmedium">Code:</TD>
     <TD>
-  	   <cfinput type="Text" name="AddressType" value="" message="Please enter a code" required="Yes" size="20" maxlength="20" class="labelmedium">
+  	   <cfinput type="Text" name="AddressType" value="" message="Please enter a code" required="Yes" size="20" maxlength="20" class="regularxxl">
     </TD>
 	</TR>
 	
@@ -41,7 +40,7 @@
 		Message         = "Please enter a description"
 		MaxLength       = "50"
 		Size            = "35"
-		Class           = "regularxl">	
+		Class           = "regularxxl">	
 		
 		<!---	
 	  	   <cfinput type="Text" name="Description" value="" message="Please enter a description" required="Yes" size="35" maxlength="40" class="labelmedium">
@@ -54,7 +53,7 @@
 	<TR>
     <TD class="labelmedium">Listing order:</TD>
     <TD class="labelmedium">
-  	   <cfinput type="Text" name="ListingOrder" value="1" message="Please enter a description" required="Yes" size="1" maxlength="50" class="labelmedium">
+  	   <cfinput type="Text" name="ListingOrder" value="1" message="Please enter a description" required="Yes" size="1" maxlength="50" class="regularxxl">
     </TD>
 	</TR>
 	
@@ -71,7 +70,7 @@
 	<td>Workflow Class:</td>
 	<td>
 		
-		<select name="EntityClass" class="regularxl">
+		<select name="EntityClass" class="regularxxl">
 		    <option value="">N/A</option>
 			<cfoutput query="WorkFlow">
 				<option value="#EntityClass#">#EntityClassName#</option>
@@ -92,8 +91,8 @@
 	<tr class="labelmedium">
 	<TD>Operational:</TD>
 	    <TD>
-			<input type="radio" name="operational" value="0">No
-			<input type="radio" name="operational" value="1" checked>Yes	
+			<input type="radio" class="radiol" name="operational" value="0">No
+			<input type="radio" class="radiol" name="operational" value="1" checked>Yes	
 	    </TD>
 	</tr>
 	

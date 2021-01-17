@@ -49,30 +49,33 @@ SELECT *
 INTO   tmp#SESSION.acc#Category
 FROM   Ref_ProgramCategory
 WHERE  (Parent is NULL or Parent = '')
-AND    Code IN (SELECT Category FROM Ref_ParameterMissionCategory 
-                WHERE  Mission = '#URL.Mission#')
+AND    Code IN (SELECT Category 
+                FROM   Ref_ParameterMissionCategory  
+				WHERE  Mission = '#URL.Mission#')
 </cfquery>
 
-<cfform action="RecordSubmit.cfm?mission=#url.mission#" method="POST" enablecab="Yes" name="dialog">
+<cf_divscroll>
+
+<cfform style="height:100%" action="RecordSubmit.cfm?mission=#url.mission#" method="POST" name="dialog">
    
-<table width="91%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding formspacing">
+<table width="91%" align="center" class="formpadding formspacing">
     
     <tr><td></td></tr>
-    <TR class="labelmedium">
+    <TR class="labellarge">
     <td width="130">Id:</td>
     <TD>
-  	   <cfinput type="text" name="Indicatorcode" value="" message="Please enter a code" required="Yes" size="6" maxlength="6" class="regularxl">
+  	   <cfinput type="text" name="Indicatorcode" value="" message="Please enter a code" required="Yes" size="6" maxlength="6" class="regularxxl">
     </TD>
 	</TR>
 	
-	<TR class="labelmedium">
+	<TR class="labellarge">
     <td>Display:</td>
     <TD>
-  	   <cfinput type="text" name="IndicatorcodeDisplay" value="" message="Please enter a display code" required="Yes" size="6" maxlength="6" class="regularxl">
+  	   <cfinput type="text" name="IndicatorcodeDisplay" value="" message="Please enter a display code" required="Yes" size="6" maxlength="6" class="regularxxl">
     </TD>
 	</TR>
 	
-	<TR class="labelmedium">
+	<TR class="labellarge">
     <TD>Description:&nbsp;</TD>
     <TD>
 			
@@ -87,13 +90,13 @@ AND    Code IN (SELECT Category FROM Ref_ParameterMissionCategory
 			Message         = "Please enter a description"
 			MaxLength       = "80"
 			Size            = "50"
-			Class           = "regularxl">
+			Class           = "regularxxl">
 			
 				
 	</TD>
 	</TR>
 	
-	<TR class="labelmedium">
+	<TR class="labellarge">
     <TD height="26">Program area:</TD>
     <TD>
 				   
@@ -127,7 +130,7 @@ AND    Code IN (SELECT Category FROM Ref_ParameterMissionCategory
 		   <font color="FF0000">No [Program Classification] were enabled for this entity</font>		
 		<cfelse>
 		
-		   <select name="ProgramCategory" class="regularxl">
+		   <select name="ProgramCategory" class="regularxxl">
 		   
 		   <cfoutput query="Category">
 		   
@@ -173,31 +176,31 @@ AND    Code IN (SELECT Category FROM Ref_ParameterMissionCategory
     </TD>
 	</TR>
 	
-	<TR class="labelmedium">
+	<TR class="labellarge">
     <TD>Alternate description:</TD>
     <TD>
-  	   <cfinput type="text" name="IndicatorDescriptionAlternate" value="" size="60" maxlength="100" class="regularxl">
+  	   <cfinput type="text" name="IndicatorDescriptionAlternate" value="" size="60" maxlength="100" class="regularxxl">
     </TD>
 	</TR>
 		
-	<TR class="labelmedium">
+	<TR class="labellarge">
     <TD>UOM type:</TD>
     <TD>
-	   <select name="IndicatorType" class="regularxl">
+	   <select name="IndicatorType" class="regularxxl">
 	   <cfoutput query="IndicatorType">
 	   <option value="#Code#">#Description#</option>
 	   </cfoutput>
     </TD>
 	</TR>
 	
-	<TR class="labelmedium">
+	<TR class="labellarge">
     <TD>UoM description:</TD>
     <TD>
-  	   <cfinput type="text" name="IndicatorUoM" value="" message="Please enter a UoM" required="Yes" size="60" maxlength="200" class="regularxl">
+  	   <cfinput type="text" name="IndicatorUoM" value="" message="Please enter a UoM" required="Yes" size="60" maxlength="200" class="regularxxl">
     </TD>
 	</TR>
 		
-	<TR class="labelmedium">
+	<TR class="labellarge">
     <TD>Target mode:</TD>
     <TD>
 	    <INPUT class="radiol" type="radio" name="ZeroBase" value="0" checked> Default
@@ -206,7 +209,7 @@ AND    Code IN (SELECT Category FROM Ref_ParameterMissionCategory
 	</TD>
 	</TR>
 	
-	<TR class="labelmedium">
+	<TR class="labellarge">
     <TD>Target direction:</TD>
     <TD><cfoutput>
 	    <INPUT type="radio" class="radiol" style="padding-left:4px"name="TargetDirection" value="Up" checked> Up
@@ -219,35 +222,35 @@ AND    Code IN (SELECT Category FROM Ref_ParameterMissionCategory
 	</TD>
 	</TR>
 		
-	<TR class="labelmedium">
+	<TR class="labellarge">
     <TD style="cursor: pointer;"><cf_UIToolTip tooltip="Audit Value within the range will be acceptable">Target range:</cf_UIToolTip></TD>
     <TD>
-	    <cfinput type="Text" name="TargetRange" class="regularxl" style="text-align: center;" value="0" range="0,30" message="Enter a valid range" validate="integer" required="Yes" size="4" maxlength="4"> %
+	    <cfinput type="Text" name="TargetRange" class="regularxxl" style="text-align: center;" value="0" range="0,30" message="Enter a valid range" validate="integer" required="Yes" size="4" maxlength="4"> %
 	</TD>
 	</TR>
 		
-	<TR class="labelmedium">
+	<TR class="labellarge">
     <TD>Precision:</TD>
     <TD>
-	    <cfinput type="Text" name="IndicatorPrecision" value="0" range="0,3" message="Enter a valid number between 0 and 3" validate="integer" required="Yes" visible="Yes" enabled="Yes" size="1" maxlength="1" class="regularxl" style="text-align: center;"> digit
+	    <cfinput type="Text" name="IndicatorPrecision" value="0" range="0,3" message="Enter a valid number between 0 and 3" validate="integer" required="Yes" visible="Yes" enabled="Yes" size="1" maxlength="1" class="regularxxl" style="text-align: center;"> digit
 	</TD>
 	</TR>
 		
 		
-	<TR class="labelmedium">
+	<TR class="labellarge">
     <TD>Audit class:</TD>
     <TD>
 	    <table cellspacing="0" cellpadding="0">
-		<tbody>
+		<tr class="labellarge">
 	    <td style="padding-left:0px"><INPUT type="radio" class="radiol" name="AuditClass" value="A" checked></td>
-		<td class="labelmedium">A</td>
+		<td>A</td>
 		<td style="padding-left:4px"><INPUT type="radio" class="radiol" name="AuditClass" value="B"></td> 
-		<td class="labelmedium">B</td>
+		<td>B</td>
 		<td style="padding-left:4px"><INPUT type="radio" class="radiol" name="AuditClass" value="C"></td>
-		<td class="labelmedium">C</td>
+		<td>C</td>
 		<td style="padding-left:4px"><INPUT type="radio" class="radiol" name="AuditClass" value="D"></td>
-		<td class="labelmedium">D</td>
-		</tbody>
+		<td>D</td>
+		</tr>
 		</table>
 	</TD>
 	</TR>
@@ -258,15 +261,15 @@ AND    Code IN (SELECT Category FROM Ref_ParameterMissionCategory
 		
 	    se = document.getElementById("source")		
 		if (cls == "regular")
-		   {se.className = "regularxl"}
+		   {se.className = "regularxxl"}
 		else
 		   {se.className = "hide"}
 	}      
 		
 	</script>
 	
-	<TR class="labelmedium">
-    <TD class="labelmedium">Source:</TD>
+	<TR class="labellarge">
+    <TD class="labellarge">Source:</TD>
     <TD>
 	    <INPUT type="radio" class="radiol" name="AuditSource" value="Manual" checked onclick="javascript:measuresource('hide')"> Manual
 		<INPUT type="radio" class="radiol" name="AuditSource" value="External" onclick="javascript:measuresource('regular')"> External
@@ -287,7 +290,7 @@ AND    Code IN (SELECT Category FROM Ref_ParameterMissionCategory
 		function template(cls) {		
 			se1 = document.getElementById("template")		
 			if (cls == "regular") {
-			  se1.className = "regular labelmedium"		
+			  se1.className = "regular labellarge"		
 		    } else {
 			  se1.className = "hide"		
 			}
@@ -295,19 +298,19 @@ AND    Code IN (SELECT Category FROM Ref_ParameterMissionCategory
 			
 	</script>
 	
-	<TR class="labelmedium">
+	<TR class="labellarge">
     <TD style="height:26px">Template drilldown:</TD>
     <TD>
 	<table cellspacing="0" cellpadding="0">
-	   <tr><td class="labelmedium">
+	   <tr><td class="labellarge">
 	   <INPUT type="radio" class="radiol" name="IndicatorDrilldown" value="0" checked onclick="javascript:template('hide')"> No
 	   <input type="radio" class="radiol" name="IndicatorDrilldown" value="1" onClick="javascript:template('regular')"> Yes
 	   </td>
 	   <td id="template" class="hide">
 	   :
-	   <input type="text" name="indicatortemplate" value="" size="30" maxlength="50" class="regularxl">
+	   <input type="text" name="indicatortemplate" value="" size="30" maxlength="50" class="regularxxl">
 	   ?param=
-       <input type="text" name="IndicatorCriteriaBase" value="" size="5" maxlength="10" class="regularxl">
+       <input type="text" name="IndicatorCriteriaBase" value="" size="5" maxlength="10" class="regularxxl">
 	   <input type="checkbox" class="radiol" name="indicatortemplateajax" value="1">Ajax
 	   </td>
 	   </tr>
@@ -323,10 +326,10 @@ AND    Code IN (SELECT Category FROM Ref_ParameterMissionCategory
 	FROM   Ref_ParameterMission
 	WHERE  Mission IN (SELECT Mission 
 	                   FROM   Organization.dbo.Ref_MissionModule 
-				  	   WHERE  SystemModule = 'Program' )
+				  	   WHERE  SystemModule = 'Program')
 	</cfquery>
 	
-	<tr class="labelmedium">
+	<tr class="labellarge">
 		 <td valign="top" style="padding-top:4px">Entity:<cf_space spaces="50"></td>
 		 <td>
 		 
@@ -336,7 +339,7 @@ AND    Code IN (SELECT Category FROM Ref_ParameterMissionCategory
 		 </td>	
 	</tr>
 		
-	<TR class="labelmedium">
+	<TR class="labellarge">
     <td valign="top" height="100%">Memo:</td>
     <TD>
 	    <textarea style="width:99%;height:95%;font-size:13px;padding;3px" class="regular" name="IndicatorMemo"></textarea>
@@ -347,7 +350,7 @@ AND    Code IN (SELECT Category FROM Ref_ParameterMissionCategory
 	
 	<cfif Category.recordcount eq "0">
 	
-	<tr><td colspan="2" align="center" class="labelmedium"><font color="FF0000">No Classifications were defined for this entity</font></td></tr>
+	<tr><td colspan="2" align="center" class="labellarge"><font color="FF0000">No [Program classification] were defined for this entity</font></td></tr>
 	
 	<cfelse>
 	
@@ -366,5 +369,7 @@ AND    Code IN (SELECT Category FROM Ref_ParameterMissionCategory
 </TABLE>
 
 </CFFORM>
+
+</cf_divscroll>
 
 <cf_screenbottom layout="webapp">

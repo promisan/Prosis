@@ -12,14 +12,15 @@ password="#SESSION.dbpw#">
   ORDER BY  R.MenuOrder, R.Description, M.ListingOrder
 </cfquery>
 
-<cf_screentop html="no" scroll="yes">
 
-<table width="99%" cellspacing="0" cellpadding="0" align="center">
+<cf_screentop html="No" jquery="Yes">
+
+<table width="98%" align="center" height="100%">
 
 <cfset Page         = "0">
 <cfset add          = "1">
 <cfset save         = "0"> 
-<cfinclude template="../../Parameter/HeaderParameter.cfm"> 	
+<tr style="height:10px"><td><cfinclude template="../../Parameter/HeaderParameter.cfm"> 	</td></tr>
 
 <cfoutput>
 
@@ -39,9 +40,11 @@ function recordedit(id,id1) {
 	
 <tr><td colspan="2">
 
-<table width="95%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<cf_divscroll>
 
-<tr class="labelmedium line">
+<table width="95%" align="center" class="navigation_table">
+
+<tr class="labelmedium2 line fixrow">
     <td>Module</td>
     <TD></TD>
     <TD>Class</TD>
@@ -51,7 +54,6 @@ function recordedit(id,id1) {
     <TD>Entered</TD>  
 </TR>
 
-
 <cfset prior = "">
   
 <cfoutput query="SearchResult">
@@ -60,10 +62,10 @@ function recordedit(id,id1) {
     <tr><td height="1" colspan="7" class="line"></td></tr>
 	</cfif>
 	
-	<TR class="labelmedium line navigation_row" style="height:15px">
+	<TR class="labelmedium2 line navigation_row" style="height:21px">
 		<td style="height:15px;padding-left:3px"><cfif prior neq moduleDescription>#ModuleDescription#</cfif></td>
 		<td align="center" style="height:15px;padding-right:4px">
-		     <cf_img icon="edit" navigation="Yes" onclick="recordedit('#SystemModule#','#MenuClass#')">	 
+		     <cf_img icon="open" navigation="Yes" onclick="recordedit('#SystemModule#','#MenuClass#')">	 
 		</td>
 		<TD style="height:15px;">#MenuClass#</TD>
 		<TD style="height:15px;">#Description#</TD>
@@ -78,6 +80,10 @@ function recordedit(id,id1) {
 
 </TABLE>
 
+</cf_divscroll>
+
 </td>
+
+</tr>
 
 </TABLE>

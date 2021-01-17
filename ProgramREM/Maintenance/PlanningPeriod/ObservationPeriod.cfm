@@ -72,6 +72,8 @@ datasource="AppsProgram">
 	WHERE  SelectionDate > getDate()
 </cfquery>
 
+<!---
+
 <cftry>
 
 <CF_DropTable dbName="AppsOLAP" tblName="stSubPeriod">	
@@ -86,6 +88,8 @@ datasource="AppsProgram">
 <cfcatch></cfcatch>
 
 </cftry>
+
+--->
 
 <cfoutput>
 <script language="JavaScript">

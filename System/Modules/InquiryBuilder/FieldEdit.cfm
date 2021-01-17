@@ -21,7 +21,9 @@ username="#SESSION.login#"
 password="#SESSION.dbpw#">		 
 	SELECT *
 	FROM   Ref_ModuleControlDetailField
-	WHERE  FieldId = '#URL.FieldId#'	
+	WHERE  SystemFunctionId = '#url.SystemFunctionId#'
+	AND    FunctionSerialNo = '#url.FunctionSerialNo#'	
+	AND    FieldId = '#URL.FieldId#'	
 </cfquery>
 
 <cfquery name="List" 
@@ -56,7 +58,8 @@ password="#SESSION.dbpw#">
 
 <table class="hide"><tr><td><iframe id="iframeSubmit" name="iframeSubmit"></iframe></td></tr></table>
 
-<cfform name="fieldForm" id="fieldForm" action="FieldEditSubmit.cfm?systemfunctionid=#url.systemfunctionid#&functionserialno=#url.functionserialno#" method="POST" target="iframeSubmit">
+<cfform name="fieldForm" id="fieldForm" 
+     action="FieldEditSubmit.cfm?systemfunctionid=#url.systemfunctionid#&functionserialno=#url.functionserialno#" method="POST" target="iframeSubmit">
 
 <cfoutput query="Field">
 
@@ -65,15 +68,13 @@ password="#SESSION.dbpw#">
 	<tr> <td colspan="2" height="10px"></td> </tr>
 	
 	<tr>
-		<td class="labellarge" colspan="2">
-			<b>Field: #FieldName#</b>
+		<td class="labellarge" colspan="2" style="font-size:30px">
+			<font size="1">Field:</font> #FieldName#
 		</td>
 	</tr>
 
 	<tr><td class="linedotted" colspan="2"></td></tr>
-
-	<tr> <td colspan="2" height="10px"></td> </tr>
-	
+		
 	<tr>
 		<td colspan="2">
 		
@@ -84,33 +85,33 @@ password="#SESSION.dbpw#">
 			<table width="95%" align="center">
 				
 				<tr class="line">
-					<td colspan="2" class="labelmedium">
-						<img src="#SESSION.root#/images/sqltable.gif" style="vertical-align:middle">&nbsp;&nbsp;Presentation of field
+					<td colspan="2" class="labelmedium2" style="font-size:20px">
+						Presentation of field
 					</td>
 				</tr>
 								
 				<tr>
 					<td colspan="2">
-						<table width="100%" class="formpadding formspacing">
+						<table width="100%" class="formpadding">
 						
 							<tr>
-								<td style="width:200px" class="labelmedium">
+								<td style="width:200px" class="labelmedium2">
 									Display :
 								</td>
-								<td class="labelmedium">
+								<td class="labelmedium2">
 								    <table>
-									<tr>
+									<tr class="labelmedium2">
 										<td><input style="width:18px;height:18px" type="radio" name="FieldDisplay" id="FieldDisplay" <cfif FieldInGrid eq "1">checked</cfif> onclick="form.ListingOrder.disabled=false" value="1"></td>
-										<td style="padding-left:3px" class="labelmedium">In Grid</td>
-										<td style="padding-left:6px" class="labelmedium"><input style="width:18px;height:18px" type="radio" name="FieldDisplay" id="FieldDisplay" <cfif FieldTree eq "1">checked</cfif> onclick="form.ListingOrder.disabled=true;" value="2"></td>
-										<td style="padding-left:3px" class="labelmedium">In Tree</td>
-										<td style="padding-left:6px" class="labelmedium"><input style="width:18px;height:18px" type="radio" name="FieldDisplay" id="FieldDisplay" <cfif FieldInGrid eq "0" and FieldTree eq "0">checked</cfif> onclick="form.ListingOrder.disabled=true;" value="3"></td>
-										<td style="padding-left:3px" class="labelmedium">Do not show</td>									
+										<td style="padding-left:3px">In Grid</td>
+										<td style="padding-left:6px"><input style="width:18px;height:18px" type="radio" name="FieldDisplay" id="FieldDisplay" <cfif FieldTree eq "1">checked</cfif> onclick="form.ListingOrder.disabled=true;" value="2"></td>
+										<td style="padding-left:3px">In Tree</td>
+										<td style="padding-left:6px"><input style="width:18px;height:18px" type="radio" name="FieldDisplay" id="FieldDisplay" <cfif FieldInGrid eq "0" and FieldTree eq "0">checked</cfif> onclick="form.ListingOrder.disabled=true;" value="3"></td>
+										<td style="padding-left:3px">Do not show</td>									
 									</tr>
 									</table>
 								</td>
 							
-								<td class="labelmedium">
+								<td class="labelmedium2">
 									Row | Column | Colspan :
 								</td>
 								<td>
@@ -118,7 +119,7 @@ password="#SESSION.dbpw#">
 									<table>
 									<tr>
 									<td>
-									<select id="FieldRow" style="width:48px" name="FieldRow" class="regularxl">
+									<select id="FieldRow" style="width:48px" name="FieldRow" class="regularxxl">
 									 	<option value="1"  <cfif fieldrow eq "1">selected</cfif>>1</option> 
 									 	<option value="2"  <cfif fieldrow eq "2">selected</cfif>>2</option> 
 									 	<option value="3"  <cfif fieldrow eq "3">selected</cfif>>3</option>
@@ -127,14 +128,14 @@ password="#SESSION.dbpw#">
 									<td style="padding-left:5px;padding-right:5px">|</td>
 									<td>									
 									<cfif FieldTree eq 1>
-										<cfinput type="text" name="ListingOrder" id="ListingOrder" value="#ListingOrder#" size="2" style="text-align:center" class="regularxl" range="0,999" disabled>
+										<cfinput type="text" name="ListingOrder" id="ListingOrder" value="#ListingOrder#" size="2" style="text-align:center" class="regularxxl" range="0,999" disabled>
 									<cfelse>
-										<cfinput type="text" name="ListingOrder" id="ListingOrder" value="#ListingOrder#" size="2" style="text-align:center" class="regularxl" range="0,999">
+										<cfinput type="text" name="ListingOrder" id="ListingOrder" value="#ListingOrder#" size="2" style="text-align:center" class="regularxxl" range="0,999">
 									</cfif>
 									</td>
 									<td style="padding-left:5px;padding-right:5px">|</td>
 									<td>									
-										<cfinput type="text" name="FieldColSpan" id="FieldColSpan" value="#FieldColSpan#" size="2" style="text-align:center" class="regularxl" range="0,15">								
+										<cfinput type="text" name="FieldColSpan" id="FieldColSpan" value="#FieldColSpan#" size="2" style="text-align:center" class="regularxxl" range="0,15">								
 									</td>
 									
 									</tr>
@@ -144,18 +145,14 @@ password="#SESSION.dbpw#">
 							</tr>
 							
 							<tr>
-								<td class="labelmedium">
-									Column label :
-								</td>
+								<td class="labelmedium2">Header label:</td>
 								<td>
-									<input type="text" name="FieldHeaderLabel" id="FieldHeaderLabel" maxlength="30" value="#FieldHeaderLabel#" class="regularxl">
+									<input type="text" name="FieldHeaderLabel" id="FieldHeaderLabel" maxlength="30" value="#FieldHeaderLabel#" class="regularxxl">
 								</td>
 			
-								<td class="labelmedium">
-									Alignment :
-								</td>
+								<td class="labelmedium2">Grid Alignment:</td>
 								<td>
-									<select id="FieldAlignment" name="FieldAlignment" class="regularxl">
+									<select id="FieldAlignment" name="FieldAlignment" class="regularxxl">
 									 	<option value="Left"   <cfif fieldalignment eq "Left">selected</cfif>>Left</option> 
 									 	<option value="Center" <cfif fieldalignment eq "Center">selected</cfif>>Center</option> 
 									 	<option value="Right"  <cfif fieldalignment eq "Right">selected</cfif>>Right</option>
@@ -165,49 +162,62 @@ password="#SESSION.dbpw#">
 							
 							<tr>
 
-								<td class="labelmedium">
-									Content Format :
-								</td>
+								<td class="labelmedium2">Content Format:</td>
 								<td>
-									<select name="FieldOutputFormat" id="FieldOutputFormat" class="regularxl">						 
-									 	  <option value=""  <cfif fieldoutputformat eq "">selected</cfif>>Default</option> 
-									 	  <option value="Date"  <cfif fieldoutputformat eq "Date">selected</cfif>>Date</option> 
-									   	  <option value="Time"  <cfif fieldoutputformat eq "Time">selected</cfif>>Time</option> 
-									   	  <option value="Amount" <cfif fieldoutputformat eq "Amount">selected</cfif>>Amount</option> 
-										  <option value="eMail" <cfif fieldoutputformat eq "eMail">selected</cfif>>eMail</option> 											
+									<select name="FieldOutputFormat" id="FieldOutputFormat" class="regularxxl">						 
+									 	  <option value=""  <cfif fieldoutputformat eq "">selected</cfif>>As in table</option> 
+									 	  <option value="Date"  <cfif fieldoutputformat eq "Date">selected</cfif>>Date formatted</option> 
+									   	  <option value="Time"  <cfif fieldoutputformat eq "Time">selected</cfif>>Time formatted</option> 
+									   	  <option value="Amount" <cfif fieldoutputformat eq "Amount">selected</cfif>>Amount formatted</option> 
+										  <option value="eMail" <cfif fieldoutputformat eq "eMail">selected</cfif>>eMail (recognize mail)</option> 											
 									 </select>
 								</td>
 								
-								<td class="labelmedium">
-									Grouping / Sorting modality:
-								</td>
+								<td class="labelmedium2">Y-ax / Sorting modality:</td>
 								<td>
-									  <select name="FieldSort" id="FieldSort" class="regularxl">													
+									  <select name="FieldSort" id="FieldSort" class="regularxxl" style="width:100px">													
 										  	 <option value="1" <cfif fieldsort eq "1">selected</cfif>>Sort</option> 
-											 <option value="2" <cfif fieldsort eq "2">selected</cfif>>Group</option> 
-											 <option value="3" <cfif fieldsort eq "3">selected</cfif>>Sum</option> 
-											 <option value="0" <cfif fieldsort eq "0">selected</cfif>>No</option> 																			
+											 <option value="2" <cfif fieldsort eq "2">selected</cfif>>Grouping</option> 
+											 <option value="3" <cfif fieldsort eq "3">selected</cfif>>SUM</option> 
+											 <option value="0" <cfif fieldsort eq "0">selected</cfif>>None</option> 																			
 								      </select>
 								</td>
+								
+								
 								
 							</tr>
 						
 							<tr>
 								
-								<td class="labelmedium">
-									Column width :
+								<td class="labelmedium2">
+									Column width:
 								</td>
-								<td style="height:25px" class="labelmedium">
-									<input style="width:18px;height:18px" type="radio" name="FieldWidth" id="FieldWidth" value="0" onclick="hideId('divFieldWidth')" <cfif FieldWidth eq 0>checked</cfif>>Auto
-									<input style="width:18px;height:18px" type="radio" name="FieldWidth" id="FieldWidth" value="1" onclick="showId('divFieldWidth')" <cfif FieldWidth gt 0>checked</cfif>>Fixed
+								<td style="height:25px" class="labelmedium2">
+								    <table>
+									<tr>
+									<td><input style="width:18px;height:18px" type="radio" name="FieldWidth" id="FieldWidth" value="0" onclick="hideId('divFieldWidth')" <cfif FieldWidth eq 0>checked</cfif>></td>
+									<td style="padding-left:3px">Auto</td>
+									<td style="padding-left:3px">
+									<input style="width:18px;height:18px" type="radio" name="FieldWidth" id="FieldWidth" value="1" onclick="showId('divFieldWidth')" <cfif FieldWidth gt 0>checked</cfif>>
+									</td>
+									<td style="padding-left:3px">Preset</td>
 									<span id="divFieldWidth" style="<cfif FieldWidth eq 0>display:none;</cfif>">
-										&nbsp;<input type="text"  name="FieldWidthPixel" id="FieldWidthPixel" value="#FieldWidth#" size="2" style="text-align:center" class="regularxl">
+										&nbsp;<input type="text"  name="FieldWidthPixel" id="FieldWidthPixel" value="#FieldWidth#" size="2" style="text-align:center" class="regularxxl">
 										<span style="color:gray">pixels</span>
 									</span>
+									</tr>
+									</table>
 								</td>
 								
-								<td colspan="2">
+								<td class="labelmedium2">X-ax / Dimension:</td>
+								<td>
+									  <select name="FieldColumn" id="FieldColumn" class="regularxxl" style="width:100px">	
+									         <option value="" <cfif fieldcolumn eq "">selected</cfif>>None</option>												
+										  	 <option value="month" <cfif fieldcolumn eq "month">selected</cfif>>Month</option> 		
+											 <option value="common" <cfif fieldcolumn eq "common">selected</cfif>>Common</option> 																												
+								      </select>
 								</td>
+								
 							</tr>
 						
 						</table>
@@ -217,64 +227,64 @@ password="#SESSION.dbpw#">
 				<tr><td colspan="2" height="10px"></td></tr>
 				
 				<tr class="line">
-					<td colspan="2" class="labelmedium">
-						<img src="#SESSION.root#/images/filter2.gif" style="vertical-align:middle">&nbsp;&nbsp;Filter on field
+					<td colspan="2" class="labelmedium2" style="font-size:20px">
+						Filter on field
 					</td>
 				</tr>
 								
 				<tr>
 					<td colspan="2">
 					
-						<table width="100%" class="formapadding formspacing">
+						<table class="formapadding formspacing">
 						
-							<tr>
+							<tr>					
+								
 							
-								<td class="labelmedium" style="width:200px">Filter modality:</td>
+								<td class="labelmedium2" style="min-width:200px">Label:</td>
 								<td>
-									 <select name="FieldFilterClass" id="FieldFilterClass"  class="regularxl" onChange="if (this.value == 'Text') { form.FieldFilterClassMode.disabled=false; if (form.FieldFilterClassMode.value==2){ showId('lookupId') } } else { form.FieldFilterClassMode.disabled=true; hideId('lookupId');}">
+									<input type="text" name="FieldFilterLabel" id="FieldFilterLabel" value="#FieldFilterLabel#" width="60" maxlength="30" class="regularxxl">
+								</td>
+								
+								
+								
+								<td class="labelmedium2" style="padding-left:6px">Modality:</td>
+								<td style="padding-left:3px">
+									 <select name="FieldFilterClass" id="FieldFilterClass"  class="regularxxl" onChange="if (this.value == 'Text') { form.FieldFilterClassMode.disabled=false; if (form.FieldFilterClassMode.value==2){ showId('lookupId') } } else { form.FieldFilterClassMode.disabled=true; hideId('lookupId');}">
 										  <option value=""       <cfif FieldFilterClass eq "">selected</cfif>>No, no filtering</option>					 
-									 	  <option value="Text"   <cfif FieldFilterClass eq "Text">selected</cfif>>Text</option> 
+									 	  <option value="Text"   <cfif FieldFilterClass eq "Text">selected</cfif>>Common</option> 
 										  <option value="Amount" <cfif FieldFilterClass eq "Amount">selected</cfif>>Amount</option> 
 									 	  <option value="Date"   <cfif FieldFilterClass eq "Date">selected</cfif>>Date</option>   											
 									 </select>
-								</td>
-							
-								<td class="labelmedium">Filter label:</td>
-								<td>
-									<input type="text" name="FieldFilterLabel" id="FieldFilterLabel" value="#FieldFilterLabel#" width="60" maxlength="30" class="regularxl">
+								</td>											
+								<td style="padding-left:6px">
+									<select name="FieldFilterClassMode" 
+									        id="FieldFilterClassMode" 
+											class="regularxxl" 
+											<cfif fieldfilterclass eq "">disabled</cfif>
+											onChange="if (this.value=='2') { showId('lookupId') }else{ hideId('lookupId') }">	
+											
+									  	<option value="0"  <cfif FieldFilterClassMode eq "0">selected</cfif>>Free filter</option> 
+										<option value="4"  <cfif FieldFilterClassMode eq "4">selected</cfif>>Like</option> 	
+										<option value="1"  <cfif FieldFilterClassMode eq "1">selected</cfif>>Combo</option> 
+										<option value="2"  <cfif FieldFilterClassMode eq "2">selected</cfif>>Select (single)</option> 										
+										<option value="3"  <cfif FieldFilterClassMode eq "3">selected</cfif>>Multiple (Checkbox or Multiple select)</option> 	
+														  
+									</select>
 								</td>
 								
-								<td class="labelmedium">Enforce Filter selection:</td>
-								<td>
-									  <select name="FieldFilterForce" id="FieldFilterForce" class="regularxl">
+								<td class="labelmedium2" style="padding-left:6px">Enforce use of Filter:</td>
+								<td style="padding-left:3px">
+									  <select name="FieldFilterForce" id="FieldFilterForce" class="regularxxl">
 													
 										  	 <option value="0" <cfif FieldFilterForce eq "0">selected</cfif>>No</option> 
 											 <option value="1" <cfif FieldFilterForce eq "1">selected</cfif>>Yes</option> 
 																														
 								      </select>
-								</td>				
-								
-																
-								<td class="labelmedium">Selection Interface [Text]:</td>
-								<td>
-									<select name="FieldFilterClassMode" 
-									        id="FieldFilterClassMode" 
-											class="regularxl" 
-											<cfif fieldfilterclass eq "">disabled</cfif>
-											onChange="if (this.value=='2') { showId('lookupId') }else{ hideId('lookupId') }">	
-											
-									  	<option value="0"  <cfif FieldFilterClassMode eq "0">selected</cfif>>Default</option> 
-										<option value="4"  <cfif FieldFilterClassMode eq "4">selected</cfif>>Like</option> 	
-										<option value="1"  <cfif FieldFilterClassMode eq "1">selected</cfif>>Combo</option> 
-										<option value="2"  <cfif FieldFilterClassMode eq "2">selected</cfif>>Dropdown</option> 										
-										<option value="3"  <cfif FieldFilterClassMode eq "3">selected</cfif>>Checkbox</option> 	
-														  
-									</select>
-								</td>
+								</td>	
 							</tr>
 						         
 							<tr valign="top" id="lookupId" style="<cfif FieldFilterClassMode neq "2">display:none</cfif>">
-								<td class="labelmedium" style="padding-top:3px">
+								<td class="labelmedium2" style="padding-top:3px">
 									Lookup values:
 								</td>
 								<td colspan="7">										     
@@ -290,9 +300,9 @@ password="#SESSION.dbpw#">
 				<tr><td colspan="2" height="10px"></td></tr>
 					 
 				<tr>
-					<td class="labelmedium" colspan="2">
-						<img src="#SESSION.root#/images/edit.gif">&nbsp;&nbsp;Editing of field
-						<input type="checkbox" name="FieldEditMode" id="FieldEditMode" value="1" <cfif FieldEditMode eq 1>checked</cfif> style="padding-left:30px;" onclick="if(this.checked) { showId('divEditable')}else{ hideId('divEditable') }">
+					<td class="labelmedium2" colspan="2" style="font-size:20px">
+						Editing of field
+						<input type="checkbox" class="radiol" name="FieldEditMode" id="FieldEditMode" value="1" <cfif FieldEditMode eq 1>checked</cfif> style="padding-left:30px;" onclick="if(this.checked) { showId('divEditable')}else{ hideId('divEditable') }">
 					</td>
 				</tr>
 				
@@ -307,11 +317,11 @@ password="#SESSION.dbpw#">
 									<table width="100%" align="center">
 									
 										<tr>
-											<td class="labelmedium" width="120px">
+											<td class="labelmedium2" width="120px">
 												Input type :
 											</td>
 											<td>
-												<select name="FieldEditInputType" id="FieldEditInputType" class="regularxl" onchange="if (this.value == 2 || this.value==4){ showId('editInput') } else{ hideId('editInput') }">	
+												<select name="FieldEditInputType" id="FieldEditInputType" class="regularxxl" onchange="if (this.value == 2 || this.value==4){ showId('editInput') } else{ hideId('editInput') }">	
 													<option value="1"  <cfif FieldEditInputType eq "1">selected</cfif>>Text</option> 
 													<option value="2"  <cfif FieldEditInputType eq "2">selected</cfif>>Radio</option> 										
 													<option value="3"  <cfif FieldEditInputType eq "3">selected</cfif>>Checkbox</option> 	
@@ -319,14 +329,14 @@ password="#SESSION.dbpw#">
 												</select>
 											</td>
 									      
-											<td class="labelmedium">
+											<td class="labelmedium2">
 												Submission template :
 											</td>
 											<td>
 												<table>
 													<tr>
 														<td>
-															<input type="text" name="FieldEditTemplate" id="FieldEditTemplate" value="#FieldEditTemplate#" class="regularxl" size="43" onblur="ptoken.navigate('FieldEditTemplate.cfm?template='+this.value+'&resultField=editTemplate','validateTemplate');">
+															<input type="text" name="FieldEditTemplate" id="FieldEditTemplate" value="#FieldEditTemplate#" class="regularxxl" size="43" onblur="ptoken.navigate('FieldEditTemplate.cfm?template='+this.value+'&resultField=editTemplate','validateTemplate');">
 														</td>
 														<td id="validateTemplate"></td>
 													</tr>
@@ -335,7 +345,7 @@ password="#SESSION.dbpw#">
 										</tr> 
 										  
 										<tr id="editInput" valign="top" <cfif FieldEditInputType eq "1" or FieldEditInputType eq "3" or FieldEditInputType eq ""> style="display:none;"</cfif> >
-											<td class="labelmedium" style="padding-top:10px">
+											<td class="labelmedium2" style="padding-top:10px">
 												Input values :
 											</td>
 											<td colspan="3" style="padding-top:10px">
@@ -354,8 +364,8 @@ password="#SESSION.dbpw#">
 				<tr><td colspan="2" height="10px"></td></tr>
 				
 				<tr>
-					<td colspan="2" class="labelmedium">
-						<img src="#SESSION.root#/images/logos/configuration.png" width="20px" style="vertical-align:middle">&nbsp;&nbsp;Application scope
+					<td colspan="2" class="labelmedium2" style="font-size:20px">
+						Application scope
 					</td>
 				</tr>
 				
@@ -363,23 +373,23 @@ password="#SESSION.dbpw#">
 								
 				<tr>
 					<td colspan="2">
-						<table width="95%" align="center">
+						<table width="95%" class="formpadding formspacing" align="center">
 						
 							<tr>
-								<td class="labelmedium" width="120px">
+								<td class="labelmedium2" style="min-width:100px">
 									is <b>Key</b> field :
 								</td>
-								<td class="labelmedium">
-									<input type="checkbox" name="FieldIsKey" id="FieldIsKey"  value="1" <cfif FieldIsKey eq 1>checked</cfif>>
+								<td class="labelmedium2">
+									<input type="checkbox" class="radiol" name="FieldIsKey" id="FieldIsKey"  value="1" <cfif FieldIsKey eq 1>checked</cfif>>
 								</td>
 							</tr>
 							 
 							<tr>
-								<td class="labelmedium">
+								<td class="labelmedium2">
 									is <b>Access</b> field :
 								</td>
-								<td class="labelmedium">
-									<input type="checkbox" name="FieldIsAccess" id="FieldIsAccess" value="1" <cfif FieldIsAccess eq 1>checked</cfif>>
+								<td class="labelmedium2">
+									<input type="checkbox" class="radiol" name="FieldIsAccess" id="FieldIsAccess" value="1" <cfif FieldIsAccess eq 1>checked</cfif>>
 								    <span style="color:gray">Mark if this field will be used to determine user access that will allow for editing</span>
 								</td>
 							</tr>

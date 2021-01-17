@@ -37,31 +37,31 @@ function ask() {
 
 </script>
 
-<table width="100%" cellspacing="0" cellpadding="0" align="center">
+<table width="100%" align="center">
 <tr><td>
 
 <cfform action="RecordSubmit.cfm" method="POST">
 
 <!--- edit form --->
 
-<table width="96%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="96%" align="center" class="formpadding formspacing">
 
 	<tr><td height="5"></td></tr>
 	
     <cfoutput>
-    <TR>
-    <TD class="labelmedium">Code:</TD>
+    <TR class="labelmedium2">
+    <TD>Code:</TD>
     <TD>
-  	   <input type="text" name="Code" value="#get.Code#" size="20" maxlength="20"class="regularxl">
+  	   <input type="text" name="Code" value="#get.Code#" size="20" maxlength="20"class="regularxxl">
 	   <input type="hidden" name="Codeold" value="#get.Code#" size="20" maxlength="20"class="regular">
     </TD>
 	</TR>
 	
-	<TR>
-    <TD class="labelmedium">Description:</TD>
+	<TR class="labelmedium2">
+    <TD>Description:</TD>
     <TD>
   	   <cfinput type="text" name="Description" value="#get.Description#" message="please enter a description" requerided=  "yes" size="30" 
-	   maxlenght = "40" class= "regularxl">
+	   maxlenght = "40" class= "regularxxl">
     </TD>
 	</TR>
 			
@@ -73,11 +73,11 @@ function ask() {
 		FROM Ref_ParameterMission
 	</cfquery>
 	
-	<TR>
-    <TD class="labelmedium">Entity:</TD>
+	<TR class="labelmedium2">
+    <TD>Entity:</TD>
     <TD>
 	<cfoutput>
-		<select name="Mission" class="regularxl">
+		<select name="Mission" class="regularxxl">
         	<option value="0" selected>All entities</option>
      	   <cfloop query="MissionList">
         	<option value="#Mission#" <cfif Get.Mission eq mission>selected</cfif>>#Mission#</option>
@@ -87,10 +87,10 @@ function ask() {
     </TD>
 	</TR>		
 
-	<TR>
-    <TD class="labelmedium">Period:</TD>
+	<TR class="labelmedium2">
+    <TD>Period:</TD>
     <TD>
-		<select name="Period"  class="regularxl">
+		<select name="Period"  class="regularxxl">
         	<option value="0" >All periods</option>
      	   <cfloop query="QPeriod">
         	<option value="#QPeriod.Period#" <cfif #Get.Period# eq "#QPeriod.Period#">selected</cfif>>#QPeriod.Description#
@@ -100,17 +100,17 @@ function ask() {
     </TD>
 	</TR>	
 	
-	<TR>
-    <TD class="labelmedium">Order:</TD>
+	<TR class="labelmedium2">
+    <TD>Order:</TD>
     <TD>
-  	   <cfinput type="text" name="ListingOrder" value="#get.listingOrder#" size="2" maxlength="20" class="regularxl" validate="integer">
+  	   <cfinput type="text" name="ListingOrder" value="#get.listingOrder#" size="2" maxlength="20" class="regularxxl" validate="integer">
     </TD>
 	</TR>
 	
-	<TR>
-    <TD class="labelmedium">Color:</TD>
+	<TR class="labelmedium2">
+    <TD>Color:</TD>
     <TD>
-  	   <input type="text" name="ViewColor" value="#get.ViewColor#" size="20"  maxlenght = "20" class= "regularxl">
+  	   <input type="text" name="ViewColor" value="#get.ViewColor#" size="20"  maxlenght = "20" class= "regularxxl">
     </TD>
 	</TR>
 	
@@ -119,9 +119,9 @@ function ask() {
 	<tr><td colspan="2" class="linedotted"></td></tr>
 	<tr>	
 		<td colspan="2" align="center">
-		<input class="button10g" type="button" style="width:80" name="Cancel" value="Cancel" onClick="window.close()">
-	    <input class="button10g" type="submit" style="width:80" name="Delete" value="Delete" onclick="return ask()">
-    	<input class="button10g" type="submit" style="width:80" name="Update" value="Update">
+		<input class="button10g" type="button" name="Cancel" value="Cancel" onClick="window.close()">
+	    <input class="button10g" type="submit" name="Delete" value="Delete" onclick="return ask()">
+    	<input class="button10g" type="submit" name="Update" value="Update">
 		</td>	
 	</tr>
 	

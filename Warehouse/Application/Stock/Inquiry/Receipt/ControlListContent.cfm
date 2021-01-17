@@ -202,7 +202,7 @@ password="#SESSION.dbpw#">
 		     				field       = "ReceiptAmount",					
 							align       = "right",
 							alias       = "",					
-							formatted   = "numberformat(ReceiptAmount,'__,__.__')",														
+							formatted   = "numberformat(ReceiptAmount,',.__')",														
 							search      = ""}>	
 						
 	</cfif>																																		
@@ -212,7 +212,7 @@ password="#SESSION.dbpw#">
 
 <cf_listing
 	    header              = "transactionlist"
-	    box                 = "listing"
+	    box                 = "receiptlist_#url.warehouse#"
 		link                = "#SESSION.root#/Warehouse/Application/Stock/Inquiry/Receipt/ControlListContent.cfm?warehouse=#url.warehouse#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#"
 	    html                = "No"		
 		tableheight         = "100%"

@@ -1,5 +1,6 @@
 
 <div id="divVendorOfferListing">
+
 <cfquery name="getOffers" 
     datasource="AppsMaterials" 
     username="#SESSION.login#" 
@@ -19,7 +20,7 @@
 
 <cfset dColumns = 9>
 
-<table width="100%" cellspacing="0" cellpadding="0" align="center">
+<table width="100%" align="center">
 	<tr><td height="4"></td></tr>
 	<tr><td height="1" colspan="<cfoutput>#dColumns#</cfoutput>" class="line"></td></tr>
 	<tr><td height="2"></td></tr>
@@ -28,12 +29,12 @@
 		<td colspan="1" align="right">
 		<cf_tl id="Record Offer" var="1">
 		<cfoutput>
-			<input value    = "#lt_text#" 
-				class       = "button10g"
-				type        = "Button"
-				style       = "width:130px"
-				id          = "addOffer"									
-				onclick 	= "javascript: editvendorofferperdate('','#url.mission#','#itemno#','#url.uom#','#url.orgunitvendor#','');"> 
+			<input value  = "#lt_text#" 
+				class     = "button10g"
+				type      = "Button"
+				style     = "width:130px"
+				id        = "addOffer"									
+				onclick   = "javascript: editvendorofferperdate('','#url.mission#','#itemno#','#url.uom#','#url.orgunitvendor#','');"> 
 		 </cfoutput>		
 		</td>
 	</tr>
@@ -41,7 +42,7 @@
 	<tr><td height="1" colspan="<cfoutput>#dColumns#</cfoutput>" class="line"></td></tr>
 	<tr><td height="2"></td></tr>
 	
-	<tr class="labelmedium">
+	<tr class="labelmedium2">
 		<td width="40"></td>
 		<td><cf_tl id="Location"></td>		
 		<td align="right"><cf_tl id="Currency"></td>
@@ -56,53 +57,57 @@
 	<tr><td height="2"></td></tr>
 	<tr><td height="1" colspan="<cfoutput>#dColumns#</cfoutput>" class="line" ></td></tr>
 	<tr><td height="3"></td></tr>
+	
 	<cfif getOffers.recordCount neq 0>
-	<cfoutput query="getOffers" group="dateEffective">
-		<cfset passDate = Dateformat(dateEffective, 'yyyy-mm-dd')>
-		<tr onMouseOver="this.bgColor='FFFFCF'" onMouseOut="this.bgColor='FFFFFF'" bgcolor="FFFFFF">
-			<td class="labelmedium" colspan="#dColumns - 1#" align="left" onClick="javascript: editvendorofferperdate('#offerid#','#mission#','#itemno#','#uom#','#orgunitvendor#','#passDate#');" style="cursor: pointer;" class="label">
-				<b>#Dateformat(dateEffective, "#CLIENT.DateFormatShow#")# - #lsNumberFormat(OfferMinimumQuantity, ",.__")# #UoMDescription#s minimum</b></font>
-			</td>
-			<td colspan="1" align="right" style="padding-top:3px">
-				
-				<!--- <cfif currentrow eq 1> --->
-				<table cellpadding="0" cellspacing="0" class="formspacing">
-				 	<tr>
-						<td>
-							<cf_img icon="edit" onclick="editvendorofferperdate('#offerId#','#mission#','#itemno#','#uom#','#orgunitvendor#','#passDate#');">
-						</td>
-						<td>
-						 	<cf_img icon="delete" onclick="if (confirm('Do you want to remove this portion ?')) {_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/Warehouse/Maintenance/ItemMaster/vendors/vendorOfferPurgePerDate.cfm?offerid=#offerid#&mission=#url.mission#&itemno=#url.itemno#&uom=#uom#&orgunitvendor=#orgunitvendor#&effectiveDate=#passDate#','divVendorOfferListing');}">
-						</td>
-					</tr>
-				</table>
-				<!--- </cfif> --->
-				
-			</td>
-		</tr>
-		<tr><td height="3"></td></tr>
-		<cfoutput>
-		<tr>	
-			<td></td>		
-			<td class="labelit">#LocationName# <font size="1">[#LocationCode#]</font></td>
-			<td class="labelit" align="right">#currency#</td>
-			<td class="labelit" align="right"><font color="808080">#lsNumberFormat(ItemPriceFixed, ",.__")#</td>
-			<td class="labelit" align="right"><font color="808080">#lsNumberFormat(ItemPriceVariable, ",.__")#</td>
-			<td class="labelit" align="right">#lsNumberFormat(ItemPrice, ",.__")#</td>
-			<td class="labelit" align="right">#lsNumberFormat(ItemTax, ",._")#%</td>
-			<td class="labelit" align="center"><cfif taxIncluded eq 0>No<cfelse>Yes</cfif></td>
-			<td></td>
-		</tr>
+	
+		<cfoutput query="getOffers" group="dateEffective">
+			<cfset passDate = Dateformat(dateEffective, 'yyyy-mm-dd')>
+			<tr onMouseOver="this.bgColor='FFFFCF'" onMouseOut="this.bgColor='FFFFFF'" bgcolor="FFFFFF">
+				<td class="labelmedium2" style="font-size:17px" colspan="#dColumns - 1#" align="left" onClick="javascript: editvendorofferperdate('#offerid#','#mission#','#itemno#','#uom#','#orgunitvendor#','#passDate#');" style="cursor: pointer;" class="label">
+					<b>#mission#</b> #Dateformat(dateEffective, "#CLIENT.DateFormatShow#")# - #lsNumberFormat(OfferMinimumQuantity, ",.__")# #UoMDescription#s minimum
+				</td>
+				<td colspan="1" align="right" style="padding-top:3px">
+					
+					<!--- <cfif currentrow eq 1> --->
+					<table cellpadding="0" cellspacing="0" class="formspacing">
+					 	<tr>
+							<td>
+								<cf_img icon="edit" onclick="editvendorofferperdate('#offerId#','#mission#','#itemno#','#uom#','#orgunitvendor#','#passDate#');">
+							</td>
+							<td>
+							 	<cf_img icon="delete" onclick="if (confirm('Do you want to remove this portion ?')) {_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/Warehouse/Maintenance/ItemMaster/vendors/vendorOfferPurgePerDate.cfm?offerid=#offerid#&mission=#url.mission#&itemno=#url.itemno#&uom=#uom#&orgunitvendor=#orgunitvendor#&effectiveDate=#passDate#','divVendorOfferListing');}">
+							</td>
+						</tr>
+					</table>
+					<!--- </cfif> --->
+					
+				</td>
+			</tr>
+			<tr><td height="3"></td></tr>
+			<cfoutput>
+			<tr class="labelmedium2">	
+				<td></td>		
+				<td>#LocationName# <font size="1">[#LocationCode#]</font></td>
+				<td align="right">#currency#</td>
+				<td align="right"><font color="808080">#lsNumberFormat(ItemPriceFixed, ",.__")#</td>
+				<td align="right"><font color="808080">#lsNumberFormat(ItemPriceVariable, ",.__")#</td>
+				<td align="right">#lsNumberFormat(ItemPrice, ",.__")#</td>
+				<td align="right">#lsNumberFormat(ItemTax, ",._")#%</td>
+				<td align="center"><cfif taxIncluded eq 0>No<cfelse>Yes</cfif></td>
+				<td></td>
+			</tr>
+			</cfoutput>
+			
 		</cfoutput>
+	
+	<cfelse>	
 		
-	</cfoutput>
-	<cfelse>
-		<tr><td height="2"></td></tr>
-		<tr><td align="center" class="labelmedium" colspan="<cfoutput>#dColumns#</cfoutput>"><font color="808080">No offers recorded</font></td></tr>
-		<tr><td height="3"></td></tr>
+		<tr class="labelmedium2"><td style="padding:4px" align="center" colspan="<cfoutput>#dColumns#</cfoutput>">No offers recorded</td></tr>		
+		
 	</cfif>
 	<tr><td height="2"></td></tr>
 	<tr><td height="1" colspan="<cfoutput>#dColumns#</cfoutput>" class="line"></td></tr>		
 </table>
+
 </div>
 

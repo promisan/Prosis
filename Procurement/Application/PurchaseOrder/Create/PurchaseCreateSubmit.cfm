@@ -640,14 +640,12 @@
      username="#SESSION.login#" 
      password="#SESSION.dbpw#">
     	 INSERT INTO RequisitionLineAction 
-		 (RequisitionNo, ActionStatus, ActionDate, OfficerUserId, OfficerLastName, OfficerFirstName) 
+		        (RequisitionNo, ActionStatus, ActionDate, OfficerUserId, OfficerLastName, OfficerFirstName) 
 		 SELECT RequisitionNo, '3', getDate(), '#SESSION.acc#', '#SESSION.last#', '#SESSION.first#'
-		 FROM RequisitionLine
-		 WHERE  RequisitionNo IN (
-		                          SELECT RequisitionNo 
+		 FROM   RequisitionLine
+		 WHERE  RequisitionNo IN (SELECT RequisitionNo 
 	              	              FROM   RequisitionLineQuote 
-							      WHERE  QuotationId IN (#PreserveSingleQuotes(Form.QuotationId)#)
-								 )
+							      WHERE  QuotationId IN (#PreserveSingleQuotes(Form.QuotationId)#) )
 </cfquery>
 		
 <cfquery name="SelectLines" 

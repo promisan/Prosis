@@ -3,8 +3,7 @@
 <cf_screentop height="100%" 
               scroll="Yes" 
 			  layout="webapp" 
-			  label="Object Usage" 
-			  option="Add Object Usage"
+			  label="Object Usage" 			 
   			  menuAccess="Yes" 
 			  systemfunctionid="#url.idmenu#">
 

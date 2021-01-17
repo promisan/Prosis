@@ -3,8 +3,7 @@
 <cf_screentop height="100%" 
 			  scroll="Yes" 
 			  layout="webapp" 
-			  banner="gray"
-			  label="Add Post Class" 
+			  banner="gray"			  
 			  menuAccess="Yes" 
 			  jQuery = "Yes"
 			  line="no"
@@ -77,7 +76,7 @@
   	 </TD>
 	</TR>
 	
-	<tr><td colspan="2" class="linedotted"></td></tr>
+	<tr><td colspan="2" class="line"></td></tr>
 	
 	<tr>		
 	<td colspan="2" align="center" height="30">

@@ -34,15 +34,15 @@ function ask() {
 
 <cfform action="RecordSubmit.cfm?idmenu=#url.idmenu#" method="POST" name="dialog">
 
-<table width="95%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="95%" align="center" class="formpadding">
 
 	<tr><td height="10"></td></tr>
 
     <cfoutput>
     <TR>
-    <TD class="regular">Code:</TD>
+    <TD class="labelmedium2">Code:</TD>
     <TD class="regular">
-  	   <input type="text"   name="Code" id="Code" value="#get.Code#" size="20" maxlength="20"class="regular">
+  	   <input type="text"   name="Code" id="Code" value="#get.Code#" size="20" maxlength="20"class="regularxxl">
 	   <input type="hidden" name="Codeold" id="Codeold" value="#get.Code#" size="20" maxlength="20"class="regular">
     </TD>
 	</TR>
@@ -58,7 +58,7 @@ function ask() {
 		   requerided="yes" 
 		   size="30" 
 	       maxlength="50" 
-		   class="regular">
+		   class="regularxxl">
     </TD>
 	</TR>
 		

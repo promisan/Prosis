@@ -98,16 +98,13 @@ function ask()
 	</TR>
 	
 </cfoutput>
-
-	<tr><td colspan="2" height="3"></td></tr>
+	
 	<tr><td colspan="2" class="linedotted"></td></tr>
-	<tr><td colspan="2" height="3"></td></tr>
-
 
 	<tr><td colspan="2" align="center">
-	<input class="button10g" style="width:100px" type="button" name="Cancel" value=" Cancel " onClick="window.close()">
-    <input class="button10g" style="width:100px" type="submit" name="Delete" value=" Delete " onclick="return ask()">
-    <input class="button10g" style="width:100px" type="submit" name="Update" value=" Update ">
+	<input class="button10g" type="button" name="Cancel" value=" Cancel " onClick="window.close()">
+    <input class="button10g" type="submit" name="Delete" value=" Delete " onclick="return ask()">
+    <input class="button10g" type="submit" name="Update" value=" Update ">
 	</td></tr>
     	
 </TABLE>

@@ -3,8 +3,7 @@
 <cf_screentop height="100%" 
 			  label="Address Building" 
 			  scroll="Yes" 
-			  layout="webapp" 
-			  option="Address building" 
+			  layout="webapp" 			 
 			  menuAccess="Yes" 
 			  jquery="Yes"
 			  systemfunctionid="#url.idmenu#">
@@ -22,28 +21,28 @@
     <TR>
     <TD class="labellarge"><cf_tl id="Code">:</TD>
     <TD>
-  	   <cfinput type="Text" name="Code" id="Code" value="" message="Please enter a code" required="Yes" size="10" maxlength="20" class="regularxl">
+  	   <cfinput type="Text" name="Code" id="Code" value="" message="Please enter a code" required="Yes" size="10" maxlength="20" class="regularxxl">
     </TD>
 	</TR>
 	
 	<TR>
     <TD class="labellarge"><cf_tl id="Name">:</TD>
     <TD>
-  	   <cfinput type="Text" name="Name" id="Name" value="" message="Please enter a code" required="Yes" size="10" maxlength="40" class="regularxl">
+  	   <cfinput type="Text" name="Name" id="Name" value="" message="Please enter a code" required="Yes" size="10" maxlength="40" class="regularxxl">
     </TD>
 	</TR>
 	
 	<TR>
     <TD class="labellarge"><cf_tl id="Description">:</TD>
     <TD>
-  	   <cfinput type="Text" name="Description" id="Description" value="" message="Please enter a description" required="no" size="40" maxlength="100" class="regularxl">
+  	   <cfinput type="Text" name="Description" id="Description" value="" message="Please enter a description" required="no" size="40" maxlength="100" class="regularxxl">
     </TD>
 	</TR>
 	
 	<TR>
     <TD class="labellarge"><cf_tl id="Levels">:</TD>
     <TD>
-  	   <cfinput type="Text" name="Levels" id="Levels" value="" message="Please enter the building levels" validate="integer" required="Yes" size="2" maxlength="3" class="regularxl" style="text-align:center;">
+  	   <cfinput type="Text" name="Levels" id="Levels" value="" message="Please enter the building levels" validate="integer" required="Yes" size="2" maxlength="3" class="regularxxl" style="text-align:center;">
     </TD>
 	</TR>
 	

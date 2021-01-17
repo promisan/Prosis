@@ -28,38 +28,34 @@ SELECT *
 
 <script language="JavaScript">
 
-function ask()
-
-{
-	if (confirm("Do you want to remove this class?")) {
-	
-	return true 
-	
-	}
-	
-	return false
-	
+function ask() {
+	if (confirm("Do you want to remove this class?")) {	
+	return true 	
+	}	
+	return false	
 }	
 
 </script>
 
-<cfform action="RecordSubmit.cfm" method="POST" enablecab="Yes" name="dialog">
+<cfform action="RecordSubmit.cfm" method="POST" name="dialog">
 
-<table width="95%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="95%" align="center" class="formpadding">
+
+	<tr><td style="height:10px"></td></tr>
 
     <cfoutput>
-    <TR>
-    <TD class="labelit">Code:</TD>
+    <TR class="labelmedium2">
+    <TD><cf_tl id="Code">:</TD>
     <TD>
-  	   <input type="text" name="FunctionClass" value="#get.FunctionClass#" size="20" maxlength="20"class="regularh">
+  	   <input type="text"   name="FunctionClass"    value="#get.FunctionClass#" size="20" maxlength="20" class="regularxxl">
 	   <input type="hidden" name="FunctionClassOld" value="#get.FunctionClass#" size="20" maxlength="20" readonly>
     </TD>
 	</TR>
 	
-	<TR>
-    <TD class="labelit">Owner:</TD>
+	<TR class="labelmedium2">
+    <TD><cf_tl id="Owner">:</TD>
     <TD>
-	   <select name="Owner">
+	   <select name="Owner" class="regularxxl">
 	   <cfloop query="Owner">
 	   <option value="#Owner#" <cfif get.Owner eq Owner>selected</cfif>>#Owner#</option>	   
 	   </cfloop>
@@ -68,18 +64,16 @@ function ask()
 	</TR>
 	
 	</cfoutput>
-	
-	
-	<tr><td colspan="2" height="6"></td></tr>
-	<tr><td colspan="2" class="linedotted"></td></tr>
-	<tr><td colspan="2" height="6"></td></tr>
-	
-	
+		
+	<tr><td colspan="2" height="3"></td></tr>
+	<tr><td colspan="2" class="line"></td></tr>
+	<tr><td colspan="2" height="3"></td></tr>
+		
 	<tr>
 	<td align="center" colspan="2" valign="bottom">
-	<input class="button10g" type="button" name="Cancel" value=" Cancel " onClick="window.close()">
-    <input class="button10g" type="submit" name="Delete" value=" Delete " onclick="return ask()">
-    <input class="button10g" type="submit" name="Update" value=" Update ">
+		<input class="button10g" type="button" name="Cancel" value=" Cancel " onClick="window.close()">
+	    <input class="button10g" type="submit" name="Delete" value=" Delete " onclick="return ask()">
+	    <input class="button10g" type="submit" name="Update" value=" Update ">
 	</td>	
 	</tr>
 	

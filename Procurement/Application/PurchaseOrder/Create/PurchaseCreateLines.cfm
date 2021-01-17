@@ -31,16 +31,16 @@ function hl(itm,fld,reqno){
 	
 <table border="0" cellpadding="0" cellspacing="0" width="100%" class="navigation_table">
 		
-    <TR class="line">
+    <TR class="line labelmedium">
 	   <td width="3%" height="19">&nbsp;</td>
 	   <td width="3%" height="19">&nbsp;</td>
-	   <td width="40%" class="labelit"><cf_tl id="Description"></td>
-	   <td align="right" class="labelit"><cf_tl id="Qty"></td>
-	   <td align="right" class="labelit"><cf_tl id="UoM"></td>
-	   <td align="right" class="labelit"><cf_tl id="Currency"></td>
-	   <td align="right" class="labelit"><cf_tl id="Price"></td>
-	   <td align="right" class="labelit"><cf_tl id="Amount"></td>
-	   <td align="right" class="labelit"></td>
+	   <td width="40%"><cf_tl id="Description"></td>
+	   <td align="right"><cf_tl id="Qty"></td>
+	   <td align="right"><cf_tl id="UoM"></td>
+	   <td align="right"><cf_tl id="Currency"></td>
+	   <td align="right"><cf_tl id="Price"></td>
+	   <td align="right"><cf_tl id="Amount"></td>
+	   <td align="right"></td>
     </TR>
 			
 	<cfif Requisition.recordcount eq "0">
@@ -62,7 +62,7 @@ function hl(itm,fld,reqno){
 	
 		<cfoutput>
 		
-		<tr id="#requisitionno#_1" class="navigation_row">
+		<tr id="#requisitionno#_1" class="navigation_row labelmedium line">
 		
 		   <td height="23" align="center">
 			 
@@ -74,21 +74,17 @@ function hl(itm,fld,reqno){
 		 		   
 		   </td>
     	   <td>&nbsp;</td>		  
-		   <td class="labelit">#VendorItemDescription#</td>
-    	   <td class="labelit" align="right">#QuotationQuantity#</td>
-		   <td class="labelit" align="right">#QuotationUoM#</td>
-		   <td class="labelit" align="right">#Currency#</td>
-		   <td class="labelit" align="right">#NumberFormat(QuoteAmount/QuotationQuantity, ",__.__")#</td>
-		   <td class="labelit" align="right">#NumberFormat(QuoteAmount,",__.__")#&nbsp;</td>		   
+		   <td>#VendorItemDescription#</td>
+    	   <td align="right">#QuotationQuantity#</td>
+		   <td align="right">#QuotationUoM#</td>
+		   <td align="right">#Currency#</td>
+		   <td align="right">#NumberFormat(QuoteAmount/QuotationQuantity, ",.__")#</td>
+		   <td align="right">#NumberFormat(QuoteAmount,",.__")#&nbsp;</td>		   
 		   <td align="center" style="padding-top:1px">		   
 			   	<cf_img icon="edit" onclick="ProcQuoteEdit('#quotationid#','view');">		  								   
 		   </td>
 		</tr>
-					
-		<cfif currentRow neq Recordcount>	
-		<tr><td height="1" colspan="9" class="linedotted"></td></tr>
-		</cfif>	
-		
+				
 		</cfoutput>
 	
 	</cfoutput>

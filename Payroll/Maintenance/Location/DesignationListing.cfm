@@ -1,4 +1,15 @@
 
+<cf_screentop html="No" jquery="Yes">
+
+<table width="98%" height="100%" align="center">
+
+<cfset Page         = "0">
+<cfset add          = "1">
+<cfset save         = "0">
+<cfset Header       = "Payroll location">
+ 
+<tr style="height:10px"><td><cfinclude template = "../HeaderPayroll.cfm"></td></tr>
+
 <cfquery name="List" 
 datasource="AppsPayroll" 
 username="#SESSION.login#" 
@@ -10,58 +21,57 @@ password="#SESSION.dbpw#">
 	ORDER BY DateEffective ASC
 </cfquery>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="left">
 <tr>
-<td colspan="2">
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding navigation_table">
+<td colspan="1">
 
-<tr><td colspan="2" class="labelmedium"><font color="808080">Define modalities of the payroll location, which affects the entitlements</td></tr>
-
-<tr class="labelmedium line">
-    
-    <TD width="40%" class="labelmedium">Designation</TD>
-    <TD align="center" class="labelmedium">Effective</TD>
-	<td align="center" class="labelmedium">Expiration</td>
-	<TD height="23" align="center" class="labelmedium">
-		<cfoutput>
-		<A href="javascript:editDesignation('#url.id1#','','')">
-		<font color="0080FF">[add]</font></a>
-		</cfoutput>
-	</TD>
-</TR>
-
-<cfif list.recordcount eq 0>
-	<tr>
-		<td style="padding-top:10px" height="25" align="center" class="labelmedium" valign="middle" colspan="4">
-		<font color="808080">No designations recorded</font>
-		</td>
-	</tr>
-</cfif>
+	<table width="100%" align="center" class="formpadding navigation_table">
 	
-	<CFOUTPUT query="List">
+	<tr><td colspan="2" class="labelmedium"><font color="808080">Define modalities of the payroll location, which affects the entitlements</td></tr>
 	
-		<TR class="navigation_row linedotted">
-			
-			<TD class="labelmedium">#DesignationDescription#</TD>
-			<TD align="center" class="labelmedium">#lsDateFormat(dateEffective,'#CLIENT.DateFormatShow#')#</TD>		
-			<TD align="center" class="labelmedium">#lsDateFormat(dateExpiration,'#CLIENT.DateFormatShow#')#</TD>
-			<TD height="18" align="center">
-				<table>
-					<tr>
-						<td>
-							 <cf_img icon="edit" onclick="editDesignation('#url.id1#','#designation#','#lsDateFormat(dateEffective,'yyyy-mm-dd')#')">
-						</td>
-						<td>
-							<cf_img icon="delete" onclick="deleteDesignation('#url.id1#','#designation#','#lsDateFormat(dateEffective,'yyyy-mm-dd')#')">
-						</td>
-					</tr>
-				</table>		
-			</TD>
-		</TR>
+	<tr class="labelmedium2 line">
+	    
+	    <TD width="40%">Designation</TD>
+	    <TD align="center">Effective</TD>
+		<td align="center">Expiration</td>
+		<TD height="23" align="center">
+			<cfoutput>
+			<A href="javascript:editDesignation('#url.id1#','','')">[add]</a>
+			</cfoutput>
+		</TD>
+	</TR>
 	
-	</CFOUTPUT>
-	
-</TABLE>
+	<cfif list.recordcount eq 0>
+		<tr>
+			<td style="padding-top:10px" height="25" align="center" class="labelmedium" valign="middle" colspan="4">
+			<font color="808080">No designations recorded</font>
+			</td>
+		</tr>
+	</cfif>
+		
+		<CFOUTPUT query="List">
+		
+			<TR class="navigation_row linedotted labelmedium2">
+				
+				<TD>#DesignationDescription#</TD>
+				<TD align="center">#lsDateFormat(dateEffective,'#CLIENT.DateFormatShow#')#</TD>		
+				<TD align="center">#lsDateFormat(dateExpiration,'#CLIENT.DateFormatShow#')#</TD>
+				<TD height="18" align="center">
+					<table>
+						<tr>
+							<td>
+								 <cf_img icon="edit" onclick="editDesignation('#url.id1#','#designation#','#lsDateFormat(dateEffective,'yyyy-mm-dd')#')">
+							</td>
+							<td>
+								<cf_img icon="delete" onclick="deleteDesignation('#url.id1#','#designation#','#lsDateFormat(dateEffective,'yyyy-mm-dd')#')">
+							</td>
+						</tr>
+					</table>		
+				</TD>
+			</TR>
+		
+		</CFOUTPUT>
+		
+	</TABLE>
 
 </td>
 </tr>

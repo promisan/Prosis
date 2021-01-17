@@ -29,50 +29,51 @@ function ask() {
 
 <cfform action="RecordSubmit.cfm" method="POST" name="dialog">
 
-<table width="92%" align="center" class="formspacimg">
+<table width="92%" align="center" class="formspacimg formpadding">
 
     <tr><td height="10"></td></tr>
     <cfoutput>
     <TR>
-    <TD class="labelmedium">Code:</TD>
-    <TD><input type="text" name="Code" id="Code" class="regularxl" value="#get.Code#" style="text-align:center;padding-left:1px" size="4" maxlength="4" readonly>
+    <TD class="labelmedium2">Code:</TD>
+    <TD><input type="text" name="Code" id="Code" class="regularxxl" value="#get.Code#" style="text-align:center;padding-left:1px" size="4" maxlength="4" readonly>
      </TD>
 	</TR>
 	
 	<tr><td height="3"></td></tr>
 	
 	<TR>
-    <TD class="labelmedium">Description:</TD>
+    <TD class="labelmedium2">Description:</TD>
     <TD><cfinput type="text" name="Description" value="#get.LanguageName#" message="please enter a description" requerided="yes" size="30" 
-	   maxlenght = "30" class= "regularxl">
+	   maxlenght = "30" class= "regularxxl">
     </TD>
 	</TR>
 		
 	<tr><td height="3"></td></tr>
 	
 	<TR>
-    <TD class="labelmedium">Default:</TD>
+    <TD class="labelmedium2">Default:</TD>
     <td height="25" class="labelmedium" style="padding-right:4px">
 	
 	   <cfif get.SystemDefault eq "1">
 	       Yes
 		   <input type="hidden" name="SystemDefault" id="SystemDefault" value="1">
 	   <cfelse>
-	  	   <input type="checkbox" style="width:18px;height:18px" name="SystemDefault" id="SystemDefault" value="1">
+	  	   <input type="checkbox" class="radiol" style="width:18px;height:18px" name="SystemDefault" id="SystemDefault" value="1">
 	   </cfif>
 	   
     </td>
 	</TR>
 	
+	<tr><td height="3"></td></tr>
 	
 	<TR>
-    <TD class="labelmedium">Selectable:</TD>
+    <TD class="labelmedium2">Selectable:</TD>
     <td height="25" class="labelmedium" style="padding-right:4px">
 	
 	   <cfif get.Interface eq "1">
 	  	   <input type="checkbox" checked style="width:18px;height:18px" name="Interface" id="Interface" value="1">
 	   <cfelse>
-	       <input type="checkbox" style="width:18px;height:18px" name="Interface" id="Interface" value="1">
+	       <input type="checkbox" class="radiol" style="width:18px;height:18px" name="Interface" id="Interface" value="1">
 	   </cfif>	   
 	 
 	   
@@ -82,10 +83,10 @@ function ask() {
 	<tr><td height="3"></td></tr>
 				
 	<TR>
-    <TD valign="top" style="padding-top:3px" class="labelmedium">Operational:</TD>
+    <TD valign="top" style="padding-top:3px" class="labelmedium2">Operational:</TD>
     <TD class="labelmedium">	  
 	    <table><tr>
-		<td><INPUT type="radio" style="width:16px;height:16px" name="Operational" id="Operational" value="2" <cfif get.Operational eq "2" or get.SystemDefault eq "1">checked</cfif>></td><td style="padding-left:4px" class="labelmedium">Data entry mode</td>
+		<td><INPUT type="radio" class="radiol" style="width:16px;height:16px" name="Operational" id="Operational" value="2" <cfif get.Operational eq "2" or get.SystemDefault eq "1">checked</cfif>></td><td style="padding-left:4px" class="labelmedium">Data entry mode</td>
 		</tr>
 		<!---
 		<tr>
@@ -93,20 +94,19 @@ function ask() {
 		</tr>
 		--->
 		<tr>
-		<td><INPUT type="radio" style="width:16px;height:16px" name="Operational" id="Operational" value="1" <cfif get.Operational eq "1">checked</cfif>></td><td style="padding-left:4px" class="labelmedium">Enabled</td>
+		<td><INPUT type="radio" class="radiol"  style="width:16px;height:16px" name="Operational" id="Operational" value="1" <cfif get.Operational eq "1">checked</cfif>></td><td style="padding-left:4px" class="labelmedium">Enabled</td>
 		</tr>
 		<tr>
-		<td><INPUT type="radio" style="width:16px;height:16px" name="Operational" id="Operational" value="0" <cfif get.Operational eq "0">checked</cfif>></td><td style="padding-left:4px" class="labelmedium">Disabled</td>
+		<td><INPUT type="radio" class="radiol"  style="width:16px;height:16px" name="Operational" id="Operational" value="0" <cfif get.Operational eq "0">checked</cfif>></td><td style="padding-left:4px" class="labelmedium">Disabled</td>
 		</tr>
 		</table>  
 	</TD>
 	</TR>
 	
 	</cfoutput>
+		
+	<tr><td style="padding:5px" height="1" class="line" colspan="2"></td></tr>
 	
-	<tr><td height="1"></td></tr>
-	<tr><td height="1" class="linedotted" colspan="2"></td></tr>
-	<tr><td height="1"></td></tr>
 	<tr>	
 	<td align="center" colspan="2" height="30">
 		<input class="button10g" type="button" name="Cancel" id="Cancel" value=" Cancel " onClick="window.close()">	

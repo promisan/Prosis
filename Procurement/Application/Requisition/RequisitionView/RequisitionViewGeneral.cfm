@@ -377,7 +377,7 @@
 		
 			<table width="98%" class="navigation_table">	
 				
-			<TR class="labelmedium line fixrow">
+			<TR class="labellarge line fixrow">
 			    <td height="20" style="width:40px"></td>
 			    <td width="40%" colspan="2"><cf_tl id="Classification"></td>		    
 			    <td width="10%"><cf_tl id="Date"></td>

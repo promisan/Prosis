@@ -8,9 +8,9 @@
 		ORDER BY C.Mission ASC
 </cfquery>
 
-<table width="97%" cellspacing="0" cellpadding="0" align="center" class="navigation_table" >
+<table width="95%" align="center" class="navigation_table">
 
-<tr class="labelmedium linedotted">
+<tr class="labelmedium2 line">
 	<td width="20px"></td>
     <td width="25px"></td>
     <td><cf_tl id="Class"></td>
@@ -21,12 +21,16 @@
 
 <cfoutput query="SearchResult" group="mission">
     
-	<tr><td colspan="5" class="labelmedium">#MissionName# <font size="-2">[#Mission#]</font></td></tr>
+	<tr><td colspan="5" class="labelmedium2">#MissionName# <font size="-2">[#Mission#]</font></td></tr>
 	
 	<cfoutput>
 	
-	    <tr class="labelmedium linedotted navigation_row"> 
-			<td align="left">
+	    <tr class="labelmedium2 line navigation_row"> 
+			
+			<td align="left" class="navigation_action" style="width:20px;padding-top:3px" onclick="recordedit('#Code#');">
+				<cf_img icon="open" onclick="recordedit('#Code#');">
+			</td>
+			<td align="left" style="padding-top:3px;width:20px">
 				<cfquery name="validate"
 					datasource="appsProgram" 
 					username="#SESSION.login#" 
@@ -39,9 +43,6 @@
 				<cfif validate.recordCount eq 0>
 					<cf_img icon="delete" onclick="recordpurge('#Code#');">
 				</cfif>
-			</td>
-			<td align="left" class="navigation_action" onclick="recordedit('#Code#');">
-				<cf_img icon="open" onclick="recordedit('#Code#');">
 			</td>
 			<td>#Code#</td>
 			<td>#Description#</td>

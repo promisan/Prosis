@@ -141,14 +141,12 @@
 			
 	</cfif>	
 	
-<cfif client.filtercan eq "">
-    <cf_waitEnd>
+<cfif client.filtercan eq "">    
 	<cf_message message="Sorry but you need to enter one or more filter criteria" return="no"> 
 	<cfabort>
 </cfif>	
 	
-<cfif own eq "">
-    <cf_waitEnd>
+<cfif own eq "">   
 	<cf_message message="Sorry not able to determine the roster OWNER setting for your account. Please contact your administrator" return="no"> 
 	<cfabort>
 </cfif>
@@ -309,10 +307,10 @@ WHERE
 		#preserveSingleQuotes(query)# 	
  </cfquery>		   
 
-<cfset rows    = ceiling((url.height-150)/22)>
+<cfset rows    = ceiling((url.height-150)/26)>
 <!--- provision for 0 result --->
 <cfif rows lte 0>
-	<cfset rows = 25>
+	<cfset rows = 20>
 </cfif>
 <cfset cpage   = url.page>
 <cfset first   = ((cpage-1)*rows)+1>
@@ -333,7 +331,7 @@ password="#SESSION.dbpw#">
 		SELECT DISTINCT '#LastNo#', A.PersonNo	
 		
 	<cfelse>
-		
+			
 		SELECT DISTINCT TOP #top# A.*,
 		
 			 (SELECT    TOP 1 ActionTimeStamp
@@ -372,6 +370,10 @@ password="#SESSION.dbpw#">
 		'' as Indicator,
 		
 		</cfif>
+		
+		(SELECT TOP 1 PersonNo 
+		 FROM   Employee.dbo.Person 
+		 WHERE IndexNo = A.IndexNo) as Employee,
 		
 		<!--- define if has last assignment --->
 		<cfif Parameter.showLastAssignment eq "1">				
@@ -432,7 +434,7 @@ password="#SESSION.dbpw#">
 		  <cfif searchresult.recordcount gt "0">
 		  
 			  <tr class="line">
-			  <td style="padding-left:3px;height:30px;font-size:20px0" class="labellarge"><font color="gray">
+			  <td style="padding-left:3px;height:30px;font-size:20px" class="labellarge"><font color="gray">
 			     <cfoutput>
 					#SearchTotal.total# <cf_tl id="matching records found">...				    
 				</cfoutput>
@@ -448,18 +450,18 @@ password="#SESSION.dbpw#">
 		  
 		    <cf_divscroll>
 		  				
-			<table border="0" width="99%" class="formpadding navigation_table">
+			<table width="99%" class="formpadding navigation_table">
 			
-			<TR class="fixrow labelmedium line">
+			<TR class="fixrow labelmedium2 line">
 			    <TD style="min-width:26"></TD>
 			    <TD style="width:100%;min-width:200px"><cf_tl id="Name"></TD>				
-			    <TD style="min-width:40"><cf_tl id="Nat."></TD>
-			    <TD style="min-width:30">S</TD>
-			    <TD style="min-width:120"><cf_tl id="BirthDate"></TD>
-			    <TD style="min-width:100"><cfoutput>#client.IndexNoName#</cfoutput></TD>
+			    <TD style="min-width:40px"><cf_tl id="Nat."></TD>
+			    <TD style="min-width:30px">S</TD>
+			    <TD style="min-width:120px"><cf_tl id="BirthDate"></TD>
+			    <TD style="min-width:140px"><cfoutput>#client.IndexNoName#</cfoutput></TD>
 				<TD style="min-width:150"><cf_tl id="Reference"></TD>			    
 			    <TD style="min-width:100"><cf_tl id="Entered"></TD>
-				<TD style="min-width:110"><cf_tl id="Accessed"></TD>
+				<TD style="min-width:150"><cf_tl id="Accessed"></TD>
 				<td style="min-width:40" align="center"></td>							
 			 </TR>
 				
@@ -483,7 +485,7 @@ password="#SESSION.dbpw#">
 			
 				<cfif currentrow-first lt rows>		
 						      
-					<TR style="cursor:pointer;height:16px" class="line labelmedium navigation_row">
+					<TR style="cursor:pointer" class="line labelmedium2 navigation_row">
 						
 					<TD style="padding-left:4px;padding-top:2px;padding-right:4px" class="navigation_action" onClick="javascript:ShowCandidate('#PersonNo#')"><cf_img icon="select"></TD>
 					<TD style="padding-right:4px"><a href="javascript:ShowCandidate('#PersonNo#')">#LastName# #LastName2#, #FirstName# #MiddleName#</a></TD>					
@@ -508,7 +510,13 @@ password="#SESSION.dbpw#">
 					 </cfif>	
 					
 					<td style="padding-right:4px">#DateFormat(DOB, CLIENT.DateFormatShow)# (#age#)</td>
-					<TD><a title="Employee details" href="javascript:EditPerson('#IndexNo#')">#IndexNo#</a></TD>					
+					<TD>
+					<cfif employee neq "">
+						<a title="Employee details" href="javascript:EditPerson('#IndexNo#')">#IndexNo#</a>
+					<cfelse>
+					    #indexNo#
+					</cfif>	
+					</TD>					
 					<TD style="padding-right:4px"><cfif documentReference neq "">#DocumentReference#<cfelseif eMailAddress neq "">#emailAddress#</cfif></TD>
 					<td style="padding-right:4px">#DateFormat(Created, CLIENT.DateFormatShow)#</td>					
 					<td style="padding-right:4px">
@@ -528,9 +536,10 @@ password="#SESSION.dbpw#">
 					    <cfelseif submissions eq "1">				
 				
 							<cf_RosterPHP 
-								DisplayType = "HLink"								
+								DisplayType = "HLink"
+								Image       = "#SESSION.root#/Images/pdf_small.gif"
 								DisplayText = ""
-								style       = "height:22px;width:22px"
+								style       = "height:14;width:16"
 								Script      = "#currentrow-first + 1#"
 								RosterList  = "#ApplicantNo#"
 								Format      = "Document">
@@ -561,9 +570,10 @@ password="#SESSION.dbpw#">
 								<td align="right" style="padding-right:5px">
 							
 								<cf_RosterPHP 
-									DisplayType = "HLink"									
+									DisplayType = "HLink"
+									Image       = "#SESSION.root#/Images/pdf_small.gif"
 									DisplayText = "#left(Source,2)#"
-									style       = "height:22px;width:22px"
+									style       = "height:14;width:16"
 									Script      = "#row-first + 1#"
 									RosterList  = "#ApplicantNo#"
 									Format      = "Document">	

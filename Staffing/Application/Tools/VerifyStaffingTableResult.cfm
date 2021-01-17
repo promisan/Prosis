@@ -143,7 +143,7 @@ password="#SESSION.dbpw#">
 	ORDER BY AuditElement
 </cfquery>
 
-<table width="100%" cellspacing="0" cellpadding="0" class="formpadding navigation_table">
+<table width="100%" class="formpadding formspacing navigation_table">
 <cfif Error.recordcount eq "0">
 <tr><td colspan="8" class="labelit" align="center">Good, no inconsistencies were detected</td></tr>
 <cfelse>
@@ -164,32 +164,30 @@ password="#SESSION.dbpw#">
 			<cfif AuditElement eq "Position">	
 			    
 			    
-				<tr style="height:22px;" class="labelmedium line navigation_row">
+				<tr class="labelmedium2 line navigation_row">
 				    <td style="padding-left:20px;">#currentrow#.</td>
 				    <td style="padding-left:4px">
 					   <cf_img navigation="Yes" icon="edit"
 					     onClick="ViewParentPositionDialog('#URL.Mission#','#URL.MandateNo#','#PositionParentId#','direct')">
 					</td>
-					<td><a href="javascript:ViewParentPositionDialog('#URL.Mission#','#URL.MandateNo#','#PositionParentId#','direct')">
-						<font color="0080C0">#PositionParentId#
-					</td>
-					<td>#SourceNo#</td>
-					<td>#OrgUnitName#</td>
-					<td>#FunctionDescription#</td>
-					<td>#PostGrade#</td>
-					<td bgcolor="FDFEDE" style="padding-left:4px">#Observation#</td>
+					<td style="padding-left:4px;padding-right:4px"><a href="javascript:ViewParentPositionDialog('#URL.Mission#','#URL.MandateNo#','#PositionParentId#','direct')">#PositionParentId#</td>
+					<td style="padding-left:4px;padding-right:4px">#SourceNo#</td>
+					<td style="padding-left:4px;padding-right:4px">#OrgUnitName#</td>
+					<td style="padding-left:4px;padding-right:4px">#FunctionDescription#</td>
+					<td style="padding-left:4px;padding-right:4px">#PostGrade#</td>
+					<td style="background-color:##ffffaf80;padding-left:4px;font-size:12px">#Observation#</td>
 				</tr>
 				
 			<cfelseif AuditElement eq "Person">
-				<tr style="height:22px;" class="labelmedium line navigation_row">
+				<tr class="labelmedium2 line navigation_row">
 				    <td style="padding-left:20px;">#currentrow#.</td>
 				    <td style="padding-left:4px"> <a href="javascript:EditPerson('#AuditPersonNo#')">#AuditPersonNo#</a></td>
-					<td>#IndexNo#</td>
-					<td>#FullName#</td>
-					<td>#DateFormat(BirthDate, CLIENT.DateFormatShow)#</td>
-					<td>#Gender#</td>
-					<td>#Nationality#</td>
-					<td bgcolor="FDFEDE" style="padding-left:4px">#Observation#</td>
+					<td style="padding-left:4px;padding-right:4px">#IndexNo#</td>
+					<td style="padding-left:4px;padding-right:4px">#FullName#</td>
+					<td style="padding-left:4px;padding-right:4px">#DateFormat(BirthDate, CLIENT.DateFormatShow)#</td>
+					<td style="padding-left:4px;padding-right:4px">#Gender#</td>
+					<td style="padding-left:4px;padding-right:4px">#Nationality#</td>
+					<td style="background-color:##ffffaf80;padding-left:4px;font-size:12px">#Observation#</td>
 				</tr>
 			</cfif>
 					

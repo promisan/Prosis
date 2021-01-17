@@ -15,21 +15,21 @@
 
 <cfform action="RecordSubmit.cfm?idmenu=#url.idmenu#" method="POST" name="dialog">
 
-<table width="92%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="92%" align="center" class="formpadding">
 
 	<tr><td height="10"></td></tr>
 
     <TR>
-    <TD class="regular">Code:</TD>
+    <TD class="labelmedium2">Code:</TD>
     <TD class="regular">
-  	   <cfinput type="text" name="code" value="" message="Please enter a code" required="Yes" size="10" maxlength="20" class="regular">
+  	   <cfinput type="text" name="code" value="" message="Please enter a code" required="Yes" size="10" maxlength="20" class="regularxxl">
     </TD>
 	</TR>
 	
 	<TR>
-    <TD class="regular">Description:</TD>
+    <TD class="labelmedium2">Description:</TD>
     <TD class="regular">
-  	   <cfinput type="text" name="Description" value="" message="Please enter a description" required="Yes" size="40" maxlength="50" class="regular">
+  	   <cfinput type="text" name="Description" value="" message="Please enter a description" required="Yes" size="40" maxlength="50" class="regularxxl">
     </TD>
 	</TR>
 	<tr><td height="6"></td></tr>

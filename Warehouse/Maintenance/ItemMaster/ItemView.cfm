@@ -117,10 +117,11 @@ function toggleMenu(){
 	<cf_layoutarea  position="center" name="mainbox" overflow="auto">	
 		
 		<cf_divscroll>			
-		<table width="100%" height="100%" class="formpadding">			    
-			<tr>	
-				<td width="100%" valign="top" height="100%" id="main" style="padding:4px">			
-				   <cfinclude template="ItemViewHeader.cfm">						
+		<table width="100%" height="100%" class="formpadding">			    		
+			<tr>				
+				<td width="100%" valign="top" id="main" style="padding:4px">			
+				   <cfinclude template="ItemViewHeader.cfm">	
+				   			
 				</td>
 			</tr>
 		</table>

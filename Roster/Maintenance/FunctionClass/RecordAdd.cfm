@@ -12,7 +12,7 @@
 
 <cfform action="RecordSubmit.cfm" method="POST" enablecab="Yes" name="dialog">
 
-<table width="95%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="95%" align="center" class="formpadding">
 
 <cfquery name="Owner" 
 datasource="AppsSelection" 
@@ -23,17 +23,17 @@ SELECT *
 </cfquery>
 
     <tr><td height="10"></td></tr>
-    <TR>
-    <TD class="labelit">Code:</TD>
+    <TR class="labelmedium2">
+    <TD>Code:</TD>
     <TD>
-  	   <cfinput type="Text" name="FunctionClass" id="FunctionClass" value="" message="Please enter a code" required="Yes" size="20" maxlength="20" class="regularh">
+  	   <cfinput type="Text" name="FunctionClass" id="FunctionClass" value="" message="Please enter a code" required="Yes" size="20" maxlength="20" class="regularxxl">
     </TD>
 	</TR>
 	
-	<TR>
-    <TD class="labelit">Owner:</TD>
+	<TR class="labelmedium2">
+    <TD>Owner:</TD>
     <TD>
-	   <select name="Owner" id="Owner">
+	   <select name="Owner" id="Owner" class="regularxxl">
 	   <cfoutput query="Owner">
 	   <option value="#Owner#">#Owner#</option>	   
 	   </cfoutput>

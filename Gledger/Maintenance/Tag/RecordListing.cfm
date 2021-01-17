@@ -32,9 +32,9 @@ function recordedit(id1) {
 
 </cfoutput>
 
-<table width="97%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<table width="97%" align="center" class="navigation_table">
 
-<tr class="labelit line">   
+<tr class="labelmedium2 line">   
     <td width="5%"></td>
 	<td>Mission</td>
 	<td>Entity</td>
@@ -55,10 +55,10 @@ function recordedit(id1) {
 		WHERE  Code = '#CategoryClass#'	
 	</cfquery>
 	
-	<tr><td colspan="7" style="height:30;font:18px" class="labellarge"><b>#CategoryClass# #MyClass.Description#</b></td></tr>	
-	<tr><td colspan="7" class="linedotted"></td></tr>
+	<tr><td colspan="7" style="height:30;font:18px" class="line labellarge"><b>#CategoryClass# #MyClass.Description#</b></td></tr>	
+	
 	<cfoutput>    
-    <tr class="cellcontent navigation_row linedotted">
+    <tr class="labelmedium2 navigation_row line">
 		<td align="center"> 
 			<cf_img icon="open" navigation="Yes" onclick="recordedit('#Code#')">
 		</td>

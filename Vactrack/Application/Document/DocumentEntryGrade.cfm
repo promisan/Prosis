@@ -9,10 +9,10 @@
 		ORDER BY PostOrder
 </cfquery>		
 		
-<select name="postgrade" id="postgrade" class="regularxl" style="height:;font-size:20px;height:34px">
+<select name="postgrade" id="postgrade" class="regularxxl" style="font-size:20px;height:34px;border:0px;background-color:f1f1f1;">
 			 
 	 <cfoutput query="Grd">
-			<option value="#PostGrade#" class="regularxl">#PostGrade#</option>
+			<option value="#PostGrade#">#PostGrade#</option>
 	 </cfoutput>
 		
 </select>

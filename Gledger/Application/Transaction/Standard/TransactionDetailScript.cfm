@@ -187,7 +187,7 @@ function editline(jrnserno,period,tradte,tracat,tratpe,debcre,refer,refern,glacc
 			 "&itemuom="+uom+
 			 "&itemquantity="+qty
 			 
-			 ptoken.navigate(url,'detailentrytab')
+			 ptoken.navigate(url,'contentbox1')
 						 
 	}	
 	

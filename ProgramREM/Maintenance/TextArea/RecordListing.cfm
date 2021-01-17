@@ -9,31 +9,40 @@ password="#SESSION.dbpw#">
 	Order  By TextAreaDomain, ListingOrder 
 </cfquery>
 
-<cf_divscroll>
 
-<cfset add          = "1">
+<cf_screentop html="No" jquery="Yes">
+
+<table width="98%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+
 <cfset Header       = "Text Areas">
-<cfinclude template = "../HeaderMaintain.cfm"> 	
+<cfset add          = "1">
+<cfset save         = "0"> 
+<tr style="height:10px"><td><cfinclude template = "../HeaderMaintain.cfm"></td></tr>
  
 <cfoutput>
  
 <script>
 
 function recordadd(grp) {
-     window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=540, height=400, toolbar=no, status=yes, scrollbars=no, resizable=no");
+     ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=540, height=400, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 function recordedit(id1) {
-     window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=540, height=400, toolbar=no, status=yes, scrollbars=no, resizable=yes");
+     ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=540, height=400, toolbar=no, status=yes, scrollbars=no, resizable=yes");
 }
 
 </script>	
 	
 </cfoutput>
 
-<table width="97%" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
 
-	<tr class="labelmedium linedotted">
+<tr><td>
+
+	<cf_divscroll>
+	
+	<table width="95%" align="center" class="navigation_table">
+
+	<tr class="labelmedium2 line">
 	    <td></td> 
 	    <td>Code</td>
 		<td>Description</td>
@@ -63,7 +72,12 @@ function recordedit(id1) {
 		</cfoutput>
 	
 	</cfoutput>
+		
+	</table>
+	
+	</cf_divscroll>
 
+</td>
+</tr>
 </table>
 
-</cf_divscroll>

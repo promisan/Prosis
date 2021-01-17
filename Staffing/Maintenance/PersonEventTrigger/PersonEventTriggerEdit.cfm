@@ -5,6 +5,7 @@
 	<cfset vTitle = "Associate">
 </cfif>
 
+<!---
 <cf_screentop height="100%" 
 			  scroll="Yes" 
 			  layout="webapp" 
@@ -15,6 +16,8 @@
 			  line="No"
 			  user="no"
 			  systemfunctionid="#url.idmenu#">
+			  
+			  --->
 
 <cfquery name="get"
 	datasource="AppsEmployee" 
@@ -30,7 +33,6 @@
 		WHERE	T.EventTrigger = '#url.trigger#'
 		AND		T.EventCode = '#url.code#'
 </cfquery>
-
 
 <cfform action="PersonEventTriggerSubmit.cfm?trigger=#URL.trigger#&code=#url.code#" method="POST"  name="dialogEvent">
 
@@ -105,7 +107,7 @@
 	<tr>
 		
 	<td align="center" colspan="2">
-    <input class="button10g" type="submit" name="Update" value="Save">
+    <input class="button10g" style="width:200px" type="submit" name="Update" value="Save">
 	</td>	
 	
 	</tr>

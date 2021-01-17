@@ -4,17 +4,14 @@
 
 <table width="100%" 
        height="100%" 
-	   align="center" 	  
-	   border="0" 
-	   cellspacing="0" 
-	   cellpadding="0">
+	   align="center">
 	   
 <tr><td height="40">
 	
 	<cfset Page         = "0">
 	<cfset url.button   = "1">
 	<cfset add          = "0">
-	<cfset menu         = "0">
+	<cfset menu         = "1">
 	<cfinclude template = "../HeaderMaintain.cfm"> 
 
 </td></tr>
@@ -23,7 +20,7 @@
 
 <tr><td height="100%" valign="top">
 
-	<table width="96%" height="99%" align="center"><tr><td>
+	<table width="96%" height="99%" align="center"><tr><td style="padding-top:4px:">
 	
 	<cf_listingscript>
 	 

@@ -22,9 +22,9 @@ password="#SESSION.dbpw#">
 </cfquery>
 
 <cfif url.mission neq "">
-	<cf_screentop height="100%" close="parent.ColdFusion.Window.destroy('mydialog',true)" html="no" scroll="Yes" layout="webapp" jquery="yes" label="Unit of Measure" option="UoM Entity [#Item.ItemDescription# - #Item.UoMDescription#]" banner="yellow">
+	<cf_screentop height="100%" html="no" scroll="Yes" layout="webapp" jquery="yes" label="Unit of Measure" option="UoM Entity [#Item.ItemDescription# - #Item.UoMDescription#]" banner="yellow">
 <cfelse>
-	<cf_screentop height="100%" close="parent.ColdFusion.Window.destroy('mydialog',true)" html="no" scroll="Yes" layout="webapp" jquery="yes" label="Unit of Measure" option="UoM Entity [#Item.ItemDescription# - #Item.UoMDescription#]">
+	<cf_screentop height="100%" html="no" scroll="Yes" layout="webapp" jquery="yes" label="Unit of Measure" option="UoM Entity [#Item.ItemDescription# - #Item.UoMDescription#]">
 </cfif>
 
 <script language="JavaScript">
@@ -48,7 +48,7 @@ password="#SESSION.dbpw#">
 	
 <cfform action="ItemUoMMissionSubmit.cfm" method="POST" name="frmItemUoMMission" target="processItemUoMMission">
 
-<table width="92%" class="formpadding formspacing" cellspacing="0" cellpadding="0" align="center">
+<table width="92%" class="formpadding formspacing" align="center">
 
 	<tr><td colspan="2" align="center" height="3"></tr>
 	
@@ -68,10 +68,16 @@ password="#SESSION.dbpw#">
 			password="#SESSION.dbpw#">
 			SELECT 	*
 			FROM 	Ref_ParameterMission
-			WHERE	Mission IN (SELECT Mission FROM Organization.dbo.Ref_MissionModule WHERE SystemModule = 'Warehouse')
+			WHERE	Mission IN (SELECT Mission 
+			                    FROM   Organization.dbo.Ref_MissionModule 
+								WHERE  SystemModule = 'Warehouse')
+			AND     (Mission NOT IN (SELECT Mission 
+			                        FROM   ItemUoMMission 
+									WHERE  ItemNo = '#url.id#' 
+									AND    UoM = '#url.uom#') or Mission = '#url.mission#')					
 		</cfquery>
 		
-		<select name="mission" id="mission" class="regularxl">
+		<select name="mission" id="mission" class="regularxxl" style="width:200px">
 			<cfloop query="getLookup">
 			  <option value="#getLookup.mission#" <cfif getLookup.mission eq #get.mission#>selected</cfif>>#getLookup.mission#</option>
 		  	</cfloop>
@@ -92,7 +98,7 @@ password="#SESSION.dbpw#">
 			WHERE	ItemNo = '#URL.ID#'
 		</cfquery>
 		
-		<select name="TransactionUoM" id="TransactionUoM" class="regularxl">
+		<select name="TransactionUoM" id="TransactionUoM" class="regularxxl" style="width:200px">
 			<option value="">Standard</option>
 			<cfloop query="getUoM">
 			  <option value="#getUoM.UoM#" <cfif getUoM.UoM eq get.TransactionUoM>selected</cfif>>#UoMDescription#</option>
@@ -104,16 +110,16 @@ password="#SESSION.dbpw#">
 	<TR>
     <TD class="labelmedium"><cf_tl id="Standard Cost Price">:</TD>
     <TD>
-  	   <cfinput type="text"
-	         name="StandardCost" 
-			 value="#LSNumberFormat(get.StandardCost, "_.__")#" 
-			 size="10" 
-			 required="yes" 
-			 message="Please, enter a standard cost" 
-			 validate="numeric" 
-			 style="text-align:right;padding-right:2px" 
-			 maxlength="20" 
-			 class="regularxl">
+  	   <cfinput type   = "text"
+	         name      = "StandardCost" 
+			 value     = "#LSNumberFormat(get.StandardCost, "_.__")#" 
+			 size      = "10" 
+			 required  = "yes" 
+			 message   = "Please, enter a standard cost" 
+			 validate  = "numeric" 
+			 style     = "text-align:right;padding-right:2px" 
+			 maxlength = "20" 
+			 class     = "regularxxl">
     </TD>
 	</TR>
 	
@@ -140,8 +146,7 @@ password="#SESSION.dbpw#">
 		   </table>	  	
 	    </TD>
 	</TR>	
-	
-	
+		
 	<TR>
 		<TD class="labelmedium"><cf_tl id="Operational">:</TD>
 	    <TD class="labelmedium">
@@ -155,12 +160,12 @@ password="#SESSION.dbpw#">
 	</TR>	
 	
 	<cfif url.mission neq "">
-	<tr>
-		<TD class="labelmedium" valign="top" style="padding-top:3px;"><cf_tl id="Lots">:</TD>
-		<td valign="top" style="padding-top:3px;">
-			<cfinclude template="ItemUoMMissionLot.cfm">
-		</td>
-	</tr>
+		<tr>
+			<TD class="labelmedium" valign="top" style="padding-top:3px;"><cf_tl id="Lots">:</TD>
+			<td valign="top" style="padding-top:3px;">
+				<cfinclude template="ItemUoMMissionLot.cfm">
+			</td>
+		</tr>
 	</cfif>
 		
 	</cfoutput>
@@ -171,10 +176,10 @@ password="#SESSION.dbpw#">
 	
 	<tr><td align="center" colspan="2" height="40">
 	<cfif url.mission neq "">
-	    <input class="button10g" type="submit" name="Delete" id="Delete" value=" Delete " onclick="return ask()">
-	    <input class="button10g" type="submit" name="Update" id="Update" value=" Update ">
+	    <input class="button10g" type="submit" name="Delete" id="Delete" value="Delete" onclick="return ask()">
+	    <input class="button10g" type="submit" name="Update" id="Update" value="Update">
 	<cfelse>
-		<input class="button10g" type="submit" name="Save" id="Save" value="  Save  ">
+		<input class="button10g" type="submit" name="Save" id="Save" value="Save">
 	</cfif>
 	</td>	
 	

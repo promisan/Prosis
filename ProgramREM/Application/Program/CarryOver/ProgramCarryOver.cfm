@@ -115,11 +115,11 @@
 		
 		<tr><td colspan="2" style="padding:10px">
 
-				<table class="formpadding">
+				<table>
 				
-				<tr>
+				<tr class="labelmedium2">
 				
-					<td height="30" class="labelmedium"><cf_tl id="Prior"> <cf_tl id="Plan period">:</td>
+					<td height="30"><cf_tl id="Prior"> <cf_tl id="Plan period">:</td>
 					<td> 
 							
 						<cfquery name="PeriodList" 
@@ -156,30 +156,24 @@
 						</cfif>
 											
 						<select name="PeriodFrom" 
-						   class="regularxl"
+						   class="regularxxl"
 						   onchange="ptoken.navigate('ProgramCarryOverMain.cfm?period=#url.period#&parentunit=#url.parentunit#&prior='+this.value,'content')">
 							<cfloop query="PeriodList">
 							   <option value="#Period#" <cfif Prior.Period eq Period>selected</cfif>>#Period#</option>
 							</cfloop>
 						</select>
 					
-					</td>		
+					</td>	
+					
+					<td style="padding-left:20px" height="30"><cf_tl id="Select edition">:</td>				
+					<td style="padding-left:10px"><cf_securediv bind="url:getEdition.cfm?mission=#Org.mission#&planperiod=#url.period#&period={PeriodFrom}"></td>						
 									
 				</tr>
+							
 				
-				<tr>
-					<td height="30" class="labelmedium"><cf_tl id="Select edition">:</td>				
-					<td><cfdiv bind="url:getEdition.cfm?mission=#Org.mission#&planperiod=#url.period#&period={PeriodFrom}"></td>					
-				</tr>
-				
-				<tr>
-					<td></td>				
-					<td class="labelmedium"><font color="808080">Attention : select edition of which the requirement/budget lines would need to be inherited for the selected records</td>				
-				</tr>
-				
-				<tr>					
-					<td class="labelmedium" style="padding-right:20px">Move to Plan period:</td>
-					<td class="labelmedium" style="padding-left:4px">#CurrentPeriod.Description#</td>				
+				<tr class="labelmedium2">					
+					<td style="padding-top:5px;padding-right:20px">Move to Plan period:</td>
+					<td style="font-size:20px;padding-left:4px">#CurrentPeriod.Description#</td>				
 				</tr>
 				</table>
 			
@@ -189,8 +183,8 @@
 		</cfoutput>
 		
 		<tr>
-			<td colspan="2" valign="top" height="100%" id="content" style="padding:10px">
-				<cf_divscroll>
+			<td colspan="2" valign="top" height="100%" style="padding-left:10px;padding-right:10px">
+				<cf_divscroll id="content">
 					<cfinclude template="ProgramCarryOverMain.cfm">
 				</cf_divscroll>
 			</td>					

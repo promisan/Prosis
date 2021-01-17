@@ -14,16 +14,16 @@
 <table width="92%" cellspacing="0" cellpadding="0" align="center" class="formspacing formpadding">
 
     <TR>
-    <TD class="labelmedium" height="25px">Code:</TD>
+    <TD class="labelmedium2" height="25px">Code:</TD>
     <TD>
-  	   <cfinput type="Text" name="GroupCode" value="" message="Please enter a code" required="Yes" size="10" maxlength="10" class="regularxl">
+  	   <cfinput type="Text" name="GroupCode" value="" message="Please enter a code" required="Yes" size="10" maxlength="10" class="regularxxl">
     </TD>
 	</TR>
 	
 	<TR>
-    <TD class="labelmedium" height="25px">Domain:</TD>
+    <TD class="labelmedium2" height="25px">Domain:</TD>
     <TD>
-	   <cfselect name="GroupDomain" class="regularxl">
+	   <cfselect name="GroupDomain" class="regularxxl">
 			<option value="Candidate" SELECTED>Candidate</option>
 			<option value="Bucket">Roster bucket</option>
 		</cfselect>
@@ -31,9 +31,9 @@
 	</TR>
 	
 	<TR>
-    <TD class="labelmedium" height="25px">Description:</TD>
+    <TD class="labelmedium2" height="25px">Description:</TD>
     <TD>
-  	   <cfinput type="Text" name="Description" value="" message="Please enter a description" required="Yes" size="30" maxlength="40" class="regularxl">
+  	   <cfinput type="Text" name="Description" value="" message="Please enter a description" required="Yes" size="30" maxlength="40" class="regularxxl">
     </TD>
 	</TR>
 

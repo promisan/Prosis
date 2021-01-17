@@ -14,10 +14,10 @@
 <cf_tl id="after" var="1">
 <cfset vafter=#lt_text#>
 
-<cfoutput>
+<cfset show  = 0>
+<cfset group = "No">
 
-	<cfset show  = 0>
-	<cfset group = "No">
+<cfoutput>	
 	
 	<cfset appliedfilter = "1">
 	
@@ -39,22 +39,18 @@
 		
 	<!--- adjust the query to remove the SELECT and remove characters --->
 	
-	<cfset count = LEN(attributes.listquery)>
-	<cfset start = Find("FROM", attributes.listquery)>
+	<cfset count = LEN(listquery)>
+	<cfset start = Find("FROM", listquery)>
 	
-	<cfset qry = attributes.listquery>
-	
+	<cfset qry = listquery>
+		
 	<cfset qry = replace(qry,"{","","ALL")>
 	<cfset qry = replace(qry,"}","","ALL")>
 	<cfset qry = replace(qry,"'","|","ALL")>
 	<cfset qry = replace(qry,",",";","ALL")>
 	<cfset qry = replace(qry,"=","&","ALL")>
-			
-	<cfform name="listfilter" method="POST" onsubmit="return false"> 	
-			
-	<table width="98%" align="center">
-	
-	      <tr><td height="3"></td></tr>			
+						
+	<table width="98%" align="center">	
 								
 			<cfset cnt  = 0>
 			<cfset show = "0">
@@ -64,46 +60,61 @@
 			but then without the filtering applied so we have all possible dropdown 
 			values to select --->
 			
+			<cftry>			
+			<cfset filterselect = session.listingdata[box]['datasetinit']>			
+			<cfcatch>
+			<cfset filterselect = searchresult>			
+			</cfcatch>
+			</cftry>	
+							
+			
+			<!---
+									
 			<cfif condition eq "">
 			
 				<!--- prevent running the query --->
 				
 				<cfset filterselect = searchresult>
+																			
+			<cfelse>				
 							
-			<cfelse>								
-			
+				<cfset sc = session.listingdata[box]['sql']>	
 				<cfset scfull = replaceNoCase(sc,condition,"")>		
-							
+															
 				<cfquery name="filterselect" 
 				datasource="#attributes.datasource#" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#"> 			
 					#preserveSingleQuotes(scfull)# 
 				</cfquery>
-				
-				<!---							
-				<cfoutput>#cfquery.executiontime#</cfoutput>
-				--->
-											
+																								
 			</cfif>	
-									
+			
+			--->
+												
 			<cfset reset = "">			
 																	
 			<cfloop array="#attributes.listlayout#" index="current">	
 						
 				<cfset row=row+1>
 					  								
-				<cfparam name="current.label"              default="">	
-				<cfparam name="current.labelfilter"        default="#current.label#">	
-				<cfparam name="current.search"             default="">	
-				<cfparam name="current.displayfilter"      default="#current.display#">	
-				<cfparam name="current.alias"              default="">	
-				<cfparam name="current.searchtypeahead"    default="0">									
-				<cfparam name="form.filter#current.field#" default="">		
+				<cfparam name="current.label"                    default="">	
+				<cfparam name="current.labelfilter"              default="#current.label#">	
+				<cfparam name="current.search"                   default="">	
+				<cfparam name="current.searchfield"              default="">
+				<cfparam name="current.fieldsort"                default="#current.field#">
+				<cfparam name="current.display"                  default="yes">
+				<cfparam name="current.filtermode"               default="">
+				
+				<cfparam name="current.filterforce"              default="">
+				<cfparam name="current.displayfilter"            default="#current.display#">	
+				<cfparam name="current.alias"                    default="">	
+				<cfparam name="current.searchtypeahead"          default="0">									
+				<cfparam name="form.filter#current.field#"       default="">		
 				<cfparam name="form.filter#current.field#_operator" default="xxx">		
-				<cfparam name="current.lookupscript"       default="">		
-				<cfparam name="current.lookupgroup"        default="0">		
-				<cfparam name="current.selectfield"        default="">						
+				<cfparam name="current.lookupscript"             default="">		
+				<cfparam name="current.lookupgroup"              default="">		
+				<cfparam name="current.selectfield"              default="">						
 																																							
 				<cfif current.search neq ""  and current.displayfilter eq "yes">	
 				
@@ -151,19 +162,22 @@
 								#preservesingleQuotes(lookup)#
 							</cfquery>	
 						
-						<cfelse>		
-												
+						<cfelse>	
+																		
 							<cftry>		
 																				
 								<cfif current.lookupgroup eq "">	
 																																																				
 								 	<cfquery name="lookupdata" dbtype="query">
-									    SELECT   DISTINCT #srh# AS CODE, #displ# AS DISPLAY, #srt# as SORT   
+									    SELECT   DISTINCT 
+										         #srh# AS CODE, 
+										         #displ# AS DISPLAY, 
+												 #srt# as SORT   
 							   			FROM     filterselect				
 										WHERE    #fld# is not NULL 	and #fld# != ''
 										ORDER BY #srt# 								 
 								    </cfquery>		
-									
+																	
 									<!---
 									<cfoutput> DISTINCT = faster than group by  #cfquery.executiontime#</cfoutput>		
 									--->												
@@ -172,14 +186,17 @@
 								
 									<cfquery name="lookupdata" dbtype="query">
 									
-									    SELECT   DISTINCT #srh# AS CODE, #displ# AS DISPLAY, #current.lookupgroup#, #srt# as SORT      
+									    SELECT   DISTINCT 
+										         #srh# AS CODE, 
+												 #displ# AS DISPLAY, 
+										         #current.lookupgroup#, 
+												 #srt# as SORT      
 							   			FROM     filterselect				
 										WHERE    #fld# is not NULL and #fld# != '' 	
 										ORDER BY #current.lookupgroup#,#srt#							 
 								    </cfquery>		
 								
 								</cfif>		
-																							
 															
 							<cfcatch>
 							
@@ -219,8 +236,7 @@
 						 <cfset showfield = "1">						
 				
 					</cfif>
-							
-				
+											
 					<cfif showfield eq "1">					
 						
 						<cfset cnt=cnt+1>
@@ -261,8 +277,9 @@
 								  class       = "regularxxl" 
 								  message     = "Please select a #Current.LabelFilter#"
 								  required    = "#oblig#"
-								  size        = "20" 
-								  maxlength   = "20">
+								  style       = "width:100%" 
+								  size        = "30" 
+								  maxlength   = "30">
 								  
 							   <cfset reset =  "#reset#;document.getElementById('filter#current.field#').value=''">	
 								  
@@ -270,8 +287,8 @@
 											
 							<cfcase value="text">								
 														
-								<cfif current.filtermode eq "0">									
-																
+								<cfif current.filtermode eq "0" or current.filtermode eq "">									
+																																
 								   <cfinput type="text" 
 								      name      = "filter#current.field#" 
 									  value     = "#val#" 
@@ -279,8 +296,8 @@
 									  class     = "regularxxl" 
 									  message   = "Please select a #Current.LabelFilter#"
 									  required  = "#oblig#"
-									  size      = "20" 								 
-									  maxlength = "20">	
+									  size      = "30" 								 
+									  maxlength = "30">	
 									  
 								  <cfset reset =  "#reset#;document.getElementById('filter#current.field#').value=''">						
 							
@@ -306,8 +323,12 @@
 											  autosuggestminlength="2" 
 											  autosuggest = "cfc:component.reporting.presentation.getlistingsuggest('#attributes.datasource#','#qry#','#fld#','#url.systemfunctionid#','#url.functionserialno#',{cfautosuggestvalue},'10','combo','listing')"				      
 											  maxlength="20">
-										  
+											 										  
 									  <cfelse>
+									        
+											<!--- instead of the query we refer to the memory object to filter
+											<cfdump var="#qry#">
+											--->
 									  
 										     <cfinput type="text" 
 										      name="filter#current.field#" 
@@ -321,7 +342,7 @@
 											  autosuggestminlength="2" 
 											  autosuggest = "cfc:#getInit.VirtualDirectory#.component.reporting.presentation.getlistingsuggest('#attributes.datasource#','#qry#','#fld#','#url.systemfunctionid#','#url.functionserialno#',{cfautosuggestvalue},'10','combo','listing')"				      
 											  maxlength="20">
-									  								  
+											  									  								  
 									  </cfif>	 
 									  
 									   <cfset reset =  "#reset#;document.getElementById('filter#current.field#').value=''">	 
@@ -359,7 +380,7 @@
 													message         = "Please select a #Current.LabelFilter#"
 													display         = "DISPLAY"
 													filter          = "#vFilter#"
-													selected        = "#val#"																								
+													selected        = "#val#"																																															
 													style           = "width:90%;">
 													<cfif current.filterforce eq "0">
 												      <option value="" style="background: White;font:10px"><cf_tl id="Any"></option>
@@ -426,52 +447,62 @@
 										<cfset group = "Yes">
 										
 								<cfelseif current.filtermode eq "3">
-								
+																	   								
 								        <!--- adjust val so we can ensure we find a value not as a subvalue --->
-										
-										<cfset val = "#val#,">
-																																				
+																																														
 									 	<cfquery name="lookupdata" dbtype="query">
-										    SELECT   DISTINCT #fld# AS PK, #displ# as DISPLAY   
+										    SELECT   DISTINCT #fld# AS PK, 
+											         #displ# as DISPLAY   
 								   			FROM     filterselect				
 											WHERE    #fld# is not NULL   
 										    ORDER BY #current.fieldsort#
 									    </cfquery>	
-																														
+																																																																						
 										<cfif lookupdata.recordcount lte "4">
 										
 											<table cellspacing="0" cellpadding="0">
 											<tr>
+											
+											<!--- we add to the end of the list another comma to prevent accidental matches --->																																	
+											<cfset val = "#val#|">
+											
+											<input type="hidden" name="filter#current.field#_checkbox" value="Yes">							
 																				
 											<cfloop query="lookupdata">
-											   <cfif pk neq "">
-											  	 <td><input class="radiol" type="checkbox" id="filter#current.field#_#currentrow#" name="filter#current.field#" value="#PK#" <cfif find("#pk#,",val)>checked</cfif>></td>
+											   <cfif pk neq "">												  
+											  	 <td><input class="radiol" type="checkbox" 
+													  id="filter#current.field#_#currentrow#" 
+													  name="filter#current.field#" 
+													  value="#PK#" <cfif findNoCase("#pk#,",val)>checked</cfif>></td>
 												 <td style="padding-top:2px;padding-left:3px;padding-right:10px" class="labelmedium">#DISPLAY#</td>
 											   </cfif>
 											    <cfset reset =  "#reset#;document.getElementById('filter#current.field#_#currentrow#').checked=false">	 								  
 											</cfloop>
 																					
-											</tr></table>
+											</tr>
+											</table>
 										
 										<cfelse>
 										
+											<input type="hidden" name="filter#current.field#_checkbox" value="No">											
+																																										
 											<cf_UISelect name  = "filter#current.field#"
 											     class         = "regularxxl"
 											     queryposition = "below"
 											     query         = "#lookupdata#"
 											     value         = "PK"
 											     onchange      = "applyfilter('','1','content')"
-											     message       = "Please select a value #Current.LabelFilter#"
+											     message       = "Please select a value for #Current.LabelFilter#"
 											     required      = "#oblig#"
 											     display       = "DISPLAY"
 											     selected      = "#val#"
-											     multiple      = "yes">
-											</cf_UIselect>
+												 separator     = "|"
+											     multiple      = "yes"/>												
 
 										   <cfset reset =  "#reset#;document.getElementById('filter#current.field#').value=''">	 
 									  									
 										</cfif>
-										
+																				
 										<cfset group = "Yes">	
 										
 							  <cfelseif current.filtermode eq "4">		
@@ -506,8 +537,8 @@
 									  onkeyup="gofilter(event)"
 									  message="Please select a #Current.LabelFilter#"
 									  required="#oblig#" 
-									  class="regularxxl" 
-									  size="40" 								 
+									  class="regularxxl" 									  
+									  style="width:100%" 								 
 									  maxlength="100">	
 									  
 									  <td>
@@ -678,97 +709,50 @@
 			
 			</cfif>
 			
-			<cfif url.systemfunctionid neq "" and group eq "Yes">
-							
-			 	<tr><td class="labelmedium" style="min-width:200px;height:35px"><cf_tl id="Group output by">:</td>
-				<td colspan="5">
-				
-					<table cellspacing="0" cellpadding="0">
-					<tr>	
-					
-					<td>
-					
-					<select name="groupfield" id="groupfield" class="regularxxl" onchange="filtergroup('#box#',this)">
-					    <option value="none" <cfif url.listgroup eq "">selected</cfif>><cf_tl id="None"></option>
-						
-						<cfset hasGroup = "0">
-									 
-						<cfloop array="#attributes.listlayout#" index="current">	
-							<cfif (current.filtermode eq "2" or current.filtermode eq "3" ) and current.search neq "">	 
-									<cfset hasGroup = "1">	
-									<option value="#current.field#" <cfif url.listgroupfield eq current.field>selected</cfif>>#current.labelfilter#</option>																					
-							</cfif>
-						</cfloop>
-																
-					</select>	
-					
-					</td>			
-					
-					<cfif url.listgroup eq "">
-						<cfset cl = "hide">
-					<cfelse>
-						<cfset cl = "regular">	
-					</cfif>
-										
-					<cfif hasGroup eq "1">		
-					
-						<td id="#box#_groupselection" class="#cl#">
-							<table>
-								<tr>		
-								 <td style="padding-left:8px"><input type="checkbox" class="radiol" name="groupdir" value="DESC" <cfif url.listgroupdir eq "DESC">checked></cfif></td>
-								 <td style="padding-left:4px;padding-right:7px"><cf_tl id="DESC"></td>		
-								 <td style="padding-left:8px"><input type="checkbox" class="radiol" name="grouptotal" value="1" <cfif url.listgrouptotal eq "1">checked></cfif></td>
-								 <td style="padding-left:4px;padding-right:7px"><cf_tl id="Summary"></td>									 
-								</tr>
-							</table>
-						</td>	
-					</cfif>				 
-					
-					</tr>
-					</table>		
-				
-				</td></tr>
-				<tr><td height="2"></td></tr>	
-						
-			</cfif>
-			
 			<cfif show eq "1">
 						
-			<tr>
-			<td colspan="6" height="32">
-			
-				<table class="formspacing" cellspacing="0" cellpadding="0">
 				<tr>
-				<td>		
-					 <cf_tl id="Reset" var="1">
-				     <input type="button" name="reset" id="reset" value="#lt_text#" class="button10g" style="border-radius:7px;font-size:12px;height:25px;width:120px" onClick= "#reset#">    						 
-				</td>			
-				<td style="padding-left:2px">
-					 <cf_tl id="Apply" var="1">
-					 <input type="button" name="apply" id="apply" value="#lt_text#" class="button10g" style="font-size:12px;height:25px;border-radius:7px;width:120px" onClick= "applyfilter('',1,'content')">  														
+				<td colspan="6" height="32">
+				
+					<table class="formspacing">
+					<tr>
+					<td>		
+						 <cf_tl id="Reset" var="1">
+					     <input type="button" name="reset" id="reset" value="#lt_text#" class="button10g" 
+						   style="border-radius:3px;font-size:12px;height:25px;width:120px" onClick= "#reset#">    						 
+					</td>			
+					<td style="padding-left:2px">
+						 <cf_tl id="Apply" var="1">
+						 <input type="button" name="apply" id="apply" value="#lt_text#" class="button10g" 
+						  style="font-size:12px;height:25px;border-radius:3px;width:120px" onClick= "applyfilter('',1,'content')">  														
+					</td>
+					
+					<td style="padding-left:8px"><input type="radio" checked class="radiol" name="useCache" id="useCache" value="1"></td>					
+					<td class="labelmedium" style="padding-top:3px;padding-bottom:2px;padding-left:2px"><cf_tl id="Cache"></td>
+					
+					<td style="padding-left:8px"><input type="radio" class="radiol" name="useCache" id="useCache" value="0"></td>					
+					<td class="labelmedium" style="padding-top:3px;padding-bottom:2px;padding-left:2px"><cf_tl id="Reload"></td>
+					
+					<cfif url.systemfunctionid neq "">
+					
+						<td style="padding-left:8px"><input type="checkbox" class="radiol" checked name="savefilter" id="savefilter" value="1"></td>					
+						<td class="labelmedium" style="padding-top:3px;padding-bottom:2px;padding-left:2px"><cf_tl id="Remember"></td>
+					
+					</cfif>
+					
+					</tr>
+					
+					</table>
+					
 				</td>
-				
-				<cfif url.systemfunctionid neq "">
-				
-					<td style="padding-left:8px"><input type="checkbox" class="radiol" checked name="savefilter" id="savefilter" value="1"></td>					
-					<td class="labelmedium" style="padding-top:3px;padding-bottom:2px;padding-left:2px"><cf_tl id="Remember"></td>
-				
-				</cfif>
-				
-				</tr>
-				
-				</table>
-				
-			</td>
-			</tr>				
+				</tr>				
 			
-			</cfif>		
-							
+			</cfif>				
+													
 	</table>
-	
-	</cfform>					
-		
+					
 	</cfif>
 	
 </cfoutput>	
+
 	

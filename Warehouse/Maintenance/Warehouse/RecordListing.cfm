@@ -97,7 +97,7 @@
 	<tr>
 		<td style="height:100%;padding-left:20px">
 		  <cf_divscroll>
-			<cfdiv id="divDetail" bind="url:RecordListingDetail.cfm?fmission=#client.fmission#">
+			<cf_securediv id="divDetail" bind="url:RecordListingDetail.cfm?fmission=#client.fmission#">
 		  </cf_divscroll>	
 		</td>
 	</tr>

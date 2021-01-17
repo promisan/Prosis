@@ -31,7 +31,6 @@
 </cfsavecontent>
 </cfoutput>
 
-
 <cfset fields=ArrayNew(1)>
 
 <cfset itm = 0>
@@ -53,7 +52,7 @@
 					  search        = "text"}>		
 					  
 <cfset itm = itm+1>		
-<cf_tl id="Warehouse" var="vDestination">
+<cf_tl id="Destination Warehouse" var="vDestination">
 <cfset fields[itm] = {label         = "#vDestination#", 
 					  field         = "ContraWarehouse",
 				      searchfield   = "ContraWarehouse",

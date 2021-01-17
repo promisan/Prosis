@@ -10,33 +10,49 @@
 			<td>	
 							
 				 <table>
-				 <tr class="labelmedium" style="font-size:17px;font-weight:390"> 			
+				 <tr class="labelmedium" style="height:30px;font-size:17px;font-weight:390"> 			
+				 				 
+				 <cfif navmode neq "manual">
+
+					 <cfif navmode eq "paging">				
 				 
-				 <cfif attributes.navigation eq "paging">				
-				 
-					<td style="padding-left:2px;padding-right:1px">
-										
+						<td style="padding-left:2px;padding-right:1px">
+												
+						<cfif pages gte "2">					
+							<select name="selpage" id="selpage" style="border:0px;border-right:1px solid silver"
+					        size="1" class="regularxl" 
+					        onChange="document.getElementById('page').value=this.value;applyfilter('','','content')">
+							  <cfloop index="Item" from="1" to="#pages#" step="1">
+					             <cfoutput><option value="#Item#"<cfif URL.page eq "#Item#">selected</cfif>><cf_tl id="Page"> #Item# <cf_tl id="of"> #pages#</option></cfoutput>
+					          </cfloop>	 
+							</SELECT>					
+						</cfif>
+						
+					    </td>
 					
-					<cfif pages gte "2">					
-						<select name="selpage" id="selpage" style="border:0px;border-right:1px solid silver"
-				        size="1" class="regularxl" 
-				        onChange="document.getElementById('page').value=this.value;applyfilter('','','content')">
-						  <cfloop index="Item" from="1" to="#pages#" step="1">
-				             <cfoutput><option value="#Item#"<cfif URL.page eq "#Item#">selected</cfif>><cf_tl id="Page"> #Item# <cf_tl id="of"> #pages#</option></cfoutput>
-				          </cfloop>	 
-						</SELECT>					
-					</cfif>
+					 </cfif>					
 					
-				 </td>
-				 </cfif>
+					 <td style="padding-top:3px;padding-left:4px"><cf_tl id="Record"></td>
+					 <td style="padding-top:3px;padding-left:2px;"><cfif countedrows eq "0">0<cfelse>#first#</cfif></b></td>
+					 <td style="padding-top:3px;padding-left:2px;"><cf_tl id="to"></td>
+					 <td style="padding-top:3px;padding-left:2px;" name="#attributes.box#_rowshown"><cfif Last gt CountedRows>#CountedRows#<cfelse>#Last#</cfif></td>
+					 <td style="padding-top:3px;padding-left:2px;"><cf_tl id="of"></td>
+					 <td style="padding-top:3px;padding-left:2px;">#CountedRows#</td>
+					 
 				 
-				 <td style="padding-top:3px;padding-left:4px"><cf_tl id="Record"></td>
-				 <td style="padding-top:3px;padding-left:2px;"><cfif countedrows eq "0">0<cfelse>#first#</cfif></b></td>
-				 <td style="padding-top:3px;padding-left:2px;"><cf_tl id="to"></td>
-				 <td style="padding-top:3px;padding-left:2px;" name="#attributes.box#_rowshown"><cfif Last gt CountedRows>#CountedRows#<cfelse>#Last#</cfif></td>
-				 <td style="padding-top:3px;padding-left:2px;"><cf_tl id="of"></td>
-				 <td style="padding-top:3px;padding-left:2px;">#CountedRows#&nbsp;&nbsp;&nbsp;<cfif attributes.isFiltered eq "Yes"><u><a href="javascript:listingshow('locate#attributes.box#')"><font face="Calibri" size="2" color="FF8040">[<cf_tl id="total is filtered">]</a></i></font></cfif></td>
-			
+				 <cfelse>
+				 				 
+					 <td style="padding-top:3px;padding-left:4px"><cf_tl id="Group"></td>
+					 <td style="padding-top:3px;padding-left:2px;">#currrow#</td>
+					 <td style="padding-top:3px;padding-left:2px;"><cf_tl id="generated from"></td>
+					 <td style="padding-top:3px;padding-left:2px;" name="#attributes.box#_rowshown">#session.listingdata[box]['recordsinit']#</td>	
+					  <td style="padding-top:3px;padding-left:2px;"><cf_tl id="records"></td>			
+								
+				 </cfif>	
+				 
+				 <td style="padding-top:3px;padding-left:10px;"><cfif attributes.isFiltered eq "Yes"><a href="javascript:listingshow('locate#attributes.box#')"><font color="FF8040">[<cf_tl id="result is filtered">]</a></i></font></cfif></td>
+				 <td style="padding-top:3px;padding-left:2px;" id="#attributes.box#_performance"></td>		
+				 
 				</tr>
 				</table>
 						
@@ -50,7 +66,7 @@
 				
 			</td>
 			
-			 <cfif attributes.navigation eq "paging">
+			 <cfif navmode eq "paging">
 				
 				 <cfif URL.Page gt "1">
 				 
@@ -88,6 +104,5 @@
 <!---	
  </cfif>	
  --->
-
 
 </cfoutput>						

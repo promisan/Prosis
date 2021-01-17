@@ -27,11 +27,11 @@ password="#SESSION.dbpw#">
 <script>
 
 function recordadd(grp) {
-     ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=500, height= 350, toolbar=no, status=yes, scrollbars=no, resizable=no");
+     ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=700, height= 450, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 function recordedit(id) {
-     ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id, "Edit", "left=80, top=80, width=500, height= 350, toolbar=no, status=yes, scrollbars=no, resizable=no");
+     ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id, "Edit", "left=80, top=80, width=700, height= 450, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 </script>
@@ -45,7 +45,7 @@ function recordedit(id) {
 
 <table width="100%" class="navigation_table">
 
-<tr class="fixrow labelmedium line">
+<tr class="fixrow labelmedium2 line">
     <td width="40" align="left"></td>
     <td align="left">Code</td>
 	<td width="25%" align="left">Description</td>
@@ -61,7 +61,7 @@ function recordedit(id) {
 <cfset i = 0>
 <cfoutput query="SearchResult">
     
-    <tr class="navigation_row labelmedium line">
+    <tr class="navigation_row labelmedium2 line">
 	<td align="center" style="padding-top:1px">
 		  <cf_img icon="open" navigation="Yes" onclick="recordedit('#TaxCode#')">
 	</td>

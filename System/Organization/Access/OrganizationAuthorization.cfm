@@ -1,5 +1,5 @@
 
-<cf_screentop height="100%" scroll="no" html="No" jquery="Yes" label="User Role Authorization">
+<cf_screentop height="100%" jquery="Yes" scroll="no" html="No" label="User Role Authorization">
 
 <cfparam name="URL.Search" default="">
 <cfparam name="client.box" default="">
@@ -7,8 +7,7 @@
 <cfset Page         = "0">
 <cfset add          = "0">
 <cfset save         = "0"> 
-<cfset menu         = "0"> 
-
+<cfset menu         = "1"> 
 
 <cfoutput>
 

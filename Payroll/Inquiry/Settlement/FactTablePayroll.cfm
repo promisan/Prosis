@@ -29,6 +29,8 @@ password="#SESSION.dbpw#">
 	</cfoutput>
 </cfsavecontent>
 
+<!---
+ 
 <cfloop query="GetSchedule">
 
 	<cf_droptable dbname="AppsQuery" tblname="#SalarySchedule#_#Table1#"> 	
@@ -141,5 +143,226 @@ password="#SESSION.dbpw#">
 	</cfquery>		
 	
 	<cfset "SESSION.table#currentrow#_ds" = "#SalarySchedule#_#Table1#">	
-	
+		
 </cfloop>
+
+--->
+
+<cfoutput>
+			
+<cfsavecontent variable="myquery">
+
+	 SELECT *, PaymentDate 
+	 FROM (
+
+		SELECT       NEWID() AS FactTableId, 
+		             I.PayrollItem AS Item_dim, I.PrintDescription AS Item_nme, 
+					 L.GLAccount AS GLAccount_dim, 
+					 I.Source AS Source, 
+		             O.OrgUnitCode AS OrgUnit_dim, LEFT(O.OrgUnitName, 60) AS OrgUnit_nme, O.HierarchyCode AS OrgUnit_ord, 
+					 F.Fund AS Fund_dim, 
+					 PP.ProgramCode AS ProgramParent_dim, LEFT(PP.ProgramName, 60) AS ProgramParent_nme, PP.PeriodHierarchy AS ProgramParent_ord, 
+					 Pe.Reference AS ProgramUnit_dim, M.ProgramName AS ProgramUnit_nme, Pe.PeriodHierarchy AS ProgramUnit_ord, 
+					 L.PaymentId, 
+					 S.PaymentDate, 
+					 P.IndexNo, P.PersonNo, 
+					 P.Gender AS Gender_dim,
+					 
+                    (SELECT        TOP (1) ISNULL(PG.PostGradeBudget, 'NA') AS Expr1
+                      FROM         Employee.dbo.PersonContract AS PC INNER JOIN
+                                   Employee.dbo.Ref_PostGrade AS PG ON PC.ContractLevel = PG.PostGrade
+                      WHERE        PC.Mission = '#url.mission#' 
+					  AND          PC.PersonNo = P.PersonNo 
+					  AND          PC.ActionStatus IN ('0','1') 
+					  AND          PC.DateEffective <= S.PaymentDate
+                      ORDER BY     PC.DateEffective DESC) AS ContractLevel_dim,					  
+					  
+                    (SELECT        TOP (1) ISNULL(PG.PostOrderBudget, '99') AS Expr1
+                      FROM         Employee.dbo.PersonContract AS PC INNER JOIN
+                                   Employee.dbo.Ref_PostGrade AS PG ON PC.ContractLevel = PG.PostGrade
+                      WHERE        PC.Mission = '#url.mission#' 
+					  AND          PC.PersonNo = P.PersonNo 
+					  AND          PC.ActionStatus IN ('0','1') 
+					  AND          PC.DateEffective <= S.PaymentDate
+                      ORDER BY PC.DateEffective DESC) AS ContractLevel_ord, 
+					  
+					  P.FirstName+' '+P.LastName as Name, 
+					  -- L.PayrollStart, L.PayrollEnd, 
+					  L.DocumentCurrency, 
+					  -- L.PaymentAmount  * F.Percentage AS AmountPayUSD, 
+					  L.DocumentAmount * F.Percentage AS DocumentAmount, 
+					  L.Amount * F.Percentage AS Amount
+								 
+		FROM          EmployeeSettlement AS S 
+		              INNER JOIN EmployeeSettlementLine AS L ON S.PersonNo = L.PersonNo AND S.SalarySchedule = L.SalarySchedule AND S.Mission = L.Mission AND S.PaymentDate = L.PaymentDate 
+					  INNER JOIN EmployeeSettlementLineFunding AS F ON L.PaymentId = F.PaymentId 
+					  INNER JOIN Program.dbo.ProgramPeriod AS Pe 
+					  INNER JOIN Program.dbo.Ref_Period AS R ON Pe.Period = R.Period ON F.ProgramCode = Pe.ProgramCode AND YEAR(R.DateEffective) = L.PaymentYear 
+					  LEFT OUTER JOIN
+		                             (SELECT   Px.ProgramCode, Px.ProgramName, Pex.PeriodHierarchy, Pex.Period
+		                              FROM     Program.dbo.Program AS Px INNER JOIN
+		                                       Program.dbo.ProgramPeriod AS Pex ON Px.ProgramCode = Pex.ProgramCode AND Px.Mission = 'STL') AS PP ON SUBSTRING(Pe.PeriodHierarchy, 
+		                         CHARINDEX('_', Pe.PeriodHierarchy) + 1, CASE charindex('.', Pe.PeriodHierarchy) WHEN 0 THEN len(Pe.PeriodHierarchy) ELSE (charindex('.', Pe.PeriodHierarchy) - 1)
+		                          END - CHARINDEX('_', Pe.PeriodHierarchy)) = PP.ProgramCode AND Pe.Period = PP.Period 
+					  INNER JOIN  Program.dbo.Program AS M ON F.ProgramCode = M.ProgramCode 
+					  INNER JOIN  SalarySchedule AS SS ON S.SalarySchedule = SS.SalarySchedule 
+					  INNER JOIN  SalaryScheduleMission AS SM ON S.SalarySchedule = SM.SalarySchedule AND S.Mission = SM.Mission AND S.PaymentDate <= SM.DateEffectivePortal 
+					  INNER JOIN  Ref_PayrollItem AS I ON L.PayrollItem = I.PayrollItem 
+					  INNER JOIN  Employee.dbo.Person AS P ON S.PersonNo = P.PersonNo 
+					  INNER JOIN  Organization.dbo.Organization AS O ON L.Mission = O.Mission AND L.OrgUnit = O.OrgUnit
+		WHERE        S.Mission = '#url.mission#'
+		
+		) as B
+		
+		WHERE 1=1 
+		
+			--condition
+			
+
+</cfsavecontent>
+
+</cfoutput>
+
+<cfset itm = 0>
+
+<cfset fields=ArrayNew(1)>
+							
+<cfset itm = itm+1>
+<cf_tl id="IndexNo" var = "1">			
+<cfset fields[itm] = {label           = "#lt_text#",                    
+     				field             = "IndexNo",					
+					alias             = "",																																			
+					search            = "text"}>		
+			
+<cfset itm = itm+1>
+<cf_tl id="Name" var = "1">		
+<cfset fields[itm] = {label           = "#lt_text#",                    
+     				field             = "Name",																							
+					functionscript    = "EditPerson",
+					functionfield     = "PersonNo",		
+					functioncondition = "Miscellaneous",											
+					width             = "40",																		
+					search            = "text"}>	
+					
+<cfset itm = itm+1>	
+<cf_tl id="Gender" var = "1">		
+<cfset fields[itm] = {label           = "#lt_text#",                    
+     				field             = "Gender_dim",												
+					display           = "1",	
+					column            = "common",																																									
+					displayfilter     = "yes",																																									
+					search            = "text",
+					filtermode        = "3"}>						
+					
+<cfset itm = itm+1>	
+<cf_tl id="Level" var = "1">		
+<cfset fields[itm] = {label           = "#lt_text#",                    
+     				field             = "ContractLevel_dim",		
+					fieldsort         = "ContractLevel_ord",						
+					display           = "1",																																										
+					displayfilter     = "yes",																																									
+					search            = "text",
+					filtermode        = "3"}>						
+					
+<cfset itm = itm+1>	
+<cf_tl id="Date" var = "1">		
+<cfset fields[itm] = {label           = "#lt_text#",                    
+     				field             = "PaymentDate",								
+					column            = "month",
+					display           = "1",																																										
+					displayfilter     = "yes"}>	
+					
+<cfset itm = itm+1>	
+<cf_tl id="Source" var = "1">		
+<cfset fields[itm] = {label           = "#lt_text#",                    
+     				field             = "Source",											
+					display           = "1",																																										
+					column            = "common",
+					displayfilter     = "yes",																																									
+					search            = "text",
+					filtermode        = "3"}>												
+						
+<cfset itm = itm+1>	
+<cf_tl id="Item" var = "1">		
+<cfset fields[itm] = {label           = "#lt_text#",                    
+     				field             = "Item_nme",		
+					fieldsort         = "Item_dim",						
+					display           = "1",																																										
+					displayfilter     = "yes",																																									
+					search            = "text",
+					filtermode        = "3"}>	
+					
+<cfset itm = itm+1>	
+<cf_tl id="Parent" var = "1">		
+<cfset fields[itm] = {label           = "#lt_text#",                    
+     				field             = "ProgramParent_nme",		
+					fieldsort         = "ProgramParent_ord",						
+					display           = "1",	
+					column            = "common",																																									
+					displayfilter     = "yes",																																									
+					search            = "text",
+					filtermode        = "3"}>		
+					
+<cfset itm = itm+1>	
+<cf_tl id="Unit" var = "1">		
+<cfset fields[itm] = {label           = "#lt_text#",                    
+     				field             = "OrgUnit_nme",		
+					fieldsort         = "OrgUnit_ord",						
+					display           = "1",																																										
+					displayfilter     = "yes",																																									
+					search            = "text",
+					filtermode        = "3"}>		
+					
+<cfset itm = itm+1>	
+<cf_tl id="Currency" var = "1">		
+<cfset fields[itm] = {label           = "#lt_text#",                    
+     				field             = "DocumentCurrency",								
+					column            = "common",
+					display           = "1",																																										
+					displayfilter     = "yes",																																									
+					search            = "date",
+					filtermode        = "3"}>
+					
+<cfset itm = itm+1>	
+<cf_tl id="Amount" var = "1">		
+<cfset fields[itm] = {label           = "#lt_text#",                    
+     				field             = "DocumentAmount",								
+					Aggregate         = "SUM",					
+					display           = "1",																																										
+					displayfilter     = "yes",																																									
+					search            = "number"}>																				
+					
+																
+<cfset menu=ArrayNew(1)>	
+
+<cf_listing
+	    header              = "payroll settlement"
+	    box                 = "settlementlisting_#url.mission#"
+		link                = "#SESSION.root#/Payroll/Inquiry/Settlement/SettlementViewListing.cfm?mission=#url.mission#&systemfunctionid=#url.systemfunctionid#"
+	    html                = "No"		
+		tableheight         = "100%"
+		tablewidth          = "100%"
+		calendar            = "9" 
+		font                = "Calibri"
+		datasource          = "AppsPayroll"
+		listquery           = "#myquery#"		
+		listorderfield      = "LastName"
+		listorder           = "LastName"
+		listorderdir        = "ASC"		
+		headercolor         = "ffffff"		
+		menu                = "#menu#"
+		showrows            = "1"
+		filtershow          = "Yes"
+		excelshow           = "Yes" 					
+		listlayout          = "#fields#"		
+		drillkey            = "facttableid"
+		drillbox            = "costbox">
+		
+		<!---
+		
+		drillmode           = "workflow" 
+		drillargument       = "#client.height-90#;#client.width-90#;false;false"	
+		drilltemplate       = "workflow"
+		
+		--->
+		

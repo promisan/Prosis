@@ -3,7 +3,7 @@
 		<tr class="labelmedium">
 			<td width="5%">
 				<a href="javascript:addMission('#url.id1#')">
-					<font color="0080FF">[<cf_tl id="add">]</font>
+					<cf_tl id="add">
 				</a>
 			</td>
 			<td width="3">&nbsp;</td>

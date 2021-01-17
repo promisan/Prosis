@@ -1,7 +1,6 @@
 
 <link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>"> 
 
-
 <cf_preventCache>
 
 <cfif ParameterExists(Form.Insert)> 
@@ -110,16 +109,13 @@ WHERE ExperienceClass  = '#Form.ExperienceClass#'
 					datasource="AppsSelection" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
-						INSERT INTO Ref_ExperienceClassOwner
-							(
+						INSERT INTO Ref_ExperienceClassOwner (
 								ExperienceClass,
 								Owner,
 								OfficerUserId,
 								OfficerLastName,
 								OfficerFirstName
-							)
-						VALUES
-							(
+						) VALUES (
 								'#Form.ExperienceClass#',
 								'#owner#',
 								'#session.acc#',
@@ -151,23 +147,21 @@ WHERE ExperienceClass  = '#Form.ExperienceClass#'
       WHERE ExperienceClass  = '#Form.ExperienceClassOld#' 
     </cfquery>
 
-    <cfif #CountRec.recordCount# gt 0>
+    <cfif CountRec.recordCount gt 0>
 		 
-     <script language="JavaScript">
-    
-	   alert("Experience Class is in use. Operation aborted.")
-     
-     </script>  
+	     <script language="JavaScript">    
+		   alert("Experience Class is in use. Operation aborted.")     
+	     </script>  
 	 
     <cfelse>
 			
-	<cfquery name="Delete" 
-		datasource="AppsSelection" 
-		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">
-			DELETE FROM Ref_ExperienceClass
-			WHERE ExperienceClass = '#FORM.ExperienceClassOld#'
-    </cfquery>
+		<cfquery name="Delete" 
+			datasource="AppsSelection" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				DELETE FROM Ref_ExperienceClass
+				WHERE ExperienceClass = '#FORM.ExperienceClassOld#'
+	    </cfquery>
 	
 	</cfif>
 	

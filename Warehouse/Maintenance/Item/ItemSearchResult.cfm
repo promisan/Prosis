@@ -44,7 +44,6 @@
 			</cfquery>
 			
 			<table><tr>
-					 
 			
 			<td>				
 			
@@ -56,8 +55,7 @@
 				<cfloop query="getLookup">
 				  <option value="#getLookup.mission#" <cfif client.fmission eq getLookup.mission>selected</cfif>>#getLookup.mission#</option>
 			  	</cfloop>
-			</select>
-			
+			</select>			
 			
 			<input type="hidden" value="#url.used#" id="filterUsed">
 			

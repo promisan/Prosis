@@ -56,8 +56,7 @@
 		<cfoutput> 
 		<img src="#SESSION.root#/Images/BankAccounts.png" height="64" alt=""  border="0" align="absmiddle" style="float: left; padding-right: 10px;">
             <h1 style="float:left;color:##333333;font-size:28px;font-weight:200;padding:0;position: relative;top: 18px;"><cf_tl id="Distribution of Payroll"></h1>
-		</cfoutput>
-		
+		</cfoutput>		
     
 	
 	<cfoutput>

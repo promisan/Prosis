@@ -39,12 +39,12 @@ function ask()
 
 <!--- Entry form --->
 <cfform action="RecordSubmit.cfm" method="POST"name="dialog">
-<table width="95%" align="center" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="95%" align="center" class="formpadding formspacing">
 	
     <cfoutput>
 	<tr><td></td></tr>
     <TR>
-    <TD class="labelmedium">Action:</TD>
+    <TD class="labelmedium2">Action:</TD>
     <TD>
   	   <input type="text"
        name="ActionCode"
@@ -52,51 +52,50 @@ function ask()
        size="10"
        maxlength="10"
        readonly	   
-       class="regularxl"
+       class="regularxxl"
        style="text-align: center;background: ffffcf;">
     </TD>
 	</TR>
 					
 	<TR>
-    <TD class="labelmedium">Description:</TD>
+    <TD class="labelmedium2">Description:</TD>
     <TD>
   	   <input type="text"
        name="Description"
        value="#get.Description#"
        size="50"
        maxlength="50"       	   
-       class="regularxl"
+       class="regularxxl"
        style="text-align: left;background: ffffcf;">
   	  </TD>
 	</TR>
 	
 	<TR>
-    <TD class="labelmedium">Template:</TD>
+    <TD class="labelmedium2">Template:</TD>
     <TD>
   	   <input type="text"
        name="Template"
        value="#get.Template#"
        size="40"
        maxlength="40"       	   
-       class="regularxl"
+       class="regularxxl"
        style="text-align: left;background: ffffcf;"
-	   onblur="ColdFusion.navigate('CollectionTemplate.cfm?template='+this.value+'&container=indexTemplate&resultField=valIndexDataTemplate','indexTemplate')">
+	   onblur="ptoken.navigate('CollectionTemplate.cfm?template='+this.value+'&container=indexTemplate&resultField=valIndexDataTemplate','indexTemplate')">
   	  </TD>
-		 <td>
-		 	<cfdiv id="indexTemplate" 
-						   bind="url:CollectionTemplate.cfm">
+		 <td id="indexTemplate">
+		    <cfinclude template="CollectionTemplate.cfm">		 	
 		 </td>	  
 	</TR>
 		
 	<TR>
-    <TD class="labelmedium">Listing Order:</TD>
+    <TD class="labelmedium2">Listing Order:</TD>
     <TD>
   	   <input type="text"
        name="ListingOrder"
        value="#get.ListingOrder#"
        size="4"
        maxlength="2"     	   
-       class="regularxl"
+       class="regularxxl"
        style="text-align: center;background: ffffcf;">
   	  </TD>
 	</TR>
@@ -109,7 +108,7 @@ function ask()
        value="#get.LeadDays#"
        size="4"
        maxlength="2" 
-       class="regularxl"
+       class="regularxxl"
        style="text-align: center;background: ffffcf;">
     </TD>
 	</TR>

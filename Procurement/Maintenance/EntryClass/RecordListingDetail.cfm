@@ -34,7 +34,7 @@
 <table width="100%" align="center" class="navigation_table">
 
 <tr><td height="8"></td></tr>
-<tr class="line labelmedium">
+<tr class="line labelmedium2">
 	<TD width="5%">&nbsp;</TD>
     <TD><cf_tl id="Code"></TD>
 	<TD><cf_tl id="Description"></TD>
@@ -55,8 +55,8 @@
 
 <cfoutput query="SearchResult">
 	
-    <TR class="navigation_row labelmedium line"> 
-		<TD height="18" align="center" style="padding-top:2px">
+    <TR class="navigation_row labelmedium2 line"> 
+		<TD height="18" align="center" style="padding-top:1px">
 		    <cf_img icon="select" navigation="yes" onclick="recordedit('#Code#','#url.fmission#')">
 		</TD>
 		<TD><a href="javascript:recordedit('#Code#','#url.fmission#')">#Code#</a></TD>

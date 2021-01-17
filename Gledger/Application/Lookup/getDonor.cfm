@@ -26,7 +26,7 @@
 	
 	    <table cellspacing="0" cellpadding="0">
 		
-			<tr class="labelmedium">
+			<tr class="labelmedium2">
 			
 			<td>#Donor.Donor#</td>											
 			<td style="padding-left:3px">#Donor.Description#</td>			
@@ -38,7 +38,7 @@
    <cfelse>
 	    <table cellspacing="0" cellpadding="0">
 		
-			<tr class="labelmedium">
+			<tr class="labelmedium2">
 			
 			<td style="padding-left:6px">
    			<input type="hidden" id="contributionlineid" name="contributionlineid" value="">   

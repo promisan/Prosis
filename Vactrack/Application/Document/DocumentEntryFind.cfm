@@ -32,14 +32,14 @@ password="#SESSION.dbpw#">
 <table width="99%" align="left" class="navigation_table">
 
 <cfif Position.recordcount eq "0">
-	<tr><td align="center" class="labelit"><font color="FF0000">No positions found for this grade</font></td></tr>
+	<tr><td align="center" class="labelmedium2"><font color="FF0000">No positions found for this grade</font></td></tr>
 </cfif>
 	
 <cfoutput query="Position">
 	
-	<tr style="height:20px" class="navigation_row labelmedium">
+	<tr style="height:20px" class="navigation_row labelmedium2">
 	
-		<td width="6%" align="center" height="35">		
+		<td width="6%" rowspan="2" align="center" height="35">		
 		  <cf_img icon="open" navigation="Yes" onclick="selected('#positionno#')">		 		
 		</td>
 		<TD width="50%">#FunctionDescription#</TD>
@@ -51,8 +51,7 @@ password="#SESSION.dbpw#">
 		
 	</tr> 
 		
-	<tr style="height:20px" class="navigation_row_child line labelmedium">
-	    <td></td>
+	<tr style="height:20px" class="navigation_row_child line labelmedium">	   
 		<td colspan="6">#OrgUnitName#</td>
 	</tr>
 	
@@ -76,14 +75,14 @@ password="#SESSION.dbpw#">
 	</cfquery>
 	
 	<cfif Assignment.recordcount eq "0">
-		<tr class="navigation_row_child line labelmedium">
+		<tr class="navigation_row_child line labelmedium2">
 		   <td colspan="7" align="center"><font color="FF0000"><cf_tl id="Vacant"></font></td>	  
 		</tr>		
 	</cfif>
 	
 	<cfloop query="assignment">
 	
-		<tr style="background-color:f1f1f1" class="line labelmedium">
+		<tr style="background-color:f1f1f1" class="line labelmedium2">
 		   <td></td>
 		   <td>#FullName#</td>
 		   <td>#Gender#</td>

@@ -100,7 +100,7 @@ function doScroll() {
 				     // nada 					 
 				} else {			
 					document.getElementById('page').value = pg++;			
-					applyfilter('',pg++,'content')
+					applyfilter('',pg++,'content') //the last page down will trigger a next page, then we highlight the first row.
 				}				
 			}
 			
@@ -112,7 +112,7 @@ function doScroll() {
 			} else {
 				pg--;
 				document.getElementById('page').value = pg;
-				applyfilter('', pg, 'content')
+				applyfilter('', pg, 'content') //get into the last row.
 			}
 		}
 	});
@@ -185,6 +185,8 @@ function filtergroup(box,opt) {
 	}
 }
 
+<!--- important change is to apply the box to the context allowing you to have several listings in a page : no urgent --->
+
 function applyfilter(md,mypage,ajaxid,callback,groupvalue1,grouptarget,col1,col1value) {	
 
 		_cf_loadingtexthtml='';																				
@@ -196,21 +198,17 @@ function applyfilter(md,mypage,ajaxid,callback,groupvalue1,grouptarget,col1,col1
 		    } else {   		 
 			     pg = mypage
 			}		
-																										 					  	
+																													 					  	
 			document.listfilter.onsubmit() 	
-													
+																
 			if( _CF_error_messages.length == 0 ) {						   
 			   		 						  		   		  	  
 			   lk    = document.getElementById('mylink').value			  
-			   lkf   = document.getElementById('mylinkform').value   		     		  		  
-			   or    = document.getElementById('listorder').value		  
-			   orfld = document.getElementById('listorderfield').value		   
-			   ordir = document.getElementById('listorderdir').value  		       
-			   orala = document.getElementById('listorderalias').value 		
-			   			  		   				  		   		   
-			   if (ajaxid == "content") {			   
-	    		   Prosis.busyRegion('yes','_divSubContent');
-  		   		  
+			   lkf   = document.getElementById('mylinkform').value  			   		     		  		  
+			 			   			  		   				  		   		   
+			   if (ajaxid == "content") {	
+			   		   
+	    		   Prosis.busyRegion('yes','_divSubContent');  		   		  
 				   <!--- redirect if the action if to refresh a line itself --->
 				   target   = document.getElementById('gridbox').value  
 				   
@@ -221,45 +219,39 @@ function applyfilter(md,mypage,ajaxid,callback,groupvalue1,grouptarget,col1,col1
 				   if (se) {} else { 		   
 					  // alert("View could not be updated : "+ajaxid); target="" 
 					  }		   
-				}	
-																																  			  		   		   
+				}									
+																																				  			  		   		   
 				if (target != "") {		   		   	  		   		   	 					   		   
-					   sfld  = document.getElementById('selectedfields').value	 					    			 		 
-					   if (lkf == "") {					   
-					   	  window['__printListingCallback'] = function(){ if (callback) callback(); };								 						  	  											  
-					       ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&groupvalue1='+groupvalue1+'&grouptarget='+grouptarget+'&col1='+col1+'&col1value='+col1value+'&listorder='+or+'&listorderfield='+orfld+'&selfld='+sfld+'&listorderalias='+orala+'&listorderdir='+ordir+'&content=1&refresh='+md,target,'__printListingCallback','','POST','listfilter')				  
-					   } else {							         	      		   			 						  
-					       ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&groupvalue1='+groupvalue1+'&grouprow1='+grouptarget+'&col1='+col1+'&col1value='+col1value+'&listorder='+or+'&listorderfield='+orfld+'&selfld='+sfld+'&listorderalias='+orala+'&listorderdir='+ordir+'&content=1&refresh='+md,target,'','','POST',lkf)		  						  
-					   }		   
+				
+				   sfld  = document.getElementById('selectedfields').value	 					    			 		 
+				   if (lkf == "") {					   
+				   	  window['__printListingCallback'] = function(){ if (callback) callback(); };								 						  	  											  
+				       ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&groupvalue1='+groupvalue1+'&grouptarget='+grouptarget+'&col1='+col1+'&col1value='+col1value+'&selfld='+sfld+'&content=1&refresh='+md,target,'__printListingCallback','','POST','listfilter')				  
+				   } else {							         	      		   			 						  
+				       ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&groupvalue1='+groupvalue1+'&grouptarget='+grouptarget+'&col1='+col1+'&col1value='+col1value+'&selfld='+sfld+'&content=1&refresh='+md,target,'','','POST',lkf)		  						  
+				   }		   
 				}	
 							  
 		     }   
 
-		} catch(e) {			
+		} catch(e) {	
+		
+		  // alert(e)		
 												
 	  	   if (!pg)
 		   
 		   pg=0
 	
 		   lk=""
+		   
 		   if (document.getElementById('mylink'))							
 		   		lk    = document.getElementById('mylink').value		   
 		   lkf=""
 		   if (document.getElementById('mylinkform'))	
 		   	   lkf   = document.getElementById('mylinkform').value	
-		   or=""	   	  	   
-		   if (document.getElementById('listorder')) 
-		   		or    = document.getElementById('listorder').value		   		
-		   orfld=""
-		   if (document.getElementById('listorderfield'))
-		   		orfld = document.getElementById('listorderfield').value		   		
-		   ordir=""
-		   if (document.getElementById('listorderdir'))		
-		   		ordir = document.getElementById('listorderdir').value		   		
-		   orala=""
-		   if (document.getElementById('listorderalias')) 		  	
-		   		orala = document.getElementById('listorderalias').value		   	 
+		
 		   target = ""
+		   
 		   if (ajaxid == "content") {
 		   		if (document.getElementById('gridbox'))		  
 			   		target   = document.getElementById('gridbox').value  
@@ -267,16 +259,17 @@ function applyfilter(md,mypage,ajaxid,callback,groupvalue1,grouptarget,col1,col1
 			    if (document.getElementById('ajaxbox'))
 			   		target   = document.getElementById('ajaxbox').value  
 		      }		   
-		   sfld =""
+		   
+		   sfld =""		  		   
 		   if (document.getElementById('selectedfields'))
 		    	sfld  = document.getElementById('selectedfields').value  			
 		  	   		    
 		   if (target != "") {
 		   
 			   	if (lkf == "") {			  	 			
-			     	ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&groupvalue1='+groupvalue1+'&grouprow1='+grouptarget+'&col1='+col1+'&col1value='+col1value+'&listorder='+or+'&listorderfield='+orfld+'&selfld='+sfld+'&listorderalias='+orala+'&listorderdir='+ordir+'&content=1',target)
+			     	ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&groupvalue1='+groupvalue1+'&grouptarget1='+grouptarget+'&col1='+col1+'&col1value='+col1value+'&selfld='+sfld+'&content=1',target,'','','POST','listfilter')
 			   	} else {			
-			      ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&groupvalue1='+groupvalue1+'&grouprow1='+grouptarget+'&col1='+col1+'&col1value='+col1value+'&listorder='+or+'&listorderfield='+orfld+'&selfld='+sfld+'&listorderalias='+orala+'&listorderdir='+ordir+'&content=1',target,'','','POST',lkf)
+			      ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&groupvalue1='+groupvalue1+'&grouptarget1='+grouptarget+'&col1='+col1+'&col1value='+col1value+'&selfld='+sfld+'&content=1',target,'','','POST',lkf)
 			   	}
 		   } else { Prosis.busyRegion('no','_divSubContent');
 	 } }
@@ -286,8 +279,7 @@ function processrow(template,key,string,val) {
 	   ptoken.navigate('#SESSION.root#/'+template+key+'&'+string+'&value='+val,'listingaction')	;  
 } 
 
-
-// adding lines to the listing rows
+// adding ajax lines to the listing rows
 
 function listgroupshow(key,target,col1,col1value) {
 
@@ -310,20 +302,20 @@ function listgroupshow(key,target,col1,col1value) {
  
 }
 
-function deleterow(t,row,dsn,table,field,value) {        
+function deleterow(box,dsn,table,field,keyvalue) {        
 
-	   if (confirm("Do you want to remove this record ?")) {		
+   if (confirm("Do you want to remove this record ?")) {		
 
-		   ptoken.navigate('#SESSION.root#/tools/listing/listing/ListingDelete.cfm?row='+row+'&dsn='+dsn+'&table='+table+'&key='+field+'&val='+value,'listingaction')		  
-		   // hide the line as it was removed	     
-		   t.closest('tr').remove();
-		   //document.getElementById('r'+row).remove()
-		   try {
-		   //document.getElementById('l'+row).remove()  
-		   } catch(e) {}
-		   }
+   	   // remove record in the associated tables 	   	
+	   ptoken.navigate('#SESSION.root#/tools/listing/listing/ListingDelete.cfm?dsn='+dsn+'&table='+table+'&key='+field+'&val='+keyvalue,box+'_ajax')	
+	   
+	   // remove records in the interface	   
+	   $('tr[name*='+box+'_'+keyvalue+']') .each(function() { this.remove(); });    	  	   	    
+	   
+	   try { 
+	   } catch(e) {}
+	   }	  
 }
-
 
 function listnavigateRow(box)	{
 			
@@ -355,21 +347,8 @@ function listnavigateRow(box)	{
 		   } catch(e) {} 			 
 	}
 	 
-	<!--- key down ---> 
-//	if (keynum == 40) {	
-//	   try { 	   
-//	   r = vrowno-1+2		  
-//	   listshowRow(r);	   
-//	   <!--- document.getElementById("r"+r).click()	   --->
-//	   } catch(e) {	     
-//	        if (document.getElementById('next')) {
-//			    pg = document.getElementById('page').value				 
-//		        document.getElementById('page').value = pg++;				 		
-//		        applyfilter('',pg++,'content')		 
-//		    }
-//	   }				   
-//	 }	
-	 
+	<!--- record down (40) is handled by class table navigate ---> 
+		 
 	<!--- page down page ---> 
 	if (keynum == 34) {	
 	
@@ -423,47 +402,36 @@ function listnavigateRow(box)	{
 			 }
 
 		  }	 		   
-	}		 
-	 
-//	<!--- < kep up reocrd  ---> 				 
-//	if (keynum == 38) {	
-//	   try { 
-//	   r = vrowno-1
-//	   se  = document.getElementById("r"+r).click()	  	  
-//	   } catch(e) {
-//	      if (document.getElementById('prior')) {
-//			 pg = document.getElementById('page').value				 
-//		     document.getElementById('page').value = pg--;				 		
-//		     applyfilter('',pg--,'content')		 
-//		  }	 		
-//	   }				   
-//	 } 	
+	}	
 	
+	<!--- record up (38) is handled by class table navigate --->	 
+		
 	<!--- disable scroll of the scrollbar  --->
-	 document.onkeydown=function(){return event.keyCode==38 || event.keyCode==40 ? false : true;}		 	 		 		 			
+	document.onkeydown=function(){return event.keyCode==38 || event.keyCode==40 ? false : true;}		 	 		 		 			
+	 
 	} 
 	   
 	
-function navtarget(url,tgt) {  
-   _cf_loadingtexthtml="<div style='padding-top:10px'><img src='<cfoutput>#SESSION.root#</cfoutput>/images/busy10.gif'/>";	
-   ptoken.navigate(url,tgt)
-}	
+// function navtarget(url,tgt) {  
+//   _cf_loadingtexthtml="<div style='padding-top:10px'><img src='<cfoutput>#SESSION.root#</cfoutput>/images/busy10.gif'/>";	
+//   ptoken.navigate(url,tgt)
+// }	
 
 function listingshow(itm) {
-    		
-	se = document.getElementById(itm) 	
-	ex = document.getElementById(itm+"_exp") 	
-	co = document.getElementById(itm+"_col") 				
-		
-	if (se.className == "hide") {
-	   se.className  = "regular"	   	  
-	   ex.className  = "hide"	   	   
-	   co.className  = "regular"
-	} else {
-	   se.className = "hide"	 	  
-	   co.className  = "hide"	 
-	   ex.className  = "regular"	 
-	}
+
+    se0 = $('##'+itm)
+	se1 = $('##'+itm+'_exp');
+	se2 = $('##'+itm+'_col');
+    	
+	if (se2.hasClass('regular')) {	 	
+		se0.removeClass('regular').addClass('hide');
+		se1.removeClass('hide').addClass('regular');
+		se2.removeClass('regular').addClass('hide');				 
+	} else  {			
+		se0.removeClass('hide').addClass('regular');	
+		se1.removeClass('regular').addClass('hide');		
+		se2.removeClass('hide').addClass('regular');						 
+	}				
 }
 
 function showtemplate(path,key) {

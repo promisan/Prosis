@@ -31,7 +31,7 @@
 </cfoutput>
 
 
-<table width="100%" height="100%" cellspacing="0" cellpadding="0">
+<table width="100%" height="100%">
     <cfif url.id eq "Loc">
 	<!---
 	<tr><td height="100">
@@ -42,7 +42,7 @@
 	</td></tr>
 	--->
 	<cfelse>
-	<tr><td height="100%" valign="top" style="padding:4px">
+	<tr><td height="100%" valign="top" style="padding-top:5px">
 	    <cfdiv id="detail" style="height:100%">		
 		 <cfif URL.ID eq "ACT">
 		    <cfset url.mode = "personnelaction">

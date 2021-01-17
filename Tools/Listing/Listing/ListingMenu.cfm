@@ -29,9 +29,9 @@
 	
 	<cfif show eq "1">	
 	
-	   <table width="100%" cellspacing="0" cellpadding="0">
+	   <table width="100%">
 	   <tr>
-	   <td style="font-weight:320;font-size:25px;padding-top:4px;padding-left:10px;height:40px">
+	   <td style="font-weight:320;font-size:25px;padding-top:4px;padding-left:10px;height:34px">
 	   
 	   <cfif system.functionTarget eq "Right">
 	   

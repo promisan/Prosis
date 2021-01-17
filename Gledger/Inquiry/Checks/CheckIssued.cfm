@@ -97,13 +97,12 @@
 <tr><td valign="top">	
 														
 	<cf_listing
-	    header           = "Issued checks"
-	    box              = "setting"
+	    header           = "Issued checks #url.mission# #url.currency# #url.period#"
+	    box              = "checks_#url.mission#_#url.currency#_#url.period#"
 		link             = "#SESSION.root#/Gledger/Inquiry/Checks/CheckIssued.cfm?mission=#url.mission#&currency=#url.currency#&period=#url.period#&systemfunctionid=#url.systemfunctionid#"
 		systemfunctionid = "#url.systemfunctionid#"
 	    html             = "No"	
-		datasource       = "AppsLedger"
-		calendar         = "9"
+		datasource       = "AppsLedger"		
 		tablewidth       = "100%"	
 		excelshow        = "Yes"
         filterShow       = "Yes"	
@@ -118,7 +117,8 @@
 		drilltemplate    = "Gledger/Application/Transaction/View/TransactionView.cfm?id="
 		drillkey         = "TransactionId">
 		
-</td></tr></table>		
+</td></tr>
+</table>		
 		
 </cfoutput>	
 

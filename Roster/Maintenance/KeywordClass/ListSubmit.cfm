@@ -111,6 +111,6 @@
 
 <cfoutput>
   <script>
-    ColdFusion.navigate('List.cfm?Code=#URL.Code#&ID2=','#url.code#_list')	
+    ptoken.navigate('List.cfm?Code=#URL.Code#&ID2=','#url.code#_list')	
   </script>	
 </cfoutput>

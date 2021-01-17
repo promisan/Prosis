@@ -152,9 +152,9 @@ function ask() {
 	<tr><td height="3"></td></tr>
 	<tr><td colspan="2" align="center">
 		
-	<input class="button10g" type="button" style="width:120;height:22" name="Cancel" value="Close" onClick="window.close()">
-    <input class="button10g" type="submit" style="width:120;height:22" name="Delete" value="Delete" onclick="return ask()">
-    <input class="button10g" type="submit" style="width:120;height:22" name="Update" value="Update">
+	<input class="button10g" type="button" name="Cancel" value="Close" onClick="window.close()">
+    <input class="button10g" type="submit" name="Delete" value="Delete" onclick="return ask()">
+    <input class="button10g" type="submit" name="Update" value="Update">
 	</td>	
 	
 	</CFFORM>

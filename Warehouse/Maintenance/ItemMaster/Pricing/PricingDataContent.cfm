@@ -18,9 +18,9 @@
 			AND    UoM       = '#UoM#'
 			AND    Operational = 1
 		</cfquery>	
-		
+						
 		<cfif whs.recordcount gte "1">
-								
+										
 			<tr class="labelmedium line fixrow">
 				<td height="25" style="padding-left:3px">UoM:</td>
 				<td style="background-color:ffffaf">#UoMDescription# [#ItemBarCode#]</td>
@@ -52,7 +52,7 @@
 						         AND    Category   = '#Item.Category#'
 								 AND    Operational = 1)			
 			</cfquery>
-		
+					
 			<cfloop query="Schedule">			
 				
 				<tr class="labelmedium line" onMouseOver="this.bgColor='FFFFCF'" onMouseOut="this.bgColor=''">
@@ -149,12 +149,29 @@
 								SELECT     TOP 1 *
 								FROM       Purchase.dbo.PurchaseLineReceipt
 								WHERE      WarehouseItemNo        = '#url.id#'
-								AND        WarehouseUoM           = '#measure#'							       
+								AND        WarehouseUoM           = '#measure#'				
+								AND        ActionStatus != '9'									       
 								AND        ReceiptNo IN (SELECT ReceiptNo 
-								                         FROM Purchase.dbo.Receipt 
-														 WHERE Mission = '#url.mission#')
+								                         FROM   Purchase.dbo.Receipt 
+														 WHERE  Mission = '#url.mission#')														 
 								ORDER BY Created DESC
 							</cfquery>	
+							
+							<cfif Purchase.recordcount eq "0">
+							
+								<cfquery name="Purchase"
+								datasource="AppsMaterials" 
+								username="#SESSION.login#" 
+								password="#SESSION.dbpw#">
+									SELECT     TOP 1 *
+									FROM       Purchase.dbo.PurchaseLineReceipt
+									WHERE      WarehouseItemNo        = '#url.id#'
+									AND        WarehouseUoM           = '#measure#'				
+									AND        ActionStatus != '9'									       																		 
+									ORDER BY Created DESC
+								</cfquery>	
+														
+							</cfif>
 							
 							<cfif Purchase.recordCount gt 0>
 								<cfif Purchase.WarehousePrice eq "">
@@ -185,6 +202,22 @@
 								AND        TransactionType    = '1'
 								ORDER BY   Created DESC
 							</cfquery>	
+							
+							<cfif Transaction.recordcount eq "0">
+							
+								<cfquery name="Transaction"
+								datasource="AppsMaterials" 
+								username="#SESSION.login#" 
+								password="#SESSION.dbpw#">
+									SELECT     TransactionCostPrice
+									FROM       ItemTransaction
+									WHERE      ItemNo             = '#url.id#'
+									AND        TransactionUoM     = '#measure#'								
+									AND        TransactionType    = '1'
+									ORDER BY   Created DESC
+								</cfquery>	
+														
+							</cfif>
 																	
 							<cfif application.BaseCurrency eq Currency>					
 							

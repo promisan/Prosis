@@ -13,7 +13,7 @@ password="#SESSION.dbpw#">
 <cfset Page         = "0">
 <cfset add          = "1">
 
-<table width="99%"  border="0" align="center" bordercolor="silver" cellspacing="0" cellpadding="0">  
+<table width="96%"  border="0" align="center" bordercolor="silver" cellspacing="0" cellpadding="0">  
 <tr><td colspan="2">
 <cfinclude template = "../HeaderMaintain.cfm"> 
 </td></tr>
@@ -36,9 +36,9 @@ function recordedit(id1) {
 
 <tr><td colspan="2">
 
-<table width="100%" border="0" cellspacing="0" align="center" class="navigation_table">
+<table width="96%" align="center" class="navigation_table">
 
-<tr class="fixrow labelmedium line">
+<tr class="fixrow labelmedium2 line">
     <TD></TD> 
     <TD><cf_tl id="Code"></TD>
 	<td><cf_tl id="Description"></td>
@@ -54,7 +54,7 @@ function recordedit(id1) {
 
 <cfoutput query="SearchResult">
    
-    <TR class="line labelmedium navigation_row"> 
+    <TR class="line labelmedium2 navigation_row"> 
 	<td width="5%" align="center">
 	   <cf_img icon="open" navigation="yes" onclick="recordedit('#Code#');">
 	</td>		

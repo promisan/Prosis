@@ -15,14 +15,15 @@ password="#SESSION.dbpw#">
 	AND  	Code = '#URL.ID1#'
 </cfquery>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="left">
+<table width="100%">
+
 <tr>
 
 <td colspan="2" style="padding:5px">
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<table width="100%" align="center" class="navigation_table">
 
-<tr class="labelmedium">
+<tr class="labelmedium2">
     <TD height="23" align="center" width="10%">
 		<!--- <cfoutput>
 		<A href="javascript:editMission('#url.id1#','')">
@@ -43,10 +44,10 @@ password="#SESSION.dbpw#">
 
 <CFOUTPUT query="List">
 
-	<TR class="labelit navigation_row">
+	<TR class="labelmedium2 navigation_row line">
 					
 		<TD align="center" style="padding-top:1px">
-			<cf_img icon="edit" navigation="yes" onclick="editMission('#url.id1#','#mission#');">   
+			<cf_img icon="open" navigation="yes" onclick="editMission('#url.id1#','#mission#');">   
 		</TD>
 		
 		<TD>#Mission#</TD>
@@ -57,11 +58,10 @@ password="#SESSION.dbpw#">
 
 </cfif>
 
-<tr><td colspan="3" align="right" class="line></td></tr>
-
 </TABLE>
 
 </td>
+</tr>
 
 </TABLE>
 

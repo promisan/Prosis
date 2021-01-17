@@ -327,8 +327,6 @@ password="#SESSION.dbpw#">
 <!--- usually there is just one edition --->
 <!--- --------------------------------- --->
 
-<table width="100%" cellspacing="0" cellpadding="0" class="navigation_table">	
-
 <cfset cols = "12">
 	   
 <cfloop query="Edition">
@@ -867,7 +865,7 @@ password="#SESSION.dbpw#">
 	
 			<!--- show summary of the data i graphical format --->
 			<script>
-				parent.parent.ColdFusion.navigate('FundingExecutionProperties.cfm?mission=#url.mission#&planningperiod=#url.planningperiod#&period=#url.period#','propertybox')	
+				parent.parent.ptoken.navigate('FundingExecutionProperties.cfm?mission=#url.mission#&planningperiod=#url.planningperiod#&period=#url.period#','propertybox')	
 			</script>
 			
 		</cfif>
@@ -876,7 +874,6 @@ password="#SESSION.dbpw#">
 		
 </cfloop>
 
-</table>	
 
 <cfset ajaxonload("doHighlight")>
 <script>

@@ -70,13 +70,11 @@ I will prepare a landing screen to procees the editing from
 					field         = "OfficerUserId",		
 					search        = "text"}>	
 
-<table width="100%" height="100%" cellspacing="0" cellpadding="0" align="center">
-<tr><td style="padding:6px">
 								
 <cf_listing
 	header         = "EventListing"
 	box            = "EventListing"
-	link	       = "#SESSION.root#/Gledger/Application/Event/EventListingContent.cfm?Mission=#URL.Mission#&Period=#URL.Period#&TableName=#URL.TableName#"
+	link	       = "#SESSION.root#/Gledger/Application/Event/EventListingContent.cfm?systemfunctionid=#url.systemfunctionid#&Mission=#URL.Mission#&Period=#URL.Period#&TableName=#URL.TableName#"
 	html           = "No"                           
 	tableheight    = "100%"
 	tablewidth     = "100%"
@@ -101,4 +99,3 @@ I will prepare a landing screen to procees the editing from
 	drillkey       = "EventId"
 	drillbox       = "addcasefile">
 										
-</td></tr></table>

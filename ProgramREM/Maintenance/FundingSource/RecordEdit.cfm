@@ -39,21 +39,18 @@ function ask() {
 	if (confirm("Do you want to remove this Fund?")) {
 	return true 
 	}	
-	return false
-	
+	return false	
 }	
-
 </script>
-
 
 <cfform action="RecordSubmit.cfm" method="POST" name="dialog">
 	
-<table width="92%" cellspacing="0" cellpadding="0" align="center" class="formspacing formpadding">
+<table width="92%" align="center" class="formspacing formpadding">
 
 	<tr><td height="5"></td></tr>
 	
     <cfoutput>
-    <TR class="labelmedium">
+    <TR class="labelmedium2">
     <td width="80">Code:</td>
     <TD>
 		
@@ -67,9 +64,9 @@ function ask() {
      </cfquery>
 	
 	 <cfif CountRec.recordCount eq 0>
-  	   <input type="text" name="Code" value="#get.Code#" size="4" maxlength="4" class="regularxl">	  
+  	   <input type="text" name="Code" value="#get.Code#" size="4" maxlength="4" class="regularxxl">	  
 	 <cfelse>   
-	   <input type="text" name="Code" value="#get.Code#" size="4" maxlength="4" class="regularxl" READONLY>
+	   <input type="text" name="Code" value="#get.Code#" size="4" maxlength="4" class="regularxxl" READONLY>
 	 </cfif>	 
 	 <input type="hidden" name="Codeold" value="#get.Code#" size="4" maxlength="4"class="regularxl">
 	 
@@ -77,9 +74,9 @@ function ask() {
 	</TR>
 	
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD>Fund Type:</TD>
-    <TD><select name="FundType" class="regularxl">	  
+    <TD><select name="FundType" class="regularxxl">	  
 	  	<cfloop query="FundType">
 		   <option value="#Code#" <cfif code eq get.fundtype>selected</cfif>>#Description#</option>
 		</cfloop>
@@ -88,39 +85,39 @@ function ask() {
 	</TR>
 	
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD>Description:</TD>
     <TD>
   	   <cfinput type="text" name="Description" value="#get.Description#" message="please enter a description" requerided=  "yes" size="30" 
-	   maxlenght = "50" class= "regularxl">
+	   maxlenght = "50" class= "regularxxl">
     </TD>
 	</TR>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD>Order listing:</TD>
     <TD>
-  	   <cfinput type="Text" class="regularxl" name="ListingOrder" value="#get.ListingOrder#"  message="Please enter a numeric value" validate="integer" required="Yes" size="2" maxlength="4">
+  	   <cfinput type="Text" class="regularxxl" name="ListingOrder" value="#get.ListingOrder#"  message="Please enter a numeric value" validate="integer" required="Yes" size="2" maxlength="4">
     </TD>
 	</TR>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD>Enforce funds availability:</TD>
     <TD>
 	<input type="checkbox" class="radiol" name="VerifyAvailability" value="1" <cfif #get.VerifyAvailability# eq '1'>checked</cfif>>
 	</TD>
 	</TR>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD>Display in Statistics:</TD>
     <TD>
 	<input type="checkbox" class="radiol" name="ControlView" value="1" <cfif #get.ControlView# eq '1'>checked</cfif>>
 	</TD>
 	</TR>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD>Enforce currency:</TD>
     <TD>
-	    <select name="Currency"  class="regularxl">
+	    <select name="Currency"  class="regularxxl">
 	    <option value="" selected>No</option>
 	  	<cfloop query="Currency">
 		   <option value="#Currency#" <cfif get.Currency eq Currency.Currency>selected</cfif>>#Currency#</option>
@@ -131,7 +128,7 @@ function ask() {
 	</TR>
 		
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD>Funding mode:</TD>
     <TD>
 	    <INPUT type="radio" class="radiol" name="FundingMode" value="Envelope" <cfif #get.FundingMode# eq 'Envelope'>checked</cfif>>Envelope
@@ -145,7 +142,7 @@ function ask() {
 	<tr><td colspan="2" class="line"></td></tr>
 	<tr>	
 		<td colspan="2" align="center" height="30">
-		<input class="button10g" style="width:90" type="button" name="Cancel" value="Cancel" onClick="window.close()">
+		<input class="button10g" type="button" name="Cancel" value="Cancel" onClick="window.close()">
 		
 		<cfquery name="get" 
 	      datasource="AppsProgram" 
@@ -157,9 +154,9 @@ function ask() {
 	    </cfquery>
 		
 		<cfif get.recordcount eq "0">
-	    <input class="button10g" style="width:90" type="submit" name="Delete" value="Delete" onclick="return ask()">
+	    <input class="button10g" type="submit" name="Delete" value="Delete" onclick="return ask()">
 		</cfif>
-    	<input class="button10g" style="width:90" type="submit" name="Update" value="Update">
+    	<input class="button10g" type="submit" name="Update" value="Update">
 		</td>	
 	</tr>
 				

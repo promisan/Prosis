@@ -14,8 +14,7 @@ password="#SESSION.dbpw#">
 
 <cf_screentop html="No" jquery="Yes">
 
-
-<table style="height:100%;width:100%">
+<table style="height:100%;width:98%" align="center">
 
 <tr><td style="height:10">
 
@@ -29,11 +28,11 @@ password="#SESSION.dbpw#">
 	
 	<script language = "JavaScript">	
 		function recordadd(grp) {
-	          window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=460, height=300, toolbar=no, status=yes, scrollbars=no, resizable=no");
+	          ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=460, height=300, toolbar=no, status=yes, scrollbars=no, resizable=no");
 		}
 	
 		function recordedit(id1) {
-	          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=460, height=300, toolbar=no, status=yes, scrollbars=no, resizable=no");
+	          ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=460, height=300, toolbar=no, status=yes, scrollbars=no, resizable=no");
 		}
 	
 	</script>	
@@ -47,7 +46,7 @@ password="#SESSION.dbpw#">
 
 <table width="97%" align="center" class="navigation_table formpadding">
 
-	<tr class="labelmedium line fixrow">
+	<tr class="labelmedium2 line fixrow">
 	    <td></td>
 	    <td>Code</td>
 		<td>Description</td>
@@ -81,7 +80,7 @@ password="#SESSION.dbpw#">
 		<tr><td colspan="5" style="height:40px" class="labellarge"><b>#Exist#</td></tr>
 	
 		<cfoutput>
-	    <tr class="labelmedium navigation_row line"> 
+	    <tr class="labelmedium2 navigation_row line"> 
 			<td width="6%" align="center">
 				  <cf_img icon="open" onclick="recordedit('#Gradedeployment#')" navigation="Yes">
 			</td>	

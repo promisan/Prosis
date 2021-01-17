@@ -4,14 +4,14 @@
 <script>
 
 function recordadd() {
-   ColdFusion.navigate('RecordListingDetail.cfm?code=new','listing')
+   ptoken.navigate('RecordListingDetail.cfm?code=new','listing')
 }
 
 function save(code) {
 
    document.mytopic.onsubmit() 
 	if( _CF_error_messages.length == 0 ) {
-       ColdFusion.navigate('RecordListingSubmit.cfm?code='+code,'listing','','','POST','mytopic')
+       ptoken.navigate('RecordListingSubmit.cfm?code='+code,'listing','','','POST','mytopic')
 	 }   
  }
  
@@ -29,6 +29,8 @@ function show(cde) {
 }
 
 </script> 
+
+<cf_screentop html="No" jquery="Yes">
 	
 <cfset add          = "1">
 <cfinclude template = "../HeaderRoster.cfm"> 		

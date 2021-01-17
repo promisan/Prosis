@@ -1,8 +1,7 @@
 <cfparam name="url.idmenu" default="">
 
 <cf_screentop height="100%" 
-			  label="Address Zone" 
-			  option="Address Zone Maintenance" 
+			  label="Address Zone" 			 
 			  scroll="Yes" 
 			  layout="webapp" 
 			  banner="blue" 
@@ -13,21 +12,23 @@
 
 <!--- Entry form --->
 
-<table width="95%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="95%" align="center" class="formpadding formpadding">
 
+
+   <tr><td style="height:15px"></td>
    <!--- Field: Id --->
     <TR>
-    <TD class="labelit">Code:</TD>
+    <TD class="labelmedium2">Code:</TD>
     <TD>
 		<cfinput type="Text" name="Code" value="" message="Please enter a code" required="Yes" size="20" maxlength="20"
-		class="regularxl">
+		class="regularxxl">
 	</TD>
 	</TR>
 	
 	   <!--- Field: Mission --->
     <TR>
-    <TD class="labelit">Mission:&nbsp;</TD>
-    <TD class="labelit">
+    <TD class="labelmedium2">Mission:&nbsp;</TD>
+    <TD>
   	  	<cfquery name="getLookup" 
 			datasource="AppsEmployee" 
 			username="#SESSION.login#" 
@@ -35,7 +36,7 @@
 			SELECT *
 			FROM Ref_ParameterMission
 		</cfquery>
-		<select name="mission" class="regularxl">
+		<select name="mission" class="regularxxl">
 			<cfoutput query="getLookup">
 			  <option value="#getLookup.mission#">#getLookup.mission#</option>
 		  	</cfoutput>
@@ -46,9 +47,9 @@
 
 	 <!--- Field: Description --->
     <TR>
-    <TD class="labelit">Description:&nbsp;</TD>
+    <TD class="labelmedium2">Description:&nbsp;</TD>
     <TD>
-  	  	<cfinput type="Text" name="description" value="" message="Please enter a description" required="Yes" size="30" maxlength="50" class="regularxl">
+  	  	<cfinput type="Text" name="description" value="" message="Please enter a description" required="Yes" size="30" maxlength="50" class="regularxxl">
 				
     </TD>
 	</TR>	

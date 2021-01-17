@@ -26,7 +26,7 @@ password="#SESSION.dbpw#">
 		ptoken.navigate('RequisitionViewSelected.cfm','process','','','POST','formselected')
 	  	w = #CLIENT.width# - 80;
 	    h = #CLIENT.height# - 110;		
-		ptoken.open("#SESSION.root#/component/analysis/CrossTabLaunch.cfm?ts="+new Date().getTime()+"&box="+box+"&data=1&controlid="+control+"&format="+format, "facttable", "unadorned:yes; edge:raised; status:yes; dialogHeight:"+h+"px; dialogWidth:"+w+"px; help:no; scroll:no; center:yes; resizable:yes");
+		ptoken.open("#SESSION.root#/component/analysis/CrossTabLaunch.cfm?ts="+new Date().getTime()+"&box="+box+"&data=1&controlid="+control+"&format="+format, "facttable");
 	}	
 	
 	function search() {

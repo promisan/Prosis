@@ -6,10 +6,14 @@ password="#SESSION.dbpw#">
 	FROM      Ref_AllotmentAction L
 </cfquery>
 
+<cf_screentop html="No" jquery="Yes">
+
+<table width="98%" align="center" height="100%">
+
 <cfset Page         = "0">
 <cfset add          = "0">
 <cfset save         = "0"> 
-<cfinclude template = "../HeaderMaintain.cfm"> 	
+<tr style="height:10px"><td><cfinclude template = "../HeaderMaintain.cfm"></td></tr>
 
 <cfoutput>
 
@@ -23,11 +27,13 @@ function recordedit(id1) {
 	
 </cfoutput>
 
-<cf_divscroll>
+<tr><td>
 
-<table width="95%" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+	<cf_divscroll>
+	
+	<table width="95%" align="center" class="navigation_table">
 
-	<tr class="labelmedium line">
+	<tr class="labelmedium2 line fixrow">
 	    <td width="30"></td>   
 		<td>Code</td>
 		<td>Entity Class</td>
@@ -36,24 +42,27 @@ function recordedit(id1) {
 	    <td>Date</td>	
 	</tr>
 
-<cfoutput query="qAllotmentAction">
-      
-	<tr class="navigation_row labelmedium line">
+	<cfoutput query="qAllotmentAction">
+	      
+		<tr class="navigation_row labelmedium2 line">
+			
+			<td align="center" height="22" width="25" style="padding-top:2px" >
+			   <cf_img navigation="Yes" icon="select" onclick="recordedit('#Code#')">	
+			</td>
+			<td>#Code#</td>
+			<td>#EntityClass#</td>
+			<td>#Description#</td>
+			<td>#OfficerFirstName# #OfficerLastName#</td>
+			<td>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
+			
+		</tr>
 		
-		<td align="center" height="22" width="25" style="padding-top:2px" >
-		   <cf_img navigation="Yes" icon="edit" onclick="recordedit('#Code#')">	
-		</td>
-		<td>#Code#</td>
-		<td>#EntityClass#</td>
-		<td>#Description#</td>
-		<td>#OfficerFirstName# #OfficerLastName#</td>
-		<td>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
-		
-	</tr>
+	</cfoutput>		
+
+	</table>
 	
-</cfoutput>		
+	</cf_divscroll>
 
+</td>
+</tr>
 </table>
-
-</cf_divscroll>
-

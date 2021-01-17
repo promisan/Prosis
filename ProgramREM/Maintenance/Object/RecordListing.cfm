@@ -5,7 +5,7 @@
 
 <cf_screentop html="No" jquery="Yes">
 
-<table width="98%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<table width="98%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center">
 
 <tr style="height:10px"><td><cfinclude template = "../HeaderMaintain.cfm"></td></tr>
 
@@ -93,8 +93,8 @@ function itemadd(code) {
  
 function refreshlist(code) {
     _cf_loadingtexthtml='';		
-	ColdFusion.navigate('ItemMaster.cfm?code='+code,code+'detail')	
-	ColdFusion.navigate('ItemMasterTotal.cfm?code='+code,code+'sum')
+	ptoken.navigate('ItemMaster.cfm?code='+code,code+'detail')	
+	ptoken.navigate('ItemMasterTotal.cfm?code='+code,code+'sum')
 }  
 
 function itemedit(id1,code,mis) {     
@@ -103,8 +103,8 @@ function itemedit(id1,code,mis) {
 
 function itemdelete(id1,code,mis) {
      _cf_loadingtexthtml='';	
-	 ColdFusion.navigate('ItemMaster.cfm?action=delete&itemmaster='+id1+'&code='+code,code+'detail')
-     ColdFusion.navigate('ItemMasterTotal.cfm?code='+code,code+'sum')
+	 ptoken.navigate('ItemMaster.cfm?action=delete&itemmaster='+id1+'&code='+code,code+'detail')
+     ptoken.navigate('ItemMasterTotal.cfm?code='+code,code+'sum')
 }
 
 function show(use,row) {

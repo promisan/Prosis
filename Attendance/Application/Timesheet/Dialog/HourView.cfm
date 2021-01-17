@@ -196,7 +196,7 @@
 				and       Description NOT LIKE '%Differential%'
 		</cfquery>		
 						 
-		 	<select name="BillingMode" class="regularxl">
+		 	<select name="BillingMode" class="regularxxl">
 				<option value="Contract"><cf_tl id="Contract"></option>
 				<cfloop query="modality">
 				<option value="#SalaryTrigger#" <cfif last.BillingMode eq salarytrigger>selected</cfif>>#Description#</option>
@@ -228,16 +228,16 @@
 		      	name="close"
               	id="close"
 		      	value="Close"
-			  	style="width:140"
+			  	style="width:140px"
 		      	class="button10g"
-		      	onClick="parent.document.getElementById('timebox').style.display = 'none'; parent.document.getElementById('modalbg').style.display = 'none';">	
+		      	onClick="parent.ProsisUI.closeWindow('tsentry')">	
 				
 				<cfif url.edit eq "1">
 				  <input type="button"
 			      	name="submit"
 	              	id="submit"
 			     	value="Save"
-				 	style="width:140"
+				 	style="width:140px"
 			      	class="button10g"
 			     	onClick="save('refresh')">		
 				</cfif>

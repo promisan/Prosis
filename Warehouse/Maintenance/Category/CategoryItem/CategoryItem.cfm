@@ -11,13 +11,11 @@
 <table width="96%" align="center" class="formpadding">
 <tr><td>
 
-<table width="100%" cellspacing="0" cellpadding="0" class="navigation_table">
-	<tr class="labelmedium line">
+<table width="100%" class="navigation_table">
+	<tr class="labelmedium2 line">
 		<td height="20" style="min-width:80px;width:80px" class="labelmedium">
 			<cfoutput>
-			<a href="javascript: editcategoryitem('#category#','');" title="Add Item">
-				<font color="0080FF">[<cf_tl id="Add">]</font>
-			</a>
+			<a href="javascript: editcategoryitem('#category#','');" title="Add Item">[<cf_tl id="Add">]</a>
 			</cfoutput>
 		</td>
 		<td width="10%" align="center"><cf_tl id="Sort"></td>
@@ -32,7 +30,7 @@
 	</cfif>
 	
 	<cfoutput query="lookup">
-		<tr style="height:20px" class="line labelmedium navigation_row">
+		<tr style="height:20px" class="line labelmedium2 navigation_row">
 			<td>
 				  
 				<cfquery name="Validate" 
@@ -48,7 +46,7 @@
 				<table>
 					<tr>
 						<td style="padding-left:4px;">
-							<cf_img icon="edit" class="navigation_action" onclick="editcategoryitem('#category#','#categoryItem#');">
+							<cf_img icon="open" class="navigation_action" onclick="editcategoryitem('#category#','#categoryItem#');">
 						</td>
 						<td style="padding-left:4px">
 							<cfif Validate.recordCount eq 0>

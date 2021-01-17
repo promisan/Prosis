@@ -57,6 +57,12 @@ password="#SESSION.dbpw#">
 			ptoken.navigate('#SESSION.root#/Vactrack/Application/Document/DocumentEntryPosition.cfm?ID1=' + pos + '&Caller=entry','mydialog')	
 		}
 		
+		function Selected(no,description) {									
+			document.getElementById('functionno').value = no
+			document.getElementById('FunctionDescription').value = description					 
+			ProsisUI.closeWindow('myfunction')
+		 }	
+		
 	</script>
 
 </cfoutput>
@@ -93,12 +99,12 @@ password="#SESSION.dbpw#">
     <td>
 	    <table>
 					
-		<TR>
+		<TR class="labelmedium2">
 	    		
-	    <td class="labelit" width="120" height="20"><cf_tl id="Tree/Organization">:</td>
-		<td>	
+	    <td height="20" style="width;auto"><cf_tl id="Tree/Organization">:</td>
+		<td style="padding-left:4px">	
 			     
-			 <select name="mission" id="mission" class="regularxl" style="font-size:20px;height:34px">
+			 <select name="mission" id="mission" class="regularxl" style="border:0px;background-color:f1f1f1;font-size:20px;height:34px">
 			 
 				 <cfoutput query="Mis">
 				 <cfinvoke component="Service.Access"  
@@ -114,16 +120,16 @@ password="#SESSION.dbpw#">
 					 
 	    </td>	
 			
-	    <TD class="labelit" style="padding-left:30px" width="140"><cf_tl id="Grade/Level">:</TD>
-	    <TD width="100">		
+	    <TD style="padding-left:10px;width;auto"><cf_tl id="Grade/Level">:</TD>
+	    <TD style="padding-left;4px">		
 		<cf_securediv bind="url:DocumentEntryGrade.cfm?mission={mission}" id="gradebox">				
 		</TD>
 		
-		<td align="center" style="padding-left:20px">
+		<td align="center" style="padding-left:10px">
 	  		  <cf_tl id="View Positions" var="1">
 			  <input class="button10g"
 				     type="button" 
-				     style="width:220px;font-size:18px;height:34px"
+				     style="width:220px;font-size:18px;height:34px;border:0px;background-color:f1f1f1;"
 					 name="Submit" 
 					 value="<cfoutput>#lt_text#</cfoutput>" 
 					 onclick="search()">

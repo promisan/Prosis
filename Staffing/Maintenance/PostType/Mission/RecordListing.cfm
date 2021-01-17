@@ -44,7 +44,7 @@ password="#SESSION.dbpw#">
 
 <script>
 	function deleteMission(mission){
-		ColdFusion.navigate('RecordPurge.cfm?idmenu=#url.idmenu#&posttype=#url.posttype#&mission='+mission);
+		ptoken.navigate('RecordPurge.cfm?idmenu=#url.idmenu#&posttype=#url.posttype#&mission='+mission);
 	}
 </script>
 

@@ -12,7 +12,7 @@ password="#SESSION.dbpw#">
 
 <table width="98%" align="center" class="navigation_table">
 
-	<tr class="fixrow labelmedium">
+	<tr class="fixrow labelmedium2">
 	   
 	    <td height="20" width="5%"></TD>
 	    <td style="padding-left:4px" width="100"><cf_tl id="Code"></TD>		
@@ -24,24 +24,24 @@ password="#SESSION.dbpw#">
 		<td><cf_tl id="FP"></TD>
 		<td><cf_tl id="Sensitive"></td>   
 		<td><cf_tl id="Officer"></td>
-		<td style="text-align:right;padding-right:3px"><cf_tl id="Entered"></TD>
+		<td style="text-align:right;padding-right:8px"><cf_tl id="Entered"></TD>
 		
 	</tr>
 	
 	<cfoutput query="SearchResult" group="StockControlMode">
 	
-		<tr class="line"><td style="height:50px;font-size:25px" colspan="11" class="labellarge">#StockControlMode#</td></tr>
+		<tr class="line  labelmedium2"><td style="height:40px;font-size:25px" colspan="11">#StockControlMode#</td></tr>
 	    
 		<cfoutput>
-	    <TR class="navigation_row line labelmedium" style="height:18px"> 	
+	    <TR class="navigation_row line labelmedium2"> 	
 			
 		<td>
 			  		
 				<table>
 					<tr>
 						
-						<td style="padding-right:10px padding-top:2px;padding-left:3px">
-							<cf_img icon="edit" navigation="Yes" onclick="recordedit('#Category#');">
+						<td style="padding-right:10px padding-top:21x;padding-left:3px">
+							<cf_img icon="open" navigation="Yes" onclick="recordedit('#Category#');">
 						</td>
 						<td style="padding-left:6px; padding-top:1px;">
 							<cfif counted eq 0>
@@ -61,7 +61,7 @@ password="#SESSION.dbpw#">
 			<TD><cfif FinishedProduct eq "0"><cfelse>Yes</cfif></TD>
 			<td><cfif SensitivityLevel eq "0">Low<cfelse>High</cfif></td>
 			<TD>#OfficerLastName#</TD>
-			<TD align="right" style="padding-right:4px">#Dateformat(Created, "#CLIENT.DateFormatShow#")#</TD>
+			<TD align="right" style="padding-right:8px">#Dateformat(Created, "#CLIENT.DateFormatShow#")#</TD>
 			
 	    </TR>
 		

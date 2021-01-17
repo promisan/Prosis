@@ -60,15 +60,17 @@ function validate(){
 			  systemfunctionid="#url.idmenu#">
 <!--- edit form --->
 
-<cfform action="RecordSubmit.cfm?idmenu=#url.idmenu#" method="POST" enablecab="Yes" name="dialog" onSubmit="return validate();">
+<cfform action="RecordSubmit.cfm?idmenu=#url.idmenu#" method="POST" name="dialog" onSubmit="return validate();">
 
-<table width="91%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="91%" align="center" class="formpadding">
 
 	<tr><td height="6"></td></tr>
+	
     <cfoutput>
-    <TR >
-    <TD class="labelit" width="20%">Transaction type:</TD>
-    <TD class="labelmedium">
+	
+    <TR>
+    <TD class="labelmedium2" width="10%">Code:</TD>
+    <TD class="labelmedium2">
 	  <!---  <cfif CountRec.recordcount eq "0">	
 		   	<cfinput type="Text" name="Code" value="#get.TransactionType#" message="Please enter a code" required="Yes" size="1" maxlength="2" class="regular" style="text-align:center;">
 	   <cfelse> --->
@@ -79,16 +81,16 @@ function validate(){
     </TD>
 	</TR>
 	
-	<TR class="labelit">
-    <TD>Description:</TD>
+	<TR>
+    <TD class="labelmedium2">Name:</TD>
     <TD>
-	   <cfinput type="Text" name="Description" value="#get.Description#" message="Please enter a description" required="No" size="20" maxlength="30" class="regularxl">
+	   <cfinput type="Text" name="Description" value="#get.Description#" message="Please enter a description" required="No" size="20" maxlength="30" class="regularxxl">
     </TD>
 	</TR>
 	
 	<TR>
-    <TD class="labelit">Class:</TD>
-    <TD class="labelmedium">
+    <TD class="labelmedium2">Class:</TD>
+    <TD class="labelmedium2">
 		
 		<!--- <cfquery name="LookUpClass" 
 		datasource="AppsMaterials" 
@@ -113,8 +115,8 @@ function validate(){
 	</TR>
 	
 	<TR>
-    <TD class="labelit">Area:</TD>
-    <TD class="labelmedium">
+    <TD class="labelmedium2">Area:</TD>
+    <TD class="labelmedium2">
   	   
 	   <!--- <cfquery name="LookUpArea" 
 		datasource="AppsMaterials" 
@@ -139,15 +141,15 @@ function validate(){
 	</TR>
 	
 	<tr>
-		<td  class="labelit" valign="top" style="padding-top:4px;padding-right:9px">Report&nbsp;Template:</td>
+		<td class="labelmedium2" valign="top" style="padding-top:4px;padding-right:9px">Report:</td>
 		<td>
 			<table>
 				<tr>
 					<td>
-						<input class="regularxl" type="text" name="reportTemplate" id="reportTemplate" value="#get.ReportTemplate#" size="35"> 
+						<input class="regularxxl" type="text" name="reportTemplate" id="reportTemplate" value="#get.ReportTemplate#" size="55"> 
 					</td>
 					<td>
-						<cfdiv id="pathValidationDiv" bind="url:ValidateTemplate.cfm?template={reportTemplate}&container=pathValidationDiv&resultField=templateVal">
+						<cf_securediv id="pathValidationDiv" bind="url:ValidateTemplate.cfm?template={reportTemplate}&container=pathValidationDiv&resultField=templateVal">
 					</td>
 				</tr>
 				<tr><td class="labelit"><font color="808080">Applies only of the Batch class has NO report defined</td></tr>

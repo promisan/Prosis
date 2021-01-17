@@ -645,6 +645,7 @@ will be put into different batches as they could have different process flows as
 								GLAccountDebit       = "#AccountStock.GLAccount#"
 								GLAccountCredit      = "#AccountTask.GLAccount#">	
 								
+																
 								<cfquery name="getLocationTo"
 									datasource="AppsMaterials" 
 									username="#SESSION.login#" 

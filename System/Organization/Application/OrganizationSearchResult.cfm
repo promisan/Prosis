@@ -83,7 +83,7 @@
 			<tr bgcolor="FFFFAF"
 			    id="#orgunit#"				
 			    style="cursor: pointer;"
-				class="navigation_row line">
+				class="navigation_row line labelmedium2">
 				
 				<td width="25" style="padding-top:3px;padding-left:4px">
 				
@@ -99,12 +99,12 @@
 				 
 			  </td>
 			 			  
-			  <td class="labelit" style="width:50px;padding-left:7px;padding-right:4px">#OrgUnitCode#</td>
-			  <td width="16%" class="labelit" style="padding-left:7px;padding-right:4px">#OrgUnitNameShort#</td>
+			  <td style="width:50px;padding-left:7px;padding-right:4px">#OrgUnitCode#</td>
+			  <td width="16%" style="padding-left:7px;padding-right:4px"><cfif len(OrgUnitNameShort) lte 10>#OrgUnitNameShort#</cfif></td>
 			   
-			  <TD class="labelit" width="70%"><cfif enabled eq "0"><font color="gray"></cfif>#OrgUnitName#</TD>
+			  <TD width="70%"><cfif enabled eq "0"><font color="gray"></cfif>#OrgUnitName#</TD>
 			  
-			   <td width="15%" class="labelit" style="padding-left:4px;padding-right:4px">
+			   <td width="15%" style="padding-left:4px;padding-right:4px">
 				  <cfif enabled eq "0"><font color="gray"></cfif>#HierarchyCode#</b>
 			  </td>
 		
@@ -114,7 +114,7 @@
 		   
 			<tr bgcolor="FFFFFF"
 			    id="#orgunit#"
-				style="cursor: pointer;height:20px" class="navigation_row line labelmedium">
+				style="cursor: pointer;height:20px" class="navigation_row line labelmedium2">
 
 			<td width="25" style="padding-top:3px;padding-left:4px">
 			
@@ -134,7 +134,7 @@
 			
 			<cfset nm = replace(OrgUnitName, "'","","ALL")> 
 			
-			<td>#OrgUnitNameShort#</td>
+			<td><cfif len(OrgUnitNameShort) lte 10>#OrgUnitNameShort#</cfif></td>
 						
 		    <TD width="60%">
 			   <cfif enabled eq "0"><font color="gray"></cfif>#OrgUnitName#

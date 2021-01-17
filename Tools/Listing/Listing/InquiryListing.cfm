@@ -100,23 +100,24 @@ password="#SESSION.dbpw#">
 	</cfif>
 
 	<cfset fields[currentrow] = 
-               {label           = "#lbl#", 
-			    labelfilter     = "#lblfilter#",
-                width           = "#fieldWidth#", 
-				field           = "#fieldName#",
-				formatted       = "#formatted#",
-				display         = "#grid#",		
-				align           = "#fieldalignment#",		
-				alias           = "#fieldaliasquery#",
-				isKey           = "#fieldIskey#",
-				rowlevel        = "#fieldrow#",
-				colspan         = "#fieldColspan#",
-				aggregate       = "#agg#",
-				processmode     = "#FieldEditInputType#",
-				processtemplate = "#FieldEditTemplate#",
-				search          = "#FieldFilterClass#",
-				filterforce     = "#FieldFilterForce#",
-				filtermode      = "#FieldFilterClassMode#"}>		
+           {label           = "#lbl#", 
+		    labelfilter     = "#lblfilter#",
+            width           = "#fieldWidth#", 
+			field           = "#fieldName#",
+			formatted       = "#formatted#",
+			column          = "#fieldcolumn#",
+			display         = "#grid#",		
+			align           = "#fieldalignment#",		
+			alias           = "#fieldaliasquery#",
+			isKey           = "#fieldIskey#",
+			rowlevel        = "#fieldrow#",
+			colspan         = "#fieldColspan#",
+			aggregate       = "#agg#",
+			processmode     = "#FieldEditInputType#",
+			processtemplate = "#FieldEditTemplate#",
+			search          = "#FieldFilterClass#",
+			filterforce     = "#FieldFilterForce#",
+			filtermode      = "#FieldFilterClassMode#"}>		
 					
 </cfoutput>		
 
@@ -193,15 +194,18 @@ password="#SESSION.dbpw#">
 </cfif>	
 
 <cfparam name="url.mission" default="">
+
+<cfset boxname = "box_#replaceNoCase(menu.FunctionName,' ','','ALL')#">
 					
 <cf_listing
     header         = "#menu.FunctionName#"
-    box            = "inquirydetail"
-	link           = "#SESSION.root#/Tools/Listing/Listing/InquiryListingPrepare.cfm?height=#url.height#&systemfunctionid=#url.systemfunctionid#&functionserialNo=#url.functionserialNo#&mission=#url.mission#"
+    box            = "#boxname#"
+	link           = "#SESSION.root#/Tools/Listing/Listing/InquiryListing.cfm?height=#url.height#&systemfunctionid=#url.systemfunctionid#&functionserialNo=#url.functionserialNo#&mission=#url.mission#"
     html           = "No"	
 	showlist       = "#url.showlist#"
 	datasource     = "#main.querydatasource#"
 	listquery      = "#main.queryscript#"
+	refresh        = "0" <!--- system will determine if cache needs to be used at loading --->
 	
 	listgroupalias = "#MyGroup.FieldAliasQuery#"
 	listgroup      = "#MyGroup.FieldName#"
@@ -219,7 +223,7 @@ password="#SESSION.dbpw#">
 	drillmode      = "#md#"
 	menu           = "#addrecord#"
 	filtershow     = "#fshow#"
-	refresh        = "#url.refresh#"
+	
 	annotation     = "#main.entitycode#"
 	drillargument  = "#main.drillargument#"	
 	drilltemplate  = "#main.drilltemplate#"
@@ -227,6 +231,7 @@ password="#SESSION.dbpw#">
 	drillkeyalias  = "#key.FieldAliasQuery#"
 	drillkey       = "#thiskey#">
 	
+
 
 		
 

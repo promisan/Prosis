@@ -22,7 +22,7 @@ function menu() {
 <cfif menu eq "1">
 	
 	<cftry>
-		
+			
 		<cfoutput>
 		
 			   <cf_menuTopSelectedItem
@@ -54,7 +54,7 @@ function menu() {
 
 <cfif url.button eq "1">
 
-	<table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+	<table width="100%" align="center" align="center" class="formpadding">
 	
 		<cfif menu eq '1'>
 		<tr><td colspan="1" class="line"></td></tr>
@@ -62,7 +62,7 @@ function menu() {
 		<tr><td height="6"></td></tr>
 		</cfif>
 		
-		<tr><td height="35" align="center" style="padding-right:10px;<cfif menu eq '1'>background-image:url('<cfoutput>#SESSION.root#</cfoutput>/images/bg_back.jpg')</cfif>">
+		<tr><td align="center" style="padding-right:10px">
 		
 			<cfoutput>
 			  <input type="button" value="Menu" class="button10g"  onclick="javascript:menu()">	

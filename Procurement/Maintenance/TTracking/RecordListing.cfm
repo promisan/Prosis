@@ -26,7 +26,7 @@ function save(code) {
 <cfset add          = "1">
 <cfinclude template = "../HeaderMaintain.cfm"> 		
 	
-<table width="99%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="99%" align="center" class="formpadding">
 
     <tr><td height="4"></td></tr>				
 	<tr>

@@ -2,12 +2,14 @@
 	datasource="AppsMaterials" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	SELECT 	*
-	FROM 	Warehouse
+	SELECT *
+	FROM   Warehouse
+	WHERE  Operational = 1
 	<cfif url.mission neq "">
-		WHERE	Mission = '#url.mission#'
-	</cfif>
+	AND	   Mission = '#url.mission#'
+	</cfif>	
 </cfquery>
+
 <select name="Warehouse" id="Warehouse" class="regularxl">
 	<option value="">Any</option>
 	<cfoutput query="getLookup">

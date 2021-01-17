@@ -15,6 +15,9 @@ password="#SESSION.dbpw#">
 		   U.AccountType, 
 		   U.LastName, 
 		   U.FirstName, 
+		   (SELECT  PersonNo 
+		    FROM    Employee.dbo.Person
+			WHERE   PersonNo = U.PersonNo ) as StaffRecord,				  
 		   U.eMailAddress, 
 		   U.AccountGroup,
 		   U.PersonNo, 
@@ -43,7 +46,7 @@ password="#SESSION.dbpw#">
 		<td height="22" width="40"></td>
 		<td width="30%">Name</td>
 		<td width="100">Account</td>
-		<td width="100">IndexNo</td>
+		<td width="100"><cfoutput>#client.indexNoName#</cfoutput></td>
 		<td width="20%">EMail</td>
 		<td width="100">Group</td>
 		<td width="20%">Officer</td>
@@ -58,7 +61,7 @@ password="#SESSION.dbpw#">
 	
 	<CFOUTPUT query="Today">
 	
-		<TR bgcolor="ffffff" id="todayno" class="line navigation_row">
+		<TR id="todayno" class="line navigation_row labelmedium2">
 		  	  
 		   <td align="center">
 		   
@@ -96,20 +99,24 @@ password="#SESSION.dbpw#">
 			
 		   </td>
 		
-		   <TD class="labelit"><a href="javascript:ShowUser('#URLEncodedFormat(Account)#')">#LastName#, #FirstName#</a></td> 
-		   <TD class="labelit"><a href="javascript:UserEdit('#Account#')">#Account#</a></TD>
+		   <TD>#LastName#, #FirstName#</td> 
+		   <TD><a href="javascript:UserEdit('#Account#')">#Account#</a></TD>
 		   
-		   <TD class="labelit"><A HREF ="javascript:EditPerson('#PersonNo#')">#IndexNo#</a></TD>
-		   <TD class="labelit"><cfif eMailAddress neq "">
+		   <TD>
+		   <cfif staffrecord neq "">
+			   <A HREF ="javascript:EditPerson('#PersonNo#')">#IndexNo#</a>
+		   </cfif>
+		   </TD>
+		   <TD><cfif eMailAddress neq "">
 			   <a href="javascript:email('#eMailAddress#','','','','User','#Account#')">
 			   </cfif>#eMailAddress#
 		   </TD>
-		   <TD class="labelit">#AccountGroup#</TD>	  
-		   <td width="150" class="labelit">#OfficerFirstName# #OfficerLastName#</td>
+		   <TD>#AccountGroup#</TD>	  
+		   <td width="150">#OfficerFirstName# #OfficerLastName#</td>
 		   <td align="right" style="padding-right:4px">
 		   
 		   <cfif Access eq "EDIT" or Access eq "ALL">
-			   <input type="checkbox" name="Account" id="Account" value="'#Account#'" onClick="hl(this,this.checked)">
+			   <input type="checkbox" class="radiol" name="Account" id="Account" value="'#Account#'" onClick="hl(this,this.checked)">
 		   </cfif>
 		   </td>
 		   

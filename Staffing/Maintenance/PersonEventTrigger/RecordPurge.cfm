@@ -9,10 +9,8 @@
 
 <cfif CountRec.recordCount gt 0>
 
-	<script language="JavaScript">
-	
-		alert("Code is in use. Operation aborted.")
-	
+	<script language="JavaScript">	
+		alert("Code is in use. Operation aborted.")	
 	</script>  
 
 <cfelse>
@@ -26,7 +24,6 @@
 </cfquery>
 
 </cfif>
-
 
 <script language="JavaScript">
 	 location.reload()

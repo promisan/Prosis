@@ -69,7 +69,7 @@ WHERE Relationship   = '#Form.RelationshipOld#'
       WHERE Relationship  = '#Form.RelationshipOld#' 
     </cfquery>
 
-    <cfif #CountRec.recordCount# gt 0>
+    <cfif CountRec.recordCount gt 0>
 		 
      <script language="JavaScript">
     
@@ -83,8 +83,8 @@ WHERE Relationship   = '#Form.RelationshipOld#'
 datasource="AppsEmployee" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-DELETE FROM Ref_Relationship
-WHERE Relationship = '#FORM.RelationshipOld#'
+	DELETE FROM Ref_Relationship
+	WHERE Relationship = '#FORM.RelationshipOld#'
     </cfquery>
 	
 	</cfif>

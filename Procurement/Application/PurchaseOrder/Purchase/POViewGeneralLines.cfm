@@ -28,14 +28,13 @@
 		WHERE  Mission = '#PO.Mission#' 		
 </cfquery>
 
-
 <table width="100%" align="center">
 	 
       <tr><td>
 	  
-	  <cfif Parameter.InvoiceRequisition eq "1">		    	  
+	  <cfif Parameter.InvoiceRequisition eq "1">		    	  	  
 	    <cfinclude template="POViewLines_Balance.cfm">		
-	  <cfelse>  	  
+	  <cfelse>  	  	   
 	    <cfinclude template="POViewLines_Regular.cfm"> 		
 	  </cfif>	
 	  
@@ -62,3 +61,4 @@
  <script>
 	 Prosis.busy('no');
  </script>
+ 

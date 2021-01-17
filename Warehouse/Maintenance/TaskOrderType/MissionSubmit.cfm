@@ -84,8 +84,8 @@
 		
 		<cfoutput>
 			<script language="JavaScript">   
-	     		ColdFusion.navigate('MissionListing.cfm?idmenu=#url.idmenu#&ID1=#Form.Code#', 'divMissions');
-				ColdFusion.Window.hide('mydialog');
+	     		ptoken.navigate('MissionListing.cfm?idmenu=#url.idmenu#&ID1=#Form.Code#', 'divMissions');
+				ProsisUI.closeWindow('mydialog');
 			</script>
 		</cfoutput>
 				

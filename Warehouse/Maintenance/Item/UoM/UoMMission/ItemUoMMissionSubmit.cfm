@@ -5,8 +5,8 @@
 	password="#SESSION.dbpw#">
 		SELECT 	TOP 1 Mission
 		FROM    ItemUoMMission
-		WHERE	ItemNo = '#Form.ItemNo#'
-		AND		UoM = '#Form.UoM#'
+		WHERE	ItemNo  = '#Form.ItemNo#'
+		AND		UoM     = '#Form.UoM#'
 		AND		Mission = '#Form.Mission#'
 </cfquery>
 
@@ -81,10 +81,10 @@
 		datasource="appsMaterials" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-			SELECT * 
-			FROM   ItemUoM	
-			WHERE  ItemNo              = '#Form.ItemNo#'
-			AND    UoM                 = '#Form.UoM#'			
+			SELECT  * 
+			FROM    ItemUoM	
+			WHERE   ItemNo    = '#Form.ItemNo#'
+			AND     UoM       = '#Form.UoM#'			
 	    </cfquery>
 	
 		<cfquery name="Check" 
@@ -93,9 +93,9 @@
 		password="#SESSION.dbpw#">
 			SELECT * 
 			FROM   ItemUoMMission		
-			WHERE  ItemNo              = '#Form.ItemNo#'
-			AND    UoM                 = '#Form.UoM#'
-			AND    Mission             = '#Form.MissionOld#'		
+			WHERE  ItemNo     = '#Form.ItemNo#'
+			AND    UoM        = '#Form.UoM#'
+			AND    Mission    = '#Form.MissionOld#'		
 	    </cfquery>
 	
 		<cfquery name="Update" 
@@ -105,9 +105,9 @@
 			UPDATE ItemUoMMission
 			SET    Mission                   = '#Form.Mission#',
 				   <cfif Form.TransactionUoM neq "">
-					   TransactionUoM					 = '#Form.TransactionUoM#',
+					   TransactionUoM		 = '#Form.TransactionUoM#',
 				   <cfelse>
-				   	   TransactionUoM = NULL,
+				   	   TransactionUoM        = NULL,
 				   </cfif>
 				   StandardCost              = #StandardCost#,
 				   Selfservice               = '#Form.Selfservice#',

@@ -1,5 +1,4 @@
 <!--- Create Criteria string for query from data entered thru search form --->
-<cf_divscroll>
 
 <cfquery name="SearchResult"
 datasource="appsMaterials" 
@@ -11,20 +10,23 @@ password="#SESSION.dbpw#">
 
 <cfset Page         = "0">
 <cfset add          = "1">
-<cfinclude template = "../HeaderMaintain.cfm"> 	
 
-<table width="94%" align="center" cellspacing="0" cellpadding="0" >
+<cf_screentop html="No" jquery="Yes">
+
+<table width="98%" align="center" height="100%">
+
+<tr style="height:10px"><td><cfinclude template = "../HeaderMaintain.cfm"></td></tr>
 
 <cfoutput>
 
 <script>
 
 function recordadd(grp) {
-          window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "AddDiscountType", "left=80, top=80, width= 450, height= 220, toolbar=no, status=yes, scrollbars=no, resizable=no");
+          ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "AddDiscountType", "left=80, top=80, width= 450, height= 220, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 function recordedit(id1) {
-          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "EditDiscountType", "left=80, top=80, width= 450, height= 220, toolbar=no, status=yes, scrollbars=no, resizable=no");
+          ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "EditDiscountType", "left=80, top=80, width= 450, height= 220, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 </script>	
@@ -35,14 +37,16 @@ function recordedit(id1) {
 
 <tr><td colspan="2">
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding navigation_table">
+<cf_divscroll>
 
-<tr class="line">
-    <TD align="left"></TD>
-    <TD align="left" class="labelit">Code</TD>
-	<TD align="left" class="labelit">Description</TD>
-	<TD align="left" class="labelit">Officer</TD>
-    <TD align="left" class="labelit">Entered</TD>
+<table width="95%" align="center" class="formpadding">
+
+<tr class="line labelmedium2">
+    <TD></TD>
+    <TD>Code</TD>
+	<TD>Description</TD>
+	<TD>Officer</TD>
+    <TD>Entered</TD>
 </TR>
 
 <cfif SearchResult.recordCount eq 0>
@@ -52,7 +56,7 @@ function recordedit(id1) {
 
 <cfoutput query="SearchResult">
     
-    <TR class="navigation_row line labelit"> 
+    <TR class="navigation_row line labelmedium2"> 
 		<td align="center" style="padding-top:1px">
 		   <cf_img icon="open" navigation="Yes" onclick="recordedit('#Code#');">
 		</td>
@@ -66,10 +70,10 @@ function recordedit(id1) {
 
 </TABLE>
 
+</cf_divscroll>
+
 </td>
 
 </tr>
 
 </TABLE>
-
-</cf_divscroll>

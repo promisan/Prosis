@@ -41,15 +41,14 @@ password="#SESSION.dbpw#">
 		
 </cfquery>	
 
-
 <cfquery name="OwnerList" 
 datasource="AppsSelection" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
 
     SELECT * 
-    FROM   Ref_ParameterOwner R
-	WHERE  Operational = 1
+    FROM   Ref_ParameterOwner R INNER JOIN Organization.dbo.Ref_AuthorizationRoleOwner O ON Owner = O.Code
+	WHERE  R.Operational = 1
 		
 	<cfif SESSION.isAdministrator eq "Yes">
 	
@@ -73,7 +72,7 @@ password="#SESSION.dbpw#">
 
 <cfloop query="OwnerList">
 
-	<cfset heading   = "#Owner#">
+	<cfset heading   = "#Description#">
  	<cfset module    = "'Roster'">
 	<cfset selection = "'Roster'">
 	<cfset class     = "'Main'">

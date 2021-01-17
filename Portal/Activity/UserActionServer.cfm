@@ -77,9 +77,9 @@ ORDER BY U.HostName, N.LastName, U.NodeIp
 <table width="99%" class="formpadding">
 <tr>
 <td>
-<table width="100%" cellspacing="0" cellpadding="0" class="navigation_table">
+<table width="100%" cellspacing="0" cellpadding="0" class="navigation_table  formpadding">
 
-<tr class="labelmedium line fixrow">
+<tr class="labelmedium2 line fixrow">
 	<td><cf_tl id="No"></td>
 	<td><cf_tl id="Host"></td>
 	<td></td>
@@ -101,7 +101,7 @@ ORDER BY U.HostName, N.LastName, U.NodeIp
 
 		<cfset usr = usr + 1>
 
-		<tr class="navigation_row labelit clsFilterRow">
+		<tr class="navigation_row labelmedium2 clsFilterRow">
 	
 		<td class="line" class="ccontent">#usr#</td>
 		<td class="line" class="ccontent">#HostName#</td>
@@ -109,6 +109,7 @@ ORDER BY U.HostName, N.LastName, U.NodeIp
 		<cfset rw = 0>
 	
 		<cfoutput group="LastName">
+		
 			<cfoutput>
 			
 			    <cfif rw eq "1">    
@@ -186,6 +187,7 @@ ORDER BY U.HostName, N.LastName, U.NodeIp
 				    <cfdiv id="i#currentrow#">
 				 </td>
 			 </tr>
+			 
 			</cfoutput>
 		</cfoutput>	
 	</cfoutput>

@@ -22,7 +22,7 @@
 
 	<cfoutput>
 	
-		SELECT *
+		SELECT *, DateEffective
 		FROM (
 		
 		SELECT      P.IndexNo, 
@@ -61,12 +61,8 @@
 						               THEN 'Migrated' 
 									   ELSE 'Portal' END) END) as TransactionType,
 									   
-					(SELECT  O.OrgUnitCode
-					    FROM  Organization.dbo.Organization O 
-						WHERE O.OrgUnit = PL.OrgUnit	  
-						) as OrgUnitCode,
-						
-					(SELECT O.OrgUnitName
+											
+					(SELECT O.OrgUnitCode+' '+O.OrgUnitName
 					    FROM  Organization.dbo.Organization O 
 						WHERE O.OrgUnit = PL.OrgUnit	  
 						) as OrgUnitName,		
@@ -145,9 +141,7 @@
 
 <cfset fields=ArrayNew(1)>
 
-<cfset itm = 0>
-
-<cfset itm = itm+1>		
+<cfset itm = 1>		
 <cfset fields[itm] = {label        = "IndexNo",                  
 					field          = "IndexNo",
 					functionscript = "EditPerson",
@@ -163,25 +157,15 @@
 <cfset itm = itm+1>							
 <cfset fields[itm] = {label        = "Class",  					
 					field          = "LeaveClass",
-					filtermode     = "2",					
-					search         = "text"}>	
-				
+					filtermode     = "3",					
+					search         = "text"}>								
 
-					
-<cfset itm = itm+1>							
-<cfset fields[itm] = {label        = "Unit",  	
-                    labelfilter    = "Unit code",				
-					field          = "OrgUnitCode",
-					filtermode     = "4",								
-					search         = "text"}>												
-		
 <cfset itm = itm+1>							
 <cfset fields[itm] = {label        = "Unit name",  					
 					field          = "OrgUnitName",
 					fieldsort      = "OrgUnitName_ord",
-					filtermode     = "2",					
-					search         = "text"}>		
-					
+					filtermode     = "3",					
+					search         = "text"}>						
 					
 <cfset itm = itm+1>							
 <cfset fields[itm] = {label        = "Source",  					
@@ -201,14 +185,15 @@
 					search         = "text"}>	
 
 <cfset itm = itm+1>							
-<cfset fields[itm] = {label        = "Monitor",  					
+<cfset fields[itm] = {label        = "Reviewer",  					
 					field          = "FRO",	
 					search         = "text"}>	
 					
 <cfset itm = itm+1>												
 <cfset fields[itm] = {label        = "Effective",					
 					field          = "DateEffective",
-					search         = "date",
+					search         = "date",					
+					column         = "month",
 					align          = "center",
 					formatted      = "dateformat(DateEffective,'#CLIENT.DateFormatShow#')"}>	
 					
@@ -222,31 +207,32 @@
 <cfset fields[itm] = {label        = "Days",  					
 					field          = "DaysLeave",
 					align          = "center",
+					aggregate      = "sum",
 					formatted      = "numberformat(DaysLeave,'_._')"}>						
 					
 <cfset itm = itm+1>							
 <cfset fields[itm] = {label        = "Deduct",  					
 					field          = "DaysDeduct",
 					align          = "center",
-					formatted      = "numberformat(DaysDeduct,'_._')"}>								
-
+					aggregate      = "sum",
+					formatted      = "numberformat(DaysDeduct,'_._')"}>			
 	
-	<cf_listing
-		    header         = "Leave"
-		    box            = "Leave"
-			link           = "#SESSION.root#/Attendance/Application/LeaveRequest/LeaveListing.cfm?filter=#url.filter#&header=#url.header#&mission=#url.mission#&leavetype=#url.leavetype#&systemfunctionid=#url.systemfunctionid#"
-		    html           = "No"
-			show           = "40"
-			datasource     = "AppsEmployee"
-			listquery      = "#myquery#"			
-			listorder      = "DateEffective"
-			listorderdir   = "ASC"
-			headercolor    = "ffffff"
-			listlayout     = "#fields#"
-			filterShow     = "Yes"
-			excelShow      = "Yes"
-			drillmode      = "window"
-			drillargument  = "940;1190;false;false"	
-			drilltemplate  = "Staffing/Application/Employee/Leave/EmployeeLeaveEdit.cfm?refer=workflow&action=1&scope=attendance&id1="
-			drillkey       = "LeaveId">
+<cf_listing
+	    header         = "Leave"
+	    box            = "Leave"
+		link           = "#SESSION.root#/Attendance/Application/LeaveRequest/LeaveListing.cfm?filter=#url.filter#&header=#url.header#&mission=#url.mission#&leavetype=#url.leavetype#&systemfunctionid=#url.systemfunctionid#"
+	    html           = "No"
+		show           = "40"
+		datasource     = "AppsEmployee"
+		listquery      = "#myquery#"			
+		listorder      = "DateEffective"
+		listorderdir   = "ASC"
+		headercolor    = "ffffff"
+		listlayout     = "#fields#"
+		filterShow     = "Yes"
+		excelShow      = "Yes"
+		drillmode      = "window"
+		drillargument  = "940;1190;false;false"	
+		drilltemplate  = "Staffing/Application/Employee/Leave/EmployeeLeaveEdit.cfm?refer=workflow&action=1&scope=attendance&id1="
+		drillkey       = "LeaveId">
 

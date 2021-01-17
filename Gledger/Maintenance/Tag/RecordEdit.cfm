@@ -73,16 +73,16 @@ FROM Ref_Entity
 
 <!--- edit form --->
 
-<table width="94%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="94%" align="center" class="formpadding">
 	
     <cfoutput>
 	
 	 <tr><td></td></tr>	
 	
 	 <TR>
-	 <TD width="80" class="labelit">Entity:&nbsp;</TD>  
+	 <TD width="80" class="labelmedium2">Entity:&nbsp;</TD>  
 	 <TD width="80%">
-	 	<select name="EntityCode" class="regularxl">
+	 	<select name="EntityCode" class="regularxxl">
 		<cfloop query="entity">
 		<option value="#EntityCode#" <cfif entitycode eq get.entityCode>selected</cfif>>#EntityDescription#</option>
 		</cfloop>
@@ -91,9 +91,9 @@ FROM Ref_Entity
 	 </TR>
 	 
 	 <TR>
-	 <TD width="80" class="labelit">Mission:&nbsp;</TD>  
+	 <TD width="80" class="labelmedium2">Mission:&nbsp;</TD>  
 	 <TD width="80%">
-	 	<select name="Mission" class="regularxl">
+	 	<select name="Mission" class="regularxxl">
 		<option value=""></option>
 		<cfloop query="missionSelect">
 		<option value="#Mission#" <cfif mission eq get.mission>selected</cfif>>#Mission#</option>
@@ -103,9 +103,9 @@ FROM Ref_Entity
 	 </TR>
 	 	 
 	 <TR>
-	 <TD width="80" class="labelit">Class:&nbsp;</TD>  
+	 <TD width="80" class="labelmedium2">Class:&nbsp;</TD>  
 	 <TD width="80%">
-	 	<select name="CategoryClass" class="regularxl">
+	 	<select name="CategoryClass" class="regularxxl">
 		<cfloop query="Class">
 		<option value="#Code#" <cfif code eq get.categoryClass>selected</cfif>>#Description#</option>
 		</cfloop>
@@ -114,22 +114,22 @@ FROM Ref_Entity
 	</TR>
 	
 	<TR>
-	 <TD class="labelit">Code:&nbsp;</TD>  
+	 <TD class="labelmedium2">Code:&nbsp;</TD>  
 	 <TD>
-	 	<input type="Text" name="Code" value="#get.Code#" size="20" maxlength="20" class="regularxl">
+	 	<input type="Text" name="Code" value="#get.Code#" size="20" maxlength="20" class="regularxxl">
 		<input type="hidden" name="CodeOld" value="#get.Code#" size="20" maxlength="20"class="regular">
 	 </TD>
 	</TR>
 	
     <TR>
-    <TD class="labelit">Description:&nbsp;</TD>
+    <TD class="labelmedium2">Description:&nbsp;</TD>
     <TD>
-  	  	<input type="Text" name="Description" value="#get.Description#" message="Please enter a description" required="Yes" size="30" maxlength="50" class="regularxl">
+  	  	<input type="Text" name="Description" value="#get.Description#" message="Please enter a description" required="Yes" size="30" maxlength="50" class="regularxxl">
 	</TD>
 	</TR>
 	
     <TR>
-    <TD class="labelit">Relative&nbsp;Order:</TD>
+    <TD class="labelmedium2">Relative&nbsp;Order:</TD>
     <TD>
   	  	<cfinput type="Text" name="Listingorder" value="#get.ListingOrder#" message="Please enter a valid number" validate="integer" required="Yes" visible="Yes" enabled="Yes" size="3" maxlength="3" class="regularxl">
 	</TD>
@@ -145,7 +145,7 @@ FROM Ref_Entity
 		No
     </TD>
 	
-	<tr><td class="labelit">Show for:&nbsp;</td>	
+	<tr><td class="labelmedium2">Show for:&nbsp;</td>	
 	    <td id="object"><cfinclude template="ObjectSelect.cfm"></td>		
 	</tr>	
 		
@@ -153,7 +153,7 @@ FROM Ref_Entity
 
 	<tr><td height="1"></td></tr>
 	
-	<tr><td colspan="2" class="linedotted"></td></tr>
+	<tr><td colspan="2" class="line"></td></tr>
   
 	<tr>	
 	<td colspan="2" height="35" align="center">	
@@ -184,12 +184,9 @@ function ask() {
 	if (confirm("Do you want to remove this record?")) {
 		return true 
 	}
-	return false
-	
+	return false	
 }	
 
 </script>
 
 </cfform>
-
-</BODY></HTML>

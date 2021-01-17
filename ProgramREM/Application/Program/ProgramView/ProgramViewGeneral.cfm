@@ -179,7 +179,7 @@
 					Role           = "ProgramOfficer"
 					ReturnVariable = "ProgramAccess">															
 			
-			    <cfif ProgramAccess eq "xxxxxnone">
+			    <cfif ProgramAccess eq "xxxnone">
 				
 					  <cf_message message = "You have no access to this organization level. Operation not allowed."
 				      return = "No">		

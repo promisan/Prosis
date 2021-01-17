@@ -42,8 +42,8 @@
 		
 		<cfoutput>
 			<script>
-				ColdFusion.navigate('PersonEventListing.cfm?id1=#URL.trigger#','divPersonEvent');
-				ColdFusion.Window.hide('mydialog');
+				ptoken.navigate('PersonEventListing.cfm?id1=#URL.trigger#','divPersonEvent');
+				ProsisUI.closeWindow('mydialog');
 			</script>
 		</cfoutput>
 		
@@ -64,8 +64,8 @@
 	
 	<cfoutput>
 		<script>
-			ColdFusion.navigate('PersonEventListing.cfm?id1=#URL.trigger#','divPersonEvent');
-			ColdFusion.Window.hide('mydialog');
+			ptoken.navigate('PersonEventListing.cfm?id1=#URL.trigger#','divPersonEvent');
+			ProsisUI.closeWindow('mydialog');
 		</script>
 	</cfoutput>
 

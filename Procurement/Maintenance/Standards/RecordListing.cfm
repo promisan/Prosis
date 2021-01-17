@@ -9,24 +9,27 @@ password="#SESSION.dbpw#">
 	ORDER BY code
 </cfquery>
 
-<cf_divscroll>
+<cf_screentop html="No" jquery="Yes">
 
+<table width="98%" height="100%">
+
+<cfset Page         = "0">
 <cfset add          = "1">
+<cfset save         = "0">
 <cfset Header       = "Procurement Standards">
-<cfinclude template = "../HeaderMaintain.cfm"> 
-
-<table width="99%" border="0" align="center" cellspacing="0" cellpadding="0" class="formpadding">
+ 
+<tr style="height:10px"><td><cfinclude template = "../HeaderMaintain.cfm"></td></tr>
 
 <cfoutput>
 
 <script>
 
 function recordadd(grp) {
-          window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=580, height=440, toolbar=no, status=yes, scrollbars=yes, resizable=no");
+      ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=580, height=400, toolbar=no, status=yes, scrollbars=yes, resizable=no");
 }
 
 function recordedit(id1) {
-          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=680, height=440, toolbar=no, status=yes, scrollbars=yes, resizable=no");
+      ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=600, height=400, toolbar=no, status=yes, scrollbars=yes, resizable=no");
 }
 
 </script>	
@@ -35,64 +38,62 @@ function recordedit(id1) {
 
 <tr><td colspan="2">
 
-<table width="97%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<cf_divscroll>
 
-<tr><td colspan="8" class="linedotted"></td></tr>
+<table width="94%" align="center" class="navigation_table">
 
-<tr>
+<tr class="labelmedium2 line">
    
 	<td width="5%">&nbsp;</td>
-    <td class="labelit">Code</td>
-	<td class="labelit">Description</td>
-	<td class="labelit">Expiration</td>
-	<td class="labelit">Enabled</td>
-	<td class="labelit">Att.</td>
-	<td class="labelit">Officer</td>
-    <td class="labelit">Entered</td>
+    <td>Code</td>
+	<td>Description</td>
+	<td>Expiration</td>
+	<td>Enabled</td>
+	<td>Att.</td>
+	<td>Officer</td>
+    <td>Entered</td>
   
 </TR>
 
-<tr><td colspan="8" class="linedotted"></td></tr>
-
-<cfoutput query="SearchResult">    
-	
-    <TR bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('f6f6f6'))#"  class="navigation_row"> 
-		<TD align="center" style="padding-top:1px">
-			<cf_img navigation="Yes" icon="open" onclick="recordedit('#Code#')">
-		</TD>		
-		<TD class="labelit"><a href="javascript:recordedit('#Code#')">#Code#</a></TD>
-		<TD class="labelit">#Description#</TD>
-		<td class="labelit">#dateformat(DateExpiration,CLIENT.DateFormatShow)#</td>
-		<td class="labelit"><cfif Operational eq "0">No<cfelse>Yes</cfif></td>		
+	<cfoutput query="SearchResult">    
 		
-		    <cf_filelibraryCheck			    	
-    					DocumentPath  = "Standards"
-						SubDirectory  = "#Code#"
-						Filter="">	
-						
-		<td>
-		
-		<cfif Files gte "1">
-		
-			<img src="#SESSION.root#/images/pdf_small.gif" alt="" border="0">
-		
-		</cfif>
-		
-		</td>				
-				
-		<TD class="labelit">#OfficerFirstName# #OfficerLastName#</TD>
-		<TD class="labelit">#Dateformat(Created, "#CLIENT.DateFormatShow#")#</TD>
-		
-    </TR>
-	
-	<tr><td colspan="8" class="linedotted"></td></tr>
-	
-</CFOUTPUT>
-
-</TABLE>
-
-</td>
+	    <TR bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('f6f6f6'))#"  class="navigation_row labelmedium2 line"> 
+			<TD align="center" style="padding-top:1px">
+				<cf_img navigation="Yes" icon="open" onclick="recordedit('#Code#')">
+			</TD>		
+			<TD class="labelit"><a href="javascript:recordedit('#Code#')">#Code#</a></TD>
+			<TD class="labelit">#Description#</TD>
+			<td class="labelit">#dateformat(DateExpiration,CLIENT.DateFormatShow)#</td>
+			<td class="labelit"><cfif Operational eq "0">No<cfelse>Yes</cfif></td>		
+			
+			    <cf_filelibraryCheck			    	
+	    					DocumentPath  = "Standards"
+							SubDirectory  = "#Code#"
+							Filter="">	
+							
+			<td>
+			
+			<cfif Files gte "1">
+			
+				<img src="#SESSION.root#/images/pdf_small.gif" alt="" border="0">
+			
+			</cfif>
+			
+			</td>				
+					
+			<TD class="labelit">#OfficerFirstName# #OfficerLastName#</TD>
+			<TD class="labelit">#Dateformat(Created, "#CLIENT.DateFormatShow#")#</TD>
+			
+	    </TR>
+			
+	</CFOUTPUT>
 
 </TABLE>
 
 </cf_divscroll>
+
+</td>
+</tr>
+
+</TABLE>
+

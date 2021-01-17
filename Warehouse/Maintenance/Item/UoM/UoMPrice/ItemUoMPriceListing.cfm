@@ -26,10 +26,10 @@
 		ORDER BY P.Mission, P.Warehouse, P.PriceSchedule, P.DateEffective
 	</cfquery>
 	
-	<table width="97%" align="center" cellspacing="0" cellpadding="0" class="navigation_table">
+	<table width="97%" align="center" class="navigation_table">
 	
-	<tr height="20">
-		<td style="padding-left:4px" align="left" colspan="8" valign="middle" height="30" class="labelit">
+	<tr class="labelmedium2 line">
+		<td style="height:30px;padding-left:4px" colspan="8">
 		
 			<cf_tl id="Entity">: &nbsp;
 			<cfquery name="getLookup" 
@@ -38,14 +38,14 @@
 				password="#SESSION.dbpw#">
 				SELECT 	*
 				FROM 	Ref_ParameterMission
-				WHERE	Mission in (SELECT DISTINCT Mission
+				WHERE	Mission in (SELECT Mission
 				                    FROM   ItemUoMPrice 
 									WHERE  ItemNo = '#URL.ID#' 
-									AND    UoM = '#URL.UoM#')
+									AND    UoM    = '#URL.UoM#')
 			</cfquery>
 			<cfoutput>
-			<select name="missionfilter" id="missionfilter" class="regularxl"
-				onchange="ColdFusion.navigate('UoMPrice/ItemUoMPriceListing.cfm?id=#url.id#&UoM=#URL.UoM#&selectedMission='+this.value,'itemUoMPricelist')">
+			<select name="missionfilter" id="missionfilter" class="regularxxl"
+				onchange="ptoken.navigate('UoMPrice/ItemUoMPriceListing.cfm?id=#url.id#&UoM=#URL.UoM#&selectedMission='+this.value,'itemUoMPricelist')">
 				<option value="">-- Any --</option>
 				<cfloop query="getLookup">
 				  <option value="#getLookup.mission#" <cfif getLookup.mission eq url.selectedmission>selected</cfif>>#getLookup.mission#</option>
@@ -55,11 +55,10 @@
 			
 		</td>
 	</tr>
-	<tr><td colspan="8" class="line"></td></tr>
-		
+			
 	<cfoutput>
-	<tr height="20" class="labelmedium line">	    		
-		<td align="center" colspan="3"><a class="navigation_action" href="javascript:uompriceedit('#URL.ID#', '#URL.UoM#', '', '#URL.selectedmission#')"><font color="0080FF"><cf_tl id="New Price"></font></a></td>		
+	<tr height="20" class="labelmedium2 line">	    		
+		<td align="center" colspan="3"><a class="navigation_action" href="javascript:uompriceedit('#URL.ID#', '#URL.UoM#', '', '#URL.selectedmission#')"><cf_tl id="New Price"></a></td>		
 		<td><cf_tl id="Effective"></td>				
 		<td><cf_tl id="Tax"></td>
 		<td align="center"><cf_tl id="Calculation Mode"></td>
@@ -79,39 +78,44 @@
 	
 	<cfoutput group="Warehouse">
 	
-	<tr><td></td><td height="20" colspan="7" class="labelmedium">#WarehouseName#</td></tr>
+	<tr class="labelmedium2">
+	    <td></td>
+		<td height="20" colspan="7">#WarehouseName#</td>
+	</tr>
 	
 	<cfoutput group="PriceSchedule">
 	
-	<tr><td></td><td></td><td height="20" colspan="7" class="labelit">#PriceScheduleName#</td></tr>
+	<tr class="labelmedium2">
+	    <td></td>
+		<td></td>
+		<td height="20" colspan="7">#PriceScheduleName#</td>
+	</tr>
 	
 	<cfoutput>
 	
 	<tr class="navigation_row labelmedium line" style="height:15px">
+	
 	  <td width="20"></td>
 	  <td width="20"></td>
 	  <td width="80" align="center">
 	  
 	  	<table cellspacing="0" cellpadding="0">
-		<tr>
-		<td style="padding-top:2px">
-			<cf_img icon="edit" onClick="javascript:uompriceedit('#URL.ID#', '#URL.UoM#', '#PriceId#', '#URL.selectedmission#')">		
-		</td>
-		<td style="padding-left:6px;padding-top:3px">
-		
-			<cf_img icon="delete" onClick="uompricedelete('#URL.ID#', '#URL.UoM#', '#PriceId#', '#URL.selectedmission#')">
-	  						  
-		</td>
-		</tr>
-		</table>	  
-		 
+			<tr>
+			<td style="padding-top:2px">
+				<cf_img icon="edit" onClick="javascript:uompriceedit('#URL.ID#', '#URL.UoM#', '#PriceId#', '#URL.selectedmission#')">		
+			</td>
+			<td style="padding-left:6px;padding-top:3px">			
+				<cf_img icon="delete" onClick="uompricedelete('#URL.ID#', '#URL.UoM#', '#PriceId#', '#URL.selectedmission#')">		  						  
+			</td>
+			</tr>
+		</table>	  		 
 	  
 	  </td>
 	  <td>#Dateformat(DateEffective, "#CLIENT.DateFormatShow#")#</td>	  
 	  <td>#TaxDescription#</td>		  
 	  <td align="center">#CalculationMode#</td>
 	  <td align="center">#Currency#</td>
-	  <td align="right">#LSNumberFormat(SalesPrice, ",_.__")#&nbsp;</td>
+	  <td align="right">#LSNumberFormat(SalesPrice, ",.__")#&nbsp;</td>
 	</tr>  
 	</cfoutput>
 	</cfoutput>

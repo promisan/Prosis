@@ -687,7 +687,7 @@
 						
 					</td>					
 									
-					<td class="labelit">#Reference#
+					<td class="labelmedium2">#Reference#
 					    <div class="filtercontent hide">#Reference# #ProgramName# #ProgramCode#</div></td>				
 										
 						 <cfif ProgramClass eq "Program">
@@ -710,8 +710,8 @@
 						 	 <td width="100%" height="20">
 						 
 							 <table width="100%" height="100%">
-								 <tr>
-								 <td class="labelit" style="padding-left:6px"><a title="#programdescription#"><font color="000000">#ProgramName#</a></td>	
+								 <tr class="labelmedium2">
+								 <td style="padding-left:6px"><a title="#programdescription#"><font color="000000">#ProgramName#</a></td>	
 								 <td align="right" style="padding-right:3px">
 								 <img src="#SESSION.root#/images/drill.png" alt="Open Detail" border="0"
 								 onclick="bmore('add','#ProgramCode#_#edition.editionid#_#CurrentRow#','#fdid#','','#URL.Period#','#ProgramCode#','','show','list','#url.mission#','#ProgramHierarchy#','#UnitHierarchy#','#edition.editionid#')">
@@ -838,8 +838,7 @@
 				  </cfif>				  						
 				  
 				</td>			
-				
-												
+																
 					<cfif Parameter.FundingCheckCleared eq "0">		
 											
 						<td align="right" 
@@ -917,7 +916,7 @@
 				</cfif>	
 										
 				</td>																	
-				<td  bgcolor="white" style="border-left: 1px solid Gray;"></td>		
+				<td  bgcolor="white" style="border-left: 1px solid Gray;"></td>
 																				
 				</tr>													
 								

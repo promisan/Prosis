@@ -7,33 +7,29 @@
 
 <!--- Entry form --->
 
-<table width="94%" align="center" cellspacing="0" cellpadding="0" class="formpadding formspacing">
+<table width="94%" align="center" class="formpadding formspacing">
 
     <tr><td></td></tr>
     <TR>
-    <TD class="labelmedium">Code:</TD>
+    <TD class="labelmedium2">Code:</TD>
     <TD>
-  	   <cfinput type="Text" name="Code" value="" message="Please enter a code" required="Yes" size="2" maxlength="5" class="regularxl">
+  	   <cfinput type="Text" name="Code" value="" message="Please enter a code" required="Yes" size="2" maxlength="5" class="regularxxl">
     </TD>
 	</TR>
-	
-	<tr><td height="3"></td></tr>
-		
+			
 	
 	<TR>
-    <TD class="labelmedium">Description:</TD>
+    <TD class="labelmedium2">Description:</TD>
     <TD>
-  	   <cfinput type="Text" name="Description" value="" message="Please enter a description" required="Yes" size="35" maxlength="50"class="regularxl">
+  	   <cfinput type="Text" name="Description" value="" message="Please enter a description" required="Yes" size="35" maxlength="50"class="regularxxl">
     </TD>
 	</TR>
-	
-	<tr><td height="3"></td></tr>
-		
+			
 	
 	<TR valign="top">
     <TD class="labelmedium">Memo:</TD>
     <TD>
-	   <textarea cols="44" rows="6" name="DescriptionMemo" class="regular"></textarea>
+	   <textarea style="height:60px;width:90%;font-size:15px;padding:3px" name="DescriptionMemo" class="regular"></textarea>
   	  
     </TD>
 	</TR>
@@ -44,8 +40,7 @@
 		
 	<td align="center" colspan="2">
 	<input type="button" name="Cancel" value=" Cancel " class="button10g" onClick="window.close()">
-    <input class="button10g" type="submit" name="Insert" value=" Submit ">
-	
+    <input class="button10g" type="submit" name="Insert" value=" Submit ">	
 	</td>	
 	
 	</tr>

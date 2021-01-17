@@ -26,7 +26,7 @@ password="#SESSION.dbpw#">
 
 <cfparam name="URL.ID2" default="new">
 	
-<table width="250" border="0" cellspacing="0" cellpadding="0" class="navigation_table">
+<table width="250" class="navigation_table">
 				
 		<cfif list.recordcount eq "0">
 		
@@ -34,15 +34,13 @@ password="#SESSION.dbpw#">
 			
 		</cfif>  
 			
-		    <TR class="labelit line">
-			 
+		    <TR class="labelmedium2 line">			 
 			   <td width="20%">Age</td>
 			   <td width="30%">Cum Depr</td>			  
 			   <td colspan="2" align="right">
 		       <cfoutput>
 				 <cfif URL.ID2 neq "new">
-				     <A href="javascript:ColdFusion.navigate('List.cfm?idmenu=#url.idmenu#&Code=#URL.Code#&ID2=new','#url.code#_list')">
-					 <font color="0080FF">[add]</font></a>
+				     <A href="javascript:ptoken.navigate('List.cfm?idmenu=#url.idmenu#&Code=#URL.Code#&ID2=new','#url.code#_list')">[add]</a>
 				 </cfif>
 				 </cfoutput>
 			   </td>		  
@@ -57,37 +55,36 @@ password="#SESSION.dbpw#">
 																								
 			<cfif URL.ID2 eq nm>
 			
-				<tr>
-					<td colspan="4">
+				<tr class="line">
+				
+					<td colspan="4" style="height:45px">
 					
-						<cfform action="ListSubmit.cfm?idmenu=#url.idmenu#&Code=#URL.Code#&id2=#url.id2#" 
-			    			method="POST" 
-							name="element">
+						<cfform action="ListSubmit.cfm?idmenu=#url.idmenu#&Code=#URL.Code#&id2=#url.id2#" method="POST" name="element">
 						
 							<table width="100%" align="center">
+							
 								<input type="hidden" name="ListCode" id="ListCode" value="<cfoutput>#nm#</cfoutput>">
 													
 								<TR>
 								
 								   <td width="20%">#nm#</td>
 								   <td width="30%">
+								   
 								   	   <cfinput type="Text" 
 									   	value="#de#" 
 										name="CumDepreciation" 
 										message="You must enter a percentage" 
 										validate="integer"
 										required="Yes" 
-										size="2" 
-										style="width:30px;text-align:center"
+										size="3" 
+										style="width:40px;text-align:center"
 										maxlength="3" 
-										class="regularh">&nbsp;%				  
+										class="regularxxl">&nbsp;%				  
+										
 						           </td>
 												  
 								   <td colspan="2" align="right">
-								   <input type="submit" 
-								        value="Save" 
-										class="button10g" 
-										style="width:50">
+								   <input type="submit" value="Save" class="button10g" style="width:50px">
 								   </td>
 								   
 							    </TR>	
@@ -97,19 +94,20 @@ password="#SESSION.dbpw#">
 						</cfform>
 						
 					</td>
+					
 				</tr>			
 															
 			<cfelse>								
 						
-				<TR bgcolor="fcfcfc" class="labelit line navigation_row">
+				<TR bgcolor="fcfcfc" class="labelmedium2 line navigation_row">
 				   <td style="padding-left:3px">#nm#</td>
 				   <td width="70%">#de#%</td>				  
 				   <td align="right">
-						<cf_img icon="edit" navigation="Yes" onclick="_cf_loadingtexthtml='';ColdFusion.navigate('List.cfm?idmenu=#url.idmenu#&Code=#URL.Code#&ID2=#nm#','#url.code#_list');">
+						<cf_img icon="open" navigation="Yes" onclick="_cf_loadingtexthtml='';ptoken.navigate('List.cfm?idmenu=#url.idmenu#&Code=#URL.Code#&ID2=#nm#','#url.code#_list');">
 				   </td>			   
 				   <td align="center">
 				     <cfif currentrow eq recordcount>
-				   		<cf_img icon="delete" onclick="_cf_loadingtexthtml='';ColdFusion.navigate('ListPurge.cfm?idmenu=#url.idmenu#&Code=#URL.Code#&ID2=#nm#','#url.code#_list');">
+				   		<cf_img icon="delete" onclick="_cf_loadingtexthtml='';ptoken.navigate('ListPurge.cfm?idmenu=#url.idmenu#&Code=#URL.Code#&ID2=#nm#','#url.code#_list');">
 					 </cfif>						  
 				   </td>					
 				 </TR>					 
@@ -122,19 +120,19 @@ password="#SESSION.dbpw#">
 		<cfif URL.ID2 eq "new">
 		
 			<tr>
-				<td colspan="4">
+				<td colspan="4" style="height:50px">
+				
 					<cfform action="ListSubmit.cfm?idmenu=#url.idmenu#&Code=#URL.Code#&id2=new" 
 					    method="POST" 
 						name="element">
+						
 						<table width="100%" align="center">
 							<TR>
 								<td height="28" width="20%" class="labelit">
 								
 								<cfoutput>
 									#yr#								
-									 <input type="Hidden" 
-									   	value="#yr#" 
-										name="AgeYear" id="AgeYear">
+									 <input type="Hidden" value="#yr#" name="AgeYear" id="AgeYear">
 								</cfoutput>								
 																
 						        </td>
@@ -150,16 +148,13 @@ password="#SESSION.dbpw#">
 									size="2" 
 									style="width:30px;text-align:center"
 									maxlength="3" 
-									class="regularxl">&nbsp;%		
+									class="regularxxl">&nbsp;%		
 									
 								</td>								 
 																									   
 								<td colspan="2" align="right" style="padding-right:4px">
 									<cfoutput>
-									<input type="submit" 
-										value="Add" 
-										class="button10g" 
-										style="width:50">								
+									<input type="submit" value="Add" class="button10g" style="width:50">								
 									</cfoutput>
 								</td>			    
 								</TR>	

@@ -20,8 +20,6 @@
   action="#SESSION.root#/Warehouse/Maintenance/ItemMaster/Vendors/vendorEditHeaderSubmit.cfm?itemno=#url.itemno#&mission=#url.mission#&uom=#url.uom#&orgunitvendor=#url.orgunitvendor#" target="processeditvendoritem">
 
 <table width="100%" align="center" class="formpadding formspacing">
-
-	<tr><td height="10"></td></tr>
 	
 	<cfif url.uom eq "">	
 	<tr>
@@ -40,7 +38,7 @@
 		<td class="labelmedium" height="23"><cf_tl id="UoM">:</td>
 		<td>
 			
-				<select name="uom" id="uom" class="regularxl">
+				<select name="uom" id="uom" class="regularxxl">
 					<cfloop query="getUoM">
 						<option value="#getUoM.UoM#">#getUoM.UoMDescription#</option> 
 					</cfloop>
@@ -50,17 +48,14 @@
 	</tr>
 	
 	</cfif>			
+	
 	<tr>
-		<td class="labelmedium"><cf_tl id="Vendor">:</td>
-		<td colspan="3" class="labelmedium">
+		<td class="labelmedium2"><cf_tl id="Vendor">:</td>
+		<td colspan="3" class="labelmedium2">
 		
 			<cfif url.uom neq "" and url.orgunitvendor neq "">
 			
-				<a href="javascript: showVendorInfo('#url.orgUnitVendor#');">
-					<font color="0080FF">
-						<b>#get.VendorName#</b>
-					</font>
-				</a>
+				<a href="javascript: showVendorInfo('#url.orgUnitVendor#');">#get.VendorName#</a>
 				
 			<cfelse>
 			

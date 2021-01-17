@@ -3,7 +3,7 @@
 
 <!--- we obtain grouped data upfront to speed up the process --->
 <cfif url.listgroupfield neq "">
-	<cfinclude template="ListingGroupData.cfm">
+	<cfinclude template="ListingDataGroup.cfm">
 </cfif>
 
 <cfset pre = session.listingdata[box]['colprefix']>	
@@ -23,8 +23,9 @@
 									
 	<cfif currrow gte first and currrow lte last>
 		
-	    <cfif evaluate(url.listgroupfield) neq lst>		
-		  <cfinclude template="ListingContentHTMLGroupData.cfm">	  						
+	    <cfif evaluate(url.listgroupfield) neq lst>					
+		  <cfinclude template="ListingContentHTMLGroupShow.cfm">	
+		  <cfset lst = evaluate(url.listgroupfield)>  						
 		</cfif>
 																
 		<cfset row = row + 1>
@@ -34,7 +35,7 @@
 		<cfelse>
 		      <cfset s = currentrow>
 		</cfif>  
-		
+				
 		<cfset dkey = evaluate(drillkey)>
 		
 		<!--- ----------------------------------------------------------------------------- --->
@@ -79,23 +80,27 @@
 		<!--- was part of tr  keyvalue="#s#" --->		
 																						   
 		<cfif rowspan eq "1">											   
-		   <tr class="#attributes.classheader# navigation_row line" name="f#box#_#dkey#" id="r#row#" 
+		   <tr class="#attributes.classheader# navigation_row line" name="#box#_#dkey#" id="r#row#" 
 		     style="background-color:#iif(currentrow MOD 2,DE('fafafa'),DE('efefef'))#">					
 		<cfelse>
-		   <tr class="#attributes.classheader# navigation_row" name="f#box#_#dkey#"  id="r#row#"
+		   <tr class="#attributes.classheader# navigation_row" name="#box#_#dkey#" id="r#row#"
 		     style="background-color:#iif(currentrow MOD 2,DE('fafafa'),DE('efefef'))#"> 
 		</cfif>				
 							
-		<td style="padding-left:12;height:21px" id="#s#" onclick="var r = $('##r#row#').position(); alert('current'+r.top)">#currentrow#.</td>	
+		<td align="right" style="padding-right:4px;height:21px" id="#s#" onclick="var r = $('##r#row#').position(); alert('current'+r.top)">#currentrow#.
+				
+		</td>	
 								   
 		   <!--- to be checked 1/9/2013 --->
 		  
 		   <cfif attributes.selectmode eq "Checkbox">		   
-			   <td rowspan="#rowspan#"><input type="checkbox" name="ListSelect" id="ListSelect" value="#s#"></td>		   		   
+			   <td><input type="checkbox" class="radio" name="ListSelect" id="ListSelect" value="#s#"></td>		   		   
 		   <cfelseif attributes.selectmode eq "Radio">		   		   
-			   <td rowspan="#rowspan#"><input type="radio"    name="ListSelect" id="ListSelect" value="#s#"></td>	
+			   <td><input type="radio"    class="radio" name="ListSelect" id="ListSelect" value="#s#"></td>	
+			<!---	   
 		   <cfelseif attributes.navtemplate neq "">
 		        <input id="nav#row#" type="hidden" onclick="navtarget('#session.root#/#attributes.navtemplate#?ajax=yes&ajaxid=#s#','#attributes.navtarget#')"> 	   	   		   
+			--->	
 		   </cfif>						   			   				   
 																
 		   <cfif attributes.listtype eq "Directory">
@@ -131,8 +136,8 @@
 			<cfelse>						
 									
 			   <cfset cl = "toggledrill('#lcase(drillmode)#','box#dkey#','#drilltemplate#','#dkey#','#argument#','#drillbox#','#drillstring#')">							   					  	  					 						   
-			   <td class="navigation_action" onclick="#cl#">						   						   
-			   <cf_img id="exp#currentrow#" icon="open">
+			   <td class="navigation_action">						   						   
+			   <cf_img id="exp#currentrow#" icon="open" onclick="#cl#">
 			   </td>
 			 													 
 			</cfif>  		
@@ -168,22 +173,15 @@
 				
 			</cfif>			
 									
-			<cfif deletetable neq "">							
-					
+			<cfif deletetable neq "">								
 				<td align="right" style="padding-top:2px;padding-right:5px;padding-left:3px" 
-				    onclick="deleterow('#row#','#attributes.datasource#','#deletetable#','#drillkey#','#dkey#')">	
-				   
-				     <img src="#session.root#/images/delete.png" 
-					   id="del#row#" style="height:17px;cursor:pointer" alt="Remove record" border="0" 
-					   onclick="deleterow($(this),'f#box#_#dkey#','#attributes.datasource#','#deletetable#','#drillkey#','#dkey#')">	
-					
+				 onclick="deleterow('#box#','#attributes.datasource#','#deletetable#','#drillkey#','#dkey#')">					   
+				     <img src="#session.root#/images/delete.png" id="del#row#" style="height:17px;cursor:pointer" alt="Remove record">						
 					<!----
 				     <cf_img icon="delete" id="del#row#_2">
-					 ---->
-
+					 ---->					
 				</td>	
-				<cfset endcell = endcell+1>		
-												
+				<cfset endcell = endcell+1>														
 			</cfif>					
 			
 		</tr>

@@ -69,10 +69,11 @@
 				   
 				   B.ActionStatus,		
 				   
-				   (SELECT  TOP 1 TW.WarehouseName
+				   (ISNULL((SELECT  TOP 1 TW.WarehouseName
 				    FROM    ItemTransaction AS T WITH (NOLOCK) INNER JOIN Warehouse AS TW ON T.Warehouse = TW.Warehouse
-				    WHERE   T.TransactionBatchNo = B.BatchNo AND T.Warehouse <> '#url.warehouse#') as ContraWarehouse,
+				    WHERE   T.TransactionBatchNo = B.BatchNo AND T.Warehouse <> '#url.warehouse#'),'- Internal -')) as ContraWarehouse,
 				   
+				  				   
 				   B.CustomerId,
 				   
 				   (SELECT CustomerName FROM Customer WHERE CustomerId = B.CustomerId) as C,			   

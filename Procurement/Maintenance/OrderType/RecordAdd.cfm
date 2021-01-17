@@ -14,7 +14,7 @@
 
 <CFFORM action="RecordSubmit.cfm" method="post" name="dialog">
 
-<table width="92%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="92%" cellspacing="0" cellpadding="0" align="center" class="formpadding formspacing">
 	
 	<tr><td height="5"></td></tr>
 	
@@ -31,7 +31,7 @@
 	 <TD class="labelmedium" width="20%">Code:&nbsp;</TD>  
 	 <TD>
 		<cfinput type="Text" name="Code" value="" message="Please enter a code" required="Yes" size="20" maxlength="20"
-		class="regularxl">
+		class="regularxxl">
 
 	 </TD>
 	 </TR>
@@ -69,7 +69,7 @@
     <TD class="labelmedium">Description:&nbsp;</TD>
     <TD>
 		<cfinput type="Text" name="Description" value="" message="Please enter a description" required="Yes" size="50" maxlength="50"
-		class="regularxl">
+		class="regularxxl">
 				
     </TD>
 	</TR>
@@ -78,10 +78,14 @@
 
 	<!--- Field: Invoice Only--->
 	<TR>
-    <td class="labelmedium">Workflow Clearance Mode:&nbsp;</td>
+    <td class="labelmedium2">Workflow Clearance Mode:</td>
 	<td>
-	  <input class="radiol" type="radio" name="invoiceworkflow" id="invoiceworkflow" value="1">Yes
-	  <input class="radiol" type="radio" name="invoiceworkflow" id="invoiceworkflow" value="0">No 
+	  <table>
+	  <tr class="labelmedium2">
+	  <td><input class="radiol" type="radio"  name="invoiceworkflow" id="invoiceworkflow" value="1"></td><td style="padding-left:3px">Yes</td>
+	  <td style="padding-left:3px"><input class="radiol" type="radio"  name="invoiceworkflow" id="invoiceworkflow" value="0"></td><td style="padding-left:3px">No</td>
+	  </tr>
+	  </table>
     </TD>
 	</TR>
 	
@@ -105,12 +109,10 @@
 	is set to [Disabled] which indicates a so-called invoice only mode.</td></tr>
 	<tr><td class="line" colspan="2"></td></tr>
 	
-	
-	
 	<!--- Field: Tracking --->	
 	<TR>
-    <td class="labelmedium">Enable receipt registration:</td>
-	<td class="labelmedium">
+    <td class="labelmedium2">Enable receipt registration:</td>
+	<td class="labelmedium2">
 	  <input class="radiol" type="radio" name="receiptentry" id="receiptentry" value="0" checked>Default
   	  <input class="radiol" type="radio" name="receiptentry" id="receiptentry" value="1">Form Based Entry	 
 	  <input class="radiol" type="radio" name="receiptentry" id="receiptentry" value="9" onclick="toggle('9')">Disable Receipts
@@ -121,7 +123,7 @@
 	
 	<!--- Field: Enable Finance Flow--->
 	<TR id="receipt">
-    <td class="labelmedium">Receipt Value validation:</td>
+    <td class="labelmedium2">Receipt Value validation:</td>
 	<td>
   	  <input class="radiol" type="radio" name="ReceiptValueValidate" id="ReceiptValueValidate" value="1" checked>Yes
 	  <input class="radiol" type="radio" name="ReceiptValueValidate" id="ReceiptValueValidate" value="0">No
@@ -129,34 +131,34 @@
 	</TR>
 	
 	<TR  id="receipt">
-    <td class="labelmedium">Receipt threshold:</td>
-	<td class="labelmedium">
-  	  <input type="input" class="regularxl" style="padding-right:7px;width:35px;text-align:right" maxlength="3" name="ReceiptValueThreshold" id="ReceiptValueThreshold" value="">&nbsp;%
+    <td class="labelmedium2">Receipt threshold:</td>
+	<td class="labelmedium2">
+  	  <input type="input" class="regularxxl" style="padding-right:7px;width:35px;text-align:right" maxlength="3" name="ReceiptValueThreshold" id="ReceiptValueThreshold" value="">&nbsp;%
     </TD>
 	</TR>
 	
 	<TR class="#cl#" id="receipt">
-    <td class="labelmedium">Close purchase receipt threshold:<cf_space spaces="70"></td>
-	<td class="labelmedium">
-  	  <input type="input" class="regularxl" style="width:40px;text-align:right" maxlength="3" name="ReceiptValueComplete" id="ReceiptValueComplete" value="100">%
+    <td class="labelmedium2">Close purchase receipt threshold:<cf_space spaces="70"></td>
+	<td class="labelmedium2">
+  	  <input type="input" class="regularxxl" style="width:40px;text-align:right" maxlength="3" name="ReceiptValueComplete" id="ReceiptValueComplete" value="100">%
     </TD>
 	</TR>
 	
 	<!--- Field: Enable Finance Flow--->
 	<TR>
-    <td class="labelmedium">Finance Flow:&nbsp;</td>
+    <td class="labelmedium2">Finance Flow:&nbsp;</td>
 	<td>
   	   <input type="checkbox" class="radiol" name="EnableFinanceFlow" id="EnableFinanceFlow" value="1">
     </TD>
 	</TR>
 	
-	<tr><td colspan="2" class="labelmedium">Future usage</td></tr>
+	<tr><td colspan="2" class="labelmedium2">Future usage</td></tr>
 	<tr><td class="line" colspan="2"></td></tr>
 	
 
 	<!--- Field: Tracking --->	
 	<TR>
-    <td class="labelmedium">Delivery Tracking:&nbsp;</td>
+    <td class="labelmedium2">Delivery Tracking:&nbsp;</td>
 	<td>
   	   <input type="checkbox" class="radiol" name="Tracking" id="Tracking" value="1">
     </TD>
@@ -168,27 +170,27 @@
 	
 	<!--- Field: Tracking --->	
 	<TR>
-    <td class="labelmedium">Default Clause:</td>
+    <td class="labelmedium2">Default Clause:</td>
 	<td>
 	
 	<cfquery name="Clause"
 	datasource="AppsPurchase" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-    SELECT *
-	FROM Ref_Clause	L	
-	WHERE Operational = 1 
+	    SELECT *
+		FROM   Ref_Clause	L	
+		WHERE  Operational = 1 
 	</cfquery>
 		
-		<table cellspacing="0" cellpadding="0">
+		<table>
 		<cfset row = 0>
 		<cfoutput query="Clause">
-		<cfset row = row+1>
-		<cfif row eq "1"><tr class="labelmedium"><cfelse><td>&nbsp;</td></cfif>				
-		<td>#Code#.&nbsp;</td>
-		<td>#ClauseName#&nbsp;</td>
-		<td><input type="checkbox" name="ClauseSelect" id="ClauseSelect" value="#Code#"></td>
-		<cfif row eq "2"></tr><cfset row = 0></cfif>
+			<cfset row = row+1>
+			<cfif row eq "1"><tr class="labelmedium2"><cfelse><td>&nbsp;</td></cfif>				
+			<td>#Code#.&nbsp;</td>
+			<td>#ClauseName#&nbsp;</td>
+			<td><input type="checkbox" class="radiol" name="ClauseSelect" id="ClauseSelect" value="#Code#"></td>
+			<cfif row eq "2"></tr><cfset row = 0></cfif>
 		</cfoutput>
 		</table>
 	
@@ -200,7 +202,7 @@
 	
 	<!--- Field: Missions --->	
 	<TR>
-    <td class="labelmedium">Enabled for:</td>
+    <td class="labelmedium2">Enabled for:</td>
 	</tr>
 	<tr>
 	<td colspan="2" style="padding-left:20px">
@@ -211,7 +213,7 @@
 				SELECT 	*
 				FROM  	Ref_ParameterMission
 		</cfquery>
-		<table width="100%" cellspacing="0" cellpadding="0">
+		<table width="100%">
 			<tr>
 				<cfset cnt = 0>
 				<cfset colNum = 4>
@@ -219,7 +221,7 @@
 					<cfset cnt = cnt + 1>
 					<cfset formattedMission = replace(mission,"-","","ALL")>
 					<cfset formattedMission = replace(formattedMission," ","","ALL")>
-					<td width="#100/colNum#%" class="labelmedium" style="height:20px">
+					<td width="#100/colNum#%" class="labelmedium2" style="height:20px">
 						<label>
 							<input type="checkbox" name="mission_#formattedMission#" id="mission_#formattedMission#"> #Mission#
 						</label>

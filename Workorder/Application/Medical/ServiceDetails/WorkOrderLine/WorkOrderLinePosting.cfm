@@ -426,9 +426,9 @@
 									   	   <cfset dte = DateTimeFormat(TransactionDate,"YYYYMMDD_HH_nn_ss")>
 									       <table>
 										   <tr>
-										    <td style="padding-left:0px">			   
-										   <input type="Text" style="background-color:ffffcf;width:20px;padding-left:5px" class="regularxl enterastab"
-										    name="#orgunitOwner#_#orgunitCustomer#_#dte#_invoiceseries" value="" size="1" maxlength="10"> 
+										    <td style="padding-left:0px">
+										   <input type="Text" style="background-color:ffffcf;padding-left:5px" class="regularxl enterastab"
+										   name="#orgunitOwner#_#orgunitCustomer#_#dte#_invoiceseries" value="" size="10" maxlength="10">
 										   </td>
 										   <td style="padding-left:3px">	
 										   

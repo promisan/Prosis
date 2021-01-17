@@ -145,14 +145,23 @@ password="#SESSION.dbpw#">
 			
 			<!--- check --->
 			
-			<cfquery name="check" 
-			datasource="appsOrganization" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-			    SELECT  * 
-			    FROM    Applicant.dbo.ApplicantSubmission
-				WHERE   ApplicantNo = '#get.ApplicantNo#'		
-			</cfquery>
+				<cfquery name="check" 
+				datasource="appsOrganization" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+				    SELECT  * 
+				    FROM    Applicant.dbo.ApplicantSubmission
+					WHERE   ApplicantNo = '#get.ApplicantNo#'		
+				</cfquery>
+				
+				<cfquery name="staff" 
+				datasource="appsOrganization" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+				    SELECT  * 
+				    FROM    Employee.dbo.Person
+					WHERE   PersonNo = '#get.PersonNo#'		
+				</cfquery>
 			
 				<cfif check.recordcount eq "1">
 				
@@ -161,28 +170,70 @@ password="#SESSION.dbpw#">
 				    <TD class="labelmedium">
 						
 				    	<cfoutput>		
-						<table cellspacing="0" cellpadding="0">
+						<table>
 						<tr>
-						<td>
-						<input style="background-color:f1f1f1" type="text" name="EmployeeNo" id="personno" value="#check.PersonNo#" size="10" maxlength="20" class="regularxl enterastab" readonly>
-						</td>
-						<td style="padding-left:10px"><cf_tl id="Submission">:</td>
+						
+						<td><cf_tl id="Submission">:</td>
 						<td style="padding-left:10px">
 						<input style="background-color:f1f1f1" type="text" name="ApplicantNo" id="applicantNo" value="#get.ApplicantNo#" size="5" maxlength="20" class="regularxl enterastab" readonly>
 						</td>
-						<td style="padding-left:0px"></td>					
+						
+						<cfif staff.recordcount eq "1">
+						
+							<td><cf_tl id="Staff">:</td>
+							<td style="padding-left:4px">
+							<input style="background-color:f1f1f1" type="text" name="EmployeeNo" id="personno" value="#get.PersonNo#" size="10" maxlength="20" class="regularxl enterastab" readonly>
+							</td>
+							<td style="padding-left:0px">
+							
+							 <cf_selectlookup
+									    box        = "employee"
+										link       = "getPerson.cfm?id=1"
+										button     = "Yes"
+										close      = "Yes"						
+										icon       = "search.png"
+										iconheight = "25"
+										iconwidth  = "25"
+										class      = "employee"
+										des1       = "PersonNo">
+									
+							</td>
+							
+							<td id="employee"></td>
+						
+						<cfelse>
+						
+							<td style="padding-left:4px">
+							<input style="background-color:f1f1f1" type="text" name="EmployeeNo" id="personno" value="#check.PersonNo#" size="10" maxlength="20" class="regularxl enterastab" readonly>
+							</td>
+							<td style="padding-left:10px"><cf_tl id="Set as staff">:</td>
+							<td style="padding-left:0px">
+							
+							 <cf_selectlookup
+									    box        = "employee"
+										link       = "getPerson.cfm?id=1"
+										button     = "Yes"
+										close      = "Yes"						
+										icon       = "search.png"
+										iconheight = "25"
+										iconwidth  = "25"
+										class      = "employee"
+										des1       = "PersonNo">
+									
+							</td>
+							<td id="employee"></td>	
+						</cfif>	
+										
 						<input type="hidden" name="indexno" id="indexno" value="#get.indexNo#">					
 						</cfoutput>						
 						</tr>				
 						</table>
 								   
 					</TD>
-					</TR>
+					</TR>				
 				
-				
-				<cfelse>
-							
-					<!--- Field: Applicant.IndexNo --->
+				<cfelse>						
+					
 				    <TR>
 				    <TD class="labelmedium"><cf_tl id="EmployeeNo">:</TD>
 				    <TD class="labelmedium">
@@ -448,18 +499,18 @@ password="#SESSION.dbpw#">
 		    <TR>
 			<td class="labelmedium" valign="top" style="padding-top:4px"><cf_tl id="Session settings">:&nbsp;</td>
 			<TD>
-			<table width="99%" border="0" cellspacing="0" cellpadding="0" align="left" bordercolor="e0e0e0">
+			<table width="99%" align="left">
 			<tr>
 			    <td class="labelit" title="Password will not longer expire based on the general system settings">Disable Password expiration after <cfoutput>#System.PasswordExpiration#</cfoutput> weeks </td>
 				<TD>
 		    		<cfoutput query="get">
-					<input type="checkbox" style="width:14px;height:14px" name="PasswordExpiration" id="PasswordExpiration" value="1" <cfif PasswordExpiration eq "1">checked</cfif>>
+					<input type="checkbox" class="radiol"  name="PasswordExpiration" id="PasswordExpiration" value="1" <cfif PasswordExpiration eq "1">checked</cfif>>
 					</cfoutput>	
 				</TD>
 				<TD class="labelit"><cf_tl id="Allow Concurrent">:</TD>
 			    <TD title="Account can be logged on on multiple instances.">
 		    	<cfoutput query="get">
-				<input type="checkbox" style="width:14px;height:14px" name="AllowMultipleLogon" id="AllowMultipleLogon" value="1" <cfif AllowMultipleLogon eq "1">checked</cfif>>
+				<input type="checkbox" class="radiol"  name="AllowMultipleLogon" id="AllowMultipleLogon" value="1" <cfif AllowMultipleLogon eq "1">checked</cfif>>
 				</cfoutput>	
 				
 				</TD>
@@ -469,14 +520,14 @@ password="#SESSION.dbpw#">
 			    <td class="labelit"><cfoutput>Disable Session timeout after #System.SessionExpiration# min :</cfoutput></td>
 				<TD>
 		    	<cfoutput query="get">
-				<input type="checkbox" style="width:14px;height:14px" name="DisableTimeout" id="DisableTimeout" value="1" <cfif DisableTimeOut eq "1">checked</cfif>>
+				<input type="checkbox" class="radiol"  name="DisableTimeout" id="DisableTimeout" value="1" <cfif DisableTimeOut eq "1">checked</cfif>>
 				</cfoutput>	
 				</TD>
 				
 				<TD class="labelit" title="Applies to system messages (password change etc.)">Disable e-Mail notification:</TD>
 			    <TD>
 		    	<cfoutput query="get">
-				<input type="checkbox" style="width:14px;height:14px" name="DisableNotification" id="DisableNotification" value="1" <cfif DisableNotification eq "1">checked</cfif>>
+				<input type="checkbox" class="radiol"  name="DisableNotification" id="DisableNotification" value="1" <cfif DisableNotification eq "1">checked</cfif>>
 				</cfoutput>	
 				</TD>
 				
@@ -486,14 +537,14 @@ password="#SESSION.dbpw#">
 				<td class="labelit"><cf_tl id="Disable IP routing">:</td>
 				<TD>
 		    	<cfoutput query="get">
-				<input type="checkbox" style="width:14px;height:14px" name="DisableIPRouting" id="DisableIPRouting" value="1" <cfif DisableIPRouting eq "1">checked</cfif>>
+				<input type="checkbox" class="radiol"  name="DisableIPRouting" id="DisableIPRouting" value="1" <cfif DisableIPRouting eq "1">checked</cfif>>
 				</cfoutput>	
 				</TD>
 				
 				<td class="labelit">Disable Friendly Error Message :</td>
 				<TD>
 		    	<cfoutput query="get">
-				<input type="checkbox" style="width:14px;height:14px" name="DisableFriendlyError" id="DisableFriendlyError" value="1" <cfif DisableFriendlyError eq "1">checked</cfif>>
+				<input type="checkbox" class="radiol"  name="DisableFriendlyError" id="DisableFriendlyError" value="1" <cfif DisableFriendlyError eq "1">checked</cfif>>
 				</cfoutput>	
 				</TD>
 				
@@ -504,7 +555,7 @@ password="#SESSION.dbpw#">
 				<td class="labelit" title="User is granted access onto the pre-production server">Enable as Pre-production user:</td>
 				<TD>
 		    	<cfoutput query="get">
-				<input type="checkbox" style="width:14px;height:14px" name="EnablePreProduction" id="EnablePreProduction" value="1" <cfif EnablePreProduction eq "1">checked</cfif>>
+				<input type="checkbox" class="radiol"  name="EnablePreProduction" id="EnablePreProduction" value="1" <cfif EnablePreProduction eq "1">checked</cfif>>
 				</cfoutput>	
 				</TD>
 				
@@ -512,7 +563,7 @@ password="#SESSION.dbpw#">
 					<td class="labelit" title="User is granted access onto the pre-production server"><cf_tl id="Enforce LDAP">:</td>
 					<TD>
 			    	<cfoutput query="get">
-					<input type="checkbox" style="width:14px;height:14px" name="EnforceLDAP" id="EnforceLDAP" value="1" <cfif EnforceLDAP eq "1">checked</cfif>>
+					<input type="checkbox" class="radiol" name="EnforceLDAP" id="EnforceLDAP" value="1" <cfif EnforceLDAP eq "1">checked</cfif>>
 					</cfoutput>	
 					</TD>
 				<cfelse>
@@ -580,7 +631,6 @@ password="#SESSION.dbpw#">
 				</cfif>
 				</td>				 
 			 
-			 
 			 </table>
 			 </td>
 			 
@@ -590,9 +640,9 @@ password="#SESSION.dbpw#">
 			
 			<cfif get.recordcount eq "1">
 					
-				<tr><td colspan="2" align="center" height="25">				  
-					<input class="button10g" style="width:130px;height:27px" type="button" value="Close" onClick="parent.ProsisUI.closeWindow('mydialog',true)">					
-					<input class="button10g" style="width:130px;height:27px" type="submit" value="Save">
+				<tr><td colspan="2" align="center" height="25" style="padding-top:5px">				  
+					<input class="button10g" style="width:140px;height:27px" type="button" value="Close" onClick="parent.ProsisUI.closeWindow('mydialog',true)">					
+					<input class="button10g" style="width:140px;height:27px" type="submit" value="Save">
 				</td></tr>
 			
 			</cfif>

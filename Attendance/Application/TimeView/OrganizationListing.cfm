@@ -164,8 +164,7 @@
 								<tr>
 								
 								  <td valign="top">
-								  
-								 								  				  
+								  								 								  				  
 									   <table>
 									
 										   <tr>
@@ -178,9 +177,13 @@
 														   
 												   <cfset dateob=CreateDate(URL.startyear,URL.startmonth,1)>
 												   
+												     <td style="width:50%;height:40px;padding-left:5px;font-size:26px;padding-left:30px;">#URL.ID2#: <font size="5">#Org.OrgUnitName#</td>
+												 
+												 
 												    <td style="width:20px;padding-left:3px;padding-top:4px" align="right">
 																										
 												     <cfoutput>
+													 
 														<span id="printTitle" style="display:none;">#Org.mission# <cf_tl id="Attendance"> - #dateformat(now(), CLIENT.DateFormatShow)#</span>
 														
 														<cf_tl id="Print" var="1">
@@ -224,21 +227,26 @@
 														</table>						
 													</td>		
 											 		
-												   <td style="width:50%;height:40px;padding-left:5px;font-size:26px;font-weight:300">#URL.ID2#: <font size="5">#Org.OrgUnitName#</td>
 												   
 												 <cfelse>
 												 
 												 	<cfset url.year  = "#Year(now())#">
 													<cfset url.month = "#Month(now())#">
 													<cfset url.day   = "#day(now())#">
+													
+													<td style="width:50%;height:40px;padding-left:5px;font-size:26px;">#URL.ID2#: <font size="5">#Org.OrgUnitName#</td>										     
+													
 													  													   
 													<cfset dateob=CreateDate(URL.year,URL.month,URL.day)>												
 													
 													<td style="width:20px;padding-left:3px;padding-top:4px" align="right">
 													
 													     <cfoutput>
+														 
 															<span id="printTitle" style="display:none;">#Org.mission# <cf_tl id="Attendance"> - #dateformat(now(), CLIENT.DateFormatShow)#</span>
+															
 															<cf_tl id="Print" var="1">
+															
 															<cf_button2 
 																mode		= "icon"
 																type		= "Print"
@@ -250,11 +258,11 @@
 																printTitle	= "##printTitle"
 																printContent = ".clsPrintContent"
 																printCallback="$('.clsCFDIVSCROLL_MainContainer').attr('style','width:100%;'); $('.clsCFDIVSCROLL_MainContainer').parent('div').attr('style','width:100%;'); $('.clsCFDIVSCROLL_MainContainer').parent('div').attr('style','height:100%;');">
+																
 														</cfoutput>
 												   
 												   </td>
 													
-													<td style="width:50%;height:40px;padding-left:5px;font-size:26px;font-weight:300">#URL.ID2#: <font size="5">#Org.OrgUnitName#</td>										     
 													
 													 <td style="min-width:150px;height:40px;padding-left:4px">
 														<table>

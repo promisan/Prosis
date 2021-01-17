@@ -94,15 +94,19 @@ password="#SESSION.dbpw#">
 		
 			<tr>
 				<td colspan="7">
+				
 					<cfform name="mytopic" onsubmit="return false">
+					
 						<table width="100%" align="center">
 								
-							<input type="hidden" name="Code" id="Code" value="<cfoutput>#Code#</cfoutput>">
+							<input type="hidden" name="Code" id="Code" value="#Code#">
 																
-							<TR class="labelmedium line">
+							<TR class="labelmedium2 line">
 							
 							   <td width="20"></td>
-							   <td height="30" width="10%">#Code#</td>
+							   
+							   <td width="10%">#Code#</td>
+							   
 							   <td>
 							   	   <cfinput type = "Text" 
 								   	value        = "#description#" 
@@ -111,28 +115,22 @@ password="#SESSION.dbpw#">
 									required     = "Yes" 
 									size         = "50" 
 									maxlength    = "60" 
-									class        = "regularxl">			  
+									style        = "border:0px; border-left:1px solid silver;border-right:1px solid silver"
+									class        = "regularxxl">			  
 					           </td>
-							   <td width="40%">
-							 
-								     <input type="Checkbox" class="radiol"
-								       name="Operational" id="Operational"
-								       value="1"
-									   <cfif operational eq "1">checked</cfif>>
-									   
+							   <td width="40%">							 
+							     <input type="Checkbox" class="radiol" name="Operational" id="Operational" value="1" <cfif operational eq "1">checked</cfif>>									   
 							   </td>
 									
 							   <td colspan="3" align="right">
 							   
-							   <input type="submit" 
-							        value="Save" 
-									onclick="save('#code#')"
-									class="button10g">
+							   <input type="submit" value="Save" onclick="save('#code#')" class="button10g">
 				
 								</td>
 						    </TR>	
 										
 						</table>
+						
 					</cfform>
 				</td>
 			</tr>		
@@ -142,19 +140,12 @@ password="#SESSION.dbpw#">
 										
 			<TR class="labelmedium navigation_row line">			
 			  			   
-			   <td align="center" style="padding-top:4px">
-			   
-				  <cf_img icon="edit" navigation="Yes" onclick="ColdFusion.navigate('RecordListingDetail.cfm?idmenu=#url.idmenu#&ID2=#code#','listing');">
+			   <td align="center" style="padding-top:2px">			   
+				  <cf_img icon="edit" navigation="Yes" onclick="ptoken.navigate('RecordListingDetail.cfm?idmenu=#url.idmenu#&ID2=#code#','listing');">
 			  </td>
 			   
-			   <td height="17" style="padding-left:4px">
-			   <A href="javascript:ColdFusion.navigate('RecordListingDetail.cfm?idmenu=#url.idmenu#&ID2=#code#','listing')">
-			   #code#</a></td>
-			   <td>
-			   <A href="javascript:ColdFusion.navigate('RecordListingDetail.cfm?idmenu=#url.idmenu#&ID2=#code#','listing')">
-			   #description#
-			   </a>
-			   </td>
+			   <td height="17" style="padding-left:4px">#code#</td>
+			   <td>#description#</td>
 			  
 			   <td><cfif operational eq "0"><b>No</b><cfelse>Yes</cfif></td>
 			   <td colspan="1">#OfficerFirstName# #OfficerLastName#</td>
@@ -169,9 +160,9 @@ password="#SESSION.dbpw#">
 						WHERE DepreciationScale = '#Code#'						
 				   </cfquery>
 				   
-				 <td align="center" style="padding-top:3px">
+				 <td align="center" style="padding-top:6px">
 				  <cfif check.recordcount eq "0">
-				  	  <cf_img icon="delete" onclick="if (confirm('Remove this schedule ?')) { ColdFusion.navigate('RecordListingPurge.cfm?idmenu=#url.idmenu#&Code=#code#','listing'); }">
+				  	  <cf_img icon="delete" onclick="if (confirm('Remove this schedule ?')) { ptoken.navigate('RecordListingPurge.cfm?idmenu=#url.idmenu#&Code=#code#','listing'); }">
 				  </cfif>	   
 					  
 				</td>   

@@ -4,7 +4,7 @@
 
 	<cfoutput>
 	   
-		SELECT    *
+		SELECT    *, TransactionDate
 	    FROM      userQuery.dbo.#SESSION.acc#_ItemTransaction_item
 				
 	</cfoutput>	
@@ -32,7 +32,7 @@
 	     				field         = "WarehouseName",					
 						alias         = "",																			
 						search        = "text",
-						filtermode    = "2"}>
+						filtermode    = "3"}>
 						
 	<cfset itm = itm+1>
 	<cf_tl id="Location" var = "1"> 								
@@ -40,7 +40,7 @@
 	     				field         = "Location",					
 						alias         = "",																			
 						search        = "text",
-						filtermode    = "2"}>							
+						filtermode    = "3"}>							
 						
 	<cfset itm = itm+1>
 	<cf_tl id="Purchase" var = "1"> 	
@@ -79,9 +79,10 @@
 	<cf_tl id="Type" var = "1"> 			
 	<cfset fields[itm] = {label         = "#lt_text#",                    
 	     				field           = "Description",					
-						alias           = "",																			
+						alias           = "",	
+						display         = "No",																		
 						search          = "text",
-						filtermode      = "2"}>		
+						filtermode      = "3"}>		
 						
 	<cfset itm = itm+1>
 	<cf_tl id="Class" var = "1"> 			
@@ -89,7 +90,7 @@
 	     				field       = "BatchClassName",					
 						alias       = "",																			
 						search      = "text",
-						filtermode  = "2"}>																			
+						filtermode  = "3"}>																			
 
 	<cfset itm = itm+1>
 	<cf_tl id="Officer" var = "1"> 								
@@ -97,14 +98,15 @@
 	     				field       = "Officer",					
 						alias       = "",																			
 						search      = "text",
-						filtermode  = "2"}>		
+						filtermode  = "3"}>		
 
 						
 	<cfset itm = itm+1>
 	<cf_tl id="Date" var = "1"> 				
 	<cfset fields[itm] = {label     = "#lt_text#",                    
 	     				field       = "TransactionDate",					
-						alias       = "",									
+						alias       = "",		
+						column      = "month",							
 						formatted   = "dateformat(TransactionDate,CLIENT.DateFormatShow)",																	
 						search      = "date"}>		
 						
@@ -117,14 +119,15 @@
 						search      = ""}>		
 						
 											
-						
+	
+	<!---					
 	<cfset itm = itm+1>
 	<cf_tl id="Reference" var = "1"> 	
 	<cfset fields[itm] = {label     = "#lt_text#",                    
 	     				field       = "TransactionReference",					
 						alias       = "",																			
 						search      = "text"}>																	
-								
+	--->	
 		
 
 	<cfset itm = itm+1>
@@ -143,8 +146,7 @@
 	<cfset fields[itm] = {label     = "#lt_text#",                    
 	     				field       = "UoMDescription",					
 						alias       = "",																			
-						search      = "text",
-						filtermode  = "2"}>								
+						search      = "text"}>								
 	
 	<!---					
 	<cfset itm = itm+1>
@@ -182,7 +184,8 @@
 			<cfset fields[itm] = {label     = "#lt_text#",                    
 			     				field       = "TransactionValue",					
 								align       = "right",									
-								alias       = "",					
+								alias       = "",		
+								aggregate  = "sum",					
 								formatted   = "numberformat(TransactionValue,',.__')",														
 								search      = ""}>																														
 	
@@ -195,8 +198,7 @@
 	<cfset fields[itm] = {label     = "Id",                    
 	     				field       = "TransactionId",					
 						display     = "No",
-						alias       = "",																			
-						search      = "text"}>																																
+						alias       = ""}>																																
 		
 <cfset menu=ArrayNew(1)>	
 	

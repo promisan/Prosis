@@ -23,8 +23,7 @@
 			datasource="appsMaterials" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
-				INSERT INTO Ref_CategoryItem
-					(
+				INSERT INTO Ref_CategoryItem (
 						Category,
 						CategoryItem,
 						CategoryItemName,
@@ -32,17 +31,14 @@
 						OfficerUserId,
 						OfficerLastName,
 						OfficerFirstName
-					)
-				VALUES
-					(
-						'#url.category#',
-						'#Form.CategoryItem#',
-						'#Form.CategoryItemName#',
-						#Form.CategoryItemOrder#,
-						'#SESSION.acc#',
-						'#SESSION.last#',
-						'#SESSION.first#'
-					)
+				) VALUES (
+					'#url.category#',
+					'#Form.CategoryItem#',
+					'#Form.CategoryItemName#',
+					#Form.CategoryItemOrder#,
+					'#SESSION.acc#',
+					'#SESSION.last#',
+					'#SESSION.first#' )
 		</cfquery>
 		
 		<cf_LanguageInput
@@ -58,8 +54,8 @@
 							 content="#Form#">
 		
 		<script>
-			ColdFusion.navigate('CategoryItem/CategoryItem.cfm?idmenu=#url.idmenu#&category=#url.category#', 'contentbox1');
-			ColdFusion.Window.hide('mydialog');
+			ptoken.navigate('CategoryItem/CategoryItem.cfm?idmenu=#url.idmenu#&category=#url.category#', 'contentbox1');
+			ProsisUI.closeWindow('mydialog');
 		</script>
 	
 	<cfelse>
@@ -82,24 +78,24 @@
 			WHERE 	Category = '#url.category#'
 			AND		CategoryItem = '#url.item#'
 	</cfquery>
-	
-	
-		<cf_LanguageInput
-			TableCode       = "Ref_CategoryItem" 
-			Mode            = "Save"
-			DataSource      = "AppsMaterials"
-			Key1Value       = "#url.category#"
-			Key2Value       = "#Form.CategoryItem#"
-			Name1           = "CategoryItemName">
+		
+	<cf_LanguageInput
+		TableCode       = "Ref_CategoryItem" 
+		Mode            = "Save"
+		DataSource      = "AppsMaterials"
+		Key1Value       = "#url.category#"
+		Key2Value       = "#Form.CategoryItem#"
+		Name1           = "CategoryItemName">
 	
 	<cf_ModuleControlLog systemfunctionid="#url.idmenu#" 
 	                         action ="Update" 
 							 content="#Form#">
 	
 	<script>
-		ColdFusion.navigate('CategoryItem/CategoryItem.cfm?idmenu=#url.idmenu#&category=#url.category#', 'contentbox1');
-		ColdFusion.Window.hide('mydialog');
+		ptoken.navigate('CategoryItem/CategoryItem.cfm?idmenu=#url.idmenu#&category=#url.category#', 'contentbox1');
+		ProsisUI.closeWindow('mydialog');
 	</script>
 
 </cfif>
+
 </cfoutput>

@@ -13,11 +13,8 @@ password="#SESSION.dbpw#">
 <cfsavecontent variable="myquery">
 
 	<cfoutput>	   
-		SELECT    TOP 70000 IT.*, IT.TransactionDate
-	    FROM      userQuery.dbo.#SESSION.acc#_ItemTransaction IT
-				  INNER JOIN Materials.dbo.ItemUoM UoM 
-					ON IT.ItemNo = UoM.ItemNo AND IT.TransactionUoM = UoM.UoM
-	     				
+		SELECT    TOP 300000 IT.*, IT.TransactionDate <!--- allow for column to be created as _mth --->
+	    FROM      userQuery.dbo.#SESSION.acc#_ItemTransaction IT				
 	</cfoutput>	
 	
 </cfsavecontent>
@@ -76,7 +73,17 @@ password="#SESSION.dbpw#">
 						alias           = "",																			
 						search          = "text",
 						filtermode      = "4",
-						lookupgroup     = "ItemCategory"}>				
+						lookupgroup     = "ItemCategory"}>		
+						
+	<cfset itm = itm+1>
+	<cf_tl id="Category" var = "1">		
+	<cfset fields[itm] = {label         = "#lt_text#",                    
+	     				field           = "ItemCategoryDescription",																	
+						alias           = "",																			
+						search          = "text",
+						display         = "No",
+						displayFilter   = "Yes",
+						filtermode      = "3"}>											
 							
 	<cfset itm = itm+1>
 	<cf_tl id="UoM" var = "1">			
@@ -129,7 +136,7 @@ password="#SESSION.dbpw#">
 	<cf_tl id="Date" var = "1">				
 	<cfset fields[itm] = {label     = "#lt_text#",                    
 	     				field       = "TransactionDate",					
-						alias       = "",		
+						alias       = "IT",		
 						column      = "month",
 						align       = "center",		
 						formatted   = "dateformat(TransactionDate,CLIENT.DateFormatShow)",																	
@@ -180,7 +187,7 @@ password="#SESSION.dbpw#">
 	--->					
 
 	<cfset itm = itm+1>
-	<cf_tl id="Qty" var = "1">							
+	<cf_tl id="Quantity" var = "1">							
 	<cfset fields[itm] = {label     = "#lt_text#",                    
 	     				field       = "TransactionQuantity",	
 						align       = "right",				
@@ -248,22 +255,22 @@ password="#SESSION.dbpw#">
 	
 <cf_listing
 	    header              = "transactionlist"
-	    box                 = "listing"
-		link                = "#SESSION.root#/Warehouse/Application/Stock/Inquiry/Transaction/ControlListDataContent.cfm?selection=#url.selection#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#"
+	    box                 = "transaction_#url.warehouse#"
+		link                = "#SESSION.root#/Warehouse/Application/Stock/Inquiry/Transaction/ControlListDataContent.cfm?selection=#url.selection#&mission=#url.mission#&warehouse=#url.warehouse#&systemfunctionid=#url.systemfunctionid#"
 	    html                = "No"		
 		tableheight         = "100%"
-		tablewidth          = "100%"
-		font                = "Verdana"
+		tablewidth          = "100%"		
 		datasource          = "AppsQuery"
 		listquery           = "#myquery#"		
 		listorderfield      = "TransactionDate"
 		listorder           = "TransactionDate"
 		listorderdir        = "ASC"
 		headercolor         = "ffffff"
-		show                = "30"		<!--- better to let is be set in the preferences --->
+		show                = "100"		<!--- better to let is be set in the preferences --->
 		menu                = "#menu#"
 		filtershow          = "Yes"
 		excelshow           = "Yes" 	
+		refresh             = "0"
 		
 		analysisModule      = "Warehouse"
 		analysisReportName  = "Facttable: Consumption Transactions"	

@@ -46,19 +46,19 @@
 
    <cfif AmountDebit is not "">
    <cfif AmountDebit eq "0"><font color="C0C0C0"></cfif>
-   #NumberFormat(AmountDebit,'_____,__.__')#</cfif></td>
-   <td class="labelit" style="padding-right:3px;border-left:1px solid silver" width="8%" align="right">
+   #NumberFormat(AmountDebit,',.__')#</cfif></td>
+   <td style="padding-right:3px;border-left:1px solid silver" align="right">
    <cfif #AmountCredit# is not "">
    <cfif AmountCredit eq "0"><font color="C0C0C0"></cfif>
-   #NumberFormat(AmountCredit,'_____,__.__')#</cfif></td>
+   #NumberFormat(AmountCredit,',.__')#</cfif></td>
    
 	<cfif access neq "READ">
 	   
-	   <td class="labelit" style="padding-right:3px;border-left:1px solid silver" bgcolor="ffffcf" width="8%" align="right">
+	   <td style="padding-right:3px;border-left:1px solid silver;background-color:##ffffaf80" align="right">
 	   <cfif AmountBaseDebit is not "">
 	   <cfif AmountDebit eq "0"><font color="C0C0C0"></cfif>
 	   #NumberFormat(AmountBaseDebit,',.__')#</cfif></td>
-	   <td class="labelit" style="padding-right:3px;border-left:1px solid silver" bgcolor="ffffcf" width="8%" align="right">
+	   <td style="padding-right:3px;border-left:1px solid silver;background-color:##ffffaf80" align="right">
 	   <cfif AmountBaseCredit is not "">
 	   <cfif AmountCredit eq "0"><font color="C0C0C0"></cfif>
 	   #NumberFormat(AmountBaseCredit,',.__')#</cfif></td>  

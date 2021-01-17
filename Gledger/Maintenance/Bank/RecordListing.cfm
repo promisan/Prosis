@@ -30,11 +30,11 @@ password="#SESSION.dbpw#">
 	<script>
 	
 	function recordadd(grp) {
-	          window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=890, height=790, toolbar=no, status=yes, scrollbars=no, resizable=no");
+         ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=890, height=790, toolbar=no, status=yes, scrollbars=no, resizable=no");
 	}
 	
 	function recordedit(id) {
-	          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID=" + id, "Edit", "left=80, top=80, width=890, height=790, toolbar=no, status=yes, scrollbars=no, resizable=no");
+         ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID=" + id, "Edit", "left=80, top=80, width=890, height=790, toolbar=no, status=yes, scrollbars=no, resizable=no");
 	}
 	
 	</script>	
@@ -48,7 +48,7 @@ password="#SESSION.dbpw#">
 		
 		<table width="99%" align="center" class="navigation_table">
 		
-			<tr class="labelmedium fixrow">
+			<tr class="labelmedium2 fixrow">
 			    <td></td>
 			    <td>Bank</td>
 				<td>Currency</td>				
@@ -58,11 +58,11 @@ password="#SESSION.dbpw#">
 			</tr>			
 			
 				<cfoutput query="SearchResult">
-				    <tr class="navigation_row line labelmedium">
+				    <tr class="navigation_row line labelmedium2">
 						<td align="center" style="width:30px">
-							  <cf_img icon="edit" navigation="yes" onclick="recordedit('#BankId#')">
+							  <cf_img icon="select" navigation="yes" onclick="recordedit('#BankId#')">
 						</td>
-						<td><a href="javascript:recordedit('#BankId#')">#BankName#</a></td>
+						<td>#BankName#</td>
 						<td>#Currency#</td>
 						<td>#AccountNo#</td>
 						<!---

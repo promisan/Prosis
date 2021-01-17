@@ -3,12 +3,11 @@
 <cfparam name="url.value"       default="">
 <cfparam name="url.init"        default="0">
 
-
-<cfoutput>
-
 <cfif url.init eq "0">
 	<cfinclude template="InquiryData.cfm">
 </cfif>
+
+<cfoutput>
 
 <cfsavecontent variable="myquery">
 	
@@ -17,40 +16,42 @@
 	
 	<cfif url.filter eq "customer">
 			
-			<cfif findNoCase("WHERE",Client.Payables) lte 0>
-				WHERE 1=1
-			</cfif>	
-			#PreserveSingleQuotes(Client.Payables)# 			
-			AND ReferenceName LIKE '#url.value#%'
+		<cfif findNoCase("WHERE",Client.Payables) lte 0>
+			WHERE 1=1
+		</cfif>	
+		#PreserveSingleQuotes(Client.Payables)# 			
+		AND ReferenceName LIKE '#url.value#%'
 						
 	<cfelse>					
 			
-			<cfif findNoCase("WHERE",Client.Payables) lte 0>
-				WHERE 1=1
-			</cfif>	
-			<cfif url.value eq "Upcoming">
-				AND		Days <= 0
-			</cfif>		
-			<cfif url.value eq "1-30d">
-				AND		Days >= 1.0 AND Days <= 30
-			</cfif>
-			<cfif url.value eq "31-60d">
-				AND		Days > 31.0 AND Days <= 60
-			</cfif>
-			<cfif url.value eq "61-90d">
-				AND		Days > 61.0 AND Days <= 90
-			</cfif>
-			<cfif url.value eq "91-180d">
-				AND		Days > 91.0 AND Days <= 180
-			</cfif>
-			<cfif url.value eq "Over 180d">
-				AND		Days > 180.0
-			</cfif>		
-			#PreserveSingleQuotes(Client.Payables)# 		
+		<cfif findNoCase("WHERE",Client.Payables) lte 0>			
+			WHERE 1=1
+		</cfif>	
+		<cfif url.value eq "Upcoming">
+			AND		Days <= 0
+		</cfif>		
+		<cfif url.value eq "1-30d">
+			AND		Days >= 1.0 AND Days <= 30
+		</cfif>
+		<cfif url.value eq "31-60d">
+			AND		Days > 31.0 AND Days <= 60
+		</cfif>
+		<cfif url.value eq "61-90d">
+			AND		Days > 61.0 AND Days <= 90
+		</cfif>
+		<cfif url.value eq "91-180d">
+			AND		Days > 91.0 AND Days <= 180
+		</cfif>
+		<cfif url.value eq "Over 180d">
+			AND		Days > 180.0
+		</cfif>		
+		#PreserveSingleQuotes(Client.Payables)# 		
 	
 	</cfif>
-
+		
 </cfsavecontent>
+
+</cfoutput>
 
 <cfset fields=ArrayNew(1)>
 
@@ -70,30 +71,31 @@
 </cfif>
 
 <cfset itm = 1>
-<cfset fields[itm] = {label     = "#vLabel#",                  
-					field       = "#field#",
-					search      = "text",
-					filtermode  = "3"}>
+<cfset fields[itm] = {label       = "#vLabel#",                  
+					field         = "#field#",
+					search        = "text",
+					filtermode    = "3"}>
 
 <cfset itm = itm+1>
 <cf_tl id="Batch No" var="vBatchNo">
-<cfset fields[itm] = {label     = "#vBatchNo#",
-					field       = "JournalTransactionNo",
-					search      = "text"}>
+<cfset fields[itm] = {label       = "#vBatchNo#",
+					field         = "JournalTransactionNo",
+					search        = "text"}>
 
 <cfset itm = itm+1>				
 <cf_tl id="Invoice No" var="vInvoice">		
-<cfset fields[itm] = {label     = "#vInvoice#", 					
-					field       = "TransactionReference",
-					search      = "text"}>	
+<cfset fields[itm] = {label       = "#vInvoice#", 					
+					field         = "TransactionReference",
+					search        = "text"}>	
 					
 <cfset itm = itm+1>	
 <cf_tl id="Account" var="vAccount">			
-<cfset fields[itm] = {label     = "#vAccount#", 					
-					field       = "GLAccount",					
-					search      = "text",
-					display     = "no",
-					filtermode  = "2"}>								
+<cfset fields[itm] = {label       = "#vAccount#", 					
+					field         = "GLAccount",					
+					search        = "text",
+					column        = "common",
+					display       = "no",
+					filtermode    = "2"}>								
 					
 <!---						
 <cfset itm = itm+1>							
@@ -104,7 +106,7 @@
 <cfset itm = itm+1>		
 <cf_tl id="Posted" var="vPosted">		
 <cfset fields[itm] = {label       = "#vPosted#", 					
-					field         = "TransactionDate",
+					field         = "TransactionDate",					
 					column        = "month",					
 					formatted     = "dateformat(TransactionDate,CLIENT.DateFormatShow)",
 					search        = "date"}>							
@@ -128,6 +130,7 @@
 <cfset fields[itm] = {label       = "#vSta#",                   
 					field         = "ActionStatus",				
 					formatted     = "Rating",
+					column        = "common",
 					align         = "center",
 					ratinglist    = "0=yellow,1=Green"}>		
 		
@@ -135,6 +138,7 @@
 <cf_tl id="Curr" var="vCurr">							
 <cfset fields[itm] = {label      = "#vCurr#",                   
 					field        = "Currency",
+					column       = "common",
 					search       = "text",
 					filtermode   = "2"}>					
 
@@ -202,9 +206,7 @@
 		drillkey         = "TransactionId">
 		
 </td></tr></table>		
-		
-</cfoutput>	
-
+	
 <script>
 	Prosis.busy('no')	
 </script>

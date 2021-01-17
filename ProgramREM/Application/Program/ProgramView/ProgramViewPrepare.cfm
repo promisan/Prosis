@@ -209,7 +209,7 @@ function reloadForm(page,view,layout,global) {
 					P.ProgramScope, 
 			        Pe.OrgUnit,
 					O.OrgUnitNameShort as OrgUnitName, 
-					LEFT(O.OrgUnitName,30) as orgUnitNameLong,
+					LEFT(O.OrgUnitName,30) as OrgUnitNameLong,					
 					Pe.Reference, 
 					Pe.OrgUnitImplement, 
 					Pe.ProgramId,  		

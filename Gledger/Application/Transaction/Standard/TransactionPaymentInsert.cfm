@@ -406,17 +406,18 @@ password="#SESSION.dbpw#">
 		   <cfset bexc  = exc>
 		
 		</cfif>
-				
-		<cfif AccountType is "Credit">  <!--- this is now a reverse teneinde de correctie te maken !! --->
+		
+						
+		<cfif AccountType neq "Debit">  <!--- this is now a reverse teneinde de correctie te maken !! --->
 		
 			  <cfset debit       = amt>
 			  <cfset credit      = 0>
 		  	  <cfset debitbase   = amtB>
 		      <cfset creditbase  = 0>
-		      <cfset accounttype = "Debit">			  
-		  
+		      <cfset accounttype = "Debit">		
+			
 		<cfelse>
-		
+				
 			  <cfset credit      = amt>
 			  <cfset debit       = 0>
 			  <cfset creditbase  = amtB>
@@ -489,8 +490,7 @@ password="#SESSION.dbpw#">
 					   '00',
 					   getDate())
 			</cfquery>
-			
-		
+					
 		</cfif>	
 		
 		<!--- ------------------- --->

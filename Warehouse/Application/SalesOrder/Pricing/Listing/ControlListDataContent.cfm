@@ -122,7 +122,7 @@
 						 
 						</cfloop>
 						
-					  I.Classification, 
+					  I.ItemNoExternal, 
 					  I.ItemColor,
 					  (     SELECT     TOP 1 TransactionCostPrice
 					        FROM       ItemTransaction
@@ -235,8 +235,7 @@
 			<cfelseif url.instock eq "9">
 			AND     Stock = -1								
 			</cfif>
-			
-								  
+											  
 			ORDER BY  CategoryItemName, CategoryItemOrder, ItemDescription, UoM
 									
 	</cfoutput>	
@@ -249,20 +248,20 @@
 <cfset fields=ArrayNew(1)>
 
 	<cfset itm = itm+1>
-	<cf_tl id="Category" var = "1">
+	<cf_tl id="Sub-Category" var = "1">
 	<cfset fields[itm] = {label     	= "#lt_text#",                    
-	     				field       	= "CategoryItemOrder",		
-						formatted   	= "CategoryItemName",																																		
+	     				field       	= "CategoryItemName",		
+																																							
 						search      	= "text",
-						filtermode  	= "2"}>		
+						filtermode  	= "3"}>		
+						
+	<!--- fieldsort   	= "CategoryItemOrder",	--->					
 	
 	<cfset itm = itm+1>
 	<cf_tl id="ItemNo" var = "1">
 	<cfset fields[itm] = {label     	= "#lt_text#",                    
 	     				field      		= "ItemNo",																		
-						functionscript  = "itemopen",																
-						search      	= "text",						
-						filtermode  	= "2"}>		
+						functionscript  = "itemopen"}>		
 
 	<cfset itm = itm+1>
 		
@@ -278,19 +277,20 @@
 						search      	= "text",
 						filtermode  	= "2"}>	
 
-    <cfif url.priceSchedule neq "">							
+    <cfif url.priceSchedule neq "">		
+						
 		<cfset itm = itm+1>
 		<cf_tl id="Barcode" var = "1">			
-		<cfset fields[itm] = {label     	= "#lt_text#",                    
-		     				field       	= "ItemBarcode",																												
-							search      	= "text",
-							filtermode  	= "2"}>	
+		<cfset fields[itm] = {label     = "#lt_text#",                    
+		     				field       = "ItemBarcode",																												
+							search      = "text",
+							filtermode  = "2"}>	
 	</cfif>					
 						
 	<cfset itm = itm+1>
-	<cf_tl id="Codified" var = "1">			
+	<cf_tl id="External" var = "1">			
 	<cfset fields[itm] = {label     	= "#lt_text#",                    
-	     				field       	= "Classification",																													
+	     				field       	= "ItemNoExternal",																													
 						search      	= "text"}>		
 
 	<cfset itm = itm+1>
@@ -332,9 +332,9 @@
 	
 		<cfset itm = itm+1>
 		<cf_tl id="Tax" var = "1">			
-		<cfset fields[itm] = {label     	= "#lt_text#",                    
-		     				field       	= "TaxCode",										
-							alias       	= ""}>
+		<cfset fields[itm] = {label     = "#lt_text#",                    
+		     				field       = "TaxCode",										
+							alias       = ""}>
 	
 	</cfif>					
 													
@@ -357,8 +357,7 @@
 	<cfset fields[itm] = {label     	= "#lt_text#",                    
 	     				field       	= "ItemUoMId",					
 						display     	= "No",
-						alias       	= "",																			
-						search      	= "text"}>																																
+						alias       	= ""}>																																
 		
 <cfset menu=ArrayNew(1)>	
 	
@@ -376,7 +375,7 @@
 		datasource          = "AppsMaterials"
 		listquery           = "#myquery#"	
 		listgroupfield      = "CategoryItemName"
-		listgroup           = "CategoryItemOrder"
+		listgroup           = "CategoryItemName"
 		listgroupdir        = "ASC"	
 		listorderfield      = "ItemDescription"
 		listorder           = "ItemDescription"

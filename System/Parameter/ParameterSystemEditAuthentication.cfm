@@ -58,7 +58,7 @@
 		</tr>
 		
 		<TR>
-	    <td style="padding-left:20px" class="labelmedium" class="labelmedium"><cfoutput>#session.welcome#</cfoutput> account length:</td>
+	    <td style="padding-left:20px" class="labelmedium"><cfoutput>#session.welcome#</cfoutput> account length:</td>
 	    <TD class="labelmedium" style="padding-left:5px">
 	  	 
 			<cfinput 
@@ -76,9 +76,8 @@
 		</td>
 		</TR>
 		
-		<tr><td colspan="2" height="10"></td></tr>
 		
-		<tr><td colspan="2" style="font-size:23px" class="linedotted labelmedium">Password Governance</td></tr>
+		<tr><td colspan="2" style="font-size:23px" class="labelmedium">Password Governance</td></tr>
 				
 	    <TR>
 	    
@@ -197,7 +196,7 @@
 			      <cfset support = get.PasswordSupport> 	  
 			</cfif>	  		
 			
-			<tr><td style="padding-left:20px" class="labelmedium">Password support (will not work for support account) :</td>
+			<tr><td style="padding-left:20px" class="labelmedium">Password support (not for support account) :</td>
 		    <TD>  
 			 <input type="text" 
 			    name="PasswordSupport" 
@@ -244,7 +243,7 @@
 	  	    <cfoutput query="get">
 			<INPUT class="radiol" type="radio" name="ExceptionControl" id="ExceptionControl" value="1" <cfif Get.ExceptionControl eq "1">checked</cfif>>
 			</td>
-			<td style="padding-left:5px" class="labelmedium">Enabled</td>
+			<td style="padding-left:5px" class="labelmedium">Enabled (recommended)</td>
 			<td style="padding-left:9px">
 			<INPUT class="radiol" type="radio" name="ExceptionControl" id="ExceptionControl" value="0" <cfif Get.ExceptionControl eq "0">checked</cfif>>
 			</td>

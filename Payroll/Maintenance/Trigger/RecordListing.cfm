@@ -1,13 +1,16 @@
 <!--- Create Criteria string for query from data entered thru search form --->
 
-<table style="height:100%;width:100%">
-<tr><td style="height:20">
 
+<cf_screentop html="No" jquery="Yes">
+
+<table width="98%" height="100%" align="center">
+
+<cfset Page         = "0">
 <cfset add          = "1">
-<cfset Header       = "Salary Entitlement Triggers">
-<cfinclude template = "../HeaderPayroll.cfm"> 
-
-</td></tr>
+<cfset save         = "0">
+<cfset Header       = "Salary Entitlement Trigger Groups">
+ 
+<tr style="height:10px"><td><cfinclude template = "../HeaderPayroll.cfm"></td></tr>
  
 <cfquery name="SearchResult"
 datasource="AppsPayroll" 
@@ -60,7 +63,7 @@ password="#SESSION.dbpw#">
 	
 	<table width="97%" align="center" class="navigation_table">
 	
-	<tr class="labelmedium fixrow">
+	<tr class="labelmedium2 fixrow">
 	    <td></td>
 		<td><cf_tl id="Code"></td>
 		<td><cf_tl id="Description"></td>
@@ -76,12 +79,12 @@ password="#SESSION.dbpw#">
 		<cfoutput>     
 			
 			<cfif operational eq "0">	
-				<tr style="height:15px" bgcolor="f2f2f2" class="labelmedium line navigation_row"> 
+				<tr style="height:15px" bgcolor="f2f2f2" class="labelmedium2 line navigation_row"> 
 			<cfelse>
-				<tr style="height:15px" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('ffffff'))#" class="labelmedium line navigation_row"> 
+				<tr style="height:15px" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('ffffff'))#" class="labelmedium2 line navigation_row"> 
 			</cfif>     
-				<td width="6%" align="center" style="padding-top:2px;">
-					  <cf_img icon="edit" navigation="Yes" onclick="recordedit('#SalaryTrigger#')">
+				<td width="6%" align="center" style="padding-top:1px;">
+					  <cf_img icon="open" navigation="Yes" onclick="recordedit('#SalaryTrigger#')">
 				</td>	
 				<td width="170">#SalaryTrigger#</td>
 				<td>#Description#</td>

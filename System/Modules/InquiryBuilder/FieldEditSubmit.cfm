@@ -67,6 +67,7 @@ password="#SESSION.dbpw#">
       FieldWidth 		   = '#FORM.FieldWidth#',
 	  FieldRow             = '#FORM.FieldRow#',
       FieldSort			   = '#FORM.FieldSort#',
+	  FieldColumn          = '#FORM.FieldColumn#',
 	  FieldColspan         = '#FORM.FieldColspan#',
 	  FieldFilterForce     = '#form.FieldFilterForce#',
 	  FieldFilterLabel     = '#form.FieldFilterLabel#',

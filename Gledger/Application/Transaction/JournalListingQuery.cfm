@@ -58,8 +58,7 @@
 		       INNER JOIN TransactionLine L             WITH (NOLOCK) ON T.Journal = L.Journal AND T.JournalSerialNo = L.JournalSerialNo			  
 			   LEFT OUTER JOIN Employee.dbo.Person P    WITH (NOLOCK) ON P.PersonNo = T.ReferencePersonNo
 			   LEFT OUTER JOIN Materials.dbo.Customer C WITH (NOLOCK) ON C.CustomerId = T.ReferenceId			  
-		
-						
+								
 		WHERE  L.TransactionSerialNo = (SELECT MIN(TransactionSerialNo)
 										FROM     TransactionLine WITH (NOLOCK)
 										WHERE    Journal         = T.Journal
@@ -186,11 +185,13 @@
 				      
 	</cfquery>		
 	
-	<!--- remove me --->
+	<!--- remove me 
 	
 	<cfif cfquery.executiontime gte "800">
 	<cfoutput>1:#cfquery.executiontime#</cfoutput>
 	</cfif>
+	
+	--->
 	
 
 <cfelse>
@@ -224,44 +225,49 @@
 	datasource="AppsLedger" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	    SELECT TOP #selection# T.Journal, 
-		       T.JournalSerialNo,
-			   T.TransactionId,
-			   T.TransactionId,
-			   T.TransactionDate, 
-			   T.DocumentDate,
-			   T.JournalBatchDate,
-			   T.Created,
-			   T.JournalTransactionNo, 
-			   T.Description,
-			   T.ReferenceName,
-	           T.ReferenceId,
-			   T.ReferenceNo,
-			   T.Reference, 
-			   T.Currency,
-			   T.ActionStatus,
-			   T.RecordStatus,
-			   T.AccountPeriod,
-			   T.ReferencePersonNo,			  
-			   P.LastName,
-			   P.FirstName,
-			   P.IndexNo,
-	           C.CustomerName,			  
-			   T.OfficerFirstName,
-			   T.OfficerLastName,
-			   T.Amount, 
-			   T.AmountOutstanding, 
-			   SUM(L.AmountDebit)  as AmountTriggerDebit,
-			   SUM(L.AmountCredit) as AmountTriggerCredit
-		 FROM  #preserveSingleQuotes(querystatement)# 
-		 
-		 ORDER BY T.Currency, 
-		          T.#IDSorting# <cfif url.idsorting eq "DocumentDate" or url.idsorting eq "TransactionDate">DESC</cfif>, 
-				  T.Created DESC		 
-			
+	    SELECT *, TransactionDate
+		FROM (
+		    SELECT TOP #selection# T.Journal, 
+			       T.JournalSerialNo,
+				   T.TransactionId,				  
+				   T.TransactionDate, 
+				   T.DocumentDate,
+				   T.JournalBatchDate,
+				   T.Created,
+				   T.JournalTransactionNo, 
+				   T.Description,
+				   T.ReferenceName,
+		           T.ReferenceId,
+				   T.ReferenceNo,
+				   T.Reference, 
+				   T.Currency,
+				   T.ActionStatus,
+				   T.RecordStatus,
+				   T.AccountPeriod,
+				   T.ReferencePersonNo,			  
+				   P.LastName,
+				   P.FirstName,
+				   P.IndexNo,
+		           C.CustomerName,			  
+				   T.OfficerFirstName,
+				   T.OfficerLastName,
+				   T.Amount, 
+				   T.AmountOutstanding, 
+				   SUM(L.AmountDebit)  as AmountTriggerDebit,
+				   SUM(L.AmountCredit) as AmountTriggerCredit
+			 FROM  #preserveSingleQuotes(querystatement)# 
+			 
+			 ORDER BY T.Currency, 
+			          T.#IDSorting# <cfif url.idsorting eq "DocumentDate" or url.idsorting eq "TransactionDate">DESC</cfif>, 
+					  T.Created DESC		 
+			) as D
+			WHERE 1=1
+			--condition
 </cfquery>
 
+<!---
 <cfif cfquery.executiontime gte "800">
 	<cfoutput>2:#cfquery.executiontime#</cfoutput>
-	</cfif>
+</cfif>
+--->
 	

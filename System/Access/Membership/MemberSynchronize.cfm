@@ -13,7 +13,7 @@
 <cfif url.reload eq "1">
 
  	 <script language="JavaScript">
-	     window.location = "RecordListing.cfm"
+	     ptoken.location('RecordListing.cfm')
 	  </script>
 	  
 <cfelse>	 
@@ -22,7 +22,7 @@
 	Prosis.busy('no') 
 	</script>
 
-	<font color="#6AB5FF">done! <cfoutput>#timeformat(now(),"HH:MM:SS")#</cfoutput></font>
+	done! <cfoutput>#timeformat(now(),"HH:MM:SS")#</cfoutput>
 	
 </cfif>
 

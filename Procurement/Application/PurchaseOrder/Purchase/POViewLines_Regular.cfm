@@ -1,5 +1,4 @@
 
-
 <!--- Prosis template framework --->
 <cfsilent>
 	<proUsr>jmazariegos</proUsr>
@@ -47,7 +46,7 @@
               RequisitionLine R ON Q.RequisitionNo = R.RequisitionNo LEFT OUTER JOIN
               Job ON R.JobNo = Job.JobNo
 	WHERE     Q.PurchaseNo = '#URL.ID1#' 
-	AND       Q.ActionStatus != '9'
+	-- AND       Q.ActionStatus != '9'  
 	<cfif url.filter neq "">
 	AND       (
 	          R.RequisitionNo LIKE '%#url.filter#%' OR
@@ -58,6 +57,8 @@
 	</cfif>		
 	ORDER BY Q.ListingOrder, Q.OrderItemNo, R.Created
 </cfquery>  
+
+<!--- showing the cancelled lines --->
 
 <cfoutput>
 
@@ -89,22 +90,20 @@
 	   </cfif>	   
      </TR> 
 	 
+	 <cfset delete = "0">
+	 
 	 <cfif Lines.recordcount eq "0">
 	 
 		 <tr><td height="1" colspan="13" class="line"></td></tr>  
-		 <tr><td colspan="13" align="center" class="labelmedium" style="padding-top:4px"><cf_tl id="No lines found"></font></td></tr>
+		 <tr><td colspan="13" align="center" class="labelmedium" style="padding-top:4px"><cf_tl id="No lines found"></td></tr>
 		 
-		 <cfabort>
-		 
-	 </cfif>
-		
-	 	<cfset delete = "0">
+	 <cfelse>	
 						
 		<cfloop query="Lines">			
 			
 			<cfif OrderAmountBase lte "0">
 							
-			<tr bgcolor="gray" id="#requisitionno#_1" style="height:20px" class="labelmedium line navigation_row">
+			<tr bgcolor="gray" id="#requisitionno#_1" style="height:20px;<cfif actionstatus eq '9'>background-color:##FEC5B880</cfif>" class="labelmedium line navigation_row">
 			
 			<cfelse>
 									
@@ -116,7 +115,7 @@
 				<cfset cls = "FFFFFF">		
 			</cfif>
 			
-			<tr bgcolor="#cls#" id="#requisitionno#_1" style="height:20px;border-top:1px solid silver;" class="labelmedium line navigation_row">
+			<tr bgcolor="#cls#" id="#requisitionno#_1" style="height:20px;border-top:1px solid silver;<cfif actionstatus eq '9'>background-color:##FEC5B880</cfif>" class="labelmedium line navigation_row">
 			
 			</cfif>			
 						
@@ -260,58 +259,59 @@
 			</cfif>								
 									
 		</cfloop>
+				
+			<cfif lines.recordcount gte "1">
 		
-		
-		<cfif lines.recordcount gte "1">
-	
-		<tr><td height="4"></td></tr>		
-		
-			<cfquery name="getReceipt" 
-				datasource="AppsPurchase" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-					SELECT    Currency, 
-					          SUM(ReceiptAmountCost) AS Receipt, 
-							  SUM(ReceiptAmountTax) AS Tax, 
-							  SUM(ReceiptAmount) AS Payable
-					FROM      PurchaseLineReceipt
-					WHERE     ActionStatus <> '9' 
-					AND       RequisitionNo IN
-		                          (SELECT   RequisitionNo
-		                            FROM    PurchaseLine
-		                            WHERE   PurchaseNo = '#url.id1#')
-					GROUP BY Currency
-			</cfquery>	
+			<tr><td height="4"></td></tr>		
 			
-			<cfif getReceipt.recordcount gte "1">
-				<tr><td valign="top" style="padding-top:5px" colspan="6" align="right" class="labelmedium"><cf_tl id="Receipt Summary"></td><td colspan="7" align="right" style="padding-right:10px">
-			</cfif>
+				<cfquery name="getReceipt" 
+					datasource="AppsPurchase" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+						SELECT    Currency, 
+						          SUM(ReceiptAmountCost) AS Receipt, 
+								  SUM(ReceiptAmountTax) AS Tax, 
+								  SUM(ReceiptAmount) AS Payable
+						FROM      PurchaseLineReceipt
+						WHERE     ActionStatus <> '9' 
+						AND       RequisitionNo IN
+			                          (SELECT   RequisitionNo
+			                            FROM    PurchaseLine
+			                            WHERE   PurchaseNo = '#url.id1#')
+						GROUP BY Currency
+				</cfquery>	
+				
+				<cfif getReceipt.recordcount gte "1">
+					<tr><td valign="top" style="padding-top:5px" colspan="6" align="right" class="labelmedium"><cf_tl id="Receipt Summary"></td><td colspan="7" align="right" style="padding-right:10px">
+				</cfif>
+				
+				<cfif getReceipt.currency neq "">
+				
+					<table width="300" style="border:0px solid silver">
+					<tr class="labelit line">
+						<td style="font-size:12px" align="right"></td>
+						<td align="right"><cf_tl id="Value"></td>
+						<td align="right"><cf_tl id="Tax"></td>
+						<td align="right" style="padding-right:5px"><cf_tl id="Total"></td>
+					</tr>
+					<cfloop query="getReceipt">
+					<tr class="labelmedium">
+					    <td style="width:50px;font-size:13px" align="right"><font color="408080">#Currency#</td>
+					    <td align="right"><font color="408080">#numberformat(Receipt,',.__')#</td>
+						<td align="right"><font color="408080">#numberformat(Tax,',.__')#</td>
+						<td align="right" style="padding-right:5px"><font color="408080">#numberformat(Payable,',.__')#</td>
+					</tr>
+					</cfloop>
+					</table>
+				
+				</cfif>
+				
+			</td>
+			</tr>
 			
-			<cfif getReceipt.currency neq "">
-			
-				<table width="300" style="border:0px solid silver">
-				<tr class="labelit line">
-					<td style="font-size:12px" align="right"></td>
-					<td align="right"><cf_tl id="Value"></td>
-					<td align="right"><cf_tl id="Tax"></td>
-					<td align="right" style="padding-right:5px"><cf_tl id="Total"></td>
-				</tr>
-				<cfloop query="getReceipt">
-				<tr class="labelmedium">
-				    <td style="width:50px;font-size:13px" align="right"><font color="408080">#Currency#</td>
-				    <td align="right"><font color="408080">#numberformat(Receipt,',.__')#</td>
-					<td align="right"><font color="408080">#numberformat(Tax,',.__')#</td>
-					<td align="right" style="padding-right:5px"><font color="408080">#numberformat(Payable,',.__')#</td>
-				</tr>
-				</cfloop>
-				</table>
-			
-			</cfif>
-			
-		</td>
-		</tr>
-		
-		</cfif>						
+			</cfif>		
+				 
+	 </cfif>				
 		
 </table>
 

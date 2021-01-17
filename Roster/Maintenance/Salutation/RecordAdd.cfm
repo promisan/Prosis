@@ -9,45 +9,43 @@
 			  systemfunctionid="#url.idmenu#">
 
 
-<cfform action="RecordSubmit.cfm" method="POST" enablecab="Yes" name="dialog">
+<cfform action="RecordSubmit.cfm" method="POST" name="dialog">
 
 <!--- Entry form --->
 
-<table width="95%" align="center" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="95%" align="center" class="formpadding">
 
-    <tr><td></td></tr>
+    <tr><td style="height:5px"></td></tr>
 	
-    <TR>
-    <TD class="labelmedium" width="25%">Code:</TD>
+    <TR class="labelmedium2">
+    <TD width="25%">Code:</TD>
     <TD>
-  	   <cfinput type="Text" name="Code" value="" message="Please enter a code" required="Yes" size="10" maxlength="10" class="regularxl">
+  	   <cfinput type="Text" name="Code" value="" message="Please enter a code" required="Yes" size="10" maxlength="10" class="regularxxl">
     </TD>
 	</TR>
 	
-	<TR>
-    <TD class="labelmedium">Description:</TD>
+	<TR class="labelmedium2">
+    <TD>Description:</TD>
     <TD>
-  	   <cfinput type="Text" name="Description" value="" message="Please enter a description" required="Yes" size="20" maxlength="20" class="regularxl">
+  	   <cfinput type="Text" name="Description" value="" message="Please enter a description" required="Yes" size="20" maxlength="20" class="regularxxl">
     </TD>
 	</TR>
 	
-	<TR>
-    <TD class="labelmedium">Abbreviation:</TD>
+	<TR class="labelmedium2">
+    <TD>Abbreviation:</TD>
     <TD>
-  	   <cfinput type="Text" name="Abbreviation" value="" message="Please enter an abbreviation" required="Yes" size="10" maxlength="10" class="regularxl">
+  	   <cfinput type="Text" name="Abbreviation" value="" message="Please enter an abbreviation" required="Yes" size="10" maxlength="10" class="regularxxl">
     </TD>
 	</TR>
 	
-	<TR>
-    <TD class="labelmedium">Order:</TD>
+	<TR class="labelmedium2">
+    <TD>Order:</TD>
     <TD>
-  	   <cfinput type="Text" name="ListingOrder" value="" message="Please enter a ListingOrder" required="Yes" validate="integer" size="5" maxlength="3" class="regularxl">
+  	   <cfinput type="Text" name="ListingOrder" value="" message="Please enter a ListingOrder" required="Yes" validate="integer" size="5" maxlength="3" class="regularxxl">
     </TD>
 	</TR>
-	
-	<tr><td colspan="2" height="3"></td></tr>
+		
 	<tr><td colspan="2" class="linedotted"></td></tr>
-	<tr><td colspan="2" height="3"></td></tr>
 	
 	<tr>
 	<td align="center" colspan="2">

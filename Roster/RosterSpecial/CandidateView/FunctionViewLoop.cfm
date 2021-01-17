@@ -159,9 +159,7 @@
    SELECT DISTINCT Applicant.Nationality, SNation.Name
    FROM      Applicant INNER JOIN
              System.dbo.Ref_Nation SNation ON Applicant.Nationality = SNation.Code
-   WHERE     (Applicant.PersonNo IN
-             (SELECT DISTINCT PersonNo
-              FROM userQuery.dbo.#SESSION.acc#CandidateTmp#FileNo# A))
+   WHERE     Applicant.PersonNo IN (SELECT DISTINCT PersonNo FROM userQuery.dbo.#SESSION.acc#CandidateTmp#FileNo# A)
 </cfquery>	
 
 <cfoutput>
@@ -189,7 +187,7 @@
 	}
 	
 	function showdocument(vacno) {
-		    window.open("#SESSION.root#/Vactrack/Application/Document/DocumentEdit.cfm?ID=" + vacno, vacno);
+		    ptoken.open("#SESSION.root#/Vactrack/Application/Document/DocumentEdit.cfm?ID=" + vacno, vacno);
 	}
 	
 	function purge(id) {
@@ -206,7 +204,8 @@
 		   	  icM.className = "regular";
 		      icE.className = "hide";
 	    	  se.className  = "regular";
-			  ColdFusion.navigate('FunctionViewLoopGrantUser.cfm?source='+src+'&rosteraction='+ra+'&mode=roster&ID=#URL.IDFunction#&status='+row+'&FunctionId='+id+'&row='+row,'i'+row)
+			  _cf_loadingtexthtml='';	
+			  ptoken.navigate('FunctionViewLoopGrantUser.cfm?source='+src+'&rosteraction='+ra+'&mode=roster&ID=#URL.IDFunction#&status='+row+'&FunctionId='+id+'&row='+row,'i'+row)
 		 } else {
 		   	 icM.className = "hide";
 		     icE.className = "regular";

@@ -18,21 +18,21 @@
 
 	<tr><td height="6"></td></tr>
     <TR>
-    <TD class="labelit" width="30%" >Code:</TD>
+    <TD class="labelmedium2" width="30%" >Code:</TD>
     <TD>
-  	   <cfinput type="Text" name="Code" value="" message="Please enter a code" required="Yes" size="10" maxlength="10" class="regularxl">
+  	   <cfinput type="Text" name="Code" value="" message="Please enter a code" required="Yes" size="10" maxlength="10" class="regularxxl">
     </TD>
 	</TR>
 	
 	 <TR>
-    <TD class="labelit">Description:</TD>
+    <TD class="labelmedium2">Description:</TD>
     <TD>
-  	   <cfinput type="Text" name="Description" value="" message="Please enter a description" required="Yes" size="30" maxlength="50" class="regularxl">
+  	   <cfinput type="Text" name="Description" value="" message="Please enter a description" required="Yes" size="30" maxlength="50" class="regularxxl">
     </TD>
 	</TR>
 	
 	<tr>
-		<td class="labelit">Mode of shipment:</td>
+		<td class="labelmedium2">Mode of shipment:</td>
 		<td>
 			<cfquery name="lookup" 
 			datasource="AppsMaterials" 
@@ -43,7 +43,7 @@
 				ORDER BY ListingOrder
 			</cfquery>
 			
-			<select name="ShipToMode" id="ShipToMode" class="regularxl">
+			<select name="ShipToMode" id="ShipToMode" class="regularxxl">
 				<cfoutput query="lookup">
 					<option value="#Code#">#Description#
 				</cfoutput>
@@ -53,20 +53,19 @@
 	</tr>
 	
 	<TR>
-    <TD class="labelit">Order:</TD>
+    <TD class="labelmedium2">Order:</TD>
     <TD>
-  	   <cfinput type="Text" name="listingOrder" value="" message="Please enter a numeric listing order" required="Yes" size="1" validate="integer" maxlength="3" class="regularxl" style="text-align:center;">
+  	   <cfinput type="Text" name="listingOrder" value="" message="Please enter a numeric listing order" required="Yes" size="1" validate="integer" maxlength="3" 
+	     class="regularxxl" style="text-align:center;">
     </TD>
 	</TR>		
-	
-	<tr><td></td></tr>
-	
+			
 	<tr><td colspan="2" class="line"></td></tr>
 	
 	<tr>
 		
 	<td align="center" colspan="2" height="30">
-    <input class="button10g" style="width:120px" type="submit" name="Insert" id="Insert" value="Save">
+    <input class="button10g" type="submit" name="Insert" id="Insert" value="Save">
 	</td>	
 	
 	</tr>

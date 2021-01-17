@@ -21,23 +21,21 @@ password="#SESSION.dbpw#">
 							 WHERE  Mission = '#scale.mission#')	  					
 </cfquery>
 
-<table width="100%" height="100%" bgcolor="white">
-
-<tr><td height="14"></td></tr>
+<table width="100%" bgcolor="white">
 
 <tr><td valign="top">
 	
 	<cfform action="RateEditSubmit.cfm" method="POST" name="newrate" id="newrate">
 	
-		<table width="90%" cellspacing="0" cellpadding="0" align="center" class="formpadding formspacing">
+		<table width="90%" align="center" class="formpadding formspacing">
 									
-			<tr><td class="labelmedium" style="height:30px"><cf_tl id="Entity">:</td>
+			<tr><td class="labelmedium2" style="height:30px"><cf_tl id="Entity">:</td>
 				<td class="labellarge" style="height:30px">#Scale.mission#</td>
 			</tr>
-			<tr><td class="labelmedium" style="height:30px" height="25"><cf_tl id="Location">:</td>
+			<tr><td class="labelmedium2" style="height:30px" height="25"><cf_tl id="Location">:</td>
 			    <td class="labellarge" style="height:30px">
 				
-				<select name="servicelocation" class="regularxl">
+				<select name="servicelocation" class="regularxxl">
 					<cfloop query="getlocation">
 					<option value="#LocationCode#" <cfif scale.servicelocation eq locationcode>selected</cfif>>#description#</option>
 					</cfloop>
@@ -45,22 +43,19 @@ password="#SESSION.dbpw#">
 								
 				</td>
 			</tr>
-			<tr><td class="labelmedium"><cf_tl id="Scale effective">:</td>
+			<tr><td class="labelmedium2"><cf_tl id="Scale effective">:</td>
 			    <td>			
 					<cf_intelliCalendarDate9
 						FieldName="SalaryEffective" 
 						Default="#Dateformat(Scale.SalaryEffective, CLIENT.DateFormatShow)#"
 						AllowBlank="False"
-						class="regularxl">						
+						class="regularxxl">						
 				</td>
 			</tr>
-			<tr><td height="10"></td></tr>
 			
-			<tr><td class="line" colspan="2"></td></tr>
+			<tr class="line"><td style="padding-top:5px" colspan="2"></td></tr>
 			
-			<tr><td height="10"></td></tr>			
-			
-			<tr><td colspan="2" align="center" height="24" id="addrate">
+			<tr><td colspan="2" height="44" id="addrate">
 				<input name="Add" onclick="ptoken.navigate('RateAddSubmit.cfm?scaleno=#URL.ScaleNo#','addrate','','','POST','newrate')" 
 				  value="Create" type="button" style="width:140px;height:30px;font-size:17px" class="button10g"/>
 			</td>

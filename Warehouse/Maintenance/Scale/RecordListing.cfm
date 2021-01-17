@@ -8,13 +8,13 @@
 	<script>
 	
 		function recordadd() {
-		   ColdFusion.navigate('RecordListingDetail.cfm?idmenu=#url.idmenu#&id2=new','listing');
+		   ptoken.navigate('RecordListingDetail.cfm?idmenu=#url.idmenu#&id2=new','listing');
 		}
 		
 		function save(code) {
 		   document.forms['mytopic'].onsubmit();
 			if( _CF_error_messages.length == 0 ) {
-		       ColdFusion.navigate('RecordListingSubmit.cfm?idmenu=#url.idmenu#&id2='+code,'listing','','','POST','mytopic');
+		       ptoken.navigate('RecordListingSubmit.cfm?idmenu=#url.idmenu#&id2='+code,'listing','','','POST','mytopic');
 			 }   
 		 }
 	 
@@ -27,7 +27,7 @@
 <cfset add          = "1">
 <cfinclude template = "../HeaderMaintain.cfm"> 		
 	
-<table width="99%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="99%" align="center" class="formpadding">
 
     <tr><td height="4"></td></tr>				
 	<tr>

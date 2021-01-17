@@ -11,6 +11,7 @@
 		WHERE   M.Mission IN (SELECT Mission FROM Organization.dbo.Ref_MissionModule wHERE SystemModule = 'Staffing')
 </cfquery>
 
+<!---
 <cf_screentop height="100%" 
               scroll="Yes" 
 			  layout="webapp" 
@@ -20,7 +21,8 @@
 			  line="no"
 			  menuAccess="Yes" 
 			  systemfunctionid="#url.idmenu#"
-			  user="no">		  
+			  user="no">	
+			  --->	  
 			  
 <cfset maxCols = 4>
 <table width="93%" align="center" cellspacing="0">
@@ -41,13 +43,13 @@
 		  <table>
 		  <tr>
 		  <td>
-			   <input type="Checkbox" 
+			   <input type="Checkbox" class="radiol"
 					name="mission_#replace(mission,' ','','ALL')#" 
 					id="mission_#replace(mission,' ','','ALL')#" 
 					onclick="selectMission('#replace(mission,' ','','ALL')#','#mission#','C5FDC1');" 
 				<cfif mission eq Selected>checked</cfif>>
 				</td>
-				<td style="padding-left:5px" class="labelmedium">#Mission#</td>
+				<td style="padding-left:5px" class="labelmedium2">#Mission#</td>
 				</tr>
 			</table>			
 		</td>

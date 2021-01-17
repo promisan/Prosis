@@ -19,6 +19,6 @@
 
 <cfoutput>
 	<script>
-		ColdFusion.navigate('CategoryItem/CategoryItem.cfm?idmenu=#url.idmenu#&category=#url.category#','contentbox1');
+		ptoken.navigate('CategoryItem/CategoryItem.cfm?idmenu=#url.idmenu#&category=#url.category#','contentbox1');
 	</script>
 </cfoutput>

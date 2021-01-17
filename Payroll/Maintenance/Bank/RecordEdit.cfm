@@ -19,14 +19,11 @@ WHERE   B.Code= '#URL.ID#'
 
 <script language="JavaScript">
 
-function ask()
-
-{
+function ask() {
 	if (confirm("Do you want to remove this bank account ?")) {
 	return true 
 	}
-	return false
-	
+	return false	
 }	
 </script>
 
@@ -36,54 +33,55 @@ function ask()
 
 <!--- Entry form --->
 
-<table width="94%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="94%" align="center" class="formpadding formspacing">
 
-    <tr><td></td></tr>
-    <cfoutput>
+    <tr><td style="height:10px"></td></tr>
+    
+	<cfoutput>
+	
     <TR>
-    <TD class="labelmedium">Code:</TD>
+    <TD class="labelmedium2">Code:</TD>
     <TD>
-		   <cfinput type="Text" class="regularxl" name="Bank" value="#get.Code#" message="Please enter the bank acronym" required="Yes" size="20" maxlength="20">
+		   <cfinput type="Text" class="regularxxl" name="Bank" value="#get.Code#" message="Please enter the bank acronym" required="Yes" size="20" maxlength="20">
           <input type="hidden" name="CodeOld" value="#get.Code#">
     </TD>
 	</TR>
 			
 	<TR>
-    <TD class="labelmedium">Name:</TD>
+    <TD class="labelmedium2">Name:</TD>
     <TD>
-  	    <cfinput type="Text" class="regularxl" name="Description" value="#get.Description#" message="Please enter the name of your account" required="Yes" size="24" maxlength="40">
+  	    <cfinput type="Text" class="regularxxl" name="Description" value="#get.Description#" message="Please enter the name of your account" required="Yes" size="24" maxlength="40">
     </TD>
 	</TR>
 	
 	<TR>
     <TD class="labelmedium">Operational:</TD>
     <TD>
-		<input type="checkbox" name="Operational" value="1" <cfif get.operational eq "1">checked</cfif>>
+		<input type="checkbox" name="Operational" class="radiol" value="1" <cfif get.operational eq "1">checked</cfif>>
   	 </TD>
 	</TR>
-	
-	<tr><td colspan="2" height="3"></td></tr>
-	<tr><td colspan="2" class="linedotted"></td></tr>
+		
+	<tr><td colspan="2" class="line"></td></tr>
 	
 	<tr><td colspan="2" height="55" align="center">
 	<input class="button10g" type="button" name="Cancel" value=" Cancel " onClick="window.close()">
 			
-	<cfquery name="Check" 
-	datasource="AppsPayroll" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-	SELECT  TOP 1 *
-	FROM    PersonAccount
-	WHERE   BankCode= '#URL.ID#'
-	</cfquery>
+		<cfquery name="Check" 
+		datasource="AppsPayroll" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT  TOP 1 *
+			FROM    PersonAccount
+			WHERE   BankCode= '#URL.ID#'
+		</cfquery>
 	
 	<cfif check.recordcount eq "0">
 		<input class="button10g" type="submit" name="Delete" value=" Delete " onclick="return ask()">
 	</cfif>
 	<input class="button10g" type="submit" name="Update" value=" Update ">
-	</td></tr>
-		
 	
+	</td></tr>
+			
 	</cfoutput>
 		
 </TABLE>

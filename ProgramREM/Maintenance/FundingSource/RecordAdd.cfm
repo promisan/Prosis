@@ -27,21 +27,19 @@ password="#SESSION.dbpw#">
 
 <cfform action="RecordSubmit.cfm" method="POST" enablecab="Yes" name="dialog">
 
-<table width="92%" cellspacing="0" cellpadding="0" align="center" class="formspacing formpadding">
-
-	
+<table width="92%" align="center" class="formspacing formpadding">
 
 	<tr><td height="5"></td></tr>
-    <TR class="labelmedium">
+    <TR class="labelmedium2">
     <td width="80">Code:</td>
     <TD>
-  	   <cfinput type="text" name="code" value="" message="Please enter a code" required="Yes" size="4" maxlength="4" class="regularxl">
+  	   <cfinput type="text" name="code" value="" message="Please enter a code" required="Yes" size="4" maxlength="4" class="regularxxl">
     </TD>
 	</TR>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD>Fund Type:</TD>
-    <TD><select name="FundType" class="regularxl">	  
+    <TD><select name="FundType" class="regularxxl">	  
 	  	<cfoutput query="FundType">
 		   <option value="#Code#">#Description#</option>
 		</cfoutput>
@@ -49,35 +47,35 @@ password="#SESSION.dbpw#">
 	</TD>
 	</TR>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD>Description:</TD>
     <TD>
-  	   <cfinput type="text" name="Description" value="" message="Please enter a description" required="Yes" size="30" maxlength="50" class="regularxl">
+  	   <cfinput type="text" name="Description" value="" message="Please enter a description" required="Yes" size="30" maxlength="50" class="regularxxl">
     </TD>
 	</TR>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD>Order listing:</TD>
     <TD>
-  	   <cfinput type="Text" name="ListingOrder" message="Please enter a numeric value" validate="integer" required="Yes" size="2" maxlength="2" class="regularxl">
+  	   <cfinput type="Text" name="ListingOrder" message="Please enter a numeric value" validate="integer" required="Yes" size="2" maxlength="2" class="regularxxl">
     </TD>
 	</TR>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD>Enforce availability:</TD>
     <TD>
 	  <input type="checkbox" class="radiol" name="VerifyAvailability" value="1" checked>
 	</TD>
 	</TR>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD>Display in Statistics:</TD>
     <TD>
 	  <input type="checkbox" class="radiol" name="ControlView" value="0" checked>
 	</TD>
 	</TR>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD>Enforce currency:</TD>
     <TD><select name="Currency" class="regularxl">
 	    <option value="" selected>No</option>
@@ -88,7 +86,7 @@ password="#SESSION.dbpw#">
 	</TD>
 	</TR>
 			
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD>Funding mode:</TD>
     <TD>
 	    <INPUT type="radio" class="radiol" name="FundingMode" value="Envelope" checked>Envelope
@@ -101,8 +99,8 @@ password="#SESSION.dbpw#">
 	<tr>	
 	<td colspan="2" align="center" height="30" valign="bottom">	
 		
-	<input class="button10g" style="width:100" type="button" name="Cancel" value="Cancel" onClick="window.close()">
-    <input class="button10g" style="width:100" type="submit" name="Insert" value="Submit">
+	<input class="button10g" type="button" name="Cancel" value="Cancel" onClick="window.close()">
+    <input class="button10g"  type="submit" name="Insert" value="Submit">
 	
 	</td>	
 	

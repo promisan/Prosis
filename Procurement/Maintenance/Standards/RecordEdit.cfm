@@ -20,7 +20,6 @@ FROM Ref_Standard
 WHERE Code = '#URL.ID1#'
 </cfquery>
 
-
 <script language="JavaScript">
 
 function ask() {
@@ -30,8 +29,7 @@ function ask() {
 	return false	
 }	
 
-function maxlength(element, maxvalue)
-{
+function maxlength(element, maxvalue) {
      var q = eval("document.dialog."+element+".value.length");
      var r = q - maxvalue;
      var msg = "At maximum, you can enter "+maxvalue+" characters";
@@ -48,70 +46,71 @@ function maxlength(element, maxvalue)
 
 </script>
 
-<CFFORM action="RecordSubmit.cfm" method="post" enablecab="yes" name="dialog"  >
+<CFFORM action="RecordSubmit.cfm" method="post" name="dialog"  >
 
 <!--- edit form --->
 
-<table width="92%" align="center" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="92%" align="center" class="formpadding formspacing">
 <!--- Field: code --->
 	 <cfoutput>
 	
-	 <TR>
-	 <TD class="labelit">Code:</TD>  
+	 <TR class="labelmedium2">
+	 <TD>Code:</TD>  
 	 <TD>
-	 	<input type="Text" name="Code" id="Code" value="#get.Code#" size="20" maxlength="20"class="regularxl">
+	 	<input type="Text" name="Code" id="Code" value="#get.Code#" size="20" maxlength="20"class="regularxxl">
 		<input type="hidden" name="CodeOld" id="CodeOld" value="#get.Code#" size="20" maxlength="20"class="regularxl">
 	 </TD>
 	 </TR>	 
     
 	 <!--- Field: Description --->
-    <TR>
-    <TD class="labelit">Description:</TD>
+    <TR class="labelmedium2">
+    <TD>Description:</TD>
     <TD>
-  	  	<input type="Text" name="Description" id="Description" value="#get.Description#" message="Please enter a description" required="Yes" size="50" maxlength="100" class="regularxl">				
+  	  	<input type="Text" name="Description" id="Description" value="#get.Description#" message="Please enter a description" required="Yes" size="50" maxlength="100" 
+		 class="regularxxl">				
     </TD>
 	</TR>	
     
 	 <!--- Field: Reference --->
-    <TR>
-    <TD class="labelit">Reference:</TD>
+    <TR class="labelmedium2">
+    <TD>Reference:</TD>
     <TD>
-  	  	<input type="Text" name="Reference" id="Reference" value="#get.Reference#" message="Please enter a Reference" required="Yes" size="20" maxlength="20" class="regularxl">				
+  	  	<input type="Text" name="Reference" id="Reference" value="#get.Reference#" message="Please enter a Reference" required="Yes" size="20" maxlength="20" class="regularxxl">				
     </TD>
 	</TR>
 	
 	<cf_calendarscript>	
 
 	 <!--- Field: Date Expiration --->
-    <TR>
-    <TD class="labelit">Expiration:&nbsp;</TD>
+    <TR class="labelmedium2">
+    <TD>Expiration:&nbsp;</TD>
     <TD>
 	   <cf_intelliCalendarDate9
 	      FieldName="DateExpiration" 			 
-		  class="regularxl"			  
+		  class="regularxxl"			  
 	      Default="#Dateformat(get.DateExpiration, CLIENT.DateFormatShow)#">
     </TD>
 	</TR>
 		  	
 	 <!--- Field: Memo --->
-    <TR>
-    <TD class="labelit">Scope:&nbsp;</TD>
+    <TR class="labelmedium2">
+    <TD>Scope:&nbsp;</TD>
     <TD>
-		<textarea style="width:95%;padding:3px;font-size:14px" rows="4" class="regular" name="Memo">#get.Memo#</textarea>
+		<textarea style="width:95%;padding:3px;font-size:14px" rows="4" class="regularxxl" name="Memo">#get.Memo#</textarea>
     </TD>
 	</TR>	
-	
-	
-	<TR><td class="labelit">Operational:</b></td>
+		
+	<TR class="labelmedium2"><td>Operational:</b></td>
 	    <TD>
-			<input type="radio" name="Operational" id="Operational" <cfif get.Operational eq "1">checked</cfif> value="1">Yes
-			<input type="radio" name="Operational" id="Operational" <cfif get.Operational eq "0">checked</cfif> value="0">No
+			<input type="radio" class="radiol" name="Operational" id="Operational" <cfif get.Operational eq "1">checked</cfif> value="1">Yes
+			<input type="radio" class="radiol" name="Operational" id="Operational" <cfif get.Operational eq "0">checked</cfif> value="0">No
 	    </td>
     </tr>
 		
 	<TR><TD height="4"></TD></TR>	
 	
-	<tr><td class="labelit">Attachment:</td>
+	<tr class="labelmedium2">
+	<td>Attachment:</td>
 	<td>
 			<cf_filelibraryN
 					DocumentPath  = "Standards"
@@ -128,7 +127,8 @@ function maxlength(element, maxvalue)
 	
 	</tr>		
 	
-	<tr><td height="1" colspan="2" class="linedotted"></td></tr>
+	<tr><td height="1" colspan="2" class="line"></td></tr>
+	
 	<tr><td colspan="2" align="center" height="40">
 		<input class="button10g" type="button" name="Cancel" id="Cancel" value=" Cancel " onClick="window.close()">
 		<input class="button10g" type="submit" name="Delete" id="Delete" value=" Delete " onClick="return ask()">

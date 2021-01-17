@@ -12,34 +12,31 @@
 <!--- Entry form --->
 <cfform action="RecordSubmit.cfm" method="POST" name="dialog"><br>
 
-<table width="95%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="95%" align="center" class="formpadding">
 
     <TR>
-    <TD class="labelit">Code:</TD>
+    <TD class="labelmedium2">Code:</TD>
     <TD>
-  	   <cfinput type="Text" name="Code" value="" message="Please enter a code" required="Yes" size="25" maxlength="20" class="regularxl">
+  	   <cfinput type="Text" name="Code" value="" message="Please enter a code" required="Yes" size="25" maxlength="20" class="regularxxl">
     </TD>
 	</TR>
 		
 	<TR>
-    <TD class="labelit">Description:</TD>
+    <TD class="labelmedium2">Description:</TD>
     <TD>
-  	   <cfinput type="Text" name="Description" message="Please enter a description" required="Yes" size="30" maxlength="50" class="regularxl">
+  	   <cfinput type="Text" name="Description" message="Please enter a description" required="Yes" size="30" maxlength="50" class="regularxxl">
     </TD>
 	</TR>
 	
 	<TR>
-    <TD class="labelit">Order:</TD>
+    <TD class="labelmedium2">Order:</TD>
     <TD>
-  	  	<cfinput type="Text" name="ListingOrder" message="Please enter a numeric order" validate="integer" required="No" size="1" maxlength="3" class="regularxl" style="text-align:center;">
+  	  	<cfinput type="Text" name="ListingOrder" message="Please enter a numeric order" validate="integer" required="No" size="1" maxlength="3" class="regularxxl" style="text-align:center;">
     </TD>
 	</TR>
-		
+	
 
-	<tr><td colspan="2" height="6"></td></tr>
 	<tr><td colspan="2" class="linedotted"></td></tr>
-	<tr><td colspan="2" height="6"></td></tr>
-
 	
 	<tr>	
 	<td align="center" colspan="2"  valign="bottom">

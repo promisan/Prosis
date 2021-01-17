@@ -112,7 +112,7 @@ password="#SESSION.dbpw#">
 			   PersonNo           = "#Form.PersonNo#"
 			   Mission            = "#Form.Mission#"
 			   ActionCode         = "#form.actionCode#"			   
-			   ActionLink         = "Staffing/Application/Employee/HRAction/ActionEdit.cfm?id=#form.personNo#&id1="
+			   ActionLink         = "Staffing/Application/Employee/HRAction/HRActionEdit.cfm?id=#form.personNo#&id1="
 			   ActionSourceId     = "#Form.PersonActionId#"						   	 		 
 			   ActionStatus       = "1">				
 	

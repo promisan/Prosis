@@ -1,6 +1,303 @@
- 		
+<!--- Prosis template framework --->
+<cfsilent>
+	<proUsr>jmazariegos</proUsr>
+	<proOwn>Jorge Mazariegos</proOwn>
+	<proDes>Translated</proDes>
+	<proCom></proCom>
+</cfsilent>
+
+<cfparam name="URL.Mode"   default="view">
+<cfparam name="URL.Header" default="Yes">
+
+<cfif url.mode eq "" or (url.mode neq "edit" and url.mode neq "add")>
+   <cfset url.mode = "view">   
+</cfif>
+
+<cf_tl id="Procurement" var="1"> 
+
+<cfif url.header eq "Yes">
+
+<cf_screentop  
+    layout        = "webapp" 
+	html          = "#url.header#" 
+	label         = "#lt_text# #URL.Id1#" 		
+	banner        = "green" 
+	bannerforce   = "Yes"
+	scroll        = "No"	
+	line          = "no"
+	jQuery        = "Yes"
+	systemmodule  = "Procurement"
+	FunctionClass = "Window"
+	FunctionName  = "PurchaseOrder"
+	menuAccess    = "context"
+	height        = "100%">
 	
-<table style="width:98.5%;min-width:1000px" align="center">
+<cfelse>
+
+<cf_screentop  
+    layout        = "webapp" 
+	html          = "#url.header#" 
+	label         = "#lt_text# #URL.Id1#" 		
+	banner        = "green" 
+	bannerforce   = "Yes"
+	scroll        = "No"	
+	line          = "no"
+	jQuery        = "Yes"
+	systemmodule  = "Procurement"
+	FunctionClass = "Window"
+	FunctionName  = "PurchaseOrder"	
+	height        = "100%">
+	
+</cfif>	
+
+<!--- End Prosis template framework --->
+
+ <cfquery name="PO" 
+	  datasource="AppsPurchase" 
+	  username="#SESSION.login#" 
+	  password="#SESSION.dbpw#">
+	    SELECT * 
+		FROM   Purchase P
+		WHERE  PurchaseNo ='#URL.Id1#'
+		AND    PurchaseNo IN (SELECT PurchaseNo 
+		                      FROM   PurchaseLine
+							  WHERE  PurchaseNo = P.PurchaseNo)
+</cfquery>	
+
+<cfquery name="PurchaseClass" 
+	datasource="AppsPurchase" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    SELECT *
+	    FROM   Ref_OrderClass
+		WHERE  Code = '#PO.OrderClass#' 
+</cfquery>
+
+
+<cfquery name="PurchaseType" 
+	datasource="AppsPurchase" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    SELECT *
+	    FROM   Ref_OrderType
+		WHERE  Code = '#PO.OrderType#' 
+</cfquery>	
+	
+<cfquery name="Parameter" 
+	datasource="AppsPurchase" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    SELECT *
+	    FROM   Ref_ParameterMission
+		WHERE  Mission = '#PO.Mission#' 
+</cfquery>
+	
+<cfquery name="Invoice" 
+		datasource="AppsPurchase" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		SELECT    * 
+        FROM      Invoice
+		WHERE     InvoiceId IN (SELECT InvoiceId FROM InvoicePurchase WHERE PurchaseNO = '#URL.ID1#')
+		AND       ActionStatus != '9'
+		order by documentDate
+</cfquery>  
+
+<cfquery name="Receipt" 
+		datasource="AppsPurchase" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		SELECT    * 
+        FROM      PurchaseLineReceipt
+		WHERE     RequisitionNo IN (SELECT RequisitionNo FROM PurchaseLine WHERE PurchaseNO = '#URL.ID1#')
+		AND       ActionStatus != '9'		
+</cfquery>  		
+
+<cfif PurchaseClass.PurchaseTemplate neq "">
+	<cfset tmp = "#PurchaseClass.PurchaseTemplate#">
+<cfelseif Parameter.PurchaseTemplate neq "">
+    <cfset tmp = "#Parameter.PurchaseTemplate#"> 
+<cfelse>
+	<cfset tmp = "Procurement/Application/Purchaseorder/Purchase/POViewPrint.cfm">  
+</cfif>
+		
+<cfparam name="CLIENT.Sort" default="OrgUnit">
+<cfparam name="URL.Sort"    default="line">
+<cfparam name="URL.View"    default="Hide">
+<cfparam name="URL.Lay"     default="Reference">
+<cfif url.mode eq "undefined">
+  <cfset url.mode = "view">
+</cfif>
+<cfparam name="URL.Role"    default="">
+
+<cf_tl id="Memo" var="1">
+<cfset vMemo="#lt_text#">
+
+<cf_tl id="Approval History" var="1">
+<cfset vHistory="#lt_text#">
+
+<cf_tl id="Received Invoices" var="1">
+<cfset vReceived="#lt_text#">
+
+<cfoutput>
+
+	<script>
+	
+	  function executionrequest(po,exe) {
+			
+		 se = document.getElementById('box'+exe);
+		 if (se.className == 'hide') {
+		    se.className = 'regular';
+			ptoken.navigate('../ExecutionRequest/ViewDrill.cfm?mode=drill&purchaseno='+po+'&executionid='+exe,'c'+exe);
+		 } else {
+		   se.className = 'hide'; 
+		 }
+	 }
+	 
+	 function ask(status) {
+	       
+		de = document.getElementById("destination")					
+	    if (status <= "1") { 
+		    sel = "return this Obligation ?" 
+		} else { 	     
+		    sel = "Approve this Obligation ?" }		
+		
+		if (confirm("Do you want to "+sel))	{
+			document.getElementById("fStatus").submit();		 
+		}
+			
+	}	
+	
+	function validate(frm,box,target) {	  
+	   document.getElementById(frm).onsubmit() 
+	   if( _CF_error_messages.length == 0 ) {	           
+		    ptoken.navigate(target,box,'','','POST',frm)
+	     }   
+    }	
+		
+	function reloadForm(mode,sort) {	    
+		ptoken.location("POViewGeneral.cfm?header=#url.header#&Mode=" + mode + "&role=#URL.Role#&ID1=#URL.ID1#&Sort="+sort) 
+	}
+	
+	function amendpurchase() {	
+		if (confirm("Do you want to amend and reset the status of this purchase order"))	{
+		    Prosis.busy('yes')
+			ptoken.navigate('setPOAmendment.cfm?header=#url.header#&role=#URL.Role#&Purchaseno=#URL.ID1#','amendbox')		 
+		}	
+	}
+	
+	function clonepurchase(po) {	
+	if (confirm("Do you want to clone the lines of this purchase ?"))	{
+		ptoken.navigate('#session.root#/Procurement/Application/PurchaseOrder/Purchase/applyCopyRequisition.cfm?purchaseNo='+po,'processrequisition')
+	} 	
+	}	
+	
+	function gettimesheet(po) {
+   	    try { ColdFusion.Window.destroy('timesheet',true); } catch(e){};			
+		w = document.body.clientWidth-50										
+		ColdFusion.Window.create('timesheet', 'Timesheet', '#session.root#/Procurement/Application/PurchaseOrder/Timesheet/TimeSheet.cfm?purchaseno='+po,{x:30,y:30,height:document.body.clientHeight-50,width:w,resizable:false,modal:true,center:true});	
+	}
+			
+	function more(bx,act,bx2) {
+	
+	    icM  = document.getElementById(bx+"Min")
+	    icE  = document.getElementById(bx+"Exp")
+		se   = document.getElementById(bx)
+		se2   = document.getElementById(bx2)
+			
+		if (se.className=="hide") {
+			se.className  = "regular";
+			if (se2) { se2.className  = "regular"; }
+			icM.className = "regular";
+		    icE.className = "hide";
+		} else	{
+			se.className  = "hide";
+			if (se2) { se2.className  = "hide"; }
+		    icM.className = "hide";
+		    icE.className = "regular";
+		}
+		}
+			
+		function clause(cl) {
+		 	 w = #CLIENT.width# - 100;
+			 h = #CLIENT.height# - 140;
+		     ptoken.open("#session.root#/Procurement/Application/PurchaseOrder/Purchase/POViewClausePrint.cfm?PurchaseNo=#URL.ID1#&ClauseCode="+cl,"_blank", "left=30, top=30, width=" + w + ", height= " + h + ", toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=no")
+	  	}
+										  
+		function invadd(orgunit,po,personno) {	
+		     ptoken.open("#SESSION.root#/Procurement/Application/Invoice/InvoiceEntry/InvoiceEntryView.cfm?html=yes&Mission=#PO.Mission#&Period=#PO.Period#&OrgUnit="+orgunit+"&PersonNo="+personno+"&PurchaseNo="+po,"_blank","width=1050, height=960, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes");							   						 
+		 }	
+		 
+		function present(mode) {
+			     		  		  
+			  w = #CLIENT.width# - 100;
+			  h = #CLIENT.height# - 140;
+			  
+			  docid = document.getElementById("printdocumentid").value
+			  		  
+			  if (docid != "") {			   
+				  window.open("#SESSION.root#/Tools/Mail/MailPrepare.cfm?docid="+docid+"&id="+mode+"&id1=#URL.ID1#","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")
+			  } else {
+			      window.open("#SESSION.root#/Tools/Mail/MailPrepare.cfm?templatepath=#tmp#&id="+mode+"&id1=#URL.ID1#","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")		 
+			  }	  
+	  	} 			
+		
+			
+	</script>
+
+</cfoutput>
+
+<!--- check if the person has edit rights to the purchase order --->
+
+<cfajaximport tags="cfwindow,cfform">
+
+<cf_DialogProcurement>
+<cf_DialogWorkOrder>
+<cf_dialogOrganization>
+<cf_dialogLedger>
+<cf_timesheetscript>
+          		
+	<cfquery name="Access" 
+	  datasource="AppsPurchase" 
+	  username="#SESSION.login#" 
+	  password="#SESSION.dbpw#">
+	  SELECT    *
+	  FROM    PurchaseActor
+	  WHERE   PurchaseNo = '#URL.ID1#'
+	  AND     ActorUserId = '#SESSION.acc#'
+	</cfquery>
+	
+	<cfif url.mode eq "View">	
+				
+		<cfif (Access.recordcount gte "1" or getAdministrator("#PO.Mission#") eq "1") and PO.ActionStatus lte "2">		
+			<cfset url.mode = "Edit">			
+		</cfif>	
+		
+	</cfif>
+		
+	<cfinvoke component="Service.Access"
+	   Method         = "procApprover"
+	   OrgUnit        = "#PO.OrgUnit#"
+	   OrderClass     = "#PO.OrderClass#"
+	   ReturnVariable = "ApprovalAccess">	
+		   
+	<cfif (ApprovalAccess eq "NONE" or ApprovalAccess eq "READ") and Access.recordcount eq "0">
+
+		<cfset url.access = "View">
+
+	</cfif>	   
+	
+	<cfif PO.recordcount eq "0">	
+	  	   	
+	   <cf_message message = "Order [#URL.ID1#] does not have any lines associated." return="no">
+	    
+	   <cfabort>
+	   	
+	</cfif>
+	
+<cf_divscroll>		
+	
+<table style="width:97%;min-width:1000px" align="center">
 
 	<tr class="fixrow">
 	
@@ -73,6 +370,7 @@
   </tr>
 	
   </cfoutput>
+  
       
   <tr><td colspan="2">
   
@@ -184,7 +482,8 @@
 		 </tr>	
 		 
 		 <tr><td colspan="2" class="line"></td></tr>
-		 		 		 
+	
+	 		 		 
 		 <tr id="header" style="padding-top:3px" class="regular">		 
 			  <td>
 							  
@@ -205,7 +504,7 @@
 							  </cfif>	  
 						  </td></tr>										  
 						</cfif>
-						
+												
 						<tr><td id="process"></td></tr>
 					  
 				      	<tr><td><cfinclude template="POViewHeader.cfm"></td></tr>	 							
@@ -215,7 +514,7 @@
 				  </table>
 			  
 			  </cfform>
-			  
+						  
 			  </td>
 		   </tr>
 		   
@@ -255,17 +554,15 @@
 		    <cfoutput>
 			
 				<img src="#SESSION.root#/Images/arrowright.gif" alt="" 
-				id="funExp" border="0" class="regular" 
-				align="absmiddle">
+				id="funExp" class="regular" align="absmiddle">
 				
 				<img src="#SESSION.root#/Images/arrowdown.gif" 
-				id="funMin" alt="" border="0" 
-				align="absmiddle" class="hide">
+				id="funMin" align="absmiddle" class="hide">
 				
 			</cfoutput>
-			
+									
 			</td>
-			<td class="labellarge" style="background-color:white;padding-left:3px;font-size:20px;font-weight:bold;;height:32px;"><cf_tl id="Funding"></td>
+			<td class="labellarge" style="padding-left:3px;font-size:24px;height:50px;color:0080C0"><cf_tl id="Funding"></td>
 			</tr>
 		  </table>
 	  	</td></tr>
@@ -285,6 +582,8 @@
 	
 </td></tr>
 </table>
+
+	
 
 <!--- --------------------------------------- --->
 <!--- ----------Purchase Lines tab ---------- --->
@@ -346,6 +645,8 @@
 		   	  
 			   <table width="100%" border="0">
 			   
+			  
+			   
 			   		<cfoutput>
 					
 					    <tr class="line">
@@ -355,7 +656,7 @@
 							<img src="#SESSION.root#/Images/arrowdown.gif"  alt="" id="linesMin" border="0" class="regular" align="absmiddle">				
 						
 						</td>					
-						<td onClick="more('lines','show')" class="labellarge" style="background-color:white;padding-left:3px;font-size:20px;font-weight:bold;;height:32px;"><cf_tl id="Purchase details and Receipts"></td>					
+						<td onClick="more('lines','show')" class="labellarge" style="background-color:white;padding-left:3px;font-size:24px;height:50px;color:0080C0;"><cf_tl id="Purchase details and Receipts"></td>					
 						
 							<cf_tl id="Export data to Excel" var="vExport">
 							
@@ -376,7 +677,9 @@
 									  ajax           = "0"
 									  olap           = "0" 
 									  excel          = "1"> 				
-						
+				 
+		 
+ 	
 						
 						
 						<td align="right" style="padding-left:4px;width:150px;padding-right:4px;background-color:white">
@@ -401,6 +704,7 @@
 						</tr>
 					
 					</cfoutput>	
+					 	
 					
 			   </table>
 		      </td>
@@ -415,11 +719,12 @@
 			 
 			 </td>
 		  </tr>
-		  
+		  		  
 		</table>
 			  	  	  	  
 	</td></tr>
 	
+	<cfif PO.ActionStatus neq "9">
 	
 	<!--- ------------------------------------------- --->
 	<!--- ----------Distribution subtab ------------- --->
@@ -448,7 +753,7 @@
 				</cfoutput>
 				
 				</td>
-				<td class="labellarge" style="padding-left:3px;font-size:20px;font-weight:bold;height:32px;"><cf_tl id="Distribution"></td>
+				<td class="labellarge" style="padding-left:3px;font-size:24px;font-weight:bold;height:50px;"><cf_tl id="Distribution"></td>
 				</tr>
 			  </table>
 		  	</td></tr>
@@ -534,7 +839,7 @@
 						
 					</cfoutput>	
 					</td>
-					<td class="labellarge" style="background-color:white;padding-left:3px;font-size:20px;font-weight:bold;;height:32px;"><cf_tl id="Advances"></td>
+					<td class="labellarge" style="background-color:white;padding-left:3px;font-size:24px;height:50px;color:0080C0"><cf_tl id="Advances"></td>
 					</tr>
 			  </table>
 			  </td></tr>
@@ -598,7 +903,7 @@
 					</td>
 					<td onClick="more('inv','show','inv2')" 
 					    class="labellarge" 
-						style="background-color:white;padding-left:3px;font-size:20px;font-weight:bold;height:32px;"><cfoutput>#vReceived#</cfoutput></td>
+						style="background-color:white;padding-left:3px;font-size:24px;height:50px;color:0080C0"><cfoutput>#vReceived#</cfoutput></td>
 									
 					<cfif (Lines.recordcount gte "0" and (ApprovalAccess eq "EDIT" or ApprovalAccess eq "ALL")) 
 					    or getAdministrator(Lines.mission) eq "1">
@@ -724,7 +1029,7 @@
 				<cfelse>
 				
 					<cfoutput>
-					<a href="javascript:_cf_loadingtexthtml='';	ColdFusion.navigate('POViewInvoice.cfm?filter=&sort=#url.sort#&mode=#url.mode#&id1=#url.id1#','invoicecontent')">
+					<a href="javascript:_cf_loadingtexthtml='';	ptoken.navigate('POViewInvoice.cfm?filter=&sort=#url.sort#&mode=#url.mode#&id1=#url.id1#','invoicecontent')">
 					<cf_tl id="Press here to view Payables/Invoices">
 					</a>		
 					</cfoutput>		 		  
@@ -760,7 +1065,7 @@
 					
 				</cfoutput>
 				</td>
-				<td class="labellarge" style="background-color:white;padding-left:3px;font-size:20px;font-weight:bold;height:32px;"><cf_tl id="Responsible officers"></td>
+				<td class="labellarge" style="background-color:white;padding-left:3px;font-size:24px;height:50px;color:0080C0"><cf_tl id="Responsible officers"></td>
 				</tr>
 		  </table>
 		  </td></tr>
@@ -812,7 +1117,7 @@
 					
 				</cfoutput>
 				</td>
-				<td class="labellarge" style="font-weight:200;height:31px;font-size:20px;;padding-left:3px;height:40"><font color="0080C0"><cfoutput>#vHistory#</cfoutput></td>
+				<td class="labellarge" style="font-weight:200;height:31px;font-size:24px;;padding-left:3px;height:40"><font color="0080C0"><cfoutput>#vHistory#</cfoutput></td>
 				</tr>
 		  </table>
 		  </td></tr>
@@ -833,8 +1138,13 @@
 	<tr><td height="5"></td></tr>
 				
 	</TABLE>
+	
+	</td></tr>		
 
-</td></tr>		
+	</cfif>
 
 </table>	
+
+</cf_divscroll>
+
 

@@ -3,8 +3,7 @@
 
 <cf_screentop height="100%" 
               scroll="No" 
-			  label="Execution Period / Mapping" 
-			  option="Define Period settings" 
+			  label="Execution Period / Enterprise mapping" 			  
 			  layout="webapp" 
 			  banner="gray"
 			  jQuery="Yes"
@@ -31,11 +30,11 @@ function ask() {
 
 </script>
 
-<cfajaximport tags="cfform,cfinput-datefield">
+<cfajaximport tags="cfform">
 
 <!--- edit form --->
 
-<table width="95%" height="100%" align="center" class="formpadding">
+<table width="95%" height="100%" align="center" class="formpadding formspacing">
 
 <tr><td height="100%">
 
@@ -50,41 +49,41 @@ function ask() {
 	<tr><td height="2"></td></tr>
     <cfoutput>
 	
-    <TR>
-    <TD class="labelmedium">Code:</TD>
+    <TR class="labelmedium2">
+    <TD>Code:</TD>
     <TD colspan="2" class="regular">
-  	   <input type="text" disabled name="Period" value="#get.Period#" size="10" maxlength="10" class="regularxl">
+  	   <input type="text" disabled name="Period" value="#get.Period#" size="10" maxlength="10" class="regularxxl">
 	   <input type="hidden" name="periodOld" value="#get.Period#" size="10" maxlength="10" class="regular">
     </TD>
 	</TR>
 		
 	<cf_calendarscript>	
-	<TR>
-    <TD class="labelmedium">Period:</TD>
+	<TR class="labelmedium2">
+    <TD>Period:</TD>
     <TD colspan="2">
 		<table cellspacing="0" cellpadding="0"><tr><td>
 		 <cf_intelliCalendarDate9
 			FieldName="DateEffective" 
-			class="regularxl"
+			class="regularxxl"
 			Default="#DateFormat(Get.DateEffective, CLIENT.DateFormatShow)#"
 			AllowBlank="False">
 		</td><td align="center" width="20">-</td>
 		<td>
 			<cf_intelliCalendarDate9
 			FieldName="DateExpiration" 
-			class="regularxl"
+			class="regularxxl"
 			Default="#DateFormat(Get.DateExpiration, CLIENT.DateFormatShow)#"
 			AllowBlank="False">	
 		</td></tr></table>
 	    </TD>
 	</TR>
 	
-	<TR>
-    <TD class="labelmedium">Class:</TD>
+	<TR class="labelmedium2">
+    <TD>Class:</TD>
     <TD colspan="2">
 	  <table><tr><td>
 	 <cfinput type="text" name="PeriodClass" value="#get.PeriodClass#" message="Please enter a class" required="yes" size="10"
-	   maxlenght = "10" class= "regularxl">
+	   maxlenght = "10" class= "regularxxl">
 	    </td>
 		<TD style="padding-left:4px" class="labelmedium">Description:</TD>
 		<TD style="padding-left:4px" colspan="2">
@@ -96,7 +95,7 @@ function ask() {
 				   required  = "yes" 
 				   size      = "30" 
 		    	   maxlenght = "50" 
-				   class     = "regularxl">
+				   class     = "regularxxl">
 				   
 		</TD>
 		</TR>
@@ -107,21 +106,21 @@ function ask() {
    
 	</TR>
 		
-	<TR>
-    <td class="labelmedium">Show in Period Selection:</td>
-	<td class="labelmedium">
+	<TR class="labelmedium2">
+    <td>Show in Period Selection:</td>
+	<td>
   	  <input type="radio" class="radiol" name="IncludeListing" value="1" <cfif Get.IncludeListing eq "1">checked</cfif>>Yes
 	  <input type="radio" class="radiol" name="IncludeListing" value="0" <cfif Get.IncludeListing eq "0">checked</cfif>>No
     </TD>
 	</TR>	
 		
-	<TR>
-    <td class="labelmedium" width="100">Usage:</td>
+	<TR class="labelmedium2">
+    <td width="100">Usage:</td>
 	<td width="80%">
 	
-	<table cellspacing="0" cellpadding="0">
-	 <tr>
-	  <td class="labelmedium">
+	<table>
+	 <tr class="labelmedium2">
+	  <td>
       <input type="radio" class="radiol" name="isPlanningPeriod" value="1" <cfif Get.isPlanningPeriod eq "1">checked</cfif> onclick="document.getElementById('planperiod').className='regular'"></td><td class="labelmedium">Execution- AND Plan Period </td>
 	  <td>&nbsp;</td>
 	  <cfif get.isPlanningPeriod eq "1">
@@ -129,21 +128,24 @@ function ask() {
 	  <cfelse>
 	   <cfset cl = "hide">
 	  </cfif>
-	  <td id="planperiod" class="#cl#"><table cellspacing="0" cellpadding="0">
-	  <tr><td class="labelmedium" style="padding-right:10px">covering entry for periods until:</td>
-	  	<td>
-		  <cf_intelliCalendarDate9
-			FieldName="isPlanningPeriodExpiry" 
-			class="regularxl"
-			Default="#DateFormat(Get.isPlanningPeriodExpiry, CLIENT.DateFormatShow)#"
-			AllowBlank="True">	
-		</td>
-		
-	  <td style="padding-left:10px" class="labelmedium">
-  	  <input type="radio" class="radiol" name="isPlanningPeriod" value="0" <cfif Get.isPlanningPeriod eq "0">checked</cfif> onclick="document.getElementById('planperiod').className='hide'"></td>
-	  <td class="labelmedium">Execution only</td>	
-	  </tr>
-	  </table>
+	  <td id="planperiod" class="#cl#">
+	  
+		  <table cellspacing="0" cellpadding="0">
+		  <tr class="labelmedium2">
+		     <td class="labelmedium" style="padding-right:10px">covering entry for periods until:</td>
+		  	 <td>
+			  <cf_intelliCalendarDate9
+				FieldName="isPlanningPeriodExpiry" 
+				class="regularxxl"
+				Default="#DateFormat(Get.isPlanningPeriodExpiry, CLIENT.DateFormatShow)#"
+				AllowBlank="True">	
+			</td>
+			<td style="padding-left:10px" class="labelmedium">
+	  	    <input type="radio" class="radiol" name="isPlanningPeriod" value="0" <cfif Get.isPlanningPeriod eq "0">checked</cfif> onclick="document.getElementById('planperiod').className='hide'">
+			</td>
+		    <td class="labelmedium">Execution only</td>	
+		  </tr>
+		  </table>
 	  
 	  </td>	 
 	  </tr>
@@ -151,9 +153,9 @@ function ask() {
     </TD>
 	</TR>
 	
-	<TR>
-    <td width="100" class="labelmedium"><cf_UIToolTip tooltip="Defines if this period will be shown as a period for grouping of requisition, purchaseorder and invoices. Shown in the left panel for selection">Procurement&nbsp;Grouping:</cf_UIToolTip></td>
-	<td width="70%" class="labelmedium">
+	<TR class="labelmedium2">
+    <td width="100"><cf_UIToolTip tooltip="Defines if this period will be shown as a period for grouping of requisition, purchaseorder and invoices. Shown in the left panel for selection">Procurement&nbsp;Grouping:</cf_UIToolTip></td>
+	<td width="70%">
   	  <input type="radio" class="radiol" name="Procurement" value="1" <cfif Get.Procurement eq "1">checked</cfif>>Yes
 	  <input type="radio" class="radiol" name="Procurement" value="0" <cfif Get.Procurement eq "0">checked</cfif>>No
     </TD>
@@ -180,9 +182,9 @@ function ask() {
 
 </td></tr>	
 
-<tr><td height="20" style="border:0px solid silver;padding-left:2px;padding-right:2px">
+<tr><td height="20" style="padding-left:2px;padding-right:2px">
 
-	<table width="100%" cellspacing="0" cellpadding="0"><tr>
+	<table width="100%"><tr>
 	
 	<cf_menuScript>
 	
@@ -206,7 +208,8 @@ function ask() {
 				name       = "Audit Dates"
 				source     = "iframe:AuditView.cfm?o=2&ID=#url.id1#&box=contentbox2">
 				
-				<td width="20%"></td>
+		<td width="20%"></td>
+		
 		</tr>
 	
 	</table>
@@ -214,7 +217,7 @@ function ask() {
 		
 <tr><td height="100%">
    
-	<table width="100%" height="100%" cellspacing="0" cellpadding="0">
+	<table width="100%" height="100%">
 		
 		<cf_menucontainer item="1" class="regular">
 			<cfinclude template="RecordEditMission.cfm">

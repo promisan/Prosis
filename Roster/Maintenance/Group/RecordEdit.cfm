@@ -18,34 +18,25 @@ password="#SESSION.dbpw#">
 
 <script language="JavaScript">
 
-function ask()
-
-{
-	if (confirm("Do you want to remove this group?")) {
-	
-	return true 
-	
-	}
-	
-	return false
-	
+function ask() {
+	if (confirm("Do you want to remove this group?")) {	
+	return true 	
+	}	
+	return false	
 }	
 
 function hl(act){
    	 	 
-	 sel = document.getElementById("ShowInColor")
-	 	 
-	 if (act == "hide")
-	 { sel.className = "Hide" ; 
+	 sel = document.getElementById("ShowInColor")	 	 
+	 if (act == "hide") { 
+	   sel.className = "Hide" ; 
 	   sel.value = ""}
-	 else
-	 { sel.className = "regular" ; }
-		
+	 else { sel.className = "regular" ; }		
   }
 
 </script>
 
-<cfform action="RecordSubmit.cfm" method="POST" enablecab="Yes" name="dialog">
+<cfform action="RecordSubmit.cfm" method="POST" name="dialog">
 
 <!--- edit form --->
 
@@ -53,36 +44,34 @@ function hl(act){
 
     <cfoutput>
     <TR>
-    <TD class="labelmedium">Code:</TD>
+    <TD class="labelmedium2">Code:</TD>
     <TD>
-  	   <input type="text" name="GroupCode" value="#get.GroupCode#" size="10" maxlength="10"class="regularxl">
+  	   <input type="text" name="GroupCode" value="#get.GroupCode#" size="10" maxlength="10"class="regularxxl">
 	   <input type="hidden" name="GroupCodeOld" value="#get.GroupCode#" size="10" maxlength="10" readonly>
     </TD>
 	</TR>
 			
 	<TR>
-    <TD class="labelmedium">Domain:</TD>
+    <TD class="labelmedium2">Domain:</TD>
     <TD>
-	   <select name="GroupDomain" class="regularxl">
-					<option value="Candidate" <cfif #get.GroupDomain# eq "Candidate">selected</cfif>>Candidate</option>
-					<option value="Bucket" <cfif #get.GroupDomain# eq "Bucket">selected</cfif>>Roster bucket</option>
+	   <select name="GroupDomain" class="regularxxl">
+					<option value="Candidate" <cfif get.GroupDomain eq "Candidate">selected</cfif>>Candidate</option>
+					<option value="Bucket" <cfif get.GroupDomain eq "Bucket">selected</cfif>>Roster bucket</option>
 		</select>
      </TD>
 	</TR>
 		
 	<TR>
-    <TD class="labelmedium">Description:</TD>
+    <TD class="labelmedium2">Description:</TD>
     <TD>
-  	   <cfinput type="Text" name="Description" value="#get.description#" message="Please enter a description" required="Yes" size="40" maxlength="40" class="regularxl">
+  	   <cfinput type="Text" name="Description" value="#get.description#" message="Please enter a description" required="Yes" size="40" maxlength="40" class="regularxxl">
     </TD>
 	</TR>
-	
-		
+			
 	</cfoutput>
-	<tr><td colspan="2" height="6"></td></tr>
-	<tr><td colspan="2" class="linedotted"></td></tr>
-	<tr><td colspan="2" height="6"></td></tr>
 	
+	<tr><td colspan="2" class="linedotted"></td></tr>
+		
 	<tr>		
 	<td colspan="2" align="center">
 	<input class="button10g" type="button" name="Cancel" value=" Cancel " onClick="window.close()">

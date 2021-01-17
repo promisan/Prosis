@@ -10,33 +10,38 @@ password="#SESSION.dbpw#">
 	ORDER BY ListingOrder
 </cfquery>
 
+<cf_screentop html="No" jquery="Yes">
+
+<table width="98%" align="center" height="100%">
+
 <cfset Page         = "0">
 <cfset add          = "1">
 <cfset save         = "0"> 
-<cfinclude template = "../HeaderMaintain.cfm"> 	
+<tr style="height:10px"><td><cfinclude template = "../HeaderMaintain.cfm"></td></tr>
 
 <cfoutput>
 
 <script>
 
 function recordadd(grp) {
-          window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 450, height= 250, toolbar=no, status=yes, scrollbars=no, resizable=no");
+          ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 450, height= 250, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 function recordedit(id1) {
-          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width= 450, height= 250, toolbar=no, status=yes, scrollbars=no, resizable=no");
+          ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width= 450, height= 250, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 </script>	
 	
 </cfoutput>
 
-<cf_divscroll>
+<tr><td>
 
-<table width="95%" border="0" cellspacing="0" cellpadding="0" align="center" class="maintenancetable navigation_table">
+	<cf_divscroll>
+	
+	<table width="95%" align="center" class="navigation_table">
 
-<thead>
-	<tr>
+	<tr class="labelmedium2 line fixrow">	
 	    <td></td>
 	    <td>Code</td>
 		<td>Description</td>
@@ -45,11 +50,9 @@ function recordedit(id1) {
 		<td>Officer</td>
 	    <td>Entered</td>  
 	</tr>
-</thead>
 
-<tbody>
 	<cfoutput query="SearchResult">
-		<tr class="navigation_row">
+		<tr class="navigation_row line labelmedium2">
 			<td align="center">
 				<cf_img icon="open" navigation="Yes" onclick="recordedit('#Code#')">
 			</td>
@@ -61,8 +64,11 @@ function recordedit(id1) {
 			<td>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
 	    </tr>
 	</cfoutput>
-</tbody>
 
+	</table>
+	
+	</cf_divscroll>
+
+</td>
+</tr>
 </table>
-
-</cf_divscroll>

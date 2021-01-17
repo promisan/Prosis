@@ -75,7 +75,7 @@ password="#SESSION.dbpw#">
 
 	<cfoutput>	  	
 	
-	    SELECT *
+	    SELECT *, DateEvent,DateEventDue,ActionDateEffective
 		FROM (
 	
 		SELECT I.*, 
@@ -235,13 +235,13 @@ password="#SESSION.dbpw#">
 				
 	<cfset itm = itm+1>
 	<cf_tl id="Name" var = "1">		
-	<cfset fields[itm] = {label       = "#lt_text#",                    
-	     				field         = "Name",																							
-						functionscript = "EditPerson",
-						functionfield = "PersonNo",		
+	<cfset fields[itm] = {label           = "#lt_text#",                    
+	     				field             = "Name",																							
+						functionscript    = "EditPerson",
+						functionfield     = "PersonNo",		
 						functioncondition = "PersonEvent",						
-						width         = "40",																		
-						search        = "text"}>													
+						width             = "40",																		
+						search            = "text"}>													
 	
 	<cfset itm = itm+1>	
 	<cf_tl id="Entity" var = "1">		
@@ -277,32 +277,34 @@ password="#SESSION.dbpw#">
 						
 	<cfset itm = itm+1>	
 	<cf_tl id="JO" var = "1">		
-	<cfset fields[itm] = {label       = "#lt_text#",                    
-	     				field         = "DocumentNo",								
-						display       = "1",	
-						width         = "13",																																									
-						displayfilter = "yes",																																									
-						search        = "text"}>						
+	<cfset fields[itm] = {label        = "#lt_text#",                    
+	     				field          = "DocumentNo",								
+						display        = "1",	
+						width          = "13",																																									
+						displayfilter  = "yes",																																									
+						search         = "text"}>						
 																			
 						
 						
 	<cfset itm = itm+1>
 	<cf_tl id="Created" var = "1">		
-	<cfset fields[itm] = {label     = "#lt_text#",                    	                   
-	     				field       = "DateEvent",																																												
-						search      = "date",
-						display       = "0",	
-						displayfilter = "No",		
-						formatted   = "dateformat(DateEvent,client.dateformatshow)"}>	
+	<cfset fields[itm] = {label        = "#lt_text#",                    	                   
+	     				field          = "DateEvent",																																												
+						search         = "date",
+						column         = "month",
+						display        = "0",	
+						displayfilter  = "No",		
+						formatted      = "dateformat(DateEvent,client.dateformatshow)"}>	
 						
 	<cfset itm = itm+1>
 	<cf_tl id="Due" var = "1">		
-	<cfset fields[itm] = {label     = "#lt_text#",                    	                   
-	     				field       = "DateEventDue",																																												
-						search      = "date",
-						display       = "0",	
-						displayfilter = "No",		
-						formatted   = "dateformat(DateEventDue,client.dateformatshow)"}>			
+	<cfset fields[itm] = {label        = "#lt_text#",                    	                   
+	     				field          = "DateEventDue",																																												
+						search         = "date",
+						column         = "month",
+						display        = "0",	
+						displayfilter  = "No",		
+						formatted      = "dateformat(DateEventDue,client.dateformatshow)"}>			
 												
 							
 	<cfset itm = itm+1>	
@@ -318,55 +320,56 @@ password="#SESSION.dbpw#">
 						
 	<cfset itm = itm+1>	
 	<cf_tl id="Event" var = "1">		
-	<cfset fields[itm] = {label       = "#lt_text#",                    
-	     				field         = "EventDescription",								
-						display       = "0",	
-						rowlevel      = "1",
-						Colspan       = "1",																																				
-						displayfilter = "yes",																																									
-						search        = "text",
-						filtermode    = "3"}>	
+	<cfset fields[itm] = {label        = "#lt_text#",                    
+	     				field          = "EventDescription",								
+						display        = "0",	
+						rowlevel       = "1",
+						Colspan        = "1",																																				
+						displayfilter  = "yes",																																									
+						search         = "text",
+						filtermode     = "3"}>	
 						
 	<cfset itm = itm+1>	
 	<cf_tl id="Level" var = "1">		
-	<cfset fields[itm] = {label       = "#lt_text#",                    
-	     				field         = "ContractLevel",																																												
-						search        = "text",
-						display       = "0",
-						displayfilter = "Yes",
-						filtermode    = "3"}>							
+	<cfset fields[itm] = {label        = "#lt_text#",                    
+	     				field          = "ContractLevel",																																												
+						search         = "text",
+						display        = "0",
+						displayfilter  = "Yes",
+						filtermode     = "3"}>							
 								
 	<cfset itm = itm+1>
 	<cf_tl id="Reason" var = "1">		
-	<cfset fields[itm] = {label       = "#lt_text#",                    	                   
-	     				field         = "ReasonDescription",		
-						display       = "0",	
-						width         = "30",	
-						rowlevel      = "1",
-						Colspan       = "1",			
-						displayfilter = "yes",																																															
-						search        = "text",
-						filtermode    = "2"}>	
+	<cfset fields[itm] = {label        = "#lt_text#",                    	                   
+	     				field          = "ReasonDescription",		
+						display        = "0",	
+						width          = "30",	
+						rowlevel       = "1",
+						Colspan        = "1",			
+						displayfilter  = "yes",																																															
+						search         = "text",
+						filtermode     = "2"}>	
 						
 	<cfset itm = itm+1>	
 	<cf_tl id="Event" var = "1">		
-	<cfset fields[itm] = {label       = "#lt_text#",                    
-	     				field         = "EventName",								
-						display       = "1",	
-						rowlevel      = "1",
-						Colspan       = "1",																																				
-						displayfilter = "no",																																									
-						search        = "text"}>												
+	<cfset fields[itm] = {label        = "#lt_text#",                    
+	     				field          = "EventName",								
+						display        = "1",	
+						rowlevel       = "1",
+						Colspan        = "1",																																				
+						displayfilter  = "no",																																									
+						search         = "text"}>												
 						
 	<cfset itm = itm+1>
 	<cf_tl id="Effective" var = "1">		
-	<cfset fields[itm] = {label     = "#lt_text#",                    	                   
-	     				field       = "ActionDateEffective",																																												
-						search      = "date",
-						display       = "1",	
-						width         = "20",
-						displayfilter = "Yes",		
-						formatted   = "dateformat(ActionDateEffective,client.dateformatshow)"}>	
+	<cfset fields[itm] = {label        = "#lt_text#",                    	                   
+	     				field          = "ActionDateEffective",																																												
+						search         = "date",
+						column         = "month",
+						display        = "1",	
+						width          = "20",
+						displayfilter  = "Yes",		
+						formatted      = "dateformat(ActionDateEffective,client.dateformatshow)"}>	
 						
 	<cfset itm = itm+1>
 	<cf_tl id="Expiry" var = "1">		

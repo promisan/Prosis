@@ -231,7 +231,7 @@
   
 </cfswitch>
 
-<cfif getPersons.recordcount eq "0">
+<cfif getPersons.recordcount lt "0">
 
    <cfset client.timesheetdate = now()>
 
@@ -244,15 +244,15 @@
 			  username="#SESSION.login#" 
 			  password="#SESSION.dbpw#">
 			  SELECT *
-			  FROM Organization
-			  WHERE OrgUnit = '#url.ObjectKeyValue1#'
+			  FROM   Organization
+			  WHERE  OrgUnit = '#url.ObjectKeyValue1#'
 		   </cfquery>
 		   
 		   <cfoutput>
    
 		   <table width="99%" align="center">
 		    <tr class="line" style="height:50px;border-top:1px solid silver">
-				<td align="center" class="labelmedium" style="padding-top:85px;font-size:22px">   
+				<td align="center" class="labelmedium2" style="padding-top:85px;font-size:22px">   
 			   	<font color="FF0000">No staff assigned to organization level : #getUnit.OrgUnitName#</font>
 				</td>
 			</tr>  

@@ -15,15 +15,15 @@
 					
 	<!--- container for listing and entry --->
 	
-	<div class="#attributes.class#"
+	<div class="#attributes.class#" style="min-width:1000px"
 	    id="#attributes.name##attributes.item#" 
 		name="#attributes.name##attributes.item#">
 		
 	
-		<div height="100%" width="100%" valign="top" style="overflow:hidden"
+		<div height="100%" style="min-width:100%" valign="top" style="overflow:hidden"
 	       id="content#attributes.name##attributes.item#" 
-		   name="content#attributes.name##attributes.item#">	
-		   
+		   name="content#attributes.name##attributes.item#">
+		 		   
 	<cfelse>	
 		
 	<tr class="#attributes.class#"
@@ -34,11 +34,11 @@
 							
 	   <td height="90%" width="90%" valign="top" style="overflow:hidden"
 	       id="content#attributes.name##attributes.item#" 
-		   name="content#attributes.name##attributes.item#">	
-		   		   		   
+		   name="content#attributes.name##attributes.item#">
+		   	
+				   		   		   
 	</cfif>	   
-		
-			   		   											
+					   		   											
 		   <cfif attributes.iframe neq "">
 		   		   		   		   		   
 		          <iframe name="#attributes.iframe#" 
@@ -52,7 +52,7 @@
 		   <cfelseif attributes.template neq "">
 		   
 		   		 <cf_divscroll overflowx="auto" style="width:100%">	
-				 							 			   		
+				 				 							 			   		
 			           <cfinclude template="#attributes.template#">		
 															
 				 </cf_divscroll>

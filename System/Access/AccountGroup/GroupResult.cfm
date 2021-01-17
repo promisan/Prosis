@@ -1,4 +1,12 @@
 
+<cf_screentop 
+   	   height="100%"
+	   scroll="no" 
+	   html="No" 
+	   jQuery="Yes"	   
+	   menuaccess="yes" 
+	   systemfunctionid="#url.idmenu#">
+	   
 <cfquery name="SearchResult" 
 datasource="AppsSystem" 
 username="#SESSION.login#" 
@@ -10,7 +18,7 @@ password="#SESSION.dbpw#">
 <cfset Page         = "1">
 <cfset add          = "1">
 <cfset save         = "0"> 
-<cfset menu         = "0">
+<cfset menu         = "1">
 <cfinclude template="../HeaderMaintain.cfm">
 
 <CF_DropTable dbName="AppsQuery" tblName="#SESSION.acc#Group">	
@@ -34,21 +42,21 @@ function recordedit(id1) {
 
 function purge(acc) {
 	if (confirm("Do you want to remove this account group ?")) {
-	ptoken.location("GroupPurge.cfm?idmenu=#URL.idmenu#&page=#URL.Page#&id=" + acc)
+	   ptoken.location("GroupPurge.cfm?idmenu=#URL.idmenu#&page=#URL.Page#&id=" + acc)
 	}	
 }	
 
 </script>	
 </cfoutput>
 
-<table width="97%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="97%" align="center">
 
 <tr><td height="4"></td></tr>
 <tr><td colspan="2">
 
-<table width="95%" align="center" border="0" class="navigation_table" cellspacing="0" cellpadding="0">
+<table width="95%" align="center" border="0" class="navigation_table">
 	
-<TR class="line labelmedium">
+<TR class="line labelmedium2">
     <TD width="2%"></TD>
 	<td width="10%">Code</td>
     <TD width="25%">Description</TD>
@@ -79,7 +87,7 @@ function purge(acc) {
 		AND AccountGroup = '#AccountGroup#'
 	</cfquery>
 
-	<TR class="navigation_row line labelmedium">
+	<TR class="navigation_row line labelmedium2">
 	
 		<td width="30">&nbsp;#CurrentRow#</td>		
 		<td height="20"><a class="navigation_action" href="javascript:recordedit('#AccountGroup#')">#AccountGroup#</a></TD>

@@ -1,42 +1,22 @@
 <cfoutput>
 
-<!--- ---------------------------------------------------------------------- --->
-<!--- obtain relevant data of the query for adding on-the-fly is enabled     --->
-<!--- ---------------------------------------------------------------------- --->
-
-<cfset session.listingdata[box]['sql']          = sc>                        <!--- the generated query --->
-<cfset session.listingdata[box]['dataset']      = searchresult>			     <!--- the generate data itself --->	
-<cfset session.listingdata[box]['datasetgroup'] = "">                        <!--- the partially clustered data for grouping/ column to improve performance ---> 	 
-<cfset session.listingdata[box]['pagecnt']      = attributes.show>	         <!--- page count 1 of 20 from 300 1: --->
-<cfset session.listingdata[box]['recshow']      = attributes.show>	         <!--- page count 1 of 20 from 300 2: --->
-<cfset session.listingdata[box]['records']      = searchresult.recordcount>  <!--- page count 1 of 20 from 300 3: --->
-<cfset session.listingdata[box]['columns']      = "">                        <!--- the total columns in the grid --->
-<cfset session.listingdata[box]['colprefix']    = "">                        <!--- the total columns show before the first data column --->	
-<cfset session.listingdata[box]['firstsummary'] = "0">                       <!--- the column on which the first cell summary appears --->
-<cfset session.listingdata[box]['aggregate']    = "">	                     <!--- the aggregate (SUM, count) formula to be applied on the grouping --->
-<cfset session.listingdata[box]['aggrfield']    = "">                        <!--- the fields that are to be aggregated --->  
-
-
 <cfset stl = "cursor:pointer;font-size:12px;height:30px">
 
-<tr style="height:40px" class="fixrow">
+<tr style="height:40px" class="fixrow line">
 
-    <td style="min-width:30px"></td>	
-    <td style="min-width:30px"></td>	
-		
+	<cfset totalcols = 2>
+    <td colspan="2" style="min-width:50px"></td>	
+	   		
 	<cfif attributes.selectmode neq "">
 	   <td></td>
+	   <cfset totalcols = totalcols + 1>
 	</cfif>
-	
-	<!--- determine the best width and spans etc based on the config passed into loading --->
-	
-	<cfset totalcols = "2"> <!--- by default we have 2 columns up front --->
-	
-	<cfif attributes.selectmode eq "Checkbox" or attributes.selectmode eq "Radio">	
-	     <cfset totalcols = totalcols + 1>
-	</cfif>
-	
+		
 	<cfset session.listingdata[box]['colprefix'] = totalcols>	
+	
+	<!--- ------------------------------------------------------------------------------ --->
+	<!--- determine the best width and spans etc based on the config passed into loading --->
+	<!--- ------------------------------------------------------------------------------ --->
 	
 	<cfloop array="#attributes.listlayout#" index="current">
 	
@@ -84,8 +64,6 @@
 							 		 
 		 <cfelseif current.display eq "1" and current.rowlevel eq "1">
 		 		 
-		 	<cfset totalcols = totalcols + 1>
-		 
 		    <cfset col = col+1>		 				
 				
 		    <cfif current.width eq "0">
@@ -94,8 +72,10 @@
 				
 				<cfset labelsize = len(current.label)*3>	
 				<cfset sizefield = len(current.label)*3>													
-																								
-				<cfloop query="searchresult" startrow="1" endrow="15">
+				
+				<!--- inspect the first 15 records for the width --->																				
+				
+				<cfloop query="searchresult" startrow="1" endrow="15">				
 				
 				    <cfif current.formatted eq "Rating">					
 						<cfset sizefield = "10">					
@@ -116,13 +96,14 @@
 						</cfif>
 						
 						<cfif sizefield gte "100">
-						      <cfset sizefield = "80">							  
+						     <cfset sizefield = "80">							  
 						</cfif>
 													
 					</cfif>				
 											
 				</cfloop>	
 				
+				<!--- we set the width in an array --->
 				<cfset wd[col] = sizefield>
 				<cfset total = total +sizefield>
 																
@@ -143,8 +124,10 @@
 				
 	<!--- apply the width --->
 	
-	<cfset col = 0> 
+	<cfset totalcols = totalcols+col>
 	
+	<cfset col = 0> 
+		
 	<cfloop array="#attributes.listlayout#" index="current">
 	
 		 <cfparam name="current.label"      default="">		
@@ -155,23 +138,31 @@
 		 <cfparam name="current.sort"       default="yes">
 		 <cfparam name="current.align"      default="left">	
 		 <cfparam name="current.fieldsort"  default="#current.field#">		
+		 
+		 <cfif current.rowlevel gte "2">
+		 
+		 <!--- n/a --->
+		 
+		 <cfelseif current.field eq url.listgroupfield>
+		 		 
+		 <!--- n/a --->
 		 				 		 
-		 <cfif current.display eq "1" 
-		     and current.rowlevel eq "1">
+		 <cfelseif current.display eq "1" and current.rowlevel eq "1">
 		 
 		 	<cfset col = col+1>		
 			
-			<cfif find("%",  current.width)>
+			<cfparam name="wd[#col#]" default="10">
+			
+			<cfif find("%",current.width)>
 				<cfset dw = "#current.width#">
 			<cfelse>			
 				<cfset dw = "#(wd[col]*100)/total#">
-				<cfset dw = "#round(dw)#%">
-				
+				<cfset dw = "#round(dw)#%">				
 			</cfif>	
 						
 			<cfif current.formatted eq "class">
 			
-				<td style="min-width:20px;">
+				<td style="min-width:20px;"> 
 																	
 			<cfelseif current.sort eq "No">
 						
@@ -190,63 +181,68 @@
 						</cfloop>		
 																
 						<td style="width:#dw#;min-width:#size#;border-left:1px solid silver;padding-left:5px">																															
+						
 					<cfelse>										
-						<td style="width:#dw#;min-width:#current.width#;border-left:1px solid silver;padding-left:5px">																											
+					
+						<td style="width:#dw#;min-width:#current.width#;border-left:1px solid silver;padding-left:5px">		
+																															
 					</cfif>	
 							
 			<cfelse>
 			
 			    <cfif url.listorderdir is "ASC">
-				     <cfset dir = "DESC">
+				     <cfset dir = "DESC">					
 				<cfelse>
-				     <cfset dir = "ASC">					 
+				     <cfset dir = "ASC">					 					
 				</cfif>
 								
 				<cfset sc = "document.getElementById('listorderdir').value='#dir#';document.getElementById('listorderfield').value='#current.field#';document.getElementById('listorder').value='#current.fieldsort#';document.getElementById('listorderalias').value='#current.alias#';applyfilter('','','content')">
 								
 				<cfif find("%",current.width)> 								
-				    <td width="#current.width#" style="border-left:1px solid silver;padding-left:5px" onClick="#sc#">					 					  					  
+				    <td style="width:#current.width#;border-left:1px solid silver;padding-left:5px" onClick="#sc#">
 				<cfelse>				
 					<cfparam name="current.formatted" default="#current.field#">						
 					<cfif current.formatted eq "">
-						<cfset current.formatted = "#current.field#">
+						<cfset current.formatted = current.field>
 					</cfif>																					 																
-					<td onClick="#sc#" style="width:#dw#;#stl#;border-left:1px solid silver;padding-left:5px">									
-					<cf_space spaces="#wd[col]#">										
+					<td onClick="#sc#" style="width:#dw#;#stl#;border-left:1px solid silver;padding-left:5px">														
 				</cfif>	
-													
+				
+																	
 			</cfif>
-						
-			<!--- table to be shown --->
+									
+			<!--- header label --->
 						  
-			<table width="100%">
-
-				  <cfset vThisAlign = current.align>
-				  <cfset vThisAlignStyle = "padding-left: 0px;">
-				  <cfif current.formatted eq 'Rating'>
-				  	<cfset vThisAlign = 'center'>
-				  </cfif>
-				  <cfif vThisAlign eq 'right'>
-				  	<cfset vThisAlignStyle = "padding-right: 8px;">
-				  </cfif>
-			      
-				  <tr>
-					  <td class="#attributes.classheader#" align="#vThisAlign#" style="#vThisAlignStyle#">#current.label#</td>
-					
-					  <cfif url.listorder eq current.fieldsort>
-					  <td align="right" style="padding-right:3px;">							  
-					 
-						    <cfif url.listorderdir is "ASC">
-						 	    <img src="#SESSION.root#/Images/sort_asc.png" height="19px">
-							<cfelse>							
-								<img src="#SESSION.root#/Images/sort_desc.png" height="19px">
-							</cfif>										  	  
-					  </td>
-					  </cfif>	
-					 
-				  </tr>
-
-			</table>
+				<table width="100%">
+	
+					  <cfset vThisAlign = current.align>
+					  <cfset vThisAlignStyle = "padding-left: 0px;">
+					  <cfif current.formatted eq 'Rating'>
+					  	<cfset vThisAlign = 'center'>
+					  </cfif>
+					  <cfif vThisAlign eq 'right'>
+					  	<cfset vThisAlignStyle = "padding-right: 8px;">
+					  </cfif>
+				      
+					  <tr>
+						  <td class="#attributes.classheader#" align="#vThisAlign#" style="#vThisAlignStyle#">#current.label#</td>
+						
+						  <cfif url.listorder eq current.fieldsort>
+						  
+						  <td align="right" style="padding-right:3px;">							  
+						 
+							    <cfif url.listorderdir is "ASC">
+							 	    <img src="#SESSION.root#/Images/sort_asc.png" height="19px">
+								<cfelse>							
+									<img src="#SESSION.root#/Images/sort_desc.png" height="19px">
+								</cfif>										  	  
+						  </td>
+						  
+						  </cfif>	
+						 
+					  </tr>
+	
+				</table>
 			  			  
 			</td>
 		  
@@ -268,6 +264,16 @@
 		<td align="right" style="min-width:20px;border-left: 1px solid silver;border-right: 1px solid silver;"></td>		
 		<cfset totalcols = totalcols+1>
 	</cfif>
+	
+	
+	<cfif presentation eq "group" and url.listcolumn1 neq "">
+	
+		<!--- added by hanno to control the spacing --->
+		<td style="width:10%;border-left: 1px solid silver"></td>
+		<cfset totalcols = totalcols+1>
+	
+	</cfif>
+	
 			
 </tr>	
 

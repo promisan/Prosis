@@ -35,14 +35,14 @@ FROM Ref_ParameterMission
 
 <CFFORM action="RecordSubmit.cfm" method="post" enablecab="yes" name="dialog">
 
-<table width="92%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="92%" align="center" class="formpadding formspacing">
 
      <tr><td></td></tr>
 	
 	 <TR>
-	 <TD width="80" class="labelmedium">Entity:&nbsp;</TD>  
+	 <TD width="80" class="labelmedium2">Entity:&nbsp;</TD>  
 	 <TD width="90%">
-	 	<select name="EntityCode" class="regularxl">
+	 	<select name="EntityCode" class="regularxxl">
 		<cfoutput query="entity">
 		<option value="#EntityCode#">#EntityDescription#</option>
 		</cfoutput>
@@ -51,9 +51,9 @@ FROM Ref_ParameterMission
 	 </TR>	 
 	  
 	 <TR>
-	 <TD width="80"  class="labelmedium">Mission:&nbsp;</TD>  
+	 <TD width="80"  class="labelmedium2">Mission:&nbsp;</TD>  
 	 <TD width="80%">
-	 	<select name="Mission" class="regularxl">
+	 	<select name="Mission" class="regularxxl">
 		<option value="">any</option>
 		<cfoutput query="missionSelect">
 		<option value="#Mission#">#Mission#</option>
@@ -63,9 +63,9 @@ FROM Ref_ParameterMission
 	 </TR>
 	 
 	 <TR>
-	 <TD width="80"  class="labelmedium">Class:&nbsp;</TD>  
+	 <TD width="80"  class="labelmedium2">Class:&nbsp;</TD>  
 	 <TD width="80%">
-	 	<select name="CategoryClass" class="regularxl">
+	 	<select name="CategoryClass" class="regularxxl">
 		<cfoutput query="Class">
 		<option value="#Code#">#Description#</option>
 		</cfoutput>
@@ -74,18 +74,18 @@ FROM Ref_ParameterMission
 	</TR>
 	 	
 	<TR>
-	 <TD class="labelmedium">Code:&nbsp;</TD>  
+	 <TD class="labelmedium2">Code:&nbsp;</TD>  
 	 <TD>
 		<cfinput type="Text" name="Code" value="" message="Please enter a code" required="Yes" size="20" maxlength="20"
-		class="regularxl">
+		class="regularxxl">
 	 </TD>
 	</TR>
 		
     <TR>
-    <TD class="labelmedium">Description:&nbsp;</TD>
+    <TD class="labelmedium2">Description:&nbsp;</TD>
     <TD>
 		<cfinput type="Text" name="Description" value="" message="Please enter a description" required="Yes" size="40" maxlength="50"
-		class="regularxl">				
+		class="regularxxl">				
     </TD>
 	</TR>
 			
@@ -93,22 +93,23 @@ FROM Ref_ParameterMission
 	datasource="AppsProgram" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-		SELECT ObjectUsage,Code, Code+' '+Description as Description
-		FROM Ref_Object
+		SELECT   ObjectUsage,Code, Code+' '+Description as Description
+		FROM     Ref_Object
 		ORDER BY ObjectUsage
 	</cfquery>
 	
     <TR>
-    <TD class="labelmedium">Show for Object:&nbsp;<cf_space spaces="40"></TD>
+    <TD class="labelmedium2">Show for Object:&nbsp;<cf_space spaces="40"></TD>
     <TD>
 	
-	<cfselect name="Object1" group="ObjectUsage" query="ObjectList" style="width:350px" value="Code" display="Description" visible="Yes" enabled="Yes" class="regularxl"></cfselect>
+	<cfselect name="Object1" group="ObjectUsage" query="ObjectList" style="width:350px" value="Code" display="Description" visible="Yes" 
+	  enabled="Yes" class="regularxxl"></cfselect>
 						
     </TD>
 	</TR>
 	
     <TR>
-    <TD class="labelmedium">additional:&nbsp;</TD>
+    <TD class="labelmedium2">additional:&nbsp;</TD>
     <TD>
 	
 	<cfselect name="Object2" group="ObjectUsage" query="ObjectList" style="width:350px" value="Code" display="Description" visible="Yes" enabled="Yes" class="regularxl"></cfselect>
@@ -118,7 +119,7 @@ FROM Ref_ParameterMission
 	
 	<tr><td height="4"></td></tr>
 		
-	<tr><td colspan="2" class="linedotted"></td></tr>
+	<tr><td colspan="2" class="line"></td></tr>
   
 	<tr>
 	

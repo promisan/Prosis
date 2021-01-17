@@ -1880,15 +1880,27 @@
 								
 							<cfelseif attributes.TransactionClass eq "Interoffice">		
 							
-								   <cfif totGL gte "0">
-								   	   <cfset tax = Tax.GLAccountReceived>
-								   <cfelse>
-								   	   <cfset tax = Tax.GLAccountPaid>	   
-								   </cfif>	 
+							    <cfset totGL = totGL+taxCOGS> 
 							
-								   <cfset totGL = totGL+taxCOGS>						
+								<cfif attributes.TransactionQuantity lte "0">
+								  	   <cfset tax = Tax.GLAccountReceived>
+									   <cfset acc1 = "#Attributes.GLAccountDebit#">
+									   <cfset acc2 = "#Attributes.GLAccountCredit#">
+									   <cfset act1 = "Debit">
+									   <cfset act2 = "Credit">
+									   <cfset ref1 = "IO">
+									   <cfset ref2 = "Stock">
+								<cfelse>
+								   	   <cfset tax = Tax.GLAccountPaid>	
+									   <cfset acc2 = "#Attributes.GLAccountDebit#">
+									   <cfset acc1 = "#Attributes.GLAccountCredit#">
+									   <cfset act2 = "Debit">
+									   <cfset act1 = "Credit">
+									   <cfset ref1 = "IO">
+									   <cfset ref2 = "Stock">
+								</cfif>	 												
 							
-								   <cf_GledgerEntryLine
+								<cf_GledgerEntryLine
 								    DataSource            = "#Attributes.DataSource#"
 									Lines                 = "3"
 									TransactionDate       = "#Attributes.TransactionDate#"
@@ -1897,14 +1909,14 @@
 									JournalTransactionNo  = "#Attributes.GLTransactionNo#"
 									AccountPeriod         = "#Parameter.CurrentAccountPeriod#"
 									Currency              = "#Attributes.SalesCurrency#"
-									LogTransaction		  = "No"
+									LogTransaction		  = "Yes"
 																											
 									TransactionSerialNo1  = "1"
-									Class1                = "Debit"
-									Reference1            = "IO"       
+									Class1                = "#act1#"
+									Reference1            = "#ref1#"       
 									ReferenceName1        = "#left(Item.Itemdescription,100)#"
 									Description1          = "#Type.Description#"
-									GLAccount1            = "#Attributes.GLAccountDebit#"
+									GLAccount1            = "#acc1#"
 									Costcenter1           = "#costcenter#"
 									TransactionTaxCode1   = "#attributes.TaxCode#"
 									WorkOrderLineId1      = "#workorderlineid#"
@@ -1914,11 +1926,11 @@
 									Amount1               = "#totGl#"
 										
 									TransactionSerialNo2  = "2"
-									Class2                = "Credit"
-									Reference2            = "Stock"       
+									Class2                = "#act2#"
+									Reference2            = "#ref2#"       
 									ReferenceName2        = "#left(Item.Itemdescription,100)#"
 									Description2          = "#Type.Description#"
-									GLAccount2            = "#Attributes.GLAccountCredit#"
+									GLAccount2            = "#acc2#"
 									Costcenter2           = "#costcenter#"
 									TransactionTaxCode2   = "#attributes.TaxCode#"
 									WorkOrderLineId2      = "#workorderlineid#"
@@ -1928,18 +1940,18 @@
 									Amount2               = "#totCredit#"														
 									
 									TransactionSerialNo3  = "3"
-									Class3                = "Debit"
+									Class3                = "#act2#"
 									Reference3            = "Sales Tax"       
 									ReferenceName3        = "#left(Item.Itemdescription,100)#"
-									Description3          = "#Type.Description#"
-									TransactionTaxCode3   = "#attributes.TaxCode#"
-									GLAccount3            = "#Tax.GLAccountReceived#"
+									Description3          = "#Type.Description#"									
+									GLAccount3            = "#tax#"
 									Costcenter3           = "#costcenter#"									
 									WorkOrderLineId3      = "#workorderlineid#"
 									ReferenceNo3          = "#Attributes.ItemNo#"
 									ReferenceId3          = "#Attributes.ReferenceId#"
 									TransactionType3      = "Standard"
 									Amount3               = "#taxCOGS#">
+																		
 							
 									<!--- 15/11/2020 -- book also the tax Paid --->							
 							

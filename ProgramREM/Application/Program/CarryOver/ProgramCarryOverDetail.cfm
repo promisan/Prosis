@@ -3,19 +3,19 @@
 
 <cfset programlist = "#programlist#,#programcode#">
 
-<TR class="line navigation_row">
+<TR class="labelmedium line navigation_row">
 	
-	<td height="23" colspan="1"></td>
-	<td  width="10%" colspan="1" style="padding-left:20px" class="labelit"><cfif Reference neq "">#Reference#<cfelse>#ProgramCode#</cfif></td>
-	<td colspan="4" style="background-color:ffffaf;padding-left:5px" class="labelit">#ProgramName#</b></td>
+	<td height="23"></td>
+	<td  width="10%" style="padding-left:20px"><cfif Reference neq "">#Reference#<cfelse>#ProgramCode#</cfif></td>
+	<td colspan="4" style="background-color:ffffaf;padding-left:5px">#ProgramName#</b></td>
 	<td></td>
-	<td colspan="1" class="labelit" align="center">
+	<td align="center">
 	
 		 <cfif Exist eq "0" and ProgramScope neq "Global" and ProgramScope neq "Parent">		 
 		 
 		     <table>
 			 <tr>
-			 <td><input type="checkbox" name="selected" value="#ProgramCode#"></td>
+			 <td><input type="checkbox" class="radiol" name="selected" value="#ProgramCode#"></td>
 			 <td><!--- this always a program level---></td>
 			 </tr>
 			 </table>
@@ -45,13 +45,12 @@
 		
   <cfloop query="Components">
   
-		
      
-	   <tr class="line navigation_row">
+	   <tr class="line navigation_row labelmedium">
 		    <td height="21"></td>
 			<td width="10%"></td>
 		    <td bgcolor="ffffaf" colspan="3" style="padding-left:25px" class="labelit">#Components.ProgramName#</A></td>
-			<TD bgcolor="ffffaf" class="labelit"><cfif Reference neq "">#Components.Reference# (#Components.ProgramCode#)<cfelse>#Components.ProgramCode#</cfif></TD>
+			<TD bgcolor="ffffaf"><cfif Reference neq "">#Components.Reference# (#Components.ProgramCode#)<cfelse>#Components.ProgramCode#</cfif></TD>
 			<td bgcolor="ffffaf" align="center" style="padding-right:5px">
 			
 				<cfoutput>
@@ -61,7 +60,7 @@
 				     <table>
 					 <tr>
 					 <td>
-				       <input type="checkbox" name="selected" value="#Components.ProgramCode#">
+				       <input type="checkbox" class="radiol" name="selected" value="#Components.ProgramCode#">
 					 </td>
 					 <td>
 					 
@@ -114,7 +113,7 @@
 				
 		<cfloop query="SubComponents">
 		
-		   <tr class="line navigation_row">
+		   <tr class="line navigation_row labelmedium">
 		   
 		   	   <td></td>
 			   <td width="5%"></td>
@@ -125,7 +124,7 @@
 			        <cfoutput>
 				
 					     <cfif Exist eq "0">
-					       <input type="checkbox" name="selected" value="#SubComponents.ProgramCode#">
+					       <input type="checkbox" class="radiol" name="selected" value="#SubComponents.ProgramCode#">
 						 <cfelse>
 						   <img src="#SESSION.root#/Images/check.png" height="12" width="15" alt="" border="0" align="bottom"></A>
 					     </cfif>

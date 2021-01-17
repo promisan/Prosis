@@ -1,7 +1,5 @@
-<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
 
 <!--- Create Criteria string for query from data entered thru search form --->
-<cf_divscroll>
 
 <cfquery name="SearchResult"
 	datasource="appsOrganization" 
@@ -12,18 +10,24 @@
 		ORDER BY ListingOrder ASC
 </cfquery>
 
-<cfset Page         = "0">
-<cfset add          = "1">
-<cfinclude template = "../HeaderParameter.cfm"> 	
 
-<table width="97%" align="center" cellspacing="0" cellpadding="0" >
+<cfset Header       = "address type">
+<cfset Page         = "0">
+<cfset add          = "0">
+<cfset save         = "0"> 
+
+<cf_screentop html="No" jquery="Yes">
+
+<table width="98%" align="center" height="100%">
+
+<tr style="height:10px"><td><cfinclude template = "../HeaderParameter.cfm"></td></tr>
 
 <cfoutput>
 
 	<script>
 	
 		function recordedit(id1) {
-			window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "EditAddressType", "left=80, top=80, width=900, height= 550, toolbar=no, status=yes, scrollbars=no, resizable=yes");
+			ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "EditAddressType", "left=80, top=80, width=900, height= 550, toolbar=no, status=yes, scrollbars=no, resizable=yes");
 		}
 		
 		function recordadd() {
@@ -33,14 +37,14 @@
 	</script>
 
 </cfoutput> 
-	
-<!--- "width=550, height=500, scrollbars=yes, resizable=yes" --->
 
 <tr><td colspan="2">
 
-<table width="97%" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<cf_divscroll>
 
-	<tr class="labelmedium line">
+<table width="97%" align="center" class="navigation_table">
+
+	<tr class="labelmedium2 line">
 	    <td></td>
 	    <td>Code</td>
 		<td>Description</td>
@@ -53,9 +57,9 @@
 	
 		<cfoutput query="SearchResult">
 		    
-		    <tr class="line labelmedium navigation_row"> 
-				<td align="center" style="padding-top:3px">
-				   <cf_img icon="select" onclick="recordedit('#Code#');" navigation="yes">
+		    <tr class="line labelmedium2 navigation_row"> 
+				<td align="center" style="padding-top:1px">
+				   <cf_img icon="open" onclick="recordedit('#Code#');" navigation="yes">
 				</td>
 				<td>#Code#</td>
 				<td>#Description#</td>
@@ -88,10 +92,10 @@
 	
 </table>
 
+</cf_divscroll>
+
 </td>
 
 </tr>
 
 </table>
-
-</cf_divscroll>

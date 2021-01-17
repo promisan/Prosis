@@ -127,7 +127,11 @@ password="#SESSION.dbpw#">
 	     <cfif colfields eq "">
 		    <cfset colfields = "#fld#">
 		 <cfelse>
+		    <cfif findNoCase(fld,colfields)>
+			  <!--- nada --->
+			<cfelse>
 		    <cfset colfields = "#colfields#,#fld#">	
+			</cfif>
 		 </cfif> 
 	
 	</cfif> 
@@ -356,8 +360,8 @@ password="#SESSION.dbpw#">
 						 							
 							  <option value="0"  <cfif FieldFilterClassMode eq "0">selected</cfif>>Default</option> 
 						 	  <option value="1"  <cfif FieldFilterClassMode eq "1">selected</cfif>>Combo</option> 
-						  	  <option value="2"  <cfif FieldFilterClassMode eq "2">selected</cfif>>List</option> 										
-							  <option value="3"  <cfif FieldFilterClassMode eq "3">selected</cfif>>Checkbox</option> 	
+						  	  <option value="2"  <cfif FieldFilterClassMode eq "2">selected</cfif>>Select list</option> 										
+							  <option value="3"  <cfif FieldFilterClassMode eq "3">selected</cfif>>Multiple/Checkbox</option> 	
 							  <option value="4"  <cfif FieldFilterClassMode eq "4">selected</cfif>>Like</option> 	
 							  
 						 </select>

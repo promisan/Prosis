@@ -1,4 +1,3 @@
-
 <cfparam name="url.scope" default="standard">
 
 <cfif url.scope neq "embed">	
@@ -162,21 +161,20 @@ password="#SESSION.dbpw#">
 		}
 		
 		function loadform(name, tpe, grd, occ) {
-		 	window.open(name + "?PostType=" + tpe + "&PostGrade=" + grd + "&OccGroup=" + occ,  "mandate", "left=20, top=20, width=" + w + ", height= " + h + ", toolbar=yes, status=yes, scrollbars=yes, resizable=no");
+		 	ptoken.open(name + "?PostType=" + tpe + "&PostGrade=" + grd + "&OccGroup=" + occ,  "mandate", "left=20, top=20, width=" + w + ", height= " + h + ", toolbar=yes, status=yes, scrollbars=yes, resizable=no");
 		}
 		
 	</script>
 
 </cfoutput>
 
+
 <cfif URL.Mode neq "Limited">
 	
 	<table width="98%" height="100%" align="center">
 		
 	<tr><td valign="top">
-	
-	
-  
+	  
 	<cfif URL.mode eq "ssa" or url.mode eq "Vacancy">
 		
 		<cfif url.scope neq "embed">
@@ -231,8 +229,7 @@ password="#SESSION.dbpw#">
 				</cfif>		
 				
 				<cfif url.mode eq "Vacancy">
-				
-								
+							
 					<cfquery name="Doc" 
 					datasource="AppsVacancy" 
 					username="#SESSION.login#" 
@@ -332,8 +329,7 @@ password="#SESSION.dbpw#">
 			 </table>
 						
 		</td></tr>
-		
-				
+						
 		<tr><td height="95%" valign="top">
 		
 		<table width="100%" height="100%" border="0">
@@ -383,7 +379,7 @@ password="#SESSION.dbpw#">
 		 
 	<cfelse>
 	
-		<table width="100%" height="100%" cellspacing="0" cellpadding="0">
+		<table width="100%" height="100%>
 		
 			 <tr><td colspan="2" height="100%" valign="top">					
 			 <cfinclude template="Search1Roster.cfm">			 
@@ -398,7 +394,6 @@ password="#SESSION.dbpw#">
 	 </table>
 	 	 	 
 <cfelse>
-
 	 
 	<!--- Search form --->
 	<form action="<cfoutput>Search1Submit.cfm?mode=#URL.Mode#&Owner=#URL.Owner#&Status=#URL.Status#&DocNo=#URL.DocNo#</cfoutput>" method="post" name="search1">

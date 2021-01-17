@@ -77,6 +77,7 @@ password="#SESSION.dbpw#">
 	AND    #PreserveSingleQuotes(Criteria)# 
 	</cfif>
 	ORDER BY ItemDescription 
+
 </cfquery>
 
 <cf_divscroll>

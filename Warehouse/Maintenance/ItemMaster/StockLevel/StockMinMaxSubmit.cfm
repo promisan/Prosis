@@ -2,7 +2,6 @@
 <cfparam name="URL.ID" default="0001">
 <cfparam name="URL.Mission" default="Promisan">
 
-
 <cfquery name="get"
 	datasource="AppsMaterials" 
 	username="#SESSION.login#" 
@@ -16,6 +15,7 @@
 	datasource="AppsMaterials" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
+	
 	    SELECT DISTINCT Warehouse
 		FROM   ItemTransaction I
 		WHERE  Mission = '#URL.Mission#'
@@ -141,18 +141,18 @@
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
 			    UPDATE ItemWarehouse
-				SET MinimumStock       = '#min#',
-				    MaximumStock       = '#max#',
-					ReorderAutomatic   = '#reord#',
-					MinReorderQuantity = '#minre#',
-					TaxCode            = '#taxcode#',
-					Restocking         = '#restock#',
-					AveragePeriod      = '#avgP#',
-					RequestType        = '#reqtype#',
-					ShippingMemo       = '#ship#'			
-				WHERE  Warehouse       = '#W#'
-				AND    ItemNo          = '#URL.ID#'
-				AND    UoM             = '#UoM#'
+				SET    MinimumStock       = '#min#',
+				       MaximumStock       = '#max#',
+					   ReorderAutomatic   = '#reord#',
+					   MinReorderQuantity = '#minre#',
+					   TaxCode            = '#taxcode#',
+					   Restocking         = '#restock#',
+					   AveragePeriod      = '#avgP#',
+					   RequestType        = '#reqtype#',
+					   ShippingMemo       = '#ship#'			
+				WHERE  Warehouse          = '#W#'
+				AND    ItemNo             = '#URL.ID#'
+				AND    UoM                = '#UoM#'
 			</cfquery>		
 		
 		</cfif>	
@@ -177,6 +177,7 @@
 			</cfif>
 			
 			<cfif TargetQuantity eq "">
+			
 				<cfquery name="insertSC"
 				datasource="AppsMaterials" 
 				username="#SESSION.login#" 
@@ -201,19 +202,23 @@
 							'#SESSION.first#'
 						)
 				</cfquery>
+				
 			<cfelse>
+			
 				<cfif vTargetQuantity neq TargetQuantity>
+				
 					<cfquery name="updateSC"
 					datasource="AppsMaterials" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
 						UPDATE 	ItemWarehouseStockClass
 						SET		TargetQuantity = '#vTargetQuantity#'
-						WHERE	Warehouse = '#w#'
-						AND		ItemNo = '#url.id#'
-						AND		UoM = '#ItemUoM.uom#'
-						AND		StockClass = '#code#'
+						WHERE	Warehouse      = '#w#'
+						AND		ItemNo         = '#url.id#'
+						AND		UoM            = '#ItemUoM.uom#'
+						AND		StockClass     = '#code#'
 					</cfquery>
+					
 				</cfif>
 			</cfif>
 		</cfloop>

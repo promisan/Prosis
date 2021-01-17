@@ -10,13 +10,13 @@ ORDER BY DateEffective DESC
 
 <cfoutput>
 	
-	<table width="200" border=0 cellspacing="0" cellpadding="0" class="formpadding">
+	<table width="200" class="formpadding">
 	
 		<input type="hidden" name="mandateno" id="mandateno" value="#Mandate.MandateNo#">
 		
 		<cfloop query="Mandate">
 		
-			<tr class="labelmedium line" style="height:22px">
+			<tr class="labelmedium2">
 			    <td><input type="radio" class="radiol"
 				onclick="document.getElementById('mandateno').value='#mandateno#'" 
 				name="mymandate" 

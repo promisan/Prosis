@@ -21,7 +21,7 @@
 <cfset perT = "">
 <cfset link = "BroadCastHistory.cfm">
 
-<table width="94%" align="center" cellspacing="0" cellpadding="0" class="navigation_table">
+<table width="94%" align="center" class="navigation_table">
  <tr><td height="7" id="select"></td></tr>
  <tr><td colspan="7"><cfinclude template="BroadCastNavigation.cfm"></td></tr>
  <tr height="20" class="labelmedium line">
@@ -46,7 +46,7 @@
    <cfset color = "transparent">  
  </cfif>
  
- <tr bgcolor="#color#" id="r#currentrow#" class="labelmedium navigation_row line">
+ <tr bgcolor="#color#" id="r#currentrow#" class="labelmedium2 navigation_row line">
 	
 	<td width="25" align="center">
 		<cfif broadcaststatus eq "0" and url.id neq broadcastid>
@@ -55,7 +55,7 @@
 		  <cf_img icon="open" navigation="Yes" onclick="broadcastreload('#broadcastid#')">		
 		</cfif>
 	</td>
-    <td height="20" align="center">#currentrow#</td>
+    <td align="center">#currentrow#</td>
 	<TD>#BroadcastRecipient#</TD>
 	<TD>#BroadcastReference#</TD>
 	<TD>#BroadcastSubject#</TD>

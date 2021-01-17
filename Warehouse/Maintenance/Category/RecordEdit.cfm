@@ -205,7 +205,7 @@ password="#SESSION.dbpw#">
 	 <TR>
 		 <TD class="labelmedium" style="padding-left:10px;"><cf_tl id="Tab Order">:</TD>  
 		 <TD class="labelmedium">
-		 	<cfinput type="Text" name="tabOrder" value="#Item.tabOrder#" message="Please enter a numeric Tab Order" validate="integer" required="No" size="2" maxlength="3" class="regularxl">
+		 	<cfinput type="Text" name="tabOrder" value="#Item.tabOrder#" message="Please enter a numeric Tab Order" style="text-align:center" validate="integer" required="No" size="2" maxlength="3" class="regularxl">
 		 </TD>
 	 </TR>
 	 
@@ -222,14 +222,14 @@ password="#SESSION.dbpw#">
 				name="tabIcon" 
 				value="#Item.tabIcon#" 
 				message="Please enter a Tab Icon" 
-				onblur= "ColdFusion.navigate('CollectionTemplate.cfm?template=#iconDirectory#'+this.value+'&container=iconValidationDiv&resultField=validateIcon','iconValidationDiv')"
+				onblur= "ptoken.navigate('CollectionTemplate.cfm?template=#iconDirectory#'+this.value+'&container=iconValidationDiv&resultField=validateIcon','iconValidationDiv')"
 				required="No" 
-				size="30" 
+				size="60" 
 				maxlength="60" 
 				class="regularxl">										
 			</td>
 			<td style="padding-left:4px">
-		 	<cfdiv id="iconValidationDiv" bind="url:CollectionTemplate.cfm?template=#iconDirectory##Item.tabIcon#&container=iconValidationDiv&resultField=validateIcon">				
+		 	<cf_securediv id="iconValidationDiv" bind="url:CollectionTemplate.cfm?template=#iconDirectory##Item.tabIcon#&container=iconValidationDiv&resultField=validateIcon">				
 			</td></tr></table>
 		 </td>
 	</TR>
@@ -247,14 +247,14 @@ password="#SESSION.dbpw#">
 				name="Image" 
 				value="#Item.Image#" 
 				message="Please enter a Tab Icon" 
-				onblur= "ColdFusion.navigate('CollectionTemplate.cfm?template=#iconDirectory#'+this.value+'&container=iconValidationDiv&resultField=validateIcon','iconValidationDiv')"
+				onblur= "ptoken.navigate('CollectionTemplate.cfm?template=#iconDirectory#'+this.value+'&container=iconValidationDiv&resultField=validateIcon','iconValidationDiv')"
 				required="No" 
-				size="30" 
+				size="60" 
 				maxlength="60" 
 				class="regularxl">										
 			</td>
 			<td style="padding-left:4px">
-		 	<cfdiv id="iconValidationDiv" bind="url:CollectionTemplate.cfm?template=#iconDirectory##Item.tabIcon#&container=iconValidationDiv&resultField=validateIcon">				
+		 	<cf_securediv id="iconValidationDiv" bind="url:CollectionTemplate.cfm?template=#iconDirectory##Item.tabIcon#&container=iconValidationDiv&resultField=validateIcon">				
 			</td></tr></table>
 		 </td>
 	</TR>
@@ -263,7 +263,7 @@ password="#SESSION.dbpw#">
 		
 	<tr>
 		<td colspan="3" align="center" height="25">
-			<input type="submit" class="button10s" style="width:150;height:25"name="Update" id="Update" value=" Save " onclick="return validateFileFields();">
+			<input type="submit" class="button10g" style="width:150;height:25"name="Update" id="Update" value=" Save " onclick="return validateFileFields();">
 		</td>
 	</tr>
 

@@ -18,12 +18,12 @@
 		ORDER BY PE.ListingOrder
 </cfquery>
 
-<table width="100%" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<table width="100%" align="center" class="navigation_table">
 
 	<tr class="labelmedium line">
 	    <td align="center">
 			<cfoutput>
-				<a href="javascript:editPE('#url.id1#','')" style="color:##66A2FB">[Add]</a>
+				<a href="javascript:editPE('#url.id1#','')">[Add]</a>
 			</cfoutput>
 		</td> 
 	    <td>Code</td>

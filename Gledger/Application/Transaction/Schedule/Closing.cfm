@@ -96,40 +96,44 @@ password="#SESSION.dbpw#">
 			
 			<!--- prepare opening transaction for the new period by summing the prior period --->
 			
-			<cfquery name="getTransaction"
-			datasource="AppsLedger" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-				SELECT   Hdr.Mission, 
-						<cfif Param.AdministrationLevel neq "Tree">
-				         Hdr.OrgUnitOwner, 
-						 <cfelse>
-						 '0' as OrgUnitOwner,
-						 </cfif>
-						 Line.GLAccount, 
-						 Line.Currency, 
-						 Acc.MonetaryAccount,
-						 Acc.RevaluationMode,
-						 SUM(Line.AmountDebit)      AS AmountDebit, 
-						 SUM(Line.AmountCredit)     AS AmountCredit, 
-				         SUM(Line.AmountBaseDebit)  AS AmountBaseDebit, 
-						 SUM(Line.AmountBaseCredit) AS AmountBaseCredit
-				INTO     userQuery.dbo.#SESSION.acc#Closing		 
-				FROM     TransactionLine Line INNER JOIN
-				         Ref_Account Acc ON Line.GLAccount = Acc.GLAccount INNER JOIN
-				         TransactionHeader Hdr ON Line.Journal = Hdr.Journal AND Line.JournalSerialNo = Hdr.JournalSerialNo
-				WHERE    Acc.AccountClass   = 'Balance'
-				AND      Line.AccountPeriod = '#prior#' 
-				AND      Hdr.Mission        = '#Mission#'
-				AND      Hdr.RecordStatus    IN('0','1')
-				AND      Hdr.ActionStatus IN ('0','1')				
-				AND      Hdr.Journal IN (SELECT Journal 
-			                             FROM   Journal 
-								         WHERE  GLCategory = 'Actuals')
-				GROUP BY Hdr.Mission, <cfif Param.AdministrationLevel neq "Tree">Hdr.OrgUnitOwner, </cfif> Line.Currency, Line.GLAccount, Acc.MonetaryAccount,
-						 Acc.RevaluationMode
-						
-			</cfquery>
+			<cftransaction isolation="READ_UNCOMMITTED">
+			
+				<cfquery name="getTransaction"
+				datasource="AppsLedger" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					SELECT   Hdr.Mission, 
+							<cfif Param.AdministrationLevel neq "Tree">
+					         Hdr.OrgUnitOwner, 
+							 <cfelse>
+							 '0' as OrgUnitOwner,
+							 </cfif>
+							 Line.GLAccount, 
+							 Line.Currency, 
+							 Acc.MonetaryAccount,
+							 Acc.RevaluationMode,
+							 SUM(Line.AmountDebit)      AS AmountDebit, 
+							 SUM(Line.AmountCredit)     AS AmountCredit, 
+					         SUM(Line.AmountBaseDebit)  AS AmountBaseDebit, 
+							 SUM(Line.AmountBaseCredit) AS AmountBaseCredit
+					INTO     userQuery.dbo.#SESSION.acc#Closing		 
+					FROM     TransactionLine Line INNER JOIN
+					         Ref_Account Acc ON Line.GLAccount = Acc.GLAccount INNER JOIN
+					         TransactionHeader Hdr ON Line.Journal = Hdr.Journal AND Line.JournalSerialNo = Hdr.JournalSerialNo
+					WHERE    Acc.AccountClass   = 'Balance'
+					AND      Line.AccountPeriod = '#prior#' 
+					AND      Hdr.Mission        = '#Mission#'
+					AND      Hdr.RecordStatus    IN('0','1')
+					AND      Hdr.ActionStatus IN ('0','1')				
+					AND      Hdr.Journal IN (SELECT Journal 
+				                             FROM   Journal 
+									         WHERE  GLCategory = 'Actuals')
+					GROUP BY Hdr.Mission, <cfif Param.AdministrationLevel neq "Tree">Hdr.OrgUnitOwner, </cfif> Line.Currency, Line.GLAccount, Acc.MonetaryAccount,
+							 Acc.RevaluationMode
+							
+				</cfquery>
+			
+			</cftransaction>
 
 			<!--- prepare data --->
 			<cfquery name="Transaction2"
@@ -532,24 +536,28 @@ password="#SESSION.dbpw#">
 										
 									</cfif>																									
 								
-								</cfloop>															
+								</cfloop>		
+								
+								<cftransaction isolation="READ_UNCOMMITTED">													
 													
-								<cfquery name="Capital"
-								datasource="AppsLedger" 
-								username="#SESSION.login#" 
-								password="#SESSION.dbpw#">								    
-									SELECT round(ISNULL(sum(AmountDebit)     - sum(AmountCredit),0),2)     as Capital,
-										   round(ISNULL(sum(AmountBaseDebit) - sum(AmountBaseCredit),0),2) as CapitalBase
-								    FROM   TransactionHeader H, TransactionLine L
-									WHERE  H.Journal           = L.Journal
-									AND    H.JournalSerialNo   = L.JournalSerialNo 
-									AND    H.Mission           = '#mission#'
-									AND    H.OrgUnitOwner      = '#OrgUnitOwner#' 
-									AND    H.AccountPeriod     = '#new#'
-									AND    H.TransactionSource = 'Opening'									
-									AND    H.Currency          = '#Currency#'
-									
-								</cfquery>		
+									<cfquery name="Capital"
+									datasource="AppsLedger" 
+									username="#SESSION.login#" 
+									password="#SESSION.dbpw#">								    
+										SELECT round(ISNULL(sum(AmountDebit)     - sum(AmountCredit),0),2)     as Capital,
+											   round(ISNULL(sum(AmountBaseDebit) - sum(AmountBaseCredit),0),2) as CapitalBase
+									    FROM   TransactionHeader H, TransactionLine L
+										WHERE  H.Journal           = L.Journal
+										AND    H.JournalSerialNo   = L.JournalSerialNo 
+										AND    H.Mission           = '#mission#'
+										AND    H.OrgUnitOwner      = '#OrgUnitOwner#' 
+										AND    H.AccountPeriod     = '#new#'
+										AND    H.TransactionSource = 'Opening'									
+										AND    H.Currency          = '#Currency#'
+										
+									</cfquery>		
+								
+								</cftransaction>
 										
 								<!--- capital transaction --->
 								

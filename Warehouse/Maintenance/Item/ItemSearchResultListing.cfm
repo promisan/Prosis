@@ -120,10 +120,8 @@
 </cfoutput>
 
 <!---
-
 <cfoutput>#cfquery.executiontime#</cfoutput>
 <cfabort>
-
 --->
 
 <!--- show person, status processing color and filter on raise by me --->
@@ -135,9 +133,7 @@
 <cfset itm = 0>
 
 <!---
-
 <cfif url.fmission neq "">		
-	
 	<cf_tl id="Entity" var="1">
 	<cfset itm = itm+1>
 	<cfset fields[itm] = {label           = "#lt_text#",                   
@@ -145,17 +141,15 @@
 						functionscript    = "item",
 						functionfield     = "ItemNo",			
 						functioncondition = "#url.fmission#"}>				
-
 </cfif>
-
 --->
 
 <cfset itm = itm+1>
 <cf_tl id="Description" var="1">
-<cfset fields[itm] = {label      = "#lt_text#", 
-                    width      = "0", 
-					field      = "ItemDescription",					
-					search     = "text"}>	
+<cfset fields[itm] = {label           = "#lt_text#", 
+                    width             = "0", 
+					field             = "ItemDescription",					
+					search            = "text"}>	
 
 <cfset itm = itm+1>			
 <cf_tl id="Make" var="1">						
@@ -172,52 +166,51 @@
 											
 <cfset itm = itm+1>		
 <cf_tl id="Project" var="1">
-<cfset fields[itm] = {label      = "#lt_text#", 
-                    width      = "0", 
-					field      = "ProgramName",
-					filtermode = "2",
-					search     = "text"}>
+<cfset fields[itm] = {label           = "#lt_text#", 
+                    width             = "0", 
+					field             = "ProgramName",
+					filtermode        = "3",
+					search            = "text"}>
 					
 <cfset itm = itm+1>						
 <cf_tl id="Created" var="1">
-<cfset fields[itm] = {label      = "#lt_text#",    
-					width        = "0", 
-					field        = "Created",		
-					labelfilter  = "Recorded",			
-					formatted    = "dateformat(Created,CLIENT.DateFormatShow)",
-					search       = "date"}>							
+<cfset fields[itm] = {label           = "#lt_text#",    
+					width             = "0", 
+					field             = "Created",		
+					labelfilter       = "Recorded",			
+					formatted         = "dateformat(Created,CLIENT.DateFormatShow)",
+					search            = "date"}>							
 					
 <cfset itm = itm+1>							
 <cf_tl id="Destination" var="1">
-<cfset fields[itm] = {label      = "D", 					
-					field      = "DestinationCode",		
-					LabelFilter = "#lt_text#",					
-					filtermode = "3",    
-					search     = "text"}>							
+<cfset fields[itm] = {label           = "D", 					
+					field             = "DestinationCode",		
+					LabelFilter       = "#lt_text#",					
+					filtermode        = "3",    
+					search            = "text"}>							
 					
 <cfset itm = itm+1>		
 <cf_tl id="Valuation" var="1">
-<cfset fields[itm] = {label      = "Value",                    
-					filtermode = "2",    
-					LabelFilter = "#lt_text#",	
-					search     = "text",					
-					field      = "ValuationCode"}>		
+<cfset fields[itm] = {label           = "Value",                    
+					filtermode        = "2",    
+					LabelFilter       = "#lt_text#",	
+					search            = "text",					
+					field             = "ValuationCode"}>		
 						
 <cfset itm = itm+1>		
 <cf_tl id="UoM" var="1">
-<cfset fields[itm] = {label      = "U",                    
-					filtermode = "2",   
-					LabelFilter = "#lt_text#", 
-					search     = "number",					
-					field      = "UoMs"}>	
+<cfset fields[itm] = {label           = "U",                    
+					filtermode        = "0",   
+					LabelFilter       = "#lt_text#", 
+					search            = "number",					
+					field             = "UoMs"}>	
 					
 <cfset itm = itm+1>		
 <cf_tl id="Child" var="1">
-<cfset fields[itm] = {label      = "C",                    
-					filtermode = "2",    
-					search     = "number",	
-					LabelFilter = "#lt_text#", 				
-					field      = "Children"}>	
+<cfset fields[itm] = {label           = "C",                    					  
+					search            = "number",	
+					LabelFilter       = "#lt_text#", 				
+					field             = "Children"}>	
 					
 <cfset itm = itm+1>		
 <cf_tl id="Transactions" var="1">
@@ -225,43 +218,43 @@
 <cfif url.fmission neq "">
 
 	<cfset fields[itm] = {label      = "##",                    					
-				LabelFilter = "#lt_text#",	
-				functionscript    = "item",
-				functionfield     = "ItemNo",			
-				functioncondition = "#url.fmission#",
-				align      = "right",	
-				search     = "number",				
-				field      = "InUse"}>	
+				LabelFilter          = "#lt_text#",	
+				functionscript       = "item",
+				functionfield        = "ItemNo",			
+				functioncondition    = "#url.fmission#",
+				align                = "right",	
+				search               = "number",				
+				field                = "InUse"}>	
 					
 <cfelse>
 
-<cfset fields[itm] = {label      = "##",                    					
-					LabelFilter = "#lt_text#",						
-					align      = "right",		
-					search     = "number",			
-					field      = "InUse"}>	
+<cfset fields[itm] = {label          = "##",                    					
+					LabelFilter      = "#lt_text#",						
+					align            = "right",		
+					search           = "number",			
+					field            = "InUse"}>	
 
 </cfif>					
 											
 <cfset itm = itm+1>				
 <cf_tl id="On Hand" var="1">
-<cfset fields[itm] = {label      = "#lt_text#",    
-					width        = "0", 
-					field        = "OnHand",	
-					align        = "right",			
-					formatted    = "lsNumberFormat(OnHand,',')",
-					search       = "amount"}>	
+<cfset fields[itm] = {label          = "#lt_text#",    
+					width            = "0", 
+					field            = "OnHand",	
+					align            = "right",			
+					formatted        = "lsNumberFormat(OnHand,',')",
+					search           = "amount"}>	
 					
 <cfset itm = itm+1>		
 <cf_tl id="Operational" var="1">				
-<cfset fields[itm] = {label       = "S", 	
-                    LabelFilter   = "#lt_text#",				
-					field         = "Operational",					
-					filtermode    = "3",    
-					search        = "text",
-					align         = "center",
-					formatted     = "Rating",
-					ratinglist    = "1=Green,0=Red"}>												
+<cfset fields[itm] = {label          = "S", 	
+                    LabelFilter      = "#lt_text#",				
+					field            = "Operational",					
+					filtermode       = "3",    
+					search           = "text",
+					align            = "center",
+					formatted        = "Rating",
+					ratinglist       = "1=Green,0=Red"}>												
 	
 	<cfset str = "mission=#url.fmission#">
 										

@@ -21,7 +21,7 @@
 		man = document.getElementById("mandateno").value	
 		cur = document.getElementById("current").checked
 		url = "VerifyStaffingTableResult.cfm?current="+cur+"&mission="+mis+"&mandateno="+man;
-		ColdFusion.navigate(url,'result')	 
+		ptoken.navigate(url,'result')	 
 	}
 	
 	</script>
@@ -44,30 +44,38 @@ password="#SESSION.dbpw#">
 				   WHERE SystemModule = 'Staffing')
 </cfquery>
 
-
+<!---
 <cf_submenuLogo module="Staffing" selection="Maintenance">
+--->
 
+<cfset Page         = "0">
+<cfset add          = "0">
+<cfset save         = "0"> 
+
+<table width="98%" align="center" height="100%" border="0">
+
+<tr style="height:10px"><td><cfinclude template="../../Maintenance/HeaderMaintain.cfm"></td></tr>
+
+<tr><td style="height:100%" valign="top">
 
 <cfoutput>
-<table width="95%" align="center" border="0" cellspacing="0" cellpadding="0" bordercolor="silver" class="formpadding">
+<table width="95%" align="center" class="formpadding">
 	
-	<tr><td colspan="2" height="1" class="line"></td></tr>
-	<tr><td height="5"></td></tr>
-	<tr><td></td><td style="height:22px" class="labelmedium">This function verifies a vaiety of staffing table inconsistencies (positions, contracts and assignments)</td></tr>
-	<tr><td></td><td style="height:22px" class="labelmedium" colspan="1"><font color="A0A0A0"><i>Results are logged in the table [Employee.dbo.AuditIncumbency]</i></td></tr>
+	<tr><td colspan="2" style="height:22px" class="labelmedium2">This function verifies a vaiety of staffing table inconsistencies (positions, contracts and assignments)</td></tr>
+	<tr><td colspan="2" style="height:22px" class="labelmedium2" colspan="1"><font color="A0A0A0"><i>Results are logged in the table [Employee.dbo.AuditIncumbency]</i></td></tr>
 	<tr><td height="5"></td></tr>	
 	<tr><td colspan="2" height="1" class="line"></td></tr>
 	<tr><td height="5"></td></tr>
 	<tr><td valign="top">
 	   <table cellspacing="0" cellpadding="0">
 	    <tr><td height="4"></td></tr>
-		<tr><td class="labelmedium">&nbsp;&nbsp;Entity:</td></tr>
+		<tr><td class="labelmedium2">&nbsp;&nbsp;Entity:</td></tr>
     	</table>
 	</td>
 	<td width="80%" valign="top">
 	    <table cellspacing="0" cellpadding="0">
 			<tr><td valign="top" style="padding-top:3px">
-			<select name="mission" id="mission" class="regularxl">
+			<select name="mission" id="mission" class="regularxxl">
 				<cfloop query="mission">
 					<option value="#Mission#">#Mission#</option>
 				</cfloop>
@@ -79,7 +87,7 @@ password="#SESSION.dbpw#">
 	</td></tr>
 	
 	<tr>	    
-		<td colspan="2" class="labelmedium">
+		<td colspan="2" class="labelmedium2">
 		&nbsp;&nbsp;Only current assignments:&nbsp;
 		<input type="checkbox" class="radiol" name="current" id="current" value="1" checked>
 		</td>
@@ -96,3 +104,8 @@ password="#SESSION.dbpw#">
 </table>
 
 </cfoutput>
+
+</td>
+</tr>
+
+</table>

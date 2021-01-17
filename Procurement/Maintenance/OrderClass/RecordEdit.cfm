@@ -48,9 +48,9 @@ function ask() {
 	 <cfoutput>
 	 <tr><td height="7"></td></tr>
 	 <TR>
-	 <TD class="labelmedium">Code:&nbsp;</TD>  
+	 <TD class="labelmedium2">Code:&nbsp;</TD>  
 	 <TD>
-	 	<input type="Text" name="Code" id="Code" value="#get.Code#" size="20" maxlength="20"class="regularxl">
+	 	<input type="Text" name="Code" id="Code" value="#get.Code#" size="20" maxlength="20"class="regularxxl">
 		<input type="hidden" name="CodeOld" id="CodeOld" value="#get.Code#" size="20" maxlength="20"class="regular">
 	 </TD>
 	 </TR>
@@ -64,9 +64,9 @@ function ask() {
 	</cfquery>
 	 
 	 <TR>
-	 <TD class="labelmedium" width="150">Entity:</TD>  
+	 <TD class="labelmedium2" width="150">Entity:</TD>  
 	 <TD>
-	 	<select name="Mission" id="Mission" class="regularxl">
+	 	<select name="Mission" id="Mission" class="regularxxl">
 		<option value="">[Apply to all]</option>
 		<cfloop query="Mis">
 		<option value="#Mission#" <cfif get.Mission eq mission>selected</cfif>>#Mission#</option>
@@ -75,10 +75,10 @@ function ask() {
 	 </TD>
 	 </TR>
 	 
-	 <TR class="labelmedium">
+	 <TR class="labelmedium2">
     <TD>Tax Account :</TD>
     <TD>
-  	  <select class="regularxl" name="glaccounttax">
+  	  <select class="regularxxl" name="glaccounttax">
      	  <option value="">Use System default</option>  
             <cfloop query="TaxAccount">
         	<option value="#GLAccount#" <cfif Get.GLAccountTax is GLAccount>selected</cfif>>#GLAccount# #Description#</option>
@@ -91,48 +91,48 @@ function ask() {
 	 
 	 <!--- Field: Description --->
     <TR>
-    <TD class="labelmedium">Description:&nbsp;</TD>
+    <TD class="labelmedium2">Description:&nbsp;</TD>
     <TD>
-  	  	<input type="Text" name="Description" id="Description" value="#get.Description#" message="Please enter a description" required="Yes" size="50" maxlength="50" class="regularxl">				
+  	  	<input type="Text" name="Description" id="Description" value="#get.Description#" message="Please enter a description" required="Yes" size="50" maxlength="50" class="regularxxl">				
     </TD>
 	</TR>
 	
 	<tr><td height="3"></td></tr>
 		
 	<TR>
-    <td valign="top" style="padding-top:3px" class="labelmedium">Modality:</td>
+    <td valign="top" style="padding-top:3px" class="labelmedium2">Modality:</td>
     <TD>
 	<table class="formpadding">
-	<tr class="labelmedium"><td><input type="radio" class="radiol" name="PreparationMode" id="PreparationMode" value="Job"      <cfif get.PreparationMode eq "Job">checked</cfif>></td><td colspan="3">Standard Procurement (Vendor)</td></tr>
-	<tr class="labelmedium"><td><input type="radio" class="radiol" name="PreparationMode" id="PreparationMode" value="Position" <cfif get.PreparationMode eq "Position">checked</cfif>></td><td colspan="3">Outsourced Position (New and Extension)</td></tr>
-	<tr class="labelmedium"><td><input type="radio" class="radiol" name="PreparationMode" id="PreparationMode" value="SSA"      <cfif get.PreparationMode eq "SSA">checked</cfif>></td><td colspan="3">Personal Service Agreement (Person)</td></tr>
-	<tr class="labelmedium"><td><input type="radio" class="radiol" name="PreparationMode" id="PreparationMode" value="Direct"   <cfif get.PreparationMode eq "Direct">checked</cfif>></td><td>Direct Purchase</td><td><input type="checkbox" class="radiol" name="PreparationModeCreate" id="PreparationModeCreate" value="1"  <cfif get.PreparationModeCreate eq "1">checked</cfif>></td><td>Auto approve </td></tr>
-	<tr class="labelmedium"><td><input type="radio" class="radiol" name="PreparationMode" id="PreparationMode" value="Travel"   <cfif get.PreparationMode eq "Travel">checked</cfif>></td><td colspan="3">Travel / Special Service Extension</td></tr>
+	<tr class="labelmedium2"><td><input type="radio" class="radiol" name="PreparationMode" id="PreparationMode" value="Job"      <cfif get.PreparationMode eq "Job">checked</cfif>></td><td colspan="3">Standard Procurement (Vendor)</td></tr>
+	<tr class="labelmedium2"><td><input type="radio" class="radiol" name="PreparationMode" id="PreparationMode" value="Position" <cfif get.PreparationMode eq "Position">checked</cfif>></td><td colspan="3">Outsourced Position (New and Extension)</td></tr>
+	<tr class="labelmedium2"><td><input type="radio" class="radiol" name="PreparationMode" id="PreparationMode" value="SSA"      <cfif get.PreparationMode eq "SSA">checked</cfif>></td><td colspan="3">Personal Service Agreement (Person)</td></tr>
+	<tr class="labelmedium2"><td><input type="radio" class="radiol" name="PreparationMode" id="PreparationMode" value="Direct"   <cfif get.PreparationMode eq "Direct">checked</cfif>></td><td>Direct Purchase</td><td><input type="checkbox" class="radiol" name="PreparationModeCreate" id="PreparationModeCreate" value="1"  <cfif get.PreparationModeCreate eq "1">checked</cfif>></td><td>Auto approve </td></tr>
+	<tr class="labelmedium2"><td><input type="radio" class="radiol" name="PreparationMode" id="PreparationMode" value="Travel"   <cfif get.PreparationMode eq "Travel">checked</cfif>></td><td colspan="3">Travel / Special Service Extension</td></tr>
 	</table>
     </td>
     </tr>	
 	
 	<tr><td></td><td class="labelit">&nbsp;<font color="gray">Note : Direct Purchase needs to be enabled on the parameter level</td></tr>
 	
-	<tr><td class="labelmedium" height="3">Print Templates</td></tr>
+	<tr><td class="labelmedium2" height="3">Print Templates</td></tr>
 	
 	<tr><td colspan="2">
-	<table cellspacing="0" cellpadding="0" style="width:100%">
+	<table class="formpadding" style="width:100%">
 	
 	   <!--- Field: Description --->
-    <TR style="height:27px" class="labelmedium">
+    <TR class="labelmedium2">
     <TD style="width:140px;padding-left:15px">Purchase Order:</TD>
     <TD>
 		<cfinput type="Text" style="width:90%" name="PurchaseTemplate" value="#get.PurchaseTemplate#" message="Please enter a template path" required="No" maxlength="100"
-		class="regularxl">
+		class="regularxxl">
 	</TD>
 	</TR>
 	
-	<TR style="height:27px" class="labelmedium">
+	<TR class="labelmedium2">
     <TD style="padding-left:15px">Execution&nbsp;Request:&nbsp;</TD>
     <TD>
 		<cfinput type="Text" style="width:90%" name="ExecutionTemplate" value="#get.ExecutionTemplate#" message="Please enter a template path" required="No" maxlength="100"
-		class="regularxl">
+		class="regularxxl">
 	</TD>
 	</TR>	
 	

@@ -7,29 +7,29 @@
 			  menuAccess="Yes" 
 			  systemfunctionid="#url.idmenu#">
 
-<cfform action="RecordSubmit.cfm" method="POST" enablecab="Yes" name="dialog">
+<cfform action="RecordSubmit.cfm" method="POST" name="dialog">
 
 <!--- Entry form --->
 
-<table width="96%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="92%" align="center" class="formpadding formspacing">
 
-    <tr><td></td></tr>
-    <TR>
-    <TD class="labelit">Code:</TD>
+    
+    <TR class="labelmedium2">
+    <TD>Code:</TD>
     <TD>
-  	   <cfinput type="text" name="code" value="" message="Please enter a code" required="Yes" size="10" maxlength="10" class="regularxl">
+  	   <cfinput type="text" name="code" value="" message="Please enter a code" required="Yes" size="10" maxlength="10" class="regularxxl">
     </TD>
 	</TR>
 	
-	  <TR>
-    <TD class="labelit">Name:</TD>
+	<TR class="labelmedium2">
+    <TD>Name:</TD>
     <TD>
-  	   <cfinput type="text" name="Description" value="" message="Please enter a name" required="Yes" size="20" maxlength="50" class="regularxl">
+  	   <cfinput type="text" name="Description" value="" message="Please enter a name" required="Yes" size="20" maxlength="50" class="regularxxl">
     </TD>
 	</TR>
 		
-	<TR>
-    <TD class="labelit">Listing Order:</TD>
+	<TR class="labelmedium2">
+    <TD>Listing Order:</TD>
     <TD>
   	   <cfinput type="Text"
 	       name="ListingOrder"
@@ -40,12 +40,12 @@
 	       enabled="Yes"
 	       size="1"
 	       maxlength="2"
-	       class="regularxl">
+	       class="regularxxl">
 	  
     </TD>
 	</TR>
 		
-	<tr><td colspan="2" class="linedotted"></td></tr>
+	<tr><td colspan="2" class="line"></td></tr>
 	
 	<tr>		
 	<td colspan="2" height="35" align="center">

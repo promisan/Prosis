@@ -85,12 +85,14 @@ password="#SESSION.dbpw#">
 	ORDER BY LeaveParent, ListingOrder
 </cfquery>
 
-<cf_divscroll>
 
 <cfset add          = "1">
-<cfinclude template = "../HeaderMaintain.cfm"> 
 
-<table width="95%" align="center" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+<cf_screentop html="No" jquery="Yes">
+
+<table width="98%" align="center" height="100%">
+
+<tr style="height:10px"><td><cfinclude template = "../HeaderMaintain.cfm"></td></tr>
 
 <cfoutput>
  
@@ -101,7 +103,7 @@ function recordadd(grp) {
 }
 
 function recordedit(id1) {
-      ptoken.open("RecordEditTab.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=180, top=40, width= 1100, height= 850, toolbar=no, status=yes, scrollbars=no, resizable=yes");
+      ptoken.open("RecordEditTab.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit");
 }
 
 function accrualadd(tpe) {
@@ -116,158 +118,163 @@ function accrualedit(tpe) {
 
 </cfoutput>
 
-<tr><td colspan="2">
+<tr><td colspan="2" style="min-width:1000px">
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table formpadding">
+<cf_divscroll>
 
-<tr class="labelmedium line">
-       
-    <td></td>
-    <td>Code</td>
-	<td>Description</td>
-	<td>PA</td>
-	<td>WF</td>
-	<td>Accr.</td>
-	<td>Max.</td>
-	<td>Self</td>
-	<td>Officer</td>
-    <td>Entered</td>
-  
-</tr>
-
-<cfoutput query="SearchResult" group="LeaveParent">
-
-	<cfquery name="Check"
-	datasource="AppsEmployee" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-	    SELECT * FROM Ref_TimeClass WHERE TimeClass = '#LeaveParent#'
-	</cfquery>
+	<table width="95%" align="center" class="navigation_table formpadding">
 	
-	<tr><td height="10"></td></tr>
-    <tr class="labelmedium line">
-    	<td height="30"
-        colspan="10" style="font-size:26px;height:40px">#Check.Description#</b>&nbsp;<font face="Verdana" size="2">(#leaveparent#)</b></td>
-    </tr>
-
-<cfoutput>
-     
-	<tr class="navigation_row labelmedium line" style="height:15px">
-	
-	  <td align="center">
+	<tr class="labelmedium line">
+	       
+	    <td></td>
+	    <td>Code</td>
+		<td>Description</td>
+		<td>PA</td>
+		<td>WF</td>
+		<td>Accr.</td>
+		<td>Max.</td>
+		<td>Self</td>
+		<td>Officer</td>
+	    <td>Entered</td>
 	  
-	  <table cellspacing="0" cellpadding="0">
-		  <tr class="labelmedium" style="height:15px">
-		  <td width="20" style="padding-left:8px;">
-		  	  <cf_img icon="edit" navigation="Yes" onclick="recordedit('#LeaveType#')">
-		  </td>
-		  
-		  <td width="20">
-		  
-		    <cfif LeaveAccrual neq "0">
-			
-			   <img src="#Client.VirtualDir#/Images/insert.gif" alt="Accrual" name="img0_#currentrow#" 
-			  onMouseOver="document.img0_#currentrow#.src='#Client.VirtualDir#/Images/button.jpg'" 
-			  onMouseOut="document.img0_#currentrow#.src='#Client.VirtualDir#/Images/insert.gif'"
-			  style="cursor: pointer;" width="12" height="13" border="0" align="absmiddle" 
-			  onClick="accrualadd('#LeaveType#')">
-		    
-		  </cfif>
-		  
-		  </td>
-		  </tr>
-	  </table>
-	  
-	  </td>
-	  <td style="padding-left:7px"><a href="javascript:recordedit('#LeaveType#')">#LeaveType#</a></td>
-	  <td>#Description#</td>
-	  <td align="center"><cfif ActionCode neq "">Y<cfelse>-</cfif></td>
-	  <td align="center"><cfif EntityClass neq "">Y<cfelse>-</cfif></td>
-	  <td align="center"><cfif LeaveAccrual eq "1">Y<cfelseif LeaveAccrual eq "2">O<cfelseif LeaveAccrual eq "3">C<cfelse>-</cfif></td>
-	  <td></td>
-	  <td align="center"><cfif UserEntry eq "1">P</cfif></td>
-	  <td>#OfficerFirstName# #OfficerLastName#</td>
-	  <td>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
-    </tr>
-		 
-	 <cfquery name="Accrual"
-     datasource="AppsEmployee" 
-     username="#SESSION.login#" 
-     password="#SESSION.dbpw#">
-      SELECT   L.*, R.Description
-   	  FROM     Ref_LeaveTypeCredit L, Ref_ContractType R
-	  WHERE    L.ContractType = R.ContractType
-	  AND      L.LeaveType = '#LeaveType#'
-	  ORDER BY L.ContractType, DateEffective DESC
-    </cfquery>
+	</tr>
 	
-	<cfif Accrual.recordCount gt "0">
+	<cfoutput query="SearchResult" group="LeaveParent">
 	
-	<tr>
+		<cfquery name="Check"
+		datasource="AppsEmployee" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		    SELECT * FROM Ref_TimeClass WHERE TimeClass = '#LeaveParent#'
+		</cfquery>
+		
+		<tr><td height="10"></td></tr>
+	    <tr class="labelmedium line">
+	    	<td height="30"
+	        colspan="10" style="font-size:26px;height:40px">#Check.Description#</b>&nbsp;<font face="Verdana" size="2">(#leaveparent#)</b></td>
+	    </tr>
 	
-	   <td colspan="10" align="center" style="padding:5px">
-	   
-		   <table width="90%" border="0" cellspacing="0" cellpadding="0" class="navigation_table">
-		   
-		   <tr class="navigation_row labelmedium line" style="height:16px">		   
-		     
-			  <td height="20"></td>
-		      <td style="min-width:300;padding-left:6px"><cf_tl id="Contract"></td>			  
-	          <td><cf_tl id="Effective"></td>
-			  <td><cf_tl id="Period"></td>
-			  <cfif LeaveAccrual eq "1">
-	      	  <td><cf_tl id="Full Credit"></td>
-			  <cfelse>
-			  <td><cf_tl id="Latency"></td>
+	<cfoutput>
+	     
+		<tr class="navigation_row labelmedium2 line" style="height:15px">
+		
+		  <td align="center">
+		  
+		  <table cellspacing="0" cellpadding="0">
+			  <tr class="labelmedium2" style="height:15px">
+			  <td width="20" style="padding-left:8px;">
+			  	  <cf_img icon="open" navigation="Yes" onclick="recordedit('#LeaveType#')">
+			  </td>
+			  
+			  <td width="20">
+			  
+			    <cfif LeaveAccrual neq "0">
+				
+				   <img src="#Client.VirtualDir#/Images/insert.gif" alt="Accrual" name="img0_#currentrow#" 
+				  onMouseOver="document.img0_#currentrow#.src='#Client.VirtualDir#/Images/button.jpg'" 
+				  onMouseOut="document.img0_#currentrow#.src='#Client.VirtualDir#/Images/insert.gif'"
+				  style="cursor: pointer;" width="12" height="13" border="0" align="absmiddle" 
+				  onClick="accrualadd('#LeaveType#')">
+			    
 			  </cfif>
-			  <td><cf_tl id="Calculation"></td>
-	    	  <td><cf_tl id="Carry over"></td>
-		      <td><cf_tl id="Max"></td>				      		  
-		   </tr>	
+			  
+			  </td>
+			  </tr>
+		  </table>
+		  
+		  </td>
+		  <td style="padding-left:7px">#LeaveType#</td>
+		  <td>#Description#</td>
+		  <td align="center"><cfif ActionCode neq "">Y<cfelse>-</cfif></td>
+		  <td align="center"><cfif EntityClass neq "">Y<cfelse>-</cfif></td>
+		  <td align="center"><cfif LeaveAccrual eq "1">Y<cfelseif LeaveAccrual eq "2">O<cfelseif LeaveAccrual eq "3">C<cfelse>-</cfif></td>
+		  <td></td>
+		  <td align="center"><cfif UserEntry eq "1">P</cfif></td>
+		  <td>#OfficerFirstName# #OfficerLastName#</td>
+		  <td>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
+	    </tr>
+			 
+		 <cfquery name="Accrual"
+	     datasource="AppsEmployee" 
+	     username="#SESSION.login#" 
+	     password="#SESSION.dbpw#">
+	      SELECT   L.*, R.Description
+	   	  FROM     Ref_LeaveTypeCredit L, Ref_ContractType R
+		  WHERE    L.ContractType = R.ContractType
+		  AND      L.LeaveType = '#LeaveType#'
+		  ORDER BY L.ContractType, DateEffective DESC
+	    </cfquery>
+		
+		<cfif Accrual.recordCount gt "0">
+		
+		<tr>
+		
+		   <td colspan="10" align="center" style="padding:5px">
 		   
-		   <cfset prior = "">
-		   
-		   <cfloop query="Accrual">
-		   
-			   <tr bgcolor="EAF4FF" class="line labelmedium navigation_row" style="height:25px">
+			   <table width="90%" border="0" cellspacing="0" cellpadding="0" class="navigation_table">
+			   
+			   <tr class="navigation_row labelmedium2 line" style="height:16px">		   
 			     
-				 <td width="50" align="center" style="padding-left:7px;padding-right:9px;padding-top:3px">			  
-				   <cf_img icon="edit" navigation="yes" onclick="accrualedit('#CreditId#')">		  
-				  </td>
-			      <td width="26%" style="padding-left:6px"><cfif contracttype neq prior>#Description# (#ContractType#)</cfif></td>
-				   
-				  <td width="12%">#DateFormat(DateEffective,CLIENT.DateFormatShow)#</td>
-				  <td width="10%">#CreditPeriod#</td>
-				  <cfif SearchResult.LeaveAccrual eq "1">
-				  <td width="15%">#CreditFull# #CreditUoM#</td>
+				  <td height="20"></td>
+			      <td style="min-width:300;padding-left:6px"><cf_tl id="Contract"></td>			  
+		          <td><cf_tl id="Effective"></td>
+				  <td><cf_tl id="Period"></td>
+				  <cfif LeaveAccrual eq "1">
+		      	  <td><cf_tl id="Full Credit"></td>
 				  <cfelse>
-				  <td width="15%">#AccumulationPeriod#</td>
+				  <td><cf_tl id="Latency"></td>
 				  </cfif>
-				  <td width="15%">#Calculation#</td>
-				  <td width="15%"><cfif carryovermaximum eq "999">--<cfelse>#CarryOverMaximum#</cfif></td>
-				  <td width="14%"><cfif MaximumBalance eq "999">--<cfelse>#MaximumBalance#</cfif></td>				  
-			   </tr>
-			   <cfset prior = contracttype>
-		   
-		   </cfloop>
-		   </table>
-	   </td>
-	 </tr>
-	 
-	 </cfif>
-	 
+				  <td><cf_tl id="Calculation"></td>
+		    	  <td><cf_tl id="Carry over"></td>
+			      <td><cf_tl id="Max"></td>				      		  
+			   </tr>	
+			   
+			   <cfset prior = "">
+			   
+			   <cfloop query="Accrual">
+			   
+				   <tr bgcolor="EAF4FF" class="line labelmedium navigation_row" style="height:25px">
+				     
+					 <td width="50" align="center" style="padding-left:7px;padding-right:9px;padding-top:3px">			  
+					   <cf_img icon="edit" navigation="yes" onclick="accrualedit('#CreditId#')">		  
+					  </td>
+				      <td width="26%" style="padding-left:6px"><cfif contracttype neq prior>#Description# (#ContractType#)</cfif></td>
+					   
+					  <td width="12%">#DateFormat(DateEffective,CLIENT.DateFormatShow)#</td>
+					  <td width="10%">#CreditPeriod#</td>
+					  <cfif SearchResult.LeaveAccrual eq "1">
+					  <td width="15%">#CreditFull# #CreditUoM#</td>
+					  <cfelse>
+					  <td width="15%">#AccumulationPeriod#</td>
+					  </cfif>
+					  <td width="15%">#Calculation#</td>
+					  <td width="15%"><cfif carryovermaximum eq "999">--<cfelse>#CarryOverMaximum#</cfif></td>
+					  <td width="14%"><cfif MaximumBalance eq "999">--<cfelse>#MaximumBalance#</cfif></td>				  
+				   </tr>
+				   <cfset prior = contracttype>
+			   
+			   </cfloop>
+			   </table>
+		   </td>
+		 </tr>
+		 
+		 </cfif>
+		 
+		
+	</CFOUTPUT>	
 	
-</CFOUTPUT>	
+	</CFOUTPUT>
+	
+	    <tr bgcolor="white"><td height="3" colspan="10"></td></tr>
+	
+	</table>
 
-</CFOUTPUT>
-
-    <tr bgcolor="white"><td height="3" colspan="10"></td></tr>
-
-</table>
+</cf_divscroll>
 
 </td>
 
+</tr>
+
 </table>
 
 
-</cf_divscroll>

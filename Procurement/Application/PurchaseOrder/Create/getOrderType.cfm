@@ -37,7 +37,7 @@
   
 <cfoutput> 
 	   
- <select name="ordertype" id="ordertype" style="width:200px" class="regularxl" 
+ <select name="ordertype" id="ordertype" style="width:200px" class="regularxxl" 
      onchange="_cf_loadingtexthtml='';ColdFusion.navigate('#SESSION.root#/Procurement/maintenance/ordertype/Info.cfm?code='+this.value,'infobox')">
 	  <cfloop query="OrderType">
 	     <option value="#Code#" <cfif getDefault.OrderType eq Code>selected</cfif> >#Description#</option>

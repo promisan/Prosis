@@ -1,44 +1,54 @@
-<cfparam name="Attributes.Name"         default="true">
-<cfparam name="Attributes.Display"    default="root">
-<cfparam name="Attributes.Value"   default="">
+<cfparam name="Attributes.Name"           default="true">
+<cfparam name="Attributes.Display"        default="root">
+<cfparam name="Attributes.Value"          default="">
 <cfparam name="Attributes.ListDataSource" default="">
-<cfparam name="Attributes.query"        type="query">
-<cfparam name="Attributes.selected"    default="">
-<cfparam name="Attributes.onchange"    default="">
-<cfparam name="Attributes.group"        default="">
-<cfparam name="attributes.style"        default="">
-<cfparam name="attributes.filter"        default="">
-<cfparam name="attributes.class"        default="">
-<cfparam name="attributes.optionsLabel" default="15">
-<cfparam name="attributes.multiple"     default="No">
-<cfparam name="attributes.message"     default="">
-
-
+<cfparam name="Attributes.query"          type="query">
+<cfparam name="Attributes.selected"       default="">
+<cfparam name="Attributes.onchange"       default="">
+<cfparam name="Attributes.group"          default="">
+<cfparam name="attributes.style"          default="">
+<cfparam name="attributes.filter"         default="">
+<cfparam name="attributes.class"          default="">
+<cfparam name="attributes.optionsLabel"   default="15">
+<cfparam name="attributes.multiple"       default="No">
+<cfparam name="attributes.message"        default="">
+<cfparam name="attributes.separator"      default=",">
 
 <cfif thisTag.executionmode is 'start'>
     <cfoutput>
         <cfif attributes.multiple eq "No">
-                <input id="_#Attributes.Name#" <cfif attributes.style neq "">style="#attributes.style#"</cfif> <cfif attributes.class neq "">class="#attributes.class#"</cfif>/>
+		
+             <input id="_#Attributes.Name#" <cfif attributes.style neq "">style="#attributes.style#"</cfif> <cfif attributes.class neq "">class="#attributes.class#"</cfif>/>
+				
         <cfelse>
-            <select
-                id="_#attributes.name#"
-                multiple="multiple"
-                data-placeholder="#attributes.message#"
+		
+            <select id="_#attributes.name#" multiple="multiple" data-placeholder="#attributes.message#" style="display:none"
                 <cfif attributes.style neq "">style="#attributes.style#"</cfif> <cfif attributes.class neq "">class="#attributes.class#"</cfif>>
                 <cfloop query="attributes.query">
                     <cfset valueField = Evaluate("#Attributes.Value#")>
-                    <cfset textField = Evaluate("#Attributes.Display#")>
+                    <cfset textField  = Evaluate("#Attributes.Display#")>
                     <option value='#Replace(valueField,"'","\'","ALL")#'>#Replace(textField,"'","\'","ALL")#</option>
                 </cfloop>
             </select>
 
             <cfset vSelected = "">
-            <cfloop list="#attributes.selected#" index="element"><cfset vSelected = "#vSelected#,'#Replace(element,"'","","ALL")#'"></cfloop>
-            <input name="#Attributes.Name#"	id="#Attributes.Name#" 	type="hidden" value="#vSelected#" >
+						
+            <cfloop list="#attributes.selected#" index="element" delimiters="#attributes.separator#">
+				<cfif vSelected eq "">
+				     <cfset vSelected = "'#Replace(element,"'","","ALL")#'">					
+				<cfelse>
+				     <cfset vSelected = "#vSelected#,'#Replace(element,"'","","ALL")#'">					
+				</cfif>
+			</cfloop>
+			
+            <input name="#Attributes.Name#"	style="width:300px" id="#Attributes.Name#" type="hidden" value="#attributes.selected#">
+			
         </cfif>
 
     </cfoutput>
+	
 <cfelseif thisTag.ExecutionMode is 'end'>
+
     <cfif attributes.multiple eq "No">
             <cfset vHtml = thisTag.generatedContent>
 
@@ -93,7 +103,6 @@
                     </cftry>
             </cfloop>
 
-
             <cfoutput>
 
             <cfsavecontent variable="kDropDown">
@@ -105,6 +114,7 @@
                         { #Attributes.Value#: '#vTag.Value#', #Attributes.Display#: '#vTag.Display#'<cfif attributes.group neq "">,#attributes.group#:''</cfif> },
                     </cfif>
                 </cfloop>
+				
                 <cfloop query="attributes.query">
                     <cfset valueField = Evaluate("#Attributes.Value#")>
                     <cfif vDefault eq 0 and Attributes.selected eq "">
@@ -150,17 +160,11 @@
                 }
                 });
 
-
-
-                function OnChange_#Attributes.name#()
-                {
+                function OnChange_#Attributes.name#() {
                     #attributes.onchange#
-
                     ColdFusion.Event.callBindHandlers('#Attributes.name#',null,'change')
                 }
-
-
-
+				
             </cfsavecontent>
 
                 <cfif vDefault eq 0>
@@ -168,27 +172,37 @@
                     <cfset vDefault = 1>
                 </cfif>
 
-
             <cfset AjaxOnLoad("function(){#kDropDown#}")>
             </cfoutput>
 
     <cfelse>
+	
         <cfoutput>
-            <cfsavecontent variable="kDropDown">
+    
+	        <cfsavecontent variable="kDropDown">
+
                 $("##_#Attributes.Name#").kendoMultiSelect({
                         autoClose: false,
                         change: function(e) {
-                            $("###Attributes.Name#").val(this.value());
+
+							aOption = this.value();
+							st = '';
+							for (i = 0; i < aOption.length; ++i) {
+    							st = st + aOption[i].trim() + '#attributes.separator#';
+							}
+							$("###Attributes.Name#").val(st);
+
+                            <cfif attributes.onchange neq "">
+                                #attributes.onchange#
+                            </cfif>
+
                             ColdFusion.Event.callBindHandlers('#Attributes.name#',null,'change');
-                            console.log(this.value());
+
                         },
                         <cfif attributes.selected neq "">
                             value :[#vSelected#]
                         </cfif>
                     });
-
-
-
             </cfsavecontent>
 
             <cfset AjaxOnLoad("function(){#kDropDown#}")>
@@ -196,13 +210,9 @@
 
     </cfif>
 
-
-
     <cfset thisTag.GeneratedContent = "">
 
 </cfif>
-
-
 
 <cffunction
         name="ParseHTMLTag"
@@ -216,8 +226,7 @@
             name="HTML"
             type="string"
             required="true"
-            hint="The raw HTML for the tag."
-            />
+            hint="The raw HTML for the tag."/>
 
 <!--- Define the local scope. --->
     <cfset var LOCAL = StructNew() />
@@ -229,14 +238,13 @@
     <cfset LOCAL.Tag.HTML = ARGUMENTS.HTML />
 
 <!--- Set a default name. --->
-    <cfset LOCAL.Tag.Name = "" />
+    <cfset LOCAL.Tag.Name = ""/>
 
 <!---
     Create an structure for the attributes. Each
     attribute will be stored by it's name.
 --->
     <cfset LOCAL.Tag.Attributes = StructNew() />
-
 
 <!---
     Create a pattern to find the tag name. While it
@@ -256,8 +264,6 @@
     <cfset LOCAL.NameMatcher = LOCAL.NamePattern.Matcher(
         ARGUMENTS.HTML
         ) />
-
-
 <!---
     Now that we have a tag name, let's find the
     attributes of the tag. Remember, attributes may
@@ -278,8 +284,6 @@
     <cfset LOCAL.AttributeMatcher = LOCAL.AttributePattern.Matcher(
         ARGUMENTS.HTML
         ) />
-
-
 <!---
     Keep looping over the attributes while we
     have more to match.
@@ -288,15 +292,13 @@
 
 <!--- Grab the attribute name. --->
         <cfset LOCAL.Name = LOCAL.AttributeMatcher.Group( JavaCast('int',1) ) />
-
 <!---
     Create an entry for the attribute in our attributes
     structure. By default, just set it the empty string.
     For attributes that do not have a name, we are just
     going to have to store this empty string.
 --->
-        <cfset LOCAL.Tag.Attributes[ LOCAL.Name ] = "" />
-
+        <cfset LOCAL.Tag.Attributes[ LOCAL.Name ] = ""/>
 <!---
     Get the attribute value. Save this into a scoped
     variable because this might return a NULL value
@@ -334,7 +336,6 @@
 
     </cfloop>
 
-
 <!--- now we get the information inside the tag---->
     <cfset LOCAL.InsidePattern = CreateObject(
             "java",
@@ -351,14 +352,12 @@
 
 
     <cfif LOCAL.InsideMatcher.Find()>
-
         <cfset LOCAL.Tag.Attributes['Inside'] =  LOCAL.InsideMatcher.Group(JavaCast('int',1) ) />
-
     </cfif>
-
 
 <!--- Return the tag. --->
     <cfreturn LOCAL.Tag />
+	
 </cffunction>
 
 

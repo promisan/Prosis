@@ -1,7 +1,5 @@
 <!--- Create Criteria string for query from data entered thru search form --->
 
-<cf_screentop html="No" jquery="Yes">
-
 <cfquery name="SearchResult"
 datasource="appsMaterials" 
 username="#SESSION.login#" 
@@ -9,6 +7,8 @@ password="#SESSION.dbpw#">
     SELECT *
 	FROM Ref_Make
 </cfquery>
+
+<cf_screentop html="No" jquery="Yes">
 
 <cfset Page         = "0">
 <cfset add          = "1">
@@ -22,11 +22,11 @@ password="#SESSION.dbpw#">
 <script>
 
 function recordadd(grp) {
-          window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 450, height= 220, toolbar=no, status=yes, scrollbars=no, resizable=no");
+     ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 450, height= 220, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 function recordedit(id1) {
-          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width= 450, height= 220, toolbar=no, status=yes, scrollbars=no, resizable=no");
+     ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width= 450, height= 220, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 </script>

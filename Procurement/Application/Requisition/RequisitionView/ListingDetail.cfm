@@ -41,7 +41,7 @@
 				
 				    <table>
 					
-					<tr class="labelmedium">
+					<tr class="labelmedium2">
 						<td style="min-width:150px;height:40px">								
 						<a title="view requisition" href="javascript:RequisitionView('#URL.Mission#','#URL.Period#','#Reference#')">						
 						<cfsilent>
@@ -148,7 +148,7 @@
 						
 		<td colspan="2" width="30" align="left">
 	
-			<table cellspacing="0" cellpadding="0">
+			<table>
 			
 			<tr class="labelmedium" style="height:18px">
 			
@@ -196,8 +196,7 @@
 			<td>
 					
 			</tr>
-			</table>
-			
+			</table>			
 	  		
 		</td>
 		

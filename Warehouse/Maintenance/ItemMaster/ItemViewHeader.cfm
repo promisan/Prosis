@@ -27,37 +27,37 @@ password="#SESSION.dbpw#">
 	AND   CategoryItem = '#Item.CategoryItem#'
 </cfquery>
 
-<table width="100%" border="0" height="99%" align="center"  
-   cellspacing="0" cellpadding="0" bordercolor="C0C0C0" class="formpadding">
+<table width="100%" height="100%">
   
-  <tr>
-    <td>
+  <tr style="height:20px">
+    <td style="padding-left:6px;background-color:f1f1f1;border:1px solid silver">
 	
 	<cfform>
   
-    <table border="0" align="center" cellpadding="0" cellspacing="0" width="100%">
+    <table border="0" align="center" width="100%">
 			
 	 <cfoutput query="Item"> 
-	  <tr class="line">
-        <td width="15%" class="labelmedium"><cf_tl id="No">:</td>
-        <td width="35%" class="labelmedium">#ItemNo#</td>
-		<td width="15%" class="labelmedium"><cf_tl id="Category">:</td>
-        <td width="35%" class="labelmedium">#Category# #Cat.Description# #sub.CategoryItemName#</td>
+	 
+	  <tr class="labelmedium2">
+        <td width="15%"><cf_tl id="No">:</td>
+        <td width="35%">#ItemNo#</td>
+		<td width="15%"><cf_tl id="Category">:</td>
+        <td width="35%">#Category# #Cat.Description# #sub.CategoryItemName#</td>
 	 </tr>		
 	 	 	
-	 <tr class="line">
-        <td class="labelmedium"><cf_tl id="Description">:</b></td>
-        <td class="labelmedium">#ItemDescription#</td>
-		<td class="labelmedium">Classification:</td>
-        <td class="labelmedium">#Classification#</td>
+	 <tr class="labelmedium2">
+        <td><cf_tl id="Description">:</b></td>
+        <td>#ItemDescription#</td>
+		<td><cf_tl Id="External">:</td>
+        <td>#ItemNoExternal#</td>
       </tr>
 	  	  
-	  <tr class="line">
+	  <tr class="labelmedium2">
 	  
-	  	<td class="labelmedium" valign="top" style="padding-top:3px"><cf_tl id="External">:</b></td>
-        <td class="labelmedium" valign="top" style="padding-top:3px">#ItemDescriptionExternal#</td>
+	  	<td><cf_tl id="Generic name">:</td>
+        <td>#ItemDescriptionExternal#</td>
        
-		<td class="labelmedium" valign="top" style="padding-top:3px"><cf_tl id="Standard cost">#APPLICATION.BaseCurrency#</td>
+		<td><cf_tl id="Standard cost">#APPLICATION.BaseCurrency#</td>
         <td>
 		
 		<cfquery name="UoMSelect" 
@@ -72,13 +72,13 @@ password="#SESSION.dbpw#">
 		
 		<cfif UOMSelect.recordcount lte "4">
 		
-			<table cellspacing="0" cellpadding="0">
+			<table>
 			<cfloop query = "UoMSelect">
-			<tr class="labelit line">		  
-				<td style="padding-left:10px">#UoMDescription#</td>
-				<td style="padding-left:10px">#UoMMultiplier#</td>		
-				<td style="padding-left:10px">#ItemBarCode#</td>				   
-			    <td style="padding-left:10px" align="right">#numberFormat(StandardCost,",.__")#</td>
+			<tr class="labelmedium">		  
+				<td>#UoMDescription#</td>
+				<td style="padding-left:5px">#UoMMultiplier#</td>		
+				<td style="padding-left:5px">#ItemBarCode#</td>				   
+			    <td style="padding-left:5px" align="right">#numberFormat(StandardCost,",.__")#</td>
 			</tr>
 			</cfloop>
 			</table>
@@ -92,9 +92,9 @@ password="#SESSION.dbpw#">
 	  <cfif UOMSelect.recordcount gt "4">
 	  
 		  <tr>
-		  <td colspan="4" style="border-top:1px solid gray;padding-left:16px;padding-right:16px">
+		  <td colspan="4">
 		  		 
-		  <table width="100%" cellspacing="0" cellpadding="0">
+		  <table width="100%">
 		  
 				<cfset ln = 0>
 				<cfloop query = "UoMSelect">
@@ -102,7 +102,7 @@ password="#SESSION.dbpw#">
 					<cfset ln = ln+1>
 				
 					<cfif ln eq "1">
-					<tr class="labelit line">		  
+					<tr class="labelmedium line">		  
 					</cfif>
 						<td style="padding-left:20px">#UoMDescription#</td>
 						<td style="padding-left:10px">#UoMMultiplier#</td>		
@@ -116,22 +116,8 @@ password="#SESSION.dbpw#">
 		  	  
 		  </td>
 		  </tr>	  
-		  
-		  <tr><td colspan="4" style="height:4px;border-bottom:1px solid gray;"></td></tr>
-	  
+		  	  
 	  </cfif>	  	  
-	  
-	  <cfif ItemNoExternal neq "">
-	  <tr><td colspan="4" class="line"></td></tr>
-	  
-	  <tr>
-        <td class="labelmedium"><cf_tl id="External code">:</b></td>
-        <td class="labelmedium"><b>#ItemNoExternal#</td>		
-      </tr>
-	  
-	  </cfif>
-	    
-	  <tr><td colspan="4" class="line"></td></tr>
 	  
 	  <cfparam name="URL.Warehouse" default="">
 	  <cfparam name="URL.UoM" default="#UoMSelect.UoM#">
@@ -142,7 +128,7 @@ password="#SESSION.dbpw#">
 	  
 	    <td colspan="4">
 	  
-	  	<table width="100%" border="0" align="center" cellspacing="0" cellpadding="0" class="formpadding">
+	  	<table width="100%" border="0" align="center" class="formpadding">
 			<tr>
 			   
 			<cfquery name="Warehouse"
@@ -214,17 +200,18 @@ password="#SESSION.dbpw#">
 		</table>
 		</td>
 	  </tr>		
+	  
+	   </cfoutput>
 	  	 
 	  </table>
-	 </cfoutput>
-	 
+	 	 
  	 </cfform>
 	 
 	 </td>
 	 </tr>   	 	 
 	 
 	 <tr>
-	  <td colspan="1" height="100%" valign="top" id="detail" style="z-index:99">
+	  <td id="detail" valign="top">	  
 	   <cfset url.itemNo = item.ItemNo>
 	   <cfinclude template="Transaction/TransactionListing.cfm">	  
 	  <!--- ajax box for showing result values --->

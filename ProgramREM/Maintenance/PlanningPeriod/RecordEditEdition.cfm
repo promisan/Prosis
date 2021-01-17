@@ -23,7 +23,7 @@
 	
 		<table cellspacing="0" cellpadding="0"><tr><td>
 						   
-		<select name="EditionId_#url.ln#" class="regularxl" style="width:180px">
+		<select name="EditionId_#url.ln#" class="regularxxl" style="border:0px;border-left:1px solid silver;border-right:1px solid silver">
 		   <cfloop query="Edition">
 		   <option value="#EditionId#" <cfif url.prior eq editionid>selected</cfif>>#EditionId# : #Description# <cfif Period neq ""> #Period#</cfif></option>
 		   </cfloop>
@@ -35,7 +35,7 @@
 		
 		<cfparam name="url.prioralt" default="">
 								   
-		<select name="EditionIdAlternate_#url.ln#" class="regularxl" style="width:180px">
+		<select name="EditionIdAlternate_#url.ln#" class="regularxxl" style="border:0px;border-left:1px solid silver;border-right:1px solid silver">
 		   <option value="">n/a</option>
 		   <cfloop query="Edition">
 		   <option value="#EditionId#" <cfif url.prioralt eq editionid>selected</cfif>>#EditionId# : #Description# <cfif Period neq ""> #Period#</cfif></option>

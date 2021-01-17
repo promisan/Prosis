@@ -47,15 +47,29 @@ There are three mode
 					WHERE   SubmissionEdition = '#URL.Edition#'
 			 </cfquery>
 					
-			<tr>		
+			<tr class="line">		
 			
 				  <!--- we always show the matrx first if we have buckets or the mode=all or if we do not have underlying
 				  positions to be pusblushed for this edition --->
 				  
-				  <cfif (getBuckets.recordcount gte "1" or url.edition eq "all" or getPositions.recordcount eq "0") and get.ActionStatus neq "0">
-					  
+				  <cfif get.recordcount eq "1">
+				  
 					  <td valign="top" style="padding-right:6px;padding-top:5px;border-right:0px solid gray">
 					  
+					  <table>
+					     <tr class="labelmedium"><td style="font-size:24px">#get.EditionDescription#</td></tr>
+						 <tr class="labelmedium"><td style="padding-left:5px;font-size:19px">#get.Exerciseclass# [#get.OfficerUserId#]</td></tr>
+						 <tr class="labelmedium"><td style="padding-left:5px;font-size:14px"><cf_tl id="Period">:&nbsp;#dateformat(get.DateEffective,client.dateformatshow)# - #dateformat(get.DateExpiration,client.dateformatshow)#</td></tr>
+						 
+					  </table>
+					  
+					  </td>
+				  
+				  <cfelseif (getBuckets.recordcount gte "1" or url.edition eq "all" or getPositions.recordcount eq "0") and get.ActionStatus neq "0">
+					  
+					  <td valign="top" style="padding-right:6px;padding-top:5px;border-right:0px solid gray">
+					 
+					 
 							<table>
 														
 							<tr><td style="padding-left:4px;padding-top:5px">
@@ -221,7 +235,7 @@ There are three mode
 					  
 				  </cfif>
 				  
-				  <cfif getBuckets.recordcount eq "0" and url.edition neq "all"  and getPositions.recordcount neq "0">
+				  <cfif getBuckets.recordcount gt "0" and url.edition neq "all"  and getPositions.recordcount neq "0">
 			
 					  <!--- ---------------------------- --->	
 					  <!--- ---------- buckets---------- --->	
@@ -235,7 +249,7 @@ There are three mode
 								iconheight = "#ht#" 
 								targetitem = "1"
 								class      = "regular"
-								name       = "Candidacy by Grade Matrix"
+								name       = "Candidacy Matrix"
 								source     = "">	
 									
 					  <cfset itm = itm+1>							

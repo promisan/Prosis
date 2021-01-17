@@ -20,16 +20,16 @@ password="#SESSION.dbpw#">
 
 <cfform action="RecordSubmit.cfm" method="POST" name="dialog">
 
-<table width="92%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="92%" align="center" class="formpadding formspacing">
 
 	<tr><td height="5"></td></tr>
 		
     <cfoutput>
 	<!--- Field: Code--->
 	 <TR>
-	 <TD class="labelmedium" width="15%" width="150">Code:</TD>  
+	 <TD class="labelmedium2" width="15%" width="150">Code:</TD>  
 	 <TD>
-	 	<input type="Text" name="Code" id="Code" value="#get.Code#" size="20" maxlength="20" class="regularxl">
+	 	<input type="Text" name="Code" id="Code" value="#get.Code#" size="20" maxlength="20" class="regularxxl">
 		<input type="hidden" name="CodeOld" id="CodeOld" value="#get.Code#" size="20" maxlength="20"class="regularxl">
 	 </TD>
 	 </TR>
@@ -37,9 +37,9 @@ password="#SESSION.dbpw#">
 	 	
 	<!--- Field: Description --->
     <TR>
-    <TD class="labelmedium">Description:</TD>
+    <TD class="labelmedium2">Description:</TD>
     <TD>
-  	  	<input type="Text" name="Description" id="Description" value="#get.Description#" message="Please enter a description" required="Yes" size="30" maxlength="50" class="regularxl">
+  	  	<input type="Text" name="Description" id="Description" value="#get.Description#" message="Please enter a description" required="Yes" size="30" maxlength="50" class="regularxxl">
 				
     </TD>
 	</TR>
@@ -48,8 +48,8 @@ password="#SESSION.dbpw#">
 			
 	<!--- Field: Enable Finance Flow--->
 	<TR>
-    <td class="labelmedium">Finance flow:</td>
-	<td class="labelmedium">
+    <td class="labelmedium2">Finance flow:</td>
+	<td class="labelmedium2">
   	  <input type="radio" class="radiol" name="EnableFinanceFlow" id="EnableFinanceFlow" value="1" <cfif Get.EnableFinanceFlow eq "1">checked</cfif>>Yes
 	  <input type="radio" class="radiol" name="EnableFinanceFlow" id="EnableFinanceFlow" value="0" <cfif Get.EnableFinanceFlow eq "0">checked</cfif>>No
     </TD>

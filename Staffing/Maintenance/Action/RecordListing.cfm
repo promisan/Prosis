@@ -1,10 +1,14 @@
 <!--- Create Criteria string for query from data entered thru search form --->
 
-<cf_divscroll>
 
 <cfset Page         = "0">
 <cfset add          = "1">
-<cfinclude template = "../HeaderMaintain.cfm"> 	
+
+<cf_screentop html="No" jquery="Yes">
+
+<table width="98%" align="center" height="100%">
+
+<tr style="height:10px"><td><cfinclude template = "../HeaderMaintain.cfm"></td></tr>
  
 <cfquery name="SearchResult"
 datasource="AppsEmployee" 
@@ -20,70 +24,72 @@ password="#SESSION.dbpw#">
 	<script>
 		
 		function recordadd(grp) {
-		    window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 490, height= 430, toolbar=no, status=yes, scrollbars=no, resizable=no");
+		    ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 570, height= 430, toolbar=no, status=yes, scrollbars=no, resizable=no");
 		}
 		
 		function recordedit(id1) {
-		    window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width= 490, height= 430, toolbar=no, status=yes, scrollbars=no, resizable=no");
+		    ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width= 570, height= 430, toolbar=no, status=yes, scrollbars=no, resizable=no");
 		}
 	
 	</script>	
 
 </cfoutput>	
 
-<table width="94%" align="center" class="navigation_table">
+<tr><td>
 
-<tr class="labelheader linedotted">
-    <td>Area</td>   
-	<td></td>
-    <td>Code</td>
-	<td>Description</td>	
-	<td>Class</td>
-	<td>Workflow</td>
-	<td>Mode</td>
-	<td>Op.</td>
-	<td>Officer</td>
-    <td>Entered</td>
+	<cf_divscroll>
+
+		<table width="94%" align="center" class="navigation_table">
+		
+		<tr class="labelmedium2 line fixrow">
+		    <td>Area</td>   
+			<td></td>
+		    <td>Code</td>
+			<td>Description</td>	
+			<td>Class</td>
+			<td>Workflow</td>
+			<td>Mode</td>
+			<td>Op.</td>
+			<td>Officer</td>
+		    <td>Entered</td>
+		</tr>
+		
+		<cfset prior = "">
+		
+		<cfoutput query="SearchResult" group="ActionSource">
+		
+			<tr><td style="height:15px"></td></tr>
+		
+			<cfoutput>
+			        
+				<tr class="navigation_row line labelmedium2">			
+					<td style="height:19px;font-size:16px;padding-left:4px">
+					<cfif ActionSource neq prior>
+						#ActionSource#
+					</cfif>
+					</td>				
+					<td width="30" align="center" style="padding-top:1px"><cf_img icon="open" navigation="Yes" onclick="recordedit('#ActionCode#')"></td>				
+					<td>#ActionCode#</td>
+					<td>#Description#</td>
+					<td>#ActionClass#</td>
+					<td>#EntityClass#</td>
+					<td><cfif ModeEffective eq "0">Validate<cfelseif ModeEffective eq "1">Allow overlap<cfelseif ModeEffective eq "9">Disable Edit</cfif></td>
+					<td><cfif operational eq "1">Yes<cfelse>No</cfif></td>
+					<td>#OfficerFirstName# #OfficerLastName#</td>
+					<td>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
+			    </tr>
+				
+				<cfset prior = actionsource>
+				
+			</cfoutput>	
+		
+		</cfoutput>
+		
+		</table>
+
+	</cf_divscroll>
+	
+</td>
 </tr>
 
-<cfset prior = "">
-
-<cfoutput query="SearchResult" group="ActionSource">
-
-	<tr><td style="height:15px"></td></tr>
-
-	<cfoutput>
-	        
-		<tr class="navigation_row linedotted">
-		
-			<td class="labelmedium" style="height:19px">
-			<cfif ActionSource neq prior>
-				<font color="6688aa">#ActionSource#
-			</cfif>
-			</td>
-			
-			<td width="30" align="center" style="padding-top:1px">
-		 		<cf_img icon="edit" navigation="Yes" onclick="recordedit('#ActionCode#')">
-			</td>		
-			
-			<td class="cellcontent">#ActionCode#</td>
-			<td class="cellcontent">#Description#</td>
-			<td class="cellcontent">#ActionClass#</td>
-			<td class="cellcontent">#EntityClass#</td>
-			<td class="cellcontent">
-				<cfif ModeEffective eq "0">Validate<cfelseif ModeEffective eq "1">Allow overlap<cfelseif ModeEffective eq "9">Disable Edit</cfif>
-			</td>
-			<td class="cellcontent"><cfif operational eq "1">Yes<cfelse>No</cfif></td>
-			<td class="cellcontent">#OfficerFirstName# #OfficerLastName#</td>
-			<td class="cellcontent">#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
-	    </tr>
-		
-		<cfset prior = actionsource>
-		
-	</cfoutput>	
-
-</cfoutput>
-
-</table>
-
-</cf_divscroll>
+</table>	

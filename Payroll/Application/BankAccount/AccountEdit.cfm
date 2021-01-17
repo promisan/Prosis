@@ -57,7 +57,7 @@ password="#SESSION.dbpw#">
 	<table width="95%" cellspacing="0" cellpadding="0" align="center">
 	
 	  <tr>
-	    <td width="100%" class="labelmedium2" style="font-weight:200;padding-left:12px;height:46px;font-size:25px">
+	    <td width="100%" class="labelmedium22" style="font-weight:200;padding-left:12px;height:46px;font-size:25px">
 		
 		<table class="formpadding">
 		 <tr>
@@ -65,7 +65,7 @@ password="#SESSION.dbpw#">
 		    <cf_space spaces="20">   
 			<img src="#SESSION.root#/Images/BankAccounts.png" height="68" alt=""  border="0" align="absmiddle">			
 		 </td>
-		 <td height="24" style="padding-left:15px;font-size:27px;padding-top:28px;font-weight:200" class="labelmedium2"><cf_tl id="Maintain bankaccount"></td>	
+		 <td height="24" style="padding-left:15px;font-size:27px;padding-top:28px;font-weight:200" class="labelmedium22"><cf_tl id="Maintain bankaccount"></td>	
 	     </tr> 		
 		 </table>
 		
@@ -79,11 +79,11 @@ password="#SESSION.dbpw#">
 			
 			<tr><td height="2" colspan="1"></td></tr>
 		  
-		    <TR style="height:40px" class="line labelmedium">
+		    <TR style="height:40px" class="line labelmedium2">
 		    <TD><cf_tl id="Effective">:</TD>
 		    <TD>
 			
-			   <table><tr class="labelmedium2"><td>
+			   <table><tr class="labelmedium22"><td>
 			
 				  <cf_intelliCalendarDate9
 					FormName="accountedit"
@@ -113,7 +113,7 @@ password="#SESSION.dbpw#">
 			</TR>
 				
 				
-			<TR style="height:30px" class="labelmedium2">
+			<TR style="height:30px" class="labelmedium22">
 		    <TD><cf_tl id="Destination">:</TD>
 		    <TD>
 			
@@ -124,7 +124,7 @@ password="#SESSION.dbpw#">
 			</TR>
 				
 						
-		    <TR class="labelmedium2">
+		    <TR class="labelmedium22">
 		    <TD><cf_tl id="Bank name">:</TD>
 		   	
 		    <TD>
@@ -141,7 +141,7 @@ password="#SESSION.dbpw#">
 			
 			</TR>
 										
-			<TR class="labelmedium2">
+			<TR class="labelmedium22">
 		    <TD style="padding-left:10px;"><cf_tl id="Bank Address">:</TD>
 		   	<TD>
 			<input type="text" style="width:95%" name="BankAddress" value="<cfoutput>#BankAddress#</cfoutput>" size="60" maxlength="80" class="regularxxl enterastab">
@@ -149,7 +149,7 @@ password="#SESSION.dbpw#">
 			
 			</TR>
 				
-			<TR class="labelmedium2">
+			<TR class="labelmedium22">
 		    <TD style="padding-left:10px;"><cf_tl id="Bank Telephone">:</TD>
 		   	<TD>
 			<input type="text" name="BankTelephoneNo" id="BankTelephoneNo" value="<cfoutput>#BankTelephoneNo#</cfoutput>" size="15" maxlength="20" class="regularxxl enterastab">
@@ -157,7 +157,7 @@ password="#SESSION.dbpw#">
 			
 			</TR>
 				
-			<TR class="labelmedium2">
+			<TR class="labelmedium22">
 		    <TD style="height:26"><cf_tl id="Account type">:</TD>
 			<TD>
 		        <INPUT type="radio" class="enterastab" name="AccountType" value="Checking" <cfif AccountType eq "Checking">checked</cfif>> Checking
@@ -166,7 +166,7 @@ password="#SESSION.dbpw#">
 			</TD>
 			</TR>
 				
-			<TR class="labelmedium2">
+			<TR class="labelmedium22">
 		    <TD><font color="0000FF"><cf_tl id="Account Name">:</TD>
 		   	<TD>
 			<input type="text" name="AccountName" value="#AccountName#" size="50" maxlength="80" class="regularxxl enterastab">
@@ -174,31 +174,31 @@ password="#SESSION.dbpw#">
 			
 			</TR>
 				
-			<TR class="labelmedium2">
+			<TR class="labelmedium22">
 		    <TD><font color="0000FF"><cf_tl id="Account No">:</TD>
 		    <TD><input type="text" class="regularxxl enterastab" value="#AccountNo#" name="accountno" size="35" maxlength="35"></TD>
 			
 			</TR>
 				
-			<TR class="labelmedium2">
+			<TR class="labelmedium22">
 		    <TD style="padding-left:10px;"><font color="0000FF"><cf_tl id="ABA">:</TD>
 		    <TD><input type="text" class="regularxxl enterastab" value="#AccountABA#" name="AccountABA" size="20" maxlength="20"></TD>
 			
 			</TR>
 				
-			<TR class="labelmedium2">
+			<TR class="labelmedium22">
 		    <TD style="padding-left:10px;"><font color="0000FF"><cf_tl id="Swift code">:</TD>
 		    <TD><input type="text" class="regularxxl enterastab" value="#SwiftCode#" name="SwiftCode" size="15" maxlength="12"></TD>
 			
 			</TR>
 			
-			<TR class="labelmedium2">
+			<TR class="labelmedium22">
 		    <TD style="padding-left:10px;"><font color="0000FF"><cf_tl id="IBAN">:</TD>
 		    <TD><input type="text" class="regularxxl enterastab" value="#IBAN#" name="IBAN" id="IBAN" size="25" maxlength="35"></TD>
 			
 			</TR>
 						 
-			<TR class="labelmedium2">
+			<TR class="labelmedium22">
 		    <TD><font color="0000FF"><cf_tl id="Account currency">:</TD>
 			
 			 <TD>
@@ -210,14 +210,14 @@ password="#SESSION.dbpw#">
 			</TD>
 			</tr>
 				  
-			<TR class="labelmedium2">
+			<TR class="labelmedium22">
 			    <td valign="top" style="padding-top:6px;"><font color="008000"><cf_tl id="Pay through">:</td>
 			    <TD valign="top" style="padding-top:0px;">
 			    	<cfdiv id="divAccountMission" bind="url:AccountMission.cfm?PersonNo=#Account.PersonNo#&AccountId=#Account.AccountId#">
 			    </TD>
 			</TR>
 						  			   
-			<TR class="labelmedium2">
+			<TR class="labelmedium22">
 		        <td valign="top" style="padding-top:3px"><cf_tl id="Remarks">:</td>
 		        <TD><textarea cols="50"  rows="3" style="width:95%;font-size:13px;padding:3px" class="regular" name="Remarks">#Remarks#</textarea> </TD>
 			</TR>
@@ -247,7 +247,7 @@ password="#SESSION.dbpw#">
 		     </td>
 		   </tr>
 		      
-		   <tr class="labelmedium2">
+		   <tr class="labelmedium22">
 		   
 		        <td colspan="2">
 				

@@ -11,6 +11,8 @@
 
 <cf_tl id = "Logging Workflow" var = "vLabel">
 
+<!---
+
 <cfif url.code eq "">
 
 	<cf_screentop height="100%" 
@@ -30,13 +32,14 @@
 			  
 </cfif>
 
+--->
 
 <table class="hide">
 <tr><td><iframe name="processCategoryWorkflow" id="processCategoryWorkflow" frameborder="0"></iframe></td></tr>
 </table>
 
 <cfform action="Logging/CategoryWorkflowSubmit.cfm?idmenu=#url.idmenu#&category=#url.category#&action=#url.action#&code=#url.code#" method="POST" name="categoryLogging" target="processCategoryWorkflow">
-<table width="90%" align="center" class="formpadding" cellspacing="0" cellpadding="0">
+<table width="90%" align="center" class="formpadding">
 
 	<tr><td height="5"></td></tr>
 		<tr>
@@ -87,7 +90,7 @@
 		
 		<tr>
 			<td colspan="2" align="center" height="30">
-				<input type="submit" class="button10s" style="width:120;height:23" name="Update" id="Update" value=" Save ">
+				<input type="submit" class="button10g" name="Update" id="Update" value=" Save ">
 			</td>
 		</tr>
 </table>

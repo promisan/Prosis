@@ -69,11 +69,11 @@ password="#SESSION.dbpw#">
 <script>
 
 function recordadd(grp) {
-     ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=700, height=500, toolbar=no, status=yes, scrollbars=no, resizable=no");
+     ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=770, height=400, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 function recordedit(id1,id2) {
-     ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1 +"&ID2=" + id2, "Edit", "left=80, top=80, width=700, height=500, toolbar=no, status=yes, scrollbars=no, resizable=no");
+     ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1 +"&ID2=" + id2, "Edit", "left=80, top=80, width=770, height=400, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 function exclog(id,id1) {
@@ -113,7 +113,7 @@ function exclog(id,id1) {
 
 <table width="98%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
 
-<tr class="labelmedium line fixrow">
+<tr class="labelmedium2 line fixrow">
       
     <td width="5%" align="left"></td> 
     <td width="60" align="left">Acr</td>
@@ -123,7 +123,7 @@ function exclog(id,id1) {
 	<td width="5%" align="left"></td>
     <td align="10%">Entered</td>
 	<td width="80" align="left">Effective</td>
-	<td width="100" align="right">Exchange Rate</td>	
+	<td width="100" style="padding-right:5px" align="right">Exchange Rate</td>	
   
 </tr>
 
@@ -133,13 +133,13 @@ function exclog(id,id1) {
 	
 	<cfoutput>
 	    
-	    <tr class="labelmedium navigation_row line filter_row" style="height:20px">
+	    <tr class="labelmedium2 navigation_row line filter_row">
 					
-			<td style="padding-left:5px;padding-top:4px;">
-			   <cf_img icon="edit" onclick="recordedit('#URLEncodedFormat(Currency)#')" navigation="yes">		   
+			<td style="padding-left:5px;padding-top:1px;">
+			   <cf_img icon="select" onclick="recordedit('#URLEncodedFormat(Currency)#')" navigation="yes">		   
 			</td>			
 			
-			<td class="filter_content"><a href="javascript:recordedit('#URLEncodedFormat(Currency)#')">#Currency#</a></td>
+			<td class="filter_content">#Currency#</td>
 			<td class="filter_content">#Description#</td>
 			
 			<td><cfif URL.Option eq "hide">#Dateformat(ExchangeRateModified, "#CLIENT.DateFormatShow#")#</cfif></td>
@@ -150,7 +150,7 @@ function exclog(id,id1) {
 			   <cf_img icon="expand" toggle="yes" onclick="exclog('#currency#')">	
 			</td>
 			<td><cfif URL.Option eq "hide">#Dateformat(Effective, "#CLIENT.DateFormatShow#")#</cfif></td>	
-			<td align="right" style="padding-right:1px"><cfif URL.Option eq "hide">#NumberFormat(ExchangeRate,'____,___.____')#</cfif></td>
+			<td align="right" style="padding-right:6px"><cfif URL.Option eq "hide">#NumberFormat(ExchangeRate,'____,___.____')#</cfif></td>
 			
 	    </tr>
 		

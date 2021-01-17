@@ -52,12 +52,11 @@ function ask() {
 }
 
 function editMission(code,mission) {
+
 	var width = 600;
-	var height = 250;
-	
-	ColdFusion.Window.create('mydialog', 'Entity', '',{x:30,y:30,height:height,width:width,modal:true,center:true});    
-	ColdFusion.Window.show('mydialog'); 				
-	ColdFusion.navigate("MissionEdit.cfm?idmenu=#url.idmenu#&id1=" + code + "&id2=" + mission + "&ts=" + new Date().getTime(),'mydialog'); 
+	var height = 250;	
+	ProsisUI.createWindow('mydialog', 'Entity', '',{x:30,y:30,height:height,width:width,modal:true,center:true});    				
+	ptoken.navigate("MissionEdit.cfm?idmenu=#url.idmenu#&id1=" + code + "&id2=" + mission + "&ts=" + new Date().getTime(),'mydialog'); 
 }
 
 function validateFields() {	
@@ -66,20 +65,14 @@ function validateFields() {
 	
 	var vMessage = '';
 	
-	if (controlToValidate.value != "")
-	{
-		if (document.getElementById('validatePath').value == 0) 
-		{ 
+	if (controlToValidate.value != "") {
+		if (document.getElementById('validatePath').value == 0) { 
 			vMessage = vMessage + '[' + controlToValidate.value + '] not validated.\n';
 			vReturn = false;
-		}
-		else
-		{
+		} else {
 			vReturn = true;
 		}
-	}
-	else
-	{
+	} else {
 		vReturn = true;
 	}
 	
@@ -95,17 +88,17 @@ function validateFields() {
 
 <!--- edit form --->
 
-<cfform action="RecordSubmit.cfm?idmenu=#url.idmenu#" method="POST" enablecab="Yes" name="dialog">
+<cfform action="RecordSubmit.cfm?idmenu=#url.idmenu#" method="POST" name="dialog">
 
-<table width="95%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="95%" align="center" class="formpadding">
 
 	<tr><td height="6"></td></tr>
     <cfoutput>
-    <TR class="labelmedium">
+    <TR class="labelmedium2">
     <TD width="20%">Code:</TD>
     <TD>
 	   <cfif CountRec.recordcount eq "0">	
-		   	<cfinput type="Text" name="Code" value="#get.Code#" message="Please enter a code" required="Yes" size="10" maxlength="10" class="enterastab regularxl">
+		   	<cfinput type="Text" name="Code" value="#get.Code#" message="Please enter a code" required="Yes" size="10" maxlength="10" class="enterastab regularxxl">
 	   <cfelse>
 	   		#get.Code#
 			<input type="hidden" name="Code" id="Code" value="#get.Code#">
@@ -114,16 +107,16 @@ function validateFields() {
     </TD>
 	</TR>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD>Description:</TD>
     <TD>
-	   <cfinput type="Text" name="Description" value="#get.Description#" message="Please enter a description" required="Yes" size="30" maxlength="50" class="enterastab regularxl">
+	   <cfinput type="Text" name="Description" value="#get.Description#" message="Please enter a description" required="Yes" size="30" maxlength="50" class="enterastab regularxxl">
     </TD>
 	</TR>
 	
 	<tr>		
 		<td colspan="2">
-			<cfdiv id="divMissions" bind="url:MissionListing.cfm?id1=#url.id1#">
+			<cf_securediv id="divMissions" bind="url:MissionListing.cfm?id1=#url.id1#">
 		</td>
 	</tr>
 			

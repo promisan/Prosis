@@ -98,6 +98,7 @@
 		AND       ActionStatus != '9'		
 </cfquery> 
 
+
 <cfif PurchaseClass.PurchaseTemplate neq "">
    <cfset tmp = "#PurchaseClass.PurchaseTemplate#">
 <cfelseif Parameter.PurchaseTemplate neq "">
@@ -216,7 +217,7 @@
 
 <!--- check if the person has edit rights to the purchase order --->
 
-<cfajaximport tags="cfwindow,cfform">
+<cfajaximport tags="cfform">
 
 	<cf_DialogProcurement>
 	<cf_DialogWorkOrder>
@@ -311,9 +312,10 @@ password="#SESSION.dbpw#">
 		
 			<cf_layoutarea  position="center" name="box">
 											
-			     <cf_divscroll style="height:98%">		 
-					     <cfinclude template="POViewGeneral.cfm">	
-				 </cf_divscroll>
+			     
+				     <cfset url.header = "No"> 
+				     <cfinclude template="POViewGeneral.cfm">	
+				
 				 		
 			</cf_layoutarea>	
 						

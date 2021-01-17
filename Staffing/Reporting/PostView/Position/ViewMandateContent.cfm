@@ -9,6 +9,7 @@ FROM (
 		SELECT *, 'Expired' as PostStatus
 		FROM (	
 				SELECT   PP.PostGrade, 
+				         R.PostOrder,
 				         PP.FunctionDescription,
 						 PP.PostType, 
 						 PP.DateEffective,
@@ -19,6 +20,7 @@ FROM (
 						 Pos.LocationCode,
 						 Pos.PositionParentId,
 						 O.OrgUnitName,
+						 O.HierarchyCode,
 						 
 						 (SELECT   TOP 1 P.LastName
 						  FROM     PersonAssignment PA INNER JOIN
@@ -36,13 +38,12 @@ FROM (
 						  
 						 Pos.Created    	 					   
 						  
-				FROM     PositionParent PP, 
-				         Position Pos, 
-						 Organization.dbo.Organization O
+				FROM     PositionParent PP 
+				         INNER JOIN Position Pos ON PP.PositionParentId = Pos.PositionParentId
+						 INNER JOIN Organization.dbo.Organization O ON O.OrgUnit = Pos.OrgUnitOperational
+						 INNER JOIN Ref_PostGrade R ON R.PostGrade = PP.PostGrade
 						 
-				WHERE    PP.PositionParentId = Pos.PositionParentId
-				AND      O.OrgUnit           = Pos.OrgUnitOperational
-				AND      PP.Mission          = '#URL.Mission#' 
+				WHERE    PP.Mission          = '#URL.Mission#' 
 				AND      PP.MandateNo        = '#URL.Mandate#' 		
 				<!--- last position within the parent --->	
 				AND      Pos.PositionNo = (SELECT MAX(PositionNo) 
@@ -61,6 +62,7 @@ FROM (
 		SELECT *, 'Active' as PostStatus
 		FROM (	
 				SELECT   PP.PostGrade, 
+				         R.PostOrder,
 				         PP.FunctionDescription,
 						 PP.PostType, 
 						 PP.DateEffective, 						 			  
@@ -71,6 +73,7 @@ FROM (
 						 Pos.LocationCode,
 						 Pos.PositionParentId,
 						 O.OrgUnitName,
+						 O.HierarchyCode,
 						 
 						 (SELECT   TOP 1 P.LastName
 						  FROM     PersonAssignment PA INNER JOIN
@@ -85,24 +88,20 @@ FROM (
 						  FROM     PositionParentFunding PF 
 						  WHERE    PF.PositionParentid  = Pos.PositionParentId						
 						  ) as Funding	,
-						  Pos.Created    						   
+						  Pos.Created   
 						  
-				FROM     PositionParent PP, 
-				         Position Pos, 
-						 Organization.dbo.Organization O
+				FROM     PositionParent PP 
+				         INNER JOIN Position Pos ON PP.PositionParentId = Pos.PositionParentId
+						 INNER JOIN Organization.dbo.Organization O ON O.OrgUnit = Pos.OrgUnitOperational
+						 INNER JOIN Ref_PostGrade R ON R.PostGrade = PP.PostGrade		   						   						  				
 						 
-				WHERE    PP.PositionParentId = Pos.PositionParentId
-				AND      O.OrgUnit           = Pos.OrgUnitOperational
-				AND      PP.Mission          = '#URL.Mission#' 
+				WHERE    PP.Mission          = '#URL.Mission#' 
 				AND      PP.MandateNo        = '#URL.Mandate#' 		
 				<!--- last position within the parent --->	
 				AND      Pos.PositionNo = (SELECT MAX(PositionNo) 
 				                           FROM   Position 
-										   WHERE  PositionParentid = PP.PositionParentid) 
-										   
-										   
-						   
-								
+										   WHERE  PositionParentid = PP.PositionParentid) 									   
+									
 				) P
 				
 		WHERE DateExpiration >= '#url.dte#' 
@@ -123,8 +122,7 @@ FROM (
 <cfset itm = itm + 1>					
 <cfset fields[itm] = {label      = "Position", 					
 					  field      = "SourcePostNumber",										
-					  search     = "text",
-					  filtermode = "2"}>	
+					  search     = "text"}>	
 					  
 <cfset itm = itm + 1>					
 <cfset fields[itm] = {label      = "Budget Position", 					
@@ -141,9 +139,7 @@ FROM (
 					search        = "text",
 					align         = "center",
 					formatted     = "Rating",
-					ratinglist    = "0=Yellow,1=Green"}>							  
-					  
-		  
+					ratinglist    = "0=Yellow,1=Green"}>							  	  
 					  
 <cfset itm = itm + 1>					  
 <cfset fields[itm] = {label      = "Status",                  					
@@ -155,13 +151,14 @@ FROM (
 <cfset fields[itm] = {label      = "Type", 					
 					  field      = "PostType",													
 					  search     = "text", 
-					  filtermode = "2"}>							  				  
+					  filtermode = "3"}>							  				  
 
 <cfset itm = itm + 1>					  
 <cfset fields[itm] = {label      = "Grade",                  					
-					  field      = "PostGrade",					
+					  field      = "PostGrade",		
+					  fieldsort  = "PostOrder",					  			
 					  search     = "text",
-					  filtermode = "2"}>
+					  filtermode = "3"}>
 
 <cfset itm = itm + 1>
 <cfset fields[itm] = {label      = "PositionId", 					
@@ -190,8 +187,9 @@ FROM (
 <cfset itm = itm + 1>						
 <cfset fields[itm] = {label      = "Unit", 					
 					  field      = "OrgUnitName",
+					  fieldsort  = "HierarchyCode",
 					  search     = "text",
-					  filtermode = "2"}>	
+					  filtermode = "3"}>	
 
 <cfset itm = itm + 1>						
 <cfset fields[itm] = {label      = "Last Incumbent", 					

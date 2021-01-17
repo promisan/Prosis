@@ -13,6 +13,7 @@
 <cfoutput>
 
 <script>
+
  document.getElementById('indexno').value   = "#get.IndexNo#"
  document.getElementById('personno').value  = "#get.PersonNo#"
  document.getElementById('lastname').value  = "#get.LastName#"

@@ -11,21 +11,21 @@
 
 <!--- Entry form --->
 
-<table width="95%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="95%" cellspacing="0" cellpadding="0" align="center" class="formpadding formspacing">
 
 	<tr><td height="4"></td></tr>
 
     <TR>
     <TD class="labelmedium">Code:</TD>
     <TD class="labelmedium">
-  	   <cfinput type="Text" name="AssignmentType" value="" message="Please enter a code" required="Yes" size="10" maxlength="10" class="regularxl">
+  	   <cfinput type="Text" name="AssignmentType" value="" message="Please enter a code" required="Yes" size="10" maxlength="10" class="regularxxl">
     </TD>
 	</TR>
 	
 	<TR>
     <TD class="labelmedium">Description:</TD>
     <TD class="labelmedium">
-  	   <cfinput type="Text" name="Description" value="" message="Please enter a description" required="Yes" size="40" maxlength="40" class="regularxl">
+  	   <cfinput type="Text" name="Description" value="" message="Please enter a description" required="Yes" size="40" maxlength="40" class="regularxxl">
     </TD>
 	</TR>
 	

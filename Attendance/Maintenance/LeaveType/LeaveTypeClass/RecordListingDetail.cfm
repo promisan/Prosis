@@ -16,7 +16,7 @@ password="#SESSION.dbpw#">
  
 <table width="98%" align="center" border="0" cellspacing="0" cellpadding="0" class="navigation_table formpadding">
 			
-    <TR height="18" class="labelmedium line">
+    <TR height="18" class="labelmedium2 line">
   	    <TD width="8"></TD>
 	    <TD width="18"><cf_tl id="C."></TD>	
 		<TD><cf_tl id="Description"></TD>
@@ -34,7 +34,7 @@ password="#SESSION.dbpw#">
   	    <TD width="4%" style="padding-left:5px">
 			<cfoutput>
 				<cfif url.code neq 'new'>
-					<a title="Add new class" href="javascript:addClass()"><font color="0080FF">[New]</font></a>
+					<a title="Add new class" href="javascript:addClass()">[New]</font></a>
 				</cfif>
 			</cfoutput>
 		</TD>
@@ -164,12 +164,12 @@ password="#SESSION.dbpw#">
 	
 		<cfif url.code eq Code>
 		
-				<TR class="line">
+				<TR class="line labelmedium2">
 					<td width="8" style="height:40px"></td>
 					<!--- Field: Code --->
-					<td class="labemedium">#Code#</td>	
+					<td>#Code#</td>	
 					<!--- Field: Description --->				   
-					<td style="width:99%" style="padding-left:3px">
+					<td style="width:99% padding-left:3px">
 						<cf_tl id = "Please enter a description" var = "1">
 						<cfinput class="regularxl" style="width:99%" type="Text" name="Description" value="#Description#" message="#lt_text#" required="Yes" size="20" maxlength="50">
 					</td>
@@ -277,10 +277,10 @@ password="#SESSION.dbpw#">
 	  		
 		<cfelse>
 		
-			<tr class="labelmedium line navigation_row" style="height:20px">
+			<tr class="labelmedium2 line navigation_row" style="height:20px">
 	  	    <TD height="20" align="left" width="9"></TD>
 			<td style="padding-right:4px">#Code#</td>	
-			<td style="min-width:300px">#Description#</td>
+			<td style="min-width:200px">#Description#</td>
 			<td>#LeaveMaximum#</td>
 			
 			<td style="padding-left:3px">#PointerLeave#%</td>

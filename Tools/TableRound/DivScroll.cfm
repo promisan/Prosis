@@ -86,8 +86,7 @@
 				</cfif>
 			</cfif>		
 						
-			<div id="#Attributes.id#"    
-					 name="#Attributes.id#"
+			<div id="#Attributes.id#" name="#Attributes.id#"
                      <cfif Attributes.float neq "no" and Attributes.close eq "yes">
                         onkeydown="if (event.keyCode == 27){document.getElementById('#Attributes.id#').style.display = 'none'; document.getElementById('modalbg').style.display = 'none'}"
                      </cfif>

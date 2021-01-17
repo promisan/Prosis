@@ -13,15 +13,15 @@
 
 <!--- Entry form --->
 
-<table width="94%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="94%" align="center" class="formpadding">
 
 	<tr><td height="4"></td></tr>
 	
    <!--- Field: Id --->
     <TR>
-    <TD class="labelmedium" width="30%">Code:</TD>
+    <TD class="labelmedium2" width="30%">Code:</TD>
     <TD>
-		<cfinput type="Text" name="LanguageId" id="LanguageId" value="" message="Please enter a code" required="Yes" size="10" maxlength="10" class="regularxl">
+		<cfinput type="Text" name="LanguageId" id="LanguageId" value="" message="Please enter a code" required="Yes" size="10" maxlength="10" class="regularxxl">
 	</TD>
 	</TR>
 	
@@ -29,10 +29,10 @@
 	
 	   <!--- Field: Description --->
     <TR>
-    <TD class="labelmedium">Description:</TD>
+    <TD class="labelmedium2">Description:</TD>
     <TD>
 		<cfinput type="Text" name="LanguageName" ID="LanguageName" value="" message="Please enter a description" required="Yes" size="30" maxlength="30"
-		class="regularxl">
+		class="regularxxl">
 	</TD>
 	</TR>
 	
@@ -40,17 +40,14 @@
 	
 	   <!--- Field: Description --->
     <TR>
-    <TD class="labelmedium">Class:</TD>
+    <TD class="labelmedium2">Class:</TD>
     <TD class="labelmedium">
-	  <input type="radio" name="LanguageClass" id="LanguageClass" value="Official">Official
-	  <input type="radio" name="LanguageClass" id="LanguageClass" value="Standard" checked>Standard
+	  <input type="radio" class="radiol" name="LanguageClass" id="LanguageClass" value="Official">Official
+	  <input type="radio" class="radiol" name="LanguageClass" id="LanguageClass" value="Standard" checked>Standard
 	</TD>
 	</TR>
 
-
-	<tr><td colspan="2" height="4"></td></tr>
-	<tr><td colspan="2" class="linedotted"></td></tr>
-	<tr><td colspan="2" height="6"></td></tr>	
+	<tr><td colspan="2" class="line"></td></tr>
 	
 	<TR>
 		<td colspan="2" align="center">

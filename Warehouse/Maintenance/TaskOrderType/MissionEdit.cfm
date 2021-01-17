@@ -1,9 +1,11 @@
 
+<!---
 <cfif url.id2 eq "">
 	<cf_screentop height="100%" scroll="Yes" html="Yes" layout="webapp" label="Entity" option="Add Entity" user="no">
 <cfelse>
 	<cf_screentop height="100%" scroll="Yes" html="Yes" layout="webapp" label="Entity" banner="yellow" option="Maintain Entity" user="no">
 </cfif>
+--->
 
 <cfquery name="Get" 
 datasource="appsMaterials" 
@@ -19,7 +21,7 @@ password="#SESSION.dbpw#">
 	<tr><td><iframe name="processTaskTypeMission" id="processTaskTypeMission" frameborder="0"></iframe></td></tr>
 </table>
 	
-<cfform action="MissionSubmit.cfm?idmenu=#url.idmenu#" method="POST" enablecab="Yes" name="TaskTypeMission" target="processTaskTypeMission">
+<cfform action="MissionSubmit.cfm?idmenu=#url.idmenu#" method="POST" name="TaskTypeMission" target="processTaskTypeMission">
 
 <table width="100%" cellspacing="0" class="formpadding">
 
@@ -27,13 +29,13 @@ password="#SESSION.dbpw#">
 
 <!--- Entry form --->
 
-<table width="99%" align="center" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="99%" align="center" class="formpadding">
 
 	
 	<cfoutput>
    <!--- Field: Id --->
     <TR>
-    <td width="80" class="labelmedium">Entity:</td>
+    <td width="80" class="labelmedium2">Entity:</td>
     <TD>
 		<cfif url.id2 eq "">
 		<cfquery name="getLookup" 
@@ -51,7 +53,7 @@ password="#SESSION.dbpw#">
 	                    FROM   Organization.dbo.Ref_MissionModule 
 						WHERE  SystemModule = 'Warehouse')
 		</cfquery>
-		<select name="Mission" id="Mission" class="regularxl">
+		<select name="Mission" id="Mission" class="regularxxl">
 			<cfloop query="getLookup">
 				<option value="#getLookup.Mission#" <cfif getLookup.Mission eq Get.Mission>selected</cfif>>#getLookup.Mission#</option>
 			</cfloop>
@@ -69,7 +71,7 @@ password="#SESSION.dbpw#">
 	
 	   <!--- Field: Operational --->
     <TR>
-    <TD class="labelmedium">Template:</TD>
+    <TD class="labelmedium2">Template:</TD>
     <TD>
 		<table>
 			<tr>
@@ -83,8 +85,8 @@ password="#SESSION.dbpw#">
 						required="No" 
 						size="40" 
 						maxlength="80"
-						onblur= "ColdFusion.navigate('FileValidation.cfm?template='+this.value+'&container=pathValidationDiv&resultField=validatePath','pathValidationDiv')" 
-						class="regularxl">	
+						onblur= "ptoken.navigate('FileValidation.cfm?template='+this.value+'&container=pathValidationDiv&resultField=validatePath','pathValidationDiv')" 
+						class="regularxxl">	
 				</td>
 				<td valign="middle" align="left">
 				 	<cfdiv id="pathValidationDiv" bind="url:FileValidation.cfm?template=#get.TaskOrderTemplate#&container=pathValidationDiv&resultField=validatePath">				

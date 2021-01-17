@@ -8,8 +8,7 @@
 <cf_screentop height="100%" 
               scroll="Yes" 
 			  layout="webapp" 
-			  label="Time Class" 
-			  option="#vOpt#" 
+			  label="Time Class" 			 
 			  banner="yellow"
 			  menuAccess="Yes" 
 			  jquery="yes"
@@ -59,7 +58,7 @@
 			   required="yes" 
 			   size="20" 
 		       maxlength="20" 
-			   class="regularxl">
+			   class="regularxxl">
 	   	
 	   <cfelse>
 	   
@@ -79,9 +78,9 @@
 		   value="#get.Description#" 
 		   message="Please enter a description"
 		   required="yes" 
-		   size="20" 
+		   size="40" 
 	       maxlength="50" 
-		   class="regularxl">
+		   class="regularxxl">
     </TD>
 	</TR>
 	
@@ -96,7 +95,7 @@
 		   required="no" 
 		   size="20" 
 	       maxlength="20" 
-		   class="regularxl">
+		   class="regularxxl">
     </TD>
 	</TR>
 	
@@ -112,7 +111,7 @@
 		   required="yes" 
 		   size="1" 
 	       maxlength="3" 
-		   class="regularxl" style="text-align:center;">
+		   class="regularxxl" style="text-align:center;">
     </TD>
 	</TR>
 	
@@ -137,10 +136,8 @@
 			
 	</cfoutput>
 	
-	<tr><td height="6"></td></tr>	
-	<tr><td colspan="2" class="linedotted"></td></tr>	
-	<tr><td height="6"></td></tr>	
-			
+		<tr><td colspan="2" class="linedotted"></td></tr>	
+				
 	<tr>
 		
 	<td align="center" colspan="2">	

@@ -4,7 +4,7 @@
 			  scroll="Yes" 
 			  layout="webapp" 
 			  title="Bank" 
-			  label="Edit Bank" 
+			  label="Add Bank" 
 			  menuAccess="Yes" 
 			  systemfunctionid="#url.idmenu#">
 
@@ -22,28 +22,27 @@ password="#SESSION.dbpw#">
 
 <!--- Entry form --->
 
-<table width="95%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="92%" align="center" class="formpadding formspacing">
 
-    <tr><td></td></tr>
+    <tr><td style="height:10px"></td></tr>
     <TR>
-    <TD class="labelit">Code:</TD>
+    <TD class="labelmedium2">Code:</TD>
     <TD>
-  	   <cfinput type="Text" class="regularxl" name="Code" value="" message="Please enter the bank acronym" required="Yes" size="20" maxlength="20">
+  	   <cfinput type="Text" class="regularxxl" name="Code" value="" message="Please enter the bank acronym" required="Yes" size="20" maxlength="20">
     </TD>
 	</TR>
 	
 	<TR>
-    <TD class="labelit">Name:</TD>
+    <TD class="labelmedium2">Name:</TD>
     <TD>
-   	   <cfinput type="Text" class="regularxl" name="Description" value="" message="Please enter the bank acronym" required="Yes" size="50" maxlength="50">
+   	   <cfinput type="Text" class="regularxxl" name="Description" value="" message="Please enter the bank acronym" required="Yes" size="40" maxlength="50">
 
     </TD>
 	</TR>
+		
+	<tr><td colspan="2" class="line"></td></tr>
 	
-	<tr><td colspan="2" height="3"></td></tr>
-	<tr><td colspan="2" class="linedotted"></td></tr>
-	
-	<tr><td colspan="2" height="55" align="center">
+	<tr><td colspan="2" align="center">
 		<input class="button10g" type="button" name="Cancel" value=" Cancel " onClick="window.close()">
 		<input class="button10g" type="submit" name="Insert" value=" Save ">
 	</td></tr>

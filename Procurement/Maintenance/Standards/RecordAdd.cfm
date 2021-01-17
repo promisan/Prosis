@@ -8,81 +8,74 @@
 
 <script language="JavaScript">
 
-
-function maxlength(element, maxvalue)
-{
+function maxlength(element, maxvalue) {
      var q = eval("document.dialog."+element+".value.length");
      var r = q - maxvalue;
      var msg = "At maximum, you can enter "+maxvalue+" characters";
-
-     if (q > maxvalue) 
-	 {
+     if (q > maxvalue) {
 		alert (msg);
 	 	return false;
-	}
-	else
+	} else
 		return true;
-
 }
-
-
 
 </script>
 
-<CFFORM action="RecordSubmit.cfm" method="post" enablecab="yes" name="dialog"  >
+<CFFORM action="RecordSubmit.cfm" method="post" name="dialog">
 
 <!--- edit form --->
 
-<table width="92%" align="center" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="92%" align="center" class="formpadding formpadding">
 <!--- Field: code --->
 	 <cfoutput>
 	 <tr><td height="7"></td></tr>
-	 <TR>
-	 <TD class="labelit">Code:&nbsp;</TD>  
+	 <TR class="labelmedium2">
+	 <TD>Code:&nbsp;</TD>  
 	 <TD>
-	 	<input type="Text" name="Code" id="Code" value="" size="20" maxlength="20"class="regularxl">
+	 	<input type="Text" name="Code" id="Code" value="" size="20" maxlength="20"class="regularxxl">
 	 </TD>
 	 </TR>
 		
-    <TR>
-    <TD class="labelit">Description:&nbsp;</TD>
+    <TR class="labelmedium2">
+    <TD>Description:&nbsp;</TD>
     <TD>
-  	  	<input type="Text" name="Description" id="Description" value="" message="Please enter a description" required="Yes" size="50" maxlength="100" class="regularxl">				
+  	  	<input type="Text" name="Description" id="Description" value="" message="Please enter a description" required="Yes" size="50" maxlength="100" class="regularxxl">				
     </TD>
 	</TR>
 	 
-    <TR>
-    <TD class="labelit">Reference:&nbsp;</TD>
+    <TR class="labelmedium2">
+    <TD>Reference:&nbsp;</TD>
     <TD>
-  	  	<input type="Text" name="Reference" id="Reference" value="" message="Please enter a Reference" required="Yes" size="20" maxlength="20" class="regularxl">				
+  	  	<input type="Text" name="Reference" id="Reference" value="" message="Please enter a Reference" required="Yes" size="20" maxlength="20" class="regularxxl">				
     </TD>
 	</TR>
 	
 	<cf_calendarscript>
 	   
 	 <!--- Field: Date Expiration --->
-    <TR>
-    <TD class="labelit">Date Expiration:&nbsp;</TD>
+    <TR class="labelmedium2">
+    <TD>Date Expiration:&nbsp;</TD>
     <TD>
 	   <cf_intelliCalendarDate9
 	      FieldName="DateExpiration" 			 
-		  class="regularxl"			  
+		  class="regularxxl"			  
 	      Default="#Dateformat(now(), CLIENT.DateFormatShow)#">
     </TD>
 	</TR>
     
 	 <!--- Field: Memo --->
-    <TR>
-    <TD class="labelit">Scope:&nbsp;</TD>
+    <TR class="labelmedium2">
+    <TD>Scope:&nbsp;</TD>
     <TD>
 		<textarea style="width:95%;padding:3px;font-size:14px" rows="3" class="regular" name="Memo"></textarea>
     </TD>
 	</TR>				
 	
-	<tr><td colspan="2" class="linedotted"></td></tr>
+	<tr><td colspan="2" class="line"></td></tr>
+	
 	<tr><td colspan="2" align="center" height="40">
-	<input class="button10g" type="button" name="Cancel" id="Cancel" value=" Cancel " onClick="window.close()">
-	<input class="button10g" type="submit" name="Insert" id="Insert" value=" Submit " onClick = "return maxlength('Memo',200);">
+		<input class="button10g" type="button" name="Cancel" id="Cancel" value=" Cancel " onClick="window.close()">
+		<input class="button10g" type="submit" name="Insert" id="Insert" value=" Submit " onClick = "return maxlength('Memo',200);">
 	</td></tr>
 	
 </cfoutput>

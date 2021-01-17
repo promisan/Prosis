@@ -363,7 +363,7 @@ function setprogram(val,scope,org) {
 				
 			</TR>
 			
-			<tr><td colspan="2" class="linedotted"></td></tr>
+			<tr><td colspan="2" class="line"></td></tr>
 			
 			<tr><td colspan="2" align="center" height="30">
 		
@@ -383,7 +383,7 @@ function setprogram(val,scope,org) {
 				     SELECT * 
 					 FROM   ProgramPeriodReview
 					 WHERE  ProgramCode = '#EditProgram.ProgramCode#'		
-					 WHERE  Period      = '#EditProgram.Period#'	
+					 AND    Period      = '#EditProgram.Period#'	
 					 AND    ActionStatus = '3'
 			    </cfquery>
 				

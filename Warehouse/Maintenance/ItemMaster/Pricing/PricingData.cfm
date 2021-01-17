@@ -201,7 +201,7 @@ password="#SESSION.dbpw#">
 	<!--- pricing globally --->
 	
 	<tr class="line labelmedium">
-			<td colspan="12" height="34" style="font-size:28px"><cf_tl id="#URL.Mission#"></td>
+			<td colspan="12" height="55" style="font-size:28px"><cf_tl id="#URL.Mission#"></td>
 	</tr>	
 					
 	<cfset w = "">				
@@ -223,7 +223,7 @@ password="#SESSION.dbpw#">
 		</cfquery>	
 				
 		<tr class="line labelmedium">
-			<td colspan="11" style="font-size:25px">#getWarehouse.WarehouseName# (#Warehouse#)</td>
+			<td colspan="12" style="height:55px;font-size:25px">#getWarehouse.WarehouseName# (#Warehouse#)</td>
 		</tr>	
 			
 	    <cfset w = warehouse>		

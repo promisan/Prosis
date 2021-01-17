@@ -127,7 +127,7 @@ function recordedit(id) {
 		    
 		    <tr style="height:20px" class="line labelmedium navigation_row">
 				<td align="center" bgcolor="#cl#" class="navigation_action" style="height:18;padding-left:25px;padding-right:8px" onClick="recordedit('#Journal#')">
-			  		<cf_img icon="edit">		
+			  		<cf_img icon="open">		
 				</td>				
 				<td bgcolor="#cl#">#GLCategory#</td>				
 				<td bgcolor="#cl#" style="padding-left:2px;padding-right:2px"><a href="javascript:recordedit('#Journal#')">#Journal#</a></td>

@@ -93,11 +93,11 @@ password="#SESSION.dbpw#">
      datasource="AppsSelection" 
      username="#SESSION.login#" 
      password="#SESSION.dbpw#">
-     UPDATE RosterSearchLine
-	 SET    SelectDescription = S.Description
-	 FROM   RosterSearchLine INNER JOIN OccGroup S ON RosterSearchLine.SelectId =  S.OccupationalGroup 
-	 WHERE  RosterSearchLine.SearchId = '#URL.ID#'
-	 AND    RosterSearchLine.SearchClass = 'OccGroup' 
+	     UPDATE RosterSearchLine
+		 SET    SelectDescription = S.Description
+		 FROM   RosterSearchLine L INNER JOIN OccGroup S ON L.SelectId =  S.OccupationalGroup 
+		 WHERE  L.SearchId = '#URL.ID#'
+		 AND    L.SearchClass = 'OccGroup' 
   </cfquery>
 
 <!--- insert criteria --->
@@ -121,11 +121,12 @@ password="#SESSION.dbpw#">
 	
 	<cfloop index="rec" from="1" to="#Form.No#">
 
-		<cfset function    = Evaluate("FORM.function_" & #Rec#)>
-		<cfset org         = Evaluate("FORM.org_" & #Rec#)>
-		<cfset grade       = Evaluate("FORM.grade_" & #Rec#)>
+		<cfset functionno    = evaluate("FORM.function_" & Rec)>
+		<cfset org           = evaluate("FORM.org_"      & Rec)>
+		<cfset grade         = evaluate("FORM.grade_"    & Rec)>
+		
 		<cfparam name="Form.Bucket_#Rec#" default="0">
-		<cfset bucket      = Evaluate("FORM.Bucket_" & #Rec#)>
+		<cfset bucket        = evaluate("FORM.Bucket_"   & Rec)>
 				 
 		<cfquery name="Check" 
 		     datasource="AppsSelection" 
@@ -190,7 +191,7 @@ password="#SESSION.dbpw#">
 											  )							 							 
 				<cfelse>	
 					
-					F1.FunctionNo       = '#Function#' 
+					F1.FunctionNo       = '#FunctionNo#' 
 					AND    F1.OrganizationCode = '#Org#' 
 					AND    F1.GradeDeployment  = '#Grade#' 
 					AND    F1.FunctionId NOT IN (SELECT SelectId
@@ -214,14 +215,13 @@ password="#SESSION.dbpw#">
 				  </cfif>				 
 				 
 				 AND    F1.FunctionNo = F.FunctionNo 
+				 
 		    </cfquery>
-			
-					
+								
 		</cfif>
 				
 	</cfloop>
-	
-	
+		
 	<cfif Go eq "0">
   
        <cfoutput>

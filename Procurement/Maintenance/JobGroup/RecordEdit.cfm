@@ -32,7 +32,7 @@ function ask() {
 
 <cfform action="RecordSubmit.cfm" name="dialog">
 	
-<table width="94%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="94%" align="center" class="formspacing formpadding">
 		
 	<tr><td height="4"></td></tr>
 	
@@ -46,18 +46,18 @@ function ask() {
     <cfoutput>
 	<!--- Field: Code--->
 	 <TR>
-	 <TD class="labelit" width="100">Code:&nbsp;</TD>  
+	 <TD class="labelmediunm2" width="100">Code:&nbsp;</TD>  
 	 <TD class="labelit" width="70%">
-	 	<input type="Text" name="Code" id="Code" value="#get.Code#" size="20" maxlength="20"class="regularxl">
+	 	<input type="Text" name="Code" id="Code" value="#get.Code#" size="20" maxlength="20"class="regularxxl">
 		<input type="hidden" name="CodeOld" id="CodeOld" value="#get.Code#" size="20" maxlength="20"class="regular">
 	 </TD>
 	 </TR>
 	
 	<!--- Field: Description --->
     <TR>
-    <TD class="labelit">Description:&nbsp;</TD>
+    <TD class="labelmedium2">Description:&nbsp;</TD>
     <TD class="labelit">
-  	  	<input type="Text" name="Description" id="Description" value="#get.Description#" message="Please enter a description" required="Yes" size="30" maxlength="50" class="regularxl">
+  	  	<input type="Text" name="Description" id="Description" value="#get.Description#" message="Please enter a description" required="Yes" size="30" maxlength="50" class="regularxxl">
 				
     </TD>
 	</TR>

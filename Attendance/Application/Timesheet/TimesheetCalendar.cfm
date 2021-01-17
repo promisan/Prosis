@@ -80,13 +80,13 @@
 	</tr>
 	</table>
 	<table width="100%" border="0" cellspacing="0" cellpadding="0">
-	<tr><td align="center" class="labelmedium line">
+	<tr><td align="center" class="labelmedium2 line">
 	<!--- display calendar end --->			
 		<cfset prev_date=DateAdd("m",-1,dateob)>
 		<cfset next_date=DateAdd("m",1,dateob)>
 		<cfoutput>
-		<a href="javascript:gotodate('#URL.ID#','1','#Month(prev_date)#','#Year(prev_date)#','1')" class="callink"><font color="0080C0">Prior</font></a> - 
-		<a href="javascript:gotodate('#URL.ID#','1','#Month(next_date)#','#Year(next_date)#','1')" class="callink"><font color="0080C0">Next</font></a> month
+		<a href="javascript:gotodate('#URL.ID#','1','#Month(prev_date)#','#Year(prev_date)#','1')" class="callink"><cf_tl id="Prior"></a> - 
+		<a href="javascript:gotodate('#URL.ID#','1','#Month(next_date)#','#Year(next_date)#','1')" class="callink"><cf_tl id="Next"></a>
 	</cfoutput>
 	</td></tr>
 	<tr><td class="line"></td></tr>

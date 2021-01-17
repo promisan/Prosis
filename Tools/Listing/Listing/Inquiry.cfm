@@ -53,11 +53,27 @@
 		WHERE SystemFunctionId = '#URL.SystemFunctionId#'	
 	</cfquery>
 	
+	<cfquery name="tree" 
+         datasource="AppsSystem" 
+         username="#SESSION.login#" 
+         password="#SESSION.dbpw#">
+             SELECT *
+             FROM  Ref_ModuleControlDetailField
+             WHERE SystemFunctionId = '#url.SystemFunctionId#'
+             AND   FunctionSerialNo = '1'
+             AND   FieldTree = 1		
+     </cfquery>
+	
 	<cfparam name="url.webapp" default="Backoffice">
 					
 	<cfif url.webapp eq "Backoffice">	
-				
-		<cf_screentop height="100%" icon="list2.png" label="Listing: #Menu.FunctionName#" line="no" band="no"  scroll="No" html="no" banner="gray" layout="webapp" MenuAccess="Yes" JQuery="yes" TreeTemplate="Yes">
+	
+		<cfif tree.recordcount gte "1">		
+			<cf_screentop height="100%" label="Listing: #Menu.FunctionName#" line="no" scroll="No" html="no" banner="gray" layout="webapp" MenuAccess="Yes" JQuery="yes" TreeTemplate="Yes">		
+		<cfelse>				
+			<cf_screentop height="100%" label="Listing: #Menu.FunctionName#" line="no" scroll="No" html="no" banner="gray" layout="webapp" MenuAccess="Yes" JQuery="yes">				
+		</cfif>
+		
 	<cfelseif url.webapp eq "Portal">
 	
 		<cf_screentop height="100%" scroll="Yes" html="no" banner="gray" JQuery="yes" >
@@ -67,6 +83,7 @@
 </cfif>	
 
 <cf_listingscript>
+
 <cf_layoutScript>
 
 <cfquery name="Menu" 
@@ -78,21 +95,7 @@ password="#SESSION.dbpw#">
 	WHERE   SystemFunctionId = '#URL.SystemFunctionId#'	
 </cfquery>
 
-<table width="100%" height="100%">
-    
-	<tr id="log">
-	
-        <td valign="top" height="100%">
-            
-            <cfdiv id="inquirydetail" style="width:100%; height:100%; min-height:100%;">		
-                <cfinclude template="InquiryListingPrepare.cfm">
-            </cfdiv>		
-                   
-        </td>
-		
-    </tr>
-	
-</table>
+<cfinclude template="InquiryListing.cfm">           
 
 <cfif menu.functiontarget eq "right">
     <!--- do not load --->

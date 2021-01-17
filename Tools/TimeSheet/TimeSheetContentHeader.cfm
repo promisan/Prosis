@@ -13,7 +13,7 @@
 								
 			<tr style="border-top:1px solid silver;">
 			
-				<td rowspan="2" align="right" style="border-bottom:1px solid silver;min-width:345px;padding-left:4px;width:100%">
+				<td rowspan="2" align="right" style="border-bottom:1px solid silver;min-width:344px;padding-left:4px;width:100%">
 					
 					<table width="100%" border="0">
 					

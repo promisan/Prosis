@@ -16,6 +16,6 @@
 
 <cfoutput>
 	<script>
-		ColdFusion.navigate('Logging/CategoryWorkflowListing.cfm?category=#url.category#&code=#url.action#', 'divObservations_#url.action#');
+		ptoken.navigate('Logging/CategoryWorkflowListing.cfm?category=#url.category#&code=#url.action#', 'divObservations_#url.action#');
 	</script>
 </cfoutput>

@@ -18,13 +18,12 @@
 
 	<cfsavecontent variable="sqlbody">
 	
-	    SELECT * 
+	    SELECT *, DateEffective 
 		FROM (
 		
 		SELECT     P.PersonNo,
 		           P.IndexNo AS IndexNo, 
-		           P.LastName AS LastName, 
-				   P.FirstName AS FirstName, 
+		           P.FirstName+''+P.LastName as Name, 				  
 				   P.Gender AS Gender, 
 				   
 				   ( CASE WHEN (SELECT count(*)
@@ -230,7 +229,7 @@
 
 <cfsavecontent variable="sqlbody">
 
-		SELECT *
+		SELECT *, DateEffective
 		FROM  (
 
 		SELECT     PM.PersonNo, 
@@ -261,8 +260,7 @@
 										
 											
 				   P.IndexNo, 
-				   P.LastName, 
-				   P.FirstName, 
+				   P.LastName+' '+P.FirstName as Name, 
 				   P.Gender, 
                    P.Nationality,
 		           PM.CostId, 
@@ -459,11 +457,11 @@
 	<cf_tl id="Staff Name" var="1">
 	<cfset fields[itm] = {label      = "#lt_text#", 
 	                    width      = "0", 
-						field      = "LastName",
-						filtermode = "0",
+						field      = "Name",						
 						search     = "text"}>
 						
-					
+	
+	<!---				
 	<cfset itm = itm+1>		
 	<cf_tl id="FirstName" var="1">
 	<cfset fields[itm] = {label      = "#lt_text#", 
@@ -473,12 +471,13 @@
 						displayfilter = "yes",
 						filtermode = "0",
 						search     = "text"}>		
+						--->
 						
 	<cfif (trigger.triggercondition eq "Dependent" and (url.id eq "TRG" or url.id eq "GRP")) or trigger.triggergroup eq "Personal">
 	
 		<cfset itm = itm+1>		
 		<cf_tl id="DOB" var="1">
-		<cfset fields[itm] = {label      = "#lt_text#", 
+		<cfset fields[itm] = {label    = "#lt_text#", 
 		                    width      = "0", 
 							field      = "DependentBirthDate",
 							filtermode = "0",
@@ -489,7 +488,7 @@
 		
 		<cfset itm = itm+1>		
 		<cf_tl id="Dependent" var="1">
-		<cfset fields[itm] = {label      = "#lt_text#", 
+		<cfset fields[itm] = {label    = "#lt_text#", 
 		                    width      = "0", 
 							field      = "DependentFirstName",
 							filtermode = "0",
@@ -498,7 +497,7 @@
 		
 		<cfset itm = itm+1>		
 		<cf_tl id="Age" var="1">
-		<cfset fields[itm] = {label      = "#lt_text#", 
+		<cfset fields[itm] = {label    = "#lt_text#", 
 		                    width      = "0", 
 							field      = "DependentAge",
 							filtermode = "0",
@@ -510,7 +509,7 @@
 	
 	<cfset itm = itm+1>		
 		<cf_tl id="Overtime" var="1">
-		<cfset fields[itm] = {label      = "#lt_text#", 
+		<cfset fields[itm] = {label    = "#lt_text#", 
 		                    width      = "0", 
 							align      = "center",
 							field      = "Amount",
@@ -521,12 +520,13 @@
 						
 	<cfset itm = itm+1>								
 	<cf_tl id="Effective" var="1">
-	<cfset fields[itm] = {label      = "#lt_text#",    
-						width      = "0", 
-						field      = "DateEffective",		
-						labelfilter = "Date Effective",			
-						formatted  = "dateformat(DateEffective,CLIENT.DateFormatShow)",
-						search     = "date"}>	
+	<cfset fields[itm] = {label        = "#lt_text#",    
+						width          = "0", 
+						field          = "DateEffective",	
+						column         = "month",	
+						labelfilter    = "Date Effective",			
+						formatted      = "dateformat(DateEffective,CLIENT.DateFormatShow)",
+						search         = "date"}>	
 						
 	<cfset itm = itm+1>					
 	<cf_tl id="Expiration" var="1">
@@ -605,15 +605,10 @@
 	
 	
 	</cfif>				
-					
-
-
-<table width="100%" height="100%" cellspacing="0" cellpadding="0" align="center">
-<tr><td style="padding:6px">
-										
+											
 	<cf_listing
     	header        = "lsPayroll"
-    	box           = "lsPayroll"
+    	box           = "lsentitlementPayroll"
 		link          = "#SESSION.root#/Payroll/Application/Entitlements/EntitlementViewListing.cfm?#cgi.query_string#"		
     	html          = "No"
 		show	      = "30"
@@ -633,8 +628,6 @@
 		drillstring   = "mode=list"
 		drilltemplate = "ActionView.cfm?id="
 		drillkey      = "ObjectId">
-
-</td></tr></table>
 
 <script>
 	parent.Prosis.busy('no')

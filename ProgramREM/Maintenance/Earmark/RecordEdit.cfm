@@ -8,8 +8,7 @@
 <cf_screentop height="100%" 
               scroll="Yes" 
 			  layout="webapp" 
-			  label="Pledge Earmark" 
-			  option="#vOpt#" 
+			  label="Pledge Earmark" 			   
 			  banner="yellow"
 			  menuAccess="Yes" 
 			  systemfunctionid="#url.idmenu#">
@@ -37,7 +36,7 @@
 
 <!--- edit form --->
 
-<table width="95%" cellspacing="0" cellpadding="0" align="center" class="formpadding formspacing">
+<table width="95%" align="center" class="formpadding formspacing">
 	
 	<cfform action="RecordSubmit.cfm?idmenu=#url.idmenu#&id1=#url.id1#" method="POST" name="dialog">
 
@@ -45,8 +44,8 @@
 
     <cfoutput>
     <TR>
-    <TD class="labelmedium" width="25%"><cf_tl id="Earmark">:</TD>
-    <TD class="labelmedium">
+    <TD class="labelmedium2" width="25%"><cf_tl id="Earmark">:</TD>
+    <TD class="labelmedium2">
   	   <cfif url.id1 eq "">
 	   
 	   		<cfinput type="text" 
@@ -57,7 +56,7 @@
 			   required="yes" 
 			   size="5" 
 		       maxlength="5" 
-			   class="labelmedium" 
+			   class="labelmedium2" 
 			   style="text-align:center;">
 	   	
 	   <cfelse>
@@ -70,8 +69,8 @@
 	</TR>
 	
 	<TR>
-    <TD class="labelmedium"><cf_tl id="Description">:</TD>
-    <TD class="labelmedium">
+    <TD class="labelmedium2"><cf_tl id="Description">:</TD>
+    <TD class="labelmedium2">
   	   
 	    <cfinput type="text" 
 	       name="Description" 
@@ -80,7 +79,7 @@
 		   required="yes" 
 		   size="20" 
 	       maxlength="10" 
-		   class="labelmedium">
+		   class="regularxxl">
     </TD>
 	</TR>
 		

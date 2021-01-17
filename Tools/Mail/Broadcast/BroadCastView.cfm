@@ -143,7 +143,7 @@ function saveSettings(){
 
 <cfparam name="url.id" default="53B71930-5BFF-4BC2-838D-E89B3F9735AF">
 
-	<table width="97%" height="100%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+	<table width="97%" height="100%" align="center" class="formpadding">
 		
 	<!---
 		

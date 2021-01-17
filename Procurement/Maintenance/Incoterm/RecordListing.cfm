@@ -1,8 +1,9 @@
 <!--- Create Criteria string for query from data entered thru search form --->
 
-<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
-
-<HTML><HEAD><TITLE>Incoterms</TITLE></HEAD>
+<cf_screentop layout="webapp" 			  
+			  html="No"			 
+			  jquery="Yes"
+			  systemfunctionid="#url.idmenu#">
 
 <cfquery name="SearchResult" 
 datasource="AppsPurchase" 
@@ -13,58 +14,64 @@ password="#SESSION.dbpw#">
 	ORDER BY code
 </cfquery>
 
+<table width="100%" height="100%">
+
+<cfset add          = "1">
+<cfset Header       = "Incoterms">
+
+<tr style="height:10px"><td><cfinclude template = "../HeaderMaintain.cfm"></td></tr>
+
 <cfoutput>
 
 <script>
 
 function recordadd(grp) {
-          window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 450, height= 200, toolbar=no, status=yes, scrollbars=no, resizable=no");
+          ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 450, height= 200, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 function deditico(id1) {
-          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width= 450, height= 200, toolbar=no, status=yes, scrollbars=no, resizable=no");
+          ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width= 450, height= 200, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 </script>	
 
 </cfoutput>
 
+<tr><td>
+
 <cf_divscroll>
 
-<cfset add          = "1">
-<cfset Header       = "Condition">
-<cfinclude template = "../HeaderMaintain.cfm"> 
+<table width="94%" align="center" class="navigation_table">
 
-
-<table width="97%" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
-
-<tr>
+<tr class="line labelmedium2">
    
-    <TD class="labelit" width="5%"></TD>
-    <TD class="labelit">Code</TD>
-	<TD class="labelit">Description</TD>
-	<TD class="labelit">Officer</TD>
-    <TD class="labelit">Entered</TD>
+    <TD width="5%"></TD>
+    <TD>Code</TD>
+	<TD>Description</TD>
+	<TD>Officer</TD>
+    <TD>Entered</TD>
   
 </TR>
 
 <cfoutput query="SearchResult">
  
-    <TR class="navigation_row"> 
-	<TD class="linedotted" align="center">
+    <TR class="navigation_row line labelmedium2"> 
+	<TD align="center">
 	    	<cf_img icon="edit" navigation="Yes" onclick="deditico('#Code#')">
 	</TD>		
-	<TD class="labelit linedotted">#Code#</TD>
-	<TD class="labelit linedotted">#Description#</TD>
-	<TD class="labelit linedotted">#OfficerFirstName# #OfficerLastName#</TD>
-	<TD class="labelit linedotted">#Dateformat(Created, "#CLIENT.DateFormatShow#")#</TD>
+	<TD>#Code#</TD>
+	<TD>#Description#</TD>
+	<TD>#OfficerFirstName# #OfficerLastName#</TD>
+	<TD>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</TD>
     </TR>
 		
 </CFOUTPUT>
 
-<tr><td height="1" colspan="5" class="linedotted"></td></tr>
-
 </TABLE>
 
 </cf_divscroll>
+
+</td></tr>
+
+</table>
 

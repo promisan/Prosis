@@ -41,10 +41,10 @@ password="#SESSION.dbpw#">
     <TD class="labelmedium">Code:</TD>
     <TD class="labelmedium">
 	   <cfif check.recordcount eq "0">
-  	   <input type="text" name="PostType" value="#get.PostType#" size="15" maxlength="20"class="regularxl">
+  	   <input type="text" name="PostType" value="#get.PostType#" size="15" maxlength="20" class="regularxxl">
 	   <cfelse>
 	   #get.PostType#
-	   <input type="hidden" name="PostType" value="#get.PostType#" size="10" maxlength="10"class="regularxl">
+	   <input type="hidden" name="PostType" value="#get.PostType#" size="10" maxlength="10" class="regularxxl">
 	   </cfif>
 	   <input type="hidden" name="PostTypeOld" value="#get.postType#" size="10" maxlength="10" readonly>
     </TD>
@@ -53,7 +53,7 @@ password="#SESSION.dbpw#">
 	<TR>
     <TD class="labelmedium">Description:</TD>
     <TD>
-  	   <cfinput type="Text" name="Description" value="#get.description#" message="Please enter a description" required="Yes" size="30" maxlength="40"class="regularxl">
+  	   <cfinput type="Text" name="Description" value="#get.description#" message="Please enter a description" required="Yes" size="30" maxlength="40" class="regularxxl">
     </TD>
 	</TR>
 	

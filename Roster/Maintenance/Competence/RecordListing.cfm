@@ -1,9 +1,11 @@
 <!--- Create Criteria string for query from data entered thru search form --->
 
-<cf_divscroll>
+<cf_screentop html="No" jquery="Yes">
+
+<table width="98%" align="center" height="100%">
 
 <cfset Header = "Competency">
-<cfinclude template="../HeaderRoster.cfm">  
+<tr style="height:10px"><td><cfinclude template="../HeaderRoster.cfm"></td></tr>
  
 <cfquery name="SearchResult" 
 datasource="AppsSelection" 
@@ -21,51 +23,57 @@ password="#SESSION.dbpw#">
 	<script language = "JavaScript">
 	
 	function recordadd(grp) {
-	          window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=460, height= 300, toolbar=no, status=yes, scrollbars=no, resizable=no");
+          ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=460, height= 300, toolbar=no, status=yes, scrollbars=no, resizable=no");
 	}
 	
 	function recordedit(id1) {
-	          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width= 460, height= 300, toolbar=no, status=yes, scrollbars=no, resizable=no");
+          ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width= 460, height= 300, toolbar=no, status=yes, scrollbars=no, resizable=no");
 	}
 	
 	</script>	
 
 </cfoutput>
 	
+<tr><td>
 
-<table width="93%" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
-	
-<tr class="labelmedium linedotted">
-    <td></td>
-    <td>Id</td>
-	<td>Description</td>
-	<td>Order</td>
-	<td>Oper.</td>
-	<td>Officer</td>
-    <td>Entered</td>
-</tr>
+<cf_divscroll>
 
-<cfoutput query="SearchResult" group="Category">
+	<table width="95%" align="center" class="navigation_table">
+		
+	<tr class="labelmedium2 line">
+	    <td></td>
+	    <td>Id</td>
+		<td>Description</td>
+		<td>Order</td>
+		<td>Oper.</td>
+		<td>Officer</td>
+	    <td>Entered</td>
+	</tr>
 	
-	<tr class="linedotted"><td colspan="7" style="height:40px" class="labellarge">#Category#</b></td></tr>
+	<cfoutput query="SearchResult" group="Category">
+		
+		<tr class="line"><td colspan="7" style="height:40px font-size:20px" class="labellarge">#Category#</td></tr>
+		
+		<cfoutput>
+		    <tr height="20px" class="labelmedium2 line navigation_row">
+				<td align="center" width="35">
+					  <cf_img icon="open" onclick="recordedit('#CompetenceId#')" navigation="Yes">
+				</td>	
+				<td>#CompetenceId#</td>
+				<td>#Description#</td>
+				<td>#ListingOrder#</td>
+				<td><cfif Operational eq "0">No</cfif></td>
+				<td>#OfficerFirstName# #OfficerLastName#</td>
+				<td>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
+		    </tr>
+		</cfoutput>
 	
-	<cfoutput>
-	    <tr height="20px" class="labelmedium linedotted navigation_row">
-			<td align="center" width="35" style="padding-top:1px;">
-				  <cf_img icon="open" onclick="recordedit('#CompetenceId#')" navigation="Yes">
-			</td>	
-			<td>#CompetenceId#</td>
-			<td>#Description#</td>
-			<td>#ListingOrder#</td>
-			<td><cfif Operational eq "0">No</cfif></td>
-			<td>#OfficerFirstName# #OfficerLastName#</td>
-			<td>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
-	    </tr>
 	</cfoutput>
-
-</cfoutput>
-	
-</table>
-
+		
+	</table>
 
 </cf_divscroll>
+
+</td>
+</tr>
+</table>

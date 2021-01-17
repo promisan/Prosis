@@ -171,19 +171,16 @@ password="#SESSION.dbpw#">
 			<table width="100%" cellspacing="0" cellpadding="0">
 			 	
 			<tr class="line">
+					
 			
-				<td  class="labelmedium"><cf_tl id="Location">:
-				<cf_space spaces="30">
-				</td>
-			
-				<td style="padding-left:4px" width="50%"> 
+				<td width="50%"> 
 				
 					<cfif last.LocationCode eq "">
 						<cfset loc = mission.locationcode>
 					<cfelse>
 					    <cfset loc = last.LocationCode>
 					</cfif>		
-				   	<select name="locationcode" id="locationcode" size="1" class="regularxl">
+				   	<select name="locationcode" id="locationcode" style="border:0px;background-color:f1f1f1" size="1" class="regularxxl">
 				    <cfoutput query="Location">
 						<option value="#LocationCode#" <cfif Loc eq LocationCode>selected</cfif>>
 				    		#LocationName# #LocationCode#
@@ -229,7 +226,7 @@ password="#SESSION.dbpw#">
 		
 	<tr>
 	
-		<td style="border:0px solid silver;width:100%;padding-left:10px;padding-right:10px" 
+		<td style="border:0px solid silver;width:100%" 
 		   align="center" valign="top">
 		   <cfinclude template="HourEntryFormActivity.cfm">
 		</td>  

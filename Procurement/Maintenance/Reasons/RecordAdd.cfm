@@ -4,28 +4,29 @@
 <cf_screentop height="100%" 
 			  scroll="Yes" 
 			  layout="webapp" 
-			  title="Add Reason" 
-			  label="Add Reason" 
+			  title="Add Reason" 			 
 			  menuAccess="Yes" 
 			  systemfunctionid="#url.idmenu#">
 
-<cfform action="RecordSubmit.cfm" method="POST" enablecab="Yes" name="dialog">
+<cfform action="RecordSubmit.cfm" method="POST" name="dialog">
 
 <!--- Entry form --->
 
-<table width="95%" align="center" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="95%" align="center" class="formpadding formspacing">
 
-    <TR>
-    <TD class="labelit">Code:</TD>
-    <TD class="labelit">
-  	   <input type="text" name="Code" id="Code" value="" size="15" maxlength="15"class="labelit">
+	<tr><td style="height:6px"></td></tr>
+
+    <TR class="labelmedium2">
+    <TD>Code:</TD>
+    <TD>
+  	   <input type="text" name="Code" id="Code" value="" size="15" maxlength="15" class="regularxxl">
     </TD>
 	</TR>
 	
-	<TR>
-    <TD class="labelit">Description:</TD>
-    <TD class="labelit">
-  	   <cfinput type="Text" name="Description" value="" message="Please enter a description" required="Yes" size="34" maxlength="80"class="labelit">
+	<TR class="labelmedium2">
+    <TD>Description:</TD>
+    <TD>
+  	   <cfinput type="Text" name="Description" value="" message="Please enter a description" required="Yes" size="34" maxlength="80" class="regularxxl">
     </TD>
 	</TR>
 		 
@@ -40,10 +41,10 @@
 				  WHERE SystemModule = 'Procurement')
 	</cfquery>
 	 
-	 <TR>
-	 <TD class="labelit" width="150">Entity:&nbsp;</TD>  
+	 <TR class="labelmedium2">
+	 <TD width="150">Entity:&nbsp;</TD>  
 	 <TD>
-	 	<select name="Mission" id="Mission" class="regularxl">
+	 	<select name="Mission" id="Mission" class="regularxxl">
 		<option value="" selected>[Apply to all]</option>
 		<cfoutput query="Mis">
 		<option value="#Mission#">#Mission#</option>
@@ -53,47 +54,47 @@
 	 </TR>
 	
 	
-	<TR>
-    <TD class="labelit">Reason Status:&nbsp;</TD>
+	<TR class="labelmedium2">
+    <TD>Reason Status:&nbsp;</TD>
 	
-	<TD class="labelit">
-	    <input type="radio" name="Status" id="Status" value="2i">
+	<TD>
+	    <input class="radiol" type="radio" name="Status" id="Status" value="2i">
 		Accept
-		<input type="radio" name="Status" id="Status" value="9" checked>
+		<input class="radiol" type="radio" name="Status" id="Status" value="9" checked>
 		Deny
     </TD>	
 
 
-	<TR>
-    <TD class="labelit">Include Specification:&nbsp;</TD>
+	<TR class="labelmedium2">
+    <TD>Include Specification:&nbsp;</TD>
 	
-	<TD class="labelit">
-	    <input type="radio" name="Specification" id="Specification" value="1">
+	<TD>
+	    <input class="radiol" type="radio" name="Specification" id="Specification" value="1">
 		Yes
-		<input type="radio" name="Specification" id="Specification" value="0" checked>
+		<input class="radiol" type="radio" name="Specification" id="Specification" value="0" checked>
 		No
     </TD>		
 	
 	<!--- Field: ListingOrder --->
-    <TR>
-    <TD class="labelit">Relative&nbsp;Order:</TD>
+    <TR class="labelmedium2">
+    <TD>Relative&nbsp;Order:</TD>
     <TD>
-  	  	<cfinput type="Text" name="Listingorder" value="" message="Please enter a valid number" validate="integer" required="No" visible="Yes" enabled="Yes" size="3" maxlength="3" class="regularxl">
+  	  	<cfinput type="Text" name="Listingorder" value="" message="Please enter a valid number" validate="integer" 
+		  required="No" visible="Yes" enabled="Yes" size="3" maxlength="3" class="regularxxl">
 	</TD>
 	</TR>
 	
-	<TR>
-    <TD class="labelit">Operational:&nbsp;</TD>
+	<TR class="labelmedium2">
+    <TD>Operational:&nbsp;</TD>
 	
-	<TD class="labelit">
-	    <input type="radio" name="Operational" id="Operational" value="1" checked>
+	<TD>
+	    <input class="radiol" type="radio" name="Operational" id="Operational" value="1" checked>
 		Yes
-		<input type="radio" name="Operational" id="Operational" value="0" >
+		<input class="radiol" type="radio" name="Operational" id="Operational" value="0" >
 		No
     </TD>	
 	</TR>
 	
-
 	<tr><td colspan="2" align="center" height="6">
 	<tr><td colspan="2" class="linedotted"></td></tr>
 	<tr><td colspan="2" align="center" height="6">
@@ -106,8 +107,5 @@
 	</TR>
 		
 </table>
-
-
-
 
 </CFFORM>

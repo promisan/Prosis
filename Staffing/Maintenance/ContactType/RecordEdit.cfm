@@ -1,8 +1,7 @@
 <cfparam name="url.idmenu" default="">
 
 <cf_screentop height="100%" 
-			  label="Contact Type" 
-			  option="Edit" 
+			  label="Contact Type" 			 
 			  scroll="Yes" 
 			  layout="webapp" 
 			  banner="blue" 
@@ -33,14 +32,10 @@
 <script language="JavaScript">
 
 function ask() {
-	if (confirm("Do you want to remove this record ?")) {
-	
-	return true 
-	
-	}
-	
-	return false
-	
+	if (confirm("Do you want to remove this record ?")) {	
+	return true 	
+	}	
+	return false	
 }	
 
 </script>
@@ -49,14 +44,14 @@ function ask() {
 	
 <CFFORM action="RecordSubmit.cfm" method="post" name="dialog">
 	
-<table width="94%" cellspacing="0" cellpadding="0" align="center" class="formpadding formspacing">
+<table width="94%" align="center" class="formpadding formspacing">
 	
 	 <cfoutput>
 	 <TR>
-	 <TD class="labelit">Code:&nbsp;</TD>  
+	 <TD class="labelmedium2">Code:&nbsp;</TD>  
 	 <TD>
 	 	<cfif VerifyDeleteUpdate.recordCount eq 0>
-		 	<cfinput type="Text" name="Code" value="#get.Code#" message="Please enter a code" required="Yes" size="20" maxlength="20" class="regularxl">
+		 	<cfinput type="Text" name="Code" value="#get.Code#" message="Please enter a code" required="Yes" size="20" maxlength="20" class="regularxxl">
 		<cfelse>
 			#get.Code#
 			<input type="hidden" name="Code" value="#get.Code#">
@@ -67,18 +62,18 @@ function ask() {
 	 
 	 <!--- Field: Description --->
     <TR>
-    <TD class="labelit">Description:&nbsp;</TD>
+    <TD class="labelmedium2">Description:&nbsp;</TD>
     <TD>
-  	  	<cfinput type="Text" name="description" value="#get.description#" message="Please enter a description" required="Yes" size="50" maxlength="50" class="regularxl">
+  	  	<cfinput type="Text" name="description" value="#get.description#" message="Please enter a description" required="Yes" size="50" maxlength="50" class="regularxxl">
 				
     </TD>
 	</TR>
 	
 	 <!--- Field: CallSignMask --->
     <TR>
-    <TD class="labelit">Mask:&nbsp;</TD>
+    <TD class="labelmedium2">Mask:&nbsp;</TD>
     <TD>
-  	  	<cfinput type="Text" name="CallSignMask" value="#get.CallSignMask#" message="Please enter a Mask"  size="20" maxlength="20" class="regularxl">
+  	  	<cfinput type="Text" name="CallSignMask" value="#get.CallSignMask#" message="Please enter a Mask"  size="20" maxlength="20" class="regularxxl">
 				
     </TD>
 	</TR>	
@@ -98,7 +93,7 @@ function ask() {
 	
 	 <!--- Field: Self-Service ? --->
     <TR>
-    <TD class="labelit">Self Service:&nbsp;</TD>
+    <TD class="labelmedium2">Self Service:&nbsp;</TD>
     <TD>
 		<cfif get.SelfService eq "0">
 			<cfset vChecked ="Yes">
@@ -120,9 +115,9 @@ function ask() {
 	
 	 <!--- Field: Listing Order --->
     <TR>
-    <TD class="labelit">Order:&nbsp;</TD>
+    <TD class="labelmedium2">Order:&nbsp;</TD>
     <TD>
-  	  	<cfinput type="Text" name="ListingOrder" value="#get.ListingOrder#" message="Please enter a display order" required="Yes" size="2" maxlength="2" class="regularxl">		
+  	  	<cfinput type="Text" name="ListingOrder" value="#get.ListingOrder#" message="Please enter a display order" required="Yes" size="2" maxlength="2" class="regularxxl">		
     </TD>
 	</TR>		
 	

@@ -40,7 +40,7 @@
 
 <table width="100%" class="navigation_table" class="formpadding">
 		   	
-	 <TR class="fixrow labelmedium">
+	 <TR class="fixrow labelmedium2 line">
 		<td width="10"></td>
 		<td width="20">S</td>
 		<td width="5%">Code</td>
@@ -110,7 +110,7 @@
 	   		
 	    <cfoutput>
 								
-			<TR class="navigation_row line labelmedium">			
+			<TR class="navigation_row line labelmedium2">			
 			  			   
 			   <td align="center" style="height:21px" width="30"> 
 			   
@@ -122,13 +122,13 @@
 						<!---- This is hardcoded as TopicListingClass does not show anything if it is AppsEmployee, so there is no point to show expand for employee 
 							Copying exactly the same condition as in TopicListingClass
 						--->					
-						  <td style="padding-left:8px;padding-top:1px;">	
+						  <td style="padding-left:8px;padding-top:8px;">	
 						  	<cf_img icon="expand" toggle="yes" onclick="showDetail('#code#','#systemmodule#','#link#','#serialno#','detail_#code#');">
 						  </td>
 						</cfif>  
 					</cfif>  
 					
-					 <td style="padding-left:2px;padding-top:2px;padding-right:0px;">
+					 <td style="padding-left:2px;padding-top:1px;padding-right:0px;">
 					    <cf_img icon="edit" navigation="yes" onclick="recordedit('#code#')">
 					  </td>		
 					 

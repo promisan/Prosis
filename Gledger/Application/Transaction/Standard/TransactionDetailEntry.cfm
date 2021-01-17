@@ -180,28 +180,26 @@ password="#SESSION.dbpw#">
 		
 </cfif>
   
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="100%" align="center">
 
 <tr class="hide"><td id="processmanual"></td></tr>
 
 <tr><td style="min-width:900px">
        
-	<table width="97%" align="center">
+	<table>
 	
 		<tr><td>
 			
-		  <table width="100%" class="formpadding">
+		  <table width="100%" class="formpadding formspacing">
 		  
-		  	 <tr><td height="5"></td></tr>
-			 
 	         <TR> 
-	          <TD width="20%" class="labelmedium"><cf_tl id="Transaction">:</TD>
-	          <td colspan="3" width="50%" align="left" valign="top">	
+	          <TD class="labelmedium2" style="min-width:190px;max-width:190px"><cf_tl id="Transaction">:</TD>
+	          <td colspan="3" align="left" valign="top">	
 			  
-			  <table><tr>
+			  <table><tr class="labelmedium2">
 			  	
 			   <td>		 			 			  	  	  		  
-			   <select name="entrydebitcredit" class="regularxl enterastab" id="entrydebitcredit">
+			   <select name="entrydebitcredit" class="regularxxl enterastab" id="entrydebitcredit">
 	            	<option value="Debit" <cfif URL.entrydebitcredit eq "Debit">selected</cfif>><cf_tl id="Debit"></option>
 	          		<option value="Credit" <cfif URL.entrydebitcredit eq "Credit">selected</cfif>><cf_tl id="Credit"></option>
 	           </select>
@@ -209,7 +207,7 @@ password="#SESSION.dbpw#">
 			   
 			   <td style="padding-left:4px">
 			   	  
-			   <select name="transactiontype" id="transactiontype" class="regularxl enterastab" onchange="tratoggle(this.value)">
+			   <select name="transactiontype" id="transactiontype" class="regularxxl enterastab" onchange="tratoggle(this.value)">
 			   	 <cfoutput query="TransactionType">
 	        		<option value="#lcase(TransactionType)#" <cfif URL.TransactionType is TransactionType>selected</cfif>>#TransactionType#</option>
 	         	 </cfoutput>
@@ -220,7 +218,7 @@ password="#SESSION.dbpw#">
 			    <cfoutput>
 				  <TD class="labelmedium" style="padding-left:6px;padding-right:4px"><cf_tl id="Note"></TD>
 		          <td align="left">
-				  <input type="text"   id="memo"            name="memo"    class="regularxl enterastab" value="#URL.memo#" style="width:100%" maxlength="80">
+				  <input type="text"   id="memo"            name="memo"    class="regularxxl enterastab" value="#URL.memo#" style="width:100%" maxlength="80">
 				  <input type="hidden" id="serialno"        name="serialno"                     value="#URL.serialno#">
 				  <input type="hidden" id="journalserialno" name="journalserialno"              value="#URL.journalserialno#">
 				  <input type="hidden" id="parentlineid"    name="parentlineid"                 value="#URL.parentlineid#">
@@ -267,7 +265,7 @@ password="#SESSION.dbpw#">
 			
 			<tr id="setdate" class="<cfoutput>#cl#</cfoutput>">	
 			
-				<td class="labelmedium"><cf_tl id="Posting Date">:<cf_space spaces="40"></td>	        
+				<td class="labelmedium2"><cf_tl id="Posting Date">:<cf_space spaces="40"></td>	        
 				<td align="left">					
 												
 				<cfif url.transactiondate eq "">
@@ -275,7 +273,7 @@ password="#SESSION.dbpw#">
 				 <cf_intelliCalendarDate9
 					 manual="false"
 			      FieldName="transactiondateline" 			 
-				  class="regularxl enterastab"		
+				  class="regularxxl enterastab"		
 				  DateValidStart="#Dateformat(Period.PeriodDateStart, 'YYYYMMDD')#"				  	  
 				  
 			      Default="#dateformat(now(),client.dateformatshow)#">
@@ -287,7 +285,7 @@ password="#SESSION.dbpw#">
 				 <cf_intelliCalendarDate9
 				  manual="false"
 			      FieldName="transactiondateline" 			 
-				  class="regularxl enterastab"		
+				  class="regularxxl enterastab"		
 				  DateValidStart="#Dateformat(Period.PeriodDateStart, 'YYYYMMDD')#"							  				  	  
 			      Default="#url.TransactionDate#">
 				  
@@ -302,7 +300,15 @@ password="#SESSION.dbpw#">
 			
 	        <tr name="glaccountline" id="glaccountline" class="regular">	
 			
-			<td class="labelmedium"><cf_tl id="Account">:<cf_space spaces="40"></td>
+			<td class="labelmedium2">
+			
+				<table style="width:100%">
+				<tr>
+				  <td class="labelmedium2"><cf_tl id="Account">:</td>				 		
+				</tr>
+				</table>
+						
+			</td>
 	        
 			 <td align="left">	
 					  
@@ -310,35 +316,47 @@ password="#SESSION.dbpw#">
 			   
 			    <cfif presetGLAccount eq "">
 				
-				   <table cellspacing="0" cellpadding="0">
+				   <table>
 				   <tr>
-				   												
-					<cfquery name="getGL" 
-						datasource="AppsLedger" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">
-						    SELECT *
-							FROM   Ref_Account
-							WHERE  GLAccount = '#entryglaccount#'
-					</cfquery>
+				   
+				    <td align="center" style="padding-right:5px;border:1px solid silver">	
+				 
+				         <cfoutput>				   
+					  				   				   	  
+				  		 <img src="#SESSION.root#/Images/search.png" name="img3" 
+							  onMouseOver="document.img3.src='#SESSION.root#/Images/search1.png'" 
+							  onMouseOut="document.img3.src='#SESSION.root#/Images/search.png'"
+							  style="padding-left:5px;cursor: pointer" width="25" height="25" align="absmiddle" 
+							  onClick="selectaccountgl('#URL.mission#','parent','#accountparentMode#','#url.journal#','applyaccount');">
 			  			
-					<td>
-						<input type="text"   name="entrygllabel"       id="entrygllabel"       value="#getGL.AccountLabel#"      class="regularxl enterastab" size="11"  readonly style="text-align: left">
-						<input type="hidden" name="entryglaccount"     id="entryglaccount"     value="#entryglaccount#"          class="regularxl enterastab" size="11"  readonly style="text-align: left">
+						</cfoutput>
+								  
+				  </td>		
+				  
+				  <td style="border:1px solid silver">	
+				  
+					    <table>
+						<tr>
+					   												
+						<cfquery name="getGL" 
+							datasource="AppsLedger" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+							    SELECT *
+								FROM   Ref_Account
+								WHERE  GLAccount = '#entryglaccount#'
+						</cfquery>
+				  		
+						<td><input type="text"   name="entrygldescription" id="entrygldescription" value="#URL.entrygldescription#"  class="regularxxl enterastab" style="border:0px;width:400px;background-color:f1f1f1" readonly ></td>	
+						<td style="padding-left:1px;border-left:1px solid silver">
+							<input type="text"   name="entrygllabel"       id="entrygllabel"       value="#getGL.AccountLabel#"      class="regularxxl enterastab" readonly style="border:0px;text-align: left;background-color:f1f1f1">
+							<input type="hidden" name="entryglaccount"     id="entryglaccount"     value="#entryglaccount#"          class="regularxxl enterastab" readonly>
+						
+						</td>
+						
+						</tr>
+						</table>
 					
-					</td>
-					<td style="padding-left:3px">
-					    <input type="text"   name="entrygldescription" id="entrygldescription" value="#URL.entrygldescription#"  class="regularxl enterastab" style="width:354px" readonly style="text-align: left;">							  
-					</td>
-					
-					 <td style="padding-left:2px">						   
-				  				   				   	  
-			  		 <img src="#SESSION.root#/Images/search.png" name="img3" 
-						  onMouseOver="document.img3.src='#SESSION.root#/Images/search1.png'" 
-						  onMouseOut="document.img3.src='#SESSION.root#/Images/search.png'"
-						  style="cursor: pointer" alt="" width="25" height="25" border="0" align="absmiddle" 
-						  onClick="selectaccountgl('#URL.mission#','parent','#accountparentMode#','#url.journal#','applyaccount');">
-		  					  
 					</td>
 					
 					
@@ -359,9 +377,10 @@ password="#SESSION.dbpw#">
 				   
 				   <table>
 					   <tr>						
-						<td><input type="text"   name="entryglaccount"     id="entryglaccount"     value="#presetGLAccount#"            class="regularxl enterastab" size="6"  readonly style="text-align: left;"></td>
-						<td><input type="text"   name="entrygllabel"       id="entrygllabel"       value="#getGLAccount.accountLabel#"  class="regularxl enterastab" size="11"  readonly style="text-align: left"></td>					  
-						<td><input type="text"   name="entrygldescription" id="entrygldescription" value="#getGLAccount.description#"   class="regularxl enterastab" size="40" readonly style="text-align: left;"></td>								  					    
+						<td><input type="text"   name="entrygldescription" id="entrygldescription" value="#getGLAccount.description#"   class="regularxxl enterastab" size="60" readonly style="background-color:f1f1f1"></td>						
+						<td><input type="text"   name="entryglaccount"     id="entryglaccount"     value="#presetGLAccount#"            class="regularxxl enterastab" size="6"  readonly style="background-color:f1f1f1"></td>
+						<td><input type="text"   name="entrygllabel"       id="entrygllabel"       value="#getGLAccount.accountLabel#"  class="regularxxl enterastab" size="11" readonly style="background-color:f1f1f1"></td>					  						
+								  					    
 					   </tr>				   
 				   </table>			   			   
 			   
@@ -399,7 +418,7 @@ password="#SESSION.dbpw#">
 				
 				  <cfif operational eq "1">
 				  
-					     <TD class="labelmedium" style="padding-left:10px"><cf_tl id="Budget Fund">:</TD>
+					     <TD class="labelmedium2" style="padding-left:10px"><cf_tl id="Budget Fund">:</TD>
 						 
 				         <td>	
 						 
@@ -418,7 +437,7 @@ password="#SESSION.dbpw#">
 							 
 					      </cfquery>	
 						  
-						  <select name="fund1" id="fund1" class="regularxl enterastab">
+						  <select name="fund1" id="fund1" class="regularxxl enterastab">
 						  <cfoutput query="FundList">
 							  <option value="#Code#" <cfif url.fund1 eq code>selected</cfif>>#Code#</option>
 						  </cfoutput>
@@ -445,9 +464,17 @@ password="#SESSION.dbpw#">
 				
 				  <cfif operational eq "1">
 				  
-					     <TD class="labelmedium" style="padding-left:10px"><cf_tl id="Budget Program">:</TD>
-				         <td>	
+					     <TD class="labelmedium2">
 						 
+						 <table style="width:100%">
+							<tr class="labelmedium2">
+							<td><cf_tl id="Budget Program">:</td>			
+										
+							</tr>
+						 </table>												 
+						 
+						 </TD>
+				         							 
 						  <!--- Query returning search results --->
 				          <cfquery name="Prg"
 				          datasource="AppsProgram" 
@@ -458,31 +485,43 @@ password="#SESSION.dbpw#">
 						      WHERE  ProgramCode = '#URL.ProgramCode1#'
 					      </cfquery>	
 						  
+						  
+						  
+						  <td>
+						  
 						  <cfoutput>
 						  
-						     <table cellspacing="0" cellpadding="0">
+						     <table>
 			    			 <tr>
 							 
-							   <td style="padding-left:0px">		  
-									  
-								  <input type="text"   name="programdescription1" id="programdescription1" value="#Prg.ProgramName#"  class="regularxl" style="width:423px" readonly>
-								  <input type="hidden" name="programcode1"        id="programcode1"        value="#URL.ProgramCode1#" size="20" maxlength="20" readonly>
-								  
-							  </td>
-							  
-							   <td style="padding-left:2px">
-									  
+							   <td align="center" style="min-width:30px;padding-right:5px;border:1px solid silver;padding-right:5px">	
+							   						   							 
+							         <cfoutput>				   
+								  				   				   	  
 							  		 <img src="#SESSION.root#/Images/search.png" alt="Select Program or Project" name="img5" 
 									  onMouseOver="document.img5.src='#SESSION.root#/Images/search1.png'" 
 									  onMouseOut="document.img5.src='#SESSION.root#/Images/search.png'"
-									  style="cursor: pointer" alt="" width="25" height="25" border="0" align="absmiddle" 
+									  style="padding-left:5px;cursor: pointer" alt="" width="25" height="25" border="0" align="center" 
 									  onClick="selectprogram('#URL.mission#',document.getElementById('accountperiod').value,'applyprogram','1')">
 									  
-							   </td>
+									</cfoutput>
+											  
+							   </td>	
+							   
+							   <td style="border:1px solid silver;background-color:f1f1f1">	
+				  
+				 				 <table><tr>
+								 <td>								  
+								  <input type="text"   name="programdescription1" id="programdescription1" value="#Prg.ProgramName#"  class="regularxxl" style="border:0px;background-color:f1f1f1;width:423px" readonly>
+								  <input type="hidden" name="programcode1"        id="programcode1"        value="#URL.ProgramCode1#" size="20" maxlength="20" readonly>								  
+								  </td>
+								  </tr>
+								  </table>
 							 
-							  </tr>
-							  
-							</table>
+							    </td>
+																						 
+							  </tr>							  
+							  </table>
 							  
 						  </cfoutput>
 					   	 
@@ -501,8 +540,7 @@ password="#SESSION.dbpw#">
 				    </cfif> 
 				  
 				</TR>		
-				
-								
+												
 				<tr id="program3" class="<cfoutput>#cl#</cfoutput>">
 								
 				  <!--- define if external program or contribution --->
@@ -518,50 +556,40 @@ password="#SESSION.dbpw#">
 								WHERE    Mission = '#URL.Mission#'						
 						</cfquery>
 						
-						<cfif Check.enableDonor eq "1">						
+						<cfif Check.enableDonor neq "1">						
 											
-							<td class="labelmedium" style="padding-left:10px"><cf_tl id="Contribution">:</td>
-													
-							<cfoutput>
-						
-							    <td width="30%" height="18">		
-									   
-							   		<table cellspacing="0" cellpadding="0">
-									
-									   <tr>
-									  	
-										 <td>
-										 
-										 <table cellspacing="0" cellpadding="0">
-										 <tr>
-										 										 											
-											<td id="donorbox" class="labelmedium" style="width:420px;border:1px solid silver;padding-left:1px;padding-right:5px">																												
-											     <cfinclude template="../../Lookup/getDonor.cfm">								   
-										     </td>	
-											 
-											 <td style="padding-left:2px">
-										 								 																 
-											  <img src="#SESSION.root#/Images/search.png" alt="Select Donor" name="img7" 
+							<td class="labelmedium2"><cf_tl id="Contribution">:</td>
+							
+							<td>
+						  
+							  <cfoutput>
+							  
+							     <table cellspacing="0" cellpadding="0">
+				    			 <tr>
+								 
+								   <td align="center" style="min-width:30px;padding-right:5px;border:1px solid silver;padding-right:5px">	
+								   			   							 
+								        <img src="#SESSION.root#/Images/search.png" alt="Select Donor" name="img7" 
 												onMouseOver="document.img7.src='#SESSION.root#/Images/search1.png'" 
 												onMouseOut="document.img7.src='#SESSION.root#/Images/search.png'"
-												style="cursor: pointer" alt="" width="25" height="25" border="0" align="absmiddle" 
-												onClick="selectdonor('#url.mission#',document.getElementById('fund1').value,document.getElementById('programcode1').value,'#url.journal#','#url.journalserialno#','#url.ContributionLineId#','applydonor','')">
-												
-											</td>								   
-											 
-											
-																			   
-									    </tr>
-										
-										</table>
-										</td>
-										</tr>
-								   </table>						 
-							    </td>		
+												style="padding-left:5px;cursor: pointer" width="25" height="25" align="absmiddle" 
+												onClick="selectdonor('#url.mission#',document.getElementById('fund1').value,document.getElementById('programcode1').value,'#url.journal#','#url.journalserialno#','#url.ContributionLineId#','applydonor','')">											
+												  
+								   </td>	
+								   
+								   <td id="donorbox" style="border:1px solid silver;background-color:f1f1f1">																																			
+										<cfinclude template="../../Lookup/getDonor.cfm">													 									 																	 
+								    </td>
+																							 
+								  </tr>							  
+								  </table>
+								  
+							  </cfoutput>
+						   	 
+							  </td>
+													
 							
-							</cfoutput>			
-							
-							 <input type="hidden" name="programdescription2"  value="" class="regularxl enterastab" size="60" maxlength="80" readonly>
+							 <input type="hidden" name="programdescription2"  value="" class="regularxxl enterastab" size="60" maxlength="80" readonly>
 							 <input type="hidden" name="programcode2"         id="programcode2" value="">
 							 <input type="hidden" name="contributionlineid"   id="contributionlineid" value="">
 							
@@ -569,7 +597,7 @@ password="#SESSION.dbpw#">
 							
 								<cfif ExternalProgramMode eq "0">
 						   
-								   <input type="hidden" name="programdescription2"  value="" class="regularxl enterastab" size="60" maxlength="80" readonly>
+								   <input type="hidden" name="programdescription2"  value="" class="regularxxl enterastab" size="60" maxlength="80" readonly>
 								   <input type="hidden" name="programcode2"         id="programcode2" value="">
 								   <input type="hidden" name="contributionlineid"   id="contributionlineid" value="">
 								   							   
@@ -594,7 +622,7 @@ password="#SESSION.dbpw#">
 												 <tr>				 									 	 									 
 										  										
 													<td>
-													  <input type="text"   name="programdescription2"  value="#Prg.ProgramName#" class="regularxl enterastab" size="60" maxlength="80" readonly>
+													  <input type="text"   name="programdescription2"  value="#Prg.ProgramName#" class="regularxxl enterastab" style="background-color:f1f1f1" size="60" maxlength="80" readonly>
 													  <input type="hidden" name="programcode2"         id="programcode2" value="#URL.ProgramCode2#">
 													  <input type="hidden" name="contributionlineid"   id="contributionlineid" value="">
 													
@@ -655,7 +683,7 @@ password="#SESSION.dbpw#">
 				
 				 <cfif operational eq "1">
 				  
-					     <TD class="labelmedium" style="padding-left:10px"><cf_tl id="Budget Object">:</TD>
+					     <TD class="labelmedium2" style="padding-left:10px"><cf_tl id="Budget Object">:</TD>
 						 
 				         <td>	
 						 
@@ -675,7 +703,7 @@ password="#SESSION.dbpw#">
 								ORDER BY  ObjectUsage, HierarchyCode
 						  </cfquery>			          
 						  
-						  <select name="object1" id="object1" style="width:423px" class="regularxl enterastab">
+						  <select name="object1" id="object1" style="width:423px" class="regularxxl enterastab">
 							  <cfoutput query="getCode">
 								  <option value="#Code#" <cfif url.object1 eq code>selected</cfif>>#Description#</option>
 							  </cfoutput>
@@ -705,7 +733,7 @@ password="#SESSION.dbpw#">
 				
 		<tr name="item" class="<cfoutput>#clw#</cfoutput>">
 		
-			<td width="100" class="labelmedium"><cf_tl id="Warehouse">:</td>
+			<td width="100" class="labelmedium2"><cf_tl id="Warehouse">:</td>
 			<td>
 				
 				<cfquery name="Warehouse" 
@@ -717,7 +745,7 @@ password="#SESSION.dbpw#">
 					WHERE  Mission = '#url.Mission#'
 				</cfquery>		
 						
-				<select name="warehouse" id="warehouse" class="regularxl enterastab">
+				<select name="warehouse" id="warehouse" class="regularxxl enterastab">
 					<cfoutput query="warehouse">
 					    	<option value="#Warehouse#" <cfif Warehouse eq url.warehouse>selected</cfif>>#WarehouseName#</option>					
 					</cfoutput>
@@ -729,7 +757,7 @@ password="#SESSION.dbpw#">
 					
 		<TR name="item" class="<cfoutput>#clw#</cfoutput>">
 		
-			<td class="labelmedium"><cf_tl id="Item">:</td>
+			<td class="labelmedium2"><cf_tl id="Item">:</td>
 		  		
 			<TD colspan="3">
 									
@@ -741,12 +769,12 @@ password="#SESSION.dbpw#">
 					
 					 <cfoutput>	
 					 
-					 <table cellspacing="0" cellpadding="0" class="formpadding">
+					 <table>
 					 
 					 <tr><td style="padding-left:5px;padding-right:5px;border:1px solid silver">
 											 
 					 <img src="#SESSION.root#/Images/search.png"
-					     alt="" name="img99" id="img99" width="25" height="27"
+					     alt="" name="img99" id="img99" width="25" height="26"
 					     border="0" align="absmiddle" style="cursor: pointer;" onClick="selectwarehouseitem('#url.mission#','','','applyitem','')"
 					     onMouseOver="document.img99.src='#SESSION.root#/Images/search1.png'"
 					     onMouseOut="document.img99.src='#SESSION.root#/Images/search.png'">  
@@ -765,18 +793,18 @@ password="#SESSION.dbpw#">
 						</td>
 								
 						<td width="1"></td>	
-						<td style="border:1px solid silver">
-							<input type="text" name="itemdescription" id="itemdescription" value="#item.itemdescription#" class="regularxl" size="40" readonly style="border:0px;text-align: left;">
+						<td style="border:1px solid silver;background-color:f1f1f1">
+							<input type="text" name="itemdescription" id="itemdescription" value="#item.itemdescription#" class="regularxxl" size="40" readonly style="background-color:f1f1f1;border:0px;text-align: left;">
 						</td>		
 						<td width="1"></td>		
-						<td style="border:1px solid silver">				
-							<input type="text" name="itemno"  id="itemno"  value="#url.itemno#" size="3" class="regularxl" readonly style="border:0px;text-align: center;">
+						<td style="border:1px solid silver;background-color:f1f1f1">				
+							<input type="text" name="itemno"  id="itemno"  value="#url.itemno#" size="3" class="regularxxl" readonly style="background-color:f1f1f1;border:0px;text-align: center;">
 						</td>					
 						<td width="1"></td>	
-						<td style="border:1px solid silver">
-							<input type="text" name="uomname" id="uomname" value="#item.uomdescription#" size="7" class="regularxl" readonly style="border:0px;text-align: center;">
+						<td style="border:1px solid silver;background-color:f1f1f1">
+							<input type="text" name="uomname" id="uomname" value="#item.uomdescription#" size="7" class="regularxxl" readonly style="background-color:f1f1f1;border:0px;text-align: center;">
 						</td>
-							<input type="hidden" name="itemuom"       id="itemuom"  value="#url.itemuom#" size="10" class="regularxl" readonly style="border:0px;text-align: left;">																
+							<input type="hidden" name="itemuom"       id="itemuom"  value="#url.itemuom#" size="10" class="regularxxl" readonly style="border:0px;text-align: left;">																
 						</tr>
 						</table>
 						
@@ -792,11 +820,11 @@ password="#SESSION.dbpw#">
 		
 		<tr name="item" class="<cfoutput>#clw#</cfoutput>">
 					
-			<td class="labelmedium"><cf_tl id="Quantity">:</td>
+			<td class="labelmedium2"><cf_tl id="Quantity">:</td>
 				
 			<td>
 				<cfoutput>
-				<input type="text" name="warehousequantity" id="warehousequantity" style="text-align:right" size="10" class="regularxl enterastab" value="#url.itemquantity#"> 
+				<input type="text" name="warehousequantity" id="warehousequantity" style="text-align:right" size="10" class="regularxxl enterastab" value="#url.itemquantity#"> 
 				</cfoutput>
 			</td>
 		
@@ -804,73 +832,80 @@ password="#SESSION.dbpw#">
 		
 		<tr>
 		
-		<TD class="labelmedium"><cf_tl id="Cost Center">:</TD>
+		    <TD class="labelmedium2"><cf_tl id="Cost Center">:</TD>
 		 		 
-		        <td align="left" height="20" class="labelmedium">	
-				 
-				 	<cfif CostCenterMode eq "0">
-					   
-					   <font color="808080"><cf_tl id="disabled"></font>
-					   <input type="hidden" name="orgunit1" id="costcenter1" value="">
-					
-					<cfelse>	
-					
-						<cfif CostCenter.recordcount gte "1">						
-												
-							<select name="costcenter1" id="costcenter1" class="regularxl enterastab">
+	        <td align="left" style="height:31px" class="labelmedium2">	
+			 
+			 	<cfif CostCenterMode eq "0">
+				   
+				   <i><cf_tl id="disabled">
+				   <input type="hidden" name="orgunit1" id="costcenter1" value="">
+				
+				<cfelse>	
+				
+					<cfif CostCenter.recordcount gte "1">						
+											
+						<select name="costcenter1" id="costcenter1" class="regularxxl enterastab">
+						
+							<cfoutput query="CostCenter">
+								<option value="#OrgUnit#" <cfif orgunit eq url.orgunit1>selected</cfif>>#orgunitName#</option>
+							</cfoutput>
 							
-								<cfoutput query="CostCenter">
-									<option value="#OrgUnit#" <cfif orgunit eq url.orgunit1>selected</cfif>>#orgunitName#</option>
-								</cfoutput>
+						</select>
+											
+					<cfelse>		
+				  
+						  <cfquery name="Org"
+				          datasource="AppsOrganization" 
+				          username="#SESSION.login#" 
+				          password="#SESSION.dbpw#">
+					          SELECT * 
+							  FROM 	 Organization 
+							  WHERE  OrgUnit = '#URL.Orgunit1#'
+					      </cfquery>		
+						  
+						  <cfoutput>	
+						  
+						  <table>
+						  
+						  	<td align="center" style="min-width:30px;padding-right:5px;border:1px solid silver;padding-right:5px">	
+							 
+							  <img src="#SESSION.root#/Images/search.png" alt="Select cost center" name="img66" 
+							  onMouseOver="document.img66.src='#SESSION.root#/Images/search1.png'" 
+							  onMouseOut="document.img66.src='#SESSION.root#/Images/search.png'"
+							  style="padding-left:5px;cursor: pointer;" width="25" height="25" align="absmiddle" 
+							  onClick="selectorgN('#URL.Mission#','Administrative','costcenter','applyorgunit','1')">								 								 
 								
-							</select>
-												
-						<cfelse>		
-					  
-							  <cfquery name="Org"
-					          datasource="AppsOrganization" 
-					          username="#SESSION.login#" 
-					          password="#SESSION.dbpw#">
-						          SELECT * 
-								  FROM 	 Organization 
-								  WHERE  OrgUnit = '#URL.Orgunit1#'
-						      </cfquery>		
-							  
-							  <cfoutput>	
-							  
-							  	 <table cellspacing="0" cellpadding="0">
-				    			 <tr>
-								
+							 </td>
+				 
+							 <td style="border:1px solid silver">
+						  
+							  	 <table>
+				    			 <tr>								
 								 <td>	
 								    
-								  <input type="text"   name="orgunitname1"  id="costcentername1" class="regularxl" value="#Org.OrgUnitName#"  style="width:454px" readonly ondblclick="resetcost()">
+								  <input type="text"   name="orgunitname1"  id="costcentername1" class="regularxxl" value="#Org.OrgUnitName#"  style="border:0px;background-color:f1f1f1;width:454px" readonly ondblclick="resetcost()">
 								  <input type="hidden" name="mission1"      id="mission1">
 							   	  <input type="hidden" name="orgunit1"      id="costcenter1"  value="#Org.OrgUnit#">
 								  <input type="hidden" name="orgunitcode1"  id="costcentercode1">
 							  									  
-								 </td>
-								 
-								  <td style="padding-left:2px">
-								 
-								  <img src="#SESSION.root#/Images/search.png" alt="Select cost center" name="img66" 
-								  onMouseOver="document.img66.src='#SESSION.root#/Images/search1.png'" 
-								  onMouseOut="document.img66.src='#SESSION.root#/Images/search.png'"
-								  style="cursor: pointer" alt="" width="25" height="25" border="0" align="absmiddle" 
-								  onClick="selectorgN('#URL.Mission#','Administrative','costcenter','applyorgunit','1')">
-								 									 
-									
-								 </td>
-								 
+								 </td>								 
 								 </tr>
 								 </table> 
-							  
-							  </cfoutput>	
-							  
-						  </cfif>	  
-					  
-					</cfif>  
+							 
+							 </td>
+							 
+							 </tr>
+							 
+							 </table>
+							 							  
+						  </cfoutput>	
+						  
+					  </cfif>	  
 				  
-				 </td>	
+				</cfif>  
+			  
+			 </td>	
 				 
 				 <script language="JavaScript">
 				 
@@ -881,17 +916,15 @@ password="#SESSION.dbpw#">
 				 
 				 </script>
 				 
-				<td class="labelmedium"><!--- <cf_tl id="Exchange">:---></td>
-				
-			   
-				
+				<td class="labelmedium"><!--- <cf_tl id="Exchange">:---></td>				
+			   				
 		  </tr>					 
 		
 		  <TR> 
-			 <TD width="158" class="labelmedium"><cf_tl id="Description">/<cf_tl id="Memo">:</TD>
+			 <TD width="158" class="labelmedium2"><cf_tl id="Description">/<cf_tl id="Memo">:</TD>
 	             <td align="left" colspan="3">
 				 
-				  <input type="text"   id="entryreference"     name="entryreference"     value="<cfoutput>#URL.entryreference#</cfoutput>"  class="regularxl" style="width:454px" maxlength="100">
+				  <input type="text"   id="entryreference"     name="entryreference"     value="<cfoutput>#URL.entryreference#</cfoutput>"  class="regularxxl" style="width:80%" maxlength="100">
 				  <input type="hidden" id="entryreferencename" name="entryreferencename" value="<cfoutput>#URL.entryreferencename#</cfoutput>" >
 				 
 				 </td>	
@@ -930,12 +963,12 @@ password="#SESSION.dbpw#">
 				  --->
 				 				 	
 												
-						  <TD class="labelmedium"><cf_tl id="Taxcode">:</TD>
+						  <TD class="labelmedium2"><cf_tl id="Taxcode">:</TD>
 				          <td align="left">
 						  
 							 <cfif url.taxcode neq "">
 						 				
-							 <select name="taxcode" id="taxcode" class="regularxl enterastab" style="width:170px">
+							 <select name="taxcode" id="taxcode" class="regularxxl enterastab" style="width:170px">
 					            <cfoutput query="Tax">
 					        	<option value="#TaxCode#" <cfif URL.taxcode eq TaxCode>selected</cfif>>
 								#TaxCode# #Description#</option>
@@ -944,7 +977,7 @@ password="#SESSION.dbpw#">
 							
 							<cfelse>
 							
-								<select name="taxcode" id="taxcode" class="regularxl enterastab" style="width:170px">
+								<select name="taxcode" id="taxcode" class="regularxxl enterastab" style="width:170px">
 					            <cfoutput query="Tax">
 					        	<option value="#TaxCode#" <cfif taxcode eq TaxCodeDefault>selected</cfif>>
 								#TaxCode# #Description#</option>
@@ -988,9 +1021,9 @@ password="#SESSION.dbpw#">
 					   </cfif>
 					   
 						<select name="entrycurrency" 
-						    id="entrycurrency" 
+						    id="entrycurrency" style="height:30px"
 							onchange="amountcalc('0')" 
-							class="regularxl enterastab" <cfoutput>#dis#</cfoutput>>
+							class="regularxxl enterastab" <cfoutput>#dis#</cfoutput>>
 						 <cfoutput query="CurrencySelect">
 					     <option value="#Currency#" <cfif URL.currency eq currency>selected</cfif>>#Currency#</option>
 						 </cfoutput> 
@@ -1009,8 +1042,8 @@ password="#SESSION.dbpw#">
 							   id="entryamount"
 						       value="<cfoutput>#URL.entryamount#</cfoutput>"
 						       size="10"
-						       class="regularxl calculator enterastab"
-							   style="width:110px;padding-top:1px;text-align: right;padding-right:4px"		
+						       class="regularxxl calculator enterastab"
+							   style="height:30px;width:110px;padding-top:1px;text-align: right;padding-right:4px"		
 							   onkeyup="amountcalc('0')" 					  
 						       onblur="curformat(this.value)">
 

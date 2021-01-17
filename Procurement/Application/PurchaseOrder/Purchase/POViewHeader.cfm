@@ -1105,38 +1105,36 @@
 					 AND      Mission        = '#PO.Mission#' 
 		</cfquery>
 		
-		
 			
 	 <cfif CheckMission.WorkflowEnabled eq "1">		  	  
 		
 		  <tr><td colspan="2" style="padding-top:3px">
+		  
+			   <cf_ActionListingScript>
+			   <cf_FileLibraryScript>
 			
-				<table width="99%" style="border:0px dotted silver" border="0" cellspacing="0" cellpadding="0" align="center">
+				<table width="99%" align="center">
 					<tr>
-					<td>	
-												
-					<cf_ActionListingScript>
-				    <cf_FileLibraryScript>
-					
+					<td id="#URL.ID1#">	
+																
 					<cfoutput>
 			   
 					    <cfset wflnk = "POViewWorkflow.cfm">
-				   
+										   
 					    <input type  = "hidden" 
 						       id    = "workflowlink_#URL.ID1#"
-				    	       name  = "workflowlink_#URL.ID1#" 
 					           value = "#wflnk#"> 
 							
 						<input type="button" 
-							   class  = "hide"
-						       name   = "workflowlinkprocess_#url.id1#" 
+							   class  = "hide"						      
 							   id     = "workflowlinkprocess_#url.id1#"
 						       onClick= "ptoken.navigate('PurchaseStatus.cfm?role=#url.role#&header=#url.header#&purchaseno=#url.id1#','postatus')">
-				 
-				    	<cf_securediv id="#URL.ID1#" bind="url:#wflnk#?ajaxid=#URL.ID1#">
-					 
+							   
+						<cfset url.ajaxid = url.id1>
+						<cfinclude template="POViewWorkflow.cfm">	   
+				 											 
 					 </cfoutput>
-					 
+					 					 
 					 </td>
 					 </tr>
 				 </table>

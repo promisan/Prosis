@@ -17,7 +17,7 @@
 		<tr>
 			<td colspan="2" class="labellarge">#ucase(MissionType)#</b></td>
 		</tr>
-		<tr><td colspan="2" class="linedotted"></td></tr>
+		<tr><td colspan="2" class="line"></td></tr>
 		<tr>
 			<td width="10"></td>
 			<td>
@@ -31,9 +31,9 @@
 							<cfif mission eq selected>
 								<cfset vStyle = "background-color:F2BB99;">
 							</cfif>
-							<td class="labelmedium" width="#100/maxCols#%" style="#vStyle#" id="td_#trim(replace(mission,'-','_','ALL'))#">
+							<td class="labelmedium2" width="#100/maxCols#%" style="#vStyle#" id="td_#trim(replace(mission,'-','_','ALL'))#">
 								<label onclick="selectEntity('#trim(replace(mission,'-','_','ALL'))#','F2BB99');">
-								<input type="Checkbox" name="mission_#trim(replace(mission,'-','_','ALL'))#" id="mission_#trim(replace(mission,'-','_','ALL'))#" <cfif mission eq selected>checked</cfif>> #Mission#
+								<input type="Checkbox" class="radiol" name="mission_#trim(replace(mission,'-','_','ALL'))#" id="mission_#trim(replace(mission,'-','_','ALL'))#" <cfif mission eq selected>checked</cfif>> #Mission#
 								</label>
 							</td>
 							<cfif cnt eq maxCols>

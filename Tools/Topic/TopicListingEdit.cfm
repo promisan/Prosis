@@ -58,7 +58,7 @@
 			def    = document.getElementById('ListDefault').value;
 			op     = document.getElementById('Operational').value
 			
-			ColdFusion.navigate('#SESSION.root#/tools/topic/ListSubmit.cfm?systemmodule='+smodule+'&code='+tcode+'&alias='+alias+'&listOrder='+order+'&listCode='+code+'&listValue='+value+'&listDefault='+def+'&operational='+op+'&id2='+action,id,'','','POST','listform');
+			ptoken.navigate('#SESSION.root#/tools/topic/ListSubmit.cfm?systemmodule='+smodule+'&code='+tcode+'&alias='+alias+'&listOrder='+order+'&listCode='+code+'&listValue='+value+'&listDefault='+def+'&operational='+op+'&id2='+action,id,'','','POST','listform');
 			
 		}
 	 
@@ -96,7 +96,7 @@ password="#SESSION.dbpw#">
 	
 	<cfform method="POST" name="edittopic" action="#SESSION.root#/tools/topic/TopicListingSubmit.cfm?#link#&id2=#Code#" onsubmit="return save()">
 
-		<table width="90%" cellspacing="0" align="center">  	
+		<table width="90%" cellspacing="0" align="center" class="formpadding formspacing">  	
 				
 				<tr><td height="6"></td></tr>
 				<tr>
@@ -107,7 +107,7 @@ password="#SESSION.dbpw#">
 						
 					<cfelse>
 					
-						<td class="labelmedium"><cf_tl id="Entity">:</td>
+						<td class="labelmedium2"><cf_tl id="Entity">:</td>
 						
 						 <cfquery name="Mis" 
 							datasource="#alias#" 
@@ -122,7 +122,7 @@ password="#SESSION.dbpw#">
 							
 						  <TD>
 						  
-						 		<select name="mission" id="mission" class="regularxl">
+						 		<select name="mission" id="mission" class="regularxxl">
 									<option value="" selected>[Any]</option>
 									<cfloop query="Mis">
 									<option value="#Mission#" <cfif Topic.Mission eq Mis.Mission>selected</cfif>>#Mission#</option>
@@ -137,23 +137,23 @@ password="#SESSION.dbpw#">
 				
 				<!---		
 				<tr>
-					<td class="labelmedium"><cf_tl id="Class">:</td>
+					<td class="labelmedium2"><cf_tl id="Class">:</td>
 					<td>#TopicClass#</td>
 				</tr>		
 				--->
 				
 				<tr>		
-					<td class="labelmedium">
+					<td class="labelmedium2">
 						<input type="hidden" value="#TopicClass#" name="TopicClass" id="TopicClass">
 						<cf_tl id="Code">:
 					</td>		
-					<td class="labelmedium">#Code#</td>
+					<td class="labelmedium2">#Code#</td>
 				</tr>
 						
 				<cfif systemmodule eq "Roster">
 				
 					<tr>
-					<td width="140" class="labelmedium"><cf_tl id="Source">:</td>	
+					<td width="140" class="labelmedium2"><cf_tl id="Source">:</td>	
 					<td width="80%">		  
 					
 						<cfquery name="RSource" 
@@ -164,7 +164,7 @@ password="#SESSION.dbpw#">
 							FROM   Ref_Source	  
 						 </cfquery>	 
 						 
-						 <select name="source" id="source" class="regularxl">
+						 <select name="source" id="source" class="regularxxl">
 						 
 							  <cfloop query="RSource">
 							  	 <option value="#Source#" <cfif Topic.Source eq Source>selected</cfif>><cfif Description neq "">#Description#<cfelse>#Source#</cfif></option>
@@ -179,7 +179,7 @@ password="#SESSION.dbpw#">
 							
 				<tr>
 						
-					<td class="labelmedium"><cf_tl id="Sort">:</td>			
+					<td class="labelmedium2"><cf_tl id="Sort">:</td>			
 					<td><cfinput type="Text" 
 					         value="#ListingOrder#" 
 							 validate="integer"
@@ -188,7 +188,7 @@ password="#SESSION.dbpw#">
 							 required="Yes" 				 
 							 style="text-align:center;width:30" 
 							 maxlength="3" 
-							 class="regularxl">
+							 class="regularxxl">
 					</td>
 				
 				</tr>
@@ -205,7 +205,7 @@ password="#SESSION.dbpw#">
 				
 				<tr>
 				
-					<td class="labelmedium" valign="top" style="padding-top:3px"><cf_tl id="Label">:</td>		
+					<td class="labelmedium2" valign="top" style="padding-top:8px"><cf_tl id="Label">:</td>		
 					<td>
 					
 						<cfif language eq "yes">
@@ -222,7 +222,7 @@ password="#SESSION.dbpw#">
 								Message       = "Please enter a topic label"						
 								MaxLength     = "30"
 								Size          = "20"
-								Class         = "regularxl">
+								Class         = "regularxxl">
 						
 						<cfelse>
 						
@@ -234,7 +234,7 @@ password="#SESSION.dbpw#">
 								 required     = "Yes" 
 								 size         = "20" 							 				 
 								 maxlength    = "30" 
-								 class        = "regularxl">		
+								 class        = "regularxxl">		
 							 
 						</cfif>	 	 			 
 							 
@@ -244,7 +244,7 @@ password="#SESSION.dbpw#">
 				
 				<tr>
 				
-					<td class="labelmedium" valign="top" style="padding-top:3px"><cf_tl id="Description">:</td>				 
+					<td class="labelmedium2" valign="top" style="padding-top:8px"><cf_tl id="Description">:</td>				 
 					<td>
 					
 						<cfif language eq "yes">
@@ -261,7 +261,7 @@ password="#SESSION.dbpw#">
 								Message         = "Please enter a topic description"
 								MaxLength       = "50"						
 								Size            = "50"
-								Class           = "regularxl">
+								Class           = "regularxxl">
 						
 						<cfelse>
 						
@@ -272,7 +272,7 @@ password="#SESSION.dbpw#">
 								 Value	= "#Description#"
 								 size="50" 									 
 								 maxlength="60" 
-								 class="regularxl">		
+								 class="regularxxl">		
 							 
 						</cfif>	 	 			 
 							 
@@ -281,7 +281,7 @@ password="#SESSION.dbpw#">
 				</tr>
 				
 				<tr valign="top">
-					<td class="labelmedium"><cf_tl id="Tooltip">:</td>
+					<td style="padding-top:8px" class="labelmedium2"><cf_tl id="Tooltip">:</td>
 					<td>
 						 	<cfif language eq "yes">
 					
@@ -297,7 +297,7 @@ password="#SESSION.dbpw#">
 									MaxLength       = "200"							
 									Size            = "40"
 									Rows            = "2"
-									Class           = "regular">
+									Class           = "regularxxl">
 						
 							<cfelse>
 								<textarea name="Tooltip" cols="50" id="Tooltip" maxlength="200" style="font-size:14;padding:3px" class="regular" onkeyup="return ismaxlength(this)" >#Tooltip#</textarea>
@@ -307,7 +307,7 @@ password="#SESSION.dbpw#">
 								
 				<tr>
 				
-					<td class="labelmedium"><cf_tl id="Field Type">:</td>  		
+					<td style="width:150px;max-width:150px" class="labelmedium2"><cf_tl id="Field Type">:</td>  		
 					<td>
 					
 				       <table cellspacing="0" cellpadding="0">
@@ -358,7 +358,7 @@ password="#SESSION.dbpw#">
 							<table id="list3" class="#cl#"><tr><td>						
 							<input type="Checkbox" class="radiol" name="ValueMultiple" id="ValueMultiple" value="1" <cfif ValueMultiple eq 1>checked</cfif>>	
 							</td>
-							<td class="labelmedium">Multiple</td>
+							<td class="labelmedium2">Multiple</td>
 							</tr></table>		
 															 
 							 </td>			 		
@@ -378,11 +378,11 @@ password="#SESSION.dbpw#">
 				
 				<tr class="<cfoutput>#cl#</cfoutput>" id="lookup">
 					
-					<td colspan="2" style="padding-left:37px">
-					<table cellspacing="0" cellpadding="0" class="formpadding">
+					<td colspan="2" style="padding-left:38px">
+					<table class="formpadding">
 										
 							<tr>
-							<TD class="labelmedium" width="120" style="padding-right:6px">Datasource:</TD>
+							<TD class="labelmedium2" width="120" style="padding-right:6px">Datasource:</TD>
 							<TD>
 							
 								<cfset ds = "#ListDataSource#">
@@ -414,7 +414,7 @@ password="#SESSION.dbpw#">
 															
 							<tr>
 							
-								<TD class="labelmedium" width="120" style="padding-right:6px">Table:</TD>
+								<TD class="labelmedium2" width="120" style="padding-right:6px">Table:</TD>
 								<TD>
 								
 							  <cfinput type="Text"
@@ -447,31 +447,24 @@ password="#SESSION.dbpw#">
 				</tr>				
 				
 				<tr>		
-					<td class="labelmedium"><cf_tl id="Obligatory">:</td>		   
+					<td class="labelmedium2"><cf_tl id="Obligatory">:</td>		   
 				    <td><input type="Checkbox" class="radiol" name="ValueObligatory" id="ValueObligatory" value="1" <cfif ValueObligatory eq 1>checked</cfif>></td> 			   			
 				</tr>
 				
 				<tr>		
-					<td class="labelmedium"><cf_tl id="Attachment">:</td>		   
+					<td class="labelmedium2"><cf_tl id="Attachment">:</td>		   
 				    <td><input type="Checkbox" class="radiol" name="Attachment" id="Attachment" value="1" <cfif Attachment eq 1>checked</cfif>></td> 			   			
 				</tr>
 				
 				<tr>
-					<td class="labelmedium"><cf_tl id="Operational">:</td>	
+					<td class="labelmedium2"><cf_tl id="Operational">:</td>	
 					<td><input type="Checkbox" class="radiol" name="Operational" id="Operational" value="1" <cfif Operational eq 1>checked</cfif>></td>		
 				</tr>
 																   
 				
 				<tr>	
-				<td  class="line" colspan="2" height="30" align="center">
-				
-						<input type     = "submit" 
-								value   = "Save" 
-								name    = "Save"
-								onclick = "doSubmit()"
-								style   = "width:130px;height:25px"
-								class   = "button10g">
-		
+				<td  class="line" colspan="2" height="30" align="center">				
+						<input type = "submit" value = "Save" name = "Save"	onclick = "doSubmit()" class = "button10g">		
 				</td>			    
 				</tr>		
 										
@@ -487,7 +480,8 @@ password="#SESSION.dbpw#">
 									
 </td></tr>
 
-<tr id="list1" class="#cl#"><td height="1" colspan="2"></td></tr>   
+<tr id="list1" class="#cl#"><td height="1" colspan="2"></td></tr> 
+  
 <tr id="list2" class="#cl#" height="100%" width="96%" align="center">
 				
    <td width="100%" height="100%" valign="top" colspan="2" align="center" style="padding:2px;border:1px dotted silver;" id="#code#_list">

@@ -1,5 +1,3 @@
-<cf_screentop height="100%" scroll="Yes" html="No" jquery="Yes">
-<cf_divscroll>
 
 <cfquery name="SearchResult"
 datasource="AppsMaterials" 
@@ -10,22 +8,25 @@ password="#SESSION.dbpw#">
 	ORDER BY ListingOrder
 </cfquery>
 
+<cf_screentop html="No" jquery="Yes">
+
 <cfset Page         = "0">
 <cfset add          = "0">
-<cfinclude template = "../HeaderMaintain.cfm"> 
 
-<table width="96%"  border="0" align="center" bordercolor="silver" cellspacing="0" cellpadding="0">  
+<table height="100%" width="99%" align="center">
+
+<tr><td style="height:10px"><cfinclude template = "../HeaderMaintain.cfm"></td></tr>
 
 <cfoutput>
 
 <script>
 
 function recordadd(grp) {
-          window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "AddAreaGLedger", "left=80, top=80, width= 450, height= 250, toolbar=no, status=no, scrollbars=no, resizable=yes");
+     ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "AddAreaGLedger", "left=80, top=80, width= 450, height= 250, toolbar=no, status=no, scrollbars=no, resizable=yes");
 }
 
 function recordedit(id1) {
-          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "EditAreaGLedger", "left=80, top=80, width= 450, height= 250, toolbar=no, status=no, scrollbars=no, resizable=yes");
+     ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "EditAreaGLedger", "left=80, top=80, width= 450, height= 250, toolbar=no, status=no, scrollbars=no, resizable=yes");
 }
 
 </script>	
@@ -34,9 +35,11 @@ function recordedit(id1) {
 	
 <tr><td colspan="2">
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding navigation_table">
+<cf_divscroll>
 
-<tr class="labelmedium line">
+<table width="100%" align="center" class="formpadding navigation_table">
+
+<tr class="labelmedium2 line">
     <TD></TD> 
     <TD><cf_tl id="Code"></TD>
 	<td><cf_tl id="Description"></td>
@@ -47,8 +50,8 @@ function recordedit(id1) {
 
 <cfoutput query="SearchResult">
     
-    <TR class="labelmedium line navigation_row"> 
-	<td height="20" width="5%" align="center" style="padding-top:3px;">
+    <TR class="labelmedium2 line navigation_row"> 
+	<td height="20" width="5%" align="center" style="padding-top:1px;">
 		<cf_img icon="open" onclick="recordedit('#Area#');" navigation="Yes">
 	</td>		
 	<TD>#Area#</TD>
@@ -61,9 +64,10 @@ function recordedit(id1) {
 
 </TABLE>
 
+</cf_divscroll>
+
 </td>
 </tr>
 
 </TABLE>
 
-</cf_divscroll>

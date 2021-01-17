@@ -98,17 +98,16 @@
 	  	  
 	  </cfif>
 	 	 	 	 
-	    <tr>
-	        <td width="40" rowspan="2" align="center">       
+	    <tr style="cursor:pointer">
+	        <td style="min-width:50px" align="center">       
 			  <cfinclude template="submenuImages.cfm">		
 			</td>
-			<td width="80%" style="padding-left:2px;height:23px;font-size:22px" class="labelmedium"><a>#FunctionName#</a></td>   
+			<td width="100%" style="padding-left:7px;font-size:16px" class="labelmedium">#FunctionName#</td>   
+			<td style="font-size:12px;min-width:20%;padding-right:5px;padding-top:2px" align="right" valign="top">#FunctionMemo#</td>
+			
         </tr>
 				       
-		<tr> 
-	       <td width="80%" style="padding-left:20px;height:20px" class="labelit">#FunctionMemo#</td>
-        </tr>	
-		     
+				     
      </table>
 	 	   
      </td>
@@ -136,18 +135,16 @@
 	  	  	  
 	  </cfif>
      	 	   
-     <td style="width:20px;" align="center" rowspan="2">	      
+     <td style="width:20px;" align="center">	      
     	 <cfinclude template="submenuImages.cfm">    
      </td>
   
-     <td width="47%" style="padding-left:2px" class="labelmedium"><b>#FunctionName#</b></td>
+     <td width="47%" style="padding-left:2px;height:23px;font-size:16px" class="labelmedium">#FunctionName#</td>
+	 <td align="right" style="padding-right:10px">#FunctionMemo#</td>
     	    
      </tr> 
   
-     <tr> 
-       <td colspan="3" style="padding-left:20px">#FunctionMemo#</td>
-     </tr>
-	 	    
+    	 	    
      </table>
     
      </td></tr> 

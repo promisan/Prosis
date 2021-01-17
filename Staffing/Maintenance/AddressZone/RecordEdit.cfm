@@ -1,8 +1,7 @@
 <cfparam name="url.idmenu" default="">
 
 <cf_screentop height="100%" 
-			  label="Address Zone" 
-			  option="Address Zone Maintenance" 
+			  label="Address Zone" 			 
 			  scroll="Yes" 
 			  layout="webapp"
 			  banner="yellow" 
@@ -42,16 +41,18 @@ function ask() {
 
 <!--- edit form --->
 
-<table width="94%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
-		
-	<CFFORM action="RecordSubmit.cfm" method="post" name="dialog">
+<CFFORM action="RecordSubmit.cfm" method="post" name="dialog">
+
+<table width="94%" align="center" class="formpadding formspacing">
+
+	<tr><td style="height:15px"></td>
 
 	 <cfoutput>
 	 <TR>
-	 <TD class="labelit">Code:&nbsp;</TD>  
-	 <TD class="labelit">
+	 <TD class="labelmedium2">Code:</TD>  
+	 <TD>
 	 	<cfif VerifyDeleteUpdate.recordCount eq 0>
-		 	<cfinput type="Text" name="Code" value="#get.Code#" message="Please enter a code" required="Yes" size="20" maxlength="20" class="regularxl">
+		 	<cfinput type="Text" name="Code" value="#get.Code#" message="Please enter a code" required="Yes" size="20" maxlength="20" class="regularxxl">
 		<cfelse>
 			#get.Code#
 			<input type="hidden" name="Code" value="#get.Code#">
@@ -62,7 +63,7 @@ function ask() {
 	 
 	 <!--- Field: Mission --->
     <TR>
-    <TD class="labelit">Mission:&nbsp;</TD>
+    <TD class="labelmedium2">Mission:</TD>
     <TD>
   	  	<cfquery name="getLookup" 
 			datasource="AppsEmployee" 
@@ -71,7 +72,7 @@ function ask() {
 			SELECT *
 			FROM Ref_ParameterMission
 		</cfquery>
-		<select name="mission" class="regularxl">
+		<select name="mission" class="regularxxl">
 			<cfloop query="getLookup">
 			  <option value="#getLookup.mission#" <cfif getLookup.mission eq #get.mission#>selected</cfif>>#getLookup.mission#</option>
 		  	</cfloop>
@@ -82,14 +83,15 @@ function ask() {
 
 	 <!--- Field: Description --->
     <TR>
-    <TD class="labelit">Description:&nbsp;</TD>
+    <TD class="labelmedium2">Description:&nbsp;</TD>
     <TD>
-  	  	<cfinput type="Text" name="description" value="#get.description#" message="Please enter a description" required="Yes" size="30" maxlength="50" class="regularxl">
+  	  	<cfinput type="Text" name="description" value="#get.description#" message="Please enter a description" required="Yes" size="30" maxlength="50" class="regularxxl">
 				
     </TD>
 	</TR>
 	
-	<tr><td colspan="2" class="linedotted"></td></tr>
+	<tr><td colspan="2" class="line"></td></tr>
+	
 	<tr><td colspan="2" align="center" height="30">
 	<input class="button10g" type="button" name="Cancel" value=" Cancel " onClick="window.close()">	
 	<cfif VerifyDeleteUpdate.recordCount eq 0><input class="button10g" type="submit" name="Delete" value=" Delete " onclick="return ask()"></cfif>
@@ -97,6 +99,8 @@ function ask() {
 	</td></tr>
 	
 </cfoutput>
+
+</TABLE>
+
 </CFFORM>
     	
-</TABLE>

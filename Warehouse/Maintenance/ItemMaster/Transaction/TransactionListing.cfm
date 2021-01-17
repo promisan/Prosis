@@ -96,11 +96,11 @@
 			   T.ActionStatus,
 			   T.GLAccountDebit,  
                T.GLAccountCredit,
-               T.OfficerFirstName+' '+T.OfficerLastName AS Officer,
+               T.OfficerLastName AS Officer,
 			   T.Created
 	INTO userquery.dbo.#SESSION.acc#_ItemTransaction_item		   
 	#preservesingleQuotes(sqlbody)#		
+	
 </cfquery>
-	
-	
+		
 <cfinclude template="TransactionListingContent.cfm">	

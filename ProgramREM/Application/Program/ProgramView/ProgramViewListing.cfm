@@ -11,7 +11,8 @@
 		FROM  	tmp#SESSION.acc#Program
 		WHERE   ShowUnit is not NULL	 			
 	</cfsavecontent>	
-		  
+	
+			  
 </cfoutput>
 
 <!--- show person, status processing color and filter on raise by me --->
@@ -24,58 +25,57 @@
 
 <cfset itm = itm+1>								
 <cfset fields[itm] = {label      = "Code",                     				
-					field      = "ProgramCode",												
-					search     = "text"}>		
+					  field      = "ProgramCode",												
+					  search     = "text"}>		
 
 <cfset itm = itm+1>
 <cfset fields[itm] = {label      = "Reference",                   
-					field      = "Reference",					
-					search     = "text"}>
+					  field      = "Reference",					
+					  search     = "text"}>
 					
 <cfset itm = itm+1>					
 <cfset fields[itm] = {label      = "Class",                  			
-					field      = "ProgramClass",
-					filtermode = "2",  
-					search     = "text"}>								
+					  field      = "ProgramClass",
+					  filtermode = "2",  
+					  search     = "text"}>								
 
 <cfset itm = itm+1>					
 <cfset fields[itm] = {label      = "Name", 
-                    width      = "50", 					
-					field      = "ProgramName",
-					search     = "text"}>	
+                      width      = "50", 					
+					  field      = "ProgramName",
+					  search     = "text"}>	
 					
 <cfset itm = itm+1>					
 <cfset fields[itm] = {label      = "Scope",                  			
-					field      = "ProgramScope",
-					filtermode = "2",  
-					search     = "text"}>							
+					  field      = "ProgramScope",
+					  filtermode = "3",  
+					  search     = "text"}>							
 
 <cfset itm = itm+1>					
 <cfset fields[itm] = {label      = "Unit", 
-                    width      = "40", 					
-					field      = "OrgUnitName",
-					filtermode = "2",  
-					search     = "text"}>	
+                      width      = "40", 					
+					  field      = "OrgUnitName",
+					  fieldsort  = "HierarchyCode",
+					  filtermode = "3",  
+					  search     = "text"}>	
 					
 <cfset itm = itm+1>					
 <cfset fields[itm] = {label      = "Officer",                    			
-					field      = "OfficerLastName",
-					filtermode = "2",  
-					search     = "text"}>		
+					  field      = "OfficerLastName",
+					  filtermode = "3",  
+					  search     = "text"}>		
 					
 <cfset itm = itm+1>					
 <cfset fields[itm] = {label      = "Recorded",                    			
-					field      = "Created",					 
-					formatted  = "dateformat(Created,CLIENT.DateFormatShow)",
-					search     = "date"}>																	
+					  field      = "Created",					 
+					  formatted  = "dateformat(Created,CLIENT.DateFormatShow)",
+					  search     = "date"}>																	
 					
 	
-<table width="100%" height="100%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
-<tr><td style="padding-bottom:10px">
 									
 <cf_listing
-    header        = "lsPurchase"
-    box           = "lsPurchase"
+    header        = "lsProgram_#url.period#"
+    box           = "lsProgram_#url.period#"
 	link          = "#SESSION.root#/ProgramREM/Application/Program/ProgramView/ProgramViewListing.cfm?period=#url.period#"	
     html          = "No"
 	show          = "40"
@@ -93,5 +93,3 @@
 	drilltemplate = "ProgramREM/Application/Program/ProgramView.cfm?period=#url.period#&programcode="
 	drillkey      = "ProgramCode">
 
-</td></tr>
-</table>

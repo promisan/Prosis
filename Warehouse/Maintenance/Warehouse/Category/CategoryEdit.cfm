@@ -29,7 +29,7 @@ password="#SESSION.dbpw#">
 	
 	<!--- Entry form --->
 		
-	<table class="formpadding">
+	<table class="formpadding formspacing">
 	
 		<cfoutput>
 	   
@@ -67,22 +67,7 @@ password="#SESSION.dbpw#">
 		<input type="hidden" name="CategoryOld" id="CategoryOld" value="<cfoutput>#Get.Category#</cfoutput>">
 		<input type="hidden" name="Warehouse" ID="Warehouse" value="<cfoutput>#url.id1#</cfoutput>">
 			
-		<!--- Field: Operational --->
-	    <TR>
-	    <TD class="labelmedium"><cf_tl id="Enabled">:</TD>
-	    <TD class="labelmedium" style="height:25px">		
 		
-		    <table>
-			<tr class="labelmedium">
-			<td><input type="radio" class="radiol" name="Operational" id="Operational" <cfif Get.Operational eq "1" or url.id2 eq "">checked</cfif> value="1"></td>
-			<td style="padding-left:4px">#vYes#</td>
-			<td style="padding-left:5px"><input type="radio" class="radiol" name="Operational" id="Operational" <cfif Get.Operational eq "0">checked</cfif> value="0"></td>
-			<td style="padding-left:4px">No</td>	
-			</tr>		
-			</table>
-			
-		</TD>
-		</TR>	
 		
 		<!--- Field: Oversale --->
 	    <TR>
@@ -162,6 +147,23 @@ password="#SESSION.dbpw#">
 					
 		</TD>
 		</TR>	 
+		
+		<!--- Field: Operational --->
+	    <TR>
+	    <TD class="labelmedium"><cf_tl id="Enabled">:</TD>
+	    <TD class="labelmedium" style="height:25px">		
+		
+		    <table>
+			<tr class="labelmedium">
+			<td><input type="radio" class="radiol" name="Operational" id="Operational" <cfif Get.Operational eq "1" or url.id2 eq "">checked</cfif> value="1"></td>
+			<td style="padding-left:4px">#vYes#</td>
+			<td style="padding-left:5px"><input type="radio" class="radiol" name="Operational" id="Operational" <cfif Get.Operational eq "0">checked</cfif> value="0"></td>
+			<td style="padding-left:4px">No</td>	
+			</tr>		
+			</table>
+			
+		</TD>
+		</TR>	
 		 
 		</cfoutput>
 	</table>	

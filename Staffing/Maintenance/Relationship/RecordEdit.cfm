@@ -37,31 +37,29 @@ function ask() {
 	
     <cfoutput>
     <TR>
-    <TD class="labelit">Code:</TD>
+    <TD class="labelmedium2">Code:</TD>
     <TD>
-  	   <input type="text" name="Relationship" value="#get.Relationship#" size="20" maxlength="20" class="regularxl">
+  	   <input type="text" name="Relationship" value="#get.Relationship#" size="20" maxlength="20" class="regularxxl">
 	   <input type="hidden" name="RelationshipOld" value="#get.Relationship#" size="20" maxlength="20" readonly>
     </TD>
 	</TR>
 	
 	 <TR>
-    <TD class="labelit">Descriptive:</TD>
+    <TD class="labelmedium2">Descriptive:</TD>
     <TD>
-  	   <input type="text" name="Description" value="#get.Description#" size="30" maxlength="50" class="regularxl">
+  	   <input type="text" name="Description" value="#get.Description#" size="30" maxlength="50" class="regularxxl">
 	   
     </TD>
 	</TR>
 			
 	</cfoutput>
-	
-	<tr><td colspan="2" class="linedotted"></td></tr>
-	
+		
 	<tr>
 		
 	<td align="center" colspan="2" height="40">
-	<input class="button10g" type="button" style="width:80" name="Cancel" value="Cancel" onClick="window.close()">
-    <input class="button10g" type="submit" style="width:80" name="Delete" value="Delete" onclick="return ask()">
-    <input class="button10g" type="submit" style="width:80" name="Update" value="Update">
+	<input class="button10g" type="button" name="Cancel" value="Cancel" onClick="window.close()">
+    <input class="button10g" type="submit" name="Delete" value="Delete" onclick="return ask()">
+    <input class="button10g" type="submit" name="Update" value="Update">
 	</td>	
 	
 	</tr>

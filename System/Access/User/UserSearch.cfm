@@ -1,16 +1,15 @@
 
-<cf_screentop html="No">
+<cf_screentop html="No" jquery="Yes">
 
 <cfajaximport tags="cfform">
 
 <cfset Page         = "0">
 <cfset add          = "0">
 <cfset save         = "0"> 
-<cfset menu         = "0"> 
+<cfset menu         = "1"> 
 <cfinclude template = "../HeaderMaintain.cfm"> 
 
 <p align="center"></p>
-<p>&nbsp;</p>
 
 <script>
   function user() {
@@ -79,7 +78,8 @@
 				FROM            UserNames
 				</cfquery>
 				
-				<select name="Source" class="regularxl enterastab">			
+				<select name="Source" class="regularxl enterastab">		
+				    <option value=""><cf_tl id="Any"></option>	
 					<cfloop query="SourceList">
 					<option value="#Source#" <cfif session.userselect[13] eq "#Source#">selected</cfif>>#Source#</option>
 					</cfloop>			
@@ -124,7 +124,25 @@
 			</cfselect> 		
 			
 			</TD>
-			</TR>				
+			</TR>		
+			
+			<cfparam name="session.userselect[12]" default="">	
+			
+			<TR>
+			<TD class="labelmedium"><cf_tl id="Employee">:</TD>
+			<TD class="labelmedium">
+			     <table>
+					<tr>
+					<td style="padding-left:0px"><input type="radio" class="radiol enterastab" name="isEmployee" id="isEmployee" value="0" <cfif session.userselect[12] eq "0">checked></cfif></td>
+					<td class="labelmedium" style="padding-left:3px">No</td>
+					<td style="padding-left:3px"><input type="radio" class="radiol enterastab" name="isEmployee" id="isEmployee" value="1" <cfif session.userselect[12] eq "1">checked></cfif></td>
+					<td class="labelmedium" style="padding-left:3px">has staff record</td>
+				    <td style="padding-left:3px"><input type="radio" class="radiol enterastab" name="isEmployee" id="isEmployee" value="" <cfif session.userselect[12] eq "">checked></cfif></td>
+					<td class="labelmedium" style="padding-left:3px">NA</td>
+					</tr>
+				</table>
+			</TD>
+			</TR>			
 																														
 			<cfparam name="session.userselect[1]" default="">	  			
 												
@@ -254,23 +272,7 @@
 			</TD>
 			</TR>	
 			
-			<cfparam name="session.userselect[12]" default="">	
 			
-			<TR>
-			<TD class="labelmedium"><cf_tl id="Employee Status">:</TD>
-			<TD class="labelmedium">
-			     <table>
-					<tr>
-					<td style="padding-left:0px"><input type="radio" class="radiol enterastab" name="isEmployee" id="isEmployee" value="0" <cfif session.userselect[12] eq "0">checked></cfif></td>
-					<td class="labelmedium" style="padding-left:3px">Not associated</td>
-					<td style="padding-left:3px"><input type="radio" class="radiol enterastab" name="isEmployee" id="isEmployee" value="1" <cfif session.userselect[12] eq "1">checked></cfif></td>
-					<td class="labelmedium" style="padding-left:3px">Employee</td>
-				    <td style="padding-left:3px"><input type="radio" class="radiol enterastab" name="isEmployee" id="isEmployee" value="" <cfif session.userselect[12] eq "">checked></cfif></td>
-					<td class="labelmedium" style="padding-left:3px">Both</td>
-					</tr>
-				</table>
-			</TD>
-			</TR>	
 			
 			<tr><td style="height:5px"></td></tr>
 			<tr><td colspan="2" style="padding-top:10px;height:45" class="labelmedium line">

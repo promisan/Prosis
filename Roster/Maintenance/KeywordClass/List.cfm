@@ -33,7 +33,7 @@ password="#SESSION.dbpw#">
 
 <cfparam name="URL.ID2" default="">
 <br>	
-<table width="90%" align="center"  cellspacing="0" cellpadding="0">
+<table width="90%" align="center">
 				
 		<cfif list.recordcount eq "0">
 		  <cfset url.id2 = "">
@@ -48,8 +48,7 @@ password="#SESSION.dbpw#">
 			   <td colspan="2" align="right">
 		       <cfoutput>
 				 <cfif URL.ID2 neq "">
-				     <A href="javascript:ColdFusion.navigate('List.cfm?Code=#URL.Code#&ID2=','#url.code#_list')">
-					 <font color="0080FF">[add]</font></a>
+				     <A href="javascript:ptoken.navigate('List.cfm?Code=#URL.Code#&ID2=','#url.code#_list')">[add]</a>
 				 </cfif>
 				 </cfoutput>&nbsp;
 			   </td>		  
@@ -70,9 +69,7 @@ password="#SESSION.dbpw#">
 				<tr>
 					<td colspan="7">
 					
-						<cfform action="ListSubmit.cfm?Code=#URL.Code#&id2=#url.id2#" 
-			    		method="POST" 
-						name="element">
+						<cfform action="ListSubmit.cfm?Code=#URL.Code#&id2=#url.id2#" method="POST" name="element">
 					
 						<table width="100%" align="center">
 						
@@ -154,24 +151,23 @@ password="#SESSION.dbpw#">
 					</td>
 				</tr>
 															
-			<cfelse>
-								
+			<cfelse>							
 						
-				<tr class="cellcontent linedotted">
-				   <td height="15" onclick="ColdFusion.navigate('List.cfm?Code=#URL.Code#&ID2=#nm#','#url.code#_list')">&nbsp;#nm#</td>
-				   <td onclick="ColdFusion.navigate('List.cfm?Code=#URL.Code#&ID2=#nm#','#url.code#_list')">#de#</td>
-				   <td onclick="ColdFusion.navigate('List.cfm?Code=#URL.Code#&ID2=#nm#','#url.code#_list')">#ls#</td>
+				<tr class="labelmedium2 line">
+				   <td height="15" onclick="_cf_loadingtexthtml='';ptoken.navigate('List.cfm?Code=#URL.Code#&ID2=#nm#','#url.code#_list')">&nbsp;#nm#</td>
+				   <td onclick="_cf_loadingtexthtml='';ptoken.navigate('List.cfm?Code=#URL.Code#&ID2=#nm#','#url.code#_list')">#de#</td>
+				   <td onclick="_cf_loadingtexthtml='';ptoken.navigate('List.cfm?Code=#URL.Code#&ID2=#nm#','#url.code#_list')">#ls#</td>
 				   <td><!--- <cfif def eq "1">Yes</cfif> ---></td>	
 				   <td align="center"><cfif op eq "0"><b>No</b><cfelse>Yes</cfif></td>
 				   <td align="right" style="padding-top:3px;">
-					   <cf_img icon="edit" onclick="ColdFusion.navigate('List.cfm?Code=#URL.Code#&ID2=#nm#','#url.code#_list');">
+					   <cf_img icon="edit" onclick="_cf_loadingtexthtml='';ptoken.navigate('List.cfm?Code=#URL.Code#&ID2=#nm#','#url.code#_list');">
 				   </td>
 			   				   
 				   <td align="center" width="50" style="padding-top:3px;">
 				     <cfif exist gte "1">
 					        #Exist#
 					 <cfelse>
-						   <cf_img icon="delete" onclick="ColdFusion.navigate('ListPurge.cfm?Code=#URL.Code#&ID2=#nm#','#url.code#_list');">
+						   <cf_img icon="delete" onclick="_cf_loadingtexthtml='';ptoken.navigate('ListPurge.cfm?Code=#URL.Code#&ID2=#nm#','#url.code#_list');">
 					 </cfif>	   
 					  
 				    </td>
@@ -187,9 +183,7 @@ password="#SESSION.dbpw#">
 			<tr>
 				<td colspan="7">
 				
-					<cfform action="ListSubmit.cfm?Code=#URL.Code#&id2=" 
-				    method="POST" 
-					name="element">
+					<cfform action="ListSubmit.cfm?Code=#URL.Code#&id2=" method="POST" name="element">
 				
 					<table align="center" width="100%">
 						<TR>
@@ -254,11 +248,7 @@ password="#SESSION.dbpw#">
 												   
 							<td colspan="2" align="center">
 							<cfoutput>
-							<input type="submit" 
-								value="Add" 
-								class="button10s" 
-								style="width:43">
-							
+							<input type="submit" value="Add" class="button10g" style="width:43px">							
 							</cfoutput>
 							</td>			    
 						</TR>	
@@ -271,6 +261,6 @@ password="#SESSION.dbpw#">
 											
 		</cfif>								
 </table>	
-<br>		
+	
 						
 

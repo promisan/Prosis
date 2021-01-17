@@ -44,6 +44,7 @@
 		</cfquery>
 
 		<cfselect name="HostName">
+		    <option value=""></option>
 			<cfoutput query="GetHost">
 				<option value="#HostName#" >#HostName#
 			</cfoutput>

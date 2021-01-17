@@ -1,8 +1,7 @@
 <cfparam name="url.idmenu" default="">
 
 <cf_screentop height="100%" 
-			  label="Address Type" 
-			  option="Maintain Address types" 
+			  label="Address Type" 			  
 			  banner="yellow" 
 			  scroll="Yes" 
 			  layout="webapp" 
@@ -42,7 +41,7 @@ function ask() {
     <TR>
     <TD class="labelmedium">Code:</TD>
     <TD class="labelmedium">
-  	   <input type="text" name="AddressType" value="#get.AddressType#" size="20" maxlength="20" class="regularxl">
+  	   <input type="text" name="AddressType" value="#get.AddressType#" size="20" maxlength="20" class="regularxxl">
 	   <input type="hidden" name="AddressTypeOld" value="#get.AddressType#" size="20" maxlength="20" readonly>
     </TD>
 	</TR>
@@ -62,7 +61,7 @@ function ask() {
 				Message         = "Please enter a description"
 				MaxLength       = "50"
 				Size            = "35"
-				Class           = "regularxl">	
+				Class           = "regularxxl">	
 		<!---
   	   <cfinput type="Text" name="Description" value="#get.description#" message="Please enter a description" required="Yes" size="35" maxlength="50" class="regularxl">	   
 	   --->
@@ -72,7 +71,7 @@ function ask() {
 	<TR>
     <TD class="labelmedium">Listing order:</TD>
     <TD class="labelmedium">
-  	   <cfinput type="Text" name="ListingOrder" value="#get.ListingOrder#" message="Please enter a description" required="Yes" size="1" maxlength="50" class="regularxl">
+  	   <cfinput type="Text" name="ListingOrder" value="#get.ListingOrder#" message="Please enter a description" required="Yes" size="1" maxlength="50" class="regularxxl">
     </TD>
 	</TR>
 	
@@ -88,7 +87,7 @@ function ask() {
 	<td class="labelmedium">Workflow Class:</td>
 	<td class="labelmedium">
 		
-		<select name="EntityClass" class="regularxl">
+		<select name="EntityClass" class="regularxxl">
 		    <option value="">N/A</option>
 			<cfloop query="WorkFlow">
 				<option value="#EntityClass#" <cfif get.EntityClass eq EntityClass>selected</cfif>>#EntityClassName#</option>

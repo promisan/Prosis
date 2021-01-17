@@ -69,9 +69,31 @@
 				
 			ORDER BY PeriodClass,DateEffective
 </cfquery>	
-		  						
-<select id="editionselect" name="editionselect" class="regularxl">						
-	<cfoutput query="editionList">
-		<option value="#editionid#" <cfif period eq url.period>selected</cfif>>#Description# <cfif period neq "">(#Period#)</cfif></option>
-	</cfoutput>
-</select>
+
+<table>
+
+<cfif editionlist.recordcount gte "1">
+	
+	<tr><td>
+			  						
+	<select id="editionselect" name="editionselect" class="regularxxl">						
+		<cfoutput query="editionList">
+			<option value="#editionid#" <cfif period eq url.period>selected</cfif>>#Description# <cfif period neq "">(#Period#)</cfif></option>
+		</cfoutput>
+	</select>
+	
+	</td></tr>
+	
+	<tr class="labelmedium2">					
+	   <td >Attention : select edition of which the requirement/budget lines would need to be inherited for the selected records</td>				
+	</tr>
+
+<cfelse>
+
+	<tr class="labelmedium2">					
+	   <td >No budget editions found</td>				
+	</tr>
+
+</cfif>
+
+</table>

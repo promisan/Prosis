@@ -29,20 +29,20 @@ function ask() {
 </script>
 
 
-<CFFORM action="RecordSubmit.cfm" method="post" enablecab="yes" name="dialog">
+<CFFORM action="RecordSubmit.cfm" method="post" name="dialog">
 
 <!--- edit form --->
 
-<table width="94%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="94%" align="center" class="formpadding">
 	 <cfoutput>
 	 <tr>
 		<td colspan="2" style="height:10px;"></td>
 	</tr>
 	
 	 <TR>
-	 <TD class="labelmedium" width="30%">Code:</TD>  
+	 <TD class="labelmedium2" width="30%">Code:</TD>  
 	 <TD>
-	 	<input type="Text" name="LanguageId" id="LanguageId" value="#get.LanguageId#" size="10" maxlength="10"class="regularxl">
+	 	<input type="Text" name="LanguageId" id="LanguageId" value="#get.LanguageId#" size="10" maxlength="10"class="regularxxl">
 		<input type="hidden" name="LanguageIdOld" id="LanguageIdOld" value="#get.LanguageId#" size="10" maxlength="10"class="regular">
 	 </TD>
 	 </TR>
@@ -51,9 +51,9 @@ function ask() {
 	 
     <!--- Field: Description --->
     <TR>
-    <TD class="labelmedium">Description:</TD>
+    <TD class="labelmedium2">Description:</TD>
     <TD>
-  	  	<input type="Text" name="LanguageName" id="LanguageName" value="#get.LanguageName#" message="Please enter a description" required="Yes" size="20" maxlength="20" class="regularxl">
+  	  	<input type="Text" name="LanguageName" id="LanguageName" value="#get.LanguageName#" message="Please enter a description" required="Yes" size="20" maxlength="20" class="regularxxl">
 	</TD>
 	</TR>
 	
@@ -67,17 +67,14 @@ function ask() {
 	  <input type="radio" name="LanguageClass" class="radiol" id="LanguageClass" value="Standard" <cfif get.LanguageClass eq "Standard">checked</cfif>>Standard
 	</TD>
 	</TR>
-
-
-	<tr><td colspan="2" height="4"></td></tr>
-	<tr><td colspan="2" class="linedotted"></td></tr>
-	<tr><td colspan="2" height="10"></td></tr>	
+	
+	<tr><td colspan="2" class="line"></td></tr>		
 	
 	<TR>
 		<td colspan="2" align="Center">
-		<input class="button10s" style="width:110px" type="button" name="Cancel" value=" Cancel " onClick="window.close()">
-		<input class="button10s" style="width:110px" type="submit" name="Delete" value=" Delete " onclick="return ask()">
-		<input class="button10s" style="width:110px" type="submit" name="Update" value=" Update ">
+		<input class="button10g" type="button" name="Cancel" value=" Cancel " onClick="window.close()">
+		<input class="button10g" type="submit" name="Delete" value=" Delete " onclick="return ask()">
+		<input class="button10g" type="submit" name="Update" value=" Update ">
 		</td>
 	</TR>
 	

@@ -121,6 +121,7 @@
 			     U.AccountType, 
 			     U.LastName, 
 				 U.AccountNo,
+				 U.ApplicantNo,
 				 U.MailServerAccount,
 				 U.MailServerDomain,
 			     U.FirstName, 
@@ -130,6 +131,14 @@
 			     U.PersonNo, 
 			     U.OfficerUserId,
 			     U.Created, 
+				 (SELECT  PersonNo 
+			      FROM    Employee.dbo.Person
+				  WHERE   PersonNo = U.PersonNo ) as StaffRecord,
+				  
+				  (SELECT  IndexNo
+			      FROM    Employee.dbo.Person
+				  WHERE   PersonNo = U.PersonNo ) as StaffIndexNo,
+				  
 				 (SELECT  ApplicantNo 
 			      FROM    Applicant.dbo.ApplicantSubmission
 				  WHERE   ApplicantNo = U.ApplicantNo ) as NaturalPerson,
@@ -372,9 +381,10 @@
 					<td height="22" style="width:40px"></td>
 					<td style="min-width:200px"><cf_tl id="Name"></td>
 					<td width="100"><cf_tl id="Account"></td>
-					<td width="130"><cf_tl id="Network"></td>
-					<td style="min-width:120px"><cf_tl id="IndexNo"></td>
 					<td><cf_tl id="Managed"></td>
+					<td width="130"><cf_tl id="Network"></td>
+					<td style="min-width:120px"><cfoutput>#client.indexNoName#</cfoutput></td>
+					
 					<td style="min-width:120px"><cf_tl id="eMail"></td>
 					<td><cf_tl id="Group"></td>
 					<td style="min-width:120px"><cf_tl id="Last logon"></td>
@@ -432,13 +442,13 @@
 						    <cfif AccountType eq "Group">
 							
 						        <td style="width:24;padding-left:6px;padding:1px" class="navigation_action" onclick="UserEdit('#Account#')">								 
-								  <cf_img icon="select">										     									 
+								  <cf_img icon="open">										     									 
 								</td>
 								
 						   <cfelse>
 						   
 						        <td style="width:24;padding-left:6px;padding-top:1px" class="navigation_action" onclick="UserEdit('#Account#')">				
-								  <cf_img icon="select">							   				 
+								  <cf_img icon="open">							   				 
 								</td>    	 
 								 
 						   </cfif>	
@@ -456,15 +466,20 @@
 				
 				   <TD><a href="javascript:ShowUser('#URLEncodedFormat(Account)#')">#LastName#<cfif firstname neq "">, #FirstName#</cfif></a></td> 
 				   <TD style="padding-right:5px">#Account#</TD>  
-				   <TD style="padding-right:5px"><cfif mailserverdomain neq "">#MailServerDomain#/</cfif>#MailServerAccount#</TD> 
-				   
-				   <cfif NaturalPerson eq "">				   
-				   		<TD style="padding-right:5px"><A HREF="javascript:EditPerson('#PersonNo#')">#IndexNo#</a></TD>   				   
-				   <cfelse>				   
-				    	<TD style="padding-right:5px"><A HREF="javascript:ShowCandidate('#PersonNo#')">#IndexNo#</a></TD>				   
-				   </cfif>
 				   
 				   <td style="padding-right:5px">#AccountMission#</td>
+				   
+				   <TD style="padding-right:5px"><cfif mailserverdomain neq "">#MailServerDomain#/</cfif>#MailServerAccount#</TD> 
+				   
+				   <cfif StaffRecord neq "">				   
+				   		<TD style="padding-right:5px"><A HREF="javascript:EditPerson('#StaffRecord#')"><font color="800000">#StaffIndexNo#</a></TD>   				   
+				   <cfelseif NaturalPerson neq "">			   
+				    	<TD style="padding-right:5px"><A HREF="javascript:ShowCandidate('#PersonNo#')">#IndexNo#</a></TD>				   
+					<cfelse>
+						<TD style="padding-right:5px"></TD>			
+				   </cfif>
+				   
+				  
 				   <TD style="padding-right:5px">
 				   
 				   <cfif eMailAddress neq "">
@@ -551,7 +566,7 @@
 					   <cfelseif Manager eq "0"> 
 					  					  				  
 						   <cfif AccessCount gte "1" and Account neq SESSION.acc>								  			   
-							   <input type="checkbox" name="Account" id="Account" value="'#Account#'" onClick="hl(this,this.checked)">				 
+							   <input type="checkbox" class="radiol" name="Account" id="Account" value="'#Account#'" onClick="hl(this,this.checked)">				 
 						   </cfif>
 						   
 					   <cfelse>
@@ -565,7 +580,7 @@
 				     
 				   <cfelse>
 				   
-				    <td height="20" colspan="12">
+				    <td height="20" colspan="13">
 						<table width="100%">
 						<td colspan="1" align="right" style="padding-top:4px">	
 						
@@ -603,12 +618,13 @@
 				
 				</table>
 				</cf_divscroll>
+				
 				</td></tr>
 								
-				<td colspan="12" height="23">
+				<td colspan="14" height="23">
 					<table width="100%" align="right">
 					<tr>
-					<td colspan="1" align="right" height="35">
+					<td align="right" height="35">
 					    <input type="button" name="Purge" id="Purge" value="Remove" class="button10g" style="width:140;height:23" onClick="Process('remove')">		
 					</td>
 					</tr>		

@@ -683,14 +683,18 @@
 					AND    EXISTS (SELECT 'X'
 					               FROM    PersonLeave
 								   WHERE   PersonNo = P.PersonNo
-								   -- AND     ActionStatus != '9'
+								   AND     Status NOT IN ('8','9')  <!--- restored by hanno and included 8 --->
 								   AND     DateEffective <= P.CalendarDate 
-								   AND     DateExpiration >= P.CalendarDate)						
+								   AND     DateExpiration >= P.CalendarDate)		
+								   
+								   				
 					   								
 			   </cfquery>
 			   		   
 		    </cfif>
-							
+			
+					
+													
 			<cfset days = dateDiff("d",start,end)>	
 											
 			<cfquery name="LeaveList" 
@@ -1919,11 +1923,11 @@
 				</cfquery>		
 				
 				<cfif getContract.dateExpiration gt now()>														
-					<cfset balancestartdate = dateadd("M","#getPeriod.EntitlementDuration*-1#",now())>
+					<cfset balancestartdate = dateadd("M","#getPeriod.EntitlementDuration*-1#",now())>					
 				<cfelse>
-				    <cfset balancestartdate = dateadd("M","#getPeriod.EntitlementDuration*-1#",getContract.dateExpiration)>
+				    <cfset balancestartdate = dateadd("M","#getPeriod.EntitlementDuration*-1#",getContract.dateExpiration)>								
 				</cfif>	
-																
+																				
 				<!--- correct the balance start continuous start date for the current mission --->
 					
 				<cfinvoke component = "Service.Process.Employee.PersonnelAction"
@@ -1938,7 +1942,7 @@
 				<cfif  EOD gt balancestartdate>							  
 					   <!--- the continuous period is later than the scoped date --->
 					   <cfset balancestartdate = EOD>								
-				</cfif> 										
+				</cfif> 														
 											
 				<cfif getContract.dateExpiration gt now()>				
 					<cfset mth = dateDiff("M",balancestartdate,getContract.dateExpiration)>																	
@@ -2349,6 +2353,7 @@
 								    
 					<!--- now create a final process table --->
 					
+										
 					<cfquery name="resetleave" 
 					  datasource="AppsEmployee"   
 					  username="#SESSION.login#" 
@@ -2364,12 +2369,12 @@
 							</cfif>	 	
 							ORDER BY  DateEffective DESC		
 					</cfquery>
-					
+															
 					<!--- ------------------------------------------------------ --->
 					<!--- class threshold support -which may start at any moment --->
 					
 					<cfif resetleave.recordcount eq "0" and itm neq "LeaveType">
-					
+										
 						<cfquery name="resetleave" 
 						  datasource="AppsEmployee"   
 						  username="#SESSION.login#" 
@@ -2381,6 +2386,7 @@
 								AND       Mission = '#select.mission#'				
 								ORDER BY  DateEffective 	
 						</cfquery>		
+																		
 					</cfif>
 				  
 					<cfquery name="clearFutureRecords" 
@@ -2411,15 +2417,17 @@
 							</cfif>
 							<cfif resetleave.recordcount eq "1">
 								<cfif mEOD gt resetleave.dateeffective>
-									AND      DateExpiration > '#mEOD#'
+									AND      DateExpiration > '#mEOD#'									
 								<cfelse>
-									AND      DateExpiration > '#resetleave.dateeffective#'
+									AND      DateExpiration >= '#resetleave.dateeffective#'									
 								</cfif>	
 							<cfelse>		
-								AND      DateExpiration > '#mEOD#'
+								AND      DateExpiration > '#mEOD#'								
 							</cfif>							 	
-							ORDER BY DateExpiration,DateEffective		
+							ORDER BY DateExpiration,DateEffective	
+															
 					</cfquery>					
+									
 														
 					<!--- ready for complete calculation, define possible overruling initialization records --->
 									
@@ -2504,7 +2512,7 @@
 							  
 							  <cfset ctr = contractType>
 							  	
-							  <cfset Memo = "">  
+							  <cfset Memo = ""> 						 					 					  
 							  							         
 							  <cfif DateEffective lte ResetLeave.DateEffective>
 							 							 							    				

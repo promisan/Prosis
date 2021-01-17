@@ -12,22 +12,22 @@ password="#SESSION.dbpw#">
 	ORDER BY Account
 </cfquery>
 
-<table width="90%" align="center" cellspacing="0" cellpadding="0">
+<table width="100%" align="center">
   
   <cfoutput query="log">
-	 
-	 <tr><td height="1" colspan="7" class="linedotted"></td></tr>
-	 <tr>  
-	   <td width="2%" class="label" style="height:16px"></td>
-	   <td width="4%" class="label" style="padding-top:2px">
-	     <cf_img icon="open" onClick="javascript:schedule('#reportid#')">
+	
+	
+	 <tr class="line">  
+	   <td width="2%" style="height:16px"></td>
+	   <td width="4%" style="padding-top:2px">
+	     <cf_img icon="select" onClick="javascript:schedule('#reportid#')">
 	   </td> 
-	   <td width="31%" class="label">
-	      <a href="javascript:ShowUser('#URLEncodedFormat(Account)#')"><font color="0080C0">#DistributionName#</font></a>
+	   <td width="31%">
+	      <a href="javascript:ShowUser('#URLEncodedFormat(Account)#')">#DistributionName#</a>
 	   </td>
-	   <td width="10%" class="label">#DistributionMode#</td>
-	   <td width="10%" class="label">#DistributionPeriod#</td>
-	   <td width="41%" class="label">#DistributioneMail#</td>
+	   <td width="10%">#DistributionMode#</td>
+	   <td width="10%">#DistributionPeriod#</td>
+	   <td width="41%">#DistributioneMail#</td>
 	 </tr>	 
 	 
   </cfoutput>

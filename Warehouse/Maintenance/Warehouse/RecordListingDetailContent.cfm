@@ -8,7 +8,7 @@
 		<TD style="display:none;">#City#</td>
 		<TD style="padding-left:10px"><cfif operational eq "0"><font color="808080"><i></cfif><cfloop index="itm" from="1" to="#whslevel#">*&nbsp;*&nbsp;&nbsp;</cfloop>#WarehouseName#</TD>	
 		<TD class="navigation_action" onclick="edit('#warehouse#')" style="padding-left:10px;padding-right:6px">				    		
-			<cf_img icon="edit">		   
+			<cf_img icon="open">		   
 		</TD>	
 		<TD class="ccontent" height="18"><cfif operational eq "0"><font color="808080"><i></cfif>#Warehouse#</TD>	
 		<TD class="ccontent"><cfif operational eq "0"><font color="808080"><i></cfif>#classDescription#</TD>

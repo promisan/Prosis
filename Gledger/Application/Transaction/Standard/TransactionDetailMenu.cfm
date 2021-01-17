@@ -141,16 +141,16 @@
 				            iconsrc    = "Manual-Entry.png" 
 							iconwidth  = "#wd#" 
 							iconheight = "#ht#" 
+							padding    = "2"
 							class      = "highlight1"
 							targetitem = "1"
 							name       = "#lt_text#"
-							source     = "">		
+							source     = "TransactionDetailEntry.cfm?mission=#url.mission#&journal=#url.journal#&accountperiod={accountperiod}">		
 							
 				 </tr>			
 							
 				 <!--- this option is not enabled the moment we determine that this transaction has been 
 				 partially reconciled --->
-				 
 												
 				<!--- ----------------------------------------------------------------- --->
 				<!--- also check if the transaction has been somehow reconciled already --->
@@ -182,6 +182,7 @@
 								iconwidth  = "#wd#" 
 								iconheight = "#ht#" 
 								targetitem = "2"
+								padding    = "2"
 								name       = "#lt_text#"
 								source     = "TransactionDetailPayment.cfm?journal=#url.journal#">
 					 </tr>
@@ -195,6 +196,7 @@
 				            iconsrc    = "Detail.png" 
 							iconwidth  = "#wd#" 
 							targetitem = "2"
+							padding    = "2"
 							iconheight = "#ht#" 
 							name       = "Preview Transaction Result"
 							source     = "TransactionDetailPreview.cfm?mission=#url.mission#&accountperiod={accountperiod}">	
@@ -219,8 +221,9 @@
 				iconheight = "#ht#" 
 				class      = "highlight1"
 				targetitem = "1"
+				padding    = "2"
 				name       = "#lt_text#"
-				source     = "">		
+				source     = "TransactionDetailEntry.cfm?mission=#url.mission#&journal=#url.journal#&accountperiod={accountperiod}">		
 			</tr>		
 			<cf_tl id="Pending Payables" var="1">		
 			<tr>					
@@ -229,6 +232,7 @@
 				iconwidth  = "#wd#" 
 				iconheight = "#ht#" 
 				targetitem = "2"
+				padding    = "2"
 				name       = "#lt_text#"
 				source     = "TransactionDetailReconcile.cfm?mode=AP">
 			</tr>	
@@ -239,6 +243,7 @@
 				iconwidth  = "#wd#" 
 				iconheight = "#ht#" 
 				targetitem = "2"
+				padding    = "2"
 				name       = "#lt_text#"
 				source     = "TransactionDetailReconcile.cfm?mode=PO">
 			</tr>	
@@ -249,6 +254,7 @@
 				iconwidth  = "#wd#" 
 				iconheight = "#ht#" 
 				targetitem = "2"
+				padding    = "2"
 				name       = "#lt_text#"
 				source     = "TransactionDetailReconcile.cfm?mode=AR">		
 			</tr>				
@@ -257,6 +263,7 @@
 		       iconsrc    = "Detail.png" 
 			   iconwidth  = "#wd#" 
 			   targetitem = "2"
+			   padding    = "2"
 			   iconheight = "#ht#" 
 			   name       = "Preview Posting"
 			   source     = "TransactionDetailPreview.cfm?mission=#url.mission#&accountperiod={accountperiod}">			
@@ -280,14 +287,16 @@
 					iconheight = "#ht#" 
 					class      = "highlight1"
 					targetitem = "1"
+					padding    = "2"
 					name       = "#lt_text#"
-					source     = "">									
+					source     = "TransactionDetailEntry.cfm?mission=#url.mission#&journal=#url.journal#&accountperiod={accountperiod}">									
 			</tr>
 			<tr>
 			<cf_menutab item = "2" 
 		            iconsrc    = "Detail.png" 
 					iconwidth  = "#wd#" 
 					targetitem = "2"
+					padding    = "2"
 					iconheight = "#ht#" 
 					name       = "Preview Posting"
 					source     = "TransactionDetailPreview.cfm?mission=#url.mission#&accountperiod={accountperiod}">			

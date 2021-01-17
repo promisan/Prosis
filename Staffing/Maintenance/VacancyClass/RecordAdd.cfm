@@ -15,30 +15,30 @@
 
 <cfform action="RecordSubmit.cfm" method="POST" name="dialog">
 
-<table width="90%" cellspacing="0" cellpadding="0" align="center">
+<table width="90%" align="center" class="formpadding formspacing">
 
-    <TR style="height:33px">
+    <TR>
     <TD class="labelmedium">Code:</TD>
     <TD>
-  	   <cfinput type="Text" name="Code" value="" message="Please enter a code" required="Yes" size="10" maxlength="10" class="regularxl">
+  	   <cfinput type="Text" name="Code" value="" message="Please enter a code" required="Yes" size="10" maxlength="10" class="regularxxl">
     </TD>
 	</TR>
 	
-	<TR style="height:33px">
+	<TR>
     <TD class="labelmedium">Description:</TD>
     <TD>
-  	   <cfinput type="Text" name="Description" value="" message="Please enter a description" required="Yes" size="25" maxlength="40"class="regularxl">
+  	   <cfinput type="Text" name="Description" value="" message="Please enter a description" required="Yes" size="25" maxlength="40"class="regularxxl">
     </TD>
 	</TR>
 	
-	<TR style="height:33px">
+	<TR>
     <TD class="labelmedium">Order:</TD>
     <TD>
-  	   <cfinput type="Text" name="ListingOrder" value="" message="Please enter a Listing Order" required="No" size="2" maxlength="2" class="regularxl">
+  	   <cfinput type="Text" name="ListingOrder" value="" message="Please enter a Listing Order" required="No" size="2" maxlength="2" class="regularxxl">
     </TD>
 	</TR>
 	
-	<TR style="height:33px">
+	<TR>
     <TD class="labelmedium" style="PADDING-RIGHT:3PX">Presentation Color:</TD>
     <TD>
 		<cf_color 	name  ="PresentationColor" 
@@ -47,31 +47,29 @@
     </TD>
 	</TR>
 
-	<TR style="height:33px">
+	<TR>
     <TD class="labelmedium">Trigger Track:</TD>
     <TD>
 		<input type="checkbox" class="radiol"  name="TriggerTrack" value="1">
     </TD>
 	</TR>
 	
-	<TR style="height:33px">	
+	<TR>	
     <TD class="labelmedium">Show Vacancy:</TD>
     <TD>
 		<input type="checkbox" class="radiol" name="ShowVacancy" value="1" checked>
   	 </TD>
 	</TR>
 
-	<TR style="height:33px">	
+	<TR>	
     <TD class="labelmedium">Operational:</TD>
     <TD>
 		<input type="checkbox" class="radiol" name="Operational" value="1">
   	 </TD>
 	</TR>
 	
-	
-	
 	<tr><td height="3"></td></tr>
-	<tr><td style="padding:0px" colspan="2" class="linedotted"></td></tr>
+	<tr><td style="padding:0px" colspan="2" class="line"></td></tr>
 	<tr><td height="3"></td></tr>
 	
 	<tr>		

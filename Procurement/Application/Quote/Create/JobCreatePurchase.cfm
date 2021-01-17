@@ -29,7 +29,7 @@
 			<tr><td height="4"></td></tr>		
 			
 			<tr>
-			<td class="labelmedium" width="200"><cf_tl id="Vendor">:</b></td>
+			<td class="labelmedium2" width="200"><cf_tl id="Vendor">:</b></td>
 			<td>
 			
 				<cfoutput>
@@ -42,7 +42,7 @@
 					
 					<table><tr>
 						<td style="padding-right:2px"> 					  
-							   <input type="text" name="vendororgunitname" id="vendororgunitname" value="" class="regularxl enterastab" size="60" maxlength="60" readonly>
+							   <input type="text" name="vendororgunitname" id="vendororgunitname" value="" class="regularxxl enterastab" size="60" maxlength="60" readonly>
 							   <input type="hidden" name="vendororgunitmission" id="vendororgunitmission">
 						   	   <input type="hidden" name="vendororgunit" id="vendororgunit" value="">
 					    </td>
@@ -64,7 +64,7 @@
 			
 			</td></tr>			
 			
-			<tr class="labelmedium">
+			<tr class="labelmedium2">
 			   <td><cf_tl id="Purchase Order">:</td>
 			   <td>
 				   <input type="radio" name="Select" class="radiol" id="Select" value="add" checked onClick="show('add')"><cf_tl id="New">
@@ -113,7 +113,7 @@
 					
 			<tr id="add">
 			
-			   <td class="labelmedium"><cf_tl id="Class">:</td>
+			   <td class="labelmedium2"><cf_tl id="Class">:</td>
 			   
 			   <td>
 			   
@@ -149,7 +149,7 @@
 								 name="OrderClass" 
 								 id="OrderClass" 
 								 value="#Code#" <cfif currentrow eq "1">checked</cfif>></td>
-					   <td style="padding-left:4px;padding-right:10px" class="labelmedium">
+					   <td style="padding-left:4px;padding-right:10px" class="labelmedium2">
 						   <a href="javascript:workflow('ProcJob','#code#')" title="Preview workflow">#Description#</a>	   
 					   </td>
 				   
@@ -172,7 +172,7 @@
 							   value  = "#Code#" <cfif currentrow eq "1">checked</cfif>>
 					   </td>
 					   
-					   <td style="padding-left:4px;padding-right:10px" class="labelmedium">
+					   <td style="padding-left:4px;padding-right:10px" class="labelmedium2">
 						   <a href="javascript:workflow('ProcJob','#code#')" title="Preview workflow">#Description#</a>	   
 					   </td>
 					   
@@ -209,10 +209,10 @@
 			
 			</cfif>		
 						
-			   <td class="labelmedium" style="padding-left:10px;padding-right:10px"><cf_tl id="Order Type">:</b></td>
+			   <td class="labelmedium2" style="padding-left:10px;padding-right:10px"><cf_tl id="Order Type">:</b></td>
 			   <td>
 			   
-			   <select name="Ordertype" id="Ordertype" class="regularxl enterastab">
+			   <select name="Ordertype" id="Ordertype" class="regularxxl enterastab">
 				  <cfoutput query="OrderType" >
 				     <option value="#Code#">#Description#</option>
 				  </cfoutput>
@@ -220,7 +220,7 @@
 				 
 			   </td>
 				
-			   <td class="labelmedium" style="padding-left:10px;padding-right:10px"><cf_tl id="Issue"> <cf_tl id="Currency">:</b></td>
+			   <td class="labelmedium2" style="padding-left:10px;padding-right:10px"><cf_tl id="Issue"> <cf_tl id="Currency">:</b></td>
 			   <td id="currencybox">
 			   
 			   <cfquery name="CurrencyList" 
@@ -232,7 +232,7 @@
 				WHERE     EnableProcurement = '1'
 			</cfquery>
 			   
-			   <select name="Currency" id="Currency" class="regularxl enterastab">
+			   <select name="Currency" id="Currency" class="regularxxl enterastab">
 				  <cfoutput query="CurrencyList">
 				     <option value="#Currency#" <cfif currency eq Application.baseCurrency>selected</cfif>>#Currency#</option>
 				  </cfoutput>
@@ -269,7 +269,7 @@
 					ORDER    BY Parent.Created	
 				</cfquery>				
 				
-				<select name="OrgUnit" class="regularxl">
+				<select name="OrgUnit" class="regularxxl">
 					<cfoutput query="root">
 						<option value="#OrgUnit#"<cfif defaultRoot.OrgUnit eq Orgunit>selected</cfif>>#OrgUnitName#</option>
 					</cfoutput>
@@ -299,7 +299,7 @@
 				
 				<tr>
 				   
-				    <td class="labelmedium"><font color="808080">#getCustom.PurchaseReference1#:</td>
+				    <td class="labelmedium2"><font color="808080">#getCustom.PurchaseReference1#:</td>
 					<td>
 					    <cfinput type="Text" name="UserDefined1" value="" required="No" size="30" maxLength="30" style="text-align: left" class="regularxl enterastab">		   
 					</td>
@@ -316,7 +316,7 @@
 				
 				<tr>
 				   
-				    <td class="labelmedium">#getCustom.PurchaseReference2#:</td>
+				    <td class="labelmedium2">#getCustom.PurchaseReference2#:</td>
 					<td>
 					    <cfinput type="Text" name="UserDefined2" value="" required="No" size="30" maxLength="30" style="text-align: left" class="regularxl enterastab">		   
 					</td>
@@ -333,7 +333,7 @@
 				
 				<tr>
 				   
-				    <td class="labelmedium">#getCustom.PurchaseReference3#:</td>
+				    <td class="labelmedium2">#getCustom.PurchaseReference3#:</td>
 					<td>
 					    <cfinput type="Text" name="UserDefined3" value="" required="No" size="30"  maxLength="30" style="text-align: left" class="regularxl enterastab">		   
 					</td>
@@ -350,7 +350,7 @@
 				
 				<tr>
 				   
-				    <td class="labelmedium">#getCustom.PurchaseReference4#:</td>
+				    <td class="labelmedium2">#getCustom.PurchaseReference4#:</td>
 					<td>
 					    <cfinput type="Text" name="UserDefined4" value="" required="No" size="30" maxLength="30" style="text-align: left" class="regularxl enterastab">		   
 					</td>
@@ -386,7 +386,7 @@
 		
 		<cfoutput>
 		
-		<tr><td colspan="2" align="center" id="poresult" style="padding-top:4px">
+		<tr><td colspan="2" align="center" id="poresult" style="padding-top:4px;padding-bottom:5px">
 			
 		<cfset sel = replace(url.selected,"'",":",  "all")> 
 			

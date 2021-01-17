@@ -102,7 +102,7 @@
 <table width="97%" border="0" cellspacing="0" cellpadding="0" align="left" class="navigation_table">
 
 
-	<tr class="labelmedium line fixrow">
+	<tr class="labellarge line fixrow">
 	    <td width="5%"></td>
 	    <TD><cf_tl id="Account"></TD>
 		<TD><cf_tl id="Memo"></TD>		
@@ -114,7 +114,7 @@
 		
 	<cfif searchresult.recordcount eq "0">
 	
-	     <tr><td align="center" colspan="7" class="labelmedium" style="font-weight:200;padding-top:10px"><cf_tl id="There are no records to show in this view"></td></tr>
+	     <tr><td align="center" colspan="7" class="labellarge" style="font-weight:200;padding-top:10px"><cf_tl id="There are no records to show in this view"></td></tr>
 	
 	</cfif>
 	
@@ -161,8 +161,8 @@
 												
 				<cfoutput>
 												
-				 	<TR bgcolor="white" class="navigation_row line labelmedium" style="height:22px">
-					<td align="center" style="padding-left:40px;height:19;padding-top:5px">				
+				 	<TR bgcolor="white" class="navigation_row line labellarge">
+					<td align="center" style="padding-left:40px;padding-top:8px">				
 					    <cf_img icon="expand" toggle="yes" onclick="more('#Account#','#currentRow#')">														
 					</td>
 	
@@ -173,7 +173,7 @@
 					<cfelse>
 					    <cfset ref = LastName>	
 					</cfif>
-					<font color="0080C0">#ref#</font>	
+					#ref#	
 					
 					<cfif url.search neq "">
 							<cfset ref = replaceNoCase(Account, url.search,"<u><font color='6688aa'>#url.search#</font></u>", "ALL")> 
@@ -189,7 +189,7 @@
 					<td align="center" style="padding-right:8px">#Members#</td>
 					<TD style="font-size:13px">#OfficerLastName#</TD>
 					<TD style="font-size:13px">#Dateformat(Created, "#CLIENT.DateFormatShow#")#</TD>
-					<TD style="padding-top:5px;padding-left:3px">	
+					<TD style="padding-top:7px;padding-left:3px">	
 						<cf_img icon="delete" onclick="purgegroup('#account#')">		   			
 					</TD>
 				    </TR>	

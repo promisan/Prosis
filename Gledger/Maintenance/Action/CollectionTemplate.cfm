@@ -5,7 +5,7 @@
 <cfparam name="url.container" default="">
 <cfparam name="url.resultField" default="directoryVal">
 
-<table cellspacing="0" cellpadding="0" class="formpadding" width="5px">
+<table class="formpadding" width="5px">
 
 <cfoutput>
 

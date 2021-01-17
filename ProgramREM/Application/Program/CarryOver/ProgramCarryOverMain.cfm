@@ -302,13 +302,11 @@
 
 <cfform onsubmit="return false" name="programform">
 
-	<table width="99%" border="0" cellspacing="0" cellpadding="0" class="navigation_table">
+	<table width="99%" class="navigation_table">
 		
 		<cfoutput query="SearchResult" group="TreeOrder">
 		
-			<cfoutput>			
-							
-			  
+			<cfoutput>				  
 				 					
 				<cfquery name="Program" 
 			     datasource="AppsQuery" 
@@ -327,14 +325,14 @@
 				
 				<cfif Program.recordcount gte "1">
 				
-				 <tr class="line">
+				 <tr class="line labelmedium2">
 			      <td width="30" align="center">
 			         <img src="#SESSION.root#/Images/view.jpg" 
 					      alt="" width="14" height="15" border="0" align="middle">
 			       </td>
-				   <td class="labelit">#OrgUnitCode#</b></td>
-			       <td class="labelmedium" colspan="5">#OrgUnitName#</td>
-			       <TD class="labelit" colspan="2"></TD>
+				   <td>#OrgUnitCode#</td>
+			       <td colspan="5">#OrgUnitName#</td>
+			       <TD colspan="2"></TD>
 				 </TR>
 				 
 				 </cfif>

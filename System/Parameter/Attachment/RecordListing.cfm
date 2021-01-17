@@ -1,6 +1,5 @@
 
 <cfparam name="url.code" default="">	
-<cfajaximport tags="cfform,cfdiv">
 
 <cfoutput>
 
@@ -23,8 +22,6 @@ function edit(id1) {
 
 <cf_screentop html="no" jQuery="Yes">
 
-<cf_divscroll>
-
 <cfinclude template="../HeaderParameter.cfm">
 
 <cfquery name="List" 
@@ -39,7 +36,9 @@ password="#SESSION.dbpw#">
 
 <cf_PresentationScript>
 
-<table width="96%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<cf_divscroll>
+
+<table width="96%" align="center" class="navigation_table">
 
 <tr><td colspan="2" style="height:40">
 
@@ -53,9 +52,7 @@ password="#SESSION.dbpw#">
 
 </td></tr>
 
-<tr><td height="1" class="linedotted" colspan="9"></td></tr>
-
-<tr class="line labelmedium">
+<tr class="line labelmedium2 fixrow">
     <TD align="left" width="5%"></TD>
 	<td>Key</td>
     <TD align="left">Document path</TD>	
@@ -68,9 +65,9 @@ password="#SESSION.dbpw#">
 
 <cfoutput query="List">
 		
-	<tr bgcolor="white" style="height:15px" class="line labelmedium navigation_row filter_row">	
+	<tr bgcolor="white" style="height:21px" class="line labelmedium2 navigation_row filter_row">	
 		<td align="center" style="padding-top:1px">
-		  <cf_img icon="edit" navigation="Yes" onclick="edit('#DocumentPathName#')">
+		  <cf_img icon="open" navigation="Yes" onclick="edit('#DocumentPathName#')">
 		</td>
 		
 		<td class="filter_content">#DocumentPathName#</td>

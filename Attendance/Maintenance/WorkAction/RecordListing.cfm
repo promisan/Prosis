@@ -1,11 +1,13 @@
 <!--- Create Criteria string for query from data entered thru search form --->
-<cf_divscroll>
+
+<cf_screentop html="No" jquery="Yes">
 
 <cfset Page         = "0">
 <cfset add          = "1">
-<cfinclude template = "../HeaderMaintain.cfm"> 	
 
-<table width="99%" align="center" cellspacing="0" cellpadding="0" >
+<table width="98%" align="center" height="100%">
+
+<tr style="height:10px"><td><cfinclude template = "../HeaderMaintain.cfm"></td></tr>
 
 <cfoutput>
 
@@ -21,7 +23,7 @@
 	
 	function recordpurge(id1) {
 		if (confirm('Do you want to remove this action ?')) {
-			ColdFusion.navigate('RecordPurge.cfm?id1='+id1,'detail');
+			ptoken.navigate('RecordPurge.cfm?id1='+id1,'detail');
 		}
 	}
 
@@ -29,13 +31,13 @@
 
 </cfoutput> 
 	
-<!--- "width=550, height=500, scrollbars=yes, resizable=yes" --->
-
 <tr>
 	<td colspan="2">
-		<cfdiv id="detail" bind="url:RecordListingDetail.cfm">
+		<cf_divscroll>
+		<cf_securediv id="detail" bind="url:RecordListingDetail.cfm">
+		</cf_divscroll>
 	</td>
+</tr>	
 
 </table>
 
-</cf_divscroll>

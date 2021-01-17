@@ -47,10 +47,10 @@ function ask() {
 	<tr><td height="6"></td></tr>
     <cfoutput>
     <TR>
-    <TD class="labelit" width="30%">Code:</TD>
+    <TD class="labelmedium2" width="30%">Code:</TD>
     <TD>
 	   <cfif CountRec.recordcount eq "0">	
-		   	<cfinput type="Text" name="Code" value="#get.Code#" message="Please enter a code" required="Yes" size="10" maxlength="10" class="regularxl">
+		   	<cfinput type="Text" name="Code" value="#get.Code#" message="Please enter a code" required="Yes" size="10" maxlength="10" class="regularxxl">
 	   <cfelse>
 	   		#get.Code#
 			<input type="hidden" name="Code" id="Code" value="#get.Code#">
@@ -60,14 +60,14 @@ function ask() {
 	</TR>
 	
 	 <TR>
-    <TD class="labelit">Description:</TD>
+    <TD class="labelmedium2">Description:</TD>
     <TD>
-	   <cfinput type="Text" name="Description" value="#get.Description#" message="Please enter a description" required="Yes" size="30" maxlength="50" class="regularxl">
+	   <cfinput type="Text" name="Description" value="#get.Description#" message="Please enter a description" required="Yes" size="30" maxlength="50" class="regularxxl">
     </TD>
 	</TR>
 	
 	<tr>
-		<td class="labelit">Mode of shipment:</td>
+		<td class="labelmedium2">Mode of shipment:</td>
 		<td>
 			<cfquery name="lookup" 
 			datasource="AppsMaterials" 
@@ -78,7 +78,7 @@ function ask() {
 				ORDER BY ListingOrder
 			</cfquery>
 			
-			<select name="ShipToMode" id="ShipToMode" class="regularxl">
+			<select name="ShipToMode" id="ShipToMode" class="regularxxl">
 				<cfloop query="lookup">
 					<option value="#Code#" <cfif code eq get.shipToMode>selected</cfif>>#Description#
 				</cfloop>
@@ -88,12 +88,12 @@ function ask() {
 	</tr>
 	
 	<TR>
-    <TD class="labelit">Order:</TD>
+    <TD class="labelmedium2">Order:</TD>
     <TD>
   	   <cfinput type="Text" name="listingOrder" value="#get.listingOrder#"
 	       message="Please enter a numeric listing order" required="Yes" size="1" 
 		   validate="integer" maxlength="3" 
-		   class="regularxl" 
+		   class="regularxxl" 
 		   style="text-align:center;">
     </TD>
 	</TR>
@@ -106,8 +106,8 @@ function ask() {
 		
 	<td align="center" colspan="2" height="40">
 	<cfif CountRec.recordcount eq "0">
-	<input class="button10g" type="submit" style="width:120" name="Delete" id="Delete" value="Delete" onclick="return ask()"></cfif>	
-    <input class="button10g" type="submit" style="width:120" name="Update" id="Update" value="Update">
+	<input class="button10g" type="submit" name="Delete" id="Delete" value="Delete" onclick="return ask()"></cfif>	
+    <input class="button10g" type="submit" name="Update" id="Update" value="Update">
 	</td>	
 	
 	</tr>	

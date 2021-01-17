@@ -7,13 +7,9 @@
 <cfset add          = "1">
 <cfset Header       = "Account Period">
 
-<tr><td style="height:10">
-
+<tr><td style="height:10px">
 <cfinclude template = "../HeaderMaintain.cfm"> 
-
 </td></tr>
-
-
 
 
 <cfquery name="SearchResult"
@@ -29,11 +25,11 @@ password="#SESSION.dbpw#">
 <script>
 
 function recordadd(grp) {
-          window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=600, height=450, toolbar=no, status=yes, scrollbars=no, resizable=no");
+          ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=700, height=450, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 function recordedit(id1,id2) {
-          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1 +"&ID2=" + id2, "Edit", "left=80, top=80, width=600, height= 450, toolbar=no, status=yes, scrollbars=no, resizable=no");
+          ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1 +"&ID2=" + id2, "Edit", "left=80, top=80, width=700, height= 450, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 </script>
@@ -44,8 +40,7 @@ function recordedit(id1,id2) {
 
 <cf_divscroll>
 
-
-<table width="99%" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<table width="99%" align="center" class="navigation_table">
 
 <thead>
 <tr class="line labelmedium fixrow">
@@ -61,27 +56,32 @@ function recordedit(id1,id2) {
 </thead>
 
 <tbody>
-<cfoutput query="SearchResult">
-
-   	<tr class="navigation_row line labelmedium" style="height:24px">
-	<td align="center" style="padding-top:2px;">
-		  <cf_img icon="edit" navigation="yes" onclick="recordedit('#AccountPeriod#')">
-	</td>
-   	<td>#AccountPeriod#</td>
-	<td>#Description#</td>
-	<td>#AccountYear#</td>
-	<td> <cfif Reconcile eq 1>Yes<cfelse>No</cfif></td>
-	<td><cfif ActionStatus is "0">open<cfelse><b>closed</cfif></td>
-	<td>#OfficerFirstName# #OfficerLastName#</td>
-	<td>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
-    </tr>
 	
-</CFOUTPUT>
+	<cfoutput query="SearchResult">
+	
+	   	<tr class="navigation_row line labelmedium" style="height:24px">
+		<td align="center" style="padding-top:1px;">
+			  <cf_img icon="open" navigation="yes" onclick="recordedit('#AccountPeriod#')">
+		</td>
+	   	<td>#AccountPeriod#</td>
+		<td>#Description#</td>
+		<td>#AccountYear#</td>
+		<td> <cfif Reconcile eq 1>Yes<cfelse>No</cfif></td>
+		<td><cfif ActionStatus is "0">open<cfelse><b>closed</cfif></td>
+		<td>#OfficerFirstName# #OfficerLastName#</td>
+		<td>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
+	    </tr>
+		
+	</cfoutput>
+
 </tbody>
 
 </table>
 
 </cf_divscroll>
+
+</td>
+</tr>
 
 </table>
 

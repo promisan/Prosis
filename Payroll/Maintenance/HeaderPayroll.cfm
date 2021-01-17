@@ -19,10 +19,13 @@
 		  addHeader      = "#Header#"
 		  template       = "HeaderMenu1"
 		  systemModule   = "'Payroll'"
-		  items          = "1"
-		  Header1        = "Reference Tables"
+		  items          = "2"
+		  Header1        = "Payroll definition"
           FunctionClass1 = "'Maintain'"
-          MenuClass1     = "'Main'">
+          MenuClass1     = "'Main'"
+		  Header2        = "Lookup"
+          FunctionClass2 = "'Reference'"
+          MenuClass2     = "'Main'">
 	
 </cfoutput>  	
 

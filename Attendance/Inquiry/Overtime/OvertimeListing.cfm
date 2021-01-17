@@ -77,7 +77,8 @@
 				O.OvertimeId, 
 				O.OvertimePeriodStart, 
 				O.OvertimePeriodEnd,
-				(	SELECT TOP 1 PO.OrgUnitName
+				
+				(	SELECT TOP 1 PO.OrgUnitCode+' '+PO.OrgUnitName
 					FROM	Employee.dbo.PersonAssignment AS PA 
 							INNER JOIN Organization.dbo.Organization AS PO 
 								ON PA.OrgUnit = PO.OrgUnit
@@ -85,6 +86,15 @@
 					AND		PA.DateEffective <= O.OvertimeDate
 					AND		PA.PersonNo = O.PersonNo
 					ORDER BY PA.DateEffective DESC ) AS Organization,
+					
+				(	SELECT TOP 1 PO.HierarchyCode
+					FROM	Employee.dbo.PersonAssignment AS PA 
+							INNER JOIN Organization.dbo.Organization AS PO 
+								ON PA.OrgUnit = PO.OrgUnit
+					WHERE	PA.AssignmentStatus IN ('0', '1')
+					AND		PA.DateEffective <= O.OvertimeDate
+					AND		PA.PersonNo = O.PersonNo
+					ORDER BY PA.DateEffective DESC ) AS Organization_ord,	
 				
 				(	SELECT TOP 1 P.OrgUnitNameShort
 					FROM	Employee.dbo.PersonAssignment AS PA 
@@ -170,10 +180,11 @@
 </cfquery>
 
 <table width="100%" height="100%">
-	<tr><td height="10"></td></tr>
-	<tr><td class="labellarge" style="padding-left:15px; font-size:22px; "><cfoutput>#getSalaryTrigger.Description#</cfoutput></td></tr>
+	<tr><td height="5"></td></tr>
+	<tr class="line"><td class="labelmedium" style="padding-left:15px; font-size:22px; "><cfoutput>#getSalaryTrigger.Description#</cfoutput></td></tr>
+	<tr><td height="5"></td></tr>
 	<tr>
-		<td valign="top">
+		<td valign="top" id="overtimebox">
 			<cfinclude template="OvertimeListingContent.cfm">
 		</td>
 	</tr>

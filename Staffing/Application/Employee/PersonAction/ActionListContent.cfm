@@ -253,7 +253,7 @@
 
 <cfoutput>
 <cfsavecontent variable="myquery">
-   SELECT * 
+   SELECT *, LastProcessed, ActionDate, Created 
    FROM   tmp#SESSION.acc#StaffingLog_#fileno# R
 </cfsavecontent>
 </cfoutput>

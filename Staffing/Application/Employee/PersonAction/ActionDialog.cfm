@@ -1,7 +1,6 @@
 
 <!--- show the dialog of the change --->
 
-<cfajaximport tags="cfwindow">
 <cf_actionlistingscript>
 <cf_dialogstaffing>
 
@@ -174,7 +173,7 @@
 		<script language="JavaScript">
 		
 		function revert(doc) {		
-			ColdFusion.navigate('ActionDialogRevert.cfm?actiondocumentno='+doc,'revert')		
+			ptoken.navigate('ActionDialogRevert.cfm?actiondocumentno='+doc,'revert')		
 		}
 		
 		</script>
@@ -313,9 +312,7 @@
 					<tr>
 						<td height="99%" width="100%" align="center" valign="top">
 						
-						<table width="98%" height="100%" 
-							 cellspacing="0" 
-							 cellpadding="0" 
+						<table width="98%" height="100%" 							
 							 align="center" 
 							 bgcolor="FAFAFA" 
 							 style="border: 0px solid b1b1b1;" 
@@ -323,8 +320,8 @@
 							 
 						<tr><td valign="top">
 																	  													
-						<cfdiv id="#url.drillid#" 
-						    bind="url:#SESSION.root#/Staffing/Application/Employee/PersonAction/ActionWorkflow.cfm?ajaxid=#url.drillid#"/>   
+						<cf_securediv id="#url.drillid#" 
+						    bind="url:#SESSION.root#/Staffing/Application/Employee/PersonAction/ActionWorkflow.cfm?ajaxid=#url.drillid#">   
 							
 							</td>
 						</tr>

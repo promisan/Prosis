@@ -1,8 +1,9 @@
 
 <!--- dialog to show the batch transaction information to be processed --->
 
+<cfparam name="URL.Drillid"            default="0">
 <cfparam name="URL.Mission"            default="">
-<cfparam name="URL.BatchNo"            default="0">
+<cfparam name="URL.BatchNo"            default="#url.drillid#">
 <cfparam name="URL.Mode"               default="view">
 <cfparam name="URL.SystemFunctionId"   default="">
 <cfparam name="URL.StockOrderId"       default="">

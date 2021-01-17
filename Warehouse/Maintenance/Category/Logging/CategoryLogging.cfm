@@ -27,7 +27,7 @@
 			</cfif>
 			
 			<td id="td#Lookup.Code#" style="background-color:'#vBGColor#';" bgcolor="">
-			    <table width="100%" class="formpadding" cellspacing="0" cellpadding="0">
+			    <table width="100%" class="formpadding">
 					<tr>
 						<td width="25" style="padding-left:10px">
 							<input type="Checkbox" class="radiol" name="ActionCategory" id="ActionCategory" value="#Lookup.Code#" onclick="javascript: toggleEnableTransactions(this,'#Lookup.Code#');" <cfif Lookup.Selected neq "">checked</cfif>>
@@ -85,7 +85,7 @@
 				
 		<tr>
 			<td colspan="2" align="center">
-				<input class="button10g" type="submit" name="save" id="save" value=" Save " style="width:120">
+				<input class="button10g" type="submit" name="save" id="save" value="Save" style="width:120">
 			</td>
 		</tr>
 		

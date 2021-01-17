@@ -44,7 +44,7 @@ function recordedit(id) {
 <table width="96%" align="center" class="navigation_table" align="center">
 
 <thead>
-	<tr class="labelmedium fixrow line">
+	<tr class="labelmedium2 fixrow line">
 	    <td></td>
 	    <td>Code</td>
 		<td>Description</td>
@@ -59,7 +59,7 @@ function recordedit(id) {
 
 <cfset i = 0>
 
-<tr><td colspan="9" style="height:40px" class="labelmedium">Journal speedtypes are meant to assign to a your in order to control and ease manual entry interface</td></tr>
+<tr><td colspan="9" style="height:40px" class="labelmedium2">Journal speedtypes are meant to assign to a your in order to control and ease manual entry interface</td></tr>
 
 <cfoutput query="SearchResult">
 	
@@ -72,8 +72,8 @@ function recordedit(id) {
 		WHERE Speedtype = '#speedtype#'
 	</cfquery>	
     
-    <tr class="navigation_row labelmedium line">
-	<td align="center" style="width:40">
+    <tr class="navigation_row labelmedium2 line">
+	<td align="center" style="width:40px">
 		  <cf_img icon="open" navigation="Yes" onclick="recordedit('#Speedtype#')">
 	</td>
 	

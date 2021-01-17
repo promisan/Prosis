@@ -4,7 +4,7 @@
 <cfoutput>
 <cfsavecontent variable="myquery">
 		
-		SELECT *
+		SELECT *, C.Created
 		FROM (
 		
 		
@@ -126,13 +126,13 @@
 						formatted   = "AddressCity",										
 						alias       = "C",																			
 						search      = "text",
-						filtermode  = "2"}>								
-											
+						filtermode  = "2"}>													
 						
 	<cfset itm = itm+1>
 	<cf_tl id="Date" var = "1">			
 	<cfset fields[itm] = {label     = "#lt_text#",                    
 	     				field       = "Created",	
+						column      = "month",
 						formatted   = "dateformat(Created,client.dateformatshow)",					
 						alias       = "C",																			
 						search      = "date"}>		
@@ -143,17 +143,16 @@
 	     				field       = "Created",	
 						formatted   = "timeformat(Created,'HH:MM')",					
 						alias       = "C"}>											
-						
-						
+												
 	<cfset itm = itm+1>
 	<cf_tl id="Source" var = "1">
 	<cfset fields[itm] = {label     = "#lt_text#",                    
 	     				field       = "Source",		
-						formatted   = "Source",										
+						formatted   = "Source",			
+						column      = "common",							
 						alias       = "C",																			
 						search      = "text",
-						filtermode  = "2"}>		
-		
+						filtermode  = "2"}>				
 					
 	
 	<!---						
@@ -170,7 +169,7 @@
 	<cfset itm = itm+1>		
 	<cf_tl id="Officer" var = "1">		
 	<cfset fields[itm] = {label     = "#lt_text#",                    
-	     				field       = "Officer",																	
+	     				field       = "Officer",																							
 						alias       = "C",																			
 						search      = "text",
 						filtermode  = "2"}>									
@@ -187,7 +186,7 @@
 	<cf_tl id="Amount" var = "1">			
 	<cfset fields[itm] = {label     = "#lt_text#",                    
 	     				field       = "SalesTotal",	
-						formatted   = "numberformat(SalesTotal,',.__')",	
+						formatted   = "numberformat(SalesTotal,',')",	
 						align       = "right",			
 						aggregate   = "sum",							
 						alias       = "",
@@ -247,7 +246,7 @@
 	
 <cf_listing
 	    header              = "CustomerQuote"
-	    box                 = "customerquote"
+	    box                 = "customerquote_#url.warehouse#"
 		link                = "#SESSION.root#/Warehouse/Application/SalesOrder/Quote/ControlListDataContent.cfm?warehouse=#url.warehouse#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#"	   			
 		datasource          = "AppsMaterials"
 		listquery           = "#myquery#"					

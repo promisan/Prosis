@@ -20,7 +20,7 @@
 
 <cfset nme = replace(Item.ItemDescription,"'","","ALL")>
 
-<cfajaximport tags="cfwindow,cfdiv,cfform">
+<cfajaximport tags="cfdiv,cfform">
 <cf_menuscript>
 <cf_TextareaScript>
 <cf_calendarscript>
@@ -51,7 +51,7 @@
 </cfif>
 
 
-<cf_PrinterQZTray>
+<cf_PrinterQZTray jquery="No">
 <cfoutput>
 
 <script language="JavaScript">
@@ -85,10 +85,10 @@ function uompricerefresh(itm,uom,selectedmission) {
 }
 
 function uompricedelete(itm,uom,price,selectedmission) {
-   if (confirm("Do you want to remove this record ?")) ColdFusion.navigate('UoMPrice/ItemUoMPriceDelete.cfm?id='+itm+'&uom='+uom+'&price='+price+"&selectedmission="+selectedmission,'itemUoMPriceedit')
+   if (confirm("Do you want to remove this record ?")) ptoken.navigate('UoMPrice/ItemUoMPriceDelete.cfm?id='+itm+'&uom='+uom+'&price='+price+"&selectedmission="+selectedmission,'itemUoMPriceedit')
 }
 
-function uommissionedit(itm,uom,mission) {  
+function uommissionedit(itm,uom,mission) {     
    ProsisUI.createWindow('mydialog', 'Entity', '',{x:30,y:30,height:document.body.clientHeight-60,width:document.body.clientWidth-60,modal:true,center:true});       	
    ptoken.navigate('UoMMission/ItemUoMMission.cfm?id='+itm+'&uom='+uom+'&mission='+mission,'mydialog') 		    
 }
@@ -98,7 +98,7 @@ function uommissionrefresh(itm,uom) {
 }
 
 function uommissiondelete(itm,uom,mission) {
-   if (confirm("Do you want to remove this record ?")) ColdFusion.navigate('UoMMission/ItemUoMMissionDelete.cfm?id='+itm+'&uom='+uom+'&mission='+mission,'itemUoMMissionedit')
+   if (confirm("Do you want to remove this record ?")) ptoken.navigate('UoMMission/ItemUoMMissionDelete.cfm?id='+itm+'&uom='+uom+'&mission='+mission,'itemUoMMissionedit')
 }
 
 // to be converted into cfwindow
@@ -263,6 +263,7 @@ function printEPL(barcode,itemno,uom,desc) {
 </cfoutput>
 
 <table width="100%" height="100%" align="center">
+
 
 	<tr><td height="4" id="process2"></td></tr>	 
 	

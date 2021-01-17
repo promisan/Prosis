@@ -1,13 +1,13 @@
 <!--- Create Criteria string for query from data entered thru search form --->
 
-<cf_screentop height="100%" html="No">
+<cf_screentop height="100%" html="No" jquery="Yes">
 
 <cfset Page         = "0">
 <cfset add          = "1">
 <cfset Header       = "Bank Accounts">
-<cfinclude template = "../HeaderParameter.cfm"> 
 
-<table width="97%" align="center" cellspacing="0" cellpadding="0">
+<table width="97%" height="100%" align="center">
+<TR style="height;10px"><td colspan="2" style="padding-top:10px"><cfinclude template = "../HeaderParameter.cfm"> </td></tr>      
 
 <cfquery name="SearchResult"
 datasource="AppsLedger" 
@@ -34,14 +34,14 @@ function recordedit(id) {
 </script>	
 	
 </cfoutput>
+
+<tr><td style="height:100%">
 	
-<TR>
+<cf_divscroll>
 
-<td colspan="2" style="padding-top:10px">
+<table width="95%" align="center" class="navigation_table">
 
-<table width="95%"  border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
-
-<tr class="line labelmedium">
+<tr class="line labelmedium2">
    
     <TD height="20"></TD>
     <TD>Bank</TD>
@@ -55,9 +55,9 @@ function recordedit(id) {
 
 <cfoutput query="SearchResult">
     
-    <TR class="navigation_row line labelmedium">
-		<td height="20" align="center" style="width:25;padding-top:4px;height:19">
-		  <cf_img icon="edit" navigation="Yes" onClick="recordedit('#BankId#')">
+    <TR class="navigation_row line labelmedium2">
+		<td height="20" align="center" style="width:25;padding-top:1px">
+		  <cf_img icon="open" navigation="Yes" onClick="recordedit('#BankId#')">
 		</td>
 		<TD>#BankName#</TD>
 		<td>#Currency#</td>
@@ -70,6 +70,8 @@ function recordedit(id) {
 </CFOUTPUT>
 
 </TABLE>
+
+</cf_divscroll>
 
 </td>
 </tr>

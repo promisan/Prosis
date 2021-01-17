@@ -100,8 +100,8 @@
 			datasource="AppsPayroll" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
-			    SELECT TOP 1 * 
-				FROM  SalaryScale
+			    SELECT   TOP 1 * 
+				FROM     SalaryScale
 				ORDER BY ScaleNo DESC			
 		    </cfquery>
 			
@@ -121,17 +121,19 @@
 					  CalculationBase, 
 					  CalculationBaseFinal, 
 					  CalculationBasePeriod, 
-					  DetailMode,OfficerUserId,OfficerLastName,OfficerFirstName)
+					  DetailMode,
+					  OfficerUserId,OfficerLastName,OfficerFirstName)
 				SELECT '#NewScale.ScaleNo#', 
-					  ComponentName, 
-					  EntitlementPointer, 
-					  Percentage, 
-					  CalculationBase, 
-					  CalculationBaseFinal, 
-					  CalculationBasePeriod, 
-					  DetailMode,'#SESSION.acc#','#SESSION.last#','#SESSION.first#'
-				FROM  SalaryScalePercentage 
-				WHERE ScaleNo = '#url.scaleNo#'		   
+					    ComponentName, 
+					    EntitlementPointer, 
+					    Percentage, 
+					    CalculationBase, 
+					    CalculationBaseFinal, 
+					    CalculationBasePeriod, 
+					    DetailMode,
+					    '#SESSION.acc#','#SESSION.last#','#SESSION.first#'
+				FROM    SalaryScalePercentage 
+				WHERE   ScaleNo = '#url.scaleNo#'		   
 		    </cfquery>
 			
 			<!--- copy details as well --->
@@ -200,11 +202,13 @@
      WHERE  ScaleNo         = '#URL.scaleNo#'		  		 
 </cfquery>
 	
+ <cfparam name="url.mid" default="">
+ 
  <script>
  
-   parent.ColdFusion.navigate('RateViewTree.cfm?mission=#scale.mission#&schedule=#scale.salaryschedule#&location=#form.servicelocation#','treebox') 
+   parent.ColdFusion.navigate('RateViewTree.cfm?mission=#scale.mission#&schedule=#scale.salaryschedule#&location=#form.servicelocation#&mid=#url.mid#','treebox') 
    ProsisUI.closeWindow('addscale')   
-   window.location = "rateedit.cfm?mission=#scale.mission#&schedule=#scale.salaryschedule#&location=#form.servicelocation#&effective=#dateformat(eff,client.dateSQL)#&mode=grade&operational=1"
+   window.location = "rateedit.cfm?mid=#url.mid#&mission=#scale.mission#&schedule=#scale.salaryschedule#&location=#form.servicelocation#&effective=#dateformat(eff,client.dateSQL)#&mode=grade&operational=1"
  
  </script>	
  

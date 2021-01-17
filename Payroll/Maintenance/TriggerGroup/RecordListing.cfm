@@ -1,8 +1,5 @@
 <!--- Create Criteria string for query from data entered thru search form --->
 
-<cfset add          = "1">
-<cfset Header       = "Salary Entitlement Trigger Groups">
-<cfinclude template = "../HeaderPayroll.cfm"> 
  
 <cfquery name="SearchResult"
 	datasource="AppsPayroll" 
@@ -22,27 +19,38 @@
 		FROM 	Ref_TriggerGroup G
 </cfquery>
 
+<cf_screentop html="No" jquery="Yes">
+
+<table width="98%" height="100%" align="center">
+
+<cfset Page         = "0">
+<cfset add          = "0">
+<cfset save         = "0">
+<cfset Header       = "Salary Entitlement Trigger Groups">
+ 
+<tr style="height:10px"><td><cfinclude template = "../HeaderPayroll.cfm"></td></tr>
+
 <cfoutput>
 
 	<script LANGUAGE = "JavaScript">
 	
-		function recordadd(grp) {
-			
-		}
+		function recordadd(grp) {}
 		
 		function recordedit(id1) {
-			window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=650, height=300, toolbar=no, status=yes, scrollbars=no, resizable=yes");
+			ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=650, height=300, toolbar=no, status=yes, scrollbars=no, resizable=yes");
 		}
 	
 	</script>	
 
 </cfoutput>
 
+<tr><td>
+
 <cf_divscroll>
 
-<table width="97%" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<table width="97%" align="center" class="navigation_table">
 
-<tr class="labelmedium linedotted">
+<tr class="labelmedium2 line">
     <td></td>
 	<td><cf_tl id="Code"></td>
 	<td><cf_tl id="Description"></td>
@@ -51,9 +59,9 @@
 </tr>
 
 <cfoutput query="SearchResult">
-	<tr class="labelmedium navigation_row linedotted">
-		<td width="6%" align="center" style="padding-top:2px;">
-			<cf_img icon="select" navigation="Yes" onclick="recordedit('#TriggerGroup#')">
+	<tr class="labelmedium2 navigation_row line">
+		<td width="6%" align="center" style="padding-top:1px;">
+			<cf_img icon="open" navigation="Yes" onclick="recordedit('#TriggerGroup#')">
 		</td>	
 		<td>#TriggerGroup#</td>
 		<td>#Description#</td>
@@ -65,3 +73,7 @@
 </table>
 
 </cf_divscroll>
+
+</td>
+</tr>
+</table>

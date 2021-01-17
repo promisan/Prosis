@@ -6,7 +6,7 @@
 <cfset save         = "0"> 
 <cfinclude template="../HeaderParameter.cfm">
 
-<table width="99%" align="center" border="0" cellspacing="0" cellpadding="0">
+<table width="99%" align="center">
 
     <tr class="noprint">   
     
@@ -20,7 +20,6 @@
 	
 	</tr>
 	
-
 <cfset cnt = "0">
 
 <cfparam name="URL.ID1" default="{00000000-0000-0000-0000-000000000000}">
@@ -83,7 +82,6 @@ password="#SESSION.dbpw#">
 	FROM   Parameter
 </cfquery>	
 
-
 <tr><td colspan="2" style="padding-top:10px">
 
 <cfform action="IPTableSubmit.cfm?ID1=#URL.ID1#&idmenu=#url.idmenu#" method="POST" enablecab="Yes" name="fund">
@@ -95,25 +93,24 @@ password="#SESSION.dbpw#">
 				
 	    <table width="100%" border="0" cellpadding="0" class="formpadding navigation_table" cellspacing="0" bgcolor="white">
 			
-	    <TR>
+	    <TR class="labelmedium2 line">
 		   <td height="20" width="30"></td>
-		   <td class="labelit">IP range start</td>
-		   <td class="labelit">IP range end</td>
-		   <td class="labelit">Entity</td>
-		   <td class="labelit">URL (http://servername/virtual_dir)</td>
+		   <td>IP range start</td>
+		   <td>IP range end</td>
+		   <td>Entity</td>
+		   <td>URL (http://servername/virtual_dir)</td>
 		   <td></td>
-		   <td class="labelit">Created</td>
+		   <td>Created</td>
 		   <td width="7%"></td>
 		   <td width="7%"></td>
 	    </TR>	
-		<tr><td colspan="9" class="linedotted"></td></tr>
 			
 		<cfoutput>
 		<cfloop query="IPTable">
 																
 		<cfif URL.ID1 eq IPRangeId>
 				
-		<tr bgcolor="ffffff" class="navigation_row">
+		<tr bgcolor="ffffff" class="navigation_row line">
 		
 		   <td style="height:28px" class="labelit">#currentRow#</td>
 		
@@ -201,21 +198,20 @@ password="#SESSION.dbpw#">
 		   						
 		<cfelse>
 									
-			  <TR style="height:25px" class="navigation_row linedotted" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('f6f6f6'))#"> 
-			   <td style="padding-left:5px" class="labelmedium">#CurrentRow#.</td>
-			   <td class="labelmedium">#IPRangeStart#</td>
-			   <td class="labelmedium">#IPRangeEnd#</td>
-			   <td class="labelmedium">#Mission#</td>
-			   <td class="labelmedium" bgcolor="<cfif serverURL eq 'disabled'>yellow</cfif>">#ServerURL#</td>
+			  <TR style="height:25px" class="labelmedium2 navigation_row line" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('f6f6f6'))#"> 
+			   <td style="padding-left:5px">#CurrentRow#.</td>
+			   <td>#IPRangeStart#</td>
+			   <td>#IPRangeEnd#</td>
+			   <td>#Mission#</td>
+			   <td bgcolor="<cfif serverURL eq 'disabled'>yellow</cfif>">#ServerURL#</td>
 			   <td><!--- #OfficerLastName# ---></td>
-			   <td class="labelmedium">#DateFormat(Created, CLIENT.DateFormatShow)#</td>
-			   <td align="center" class="labelmedium">
-			     <A href="IPTable.cfm?ID1=#IPRangeID#&idmenu=#url.idmenu#"><font color="0080C0">[edit]</font></a>
+			   <td>#DateFormat(Created, CLIENT.DateFormatShow)#</td>
+			   <td align="center">
+			     <A href="IPTable.cfm?ID1=#IPRangeID#&idmenu=#url.idmenu#">[edit]</a>
 			   </td>
 			   <td align="center" style="padding-top:3px">
 			      <cf_img icon="delete" onclick="purge('#IPRangeID#')">			
-			  </td>
-			   
+			  </td>			   
 		    </TR>
 														
 		</cfif>

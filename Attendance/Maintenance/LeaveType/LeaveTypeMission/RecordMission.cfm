@@ -13,7 +13,7 @@
 
 <cfform action="LeaveTypeMission/RecordSubmitMission.cfm?code=#url.code#" method="POST" name="frmLeaveTypeMission">
 	
-	<table width="90%" align="center" class="formpadding">
+	<table width="90%" align="center" class="formpadding formspacing">
 	
 		<tr><td height="10"></td></tr>
 		<tr>
@@ -27,7 +27,7 @@
 					
 					<cfset idMission = replace(mission, " ", "", "ALL")>
 					
-					<td id="td_#idMission#" style="width:33%;background-color:#vColor#;" class="labelmedium">
+					<td id="td_#idMission#" style="width:25%;background-color:#vColor#;" class="labelmedium2">
 					    <table><tr><td style="padding-left:7px">
 						<input 
 							type="Checkbox" 
@@ -37,7 +37,7 @@
 							onclick="hlMission('#idMission#', 'FBF9A8');"
 							<cfif mission eq selected>checked</cfif>>
 						</td>
-						<td style="padding-left:4px" class="labelmedium">	
+						<td style="padding-left:4px" class="labelmedium2">	
 						<label for="mission_#mission#">#Mission#</label>
 						</td></tr></table>
 					</td>
@@ -52,11 +52,10 @@
 		
 		<cfoutput>
 		<tr><td height="5"></td></tr>
-		<tr><td colspan="#maxCols#" class="linedotted"></td></tr>
-		<tr><td height="5"></td></tr>
+		<tr><td colspan="#maxCols#" class="line"></td></tr>		
 		<tr>	
 		<td align="center" colspan="#maxCols#" height="35">
-		    <input class="button10g" style="width:130px;height:25px" type="submit" name="Save" value="  Save  ">
+		    <input class="button10g" style="width:180px" type="submit" name="Save" value="  Save  ">
 		</td>	
 		</tr>
 		</cfoutput>

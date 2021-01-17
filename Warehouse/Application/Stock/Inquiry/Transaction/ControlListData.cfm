@@ -149,8 +149,9 @@
 		   
 </cfif>		
 
-<!--- provision to only refresh memory if this is more than 20 minutes ago --->
-
+<!--- provision to only refresh memory if this is more than 60 minutes ago --->
+<!--- attention we can adjust this to use the caching as supported in 
+     the listing itself                                                    --->
 
 <cftry>
 	
@@ -165,7 +166,7 @@
 			
 		<cfset diff  = datediff("n",checkfile.created,now())>
 		
-		<cfif diff lt "20">				
+		<cfif diff lt "60">				
 		   <cfset action = "same">
 		<cfelse>
 		   <cfset action = "refresh">
@@ -184,14 +185,15 @@
 	</cfcatch>
 
 </cftry>
-   
-<cfif action eq "refresh">
 
+  
+<cfif action eq "refresh">
 	
 	<CF_DropTable dbName="AppsQuery"  tblName="#SESSION.acc#_ItemTransaction"> 		
 	
 	<!--- get relevant data in memory --->
-	    
+	
+	<cftransaction isolation="READ_UNCOMMITTED">
 	<cfquery name="getDataInMemory" 
 		datasource="AppsMaterials" 
 		username="#SESSION.login#" 
@@ -207,6 +209,7 @@
 				B.ItemNo, 
 				B.ItemDescription, 
 				B.ItemCategory, 
+				C.Description as ItemCategoryDescription,
 				B.TransactionLot,
 				
 				CASE 
@@ -260,23 +263,17 @@
 				
 		INTO    userQuery.dbo.#SESSION.acc#_ItemTransaction 
 		
-		FROM    ItemTransaction B,	       
-				Warehouse P,
-				WarehouseBatch W,
-				WarehouseLocation WL,
-				ItemUoM	U
-				
-		WHERE   B.Mission         = '#url.mission#'
-		AND     B.Warehouse       = P.Warehouse
-		AND     B.Warehouse       = WL.Warehouse
-		AND     B.Location        = WL.Location
-		AND     B.ItemNo          = U.ItemNo	
-		AND     W.BatchNo         = B.TransactionBatchNo  
-		
+		FROM    ItemTransaction B 
+		        INNER JOIN Warehouse P ON B.Warehouse       = P.Warehouse
+				INNER JOIN WarehouseBatch W ON W.BatchNo         = B.TransactionBatchNo
+				INNER JOIN WarehouseLocation WL ON B.Warehouse   = WL.Warehouse AND  B.Location = WL.Location 
+				INNER JOIN ItemUoM U ON B.ItemNo = U.ItemNo	AND B.TransactionUoM = U.UOM 
+				INNER JOIN Ref_Category C ON B.ItemCategory = C.Category
+							
+		WHERE   B.Mission         = '#url.mission#'		
+		AND     B.Warehouse       = '#url.warehouse#'		
 		AND     B.TransactionType   != '1'
-		
-		AND     B.TransactionUoM    = U.UOM 
-		
+				
 		<!--- we show warehouse to which we have access --->
 		
 		<cfif globalmission neq "granted">
@@ -309,13 +306,14 @@
 			
 	</cfquery>  
 	
+	</cftransaction>    
+			
 </cfif>	
  
 <!--- retrieve for extended analysis ---> 
 	
-<table width="100%" align="center" height="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="100%" align="center" height="100%" class="formpadding">
 		
-	<tr><td class="linedotted"></td></tr>
 	<tr>
 	<td colspan="1" align="right" height="100%">		
 	   <cfinclude template="ControlListDataContent.cfm">					

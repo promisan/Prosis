@@ -403,10 +403,10 @@ password="#SESSION.dbpw#">
 	
 	<!--- if job has a workflow it would need a status = 3 in order to select items --->
 		
-	<tr class="labelmedium">
+	<tr class="labelmedium2">
 	   <td style="min-width:200;width:100"><cf_tl id="Period">:</td>
 	   <td>
-	    <select name="period" id="period" class="regularxl" onChange="reloadForm(this.value,document.getElementById('contractor').value)">
+	    <select name="period" id="period" class="regularxxl" onChange="reloadForm(this.value,document.getElementById('contractor').value)">
 			  <cfoutput query="PeriodList">
 			     <option value="#Period#" <cfif URL.Period eq Period> SELECTED</cfif>>#Period#</option>
 			  </cfoutput>
@@ -414,13 +414,13 @@ password="#SESSION.dbpw#">
 	   </td>
 	</tr>
 		
-	<tr class="labelmedium">
+	<tr class="labelmedium2">
 	   <td><cf_tl id="Contractor">:</td>
 	   <td>
 	   
 	   <cfif preparationMode eq "SSA">
 	     
-	   	 <select name="contractor" id="contractor" class="regularxl" style="width:200px" onChange="reloadForm(document.getElementById('period').value,this.value)">
+	   	 <select name="contractor" id="contractor" class="regularxxl" style="width:200px" onChange="reloadForm(document.getElementById('period').value,this.value)">
 		      <option value=""><cf_tl id="select"></option>
 			  <cfoutput query="Contractor">
 			     <option value="#PersonNo#,#personclass#" <cfif url.contractor eq "#PersonNo#,#PersonClass#"> SELECTED</cfif>>#FirstName# #LastName# <cfif personclass eq "applicant">[<cf_tl id="Candidate">]</cfif></option>
@@ -429,7 +429,7 @@ password="#SESSION.dbpw#">
 	   
 	   <cfelse>
 	   
-	    <select name="contractor" id="contractor" class="regularxl" style="width:200px" onChange="reloadForm(document.getElementById('period').value,this.value)">
+	    <select name="contractor" id="contractor" class="regularxxl" style="width:200px" onChange="reloadForm(document.getElementById('period').value,this.value)">
 		      <option value=""><cf_tl id="select"></option>
 			  <cfoutput query="Contractor">
 			     <option value="#OrgUnitVendor#,vendor" <cfif vendor eq OrgUnitVendor> SELECTED</cfif>>#OrgUnitName#</option>
@@ -441,10 +441,10 @@ password="#SESSION.dbpw#">
 	   </td>
 	</tr>
 		
-	<tr class="labelmedium">
+	<tr class="labelmedium2">
 	   <td><cf_tl id="Purchase Order">:</td>
 	   <td><table>
-	       <tr class="labelmedium">
+	       <tr class="labelmedium2">
 	       <td><input type="radio" name="Select" class="radiol" id="Select" value="add" checked onClick="show('add')"></td>
 		   <td style="padding-left:4px"><cf_tl id="New"></td>
 		   <td style="padding-left:8px">
@@ -484,9 +484,9 @@ password="#SESSION.dbpw#">
 			<!---- URL.MISSION Added by Jorge Mazariegos on feb 03/2011 ---->
 			
 			<tr>
-			   <td style="min-width:200;width:100" class="labelmedium"><cf_tl id="Order Class">:</td>
+			   <td style="min-width:200;width:100" class="labelmedium2"><cf_tl id="Order Class">:</td>
 			   
-			   <td width="100%" class="labelmedium">
+			   <td width="100%" class="labelmedium2">
 			   
 			   	<cfif orderclass.recordcount eq "0">
 				
@@ -503,7 +503,7 @@ password="#SESSION.dbpw#">
 					   AccessLevel    = "'EDIT','ALL'"				   					  
 					   ReturnVariable = "ManagerAccess">	
 			   
-			     <select name="orderclass" id="orderclass" style="width:200px" class="regularxl">
+			     <select name="orderclass" id="orderclass" style="width:200px" class="regularxxl">
 				 
 				  <cfset show = "0">
 				 
@@ -547,7 +547,7 @@ password="#SESSION.dbpw#">
 			</tr>
 							
 			<tr>
-			   <td class="labelmedium"><cf_tl id="Order Type">:</td>
+			   <td class="labelmedium2"><cf_tl id="Order Type">:</td>
 			   <td>		   	   
 			   	 <cfdiv bind="url:#SESSION.root#/Procurement/Application/PurchaseOrder/Create/getOrderType.cfm?mission=#url.mission#&orderclass={orderclass}"> 			      
 			   </td>
@@ -555,7 +555,7 @@ password="#SESSION.dbpw#">
 			</tr>
 			
 			<tr><td></td>
-			    <td style="padding-top:4px" class="labelmedium" id="infobox"></td>
+			    <td style="padding-top:4px" class="labelmedium2" id="infobox"></td>
 			</tr>
 					
 			</table>
@@ -576,7 +576,7 @@ password="#SESSION.dbpw#">
 	<tr><td height="8"></td></tr>
 	
 	<tr>
-	   <td colspan="2" style="padding-left:10px" class="labelmedium"><cf_tl id="Select lines for this obligation">:</b></td>
+	   <td colspan="2" style="padding-left:10px" class="labelmedium2"><cf_tl id="Select lines for this obligation">:</b></td>
 	</tr>
 	
 	<tr><td colspan="2" style="padding-left:20px">
@@ -601,7 +601,7 @@ password="#SESSION.dbpw#">
 	<cfparam name="PurchaseRemarks" default="">
 	
 	<tr>
-		   <td class="labelmedium" valign="top" style="padding-top:3px;padding-left:10px"><cf_tl id="Remarks">:</b></td>
+		   <td class="labelmedium2" valign="top" style="padding-top:3px;padding-left:10px"><cf_tl id="Remarks">:</b></td>
 		   <td>
 		      <textarea style="width:100%;height:40;padding:3px;font-size:13px" class="regular" name="Remarks"><cfoutput>#Purchaseremarks#</cfoutput></textarea>
 		   </td>

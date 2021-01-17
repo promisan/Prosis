@@ -573,17 +573,17 @@
 			<cfelseif id eq "ATT">
 						
 				<cfif len(orgLabel) gt "40">
-					<cfset s.display   = "<span style='padding-top:3px;padding-bottom:3px;color: 6688aa;' class='labelit' title='#orgLabel#'>#left(orgLabel,40)#..</span>">
+					<cfset s.display   = "<span style='padding-top:3px;padding-bottom:3px;' class='labelit' title='#orgLabel#'>#left(orgLabel,40)#..</span>">
 				<cfelse>
-					<cfset s.display   = "<span style='padding-top:3px;padding-bottom:3px;color: 6688aa;' class='labelit' title='#orgLabel#'>#orgLabel#</span>">
+					<cfset s.display   = "<span style='padding-top:3px;padding-bottom:3px;' class='labelit' title='#orgLabel#'>#orgLabel#</span>">
 				</cfif>				
 			
 			<cfelseif id eq "DON">
 						
 				<cfif len(orgLabel) gt "34">
-					<cfset s.display   = "<span style='padding-top:3px;padding-bottom:3px;color: 6688aa;' class='labelit' title='#orgLabel#'>#left(orgLabel,34)#.. <cfif counted gt 0>[#counted#]</cfif></span>">
+					<cfset s.display   = "<span style='padding-top:3px;padding-bottom:3px;' class='labelit' title='#orgLabel#'>#left(orgLabel,34)#.. <cfif counted gt 0>[#counted#]</cfif></span>">
 				<cfelse>
-					<cfset s.display   = "<span style='padding-top:3px;padding-bottom:3px;color: 6688aa;' class='labelit' title='#orgLabel#'>#orgLabel# <cfif counted gt 0>[#counted#]</cfif></span>">
+					<cfset s.display   = "<span style='padding-top:3px;padding-bottom:3px;' class='labelit' title='#orgLabel#'>#orgLabel# <cfif counted gt 0>[#counted#]</cfif></span>">
 				</cfif>
 				
 			<cfelse>
@@ -1235,17 +1235,17 @@
 					<cfelseif id eq "ATT">
 
 					<cfif len(orgLabel) gt "40">
-						<cfset s.display   = "<span style='font-size:#orgsize#;color: 6688aa;' title='#orgLabel#'>#left(orgLabel,40)#..</span>">
+						<cfset s.display   = "<span style='font-size:#orgsize#;color: #cl#' title='#orgLabel#'>#left(orgLabel,40)#..</span>">
 					<cfelse>
-						<cfset s.display   = "<span style='font-size:#orgsize#;color: 6688aa;' title='#orgLabel#'>#orgLabel#</span>">
+						<cfset s.display   = "<span style='font-size:#orgsize#;color: #cl#' title='#orgLabel#'>#orgLabel#</span>">
 					</cfif>
 
 					<cfelseif id eq "DON">
 
 					<cfif len(orgLabel) gt "34">
-						<cfset s.display   = "<span style='font-size:#orgsize#;color: 6688aa;' title='#orgLabel#'>#left(orgLabel,34)#.. <cfif counted gt 0>[#counted#]</cfif></span>">
+						<cfset s.display   = "<span style='font-size:#orgsize#;color: #cl#' title='#orgLabel#'>#left(orgLabel,34)#.. <cfif counted gt 0>[#counted#]</cfif></span>">
 					<cfelse>
-						<cfset s.display   = "<span style='font-size:#orgsize#;color: 6688aa;' title='#orgLabel#'>#orgLabel# <cfif counted gt 0>[#counted#]</cfif></span>">
+						<cfset s.display   = "<span style='font-size:#orgsize#;color: #cl#' title='#orgLabel#'>#orgLabel# <cfif counted gt 0>[#counted#]</cfif></span>">
 					</cfif>
 
 				<cfelse>

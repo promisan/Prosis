@@ -576,103 +576,101 @@
 <!--- -------------------------- --->   
 	     
 	<cf_ModuleInsertSubmit
-	   SystemModule="Warehouse" 
+	   SystemModule  = "Warehouse" 
 	   FunctionClass = "Asset"
-	   FunctionName = "Location Movement" 
-	   MenuClass = "History"
-	   MenuOrder = "1"
-	   MainMenuItem = "0"
-	   FunctionMemo = "Location"
-	   ScriptName = "alocation"
-	   FunctionIcon = "Maintain">    
+	   FunctionName  = "Location Movement" 
+	   MenuClass     = "History"
+	   MenuOrder     = "1"
+	   MainMenuItem  = "0"
+	   FunctionMemo  = "Location"
+	   ScriptName    = "alocation"
+	   FunctionIcon  = "Maintain">    
 	   
 	<cf_ModuleInsertSubmit
-	   SystemModule="Warehouse" 
+	   SystemModule  = "Warehouse" 
 	   FunctionClass = "Asset"
-	   FunctionName = "Responsibility" 
-	   MenuClass = "History"
-	   MenuOrder = "2"
-	   MainMenuItem = "0"
-	   FunctionMemo = "Responsibility"
-	   ScriptName = "aholder"
-	   FunctionIcon = "Maintain"> 
+	   FunctionName  = "Responsibility" 
+	   MenuClass     = "History"
+	   MenuOrder     = "2"
+	   MainMenuItem  = "0"
+	   FunctionMemo  = "Responsibility"
+	   ScriptName    = "aholder"
+	   FunctionIcon  = "Maintain"> 
 	   
 	<cf_ModuleInsertSubmit
-	   SystemModule="Warehouse" 
+	   SystemModule  = "Warehouse" 
 	   FunctionClass = "Asset"
-	   FunctionName = "Observations" 
-	   MenuClass = "History"
-	   MenuOrder = "3"
-	   MainMenuItem = "0"
-	   FunctionMemo = "Actions"
-	   ScriptName = "aaction"
-	   FunctionIcon = "Maintain">   
+	   FunctionName  = "Observations" 
+	   MenuClass     = "History"
+	   MenuOrder     = "3"
+	   MainMenuItem  = "0"
+	   FunctionMemo  = "Actions"
+	   ScriptName    = "aaction"
+	   FunctionIcon  = "Maintain">   
 	   
 	<!--- -------------------------- --->  
 	<!--- ------sub-financials------ --->  
 	<!--- -------------------------- --->                       
 	   
 	<cf_ModuleInsertSubmit
-	   SystemModule="Warehouse" 
+	   SystemModule  = "Warehouse" 
 	   FunctionClass = "Asset"
-	   FunctionName = "Depreciation" 
-	   MenuClass = "Financials"
-	   MenuOrder = "1"
-	   MainMenuItem = "0"
-	   FunctionMemo = "Profile"
-	   ScriptName = "adepreciation"
-	   FunctionIcon = "Maintain">      
+	   FunctionName  = "Depreciation" 
+	   MenuClass     = "Financials"
+	   MenuOrder     = "1"
+	   MainMenuItem  = "0"
+	   FunctionMemo  = "Profile"
+	   ScriptName    = "adepreciation"
+	   FunctionIcon  = "Maintain">      
 	   
 	<cf_ModuleInsertSubmit
-	   SystemModule="Warehouse" 
+	   SystemModule  = "Warehouse" 
 	   FunctionClass = "Asset"
-	   FunctionName = "Serviced" 
-	   MenuClass = "Financials"
-	   MenuOrder = "2"
-	   MainMenuItem = "0"
-	   FunctionMemo = "Profile"
-	   ScriptName = "aservice"
-	   FunctionIcon = "Maintain">               
+	   FunctionName  = "Serviced" 
+	   MenuClass     = "Financials"
+	   MenuOrder     = "2"
+	   MainMenuItem  = "0"
+	   FunctionMemo  = "Profile"
+	   ScriptName    = "aservice"
+	   FunctionIcon  = "Maintain">               
    
 <!--- ------------------------ --->
 <!--- ----- Maintenance ------ --->
 <!--- ------------------------ --->
 
 <cf_ModuleInsertSubmit
-   SystemModule  = "Warehouse" 
-   FunctionClass = "Item"
-   FunctionName  = "General settings" 
-   MenuClass     = "Maintain"
-   MenuOrder     = "1"
-   MainMenuItem  = "0"
-   FunctionMemo  = "Maintain item"
-   ScriptName    = "itmedit"
-   AccessUserGroup = "0">      
+   SystemModule      = "Warehouse" 
+   FunctionClass     = "Item"
+   FunctionName      = "General settings" 
+   MenuClass         = "Maintain"
+   MenuOrder         = "1"
+   MainMenuItem      = "0"
+   FunctionMemo      = "Maintain item"
+   ScriptName        = "itmedit"
+   AccessUserGroup   = "0">      
    
 <cf_ModuleInsertSubmit
-   SystemModule    = "Warehouse" 
-   FunctionClass   = "Item"
-   FunctionName    = "Unit of measure" 
-   MenuClass       = "Maintain"
-   MenuOrder       = "1"
-   MainMenuItem    = "0"
-   FunctionMemo    = "Maintain item"
-   ScriptName      = "itmuom"
-   AccessUserGroup = "0">   
+   SystemModule      = "Warehouse" 
+   FunctionClass     = "Item"
+   FunctionName      = "Unit of measure" 
+   MenuClass         = "Maintain"
+   MenuOrder         = "1"
+   MainMenuItem      = "0"
+   FunctionMemo      = "Maintain item"
+   ScriptName        = "itmuom"
+   AccessUserGroup   = "0">   
   
-<!--- disabled ItemGLedger    
-     
+<!--- disabled ItemGLedger         
 <cf_ModuleInsertSubmit
-   SystemModule    = "Warehouse" 
-   FunctionClass   = "Item"
-   FunctionName    = "Account codes" 
-   MenuClass       = "Maintain"
-   MenuOrder       = "5"
-   MainMenuItem    = "0"
-   FunctionMemo    = "Item Account codes"
-   ScriptName      = "itmaccount"
-   AccessUserGroup = "0">    
-   
+   SystemModule      = "Warehouse" 
+   FunctionClass     = "Item"
+   FunctionName      = "Account codes" 
+   MenuClass         = "Maintain"
+   MenuOrder         = "5"
+   MainMenuItem      = "0"
+   FunctionMemo      = "Item Account codes"
+   ScriptName        = "itmaccount"
+   AccessUserGroup   = "0">  
 --->                
 
 <cf_ModuleInsertSubmit
@@ -709,8 +707,7 @@
    FunctionMemo    = "Item storage locations"
    ScriptName      = "itmloc"
    AccessUserGroup = "0">   
- 
-  
+   
    
 <!--- acquisition --->   
    
@@ -1049,28 +1046,28 @@
    AccessUserGroup = "0">   
    
      <cf_ModuleInsertSubmit
-   SystemModule="Warehouse" 
-   FunctionClass = "Maintain"
-   FunctionName = "Type of Maintenance" 
-   MenuClass = "Asset"
-   MenuOrder = "5"
-   MainMenuItem = "1"
-   FunctionMemo = "Maintainance Classes"
+   SystemModule      = "Warehouse" 
+   FunctionClass     = "Maintain"
+   FunctionName      = "Type of Maintenance" 
+   MenuClass         = "Asset"
+   MenuOrder         = "5"
+   MainMenuItem      = "1"
+   FunctionMemo      = "Maintainance Classes"
    FunctionDirectory = "Warehouse/Maintenance"
-   FunctionPath = "Maintain/RecordListing.cfm"   
-   AccessUserGroup = "0">   
+   FunctionPath      = "Maintain/RecordListing.cfm"   
+   AccessUserGroup   = "0">   
       
    <cf_ModuleInsertSubmit
-   SystemModule="Warehouse" 
-   FunctionClass = "Maintain"
-   FunctionName = "Depreciation Schedule" 
-   MenuClass = "Asset"
-   MenuOrder = "4"
-   MainMenuItem = "1"
-   FunctionMemo = "Asset Depreciation Schedules"
+   SystemModule      = "Warehouse" 
+   FunctionClass     = "Maintain"
+   FunctionName      = "Depreciation Schedule" 
+   MenuClass         = "Asset"
+   MenuOrder         = "4"
+   MainMenuItem      = "1"
+   FunctionMemo      = "Asset Depreciation Schedules"
    FunctionDirectory = "Warehouse/Maintenance"
-   FunctionPath = "Scale/RecordListing.cfm"   
-   AccessUserGroup = "0">   
+   FunctionPath      = "Scale/RecordListing.cfm"   
+   AccessUserGroup   = "0">   
    
 <!--- reference lookup --->  
        
@@ -1182,8 +1179,7 @@
    FunctionDirectory = "Warehouse/Maintenance"
    FunctionPath = "TaskOrderClass/RecordListing.cfm"   
    AccessUserGroup = "0">  
-   
-   
+      
  <cf_ModuleInsertSubmit
    SystemModule="Warehouse" 
    FunctionClass = "Maintain"

@@ -36,39 +36,40 @@
 					searchfield   = "Description",						
 					search        = "text"}>	
 									
-<cfset fields[3] = {label       = "Code",                  
-					field       = "Role",
-					filtermode  = "0",
-					search      = "text"}>					
+<cfset fields[3] = {label         = "Code",                  
+					field         = "Role",
+					filtermode    = "0",
+					search        = "text"}>					
 
-<cfset fields[4] = {label       = "Area",                  
-					field       = "Area",
-					filtermode  = "2"}>	
+<cfset fields[4] = {label         = "Area",                  
+					field         = "Area",
+					filtermode    = "2"}>	
 					
-<cfset fields[5] = {label       = "Function",                  
-					field       = "SystemFunction",
-					filtermode  = "0"}>								
+<cfset fields[5] = {label         = "Function",                  
+					field         = "SystemFunction",
+					filtermode    = "0"}>								
 						
-<cfset fields[6] = {label       = "Scope",                  
-					field       = "OrgUnitLevel",
-					filtermode  = "2",
-					search      = "text"}>				
+<cfset fields[6] = {label         = "Scope",                  
+					field         = "OrgUnitLevel",
+					filtermode    = "2",
+					search        = "text"}>				
 					
-<cfset fields[7] = {label       = "Parameter",                  
-					field       = "Parameter",
-					filtermode  = "2"}>		
+<cfset fields[7] = {label         = "Parameter",                  
+					field         = "Parameter",
+					filtermode    = "2"}>		
 					
-<cfset fields[8] = {label       = "Owner",                  
-					field       = "RoleOwner",
-					alias       = "S",	
-					searchalias = "S",	
-					filtermode  = "2",
-					search      = "text"}>		
+<cfset fields[8] = {label         = "Owner",                  
+					field         = "RoleOwner",
+					alias         = "S",	
+					searchalias   = "S",	
+					filtermode    = "2",
+					search        = "text"}>		
 					
-<cfset fields[9] = {label       = "Class",                  
-					field       = "RoleClass",
-					filtermode  = "2",
-					search      = "text"}>			
+<cfset fields[9] = {label         = "Class",                  
+					field         = "RoleClass",
+					filtermode    = "2",
+					column        = "common",
+					search        = "text"}>			
 					
 
 <cfinvoke component = "Service.Access"  
@@ -96,12 +97,12 @@
 	
 <cf_listing
     header         = "Role"		
-    box            = "role"
+    box            = "systemroles"
 	link           = "#SESSION.root#/System/Access/Role/RecordListingContent.cfm?systemfunctionid=#url.systemfunctionid#"
     html           = "No"
 	menu           = "#menu#"
 	show           = "200"	
-	width          = "99%"
+	width          = "100%"
 	datasource     = "AppsOrganization"
 	listquery      = "#myquery#"
 	listkey        = "Role"
@@ -118,6 +119,6 @@
 	filterShow     = "Yes"
 	excelShow      = "Yes"
 	drillmode      = "#mode#"	
-	drillargument  = "600;700;true;true"	
+	drillargument  = "700;900;true;true"	
 	drilltemplate  = "#template#"
 	drillkey       = "Role">

@@ -24,13 +24,13 @@
 	<script>
 		
 		function reloadForm(page,sort,view) {	   
-		     ColdFusion.navigate('PurchaseViewListing.cfm?view='+view+'&sort='+sort+'&Period=#URL.Period#&Mission=#URL.Mission#&ID=#URL.ID#&ID1=#URL.ID1#&Page=' + page,'detail');
+		     ptoken.navigate('PurchaseViewListing.cfm?view='+view+'&sort='+sort+'&Period=#URL.Period#&Mission=#URL.Mission#&ID=#URL.ID#&ID1=#URL.ID1#&Page=' + page,'detail');
 		}
 		
 		function print(po) {
 			 w = #CLIENT.width# - 100;
 			 h = #CLIENT.height# - 140;
-			 window.open("PurchaseViewPrint.cfm?ID1="+po,"_blank", "left=30, top=30, width=" + w + ", height= " + h + ", toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=no")
+			 ptoken.open("PurchaseViewPrint.cfm?ID1="+po,"_blank", "left=30, top=30, width=" + w + ", height= " + h + ", toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=no")
 		}
 	
 		$(document).ready(function(){
@@ -48,11 +48,11 @@
 	<tr><td height="100">
 		<cfinclude template="PurchaseViewLocate.cfm">
 	</td></tr>
-	<tr><td height="96%" valign="top">
+	<tr><td height="100%" valign="top" style="padding-left:4px;padding-right:4px">
 	    <cf_divscroll style="height:100%" id="detail"/>			
 	</td></tr>
 	<cfelse>
-	<tr><td height="100%" valign="top">
+	<tr><td height="100%" valign="top" style="padding-left:4px;padding-right:4px">
 	    <cfdiv id="detail" style="height:100%">		
 		  <cfinclude template="PurchaseViewListing.cfm">
 		</cfdiv>   

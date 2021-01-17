@@ -12,7 +12,7 @@
 <cfset counted  = getTotal.records>	
 
 <cfoutput>
- 	   <input type="hidden" id="page" name="page" value="#url.page#">
+ 	   <input type="hidden" id="page"     name="page"     value="#url.page#">
 	   <input type="hidden" id="idstatus" name="idstatus" value="#url.idstatus#">
 </cfoutput> 	
 
@@ -311,42 +311,27 @@
 												
 						<td colspan="2" class="clsSearchField" style="padding-right:4px" title="#mem#">
 						
-						<cfset memo = "">	
-						
-						<cfif mem neq "">									
-							<cfif len(mem) gte "60">
-								<cfset memo = "#left(mem,60)#..">	
-							<cfelse>
-								<cfset memo = mem>							
-							</cfif>
-						</cfif>
-						
-						<cfif memo neq "">
-							<cfif FindNoCase(CustomerName,mem) gt 0>
-								<cfset vDetails = memo>
-							<cfelse>
-								<cfset vDetails = "#CustomerName#...">
-							</cfif>
-							<a HREF ="javascript:editCustomer('#ReferenceId#')">#vDetails#</a>
-						<cfelse>
-							#nme#
-						</cfif>
-		
-						<!---
-						<cfif IndexNo neq "">
+							<cfset memo = "">	
 							
-							<cfif url.find neq "">
-								<cfset per = replaceNoCase(IndexNo, url.find,"<u><font color='red'>#url.find#</font></u>", "ALL")> 
-							<cfelse>
-							    <cfset per = IndexNo>	
+							<cfif mem neq "">									
+								<cfif len(mem) gte "60">
+									<cfset memo = "#left(mem,60)#..">	
+								<cfelse>
+									<cfset memo = mem>							
+								</cfif>
 							</cfif>
 							
-							<cfif mem neq ""><br></cfif>											
-							<A HREF ="javascript:EditPerson('#ReferencePersonNo#')">#IndexNo#: #FirstName# #LastName#</a>
-													
-						</cfif>
-						--->
-		
+							<cfif memo neq "">
+								<cfif FindNoCase(CustomerName,mem) gt 0>
+									<cfset vDetails = memo>
+								<cfelse>
+									<cfset vDetails = "#CustomerName#...">
+								</cfif>
+								<a HREF ="javascript:editCustomer('#ReferenceId#')">#vDetails#</a>
+							<cfelse>
+								#nme#
+							</cfif>
+				
 						</td>
 						
 						<TD class="clsSearchField" style="padding-right:6px">#Dateformat(TransactionDate, "#CLIENT.dateformatshow#")#</TD>							
@@ -387,11 +372,10 @@
 						<cfset Amt  = Amt  + Amount>  
 					    <cfset AmtT = AmtT + Amount>
 										
-						 <td style="padding-left:4px;padding-right:4px;padding-top:3px" valign="middle" align="center" id="note_#Journal#_#JournalSerialNo#">
+						 <td style="padding-left:4px;padding-right:4px;padding-top:3px" valign="absmiddle" align="center" id="note_#Journal#_#JournalSerialNo#">
 								 
 							 <cf_annotationshow entity="GLTransaction" 
-						         keyvalue4="#TransactionId#"
-							     docbox="note_#Journal#_#JournalSerialNo#">						
+						         keyvalue4="#TransactionId#" docbox="note_#Journal#_#JournalSerialNo#">						
 									 
 						 </td>	 
 									 			

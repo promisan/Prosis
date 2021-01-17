@@ -110,7 +110,7 @@
 
  <tr><td colspan="6"><cfinclude template="BroadCastNavigation.cfm"></td></tr>
  
- <tr height="20" class="line labelmedium">
+ <tr height="20" class="line labelmedium2">
  	 <cfif Group.RecordCount gt 0>
  	 <td></td>
 	 </cfif>
@@ -139,9 +139,9 @@
 			<cfoutput>
 			
 				<cfif check.broadcastStatus eq "0"> 
-				<tr id="r#currentrow#" class="navigation_row navigation_action line labelmedium">
+				<tr id="r#currentrow#" class="navigation_row navigation_action line labelmedium2">
 				<cfelse>
-				<tr id="r#currentrow#" class="navigation_row line labelmedium"> 
+				<tr id="r#currentrow#" class="navigation_row line labelmedium2"> 
 				</cfif>
 					<cfif Group.RecordCount gt 0>
 						<td></td>

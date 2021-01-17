@@ -9,7 +9,7 @@
 <script language="JavaScript">
 
 function gjp(fun,grd) {   
-    window.open("#SESSION.root#/Roster/Maintenance/FunctionalTitles/FunctionGradePrint.cfm?ID=" + fun + "&ID1=" + grd, "_blank", "toolbar=no, status=yes, scrollbars=yes, resizable=yes"); 
+    ptoken.open("#SESSION.root#/Roster/Maintenance/FunctionalTitles/FunctionGradePrint.cfm?ID=" + fun + "&ID1=" + grd, "_blank", "toolbar=no, status=yes, scrollbars=yes, resizable=yes"); 
 }
 
 ie = document.all?1:0
@@ -35,7 +35,7 @@ function hl(itm,fld){
  }
  
 function first() {
-	window.location = "Search1.cfm?docno=#url.docno#&ID=#URL.ID#&Owner=#URL.Owner#&Mode=#URL.Mode#&Status=#URL.Status#"
+	ptoken.location('Search1.cfm?docno=#url.docno#&ID=#URL.ID#&Owner=#URL.Owner#&Mode=#URL.Mode#&Status=#URL.Status#')
 }
 
 </script>  
@@ -162,8 +162,7 @@ password="#SESSION.dbpw#">
 
 </cfif>   
  
-<body leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" 
-onLoad="javascript: try {document.forms.functionselect.occupationalgroup.focus()} catch(e) {};">
+<body leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" onLoad="javascript: try {document.forms.functionselect.occupationalgroup.focus()} catch(e) {};">
 
 <cf_screentop html="No" label="Roster Bucket Select" height="100%" scroll="Yes">
 
@@ -180,7 +179,7 @@ onLoad="javascript: try {document.forms.functionselect.occupationalgroup.focus()
 				
 			<cfif occgroup.recordcount gte "2">
 			
-		    	<select id="occupationalgroup" name="occupationalgroup" size="1" class="regularxl">
+		    	<select id="occupationalgroup" name="occupationalgroup" size="1" class="regularxxl">
 				<!--- <option value="" selected>All groups</option> --->
 			    <cfoutput query="OccGroup">
 				<option value="#OccupationalGroup#" <cfif initocc eq OccupationalGroup>selected</cfif>>
@@ -201,7 +200,7 @@ onLoad="javascript: try {document.forms.functionselect.occupationalgroup.focus()
 		</td>
 	 </tr> 	
 	 
-	 <tr class="labelmedium line"><td colspan="2" align="left" style="font-weight:250;height:40px;font-size:18px;color:gray;padding-left:5px">
+	 <tr class="labelmedium2 line"><td colspan="2" align="left" style="height:40px;font-size:18px;color:gray;padding-left:5px">
 	 
 		 <cfif URL.DocNo neq "">
 		     Attention: Recruitment Search is limited to listed buckets of associated occupational group of the recruitment track

@@ -116,7 +116,7 @@
 
 <cfset Page         = "0">
 <cfset add          = "1">
-<cfset menu         = "0"> 
+<cfset menu         = "1"> 
 <cfset save         = "0"> 
 
 <table height="100%" width="100%" align="center">

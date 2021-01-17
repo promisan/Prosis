@@ -7,22 +7,17 @@
 			datasource="appsEmployee" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
-			    INSERT INTO Ref_WorkActionMission
-					(
+			    INSERT INTO Ref_WorkActionMission (
 						ActionClass,
 						Mission,
 						OfficerUserId,
 						OfficerLastName,
-						OfficerFirstName
-					)
-				VALUES
-					(
-						'#url.id1#',
+						OfficerFirstName )
+				VALUES ('#url.id1#',
 						'#url.mission#',
 						'#SESSION.acc#',
 						'#SESSION.last#',
-						'#SESSION.first#'
-					)
+						'#SESSION.first#' )
 		</cfquery>
 	
 	</cfif>
@@ -46,7 +41,7 @@
 
 <cfoutput>
 	<script>
-		ColdFusion.navigate('WorkActionMission.cfm?ID1=#url.id1#', 'divMission');
+		ptoken.navigate('WorkActionMission.cfm?ID1=#url.id1#', 'divMission');
 	</script>
 </cfoutput>
 

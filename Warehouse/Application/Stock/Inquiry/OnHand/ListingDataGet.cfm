@@ -345,10 +345,5 @@
 
 </cftransaction>
 
-<table width="99%" align="center" style="height:100%;" border="0" cellspacing="0" cellpadding="0" class="formpadding">	
-	<tr>
-		<td align="right" height="100%">
-		   <cfinclude template="ListingDataContent.cfm">					
-		</td>
-	</tr>					
-</table>
+<cfinclude template="ListingDataContent.cfm">					
+	

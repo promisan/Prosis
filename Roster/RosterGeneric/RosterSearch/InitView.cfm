@@ -1,4 +1,5 @@
 <cfparam name="URL.DocNo"      default="">
+<cfparam name="URL.mid"        default="">
 <cfparam name="url.wparam"     default="ALL">
 <cfparam name="URL.FunctionNo" default="0">
 
@@ -20,7 +21,7 @@
 <cfparam name="URL.Owner"  default="#Owner.Code#">
 
 <cfif url.cat eq "Regular">
-   <cfset loc = "Search1.cfm?header=0&wparam=#url.wparam#&docno=#URL.DocNo#&functionno=#URL.FunctionNo#&mode=#URL.Mode#&owner=#URL.Owner#&Status=#URL.Status#">
+   <cfset loc = "Search1.cfm?header=0&wparam=#url.wparam#&docno=#URL.DocNo#&functionno=#URL.FunctionNo#&mode=#URL.Mode#&owner=#URL.Owner#&Status=#URL.Status#&mid=#url.mid#">
 </cfif>
 
 <cfoutput>
@@ -111,7 +112,7 @@
 		splitter      = "true"
 		overflow      = "hidden">
 													
-			<iframe src="SearchTree.cfm?ID=0&docno=#URL.DocNo#&functionno=#URL.FunctionNo#&mode=#URL.Mode#&owner=#URL.Owner#&Status=#URL.Status#"
+			<iframe src="SearchTree.cfm?ID=0&docno=#URL.DocNo#&functionno=#URL.FunctionNo#&mode=#URL.Mode#&owner=#URL.Owner#&Status=#URL.Status#&mid=#url.mid#"
 		        name="left"
 		        id="left"
 		        width="100%"

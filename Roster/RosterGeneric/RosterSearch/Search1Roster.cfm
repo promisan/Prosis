@@ -159,7 +159,7 @@
 											
 				<cfset cls = "regular">	
 								
-				<tr><td height="30" style="font-weight:200;font-size:17px" class="labellarge"><cf_tl id="In the following available editions" class="Message">:</td></tr>	
+				<tr><td height="30" style="font-size:18px" class="labellarge"><cf_tl id="In the following available editions" class="Message">:</td></tr>	
 				
 				<tr><td height="7"></td></tr>
 								
@@ -173,14 +173,14 @@
 					
 					<cfelse>
 						
-					<table width="96%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding navigation_table">
+					<table width="96%" align="center" class="formpadding navigation_table">
 					  <tr class="labelmedium line">
 					  <td>&nbsp;</td>
-					  <td class="labelmedium" colspan="2"><cf_tl id="Roster edition"></td>
-					  <td class="labelmedium"><cf_tl id="Buckets"></td>
-					  <td class="labelmedium" colspan="1"><cf_tl id="Owner"></td>
-					  <td class="labelmedium" colspan="1"><cf_tl id="Expiration"></td>
-					  <td class="labelmedium" colspan="1"></td>
+					  <td colspan="2"><cf_tl id="Roster edition"></td>
+					  <td><cf_tl id="Buckets"></td>
+					  <td><cf_tl id="Owner"></td>
+					  <td><cf_tl id="Expiration"></td>
+					  <td></td>
 				    </tr>
 					
 				    <cfoutput query="ShowEdition" group="ExerciseClass"> 
@@ -188,10 +188,10 @@
 					    <cfset cl = ExerciseClass>
 					  
 						<cfoutput> 
-					    	<TR class="navigation_row">
+					    	<TR class="navigation_row line labelmedium">
 							     <td>&nbsp;</td>
-					   			 <td class="labelmedium" colspan="2" align="left"><cfif cl eq "#ExerciseClass#">#ExerciseClass#/</cfif>#EditionDescription#</td>
-					      		 <td class="labelmedium">#Buckets#</td>
+					   			 <td colspan="2" align="left"><cfif cl eq "#ExerciseClass#">#ExerciseClass#/</cfif>#EditionDescription#</td>
+					      		 <td>#Buckets#</td>
 								 
 								 <cfquery name="Own" 
 									datasource="AppsOrganization" 
@@ -202,9 +202,9 @@
 									  WHERE Code = '#Owner#'				  
 								  </cfquery>
 								 				 
-								 <TD class="labelmedium">#Own.Description#</TD>
+								 <TD>#Own.Description#</TD>
 								 
-								 <td class="labelmedium">#dateformat(dateexpiration,CLIENT.DateFormatShow)#</td>
+								 <td>#dateformat(dateexpiration,CLIENT.DateFormatShow)#</td>
 								
 						    	 <!---  <TD class="regular">&nbsp;#EditionDescription#&nbsp;&nbsp;</TD> --->
 					    	     <TD align="center">

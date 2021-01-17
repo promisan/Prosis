@@ -5,7 +5,7 @@
 	<cfset cols  = session.listingdata[box]['columns']>	 
 	<!--- we obtain the grouped data as well --->
 	
-	<cfif url.listgroupfield neq "">
+	<cfif url.listgroupfield neq "">	
 		<cfset searchgroup = session.listingdata[box]['datasetgroup']>
 	</cfif>
 	
@@ -14,24 +14,20 @@
 
 	<!--- GROUP / PIVOT PRESENTATION --->
 	
-	<cfif session.listingdata[box]['firstsummary'] gte "3">			   
-	   <cfset headercols = pre+session.listingdata[box]['firstsummary']-1>	
-	   <cfset headercols = pre+3>				   
-	<cfelse>		
-	   <cfset headercols = cols>		   			   	   		   		
-	</cfif>	
-		
-	<cfset lst = "">
+	<cfset headercols = pre+session.listingdata[box]['firstsummary']-1>	
+	<cfset headercols = pre+3>				   
 			
+	<cfset lst = "">
+						
 	<cfloop query="SearchResult" startrow="#start#" endrow="#end#">	
-	
+		
 	     <!--- group presenting only supported if full listing is done and the listing mode not longitudinal --->
 	
 		<cfif rowdatatarget eq "r">
-		
+				    			 
 			<cfif evaluate(url.listgroupfield) neq lst>		
-			
-			  <cfinclude template="ListingContentHTMLGroupData.cfm">	  
+						
+			  <cfinclude template="ListingContentHTMLGroupShow.cfm">	  
 			  					   					
 			  <cfset pre1     = "<td colspan='#headercols#' style='font-size:16px;padding-left:5px;height:30px'>#groupname# (#counted#)</td>">			  
 			  <cfset data1     = "">
@@ -52,6 +48,8 @@
 			   var markup = "<tr class='line fixrow240 navigation_row labelmedium2'>#pre1##data1#</tr>";			 
 			   $('###attributes.box#_table').append(markup) 					 				 
 		      </script>
+			  
+			  <!---
 			  			  			  			  		  		  
 			  <cfif session.listingdata[box]['firstsummary'] lte "2">
 			  
@@ -74,10 +72,13 @@
 			      </script>		 			   
 			  		  
 			  </cfif>
+			  
+			  --->
 			  								
 			  <cfset lst = evaluate(url.listgroupfield)>		 
 			
 			</cfif>		
+			
 			
 		</cfif>	
 	
@@ -91,7 +92,7 @@
 		<cfelse>			
 			<cf_img icon="open"   var="myicon">			
 		</cfif>
-					
+							
 		<cf_img icon="delete" var="mydelete">
 											
 		<cfscript>
@@ -100,15 +101,14 @@
 			color    = "#iif(currentrow MOD 2,DE('fafafa'),DE('efefef'))#"
 			dkey     = evaluate(drillkey)
 			listrow  = "class='#attributes.classheader# navigation_row line #rowdatatarget#_data' name='f#attributes.box#_#dkey#' style='background-color:#color#'"
-		
-		
+				
 		    /* prefix cells */				
-			pre1     = "<td style='padding-left:12;height:21px'>#currentrow#.</td>"
+			pre1     = "<td align='right' style='padding-right:4px;height:21px'>#currentrow#.</td>"
 		
 			drillfun = "toggledrill('#lcase(drillmode)#','box#dkey#','#drilltemplate#','#dkey#','#argument#','#drillbox#','#drillstring#')"
 			
 			if (drillmode eq 'Embed' or drillmode eq 'EmbedXT' or drillmode eq 'Workflow') { 
-			pre2     = "<td style='padding-top:7px' class='navigation_action' onclick=#drillfun#>#myicon#</td>"
+			pre2     = "<td style='padding-top:8px' class='navigation_action' onclick=#drillfun#>#myicon#</td>"
 			} else {
 			pre2     = "<td style='padding-top:4px' class='navigation_action' onclick=#drillfun#>#myicon#</td>"
 			}					
@@ -131,7 +131,7 @@
 			}
 			
 			if (deletetable NEQ "") {
-			   del  = "deleterow('#row#','#attributes.datasource#','#deletetable#','#drillkey#','#dkey#')"				   
+			   del  = "deleterow('#box#','#attributes.datasource#','#deletetable#','#drillkey#','#dkey#')"				   
 			   suf = "#suf#<td style='padding-top:1px' onclick=#del#>#mydelete#</td>"
 			}
 			
@@ -227,8 +227,7 @@
 			
 			</cfif>
 		
-		</cfif>
-				
+		</cfif>			
 							
 		<!---
 		
@@ -236,28 +235,28 @@
 			<cfset ajaxOnLoad("function(){ ptoken.navigate('#session.root#/tools/listing/listing/setAnnotation.cfm?entity=#attributes.annotation#&key=#dkey#','note#dkey#') }")>	
 		</cfif>
 		
-		--->
-			
-								
+		--->		
+									
 		
 	</cfloop> 
+		
 		
 	<cfif SearchResult.recordcount lte end>
 		<cfset end = searchResult.recordcount>
 	</cfif>
 	
 	<!--- we update the navigation with the number of records in the grid --->
-	<script>			 
-		 
+	<!--- we replace this in the SetTime script --->
+	
+	<script>			 		 
 		 se = document.getElementsByName('#attributes.box#_rowshown')
 		 i = 0			 	 					 
-		 while (se[i]) { se[i].innerHTML = '#end#'; i++ }			
-		
+		 while (se[i]) { se[i].innerHTML = '#end#'; i++ }					
     </script>
 	
 	<!--- we keep the last record shown in memory --->
 	<cfset session.listingdata[box]['recshow'] = end>		
 					
 	<cfset ajaxonload("doHighlight")>		
-	
+			
 </cfoutput>	

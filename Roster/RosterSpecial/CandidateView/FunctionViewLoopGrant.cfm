@@ -1,8 +1,6 @@
 
- <table width="100%" cellspacing="0" cellpadding="0">
- 
-   <tr><td height="5"></td></tr>
-		  
+ <table width="100%" class="navigation_table">
+ 		  
   	  <cfinvoke component="Service.AccessGlobal"  
          method="global" 
       	 role="AdminRoster" 
@@ -13,61 +11,40 @@
 	 			  
 		  <cfif Access eq "ALL" or Access eq "EDIT">
 		  
-			  <tr>
+			  <tr class="line labelmedium2 navigation_row" style="height:35px" onClick="access('#URL.IDFunction#','0','0','#url.source#')">
 			  
-			  <td width="8%" align="center" style="padding-left:4px;padding-right:4px">
+			  <td style="padding-left:4px;padding-right:4px">
 			 				 
-				<img src="#SESSION.root#/Images/ct_collapsed.gif" alt="" 
-					id="0Exp" border="0" class="regular" 
-					align="middle" style="cursor: pointer;" 
-					onClick="access('#URL.IDFunction#','0','0','#url.source#')">
+				<img src="#SESSION.root#/Images/Logos/System/ListCollapsed.png" 
+					id="0Exp" class="regular" style="cursor: pointer;" height="25">
 					
-					<img src="#SESSION.root#/Images/ct_expanded.gif" 
-					id="0Min" alt="" border="0" 
-					align="middle" class="hide" style="cursor: pointer;" 
-					onClick="access('#URL.IDFunction#','0','0','#url.source#')">
+					<img src="#SESSION.root#/Images/Logos/System/ListExpanded.png" 
+					id="0Min" class="hide" style="cursor: pointer;" height="25">
 										
-				</td>
-			  <td height="25" class="labelmedium"><a href="javascript: access('#URL.IDFunction#','0','0')">Read only</b></a></td>
-			  
+			  </td>
+			  <td style="width:100%;font-size:18px;"><cf_tl id="Read only"></a></td>			  
 			  </tr>		  
 		      
-			  <tr class="hide" id="0"><td colspan="2">
-			     <cfdiv id="i0">									
-			  </td></tr>
-			  
-			  <tr><td height="1" colspan="2" class="linedotted"></td></tr>
-			  <tr><td height="2" colspan="2"></td></tr> 
-			  
+			  <tr class="hide" id="0"><td colspan="2" id="i0"></td></tr>			  
 			  <cfif url.source eq "manual">				  
 							  
-			  <tr>
+			  <tr class="line labelmedium2 navigation_row" style="height:35px" onClick="access('#URL.IDFunction#','IN','0','#url.source#')">
 			  
-			  <td width="8%" align="center" style="padding-left:4px;padding-right:4px">
+			  <td style="padding-left:4px;padding-right:4px">
 			 				 
-				<img src="#SESSION.root#/Images/ct_collapsed.gif" alt="" 
-					id="INExp" border="0" class="regular" 
-					align="middle" style="cursor: pointer;" 
-					onClick="access('#URL.IDFunction#','IN','0','#url.source#')">
+				<img src="#SESSION.root#/Images/Logos/System/ListCollapsed.png" alt="" 
+					id="INExp" class="regular" style="cursor: pointer;" height="25">
 					
-					<img src="#SESSION.root#/Images/ct_expanded.gif" 
-					id="INMin" alt="" border="0" 
-					align="middle" class="hide" style="cursor: pointer;" 
-					onClick="access('#URL.IDFunction#','IN','0','#url.source#')">					
+					<img src="#SESSION.root#/Images/Logos/System/ListExpanded.png" 
+					id="INMin" class="hide" style="cursor: pointer;" height="25">					
 					
-			  </td>
-			  
-			  <td height="25" class="labelmedium"><a href="javascript: access('#URL.IDFunction#','IN','0','#url.source#')">Manually Record Candidates</b></a></td>
+			  </td>			  
+			  <td style="width:100%;font-size:18px;">Manually Record Candidates</td>
 			  
 			  </tr>		  
 		      
-			  <tr class="hide" id="IN"><td colspan="2">
-			     <cfdiv id="iIN">									
-			  </td></tr>
-			  
-			  <tr><td height="1" colspan="2" class="linedotted"></td></tr>
-			  <tr><td height="2" colspan="2"></td></tr> 
-			  
+			  <tr class="hide" id="IN"><td colspan="2" id="iIN"></td></tr>
+			  			  
 			  </cfif>
 			  			  
 		  </cfif>			  
@@ -128,32 +105,20 @@
 				 									 				  				  
 				  <cfif Access eq "ALL" or (Access eq "EDIT" and checkstatus.PrerosterStatus eq "0")>
 				  
-					  <tr>
+					  <tr class="line labelmedium2 navigation_row" style="height:35px" onClick="access('#URL.IDFunction#','#accesslevel#','1','#url.source#')">					  
+					  <td style="padding-left:4px;padding-right:4px"> 
 					  
-					  <td width="8%" align="center" height="25" style="padding-left:4px;padding-right:4px"> 
-					  
-						<img src="#SESSION.root#/Images/ct_collapsed.gif" alt="" 
-							id="#accesslevel#Exp" border="0" class="regular" 
-							align="absmiddle" style="cursor: pointer;" 
-							onClick="access('#URL.IDFunction#','#accesslevel#','1','#url.source#')">
+						<img src="#SESSION.root#/Images/Logos/System/ListCollapsed.png" alt="" 
+							id="#accesslevel#Exp" class="regular" style="cursor: pointer;" height="25">
 							
-							<img src="#SESSION.root#/Images/ct_expanded.gif" 
-							id="#accesslevel#Min" alt="" border="0" 
-							align="absmiddle" class="hide" style="cursor: pointer;" 
-							onClick="access('#URL.IDFunction#','#accesslevel#','1','#url.source#')">
+							<img src="#SESSION.root#/Images/Logos/System/ListExpanded.png" 
+							id="#accesslevel#Min" class="hide" style="cursor: pointer;" height="25">
 							
 					  </td>
-					  <td class="labelmedium">
-					  	<a href="javascript: access('#URL.IDFunction#','#Accesslevel#','1','#url.source#')">#accessLabel[accesslevel+1]#</a>
-					  </td>					  
+					  <td style="width:100%;font-size:18px;">#accessLabel[accesslevel+1]#</a></td>					  
 					  </tr>						  				   
 				      
-					  <tr class="hide" id="#AccessLevel#">
-					  	<td colspan="2"><cfdiv id="i#accesslevel#"></td>		 
-					  </tr>			 					  
-					  
-					  <tr><td height="1" colspan="2" class="linedotted"></td></tr>			  
-					 
+					  <tr class="hide" id="#AccessLevel#"><td colspan="2" id="i#accesslevel#"></td></tr>			 					     					 
 										  				  
 				  </cfif>
 			  
@@ -164,3 +129,5 @@
 	  </cfoutput>
 			  
  </table>		
+ 
+ <cfset ajaxOnLoad("doHighlight")>

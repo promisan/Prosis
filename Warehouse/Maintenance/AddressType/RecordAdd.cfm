@@ -9,28 +9,30 @@
 
 <!--- Entry form --->
 
-<cfform action="RecordSubmit.cfm?idmenu=#url.idmenu#" method="POST" enablecab="Yes" name="dialog">
+<cfform action="RecordSubmit.cfm?idmenu=#url.idmenu#" method="POST" name="dialog">
 
-<table width="92%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="92%" align="center" class="formpadding formspacing">
 
-    <TR>
+	<tr><td style="height:5px"></td></tr>
+	
+    <TR class="labelmedium2">
     <TD><cf_tl id="Code">:</TD>
     <TD>
-  	   <cfinput type="text" name="code" value="" message="Please enter a code" required="Yes" size="10" maxlength="10" class="regular">
+  	   <cfinput type="text" name="code" value="" message="Please enter a code" required="Yes" size="10" maxlength="10" class="regularxxl">
     </TD>
 	</TR>
 	
-	<TR>
+	<TR class="labelmedium2">
     <TD><cf_tl id="Description">:</TD>
     <TD>
-  	   <cfinput type="text" name="Description" value="" message="Please enter a description" required="Yes" size="40" maxlength="40" class="regular">
+  	   <cfinput type="text" name="Description" value="" message="Please enter a description" required="Yes" size="40" maxlength="40" class="regularxxl">
     </TD>
 	</TR>
 	
-	<TR>
+	<TR class="labelmedium2">
     <TD><cf_tl id="Order">:</TD>
     <TD>
-  	   <cfinput type="text" name="ListingOrder" value="1" validate="integer" required="Yes" size="2" maxlength="2" class="regular">
+  	   <cfinput style="text-align:center" type="text" name="ListingOrder" value="1" validate="integer" required="Yes" size="2" maxlength="2" class="regularxxl">
     </TD>
 	</TR>
 		

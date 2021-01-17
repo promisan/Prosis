@@ -210,7 +210,7 @@
 									
 					<table cellspacing="0" cellpadding="0" class="formpadding">
 					
-						<tr class="labelmedium">					
+						<tr class="labelmedium2">					
 						
 						<td style="padding-left:7px;cursor: pointer;" onclick="reloadForm(document.getElementById('page').value,'Pending')">  				
 						<input type="radio" style="height:18px;width:18px" class="radiol" name="Status" value="Pending" <cfif URL.IDStatus eq "Pending">checked</cfif>>
@@ -338,8 +338,12 @@
 					
 		<tr class="line">
 		
-			<td colspan="2" class="clsPrintContent" id="journalcontent" valign="top" style="padding-left:10px;min-width:1200px;height:100%">		
+			<td colspan="2" class="clsPrintContent" id="journalcontent" valign="top" style="padding-left:10px;min-width:1200px;height:100%">	
+			
+			<!---    <cfinclude template="JournalListingContent.cfm">		--->
+			
 				<cfinclude template="JournalListingDetail.cfm">											
+			
 			</td>		
 		
 		</tr>				

@@ -1,9 +1,7 @@
-
-
 					
 <cfsavecontent variable="myquery">		
 	<cfoutput>
-		SELECT	O.*,
+		SELECT	O.*, OvertimeDate,
 				W.ActionDescriptionDue
 		FROM	UserQuery.dbo.#session.acc#_#SalaryTrigger#_OvertimeListing O
 				LEFT OUTER JOIN #SESSION.acc#_wfOvertime W
@@ -25,7 +23,8 @@
 <cfset itm = itm+1>		
 <cfset fields[itm] = {label          = "Unit",                  
 					  field          = "Organization",
-					  filtermode     = "2",
+					  fieldsort      = "Organization_ord",
+					  filtermode     = "3",
 					  display		 = "Yes",
 					  displayfilter  = "Yes",
 					  search         = "text"}>	
@@ -47,13 +46,14 @@
 <cfset itm = itm+1>		
 <cfset fields[itm] = {label          = "Function",                  
 					  field          = "FunctionalTitle",
-					  filtermode     = "2",
+					  filtermode     = "3",
 					  displayfilter  = "Yes",
 					  search         = "text"}>
 
 <cfset itm = itm+1>							
 <cfset fields[itm] = {label          = "Date",  					
 					  field          = "OvertimeDate",
+					  column         = "month",
 					  search         = "date",
 					  formatted      = "dateformat(OvertimeDate,'#CLIENT.DateFormatShow#')"}>
 					  
@@ -66,7 +66,7 @@
 <cfset itm = itm+1>		
 <cfset fields[itm] = {label          = "Stage",                  
 					  field          = "ActionDescriptionDue",
-					  filtermode     = "2",
+					  filtermode     = "3",
 					  displayfilter  = "Yes",
 					  search         = "text"}>
 					  
@@ -74,6 +74,7 @@
 <cfset fields[itm] = {label          = "St",                  
 					  field          = "Status",
 					  filtermode     = "3",    
+					  labelfilter    = "Status",
 				      search         = "text",
 					  align          = "center",
 				  	  formatted      = "Rating",
@@ -81,15 +82,10 @@
 							
 <!--- <cfset filters=ArrayNew(1)>		
 <cfset filters[1] = {field = "ActionStatus", value= "0"}> --->						 
-		
-<table width="100%" height="100%">
-
-	<tr>
-	<td style="padding:10px">	
-		
+			
 	<cf_listing
 	    header          = "Overtime"
-	    box             = "overtime"
+	    box             = "overtimebox"
 		link            = "#SESSION.root#/Attendance/Inquiry/Overtime/OvertimeListingContent.cfm?systemfunctionid=#url.systemfunctionid#&mission=#url.mission#&salaryTrigger=#SalaryTrigger#"
 	    html            = "No"		
 		datasource      = "AppsQuery"
@@ -104,12 +100,8 @@
 		filterShow      = "Hide"
 		<!--- listfilter     = "#filters#"  --->
 		excelShow       = "Yes"
-		drillmode       = "window"	
+		drillmode       = "tab"	
 		drillargument   = "900;1200;true;true"	
 		drilltemplate   = "Payroll/Application/Overtime/OvertimeEdit.cfm?mycl=1&myclentity=EntOvertime&refer=workflow&id1="
 		drillkey        = "OvertimeId">		
-	
-	</td>
-	</tr>
-	
-</table>		
+		

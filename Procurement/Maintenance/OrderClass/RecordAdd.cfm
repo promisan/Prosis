@@ -11,15 +11,15 @@
 
 <!--- Entry form --->
 
-<table width="92%" cellspacing="0" cellpadding="0" class="formspacing formpadding" align="center">
+<table width="92%" class="formspacing formpadding" align="center">
 
 	<tr><td height="10"></td></tr>
    <!--- Field: Id --->
     <TR>
-    <TD class="labelmedium">Code:</TD>
-    <TD class="labelmedium">
+    <TD class="labelmedium2">Code:</TD>
+    <TD class="labelmedium2">
 		<cfinput type="Text" name="Code" value="" message="Please enter a code" required="Yes" size="10" maxlength="20"
-		class="regularxl enterastab">
+		class="regularxxl enterastab">
 	</TD>
 	</TR>
 		 
@@ -35,9 +35,9 @@
 	</cfquery>
 	 
 	 <TR>
-	 <TD class="labelmedium" width="150">Entity:&nbsp;</TD>  
+	 <TD class="labelmedium2" width="150">Entity:&nbsp;</TD>  
 	 <TD>
-	 	<select class="regularxl enterastab" name="Mission" id="Mission">
+	 	<select class="regularxxl enterastab" name="Mission" id="Mission">
 		<option value="" selected>[Apply to all]</option>
 		<cfoutput query="Mis">
 		<option value="#Mission#">#Mission#</option>
@@ -57,10 +57,10 @@
 	</cfquery>
 
 	 
-	  <TR class="labelmedium">
+	  <TR class="labelmedium2">
     <TD>Tax Account :</TD>
     <TD>
-  	  <select class="regularxl enterastab" name="glaccounttax">
+  	  <select class="regularxxl enterastab" name="glaccounttax">
      	  <option value="">Use System default</option>  
             <cfoutput query="TaxAccount">
         	<option value="#GLAccount#">#GLAccount# #Description#</option>
@@ -71,16 +71,16 @@
 	 
 	   <!--- Field: Description --->
     <TR>
-    <TD class="labelmedium">Description:</TD>
-    <TD class="labelmedium">
+    <TD class="labelmedium2">Description:</TD>
+    <TD class="labelmedium2">
 		<cfinput type="Text" name="Description" value="" message="Please enter a description" required="Yes" size="30" maxlength="30"
-		class="regularxl enterastab">
+		class="regularxxl enterastab">
 	</TD>
 	</TR>
 		
 	<TR>
-    <td class="labelmedium">Group:</b></td>
-    <TD class="labelmedium">
+    <td class="labelmedium2">Group:</b></td>
+    <TD class="labelmedium2">
 	<input type="radio" class="enterastab" name="PreparationMode" id="PreparationMode" value="Job" checked>Standard Procurement (Vendor)<br>
 	<input type="radio" class="enterastab" name="PreparationMode" id="PreparationMode" value="Position">Outsourced Position (New and Extension)<br>
 	<input type="radio" class="enterastab" name="PreparationMode" id="PreparationMode" value="SSA">Personal Service Agreement<br>
@@ -89,22 +89,22 @@
     </td>
     </tr>	
 	
-	<tr><td class="labelmedium" height="3"><b>Print Template</b></td></tr>
+	<tr><td class="labelmedium2" height="3"><b>Print Template</b></td></tr>
 	
 	 <!--- Field: Description --->
     <TR height="30">
-    <TD class="labelmedium">&nbsp;Purchase Order:</TD>
+    <TD class="labelmedium2">&nbsp;Purchase Order:</TD>
     <TD>
 		<cfinput type="Text" name="PurchaseTemplate" value="" message="Please enter a template path" required="No" size="40" maxlength="100"
-		class="regularxl enterastab">
+		class="regularxxl enterastab">
 	</TD>
 	</TR>
 	
 	<TR height="30">
-    <TD class="labelmedium">&nbsp;Execution&nbsp;Request:&nbsp;</TD>
+    <TD class="labelmedium2">&nbsp;Execution&nbsp;Request:&nbsp;</TD>
     <TD>
 		<cfinput type="Text" name="ExecutionTemplate" message="Please enter a template path" required="No" size="40" maxlength="100"
-		class="regularxl enterastab">
+		class="regularxxl enterastab">
 	</TD>
 	</TR>	
 			

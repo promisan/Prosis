@@ -60,19 +60,19 @@
 			datasource="AppsPayroll" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
-			INSERT INTO SalaryScheduleMission
-			         (SalarySchedule, 
-					  Mission, 
-					  DateEffective,
-					  OfficerUserId,
-					  OfficerLastName,
-					  OfficerFirstName)
-			  VALUES ('#sch#',
-			          '#Form.Mission#', 
-					  #STR#,
-					  '#SESSION.acc#',
-			    	  '#SESSION.last#',		  
-				  	  '#SESSION.first#')
+			   INSERT INTO SalaryScheduleMission
+			            (SalarySchedule, 
+					     Mission, 
+					     DateEffective,
+					     OfficerUserId,
+					     OfficerLastName,
+					     OfficerFirstName)
+			  VALUES  ('#sch#',
+			           '#Form.Mission#', 
+					   #STR#,
+					   '#SESSION.acc#',
+			    	   '#SESSION.last#',		  
+				  	   '#SESSION.first#')
 			</cfquery>
 		
 		</cftransaction>
@@ -82,8 +82,12 @@
 </cfif>
 
 <cfoutput>
-<script language="JavaScript">   
-     window.close()
-	 opener.location = "RecordListing.cfm?idmenu=#url.idmenu#&init=1"       
-</script>  
+
+	<cfparam name="url.mid" default="">
+
+	<script language="JavaScript">   
+    	 window.close()
+		 opener.location = "RecordListing.cfm?idmenu=#url.idmenu#&init=1&mid=#url.mid#"       
+	</script>  
+
 </cfoutput>

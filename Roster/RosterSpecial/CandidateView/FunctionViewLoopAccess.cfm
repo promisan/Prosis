@@ -2,22 +2,20 @@
 	
             
    <table width="100%" cellspacing="0" cellpadding="0">
-       <tr><td height="1" bgcolor="silver"></td></tr>
+      
 	   <tr><td>
 	   
 		   <table width="100%">
 			    <tr><td align="center" width="30" height="25">
 			    <cfoutput>
-				<img src="#SESSION.root#/Images/arrowright.gif" alt="" 
-					id="accessExp" border="0" class="regular" 
-					align="middle" style="cursor: pointer;" 
+				<img src="#SESSION.root#/Images/Logos/System/ListCollapsed.png" height="27"
+					id="accessExp" class="regular" style="cursor: pointer;" 
 					onClick="more('access','show')">
 					
-					<img src="#SESSION.root#/Images/arrowdown.gif" 
-					id="accessMin" alt="" border="0" 
-					align="middle" class="hide" style="cursor: pointer;" 
+					<img src="#SESSION.root#/Images/Logos/System/ListExpanded.png" height="27" 
+					id="accessMin" class="hide" style="cursor: pointer;" 
 					onClick="more('access','hide')">
-				</cfoutput>	&nbsp;
+				</cfoutput>	
 				</td>
 				<td><a href="javascript: more('access','show')">Grant access to this bucket</a></b></td>
 				</tr>
@@ -44,21 +42,19 @@
 				  
 					  <tr>
 					  
-					  <td width="8%" align="center">&nbsp;
+					  <td width="8%" align="center">
 					 					 				 
-						<img src="#SESSION.root#/Images/ct_collapsed.gif" alt="" 
-							id="0Exp" border="0" class="regular" 
-							align="middle" style="cursor: pointer;" 
+						<img src="#SESSION.root#/Images/Logos/System/ListCollapsed.png" height="27"
+							id="0Exp" class="regular" style="cursor: pointer;" 
 							onClick="access('#URL.IDFunction#','show','0')">
 							
-							<img src="#SESSION.root#/Images/ct_expanded.gif" 
-							id="0Min" alt="" border="0" 
-							align="middle" class="hide" style="cursor: pointer;" 
+							<img src="#SESSION.root#/Images/Logos/System/ListExpanded.png" height="27"
+							id="0Min" class="hide" style="cursor: pointer;" 
 							onClick="access('#URL.IDFunction#','hide','0')">
-							&nbsp;
+							
 							
 						</td>
-					  <td height="25"><a href="javascript: access('#URL.IDFunction#','show','0')"><b>Read only</b></a></td>
+					  <td height="25"><a href="javascript: access('#URL.IDFunction#','show','0')"><cf_tl id="Read only"></a></td>
 					  
 					  </tr>		  
 				      
@@ -74,19 +70,17 @@
 					  
 					   <tr>
 					  
-					  <td width="8%" align="center">&nbsp;
+					  <td width="8%" align="center">
 					  
 					 				 
-						<img src="#SESSION.root#/Images/ct_collapsed.gif" alt="" 
-							id="0Exp" border="0" class="regular" 
-							align="middle" style="cursor: pointer;" 
+						<img src="#SESSION.root#/Images/Logos/System/ListCollapsed.png" height="27"
+							id="0Exp" class="regular" style="cursor: pointer;" 
 							onClick="access('#URL.IDFunction#','show','IN')">
 							
-							<img src="#SESSION.root#/Images/ct_expanded.gif" 
-							id="0Min" alt="" border="0" 
-							align="middle" class="hide" style="cursor: pointer;" 
+							<img src="#SESSION.root#/Images/Logos/System/ListExpanded.png" height="27"
+							id="0Min" class="hide" style="cursor: pointer;" 
 							onClick="access('#URL.IDFunction#','hide','IN')">
-							&nbsp;
+							
 							
 						</td>
 					  <td height="25"><a href="javascript: access('#URL.IDFunction#','show','IN')"><b>Manually Record Candidates</b></a></td>
@@ -136,19 +130,16 @@
 				  
 					  <tr>
 					  
-					  <td width="8%" align="center" height="25">&nbsp; 
+					  <td width="8%" align="center" height="25">
 					  
-						<img src="#SESSION.root#/Images/ct_collapsed.gif" alt="" 
-							id="#status#Exp" border="0" class="regular" 
-							align="middle" style="cursor: pointer;" 
+						<img src="#SESSION.root#/Images/Logos/System/ListCollapsed.png" height="27" 
+							id="#status#Exp" class="regular" style="cursor: pointer;" 
 							onClick="access('#URL.IDFunction#','show','#Status#','#RosterAction#')">
 							
-							<img src="#SESSION.root#/Images/ct_expanded.gif" 
-							id="#status#Min" alt="" border="0" 
-							align="middle" class="hide" style="cursor: pointer;" 
+							<img src="#SESSION.root#/Images/Logos/System/ListExpanded.png" height="27"
+							id="#status#Min" class="hide" style="cursor: pointer;" 
 							onClick="access('#URL.IDFunction#','hide','#Status#','#RosterAction#')">
-							&nbsp;
-							
+														
 						</td>
 					  <td><a href="javascript: access('#URL.IDFunction#','show','#Status#','#RosterAction#')"><b>#Meaning#</b></a></td>
 					  

@@ -9,11 +9,16 @@ password="#SESSION.dbpw#">
 	ORDER BY ListingOrder
 </cfquery>
 
-<cf_divscroll>
+
 
 <cfset add          = "1">
 <cfset save         = "0"> 
-<cfinclude template = "../HeaderMaintain.cfm"> 	
+
+<cf_screentop html="No" jquery="Yes">
+
+<table width="98%" align="center" height="100%">
+
+<tr style="height:10px"><td><cfinclude template = "../HeaderMaintain.cfm"></td></tr>
 
 <cfoutput>
 
@@ -31,9 +36,12 @@ function recordedit(id1) {
 
 </cfoutput>
 
-<table width="97%" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<tr><td>
+<cf_divscroll>
 
-	<tr class="labelmedium line">
+<table width="95%" align="center" class="navigation_table">
+
+	<tr class="labelmedium2 line">
 	    <td></td> 
 	    <td style="padding:3px">Code</td>
 		<td>Description</td>
@@ -46,7 +54,7 @@ function recordedit(id1) {
 	
 	<cfoutput query="SearchResult">
 	    
-		<tr class="line labelmedium navigation_row">
+		<tr class="line labelmedium2 navigation_row">
 			<td width="5%" align="center" style="padding-top:3px; height="14"">
 			 <cf_img icon="edit" navigation="Yes" onclick="recordedit('#Code#')">
 			</td>		
@@ -55,7 +63,7 @@ function recordedit(id1) {
 			<td><cfif TriggerTrack eq "1">Trigger</cfif></td>
 			<td><cfif ShowVacancy eq "1">Yes</cfif></td>
 			<td>
-				<table height="16" width="14" style="border:1px solid silver" cellspacing="0" cellpadding="0" >
+				<table height="16" width="14" style="border:1px solid silver">
 					<tr><td bgcolor="#PresentationColor#"></td></tr>
 				</table>
 			</td>
@@ -69,3 +77,7 @@ function recordedit(id1) {
 </table>
 
 </cf_divscroll>
+
+</td></tr>
+
+</table>

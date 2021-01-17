@@ -7,12 +7,17 @@ password="#SESSION.dbpw#">
 	FROM 	Ref_Contact
 </cfquery>
 
-<cf_divscroll>
 
-<cfset Page         = "0">
-<cfset add          = "1">
-<cfset Header       = "Background Call Sign">
-<cfinclude template = "../HeaderRoster.cfm"> 
+
+<cf_screentop html="No" jquery="Yes">
+
+<table width="98%" align="center" height="100%">
+	
+	<cfset Page         = "0">
+	<cfset add          = "1">
+	<cfset Header       = "Background Call Sign">
+	<tr style="height:10px"><td><cfinclude template = "../HeaderRoster.cfm"></td></tr>
+
 
 <cfoutput>
 
@@ -30,34 +35,42 @@ function recordedit(id1) {
 
 </cfoutput>
 
-<table width="97%" cellspacing="0" cellpadding="0" align="center" class="maintenancetable navigation_table">
+<tr><td>
+	
+	<cf_divscroll>
+	
+	<table width="97%" align="center" class="formpadding navigation_table">
+	
+	<thead>
+		<tr class="labelmedium2 line">
+		    <td></td>
+		    <td>Code</td>
+			<td>Description</td>	
+			<td>Mask</td>	
+			<td align="center">Order</td>
+		    <td>Entered</td>  
+		</tr>
+	</thead>
+	
+	<tbody>
+		<cfoutput query="SearchResult">
+			<tr class="navigation_row labelmedium2 line">
+				<td width="5%" align="center">
+				  <cf_img icon="open" onclick="recordedit('#Code#')" navigation="Yes">
+				</td>	
+				<td><a href="javascript:recordedit('#code#')">#Code#</a></td>
+				<td>#Description#</td>	
+				<td>#CallsignMask#</td>
+				<td align="center">#ListingOrder#</td>
+				<td>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
+		    </tr>
+		</cfoutput>
+	</tbody>
+	   
+	</table>
+	
+	</cf_divscroll>
 
-<thead>
-	<tr>
-	    <td></td>
-	    <td>Code</td>
-		<td>Description</td>	
-		<td>Mask</td>	
-		<td align="center">Order</td>
-	    <td>Entered</td>  
-	</tr>
-</thead>
+</td></tr>
 
-<tbody>
-	<cfoutput query="SearchResult">
-		<tr class="navigation_row">
-			<td width="5%" align="center">
-			  <cf_img icon="open" onclick="recordedit('#Code#')" navigation="Yes">
-			</td>	
-			<td><a href="javascript:recordedit('#code#')">#Code#</a></td>
-			<td>#Description#</td>	
-			<td>#CallsignMask#</td>
-			<td align="center">#ListingOrder#</td>
-			<td>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
-	    </tr>
-	</cfoutput>
-</tbody>
-   
 </table>
-
-</cf_divscroll>

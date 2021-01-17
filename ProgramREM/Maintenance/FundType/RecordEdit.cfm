@@ -32,26 +32,26 @@ function ask() {
 
 <!--- edit form --->
 
-<table width="96%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="95%" align="center" class="formpadding">
 
     <cfoutput>
-    <TR>
-    <TD class="labelit">Code:</TD>
+    <TR class="labelmedium2">
+    <TD>Code:</TD>
     <TD>
-  	   <input type="text" name="Code" value="#get.Code#" size="10" maxlength="10" class="regularxl">
+  	   <input type="text" name="Code" value="#get.Code#" size="10" maxlength="10" class="regularxxl">
 	   <input type="hidden" name="Codeold" value="#get.Code#" size="10" maxlength="10"class="regular">
     </TD>
 	</TR>
 	
-    <TR>
-    <TD class="labelit">Name:</TD>
+    <TR class="labelmedium2">
+    <TD>Name:</TD>
     <TD>
   	   <cfinput type="text" name="description" value="#get.description#" message="Please enter a name" required="Yes" size="20" maxlength="50" class="regularxl">
     </TD>
 	</TR>
 		
-	<TR>
-    <TD class="labelit">Listing Order:</TD>
+	<TR class="labelmedium2">
+    <TD>Listing Order:</TD>
     <TD>
 	
   	   <cfinput type="Text"
@@ -63,7 +63,7 @@ function ask() {
 	       enabled="Yes"
 	       size="1"
 	       maxlength="2"
-	       class="regularxl">
+	       class="regularxxl">
 	  
     </TD>
 	</TR>
@@ -74,7 +74,7 @@ function ask() {
 	<tr>		
 	<td colspan="2" height="35" align="center">
 	
-		<input class="button10g" style="width:90" type="button" name="Cancel" value=" Cancel " onClick="window.close()">
+		<input class="button10g" type="button" name="Cancel" value="Cancel" onClick="window.close()">
 		
 		<cfquery name="get" 
 	      datasource="AppsProgram" 
@@ -86,9 +86,9 @@ function ask() {
 	    </cfquery>
 		
 		<cfif get.recordcount eq "0">	
-		    <input class="button10g" style="width:90" type="submit" name="Delete" value=" Delete " onclick="return ask()">
+		    <input class="button10g" type="submit" name="Delete" value="Delete" onclick="return ask()">
 		</cfif>		
-	    <input class="button10g" style="width:90" type="submit" name="Update" value="Update">
+	    <input class="button10g" type="submit" name="Update" value="Update">
 	
 	</td>	
 	

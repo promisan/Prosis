@@ -495,7 +495,7 @@ otherwise no action
 						
 						<cfelse>
 											  
-							<select name="actioncode" class="regularxlbl" style="width:99%"							
+							<select name="actioncode" class="regularxl" style="width:99%;border:0px"							
 							onchange="actionprocess(this.value,'#contractsel.contractid#')">
 							    <!--- <option value="">-- select action --</option> --->
 								<cfloop query="pAction">
@@ -531,7 +531,7 @@ otherwise no action
 						<cfif last eq "0">		
 												
 							<cfset selact = ContractSel.ActionCode>
-							<select name="actioncode" class="regularxlbl" style="width:99%"							
+							<select name="actioncode" class="regularxl" style="border:0px;width:99%"							
 							onchange="actionprocess(this.value,'#contractsel.contractid#')">
 							    <!--- <option value="">-- select action --</option> --->
 								<cfloop query="pAction">
@@ -542,7 +542,7 @@ otherwise no action
 						<cfelse>
 												
 							<cfset selact = pAction.ActionCode>
-							<select name="actioncode" class="regularxlbl" style="width:99%"	onchange="actionprocess(this.value,'#contractsel.contractid#')">
+							<select name="actioncode" class="regularxl" style="border:0px;width:99%"	onchange="actionprocess(this.value,'#contractsel.contractid#')">
 							   <!--- <option value="">-- select action --</option> --->
 								<cfloop query="pAction">
 									<option value="#ActionCode#">#Description#</option>
@@ -782,7 +782,7 @@ otherwise no action
 							</cfquery>	
 						
 							 <select name="ServiceLocation" 
-							   class="regularxlbl" 
+							   class="regularxl" 
 							   style="border:0px;width:99%">
 							
 							    <option value="">-- select --</option>
@@ -839,7 +839,7 @@ otherwise no action
 							</cfquery>	
 						
 							 <select name="ServiceLocation" 
-							   class="regularxlbl" 
+							   class="regularxl" 
 							   style="border:0px;width:99%">
 							
 							    <option value="">-- select --</option>
@@ -941,8 +941,8 @@ otherwise no action
 						</cfif>
 						
 					  	<select name="ContractType" id="contracttype"						     
-						    size="1" style="width:99%"
-							class="regularxlbl" 
+						    size="1" style="width:99%;border:0px"
+							class="regularxl" 
 							onchange="_cf_loadingtexthtml='';ptoken.navigate('ContractEditFormPayroll.cfm?mode=#mode#&last=#last#&id=#url.id#&id1=#url.id1#&contracttype='+this.value+'&salaryschedule='+document.getElementById('salaryschedule').value,'boxeditentitlement')">
 							<cfloop query="Type">
 								<option value="#Type.ContractType#" <cfif ContractType eq ContractSel.ContractType>selected</cfif>>#Description#</option>
@@ -1148,7 +1148,8 @@ otherwise no action
 										 <cf_intelliCalendarDate9
 										FieldName="DateEffective"	
 										Manual="True"		
-										Class="regularxlbl"																					
+										Class="regularxl"																					
+										style="border:0px"
 										ToolTip="Effective Date" 				
 										Default="#Dateformat(now(), CLIENT.DateFormatShow)#"
 										DateValidStart="#Dateformat(ContractFirst.DateEffective, 'YYYYMMDD')#"	
@@ -1160,7 +1161,8 @@ otherwise no action
 								  	  <cf_intelliCalendarDate9
 										FieldName="DateEffective"	
 										Manual="True"		
-										Class="regularxlbl"																					
+										Class="regularxl"																					
+										style="border:0px"
 										ToolTip="Effective Date" 				
 										Default="#Dateformat(ContractLast.DateEffective, CLIENT.DateFormatShow)#"
 										DateValidStart="#Dateformat(ContractFirst.DateEffective, 'YYYYMMDD')#"	
@@ -1175,7 +1177,8 @@ otherwise no action
 									  <cf_intelliCalendarDate9
 										FieldName="DateEffective"
 										Manual="True"	
-										Class="regularxlbl"																
+										Class="regularxl"																
+										style="border:0px"
 										ToolTip="Effective Date" 				
 										Default="#Dateformat(ContractLast.DateEffective, CLIENT.DateFormatShow)#"
 										DateValidStart="#Dateformat(ContractLast.DateEffective, 'YYYYMMDD')#"	
@@ -1201,8 +1204,9 @@ otherwise no action
 								  													  
 								  	  <cf_intelliCalendarDate9
 										FieldName="DateEffective"	
-										Manual="True"		
-										Class="regularxlbl"															
+										Manual="True"
+										style="border:0px"		
+										Class="regularxl"															
 										ToolTip="Effective Date" 				
 										Default="#Dateformat(now(), CLIENT.DateFormatShow)#"
 										DateValidStart="#Dateformat(ContractFirst.DateEffective, 'YYYYMMDD')#"	
@@ -1213,8 +1217,9 @@ otherwise no action
 								  
 								  	  <cf_intelliCalendarDate9
 										FieldName="DateEffective"	
-										Manual="True"		
-										Class="regularxlbl"											
+										Manual="True"	
+										style="border:0px"	
+										Class="regularxl"											
 										ToolTip="Effective Date" 				
 										Default="#Dateformat(now(), CLIENT.DateFormatShow)#"
 										DateValidStart="#Dateformat(ContractLast.DateEffective, 'YYYYMMDD')#"	
@@ -1227,8 +1232,9 @@ otherwise no action
 								
 								  <cf_intelliCalendarDate9
 									FieldName="DateEffective"	
-									Manual="True"		
-									Class="regularxlbl"													
+									Manual="True"	
+									style="border:0px"	
+									Class="regularxl"													
 									ToolTip="Effective Date" 				
 									Default="#Dateformat(now(), CLIENT.DateFormatShow)#"
 									scriptdate="effective_selectdate"
@@ -1288,7 +1294,8 @@ otherwise no action
 					  <cf_intelliCalendarDate9
 						FieldName="DateExpiration" 
 						ToolTip="Expiration Date"
-						Class="regularxlbl"					
+						Class="regularxl"	
+						style="border;0px"				
 						Manual="True"										
 						Default="#Dateformat(ContractSel.DateExpiration, CLIENT.DateFormatShow)#"
 						scriptdate="expiration_selectdate"
@@ -1309,7 +1316,8 @@ otherwise no action
 						  <cf_intelliCalendarDate9
 							FieldName="DateExpiration" 
 							ToolTip="Expiration Date"
-							Class="regularxlbl"
+							style="border;0px"
+							Class="regularxl"
 							DateValidStart="#Dateformat(ContractLast.DateEffective, 'YYYYMMDD')#"
 							Default="#Dateformat(ContractSel.DateExpiration, CLIENT.DateFormatShow)#"
 							Manual="True"	
@@ -1322,7 +1330,8 @@ otherwise no action
 						  <cf_intelliCalendarDate9
 							FieldName="DateExpiration" 
 							ToolTip="Expiration Date"
-							Class="regularxlbl"
+							style="border:0px"
+							Class="regularxl"
 							Default="#Dateformat(ContractSel.DateExpiration, CLIENT.DateFormatShow)#"
 							Manual="True"	
 							scriptdate="expiration_selectdate"
@@ -1483,8 +1492,8 @@ otherwise no action
 					<td>	
 							
 					<cfinput type = "Text" 
-					    class     = "regularxlbl" 
-						style     = "text-align: center; border-right:1px solid silver" 
+					    class     = "regularxl" 
+						style     = "text-align: center; border:0px;border-right:1px solid silver" 
 						value     = "#ContractSel.SalaryBasePeriod#"
 						name      = "SalaryBasePeriod" 
 						message   = "Please enter a valid number" 
@@ -1644,7 +1653,7 @@ otherwise no action
 						
 							<!--- determine via object the salary record table --->
 						
-							<select name="contractlevel" id="contractlevel" size="1" style="width:100px" class="regularxlbl">
+							<select name="contractlevel" id="contractlevel" size="1" style="width:100px;border:0px" class="regularxl">
 								<cfloop query="PostGrade">
 								<option value="#PostGrade#" <cfif PostGrade eq SalRec.recommendLevel>selected</cfif>>
 						    		#PostGrade#  
@@ -1654,7 +1663,7 @@ otherwise no action
 						
 						<cfelse>
 									
-							<select name="contractlevel" id="contractlevel" size="1" style="width:100px" class="regularxlbl">
+							<select name="contractlevel" id="contractlevel" size="1" style="width:100px;border:0px" class="regularxl">
 								<cfloop query="PostGrade">
 								<option value="#PostGrade#" <cfif PostGrade eq ContractSel.ContractLevel>selected</cfif>>
 						    		#PostGrade#  

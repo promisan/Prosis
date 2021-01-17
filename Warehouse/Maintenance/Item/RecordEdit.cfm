@@ -445,7 +445,7 @@
 	
 		<cf_divscroll>
 			
-		<table width="100%" height="100%" cellspacing="0" cellpadding="0">
+		<table width="100%" height="100%">
 						
 			<cf_menucontainer item="1" class="regular">
 			    <cfinclude template="ItemForm.cfm">					

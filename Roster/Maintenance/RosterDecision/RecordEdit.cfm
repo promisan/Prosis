@@ -27,44 +27,46 @@ function ask() {
 
 <!--- edit form --->
 
-<table width="93%" align="center" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="96%" align="center" class="formpadding">
 
     <tr><td></tr>
     <cfoutput>
-    <TR class="labelmedium">
+    <TR class="labelmedium2">
     <TD>Code:</TD>
     <TD>
-  	   <input type="text" name="Code" value="#get.Code#" size="15" maxlength="15" class="regularxl">
+  	   <input type="text" name="Code" value="#get.Code#" size="15" maxlength="15" class="regularxxl">
 	   <input type="hidden" name="CodeOld" value="#get.Code#" size="15" maxlength="15" readonly>
     </TD>
 	</TR>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD>Description:</TD>
     <TD>
-  	   <cfinput type="Text" name="Description" value="#get.description#" message="Please enter a description" required="Yes" size="30" maxlength="30"class="regularxl">
+  	   <cfinput type="Text" name="Description" value="#get.description#" message="Please enter a description" required="Yes" size="30" maxlength="30"class="regularxxl">
     </TD>
 	</TR>
 	
 	<tr><td height="3"></td></tr>
 		
 	<TR valign="top">
-    <TD class="labelmedium">Memo:</TD>
-    <TD>
-	   <textarea cols="44" style="font-size:13px;padding:3px" rows="6" name="DescriptionMemo" class="regular">#get.DescriptionMemo#</textarea>
+    <TD class="labelmedium2">Memo:</TD>
+    <TD>	
+	   <textarea style="height:60px;width:90%;font-size:15px;padding:3px" name="DescriptionMemo" class="regular">#get.DescriptionMemo#</textarea>
   	  
     </TD>
 	</TR>
 	
 	</cfoutput>
 	
-	<tr><td colspan="2" class="linedotted"></td></tr>
-	<tr><td colspan="2" align="center" height="30">
+	<tr><td colspan="2" class="line"></td></tr>
+	
+	<tr><td align="center" colspan="2">
 	<input class="button10g" type="button" name="Cancel" value=" Cancel " onClick="window.close()">
     <input class="button10g" type="submit" name="Delete" value=" Delete " onclick="return ask()">
     <input class="button10g" type="submit" name="Update" value=" Update ">
 	</td>
 	</tr>
+	
 	
 </TABLE>
 		

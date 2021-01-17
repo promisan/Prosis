@@ -73,7 +73,7 @@
 	
 	<cfif check.recordcount eq "1">
 			
-		<cfloop index="itm" list="listgroup,listgroupfield,listgroupsort,listgroupalias,listgroupdir,listgrouptotal">
+		<cfloop index="itm" list="listgroup,listgroupfield,listgroupsort,listgroupalias,listgroupdir,listgrouptotal,listcolumn1,datacell1">
 		
 			<cfquery name="check" 
 			datasource="AppsSystem" 
@@ -88,6 +88,13 @@
 			</cfquery>	
 					
 			<cfset URL[itm] = check.conditionvalue>	
+			<cfif itm eq "datacell1">
+			   <cfset URL["#itm#formula"] = check.ConditionValueAttribute1>
+			</cfif>
+			<cfif itm eq "listcolumn1">
+			   <cfset URL["#itm#_type"] = check.ConditionValueAttribute1>
+			   <cfset URL["#itm#_typemode"] = check.ConditionValueAttribute2>
+			</cfif>
 			
 		</cfloop>
 		
@@ -105,12 +112,20 @@
 		
 		<cfif accept eq "0">
 		
-		    <cfset URL.listgroup         = "">
-			<cfset URL.listgroupfield    = "">
-			<cfset URL.listgroupsort     = "">
-			<cfset URL.listgroupalias    = "">
-			<cfset URL.listgroupdir      = "">
-			<cfset URL.listgrouptotal    = "">
+		    <cfset URL.listgroup             = "">
+			<cfset URL.listgroupfield        = "">
+			<cfset URL.listgroupsort         = "">
+			<cfset URL.listgroupalias        = "">
+			<cfset URL.listgroupdir          = "">
+			
+			<cfset URL.listgrouptotal        = "">
+			
+			<cfset URL.listcolumn1           = "">
+			<cfset URL.listcolumn1_type      = "">
+			<cfset URL.listcolumn1_typemode  = "">
+			
+			<cfset URL.datacell1         = "">
+			<cfset URL.datacell1formula  = "">
 			
 		</cfif>	
 		

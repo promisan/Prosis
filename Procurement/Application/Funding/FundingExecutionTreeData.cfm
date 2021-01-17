@@ -59,8 +59,7 @@
 		
 		AND     R.Mission IN (SELECT Mission FROM Organization.dbo.Ref_Mission WHERE MissionStatus = '0')
 		
-		ORDER BY S.MissionType, M.Mission, PlanningPeriod, ExecutionPeriod	
-						
+		ORDER BY S.MissionType, M.Mission, PlanningPeriod, ExecutionPeriod					
 						
 </cfquery> 
 
@@ -116,8 +115,6 @@
 		   
 </cfoutput>
 
-
-
 <!--- no access --->
 
 <cfif go eq "0">
@@ -133,20 +130,19 @@
 	<cfelse>
 		<cfset exp = "No">  
 	</cfif>
-			
-	<cftree name="root"
-		   font="calibri"
-		   fontsize="11"		
-		   bold="No"   
-		   format="html"    
-		   required="No">  
-		   
+	
+	<cf_UItree
+		id="root"
+		title="<span style='font-size:16px;color:gray;'>1111111</span>"	
+		root="no"
+		expand="Yes">
+				   
 		   <cfoutput query="MissionList" group="MissionType">
 		   
-		        <cftreeitem value="#missiontype#"
-				        display="<span style='padding-top:3px;padding-bottom:3px;font-size:19px;color: gray;' class='labelmedium'>#Missiontype#</font>"
-						parent="root"									
-				        expand="yes">		
+		   	  <cf_UItreeitem value="#missiontype#"
+			        display="<span style='font-size:19px;font-weight:bold' class='labelit'>#Missiontype#</span>"						
+					parent="root"										
+			        expand="Yes">			        
 		   	
 			   <cfoutput group="Mission">
 			   
@@ -166,26 +162,26 @@
 					<cfinvoke component   = "Service.Access"  
 					     method           = "RoleAccess" 
 					     mission          = "#Mis#"
-					     role             = "'ProcReqInquiry','BudgetOfficer','BudgetManager'  " 		  
+					     role             = "'ProcReqInquiry','BudgetOfficer','BudgetManager'" 		  
 					     returnvariable   = "access">	
 					
 					 <cfif access eq "GRANTED" and Check.MissionStatus eq "0">
-					
-							<cftreeitem value="#mission#"
-						        display="<font face='Calibri' size='4'>#Mis#</font>"
-								parent="#missiontype#"																										
-						        expand="#exp#">			
-					
+					 
+					 		 <cf_UItreeitem value="#mission#"
+						        display="<span style='font-size:17px;padding-top:5px;font-weight:bold' class='labelit'>#Mis#</span>"						
+								parent="#missiontype#"										
+						        expand="#exp#">					
+											
 							<cfoutput group="PlanningPeriod">
 							
 								<cfset pla = PlanningPeriod>
 							
-								<cfset p = "<font face='Calibri'>Plan: <font face='Calibri' size='3'>#PlanningPeriod#"> 
-												
-								<cftreeitem value="#Mission#_#PlanningPeriod#"
-							        display  = "#p#"
-									parent   = "#Mission#"																						
-							        expand   = "No">										
+								<cfset p = "<span style='font-size:16px;padding-top:4px' class='labelit'>#PlanningPeriod#</span>"> 
+								
+								<cf_UItreeitem value="#Mission#_#PlanningPeriod#"
+							        display="#p#"						
+									parent="#mission#"										
+							        expand="no">																	
 								
 									<cfoutput group="EditionId">
 									
@@ -199,37 +195,18 @@
 										<cfif access eq "GRANTED">
 										
 											<cfif executionperiod eq "">
-											  <cfset title = "<font face='Calibri' size='2'  color='gray'>#EditionDescription#*">							
+											  <cfset title = "<span style='font-size:13px' class='labelit'>#EditionDescription#*</span>">							
 											<cfelse>
-											  <cfset title = "<font face='Calibri' size='2'  color='gray'>#EditionDescription#">										
+											  <cfset title = "<span style='font-size:13px' class='labelit'>#EditionDescription#</span>">										
 											</cfif>
-									
-											<cftreeitem value="#EditionId#"
-									            display="#title#"
-									            parent="#Mission#_#pla#"	
+											
+											<cf_UItreeitem value="#EditionId#"
+										        display="#title#"						
+												parent="#Mission#_#pla#"	
 												target="content"
-												href="FundingExecutionView.cfm?mission=#mis#&planningperiod=#pla#&period=#executionperiod#&editionid=#editionid#&View=all"												           			            
-												queryasroot="No"
-									            expand="No">	
-												
-												<!---
-												<cftreeitem value="#EditionId#_All"
-									            display="<font face='Calibri' size='2' color='black'>All"
-									            parent="#EditionId#"						            
-												target="content"
-												href="FundingExecutionView.cfm?mission=#mis#&planningperiod=#pla#&period=#executionperiod#&editionid=#editionid#&View=all"			
-									            queryasroot="No"
-									            expand="No">	
-												--->
-												
-												<!---
-												<cftreeitem value="#EditionId#_Fund"
-									            display="<font face='Calibri' size='3' color='gray'>Fund"
-									            parent="#EditionId#"	
-												queryasroot="No"
-									            expand="No">	
-												--->
-												
+												href="FundingExecutionView.cfm?mission=#mis#&planningperiod=#pla#&period=#executionperiod#&editionid=#editionid#&View=all"											
+										        expand="no">									
+																																			
 												<cfquery name="Fund" 
 												datasource="AppsProgram" 
 												username="#SESSION.login#" 
@@ -245,21 +222,19 @@
 									           
 											   <cfloop query="Fund">	
 											   
-											   		<cftreeitem value="#EditionId#_#Fund#"
-											            display="<font face='Calibri' size='2' color='black'>#Fund#"
-											            parent="#EditionId#"														           			            
-														href="FundingExecutionView.cfm?mission=#mis#&planningperiod=#pla#&period=#per#&editionid=#editionid#&View=Fund&Value=#fund#"					           			            									
+											   		<cf_UItreeitem value="#EditionId#_#Fund#"
+												        display="<span class='labelit'>#Fund#</span>"						
+														parent="#EditionId#"	
 														target="content"
-														queryasroot="No"
-											            expand="No">							   		
-											  												
-													<cftreeitem value="#EditionId#_#Fund#_document"
-											            display="<font face='Calibri' size='2' color='black'>Documents"
-											            parent="#EditionId#_#Fund#"											
-														href="FundingExecutionDocument.cfm?mission=#mis#&planningperiod=#pla#&period=#per#&editionid=#editionid#&View=Fund&Value=#fund#"					           			            
+														href="FundingExecutionView.cfm?mission=#mis#&planningperiod=#pla#&period=#per#&editionid=#editionid#&View=Fund&Value=#fund#"											
+												        expand="no">	
+											   
+											   		<cf_UItreeitem value="#EditionId#_#Fund#_doc"
+												        display="<span class='labelit'>Documents</span>"						
+														parent="#EditionId#_#fund#"	
 														target="content"
-														queryasroot="No"
-											            expand="No">																		
+														href="FundingExecutionDocument.cfm?mission=#mis#&planningperiod=#pla#&period=#per#&editionid=#editionid#&View=Fund&Value=#fund#"											
+												        expand="no">											
 											   
 											   </cfloop>
 											   
@@ -293,17 +268,15 @@
 												  <cfset edi = editionid>
 												 								 								
 												  <cfloop query="Group">
-											   
-												   <cftreeitem value="#Edi#_#Code#"
-											            display="<font face='Calibri' size='2' color='6688aa'>#description#"
-											            parent="#edi#"															
-														href="FundingExecutionView.cfm?mission=#mis#&planningperiod=#pla#&period=#per#&editionid=#edi#&View=group&Value=#code#"					           			            
+												  
+												  <cf_UItreeitem value="#Edi#_#Code#"
+												        display="<span class='labelit'>#description#</span>"						
+														parent="#edi#"	
 														target="content"
-														queryasroot="No"
-											            expand="No">	
-											   
-										  	      </cfloop>
-											   
+														href="FundingExecutionView.cfm?mission=#mis#&planningperiod=#pla#&period=#per#&editionid=#edi#&View=group&Value=#code#"											
+												        expand="no">										   
+																							   
+										  	      </cfloop>											   
 											
 												</cfif>
 												
@@ -315,18 +288,18 @@
 							
 						<cfif getAdministrator("*") eq "1">
 						
-						<cftreeitem value="audit_#mission#"
-						        display="<font face='Calibri' size='2' color='gray'>Audit Views"
-								parent="#mission#"													
-						        expand="No">		
-							
-						<cftreeitem value="Post_#mission#"
-					    	    display = "<font face='Calibri' size='2' color='red'>Invalid Postings"
-								parent  = "audit_#mission#"	
-								target  = "content"								
-								href    = "FundingExecutionAudit.cfm?mission=#mission#"						          												
-						        expand  = "Yes">	
-								
+							<cf_UItreeitem value="audit_#mission#"
+							        display="<span class='labelit'>Audit views</span>"						
+									parent="#mission#"																		
+							        expand="no">	
+									
+							<cf_UItreeitem value="Post_#mission#"
+							        display="<span class='labelit'>Invalid Postings</span>"						
+									parent="audit_#mission#"	
+									target="content"
+									href="FundingExecutionAudit.cfm?mission=#mission#"											
+							        expand="no">							
+														
 						</cfif>			
 							
 					</cfif>
@@ -335,7 +308,7 @@
 		 
 		 </cfoutput>		
 	
-	 </cftree>
+	</cf_UItree>
 	 
  </cfif>
  

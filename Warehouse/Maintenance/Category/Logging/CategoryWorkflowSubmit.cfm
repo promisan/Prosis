@@ -84,8 +84,8 @@
 		
 		<cfoutput>
 			<script>
-				ColdFusion.navigate('Logging/CategoryWorkflowListing.cfm?category=#url.category#&code=#url.action#', 'divObservations_#url.action#');
-				ColdFusion.Window.hide('mydialog'); 			
+				ptoken.navigate('Logging/CategoryWorkflowListing.cfm?category=#url.category#&code=#url.action#', 'divObservations_#url.action#');
+				ProsisUI.closeWindow('mydialog'); 			
 			</script>
 		</cfoutput>
 	
@@ -120,8 +120,8 @@
 	
 	<cfoutput>
 		<script>
-			ColdFusion.navigate('Logging/CategoryWorkflowListing.cfm?category=#url.category#&code=#url.action#', 'divObservations_#url.action#');
-			ColdFusion.Window.hide('mydialog'); 			
+			ptoken.navigate('Logging/CategoryWorkflowListing.cfm?category=#url.category#&code=#url.action#', 'divObservations_#url.action#');
+			ProsisUI.closeWindow('mydialog'); 			
 		</script>
 	</cfoutput>
 

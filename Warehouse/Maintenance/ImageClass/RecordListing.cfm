@@ -13,20 +13,20 @@ password="#SESSION.dbpw#">
 <cfset Page         = "0">
 <cfset add          = "1">
 
-<table width="97%" align="center" cellspacing="0" cellpadding="0" class="table_navigation">
+<table width="97%" height="100%" align="center" cellspacing="0" cellpadding="0" class="table_navigation">
 
-<tr><td><cfinclude template = "../HeaderMaintain.cfm"> 	</td></tr>
+<tr style="height:10px"><td><cfinclude template = "../HeaderMaintain.cfm">	</td></tr>
 
 <cfoutput>
 
 <script>
 
 	function recordadd(grp) {
-          window.open("RecordEdit.cfm?idmenu=#url.idmenu#", "AddPriceSchedule", "left=80, top=80, width= 460, height= 290, toolbar=no, status=yes, scrollbars=no, resizable=no");
+          ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#", "AddPriceSchedule", "left=80, top=80, width= 460, height= 290, toolbar=no, status=yes, scrollbars=no, resizable=no");
 	}
 
 	function recordedit(code) {
-          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&code=" + code, "EditPriceSchedule", "left=80, top=80, width= 460, height= 290, toolbar=no, status=yes, scrollbars=no, resizable=no");
+          ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&code=" + code, "EditPriceSchedule", "left=80, top=80, width= 460, height= 290, toolbar=no, status=yes, scrollbars=no, resizable=no");
 	}
 
 </script>	
@@ -41,7 +41,7 @@ password="#SESSION.dbpw#">
 	
 	<cfset col="7">
 	
-	<tr class="fixrow labelmedium line">
+	<tr class="fixrow labelmedium2 line">
 	    <TD></TD>
 	    <TD><cf_tl id="Code"></TD>
 		<TD><cf_tl id="Description"></TD>
@@ -53,8 +53,8 @@ password="#SESSION.dbpw#">
 	
 	<cfoutput query="SearchResult">
 	    
-	    <tr class="navigation_row labelmedium line"> 
-			<td align="center" height="20" style="padding-top:3px">
+	    <tr class="navigation_row labelmedium2 line"> 
+			<td align="center" height="20" style="padding-top:1px">
 			   <cf_img icon="open" onclick="recordedit('#Code#');" navigation="Yes" >
 			</td> 
 			<TD>#Code#</TD>

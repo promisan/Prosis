@@ -51,6 +51,7 @@
 
 <cfelse>
 
+<!---
 <cfquery name="Period" 
 	  datasource="AppsLedger" 
 	  username="#SESSION.login#" 
@@ -59,22 +60,23 @@
 		  FROM  Period 	  
 		  WHERE ActionStatus = '0'	  
 	  </cfquery>
+	  --->
 
-	  <!---
-	<cfquery name="Period" dbtype="query">
+	  -
+	<cfquery name="getPeriod" dbtype="query">
 		SELECT DISTINCT AccountPeriod
 		FROM   TransactionListing
 	</cfquery>
-		
+			
 	<cfquery name="Period" 
 	  datasource="AppsLedger" 
 	  username="#SESSION.login#" 
 	  password="#SESSION.dbpw#">
 	      SELECT * 
 		  FROM  Period 	  
-		  WHERE AccountPeriod IN (#quotedvalueList(Period.AccountPeriod)#) 
+		  WHERE AccountPeriod IN (#quotedvalueList(getPeriod.AccountPeriod)#) 
 	  </cfquery>
-	  --->
+	
 	    
 </cfif>  
 

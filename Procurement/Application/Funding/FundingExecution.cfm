@@ -45,7 +45,7 @@ function facttable1(controlid,format,filter,qry) {
 		name     = "treebox" 
 		maxsize  = "260" 				
 		size     = "210" 
-		minsize  = "190"
+		minsize  = "210"
 		collapsible="true"		
 		state	= "open" 
 		splitter ="true">
@@ -63,12 +63,9 @@ function facttable1(controlid,format,filter,qry) {
 		        name="content" 
 				id="content"
 		        width="100%" 
-				height="100%" 
-				marginwidth="0" 
-				marginheight="0"
+				height="100%" 				
 		        scrolling="no" 
-				frameborder="0" 
-				style="scrollbar-face-color: white;">				
+				frameborder="0">				
 			</iframe>
 					
 	</cf_layoutarea>		

@@ -2,6 +2,8 @@
 
 <cfajaximport tags="cfdiv, cfform">
 
+<cf_screentop html="No" jquery="Yes">
+
 <cfset Page         = "0">
 <cfset add          = "0">
 <!--- <cfset save         = "1"> ---> 

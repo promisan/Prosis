@@ -1,5 +1,6 @@
 
 <cfparam name="attributes.filter"        default="yes">
+<cfparam name="attributes.delimiter"     default=",">
 
 <cfif attributes.systemfunctionid neq "">
 
@@ -30,8 +31,8 @@
 				AND    ConditionClass   = 'Filter'
 				AND    ConditionField   = '#attributes.field#'					
 		    </cfquery>	
-					
-			<cfset caller.getval = ValueList(getValue.value)>
+				
+			<cfset caller.getval = ValueList(getValue.value,attributes.delimiter)>
 									
 		<cfelse>
 		
@@ -63,11 +64,9 @@
 				AND    ConditionClass   = 'Filter'
 				AND    ConditionField   = '#attributes.field#'					
 		</cfquery>	
+				
+	<cfset caller.getval = ValueList(getValue.value,attributes.delimiter)>	
 		
-	<cfset caller.getval = ValueList(getValue.value)>	
-	
-	
-	
 	</cfif>	
 	
 <cfelse>

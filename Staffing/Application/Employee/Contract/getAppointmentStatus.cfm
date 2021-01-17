@@ -37,7 +37,7 @@
 	   <td bgcolor="E6E6E6" style="padding-left:6px"><cf_tl id="#get.MemoContent#"></td>
 	   <td style="padding-left:5px">
 	   <cfoutput>
-	   <input type="text" name="AppointmentStatusMemo" value="#ContractSel.AppointmentStatusMemo#" maxlength="100" class="regularxlbl" style="border-top:1px solid silver;background-color:ffffef;width:100%;min-width:200px">							
+	   <input type="text" name="AppointmentStatusMemo" value="#ContractSel.AppointmentStatusMemo#" maxlength="100" class="regularxl" style="border:0px;border-top:1px solid silver;background-color:ffffef;width:100%;min-width:200px">							
 	   </cfoutput>			
 	   </td>
 	   

@@ -62,8 +62,7 @@ function ask() {
 <table width="92%" align="center" class="formpadding">
 
     <tr><td></td></tr>
-    <cfoutput>
-	
+    <cfoutput>	
 	
 	<TR>
     <TD class="labelit"><cf_tl id="PHP section">:</TD>

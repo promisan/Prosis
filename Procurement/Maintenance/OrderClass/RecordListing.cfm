@@ -9,6 +9,11 @@ password="#SESSION.dbpw#">
 	ORDER BY code
 </cfquery>
 
+<cf_screentop layout="webapp" 			  
+			  html="No"			 
+			  jquery="Yes"
+			  systemfunctionid="#url.idmenu#">
+
 <cfloop query="SearchResult">
 
 	  <!--- used for creating a workflow per class : bidding etc. --->	
@@ -16,27 +21,26 @@ password="#SESSION.dbpw#">
 	      Code        = "ProcJob"   
           Class       = "#Code#" 
    		  Description = "#Description#">	
-			
+						
 </cfloop>	
 
-<cf_divscroll>
+<table width="100%" height="100%">
 
 <cfset add          = "1">
 <cfset Header       = "Order Class">
-<cfinclude template = "../HeaderMaintain.cfm"> 
 
-<table width="98%" border="0" align="center" cellspacing="0" cellpadding="0">
+<tr style="height:10px"><td><cfinclude template = "../HeaderMaintain.cfm"></td></tr>
 
 <cfoutput>
 
 <script>
 
 function recordadd(grp) {
-          window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 590, height=570, toolbar=no, status=yes, scrollbars=no, resizable=no");
+          ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 590, height=570, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 function recordedit(id1) {
-          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width= 590, height=570, toolbar=no, status=yes, scrollbars=no, resizable=no");
+          ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width= 590, height=570, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 </script>	
@@ -45,9 +49,11 @@ function recordedit(id1) {
 	
 <tr><td colspan="2">
 
-<table width="100%" align="center" class="navigation_table formpadding">
+<cf_divscroll>
 
-<tr class="labelmedium line">
+<table width="94%" align="center" class="navigation_table formpadding">
+
+<tr class="labelmedium2 line">
    
 	<TD width="5%"></TD>
     <TD>Code</TD>
@@ -61,9 +67,8 @@ function recordedit(id1) {
 </TR>
 
 <cfoutput query="SearchResult">
-    	
-	
-    <TR bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('f6f6f6'))#" class="navigation_row labelmedium line"> 
+    		
+    <TR bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('f6f6f6'))#" class="navigation_row labelmedium2 line"> 
 		<TD align="center">
 			<cf_img icon="open" navigation="Yes" onclick="recordedit('#Code#')">					  
 		</TD>		
@@ -78,7 +83,7 @@ function recordedit(id1) {
 				<cfif not FileExists("#SESSION.rootpath#/#PurchaseTemplate#")>
 					<font color="FF0000">	
 				<cfelse>
-					<font color="blue">	   
+					<font color="6688aa">	   
 				</cfif>
 				#PurchaseTemplate#
 				</font>
@@ -94,9 +99,11 @@ function recordedit(id1) {
 
 </TABLE>
 
+</cf_divscroll>
+
 </td>
 </tr>
 
 </TABLE>
 
-</cf_divscroll>
+

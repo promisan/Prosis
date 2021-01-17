@@ -22,51 +22,50 @@
 	datasource="appsMaterials" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-		SELECT TOP 1 Metric
+		
+		SELECT  TOP 1 Metric
 		FROM 	AssetItemActionMetric
 		WHERE 	Metric  = '#URL.ID1#' 
+		
 		UNION
-		SELECT TOP 1 Metric
+		
+		SELECT  TOP 1 Metric
 		FROM 	ItemSupplyMetric
 		WHERE 	Metric  = '#URL.ID1#'
+		
 		UNION
-		SELECT TOP 1 Metric
+		
+		SELECT  TOP 1 Metric
 		FROM 	Ref_AssetActionMetric
 		WHERE 	Metric  = '#URL.ID1#'
+		
 </cfquery>
 
 <script language="JavaScript">
-
-function ask()
-
-{
-	if (confirm("Do you want to remove this metric?")) {
 	
-	return true 
-	
-	}
-	
-	return false
-	
-}	
+	function ask() {
+		if (confirm("Do you want to remove this metric?")) {	
+		return true 	
+		}	
+		return false	
+	}	
 
 </script>
-
 
 <!--- edit form --->
 
 <cfform action="RecordSubmit.cfm?idmenu=#url.idmenu#" method="POST" name="dialog">
 
-<table width="95%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="95%" align="center" class="formpadding formspacing">
 
 	<tr><td height="10"></td></tr>
 
     <cfoutput>
-    <TR>
-    <TD class="labelit">Code:</TD>
-    <TD class="labelmedium">
+    <TR class="labelmedium2">
+    <TD>Code:</TD>
+    <TD>
 		<cfif CountRec.recordCount eq 0>
-  	   		<cfinput type="text" name="code" value="#get.Code#" message="Please enter a code" required="Yes" size="10" maxlength="20" class="regularxl">
+  	   		<cfinput type="text" name="code" value="#get.Code#" message="Please enter a code" required="Yes" size="20" maxlength="20" class="regularxxl">
 		<cfelse>
 		   <input type="hidden" name="Code" id="Code" value="#get.Code#">
 			#get.Code#
@@ -75,24 +74,24 @@ function ask()
     </TD>
 	</TR>
 	
-	<TR>
-    <TD class="labelit">Description:</TD>
-    <TD class="labelit">
-	   <cfinput type="text" name="Description" value="#get.Description#" message="Please enter a description" required="Yes" size="40" maxlength="50" class="regularxl">
+	<TR class="labelmedium2">
+    <TD>Description:</TD>
+    <TD>
+	   <cfinput type="text" name="Description" value="#get.Description#" message="Please enter a description" required="Yes" size="40" maxlength="50" class="regularxxl">
     </TD>
 	</TR>
 	
-	<TR>
-    <TD class="labelit">UoM:</TD>
-    <TD class="labelit">
-  	   <cfinput type="text" name="MeasurementUoM" value="#get.MeasurementUoM#" message="Please enter a valid uom" required="No" size="10" maxlength="10" class="regularxl">
+	<TR class="labelmedium2">
+    <TD>UoM:</TD>
+    <TD>
+  	   <cfinput type="text" name="MeasurementUoM" value="#get.MeasurementUoM#" message="Please enter a valid uom" required="No" size="10" maxlength="10" class="regularxxl">
     </TD>
 	</TR>
 	
-	<TR>
-    <td class="labelit">Measurement:</td>
-    <TD class="labelit">
-		<select name="measurement" id="measurement" class="regularxl">
+	<TR class="labelmedium2">
+    <td>Measurement:</td>
+    <TD>
+		<select name="measurement" id="measurement" class="regularxxl">
 			<option value="Cumulative" <cfif lcase(get.measurement) eq "cumulative">selected</cfif>>Cumulative
 			<option value="Increment" <cfif lcase(get.measurement) eq "increment">selected</cfif>>Increment
 		</select>
