@@ -66,7 +66,8 @@ we should not apply this is if the grouping has not changed, this will then save
 				<cfquery name="getRange" dbtype="query">
 					 SELECT   MIN(#url.listcolumn1#) as ColStart,
 					          MAX(#url.listcolumn1#) as ColEnd			  
-					 FROM     SearchResult <!--- this is the base content which we generated or kept in memory --->										
+					 FROM     SearchResult 
+					 WHERE    #url.listcolumn1# is not NULL <!--- this is the base content which we generated or kept in memory --->										
 				</cfquery>
 				
 				<!--- Hanno this we need to make quicker and see if we can get it 
@@ -191,33 +192,27 @@ we should not apply this is if the grouping has not changed, this will then save
 <cfoutput>		
 			
 	<cfsavecontent variable="groupsql">		
-	
-		SELECT   #url.listgroupsort#  
-			     <cfif url.listgroupsort neq url.listgroupfield>
-			     ,#url.listgroupfield#
-				 </cfif>
-	             <!--- we add this field to present the correct sorting of the group as well --->
-				 <cfif drillkey neq "">													  
-				 ,MIN(#drillkey#) as GroupKeyValue <!--- we take a random value of the key so we can easily find the content --->
-				 </cfif>	
-				 <!--- pivot fields : this query will fire each time you can from month, year and will take some time --->					 
-				 <cfif url.listcolumn1 neq "" and url.listcolumn1 neq "summary">,#columnperiod# as #url.listcolumn1#</cfif>				     
-				 ,#preserveSingleQuotes(aggregate)#  <!--- totals and count --->
-		FROM     SearchResult <!--- this is the base content which we generated or kept in memory --->				
-		GROUP BY #url.listgroupsort# 
-				 <cfif url.listgroupsort neq url.listgroupfield>	
-			     ,#url.listgroupfield#	
-				 </cfif>
-				 <cfif url.listcolumn1 neq "" and url.listcolumn1 neq "summary">
-			     ,#columnperiod#						
-				 </cfif>						
-		<cfif findNoCase(url.listorderfield,aggrfield) and url.listorderfield neq ""> 
-		ORDER BY #url.listorderfield# #url.listorderdir#, 
-		         #url.listgroupsort# #url.listgroupdir#	
-		<cfelse>		 						  
+			
+		SELECT    <cfif url.listgroupsort neq url.listgroupfield 
+						 and url.listgroupsort neq "">#url.listgroupsort#,#url.listgroupfield#
+				  <cfelse>#url.listgroupfield#	 
+		          </cfif>		           			      
+	              <!--- we add this field to present the correct sorting of the group as well --->
+				  <cfif drillkey neq "">,MIN(#drillkey#) as GroupKeyValue <!--- we take a random value of the key so we can easily find the content ---></cfif>	
+				  <!--- pivot fields : this query will fire each time you can from month, year and will take some time --->					 
+				  <cfif url.listcolumn1 neq "" and url.listcolumn1 neq "summary">,#columnperiod# as #url.listcolumn1#</cfif>				     
+				  ,#preserveSingleQuotes(aggregate)#  <!--- totals and count --->
+		FROM      SearchResult <!--- this is the base content which we generated or kept in memory --->				
+		GROUP BY  <cfif url.listgroupsort neq url.listgroupfield 
+						  and url.listgroupsort neq "">#url.listgroupsort#,#url.listgroupfield# 
+			      <cfelse>#url.listgroupfield#
+				  </cfif>
+			      <cfif url.listcolumn1 neq "" and url.listcolumn1 neq "summary">,#columnperiod#</cfif>						
+		<cfif findNoCase(url.listorderfield,aggrfield) and url.listorderfield neq "" and url.listgroupsort neq ""> 
+		ORDER BY #url.listorderfield# #url.listorderdir# <cfif url.listorderfield neq url.listgroupsort>, #url.listgroupsort# #url.listgroupdir#</cfif>	
+		<cfelseif url.listgroupsort neq "">		 						  
 	    ORDER BY #url.listgroupsort# #url.listgroupdir#		
 		</cfif>
-		
 		
 	</cfsavecontent>	
 					
@@ -229,12 +224,22 @@ we should not apply this is if the grouping has not changed, this will then save
 
 	<cftry>
 	
-	<cfquery name="SearchGroup" dbtype="query">
-		  #preservesinglequotes(groupsql)#				  													 
-	</cfquery>
+		<cfquery name="SearchGroup" dbtype="query">
+			  #preservesinglequotes(groupsql)#				  													 
+		</cfquery>
+		
+		<cflock timeout="20" throwontimeout="No" type="EXCLUSIVE" scope="SESSION">
+			<cfset session.listingdata[box]['dataprepgroup']    = cfquery.executiontime> <!--- time perform - --->
+			<cfset session.listingdata[box]['datasetgroup']     = searchgroup>           <!--- query object - ---> 			
+			<cfset session.listingdata[box]['sqlgroup']         = groupsql>              <!--- query itself - --->
+		</cflock>
 	
 	<cfcatch>
-	ERROR<cfoutput>#preservesinglequotes(groupsql)#</cfoutput>	 
+	
+		ERROR<cfoutput>#preservesinglequotes(groupsql)#</cfoutput>	 
+		
+		<cfabort>
+		
 	</cfcatch>
 	
 	</cftry>
@@ -246,11 +251,7 @@ we should not apply this is if the grouping has not changed, this will then save
 	<cfabort>
 	--->		
 					
-	<cflock timeout="20" throwontimeout="No" type="EXCLUSIVE" scope="SESSION">
-		<cfset session.listingdata[box]['dataprepgroup']    = cfquery.executiontime> <!--- time perform - --->
-		<cfset session.listingdata[box]['datasetgroup']     = searchgroup>           <!--- query object - ---> 			
-		<cfset session.listingdata[box]['sqlgroup']         = groupsql>              <!--- query itself - --->
-	</cflock>
+	
 
 <cfelse>
 		

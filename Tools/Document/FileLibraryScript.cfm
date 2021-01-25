@@ -185,7 +185,7 @@ function showfilelog(id,ser) {
 function embedfile(mode,box,action,id) {     
    if (document.getElementById("b"+box).className == "hide") {
        document.getElementById("b"+box).className = "regular"
-	   w = document.body.offsetWidth-200	   
+	   w = document.body.offsetWidth-200		  
        ptoken.navigate('#SESSION.root#/tools/document/FileEmbed.cfm?width='+w+'&id='+id+'&mode='+mode+'&box='+box,box)
    } else {
        document.getElementById("b"+box).className = "hide"

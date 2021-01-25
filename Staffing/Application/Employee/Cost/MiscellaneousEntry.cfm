@@ -115,8 +115,9 @@ password="#SESSION.dbpw#">
     <table border="0" cellpadding="0" cellspacing="0" width="97%" align="center" class="formpadding formspacing">
 	  
 	  <TR class="labelmedium">
-    <TD width="120"><cf_tl id="Entity">:</TD>
-    <TD width="90%">
+
+	    <TD width="120"><cf_tl id="Entity">:</TD>
+    	<TD width="90%">
 	
 		<table><tr class="labelmedium">
 		
@@ -198,7 +199,7 @@ password="#SESSION.dbpw#">
 			   <td align="right"><cf_tl id="Amount"></td> 
 		  </tr>
 		  
-		  <cfloop index="itm" from="1" to="10">
+		  <cfloop index="itm" from="1" to="12">
 		  
 		  	<cfoutput>
 					  
@@ -295,16 +296,16 @@ password="#SESSION.dbpw#">
 				   
 				   		<cfif itm eq "1">
 				   
-				       <cfinput type="Text" style="border:0px;text-align:right;padding-right:4px;width:90%" name="Amount_#itm#" 
-					    onchange="ptoken.navigate('getActors.cfm?personno=#url.personno#','actor','','','POST','MiscellaneousEntry')"
-					    message="Please enter a correct amount" validate="float" required="Yes" size="12" maxlength="16" class="regularxl enterastab">
-						
+					       <cfinput type="Text" style="border:0px;text-align:right;padding-right:4px;width:90%" name="Amount_#itm#" 
+						    onchange="ptoken.navigate('getActors.cfm?personno=#url.personno#','actor','','','POST','MiscellaneousEntry')"
+						    message="Please enter a correct amount" validate="float" required="Yes" size="12" maxlength="16" class="regularxl enterastab">
+							
 						<cfelse>
 						
-					   <cfinput type="Text" style="border:0px;text-align:right;padding-right:4px;width:90%" name="Amount_#itm#" 
-					   onchange="ptoken.navigate('getActors.cfm?personno=#url.personno#','actor','','','POST','MiscellaneousEntry')"
-					    message="Please enter a correct amount" validate="float" required="No" size="12" maxlength="16" class="regularxl enterastab">
-											
+						   <cfinput type="Text" style="border:0px;text-align:right;padding-right:4px;width:90%" name="Amount_#itm#" 
+						   onchange="ptoken.navigate('getActors.cfm?personno=#url.personno#','actor','','','POST','MiscellaneousEntry')"
+						    message="Please enter a correct amount" validate="float" required="No" size="12" maxlength="16" class="regularxl enterastab">
+												
 						</cfif>
 		
 				   </td> 

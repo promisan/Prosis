@@ -114,7 +114,8 @@ WHERE        M.Mission = '#url.mission#'
 	<cf_tl id="Item" var = "1">		
 	<cfset fields[itm] = {label       = "#lt_text#",                    
 	     				field         = "PayrollItemName",								
-						display       = "1",																																										
+						display       = "1",	
+						column        = "common",																																										
 						displayfilter = "yes",																																									
 						search        = "text",
 						filtermode    = "3"}>																						
@@ -124,7 +125,8 @@ WHERE        M.Mission = '#url.mission#'
 	<cfset fields[itm] = {label       = "#lt_text#",                    
 	     				field         = "Source",								
 						display       = "1",																																									
-						displayfilter = "yes",																																									
+						displayfilter = "yes",		
+						column        = "common",																																							
 						search        = "text",
 						filtermode    = "3"}>	
 						
@@ -144,6 +146,7 @@ WHERE        M.Mission = '#url.mission#'
 	     				field         = "Amount",								
 						display       = "1",																																										
 						displayfilter = "yes",	
+						aggregate     = "sum", 
 						width         = "18",	
 						align         = "right",																																								
 						search        = "amount",						

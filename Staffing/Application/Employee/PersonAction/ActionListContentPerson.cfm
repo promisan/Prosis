@@ -47,33 +47,41 @@
 
 <cfset itm = itm+1>					
 <cfset fields[itm] = {label      = "Officer", 					
-					field      = "OfficerLastName",										
-					filtermode = "3",
-					search     = "text"}>													
+					field        = "OfficerLastName",										
+					filtermode   = "3",
+					search       = "text"}>													
 
 <cfset itm = itm+1>					
 <cfset fields[itm] = {label      = "Effective",    					
-					field      = "ActionDate",					
-					formatted  = "dateformat(ActionDate,CLIENT.DateFormatShow)",
-					search     = "date"}>	
+					field        = "ActionDate",		
+					column       = "month",				
+					formatted    = "dateformat(ActionDate,CLIENT.DateFormatShow)",
+					search       = "date"}>	
 					
 <cfset itm = itm+1>					
-<cfset fields[itm] = {label    = "Expiration",    					
-					field      = "ActionExpiration",					
-					formatted  = "dateformat(ActionExpiration,CLIENT.DateFormatShow)",
-					search     = "date"}>										
+<cfset fields[itm] = {label      = "Expiration",    					
+					field        = "ActionExpiration",					
+					formatted    = "dateformat(ActionExpiration,CLIENT.DateFormatShow)",
+					search       = "date"}>										
 
 <cfset itm = itm+1>					
 <cfset fields[itm] = {label      = "Processed",    					
-					field      = "LastProcessed",	
-					column     = "month",				
-					formatted  = "dateformat(Lastprocessed,CLIENT.DateFormatShow) ",
-					search     = "date"}>		
+					field        = "LastProcessed",	
+					column       = "month",				
+					formatted    = "dateformat(Lastprocessed,CLIENT.DateFormatShow) ",
+					search       = "date"}>		
 					
 <cfset itm = itm+1>					
 <cfset fields[itm] = {label      = "",    					
-					field      = "LastProcessed",					
-					formatted  = "timeformat(Lastprocessed,'HH:MM')"}>							
+					field        = "LastProcessed",					
+					formatted    = "timeformat(Lastprocessed,'HH:MM')"}>		
+					
+<cfset itm = itm+1>					
+<cfset fields[itm] = {label      = "Recorded",    					
+					field        = "Created",	
+					column       = "month",	
+					search       = "date",				
+					formatted    = "dateformat(Created,CLIENT.DateFormatShow)"}>											
 								
 														
 

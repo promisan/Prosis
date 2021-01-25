@@ -42,7 +42,7 @@ function recordedit(id1) {
 	
 	<table width="94%" align="center" class="navigation_table">
 	
-		<tr class="labelmedium2 line">
+		<tr class="labelmedium2 line fixrow">
 		    <td></td> 
 		    <td>Code</td>
 			<td>Description</td>

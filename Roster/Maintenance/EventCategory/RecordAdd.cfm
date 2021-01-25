@@ -13,27 +13,26 @@
 
 <!--- Entry form --->
 
-<table width="95%" align="center" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="95%" align="center" class="formpadding spacing">
 
     <TR>
-    <TD class="labelit">Code:</TD>
+    <TD class="labelmedium2">Code:</TD>
     <TD>
-  	   <cfinput type="Text" name="Code" value="" message="Please enter a code" required="Yes" size="10" maxlength="10">
+  	   <cfinput class="regularxxl" type="Text" name="Code" value="" message="Please enter a code" required="Yes" size="10" maxlength="10">
     </TD>
 	</TR>
 
 	
 	<TR>
-    <TD class="labelit">Description:</TD>
+    <TD class="labelmedium2">Description:</TD>
     <TD>
-  	   <cfinput type="Text" name="Description" value="" message="Please enter a description" required="Yes" size="30" maxlength="30">
+  	   <cfinput class="regularxxl" type="Text" name="Description" value="" message="Please enter a description" required="Yes" size="30" maxlength="30">
     </TD>
 	</TR>
 	
 	<tr><td colspan="2" height="3"></td></tr>
 	<tr><td colspan="2" class="linedotted"></td></tr>
 	<tr><td colspan="2" height="3"></td></tr>
-
 	
 	<tr>
 	<td align="center" colspan="2">

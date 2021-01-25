@@ -118,7 +118,6 @@ FROM (
 		
 <cfset fields=ArrayNew(1)>
 
-
 <cfset itm = itm + 1>					
 <cfset fields[itm] = {label      = "Position", 					
 					  field      = "SourcePostNumber",										
@@ -149,7 +148,8 @@ FROM (
 					  
 <cfset itm = itm + 1>						
 <cfset fields[itm] = {label      = "Type", 					
-					  field      = "PostType",													
+					  field      = "PostType",		
+					  column     = "common",											
 					  search     = "text", 
 					  filtermode = "3"}>							  				  
 
@@ -168,7 +168,8 @@ FROM (
 					
 <cfset itm = itm + 1>						
 <cfset fields[itm] = {label      = "Class", 					
-					  field      = "PostClass",													
+					  field      = "PostClass",		
+					  column     = "common",											
 					  search     = "text", 
 					  filtermode = "3"}>																
 
@@ -181,6 +182,7 @@ FROM (
 <cfset itm = itm + 1>	
 <cfset fields[itm] = {label      = "Location",					
 					  field      = "LocationCode",	
+					  column     = "common",
 					  search     = "text",
 					  filtermode = "2"}>							
 
@@ -218,35 +220,26 @@ FROM (
 					  field      = "Created", 
 					  formatted  = "dateformat(Created,'#CLIENT.DateFormatShow#')"}>   
 
-
 <!--- embed|window|dialogajax|dialog|standard --->
-
-<table width="100%" height="100%" align="center">
-	
-	<tr><td width="100%" height="100%">			
 			
-	<cf_listing header  = "PositionExpiration"
-	    box             = "actiondetail"
-		link            = "#SESSION.root#/Staffing/Reporting/PostView/Position/viewMandateContent.cfm?systemfunctionid=#url.systemfunctionid#&mission=#url.mission#&mandate=#url.mandate#&dte=#url.dte#"
-	    html            = "No"		
-		datasource      = "AppsEmployee"
-		listquery       = "#myquery#"
-		listorder       = "DateExpiration"
-		listorderalias  = "P"
-		listorderdir    = "DESC"
-		headercolor     = "ffffff"				
-		tablewidth      = "100%"
-		listlayout      = "#fields#"
-		FilterShow      = "Yes"
-		ExcelShow       = "Yes"
-		drillmode       = "tab" 
-		drillargument   = "980;1100;true"	
-		drilltemplate   = "Staffing/Application/Position/PositionParent/PositionView.cfm?drillid="
-		drillkey        = "PositionNo">	
-				
-	</td></tr>
-
-</table>	
+<cf_listing header  = "PositionExpiration"
+    box             = "position_#url.mission#"
+	link            = "#SESSION.root#/Staffing/Reporting/PostView/Position/viewMandateContent.cfm?systemfunctionid=#url.systemfunctionid#&mission=#url.mission#&mandate=#url.mandate#&dte=#url.dte#"
+    html            = "No"		
+	datasource      = "AppsEmployee"
+	listquery       = "#myquery#"
+	listorder       = "DateExpiration"
+	listorderalias  = "P"
+	listorderdir    = "DESC"
+	headercolor     = "ffffff"				
+	tablewidth      = "100%"
+	listlayout      = "#fields#"
+	FilterShow      = "Yes"
+	ExcelShow       = "Yes"
+	drillmode       = "tab" 
+	drillargument   = "980;1100;true"	
+	drilltemplate   = "Staffing/Application/Position/PositionParent/PositionView.cfm?drillid="
+	drillkey        = "PositionNo">	
 
 <cfset ajaxonload("doCalendar")>	
 

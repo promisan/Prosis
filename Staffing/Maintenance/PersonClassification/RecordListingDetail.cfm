@@ -31,7 +31,7 @@ password="#SESSION.dbpw#">
 
 <table width="95%" align="center" class="navigation_table">
 			
-    <tr class="labelmedium line">
+    <tr class="labelmedium2 line fixrow">
 	   <td width="20"></td>
 	   <td width="10%">Code</td>
 	   <td width="30%">Description</td>
@@ -196,24 +196,23 @@ password="#SESSION.dbpw#">
 	
 					</td>
 			    </tr>	
-								
-				<tr><td height="1" colspan="10" class="linedotted"></td></tr>
+							
+				
 				</TABLE>
 			</cfform>
 			</TD></TR>
 			
-			<tr><td colspan="2"></td><td colspan="7" id= "#code#_list">
+			<tr><td colspan="1"></td><td colspan="8" id= "#code#_list">
 		   			
 				<cfset url.code = code>
 				<cfinclude template="List.cfm">
 					
 			</td></tr>		
 			
-			<tr><td></td>
-			    <td></td>
-				<td colspan="7" class="labelmedium">Limit access</td></tr>
+			<tr class="line"><td></td>			   
+				<td colspan="8" align="center" class="labelmedium2" style="font-weight:bold;font-size:18px">Control access</td></tr>
 			
-			<tr><td colspan="2"></td><td style="padding-left:0px" colspan="7" id="#code#_owner">
+			<tr><td colspan="1"></td><td style="padding-left:0px" colspan="8" id="#code#_owner">
 		   		
 				<cfset url.code = code>
 				<cfinclude template="Owner.cfm">
@@ -222,7 +221,8 @@ password="#SESSION.dbpw#">
 			
 			<tr style="height:10px;"><td colspan="10"></td></tr>
 			
-			<tr><td colspan="2"></td><td style="padding-left:0px" colspan="7" id = "#code#_role">
+			<tr><td colspan="1"></td>
+			    <td style="padding-left:0px" colspan="8" id = "#code#_role">
 						
 				<cfset url.code = code>
 				<cfinclude template="Role.cfm">
@@ -231,10 +231,10 @@ password="#SESSION.dbpw#">
 																				
 		<cfelse>
 										
-			<tr height="20" class="labelmedium navigation_row line">			
+			<tr height="20" class="labelmedium2 navigation_row line">			
 			  			   
-			   <td align="center" style="padding-top:2px;">
-				 <cf_img icon="edit" navigation="Yes" onclick="ColdFusion.navigate('RecordListingDetail.cfm?ID2=#code#','listing')">
+			   <td align="center" style="padding-top:1px;">
+				 <cf_img icon="open" navigation="Yes" onclick="ColdFusion.navigate('RecordListingDetail.cfm?ID2=#code#','listing')">
 			  </td>
 			   
 			   <td height="17" style="padding-left:4px">#code#</td>
@@ -252,18 +252,20 @@ password="#SESSION.dbpw#">
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
 				    	SELECT TOP 1 GroupCode
-					    FROM  PersonGroup
-						WHERE GroupCode = '#Code#'	
-						 UNION
+					    FROM   PersonGroup
+						WHERE  GroupCode = '#Code#'	
+						
+						UNION
+						
 					    SELECT TOP 1 GroupCode
-					    FROM  PersonAssignmentTopic
-						WHERE GroupCode = '#Code#'																
+					    FROM   PersonAssignmentTopic
+						WHERE  GroupCode = '#Code#'																
 				   </cfquery>
 				   
 				 <td align="center" style="padding-left:4px;padding-top:3px">
 				 
 				  <cfif check.recordcount eq "0" and code neq "AssignEnd">
-					  <cf_img icon="delete" onclick="ColdFusion.navigate('RecordListingPurge.cfm?Code=#code#','listing');">
+					  <cf_img icon="delete" onclick="ptoken.navigate('RecordListingPurge.cfm?Code=#code#','listing');">
 				  </cfif>	   
 					  
 				</td>   

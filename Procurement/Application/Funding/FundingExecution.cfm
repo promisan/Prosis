@@ -10,6 +10,8 @@
 			  border="0"
 			  JQuery="yes">
 
+<!--- disabled 
+			  
 <script>
 
 function facttable1(controlid,format,filter,qry) {
@@ -20,6 +22,8 @@ function facttable1(controlid,format,filter,qry) {
 	}
 	
 </script>
+
+--->
 
 <cf_layoutScript>	
 			  

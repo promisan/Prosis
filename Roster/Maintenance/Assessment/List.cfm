@@ -38,15 +38,14 @@ password="#SESSION.dbpw#">
 
 <cfparam name="URL.skillcode" default="">
 	
-<table width="100%" cellspacing="0" cellpadding="0">
+<table width="100%" class="navigation_table">
 				
 		<cfif list.recordcount eq "0">
 		  <cfset url.skillcode = "new">
-		</cfif>  
-		
+		</cfif>  		
 
-	    <tr class="labelheader linedotted">
-		   <td>&nbsp;Code</td>
+	    <tr class="labelit line">
+		   <td style="width:50px;padding-left:4px">Code</td>
 		   <td width="60%">Description</td>
 		   <td width="50">Order</td>
 		   <td width="50">Owner</td>
@@ -54,8 +53,7 @@ password="#SESSION.dbpw#">
 		   <td colspan="2" align="right">
 	       <cfoutput>
 			 <cfif URL.skillcode neq "new">
-			     <A href="javascript:ColdFusion.navigate('List.cfm?Code=#URL.Code#&skillcode=new','#url.code#_list')">
-				 <font color="0080FF">[add]</font></a>
+			     <A href="javascript:ptoken.navigate('List.cfm?Code=#URL.Code#&skillcode=new','#url.code#_list')">[add]</a>
 			 </cfif>
 			 </cfoutput>&nbsp;
 		   </td>		  
@@ -82,7 +80,7 @@ password="#SESSION.dbpw#">
 					
 						<table width="100%" align="center">
 							<tr>
-							   <td>#de#</td>
+							   <td style="width:50px">#de#</td>
 							   <td>
 							   	   <cfinput type="Text" 
 								   	value="#nm#" 
@@ -91,14 +89,14 @@ password="#SESSION.dbpw#">
 									required="Yes" 
 									size="60" 
 									maxlength="60" 
-									class="regular">
+									class="regularxl">
 							  
 					           </td>
 							   <td height="22">
 							   	<cfinput type="Text"
 								       name="ListingOrder"
 								       value="#ls#"
-									   class="regular"
+									   class="regularxl"
 								       validate="integer"
 								       required="Yes"
 									   message="Please enter an order value" 
@@ -111,8 +109,8 @@ password="#SESSION.dbpw#">
 							   			   
 							     </td>
 							   <td>  #def# </td>
-							   <td align="center"> <input type="checkbox" name="Operational" value="1" <cfif "1" eq op>checked</cfif>> </td>
-							   <td colspan="2" align="right">  <input type="submit"  value="Save"  class="button10s" style="width:50">&nbsp;</td>
+							   <td align="center"> <input type="checkbox" class="radiol" name="Operational" value="1" <cfif "1" eq op>checked</cfif>> </td>
+							   <td colspan="2" align="right">  <input type="submit"  value="Save"  class="button10g" style="width:50">&nbsp;</td>
 						    </tr>
 						</table>
 						
@@ -123,14 +121,14 @@ password="#SESSION.dbpw#">
 															
 			<cfelse>								
 						
-				<tr class="cellcontent">
-				   <td>#de#</td>
+				<tr class="navigation_row labelmedium2 line">
+				   <td style="padding-left:4px">#de#</td>
 				   <td height="20">#nm#</td>
 				   <td>#ls#</td>
 				   <td>#def#</td>	
 				   <td align="center"><cfif op eq "0"><b>No</b><cfelse>Yes</cfif></td>
 				   <td align="right" style="padding-top:3px;">
-					   <cf_img icon="edit" onclick="ColdFusion.navigate('List.cfm?Code=#URL.Code#&skillcode=#de#&owner=#def#','#url.code#_list')">
+					   <cf_img icon="edit" onclick="ptoken.navigate('List.cfm?Code=#URL.Code#&skillcode=#de#&owner=#def#','#url.code#_list')">
 				   </td>
 			   			   
 				   <cfquery name="Check" 
@@ -145,7 +143,7 @@ password="#SESSION.dbpw#">
 				   
 				   <td align="center" width="20" style="padding-top:3px;">
 				     <cfif check.recordcount eq "0">
-						   <cf_img icon="delete" onclick="ColdFusion.navigate('ListPurge.cfm?code=#url.code#&skillcode=#de#&owner=#def#','#url.code#_list')">
+						   <cf_img icon="delete" onclick="ptoken.navigate('ListPurge.cfm?code=#url.code#&skillcode=#de#&owner=#def#','#url.code#_list')">
 					 </cfif>	   
 					  
 				    </td>
@@ -177,7 +175,7 @@ password="#SESSION.dbpw#">
 									 required="Yes" 
 									 size="2" 
 									 maxlength="20" 
-									 class="regular">
+									 class="regularxl">
 				        </td>
 									   
 						    <td>
@@ -187,7 +185,7 @@ password="#SESSION.dbpw#">
 									 required="Yes" 
 									 size="60" 
 									 maxlength="80" 
-									 class="regular">
+									 class="regularxl">
 							</td>								 
 							<td>
 							   <cfinput type="Text" 
@@ -198,12 +196,12 @@ password="#SESSION.dbpw#">
 								  style="text-align:center"
 								  value="#lst#"
 								  validate="integer"
-								  class="regular"
+								  class="regularxl"
 								  maxlength="2">
 							</td>
 							
 						<td>
-						  <select name="Owner" visible="Yes" enabled="Yes">
+						  <select name="Owner" class="regularxl" visible="Yes" enabled="Yes">
 							  <cfoutput query="Owner">
 							   <option value="#Owner#">#Owner#</option>
 							  </cfoutput>
@@ -211,12 +209,12 @@ password="#SESSION.dbpw#">
 						</td>		
 						
 						<td align="center">
-							<input type="checkbox" name="Operational" value="1" checked>
+							<input type="checkbox" class="radiol" name="Operational" value="1" checked>
 						</td>
 											   
-						<td colspan="2" align="right">
+						<td colspan="2" align="right" style="padding-right:4px">
 						<cfoutput>
-							<input type="submit"  value="Add" class="button10s" style="width:50"> &nbsp;
+							<input type="submit"  value="Add" class="button10g" style="width:50">
 						</cfoutput>
 						</td>			    
 						</tr>	
@@ -228,5 +226,7 @@ password="#SESSION.dbpw#">
 											
 		</cfif>								
 </table>		
+
+<cfset ajaxonload("doHighlight")>
 						
 

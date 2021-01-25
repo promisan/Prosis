@@ -9,44 +9,44 @@
 
 <!--- Entry form --->
 
-<table width="95%" cellspacing="4" cellpadding="4" align="center">
-	
-	<cfform action="RecordSubmit.cfm" method="POST" enablecab="Yes" name="dialog">
+<cfform action="RecordSubmit.cfm" method="POST" name="dialog">
 
+<table width="95%" align="center" class="formpadding formspacing">
+		
 	<tr><td height="6"></td></tr>    
 	
-	 <TR>
+	<TR class="labelmedium2">
     <TD>Description:</TD>
     <TD>
-  	   <cfinput type="Text" name="Description" value="" message="Please enter a description" required="Yes" size="30" maxlength="20" class="regular">
+  	   <cfinput type="Text" name="Description" value="" message="Please enter a description" required="Yes" size="30" maxlength="20" class="regularxxl">
     </TD>
 	</TR>
 	
-	<TR>
+	<TR class="labelmedium2">
     <TD>Payment days:</TD>
     <TD>
-  	   <cfinput type="Text" name="paymentDays" value="" message="Please enter a number as payment day" required="Yes" validate="integer" size="10" maxlength="3" class="regular">
+  	   <cfinput type="Text" name="paymentDays" value="" message="Please enter a number as payment day" required="Yes" validate="integer" size="10" maxlength="3" class="regularxxl">
     </TD>
 	</TR>
 	
-	<TR>
+	<TR class="labelmedium2">
     <TD>Discount:</TD>
     <TD>
-  	   <cfinput type="Text" name="discount" value="" message="Please enter a decimal number as discount" required="Yes" validate="float" size="10" maxlength="6" class="regular">
+  	   <cfinput type="Text" name="discount" value="" message="Please enter a decimal number as discount" required="Yes" validate="float" size="10" maxlength="6" class="regularxxl">
     </TD>
 	</TR>
 	
-	<TR>
+	<TR class="labelmedium2">
     <TD>Discount days:</TD>
     <TD>
-  	   <cfinput type="Text" name="discountDays" value="" message="Please enter a number as discount day" required="Yes" validate="integer" size="10" maxlength="3" class="regular">
+  	   <cfinput type="Text" name="discountDays" value="" message="Please enter a number as discount day" required="Yes" validate="integer" size="10" maxlength="3" class="regularxxl">
     </TD>
 	</TR>
 	
-	<TR>
+	<TR class="labelmedium2">
     <TD>Operational:</TD>
     <TD>
-		<SELECT name="operational" id="operational">		
+		<SELECT name="operational" id="operational" class="regularxxl">		
 			<OPTION value="0">No</OPTION>
 			<OPTION value="1" selected>Yes </OPTION>	
 		</SELECT>
@@ -63,9 +63,9 @@
 	</td>	
 	
 	</tr>
-		
-	</CFFORM>
-	
+			
 </table>
+
+</CFFORM>
 
 <cf_screenbottom layout="innerbox">

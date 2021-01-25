@@ -23,7 +23,7 @@
 
 <cfset link    = replace(url.link,"||","&","ALL")>
   
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<table width="100%">
 
 <tr>
  
@@ -72,54 +72,36 @@ SELECT TOP #last# *
 	</cfif>
 </cfquery>
 
-<table border="0" cellpadding="0" cellspacing="0" width="100%" class="navigation_table">
-
-<tr><td height="14" colspan="3">
-						 
-	 <cfinclude template="Navigation.cfm">
-	 				 
-</td></tr>
-
-<cfoutput query="SearchResult">
-
-<cfif currentrow gte first>
-
-	<tr class="navigation_row">
-	  
-	    <td style="padding-left:6px" height="18" width="30" class="navigation_action" onclick="ptoken.navigate('#link#&action=insert&#url.des1#=#role#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ColdFusion.Window.hide('dialog#url.box#')</cfif>">&nbsp;
-			  					   
-		   <img src="#SESSION.root#/Images/bullet.png" alt="Select"
-		     name="img98_#orgunit#" 
-			 onMouseOver="document.img98_#orgunit#.src='#SESSION.root#/Images/button.jpg'" 
-		     onMouseOut="document.img98_#orgunit#.src='#SESSION.root#/Images/bullet.png'"
-			 id="img98_#orgunit#" 
-			 width="12" 
-			 style="cursor: pointer;"
-			 height="12" 
-			 border="0" 
-			 align="absmiddle">					
+<table width="100%" class="navigation_table">
 	
-		</td>
-		<td class="labelit" width="20%">#Role#</td>
-		<TD class="labelit" width="80%">#Description#</TD>
-	</tr>
+	<tr><td height="14" colspan="3">						 
+		 <cfinclude template="Navigation.cfm">	 				 
+	</td></tr>
 	
-</cfif>	
-		     
-</CFOUTPUT>
-
-<tr><td height="2"></td></tr>
-<tr><td colspan="3" class="linedotted"></td></tr>
-
-<tr><td height="14" colspan="3">
-						 
-	 <cfinclude template="Navigation.cfm">
-	 				 
-</td></tr>
+	<cfoutput query="SearchResult">
+	
+	<cfif currentrow gte first>
+	
+		<tr class="navigation_row labelmedium2 line">	  
+		    <td style="padding-left:6px" class="navigation_action" 
+			onclick="ptoken.navigate('#link#&action=insert&#url.des1#=#role#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">		
+			    <cf_img icon="select">		  				
+			</td>
+			<td width="90%">#Role# : #Description#</td>			
+		</tr>
+		
+	</cfif>	
+			     
+	</CFOUTPUT>
+	<tr><td height="14" colspan="3">						 
+		 <cfinclude template="Navigation.cfm">	 				 
+	</td></tr>
 
 </TABLE>
+
+</td>
+</tr>
  
 </table>
-
 
 <cfset AjaxOnLoad("doHighlight")>

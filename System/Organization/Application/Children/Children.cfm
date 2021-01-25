@@ -1,6 +1,6 @@
 <!--- Create Criteria string for query from data entered thru search form --->
 
-<cf_screentop height="100%" scroll="Yes" html="No">
+<cf_screentop height="100%" jquery="Yes" scroll="Yes" html="No">
 
 <cf_dialogOrganization>
   
@@ -33,15 +33,15 @@ SELECT distinct O.*
 ORDER BY O.Mission, TreeOrder
 </cfquery>
 
-<table width="96%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="96%" align="center" class="navigation_table">
 
-<TR>
+<TR class="labelmedium2 line fixrow">
     <td height="20"></td>
-    <TD class="labelit"><cf_tl id="Code"></TD>
-	<TD class="labelit"><cf_tl id="Description"></TD>
-	<TD class="labelit"><cf_tl id="Short"></TD>
-    <TD class="labelit"><cf_tl id="Class"></TD>
-	<TD class="labelit"><cf_tl id="Expiration">&nbsp;</TD>
+    <TD><cf_tl id="Code"></TD>
+	<TD><cf_tl id="Description"></TD>
+	<TD><cf_tl id="Short"></TD>
+    <TD><cf_tl id="Class"></TD>
+	<TD><cf_tl id="Expiration">&nbsp;</TD>
 
 </TR>
 
@@ -49,15 +49,15 @@ ORDER BY O.Mission, TreeOrder
 <cfoutput group="TreeOrder">
 <cfoutput>
 
-<tr bgcolor="FFFF9B">
-       <td width="6%" style="padding-left:4px;padding-top:2px">
-          <cf_img icon="edit" onclick="javascript:editOrgUnit('#Level01.OrgUnit#')">  
+<tr bgcolor="FFFF9B" class="navigation_row line labelmedium2">
+       <td width="6%" style="padding-left:4px;padding-top:1px">
+          <cf_img icon="open" onclick="javascript:editOrgUnit('#Level01.OrgUnit#')">  
        </td>
-       <td class="labelit" width="10%"><b>#OrgUnitCode#</b></td>
-       <TD class="labelit" width="40%"><b>#OrgUnitName#</b></TD>
-	   <TD class="labelit" width="10%"><b>#OrgUnitNameShort#</b></TD>
-       <TD class="labelit" width="20%"><b>#OrgUnitClass#</b></TD>
-	   <TD class="labelit" width="10%"><b>#DateFormat(DateExpiration, CLIENT.DateFormatShow)#</b>&nbsp;&nbsp;</TD>	 
+       <td width="10%">#OrgUnitCode#</td>
+       <TD width="40%">#OrgUnitName#</TD>
+	   <TD width="10%">#OrgUnitNameShort#</TD>
+       <TD width="20%">#OrgUnitClass#</TD>
+	   <TD style="padding-right:3px" width="10%">#DateFormat(DateExpiration, CLIENT.DateFormatShow)#</TD>	 
 	   
     </TR>
 			
@@ -75,18 +75,18 @@ ORDER BY O.Mission, TreeOrder
    
     <cfloop query="Level02">
    
-     <tr bgcolor="FDFEE0">
+     <tr bgcolor="FDFEE0" class="navigation_row line labelmedium2">
 		
-	   <td width="6%" bgcolor="FFFFFF">&nbsp;&nbsp;&nbsp;&nbsp;
+	   <td width="6%" bgcolor="FFFFFF" style="padding-left:30px">
 	   <a href="javascript:editOrgUnit('#Level02.OrgUnit#')">
        <img src="../../../../Images/view.jpg" alt="" width="14" height="15" border="0" align="middle" onClick="Selected('#OrgUnitCode#','#Mission#','#OrgUnitName#','#OrgUnitClass#')">
 		  </a>
        </td>
-     <td class="labelit" width="10%">#Level02.OrgUnitCode#</td>
-     <TD class="labelit" width="40%">#Level02.OrgUnitName#</TD>
-	 <TD class="labelit" width="10%"><b>&nbsp;#OrgUnitNameShort#</b></TD>
-     <TD class="labelit" width="20%">#Level02.OrgUnitClass#</TD>
-     <TD class="labelit" width="10%">#DateFormat(Level02.DateExpiration, CLIENT.DateFormatShow)#&nbsp;</TD>
+     <td>#Level02.OrgUnitCode#</td>
+     <TD>#Level02.OrgUnitName#</TD>
+	 <TD>#OrgUnitNameShort#</b></TD>
+     <TD>#Level02.OrgUnitClass#</TD>
+     <TD style="padding-right:3px">#DateFormat(Level02.DateExpiration, CLIENT.DateFormatShow)#</TD>
 	
      </TR> 
 	  		
@@ -104,18 +104,18 @@ ORDER BY O.Mission, TreeOrder
 
     <cfloop query="Level03">
    
-     <tr bgcolor="White">
+     <tr bgcolor="White" class="navigation_row line labelmedium2">
 		
-	   <td width="10%" bgcolor="FFFFFF" class="regular">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	   <td width="10%" style="padding-left:60px">;
     	   <a href="javascript:editOrgUnit('#Level03.OrgUnit#')">
        		 <img src="../../../../Images/view.jpg" alt="" width="14" height="15" border="0" align="middle" onClick="Selected('#OrgUnitCode#','#Mission#','#OrgUnitName#','#OrgUnitClass#')">
 		  </a>
        </td>
-       <td class="labelit" width="10%">#Level03.OrgUnitCode#</td>
-       <TD class="labelit" width="40%">#Level03.OrgUnitName#</TD>
-	   <TD class="labelit" width="10%"><b>&nbsp;#OrgUnitNameShort#</TD>
-       <TD class="labelit" width="30%">#Level03.OrgUnitClass#</TD>
-	   <TD class="labelit" width="10%">#DateFormat(Level03.DateExpiration, CLIENT.DateFormatShow)#&nbsp;</font></TD>
+       <td>#Level03.OrgUnitCode#</td>
+       <TD>#Level03.OrgUnitName#</TD>
+	   <TD>#OrgUnitNameShort#</TD>
+       <TD>#Level03.OrgUnitClass#</TD>
+	   <TD>#DateFormat(Level03.DateExpiration, CLIENT.DateFormatShow)#</TD>
 	  
      </TR> 
 	     
@@ -130,4 +130,4 @@ ORDER BY O.Mission, TreeOrder
 
 </TABLE>
 
-</BODY></HTML>
+<cfset ajaxonload("doHighlight")>

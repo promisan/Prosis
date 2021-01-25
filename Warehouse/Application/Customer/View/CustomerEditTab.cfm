@@ -204,13 +204,9 @@
 
 <tr><td height="100%" style="padding:10px">
 	
-	<table width="100%" 
-	      border="0"
+	<table width="100%" 	     
 		  height="100%"
-		  cellspacing="0" 
-		  cellpadding="0" 
-		  align="center" 
-	      bordercolor="d4d4d4">
+		  align="center">
 			
 			<cf_menucontainer item="1" class="regular">
 				<cfinclude template="CustomerEdit.cfm">

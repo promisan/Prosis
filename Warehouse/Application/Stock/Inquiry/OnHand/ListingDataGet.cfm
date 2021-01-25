@@ -100,7 +100,12 @@
 		<cfquery name="getDataInMemory" 
 			datasource="AppsMaterials" 
 			username="#SESSION.login#" 
-			password="#SESSION.dbpw#"> 			
+			password="#SESSION.dbpw#"> 		
+			
+			SELECT *
+			INTO userQuery.dbo.#SESSION.acc#_OnHand	
+			
+			FROM (	
 					
 			 SELECT    C.Category,
 			 		   C.Description as CategoryDescription,
@@ -142,8 +147,8 @@
 						(CASE  WHEN MinimumStock > #preservesinglequotes(onhand)#  THEN 'Replenish'
 		                       WHEN MinimumStock = #preservesinglequotes(onhand)#  THEN 'Alert'
 						  ELSE 'Good' END) as Status				  
-			          		   
-			 INTO 	   userQuery.dbo.#SESSION.acc#_OnHand			   
+			         		   
+			    
 			 FROM      ItemWarehouseLocation S   
 			           INNER JOIN Item I ON S.ItemNo = I.ItemNo 
 					   INNER JOIN ItemUoM U ON I.ItemNo = U.ItemNo AND S.UoM = U.UoM 
@@ -208,9 +213,13 @@
 			 
 			 </cfif>
 			 
-			 <!---	removed in order to show --->
-			 HAVING SUM(TransactionQuantity) > 0	
+			 ) as B
+			 		 
+			 			 
+			 WHERE OnHand > 0	
 			 
+			 --condition
+									 
 		
 		</cfquery>	
 	

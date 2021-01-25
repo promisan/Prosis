@@ -62,7 +62,7 @@
 
 <cfoutput>
 	<script language="JavaScript">
-		ColdFusion.Window.hide('mydialog'); 	
+		ProsisUI.closeWindow('mydialog'); 	
     	ptoken.navigate('#SESSION.root#/Workorder/Maintenance/Domain/WorkOrderService/WorkOrderServiceListing.cfm?ID1=#url.id1#','workOrderServiceListing')   
 	</script> 
 </cfoutput>

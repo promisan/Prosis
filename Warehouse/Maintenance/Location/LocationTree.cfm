@@ -26,10 +26,10 @@
 				<table width="96%" align="center">
 				<tr><td>
 				
-				<cftree name="idorg" fontsize="11" bold="No" format="html" required="No">
-				     <cftreeitem 
-					  bind="cfc:service.Tree.LocationTree.getNodes({cftreeitempath},{cftreeitemvalue},'#url.id2#','LocationListing.cfm')">  		 
-			    </cftree>	
+				<cf_UItree name="idorg" fontsize="11" bold="No" format="html" required="No">
+				     <cf_UItreeitem
+					  bind="cfc:service.Tree.LocationTree.getNodesV2({cftreeitempath},{cftreeitemvalue},'#url.id2#','LocationListing.cfm')">
+			    </cf_UItree>
 						
 				</td></tr>
 				</table>

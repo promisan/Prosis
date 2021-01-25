@@ -900,13 +900,11 @@
 								
 											ORDER BY MIN(PostOrder)	
 										
-								  </cfquery>		
+								  </cfquery>	
 								  
-								  <cfquery name="SecondReviewer" dbtype="query">
-								  	   SELECT *
-									   FROM   #FirstReviewer#
-								  </cfquery>
-							  
+								  <cfset secondreviewer = firstreviewer>		
+								 
+								 							  
 							  <cfelseif  LeaveType.Leavereviewer eq "Role">
 							  
 							  	 	<cfquery name="FirstReviewer" 

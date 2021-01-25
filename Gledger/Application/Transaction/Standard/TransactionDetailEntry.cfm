@@ -236,67 +236,7 @@ password="#SESSION.dbpw#">
 			   
 	        </tr>			
 			
-			 <cfquery name="getGLAccount"
-				datasource="AppsLedger" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-			    SELECT *
-				FROM   Ref_Account
-				WHERE  GLAccount = '#entryglaccount#'
-			</cfquery>	
 			
-			<cfif presetGLAccount eq "">
-						
-			    <cfif getGLAccount.AccountClass eq "Balance">
-				    <cfset cl = "hide"> 
-				<cfelse>
-					<cfset cl = "regular">
-				</cfif>
-			
-			<cfelse>
-						
-				<cfif getGLAccount.AccountClass eq "Balance">
-				    <cfset cl = "hide"> 
-				<cfelse>
-					<cfset cl = "regular">
-				</cfif>
-				
-			</cfif>	
-			
-			<tr id="setdate" class="<cfoutput>#cl#</cfoutput>">	
-			
-				<td class="labelmedium2"><cf_tl id="Posting Date">:<cf_space spaces="40"></td>	        
-				<td align="left">					
-												
-				<cfif url.transactiondate eq "">
-				
-				 <cf_intelliCalendarDate9
-					 manual="false"
-			      FieldName="transactiondateline" 			 
-				  class="regularxxl enterastab"		
-				  DateValidStart="#Dateformat(Period.PeriodDateStart, 'YYYYMMDD')#"				  	  
-				  
-			      Default="#dateformat(now(),client.dateformatshow)#">
-				  
-				  <!--- DateValidEnd="#Dateformat(Period.PeriodDateEnd, 'YYYYMMDD')#"		 --->
-				
-				<cfelse>
-				
-				 <cf_intelliCalendarDate9
-				  manual="false"
-			      FieldName="transactiondateline" 			 
-				  class="regularxxl enterastab"		
-				  DateValidStart="#Dateformat(Period.PeriodDateStart, 'YYYYMMDD')#"							  				  	  
-			      Default="#url.TransactionDate#">
-				  
-				  <!--- DateValidEnd="#Dateformat(Period.PeriodDateEnd, 'YYYYMMDD')#"			--->
-					
-				</cfif>
-												
-				
-				</td>
-			
-			</tr>
 			
 	        <tr name="glaccountline" id="glaccountline" class="regular">	
 			
@@ -378,8 +318,10 @@ password="#SESSION.dbpw#">
 				   <table>
 					   <tr>						
 						<td><input type="text"   name="entrygldescription" id="entrygldescription" value="#getGLAccount.description#"   class="regularxxl enterastab" size="60" readonly style="background-color:f1f1f1"></td>						
-						<td><input type="text"   name="entryglaccount"     id="entryglaccount"     value="#presetGLAccount#"            class="regularxxl enterastab" size="6"  readonly style="background-color:f1f1f1"></td>
-						<td><input type="text"   name="entrygllabel"       id="entrygllabel"       value="#getGLAccount.accountLabel#"  class="regularxxl enterastab" size="11" readonly style="background-color:f1f1f1"></td>					  						
+						<td style="padding-left:2px"><input type="text"   name="entryglaccount"     id="entryglaccount"     value="#presetGLAccount#"            class="regularxxl enterastab" size="6"  readonly style="background-color:f1f1f1"></td>
+						<cfif getGLAccount.accountLabel neq presetGLAccount and getGLAccount.accountLabel neq "">
+						<td style="padding-left:2px"><input type="text"   name="entrygllabel"       id="entrygllabel"       value="#getGLAccount.accountLabel#"  class="regularxxl enterastab" size="11" readonly style="background-color:f1f1f1"></td>					  						
+						</cfif>
 								  					    
 					   </tr>				   
 				   </table>			   			   
@@ -918,7 +860,69 @@ password="#SESSION.dbpw#">
 				 
 				<td class="labelmedium"><!--- <cf_tl id="Exchange">:---></td>				
 			   				
-		  </tr>					 
+		  </tr>		
+		  
+		   <cfquery name="getGLAccount"
+				datasource="AppsLedger" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+			    SELECT *
+				FROM   Ref_Account
+				WHERE  GLAccount = '#entryglaccount#'
+			</cfquery>	
+			
+			<cfif presetGLAccount eq "">
+						
+			    <cfif getGLAccount.AccountClass neq "Result">
+				    <cfset cl = "hide"> 
+				<cfelse>
+					<cfset cl = "regular">
+				</cfif>
+			
+			<cfelse>
+						
+				<cfif getGLAccount.AccountClass eq "Balance">
+				    <cfset cl = "hide"> 
+				<cfelse>
+					<cfset cl = "regular">
+				</cfif>
+				
+			</cfif>	
+			
+			<tr id="setdate" class="<cfoutput>#cl#</cfoutput>">	
+			
+				<td class="labelmedium2"><cf_tl id="Posting Date">:<cf_space spaces="40"></td>	        
+				<td align="left">					
+												
+				<cfif url.transactiondate eq "">
+				
+				 <cf_intelliCalendarDate9
+					 manual="false"
+			      FieldName="transactiondateline" 			 
+				  class="regularxxl enterastab"		
+				  DateValidStart="#Dateformat(Period.PeriodDateStart, 'YYYYMMDD')#"				  	  
+				  
+			      Default="#dateformat(now(),client.dateformatshow)#">
+				  
+				  <!--- DateValidEnd="#Dateformat(Period.PeriodDateEnd, 'YYYYMMDD')#"		 --->
+				
+				<cfelse>
+				
+				 <cf_intelliCalendarDate9
+				  manual="false"
+			      FieldName="transactiondateline" 			 
+				  class="regularxxl enterastab"		
+				  DateValidStart="#Dateformat(Period.PeriodDateStart, 'YYYYMMDD')#"							  				  	  
+			      Default="#url.TransactionDate#">
+				  
+				  <!--- DateValidEnd="#Dateformat(Period.PeriodDateEnd, 'YYYYMMDD')#"			--->
+					
+				</cfif>
+												
+				
+				</td>
+			
+			</tr>			 
 		
 		  <TR> 
 			 <TD width="158" class="labelmedium2"><cf_tl id="Description">/<cf_tl id="Memo">:</TD>

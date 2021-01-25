@@ -38,8 +38,8 @@ password="#SESSION.dbpw#">
 		<cfif url.id2 eq "">
 			
 		   <TR>
-	   		<td width="80" class="labelmedium"><cf_tl id="Category">:</td>
-		    <TD class="labelmedium">
+	   		<td width="80" class="labelmedium2"><cf_tl id="Category">:</td>
+		    <TD class="labelmedium2">
 	
 			<cfquery name="getLookup" 
 				datasource="AppsMaterials" 
@@ -52,7 +52,7 @@ password="#SESSION.dbpw#">
 										     WHERE  warehouse = '#url.id1#')
 					
 			</cfquery>
-			<select name="Category" id="Category" class="regularxl">
+			<select name="Category" id="Category" class="regularxxl">
 				<cfloop query="getLookup">
 					<option value="#getLookup.Category#" <cfif getLookup.Category eq Get.Category>selected</cfif>>#getLookup.Description#</option>
 				</cfloop>
@@ -71,11 +71,11 @@ password="#SESSION.dbpw#">
 		
 		<!--- Field: Oversale --->
 	    <TR>
-	    <TD class="labelmedium"><cf_tl id="Allow Oversale">:</TD>
-	    <TD class="labelmedium" style="height:25px">		
+	    <TD class="labelmedium2"><cf_tl id="Allow Oversale">:</TD>
+	    <TD class="labelmedium2" style="height:25px">		
 		
 		    <table>
-			<tr class="labelmedium">
+			<tr class="labelmedium2">
 			<td><input type="radio" class="radiol" name="Oversale" id="Oversale" <cfif Get.Oversale eq "1">checked</cfif> value="1"></td>
 			<td style="padding-left:4px">#vYes#</td>
 			<td style="padding-left:5px"><input type="radio" class="radiol" name="Oversale" id="Oversale" <cfif Get.Oversale eq "0"  or url.id2 eq "">checked</cfif> value="0"></td>
@@ -87,8 +87,8 @@ password="#SESSION.dbpw#">
 		</TR>	
 		
 		<tr>
-			<td class="labelmedium"><cf_tl id="Discount Threshold"> :</td>
-			<td style="height:25px" class="labelmedium">
+			<td class="labelmedium2"><cf_tl id="Discount Threshold"> :</td>
+			<td style="height:25px" class="labelmedium2">
 			   <table><tr><td>
 				<cfinput type="Text"
 			       name="ThresholdDiscount"
@@ -99,22 +99,22 @@ password="#SESSION.dbpw#">
 			       visible="Yes"
 			       enabled="Yes"		       
 			       typeahead="No"
-			       class="regularxl enterastab"
+			       class="regularxxl enterastab"
 	         	   style="width:30;text-align:center;padding-right:4px">
 				   
 				</td>
-				<td class="labelmedium" style="padding-left:5px">%</td>			
+				<td class="labelmedium2" style="padding-left:5px">%</td>			
 				</tr></table>
 			</td>
 		</tr>
 			
 		<!--- Field: Selfservice --->
 	    <TR>
-	    <TD class="labelmedium"><cf_tl id="Self-service">:</TD>
-	    <TD class="labelmedium" style="height:25px">	
+	    <TD class="labelmedium2"><cf_tl id="Self-service">:</TD>
+	    <TD class="labelmedium2" style="height:25px">	
 		
 		 <table>
-			<tr class="labelmedium">
+			<tr class="labelmedium2">
 			<td><input type="radio" class="radiol" name="Selfservice" id="Selfservice" <cfif Get.Selfservice eq "1" or url.id2 eq "">checked</cfif> value="1"></td>
 			<td style="padding-left:4px">#vYes#</td>
 			<td style="padding-left:5px"><input type="radio" class="radiol" name="Selfservice" id="Selfservice" <cfif Get.Selfservice eq "0">checked</cfif> value="0"></td>
@@ -127,8 +127,8 @@ password="#SESSION.dbpw#">
 		
 		<!--- Field: Request Mode --->
 	    <TR>
-	    <TD class="labelmedium"><cf_tl id="POL Request Mode">:</TD>
-	    <TD class="labelmedium" style="height:25px">		
+	    <TD class="labelmedium2"><cf_tl id="POL Request Mode">:</TD>
+	    <TD class="labelmedium2" style="height:25px">		
 			<input type="radio" class="radiol" name="RequestMode" id="RequestMode" <cfif Get.RequestMode eq "1" or url.id2 eq "">checked</cfif> value="1"><cf_tl id="Consolidated">
 			<input type="radio" class="radiol" name="RequestMode" id="RequestMode" <cfif Get.RequestMode eq "0">checked</cfif> value="0"><cf_tl id="Not Consolidated">
 		</TD>
@@ -136,10 +136,10 @@ password="#SESSION.dbpw#">
 		
 		<!--- Field: TaxCode --->
 	    <TR>
-	    <TD class="labelmedium"><cf_tl id="Tax Code">:</TD>
-	    <TD class="labelmedium" style="height:25px">		
+	    <TD class="labelmedium2"><cf_tl id="Tax Code">:</TD>
+	    <TD class="labelmedium2" style="height:25px">		
 			
-			<select name="TaxCode" id="TaxCode" class="regularxl">
+			<select name="TaxCode" id="TaxCode" class="regularxxl">
 					<cfloop query="TaxCodes">
 						<option value="#TaxCode#" <cfif TaxCode eq Get.TaxCode>selected</cfif>>#Description#</option>
 					</cfloop>
@@ -150,11 +150,11 @@ password="#SESSION.dbpw#">
 		
 		<!--- Field: Operational --->
 	    <TR>
-	    <TD class="labelmedium"><cf_tl id="Enabled">:</TD>
-	    <TD class="labelmedium" style="height:25px">		
+	    <TD class="labelmedium2"><cf_tl id="Enabled">:</TD>
+	    <TD class="labelmedium2" style="height:25px">		
 		
 		    <table>
-			<tr class="labelmedium">
+			<tr class="labelmedium2">
 			<td><input type="radio" class="radiol" name="Operational" id="Operational" <cfif Get.Operational eq "1" or url.id2 eq "">checked</cfif> value="1"></td>
 			<td style="padding-left:4px">#vYes#</td>
 			<td style="padding-left:5px"><input type="radio" class="radiol" name="Operational" id="Operational" <cfif Get.Operational eq "0">checked</cfif> value="0"></td>

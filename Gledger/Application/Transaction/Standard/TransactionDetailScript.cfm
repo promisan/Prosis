@@ -196,10 +196,11 @@ function addlines() {
      sort 	= $("##group").val();
 	 page 	= $("##page").val();
 	 period = $("##accountperiod").val();		
+	 tradte = $("##transactiondate").val();		 
 	 contra = $("##glaccount").val();
 	 modesel= $("##lastselectedmode").val();
      Prosis.busy('yes')
-	 ptoken.navigate('Transaction#sc#Insert.cfm?mode='+modesel+'&journal=#url.journal#&'+'&mission=#url.mission#&'+'&id1='+sort+'&contraglaccount='+contra+'&page='+page+'&accountperiod='+period,'lines','','','POST','transactionheader')		
+	 ptoken.navigate('Transaction#sc#Insert.cfm?mode='+modesel+'&journal=#url.journal#&'+'&mission=#url.mission#&'+'&id1='+sort+'&contraglaccount='+contra+'&page='+page+'&accountperiod='+period+'&transactiondate='+tradte,'lines','','','POST','transactionheader')		
 	 try {
 	  document.getElementById('refreshcontent').click()
 	} catch(e) {}  

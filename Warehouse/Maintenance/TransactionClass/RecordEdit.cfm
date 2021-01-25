@@ -34,8 +34,7 @@ function ask() {
 </script>
 
 <cf_screentop height="100%" 
-			  label="Transaction Class" 
-			  option="#get.Description#" 
+			  label="Transaction Class" 			  
 			  scroll="Yes" 
 			  layout="webapp" 
 			  banner="yellow" 
@@ -46,13 +45,13 @@ function ask() {
 
 <cfform action="RecordSubmit.cfm?idmenu=#url.idmenu#" method="POST" enablecab="Yes" name="dialog">
 
-<table width="91%" cellspacing="0" cellpadding="0" align="center" class="formpadding formspacing">
+<table width="91%" align="center" class="formpadding formspacing">
 
 	<tr><td height="6"></td></tr>
     <cfoutput>
     <TR>
-    <TD class="labelmedium" width="30%">Code:</TD>
-    <TD class="labelmedium">
+    <TD class="labelmedium2" width="30%">Code:</TD>
+    <TD class="labelmedium2">
 	   <!--- <cfif CountRec.recordcount eq "0">	
 		   	<cfinput type="Text" name="Code" value="#get.Code#" message="Please enter a code" required="Yes" size="10" maxlength="20" class="regular">
 	   <cfelse> --->
@@ -63,14 +62,14 @@ function ask() {
     </TD>
 	</TR>
 	
-	<TR class="labelmedium">
-    <TD  class="labelmedium">Description:</TD>
+	<TR class="labelmedium2">
+    <TD  class="labelmedium2">Description:</TD>
     <TD>
-	   <cfinput type="Text" name="Description" value="#get.Description#" message="Please enter a description" required="Yes" size="30" maxlength="50" class="regularxl">
+	   <cfinput type="Text" name="Description" value="#get.Description#" message="Please enter a description" required="Yes" size="30" maxlength="50" class="regularxxl">
     </TD>
 	</TR>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD>Negative:</TD>
     <TD>
   	    <input type="radio" class="radiol" name="QuantityNegative" id="QuantityNegative" <cfif get.QuantityNegative eq 1>checked</cfif> value="1">Yes
@@ -78,10 +77,11 @@ function ask() {
     </TD>
 	</TR>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD>Order:</TD>
     <TD>
-  	   <cfinput type="Text" name="listingOrder" value="#get.listingOrder#" message="Please enter a numeric listing order" required="Yes" size="1" validate="integer" maxlength="3" class="regularxl" style="text-align:center;">
+  	   <cfinput type="Text" name="listingOrder" value="#get.listingOrder#" message="Please enter a numeric listing order" 
+	      required="Yes" size="1" validate="integer" maxlength="3" class="regularxxl" style="text-align:center;">
     </TD>
 	</TR>
 			

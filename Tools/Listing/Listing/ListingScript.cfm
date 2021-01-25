@@ -92,9 +92,12 @@ function doScroll() {
 
 		if (isAt('bottom'))	{
 			// going to next page			
-			pg = document.getElementById('page').value			
-			if (nav == 'auto') {			
+			pg = document.getElementById('page').value					
+			if (nav == 'auto') {	
+			    if (pg == pga) {  //nada				
+				} else {				
 				applyfilter('1','','append');			
+				}
 			} else {							
 				if (pg == pga || nav == 'manual') { 				    
 				     // nada 					 
@@ -189,7 +192,7 @@ function filtergroup(box,opt) {
 
 function applyfilter(md,mypage,ajaxid,callback,groupvalue1,grouptarget,col1,col1value) {	
 
-		_cf_loadingtexthtml='';																				
+       	_cf_loadingtexthtml='';																				
 		try { document.getElementById("treerefresh").click();} catch(e) {}		
 	    try {	
 				
@@ -449,17 +452,20 @@ function toggledrill(mode,box,template,key,arg,drillbox,str) {
 	} else { idmenu = "" }		
 
 	if (mode == "embed") {
-		   
+				   
 		    se = $('##'+box);			
+			
 			try { ex = $('##exp'+key)
 				  co = $('##col'+key) } catch(e) {}
-			
+							
 			if   (se.hasClass('hide')) { 
+							  
 			       se.removeClass('hide').addClass('regular') 
 				   try {
 				      co.removeClass('hide').addClass('regular')
 					  ex.removeClass('regular').addClass('hide') 
 				   } catch(e) {}
+				   
 					   
 			   if (str == '') {
 				   ptoken.navigate('#SESSION.root#/'+template+'?drillid='+key,'c'+key)
@@ -467,7 +473,8 @@ function toggledrill(mode,box,template,key,arg,drillbox,str) {
 				   ptoken.navigate('#SESSION.root#/'+template+'?drillid='+key+'&'+str,'c'+key)
 			   }
 			   
-			} else {  se.removeClass('regular').addClass('hide')
+			} else { 			         
+			          se.removeClass('regular').addClass('hide')
 			          try {
 					    ex.removeClass('hide').addClass('regular')
 			   	        co.removeClass('regular').addClass('hide') 

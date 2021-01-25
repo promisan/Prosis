@@ -25,12 +25,13 @@ password="#SESSION.dbpw#">
     ORDER BY   Mission, Code   
 </cfquery>
 
-<cf_divscroll>
-
 <cfset Page         = "0">
 <cfset add          = "1">
 <cfset save         = "0"> 
-<cfinclude template = "../HeaderMaintain.cfm"> 	
+
+<table width="98%" align="center" height="100%">
+
+<tr style="height:10px"><td><cfinclude template = "../HeaderMaintain.cfm"></td></tr>
 
 <cfoutput>
 
@@ -52,9 +53,13 @@ function recordedit(id) {
 
 </cfoutput>
 
-<table width="94%" align="center" class="navigation_table">
+<tr><td>
 
-<tr class="fixrow labelmedium line">
+<cf_divscroll>
+
+<table width="96%" align="center" class="navigation_table">
+
+<tr class="fixrow labelmedium2 line">
 	<td height="25"></td>
 	<td style="padding-left:4px"><cf_tl id="Period"></td>
 	<td style="padding-left:4px"><cf_tl id="Class"></td>
@@ -73,7 +78,7 @@ function recordedit(id) {
 			
 		<cfoutput>					
 			
-			<tr class="line navigation_row labelmedium">
+			<tr class="line navigation_row labelmedium2">
 				<td></td>				
 				<td style="padding-left:4px"><a href="javascript:recordedit('#code#')" class="navigation_action">#Code#</a></td>
 				<td style="padding-left:4px">#ContractClass#</td>
@@ -92,3 +97,7 @@ function recordedit(id) {
 </table>
 
 </cf_divscroll>
+
+</td>
+</tr>
+</table>

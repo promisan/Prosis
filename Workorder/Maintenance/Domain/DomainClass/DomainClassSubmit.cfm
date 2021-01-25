@@ -115,7 +115,7 @@
 
 <cfoutput>
 	<script language="JavaScript">
-		ColdFusion.Window.hide('mydialog'); 	
+		ProsisUI.closeWindow('mydialog'); 	
     	ptoken.navigate('#SESSION.root#/Workorder/Maintenance/Domain/DomainClass/DomainClassListing.cfm?ID1=#Form.ServiceDomain#','domainClassListing')   
 	</script> 
 </cfoutput>

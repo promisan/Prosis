@@ -80,7 +80,6 @@
 <cfset itm = 0>
 
 <cfset itm = itm + 1>
-
 <cfset fields[itm] = {label="LastName", 
                       field="LastName", 
 					  alias="A", 
@@ -90,7 +89,6 @@
 					  search="text"}>
 
 <cfset itm = itm + 1>
-
 <cfset fields[itm] = {label="FirstName", 
                       field="FirstName", 
 					  alias="A", 
@@ -100,7 +98,6 @@
 					  search="text"}>
 
 <cfset itm = itm + 1>
-
 <cfset fields[itm] = {label="DOB", 
                       field="DOB", 
 					  formatted="DateFormat(DOB,client.dateformatshow)", 
@@ -111,28 +108,27 @@
                       search="date"}>
 
 <cfset itm = itm + 1>
-
 <cfset fields[itm] = {label="Gender", 
                       field="Gender", 
 					  alias="A", 
 					  searchfield="Gender", 
+					  column="common",
                       filtermode="3",
 					  displayfilter="Yes", 
 					  search="text"}>
 
 <cfset itm = itm + 1>
-
 <cfset fields[itm] = {label="Continent", 
                       field="Continent", 
 					  alias="N", 
 					  searchfield="Continent", 
+					  column="common",
                       filtermode="2",
 					  display="No", 
 					  displayfilter="No", 
 					  search="text"}>
 					  
 <cfset itm = itm + 1>
-
 <cfset fields[itm] = {label="eMail", 
                       field="eMailAddress", 
 					  alias="A", 					 					 
@@ -141,7 +137,6 @@
 
 
 <cfset itm = itm + 1>
-
 <cfset fields[itm] = {label="Nationality", 
                       field="Nationality", 
 					  alias="N", 
@@ -153,7 +148,6 @@
 					  search="text"}>
 
 <cfset itm = itm + 1>
-
 <cfset fields[itm] = {label="Submitted", 
                       field="Applications", 
 					  searchfield="Applications", 
@@ -168,7 +162,7 @@
 
 <cf_listing header="Candidate" 
             menu="#menu#" 
-			box="candidatelisting" 
+			box="#url.submissionedition#_candidatelisting" 
             link="#session.root#/Roster/Maintenance/RosterEdition/Candidate/CandidateListingContent.cfm?systemfunctionid=#url.systemfunctionid#&SubmissionEdition=#url.submissionedition#&ExerciseClass=#url.exerciseclass#&owner=#url.Owner#" 
             html="No" 
 			show="40" 

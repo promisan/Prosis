@@ -464,8 +464,8 @@
 						  		   
 			<cfoutput query="details" group="ResourceDescription">
 				   
-				   <tr class="line fixrow">
-				   <td colspan="#cols#" style="font-size:15px;padding-left:5px;font-weight:bold" class="labelmedium">#ResourceDescription#</td>
+				   <tr class="line fixrow labelmedium2">
+				   <td colspan="#cols#" style="font-weight:bold;height:32px;font-size:18px;padding-left:5px;">#ResourceDescription#</td>
 				   			  
 				     <cfquery name="Resource" dbtype="query">
 						   	SELECT SUM(RequestAmountBase) as Total, 
@@ -487,16 +487,16 @@
 							AND       YEAR(TransactionDate) = '#yr#'
 					 </cfquery>	  
 				  
-				   <td align="right" style="padding-left:4px" class="labelmedium"><b>#numberformat(Resource.Total,"#format#")#</td>
-				   <td class="labelmedium line" align="right">#numberformat(Resource.Allotment,"#format#")#</td>		
+				   <td align="right" style="padding-left:4px;font-size:16px"><b>#numberformat(Resource.Total,"#format#")#</td>
+				   <td align="right" style="padding-left:4px;font-size:16px"><b>#numberformat(Resource.Allotment,"#format#")#</td>		
 				   <td></td>			   
 				 	  
 				   </tr>
 				   		   
 				   <cfoutput group="ObjectCode">
 				   
-				       <tr class="labelmedium fixrow2">
-					   <td colspan="#cols#" style="padding-left:9px;height:24px;font-weight:bold" class="line">#ObjectCode# #ObjectDescription# </td>
+				       <tr class="labelmedium2 line">
+					   <td colspan="#cols#" style="padding-left:9px;height:32px">#ObjectCode# #ObjectDescription# </td>
 					   
 					    <cfquery name="Object" dbtype="query">
 						   	SELECT    SUM(RequestAmountBase) as Total, 
@@ -519,8 +519,8 @@
 							AND       YEAR(TransactionDate) = '#yr#'
 					 </cfquery>	
 					 
-					   <td class="line" align="right"><b>#numberformat(Object.Total,"#format#")#</b></td>					   
-					   <td class="line" align="right">#numberformat(ObjectAll.Total,"#format#")#</td>		
+					   <td align="right"><b>#numberformat(Object.Total,"#format#")#</b></td>					   
+					   <td align="right">#numberformat(ObjectAll.Total,"#format#")#</td>		
 					   <td></td>					 	   
 					   </tr>
 					   
@@ -551,9 +551,9 @@
 							   </cfquery>		
 							   												
 							   <cfset row = row+1>	
-						   	   <tr bgcolor="#bgcolor#" class="navigation_row labelmedium navigation_action line" style="height:22px">						   
+						   	   <tr bgcolor="#bgcolor#" class="navigation_row labelmedium2 navigation_action line">						   
 								   <td style="padding-left:30px">#row#.</td>
-								   <td style="padding-top:5px;padding-left:5px;width:20px" class="line">
+								   <td style="padding-top:5px;padding-left:5px;width:20px">
 								  							  						   							   
 								   <img src="#SESSION.root#/Images/arrowright.gif"
 									     alt="Expand" 
@@ -618,7 +618,7 @@
 										AND       ActivityId = '#activityid#'	
 									</cfquery>
 								   									   
-								   <tr class+"labelmedium">
+								   <tr class="labelmedium2">
 									   <td>#activityid#</td>
 									   <td></td>
 									   <td colspan="6" bgcolor="CAFBD7">
@@ -655,7 +655,7 @@
 								    <cfset color = "transparent">
 								</cfif>  	   
 								
-								<tr bgcolor="#color#" class="navigation_row labelmedium #cl#" name="l#RequirementIdParent#_#ObjectCode#_#yr#">						
+								<tr bgcolor="#color#" class="navigation_row labelmedium2 #cl#" name="l#RequirementIdParent#_#ObjectCode#_#yr#">						
 								
 									<td width="20" style="border-bottom:1px solid silver;padding-left:30px">
 									<cfif RequestType eq "ripple">
@@ -684,7 +684,7 @@
 									
 											<cfif requirementLock eq "0">		
 																						
-												<cf_img icon="edit" navigation="Yes" onclick="alldetinsert('resource','#editionid#','#objectcode#','#requirementid#','resource')">
+												<cf_img icon="open" navigation="Yes" onclick="alldetinsert('resource','#editionid#','#objectcode#','#requirementid#','resource')">
 																
 											</cfif>
 										

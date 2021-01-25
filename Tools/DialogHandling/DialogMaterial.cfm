@@ -84,8 +84,7 @@
 	}
 	
 	function selectwarehouseitemnoclose(mis,cls,mas,applyscript,scope) {
-		ColdFusion.Window.create('warehouseitemwindow', 'Item', '',{x:100,y:100,height:document.body.clientHeight-80,width:750,modal:true,center:true})    
-		ColdFusion.Window.show('warehouseitemwindow')				
+		ProsisUI.createWindow('warehouseitemwindow', 'Item', '',{x:100,y:100,height:document.body.clientHeight-80,width:750,modal:true,center:true})    				
 		ptoken.navigate(root + '/Warehouse/Inquiry/Item/ItemView.cfm?mission='+mis+'&itemmaster='+mas+'&itemclass='+cls+'&script='+applyscript+'&scope='+scope+'&close=no','warehouseitemwindow') 	
 	}
 		  

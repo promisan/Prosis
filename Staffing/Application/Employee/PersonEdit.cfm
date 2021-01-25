@@ -649,7 +649,7 @@ password="#SESSION.dbpw#">
 				
 				<script>
 					function applyglaccount(acc,scope) {				  
-					   ColdFusion.navigate('setAccount.cfm?account='+acc+'&scope='+scope,'checkbox')					  	
+					   ptoken.navigate('setAccount.cfm?account='+acc+'&scope='+scope,'checkbox')					  	
 					}
 				</script>
 						
@@ -874,8 +874,7 @@ password="#SESSION.dbpw#">
 				
 				</td>
 				
-				<td>		
-				
+				<td>	
 					
 					<cfquery name="List" 
 					datasource="AppsEmployee" 

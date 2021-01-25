@@ -19,36 +19,35 @@ WHERE Code = '#URL.ID1#'
 </cfquery>
 
 <script language="JavaScript">
-
-function ask() {
-	if (confirm("Do you want to remove this source?")) {	
-	return true 	
+	
+	function ask() {
+		if (confirm("Do you want to remove this source?")) {	
+		return true 	
+		}	
+		return false	
 	}	
-	return false	
-}	
 
 </script>
-
 
 <!--- edit form --->
 
 <cfform action="RecordSubmit.cfm?idmenu=#url.idmenu#" method="POST" name="dialog">
 
-<table width="95%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="95%" align="center" class="formpadding">
 
 	<tr><td height="10"></td></tr>
 
     <cfoutput>
     <TR>
-    <TD class="labelit">Code:</TD>
-    <TD class="regular">
-  	   <input type="text"   name="Code" id="Code" value="#get.Code#" size="20" maxlength="20" class="regularxl">
+    <TD class="labelmedium2">Code:</TD>
+    <TD>
+  	   <input type="text"   name="Code" id="Code" value="#get.Code#" size="20" maxlength="20" class="regularxxl">
 	   <input type="hidden" name="Codeold" id="Codeold" value="#get.Code#" size="20" maxlength="20" class="regularxl">
     </TD>
 	</TR>
 	
 	<TR>
-    <TD class="labelit">Description:</TD>
+    <TD class="labelmedium2">Description:</TD>
     <TD>
   	   
 	    <cfinput type="text" 
@@ -58,7 +57,7 @@ function ask() {
 		   requerided="yes" 
 		   size="30" 
 	       maxlength="50" 
-		   class="regularxl">
+		   class="regularxxl">
     </TD>
 	</TR>
 		

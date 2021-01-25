@@ -345,7 +345,7 @@ password="#SESSION.dbpw#">
 	<cfif Entitlement.entityClass neq "" and Entitlement.source eq "Manual">
 		
 			<tr><td height="1" colspan="2" class="line">
-			
+						
 			<cfset url.ajaxid = Entitlement.CostId>
 			
 			<cfoutput>

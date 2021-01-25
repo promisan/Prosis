@@ -61,8 +61,8 @@ password="#SESSION.dbpw#">
 	<cfif check.recordcount eq "0">
 	
     <TR>
-    <td width="80" class="labelmedium"><cf_tl id="Code">:</td>
-    <TD class="labelmedium">
+    <td style="width:130px" class="labelmedium"><cf_tl id="Code">:</td>
+    <TD colspan="3" class="labelmedium">
 		      	
 			<cfinput class = "regularxl" 
 				type       = "Text" 
@@ -95,7 +95,7 @@ password="#SESSION.dbpw#">
 	<!--- Field: Description --->
     <TR>
     <TD class="labelmedium"><cf_tl id="Name">:</TD>
-    <TD>
+    <TD style="min-width:40%">
 		<cfinput class="regularxl" 
 		     type="Text" 
 			 style="padding-left:3px"
@@ -105,8 +105,7 @@ password="#SESSION.dbpw#">
 			 required="Yes" 
 			 size="40" 
 			 maxlength="100">
-	</TD>
-	</TR>
+	</TD>	
 	
 	<cfquery name="GetClass" 
 	datasource="appsMaterials" 
@@ -122,11 +121,10 @@ password="#SESSION.dbpw#">
 			<input class="hide" type="Text" name="WarehouseClass" value="" size="20" maxlength="20">
 		</cfoutput>
 		
-	<cfelse>	
-			
-	    <TR>
-	    <TD style="width:30%" class="labelmedium"><cf_tl id="Facility Class">:</TD>
-	    <TD style="width:70%">	
+	<cfelse>			
+	    
+	    <TD style="width:120px" class="labelmedium"><cf_tl id="Facility Class">:</TD>
+	    <TD style="min-width:40%">	
 		    	 
 			<cfselect name="WarehouseClass" 
 			   style="font:10px" query="getClass" 
@@ -136,10 +134,11 @@ password="#SESSION.dbpw#">
 			   display="Description">	
 			</cfselect>
 				
-		</TD>
-		</TR>	
+		</TD>		
 	
 	</cfif>
+	
+	</TR>	
 	
 	<!--- Field: Location --->
     <TR>
@@ -182,11 +181,11 @@ password="#SESSION.dbpw#">
 		
 		
 	</TD>
-	</TR>	
+	
 		
 	<!--- Field: Stock Location --->
-    <TR>
-    <TD class="labelmedium"><cf_tl id="Price Location">:</TD>
+    
+	<TD class="labelmedium"><cf_tl id="Price Location">:</TD>
     <TD>
 	
 		<cfquery name="getLocations" 
@@ -259,7 +258,7 @@ password="#SESSION.dbpw#">
 	
 	<tr><td height="4"></td></tr>
 	
-	<tr><td class="labellarge" colspan="2" height="20" style="border-bottom:1px dotted silver"><cf_tl id="Address">/<cf_tl id="Contact"></td></tr>
+	<tr><td class="labellarge" colspan="4" height="20" style="border-bottom:1px dotted silver"><cf_tl id="Address">/<cf_tl id="Contact"></td></tr>
 		
 	<TR>
     <TD class="labelmedium" height="20" style="padding-left:8px"><cf_tl id="Country">:</TD>
@@ -274,9 +273,7 @@ password="#SESSION.dbpw#">
 	   	</select>		
 		
 	</TD>
-	</TR>
 	
-	<TR>
     	<TD class="labelmedium" height="20"  style="padding-left:8px"><cf_tl id="Region">: <font color="FF0000">*</font></TD>
 	    <TD>	
 				
@@ -304,6 +301,54 @@ password="#SESSION.dbpw#">
 	    <TD>	
 		<cfinput class="regularxl" style="padding-left:3px" onchange="#maplink#" type="Text" name="address" value="#get.Address#" message="Please enter an address" required="Yes" size="50" maxlength="100">	   	
 		</TD>
+		<td colspan="2" rowspan="8" style="border:1px solid silver">		
+	
+			<cfif client.googleMAP eq "1">
+		
+			    <table width="100%">
+			
+				    <cfquery name="Other" 
+					datasource="appsMaterials" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+						SELECT * 
+						FROM   Warehouse 
+						WHERE  Mission = '#get.mission#'  
+						AND    Warehouse != '#url.id1#'
+						AND    Latitude  != '' 
+						AND    Longitude != ''
+					</cfquery>
+						
+					<cfif other.recordcount gte "1" AND get.latitude neq "">
+					
+					<cfoutput>
+					
+					<tr>
+					  <td colspan="2" style="padding-top:5px" align="center" class="labelmedium">#get.mission# Facilities: #other.recordcount#  [<a href="javascript:ptoken.navigate('ShowOther.cfm?mission=#get.Mission#&warehouse=#get.warehouse#','other');"><font color="0080FF"><cf_tl id="Show"></font></a>]</td>
+					</tr>		
+					<tr class="hide"><td id="other"></td></tr>
+						
+					</cfoutput>
+					
+					</cfif>
+			
+			         <tr>
+					    <td colspan="2" align="center" valign="top" style="padding-right:6px;">			
+						<cf_mapshow scope="embed" zoomlevel="10" mode="edit" width="260" height="140" latitude="#get.Latitude#" longitude="#get.Longitude#">					
+					    </td>
+					</tr>
+				
+				</table>
+				
+			<cfelse>
+			
+				<table style="width:100%"><tr><td align="center">{space reserved for google map]</td></tr></table>	
+			
+			</cfif>
+		
+		</td>
+		
+		
 	</TR>
 	
 	<tr>
@@ -333,6 +378,7 @@ password="#SESSION.dbpw#">
 	    <TD>	
 		<cfinput class="regularxl" style="padding-left:3px" type="Text" name="contact" value="#get.Contact#" size="50" maxlength="80">	   	
 		</TD>
+				
 	</TR>
 	
 	<TR>
@@ -403,7 +449,7 @@ password="#SESSION.dbpw#">
 		   	  
 		   </cfoutput>
 		   
-		    <tr><td colspan="2" class="line"></td></tr>
+		   <tr><td colspan="2" class="line"></td></tr>
 		   
 		   <tr>
 		   <td height="25">
@@ -438,52 +484,10 @@ password="#SESSION.dbpw#">
 
 </td>
 
-<td valign="top">
-
-	<cfif client.googleMAP eq "1">
-
-	    <table width="100%" cellspacing="0" cellpadding="0">
-	
-		    <cfquery name="Other" 
-			datasource="appsMaterials" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-				SELECT * 
-				FROM   Warehouse 
-				WHERE  Mission = '#get.mission#'  
-				AND    Warehouse != '#url.id1#'
-				AND    Latitude  != '' 
-				AND    Longitude != ''
-			</cfquery>
-				
-			<cfif other.recordcount gte "1" AND get.latitude neq "">
-			
-			<cfoutput>
-			
-			<tr>
-			  <td colspan="2" style="padding-top:5px" align="center" class="labelmedium">#get.mission# Facilities: #other.recordcount#  [<a href="javascript:ptoken.navigate('ShowOther.cfm?mission=#get.Mission#&warehouse=#get.warehouse#','other');"><font color="0080FF"><cf_tl id="Show"></font></a>]</td>
-			</tr>		
-			<tr class="hide"><td id="other"></td></tr>
-				
-			</cfoutput>
-			
-			</cfif>
-	
-	         <tr>
-			    <td colspan="2" align="center" valign="top" style="padding-top:15px;padding-right:6px;border:0px solid silver">			
-				<cf_mapshow scope="embed" zoomlevel="10" mode="edit" width="360" height="360" latitude="#get.Latitude#" longitude="#get.Longitude#">					
-			    </td>
-			</tr>
-		
-		</table>
-	
-	</cfif>
-
-</td>
 
 </tr>
 
-<tr><td colspan="2" style="padding-left:20px">
+<tr><td colspan="1" style="padding-left:20px">
 <table width="100%" class="formpadding">
 
 <tr><td colspan="2" height="20" style="border-bottom:1px dotted silver">

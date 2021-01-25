@@ -9,7 +9,7 @@
 
 <table width="97%" border="0" cellspacing="0" cellpadding="0" class="navigation_table formpadding" align="center" >
 
-<tr class="labelheader line">
+<tr class="labelmedium2 line">
     <td width="20"></td>
 	<td width="20"></td>
     <td><cf_tl id="Class"></td>
@@ -23,7 +23,7 @@
 
 <cfoutput query="SearchResult">
     
-    <tr class="labelmedium navigation_row linedotted"> 
+    <tr class="labelmedium2 navigation_row line"> 
 		<td align="center">
 			<cfquery name="validate"
 				datasource="appsEmployee" 

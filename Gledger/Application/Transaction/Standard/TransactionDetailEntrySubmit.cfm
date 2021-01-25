@@ -89,7 +89,7 @@
 	datasource="AppsQuery" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	DELETE 	FROM 	#SESSION.acc#GLedgerLine_#client.sessionNo#
+	DELETE 	FROM 	#SESSION.acc#GLedgerLine_#client.sessionNo#_#session.mytransaction#
 	WHERE 	TransactionSerialNo = '#URL.serialNo#'
 	</cfquery>
 	
@@ -100,7 +100,7 @@ datasource="AppsQuery"
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
 	SELECT MAX(TransactionSerialNo) as Last
-	FROM   #SESSION.acc#GLedgerLine_#client.sessionNo#
+	FROM   #SESSION.acc#GLedgerLine_#client.sessionNo#_#session.mytransaction#
 </cfquery>
 
 <cfset SerNo = 1>
@@ -212,7 +212,7 @@ datasource="AppsQuery"
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
     SELECT *
-	FROM #SESSION.acc#GledgerHeader_#client.sessionNo#
+	FROM #SESSION.acc#GledgerHeader_#client.sessionNo#_#session.mytransaction#
 </cfquery>
 
 <cfif url.programcode1 eq "">
@@ -243,7 +243,7 @@ password="#SESSION.dbpw#">
 datasource="AppsQuery" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-	INSERT INTO dbo.#SESSION.acc#GLedgerLine_#client.sessionNo#
+	INSERT INTO dbo.#SESSION.acc#GLedgerLine_#client.sessionNo#_#session.mytransaction#
 	   (Journal,
 	   JournalSerialNo,
 	   TransactionSerialNo, 
@@ -371,7 +371,7 @@ password="#SESSION.dbpw#">
    datasource="AppsQuery" 
    username="#SESSION.login#" 
    password="#SESSION.dbpw#">
-   INSERT INTO dbo.#SESSION.acc#GLedgerLine_#client.sessionNo#
+   INSERT INTO dbo.#SESSION.acc#GLedgerLine_#client.sessionNo#_#session.mytransaction#
       (Journal,
       JournalSerialNo,
       TransactionSerialNo, 

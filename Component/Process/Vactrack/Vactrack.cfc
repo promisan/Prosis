@@ -99,31 +99,36 @@
 				datasource="AppsOrganization" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
-				  SELECT DISTINCT M.Mission, M.MissionOwner
-				  FROM   Ref_Mission M, Ref_MissionModule R
-				  WHERE  M.Mission      = R.Mission
-				  AND    R.SystemModule = 'Vacancy'
-				  AND    M.Mission = '#mission#'
-				  AND    M.Mission IN (SELECT Mission 
-				                       FROM   Ref_Mandate 
-									   WHERE  DateExpiration > getDate()) 
-								
-				  <cfif getAdministrator(Mission) eq "0">		  		
-				  AND (
-				      M.Mission IN   (SELECT   DISTINCT A.Mission
-								  	  FROM     OrganizationAuthorization A INNER JOIN
-									           Ref_EntityAction R ON A.ClassParameter = R.ActionCode
-									  WHERE    A.UserAccount = '#SESSION.acc#' 
-									  AND      R.EntityCode = 'VacDocument'
-									  AND      R.ActionType = 'Create')  
-					  OR 
-					  M.Mission IN   (SELECT  DISTINCT Mission 
-					                  FROM    OrganizationAuthorization
-									  WHERE   UserAccount = '#SESSION.acc#' 
-									  AND     Role        IN ('VacOfficer','HRAssistant','HROfficer')
-					   )					               				
-				  </cfif>	
-				  
+				
+					  SELECT DISTINCT M.Mission, M.MissionOwner
+					  FROM   Ref_Mission M, Ref_MissionModule R
+					  WHERE  M.Mission      = R.Mission
+					  AND    R.SystemModule = 'Vacancy'
+					  AND    M.Mission = '#mission#'
+					  AND    M.Mission IN (SELECT Mission 
+					                       FROM   Ref_Mandate 
+										   WHERE  DateExpiration > getDate()) 
+									
+					  <cfif getAdministrator(Mission) eq "0">	
+					  	  		
+					  AND (
+					  
+					      M.Mission IN   (SELECT   DISTINCT A.Mission
+									  	  FROM     OrganizationAuthorization A INNER JOIN
+										           Ref_EntityAction R ON A.ClassParameter = R.ActionCode
+										  WHERE    A.UserAccount = '#SESSION.acc#' 
+										  AND      R.EntityCode  = 'VacDocument'
+										  AND      R.ActionType  = 'Create')  
+						  
+						  OR 
+						  
+						  M.Mission IN   (SELECT   DISTINCT Mission 
+						                  FROM     OrganizationAuthorization
+										  WHERE    UserAccount   = '#SESSION.acc#' 
+										  AND      Role IN ('VacOfficer','HRAssistant','HROfficer'))
+						  )	
+						   				               				
+					  </cfif>				  
 				 		
 			  </cfquery>
 				

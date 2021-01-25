@@ -17,8 +17,25 @@ datasource="AppsQuery"
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
     SELECT *
-	FROM #SESSION.acc#GledgerHeader_#client.sessionNo#
+	FROM #SESSION.acc#GledgerHeader_#client.sessionNo#_#session.mytransaction#
 </cfquery>
+
+<cfif url.accountPeriod neq "">
+
+	<cfset dateValue = "">
+	<CF_DateConvert Value="#url.transactionDate#">
+	<cfset tradte = dateValue>
+	
+	<cfquery name="apply"
+		datasource="AppsQuery" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+	    UPDATE #SESSION.acc#GledgerHeader_#client.sessionNo#_#session.mytransaction#
+		SET AccountPeriod     = '#url.accountPeriod#',
+		    TransactionDate   = #tradte#
+	</cfquery>
+
+</cfif>
 
 <cfquery name="Discount"
 datasource="AppsLedger" 
@@ -45,8 +62,8 @@ password="#SESSION.dbpw#">
 	datasource="AppsQuery" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-		SELECT Max(TransactionSerialNo) as Last
-		FROM #SESSION.acc#GLedgerLine_#client.sessionNo#
+		SELECT MAX(TransactionSerialNo) as Last
+		FROM #SESSION.acc#GLedgerLine_#client.sessionNo#_#session.mytransaction#
 </cfquery>
 	
 <cfoutput query = "Prior">
@@ -81,7 +98,8 @@ password="#SESSION.dbpw#">
 		   AND  J.Currency         = C.Currency 
 		   AND  P.AmountOutstanding > 0
 		   AND  A.AccountClass     = 'Balance' 
-		   AND  P.TransactionId    = '#preserveSingleQuotes(itm)#' 		   		   
+		   AND  P.TransactionId    = '#preserveSingleQuotes(itm)#' 		
+		   	   
 	</cfquery>
 			
 	<!--- Add TransactionHeader in a loop to the temp table --->
@@ -176,7 +194,7 @@ password="#SESSION.dbpw#">
 					    username="#SESSION.login#" 
 					    password="#SESSION.dbpw#">						
 					    SELECT SUM(AmountCredit*ExchangeRate) as Total 
-						FROM   #SESSION.acc#GLedgerLine_#client.sessionNo#
+						FROM   #SESSION.acc#GLedgerLine_#client.sessionNo#_#session.mytransaction#
 						WHERE  ReferenceNo        = '#Advance.ReferenceNo#'	
 						AND    GLAccount          = '#Advance.GLAccount#'							
 						AND    ParentJournal         is not NULL
@@ -284,7 +302,8 @@ password="#SESSION.dbpw#">
 					datasource="AppsQuery" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
-						INSERT INTO dbo.#SESSION.acc#GledgerLine_#client.sessionNo# 
+										
+						INSERT INTO dbo.#SESSION.acc#GledgerLine_#client.sessionNo#_#session.mytransaction# 
 						   (Journal,
 						   JournalSerialNo,
 						   TransactionSerialNo, 
@@ -320,11 +339,11 @@ password="#SESSION.dbpw#">
 						   <!--- removed 14/10/2014 based on the fact that this is not a line but a header reference 
 						        16/9/2016 reverted by Hanno with issue for CICIG mode --->
 						   '#TransactionId#', 
-						   getDate(),
+						   #tradte#,
 						   '#Advance.GLAccount#',
 						   '0',
 						   'Payment Order',
-						   '#URL.AccountPeriod#',
+						   '#URL.AccountPeriod#', 
 						   'Offset Advance',
 						   '#Advance.reference#',
 						   'Offset Advance',
@@ -433,7 +452,7 @@ password="#SESSION.dbpw#">
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
 									
-				INSERT INTO dbo.#SESSION.acc#GledgerLine_#client.sessionNo# 
+				INSERT INTO dbo.#SESSION.acc#GledgerLine_#client.sessionNo#_#session.mytransaction# 
 					   (Journal,
 					   JournalSerialNo,
 					   TransactionSerialNo, 
@@ -466,7 +485,7 @@ password="#SESSION.dbpw#">
 					   '#serNo#',
 					   newid(),
 					   '#TransactionId#',
-					    getDate(),
+					   #tradte#,
 					   '#glaccount#',
 					   '0',
 					   'Payment Order',
@@ -532,7 +551,7 @@ password="#SESSION.dbpw#">
 			datasource="AppsQuery" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
-			INSERT INTO dbo.#SESSION.acc#GLedgerLine_#client.sessionNo#
+			INSERT INTO dbo.#SESSION.acc#GLedgerLine_#client.sessionNo#_#session.mytransaction#
 			   (Journal,
 			   JournalSerialNo,
 			   TransactionSerialNo, 
@@ -567,7 +586,7 @@ password="#SESSION.dbpw#">
 			   '#serNo#',
 			   newid(),
 			   '#TransactionId#',
-			   getDate(),
+			   #tradte#,
 			   '#Discount.GLAccount#',
 			   'Payment Order',
 			   '#URL.AccountPeriod#',

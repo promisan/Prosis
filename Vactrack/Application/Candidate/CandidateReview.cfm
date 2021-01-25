@@ -231,6 +231,34 @@
 	
 </cfif>
 
+<!--- processors --->
+
+<cfquery name="Access" 
+	datasource="appsOrganization" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT DISTINCT U.Account
+		FROM   OrganizationObjectActionAccess OOA INNER JOIN System.dbo.UserNames U ON OOA.UserAccount = U.Account
+		WHERE  ObjectId   = '#Object.ObjectId#'
+		AND    ActionCode = '#flowAction#'	
+		UNION 
+		SELECT DISTINCT U.Account 
+		FROM   Vacancy.dbo.DocumentCandidateAssessment OOA INNER JOIN System.dbo.UserNames U ON OOA.OfficerUserId = U.Account
+		WHERE  DocumentNo  = '#Object.ObjectKeyValue1#'
+		AND    ActionCode  = '#flowAction#'	
+	</cfquery>
+	
+<cfif access.recordcount eq "0">
+
+	<cfset processors = "0">
+	
+<cfelse>
+
+	<cfset processors = "1">
+
+</cfif>	
+
+
 <cf_dialogStaffing>
 <cf_calendarscript>
 <cfinclude template="../Document/Dialog.cfm">
@@ -507,7 +535,7 @@ password="#SESSION.dbpw#">
 
 <cfset col = "130">
 
-<table style="height:100%;min-width:1000px" border="0" width="98%" align="center">
+<table style="height:100%;min-width:1000px" width="98%" align="center">
 
 <cfoutput>
  
@@ -558,7 +586,7 @@ password="#SESSION.dbpw#">
 			
 <cfif url.wparam eq "MARK" or url.wparam eq "TEST">
 	
-		<tr class="line labelmedium">
+		<tr class="line labelmedium2">
 		<td style="font-size:18px;height:30px" colspan="4">
 			<table align="center">
 				<tr>
@@ -593,7 +621,7 @@ password="#SESSION.dbpw#">
 	
 	<table width="99%" class="navigation_table">
 	
-	    <TR class="labelmedium line fixrow" style="height:25px;">
+	    <TR class="labelmedium2 line fixrow" style="height:25px;">
 		  <td style="width:10px"></td>	
 		  <cfif url.wParam neq "Score">	     	   	  	 
 	      <TD style="min-width:200px"><cf_tl id="Candidate"></TD>      
@@ -722,10 +750,10 @@ password="#SESSION.dbpw#">
 		   returnvariable   = "PreventSelection">		
 				
 		<cfif Status lt wfinal>
-	        <TR bgcolor="#IIf(CurrentRow Mod 2, DE('ffffff'), DE('ffffff'))#" class="line navigation_row labelmedium" 
+	        <TR bgcolor="#IIf(CurrentRow Mod 2, DE('ffffff'), DE('ffffff'))#" class="line navigation_row labelmedium2" 
 			  style="font-size:18px;height:26px">		
 	    <cfelse> 	
-		    <TR class="line navigation_row labelmedium" style="font-size:18px;height:26px;border-top:1px solid silver">		
+		    <TR class="line navigation_row labelmedium2" style="font-size:18px;height:26px;border-top:1px solid silver">		
 	    </cfif> 
 				
 		<cfset cla = "hide">
@@ -740,8 +768,10 @@ password="#SESSION.dbpw#">
 			<tr>
 					
 			<cfif dialog eq "Interview">					
-		    <td>
+		    <td style="padding-top:8px">	
+			    <cfif processors eq "1">					
 				<cf_img icon="expand" toggle="yes" onclick="assessment('assessment#CurrentRow#','#Object.ObjectKeyValue1#','#personno#','#flowaction#')">				
+				</cfif>
 			</td>
 				
 			<cfelseif dialog eq "SCORE">	
@@ -749,7 +779,9 @@ password="#SESSION.dbpw#">
 				<!--- this will allow us to score as well if no scoring interface is set in this flow --->
 			
 				<td style="padding-top:7px">
+					<cfif processors eq "1">	
 				  	<cf_img icon="expand" toggle="yes" onclick="assessment('assessment#CurrentRow#','#Object.ObjectKeyValue1#','#personno#','#flowaction#')">							 
+					</cfif>
 				</td>				
 											
 				<!--- record content for scoring --->
@@ -832,7 +864,9 @@ password="#SESSION.dbpw#">
 					class="regularxl"
 					style="height:100%;font-size:15px;background-color:ffffcf;text-align:right;border:0px;border-left:1px solid silver;border-right:1px solid silver;">
 					
-			<cfelseif dialog eq "Interview">						
+			<cfelseif dialog eq "Interview">	
+			
+				<cfif processors eq "1">						
 			 
 			    <img src="#SESSION.root#/Images/Logos/System/Microphone.png?0" title="Interview minutes" 
 					name="a#CurrentRow#" border="0" class="regular" 
@@ -841,6 +875,8 @@ password="#SESSION.dbpw#">
 					style="width:20px;height:16px"
 					align="ansmiddle" style="cursor: pointer;" 
 					onClick="interview('#PersonNo#','#FlowAction#')">
+					
+				</cfif>	
 			   			   					
 			</cfif>
 			
@@ -897,7 +933,7 @@ password="#SESSION.dbpw#">
 					</cfif>
 					
 					<td align="right" style="padding-left:4px;padding-right:7px;padding-top:1px">
-					
+															
 					<cfif TsInterviewStart neq "">
 					
 							<cfquery name="Check" 
@@ -914,9 +950,7 @@ password="#SESSION.dbpw#">
 						 <cfif check.recordcount eq "1">	
 					
 					     <img src="#SESSION.root#/Images/Logos/System/Microphone.png?0" alt="Interview record" 
-							name="a#CurrentRow#" border="0" class="regular" 
-							onMouseOver="document.a#currentrow#.src='#SESSION.root#/Images/Logos/System/Microphone.png'" 
-							onMouseOut="document.a#currentrow#.src='#SESSION.root#/Images/Logos/System/Microphone.png'"
+							name="a#CurrentRow#" border="0" class="regular" 							
 							style="width:20px;height:16px"
 							align="ansmiddle" style="cursor: pointer;" 
 							onClick="personnote('#PersonNo#','view')">
@@ -1002,7 +1036,7 @@ password="#SESSION.dbpw#">
 				  (Selected.recordcount eq "0" or Status eq "9" or Selected.Status gte "2" or Selected.Status lte "2s")>
 				 
 				    <table>
-					<tr>									
+					<tr class="labelmedium2">									
 						<td style="padding-left:4px">												
 							<a href="javascript:decision('ReviewStatus_#CurrentRow#','#object.ObjectKeyValue1#','#personno#','#flowaction#','#status#','#wfinal#')">
 							<cf_tl id="Record decision">

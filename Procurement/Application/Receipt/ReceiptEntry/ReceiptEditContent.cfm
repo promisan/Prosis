@@ -179,13 +179,13 @@
 	function mail() {
 		w = #CLIENT.width# - 100;
 	  	h = #CLIENT.height# - 140;
-	  	window.open("../../../../Tools/Mail/MailPrepare.cfm?Id=Mail&ID1=#URL.ID#&ID0=#tmp#","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=no")
+	  	ptoken.open("../../../../Tools/Mail/MailPrepare.cfm?Id=Mail&ID1=#URL.ID#&ID0=#tmp#","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=no")
   	}
 		
 	function print() {
 		w = #CLIENT.width# - 100;
 		h = #CLIENT.height# - 140;
-		window.open("../../../../Tools/Mail/MailPrepare.cfm?Id=Print&ID1=#URL.ID#&ID0=#tmp#","_blank", "left=30, top=30, width=" + w + ", height= " + h + ", toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=no")
+		ptoken.open("../../../../Tools/Mail/MailPrepare.cfm?Id=Print&ID1=#URL.ID#&ID0=#tmp#","_blank", "left=30, top=30, width=" + w + ", height= " + h + ", toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=no")
   	} 
 	
 	function newreceipt(id) {	
@@ -210,7 +210,7 @@
 		   se.className = "regular" 		   
 		   co.className = "regular"
 		   ex.className = "hide"			  		  
-		   ColdFusion.navigate('ReceiptEditWorkflow.cfm?ajaxid='+key,key)	
+		   ptoken.navigate('ReceiptEditWorkflow.cfm?ajaxid='+key,key)	
    		  
 		} else {  se.className = "hide"
 		          ex.className = "regular"
@@ -287,7 +287,7 @@
 		   <td align="right" style="padding-left:10px">
 		
 				<table>
-				<tr class="labelmedium">
+				<tr class="labelmedium2">
 				<td style="padding-right:4px"><cf_tl id="Presentation">:</td>
 				<td style="padding-right:5px">
 				<select id="financial" onchange="reload()" class="regularxl">
@@ -386,7 +386,7 @@
 						  
 			  <cfif PO.recordcount eq "1">  
 			  	  
-			  <tr class="labelmedium">
+			  <tr class="labelmedium2">
 			    <td width="10%" style="padding-left:4px;"><cf_tl id="Purchase No">:</td>
 				<td width="25%">
 				
@@ -435,7 +435,7 @@
 				<td width="250" style="">#PO.OrderTypeDescription#</td>
 			  </tr>	
 			  
-			  <tr class="labelmedium">
+			  <tr class="labelmedium2">
 			    <td style="padding-left:4px;"><cf_tl id="Vendor">:</td>
 				<td>
 				
@@ -452,12 +452,12 @@
 			  
 			  <cfelse>
 			  
-			  <tr class="labelmedium">
+			  <tr class="labelmedium2">
 				  <td valign="top" style="padding-top:6px;padding-left:4px;"><cf_tl id="Vendor"></td>
 				  <td colspan="3">
 				  <table style="width:98%">
 				  
-					  <tr class="line labelmedium">
+					  <tr class="line labelmedium2">
 						  <td><cf_tl id="Name"></td>
 						  <td><cf_tl id="PurchaseNo"></td>				 	  
 						  <td><cf_tl id="Date"></td>		
@@ -497,7 +497,7 @@
 							Function         = "Procurement"				   
 							returnvariable   = "access">	  
 						
-						  <tr class="line labelmedium">
+						  <tr class="line labelmedium2">
 							  <td>
 							    <cfif Access eq "GRANTED">
 								<a href="javascript:viewOrgUnit('#PO.OrgUnitVendor#')">#PO.OrgUnitName#</a>
@@ -550,7 +550,7 @@
 					
 					<cfif workorder.recordcount gte "1">			
 				  
-				    <tr class="labelmedium" >
+				    <tr class="labelmedium2" >
 				    <td valign="top" style="padding-top:5px;padding-left:4px;"><cf_tl id="Workorder">:</td>
 					<td colspan="3" style="">
 					
@@ -572,7 +572,7 @@
 					
 				</cfif>	
 					  
-			  <tr class="labelmedium">
+			  <tr class="labelmedium2">
 			    <td style="padding-left:4px;"><cf_tl id="Packingslip No">:</td>
 				<td>
 					<cfif EditMode eq "edit">
@@ -598,7 +598,7 @@
 			  
 			  <cfif CustomFields.ReceiptReference1 neq "" or CustomFields.ReceiptReference2 neq "">
 			  
-			  <tr class="labelmedium">
+			  <tr class="labelmedium2">
 				<td style="height:30px;padding-left:4px;">#CustomFields.ReceiptReference1#:</td>
 				<td>
 				<cfif EditMode eq "edit">
@@ -621,7 +621,7 @@
 			  </cfif>
 			  
 			  <cfif CustomFields.ReceiptReference3 neq "" or CustomFields.ReceiptReference4 neq "">	  
-			  <tr class="labelmedium" >	
+			  <tr class="labelmedium2" >	
 				<td style="height:30px;padding-left:4px;">#CustomFields.ReceiptReference3#:</td>
 				<td>
 				<cfif EditMode eq "edit">
@@ -650,10 +650,10 @@
 			  </cfquery>
 			  
 			  <tr>	
-				<td class="labelmedium" style="padding-left:4px;"><cf_tl id="Associated costs">:</td>
-				<td colspan="3" class="labelmedium">
+				<td class="labelmedium2" style="padding-left:4px;"><cf_tl id="Associated costs">:</td>
+				<td colspan="3" class="labelmedium2">
 					<table>
-					<tr class="labelmedium">
+					<tr class="labelmedium2">
 					<td>
 						<cfif EditMode eq "edit">				
 							<input type="text" name="CostDescription" value="#Cost.Description#" size="10" maxlength="50" class="regularxl">			
@@ -670,8 +670,8 @@
 			  	  
 			 <cfif EditMode eq "edit">	  
 			  <tr>	
-				<td class="labelmedium" valign="top" style="padding-left:4px;"><cf_tl id="Remarks">:</td>
-				<td colspan="3" class="labelmedium" style="padding-left:0px">
+				<td class="labelmedium2" valign="top" style="padding-left:4px;"><cf_tl id="Remarks">:</td>
+				<td colspan="3" class="labelmedium2" style="padding-left:0px">
 					
 					<textarea class="regular" 
 					    style="height:40px;font-size:13px;padding:3px;font-size:14px;width:99%"				
@@ -682,15 +682,15 @@
 			  <cfelseif receipt.receiptremarks neq "">
 			  
 			  <tr>	
-				<td class="labelmedium" valign="top" style="padding-left:4px;"><cf_tl id="Remarks">:</td>
-				<td colspan="3" class="labelmedium" style="padding-left:0px">
+				<td class="labelmedium2" valign="top" style="padding-left:4px;"><cf_tl id="Remarks">:</td>
+				<td colspan="3" class="labelmedium2" style="padding-left:0px">
 				   #Receipt.ReceiptRemarks#			
 				</td>
 			  </tr>
 			  
 			  </cfif>
 			  
-			  <tr class="labelmedium"><td style="padding-left:4px;"><cf_tl id="Attachments">:</td>
+			  <tr class="labelmedium2"><td style="padding-left:4px;"><cf_tl id="Attachments">:</td>
 			  <td colspan="3" style="padding-left:0px;padding-right:20px">
 		
 			      <cfif EditMode eq "edit">	 		  
@@ -723,7 +723,7 @@
 			  
 				   <tr><td colspan="4" class="line"></tr>
 				  	  
-				   <tr class="labelmedium">	
+				   <tr class="labelmedium2">	
 					  <td style="padding-left:4px;"> 	
 					
 						  <cf_tl id="Update" var="1">
@@ -807,7 +807,7 @@
 									 border="0"> 
 									 
 								 </td>
-								 <td style="width:100%;font-size:17px;padding-left:5px;cursor:pointer" class="labelmedium">
+								 <td style="width:100%;font-size:17px;height:40px;padding-left:5px;cursor:pointer" class="labelmedium2">
 								 <a href="javascript:workflowdrill('#Receipt.ReceiptNo#','workflow')">Click here to view the Clearance Flow</a></td>
 								 </tr>
 												  
@@ -946,11 +946,11 @@
 </td></tr>
 
 <tr>
-	 <td colspan="2" align="right" style="padding-top:5px;padding-right:40px" class="labelmedium">
+	 <td colspan="2" align="right" style="padding-top:5px;padding-right:40px" class="labelmedium2">
 	
 		     <table align="right">
 				 <tr>
-				 <td class="labelmedium" align="right"
+				 <td class="labelmedium2" align="right"
 				     bgcolor="white" 
 					 style="color:black;font-size:15px;padding-top:8px;width:200px;padding-right:7px"><cf_tl id="Total in"><cfoutput><font size="+1">#application.basecurrency#</cfoutput>
 				 </td>

@@ -94,6 +94,8 @@ password="#SESSION.dbpw#">
 	 <cfabort>
 	</cfif>
 	
+	<cfparam name="Form.GradeDeployment" default="">
+	
 	<cftransaction>
 	
 	<cfquery name="InsertDocument" 
@@ -131,7 +133,7 @@ password="#SESSION.dbpw#">
 				  '#Form.PositionNo#',
 				  #Due#,
 				  '#Form.PostGrade#',
-				  <cfif #Form.GradeDeployment# eq "">
+				  <cfif Form.GradeDeployment eq "">
 				  '#Form.PostGrade#',
 				  <cfelse>
 				  '#Form.GradeDeployment#',
@@ -241,7 +243,10 @@ password="#SESSION.dbpw#">
 					document.getElementById("refresh_#url.box#").click();
 				}
 		   	</cfif>
-			ptoken.open("#session.root#/Vactrack/Application/Document/DocumentEdit.cfm?ID=#LastNo.DocumentNo#", "Track#LastNo.DocumentNo#");
+			
+			<cfif getAdministrator("#doc.mission#") eq "1">
+				ptoken.open("#session.root#/Vactrack/Application/Document/DocumentEdit.cfm?ID=#LastNo.DocumentNo#", "Track#LastNo.DocumentNo#");
+			</cfif>
 
 		</script>
 			

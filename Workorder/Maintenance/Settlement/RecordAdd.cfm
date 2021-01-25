@@ -13,30 +13,30 @@
 
 <!--- Entry form --->
 
-<table width="92%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<cfform action="RecordSubmit.cfm?idmenu=#url.idmenu#" method="POST" enablecab="Yes" name="dialog">
 
-	<cfform action="RecordSubmit.cfm?idmenu=#url.idmenu#" method="POST" enablecab="Yes" name="dialog">
+<table width="92%" align="center" class="formpadding">
 
 	<tr><td height="10"></td></tr>
 
     <TR>
-    <TD class="labelmedium">Code:</TD>
+    <TD class="labelmedium2">Code:</TD>
     <TD class="labelmedium">
-  	   <cfinput type="text" name="code" value="" message="Please enter a code" required="Yes" size="10" maxlength="10" class="labelmedium">
+  	   <cfinput type="text" name="code" value="" message="Please enter a code" required="Yes" size="10" maxlength="10" class="regularxxl">
     </TD>
 	</TR>
 	
 	<TR>
-    <TD class="labelmedium">Description:</TD>
+    <TD class="labelmedium2">Description:</TD>
     <TD class="labelmedium">
-  	   <cfinput type="text" name="Description" value="" message="Please enter a description" required="Yes" size="40" maxlength="40" class="labelmedium">
+  	   <cfinput type="text" name="Description" value="" message="Please enter a description" required="Yes" size="40" maxlength="40" class="regularxxl">
     </TD>
 	</TR>
 	
 	<TR>
-    <TD class="labelmedium">Mode:</TD>
+    <TD class="labelmedium2">Mode:</TD>
     <TD class="labelmedium">
-  	   <cfselect name="mode" id="mode" required="No">
+  	   <cfselect name="mode" id="mode" required="No" class="regularxxl">
 	   		<option value="">
 			<option value="Cash">Cash
 			<option value="Credit">Credit
@@ -46,20 +46,17 @@
 	</TR>
 	
 	<TR>
-    <TD class="labelmedium">Operational:</TD>
+    <TD class="labelmedium2">Operational:</TD>
     <TD class="labelmedium">
-	   <input type="radio" name="Operational" value="1" checked> Yes&nbsp;
- 	   <input type="radio" name="Operational" value="0" > No
+	   <input type="radio" class="radiol" name="Operational" value="1" checked> Yes&nbsp;
+ 	   <input type="radio" class="radiol" name="Operational" value="0" > No
     </TD>
 	</TR>
-	
-	
+		
 	<tr><td height="6"></td></tr>
 	<tr><td colspan="2" class="line"></td></tr>
-	<tr>
 	<tr><td height="6"></td></tr>
-	<tr>	
-		
+			
 	<tr>
 		
 	<td colspan="2" align="center">

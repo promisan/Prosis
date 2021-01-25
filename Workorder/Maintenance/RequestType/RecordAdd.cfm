@@ -10,13 +10,13 @@
 
 <!--- Entry form --->
 
-<cfform action="RecordSubmit.cfm" method="POST" enablecab="Yes" name="dialog">
+<cfform action="RecordSubmit.cfm" method="POST" name="dialog">
 	
-<table width="93%" cellspacing="4" cellpadding="4" align="center">
+<table width="93%" align="center" class="formpadding formspacing">
 	
 	<tr><td height="6"></td></tr>
     <TR>
-    <TD class="labelit">Code:</TD>
+    <TD class="labelmediun2">Code:</TD>
     <TD>
   	   <cfinput type="Text" 
 		      name="Code" 
@@ -25,12 +25,12 @@
 			  required="Yes" 
 			  size="20" 
 			  maxlength="20" 
-			  class="regularxl">
+			  class="regularxxl">
     </TD>
 	</TR>
 	
 	 <TR>
-    <TD class="labelit">Descriptive:</TD>
+    <TD class="labelmedium2">Descriptive:</TD>
     <TD>
   	   <cfinput type="Text" 
 		       name="Description" 
@@ -39,15 +39,15 @@
 			   required="Yes" 
 			   size="40" 
 			   maxlength="50" 
-			   class="regularxl">
+			   class="regularxxl">
     </TD>
 	</TR>
 	
 	<TR>
-    <TD class="labelit">Type:</TD>
+    <TD class="labelmedium2">Type:</TD>
     <TD>
 	
-		<select name="TemplateApply" id="TemplateApply" class="regularxl">
+		<select name="TemplateApply" id="TemplateApply" class="regularxxl">
 				    
 			<option value="RequestApplyService.cfm">New Service or change in service provisioning</option>
 			<option value="RequestApplyAmendment.cfm">Amended Service Consumption (Unit,User)/Porting</option>

@@ -48,13 +48,13 @@
 	
 	<cfif Selected.recordcount gte "1">
 		
-		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<table width="100%">
 				
 		<tr class="line">
-		   <td colspan="8" style="font-size:16px;height:26px;padding-left:1px;" class="labelmedium"><i><cf_tl id="Selected"></td>	   
+		   <td colspan="7" style="font-size:16px;height:26px;padding-left:1px;" class="labelmedium2"><cf_tl id="Selected"></td>	   
 		   <td align="right" style="padding-top:3px">	   
 		   <cfoutput>
-		   <cf_img icon="delete" onClick="javascript:fielddelete('','#url.id#','#url.table#')">	  
+		   <cf_img icon="delete" onClick="javascript:fielddelete('','#url.id#','#url.table#')">	remove all  
 		   </cfoutput>	   
 		   </td>
 		</tr>
@@ -62,7 +62,7 @@
 		<!--- container saving label --->
 		<tr class="hide"><td id="label"></td></tr>
 		
-		<tr class="labelmedium line">
+		<tr class="labelmedium2 line">
 		<td width="40"></td>
 		<td width="20"></td>
 		<td><cf_tl id="Field name"></td>	
@@ -75,7 +75,7 @@
 				
 		<cfoutput query="Selected">
 		
-		<tr style="height:15px" class="line labelit">
+		<tr style="height:15px" class="line labelmedium2">
 		
 		<td align="center">
 			

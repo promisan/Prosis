@@ -33,11 +33,13 @@
  <!--- tab for instructions --->			
 <cfinclude template="ProcessActionInstructions.cfm">	
 
+
+
  <!--- tab for embedded document --->           	  
 <cfif Embed.DocumentTemplate neq "">
    	   	  
 	   <!--- preload code for dialog embedded workflow --->
-	  	   
+	   	   	  	   
 	   <cfif Embed.DocumentMode eq "Ajax">		
 	   	   	   	   
 		   <!--- disabled as embedding now within a iframe to prevent outbreak of long pages 
@@ -64,9 +66,9 @@
 		   </cfif>   
 		 		   
 		   <cfif menumode eq "menu">
-			
+		   			
 			   <cf_menutab item       = "#boxno#" 
-				            iconsrc    = "Contract.png" 
+				            iconsrc    = "logos/system/entryform.png" 
 							iconwidth  = "#wd#" 
 							class      = "#cl#"						
 							iconheight = "#ht#" 
@@ -93,9 +95,10 @@
 		   </cfif>  
 		  
 		   <cfif menumode eq "menu">
-			
+		   
+		   			
 		   <cf_menutab item       = "#boxno#" 
-			            iconsrc    = "Contract.png" 
+			            iconsrc    = "logos/system/entryform.png"  
 						iconwidth  = "#wd#" 
 						class      = "#cl#"						
 						iconheight = "#ht#" 

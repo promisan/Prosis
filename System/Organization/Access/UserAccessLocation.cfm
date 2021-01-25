@@ -110,18 +110,18 @@
 					  <cfset show = "0">
 					  <tr id="i_#URL.mission#">
 					  
-					  <td colspan="4" align="center">					 
+					  <td colspan="4" align="center" style="padding:2px">					 
 					  
 						  <table width="80%" align="center" bgcolor="f4f4f4" style="border:1px solid silver;padding:3px">
 							  <tr>
 							  <cfif AccessGranted.recordcount gte "1">
-								  <td width="70" align="center" class="labelit" style="padding:2px" bgcolor="ffffaf" style="border-right:1px solid silver"><font color="6688aa">Has Prior</td>
+								  <td width="70" align="center" class="labelmedium2" style="padding:2px" bgcolor="ffffaf" style="border-right:1px solid silver"><font color="6688aa">Has Prior</td>
 								  <cfset cl = "regular">							  
 							  <cfelse>							  		
 								  <td width="70" style="padding:2px" bgcolor="white" style="border-right:1px solid silver"></td>
 								  <cfset cl = "hide">
 							  </cfif>
-							  <td align="center" class="labelit" style="padding:2px;cursor:pointer" onclick="showentity('#URL.mission#','#ms#','')">Click here to manage access</td>					 
+							  <td align="center" class="labelmedium2" style="padding:2px;cursor:pointer" onclick="showentity('#URL.mission#','#ms#','')">Click here to manage access</td>					 
 							  </tr>
 						  </table>		
 						  			  

@@ -1,5 +1,5 @@
 
-<cfset cellspace = round(800/Resource.recordcount)>	
+<cfset cellspace = round(1000/Resource.recordcount)>	
 <cfif cellspace lt "39">
    <cfset cellspace = 39>	
 </cfif>

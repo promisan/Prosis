@@ -243,7 +243,7 @@
 			    <cfif list eq "thumbnail">												
 					<tr>	
 					<td>
-					<table><tr>									
+					<table><tr>								
 				</cfif>
 								
 				<cfloop query="GetFiles">
@@ -413,9 +413,9 @@
 															source="#vServerPathDocFull#" 
 										    		    	destination="#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\tn_#name#" 
 															nameconflict="OVERWRITE">
-																											
+																										
 														<img src="#SESSION.root#/CFRStage/User/#SESSION.acc#/tn_#name#" 
-														    style="cursor:pointer;border:1px solid ##cccccc;" 
+														    style="cursor:pointer;border:1px solid ##;" 
 															align="absmiddle" 
 															alt="Open Image" height="36" width="60" border="0" align="center">	
 															
@@ -447,13 +447,14 @@
 										
 											<td height="22" style="padding-left:4px" 
 											 onclick="embedfile('#contextmode#','#attachment.attachmentid#','show','#attachment.attachmentid#')">		
-											  									  		
+											 
+											 											  									  		
 												<cfif FindNoCase(".flv", "#NameShow#") or DocumentServerIsOp eq "1">						
 	
 											    	<img src="#SESSION.root#/Images/file_image.jpg" style="cursor:pointer;border:1px solid silver" align="absmiddle" alt="Open Image" height="40" width="60" border="0" align="center">
 	
-												<cfelse>											
-																																					
+												<cfelse>		
+																																							
 													<img src="#session.rootdocument#/#DocPath#/#name#" 
 													    style="cursor:pointer;border:1px solid gray" 
 														align="absmiddle" 
@@ -578,7 +579,7 @@
 									 
 									 <td align="left" valign="top" style="padding-left:3px;padding-top:6px;padding-right:5px">
 																		
-										 <<img src="#SESSION.root#/Images/Close.png" alt="Delete" 
+										 <img src="#SESSION.root#/Images/Close.png" alt="Delete" 
 												border="0" 
 												height="24" width="24"
 												align="absmiddle" 
@@ -627,7 +628,7 @@
 					<cfloop index="itm" list="#container#">
 								
 						<!--- container to show --->																							
-				           <tr class="hide" id="b#itm#"><td id="#itm#"></td></tr>																
+				           <tr class="hide" id="b#itm#"><td style="width:940px" colspan="3" id="#itm#"></td></tr>																
 					
 					</cfloop>
 										

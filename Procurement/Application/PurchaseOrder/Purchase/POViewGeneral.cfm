@@ -31,8 +31,8 @@
 	FunctionName  = "PurchaseOrder"
 	menuAccess    = "context"
 	height        = "100%">
-	
-<cfelse>
+		
+<cfelseif url.header neq "No">
 
 <cf_screentop  
     layout        = "webapp" 

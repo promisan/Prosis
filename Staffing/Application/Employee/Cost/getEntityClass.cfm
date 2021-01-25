@@ -20,10 +20,10 @@ password="#SESSION.dbpw#">
 	datasource="AppsOrganization"
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	    SELECT *
-	    FROM   Ref_EntityClass
-		WHERE  EntityCode  = 'EntCost'
-		AND    Operational = 1	
+	    SELECT   *
+	    FROM     Ref_EntityClass
+		WHERE    EntityCode  = 'EntCost'
+		AND      Operational = 1	
 		ORDER BY ListingOrder
 	</cfquery>
 
@@ -39,13 +39,37 @@ password="#SESSION.dbpw#">
 	AND       Mission = '#url.mission#'
 </cfquery>
 
-<select name="entityClass_<cfoutput>#url.itm#</cfoutput>" class="enterastab regularxl" style="width:97%;border:0px" 
-  onchange="_cf_loadingtexthtml='';ptoken.navigate('getActors.cfm?personno=#url.personno#','actor','','','POST','MiscellaneousEntry')">
+<cfquery name="Item" 
+	datasource="AppsPayroll"
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	SELECT    *
+	FROM      Ref_PayrollItem
+	WHERE     PayrollItem = '#url.entitlement#'	
+</cfquery>
 
-	<cfif entity.workflowenforce neq "1">
-		<option value=""></option>
+<cfoutput>
+	
+	<cfif Item.entityclass neq "">	
+		
+		<select name="entityClass_#url.itm#" class="enterastab regularxl" style="width:97%;border:0px" 
+		  onchange="_cf_loadingtexthtml='';ptoken.navigate('getActors.cfm?personno=#url.personno#','actor','','','POST','MiscellaneousEntry')">	
+				<option value="#Item.EntityClass#">#Item.EntityClass#</option>	
+		</select>
+	
+	<cfelse>
+		
+		<select name="entityClass_#url.itm#" class="enterastab regularxl" style="width:97%;border:0px" 
+		  onchange="_cf_loadingtexthtml='';ptoken.navigate('getActors.cfm?personno=#url.personno#','actor','','','POST','MiscellaneousEntry')">
+		
+			<cfif entity.workflowenforce neq "1">
+				<option value=""></option>
+			</cfif>
+			<cfloop query="EntityClass">
+			    <option value="#entityClass#">#entityClassName#</option>
+		    </cfloop>
+		</select>
+	
 	</cfif>
-	<cfoutput query="EntityClass">
-	    <option value="#entityClass#">#entityClassName#</option>
-    </cfoutput>
-</select>
+
+</cfoutput>

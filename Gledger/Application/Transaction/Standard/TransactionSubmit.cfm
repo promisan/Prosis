@@ -2,6 +2,14 @@
 
 <cfparam name="Form.Party" default="Vendor">
 
+<cfquery name="HeaderSelect"
+datasource="AppsQuery" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+    SELECT * 
+	FROM   #SESSION.acc#GledgerHeader_#client.sessionNo#_#session.mytransaction#
+</cfquery>
+
 <cfoutput> 
 
    <cfif ParameterExists(Form.TransactionDate) and Form.TransactionDate neq "">
@@ -28,14 +36,6 @@
 	</cfif>
 	   
 </cfoutput> 
-
-<cfquery name="HeaderSelect"
-datasource="AppsQuery" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-    SELECT * 
-	FROM   #SESSION.acc#GledgerHeader_#client.sessionNo#
-</cfquery>
 
 <cfoutput query="HeaderSelect">
 
@@ -146,12 +146,16 @@ password="#SESSION.dbpw#">
 
 <!--- closing the windows --->
 <cfoutput>
+
+<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+<cfset mid = oSecurity.gethash()/>   
+
 <script language='JavaScript'>       
      try {parent.opener.document.getElementById('apply').click();} catch(e) {
    	      try {parent.opener.history.go();} catch(e) {}
 	 }	
 	 parent.window.close()			
 	 //try {parent.history.go() } catch(e) {}	
-	 window.open('#session.root#/gledger/application/transaction/view/TransactionView.cfm?id=#trid#');
+	 ptoken.open('#session.root#/gledger/application/transaction/view/TransactionView.cfm?id=#trid#&mid=#mid#');
 </script>
 </cfoutput>

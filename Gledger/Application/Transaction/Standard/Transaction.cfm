@@ -5,7 +5,6 @@
 <cf_dialogOrganization>
 <cf_dialogPosition>
 <cf_dialogProcurement>
-
 <cf_dialogMaterial>
 <cf_dialogLedger>
 <cf_calendarScript>
@@ -42,7 +41,6 @@ password="#SESSION.dbpw#">
 </cfif>
 </cfoutput>
 
-
 <cfif url.journal eq "" or not findNoCase(url.journal,valueList(Journal.Journal)) or url.journal eq "undefined">
 
 	<cfset url.journal = journal.journal>
@@ -51,9 +49,8 @@ password="#SESSION.dbpw#">
 	   datasource = "AppsQuery" 
 	   username   = "#SESSION.login#" 
 	   password   = "#SESSION.dbpw#">
-	    UPDATE #SESSION.acc#GledgerHeader_#client.sessionNo#
-		SET Journal = '#journal.journal#', TransactionCategory = '#journal.TransactionCategory#'
-		
+	    UPDATE #SESSION.acc#GledgerHeader_#client.sessionNo#_#session.mytransaction#
+		SET Journal = '#journal.journal#', TransactionCategory = '#journal.TransactionCategory#'		
 	</cfquery>
 	
 </cfif>
@@ -80,7 +77,7 @@ datasource="AppsQuery"
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
     SELECT *
-	FROM   #SESSION.acc#GledgerHeader_#client.sessionNo# 
+	FROM   #SESSION.acc#GledgerHeader_#client.sessionNo#_#session.mytransaction# 
 </cfquery>
 
 <cfparam name="URL.EntryAmount" default="#HeaderSelect.DocumentAmount#">
@@ -163,9 +160,14 @@ password="#SESSION.dbpw#">
 <cfoutput>
 
 <cf_ajaxRequest>
-<cfajaximport tags="cfwindow">
+ 
+<span class="hide" id="process"></span>
 
 <script language="JavaScript">
+
+function setscopeno() {
+	ptoken.navigate('setTransactionScope.cfm?scopeno=#session.mytransaction#','process')
+}
 
 function reloadForm(journal,period,category) {    
     Prosis.busy('yes');
@@ -280,7 +282,7 @@ function toggleGroup(selector){
 
 function togglebox(val) {
 	document.getElementById('empbox').className='hide'
-	document.getElementById('perbox').className='hide'
+	document.getElementById('perbox').className='hide'	
 	document.getElementById('venbox').className='hide'
 	document.getElementById('cusbox').className='hide'
 	document.getElementById(val+'box').className='regular'
@@ -296,7 +298,7 @@ function togglebox(val) {
 		
 		<cfform name="transactionheader" id="transactionheader" onsubmit="return false" style="height:98%">
 	
-		<table class="formpadding" width="100%" height="100%" style="min-width:900" lign="center">
+		<table class="formpadding" width="100%" height="100%" style="min-width:1150px" align="center">
 		
 		<tr class="hide"><td id="process"></td></tr>
 		
@@ -314,14 +316,17 @@ function togglebox(val) {
 			  			   
 			   <tr><td style="padding-left:17px;padding-right:17px">		   
 			   
-			   <table width="100%" align="center" class="formspacing formpadding">		
+			   <table width="100%" align="center" class="formpadding">		
 			   
 			    <cfoutput>	
 			   
 			   <tr class="line">
+			   
 			    <TD colspan="1" class="labelmedium2"><cf_tl id="Fiscal Period">:</TD>			 	 	  			  
-		         
-				  <td colspan="1" style="height:45px">
+				        
+				  <td colspan="7" style="height:45px">
+				  
+				   <table style="width:100%"><tr><td>
 				  					   
 					    <cfif HeaderSelect.JournalSerialNo eq "" or HeaderSelect.JournalSerialNo neq "">
 														  
@@ -355,11 +360,11 @@ function togglebox(val) {
 				   
 				  </td>   
 				  				  
-		          <td colspan="5" align="right" class="labelmedium2" style="color:green;font-size:22px;padding-top:9px">
+		          <td align="right" class="labelmedium2" style="color:brown;font-size:20px;padding-top:9px">
 				  		  
 				  <cfif (HeaderSelect.JournalSerialNo eq "" and HeaderSelect.ParentJournal eq "" and url.source eq "") or URL.category neq "">
 				  		  
-				  <select name="journal" id="journal" class="regularxl enterastab" onChange="reloadForm(this.value,document.getElementById('accountperiod').value,'<cfoutput>#url.category#</cfoutput>')">		     		      
+				  <select name="journal" id="journal" class="regularxxl enterastab" onChange="reloadForm(this.value,document.getElementById('accountperiod').value,'<cfoutput>#url.category#</cfoutput>')">		     		      
 		            <cfloop query="Journal">
 		        	<option value="#Journal#" <cfif Journal is URL.Journal>selected</cfif>>
 		           		#Journal# #Description#
@@ -393,13 +398,14 @@ function togglebox(val) {
 		    		</cfloop>
 					
 				  </cfif>
+				  
+				  </td></tr></table>	  	
 			  
-				  </td>			  	 		
+				  </td>						   		
 				 				  
 			   </tr>
 			 			   
-			   <TR class="line" style="height:40px">  		     
-					 				   
+			   <TR style="height:30px">  		     					 				   
 					   
 					   <cfparam name="url.glaccount" default="">
 					   
@@ -433,11 +439,11 @@ function togglebox(val) {
 								  
 								  <td>
 					         
-						     <img src="#SESSION.root#/Images/search.png" alt="Select" name="img56" 
-								  onMouseOver="document.img56.src='#SESSION.root#/Images/contract.gif'" 
-								  onMouseOut="document.img56.src='#SESSION.root#/Images/search.png'"
-								  style="cursor: pointer;border-radius:5px" alt="" width="25" height="25" border="0" align="absmiddle" 
-								  onClick="selectaccountgl('#URL.mission#','','','#url.journal#','applycontra');">
+							     <img src="#SESSION.root#/Images/search.png" alt="Select" name="img56" 
+									  onMouseOver="document.img56.src='#SESSION.root#/Images/contract.gif'" 
+									  onMouseOut="document.img56.src='#SESSION.root#/Images/search.png'"
+									  style="cursor: pointer;border-radius:5px" alt="" width="25" height="25" border="0" align="absmiddle" 
+									  onClick="selectaccountgl('#URL.mission#','','','#url.journal#','applycontra');">
 								  
 								  </td>
 								  
@@ -460,25 +466,25 @@ function togglebox(val) {
 							
 							<TD class="labelmedium2"><cf_tl id="Contra-Account">:</TD>	
 					   														       	   
-		    			    <td colspan="6">	 		   		
+		    			    <td colspan="6">	    		
 										   
-					        <table border="0">
-							    <tr>
-																   
-								  <td class="labelmedium2" style="color:red;font-size:20px;border:0px solid silver;padding-left:0px;padding:0px;padding-right:9px" height="16">#glaccdes#
-						          	 <input type="hidden" name="glaccount"       id="glaccount"     value="#Distribution.GLAccount#"    size="12" style="text-align: center;" readonly class="disabled">
-					         		 <input type="hidden" name="gldescription"   id="gldescription" value="#Distribution.Description#"  size="40" style="text-align: center;" readonly class="disabled">
-									 <input type="hidden" name="debitcredit"     id="debitcredit"   value="#url.AccountType#"           size="8" style="text-align: center;" readonly class="disabled">
-								  </td>		
-								  
-								   <td class="labelmedium2" style="font-size:17px;border:0px solid silver;padding:2px;padding-right:4px">#Distribution.GLAccount#</td>								 		 
-								  					 
-								  <td align="center" class="labelmedium2" style="font-size:15px;border:0px solid silver;padding-left:6px;padding:2px;padding-right:4px">(#url.AccountType#)</td> 
-								  
-							    </tr>
-							</table>	
+						        <table style="border:1px solid silver;;background-color:f1f1f1">
+								    <tr>
+																	   
+									  <td class="labelmedium2" style="min-width:250px;color:green;font-size:15px;height:27px;padding-left:4px;padding-right:9px">#glaccdes#
+							          	 <input type="hidden" name="glaccount"       id="glaccount"     value="#Distribution.GLAccount#"    size="12" style="text-align: center;" readonly class="disabled">
+						         		 <input type="hidden" name="gldescription"   id="gldescription" value="#Distribution.Description#"  size="40" style="text-align: center;" readonly class="disabled">
+										 <input type="hidden" name="debitcredit"     id="debitcredit"   value="#url.AccountType#"           size="8" style="text-align: center;" readonly class="disabled">
+									  </td>		
+									  
+									   <td class="labelmedium2" style="font-size:15px;border:0px solid silver;padding-right:4px">#Distribution.GLAccount#</td>								 		 
+									  					 
+									  <td align="center" class="labelmedium2" style="font-size:15px;border:0px solid silver;padding-left:6px;padding-right:4px">(#url.AccountType#)</td> 
+									  
+								    </tr>
+								</table>	
 							
-							  </td>	    
+							</td>	    
 							  
 								
 					   <cfelseif ContraAccount.recordcount eq "1" and HeaderSelect.ContraGLAccount neq "">		
@@ -486,19 +492,18 @@ function togglebox(val) {
 							<TD class="labelmedium2"><cf_tl id="Contra-Account">:</TD>													       	   
 		    			    <td colspan="6">	 		   		
 										   
-						        <table border="0">
+						        <table border="0" style="border:1px solid silver;background-color:f1f1f1">
 								    <tr>
 																	   
-									  <td class="labelmedium2" style="color:red;font-size:20px;border:0px solid silver;padding-left:0px;padding:0px;padding-right:9px" height="16">#glaccdes#
+									  <td class="labelmedium2" style="min-width:250px;height:27px;padding-left:4px;color:green;font-size:15px;padding-right:9px">#glaccdes#
 							          	 <input type="hidden" name="glaccount"       id="glaccount"     value="#HeaderSelect.ContraGLAccount#" size="12" style="text-align: center;" readonly class="disabled">
 						         		 <input type="hidden" name="gldescription"   id="gldescription" value="#glaccdes#" size="40" style="text-align: center;" readonly class="disabled">
 										 <input type="hidden" name="debitcredit"     id="debitcredit"   value="#HeaderSelect.ContraGLAccountType#" size="8" style="text-align: center;" readonly class="disabled">
 									  </td>		
 									  
-									   <td class="labelmedium2" style="font-size:15px;border:0px solid silver;padding:2px;padding-right:4px">#HeaderSelect.ContraGLAccount#</td>
-									 			 
-									  					 
-									  <td align="center" class="labelmedium2" style="font-size:14px;border:0px solid silver;padding-left:6px;padding:2px;padding-right:4px">(#HeaderSelect.ContraGLAccountType#)</td> 
+									   <td class="labelmedium2" style="padding-left:5px;padding-right:5px;border-left:1px solid silver;font-size:15px;padding-right:4px">#HeaderSelect.ContraGLAccount#</td>
+									 										  					 
+									  <td align="center" class="labelmedium2" style="border-left:1px solid silver;font-size:15px;padding-left:6px;padding-right:4px">#HeaderSelect.ContraGLAccountType#</td> 
 									  
 								    </tr>
 								</table>	
@@ -510,12 +515,12 @@ function togglebox(val) {
 					        <TD class="labelmedium2"><cf_tl id="Contra-Account">:</TD>			   
 		    			    <td colspan="6">	 
 			   	    	  	
-						    <table border="0" cellspacing="0" cellpadding="0">
+						    <table border="0" style="border:1px solid silver">
 							    <tr>
 								
-								  <td align="center" class="labelmedium2" style="border:0px solid silver;padding-right:4px">
+								  <td align="center" class="labelmedium2" style="min-width:250px;height:27px;padding-left:4px; padding-right:4px">
 								  
-								  <select name="glaccount" class="regularxxl" id="glaccount" onchange="javascript:setline()">
+								  <select name="glaccount" style="border:0px" class="regularxxl" id="glaccount" onchange="javascript:setline()">
 									  <cfloop query="ContraAccount" >
 									  <option value="#glaccount#" <cfif HeaderSelect.ContraGLAccount eq glaccount>selected</cfif>>#glaccount# #description#</option>
 									  </cfloop>
@@ -523,10 +528,9 @@ function togglebox(val) {
 								  
 								  <input type="hidden" name="debitcredit"     id="debitcredit"   value="#HeaderSelect.ContraGLAccountType#" size="8" style="text-align: center;" readonly class="disabled">
 								
-								  
 								  </td>						  	 
 								  					 
-								  <td align="center" class="labelmedium2" style="border:0px solid silver;padding-left:6px;padding:2px;padding-right:4px">(#HeaderSelect.ContraGLAccountType#)</td> 
+								  <td align="center" class="labelmedium2" style="padding-left:5px;padding-right:5px;border-left:1px solid silver;padding-left:6px;padding:2px;padding-right:4px">(#HeaderSelect.ContraGLAccountType#)</td> 
 								  
 							    </tr>
 							</table>	
@@ -678,8 +682,8 @@ function togglebox(val) {
 				  
 				  <script>
 				   function apply_transactiondate(argOb) {		
-				    _cf_loadingtexthtml='';			   
-				    ptoken.navigate('TransactionDetailLines.cfm?pap='+argOb.dd+'/'+argOb.mm+'/'+argOb.yyyy,'lines')				    
+				      _cf_loadingtexthtml='';			   
+				      ptoken.navigate('TransactionDetailLines.cfm?accountperiod='+document.getElementById('accountperiod').value+'&pap='+argOb.dd+'/'+argOb.mm+'/'+argOb.yyyy,'lines')				    
 				   }
 				  </script>
 				  
@@ -714,7 +718,9 @@ function togglebox(val) {
 				  
 				  <TD class="labelmedium2" style="padding-right:6px">				  		   
 					 
-					  <select name="Party" id="party" class="regularxxl" style="border:0px solid silver;background-color:f1f1f1;padding-left:0px;width:99%" onchange="togglebox(this.value)">
+					  <select name="Party" id="party" class="regularxxl" 
+					        style="border:0px solid silver;background-color:f1f1f1;padding-left:0px;width:99%" 
+							onchange="togglebox(this.value)">
 						  	<option value="ven" <cfif HeaderSelect.ReferencePersonNo eq "">selected</cfif>><cf_tl id="Organization"></option>
 						  	<option value="emp" <cfif HeaderSelect.ReferencePersonNo neq "">selected</cfif>><cf_tl id="Staff"></option>
 							<option value="cus" <cfif HeaderSelect.ReferenceId neq "">selected</cfif>><cf_tl id="Customer"></option>
@@ -728,28 +734,52 @@ function togglebox(val) {
 				   <table cellspacing="0" cellpadding="0"><tr>
 				   
 					   <cfif HeaderSelect.ReferenceId neq "">
-							   <cfif HeaderSelect.ReferencePersonNo eq "">
-						   			<cfset ven = "hide">
-						   			<cfset emp = "hide">
-						   			<cfset cus = "show">
-								<cfelse>
-								   <cfset emp = "regular">
-								   <cfset ven = "hide">
-								   <cfset cus = "hide">
-							    </cfif>
+					   
+						   <cfif HeaderSelect.ReferencePersonNo eq "">
+					   			
+								<cfset ven = "hide">
+					   			<cfset emp = "hide">
+								<cfset per = "hide">
+					   			<cfset cus = "show">	
+															
+							<cfelse>
+							
+							<cfquery name="Person" 
+							datasource="AppsSelection" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+								  SELECT *
+								  FROM   Applicant
+								  WHERE  PersonNo = '#HeaderSelect.ReferencePersonNo#'	
+							</cfquery>
+							
+							   <cfset ven = "hide">
+							   <cfif Person.recordcount eq "0">
+								   <cfset emp = "regular">							   
+								   <cfset per = "hide">
+							   <cfelse>
+								   <cfset emp = "regular">							   
+								   <cfset per = "hide">
+							   </cfif>
+							   <cfset cus = "hide">							   
+						    </cfif>		
+												
   			   		   <cfelseif HeaderSelect.ReferencePersonNo eq "">
 							   <cfset ven = "regular">
 							   <cfset emp = "hide">
-							   <cfset cus = "hide">
+							   <cfset per = "hide">
+							   <cfset cus = "hide">		
+							   					   
 					   <cfelse>
-					      <cfset emp = "regular">
-						  <cfset ven = "hide">
-						  <cfset cus = "hide">
+						       <cfset emp = "regular">
+							   <cfset ven = "hide">
+							   <cfset per = "hide">
+							   <cfset cus = "hide">						 
 					   </cfif>
 
 					   	<td class="#ven#" id="venbox">
-						
-							 <table cellspacing="0" cellpadding="0"><tr>
+												
+							 <table><tr>
 								
 								<td >   													  
 							 	  <input type="text" name="referenceorgunitname1" id="referenceorgunitname1" value="#HeaderSelect.ReferenceName#" class="regularxxl enterastab" size="45" maxlength="60" readonly>					   
@@ -772,11 +802,58 @@ function togglebox(val) {
 							  <input type="hidden" name="referenceorgunit1" id="referenceorgunit1" value="#HeaderSelect.ReferenceOrgUnit#">
 							 
 							   
-						 </td> 			 
-						
-				   		   
-				   		<td class="#emp#" id="empbox">
-				   		   
+						 </td> 		
+						 
+						 							
+							<cfquery name="Person" 
+							datasource="AppsSelection" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+								  SELECT *
+								  FROM   Applicant
+								  WHERE  PersonNo = '#HeaderSelect.ReferencePersonNo#'	
+							</cfquery>
+													   	
+					   		<td class="#per#" id="perbox">												
+							
+							   <table cellspacing="0" cellpadding="0"><tr>
+								  
+								  <td>
+							
+									<input type="text"    name="referencename3" id="referencename3" class="regularxxl enterastab" value="#Person.FirstName# #Person.LastName#" size="40" maxlength="60" readonly style="text-align: left;">
+									<input type="hidden"  name="indexno3"   id="indexno3"    value="" class="disabled" size="10" maxlength="10" readonly style="text-align: center;">
+									<input type="hidden"  name="personno3"  id="personno3"   value="#Person.PersonNo#">
+								    <input type="hidden"  name="lastname3"  id="lastname3"   value="#Person.LastName#">
+								    <input type="hidden"  name="firstname3" id="firstname3"  value="#Person.FirstName#">
+									
+								  </td>
+								  
+								  <td style="padding-left:3px">
+											
+							  		<img  src="#SESSION.root#/Images/search.png" 
+									      alt="Select Customer" 
+										  name="img9" 
+									  	  onMouseOver="document.img9.src='#SESSION.root#/Images/button.jpg'" 
+										  onMouseOut="document.img9.src='#SESSION.root#/Images/search.png'"
+										  style="cursor: pointer;" 									  
+										  width="23" 
+										  height="25" 									   
+										  align="absmiddle" 
+										  onClick="selectapplicant('webdialog','personno3','indexno3','lastname3','firstname3','referencename3','','')">			
+								  
+								  </td>
+								  
+								  </tr>
+								  </table>								 
+								   
+							</td>
+							   
+						   <cfif person.recordcount gte "1">	   
+						   
+						        <cfset emp = "hide">
+						   
+						   </cfif>
+																   		   
 						   <cfquery name="Person" 
 							datasource="AppsEmployee" 
 							username="#SESSION.login#" 
@@ -785,8 +862,10 @@ function togglebox(val) {
 								  FROM   Person
 								  WHERE  PersonNo = '#HeaderSelect.ReferencePersonNo#'	
 							</cfquery>
+							
+						  <td class="#emp#" id="empbox">
 						
-						   <table cellspacing="0" cellpadding="0"><tr>
+						   <table><tr>
 							  
 							  <td>
 						
@@ -811,54 +890,8 @@ function togglebox(val) {
 							  </tr>
 							  </table>	
 							
-							</td>
-							
-							 <td class="#emp#" id="perbox">
-						
-							<cfquery name="Person" 
-							datasource="AppsSelection" 
-							username="#SESSION.login#" 
-							password="#SESSION.dbpw#">
-								  SELECT *
-								  FROM   Applicant
-								  WHERE  PersonNo = '#HeaderSelect.ReferencePersonNo#'	
-							</cfquery>
-						
-						   <table cellspacing="0" cellpadding="0"><tr>
-							  
-							  <td>
-						
-								<input type="text"    name="referencename3" id="referencename3" class="regularxxl enterastab" value="#Person.FirstName# #Person.LastName#" size="40" maxlength="60" readonly style="text-align: left;">
-								<input type="hidden"  name="indexno3"   id="indexno3"    value="" class="disabled" size="10" maxlength="10" readonly style="text-align: center;">
-								<input type="hidden"  name="personno3"  id="personno3"   value="#Person.PersonNo#">
-							    <input type="hidden"  name="lastname3"  id="lastname3"   value="#Person.LastName#">
-							    <input type="hidden"  name="firstname3" id="firstname3"  value="#Person.FirstName#">
-								
-							  </td>
-							  
-							  <td style="padding-left:3px">
-										
-						  		<img  src="#SESSION.root#/Images/search.png" 
-								      alt="Select Customer" 
-									  name="img9" 
-								  	  onMouseOver="document.img9.src='#SESSION.root#/Images/button.jpg'" 
-									  onMouseOut="document.img9.src='#SESSION.root#/Images/search.png'"
-									  style="cursor: pointer;" 
-									  alt="" 
-									  width="23" 
-									  height="25" 
-									  border="0" 
-									  align="absmiddle" 
-									  onClick="selectapplicant('webdialog','personno3','indexno3','lastname3','firstname3','referencename3','','')">			
-							  
-							  </td>
-							  
-							  </tr>
-							  </table>	
+						  </td>
 							 
-							   
-						 </td>
-
 
 						   <td class="#cus#" id="cusbox">
 

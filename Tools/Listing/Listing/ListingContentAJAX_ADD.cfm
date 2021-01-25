@@ -134,6 +134,11 @@
 			   del  = "deleterow('#box#','#attributes.datasource#','#deletetable#','#drillkey#','#dkey#')"				   
 			   suf = "#suf#<td style='padding-top:1px' onclick=#del#>#mydelete#</td>"
 			}
+					
+			if (deletescript NEQ "") {
+			   del  = "#deletescript#('#box#','#dkey#')"				   
+			   suf = "#suf#<td style='padding-top:1px' onclick=#del#>#mydelete#</td>"
+			}
 			
 			/* final cells */				
 			tdcells = "#pre1##pre2##content##suf#"	

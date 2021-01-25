@@ -45,13 +45,13 @@
 
 <!--- grouping 1 --->
 
-<tr class="line"><td colspan="`" <td class="labelmedium" style="height:40px;font-size:21px;padding-left:5px">
+<tr class="line"><td class="labelmedium" style="height:30px;font-size:23px;padding-left:5px">
 	 <cf_tl id="Output Grouping and subtotals">	
 	</td>	
 
    <td colspan="2">
 
-   <table border="0" cellspacing="0" cellpadding="0" class="formpadding">
+   <table class="formpadding">
    
    <cfoutput>
    
@@ -129,7 +129,7 @@
 
 <tr><td colspan="2">
 
-   <table width="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+   <table width="100%" class="formpadding">
    
    <cfoutput>
    
@@ -212,19 +212,16 @@
 			
 		<table width="100%" align="center" cellspacing="0" cellpadding="0" class="formpadding">
 		<tr>
-		   <td height="20" colspan="<cfoutput>#w-1#</cfoutput>" class="cellcontent" style="padding-left:4px;font-weight:200">
+		   <td height="20" colspan="<cfoutput>#w-1#</cfoutput>" class="labelmedium2" style="padding-left:4px">
 		   <font color="gray"><cf_tl id="Click on a field name to select">
 		   </td>
 		   <td align="right" class="cellcontent">
 		   
-			   <table cellspacing="0" cellpadding="0">
-			    <tr class="labelmedium">
-			     <cfoutput>
-				 <td class="padding-top:3px">
-			   	 <cf_img icon="add" onClick="javascript:fieldadd('','contentbox1','#url.id#','#url.table#')">
-				 </td>
-				 <td  style="padding-left:4px">
-			        <a href="javascript:fieldadd('','Detail','#url.id#','#url.table#')"><cf_tl id="Select all fields"></a>
+			   <table>
+			    <tr class="labelmedium2">
+			     <cfoutput>				 
+				 <td  style="padding-left:4px;font-size:17px">
+			        <a href="javascript:fieldadd('','Detail','#url.id#','#url.table#')">[<cf_tl id="Select all fields">]</a>
 			     </td>		 
 			     </cfoutput>
 				</tr>
@@ -234,13 +231,13 @@
 		</tr>
 			
 		<cfif Fields.recordcount eq "0">
-			<tr><td colspan="4" align="center" class="cellcontent" style="font-weight:200"><font color="408080"><cf_tl id="All fields have been selected"></b></font></td></tr>
+			<tr><td colspan="4" align="center" class="cellcontent"><font color="408080"><cf_tl id="All fields have been selected"></b></font></td></tr>
 		</cfif>
 			
 		<tr>
 		
 		  <td colspan="4">		  
-		  	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		  	<table width="100%">
 				<tr>					
 			    <cfset cnt=0>
 				

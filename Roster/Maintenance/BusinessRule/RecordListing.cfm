@@ -21,13 +21,14 @@ password="#SESSION.dbpw#">
 	ORDER  BY R.Owner, R.TriggerGroup
 </cfquery>
 
-<cf_divscroll>
+<cf_screentop html="No" jquery="Yes">
 
-
-<cfset Page         = "0">
-<cfset add          = "1">
-<cfset Header       = "Candidate Class">
-<cfinclude template = "../HeaderRoster.cfm"> 
+<table width="98%" align="center" height="100%">
+	
+	<cfset Page         = "0">
+	<cfset add          = "1">
+	<cfset Header       = "Roster outflow rules">
+	<tr style="height:10px"><td><cfinclude template = "../HeaderRoster.cfm"></td></tr>
 
 <cfoutput>
 
@@ -39,7 +40,7 @@ function recordadd(grp) {
 		var left = (screen.width/2)-(w/2);
 		var top  = (screen.height/2)-(h/2);
 
-        window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left="+left+", top="+top+", width= "+w+", height= "+h+", toolbar=no, status=yes, scrollbars=no, resizable=yes");
+        ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left="+left+", top="+top+", width= "+w+", height= "+h+", toolbar=no, status=yes, scrollbars=no, resizable=yes");
 }
 
 function recordedit(id1) {
@@ -49,21 +50,25 @@ function recordedit(id1) {
 		var left = (screen.width/2)-(w/2);
 		var top  = (screen.height/2)-(h/2);
 
-        window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left="+left+", top="+top+",  width= "+w+", height= "+h+", toolbar=no, status=yes, scrollbars=no, resizable=yes");
+        ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left="+left+", top="+top+",  width= "+w+", height= "+h+", toolbar=no, status=yes, scrollbars=no, resizable=yes");
 }
 
 function recorddelete(id1) {
 		if (confirm('Are you sure that you want to delete this rule?'))
-          ColdFusion.navigate("RecordSubmit.cfm?ID1=" + id1+"&action=delete&idmenu=#url.idmenu#");
+          ptoken.navigate("RecordSubmit.cfm?ID1=" + id1+"&action=delete&idmenu=#url.idmenu#");
 }
 
 </script>	
 
 </cfoutput>
-	
-<table width="94%" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
 
-	<tr class="labelmedium line">
+<tr><td>
+
+<cf_divscroll>
+	
+<table width="94%" align="center" class="navigation_table">
+
+	<tr class="labelmedium2 line fixrow">
 	    <td width="30"></td>
 	    <td>Code</td>
 		<td>Description</td>	
@@ -87,9 +92,9 @@ function recorddelete(id1) {
 	  
 	  		<cfoutput>
 	  
-				<tr class="labelmedium linedotted navigation_row">
+				<tr class="labelmedium2 line navigation_row">
 					<td align="center" style="padding-top:2px">
-						<cf_img icon="edit" navigation="Yes" onclick="recordedit('#Code#')">
+						<cf_img icon="open" navigation="Yes" onclick="recordedit('#Code#')">
 					</td>
 					<td>#Code#</td>
 					<td>#Description#</td>
@@ -97,8 +102,8 @@ function recorddelete(id1) {
 					<td>
 						<cfif Operational eq 1>Yes<cfelse>No</cfif>
 					</td>
-					<td>#StatusTo#</td>
-					<td >
+					<td align="center">#StatusTo#</td>
+					<td style="padding-top:2px">
 						<cfif InUse eq 0>
 							<cf_img icon="delete" onclick="recorddelete('#Code#')">
 						</cfif>
@@ -114,3 +119,8 @@ function recorddelete(id1) {
 </table>
 
 </cf_divscroll>
+
+</td>
+</tr>
+
+</table>

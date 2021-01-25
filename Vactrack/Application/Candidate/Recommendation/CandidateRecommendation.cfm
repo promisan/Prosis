@@ -169,8 +169,8 @@
     </td>
 	</tr>
 	
-	<tr class="labelmedium line">
-	<td colspan="2" valign="top" style="height:80%">
+	<tr class="labelmedium">
+	<td colspan="2" valign="top" align="center" style="padding-top:4px;height:80%;padding-left:10px;padding-right:20px">
 	
 	 <cfquery name="Check" 
 	 datasource="AppsVacancy" 
@@ -182,7 +182,10 @@
 		AND   PersonNo   = '#url.personno#'	 
 		AND   ActionCode = '#url.ActionCode#'  
 	 </cfquery>	
+	 
+	 <textarea style="border:0px;background-color:f1f1f1;height:100%;width:100%;font-size:13px;padding:4px" class="regular"  name="ReviewMemo">#Check.ReviewMemo#</textarea>
 	
+	<!---
 	 <cf_textarea name="ReviewMemo"           		 
 				 init="Yes"							
 				 color="ffffff"	 
@@ -191,15 +194,17 @@
 				 toolbar="Mini"
 				 height="200"
 				 width="100%">#Check.ReviewMemo#</cf_textarea>
+				 
+				 --->
 	</td>
 	</tr>
 	
-	<tr><td colspan="2" align="center">
+	<tr><td colspan="2" align="center" style="padding-top:5px">
 		<table class="formspacing">
 		<tr>
-		<td><input type="button" value="Close" name="Close"   class="button10g" style="font-size:15px;height:26px;width:200px" 
+		<td><input type="button" value="Close" name="Close"   class="button10g" style="font-size:15px;height:28px;width:200px" 
 		     onclick="ProsisUI.closeWindow('decisionbox')"></td>
-		<td><input type="button" value="Submit" name="Submit" class="button10g" style="font-size:15px;height:26px;width:200px" 
+		<td><input type="button" value="Submit" name="Submit" class="button10g" style="font-size:15px;height:28px;width:200px" 
 		     onclick="updateTextArea();ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/Recommendation/CandidateRecommendationSubmit.cfm?wparam=#url.wparam#&documentno=#url.documentNo#&personno=#url.personno#&actioncode=#url.actioncode#&wfinal=#url.wfinal#','myprocess','','','POST','recommendation')"></td>
 		</tr>
 		</table>

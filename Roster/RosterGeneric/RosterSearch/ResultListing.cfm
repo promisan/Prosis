@@ -24,8 +24,8 @@
 
 <cfajaximport>
 
-<table width="100%" height="100%"><tr><td style="width:100%;height:100%" class="clsPrintContent">
-
+<table width="100%" height="100%">
+<tr><td style="width:100%;height:100%" class="clsPrintContent">
  
 <form action="<cfoutput>#SESSION.root#/roster/rostergeneric/RosterSearch/ResultShortList.cfm?mode=#url.mode#&docno=#url.docno#&ID=#URL.ID#&ID1=#URL.ID1#&ID2=#URL.ID2#&ID3=#URL.ID3#</cfoutput>" 
 	method="post" style="height:98%;padding-right:8px"
@@ -186,7 +186,7 @@
 					align="absmiddle" class="hide" style="cursor: pointer;">
 				
 				</td>
-				<td style="padding-left:10px;font-weight:200;font-size:18px"> 		  		  										
+				<td style="padding-left:10px;font-size:18px"> 		  		  										
 				<cf_tl id="matching candidates">:#SearchResult.recordcount#
 				</td>
 				<td style="padding-left:5px">
@@ -235,16 +235,13 @@
   </tr>
    
   <tr class="hide" id="criteriabox"><td id="searchcriteria" colspan="2"></td></tr>
-  
-  <tr><td height="1" class="line" colspan="2"></td></tr>
-  
+    
   <cfif pages gt "1">
     
-	  <tr><td colspan="2" height="25" align="center">	  
+	  <tr class="line"><td colspan="2" height="25" align="center">	  
 	   	<cf_pagenavigation cpage="#cpage#" pages="#pages#">	  
 	  </td></tr>
-	  <tr><td colspan="2" class="line"></td></tr>
-  
+	 
   </cfif>  
   
   <cfelse>
@@ -282,26 +279,26 @@
   
   <cf_divscroll style="height:100%;padding-right:10px">
   
-	  <table width="99%" class="navigation_table">
+	  <table width="99%" border="0" class="navigation_table">
 	
-		<tr><td colspan="12">
+		<cfif URL.Page eq "1">
 	
-			<cfif URL.Page eq "1">
+	    	<cfswitch expression="#URL.ID3#">
+			
+				<tr><td colspan="12">
 		
-		    	<cfswitch expression="#URL.ID3#">
-			
-					<cfcase value="COU">
-		    			<cfinclude template="Summary/PieCountry.cfm">
-					</cfcase>
-			
-				</cfswitch>
-		  
-			</cfif>
-	
-		</td>
-		</tr>
+				<cfcase value="COU">
+	    			<cfinclude template="Summary/PieCountry.cfm">
+				</cfcase>
+				
+				</td>
+				</tr>
+		
+			</cfswitch>
+	  
+		</cfif>		
 					
-		<tr class="labelmedium line">
+		<tr class="labelmedium2 line fixrow">
 			<td style="padding-left:5px" >
 			  <cfif url.print eq "0">
 				<input type="checkbox" name="selectall" value="" onClick="selall(this,this.checked);selected('',this.checked)" class="clsNoPrint">
@@ -315,8 +312,7 @@
 			<td><cf_tl id="Grade"></b></td>
 			<td><!---<b>Expiration</b>---></td>
 			<td><!--- <b>Source</b> ---></td>
-			<td align="center"><cf_tl id="Mail"></td>
-			<td></td>
+			<td align="center"><cf_tl id="Mail"></td>			
 			<cfif url.print eq "0">
 			<td align="center">PHP</td>
 			</cfif>
@@ -334,15 +330,13 @@
 				<cfif SearchAction.SearchCategory eq "Vacancy">
 				
 				<tr>
-					<td colspan="12" height="35" align="center" class="labelit">
-					    <a href="javascript:parent.document.getElementById('menu3').click()"><font color="6688aa">Press here to record a new candidate</font></a>
+					<td colspan="12" height="35" align="center" class="labelmedium2">
+					    <a href="javascript:parent.document.getElementById('menu3').click()">Press here to record a new candidate</a>
 					</td>
 				</tr>
 				
 				</cfif>		
-					
-				<tr><td height="1" colspan="12" bgcolor="e4e4e4"></td></tr>		
-			  			
+							  			
 			</cfif>
 			
 			<cfif url.sort eq "">
@@ -360,11 +354,11 @@
 				   <cfswitch expression = "#URL.Sort#">
 				    
 					 <cfcase value = "Gender">
-						 <tr class="line labelmedium"><td style="height:32px;font-weight:200;font-size:17px" colspan="12"><cfif Gender eq "M"><cf_tl id="Male"><cfelse><cf_tl id="Female"></cfif></b></font></td></tr>						
+						 <tr class="line labelmedium2"><td style="height:32px;font-weight:200;font-size:17px" colspan="12"><cfif Gender eq "M"><cf_tl id="Male"><cfelse><cf_tl id="Female"></cfif></b></font></td></tr>						
 				     </cfcase>
 					 
 				     <cfcase value = "Continent">
-						 <tr class="line labelmedium"><td style="height:32px;font-weight:200;font-size:17px" colspan="12">#Continent#</td></tr>						
+						 <tr class="line labelmedium2"><td style="height:32px;font-weight:200;font-size:17px" colspan="12">#Continent#</td></tr>						
 				     </cfcase>
 					 
 				   </cfswitch>
@@ -380,11 +374,11 @@
 			     <cfif (SearchAction.SearchCategory neq "Vacancy" and Status eq "0") or 
 			    	   (SearchAction.SearchCategory eq "Vacancy" and Status eq "")>
 	
-				      <TR class="navigation_row line labelmedium">
+				      <TR class="navigation_row line labelmedium2">
 						
 				 <cfelse>
 				 
-				      <TR class="navigation_row line labelmedium">
+				      <TR class="navigation_row line labelmedium2">
 						
 				 </cfif>
 				
@@ -441,12 +435,11 @@
 			     </cfif>
 				 
 				 </td>
-			     <TD></td>
-				 
+			     				 
 				 <cfif url.print eq "0">
 				 
-				 	<td style="width:20px" class="linedotted" align="right">
-				 
+				 	<td style="width:20px" class="linedotted">
+									 
 					<cfquery name="Submission" 
 					datasource="AppsSelection" 
 					username="#SESSION.login#" 
@@ -519,10 +512,10 @@
 							<td align="center" valign="top"><img src="#SESSION.root#/Images/join.gif" alt="" border="0"></td>
 						    <TD colspan="11">
 							
-							  <table width="99%" border="0" cellspacing="0" cellpadding="0" bgcolor="f9f9f9" class="formpadding">
+							  <table width="99%" bgcolor="f9f9f9" class="formpadding">
 							   
 								  <cfloop query="FunctionTopic">
-								  <tr>
+								  <tr class="labelmedium">
 								 	<td width="5%" align="center" valign="top">#currentrow#</td>							
 									<td class="labelit" width="5%" align="center" valign="top">
 									<b>
@@ -589,7 +582,7 @@
 					 
 				     <tr><td width="100%">
 					 
-				     <table border="0" cellpadding="0" cellspacing="0" width="100%">
+				     <table width="100%">
 					 
 					  <tr class="labelmedium line">
 					     <td>Status</td>
@@ -612,9 +605,9 @@
 						<tr><td colspan="7" class="labeldotted"></td></tr>
 						
 						<cfelseif PostSpecific eq "1">
-							<TR class="labelmedium" bgcolor="fcfcfc">
+							<TR class="labelmedium2" bgcolor="fcfcfc">
 						<cfelse>
-							<TR class="labelmedium">
+							<TR class="labelmedium2">
 						</cfif>
 						
 					    	 <td width="20%">#Meaning#</td>
@@ -638,7 +631,7 @@
 								 <td>
 								 
 								 <cfif PostSpecific eq "1">
-								  <a href="javascript:showdocument('#DocumentNo#')"><font color="0080C0">#DocumentNo#</a>
+								  <a href="javascript:showdocument('#DocumentNo#')">#DocumentNo#</a>
 								 </cfif>
 								 
 								 </td></tr></table> 

@@ -412,10 +412,8 @@ password="#SESSION.dbpw#">
 				   
 					   <table>
 						   <tr>		
-						   <td>
-						   <cf_img icon="select" tooltip="Editing this field settings" onclick="#edit#">						  						   
-						   </td>		   
-						   <td><cf_img icon="edit" tooltip="Editing this field settings" onclick="fieldedit('#fieldid#','#systemfunctionid#','#FunctionSerialNo#')"></td>						  
+						   <td><cf_img icon="open" tooltip="Editing this field settings" onclick="fieldedit('#fieldid#','#systemfunctionid#','#FunctionSerialNo#')"></td>						  						 
+						   <td><cf_img icon="select" tooltip="Editing this field settings" onclick="#edit#"></td>		   
 						   </tr>
 					   </table>		 
 					
@@ -448,7 +446,7 @@ password="#SESSION.dbpw#">
 				   <td style="border-left:1px solid silver;padding-left:2px;padding-right:2px"><cfif FieldTree eq "0">No<cfelse>Yes</cfif></td>		
 				   
 				   				   
-				    <td style="border-left:1px solid silver;padding-top:3px;padding-left:2px;padding-right:2px">	   
+				    <td style="border-left:1px solid silver;padding-top:4px;padding-left:2px;padding-right:2px">	   
 						   
 							   	<cf_img icon="delete"
 								     onclick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/System/Modules/InquiryBuilder/InquiryEditFieldsPurge.cfm?Datasource=#Form.querydatasource#&SystemFunctionId=#URL.SystemFunctionId#&FunctionSerialNo=#URL.FunctionSerialNo#&fieldid=#fieldid#','fields')">										

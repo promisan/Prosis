@@ -47,6 +47,7 @@
 				 Account, 
 				 AccountMission,
 				 HostName, 
+				 HostSessionId,
 				 NodeIP,
 				 SystemFunctionId,
 				 FunctionName,
@@ -56,10 +57,11 @@
 				 '#SESSION.acc#',
 				 '#user.accountMission#',
 				 '#host#',
+				 '#Session.sessionId#',
 				 '#CGI.Remote_Addr#',
 				 '#attributes.systemFunctionId#',
 				 '#get.FunctionName#',
-				 '#attributes.Action#') 
+				 '#attributes.Action#') 				 
 		</cfquery>
 	
 			<cfif attributes.contenttype eq "Struct">

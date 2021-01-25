@@ -18,22 +18,27 @@ password="#SESSION.dbpw#">
 	ORDER BY ServiceDomain, requestType, requestAction
 </cfquery>
 
-<cf_divscroll>
+<cf_screentop height="100%" scroll="yes" html="No" jquery="Yes">
 
-<cfinclude template = "../HeaderMaintain.cfm"> 
+<table width="94%" height="100%" align="center">
 
-<table width="99%" align="center" cellspacing="0" cellpadding="0">  
+<tr style="height:10px"><td>
+	<cfset add          = "1">
+	<cfset Header       = "Request type workflow">
+	<cfinclude template = "../HeaderMaintain.cfm"> 
+</td>
+</tr>
 
 <cfoutput>
 
 <script language = "JavaScript">
 
 function recordadd(grp) {
-          window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 850, height= 530, toolbar=no, status=yes, scrollbars=no, resizable=no");
+          ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 850, height= 530, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 function recordedit(id1, id2, id3) {
-          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1 + "&ID2=" + id2 + "&ID3=" + id3, "Edit", "left=80, top=80, width=850, height= 530, toolbar=no, status=yes, scrollbars=no, resizable=no");
+          ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1 + "&ID2=" + id2 + "&ID3=" + id3, "Edit", "left=80, top=80, width=850, height= 530, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 </script>	
@@ -42,9 +47,11 @@ function recordedit(id1, id2, id3) {
 	
 <tr><td colspan="2">
 
-<table width="97%" cellspacing="0" cellpadding="1" align="center" class="navigation_table">
+<cf_divscroll>
 
-<tr class="labelit line">
+<table width="97%" align="center" class="navigation_table">
+
+<tr class="labelmedium2 line">
     <td width="60"></td> 
 	<td></td>
 	<td>Action</td>
@@ -58,19 +65,17 @@ function recordedit(id1, id2, id3) {
   
 </tr>
 
-<tr><td class="line" colspan="10"></td></tr>
-
 <cfoutput query="SearchResult" group="serviceDomain">
 
-	<tr><td height="30" colspan="10" class="labelmedium"><b>#serviceDomain# - #serviceDomainDescription#</b></td></tr>
+	<tr><td colspan="10" style="height:40px;font-size:20px" class="labelmedium2"><b>#serviceDomain# - #serviceDomainDescription#</b></td></tr>
 	
 	<cfoutput group="requestType">
 	
-	<tr><td colspan="10" class="line labelmedium">#requestType# - #requestTypeDescription#</td></tr>
+	<tr><td colspan="10" class="line labelmedium2">#requestType# - #requestTypeDescription#</td></tr>
 	
 	<cfoutput>
 	  
-	    <tr class="navigation_row line labelit""> 
+	    <tr class="navigation_row line labelmedium2"> 
 		<td></td>
 		<td width="20" align="center">
 			<cf_img icon="open" navigation="Yes" onclick="recordedit('#serviceDomain#','#requestType#','#requestAction#')">
@@ -93,9 +98,10 @@ function recordedit(id1, id2, id3) {
 
 </table>
 
+</cf_divscroll>
+
 </td>
 </tr>
 
 </table>
 
-</cf_divscroll>

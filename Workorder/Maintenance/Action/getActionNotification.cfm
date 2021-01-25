@@ -8,7 +8,7 @@
 	AND    ActionFulfillment = 'Message'			
 </cfquery>
 			
-<select name="actionNotification" id="actionNotification" class="regularxl">
+<select name="actionNotification" id="actionNotification" class="regularxxl">
     <option value="">--select--</option>
 	<cfoutput query="getAction">
 	  <option value="#code#" <cfif url.action eq Code>selected</cfif>>#Description#</option>

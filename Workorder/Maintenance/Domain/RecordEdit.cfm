@@ -61,27 +61,23 @@ password="#SESSION.dbpw#">
 	}	
 	
 	function showDomainClass(id1, id2) {
-		var vWidth = $(window).width() - 50;
-	   	var vHeight = $(window).height() - 50;
-	   
-	   	try { ColdFusion.Window.destroy('mydialog'); } catch(er) {}
-	   	ColdFusion.Window.create('mydialog', 'Edit Domain', '',{x:30,y:30,height:vHeight,width:vWidth,modal:true,center:true});    
-	   	ColdFusion.Window.show('mydialog'); 				
+		var vWidth = $(window).width() - 150;
+	   	var vHeight = $(window).height() - 150;
+	   	   	
+	   	ProsisUI.createWindow('mydialog', 'Edit Domain', '',{x:30,y:30,height:vHeight,width:vWidth,modal:true,center:true});    	   					
 	   	ptoken.navigate("DomainClass/DomainClassEdit.cfm?id1=" + id1 + "&id2=" + id2 + "&ts=" + new Date().getTime(),'mydialog'); 
 	}
 	
 	function showWorkorderService(id1, id2) {
-		var vWidth = $(window).width() - 50;
-	   	var vHeight = $(window).height() - 50;
+		var vWidth = $(window).width() - 150;
+	   	var vHeight = $(window).height() - 150;
 		
 		if ($.trim(id2) == '') {
 			vWidth = 600;
 			vHeight = 300;
 		}
-	   
-	   	try { ColdFusion.Window.destroy('mydialog'); } catch(er) {}
-	   	ColdFusion.Window.create('mydialog', 'Edit Workorder Service', '',{x:30,y:30,height:vHeight,width:vWidth,modal:false,center:true});    
-	   	ColdFusion.Window.show('mydialog'); 				
+	   	   
+	   	ProsisUI.createWindow('mydialog', 'Edit Workorder Service', '',{x:30,y:30,height:vHeight,width:vWidth,modal:true,center:true});    	   				
 	   	ptoken.navigate("WorkOrderService/WorkOrderServiceEdit.cfm?id1=" + id1 + "&id2=" + id2 + "&ts=" + new Date().getTime(),'mydialog'); 
 	}
 	
@@ -124,15 +120,15 @@ password="#SESSION.dbpw#">
 
 <cfform action="RecordSubmit.cfm" style="height:100%" method="POST" enablecab="Yes" name="dialog">
 
-<table width="95%" height="100%" class="formpadding" align="center">
+<table width="95%" height="100%" class="formpadding formspacing" align="center">
 
 	<tr><td height="6"></td></tr>
     <cfoutput>
-    <TR height="20">
-    <TD width="20%" class="labelmedium"><cf_tl id="Code">:</TD>
-    <TD class="labelmedium">
+    <TR class="labelmedium2">
+    <TD width="20%"><cf_tl id="Code">:</TD>
+    <TD>
 	   <cfif CountRec.recordcount eq "0">	
-		   	<cfinput type="Text" name="Code" value="#get.Code#" message="Please enter a code" required="Yes" size="20" maxlength="20" class="regularxl">
+		   	<cfinput type="Text" name="Code" value="#get.Code#" message="Please enter a code" required="Yes" size="20" maxlength="20" class="regularxxl">
 	   <cfelse>
 	   		#get.Code#
 			<input type="hidden" name="Code" id="Code" value="#get.Code#">
@@ -141,31 +137,34 @@ password="#SESSION.dbpw#">
     </TD>
 	</TR>
 	
-	 <TR height="20">
-    <TD class="labelmedium"><cf_tl id="Description">:</TD>
+	<TR class="labelmedium2">
+    <TD><cf_tl id="Description">:</TD>
     <TD>
-	   <cfinput type="Text" name="Description" value="#get.Description#" message="Please enter a description" required="Yes" size="40" maxlength="50" class="regularxl">
+	   <cfinput type="Text" name="Description" value="#get.Description#" message="Please enter a description"
+	     required="Yes" size="40" maxlength="50" class="regularxxl">
     </TD>
 	</TR>
 	
-	<TR height="20">
-    <TD class="labelmedium"><cf_tl id="Display format reference">:</TD>
+	<TR class="labelmedium2">
+    <TD><cf_tl id="Display format reference">:</TD>
     <TD>
-  	   <cfinput type="Text" name="displayFormat" value="#get.displayFormat#" message="Please enter a display format" required="No" size="40" maxlength="30" class="regularxl">
+  	   <cfinput type="Text" name="displayFormat" value="#get.displayFormat#" message="Please enter a display format" required="No" 
+	      size="40" maxlength="30" class="regularxxl">
     </TD>
 	</TR>
 	
-	<TR height="20">
-    <TD class="labelmedium"><cf_tl id="Order">:</TD>
+	<TR class="labelmedium2">
+    <TD><cf_tl id="Order">:</TD>
     <TD>
-  	   <cfinput type="Text" name="listingOrder" value="#get.listingOrder#" message="Please enter a numeric listing order" required="Yes" size="2" validate="integer" maxlength="3" style="text-align:center" class="regularxl">
+  	   <cfinput type="Text" name="listingOrder" value="#get.listingOrder#" message="Please enter a numeric listing order" required="Yes" size="2" validate="integer" 
+	      maxlength="3" style="text-align:center" class="regularxxl">
     </TD>
 	</TR>
 	
-	<tr>
-		<td class="labelmedium"><cf_tl id="Allow Line concurrency">:</td>
-		<td class="labelmedium">
-		<table><tr class="labelmedium">
+	<tr class="labelmedium2">
+		<td><cf_tl id="Allow Line concurrency">:</td>
+		<td>
+		<table><tr class="labelmedium2">
 		<td style="padding-left:0px"><input type="radio" name="AllowConcurrent" id="AllowConcurrent" class="radiol" value="0" <cfif get.AllowConcurrent eq "0">checked</cfif>></td><td style="padding-left:4px">No</td>
 		<td style="padding-left:4px"><input type="radio" name="AllowConcurrent" id="AllowConcurrent" class="radiol" value="1" <cfif get.AllowConcurrent eq "1">checked</cfif>></td><td style="padding-left:4px">Yes</td>
 		</td></tr></table> 
@@ -179,8 +178,8 @@ password="#SESSION.dbpw#">
 	<tr height="20">
 		
 	<td align="center" colspan="2" height="40">
-	<cfif CountRec.recordcount eq "0"><input class="button10g" type="submit" style="width:120;height:25" name="Delete" id="Delete" value="Delete" onclick="return ask()"></cfif>	
-    <input class="button10g" type="submit" style="width:120;height:25;" name="Update" id="Update" value="Update">
+	<cfif CountRec.recordcount eq "0"><input class="button10g" type="submit" name="Delete" id="Delete" value="Delete" onclick="return ask()"></cfif>	
+    <input class="button10g" type="submit" name="Update" id="Update" value="Update">
 	</td>	
 	
 	</tr>

@@ -175,13 +175,11 @@
 	
 		<TR><td height="1" colspan="2"></td></tr>
 			
-		<TR><td class="labelit" style="padding:2px"><cf_tl id="Decision Remarks">:</td></tr>
+		<TR><td class="labelmedium2" style="padding:2px"><cf_tl id="Decision remarks">:</td></tr>
 		<tr><td colspan="2" style="padding-left:2px">
 
-		    <textarea class="regular" 
-		          cols="75" 
-				  style="width:99%;font-size:13px;padding:3px" 
-				  rows="3" 
+		    <textarea class="regular" 		          
+				  style="width:99%;font-size:13px;padding:3px;height:45px" 				 
 				  name="ActionRemarks" 
 				  type="text"><cfoutput query="Get" maxrows=1>#RosterGroupMemo#</cfoutput></textarea>
 				  

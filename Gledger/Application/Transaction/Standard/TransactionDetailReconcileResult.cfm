@@ -12,7 +12,7 @@ datasource="AppsQuery"
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
     SELECT *
-	FROM #SESSION.acc#GledgerHeader_#client.sessionNo#
+	FROM #SESSION.acc#GledgerHeader_#client.sessionNo#_#session.mytransaction#
 </cfquery>
 
 <!--- check if the contract account for the payment is associated to a certain bank, this we can
@@ -245,7 +245,7 @@ password="#SESSION.dbpw#">
 		<!--- -------already selected in the current active transaction in the process list ------------ --->
 		<!--- ------------------------------------------------------------------------------------------ 	
 		AND    P.TransactionLineId NOT IN (SELECT ParentLineId 
-	                                       FROM   userQuery.dbo.#SESSION.acc#GledgerLine_#client.sessionNo#
+	                                       FROM   userQuery.dbo.#SESSION.acc#GledgerLine_#client.sessionNo#_#session.mytransaction#
 								           WHERE  ParentLineId IS NOT NULL) 
 										   	
 		<cfif URL.find neq "">
@@ -302,7 +302,7 @@ password="#SESSION.dbpw#">
 	<!--- -------already selected in the current active transaction in the process list ------------ --->
 	<!--- ------------------------------------------------------------------------------------------ --->	
 	WHERE   P.TransactionLineId NOT IN (SELECT ParentLineId 
-                                       FROM   userQuery.dbo.#SESSION.acc#GledgerLine_#client.sessionNo#
+                                       FROM   userQuery.dbo.#SESSION.acc#GledgerLine_#client.sessionNo#_#session.mytransaction#
 							           WHERE  ParentLineId IS NOT NULL) 
 									   	
 	<cfif URL.find neq "">

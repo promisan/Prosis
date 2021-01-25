@@ -1,4 +1,5 @@
-<!--- Create Criteria string for query from data entered thru search form --->
+
+<cf_screentop html="No" jquery="Yes">
 
 <cfquery name="SearchResult" 
 datasource="AppsWorkOrder" 
@@ -24,13 +25,14 @@ password="#SESSION.dbpw#">
 
 </cfif>
 
-<cf_divscroll>
+<table width="94%" height="100%" align="center">
 
-<table width="94%" border="0"  align="center" cellspacing="0" cellpadding="0">
-
-<cfset add          = "1">
-<cfset Header       = "Order Class">
-<cfinclude template = "../HeaderMaintain.cfm"> 
+<tr style="height:10px"><td>
+	<cfset add          = "1">
+	<cfset Header       = "Order Class">
+	<cfinclude template = "../HeaderMaintain.cfm"> 
+</td>
+</tr>
 
 <cfoutput>
 
@@ -50,72 +52,76 @@ function recordedit(id1) {
 	
 <tr><td colspan="2" style="padding-top:5px">
 
-<table width="97%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<cf_divscroll>
 
-<tr class="line">
-   
-	<TD width="5%">&nbsp;</TD>
-    <TD class="labelit">Code</TD>
-	<TD class="labelit">Description</TD>	
-	<TD class="labelit">S</TD>	
-	<td class="labelit">Interface</td>
-	<td class="labelit" align="center">Cl</td>
-	<td class="labelit">Oper.</td>
-	<TD class="labelit">Mission</TD>
-    <TD class="labelit">Entered</TD>
-  
-</TR>
-<cfoutput query="SearchResult" group="ServiceClassOrder">
-
-<tr><td style="height:35" colspan="9" class="labellarge">#serviceClass# #ServiceClassDescription#</font></td></tr>
-
-<cfoutput>
-
-	<cfset row = currentrow>
+	<table width="97%" align="center" class="navigation_table">
 	
-    <TR class="navigation_row line"> 
-		<TD align="center" style="padding-top:3px;" class="navigation_action" onClick="javascript:recordedit('#Code#')">
-			<cf_img icon="edit">					  
-		</TD>		
-		<TD class="labelit">#Code#</TD>
-		<TD class="labelit">#Description#</TD>		
-		<TD class="labelit">#ListingOrder#</TD>
-		<td class="labelit"><cfif CustomForm eq "">None<cfelse>#CustomForm#</cfif></td>
-		<td align="center">
-			<table align="center">
-				<tr>
-					<td align="center" width="16" height="16" bgcolor="#ServiceColor#" title="#ServiceColor#" style="border:1px solid black;"></td>
-				</tr>
-			</table>
-		</td>
-		<td class="labelit" style="padding-left:4px"><cfif operational eq "No">No<cfelse>Yes</cfif></td>
-		<TD class="labelit" style="width:30%">
+	<tr class="labelmedium2 line">
+	   
+		<TD width="5%">&nbsp;</TD>
+	    <TD>Code</TD>
+		<TD>Description</TD>	
+		<TD>S</TD>	
+		<td>Interface</td>
+		<td align="center">Cl</td>
+		<td>Oper.</td>
+		<TD>Mission</TD>
+	    <TD>Entered</TD>
+	  
+	</TR>
+	<cfoutput query="SearchResult" group="ServiceClassOrder">
+	
+	<tr class="line"><td style="height:40px;font-size:18px" colspan="9" class="labellarge">#serviceClass# #ServiceClassDescription#</font></td></tr>
+	
+	<cfoutput>
+	
+		<cfset row = currentrow>
 		
-			<cfquery name="Mission" 
-			datasource="AppsWorkOrder" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-				SELECT   *
-				FROM     ServiceItemMission
-				WHERE    ServiceItem = '#Code#' 		
-			</cfquery>
+	    <TR class="navigation_row line labelmedium2"> 
+		
+			<TD align="center" style="padding-top:1px;" class="navigation_action" onClick="javascript:recordedit('#Code#')">
+				<cf_img icon="edit">					  
+			</TD>		
+			<TD>#Code#</TD>
+			<TD>#Description#</TD>		
+			<TD>#ListingOrder#</TD>
+			<td><cfif CustomForm eq "">None<cfelse>#CustomForm#</cfif></td>
+			<td align="center">
+				<table align="center">
+					<tr>
+						<td align="center" width="16" height="16" bgcolor="#ServiceColor#" title="#ServiceColor#" style="border:1px solid black;"></td>
+					</tr>
+				</table>
+			</td>
+			<td style="padding-left:4px"><cfif operational eq "No">No<cfelse>Yes</cfif></td>
+			<TD style="width:30%">
 			
-			<cfloop query="Mission">
-			    #Mission#&nbsp;
-			</cfloop>			
-		
-		</TD>
-		<TD class="labelit">#Dateformat(Created, "#CLIENT.DateFormatShow#")#</TD>
-    </TR>	
-		
-</CFOUTPUT>
-</CFOUTPUT>
+				<cfquery name="Mission" 
+				datasource="AppsWorkOrder" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					SELECT   *
+					FROM     ServiceItemMission
+					WHERE    ServiceItem = '#Code#' 		
+				</cfquery>
+				
+				<cfloop query="Mission">
+				    #Mission#&nbsp;
+				</cfloop>			
+			
+			</TD>
+			<TD>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</TD>
+	    </TR>	
+			
+	</CFOUTPUT>
+	</CFOUTPUT>
+	
+	</TABLE>
 
-</TABLE>
+</cf_divscroll>
 
 </td>
 </tr>
 
 </TABLE>
 
-</cf_divscroll>

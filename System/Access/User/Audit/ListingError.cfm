@@ -17,41 +17,39 @@
 
 <cfset itm = "0">
 <cfset itm = itm+1>
-<cfset fields[itm] = {label   = "Diagnostics", 					
-					field   = "ErrorDiagnostics",
-					width   = "150",
-					sort    = "No",
-					search  = "text"}>		
+<cfset fields[itm] = {label      = "Diagnostics", 					
+					  field      = "ErrorDiagnostics",
+					  width      = "150",
+					  sort       = "No",
+					  search     = "text"}>		
 
 <cfset itm = itm+1>
-<cfset fields[itm] = {label   = "ErrorNo",                    
-					field   = "ErrorNo",
-					search  = "text"}>
+<cfset fields[itm] = {label      = "ErrorNo",                    
+					  field      = "ErrorNo",
+					  search     = "text"}>
 
 <cfset itm = itm+1>					
-<cfset fields[itm] = {label   = "Server",                    
-					field   = "HostName",
-					search  = "text"}>
-					
+<cfset fields[itm] = {label      = "Server",                    
+					  field      = "HostName",
+					  search     = "text"}>		
 
 <cfset itm = itm+1>					
-<cfset fields[itm] = {label   = "Directory",                    
-					field   = "TemplateGroup",
-					search  = "text"}>					
+<cfset fields[itm] = {label      = "Directory",                    
+					  field      = "TemplateGroup",
+					  search     = "text"}>					
 
 <cfset itm = itm+1>									
 <cfset fields[itm] = {label      = "Sent",    					
-					field      = "ErrorTimeStamp",
-					formatted  = "dateformat(ErrorTimeStamp,CLIENT.DateFormatShow)",
-					search     = "date"}>
+				 	  field      = "ErrorTimeStamp",					
+					  formatted  = "dateformat(ErrorTimeStamp,CLIENT.DateFormatShow)",
+					  search     = "date"}>
 
 <cfset itm = itm+1>					
 <cfset fields[itm] = {label      = "Time",    					
-					field      = "ErrorTimeStamp",
-					formatted  = "timeformat(ErrorTimeStamp,'HH:MM')"}>					
+					  field      = "ErrorTimeStamp",
+					  formatted  = "timeformat(ErrorTimeStamp,'HH:MM')"}>					
 
-<table width="100%" height="100%"><tr><td style="padding:10px">		
-			
+		
 <cf_listing
     header        = "#client.header#"
     box           = "userdetail"
@@ -72,7 +70,5 @@
 	drillargument = "740;800;false;false"	
 	drilltemplate = "System/Access/User/Audit/ListingErrorDetail.cfm"
 	drillkey      = "ErrorId">
-	
-	</td></tr></table>	
-	
+		
 </cfoutput>	

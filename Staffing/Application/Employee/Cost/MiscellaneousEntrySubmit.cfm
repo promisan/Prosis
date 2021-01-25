@@ -47,16 +47,16 @@ function editEntitlement(persno, no) {
 	WHERE  PayrollItem = '#Form.Entitlement#'
  </cfquery>
  
- <cfloop index="itm" from="1" to="10">	
+ <cfloop index="itm" from="1" to="12">	
 	  
 	 <cfset dte = evaluate("Form.DateEffective_#itm#")>
 	 <cfset pay = evaluate("Form.PayrollStart_#itm#")>
 	 <cfset cur = evaluate("Form.Currency_#itm#")>
 	 <cfset amt = evaluate("Form.Amount_#itm#")>
 	 <cfset ecl = evaluate("Form.EntityClass_#itm#")>
-	 
+			 
 	 <cfif dte neq "" and amt neq "">
-	 
+	 	 
 	 		 <cfset dateValue = "">
 			 <CF_DateConvert Value="#dte#">
 			 <cfset STR = dateValue>
@@ -231,7 +231,7 @@ function editEntitlement(persno, no) {
 		  
 		  </cfif> 
 	  
-</cfloop> 		  
+</cfloop> 		
 		
 <cfoutput>
 		

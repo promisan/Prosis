@@ -10,7 +10,7 @@ password="#SESSION.dbpw#">
 	ORDER BY Mission, TabOrder asc
 </cfquery>
 
-<table width="100%" cellspacing="0" cellpadding="0" class="formpadding navigation_table">
+<table width="100%" class="formpadding navigation_table">
 
 	<tr><td height="7"></td></tr> 
 
@@ -25,7 +25,7 @@ password="#SESSION.dbpw#">
 
 	<tr><td height="7"></td></tr> 
 
- 	<TR class="line labelit" height="18">	 	
+ 	<TR class="line labelmedium2" height="18">	 	
 	   <td width="5"></td>
 	   <td>Name</td>	  
 	   <td align="center">Order</td>
@@ -52,27 +52,27 @@ password="#SESSION.dbpw#">
           
    <cfoutput>   
 	 
-	<tr class="navigation_row line labelit">
-		
-		<td height="25"></td>
-		<td>#tabName#</td>	  
-		<td align="center">#tabOrder#</td>
-		<td align="center"><cfif trim(tabIcon) neq ""><img src="#SESSION.root#/Images/#tabIcon#" height="22" width="22" alt="#SESSION.root#/Images/#tabIcon#" border="0" align="absmiddle"></cfif></td>				
-		<td>#tabTemplate#</td>
-		<td align="center">#AccessLevelRead#</td>
-		<td align="center">#AccessLevelEdit#</td>
-		<td align="center">#modeOpen#</td>
-		<td align="center"><cfif operational eq "0"><b>No</b><cfelse>Yes</cfif></td>	   				
-		<td>#dateformat(created,CLIENT.DateFormatShow)#</td>		   	      	   		   
-		<td align="center" width="20">
-			<cf_img icon="edit" onclick="showitemtab('#mission#', '#code#', '#tabName#')">
-		</td>
-		<td align="center" width="20">
-			<cf_img icon="delete" onclick="if (confirm('Do you want to remove this record ?')) ColdFusion.navigate('#SESSION.root#/workorder/maintenance/ServiceItemTab/ServiceItemTabPurge.cfm?ID1=#mission#&ID2=#code#&ID3=#tabName#','contentbox2');">
-		</td>
-	 </tr>		   		   
-	
-  
+		<tr class="navigation_row line labelmedium2">
+			
+			<td></td>
+			<td>#tabName#</td>	  
+			<td align="center">#tabOrder#</td>
+			<td align="center"><cfif trim(tabIcon) neq ""><img src="#SESSION.root#/Images/#tabIcon#" height="22" width="22" alt="#SESSION.root#/Images/#tabIcon#" border="0" align="absmiddle"></cfif></td>				
+			<td>#tabTemplate#</td>
+			<td align="center">#AccessLevelRead#</td>
+			<td align="center">#AccessLevelEdit#</td>
+			<td align="center">#modeOpen#</td>
+			<td align="center"><cfif operational eq "0"><b>No</b><cfelse>Yes</cfif></td>	   				
+			<td>#dateformat(created,CLIENT.DateFormatShow)#</td>		   	      	   		   
+			<td align="center" width="20">
+				<cf_img icon="edit" navigation="true" onclick="showitemtab('#mission#', '#code#', '#tabName#')">
+			</td>
+			<td align="center" width="20">
+				<cf_img icon="delete" onclick="if (confirm('Do you want to remove this record ?')) ptoken.navigate('#SESSION.root#/workorder/maintenance/ServiceItemTab/ServiceItemTabPurge.cfm?ID1=#mission#&ID2=#code#&ID3=#tabName#','contentbox2');">
+			</td>
+			
+		</tr>		   		   
+	  
    </cfoutput>
    
    <tr><td height="10"></td></tr>

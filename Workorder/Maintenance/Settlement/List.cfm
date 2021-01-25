@@ -37,16 +37,16 @@ password="#SESSION.dbpw#">
 		
 		<cfoutput>
 		
-		 <TR height="18" class="line">
-			   <td class="labelit"><cf_tl id="Mission"></td>
-			   <td width="40%" class="labelit"><cf_tl id="GLAccount"></td>
-			   <td class="labelit"><cf_tl id="Order"></td>		
-   			   <td class="labelit"><cf_tl id="Officer"></td>		
-   			   <td class="labelit"><cf_tl id="Created"></td>		
-			   <td class="labelit" align="right" style="padding-right:4px">
+		 <TR height="18" class="line labelmedium">
+			   <td><cf_tl id="Mission"></td>
+			   <td width="40%"><cf_tl id="GLAccount"></td>
+			   <td><cf_tl id="Order"></td>		
+   			   <td><cf_tl id="Officer"></td>		
+   			   <td><cf_tl id="Created"></td>		
+			   <td align="right" style="padding-right:4px">
 			   		<cfoutput>
 						<cfif url.action neq 'new'>
-							<a title="Link new mission" href="javascript:addMission('#url.code#')"><font color="0080FF">[Add]</font></a>
+							<a title="Link new mission" href="javascript:addMission('#url.code#')">[Add]</a>
 						</cfif>
 					</cfoutput>
 			   </td>  
@@ -150,14 +150,14 @@ password="#SESSION.dbpw#">
 													
 			<cfelse>								
 						
-				<TR class="navigation_row line" bgcolor="ffffff">
-				   <td class="labelit">&nbsp;#Mission#</td>
-				   <td height="20" class="labelit"><cfif GLAccount eq ""><font color="808080">[Accounts Receivable]</font><cfelse>#GLAccount# #Description#</cfif></td>
-   				   <td height="20" class="labelit">#ListingOrder#</td>
-				   <td class="labelit">#OfficerFirstName# #OfficerLastName#</td>
-				   <td class="labelit">#dateFormat(Created,"dd/mm/yyyy")#</td>
+				<TR class="navigation_row line labelmedium" bgcolor="ffffff">
+				   <td>&nbsp;#Mission#</td>
+				   <td height="20"><cfif GLAccount eq ""><font color="808080">[Accounts Receivable]</font><cfelse>#GLAccount# #Description#</cfif></td>
+   				   <td height="20">#ListingOrder#</td>
+				   <td>#OfficerFirstName# #OfficerLastName#</td>
+				   <td>#dateFormat(Created,"dd/mm/yyyy")#</td>
 				   <td align="right" style="padding-right:4px">
-					  <cf_img icon="edit" navigation="Yes" onclick="ColdFusion.navigate('List.cfm?code=#URL.code#&mission=#mission#','#url.code#_list')">
+					  <cf_img icon="open" navigation="Yes" onclick="ptoken.navigate('List.cfm?code=#URL.code#&mission=#mission#','#url.code#_list')">
 				   </td>					
 				 </TR>					 
 										

@@ -24,7 +24,7 @@ function orgaccess() {
 
 <cf_tl id="Tree Builder" var="1">
 
-<cf_screenTop height="100%" banner="gray" label="#lt_text# #URL.Mission#" html="no" scroll="no" jQuery="Yes" MenuAccess="Yes" validateSession="Yes">
+<cf_screenTop height="100%" banner="gray" label="#lt_text# #URL.Mission#" html="no" scroll="no" jQuery="Yes" MenuAccess="Yes" validateSession="Yes" treetemplate="Yes">
 
 <cf_layoutScript>
 

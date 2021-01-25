@@ -67,7 +67,7 @@
 	</cfquery>
 	
 	<cfset list = "">
-	<cfset cellspace = round(800/Resource.recordcount)>	
+	<cfset cellspace = round(1000/Resource.recordcount)>	
 	
 	<cfif Resource.recordcount gte "1">
 	<cfif cellspace lt "39">

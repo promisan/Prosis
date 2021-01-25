@@ -102,13 +102,13 @@ password="#SESSION.dbpw#">
 			<tr>
 			
 			<td id="php_#attributes.script#">
-					
+											
 				<cfdiv id="detail_#attributes.script#">	
 							
 				<cfif Attributes.DisplayType eq "Button">
 				
-				   <input style="#Attributes.Style#" 
-				   type    = "button" 
+								
+				   <input type    = "button" 
 				   style   =  "width:#Attributes.ButtonWidth#;height=#Attributes.ButtonHeight#;#Attributes.Style#"
 				   name    = "Edit" 
 				   id      = "Edit"
@@ -116,9 +116,10 @@ password="#SESSION.dbpw#">
 				   value   = "#Attributes.DisplayText#" 
 				   class   = "#Attributes.Class#" 
 				   onClick = "printingPHP('#Attributes.RosterList#','#Attributes.Format#','#Attributes.script#')">	
-				   
+				  				   
 				<cfelseif Attributes.DisplayType eq "Graphic">
-						
+				
+										
 					  <table><tr><td class="labelit">		  
 			  		  <a href="javacript:printingPHP('#Attributes.RosterList#','#Attributes.Format#','#Attributes.script#')">
 				      <font color="6688aa">#Attributes.DisplayText#</font>
@@ -136,7 +137,7 @@ password="#SESSION.dbpw#">
 						    	   alt     = "Personal History Profile" 						
 							       border  = "0" 
 								   align   = "absmiddle" 
-							       style   = "#Attributes.Style#">
+							       style   = "#Attributes.Style#;">
 						
 				      </button>
 				  
@@ -144,6 +145,7 @@ password="#SESSION.dbpw#">
 				  
 				 <cfelse>
 				 
+								 
 				 	 <table><tr><td class="labelit">	
 				      
 					  <a href="javascript:printingPHP('#Attributes.RosterList#','#Attributes.Format#','#Attributes.script#')">#Attributes.DisplayText# </a>
@@ -156,7 +158,7 @@ password="#SESSION.dbpw#">
 						        border  = "0" 
 								onClick =  "printingPHP('#Attributes.RosterList#','#Attributes.Format#','#Attributes.script#')"
 							    align   = "absmiddle" 
-						        style   = "#Attributes.Style#">				
+						        style   = "#Attributes.Style#;width:#Attributes.ButtonWidth#;height=#Attributes.ButtonHeight#;#Attributes.Style#">				
 							
 					  
 					   </td></tr>

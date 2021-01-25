@@ -119,6 +119,8 @@
 
 <!--- delete mode --->
 <cfparam name="attributes.deletetable"        default="">
+<cfparam name="attributes.deletescript"       default="">
+<cfparam name="attributes.deletecondition"    default="">
 
 <!--- optioon to control the default mode of taking fresh data--->
 <cfparam name="attributes.refresh"            default="1">
@@ -151,6 +153,7 @@
 
 <cfparam name="datasource"                 default="#attributes.datasource#">
 <cfparam name="deletetable"                default="#attributes.deletetable#">
+<cfparam name="deletescript"               default="#attributes.deletescript#">
 <cfparam name="argument"                   default="#attributes.drillargument#">
 
 <!--- pass dialog argument into a an array --->
@@ -257,6 +260,7 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
     <cf_ListingUserGet systemfunctionid="#url.systemfunctionid#" listlayout="#attributes.listlayout#" modefield="Sorting">	
 				
 </cfif>	
+
 
 <!--- default group --->
 
@@ -1048,6 +1052,7 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 <!--- ---------------------- --->
 
 <cfset box = attributes.box>  <!--- set by hanno 12/9/19 as box was blank --->
+
 
 <cfif url.ajaxid eq "content">
   

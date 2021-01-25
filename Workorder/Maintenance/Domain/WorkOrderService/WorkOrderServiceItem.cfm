@@ -21,24 +21,21 @@
 
 <table width="95%" align="center" class="navigation_table">
 	
-	<tr>
+	<tr class="labelmedium2 line">
 		<td></td>
-		<td class="labelit"><cf_tl id="Barcode"></td>
-		<td class="labelit"><cf_tl id="Item"></td>
-		<td class="labelit"><cf_tl id="UoM"></td>
+		<td><cf_tl id="Barcode"></td>
+		<td><cf_tl id="Item"></td>
+		<td><cf_tl id="UoM"></td>
 	</tr>
-	<tr><td height="5"></td></tr>
-	<tr><td class="line" colspan="4"></td></tr>
-	<tr><td height="5"></td></tr>
-
+	
 	<cfoutput query="GetItems">
-		<tr class="navigation_row">
-			<td class="labelit" width="1%" style="padding-right:5px;">
+		<tr class="navigation_row labelmedium2 line">
+			<td width="1%" style="padding-right:5px;">
 				<cf_img icon="delete" onclick="if (confirm('Do you want to remove this item ?')) { _cf_loadingtexthtml='';ptoken.navigate('WorkOrderService/WorkOrderServiceItemPurge.cfm?servicedomain=#url.id1#&reference=#reference#&itemNo=#itemno#&uom=#uom#','purgeitemsubmit'); }">
 			</td>
-			<td class="labelit">#ItemBarcode#</td>
-			<td class="labelit">[#ItemNo#] #ItemDescription#</td>
-			<td class="labelit">[#UoM#] #UoMDescription#</td>
+			<td>#ItemBarcode#</td>
+			<td>[#ItemNo#] #ItemDescription#</td>
+			<td>[#UoM#] #UoMDescription#</td>
 		</tr>
 	</cfoutput>
 	

@@ -324,15 +324,13 @@ WHERE   Role = '#URL.ID#'
 		    <td height="15" style="padding-left:13px"><cf_tl id="eMail">:</td>
 			<td>
 				<cfif Get.eMailAddress neq "">
-			     <a href="javascript:email('#Get.eMailAddress#','','','','User','#Get.Account#')">
-				 <font color="0080C0">
+			     <a href="javascript:email('#Get.eMailAddress#','','','','User','#Get.Account#')">				 
 			    </cfif>#Get.eMailAddress#
 			</td>
 			<td height="15" style="padding-left:3px"><cf_tl id="eMail external">:</td>
 			<td>
 				<cfif Get.eMailAddressExternal neq "">
-			    <a href="javascript:email('#Get.eMailAddressExternal#','','','','User','#Get.Account#')">
-				<font color="0080C0">
+			    <a href="javascript:email('#Get.eMailAddressExternal#','','','','User','#Get.Account#')">				
 			    </cfif>#Get.eMailAddressExternal#
 			</td>
 		</tr>		
@@ -343,7 +341,7 @@ WHERE   Role = '#URL.ID#'
 		
 			<cf_divscroll>
 					
-			<table width="99%" align="center">
+			<table width="97%" class="navigation_table">
 			
 			<cfif Role.Parameter eq "Entity">
 				<input type="hidden" name="ClassIsAction" id="ClassIsAction" value="1">
@@ -470,10 +468,10 @@ WHERE   Role = '#URL.ID#'
 					<!--- ---------------------- --->
 					<!--- show mission selection --->
 					<!--- ---------------------- --->
-					
+										
 						 <cfif Role.Parameter neq "Entity">
 						 
-						 	<tr id="#mission#selected"  class="labelmedium" style="height:22px">
+						 	<tr id="#mission#selected"  class="labelmedium navigation_row" style="height:22px">
 						 
 						    <td colspan="2" height="18" style="padding-left:14px">
 												
@@ -503,7 +501,7 @@ WHERE   Role = '#URL.ID#'
 													
 						<cfelse>
 						
-							<tr  id="#mission#selected" class="labelmedium" style="height:22px">
+							<tr  id="#mission#selected" class="labelmedium2 navigation_row">
 						
 							  <td colspan="2" height="20" class="labelmedium" style="padding-left:14px">
 							  												
@@ -517,7 +515,7 @@ WHERE   Role = '#URL.ID#'
 								   align="absmiddle" 
 								   style="cursor: pointer;">
 								   								   
-								&nbsp;<a href="javascript:show('s_#mission#')"><font color="0080C0">#Mission#</font></a>&nbsp;<cfif MissionStatus eq "1"><font color="gray">:<i>static</i></cfif> 
+								&nbsp;<a href="javascript:show('s_#mission#')">#Mission#</a>&nbsp;<cfif MissionStatus eq "1"><font color="gray">:<i>static</i></cfif> 
 								
 							 </td>
 							 <td align="right" colspan="2">#MissionName#</td>		
@@ -526,7 +524,7 @@ WHERE   Role = '#URL.ID#'
 													
 						</cfif>
 						
-					<tr class="line labelmedium">
+					<tr class="labelmedium2" style="border-top:1px solid silver;height:1px">
 					
 						<cfset URL.Mission = "#Mission#">
 						<cfset ms          = "#currentRow#">
@@ -546,15 +544,15 @@ WHERE   Role = '#URL.ID#'
 						   AND      Role        = '#Role.Role#'	
 						   AND      UserAccount = '#get.account#'					   				
 					   </cfquery>		
-					   
-					   					   
+					   					   					   
 					    <cfif AccessGranted.recordcount gte "1">
 						
-						<td colspan="4" id="s_#mission#" class="regular" style="height:30px;padding-left:6px" width="93%" align="right">
-						
+						<td colspan="4" id="s_#mission#" class="labelmedium2" style="padding-left:6px" width="93%" align="right">
+												
 						<cfelse>
 						
-						<td colspan="4" id="s_#mission#" class="hide" style="height:30px;padding-left:6px" width="93%" align="right">
+						<td colspan="4" id="s_#mission#" class="hide" style="padding-left:6px" width="93%" align="right">
+						
 						
 						</cfif>
 												

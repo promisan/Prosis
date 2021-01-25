@@ -1,13 +1,20 @@
 
-<cf_screentop height="100%" jquery="Yes" systemmodule="Accounting"
-			  functionclass="Window"
-			  functionname="Transaction Edit" 
-			  html="yes" layout="webapp" line="no" banner="green" label="Edit Transaction" scroll="yes">
+<cf_screentop height="100%" jquery="Yes" systemmodule="Accounting" functionclass="Window" functionname="Transaction Edit" 
+			  html="yes" 
+			  layout="webapp" 
+			  line="no" 
+			  banner="green" 
+			  label="Edit #URL.Journal# #URL.JournalSerialNo#" 
+			  onfocus="setscopeno" onclose="xxxxx">
+	  
+		 	  				  
+<cfparam name="SESSION.mytransaction" default="0">  
+<cfset session.mytransaction = session.mytransaction +1>	
 
 <!--- create temp tables --->
 
-<CF_DropTable dbName="AppsQuery" tblName="#SESSION.acc#GledgerHeader_#client.sessionNo#"> 
-<CF_DropTable dbName="AppsQuery" tblName="#SESSION.acc#GledgerLine_#client.sessionNo#"> 
+<CF_DropTable dbName="AppsQuery" tblName="#SESSION.acc#GledgerHeader_#client.sessionNo#_#session.mytransaction#"> 
+<CF_DropTable dbName="AppsQuery" tblName="#SESSION.acc#GledgerLine_#client.sessionNo#_#session.mytransaction#"> 
 
 <!--- populate header table --->
 
@@ -24,7 +31,7 @@ password="#SESSION.dbpw#">
 		   T.ParentJournalSerialNo,
 		   T.ParentTransactionId,
 		   T.ParentLineId
-	INTO   UserQuery.dbo.#SESSION.acc#GledgerHeader_#client.sessionNo#
+	INTO   UserQuery.dbo.#SESSION.acc#GledgerHeader_#client.sessionNo#_#session.mytransaction#
 	FROM   TransactionHeader J LEFT OUTER JOIN 
 	       TransactionLine T ON J.Journal = T.Journal AND  J.JournalSerialNo = T.JournalSerialNo AND T.TransactionSerialNo = '0'
 	WHERE  J.Journal = '#URL.Journal#'
@@ -38,7 +45,7 @@ password="#SESSION.dbpw#">
 datasource="AppsQuery" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-	SELECT * FROM #SESSION.acc#GledgerHeader_#client.sessionNo#	
+	SELECT * FROM #SESSION.acc#GledgerHeader_#client.sessionNo#_#session.mytransaction#	
 </cfquery>
 
 <cfif getContra.ContraGLAccount eq "">
@@ -59,7 +66,7 @@ password="#SESSION.dbpw#">
 		datasource="AppsQuery" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-			UPDATE #SESSION.acc#GledgerHeader_#client.sessionNo#
+			UPDATE #SESSION.acc#GledgerHeader_#client.sessionNo#_#session.mytransaction#
 			SET    ContraGLAccount = '#ContraAccount.GLAccount#'	
 		</cfquery>
 	
@@ -71,7 +78,7 @@ password="#SESSION.dbpw#">
 datasource="AppsQuery" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-	UPDATE #SESSION.acc#GledgerHeader_#client.sessionNo#
+	UPDATE #SESSION.acc#GledgerHeader_#client.sessionNo#_#session.mytransaction#
 	SET    ContraGLAccountType = 'Debit'
 	WHERE  AmountDebit <> 0.0
 </cfquery>
@@ -83,7 +90,7 @@ datasource="AppsLedger"
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
  	SELECT IDENTITY(INT,1,1) as Serialno,T.*
- 	INTO   UserQuery.dbo.#SESSION.acc#GledgerLine_#client.sessionNo#
+ 	INTO   UserQuery.dbo.#SESSION.acc#GledgerLine_#client.sessionNo#_#session.mytransaction#
 	FROM   TransactionLine T, TransactionHeader J
 	WHERE  T.Journal       = '#URL.Journal#'
 	AND    T.JournalSerialNo = '#URL.JournalSerialNo#'

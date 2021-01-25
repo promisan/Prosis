@@ -1,33 +1,32 @@
 <cfparam name="url.idmenu" default="">
 
 <cf_screentop height="100%" 
-			  label="Service Class" 
-			  option="Service Item Class Maintenance" 
+			  label="Service Class" 			
 			  scroll="Yes" 
 			  layout="webapp" 
 			  banner="blue" 
 			  menuAccess="Yes" 
 			  systemfunctionid="#url.idmenu#">
 
-<CFFORM action="RecordSubmit.cfm" method="post" enablecab="yes" name="dialog">
+<CFFORM action="RecordSubmit.cfm" method="post" name="dialog">
 
 <!--- Entry form --->
 
-<table width="95%" cellspacing="2" cellpadding="2" align="center" class="formpadding">
+<table width="95%" align="center" class="formpadding formspacing">
 
     <tr><td></td></tr>
    <!--- Field: Id --->
     <TR>
-    <TD class="labelmedium">Code:</TD>
+    <TD class="labelmedium2">Code:</TD>
     <TD>
 		<cfinput type="Text" name="Code" value="" message="Please enter a code" required="Yes" size="10" maxlength="10"
-		class="regularxl">
+		class="regularxxl">
 	</TD>
 	</TR>
 	
 	   <!--- Field: Description --->
     <TR valign="top">
-    <TD class="labelmedium">Description:</TD>
+    <TD class="labelmedium2">Description:</TD>
     <TD>
 		<cf_LanguageInput
 			TableCode		= "ServiceItem"
@@ -40,20 +39,21 @@
 			Message         = "Please enter a description"
 			MaxLength       = "100"
 			Size            = "30"
-			Class           = "regularxl">
+			Class           = "regularxxl">
 	</TD>
 	</TR>		 		 	 
 	
 	   <!--- Field: Listing Order --->
     <TR>
-    <TD class="labelmedium">Listing Order:</TD>
+    <TD class="labelmedium2">Listing Order:</TD>
     <TD>
-		<cfinput type="Text" name="ListingOrder" value="" message="Please enter numeric Listing Order" required="Yes" size="2" maxlength="2" validate="integer" class="regularxl">
+		<cfinput type="Text" name="ListingOrder" value="" message="Please enter numeric Listing Order" required="Yes" size="2" 
+		  maxlength="2" validate="integer" class="regularxxl">
 	</TD>
 	</TR>
 	
 	 <!--- Field: Operational --->
-    <tr class="labelmedium">
+    <tr class="labelmedium2">
 		<td>Operational:&nbsp;</td>
 		<td colspan="3">
 		<input type="radio" class="radiol" name="operational" id="operational" value="0">No

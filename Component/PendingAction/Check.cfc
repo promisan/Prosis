@@ -72,7 +72,8 @@
 					AND      RequestType != 'Purchase'		
 					AND      I.Code = L.ItemMaster 
 					AND      L.RequestDescription > ''					
-					GROUP BY L.Mission, L.Period				
+					GROUP BY L.Mission, L.Period	
+								
 				</cfquery>		
 			
 			</cftransaction>		

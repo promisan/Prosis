@@ -165,7 +165,7 @@ function validate(){
 		
 	<td align="center" colspan="2" height="40">
 	<!--- <cfif CountRec.recordcount eq "0"><input class="button10g" type="submit" style="width:80" name="Delete" value="Delete" onclick="return ask()"></cfif> --->	
-    <input class="button10g" type="submit" style="width:100" name="Update" id="Update" value="Update">
+    <input class="button10g" type="submit" name="Update" id="Update" value="Update">
 	</td>	
 	
 	</tr>	

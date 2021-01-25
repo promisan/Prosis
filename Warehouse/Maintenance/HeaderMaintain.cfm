@@ -19,9 +19,6 @@
 
 <link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
 
-
-
-
 <cftry>
 	
 	<cfoutput>
@@ -54,34 +51,40 @@
 
 </cftry>
 
-<table width="100%" border="0" class="formspacing">
+	<table width="100%">
+		
+		<tr><td colspan="4" class="line"></td></tr>
+		
+		<cfif add eq "1" or option neq "" or save eq "1">
+		
+		<cf_tl id="Menu"   var="vMenu">
+		<cf_tl id="Add"    var="vAdd">
+		<cf_tl id="Update" var="vUpdate">
+		<cf_tl id="Back"   var="vBack">
+		
+		<tr>
 	
-	<tr><td colspan="4" class="line"></td></tr>
-	
-	<cf_tl id="Menu"   var="vMenu">
-	<cf_tl id="Add"    var="vAdd">
-	<cf_tl id="Update" var="vUpdate">
-	<cf_tl id="Back"   var="vBack">
-	
-	<tr>
-
-	 <cfoutput>
-	  <td style="width:10px;padding-left:10px;padding-right:4px">
-	  <input type="button" value="#vMenu#" class="button10g"  onclick="menu()">		  
-	  </td>
-	  <cfif add eq "1">
-	  	<td style="padding-left:3px">
-      	<input type="button" value="#vAdd#" class="button10g" onclick="javascript:recordadd('')">
-		</td>
-	  </cfif>
-	  <cfif option neq ""><td style="padding-left:3px">#option#</td></cfif>
-	  <cfif save eq "1">
-	  	  <td style="padding-left:3px">
-	  	  <input type="submit" name="Update" id="Update" value="#vUpdate#" class="button10g">
+		 <cfoutput>
+		  <td style="width:10px;padding-left:10px;padding-right:4px">
+		  <input type="button" value="#vMenu#" class="button10g"  onclick="menu()">		  
 		  </td>
-	  </cfif>	  
-	 </cfoutput>
+		  <cfif add eq "1">
+		  	<td style="padding-left:3px">
+	      	<input type="button" value="#vAdd#" class="button10g" onclick="javascript:recordadd('')">
+			</td>
+		  </cfif>
+		  <cfif option neq ""><td style="padding-left:3px">#option#</td></cfif>
+		  <cfif save eq "1">
+		  	  <td style="padding-left:3px">
+		  	  <input type="submit" name="Update" id="Update" value="#vUpdate#" class="button10g">
+			  </td>
+		  </cfif>	  
+		 </cfoutput>
+		
+		</tr>
+		
+		</cfif>
 	
-	</tr>
+	</table>
 
-</table>
+

@@ -7,16 +7,35 @@
 	datasource="AppsQuery" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-    SELECT * 
-	FROM #SESSION.acc#GledgerHeader_#client.sessionNo#
+    SELECT *  
+	FROM #SESSION.acc#GledgerHeader_#client.sessionNo#_#session.mytransaction#
 </cfquery>
+
+<cfparam name="url.accountPeriod" default="">
+
+<cfif url.accountPeriod neq "">
+
+	<cfset dateValue = "">
+	<CF_DateConvert Value="#url.transactionDate#">
+	<cfset tradte = dateValue>
+	
+	<cfquery name="apply"
+		datasource="AppsQuery" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+	    UPDATE #SESSION.acc#GledgerHeader_#client.sessionNo#_#session.mytransaction#
+		SET AccountPeriod     = '#url.accountPeriod#',
+		    TransactionDate   = #tradte#
+	</cfquery>
+
+</cfif>
 
 <cfquery name="Prior" 
 	datasource="AppsQuery" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 	SELECT Max(TransactionSerialNo) as Last
-	FROM #SESSION.acc#GLedgerLine_#client.sessionNo#
+	FROM #SESSION.acc#GLedgerLine_#client.sessionNo#_#session.mytransaction#
 	</cfquery>
 	
 	<cfset SerNo = 0>
@@ -50,8 +69,7 @@
 	    AND    P.ParentLineId IS NULL 
 		--->
 		AND    P.TransactionLineId = '#preserveSingleQuotes(itm)#' 
-	</cfquery>	
-	
+	</cfquery>		
 				
 	<cfoutput query="SearchResult">
 			  		 
@@ -170,7 +188,7 @@
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
 									
-			INSERT INTO dbo.#SESSION.acc#GLedgerLine_#client.sessionNo#
+			INSERT INTO dbo.#SESSION.acc#GLedgerLine_#client.sessionNo#_#session.mytransaction#
 			   (Journal, 
 			   JournalSerialNo,  
 			   TransactionSerialNo, 
@@ -206,7 +224,7 @@
 			   newid(),
 			   '#TransactionLineId#',
 			   '0',
-			   getDate(),
+			   #tradte#,
 			   '#glaccount#',
 			   '#memo#',
 			   '#URL.AccountPeriod#',
@@ -241,7 +259,7 @@
 				datasource="AppsQuery" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
-					UPDATE dbo.#SESSION.acc#GLedgerLine_#client.sessionNo#
+					UPDATE dbo.#SESSION.acc#GLedgerLine_#client.sessionNo#_#session.mytransaction#
 					SET    ParentLineId = '#ParentLineId#'
 					WHERE  JournalSerialNo = '#SerNo#'
 				</cfquery>

@@ -7,8 +7,8 @@
 
 <cfset setStatus = form.Status>
 
-<cfif Len(Form.ActionRemarks) gt 300>      
-       <cf_alert message = "You entered a memo that exceeded the allowed size of 300 characters."> 
+<cfif Len(Form.ActionRemarks) gt 1000>      
+       <cf_alert message = "You entered a memo that exceeded the allowed size of 1000 characters."> 
        <cfabort> 
 </cfif>
 

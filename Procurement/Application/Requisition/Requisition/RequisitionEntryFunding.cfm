@@ -47,6 +47,7 @@
        AND     M.Mission   = '#URL.Mission#'
 	   AND     M.MandateNo = '#Base.Mandateno#' 
        AND     R.Period    = M.Period
+	   ORDER BY R.Period DESC
 </cfquery>	
 
 <!--- update item master --->

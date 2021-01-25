@@ -244,7 +244,7 @@
 
 	<cfif (LeaveType.LeaveReviewer eq "Staffing" or LeaveType.LeaveReviewer eq "Role") and Reviewer.RecordCount gt 0>	
 		
-		  	<select name="#FieldName#" id="#FieldName#" required class="regularxl enterastab" style="min-width:340px">
+		  	<select name="#FieldName#" id="#FieldName#" required class="regularxxl enterastab" style="min-width:340px">
 						
 			  <cfif FieldName eq "SecondReviewerUserId" and LeaveType.ReviewerTwoForce eq "0">
 			  	  <option>--<cf_tl id="select">--</option>

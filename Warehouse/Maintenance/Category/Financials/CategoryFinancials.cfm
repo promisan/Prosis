@@ -19,7 +19,7 @@ password="#SESSION.dbpw#">
 
 <cfform action="Financials/FinancialsSubmit.cfm?idmenu=#url.idmenu#&category=#url.id1#" method="POST" name="categoryFinancials">
 
-<table width="95%" align="center" class="formpadding" cellspacing="0" cellpadding="0">
+<table width="95%" align="center">
 
 <tr><td height="5"></td></tr>
 <tr>
@@ -39,15 +39,13 @@ password="#SESSION.dbpw#">
 	
 	<cfoutput>
 	
-		<tr>
-		   <td class="labelmedium" style="padding-left:10px"><cf_tl id="#Description#">[#area#]
+		<tr class="line">
+		   <td class="labelmedium" style="padding-left:10px"><cf_tl id="#Description#"><font size="1">[#area#]</font>
 		   <cfif area eq "receipt"><font color="FF00FF">[Same for all categories]</cfif>
 		   </td>
-		   <td>
+		   <td>		   
 		   
-		   
-		   		<table class="formspacing"
-				><tr><td style="width:20px">
+		   		<table><tr><td style="width:20px">
 				
 				<cfquery name="Account" 
 				datasource="appsMaterials" 
@@ -61,7 +59,11 @@ password="#SESSION.dbpw#">
 					AND    Area      = '#Area#'
 				</cfquery>
 				
-				<cfif area eq "Stock" or area eq "Receipt" or area eq "Interoffice" or area eq "shipped">
+				<cfif area eq "Stock" 
+				    or area eq "Receipt" 
+					or area eq "Interoffice" 					
+					or area eq "InterOut" or area eq "shipped">
+					
 				   <cfset filter = "balance">
 				   <cfset field = "AccountClass">						   
 				<cfelseif area neq "receipt">  
@@ -124,13 +126,14 @@ password="#SESSION.dbpw#">
 					  size="14" value="#Account.GLAccount#"  
 					  class="regularxl" 
 					  readonly 
-					  style="text-align: left;" 
+					  style="text-align: left;border-bottom:0px;border:0px;border-left:1px solid silver" 
 					  message="Please, enter a valid account for #area# area." 
 					  required="#vReq#">
 				</td>
 				
 				<td>
-			    <input type="text"     name="#area#gldescription" id="#area#gldescription"  value="#Account.Description#" class="regularxl" size="40" readonly style="text-align: left;">
+			    <input type="text"     name="#area#gldescription" id="#area#gldescription"  value="#Account.Description#" 
+				  class="regularxl" size="40" readonly style="text-align: left;border:0px;border-left:1px solid silver;border-right:1px solid silver">
 			   	<input type="hidden"   name="#area#debitcredit"   id="#area#debitcredit">
 				
 				</td></tr>
@@ -169,14 +172,10 @@ password="#SESSION.dbpw#">
 	</cfoutput>	
 		
 	</cfoutput>
-	
-	<tr><td colspan="2" align="center" height="6">
-	<tr><td colspan="2" class="line"></td></tr>
-	<tr><td colspan="2" align="center" height="6">
-	
-	<tr><td colspan="2" align="center">
 		
-		<input class="button10g" type="submit" name="save" id="save" value=" Save " style="width:140">
+	<tr><td colspan="2" align="center" style="height:40px">
+		
+		<input class="button10g" type="submit" name="save" id="save" value=" Save " style="width:240px">
 	
 	</td></tr>
 	   

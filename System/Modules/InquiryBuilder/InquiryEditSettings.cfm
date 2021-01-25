@@ -110,7 +110,7 @@
 				<!---			
 				<option value="Window"       <cfif List.DrillMode eq "Window">selected</cfif>>Window (single)</option>						
 				--->
-				<option value="SecureWindow" <cfif List.DrillMode eq "SecureWindow" or List.DrillMode eq "Window">selected</cfif>>Tab : Template</option>		
+				<option value="SecureWindow" <cfif List.DrillMode eq "SecureWindow" or List.DrillMode eq "Window">selected</cfif>>Window : Template</option>		
 			   </select>
 			</td>	
 	</tr>		

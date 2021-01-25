@@ -104,7 +104,7 @@
 		<input type="hidden" name="#field#"     id="#field#"       value="#account#">
 		<input type="hidden" name="#field#name" id="#field#name"   value="#firstName# #lastName#">						
 		
-		<td class="labelmedium" id="#field#content" style="width:400;padding-left:3px;padding-top:1px;padding-bottom:1px;height:25px;border: 1px solid Silver;<cfif user.recordcount eq "1">border-right:0px</cfif>">		
+		<td class="labelmedium2" id="#field#content" style="width:400;padding-left:3px;padding-top:1px;padding-bottom:1px;height:25px;border: 1px solid Silver;<cfif user.recordcount eq "1">border-right:0px</cfif>">		
 			<cfif user.recordcount eq "1" and user.personNo neq "">
 			
 			  <a href="javascript:EditPerson('#User.PersonNo#')">#firstName#&nbsp;#lastName#</a>

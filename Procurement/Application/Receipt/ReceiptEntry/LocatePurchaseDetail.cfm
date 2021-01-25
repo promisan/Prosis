@@ -211,7 +211,7 @@ password="#SESSION.dbpw#">
 
 <table width="98%" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
 
-<tr class="line labelmedium">
+<tr class="line labelmedium2 fixrow">
 	<td width="26"></td>
 	<td width="4%"></td>
 	<td><cf_tl id="Purchase order"></td>
@@ -245,7 +245,7 @@ password="#SESSION.dbpw#">
 
 <cfoutput query="ResultSet" group="PurchaseNo">
 	
-	<tr class="navigation_row labelmedium" style="height:28px">
+	<tr class="navigation_row labelmedium2">
 	
 	<td align="center" width="2%">
 	

@@ -93,7 +93,31 @@
 		<script type="text/javascript">
 			// Change cf's AJAX "loading" HTML
 			_cf_loadingtexthtml="<img src='#SESSION.root#/images/#attributes.busy#'/>";
+			
+			<cfif attributes.onfocus neq "">
+			
+		    $( document ).ready(function() {
+				  $(window).focus(function() {				      
+					  #attributes.onfocus#()
+					//do the needful here.
+				});
+			});
+			
+			</cfif>
+			
+			<cfif attributes.onclose neq "">
+			
+				 $( document ).ready(function() {
+				      $(window).on("beforeunload", function() { 
+						  alert('a')
+						//do the needful here.
+					});
+				});
+			
+			</cfif>
+						
 		</script>
+				
 	</cfoutput>
 
 	<!--- 20/10/2012 the below invisible button is used by the framework to trigger a closing of the screen --->

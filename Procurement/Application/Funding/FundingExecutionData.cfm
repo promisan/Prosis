@@ -267,8 +267,10 @@ password="#SESSION.dbpw#">
 		   period           = "#persel#" 
 		   scope            = "Budget"
 		   accountperiod    = "#peraccsel#"	  
-		   mode             = "table">			
-	  	
+		   mode             = "table">	
+		   
+		   
+		  	  	
 <!--- ---------------------------------------------- --->
 <!--- ----UN OICT only as per request of segolene--- --->
 <!--- ---------------------------------------------- --->	
@@ -865,7 +867,7 @@ password="#SESSION.dbpw#">
 	
 			<!--- show summary of the data i graphical format --->
 			<script>
-				parent.parent.ptoken.navigate('FundingExecutionProperties.cfm?mission=#url.mission#&planningperiod=#url.planningperiod#&period=#url.period#','propertybox')	
+				parent.parent.ptoken.navigate('FundingExecutionProperties.cfm?systemfunctionid=#url.systemfunctionid#&mission=#url.mission#&planningperiod=#url.planningperiod#&period=#url.period#','propertybox')	
 			</script>
 			
 		</cfif>

@@ -110,11 +110,8 @@
 	<cfquery name="getSales"
 		datasource="AppsLedger" 
 		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">
-		
-			SELECT Mode, TransactionCategory, SUM(Total) as Total
-			FROM (
-					
+		password="#SESSION.dbpw#">		
+								
 			SELECT   'Sale' as Mode,
 					 H.TransactionCategory,
 			         I.Category,
@@ -225,7 +222,7 @@
 					 
 			UNION ALL		 
 					 
-			SELECT  'Sale' as Mode,
+			SELECT  'COGS' as Mode,
 				         '',
 				         I.Category,
 						 C.Description,
@@ -285,18 +282,17 @@
 				GROUP BY I.Category, 
 				         L.Currency,
 				         C.Description, 
-						 H.#datefield#		
-						 
-						 ) as D
-						 GROUP BY Mode, TransactionCategory			 
-					 
+						 H.#datefield#								 
+											 
 								
 	</cfquery>	
 	
-	<cfoutput>#cfquery.executiontime#</cfoutput>			
-	<cfabort>
+	</cftransaction>
 	
-						
+	<!---
+	<cfoutput>#cfquery.executiontime#</cfoutput>
+	--->
+									
 	<cfif getSales.recordcount eq "0">
 		
 	<tr><td align="center" class="labelmedium"><cf_tl id="No sales recorded"></td></tr>
@@ -445,6 +441,8 @@
 							<tr><td class="labelit" style="padding-left:8px">
 							<cf_tl id="Yesterday"> <font size="2">(#cur#)
 							</td>		
+							
+							    <cftransaction isolation="READ_UNCOMMITTED">
 															
 								<cfquery name="close"
 								datasource="AppsLedger" 
@@ -462,6 +460,8 @@
 								    AND        EventDate = #SQL_YESTERDAY#
 								
 								</cfquery>
+								
+								</cftransaction>
 												
 							<td class="labelit" align="right" style="padding-right:4px" id="#url.conditionvalue#closeyesterday">
 							
@@ -488,7 +488,9 @@
 							    <table width="100%">
 									<tr><td class="labelit" style="padding-left:8px">
 									#DateFormat(todayminus2,CLIENT.DateFormatShow)# 
-									</td>										
+									</td>		
+									
+										<cftransaction isolation="READ_UNCOMMITTED">								
 									
 										<cfquery name="close"
 										datasource="AppsLedger" 
@@ -506,6 +508,8 @@
 										AND        ActionCode = 'Closing' 
 									    AND        EventDate = #SQL_TODAYMINUS2#						
 										</cfquery>
+										
+										</cftransaction>
 														
 									<td class="labelit" align="right" style="padding-right:4px" id="#url.conditionvalue#closetodayminus2">
 									
@@ -530,7 +534,9 @@
 							   <table width="100%">
 									<tr><td class="labelit" style="padding-left:8px">
 									#DateFormat(todayminus3,CLIENT.DateFormatShow)# 
-									</td>										
+									</td>
+									
+									<cftransaction isolation="READ_UNCOMMITTED">										
 									
 									<cfquery name="close"
 									datasource="AppsLedger" 
@@ -548,6 +554,8 @@
 									    AND        EventDate = #SQL_TODAYMINUS3#						
 										
 									</cfquery>
+									
+									</cftransaction>
 														
 									<td class="labelit" style="padding-right:4px" align="right" id="#url.conditionvalue#closetodayminus3">
 									
@@ -595,7 +603,8 @@
 					
 					<cfquery name="list" dbtype="Query">
 						SELECT   Mode, Category, Description, MIN(TransactionCategory) as TransactionCategory
-						FROM     getSales											
+						FROM     getSales	
+						WHERE    Mode <> 'COGS'										
 						GROUP BY Mode, Category, Description
 						ORDER BY Mode, Category, Description
 					</cfquery>		
@@ -626,7 +635,7 @@
 									<cfif per eq "Item">	
 									<tr><td style="padding-left:2px" class="labelit">&nbsp;</td></tr>								
 									<cfelseif Mode eq "Sale">								   
-									<tr class="line labelmedium" style="height:15px">
+									<tr class="line labelmedium2" style="height:20px">
 										<td colspan="2" align="right" style="padding-right:4px"><cf_tl id="#Mode#"></td>
 										 <cfif per neq "Item">
 										<td colspan="2" align="right" bgcolor="f4f4f4" style="padding-right:4px"><cf_tl id="COGS"></td>
@@ -641,7 +650,7 @@
 											<cfquery name="qSale" dbtype="Query">
 												SELECT  SUM(Transactions) as Transactions, SUM(Total) as Total
 												FROM    getSales
-												WHERE  1=1
+												WHERE   Mode = '#mode#'
 												<cfif per eq "day">
 												AND     #datefield# >= #SQL_TODAY#
 												<cfelseif per eq "yesterday">
@@ -663,7 +672,7 @@
 												<cfelse>
 												AND     #datefield# >= #SQL_TODAYMINUS30#
 												</cfif>
-												AND     Mode = '#mode#'
+												
 												AND     Category = '#Category#'																									
 											</cfquery>	
 																					
@@ -671,8 +680,8 @@
 											
 												<cfquery name="qCOGS" dbtype="Query">
 													SELECT  SUM(Total) as Total
-													FROM    getCOGS
-													WHERE  1=1
+													FROM    getSales
+													WHERE   Mode = 'COGS'
 													<cfif per eq "day">
 													AND     #datefield# >= #SQL_TODAY#
 													<cfelseif per eq "yesterday">
@@ -693,8 +702,7 @@
 													AND     #datefield# >= #SQL_TODAYMINUS7#
 													<cfelse>
 													AND     #datefield# >= #SQL_TODAYMINUS30#	
-													</cfif>
-													AND     Mode = '#mode#'
+													</cfif>													
 													AND     Category = '#Category#'														
 												</cfquery>	
 																																	
@@ -794,46 +802,50 @@
 																								
 									    <!--- obtain pendings by currency --->
 																			
-											<cfquery name="getPending"
-											datasource="AppsLedger" 
-											username="#SESSION.login#" 
-											password="#SESSION.dbpw#">									
-												SELECT   Currency, SUM(AmountOutstanding) AS Outstanding
-												FROM     TransactionHeader AS H
-												WHERE    Mission = '#url.mission#'
-												AND      EXISTS  (SELECT   'X'
-										                          FROM     Materials.dbo.WarehouseBatch
-			                            						  WHERE    #url.conditionfield# = '#url.conditionvalue#' 
-																  AND      BatchId = H.TransactionSourceId) 
-												AND      TransactionSource   = 'SalesSeries' 
-												AND      TransactionCategory = 'Receivables' 
-												AND 	 RecordStatus IN ('0','1')
-												AND		 ActionStatus !=  '9' 
-												
-												<cfif per eq "day">
-												AND     #datefield# >= #SQL_TODAY#
-												<cfelseif per eq "yesterday">
-												AND     #datefield# = #SQL_YESTERDAY#
-												<cfelseif per eq "dayminus2">											   
-												AND     #datefield# = #SQL_TODAYMINUS2#
-												<cfelseif per eq "dayminus3">											   
-												AND     #datefield# = #SQL_TODAYMINUS3#		
-												<cfelseif per eq "month">											   											
-												AND     #datefield# #preserveSingleQuotes(SQL_MONTH)#		
-												<cfelseif per eq "year">
-												AND     #datefield#  #preserveSingleQuotes(SQL_YEAR)#								
-												<cfelseif per eq "yearago">
-												AND     #datefield#  #preserveSingleQuotes(SQL_YEARAGO)#
-												<cfelseif per eq "yearago2">
-												AND     #datefield#  #preserveSingleQuotes(SQL_YEARAGO2)#
-												<cfelseif per eq "week">
-												AND    #datefield# >= #SQL_TODAYMINUS7#
-												<cfelse>
-												AND    #datefield# >= #SQL_TODAYMINUS30#
-												</cfif>		    												
-												GROUP BY Currency
-												HAVING SUM(AmountOutstanding) > 1
-											</cfquery>
+											<cftransaction isolation="READ_UNCOMMITTED">
+																			
+												<cfquery name="getPending"
+												datasource="AppsLedger" 
+												username="#SESSION.login#" 
+												password="#SESSION.dbpw#">									
+													SELECT   Currency, SUM(AmountOutstanding) AS Outstanding
+													FROM     TransactionHeader AS H
+													WHERE    Mission = '#url.mission#'
+													AND      EXISTS  (SELECT   'X'
+											                          FROM     Materials.dbo.WarehouseBatch
+				                            						  WHERE    #url.conditionfield# = '#url.conditionvalue#' 
+																	  AND      BatchId = H.TransactionSourceId) 
+													AND      TransactionSource   = 'SalesSeries' 
+													AND      TransactionCategory = 'Receivables' 
+													AND 	 RecordStatus IN ('0','1')
+													AND		 ActionStatus !=  '9' 
+													
+													<cfif per eq "day">
+													AND     #datefield# >= #SQL_TODAY#
+													<cfelseif per eq "yesterday">
+													AND     #datefield# = #SQL_YESTERDAY#
+													<cfelseif per eq "dayminus2">											   
+													AND     #datefield# = #SQL_TODAYMINUS2#
+													<cfelseif per eq "dayminus3">											   
+													AND     #datefield# = #SQL_TODAYMINUS3#		
+													<cfelseif per eq "month">											   											
+													AND     #datefield# #preserveSingleQuotes(SQL_MONTH)#		
+													<cfelseif per eq "year">
+													AND     #datefield#  #preserveSingleQuotes(SQL_YEAR)#								
+													<cfelseif per eq "yearago">
+													AND     #datefield#  #preserveSingleQuotes(SQL_YEARAGO)#
+													<cfelseif per eq "yearago2">
+													AND     #datefield#  #preserveSingleQuotes(SQL_YEARAGO2)#
+													<cfelseif per eq "week">
+													AND    #datefield# >= #SQL_TODAYMINUS7#
+													<cfelse>
+													AND    #datefield# >= #SQL_TODAYMINUS30#
+													</cfif>		    												
+													GROUP BY Currency
+													HAVING SUM(AmountOutstanding) > 1
+												</cfquery>
+											
+											</cftransaction>
 																						
 										<cfset total = "0">
 										<cfparam name="outstanding" default="0">
@@ -954,7 +966,7 @@
 	
 	</cfif>
 	
-	</cftransaction>
+	
 				
 </table>
 

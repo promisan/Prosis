@@ -271,7 +271,7 @@
 			
 		  <cfif orgUnit.recordcount eq "0"> 
 	   
-		  <table width="100%" height="500" cellspacing="0" cellpadding="0">
+		  <table width="100%" height="500">
 		  
 		  <cfelse>
 		  

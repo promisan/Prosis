@@ -1,7 +1,5 @@
-
 	
 <cfparam name="url.code" default="">
-
 
 <cf_tl id = "Yes" var = "1">
 <cfset vYes = lt_text>
@@ -21,16 +19,16 @@ password="#SESSION.dbpw#">
 	ORDER BY EC.ClaimType, EC.ListingOrder
 </cfquery>
 
-<table width="97%" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<table width="97%" align="center" class="navigation_table">
 			
-    <tr style="height:20px;" class="labelheader line">
+    <tr style="height:20px;" class="labelmedium2 fixrow line">
 	    <td width="20"></td>
 		<td width="20"></td>
 	    <td><cf_tl id="Code"></td>	
 		<td><cf_tl id="Description"></td>
-		<td><cf_tl id="Listing Order"></td>
-		<td><cf_tl id="Ref. Prefix"></td>
-		<td><cf_tl id="Ref. Serial No."></td>
+		<td><cf_tl id="Order"></td>
+		<td><cf_tl id="Prefix"></td>
+		<td><cf_tl id="Serial No."></td>
 		<td><cf_tl id="En. Matching"></td>
 		<td><cf_tl id="En. Association"></td>
 		<td><cf_tl id="Association Source"></td>
@@ -42,13 +40,15 @@ password="#SESSION.dbpw#">
 			
 	<cfif URL.code eq "new">
 				
-		<tr bgcolor="f4f4f4" class="navigation_row">
+		<tr bgcolor="f4f4f4" class="navigation_row labelmedium2 line">
 		
 		<td colspan="14">
 		
 			<cfform method="POST" name="myelement" onsubmit="return false">
+			
 			<table width="100%" align="center">
-				<tr class="linedotted">
+			
+				<tr class="line">
 					<!--- Field: ClaimType --->
 					<td height="25">&nbsp;
 					
@@ -165,19 +165,20 @@ password="#SESSION.dbpw#">
 	</cfif>						
 
 	<cfoutput query="Listing" group="ClaimType">
-		<tr>
-	  		<td height="1" colspan="14">&nbsp;</td>
-		</tr>				
-		<tr class="linedotted">
-	 		 <td colspan="14" class="labellarge">#ClaimTypeDescription#</td>
+					
+		<tr class="line">
+	 		 <td colspan="14" style="font-size:18px;height:40px" class="labellarge">#ClaimTypeDescription#</td>
 		</tr>
 					
 		<cfoutput>
+		
 		<cfif URL.code eq code>		
 			
-			<tr class="linedotted navigation_row">
+			<tr class="line navigation_row">
 				<td colspan="14">
+				
 					<cfform method="POST" name="myelement" onsubmit="return false">
+					
 					<table width="100%" align="center">
 					
 						 <input type="hidden" name="ElementCode" value="#Code#">
@@ -196,7 +197,7 @@ password="#SESSION.dbpw#">
 									 
 									<select name="ClaimType" class="regularxl">
 										<cfloop query="qClaimType">
-											<option value="#qClaimType.Code#" <cfif qClaimType.Code eq '#Listing.ClaimType#'>selected</cfif>>#qClaimType.Description#</option>
+											<option value="#qClaimType.Code#" <cfif qClaimType.Code eq Listing.ClaimType>selected</cfif>>#qClaimType.Description#</option>
 										</cfloop>
 									</select>
 								   <input type="hidden" name="ClaimTypeOld" value="#Listing.ClaimType#">
@@ -290,13 +291,13 @@ password="#SESSION.dbpw#">
 																	
 		<cfelse>
 										
-			<tr class="cellcontent linedotted navigation_row">
+			<tr class="labelmedium2 line navigation_row">
 			
 			    <td width="20">		
-			  		<cf_img icon="open" onclick="ColdFusion.navigate('RecordListingDetail.cfm?code=#code#','listing')">
+			  		<cf_img icon="open" onclick="ptoken.navigate('RecordListingDetail.cfm?code=#code#','listing')">
 			    </td>	
 				  			   
-			    <td>
+			    <td style="padding-top:8px">
 			  		<cf_img icon="expand" toggle="Yes" onclick="show('#code#')">						
 			    </td>
 			   
@@ -329,7 +330,7 @@ password="#SESSION.dbpw#">
 				   </cfquery>
 				   	
 				  <cfif check.recordcount eq "0">
-				      <A href="javascript:ColdFusion.navigate('RecordListingPurge.cfm?Code=#code#','listing')">
+				      <A href="javascript:ptokennavigate('RecordListingPurge.cfm?Code=#code#','listing')">
 					   <img src="#Client.VirtualDir#/Images/delete5.gif" height="12" width="12" alt="delete" border="0" align="absmiddle">
 					  </a>
 				  </cfif>	

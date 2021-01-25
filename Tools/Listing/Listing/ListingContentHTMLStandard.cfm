@@ -87,7 +87,7 @@
 		     style="background-color:#iif(currentrow MOD 2,DE('fafafa'),DE('efefef'))#"> 
 		</cfif>				
 							
-		<td align="right" style="padding-right:4px;height:21px" id="#s#" onclick="var r = $('##r#row#').position(); alert('current'+r.top)">#currentrow#.
+		<td align="right" style="padding-right:4px;height:21px" id="#s#" onclick="var r = $('##r#row#').position();">#currentrow#.
 				
 		</td>	
 								   
@@ -121,10 +121,11 @@
 				<cfelse>
 					<cfset tdrillmode = drillmode>								
 				</cfif>
-			
+							
 			   <cfset cl = "toggledrill('#lcase(tdrillmode)#','box#dkey#','#drilltemplate#','#dkey#','#argument#','#drillbox#','#drillstring#')">							
 			   <td align="center" style="padding-top:7px;padding-left:5px">		
 			   <cf_img id="exp#currentrow#" icon="expand"  toggle="Yes" onclick="#cl#">	
+			   
 			   <!---					  						  						   				   						   
 			   <img style="cursor:pointer" id="exp#dkey#" 
 			     class="regular" src="#client.VirtualDir#/Images/arrowright.gif" align="absmiddle" alt="Expand" height="9" width="7" onclick="#cl#"> 								 
@@ -172,8 +173,17 @@
 				<cfset endcell = endcell+1>									
 				
 			</cfif>			
-									
-			<cfif deletetable neq "">								
+			
+			<cfif deletescript neq "">		
+			
+				<td align="right" style="padding-top:2px;padding-right:5px;padding-left:3px" 
+				 onclick="#deletescript#('#box#','#dkey#')">			   
+				     <img src="#session.root#/images/delete.png" id="del#row#" style="height:17px;cursor:pointer" alt="Remove record">															
+				</td>				
+				<cfset endcell = endcell+1>		
+								
+			<cfelseif deletetable neq "">								
+				
 				<td align="right" style="padding-top:2px;padding-right:5px;padding-left:3px" 
 				 onclick="deleterow('#box#','#attributes.datasource#','#deletetable#','#drillkey#','#dkey#')">					   
 				     <img src="#session.root#/images/delete.png" id="del#row#" style="height:17px;cursor:pointer" alt="Remove record">						
@@ -181,6 +191,7 @@
 				     <cf_img icon="delete" id="del#row#_2">
 					 ---->					
 				</td>	
+				
 				<cfset endcell = endcell+1>														
 			</cfif>					
 			
@@ -212,20 +223,16 @@
 		
 		<cfif drilltemplate neq "" and drillkey neq "" and drillmode neq "">					
 
-			 <cfset divId = replace(evaluate(drillkey)," ","","ALL")>
-		
-		        <!--- moved inside
-			   <input type="hidden" id="workflowlink_c#divId#" value="#SESSION.root#/tools/listing/listing/ListingDialog.cfm">	  
-			   --->
-			  
-				<tr class="hide" id="box#divId#" name="f#box#_#dkey#">
+			    <cfset divId = replace(evaluate(drillkey)," ","","ALL")>
+									  
+				<tr class="hide" id="box#divId#" name="#box#_#dkey#">
 				      <cfif drillmode eq "workflow">
 					  <!--- contains a dynamic reference to the content for refresh --->
 				      <td id="workflowlink_c#divId#" value="#SESSION.root#/tools/listing/listing/ListingDetailWorkflow.cfm"></td>
 					  <cfelse>
 					  <td></td>
 					  </cfif>
-				      <td align="center" style="padding:4px" id="c#divId#" colspan="#cols+1#"></td>
+				      <td align="center" style="padding:4px" id="c#divId#" colspan="#cols+1#">box#divId#</td>
 				</tr>
 			
 		</cfif>								

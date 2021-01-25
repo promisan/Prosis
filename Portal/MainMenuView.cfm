@@ -126,7 +126,7 @@
 			<link rel="shortcut icon" type="image/x-icon" HREF="#SESSION.root#/custom/logon/#Parameter.ApplicationServer#/favicon.ico">
 			</cfoutput>
 		</cfif>
-		
+
 		<script src="../Scripts/jQuery/jquery.js" type="text/javascript"></script>
 		<script src="../Scripts/jQuery/jquery.easing.1.3.js" type="text/javascript"></script>
 		<script src="../Scripts/jQuery/jqueryeffects.js" type="text/javascript"></script>

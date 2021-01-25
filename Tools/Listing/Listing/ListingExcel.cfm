@@ -25,7 +25,7 @@
 </cfif>	
 
 <cfquery name="Listing" 
-    datasource="#url.dsn#">
+    datasource="#url.dsn#">	
 	CREATE VIEW dbo.vwListing#SESSION.acc# AS 
 	#preservesinglequotes(qry)#    
 	

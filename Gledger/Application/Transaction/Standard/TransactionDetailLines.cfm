@@ -10,8 +10,29 @@ datasource="AppsQuery"
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
     SELECT *
-	FROM   #SESSION.acc#GledgerHeader_#client.sessionNo#
+	FROM   #SESSION.acc#GledgerHeader_#client.sessionNo#_#session.mytransaction#
 </cfquery>
+
+<cfparam name="url.accountperiod" default="">
+<cfparam name="url.pap"           default="">
+
+<cfif url.accountPeriod neq "" and url.pap neq "">
+
+	<cfset dateValue = "">
+	<CF_DateConvert Value="#url.pap#">
+	<cfset tradte = dateValue>
+	
+	<cfquery name="apply"
+		datasource="AppsQuery" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+	    UPDATE #SESSION.acc#GledgerLine_#client.sessionNo#_#session.mytransaction#
+		SET    AccountPeriod    = '#url.accountperiod#',
+		       TransactionDate  = #tradte#
+		WHERE  GLAccount IN (SELECT GLAccount FROM Accounting.dbo.Ref_Account WHERE AccountClass = 'Balance')
+	</cfquery>
+
+</cfif>
 
 <!--- ------------------------------ --->
 <!--- retrieve the transaction lines --->
@@ -26,7 +47,7 @@ password="#SESSION.dbpw#">
 		     O.OrgUnitName, 
 		     A.Description,
 		     A.AccountLabel
-	FROM     #SESSION.acc#GledgerLine_#client.sessionNo# L LEFT OUTER JOIN 
+	FROM     #SESSION.acc#GledgerLine_#client.sessionNo#_#session.mytransaction# L LEFT OUTER JOIN 
 	         Organization.dbo.Organization O ON L.OrgUnit = O.OrgUnit INNER JOIN
 		     Accounting.dbo.Ref_Account A ON A.GLAccount = L.GLAccount
 	WHERE    L.TransactionSerialNo != '0' 
@@ -69,7 +90,7 @@ password="#SESSION.dbpw#">
 	datasource="AppsQuery" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-		DELETE FROM   #SESSION.acc#GledgerLine_#client.sessionNo# WHERE TransactionSerialNo = '0' 
+		DELETE FROM   #SESSION.acc#GledgerLine_#client.sessionNo#_#session.mytransaction# WHERE TransactionSerialNo = '0' 
 </cfquery> 
 
 <cfset caggregate = "0">
@@ -83,7 +104,7 @@ password="#SESSION.dbpw#">
 		SELECT   ParentJournal, 
 			     ParentJournalSerialNo,
 			     ISNULL(ParentLineId,'00000000-0000-0000-0000-000000000000') as ParentLineId		                 
-		FROM     #SESSION.acc#GledgerLine_#client.sessionNo# 	
+		FROM     #SESSION.acc#GledgerLine_#client.sessionNo#_#session.mytransaction# 	
 		GROUP BY ParentJournal,ParentJournalSerialNo,ParentLineId  	
 	</cfquery>	
 	
@@ -179,7 +200,7 @@ password="#SESSION.dbpw#">
 			password="#SESSION.dbpw#">
 				SELECT SUM(AmountDebit)     - SUM(AmountCredit) as Diff, 
 				       SUM(AmountBaseDebit) - SUM(AmountBaseCredit) as DiffB 
-				FROM   #SESSION.acc#GLedgerLine_#client.sessionNo#
+				FROM   #SESSION.acc#GLedgerLine_#client.sessionNo#_#session.mytransaction#
 				WHERE  1=1
 				<cfif caggregate eq "1">
 				    <!--- we take all lines in batch --->
@@ -193,8 +214,7 @@ password="#SESSION.dbpw#">
 				AND    TransactionSerialNo != '0'		
 									
 		</cfquery>
-		
-							
+									
 		<cfif glacc neq "" and Total.Diff neq "">
 		
 			<!--- generate a contra-transaction --->
@@ -276,7 +296,7 @@ password="#SESSION.dbpw#">
 				datasource="AppsQuery" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
-				INSERT INTO dbo.#SESSION.acc#GLedgerLine_#client.sessionNo#
+				INSERT INTO dbo.#SESSION.acc#GLedgerLine_#client.sessionNo#_#session.mytransaction#
 					   (Journal, 
 					   JournalSerialNo,
 					   TransactionSerialNo, 
@@ -284,6 +304,7 @@ password="#SESSION.dbpw#">
 					   ReconciliationPointer,
 					   GLAccount,
 					   AccountPeriod,
+					   TransactionDate,
 					   TransactionType,
 					   TransactionCurrency, 
 					   TransactionAmount,
@@ -313,6 +334,7 @@ password="#SESSION.dbpw#">
 					   '0',
 					   '#glacc#',
 					   '#HeaderSelect.AccountPeriod#',
+					   '#HeaderSelect.TransactionDate#',
 					   'Contra-Account',
 					   '#HeaderSelect.currency#',
 					   '#abs(Total.Diff)#',
@@ -348,8 +370,8 @@ password="#SESSION.dbpw#">
 	  datasource="AppsQuery" 
 	  username="#SESSION.login#" 
 	  password="#SESSION.dbpw#">
-	  SELECT   SUM(AmountBaseDebit) - SUM(AmountBaseCredit) as DiffB
-		FROM   #SESSION.acc#GLedgerLine_#client.sessionNo#
+	  SELECT SUM(AmountBaseDebit) - SUM(AmountBaseCredit) as DiffB
+	  FROM   #SESSION.acc#GLedgerLine_#client.sessionNo#_#session.mytransaction#
 	</cfquery>
 						
 	<!--- Correction --->
@@ -361,14 +383,14 @@ password="#SESSION.dbpw#">
 		  username="#SESSION.login#" 
 		  password="#SESSION.dbpw#">
 		    SELECT    TOP 1 *
-		    FROM      #SESSION.acc#GLedgerLine_#client.sessionNo#
+		    FROM      #SESSION.acc#GLedgerLine_#client.sessionNo#_#session.mytransaction#
 		</cfquery>
 		
 		<cfquery name="Correct" 
 		  datasource="AppsQuery" 
 		  username="#SESSION.login#" 
 		  password="#SESSION.dbpw#">
-		     UPDATE #SESSION.acc#GLedgerLine_#client.sessionNo#
+		     UPDATE #SESSION.acc#GLedgerLine_#client.sessionNo#_#session.mytransaction#
 		     SET    AmountBaseDebit = AmountBaseDebit - #sum.diffB# 
 		     WHERE TransactionLineId = '#line.TransactionLineId#'		 
 		</cfquery>
@@ -384,7 +406,7 @@ password="#SESSION.dbpw#">
 				     L.GLAccount,
 			         A.Description,
 				     A.AccountLabel
-			FROM     #SESSION.acc#GledgerLine_#client.sessionNo# L INNER JOIN Accounting.dbo.Ref_Account A ON A.GLAccount = L.GLAccount
+			FROM     #SESSION.acc#GledgerLine_#client.sessionNo#_#session.mytransaction# L INNER JOIN Accounting.dbo.Ref_Account A ON A.GLAccount = L.GLAccount
 			WHERE    TransactionSerialNo = '0'
 			GROUP BY L.GLAccount, A.Description,A.AccountLabel
 	</cfquery>
@@ -402,7 +424,7 @@ password="#SESSION.dbpw#">
 					   L.GLAccount,
 				       A.Description,
 					   A.AccountLabel
-				FROM   #SESSION.acc#GledgerLine_#client.sessionNo# L INNER JOIN Accounting.dbo.Ref_Account A ON A.GLAccount = L.GLAccount					  
+				FROM   #SESSION.acc#GledgerLine_#client.sessionNo#_#session.mytransaction# L INNER JOIN Accounting.dbo.Ref_Account A ON A.GLAccount = L.GLAccount					  
 				WHERE   TransactionSerialNo = '0'
 				GROUP BY L.GLAccount, A.Description,A.AccountLabel
 		</cfquery>
@@ -420,7 +442,7 @@ password="#SESSION.dbpw#">
 					   L.GLAccount,
 				       A.Description,
 					   A.AccountLabel
-				FROM   #SESSION.acc#GledgerLine_#client.sessionNo# L INNER JOIN Accounting.dbo.Ref_Account A ON A.GLAccount = L.GLAccount
+				FROM   #SESSION.acc#GledgerLine_#client.sessionNo#_#session.mytransaction# L INNER JOIN Accounting.dbo.Ref_Account A ON A.GLAccount = L.GLAccount
 				WHERE  TransactionSerialNo = '0'
 				GROUP BY L.GLAccount, A.Description,A.AccountLabel
 		</cfquery>	
@@ -436,7 +458,7 @@ password="#SESSION.dbpw#">
 				     O.OrgUnitName, 
 				     A.Description,
 					 A.AccountLabel
-			FROM     #SESSION.acc#GledgerLine_#client.sessionNo# L INNER JOIN
+			FROM     #SESSION.acc#GledgerLine_#client.sessionNo#_#session.mytransaction# L INNER JOIN
                      Accounting.dbo.Ref_Account A ON L.GLAccount = A.GLAccount LEFT OUTER JOIN
                      Organization.dbo.Organization O ON L.OrgUnit = O.OrgUnit	   			
 			WHERE    TransactionSerialNo != '0'
@@ -820,7 +842,7 @@ password="#SESSION.dbpw#">
 			           SUM(AmountCredit) as AmountCredit,
 				       SUM(AmountBaseDebit) as AmountBaseDebit,
 				       SUM(AmountBaseCredit) as AmountBaseCredit
-				FROM   #SESSION.acc#GledgerLine_#client.sessionNo# L
+				FROM   #SESSION.acc#GledgerLine_#client.sessionNo#_#session.mytransaction# L
 				WHERE  TransactionSerialNo <> '0'				
 		</cfquery>
 		
@@ -862,7 +884,7 @@ password="#SESSION.dbpw#">
 					password="#SESSION.dbpw#">
 					SELECT SUM(AmountDebit) - SUM(AmountCredit) as Diff, 
 				           SUM(AmountBaseDebit) - SUM(AmountBaseCredit) as DiffB
-					FROM #SESSION.acc#GLedgerLine_#client.sessionNo#
+					FROM #SESSION.acc#GLedgerLine_#client.sessionNo#_#session.mytransaction#
 				  </cfquery>
 				  
 				  <cfquery name="Verify" 
@@ -870,7 +892,7 @@ password="#SESSION.dbpw#">
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
 					SELECT DISTINCT GLAccount  
-					FROM   #SESSION.acc#GLedgerLine_#client.sessionNo#
+					FROM   #SESSION.acc#GLedgerLine_#client.sessionNo#_#session.mytransaction#
 				  </cfquery>	
 				  
 				  <cfif abs(total.diff) lt "0.001" and abs(total.diffB) lt "0.01" and (Verify.recordcount gte "2" or getJournal.SystemJournal eq "Distribution")>			  

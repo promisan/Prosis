@@ -33,16 +33,16 @@ password="#SESSION.dbpw#">
 
 <table width="95%" class="formpadding formspacing" align="center">
 
-	<tr><td colspan="2" height="10" id="inputvalidation"></td></tr>
+	<tr><td colspan="2" height="3" id="inputvalidation"></td></tr>
 	
-	<tr>
-	<td class="labelmedium"><cf_tl id="Entity"></td>
-	<td style="font-size:17px" class="labelmedium">#Customer.Mission# / <b>#Customer.CustomerSerialNo#</b></td>
+	<tr class="labelmedium2">
+	<td><cf_tl id="Entity"></td>
+	<td style="font-size:17px">#url.Mission# / <b>#Customer.CustomerSerialNo#</b></td>
 	</tr>
 	
-	<tr>
-		<td width="18%" class="labelmedium"> <cf_tl id="Reference"> : <font color="red">*</font></td>
-		<td class="labelmedium">
+	<tr class="labelmedium2">
+		<td width="18%"> <cf_tl id="Reference"> : <font color="red">*</font></td>
+		<td>
 		
 			<cfif url.drillid eq "">
 				<input name="Mission" type="hidden" value="#url.mission#">
@@ -84,7 +84,7 @@ password="#SESSION.dbpw#">
 								 value="#Customer.Reference#" 
 								 size="10" 
 								 maxlength="20"
-								 class="regularxl enterastab"
+								 class="regularxxl enterastab"
 								 required="Yes"
 								 onKeyUp ="ColdFusion.navigate('ValidateReference.cfm?customerid=#CustomerId#&reference='+this.value+'&mission=#url.mission#','id_validateReference');"
 								 message="Please enter Reference.">									 
@@ -99,14 +99,14 @@ password="#SESSION.dbpw#">
 			</cfif>
 		</td>
 	</tr>
-	<tr>
-		<td class="labelmedium"><cf_tl id="Name"> : <font color="red">*</font></td>
+	<tr class="labelmedium2">
+		<td><cf_tl id="Name"> : <font color="red">*</font></td>
 		<td style="width:80%">
 			<cfinput name="CustomerName" 
 					 type="text" 
 					 value="#Customer.CustomerName#" 
 					 size="30" 
-					 class="regularxl enterastab"
+					 class="regularxxl enterastab"
 					 maxlength="80" 
 					 required="Yes" 
 					 message="Please enter customer name.">
@@ -124,8 +124,8 @@ password="#SESSION.dbpw#">
 	
 	<cfif Person.Recordcount eq "0">
 	
-		<tr>
-			<td class="labelmedium"><cf_tl id="Individual">:</td>
+		<tr class="labelmedium2">
+			<td><cf_tl id="Individual">:</td>
 			<td>		
 					
 			<cfquery name="Get" 
@@ -142,7 +142,7 @@ password="#SESSION.dbpw#">
 					<td id="member">
 																					
 						<input type="text"   name="name"     id="name"     value="#Get.FirstName# #Get.LastName#" style="cursor:pointer;text-decoration: underline;padding-left:4px" 
-						        textsize="80" maxlength="80" class="regularxl" readonly onclick="ShowCandidate('#Customer.PersonNo#')">				
+						        textsize="80" maxlength="80" class="enterastab regularxxl" readonly onclick="ShowCandidate('#Customer.PersonNo#')">				
 						<input type="hidden" name="personno" id="personno" value="#Customer.PersonNo#" size="10" maxlength="10" readonly>
 					
 					</td>
@@ -176,8 +176,8 @@ password="#SESSION.dbpw#">
 	
 	<cfelse>
 	
-		<tr>
-			<td class="labelmedium"><cf_tl id="Staff member">:</td>
+		<tr class="labelmedium2">
+			<td><cf_tl id="Staff member">:</td>
 			<td>		
 					
 			<cfquery name="Get" 
@@ -194,7 +194,7 @@ password="#SESSION.dbpw#">
 					
 					<td id="member">
 																
-					<input type="text" name="name" id="name" value="#Get.FirstName# #Get.LastName#" size="40" maxlength="40" class="regularxl" readonly style="padding-left:4px">				
+					<input type="text" name="name" id="name" value="#Get.FirstName# #Get.LastName#" size="40" maxlength="40" class="enterastab regularxxl" readonly style="padding-left:4px">				
 					<input type="hidden" name="personno" id="personno" value="#Get.PersonNo#" size="10" maxlength="10" readonly>
 					
 					</td>
@@ -233,8 +233,8 @@ password="#SESSION.dbpw#">
 		
 	</cfif>	
 	
-	<tr>
-		<td class="labelmedium"><cf_tl id="Organization">:</td>
+	<tr class="labelmedium2">
+		<td><cf_tl id="Organization">:</td>
 		<td>	
 				
 		<cfquery name="Get" 
@@ -249,7 +249,7 @@ password="#SESSION.dbpw#">
 		<table>
 			<tr>				
 				<td id="orgunitbox">															
-					<input type="text" name="orgname" id="orgname" value="#Get.OrgUnitName#" size="40" maxlength="40" class="regularxl" readonly style="padding-left:4px">				
+					<input type="text" name="orgname" id="orgname" value="#Get.OrgUnitName#" size="40" maxlength="40" class="enterastab regularxxl" readonly style="padding-left:4px">				
 					<input type="hidden" name="orgunit" id="orgunit" value="#Get.OrgUnit#" size="10" maxlength="10" readonly>				
 				</td>
 				<td style="padding-left:3px">
@@ -285,44 +285,44 @@ password="#SESSION.dbpw#">
 		</td>
 	</tr>
 	
-	<tr>
-		<td class="labelmedium"><cf_tl id="Date of Birth"></td>
+	<tr class="labelmedium2">
+		<td><cf_tl id="Date of Birth"></td>
 		<td>
-			<cf_intelliCalendarDate9 FieldName="CustomerDOB"  class="regularxl enterastab" Message="Please check the birth date"
+			<cf_intelliCalendarDate9 FieldName="CustomerDOB"  class="regularxxl enterastab" Message="Please check the birth date"
 			Default="#dateformat(Customer.CustomerDOB,'#CLIENT.DateFormatShow#')#" AllowBlank="True">		
 		</td>
 	</tr>
 	
-	<tr>
-		<td class="labelmedium"><cf_tl id="eMailAddress"> :</td>
+	<tr class="labelmedium2">
+		<td><cf_tl id="eMailAddress"> :</td>
 		<td>
 			<cfinput name="eMailAddress"
 			    id="emailaddress_#mission#" 
 				 onKeyUp="applyCustomerData('#url.mission#','emailaddress',this.value)"
-			    class="regularxl enterastab" type="text" value="#Customer.eMailAddress#" validate="email" size="60" maxlength="50">
+			    class="regularxxl enterastab" type="text" value="#Customer.eMailAddress#" validate="email" size="60" maxlength="50">
 		</td>
 	</tr>
 	
-	<tr>
-		<td class="labelmedium"><cf_tl id="Mobile Number"> :</td>
+	<tr class="labelmedium2">
+		<td><cf_tl id="Mobile Number"> :</td>
 		<td>
 			<cfinput name="MobileNumber"
 			     id="mobilenumber_#mission#" 
 				 onKeyUp="applyCustomerData('#url.mission#','mobilenumber',this.value)" 
-				 class="regularxl enterastab" 
+				 class="regularxxl enterastab" 
 				 type="text" 
 				 value="#Customer.MobileNumber#" 
 				 size="15" maxlength="50" >
 		</td>
 	</tr>
 	
-	<tr>
-		<td class="labelmedium"><cf_tl id="Phone Number"> :</td>
+	<tr class="labelmedium2">
+		<td><cf_tl id="Phone Number"> :</td>
 		<td>
 			<cfinput name="PhoneNumber" 
 			  onKeyUp="applyCustomerData('#url.mission#','phonenumber',this.value)"
 			  id="phonenumber_#mission#" 
-			  class="regularxl enterastab" 
+			  class="regularxxl enterastab" 
 			  type="text" 
 			  value="#Customer.PhoneNumber#" 
 			  size="15" 
@@ -330,14 +330,14 @@ password="#SESSION.dbpw#">
 		</td>
 	</tr>
 	
-	<tr>
-		<td class="labelmedium"><cf_tl id="Postal Code"> :</td>
+	<tr class="labelmedium2">
+		<td><cf_tl id="Postal Code"> :</td>
 		<td>
 		
 		 <cf_textInput
 					  form      = "customerform"
 					  type      = "ZIP"
-					  mode      = "regularxl"
+					  mode      = "regularxxl"
 					  name      = "PostalCode"
 				      value     = "#Customer.PostalCode#"
 				      required  = "No"
@@ -377,9 +377,9 @@ password="#SESSION.dbpw#">
 	</cfif>
 	--->
 	
-	<tr>
-		<td class="labelmedium"><cf_tl id="Credit Threshold"> :</td>
-		<td style="height:25px" class="labelmedium">
+	<tr class="labelmedium2">
+		<td><cf_tl id="Credit Threshold"> :</td>
+		<td style="height:25px">
 		
 		 <cfinvoke component="Service.Access"  
 		     	   method="org" 
@@ -389,7 +389,7 @@ password="#SESSION.dbpw#">
 			   <table><tr>
 			    <td>
 	   				<cfif access eq "ALL">
-						<cfinput type="Text" class="regularxl enterastab" style="width:80;text-align:right;padding-right:4px" name="ThresholdCredit" value="#numberformat(customer.ThresholdCredit,',.__')#">
+						<cfinput type="Text" class="regularxxl enterastab" style="width:80;text-align:right;padding-right:4px" name="ThresholdCredit" value="#numberformat(customer.ThresholdCredit,',.__')#">
 					<cfelse>
 						#numberformat(customer.ThresholdCredit,',.__')#
 						<cfinput type="hidden" name="ThresholdCredit" value="#numberformat(customer.ThresholdCredit,',.__')#">
@@ -415,11 +415,11 @@ password="#SESSION.dbpw#">
 		</td>
 	</tr>
 	
-	<tr>
-		<td class="labelmedium"><cf_tl id="Tax Exemption"> :</td>
-		<td style="height:30px" class="labelmedium">
+	<tr class="labelmedium2">
+		<td><cf_tl id="Tax Exemption"> :</td>
+		<td style="height:30px">
 		    <table>
-			<tr class="labelmedium">
+			<tr class="labelmedium2">
 			<td style="padding-left:0px"><input name="TaxExemption" class="radiol enterastab" type="radio" value="1" <cfif Customer.TaxExemption eq 1>checked</cfif>></td>
 			<td style="padding-left:4px"><cf_tl id="Yes"></td>
 			<td style="padding-left:7px"><input name="TaxExemption" class="radiol enterastab" type="radio" value="0" <cfif Customer.TaxExemption eq 0 or url.drillid eq "">checked</cfif>></td>
@@ -428,11 +428,11 @@ password="#SESSION.dbpw#">
 			</table>
 		</td>
 	</tr>
-	<tr>
-		<td class="labelmedium"><cf_tl id="Operational"> :</td>
-		<td style="height:30px" class="labelmedium">
+	<tr class="labelmedium2">
+		<td><cf_tl id="Operational"> :</td>
+		<td style="height:30px">
 			<table>
-			<tr class="labelmedium">
+			<tr class="labelmedium2">
 			<td style="padding-left:0px"><input name="Operational" class="radiol enterastab" type="radio" value="1" <cfif Customer.Operational eq 1 or url.drillid eq "">checked</cfif>></td>
 			<td style="padding-left:4px"><cf_tl id="Yes"></td>
 			<td style="padding-left:7px"><input name="Operational" class="radiol enterastab" type="radio" value="0" <cfif Customer.Operational eq 0>checked</cfif>></td>
@@ -442,15 +442,11 @@ password="#SESSION.dbpw#">
 			
 		</td>
 	</tr>
-	<tr valign="top" style="padding-top:5px">
-		<td class="labelmedium"><cf_tl id="Memo">:</td>
+	<tr valign="top" style="padding-top:5px" class="labelmedium2">
+		<td ><cf_tl id="Memo">:</td>
 		<td>
 			<textarea name="Memo" rows="5" style="font-size:13px;padding:4px;width:80%" class="regular enterastab">#Customer.Memo#</textarea>
 		</td>
-	</tr>
-	
-	<tr>
-		<td colspan="2" height="1"></td>
 	</tr>
 	
 	<tr>

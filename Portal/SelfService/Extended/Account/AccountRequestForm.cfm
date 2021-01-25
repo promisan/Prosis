@@ -1,9 +1,11 @@
 
 <cf_tl id="User Access or User Profile amendment" var="1">
+
 <cf_screentop label="#lt_text#" validatesession="no" user="No" height="100%" html="yes" scroll="yes" layout="webapp" banner="gray" jQuery="yes">	 
 
 <cfparam name="SESSION.last"  default="">
 <cfparam name="SESSION.first" default="">
+<cfset CLIENT.DateFormatShow      = "dd/mm/yyyy">
 <cfparam name="url.id"        default="">
 <cfparam name="url.showClose" default="1">
 
@@ -61,7 +63,7 @@
 			 
 				 <table width="90%" align="center" cellpadding="0" class="formpadding formspacing">					
 					 <tr>
-					 	<td class="labelmedium" width="30%">
+					 	<td class="labelmedium2" width="30%">
 							<cf_tl id="IndexNo">: 
 						</td>
 						<td></td>
@@ -71,7 +73,7 @@
 							<td>
 							<cfinput  
 							         name="indexno" 
-									 class="regularxl enterastab" 
+									 class="regularxxl enterastab" 
 									 style="width:80" 
 									 maxlength="20" 
 									 required="no" 
@@ -85,32 +87,32 @@
 					 </tr>
 				
 		             <tr>
-					 	<td class="labelmedium" width="30%">
+					 	<td class="labelmedium2" width="30%">
 							<cf_tl id="Last Name">: 
 						</td>
 						<td class="labelmedium"><font color="FF0000">*</font></td>
 						<td>
-							<cfinput id="lastname" name="lastname" class="regularxl enterastab" style="width:250" maxlength="40" required="yes" message="Please enter last name.">
+							<cfinput id="lastname" name="lastname" class="regularxxl enterastab" style="width:250" maxlength="40" required="yes" message="Please enter last name.">
 						</td>
 					 </tr>
 					 
 					 <tr>
-					 	<td class="labelmedium" style="padding-right:4px">
+					 	<td class="labelmedium2" style="padding-right:4px">
 							<cf_tl id="First Name">: 
 						</td>
 						<td><font color="FF0000">*</font></td>
 						<td>
-							<cfinput id="firstname" name="firstname" class="regularxl enterastab" style="width:170" maxlength="30" required="yes" message="Please enter first name.">
+							<cfinput id="firstname" name="firstname" class="regularxxl enterastab" style="width:170" maxlength="30" required="yes" message="Please enter first name.">
 						</td>
 					 </tr>
 					 
 					  <tr>
-					 	<td class="labelmedium" style="padding-right:4px">
+					 	<td class="labelmedium2" style="padding-right:4px">
 							<cf_tl id="Gender">:
 						</td>
 						<td></td>
 						<td>						   
-							<select id="gender" name="Gender" class="regularxl enterastab">
+							<select id="gender" name="Gender" class="regularxxl enterastab">
 								<option selected>Male</option>
 								<option>Female</option>
 							</select>
@@ -152,7 +154,7 @@
 					</cfif> --->
 					 
 					<tr>
-						<td class="labelmedium" style="padding-right:4px"> <cf_tl id="Telephone">: </td>
+						<td class="labelmedium2" style="padding-right:4px"> <cf_tl id="Telephone">: </td>
 						<td> </td>
 						<td>
 							<cfinput type="Text"
@@ -161,12 +163,12 @@
 						       enabled="Yes"
 						       size="20"
 						       maxlength="20"
-						       class="regularxl enterastab">
+						       class="regularxxl enterastab">
 						</td>
 					</tr>
 					 
 					<tr>
-						<td class="labelmedium" style="padding-right:4px">
+						<td class="labelmedium2" style="padding-right:4px">
 							<cf_tl id="eMail address">:
 						</td>
 						<td><font color="FF0000">*</font></td>
@@ -181,7 +183,7 @@
 						       enabled="Yes"
 						       size="40"
 						       maxlength="100"
-						       class="regularxl enterastab"
+						       class="regularxxl enterastab"
 							   validate="email">
 							   
 							   <cfdiv id="mailfailure"></div>
@@ -205,11 +207,11 @@
 							WHERE   HostName = '#CGI.HTTP_HOST#'
 					</cfquery>
 					
-					<input type="hidden" name="owner" id="owner" value="#Workgroup.Owner#">
+					<input type="hidden" name="owner"     id="owner"     value="#Workgroup.Owner#">
 					<input type="hidden" name="Workgroup" id="Workgroup" value="#Workgroup.Code#">
 					
 					<tr id="missionbox" class="regular">
-						<td style="padding-right:20px" class="labelmedium">
+						<td style="padding-right:20px" class="labelmedium2">
 							<cf_tl id="Entity">/<cf_tl id="Organization">:
 						</td>
 						<td><font color="FF0000">*</font></td>
@@ -231,7 +233,7 @@
 									</cfif>
 							</cfquery>		
 						
-							<select name="Mission" id="Mission" class="regularxl enterastab">		
+							<select name="Mission" id="Mission" class="regularxxl enterastab">		
 								<cfloop query="GetMission">
 									<option value="#Mission#" <cfif getPortal.Functioncondition eq Mission>selected</cfif>>#Mission#</option>
 								</cfloop>
@@ -243,7 +245,7 @@
 					 
 					<tr valign="top">												
 						<td colspan="3">
-							<textarea id="Memo" class="regularxl" name="Memo" style="padding:4px;font-size:13px;width:98%; border:1px solid ##C0C0C0;" maxlength="500" onkeyup="return ismaxlength(this)" rows="7"></textarea>
+							<textarea id="Memo" class="regularxl" name="Memo" style="padding:4px;font-size:14px;width:98%; border:1px solid ##C0C0C0;" maxlength="500" onkeyup="return ismaxlength(this)" rows="7"></textarea>
 						</td>
 					</tr>
 					

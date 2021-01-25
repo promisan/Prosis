@@ -30,6 +30,10 @@
 
 <cfif URL.eventid eq "">
 
+	<!---- before we have used : form.eventId --->
+
+	<cf_assignId>
+
 	<cfquery name="qInsert" 
 			 datasource="AppsEmployee" 
 			 username="#SESSION.login#" 
@@ -37,39 +41,38 @@
 			 
 			INSERT INTO PersonEvent
 			           (EventId,
-					   EventTrigger,
-			           EventCode,
-			           PersonNo,
-			           Mission,
-			           <cfif FORM.GroupCode neq "">
+					    EventTrigger,
+			            EventCode,
+			            PersonNo,
+			            Mission,
+			            <cfif FORM.GroupCode neq "">
 			           		ReasonCode,
 			           		ReasonListCode,
-			           </cfif>	
-					   <cfif FORM.GroupConditionCode neq "">
+			            </cfif>	
+					    <cfif FORM.GroupConditionCode neq "">
 			           		ConditionCode,
 			           		ConditionListCode,
-			           </cfif>	
-					   
-					   <cfif FORM.OrgUnit neq "">
-					   OrgUnit,
-					   </cfif>
-					   <cfif FORM.PositionNo neq "">
-					   PositionNo,
-					   </cfif>
-					   <cfif FORM.RequisitionNo neq "">
-					   RequisitionNo,
-					   </cfif>
-			           DocumentNo,					   
-			           DateEvent,
-			           DateEventDue,
-					   ActionDateEffective,
-					   ActionDateExpiration,
-			           ActionStatus,
-			           Remarks,
-			           OfficerUserId,
-			           OfficerLastName,
-			           OfficerFirstName)
-			VALUES  ('#Form.Eventid#',
+			            </cfif>	
+					    <cfif FORM.OrgUnit neq "">
+					    OrgUnit,
+					    </cfif>
+					    <cfif FORM.PositionNo neq "">
+					    PositionNo,
+					    </cfif>
+					    <cfif FORM.RequisitionNo neq "">
+					    RequisitionNo,
+					    </cfif>
+			            DocumentNo,					   
+			            DateEvent,
+			            DateEventDue,
+					    ActionDateEffective,
+					    ActionDateExpiration,
+			            ActionStatus,
+			            Remarks,
+			            OfficerUserId,
+			            OfficerLastName,
+			            OfficerFirstName)
+			VALUES  ('#rowguid#',
 			         '#FORM.TriggerCode#',
 			         '#FORM.EventCode#',
 			         '#FORM.PersonNo#',
@@ -111,7 +114,7 @@
 		FROM   PersonEvent PE
 			   INNER JOIN Person P ON PE.PersonNo = P.PersonNo
 			   LEFT OUTER JOIN Ref_PersonEvent RPE ON RPE.Code = PE.EventCode
-		WHERE  PE.EventId = '#Form.Eventid#'
+		WHERE  PE.EventId = '#rowguid#'
 	</cfquery>
 	
 	<cfif Event.EntityClass neq "">
@@ -120,7 +123,7 @@
 		<cfset entityclass = "Standard">
 	</cfif>
 	
-	<cfset link = "Staffing/Application/Employee/Events/EventDialog.cfm?id=#Form.Eventid#">
+	<cfset link = "Staffing/Application/Employee/Events/EventDialog.cfm?id=#rowguid#">
 	
 	<cf_ActionListing 
 		    EntityCode       = "PersonEvent"
@@ -131,7 +134,7 @@
 			PersonNo         = "#Event.PersonNo#" 
 			ObjectReference  = "#Event.FullName#"
 			ObjectReference2 = "#Event.Description#"			   
-			ObjectKey4       = "#Form.eventid#"					
+			ObjectKey4       = "#rowguid#"					
 			Show             = "No"
 			HideCurrent      = "No"			
 			ObjectURL        = "#link#">

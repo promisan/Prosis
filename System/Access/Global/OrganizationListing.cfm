@@ -23,7 +23,6 @@
 </cfif>	
 
 <cf_dialoglookup>
-<cfajaximport tags="cfwindow">
  
 <cfoutput>
 
@@ -404,11 +403,11 @@ function group(bx,row) {
     	
 	  <cf_divscroll>
 		
-		<table border="0" cellpadding="0" cellspacing="0" width="98%" align="center" class="navigation_table">
+		<table width="98%" align="center" class="navigation_table">
 		
 		<tr><td colspan="11"></td></tr>
 		
-		<TR class="labelmedium line">
+		<TR class="labelmedium2 line fixrow">
 		    <td width="10" style="width:40px"></td>
 			<TD><cf_tl id="Name"></TD>
 			<td></td>
@@ -432,13 +431,13 @@ function group(bx,row) {
 			   
 		<cfoutput query="SearchResult" group="AccountType">
 	
-		<tr class="line labelmedium">
+		<tr class="line labelmedium2 fixrow2">
 		   <td width="10%" colspan="11" style="padding-left:4px;height:50px">
 		      <table>
 			  <tr>
 			  <td>
 			  <cfif accounttype eq "Group">
-			  <img src="#SESSION.root#/Images/user.png" height="36" alt="" border="0">
+			  <img src="#SESSION.root#/Images/group.png" height="36" alt="" border="0">
 			  <cfelse>
 			  <img src="#SESSION.root#/Images/user3.png" height="36" alt="" border="0">
 			  </cfif>
@@ -463,19 +462,20 @@ function group(bx,row) {
 				<tr id="#account#_1" class="navigation_row labelmedium">
 			</cfif> 
 			
-			<td width="2%" align="left" style="padding-top:3px">
+			<td width="2%" height="20" align="center" style="padding-top:3px"> 
+			     <cfif user neq Account>			 
+				    <cf_img icon="open" tooltip="manager authorization" onclick="process('#Account#')" navigation="Yes">					       				
+				  </cfif>
+			</td>	
+			
+			<td width="2%" align="left" style="padding-right:10px;padding-top:9px">
 			
 			 <cfif AccountType eq "Group">	 
-	 		   <cf_img icon="expand" toggle="yes" onclick="group('#Account#','#currentRow#')">			
+	 		   <cf_img icon="expand" tooltip="members" toggle="yes" onclick="group('#Account#','#currentRow#')">			
 			  </cfif>	
 			  
 	        </td>
-			   
-			<td width="2%" height="20" align="center" style="padding-top:3px"> 
-			     <cfif user neq Account>			 
-				    <cf_img icon="open" onclick="process('#Account#')" navigation="Yes">					       				
-				  </cfif>
-			</td>		
+			   			
 						  
 			<td width="30%">
 			

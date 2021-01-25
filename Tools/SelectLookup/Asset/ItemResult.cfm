@@ -92,9 +92,7 @@
 
 <cfset link    = replace(url.link,"||","&","ALL")>
    
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
- 
-<td width="100%" colspan="2" valign="top">
+
 
 <!--- Query returning search results --->
 
@@ -224,45 +222,59 @@ password="#SESSION.dbpw#">
 ORDER BY ItemNo,AssetId
 </cfquery>
 
-<table border="0" cellpadding="0" cellspacing="0" width="100%" class="navigation_table">
+<table height="100%" width="100%" class="navigation_table">
 
-<tr><td height="14" colspan="6">
-						 
-	 <cfinclude template="ItemNavigation.cfm">
-	 				 
+<tr><td height="14">						 
+	 <cfinclude template="ItemNavigation.cfm">	 				 
 </td></tr>
 
+<tr><td style="height:100;width:100%">
 
-<tr class="line">
-  <td height="20"></td>
-  <td class="labelit"><cf_tl id="Make"></td>
-  <td class="labelit"><cf_tl id="Model"></td>
-  <td class="labelit"><cf_tl id="Barcode"></td>
-  <td class="labelit"><cf_tl id="PlateNo"></td>
-  <td class="labelit"><cf_tl id="SerialNo"></td>
-</tr>		   		
+<cf_divscroll>
 
-<cfoutput query="SearchResult">
-
-<cfif currentrow gte first>
-
-	<tr id="#currentrow#" style="height:17px" class="navigation_row labelit">	  
-	    <td class="navigation_action" 
-			height="15" width="30" style="padding-left:7px;padding-top:3px;padding-right:2px"
-			onclick="ptoken.navigate('#link#&cfdebug=true&action=insert&#url.des1#=#assetid#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ColdFusion.Window.hide('dialog#url.box#')</cfif>">
-			<cf_img icon="select">
-		</td>		
-		<td width="10%">#Make#</td>
-		<td width="25%">#Model#</td>
-		<TD width="20%"><cfif AssetBarCode eq "0">n/a<cfelse>#AssetBarCode#</cfif></TD>		
-		<TD width="20%">#AssetDecalNo#</TD>	
-		<td width="20%">#SerialNo#</td>					
-	</tr>
-	<tr class="navigation_row_child linedotted labelit" id="#currentrow#"><td></td><td colspan="5">#Description#</td></tr>
+	<table width="100%">
+	
+	<tr>
+	
+	<tr class="line labelmedium2 fixrow">
+	  <td height="20"></td>
+	  <td><cf_tl id="Make"></td>
+	  <td><cf_tl id="Model"></td>
+	  <td><cf_tl id="Barcode"></td>
+	  <td><cf_tl id="PlateNo"></td>
+	  <td><cf_tl id="SerialNo"></td>
+	</tr>		   		
+	
+	<cfoutput query="SearchResult">
 		
-</cfif>	
-		     
-</CFOUTPUT>
+		<cfif currentrow gte first>
+		
+			<tr id="#currentrow#" style="height:17px" class="navigation_row labelmedium2 linedotted">	  
+			    <td class="navigation_action" 
+					height="15" width="30" style="padding-left:7px;padding-top:3px;padding-right:2px"
+					onclick="ptoken.navigate('#link#&cfdebug=true&action=insert&#url.des1#=#assetid#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">
+					<cf_img icon="select">
+				</td>		
+				<td>#Make#</td>
+				<td>#Model#</td>
+				<TD><cfif AssetBarCode eq "0">n/a<cfelse>#AssetBarCode#</cfif></TD>		
+				<TD>#AssetDecalNo#</TD>	
+				<td>#SerialNo#</td>					
+			</tr>
+			<tr class="navigation_row_child line labelmedium" id="#currentrow#">
+			     <td></td>
+				 <td colspan="5">#Description#</td>
+			</tr>
+				
+		</cfif>	
+			     
+	</cfoutput>
+	
+	</td>
+	</tr>
+	</table>
+
+</cf_divscroll>
 
 <tr><td colspan="6">						 
 	 <cfinclude template="ItemNavigation.cfm">	 				 
@@ -270,6 +282,4 @@ ORDER BY ItemNo,AssetId
 
 </TABLE>
  
-</table>
-
 <cfset AjaxOnLoad("doHighlight")>

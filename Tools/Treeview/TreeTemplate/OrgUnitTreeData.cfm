@@ -28,14 +28,13 @@ password="#SESSION.dbpw#">
 </cfoutput>
 
 <cfif cnt eq "1">
-	
-	<cftree name="root"
-		font="Calibri"
-		fontsize="15"		
-		bold="No"   
-		format="html"    
-		required="No">  
-	 
+
+	<cf_UItree
+		id="root"
+		title="<span style='font-size:17px;color:gray;'>Features</span>"			
+		expand="Yes">
+		
+		 
 		<cfoutput query="SearchResult">
 		
 			<cfinvoke component="Service.Access"  
@@ -44,19 +43,19 @@ password="#SESSION.dbpw#">
 				 returnvariable="access">
 				 
 			<CFIF access is "GRANTED"> 	
-					
-				<cftreeitem value="#FunctionName#"
-			        display="<font color='0080C0'>#FunctionName#</font>"
+			
+				<cf_UItreeitem value="#FunctionName#"
+			        display="<span style='font-size:15px;padding-top:4px' class='labelit'>#FunctionName#</span>"						
 					parent="root"	
 					target="right"									
-					href="UnitViewOpen.cfm?systemfunctionid=#systemfunctionid#&ID1=#scriptname#&ID=#URL.ID#"		
-			        expand="Yes">	
-				 	
+					href="UnitViewOpen.cfm?systemfunctionid=#systemfunctionid#&ID1=#scriptname#&ID=#URL.ID#"								
+			        expand="Yes">						
+								 	
 			</cfif>
 		 
 		</cfoutput>
 	
-	</cftree>
+	</cf_UItree>
 
 </cfif>
 

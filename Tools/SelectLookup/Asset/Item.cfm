@@ -1,7 +1,4 @@
-
-xxxxxxxxxxxxxxxxx
-
-<cfabort>
+<!---
 
 <cf_screentop label="Search"  
    height  = "100%" 
@@ -10,8 +7,9 @@ xxxxxxxxxxxxxxxxx
    layout  = "webapp" 
    line    = "no"
    close   = "ColdFusion.Window.hide('dialog#url.box#')">
-    
-<cf_divscroll>
+   
+   --->
+   
 
 <table align="center" bgcolor="FFFFFF" width="100%" height="100%">
 
@@ -19,13 +17,13 @@ xxxxxxxxxxxxxxxxx
 
 <cfoutput>
 
-<table width="95%" border="0" align="center" cellspacing="0" cellpadding="0" align="center">
+<table width="95%" align="center" align="center">
 
 <tr><td>
 
 <form name="select_#url.box#" id="select_#url.box#" method="post">
 
-<table width="100%" border="0" class="formpadding" cellspacing="0" cellpadding="0" onkeyup="if (window.event.keyCode == '13') { document.getElementById('search').click() }">
+<table width="100%" class="formpadding" onkeyup="if (window.event.keyCode == '13') { document.getElementById('search').click() }">
 
 <cfinvoke component = "Service.Language.Tools"  
 	   method           = "LookupOptions" 
@@ -43,8 +41,8 @@ xxxxxxxxxxxxxxxxx
 	
 	<cfelse>
       
-		<TR>
-		<TD width="70" class="labelit">Category:</TD>
+		<TR class="labelmedium2">
+		<TD width="70">Category:</TD>
 		<TD colspan="3">
 				
 		<cfquery name="CategoryList" 
@@ -94,7 +92,7 @@ xxxxxxxxxxxxxxxxx
 		
 		</cfif>
 		
-		   <SELECT name="Category" id="Category" style="width:160" class="regularxl">
+		   <SELECT name="Category" id="Category" style="width:160" class="regularxxl">
 					
 			<cfloop query="categoryList">		
 			<option value="#Category#">#Description#</option>
@@ -112,21 +110,21 @@ xxxxxxxxxxxxxxxxx
 	<INPUT type="hidden" name="Crit2_FieldName_#url.box#" id="Crit2_FieldName_#url.box#" value="Make">
 	
 	<INPUT type="hidden" name="Crit2_FieldType_#url.box#" id="Crit2_FieldType_#url.box#" value="CHAR">
-	<TR>
-	<TD class="labelit">Make:</TD>
-	<TD><SELECT name="Crit2_Operator_#url.box#" id="Crit2_Operator_#url.box#" class="regularxl">
+	<TR class="labelmedium2">
+	<TD>Make:</TD>
+	<TD><SELECT name="Crit2_Operator_#url.box#" id="Crit2_Operator_#url.box#" class="hide regularxxl">
 			#SelectOptions#
 		</SELECT>
 		
-	<INPUT type="text" name="Crit2_Value_#url.box#" id="Crit2_Value_#url.box#" size="14" class="regularxl"> 
+	<INPUT type="text" name="Crit2_Value_#url.box#" id="Crit2_Value_#url.box#" size="14" class="regularxxl"> 
 	
 	</TD>
 			
 	<INPUT type="hidden" name="Crit3_FieldName_#url.box#" id="Crit3_FieldName_#url.box#" value="OrgUnit">	
 	<INPUT type="hidden" name="Crit3_FieldType_#url.box#" id="Crit3_FieldType_#url.box#" value="CHAR">
 	
-	<TD class="labelit">Unit:</TD>
-	<TD><SELECT name="Crit3_Operator_#url.box#" id="Crit3_Operator_#url.box#" class="regularxl">
+	<TD>Unit:</TD>
+	<TD><SELECT name="Crit3_Operator_#url.box#" id="Crit3_Operator_#url.box#" class="hide regularxxl">
 			#SelectOptions	#
 		</SELECT>
 		
@@ -136,31 +134,31 @@ xxxxxxxxxxxxxxxxx
 	
 	</tr>
 	
-	<tr>
+	<tr class="labelmedium2">
 		
 	<INPUT type="hidden" name="Crit4_FieldName_#url.box#" id="Crit4_FieldName_#url.box#" value="AssetBarCode">	
 	<INPUT type="hidden" name="Crit4_FieldType_#url.box#" id="Crit4_FieldType_#url.box#" value="CHAR">
 	
-	<TD width="100" class="labelit">Barc/Plate/Serial:</TD>
-	<TD><SELECT name="Crit4_Operator_#url.box#" id="Crit4_Operator_#url.box#" class="regularxl">
+	<TD width="100" style="padding-right:20px">Barc/Plate/Serial:</TD>
+	<TD><SELECT name="Crit4_Operator_#url.box#" id="Crit4_Operator_#url.box#" class="hide regularxxl">
 			#SelectOptions#
 		</SELECT>
 		
-	<INPUT type="text" name="Crit4_Value_#url.box#" id="Crit4_Value_#url.box#" size="14" class="regularxl"> 
+	<INPUT type="text" name="Crit4_Value_#url.box#" id="Crit4_Value_#url.box#" size="14" class="regularxxl"> 
 	
 	</TD>
 	
-	<TD class="labelit">Description:</TD>
+	<TD>Description:</TD>
 	<TD>
 	
 	<INPUT type="hidden" name="Crit0_FieldName_#url.box#" id="Crit0_FieldName_#url.box#" value="Description">
 	<INPUT type="hidden" name="Crit0_FieldType_#url.box#" id="Crit0_FieldType_#url.box#" value="CHAR">
 	
-	<SELECT name="Crit0_Operator_#url.box#" id="Crit0_Operator_#url.box#" class="regularxl">
+	<SELECT name="Crit0_Operator_#url.box#" id="Crit0_Operator_#url.box#" class="hide regularxxl">
 			#SelectOptions#
 	</SELECT>
 		
-	<INPUT type="text" name="Crit0_Value_#url.box#" id="Crit0_Value_#url.box#" size="14" class="regularxl"> 
+	<INPUT type="text" name="Crit0_Value_#url.box#" id="Crit0_Value_#url.box#" size="24" class="regularxxl"> 
 	
 	</TD>
 	</TR>
@@ -203,9 +201,9 @@ xxxxxxxxxxxxxxxxx
 
 </tr>
 
-<tr><td colspan="2" class="linedotted"></td></tr>
+<tr><td colspan="2" class="line"></td></tr>
 	
-<tr><td colspan="2" style="height:26px">
+<tr><td colspan="4" style="height:26px">
 
 	<table><tr>
 	   <cfoutput>
@@ -233,12 +231,10 @@ xxxxxxxxxxxxxxxxx
    
 </td></tr>
 
-<tr><td class="linedotted"></td></tr>
+<tr><td colspan="4" class="line"></td></tr>
 
 <tr>
-	<td style="padding-top:4px" colspan="2" align="center" valign="middle">		
-		<cfdiv id="result#url.box#">		
-	</td>
+	<td style="padding-top:4px" colspan="4" align="center" valign="middle" id="result#url.box#"></td>
 </tr>
 
 </table>
@@ -250,5 +246,7 @@ xxxxxxxxxxxxxxxxx
 </td></tr>
 
 </table>
-</cf_divscroll>
+
+<!---
 <cf_screenbottom layout="webdialog">
+--->

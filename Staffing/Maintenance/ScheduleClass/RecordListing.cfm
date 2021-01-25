@@ -8,8 +8,6 @@ password="#SESSION.dbpw#">
 	Order by ListingOrder
 </cfquery>
 
-
-
 <cfset Page         = "0">
 <cfset add          = "1">
 <cfset save         = "0"> 

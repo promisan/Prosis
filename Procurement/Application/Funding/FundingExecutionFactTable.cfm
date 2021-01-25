@@ -1,7 +1,10 @@
 <cf_droptable dbname="AppsQuery" tblname="#SESSION.acc#FactAllotment"> 
 <cf_droptable dbname="AppsQuery" tblname="#SESSION.acc#FactRequests"> 
 <cf_droptable dbname="AppsQuery" tblname="#SESSION.acc#FactExecution"> 
+
+<!---
 <cf_droptable dbname="AppsQuery" tblname="#SESSION.acc#ExecutionIMIS"> 
+--->
 
 <cfquery name="Param" 
 	 datasource="AppsProgram" 

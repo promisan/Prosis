@@ -261,7 +261,34 @@ but only for documentNo that do not have already an occurance with the base (A).
 		password="#SESSION.dbpw#">
 		DELETE FROM Applicant
 		WHERE  PersonNo = '#Form.Wrong#' 
-	</cfquery>		
+	</cfquery>
+
+	<!---- Below added by Armin on Jan 21 2021 ---->
+	<cfquery name="qCheckCustomer"
+			datasource="appsSelection" username="#SESSION.login#" password="#SESSION.dbpw#">
+		SELECT * FROM Workorder.dbo.Customer
+		WHERE PersonNo ='#FORM.Correct#'
+	</cfquery>
+
+	<cfif qCheckCustomer.recordcount neq 0>
+
+		<cfquery name="qCheckCustomerWrong"
+				datasource="appsSelection" username="#SESSION.login#" password="#SESSION.dbpw#">
+			SELECT * FROM Workorder.dbo.Customer
+			WHERE PersonNo ='#FORM.Wrong#'
+		</cfquery>
+
+		<cfif qCheckCustomerWrong.recordcount neq 0>
+			<cfquery name="Step9"
+					datasource="appsSelection" username="#SESSION.login#" password="#SESSION.dbpw#">
+				UPDATE WorkOrder.dbo.WorkOrder
+				SET CustomerId ='#qCheckCustomer.CustomerId#'
+			WHERE
+			CustomerId ='#qCheckCustomerWrong.CustomerId#'
+			</cfquery>
+		</cfif>
+	</cfif>
+
 	
 </cftransaction>
 

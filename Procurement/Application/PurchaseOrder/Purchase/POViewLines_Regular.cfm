@@ -64,29 +64,29 @@
 
 <table width="100%" align="center" class="navigation_table">
   
-    <TR bgcolor="white" class="labelmedium fixrow2">
-	   <td height="19" width="24" style="width:20px;top:32px"></td>
+    <TR bgcolor="white" class="labelmedium fixrow240">
+	   <td height="19" width="24" style="width:20px;"></td>
 	   <cfif URL.Mode eq "Edit" and PO.ActionStatus eq "0">
-	   <td colspan="2" style="width:20px;top:32px"></td>
+	   <td colspan="2" style="width:20px;"></td>
 	   <cfelse>
-	   <td colspan="2" style="width:20px;top:32px"></td>
+	   <td colspan="2" style="width:20px;"></td>
 	   </cfif>
-	   <td style="width:20px;top:32px"></td>
-	   <td style="top:32px" width="40%" style="top:40px"><cf_tl id="Description"></td>
-	   <td style="top:32px"><cf_tl id="Job"></td>
-	   <td style="top:32px" align="right"><cf_tl id="Qty"></td>
-       <td style="top:32px" align="center"><cf_tl id="UoM"></td>
-	   <td style="top:32px" align="center"><cf_tl id="Volume"></td>
-	   <td style="top:32px" align="center"><font size="1">#Lines.Currency#</font><cf_tl id="UoM"></td>
-	   <td style="top:32px" align="center"><font size="1">#Lines.Currency#</font><cf_tl id="Unit"></td>
+	   <td style="width:20px"></td>
+	   <td width="40%" style="top:40px"><cf_tl id="Description"></td>
+	   <td><cf_tl id="Job"></td>
+	   <td align="right"><cf_tl id="Qty"></td>
+       <td align="center"><cf_tl id="UoM"></td>
+	   <td align="center"><cf_tl id="Volume"></td>
+	   <td align="center"><font size="1">#Lines.Currency#</font><cf_tl id="UoM"></td>
+	   <td align="center"><font size="1">#Lines.Currency#</font><cf_tl id="Unit"></td>
        
-	   <td style="top:32px" align="right"><font size="1">#Lines.Currency#</font><cf_tl id="Ext Price"></td>
-	   <td style="top:32px" align="right"><cf_tl id="Tax"></td>
-	   <td style="top:32px" align="right"><cf_tl id="Payable"></td>
+	   <td align="right"><font size="1">#Lines.Currency#</font><cf_tl id="Ext Price"></td>
+	   <td align="right"><cf_tl id="Tax"></td>
+	   <td align="right"><cf_tl id="Payable"></td>
 	   <cfif APPLICATION.BaseCurrency neq lines.currency>
-	   <td style="top:32px" align="right" style="padding-right:4px"><cfoutput>#APPLICATION.BaseCurrency#</cfoutput></td>	 
+	   <td align="right" style="padding-right:4px"><cfoutput>#APPLICATION.BaseCurrency#</cfoutput></td>	 
 	   <cfelse>
-	   <td style="top:32px"></td> 	  
+	   <td></td> 	  
 	   </cfif>	   
      </TR> 
 	 

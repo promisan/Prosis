@@ -353,20 +353,28 @@
 					<cfset cellstyle  = "">
 				
 					<cfset fontcolor = "">			
-					<cfset inner = evaluate(current.formatted)>													 
+					<cfset inner = evaluate(current.formatted)>		
+																 
 					<cfif inner neq "" and current.functionscript neq "" and (url.ajaxid eq "content" or url.ajaxid eq "append")> <!--- somehow the inner would not work for a refresh --->
 						
 						 <cfparam name="current.functionfield" default="">
-						 <cfset cellstyle = "text-decoration: underline;font-color:blue;text-overflow: ellipsis;">
-						 <cfif current.functionfield neq "">							 							   
-								<cfset cellclick = "#current.functionscript#('#evaluate(current.functionfield)#','#url.systemfunctionid#','#current.functioncondition#')">																				
+						 
+						 <cfif current.functionfield neq "">							 		
+						        <cfif evaluate(current.functionfield) neq "">					   
+									<cfset cellclick = "#current.functionscript#('#evaluate(current.functionfield)#','#url.systemfunctionid#','#current.functioncondition#')">																				
+									<cfset cellstyle = "text-decoration: underline;color:6688aa">								
+								<cfelse>
+									<cfset cellclick = "">																				
+									<cfset cellstyle = "">																
+								</cfif>
 						 <cfelse>							 							 	
 							    <cfset cellclick = "#current.functionscript#('#evaluate(current.field)#','#url.systemfunctionid#','#current.functioncondition#')">															
+								<cfset cellstyle = "text-decoration: underline;color:6688aa">
 						 </cfif>	 
 							  
 					<cfelseif inner neq "" and current.drilltemplate neq "">
 											 				 
-						 	  <cfset cellstyle = "text-decoration: underline;font-color:blue;">
+						 	  <cfset cellstyle = "text-decoration: underline;color:6688aa;">
 							  <cfset cellclick = "toggledrill('embed','box#dkey#','#current.drilltemplate#','#evaluate(current.functionfield)#','','','')">	  
 						 						  
 					<cfelse>

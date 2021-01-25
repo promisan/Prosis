@@ -1,4 +1,8 @@
 
+This function has moved to within the bucket itself.
+
+<!---
+
 <cf_tl id="Roster Bucket Accessg" var="1">
 
 <cf_screenTop height="100%" 
@@ -48,4 +52,6 @@
 
 
 </html>
+
+--->
 

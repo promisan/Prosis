@@ -1,22 +1,41 @@
 
-<cfquery name="Drill" 
+<cfquery name="get" 
 datasource="AppsSystem">
-	UPDATE  UserStatus
-	SET     ActionExpiration = 1
-	WHERE   Account = '#URL.ID#'
-	AND     NodeIP  = '#URL.ID1#'
-	AND     HostSessionId = '#url.id2#'
+	SELECT * FROM UserStatus	
+	WHERE   UserStatusId  = '#URL.ID#'		
 </cfquery>
 
-<cfset tracker = CreateObject("java", "coldfusion.runtime.SessionTracker")>
-<cfset sessions = tracker.getSessionCollection(application.applicationName)>
+<cfif get.recordcount gte "1">
 
-<cftry>
+	<cfquery name="Drill" datasource="AppsSystem">
+		UPDATE  UserStatus
+		SET     ActionExpiration = 1
+		WHERE   UserStatusId  = '#URL.ID#'
+	</cfquery>
+	
+	<cfset tracker = CreateObject("java", "coldfusion.runtime.SessionTracker")>
+	<cfset sessions = tracker.getSessionCollection(application.applicationName)>
+	
+	<cftry>
+	
+		<cfset targetSession = sessions[ application.applicationName & '_' & get.HostSessionId]>
+		<cfset StructClear(targetSession)>
+			
+		<cfcatch>
+				
+		</cfcatch>
+		
+	</cftry>
+	
+	<cfoutput>
+	
+	<script>
+	    applyfilter('1','','#url.id#')
+		// $('tr[name*=#url.box#_#url.id#]') .each(function() { this.remove(); }); 
+		// alert('Session has been terminated')
+	</script>
+	
+	</cfoutput>
 
-	<cfset targetSession = sessions[ application.applicationName & '_' & URL.ID2]>
-	<cfset StructClear(targetSession)>
+</cfif>
 
-	<cfcatch></cfcatch>
-</cftry>
-
-<font color="FF0000">Expired</font>

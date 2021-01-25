@@ -14,11 +14,11 @@
 <script>
 
 	function recordadd(grp) {
-		ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=", "AddTimeClass", "left=80, top=80, width= 450, height=450, toolbar=no, status=yes, scrollbars=no, resizable=yes");
+		ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=", "AddTimeClass", "left=80, top=80, width= 550, height=450, toolbar=no, status=yes, scrollbars=no, resizable=yes");
 	}
 	
 	function recordedit(id1) {
-		ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "EditTimeClass", "left=80, top=80, width= 450, height=450, toolbar=no, status=yes, scrollbars=no, resizable=yes");
+		ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "EditTimeClass", "left=80, top=80, width= 550, height=450, toolbar=no, status=yes, scrollbars=no, resizable=yes");
 	}
 	
 	function recordpurge(id1) {

@@ -12,14 +12,14 @@ password="#SESSION.dbpw#">
 
 <cfoutput>
 
-<table width="99%" align="center" cellspacing="0" cellpadding="0">  
+<table width="99%" align="center">  
 
 <tr><td colspan="2">
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<table width="100%" align="center" class="navigation_table">
 
-<tr class="labelmedium">
-    <TD align="center"><a href="javascript:showWorkorderService('#URL.ID1#', '')"><font color="0080C0"><b>[ <cf_tl id="Add"> ]</font></a></TD> 
+<tr class="labelmedium2 line">
+    <TD style="width:40px"><a href="javascript:showWorkorderService('#URL.ID1#', '')">[<cf_tl id="Add">]</a></TD> 
 	<td align="center"><cf_tl id="Sort"></td>
     <TD><cf_tl id="Reference"></TD>
 	<td><cf_tl id="Description"></td>
@@ -52,11 +52,11 @@ password="#SESSION.dbpw#">
 			AND		 WOS.Reference = '#Reference#'
 	</cfquery>
 	
-    <TR class="labelmedium line navigation_row"> 
-	<td width="5%" align="center">
+    <TR class="labelmedium2 line navigation_row"> 
+	<td width="5%">
 		<table>
 			<tr>
-				<td></td>
+				<td style="width:2px"></td>
 				<td>
 					<cfquery name="CountRec" 
 					      datasource="AppsWorkOrder" 
@@ -72,7 +72,7 @@ password="#SESSION.dbpw#">
 					</cfif>
 				</td>
 				<td style="padding-left:3px;padding-top:3px">
-					<cf_img icon="select" navigation="Yes" onclick="showWorkorderService('#URL.ID1#', '#Reference#')">
+					<cf_img icon="open" navigation="Yes" onclick="showWorkorderService('#URL.ID1#', '#Reference#')">
 				</td>
 			</tr>
 		</table>

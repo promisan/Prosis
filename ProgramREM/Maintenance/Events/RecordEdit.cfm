@@ -33,31 +33,33 @@ function ask() {
 
 <cf_divscroll>
 
-<table width="96%" cellspacing="0" cellpadding="0" align="center" class="formpadding formspacing">
-<cfform action="RecordSubmit.cfm" method="POST" enablecab="Yes" name="dialog">
+<cfform action="RecordSubmit.cfm" method="POST" name="dialog">
+
+<table width="96%" align="center" class="formpadding formspacing">
+
     <tr><td height="6"></td></tr>
 	
     <cfoutput>
     <TR>
-    <TD class="labelmedium">Code:</TD>
-    <TD class="labelmedium">
-  	   <input type="text" name="Code" value="#get.Code#" size="2" maxlength="2" class="regularxl">
+    <TD class="labelmedium2">Code:</TD>
+    <TD>
+  	   <input type="text" name="Code" value="#get.Code#" size="2" maxlength="2" class="regularxxl">
 	   <input type="hidden" name="CodeOld" value="#get.Code#">
     </TD>
 	</TR>
 	
 	<TR>
-    <TD class="labelmedium">Description:</TD>
-    <TD class="labelmedium">
+    <TD class="labelmedium2">Description:</TD>
+    <TD>
   	   <cfinput type="text" name="Description" value="#get.Description#" message="please enter a description" required=  "yes" size="40" 
-	   maxlenght = "40" class= "regularxl">
+	   maxlenght = "40" class= "regularxxl">
     </TD>
 	</TR>
 	
 	
 	<TR>
-    <TD class="labelmedium">Order:</TD>
-    <TD class="labelmedium">
+    <TD class="labelmedium2">Order:</TD>
+    <TD>
   	   <cfinput type="text" 
 	   			name="ListingOrder" 
 				value="#get.ListingOrder#" 
@@ -67,14 +69,14 @@ function ask() {
 				required="yes" 
 				size="1" 
 				maxlength="2" 
-				class="regularxl">
+				class="regularxxl">
     </TD>
 	</TR>
 		
 	</cfoutput>
 	
 	<tr>
-		<td valign="top" style="padding-top:4px" class="labelmedium">Enabled to:</td>
+		<td valign="top" style="padding-top:4px" class="labelmedium2">Enabled to:</td>
 		<td>
 							
 			<cfquery name="Mission"
@@ -87,7 +89,7 @@ function ask() {
 			</cfquery>
 			
 			<cfset cnt = 0>
-			<table width="100%" cellspacing="0" cellpadding="0">
+			<table width="100%">
 			<cfoutput query="Mission">
 		
 				<cfquery name="Check"

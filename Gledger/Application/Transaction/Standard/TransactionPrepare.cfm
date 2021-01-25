@@ -33,6 +33,9 @@ Tthe field ParentLineId is populated with
   <cfset   AccountPeriod     = "#URL.AccountPeriod#">
 </cfoutput>
 
+<cfparam name="SESSION.mytransaction" default="0">  
+<cfset session.mytransaction = session.mytransaction +1>	
+
 <cfif URL.Journal eq "" or  url.journal eq "undefined">
 
 	<cfquery name="Journal"
@@ -81,14 +84,15 @@ Tthe field ParentLineId is populated with
 
 <cftry>
 	
-	<CF_DropTable dbName="AppsQuery" tblName="#SESSION.acc#GledgerHeader_#client.sessionNo#"> 
-	<CF_DropTable dbName="AppsQuery" tblName="#SESSION.acc#GledgerLine_#client.sessionNo#"> 
+	<CF_DropTable dbName="AppsQuery" tblName="#SESSION.acc#GledgerHeader_#client.sessionNo#_#session.mytransaction#"> 
+	<CF_DropTable dbName="AppsQuery" tblName="#SESSION.acc#GledgerLine_#client.sessionNo#_#session.mytransaction#"> 
 	
 	<cfquery name="SearchResult"
 	datasource="AppsQuery" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	CREATE TABLE dbo.#SESSION.acc#GledgerHeader_#client.sessionNo# ( 
+	
+	CREATE TABLE dbo.#SESSION.acc#GledgerHeader_#client.sessionNo#_#session.mytransaction# ( 
 		[Journal] [varchar] (10) NULL ,
 		[JournalSerialNo] [int] NULL ,
 		[TransactionId] uniqueidentifier NULL ,
@@ -104,7 +108,7 @@ Tthe field ParentLineId is populated with
 		[TransactionDate] [datetime] NULL ,
 		[AccountPeriod] [varchar] (10) NULL ,
 		[TransactionCategory] [varchar] (20) NULL ,
-		[MatchingRequired] [bit] NOT NULL CONSTRAINT [#SESSION.acc#_#Client.sessionNo#_Transaction_MatchingRequired] DEFAULT (0),
+		[MatchingRequired] [bit] NOT NULL CONSTRAINT [#SESSION.acc#_#Client.sessionNo#_#session.mytransaction#_Transaction_MatchingRequired] DEFAULT (0),
 		[ReferenceOrgUnit] [int] NULL ,
 		[ReferencePersonNo] [varchar] (20) NULL ,
 		[Reference] [varchar] (20) NULL ,
@@ -157,10 +161,10 @@ Tthe field ParentLineId is populated with
 	datasource="AppsLedger" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	    SELECT TOP 1 *
-		FROM   JournalAccount A
-		WHERE  Journal = '#Journal#' 	
-		AND    Mode = 'Contra'
+	    SELECT   TOP 1 *
+		FROM     JournalAccount A
+		WHERE    Journal = '#Journal#' 	
+		AND      Mode = 'Contra'
 		ORDER BY ListDefault DESC <!--- first the default --->
 	</cfquery>
 	
@@ -168,10 +172,10 @@ Tthe field ParentLineId is populated with
 	datasource="AppsLedger" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	    SELECT *
-		FROM  TransactionHeader
-		WHERE Journal = '#URL.ParentJournal#' 
-		AND   JournalSerialNo = '#URL.ParentJournalSerialNo#'	
+	    SELECT  *
+		FROM    TransactionHeader
+		WHERE   Journal = '#URL.ParentJournal#' 
+		AND     JournalSerialNo = '#URL.ParentJournalSerialNo#'	
 	</cfquery>
 	
 	<!--- populate table --->
@@ -182,95 +186,97 @@ Tthe field ParentLineId is populated with
 	   username="#SESSION.login#" 
 	   password="#SESSION.dbpw#">
 	   INSERT 
-	   INTO [#SESSION.acc#GledgerHeader_#client.sessionNo#] 
-	   (Journal,
-	    Mission, 
-		TransactionId,
-		OrgUnitOwner, 
-		<cfif isNumeric(url.referenceorgunit)>
-		ReferenceName,
-		ReferenceOrgUnit,
-		</cfif>	
-		<cfif url.referenceid neq "">
-		ReferenceId,
-		</cfif>	
-		TransactionDate,
-		TransactionCategory,
-		AccountPeriod,
-		DocumentCurrency,
-		ExchangeRate,
-		DocumentDate,
-		DocumentAmount,
-		<cfif url.source neq "">
-			TransactionSource,
-			TransactionSourceNo,
-			<cfif url.sourceid neq "">
-				TransactionSourceId,
-			</cfif>
-		</cfif>
-		
-		<cfif url.ParentJournal neq "">
-		ParentJournal,
-		ParentJournalSerialNo,
-		ParentTransactionId,		
-			<!--- added for the distribution of an amount of a line 5/5/2009 --->
-			<cfif url.parentlineid neq "">
-			ParentLineId,
-			</cfif>
-		</cfif>
-		Currency,
-		ContraGLAccount,
-		ContraGLAccountType)
-	   VALUES 
-	   ('#Journal#',
-	    '#URL.Mission#',
-		newid(),
-		'#URL.OrgUnitOwner#',
-		<cfif isNumeric(url.referenceorgunit)>
-		'#org.orgunitname#',
-		'#url.referenceorgunit#', 
-		</cfif>	
-		<cfif url.referenceid neq "">
-		'#url.ReferenceId#',
-		</cfif>		
-		getDate(),
-		'#TransactionCategory#',
-		'#AccountPeriod#',
-		'#Currency#',
-		'1',
-		getDate(),
-		'#URL.amount#',
-		<cfif url.source neq "">
-		'#url.source#',
-		'#url.sourceno#',  
-			<cfif url.sourceid neq "">
-			'#url.sourceid#',
+	   INTO [#SESSION.acc#GledgerHeader_#client.sessionNo#_#session.mytransaction#] 
+		   (Journal,
+		    Mission, 
+			TransactionId,
+			OrgUnitOwner, 
+			<cfif isNumeric(url.referenceorgunit)>
+			ReferenceName,
+			ReferenceOrgUnit,
 			</cfif>	
-		</cfif>
-			
-		<cfif url.ParentJournal neq "">
-		'#URL.ParentJournal#',
-		'#URL.ParentJournalSerialNo#',
-		'#Header.TransactionId#',	    
-			<!--- associate the transaction to a triggering line (distribution) --->
-			<cfif url.parentlineid neq "">
-			'#url.ParentLineId#',
+			<cfif url.referenceid neq "">
+			ReferenceId,
+			</cfif>	
+			TransactionDate,
+			TransactionCategory,
+			AccountPeriod,
+			DocumentCurrency,
+			ExchangeRate,
+			DocumentDate,
+			DocumentAmount,
+			<cfif url.source neq "">
+				TransactionSource,
+				TransactionSourceNo,
+				<cfif url.sourceid neq "">
+					TransactionSourceId,
+				</cfif>
 			</cfif>
-		</cfif>
-		'#Currency#',
-		
-		<cfif url.glaccount eq "">
-		
-		'#DefaultContraAccount.GLAccount#',
-		'#AccountType#'
-		
-		<cfelse>
-		
-		<!--- this is passed from the edit screen --->
-		
-		'#url.GLAccount#',
-		'#url.AccountType#' 
-		</cfif>)
+			
+			<cfif url.ParentJournal neq "">
+			ParentJournal,
+			ParentJournalSerialNo,
+			ParentTransactionId,		
+				<!--- added for the distribution of an amount of a line 5/5/2009 --->
+				<cfif url.parentlineid neq "">
+				ParentLineId,
+				</cfif>
+			</cfif>
+			Currency,
+			ContraGLAccount,
+			ContraGLAccountType)
+			
+		   VALUES 
+		   
+		   ('#Journal#',
+		    '#URL.Mission#',
+			newid(),
+			'#URL.OrgUnitOwner#',
+			<cfif isNumeric(url.referenceorgunit)>
+			'#org.orgunitname#',
+			'#url.referenceorgunit#', 
+			</cfif>	
+			<cfif url.referenceid neq "">
+			'#url.ReferenceId#',
+			</cfif>		
+			getDate(),
+			'#TransactionCategory#',
+			'#AccountPeriod#',
+			'#Currency#',
+			'1',
+			getDate(),
+			'#URL.amount#',
+			<cfif url.source neq "">
+			'#url.source#',
+			'#url.sourceno#',  
+				<cfif url.sourceid neq "">
+				'#url.sourceid#',
+				</cfif>	
+			</cfif>
+				
+			<cfif url.ParentJournal neq "">
+			'#URL.ParentJournal#',
+			'#URL.ParentJournalSerialNo#',
+			'#Header.TransactionId#',	    
+				<!--- associate the transaction to a triggering line (distribution) --->
+				<cfif url.parentlineid neq "">
+				'#url.ParentLineId#',
+				</cfif>
+			</cfif>
+			'#Currency#',
+			
+			<cfif url.glaccount eq "">
+			
+			'#DefaultContraAccount.GLAccount#',
+			'#AccountType#'
+			
+			<cfelse>
+			
+			<!--- this is passed from the edit screen --->
+			
+			'#url.GLAccount#',
+			'#url.AccountType#' 
+			</cfif>)
 				
 	   </cfquery>	   
 	   
@@ -280,7 +286,7 @@ Tthe field ParentLineId is populated with
 	datasource="AppsQuery" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	CREATE TABLE dbo.#SESSION.acc#GledgerLine_#Client.sessionNo# (
+	CREATE TABLE dbo.#SESSION.acc#GledgerLine_#client.sessionNo#_#session.mytransaction# (
 	    [SerialNo] [int] IDENTITY (1, 1) NOT NULL,
 		[Journal] [varchar] (10) NOT NULL ,
 		[JournalSerialNo] [int] NULL ,
@@ -289,7 +295,7 @@ Tthe field ParentLineId is populated with
 		[ParentLineId] uniqueidentifier NULL ,
 		[GLAccount] [varchar] (20) NOT NULL ,
 		[JournalTransactionNo] [varchar] (20) NULL ,
-		[ReconciliationPointer] [bit] NOT NULL CONSTRAINT [#SESSION.acc#_Transaction_ReconciliationPointer_#Client.sessionNo#] DEFAULT (0),
+		[ReconciliationPointer] [bit] NOT NULL CONSTRAINT [#SESSION.acc#_Transaction_ReconciliationPointer_#Client.sessionNo#_#session.mytransaction#] DEFAULT (0),
 		[Memo] [varchar] (80) NULL ,
 		[OrgUnit] [int] NULL ,
 		[ProgramCode] [varchar] (20) NULL ,	
@@ -354,7 +360,7 @@ Tthe field ParentLineId is populated with
 	 
 </cftry>
 
-<cf_screentop html="No" jQuery="Yes" scroll="Yes" menuAccess="Context">
+<cf_screentop html="No" jQuery="Yes" scroll="Yes" menuAccess="Context" onfocus="setscopeno" onclose="aaaa">
 
 <cfinclude template="Transaction.cfm">
 

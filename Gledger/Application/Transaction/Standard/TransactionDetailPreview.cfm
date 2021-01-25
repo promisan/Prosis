@@ -4,7 +4,7 @@
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 	SELECT   *
-	FROM     #SESSION.acc#GledgerHeader_#client.sessionNo# 
+	FROM     #SESSION.acc#GledgerHeader_#client.sessionNo#_#session.mytransaction# 
 </cfquery>	
 
 <!--- retrieve transaction --->
@@ -48,7 +48,7 @@
 	SELECT   GLAccount, 
 	         SUM(L.AmountBaseDebit) AS BaseDebit, 
 			 SUM(L.AmountBaseCredit) AS BaseCredit
-	FROM     #SESSION.acc#GledgerLine_#client.sessionNo# L
+	FROM     #SESSION.acc#GledgerLine_#client.sessionNo#_#session.mytransaction# L
 	GROUP BY GLAccount
 </cfquery>	
 

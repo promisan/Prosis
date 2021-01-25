@@ -10,7 +10,7 @@ datasource="AppsQuery"
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
     SELECT *
-	FROM   #SESSION.acc#GledgerHeader_#client.sessionNo#
+	FROM   #SESSION.acc#GledgerHeader_#client.sessionNo#_#session.mytransaction#
 </cfquery>
 
 <cfquery name="Journal"
@@ -56,7 +56,7 @@ password="#SESSION.dbpw#">
 	 
 	 <!--- already selected transactions for payment in memory of this entry transaction  --->
 	 AND       P.TransactionId NOT IN (SELECT ParentTransactionId 
-	                                  FROM    userQuery.dbo.#SESSION.acc#GledgerLine_#client.sessionNo#
+	                                  FROM    userQuery.dbo.#SESSION.acc#GledgerLine_#client.sessionNo#_#session.mytransaction#
 								      WHERE   ParentTransactionId IS NOT NULL)
 									  
 	 AND       P.ActionStatus = '1'		
@@ -100,7 +100,7 @@ password="#SESSION.dbpw#">
 			
 		<table width="100%" align="center" class="navigation_table">
 						
-		<tr class="line labelmedium fixrow">
+		<tr class="line labelmedium2 fixrow">
 		    <TD style="min-width:30px"></TD>
 		    <TD style="min-width:120px"><cf_tl id="Transaction"></TD>
 			<TD style="min-width:150px"><cf_tl id="InvoiceNo"></TD>

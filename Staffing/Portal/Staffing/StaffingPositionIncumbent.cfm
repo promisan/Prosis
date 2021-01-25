@@ -60,6 +60,7 @@
 			      </td>
 				  </tr>
 			      <tr><td align="center" style="font-size:12px">#NationalityName#</td></tr>
+				  
 			  </table>
 			</td>
 						  
@@ -67,14 +68,15 @@
 			  
 			  	<table style="width:100%">
 				
-				   <tr style="height:25px">						        
+				   <tr style="height:25px">	
+				   					        
 						 <td colspan="3" style="width:100%">	
 						 							 
 						 <table style="width:100%">
-							 <tr class="labelmedium">
+							 <tr class="labelmedium2">
 								 <td colspan="2" style="font-weight:bold;font-size:17px">#FirstName# #LastName#</td>
 							 </tr>
-							 <tr class="labelmedium" style="height:20px">
+							 <tr class="labelmedium2" style="height:20px">
 								 <td style="font-size:14px">
 								  <cfif getAdministrator("#mission#") eq "1">
 								  <cf_tl id="Index">## <a href="javascript:EditPerson('#PersonNo#')">#IndexNo#</a>
@@ -127,9 +129,9 @@
 								WHERE     FunctionId = '#Track.Functionid#' 												
 						</cfquery>			
 
-						<tr>					      						   
-					   	   <td colspan="2" style="font-size:12px;padding-right:5px;">#Track.entityclassName#:</td>
-				   	   	   <td align="right" style="font-size:12px;padding-right:5px;color:green"><cfif fo.recordcount eq "1">#FO.ReferenceNo#<cfelse>#docno#</cfif></td>				
+						<tr class="labelmedium2">					      						   
+					   	   <td colspan="2" style="padding-right:5px;">#Track.entityclassName#:</td>
+				   	   	   <td align="right" style="padding-right:5px;color:green"><cfif fo.recordcount eq "1">#FO.ReferenceNo#<cfelse>#docno#</cfif></td>				
 						</tr>	
 						
 						<tr><td colspan="3" class="line"></td></tr>
@@ -138,21 +140,21 @@
 				   								   
 				   <cfif getContract.ContractLevel neq "">	
 				   	
-					   <tr>							   
-					   	   <td style="font-size:12px" colspan="2"><cf_tl id="Type of appointment">:</td>
-					       <td align="right" style="font-size:12px;padding-right:5px">#getContract.ContractType#</td>
+					   <tr class="labelmedium2">							   
+					   	   <td colspan="2"><cf_tl id="Type of appointment">:</td>
+					       <td align="right" style="padding-right:5px">#getContract.ContractType#</td>
 					   </tr>	
 					   
 					   <tr><td colspan="3" class="line"></td></tr>							   
 					   							   
-					   <tr>
-						   <td style="font-size:12px"><cf_tl id="Grade">|<cf_tl id="Step">:</td>
+					   <tr class="labelmedium2">
+						   <td><cf_tl id="Grade">|<cf_tl id="Step">:</td>
 						   <cfif getContractAdjustment.recordcount gte "1">
-						   <td align="right" style="font-size:12px;padding-right:5px">SPA: #getContractAdjustment.PostAdjustmentLevel# | #getContractAdjustment.PostAdjustmentStep#</td>
+						   <td align="right" style="padding-right:5px">SPA: #getContractAdjustment.PostAdjustmentLevel# | #getContractAdjustment.PostAdjustmentStep#</td>
 						   <cfelse>
 						   <td></td>
 						   </cfif>
-						   <td align="right" style="font-size:12px;padding-right:5px">#getContract.ContractLevel# | #getContract.ContractStep#</td>
+						   <td align="right" style="padding-right:5px">#getContract.ContractLevel# | #getContract.ContractStep#</td>
 					   </tr>
 						   								   
 					   <cfif Postgroup eq "Used" and PostGrade neq getContract.ContractLevel and incumbency eq "100">   
@@ -185,9 +187,9 @@
 						 					   
 						<cfif getContract.DateExpiration neq "">							   
 						   
-							   <tr>
-								   <td style="font-size:12px" colspan="2"><cf_tl id="Appointment Expiry">:</td>
-								   <td align="right" style="font-size:12px;padding-right:5px">
+							   <tr class="labelmedium2">
+								   <td colspan="2"><cf_tl id="Appointment Expiry">:</td>
+								   <td align="right" style="padding-right:5px">
 									   <cfif dateDiff("d",now(),getContract.DateExpiration) lte 50>
 									   <font color="FF0000">#dateformat(getContract.DateExpiration,client.dateformatshow)#</font>
 									   <cfelse>
@@ -232,7 +234,8 @@
 					 <cfif PostGroup eq "Used" and incumbency eq "100"
 					     and DateExpiration neq "" <!--- has an expiration --->
 						 and getContract.AppointmentType neq "Temporary" or getContract.AppointmentType eq "">
-						 								 
+						 
+						 						 								 
 						 <cftry>
 						 
 							 <cfquery name="getAssignZero" 
@@ -262,17 +265,17 @@
 						 </cfcatch>							 
 						
 						</cftry>
-														
-						<cfif getAssignZero.recordcount gte "1" or getContract.AppointmentType eq "">								 
+																										
+						<cfif getAssignZero.recordcount gte "1" or getContract.AppointmentType eq "" or DateExpiration lt getContract.DateExpiration>								 
 							 <cfset extend = "1"> 								 
 						</cfif> 
 					 
 					
 					</cfif>	  
 					 
-					<tr>
-					   <td style="font-size:12px" colspan="2"><cf_tl id="Assignment Expiry">:</td>
-					   <td align="right" style="font-size:12px;padding-right:5px">
+					<tr class="labelmedium2">
+					   <td colspan="2"><cf_tl id="Assignment Expiry">:</td>
+					   <td align="right" style="padding-right:5px">
 						   <cfif dateDiff("d",now(),DateExpiration) lte 50>
 						   <span style="color:##FF0000;">#dateformat(DateExpiration,client.dateformatshow)#</span>
 						   <cfelse>

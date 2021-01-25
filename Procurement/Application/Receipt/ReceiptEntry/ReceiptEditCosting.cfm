@@ -224,22 +224,22 @@
 			 WHERE  Mission = '#receipt.mission#' 
 			 AND    SystemJournal = 'Receipt'		
 			
-		 </cfquery>		
-		
+		 </cfquery>				
 				 
 		 <cfif getJournal.recordcount gte "1">	 		 
 			 		 		 
 		 <tr><td colspan="7" style="background-color:f1f1f1;padding-left:21px;padding-right:30px;height:20px">
-		 		 		 		 		 		 
+
+		 			 		 		 		 
 			  	<cf_LedgerTransaction
-				 mission             = "#receipt.mission#"
-				 journal             = "#valueList(getJournal.Journal)#" 
-			     TransactionSource   = "ReceiptSeries" 			 
-				 TransactionSourceNo = "#Receipt.ReceiptNo#"
-				 editmode            = "#editmode#"
-				 label               = "Cost"
-				 debitcredit         = "Debit"
-				 function            = "receiptcost">
+				 mission              = "#receipt.mission#"
+				 journal              = "#valueList(getJournal.Journal)#" 
+			     TransactionSource    = "ReceiptSeries" 			 
+				 TransactionSourceNo  = "#Receipt.ReceiptNo#"
+				 editmode             = "#editmode#"
+				 label                = "Cost"
+				 debitcredit          = "Debit"
+				 function             = "receiptcost">
 		 
 		 </td></tr>
 		 

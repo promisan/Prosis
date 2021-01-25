@@ -10,6 +10,7 @@
 
 <cf_screentop 
 	height="100%" 
+	html="No"
 	label="Item Tab Order #serviceitem.description#" 
 	option="Service Item Tab Maintenance [#url.id2#]" 
 	jquery="yes"
@@ -21,14 +22,10 @@
 	<script language="JavaScript">
 		
 		function ask() {
-			if (confirm("Do you want to remove this record ?")) {
-			
-			return true 
-			
-			}
-			
-			return false
-			
+			if (confirm("Do you want to remove this record ?")) {			
+			return true 			
+			}			
+			return false			
 		}
 		
 	
@@ -57,7 +54,7 @@
 <CFFORM action="ServiceItemTabSubmit.cfm" target="tabprocess" method="post" name="formunittab">
 	
 	<!--- edit form --->
-	<table width="94%" cellspacing="3" cellpadding="2" align="center" class="formpadding formspacing">		
+	<table width="94%" align="center" class="formpadding formspacing">		
 	
 		 <cfoutput>
 		 
@@ -67,7 +64,7 @@
 		
 		 <tr><td></td></tr>		 
 		 <!--- Field: Mission --->
-		 <TR class="labelmedium">
+		 <TR class="labelmedium2">
 			 <TD>Mission *:&nbsp;</b></TD>  
 			 <TD>
 			 	<cfquery name="getLookup" 
@@ -79,7 +76,7 @@
 					WHERE    Mission IN (SELECT Mission FROM Organization.dbo.Ref_MissionModule WHERE SystemModule = 'WorkOrder')
 					</cfquery>
 					
-				<select name="mission" id="mission" class="regularxl">
+				<select name="mission" id="mission" class="regularxxl">
 					<cfloop query="getLookup">
 					  <option value="#getLookup.mission#" <cfif get.mission eq getLookup.mission>selected</cfif>>#getLookup.mission#</option>
 				  	</cfloop>
@@ -88,23 +85,24 @@
 		 </TR>
 		 
 		 <!--- Field: tabName --->
-		 <TR class="labelmedium">
+		 <TR class="labelmedium2">
 			 <TD>Tab Label *:&nbsp;</b></TD>  
 			 <TD>
-			 	<cfinput type="Text" name="tabName" value="#get.tabName#" message="Please enter a Tab Name" required="Yes" size="50" maxlength="50" class="regularxl">
+			 	<cfinput type="Text" name="tabName" value="#get.tabName#" message="Please enter a Tab Name" required="Yes" size="50" maxlength="50" class="regularxxl">
 			 </TD>
 		 </TR>
 		 
 		 <!--- Field: tabOrder --->
-		 <TR class="labelmedium">
+		 <TR class="labelmedium2">
 			 <TD>Tab Order:&nbsp;</TD>  
 			 <TD>
-			 	<cfinput type="Text" name="tabOrder" value="#get.tabOrder#" message="Please enter a numeric Tab Order" validate="integer" required="No" size="3" maxlength="3" class="regularxl">
+			 	<cfinput type="Text" name="tabOrder" value="#get.tabOrder#" message="Please enter a numeric Tab Order" validate="integer" required="No" 
+				   size="3" maxlength="3" class="regularxxl">
 			 </TD>
 		 </TR>
 		 
 		 <!--- Field: tabIcon --->
-		 <TR class="labelmedium">
+		 <TR class="labelmedium2">
 			 <TD>Icon:&nbsp;</TD>  
 			 <TD>
 			    #SESSION.root#/Images/
@@ -118,7 +116,7 @@
 					required="No" 
 					size="50" 
 					maxlength="60" 
-					class="regularxl">										
+					class="regularxxl">										
 			 </TD>
 			 <td valign="middle">
 			 	<cfdiv id="iconValidationDiv" bind="url:CollectionTemplate.cfm?template=#iconDirectory##get.tabIcon#&container=iconValidationDiv&resultField=validateIcon">				
@@ -126,7 +124,7 @@
 		 </TR>
 		 		 
 		 <!--- Field: tabTemplate --->
-		 <TR class="labelmedium">
+		 <TR class="labelmedium2">
 			 <TD>Template Content:&nbsp;</TD>  
 			 <TD>
 			 	#SESSION.root#/WorkOrder/Application/WorkOrder
@@ -136,7 +134,7 @@
 					name="tabTemplate" 
 					value="#get.tabTemplate#" 
 					message="Please enter a Tab Template" 
-					onblur= "ColdFusion.navigate('CollectionTemplate.cfm?template=#templateDirectory#'+this.value+'&container=templateValidationDiv&resultField=validateTemplate','templateValidationDiv')"
+					onblur= "ptoken.navigate('CollectionTemplate.cfm?template=#templateDirectory#'+this.value+'&container=templateValidationDiv&resultField=validateTemplate','templateValidationDiv')"
 					required="No" 
 					size="30" 
 					maxlength="60" 
@@ -148,10 +146,10 @@
 		 </TR>
 		 
 		  <!--- Field: modeOpen --->
-		 <TR class="labelmedium">
+		 <TR class="labelmedium2">
 			 <TD>Open Mode *:&nbsp;</TD>  
 			 <TD>
-			 	<select name="modeOpen" id="modeOpen" class="regularxl">
+			 	<select name="modeOpen" id="modeOpen" class="regularxxl">
 					<option value="Embed" <cfif get.modeOpen eq "Embed">selected</cfif>>Embed</option>
 					<option value="Bind" <cfif get.modeOpen eq "Bind">selected</cfif>>Bind</option>
 				</select>
@@ -160,10 +158,10 @@
 		 
 		 
 		 <!--- Field: accessLevelRead --->
-		 <TR class="labelmedium">
+		 <TR class="labelmedium2">
 			 <TD>Read Level *:&nbsp;</TD>  
 			 <TD>
-			  <table><tr class="labelmedium">
+			  <table><tr class="labelmedium2">
 			  <td>
 			 	<input type="radio" class="radiol" name="accessLevelRead" id="accessLevelRead" value="0" <cfif get.accessLevelRead eq "0">checked</cfif>></td>
 				<td style="padding-left:4px">No</td>
@@ -177,10 +175,10 @@
 		 </TR>
 		 
 		 <!--- Field: accessLevelEdit --->
-		 <TR class="labelmedium">
+		 <TR class="labelmedium2">
 			 <TD>Edit Level *:&nbsp;</TD>  
 			 <TD>
-			 <table><tr class="labelmedium">
+			 <table><tr class="labelmedium2">
 			  <td>
 			 	<input type="radio" class="radiol" name="accessLevelEdit" id="accessLevelEdit" value="0" <cfif get.accessLevelEdit eq "0">checked</cfif>></td>
 				<td style="padding-left:4px">No</td>
@@ -195,10 +193,10 @@
 		 
 		
 		 <!--- Field: Operational --->
-		 <TR class="labelmedium">
+		 <TR class="labelmedium2">
 			 <TD>Operational *:&nbsp;</TD>  
 			 <TD>
-			 <table><tr class="labelmedium">
+			 <table><tr class="labelmedium2">
 			  <td>
 			 	<input type="radio" class="radiol" name="Operational" id="Operational" value="0" <cfif get.Operational eq "0">checked</cfif>></td>
 				<td style="padding-left:4px">No</td>

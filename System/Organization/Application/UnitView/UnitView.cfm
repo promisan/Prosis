@@ -25,14 +25,12 @@
 				<cf_ViewTopMenu label="#lt_text#" background="gray">
 			</cf_layoutArea>
 		
-		<cf_layoutarea position="left" name="leftmenu" maxsize="180" size="180" collapsible="true" splitter="true">
-		
-			  <cfform method="POST" name="tree">
-			  
+		<cf_layoutarea position="left" name="leftmenu" maxsize="220" size="220" collapsible="true" splitter="true">
+								  
 			  <table width="100%">
 	  				 
 				  <tr><td height="5"></td></tr>
-				  <tr><td valign="top" style="padding-top:8px">	  				  
+				  <tr><td valign="top" style="padding-left:8px;padding-top:4px">	  				  
 				     <cf_orgUnitTreeData>	  	 		
 				  </td>
 				  </tr>	
@@ -40,9 +38,7 @@
 			      
 			  
 			  </table>
-			  
-			  </cfform>			
-				
+			  				
 		</cf_layoutarea>
 		
 		<cf_layoutarea  position="center" name="right" overflow="auto">		

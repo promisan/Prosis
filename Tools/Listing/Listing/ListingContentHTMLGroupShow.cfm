@@ -120,7 +120,8 @@
 						   </cfif>
 						   
 						   </td>
-						   <td style="min-width:314px;font-size:16px;padding-left:5px"><cfif len(groupname) gte "32">#left(groupname,32)#..<cfelse>#groupname#</cfif>&nbsp;<font size="2">[#subtotal.records#]</font></td>
+						   
+						   <td style="min-width:314px;font-size:16px;padding-left:5px;<cfif navmode neq 'manual'>font-weight:bold</cfif>"><cfif len(groupname) gte "32">#left(groupname,32)#..<cfelse>#groupname#</cfif>&nbsp;<font size="2">[#subtotal.records#]</font></td>
 					   </tr>
 					   </table>
 					  			   
@@ -176,7 +177,7 @@
 	<cfelse>
 	   
 	   <!--- ajax  --->	 			   	   
-	   <cfinclude template="ListingContentHTMLGroupShowTotal.cfm">		
+	   <cfinclude template="ListingContentHTMLGroupShowAggregate.cfm">		
 					  
 	</cfif>		
    

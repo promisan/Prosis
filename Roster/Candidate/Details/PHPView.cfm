@@ -151,7 +151,7 @@ password="#SESSION.dbpw#">
 						
 					</tr>
 					
-					<!---
+					<!---  Enabled back by Armin on Jan 21 2021---->
 									
 					<cfquery name="PHPSource" 
 						datasource="AppsSelection" 
@@ -274,8 +274,7 @@ password="#SESSION.dbpw#">
 						
 						</table> 										
 						
-					--->	
-													
+
 		 </cf_layoutarea>
 	 
 	 </cfif> 

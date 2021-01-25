@@ -27,33 +27,26 @@ password="#SESSION.dbpw#">
 <script language="JavaScript">
 
 function ask() {
-
-	if (confirm("#lt_text#")) {
-	
-		return true 
-	
-	}
-	
-	return false
-	
+	if (confirm("#lt_text#")) {	
+		return true 	
+	}	
+	return false	
 }	
 </script>
 </cfoutput>
 
-<CFFORM action="RecordSubmit.cfm" method="post" enablecab="yes" name="dialog">
-
+<CFFORM action="RecordSubmit.cfm" method="post" name="dialog">
 
 <!--- edit form --->
 
+<table width="94%" align="center" class="formpadding formspacing">
 
-<table width="94%" align="center" cellspacing="0" cellpadding="0" class="formpadding">
-
-	 <tr><td></td></tr>
+	 <tr><td style="height:6px"></td></tr>
 	 <cfoutput>
 	 <TR>
-	 <TD class="labelmedium" style="padding-right:5px"><cf_tl id="Class">:</TD>  
-	 <TD class="labelmedium">
-			<select name="StatusClass" id="StatusClass" class="regularxl">
+	 <TD class="labelmedium2" style="padding-right:5px"><cf_tl id="Class">:</TD>  
+	 <TD>
+			<select name="StatusClass" id="StatusClass" class="regularxxl">
 			  <option value="clm" <cfif Get.StatusClass eq "clm">selected</cfif>>Claim Header</option>
 			  <option value="lne" <cfif Get.StatusClass eq "lne">selected</cfif>>Line</option>
 			</select>
@@ -63,26 +56,25 @@ function ask() {
 	 
 	<!--- Field: code --->
 	 <TR>
-	 <TD class="labelmedium" style="padding-right:5px"><cf_tl id="Code">:</TD>  
-	 <TD class="labelmedium">
-	 	<input type="Text" name="Status" id="Status" value="#get.Status#" size="2" maxlength="2"class="regularxl">
+	 <TD class="labelmedium2" style="padding-right:5px"><cf_tl id="Code">:</TD>  
+	 <TD>
+	 	<input type="Text" name="Status" id="Status" value="#get.Status#" size="2" maxlength="2"class="regularxxl">
 		<input type="hidden" name="StatusOld" id="StatusOld" value="#get.Status#">
 	 </TD>
 	 </TR>
 	 
 	 <!--- Field: Description --->
-    <TR>
-    <TD class="labelmedium" style="padding-right:5px"><cf_tl id="Description">:</TD>
-    <TD class="labelmedium">
+    <TR class="labelmedium2">
+    <TD style="padding-right:5px"><cf_tl id="Description">:</TD>
+    <TD>
 		<cf_tl id = "Please enter a description" var = "1" class = "Message"> 
-  	  	<cfinput type="Text" name="Description" id="Description" value="#get.Description#" message="#lt_text#" required="Yes" size="50" maxlength="50" class="regularxl">
+  	  	<cfinput type="Text" name="Description" id="Description" value="#get.Description#" message="#lt_text#" required="Yes" size="50" maxlength="50"
+		 class="regularxxl">
 				
     </TD>
 	</TR>
-	
-	<tr><td colspan="2" align="center" height="6">
-	<tr><td colspan="2" class="linedotted"></td></tr>
-	<tr><td colspan="2" align="center" height="6">
+		
+	<tr><td colspan="2" class="line"></td></tr>
 	
 	<tr>	
 		<td align="center" colspan="2">
@@ -95,8 +87,7 @@ function ask() {
 		</td>
 	</tr>
 	
-
-</cfoutput>
+	</cfoutput>
     	
 </TABLE>
 

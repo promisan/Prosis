@@ -1,6 +1,5 @@
 
-<cfinvoke component="Service.Presentation.Presentation" method="highlight" returnvariable="stylescroll"/>
-		
+	
 <cfparam name="url.code" default="">	
 
 <cfparam name="form.operational" default="0">	
@@ -13,11 +12,11 @@ password="#SESSION.dbpw#">
     FROM  Ref_AssessmentCategory	
 </cfquery>
 
-<table width="100%" cellspacing="0" cellpadding="0" class="navigation_table">
+<table width="100%" class="navigation_table">
 	
-    <tr class="labelheader line">
-	   <td width="20"></td>
-	   <td width="5%">&nbsp;Class</td>
+    <tr class="labelmedium2 line fixrow">
+	   <td style="width:30px"></td>
+	   <td style="width:30px">Class</td>
 	   <td width="50%">Skill Area</td>
 	   <td width="10">Oper.</b></td>
 	   <td width="20%">Officer</b></td>
@@ -27,16 +26,17 @@ password="#SESSION.dbpw#">
 			
 	<cfif URL.code eq "new">
 	
-		<tr class="linedotted">
+		<tr class="line">
+		
 			<td colspan="7">
 			
 			<cfform method="POST" name="mytopic" onsubmit="return false">
 			
 				<table width="100%" align="center">
-					<tr style="background-color:#f4f4f4;">
-		
+				
+					<tr class="labelmedium2" style="background-color:#f4f4f4;">		
 					<td></td>
-					<td height="25">&nbsp;
+					<td height="25" style="padding-left:4px">
 					    <cfinput type="Text" 
 					         value="" 
 							 name="Code" 
@@ -44,7 +44,7 @@ password="#SESSION.dbpw#">
 							 required="Yes" 
 							 size="2" 
 							 maxlength="20" 
-							 class="regularH">
+							 class="regularxxl">
 			        </td>	
 										   
 					<td>
@@ -54,12 +54,11 @@ password="#SESSION.dbpw#">
 							 required="Yes" 
 							 size="50" 						 
 							 maxlength="50" 
-							 class="regularH">
+							 class="regularxxl">
 					</td>
 					
-					<td>  <input type="Checkbox"  name="Operational" value="1" checked> </td>
-													   
-					<td colspan="2" align="right">	<input type="submit" value="Save" onclick="save('new')" class="button10g"> </td>
+					<td><input type="Checkbox" class="radiol" name="Operational" value="1" checked> </td>													   
+					<td colspan="2" align="right"><input type="submit" value="Save" onclick="save('new')" class="button10g"></td>
 					
 					</tr>
 				</table>
@@ -78,7 +77,7 @@ password="#SESSION.dbpw#">
 	
 		<cfif URL.code eq Listing.code>		
 			
-			<tr class="linedotted">
+			<tr class="line">
 				<td colspan="7">
 				
 					<cfform name="mytopic" onsubmit="return false">
@@ -90,7 +89,7 @@ password="#SESSION.dbpw#">
 						<tr style="background-color:##f4f4f4;">
 						
 						   <td></td>
-						   <td height="30">&nbsp;#Code#</td>
+						   <td height="30" style="padding-left:4px">#Code#</td>
 						   <td>
 						   	   <cfinput type = "Text" 
 							   	value        = "#description#" 
@@ -99,10 +98,10 @@ password="#SESSION.dbpw#">
 								required     = "Yes" 
 								size         = "50" 
 								maxlength    = "60" 
-								class        = "regularH">			  
+								class        = "regularxxl">			  
 				           </td>
 						   
-						   <td> <input type="Checkbox" name="Operational"  value="1"  <cfif operational eq "1">checked</cfif>> </td>
+						   <td> <input type="Checkbox" class="radiol" name="Operational"  value="1"  <cfif operational eq "1">checked</cfif>> </td>
 								
 						   <td colspan="2" align="right">  <input type="submit" value="Save" onclick="save('#code#')" class="button10g"> </td>
 					    </tr>	
@@ -115,39 +114,22 @@ password="#SESSION.dbpw#">
 																	
 		<cfelse>
 										
-			<tr class="cellcontent navigation_row line">			  			   
+			<tr class="labelmedium2 navigation_row line">			  			   
 			   <td align="center">
-				  <cf_img icon="open" onclick="ColdFusion.navigate('RecordListingDetail.cfm?code=#code#','listing')" navigation="Yes">
-			  </td>
-			   
-			   <td height="17">&nbsp;
-				   <a href="javascript:ColdFusion.navigate('RecordListingDetail.cfm?code=#code#','listing')">
-				   #code#</a>
-			   </td>
-			   <td>
-			  	   <a href="javascript:ColdFusion.navigate('RecordListingDetail.cfm?code=#code#','listing')">
-			   	   #description#
-				   </a>
-			   </td>
-			  
+				  <cf_img icon="open" onclick="ptoken.navigate('RecordListingDetail.cfm?code=#code#','listing')" navigation="Yes">
+			  </td>			   
+			   <td>#code#</td>
+			   <td>#description#</td>			  
 			   <td><cfif operational eq "0"><b>No</b><cfelse>Yes</cfif></td>
 			   <td colspan="1">#OfficerFirstName# #OfficerLastName#</td>
-			   <td align="right">#dateformat(created,CLIENT.DateFormatShow)#</td>
-			   			   				   
-			   <td align="center" width="20" d="del_#code#">
-				
-				  <cfdiv id="del_#code#">
-				 
-					  <cfinclude template="RecordListingDelete.cfm">
-				 
-				  </cfdiv>					  
-				 
-			   </td>   
+			   <td align="right">#dateformat(created,CLIENT.DateFormatShow)#</td>			   			   				   
+			   <td align="center" width="20" id="del_#code#"><cfinclude template="RecordListingDelete.cfm"></td>   
 			   		   
 		   </tr>	
 			 
-		   <tr><td></td><td></td><td colspan="4">
-		       <cf_securediv id="#code#_list" bind="url:List.cfm?code=#code#"/>			
+		   <tr><td></td>		        
+				<td colspan="5" style="padding:5px;background-color:f1f1f1">
+		       <cf_securediv id="#code#_list" bind="url:List.cfm?midprovision=999999999&code=#code#"/>			
 			</td></tr>
 			 					
 		</cfif>

@@ -14,7 +14,7 @@
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
 			    SELECT *
-				FROM #SESSION.acc#GledgerHeader_#client.sessionNo#
+				FROM #SESSION.acc#GledgerHeader_#client.sessionNo#_#session.mytransaction#
 			</cfquery>
 						
 			<tr style="height:20px" class="line">

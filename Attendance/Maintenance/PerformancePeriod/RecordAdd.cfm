@@ -36,16 +36,16 @@ password="#SESSION.dbpw#">
 
 <cfform action="RecordSubmit.cfm" method="POST">
 
-<table width="96%" align="center" class="formpadding formspacing">
+<table width="93%" align="center" class="formpadding formspacing">
 
 	<tr><td id="process"></td></tr>
 	
 	<cfoutput>
 	
 	<TR>
-	    <TD style="width:100px" class="labelmedium"><cf_tl id="Entity">:</TD>
+	    <TD style="width:100px" class="labelmedium2"><cf_tl id="Entity">:</TD>
     	<TD>		
-		<select name="mission" id="mission" class="regularxl" onchange="ptoken.navigate('setContractPeriodDate.cfm?mission='+this.value+'&class='+document.getElementById('contractclass').value,'process')">
+		<select name="mission" id="mission" class="regularxxl" onchange="ptoken.navigate('setContractPeriodDate.cfm?mission='+this.value+'&class='+document.getElementById('contractclass').value,'process')">
         	<cfloop query="Mission">
         	<option value="#Mission#">#Mission#</option>
          	</cfloop>
@@ -63,10 +63,10 @@ password="#SESSION.dbpw#">
 		ORDER BY ListingOrder 				  
 	</cfquery>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
 	    <TD><cf_tl id="Class">:</TD>
 	    <TD>
-		<select name="contractClass" id="contractclass" class="regularxl" 
+		<select name="contractClass" id="contractclass" class="regularxxl" 
 		    onchange="ptoken.navigate('setContractPeriodDate.cfm?mission='+document.getElementById('mission').value+'&class='+this.value,'process')">
 	       	<cfloop query="Class">
 	       	  <option value="#Code#">#Description#</option>
@@ -100,47 +100,47 @@ password="#SESSION.dbpw#">
 		<cfset ed = "">
 	</cfif>
 			
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
 	    <TD><cf_tl id="Code">:</TD>
-	    <TD><cfinput type="Text" name="Code" message="Please record a code" required="Yes" visible="Yes" enabled="Yes" size="6" maxlength="6" class="regularxl"></TD>
+	    <TD><cfinput type="Text" name="Code" message="Please record a code" required="Yes" visible="Yes" enabled="Yes" size="6" maxlength="6" class="regularxxl"></TD>
 	</TR>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
 	    <TD><cf_tl id="Start">:</TD>
 	    <TD>
 		
 		<cf_intelliCalendarDate9
 			FieldName="PASPeriodStart" 
 			Manual="True"		
-			class="regularxl"								
+			class="regularxxl"								
 			Default="#st#"
 			AllowBlank="False">	
 		
 		</TD>
 	</TR>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
 	    <TD><cf_tl id="End">:</TD>
 	    <TD>
 		
 		<cf_intelliCalendarDate9
 			FieldName="PASPeriodEnd" 
 			Manual="True"		
-			class="regularxl"								
+			class="regularxxl"								
 			Default="#ed#"
 			AllowBlank="False">	
 		
 		</TD>
 	</TR>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
 	    <TD><cf_tl id="Midterm">:</TD>
 	    <TD>
 		
 		<cf_intelliCalendarDate9
 			FieldName="PASEvaluation" 
 			Manual="True"		
-			class="regularxl"	
+			class="regularxxl"	
 			Default="#st#"										
 			AllowBlank="False">	
 		
@@ -154,17 +154,17 @@ password="#SESSION.dbpw#">
 	<!---
 	
 	<TR>
-    <TD class="Labelmedium"><cf_tl id="Period">:</TD>
+    <TD class="labelmedium2"><cf_tl id="Period">:</TD>
 	<TD><cfdiv bind="url:SelectPeriod.cfm?mission={mission}" id="boxperiod"></TD>
 	</TR>
 	
 	<TR>
-    <TD class="Labelmedium"><cf_tl id="Edition">:</TD>
+    <TD class="labelmedium2"><cf_tl id="Edition">:</TD>
     <TD><cfdiv bind="url:SelectEdition.cfm?mission={mission}" id="boxedition"></TD>
 	</TR>	
 	
 	<TR>
-    <TD class="Labelmedium"><cf_tl id="Memo">:</TD>
+    <TD class="labelmedium2"><cf_tl id="Memo">:</TD>
     <TD><cfinput type="text" name="Memo" value="" message="please enter a description" size="30" maxlenght= "90" class= "regularxl"></TD>
 	</TR>	
 	

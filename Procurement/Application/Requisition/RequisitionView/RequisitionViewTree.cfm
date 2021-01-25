@@ -228,7 +228,7 @@
 					    <table width="100%"><tr>
 					    <td width="5%"></td>
 						<td width="45%" class="labelmedium">	
-						<i><cf_tl id="No actions pending for this period"></i>						
+						<i><cf_tl id="No actions pending for this period">						
 						</td>
 					    </tr>
 				        </table>
@@ -326,7 +326,7 @@
 			   Mission          = "#URL.Mission#" 
 			   Period           = "#URL.Period#"
 			   returnvariable   = "Check">	
-						
+			   						
 			<cfif check.recordcount gte "1" and url.period neq "">
 			
 				<tr><td class="line"></td></tr>

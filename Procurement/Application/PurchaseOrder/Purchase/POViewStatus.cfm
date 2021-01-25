@@ -110,7 +110,7 @@
 						   <cfif Invoice.recordcount eq "0" AND Receipt.recordcount eq "0" AND actionStatus neq "9">
 						   
 					    	    <cfif ApprovalAccess eq "ALL" or getAdministrator(PO.mission) eq "1">
-									    <a href="javascript:_cf_loadingtexthtml='';ColdFusion.navigate('POCancelSubmit.cfm?purchaseNo=#PO.PurchaseNo#','processcancel')">
+									    <a href="javascript:_cf_loadingtexthtml='';ptoken.navigate('POCancelSubmit.cfm?purchaseNo=#PO.PurchaseNo#','processcancel')">
 										<font color="red">[<cf_tl id="Press here">]</font>
 										</a> 
 										<cf_tl id="to Cancel this Purchase Order">				

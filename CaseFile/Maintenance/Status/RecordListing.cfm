@@ -1,8 +1,5 @@
 <!--- Create Criteria string for query from data entered thru search form --->
 
-<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
-<HTML><HEAD><TITLE>Status</TITLE></HEAD>
-
 <cfquery name="SearchResult" 
 datasource="AppsCaseFile" 
 username="#SESSION.login#" 
@@ -12,36 +9,39 @@ password="#SESSION.dbpw#">
 	ORDER BY StatusClass
 </cfquery>
 
-<body>
+<cf_screentop html="No" jquery="Yes">
 
-<cf_divscroll>
+<table width="98%" height="100%" align="center">
 
-
+<cfset Page         = "0">
 <cfset add          = "1">
-<cfset Header       = "Award">
-<cfinclude template = "../HeaderCaseFile.cfm"> 
-
-<cf_screentop html="no">
+<cfset save         = "0"> 
+<cfset Header       = "Case file status">
+<tr style="height:10px"><td><cfinclude template = "../HeaderCaseFile.cfm"></td></tr>
  
 <cfoutput>
  
 <script>
 
 function recordadd(grp) {
-          window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 550, height= 275, toolbar=no, status=yes, scrollbars=no, resizable=no");
+          ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 550, height= 275, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 function statusedit(id1,id2) {
-          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1+"&ID2="+id2, "Edit", "left=80, top=80, width= 550, height= 275, toolbar=no, status=yes, scrollbars=no, resizable=no");
+          ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1+"&ID2="+id2, "Edit", "left=80, top=80, width= 550, height= 275, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 </script>	
 
 </cfoutput>
+
+<tr><td>
+
+<cf_divscroll>
 	
-<table width="97%" cellspacing="0" cellpadding="0" align="center" class="maintenancetable navigation_table" >
+<table width="97%" align="center" class="navigation_table" >
 	
-	<tr class="labelmedium">			   
+	<tr class="labelmedium2 fixrow line">			   
 	    <td width="5%"></td>
 	    <td><cf_tl id="Class"></td>
 	    <td><cf_tl id="Code"></td>	
@@ -51,7 +51,7 @@ function statusedit(id1,id2) {
 	</tr>
 		
 	<cfoutput query="SearchResult">
-			<tr class="navigation_row">
+			<tr class="navigation_row labelmedium2 line">
 				<td align="center">
 					<cf_img icon="open" navigation="yes" onclick="statusedit('#StatusClass#','#Status#')">
 				</td>	
@@ -63,8 +63,11 @@ function statusedit(id1,id2) {
 		    </tr>	 
 	</cfoutput>
 	
-
 </table>
 
 </cf_divscroll>
+
+</td></tr>
+
+</table>
 

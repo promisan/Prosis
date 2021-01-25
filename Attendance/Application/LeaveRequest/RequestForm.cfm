@@ -114,7 +114,7 @@
 			   </cfif>
 			   
 			  <tr><td height="3"></td></tr> 	 
-			  <tr class="labelmedium">
+			  <tr class="labelmedium2">
 			    <td valign="top" style="padding-top:4px" width="25%" ><cf_tl id="Requester">:</td>
 			    <td  style="font-size:22px;padding-left:1px"><cfoutput>#Get.FirstName# #Get.LastName# (#Get.IndexNo#)<br><font size="3">#getAssignment.OrgUnitName#</cfoutput></td>
 				<td align="right" style="min-width:220px;padding-right:3px;" rowspan="7" valign="top" id="balance">
@@ -128,7 +128,7 @@
 			    <td>
 					<table cellspacing="0" cellpadding="0">
 						<tr><td height="3"></td></tr>
-						<tr class="labelmedium"><td><cf_tl id="Type of Leave">:<font color="FF0000">*</font></td></tr>			
+						<tr class="labelmedium2"><td><cf_tl id="Type of Leave">:<font color="FF0000">*</font></td></tr>			
 					</table>
 				</td>
 			    <td width="70%">
@@ -142,7 +142,7 @@
 					<cfoutput>
 																				
 					 <select id="leavetype" name="leavetype" style="border:0px"
-					   class="regularxl"
+					   class="regularxxl"
 					   onchange="getinformation('#url.id#');ptoken.navigate('#session.root#/attendance/application/leaveRequest/RequestTypeClass.cfm?source=#url.src#&id=#url.id#&leavetype='+this.value,'typeclass')">
 
 					     <cfloop query = "Type">
@@ -178,7 +178,7 @@
 				  the same for the classes, so we can control interns and temp contracts --->
 		  			
 			  <tr>
-			    <td class="labelmedium"><cf_tl id="Requester">:</td>
+			    <td class="labelmedium2"><cf_tl id="Requester">:</td>
 			    <td class="labellarge"><cfoutput>#Get.FirstName# #Get.LastName# / #getAssignment.OrgUnitName#</cfoutput></td>
 				<td align="right" style="padding:1px;min-width:220" rowspan="7" valign="top" id="balance"></td>
 			  </tr>		
@@ -187,7 +187,7 @@
 			    <td>
 					<table cellspacing="0" cellpadding="0">
 						<tr><td height="3"></td></tr>
-						<tr class="labelmedium"><td><cf_tl id="Type of Leave">:<font color="FF0000">*</font></td></tr>			
+						<tr class="labelmedium2"><td><cf_tl id="Type of Leave">:<font color="FF0000">*</font></td></tr>			
 					</table>
 				</td>
 			    <td width="70%">
@@ -255,7 +255,7 @@
 						 <cfoutput>
 																					
 						  <select id="leavetype" name="leavetype" 
-						   class="regularxl" style="border:0px"
+						   class="regularxxl" style="border:0px"
 						   onchange="_cf_loadingtexthtml='';ptoken.navigate('#session.root#/attendance/application/leaveRequest/RequestTypeClass.cfm?source=#url.src#&id=#url.id#&leavetype='+this.value,'typeclass');">
 	
 						     <cfloop query = "Type">
@@ -297,7 +297,7 @@
 						DateValidStart="#Dateformat(valid.first, 'YYYYMMDD')#"
 						DateValidEnd="#Dateformat(valid.last, 'YYYYMMDD')#"		
 						scriptdate="geteffectivedate"		
-						class="regularxl enterastab"										
+						class="regularxxl enterastab"										
 						AllowBlank="No">	
 					
 					<!---	disable by Hanno 10/5		
@@ -348,7 +348,7 @@
 					FieldName="dateexpiration" 
 					Default=""
 					DateValidStart="#Dateformat(valid.first, 'YYYYMMDD')#"		
-					class="regularxl enterastab expiry"	
+					class="regularxxl enterastab expiry"	
 					scriptdate="getexpirationdate"	
 					AllowBlank="No">	
 					

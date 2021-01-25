@@ -3,7 +3,7 @@
 datasource="AppsQuery" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-	UPDATE #SESSION.acc#GLedgerLine_#client.sessionNo#
+	UPDATE #SESSION.acc#GLedgerLine_#client.sessionNo#_#session.mytransaction#
 	SET GLAccount = '#url.contraglaccount#'
 	WHERE  TransactionSerialNo = '0'
 </cfquery>

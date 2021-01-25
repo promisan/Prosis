@@ -33,9 +33,10 @@ datasource="AppsInit">
 	<cfparam name="Attributes.scroll"            default="No">
 	<cfparam name="Attributes.overflow"          default="hidden">
 	<cfparam name="Attributes.favicon"           default="yes"> <!--- show browser icon --->
-	<cfparam name="Attributes.blockEvent"        default="">	<!--- rightclick --->
-	<cfparam name="Attributes.flush"             default="No">  <!--- to be retired --->	
+	<cfparam name="Attributes.blockEvent"        default="">	<!--- rightclick --->	
 	<cfparam name="Attributes.focuson"           default="window">	
+	<cfparam name="Attributes.onfocus"           default="">
+	<cfparam name="Attributes.onclose"           default="">
 		
 	<cfparam name="Attributes.doctype"           default="HTML">	
 	<cfparam name="Attributes.doctypePortal"     default="No">
@@ -199,6 +200,7 @@ datasource="AppsInit">
 	<!--- -------------------------------------------------------------------------- --->
 	<!--- this is generate the top HTML portion of the page with 4 different layouts --->
 	<!--- -------------------------------------------------------------------------- --->
+	
 			
 	<cfif attributes.systemmodule neq "" 
 	    and attributes.functionname neq "" 
@@ -220,7 +222,8 @@ datasource="AppsInit">
 		   
 		   <cfset url.systemfunctionid        = rowguid>
 		   <cfset attributes.systemfunctionid = rowguid>
-		   		   
+		   
+				   		   
    </cfif>
         
    <cfif attributes.mission neq "" or attributes.systemfunctionid neq "">
@@ -602,6 +605,7 @@ datasource="AppsInit">
 								<!--- kherrera(20170207): removed style="padding-top:10px" --->
 								<td colspan="2" height="100%" valign="top" class="clsScreenTopPrintContent_#vScreenId#">
 								
+																
 								
 		<cfelseif attributes.layout eq "Self">
 			<cfset AjaxOnLoad("function(){window.parent.ProsisUI.setWindowTitle('#Attributes.label#','#Attributes.banner#','#Attributes.textColorLabel#');}")>
@@ -757,7 +761,7 @@ datasource="AppsInit">
 							<tr bgcolor="#attributes.bgcolor#">		
 														
 								<td height="100%" colspan="2" style="padding:2px" valign="top">
-								
+																
 		
 		<cfelseif attributes.layout eq "InnerBox">
 
@@ -817,6 +821,7 @@ datasource="AppsInit">
 											
 							<tr>
 								<td style="border: #attributes.border#px solid a0a0a0;" bgcolor="white" valign="top">
+								
 		
 		<cfelseif attributes.layout eq "None">
 

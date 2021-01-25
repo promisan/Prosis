@@ -1,4 +1,4 @@
-<cf_divscroll>
+
 
 <cfquery name="SearchResult"
 datasource="AppsMaterials" 
@@ -6,25 +6,28 @@ username="#SESSION.login#"
 password="#SESSION.dbpw#">
     SELECT 	*
 	FROM 	Ref_TransactionClass
-	ORDER BY ListingOrder
+	ORDER BY ListingOrder	
 </cfquery>
 
-<cfset Page         = "0">
-<cfset add          = "0">
-<cfinclude template = "../HeaderMaintain.cfm"> 
+<cf_screentop html="No" jquery="Yes">
 
-<table width="96%"  border="0" align="center" cellspacing="0" cellpadding="0">  
+<cfset Page         = "0">
+<cfset add          = "1">
+
+<table height="100%" width="98%" align="center">
+
+<tr><td style="height:10px"><cfinclude template = "../HeaderMaintain.cfm"></td></tr>
 
 <cfoutput>
 
 <script>
 
 function recordadd(grp) {
-          window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "AddTransactionClass", "left=80, top=80, width=550, height= 275, toolbar=no, status=no, scrollbars=no, resizable=yes");
+          ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "AddTransactionClass", "left=80, top=80, width=550, height= 275, toolbar=no, status=no, scrollbars=no, resizable=yes");
 }
 
 function recordedit(id1) {
-          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "EditTransactionClass", "left=80, top=80, width= 550, height= 275, toolbar=no, status=no, scrollbars=no, resizable=yes");
+          ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "EditTransactionClass", "left=80, top=80, width= 550, height= 275, toolbar=no, status=no, scrollbars=no, resizable=yes");
 }
 
 </script>	
@@ -33,9 +36,11 @@ function recordedit(id1) {
 
 <tr><td colspan="2">
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding navigation_table">
+<cf_divscroll>
 
-<tr class="labelmedium line">
+<table width="95%" border="0" align="center" class="formpadding navigation_table">
+
+<tr class="labelmedium2 line">
     <TD></TD> 
     <TD>Code</TD>
 	<td>Description</td>
@@ -48,9 +53,9 @@ function recordedit(id1) {
 
 <cfoutput query="SearchResult">
   
-    <TR class="navigation_row line labelmedium" bgcolor="FFFFFF"> 
+    <TR class="navigation_row line labelmedium2" bgcolor="FFFFFF"> 
 	<td height="20" width="5%" align="center">
-	  <cf_img icon="edit" navigation="yes" onclick="recordedit('#Code#');">
+	  <cf_img icon="open" navigation="yes" onclick="recordedit('#Code#');">
 	</td>		
 	<TD>#Code#</TD>
 	<TD>#Description#</TD>
@@ -64,9 +69,10 @@ function recordedit(id1) {
 
 </TABLE>
 
+</cf_divscroll>
+
 </td>
 </tr>
 
 </TABLE>
 
-</cf_divscroll>

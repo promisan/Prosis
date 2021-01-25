@@ -4,7 +4,7 @@ datasource="AppsQuery"
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
     SELECT *
-	FROM #SESSION.acc#GledgerHeader_#client.sessionNo#
+	FROM #SESSION.acc#GledgerHeader_#client.sessionNo#_#session.mytransaction#
 </cfquery>
 
 <cfparam name="url.reference" default="n/a">  
@@ -16,7 +16,7 @@ password="#SESSION.dbpw#">
 	datasource="AppsQuery" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	UPDATE #SESSION.acc#GledgerLine_#client.sessionNo#
+	UPDATE #SESSION.acc#GledgerLine_#client.sessionNo#_#session.mytransaction#
 	SET Reference = '#URL.Reference#'
 	WHERE SerialNo = '#URL.SerialNo#' 
     </cfquery> 
@@ -29,7 +29,7 @@ password="#SESSION.dbpw#">
 	datasource="AppsQuery" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	UPDATE #SESSION.acc#GledgerLine_#client.sessionNo#
+	UPDATE #SESSION.acc#GledgerLine_#client.sessionNo#_#session.mytransaction#
 	SET ReferenceNo = '#URL.ReferenceNo#'
 	WHERE SerialNo = '#URL.SerialNo#' 
     </cfquery> 
@@ -41,7 +41,7 @@ password="#SESSION.dbpw#">
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 	SELECT *
-	FROM #SESSION.acc#GledgerLine_#client.sessionNo#
+	FROM #SESSION.acc#GledgerLine_#client.sessionNo#_#session.mytransaction#
 	WHERE SerialNo = '#URL.SerialNo#' 	
 </cfquery> 
 

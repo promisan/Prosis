@@ -113,7 +113,7 @@
 		}
 
 		.clsPosition {
-			height: 340px; 
+			height: 400px; 
 			overflow: auto;
 			border-bottom: 0px solid #EAEAEA; 
 			border-right: 1px solid #EAEAEA;

@@ -9,22 +9,27 @@ password="#SESSION.dbpw#">
 	ORDER BY ListingOrder
 </cfquery>
 
-<cf_divscroll>
+<cf_screentop height="100%" scroll="yes" html="No" jquery="Yes">
 
-<cfinclude template = "../HeaderMaintain.cfm"> 
+<table width="94%" height="100%" align="center">
 
-<table width="97%" align="center" cellspacing="0" cellpadding="1">
+<tr style="height:10px"><td>
+	<cfset add          = "1">
+	<cfset Header       = "Service class">
+	<cfinclude template = "../HeaderMaintain.cfm"> 
+</td>
+</tr>
 
 <cfoutput>
 
 <script>
 
 function recordadd(grp) {
-          window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 480, height= 290, toolbar=no, status=yes, scrollbars=no, resizable=no");
+          ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 580, height= 320, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 function recordedit(id1) {
-          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=480, height=290, toolbar=no, status=yes, scrollbars=no, resizable=no");
+          ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=580, height=320, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 </script>	
@@ -33,39 +38,43 @@ function recordedit(id1) {
 
 <tr><td colspan="2" style="padding-top:10px">
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<cf_divscroll>
 
-<tr style="height:20px;" class="labelmedium">
-   
-	<td width="5%">&nbsp;</td>
-    <td>Code</td>
-	<td>Description</td>	
-	<td align="center">Sort</td>	
-	<td align="center">Oper.</td>
-	<td>Officer</td>
-    <td>Entered</td>
-  
-</tr>
-
-<cfoutput query="SearchResult">
-
-	<cfset row = currentrow>
-		
-    <tr height="18" style="height:15px" class="labelmedium navigation_row line"> 
-		<td align="center" style="padding-top:2px;">
-				<cf_img icon="select" navigation="Yes" onclick="recordedit('#Code#')">
-		</td>		
-		<td><a href="javascript:recordedit('#Code#')">#Code#</a></td>
-		<td>#Description#</td>		
-		<td align="center">#ListingOrder#</td>
-		<td align="center"><cfif operational eq "No"><b>No</b><cfelse>Yes</cfif></td>
-		<td>#officerFirstName# #officerLastName#</td>		
-		<td>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
-    </tr>	
+	<table width="100%" align="center" class="navigation_table">
 	
-</cfoutput>
-
-</table>
+	<tr class="labelmedium2 line">
+	   
+		<td width="5%">&nbsp;</td>
+	    <td>Code</td>
+		<td>Description</td>	
+		<td align="center">Sort</td>	
+		<td align="center">Oper.</td>
+		<td>Officer</td>
+	    <td>Entered</td>
+	  
+	</tr>
+	
+	<cfoutput query="SearchResult">
+	
+		<cfset row = currentrow>
+			
+	    <tr class="labelmedium2 navigation_row line"> 
+			<td align="center" style="padding-top:2px;">
+					<cf_img icon="select" navigation="Yes" onclick="recordedit('#Code#')">
+			</td>		
+			<td>#Code#</td>
+			<td>#Description#</td>		
+			<td align="center">#ListingOrder#</td>
+			<td align="center"><cfif operational eq "No"><b>No</b><cfelse>Yes</cfif></td>
+			<td>#officerFirstName# #officerLastName#</td>		
+			<td>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
+	    </tr>	
+		
+	</cfoutput>
+	
+	</table>
+	
+</cf_divscroll>	
 
 </td>
 </tr>
@@ -74,4 +83,3 @@ function recordedit(id1) {
 
 <cfset AjaxOnLoad("doHighlight")>
 
-</cf_divscroll>

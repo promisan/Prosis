@@ -671,7 +671,7 @@
 													  
 														  <td style="padding:3px" height="50" bgcolor="00FF00">
 														  
-														  xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+														  
 														  
 														   <!--- inclomplete funding --->
 														   <cfif fullyfunded neq "1" AND url.role eq "ProcReqReview"  AND parameter.FundingByReviewer eq "2">

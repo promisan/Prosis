@@ -32,13 +32,13 @@
 		
 		if ('#url.openerbox#' != '') {
 			url = "#SESSION.root#/Warehouse/Inquiry/Item/ItemSelectDisplay.cfm?ts="+new Date().getTime()+"&itemno="+itemno+"&uom="+uom+"&selectuom=0";
-			opener.ColdFusion.navigate(url,'#url.openerbox#');
+			opener.ptoken.navigate(url,'#url.openerbox#');
 		}else {
 			alert('configuration error');
 		}
 		
 		if (opener.document.getElementById('divAssetItemSupplyWarehouse')) {
-			opener.ColdFusion.navigate('#SESSION.root#/Warehouse/Maintenance/Item/Consumption/AssetItem/AssetItemSupplyWarehouse.cfm?itemno=#url.itemmaster#&supply='+itemno+'&uom='+uom,'divAssetItemSupplyWarehouse');
+			opener.ptoken.navigate('#SESSION.root#/Warehouse/Maintenance/Item/Consumption/AssetItem/AssetItemSupplyWarehouse.cfm?itemno=#url.itemmaster#&supply='+itemno+'&uom='+uom,'divAssetItemSupplyWarehouse');
 		}
 	 	window.close()		  
 	}  
@@ -79,7 +79,7 @@
 
 <cfoutput>
 
-<table width="98%" height="100%" border="0" cellspacing="0" align="center" class="formpadding">
+<table width="98%" height="100%" align="center" class="formpadding">
 
 <tr><td valign="top" height="100%">
 

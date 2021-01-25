@@ -29,9 +29,9 @@
 	</td>
 	--->
     
-	<td colspan="2" style="padding-left:10px;height:35px">   
+	<td colspan="2" style="padding-left:10px;height:45px">   
 	
-    <table cellspacing="0" cellpadding="0" id="processblock"><tr>
+    <table id="processblock"><tr>
 		
 	<input type="hidden" name="StatusOld" id="StatusOld" value="#ActionStatus#">  
 		
@@ -60,12 +60,12 @@
   		 <input style="cursor: pointer;" id="r0" class="radiol" type="radio" name="actionstatus" value="0"  <cfif Status eq "0">checked</cfif> onClick="_cf_loadingtexthtml='';updateTextArea();selectoption('d0','0');ptoken.navigate('ProcessActionButton.cfm?wfmode=#wfmode#&PublishNo=#ActionPublishNo#&ActionCode=#ActionCode#&Method=Pending','processnow');<cfif entityaccess eq 'EDIT'>ptoken.navigate('#SESSION.root#/tools/EntityAction/ActionListingFly.cfm?mode=regular&objectid=#object.Objectid#&ActionPublishNo=#ActionPublishNo#&ActionCode=#ActionCode#','stepflyaccess')</cfif>;">
   
    </td>
-        <td class="labelmedium" style="padding-left:3px;padding-right:3px" title="#vLblTTPending#">
+        <td class="labelmedium2" style="padding-left:3px;padding-right:3px" title="#vLblTTPending#">
                     <img src="#SESSION.root#/Images/Pending.png" width="24" height="24"
 				   alt="Pending" border="0" 
 				   align="absmiddle">       
     </td>
-           <td id="d0" class="labelmedium" onclick="document.getElementById('r0').click()" style="padding-right:10px" title="#vLblTTPending#"><cf_tl id="Do not forward"></td>
+           <td id="d0" class="labelmedium2" onclick="document.getElementById('r0').click()" style="padding-right:10px" title="#vLblTTPending#"><cf_tl id="Do not forward"></td>
     
       	  
    <cfif action.ActionGoTo gte "1">
@@ -130,7 +130,7 @@
 	   	           
 		   <cfif Revert.recordcount gte "1" and TriggerActionType neq "Action">
 
-		   		<td class="labelmedium" style="height:34;padding-left:3px;" title="#vLblTTGoTo#">
+		   		<td class="labelmedium2" style="height:34;padding-left:3px;" title="#vLblTTGoTo#">
 
 				   <input id="r1" style="cursor: pointer;" 			 
 				   type="radio" name="actionstatus" value="1" class="radiol"  <cfif Status eq "1">checked</cfif>
@@ -138,13 +138,13 @@
 			   			   
 			   </td>
 		  		  		    		
-                <td class="labelmedium" id="d1" style="cursor: pointer;" onclick="document.getElementById('r1').click()" title="#vLblTTGoTo#">
+                <td class="labelmedium2" id="d1" style="cursor: pointer;" onclick="document.getElementById('r1').click()" title="#vLblTTGoTo#">
                     <table cellspacing="0" cellpadding="0">
                         <tr>
                             <td style="padding-left:3px;padding-right:3px">
                                 <img src="#SESSION.root#/Images/workflow_previous.png" width="18" height="18" alt="Go back to previous step" border="0" align="absmiddle">
                             </td>
-                            <td style="padding-right:3px" class="labelit">
+                            <td style="padding-right:3px" class="labelmedium2">
                                 <cf_tl id="#ActionGoToLabel#">
                             </td>
                         </tr>
@@ -162,7 +162,7 @@
 			   </td>
 				      
 			   <td class="#r#" id="d1b" title="#vLblTTGoTo#">   
-				   <select style="width:250px" class="regularxl"				   
+				   <select style="width:250px" class="regularxxl"				   
 				     name="ActionCodeOnHold" id="ActionCodeOnHold"
 					 style="background: ffffff;" 
 					 onchange="_cf_loadingtexthtml='';updateTextArea();ptoken.navigate('#SESSION.root#/tools/EntityAction/ActionListingFly.cfm?mode=revert&objectid=#object.Objectid#&ActionPublishNo=#ActionPublishNo#&ActionCode='+this.value,'stepflyaccess');">					 
@@ -218,7 +218,7 @@
 		     <table cellspacing="0" cellpadding="0">
 			
 			   <tr> 
-                   <td class="labelit" style="padding-left:3px;padding-right:3px" title="#vLblTTNext#">
+                   <td class="labelmedium2" style="padding-left:3px;padding-right:3px" title="#vLblTTNext#">
 		  
 		   <input type="radio" id="r2" style="cursor: pointer;" class="radiol"
 		   <cfif URL.Process neq "">disabled</cfif>
@@ -226,14 +226,14 @@
 		   onClick="_cf_loadingtexthtml='';selectoption('d2','2');updateTextArea();ptoken.navigate('ProcessActionButton.cfm?wfmode=#wfmode#&PublishNo=#ActionPublishNo#&ActionCode=#ActionCode#&Method=Submission','processnow'); ptoken.navigate('#SESSION.root#/tools/EntityAction/ActionListingFly.cfm?mode=regular&objectid=#object.Objectid#&ActionPublishNo=#ActionPublishNo#&ActionCode=#ActionCode#','stepflyaccess');">
 		   
 		  </td>
-				  <td class="labelmedium" style="padding-right:3px" title="#vLblTTNext#">
+				  <td class="labelmedium2" style="padding-right:3px" title="#vLblTTNext#">
 
 				   <img src="#SESSION.root#/Images/workflow_next.png" width="32" height="32"
 				   alt="Forward to next step" border="0" 
 				   align="absmiddle">
 				   
 				  </td>
-				  <td style="padding-right:5px" class="labelmedium" title="#vLblTTNext#">
+				  <td style="padding-right:5px" class="labelmedium2" title="#vLblTTNext#">
 				  
 				   <cfif URL.Process neq ""><font color="C0C0C0"></cfif>
 				   
@@ -254,14 +254,14 @@
 	  	   
 	   <cfif Action.ActionDateInput eq "1">
 	   
-	   <td class="labelmedium" style="padding-left:0px;padding-right:4px"><cf_tl id="on">:</td>
+	   <td class="labelmedium2" style="padding-left:0px;padding-right:4px"><cf_tl id="on">:</td>
 	   <td>
 	   							
 				<cfif Action.ActionDateInput eq "">
 			
 					<cf_intelliCalendarDate9
 					FieldName="ActionDateInput" 
-					class="regularxl"
+					class="regularxxl"
 					Default="#Dateformat(Action.ActionDateInput, CLIENT.DateFormatShow)#"
 					AllowBlank="false">	
 				
@@ -269,7 +269,7 @@
 				
 					<cf_intelliCalendarDate9
 					FieldName="ActionDateInput" 
-					class="regularxl"
+					class="regularxxl"
 					Default="#Dateformat(now(), CLIENT.DateFormatShow)#"
 					AllowBlank="false">							
 				

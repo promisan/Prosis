@@ -224,8 +224,9 @@
 								<cfloop query="Parameter">
 								
 								<tr>
-								   
-								  <td height="100%" valign="top" style="padding-left:2px;cursor:pointer;min-width:250px">									  								  
+								  
+								  <td height="100%" valign="top" style="padding-left:2px;cursor:pointer;min-width:250px">		
+								  					  								  
 								 								  									 			  								 				   
 										   <table height="100%" class="formspacing">
 										   					  					  					   
@@ -373,7 +374,7 @@
 														
 										<cfelse>
 															
-											<cfdiv bind="url:SelectFormContainer.cfm?controlid=#controlid#&criterianame=#criterianame#&reportid=#url.reportid#&fldid=#fldid#&cl=#cl#&val={#parent#}">
+											<cf_securediv bind="url:SelectFormContainer.cfm?controlid=#controlid#&criterianame=#criterianame#&reportid=#url.reportid#&fldid=#fldid#&cl=#cl#&val={#parent#}">
 																										
 										</cfif>			
 																												
@@ -435,9 +436,8 @@
 										     <cfset tt = Parameter.CriteriaMemo>
 										</cfif>
 							
-									<tr>	
-																																																	 
-										<td valign="top" style="height:100%;height:30px;padding-top:2px;padding-left:4px;cursor:pointer;background-color:<cfif CriteriaClass eq 'Layout'>228ED7<cfelse>E17100</cfif>;border:0px solid silver">										  
+									<tr>																																																		 
+										<td valign="top" style="height:100%;height:30px;padding-top:2px;padding-left:4px;cursor:pointer;background-color:<cfif CriteriaClass eq 'Layout'>C1E0FF<cfelse>FFBD9D</cfif>;border:0px solid silver">										  
 																				
 										<cf_uitooltip tooltip="#tt#">
 																				 																											
@@ -447,9 +447,9 @@
 											
 												<td valign="top">											   
 																							 
-													<table cellspacing="0" cellpadding="0">
-													<tr class="labelmedium">
-													<td style="min-width:260px;font-size:15px;color:white">		
+													<table>
+													<tr class="labelmedium2">
+													<td style="min-width:260px">		
 																																																				
 														<cfif findNoCase("?",Parameter.CriteriaDescription)>
 														 <cfset sign = "">

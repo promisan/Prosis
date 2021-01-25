@@ -9,22 +9,22 @@
 
 <!--- Entry form --->
 
-<table width="92%" cellspacing="4" cellpadding="4" align="center" class="formpadding formspacing">
-	
-	<cfform action="RecordSubmit.cfm" method="POST" enablecab="Yes" name="dialog">
+<cfform action="RecordSubmit.cfm" method="POST" enablecab="Yes" name="dialog">
 
+<table width="92%" align="center" class="formpadding formspacing">
+	
 	<tr><td height="6"></td></tr>
-    <TR class="labelmedium">
+    <TR class="labelmedium2">
     <TD>Code:</TD>
     <TD>
-  	   <cfinput type="Text" name="Code" value="" message="Please enter a code" required="Yes" size="20" maxlength="10" class="regularxl">
+  	   <cfinput type="Text" name="Code" value="" message="Please enter a code" required="Yes" size="20" maxlength="10" class="regularxxl">
     </TD>
 	</TR>
 	
-	 <TR class="labelmedium">
+	 <TR class="labelmedium2">
     <TD>Description:</TD>
     <TD>
-  	   <cfinput type="Text" name="Description" value="" message="Please enter a description" required="Yes" size="30" maxlength="50" class="regularxl">
+  	   <cfinput type="Text" name="Description" value="" message="Please enter a description" required="Yes" size="30" maxlength="50" class="regularxxl">
     </TD>
 	</TR>
 	
@@ -39,8 +39,8 @@
 	
 	</tr>
 		
-	</CFFORM>
-	
 </table>
+
+</CFFORM>
 
 <cf_screenbottom layout="innerbox">

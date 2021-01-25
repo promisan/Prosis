@@ -3,7 +3,6 @@
 <cfparam name="Attributes.footer"       default="none">
 <cfparam name="Attributes.html"         default="Yes">
 <cfparam name="Attributes.layout"       default="Default">
-<cfparam name="Attributes.flush"        default="Yes">
 <cfparam name="Attributes.mail"         default="No">
 <cfparam name="Attributes.bgcolor"      default="ffffff">
 
@@ -101,9 +100,6 @@
 
 </cfoutput>
 
-<cfif attributes.flush eq "Yes" and attributes.mail eq "No">
-	<cf_waitend>
-</cfif>
 
 <!---
 </center>

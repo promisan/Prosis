@@ -1,15 +1,17 @@
 
+<!---
 <cf_screentop label="Search" height="100%" scroll="no" layout="webapp" banner="Yellow" close="ColdFusion.Window.hide('dialog#url.box#')">
+--->
 
 <cfoutput>
 
-<form name="selectrole" style="height:100%" method="post">
+<form name="selectrole" style="height:98%" method="post">
 
-<table width="98%" height="100%" border="0" align="center" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="98%" height="100%" align="center" align="center" class="formpadding">
 
 <tr><td height="20">
 	
-	<table border="0" cellspacing="0" cellpadding="0" class="formpadding" class="formpadding">
+	<table border="0" class="formpadding formpadding">
 	
 	<cfinvoke component = "Service.Language.Tools"  
 		   method           = "LookupOptions" 
@@ -61,7 +63,7 @@
 	   name="search"
 	   id="search"
 	   value="<cfoutput>#lt_text#</cfoutput>" 
-	   onclick="ptoken.navigate('#SESSION.root#/tools/selectlookup/Role/Result.cfm?page=1&close=#url.close#&box=#box#&link=#link#&des1=#des1#&filter1=#filter1#&filter1value=#filter1value#&filter2=#filter2#&filter2value=#filter2value#','resultunit#box#','','','POST','selectrole')"
+	   onclick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/tools/selectlookup/Role/Result.cfm?page=1&close=#url.close#&box=#box#&link=#link#&des1=#des1#&filter1=#filter1#&filter1value=#filter1value#&filter2=#filter2#&filter2value=#filter2value#','resultunit#box#','','','POST','selectrole')"
 	   class="button10g">
 		   
 	</td></tr>
@@ -71,8 +73,8 @@
 	<tr><td height="1" class="linedotted"></td></tr>
 	
 	<tr>
-		<td colspan="2" align="center" style="border:0px solid silver" height="100%">
-		<cf_divscroll style="height:100%" id="resultunit#box#"/>				
+		<td colspan="2" align="center" height="100%">
+		<cf_divscroll style="height:97%" id="resultunit#box#"/>				
 		</td>
 	</tr>
 	

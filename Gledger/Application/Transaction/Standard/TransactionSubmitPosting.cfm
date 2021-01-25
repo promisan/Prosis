@@ -7,7 +7,7 @@
 	password="#SESSION.dbpw#">
 	SELECT SUM(AmountDebit) - SUM(AmountCredit) as Diff, 
 	       SUM(AmountBaseDebit) - SUM(AmountBaseCredit) as DiffB   
-	FROM userQuery.dbo.#SESSION.acc#GLedgerLine_#client.sessionNo#
+	FROM userQuery.dbo.#SESSION.acc#GLedgerLine_#client.sessionNo#_#session.mytransaction#
 </cfquery>
 
 <cfif Total.recordcount eq 0>
@@ -40,7 +40,7 @@
 	password="#SESSION.dbpw#">
 		SELECT SUM(AmountDebit) - SUM(AmountCredit) as Diff,
 		       SUM(AmountBaseDebit) - SUM(AmountBaseCredit) as DiffB
-		FROM   userQuery.dbo.#SESSION.acc#GLedgerLine_#client.sessionNo#
+		FROM   userQuery.dbo.#SESSION.acc#GLedgerLine_#client.sessionNo#_#session.mytransaction#
 		WHERE  TransactionSerialNo = '0'   
 </cfquery>
 
@@ -52,7 +52,7 @@
 		password="#SESSION.dbpw#">
 		SELECT SUM(AmountDebit)  as Diff,
 		       SUM(AmountBaseDebit) as DiffB
-		FROM   UserQuery.dbo.#SESSION.acc#GLedgerLine_#client.sessionNo#		
+		FROM   UserQuery.dbo.#SESSION.acc#GLedgerLine_#client.sessionNo#_#session.mytransaction#		
 	</cfquery>
 
 	<cfset amt       = abs(Document.Diff)>
@@ -82,7 +82,7 @@
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 	SELECT * 
-	FROM   userQuery.dbo.#SESSION.acc#GLedgerLine_#client.sessionNo#
+	FROM   userQuery.dbo.#SESSION.acc#GLedgerLine_#client.sessionNo#_#session.mytransaction#
 </cfquery>
   
 <!--- define journal serialNo in case of a new Transaction = JournalSerialNo = 0 --->
@@ -209,8 +209,7 @@
 			   method              = "LogTransaction" 
 			   Journal             = "#HeaderSelect.Journal#"
 			   JournalSerialNo     = "#HeaderSelect.JournalSerialNo#"			   
-			   Action              = "Delete">	  
-				
+			   Action              = "Delete">				
 				
 		<!--- --------------------------------------------- --->		
 		<!--- now clean the header and transaction -------- --->
@@ -299,10 +298,8 @@
 		<cfset  mintraper = "#year(Period.PeriodDateStart)#0#month(Period.PeriodDateStart)#">
 	</cfif>	
 	
-	<cfif TransactionPeriod lt mintraper>
-	
-		<cfset TransactionPeriod = mintraper>
-	
+	<cfif TransactionPeriod lt mintraper>	
+		<cfset TransactionPeriod = mintraper>	
 	</cfif>
 				
 	<cfquery name="getWorkflow" 

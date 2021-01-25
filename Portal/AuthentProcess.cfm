@@ -606,10 +606,15 @@
    <!--- open session record --->
    
    <cfif len(CGI.HTTP_USER_AGENT) gt "200">
-		<cfset version = "#left(CGI.HTTP_USER_AGENT,200)#">
+		<cfset bws = "#left(CGI.HTTP_USER_AGENT,200)#">
    <cfelse>
-		<cfset version = "#CGI.HTTP_USER_AGENT#">
+		<cfset bws = "#CGI.HTTP_USER_AGENT#">
    </cfif>
+   
+   <cfinvoke component = "Service.Process.System.Client"  
+	   method           = "getBrowser"
+	   browserstring    = "#bws#"			   
+	   returnvariable   = "userbrowser">	  
      
    <cf_getHost host="#cgi.http_host#"> 
         
@@ -621,7 +626,7 @@
 			FROM   Parameter
 			WHERE  HostName = '#CGI.HTTP_HOST#'		
 		</cfquery>
-
+		
 		<cfquery name="insert" 
 		datasource="AppsSystem">
 		
@@ -630,7 +635,9 @@
 				 HostName, 
 				 NodeIP, 
 				 ApplicationServer,
-				 NodeVersion, 		
+				 NodeVersion, 	
+				 NodeBrowser,
+				 NodeBrowserVersion,	
 				 HostSessionNo,
 				 HostSessionId,		 
 				 TemplateGroup,
@@ -641,7 +648,9 @@
 				 '#host#', 
 				 '#CGI.Remote_Addr#', 
 				 '#init.applicationserver#',
-				 '#version#', 	
+				 '#bws#', 	
+				 '#userbrowser.name#',
+				 '#userbrowser.release#',
 				 '#client.sessionno#',			 
 				 '#Session.SessionId#',
 				 'Portal',

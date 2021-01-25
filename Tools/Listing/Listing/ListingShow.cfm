@@ -110,12 +110,13 @@
 							<tr>
 								<td height="30">
 																			
-									<table width="100%" cellspacing="0" cellpadding="0" align="right">    
+									<table width="100%" align="right">    
 										<cf_tl id="Filter" var="tlFilter">    
 										<tr>
 											<td height="28" style="padding-left:10px" class="labelmedium">#tlFilter#</td>
 											
-											<td align="right">
+											<td style="min-width:300px">
+											
 											<cfinclude template="ListingMenu.cfm">		
 											</td>
 											
@@ -259,12 +260,12 @@
 						<cfif Attributes.ExcelShow eq "Yes" or isArray(attributes.menu)>
 											
 						<tr>
-						   <td width="99%" style="padding-top:2px">
+						   <td width="99%" style="height:45px">
 						  
-						      <table class="formspacing">
+						      <table style="width:100%">
 							  <tr>
 							  
-							  <td align="left" style="padding-top:2px;padding-left:3px;padding-right:5px">
+							   <td align="left" style="padding-top:2px;padding-left:3px;padding-right:5px">
 												
 								<img src="#SESSION.root#/images/up6.png" 
 									   id="locate#attributes.box#_col"
@@ -280,16 +281,16 @@
 										class="#cla#">
 							
 							</td>	
+							  							  
 							
-													
-							<!--- *** LISTING PRINT FUNCTION **** --->
-							<cfinclude template="ListingPrint.cfm">
-							
-							<td style="border-left: 1px solid Silver;"></td>		  					
+							  																			
+							  <!--- *** LISTING PRINT FUNCTION **** --->
+							  <cfinclude template="ListingPrint.cfm">
+														  					
 							  
 							   <cfif Attributes.ExcelShow eq "Yes">
 							  
-							   <td class="labelit" style="height:28px;padding-left:6px;padding-right:3px">						 						  
+							   <td class="labelit" style="padding-left:6px;padding-right:3px">						 						  
 															  
 							   	<cf_tl id="Export to Excel" var="excel">																		  
 																				
@@ -324,16 +325,17 @@
 									<cfif option.label neq "">
 									
 										<td style="border-left: 1px solid Silver;"></td>	
-										<td height="30" #selectme# onclick="#option.script#" style="padding-left:6px;padding-right:6px;border:1px transparent Solid;">
-										<table class="formspacing">
-										<tr>
-											<td style="padding-left:3px">
+										<td onclick="#option.script#" align="center" style="padding-left:8px;padding-right:8px;border:1px transparent Solid;">
+										
+										<table class="formspacing" #selectme#>
+										<tr class="labelmedium2">
+											<td style="height:30px;padding-left:8px;padding-right:3px;">
 											<cfif option.icon neq "">
 											<img src="#SESSION.root#/images/#option.icon#" height="16" width="16" alt="" border="0" align="absmiddle">
 											</cfif>
 											</td>
-											<td class="labelmedium" style="font-size:16px;padding-left:3px;padding-right:9px">
-											<font color="6688aa">#option.label#</font>
+											
+											<td align="center" style="padding-right:8px;white-space: nowrap;font-size:14px">#option.label#</font>
 											</td>
 										</tr>
 										</table>
@@ -376,7 +378,16 @@
 							  
 							  --->
 							  						  
-							  <td id="menuprocess"></td>						  						  
+							  <td id="menuprocess"></td>	
+							  
+							  <td style="width:100%"></td>
+							  
+							  <cfparam name="attributes.boxlabel" default="">
+							  							  							  
+							  <cfif attributes.boxlabel neq ""> 								
+								<td align="center" class="labelmedium2" 
+								   style="min-width:100px;background-color:gray;color:white;font-size:15px;padding-left:9px;padding-right:9px">#attributes.boxlabel#</td>		
+							   </cfif>					  						  
 							  														  
 							  </tr>
 									  

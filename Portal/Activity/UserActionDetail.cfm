@@ -7,7 +7,7 @@ password="#SESSION.dbpw#">
 	FROM     Parameter 
 </cfquery>
 
-<!---
+<!--- This is the other log of templates visited
 
 <cfquery name="Log" 
 datasource="AppsSystem" 
@@ -60,14 +60,14 @@ password="#SESSION.dbpw#">
 			  ActionTimeStamp
 	 FROM     UserActionModule U, Ref_ModuleControl M
 	 WHERE    U.SystemFunctionId = M.SystemFunctionId
-	 AND      Account = '#URL.Account#'
-	 AND      HostName  = '#URL.HostName#'
+	 AND      HostSessionId      IN (SELECT HostSessionId FROM UserStatus WHERE UserStatusId = '#URL.drillid#')	 
 	 AND      ActionTimeStamp > getdate()-1
 	 ORDER BY ActionTimeStamp DESC
 
 </cfquery>
 
-<table width="97%" align="center" cellspacing="0" cellpadding="0" class="navigation_table">
+<table width="97%" align="center" class="navigation_table">
+
 	<cfif log.recordCount eq 0>
 		<tr>
 			<td class="labelmedium" style="padding:10px; color:red;" align="center">
@@ -75,8 +75,9 @@ password="#SESSION.dbpw#">
 			</td>
 		</tr>
 	</cfif>
+	
 	<cfoutput query="log">
-		<tr class="labelit navigation_row clsFilterRow line" style="height:14px;">  
+		<tr class="labelmedium2 navigation_row clsFilterRow line" style="height:14px;">  
 		<td width="5%"></td>
 		<td width="5%">#CurrentRow#.</td> 	
 		<td width="15%" class="ccontent">#SystemModule#</td>			   	   	   			
@@ -86,6 +87,7 @@ password="#SESSION.dbpw#">
 		<td width="20%" class="ccontent">#DateFormat(ActionTimeStamp,CLIENT.DateFormatShow)# #TimeFormat(ActionTimeStamp,"HH:MM:SS")#</td>		   
 		</tr>				
 	</cfoutput>
+	
 </table> 
 
 <cfset ajaxOnload("doHighlight")>

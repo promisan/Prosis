@@ -1,8 +1,7 @@
 <cfparam name="url.idmenu" default="">
 
 <cf_screentop height="100%" 
-			  label="Service Class" 
-			  option="Service Item Class Maintenance" 
+			  label="Service Class" 			  
 			  scroll="Yes" 
 			  layout="webapp" 
 			  banner="yellow" 
@@ -30,28 +29,24 @@
 <script language="JavaScript">
 
 function ask() {
-	if (confirm("Do you want to remove this record ?")) {
-	
-	return true 
-	
-	}
-	
-	return false
-	
+	if (confirm("Do you want to remove this record ?")) {	
+	return true 	
+	}	
+	return false	
 }	
 
 </script>
 
 <!--- edit form --->
 
-<CFFORM action="RecordSubmit.cfm" method="post" enablecab="yes" name="dialog">
+<CFFORM action="RecordSubmit.cfm" method="post" name="dialog">
 	
-<table width="94%" cellspacing="3" cellpadding="2" align="center" class="formpadding">
+<table width="94%" align="center" class="formpadding">
 		
 	 <tr><td></td></tr>	
 	 <cfoutput>
-	 <TR class="labelmedium">
-	 <TD class="labelit">Code:</TD>  
+	 <TR class="labelmedium2">
+	 <TD class="labelmedium2">Code:</TD>  
 	 <TD>
 	 	<cfif VerifyDeleteUpdate.recordCount eq 0>
 		 	<cfinput type="Text" name="Code" value="#get.Code#" size="20" message="Please enter a code" required="Yes" maxlength="10" class="regularxl">
@@ -64,7 +59,7 @@ function ask() {
 	 </TR>
 	 
 	 <!--- Field: Description --->
-    <TR class="labelmedium" valign="top">
+    <TR class="labelmedium2" valign="top">
     <TD class="labelit">Description:</TD>
     <TD>
 		<cf_LanguageInput
@@ -79,23 +74,23 @@ function ask() {
 			Message         = "Please enter a description"
 			MaxLength       = "100"
 			Size            = "30"
-			Class           = "regularxl">
+			Class           = "regularxxl">
     </td>
 	</tr>
 	
 
 	 <!--- Field: Listing Order --->
-    <TR class="labelmedium">
-    <TD class="labelit">Listing Order:</TD>
+    <TR class="labelmedium2">
+    <TD>Listing Order:</TD>
     <TD>
-  	  	<cfinput type="Text" name="ListingOrder" value="#get.ListingOrder#" message="Please enter a numeric Listing Order" required="Yes" size="2" maxlength="3" validate="integer" class="regularxl">
+  	  	<cfinput type="Text" name="ListingOrder" value="#get.ListingOrder#" message="Please enter a numeric Listing Order" required="Yes" size="2" maxlength="3" validate="integer" class="regularxxl">
 				
     </TD>
 	</TR>
 	
-	<tr class="labelmedium">
-		<td class="labelit">Operational:</td>
-		<td colspan="3" class="labelit">
+	<tr class="labelmedium2">
+		<td>Operational:</td>
+		<td colspan="3">
 		<input type="radio" class="radiol" name="operational" id="operational" value="0" <cfif get.operational eq "0">checked</cfif>>No
 		<input type="radio" class="radiol" name="operational" id="operational" value="1" <cfif get.operational eq "1">checked</cfif>>Yes
 		</td>
@@ -103,6 +98,7 @@ function ask() {
 			
 	
 	<tr><td height="1" colspan="2" class="line"></td></tr>
+	
 	<tr><td colspan="2" align="center" height="30">
 	<input class="button10g" type="button" name="Cancel" id="Cancel" value=" Cancel " onClick="window.close()">	
 	<cfif VerifyDeleteUpdate.recordCount eq 0><input class="button10g" type="submit" name="Delete" id="Delete" value=" Delete " onclick="return ask()"></cfif>

@@ -15,7 +15,6 @@
 </cfif>
 
 <!--- End Prosis template framework --->
-
 		
 <cfparam name="CLIENT.Sort" default="OrgUnit">
 <cfparam name="URL.Sort"    default="line">
@@ -36,7 +35,6 @@
 <cfset vReceived="#lt_text#">
 
 <cf_tl id="Purchase Order" var="1"> 
-
 
  <cfquery name="PO" 
 	  datasource="AppsPurchase" 
@@ -310,12 +308,11 @@ password="#SESSION.dbpw#">
 						
 			</cf_layoutarea>		 
 		
-			<cf_layoutarea  position="center" name="box">
-											
+			<cf_layoutarea  position="center" name="box">											
 			     
 				     <cfset url.header = "No"> 
-				     <cfinclude template="POViewGeneral.cfm">	
-				
+					 <cfoutput>------#url.header#-----</cfoutput>
+				     <cfinclude template="POViewGeneral.cfm">					
 				 		
 			</cf_layoutarea>	
 						
@@ -341,7 +338,7 @@ password="#SESSION.dbpw#">
 <cfelse>		
 			
 		<cfif url.header eq "Yes">
-		
+				
 			<cf_screentop  
 			    layout        = "webapp" 
 				html          = "#url.header#" 
@@ -358,10 +355,10 @@ password="#SESSION.dbpw#">
 				height        = "100%">
 			
 		<cfelse>
-		
+				
 			<cf_screentop  
 			    layout        = "webapp" 
-				html          = "#url.header#" 
+				html          = "No" 
 				label         = "#lt_text# #URL.Id1#" 		
 				banner        = "green" 
 				bannerforce   = "Yes"
@@ -375,7 +372,8 @@ password="#SESSION.dbpw#">
 			
 		</cfif>	
 						
-		<cf_divscroll style="height:98%">		 
+		<cf_divscroll style="height:98%">	
+		    <cfset url.header = "no">	 
 			<cfinclude template="POViewGeneral.cfm">
 		</cf_divscroll>		  			  
 			  

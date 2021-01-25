@@ -14,10 +14,9 @@ password="#SESSION.dbpw#">
 	ORDER BY Mission, Created
 </cfquery>
 
-
-<table width="93%" border="0" cellspacing="0" align="center" cellpadding="0" class="formpadding navigation_table">
+<table width="94%" class="formpadding navigation_table">
 				
-    <TR class="labelmedium line" height="18">
+    <TR class="labelmedium2 line" height="18">
 	   <td width="30"><cf_space spaces="10"></td>	  
 	   <td width="100">Action</td>	  
 	   <td width="35%"></td>	  
@@ -32,37 +31,37 @@ password="#SESSION.dbpw#">
 		
 	<cfoutput query="Listing" group="mission">
 	
-	<tr><td colspan="4" class="labelmedium" style="font-size:26px;height:46px">
+	<tr><td colspan="4" class="labelmedium2" style="font-size:26px;height:46px">
 	<cfif mission eq "">any<cfelse>#Mission#</cfif>
 	</td></tr>
 	
-	<cfoutput>
-				
+	<cfoutput>				
 										
-			<tr bgcolor="<cfif operational eq "0">FF8080</cfif>" class="line navigation_row labelmedium" style="height:20px">			
+			<tr bgcolor="<cfif operational eq "0">e6e6e6</cfif>" class="line navigation_row labelmedium2">			
 			  			   
 			   <td align="center" width="1%">
+			   
 			     <table>
 				 <tr>
 				 
-				 	  <td width="20" style="padding-top:2px;padding-left:4px;">
+				 	 <td width="20" style="padding-top:8px;padding-left:4px;">
 					 <cf_img icon="expand" toggle="yes" onClick="showme('l#code#','#code#','#mission#')">					 
 					 </td>		
 					
-				     <td style="padding-left:1px;padding-top:2px">				 
-			   	     <cf_img icon="edit" navigation="Yes" onClick="addrecord('#code#')">
-				     </td>
-					
+				     <td style="padding-left:1px;padding-top:1px">				 
+			   	     <cf_img icon="open" navigation="Yes" onClick="addrecord('#code#')">
+				     </td>					
 				     							 
 				 </tr>
 			     </table> 
+				 
 			  </td>
 					
-			    <td colspan="2" style="padding-left:4px;padding-right:5px">#description# <font color="808080">(#code#)</font></td>			  						    
-				<td>#left(entryMode,1)#<cfif entryMode eq "Batch"><font size="2">:#BatchDaysSpan#</cfif></td>
-				<td align="center" width="5%">#ActionFulfillment#</td>			   
+			  <td colspan="2" style="padding-left:4px;padding-right:5px">#description# <font color="808080">(#code#)</font></td>			  						    
+			  <td>#left(entryMode,1)#<cfif entryMode eq "Batch"><font size="2">:#BatchDaysSpan#</cfif></td>
+			  <td align="center" width="5%">#ActionFulfillment#</td>			   
 			    
-			    <td align="center">
+			  <td align="center">
 			   
 			      <cfquery name="CheckServices" 
 					datasource="#alias#" 
@@ -73,22 +72,22 @@ password="#SESSION.dbpw#">
 						WHERE	Code =  '#Code#'							
 				   </cfquery>
 				   #CheckServices.recordCount#
-			    </td>
-				<td style="padding-right:5px"></td>
-			    <td colspan="1">#OfficerLastName#</td>
-			    <td align="right">#dateformat(created,CLIENT.DateFormatShow)#</td>
+			  </td>
+			  <td style="padding-right:5px"></td>
+			  <td colspan="1">#OfficerLastName#</td>
+			  <td align="right">#dateformat(created,CLIENT.DateFormatShow)#</td>
 			   
-			   <!--- ---------------------------------- --->
-			   <!--- -to be adjusted for each database- --->
-			   <!--- ---------------------------------- --->
+			    <!--- ---------------------------------- --->
+			    <!--- -to be adjusted for each database- --->
+			    <!--- ---------------------------------- --->
 			  				   
-				 <td align="center" style="padding-left:7px; padding-right:7px">
+			  <td align="center" style="padding-left:7px; padding-right:7px;padding-top:3px">
 				 
 				  <cfif used neq "">	
-				  	<cf_img icon="delete" onclick="_cf_loadingtexthtml='';Prosis.busy('yes');ColdFusion.navigate('RecordListingPurge.cfm?alias=#alias#&Code=#code#','listing')">									
+				  	<cf_img icon="delete" onclick="_cf_loadingtexthtml='';Prosis.busy('yes');ptoken.navigate('RecordListingPurge.cfm?alias=#alias#&Code=#code#','listing')">									
 				  </cfif>	   
 					  
-				</td>  
+			  </td>  
 			   		   
 		   </tr>	
 		   

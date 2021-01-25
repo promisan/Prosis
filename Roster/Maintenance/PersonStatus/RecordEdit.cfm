@@ -19,54 +19,46 @@ WHERE Code = '#URL.ID1#'
 
 <script language="JavaScript">
 
-function ask()
-
-{
-	if (confirm("Do you want to remove this status?")) {
-	
-	return true 
-	
-	}
-	
-	return false
-	
+function ask() {
+	if (confirm("Do you want to remove this status?")) {	
+	return true 	
+	}	
+	return false	
 }	
 
 </script>
 
 <!--- edit form --->
 
-<table width="95%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="95%" align="center" class="formpadding formspacing">
 
 	<cfform action="RecordSubmit.cfm" method="POST" name="dialog">
     <cfoutput>
     <TR>
-    <TD class="labelit">Code:</TD>
+    <TD class="labelmedium2">Code:</TD>
     <TD>
-  	   <input type="text" name="Code" value="#get.Code#" size="15" maxlength="1"class="regular">
+  	   <input type="text" name="Code" value="#get.Code#" size="3" maxlength="3" class="regularxl">
 	   <input type="hidden" name="CodeOld" value="#get.Code#" size="15" maxlength="1" readonly>
     </TD>
 	</TR>
 	
 	<TR>
-    <TD class="labelit">Description:</TD>
+    <TD class="labelmedium2">Description:</TD>
     <TD>
-  	   <cfinput type="Text" name="Description" value="#get.description#" message="Please enter a description" required="Yes" size="30" maxlength="30"class="regular">
+  	   <cfinput type="Text" name="Description" value="#get.description#" message="Please enter a description" required="Yes" size="30" maxlength="30" class="regularxl">
     </TD>
 	</TR>
 			
 	<TR>
-    <TD class="labelit">Color:</TD>
-    <TD>
-	    <INPUT type="color" class="regular" name="InterfaceColor" value="#get.InterfaceColor#">
-	</TD>
+    <TD class="labelmedium2">Color:</TD>
+    <TD><INPUT type="color" class="regularxl" name="InterfaceColor" value="#get.InterfaceColor#"></TD>
 	</TR>
 				
 	<TR>
     <TD class="labelit">Hide in Roster:</TD>
     <TD>
-	    <INPUT type="radio" name="RosterHide" value="0" <cfif "0" eq "#get.RosterHide#">checked</cfif>> No
-		<INPUT type="radio" name="RosterHide" value="1" <cfif "1" eq "#get.RosterHide#">checked</cfif>> Yes
+	    <INPUT class="radiol" type="radio" name="RosterHide" value="0" <cfif "0" eq "#get.RosterHide#">checked</cfif>> No
+		<INPUT class="radiol" type="radio" name="RosterHide" value="1" <cfif "1" eq "#get.RosterHide#">checked</cfif>> Yes
 	</TD>
 	</TR>
 	

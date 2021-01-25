@@ -10,7 +10,7 @@
 
 <table class="navigation_table formpadding" width="97%" cellspacing="0" cellpadding="0" align="center" >
 
-<tr class="labelheader line">
+<tr class="labelmedium2 line">
 	<td width="25"></td>
 	<td width="25"></td>
     <td align="left"><cf_tl id="Action"></td>
@@ -24,13 +24,13 @@
 
 <cfoutput query="SearchResult" group="ActionParent">
 
-	<tr class="linedotted">
+	<tr class="line labelmedium2">
 		<td colspan="9" style="height:40px" class="labellarge">#ActionParentDescription#</td>
 	</tr>	
 	
 	<cfoutput>
     
-	    <tr class="navigation_row linedotted labelmedium"> 
+	    <tr class="navigation_row line labelmedium2"> 
 			<td align="right">
 				<cfquery name="validate"
 					datasource="appsEmployee" 
@@ -57,7 +57,7 @@
 			<td align="center">
 				<table>
 					<tr>
-						<td height="15" width="15" title="#ViewColor#" style="background-color:#ViewColor#; border: 1px solid ##C0C0C0;"></td>
+						<td height="15" width="15" title="#ViewColor#" style="background-color:#ViewColor#; border: 1px solid C0C0C0;"></td>
 					</tr>
 				</table>
 			</td>

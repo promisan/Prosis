@@ -78,6 +78,8 @@ will be put into different batches as they could have different process flows as
 		AND    TransactionType = '#url.tpe#'
 	</cfquery>
 	
+	<!--- we obtain the warehouse of transfer in between --->
+	
 	<cfquery name="getBatch"
 	datasource="AppsTransaction" 
 	username="#SESSION.login#" 
@@ -212,79 +214,70 @@ will be put into different batches as they could have different process flows as
 						WHERE   Warehouse =  '#Lines.TransferWarehouse#'						
 					</cfquery>	
 					
-					<cfif getWarehouse.mission neq url.mis>
-					
-						<cfset area = "interoffice">
-						
-					<cfelse>
-					
-						<cfset area = "variance">
-					
-					</cfif>
-				
 					<cfquery name="Insert" 
 					datasource="AppsMaterials" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
-					INSERT INTO  WarehouseBatch
-						   ( Mission,
-						   	 <cfif ObtainMode.PreparationMode eq "0">
-							 Warehouse, 							 
-							 Location,				
-							 <cfelseif ObtainMode.PreparationMode eq "1">
-							 Warehouse,
-							 <cfelse>
-							 Warehouse,
-							 </cfif>						   
-							 BatchWarehouse,
-						     BatchNo, 
-							 <cfif url.stockorderid neq "">
-							 StockOrderId,
-							 </cfif>
-							 <cfif clearance eq "0">						 
-							  ActionStatus, 
-			      			  ActionOfficerUserId,
-						      ActionOfficerLastName,
-						      ActionOfficerFirstName,
-					          ActionOfficerDate,
-							  ActionMemo,						
-							 </cfif>
-							 BatchClass,
-						     BatchDescription, 
-						     TransactionDate,
-						     TransactionType, 
-						     OfficerUserId, 
-						     OfficerLastName, 
-						     OfficerFirstName )
-					VALUES ('#getWarehouse.mission#',    <!--- url.mis#', interoffice support --->
-					        <cfif ObtainMode.PreparationMode eq "0">
-					        '#getWarehouse.Warehouse#',  <!--- processing receiving warehouse --->							
-							'#Lines.TransferLocation#',
-							<cfelseif ObtainMode.PreparationMode eq "1">
-							 '#getWarehouse.Warehouse#', <!--- processing receiving warehouse --->	 
-							<cfelse>
-							 '#URL.Whs#',                <!--- processing same as distributing warehouse --->	   
-							</cfif>  
-							'#URL.Whs#',                 <!--- originating distributing warehouse --->
-					        '#batchNo#',
-							 <cfif url.stockorderid neq "">
-							 '#url.stockorderid#',
-							 </cfif>
-							 <cfif clearance eq "0">	
-								 '1', 
-							     '#SESSION.acc#',
-							     '#SESSION.last#',
-						         '#SESSION.first#',
-						         getDate(),
-						         'Auto Clearance',
-							 </cfif>
-							'WhsTrans', 
-							'#actiontype#',
-							'#Lines.TransactionDate#',						
-							'#url.tpe#',
-							'#SESSION.acc#',
-							'#SESSION.last#',
-							'#SESSION.first#')
+						INSERT INTO  WarehouseBatch
+							   ( Mission,
+							   	 <cfif ObtainMode.PreparationMode eq "0">
+								 Warehouse, 							 
+								 Location,				
+								 <cfelseif ObtainMode.PreparationMode eq "1">
+								 Warehouse,
+								 <cfelse>
+								 Warehouse,
+								 </cfif>						   
+								 BatchWarehouse,
+							     BatchNo, 
+								 <cfif url.stockorderid neq "">
+								 StockOrderId,
+								 </cfif>
+								 <cfif clearance eq "0">						 
+								  ActionStatus, 
+				      			  ActionOfficerUserId,
+							      ActionOfficerLastName,
+							      ActionOfficerFirstName,
+						          ActionOfficerDate,
+								  ActionMemo,						
+								 </cfif>
+								 BatchClass,
+							     BatchDescription, 
+							     TransactionDate,
+							     TransactionType, 
+							     OfficerUserId, 
+							     OfficerLastName, 
+							     OfficerFirstName )
+						VALUES ('#getWarehouse.mission#',    <!--- url.mis#', interoffice support --->
+						        <cfif ObtainMode.PreparationMode eq "0">
+						        '#getWarehouse.Warehouse#',  <!--- processing receiving warehouse --->							
+								'#Lines.TransferLocation#',
+								<cfelseif ObtainMode.PreparationMode eq "1">
+								 '#getWarehouse.Warehouse#', <!--- processing receiving warehouse --->	 
+								<cfelse>
+								 '#URL.Whs#',                <!--- processing same as distributing warehouse --->	   
+								</cfif>  
+								'#URL.Whs#',                 <!--- originating distributing warehouse --->
+						        '#batchNo#',
+								 <cfif url.stockorderid neq "">
+								 '#url.stockorderid#',
+								 </cfif>
+								 <cfif clearance eq "0">	
+									 '1', 
+								     '#SESSION.acc#',
+								     '#SESSION.last#',
+							         '#SESSION.first#',
+							         getDate(),
+							         'Auto Clearance',
+								 </cfif>
+								'WhsTrans', 
+								'#actiontype#',
+								'#Lines.TransactionDate#',	
+												
+								'#url.tpe#',
+								'#SESSION.acc#',
+								'#SESSION.last#',
+								'#SESSION.first#')
 					</cfquery>	
 					
 					<cfif url.stockorderid neq "">
@@ -409,6 +402,9 @@ will be put into different batches as they could have different process flows as
 					<!--- Pending 31/12/2011 also save the additional actor details at this point --->
 							
 					<cfloop query="Lines">
+					
+						<cfset qty = -1*TransferQuantity>	
+						<cfset tratpe = url.tpe>								
 										
 					    <cf_getWarehouseBilling 
 						    FromWarehouse = "#warehouse#" 
@@ -472,6 +468,14 @@ will be put into different batches as they could have different process flows as
 					  
 						  <cfif Operational eq "1"> 
 						  
+						  		<cfset area = "variance">
+						  
+						  		<cfif getWarehouse.mission neq url.mis>										    
+								   <cfset area = "interout">	
+								<cfelse>
+								   <cfset area = "variance">									
+								</cfif>
+						  
 								<cfquery name="AccountStock"
 									datasource="AppsMaterials" 
 									username="#SESSION.login#" 
@@ -483,28 +487,24 @@ will be put into different batches as they could have different process flows as
 								</cfquery>	
 																																
 								<cfquery name="AccountTask"
-										datasource="AppsMaterials" 
-										username="#SESSION.login#" 
-										password="#SESSION.dbpw#">
+									datasource="AppsMaterials" 
+									username="#SESSION.login#" 
+									password="#SESSION.dbpw#">
 									    SELECT  GLAccount
 										FROM    Ref_CategoryGLedger
-										WHERE   Category = '#Category#' 
-										AND     Area     = '#area#'  <!--- variance | interoffice --->
+										WHERE   Category = '#Category#' 										
+										AND     Area     = '#area#'  <!--- variance | interoffice | interout --->
 								</cfquery>		
 																																																						
-								<cfif AccountStock.glaccount eq "0" or AccountTask.glaccount eq "0">
+								<cfif AccountStock.recordcount eq "0" or AccountTask.recordcount eq "0">
 												
 									<cf_alert message = "#msg1# #msg2#"
 									  return = "no">
 									  
 									<cfabort>		
 										 				
-								</cfif>										
-						   
-							   <cfset qty = -1*TransferQuantity>			   
-							   
-							   <cf_assignid>
-							   
+								</cfif>								      	   
+							   							   							   
 							   <!--- FROM location --->
 							   
 							   <!--- 22/02/2012 I added shipping record to be created --->
@@ -557,7 +557,7 @@ will be put into different batches as they could have different process flows as
 									TransactionIdOrigin  = "#TransactionIdOrigin#"
 									TransactionReference = "#transactionReference#"
 								    DataSource           = "AppsMaterials" 
-								    TransactionType      = "#url.tpe#"
+								    TransactionType      = "#tratpe#"
 									TransactionSource    = "WarehouseSeries"
 									ItemNo               = "#ItemNo#" 
 									Mission              = "#url.mis#" 
@@ -602,9 +602,37 @@ will be put into different batches as they could have different process flows as
 									<cfset ToItemNo = ItemNo>
 									<cfset ToUoM    = UnitOfmeasure>		    
 							 </cfif>	
-								
-						     <!---	TO location --->
 							 
+							 <!--- in case of interoffice we shich the account, type as if it is a receipt --->			 
+							 
+							 <cfif area neq "variance">
+																			
+									<!--- the receiving warehouse will have type 1 as they need to pay for it --->
+									<cfset tratpe = "1">
+									<cfset area = "interoffice">	
+																																									
+									<cfquery name="AccountTask"
+										datasource="AppsMaterials" 
+										username="#SESSION.login#" 
+										password="#SESSION.dbpw#">
+										    SELECT  GLAccount
+											FROM    Ref_CategoryGLedger
+											WHERE   Category = '#Category#' 
+											AND     Area     = '#area#'  <!--- variance | interoffice | interout --->
+									</cfquery>		
+																																																						
+									<cfif AccountTask.recordcount eq "0">
+													
+										<cf_alert message = "#msg1# #msg2#"
+										  return = "no">
+										  
+										<cfabort>		
+											 				
+									</cfif>		
+									
+							 </cfif>	
+							 				
+								
 							 <cf_assignid>
 						     <cfset newid = rowguid>
 							 								
@@ -614,7 +642,7 @@ will be put into different batches as they could have different process flows as
 							    ParentTransactionId  = "#traid#"
 							    DataSource           = "AppsMaterials" 								
 								TransactionReference = "#transactionReference#"
-							    TransactionType      = "#url.tpe#"
+							    TransactionType      = "#tratpe#"
 								TransactionSource    = "WarehouseSeries"
 								ItemNo               = "#ToItemNo#" 
 								Mission              = "#getWarehouse.Mission#" 
@@ -643,8 +671,7 @@ will be put into different batches as they could have different process flows as
 								GLTransactionNo      = "#batchNo#"
 								GLCurrency           = "#APPLICATION.BaseCurrency#"
 								GLAccountDebit       = "#AccountStock.GLAccount#"
-								GLAccountCredit      = "#AccountTask.GLAccount#">	
-								
+								GLAccountCredit      = "#AccountTask.GLAccount#">									
 																
 								<cfquery name="getLocationTo"
 									datasource="AppsMaterials" 
@@ -710,143 +737,9 @@ will be put into different batches as they could have different process flows as
 								<!--- removed ReceiptId  = "#ReceiptId#" --->		
 								
 						  <cfelse>
-						  
-						  
-						  <!--- no really supported without accounting anymore !!!!!!! to be disabled 
-						  						        						  
-						  		<cfif clearance eq "0">	
-								     <cfset actionStatus = "1">
-							    <cfelse>
-								     <cfset actionStatus = "0">
-							    </cfif>  
-						  	
-								<cfset qty = -1*TransferQuantity>	
-								
-								<cf_assignid>
-							    <cfset traid = rowguid>
-								
-								 <!--- FROM location --->
-							  
-							   	<cf_StockTransact 
-								    TransactionId       = "#traid#"
-								    DataSource           = "AppsMaterials" 
-								    TransactionType      = "#url.tpe#"
-									TransactionSource    = "WarehouseSeries"
-									ItemNo               = "#ItemNo#" 
-									Mission              = "#url.mis#" 
-									Warehouse            = "#Warehouse#" 
-									TransactionLot       = "#TransactionLot#"
-									BillingMode          = "#billingmode#"
-									Location             = "#Location#"
-									TransactionCurrency  = "#APPLICATION.BaseCurrency#"
-									TransactionQuantity  = "#qty#"
-									TransactionUoM       = "#UnitOfMeasure#"							
-									ReceiptId            = "#ReceiptId#"
-									TransactionDate      = "#dateformat(TransactionDate,CLIENT.DateFormatShow)#"
-									TransactionTime      = "#timeformat(TransactionDate,'HH:MM')#"							
-									TransactionLocalTime = "Yes"								
-									TransactionBatchNo   = "#batchno#"
-									workorderid          = "#workorderid#"
-									workorderline        = "#workorderline#"
-									requirementid        = "#requirementid#"
-									OrgUnit              = "#OrgFrom.OrgUnit#"
-									Remarks              = "#TransferMemo#"
-									ActionStatus         = "#actionstatus#"
-									DetailLineNo         = "1"
-									DetailReference1     = "#MeterName#"
-									DetailReadInitial    = "#MeterInitial#"
-									DetailReadFinal      = "#MeterFinal#">	
-									
-								 <!--- TO location --->	
-								 
-								 <cfif TransferItemNo neq "">
-								 		<cfset ToItemNo = TransferItemNo>
-										<cfset ToUoM    = TransferUoM>
-								 <cfelse>
-								 		<cfset ToItemNo = ItemNo>
-										<cfset ToUoM    = UnitOfmeasure>		    
-								 </cfif>
-								 								  
-								 <cf_assignid>
-							     <cfset newid = rowguid>								 
-									
-								 <cf_StockTransact 
-								    ParentTransactionId  = "#newid#"
-								    DataSource           = "AppsMaterials" 
-								    TransactionType      = "#url.tpe#"
-									TransactionSource    = "WarehouseSeries"
-									ItemNo               = "#ToItemNo#" 
-									Mission              = "#url.mis#" 
-									Warehouse            = "#TransferWarehouse#" 
-									TransactionLot       = "#TransactionLot#"
-									BillingMode          = "#billingmode#"
-									Location             = "#TransferLocation#"
-									TransactionCurrency  = "#APPLICATION.BaseCurrency#"
-									TransactionQuantity  = "#TransferQuantity#"
-									TransactionUoM       = "#ToUoM#"
-									TransactionCostPrice = "#StandardCost#"											
-									TransactionDate      = "#dateformat(TransactionDate,CLIENT.DateFormatShow)#"
-									TransactionTime      = "#timeformat(TransactionDate,'HH:MM')#"							
-									TransactionLocalTime = "Yes"
-									TransactionBatchNo   = "#batchno#"
-									workorderid          = "#workorderid#"
-									workorderline        = "#workorderline#"
-									requirementid        = "#requirementid#"
-									OrgUnit              = "#OrgTo.OrgUnit#"
-									ActionStatus         = "#actionstatus#"
-									Remarks              = "#TransferMemo#">	
-									
-								<cfquery name="getLocationTo"
-								datasource="AppsMaterials" 
-								username="#SESSION.login#" 
-								password="#SESSION.dbpw#">
-							    	SELECT   *				 
-									FROM     WarehouseLocation
-									WHERE    Warehouse = '#transferWarehouse#'
-									AND      Location  = '#transferLocation#'
-								</cfquery>			
-									
-								<cfif getLocationTo.Distribution eq "8">
-								
-									<!--- check of the storage location is a consumption location so we record immediately the consumption --->
-									
-									<cfif transactionidOrigin neq "">
-										<cfset origin = newid>
-									<cfelse>
-										<cfset origin = "">	
-									</cfif>
-																								
-									<cf_StockTransact 
-								    DataSource           = "AppsMaterials" 
-								    TransactionType      = "2"
-									TransactionIdOrigin  = "#newid#"	
-									TransactionSource    = "WarehouseSeries"
-									ItemNo               = "#ToItemNo#" 
-									Mission              = "#url.mis#" 
-									Warehouse            = "#TransferWarehouse#" 
-									TransactionLot       = "#TransactionLot#"
-									Location             = "#TransferLocation#"
-									TransactionCurrency  = "#APPLICATION.BaseCurrency#"								
-									TransactionQuantity  = "-#TransferQuantity#"
-									TransactionUoM       = "#ToUoM#"									
-									AssetId              = "#getLocationTo.AssetId#"								
-									TransactionDate      = "#dateformat(TransactionDate,CLIENT.DateFormatShow)#"
-									TransactionTime      = "#timeformat(TransactionDate,'HH:MM')#"							
-									TransactionLocalTime = "Yes"												
-									TransactionBatchNo   = "#batchno#"		
-									workorderid          = "#workorderid#"
-									workorderline        = "#workorderline#"
-									requirementid        = "#requirementid#"	
-									OrgUnit              = "#OrgTo.OrgUnit#"					
-									Remarks              = "#TransferMemo#"		
-									ActionStatus         = "#actionstatus#">	
-									
-								</cfif>			
-									
-									<!--- removed ReceiptId  = "#ReceiptId#" --->		
-									
-									--->				
-							
+						  						  
+						  	<!--- not supported without accounting anymore !!!!!!! to be disabled --->
+						  									
 						  </cfif>
 						  		
 					</cfloop>	

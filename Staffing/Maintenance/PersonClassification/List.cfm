@@ -22,7 +22,7 @@ password="#SESSION.dbpw#">
 	
 <table width="100%">
 							
-	    <TR height="18" class="line labelmedium">
+	    <TR height="18" class="line labelmedium2">
 		   <td width="80">List</td>
 		   <td style="width:90%">Description</td>
 		   <td style="min-width:50px" align="center">S.</td>
@@ -106,7 +106,7 @@ password="#SESSION.dbpw#">
 															
 			<cfelse>							
 						
-				<TR class="line labelmedium">
+				<TR class="line labelmedium2">
 				   <td style="width:80px">#nm#</td>
 				   <td style="width:80%">#de#</td>
 				   <td align="center">#ls#</td>

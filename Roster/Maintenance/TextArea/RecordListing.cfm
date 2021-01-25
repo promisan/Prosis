@@ -13,7 +13,7 @@ password="#SESSION.dbpw#">
 
 <cfset add          = "1">
 
-<table style="height:100%;width:100%">
+<table style="height:100%;width:98%" align="center">
 
 <tr><td style="height:10">
 
@@ -43,9 +43,9 @@ function recordedit(id1) {
 
 <cf_divscroll>
 
-<table width="97%" align="center" class="navigation_table">
+<table width="95%" align="center" class="navigation_table">
 
-	<tr class="labelmedium line fixrow">
+	<tr class="labelmedium2 line fixrow">
 	    <td></td> 
 	    <td>Code</td>
 		<td>Description</td>		
@@ -59,7 +59,7 @@ function recordedit(id1) {
 	   <tr class="fixrow2"><td height="1" colspan="6" style="height:40px" class="labellarge">#TextAreaDomain#</b></td></tr>	
   
 	   <cfoutput>
-		    <tr class="labelmedium line navigation_row" style="height:22px">
+		    <tr class="labelmedium2 line navigation_row">
 				<td width="5%" align="center">
 					  <cf_img icon="open" onclick="recordedit('#Code#')" navigation="Yes">
 				</td>		

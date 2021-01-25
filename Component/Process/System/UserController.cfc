@@ -222,6 +222,7 @@
 							</cfquery>							
 					
 					</cfif>		
+					
 															
 					<cfif session.acc neq "">
 					
@@ -438,11 +439,9 @@
 					
 					<cfelse>
 									
-					   <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center">
-						 <tr><td align="center" height="40" class="labellarge">					 
-						   <font size="4" color="FF0000">					   
-							   <cf_tl id="Authorization to access function is denied" class="Message">.
-						   </font>
+					   <table width="100%" height="100%" align="center">
+						 <tr><td align="center" class="labellarge" style="color:ff0000;font-size:18px;padding-top:10px">					 						   				   
+							   <cf_tl id="Authorization to access function is denied" class="Message">.						   
 							</td>
 						 </tr>
 					   </table>	

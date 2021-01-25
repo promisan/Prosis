@@ -118,6 +118,8 @@
 
 <cfoutput> 
 
+<cf_divscroll>
+
 <table width="100%" height="99%">
 
 <tr><td>
@@ -455,7 +457,7 @@
 				</TR>	
 				
 				<TR>
-			    <TD height="25" class="labelmedium" valign="top" style="padding-top:4px;padding-left:16px"><cf_tl id="Other Attachments">:</font></TD>
+			    <TD height="25" class="labelmedium" valign="top" style="padding-top:4px;padding-left:16px"><cf_tl id="Other Attachments">:</TD>
 				<TD height="40" valign="top">
 				
 					<cf_filelibraryN
@@ -588,7 +590,7 @@
 							List          = "thumbnail"
 							Insert        = "yes"
 							Remove        = "yes">	
-													
+																				
 					</td>
 				</tr>
 			</table>		
@@ -654,6 +656,8 @@
 
 </td></tr>
 </table>
+
+</cf_divscroll>
 
 </cfoutput>	
 

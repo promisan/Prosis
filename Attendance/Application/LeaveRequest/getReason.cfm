@@ -68,7 +68,7 @@
 		
 		<input type="hidden" name="GroupCode" value="<cfoutput>#getList.GroupCode#</cfoutput>">
 		
-		<select name="grouplistcode" id="grouplistcode" class="regularxl enterastab" style="width:100%;border:0px" onchange="getinformation('<cfoutput>#url.id#</cfoutput>');">	
+		<select name="grouplistcode" id="grouplistcode" class="regularxxl enterastab" style="width:100%;border:0px" onchange="getinformation('<cfoutput>#url.id#</cfoutput>');">	
 			<cfoutput query="getlist">
 				<option value="#grouplistcode#">#Description#</option>
 			</cfoutput>

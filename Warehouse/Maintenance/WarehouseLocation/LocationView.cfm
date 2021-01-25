@@ -63,12 +63,12 @@ password="#SESSION.dbpw#">
 		 
 	<cfif client.googleMAP eq "1">	 
 	
-		<cfajaximport tags="cfwindow,cfdiv,cfform,cfinput-datefield,cfmap"
+		<cfajaximport tags="cfwindow,cfdiv,cfform,cfmap"
 		    params="#{googlemapkey='#client.googlemapid#'}#">
 		
 	<cfelse>
 	
-		<cfajaximport tags="cfwindow,cfdiv,cfform,cfinput-datefield">
+		<cfajaximport tags="cfwindow,cfdiv,cfform">
 	
 	</cfif>	
 

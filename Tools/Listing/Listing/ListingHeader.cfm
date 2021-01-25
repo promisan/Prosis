@@ -255,7 +255,7 @@
 		<cfset totalcols = totalcols+1>
 	</cfif>
 	
-	<cfif deletetable neq "">	
+	<cfif deletetable neq "" or deletescript neq "">	
 		<td align="right" style="min-width:20px;border-left: 1px solid silver;border-right: 1px solid silver;"></td>	
 		<cfset totalcols = totalcols+1>		
 	</cfif>

@@ -21,35 +21,38 @@ password="#SESSION.dbpw#">
 		</cfif>
 </cfquery>
 
+<!---
 <cfif url.id2 eq "">
 	<cf_screentop height="100%" close="ColdFusion.Window.destroy('mydialog',true)" label="Workorder Service Add" scroll="Yes" layout="webapp" banner="blue" user="yes" jquery="yes">
 <cfelse>
 	<cf_screentop height="100%" close="ColdFusion.Window.destroy('mydialog',true)"  label="Workorder Service Edit" scroll="Yes" layout="webapp" banner="yellow" user="yes" jquery="yes">
 </cfif>
+--->
 
 <!--- edit form --->
 
-<cfform action="WorkOrderService/WorkOrderServiceSubmit.cfm?id1=#url.id1#&id2=#url.id2#" method="POST" name="formworkorderservice" target="divWorkOrderServiceSubmit" style="height:100%;">	
+<cfform action="WorkOrderService/WorkOrderServiceSubmit.cfm?id1=#url.id1#&id2=#url.id2#" method="POST" 
+   name="formworkorderservice" target="divWorkOrderServiceSubmit" style="height:98%;">	
 
-<table width="92%" height="100%" cellspacing="4" cellpadding="1" align="center" class="formpadding formspacing">
+<table width="92%" height="100%" align="center" class="formpadding formspacing">
 
 <tr class="hide"><td><iframe name="divWorkOrderServiceSubmit" id="divWorkOrderServiceSubmit" frameborder="0"></iframe></td></tr>
 	
-	<tr><td height="2"></td></tr>
+	<tr><td height="6"></td></tr>
     <cfoutput>
-	<TR>
-    <TD class="labelmedium">Domain:</TD>
-    <TD class="labelmedium">
+	<TR class="labelmedium2">
+    <TD>Domain:</TD>
+    <TD>
 		<input type="hidden" name="ServiceDomain" id="ServiceDomain" value="#URL.ID1#">
   	   <b>#GetHeader.Description#</b>
     </TD>
 	</TR>
 	
-    <TR>
-    <TD class="labelmedium" width="30%">Reference:</TD>
-    <TD class="labelmedium">
+    <TR class="labelmedium2">
+    <TD width="20%">Reference:</TD>
+    <TD>
 	   <cfif url.id2 eq "">	
-		   	<cfinput type="Text" name="Reference" id="Reference" value="" message="Please enter a reference" required="Yes" size="20" maxlength="40" class="regularxl">
+		   	<cfinput type="Text" name="Reference" value="" message="Please enter a reference" required="Yes" size="20" maxlength="40" class="regularxxl">
 	   <cfelse>
 	   		#get.Reference#
 			<input type="hidden" name="Reference" id="Reference" value="#get.reference#">
@@ -57,28 +60,24 @@ password="#SESSION.dbpw#">
     </TD>
 	</TR>
 	
-	<TR>
-    <TD class="labelmedium">Description:</TD>
+	<TR class="labelmedium2">
+    <TD>Description:</TD>
     <TD>
-	   <cfinput type="Text" name="Description" id="Description" value="#get.Description#" message="Please enter a description" required="No" size="50" maxlength="100" class="regularxl">
+	   <cfinput type="Text" name="Description" value="#get.Description#" message="Please enter a description" 
+	      required="No" size="50" maxlength="100" class="regularxxl">
     </TD>
 	</TR>
 	
-	<TR>
-    <TD class="labelmedium">Order:</TD>
+	<TR class="labelmedium2">
+    <TD>Order:</TD>
     <TD>
 	   <cfinput 
 	   		type="Text" 
-			name="ListingOrder" 
-			id="ListingOrder" 
+			name="ListingOrder"  
 			value="#get.ListingOrder#" 
 			message="Please enter a numeric listing order" 
 			required="Yes" 
-			size="3" 
-			maxlength="5" 
-			validate="integer" 
-			class="regularxl" 
-			style="text-align:center;">
+			size="3" maxlength="5" validate="integer" class="regularxxl" style="text-align:center;">
     </TD>
 	</TR>
 			
@@ -135,9 +134,9 @@ password="#SESSION.dbpw#">
 		
 	<td align="center" colspan="2" height="30">
 	<cfif url.id2 eq "">
-		<input class="button10g" type="submit" style="height:25;font-size:13px" name="Save" id="Save" value="Save">
+		<input class="button10g" type="submit" name="Save" id="Save" value="Save">
 	<cfelse>
-    	<input class="button10g" type="submit" style="height:25;font-size:13px" name="Update" id="Update" value="Update" onclick="return validateOrgUnits();">
+    	<input class="button10g" type="submit" name="Update" id="Update" value="Update" onclick="return validateOrgUnits();">
 	</cfif>	
 	</td>	
 	

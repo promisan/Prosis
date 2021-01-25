@@ -1,5 +1,7 @@
 <!--- create temp tables --->
 
+<cf_tl id="Add" var="1">
+
 <cf_screentop 
    height       = "100%" 
    band         = "No"    
@@ -8,7 +10,7 @@
    html         = "yes" 
    jquery       = "Yes"
    line         = "no"
-   label        = "#url.mission# Ledger Transaction" 
+   label        = "#lt_text#: #url.mission#/#url.Journal#" 
    systemmodule = "Accounting" 
    layout       = "webapp" 
    scroll       = "no">
@@ -16,15 +18,12 @@
 <cfoutput>
 
 <iframe src="TransactionPrepare.cfm?#CGI.QUERY_STRING#" 
-     name="transactionbox" 
-	 id="transactionbox" 
-	 width="100%" 
-	 height="100%" 
-	 marginwidth="0" 
-	 marginheight="0" 
-	 scrolling="0" 
-	 style="overflow-x:hidden;overflow-y:hidden"
-	 frameborder="0"></iframe>
+	     name="transactionbox" 
+		 id="transactionbox" 
+		 width="100%" 
+		 height="100%" 		
+		 style="overflow-x:hidden;overflow-y:hidden"
+		 frameborder="0"></iframe>
 	
 </cfoutput>
 	

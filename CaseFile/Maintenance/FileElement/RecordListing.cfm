@@ -4,14 +4,14 @@
 <script>
 
 	function recordadd() {
-	   ColdFusion.navigate('RecordListingDetail.cfm?code=new','listing')
+	   ptoken.navigate('RecordListingDetail.cfm?code=new','listing')
 	}
 	
 	function save(code) {
 	
 	   document.myelement.onsubmit() 
 		if( _CF_error_messages.length == 0 ) {
-	       ColdFusion.navigate('RecordListingSubmit.cfm?code='+code,'listing','','','POST','myelement')
+	       ptoken.navigate('RecordListingSubmit.cfm?code='+code,'listing','','','POST','myelement')
 		 }   
 	 }
 	 
@@ -20,7 +20,7 @@
 		se = document.getElementById(cde)	
 		if (se.className == "hide") {
 			se.className  = "regular" 
-			ColdFusion.navigate('List.cfm?element='+cde,cde+'_list')
+			ptoken.navigate('List.cfm?element='+cde,cde+'_list')
 		} else {
 			se.className  = "hide"		
 		}
@@ -28,24 +28,38 @@
 
 </script> 
 
-<cf_divscroll>
+
+<cf_screentop html="No" jquery="Yes">
+
+<table width="98%" height="100%">
 
 <cfset Page         = "0">
 <cfset add          = "1">
-<cfset Header       = "Award">
-<cfinclude template = "../HeaderCaseFile.cfm"> 
+<cfset save         = "0"> 
+<cfset Header       = "Element">
+<tr style="height:10px"><td><cfinclude template = "../HeaderCaseFile.cfm"> </td></tr>
+
+<tr><td>
+
+	<cf_divscroll>
 	
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" >
-  		
-	<tr>
-	
-	    <td width="100%" id="listing">
-		<cfinclude template="RecordListingDetail.cfm">
-		</td>
+	<table width="100%" align="center">
+	  		
+		<tr>
 		
-	</tr>		
-	<tr><td height="5"></td></tr>				
+		    <td width="100%" id="listing">
+			<cfinclude template="RecordListingDetail.cfm">
+			</td>
+			
+		</tr>		
+		<tr><td height="5"></td></tr>				
+	
+	</table>	
+				
+	</cf_divscroll>
+	
+	</td>
+</tr>
 
 </table>	
-				
-</cf_divscroll>
+	

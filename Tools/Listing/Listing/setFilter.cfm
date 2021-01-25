@@ -1,13 +1,14 @@
 
 <!--- set filter --->
 
-<cfparam name="url.box"        default=""> 
+<cfparam name="url.box" default="mybox">
+<cfparam name="box" default="#url.box#">
 
-<cfparam name="session.listingdata['#url.box#']['explore']" default="0">
+<cfparam name="session.listingdata['#box#']['explore']" default="0">
 
-<cfset explore    = session.listingdata[url.box]['explore']>
-<cfset sorting    = session.listingdata[url.box]['sqlsorting']>
-<cfset listlay    = session.listingdata[url.box]['listlayout']>
+<cfset explore    = session.listingdata[box]['explore']>
+<cfset sorting    = session.listingdata[box]['sqlsorting']>
+<cfset listlay    = session.listingdata[box]['listlayout']>
 
 <cfoutput>
 

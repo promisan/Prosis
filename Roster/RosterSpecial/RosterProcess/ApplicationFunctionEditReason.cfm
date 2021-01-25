@@ -66,7 +66,7 @@
 
 <cfset cl = "regular">
 
-	<table width="99%" border="0" bordercolor="e4e4e4" height="26" cellspacing="0" cellpadding="0" class="formpadding">	
+	<table width="99%" class="formpadding">	
 	
 	   <cfif get.EnableStatusDate eq "0">
 	   
@@ -75,33 +75,30 @@
 		<tr>
 		    <td colspan="2" class="#cl#">
 			
-				<table width="100%" cellspacing="0" cellpadding="0">
-				<tr><td height="22" colspan="3" style="padding-left:4px" class="labelit"><img src="#SESSION.root#/Images/down2.gif" alt="" border="0" align="absmiddle"><font color="gray">&nbsp;#SESSION.first#, Mark the reason(s) for your decision:</td></tr>
-			
-				
+				<table width="100%" cellspacing="0" cellpadding="0" class="navigation_table">
+				<tr><td colspan="3" style="padding-left:4px" class="labelit"><img src="#SESSION.root#/Images/down2.gif" alt="" border="0" align="absmiddle"><font color="gray">&nbsp;#SESSION.first#, Mark the reason(s) for your decision:</td></tr>
+							
 					<cfoutput>
-						<tr id="line">
-							<td width="30" height="23" style="padding-left:4px">
+						<tr class="line labelmedium2 navigation_row" id="line">
+							<td style="padding-left:4px;padding-right:4px">
 							<input type="checkbox" name="DecisionCode" style="width:14px;height:14px"
 								value="#DecisionCode#" 
 								<cfif DecisionCode eq SelectedCode>checked</cfif>
 								onClick="hr(this,this.checked); toggleRemarks('#DecisionCode#',this.checked)"></td>
 							
-							<td width="95%" style="padding-left:10px" class="labelmedium">#DescriptionMemo#</td>
+							<td width="100%" style="padding-left:10px" class="labelmedium">#DescriptionMemo#</td>
 						</tr>
 						<tr>
 							<cfset display="">
 							<cfif DecisionCode neq SelectedCode>
 								<cfset display="display:none">
 							</cfif>
-							<td colspan="3" id="td_remarks_#DecisionCode#" style="#display#;padding-left:4px">		
-								<textarea style="-moz-border-radius: 3px;border-radius: 3px;font-size:13px;padding:3px;width:100%;height:50;" name="Remarks_#DecisionCode#" class="regular" id="Remarks_#DecisionCode#" message = "">#Remarks#</textarea>
+							<td></td>
+							<td colspan="2" id="td_remarks_#DecisionCode#" style="#display#;padding:4px">		
+								<textarea style="font-size:13px;padding:3px;width:99%;height:60px;" name="Remarks_#DecisionCode#" class="regular" id="Remarks_#DecisionCode#">#Remarks#</textarea>
 							</td>
 						</tr>
-						
-						<cfif CurrentRow neq Recordcount>
-							<tr><td class="linedotted" colspan="3"></td></tr>
-						</cfif>
+												
 						
 					</cfoutput>
 				</table>
@@ -110,3 +107,5 @@
 	</table>	
 
 </cfoutput>
+
+<cfset ajaxonload("doHighlight")>

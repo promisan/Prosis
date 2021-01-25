@@ -115,7 +115,7 @@ password="#SESSION.dbpw#">
   
 	<table style="min-width:1000px" width="100%" class="navigation_table">
 		
-	<TR class="line labelmedium fixrow">
+	<TR class="line labelmedium2 fixrow">
 	    <td colspan="2" style="width:60px" align="center"></td>
 	    <td width="10%"><cf_tl id="Date"></td>
 		<TD width="10%"><cf_tl id="Status"></TD>
@@ -143,7 +143,7 @@ password="#SESSION.dbpw#">
 			
 	<cfoutput>
 	
-	<TR class="navigation_row labelmedium">
+	<TR class="navigation_row labelmedium2">
 	
 	    <cfif workflow neq "" and source eq "Manual">
 	 
@@ -234,13 +234,13 @@ password="#SESSION.dbpw#">
 			      or  Status eq "0" 
 				  or (Status eq "2" and EntityClass eq "") 
 				  or Schedule.CalculationStatus lt "3">
-			  <cf_img icon="edit" onClick="recordedit('#CostId#')" navigation="Yes">   	  
+			  <cf_img icon="open" onClick="recordedit('#CostId#')" navigation="Yes">   	  
 			</cfif>
 	
 		</td>	
 		
 		<td>#Dateformat(DocumentDate, CLIENT.DateFormatShow)#</td>
-		<td id="status_#workflow#"><cfif Status eq "2"><font color="008000">Cleared<cfelseif Status eq "3"><font color="008000">Cleared<cfelseif Status eq "5"><font color="008000">In Payroll</font><cfelse>Pending</cfif></td>
+		<td id="status_#workflow#"><cfif Status eq "2"><font color="008000"><cf_tl id="Cleared"><cfelseif Status eq "3"><font color="008000"><cf_tl id="Cleared"><cfelseif Status eq "5"><font color="008000">In Payroll</font><cfelse>Pending</cfif></td>
 		<td>#DocumentReference#</TD>
 		<td>#OfficerLastName#</TD>
 		<td>#Source#</TD>

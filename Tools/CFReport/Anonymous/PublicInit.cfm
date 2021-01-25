@@ -72,16 +72,13 @@
 			 <cfset bws = CGI.HTTP_USER_AGENT>
 			</cfif> 
 			
-			<cfset cnt = 1>
-			<cfloop index="itm" list="#cgi.http_host#" delimiters=".">
-				<cfif cnt eq "1">
-					<cfset host = itm>
-					<cfif itm eq "www" or itm eq "admin">
-						<cfset cnt = 2>
-					</cfif>						
-				</cfif>
-			</cfloop>
-				
+			<cfinvoke component = "Service.Process.System.Client"  
+			   method           = "getBrowser"
+			   browserstring    = "#bws#"			   
+			   returnvariable   = "userbrowser">	
+			   
+			<cf_getHost host="#cgi.http_host#">     
+										
 			<cfquery name="insert" 
 			datasource="AppsSystem">
 			INSERT INTO UserStatus 
@@ -90,6 +87,8 @@
 				 HostName, 
 				 NodeIP, 
 				 NodeVersion, 
+				 NodeBrowser,
+				 NodeBrowserVersion,
 				 TemplateGroup,
 				 ActionTimeStamp, 
 				 ActionTemplate)
@@ -99,6 +98,8 @@
 				 '#host#', 
 				 '#CGI.Remote_Addr#', 
 				 '#bws#', 
+				 '#userbrowser.name#',
+				 '#userbrowser.release#',
 				 'Tools',
 				 getDate(), 
 				 '#CGI.SCRIPT_NAME#')

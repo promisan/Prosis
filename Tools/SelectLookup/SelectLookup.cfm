@@ -312,7 +312,7 @@
 			<CFParam name="Attributes.height" default="625">
 			<CFParam name="Attributes.width"  default="620">			
 		
-			<cfset jvlink = "ColdFusion.Window.create('dialog#box#', 'Find Role', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,resizable:false,modal:true,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/Role/Search.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#','dialog#box#')">		
+			<cfset jvlink = "ProsisUI.createWindow('dialog#box#', 'Find Role', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,resizable:false,modal:true,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/Role/Search.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#','dialog#box#')">		
 				    		
 		 	<a href="javascript:#preservesinglequotes(jvlink)#">#Attributes.title#</a>			
 				

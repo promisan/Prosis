@@ -112,11 +112,11 @@
 		
 		<!--- position classification --->
 		
-		<tr class="line">				   
+		<tr class="line labelmedium2">				   
 			  
 			  <cfif ApprovalPostGrade neq "" or ApprovalPostGrade neq "">		
 			    <td align="center" onclick="ViewPosition('#PositionParentId#')"
-				  style="cursor:pointer;height:23px;background-color:##bfff80;font-size:13px;min-width:130px;padding-left:3px;padding-right:4px">		
+				  style="cursor:pointer;height:23px;background-color:##bfff80;min-width:130px;padding-left:3px;padding-right:4px">		
 				  
 				  <u><cf_tl id="Classified"></u>
 				  
@@ -136,7 +136,7 @@
 				 </td>	
 			  <cfelse>
 			    <td align="center" 
-				  style="height:23px;background-color:##ffb3b3;font-size:13px;min-width:130px;padding-left:3px;padding-right:4px">	
+				  style="background-color:##ffb3b3;font-size:13px;min-width:130px;padding-left:3px;padding-right:4px">	
 			  		<cf_tl id="Not classified">	
 				 </td>						
 			  </cfif>					 
@@ -153,8 +153,7 @@
 				   id="workflowcondition_#url.ajaxid#" 		   
 				   value="?positionparentid=#PositionParentid#&ajaxid=#url.ajaxid#">	
 			  
-			  <td id="#url.ajaxid#" style="height:100%;width:100%;padding-left:10px">	  
-			   	  
+			  <td id="#url.ajaxid#" style="height:100%;width:100%;padding:3px">			   	  
 				 				  
 				  <cf_wfActive entityCode="PostClassification" objectkeyvalue1="#PositionParentId#">
 				  
@@ -172,7 +171,7 @@
 			    
 		</tr>		  											
 		
-		<tr class="labelmedium line">
+		<tr class="labelmedium2 line">
 		
 		<cfquery name="VacancyClass" 
 			datasource="AppsEmployee" 
@@ -183,7 +182,7 @@
 				 WHERE  Code = '#VacancyActionClass#'		
 			</cfquery>
 		
-		  <td style="background-color:#vacancyClass.PresentationColor#;padding-left:3px;min-width:120px;padding-right:4px;height:20px" align="center">#VacancyClass.Description#</td>
+		  <td style="background-color:#vacancyClass.PresentationColor#;padding:4px;min-width:120px" align="center">#VacancyClass.Description#</td>
 			  
 		    <cfset url.ajaxid = "recruit_#PositionParentId#">
 		
@@ -199,7 +198,7 @@
 				   id="workflowcondition_#url.ajaxid#" 		   
 				   value="?positionparentid=#PositionParentid#&ajaxid=#url.ajaxid#">	
 		
-			<td align="center" style="width:100%;height:100%;padding-left:10px"  id="#url.ajaxid#">		
+			<td align="center" style="padding:3px;width:100%;height:100%"  id="#url.ajaxid#">		
 				<cfinclude template="StaffingPositionWorkflowRecruit.cfm">			
 			</td>
 			

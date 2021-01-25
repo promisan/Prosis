@@ -26,12 +26,14 @@ password="#SESSION.dbpw#">
 		GROUP BY ObjectCode
 </cfquery>	
 
-<table width="96%" align="center" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="96%" align="center" class="formpadding">
+
+<!---
 
 <tr><td align="center" style="padding:10px">
 	
 	<cf_tl id="Slice and Dice" var="1">
-		<cfset tInquiry = "#Lt_text#">
+		<cfset tInquiry = "#Lt_text#">			
 		
 	<cfinvoke component="Service.Analysis.CrossTab"  
 			  method      = "ShowInquiry"
@@ -55,6 +57,8 @@ password="#SESSION.dbpw#">
 
 </td></tr>
 
+--->
+
 <tr><td style="padding-top:10px" align="center" class="labelit"><cf_tl id="Budget by Object"> ($000)</td></tr>
 <tr><td height="1" class="line"></td></tr>
 <tr><td align="center">
@@ -66,7 +70,7 @@ password="#SESSION.dbpw#">
            font="arial"
            fontsize="9"
 		   show3d="no"	
-		   showlegend="no"		   
+		   showlegend="yes"		   
            labelformat="number"
            tipstyle="mouseOver">
 		   
@@ -86,8 +90,15 @@ password="#SESSION.dbpw#">
 
 <!--- this information is take by the temp files that are converted for the currency --->
 
-<tr class="line"><td align="center" class="labelit"><cf_tl id="Expenditures by Fund and Program"> ($000)</td></tr>
-<tr><td height="20"></td></tr>		
+<tr class="line"><td align="center" class="labelit"><cf_tl id="Commitments by Fund and Program"> ($000)</td></tr>
+<tr><td height="20" align="center">
+
+<cfoutput>
+<input type="button" class="button10g" style="width:95%" value="Explore execution" 
+    onclick="ptoken.open('#session.root#/procurement/application/funding/listing/ExecutionView.cfm?systemfunctionid=#url.systemfunctionid#&mission=#url.mission#&planningperiod=#url.planningperiod#&period=#url.period#')">
+</cfoutput>	
+
+</td></tr>		
 
 <tr><td align="center">
 

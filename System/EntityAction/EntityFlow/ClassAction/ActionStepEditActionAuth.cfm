@@ -72,7 +72,7 @@
 						    
 					</cfquery>
 					
-					<cf_uiselect name="ActionAccessUserGroup" id="ActionAccessUserGroup" class="regularxl" style="width: 100%;" 
+					<cf_uiselect name="ActionAccessUserGroup" id="ActionAccessUserGroup" class="regularxxl" style="width: 100%;" 
 						    group          = "AccountMission"
 							query          = "#Group#"
 							queryPosition  = "below"
@@ -80,10 +80,10 @@
 							value          = "Account"
 							display        = "Account"
 							selected       = "#Get.ActionAccessUserGroup#">		
-						<option value="'DISABLED'" selected>Not applicable</option>
-					    <option value="'[all users]'">[all users]</option>
-						<option value="'[mission]'">All users in Entity</option>
-						<option value="'[unit]'">Users in Unit</option>
+						<option value="DISABLED" selected>Not applicable</option>
+					    <option value="[all users]">[all users]</option>
+						<option value="[mission]">All users in Entity</option>
+						<option value="[unit]">Users in Unit</option>
 					</cf_uiselect>
 					
 					</td>
@@ -109,7 +109,7 @@
 						ORDER BY AccountMission									
 					</cfquery>
 					
-					<cf_uiselect name="ActionAccessUGCollaborate" id="ActionAccessUGCollaborate" class="regularxl"
+					<cf_uiselect name="ActionAccessUGCollaborate" id="ActionAccessUGCollaborate" class="regularxxl"
 						 style="width: 100%;" 
 						    group          = "AccountMission"
 							query          = "#Group#"

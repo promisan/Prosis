@@ -215,13 +215,12 @@ password="#SESSION.dbpw#">
 	</cfif>
 	
 	<cfif currentrow eq "1">	
-		<tr class="labelmedium fixrow"> 
+		<tr class="labelmedium2 fixrow line"> 
 		    <td width="20"></td>
-		    <TD style="min-width:200px"><cf_tl id="Name"></TD>
-			<TD width="25%"><cf_tl id="Template"></TD>		
-			<TD style="min-width:80px"><cf_tl id="Entered"></TD>
+		    <TD style="min-width:250px"><cf_tl id="Name"></TD>			
 			<TD style="min-width:20px" align="center">O</TD>	
-			<TD width="45%"><cf_tl id="Role"> / <cf_tl id="Usergroup"></TD>				
+			<TD><cf_tl id="Usergroup"></TD>
+			<TD><cf_tl id="Role"></TD>				
 		</TR>		
 	</cfif>
 	
@@ -231,7 +230,7 @@ password="#SESSION.dbpw#">
 		
 			<tr class="line fixrow2">
 			
-				<td colspan="6" style="padding-left:10px;font-weight:200;padding-top:5px;height:50px;font-size:31px" class="labelmedium">
+				<td colspan="6" style="padding-left:10px;padding-top:5px;height:40px;font-size:22px" class="labelmedium2">
 					<cfif SystemModule eq "Portal" and FunctionClass eq "Portal" and MenuClass eq "Topic">
 						<a href="javascript: maintaintopics('#SystemModule#','0','#FunctionClass#','');" title="Click to maintain topics">#MenuClass#</a>
 					<cfelse>
@@ -243,11 +242,11 @@ password="#SESSION.dbpw#">
 			<cfoutput group="SystemFunctionId">					
 							
 			    <cfif Operational eq "0" and MenuClass neq "Builder">
-					<tr bgcolor="e4e4e4" class="navigation_row lined">
+					<tr bgcolor="e4e4e4" class="navigation_row line labelmedium2">
 				<cfelseif MenuClass eq "Builder">	
-					<tr bgcolor="fafafa" id="line#SystemFunctionId#" class="navigation_row line">
+					<tr bgcolor="fafafa" id="line#SystemFunctionId#" class="navigation_row line labelmedium2">
 				<cfelse>
-					<tr bgcolor="white" class="navigation_row line">
+					<tr bgcolor="white" class="navigation_row line labelmedium2">
 				</cfif>			    
 					
 					<cfif systemmodule eq "selfservice" or systemmodule eq "pmobile">
@@ -257,7 +256,7 @@ password="#SESSION.dbpw#">
 							class="navigation_action"
 							onClick="portaledit('#SystemFunctionId#','#systemmodule#','#url.functionClass#')">
 							
-						<cf_img icon="edit">
+						<cf_img icon="open">
 											
 					<cfelseif menuclass eq "Builder">
 						<td height="20" 
@@ -265,7 +264,7 @@ password="#SESSION.dbpw#">
 							class="navigation_action"
 							onClick="functionedit('#SystemFunctionId#')">
 							
-					   	  <cf_img icon="edit">
+					   	  <cf_img icon="open">
 
 					<cfelse>
 						<td height="20" 
@@ -273,42 +272,59 @@ password="#SESSION.dbpw#">
 							class="navigation_action"
 							onClick="functionedit('#SystemFunctionId#')">							
 	
-						 <cf_img icon="edit">		
+						 <cf_img icon="open">		
 						  
 					</cfif>	  
 					
 				</td>
-				<TD style="width:100%">
 				
-				<cfif url.find neq "">
-					<cfset cc = replaceNocase(FunctionName,  URL.Find,  "<b><u><font color='0080C0'>#URL.Find#</font></u></b>" ,  "ALL")>
-					#cc#
-				<cfelse>
-				   <cfif mainmenuitem eq "0"></cfif>#FunctionName#
-				</cfif>
+				<TD>
+				
+					<table>
+					
+						<tr class="labelmedium">
+						<td style="width:100%;font-size:16px;">						
+						<cfif url.find neq "">
+							<cfset cc = replaceNocase(FunctionName,  URL.Find,  "<b><u><font color='0080C0'>#URL.Find#</font></u></b>" ,  "ALL")>
+							#cc#
+						<cfelse>
+						   <cfif mainmenuitem eq "0"></cfif>#FunctionName#
+						</cfif>						
+						</td>
+						</tr>
+					
+						<tr>
+					
+							<td style="padding-left:14px;padding-right:4px">						
+							#Dateformat(Created, "DD/MM/YY")# :
+							<cfif menuclass eq "Builder">					
+								#OfficerLastname#						
+							<cfelse>				
+								<cfif FunctionPath eq ""><b>jv:</b>&nbsp;#ScriptName#
+								<cfelse>
+									<cfif len(FunctionPath) gt 44>#left(FunctionPath,30)#...<cfelse>#FunctionPath#</cfif>
+								</cfif>						
+							</cfif>						
+							</td>
+					
+						</tr>
+					
+					</table>
 				
 				</TD>
-				<td style="padding-left:4px;padding-right:4px">
-				
-				<cfif menuclass eq "Builder">					
-					#OfficerLastname#						
-				<cfelse>				
-					<cfif FunctionPath eq ""><b>jv:</b>&nbsp;#ScriptName#
-					<cfelse>
-						<cfif len(FunctionPath) gt 44>#left(FunctionPath,30)#...<cfelse>#FunctionPath#</cfif>
-					</cfif>
-				
-				</cfif>
-				
-				</td>
-				
-				<TD style="padding-right:4px">#Dateformat(Created, "DD/MM/YY")#</TD>
-				
+								
 				<TD style="min-width:20px;padding-right:5px" id="status#SystemFunctionId#" align="center">				
 				   <cfif Operational eq "0"><font color="FF0000">D</font><cfelse></cfif>
 			    </TD>	
+				
+				<TD id="role#SystemFunctionId#">
+				    <cfif systemmodule neq "selfservice" or systemmodule eq "pmobile">
+						<cfset url.id = "#SystemFunctionId#">
+						<cfinclude template="RecordListingGroup.cfm">		
+					</cfif>
+				</TD>
 					
-				<TD id="role#SystemFunctionId#" style="min-width:480px">
+				<TD id="role#SystemFunctionId#">
 				    <cfif systemmodule neq "selfservice" or systemmodule eq "pmobile">
 						<cfset url.id = "#SystemFunctionId#">
 						<cfinclude template="RecordListingRole.cfm">		

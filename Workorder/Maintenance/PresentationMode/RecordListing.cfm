@@ -8,70 +8,70 @@ password="#SESSION.dbpw#">
 	ORDER BY ListingOrder
 </cfquery>
 
-<cf_divscroll>
+<cf_screentop height="100%" scroll="yes" html="No" jquery="Yes">
 
-<cfset add          = "1">
-<cfinclude template = "../HeaderMaintain.cfm"> 
+<table width="98%" height="100%" align="center">
 
-<table width="100%" align="center" cellspacing="0" cellpadding="0">  
+<tr style="height:10px"><td>
+	<cfset add          = "1">
+	<cfset Header       = "Billing mode">
+	<cfinclude template = "../HeaderMaintain.cfm"> 
+</td>
+</tr>
 
 <cfoutput>
 
 <script language = "JavaScript">
 
 function recordadd(grp) {
-          window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "AddPresentationMode", "left=80, top=80, width= 500, height= 275, toolbar=no, status=yes, scrollbars=no, resizable=yes");
+          ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "AddPresentationMode", "left=80, top=80, width= 500, height= 275, toolbar=no, status=yes, scrollbars=no, resizable=yes");
 }
 
 function recordedit(id1) {
-          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "EditPresentationMode", "left=80, top=80, width= 500, height= 275, toolbar=no, status=yes, scrollbars=no, resizable=yes");
+          ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "EditPresentationMode", "left=80, top=80, width= 500, height= 275, toolbar=no, status=yes, scrollbars=no, resizable=yes");
 }
 
 </script>	
 
 </cfoutput>
 
-<tr>
-	<td colspan="2" class="line"></td>
-</tr>
-
 <tr><td colspan="2">
 
-	<table width="97%" cellspacing="0" cellpadding="1" align="center">
+	<cf_divscroll>
+
+	<table width="97%" class="formpadding" align="center">
 	
-		<tr style="height:20px;">
+		<tr class="labelmedium2 line">
 		    <td></td> 
-		    <td class="labelit">Code</td>
-			<td class="labelit">Description</td>
-			<td class="labelit" align="center">Listing Order</td>
-			<td class="labelit">Officer</td>
-		    <td class="labelit">Entered</td>
+		    <td>Code</td>
+			<td>Description</td>
+			<td align="center">Listing Order</td>
+			<td>Officer</td>
+		    <td>Entered</td>
 		  
 		</tr>
-		
-		<tr><td colspan="6" class="line"></td></tr>	
-		
+				
 		<cfoutput query="SearchResult">
 		
-		    <tr onMouseOver="this.bgColor='FFFFCF'" onMouseOut="this.bgColor='FFFFFF'" bgcolor="FFFFFF"> 
+		    <tr class="labelmedium2 line navigation_row"> 
 			<td width="5%" align="center" style="padding-top:1px;">
 			   <cf_img icon="open" onclick="recordedit('#Code#')">
 			</td>		
-			<td class="labelit">#Code#</td>
-			<td class="labelit">#Description#</td>
-			<td class="labelit" align="center">#listingOrder#</td>
-			<td class="labelit">#OfficerFirstName# #OfficerLastName#</td>
-			<td class="labelit">#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
+			<td>#Code#</td>
+			<td>#Description#</td>
+			<td align="center">#listingOrder#</td>
+			<td>#OfficerFirstName# #OfficerLastName#</td>
+			<td>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
 		    </tr>
-		    	
-			<tr><td class="line" colspan="6"></td></tr>
-		
+		    			
 		</cfoutput>
 	
 	</table>
+	
+	</cf_divscroll>
 
 </td>
 
-</table>
+</tr>
 
-</cf_divscroll>
+</table>

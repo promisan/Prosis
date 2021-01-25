@@ -218,14 +218,14 @@
 		<cf_divscroll>
 		 		    
 		 <table width="100%" align="center" class="formpadding">
-		 <tr class="labelmedium line">
+		 <tr class="labelmedium2 line">
 			 <td width="5%">&nbsp;</td>
 			 <td><cf_tl id="Name"></td>
 			 <td><cf_tl id="Last logon"></td>
 			 <td><cf_tl id="Last alert">:</td>
 			 <td><cf_tl id="EMail address"></td>
 			 <td align="center">
-				 <input type="checkbox" name="account" id="account" value="" checked onClick="check(this.checked)">
+				 <input type="checkbox" name="account" id="account" value="" <cfif potential.recordcount gte "4">checked</cfif> onClick="check(this.checked)">
 			 </td>
 		 </tr>	 
 		 
@@ -305,9 +305,9 @@
 			  
 				    <cfif Potential.eMailAddress neq "">
 					   <cfset row = row+1>
-				       <tr class="labelmedium highlight1 linedotted" id="d#row#">
+				       <tr class="labelmedium2 highlight1 line" id="d#row#">
 					<cfelse>
-					   <tr class="labelmedium linedotted">
+					   <tr class="labelmedium2 line">
 					</cfif>
 					<td style="padding-left:7px">#currentRow#</td>
 					<td>#Potential.FirstName# #Potential.LastName#</td>
@@ -327,7 +327,7 @@
 					<td>#Potential.emailAddress#</td>
 					<td height="25" align="center">
 						<cfif Potential.eMailAddress neq "">
-					    	<input type="checkbox" name="account" class="radiol" id="account" value="'#Account#'" checked onClick="hl(this,this.checked)">
+					    	<input type="checkbox" name="account" class="radiol" id="account" value="'#Account#'" <cfif potential.recordcount gte "4">checked</cfif> onClick="hl(this,this.checked)">
 						<cfelse>
 							<cf_tl id="Not available">	
 						</cfif>

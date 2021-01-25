@@ -27,98 +27,87 @@ password="#SESSION.dbpw#">
 <cfoutput>
 
 <script language="JavaScript">
-
-function validate() {
-	document.editform.onsubmit() 
-	if( _CF_error_messages.length == 0 ) {        
-		ColdFusion.navigate('RecordSubmit.cfm?action=save','contentbox1','','','POST','editform')
-	 }   
-}	 
-
-function editItemTopic(code,si) {
-   ColdFusion.navigate("ServiceItemTopic.cfm?code="+code+"&ID1="+si+"&ts="+new Date().getTime(),'contentbox2');	
-}
-
-function deleteItemTopic(code,si) {
-   ColdFusion.navigate("ServiceItemTopic.cfm?code="+code+"&ID1="+si+"&mode=delete&ts="+new Date().getTime(),'contentbox2');	
-}
-
-function saveItemTopic(code,si) {
-
-   document.edittopicform.onsubmit() 
-   if( _CF_error_messages.length == 0 ) {        
-	   ColdFusion.navigate("ServiceItemTopicSubmit.cfm?code="+code+"&ID1="+si+"&ts="+new Date().getTime(),'contentbox2','','','POST','edittopicform');
-  }
 	
-}
-
-function showunit(serviceitem,unit) {
-   ptoken.open("#SESSION.root#/workorder/maintenance/unitRate/ItemUnitEdit.cfm?ID1="+serviceitem+"&ID2="+unit,'_blank');
-}
-
-function showunitrefresh(serviceitem) {
-   _cf_loadingtexthtml='';	
-   ColdFusion.navigate('#SESSION.root#/workorder/maintenance/unitRate/ItemUnitListing.cfm?ID1='+serviceitem,'contentbox2')	
-}
-
-function showitemtab(mission, serviceitem, name) {
+	function validate() {
+		document.editform.onsubmit() 
+		if( _CF_error_messages.length == 0 ) {        
+			ptoken.navigate('RecordSubmit.cfm?action=save','contentbox1','','','POST','editform')
+		 }   
+	}	 
 	
-	try { ColdFusion.Window.destroy('mydialog',true) } catch(e) {}
-	ColdFusion.Window.create('mydialog', 'Tab', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,resizable:false,center:true})    					
-	ColdFusion.navigate('#SESSION.root#/workorder/maintenance/ServiceItemTab/ServiceItemTab.cfm?ID1='+mission+'&ID2='+serviceitem+'&ID3='+name,'mydialog') 	
-     
-   
-}
-
-function showitemtabrefresh(serviceitem) {
-    ColdFusion.navigate('#SESSION.root#/workorder/maintenance/ServiceItemTab/ServiceItemTabListing.cfm?ID1='+serviceitem,'contentbox2')
-}
-
-function validatereq() {
-	document.reqform.onsubmit() 
-	if( _CF_error_messages.length == 0 ) {        	
-		ColdFusion.navigate('ServiceItemRequestSubmit.cfm?id1=#url.id1#','contentbox2','','','POST','reqform')
-	 }   
-}	 
-
-function ask() {
-	if (confirm("Do you want to remove this service item ?")) {	
-	ColdFusion.navigate('RecordSubmit.cfm?action=delete','contentbox1','','','POST','editform')
+	function editItemTopic(code,si) {
+	   ptoken.navigate("ServiceItemTopic.cfm?code="+code+"&ID1="+si+"&ts="+new Date().getTime(),'contentbox2');	
+	}
+	
+	function deleteItemTopic(code,si) {
+	   ptoken.navigate("ServiceItemTopic.cfm?code="+code+"&ID1="+si+"&mode=delete&ts="+new Date().getTime(),'contentbox2');	
+	}
+	
+	function saveItemTopic(code,si) {
+	
+	   document.edittopicform.onsubmit() 
+	   if( _CF_error_messages.length == 0 ) {        
+		   ptoken.navigate("ServiceItemTopicSubmit.cfm?code="+code+"&ID1="+si+"&ts="+new Date().getTime(),'contentbox2','','','POST','edittopicform');
+	  }
+		
+	}
+	
+	function showunit(serviceitem,unit) {
+	   ptoken.open("#SESSION.root#/workorder/maintenance/unitRate/ItemUnitEdit.cfm?ID1="+serviceitem+"&ID2="+unit,'_blank');
+	}
+	
+	function showunitrefresh(serviceitem) {
+	   _cf_loadingtexthtml='';	
+	   ptoken.navigate('#SESSION.root#/workorder/maintenance/unitRate/ItemUnitListing.cfm?ID1='+serviceitem,'contentbox2')	
+	}
+	
+	function showitemtab(mission, serviceitem, name) {		
+	   ProsisUI.createWindow('mydialog', 'Tab', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,resizable:false,center:true})    					
+	   ptoken.navigate('#SESSION.root#/workorder/maintenance/ServiceItemTab/ServiceItemTab.cfm?ID1='+mission+'&ID2='+serviceitem+'&ID3='+name,'mydialog') 	        
+	}
+	
+	function showitemtabrefresh(serviceitem) {
+	    ptoken.navigate('#SESSION.root#/workorder/maintenance/ServiceItemTab/ServiceItemTabListing.cfm?ID1='+serviceitem,'contentbox2')
+	}
+	
+	function validatereq() {
+		document.reqform.onsubmit() 
+		if( _CF_error_messages.length == 0 ) {        	
+			ptoken.navigate('ServiceItemRequestSubmit.cfm?id1=#url.id1#','contentbox2','','','POST','reqform')
+		 }   
+	}	 
+	
+	function ask() {
+		if (confirm("Do you want to remove this service item ?")) {	
+		ptoken.navigate('RecordSubmit.cfm?action=delete','contentbox1','','','POST','editform')
+		}	
+		return false	
 	}	
-	return false	
-}	
-
-function addMissionPosting(serviceitem, mission) {
-
+	
+	function addMissionPosting(serviceitem, mission) {
 		var width = 700
 		var height = 500      	
-	    window.open("ServiceItemMissionPostingListing.cfm?ID1="+serviceitem+"&ID2="+mission+"&ts="+new Date().getTime(), window, "dialogWidth:" + width + "px; dialogHeight:" + height + "px; resizable:yes")  	
-   		ColdFusion.navigate('Financials_MissionPosting.cfm?ID1='+serviceitem+'&ID2='+mission,'detailMissionPosting_' + mission)	 
-		
-}
-
-</script>
+	    ptoken.open("ServiceItemMissionPostingListing.cfm?ID1="+serviceitem+"&ID2="+mission+"&ts="+new Date().getTime(), window, "dialogWidth:" + width + "px; dialogHeight:" + height + "px; resizable:yes")  	
+		ptoken.navigate('Financials_MissionPosting.cfm?ID1='+serviceitem+'&ID2='+mission,'detailMissionPosting_' + mission)	 		
+	}
+	
+	</script>
 
 </cfoutput>
 
-
-
 <!--- edit form --->
 
-<table height="100%" width="94%" class="formpadding" cellspacing="0" cellpadding="0" align="center">
+<table height="100%" width="94%" class="formpadding" align="center">
 	
 	<cfoutput>
 	
-	<TR style="height:20px">
-	 <TD class="labelmedium" width="100">Code:</TD>  
-	 <TD class="labelmedium" width="70"><b>#get.Code#</TD>	
-     <TD class="labelmedium">Description:</TD>
-     <TD class="labelmedium"><b>#get.Description#</TD>
+	<tr><td height="1"></td></tr>
+	<TR style="height:20px" class="labelmedium2 line">	  
+	 <TD style="font-size:18px" width="70">#get.Code#</TD>	     
+     <TD style="font-size:18px">#get.Description#</TD>
 	 <td width="30%"></td>
 	</TR>
-	
-	<tr><td height="1"></td></tr>
-	<tr><td colspan="5" class="line"></td></tr>
+		
 	<tr><td colspan="5" height="100%">
 	    <cf_divscroll>
     	<cfinclude template="RecordEditTab.cfm"> 

@@ -43,10 +43,9 @@ password="#SESSION.dbpw#">
 
 <cfparam name="URL.ID2" default="new">
 	
-<table width="100%" cellspacing="0" cellpadding="0">
-		
-				
-	    <TR height="18" class="line labelmedium">
+<table width="100%">
+						
+	    <TR height="18" class="line labelmedium2">
 		   <td width="120"><cf_space spaces="50">Role</td>
 		   <td width="90%">Description</td>			
 		   <td colspan="2" align="right">
@@ -72,13 +71,13 @@ password="#SESSION.dbpw#">
 			<cfset nm = Role>
 			<cfset de = Description>
 						
-			<TR class="line labelmedium">
-			   <td height="15" class="labelit" width="100">#nm#</td>
-			   <td width="80%" class="labelit">#de#</td>				 
+			<TR class="line labelmedium2">
+			   <td height="15" width="100">#nm#</td>
+			   <td width="80%">#de#</td>				 
 			   <td align="center" width="25"></td>			  
 			   <td align="center" width="25" style="padding-top:4px">
 
-				   <cf_img icon="delete" onclick="_cf_loadingtexthtml='';ColdFusion.navigate('Role.cfm?action=delete&Code=#URL.Code#&ID2=#nm#','#url.code#_role');">
+				   <cf_img icon="delete" onclick="_cf_loadingtexthtml='';ptoken.navigate('Role.cfm?action=delete&Code=#URL.Code#&ID2=#nm#','#url.code#_role');">
 										  
 			    </td>
 					
