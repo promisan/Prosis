@@ -1,5 +1,3 @@
-
-
 	
 <!--- show person, status processing color and filter on raise by me --->
 
@@ -159,8 +157,8 @@
 <tr><td style="padding-left:8px;padding-right:8px;padding-bottom:6px">
 							
 <cf_listing
-    header        = "lsInvoice"
-    box           = "lsinvoice"
+    header        = "lsInvoice_#URL.ID1#"
+    box           = "lsinvoice_#URL.ID1#"
 	link          = "#SESSION.root#/Procurement/Application/Invoice/InvoiceView/InvoiceViewListingContent.cfm?#cgi.query_string#"
     html          = "No"
 	show          = "42"

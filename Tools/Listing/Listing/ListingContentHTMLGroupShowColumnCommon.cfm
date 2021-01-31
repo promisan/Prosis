@@ -45,7 +45,7 @@
 						</cfloop>
 											
 						<cfif cnt eq "2">						     
-						     <td style="background-color:e6e6e6;text-align:center;min-width:#cwd#px;width:#perc#%;border-left:1px solid silver;padding-right:4px"></td>							 
+						     <td style="background-color:e6e6e6;text-align:center;min-width:#cwd+12#px;width:#perc#%;border-left:1px solid silver;padding-right:4px"><cf_tl id="Total"></td>							 
 							 <cfset cell = cell+1>
 						<cfelse>	
 						 	 <td style="width:#perc*(cnt-1)#%">
@@ -55,7 +55,7 @@
 									 </tr>
 									 <tr>
 								     <cfloop index="itm" list="#URL.datacell1formula#">						 
-									 <td style="background-color:e6e6e6;text-align:center;min-width:#cwd#px;width:#perc#%;border-left:1px solid silver;padding-right:4px">#itm#</td>
+									 <td style="background-color:e6e6e6;text-align:center;min-width:#cwd+10#px;width:#perc#%;border-left:1px solid silver;padding-right:4px">#itm#</td>
 									 <cfset cell = cell+1>
 									 </cfloop>	
 									 </tr>
@@ -112,14 +112,14 @@ v											});
 						<!--- total column --->
 						
 						<cfif cnt eq "2">						     
-						     <td style="text-align:right;background-color:##d6d6d680;min-width:#cwd#px;width:#perc#%;border-left:1px solid silver;padding-right:6px">
+						     <td style="text-align:right;background-color:##d6d6d680;min-width:#cwd+10#px;width:#perc#%;border-left:1px solid silver;padding-right:6px">
 							 <cfparam name="myTot[#cnt#]" default="">
 							 <cfset val = myTot[cnt]>#val#
 								 </td>				 						
 						<cfelse>	
 						 	  <cfloop index="itm" from="2" to="#cnt#">	
 							  <cfparam name="myTot[#cnt#]" default="">
-						     <td style="text-align:right;background-color:##d6d6d680;min-width:#cwd#px;width:#perc#%;border-left:1px solid silver;padding-right:6px">#myTot[itm]#</td>
+						     <td style="text-align:right;background-color:##d6d6d680;min-width:#cwd+10#px;width:#perc#%;border-left:1px solid silver;padding-right:6px">#myTot[itm]#</td>
 							 </cfloop>						 										 							 
 						</cfif>					
 									

@@ -149,11 +149,13 @@ function editline(jrnserno,period,tradte,tracat,tratpe,debcre,refer,refern,glacc
 	try { document.getElementById("d"+cnt).className = "regular" } catch(e) {}
 	cnt++
 	}
-    document.getElementById('menu1').click();			
-	document.getElementById("d"+ser).className = "labelit highlight2"
+	mainmenu('menu','1','box','1','highlight1')
+    // document.getElementById('menu1').click(); disabled as it affects the content -			
+	document.getElementById("d"+ser).className = "labelmedium2 highlight2"
 	//encoding...
 	refer  = encodeURIComponent(refer);
 	memo   = encodeURIComponent(memo);
+	_cf_loadingtexthtml='';	
 			
 	url = "TransactionDetailEntry.cfm?mode=1&journal=#url.journal#&"+
 			 "&journalserialno="+jrnserno+
@@ -185,9 +187,12 @@ function editline(jrnserno,period,tradte,tracat,tratpe,debcre,refer,refern,glacc
 			 "&warehouse="+whs+
 			 "&itemno="+itm+
 			 "&itemuom="+uom+
-			 "&itemquantity="+qty
+			 "&itemquantity="+qty+
+			 "&ts="+new Date().getTime()
+			 
 			 
 			 ptoken.navigate(url,'contentbox1')
+			 			 
 						 
 	}	
 	

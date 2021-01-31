@@ -64,7 +64,7 @@
 				</td>	
 				
 				<td width="99%" style="padding-left:3px">
-					<cfdiv bind="url:#link#&personno=#get.PersonNo#&dependentid=#get.Dependentid#&mode=#type.claimant#" id="employeebox"/>
+					<cf_securediv bind="url:#link#&personno=#get.PersonNo#&dependentid=#get.Dependentid#&mode=#type.claimant#" id="employeebox">
 				</td>
 			</tr>	
 															
@@ -106,7 +106,7 @@
 				</td>	
 				
 				<td width="99%" style="padding-left:3px">
-				<cfdiv bind="url:#link#&personno=#get.PersonNo#&dependentid=#get.Dependentid#&mode=#type.claimant#" id="employeebox"/>
+				<cf_securediv bind="url:#link#&personno=#get.PersonNo#&dependentid=#get.Dependentid#&mode=#type.claimant#" id="employeebox">
 				</td>
 			</tr>	
 									
@@ -116,8 +116,7 @@
 			<tr>	
 				<td colspan="2" style="padding-left:2px">
 												
-				<cfdiv bind="url:../Header/getDependent.cfm?personno=#get.personno#&dependentid=#get.Dependentid#" 
-			       id="dependent"/>
+				<cf_securediv bind="url:../Header/getDependent.cfm?personno=#get.personno#&dependentid=#get.Dependentid#" id="dependent">
 				
 				</td>
 			</tr>

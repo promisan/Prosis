@@ -65,7 +65,7 @@
 		<cfelseif action eq "external">
 			
 			<!--- get the open action and determined if it is an API --->
-			
+								
 			<cfquery name="get" 
 			   datasource="#DataSource#" 
 			   username="#SESSION.login#" 
@@ -74,12 +74,12 @@
 				FROM    Organization.dbo.OrganizationObjectAction A INNER JOIN
 		                Organization.dbo.Ref_EntityActionPublish R ON A.ActionPublishNo = R.ActionPublishNo AND A.ActionCode = R.ActionCode
 				WHERE   A.ObjectId = '#objectId#'
-				AND     A.ActionStatus = '0'
+				AND     A.ActionStatus IN ('0','2N')
 				ORDER BY ActionFlowOrder				
 			</cfquery>				
 		
 			<cfif get.actiontrigger eq "external">
-			
+						
 				<cfif actionDecision eq "Submit">
 							
 					<cfif get.ActionType eq "Action">
@@ -140,6 +140,7 @@
 								 ActionMemo       = '#memo#',
 								 OfficerDate      = getDate()
 					   WHERE     ActionId         = '#get.actionId#'
+					   
 					</cfquery> 
 										  					
 				    <!--- process the submit/approve method --->								

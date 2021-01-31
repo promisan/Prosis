@@ -190,9 +190,9 @@
 	  
 						
 <cf_listing
-    header        = "Transaction#url.journal#"
-    box           = "Transaction#url.journal#"
-	link          = "#SESSION.root#/Gledger/Application/Transaction/JournalTransactionListingContent.cfm?#cgi.query_string#"
+    header        = "Line#url.journal#"
+    box           = "Line#url.journal#"
+	link          = "#SESSION.root#/Gledger/Application/Transaction/Listing/ListingLineContent.cfm?#cgi.query_string#"
     html          = "No"
 	show          = "42"
 	datasource    = "AppsLedger"

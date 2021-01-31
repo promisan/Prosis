@@ -204,7 +204,7 @@
 										        display="#title#"						
 												parent="#Mission#_#pla#"	
 												target="content"
-												href="FundingExecutionView.cfm?mission=#mis#&planningperiod=#pla#&period=#executionperiod#&editionid=#editionid#&View=all"											
+												href="FundingExecutionView.cfm?systemfunctionid=#url.idmenu#&mission=#mis#&planningperiod=#pla#&period=#executionperiod#&editionid=#editionid#&View=all"											
 										        expand="no">									
 																																			
 												<cfquery name="Fund" 
@@ -226,14 +226,14 @@
 												        display="<span class='labelit'>#Fund#</span>"						
 														parent="#EditionId#"	
 														target="content"
-														href="FundingExecutionView.cfm?mission=#mis#&planningperiod=#pla#&period=#per#&editionid=#editionid#&View=Fund&Value=#fund#"											
+														href="FundingExecutionView.cfm?systemfunctionid=#url.idmenu#&mission=#mis#&planningperiod=#pla#&period=#per#&editionid=#editionid#&View=Fund&Value=#fund#"											
 												        expand="no">	
 											   
 											   		<cf_UItreeitem value="#EditionId#_#Fund#_doc"
 												        display="<span class='labelit'>Documents</span>"						
 														parent="#EditionId#_#fund#"	
 														target="content"
-														href="FundingExecutionDocument.cfm?mission=#mis#&planningperiod=#pla#&period=#per#&editionid=#editionid#&View=Fund&Value=#fund#"											
+														href="FundingExecutionDocument.cfm?systemfunctionid=#url.idmenu#&mission=#mis#&planningperiod=#pla#&period=#per#&editionid=#editionid#&View=Fund&Value=#fund#"											
 												        expand="no">											
 											   
 											   </cfloop>
@@ -273,7 +273,7 @@
 												        display="<span class='labelit'>#description#</span>"						
 														parent="#edi#"	
 														target="content"
-														href="FundingExecutionView.cfm?mission=#mis#&planningperiod=#pla#&period=#per#&editionid=#edi#&View=group&Value=#code#"											
+														href="FundingExecutionView.cfm?systemfunctionid=#url.idmenu#&mission=#mis#&planningperiod=#pla#&period=#per#&editionid=#edi#&View=group&Value=#code#"											
 												        expand="no">										   
 																							   
 										  	      </cfloop>											   
@@ -297,7 +297,7 @@
 							        display="<span class='labelit'>Invalid Postings</span>"						
 									parent="audit_#mission#"	
 									target="content"
-									href="FundingExecutionAudit.cfm?mission=#mission#"											
+									href="FundingExecutionAudit.cfm?systemfunctionid=#url.idmenu#&mission=#mission#"											
 							        expand="no">							
 														
 						</cfif>			

@@ -397,7 +397,8 @@
 
 <cfoutput>
 
-		SELECT     TOP 100 PERCENT SL.Journal, 
+		SELECT     TOP 100 PERCENT 
+		           SL.Journal, 
 		           SL.JournalSerialNo, 
 				   SL.TransactionSerialNo, 
 				   SL.GLAccount, 
@@ -417,9 +418,7 @@
 				   SL.ReferenceNo, 
 				   SL.ReferenceId, 
 				   SL.Currency, 
-				   SL.AmountDebit, 
-				   SL.AmountCredit, 				
-				   
+				  				   
 				   CASE SL.Currency WHEN '#application.basecurrency#' THEN SL.AmountBaseDebit 
 							                WHEN '#Currency#' THEN SL.AmountDebit  															            
 										    ELSE SL.AmountBaseDebit * (SELECT TOP 1 ExchangeRate
@@ -442,15 +441,17 @@
 							
 					 SL.ParentJournal, 
 					 SL.ParentJournalSerialNo, 
-					 SL.ParentTransactionId, 
-					 SL.OfficerUserId, 
-					 SL.OfficerLastName, 
-					 SL.OfficerFirstName, 
-					 SL.Created
+					 SL.ParentTransactionId 
+					
 					 
 		FROM         TransactionLine SL INNER JOIN TransactionHeader SH ON SL.Journal = SH.Journal AND SL.JournalSerialno = SH.JournalSerialNo
 		
-		
+		WHERE        SH.Mission       = '#url.mission#' 
+		AND          SH.AccountPeriod IN (SELECT AccountPeriod 
+		                                  FROM   Organization.dbo.Ref_MissionPeriod 
+										  WHERE  Mission = '#url.mission#' 
+										  AND    Period = '#url.period#') 
+				
 
 </cfoutput>
 
@@ -461,18 +462,19 @@
 <cfsavecontent variable="myquery">
 	
    	   
-	   SELECT     newid() as FactTableId, *, TransactionDate
+	   SELECT   Sub.*, TransactionDate
 	   	              
-	   FROM      (
+	   FROM     (
 	   
 			   SELECT TOP 100 PERCENT   
 			   			  <!--- transaction Disbursement, obligation --->				  
-			              H.Journal AS Transaction_dim, 
-						  Journal.Description  as Transaction_nme, 
+			              H.TransactionId,
+						  H.Journal               as Transaction_dim, 
+						  Journal.Description     as Transaction_nme, 
 						  
-						  L.Fund AS Fund_dim, 
+						  L.Fund                  as Fund, 
 						  
-						  S.Code AS Resource_dim, 
+						  S.Code                  as Resource_dim, 
 						  S.Description           as Resource_nme, 
 						  
 						  L.ObjectCode            as Object_dim, 
@@ -499,32 +501,13 @@
 			                     FROM      Organization.dbo.Organization
 			                     WHERE      (OrgUnit = H.ReferenceOrgUnit)) as OrgUnit_nme, 
 								 
+							    (SELECT    HierarchyCode
+			                     FROM      Organization.dbo.Organization
+			                     WHERE      (OrgUnit = H.ReferenceOrgUnit)) as OrgUnit_ord,  
+								 
 						 L.TransactionDate, 	
-						 
-						 <!---	 
-		
-						 CONVERT(varchar,DATEPART(year, L.TransactionDate)) as Year_dim, 
-						 
-						 CASE DatePart(month,L.TransactionDate) 
-			                      WHEN 1 THEN 'January' 
-								  WHEN 2 THEN 'February' 
-								  WHEN 3 THEN 'March' 
-								  WHEN 4 THEN 'April' 
-								  WHEN 5 THEN 'May' 
-								  WHEN 6 THEN 'June' 
-								  WHEN 7 THEN 'July' 
-								  WHEN 8 THEN 'August' 
-								  WHEN 9 THEN 'September' 
-								  WHEN 10 THEN 'October' 
-								  WHEN 11 THEN 'November' 
-								  WHEN 12 THEN 'December' 
-								  END AS Month_dim,						   
-								   
-		                 DATEPART(month, L.TransactionDate)        as Month_ord, 	
-						 
-						 --->							   
-								   
-		                 L.TransactionPeriod as AccountPeriodSub_dim,
+														   
+		                 L.TransactionPeriod,
 						 
 						 ISNULL(Person.Gender,'_na')               as Gender_dim,
 						 ISNULL(Person.Nationality,'_na')          as Nationality_dim,
@@ -534,11 +517,8 @@
 					 
 					 	 ISNULL(C.ContractLevel,'_na')             as Level_dim,
 						 ISNULL((SELECT PostOrder FROM Employee.dbo.Ref_PostGrade WHERE PostGrade = C.ContractLevel),'0') 
-						                                           as Level_ord,			 
-						 
-						 L.Currency,
-						 
-						 H.TransactionDate, 
+						                                           as Level_ord,			 						 
+						 L.Currency,						 
 						
 						<!--- expressed in budget currency, but we can apply this better !!! --->								
 						 (L.AmountBaseDebit - L.AmountBaseCredit) as Amount, 						 
@@ -588,182 +568,166 @@
 		
 		WHERE 1=1 
 				
-		-- condition					
+		-- condition	
+			
 						
 
 </cfsavecontent>
 
 </cfoutput>
 
-Resource
-Object
-Component
-Program
-OrgUnit
-TransactionDate
-Reference
-ReferenceName
-Amount
-Fund
-Journal
-
-<cfoutput>#url.planningperiod# #url.period#</cfoutput>
-<cfabort>
-
 <cfset itm = 0>
 
 <cfset fields=ArrayNew(1)>
 
 <cfset itm = itm+1>	
-<cf_tl id="SalarySchedule" var = "1">		
+<cf_tl id="Journal" var = "1">		
 <cfset fields[itm] = {label           = "#lt_text#",                    
-     				field             = "SalarySchedule",												
+     				field             = "Transaction_nme",																	
 					display           = "1",	
 					column            = "common",																																									
 					displayfilter     = "yes",																																									
 					search            = "text",
 					filtermode        = "3"}>	
-							
-<cfset itm = itm+1>
-<cf_tl id="IndexNo" var = "1">			
-<cfset fields[itm] = {label           = "#lt_text#",                    
-     				field             = "IndexNo",					
-					alias             = "",																																			
-					search            = "text"}>		
-			
-<cfset itm = itm+1>
-<cf_tl id="Name" var = "1">		
-<cfset fields[itm] = {label           = "#lt_text#",                    
-     				field             = "Name",																							
-					functionscript    = "EditPerson",
-					functionfield     = "PersonNo",		
-					functioncondition = "Miscellaneous",											
-					width             = "40",																		
-					search            = "text"}>	
 					
 <cfset itm = itm+1>	
-<cf_tl id="Gender" var = "1">		
+<cf_tl id="Fund" var = "1">		
 <cfset fields[itm] = {label           = "#lt_text#",                    
-     				field             = "Gender_dim",												
+     				field             = "Fund",																	
 					display           = "1",	
 					column            = "common",																																									
 					displayfilter     = "yes",																																									
 					search            = "text",
 					filtermode        = "3"}>						
-					
-<cfset itm = itm+1>	
-<cf_tl id="Level" var = "1">		
-<cfset fields[itm] = {label           = "#lt_text#",                    
-     				field             = "ContractLevel_dim",		
-					fieldsort         = "ContractLevel_ord",						
-					display           = "1",																																										
-					displayfilter     = "yes",																																									
-					search            = "text",
-					filtermode        = "3"}>						
-					
-<cfset itm = itm+1>	
-<cf_tl id="Date" var = "1">		
-<cfset fields[itm] = {label           = "#lt_text#",                    
-     				field             = "PaymentDate",								
-					column            = "month",
-					search            = "date",					
-					display           = "1",																																														
-					displayfilter     = "yes"}>	
-					
-<cfset itm = itm+1>	
-<cf_tl id="Source" var = "1">		
-<cfset fields[itm] = {label           = "#lt_text#",                    
-     				field             = "Source",											
-					display           = "1",																																										
-					column            = "common",
-					displayfilter     = "yes",																																									
-					search            = "text",
-					filtermode        = "3"}>												
-						
-<cfset itm = itm+1>	
-<cf_tl id="Item" var = "1">		
-<cfset fields[itm] = {label           = "#lt_text#",                    
-     				field             = "Item_nme",		
-					fieldsort         = "Item_dim",						
-					display           = "1",																																										
-					displayfilter     = "yes",																																									
-					search            = "text",
-					filtermode        = "3"}>	
 
-<!---					
 <cfset itm = itm+1>	
-<cf_tl id="Parent" var = "1">		
+<cf_tl id="Program" var = "1">		
 <cfset fields[itm] = {label           = "#lt_text#",                    
-     				field             = "ProgramParent_nme",		
-					fieldsort         = "ProgramParent_ord",						
+     				field             = "MainProgram_nme",												
+					fieldsort         = "MainProgram_ord",
 					display           = "1",	
 					column            = "common",																																									
+					displayfilter     = "yes",																																									
+					search            = "text",
+					filtermode        = "3"}>	
+					
+<cfset itm = itm+1>	
+<cf_tl id="Component" var = "1">		
+<cfset fields[itm] = {label           = "#lt_text#",                    
+     				field             = "Program_nme",												
+					fieldsort         = "Program_ord",
+					display           = "1",																																												
+					displayfilter     = "yes",																																									
+					search            = "text",
+					filtermode        = "3"}>						
+
+<!---							
+<cfset itm = itm+1>
+<cf_tl id="Unit" var = "1">		
+<cfset fields[itm] = {label           = "#lt_text#",                    
+     				field             = "OrgUnit_nme",												
+					fieldsort         = "OrgUnit_ord",
+					display           = "1",																																													
 					displayfilter     = "yes",																																									
 					search            = "text",
 					filtermode        = "3"}>		
 					
 --->					
-					
-<cfset itm = itm+1>	
-<cf_tl id="Unit" var = "1">		
+	
+			
+<cfset itm = itm+1>
+<cf_tl id="Resource" var = "1">		
 <cfset fields[itm] = {label           = "#lt_text#",                    
-     				field             = "OrgUnit_nme",		
-					fieldsort         = "OrgUnit_ord",						
-					display           = "1",																																										
+     				field             = "Resource_nme",																	
+					display           = "1",	
+					column            = "common",																																									
 					displayfilter     = "yes",																																									
 					search            = "text",
-					filtermode        = "3"}>		
+					filtermode        = "3"}>	
+
+<cfset itm = itm+1>
+<cf_tl id="Object" var = "1">		
+<cfset fields[itm] = {label           = "#lt_text#",                    
+     				field             = "Object_nme",																	
+					display           = "1",																									
+					displayfilter     = "yes",																																									
+					search            = "text",
+					filtermode        = "3"}>	
+										
+<cfset itm = itm+1>	
+<cf_tl id="Reference" var = "1">		
+<cfset fields[itm] = {label           = "#lt_text#",                    
+     				field             = "TransactionReference",												
+					display           = "1",	
+					width             = "30",																																												
+					displayfilter     = "yes",																																									
+					search            = "text"}>	
+					
+<cfset itm = itm+1>	
+<cf_tl id="Period" var = "1">		
+<cfset fields[itm] = {label           = "#lt_text#",                    
+     				field             = "TransactionPeriod",								
+					column            = "common",
+					search            = "text",					
+					display           = "1",																																														
+					displayfilter     = "yes"}>																
+				
+<cfset itm = itm+1>	
+<cf_tl id="Date" var = "1">		
+<cfset fields[itm] = {label           = "#lt_text#",                    
+     				field             = "TransactionDate",								
+					column            = "month",
+					search            = "date",	
+					formatted         = "dateformat(TransactionDate,CLIENT.DateFormatShow)",				
+					display           = "1",																																														
+					displayfilter     = "yes"}>	
 					
 <cfset itm = itm+1>	
 <cf_tl id="Currency" var = "1">		
 <cfset fields[itm] = {label           = "#lt_text#",                    
-     				field             = "DocumentCurrency",													
-					display           = "1",																																										
+     				field             = "Currency",											
+					display           = "1",																																															
 					displayfilter     = "yes",																																									
-					search            = "date",
-					filtermode        = "3"}>
-					
+					search            = "text",
+					filtermode        = "3"}>												
+						
 <cfset itm = itm+1>	
 <cf_tl id="Amount" var = "1">		
 <cfset fields[itm] = {label           = "#lt_text#",                    
-     				field             = "DocumentAmount",								
-					Aggregate         = "SUM",					
-					display           = "1",	
-					align             = "right",																																									
+     				field             = "Amount",		
+					fieldsort         = "Item_dim",						
+					aggregate         = "SUM",
+					align             = "right",
+					display           = "1",																																										
 					displayfilter     = "yes",																																									
-					search            = "number"}>																				
-					
+					search            = "amount"}>																			
 																
 <cfset menu=ArrayNew(1)>	
 
 <cf_listing
-	    header              = "payroll settlement"
-	    box                 = "settlementlisting_#url.mission#"
-		link                = "#session.root#/Procurement/Application/Funding/Listing/ExecutionViewContent.cfm?SystemFunctionId=#url.systemfunctionid#&mission=#url.mission#&planningperiod=#url.planningperiod#&period=#url.period#"
-	    html                = "No"		
-		tableheight         = "100%"
-		tablewidth          = "100%"
-		calendar            = "9" 
-		font                = "Calibri"
-		datasource          = "AppsLedger"
-		listquery           = "#myquery#"		
-		listorderfield      = "LastName"
-		listorder           = "LastName"
-		listorderdir        = "ASC"		
-		headercolor         = "ffffff"		
-		menu                = "#menu#"
-		showrows            = "1"
-		filtershow          = "Yes"
-		excelshow           = "Yes" 					
-		listlayout          = "#fields#"		
-		drillkey            = "facttableid"
-		drillbox            = "costbox">
+    header              = "execution"
+    box                 = "execution_#url.mission#"
+	link                = "#session.root#/Procurement/Application/Funding/Listing/ExecutionViewContent.cfm?SystemFunctionId=#url.systemfunctionid#&mission=#url.mission#&planningperiod=#url.planningperiod#&period=#url.period#"
+    html                = "No"		
+	tableheight         = "100%"
+	tablewidth          = "100%"
+	calendar            = "9" 
+	font                = "Calibri"
+	datasource          = "AppsLedger"
+	listquery           = "#myquery#"		
+	listorderfield      = ""
+	listorder           = ""
+	listorderdir        = "ASC"		
+	headercolor         = "ffffff"		
+	menu                = "#menu#"
+	showrows            = "1"
+	filtershow          = "Yes"
+	excelshow           = "Yes" 					
+	listlayout          = "#fields#"	
+	drillmode           = "tab"	
+	drillargument       = "920;1200;false;false"	
+	drilltemplate       = "Gledger/Application/Transaction/View/TransactionView.cfm?id="
+	drillkey            = "transactionid"
+	drillbox            = "execution">
 		
-		<!---
-		
-		drillmode           = "workflow" 
-		drillargument       = "#client.height-90#;#client.width-90#;false;false"	
-		drilltemplate       = "workflow"
-		
-		--->
 		

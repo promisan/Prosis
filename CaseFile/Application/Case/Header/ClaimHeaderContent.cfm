@@ -80,7 +80,7 @@
 
 <cfif init eq "1">
 
-	<table width="98%" border="0" height="100%" align="center" cellspacing="0" cellpadding="0" class="formpadding">
+	<table width="98%" border="0" align="center" cellspacing="0" cellpadding="0" class="formpadding">
 		
 	<cfinvoke component="Service.Access"  
 	     method="CaseFileManager" 
@@ -95,7 +95,7 @@
 	 claimtype="#get.claimtype#"
      returnvariable="access">
 
-	<table width="98%" border="0" height="100%" align="center" cellspacing="0" cellpadding="0" class="formpadding">
+	<table width="98%" align="center" class="formpadding">
 	<tr><td colspan="2" height="10"></td></tr>
 	
 </cfif>
@@ -119,8 +119,8 @@
 	<!--- <a href="javascript:toggleheader()"> --->	
 	<cfif get.recordcount neq "0">
 	<tr>
-		<td height="25" class="labelmedium" width="100"><cf_space spaces="33"><cf_tl id="Case No">:</td>
-		<td width="50%" class="labelmedium">
+		<td height="25" class="labelmedium2" width="100"><cf_space spaces="33"><cf_tl id="Case No">:</td>
+		<td width="50%" class="labelmedium2">
 			#get.caseNo#				 
 		</td>
 		<td width="100"><cf_space spaces="33"></td>	
@@ -130,7 +130,7 @@
 	</cfif>
 		
 	<tr class="regular">
-		<td height="25" class="labelmedium" width="100"><cf_tl id="Organization">:</td>
+		<td height="25" class="labelmedium2" width="100"><cf_tl id="Organization">:</td>
 		<td>
 				
 		     <cfoutput>	
@@ -225,7 +225,7 @@
 						
 						</cfif>
 						
-						<select name="orgunit" class="regularxl">
+						<select name="orgunit" class="regularxxl">
 						
 							<cfif get.orgunit neq "">
 								<!--- always show the current value to prevent a reset if a user does not have access to selected others --->
@@ -277,7 +277,7 @@
 					       enabled="Yes"					     
 					       size="50"
 					       maxlength="60"
-					       class="regularxl" readonly>
+					       class="regularxxl" readonly>
 						   
 						</td></tr>
 					   </table>   
@@ -299,7 +299,7 @@
 	</tr>
 		
 	<tr>
-		<td class="labelmedium" style="width:100px" height="25"><cf_tl id="File Reference">:
+		<td class="labelmedium2" style="width:100px" height="25"><cf_tl id="File Reference">:
 		<cf_space spaces="39">
 		</td>
 		<td>
@@ -308,14 +308,14 @@
 		       name="DocumentNo"
 		       required="No"
 			   message="Please enter a document reference"
-			   class="regularxl"
+			   class="regularxxl"
 			   maxlength="20"
 			   value="#get.DocumentNo#"
 	    	   visible="Yes"
 		       enabled="Yes">
 			   
 	    </td>
-		<td class="labelmedium" width="100"><cf_tl id="File Date">:</td>
+		<td class="labelmedium2" width="100"><cf_tl id="File Date">:</td>
 		<td>
 		    <cf_calendarscript>
 			
@@ -325,7 +325,7 @@
 					FieldName="DocumentDate" 
 					required="Yes"
 					default="#dateformat(now(),CLIENT.DateFormatShow)#"
-					class="regularxl"
+					class="regularxxl"
 	 			    message="Please enter a Document Date"
 					AllowBlank="False">	
 					
@@ -335,7 +335,7 @@
 					FieldName="DocumentDate" 
 					Default="#dateformat(get.DocumentDate,CLIENT.DateFormatShow)#"
 					required="Yes"
-					class="regularxl"
+					class="regularxxl"
 	 			    message="Please enter a Document Date"
 					AllowBlank="False">	
 					
@@ -346,14 +346,14 @@
 	</tr>
 	
 	<tr>
-		    <td class="labelmedium" height="25" width="100"><cf_tl id="Name">:</td>		
+		    <td class="labelmedium2" height="25" width="100"><cf_tl id="Name">:</td>		
 		    <td colspan="5">
 		
 				<cfinput type="Text"
 			       name="DocumentDescription"
 			       required="No"
 				   message="Please enter a CaseFile description"
-				   class="regularxl"
+				   class="regularxxl"
 				   maxlength="40"
 				   size = "55"
 				   value="#get.DocumentDescription#"
@@ -365,7 +365,7 @@
 	</tr>
 	
 	<tr>
-		<td class="labelmedium" style="min-width:175px;max-width:175px" height="25"><cf_tl id="File Type">:</td>		
+		<td class="labelmedium2" style="min-width:175px;max-width:175px" height="25"><cf_tl id="File Type">:</td>		
 				
 			<cfif get.recordcount eq "0">
 			
@@ -395,7 +395,7 @@
 					ORDER BY ListingOrder			
 				</cfquery>								
 		
-				<select name="claimtype" id="claimtype" class="regularxl" onChange="selectclaimant(this.value,'#parameter.customertree#')">
+				<select name="claimtype" id="claimtype" class="regularxxl" onChange="selectclaimant(this.value,'#parameter.customertree#')">
 				
 				<cfloop query="type">
 				
@@ -415,11 +415,11 @@
 				
 			</td>
 			
-			<td style="min-width:120px" class="labelmedium"><cf_tl id="File Class">:</td>			
+			<td style="min-width:120px" class="labelmedium2"><cf_tl id="File Class">:</td>			
 			<td style="width:40%">	
 				
 				<cfselect name="claimtypeclass"
-				   class="regularxl" 
+				   class="regularxxl" 
 				   bindonload="Yes"			
 			       bind="cfc:service.Input.Input.DropdownSelect('AppsCaseFile','Ref_ClaimTypeClass','Code','Description','ClaimType',{claimtype},'','','')"/>				
 										
@@ -427,7 +427,7 @@
 			
 			<cfelse>
 			
-				<td class="labelmedium" style="width:40%">
+				<td class="labelmedium2" style="width:40%">
 			
 			    <input type="hidden" name="claimtype" value="#get.claimtype#">
 			
@@ -444,10 +444,10 @@
 				
 				</td>
 				
-				<td class="labelmedium"><cf_tl id="File Class">:</td>			
+				<td class="labelmedium2"><cf_tl id="File Class">:</td>			
 				<td style="width:40%">
 				
-				<cfselect name="claimtypeclass" class="regularxl" bindOnLoad="yes" selected="#get.claimtypeclass#"
+				<cfselect name="claimtypeclass" class="regularxxl" bindOnLoad="yes" selected="#get.claimtypeclass#"
     			    bind = "cfc:service.Input.Input.DropdownSelect('AppsCaseFile','Ref_ClaimTypeClass','Code','Description','ClaimType','#get.claimtype#','','','#get.claimtypeclass#')">				
 			    </cfselect>
 				
@@ -459,15 +459,14 @@
 	
 	<tr>
 			
-		<td height="25" class="labelmedium"><cf_tl id="Person">:</td>			
-		<td>		
-			<cf_getMid>                         			
-			<cfdiv bind="url:../Header/ClaimantSelect.cfm?tree=#parameter.customertree#&claimid=#URL.ClaimId#&claimtype={claimtype}&mid=#mid#" 
-			       id="claimant"/>
+		<td height="25" class="labelmedium2"><cf_tl id="Person">:</td>			
+		<td>
+				                       			
+			<cf_securediv bind="url:../Header/ClaimantSelect.cfm?tree=#parameter.customertree#&claimid=#URL.ClaimId#&claimtype={claimtype}" id="claimant">
 								
 		  </td>
 		  
-		  <td class="labelmedium" height="25" width="100"><cf_tl id="Contact Mail">:</td>
+		  <td class="labelmedium2" height="25" width="100"><cf_tl id="Contact Mail">:</td>
 		  
 		  <td width="40%">
 		
@@ -484,7 +483,7 @@
 		       enabled    = "Yes"
 		       typeahead  = "Yes"
 		       maxlength  = "50"
-		       class="regularxl">
+		       class="regularxxl">
 			   
 		  </td>
 	</tr>
@@ -574,36 +573,36 @@
 	
 <cfelse>
 	
-	<tr class="labelmedium">
+	<tr class="labelmedium2">
 		<td height="25" width="150"><cf_tl id="Mission">:</td>
 		<td>#URL.Mission#</td>
 	</tr>
 
-	<tr class="labelmedium">
+	<tr class="labelmedium2">
 		<td height="25" width="100"><cf_tl id="Case No">:</td>
 		<td>
 			#get.CaseNo#
 		</td>
 	</tr>
 	
-	<tr class="labelmedium">
+	<tr class="labelmedium2">
 		<td height="25" width="100"><cf_tl id="Description">:</td>
 		<td>
 			#get.DocumentDescription#
 		</td>
 	</tr>
 
-	<tr class="labelmedium">
+	<tr class="labelmedium2">
 		<td height="25" width="100"><cf_tl id="Reference">:</td>
 		<td>#get.DocumentNo#</td>
 	</tr>
 	
-	<tr class="labelmedium">
+	<tr class="labelmedium2">
 		<td height="25" width="100"><cf_tl id="Type">:</td>
 		<td>#get.TypeDescription#</td>
 	</tr>
 	
-	<tr class="labelmedium">
+	<tr class="labelmedium2">
 		<td height="25" width="100"><cf_tl id="Classification">:</td>
 		<td></td>
 	</tr>
@@ -636,18 +635,18 @@
 			
 		<cfelse>
 		
-			<tr class="labelmedium">
+			<tr class="labelmedium2">
 				<td height="25" width="100"><cf_tl id="Customer">:</td>
 				<td>#get.CustomerName#</td>
 			</tr>
 		
 		</cfif>			
 			
-	<tr class="labelmedium">
+	<tr class="labelmedium2">
 		<td height="25" width="100"><cf_tl id="Contact eMail">:</td>
 		<td>#get.ClaimantEMail#</td>
 	</tr>
-	<tr class="labelmedium">
+	<tr class="labelmedium2">
 		<td height="100%" width="100"><cf_tl id="Memo">:</td>
 		<td>#get.ClaimMemo#</td>
 	</tr>

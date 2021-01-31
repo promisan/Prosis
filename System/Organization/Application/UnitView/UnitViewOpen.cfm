@@ -38,8 +38,12 @@
 			{  parent.right.location =  "#SESSION.root#/System/Organization/Application/BankAccount/OrganizationBankAccount.cfm?systemfunctionid=#url.systemfunctionid#&ID1=ACC&ID=#URL.ID#&mid=#mid#" }								
 		</cfcase>	
 		
-		<cfcase value="InvoiceAP">		
+		<cfcase value="Invoice">		
 			{  parent.right.location =  "#SESSION.root#/System/Organization/Application/AP/InvoiceListing.cfm?systemfunctionid=#url.systemfunctionid#&ID1=ACC&ID=#URL.ID#&mid=#mid#" }									
+		</cfcase>	
+		
+		<cfcase value="InvoiceAP">		
+			{  parent.right.location =  "#SESSION.root#/System/Organization/Application/AP/APListing.cfm?systemfunctionid=#url.systemfunctionid#&ID1=ACC&ID=#URL.ID#&mid=#mid#" }									
 		</cfcase>	
 		
 		<cfcase value="InvoiceAPpayment">		

@@ -1,5 +1,5 @@
 
-<cf_tl id="Advanced Inquiry" var="tInquiry">
+<cf_tl id="Advanced Inquiry #Url.mission# #url.period#" var="tInquiry">
 
 <cf_screentop height="100%" scroll="no" layout="webapp" label="#tInquiry#" jquery="Yes" html="Yes" MenuAccess="Yes" SystemFunctionId="#url.systemfunctionid#">
 

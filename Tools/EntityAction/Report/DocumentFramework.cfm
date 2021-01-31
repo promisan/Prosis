@@ -56,6 +56,7 @@
 		 <cfinclude template="../../../#path#_#vFormat#.cfm">					
 				     					 
 		 <cfcatch type="MissingInclude">
+		 
 				<!--- Nada --->
 		 </cfcatch>
 		 
@@ -78,7 +79,8 @@
 		   </cfcatch>		
 		   
 	</cftry>		
-										
+	
+											
 	<cfsavecontent variable="text">
 			
 			<cf_LayoutDocument
@@ -109,6 +111,8 @@
 				 						   
 			</cf_LayoutDocument>
 			
+			
+			
 			<!--- Added by Jorge Armin Mazariegos, 9/3/2010 to handle
 			include files to a particular document Inc sufix is concatenated --->
 			
@@ -135,37 +139,37 @@
 		   </cftry>				 
 
 	  </cfsavecontent>		
-		
+	 		
 <cfelse>
 			  
-		   <!--- parse the document --->				   
-		    
-		   <cfquery name="Language" 
-			 	datasource="AppsSystem">
-				 	SELECT  *
-				 	FROM    Ref_SystemLanguage
-				 	WHERE   Code = '#URL.language#'  
-		   </cfquery> 
-			
-		   <cfif Language.SystemDefault eq "1" or Language.Operational eq "1">
-			   <cfset vLanguagecode = "">
-		   <cfelseif URL.language eq "">	   
-		       <cfset vLanguagecode = "">  
-		   <cfelse>   
-			   <cfset vLanguagecode  = "xl#URL.language#_">
-		   </cfif>							   			   
-		   
-		   <cftry>
-		   		<cfsavecontent variable="text">
-		 	      <cfinclude template="../../../#URL.DocumentTemplate#">													
-		   		</cfsavecontent>
-	       <cfcatch>
-		   		<cfoutput>
-				 Custom Document could not set the text for the document.<br>#cfcatch.type#<br>#cfcatch.message#<br>
-			 	</cfoutput>
-				<cfabort>
-		   </cfcatch>
-		   </cftry>
+	   <!--- parse the document --->				   
+	    
+	   <cfquery name="Language" 
+		 	datasource="AppsSystem">
+			 	SELECT  *
+			 	FROM    Ref_SystemLanguage
+			 	WHERE   Code = '#URL.language#'  
+	   </cfquery> 
+		
+	   <cfif Language.SystemDefault eq "1" or Language.Operational eq "1">
+		   <cfset vLanguagecode = "">
+	   <cfelseif URL.language eq "">	   
+	       <cfset vLanguagecode = "">  
+	   <cfelse>   
+		   <cfset vLanguagecode  = "xl#URL.language#_">
+	   </cfif>							   			   
+	   
+	   <cftry>
+	   		<cfsavecontent variable="text">
+	 	      <cfinclude template="../../../#URL.DocumentTemplate#">													
+	   		</cfsavecontent>
+       <cfcatch>
+	   		<cfoutput>
+			 Custom Document could not set the text for the document.<br>#cfcatch.type#<br>#cfcatch.message#<br>
+		 	</cfoutput>
+			<cfabort>
+	   </cfcatch>
+	   </cftry>
 		   
 </cfif>		   
 

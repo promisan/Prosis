@@ -31,7 +31,7 @@ password="#SESSION.dbpw#">
 	
 <cfsavecontent variable="sqlselect">
 	
-		 DISTINCT  TOP  2500 I.*,
+		 DISTINCT  TOP  5000 I.*,
 		 
 		 		   <!--- only the last invoice here --->
 				   
@@ -369,6 +369,7 @@ password="#SESSION.dbpw#">
 			AND      I.OfficerUserId = '#SESSION.acc#'
 		  </cfif>   	
 		  ORDER BY DocumentDate 
+		  
 		  
 		</cfquery>
 				

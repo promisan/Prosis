@@ -182,7 +182,7 @@
 										
 	<cf_listing
 	    header           = "Payables"
-	    box              = "setting"
+	    box              = "#url.mode#_listing_#url.mission#"
 		link             = "#SESSION.root#/Gledger/Inquiry/AP_AR/InquiryListing.cfm?header=0&value=#url.value#&mode=#url.mode#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#"
 		systemfunctionid = "#url.systemfunctionid#"
 	    html             = "No"	

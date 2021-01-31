@@ -1,7 +1,3 @@
-<!--- Create Criteria string for query from data entered thru search form --->
-
-<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
-<HTML><HEAD></HEAD>
 
 <cfquery name="SearchResult" 
 datasource="AppsCaseFile" 
@@ -13,34 +9,40 @@ where class='Cause'
 ORDER BY Code
 </cfquery>
 
-<body>
+<cf_screentop html="No" jquery="Yes">
 
+<table width="98%" height="100%">
+
+<cfset Page         = "0">
 <cfset add          = "1">
-<cfset Header       = "Award">
-<cfinclude template = "../../HeaderCaseFile.cfm"> 
+<cfset save         = "0"> 
+<cfset Header       = "Cause">
+<tr style="height:10px"><td><cfinclude template = "../../HeaderCaseFile.cfm"> </td></tr>
 
 <cfoutput>
 
 <script language = "JavaScript">
 
 function recordadd(grp) {
-          window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 500, height= 250, toolbar=no, status=yes, scrollbars=no, resizable=no");
+          ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 500, height= 250, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 function recordedit(id1) {
-          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width= 500, height= 250, toolbar=no, status=yes, scrollbars=no, resizable=no");
+          ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width= 500, height= 250, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 </script>	
 
 </cfoutput>
 
+<tr><td>
+
 <cf_divscroll>
 
-<table width="97%" cellspacing="0" cellpadding="0" align="center" class="navigation_table maintenancetable">
+<table width="97%" align="center" class="navigation_table">
 	
 	<thead>
-		<tr class="labelheader linedotted">
+		<tr class="labelmedium line">
 		    <td width="5%"></td>
 		    <td><cf_tl id="Code"></td>
 			<td><cf_tl id="Description"></td>
@@ -52,7 +54,7 @@ function recordedit(id1) {
 	<tbody>
 	<cfoutput query="SearchResult">
 	   
-		<tr class="navigation_row">
+		<tr class="navigation_row line labelmedium2">
 			<td align="center">
 			   <cf_img icon="open" onclick="recordedit('#Code#')" navigation="yes">
 		    </td>
@@ -68,4 +70,8 @@ function recordedit(id1) {
 </table>
 
 </cf_divscroll>
+
+</td>
+</tr>
+</table>
 

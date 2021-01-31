@@ -203,7 +203,7 @@
 			<cfif attributes.screentop eq "yes">					
 			    <cf_screentop html="#attributes.html#" height="#attributes.tableheight#" scroll="#scroll#"> 						
 			</cfif>		
-			
+									
 			<cfform name="listfilter" method="POST" onsubmit="return false" style="height:#attributes.tableheight#"> 	
 
 				<table width="#attributes.tablewidth#" height="#attributes.tableheight#" align="center" onKeyUp="listnavigateRow('#box#')">
@@ -281,12 +281,9 @@
 										class="#cla#">
 							
 							</td>	
-							  							  
-							
-							  																			
+																										
 							  <!--- *** LISTING PRINT FUNCTION **** --->
-							  <cfinclude template="ListingPrint.cfm">
-														  					
+							  <cfinclude template="ListingPrint.cfm">														  					
 							  
 							   <cfif Attributes.ExcelShow eq "Yes">
 							  
@@ -418,7 +415,7 @@
 										</cfif>																			
 									</td>									
 									</tr>	
-									
+																											
 									<cfif url.systemfunctionid neq "" and group eq "Yes">
 									<tr style="border-top:1px solid silver">
 									<td colspan="2"><cfinclude template="ListingPivot.cfm"></td>
@@ -433,8 +430,10 @@
 					</cfif>		
 												
 				    <tr>
-					    <td height="100%" id="#attributes.box#_content" colspan="2" valign="top">																			
+					    <td height="100%" id="#attributes.box#_content" colspan="2" valign="top">	
+																								
 							<cfinclude template="ListingContentHTML.cfm">	   																	
+						
 						</td>
 					</tr>	
 					
@@ -454,6 +453,5 @@
 	<cf_screenbottom html="#attributes.html#">
 </cfif>
 
-
 <cfset ajaxonload("doHighlight")>
-<cfset ajaxonload("doScroll")> 
+<cfset ajaxonload("doScroll")>

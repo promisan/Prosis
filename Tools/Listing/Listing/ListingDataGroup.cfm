@@ -196,12 +196,16 @@ we should not apply this is if the grouping has not changed, this will then save
 		SELECT    <cfif url.listgroupsort neq url.listgroupfield 
 						 and url.listgroupsort neq "">#url.listgroupsort#,#url.listgroupfield#
 				  <cfelse>#url.listgroupfield#	 
-		          </cfif>		           			      
+		          </cfif>	
+				           			      
 	              <!--- we add this field to present the correct sorting of the group as well --->
 				  <cfif drillkey neq "">,MIN(#drillkey#) as GroupKeyValue <!--- we take a random value of the key so we can easily find the content ---></cfif>	
-				  <!--- pivot fields : this query will fire each time you can from month, year and will take some time --->					 
+				  <!--- pivot fields : this query will fire each time you can from month, year and will take some time --->		
+				    			 
 				  <cfif url.listcolumn1 neq "" and url.listcolumn1 neq "summary">,#columnperiod# as #url.listcolumn1#</cfif>				     
+				  
 				  ,#preserveSingleQuotes(aggregate)#  <!--- totals and count --->
+				  
 		FROM      SearchResult <!--- this is the base content which we generated or kept in memory --->				
 		GROUP BY  <cfif url.listgroupsort neq url.listgroupfield 
 						  and url.listgroupsort neq "">#url.listgroupsort#,#url.listgroupfield# 
@@ -236,6 +240,10 @@ we should not apply this is if the grouping has not changed, this will then save
 	
 	<cfcatch>
 	
+		<!---
+		<cfdump var="#SearchResult#">
+		--->
+	
 		ERROR<cfoutput>#preservesinglequotes(groupsql)#</cfoutput>	 
 		
 		<cfabort>
@@ -243,15 +251,13 @@ we should not apply this is if the grouping has not changed, this will then save
 	</cfcatch>
 	
 	</cftry>
-		
+			
 	<!---
 	<cfoutput>x:#cfquery.executiontime#</cfoutput>			
 	<cfdump var="#searchresult#" output="browser">		
 	<cfdump var="#searchgroup#" output="browser">
 	<cfabort>
-	--->		
-					
-	
+	--->			
 
 <cfelse>
 		
@@ -259,7 +265,6 @@ we should not apply this is if the grouping has not changed, this will then save
 	<cfset searchgroup                                      =  session.listingdata[box]['datasetgroup']> 			
 
 </cfif>
-
 
 
 <!--- ATTENTION Hann this query is slower but is more accurate for the AVG and PERC as this has to be a weighted formula   

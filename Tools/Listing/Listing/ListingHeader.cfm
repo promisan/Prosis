@@ -5,7 +5,7 @@
 <tr style="height:40px" class="fixrow line">
 
 	<cfset totalcols = 2>
-    <td colspan="2" style="min-width:50px"></td>	
+    <td colspan="2" style="min-width:50px;"></td>	
 	   		
 	<cfif attributes.selectmode neq "">
 	   <td></td>

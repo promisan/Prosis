@@ -14,7 +14,7 @@
 </cfquery>
 
 <cfoutput>
-<select name="#url.scope#SystemModule" id="#url.scope#SystemModule" class="regularxl enterastab">
+<select name="#url.scope#SystemModule" id="#url.scope#SystemModule" class="regularxxl enterastab">
 	<option>[Select]</option>
 	<cfloop query="GetModule">
 		<option value="#SystemModule#" <cfif url.selected eq SystemModule>selected</cfif> >#Description#</option>

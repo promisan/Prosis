@@ -1213,14 +1213,9 @@ function togglebox(val) {
 						<table style="height:100%;width:100%;" border="0" align="center">
 						
 							<cf_menucontainer item="1" class="regular">
-								
-								<table width="100%" height="100%">					
-									<tr><td id="detailentrytab" width="100%" valign="top">									
+																							
 									<cfinclude template="TransactionDetailEntry.cfm">
-									</td>
-									</tr>
-								</table>
-								
+																	
 							</cf_menucontainer>		
 										
 							<cf_menucontainer item="2" class="hide" container="div">

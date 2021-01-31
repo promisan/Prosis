@@ -105,19 +105,19 @@
 	<tr>
 	<td> 
 		
-			<table width="99%" align="center" border="0" bordercolor="d4d4d4" cellspacing="0" cellpadding="0" class="formpadding">
+			<table width="99%" align="center" class="formpadding">
 			
 			<tr>
 			<td height="4" colspan="3"></td>
 			<td height="4" colspan="3"></td>
 			</tr>
 			
-			<tr>
-			<td width="20" class="labelit">-</td>
-			<td width="140" class="labelit"><cf_tl id="Claim No">:</td>
-			<td width="30%" class="labelit"><B>#Details.DocumentNo#</td>
-			<td width="20" class="labelit">-</td>		
-			<td width="120" class="labelit"><cf_tl id="Surveyor">:
+			<tr class="labelmedium2">
+			<td width="20">-</td>
+			<td width="140"><cf_tl id="Claim No">:</td>
+			<td width="30%"><B>#Details.DocumentNo#</td>
+			<td width="20">-</td>		
+			<td width="120"><cf_tl id="Surveyor">:
 			
 			<cfquery name="Surveyor" 
 			datasource="AppsOrganization" 
@@ -142,13 +142,13 @@
 			<td colspan="3" class="line"></td>
 			</tr>
 			
-			<tr>
-			<td width="20" class="labelit">-</td>
-			<td width="140" class="labelit"><cf_tl id="Name of assured">:</td>
-			<td width="30%" class="labelit"><B><a href="javascript:orgunit('#details.orgunit#','#Parameter.addresstype#')">#Details.OrgUnitName#</a></td>
-			<td width="20" class="labelit">-</td>		
-			<td width="120" class="labelit"><cf_tl id="Aircraft type">:</td>
-			<td width="32%" class="labelit"><B>#qry_f001.value#</td>
+			<tr class="labelmedium2">
+			<td width="20">-</td>
+			<td width="140"><cf_tl id="Name of assured">:</td>
+			<td width="30%"><B><a href="javascript:orgunit('#details.orgunit#','#Parameter.addresstype#')">#Details.OrgUnitName#</a></td>
+			<td width="20">-</td>		
+			<td width="120"><cf_tl id="Aircraft type">:</td>
+			<td width="32%"><B>#qry_f001.value#</td>
 			</tr>
 			
 			<tr id="r#details.orgunit#" class="hide">
@@ -160,13 +160,13 @@
 			<td colspan="3" class="line"></td>
 			</tr>
 			
-			<tr>
-			<td class="labelit">-</td>
-			<td class="labelit"><cf_tl id="Aircraft Registration">:</td>
-			<td class="labelit"><B>#qry_f002.value#</td>
-			<td class="labelit">-</td>
-			<td class="labelit">Date of Loss:</td>			
-			<td class="labelit"><B>#qry_f003.value#</td>
+			<tr class="labelmedium2">
+			<td>-</td>
+			<td><cf_tl id="Aircraft Registration">:</td>
+			<td><B>#qry_f002.value#</td>
+			<td>-</td>
+			<td>Date of Loss:</td>			
+			<td><B>#qry_f003.value#</td>
 			</tr>
 			
 			<tr>
@@ -174,16 +174,16 @@
 			<td colspan="3" class="line"></td>
 			</tr>
 			
-			<tr>
-			<td class="labelit">-</td>
+			<tr class="labelmedium2">
+			<td>-</td>
 			
-			<cfset jvlink = "ColdFusion.Window.create('map_qry_f005a', 'Location', '',{x:100,y:100,height:625,width:620,modal:true,center:true});ColdFusion.navigate('#SESSION.root#/Tools/EntityAction/HeaderFields/ObjectHeaderMAP.cfm?name=Location&coordinates=#qry_f005a.value#','map_qry_f005a')">				
+			<cfset jvlink = "ProsisUI.createWindow('map_qry_f005a', 'Location', '',{x:100,y:100,height:625,width:620,modal:true,center:true});ColdFusion.navigate('#SESSION.root#/Tools/EntityAction/HeaderFields/ObjectHeaderMAP.cfm?name=Location&coordinates=#qry_f005a.value#','map_qry_f005a')">				
 			
-			<td class="labelit">Location of Loss: </td>
-			<td class="labelit">#qry_f005.value# #qry_f006.value# <cfif qry_f005a.value neq ""><a href="javascript:#jvlink#"><font color="379BFF">see MAP</a></cfif></td>
-			<td class="labelit">-</td>		
-			<td class="labelit">Agreed Value: </td>
-			<td class="labelit"><b>#qry_f013.value# <cftry> #numberformat(qry_f007.value,'__,__.__')# <cfcatch> #qry_f007.value#</cfcatch></cftry></td>			
+			<td>Location of Loss: </td>
+			<td>#qry_f005.value# #qry_f006.value# <cfif qry_f005a.value neq ""><a href="javascript:#jvlink#"><font color="379BFF">see MAP</a></cfif></td>
+			<td>-</td>		
+			<td>Agreed Value: </td>
+			<td><b>#qry_f013.value# <cftry> #numberformat(qry_f007.value,',.__')# <cfcatch> #qry_f007.value#</cfcatch></cftry></td>			
 			</tr>
 			
 			<tr>
@@ -191,13 +191,13 @@
 			<td colspan="3" class="line"></td>
 			</tr>
 	
-			<tr>
-			<td class="labelit">-</td>
-			<td class="labelit"><cf_tl id="Policy Deductible">: </td>
-			<td class="labelit"><b>#qry_f013.value# <cftry> #numberformat(qry_f008.value,'__,__.__')# <cfcatch> #qry_f008.value#</cfcatch></cftry></td>
-			<td class="labelit">-</td>
-			<td class="labelit"><cf_tl id="Policy Type">: </td>
-			<td class="labelit"><b>#qry_f009.value#</td>
+			<tr class="labelmedium2">
+			<td>-</td>
+			<td><cf_tl id="Policy Deductible">: </td>
+			<td><b>#qry_f013.value# <cftry> #numberformat(qry_f008.value,',.__')# <cfcatch> #qry_f008.value#</cfcatch></cftry></td>
+			<td>-</td>
+			<td><cf_tl id="Policy Type">: </td>
+			<td><b>#qry_f009.value#</td>
 			</tr>
 			
 			<tr>
@@ -221,10 +221,10 @@
 			
 			<cfloop query="Organization">
 									
-			<tr>
-			<td class="labelit">-</td>
-			<td class="labelit">#Description#:</td>
-			<td class="labelit">
+			<tr class="labelmedium2">
+			<td>-</td>
+			<td>#Description#:</td>
+			<td>
 			    <cfif orgunit neq "">
 			    <a href="javascript:orgunit('#orgunit#','#Parameter.addresstype#')">
 				<b>#OrgUnitName#</b>
@@ -233,8 +233,8 @@
 				N/A
 				</cfif>	
 				</td>
-			<td class="labelit">-</td>
-			<td class="labelit"> <cf_tl id="Contact">: </td>			
+			<td>-</td>
+			<td> <cf_tl id="Contact">: </td>			
 			
 			<cfquery name="Contact" 
 				datasource="AppsCaseFile" 
@@ -251,7 +251,7 @@
 				ORDER BY R.ClaimRole DESC
 			</cfquery>				
 			
-			<td class="labelit">
+			<td>
 			<cfif Contact.OrgUnitName neq ""><b>#Contact.OrgUnitName#</b><cfelse>N/A</cfif></td>
 			</tr>
 			
@@ -270,13 +270,13 @@
 			
 			</cfloop>
 						
-			<tr>
-			<td class="labelit">-</td>
-			<td class="labelit"><cf_tl id="Broker claim reference">: </td>
-			<td class="labelit"><b>#qry_f011.Value#</td>
-			<td class="labelit">-</td>		
-			<td class="labelit"><cf_tl id="Policy Slip information">: </td>
-			<td class="labelit"><b>#qry_f012.value#</td>
+			<tr class="labelmedium2">
+			<td>-</td>
+			<td><cf_tl id="Broker claim reference">: </td>
+			<td><b>#qry_f011.Value#</td>
+			<td>-</td>		
+			<td><cf_tl id="Policy Slip information">: </td>
+			<td><b>#qry_f012.value#</td>
 			</tr>	
 			
 			<tr>

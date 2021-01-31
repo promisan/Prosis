@@ -21,6 +21,8 @@
 	    <cfinclude template="../UnitView/UnitViewHeader.cfm">		
 	</td></tr>
 	<tr><td height="90%" style="padding-left:4px;padding-right:4px" valign="top">
-		<cfdiv style="height:100%" bind="url:#SESSION.root#/Procurement/Application/Invoice/InvoiceView/InvoiceViewListing.cfm?systemfunctionid=#url.systemfunctionid#&id1=VED&id2=#URL.ID#&mission=#org.mission#" id="detail"/>
+		<cf_securediv style="height:100%" 
+		   bind="url:#SESSION.root#/Procurement/Application/Invoice/InvoiceView/InvoiceViewListing.cfm?systemfunctionid=#url.systemfunctionid#&id1=VED&id2=#URL.ID#&mission=#org.mission#" 
+		   id="detail">
 	</td></tr>	
 </table>

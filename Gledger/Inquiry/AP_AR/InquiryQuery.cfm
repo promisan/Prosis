@@ -9,8 +9,6 @@
 
 <cfoutput>
 
-
-
 <cfset Criteria = "WHERE 1=1">
 
 <cfif url.personno IS NOT 'undefined'>
@@ -28,7 +26,6 @@
 <cfset client.payables = criteria>
 
 <cfinclude template="InquiryData.cfm">
-
 
 <script>    
   _cf_loadingtexthtml=''  

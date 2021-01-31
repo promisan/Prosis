@@ -66,3 +66,13 @@ password="#SESSION.dbpw#">
 </cfquery>
 
 <cfinclude template="LocationEdit.cfm">
+
+<!--- refreshing listing on the parent --->
+
+<cfoutput>
+
+	<script>
+		opener.applyfilter('0','','#url.location#')
+	</script>
+
+</cfoutput>

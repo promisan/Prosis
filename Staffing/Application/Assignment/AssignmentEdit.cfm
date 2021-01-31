@@ -608,7 +608,7 @@ password="#SESSION.dbpw#">
 					    <TR class="line">
 					    <TD colspan="2" align="left" height="40">
 					    
-							<table cellspacing="0" cellpadding="0" class="formpadding">
+							<table class="formpadding">
 							<tr>
 							
 							<cfoutput>
@@ -616,10 +616,10 @@ password="#SESSION.dbpw#">
 							<td style="padding-left:5px" class="labelmedium">
 							
 								<cf_tl id="Transfer to another position" var="transfer">
-							    <input type="button" name="Transfer" value="#transfer#" class="button10g" style="width:350px;height:30px;font-size:14px;border-top-left-radius:10px;;border-bottom-left-radius:10px" onclick="selectpost('TFR','#Mandate.Mission#','#Mandate.MandateNo#','','#getAssignment.PersonNo#','#getAssignment.AssignmentNo#','#Position.PositionNo#')">
+							    <input type="button" name="Transfer" value="#transfer#" class="button10g" style="width:370px;height:30px;font-size:14px;border-top-left-radius:10px;;border-bottom-left-radius:10px" onclick="selectpost('TFR','#Mandate.Mission#','#Mandate.MandateNo#','','#getAssignment.PersonNo#','#getAssignment.AssignmentNo#','#Position.PositionNo#')">
 								
-								<cf_tl id="Change Functional Title, Location, Incumbency or Unit" var="function">
-							    <input type="button" name="Transfer" value="#function#" class="button10g" style="width:350px;height:30px;font-size:14px;border-top-right-radius:10px;;border-bottom-right-radius:10px" onclick="change()">
+								<cf_tl id="Change Functional Title, Location, Incumbency or Unit" var="myfunction">
+							    <input type="button" name="Transfer" value="#myfunction#" class="button10g" style="width:370px;height:30px;font-size:14px;border-top-right-radius:10px;;border-bottom-right-radius:10px" onclick="change()">
 							
 							</td>			
 								

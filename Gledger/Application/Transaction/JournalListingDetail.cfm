@@ -220,7 +220,7 @@
 						    <cfset color = "white">
 						</cfif>
 														
-					    <TR bgcolor="#color#" style="height:27px" class="labelmedium2 line navigation_row clsSearchClass" id="#journal#_#journalserialno#">
+					    <TR bgcolor="#color#" class="labelmedium2 line navigation_row clsSearchClass" id="#journal#_#journalserialno#">
 										
 					    <td class="navigation_action" 
 						   style="padding-top:1px;padding-left:4px;padding-right:7px" align="center" onClick="ShowTransaction('#Journal#','#JournalSerialNo#','1','tab')">	

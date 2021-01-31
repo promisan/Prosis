@@ -12,10 +12,15 @@
 <!--- GROUP / PIVOT PRESENTATION --->
 	
 <cfif session.listingdata[box]['firstsummary'] gte "3">			   
-   <cfset headercols = pre+session.listingdata[box]['firstsummary']-1>	   				   
+   <cfset headercols = pre+session.listingdata[box]['firstsummary']-1>	
 <cfelse>		
    <cfset headercols = cols>		   			   	   		   		
 </cfif>	
+
+<cfif headercols eq "2">
+	<cfset headercols = "4">
+</cfif>
+
 
 <cfloop query="SearchResult" startrow="1" endrow="#last#">
 			

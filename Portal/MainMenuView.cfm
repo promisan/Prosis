@@ -134,7 +134,7 @@
 		<!--- brought to local folder and loaded manually because cfajaximport gives issues in ie9, for compatibility mode meta tag --->
 		<script src="../Scripts/cfmessage.js" type="text/javascript"></script>
 		<script src="../Scripts/cfajax.js" type="text/javascript"></script>
-
+		<cf_UIGadgets>
 
 		<!--- ADDED BY HANNO TO PREVENT RIGHT-CLICK --->
 		<cfif getAdministrator("*") eq "0">		

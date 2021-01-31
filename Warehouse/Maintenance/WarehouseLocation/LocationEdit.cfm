@@ -64,19 +64,19 @@ password="#SESSION.dbpw#">
 
 <cfform method="POST" name="formlocation">
 
-<table width="97%" align="center" class="formspacing" cellspacing="0" cellpadding="0">
+<table width="97%" align="center" class="formspacing">
 
 <tr>
 
 <td width="80%" valign="top">
 
-	<table width="99%" align="center" class="formspacing" cellpadding="0">
+	<table width="99%" align="center" class="formspacing formpadding">
 	
-	<tr><td colspan="1" style="padding-top:5px" class="labelmedium"><cf_tl id="Identification">:</td>
+	<tr><td colspan="1" style="padding-top:5px" class="labelmedium2"><cf_tl id="Identification">:</td>
 	
-	  <td width="80%">
+	  <td width="70%">
 		
-		<select name="LocationClass" id="LocationClass" class="regularxl">
+		<select name="LocationClass" id="LocationClass" class="regularxxl">
 		<cfoutput query="class">
 			<option value="#code#" <cfif get.LocationClass eq code>selected</cfif>>#Description#</option>
 		</cfoutput>
@@ -85,31 +85,30 @@ password="#SESSION.dbpw#">
 	   </td>
 	</tr>
 						
-	<tr><td height="20" class="labelmedium"><cf_tl id="Name">:</td>
+	<tr><td height="20" class="labelmedium2"><cf_tl id="Name">:</td>
 	
 	<td>
 	
 		   	<cfinput type="Text"
 			       name="locationdescription"
 			       value="#get.Description#"
-				   class="regularxl"		    
+				   class="regularxxl"		    
 				   message="Please enter name" 
 			       visible="Yes"
-			       enabled="Yes"
-			       typeahead="No"
+			       enabled="Yes"			       
 			       size="60"
 			       maxlength="100"
 				   style="text-align:left">
 					   			   
 	</td>
 	</tr>
-	
-					
-	<tr><td height="20" class="labelmedium"><cf_tl id="Operated by">:</td>
+						
+	<tr><td height="20" class="labelmedium2"><cf_tl id="Operated by">:</td>
 	
 	<td>
 	
-	<select name="OrgUnitOperator" id="OrgUnitOperator" class="regularxl" onchange="if (this.value == '') {document.getElementById('billingbox').className='hide';document.getElementById('consignment').className='regular' } else { document.getElementById('billingbox').className='regular';document.getElementById('consignment').className='hide' }">
+	<select name="OrgUnitOperator" id="OrgUnitOperator" class="regularxxl" 
+	 onchange="if (this.value == '') {document.getElementById('billingbox').className='hide';document.getElementById('consignment').className='regular' } else { document.getElementById('billingbox').className='regular';document.getElementById('consignment').className='hide' }">
 	    <option value="">--<cf_tl id="Internal">--</option>
 		<cfoutput query="getVendor">
 			<option value="#OrgUnit#" <cfif get.OrgUnitOperator eq OrgUnit>selected</cfif>>#OrgUnitName#</option>
@@ -119,18 +118,19 @@ password="#SESSION.dbpw#">
 	
 	</tr>
 	
-	<tr><td class="labelmedium"><cf_tl id="Geo Location">:</td>
+	<tr><td class="labelmedium2"><cf_tl id="Geo Location">:</td>
 	
 	<td>
 	<cfoutput>
 	   <table><tr><td>
-	   <input type="text"   name="locationname" id="locationname"   value="#getloc.LocationName#" class="regularxl" size="40" maxlength="60" readonly style="text-align: left;">
+	   <input type="text"   name="locationname" id="locationname"   value="#getloc.LocationName#" class="regularxxl" size="40" maxlength="60" 
+	     readonly style="text-align: left;">
 	   <input type="hidden" name="locationid"   id="locationid"     value="#getloc.Location#"> 
 	   <input type="hidden" name="locationcode" id="locationcode"   value="">
 	   </td>
 	   <td style="padding-left:2px">
 	   
-	   <input type="button" class="button10g" style="width:30px"  name="search" id="search" value=" ... "  
+	   <input type="button" class="button10g" style="width:30px;height:25px"  name="search" id="search" value=" ... "  
 	   onClick="selectloc('formlocation','locationid','locationcode','locationname','orgunit','orgunitname','personno','name','#getWhs.mission#')"> 	
 	   
 	   </td></tr></table>
@@ -138,7 +138,7 @@ password="#SESSION.dbpw#">
 	
 	</td></tr>
 					
-	<tr><td height="20" class="labelmedium"><cf_tl id="Barcode">:</td>
+	<tr><td height="20" class="labelmedium2"><cf_tl id="Barcode">:</td>
 	
 	<td>
 	
@@ -157,11 +157,9 @@ password="#SESSION.dbpw#">
 	</td>
 	</tr>
 	
-	
-	
-	<tr><td style="padding-top:5px" class="labelmedium"><cf_tl id="Storage Dimensions">:<cf_space spaces="50"></td>
+	<tr><td style="padding-top:5px" class="labelmedium2"><cf_tl id="Storage Dimensions">:<cf_space spaces="50"></td>
 	    <td>
-			<select name="storageShape" id="storageShape" class="regularxl">
+			<select name="storageShape" id="storageShape" class="regularxxl">
 				<option value="Rectangle" <cfif lcase(get.StorageShape) eq "rectangle">selected</cfif>><cf_tl id="Rectangle">
 				<option value="Ellipse" <cfif lcase(get.StorageShape) eq "ellipse">selected</cfif>><cf_tl id="Ellipse">
 				<option value="N/A" <cfif lcase(get.StorageShape) eq "n/a">selected</cfif>>N/A
@@ -170,7 +168,7 @@ password="#SESSION.dbpw#">
 	</tr>	
 	<cfoutput>
 	
-	<tr><td align="right" class="labelit"><cf_tl id="Width">:</td>
+	<tr><td align="right" class="labelmedium"><cf_tl id="Width">:</td>
 	    <td>
 		 <table cellspacing="0" cellpadding="0">
 		  <tr><td>
@@ -178,35 +176,35 @@ password="#SESSION.dbpw#">
 			<cfinput type="Text"
 			       name="storageWidth"
 			       value="#get.storageWidth#"
-				   class="regular"	
+				   class="regularxl"	
 				   style="text-align:center"	    
 			       size="5"
 			       maxlength="6">
 			</td><td class="labelit" style="padding-left:3px">#vcms#.</td>
 		</td>
 	
-	    <td align="right" class="labelit" style="padding-left:13px"><cf_tl id="Height">:</td>
+	    <td align="right" class="labelmedium" style="padding-left:13px"><cf_tl id="Height">:</td>
 	    <td style="padding-left:3px">
 			<cfinput type="Text"
 			       name="storageHeight"
 			       value="#get.storageHeight#"
-				   class="regular"		
+				   class="regularxl"		
 				   style="text-align:center"    
 			       size="5"
 			       maxlength="6">
-			</td><td class="labelit" style="padding-left:3px">#vcms#.</td>
+			</td><td class="labelmedium" style="padding-left:3px">#vcms#.</td>
 		</td>
 	
-		<td align="right" class="labelit" style="padding-left:13px"><cf_tl id="Depth">:</td>
+		<td align="right" class="labelmedium" style="padding-left:13px"><cf_tl id="Depth">:</td>
 	    <td style="padding-left:3px">
 			<cfinput type="Text"
 			       name="storageDepth"
 			       value="#get.storageDepth#"
-				   class="regular"
+				   class="regularxl"
 				   style="text-align:center"		    
 			       size="5"
 			       maxlength="6">
-			</td><td class="labelit" style="padding-left:3px">#vcms#.</td>
+			</td><td class="labelmedium" style="padding-left:3px">#vcms#.</td>
 		</td>
 		
 		</tr>
@@ -240,66 +238,72 @@ password="#SESSION.dbpw#">
 		</table>
 	</td>
 	
-	<td>		
-				
-				<cfset link = "#SESSION.root#/warehouse/maintenance/warehouselocation/getAsset.cfm?">												
-							
-				<cfquery name="UoM" 
-				datasource="AppsMaterials" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-					SELECT  TOP 1 *
-					FROM    ItemUoM
-					WHERE   ItemNo = '#getAsset.itemno#'		 				 
-				</cfquery>	
-									
-				<cfoutput>		
-				</td>
-	
+	<td>						
+			<cfset link = "#SESSION.root#/warehouse/maintenance/warehouselocation/getAsset.cfm?">												
+						
+			<cfquery name="UoM" 
+			datasource="AppsMaterials" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				SELECT  TOP 1 *
+				FROM    ItemUoM
+				WHERE   ItemNo = '#getAsset.itemno#'		 				 
+			</cfquery>	
+								
+		
 	</td>
-	<td id="assetselectbox" class="hide"><input type="hidden" name="AssetId" id="AssetId" value="#getAsset.AssetId#">&nbsp;</td>	
+	
+	<cfoutput>		
+	
+	<td id="assetselectbox" class="hide"><input type="hidden" name="AssetId" id="AssetId" value="#getAsset.AssetId#"></td>	
 	</tr>
 	
-	<tr><td align="right" class="labelit"><cf_tl id="SerialNo">:</td>
-	    <td><input type="text" class="regular2" value="#getAsset.SerialNo#" readonly name="serialno" id="serialno" style="width:150">
-			
+	<tr><td align="right" class="labelmedium2"><cf_tl id="SerialNo">:</td>
+	    <td>
+		<table><tr><td>
+		<input type="text" class="regularxl" value="#getAsset.SerialNo#" readonly name="serialno" id="serialno" style="width:150">
+		</td>
+		<td style="padding-left:2px">			
 				<cf_selectlookup
 					    box          = "assetselectbox"
 						link         = "#link#"
 						title        = "Search"
 						icon         = "contract.gif"
-						button       = "No"
-						style        = "width:20;height:23"
+						button       = "Yes"
+						style        = "height:25px;width:30px;"						
+						iconheight   = "25"
+						iconwidth    = "25"
 						close        = "Yes"					
 						class        = "asset"
 						des1         = "assetid">	
+						
+			</td></tr></table>			
 		
 		</td>
 	</tr>	
 	
-	<tr><td align="right" class="labelit"><cf_tl id="Description">:</td>
-	    <td><input type="text" class="regular2" value="#getAsset.Description#" readonly name="description" id="description" style="width:270"></td>
+	<tr><td align="right" class="labelmedium2"><cf_tl id="Description">:</td>
+	    <td><input type="text" class="regularxl" value="#getAsset.Description#" readonly name="description" id="description" style="width:270"></td>
 	</tr>	
 	
-	<tr><td align="right" class="labelit"><cf_tl id="Barcode">:</td>
-	    <td><input type="text" class="regular2" value="#getAsset.AssetBarCode#" readonly name="assetbarcode" id="assetbarcode" style="width:100"></td>
+	<tr><td align="right" class="labelmedium2"><cf_tl id="Barcode">:</td>
+	    <td><input type="text" class="regularxl" value="#getAsset.AssetBarCode#" readonly name="assetbarcode" id="assetbarcode" style="width:100"></td>
 	</tr>	
 	
-	<tr><td align="right" class="labelit"><cf_tl id="DecalNo">:</td>
-	    <td><input type="text" class="regular2" value="#getAsset.AssetDecalNo#" readonly name="assetdecalno" id="assetdecalno" style="width:100"></td>
+	<tr><td align="right" class="labelmedium2"><cf_tl id="DecalNo">:</td>
+	    <td><input type="text" class="regularxl" value="#getAsset.AssetDecalNo#" readonly name="assetdecalno" id="assetdecalno" style="width:100"></td>
 	</tr>	
 	
-	<tr><td align="right" class="labelit"><cf_tl id="Make">:</td>
-	    <td><input type="text" class="regular2" value="#getAsset.Make#" readonly name="make" id="make" style="width:60"></td>
+	<tr class="hide"><td align="right" class="labelmedium2"><cf_tl id="Make">:</td>
+	    <td><input type="text" class="regularxl" value="#getAsset.Make#" readonly name="make" id="make" style="width:60"></td>
 	</tr>	
 	
-	<tr><td align="right" class="labelit"><cf_tl id="Value">:</td>
-	    <td><input type="text" class="regular2" value="#numberformat(UoM.StandardCost,'__,__.__')#" readonly name="price" id="price" style="text-align:right;width:80"></td>
+	<tr class="hide"><td align="right" class="labelmedium2"><cf_tl id="Value">:</td>
+	    <td><input type="text" class="regularxl" value="#numberformat(UoM.StandardCost,',.__')#" readonly name="price" id="price" style="text-align:right;width:80"></td>
 	</tr>	
 	
 	</cfoutput>
-	
-		
+			
 	<tr><td colspan="2" style="padding-top:5px;height:42px" class="labellarge"><cf_tl id="Operations and Distribution settings"></td>
 	
 	<tr>
@@ -517,9 +521,9 @@ password="#SESSION.dbpw#">
 	<input type="button" 
 	       name="Save" 
 		   id="Save"
-		   class="button10s" style="width:120px;height:25px;font-size:12"
+		   class="button10g" style="width:250px;height:28px;font-size:15px"
 		   value="#vSave#" 		  
-		   onclick="ColdFusion.navigate('LocationEditSubmit.cfm?warehouse=#url.warehouse#&location=#url.location#','contentbox1','','','POST','formlocation')">
+		   onclick="ptoken.navigate('LocationEditSubmit.cfm?warehouse=#url.warehouse#&location=#url.location#','contentbox1','','','POST','formlocation')">
 </td></tr>
 
 <tr><td colspan="2" style="padding:3px" class="line"></td></tr>

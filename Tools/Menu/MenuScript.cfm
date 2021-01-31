@@ -73,8 +73,9 @@
 
 <script language="JavaScript1.1">
 	
-	function mainmenu(base,baseitem,target,targetitem,classsel) {					
-
+	function mainmenu(base,baseitem,target,targetitem,classsel) {		
+	
+	      
 		    if (targetitem != "") {						 			    		 
 			 cnt=1 			 
 			 se = document.getElementsByName(base+cnt)	  

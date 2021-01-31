@@ -39,13 +39,13 @@ function mail2(mode,id) {
 
 </cfoutput>
 
-	<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+	<table width="100%" align="center">
 	    
 	  <tr>
 	    <td width="100%" >
 	    <table width="100%" class="formpadding">
 			
-	    <TR class="labelmedium2 linedotted">
+	    <TR class="labelmedium2 line">
 		   <td width="1%" height="19"></td>
 		   <td width="1%"></td>
 		   <td width="40%"><cf_tl id="Description"></td>
@@ -140,7 +140,7 @@ function mail2(mode,id) {
 			 <cfset color = "transparent"> 
 		</cfif>
 												
-		<tr class="labelmedium2" bgcolor="#color#">
+		<tr class="labelmedium2 line" bgcolor="#color#">
 		
 		   <td rowspan="2" align="left"></td>
     	   <td style="width:6px"></td>		  
@@ -186,16 +186,15 @@ function mail2(mode,id) {
 		password="#SESSION.dbpw#">
 			SELECT     RL.RequisitionNo
 			FROM       RequisitionLineFunding RL INNER JOIN Program.dbo.Program A ON  RL.ProgramCode = A.ProgramCode 															
-			WHERE      RL.RequisitionNo = '#RequisitionNo#'
+			WHERE      RL.RequisitionNo = '#RequisitionNo#' 
 		</cfquery>		
 		
-		<cfif (checkprogram.recordcount lt hasFunding.recordcount) and hasFunding.ProgramCode neq "Default">
+		<cfif (checkprogram.recordcount lt hasFunding.recordcount) and hasFunding.ProgramCode neq "Default" and hasFunding.ProgramCode neq "">
 		
 		<tr><td height="4"></td></tr>
 		<tr><td></td><td></td><td height="20"
 		     align="center" 
-			 bgcolor="red" style="border:1px solid silver" 
-			 colspan="6" class="labelmedium2">
+			 bgcolor="red" style="border:1px solid silver"  colspan="6" class="labelmedium2">
 			 Invalid Program/Project code assigned to this Requisition line</td></tr>			 	
 		</cfif>
 		
@@ -221,10 +220,7 @@ function mail2(mode,id) {
 		<cfif checkMandate.MandateNo neq MandateNo>
 		
 		<tr><td height="4"></td></tr>
-		<tr><td></td><td></td><td height="20"
-		     align="center" 
-			 bgcolor="red" 
-			 colspan="6" style="border:1px solid silver" class="labelmedium2">
+		<tr  class="labelmedium2"><td></td><td></td><td height="20" align="center" bgcolor="red" colspan="6" style="border:1px solid silver">
 			 <font color="gray">OrgUnit assigned belong to different mandate. Correct: #checkMandate.MandateNo# This line: #MandateNo#</td></tr>
 			 	
 		</cfif>	
@@ -285,7 +281,7 @@ function mail2(mode,id) {
 							   <td width="15%">#Program.ProgramName#</td>
 							   <td width="35%">#CodeDisplay# #ObjectDescription#</td>							  
 							   <td width="10%">#Percentage*100#%</td>
-							   <td style="padding-right:3px" width="15%" align="right">#numberFormat(Percentage*amt,"__,__.__")#</td>							   
+							   <td style="padding-right:3px" width="15%" align="right">#numberFormat(Percentage*amt,",.__")#</td>							   
 							</tr>
 							</table>
 							
@@ -362,4 +358,3 @@ function mail2(mode,id) {
 		</tr>
 		
 	</table>	
-	

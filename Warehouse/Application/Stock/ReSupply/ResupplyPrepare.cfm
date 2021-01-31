@@ -16,7 +16,7 @@
 --->
 
 
-<cfparam name="Form.ProgramCode"       default="">
+<cfparam name="Form.ProgramCodeSel"    default="">
 <cfparam name="Form.Category"          default="">
 <cfparam name="Form.CategoryItem"      default="">
 <cfparam name="Form.Filter"            default="">
@@ -390,8 +390,8 @@
 			AND       I.CategoryItem IN (#preserveSingleQuotes(Form.CategoryItem)#)  
 			</cfif>
 			
-			<cfif Form.ProgramCode neq "">
-			AND       I.ProgramCode IN (#preserveSingleQuotes(Form.ProgramCode)#)  
+			<cfif Form.ProgramCodesel neq "">
+			AND       I.ProgramCode IN (#preserveSingleQuotes(Form.ProgramCodeSel)#)  
 			</cfif>
 			
 			<cfif Form.filter neq "">				
@@ -412,7 +412,7 @@
 <!--- capture for next time --->
 
 <cfset resupply.category    = category>
-<cfset resupply.programcode = form.programcode>
+<cfset resupply.programcode = form.programcodesel>
 
 <cfset session.mysupply = resupply>
 

@@ -26,6 +26,7 @@ function facttable1(controlid,format,filter,qry) {
 --->
 
 <cf_layoutScript>	
+
 			  
 <cfajaximport tags="cfdiv,cfchart">
  			 

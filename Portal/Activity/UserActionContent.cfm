@@ -51,7 +51,7 @@
 					 U.Created,
 					 N.AccountMission,
 					 N.AccountGroup,					 
-					 CASE WHEN DATEDIFF(n, ActionTimestamp, GETDATE()) < 4 
+					 CASE WHEN DATEDIFF(n, ActionTimestamp, GETDATE()) < 5 
 					        THEN '<b>Now</b>' 
 							ELSE CAST(DATEDIFF(n, ActionTimestamp, 
                          GETDATE()) AS VARCHAR(10)) END AS myTime,

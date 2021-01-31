@@ -2,7 +2,7 @@
 <cfparam name="url.created" default="">
 
 <cf_screentop label="#SESSION.welcome# System Notification Framework" 
-   height="100%"     
+   height="100%"  jquery="yes"   
    html="no">
    
    <cfajaximport tags="cfform">
@@ -10,7 +10,7 @@
    <script>
 				
 			function addEvent(){
-				window.open("NotificationEditTab.cfm", "AddEvent", "left=40, top=40, width=700, height= 650, status=yes, scrollbars=no, resizable=yes");
+				ptoken.open("NotificationEditTab.cfm", "AddEvent", "left=40, top=40, width=800, height=750, status=yes, scrollbars=no, resizable=yes");
 			}
 					
    </script>
@@ -27,10 +27,10 @@
 		</cfoutput>
 	</cfif>
 
-<table border="0" width="100%" height="100%" align="center" cellspacing="0" cellpadding="0">		
+<table border="0" width="100%" height="100%" align="center">		
 	<tr>
 		<td height="100%">		
-			<table width="97%" height="100%" cellspacing="0" cellpadding="0" align="center" class="formpadding formspacing">	
+			<table width="98%" align="center" height="100%">	
 			
 			    <!---
 									
@@ -79,14 +79,9 @@
 				</tr>	
 				
 				--->
-				
+								
 				<tr>
-					<td class="linedotted" height="1px">
-					</td>
-				</tr>
-				
-				<tr>
-					<td>
+					<td style="padding:4px">
 						<cfinclude template="NotificationListing.cfm">
 					</td>
 				</tr>				
@@ -96,5 +91,4 @@
 	</tr>		
 </table>	
 
-<cf_screenBottom>
 	

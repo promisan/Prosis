@@ -56,7 +56,7 @@
 	<cfoutput query="Payee">
 	<tr class="navigation_row line labelmedium" style="height:20px" onclick="javascript:Prosis.busy('yes');_cf_loadingtexthtml='';ptoken.navigate('InquiryListing.cfm?mode=#url.mode#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#&filter=customer&value=#referencename#','listbox')">
 	    <td align="center">#Currentrow#</td>
-	    <td style="height:19px;padding-left:4px">#ReferenceName#</td>		
+	    <td style="height:19px;padding-left:4px">#left(ReferenceName,42)#</td>		
 		<td style="min-width:40px;padding-right:3px" align="center">#Currency#</td>
 		<td style="min-width:70px;padding-right:3px" align="right">#numberformat(amount,',__')#</td>
 		<td style="min-width:70px;padding-right:3px" align="right">#numberformat(outstanding,',__')#</td>

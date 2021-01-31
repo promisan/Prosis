@@ -5,8 +5,6 @@
 <cf_DialogOrganization>
 <cf_listingscript>
 
-<cfajaximport tags="cfwindow">
-
 <cfquery name="Org" 
 	datasource="appsOrganization"
 	username="#SESSION.login#" 

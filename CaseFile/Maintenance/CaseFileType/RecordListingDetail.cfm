@@ -14,13 +14,13 @@ password="#SESSION.dbpw#">
 	ORDER BY Created 
 </cfquery>
 
-<table width="97%" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<table width="97%" align="center" class="navigation_table">
 	
-	<tr class="labelheader line">
+	<tr class="labelmedium2 line">
 	   <td width="20"></td>
 	   <td width="20"></td>
-	   <td width="10%"><cf_tl id="Code"></b></td>
-	   <td width="40%"><cf_tl id="Description"></b></td>
+	   <td width="10%"><cf_tl id="Code"></td>
+	   <td width="40%"><cf_tl id="Description"></td>
 	   <td width="20%"><cf_tl id="Class"></td>
 	   <td width="10%"><cf_tl id="Oper">.</b></td>
 	   <td width="20%"><cf_tl id="Officer"></b></td>
@@ -30,7 +30,7 @@ password="#SESSION.dbpw#">
 	
 	<cfif URL.code eq "new">
 		
-	  <tr>
+	  <tr class="labelmedium2">
 		<td colspan="9">
 			
 			<cfform method="POST" name="mytopic" onsubmit="return false">
@@ -102,7 +102,7 @@ password="#SESSION.dbpw#">
 							
 		    <input type="hidden" name="Code" value="<cfoutput>#Code#</cfoutput>">
 																
-			<tr bgcolor="ffffcf" class="linedotted">
+			<tr bgcolor="ffffcf" class="line">
 			
 			   <td></td>
 			   <td height="30">&nbsp;#Code#</td>
@@ -116,7 +116,7 @@ password="#SESSION.dbpw#">
 					required     = "Yes" 
 					size         = "50" 
 					maxlength    = "60" 
-					class        = "regularH">		
+					class        = "regularxxl">		
 						  
 	           </td>
 			   
@@ -146,12 +146,11 @@ password="#SESSION.dbpw#">
 																	
 		<cfelse>
 										
-			<tr class="cellcontent linedotted navigation_row">
-			
+			<tr class="labelmedium2 line navigation_row">			
 			   <td width="30">				   
 				   <cf_img icon="open" onclick="typeedit('#code#');" navigation="Yes">						 
 			   </td>
-  			   <td width="30" style="padding-left:5px;">
+  			   <td width="30" style="padding-top:8px;padding-left:5px;">
   				   <cf_img icon="expand" toggle="Yes" onclick="show('#code#')">
 			   </td>
 			   <td height="17">&nbsp;#code#</td>
@@ -159,12 +158,10 @@ password="#SESSION.dbpw#">
 			   <td>#classes#</td>
 			   <td><cfif operational eq "0"><b>No</b><cfelse>Yes</cfif></td>
 			   <td>#OfficerFirstName# #OfficerLastName#</td>
-			   <td align="right">#dateformat(created,CLIENT.DateFormatShow)#</td>
-			   			   			   
+			   <td align="right">#dateformat(created,CLIENT.DateFormatShow)#</td>			   			   			   
 			   <td align="center" width="40" id="del_#code#">
 				 <cfinclude template="RecordListingDelete.cfm">					  
-			   </td>   
-			   		   
+			   </td>   			   		   
 		   </tr>	
 			 
 		   <tr id="#code#" class="hide">

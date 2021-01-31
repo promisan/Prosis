@@ -10,7 +10,7 @@
 
 <cf_screentop html="No" jquery="Yes">
 
-<table width="98%" height="100%">
+<table width="98%" align="center" height="100%">
 
 <cfset Header = "Review class">
 

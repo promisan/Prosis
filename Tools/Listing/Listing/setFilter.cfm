@@ -15,11 +15,13 @@
 <!--- 0. explore enabled / disabled --->
 
 <cfif explore eq "1">
-
-	<script>			
+	
+	<script>		
+		  try {		
 	    $('###box#_column1').addClass('regular').removeClass('hide')	
 		$('###box#_groupcell1').addClass('hide').removeClass('regular')		
 		$('###box#_groupcell1formula').addClass('hide').removeClass('regular')		
+		} catch(e) {}
 	</script>	
 	
 	<!--- 1. control the visibility of the check box to sort the grouping or not --->
@@ -48,7 +50,7 @@
 			$('###box#_groupsort').addClass('regular').removeClass('hide')		
 		</script>
 	</cfif>
-	
+		
 	<!--- 2. control the visibility of the summary cell which is not relevant --->
 	
 	<cfparam name="session.listingdata[url.box]['colnfield']" default="">
@@ -70,8 +72,7 @@
 		</script>
 	
 	</cfif>
-	
-	
+		
 	<!--- 3. control the visibility of the summary cell which is not relevant --->
 	
 	<cfparam name="session.listingdata[url.box]['datacell1']" default="">
@@ -91,24 +92,18 @@
 		</script>
 	
 	</cfif>
-	
+			
 <cfelse>
 
-    <script>		
+    <script>	
+	    try {	
 	    $('###box#_column1').addClass('hide').removeClass('regular')		 
 		$('###box#_groupcell1').addClass('hide').removeClass('regular')		
 		$('###box#_groupcell1formula').addClass('hide').removeClass('regular')
+		} catch(e) {}
 	</script>
 
 </cfif>	
 
 </cfoutput>
-
-
-
-
-
-
-
-
 

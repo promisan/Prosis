@@ -1,7 +1,8 @@
 
 <!--- candidate recommendation --->
 
-<cfparam name="form.reviewstatus" default="#url.wfinal-1#">
+<cfparam name="form.reviewstatus"  default="#url.wfinal-1#">
+<cfparam name="form.reviewcontent" default="">
 	
 <cfquery name="UpdateCandidate" 
 	datasource="AppsVacancy" 
@@ -38,7 +39,8 @@
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
 		UPDATE DocumentCandidateReview
-		SET    ReviewMemo    = '#Form.Reviewmemo#',						 
+		SET    ReviewMemo    = '#Form.Reviewmemo#',			
+		       ReviewContent = '#form.ReviewContent#',			 
 		       ReviewDate    = getDate(),
 			   ReviewStatus  = '#Form.ReviewStatus#',
 			   ActionStatus  = '1'
@@ -56,7 +58,8 @@
 		INSERT INTO DocumentCandidateReview
 				 (DocumentNo,
 				  PersonNo,		  
-				  ActionCode,							
+				  ActionCode,	
+				  ReviewContent,						
 				  ReviewMemo,
 				  ReviewStatus,
 				  ReviewDate, 
@@ -66,7 +69,8 @@
 				  OfficerFirstName)
 		 VALUES ('#url.documentno#', 
 				 '#url.PersonNo#',		  
-				 '#url.ActionCode#',							  
+				 '#url.ActionCode#',	
+				 '#form.ReviewContent#',						  
 				 '#form.Reviewmemo#',
 				 '#Form.ReviewStatus#',
 				  getDate(),

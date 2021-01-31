@@ -44,9 +44,7 @@
 	
 	
 	<cfif Class.recordcount gte "1">
-	
-		
-	
+			
 			<cfif Class.recordcount eq 1 >
 				<tr>
 	    			<td colspan="6">	
@@ -59,9 +57,9 @@
 			
 				<cfoutput>
 					<tr>
-						<td class="labelmedium" style="height:35px"><cf_tl id="Routing">:</td>
+						
 	    				<td colspan="5">	
-						    <select name="#url.scope#EntityClass" id="#url.scope#EntityClass" class="regularxl enterastab">
+						    <select name="#url.scope#EntityClass" id="#url.scope#EntityClass" class="regularxxl enterastab">
 						    <cfloop query="Class">
 								<option value="#EntityClass#">#EntityClassName#</option>
 							</cfloop>
@@ -78,11 +76,11 @@
 	<cfelse>	
 		
 		<tr>
-			<td class="labelmedium" style="height:35px"><cf_tl id="Routing">:</td>
+			
 	 				<td colspan="5">	
-			   <table><tr><td class="labelmedium">		
-			<font color="FF0000">Workflow not configured</font>		
-	</td></tr></table>
+			   <table><tr><td class="labelmedium2">		
+					<font color="FF0000">Workflow not configured</font>		
+				</td></tr></table>
 		
 			</td>
 		</tr>

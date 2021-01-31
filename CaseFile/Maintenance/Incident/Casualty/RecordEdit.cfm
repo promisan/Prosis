@@ -25,56 +25,49 @@ and class='Casualty'
 <script language="JavaScript">
 
 function ask() {
-	if (confirm("#lt_text#")) {
-	
-	return true 
-	
-	}
-	
-	return false
-	
+	if (confirm("#lt_text#")) {	
+	return true 	
+	}	
+	return false	
 }	
 
 </script>
 </cfoutput>
 
-<CFFORM action="RecordSubmit.cfm" method="post" enablecab="yes" name="dialog">
+<CFFORM action="RecordSubmit.cfm" method="post" name="dialog">
 
-<!--- edit form --->
+<table width="96%" align="center" class="formpadding formspacing">
 
-<table width="96%" align="center">
-<!--- Field: code --->
 	 <cfoutput>
-	 <TR>
-	 <TD class="labelit"><cf_tl id="Code">:&nbsp;</TD>  
-	 <TD class="labelit">
-	 	<cfinput type="Text" name="Code" id="Code" value="#get.Code#" size="20" maxlength="20"class="regularxl">
+	 <TR class="labelmedium2">
+	 <TD><cf_tl id="Code">:&nbsp;</TD>  
+	 <TD>
+	 	<cfinput type="Text" name="Code" id="Code" value="#get.Code#" size="20" maxlength="20" class="regularxxl">
 		<cfinput type="hidden" name="CodeOld" id="CodeOld" value="#get.Code#" size="20" maxlength="20"class="regular">
 	 </TD>
 	 </TR>
 	 
 	 <!--- Field: Description --->
-    <TR>
-    <TD class="labelit"><cf_tl id="Description">:&nbsp;</TD>
-    <TD class="labelit">
+    <TR class="labelmedium2">
+    <TD><cf_tl id="Description">:&nbsp;</TD>
+    <TD>
 		<cf_tl id = "Please enter a description" var = "1" Class="Message">
-  	  	<cfinput type="Text" name="Description" id="Description" value="#get.Description#" message="#lt_text#" required="Yes" size="50" maxlength="50" class="regular">
+  	  	<cfinput type="Text" name="Description" id="Description" value="#get.Description#" message="#lt_text#" required="Yes" size="50" maxlength="50" 
+		 class="regularxxl">
 				
     </TD>
 	</TR>
 	
-	 <!--- Field: Remarks --->
-    <TD class="labelit"><cf_tl id="Remarks">:&nbsp;</TD>
-    <TD class="labelit">
+	<TR class="labelmedium2">
+    <TD><cf_tl id="Remarks">:&nbsp;</TD>
+    <TD>
 		<cf_tl id = "Please enter a Remark" var = "1" Class="Message">
-  	  	<cfinput type="Text" name="Remarks" id="Remarks" value="#get.Remarks#" message="#lt_text#" required="no" size="50" maxlength="50" class="regularxl">
+  	  	<cfinput type="Text" name="Remarks" id="Remarks" value="#get.Remarks#" message="#lt_text#" required="no" size="50" maxlength="50" class="regularxxl">
 				
     </TD>
 	</TR>	
 
-	<tr><td colspan="2" align="center" height="6">
 	<tr><td colspan="2" class="line"></td></tr>
-	<tr><td colspan="2" align="center" height="6">	
 
 	<tr>	
 		<td align="center" colspan="2">

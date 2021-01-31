@@ -132,7 +132,7 @@
 <cfparam name="box"                         default="#attributes.box#">
 
 <cfif box eq "">
-	<cfset box = attributes.box>
+	<cfset box = attributes.box>	
 </cfif>
 
 <cfparam name="drillbox"                    default="#attributes.drillbox#">
@@ -190,7 +190,6 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 <cfif attributes.annotation neq "">
 	<cfset attributes.navigation = "paging">
 </cfif>
-
 
 <!--- we time the openen moment --->
 <cfset listingtimestart = now()>
@@ -1074,12 +1073,14 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 
 </cfif>	
 
+
 <cfset session.listingdata[box]['listingpreparation'] = round((now()- listingtimestart)*100000000)/1000>
+
 
 <cfsavecontent variable="myscript">
  	_cf_loadingtexthtml='';				
 	ptoken.navigate('#session.root#/tools/listing/Listing/setTime.cfm?box=#box#','#attributes.box#_performance');
-	ptoken.navigate('#session.root#/tools/listing/Listing/setFilter.cfm?box=#box#','#attributes.box#_ajax');
+    ptoken.navigate('#session.root#/tools/listing/Listing/setFilter.cfm?box=#box#','#attributes.box#_ajax'); 
 	$('##_divContentFields').scroll(function() {  $(this).find('.sticky').css('left', $(this).scrollLeft());});	
 </cfsavecontent>
 

@@ -40,7 +40,7 @@ password="#SESSION.dbpw#">
 	
 	<table class="navigation_table" width="100%" align="center">
 			
-		<tr class="fixrow labelmedium line">
+		<tr class="fixrow labelmedium2 line">
 			<td style="display:none;"></td>        
 		    <TD style="padding-left:3px"><cf_tl id="Description"></TD>	
 			<TD height="20"></TD>

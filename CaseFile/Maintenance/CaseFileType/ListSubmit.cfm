@@ -71,8 +71,8 @@
 
 <cfoutput>
   <script>
-    ColdFusion.navigate('RecordListingDelete.cfm?Code=#URL.ClaimType#','del_#url.claimtype#')	
-    ColdFusion.navigate('List.cfm?ClaimType=#URL.ClaimType#&code=#url.code#','#url.claimtype#_list')	
+    ptoken.navigate('RecordListingDelete.cfm?Code=#URL.ClaimType#','del_#url.claimtype#')	
+    ptoken.navigate('List.cfm?ClaimType=#URL.ClaimType#&code=#url.code#','#url.claimtype#_list')	
   </script>	
 </cfoutput>
 

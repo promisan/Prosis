@@ -90,8 +90,8 @@
 					<cfoutput>	
 					<tr>
 						<td colspan="7" class="labelmedium" style="padding-left:4px;font-size:20px;height:39px" bgcolor="ffffff">
-						<a href="javascript:ColdFusion.navigate('#SESSION.root#/Warehouse/Maintenance/WarehouseLocation/LocationMAP.cfm?mode=maintain&systemfunctionid=#url.systemfunctionid#&box=#url.box#&warehouse=#url.warehouse#&width='+listbox.clientWidth+'&height='+document.body.clientHeight,'#url.box#')">
-						<font color="0080C0">Show Warehouse and Storage Locations in Google Maps
+						<a href="javascript:ptoken.navigate('#SESSION.root#/Warehouse/Maintenance/WarehouseLocation/LocationMAP.cfm?mode=maintain&systemfunctionid=#url.systemfunctionid#&box=#url.box#&warehouse=#url.warehouse#&width='+listbox.clientWidth+'&height='+document.body.clientHeight,'#url.box#')">
+						Show Warehouse and Storage Locations in Google Maps
 						</a>
 						</td>
 					</tr>	
@@ -100,8 +100,9 @@
 					</cfif>		
 					
 				</cfif>
+											
 				
-			    <TR height="21"  class="line labelmedium">
+			    <TR height="21"  class="line labelmedium2">
 				   <td width="10"></td>
 				   <td width="60"><cf_tl id="Code"></td>
 				   <td width="25%"><cf_tl id="Name"></td>
@@ -113,7 +114,7 @@
 										
 				<cfoutput query="Warehouse">
 															
-					   <TR class="line labelmedium">					  			   
+					   <TR class="line labelmedium2">					  			   
 						   <td align="center"></td>			   
 						   <td height="23">#Warehouse#</td>
 						   <td>#WarehouseName#</td>			  
@@ -126,13 +127,13 @@
 					   <tr>
 					   <td></td>
 					   <td colspan="6" style="height:100%" id="f#warehouse#_list">	
-					       <cf_divscroll>
-					     	<cfinclude template="List.cfm">													   						   		
-						   </cf_divscroll>	
+					        <cfdiv id="f#warehouse#_list" 
+							 bind="url:#session.root#/Warehouse/Maintenance/WarehouseLocation/LocationContent.cfm?mission=#warehouse.mission#&warehouse=#warehouse.warehouse#&systemfunctionid=#url.systemfunctionid#">						      													   						   								  	
 					   </td>
 					   </tr>	 			 			 					
 										
-				</cfoutput>													
+				</cfoutput>		
+													
 							
 			</table>						
 		

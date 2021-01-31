@@ -78,7 +78,7 @@ password="#SESSION.dbpw#">
 
 <cfparam name="url.role" default="ProcReqEntry">
 
-<cfajaximport tags="cfwindow,cfform,cfdiv">
+<cfajaximport tags="cfform,cfdiv">
 
 <cfif url.menu eq "1">
 	
@@ -112,6 +112,7 @@ password="#SESSION.dbpw#">
 <cf_DialogStaffing>
 <cf_FileLibraryScript>
 <cf_MenuScript>
+<cf_ListingScript>
 
 <table width="100%" height="100%">
  
@@ -119,14 +120,140 @@ password="#SESSION.dbpw#">
 
 <tr class="line">
 
-	
-	
+		<td style="border-left:1px solid silver;padding:4px;min-width:110px;border-right:1px solid silver" valign="top">
+
+		<!--- top menu --->
+				
+		<table width="100%" align="center">		
+								
+			<cfset ht = "45">
+			<cfset wd = "45">
+			
+			<cfset add = 1>
+			
+			<input type="hidden" name="reqno" id="reqno" value="#url.id#">
+		
+		     <tr>
+			        <cfif url.menu eq "1">
+					
+							<cf_tl id="Draft Requirements" var ="vUnder">
+							<cf_menutab item       = "1" 
+						            iconsrc    = "Logos/Procurement/Pending.png" 
+									iconwidth  = "#wd#" 
+									iconheight = "#ht#" 									
+									class      = "highlight1"
+									name       = "#vUnder#"
+									source     = "../Requisition/RequisitionEntryListing.cfm?add=0&Mission=#URL.Mission#&Period=#URL.Period#&Mode=Entry&Source=#url.context#&ID={reqno}&ajax=1">			
+									
+					<cfelse>
+					
+							<cf_tl id="Submit Requests" var ="vSubmit">
+							<cf_menutab item       = "1" 
+						            iconsrc    = "Logos/Procurement/Submit.png" 
+									iconwidth  = "#wd#" 
+									iconheight = "#ht#" 
+									class      = "highlight1"
+									name       = "#vSubmit#"
+									source     = "../Process/RequisitionCreatePending.cfm?mission=#url.mission#&period={periodsel}">			
+									
+					</cfif>		
+					
+				</tr>						
+				
+				<tr>
+					<cf_tl id="New Request" var ="vRequest">									
+					<cf_menutab item       = "2" 
+					            iconsrc    = "Logos/Procurement/Add.png" 
+								iconwidth  = "#wd#" 
+								iconheight = "#ht#" 
+								name       = "#vRequest#"
+								source     = "javascript:add()">
+				</tr>
+				
+				
+				<tr>	
+					 <cfif url.menu eq "3">
+					 
+							<cf_tl id="Requests under preparation" var ="vUnderPreparation">									
+							<cf_menutab item = "3" 
+					            iconsrc    = "Logos/Procurement/Pending.png" 
+								iconwidth  = "#wd#" 
+								iconheight = "#ht#" 									
+								name       = "#vUnderPreparation#"
+								source     = "../Requisition/RequisitionEntryListing.cfm?add=0&Mission=#URL.Mission#&Period=#URL.Period#&Mode=Entry&ID={reqno}">			
+								
+					<cfelse>
+					
+							<cf_tl id="Submit Request" var= "vSubmit">
+							<cf_menutab item = "3" 
+					            iconsrc    = "Logos/Procurement/Submit.png" 
+								iconwidth  = "#wd#" 
+								iconheight = "#ht#" 
+								name       = "#vSubmit#"
+								source     = "../Process/RequisitionCreatePending.cfm?mission=#url.mission#&period={periodsel}&Source=#url.context#">			
+								
+					</cfif>		
+					
+				 </tr>
+				 
+				 <tr>
+				 					
+					<cf_tl id="Recent History" var= "vRecent">
+					<cf_menutab item       = "4" 
+					            iconsrc    = "Logos/Procurement/Recent.png" 
+								iconwidth  = "#wd#" 
+								iconheight = "#ht#" 
+								name       = "#vRecent#"
+								source     = "RequisitionLog.cfm?mission=#url.mission#&period={periodsel}">		
+								
+				 </tr>		
+										
+					<cf_verifyOperational module="Procurement" Warning="No">    
+															
+	    		    <cfif Operational eq "1">
+																	
+						<cf_tl id="Requisition Inquiry" var="1">
+						<cfset tInquiry = "#Lt_text#">
+						
+						<!--- generate the table and script --->
+								
+						<cfinvoke component = "Service.Analysis.Listing"  
+							  method            = "InitInquiry"
+							  buttonName        = "Analysis"
+							  buttonClass       = "variable"		<!--- pass the loading script --->  
+							  buttonIcon        = "#SESSION.root#/Images/dataset.png"
+							  buttonText        = "#tInquiry#"
+							  buttonStyle       = "height:29px;width:120px;"								 
+							  queryString       = "Mission=#URL.Mission#&Period={periodsel}"								   
+							  Module            = "Procurement"
+							  FunctionName      = "Requisition Inquiry"	
+							  FunctionClass     = "Listing"					
+							  ListingPath       = "Procurement/Application/Requisition/Portal/"
+							  ListingTemplate   = "RequisitionListing.cfm"		  
+							  target            = "analysisbox"											 
+							  returnvariable    = "script">																							 
+					
+					 <tr> 	  
+					 
+				  	 <cf_menutab item       = "5" 
+			         		     iconsrc    = "Logos/Procurement/Inquiry.png" 
+								 iconwidth  = "#wd#" 
+								 iconheight = "#ht#" 
+								 name       = "#tInquiry#"
+								 source     = "#script#">	
+					 </tr>			 
+								 		
+					</cfif>
+					
+		</table>
+
+	</td>
+
 	<td height="100%" style="padding:4px;width:100%">
 
     <cf_divscroll>
 	
-	<table width="100%" 
-	      border="0"
+	<table width="100%" 	     
 		  height="100%"	
 		  align="center">
 	 		
@@ -222,7 +349,11 @@ password="#SESSION.dbpw#">
 		    </tr>
 						
 			<cf_menucontainer item="4" class="hide">
+			
+			<cf_menucontainer item="5" class="hide">
+			<!--- before we needed to load into an iframe, likely not needed anymore with listing unless we have several
 			<cf_menucontainer item="5" class="hide" iframe="analysisbox">
+			--->
 						
 	</table>
 	
@@ -230,134 +361,7 @@ password="#SESSION.dbpw#">
 	
 	</td>
 	
-	<td style="border-left:1px solid silver;padding-left:2px;padding-right:2px;min-width:150px;border-right:1px solid silver" valign="top">
-
-		<!--- top menu --->
-				
-		<table width="100%" align="center">		
-								
-			<cfset ht = "52">
-			<cfset wd = "52">
-			
-			<cfset add = 1>
-			
-			<input type="hidden" name="reqno" id="reqno" value="#url.id#">
-		
-		     <tr>
-			        <cfif url.menu eq "1">
-					
-							<cf_tl id="Draft Requirements" var ="vUnder">
-							<cf_menutab item       = "1" 
-						            iconsrc    = "Logos/Procurement/Pending.png" 
-									iconwidth  = "#wd#" 
-									iconheight = "#ht#" 									
-									class      = "highlight1"
-									name       = "#vUnder#"
-									source     = "../Requisition/RequisitionEntryListing.cfm?add=0&Mission=#URL.Mission#&Period=#URL.Period#&Mode=Entry&Source=#url.context#&ID={reqno}&ajax=1">			
-									
-					<cfelse>
-					
-							<cf_tl id="Submit Requests" var ="vSubmit">
-							<cf_menutab item       = "1" 
-						            iconsrc    = "Logos/Procurement/Submit.png" 
-									iconwidth  = "#wd#" 
-									iconheight = "#ht#" 
-									class      = "highlight1"
-									name       = "#vSubmit#"
-									source     = "../Process/RequisitionCreatePending.cfm?mission=#url.mission#&period={periodsel}">			
-									
-					</cfif>		
-					
-				</tr>						
-				
-				<tr>
-					<cf_tl id="New Request" var ="vRequest">									
-					<cf_menutab item       = "2" 
-					            iconsrc    = "Logos/Procurement/Add.png" 
-								iconwidth  = "#wd#" 
-								iconheight = "#ht#" 
-								name       = "#vRequest#"
-								source     = "javascript:add()">
-				</tr>
-				
-				
-				<tr>	
-					 <cfif url.menu eq "3">
-					 
-							<cf_tl id="Requests under preparation" var ="vUnderPreparation">									
-							<cf_menutab item = "3" 
-					            iconsrc    = "Logos/Procurement/Pending.png" 
-								iconwidth  = "#wd#" 
-								iconheight = "#ht#" 									
-								name       = "#vUnderPreparation#"
-								source     = "../Requisition/RequisitionEntryListing.cfm?add=0&Mission=#URL.Mission#&Period=#URL.Period#&Mode=Entry&ID={reqno}">			
-								
-					<cfelse>
-					
-							<cf_tl id="Submit Request" var= "vSubmit">
-							<cf_menutab item = "3" 
-					            iconsrc    = "Logos/Procurement/Submit.png" 
-								iconwidth  = "#wd#" 
-								iconheight = "#ht#" 
-								name       = "#vSubmit#"
-								source     = "../Process/RequisitionCreatePending.cfm?mission=#url.mission#&period={periodsel}&Source=#url.context#">			
-								
-					</cfif>		
-					
-				 </tr>
-				 
-				 <tr>
-				 					
-					<cf_tl id="Recent History" var= "vRecent">
-					<cf_menutab item       = "4" 
-					            iconsrc    = "Logos/Procurement/Recent.png" 
-								iconwidth  = "#wd#" 
-								iconheight = "#ht#" 
-								name       = "#vRecent#"
-								source     = "RequisitionLog.cfm?mission=#url.mission#&period={periodsel}">		
-								
-				 </tr>					
-					
-					<cf_verifyOperational module="WorkOrder" Warning="No">    
-	    		    <cfif Operational eq "1">
-																	
-						<cf_tl id="Advanced Inquiry" var="1">
-						<cfset tInquiry = "#Lt_text#">
-							
-						<!--- just to create the needed scripts here, button is hidden --->
-								
-								<cfinvoke component="Service.Analysis.CrossTab"  
-								  method         = "ShowInquiry"
-								  buttonName     = "Analysis"
-								  buttonClass    = "variable"		<!--- pass the loading script --->  
-								  buttonIcon     = "#SESSION.root#/Images/dataset.png"
-								  buttonText     = "#tInquiry#"
-								  buttonStyle    = "height:29px;width:120px;"
-								  reportPath     = "Procurement\Application\Requisition\Portal\"
-								  SQLtemplate    = "RequisitionFactTable.cfm"
-								  queryString    = "Mission=#URL.Mission#"
-								  dataSource     = "appsQuery" 
-								  module         = "Procurement"
-								  reportName     = "Facttable: Requisition"
-								  olap           = "1"
-								  target         = "analysisbox"
-								  table1Name     = "Requisitions"											 
-								  returnvariable = "script"> 	
-					
-					 <tr> 	  
-				  	 <cf_menutab item       = "5" 
-			         		     iconsrc    = "Logos/Procurement/Inquiry.png" 
-								 iconwidth  = "#wd#" 
-								 iconheight = "#ht#" 
-								 name       = "#tInquiry#"
-								 source     = "javascript:#script#">	
-					 </tr>			 
-								 		
-					</cfif>
-					
-		</table>
-
-	</td>
+	
 	
 	
 		

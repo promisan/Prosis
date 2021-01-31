@@ -758,9 +758,9 @@
 	</cfif>		
 	
 	--->
-		
+			
 	<cfif applycache eq "0">	
-				
+					
 		<cfparam name="session.listingdata['#box#']['recordsinit']" default="0">  	
 				
 		<!--- ---------------------------------------------------------------------- --->
@@ -800,7 +800,7 @@
 		</cflock>	
 		
 	</cfif>	
-			
+	
 <cfelse>
 	
 	<cfdirectory action="LIST"

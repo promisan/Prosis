@@ -195,11 +195,13 @@
 		<cfoutput>
 		
 			<script>	
-			    window.close()	  
-//			    try {				
-//					parent.opener.applyfilter('','','content');
-//					document.getElementById("menu1").click()
-//				} catch(e) {}    	
+			     
+			    try {		
+				    
+					parent.opener.applyfilter('0','','#Form.EventId#');					
+					
+				} catch(e) {}   
+				window.close()	  	
 	    	</script>	
 		
 		</cfoutput>

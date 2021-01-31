@@ -30,6 +30,7 @@ password="#SESSION.dbpw#">
 <cf_menuscript>
 <cf_dialogAsset>
 <cf_presentationScript>
+<cf_listingscript>
 
 <cfif client.googleMAP eq "1">
 	<cfajaximport tags="cfmap" params="#{googlemapkey='#client.googlemapid#'}#"> 

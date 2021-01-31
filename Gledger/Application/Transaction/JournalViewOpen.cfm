@@ -19,7 +19,7 @@
 <cfelseif URL.ID eq "JOU">
 		
 	  <script language="JavaScript">	  
-	     ptoken.open('Journal.cfm?Mission=#URL.Mission#&OrgUnit=#URL.ID1#&Journal=#URL.ID2#&Period=' + parent.Period.value,'_self') 		
+	     ptoken.open('Listing/ListingHeader.cfm?systemfunctionid=#url.systemfunctionid#&Mission=#URL.Mission#&OrgUnit=#URL.ID1#&Journal=#URL.ID2#&Period=' + parent.Period.value,'_self') 		
 	  </script>
 	  
 <cfelseif URL.ID eq "PEN">
@@ -31,13 +31,13 @@
 <cfelseif URL.ID eq "OPE">
 		
 	  <script language="JavaScript">	  
-	     ptoken.open('Journal.cfm?Mission=#URL.Mission#&OrgUnit=#URL.ID1#&Journal=#URL.ID2#&idstatus=Outstanding&Period=' + parent.Period.value,'_self') 		
+	     ptoken.open('Listing/ListingHeader.cfm?systemfunctionid=#url.systemfunctionid#&Mission=#URL.Mission#&OrgUnit=#URL.ID1#&Journal=#URL.ID2#&idstatus=Outstanding&Period=' + parent.Period.value,'_self') 		
 	  </script>	  	  
 	  
 <cfelseif URL.ID eq "TRA">	
 
 	 <script language="JavaScript">
-	     ptoken.open('JournalTransactionListing.cfm?systemfunctionid=#url.systemfunctionid#&Mission=#URL.Mission#&OrgUnit=#URL.ID1#&Journal=#URL.ID2#&Period=' + parent.Period.value,'_self') 
+	     ptoken.open('Listing/ListingLine.cfm?systemfunctionid=#url.systemfunctionid#&Mission=#URL.Mission#&OrgUnit=#URL.ID1#&Journal=#URL.ID2#&Period=' + parent.Period.value,'_self') 
 	  </script>  
 	
 </cfif>	

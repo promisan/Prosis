@@ -139,16 +139,16 @@ password="#SESSION.dbpw#">
 <cfform action="DocumentEntrySubmit.cfm?observationclass=#url.observationclass#" 
    method="POST" target="result" name="observationForm" id="observationForm" style="height:100%">
 
-<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="100%" height="100%" align="center" class="formpadding">
 
 <tr class="line" style="background-color:e4e4e4;height:40px;padding-left:30px">	
 	<td style="padding-left:40px">
 	<table cellspacing="0" cellpadding="0">
 	<tr style="font-size:20px">
 		<td ><input type="radio" name="ObservationClass" class="radiol" <cfif url.observationclass neq "Inquiry">checked disabled <cfelse>onclick="javascript:reloadform('amendment')"</cfif> value="Amendment"></td>
-		<td style="font-size:18px;padding-left:5px" class="labelmedium">Amendment or Professional assessment</td>
+		<td style="font-size:18px;padding-left:5px" class="labelmedium2">Amendment or Professional assessment</td>
 		<td style="padding-left:20px"><input type="radio" name="ObservationClass" class="radiol" value="Inquiry" <cfif url.observationclass eq "Inquiry">checked disabled<cfelse>onclick="javascript:reloadform('inquiry')"</cfif>></td>
-		<td style="font-size:18px;padding-left:5px" class="labelmedium">Assistance / Bug or Inquiry</td>
+		<td style="font-size:18px;padding-left:5px" class="labelmedium2">Assistance / Bug or Inquiry</td>
 		
 	</tr>
 	</table>
@@ -159,21 +159,20 @@ password="#SESSION.dbpw#">
 
 <cf_divscroll style="height:100%">
 
-<table height="100%" width="93%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding formspacing">
-
+<table height="100%" width="93%" align="center" class="formpadding formspacing">
 
 <cfoutput>
 	
 	<cfif getAdministrator("*") eq "1">
 	
 		<tr>
-			<td style="width:10%" class="labelmedium"><cf_tl id="Requester">: <font color="FF0000">*</font></td>
+			<td style="width:10%" class="labelmedium2"><cf_tl id="Requester">: <font color="FF0000">*</font></td>
 			<td>	
-			<table cellspacing="0" cellpadding="0">
+			<table>
 			
 				<tr>
 				<td>				
-				<input type="text" style="width:300px" name="RequesterName" class="regularxl" id="requestername" value="#session.acc#">
+				<input type="text" style="width:300px" name="RequesterName" class="regularxxl" id="requestername" value="#session.acc#">
 				</td>
 				
 				<td style="padding-left:3px">
@@ -211,7 +210,7 @@ password="#SESSION.dbpw#">
 
 </cfoutput>
 
-<tr><td class="labelmedium"><cf_tl id="eMail">: <font color="FF0000">*</font></td>
+<tr><td class="labelmedium2"><cf_tl id="eMail">: <font color="FF0000">*</font></td>
 	    <td colspan="5">
 		  <cfinput type="Text"
 	       name="eMail"
@@ -224,7 +223,7 @@ password="#SESSION.dbpw#">
 		   style="width:300px"
 		   value="#User.eMailAddress#"
 	       maxlength="40"
-	       class="regularxl enterastab"></td>
+	       class="regularxxl enterastab"></td>
    </tr>
 
 
@@ -331,10 +330,10 @@ password="#SESSION.dbpw#">
 				</cfif>
 							
 				<!--- owners to show --->	
-				<td width="80" class="labelmedium"><cf_tl id="Organization">:</td>
+				<td width="80" class="labelmedium2"><cf_tl id="Organization">:</td>
 			    <td>				
 									
-					<select class="regularxl enterastab" name="Mission" id="Mission">
+					<select class="regularxxl enterastab" name="Mission" id="Mission">
 					
 					   <cfif Mission.recordcount gt "1">
 						<option value="0">[Select]</option>
@@ -353,10 +352,10 @@ password="#SESSION.dbpw#">
 			<cfelse>
 						
 				<!--- owners to show --->	
-				<td width="80" class="labelmedium"><cf_tl id="Owner">:</td>
+				<td width="80" class="labelmedium2"><cf_tl id="Owner">:</td>
 			    <td>		
 									
-					<select class="regularxl enterastab" name="Owner" id="Owner">
+					<select class="regularxxl enterastab" name="Owner" id="Owner">
 					
 					   <cfif Owner.recordcount gte "1">
 						<option value="0">[Select]</option>
@@ -395,8 +394,8 @@ password="#SESSION.dbpw#">
 	<cfif url.observationclass eq "Inquiry">
 	
 	<tr class="hide">
-	    <td width="150" class="labelmedium"><cf_tl id="Server">: <font color="FF0000">*</font></td>
-	    <td width="20%"><select name="ApplicationServer" id="ApplicationServer" class="regularxl enterastab">
+	    <td width="150" class="labelmedium2"><cf_tl id="Server">: <font color="FF0000">*</font></td>
+	    <td width="20%"><select name="ApplicationServer" id="ApplicationServer" class="regularxxl enterastab">
 		    <cfoutput query="Site">
 				<option value="#ApplicationServer#" <cfif cgi.host eq ServerDomain>selected</cfif>>#ServerDomain#</option>
 			</cfoutput>
@@ -408,7 +407,7 @@ password="#SESSION.dbpw#">
 	
 	<tr>	
 		
-		<td width="100" class="labelmedium">
+		<td width="100" class="labelmedium2">
 			<cfif url.observationclass eq "Inquiry">
 				<cf_tl id="Application">: <font color="FF0000">*</font>			
 			<cfelse>
@@ -440,7 +439,7 @@ password="#SESSION.dbpw#">
 				</cfquery>		
 						
 			    <select name="rapplication" id="rapplication"
-				    class="regularxl enterastab" onchange="_cf_loadingtexthtml='';ColdFusion.navigate('getDocumentEntryModule.cfm?application='+this.value,'module_div');ColdFusion.navigate('getDocumentEntryOwner.cfm?application='+this.value,'owner_div')">
+				    class="regularxxl enterastab" onchange="_cf_loadingtexthtml='';ColdFusion.navigate('getDocumentEntryModule.cfm?application='+this.value,'module_div');ColdFusion.navigate('getDocumentEntryOwner.cfm?application='+this.value,'owner_div')">
 				    <option value="">-- Select --</option>
 				    <cfoutput query="SystemModule">
 						<option value="#Code#" <cfif get.Code eq Code or currentrow eq "1">selected</cfif>>#Description#</option>
@@ -463,7 +462,7 @@ password="#SESSION.dbpw#">
 			<!--- hidden owner --->
 			<cfdiv bind="url:getDocumentEntryOwner.cfm?application={rapplication}" id="owner_div">
 		
-			<td width="70" class="labelmedium" style="height:30px">
+			<td width="70" class="labelmedium2" style="height:30px">
 				<cf_tl id="Module">: <font color="FF0000">*</font>	
 			</td>
 			<td width="50%">			
@@ -476,7 +475,7 @@ password="#SESSION.dbpw#">
 		</cfif>
 		
 	
-	<tr><td class="labelmedium"><cf_tl id="Observation Date">:</td>
+	<tr><td class="labelmedium2"><cf_tl id="Observation Date">:</td>
 	    <td colspan="5">	
 		
 		<cf_calendarscript>
@@ -485,7 +484,7 @@ password="#SESSION.dbpw#">
 			FieldName="ObservationDate" 
 			Default="#dateformat(now(),CLIENT.dateformatshow)#"
 			Manual="True"	
-			class="regularxl enterastab"
+			class="regularxxl enterastab"
 			DateValidStart=""
 			DateValidEnd="#Dateformat(now(), 'YYYYMMDD')#"
 			AllowBlank="False">	
@@ -494,7 +493,7 @@ password="#SESSION.dbpw#">
 	</tr>
 	
 		
-	<tr><td class="labelmedium"><cf_tl id="Request Title">: <font color="FF0000">*</font></td>
+	<tr><td class="labelmedium2"><cf_tl id="Request Title">: <font color="FF0000">*</font></td>
 	    <td colspan="5">
 		
 			<cfinput type="Text"
@@ -507,19 +506,19 @@ password="#SESSION.dbpw#">
 		       size="90"
 			   style="width:95%"
 		       maxlength="80"
-	    	   class="regularxl enterastab">
+	    	   class="regularxxl enterastab">
 			   
 	    </td>
 	</tr>
 			
-	<tr><td class="labelmedium"><cf_tl id="Priority">:</td>
+	<tr><td class="labelmedium2"><cf_tl id="Priority">:</td>
 	
 	    <td colspan="5" style="border:0px dotted silver">
 		<table width="100%" cellspacing="0" cellpadding="0" class="formpadding">
 		
 		<tr height="25">
 	   	
-	    <td class="labelmedium">
+	    <td class="labelmedium2">
 		    <table><tr>
 			<td style="padding-left:0px"><input type="radio" class="radiol enterastab" name="RequestPriority" id="RequestPriority" value="Low"></td><td class="labelit" style="padding-left:4px">Low</td>
 			<td style="padding-left:5px"><input type="radio" class="radiol enterastab" name="RequestPriority" id="RequestPriority" value="Medium" checked></td><td class="labelit" style="padding-left:4px">Medium</td>
@@ -538,7 +537,7 @@ password="#SESSION.dbpw#">
 	
 	<tr>	
 		
-	    <td class="labelmedium"><cf_UIToolTip
+	    <td class="labelmedium2"><cf_UIToolTip
 	          tooltip="Frequency the issue of this observation is giving problems"><cf_tl id="Frequency">:</cf_UIToolTip></td>
 			  
 		<td colspan="5" style="border:0px dotted silver">
@@ -547,7 +546,7 @@ password="#SESSION.dbpw#">
 		
 			<tr height="25">	  
 				  
-			    <td class="labelmedium">
+			    <td class="labelmedium2">
 				  <table><tr>
 					<td style="padding-left:0px"><input type="radio" class="radiol enterastab" name="ObservationFrequency" id="ObservationFrequency" value="Low"></td><td class="labelit" style="padding-left:4px">Low</td>
 					<td style="padding-left:5px"><input type="radio" class="radiol enterastab" name="ObservationFrequency" id="ObservationFrequency" value="Medium" checked></td><td class="labelit" style="padding-left:4px">Medium</td>
@@ -566,16 +565,16 @@ password="#SESSION.dbpw#">
 	
 	<tr>
 		
-	   <td class="labelmedium"><cf_UIToolTip
+	   <td class="labelmedium2"><cf_UIToolTip
 	          tooltip="The impact the resolution will have on the usage of the system"><cf_tl id="Impact">:</cf_UIToolTip></td>
 			  
-	   <td colspan="5" style="border:0px dotted silver">
+	   <td colspan="5">
 		
-		<table width="100%" cellspacing="0" cellpadding="0" class="formpadding">
+		<table width="100%" class="formpadding">
 		
 		<tr height="25">	  	  
 			  
-	    <td class="labelmedium">
+	    <td class="labelmedium2">
 		  <table><tr>
 			<td style="padding-left:0px"><input type="radio" class="radiol enterastab" name="ObservationImpact" id="ObservationImpact" value="Low"></td><td class="labelit" style="padding-left:4px">Low</td>
 			<td style="padding-left:5px"><input type="radio" class="radiol enterastab" name="ObservationImpact" id="ObservationImpact" value="Medium" checked></td><td class="labelit" style="padding-left:4px">Medium</td>
@@ -594,20 +593,23 @@ password="#SESSION.dbpw#">
 		
 	<cfif url.observationclass neq "Inquiry">
 			
-		<tr><td class="labelmedium" style="height:30px"><cf_tl id="Workgroup">:</td>
-		    <td colspan="5" class="labelmedium">	
-			<cfdiv bind="url:getDocumentEntryGroup.cfm?entitycode=#entitycode#&owner={Owner}" class="labelmedium" id="workgrp"/>			
+		<tr><td class="labelmedium2" style="height:30px"><cf_tl id="Workgroup">:</td>
+		    <td colspan="5" class="labelmedium2">	
+			<cf_securediv bind="url:getDocumentEntryGroup.cfm?entitycode=#entitycode#&owner={Owner}" class="labelmedium2" id="workgrp">			
 			</td>
 		</tr>		
 			
 	</cfif>	
 		
-	
+	  <tr><td class="labelmedium2" style="height:35px"><cf_tl id="Routing">:</td>
+		<td colspan="5" class="labelmedium2">	
 		<cfif url.observationclass eq "Inquiry">
-			<cfdiv bind="url:getDocumentEntityClass.cfm?entitycode=#entitycode#&application={rapplication}" id="workcls"/>						
+			<cf_securediv bind="url:getDocumentEntityClass.cfm?entitycode=#entitycode#&application={rapplication}" id="workcls">						
 		<cfelse>
-			<cfdiv bind="url:getDocumentEntityClass.cfm?entitycode=#entitycode#&owner={Owner}" id="workcls"/>	
+			<cf_securediv bind="url:getDocumentEntityClass.cfm?entitycode=#entitycode#&owner={Owner}" id="workcls">	
 		</cfif>
+		</td>
+		</tr>	
 		
 		
 	<cf_assignId>
@@ -618,7 +620,7 @@ password="#SESSION.dbpw#">
 		
 	</cfoutput>
 	
-	<tr><td colspan="1" class="labelmedium" style="padding-right:10px">Attachments&nbsp;and&nbsp;Screenshots:</td><td width="71%" id="mod" colspan="5">
+	<tr><td colspan="1" class="labelmedium2" style="padding-right:10px">Attachments&nbsp;and&nbsp;Screenshots:</td><td width="71%" id="mod" colspan="5">
 	
 		<cf_filelibraryN
 				DocumentPath  = "Modification"
@@ -633,7 +635,7 @@ password="#SESSION.dbpw#">
 	
 	</td></tr>
 		
-	<tr class="labelmedium" style="font-weight:200"><td colspan="6"><font color="red"><i><b>Attention:</b> Please do <u><b>not</b></u> paste screenshots into the below text editor unless you are pasting from a webmail</i></td></tr>
+	<tr class="labelmedium2"><td colspan="6"><font color="red"><b>Attention:</b> Please do <b>not</b> paste screenshots into the below text editor unless you are pasting from a webmail</td></tr>
 		
 	<tr valign="top"><td colspan="6" >
 	
@@ -657,17 +659,17 @@ password="#SESSION.dbpw#">
 			   init           = "Yes">	
 		 </cf_textarea> 
 		 
-		 </cfif>
-		 
+		 </cfif>		 
 		 
 		 <!--- <cf_textarea type="CK" script="yes" style="height:400px;width:900" name="ObservationOutLine"></cf_textarea> --->
+		 
 		</td>
 	</tr>
 		
 	<tr><td colspan="6" height="35" align="center" id="save">
 	
-		<input type="button" name="Close" id="Close" class="button10g" style="font-size:13px;width:170;height:26" value="Close" onclick="window.close()">
-		<input type="submit" name="Save"  id="Save"  class="button10g" style="font-size:13px;width:170;height:26" value="Save" onclick="updateTextArea();return validate();">
+		<input type="button" name="Close" id="Close" class="button10g" style="font-size:13px;width:170;height:28px" value="Close" onclick="window.close()">
+		<input type="submit" name="Save"  id="Save"  class="button10g" style="font-size:13px;width:170;height:28px" value="Save" onclick="updateTextArea();return validate();">
 	
 	</td></tr>
 	
@@ -679,7 +681,6 @@ password="#SESSION.dbpw#">
 
 </td></tr>
 </table>
-
 
 </cfform>
 

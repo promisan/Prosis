@@ -7,10 +7,9 @@ password="#SESSION.dbpw#">
 	FROM   Ref_ExerciseClass
 </cfquery>
    
-
 <cf_screentop html="No" jquery="Yes">
 
-<table width="98%" height="100%">
+<table width="98%" align="center" height="100%">
 	
 	<cfset Page         = "0">
 	<cfset add          = "1">
@@ -54,7 +53,7 @@ password="#SESSION.dbpw#">
 			
 			<tbody>
 				<cfoutput query="SearchResult">
-					<tr class="navigation_row labelmedium2">
+					<tr class="navigation_row labelmedium2 line">
 						<td width="10%" style="padding-top:3px" align="center" > <cf_img icon="select" navigation="Yes" onclick="recordedit('#ExcerciseClass#')"> </td>		
 						<td><a href="javascript:recordedit('#ExcerciseClass#')">#ExcerciseClass#</a></td>
 						<td>#Description#</td>

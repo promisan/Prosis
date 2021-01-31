@@ -655,6 +655,10 @@ _UIObject.prototype.doCalendarRange = function(id){
 				.replace(/'/g, "&#039;");
 	}
 
+	_UIObject.prototype.testme = function () {
+		alert('test');
+	}
+
 	var ProsisUI = new _UIObject;
 
 </script>

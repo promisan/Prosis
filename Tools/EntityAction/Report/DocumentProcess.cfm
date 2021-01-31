@@ -141,7 +141,7 @@ password="#SESSION.dbpw#">
 							
 			<cfcatch>
 				
-				<table width="100%" cellspacing="0" cellpadding="0" class="formpadding">
+				<table width="100%" class="formpadding">
 				<tr><td bgcolor="ffffaf" align="center">#CFCatch.Message# - #CFCATCH.Detail#</td></tr>
 				</table>			
 				

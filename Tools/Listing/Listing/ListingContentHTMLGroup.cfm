@@ -15,6 +15,10 @@
 </cfif>	
 
 <cfset headercols = pre>
+
+<cfif headercols lte "3">
+	<cfset headercols = "4">
+</cfif>
 										
 <!--- we show group then expand on it on the fly --->
 <cfset navmode = "manual">			
@@ -33,7 +37,7 @@
 	
 	<tr class="fixrow240">		
 		<td style="min-width:360px;" colspan="#headercols#">	
-				
+						
 			<cfif url.listcolumn1_type eq "period">
 			
 			        <!--- to keep this from moving --->

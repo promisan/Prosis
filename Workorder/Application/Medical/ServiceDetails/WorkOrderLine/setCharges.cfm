@@ -365,7 +365,7 @@ AND       Journal is not NULL
 						'#cstp#','#cost#',												
 						'#BillingReference#','#BillingName#','#BillingAddress#',
 						'#workorder.Currency#','#Rate#','#percent#','#taxcode#','#mde#','0',
-						ROUND(#iamt#,2),ROUND(#Amount -iamt#,2),
+						ROUND(#iamt#,2),ROUND(#amt -iamt#,2),
 						'#session.acc#','#session.last#','#session.first#')
 									
 				</cfquery>								
@@ -476,7 +476,7 @@ AND       Journal is not NULL
 						</cfif>	
 						'#BillingReference#','#BillingName#','#BillingAddress#',
 						'#workorder.Currency#','#Rate#','#percent#','#taxcode#','#mde#','0',
-						ROUND(#pamt#,2),ROUND(#Amount-pamt#,2),ROUND(#discount#,2),
+						ROUND(#pamt#,2),ROUND(#amt-pamt#,2),ROUND(#discount#,2),
 						'#session.acc#','#session.last#','#session.first#')
 											
 				</cfquery>	

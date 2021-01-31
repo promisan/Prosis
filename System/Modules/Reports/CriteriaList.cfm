@@ -26,28 +26,25 @@ password="#SESSION.dbpw#">
 	ORDER BY ListOrder
 </cfquery>
 
+<cf_divscroll>
 
+<cfform action="CriteriaListSubmit.cfm?Status=#URL.Status#&ID=#URL.ID#&ID1=#URL.ID1#&ID2=#URL.ID2#" method="POST" name="fund">
 
-
-<cfform action="CriteriaListSubmit.cfm?Status=#URL.Status#&ID=#URL.ID#&ID1=#URL.ID1#&ID2=#URL.ID2#" method="POST" enablecab="Yes" name="fund">
-
-	<table width="95%" border="0" cellspacing="0" cellpadding="0" align="left">
+	<table width="95%" align="left">
 	    
 	  <tr>
 	    <td width="100%" class="regular">
-	    <table width="100%" cellspacing="0" cellpadding="0" class="formpadding">
+	    <table width="100%" class="formpadding">
 			
-	    <TR>
-		   <td width="38%" class="labelit">Value</td>
-		   <td width="48%" class="labelit">Description</td>
-		   <td class="labelit">Sorting</td>
-		   <td class="labelit" width="10%" align="center">Enable</td>
-		   <td class="labelit" width="7%"></td>
-		   <td class="labelit" width="7%"></td>
+	    <TR class="labelmedium2 line fixrow">
+		   <td width="28%">Value</td>
+		   <td width="58%">Description</td>
+		   <td>Sort</td>
+		   <td width="10%" align="center">Enable</td>
+		   <td style="width:20px"></td>
+		   <td style="width:20px"></td>
 	    </TR>	
 		
-		<tr><td colspan="6" class="linedotted"></td></tr>
-	
 		<cfoutput>
 		<cfloop query="Detail">
 		
@@ -60,10 +57,10 @@ password="#SESSION.dbpw#">
 		
 		    <input type="hidden" name="ListValue" id="ListValue" value="<cfoutput>#nm#</cfoutput>">
 												
-			<TR>
+			<TR class="line labelmedium2">
 			   <td>&nbsp;#nm#</td>
 			   <td>
-			   	   <cfinput type="Text" value="#de#" name="ListDisplay" message="You must enter a description" required="Yes" size="30" maxlength="30" class="regular">
+			   	   <cfinput type="Text" value="#de#" name="ListDisplay" message="You must enter a description" required="Yes" size="30" maxlength="30" class="regularxl">
 	           </td>
 			    <td>
 			   	   <cfinput type="Text"
@@ -73,29 +70,29 @@ password="#SESSION.dbpw#">
 			       validate="integer"			      	     
 			       size="2"
 			       maxlength="2"
-			       class="regular">
+			       class="regularxl">
 	           </td>
 			   <td class="regular" align="center">
-			      <input type="checkbox" name="Operational" id="Operational" value="1" <cfif "1" eq Operational>checked</cfif>>
+			      <input type="checkbox" class="radiol" name="Operational" id="Operational" value="1" <cfif "1" eq Operational>checked</cfif>>
 				</td>
-			   <td colspan="2" align="right"><input type="submit" value=" Update " class="button10p">&nbsp;</td>
+			   <td colspan="2" style="padding-right:3px" align="right"><input style="width:80px" type="submit" value="Update" class="button10g"></td>
 		    </TR>	
 					
 		<cfelse>
 		
-			<TR>
-			   <td class="labelit">#nm#</td>
-			   <td class="labelit">#de#</td>
-			   <td class="labelit">#od#</td>
-			   <td align="center"><cfif #op# eq "0"><b>No</b><cfelse>Yes</cfif></td>
-			   <td>
-			     <cfif URL.Status eq "0" or SESSION.isAdministrator eq "Yes">
+			<TR  class="line labelmedium2">
+			   <td>#nm#</td>
+			   <td>#de#</td>
+			   <td>#od#</td>
+			   <td align="center"><cfif op eq "0"><b>No</b><cfelse>Yes</cfif></td>
+			   <td style="padding-left:5px">
+			     <cfif URL.Status eq "0" or SESSION.isAdministrator eq "Yes">				  
 			     <A href="CriteriaList.cfm?Status=#URL.Status#&ID=#URL.ID#&ID1=#URL.ID1#&ID2=#nm#">
 				 <img src="#SESSION.root#/Images/edit.gif" alt=""  border="0">
 				 </a>
 				 </cfif>
 			   </td>
-			   <td width="30">
+			   <td style="padding-left:5px">
 			    <cfif URL.Status eq "0" or SESSION.isAdministrator eq "Yes">
 			    <A href="CriteriaListPurge.cfm?Status=#URL.Status#&ID=#URL.ID#&ID1=#URL.ID1#&ID2=#nm#">
 				<img src="#SESSION.root#/Images/delete5.gif" alt="" border="0">
@@ -112,13 +109,13 @@ password="#SESSION.dbpw#">
 						
 		<cfif URL.ID2 eq "" and (URL.Status eq "0" or SESSION.isAdministrator eq "Yes")>
 					
-			<TR>
+			<TR  class="line labelmedium">
 			<td>
-			   <cfinput type="Text" name="ListValue" message="You must enter a value" required="Yes" size="20" maxlength="20" class="regular">			
+			   <cfinput type="Text" name="ListValue" message="You must enter a value" required="Yes" size="20" maxlength="20" class="regularxl">			
 			</td>
 			
 			<td>
-			   <cfinput type="Text" name="ListDisplay" message="You must enter a description" required="Yes" size="30" maxlength="30" class="regular">
+			   <cfinput type="Text" name="ListDisplay" message="You must enter a description" required="Yes" size="30" maxlength="30" class="regularxl">
 			</td>
 			
 			<td>
@@ -130,14 +127,14 @@ password="#SESSION.dbpw#">
 				   style="text-align:center"
 			       size="1"
 			       maxlength="2"
-			       class="regular">
+			       class="regularxl">
 			</td>
 			
 			<td align="center">
-				<input type="checkbox" name="Operational" id="Operational" value="1" checked>
+				<input type="checkbox" class="radiol" name="Operational" id="Operational" value="1" checked>
 			</td>
 								   
-			<td colspan="2" align="right"><input type="submit" value=" Add " class="button4">&nbsp;</td>
+			<td colspan="2" align="right" style="padding-right:4px"><input  style="width:80px" type="submit" value=" Add " class="button10g"></td>
 			    
 			</TR>	
 			
@@ -149,11 +146,8 @@ password="#SESSION.dbpw#">
 		
 		</td>
 		</tr>
-				
-		<tr><td height="2" colspan="5"></td></tr> 
-			
-	</table>	
-		
+					
+	</table>			
 
 	<cfoutput>
 	<script language="JavaScript">
@@ -169,3 +163,5 @@ password="#SESSION.dbpw#">
 	</cfoutput>
 
 </cfform>
+
+</cf_divscroll>

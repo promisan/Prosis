@@ -8,7 +8,7 @@
 		
 		<cfif Mode eq "Inquiry">
 	
-		<cfif SESSION.isAdministrator eq "Yes">
+		<cfif SESSION.isAdministrator eq "Yes"  or session.acc eq Object.OfficerUserid>
 			 <cfset md = "yes">
 		<cfelse>
 			 <cfset md = "no"> 

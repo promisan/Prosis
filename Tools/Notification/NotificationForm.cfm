@@ -17,21 +17,21 @@
 		<tr height="15"><td colspan="2"></td></tr>
 			
 		<tr>
-			<td class="labelmedium">
+			<td class="labelmedium2">
 				<cf_tl id="Title" var="tltitle">#tltitle#:
 			</td>
-			<td class="labelmedium">
+			<td class="labelmedium2">
 				<cfinput type="text" class="regularxl" name="title" id="title" value="#Event.Title#" size="20" maxLength="20">
 			</td>
 		</tr> 
 	
 		<tr>
-			<td class="labelmedium">
+			<td class="labelmedium2">
 				<cf_tl id="Show" var="tlshow">
 				#tlshow#:
 			</td>
 			<td>
-				<cfselect required="yes" class="regularxl" name="authenticationrequired" message="#tlshow# box must be defined">
+				<cfselect required="yes" class="regularxxl" name="authenticationrequired" message="#tlshow# box must be defined">
 					<option value="0" <cfif Event.AuthenticationRequired eq 0>selected</cfif>>
 						Before Loggin in
 					</option>
@@ -42,19 +42,19 @@
 			</td>
 		</tr>
 		<tr>
-			<td class="labelmedium">
+			<td class="labelmedium2">
 				<cf_tl id="Message Display Layout" class="message" var="tlmessagedisplay">
 				#tlmessagedisplay#:
 			</td>
 			<td>
-				<cfselect class="regularxl" required="yes" name="messagedisplay" message="#tlmessagedisplay# must be defined">
+				<cfselect class="regularxxl" required="yes" name="messagedisplay" message="#tlmessagedisplay# must be defined">
 					<option value="top" <cfif Event.Layout eq "top">selected</cfif>>Top Marquee</option>
 					<option value="modal" <cfif Event.Layout eq "modal"> selected</cfif>>Modal window</option>
 				</cfselect>
 			</td>
 		</tr>
 		<tr>
-			<td class="labelmedium">
+			<td class="labelmedium2">
 				<cf_tl id="Effective Date/Hour" var="tleffective">
 				#tleffective#:
 			</td>
@@ -62,12 +62,12 @@
 			
 				<table cellspacing="0" cellpadding="0">
 					<tr>
-						<td class="labelmedium">
+						<td class="labelmedium2">
 							<cfset date = dateformat(now()+1,CLIENT.DateFormatShow)>
 	
 							<cf_intelliCalendarDate9
 								FieldName="dateeffectivestart" 					
-								class="regularxl"		
+								class="regularxxl"		
 								Default = "#DateFormat(Event.EventDateEffective,CLIENT.DateFormatShow)#"
 								AllowBlank="False">	
 						</td>
@@ -88,7 +88,7 @@
 		</tr>
 		
 		<tr>
-			<td class="labelmedium">
+			<td class="labelmedium2">
 				<cf_tl id="Expiration Date/Hour" var="tlexpiration">
 				#tlexpiration#:
 			</td>
@@ -100,7 +100,7 @@
 
 							<cf_intelliCalendarDate9
 								FieldName="dateeffectiveend" 					
-								class="regularxl"	
+								class="regularxxl"	
 								Default = "#DateFormat(Event.EventDateExpiration,CLIENT.DateFormatShow)#"
 								AllowBlank="False">	
 						</td>
@@ -118,7 +118,7 @@
 		</tr>
 		
 		<tr>
-			<td class="labelmedium">
+			<td class="labelmedium2">
 				<cf_tl id="Display notification" var="tlshownoti">
 				#tlshownoti#:
 			</td>
@@ -143,7 +143,7 @@
 						<td>
 							<cfinput type="text" style="text-align:center;width:30px" class="regularxl" value="#display#" name="notificationduration" required="yes" message="#tlshownoti# box must be defined">
 						</td>
-						<td class="labelmedium">
+						<td class="labelmedium2">
 							<input type="radio" 
 								   value="hours" 
 								   name="uom" <cfif checked eq "hours">checked="checked"</cfif>> Hours<br>
@@ -156,7 +156,7 @@
 								   value="weeks" 
 								   name="uom" <cfif checked eq "weeks">checked="checked"</cfif>> Weeks
 						</td>
-						<td class="labelmedium" style="padding-left:3px">
+						<td class="labelmedium2" style="padding-left:3px">
 							&nbsp;&nbsp;before #tleffective#
 						</td>
 					</tr>
@@ -164,12 +164,12 @@
 			</td>
 		</tr>
 		<tr>
-			<td class="labelmedium">
+			<td class="labelmedium2">
 				<cf_tl id="Remove after User views the message" class="message" var="tlremoveafter">
 				#tlremoveafter#:
 			</td>
-			<td class="labelmedium">
-				<cfselect required="yes" class="regularxl" name="removeafter" message="#tlremoveafter# must be defined">
+			<td class="labelmedium2">
+				<cfselect required="yes" class="regularxxl" name="removeafter" message="#tlremoveafter# must be defined">
 					<option value="0" <cfif Event.Persistent eq 0>selected</cfif>>Yes</option>
 					<option value="1" <cfif Event.Persistent eq 1>selected</cfif>>No</option>
 				</cfselect>
@@ -177,12 +177,12 @@
 		</tr>
 		
 		<tr>
-			<td class="labelmedium">
+			<td class="labelmedium2">
 				<cf_tl id="Message Type" var="tlMessagetype">
 				#tlMessagetype#:
 			</td>
-			<td class="labelmedium">
-				<cfselect required="yes" class="regularxl"
+			<td class="labelmedium2">
+				<cfselect required="yes" class="regularxxl"
 						  name="messagetype" 
 						  message="#tlMessagetype# must be defined" 
 						  <!---onchange="if(this.value == 'warning' || this.value == 'urgent'){document.getElementById('notititle').style.display = 'block'} else {document.getElementById('notititle').style.display = 'none'}"--->
@@ -196,7 +196,7 @@
 		</tr>
 		<!---
 		<tr style="display:none;" id="notititle">
-			<td class="labelmedium">
+			<td class="labelmedium2">
 				<cf_tl id="Title">
 			</td>
 			<td>
@@ -205,7 +205,7 @@
 		</tr>
 		--->
 		<tr>
-			<td class="labelmedium">
+			<td class="labelmedium2">
 				<cf_tl id="Select Application Server(s)" class="message"> :
 			</td>
 			<td>
@@ -224,7 +224,7 @@
 					<cfif cnt eq "1">
 					<tr>
 					</cfif>
-						<td class="labelmedium">
+						<td class="labelmedium2">
 						    <table><tr><td>
 							<cfset c="No">
 							<cfif checked neq "">
@@ -232,7 +232,7 @@
 							</cfif>
 							<cfinput class="radiol" required="yes" type="checkbox" value="#Hostname#" id="appserver" name="appserver" checked="#c#">
 							</td>
-							<td style="padding-left:1px" class="labelmedium">#Hostname#</td>
+							<td style="padding-left:1px" class="labelmedium2">#Hostname#</td>
 							</tr>
 							</table>
 						</td>
@@ -247,7 +247,7 @@
 		</tr>
 		
 		<tr>
-			<td class="labelmedium" style="height:25px">
+			<td class="labelmedium2" style="height:25px">
 				<cf_tl id="User Message" var="tlmessage">
 				#tlmessage#:
 			</td>
@@ -260,8 +260,7 @@
 		
 		<tr><td colspan="2"></td></tr>
 		<tr><td colspan="2" class="line"></td></tr>
-		
-				
+						
 		<tr>
 			<td align="center" colspan="2" height="32">
 				<cfif Event.EventId neq "">

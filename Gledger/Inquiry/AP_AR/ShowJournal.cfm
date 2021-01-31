@@ -109,7 +109,7 @@ password="#SESSION.dbpw#">
 			<input type="checkbox" id="Journal" name="Journal" value="'#Journal#'" onclick="reload()">
 			</td>
 			<td>#Currency#</td>
-			<td>#Description#</td>
+			<td>#Journal# #Description#</td>
 			<td align="right">#Document#</td>
 			<td align="right">#numberformat(amount,",.__")#</td>			
 		</tr>

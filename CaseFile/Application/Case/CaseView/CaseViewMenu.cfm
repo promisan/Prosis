@@ -39,7 +39,7 @@
 			function details(objectid,itm) {
 			   w = #CLIENT.width# - 100;
 			   h = #CLIENT.height# - 130;
-			   window.open("#SESSION.root#/tools/entityaction/details/DetailsSelect.cfm?mode=window&objectid=#object.objectid#&item="+itm,itm)
+			   ptoken.open("#SESSION.root#/tools/entityaction/details/DetailsSelect.cfm?mode=window&objectid=#object.objectid#&item="+itm,itm)
 			}
 		
 		</script>

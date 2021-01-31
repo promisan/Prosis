@@ -15,8 +15,11 @@
 <cfparam name="Attributes.MainMenuItem"        default="1">
 <cfparam name="Attributes.Operational"         default="1">
 <cfparam name="Attributes.EnableAnonymous"     default="0">
+<cfparam name="Attributes.AccessUser"          default="0">
 <cfparam name="Attributes.AccessRole"          default="">
 <cfparam name="Attributes.AccessRoleLevel"     default="0,1,2">
+<cfparam name="Attributes.AccessUserGroup"     default="0">
+<cfparam name="Attributes.AccessUser"          default="0">
 
 <cftransaction>
 

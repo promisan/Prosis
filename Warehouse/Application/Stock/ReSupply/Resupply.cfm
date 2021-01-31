@@ -168,7 +168,7 @@
 				<tr>
 		        <td align="left" valign="top" style="padding-top:3px">
 				   			
-				    <select name="programcode" id="programcode" style="border:0px;width:300px;height:105px" multiple class="regularxl">
+				    <select name="programcodesel" id="programcodesel" style="border:0px;width:300px;height:105px" multiple class="regularxl">
 						
 						<cfloop query="Program">
 						<option value="'#ProgramCode#'" <cfif find(programcode,session.mysupply['programcode'])>selected</cfif>>#ProgramName#</option>

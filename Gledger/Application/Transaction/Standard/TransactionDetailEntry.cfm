@@ -1,5 +1,5 @@
 	
-<cfparam name="URL.mission"             default="CMP"> 	
+<cfparam name="URL.mission"             default=""> 	
 <cfparam name="URL.journal"             default="20002"> 	
 <cfparam name="URL.TransactionType"     default="Standard"> 	
 <cfparam name="URL.accountPeriod"       default=""> 
@@ -151,6 +151,8 @@ password="#SESSION.dbpw#">
 	FROM   Ref_Speedtype
 	WHERE  Speedtype = '#journ.speedtype#'
 </cfquery>	
+
+
 
 <cfif Speedtype.recordcount eq "0">
 

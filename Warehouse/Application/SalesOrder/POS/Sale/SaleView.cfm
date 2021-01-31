@@ -371,7 +371,7 @@ password="#SESSION.dbpw#">
 								         id           = "customerselect"	
 										 onfocus      = "this.style.border='1px solid gray';document.getElementById('customerinvoiceselectbox').className ='hide';" 
 										 onblur       = "this.style.border='0px solid gray';forceSelect(this, 'customeridselect');"			 
-								         style        = "border:0px solid silver;width:75px;height:26px;font-size:17px;"
+								         style        = "border:0px solid silver;width:75px;height:26px;font-size:16px;"
 								         autocomplete = "off">						
 								
 								<cfelse>
@@ -381,7 +381,7 @@ password="#SESSION.dbpw#">
 								         id           = "customerselect"	
 										 onfocus      = "this.style.border='1px solid gray';document.getElementById('customerinvoiceselectbox').className ='hide';" 
 										 onblur       = "this.style.border='0px solid gray';forceSelect(this, 'customeridselect');"			 
-								         style        = "border:1px solid silver;background-image:linear-gradient(to bottom,##ffffff,##ffffff);padding-left:4px;width:75px;height:26px;font-size:17px;"
+								         style        = "border:1px solid silver;background-image:linear-gradient(to bottom,##ffffff,##ffffff);padding-left:4px;width:75px;height:26px;font-size:16px;"
 								         autocomplete = "off" 				  							       		  
 								         onkeyup      = "searchcombo('#get.mission#','#url.warehouse#','','customer',this.value,'up','','##customeridselect_val');"
 								         onkeydown    = "searchcombo('#get.mission#','#url.warehouse#','','customer',this.value,'down','','##customeridselect_val');">
@@ -395,7 +395,7 @@ password="#SESSION.dbpw#">
 							  <td style="width:100%;padding-left:0px;border:0px solid gray;" class="regular">	
 							  
 							       <table width="100%">								  
-								   <tr><td id="customerbox" style="width:100%;background-color:##d4d4d4;max-height:26px;min-width:150px;height:26px;font-size:17px;padding-right:4px">					 						 								  								   
+								   <tr><td id="customerbox" style="width:100%;background-color:##d4d4d4;max-height:26px;min-width:150px;height:26px;font-size:16px;padding-right:4px">					 						 								  								   
 								   <cfinclude template="applyCustomer.cfm">																				   
 								   </td>								  	
 								   </tr>
@@ -591,7 +591,7 @@ password="#SESSION.dbpw#">
 							WHERE  EnableProcurement = 1	   							   
 					</cfquery>
 					
-					<select name="currency" id="currency" style="font-size:17px;height:100%;width:100%;border:0px;" class="regularXXL"
+					<select name="currency" id="currency" style="font-size:16px;height:100%;width:100%;border:0px;" class="regularXXL"
 						onchange="ptoken.navigate('#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/applySaleHeader.cfm?field=currency&currency='+this.value+'&requestno='+document.getElementById('RequestNo').value+'&customeridinvoice='+document.getElementById('customerinvoiceidselect').value,'salelines','','','POST','saleform')">
 						
 						<cfloop query="currencylist">

@@ -6,8 +6,7 @@
  <cfset att = "border='0' align='absmiddle'">
  
  <cfoutput>
-  
- 
+   
  		<cfif url.isreport eq "0">
 
 			 <cfif FunctionIcon eq "World">
@@ -27,7 +26,7 @@
 			 <cfelseif FunctionIcon eq "Schedule">
 			     <img src="#client.virtualdir#/Images/schedule.png"   #att# width="36" height="36">	
 			 <cfelseif FunctionIcon eq "Dataset">
-			     <img src="#client.virtualdir#/Images/dataset2.png" width="36" height="36"  #att#>		 	
+			     <img src="#client.virtualdir#/Logos/modules.png" width="36" height="36"  #att#>		 	
 	      	 <cfelseif FunctionIcon eq "Plan">
 			     <img src="#client.virtualdir#/Images/timesheet1.jpg"  #att#>	
 			 <cfelseif FunctionIcon eq "Review">
@@ -41,7 +40,7 @@
 			 <cfelseif FunctionIcon eq "Inquiry">
 	             <img src="#client.virtualdir#/Images/locate2.png"  width="36" height="36"   #att#>	
 			 <cfelseif MenuClass eq "Builder">
-	             <img src="#client.virtualdir#/Images/list2.png"  #att#  width="36" height="36">		 
+	             <img src="#SESSION.root#/Images/logos/listing.png"  #att#  width="48" height="48">		 
 			 <cfelseif FunctionIcon eq "Statistics">
 	             <img src="#client.virtualdir#/Images/graph2.gif"      #att#>		
 			 <cfelseif FunctionIcon eq "Monitor">
@@ -73,7 +72,7 @@
 			 <cfelseif FunctionIcon eq "PDF">	
 	              <img src="#client.virtualdir#/Images/pdf_adobe.gif" #att#> 	
 			 <cfelseif FunctionIcon eq "Report">	
-	              <img src="#client.virtualdir#/Images/report_icon.png" #att# width="36" height="36"> 		 
+	              <img src="#SESSION.root#/Images/logos/system/reports.png" #att# width="44" height="44"> 		 
 			 <cfelseif FunctionIcon eq "Library">	
 	              <img src="#client.virtualdir#/Images/folder4.gif"  #att#> 
 			 <cfelseif FunctionIcon eq "Roster">				
@@ -83,7 +82,7 @@
 			 <cfelseif FunctionIcon eq "Document">	
 	              <img src="#client.virtualdir#/Images/info.gif" #att#> 	
 			 <cfelseif FunctionIcon eq "List">			 
-	              <img src="#client.virtualdir#/Images/list2.png" #att# width="36" height="36"> 	 	 			
+	              <img src="#client.virtualdir#/Images/logos/listing.png" #att# width="36" height="36"> 	 	 			
 			 <cfelseif FunctionIcon eq "Audit">	
 	              <img src="#client.virtualdir#/Images/audit.png" #att# width="25" height="25" >
 			 <cfelseif FunctionIcon eq "Video">

@@ -59,7 +59,7 @@
 	
 	<cfloop query="subaction">
 	
-	<tr class="labelmedium"><td colspan="2" style="padding:5px;padding-left:20px;padding-right:20px">
+	<tr class="labelmedium"><td colspan="2">
 	<cfinclude template="../../../../#DocumentTemplate#">
 	</td></tr>
 	
@@ -170,7 +170,7 @@
 	</tr>
 	
 	<tr class="labelmedium">
-	<td colspan="2" valign="top" align="center" style="padding-top:4px;height:80%;padding-left:10px;padding-right:20px">
+	<td colspan="2" valign="top" align="center" style="padding-top:4px;height:80%">
 	
 	 <cfquery name="Check" 
 	 datasource="AppsVacancy" 
@@ -183,19 +183,8 @@
 		AND   ActionCode = '#url.ActionCode#'  
 	 </cfquery>	
 	 
-	 <textarea style="border:0px;background-color:f1f1f1;height:100%;width:100%;font-size:13px;padding:4px" class="regular"  name="ReviewMemo">#Check.ReviewMemo#</textarea>
+	 <textarea style="border:0px;background-color:f1f1f1;height:150px;width:100%;font-size:13px;padding:4px" class="regular"  name="ReviewMemo">#Check.ReviewMemo#</textarea>
 	
-	<!---
-	 <cf_textarea name="ReviewMemo"           		 
-				 init="Yes"							
-				 color="ffffff"	 
-				 resize="false"		
-				 border="0" 
-				 toolbar="Mini"
-				 height="200"
-				 width="100%">#Check.ReviewMemo#</cf_textarea>
-				 
-				 --->
 	</td>
 	</tr>
 	
@@ -216,4 +205,3 @@
 
 </cfoutput>
 
-<cfset ajaxonload("initTextArea")>

@@ -1,12 +1,11 @@
 
-
 <cfset Page         = "0">
 <cfset add          = "1">
 <cfset Header       = "Candidate Class">
 
 <cf_screentop html="No" jquery="Yes">
 
-<table width="98%" height="100%">
+<table width="98%" align="center" height="100%">
 
 <tr style="height:10px"><td><cfinclude template = "../HeaderRoster.cfm"></td></tr>
 

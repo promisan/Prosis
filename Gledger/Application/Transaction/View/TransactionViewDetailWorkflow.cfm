@@ -26,7 +26,7 @@
       <cfset org = "#Transaction.OrgUnitOwner#">				  
 </cfif>
 
-   				
+  				
 <cf_ActionListing 
     TableWidth       = "100%"
     EntityCode       = "GLTransaction"

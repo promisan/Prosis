@@ -9,5 +9,5 @@
 
 <table height="100%" width="100%">
 <tr><td height="100%" style="padding-left:4px;padding-right:4px">
-<cfinclude template="JournalTransactionListingContent.cfm">
+<cfinclude template="ListingLineContent.cfm">
 </td></tr></table>

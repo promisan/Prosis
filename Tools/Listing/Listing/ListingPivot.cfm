@@ -1,9 +1,11 @@
 
 <cfoutput>
 
+
 <cfif url.systemfunctionid neq "" and group eq "Yes">
+
 		
-	<table cellspacing="0" cellpadding="0">
+	<table>
 	<tr>	
 	
 	<td class="labelmedium2" style="padding-right:6px;padding-left:10px;height:30px;border-right:1px solid silver"><cf_tl id="Grouping"></td>

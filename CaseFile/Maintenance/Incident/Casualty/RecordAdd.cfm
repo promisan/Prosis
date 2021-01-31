@@ -10,43 +10,44 @@
 
 
 
- <CFFORM action="RecordSubmit.cfm" method="post" enablecab="yes" name="dialog">
+ <CFFORM action="RecordSubmit.cfm" method="post" name="dialog">
 <!--- Entry form --->
 <cfoutput>
-<table width="95%" align="center" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="95%" align="center" cellspacing="0" cellpadding="0" class="formpadding formspacing">
 
    <!--- Field: Id --->
-    <TR>
-    <TD class="labelit"><cf_tl id="Code">:</TD>
-    <TD class="labelit">
+   
+    <tr><td></td></tr>
+	
+    <TR class="labelmedium2">
+    <TD><cf_tl id="Code">:</TD>
+    <TD>
 		<cf_tl id = "Please enter a code" var = "1" class="Message">
 		<cfinput type="Text" name="Code" id="Code" value="" message="#lt_text#" required="Yes" size="20" maxlength="20"
-		class="regularxl">
+		class="regularxxl">
 	</TD>
 	</TR>
 	   <!--- Field: Description --->
-    <TR>
-    <TD class="labelit"><cf_tl id="Description">:</TD>
-    <TD class="labelit">
+    <TR class="labelmedium2">
+    <TD><cf_tl id="Description">:</TD>
+    <TD>
 		<cf_tl id = "Please enter a description" var = "1" class="Message">
 		<cfinput type="Text" name="Description" id="Description" value="" message="#lt_text#" required="Yes" size="50" maxlength="50"
-		class="regularxl">
+		class="regularxxl">
 	</TD>
 	</TR>
 	
 	   <!--- Field: Remarks --->
-    <TR>
-    <TD class="labelit"><cf_tl id="Remarks">:</TD>
-    <TD class="labelit">
+    <TR class="labelmedium2">
+    <TD><cf_tl id="Remarks">:</TD>
+    <TD>
 		<cf_tl id = "Please enter a Remarks" var = "1" class="Message">
 		<cfinput type="Text" name="Remarks" id="Remarks" value="" message="#lt_text#" required="No" size="50" maxlength="50"
-		class="regularxl">
+		class="regularxxl">
 	</TD>
 	</TR>		
 
-	<tr><td colspan="2" align="center" height="4">
 	<tr><td colspan="2" class="line"></td></tr>
-	<tr><td colspan="2" align="center" height="4">
 	
 	<tr>
 		<td align="center" colspan="2">
@@ -56,15 +57,9 @@
 		<input class="button10g" type="submit" name="Insert" value=" #lt_text# ">
 		</td>	
 	</tr>
-	
-
-    
+	   
 </TABLE>
+
 </cfoutput>
 
-
-
-
 </CFFORM>
-
-</BODY></HTML>

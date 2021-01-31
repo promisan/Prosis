@@ -1,4 +1,5 @@
 
+
 <cfif url.listgroupfield eq "" 
       or url.listgrouptotal eq "0" <!--- no summary requested --->
 	  or drillkey eq "">	
@@ -75,6 +76,7 @@
 				
 					<div id="_divSubContent">
 					
+										
 					<cfoutput>
 																			   		   
 						<table style="width:98%" class="navigation_table" id="#box#_table">						  
@@ -118,7 +120,7 @@
 						</table>	
 											
 					</cfoutput>
-					
+										
 					</div>
 					
 				</cf_divscroll>																

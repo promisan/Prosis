@@ -1,7 +1,7 @@
 
 <cfajaximport tags="cftree, cfform">
 
-<cf_screentop height="100%" html="Yes" layout="webapp" banner="gray" Label="Select a location" jQuery="yes">
+<cf_screentop height="100%" html="Yes" layout="webapp" banner="gray" Label="Select a location" jQuery="yes" treetemplate="yes">
 <cf_Layoutscript>
 
 <cfset attrib = {type="Border",name="mybox",fitToWindow="Yes"}>	

@@ -597,13 +597,13 @@
    FunctionDirectory  = "System/Organization"
    FunctionPath       = "Maintenance/OrgUnitClass/RecordListing.cfm">
  
-   
+    
 <cf_ModuleInsertSubmit
    SystemModule       = "System" 
    FunctionClass      = "Organization"
    FunctionName       = "Memo/Notes" 
    MenuCLass          = "Detail"
-   MenuOrder          = "0"
+   MenuOrder          = "1"
    MainMenuItem       = "0"
    ScriptName         = "memo">         
  
@@ -638,44 +638,62 @@
    SystemModule       = "System" 
    FunctionClass      = "Organization"
    FunctionName       = "Purchase Order" 
-   MenuCLass          = "Detail"
-   MenuOrder          = "4"
+   MenuCLass          = "Provider"
+   MenuOrder          = "1"
    MainMenuItem       = "0"
    ScriptName         = "purchase">    
   
 <cf_ModuleInsertSubmit
    SystemModule       = "System" 
    FunctionClass      = "Organization"
-   FunctionName       = "Accounts Payable" 
-   MenuCLass          = "Detail"
-   MenuOrder          = "5"
+   FunctionName       = "Invoices" 
+   MenuCLass          = "Provider"
+   MenuOrder          = "2"
    MainMenuItem       = "0"
-   ScriptName         = "invoiceAP">  
+   ScriptName         = "invoice">  
+   
+<cf_ModuleInsertSubmit
+   SystemModule       = "System" 
+   FunctionClass      = "Organization"
+   FunctionName       = "Accounts Payable" 
+   MenuCLass          = "Provider"
+   MenuOrder          = "3"
+   MainMenuItem       = "0"
+   ScriptName         = "invoiceAP">     
         
 <cf_ModuleInsertSubmit
    SystemModule       = "System" 
    FunctionClass      = "Organization"
    FunctionName       = "Payments" 
-   MenuCLass          = "Detail"
-   MenuOrder          = "6"
+   MenuCLass          = "Provider"
+   MenuOrder          = "4"
    MainMenuItem       = "0"
-   ScriptName         = "invoiceAPpayment">         
+   ScriptName         = "invoiceAPpayment">    
+   
+<cf_ModuleInsertSubmit
+   SystemModule       = "System" 
+   FunctionClass      = "Organization"
+   FunctionName       = "Receipts" 
+   MenuCLass          = "Provider"
+   MenuOrder          = "5"
+   MainMenuItem       = "0"
+   ScriptName         = "invoiceAPreceipt">           
    
 <cf_ModuleInsertSubmit
    SystemModule       = "System" 
    FunctionClass      = "Organization"
    FunctionName       = "Accounts Receivable" 
-   MenuCLass          = "Detail"
-   MenuOrder          = "7"
+   MenuCLass          = "Purchaser"
+   MenuOrder          = "6"
    MainMenuItem       = "0"
    ScriptName         = "invoiceAR">     
       
 <cf_ModuleInsertSubmit
    SystemModule       = "System" 
    FunctionClass      = "Organization"
-   FunctionName       = "Receipts" 
-   MenuCLass          = "Detail"
-   MenuOrder          = "8"
+   FunctionName       = "Shipping" 
+   MenuCLass          = "Purchaser"
+   MenuOrder          = "7"
    MainMenuItem       = "0"
    ScriptName         = "invoiceARreceipt">        
   

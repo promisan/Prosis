@@ -85,7 +85,7 @@
 					  FROM      Accounting.dbo.TransactionHeader
 					  WHERE     TransactionSourceId = '#get.BatchId#' 
 					  AND       TransactionCategory = 'Receivables'
-					  AND       RecordStatus = '1'
+					  AND       RecordStatus = '1'					  
 			    </cfquery>					
 						
 				<cfif getHeader.recordcount eq "1">

@@ -48,7 +48,7 @@ password="#SESSION.dbpw#">
 		
 	<tr><td class="line" colspan="9"></td></tr>	
 	
-	<TR  class="labelmedium line">
+	<TR  class="labelmedium2 line">
 	    <td height="20" width="2%"></td>
 	    <td width="20%"><cf_tl id="Type"></td>
 		<TD width="25%"><cf_tl id="Address"></TD>
@@ -75,16 +75,16 @@ password="#SESSION.dbpw#">
 	
 	<cfoutput query="Search">
 	
-		<TR class="cellcontent navigation_row line" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('f4f4f4'))#">
+		<TR class="labelmedium2 navigation_row line" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('f4f4f4'))#">
 		
 		<td align="center" style="padding-left:12px;padding-top:4px;padding-right:12px"> 		   
-		    <cf_img icon="edit" navigation="yes" onclick="personaddressedit('#URL.ID#','#AddressId#','#url.webapp#')">		  			
+		    <cf_img icon="open" navigation="yes" onclick="personaddressedit('#URL.ID#','#AddressId#','#url.webapp#')">		  			
 		</td>	
 		
-		<td><a href="javascript:personaddressedit('#URL.ID#','#AddressId#','#url.webapp#')"><font color="0080C0">#AddressTypeDescription#</a></td>
+		<td><a href="javascript:personaddressedit('#URL.ID#','#AddressId#','#url.webapp#')">#AddressTypeDescription#</a></td>
 		
 		<td style="padding-left:4px">
-		    <a href="javascript:personaddressedit('#URL.ID#','#AddressId#','#url.webapp#')"><font color="0080C0">#Address# #Address2# #AddressRoom#</a>
+		    <a href="javascript:personaddressedit('#URL.ID#','#AddressId#','#url.webapp#')">#Address# #Address2# #AddressRoom#</a>
 		</td>
 		
 		<td>#AddressCity#, #Name#</td>
@@ -107,7 +107,7 @@ password="#SESSION.dbpw#">
 		<td align="right" style="padding-left:4px;padding-right:4px">#DateFormat(DateEffective,CLIENT.DateFormatShow)#</td>
 		</TR>
 	
-		<TR class="cellcontent line navigation_row_child" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('f4f4f4'))#">
+		<TR class="labelmedium2 line navigation_row_child" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('f4f4f4'))#">
 	
 		    <td colspan="1"></td>
 			<td colspan="8" align="left">
@@ -125,8 +125,8 @@ password="#SESSION.dbpw#">
 			    FROM Ref_Contact P
 			</cfquery>
 			
-				<table cellspacing="0" cellpadding="0">
-				<tr>
+				<table>
+				<tr class="labelmedium2">
 				<cfset row = 0>
 				
 					<cfloop query="contactNo">	
@@ -140,8 +140,8 @@ password="#SESSION.dbpw#">
 						
 					  </cfif> 
 					  
-					  <td style="padding-left:10px" class="labelit"><cf_tl id="#Description#">:</td>
-					  <td style="padding-left:10px" class="labelit">						  
+					  <td style="padding-left:10px"><cf_tl id="#Description#">:</td>
+					  <td style="padding-left:10px">						  
 					      <font color="gray">
 					      <cfif callsign eq "">n/a<cfelse><b>#CallSign#</cfif></b>	
 					      </font>

@@ -100,13 +100,12 @@
 <!--- embed|window|dialogajax|dialog|standard --->
 	
 	<cf_listing header  = "PersonnelAction"
-	    box           = "actiondetail"
+	    box           = "actiondetailperson"
 		link          = "#SESSION.root#/Staffing/Application/Employee/PersonAction/ActionListContent.cfm?init=0&id=#url.id#&systemfunctionid=#url.systemfunctionid#&mode=#url.mode#"
 	    html          = "No"		
 		datasource    = "AppsQuery"
 		listquery     = "#myquery#"
-		listgroup     = "ActionSource"
-		listgroupalias = "R"
+		listgroup     = "ActionSource"		
 		listorder     = "ActionDocumentNo"
 		listorderdir  = "DESC"
 		headercolor   = "ffffff"				

@@ -103,24 +103,24 @@
 	</tr>	
 	
 	<tr class="labelmedium2 line">	    
-		<td style="border-left:1px solid gray;padding:2px" align="center">
+		<td style="border-left:1px solid gray;padding:1px" align="center">
 		<input type="button" style="border:1px solid silver;width:100%;height:22px" class="button10g" id="btncurrent" value="Usr" onclick="reloadForm('current','usr','action')">						
 		</td>
-		<td style="padding:2px" align="center">
+		<td style="padding:1px" align="center">
 		<input type="button" style="border:1px solid silver;width:100%;height:22px" class="button10g" id="btncurrent" value="Ses" onclick="reloadForm('current','ses','action')">								
 		</td>
-		<td style="min-width:37px;padding:2px" align="center">
+		<td style="padding:1px" align="center">
 		<input type="button" style="border:1px solid silver;width:100%;height:22px" class="button10g" id="btncurrent" value="Err" onclick="reloadForm('current','ses','error')">										
 <!---		<input type="button" style="border:1px solid silver;width:100%;height:22px" class="button10g" id="btncurrent" value="Err" onclick="reloadForm('current','ses')">  --->								
 		</td>
 		
-		<td style="border-left:1px solid gray;padding:2px" align="center">
+		<td style="border-left:1px solid gray;padding:1px" align="center">
 		<input type="button" style="border:1px solid silver;width:100%;height:22px" class="button10g" id="btncurrent" value="Usr" onclick="reloadForm('24hour','usr','action')">						
 		</td>
-		<td  style="padding:2px" align="center">
+		<td  style="padding:1px" align="center">
 		<input type="button" style="border:1px solid silver;width:100%;height:22px" class="button10g" id="btncurrent" value="Ses" onclick="reloadForm('24hour','ses','action')">								
 		</td>	
-		<td style="min-width:37px;padding:2px" align="center">
+		<td style="padding:1px" align="center">
 		<input type="button" style="border:1px solid silver;width:100%;height:22px" class="button10g" id="btncurrent" value="Err" onclick="reloadForm('24hour','ses','error')">								
 	
 	<!---		<input type="button" style="border:1px solid silver;width:100%;height:22px" class="button10g" id="btncurrent" value="Err" onclick="reloadForm('current','ses')">  --->								

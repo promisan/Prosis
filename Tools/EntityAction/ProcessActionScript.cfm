@@ -151,8 +151,16 @@
 		ptoken.open("ProcessMailDialog.cfm?objectid="+obt+"&actioncode="+cde+"&NotificationGlobal="+glob, "wMailDialog", "height=700, width=700");				
 	}	
 					
-	function embedtabdoc(actionid,docid,sign,language,format,no,act) {			      
+	function embedtabdoc(actionid,docid,sign,language,format,no,act) {		
+	
+	    if (act == 'refresh') {
+		
+			if (confirm("This action will overwrite any changes you might have made to this document.\\Do you want to continue ?")) {
+		    	ptoken.navigate('Report/DocumentProcess.cfm?actionid='+actionid+'&docid='+docid+'&sign='+sign+'&language='+language+'&format='+format+'&no='+no+'&action='+act,'docaction'+docid) 	 		   
+		    } 
+		} else {			      
 		ptoken.navigate('Report/DocumentProcess.cfm?actionid='+actionid+'&docid='+docid+'&sign='+sign+'&language='+language+'&format='+format+'&no='+no+'&action='+act,'docaction'+docid) 	 		   
+		}
 	}           	
 	
 	function mycallBack() { }

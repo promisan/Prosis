@@ -275,11 +275,11 @@ There are three mode
 						<cfset itm = itm+1>		
 								
 						<cf_menutab item       = "#itm#" 					            
-						            iconsrc    = "Logos/Staffing/Analysis.png" 
+						            iconsrc    = "Logos/Modules.png" 
 									iconwidth  = "#wd#" 
 									iconheight = "#ht#" 		
 									targetitem = "7"						
-									name       = "Roster Status Inquiry"
+									name       = "Inquiry"
 									source     = "javascript:loadset()">	
 									
 				 </cfif>																					

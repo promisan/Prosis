@@ -194,6 +194,7 @@ function applyfilter(md,mypage,ajaxid,callback,groupvalue1,grouptarget,col1,col1
 
        	_cf_loadingtexthtml='';																				
 		try { document.getElementById("treerefresh").click();} catch(e) {}		
+		
 	    try {	
 				
 		    if (mypage == "") {		  				   
@@ -201,9 +202,9 @@ function applyfilter(md,mypage,ajaxid,callback,groupvalue1,grouptarget,col1,col1
 		    } else {   		 
 			     pg = mypage
 			}		
-																													 					  	
-			document.listfilter.onsubmit() 	
-																
+																																						 					  	
+			document.listfilter.onsubmit() 
+																		
 			if( _CF_error_messages.length == 0 ) {						   
 			   		 						  		   		  	  
 			   lk    = document.getElementById('mylink').value			  
@@ -230,7 +231,7 @@ function applyfilter(md,mypage,ajaxid,callback,groupvalue1,grouptarget,col1,col1
 				   if (lkf == "") {					   
 				   	  window['__printListingCallback'] = function(){ if (callback) callback(); };								 						  	  											  
 				       ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&groupvalue1='+groupvalue1+'&grouptarget='+grouptarget+'&col1='+col1+'&col1value='+col1value+'&selfld='+sfld+'&content=1&refresh='+md,target,'__printListingCallback','','POST','listfilter')				  
-				   } else {							         	      		   			 						  
+				   } else {						   				         	      		   			 						  
 				       ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&groupvalue1='+groupvalue1+'&grouptarget='+grouptarget+'&col1='+col1+'&col1value='+col1value+'&selfld='+sfld+'&content=1&refresh='+md,target,'','','POST',lkf)		  						  
 				   }		   
 				}	
@@ -239,11 +240,15 @@ function applyfilter(md,mypage,ajaxid,callback,groupvalue1,grouptarget,col1,col1
 
 		} catch(e) {	
 		
+			
 		  // alert(e)		
-												
+		  
+		  												
 	  	   if (!pg)
 		   
 		   pg=0
+		   
+		  
 	
 		   lk=""
 		   

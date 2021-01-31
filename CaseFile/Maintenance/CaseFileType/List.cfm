@@ -16,32 +16,31 @@ password="#SESSION.dbpw#">
 
 	SELECT * FROM Ref_EntityClass
 	WHERE  EntityCode 
-	IN
-	(
+	IN (
 		SELECT EntityCode FROM
 		Ref_Entity
-	    WHERE EntityCode like 'Clm#URL.ClaimType#'
-	)  
+	    WHERE EntityCode like 'Clm#URL.ClaimType#'	)  
 
 </cfquery>
   
 <cfparam name="URL.code" default="">
 	
-<table width="100%" cellspacing="0" cellpadding="0" class="navigation_table">
+<table width="100%" class="navigation_table">
 				
 		<cfif list.recordcount eq "0">
 		  <cfset url.code = "new">
 		</cfif>  
 			
-		    <tr height="18" class="line">
+			<tr><td style="height:6px"></td></tr>
+		    <tr height="18" class="line labelmedium2">
 			   <td>&nbsp;<cf_tl id="Code"></td>
 			   <td width="60%"><cf_tl id="Description"></td>
 			   <td> <cf_tl id="WorkFlow Class"></td>
 			   <td colspan="2" align="right">
 		       <cfoutput>
 				 <cfif URL.code neq "new">
-				     <A href="javascript:ColdFusion.navigate('List.cfm?ClaimType=#URL.ClaimType#&Code=new','#url.claimtype#_list')">
-					 <font color="0080FF">[<cf_tl id="add">]</font></a>
+				     <A href="javascript:ptoken.navigate('List.cfm?ClaimType=#URL.ClaimType#&Code=new','#url.claimtype#_list')">
+					 [<cf_tl id="add">]</a>
 				 </cfif>
 				 </cfoutput>&nbsp;
 			   </td>		  
@@ -56,17 +55,16 @@ password="#SESSION.dbpw#">
 																								
 			<cfif url.code eq co>		
 			
-			<tr class="navigation_row">
+			<tr>
+			
 				<td colspan="5">
 			
-				<cfform action="ListSubmit.cfm?ClaimType=#URL.ClaimType#&code=#url.code#" 
-	    		method="POST" 
-				name="element">
+				<cfform style="height:20px" action="ListSubmit.cfm?ClaimType=#URL.ClaimType#&code=#url.code#" method="POST"	name="element">
 							
 					<table align="center" width="100%">
 															
 					<tr>
-					   <td>&nbsp;#co#</td>
+					   <td>#co#</td>
 					   <td>
 					   
 					   	  <cf_tl id="Description" var = "1">
@@ -86,21 +84,23 @@ password="#SESSION.dbpw#">
 					  
 			           </td>
 					   <td>
-					   		<cfselect name="entityclass" class="regularxl">
+					   		
+							<cfselect name="entityclass" class="regularxl">
 								<cfloop query="WFList">
 									<cfoutput>
 									<option value="#entityclass#" <cfif List.entityclass eq WFList.entityclass>selected</cfif>>#entityclass#</option>
 									</cfoutput>
 								</cfloop>
 							</cfselect>
+							
 					   </td>
 					   <td colspan="2" align="right">
 	   				   	  <cf_tl id="Save" var = "1">
 						  <cfset vSave = lt_text>
 						   <input type="submit" 
 						        value="#vSave#" 
-								class="button10s" 
-								style="width:50" class="regularxl">&nbsp;
+								class="button10g" 
+								style="width:50px" class="regularxl">
 					   </td>
 				    </tr>	
 					
@@ -110,16 +110,15 @@ password="#SESSION.dbpw#">
 							
 				</td>
 			</tr>
-			
-																		
+																					
 			<cfelse>								
 						
-				<tr class="linedotted navigation_row">
+				<tr class="line navigation_row labelmedium2">
 				   <td>&nbsp;#co#</td>
 				   <td height="20">#nm#</td>
 				   <td>#entityclass#</td>
 				   <td align="right">
-					   <cf_img icon="edit" onclick="ColdFusion.navigate('List.cfm?ClaimType=#URL.ClaimType#&code=#co#','#url.claimtype#_list')">
+					   <cf_img icon="open" onclick="ptoken.navigate('List.cfm?ClaimType=#URL.ClaimType#&code=#co#','#url.claimtype#_list')">
 				   </td>
 			   			   
 				   <cfquery name="Check" 
@@ -127,13 +126,13 @@ password="#SESSION.dbpw#">
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
 				    	SELECT TOP 1 *
-					    FROM  Claim
-						WHERE ClaimTypeClass = '#co#'							
+					    FROM   Claim
+						WHERE  ClaimTypeClass = '#co#'							
 				   </cfquery>
 				   
 				   <td align="center" width="20">
 				     <cfif check.recordcount eq "0">
-						   <cf_img icon="delete" onclick="ColdFusion.navigate('ListPurge.cfm?claimtype=#url.claimtype#&code=#co#','#url.claimtype#_list')">
+						   <cf_img icon="delete" onclick="ptoken.navigate('ListPurge.cfm?claimtype=#url.claimtype#&code=#co#','#url.claimtype#_list')">
 					 </cfif>	   
 					  
 				    </td>
@@ -150,14 +149,12 @@ password="#SESSION.dbpw#">
 			<tr class="navigation_row">
 				<td colspan="5">
 			
-				<cfform action="ListSubmit.cfm?ClaimType=#URL.ClaimType#&code=new" 
-			    method="POST" 
-				name="element">
+				<cfform action="ListSubmit.cfm?ClaimType=#URL.ClaimType#&code=new" method="POST" name="element">
 				
 					<table width="100%" align="center">
 								
 						<tr>
-						<td height="28">&nbsp;
+						<td height="28">
 								<cfoutput>
 							   	<cf_tl id="You must enter a code" var = "1">
 								<cfset vMessage = lt_text>
@@ -197,13 +194,12 @@ password="#SESSION.dbpw#">
 							</cfselect>
 						</td>
 						<td colspan="2" align="right">
-						<cfoutput>
+						
 							<input type="submit" 
 								value="Add" 
-								class="button10s" 
-								style="width:50" class="regularxl">
-						&nbsp;
-						</cfoutput>
+								class="button10g" 
+								style="width:50px" class="regularxl">						
+						
 						</td>			    
 						</tr>	
 					</table>

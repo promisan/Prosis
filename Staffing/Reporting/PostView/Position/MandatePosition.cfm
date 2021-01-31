@@ -154,7 +154,7 @@
 	 	 
 	 <tr>
 	    <td height="100%" valign="top" colspan="3">
-		<cfdiv style="width:100%;height:100%;padding-bottom:2px" id="actionbox"></td>
+		<cfdiv style="width:100%;height:99%;padding-bottom:2px" id="actionbox"></td>
 	 </tr>
 					  
 	</table>  

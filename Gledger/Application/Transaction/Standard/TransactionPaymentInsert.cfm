@@ -156,13 +156,24 @@ password="#SESSION.dbpw#">
 				AND      TransactionSerialNo != '0'						
 				AND      ParentLineId is NULL					
 				
-				</cfif>				
+				</cfif>	
+				
 				
 			</cfquery>
 			
-			<cfif Advance.recordcount gte "1">
+			<!--- we sum if there are several advances --->
 			
-			    <!--- determine how much was already offsetted --->
+			<cfquery name="Advance" dbtype="query">
+						
+				SELECT   TransactionCurrency, Currency, Reference, ReferenceNo, GLAccount, SUM(Advance) as Advance
+				FROM     Advance
+				GROUP BY TransactionCurrency, Currency, Reference, ReferenceNo, GLAccount
+			
+			</cfquery>
+			
+			<cfif Advance.recordcount gte "1">
+										
+			    <!--- determine how much was already offsetted for the found advances  --->
 						
 				<cfquery name="Offsetted" 
 					    datasource="AppsLedger" 
@@ -177,17 +188,18 @@ password="#SESSION.dbpw#">
                                            WHERE    Mission      = '#mission#') 				
 						AND    ParentJournal         is not NULL
 						AND    ParentJournalSerialNo is not NULL	
-																		
+																								
 						<!--- this is the transaction base --->
 				</cfquery>   
-				
+												
 				<cfset val = 0>
 				
 				<cfif Offsetted.Total neq "">
 				  <cfset val = val+Offsetted.Total>
 				</cfif>
 				
-				 <!--- determine how much is in offset as it is selected in this run-time transaction --->
+				 <!--- ALSO determine how much is in offset as it is selected 
+				           in this run-time transaction --->
 				
 				<cfquery name="OffsettedSelected" 
 					    datasource="AppsQuery" 
@@ -198,17 +210,17 @@ password="#SESSION.dbpw#">
 						WHERE  ReferenceNo        = '#Advance.ReferenceNo#'	
 						AND    GLAccount          = '#Advance.GLAccount#'							
 						AND    ParentJournal         is not NULL
-						AND    ParentJournalSerialNo is not NULL														
+						AND    ParentJournalSerialNo is not NULL												
 						<!--- this is the transaction base --->
-				</cfquery>   
+				</cfquery> 
+				
+				<cfif OffsettedSelected.Total neq "">
+				  <cfset val = val+OffsettedSelected.Total>
+				</cfif>  
 													
 				<cfset offset    = 0>
 				<cfset payment   = amountOutstanding>
-								
-				<cfif OffsettedSelected.Total neq "">
-				  <cfset val = val+OffsettedSelected.Total>
-				</cfif>
-								
+																
 				<cfset diff = abs(Advance.Advance-val)>
 										
 				<cfif diff gte 0.05>

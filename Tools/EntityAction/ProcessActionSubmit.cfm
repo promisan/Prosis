@@ -427,10 +427,10 @@
 			FROM   Ref_EntityDocumentSignature
 			WHERE  EntityCode = '#Object.EntityCode#'
 			AND    Code       = '#Documents.SignatureBlock#' 
-			AND	   Operational = 1
+			AND	   Operational = 1  
 		</cfquery>	
 				
-		<!--- parse the document --->				   
+		<!--- parse the document 				   
 		    
 		  <cfquery name="Language" 
 			datasource="AppsSystem">
@@ -445,15 +445,51 @@
 		  	   <cfset vLanguagecode = "">
 		  <cfelse>   
 			   <cfset vLanguagecode  = "xl#documents.DocumentLanguageCode#_">
-		  </cfif>						
-	
+		  </cfif>	
+		  
+		  --->	
+		 
+		<cfset URL.Signature         = "#signature.blockline1#<br>#signature.blockline2#<br>#signature.blockline3#<br>#signature.blockline4#<br>#signature.blockline5#">
+		<cfset URL.Description       = "">
+		<cfset URL.DocumentFramework = "#DocumentFramework#">
+		<cfset URL.Language          = "#DocumentLanguageCode#">
+		<cfset URL.Format            = "#DocumentFormat#">
+			
 		<cfsavecontent variable="text">
+		
 		    <cfset url.WParam = DocumentStringList>
 		    <cfset URL.actionId = "#URL.ID#">
-			<cfinclude template="../../#DocumentTemplate#">		
-		</cfsavecontent>				
+			<cfinclude template="Report/DocumentFramework.cfm"> 
+						
+		</cfsavecontent>	
+		
+		<!--- we add the custom signature block --->
+		
+		<cfset path = left(DocumentTemplate,len(DocumentTemplate)-4)>						
+				
+		<cfif FileExists("#SESSION.rootpath#\#path#_Signature.cfm")>	
+										
+			<cfsavecontent variable="thesignatureblock">			
+				<cfinclude template="../../#path#_Signature.cfm">					
+			</cfsavecontent>
+												
+			<cfif signatureblock neq "">			
+					
+					<cfset start = findNoCase("<sign>",text)> 
+					<cfset start = start>
+					<cfset end   = findNoCase("</sign>",text)> 
+					<cfset cnt   = end-start+7>
+					<cfif start gt "1" and cnt gt "1">
+						<cfset prior = mid(text,start,cnt)>									
+						<cfset text = replace("#text#", "#prior#", "<sign>#thesignatureblock#</sign>")>
+					</cfif>
+																			
+			</cfif>									
+					
+		</cfif>				
 
-		<cfif documents.DocumentStringList neq "norefresh">   			
+		<cfif documents.DocumentStringList neq "norefresh">   
+					
 			<cfquery name="UpdateMemo" 
 			 	datasource="AppsOrganization"
 			 	username="#SESSION.login#" 
@@ -463,6 +499,7 @@
 			 	WHERE  ActionId        = '#URL.ID#' 
 			 	AND    DocumentId      = '#DocumentId#'
 			</cfquery>
+			
 		</cfif>	
 			
 	</cfloop>	

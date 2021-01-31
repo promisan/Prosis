@@ -1175,10 +1175,9 @@
 						datasource="AppsOrganization" 
 						username="#SESSION.login#" 
 						password="#SESSION.dbpw#">
-						SELECT   TOP 1 SerialNo
+						SELECT   MAX(SerialNo) as SerialNo
 						FROM     OrganizationObjectActionMail
-						WHERE    ThreadId = '#Attributes.ActionId#'									
-						ORDER BY SerialNo DESC
+						WHERE    ThreadId = '#Attributes.ActionId#'															
 					</cfquery>
 					
 					<cfif checked.serialno eq "">

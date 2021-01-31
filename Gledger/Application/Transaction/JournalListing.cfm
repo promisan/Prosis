@@ -181,12 +181,14 @@
 					<td style="padding-left:3px;padding-right:10px">
 					<font color="FF0000"><cf_tl id="Voided"></font>	
 					</td>
+					<!---
 					<td style="padding-left:4px;cursor: pointer;" onclick="reloadForm(document.getElementById('page').value,'All')">
 					<input type="radio" style="height:18px;width:18px" class="radiol" name="Status" value="All" <cfif URL.IDStatus neq "Outstanding" and URL.IDStatus neq "Voided">Checked</cfif>>
 					</td>
 					<td style="padding-left:3px;padding-right:10px">
 					<cf_tl id="All">	
 					</td>
+					--->
 					
 					</tr>
 					</table>

@@ -20,8 +20,11 @@
 
 <cf_mapscript scope="embed" height="300" width="360">
 
-<cfajaximport tags="cfwindow,cfmap,cfform"
-      params="#{googlemapkey='#client.googlemapid#'}#"> 
+<cfif CLIENT.googlemap eq "1">
+	<cfajaximport tags="cfmap,cfform" params="#{googlemapkey='#client.googlemapid#'}#"> 
+<cfelse>
+	<cfajaximport tags="cfform"> 
+</cfif>
 
 <cfparam name="url.header" default="1">
 <cfparam name="url.webapp" default="">

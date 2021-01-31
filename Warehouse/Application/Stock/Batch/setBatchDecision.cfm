@@ -165,7 +165,7 @@
 					  FROM      Accounting.dbo.TransactionHeader
 					  WHERE     TransactionSourceId = '#Batch.BatchId#' 
 					  AND       TransactionCategory = 'Receivables'
-					  AND       RecordStatus = '1'
+					  AND       RecordStatus = '1'					  
 			    </cfquery>
 				
 				<cfif getHeader.recordcount eq "1">
@@ -177,7 +177,7 @@
 						  SELECT    *	
 						  FROM      Organization.dbo.OrganizationObject
 						  WHERE     ObjectKeyValue4 = '#getHeader.TransactionId#' 
-						  AND       Operational  = '1'
+						  AND       Operational  = '1'						 
 				    </cfquery>
 					
 					<cfif getObject.ObjectId neq "">

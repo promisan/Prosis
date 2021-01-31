@@ -87,7 +87,7 @@
 
 <cfoutput>
 
-<select name="#URL.saleid#" id="#URL.saleid#" style="font-size:17px;height:100%;width:100%;border:0px;" class="regularXXL"
+<select name="#URL.saleid#" id="#URL.saleid#" style="font-size:16px;height:100%;width:100%;border:0px;" class="regularXXL"
 	onchange="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/applySaleHeader.cfm?TransactionId=#URL.TransactionId#&field=#URL.field#&personno='+this.value+'&requestno='+document.getElementById('RequestNo').value,'salelines')">	
 	<option value="">--<cf_tl id="Unassigned">--</option>
 	<cfloop query="personlist">

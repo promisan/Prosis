@@ -665,7 +665,7 @@
 					<td align="center" height="#ht#">					
 																 										
 						  <cfif programScope neq "Global">						   
-							 <cf_img icon="edit" navigation="Yes" onclick="AllotmentInquiry('#ProgramCode#','#fdid#','#URL.Period#','Inquiry','#Vers#')">																								
+							 <cf_img icon="open" navigation="Yes" onclick="AllotmentInquiry('#ProgramCode#','#fdid#','#URL.Period#','Inquiry','#Vers#')">																								
 						  </cfif>							
 						  
 					</td>	

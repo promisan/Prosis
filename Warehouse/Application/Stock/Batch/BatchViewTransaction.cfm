@@ -372,6 +372,8 @@ function openreference(id) {
 
 					<cfif fullaccess eq "GRANTED" and sid neq "" and url.stockorderid eq "">
 						<a href="javascript:batchrevert('deny','#Batch.BatchNo#')"><font color="red">[<cf_tl id="undo">]</a>
+					<cfelseif getAdministrator("*") eq "1">	
+					    <a href="javascript:batchrevert('deny','#Batch.BatchNo#')"><font color="red">[<cf_tl id="undo">]</a>
 					</cfif>
 				
 				</cfif>

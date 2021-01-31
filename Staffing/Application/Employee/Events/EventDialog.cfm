@@ -104,14 +104,17 @@
 		
 	     <cf_divscroll style="height:99%">
 		 						
-			<cfset wflnk = "#session.root#/Staffing/Application/Employee/Events/EventWorkflow.cfm">
+			<cfset url.ajaxid = url.id>
+			
+			<table width="97%" align="center">
+				<tr><td style="padding-top:5px;padding-left:5px;padding-right:5px"><cfinclude template="EventDialogView.cfm"></td></tr>
+				
+				<cfset wflnk = "#session.root#/Staffing/Application/Employee/Events/EventWorkflow.cfm">			
    
  			   <input type="hidden" 
 		          id="workflowlink_#url.ajaxid#" 
         		  value="#wflnk#">  
-			
-			<table width="97%" align="center">
-				<tr><td style="padding-top:5px;padding-left:5px;padding-right:5px"><cfinclude template="EventDialogView.cfm"></td></tr>
+								
 				<tr><td style="padding-left:10px;padding-right:10px" id="#url.ajaxid#"><cfinclude template="EventWorkFlow.cfm"></td></tr>			
 			</table>
 			

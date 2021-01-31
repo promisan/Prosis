@@ -177,11 +177,11 @@ function validateincident(id,box) {
 				
 		<cfelse>			 
 		
-		<tr><td valign="top" style="padding-left:6px;padding-right:6px;height:38px">
+		<tr><td style="padding-left:6px;padding-right:6px;height:2px">		
 			<cfinclude template="CaseViewMenu.cfm">
 		</td></tr>	
 						
-		<tr  class="line"><td valign="top" style="padding-left:6px;padding-right:6px">
+		<tr class="line"><td valign="top" style="height:20px;padding-left:6px;padding-right:6px">
 		    <cfset url.mission = vmission>
 			<cfinclude template="CaseViewTab.cfm">		 			
 		</td></tr>
@@ -190,10 +190,10 @@ function validateincident(id,box) {
 		<!--- container --->
 		<!--- --------- --->		
 				
-		<tr><td height="100%" style="padding:5px">
+		<tr><td height="100%" style="padding:5px" valign="top">
 			
-			<table width="100%" height="100%" align="center"><tr>
-			
+			<table width="100%" height="100%" align="center">
+						
 			<cfoutput>
 			
 			<cf_menucontainer item="1" class="regular">					
@@ -243,8 +243,7 @@ function validateincident(id,box) {
 			</cfloop>
 			
 			</cfoutput>
-			
-			</tr>
+						
 			</table>
 			
 		</td></tr>

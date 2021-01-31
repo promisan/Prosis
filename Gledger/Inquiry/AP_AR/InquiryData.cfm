@@ -1,4 +1,7 @@
 
+<cfparam name="url.mode"    default="AR">
+<cfparam name="url.orgunit" default="">
+
 <cfquery name="Accounts"
 	datasource="AppsLedger" 
 	username="#SESSION.login#" 
@@ -27,29 +30,36 @@
     <!---
     <cfset journalfilter = "'Payables','Payment','DirectPayment'">
 	--->
-	<cfset journalfilter = "'Payables'">
+	<cfset journalfilter = "'Payables','Direct Payment'">
 <cfelse>
     <cfset journalfilter = "'Receivables'">
 </cfif>	
 
-<CF_DropTable dbName="AppsQuery" tblName="Inquiry_#url.mode#_#session.acc#">	
+<cfif url.orgunit eq "">		
+
+	<CF_DropTable dbName="AppsQuery" tblName="Inquiry_#url.mode#_#session.acc#">	
+
+<cfelse>
+
+	<CF_DropTable dbName="AppsQuery" tblName="Inquiry_#url.mode#_#session.acc#_#url.orgunit#">	
+
+</cfif>
 
 <cftransaction isolation="READ_UNCOMMITTED">
 
-<cftry>
 
 	<cfquery name="InitTable" 
 	datasource="AppsLedger" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">	
-				
+					
 				SELECT   DISTINCT P.Journal, 
 				         P.JournalSerialNo, 
 						 P.JournalTransactionNo, 
 						 P.JournalBatchNo, 
 						 P.Mission, 
 						 P.OrgUnitOwner, 
-						 P.Description, 
+						 
 						 P.TransactionSource, 
 						 P.TransactionDate, 
 			             P.TransactionId, 
@@ -61,16 +71,19 @@
 					     P.ReferencePersonNo, 
 					     P.Reference, 
 					     P.ReferenceName,
-						 (
-						 SELECT TOP 1 GLAccount
-						 FROM  TransactionLine
-						 WHERE Journal = P.Journal and JournalSerialNo = P.JournalSerialNo AND TransactionSerialNo = '0') as GLAccount,
+						 LEFT(P.Description,35) as Description,
+						 
+						 (	 SELECT TOP 1 GLAccount
+							 FROM   TransactionLine
+							 WHERE  Journal = P.Journal 
+							 AND    JournalSerialNo = P.JournalSerialNo 
+							 AND    TransactionSerialNo = '0') as GLAccount,
 																	 
-						(SELECT SUM(AmountCredit-AmountDebit)
-						 FROM   TransactionLine 
-						 WHERE  Journal = P.Journal 
-						 AND    JournalSerialNo = P.JournalSerialNo 
-						 AND    TransactionSerialNo = '0') as GLAmount,
+						 (	SELECT SUM(AmountCredit-AmountDebit)
+						 	FROM   TransactionLine 
+						 	WHERE  Journal = P.Journal 
+						 	AND    JournalSerialNo = P.JournalSerialNo 
+						 	AND    TransactionSerialNo = '0') as GLAmount,
 						 
 						 ISNULL(TransactionReference,
 								(SELECT   TOP 1 T.ActionReference1
@@ -104,27 +117,55 @@
 					     P.ActionAccountNo, 
 					     P.ActionAccountName, 
 			             P.ActionStatus,
+						 P.OfficerLastName,
 						 <!--- overdue --->
 						 DATEDIFF(dd,CASE WHEN ActionBefore = '' THEN ActionBefore ELSE DocumentDate END,CONVERT(datetime,getDate())) - 0 as Days
 						 
+				<cfif url.orgunit eq "">		 
+										 
 				INTO     userQuery.dbo.Inquiry_#url.mode#_#session.acc#
+				
+				<cfelse>
+				
+				INTO     userQuery.dbo.Inquiry_#url.mode#_#session.acc#_#url.orgunit#
+				
+				</cfif>
 						 
 				FROM     TransactionHeader P LEFT OUTER JOIN Organization.dbo.Organization O 
-							ON O.OrgUnit = P.ReferenceOrgUnit												 
-									 
+							ON O.OrgUnit = P.ReferenceOrgUnit		
+							
+				<cfif url.orgunit neq "">
+				<!--- relation view --->
+				WHERE    P.ReferenceOrgUnit = '#url.orgunit#'
+				<cfelse>
+				<!--- normal AP view --->
 				WHERE    P.Mission = '#URL.Mission#'
+				AND      abs(P.AmountOutstanding) > 0.5
+				</cfif>													 
+									
+				AND      P.Journal IN (SELECT Journal 
+				                       FROM   Journal 
+								       WHERE  GLCategory = 'Actuals')
+				
+				<cfif url.orgunit neq "">
+				<!--- relation view --->
+				AND      P.ReferenceOrgUnit = '#url.orgunit#'
+				<cfelse>
+				<!--- normal AP view --->
+				AND      abs(P.AmountOutstanding) > 0.5
+				</cfif>
 							
 				AND      P.TransactionCategory IN (#preservesinglequotes(journalfilter)#) 
 							
 				<!--- has a base booking on the accounts with AR or AP --->
 				AND      P.Journal IN (SELECT Journal 
-				                     FROM   TransactionLine 
-							         WHERE  Journal         = P.Journal 
-			    				     AND    JournalSerialNo = P.JournalSerialNo
-			    				     <cfif Accounts.recordcount gt 0>
-				    				     AND    GLAccount IN (#preserveSingleQuotes(selaccount)#)
-			    				     </cfif>
-						    	     AND    TransactionSerialNo = '0')
+				                       FROM   TransactionLine 
+							           WHERE  Journal         = P.Journal 
+			    				       AND    JournalSerialNo = P.JournalSerialNo
+			    				       <cfif Accounts.recordcount gt 0>
+				    				   AND    GLAccount IN (#preserveSingleQuotes(selaccount)#)
+			    				      </cfif>
+						    	      AND    TransactionSerialNo = '0')
 				
 				AND      P.ActionStatus IN ('0','1')
 				AND      P.RecordStatus != '9'  <!--- not voided --->
@@ -137,32 +178,18 @@
 								      AND    Mission     = '#url.Mission#'
 									  )
 			    </cfif>		
-							     					 					
-				AND      abs(P.AmountOutstanding) > 0.5
 				
 				<!--- exclude credit notes --->
-				AND EXISTS
-					(
-						SELECT	'X'
-						FROM	TransactionLine
-						WHERE	Journal = P.Journal
-						AND		JournalSerialNo = P.JournalSerialNo
-						AND 	ParentJournalSerialNo IS NULL
-						AND		ParentJournal IS NULL
-					)
-	
-				AND      P.Journal IN (SELECT Journal 
-				                     FROM   Journal 
-								     WHERE  GLCategory = 'Actuals')
-				    		
+				AND EXISTS (
+							SELECT	'X'
+							FROM	TransactionLine
+							WHERE	Journal = P.Journal
+							AND		JournalSerialNo = P.JournalSerialNo
+							AND 	ParentJournalSerialNo IS NULL
+							AND		ParentJournal IS NULL
+						  )
+				
 	</cfquery>
 
-	<cfcatch>
-	
-	<!--- exists --->
-	
-	</cfcatch>
-
-	</cftry>
 
 </cftransaction>

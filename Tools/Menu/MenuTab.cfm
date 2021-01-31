@@ -129,9 +129,7 @@
 	
 	<tr>
 					
-	<td class="#attributes.class#" 
-		id="#base##item#" 
-		name="#base##item#" 		
+	<td class="#attributes.class#" id="#base##item#" name="#base##item#" 		
 		style="width:100%;cursor:pointer; padding-top:#attributes.padding#px;padding-bottom:2px;" 
 		align="center" 		
 		onclick="#attributes.script#;<cfif attributes.button eq 'no' and attributes.tabid eq "">mainmenu('#base#','#item#','#target#','#targetitem#','#attributes.selected#'); #preservesinglequotes(link)#;</cfif>">

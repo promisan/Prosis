@@ -25,51 +25,46 @@ password="#SESSION.dbpw#">
 <script language="JavaScript">
 function ask() {
 
-	if (confirm("#lt_text#")) {
-	
-	return true 
-	
-	}
-	
+	if (confirm("#lt_text#")) {	
+	return true 	
+	}	
 	return false
 }	
 </script>
 </cfoutput>
 
-<CFFORM action="RecordSubmit.cfm" method="post" enablecab="yes" name="dialog">
+<CFFORM action="RecordSubmit.cfm" method="post" name="dialog">
 
 <!--- edit form --->
 
 
-<table width="95%" align="center" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="95%" align="center" class="formpadding formspacing">
 
 	<tr><td height="6"></td></tr>
 
-<!--- Field: code --->
 	 <cfoutput>
-	 <TR>
-	 <TD class="labelit"><cf_tl id="Code">:&nbsp;</TD>  
-	 <TD class="labelit">
-	 	<input type="Text" name="Code" id="Code" value="#get.Code#" size="20" maxlength="20"class="regular">
+	 
+	 <TR class="labelmedium2">
+	 <TD><cf_tl id="Code">:&nbsp;</TD>  
+	 <TD>
+	 	<input type="Text" name="Code" id="Code" value="#get.Code#" size="20" maxlength="20" class="regularxxl">
 		<input type="hidden" name="CodeOld" id="CodeOld" value="#get.Code#" size="20" maxlength="20"class="regularxl">
 	 </TD>
 	 </TR>
 	 
 	 <!--- Field: Description --->
-    <TR>
-    <TD class="labelit"><cf_tl id="Description">:&nbsp;</TD>
-    <TD class="labelit">
+    <TR class="labelmedium2">
+    <TD><cf_tl id="Description">:&nbsp;</TD>
+    <TD>
 		<cf_tl id="Please enter a description" var = "1" class="Message">
-  	  	<cfinput type="Text" name="Description" id="Description" value="#get.Description#" message="#lt_text#" required="Yes" size="50" maxlength="50" class="regularxl">
+  	  	<cfinput type="Text" name="Description" id="Description" value="#get.Description#" message="#lt_text#" required="Yes" size="50" maxlength="50" 
+		  class="regularxxl">
 				
     </TD>
 	</TR>
 	
-	<tr><td colspan="2" align="center" height="6">
 	<tr><td colspan="2" class="line"></td></tr>
-	<tr><td colspan="2" align="center" height="6">
 	
-
 	<tr>	
 		<td align="center" colspan="2">
 		<cf_tl id="Cancel" var = "1">
@@ -81,8 +76,7 @@ function ask() {
 		</td>
 	</tr>
 	
-
-</cfoutput>
+	</cfoutput>
     	
 </TABLE>
 

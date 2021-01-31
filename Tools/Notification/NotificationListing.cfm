@@ -84,16 +84,16 @@
 					  					  
 <cfset menu=ArrayNew(1)>	
    				
-	<cfset newLabel = "New System Event">
+<cfset newLabel = "New System Event">
 		
-	<cf_tl id="#newLabel#" var="1">
+<cf_tl id="#newLabel#" var="1">
 							
-	<cfset menu[1] = {label = "#lt_text#", script = "addEvent()"}>				 
+<cfset menu[1] = {label = "#lt_text#", script = "addEvent()"}>				 
 		
-	<cf_listing
+<cf_listing
 	    header         = "SystemEvent"
 		menu           = "#menu#"
-	    box            = "eventlisting"
+	    box            = "systemnotification"
 		link           = "NotificationListing.cfm"
 	    html           = "No"
 		show           = "40"

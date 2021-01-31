@@ -19,7 +19,7 @@
 <cfif WorkGroup.recordcount gte "1">
 
     <cfoutput>
-    <select name="#url.scope#Workgroup" id="#url.scope#Workgroup" class="regularxl enterastab">
+    <select name="#url.scope#Workgroup" id="#url.scope#Workgroup" class="regularxxl enterastab">
 	 	<cfif WorkGroup.recordcount gt 1>
 		 	<option value="0">[Select]</option>
 		</cfif>
@@ -43,7 +43,7 @@
 			 b.className = "hide"
 	</script>
 	
-	<table><tr><td class="labelmedium">
+	<table><tr><td class="labelmedium2">
 		
 	<font color="FF0000">Workflow not configured</font>	
 	

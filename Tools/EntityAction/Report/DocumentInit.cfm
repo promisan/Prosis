@@ -86,8 +86,19 @@ action, add a record by a generating (ASIS) or copying (EDIT) --->
 									  WHERE  ObjectId = '#Object.ObjectId#')
 				AND      ActionId <> '#URL.ID#'
 				ORDER BY Created DESC				
-				</cfquery>					
-		
+			</cfquery>		
+			
+			 <cfquery name="Signature" 
+			 datasource="appsOrganization" 
+			 username="#SESSION.login#" 
+			 password="#SESSION.dbpw#">
+				SELECT *
+				FROM   Ref_EntityDocumentSignature
+				WHERE  EntityCode = '#Object.EntityCode#'
+				AND    Code       = '#Last.SignatureBlock#' 
+				AND    Operational= 1
+		    </cfquery>		
+							
 			<cfif DocumentMode eq "AsIs" and DocumentLayout neq "PDF">
 			
 				<!--- parse the document --->				   
@@ -122,7 +133,8 @@ action, add a record by a generating (ASIS) or copying (EDIT) --->
 						#cfcatch.message#
 					</cfcatch>		
 					</cftry>		
-				</cfsavecontent>			
+				</cfsavecontent>	
+							
 		
 			<cfelseif DocumentMode eq "AsIs" and DocumentLayout eq "PDF">			
 			
@@ -136,10 +148,18 @@ action, add a record by a generating (ASIS) or copying (EDIT) --->
 					 				 					 
 		 				 <cfset wfrpt = "#SESSION.rootDocumentPath#\WFObjectReport\#URL.ActionID#\#DocumentCode#.pdf">
 						 <cftry>
-						 <cfinclude template="../../../#DocumentTemplate#">	
+						 					 
+						 <cfset URL.Signature         = "#signature.blockline1#<br>#signature.blockline2#<br>#signature.blockline3#<br>#signature.blockline4#<br>#signature.blockline5#">
+						 <cfset URL.Description       = "">
+						 <cfset URL.DocumentFramework = "#DocumentFramework#">
+						 <cfset URL.Language          = "#Last.DocumentLanguageCode#">
+						 <cfset URL.Format            = "#Last.DocumentFormat#">
+												 												
+						  <!--- this will freshly generate the document along with the framework --->							
+						 <cfinclude template = "DocumentFramework.cfm">
+						 					 
 						 <cfcatch>
-						   Error in Template #DocumentTemplate#?WParam=#url.wparam#
-						  
+						   Error in AS-IS Template #DocumentTemplate#?WParam=#url.wparam#						  
 					     </cfcatch>		
 					     </cftry>					 
 						
@@ -185,7 +205,7 @@ action, add a record by a generating (ASIS) or copying (EDIT) --->
 						<cfset URL.Description       = "">	<!--- As it is initial generation --->
 						<cfset URL.DocumentFramework = "#DocumentFramework#">
 						<cfset URL.DocumentTemplate  = "#DocumentTemplate#">
-						
+												
 						<!--- this will freshly generate the document along with the framework --->							
 						<cfinclude template = "DocumentFramework.cfm">
 				
@@ -252,10 +272,12 @@ action, add a record by a generating (ASIS) or copying (EDIT) --->
 								  '#SESSION.acc#',
 								  '#SESSION.last#',
 								  '#SESSION.first#')
+								  
 					</cfquery>			
 				
 				<cfelse>
 				
+								
 					<cfquery name="Update" 
 						datasource="appsOrganization" 
 						username="#SESSION.login#" 
@@ -266,7 +288,8 @@ action, add a record by a generating (ASIS) or copying (EDIT) --->
 							          SignatureBlock  = '#last.SignatureBlock#'
 							WHERE     ActionId        = '#URL.ID#'
 							AND       DocumentId      = '#DocumentId#'			
-					</cfquery>			
+					</cfquery>	
+						
 						
 				</cfif>
 			

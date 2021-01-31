@@ -135,6 +135,9 @@ password="#SESSION.dbpw#">
 	
 	function processline(id) {
 		ptoken.navigate('TransactionViewLine.cfm?transactionid='+id,'process')
+		try {		
+		opener.applyfilter('0','',id) } catch(e) { }		
+		
 	}
 	
 	function applyprogram(prg,scope) {

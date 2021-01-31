@@ -119,7 +119,7 @@ password="#SESSION.dbpw#">
 							<cf_UItreeitem value="#Journal#"
 						        display="<span style='font-size:13px' class='labelit'>#Journal# - #Description#</span>"
 								parent="jr_#currency#_#cat#"									
-								href="JournalViewOpen.cfm?ID=PEN&ID1=0&ID2=#Journal.Journal#&Mission=#Attributes.Mission#"							
+								href="JournalViewOpen.cfm?ID=PEN&ID1=0&ID2=#Journal.Journal#&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"							
 								target="right"
 						        expand="No">	
 								
@@ -128,27 +128,33 @@ password="#SESSION.dbpw#">
 							<cf_UItreeitem value="#Journal#"
 						        display="<span style='font-size:13px' class='labelit'>#Journal# - #Description# <span style='color:red;font-size: 10px; vertical-align: super;'>#Ucase(left(JournalType,3))#</span></span>"
 								parent="jr_#currency#_#cat#"									
-								href="JournalViewOpen.cfm?ID=PEN&ID1=0&ID2=#Journal.Journal#&Mission=#Attributes.Mission#"							
+								href="JournalViewOpen.cfm?ID=PEN&ID1=0&ID2=#Journal.Journal#&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"							
 								target="right"
 						        expand="No">								
 							
 							</cfif>	
+							
+							<!--- only shown for Payable and receivables --->
+							
+							<cfif findNoCase(TransactionCategory,'Receivables,Payment,DirectPayment,Payables,Advances')>
 							
 							<cf_tl id="Open documents" var="vDocuments">
 								
 							<cf_UItreeitem value="#Journal#_doc"
 						        display="<span style='font-size:12px'>#vDocuments#</span>"
 								parent="#Journal#"																	
-								href="JournalViewOpen.cfm?ID=OPE&ID1=0&ID2=#Journal.Journal#&Mission=#Attributes.Mission#"							
+								href="JournalViewOpen.cfm?ID=OPE&ID1=0&ID2=#Journal.Journal#&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"							
 								target="right"
-						        expand="No">																																				
+						        expand="No">	
+								
+							</cfif>																																				
 															
 							<cf_tl id="All Documents" var="vAll">
 								
 							<cf_UItreeitem value="#Journal#_doc"
 						        display="<span style='font-size:12px'>#vAll#</span>"
 								parent="#Journal#"																	
-								href="JournalViewOpen.cfm?ID=JOU&ID1=0&ID2=#Journal.Journal#&Mission=#Attributes.Mission#"							
+								href="JournalViewOpen.cfm?systemfunctionid=#url.systemfunctionid#&ID=JOU&ID1=0&ID2=#Journal.Journal#&Mission=#Attributes.Mission#"							
 								target="right"
 						        expand="No">								
 														
@@ -481,9 +487,18 @@ password="#SESSION.dbpw#">
 						<cf_UItreeitem value="#OrgUnit#_#ct#_#Journal#"
 				         display  = "<span style='font-size:13.5px' class='labelit'>#Description#</span>"
 						 parent   = "journal#OrgUnit#_#ct#"								
-						 href     = "JournalViewOpen.cfm?ID=JOU&ID1=#OrgUnit#&ID2=#Journal.Journal#&Mission=#Attributes.Mission#"							
+						 href     = "JournalViewOpen.cfm?systemfunctionid=#url.systemfunctionid#&ID=PEN&ID1=#OrgUnit#&ID2=#Journal.Journal#&Mission=#Attributes.Mission#"							
 						 target   = "right"
 				         expand   = "No">	
+						 
+						 <cf_tl id="All Documents" var="vAll">
+								
+							<cf_UItreeitem value="#OrgUnit#_#ct#_#Journal#_0"
+						        display="<span style='font-size:13.5px' class='labelit'>#Description#</span>"
+								parent="#OrgUnit#_#ct#_#Journal#"																	
+								href="JournalViewOpen.cfm?systemfunctionid=#url.systemfunctionid#&ID=JOU&ID1=#OrgUnit#&ID2=#Journal.Journal#&Mission=#Attributes.Mission#"							
+								target="right"
+						        expand="No">		
 					
 					</cfloop>
 					 				 	  	  

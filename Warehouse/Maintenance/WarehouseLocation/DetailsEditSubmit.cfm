@@ -19,6 +19,6 @@
 <cfoutput>
 <script>
 	parent.parent.editLocationRefresh('#url.warehouse#','#url.location#')
-	parent.parent.ColdFusion.Window.destroy('mydialog',true)	
+	parent.parent.ProsisUI.closeWindow('mydialog',true)	
 </script>
 </cfoutput>

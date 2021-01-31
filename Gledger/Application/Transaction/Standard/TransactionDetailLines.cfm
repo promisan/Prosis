@@ -539,10 +539,10 @@ password="#SESSION.dbpw#">
 	       
 	   <cfoutput query="Line">
 		   
-		   <tr id="d#TransactionSerialNo#" class="navigation_row labelmedium2" line" style="height:25px">
+		   <tr id="d#TransactionSerialNo#" class="navigation_row labelmedium2 line" style="height:25px">
 		      
 		   <td width="5%" align="center">  
-		  		 
+		   		  		 
 			 <cfif amountbasedebit gt 0>
 			     <cfset md = "debit">
 			 <cfelse>
@@ -566,9 +566,9 @@ password="#SESSION.dbpw#">
 			     <!--- 20/12/2009 it is not allowed to edit a transaction that was generated from a prior transaction, you would have to remove it --->
 				 <!--- old : <cfif TransactionSerialNo neq prior and ParentLineId eq ""> --->
 				 
-				 <table align="left" width="60" cellspacing="0" cellpadding="0">
+				 <table align="left" width="60">
 				 
-				 <tr class="labelmedium2"">
+				 <tr class="labelmedium2">
 				 
 				 <td style="width:20;padding-left:2px;padding-right:1px" onClick="maximize('#serialno#')">		
 				 			 									 
@@ -598,16 +598,18 @@ password="#SESSION.dbpw#">
 				<cfif editmode eq "full" and external eq "0">
 							 
 				   <cfif TransactionSerialNo neq prior>
-				 
-	 			   <td style="width:20;padding-top:2px;padding-left:2px">
-				   			       
-				   	   <cfif AmountDebit gt "0">
+				   
+				   <cfif AmountDebit gt "0">
 						   	<cfset debcre = "Debit">
 					   <cfelse>
 				   			<cfset debcre = "Credit">
 					   </cfif>
-				   			   
-				    	<cf_img icon="edit"	navigation="yes" onClick="editline('#journalserialno#','#accountperiod#','#dateformat(transactiondate,client.dateformatshow)#','#headerselect.transactioncategory#','#transactiontype#','#debcre#','#reference#','#md#','#glaccount#','#transactioncurrency#','#TransactionAmount#','#TransactionTaxCode#','#Memo#','#OrgUnit#','#ProgramCode#','#programCodeProvider#','#contributionlineid#','#TransactionSerialNo#','#fund#','#objectcode#','#warehouse#','#warehouseitemno#','#warehouseitemuom#','#warehousequantity#','#parentlineid#','#parenttransactionid#','#exchangerate#','#exchangeratebase#')">
+				 
+	 			   <td style="width:20;padding-top:1px;padding-left:2px"
+				   onClick="editline('#journalserialno#','#accountperiod#','#dateformat(transactiondate,client.dateformatshow)#','#headerselect.transactioncategory#','#transactiontype#','#debcre#','#reference#','#md#','#glaccount#','#transactioncurrency#','#TransactionAmount#','#TransactionTaxCode#','#Memo#','#OrgUnit#','#ProgramCode#','#programCodeProvider#','#contributionlineid#','#TransactionSerialNo#','#fund#','#objectcode#','#warehouse#','#warehouseitemno#','#warehouseitemuom#','#warehousequantity#','#parentlineid#','#parenttransactionid#','#exchangerate#','#exchangeratebase#')">
+				   	     
+				   				   
+				    	<cf_img icon="open"	navigation="yes">
 				     				
 					 <cfset prior = TransactionSerialNo>
 					 
@@ -636,12 +638,7 @@ password="#SESSION.dbpw#">
 					
 			<cfelse>
 			
-				  <img src="#SESSION.root#/images/logon.gif" 			   
-					alt="Line distributed, can not be changed" 
-					height="13" width="13" 
-					name="Lock" id="Lock" 
-					border="0" 
-					align="absmiddle">
+				  <img src="#SESSION.root#/images/logon.gif" alt="Line distributed, can not be changed" height="13" width="13" name="Lock" id="Lock">
 					
 			    		
 			</cfif>

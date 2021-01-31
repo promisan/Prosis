@@ -1,4 +1,3 @@
-
 <cf_screentop height="100%" scroll="Yes" html="No" jQuery="yes" systemmodule="system" functionclass="portal" functionname="userstatus">
 
 <cf_PresentationScript>
@@ -60,9 +59,12 @@ function refresh() {
 datasource="AppsSystem">
 	DELETE  FROM  UserStatus  
 	WHERE   ActionTimeStamp < #day#
-</cfquery>	
+</cfquery>
 
-<cf_listingscript>	
+
+<cf_listingscript>
+
+
 
 <cfset diff = DateAdd("n", "-#CLIENT.Timeout#", "#now()#")>
 

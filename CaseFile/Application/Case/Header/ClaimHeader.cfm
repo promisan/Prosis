@@ -1,16 +1,16 @@
 <cfparam name="url.init" default="0">
 
-<table width="100%" align="center" border="0" height="100%">
-<tr><td height="100%" align="center" valign="top" style="padding:10px">
-
-<cfif NOT IsDefined("URL.Mission")>
-	<cfset url.claimId = Object.ObjectKeyValue4>
-	<cfset url.mission = Object.Mission>
-	<cfset vPath = "../../../CaseFile/Application/Case/Header">
-<cfelse>
-	<cfset vPath = "../Header">
-</cfif>
-                      
+<table height="100%" width="100%" align="center">
+<tr><td align="center" valign="top" style="padding:6px">
+	
+	<cfif NOT IsDefined("URL.Mission")>
+		<cfset url.claimId = Object.ObjectKeyValue4>
+		<cfset url.mission = Object.Mission>
+		<cfset vPath = "../../../CaseFile/Application/Case/Header">
+	<cfelse>
+		<cfset vPath = "../Header">
+	</cfif>
+	                      
 
 <cfoutput>	
 

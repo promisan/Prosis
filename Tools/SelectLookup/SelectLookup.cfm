@@ -861,7 +861,7 @@
 							 				
 			<cfelse>
 			
-				<input type="button" value="Select Item" class="button10s" style="#attributes.style#;width:120px" onClick="#preservesinglequotes(jvlink)#">	
+				<input type="button" value="..." class="button10g" style="#attributes.style#" onClick="#preservesinglequotes(jvlink)#">	
 								  					 		
 			</cfif>	
 		

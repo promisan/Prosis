@@ -26,7 +26,7 @@
 
 <cfoutput>
 
-<select name="Discount" id="Discount" style="font-size:17px;height:100%;width:100%;min-width:80px;border:0px;" class="regularXXL"
+<select name="Discount" id="Discount" style="font-size:16px;height:100%;width:100%;min-width:80px;border:0px;" class="regularXXL"
 		onchange="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/applySaleHeader.cfm?field=discount&discount='+this.value+'&requestno='+document.getElementById('RequestNo').value+'&customeridinvoice='+document.getElementById('customerinvoiceidselect').value,'salelines','','','POST','saleform')">
 				
 		<cfloop index="dis" from="0" to="#get.SaleDiscount#" step="1">

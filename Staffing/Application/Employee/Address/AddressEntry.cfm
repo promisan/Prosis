@@ -1,5 +1,4 @@
 
-
 <cfset mission = "">
 
 <cf_verifyOnBoard PersonNo = "#URL.ID#">
@@ -57,7 +56,7 @@ password="#SESSION.dbpw#">
   <tr>
     <td width="100%" colspan="2" style="padding-top:2px">
 			
-    <table border="0" cellpadding="0" cellspacing="0" width="96%" align="center" class="formpadding">
+    <table width="96%" align="center" class="formpadding">
 	
 	<TR>
     <TD class="labelmedium" style="padding-left:8px;min-width:133px"><cf_tl id="Address type">: <font color="FF0000">*</font</TD>
@@ -126,7 +125,7 @@ password="#SESSION.dbpw#">
 	<tr><td style="height:3px"></td></tr>
 		
 	<TR>
-	    <TD class="labelmedium" width="10%" style="padding-left:6px"><cf_tl id="Contact">:</TD>
+	    <TD class="labelmedium" width="10%" style="min-width:177px;padding-left:6px"><cf_tl id="Contact">:</TD>
 	    <TD style="padding-left:0px;" align="left">
 		
 		 <table cellspacing="0" cellpadding="0">
@@ -162,7 +161,7 @@ password="#SESSION.dbpw#">
 	<tr><td style="height:3px"></td></tr>
 							
 	<TR>
-	    <TD class="labelmedium" style="padding-left:6px"><cf_tl id="Name">:</TD>
+	    <TD class="labelmedium" style="min-width:170px;padding-left:6px"><cf_tl id="Name">:</TD>
 	    <TD width="100%" style="padding-left:0px;" align="left">
 		
 			<table cellspacing="0" cellpadding="0">
@@ -196,7 +195,7 @@ password="#SESSION.dbpw#">
 	
 	<td style="padding-left:1px">
 	   		
-		<table cellspacing="0" cellpadding="0">
+		<table>
 		
 		<cfset row = 0>
 		
